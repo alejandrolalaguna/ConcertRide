@@ -1,0 +1,12 @@
+{
+  "extends": "../../tsconfig.base.json",
+  "compilerOptions": {
+    "lib": ["ES2022"],
+    "types": ["@cloudflare/workers-types"],
+    "noEmit": true,
+    "paths": {
+      "@concertride/types": ["../../packages/types/src/index.ts"]
+    }
+  },
+  "include": ["src/**/*.ts", "../../packages/types/src/**/*.ts"]
+}

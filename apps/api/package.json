@@ -1,0 +1,37 @@
+{
+  "name": "@concertride/api",
+  "private": true,
+  "version": "0.0.1",
+  "type": "module",
+  "main": "src/index.ts",
+  "scripts": {
+    "dev": "wrangler dev --config ../../wrangler.jsonc",
+    "build": "tsc --noEmit",
+    "type-check": "tsc --noEmit",
+    "deploy": "wrangler deploy --config ../../wrangler.jsonc",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "db:generate": "drizzle-kit generate",
+    "db:push": "drizzle-kit push",
+    "db:studio": "drizzle-kit studio",
+    "db:seed": "tsx scripts/seed.ts",
+    "ingest:backfill": "node --import tsx/esm scripts/backfill-2026.ts"
+  },
+  "dependencies": {
+    "@concertride/types": "*",
+    "@libsql/client": "^0.14.0",
+    "drizzle-orm": "^0.36.4",
+    "hono": "^4.6.12",
+    "jose": "^5.9.6",
+    "zod": "^3.23.8"
+  },
+  "devDependencies": {
+    "@cloudflare/workers-types": "^4.20241218.0",
+    "dotenv": "^17.4.2",
+    "drizzle-kit": "^0.29.1",
+    "tsx": "^4.21.0",
+    "typescript": "^5.6.3",
+    "vitest": "^4.1.4",
+    "wrangler": "^3.90.0"
+  }
+}

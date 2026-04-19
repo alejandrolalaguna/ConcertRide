@@ -1,0 +1,236 @@
+import type { Ride, Vibe } from "@concertride/types";
+import { CONCERTS_BY_ID } from "./concerts";
+import { USERS_BY_ID } from "./users";
+
+interface RideSeed {
+  id: string;
+  driver_id: string;
+  concert_id: string;
+  origin_city: string;
+  origin_lat: number;
+  origin_lng: number;
+  origin_address: string;
+  departure_time: string;
+  price_per_seat: number;
+  seats_total: number;
+  seats_left: number;
+  round_trip: boolean;
+  return_time: string | null;
+  playlist_url: string | null;
+  vibe: Vibe;
+  notes: string | null;
+}
+
+const SEEDS: RideSeed[] = [
+  {
+    id: "r_01",
+    driver_id: "u_laura",
+    concert_id: "c_rosalia_wizink",
+    origin_city: "Valencia",
+    origin_lat: 39.4699,
+    origin_lng: -0.3763,
+    origin_address: "Estación Joaquín Sorolla, Valencia",
+    departure_time: "2026-05-22T15:30:00.000+02:00",
+    price_per_seat: 18,
+    seats_total: 4,
+    seats_left: 2,
+    round_trip: true,
+    return_time: "2026-05-23T02:00:00.000+02:00",
+    playlist_url: "https://open.spotify.com/playlist/37i9dQZF1DX0XUsuxWHRQd",
+    vibe: "party",
+    notes: "Salgo en punto, playlist colaborativa abierta.",
+  },
+  {
+    id: "r_02",
+    driver_id: "u_dani",
+    concert_id: "c_rosalia_wizink",
+    origin_city: "Zaragoza",
+    origin_lat: 41.6488,
+    origin_lng: -0.8891,
+    origin_address: "Plaza del Pilar, Zaragoza",
+    departure_time: "2026-05-22T16:00:00.000+02:00",
+    price_per_seat: 15,
+    seats_total: 3,
+    seats_left: 3,
+    round_trip: false,
+    return_time: null,
+    playlist_url: null,
+    vibe: "chill",
+    notes: null,
+  },
+  {
+    id: "r_03",
+    driver_id: "u_paula",
+    concert_id: "c_badbunny_cartuja",
+    origin_city: "Málaga",
+    origin_lat: 36.7213,
+    origin_lng: -4.4213,
+    origin_address: "Estación María Zambrano, Málaga",
+    departure_time: "2026-06-08T17:00:00.000+02:00",
+    price_per_seat: 12,
+    seats_total: 4,
+    seats_left: 1,
+    round_trip: true,
+    return_time: "2026-06-09T03:00:00.000+02:00",
+    playlist_url: "https://open.spotify.com/playlist/37i9dQZF1DWY7IeIP1cdjF",
+    vibe: "party",
+    notes: "Coche nuevo, AC, no fumadores.",
+  },
+  {
+    id: "r_04",
+    driver_id: "u_marcos",
+    concert_id: "c_madcool_2026",
+    origin_city: "Barcelona",
+    origin_lat: 41.3851,
+    origin_lng: 2.1734,
+    origin_address: "Sants Estació, Barcelona",
+    departure_time: "2026-07-09T09:00:00.000+02:00",
+    price_per_seat: 35,
+    seats_total: 4,
+    seats_left: 4,
+    round_trip: true,
+    return_time: "2026-07-10T06:00:00.000+02:00",
+    playlist_url: null,
+    vibe: "mixed",
+    notes: "Hostel reservado cerca del recinto — podemos compartir.",
+  },
+  {
+    id: "r_05",
+    driver_id: "u_irene",
+    concert_id: "c_primavera_2026",
+    origin_city: "Valencia",
+    origin_lat: 39.4699,
+    origin_lng: -0.3763,
+    origin_address: "Torres de Serranos, Valencia",
+    departure_time: "2026-06-05T11:00:00.000+02:00",
+    price_per_seat: 22,
+    seats_total: 3,
+    seats_left: 2,
+    round_trip: false,
+    return_time: null,
+    playlist_url: "https://open.spotify.com/playlist/37i9dQZF1DX3LyU0mhfqgP",
+    vibe: "mixed",
+    notes: null,
+  },
+  {
+    id: "r_06",
+    driver_id: "u_jorge",
+    concert_id: "c_quevedo_bilbao",
+    origin_city: "Madrid",
+    origin_lat: 40.4168,
+    origin_lng: -3.7038,
+    origin_address: "Moncloa, Madrid",
+    departure_time: "2026-04-29T14:00:00.000+02:00",
+    price_per_seat: 28,
+    seats_total: 4,
+    seats_left: 3,
+    round_trip: true,
+    return_time: "2026-04-30T03:30:00.000+02:00",
+    playlist_url: "https://open.spotify.com/playlist/37i9dQZF1DX1HUbZS4LEyL",
+    vibe: "party",
+    notes: null,
+  },
+  {
+    id: "r_07",
+    driver_id: "u_laura",
+    concert_id: "c_ctangana_palau",
+    origin_city: "Valencia",
+    origin_lat: 39.4699,
+    origin_lng: -0.3763,
+    origin_address: "Nuevo Centro, Valencia",
+    departure_time: "2026-05-16T14:00:00.000+02:00",
+    price_per_seat: 20,
+    seats_total: 4,
+    seats_left: 2,
+    round_trip: true,
+    return_time: "2026-05-17T01:30:00.000+02:00",
+    playlist_url: null,
+    vibe: "chill",
+    notes: null,
+  },
+  {
+    id: "r_08",
+    driver_id: "u_dani",
+    concert_id: "c_vetusta_vistalegre",
+    origin_city: "Granada",
+    origin_lat: 37.1773,
+    origin_lng: -3.5986,
+    origin_address: "Plaza Nueva, Granada",
+    departure_time: "2026-05-03T13:30:00.000+02:00",
+    price_per_seat: 30,
+    seats_total: 3,
+    seats_left: 1,
+    round_trip: false,
+    return_time: null,
+    playlist_url: null,
+    vibe: "chill",
+    notes: "Voy con tiempo, paramos a comer en la ruta.",
+  },
+  {
+    id: "r_09",
+    driver_id: "u_irene",
+    concert_id: "c_love_cajamagica",
+    origin_city: "Sevilla",
+    origin_lat: 37.3886,
+    origin_lng: -5.9823,
+    origin_address: "Santa Justa, Sevilla",
+    departure_time: "2026-06-14T11:30:00.000+02:00",
+    price_per_seat: 32,
+    seats_total: 4,
+    seats_left: 3,
+    round_trip: true,
+    return_time: "2026-06-15T02:00:00.000+02:00",
+    playlist_url: "https://open.spotify.com/playlist/37i9dQZF1DWXti3N4Wp5xy",
+    vibe: "mixed",
+    notes: null,
+  },
+  {
+    id: "r_10",
+    driver_id: "u_paula",
+    concert_id: "c_rosalia_wizink",
+    origin_city: "Barcelona",
+    origin_lat: 41.3851,
+    origin_lng: 2.1734,
+    origin_address: "Sagrera, Barcelona",
+    departure_time: "2026-05-22T13:00:00.000+02:00",
+    price_per_seat: 25,
+    seats_total: 4,
+    seats_left: 0,
+    round_trip: true,
+    return_time: "2026-05-23T02:30:00.000+02:00",
+    playlist_url: null,
+    vibe: "party",
+    notes: null,
+  },
+];
+
+export const RIDES: Ride[] = SEEDS.map((s) => {
+  const driver = USERS_BY_ID[s.driver_id];
+  const concert = CONCERTS_BY_ID[s.concert_id];
+  if (!driver) throw new Error(`Unknown driver_id in ride seed: ${s.driver_id}`);
+  if (!concert) throw new Error(`Unknown concert_id in ride seed: ${s.concert_id}`);
+  return {
+    id: s.id,
+    driver_id: s.driver_id,
+    driver,
+    concert_id: s.concert_id,
+    concert,
+    origin_city: s.origin_city,
+    origin_lat: s.origin_lat,
+    origin_lng: s.origin_lng,
+    origin_address: s.origin_address,
+    departure_time: s.departure_time,
+    price_per_seat: s.price_per_seat,
+    seats_total: s.seats_total,
+    seats_left: s.seats_left,
+    round_trip: s.round_trip,
+    return_time: s.return_time,
+    playlist_url: s.playlist_url,
+    vibe: s.vibe,
+    notes: s.notes,
+    status: s.seats_left === 0 ? "full" : "active",
+    created_at: "2026-04-10T12:00:00.000Z",
+  };
+});
+
+export const RIDES_BY_ID = Object.fromEntries(RIDES.map((r) => [r.id, r]));
