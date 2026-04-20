@@ -1,10 +1,17 @@
 import { useEffect, useMemo, useRef, useState } from "react";
-import { MapContainer, Marker, TileLayer, useMap, useMapEvents } from "react-leaflet";
+import { MapContainer, Marker, TileLayer, ZoomControl, useMap, useMapEvents } from "react-leaflet";
 import { Link } from "react-router-dom";
 import L from "leaflet";
+import markerIcon2x from "leaflet/dist/images/marker-icon-2x.png";
+import markerIcon from "leaflet/dist/images/marker-icon.png";
+import markerShadow from "leaflet/dist/images/marker-shadow.png";
 import type { Concert, Ride } from "@concertride/types";
 import { formatDay, formatTime } from "@/lib/format";
 import "./MapView.css";
+
+// Fix leaflet default icon paths broken by Vite bundling
+delete (L.Icon.Default.prototype as unknown as Record<string, unknown>)._getIconUrl;
+L.Icon.Default.mergeOptions({ iconUrl: markerIcon, iconRetinaUrl: markerIcon2x, shadowUrl: markerShadow });
 
 const SPAIN_CENTER: [number, number] = [40.4168, -3.7038];
 const SPAIN_BOUNDS: L.LatLngBoundsLiteral = [
@@ -163,10 +170,12 @@ export default function MapView({ concerts, rides }: Props) {
         minZoom={5}
         maxZoom={14}
         scrollWheelZoom={false}
+        zoomControl={false}
         attributionControl
         className="h-full w-full"
       >
         <TileLayer url={TILE_URL} attribution={TILE_ATTR} subdomains="abcd" />
+        <ZoomControl position="topright" />
         <CtrlScrollZoom />
         <CtrlHint />
         <CloseOnMapClick onClose={closeAll} skipRef={justOpenedRef} />
