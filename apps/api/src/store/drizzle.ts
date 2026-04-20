@@ -5,7 +5,7 @@
 // apps/api/scripts/seed.ts for the bring-up flow.
 
 import { createClient } from "@libsql/client/web";
-import { and, avg, count, desc, eq, gte, like, lte, sql } from "drizzle-orm";
+import { and, avg, count, desc, eq, gte, like, lte, lt, notInArray, sql } from "drizzle-orm";
 import { drizzle } from "drizzle-orm/libsql";
 import type {
   Concert,
@@ -655,6 +655,40 @@ export class DrizzleStore implements StoreAdapter {
       });
       return refreshed ? hydrateRequest(refreshed) : null;
     });
+  }
+
+  async deletePastConcerts(beforeDate: string): Promise<number> {
+    // Find concerts older than beforeDate that have no rides at all
+    const concertsWithRides = await this.db
+      .selectDistinct({ concert_id: schema.rides.concert_id })
+      .from(schema.rides);
+    const busyIds = concertsWithRides.map((r) => r.concert_id);
+
+    const where = busyIds.length
+      ? and(lt(schema.concerts.date, beforeDate), notInArray(schema.concerts.id, busyIds))
+      : lt(schema.concerts.date, beforeDate);
+
+    const toDelete = await this.db
+      .select({ id: schema.concerts.id })
+      .from(schema.concerts)
+      .where(where);
+
+    if (toDelete.length === 0) return 0;
+
+    const ids = toDelete.map((r) => r.id);
+    // Delete dependent rows first (FK constraints)
+    await this.db.delete(schema.concertSources).where(
+      notInArray(schema.concertSources.concert_id, ["__none__"]) &&
+      // use the ids set
+      sql`${schema.concertSources.concert_id} IN (${sql.join(ids.map((id) => sql`${id}`), sql`, `)})`,
+    );
+    await this.db.delete(schema.demandSignals).where(
+      sql`${schema.demandSignals.concert_id} IN (${sql.join(ids.map((id) => sql`${id}`), sql`, `)})`,
+    );
+    await this.db.delete(schema.concerts).where(
+      sql`${schema.concerts.id} IN (${sql.join(ids.map((id) => sql`${id}`), sql`, `)})`,
+    );
+    return ids.length;
   }
 
   async recordSource(entry: {

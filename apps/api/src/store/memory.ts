@@ -621,6 +621,15 @@ export class MemoryStore implements StoreAdapter {
       this.staging = [...this.staging, row];
     }
   }
+
+  async deletePastConcerts(beforeDate: string): Promise<number> {
+    const busyIds = new Set(this.rides.map((r) => r.concert_id));
+    const toDelete = this.concerts.filter(
+      (c) => c.date < beforeDate && !busyIds.has(c.id),
+    );
+    this.concerts = this.concerts.filter((c) => !toDelete.some((d) => d.id === c.id));
+    return toDelete.length;
+  }
 }
 
 // Module-level singleton so state persists across requests in the same isolate.

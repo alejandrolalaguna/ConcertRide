@@ -106,7 +106,23 @@ function CloseOnMapClick({
 export default function MapView({ concerts, rides }: Props) {
   const [activeCity, setActiveCity] = useState<string | null>(null);
   const [selectedConcert, setSelectedConcert] = useState<Concert | null>(null);
+  const [selectedRide, setSelectedRide] = useState<Ride | null>(null);
   const justOpenedRef = useRef<number>(0);
+
+  function closeAll() {
+    setSelectedConcert(null);
+    setSelectedRide(null);
+  }
+  function openConcert(c: Concert) {
+    justOpenedRef.current = Date.now();
+    setSelectedRide(null);
+    setSelectedConcert(c);
+  }
+  function openRide(r: Ride) {
+    justOpenedRef.current = Date.now();
+    setSelectedConcert(null);
+    setSelectedRide(r);
+  }
 
   const cities = useMemo(() => {
     const set = new Set(concerts.map((c) => c.venue.city));
@@ -133,7 +149,10 @@ export default function MapView({ concerts, rides }: Props) {
     return map;
   }, [rides]);
 
-  const selectedRides: Ride[] = selectedConcert ? (ridesByConcert[selectedConcert.id] ?? []) : [];
+  const concertRides: Ride[] = selectedConcert ? (ridesByConcert[selectedConcert.id] ?? []) : [];
+  const rideConcert: Concert | null = selectedRide
+    ? (concerts.find((c) => c.id === selectedRide.concert_id) ?? null)
+    : null;
 
   return (
     <div className="cr-map relative h-[60vh] min-h-[420px] w-full border-y border-cr-border">
@@ -150,7 +169,7 @@ export default function MapView({ concerts, rides }: Props) {
         <TileLayer url={TILE_URL} attribution={TILE_ATTR} subdomains="abcd" />
         <CtrlScrollZoom />
         <CtrlHint />
-        <CloseOnMapClick onClose={() => setSelectedConcert(null)} skipRef={justOpenedRef} />
+        <CloseOnMapClick onClose={closeAll} skipRef={justOpenedRef} />
 
         {visibleConcerts.map((c) => (
           <Marker
@@ -158,12 +177,7 @@ export default function MapView({ concerts, rides }: Props) {
             position={[c.venue.lat, c.venue.lng]}
             icon={concertIcon}
             title={`${c.artist} — ${c.venue.city}`}
-            eventHandlers={{
-              click: () => {
-                justOpenedRef.current = Date.now();
-                setSelectedConcert(c);
-              },
-            }}
+            eventHandlers={{ click: () => openConcert(c) }}
           />
         ))}
 
@@ -172,14 +186,8 @@ export default function MapView({ concerts, rides }: Props) {
             key={r.id}
             position={[r.origin_lat, r.origin_lng]}
             icon={originIcon}
-            title={`Salida desde ${r.origin_city}`}
-            eventHandlers={{
-              click: () => {
-                justOpenedRef.current = Date.now();
-                const concert = concerts.find((c) => c.id === r.concert_id) ?? null;
-                setSelectedConcert(concert);
-              },
-            }}
+            title={`${r.origin_city} → ${r.concert.venue.city} · €${r.price_per_seat} · ${r.seats_left} plaza${r.seats_left === 1 ? "" : "s"}`}
+            eventHandlers={{ click: () => openRide(r) }}
           />
         ))}
       </MapContainer>
@@ -213,14 +221,84 @@ export default function MapView({ concerts, rides }: Props) {
         </div>
       </div>
 
-      {/* Ride popup */}
+      {/* Single ride popup — shown when clicking an origin marker */}
+      {selectedRide && (
+        <div className="absolute bottom-3 right-3 z-[1000] w-[min(300px,calc(100vw-24px))] bg-cr-surface/96 backdrop-blur-md border border-cr-border pointer-events-auto shadow-[0_0_32px_rgba(0,0,0,0.8)]">
+          <button
+            type="button"
+            onClick={closeAll}
+            className="absolute top-2 right-2 z-10 w-6 h-6 flex items-center justify-center font-mono text-xs text-cr-text-muted hover:text-cr-primary transition-colors"
+            aria-label="Cerrar"
+          >
+            ✕
+          </button>
+
+          <div className="p-4 space-y-3">
+            <div className="space-y-0.5">
+              <p className="font-sans text-[10px] font-semibold uppercase tracking-[0.14em] text-cr-secondary flex items-center gap-1.5">
+                <span className="w-1.5 h-1.5 rounded-full bg-cr-secondary inline-block" />
+                Salida desde {selectedRide.origin_city}
+              </p>
+              <h3 className="font-display text-xl uppercase leading-tight pr-6">
+                {selectedRide.concert.artist}
+              </h3>
+              <p className="font-mono text-[11px] text-cr-text-muted">
+                {selectedRide.concert.venue.name} · {formatDay(selectedRide.concert.date)}
+              </p>
+            </div>
+
+            <dl className="grid grid-cols-3 gap-2 border-t border-dashed border-cr-border pt-3">
+              <div>
+                <dt className="font-sans text-[9px] font-semibold uppercase tracking-[0.1em] text-cr-text-muted">Precio</dt>
+                <dd className="font-mono text-sm text-cr-primary mt-0.5">€{selectedRide.price_per_seat}</dd>
+              </div>
+              <div>
+                <dt className="font-sans text-[9px] font-semibold uppercase tracking-[0.1em] text-cr-text-muted">Plazas</dt>
+                <dd className="font-mono text-sm text-cr-text mt-0.5">{selectedRide.seats_left}</dd>
+              </div>
+              <div>
+                <dt className="font-sans text-[9px] font-semibold uppercase tracking-[0.1em] text-cr-text-muted">Salida</dt>
+                <dd className="font-mono text-[11px] text-cr-text mt-0.5">{formatTime(selectedRide.departure_time)}</dd>
+              </div>
+            </dl>
+
+            <p className="font-mono text-[11px] text-cr-text-muted">
+              Conductor: <span className="text-cr-text">{selectedRide.driver.name}</span>
+              {selectedRide.instant_booking && (
+                <span className="ml-2 font-sans text-[9px] font-semibold uppercase tracking-[0.1em] bg-cr-primary text-black px-1.5 py-0.5">
+                  Instant
+                </span>
+              )}
+            </p>
+
+            <div className="flex gap-2 pt-1">
+              <Link
+                to={`/rides/${selectedRide.id}`}
+                className="flex-1 flex items-center justify-center font-sans text-xs font-semibold uppercase tracking-[0.12em] bg-cr-primary text-black py-2.5 hover:bg-cr-primary/90 transition-colors"
+              >
+                Ver viaje →
+              </Link>
+              {rideConcert && (
+                <Link
+                  to={`/concerts/${rideConcert.id}`}
+                  className="px-3 flex items-center justify-center font-sans text-xs font-semibold uppercase tracking-[0.1em] border border-cr-border text-cr-text-muted hover:border-cr-primary hover:text-cr-primary transition-colors"
+                >
+                  Concierto
+                </Link>
+              )}
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Concert popup — shown when clicking a venue marker */}
       {selectedConcert && (
         <div className="absolute bottom-3 right-3 z-[1000] w-[min(320px,calc(100vw-24px))] bg-cr-surface/96 backdrop-blur-md border border-cr-border pointer-events-auto shadow-[0_0_32px_rgba(0,0,0,0.8)] flex flex-col max-h-[min(480px,55vh)]">
           {/* Header */}
           <div className="relative flex-shrink-0">
             <button
               type="button"
-              onClick={() => setSelectedConcert(null)}
+              onClick={closeAll}
               className="absolute top-2 right-2 z-10 w-6 h-6 flex items-center justify-center font-mono text-xs text-cr-text-muted hover:text-cr-primary transition-colors"
               aria-label="Cerrar"
             >
@@ -242,7 +320,7 @@ export default function MapView({ concerts, rides }: Props) {
             <div className="p-4 pb-2 space-y-0.5">
               <p className="font-sans text-[10px] font-semibold uppercase tracking-[0.14em] text-cr-primary flex items-center gap-1.5">
                 <span className="w-1.5 h-1.5 rounded-full bg-cr-primary inline-block animate-pulse" />
-                {selectedRides.length} viaje{selectedRides.length === 1 ? "" : "s"} con plazas
+                {concertRides.length} viaje{concertRides.length === 1 ? "" : "s"} con plazas
               </p>
               <h3 className="font-display text-xl uppercase leading-tight pr-6">
                 {selectedConcert.artist}
@@ -254,9 +332,9 @@ export default function MapView({ concerts, rides }: Props) {
           </div>
 
           {/* Ride list */}
-          {selectedRides.length > 0 ? (
+          {concertRides.length > 0 ? (
             <ul className="flex-1 overflow-y-auto divide-y divide-cr-border border-t border-cr-border">
-              {selectedRides.map((r) => (
+              {concertRides.map((r) => (
                 <li key={r.id}>
                   <Link
                     to={`/rides/${r.id}`}

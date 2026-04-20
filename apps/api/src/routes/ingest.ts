@@ -31,7 +31,9 @@ route.post("/run", async (c) => {
   const adapters = getAdaptersForTier(tier);
   if (adapters.length === 0) return c.json({ error: "no_adapters_for_tier" }, 400);
 
-  const result = await runIngestion({ tier, adapters }, c.env, c.var.store);
+  const now = new Date();
+  const to = new Date(now); to.setFullYear(to.getFullYear() + 1);
+  const result = await runIngestion({ adapters, fromDate: now.toISOString(), toDate: to.toISOString() }, c.env, c.var.store);
   return c.json(result);
 });
 

@@ -132,4 +132,8 @@ export interface StoreAdapter {
     concert_id: string | null;
     raw_json: string;
   }): Promise<void>;
+
+  // --- maintenance ---
+  // Deletes concerts whose date is before `beforeDate` and have no active rides.
+  deletePastConcerts(beforeDate: string): Promise<number>;
 }

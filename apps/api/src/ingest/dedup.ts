@@ -5,27 +5,13 @@ import type {
   RawConcert,
   SourceAdapter,
   SourceRunStats,
-  SourceTier,
   TierRunStatus,
 } from "./types";
 
 interface RunOptions {
-  tier: SourceTier;
   adapters: SourceAdapter[];
-  fromDate?: string;
-  toDate?: string;
-}
-
-// Defaults to a 90-day forward window — lines up with most event marketplaces'
-// publication horizon.
-function defaultWindow(): { fromDate: string; toDate: string } {
-  const now = new Date();
-  const to = new Date(now);
-  to.setDate(to.getDate() + 90);
-  return {
-    fromDate: now.toISOString(),
-    toDate: to.toISOString(),
-  };
+  fromDate: string;
+  toDate: string;
 }
 
 export async function runIngestion(
@@ -33,10 +19,7 @@ export async function runIngestion(
   env: AdapterEnv,
   store: StoreAdapter,
 ): Promise<TierRunStatus> {
-  const window = {
-    fromDate: opts.fromDate ?? defaultWindow().fromDate,
-    toDate: opts.toDate ?? defaultWindow().toDate,
-  };
+  const window = { fromDate: opts.fromDate, toDate: opts.toDate };
   const startedAt = new Date().toISOString();
   const stats: SourceRunStats[] = [];
 
@@ -86,7 +69,7 @@ export async function runIngestion(
   }
 
   const status: TierRunStatus = {
-    tier: opts.tier,
+    tier: 1,
     started_at: startedAt,
     finished_at: new Date().toISOString(),
     sources: stats,
