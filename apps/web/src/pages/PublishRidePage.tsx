@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { Link, Navigate, useNavigate } from "react-router-dom";
 import { motion } from "motion/react";
 import confetti from "canvas-confetti";
@@ -30,6 +30,7 @@ interface Form {
   seats_total: number;
   price_per_seat: number;
   vibe: Vibe | null;
+  instant_booking: boolean;
   smoking_policy: SmokingPolicy;
   max_luggage: Luggage;
   playlist_url: string;
@@ -52,6 +53,7 @@ const INITIAL: Form = {
   seats_total: 3,
   price_per_seat: 15,
   vibe: null,
+  instant_booking: false,
   smoking_policy: "no",
   max_luggage: "backpack",
   playlist_url: "",
@@ -74,6 +76,18 @@ export default function PublishRidePage() {
     document.title = "Publicar un viaje — ConcertRide ES";
     api.concerts.list({ limit: 50 }).then((res) => setConcerts(res.concerts)).catch(() => setConcerts([]));
   }, []);
+
+  // Pre-fill fields from profile (only on first render, before user edits)
+  useEffect(() => {
+    if (!user) return;
+    setForm((f) => ({
+      ...f,
+      ...(user.home_city && !f.origin_city ? { origin_city: user.home_city } : {}),
+      // If user smokes, default the ride to smokers-ok
+      smoking_policy: user.smoker === true ? "yes" : "no",
+    }));
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [user?.id]);
 
   const filteredConcerts = useMemo(() => {
     if (!concerts) return [];
@@ -171,6 +185,7 @@ export default function PublishRidePage() {
           : {}),
         ...(form.playlist_url.trim() ? { playlist_url: form.playlist_url.trim() } : {}),
         vibe: form.vibe,
+        instant_booking: form.instant_booking,
         smoking_policy: form.smoking_policy,
         max_luggage: form.max_luggage,
         ...(form.notes.trim() ? { notes: form.notes.trim() } : {}),
@@ -540,6 +555,17 @@ export default function PublishRidePage() {
               )}
             </div>
 
+            {form.price_per_seat > 0 && form.seats_total >= 1 && (
+              <EarningsCalculator
+                pricePerSeat={form.price_per_seat}
+                seatsTotal={form.seats_total}
+                originCity={form.origin_city}
+                destinationCity={
+                  form.concert?.venue.city ?? form.manual_venue_city ?? ""
+                }
+              />
+            )}
+
             <StepNav
               canContinue={canContinueStep2}
               onBack={() => setStep(1)}
@@ -555,6 +581,32 @@ export default function PublishRidePage() {
             </h2>
 
             <VibeSelector value={form.vibe} onChange={(v) => update("vibe", v)} />
+
+            <div className="border border-cr-border p-4 flex items-start gap-4">
+              <div className="flex-1 space-y-1">
+                <p className="font-sans text-sm font-semibold text-cr-text">
+                  Reserva instantánea
+                </p>
+                <p className="font-sans text-xs text-cr-text-muted">
+                  Los pasajeros reservan sin esperar tu confirmación. Se descuenta el asiento al momento.
+                </p>
+              </div>
+              <button
+                type="button"
+                role="switch"
+                aria-checked={form.instant_booking}
+                onClick={() => update("instant_booking", !form.instant_booking)}
+                className={`relative flex-shrink-0 w-11 h-6 border-2 transition-colors duration-150 ${
+                  form.instant_booking ? "bg-cr-primary border-cr-primary" : "bg-cr-surface-2 border-cr-border"
+                }`}
+              >
+                <span
+                  className={`absolute top-0.5 w-4 h-4 bg-black transition-transform duration-150 ${
+                    form.instant_booking ? "translate-x-5" : "translate-x-0.5"
+                  }`}
+                />
+              </button>
+            </div>
 
             <div className="space-y-2">
               <span className="font-sans text-[11px] font-semibold uppercase tracking-[0.12em] text-cr-text-muted">
@@ -649,6 +701,165 @@ export default function PublishRidePage() {
       </div>
     </main>
   );
+}
+
+// Road distance is ~20% longer than straight-line (Haversine)
+const ROAD_FACTOR = 1.2;
+
+function haversineKm(lat1: number, lng1: number, lat2: number, lng2: number): number {
+  const R = 6371;
+  const dLat = ((lat2 - lat1) * Math.PI) / 180;
+  const dLng = ((lng2 - lng1) * Math.PI) / 180;
+  const a =
+    Math.sin(dLat / 2) ** 2 +
+    Math.cos((lat1 * Math.PI) / 180) * Math.cos((lat2 * Math.PI) / 180) * Math.sin(dLng / 2) ** 2;
+  return R * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+}
+
+type FuelType = "gasoline95" | "diesel";
+
+interface FuelPrices { gasoline95: number; diesel: number; updatedAt: string; }
+
+// Sensible Spanish-market defaults while the API loads
+const DEFAULT_PRICES: FuelPrices = { gasoline95: 1.72, diesel: 1.62, updatedAt: "" };
+const DEFAULT_CONSUMPTION: Record<FuelType, number> = { gasoline95: 7.0, diesel: 6.0 };
+
+function EarningsCalculator({
+  pricePerSeat,
+  seatsTotal,
+  originCity,
+  destinationCity,
+}: {
+  pricePerSeat: number;
+  seatsTotal: number;
+  originCity: string;
+  destinationCity: string;
+}) {
+  const [fuelType, setFuelType] = useState<FuelType>("gasoline95");
+  const [consumption, setConsumption] = useState<string>("7.0"); // L/100km
+  const [prices, setPrices] = useState<FuelPrices>(DEFAULT_PRICES);
+  const [pricesLoading, setPricesLoading] = useState(true);
+  const fetchedRef = useRef(false);
+
+  useEffect(() => {
+    if (fetchedRef.current) return;
+    fetchedRef.current = true;
+    api.fuel.prices()
+      .then(setPrices)
+      .catch(() => { /* keep defaults */ })
+      .finally(() => setPricesLoading(false));
+  }, []);
+
+  // Update consumption default when fuel type changes
+  useEffect(() => {
+    setConsumption(String(DEFAULT_CONSUMPTION[fuelType]));
+  }, [fuelType]);
+
+  const originCoord = SPANISH_CITIES_BY_NAME[originCity];
+  const destCoord = SPANISH_CITIES_BY_NAME[destinationCity];
+
+  const straightKm = originCoord && destCoord
+    ? haversineKm(originCoord.lat, originCoord.lng, destCoord.lat, destCoord.lng)
+    : null;
+  const roadKm = straightKm ? Math.round(straightKm * ROAD_FACTOR) : null;
+
+  const consumptionNum = parseFloat(consumption);
+  const pricePerLitre = prices[fuelType];
+
+  const fuelCost = roadKm && !isNaN(consumptionNum) && consumptionNum > 0
+    ? Math.round((roadKm * consumptionNum / 100) * pricePerLitre * 100) / 100
+    : null;
+
+  const grossEarnings = pricePerSeat * seatsTotal;
+  const coveragePercent = fuelCost && fuelCost > 0
+    ? Math.min(100, Math.round((grossEarnings / fuelCost) * 100))
+    : null;
+
+  return (
+    <div className="border-2 border-cr-primary/30 bg-cr-primary/[0.04] p-4 space-y-4">
+      <p className="font-sans text-[10px] font-semibold uppercase tracking-[0.16em] text-cr-primary">
+        Calculadora de ganancias
+      </p>
+
+      <div className="flex items-baseline gap-3 flex-wrap">
+        <p className="font-mono text-3xl text-cr-primary leading-none">
+          €{grossEarnings.toFixed(0)}
+        </p>
+        <p className="font-sans text-xs text-cr-text-muted">
+          con {seatsTotal} pasajero{seatsTotal === 1 ? "" : "s"} a €{pricePerSeat}/asiento
+        </p>
+      </div>
+
+      {/* Fuel inputs */}
+      <div className="grid grid-cols-2 gap-3">
+        <div className="space-y-1.5">
+          <label className="font-sans text-[10px] font-semibold uppercase tracking-[0.12em] text-cr-text-muted">
+            Combustible
+          </label>
+          <select
+            value={fuelType}
+            onChange={(e) => setFuelType(e.target.value as FuelType)}
+            className="w-full bg-cr-bg border border-cr-border px-2 py-1.5 font-mono text-xs text-cr-text focus:outline-none focus:border-cr-primary [color-scheme:dark]"
+          >
+            <option value="gasoline95">Gasolina 95</option>
+            <option value="diesel">Diésel</option>
+          </select>
+        </div>
+        <div className="space-y-1.5">
+          <label className="font-sans text-[10px] font-semibold uppercase tracking-[0.12em] text-cr-text-muted">
+            Consumo (L/100km)
+          </label>
+          <input
+            type="number"
+            min="1"
+            max="30"
+            step="0.1"
+            value={consumption}
+            onChange={(e) => setConsumption(e.target.value)}
+            className="w-full bg-cr-bg border border-cr-border px-2 py-1.5 font-mono text-xs text-cr-text focus:outline-none focus:border-cr-primary"
+          />
+        </div>
+      </div>
+
+      {/* Result */}
+      {fuelCost !== null ? (
+        <div className="space-y-1">
+          <p className="font-mono text-xs text-cr-text-muted">
+            Combustible estimado:{" "}
+            <span className="text-cr-text">€{fuelCost.toFixed(2)}</span>
+            <span className="text-cr-text-dim">
+              {" "}(≈{roadKm} km · {consumptionNum}L/100km · {pricesPerLitreLabel(pricePerLitre, pricesLoading)})
+            </span>
+          </p>
+          {coveragePercent !== null && (
+            <p className="font-mono text-xs text-cr-text-muted">
+              Cubre{" "}
+              <span className={`font-semibold ${coveragePercent >= 100 ? "text-cr-primary" : coveragePercent >= 60 ? "text-cr-primary/70" : "text-cr-secondary"}`}>
+                {coveragePercent}%
+              </span>
+              {" "}del coste de combustible
+              {coveragePercent >= 100 && " — ¡ya sacas beneficio!"}
+            </p>
+          )}
+        </div>
+      ) : (originCity && destinationCity) ? (
+        <p className="font-mono text-xs text-cr-text-dim">
+          Selecciona origen y destino para ver la estimación.
+        </p>
+      ) : null}
+
+      {prices.updatedAt && (
+        <p className="font-mono text-[10px] text-cr-text-dim">
+          Precio {fuelType === "gasoline95" ? "G95" : "Diésel"}: {pricePerLitre.toFixed(3)} €/L · Datos MITECO
+        </p>
+      )}
+    </div>
+  );
+}
+
+function pricesPerLitreLabel(price: number, loading: boolean): string {
+  if (loading) return "cargando…";
+  return `${price.toFixed(3)} €/L`;
 }
 
 function Stepper({ step }: { step: Step }) {

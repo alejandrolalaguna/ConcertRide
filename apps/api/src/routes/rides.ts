@@ -1,6 +1,6 @@
 import { Hono } from "hono";
 import { z } from "zod";
-import type { RequestStatus, ReviewsResponse, RidesResponse } from "@concertride/types";
+import type { MessagesResponse, RequestStatus, ReviewsResponse, RidesResponse } from "@concertride/types";
 import type { HonoEnv } from "../types";
 import { requireUser } from "../lib/identity";
 
@@ -17,6 +17,9 @@ const listQuery = z.object({
     .union([z.literal("true"), z.literal("false")])
     .optional()
     .transform((v) => (v === undefined ? undefined : v === "true")),
+  near_lat: z.coerce.number().min(-90).max(90).optional(),
+  near_lng: z.coerce.number().min(-180).max(180).optional(),
+  radius_km: z.coerce.number().positive().max(500).optional(),
 });
 
 const createRideSchema = z.object({
@@ -35,6 +38,7 @@ const createRideSchema = z.object({
   smoking_policy: z.enum(["no", "yes"]).optional(),
   max_luggage: z.enum(["none", "small", "backpack", "cabin", "large", "extra"]).optional(),
   notes: z.string().max(500).optional(),
+  instant_booking: z.boolean().optional(),
 });
 
 const requestSeatSchema = z.object({
@@ -45,6 +49,10 @@ const requestSeatSchema = z.object({
 
 const patchRequestSchema = z.object({
   status: z.enum(["confirmed", "rejected", "cancelled"]),
+});
+
+const sendMessageSchema = z.object({
+  body: z.string().min(1).max(280),
 });
 
 const createReviewSchema = z.object({
@@ -111,6 +119,34 @@ route.post("/:id/request", async (c) => {
   return c.json(result.request, 201);
 });
 
+route.post("/:id/book", async (c) => {
+  const userOrResp = await requireUser(c);
+  if (userOrResp instanceof Response) return userOrResp;
+
+  const ride = await c.var.store.getRide(c.req.param("id"));
+  if (!ride) return c.json({ error: "ride_not_found" }, 404);
+  if (!ride.instant_booking) return c.json({ error: "not_instant_booking" }, 409);
+
+  const body = await c.req.json().catch(() => null);
+  if (!body) return c.json({ error: "bad_request", message: "Invalid JSON" }, 400);
+
+  const parsed = requestSeatSchema.safeParse(body);
+  if (!parsed.success) return c.json({ error: "bad_request", issues: parsed.error.issues }, 400);
+
+  const result = await c.var.store.createRequest(
+    ride,
+    userOrResp,
+    parsed.data.seats,
+    parsed.data.message,
+    parsed.data.luggage,
+  );
+  if (result.error || !result.request) return c.json({ error: result.error ?? "create_failed" }, 409);
+
+  // Auto-confirm immediately
+  const confirmed = await c.var.store.updateRequestStatus(result.request.id, "confirmed");
+  return c.json(confirmed, 201);
+});
+
 route.patch("/:id/request/:rid", async (c) => {
   const userOrResp = await requireUser(c);
   if (userOrResp instanceof Response) return userOrResp;
@@ -147,6 +183,41 @@ route.get("/:id/requests", async (c) => {
 
   const requests = await c.var.store.listRequestsForRide(ride.id);
   return c.json({ requests });
+});
+
+route.get("/:id/messages", async (c) => {
+  const userOrResp = await requireUser(c);
+  if (userOrResp instanceof Response) return userOrResp;
+
+  const ride = await c.var.store.getRide(c.req.param("id"));
+  if (!ride) return c.json({ error: "ride_not_found" }, 404);
+
+  const allowed = await c.var.store.isParticipant({ ride_id: ride.id }, userOrResp.id);
+  if (!allowed) return c.json({ error: "forbidden", message: "Only driver and confirmed passengers can read this thread" }, 403);
+
+  const msgs = await c.var.store.listMessages({ ride_id: ride.id });
+  const body: MessagesResponse = { messages: msgs };
+  return c.json(body);
+});
+
+route.post("/:id/messages", async (c) => {
+  const userOrResp = await requireUser(c);
+  if (userOrResp instanceof Response) return userOrResp;
+
+  const ride = await c.var.store.getRide(c.req.param("id"));
+  if (!ride) return c.json({ error: "ride_not_found" }, 404);
+
+  const allowed = await c.var.store.isParticipant({ ride_id: ride.id }, userOrResp.id);
+  if (!allowed) return c.json({ error: "forbidden", message: "Only driver and confirmed passengers can post" }, 403);
+
+  const rawBody = await c.req.json().catch(() => null);
+  if (!rawBody) return c.json({ error: "bad_request", message: "Invalid JSON" }, 400);
+
+  const parsed = sendMessageSchema.safeParse(rawBody);
+  if (!parsed.success) return c.json({ error: "bad_request", issues: parsed.error.issues }, 400);
+
+  const msg = await c.var.store.createMessage({ ride_id: ride.id }, userOrResp, parsed.data.body);
+  return c.json(msg, 201);
 });
 
 route.get("/:id/reviews", async (c) => {

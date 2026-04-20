@@ -1,3 +1,5 @@
+import { useState } from "react";
+import { LocateFixed } from "lucide-react";
 import type { Vibe } from "@concertride/types";
 
 export interface FilterState {
@@ -5,6 +7,10 @@ export interface FilterState {
   max_price: string;
   vibe: Vibe | "";
   round_trip: "any" | "yes" | "no";
+  no_smoking: boolean;
+  near_lat: number | null;
+  near_lng: number | null;
+  radius_km: number;
 }
 
 export const EMPTY_FILTERS: FilterState = {
@@ -12,6 +18,10 @@ export const EMPTY_FILTERS: FilterState = {
   max_price: "",
   vibe: "",
   round_trip: "any",
+  no_smoking: false,
+  near_lat: null,
+  near_lng: null,
+  radius_km: 30,
 };
 
 interface Props {
@@ -22,12 +32,41 @@ interface Props {
 }
 
 export function FilterBar({ value, onChange, cities, sticky = true }: Props) {
+  const [locating, setLocating] = useState(false);
+  const [locError, setLocError] = useState("");
+
   function set<K extends keyof FilterState>(key: K, v: FilterState[K]) {
     onChange({ ...value, [key]: v });
   }
 
+  function toggleNearMe() {
+    if (value.near_lat !== null) {
+      onChange({ ...value, near_lat: null, near_lng: null });
+      return;
+    }
+    if (!navigator.geolocation) {
+      setLocError("Tu navegador no soporta geolocalización.");
+      return;
+    }
+    setLocating(true);
+    setLocError("");
+    navigator.geolocation.getCurrentPosition(
+      (pos) => {
+        onChange({ ...value, near_lat: pos.coords.latitude, near_lng: pos.coords.longitude });
+        setLocating(false);
+      },
+      () => {
+        setLocError("No se pudo obtener tu ubicación.");
+        setLocating(false);
+      },
+    );
+  }
+
   const fieldCls =
     "bg-cr-surface border-2 border-cr-border focus:border-cr-primary outline-none px-3 py-2.5 font-sans text-sm text-cr-text placeholder:text-cr-text-dim transition-colors [color-scheme:dark]";
+
+  const hasActiveFilters =
+    value.origin_city || value.max_price || value.vibe || value.round_trip !== "any" || value.no_smoking || value.near_lat !== null;
 
   return (
     <div
@@ -47,7 +86,8 @@ export function FilterBar({ value, onChange, cities, sticky = true }: Props) {
           <select
             value={value.origin_city}
             onChange={(e) => set("origin_city", e.target.value)}
-            className={`${fieldCls} w-full`}
+            disabled={value.near_lat !== null}
+            className={`${fieldCls} w-full disabled:opacity-40`}
           >
             <option value="">Origen · todos</option>
             {cities.map((city) => (
@@ -99,10 +139,59 @@ export function FilterBar({ value, onChange, cities, sticky = true }: Props) {
           </select>
         </label>
 
-        {(value.origin_city || value.max_price || value.vibe || value.round_trip !== "any") && (
+        <button
+          type="button"
+          onClick={() => set("no_smoking", !value.no_smoking)}
+          title={value.no_smoking ? "Quitar filtro no fumadores" : "Solo viajes sin fumadores"}
+          className={`flex items-center gap-1.5 px-3 py-2.5 border-2 font-sans text-xs font-semibold uppercase tracking-[0.1em] transition-colors ${
+            value.no_smoking
+              ? "border-cr-primary bg-cr-primary/[0.08] text-cr-primary"
+              : "border-cr-border text-cr-text-muted hover:border-cr-primary hover:text-cr-primary"
+          }`}
+        >
+          🚭 No fumar
+        </button>
+
+        <div className="flex items-center gap-1">
           <button
             type="button"
-            onClick={() => onChange(EMPTY_FILTERS)}
+            onClick={toggleNearMe}
+            disabled={locating}
+            title={value.near_lat !== null ? "Desactivar filtro por ubicación" : "Buscar salidas cerca de mí"}
+            className={`flex items-center gap-1.5 px-3 py-2.5 border-2 font-sans text-xs font-semibold uppercase tracking-[0.1em] transition-colors disabled:opacity-40 ${
+              value.near_lat !== null
+                ? "border-cr-primary bg-cr-primary/[0.08] text-cr-primary"
+                : "border-cr-border text-cr-text-muted hover:border-cr-primary hover:text-cr-primary"
+            }`}
+          >
+            <LocateFixed size={13} aria-hidden="true" />
+            {locating ? "…" : value.near_lat !== null ? "Cerca de mí" : "Cerca de mí"}
+          </button>
+
+          {value.near_lat !== null && (
+            <select
+              value={value.radius_km}
+              onChange={(e) => set("radius_km", Number(e.target.value))}
+              aria-label="Radio de búsqueda"
+              className="bg-cr-surface border-2 border-cr-primary outline-none px-2 py-2.5 font-mono text-xs text-cr-primary [color-scheme:dark]"
+            >
+              <option value={10}>10 km</option>
+              <option value={30}>30 km</option>
+              <option value={50}>50 km</option>
+              <option value={100}>100 km</option>
+              <option value={200}>200 km</option>
+            </select>
+          )}
+        </div>
+
+        {locError && (
+          <p className="w-full font-mono text-[10px] text-cr-secondary px-1">{locError}</p>
+        )}
+
+        {hasActiveFilters && (
+          <button
+            type="button"
+            onClick={() => { onChange(EMPTY_FILTERS); setLocError(""); }}
             className="font-sans text-xs uppercase tracking-[0.12em] text-cr-text-muted hover:text-cr-primary px-3 py-2.5 border-2 border-transparent hover:border-cr-border transition-colors"
           >
             Limpiar

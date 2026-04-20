@@ -91,6 +91,7 @@ export const rides = sqliteTable(
     smoking_policy: text("smoking_policy", { enum: ["no", "yes"] }).notNull().default("no"),
     max_luggage: text("max_luggage", { enum: ["none", "small", "backpack", "cabin", "large", "extra"] }).notNull().default("backpack"),
     notes: text("notes"),
+    instant_booking: integer("instant_booking", { mode: "boolean" }).notNull().default(sql`0`),
     status: text("status", { enum: ["active", "full", "cancelled"] })
       .notNull()
       .default("active"),
@@ -124,6 +125,68 @@ export const rideRequests = sqliteTable(
   },
   (t) => ({
     rideIdx: index("ride_requests_ride_idx").on(t.ride_id),
+  }),
+);
+
+export const demandSignals = sqliteTable(
+  "demand_signals",
+  {
+    id: text("id").primaryKey(),
+    concert_id: text("concert_id")
+      .notNull()
+      .references(() => concerts.id),
+    user_id: text("user_id")
+      .notNull()
+      .references(() => users.id),
+    created_at: text("created_at").notNull().default(sql`CURRENT_TIMESTAMP`),
+    expires_at: text("expires_at").notNull(),
+  },
+  (t) => ({
+    concertIdx: index("demand_signals_concert_idx").on(t.concert_id),
+    uniqueSignal: uniqueIndex("demand_signals_unique_idx").on(t.concert_id, t.user_id),
+  }),
+);
+
+export const messages = sqliteTable(
+  "messages",
+  {
+    id: text("id").primaryKey(),
+    ride_id: text("ride_id").references(() => rides.id),
+    concert_id: text("concert_id").references(() => concerts.id),
+    user_id: text("user_id")
+      .notNull()
+      .references(() => users.id),
+    body: text("body").notNull(),
+    created_at: text("created_at").notNull().default(sql`CURRENT_TIMESTAMP`),
+  },
+  (t) => ({
+    rideIdx: index("messages_ride_idx").on(t.ride_id),
+    concertIdx: index("messages_concert_idx").on(t.concert_id),
+    createdIdx: index("messages_created_idx").on(t.created_at),
+  }),
+);
+
+export const reviews = sqliteTable(
+  "reviews",
+  {
+    id: text("id").primaryKey(),
+    ride_id: text("ride_id")
+      .notNull()
+      .references(() => rides.id),
+    reviewer_id: text("reviewer_id")
+      .notNull()
+      .references(() => users.id),
+    reviewee_id: text("reviewee_id")
+      .notNull()
+      .references(() => users.id),
+    rating: integer("rating").notNull(),
+    comment: text("comment"),
+    created_at: text("created_at").notNull().default(sql`CURRENT_TIMESTAMP`),
+  },
+  (t) => ({
+    rideIdx: index("reviews_ride_idx").on(t.ride_id),
+    revieweeIdx: index("reviews_reviewee_idx").on(t.reviewee_id),
+    uniqueReview: uniqueIndex("reviews_unique_idx").on(t.ride_id, t.reviewer_id, t.reviewee_id),
   }),
 );
 
@@ -175,9 +238,24 @@ export const rideRequestsRelations = relations(rideRequests, ({ one }) => ({
   passenger: one(users, { fields: [rideRequests.passenger_id], references: [users.id] }),
 }));
 
+export const messagesRelations = relations(messages, ({ one }) => ({
+  ride: one(rides, { fields: [messages.ride_id], references: [rides.id] }),
+  concert: one(concerts, { fields: [messages.concert_id], references: [concerts.id] }),
+  user: one(users, { fields: [messages.user_id], references: [users.id] }),
+}));
+
+export const reviewsRelations = relations(reviews, ({ one }) => ({
+  ride: one(rides, { fields: [reviews.ride_id], references: [rides.id] }),
+  reviewer: one(users, { fields: [reviews.reviewer_id], references: [users.id], relationName: "reviewer" }),
+  reviewee: one(users, { fields: [reviews.reviewee_id], references: [users.id], relationName: "reviewee" }),
+}));
+
 export type VenueRow = typeof venues.$inferSelect;
 export type UserRow = typeof users.$inferSelect;
 export type ConcertRow = typeof concerts.$inferSelect;
 export type RideRow = typeof rides.$inferSelect;
 export type RideRequestRow = typeof rideRequests.$inferSelect;
+export type DemandSignalRow = typeof demandSignals.$inferSelect;
+export type MessageRow = typeof messages.$inferSelect;
+export type ReviewRow = typeof reviews.$inferSelect;
 export type ConcertSourceRow = typeof concertSources.$inferSelect;

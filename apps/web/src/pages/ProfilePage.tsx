@@ -1,11 +1,12 @@
 import { useEffect, useState } from "react";
 import { Navigate } from "react-router-dom";
 import { motion } from "motion/react";
-import { Check } from "lucide-react";
+import { Check, Star } from "lucide-react";
+import type { Review } from "@concertride/types";
 import { api, ApiError } from "@/lib/api";
 import { useSession } from "@/lib/session";
 import { SPANISH_CITIES } from "@/lib/constants";
-import { initials } from "@/lib/format";
+import { initials, formatDay } from "@/lib/format";
 
 type Tristate = "yes" | "no" | "";
 
@@ -72,6 +73,9 @@ export default function ProfilePage() {
   const [saved, setSaved] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
+  const [reviews, setReviews] = useState<Review[]>([]);
+  const [reviewsLoading, setReviewsLoading] = useState(false);
+
   useEffect(() => {
     document.title = "Mi perfil — ConcertRide ES";
   }, []);
@@ -86,6 +90,16 @@ export default function ProfilePage() {
     setCarModel(user.car_model ?? "");
     setCarColor(user.car_color ?? "");
   }, [user]);
+
+  useEffect(() => {
+    if (!user) return;
+    setReviewsLoading(true);
+    api.users
+      .listReviews(user.id)
+      .then((r) => setReviews(r.reviews))
+      .catch(() => setReviews([]))
+      .finally(() => setReviewsLoading(false));
+  }, [user?.id]);
 
   if (!loading && !user) return <Navigate to="/login?next=/profile" replace />;
   if (loading || !user) return null;
@@ -143,9 +157,55 @@ export default function ProfilePage() {
           </div>
           <div>
             <dt className="font-sans text-[10px] font-semibold uppercase tracking-[0.12em] mb-0.5">Valoración</dt>
-            <dd className="text-cr-primary text-base">★ {user.rating.toFixed(1)}</dd>
+            <dd className="text-cr-primary text-base flex items-center gap-1">
+              <Star size={13} className="fill-cr-primary stroke-cr-primary" />
+              {user.rating.toFixed(1)}
+              {user.rating_count > 0 && (
+                <span className="text-cr-text-muted text-[11px]">({user.rating_count})</span>
+              )}
+            </dd>
           </div>
         </dl>
+
+        {/* Reviews received */}
+        {(reviewsLoading || reviews.length > 0) && (
+          <section className="space-y-3">
+            <h2 className="font-sans text-[11px] font-semibold uppercase tracking-[0.16em] text-cr-primary border-b border-cr-border pb-2">
+              Valoraciones recibidas
+            </h2>
+            {reviewsLoading ? (
+              <p className="font-mono text-xs text-cr-text-muted">Cargando…</p>
+            ) : (
+              <ul className="space-y-3">
+                {reviews.map((r) => (
+                  <li key={r.id} className="bg-cr-surface border border-cr-border p-4 space-y-2">
+                    <div className="flex items-center justify-between gap-3">
+                      <div className="flex items-center gap-2">
+                        <div className="w-7 h-7 rounded-full bg-cr-border text-cr-text-muted font-display text-xs flex items-center justify-center flex-shrink-0">
+                          {initials(r.reviewer.name)}
+                        </div>
+                        <span className="font-sans text-xs font-semibold text-cr-text">{r.reviewer.name}</span>
+                      </div>
+                      <div className="flex items-center gap-0.5 flex-shrink-0">
+                        {[1, 2, 3, 4, 5].map((n) => (
+                          <Star
+                            key={n}
+                            size={11}
+                            className={n <= r.rating ? "fill-cr-primary stroke-cr-primary" : "stroke-cr-border fill-transparent"}
+                          />
+                        ))}
+                      </div>
+                    </div>
+                    {r.comment && (
+                      <p className="font-mono text-xs text-cr-text-muted leading-relaxed">{r.comment}</p>
+                    )}
+                    <p className="font-mono text-[10px] text-cr-text-dim">{formatDay(r.created_at)}</p>
+                  </li>
+                ))}
+              </ul>
+            )}
+          </section>
+        )}
 
         <form onSubmit={submit} className="space-y-8">
 

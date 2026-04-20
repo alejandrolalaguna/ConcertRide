@@ -30,11 +30,28 @@ export function TrustBadge({ user, compact = false }: Props) {
             </span>
           )}
         </p>
-        <p className="font-mono text-xs text-cr-text-muted flex items-center gap-1.5">
-          <Star size={10} aria-hidden="true" className="fill-cr-primary text-cr-primary" />
-          <span className="text-cr-primary">{user.rating.toFixed(1)}</span>
-          <span className="text-cr-text-dim">·</span>
+        <p className="font-mono text-xs text-cr-text-muted flex items-center gap-1.5 flex-wrap">
+          {user.rating_count >= 3 ? (
+            <>
+              <Star size={10} aria-hidden="true" className="fill-cr-primary text-cr-primary" />
+              <span className="text-cr-primary">{user.rating.toFixed(1)}</span>
+              <span className="text-cr-text-dim">({user.rating_count})</span>
+              <span className="text-cr-text-dim">·</span>
+            </>
+          ) : null}
           <span>{user.rides_given} viajes</span>
+          {user.smoker === false && (
+            <>
+              <span className="text-cr-text-dim">·</span>
+              <span title="No fumador">🚭</span>
+            </>
+          )}
+          {user.smoker === true && (
+            <>
+              <span className="text-cr-text-dim">·</span>
+              <span title="Fumador">🚬</span>
+            </>
+          )}
         </p>
       </div>
     </div>

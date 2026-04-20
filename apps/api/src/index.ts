@@ -10,6 +10,8 @@ import auth from "./routes/auth";
 import concerts from "./routes/concerts";
 import rides from "./routes/rides";
 import venues from "./routes/venues";
+import users from "./routes/users";
+import fuel from "./routes/fuel";
 import ingest from "./routes/ingest";
 
 const ALLOWED_ORIGINS = [
@@ -80,6 +82,8 @@ app.route("/api/auth", auth);
 app.route("/api/concerts", concerts);
 app.route("/api/rides", rides);
 app.route("/api/venues", venues);
+app.route("/api/users", users);
+app.route("/api/fuel-price", fuel);
 app.route("/api/ingest", ingest);
 
 app.notFound((c) => {

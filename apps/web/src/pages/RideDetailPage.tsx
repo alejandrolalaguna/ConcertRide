@@ -25,6 +25,7 @@ import { TrustBadge } from "@/components/TrustBadge";
 import { VibeBadge } from "@/components/VibeBadge";
 import { PulsingDot } from "@/components/LoadingStates";
 import { DriverInbox } from "@/components/DriverInbox";
+import { RideChatSection } from "@/components/RideChatSection";
 import { RideReviewsSection } from "@/components/RideReviewsSection";
 
 const RideRouteMap = lazy(() => import("@/components/RideRouteMap"));
@@ -110,11 +111,10 @@ export default function RideDetailPage() {
     }
     setReserve({ status: "submitting" });
     try {
-      const req = await api.rides.requestSeat(ride.id, {
-        seats,
-        message: message.trim() || undefined,
-        luggage,
-      });
+      const payload = { seats, message: message.trim() || undefined, luggage };
+      const req = ride.instant_booking
+        ? await api.rides.bookInstant(ride.id, payload)
+        : await api.rides.requestSeat(ride.id, payload);
       setReserve({ status: "success", request: req });
     } catch (err) {
       setReserve({
@@ -319,11 +319,18 @@ export default function RideDetailPage() {
           >
             <header className="space-y-1">
               <h2 id="reserve-title" className="font-display text-lg uppercase tracking-wide">
-                Reservar asiento
+                {ride.instant_booking ? "Reserva instantánea" : "Reservar asiento"}
               </h2>
               <p className="font-mono text-xs text-cr-text-muted">
-                Pago en efectivo al conductor. El conductor confirma tu solicitud.
+                {ride.instant_booking
+                  ? "Tu plaza queda confirmada al instante. Pago en efectivo al conductor."
+                  : "Pago en efectivo al conductor. El conductor confirma tu solicitud."}
               </p>
+              {ride.instant_booking && (
+                <span className="inline-block font-sans text-[10px] font-semibold uppercase tracking-[0.12em] bg-cr-primary text-black px-2 py-0.5">
+                  Confirmación inmediata
+                </span>
+              )}
             </header>
 
             {reserve.status === "success" ? (
@@ -332,9 +339,17 @@ export default function RideDetailPage() {
                   <Check size={14} aria-hidden="true" /> Solicitud enviada
                 </p>
                 <p className="font-sans text-sm text-cr-text">
-                  Pedimos <span className="font-mono text-cr-primary">{reserve.request.seats}</span>{" "}
-                  plaza{reserve.request.seats === 1 ? "" : "s"} a {ride.driver.name}. Te avisamos
-                  cuando confirme.
+                  {ride.instant_booking ? (
+                    <>
+                      <span className="font-mono text-cr-primary">{reserve.request.seats}</span>{" "}
+                      plaza{reserve.request.seats === 1 ? "" : "s"} confirmada{reserve.request.seats === 1 ? "" : "s"} con {ride.driver.name}. Nos vemos en el viaje.
+                    </>
+                  ) : (
+                    <>
+                      Pedimos <span className="font-mono text-cr-primary">{reserve.request.seats}</span>{" "}
+                      plaza{reserve.request.seats === 1 ? "" : "s"} a {ride.driver.name}. Te avisamos cuando confirme.
+                    </>
+                  )}
                 </p>
               </div>
             ) : isFull ? (
@@ -435,7 +450,11 @@ export default function RideDetailPage() {
                     disabled={reserve.status === "submitting"}
                     className="bg-cr-primary text-black font-sans font-semibold uppercase tracking-[0.12em] text-sm border-2 border-black px-6 py-3 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] hover:translate-x-[2px] hover:translate-y-[2px] active:shadow-none active:translate-x-[4px] active:translate-y-[4px] transition-all duration-100 disabled:opacity-50 disabled:pointer-events-none"
                   >
-                    {reserve.status === "submitting" ? "Enviando…" : "Reservar asiento"}
+                    {reserve.status === "submitting"
+                    ? "Enviando…"
+                    : ride.instant_booking
+                    ? "Reservar ahora"
+                    : "Reservar asiento"}
                   </button>
                 </div>
 
@@ -446,6 +465,8 @@ export default function RideDetailPage() {
             )}
           </section>
         ) : null}
+
+        {user && <RideChatSection ride={ride} currentUser={user} />}
 
         <RideReviewsSection ride={ride} currentUser={user ?? null} />
       </div>

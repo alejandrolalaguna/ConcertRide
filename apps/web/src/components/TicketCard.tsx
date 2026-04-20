@@ -62,9 +62,11 @@ export function TicketCard({ ride, onClick }: Props) {
                 </span>
               )}
             </p>
-            <p className="font-mono text-[11px] text-cr-primary">
-              ★ {driver.rating.toFixed(1)}
-              <span className="text-cr-text-dim"> · {driver.rides_given} viajes</span>
+            <p className="font-mono text-[11px] text-cr-text-muted flex items-center gap-1">
+              {driver.rating_count >= 3 ? (
+                <span className="text-cr-primary">★ {driver.rating.toFixed(1)} <span className="text-cr-text-dim">({driver.rating_count})</span> ·</span>
+              ) : null}
+              <span>{driver.rides_given} viajes</span>
             </p>
           </div>
         </div>
@@ -90,9 +92,9 @@ export function TicketCard({ ride, onClick }: Props) {
         </div>
 
         <div className="space-y-1.5">
-          <p className="font-mono text-xs text-cr-text-muted flex items-center gap-1.5">
+          <p className={`font-mono text-xs flex items-center gap-1.5 ${ride.seats_left === 1 ? "text-cr-secondary font-semibold" : "text-cr-text-muted"}`}>
             <Users size={12} aria-hidden="true" />
-            {ride.seats_left} plaza{ride.seats_left === 1 ? "" : "s"}
+            {ride.seats_left === 0 ? "Completo" : `${ride.seats_left} plaza${ride.seats_left === 1 ? "" : "s"}`}
           </p>
           <VibeBadge vibe={ride.vibe} />
           <p className="font-mono text-[10px] text-cr-text-dim">

@@ -3,6 +3,8 @@ import type {
   CreateConcertInput,
   CreateRideRequest,
   CreateReviewRequest,
+  DemandSignal,
+  Message,
   RequestStatus,
   Review,
   Ride,
@@ -30,6 +32,9 @@ export interface RideFilters {
   max_price?: number;
   round_trip?: boolean;
   adhoc?: boolean;
+  near_lat?: number;
+  near_lng?: number;
+  radius_km?: number;
 }
 
 export type CreateRequestResult =
@@ -93,6 +98,22 @@ export interface StoreAdapter {
     luggage?: string,
   ): Promise<CreateRequestResult>;
   updateRequestStatus(requestId: string, status: RequestStatus): Promise<RideRequest | null>;
+
+  // --- demand signals ---
+  getDemandSignal(concertId: string, userId: string | null): Promise<DemandSignal>;
+  toggleDemandSignal(concertId: string, user: User): Promise<DemandSignal>;
+
+  // --- messages (ride thread + concert chat) ---
+  listMessages(scope: { ride_id: string } | { concert_id: string }): Promise<Message[]>;
+  createMessage(
+    scope: { ride_id: string } | { concert_id: string },
+    user: User,
+    body: string,
+  ): Promise<Message>;
+  isParticipant(
+    scope: { ride_id: string } | { concert_id: string },
+    userId: string,
+  ): Promise<boolean>;
 
   // --- reviews ---
   createReview(

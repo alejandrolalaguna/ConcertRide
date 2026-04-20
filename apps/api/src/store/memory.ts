@@ -6,6 +6,8 @@ import type {
   CreateConcertInput,
   CreateReviewRequest,
   CreateRideRequest,
+  DemandSignal,
+  Message,
   RequestStatus,
   Review,
   Ride,
@@ -24,6 +26,16 @@ import type {
   StoreAdapter,
   UpsertConcertResult,
 } from "./adapter";
+
+function haversineKm(lat1: number, lng1: number, lat2: number, lng2: number): number {
+  const R = 6371;
+  const dLat = ((lat2 - lat1) * Math.PI) / 180;
+  const dLng = ((lng2 - lng1) * Math.PI) / 180;
+  const a =
+    Math.sin(dLat / 2) ** 2 +
+    Math.cos((lat1 * Math.PI) / 180) * Math.cos((lat2 * Math.PI) / 180) * Math.sin(dLng / 2) ** 2;
+  return R * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+}
 
 function normalizeVenueName(name: string): string {
   return name
@@ -79,6 +91,13 @@ interface MemoryUser extends User {
 
 type LuggageVal = import("@concertride/types").Luggage | null;
 
+interface DemandRow {
+  id: string;
+  concert_id: string;
+  user_id: string;
+  expires_at: string;
+}
+
 interface StagingRow {
   id: string;
   source: SourceId;
@@ -99,6 +118,8 @@ export class MemoryStore implements StoreAdapter {
   }));
   private rides: Ride[] = [...RIDES];
   private requests: RideRequest[] = [];
+  private messages: Message[] = [];
+  private demandSignals: DemandRow[] = [];
   private reviews: Review[] = [];
   private staging: StagingRow[] = [];
 
@@ -230,7 +251,17 @@ export class MemoryStore implements StoreAdapter {
     if (f.date_to) result = result.filter((c) => c.date <= f.date_to!);
 
     const total = result.length;
-    const page = result.slice().sort((a, b) => a.date.localeCompare(b.date)).slice(f.offset, f.offset + f.limit);
+    const now = new Date().toISOString();
+    const page = result
+      .slice()
+      .sort((a, b) => a.date.localeCompare(b.date))
+      .slice(f.offset, f.offset + f.limit)
+      .map((c) => ({
+        ...c,
+        demand_count: this.demandSignals.filter(
+          (d) => d.concert_id === c.id && d.expires_at > now,
+        ).length,
+      }));
     return { concerts: page, total };
   }
 
@@ -343,6 +374,11 @@ export class MemoryStore implements StoreAdapter {
         ? result.filter((r) => adhocIds.has(r.concert_id))
         : result.filter((r) => !adhocIds.has(r.concert_id));
     }
+    if (f.near_lat !== undefined && f.near_lng !== undefined && f.radius_km !== undefined) {
+      result = result.filter(
+        (r) => haversineKm(f.near_lat!, f.near_lng!, r.origin_lat, r.origin_lng) <= f.radius_km!,
+      );
+    }
     return result.slice().sort((a, b) => a.departure_time.localeCompare(b.departure_time));
   }
 
@@ -372,6 +408,7 @@ export class MemoryStore implements StoreAdapter {
       smoking_policy: input.smoking_policy ?? "no",
       max_luggage: input.max_luggage ?? "backpack",
       notes: input.notes ?? null,
+      instant_booking: input.instant_booking ?? false,
       status: "active",
       created_at: new Date().toISOString(),
     };
@@ -433,6 +470,83 @@ export class MemoryStore implements StoreAdapter {
       }
     }
     return req;
+  }
+
+  async getDemandSignal(concertId: string, userId: string | null): Promise<DemandSignal> {
+    const now = new Date().toISOString();
+    const active = this.demandSignals.filter(
+      (d) => d.concert_id === concertId && d.expires_at >= now,
+    );
+    return { count: active.length, user_has_signaled: userId ? active.some((d) => d.user_id === userId) : false };
+  }
+
+  async toggleDemandSignal(concertId: string, user: User): Promise<DemandSignal> {
+    const existing = this.demandSignals.find(
+      (d) => d.concert_id === concertId && d.user_id === user.id,
+    );
+    if (existing) {
+      this.demandSignals = this.demandSignals.filter((d) => d.id !== existing.id);
+    } else {
+      const concert = await this.getConcert(concertId);
+      const concertDate = concert ? new Date(concert.date) : null;
+      const fortyEightHoursFromNow = new Date(Date.now() + 48 * 3600 * 1000);
+      const expires = concertDate && concertDate < fortyEightHoursFromNow ? concertDate : fortyEightHoursFromNow;
+      this.demandSignals = [
+        ...this.demandSignals,
+        {
+          id: `ds_${crypto.randomUUID().slice(0, 10)}`,
+          concert_id: concertId,
+          user_id: user.id,
+          expires_at: expires.toISOString(),
+        },
+      ];
+    }
+    return this.getDemandSignal(concertId, user.id);
+  }
+
+  async listMessages(scope: { ride_id: string } | { concert_id: string }): Promise<Message[]> {
+    if ("ride_id" in scope) {
+      return this.messages.filter((m) => m.ride_id === scope.ride_id);
+    }
+    return this.messages.filter((m) => m.concert_id === scope.concert_id);
+  }
+
+  async createMessage(
+    scope: { ride_id: string } | { concert_id: string },
+    user: User,
+    body: string,
+  ): Promise<Message> {
+    const msg: Message = {
+      id: `msg_${crypto.randomUUID().slice(0, 10)}`,
+      ride_id: "ride_id" in scope ? scope.ride_id : null,
+      concert_id: "concert_id" in scope ? scope.concert_id : null,
+      user_id: user.id,
+      user,
+      body,
+      created_at: new Date().toISOString(),
+    };
+    this.messages = [...this.messages, msg];
+    return msg;
+  }
+
+  async isParticipant(
+    scope: { ride_id: string } | { concert_id: string },
+    userId: string,
+  ): Promise<boolean> {
+    if ("ride_id" in scope) {
+      const ride = this.rides.find((r) => r.id === scope.ride_id);
+      if (ride?.driver_id === userId) return true;
+      return this.requests.some(
+        (r) => r.ride_id === scope.ride_id && r.passenger_id === userId && r.status === "confirmed",
+      );
+    }
+    const concertRideIds = new Set(
+      this.rides.filter((r) => r.concert_id === scope.concert_id).map((r) => r.id),
+    );
+    if ([...concertRideIds].some((rId) => this.rides.find((r) => r.id === rId)?.driver_id === userId)) return true;
+    return this.requests.some(
+      (r) => concertRideIds.has(r.ride_id) && r.passenger_id === userId && r.status === "confirmed",
+    );
   }
 
   async createReview(

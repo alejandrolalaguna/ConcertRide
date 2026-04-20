@@ -82,11 +82,18 @@ export function ConcertCard({ concert, className = "", onClick }: Props) {
         <span className="font-sans text-[10px] font-semibold uppercase tracking-[0.12em] text-cr-text-muted">
           {concert.venue.city}
         </span>
-        {concert.active_rides_count > 0 && (
-          <span className="font-mono text-xs text-cr-primary">
-            {concert.active_rides_count} viajes
-          </span>
-        )}
+        <div className="flex items-center gap-2">
+          {(concert.demand_count ?? 0) > 0 && (
+            <span className="font-mono text-[10px] text-cr-secondary" title="Personas buscando viaje">
+              {concert.demand_count} demanda
+            </span>
+          )}
+          {concert.active_rides_count > 0 && (
+            <span className="font-mono text-xs text-cr-primary">
+              {concert.active_rides_count} viajes
+            </span>
+          )}
+        </div>
       </div>
     </motion.article>
   );

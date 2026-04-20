@@ -45,6 +45,29 @@ export default function LandingPage() {
     return futuros.slice(0, 10);
   }, [concerts]);
 
+  // Mapa: viajes activos con plazas para conciertos en la próxima semana
+  const ONE_WEEK_MS = 7 * 24 * 60 * 60 * 1000;
+  const mapRides = useMemo(() => {
+    const nowMs = Date.now();
+    const weekMs = nowMs + ONE_WEEK_MS;
+    const nearConcertIds = new Set(
+      (concerts ?? [])
+        .filter((c) => {
+          const t = new Date(c.date).getTime();
+          return t >= nowMs && t <= weekMs;
+        })
+        .map((c) => c.id),
+    );
+    return (rides ?? []).filter(
+      (r) => r.seats_left > 0 && r.status === "active" && nearConcertIds.has(r.concert_id),
+    );
+  }, [concerts, rides]);
+
+  const mapConcerts = useMemo(() => {
+    const ids = new Set(mapRides.map((r) => r.concert_id));
+    return activeConcerts.filter((c) => ids.has(c.id));
+  }, [activeConcerts, mapRides]);
+
   return (
     <main id="main" className="bg-cr-bg text-cr-text">
       <Hero />
@@ -52,8 +75,8 @@ export default function LandingPage() {
       {activeConcerts.length > 0 && <HorizontalCarousel concerts={activeConcerts} />}
       <HowItWorks />
       <AdhocRidesSection />
-      {activeConcerts.length > 0 && rides && (
-        <MapSection concerts={activeConcerts} rides={rides} />
+      {mapConcerts.length > 0 && (
+        <MapSection concerts={mapConcerts} rides={mapRides} />
       )}
       <TrustSection />
       {/* Eliminada la sección de conciertos pasados */}

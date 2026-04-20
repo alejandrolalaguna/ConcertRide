@@ -1,8 +1,9 @@
-import { useMemo, useRef, useState } from "react";
-import { MapContainer, Marker, TileLayer, useMapEvents } from "react-leaflet";
+import { useEffect, useMemo, useRef, useState } from "react";
+import { MapContainer, Marker, TileLayer, useMap, useMapEvents } from "react-leaflet";
+import { Link } from "react-router-dom";
 import L from "leaflet";
 import type { Concert, Ride } from "@concertride/types";
-import { formatDay } from "@/lib/format";
+import { formatDay, formatTime } from "@/lib/format";
 import "./MapView.css";
 
 const SPAIN_CENTER: [number, number] = [40.4168, -3.7038];
@@ -11,8 +12,6 @@ const SPAIN_BOUNDS: L.LatLngBoundsLiteral = [
   [43.8, 4.4],
 ];
 
-// CartoDB Dark Matter — natively dark tiles, no CSS hack needed.
-// Attribution required: OSM ODbL + CARTO terms.
 const TILE_URL = "https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}.png";
 const TILE_ATTR =
   '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>';
@@ -34,6 +33,59 @@ const originIcon = L.divIcon({
 interface Props {
   concerts: Concert[];
   rides: Ride[];
+}
+
+// Enables scroll-wheel zoom only while Ctrl is held
+function CtrlScrollZoom() {
+  const map = useMap();
+  const containerRef = useRef<HTMLElement | null>(null);
+
+  useEffect(() => {
+    containerRef.current = map.getContainer();
+    const el = containerRef.current;
+
+    function onWheel(e: WheelEvent) {
+      if (e.ctrlKey) {
+        e.preventDefault();
+        const delta = e.deltaY > 0 ? -1 : 1;
+        map.setZoom(map.getZoom() + delta, { animate: true });
+      }
+    }
+
+    el.addEventListener("wheel", onWheel, { passive: false });
+    return () => el.removeEventListener("wheel", onWheel);
+  }, [map]);
+
+  return null;
+}
+
+// Shows a hint overlay when user scrolls without Ctrl
+function CtrlHint() {
+  const map = useMap();
+  const [visible, setVisible] = useState(false);
+  const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  useEffect(() => {
+    const el = map.getContainer();
+    function onWheel(e: WheelEvent) {
+      if (!e.ctrlKey) {
+        setVisible(true);
+        if (timerRef.current) clearTimeout(timerRef.current);
+        timerRef.current = setTimeout(() => setVisible(false), 1500);
+      }
+    }
+    el.addEventListener("wheel", onWheel, { passive: true });
+    return () => el.removeEventListener("wheel", onWheel);
+  }, [map]);
+
+  if (!visible) return null;
+  return (
+    <div className="absolute inset-0 z-[999] flex items-center justify-center pointer-events-none">
+      <div className="bg-cr-bg/90 backdrop-blur border border-cr-border px-4 py-2 font-mono text-xs text-cr-text-muted">
+        Mantén <kbd className="font-sans text-[10px] border border-cr-border px-1 py-0.5 text-cr-primary">Ctrl</kbd> para hacer zoom
+      </div>
+    </div>
+  );
 }
 
 function CloseOnMapClick({
@@ -73,10 +125,15 @@ export default function MapView({ concerts, rides }: Props) {
   }, [rides, visibleConcerts, activeCity]);
 
   const ridesByConcert = useMemo(() => {
-    const map: Record<string, number> = {};
-    for (const r of rides) map[r.concert_id] = (map[r.concert_id] ?? 0) + 1;
+    const map: Record<string, Ride[]> = {};
+    for (const r of rides) {
+      const existing = map[r.concert_id];
+      if (!existing) { map[r.concert_id] = [r]; } else { existing.push(r); }
+    }
     return map;
   }, [rides]);
+
+  const selectedRides: Ride[] = selectedConcert ? (ridesByConcert[selectedConcert.id] ?? []) : [];
 
   return (
     <div className="cr-map relative h-[60vh] min-h-[420px] w-full border-y border-cr-border">
@@ -85,16 +142,15 @@ export default function MapView({ concerts, rides }: Props) {
         zoom={6}
         maxBounds={SPAIN_BOUNDS}
         minZoom={5}
-        maxZoom={12}
+        maxZoom={14}
         scrollWheelZoom={false}
         attributionControl
         className="h-full w-full"
       >
         <TileLayer url={TILE_URL} attribution={TILE_ATTR} subdomains="abcd" />
-        <CloseOnMapClick
-          onClose={() => setSelectedConcert(null)}
-          skipRef={justOpenedRef}
-        />
+        <CtrlScrollZoom />
+        <CtrlHint />
+        <CloseOnMapClick onClose={() => setSelectedConcert(null)} skipRef={justOpenedRef} />
 
         {visibleConcerts.map((c) => (
           <Marker
@@ -117,6 +173,13 @@ export default function MapView({ concerts, rides }: Props) {
             position={[r.origin_lat, r.origin_lng]}
             icon={originIcon}
             title={`Salida desde ${r.origin_city}`}
+            eventHandlers={{
+              click: () => {
+                justOpenedRef.current = Date.now();
+                const concert = concerts.find((c) => c.id === r.concert_id) ?? null;
+                setSelectedConcert(concert);
+              },
+            }}
           />
         ))}
       </MapContainer>
@@ -128,11 +191,7 @@ export default function MapView({ concerts, rides }: Props) {
             Todos
           </FilterChip>
           {cities.map((city) => (
-            <FilterChip
-              key={city}
-              active={activeCity === city}
-              onClick={() => setActiveCity(city)}
-            >
+            <FilterChip key={city} active={activeCity === city} onClick={() => setActiveCity(city)}>
               {city}
             </FilterChip>
           ))}
@@ -154,53 +213,90 @@ export default function MapView({ concerts, rides }: Props) {
         </div>
       </div>
 
-      {/* Concert detail popup */}
+      {/* Ride popup */}
       {selectedConcert && (
-        <div className="absolute bottom-3 right-3 z-[1000] w-[min(300px,calc(100vw-24px))] bg-cr-surface/96 backdrop-blur-md border border-cr-border pointer-events-auto shadow-[0_0_32px_rgba(0,0,0,0.8)]">
-          <button
-            type="button"
-            onClick={() => setSelectedConcert(null)}
-            className="absolute top-2 right-2 z-10 w-6 h-6 flex items-center justify-center font-mono text-xs text-cr-text-muted hover:text-cr-primary transition-colors"
-            aria-label="Cerrar"
-          >
-            ✕
-          </button>
+        <div className="absolute bottom-3 right-3 z-[1000] w-[min(320px,calc(100vw-24px))] bg-cr-surface/96 backdrop-blur-md border border-cr-border pointer-events-auto shadow-[0_0_32px_rgba(0,0,0,0.8)] flex flex-col max-h-[min(480px,55vh)]">
+          {/* Header */}
+          <div className="relative flex-shrink-0">
+            <button
+              type="button"
+              onClick={() => setSelectedConcert(null)}
+              className="absolute top-2 right-2 z-10 w-6 h-6 flex items-center justify-center font-mono text-xs text-cr-text-muted hover:text-cr-primary transition-colors"
+              aria-label="Cerrar"
+            >
+              ✕
+            </button>
 
-          {selectedConcert.image_url && (
-            <div className="h-28 overflow-hidden">
-              <img
-                src={selectedConcert.image_url}
-                alt=""
-                aria-hidden="true"
-                className="w-full h-full object-cover opacity-50"
-              />
-              <div className="absolute inset-0 h-28 bg-gradient-to-b from-transparent to-cr-surface/80" />
+            {selectedConcert.image_url && (
+              <div className="h-24 overflow-hidden">
+                <img
+                  src={selectedConcert.image_url}
+                  alt=""
+                  aria-hidden="true"
+                  className="w-full h-full object-cover opacity-50"
+                />
+                <div className="absolute inset-0 h-24 bg-gradient-to-b from-transparent to-cr-surface/90" />
+              </div>
+            )}
+
+            <div className="p-4 pb-2 space-y-0.5">
+              <p className="font-sans text-[10px] font-semibold uppercase tracking-[0.14em] text-cr-primary flex items-center gap-1.5">
+                <span className="w-1.5 h-1.5 rounded-full bg-cr-primary inline-block animate-pulse" />
+                {selectedRides.length} viaje{selectedRides.length === 1 ? "" : "s"} con plazas
+              </p>
+              <h3 className="font-display text-xl uppercase leading-tight pr-6">
+                {selectedConcert.artist}
+              </h3>
+              <p className="font-mono text-[11px] text-cr-text-muted">
+                {selectedConcert.venue.name} · {formatDay(selectedConcert.date)}
+              </p>
             </div>
+          </div>
+
+          {/* Ride list */}
+          {selectedRides.length > 0 ? (
+            <ul className="flex-1 overflow-y-auto divide-y divide-cr-border border-t border-cr-border">
+              {selectedRides.map((r) => (
+                <li key={r.id}>
+                  <Link
+                    to={`/rides/${r.id}`}
+                    className="flex items-center justify-between gap-3 px-4 py-3 hover:bg-cr-surface-2 transition-colors group"
+                  >
+                    <div className="min-w-0 space-y-0.5">
+                      <p className="font-sans text-xs font-semibold text-cr-text group-hover:text-cr-primary transition-colors truncate">
+                        {r.origin_city}
+                        {r.origin_city !== selectedConcert.venue.city && (
+                          <span className="text-cr-text-dim font-normal"> → {selectedConcert.venue.city}</span>
+                        )}
+                      </p>
+                      <p className="font-mono text-[10px] text-cr-text-muted">
+                        {formatTime(r.departure_time)} · {r.driver.name}
+                      </p>
+                    </div>
+                    <div className="flex-shrink-0 text-right space-y-0.5">
+                      <p className="font-mono text-sm text-cr-primary leading-none">€{r.price_per_seat}</p>
+                      <p className="font-mono text-[10px] text-cr-text-dim">
+                        {r.seats_left} plaza{r.seats_left === 1 ? "" : "s"}
+                      </p>
+                    </div>
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          ) : (
+            <p className="px-4 py-3 font-mono text-xs text-cr-text-dim border-t border-cr-border">
+              Sin viajes disponibles.
+            </p>
           )}
 
-          <div className="p-4 space-y-2">
-            <p className="font-sans text-[10px] font-semibold uppercase tracking-[0.14em] text-cr-primary flex items-center gap-1.5">
-              <span className="w-1.5 h-1.5 rounded-full bg-cr-primary inline-block animate-pulse" />
-              {ridesByConcert[selectedConcert.id] ?? 0} viajes activos
-            </p>
-            <h3 className="font-display text-xl uppercase leading-tight pr-6">
-              {selectedConcert.artist}
-            </h3>
-            <p className="font-mono text-[11px] text-cr-text-muted">
-              {selectedConcert.venue.name}
-            </p>
-            <p className="font-mono text-[11px] text-cr-text-muted">
-              {formatDay(selectedConcert.date)}
-              {selectedConcert.price_min != null && (
-                <span className="text-cr-secondary ml-2">· desde €{selectedConcert.price_min}</span>
-              )}
-            </p>
-            <a
-              href={`/concerts/${selectedConcert.id}`}
-              className="mt-2 w-full flex items-center justify-center font-sans text-xs font-semibold uppercase tracking-[0.12em] bg-cr-primary text-black py-2.5 hover:bg-cr-primary/90 transition-colors"
+          {/* Footer CTA */}
+          <div className="flex-shrink-0 border-t border-cr-border p-3">
+            <Link
+              to={`/concerts/${selectedConcert.id}`}
+              className="w-full flex items-center justify-center font-sans text-xs font-semibold uppercase tracking-[0.12em] bg-cr-primary text-black py-2.5 hover:bg-cr-primary/90 transition-colors"
             >
-              Ver viajes →
-            </a>
+              Ver concierto completo →
+            </Link>
           </div>
         </div>
       )}

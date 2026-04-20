@@ -5,13 +5,17 @@
 // apps/api/scripts/seed.ts for the bring-up flow.
 
 import { createClient } from "@libsql/client/web";
-import { and, desc, eq, gte, like, lte } from "drizzle-orm";
+import { and, avg, count, desc, eq, gte, like, lte, sql } from "drizzle-orm";
 import { drizzle } from "drizzle-orm/libsql";
 import type {
   Concert,
   CreateConcertInput,
+  CreateReviewRequest,
   CreateRideRequest,
+  DemandSignal,
+  Message,
   RequestStatus,
+  Review,
   Ride,
   RideRequest,
   UpdateProfileInput,
@@ -29,6 +33,16 @@ import type {
   StoreAdapter,
   UpsertConcertResult,
 } from "./adapter";
+
+function haversineKm(lat1: number, lng1: number, lat2: number, lng2: number): number {
+  const R = 6371;
+  const dLat = ((lat2 - lat1) * Math.PI) / 180;
+  const dLng = ((lng2 - lng1) * Math.PI) / 180;
+  const a =
+    Math.sin(dLat / 2) ** 2 +
+    Math.cos((lat1 * Math.PI) / 180) * Math.cos((lat2 * Math.PI) / 180) * Math.sin(dLng / 2) ** 2;
+  return R * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+}
 
 function normalizeVenueName(name: string): string {
   return name
@@ -104,7 +118,7 @@ function hydrateUser(row: UserRow): User {
   };
 }
 
-function hydrateConcert(row: ConcertWith, activeRidesCount = 0): Concert {
+function hydrateConcert(row: ConcertWith, activeRidesCount = 0, demandCount?: number): Concert {
   if (!row.venue) throw new Error(`Concert ${row.id} missing venue join`);
   return {
     id: row.id,
@@ -120,6 +134,7 @@ function hydrateConcert(row: ConcertWith, activeRidesCount = 0): Concert {
     price_min: row.price_min,
     price_max: row.price_max,
     active_rides_count: activeRidesCount,
+    demand_count: demandCount,
   };
 }
 
@@ -147,6 +162,7 @@ function hydrateRide(row: RideWith): Ride {
     smoking_policy: row.smoking_policy,
     max_luggage: row.max_luggage,
     notes: row.notes,
+    instant_booking: row.instant_booking,
     status: row.status,
     created_at: row.created_at,
   };
@@ -308,22 +324,38 @@ export class DrizzleStore implements StoreAdapter {
     if (f.artist) clauses.push(like(schema.concerts.artist, `%${f.artist}%`));
     if (f.date_from) clauses.push(gte(schema.concerts.date, f.date_from));
     if (f.date_to) clauses.push(lte(schema.concerts.date, f.date_to));
+    if (f.city) clauses.push(sql`lower(${schema.venues.city}) = lower(${f.city})`);
     const where = clauses.length ? and(...clauses) : undefined;
 
-    const all = await this.db.query.concerts.findMany({
-      where,
+    // COUNT query — join venues so city filter works in SQL
+    const [countRow] = await this.db
+      .select({ total: count() })
+      .from(schema.concerts)
+      .innerJoin(schema.venues, eq(schema.concerts.venue_id, schema.venues.id))
+      .where(where);
+    const total = countRow?.total ?? 0;
+
+    // Page query — only fetch the requested slice
+    const pageRows = await this.db.query.concerts.findMany({
+      where: clauses.length ? and(...clauses) : undefined,
       with: { venue: true },
       orderBy: (c, { asc }) => [asc(c.date)],
+      limit: f.limit,
+      offset: f.offset,
     });
 
-    const filtered = f.city
-      ? all.filter((c) => c.venue?.city.toLowerCase() === f.city!.toLowerCase())
-      : all;
+    // Batch demand counts for the current page
+    const now = new Date().toISOString();
+    const demandRows = pageRows.length
+      ? await this.db
+          .select({ concert_id: schema.demandSignals.concert_id, cnt: count() })
+          .from(schema.demandSignals)
+          .where(gte(schema.demandSignals.expires_at, now))
+          .groupBy(schema.demandSignals.concert_id)
+      : [];
+    const demandMap = new Map(demandRows.map((r) => [r.concert_id, r.cnt]));
 
-    const total = filtered.length;
-    const page = filtered
-      .slice(f.offset, f.offset + f.limit)
-      .map((c) => hydrateConcert(c));
+    const page = pageRows.map((c) => hydrateConcert(c, 0, demandMap.get(c.id) ?? 0));
     return { concerts: page, total };
   }
 
@@ -464,6 +496,12 @@ export class DrizzleStore implements StoreAdapter {
       });
     }
 
+    if (f.near_lat !== undefined && f.near_lng !== undefined && f.radius_km !== undefined) {
+      filtered = filtered.filter(
+        (r) => haversineKm(f.near_lat!, f.near_lng!, r.origin_lat, r.origin_lng) <= f.radius_km!,
+      );
+    }
+
     return filtered.map(hydrateRide);
   }
 
@@ -500,6 +538,7 @@ export class DrizzleStore implements StoreAdapter {
       smoking_policy: input.smoking_policy ?? "no",
       max_luggage: input.max_luggage ?? "backpack",
       notes: input.notes ?? null,
+      instant_booking: input.instant_booking ?? false,
       status: "active",
       created_at: now,
     });
@@ -655,16 +694,240 @@ export class DrizzleStore implements StoreAdapter {
     });
   }
 
-  async createReview(): Promise<{ error: string }> {
-    throw new Error("adapter_not_implemented:createReview");
+  async getDemandSignal(concertId: string, userId: string | null): Promise<DemandSignal> {
+    const now = new Date().toISOString();
+    const rows = await this.db.query.demandSignals.findMany({
+      where: and(eq(schema.demandSignals.concert_id, concertId), gte(schema.demandSignals.expires_at, now)),
+    });
+    const user_has_signaled = userId ? rows.some((r) => r.user_id === userId) : false;
+    return { count: rows.length, user_has_signaled };
   }
 
-  async listReviewsForRide(): Promise<never[]> {
-    throw new Error("adapter_not_implemented:listReviewsForRide");
+  async toggleDemandSignal(concertId: string, user: User): Promise<DemandSignal> {
+    const now = new Date().toISOString();
+    const concert = await this.getConcert(concertId);
+    const existing = await this.db.query.demandSignals.findFirst({
+      where: and(
+        eq(schema.demandSignals.concert_id, concertId),
+        eq(schema.demandSignals.user_id, user.id),
+      ),
+    });
+    if (existing) {
+      await this.db.delete(schema.demandSignals).where(eq(schema.demandSignals.id, existing.id));
+    } else {
+      // Expire 48h before concert date or 48h from now, whichever is sooner
+      const concertDate = concert ? new Date(concert.date) : null;
+      const fortyEightHoursFromNow = new Date(Date.now() + 48 * 3600 * 1000);
+      const expires =
+        concertDate && concertDate < fortyEightHoursFromNow ? concertDate : fortyEightHoursFromNow;
+      await this.db.insert(schema.demandSignals).values({
+        id: `ds_${crypto.randomUUID().slice(0, 10)}`,
+        concert_id: concertId,
+        user_id: user.id,
+        created_at: now,
+        expires_at: expires.toISOString(),
+      });
+    }
+    return this.getDemandSignal(concertId, user.id);
   }
 
-  async listReviewsForUser(): Promise<never[]> {
-    throw new Error("adapter_not_implemented:listReviewsForUser");
+  async listMessages(scope: { ride_id: string } | { concert_id: string }): Promise<Message[]> {
+    const where =
+      "ride_id" in scope
+        ? eq(schema.messages.ride_id, scope.ride_id)
+        : eq(schema.messages.concert_id, scope.concert_id);
+    const rows = await this.db.query.messages.findMany({
+      where,
+      with: { user: true },
+      orderBy: (m, { asc }) => [asc(m.created_at)],
+    });
+    return rows
+      .filter((r) => r.user)
+      .map((r) => ({
+        id: r.id,
+        ride_id: r.ride_id,
+        concert_id: r.concert_id,
+        user_id: r.user_id,
+        user: hydrateUser(r.user!),
+        body: r.body,
+        created_at: r.created_at,
+      }));
+  }
+
+  async createMessage(
+    scope: { ride_id: string } | { concert_id: string },
+    user: User,
+    body: string,
+  ): Promise<Message> {
+    const id = `msg_${crypto.randomUUID().slice(0, 10)}`;
+    const now = new Date().toISOString();
+    await this.db.insert(schema.messages).values({
+      id,
+      ride_id: "ride_id" in scope ? scope.ride_id : null,
+      concert_id: "concert_id" in scope ? scope.concert_id : null,
+      user_id: user.id,
+      body,
+      created_at: now,
+    });
+    return {
+      id,
+      ride_id: "ride_id" in scope ? scope.ride_id : null,
+      concert_id: "concert_id" in scope ? scope.concert_id : null,
+      user_id: user.id,
+      user,
+      body,
+      created_at: now,
+    };
+  }
+
+  async isParticipant(
+    scope: { ride_id: string } | { concert_id: string },
+    userId: string,
+  ): Promise<boolean> {
+    if ("ride_id" in scope) {
+      const req = await this.db.query.rideRequests.findFirst({
+        where: and(
+          eq(schema.rideRequests.ride_id, scope.ride_id),
+          eq(schema.rideRequests.passenger_id, userId),
+          eq(schema.rideRequests.status, "confirmed"),
+        ),
+      });
+      if (req) return true;
+      const ride = await this.db.query.rides.findFirst({
+        where: and(eq(schema.rides.id, scope.ride_id), eq(schema.rides.driver_id, userId)),
+      });
+      return !!ride;
+    }
+    // concert scope: user must have a confirmed request on any ride for this concert
+    const req = await this.db.query.rideRequests.findFirst({
+      where: and(
+        eq(schema.rideRequests.passenger_id, userId),
+        eq(schema.rideRequests.status, "confirmed"),
+      ),
+    });
+    if (req) {
+      const ride = await this.db.query.rides.findFirst({
+        where: and(
+          eq(schema.rides.id, req.ride_id),
+          eq(schema.rides.concert_id, scope.concert_id),
+        ),
+      });
+      if (ride) return true;
+    }
+    // also check if user is a driver for any ride in this concert
+    const driverRide = await this.db.query.rides.findFirst({
+      where: and(
+        eq(schema.rides.concert_id, scope.concert_id),
+        eq(schema.rides.driver_id, userId),
+      ),
+    });
+    return !!driverRide;
+  }
+
+  async createReview(
+    ride: Ride,
+    reviewer: User,
+    input: CreateReviewRequest,
+  ): Promise<{ review?: Review; error?: string }> {
+    if (reviewer.id === input.reviewee_id) return { error: "cannot_review_yourself" };
+    if (input.rating < 1 || input.rating > 5) return { error: "invalid_rating" };
+
+    const reviewee = await this.getUser(input.reviewee_id);
+    if (!reviewee) return { error: "reviewee_not_found" };
+
+    return await this.db.transaction(async (tx) => {
+      const duplicate = await tx.query.reviews.findFirst({
+        where: and(
+          eq(schema.reviews.ride_id, ride.id),
+          eq(schema.reviews.reviewer_id, reviewer.id),
+          eq(schema.reviews.reviewee_id, input.reviewee_id),
+        ),
+      });
+      if (duplicate) return { error: "already_reviewed" };
+
+      const id = `rev_${crypto.randomUUID().slice(0, 10)}`;
+      const now = new Date().toISOString();
+      await tx.insert(schema.reviews).values({
+        id,
+        ride_id: ride.id,
+        reviewer_id: reviewer.id,
+        reviewee_id: input.reviewee_id,
+        rating: input.rating,
+        comment: input.comment ?? null,
+        created_at: now,
+      });
+
+      // Update reviewee's rolling average
+      const agg = await tx
+        .select({ avg: avg(schema.reviews.rating), count: count() })
+        .from(schema.reviews)
+        .where(eq(schema.reviews.reviewee_id, input.reviewee_id));
+      const { avg: newAvg, count: newCount } = agg[0] ?? { avg: null, count: 0 };
+      if (newAvg !== null) {
+        await tx
+          .update(schema.users)
+          .set({
+            rating: Math.round(Number(newAvg) * 10) / 10,
+            rating_count: newCount,
+          })
+          .where(eq(schema.users.id, input.reviewee_id));
+      }
+
+      const review: Review = {
+        id,
+        ride_id: ride.id,
+        reviewer_id: reviewer.id,
+        reviewer,
+        reviewee_id: input.reviewee_id,
+        reviewee,
+        rating: input.rating,
+        comment: input.comment ?? null,
+        created_at: now,
+      };
+      return { review };
+    });
+  }
+
+  async listReviewsForRide(rideId: string): Promise<Review[]> {
+    const rows = await this.db.query.reviews.findMany({
+      where: eq(schema.reviews.ride_id, rideId),
+      with: { reviewer: true, reviewee: true },
+      orderBy: (r) => [desc(r.created_at)],
+    });
+    return rows
+      .filter((r) => r.reviewer && r.reviewee)
+      .map((r) => ({
+        id: r.id,
+        ride_id: r.ride_id,
+        reviewer_id: r.reviewer_id,
+        reviewer: hydrateUser(r.reviewer!),
+        reviewee_id: r.reviewee_id,
+        reviewee: hydrateUser(r.reviewee!),
+        rating: r.rating,
+        comment: r.comment,
+        created_at: r.created_at,
+      }));
+  }
+
+  async listReviewsForUser(userId: string): Promise<Review[]> {
+    const rows = await this.db.query.reviews.findMany({
+      where: eq(schema.reviews.reviewee_id, userId),
+      with: { reviewer: true, reviewee: true },
+      orderBy: (r) => [desc(r.created_at)],
+    });
+    return rows
+      .filter((r) => r.reviewer && r.reviewee)
+      .map((r) => ({
+        id: r.id,
+        ride_id: r.ride_id,
+        reviewer_id: r.reviewer_id,
+        reviewer: hydrateUser(r.reviewer!),
+        reviewee_id: r.reviewee_id,
+        reviewee: hydrateUser(r.reviewee!),
+        rating: r.rating,
+        comment: r.comment,
+        created_at: r.created_at,
+      }));
   }
 }
 

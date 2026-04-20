@@ -230,6 +230,7 @@ export const RIDES: Ride[] = SEEDS.map((s) => {
     smoking_policy: "no",
     max_luggage: "backpack",
     notes: s.notes,
+    instant_booking: false,
     status: s.seats_left === 0 ? "full" : "active",
     created_at: "2026-04-10T12:00:00.000Z",
   };

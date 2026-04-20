@@ -16,11 +16,16 @@ export function HorizontalCarousel({ concerts }: Props) {
     offset: ["start start", "end end"],
   });
 
-  // +1 for the "Ver todos" card; -1.5 keeps the last card partially visible so
-  // the user knows the section ended (avoids dead-scroll at the tail).
-  const totalCards = concerts.length + 1;
-  const range = Math.max(0, totalCards - 1.5);
-  const x = useTransform(scrollYProgress, [0, 1], ["0%", `-${range * 18}%`]);
+  // 180vh gives a comfortable slow scroll pace.
+  // Translation stops when 2 cards are still visible — user never needs to
+  // scroll past all cards to reach content below.
+  const totalCards = concerts.length + 1; // +1 for "Ver todos"
+  const CARD_WIDTH_PX = 400; // matches lg:w-[400px]
+  const GAP_PX = 24;
+  const totalWidthPx = totalCards * (CARD_WIDTH_PX + GAP_PX);
+  const keepVisiblePx = 2 * (CARD_WIDTH_PX + GAP_PX);
+  const translatePx = Math.max(0, totalWidthPx - keepVisiblePx);
+  const x = useTransform(scrollYProgress, [0, 1], ["0px", `-${translatePx}px`]);
 
   return (
     <section aria-labelledby="discover-title" className="bg-cr-bg text-cr-text">
@@ -51,7 +56,7 @@ export function HorizontalCarousel({ concerts }: Props) {
       <div
         ref={ref}
         className="relative hidden md:block"
-        style={{ height: `${Math.min(Math.max(1, range) * 50 + 80, 180)}vh` }}
+        style={{ height: "180vh" }}
       >
         <div className="sticky top-0 h-dvh flex items-center overflow-hidden">
           <motion.ol

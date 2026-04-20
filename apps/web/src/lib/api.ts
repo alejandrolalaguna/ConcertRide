@@ -5,7 +5,10 @@ import type {
   CreateConcertInput,
   CreateReviewRequest,
   CreateRideRequest,
+  DemandSignal,
   HealthResponse,
+  Message,
+  MessagesResponse,
   RequestSeatRequest,
   RequestStatus,
   Review,
@@ -108,6 +111,12 @@ export const api = {
         method: "POST",
         body: JSON.stringify(input),
       }),
+    getInterest: (concertId: string) =>
+      request<DemandSignal>(`/api/concerts/${encodeURIComponent(concertId)}/interest`),
+    toggleInterest: (concertId: string) =>
+      request<DemandSignal>(`/api/concerts/${encodeURIComponent(concertId)}/interest`, {
+        method: "POST",
+      }),
   },
   rides: {
     list: (q: RidesQuery = {}) => request<RidesResponse>(`/api/rides${query(q)}`),
@@ -119,6 +128,11 @@ export const api = {
       }),
     requestSeat: (rideId: string, input: RequestSeatRequest) =>
       request<RideRequest>(`/api/rides/${encodeURIComponent(rideId)}/request`, {
+        method: "POST",
+        body: JSON.stringify(input),
+      }),
+    bookInstant: (rideId: string, input: RequestSeatRequest) =>
+      request<RideRequest>(`/api/rides/${encodeURIComponent(rideId)}/book`, {
         method: "POST",
         body: JSON.stringify(input),
       }),
@@ -138,6 +152,22 @@ export const api = {
   venues: {
     list: () => request<VenuesResponse>("/api/venues"),
   },
+  messages: {
+    listRideThread: (rideId: string) =>
+      request<MessagesResponse>(`/api/rides/${encodeURIComponent(rideId)}/messages`),
+    postRideThread: (rideId: string, body: string) =>
+      request<Message>(`/api/rides/${encodeURIComponent(rideId)}/messages`, {
+        method: "POST",
+        body: JSON.stringify({ body }),
+      }),
+    listConcertChat: (concertId: string) =>
+      request<MessagesResponse>(`/api/concerts/${encodeURIComponent(concertId)}/messages`),
+    postConcertChat: (concertId: string, body: string) =>
+      request<Message>(`/api/concerts/${encodeURIComponent(concertId)}/messages`, {
+        method: "POST",
+        body: JSON.stringify({ body }),
+      }),
+  },
   reviews: {
     list: (rideId: string) =>
       request<ReviewsResponse>(`/api/rides/${encodeURIComponent(rideId)}/reviews`),
@@ -146,6 +176,13 @@ export const api = {
         method: "POST",
         body: JSON.stringify(input),
       }),
+  },
+  users: {
+    listReviews: (userId: string) =>
+      request<ReviewsResponse>(`/api/users/${encodeURIComponent(userId)}/reviews`),
+  },
+  fuel: {
+    prices: () => request<{ gasoline95: number; diesel: number; updatedAt: string }>("/api/fuel-price"),
   },
 };
 

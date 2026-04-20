@@ -2,9 +2,20 @@ import { useEffect, useMemo, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { useSeoMeta } from "@/lib/useSeoMeta";
 import { motion } from "motion/react";
-import { ArrowLeft, Calendar, MapPin, Music2, Star } from "lucide-react";
-import type { Concert, Ride, Vibe } from "@concertride/types";
+import { ArrowLeft, Calendar, MapPin, Music2, Star, Users } from "lucide-react";
+
+function haversineKm(lat1: number, lng1: number, lat2: number, lng2: number): number {
+  const R = 6371;
+  const dLat = ((lat2 - lat1) * Math.PI) / 180;
+  const dLng = ((lng2 - lng1) * Math.PI) / 180;
+  const a =
+    Math.sin(dLat / 2) ** 2 +
+    Math.cos((lat1 * Math.PI) / 180) * Math.cos((lat2 * Math.PI) / 180) * Math.sin(dLng / 2) ** 2;
+  return R * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+}
+import type { Concert, DemandSignal, Ride, Vibe } from "@concertride/types";
 import { api, ApiError } from "@/lib/api";
+import { useSession } from "@/lib/session";
 import { formatDate, formatTime } from "@/lib/format";
 import { concertStatus } from "@/components/ConcertCard";
 import { TicketCard } from "@/components/TicketCard";
@@ -20,10 +31,13 @@ function hueFromString(s: string): number {
 export default function ConcertDetailPage() {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
+  const { user } = useSession();
   const [concert, setConcert] = useState<Concert | null>(null);
   const [rides, setRides] = useState<Ride[] | null>(null);
   const [filters, setFilters] = useState<FilterState>(EMPTY_FILTERS);
   const [error, setError] = useState<string | null>(null);
+  const [demand, setDemand] = useState<DemandSignal | null>(null);
+  const [demandLoading, setDemandLoading] = useState(false);
 
   useSeoMeta({
     title: concert
@@ -51,6 +65,7 @@ export default function ConcertDetailPage() {
         if (err instanceof ApiError && err.status === 404) setError("concert_not_found");
         else setError("load_failed");
       });
+    api.concerts.getInterest(id).then(setDemand).catch(() => {});
   }, [id]);
 
   const cities = useMemo(() => {
@@ -66,6 +81,11 @@ export default function ConcertDetailPage() {
       if (filters.vibe && r.vibe !== (filters.vibe as Vibe)) return false;
       if (filters.round_trip === "yes" && !r.round_trip) return false;
       if (filters.round_trip === "no" && r.round_trip) return false;
+      if (filters.near_lat !== null && filters.near_lng !== null) {
+        const dist = haversineKm(filters.near_lat, filters.near_lng, r.origin_lat, r.origin_lng);
+        if (dist > filters.radius_km) return false;
+      }
+      if (filters.no_smoking && r.smoking_policy !== "no") return false;
       return true;
     });
   }, [rides, filters]);
@@ -188,6 +208,53 @@ export default function ConcertDetailPage() {
       <FilterBar value={filters} onChange={setFilters} cities={cities} />
 
       <section className="max-w-6xl mx-auto px-6 py-10 space-y-6">
+        {demand !== null && !isPast && (
+          <div className="flex items-center justify-between gap-4 border border-dashed border-cr-border p-4">
+            <div className="flex items-center gap-3">
+              <Users size={16} className="text-cr-primary" aria-hidden="true" />
+              <p className="font-mono text-sm text-cr-text">
+                {demand.count > 0 ? (
+                  <>
+                    <span className="text-cr-primary font-semibold">{demand.count}</span>
+                    {" "}persona{demand.count === 1 ? "" : "s"} busca{demand.count === 1 ? "" : "n"} viaje
+                  </>
+                ) : (
+                  <span className="text-cr-text-muted">Nadie busca viaje todavía</span>
+                )}
+              </p>
+            </div>
+            {user ? (
+              <button
+                type="button"
+                disabled={demandLoading}
+                onClick={async () => {
+                  setDemandLoading(true);
+                  try {
+                    const updated = await api.concerts.toggleInterest(id!);
+                    setDemand(updated);
+                  } finally {
+                    setDemandLoading(false);
+                  }
+                }}
+                className={`font-sans text-xs font-semibold uppercase tracking-[0.1em] px-4 py-2 border-2 transition-colors disabled:opacity-40 ${
+                  demand.user_has_signaled
+                    ? "border-cr-primary bg-cr-primary text-black"
+                    : "border-cr-border text-cr-text-muted hover:border-cr-primary hover:text-cr-primary"
+                }`}
+              >
+                {demandLoading ? "…" : demand.user_has_signaled ? "Apuntado" : "Necesito un viaje"}
+              </button>
+            ) : (
+              <Link
+                to={`/login?next=${encodeURIComponent(`/concerts/${id}`)}`}
+                className="font-sans text-xs font-semibold uppercase tracking-[0.1em] px-4 py-2 border-2 border-cr-border text-cr-text-muted hover:border-cr-primary hover:text-cr-primary transition-colors"
+              >
+                Necesito un viaje
+              </Link>
+            )}
+          </div>
+        )}
+
         <header className="flex items-baseline justify-between gap-4">
           <h2 className="font-display text-xl uppercase tracking-wide">
             {isPast ? "Viajes realizados" : "Viajes disponibles"}

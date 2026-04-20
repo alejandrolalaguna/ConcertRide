@@ -7,4 +7,5 @@ export interface Env {
   INGEST_SECRET: string;
   ENVIRONMENT: "development" | "production";
   ASSETS: Fetcher;
+  CACHE: KVNamespace;
 }
