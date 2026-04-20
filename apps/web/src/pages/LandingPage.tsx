@@ -26,7 +26,7 @@ export default function LandingPage() {
   const [rides, setRides] = useState<Ride[] | null>(null);
 
   useEffect(() => {
-    Promise.all([api.concerts.list({ limit: 50 }), api.rides.list({})])
+    Promise.all([api.concerts.list({ limit: 50, date_from: new Date().toISOString() }), api.rides.list({})])
       .then(([c, r]) => {
         setConcerts(c.concerts);
         setRides(r.rides);
@@ -40,7 +40,7 @@ export default function LandingPage() {
   // Solo los 10 conciertos futuros más próximos
   const activeConcerts = useMemo(() => {
     const futuros = (concerts ?? [])
-      .filter((c) => concertStatus(c.date) !== "archived")
+      .filter((c) => concertStatus(c.date) === "upcoming")
       .sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
     return futuros.slice(0, 10);
   }, [concerts]);
