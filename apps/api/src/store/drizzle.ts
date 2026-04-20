@@ -14,6 +14,7 @@ import type {
   RequestStatus,
   Ride,
   RideRequest,
+  UpdateProfileInput,
   User,
   Venue,
 } from "@concertride/types";
@@ -95,6 +96,10 @@ function hydrateUser(row: UserRow): User {
     car_model: row.car_model,
     car_color: row.car_color,
     rides_given: row.rides_given,
+    phone: row.phone ?? null,
+    home_city: row.home_city ?? null,
+    smoker: row.smoker ?? null,
+    has_license: row.has_license ?? null,
     created_at: row.created_at,
   };
 }
@@ -110,6 +115,7 @@ function hydrateConcert(row: ConcertWith, activeRidesCount = 0): Concert {
     date: row.date,
     image_url: row.image_url,
     ticketmaster_id: row.ticketmaster_id,
+    ticketmaster_url: row.ticketmaster_url ?? null,
     genre: row.genre,
     price_min: row.price_min,
     price_max: row.price_max,
@@ -138,6 +144,8 @@ function hydrateRide(row: RideWith): Ride {
     return_time: row.return_time,
     playlist_url: row.playlist_url,
     vibe: row.vibe,
+    smoking_policy: row.smoking_policy,
+    max_luggage: row.max_luggage,
     notes: row.notes,
     status: row.status,
     created_at: row.created_at,
@@ -154,6 +162,7 @@ function hydrateRequest(row: RequestWith): RideRequest {
     seats: row.seats,
     status: row.status,
     message: row.message,
+    luggage: (row.luggage as RideRequest["luggage"]) ?? null,
     created_at: row.created_at,
   };
 }
@@ -212,6 +221,7 @@ export class DrizzleStore implements StoreAdapter {
     name: string,
     hash: string,
     salt: string,
+    profile?: { phone?: string; home_city?: string; smoker?: boolean; has_license?: boolean },
   ): Promise<User> {
     const row = {
       id: `u_${crypto.randomUUID().slice(0, 8)}`,
@@ -224,12 +234,30 @@ export class DrizzleStore implements StoreAdapter {
       car_model: null as string | null,
       car_color: null as string | null,
       rides_given: 0,
+      phone: profile?.phone ?? null,
+      home_city: profile?.home_city ?? null,
+      smoker: profile?.smoker ?? null,
+      has_license: profile?.has_license ?? null,
       password_hash: hash,
       password_salt: salt,
       created_at: new Date().toISOString(),
     };
     await this.db.insert(schema.users).values(row);
     return hydrateUser(row as UserRow);
+  }
+
+  async updateUser(id: string, input: UpdateProfileInput): Promise<User | null> {
+    const patch: Partial<typeof schema.users.$inferInsert> = {};
+    if (input.name !== undefined) patch.name = input.name;
+    if (input.phone !== undefined) patch.phone = input.phone;
+    if (input.home_city !== undefined) patch.home_city = input.home_city;
+    if (input.smoker !== undefined) patch.smoker = input.smoker;
+    if (input.has_license !== undefined) patch.has_license = input.has_license;
+    if (input.car_model !== undefined) patch.car_model = input.car_model;
+    if (input.car_color !== undefined) patch.car_color = input.car_color;
+    if (Object.keys(patch).length === 0) return this.getUser(id);
+    await this.db.update(schema.users).set(patch).where(eq(schema.users.id, id));
+    return this.getUser(id);
   }
 
   async getPasswordHash(userId: string): Promise<{ hash: string; salt: string } | null> {
@@ -324,6 +352,7 @@ export class DrizzleStore implements StoreAdapter {
       date: input.date,
       image_url: null,
       ticketmaster_id: null,
+      ticketmaster_url: null,
       genre: input.genre ?? null,
       price_min: null,
       price_max: null,
@@ -366,6 +395,10 @@ export class DrizzleStore implements StoreAdapter {
             ? raw.price_max
             : existing.price_max;
         const newImage = raw.image_url && !existing.image_url ? raw.image_url : existing.image_url;
+        const newTmUrl =
+          raw.source === "ticketmaster" && !existing.ticketmaster_url
+            ? raw.source_url
+            : existing.ticketmaster_url;
         await tx
           .update(schema.concerts)
           .set({
@@ -373,6 +406,7 @@ export class DrizzleStore implements StoreAdapter {
             price_min: newPriceMin,
             price_max: newPriceMax,
             image_url: newImage,
+            ticketmaster_url: newTmUrl,
           })
           .where(eq(schema.concerts.id, existing.id));
         return { concert_id: existing.id, is_new: false };
@@ -387,6 +421,7 @@ export class DrizzleStore implements StoreAdapter {
         date: raw.date_iso,
         image_url: raw.image_url,
         ticketmaster_id: raw.source === "ticketmaster" ? raw.source_event_id : null,
+        ticketmaster_url: raw.source === "ticketmaster" ? raw.source_url : null,
         genre: raw.genre,
         price_min: raw.price_min,
         price_max: raw.price_max,
@@ -462,6 +497,8 @@ export class DrizzleStore implements StoreAdapter {
       return_time: input.return_time ?? null,
       playlist_url: input.playlist_url ?? null,
       vibe: input.vibe,
+      smoking_policy: input.smoking_policy ?? "no",
+      max_luggage: input.max_luggage ?? "backpack",
       notes: input.notes ?? null,
       status: "active",
       created_at: now,
@@ -493,6 +530,7 @@ export class DrizzleStore implements StoreAdapter {
     passenger: User,
     seats: number,
     message?: string,
+    luggage?: string,
   ): Promise<CreateRequestResult> {
     // Re-read ride inside a transaction so concurrent requests can't
     // double-book the last seat.
@@ -514,6 +552,7 @@ export class DrizzleStore implements StoreAdapter {
 
       const id = crypto.randomUUID();
       const now = new Date().toISOString();
+      const luggageVal = (luggage ?? null) as RideRequest["luggage"];
       await tx.insert(schema.rideRequests).values({
         id,
         ride_id: ride.id,
@@ -521,6 +560,7 @@ export class DrizzleStore implements StoreAdapter {
         seats,
         status: "pending",
         message: message ?? null,
+        luggage: luggageVal,
         created_at: now,
       });
 
@@ -532,6 +572,7 @@ export class DrizzleStore implements StoreAdapter {
         seats,
         status: "pending",
         message: message ?? null,
+        luggage: luggageVal,
         created_at: now,
       };
       return { request: hydrated };

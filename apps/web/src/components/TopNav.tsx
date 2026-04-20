@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { LogOut, User as UserIcon } from "lucide-react";
+import { LogOut, Settings, User as UserIcon } from "lucide-react";
 import { useSession } from "@/lib/session";
 import { initials } from "@/lib/format";
 
@@ -8,7 +8,7 @@ export function TopNav() {
   const { user, loading, logout } = useSession();
   const location = useLocation();
   const [open, setOpen] = useState(false);
-  const ref = useRef<HTMLDivElement | null>(null);
+  const ref = useRef<HTMLElement | null>(null);
 
   useEffect(() => {
     function onDocClick(e: MouseEvent) {
@@ -23,10 +23,16 @@ export function TopNav() {
   const next = encodeURIComponent(location.pathname + location.search);
 
   return (
-    <div
+    <nav
       ref={ref}
-      className="fixed top-4 right-4 md:top-6 md:right-6 z-50 font-sans text-xs"
+      className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-4 md:px-6 h-14 bg-cr-bg/90 backdrop-blur border-b border-cr-border font-sans text-xs"
     >
+      <Link
+        to="/"
+        className="font-display text-sm uppercase tracking-[0.08em] hover:text-cr-primary transition-colors"
+      >
+        Concert<span className="text-cr-primary">Ride</span>
+      </Link>
       {user ? (
         <div className="relative">
           <button
@@ -66,6 +72,14 @@ export function TopNav() {
               >
                 <UserIcon size={12} aria-hidden="true" /> Publicar un viaje
               </Link>
+              <Link
+                to="/profile"
+                onClick={() => setOpen(false)}
+                role="menuitem"
+                className="flex items-center gap-2 px-4 py-2.5 hover:bg-cr-surface-2 hover:text-cr-primary"
+              >
+                <Settings size={12} aria-hidden="true" /> Mi perfil
+              </Link>
               <button
                 type="button"
                 role="menuitem"
@@ -88,6 +102,6 @@ export function TopNav() {
           Entrar
         </Link>
       )}
-    </div>
+    </nav>
   );
 }

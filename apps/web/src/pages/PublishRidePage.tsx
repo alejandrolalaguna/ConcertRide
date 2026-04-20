@@ -3,7 +3,7 @@ import { Link, Navigate, useNavigate } from "react-router-dom";
 import { motion } from "motion/react";
 import confetti from "canvas-confetti";
 import { ArrowLeft, ArrowRight, Check, PenLine, Search } from "lucide-react";
-import type { Concert, CreateConcertInput, Ride, Vibe } from "@concertride/types";
+import type { Concert, CreateConcertInput, Luggage, Ride, SmokingPolicy, Vibe } from "@concertride/types";
 import { api, ApiError } from "@/lib/api";
 import { SPANISH_CITIES, SPANISH_CITIES_BY_NAME } from "@/lib/constants";
 import { formatDate, formatTime } from "@/lib/format";
@@ -30,6 +30,8 @@ interface Form {
   seats_total: number;
   price_per_seat: number;
   vibe: Vibe | null;
+  smoking_policy: SmokingPolicy;
+  max_luggage: Luggage;
   playlist_url: string;
   notes: string;
 }
@@ -50,6 +52,8 @@ const INITIAL: Form = {
   seats_total: 3,
   price_per_seat: 15,
   vibe: null,
+  smoking_policy: "no",
+  max_luggage: "backpack",
   playlist_url: "",
   notes: "",
 };
@@ -167,6 +171,8 @@ export default function PublishRidePage() {
           : {}),
         ...(form.playlist_url.trim() ? { playlist_url: form.playlist_url.trim() } : {}),
         vibe: form.vibe,
+        smoking_policy: form.smoking_policy,
+        max_luggage: form.max_luggage,
         ...(form.notes.trim() ? { notes: form.notes.trim() } : {}),
       });
       setCreated(ride);
@@ -549,6 +555,64 @@ export default function PublishRidePage() {
             </h2>
 
             <VibeSelector value={form.vibe} onChange={(v) => update("vibe", v)} />
+
+            <div className="space-y-2">
+              <span className="font-sans text-[11px] font-semibold uppercase tracking-[0.12em] text-cr-text-muted">
+                Política de tabaco
+              </span>
+              <div className="flex gap-2">
+                {(
+                  [
+                    { value: "no", label: "🚭 Prohibido fumar" },
+                    { value: "yes", label: "🚬 Fumadores OK" },
+                  ] as { value: SmokingPolicy; label: string }[]
+                ).map(({ value, label }) => (
+                  <button
+                    key={value}
+                    type="button"
+                    onClick={() => update("smoking_policy", value)}
+                    className={`px-4 py-2 border-2 font-sans text-xs font-semibold uppercase tracking-[0.1em] transition-colors ${
+                      form.smoking_policy === value
+                        ? "border-cr-primary bg-cr-primary/[0.06] text-cr-primary"
+                        : "border-cr-border text-cr-text-muted hover:border-cr-text-muted"
+                    }`}
+                  >
+                    {label}
+                  </button>
+                ))}
+              </div>
+            </div>
+
+            <div className="space-y-2">
+              <span className="font-sans text-[11px] font-semibold uppercase tracking-[0.12em] text-cr-text-muted">
+                Equipaje máximo permitido
+              </span>
+              <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
+                {(
+                  [
+                    { value: "none", label: "Sin equipaje" },
+                    { value: "small", label: "Bolso pequeño" },
+                    { value: "backpack", label: "Mochila" },
+                    { value: "cabin", label: "Maleta cabina" },
+                    { value: "large", label: "Maleta grande" },
+                    { value: "extra", label: "Extra (instrumento…)" },
+                  ] as { value: Luggage; label: string }[]
+                ).map(({ value, label }) => (
+                  <button
+                    key={value}
+                    type="button"
+                    onClick={() => update("max_luggage", value)}
+                    className={`py-2 px-3 font-sans text-xs font-semibold uppercase tracking-[0.08em] border-2 text-left transition-colors ${
+                      form.max_luggage === value
+                        ? "border-cr-primary text-cr-primary bg-cr-primary/5"
+                        : "border-cr-border text-cr-text-muted hover:border-cr-primary/50"
+                    }`}
+                  >
+                    {label}
+                  </button>
+                ))}
+              </div>
+            </div>
 
             <Field label="Playlist de Spotify (opcional)">
               <input

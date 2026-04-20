@@ -1,8 +1,6 @@
 export type SourceId =
   | "ticketmaster"
-  | "wegow"
   | "dice"
-  | "ra"
   | "eventbrite"
   | "bandsintown";
 

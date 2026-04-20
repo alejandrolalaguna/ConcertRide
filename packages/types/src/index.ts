@@ -1,4 +1,6 @@
 export type Vibe = "party" | "chill" | "mixed";
+export type Luggage = "none" | "small" | "backpack" | "cabin" | "large" | "extra";
+export type SmokingPolicy = "no" | "yes";
 export type RideStatus = "active" | "full" | "cancelled";
 export type RequestStatus = "pending" | "confirmed" | "rejected" | "cancelled";
 
@@ -22,6 +24,7 @@ export interface Concert {
   date: string;
   image_url: string | null;
   ticketmaster_id: string | null;
+  ticketmaster_url: string | null;
   genre: string | null;
   price_min: number | null;
   price_max: number | null;
@@ -39,7 +42,21 @@ export interface User {
   car_model: string | null;
   car_color: string | null;
   rides_given: number;
+  phone: string | null;
+  home_city: string | null;
+  smoker: boolean | null;
+  has_license: boolean | null;
   created_at: string;
+}
+
+export interface UpdateProfileInput {
+  name?: string;
+  phone?: string | null;
+  home_city?: string | null;
+  smoker?: boolean | null;
+  has_license?: boolean | null;
+  car_model?: string | null;
+  car_color?: string | null;
 }
 
 export interface Ride {
@@ -60,6 +77,8 @@ export interface Ride {
   return_time: string | null;
   playlist_url: string | null;
   vibe: Vibe;
+  smoking_policy: SmokingPolicy;
+  max_luggage: Luggage;
   notes: string | null;
   status: RideStatus;
   created_at: string;
@@ -73,6 +92,7 @@ export interface RideRequest {
   seats: number;
   status: RequestStatus;
   message: string | null;
+  luggage: Luggage | null;
   created_at: string;
 }
 
@@ -112,12 +132,15 @@ export interface CreateRideRequest {
   return_time?: string;
   playlist_url?: string;
   vibe: Vibe;
+  smoking_policy?: SmokingPolicy;
+  max_luggage?: Luggage;
   notes?: string;
 }
 
 export interface RequestSeatRequest {
   seats: number;
   message?: string;
+  luggage?: Luggage;
 }
 
 export interface ConcertsQuery {

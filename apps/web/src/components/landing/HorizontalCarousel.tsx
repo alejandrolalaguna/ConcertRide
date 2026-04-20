@@ -51,7 +51,7 @@ export function HorizontalCarousel({ concerts }: Props) {
       <div
         ref={ref}
         className="relative hidden md:block"
-        style={{ height: `${Math.max(1, range) * 80 + 100}vh` }}
+        style={{ height: `${Math.min(Math.max(1, range) * 50 + 80, 180)}vh` }}
       >
         <div className="sticky top-0 h-dvh flex items-center overflow-hidden">
           <motion.ol

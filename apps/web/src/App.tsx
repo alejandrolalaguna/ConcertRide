@@ -1,13 +1,23 @@
+import { lazy, Suspense } from "react";
 import { Navigate, Route, Routes } from "react-router-dom";
-import LandingPage from "./pages/LandingPage";
-import ConcertDetailPage from "./pages/ConcertDetailPage";
-import ConcertsPage from "./pages/ConcertsPage";
-import RideDetailPage from "./pages/RideDetailPage";
-import PublishRidePage from "./pages/PublishRidePage";
-import LoginPage from "./pages/LoginPage";
-import RegisterPage from "./pages/RegisterPage";
-import DevShowcase from "./pages/DevShowcase";
 import { TopNav } from "./components/TopNav";
+import { Footer } from "./components/Footer";
+import { CookieBanner } from "./components/CookieBanner";
+import { LoadingSpinner } from "./components/ui";
+
+const LandingPage = lazy(() => import("./pages/LandingPage"));
+const ConcertsPage = lazy(() => import("./pages/ConcertsPage"));
+const ConcertDetailPage = lazy(() => import("./pages/ConcertDetailPage"));
+const RideDetailPage = lazy(() => import("./pages/RideDetailPage"));
+const PublishRidePage = lazy(() => import("./pages/PublishRidePage"));
+const LoginPage = lazy(() => import("./pages/LoginPage"));
+const RegisterPage = lazy(() => import("./pages/RegisterPage"));
+const ProfilePage = lazy(() => import("./pages/ProfilePage"));
+const AvisoLegalPage = lazy(() => import("./pages/AvisoLegalPage"));
+const PrivacidadPage = lazy(() => import("./pages/PrivacidadPage"));
+const CookiesPage = lazy(() => import("./pages/CookiesPage"));
+const TerminosPage = lazy(() => import("./pages/TerminosPage"));
+const DevShowcase = lazy(() => import("./pages/DevShowcase"));
 
 export default function App() {
   return (
@@ -19,17 +29,26 @@ export default function App() {
         Saltar al contenido principal
       </a>
       <TopNav />
-      <Routes>
-        <Route path="/" element={<LandingPage />} />
-        <Route path="/concerts" element={<ConcertsPage />} />
-        <Route path="/concerts/:id" element={<ConcertDetailPage />} />
-        <Route path="/rides/:id" element={<RideDetailPage />} />
-        <Route path="/publish" element={<PublishRidePage />} />
-        <Route path="/login" element={<LoginPage />} />
-        <Route path="/register" element={<RegisterPage />} />
-        <Route path="/_dev" element={<DevShowcase />} />
-        <Route path="*" element={<Navigate to="/" replace />} />
-      </Routes>
+      <Suspense fallback={<LoadingSpinner text="Cargando…" />}>
+        <Routes>
+          <Route path="/" element={<LandingPage />} />
+          <Route path="/concerts" element={<ConcertsPage />} />
+          <Route path="/concerts/:id" element={<ConcertDetailPage />} />
+          <Route path="/rides/:id" element={<RideDetailPage />} />
+          <Route path="/publish" element={<PublishRidePage />} />
+          <Route path="/login" element={<LoginPage />} />
+          <Route path="/register" element={<RegisterPage />} />
+          <Route path="/profile" element={<ProfilePage />} />
+          <Route path="/aviso-legal" element={<AvisoLegalPage />} />
+          <Route path="/privacidad" element={<PrivacidadPage />} />
+          <Route path="/cookies" element={<CookiesPage />} />
+          <Route path="/terminos" element={<TerminosPage />} />
+          <Route path="/_dev" element={<DevShowcase />} />
+          <Route path="*" element={<Navigate to="/" replace />} />
+        </Routes>
+      </Suspense>
+      <Footer />
+      <CookieBanner />
     </>
   );
 }

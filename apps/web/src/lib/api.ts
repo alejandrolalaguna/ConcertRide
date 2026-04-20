@@ -14,6 +14,7 @@ import type {
   RideRequest,
   RidesQuery,
   RidesResponse,
+  UpdateProfileInput,
   User,
   VenuesResponse,
 } from "@concertride/types";
@@ -76,10 +77,15 @@ export interface MeResponse {
 export const api = {
   health: () => request<HealthResponse>("/api/health"),
   auth: {
-    register: (email: string, password: string, name: string) =>
+    register: (
+      email: string,
+      password: string,
+      name: string,
+      profile?: { phone?: string; home_city?: string; smoker?: boolean },
+    ) =>
       request<AuthResponse>("/api/auth/register", {
         method: "POST",
-        body: JSON.stringify({ email, password, name }),
+        body: JSON.stringify({ email, password, name, ...profile }),
       }),
     login: (email: string, password: string) =>
       request<AuthResponse>("/api/auth/login", {
@@ -87,6 +93,11 @@ export const api = {
         body: JSON.stringify({ email, password }),
       }),
     me: () => request<MeResponse>("/api/auth/me"),
+    updateProfile: (input: UpdateProfileInput) =>
+      request<{ ok: true; user: User }>("/api/auth/profile", {
+        method: "PATCH",
+        body: JSON.stringify(input),
+      }),
     logout: () => request<{ ok: true }>("/api/auth/logout", { method: "POST" }),
   },
   concerts: {

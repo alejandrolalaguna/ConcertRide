@@ -43,6 +43,39 @@ app.get("/api/health", (c) =>
 
 app.use("/api/*", storeMiddleware);
 
+app.get("/sitemap.xml", storeMiddleware, async (c) => {
+  const BASE = "https://concertride.es";
+  const today = new Date().toISOString().slice(0, 10);
+  const STATIC_LOCS = ["/", "/concerts", "/publish", "/register", "/login", "/aviso-legal", "/privacidad", "/cookies", "/terminos"];
+
+  let concertUrls = "";
+  try {
+    const { concerts } = await c.var.store.listConcerts({
+      limit: 500,
+      offset: 0,
+      date_from: new Date().toISOString(),
+    });
+    concertUrls = concerts
+      .map((concert) => {
+        const lastmod = concert.date ? concert.date.slice(0, 10) : today;
+        return `  <url>\n    <loc>${BASE}/concerts/${concert.id}</loc>\n    <lastmod>${lastmod}</lastmod>\n  </url>`;
+      })
+      .join("\n");
+  } catch {
+    // store unavailable — serve static-only sitemap
+  }
+
+  const staticUrls = STATIC_LOCS.map(
+    (loc) => `  <url>\n    <loc>${BASE}${loc}</loc>\n    <lastmod>${today}</lastmod>\n  </url>`,
+  ).join("\n");
+
+  const xml = `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${staticUrls}\n${concertUrls}\n</urlset>`;
+  return c.body(xml, 200, {
+    "Content-Type": "application/xml; charset=utf-8",
+    "Cache-Control": "public, max-age=3600",
+  });
+});
+
 app.route("/api/auth", auth);
 app.route("/api/concerts", concerts);
 app.route("/api/rides", rides);

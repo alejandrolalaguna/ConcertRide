@@ -82,6 +82,10 @@ export default function DevShowcase() {
     car_model: "SEAT León",
     car_color: "Negro",
     rides_given: 32,
+    phone: null,
+    home_city: "Madrid",
+    smoker: false,
+    has_license: true,
     created_at: "2025-06-14T10:00:00.000Z",
   };
 

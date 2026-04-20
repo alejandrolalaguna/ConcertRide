@@ -7,6 +7,7 @@ import type {
   Review,
   Ride,
   RideRequest,
+  UpdateProfileInput,
   User,
   Venue,
   Vibe,
@@ -51,7 +52,14 @@ export interface StoreAdapter {
   getUser(id: string): Promise<User | null>;
   getUserByEmail(email: string): Promise<User | null>;
   upsertUserByEmail(email: string): Promise<User>;
-  createUserWithPassword(email: string, name: string, hash: string, salt: string): Promise<User>;
+  createUserWithPassword(
+    email: string,
+    name: string,
+    hash: string,
+    salt: string,
+    profile?: { phone?: string; home_city?: string; smoker?: boolean; has_license?: boolean },
+  ): Promise<User>;
+  updateUser(id: string, input: UpdateProfileInput): Promise<User | null>;
   getPasswordHash(userId: string): Promise<{ hash: string; salt: string } | null>;
 
   // --- venues ---
@@ -82,6 +90,7 @@ export interface StoreAdapter {
     passenger: User,
     seats: number,
     message?: string,
+    luggage?: string,
   ): Promise<CreateRequestResult>;
   updateRequestStatus(requestId: string, status: RequestStatus): Promise<RideRequest | null>;
 

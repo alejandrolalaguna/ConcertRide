@@ -58,12 +58,97 @@
         "url": "https://concertride.es/",
         "inLanguage": "es-ES",
         "description": "Ride-sharing para conciertos en España. Encuentra o publica un viaje, divide el coste y llega al show.",
-        "offers": { "@type": "Offer", "price": "0", "priceCurrency": "EUR" },
-        "aggregateRating": {
-          "@type": "AggregateRating",
-          "ratingValue": "4.9",
-          "ratingCount": "3400"
+        "offers": { "@type": "Offer", "price": "0", "priceCurrency": "EUR" }
+      }
+    </script>
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Organization",
+        "name": "ConcertRide ES",
+        "url": "https://concertride.es/",
+        "logo": {
+          "@type": "ImageObject",
+          "url": "https://concertride.es/favicon.svg",
+          "width": 512,
+          "height": 512
+        },
+        "description": "Plataforma de carpooling para conciertos y festivales en España.",
+        "contactPoint": {
+          "@type": "ContactPoint",
+          "contactType": "customer support",
+          "availableLanguage": "Spanish",
+          "url": "https://concertride.es/"
+        },
+        "areaServed": {
+          "@type": "Country",
+          "name": "Spain"
         }
+      }
+    </script>
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "WebSite",
+        "name": "ConcertRide ES",
+        "url": "https://concertride.es/",
+        "inLanguage": "es-ES",
+        "potentialAction": {
+          "@type": "SearchAction",
+          "target": {
+            "@type": "EntryPoint",
+            "urlTemplate": "https://concertride.es/concerts?artist={search_term_string}"
+          },
+          "query-input": "required name=search_term_string"
+        }
+      }
+    </script>
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "¿Qué es ConcertRide?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "ConcertRide es una plataforma de carpooling para conciertos en España. Conductores publican su viaje y los pasajeros se unen para dividir el coste del desplazamiento hasta el concierto."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "¿Es gratuito usar ConcertRide?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Sí, registrarse y buscar viajes en ConcertRide es completamente gratuito. Solo pagas el coste del viaje compartido al conductor, en efectivo."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "¿Cómo publico un viaje a un concierto?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Regístrate, haz clic en 'Publicar viaje', selecciona el concierto de destino, añade tu origen, hora de salida, precio por asiento y número de plazas disponibles. ¡Listo!"
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "¿Es seguro compartir coche con desconocidos?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Todos los usuarios están verificados con correo electrónico. Puedes ver el perfil, valoraciones y coche del conductor antes de reservar. Los pagos son en efectivo, sin datos bancarios compartidos."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "¿Qué ciudades cubre ConcertRide?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "ConcertRide cubre toda España, con viajes disponibles desde Madrid, Barcelona, Valencia, Sevilla, Bilbao y muchas otras ciudades a los principales recintos de conciertos del país."
+            }
+          }
+        ]
       }
     </script>
   </head>

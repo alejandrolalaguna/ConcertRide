@@ -10,6 +10,7 @@ import type {
   Review,
   Ride,
   RideRequest,
+  UpdateProfileInput,
   User,
   Venue,
 } from "@concertride/types";
@@ -76,6 +77,8 @@ interface MemoryUser extends User {
   password_salt: string | null;
 }
 
+type LuggageVal = import("@concertride/types").Luggage | null;
+
 interface StagingRow {
   id: string;
   source: SourceId;
@@ -122,6 +125,10 @@ export class MemoryStore implements StoreAdapter {
       car_model: null,
       car_color: null,
       rides_given: 0,
+      phone: null,
+      home_city: null,
+      smoker: null,
+      has_license: null,
       password_hash: null,
       password_salt: null,
       created_at: new Date().toISOString(),
@@ -135,6 +142,7 @@ export class MemoryStore implements StoreAdapter {
     name: string,
     hash: string,
     salt: string,
+    profile?: { phone?: string; home_city?: string; smoker?: boolean; has_license?: boolean },
   ): Promise<User> {
     const user: MemoryUser = {
       id: `u_${crypto.randomUUID().slice(0, 8)}`,
@@ -147,11 +155,28 @@ export class MemoryStore implements StoreAdapter {
       car_model: null,
       car_color: null,
       rides_given: 0,
+      phone: profile?.phone ?? null,
+      home_city: profile?.home_city ?? null,
+      smoker: profile?.smoker ?? null,
+      has_license: profile?.has_license ?? null,
       password_hash: hash,
       password_salt: salt,
       created_at: new Date().toISOString(),
     };
     this.users = [user, ...this.users];
+    return user;
+  }
+
+  async updateUser(id: string, input: UpdateProfileInput): Promise<User | null> {
+    const user = this.users.find((u) => u.id === id);
+    if (!user) return null;
+    if (input.name !== undefined) user.name = input.name;
+    if (input.phone !== undefined) user.phone = input.phone;
+    if (input.home_city !== undefined) user.home_city = input.home_city;
+    if (input.smoker !== undefined) user.smoker = input.smoker;
+    if (input.has_license !== undefined) user.has_license = input.has_license;
+    if (input.car_model !== undefined) user.car_model = input.car_model;
+    if (input.car_color !== undefined) user.car_color = input.car_color;
     return user;
   }
 
@@ -232,6 +257,7 @@ export class MemoryStore implements StoreAdapter {
       date: input.date,
       image_url: null,
       ticketmaster_id: null,
+      ticketmaster_url: null,
       genre: input.genre ?? null,
       price_min: null,
       price_max: null,
@@ -268,6 +294,9 @@ export class MemoryStore implements StoreAdapter {
         existing.price_max = raw.price_max;
       }
       if (raw.image_url && !existing.image_url) existing.image_url = raw.image_url;
+      if (raw.source === "ticketmaster" && !existing.ticketmaster_url) {
+        existing.ticketmaster_url = raw.source_url;
+      }
       return { concert_id: existing.id, is_new: false };
     }
     const venue = this.venues.find((v) => v.id === venueId);
@@ -282,6 +311,7 @@ export class MemoryStore implements StoreAdapter {
       date: raw.date_iso,
       image_url: raw.image_url,
       ticketmaster_id: raw.source === "ticketmaster" ? raw.source_event_id : null,
+      ticketmaster_url: raw.source === "ticketmaster" ? raw.source_url : null,
       genre: raw.genre,
       price_min: raw.price_min,
       price_max: raw.price_max,
@@ -339,6 +369,8 @@ export class MemoryStore implements StoreAdapter {
       return_time: input.return_time ?? null,
       playlist_url: input.playlist_url ?? null,
       vibe: input.vibe,
+      smoking_policy: input.smoking_policy ?? "no",
+      max_luggage: input.max_luggage ?? "backpack",
       notes: input.notes ?? null,
       status: "active",
       created_at: new Date().toISOString(),
@@ -360,6 +392,7 @@ export class MemoryStore implements StoreAdapter {
     passenger: User,
     seats: number,
     message?: string,
+    luggage?: string,
   ): Promise<CreateRequestResult> {
     if (passenger.id === ride.driver_id) return { error: "cannot_request_own_ride" };
     if (ride.status !== "active") return { error: "ride_not_active" };
@@ -377,6 +410,7 @@ export class MemoryStore implements StoreAdapter {
       seats,
       status: "pending",
       message: message ?? null,
+      luggage: (luggage ?? null) as LuggageVal,
       created_at: new Date().toISOString(),
     };
     this.requests = [req, ...this.requests];

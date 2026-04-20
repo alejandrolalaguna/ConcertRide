@@ -1,5 +1,5 @@
-import { useMemo, useState } from "react";
-import { MapContainer, Marker, TileLayer } from "react-leaflet";
+import { useMemo, useRef, useState } from "react";
+import { MapContainer, Marker, TileLayer, useMapEvents } from "react-leaflet";
 import L from "leaflet";
 import type { Concert, Ride } from "@concertride/types";
 import { formatDay } from "@/lib/format";
@@ -11,18 +11,24 @@ const SPAIN_BOUNDS: L.LatLngBoundsLiteral = [
   [43.8, 4.4],
 ];
 
+// CartoDB Dark Matter — natively dark tiles, no CSS hack needed.
+// Attribution required: OSM ODbL + CARTO terms.
+const TILE_URL = "https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}.png";
+const TILE_ATTR =
+  '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>';
+
 const concertIcon = L.divIcon({
   className: "cr-marker-wrapper",
   html: '<span class="cr-marker-concert" aria-hidden="true"></span>',
-  iconSize: [24, 24],
-  iconAnchor: [12, 12],
+  iconSize: [28, 28],
+  iconAnchor: [14, 14],
 });
 
 const originIcon = L.divIcon({
   className: "cr-marker-wrapper",
   html: '<span class="cr-marker-origin" aria-hidden="true"></span>',
-  iconSize: [24, 24],
-  iconAnchor: [12, 12],
+  iconSize: [20, 20],
+  iconAnchor: [10, 10],
 });
 
 interface Props {
@@ -30,9 +36,25 @@ interface Props {
   rides: Ride[];
 }
 
+function CloseOnMapClick({
+  onClose,
+  skipRef,
+}: {
+  onClose: () => void;
+  skipRef: React.RefObject<number>;
+}) {
+  useMapEvents({
+    click: () => {
+      if (Date.now() - (skipRef.current ?? 0) > 80) onClose();
+    },
+  });
+  return null;
+}
+
 export default function MapView({ concerts, rides }: Props) {
   const [activeCity, setActiveCity] = useState<string | null>(null);
   const [selectedConcert, setSelectedConcert] = useState<Concert | null>(null);
+  const justOpenedRef = useRef<number>(0);
 
   const cities = useMemo(() => {
     const set = new Set(concerts.map((c) => c.venue.city));
@@ -50,20 +72,28 @@ export default function MapView({ concerts, rides }: Props) {
     return rides.filter((r) => visibleIds.has(r.concert_id));
   }, [rides, visibleConcerts, activeCity]);
 
+  const ridesByConcert = useMemo(() => {
+    const map: Record<string, number> = {};
+    for (const r of rides) map[r.concert_id] = (map[r.concert_id] ?? 0) + 1;
+    return map;
+  }, [rides]);
+
   return (
-    <div className="cr-map relative h-[60vh] w-full border-y border-cr-border">
+    <div className="cr-map relative h-[60vh] min-h-[420px] w-full border-y border-cr-border">
       <MapContainer
         center={SPAIN_CENTER}
         zoom={6}
         maxBounds={SPAIN_BOUNDS}
         minZoom={5}
+        maxZoom={12}
         scrollWheelZoom={false}
         attributionControl
         className="h-full w-full"
       >
-        <TileLayer
-          url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-          attribution='&copy; <a href="https://openstreetmap.org/copyright">OpenStreetMap</a>'
+        <TileLayer url={TILE_URL} attribution={TILE_ATTR} subdomains="abcd" />
+        <CloseOnMapClick
+          onClose={() => setSelectedConcert(null)}
+          skipRef={justOpenedRef}
         />
 
         {visibleConcerts.map((c) => (
@@ -72,7 +102,12 @@ export default function MapView({ concerts, rides }: Props) {
             position={[c.venue.lat, c.venue.lng]}
             icon={concertIcon}
             title={`${c.artist} — ${c.venue.city}`}
-            eventHandlers={{ click: () => setSelectedConcert(c) }}
+            eventHandlers={{
+              click: () => {
+                justOpenedRef.current = Date.now();
+                setSelectedConcert(c);
+              },
+            }}
           />
         ))}
 
@@ -86,8 +121,9 @@ export default function MapView({ concerts, rides }: Props) {
         ))}
       </MapContainer>
 
-      <div className="absolute top-3 left-3 right-3 flex flex-wrap gap-2 pointer-events-none">
-        <div className="pointer-events-auto flex flex-wrap gap-2">
+      {/* City filter chips */}
+      <div className="absolute top-3 left-3 right-3 z-[1000] flex flex-wrap gap-1.5 pointer-events-none">
+        <div className="pointer-events-auto flex flex-wrap gap-1.5">
           <FilterChip active={activeCity === null} onClick={() => setActiveCity(null)}>
             Todos
           </FilterChip>
@@ -103,34 +139,69 @@ export default function MapView({ concerts, rides }: Props) {
         </div>
       </div>
 
+      {/* Stats overlay */}
+      <div className="absolute bottom-8 left-3 z-[1000] pointer-events-none">
+        <div className="bg-cr-bg/85 backdrop-blur border border-cr-border/60 px-3 py-1.5 font-mono text-[10px] flex gap-3">
+          <span>
+            <span className="text-cr-primary font-semibold">{visibleConcerts.length}</span>{" "}
+            <span className="text-cr-text-muted">conciertos</span>
+          </span>
+          <span className="text-cr-border">·</span>
+          <span>
+            <span className="text-cr-secondary font-semibold">{visibleOrigins.length}</span>{" "}
+            <span className="text-cr-text-muted">viajes</span>
+          </span>
+        </div>
+      </div>
+
+      {/* Concert detail popup */}
       {selectedConcert && (
-        <div className="absolute bottom-3 left-3 right-3 md:left-auto md:right-3 md:w-80 bg-cr-surface/95 backdrop-blur-md border border-cr-border p-4 space-y-2 pointer-events-auto">
+        <div className="absolute bottom-3 right-3 z-[1000] w-[min(300px,calc(100vw-24px))] bg-cr-surface/96 backdrop-blur-md border border-cr-border pointer-events-auto shadow-[0_0_32px_rgba(0,0,0,0.8)]">
           <button
             type="button"
             onClick={() => setSelectedConcert(null)}
-            className="absolute top-2 right-2 font-mono text-xs text-cr-text-muted hover:text-cr-primary"
+            className="absolute top-2 right-2 z-10 w-6 h-6 flex items-center justify-center font-mono text-xs text-cr-text-muted hover:text-cr-primary transition-colors"
             aria-label="Cerrar"
           >
             ✕
           </button>
-          <p className="font-sans text-[10px] font-semibold uppercase tracking-[0.12em] text-cr-primary">
-            Viajes activos
-          </p>
-          <h3 className="font-display text-lg uppercase leading-tight pr-6 truncate">
-            {selectedConcert.artist}
-          </h3>
-          <p className="font-mono text-xs text-cr-text-muted">
-            {selectedConcert.venue.name} · {formatDay(selectedConcert.date)}
-          </p>
-          <p className="font-mono text-xs text-cr-primary">
-            {selectedConcert.active_rides_count} viajes · desde €{selectedConcert.price_min ?? "?"}
-          </p>
-          <a
-            href={`/concerts/${selectedConcert.id}`}
-            className="inline-block mt-2 font-sans text-xs font-semibold uppercase tracking-[0.12em] text-cr-text hover:text-cr-primary border-b border-cr-primary/40 pb-0.5"
-          >
-            Ver viajes →
-          </a>
+
+          {selectedConcert.image_url && (
+            <div className="h-28 overflow-hidden">
+              <img
+                src={selectedConcert.image_url}
+                alt=""
+                aria-hidden="true"
+                className="w-full h-full object-cover opacity-50"
+              />
+              <div className="absolute inset-0 h-28 bg-gradient-to-b from-transparent to-cr-surface/80" />
+            </div>
+          )}
+
+          <div className="p-4 space-y-2">
+            <p className="font-sans text-[10px] font-semibold uppercase tracking-[0.14em] text-cr-primary flex items-center gap-1.5">
+              <span className="w-1.5 h-1.5 rounded-full bg-cr-primary inline-block animate-pulse" />
+              {ridesByConcert[selectedConcert.id] ?? 0} viajes activos
+            </p>
+            <h3 className="font-display text-xl uppercase leading-tight pr-6">
+              {selectedConcert.artist}
+            </h3>
+            <p className="font-mono text-[11px] text-cr-text-muted">
+              {selectedConcert.venue.name}
+            </p>
+            <p className="font-mono text-[11px] text-cr-text-muted">
+              {formatDay(selectedConcert.date)}
+              {selectedConcert.price_min != null && (
+                <span className="text-cr-secondary ml-2">· desde €{selectedConcert.price_min}</span>
+              )}
+            </p>
+            <a
+              href={`/concerts/${selectedConcert.id}`}
+              className="mt-2 w-full flex items-center justify-center font-sans text-xs font-semibold uppercase tracking-[0.12em] bg-cr-primary text-black py-2.5 hover:bg-cr-primary/90 transition-colors"
+            >
+              Ver viajes →
+            </a>
+          </div>
         </div>
       )}
     </div>
@@ -150,10 +221,10 @@ function FilterChip({
     <button
       type="button"
       onClick={onClick}
-      className={`font-sans text-[11px] font-semibold uppercase tracking-[0.12em] px-3 py-1.5 border transition-colors ${
+      className={`font-sans text-[10px] font-semibold uppercase tracking-[0.12em] px-2.5 py-1 border transition-colors ${
         active
           ? "bg-cr-primary text-black border-cr-primary"
-          : "bg-cr-surface/80 backdrop-blur text-cr-text-muted border-cr-border hover:border-cr-primary hover:text-cr-primary"
+          : "bg-cr-bg/85 backdrop-blur text-cr-text-muted border-cr-border hover:border-cr-primary hover:text-cr-primary"
       }`}
     >
       {children}

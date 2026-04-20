@@ -227,6 +227,8 @@ export const RIDES: Ride[] = SEEDS.map((s) => {
     return_time: s.return_time,
     playlist_url: s.playlist_url,
     vibe: s.vibe,
+    smoking_policy: "no",
+    max_luggage: "backpack",
     notes: s.notes,
     status: s.seats_left === 0 ? "full" : "active",
     created_at: "2026-04-10T12:00:00.000Z",

@@ -1,16 +1,12 @@
 import type { SourceAdapter, SourceTier } from "../types";
 import { ticketmaster } from "./ticketmaster";
-import { wegow } from "./wegow";
 import { dice } from "./dice";
-import { ra } from "./ra";
 import { eventbrite } from "./eventbrite";
 import { bandsintown } from "./bandsintown";
 
 export const ADAPTERS: SourceAdapter[] = [
   ticketmaster,
-  wegow,
   dice,
-  ra,
   eventbrite,
   bandsintown,
 ];

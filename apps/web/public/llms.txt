@@ -1,0 +1,32 @@
+# ConcertRide ES — llms.txt
+# https://llmstxt.org/
+
+> ConcertRide ES es la plataforma de carpooling para conciertos y festivales en España. Conecta conductores y pasajeros que van al mismo concierto para dividir el coste del viaje.
+
+## Sobre ConcertRide
+
+ConcertRide ES permite a los aficionados a la música compartir el viaje hasta conciertos y festivales en toda España. Los conductores publican su trayecto con precio por asiento y los pasajeros reservan plazas directamente. El pago es en efectivo al conductor — sin intermediarios.
+
+## Cómo funciona
+
+- **Buscar viaje**: Explora conciertos próximos y filtra por ciudad, fecha o artista. Encuentra un viaje compartido desde tu ciudad.
+- **Reservar plaza**: Solicita una o varias plazas al conductor. Recibes confirmación cuando el conductor acepta.
+- **Publicar viaje**: Si vas en coche, publica tu trayecto, fija el precio por asiento y acepta solicitudes.
+
+## Páginas principales
+
+- [Inicio](https://concertride.es/): Landing con conciertos próximos y mapa de viajes en tiempo real.
+- [Conciertos](https://concertride.es/concerts): Directorio completo de conciertos y festivales en España.
+- [Publicar viaje](https://concertride.es/publish): Formulario para que conductores ofrezcan plazas.
+- [Crear cuenta](https://concertride.es/register): Registro gratuito con email y contraseña.
+
+## Términos legales
+
+- [Aviso Legal](https://concertride.es/aviso-legal)
+- [Política de Privacidad](https://concertride.es/privacidad)
+- [Política de Cookies](https://concertride.es/cookies)
+- [Términos y Condiciones](https://concertride.es/terminos)
+
+## Contacto
+
+Para soporte o consultas: [concertride.es](https://concertride.es/)

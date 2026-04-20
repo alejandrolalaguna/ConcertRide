@@ -26,6 +26,10 @@ export const users = sqliteTable(
     car_model: text("car_model"),
     car_color: text("car_color"),
     rides_given: integer("rides_given").notNull().default(0),
+    phone: text("phone"),
+    home_city: text("home_city"),
+    smoker: integer("smoker", { mode: "boolean" }),
+    has_license: integer("has_license", { mode: "boolean" }),
     password_hash: text("password_hash"),
     password_salt: text("password_salt"),
     created_at: text("created_at").notNull().default(sql`CURRENT_TIMESTAMP`),
@@ -47,6 +51,7 @@ export const concerts = sqliteTable(
     date: text("date").notNull(),
     image_url: text("image_url"),
     ticketmaster_id: text("ticketmaster_id"),
+    ticketmaster_url: text("ticketmaster_url"),
     genre: text("genre"),
     price_min: real("price_min"),
     price_max: real("price_max"),
@@ -83,6 +88,8 @@ export const rides = sqliteTable(
     return_time: text("return_time"),
     playlist_url: text("playlist_url"),
     vibe: text("vibe", { enum: ["party", "chill", "mixed"] }).notNull(),
+    smoking_policy: text("smoking_policy", { enum: ["no", "yes"] }).notNull().default("no"),
+    max_luggage: text("max_luggage", { enum: ["none", "small", "backpack", "cabin", "large", "extra"] }).notNull().default("backpack"),
     notes: text("notes"),
     status: text("status", { enum: ["active", "full", "cancelled"] })
       .notNull()
@@ -112,6 +119,7 @@ export const rideRequests = sqliteTable(
       .notNull()
       .default("pending"),
     message: text("message"),
+    luggage: text("luggage", { enum: ["none", "small", "backpack", "cabin", "large", "extra"] }),
     created_at: text("created_at").notNull().default(sql`CURRENT_TIMESTAMP`),
   },
   (t) => ({

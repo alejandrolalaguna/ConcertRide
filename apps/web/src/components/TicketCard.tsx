@@ -1,8 +1,17 @@
 import { motion } from "motion/react";
 import { Music, Users } from "lucide-react";
-import type { Ride } from "@concertride/types";
+import type { Luggage, Ride } from "@concertride/types";
 import { formatDay, formatTime, initials } from "@/lib/format";
 import { VibeBadge } from "./VibeBadge";
+
+const LUGGAGE_LABEL: Record<Luggage, string> = {
+  none: "Sin equipaje",
+  small: "Bolso pequeño",
+  backpack: "Mochila máx.",
+  cabin: "Maleta cabina",
+  large: "Maleta grande",
+  extra: "Extra",
+};
 
 interface Props {
   ride: Ride;
@@ -80,12 +89,21 @@ export function TicketCard({ ride, onClick }: Props) {
           </p>
         </div>
 
-        <div className="space-y-2">
+        <div className="space-y-1.5">
           <p className="font-mono text-xs text-cr-text-muted flex items-center gap-1.5">
             <Users size={12} aria-hidden="true" />
             {ride.seats_left} plaza{ride.seats_left === 1 ? "" : "s"}
           </p>
           <VibeBadge vibe={ride.vibe} />
+          <p className="font-mono text-[10px] text-cr-text-dim">
+            {ride.smoking_policy === "no" ? "🚭" : "🚬"}{" "}
+            {ride.smoking_policy === "no" ? "No fumar" : "Fumadores"}
+          </p>
+          {ride.max_luggage !== "extra" && (
+            <p className="font-mono text-[10px] text-cr-text-dim truncate">
+              🧳 {LUGGAGE_LABEL[ride.max_luggage]}
+            </p>
+          )}
         </div>
       </div>
 

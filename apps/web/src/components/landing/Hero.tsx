@@ -39,9 +39,9 @@ export function Hero() {
           transition={{ duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] }}
           className="font-display uppercase leading-[0.88] tracking-tight text-[56px] sm:text-[88px] md:text-[120px] lg:text-[144px]"
         >
-          Get to the
+          Al concierto
           <br />
-          <span className="text-cr-primary">show.</span>
+          <span className="text-cr-primary">juntos.</span>
         </motion.h1>
 
         <motion.p
@@ -52,7 +52,7 @@ export function Hero() {
         >
           Comparte el viaje. Divide el coste. Llega al show.
           <br className="hidden md:block" />
-          BlaBlaCar para conciertos, sin intermediarios.
+          La plataforma de viajes compartidos a conciertos en España.
         </motion.p>
 
         <motion.div

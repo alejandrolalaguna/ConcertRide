@@ -4,6 +4,7 @@ import { motion } from "motion/react";
 import { ArrowLeft, Eye, EyeOff } from "lucide-react";
 import { api, ApiError } from "@/lib/api";
 import { useSession } from "@/lib/session";
+import { SPANISH_CITIES } from "@/lib/constants";
 
 export default function RegisterPage() {
   const { user, loading, refresh } = useSession();
@@ -14,6 +15,9 @@ export default function RegisterPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showPw, setShowPw] = useState(false);
+  const [phone, setPhone] = useState("");
+  const [homeCity, setHomeCity] = useState("");
+  const [smoker, setSmoker] = useState<"yes" | "no" | "">("");
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
@@ -31,7 +35,11 @@ export default function RegisterPage() {
     setSubmitting(true);
     setError(null);
     try {
-      await api.auth.register(email.trim(), password, name.trim());
+      await api.auth.register(email.trim(), password, name.trim(), {
+        phone: phone.trim() || undefined,
+        home_city: homeCity || undefined,
+        smoker: smoker === "yes" ? true : smoker === "no" ? false : undefined,
+      });
       await refresh();
     } catch (err) {
       if (err instanceof ApiError) {
@@ -133,6 +141,68 @@ export default function RegisterPage() {
               </button>
             </div>
           </label>
+
+          {/* Optional profile fields */}
+          <div className="pt-2 space-y-4">
+            <p className="font-sans text-[11px] font-semibold uppercase tracking-[0.16em] text-cr-text-dim">
+              Perfil <span className="font-normal normal-case tracking-normal">(opcional)</span>
+            </p>
+
+            <label className="block space-y-2">
+              <span className="font-sans text-[11px] font-semibold uppercase tracking-[0.12em] text-cr-text-muted">
+                Ciudad habitual
+              </span>
+              <select
+                value={homeCity}
+                onChange={(e) => setHomeCity(e.target.value)}
+                className="w-full bg-cr-surface border-2 border-cr-border focus:border-cr-primary outline-none px-3 py-3 font-sans text-sm text-cr-text transition-colors [color-scheme:dark]"
+              >
+                <option value="">Sin especificar</option>
+                {SPANISH_CITIES.map((c) => (
+                  <option key={c.name} value={c.name}>{c.name}</option>
+                ))}
+              </select>
+            </label>
+
+            <label className="block space-y-2">
+              <span className="font-sans text-[11px] font-semibold uppercase tracking-[0.12em] text-cr-text-muted">
+                Teléfono
+              </span>
+              <input
+                type="tel"
+                autoComplete="tel"
+                value={phone}
+                onChange={(e) => setPhone(e.target.value)}
+                placeholder="+34 600 000 000"
+                className="w-full bg-cr-surface border-2 border-cr-border focus:border-cr-primary outline-none px-3 py-3 font-mono text-sm text-cr-text placeholder:text-cr-text-dim transition-colors"
+              />
+            </label>
+
+            <div className="space-y-2">
+              <span className="font-sans text-[11px] font-semibold uppercase tracking-[0.12em] text-cr-text-muted">
+                ¿Fumas?
+              </span>
+              <div className="flex gap-2">
+                {(["", "no", "yes"] as const).map((val) => {
+                  const label = val === "" ? "Prefiero no decir" : val === "no" ? "No fumo" : "Sí fumo";
+                  return (
+                    <button
+                      key={val}
+                      type="button"
+                      onClick={() => setSmoker(val)}
+                      className={`flex-1 py-2 font-sans text-xs font-semibold uppercase tracking-[0.1em] border-2 transition-colors ${
+                        smoker === val
+                          ? "border-cr-primary text-cr-primary bg-cr-primary/5"
+                          : "border-cr-border text-cr-text-muted hover:border-cr-primary/50"
+                      }`}
+                    >
+                      {label}
+                    </button>
+                  );
+                })}
+              </div>
+            </div>
+          </div>
 
           {error && (
             <p className="font-mono text-xs text-cr-secondary" role="alert">

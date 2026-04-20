@@ -1,9 +1,24 @@
 import { Suspense, lazy, useEffect, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
+import { useSeoMeta } from "@/lib/useSeoMeta";
 import { motion } from "motion/react";
 import { ArrowLeft, Check, Clock, MapPin, Minus, Music, Plus } from "lucide-react";
-import type { Ride, RideRequest } from "@concertride/types";
+import type { Luggage, Ride, RideRequest, SmokingPolicy } from "@concertride/types";
 import { api, ApiError } from "@/lib/api";
+
+const LUGGAGE_LABEL: Record<Luggage, string> = {
+  none: "Sin equipaje",
+  small: "Bolso pequeño",
+  backpack: "Mochila",
+  cabin: "Maleta cabina",
+  large: "Maleta grande",
+  extra: "Extra",
+};
+
+const SMOKING_LABEL: Record<SmokingPolicy, string> = {
+  no: "🚭 No fumar",
+  yes: "🚬 Fumadores OK",
+};
 import { formatDate, formatTime } from "@/lib/format";
 import { useSession } from "@/lib/session";
 import { TrustBadge } from "@/components/TrustBadge";
@@ -26,8 +41,20 @@ export default function RideDetailPage() {
   const { user, loading: sessionLoading } = useSession();
   const [ride, setRide] = useState<Ride | null>(null);
   const [error, setError] = useState<string | null>(null);
+
+  useSeoMeta({
+    title: ride
+      ? `Viaje a ${ride.concert.artist} desde ${ride.origin_city} — ConcertRide ES`
+      : "Viaje compartido — ConcertRide ES",
+    description: ride
+      ? `Viaje compartido desde ${ride.origin_city} hasta ${ride.concert.venue.city} para ver a ${ride.concert.artist}. ${ride.seats_left} plaza${ride.seats_left === 1 ? "" : "s"} disponible${ride.seats_left === 1 ? "" : "s"} a €${ride.price_per_seat}/asiento.`
+      : "Encuentra un viaje compartido para conciertos en España.",
+    canonical: id ? `https://concertride.es/rides/${id}` : undefined,
+    ogType: "article",
+  });
   const [seats, setSeats] = useState(1);
   const [message, setMessage] = useState("");
+  const [luggage, setLuggage] = useState<Luggage>("none");
   const [reserve, setReserve] = useState<ReserveState>({ status: "idle" });
 
   useEffect(() => {
@@ -42,11 +69,6 @@ export default function RideDetailPage() {
         else setError("load_failed");
       });
   }, [id]);
-
-  useEffect(() => {
-    if (!ride) return;
-    document.title = `Viaje a ${ride.concert.artist} desde ${ride.origin_city} — ConcertRide ES`;
-  }, [ride]);
 
   if (error === "ride_not_found") {
     return (
@@ -91,6 +113,7 @@ export default function RideDetailPage() {
       const req = await api.rides.requestSeat(ride.id, {
         seats,
         message: message.trim() || undefined,
+        luggage,
       });
       setReserve({ status: "success", request: req });
     } catch (err) {
@@ -103,6 +126,23 @@ export default function RideDetailPage() {
 
   return (
     <main id="main" className="bg-cr-bg text-cr-text min-h-dvh">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "BreadcrumbList",
+            itemListElement: [
+              { "@type": "ListItem", position: 1, name: "Inicio", item: "https://concertride.es/" },
+              { "@type": "ListItem", position: 2, name: "Conciertos", item: "https://concertride.es/concerts" },
+              ...(ride ? [
+                { "@type": "ListItem", position: 3, name: ride.concert.artist, item: `https://concertride.es/concerts/${ride.concert.id}` },
+                { "@type": "ListItem", position: 4, name: `Viaje desde ${ride.origin_city}`, item: `https://concertride.es/rides/${ride.id}` },
+              ] : []),
+            ],
+          }),
+        }}
+      />
       <div className="max-w-4xl mx-auto px-6 py-10 md:py-16 space-y-10">
         <button
           type="button"
@@ -171,6 +211,22 @@ export default function RideDetailPage() {
                     {ride.driver.car_model
                       ? `${ride.driver.car_model}${ride.driver.car_color ? ` · ${ride.driver.car_color}` : ""}`
                       : "—"}
+                  </dd>
+                </div>
+                <div>
+                  <dt className="font-sans text-[10px] font-semibold uppercase tracking-[0.12em] text-cr-text-muted">
+                    Fumar
+                  </dt>
+                  <dd className="font-mono text-xs text-cr-text mt-1">
+                    {SMOKING_LABEL[ride.smoking_policy]}
+                  </dd>
+                </div>
+                <div>
+                  <dt className="font-sans text-[10px] font-semibold uppercase tracking-[0.12em] text-cr-text-muted">
+                    Equipaje máx.
+                  </dt>
+                  <dd className="font-mono text-xs text-cr-text mt-1">
+                    🧳 {LUGGAGE_LABEL[ride.max_luggage]}
                   </dd>
                 </div>
               </dl>
@@ -318,6 +374,37 @@ export default function RideDetailPage() {
                     >
                       <Plus size={14} />
                     </button>
+                  </div>
+                </div>
+
+                <div className="space-y-2">
+                  <span className="font-sans text-[11px] font-semibold uppercase tracking-[0.12em] text-cr-text-muted">
+                    Equipaje
+                  </span>
+                  <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
+                    {(
+                      [
+                        { value: "none", label: "Sin equipaje" },
+                        { value: "small", label: "Bolso pequeño" },
+                        { value: "backpack", label: "Mochila" },
+                        { value: "cabin", label: "Maleta cabina" },
+                        { value: "large", label: "Maleta grande" },
+                        { value: "extra", label: "Extra (instrumento…)" },
+                      ] as { value: Luggage; label: string }[]
+                    ).map(({ value, label }) => (
+                      <button
+                        key={value}
+                        type="button"
+                        onClick={() => setLuggage(value)}
+                        className={`py-2 px-3 font-sans text-xs font-semibold uppercase tracking-[0.08em] border-2 text-left transition-colors ${
+                          luggage === value
+                            ? "border-cr-primary text-cr-primary bg-cr-primary/5"
+                            : "border-cr-border text-cr-text-muted hover:border-cr-primary/50"
+                        }`}
+                      >
+                        {label}
+                      </button>
+                    ))}
                   </div>
                 </div>
 

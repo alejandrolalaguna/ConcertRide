@@ -5,9 +5,7 @@ import { getAdaptersForTier } from "./sources";
 import type { SourceTier } from "./types";
 
 const CRON_TO_TIER: Record<string, SourceTier> = {
-  "*/30 * * * *": 1,
-  "0 */2 * * *": 2,
-  "0 */6 * * *": 3,
+  "0 0 * * *": 1,
 };
 
 export async function dispatchScheduled(

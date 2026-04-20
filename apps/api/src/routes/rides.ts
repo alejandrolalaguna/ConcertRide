@@ -32,12 +32,15 @@ const createRideSchema = z.object({
   return_time: z.string().datetime({ offset: true }).optional(),
   playlist_url: z.string().url().optional(),
   vibe: z.enum(["party", "chill", "mixed"]),
+  smoking_policy: z.enum(["no", "yes"]).optional(),
+  max_luggage: z.enum(["none", "small", "backpack", "cabin", "large", "extra"]).optional(),
   notes: z.string().max(500).optional(),
 });
 
 const requestSeatSchema = z.object({
   seats: z.number().int().min(1).max(8),
   message: z.string().max(500).optional(),
+  luggage: z.enum(["none", "small", "backpack", "cabin", "large", "extra"]).optional(),
 });
 
 const patchRequestSchema = z.object({
@@ -102,6 +105,7 @@ route.post("/:id/request", async (c) => {
     userOrResp,
     parsed.data.seats,
     parsed.data.message,
+    parsed.data.luggage,
   );
   if (result.error) return c.json({ error: result.error }, 409);
   return c.json(result.request, 201);

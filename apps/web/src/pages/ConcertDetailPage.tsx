@@ -1,10 +1,12 @@
 import { useEffect, useMemo, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
+import { useSeoMeta } from "@/lib/useSeoMeta";
 import { motion } from "motion/react";
-import { ArrowLeft, Calendar, MapPin, Music2 } from "lucide-react";
+import { ArrowLeft, Calendar, MapPin, Music2, Star } from "lucide-react";
 import type { Concert, Ride, Vibe } from "@concertride/types";
 import { api, ApiError } from "@/lib/api";
 import { formatDate, formatTime } from "@/lib/format";
+import { concertStatus } from "@/components/ConcertCard";
 import { TicketCard } from "@/components/TicketCard";
 import { TicketCardSkeleton } from "@/components/LoadingStates";
 import { FilterBar, EMPTY_FILTERS, type FilterState } from "@/components/FilterBar";
@@ -22,6 +24,17 @@ export default function ConcertDetailPage() {
   const [rides, setRides] = useState<Ride[] | null>(null);
   const [filters, setFilters] = useState<FilterState>(EMPTY_FILTERS);
   const [error, setError] = useState<string | null>(null);
+
+  useSeoMeta({
+    title: concert
+      ? `Viajes a ${concert.artist} en ${concert.venue.name} — ConcertRide ES`
+      : "Concierto — ConcertRide ES",
+    description: concert
+      ? `Encuentra un viaje compartido para ver a ${concert.artist} en ${concert.venue.name}, ${concert.venue.city}. Divide el coste y llega al concierto desde cualquier ciudad.`
+      : "Encuentra un viaje compartido para ir al concierto en España.",
+    canonical: id ? `https://concertride.es/concerts/${id}` : undefined,
+    ogType: "article",
+  });
 
   useEffect(() => {
     if (!id) return;
@@ -57,11 +70,6 @@ export default function ConcertDetailPage() {
     });
   }, [rides, filters]);
 
-  useEffect(() => {
-    if (!concert) return;
-    document.title = `Viajes a ${concert.artist} en ${concert.venue.name} — ConcertRide ES`;
-  }, [concert]);
-
   if (error === "concert_not_found") {
     return (
       <main className="min-h-dvh flex items-center justify-center px-6 bg-cr-bg">
@@ -85,10 +93,27 @@ export default function ConcertDetailPage() {
   }
 
   const hue = concert ? hueFromString(concert.artist) : 0;
+  const isPast = concert ? concertStatus(concert.date) !== "upcoming" : false;
 
   return (
     <main id="main" className="bg-cr-bg text-cr-text min-h-dvh">
       {concert && <JsonLdEvent concert={concert} />}
+      {concert && (
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "BreadcrumbList",
+              itemListElement: [
+                { "@type": "ListItem", position: 1, name: "Inicio", item: "https://concertride.es/" },
+                { "@type": "ListItem", position: 2, name: "Conciertos", item: "https://concertride.es/concerts" },
+                { "@type": "ListItem", position: 3, name: concert.artist, item: `https://concertride.es/concerts/${concert.id}` },
+              ],
+            }),
+          }}
+        />
+      )}
 
       <section
         className="relative overflow-hidden border-b border-cr-border"
@@ -137,6 +162,22 @@ export default function ConcertDetailPage() {
                   </span>
                 )}
               </div>
+              {concert.ticketmaster_url && (
+                <div className="pt-1">
+                  <a
+                    href={concert.ticketmaster_url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-2 font-sans text-xs font-semibold uppercase tracking-[0.1em] border border-cr-border text-cr-text-muted hover:border-cr-primary hover:text-cr-primary px-3 py-1.5 transition-colors"
+                  >
+                    <span aria-hidden="true" className="text-[10px] font-mono text-cr-text-dim">TM</span>
+                    Comprar entradas →
+                  </a>
+                  <p className="font-mono text-[10px] text-cr-text-dim mt-1">
+                    Vía Ticketmaster
+                  </p>
+                </div>
+              )}
             </motion.div>
           ) : (
             <div className="h-24 w-3/4 bg-cr-surface-2 cr-shimmer" />
@@ -149,7 +190,7 @@ export default function ConcertDetailPage() {
       <section className="max-w-6xl mx-auto px-6 py-10 space-y-6">
         <header className="flex items-baseline justify-between gap-4">
           <h2 className="font-display text-xl uppercase tracking-wide">
-            Viajes disponibles
+            {isPast ? "Viajes realizados" : "Viajes disponibles"}
           </h2>
           <p className="font-mono text-xs text-cr-text-muted">
             {rides ? `${visible.length} / ${rides.length}` : "…"}
@@ -167,14 +208,20 @@ export default function ConcertDetailPage() {
         {rides && visible.length === 0 && (
           <div className="border border-dashed border-cr-border p-10 text-center space-y-4">
             <p className="font-display text-xl uppercase">
-              {rides.length === 0 ? "Nadie ha publicado viajes todavía." : "Ningún viaje cumple los filtros."}
+              {rides.length === 0
+                ? isPast
+                  ? "No se publicaron viajes para este concierto."
+                  : "Nadie ha publicado viajes todavía."
+                : "Ningún viaje cumple los filtros."}
             </p>
             <p className="font-sans text-sm text-cr-text-muted">
               {rides.length === 0
-                ? "Sé el primero en abrir tu coche. Divide el coste y llena el viaje."
+                ? isPast
+                  ? "Este concierto ya tuvo lugar."
+                  : "Sé el primero en abrir tu coche. Divide el coste y llena el viaje."
                 : "Prueba a relajar el precio máximo o la ciudad de origen."}
             </p>
-            {rides.length === 0 && (
+            {rides.length === 0 && !isPast && (
               <Link
                 to="/publish"
                 className="inline-block font-sans text-xs font-semibold uppercase tracking-[0.12em] bg-cr-primary text-black border-2 border-black px-6 py-3 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] hover:translate-x-[2px] hover:translate-y-[2px] transition-all duration-100"
@@ -186,30 +233,62 @@ export default function ConcertDetailPage() {
         )}
 
         {rides && visible.length > 0 && (
-          <motion.ol
-            initial="hidden"
-            animate="show"
-            variants={{
-              hidden: {},
-              show: { transition: { staggerChildren: 0.06, delayChildren: 0.05 } },
-            }}
-            className="grid grid-cols-1 xl:grid-cols-2 gap-4"
-          >
-            {visible.map((ride) => (
-              <motion.li
-                key={ride.id}
-                variants={{
-                  hidden: { opacity: 0, y: 16 },
-                  show: { opacity: 1, y: 0, transition: { duration: 0.3 } },
-                }}
-              >
-                <TicketCard
-                  ride={ride}
-                  onClick={() => navigate(`/rides/${ride.id}`)}
-                />
-              </motion.li>
-            ))}
-          </motion.ol>
+          <>
+            <motion.ol
+              initial="hidden"
+              animate="show"
+              variants={{
+                hidden: {},
+                show: { transition: { staggerChildren: 0.06, delayChildren: 0.05 } },
+              }}
+              className="grid grid-cols-1 xl:grid-cols-2 gap-4"
+            >
+              {visible.map((ride) => (
+                <motion.li
+                  key={ride.id}
+                  variants={{
+                    hidden: { opacity: 0, y: 16 },
+                    show: { opacity: 1, y: 0, transition: { duration: 0.3 } },
+                  }}
+                >
+                  <TicketCard
+                    ride={ride}
+                    onClick={() => navigate(`/rides/${ride.id}`)}
+                  />
+                </motion.li>
+              ))}
+            </motion.ol>
+
+            {isPast && (
+              <div className="border border-cr-primary/30 bg-cr-primary/[0.04] p-6 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+                <div className="space-y-1">
+                  <p className="font-sans text-[11px] font-semibold uppercase tracking-[0.16em] text-cr-primary inline-flex items-center gap-1.5">
+                    <Star size={12} aria-hidden="true" />
+                    ¿Fuiste a este concierto?
+                  </p>
+                  <p className="font-sans text-sm text-cr-text-muted">
+                    Entra en tu viaje y valora al conductor.
+                  </p>
+                </div>
+                <div className="flex flex-wrap gap-2">
+                  {visible.slice(0, 3).map((ride) => (
+                    <Link
+                      key={ride.id}
+                      to={`/rides/${ride.id}`}
+                      className="inline-flex items-center gap-1.5 font-sans text-xs font-semibold uppercase tracking-[0.1em] border border-cr-primary text-cr-primary px-3 py-2 hover:bg-cr-primary hover:text-black transition-colors"
+                    >
+                      Desde {ride.origin_city}
+                    </Link>
+                  ))}
+                  {visible.length > 3 && (
+                    <span className="font-mono text-xs text-cr-text-muted self-center">
+                      +{visible.length - 3} más
+                    </span>
+                  )}
+                </div>
+              </div>
+            )}
+          </>
         )}
       </section>
     </main>

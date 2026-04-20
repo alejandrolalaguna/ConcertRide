@@ -1,9 +1,10 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { Link, useSearchParams } from "react-router-dom";
-import { SlidersHorizontal, X, Clock, Zap } from "lucide-react";
+import { useSeoMeta } from "@/lib/useSeoMeta";
+import { SlidersHorizontal, X, Clock, Zap, ChevronLeft, ChevronRight } from "lucide-react";
 import type { Concert } from "@concertride/types";
 import { api } from "@/lib/api";
-import { ConcertCard, concertStatus } from "@/components/ConcertCard";
+import { ConcertCard } from "@/components/ConcertCard";
 import { SPANISH_CITIES } from "@/lib/constants";
 import { LoadingSpinner } from "@/components/ui";
 
@@ -19,6 +20,10 @@ const GENRES = [
   "Flamenco",
   "Metal",
 ];
+
+const PAGE_SIZE = 24;
+// Past tab: show concerts from up to 3 months ago
+const THREE_MONTHS_MS = 90 * 24 * 60 * 60 * 1000;
 
 type Tab = "active" | "past";
 
@@ -36,19 +41,24 @@ function hasActiveFilters(f: Filters) {
   return Object.values(f).some(Boolean);
 }
 
-// ISO datetime strings the API expects
-const NOW_ISO = new Date().toISOString();
-const THREE_WEEKS_AGO_ISO = new Date(Date.now() - 21 * 24 * 60 * 60 * 1000).toISOString();
-
 export default function ConcertsPage() {
+  useSeoMeta({
+    title: "Conciertos en España — ConcertRide ES",
+    description:
+      "Explora todos los conciertos y festivales de España. Encuentra un viaje compartido barato para llegar al show desde cualquier ciudad.",
+    canonical: "https://concertride.es/concerts",
+  });
+
   const [searchParams, setSearchParams] = useSearchParams();
   const [concerts, setConcerts] = useState<Concert[] | null>(null);
+  const [total, setTotal] = useState(0);
+  const [page, setPage] = useState(1);
   const [loading, setLoading] = useState(true);
   const [filters, setFilters] = useState<Filters>(EMPTY_FILTERS);
   const [showFilters, setShowFilters] = useState(false);
   const tab: Tab = searchParams.get("tab") === "past" ? "past" : "active";
+  const gridRef = useRef<HTMLDivElement | null>(null);
 
-  // Debounce artist search to avoid firing on every keystroke
   const debounceRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const [debouncedArtist, setDebouncedArtist] = useState("");
 
@@ -61,19 +71,25 @@ export default function ConcertsPage() {
   }, [filters.artist]);
 
   const fetchConcerts = useCallback(() => {
+    // Compute fresh dates on every fetch — not at module load time
+    const nowISO = new Date().toISOString();
+    const threeMonthsAgoISO = new Date(Date.now() - THREE_MONTHS_MS).toISOString();
+
     setLoading(true);
     setConcerts(null);
 
-    // Tab drives the base date bounds; user's dateFrom/dateTo override within that range
-    const baseDateFrom = tab === "past" ? THREE_WEEKS_AGO_ISO : undefined;
-    const baseDateTo = tab === "past" ? NOW_ISO : undefined;
+    const baseDateFrom = tab === "past" ? threeMonthsAgoISO : nowISO;
+    const baseDateTo = tab === "past" ? nowISO : undefined;
 
     const params = {
-      limit: 100,
+      limit: PAGE_SIZE,
+      offset: (page - 1) * PAGE_SIZE,
       city: filters.city || undefined,
       artist: debouncedArtist || undefined,
       date_from: filters.dateFrom
-        ? new Date(filters.dateFrom).toISOString()
+        ? tab === "active" && new Date(filters.dateFrom) < new Date()
+          ? nowISO
+          : new Date(filters.dateFrom).toISOString()
         : baseDateFrom,
       date_to: filters.dateTo
         ? new Date(filters.dateTo + "T23:59:59").toISOString()
@@ -82,25 +98,40 @@ export default function ConcertsPage() {
 
     api.concerts
       .list(params)
-      .then((r) => setConcerts(r.concerts))
-      .catch(() => setConcerts([]))
+      .then((r) => {
+        setConcerts(r.concerts);
+        setTotal(r.total);
+      })
+      .catch(() => {
+        setConcerts([]);
+        setTotal(0);
+      })
       .finally(() => setLoading(false));
-  }, [tab, filters.city, filters.dateFrom, filters.dateTo, debouncedArtist]);
+  }, [tab, page, filters.city, filters.dateFrom, filters.dateTo, debouncedArtist]);
 
   useEffect(() => {
     fetchConcerts();
-  }, [fetchConcerts]);
+    // Scroll to grid top when page changes (not on initial load)
+    if (page > 1) gridRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
+  }, [fetchConcerts, page]);
 
   function setFilter<K extends keyof Filters>(key: K, value: Filters[K]) {
     setFilters((f) => ({ ...f, [key]: value }));
+    setPage(1);
   }
 
   function setTab(t: Tab) {
     setSearchParams(t === "past" ? { tab: "past" } : {}, { replace: true });
     setFilters(EMPTY_FILTERS);
+    setPage(1);
   }
 
-  // Genre is not in ConcertsQuery — applied client-side after API returns
+  function goToPage(p: number) {
+    setPage(p);
+    gridRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
+  }
+
+  // Genre filter is client-side only
   const filtered = useMemo(
     () =>
       filters.genre
@@ -111,15 +142,7 @@ export default function ConcertsPage() {
     [concerts, filters.genre],
   );
 
-  // Active/past split for tab counts (use concertStatus on whatever came back)
-  const activeCount = useMemo(
-    () => (concerts ?? []).filter((c) => concertStatus(c.date) !== "archived").length,
-    [concerts],
-  );
-  const pastCount = useMemo(
-    () => (concerts ?? []).filter((c) => concertStatus(c.date) === "archived").length,
-    [concerts],
-  );
+  const totalPages = Math.ceil(total / PAGE_SIZE);
 
   return (
     <div className="min-h-screen bg-cr-bg text-cr-text pt-16">
@@ -226,7 +249,7 @@ export default function ConcertsPage() {
 
             {hasActiveFilters(filters) && (
               <button
-                onClick={() => setFilters(EMPTY_FILTERS)}
+                onClick={() => { setFilters(EMPTY_FILTERS); setPage(1); }}
                 className="col-span-2 md:col-span-4 inline-flex items-center gap-1.5 font-sans text-xs font-semibold uppercase tracking-[0.1em] text-cr-text-muted hover:text-cr-primary transition-colors"
               >
                 <X size={12} />
@@ -248,8 +271,8 @@ export default function ConcertsPage() {
           >
             <Zap size={12} />
             Próximos
-            {!loading && activeCount > 0 && (
-              <span className="font-mono text-[10px] text-cr-text-dim">({activeCount})</span>
+            {!loading && tab === "active" && total > 0 && (
+              <span className="font-mono text-[10px] text-cr-text-dim">({total})</span>
             )}
           </button>
           <button
@@ -262,15 +285,15 @@ export default function ConcertsPage() {
           >
             <Clock size={12} />
             Pasados
-            {!loading && pastCount > 0 && (
-              <span className="font-mono text-[10px] text-cr-text-dim">({pastCount})</span>
+            {!loading && tab === "past" && total > 0 && (
+              <span className="font-mono text-[10px] text-cr-text-dim">({total})</span>
             )}
           </button>
         </div>
       </div>
 
       {/* Grid */}
-      <div className="max-w-6xl mx-auto px-6 pb-24">
+      <div ref={gridRef} className="max-w-6xl mx-auto px-6 pb-24">
         {loading ? (
           <LoadingSpinner text="Cargando conciertos…" />
         ) : filtered.length === 0 ? (
@@ -283,13 +306,44 @@ export default function ConcertsPage() {
             </p>
           </div>
         ) : (
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
-            {filtered.map((c) => (
-              <Link key={c.id} to={`/concerts/${c.id}`} className="block">
-                <ConcertCard concert={c} />
-              </Link>
-            ))}
-          </div>
+          <>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+              {filtered.map((c) => (
+                <Link key={c.id} to={`/concerts/${c.id}`} className="block">
+                  <ConcertCard concert={c} />
+                </Link>
+              ))}
+            </div>
+
+            {/* Pagination */}
+            {totalPages > 1 && (
+              <div className="flex items-center justify-center gap-3 mt-12">
+                <button
+                  onClick={() => goToPage(page - 1)}
+                  disabled={page === 1}
+                  className="inline-flex items-center gap-1 px-3 py-2 border border-cr-border font-sans text-xs font-semibold uppercase tracking-[0.1em] text-cr-text-muted hover:border-cr-primary hover:text-cr-primary disabled:opacity-30 disabled:cursor-not-allowed transition-colors"
+                >
+                  <ChevronLeft size={13} />
+                  Anterior
+                </button>
+
+                <span className="font-mono text-xs text-cr-text-muted">
+                  <span className="text-cr-text font-semibold">{page}</span>
+                  {" "}/{" "}
+                  {totalPages}
+                </span>
+
+                <button
+                  onClick={() => goToPage(page + 1)}
+                  disabled={page === totalPages}
+                  className="inline-flex items-center gap-1 px-3 py-2 border border-cr-border font-sans text-xs font-semibold uppercase tracking-[0.1em] text-cr-text-muted hover:border-cr-primary hover:text-cr-primary disabled:opacity-30 disabled:cursor-not-allowed transition-colors"
+                >
+                  Siguiente
+                  <ChevronRight size={13} />
+                </button>
+              </div>
+            )}
+          </>
         )}
       </div>
     </div>

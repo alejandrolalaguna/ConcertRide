@@ -1,0 +1,199 @@
+import { useEffect } from "react";
+import { Link } from "react-router-dom";
+
+export default function TerminosPage() {
+  useEffect(() => {
+    document.title = "Términos y condiciones — ConcertRide ES";
+  }, []);
+
+  return (
+    <main id="main" className="min-h-dvh bg-cr-bg text-cr-text pt-14">
+      <div className="max-w-3xl mx-auto px-6 py-12">
+        <header className="mb-10 border-b border-cr-border pb-8 space-y-2">
+          <p className="font-sans text-[11px] font-semibold uppercase tracking-[0.16em] text-cr-primary">
+            Legal
+          </p>
+          <h1 className="font-display text-4xl uppercase">Términos y condiciones</h1>
+          <p className="font-mono text-xs text-cr-text-muted">Última actualización: abril de 2026</p>
+        </header>
+
+        <div className="space-y-10 font-sans text-sm text-cr-text leading-relaxed">
+
+          <section className="space-y-3">
+            <h2 className="font-display text-xl uppercase text-cr-primary">1. Objeto y aceptación</h2>
+            <p>
+              Los presentes términos regulan el acceso y uso de la plataforma ConcertRide ES
+              (en adelante, "la plataforma") y de sus servicios de intermediación para la
+              organización de viajes compartidos a conciertos y eventos musicales en España.
+            </p>
+            <p>
+              El uso de la plataforma implica la aceptación plena de estos términos. Si no estás
+              de acuerdo, no uses el servicio.
+            </p>
+          </section>
+
+          <section className="space-y-3">
+            <h2 className="font-display text-xl uppercase text-cr-primary">2. Descripción del servicio</h2>
+            <p>
+              ConcertRide ES es una plataforma de intermediación que conecta a conductores
+              particulares que ofrecen plazas en su vehículo propio con pasajeros que desean
+              llegar al mismo concierto.
+            </p>
+            <p>
+              <strong>La plataforma no es una empresa de transporte ni actúa como transportista.</strong>{" "}
+              No somos parte del contrato de viaje entre conductor y pasajero, ni intervenimos
+              en el pago entre ellos. No cobramos comisión ni intermediamos en transacciones
+              económicas.
+            </p>
+            <p>
+              La información sobre conciertos se obtiene de la Ticketmaster Discovery API v2 y puede
+              estar sujeta a cambios o cancelaciones fuera de nuestro control.
+            </p>
+          </section>
+
+          <section className="space-y-3">
+            <h2 className="font-display text-xl uppercase text-cr-primary">3. Requisitos para usar la plataforma</h2>
+            <ul className="space-y-2 pl-4 list-disc text-cr-text-muted">
+              <li>Ser persona física mayor de 18 años.</li>
+              <li>Disponer de una dirección de correo electrónico válida.</li>
+              <li>
+                Si publicas viajes como conductor: poseer carnet de conducir vigente, seguro del
+                vehículo en vigor y el vehículo en condiciones legales de circulación.
+              </li>
+              <li>Proporcionar información veraz y actualizada en tu perfil.</li>
+            </ul>
+          </section>
+
+          <section className="space-y-3">
+            <h2 className="font-display text-xl uppercase text-cr-primary">4. Obligaciones del conductor</h2>
+            <ul className="space-y-2 pl-4 list-disc text-cr-text-muted">
+              <li>Publicar únicamente viajes que tengas intención real de realizar.</li>
+              <li>Cumplir los límites de velocidad y la normativa de tráfico vigente.</li>
+              <li>No ofrecer más plazas de las que el vehículo tiene homologadas.</li>
+              <li>
+                No cobrar a los pasajeros más de lo que corresponde al reparto proporcional de los
+                gastos del viaje (combustible + peajes). La plataforma está diseñada para la
+                compartición de costes, no para la obtención de lucro.
+              </li>
+              <li>Confirmar o rechazar las solicitudes de plaza en un plazo razonable.</li>
+              <li>Notificar con antelación cualquier cancelación del viaje.</li>
+            </ul>
+          </section>
+
+          <section className="space-y-3">
+            <h2 className="font-display text-xl uppercase text-cr-primary">5. Obligaciones del pasajero</h2>
+            <ul className="space-y-2 pl-4 list-disc text-cr-text-muted">
+              <li>Estar en el punto de recogida acordado a la hora pactada.</li>
+              <li>Respetar las condiciones del viaje publicadas por el conductor (fumar, equipaje, etc.).</li>
+              <li>Abonar al conductor la contribución a gastos acordada.</li>
+              <li>Notificar con antelación si no vas a poder realizar el viaje.</li>
+            </ul>
+          </section>
+
+          <section className="space-y-3">
+            <h2 className="font-display text-xl uppercase text-cr-primary">6. Conductas prohibidas</h2>
+            <p>Queda expresamente prohibido:</p>
+            <ul className="space-y-1 pl-4 list-disc text-cr-text-muted">
+              <li>Publicar viajes falsos o sin intención real de realizarlos.</li>
+              <li>Usar la plataforma con fines comerciales o de transporte profesional.</li>
+              <li>Acosar, amenazar o discriminar a otros usuarios.</li>
+              <li>Publicar información falsa en el perfil (carnet, vehículo, valoraciones).</li>
+              <li>Intentar acceder a las cuentas de otros usuarios o a sistemas de la plataforma.</li>
+              <li>Usar scripts, bots o medios automatizados para interactuar con la plataforma.</li>
+            </ul>
+          </section>
+
+          <section className="space-y-3">
+            <h2 className="font-display text-xl uppercase text-cr-primary">7. Valoraciones y reseñas</h2>
+            <p>
+              El sistema de valoraciones tiene como objetivo fomentar la confianza entre usuarios.
+              Las valoraciones deben ser honestas y basarse en experiencias reales. ConcertRide ES
+              se reserva el derecho a eliminar valoraciones que incumplan estas condiciones.
+            </p>
+          </section>
+
+          <section className="space-y-3">
+            <h2 className="font-display text-xl uppercase text-cr-primary">8. Limitación de responsabilidad</h2>
+            <p>
+              ConcertRide ES actúa únicamente como intermediario y no asume responsabilidad por:
+            </p>
+            <ul className="space-y-1 pl-4 list-disc text-cr-text-muted">
+              <li>Accidentes, daños personales o materiales ocurridos durante el viaje.</li>
+              <li>Incumplimientos entre conductor y pasajero.</li>
+              <li>Cancelaciones de conciertos o cambios en la información de los eventos.</li>
+              <li>Daños derivados del uso de la plataforma o de la imposibilidad de acceder a ella.</li>
+              <li>Exactitud de la información de perfil aportada por otros usuarios.</li>
+            </ul>
+            <p>
+              La responsabilidad de ConcertRide ES, en los casos en que sea aplicable, se
+              limitará al máximo permitido por la legislación española de consumo.
+            </p>
+          </section>
+
+          <section className="space-y-3">
+            <h2 className="font-display text-xl uppercase text-cr-primary">9. Propiedad intelectual</h2>
+            <p>
+              El código, diseño, marca y contenidos originales de ConcertRide ES son propiedad
+              del titular o están debidamente licenciados. Los usuarios conservan la propiedad
+              de los contenidos que publican (textos, imágenes de perfil) y otorgan a la
+              plataforma una licencia no exclusiva para mostrarlos dentro del servicio.
+            </p>
+          </section>
+
+          <section className="space-y-3">
+            <h2 className="font-display text-xl uppercase text-cr-primary">10. Suspensión y baja de cuenta</h2>
+            <p>
+              ConcertRide ES puede suspender o eliminar cuentas que incumplan estos términos, previa
+              notificación salvo en casos de conducta gravemente perjudicial. Los usuarios pueden
+              solicitar la baja de su cuenta en cualquier momento desde su perfil o contactando con
+              nosotros.
+            </p>
+          </section>
+
+          <section className="space-y-3">
+            <h2 className="font-display text-xl uppercase text-cr-primary">11. Modificaciones</h2>
+            <p>
+              Podemos modificar estos términos para adaptarlos a cambios normativos, del servicio
+              o del mercado. Los cambios sustanciales se notificarán con al menos 15 días de
+              antelación. El uso continuado de la plataforma tras el aviso implica aceptación de
+              los nuevos términos.
+            </p>
+          </section>
+
+          <section className="space-y-3">
+            <h2 className="font-display text-xl uppercase text-cr-primary">12. Legislación y fuero</h2>
+            <p>
+              Estos términos se rigen por la legislación española. Para cualquier controversia,
+              las partes se someten a los tribunales del domicilio del titular, sin perjuicio de
+              la normativa imperativa de protección al consumidor que pudiera resultar aplicable.
+            </p>
+          </section>
+
+          <section className="space-y-3">
+            <h2 className="font-display text-xl uppercase text-cr-primary">13. Contacto</h2>
+            <p>
+              Para cualquier consulta sobre estos términos:{" "}
+              <span className="font-mono text-cr-primary">[CORREO DE CONTACTO]</span>
+            </p>
+          </section>
+
+        </div>
+
+        <div className="mt-12 pt-8 border-t border-cr-border flex flex-wrap gap-4">
+          <Link to="/aviso-legal" className="font-sans text-xs text-cr-text-muted hover:text-cr-primary transition-colors">
+            Aviso legal →
+          </Link>
+          <Link to="/privacidad" className="font-sans text-xs text-cr-text-muted hover:text-cr-primary transition-colors">
+            Política de privacidad →
+          </Link>
+          <Link to="/cookies" className="font-sans text-xs text-cr-text-muted hover:text-cr-primary transition-colors">
+            Política de cookies →
+          </Link>
+          <Link to="/" className="font-sans text-xs text-cr-text-muted hover:text-cr-primary transition-colors ml-auto">
+            ← Volver al inicio
+          </Link>
+        </div>
+      </div>
+    </main>
+  );
+}
