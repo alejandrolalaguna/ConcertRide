@@ -1,6 +1,6 @@
 {
   "$schema": "node_modules/wrangler/config-schema.json",
-  "name": "concertride-es",
+  "name": "concertride",
   "main": "apps/api/src/index.ts",
   "compatibility_date": "2026-04-18",
   "compatibility_flags": ["nodejs_compat"],
