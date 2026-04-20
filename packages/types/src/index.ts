@@ -29,6 +29,7 @@ export interface Concert {
   price_min: number | null;
   price_max: number | null;
   active_rides_count: number;
+  demand_count?: number;
 }
 
 export interface User {
@@ -80,6 +81,7 @@ export interface Ride {
   smoking_policy: SmokingPolicy;
   max_luggage: Luggage;
   notes: string | null;
+  instant_booking: boolean;
   status: RideStatus;
   created_at: string;
 }
@@ -94,6 +96,30 @@ export interface RideRequest {
   message: string | null;
   luggage: Luggage | null;
   created_at: string;
+}
+
+export interface DemandSignal {
+  count: number;
+  user_has_signaled: boolean;
+}
+
+export interface Message {
+  id: string;
+  ride_id: string | null;
+  concert_id: string | null;
+  user_id: string;
+  user: User;
+  body: string;
+  created_at: string;
+}
+
+export interface SendMessageRequest {
+  body: string;
+  seats?: number;
+}
+
+export interface MessagesResponse {
+  messages: Message[];
 }
 
 export interface Review {
@@ -135,6 +161,7 @@ export interface CreateRideRequest {
   smoking_policy?: SmokingPolicy;
   max_luggage?: Luggage;
   notes?: string;
+  instant_booking?: boolean;
 }
 
 export interface RequestSeatRequest {
@@ -168,6 +195,9 @@ export interface RidesQuery {
   max_price?: number;
   round_trip?: boolean;
   adhoc?: boolean;
+  near_lat?: number;
+  near_lng?: number;
+  radius_km?: number;
 }
 
 export interface ConcertsResponse {
