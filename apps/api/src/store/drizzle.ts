@@ -320,29 +320,43 @@ export class DrizzleStore implements StoreAdapter {
   }
 
   async listConcerts(f: ConcertFilters): Promise<{ concerts: Concert[]; total: number }> {
-    const clauses = [];
-    if (f.artist) clauses.push(like(schema.concerts.artist, `%${f.artist}%`));
-    if (f.date_from) clauses.push(gte(schema.concerts.date, f.date_from));
-    if (f.date_to) clauses.push(lte(schema.concerts.date, f.date_to));
-    if (f.city) clauses.push(sql`lower(${schema.venues.city}) = lower(${f.city})`);
-    const where = clauses.length ? and(...clauses) : undefined;
+    // Clauses that can be applied directly on the concerts table
+    const concertClauses = [];
+    if (f.artist) concertClauses.push(like(schema.concerts.artist, `%${f.artist}%`));
+    if (f.date_from) concertClauses.push(gte(schema.concerts.date, f.date_from));
+    if (f.date_to) concertClauses.push(lte(schema.concerts.date, f.date_to));
+    const concertWhere = concertClauses.length ? and(...concertClauses) : undefined;
 
-    // COUNT query — join venues so city filter works in SQL
+    // City filter applied in-memory after join (avoids referencing venues table in findMany)
+    const cityLower = f.city ? f.city.toLowerCase() : null;
+
+    // COUNT with join so city filter is accurate
+    const countClauses = [...concertClauses];
+    if (cityLower) countClauses.push(sql`lower(${schema.venues.city}) = ${cityLower}`);
     const [countRow] = await this.db
       .select({ total: count() })
       .from(schema.concerts)
       .innerJoin(schema.venues, eq(schema.concerts.venue_id, schema.venues.id))
-      .where(where);
+      .where(countClauses.length ? and(...countClauses) : undefined);
     const total = countRow?.total ?? 0;
 
-    // Page query — only fetch the requested slice
-    const pageRows = await this.db.query.concerts.findMany({
-      where: clauses.length ? and(...clauses) : undefined,
+    // Fetch a wider slice when city filter is active (we filter post-join in memory)
+    const fetchLimit = cityLower ? Math.min((f.limit ?? 100) * 10, 500) : f.limit;
+    const allRows = await this.db.query.concerts.findMany({
+      where: concertWhere,
       with: { venue: true },
       orderBy: (c, { asc }) => [asc(c.date)],
-      limit: f.limit,
-      offset: f.offset,
+      limit: fetchLimit,
+      offset: cityLower ? 0 : f.offset,
     });
+
+    // Apply city filter and pagination in memory
+    const filtered = cityLower
+      ? allRows.filter((c) => c.venue?.city.toLowerCase() === cityLower)
+      : allRows;
+    const pageRows = cityLower
+      ? filtered.slice(f.offset ?? 0, (f.offset ?? 0) + (f.limit ?? 100))
+      : filtered;
 
     // Batch demand counts for the current page
     const now = new Date().toISOString();
