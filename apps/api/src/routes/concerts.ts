@@ -9,6 +9,11 @@ const querySchema = z.object({
   date_from: z.string().datetime().optional(),
   date_to: z.string().datetime().optional(),
   artist: z.string().min(1).optional(),
+  genre: z.string().min(1).max(80).optional(),
+  festival: z
+    .union([z.literal("true"), z.literal("false")])
+    .optional()
+    .transform((v) => (v === undefined ? undefined : v === "true")),
   limit: z.coerce.number().int().min(1).max(200).default(100),
   offset: z.coerce.number().int().min(0).default(0),
 });
@@ -34,6 +39,13 @@ route.get("/", async (c) => {
   return c.json(body);
 });
 
+route.get("/facets", async (c) => {
+  const facets = await c.var.store.listConcertFacets();
+  return c.json(facets, 200, {
+    "Cache-Control": "public, max-age=300",
+  });
+});
+
 route.get("/:id", async (c) => {
   const concert = await c.var.store.getConcert(c.req.param("id"));
   if (!concert) return c.json({ error: "not_found" }, 404);
@@ -55,7 +67,9 @@ route.post("/", async (c) => {
 });
 
 const sendMessageSchema = z.object({
-  body: z.string().min(1).max(280),
+  body: z.string().min(0).max(280).default(""),
+  kind: z.enum(["text", "location", "photo"]).optional(),
+  attachment_url: z.string().url().optional(),
 });
 
 route.get("/:id/messages", async (c) => {
@@ -91,7 +105,13 @@ route.post("/:id/messages", async (c) => {
   const parsed = sendMessageSchema.safeParse(rawBody);
   if (!parsed.success) return c.json({ error: "bad_request", issues: parsed.error.issues }, 400);
 
-  const msg = await c.var.store.createMessage({ concert_id: concertId }, userOrResp, parsed.data.body);
+  const { body, kind, attachment_url } = parsed.data;
+  const msg = await c.var.store.createMessage(
+    { concert_id: concertId },
+    userOrResp,
+    body,
+    { kind: kind ?? "text", attachment_url },
+  );
   return c.json(msg, 201);
 });
 

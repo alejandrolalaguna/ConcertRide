@@ -1,15 +1,17 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Link, Navigate, useSearchParams } from "react-router-dom";
 import { motion } from "motion/react";
 import { ArrowLeft, Eye, EyeOff } from "lucide-react";
 import { api, ApiError } from "@/lib/api";
 import { useSession } from "@/lib/session";
 import { SPANISH_CITIES } from "@/lib/constants";
+import { useSeoMeta } from "@/lib/useSeoMeta";
 
 export default function RegisterPage() {
   const { user, loading, refresh } = useSession();
   const [params] = useSearchParams();
   const next = params.get("next") ?? "/";
+  const ref = params.get("ref") ?? undefined;
 
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -21,9 +23,12 @@ export default function RegisterPage() {
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
-  useEffect(() => {
-    document.title = "Crear cuenta — ConcertRide ES";
-  }, []);
+  useSeoMeta({
+    title: "Crear cuenta gratis",
+    description: "Regístrate gratis en ConcertRide ES para reservar o publicar viajes compartidos a conciertos en España. Solo email y contraseña.",
+    canonical: "https://concertride.es/register",
+    noindex: true,
+  });
 
   if (!loading && user) {
     return <Navigate to={next} replace />;
@@ -35,11 +40,17 @@ export default function RegisterPage() {
     setSubmitting(true);
     setError(null);
     try {
-      await api.auth.register(email.trim(), password, name.trim(), {
-        phone: phone.trim() || undefined,
-        home_city: homeCity || undefined,
-        smoker: smoker === "yes" ? true : smoker === "no" ? false : undefined,
-      });
+      await api.auth.register(
+        email.trim(),
+        password,
+        name.trim(),
+        {
+          phone: phone.trim() || undefined,
+          home_city: homeCity || undefined,
+          smoker: smoker === "yes" ? true : smoker === "no" ? false : undefined,
+        },
+        ref,
+      );
       await refresh();
     } catch (err) {
       if (err instanceof ApiError) {

@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { LogOut, Settings, User as UserIcon } from "lucide-react";
+import { Heart, LogOut, Settings, User as UserIcon } from "lucide-react";
 import { useSession } from "@/lib/session";
 import { initials } from "@/lib/format";
 
@@ -71,6 +71,14 @@ export function TopNav() {
                 className="flex items-center gap-2 px-4 py-2.5 hover:bg-cr-surface-2 hover:text-cr-primary"
               >
                 <UserIcon size={12} aria-hidden="true" /> Publicar un viaje
+              </Link>
+              <Link
+                to="/favoritos"
+                onClick={() => setOpen(false)}
+                role="menuitem"
+                className="flex items-center gap-2 px-4 py-2.5 hover:bg-cr-surface-2 hover:text-cr-primary"
+              >
+                <Heart size={12} aria-hidden="true" /> Favoritos
               </Link>
               <Link
                 to="/profile"

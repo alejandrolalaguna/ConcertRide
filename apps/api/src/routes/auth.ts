@@ -5,6 +5,8 @@ import type { HonoEnv } from "../types";
 import { hashPassword, verifyPassword } from "../lib/password";
 import { signSession, verifySession } from "../lib/jwt";
 import { requireUser } from "../lib/identity";
+import { rateLimit } from "../lib/ratelimit";
+import { sendPasswordResetEmail } from "../lib/email";
 
 export const SESSION_COOKIE = "cr_session";
 const MAX_AGE = 60 * 60 * 24 * 30;
@@ -35,12 +37,24 @@ const loginSchema = z.object({
   password: z.string().min(1).max(128),
 });
 
-route.post("/register", async (c) => {
+const forgotPasswordSchema = z.object({
+  email: z.string().email().max(200),
+});
+
+const resetPasswordSchema = z.object({
+  token: z.string().min(16).max(128),
+  password: z.string().min(8).max(128),
+});
+
+const authLimiter = rateLimit({ scope: "auth", limit: 10, windowSec: 60 });
+
+route.post("/register", authLimiter, async (c) => {
   const body = await c.req.json().catch(() => null);
   const parsed = registerSchema.safeParse(body);
   if (!parsed.success) return c.json({ error: "bad_request", issues: parsed.error.issues }, 400);
 
   const { email, password, name, phone, home_city, smoker } = parsed.data;
+  const ref = c.req.query("ref") ?? null;
 
   const existing = await c.var.store.getUserByEmail(email);
   if (existing) return c.json({ error: "email_taken", message: "Ya existe una cuenta con ese email" }, 409);
@@ -51,6 +65,8 @@ route.post("/register", async (c) => {
     home_city,
     smoker,
   });
+
+  if (ref) await c.var.store.useReferral(ref, user.id).catch(() => {});
 
   const jwt = await signSession({ sub: user.id, email: user.email }, c.env.JWT_SECRET);
   const secure = new URL(c.req.url).protocol === "https:";
@@ -64,7 +80,7 @@ route.post("/register", async (c) => {
   return c.json({ ok: true, user }, 201);
 });
 
-route.post("/login", async (c) => {
+route.post("/login", authLimiter, async (c) => {
   const body = await c.req.json().catch(() => null);
   const parsed = loginSchema.safeParse(body);
   if (!parsed.success) return c.json({ error: "bad_request", issues: parsed.error.issues }, 400);
@@ -115,6 +131,93 @@ route.patch("/profile", async (c) => {
   const updated = await c.var.store.updateUser(userOrResp.id, parsed.data);
   if (!updated) return c.json({ error: "not_found" }, 404);
   return c.json({ ok: true, user: updated });
+});
+
+route.post("/verify-license", async (c) => {
+  const userOrResp = await requireUser(c);
+  if (userOrResp instanceof Response) return userOrResp;
+
+  const body = await c.req.parseBody().catch(() => null);
+  if (!body || !body["document"]) {
+    return c.json({ error: "bad_request", message: "Falta el documento" }, 400);
+  }
+
+  const file = body["document"];
+  if (!(file instanceof File)) {
+    return c.json({ error: "bad_request", message: "El campo 'document' debe ser un fichero" }, 400);
+  }
+
+  const allowedTypes = ["image/jpeg", "image/png", "image/webp", "application/pdf"];
+  if (!allowedTypes.includes(file.type)) {
+    return c.json({ error: "bad_request", message: "Formato no admitido. Usa JPG, PNG, WEBP o PDF" }, 400);
+  }
+  if (file.size > 10 * 1024 * 1024) {
+    return c.json({ error: "bad_request", message: "El archivo no puede superar 10 MB" }, 400);
+  }
+
+  const updated = await c.var.store.verifyLicense(userOrResp.id);
+  if (!updated) return c.json({ error: "not_found" }, 404);
+  return c.json({ ok: true, user: updated });
+});
+
+route.post("/forgot-password", authLimiter, async (c) => {
+  const body = await c.req.json().catch(() => null);
+  const parsed = forgotPasswordSchema.safeParse(body);
+  // Intentionally return 200 whether email exists or not — avoid user enumeration.
+  if (!parsed.success) return c.json({ ok: true });
+
+  const { email } = parsed.data;
+  const user = await c.var.store.getUserByEmail(email);
+
+  if (user && c.env.CACHE) {
+    const tokenBytes = crypto.getRandomValues(new Uint8Array(32));
+    const token = Array.from(tokenBytes)
+      .map((b) => b.toString(16).padStart(2, "0"))
+      .join("");
+    const TTL = 60 * 30; // 30 minutes
+    await c.env.CACHE.put(`pwreset:${token}`, user.id, { expirationTtl: TTL });
+
+    const origin = new URL(c.req.url).origin;
+    const resetUrl = `${origin}/reset-password?token=${token}`;
+    // Don't block the response on email delivery.
+    c.executionCtx.waitUntil(
+      sendPasswordResetEmail(c.env, user.email, resetUrl).then(() => undefined),
+    );
+  }
+
+  return c.json({ ok: true });
+});
+
+route.post("/reset-password", authLimiter, async (c) => {
+  const body = await c.req.json().catch(() => null);
+  const parsed = resetPasswordSchema.safeParse(body);
+  if (!parsed.success) return c.json({ error: "bad_request", issues: parsed.error.issues }, 400);
+
+  const { token, password } = parsed.data;
+
+  if (!c.env.CACHE) return c.json({ error: "service_unavailable" }, 503);
+
+  const userId = await c.env.CACHE.get(`pwreset:${token}`);
+  if (!userId) return c.json({ error: "invalid_token", message: "El enlace ha caducado o ya se usó." }, 400);
+
+  const user = await c.var.store.getUser(userId);
+  if (!user) return c.json({ error: "invalid_token" }, 400);
+
+  const { hash, salt } = await hashPassword(password);
+  await c.var.store.updatePassword(user.id, hash, salt);
+  // One-time use — delete the token even if the remaining flow fails.
+  await c.env.CACHE.delete(`pwreset:${token}`);
+
+  const jwt = await signSession({ sub: user.id, email: user.email }, c.env.JWT_SECRET);
+  const secure = new URL(c.req.url).protocol === "https:";
+  setCookie(c, SESSION_COOKIE, jwt, {
+    httpOnly: true,
+    secure,
+    sameSite: "Lax",
+    path: "/",
+    maxAge: MAX_AGE,
+  });
+  return c.json({ ok: true, user });
 });
 
 route.post("/logout", (c) => {

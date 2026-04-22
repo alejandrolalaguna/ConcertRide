@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useRef, useState } from "react";
-import type { Message, Ride, User } from "@concertride/types";
+import type { Message, MessageKind, Ride, User } from "@concertride/types";
 import { api, ApiError } from "@/lib/api";
 import { ChatPanel } from "./ChatPanel";
 
@@ -62,13 +62,13 @@ export function RideChatSection({ ride, currentUser }: Props) {
     return () => { if (concertIntervalRef.current) clearInterval(concertIntervalRef.current); };
   }, [fetchConcert]);
 
-  async function sendRide(body: string) {
-    const msg = await api.messages.postRideThread(ride.id, body);
+  async function sendRide(body: string, kind?: MessageKind, attachment_url?: string) {
+    const msg = await api.messages.postRideThread(ride.id, { body, kind, attachment_url });
     setRideMessages((prev) => [...prev, msg]);
   }
 
-  async function sendConcert(body: string) {
-    const msg = await api.messages.postConcertChat(ride.concert_id, body);
+  async function sendConcert(body: string, kind?: MessageKind, attachment_url?: string) {
+    const msg = await api.messages.postConcertChat(ride.concert_id, { body, kind, attachment_url });
     setConcertMessages((prev) => [...prev, msg]);
   }
 
@@ -106,7 +106,7 @@ export function RideChatSection({ ride, currentUser }: Props) {
           loading={rideLoading}
           forbidden={rideForbidden}
           currentUserId={currentUser.id}
-          onSend={sendRide}
+          onSend={(body, kind, attachment_url) => sendRide(body, kind, attachment_url)}
         />
       )}
       {tab === "concert" && (
@@ -115,7 +115,7 @@ export function RideChatSection({ ride, currentUser }: Props) {
           loading={concertLoading}
           forbidden={concertForbidden}
           currentUserId={currentUser.id}
-          onSend={sendConcert}
+          onSend={(body, kind, attachment_url) => sendConcert(body, kind, attachment_url)}
         />
       )}
     </section>

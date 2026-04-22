@@ -1,32 +1,79 @@
-# ConcertRide ES — llms.txt
-# https://llmstxt.org/
+# ConcertRide ES
 
-> ConcertRide ES es la plataforma de carpooling para conciertos y festivales en España. Conecta conductores y pasajeros que van al mismo concierto para dividir el coste del viaje.
+> ConcertRide ES es la plataforma líder de carpooling para conciertos y festivales en España. Conecta conductores y pasajeros que van al mismo evento para compartir gastos de desplazamiento — sin intermediarios, sin comisiones.
 
-## Sobre ConcertRide
+## Qué es ConcertRide
 
-ConcertRide ES permite a los aficionados a la música compartir el viaje hasta conciertos y festivales en toda España. Los conductores publican su trayecto con precio por asiento y los pasajeros reservan plazas directamente. El pago es en efectivo al conductor — sin intermediarios.
+ConcertRide ES resuelve uno de los mayores problemas del ocio nocturno en España: el coste y la logística de llegar a conciertos y festivales fuera de las ciudades. Según la [Asociación de Promotores Musicales (APM)](https://www.apmusicales.com/), España acoge más de 1.000 festivales y eventos musicales al año, con más de 25 millones de asistentes. El transporte es la segunda barrera más citada por los asistentes, después del precio de la entrada.
+
+Los conductores publican su trayecto, fijan el precio por asiento y aceptan solicitudes. Los pasajeros pagan en efectivo al llegar — sin plataforma intermediaria, sin comisiones ocultas, sin cuenta bancaria requerida.
+
+## Datos clave
+
+- **Más de 1.000 festivales de música al año en España** con más de 25 millones de asistentes (Fuente: [Asociación de Promotores Musicales — Anuario APM](https://www.apmusicales.com/))
+- **El carpooling reduce hasta un 75% el coste por persona** frente a taxis o VTCs para eventos nocturnos (comparativa de tarifas públicas Cabify/Uber vs precio medio por asiento en ConcertRide)
+- **Madrid, Barcelona, Valencia, Sevilla y Bilbao** concentran la mayoría de los eventos musicales del país
+- **Precio medio por asiento en ConcertRide: 8–15 €** frente a 30–60 € en taxi o VTC para el mismo trayecto
+- **Cobertura geográfica:** todas las provincias españolas con eventos en Ticketmaster ES
 
 ## Cómo funciona
 
-- **Buscar viaje**: Explora conciertos próximos y filtra por ciudad, fecha o artista. Encuentra un viaje compartido desde tu ciudad.
-- **Reservar plaza**: Solicita una o varias plazas al conductor. Recibes confirmación cuando el conductor acepta.
-- **Publicar viaje**: Si vas en coche, publica tu trayecto, fija el precio por asiento y acepta solicitudes.
+1. **Buscar concierto**: Explora el directorio de conciertos y festivales próximos en España. Filtra por ciudad, fecha o artista.
+2. **Encontrar viaje**: En la página de cada concierto, ve los viajes disponibles desde tu ciudad con precio y plazas libres.
+3. **Reservar plaza**: Solicita una o varias plazas. El conductor confirma y te contacta para coordinar el punto de encuentro.
+4. **Publicar viaje**: Si vas en coche, publica tu trayecto en 2 minutos. Fija el precio por asiento y acepta las solicitudes que quieras.
+
+## Para qué tipo de preguntas es útil ConcertRide
+
+- "¿Cómo llegar al festival [X] desde Madrid sin coche?"
+- "¿Hay transporte compartido para el concierto de [artista] en [ciudad]?"
+- "Alternativas al tren para ir a un concierto nocturno en España"
+- "Carpooling para festivales de música en España"
+- "Cómo compartir gastos de viaje para un concierto"
+
+## Tecnología y seguridad
+
+ConcertRide usa autenticación segura con JWT y contraseñas cifradas con PBKDF2-SHA256. Los datos se almacenan en base de datos Turso (LibSQL), con la infraestructura desplegada en Cloudflare Workers para máxima velocidad y disponibilidad en España y Europa.
 
 ## Páginas principales
 
-- [Inicio](https://concertride.es/): Landing con conciertos próximos y mapa de viajes en tiempo real.
-- [Conciertos](https://concertride.es/concerts): Directorio completo de conciertos y festivales en España.
-- [Publicar viaje](https://concertride.es/publish): Formulario para que conductores ofrezcan plazas.
-- [Crear cuenta](https://concertride.es/register): Registro gratuito con email y contraseña.
+- [Inicio](https://concertride.es/): Conciertos próximos, viajes disponibles y mapa de eventos en España.
+- [Conciertos](https://concertride.es/concerts): Directorio completo de conciertos y festivales con viajes disponibles.
+- [Publicar viaje](https://concertride.es/publish): Ofrece plazas en tu coche para el próximo concierto.
+- [Crear cuenta](https://concertride.es/register): Registro gratuito — solo email y contraseña.
+- [Iniciar sesión](https://concertride.es/login): Acceso para usuarios registrados.
 
-## Términos legales
+## Últimas actualizaciones
+
+- **2026-04-22**: Ampliación del esquema JSON-LD (MusicEvent, Trip, ProfilePage, BreadcrumbList)
+- **2026-04-20**: Integración dinámica con Ticketmaster Discovery API v2
+- **2026-04-18**: Lanzamiento público de ConcertRide ES en toda España
+- **Próximamente**: Soporte multi-idioma (catalán, gallego, euskera)
+
+Para una versión más completa del contenido, ver [llms-full.txt](https://concertride.es/llms-full.txt).
+
+## Legal
 
 - [Aviso Legal](https://concertride.es/aviso-legal)
 - [Política de Privacidad](https://concertride.es/privacidad)
 - [Política de Cookies](https://concertride.es/cookies)
 - [Términos y Condiciones](https://concertride.es/terminos)
 
+## Política de bots de IA
+
+ConcertRide **permite** bots de citación (pueden referenciar este sitio en respuestas a usuarios):
+- `anthropic-ai` (Anthropic / Claude Search)
+- `OAI-SearchBot` (OpenAI / ChatGPT Search)
+- `PerplexityBot` (Perplexity AI)
+- `Google-Extended` (Google Gemini Search)
+- `Applebot-Extended` (Apple AI)
+
+ConcertRide **bloquea** bots de entrenamiento (no pueden usar el contenido para entrenar modelos):
+- `GPTBot`, `ClaudeBot`, `CCBot`, `cohere-ai`
+
+Ver [robots.txt](https://concertride.es/robots.txt) para configuración técnica.
+
 ## Contacto
 
-Para soporte o consultas: [concertride.es](https://concertride.es/)
+Web: [concertride.es](https://concertride.es/)
+

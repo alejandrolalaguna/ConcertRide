@@ -7,6 +7,8 @@ import type {
   CreateReviewRequest,
   CreateRideRequest,
   DemandSignal,
+  Favorite,
+  FavoriteKind,
   Message,
   RequestStatus,
   Review,
@@ -19,7 +21,9 @@ import type {
 import { CONCERTS, RIDES, USERS, VENUES } from "../fixtures";
 import type { RawConcert, SourceId } from "../ingest/types";
 import { computeFingerprint } from "../lib/fingerprint";
+import { genreMatches, parseGenreTags } from "../lib/genre";
 import type {
+  ConcertFacets,
   ConcertFilters,
   CreateRequestResult,
   RideFilters,
@@ -122,6 +126,8 @@ export class MemoryStore implements StoreAdapter {
   private demandSignals: DemandRow[] = [];
   private reviews: Review[] = [];
   private staging: StagingRow[] = [];
+  private pushSubscriptions: Array<{ id: string; user_id: string; endpoint: string; p256dh: string; auth: string }> = [];
+  private favorites: Array<Favorite & { user_id: string }> = [];
 
   async getUser(id: string): Promise<User | null> {
     return this.users.find((u) => u.id === id) ?? null;
@@ -150,6 +156,9 @@ export class MemoryStore implements StoreAdapter {
       home_city: null,
       smoker: null,
       has_license: null,
+      license_verified: false,
+      referral_code: crypto.randomUUID().replace(/-/g, "").slice(0, 8).toUpperCase(),
+      referral_count: 0,
       password_hash: null,
       password_salt: null,
       created_at: new Date().toISOString(),
@@ -180,6 +189,9 @@ export class MemoryStore implements StoreAdapter {
       home_city: profile?.home_city ?? null,
       smoker: profile?.smoker ?? null,
       has_license: profile?.has_license ?? null,
+      license_verified: false,
+      referral_code: crypto.randomUUID().replace(/-/g, "").slice(0, 8).toUpperCase(),
+      referral_count: 0,
       password_hash: hash,
       password_salt: salt,
       created_at: new Date().toISOString(),
@@ -205,6 +217,26 @@ export class MemoryStore implements StoreAdapter {
     const u = this.users.find((u) => u.id === userId);
     if (!u || !u.password_hash || !u.password_salt) return null;
     return { hash: u.password_hash, salt: u.password_salt };
+  }
+
+  async updatePassword(userId: string, hash: string, salt: string): Promise<void> {
+    const u = this.users.find((u) => u.id === userId);
+    if (!u) return;
+    u.password_hash = hash;
+    u.password_salt = salt;
+  }
+
+  async useReferral(referralCode: string, _newUserId: string): Promise<void> {
+    const referrer = this.users.find((u) => u.referral_code === referralCode);
+    if (referrer) referrer.referral_count = (referrer.referral_count ?? 0) + 1;
+  }
+
+  async verifyLicense(userId: string): Promise<User | null> {
+    const user = this.users.find((u) => u.id === userId);
+    if (!user) return null;
+    user.license_verified = true;
+    user.has_license = true;
+    return user;
   }
 
   async listVenues(): Promise<Venue[]> {
@@ -247,6 +279,12 @@ export class MemoryStore implements StoreAdapter {
       const needle = f.artist.toLowerCase();
       result = result.filter((c) => c.artist.toLowerCase().includes(needle));
     }
+    if (f.genre) {
+      result = result.filter((c) => genreMatches(c.genre, f.genre!));
+    }
+    if (f.festival) {
+      result = result.filter((c) => (c.genre ?? "").toLowerCase().includes("festival"));
+    }
     if (f.date_from) result = result.filter((c) => c.date >= f.date_from!);
     if (f.date_to) result = result.filter((c) => c.date <= f.date_to!);
 
@@ -268,6 +306,28 @@ export class MemoryStore implements StoreAdapter {
   async getConcert(id: string): Promise<Concert | null> {
     const c = this.concerts.find((c) => c.id === id);
     return c ? this.toConcert(c) : null;
+  }
+
+  async listConcertFacets(): Promise<ConcertFacets> {
+    const horizon = new Date(Date.now() - 90 * 24 * 60 * 60 * 1000).toISOString();
+    const genreSet = new Map<string, string>();
+    const citySet = new Map<string, string>();
+    for (const c of this.concerts) {
+      if (c.date < horizon) continue;
+      for (const tag of parseGenreTags(c.genre)) {
+        const key = tag.toLowerCase();
+        if (!genreSet.has(key)) genreSet.set(key, tag);
+      }
+      const venue = this.venues.find((v) => v.id === c.venue_id);
+      if (venue?.city) {
+        const key = venue.city.toLowerCase();
+        if (!citySet.has(key)) citySet.set(key, venue.city);
+      }
+    }
+    return {
+      genres: [...genreSet.values()].sort((a, b) => a.localeCompare(b, "es")),
+      cities: [...citySet.values()].sort((a, b) => a.localeCompare(b, "es")),
+    };
   }
 
   async createConcert(input: CreateConcertInput): Promise<Concert> {
@@ -302,7 +362,12 @@ export class MemoryStore implements StoreAdapter {
 
   private toConcert(c: MemoryConcert): Concert {
     const { fingerprint: _fp, sources_json: _sj, ...rest } = c;
-    return rest;
+    // Fixtures carry a pre-baked active_rides_count; override it with the
+    // live count so newly-published rides are reflected immediately.
+    const live = this.rides.filter(
+      (r) => r.concert_id === c.id && (r.status === "active" || r.status === "full"),
+    ).length;
+    return { ...rest, active_rides_count: live };
   }
 
   async upsertConcertFromIngest(
@@ -357,6 +422,7 @@ export class MemoryStore implements StoreAdapter {
   async listRides(f: RideFilters): Promise<Ride[]> {
     let result = this.rides;
     if (f.concert_id) result = result.filter((r) => r.concert_id === f.concert_id);
+    if (f.driver_id) result = result.filter((r) => r.driver_id === f.driver_id);
     if (f.origin_city) {
       const needle = f.origin_city.toLowerCase();
       result = result.filter((r) => r.origin_city.toLowerCase() === needle);
@@ -409,10 +475,39 @@ export class MemoryStore implements StoreAdapter {
       max_luggage: input.max_luggage ?? "backpack",
       notes: input.notes ?? null,
       instant_booking: input.instant_booking ?? false,
+      accepted_payment: input.accepted_payment ?? "cash",
       status: "active",
+      completed_at: null,
+      completion_confirmed_by: null,
       created_at: new Date().toISOString(),
     };
     this.rides = [ride, ...this.rides];
+    return ride;
+  }
+
+  async revokeDriverCompletion(rideId: string): Promise<Ride | null> {
+    const ride = this.rides.find((r) => r.id === rideId);
+    if (!ride) return null;
+    if (ride.status === "completed") return ride;
+    if (ride.completion_confirmed_by !== "driver") return ride;
+    ride.completion_confirmed_by = null;
+    return ride;
+  }
+
+  async confirmRideComplete(rideId: string, confirmedBy: "driver" | "passenger"): Promise<Ride | null> {
+    const ride = this.rides.find((r) => r.id === rideId);
+    if (!ride) return null;
+    const wasDriverOnly = ride.completion_confirmed_by === "driver";
+    if (confirmedBy === "driver") {
+      ride.completion_confirmed_by = "driver";
+    } else if (confirmedBy === "passenger" && wasDriverOnly) {
+      ride.completion_confirmed_by = "both";
+      ride.status = "completed";
+      ride.completed_at = new Date().toISOString();
+      // Increment driver's rides_given
+      const driver = this.users.find((u) => u.id === ride.driver_id);
+      if (driver) driver.rides_given = (driver.rides_given ?? 0) + 1;
+    }
     return ride;
   }
 
@@ -430,6 +525,7 @@ export class MemoryStore implements StoreAdapter {
     seats: number,
     message?: string,
     luggage?: string,
+    payment_method?: string,
   ): Promise<CreateRequestResult> {
     if (passenger.id === ride.driver_id) return { error: "cannot_request_own_ride" };
     if (ride.status !== "active") return { error: "ride_not_active" };
@@ -448,6 +544,7 @@ export class MemoryStore implements StoreAdapter {
       status: "pending",
       message: message ?? null,
       luggage: (luggage ?? null) as LuggageVal,
+      payment_method: (payment_method ?? null) as import("@concertride/types").PaymentMethod | null,
       created_at: new Date().toISOString(),
     };
     this.requests = [req, ...this.requests];
@@ -504,6 +601,48 @@ export class MemoryStore implements StoreAdapter {
     return this.getDemandSignal(concertId, user.id);
   }
 
+  async listInterestedUsers(concertId: string): Promise<User[]> {
+    const now = new Date().toISOString();
+    const active = this.demandSignals.filter(
+      (d) => d.concert_id === concertId && d.expires_at > now,
+    );
+    return active
+      .map((d) => this.users.find((u) => u.id === d.user_id))
+      .filter((u): u is MemoryUser => !!u)
+      .map((u) => u as User);
+  }
+
+  async savePushSubscription(
+    userId: string,
+    sub: { endpoint: string; p256dh: string; auth: string },
+  ): Promise<void> {
+    const idx = this.pushSubscriptions.findIndex((s) => s.endpoint === sub.endpoint);
+    if (idx >= 0) {
+      const existing = this.pushSubscriptions[idx];
+      if (existing) {
+        this.pushSubscriptions[idx] = { ...existing, user_id: userId, p256dh: sub.p256dh, auth: sub.auth };
+      }
+    } else {
+      this.pushSubscriptions.push({
+        id: `ps_${crypto.randomUUID().slice(0, 10)}`,
+        user_id: userId,
+        endpoint: sub.endpoint,
+        p256dh: sub.p256dh,
+        auth: sub.auth,
+      });
+    }
+  }
+
+  async removePushSubscription(endpoint: string): Promise<void> {
+    this.pushSubscriptions = this.pushSubscriptions.filter((s) => s.endpoint !== endpoint);
+  }
+
+  async getPushSubscriptionsForUser(userId: string): Promise<{ endpoint: string; p256dh: string; auth: string }[]> {
+    return this.pushSubscriptions
+      .filter((s) => s.user_id === userId)
+      .map(({ endpoint, p256dh, auth }) => ({ endpoint, p256dh, auth }));
+  }
+
   async listMessages(scope: { ride_id: string } | { concert_id: string }): Promise<Message[]> {
     if ("ride_id" in scope) {
       return this.messages.filter((m) => m.ride_id === scope.ride_id);
@@ -515,6 +654,7 @@ export class MemoryStore implements StoreAdapter {
     scope: { ride_id: string } | { concert_id: string },
     user: User,
     body: string,
+    opts?: { kind?: import("@concertride/types").MessageKind; attachment_url?: string },
   ): Promise<Message> {
     const msg: Message = {
       id: `msg_${crypto.randomUUID().slice(0, 10)}`,
@@ -522,7 +662,9 @@ export class MemoryStore implements StoreAdapter {
       concert_id: "concert_id" in scope ? scope.concert_id : null,
       user_id: user.id,
       user,
+      kind: opts?.kind ?? "text",
       body,
+      attachment_url: opts?.attachment_url ?? null,
       created_at: new Date().toISOString(),
     };
     this.messages = [...this.messages, msg];
@@ -620,6 +762,67 @@ export class MemoryStore implements StoreAdapter {
     } else {
       this.staging = [...this.staging, row];
     }
+  }
+
+  async listFavorites(userId: string): Promise<Favorite[]> {
+    return this.favorites
+      .filter((f) => f.user_id === userId)
+      .map(({ user_id: _u, ...rest }) => rest);
+  }
+
+  async addFavorite(
+    userId: string,
+    kind: FavoriteKind,
+    targetId: string,
+    label: string,
+  ): Promise<Favorite> {
+    const existing = this.favorites.find(
+      (f) => f.user_id === userId && f.kind === kind && f.target_id === targetId,
+    );
+    if (existing) {
+      const { user_id: _u, ...rest } = existing;
+      return rest;
+    }
+    const fav = {
+      id: `fav_${crypto.randomUUID().slice(0, 10)}`,
+      user_id: userId,
+      kind,
+      target_id: targetId,
+      label,
+      created_at: new Date().toISOString(),
+    };
+    this.favorites = [...this.favorites, fav];
+    const { user_id: _u, ...rest } = fav;
+    return rest;
+  }
+
+  async removeFavorite(userId: string, kind: FavoriteKind, targetId: string): Promise<void> {
+    this.favorites = this.favorites.filter(
+      (f) => !(f.user_id === userId && f.kind === kind && f.target_id === targetId),
+    );
+  }
+
+  async listFavoriteUpcomingConcerts(userId: string): Promise<Concert[]> {
+    const userFavs = this.favorites.filter((f) => f.user_id === userId);
+    if (userFavs.length === 0) return [];
+
+    const concertIds = new Set(userFavs.filter((f) => f.kind === "concert").map((f) => f.target_id));
+    const artistKeys = new Set(userFavs.filter((f) => f.kind === "artist").map((f) => f.target_id));
+    const cityKeys = new Set(userFavs.filter((f) => f.kind === "city").map((f) => f.target_id));
+
+    const nowISO = new Date().toISOString();
+    const matching = this.concerts.filter((c) => {
+      if (c.date < nowISO) return false;
+      if (concertIds.has(c.id)) return true;
+      if (artistKeys.has(c.artist.toLowerCase())) return true;
+      const venue = this.venues.find((v) => v.id === c.venue_id);
+      if (venue && cityKeys.has(venue.city.toLowerCase())) return true;
+      return false;
+    });
+
+    return matching
+      .sort((a, b) => a.date.localeCompare(b.date))
+      .map((c) => this.toConcert(c));
   }
 
   async deletePastConcerts(beforeDate: string): Promise<number> {

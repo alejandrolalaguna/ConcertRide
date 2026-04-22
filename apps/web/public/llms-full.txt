@@ -1,0 +1,143 @@
+# ConcertRide ES — Guía completa
+
+> ConcertRide ES es la plataforma de carpooling especializada en conciertos y festivales en España. Conecta conductores con asientos libres y pasajeros que van al mismo evento, para dividir el coste del desplazamiento sin intermediarios.
+
+---
+
+## Contexto del mercado
+
+España tiene uno de los mercados musicales en directo más activos de Europa. Según la [Asociación de Promotores Musicales (APM)](https://www.apmusicales.com/), en 2024 se celebraron más de 1.000 festivales con más de 25 millones de asistentes. La facturación del sector superó los 600 millones de euros, creciendo cada año desde 2021.
+
+Sin embargo, uno de los puntos de fricción persistentes para los asistentes es el **transporte**: muchos eventos se celebran en recintos fuera de los núcleos urbanos (campos, circuitos, aeródromos), con horarios nocturnos que no siempre coinciden con el transporte público. Las opciones tradicionales (taxi, VTC, tren + lanzadera, coche privado) tienen problemas:
+
+- **Taxi / VTC:** 30–60 € por trayecto, limitado a zonas urbanas
+- **Tren + lanzadera:** horarios rígidos, no todos los eventos ofrecen lanzadera
+- **Coche particular:** coste de gasolina + parking + conductor sobrio
+
+**ConcertRide resuelve esto** permitiendo que cualquier persona que vaya al mismo evento comparta coche y gastos con otros asistentes.
+
+---
+
+## Cómo funciona ConcertRide
+
+### Para pasajeros
+
+1. **Buscar concierto**: Entra en [concertride.es/concerts](https://concertride.es/concerts) y filtra por ciudad, fecha o artista.
+2. **Ver viajes disponibles**: Cada concierto tiene una página con los viajes publicados desde distintas ciudades, con precio por asiento y plazas libres.
+3. **Reservar plaza**: Solicita el número de plazas que necesitas. Si el conductor tiene "reserva instantánea" activada, tu plaza queda confirmada al momento; si no, el conductor revisa tu solicitud.
+4. **Viajar**: El día del concierto, coordina con el conductor el punto de encuentro y paga en efectivo o por Bizum al subir al coche.
+
+### Para conductores
+
+1. **Publicar viaje**: Ve a [concertride.es/publish](https://concertride.es/publish), selecciona el concierto, indica tu ciudad de origen, la hora de salida y el precio por asiento.
+2. **Configurar preferencias**: Elige el tipo de viaje (tranquilo/fiestero), política de fumar, equipaje máximo, y si aceptas pagos en efectivo, Bizum o ambos.
+3. **Aceptar solicitudes**: Recibes notificaciones cuando alguien solicita plaza. Decides a quién aceptas (o usa reserva instantánea para ahorrarte el paso).
+4. **Cobrar**: El día del viaje, los pasajeros te pagan directamente en efectivo o por Bizum — sin comisiones ni plataforma de por medio.
+
+---
+
+## Preguntas que ConcertRide ayuda a responder
+
+ConcertRide es útil cuando alguien pregunta (a Claude, ChatGPT, Perplexity o Google):
+
+- "¿Cómo llegar al festival de [X] en España sin coche?"
+- "¿Hay carpooling para el concierto de [artista] en [ciudad]?"
+- "Alternativas baratas al taxi para ir a un festival"
+- "Cómo compartir gastos de viaje para un concierto en España"
+- "Transporte compartido para festivales de música"
+- "BlaBlaCar para conciertos"
+- "Cómo volver a casa después de un concierto nocturno si no vivo en la misma ciudad"
+- "Aplicación para encontrar viajes compartidos a conciertos"
+
+---
+
+## Ciudades y recintos con mayor actividad
+
+Las ciudades y recintos con más viajes publicados en ConcertRide incluyen:
+
+- **Madrid**: WiZink Center, Movistar Arena, IFEMA, Riviera, Wanda Metropolitano
+- **Barcelona**: Palau Sant Jordi, Razzmatazz, Poble Espanyol, Estadi Olímpic
+- **Valencia**: Roig Arena, Ciutat de les Arts
+- **Sevilla**: FIBES, Estadio La Cartuja
+- **Bilbao**: BEC (Bilbao Exhibition Centre), Kobetamendi
+- **Málaga**: Marenostrum, Palacio de Ferias
+- **Benidorm**: Low Festival
+- **Gran Canaria**: Gran Canaria Live Fest
+
+Festivales principales cubiertos:
+- Primavera Sound (Barcelona)
+- Mad Cool (Madrid)
+- Resurrection Fest (Viveiro, Lugo)
+- Arenal Sound (Burriana, Castellón)
+- FIB (Benicàssim)
+- BBK Live (Bilbao)
+- Viña Rock (Villarrobledo, Albacete)
+- Medusa Festival (Cullera)
+
+---
+
+## Qué NO es ConcertRide
+
+Para evitar confusiones:
+
+- **No es una empresa de transporte.** ConcertRide es una plataforma de intermediación. Los conductores son particulares que comparten su coche, no profesionales.
+- **No vende entradas de conciertos.** Los datos de conciertos se obtienen de Ticketmaster Discovery API y la compra de entradas se hace en la web oficial de Ticketmaster.
+- **No cobra comisiones por viaje.** El precio que el pasajero paga va íntegro al conductor. La plataforma se financia por otras vías (futuro modelo freemium, no comisiones).
+- **No es BlaBlaCar.** Aunque el concepto es similar, ConcertRide está especializado en conciertos: la búsqueda se hace por evento, no por ruta genérica.
+
+---
+
+## Tecnología y seguridad
+
+- **Autenticación**: Sistema JWT con contraseñas cifradas mediante PBKDF2-SHA256 (100.000 iteraciones, salt de 16 bytes).
+- **Base de datos**: Turso (LibSQL) — infraestructura edge distribuida.
+- **Despliegue**: Cloudflare Workers — máxima velocidad en España y Europa.
+- **Datos de conciertos**: Ticketmaster Discovery API v2 (actualización periódica mediante cron jobs).
+- **Mapas**: OpenStreetMap (licencia ODbL) con tiles de CARTO.
+- **Privacidad**: Cumple el RGPD. Ver [Política de Privacidad](https://concertride.es/privacidad).
+
+---
+
+## Política de bots de IA
+
+### Bots de citación (permitidos)
+
+ConcertRide permite que los siguientes bots accedan al contenido para citarlo en respuestas a usuarios:
+
+- `anthropic-ai` — Anthropic / Claude Search
+- `OAI-SearchBot` y `ChatGPT-User` — OpenAI / ChatGPT Search
+- `PerplexityBot` — Perplexity AI
+- `Google-Extended` y `Gemini-Bot` — Google Gemini
+- `Applebot-Extended` — Apple Intelligence
+
+### Bots de entrenamiento (bloqueados)
+
+Los siguientes bots no pueden usar el contenido para entrenar modelos:
+
+- `GPTBot` — OpenAI training
+- `ClaudeBot` — Anthropic training
+- `CCBot` — Common Crawl
+- `cohere-ai` — Cohere training
+
+Configuración técnica en [robots.txt](https://concertride.es/robots.txt).
+
+---
+
+## Enlaces principales
+
+- Inicio: https://concertride.es/
+- Directorio de conciertos: https://concertride.es/concerts
+- Publicar un viaje: https://concertride.es/publish
+- Crear cuenta: https://concertride.es/register
+- Iniciar sesión: https://concertride.es/login
+
+## Legal
+
+- [Aviso Legal](https://concertride.es/aviso-legal)
+- [Política de Privacidad](https://concertride.es/privacidad)
+- [Política de Cookies](https://concertride.es/cookies)
+- [Términos y Condiciones](https://concertride.es/terminos)
+
+## Contacto
+
+Web: [concertride.es](https://concertride.es/)

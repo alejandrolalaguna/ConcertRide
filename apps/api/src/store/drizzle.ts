@@ -5,7 +5,7 @@
 // apps/api/scripts/seed.ts for the bring-up flow.
 
 import { createClient } from "@libsql/client/web";
-import { and, avg, count, desc, eq, gte, like, lte, lt, notInArray, sql } from "drizzle-orm";
+import { and, avg, count, desc, eq, gte, inArray, like, lte, lt, notInArray, or, sql } from "drizzle-orm";
 import { drizzle } from "drizzle-orm/libsql";
 import type {
   Concert,
@@ -13,6 +13,8 @@ import type {
   CreateReviewRequest,
   CreateRideRequest,
   DemandSignal,
+  Favorite,
+  FavoriteKind,
   Message,
   RequestStatus,
   Review,
@@ -26,7 +28,9 @@ import type { Env } from "../env";
 import * as schema from "../db/schema";
 import type { RawConcert, SourceId } from "../ingest/types";
 import { computeFingerprint } from "../lib/fingerprint";
+import { genreMatches, parseGenreTags } from "../lib/genre";
 import type {
+  ConcertFacets,
   ConcertFilters,
   CreateRequestResult,
   RideFilters,
@@ -98,6 +102,10 @@ function hydrateVenue(row: VenueRow): Venue {
   };
 }
 
+function makeReferralCode(): string {
+  return crypto.randomUUID().replace(/-/g, "").slice(0, 8).toUpperCase();
+}
+
 function hydrateUser(row: UserRow): User {
   return {
     id: row.id,
@@ -114,6 +122,9 @@ function hydrateUser(row: UserRow): User {
     home_city: row.home_city ?? null,
     smoker: row.smoker ?? null,
     has_license: row.has_license ?? null,
+    license_verified: row.license_verified ?? false,
+    referral_code: row.referral_code ?? null,
+    referral_count: row.referral_count ?? 0,
     created_at: row.created_at,
   };
 }
@@ -163,7 +174,10 @@ function hydrateRide(row: RideWith): Ride {
     max_luggage: row.max_luggage,
     notes: row.notes,
     instant_booking: row.instant_booking,
+    accepted_payment: (row.accepted_payment as Ride["accepted_payment"]) ?? "cash",
     status: row.status,
+    completed_at: row.completed_at ?? null,
+    completion_confirmed_by: (row.completion_confirmed_by as Ride["completion_confirmed_by"]) ?? null,
     created_at: row.created_at,
   };
 }
@@ -179,6 +193,7 @@ function hydrateRequest(row: RequestWith): RideRequest {
     status: row.status,
     message: row.message,
     luggage: (row.luggage as RideRequest["luggage"]) ?? null,
+    payment_method: (row.payment_method as RideRequest["payment_method"]) ?? null,
     created_at: row.created_at,
   };
 }
@@ -224,6 +239,9 @@ export class DrizzleStore implements StoreAdapter {
       car_model: null as string | null,
       car_color: null as string | null,
       rides_given: 0,
+      license_verified: false,
+      referral_code: makeReferralCode(),
+      referral_count: 0,
       password_hash: null as string | null,
       password_salt: null as string | null,
       created_at: new Date().toISOString(),
@@ -254,6 +272,9 @@ export class DrizzleStore implements StoreAdapter {
       home_city: profile?.home_city ?? null,
       smoker: profile?.smoker ?? null,
       has_license: profile?.has_license ?? null,
+      license_verified: false,
+      referral_code: makeReferralCode(),
+      referral_count: 0,
       password_hash: hash,
       password_salt: salt,
       created_at: new Date().toISOString(),
@@ -276,12 +297,26 @@ export class DrizzleStore implements StoreAdapter {
     return this.getUser(id);
   }
 
+  async useReferral(referralCode: string, _newUserId: string): Promise<void> {
+    await this.db
+      .update(schema.users)
+      .set({ referral_count: sql`referral_count + 1` })
+      .where(eq(schema.users.referral_code, referralCode));
+  }
+
   async getPasswordHash(userId: string): Promise<{ hash: string; salt: string } | null> {
     const row = await this.db.query.users.findFirst({
       where: eq(schema.users.id, userId),
     });
     if (!row || !row.password_hash || !row.password_salt) return null;
     return { hash: row.password_hash, salt: row.password_salt };
+  }
+
+  async updatePassword(userId: string, hash: string, salt: string): Promise<void> {
+    await this.db
+      .update(schema.users)
+      .set({ password_hash: hash, password_salt: salt })
+      .where(eq(schema.users.id, userId));
   }
 
   async listVenues(): Promise<Venue[]> {
@@ -320,15 +355,31 @@ export class DrizzleStore implements StoreAdapter {
   }
 
   async listConcerts(f: ConcertFilters): Promise<{ concerts: Concert[]; total: number }> {
-    // Clauses that can be applied directly on the concerts table
+    // Clauses applied directly on the concerts table
     const concertClauses = [];
-    if (f.artist) concertClauses.push(like(schema.concerts.artist, `%${f.artist}%`));
+    if (f.artist) {
+      concertClauses.push(
+        sql`lower(${schema.concerts.artist}) like ${"%" + f.artist.toLowerCase() + "%"}`,
+      );
+    }
+    if (f.genre) {
+      // Compound genres ("Pop / Flamenco") are matched via LIKE; precise tag
+      // equality is enforced post-fetch with `genreMatches` so "Pop" doesn't
+      // accidentally match "K-Pop".
+      concertClauses.push(
+        sql`lower(${schema.concerts.genre}) like ${"%" + f.genre.toLowerCase() + "%"}`,
+      );
+    }
+    if (f.festival) {
+      concertClauses.push(sql`lower(${schema.concerts.genre}) like '%festival%'`);
+    }
     if (f.date_from) concertClauses.push(gte(schema.concerts.date, f.date_from));
     if (f.date_to) concertClauses.push(lte(schema.concerts.date, f.date_to));
     const concertWhere = concertClauses.length ? and(...concertClauses) : undefined;
 
-    // City filter applied in-memory after join (avoids referencing venues table in findMany)
+    // City / genre filters are refined in-memory after the join
     const cityLower = f.city ? f.city.toLowerCase() : null;
+    const genreTag = f.genre ?? null;
 
     // COUNT with join so city filter is accurate
     const countClauses = [...concertClauses];
@@ -340,37 +391,91 @@ export class DrizzleStore implements StoreAdapter {
       .where(countClauses.length ? and(...countClauses) : undefined);
     const total = countRow?.total ?? 0;
 
-    // Fetch a wider slice when city filter is active (we filter post-join in memory)
-    const fetchLimit = cityLower ? Math.min((f.limit ?? 100) * 10, 500) : f.limit;
+    // Fetch a wider slice when post-filters are active
+    const needsMemoryFilter = cityLower || genreTag;
+    const fetchLimit = needsMemoryFilter ? Math.min((f.limit ?? 100) * 10, 500) : f.limit;
     const allRows = await this.db.query.concerts.findMany({
       where: concertWhere,
       with: { venue: true },
       orderBy: (c, { asc }) => [asc(c.date)],
       limit: fetchLimit,
-      offset: cityLower ? 0 : f.offset,
+      offset: needsMemoryFilter ? 0 : f.offset,
     });
 
-    // Apply city filter and pagination in memory
-    const filtered = cityLower
-      ? allRows.filter((c) => c.venue?.city.toLowerCase() === cityLower)
-      : allRows;
-    const pageRows = cityLower
+    const filtered = allRows.filter((c) => {
+      if (cityLower && c.venue?.city.toLowerCase() !== cityLower) return false;
+      if (genreTag && !genreMatches(c.genre, genreTag)) return false;
+      return true;
+    });
+    const pageRows = needsMemoryFilter
       ? filtered.slice(f.offset ?? 0, (f.offset ?? 0) + (f.limit ?? 100))
       : filtered;
 
-    // Batch demand counts for the current page
+    // Batch demand + active ride counts for the current page
     const now = new Date().toISOString();
-    const demandRows = pageRows.length
-      ? await this.db
-          .select({ concert_id: schema.demandSignals.concert_id, cnt: count() })
-          .from(schema.demandSignals)
-          .where(gte(schema.demandSignals.expires_at, now))
-          .groupBy(schema.demandSignals.concert_id)
-      : [];
+    const pageIds = pageRows.map((c) => c.id);
+    const [demandRows, rideRows] = pageIds.length
+      ? await Promise.all([
+          this.db
+            .select({ concert_id: schema.demandSignals.concert_id, cnt: count() })
+            .from(schema.demandSignals)
+            .where(
+              and(
+                gte(schema.demandSignals.expires_at, now),
+                inArray(schema.demandSignals.concert_id, pageIds),
+              ),
+            )
+            .groupBy(schema.demandSignals.concert_id),
+          this.db
+            .select({ concert_id: schema.rides.concert_id, cnt: count() })
+            .from(schema.rides)
+            .where(
+              and(
+                inArray(schema.rides.concert_id, pageIds),
+                inArray(schema.rides.status, ["active", "full"]),
+              ),
+            )
+            .groupBy(schema.rides.concert_id),
+        ])
+      : [[], []];
     const demandMap = new Map(demandRows.map((r) => [r.concert_id, r.cnt]));
+    const ridesMap = new Map(rideRows.map((r) => [r.concert_id, r.cnt]));
 
-    const page = pageRows.map((c) => hydrateConcert(c, 0, demandMap.get(c.id) ?? 0));
+    const page = pageRows.map((c) =>
+      hydrateConcert(c, ridesMap.get(c.id) ?? 0, demandMap.get(c.id) ?? 0),
+    );
     return { concerts: page, total };
+  }
+
+  async listConcertFacets(): Promise<ConcertFacets> {
+    // Only surface facets for upcoming/recent concerts so the filter UI
+    // doesn't offer dead genres from an ancient catalogue.
+    const horizon = new Date(Date.now() - 90 * 24 * 60 * 60 * 1000).toISOString();
+    const rows = await this.db
+      .select({
+        genre: schema.concerts.genre,
+        city: schema.venues.city,
+      })
+      .from(schema.concerts)
+      .innerJoin(schema.venues, eq(schema.concerts.venue_id, schema.venues.id))
+      .where(gte(schema.concerts.date, horizon));
+
+    const genreSet = new Map<string, string>(); // lower → canonical casing
+    const citySet = new Map<string, string>();
+    for (const r of rows) {
+      for (const tag of parseGenreTags(r.genre)) {
+        const key = tag.toLowerCase();
+        if (!genreSet.has(key)) genreSet.set(key, tag);
+      }
+      if (r.city) {
+        const key = r.city.toLowerCase();
+        if (!citySet.has(key)) citySet.set(key, r.city);
+      }
+    }
+    return {
+      genres: [...genreSet.values()].sort((a, b) => a.localeCompare(b, "es")),
+      cities: [...citySet.values()].sort((a, b) => a.localeCompare(b, "es")),
+    };
   }
 
   async getConcert(id: string): Promise<Concert | null> {
@@ -378,7 +483,14 @@ export class DrizzleStore implements StoreAdapter {
       where: eq(schema.concerts.id, id),
       with: { venue: true },
     });
-    return row ? hydrateConcert(row) : null;
+    if (!row) return null;
+    const [ridesRow] = await this.db
+      .select({ cnt: count() })
+      .from(schema.rides)
+      .where(
+        and(eq(schema.rides.concert_id, id), inArray(schema.rides.status, ["active", "full"])),
+      );
+    return hydrateConcert(row, ridesRow?.cnt ?? 0);
   }
 
   async createConcert(input: CreateConcertInput): Promise<Concert> {
@@ -482,6 +594,7 @@ export class DrizzleStore implements StoreAdapter {
   async listRides(f: RideFilters): Promise<Ride[]> {
     const clauses = [];
     if (f.concert_id) clauses.push(eq(schema.rides.concert_id, f.concert_id));
+    if (f.driver_id) clauses.push(eq(schema.rides.driver_id, f.driver_id));
     if (f.vibe) clauses.push(eq(schema.rides.vibe, f.vibe));
     if (f.round_trip !== undefined) clauses.push(eq(schema.rides.round_trip, f.round_trip));
     if (f.max_price !== undefined) clauses.push(lte(schema.rides.price_per_seat, f.max_price));
@@ -553,12 +666,57 @@ export class DrizzleStore implements StoreAdapter {
       max_luggage: input.max_luggage ?? "backpack",
       notes: input.notes ?? null,
       instant_booking: input.instant_booking ?? false,
+      accepted_payment: input.accepted_payment ?? "cash",
       status: "active",
       created_at: now,
     });
     const created = await this.getRide(id);
     if (!created) throw new Error(`Ride ${id} missing after insert`);
     return created;
+  }
+
+  async revokeDriverCompletion(rideId: string): Promise<Ride | null> {
+    const row = await this.db.query.rides.findFirst({ where: eq(schema.rides.id, rideId) });
+    if (!row) return null;
+    if (row.status === "completed") return this.getRide(rideId);
+    if (row.completion_confirmed_by !== "driver") return this.getRide(rideId);
+    await this.db
+      .update(schema.rides)
+      .set({ completion_confirmed_by: null })
+      .where(eq(schema.rides.id, rideId));
+    return this.getRide(rideId);
+  }
+
+  async confirmRideComplete(rideId: string, confirmedBy: "driver" | "passenger"): Promise<Ride | null> {
+    return await this.db.transaction(async (tx) => {
+      const row = await tx.query.rides.findFirst({ where: eq(schema.rides.id, rideId) });
+      if (!row) return null;
+
+      const wasDriverOnly = row.completion_confirmed_by === "driver";
+      let newConfirmedBy = row.completion_confirmed_by as string | null;
+      let newStatus = row.status as string;
+      let newCompletedAt = row.completed_at;
+
+      if (confirmedBy === "driver" && !wasDriverOnly) {
+        newConfirmedBy = "driver";
+      } else if (confirmedBy === "passenger" && wasDriverOnly) {
+        newConfirmedBy = "both";
+        newStatus = "completed";
+        newCompletedAt = new Date().toISOString();
+        await tx.update(schema.users).set({
+          rides_given: sql`${schema.users.rides_given} + 1`,
+        }).where(eq(schema.users.id, row.driver_id));
+      }
+
+      await tx.update(schema.rides).set({
+        completion_confirmed_by: newConfirmedBy as "driver" | "both" | null,
+        status: newStatus as "active" | "full" | "cancelled" | "completed",
+        completed_at: newCompletedAt,
+      }).where(eq(schema.rides.id, rideId));
+
+      const updated = await this.getRide(rideId);
+      return updated;
+    });
   }
 
   async listRequestsForRide(rideId: string): Promise<RideRequest[]> {
@@ -584,6 +742,7 @@ export class DrizzleStore implements StoreAdapter {
     seats: number,
     message?: string,
     luggage?: string,
+    payment_method?: string,
   ): Promise<CreateRequestResult> {
     // Re-read ride inside a transaction so concurrent requests can't
     // double-book the last seat.
@@ -606,6 +765,7 @@ export class DrizzleStore implements StoreAdapter {
       const id = crypto.randomUUID();
       const now = new Date().toISOString();
       const luggageVal = (luggage ?? null) as RideRequest["luggage"];
+      const paymentVal = (payment_method ?? null) as RideRequest["payment_method"];
       await tx.insert(schema.rideRequests).values({
         id,
         ride_id: ride.id,
@@ -614,6 +774,7 @@ export class DrizzleStore implements StoreAdapter {
         status: "pending",
         message: message ?? null,
         luggage: luggageVal,
+        payment_method: paymentVal,
         created_at: now,
       });
 
@@ -626,6 +787,7 @@ export class DrizzleStore implements StoreAdapter {
         status: "pending",
         message: message ?? null,
         luggage: luggageVal,
+        payment_method: paymentVal,
         created_at: now,
       };
       return { request: hydrated };
@@ -669,6 +831,131 @@ export class DrizzleStore implements StoreAdapter {
       });
       return refreshed ? hydrateRequest(refreshed) : null;
     });
+  }
+
+  async listFavorites(userId: string): Promise<Favorite[]> {
+    const rows = await this.db
+      .select()
+      .from(schema.favorites)
+      .where(eq(schema.favorites.user_id, userId))
+      .orderBy(desc(schema.favorites.created_at));
+    return rows.map((r) => ({
+      id: r.id,
+      kind: r.kind as FavoriteKind,
+      target_id: r.target_id,
+      label: r.label,
+      created_at: r.created_at,
+    }));
+  }
+
+  async addFavorite(
+    userId: string,
+    kind: FavoriteKind,
+    targetId: string,
+    label: string,
+  ): Promise<Favorite> {
+    const existing = await this.db.query.favorites.findFirst({
+      where: and(
+        eq(schema.favorites.user_id, userId),
+        eq(schema.favorites.kind, kind),
+        eq(schema.favorites.target_id, targetId),
+      ),
+    });
+    if (existing) {
+      return {
+        id: existing.id,
+        kind: existing.kind as FavoriteKind,
+        target_id: existing.target_id,
+        label: existing.label,
+        created_at: existing.created_at,
+      };
+    }
+    const id = `fav_${crypto.randomUUID().slice(0, 10)}`;
+    const created_at = new Date().toISOString();
+    await this.db.insert(schema.favorites).values({
+      id,
+      user_id: userId,
+      kind,
+      target_id: targetId,
+      label,
+      created_at,
+    });
+    return { id, kind, target_id: targetId, label, created_at };
+  }
+
+  async removeFavorite(userId: string, kind: FavoriteKind, targetId: string): Promise<void> {
+    await this.db
+      .delete(schema.favorites)
+      .where(
+        and(
+          eq(schema.favorites.user_id, userId),
+          eq(schema.favorites.kind, kind),
+          eq(schema.favorites.target_id, targetId),
+        ),
+      );
+  }
+
+  async listFavoriteUpcomingConcerts(userId: string): Promise<Concert[]> {
+    const favs = await this.db
+      .select({ kind: schema.favorites.kind, target_id: schema.favorites.target_id })
+      .from(schema.favorites)
+      .where(eq(schema.favorites.user_id, userId));
+    if (favs.length === 0) return [];
+
+    const concertIds = favs.filter((f) => f.kind === "concert").map((f) => f.target_id);
+    const artistKeys = favs.filter((f) => f.kind === "artist").map((f) => f.target_id);
+    const cityKeys = favs.filter((f) => f.kind === "city").map((f) => f.target_id);
+
+    const now = new Date().toISOString();
+    const conditions = [];
+    if (concertIds.length) conditions.push(inArray(schema.concerts.id, concertIds));
+    if (artistKeys.length) conditions.push(inArray(sql`lower(${schema.concerts.artist})`, artistKeys));
+    if (cityKeys.length) conditions.push(inArray(sql`lower(${schema.venues.city})`, cityKeys));
+    if (conditions.length === 0) return [];
+
+    const rows = await this.db
+      .select({ concert: schema.concerts, venue: schema.venues })
+      .from(schema.concerts)
+      .innerJoin(schema.venues, eq(schema.concerts.venue_id, schema.venues.id))
+      .where(and(gte(schema.concerts.date, now), or(...conditions)))
+      .orderBy(schema.concerts.date);
+
+    // Batch demand + active ride counts
+    const ids = rows.map((r) => r.concert.id);
+    const [demandRows, rideRows] = ids.length
+      ? await Promise.all([
+          this.db
+            .select({ concert_id: schema.demandSignals.concert_id, cnt: count() })
+            .from(schema.demandSignals)
+            .where(
+              and(
+                gte(schema.demandSignals.expires_at, now),
+                inArray(schema.demandSignals.concert_id, ids),
+              ),
+            )
+            .groupBy(schema.demandSignals.concert_id),
+          this.db
+            .select({ concert_id: schema.rides.concert_id, cnt: count() })
+            .from(schema.rides)
+            .where(
+              and(
+                inArray(schema.rides.concert_id, ids),
+                inArray(schema.rides.status, ["active", "full"]),
+              ),
+            )
+            .groupBy(schema.rides.concert_id),
+        ])
+      : [[], []];
+    const demandMap = new Map(demandRows.map((r) => [r.concert_id, r.cnt]));
+    const ridesMap = new Map(rideRows.map((r) => [r.concert_id, r.cnt]));
+
+    return rows.map((r) =>
+      hydrateConcert(
+        { ...r.concert, venue: r.venue },
+        ridesMap.get(r.concert.id) ?? 0,
+        demandMap.get(r.concert.id) ?? 0,
+      ),
+    );
   }
 
   async deletePastConcerts(beforeDate: string): Promise<number> {
@@ -742,6 +1029,45 @@ export class DrizzleStore implements StoreAdapter {
     });
   }
 
+  async savePushSubscription(
+    userId: string,
+    sub: { endpoint: string; p256dh: string; auth: string },
+  ): Promise<void> {
+    const existing = await this.db.query.pushSubscriptions.findFirst({
+      where: eq(schema.pushSubscriptions.endpoint, sub.endpoint),
+    });
+    if (existing) {
+      await this.db
+        .update(schema.pushSubscriptions)
+        .set({ user_id: userId, p256dh: sub.p256dh, auth: sub.auth })
+        .where(eq(schema.pushSubscriptions.endpoint, sub.endpoint));
+    } else {
+      await this.db.insert(schema.pushSubscriptions).values({
+        id: `ps_${crypto.randomUUID().slice(0, 10)}`,
+        user_id: userId,
+        endpoint: sub.endpoint,
+        p256dh: sub.p256dh,
+        auth: sub.auth,
+        created_at: new Date().toISOString(),
+      });
+    }
+  }
+
+  async removePushSubscription(endpoint: string): Promise<void> {
+    await this.db
+      .delete(schema.pushSubscriptions)
+      .where(eq(schema.pushSubscriptions.endpoint, endpoint));
+  }
+
+  async getPushSubscriptionsForUser(
+    userId: string,
+  ): Promise<{ endpoint: string; p256dh: string; auth: string }[]> {
+    const rows = await this.db.query.pushSubscriptions.findMany({
+      where: eq(schema.pushSubscriptions.user_id, userId),
+    });
+    return rows.map((r) => ({ endpoint: r.endpoint, p256dh: r.p256dh, auth: r.auth }));
+  }
+
   async getDemandSignal(concertId: string, userId: string | null): Promise<DemandSignal> {
     const now = new Date().toISOString();
     const rows = await this.db.query.demandSignals.findMany({
@@ -779,6 +1105,23 @@ export class DrizzleStore implements StoreAdapter {
     return this.getDemandSignal(concertId, user.id);
   }
 
+  async listInterestedUsers(concertId: string): Promise<User[]> {
+    const now = new Date().toISOString();
+    const rows = await this.db.query.demandSignals.findMany({
+      where: (d, { and, eq, gte }) => and(eq(d.concert_id, concertId), gte(d.expires_at, now)),
+      with: { user: true },
+    });
+    return rows.filter((r) => r.user).map((r) => hydrateUser(r.user!));
+  }
+
+  async verifyLicense(userId: string): Promise<User | null> {
+    await this.db
+      .update(schema.users)
+      .set({ license_verified: true, has_license: true })
+      .where(eq(schema.users.id, userId));
+    return this.getUser(userId);
+  }
+
   async listMessages(scope: { ride_id: string } | { concert_id: string }): Promise<Message[]> {
     const where =
       "ride_id" in scope
@@ -797,7 +1140,9 @@ export class DrizzleStore implements StoreAdapter {
         concert_id: r.concert_id,
         user_id: r.user_id,
         user: hydrateUser(r.user!),
+        kind: (r.kind as import("@concertride/types").MessageKind) ?? "text",
         body: r.body,
+        attachment_url: r.attachment_url ?? null,
         created_at: r.created_at,
       }));
   }
@@ -806,15 +1151,20 @@ export class DrizzleStore implements StoreAdapter {
     scope: { ride_id: string } | { concert_id: string },
     user: User,
     body: string,
+    opts?: { kind?: import("@concertride/types").MessageKind; attachment_url?: string },
   ): Promise<Message> {
     const id = `msg_${crypto.randomUUID().slice(0, 10)}`;
     const now = new Date().toISOString();
+    const kind = opts?.kind ?? "text";
+    const attachment_url = opts?.attachment_url ?? null;
     await this.db.insert(schema.messages).values({
       id,
       ride_id: "ride_id" in scope ? scope.ride_id : null,
       concert_id: "concert_id" in scope ? scope.concert_id : null,
       user_id: user.id,
+      kind,
       body,
+      attachment_url,
       created_at: now,
     });
     return {
@@ -823,7 +1173,9 @@ export class DrizzleStore implements StoreAdapter {
       concert_id: "concert_id" in scope ? scope.concert_id : null,
       user_id: user.id,
       user,
+      kind,
       body,
+      attachment_url,
       created_at: now,
     };
   }

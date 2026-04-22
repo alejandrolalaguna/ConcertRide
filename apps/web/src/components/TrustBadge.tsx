@@ -1,13 +1,39 @@
-import { Check, Star } from "lucide-react";
+import { Check, ShieldCheck, Star } from "lucide-react";
+import { Link } from "react-router-dom";
 import type { User } from "@concertride/types";
 import { initials } from "@/lib/format";
 
 interface Props {
-  user: User;
+  user: User | Omit<User, "email">;
   compact?: boolean;
+  linkToProfile?: boolean;
 }
 
-export function TrustBadge({ user, compact = false }: Props) {
+export function TrustBadge({ user, compact = false, linkToProfile = false }: Props) {
+  const nameContent = (
+    <>
+      {user.name}
+      {"verified" in user && user.verified && (
+        <span
+          className="inline-flex items-center justify-center w-4 h-4 rounded-full bg-cr-primary/15 text-cr-primary"
+          aria-label="Perfil verificado"
+        >
+          <Check size={10} strokeWidth={3} />
+        </span>
+      )}
+      {user.license_verified && (
+        <span
+          className="inline-flex items-center gap-0.5 font-sans text-[9px] font-semibold uppercase tracking-[0.1em] bg-cr-primary text-black px-1 py-0.5"
+          aria-label="Conductor verificado"
+          title="Carnet de conducir verificado"
+        >
+          <ShieldCheck size={9} strokeWidth={3} aria-hidden="true" />
+          Verificado
+        </span>
+      )}
+    </>
+  );
+
   return (
     <div className="flex items-center gap-3">
       <div
@@ -19,17 +45,18 @@ export function TrustBadge({ user, compact = false }: Props) {
         {initials(user.name)}
       </div>
       <div className="leading-tight">
-        <p className="flex items-center gap-1 text-sm text-cr-text">
-          {user.name}
-          {user.verified && (
-            <span
-              className="inline-flex items-center justify-center w-4 h-4 rounded-full bg-cr-primary/15 text-cr-primary"
-              aria-label="Perfil verificado"
-            >
-              <Check size={10} strokeWidth={3} />
-            </span>
-          )}
-        </p>
+        {linkToProfile ? (
+          <Link
+            to={`/drivers/${user.id}`}
+            className="flex items-center gap-1 text-sm text-cr-text flex-wrap hover:text-cr-primary transition-colors"
+          >
+            {nameContent}
+          </Link>
+        ) : (
+          <p className="flex items-center gap-1 text-sm text-cr-text flex-wrap">
+            {nameContent}
+          </p>
+        )}
         <p className="font-mono text-xs text-cr-text-muted flex items-center gap-1.5 flex-wrap">
           {user.rating_count >= 3 ? (
             <>

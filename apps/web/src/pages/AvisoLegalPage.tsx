@@ -1,10 +1,12 @@
-import { useEffect } from "react";
 import { Link } from "react-router-dom";
+import { useSeoMeta } from "@/lib/useSeoMeta";
 
 export default function AvisoLegalPage() {
-  useEffect(() => {
-    document.title = "Aviso legal — ConcertRide ES";
-  }, []);
+  useSeoMeta({
+    title: "Aviso legal",
+    description: "Aviso legal de ConcertRide ES: datos del titular, actividad, propiedad intelectual y condiciones de uso de la plataforma de carpooling para conciertos en España.",
+    canonical: "https://concertride.es/aviso-legal",
+  });
 
   return (
     <main id="main" className="min-h-dvh bg-cr-bg text-cr-text pt-14">

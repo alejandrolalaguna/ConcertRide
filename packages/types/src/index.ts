@@ -1,8 +1,9 @@
 export type Vibe = "party" | "chill" | "mixed";
 export type Luggage = "none" | "small" | "backpack" | "cabin" | "large" | "extra";
 export type SmokingPolicy = "no" | "yes";
-export type RideStatus = "active" | "full" | "cancelled";
+export type RideStatus = "active" | "full" | "cancelled" | "completed";
 export type RequestStatus = "pending" | "confirmed" | "rejected" | "cancelled";
+export type PaymentMethod = "cash" | "bizum" | "cash_or_bizum";
 
 export interface Venue {
   id: string;
@@ -47,6 +48,9 @@ export interface User {
   home_city: string | null;
   smoker: boolean | null;
   has_license: boolean | null;
+  license_verified: boolean;
+  referral_code: string | null;
+  referral_count: number;
   created_at: string;
 }
 
@@ -82,7 +86,10 @@ export interface Ride {
   max_luggage: Luggage;
   notes: string | null;
   instant_booking: boolean;
+  accepted_payment: PaymentMethod;
   status: RideStatus;
+  completed_at: string | null;
+  completion_confirmed_by: "driver" | "both" | null;
   created_at: string;
 }
 
@@ -95,6 +102,7 @@ export interface RideRequest {
   status: RequestStatus;
   message: string | null;
   luggage: Luggage | null;
+  payment_method: PaymentMethod | null;
   created_at: string;
 }
 
@@ -103,13 +111,17 @@ export interface DemandSignal {
   user_has_signaled: boolean;
 }
 
+export type MessageKind = "text" | "location" | "photo";
+
 export interface Message {
   id: string;
   ride_id: string | null;
   concert_id: string | null;
   user_id: string;
   user: User;
+  kind: MessageKind;
   body: string;
+  attachment_url: string | null;
   created_at: string;
 }
 
@@ -120,6 +132,31 @@ export interface SendMessageRequest {
 
 export interface MessagesResponse {
   messages: Message[];
+}
+
+export type FavoriteKind = "concert" | "artist" | "city";
+
+export interface Favorite {
+  id: string;
+  kind: FavoriteKind;
+  target_id: string;
+  label: string;
+  created_at: string;
+}
+
+export interface FavoritesResponse {
+  // Flat list — easy to index client-side with a Set for "is this favorited?"
+  favorites: Favorite[];
+  // Upcoming concerts the user flagged as favourite, hydrated for display
+  // on the /favoritos page. Includes concerts whose artist or venue city is
+  // favourited, even if the concert itself isn't directly starred.
+  upcoming_concerts: Concert[];
+}
+
+export interface CreateFavoriteRequest {
+  kind: FavoriteKind;
+  target_id: string;
+  label: string;
 }
 
 export interface Review {
@@ -162,12 +199,14 @@ export interface CreateRideRequest {
   max_luggage?: Luggage;
   notes?: string;
   instant_booking?: boolean;
+  accepted_payment?: PaymentMethod;
 }
 
 export interface RequestSeatRequest {
   seats: number;
   message?: string;
   luggage?: Luggage;
+  payment_method?: PaymentMethod;
 }
 
 export interface ConcertsQuery {
@@ -175,6 +214,8 @@ export interface ConcertsQuery {
   date_from?: string;
   date_to?: string;
   artist?: string;
+  genre?: string;
+  festival?: boolean;
   limit?: number;
   offset?: number;
 }
@@ -191,6 +232,7 @@ export interface CreateConcertInput {
 export interface RidesQuery {
   concert_id?: string;
   origin_city?: string;
+  driver_id?: string;
   vibe?: Vibe;
   max_price?: number;
   round_trip?: boolean;

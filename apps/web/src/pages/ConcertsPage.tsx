@@ -1,25 +1,11 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { Link, useSearchParams } from "react-router-dom";
 import { useSeoMeta } from "@/lib/useSeoMeta";
-import { SlidersHorizontal, X, Clock, Zap, ChevronLeft, ChevronRight } from "lucide-react";
+import { SlidersHorizontal, Sparkles, X, Clock, Zap, ChevronLeft, ChevronRight } from "lucide-react";
 import type { Concert } from "@concertride/types";
 import { api } from "@/lib/api";
 import { ConcertCard } from "@/components/ConcertCard";
-import { SPANISH_CITIES } from "@/lib/constants";
 import { LoadingSpinner } from "@/components/ui";
-
-const GENRES = [
-  "Festival",
-  "Pop",
-  "Rock",
-  "Indie",
-  "Reggaetón",
-  "Electrónica",
-  "Jazz",
-  "Hip-Hop",
-  "Flamenco",
-  "Metal",
-];
 
 const PAGE_SIZE = 24;
 // Past tab: show concerts from up to 3 months ago
@@ -33,22 +19,32 @@ interface Filters {
   dateTo: string;
   artist: string;
   genre: string;
+  festival: boolean;
 }
 
-const EMPTY_FILTERS: Filters = { city: "", dateFrom: "", dateTo: "", artist: "", genre: "" };
+const EMPTY_FILTERS: Filters = {
+  city: "",
+  dateFrom: "",
+  dateTo: "",
+  artist: "",
+  genre: "",
+  festival: false,
+};
 
 function hasActiveFilters(f: Filters) {
   return Object.values(f).some(Boolean);
 }
 
-export default function ConcertsPage() {
-  useSeoMeta({
-    title: "Conciertos en España — ConcertRide ES",
-    description:
-      "Explora todos los conciertos y festivales de España. Encuentra un viaje compartido barato para llegar al show desde cualquier ciudad.",
-    canonical: "https://concertride.es/concerts",
-  });
+const BREADCRUMB_CONCERTS_JSON_LD = JSON.stringify({
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  itemListElement: [
+    { "@type": "ListItem", position: 1, name: "Inicio", item: "https://concertride.es/" },
+    { "@type": "ListItem", position: 2, name: "Conciertos", item: "https://concertride.es/concerts" },
+  ],
+});
 
+export default function ConcertsPage() {
   const [searchParams, setSearchParams] = useSearchParams();
   const [concerts, setConcerts] = useState<Concert[] | null>(null);
   const [total, setTotal] = useState(0);
@@ -56,8 +52,34 @@ export default function ConcertsPage() {
   const [loading, setLoading] = useState(true);
   const [filters, setFilters] = useState<Filters>(EMPTY_FILTERS);
   const [showFilters, setShowFilters] = useState(false);
+  const [facets, setFacets] = useState<{ genres: string[]; cities: string[] }>({ genres: [], cities: [] });
   const tab: Tab = searchParams.get("tab") === "past" ? "past" : "active";
   const gridRef = useRef<HTMLDivElement | null>(null);
+
+  useEffect(() => {
+    api.concerts
+      .facets()
+      .then(setFacets)
+      .catch(() => setFacets({ genres: [], cities: [] }));
+  }, []);
+
+  const dynamicTitle = useMemo(() => {
+    if (!hasActiveFilters(filters)) return "Conciertos y festivales en España";
+    const parts: string[] = [];
+    if (filters.artist) parts.push(`de ${filters.artist}`);
+    if (filters.city) parts.push(`en ${filters.city}`);
+    if (filters.genre) parts.push(filters.genre);
+    return `Conciertos ${parts.join(" ")}`.trim();
+  }, [filters]);
+
+  useSeoMeta({
+    title: dynamicTitle,
+    description: filters.city
+      ? `Todos los conciertos y festivales en ${filters.city}. Encuentra viajes compartidos baratos desde cualquier ciudad con ConcertRide ES.`
+      : "Todos los conciertos y festivales de música en España. Encuentra viajes compartidos baratos para llegar al show desde Madrid, Barcelona, Valencia, Sevilla y más.",
+    canonical: "https://concertride.es/concerts",
+    keywords: `conciertos ${filters.city || "España"}, festivales música, carpooling conciertos, viajes compartidos, ${filters.genre || "música en directo"}`,
+  });
 
   const debounceRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const [debouncedArtist, setDebouncedArtist] = useState("");
@@ -86,6 +108,8 @@ export default function ConcertsPage() {
       offset: (page - 1) * PAGE_SIZE,
       city: filters.city || undefined,
       artist: debouncedArtist || undefined,
+      genre: filters.genre || undefined,
+      festival: filters.festival || undefined,
       date_from: filters.dateFrom
         ? tab === "active" && new Date(filters.dateFrom) < new Date()
           ? nowISO
@@ -107,7 +131,7 @@ export default function ConcertsPage() {
         setTotal(0);
       })
       .finally(() => setLoading(false));
-  }, [tab, page, filters.city, filters.dateFrom, filters.dateTo, debouncedArtist]);
+  }, [tab, page, filters.city, filters.genre, filters.festival, filters.dateFrom, filters.dateTo, debouncedArtist]);
 
   useEffect(() => {
     fetchConcerts();
@@ -131,21 +155,15 @@ export default function ConcertsPage() {
     gridRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
   }
 
-  // Genre filter is client-side only
-  const filtered = useMemo(
-    () =>
-      filters.genre
-        ? (concerts ?? []).filter((c) =>
-            (c.genre ?? "").toLowerCase().includes(filters.genre.toLowerCase()),
-          )
-        : (concerts ?? []),
-    [concerts, filters.genre],
-  );
-
+  const pageConcerts = concerts ?? [];
   const totalPages = Math.ceil(total / PAGE_SIZE);
 
   return (
     <div className="min-h-screen bg-cr-bg text-cr-text pt-16">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: BREADCRUMB_CONCERTS_JSON_LD }}
+      />
       {/* Header */}
       <div className="max-w-6xl mx-auto px-6 pt-10 pb-6 space-y-4">
         <p className="font-sans text-[11px] font-semibold uppercase tracking-[0.16em] text-cr-primary">
@@ -157,22 +175,36 @@ export default function ConcertsPage() {
             <br />
             conciertos.
           </h1>
-          <button
-            onClick={() => setShowFilters((v) => !v)}
-            className={`inline-flex items-center gap-2 px-4 py-2 border font-sans text-xs font-semibold uppercase tracking-[0.1em] transition-colors ${
-              hasActiveFilters(filters) || showFilters
-                ? "border-cr-primary text-cr-primary bg-cr-primary/5"
-                : "border-cr-border text-cr-text-muted hover:border-cr-primary hover:text-cr-primary"
-            }`}
-          >
-            <SlidersHorizontal size={13} />
-            Filtrar
-            {hasActiveFilters(filters) && (
-              <span className="bg-cr-primary text-black w-4 h-4 flex items-center justify-center text-[9px] font-bold">
-                {Object.values(filters).filter(Boolean).length}
-              </span>
-            )}
-          </button>
+          <div className="flex items-center gap-2">
+            <button
+              onClick={() => setFilter("festival", !filters.festival)}
+              aria-pressed={filters.festival}
+              className={`inline-flex items-center gap-2 px-4 py-2 border font-sans text-xs font-semibold uppercase tracking-[0.1em] transition-colors ${
+                filters.festival
+                  ? "border-cr-secondary text-cr-secondary bg-cr-secondary/10"
+                  : "border-cr-border text-cr-text-muted hover:border-cr-secondary hover:text-cr-secondary"
+              }`}
+            >
+              <Sparkles size={13} />
+              Solo festivales
+            </button>
+            <button
+              onClick={() => setShowFilters((v) => !v)}
+              className={`inline-flex items-center gap-2 px-4 py-2 border font-sans text-xs font-semibold uppercase tracking-[0.1em] transition-colors ${
+                hasActiveFilters(filters) || showFilters
+                  ? "border-cr-primary text-cr-primary bg-cr-primary/5"
+                  : "border-cr-border text-cr-text-muted hover:border-cr-primary hover:text-cr-primary"
+              }`}
+            >
+              <SlidersHorizontal size={13} />
+              Filtrar
+              {hasActiveFilters(filters) && (
+                <span className="bg-cr-primary text-black w-4 h-4 flex items-center justify-center text-[9px] font-bold">
+                  {Object.values(filters).filter(Boolean).length}
+                </span>
+              )}
+            </button>
+          </div>
         </div>
 
         {/* Artist search — sent as API param */}
@@ -197,9 +229,9 @@ export default function ConcertsPage() {
                 className="w-full bg-cr-surface-2 border border-cr-border px-3 py-2 font-mono text-xs text-cr-text focus:outline-none focus:border-cr-primary [color-scheme:dark]"
               >
                 <option value="">Todas</option>
-                {SPANISH_CITIES.map((c) => (
-                  <option key={c.name} value={c.name}>
-                    {c.name}
+                {facets.cities.map((c) => (
+                  <option key={c} value={c}>
+                    {c}
                   </option>
                 ))}
               </select>
@@ -212,10 +244,11 @@ export default function ConcertsPage() {
               <select
                 value={filters.genre}
                 onChange={(e) => setFilter("genre", e.target.value)}
-                className="w-full bg-cr-surface-2 border border-cr-border px-3 py-2 font-mono text-xs text-cr-text focus:outline-none focus:border-cr-primary [color-scheme:dark]"
+                disabled={facets.genres.length === 0}
+                className="w-full bg-cr-surface-2 border border-cr-border px-3 py-2 font-mono text-xs text-cr-text focus:outline-none focus:border-cr-primary [color-scheme:dark] disabled:opacity-50"
               >
                 <option value="">Todos</option>
-                {GENRES.map((g) => (
+                {facets.genres.map((g) => (
                   <option key={g} value={g}>
                     {g}
                   </option>
@@ -296,7 +329,7 @@ export default function ConcertsPage() {
       <div ref={gridRef} className="max-w-6xl mx-auto px-6 pb-24">
         {loading ? (
           <LoadingSpinner text="Cargando conciertos…" />
-        ) : filtered.length === 0 ? (
+        ) : pageConcerts.length === 0 ? (
           <div className="py-24 text-center">
             <p className="font-display text-2xl uppercase text-cr-text-muted mb-2">
               Sin resultados
@@ -308,7 +341,7 @@ export default function ConcertsPage() {
         ) : (
           <>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
-              {filtered.map((c) => (
+              {pageConcerts.map((c) => (
                 <Link key={c.id} to={`/concerts/${c.id}`} className="block">
                   <ConcertCard concert={c} />
                 </Link>

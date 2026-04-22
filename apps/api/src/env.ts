@@ -5,6 +5,8 @@ export interface Env {
   RESEND_API_KEY: string;
   JWT_SECRET: string;
   INGEST_SECRET: string;
+  VAPID_PUBLIC_KEY: string;
+  VAPID_PRIVATE_KEY: string;
   ENVIRONMENT: "development" | "production";
   ASSETS: Fetcher;
   CACHE: KVNamespace;

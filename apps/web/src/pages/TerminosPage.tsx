@@ -1,10 +1,12 @@
-import { useEffect } from "react";
 import { Link } from "react-router-dom";
+import { useSeoMeta } from "@/lib/useSeoMeta";
 
 export default function TerminosPage() {
-  useEffect(() => {
-    document.title = "Términos y condiciones — ConcertRide ES";
-  }, []);
+  useSeoMeta({
+    title: "Términos y condiciones",
+    description: "Términos y condiciones de uso de ConcertRide ES: obligaciones de usuarios, política de cancelación, resolución de disputas y normativa aplicable.",
+    canonical: "https://concertride.es/terminos",
+  });
 
   return (
     <main id="main" className="min-h-dvh bg-cr-bg text-cr-text pt-14">

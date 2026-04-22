@@ -30,12 +30,16 @@ export const users = sqliteTable(
     home_city: text("home_city"),
     smoker: integer("smoker", { mode: "boolean" }),
     has_license: integer("has_license", { mode: "boolean" }),
+    license_verified: integer("license_verified", { mode: "boolean" }).notNull().default(false),
+    referral_code: text("referral_code"),
+    referral_count: integer("referral_count").notNull().default(0),
     password_hash: text("password_hash"),
     password_salt: text("password_salt"),
     created_at: text("created_at").notNull().default(sql`CURRENT_TIMESTAMP`),
   },
   (t) => ({
     emailIdx: uniqueIndex("users_email_idx").on(t.email),
+    referralCodeIdx: uniqueIndex("users_referral_code_idx").on(t.referral_code),
   }),
 );
 
@@ -92,9 +96,12 @@ export const rides = sqliteTable(
     max_luggage: text("max_luggage", { enum: ["none", "small", "backpack", "cabin", "large", "extra"] }).notNull().default("backpack"),
     notes: text("notes"),
     instant_booking: integer("instant_booking", { mode: "boolean" }).notNull().default(sql`0`),
-    status: text("status", { enum: ["active", "full", "cancelled"] })
+    accepted_payment: text("accepted_payment", { enum: ["cash", "bizum", "cash_or_bizum"] }).notNull().default("cash"),
+    status: text("status", { enum: ["active", "full", "cancelled", "completed"] })
       .notNull()
       .default("active"),
+    completed_at: text("completed_at"),
+    completion_confirmed_by: text("completion_confirmed_by", { enum: ["driver", "both"] }),
     created_at: text("created_at").notNull().default(sql`CURRENT_TIMESTAMP`),
   },
   (t) => ({
@@ -121,6 +128,7 @@ export const rideRequests = sqliteTable(
       .default("pending"),
     message: text("message"),
     luggage: text("luggage", { enum: ["none", "small", "backpack", "cabin", "large", "extra"] }),
+    payment_method: text("payment_method", { enum: ["cash", "bizum", "cash_or_bizum"] }),
     created_at: text("created_at").notNull().default(sql`CURRENT_TIMESTAMP`),
   },
   (t) => ({
@@ -156,7 +164,9 @@ export const messages = sqliteTable(
     user_id: text("user_id")
       .notNull()
       .references(() => users.id),
+    kind: text("kind").notNull().default("text"),
     body: text("body").notNull(),
+    attachment_url: text("attachment_url"),
     created_at: text("created_at").notNull().default(sql`CURRENT_TIMESTAMP`),
   },
   (t) => ({
@@ -187,6 +197,47 @@ export const reviews = sqliteTable(
     rideIdx: index("reviews_ride_idx").on(t.ride_id),
     revieweeIdx: index("reviews_reviewee_idx").on(t.reviewee_id),
     uniqueReview: uniqueIndex("reviews_unique_idx").on(t.ride_id, t.reviewer_id, t.reviewee_id),
+  }),
+);
+
+export const favorites = sqliteTable(
+  "favorites",
+  {
+    id: text("id").primaryKey(),
+    user_id: text("user_id")
+      .notNull()
+      .references(() => users.id),
+    // "concert" → target_id is a concert id
+    // "artist"  → target_id is the normalised artist name (lowercased)
+    // "city"    → target_id is the normalised city name (lowercased)
+    kind: text("kind", { enum: ["concert", "artist", "city"] }).notNull(),
+    target_id: text("target_id").notNull(),
+    // Free-form display label — for artist/city this preserves proper casing
+    // ("Rosalía", "Madrid") so the UI doesn't have to re-lookup.
+    label: text("label").notNull(),
+    created_at: text("created_at").notNull().default(sql`CURRENT_TIMESTAMP`),
+  },
+  (t) => ({
+    userIdx: index("favorites_user_idx").on(t.user_id),
+    uniqueFav: uniqueIndex("favorites_unique_idx").on(t.user_id, t.kind, t.target_id),
+  }),
+);
+
+export const pushSubscriptions = sqliteTable(
+  "push_subscriptions",
+  {
+    id: text("id").primaryKey(),
+    user_id: text("user_id")
+      .notNull()
+      .references(() => users.id),
+    endpoint: text("endpoint").notNull(),
+    p256dh: text("p256dh").notNull(),
+    auth: text("auth").notNull(),
+    created_at: text("created_at").notNull().default(sql`CURRENT_TIMESTAMP`),
+  },
+  (t) => ({
+    userIdx: index("push_subs_user_idx").on(t.user_id),
+    endpointIdx: uniqueIndex("push_subs_endpoint_idx").on(t.endpoint),
   }),
 );
 
@@ -248,6 +299,10 @@ export const reviewsRelations = relations(reviews, ({ one }) => ({
   ride: one(rides, { fields: [reviews.ride_id], references: [rides.id] }),
   reviewer: one(users, { fields: [reviews.reviewer_id], references: [users.id], relationName: "reviewer" }),
   reviewee: one(users, { fields: [reviews.reviewee_id], references: [users.id], relationName: "reviewee" }),
+}));
+
+export const pushSubscriptionsRelations = relations(pushSubscriptions, ({ one }) => ({
+  user: one(users, { fields: [pushSubscriptions.user_id], references: [users.id] }),
 }));
 
 export type VenueRow = typeof venues.$inferSelect;

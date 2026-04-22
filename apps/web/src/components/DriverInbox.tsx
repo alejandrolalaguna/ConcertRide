@@ -1,11 +1,17 @@
 import { useEffect, useState } from "react";
 import { motion } from "motion/react";
 import { Check, X } from "lucide-react";
-import type { RequestStatus, Ride, RideRequest } from "@concertride/types";
+import type { PaymentMethod, RequestStatus, Ride, RideRequest } from "@concertride/types";
 import { api, ApiError } from "@/lib/api";
 import { formatTime } from "@/lib/format";
 import { TrustBadge } from "./TrustBadge";
 import { PulsingDot } from "./LoadingStates";
+
+const PAYMENT_LABEL: Record<PaymentMethod, string> = {
+  cash: "💵 Efectivo",
+  bizum: "📱 Bizum",
+  cash_or_bizum: "Efectivo / Bizum",
+};
 
 const STATUS_LABEL: Record<RequestStatus, string> = {
   pending: "Pendiente",
@@ -115,9 +121,16 @@ export function DriverInbox({ ride, onRequestUpdated }: Props) {
                 </p>
               )}
               <div className="flex items-center justify-between gap-3 pt-1 border-t border-dashed border-cr-border">
-                <span className="font-mono text-[11px] text-cr-text-dim">
-                  {formatTime(req.created_at)}
-                </span>
+                <div className="flex items-center gap-3">
+                  <span className="font-mono text-[11px] text-cr-text-dim">
+                    {formatTime(req.created_at)}
+                  </span>
+                  {req.payment_method && (
+                    <span className="font-mono text-[11px] text-cr-text-muted">
+                      {PAYMENT_LABEL[req.payment_method]}
+                    </span>
+                  )}
+                </div>
                 <div className="flex items-center gap-2">
                   <button
                     type="button"

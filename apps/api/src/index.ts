@@ -13,6 +13,9 @@ import venues from "./routes/venues";
 import users from "./routes/users";
 import fuel from "./routes/fuel";
 import ingest from "./routes/ingest";
+import push from "./routes/push";
+import messages from "./routes/messages";
+import favorites from "./routes/favorites";
 
 const ALLOWED_ORIGINS = [
   "http://localhost:5173",
@@ -45,33 +48,30 @@ app.get("/api/health", (c) =>
 
 app.use("/api/*", storeMiddleware);
 
-app.get("/sitemap.xml", storeMiddleware, async (c) => {
+// Dynamic concerts sitemap (served under /api/ to bypass the static assets handler).
+// The root /sitemap.xml is a sitemap index in public/ that references this endpoint.
+app.get("/api/sitemap-concerts.xml", storeMiddleware, async (c) => {
   const BASE = "https://concertride.es";
   const today = new Date().toISOString().slice(0, 10);
-  const STATIC_LOCS = ["/", "/concerts", "/publish", "/register", "/login", "/aviso-legal", "/privacidad", "/cookies", "/terminos"];
 
   let concertUrls = "";
   try {
     const { concerts } = await c.var.store.listConcerts({
-      limit: 500,
+      limit: 1000,
       offset: 0,
       date_from: new Date().toISOString(),
     });
     concertUrls = concerts
       .map((concert) => {
         const lastmod = concert.date ? concert.date.slice(0, 10) : today;
-        return `  <url>\n    <loc>${BASE}/concerts/${concert.id}</loc>\n    <lastmod>${lastmod}</lastmod>\n  </url>`;
+        return `  <url>\n    <loc>${BASE}/concerts/${concert.id}</loc>\n    <lastmod>${lastmod}</lastmod>\n    <changefreq>daily</changefreq>\n    <priority>0.7</priority>\n  </url>`;
       })
       .join("\n");
   } catch {
-    // store unavailable — serve static-only sitemap
+    // store unavailable — serve empty dynamic sitemap (still valid XML)
   }
 
-  const staticUrls = STATIC_LOCS.map(
-    (loc) => `  <url>\n    <loc>${BASE}${loc}</loc>\n    <lastmod>${today}</lastmod>\n  </url>`,
-  ).join("\n");
-
-  const xml = `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${staticUrls}\n${concertUrls}\n</urlset>`;
+  const xml = `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${concertUrls}\n</urlset>`;
   return c.body(xml, 200, {
     "Content-Type": "application/xml; charset=utf-8",
     "Cache-Control": "public, max-age=3600",
@@ -85,6 +85,9 @@ app.route("/api/venues", venues);
 app.route("/api/users", users);
 app.route("/api/fuel-price", fuel);
 app.route("/api/ingest", ingest);
+app.route("/api/push", push);
+app.route("/api/messages", messages);
+app.route("/api/favorites", favorites);
 
 app.notFound((c) => {
   if (c.req.path.startsWith("/api/")) {

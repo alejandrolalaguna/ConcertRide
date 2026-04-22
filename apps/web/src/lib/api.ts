@@ -6,6 +6,9 @@ import type {
   CreateReviewRequest,
   CreateRideRequest,
   DemandSignal,
+  Favorite,
+  FavoriteKind,
+  FavoritesResponse,
   HealthResponse,
   Message,
   MessagesResponse,
@@ -38,9 +41,10 @@ class ApiError extends Error {
 
 async function request<T>(path: string, init: RequestInit = {}): Promise<T> {
   const url = `${BASE}${path}`;
+  const isFormData = init.body instanceof FormData;
   const headers: Record<string, string> = {
     accept: "application/json",
-    ...(init.body ? { "content-type": "application/json" } : {}),
+    ...(init.body && !isFormData ? { "content-type": "application/json" } : {}),
     ...(init.headers as Record<string, string> | undefined),
   };
 
@@ -85,8 +89,9 @@ export const api = {
       password: string,
       name: string,
       profile?: { phone?: string; home_city?: string; smoker?: boolean },
+      ref?: string,
     ) =>
-      request<AuthResponse>("/api/auth/register", {
+      request<AuthResponse>(`/api/auth/register${ref ? `?ref=${encodeURIComponent(ref)}` : ""}`, {
         method: "POST",
         body: JSON.stringify({ email, password, name, ...profile }),
       }),
@@ -95,16 +100,35 @@ export const api = {
         method: "POST",
         body: JSON.stringify({ email, password }),
       }),
+    forgotPassword: (email: string) =>
+      request<{ ok: true }>("/api/auth/forgot-password", {
+        method: "POST",
+        body: JSON.stringify({ email }),
+      }),
+    resetPassword: (token: string, password: string) =>
+      request<AuthResponse>("/api/auth/reset-password", {
+        method: "POST",
+        body: JSON.stringify({ token, password }),
+      }),
     me: () => request<MeResponse>("/api/auth/me"),
     updateProfile: (input: UpdateProfileInput) =>
       request<{ ok: true; user: User }>("/api/auth/profile", {
         method: "PATCH",
         body: JSON.stringify(input),
       }),
+    verifyLicense: (file: File) => {
+      const form = new FormData();
+      form.append("document", file);
+      return request<{ ok: true; user: import("@concertride/types").User }>("/api/auth/verify-license", {
+        method: "POST",
+        body: form,
+      });
+    },
     logout: () => request<{ ok: true }>("/api/auth/logout", { method: "POST" }),
   },
   concerts: {
     list: (q: ConcertsQuery = {}) => request<ConcertsResponse>(`/api/concerts${query(q)}`),
+    facets: () => request<{ genres: string[]; cities: string[] }>("/api/concerts/facets"),
     get: (id: string) => request<Concert>(`/api/concerts/${encodeURIComponent(id)}`),
     create: (input: CreateConcertInput) =>
       request<Concert>("/api/concerts", {
@@ -148,6 +172,10 @@ export const api = {
           body: JSON.stringify({ status }),
         },
       ),
+    confirmComplete: (rideId: string) =>
+      request<Ride>(`/api/rides/${encodeURIComponent(rideId)}/complete`, { method: "POST" }),
+    revokeComplete: (rideId: string) =>
+      request<Ride>(`/api/rides/${encodeURIComponent(rideId)}/complete`, { method: "DELETE" }),
   },
   venues: {
     list: () => request<VenuesResponse>("/api/venues"),
@@ -155,18 +183,29 @@ export const api = {
   messages: {
     listRideThread: (rideId: string) =>
       request<MessagesResponse>(`/api/rides/${encodeURIComponent(rideId)}/messages`),
-    postRideThread: (rideId: string, body: string) =>
+    postRideThread: (
+      rideId: string,
+      payload: { body: string; kind?: import("@concertride/types").MessageKind; attachment_url?: string },
+    ) =>
       request<Message>(`/api/rides/${encodeURIComponent(rideId)}/messages`, {
         method: "POST",
-        body: JSON.stringify({ body }),
+        body: JSON.stringify(payload),
       }),
     listConcertChat: (concertId: string) =>
       request<MessagesResponse>(`/api/concerts/${encodeURIComponent(concertId)}/messages`),
-    postConcertChat: (concertId: string, body: string) =>
+    postConcertChat: (
+      concertId: string,
+      payload: { body: string; kind?: import("@concertride/types").MessageKind; attachment_url?: string },
+    ) =>
       request<Message>(`/api/concerts/${encodeURIComponent(concertId)}/messages`, {
         method: "POST",
-        body: JSON.stringify({ body }),
+        body: JSON.stringify(payload),
       }),
+    uploadPhoto: (file: File) => {
+      const fd = new FormData();
+      fd.append("photo", file);
+      return request<{ url: string }>("/api/messages/upload", { method: "POST", body: fd });
+    },
   },
   reviews: {
     list: (rideId: string) =>
@@ -178,11 +217,25 @@ export const api = {
       }),
   },
   users: {
+    get: (userId: string) =>
+      request<Omit<import("@concertride/types").User, "email">>(`/api/users/${encodeURIComponent(userId)}`),
     listReviews: (userId: string) =>
       request<ReviewsResponse>(`/api/users/${encodeURIComponent(userId)}/reviews`),
   },
   fuel: {
     prices: () => request<{ gasoline95: number; diesel: number; updatedAt: string }>("/api/fuel-price"),
+  },
+  favorites: {
+    list: () => request<FavoritesResponse>("/api/favorites"),
+    add: (kind: FavoriteKind, target_id: string, label: string) =>
+      request<Favorite>("/api/favorites", {
+        method: "POST",
+        body: JSON.stringify({ kind, target_id, label }),
+      }),
+    remove: (kind: FavoriteKind, target_id: string) =>
+      request<{ ok: true }>(`/api/favorites/${kind}/${encodeURIComponent(target_id)}`, {
+        method: "DELETE",
+      }),
   },
 };
 

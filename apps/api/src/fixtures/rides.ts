@@ -231,7 +231,10 @@ export const RIDES: Ride[] = SEEDS.map((s) => {
     max_luggage: "backpack",
     notes: s.notes,
     instant_booking: false,
+    accepted_payment: "cash_or_bizum",
     status: s.seats_left === 0 ? "full" : "active",
+    completed_at: null,
+    completion_confirmed_by: null,
     created_at: "2026-04-10T12:00:00.000Z",
   };
 });

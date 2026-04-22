@@ -3,13 +3,14 @@ import { Link, Navigate, useNavigate } from "react-router-dom";
 import { motion } from "motion/react";
 import confetti from "canvas-confetti";
 import { ArrowLeft, ArrowRight, Check, PenLine, Search } from "lucide-react";
-import type { Concert, CreateConcertInput, Luggage, Ride, SmokingPolicy, Vibe } from "@concertride/types";
+import type { Concert, CreateConcertInput, Luggage, PaymentMethod, Ride, SmokingPolicy, Vibe } from "@concertride/types";
 import { api, ApiError } from "@/lib/api";
 import { SPANISH_CITIES, SPANISH_CITIES_BY_NAME } from "@/lib/constants";
 import { formatDate, formatTime } from "@/lib/format";
 import { useSession } from "@/lib/session";
 import { VibeSelector } from "@/components/VibeSelector";
 import { PulsingDot } from "@/components/LoadingStates";
+import { useSeoMeta } from "@/lib/useSeoMeta";
 
 type Step = 1 | 2 | 3;
 
@@ -31,6 +32,7 @@ interface Form {
   price_per_seat: number;
   vibe: Vibe | null;
   instant_booking: boolean;
+  accepted_payment: PaymentMethod;
   smoking_policy: SmokingPolicy;
   max_luggage: Luggage;
   playlist_url: string;
@@ -54,6 +56,7 @@ const INITIAL: Form = {
   price_per_seat: 15,
   vibe: null,
   instant_booking: false,
+  accepted_payment: "cash_or_bizum",
   smoking_policy: "no",
   max_luggage: "backpack",
   playlist_url: "",
@@ -71,9 +74,15 @@ export default function PublishRidePage() {
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [created, setCreated] = useState<Ride | null>(null);
+  const [suggestedPrice, setSuggestedPrice] = useState<number | null>(null);
+
+  useSeoMeta({
+    title: "Publicar un viaje a un concierto",
+    description: "Publica gratis tu viaje compartido a un concierto o festival en España. Fija el precio por asiento y divide los gastos con otros fans.",
+    canonical: "https://concertride.es/publish",
+  });
 
   useEffect(() => {
-    document.title = "Publicar un viaje — ConcertRide ES";
     api.concerts.list({ limit: 50 }).then((res) => setConcerts(res.concerts)).catch(() => setConcerts([]));
   }, []);
 
@@ -186,6 +195,7 @@ export default function PublishRidePage() {
         ...(form.playlist_url.trim() ? { playlist_url: form.playlist_url.trim() } : {}),
         vibe: form.vibe,
         instant_booking: form.instant_booking,
+        accepted_payment: form.accepted_payment,
         smoking_policy: form.smoking_policy,
         max_luggage: form.max_luggage,
         ...(form.notes.trim() ? { notes: form.notes.trim() } : {}),
@@ -518,6 +528,20 @@ export default function PublishRidePage() {
                   onChange={(e) => update("price_per_seat", Number(e.target.value))}
                   className="w-full bg-cr-surface border-2 border-cr-border focus:border-cr-primary outline-none px-3 py-3 font-mono text-sm text-cr-text transition-colors"
                 />
+                {suggestedPrice !== null && form.price_per_seat !== suggestedPrice && (
+                  <button
+                    type="button"
+                    onClick={() => update("price_per_seat", suggestedPrice)}
+                    className="mt-1.5 font-mono text-[11px] text-cr-primary hover:underline text-left"
+                  >
+                    Sugerido: €{suggestedPrice} (basado en combustible) → aplicar
+                  </button>
+                )}
+                {suggestedPrice !== null && form.price_per_seat === suggestedPrice && (
+                  <p className="mt-1.5 font-mono text-[11px] text-cr-primary/70">
+                    ✓ Usando el precio sugerido por combustible
+                  </p>
+                )}
               </Field>
 
               <Field label="Plazas disponibles">
@@ -555,7 +579,7 @@ export default function PublishRidePage() {
               )}
             </div>
 
-            {form.price_per_seat > 0 && form.seats_total >= 1 && (
+            {form.seats_total >= 1 && (
               <EarningsCalculator
                 pricePerSeat={form.price_per_seat}
                 seatsTotal={form.seats_total}
@@ -563,6 +587,7 @@ export default function PublishRidePage() {
                 destinationCity={
                   form.concert?.venue.city ?? form.manual_venue_city ?? ""
                 }
+                onSuggestedPrice={setSuggestedPrice}
               />
             )}
 
@@ -606,6 +631,34 @@ export default function PublishRidePage() {
                   }`}
                 />
               </button>
+            </div>
+
+            <div className="space-y-2">
+              <span className="font-sans text-[11px] font-semibold uppercase tracking-[0.12em] text-cr-text-muted">
+                Método de pago aceptado
+              </span>
+              <div className="flex gap-2 flex-wrap">
+                {(
+                  [
+                    { value: "cash", label: "💵 Efectivo" },
+                    { value: "bizum", label: "📱 Bizum" },
+                    { value: "cash_or_bizum", label: "💵 / 📱 Ambos" },
+                  ] as { value: PaymentMethod; label: string }[]
+                ).map(({ value, label }) => (
+                  <button
+                    key={value}
+                    type="button"
+                    onClick={() => update("accepted_payment", value)}
+                    className={`flex-1 px-3 py-2 border-2 font-sans text-xs font-semibold uppercase tracking-[0.1em] transition-colors ${
+                      form.accepted_payment === value
+                        ? "border-cr-primary bg-cr-primary/[0.06] text-cr-primary"
+                        : "border-cr-border text-cr-text-muted hover:border-cr-text-muted"
+                    }`}
+                  >
+                    {label}
+                  </button>
+                ))}
+              </div>
             </div>
 
             <div className="space-y-2">
@@ -729,11 +782,13 @@ function EarningsCalculator({
   seatsTotal,
   originCity,
   destinationCity,
+  onSuggestedPrice,
 }: {
   pricePerSeat: number;
   seatsTotal: number;
   originCity: string;
   destinationCity: string;
+  onSuggestedPrice?: (price: number) => void;
 }) {
   const [fuelType, setFuelType] = useState<FuelType>("gasoline95");
   const [consumption, setConsumption] = useState<string>("7.0"); // L/100km
@@ -771,9 +826,17 @@ function EarningsCalculator({
     : null;
 
   const grossEarnings = pricePerSeat * seatsTotal;
+  const netEarnings = fuelCost !== null ? grossEarnings - fuelCost : null;
   const coveragePercent = fuelCost && fuelCost > 0
     ? Math.min(100, Math.round((grossEarnings / fuelCost) * 100))
     : null;
+
+  // Emit suggested price: fuel cost split equally + 10% margin, rounded to nearest €
+  useEffect(() => {
+    if (!onSuggestedPrice || !fuelCost || seatsTotal < 1) return;
+    const suggested = Math.max(5, Math.round((fuelCost / seatsTotal) * 1.1));
+    onSuggestedPrice(suggested);
+  }, [fuelCost, seatsTotal, onSuggestedPrice]);
 
   return (
     <div className="border-2 border-cr-primary/30 bg-cr-primary/[0.04] p-4 space-y-4">
@@ -781,13 +844,25 @@ function EarningsCalculator({
         Calculadora de ganancias
       </p>
 
-      <div className="flex items-baseline gap-3 flex-wrap">
-        <p className="font-mono text-3xl text-cr-primary leading-none">
-          €{grossEarnings.toFixed(0)}
-        </p>
-        <p className="font-sans text-xs text-cr-text-muted">
-          con {seatsTotal} pasajero{seatsTotal === 1 ? "" : "s"} a €{pricePerSeat}/asiento
-        </p>
+      <div className="space-y-2">
+        <div className="flex items-baseline gap-3 flex-wrap">
+          <p className="font-mono text-3xl text-cr-primary leading-none">
+            €{grossEarnings.toFixed(0)}
+          </p>
+          <p className="font-sans text-xs text-cr-text-muted">
+            brutos · {seatsTotal} pasajero{seatsTotal === 1 ? "" : "s"} a €{pricePerSeat}/asiento
+          </p>
+        </div>
+        {netEarnings !== null && (
+          <div className="flex items-baseline gap-3 flex-wrap">
+            <p className={`font-mono text-xl leading-none ${netEarnings < 0 ? "text-cr-secondary" : "text-cr-text"}`}>
+              €{netEarnings.toFixed(0)}
+            </p>
+            <p className="font-sans text-xs text-cr-text-muted">
+              netos · después de €{fuelCost!.toFixed(0)} de combustible
+            </p>
+          </div>
+        )}
       </div>
 
       {/* Fuel inputs */}

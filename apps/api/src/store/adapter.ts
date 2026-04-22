@@ -4,6 +4,8 @@ import type {
   CreateRideRequest,
   CreateReviewRequest,
   DemandSignal,
+  Favorite,
+  FavoriteKind,
   Message,
   RequestStatus,
   Review,
@@ -19,15 +21,23 @@ import type { RawConcert, SourceId } from "../ingest/types";
 export interface ConcertFilters {
   city?: string;
   artist?: string;
+  genre?: string;
+  festival?: boolean;
   date_from?: string;
   date_to?: string;
   limit: number;
   offset: number;
 }
 
+export interface ConcertFacets {
+  genres: string[];
+  cities: string[];
+}
+
 export interface RideFilters {
   concert_id?: string;
   origin_city?: string;
+  driver_id?: string;
   vibe?: Vibe;
   max_price?: number;
   round_trip?: boolean;
@@ -66,6 +76,9 @@ export interface StoreAdapter {
   ): Promise<User>;
   updateUser(id: string, input: UpdateProfileInput): Promise<User | null>;
   getPasswordHash(userId: string): Promise<{ hash: string; salt: string } | null>;
+  updatePassword(userId: string, hash: string, salt: string): Promise<void>;
+  useReferral(referralCode: string, newUserId: string): Promise<void>;
+  verifyLicense(userId: string): Promise<User | null>;
 
   // --- venues ---
   listVenues(): Promise<Venue[]>;
@@ -78,6 +91,19 @@ export interface StoreAdapter {
 
   // --- concerts ---
   listConcerts(filters: ConcertFilters): Promise<{ concerts: Concert[]; total: number }>;
+  // Distinct, normalised genres and cities from the live concert corpus —
+  // drives the dropdowns on /concerts so the filter options always match
+  // what's actually in the DB.
+  listConcertFacets(): Promise<ConcertFacets>;
+
+  // --- favorites ---
+  listFavorites(userId: string): Promise<Favorite[]>;
+  addFavorite(userId: string, kind: FavoriteKind, targetId: string, label: string): Promise<Favorite>;
+  removeFavorite(userId: string, kind: FavoriteKind, targetId: string): Promise<void>;
+  // Upcoming concerts tied to a user's favourites — matches concerts they
+  // starred directly OR concerts by a favourited artist OR in a favourited
+  // venue city. Used by the /favoritos page.
+  listFavoriteUpcomingConcerts(userId: string): Promise<Concert[]>;
   getConcert(id: string): Promise<Concert | null>;
   createConcert(input: CreateConcertInput): Promise<Concert>;
   upsertConcertFromIngest(raw: RawConcert, venueId: string): Promise<UpsertConcertResult>;
@@ -86,6 +112,10 @@ export interface StoreAdapter {
   listRides(filters: RideFilters): Promise<Ride[]>;
   getRide(id: string): Promise<Ride | null>;
   createRide(driver: User, concert: Concert, input: CreateRideRequest): Promise<Ride>;
+  confirmRideComplete(rideId: string, confirmedBy: "driver" | "passenger"): Promise<Ride | null>;
+  // Driver revokes their own confirmation before the passenger confirms —
+  // only valid while status is still active/full and confirmation === "driver".
+  revokeDriverCompletion(rideId: string): Promise<Ride | null>;
 
   // --- ride requests ---
   listRequestsForRide(rideId: string): Promise<RideRequest[]>;
@@ -96,12 +126,14 @@ export interface StoreAdapter {
     seats: number,
     message?: string,
     luggage?: string,
+    payment_method?: string,
   ): Promise<CreateRequestResult>;
   updateRequestStatus(requestId: string, status: RequestStatus): Promise<RideRequest | null>;
 
   // --- demand signals ---
   getDemandSignal(concertId: string, userId: string | null): Promise<DemandSignal>;
   toggleDemandSignal(concertId: string, user: User): Promise<DemandSignal>;
+  listInterestedUsers(concertId: string): Promise<User[]>;
 
   // --- messages (ride thread + concert chat) ---
   listMessages(scope: { ride_id: string } | { concert_id: string }): Promise<Message[]>;
@@ -109,6 +141,7 @@ export interface StoreAdapter {
     scope: { ride_id: string } | { concert_id: string },
     user: User,
     body: string,
+    opts?: { kind?: import("@concertride/types").MessageKind; attachment_url?: string },
   ): Promise<Message>;
   isParticipant(
     scope: { ride_id: string } | { concert_id: string },
@@ -123,6 +156,11 @@ export interface StoreAdapter {
   ): Promise<{ review?: Review; error?: string }>;
   listReviewsForRide(rideId: string): Promise<Review[]>;
   listReviewsForUser(userId: string): Promise<Review[]>;
+
+  // --- push subscriptions ---
+  savePushSubscription(userId: string, sub: { endpoint: string; p256dh: string; auth: string }): Promise<void>;
+  removePushSubscription(endpoint: string): Promise<void>;
+  getPushSubscriptionsForUser(userId: string): Promise<{ endpoint: string; p256dh: string; auth: string }[]>;
 
   // --- ingestion staging ---
   recordSource(entry: {

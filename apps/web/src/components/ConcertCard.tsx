@@ -1,6 +1,8 @@
 import { motion } from "motion/react";
 import type { Concert } from "@concertride/types";
 import { formatDay } from "@/lib/format";
+import { parseGenreTags } from "@/lib/genre";
+import { FavoriteButton } from "./FavoriteButton";
 
 const ONE_WEEK_MS = 7 * 24 * 60 * 60 * 1000;
 const THREE_WEEKS_MS = 21 * 24 * 60 * 60 * 1000;
@@ -31,6 +33,9 @@ interface Props {
 export function ConcertCard({ concert, className = "", onClick }: Props) {
   const hue = hueFromString(concert.artist);
   const status = concertStatus(concert.date);
+  const tags = parseGenreTags(concert.genre).slice(0, 2);
+  const ridesCount = concert.active_rides_count;
+  const hasRides = ridesCount > 0;
 
   return (
     <motion.article
@@ -44,6 +49,19 @@ export function ConcertCard({ concert, className = "", onClick }: Props) {
           PASSED
         </div>
       )}
+
+      {/* Favorite heart — top-right overlay on the image */}
+      {status === "upcoming" && (
+        <div className="absolute top-3 right-3 z-10">
+          <FavoriteButton
+            kind="concert"
+            targetId={concert.id}
+            label={`${concert.artist} — ${concert.venue.city}`}
+            size="sm"
+          />
+        </div>
+      )}
+
       <div className="aspect-[4/3] relative overflow-hidden">
         {concert.image_url ? (
           <img
@@ -78,7 +96,21 @@ export function ConcertCard({ concert, className = "", onClick }: Props) {
         </div>
       </div>
 
-      <div className="flex items-center justify-between p-3 border-t border-cr-border">
+      {/* Genre tags */}
+      {tags.length > 0 && (
+        <div className="flex flex-wrap gap-1.5 px-3 pt-3">
+          {tags.map((t) => (
+            <span
+              key={t}
+              className="font-mono text-[10px] uppercase tracking-[0.1em] text-cr-text-muted border border-cr-border px-1.5 py-0.5"
+            >
+              {t}
+            </span>
+          ))}
+        </div>
+      )}
+
+      <div className="flex items-center justify-between p-3 border-t border-cr-border mt-3">
         <span className="font-sans text-[10px] font-semibold uppercase tracking-[0.12em] text-cr-text-muted">
           {concert.venue.city}
         </span>
@@ -88,11 +120,12 @@ export function ConcertCard({ concert, className = "", onClick }: Props) {
               {concert.demand_count} demanda
             </span>
           )}
-          {concert.active_rides_count > 0 && (
-            <span className="font-mono text-xs text-cr-primary">
-              {concert.active_rides_count} viajes
-            </span>
-          )}
+          <span
+            className={`font-mono text-xs ${hasRides ? "text-cr-primary" : "text-cr-text-dim"}`}
+            title={hasRides ? "Viajes publicados" : "Nadie ha publicado viaje todavía"}
+          >
+            {hasRides ? `${ridesCount} viaje${ridesCount === 1 ? "" : "s"}` : "Sin viajes"}
+          </span>
         </div>
       </div>
     </motion.article>

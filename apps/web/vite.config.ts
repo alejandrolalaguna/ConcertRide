@@ -10,26 +10,34 @@ export default defineConfig({
     tailwindcss(),
     VitePWA({
       registerType: "autoUpdate",
+      strategies: "injectManifest",
+      srcDir: "src",
+      filename: "sw.ts",
       manifest: {
         name: "ConcertRide ES",
         short_name: "ConcertRide",
-        description: "Ride-sharing para conciertos en España",
+        description: "Carpooling para conciertos y festivales en España",
         theme_color: "#DBFF00",
         background_color: "#080808",
         display: "standalone",
         start_url: "/",
+        scope: "/",
+        lang: "es",
+        orientation: "portrait",
+        categories: ["travel", "music", "social"],
         icons: [
           { src: "/favicon.svg", sizes: "any", type: "image/svg+xml", purpose: "any maskable" },
+          { src: "/favicon-32x32.png", sizes: "32x32", type: "image/png" },
+          { src: "/favicon-16x16.png", sizes: "16x16", type: "image/png" },
+          { src: "/apple-touch-icon.png", sizes: "180x180", type: "image/png" },
+          { src: "/android-chrome-192x192.png", sizes: "192x192", type: "image/png", purpose: "any maskable" },
+          { src: "/android-chrome-512x512.png", sizes: "512x512", type: "image/png", purpose: "any maskable" },
         ],
       },
-      workbox: {
-        runtimeCaching: [
-          {
-            urlPattern: /^https?:\/\/.*\/api\/(concerts|rides)/,
-            handler: "StaleWhileRevalidate",
-            options: { cacheName: "api-cache", expiration: { maxAgeSeconds: 300 } },
-          },
-        ],
+      injectManifest: {
+        swSrc: "src/sw.ts",
+        swDest: "dist/sw.js",
+        globPatterns: ["**/*.{js,css,html,ico,png,svg,webp,woff,woff2}"],
       },
     }),
   ],

@@ -13,7 +13,8 @@
     "enabled": true
   },
   "vars": {
-    "ENVIRONMENT": "production"
+    "ENVIRONMENT": "production",
+    "TURSO_DATABASE_URL": "libsql://concertride-alalaguna.aws-eu-west-1.turso.io"
   },
   "kv_namespaces": [
     {

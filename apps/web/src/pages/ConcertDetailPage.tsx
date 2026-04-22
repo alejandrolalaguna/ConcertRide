@@ -2,7 +2,8 @@ import { useEffect, useMemo, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { useSeoMeta } from "@/lib/useSeoMeta";
 import { motion } from "motion/react";
-import { ArrowLeft, Calendar, MapPin, Music2, Star, Users } from "lucide-react";
+import { ArrowLeft, Calendar, Link2, MapPin, Music2, Star, Users } from "lucide-react";
+import { concertShareUrl } from "@/lib/utm";
 
 function haversineKm(lat1: number, lng1: number, lat2: number, lng2: number): number {
   const R = 6371;
@@ -21,6 +22,7 @@ import { concertStatus } from "@/components/ConcertCard";
 import { TicketCard } from "@/components/TicketCard";
 import { TicketCardSkeleton } from "@/components/LoadingStates";
 import { FilterBar, EMPTY_FILTERS, type FilterState } from "@/components/FilterBar";
+import { FavoriteButton } from "@/components/FavoriteButton";
 
 function hueFromString(s: string): number {
   let h = 0;
@@ -38,6 +40,7 @@ export default function ConcertDetailPage() {
   const [error, setError] = useState<string | null>(null);
   const [demand, setDemand] = useState<DemandSignal | null>(null);
   const [demandLoading, setDemandLoading] = useState(false);
+  const [copied, setCopied] = useState(false);
 
   useSeoMeta({
     title: concert
@@ -47,6 +50,10 @@ export default function ConcertDetailPage() {
       ? `Encuentra un viaje compartido para ver a ${concert.artist} en ${concert.venue.name}, ${concert.venue.city}. Divide el coste y llega al concierto desde cualquier ciudad.`
       : "Encuentra un viaje compartido para ir al concierto en España.",
     canonical: id ? `https://concertride.es/concerts/${id}` : undefined,
+    keywords: concert
+      ? `${concert.artist}, concierto ${concert.venue.city}, viaje compartido ${concert.artist}, carpooling ${concert.venue.city}, ${concert.genre ?? "conciertos"} España`
+      : undefined,
+    ogImage: concert?.image_url ?? undefined,
     ogType: "article",
   });
 
@@ -145,13 +152,32 @@ export default function ConcertDetailPage() {
       >
         <div className="absolute inset-0 pointer-events-none bg-gradient-to-t from-cr-bg via-cr-bg/50 to-transparent" />
         <div className="relative max-w-6xl mx-auto px-6 py-12 md:py-20 space-y-5">
-          <button
-            type="button"
-            onClick={() => navigate(-1)}
-            className="inline-flex items-center gap-2 font-sans text-xs font-semibold uppercase tracking-[0.12em] text-cr-text-muted hover:text-cr-primary transition-colors"
-          >
-            <ArrowLeft size={14} /> Volver
-          </button>
+          <div className="flex items-center justify-between gap-4">
+            <button
+              type="button"
+              onClick={() => navigate(-1)}
+              className="inline-flex items-center gap-2 font-sans text-xs font-semibold uppercase tracking-[0.12em] text-cr-text-muted hover:text-cr-primary transition-colors"
+            >
+              <ArrowLeft size={14} /> Volver
+            </button>
+            {concert && (
+              <button
+                type="button"
+                onClick={() => {
+                  const campaign = concert.artist.toLowerCase().replace(/\s+/g, "-").slice(0, 30);
+                  const url = concertShareUrl(concert.id, campaign, "copy");
+                  navigator.clipboard.writeText(url).then(() => {
+                    setCopied(true);
+                    setTimeout(() => setCopied(false), 2000);
+                  });
+                }}
+                className="inline-flex items-center gap-2 font-sans text-xs font-semibold uppercase tracking-[0.12em] text-cr-text-muted hover:text-cr-primary transition-colors"
+              >
+                <Link2 size={14} aria-hidden="true" />
+                {copied ? "¡Copiado!" : "Compartir"}
+              </button>
+            )}
+          </div>
 
           {concert ? (
             <motion.div
@@ -182,6 +208,33 @@ export default function ConcertDetailPage() {
                   </span>
                 )}
               </div>
+
+              {/* Favorites — this concert, the artist, the city */}
+              <div className="flex flex-wrap gap-2 pt-1">
+                <FavoriteButton
+                  kind="concert"
+                  targetId={concert.id}
+                  label={`${concert.artist} — ${concert.venue.city}`}
+                  variant="pill"
+                  promptLoginOnAnon
+                />
+                <FavoriteButton
+                  kind="artist"
+                  targetId={concert.artist}
+                  label={concert.artist}
+                  variant="pill"
+                  promptLoginOnAnon
+                  className="!text-[11px]"
+                />
+                <FavoriteButton
+                  kind="city"
+                  targetId={concert.venue.city}
+                  label={concert.venue.city}
+                  variant="pill"
+                  promptLoginOnAnon
+                />
+              </div>
+
               {concert.ticketmaster_url && (
                 <div className="pt-1">
                   <a
@@ -363,11 +416,27 @@ export default function ConcertDetailPage() {
 }
 
 function JsonLdEvent({ concert }: { concert: Concert }) {
-  const jsonLd = {
+  const startMs = new Date(concert.date).getTime();
+  const endDate = Number.isFinite(startMs)
+    ? new Date(startMs + 3 * 60 * 60 * 1000).toISOString()
+    : undefined;
+  const url = `https://concertride.es/concerts/${concert.id}`;
+
+  const jsonLd: Record<string, unknown> = {
     "@context": "https://schema.org",
-    "@type": "Event",
+    "@type": "MusicEvent",
     name: concert.name,
-    performer: { "@type": "MusicGroup", name: concert.artist },
+    url,
+    description: `Concierto de ${concert.artist} en ${concert.venue.name} (${concert.venue.city}). Encuentra viajes compartidos desde toda España en ConcertRide.`,
+    performer: {
+      "@type": "MusicGroup",
+      name: concert.artist,
+    },
+    organizer: {
+      "@type": "Organization",
+      name: "ConcertRide ES",
+      url: "https://concertride.es/",
+    },
     startDate: concert.date,
     eventStatus: "https://schema.org/EventScheduled",
     eventAttendanceMode: "https://schema.org/OfflineEventAttendanceMode",
@@ -386,14 +455,22 @@ function JsonLdEvent({ concert }: { concert: Concert }) {
         longitude: concert.venue.lng,
       },
     },
-    ...(concert.price_min !== null && {
-      offers: {
-        "@type": "Offer",
-        price: String(concert.price_min),
-        priceCurrency: "EUR",
-      },
-    }),
   };
+
+  if (endDate) jsonLd.endDate = endDate;
+  if (concert.image_url) jsonLd.image = [concert.image_url];
+
+  if (concert.price_min !== null) {
+    jsonLd.offers = {
+      "@type": "Offer",
+      price: String(concert.price_min),
+      priceCurrency: "EUR",
+      availability: "https://schema.org/InStock",
+      url: concert.ticketmaster_url ?? url,
+      validFrom: new Date().toISOString(),
+    };
+  }
+
   return (
     <script
       type="application/ld+json"

@@ -1,9 +1,10 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Link, Navigate, useSearchParams } from "react-router-dom";
 import { motion } from "motion/react";
 import { ArrowLeft, Eye, EyeOff } from "lucide-react";
 import { api, ApiError } from "@/lib/api";
 import { useSession } from "@/lib/session";
+import { useSeoMeta } from "@/lib/useSeoMeta";
 
 export default function LoginPage() {
   const { user, loading, refresh } = useSession();
@@ -16,9 +17,12 @@ export default function LoginPage() {
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
-  useEffect(() => {
-    document.title = "Entrar — ConcertRide ES";
-  }, []);
+  useSeoMeta({
+    title: "Entrar",
+    description: "Inicia sesión en ConcertRide ES para reservar viajes compartidos a conciertos o gestionar los que has publicado.",
+    canonical: "https://concertride.es/login",
+    noindex: true,
+  });
 
   if (!loading && user) {
     return <Navigate to={next} replace />;
@@ -120,6 +124,15 @@ export default function LoginPage() {
               {error}
             </p>
           )}
+
+          <div className="text-right">
+            <Link
+              to="/forgot-password"
+              className="font-sans text-xs text-cr-text-muted hover:text-cr-primary transition-colors"
+            >
+              ¿Olvidaste tu contraseña?
+            </Link>
+          </div>
 
           <button
             type="submit"

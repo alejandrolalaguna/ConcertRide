@@ -2,9 +2,10 @@ import { Suspense, lazy, useEffect, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { useSeoMeta } from "@/lib/useSeoMeta";
 import { motion } from "motion/react";
-import { ArrowLeft, Check, Clock, MapPin, Minus, Music, Plus } from "lucide-react";
-import type { Luggage, Ride, RideRequest, SmokingPolicy } from "@concertride/types";
+import { ArrowLeft, Check, CheckCheck, Clock, Link2, MapPin, Minus, Music, Plus } from "lucide-react";
+import type { Luggage, PaymentMethod, Ride, RideRequest, SmokingPolicy } from "@concertride/types";
 import { api, ApiError } from "@/lib/api";
+import { rideShareUrl } from "@/lib/utm";
 
 const LUGGAGE_LABEL: Record<Luggage, string> = {
   none: "Sin equipaje",
@@ -19,6 +20,17 @@ const SMOKING_LABEL: Record<SmokingPolicy, string> = {
   no: "🚭 No fumar",
   yes: "🚬 Fumadores OK",
 };
+
+const PAYMENT_LABEL: Record<PaymentMethod, string> = {
+  cash: "💵 Efectivo",
+  bizum: "📱 Bizum",
+  cash_or_bizum: "💵 Efectivo o 📱 Bizum",
+};
+
+const PAYMENT_OPTIONS: { value: PaymentMethod; label: string }[] = [
+  { value: "cash", label: "💵 Efectivo" },
+  { value: "bizum", label: "📱 Bizum" },
+];
 import { formatDate, formatTime } from "@/lib/format";
 import { useSession } from "@/lib/session";
 import { TrustBadge } from "@/components/TrustBadge";
@@ -51,12 +63,19 @@ export default function RideDetailPage() {
       ? `Viaje compartido desde ${ride.origin_city} hasta ${ride.concert.venue.city} para ver a ${ride.concert.artist}. ${ride.seats_left} plaza${ride.seats_left === 1 ? "" : "s"} disponible${ride.seats_left === 1 ? "" : "s"} a €${ride.price_per_seat}/asiento.`
       : "Encuentra un viaje compartido para conciertos en España.",
     canonical: id ? `https://concertride.es/rides/${id}` : undefined,
+    keywords: ride
+      ? `viaje compartido ${ride.origin_city}, carpooling ${ride.concert.artist}, coche compartido ${ride.concert.venue.city}`
+      : undefined,
+    ogImage: ride?.concert.image_url ?? undefined,
     ogType: "article",
   });
   const [seats, setSeats] = useState(1);
   const [message, setMessage] = useState("");
   const [luggage, setLuggage] = useState<Luggage>("none");
+  const [paymentMethod, setPaymentMethod] = useState<PaymentMethod>("cash");
   const [reserve, setReserve] = useState<ReserveState>({ status: "idle" });
+  const [completing, setCompleting] = useState(false);
+  const [copied, setCopied] = useState(false);
 
   useEffect(() => {
     if (!id) return;
@@ -101,6 +120,45 @@ export default function RideDetailPage() {
   const isDriver = !!user && ride.driver_id === user.id;
   const isFull = ride.seats_left === 0;
   const maxSeats = Math.max(1, ride.seats_left);
+  const isCompleted = ride.status === "completed";
+  const driverAlreadyConfirmed = ride.completion_confirmed_by === "driver" || ride.completion_confirmed_by === "both";
+  const canConfirmComplete =
+    !!user &&
+    !isCompleted &&
+    (ride.status === "active" || ride.status === "full") &&
+    isDriver;
+
+  function handleShare() {
+    if (!ride) return;
+    const campaign = ride.concert.artist.toLowerCase().replace(/\s+/g, "-").slice(0, 30);
+    const url = rideShareUrl(ride.id, campaign, "copy");
+    navigator.clipboard.writeText(url).then(() => {
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    });
+  }
+
+  async function handleConfirmComplete() {
+    if (!ride) return;
+    setCompleting(true);
+    try {
+      const updated = await api.rides.confirmComplete(ride.id);
+      setRide(updated);
+    } finally {
+      setCompleting(false);
+    }
+  }
+
+  async function handleRevokeComplete() {
+    if (!ride) return;
+    setCompleting(true);
+    try {
+      const updated = await api.rides.revokeComplete(ride.id);
+      setRide(updated);
+    } finally {
+      setCompleting(false);
+    }
+  }
 
   async function submitReserve(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -111,7 +169,13 @@ export default function RideDetailPage() {
     }
     setReserve({ status: "submitting" });
     try {
-      const payload = { seats, message: message.trim() || undefined, luggage };
+      const effectivePayment = ride.accepted_payment === "cash" ? "cash" : paymentMethod;
+      const payload = {
+        seats,
+        message: message.trim() || undefined,
+        luggage,
+        payment_method: effectivePayment,
+      };
       const req = ride.instant_booking
         ? await api.rides.bookInstant(ride.id, payload)
         : await api.rides.requestSeat(ride.id, payload);
@@ -143,14 +207,81 @@ export default function RideDetailPage() {
           }),
         }}
       />
+      {ride && (
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "Trip",
+              "@id": `https://concertride.es/rides/${ride.id}`,
+              name: `Viaje compartido desde ${ride.origin_city} a ${ride.concert.venue.city} para ${ride.concert.artist}`,
+              description: `Carpooling desde ${ride.origin_city} hasta ${ride.concert.venue.name} (${ride.concert.venue.city}) para el concierto de ${ride.concert.artist}. ${ride.seats_left} plaza${ride.seats_left === 1 ? "" : "s"} disponible${ride.seats_left === 1 ? "" : "s"}.`,
+              url: `https://concertride.es/rides/${ride.id}`,
+              departureTime: ride.departure_time,
+              provider: { "@id": "https://concertride.es/#organization" },
+              itinerary: [
+                {
+                  "@type": "Place",
+                  name: ride.origin_city,
+                  address: {
+                    "@type": "PostalAddress",
+                    addressLocality: ride.origin_city,
+                    addressCountry: "ES",
+                  },
+                  geo: {
+                    "@type": "GeoCoordinates",
+                    latitude: ride.origin_lat,
+                    longitude: ride.origin_lng,
+                  },
+                },
+                {
+                  "@type": "Place",
+                  name: ride.concert.venue.name,
+                  address: {
+                    "@type": "PostalAddress",
+                    addressLocality: ride.concert.venue.city,
+                    addressCountry: "ES",
+                  },
+                  geo: {
+                    "@type": "GeoCoordinates",
+                    latitude: ride.concert.venue.lat,
+                    longitude: ride.concert.venue.lng,
+                  },
+                },
+              ],
+              offers: {
+                "@type": "Offer",
+                price: String(ride.price_per_seat),
+                priceCurrency: "EUR",
+                availability:
+                  ride.seats_left > 0
+                    ? "https://schema.org/InStock"
+                    : "https://schema.org/SoldOut",
+                url: `https://concertride.es/rides/${ride.id}`,
+              },
+            }),
+          }}
+        />
+      )}
       <div className="max-w-4xl mx-auto px-6 py-10 md:py-16 space-y-10">
-        <button
-          type="button"
-          onClick={() => navigate(-1)}
-          className="inline-flex items-center gap-2 font-sans text-xs font-semibold uppercase tracking-[0.12em] text-cr-text-muted hover:text-cr-primary transition-colors"
-        >
-          <ArrowLeft size={14} /> Volver
-        </button>
+        <div className="flex items-center justify-between gap-4">
+          <button
+            type="button"
+            onClick={() => navigate(-1)}
+            className="inline-flex items-center gap-2 font-sans text-xs font-semibold uppercase tracking-[0.12em] text-cr-text-muted hover:text-cr-primary transition-colors"
+          >
+            <ArrowLeft size={14} /> Volver
+          </button>
+          <button
+            type="button"
+            onClick={handleShare}
+            className="inline-flex items-center gap-2 font-sans text-xs font-semibold uppercase tracking-[0.12em] text-cr-text-muted hover:text-cr-primary transition-colors"
+          >
+            <Link2 size={14} aria-hidden="true" />
+            {copied ? "¡Copiado!" : "Compartir"}
+          </button>
+        </div>
 
         <motion.article
           initial={{ opacity: 0, y: 20 }}
@@ -229,6 +360,14 @@ export default function RideDetailPage() {
                     🧳 {LUGGAGE_LABEL[ride.max_luggage]}
                   </dd>
                 </div>
+                <div>
+                  <dt className="font-sans text-[10px] font-semibold uppercase tracking-[0.12em] text-cr-text-muted">
+                    Pago aceptado
+                  </dt>
+                  <dd className="font-mono text-xs text-cr-text mt-1">
+                    {PAYMENT_LABEL[ride.accepted_payment]}
+                  </dd>
+                </div>
               </dl>
 
               {ride.notes && (
@@ -244,7 +383,7 @@ export default function RideDetailPage() {
                 <p className="font-sans text-[10px] font-semibold uppercase tracking-[0.12em] text-cr-text-muted mb-3">
                   Conductor
                 </p>
-                <TrustBadge user={ride.driver} />
+                <TrustBadge user={ride.driver} linkToProfile />
               </div>
             </div>
 
@@ -423,6 +562,34 @@ export default function RideDetailPage() {
                   </div>
                 </div>
 
+                {ride.accepted_payment !== "cash" && (
+                  <div className="space-y-2">
+                    <span className="font-sans text-[11px] font-semibold uppercase tracking-[0.12em] text-cr-text-muted">
+                      ¿Cómo pagas?
+                    </span>
+                    <div className="flex gap-2">
+                      {PAYMENT_OPTIONS.filter(
+                        (o) =>
+                          ride.accepted_payment === "cash_or_bizum" ||
+                          o.value === ride.accepted_payment,
+                      ).map(({ value, label }) => (
+                        <button
+                          key={value}
+                          type="button"
+                          onClick={() => setPaymentMethod(value)}
+                          className={`flex-1 py-2 px-3 font-sans text-xs font-semibold uppercase tracking-[0.08em] border-2 transition-colors ${
+                            paymentMethod === value
+                              ? "border-cr-primary text-cr-primary bg-cr-primary/5"
+                              : "border-cr-border text-cr-text-muted hover:border-cr-primary/50"
+                          }`}
+                        >
+                          {label}
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+                )}
+
                 <label className="block space-y-2">
                   <span className="font-sans text-[11px] font-semibold uppercase tracking-[0.12em] text-cr-text-muted">
                     Mensaje al conductor (opcional)
@@ -465,6 +632,59 @@ export default function RideDetailPage() {
             )}
           </section>
         ) : null}
+
+        {isCompleted && (
+          <div className="border border-cr-primary/40 bg-cr-primary/[0.06] p-5 flex items-center gap-3">
+            <CheckCheck size={18} className="text-cr-primary shrink-0" aria-hidden="true" />
+            <div>
+              <p className="font-sans text-[11px] font-semibold uppercase tracking-[0.12em] text-cr-primary">
+                Viaje completado
+              </p>
+              <p className="font-sans text-xs text-cr-text-muted mt-0.5">
+                ¡Gracias por viajar con ConcertRide! Puedes dejar una valoración abajo.
+              </p>
+            </div>
+          </div>
+        )}
+
+        {canConfirmComplete && (
+          <section className="border border-dashed border-cr-border p-5 space-y-3">
+            <div className="flex items-start gap-3">
+              <CheckCheck size={16} className="text-cr-text-muted mt-0.5 shrink-0" aria-hidden="true" />
+              <div>
+                <p className="font-sans text-sm font-semibold text-cr-text">
+                  {driverAlreadyConfirmed ? "Esperando confirmación del pasajero" : "¿El viaje ya terminó?"}
+                </p>
+                <p className="font-sans text-xs text-cr-text-muted mt-0.5">
+                  {driverAlreadyConfirmed
+                    ? "Confirmaste el viaje. En cuanto el pasajero confirme, se marcará como completado."
+                    : "Confirma que el viaje se realizó. El pasajero también podrá confirmarlo para dejarlo como completado."}
+                </p>
+              </div>
+            </div>
+            {!driverAlreadyConfirmed ? (
+              <button
+                type="button"
+                onClick={handleConfirmComplete}
+                disabled={completing}
+                className="font-sans text-xs font-semibold uppercase tracking-[0.12em] border-2 border-cr-primary text-cr-primary px-4 py-2 hover:bg-cr-primary/10 transition-colors disabled:opacity-40 disabled:pointer-events-none"
+              >
+                {completing ? "Confirmando…" : "Confirmar viaje completado"}
+              </button>
+            ) : (
+              isDriver && (
+                <button
+                  type="button"
+                  onClick={handleRevokeComplete}
+                  disabled={completing}
+                  className="font-sans text-xs font-semibold uppercase tracking-[0.12em] border-2 border-cr-border text-cr-text-muted px-4 py-2 hover:border-cr-secondary hover:text-cr-secondary transition-colors disabled:opacity-40 disabled:pointer-events-none"
+                >
+                  {completing ? "Cancelando…" : "Cancelar confirmación"}
+                </button>
+              )
+            )}
+          </section>
+        )}
 
         {user && <RideChatSection ride={ride} currentUser={user} />}
 

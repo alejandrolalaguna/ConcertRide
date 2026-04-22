@@ -16,6 +16,9 @@ export const USERS: User[] = [
     home_city: "Madrid",
     smoker: false,
     has_license: true,
+    license_verified: true,
+    referral_code: "LAURA001",
+    referral_count: 5,
     created_at: "2025-06-14T10:00:00.000Z",
   },
   {
@@ -33,6 +36,9 @@ export const USERS: User[] = [
     home_city: "Barcelona",
     smoker: false,
     has_license: true,
+    license_verified: true,
+    referral_code: "DANI0002",
+    referral_count: 3,
     created_at: "2025-08-02T09:30:00.000Z",
   },
   {
@@ -50,6 +56,9 @@ export const USERS: User[] = [
     home_city: "Valencia",
     smoker: null,
     has_license: true,
+    license_verified: false,
+    referral_code: "PAUL0003",
+    referral_count: 1,
     created_at: "2025-11-11T18:00:00.000Z",
   },
   {
@@ -67,6 +76,9 @@ export const USERS: User[] = [
     home_city: "Bilbao",
     smoker: null,
     has_license: null,
+    license_verified: false,
+    referral_code: "MARC0004",
+    referral_count: 0,
     created_at: "2026-01-20T12:15:00.000Z",
   },
   {
@@ -84,6 +96,9 @@ export const USERS: User[] = [
     home_city: "Sevilla",
     smoker: false,
     has_license: true,
+    license_verified: true,
+    referral_code: "IREN0005",
+    referral_count: 4,
     created_at: "2025-04-05T08:00:00.000Z",
   },
   {
@@ -101,6 +116,9 @@ export const USERS: User[] = [
     home_city: "Zaragoza",
     smoker: null,
     has_license: true,
+    license_verified: false,
+    referral_code: "JORG0006",
+    referral_count: 2,
     created_at: "2025-09-30T14:45:00.000Z",
   },
 ];

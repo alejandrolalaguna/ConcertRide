@@ -1,10 +1,12 @@
-import { useEffect } from "react";
 import { Link } from "react-router-dom";
+import { useSeoMeta } from "@/lib/useSeoMeta";
 
 export default function CookiesPage() {
-  useEffect(() => {
-    document.title = "Política de cookies — ConcertRide ES";
-  }, []);
+  useSeoMeta({
+    title: "Política de cookies",
+    description: "Política de cookies de ConcertRide ES: qué cookies usamos, para qué y cómo puedes gestionar tus preferencias.",
+    canonical: "https://concertride.es/cookies",
+  });
 
   return (
     <main id="main" className="min-h-dvh bg-cr-bg text-cr-text pt-14">

@@ -15,10 +15,11 @@ import { PastConcertsSection } from "@/components/landing/PastConcertsSection";
 
 export default function LandingPage() {
   useSeoMeta({
-    title: "ConcertRide ES — Comparte el viaje al concierto | España",
+    title: "ConcertRide ES — Carpooling para conciertos en España | Viajes compartidos",
     description:
-      "Encuentra o publica un viaje compartido para conciertos en España. Divide el coste, viaja seguro y llega al show. BlaBlaCar para conciertos.",
+      "Carpooling para conciertos en España. Comparte coche, divide gastos y llega seguro. Publica un viaje o busca uno en 2 minutos. Gratis, sin comisiones.",
     canonical: "https://concertride.es/",
+    keywords: "carpooling conciertos España, viajes compartidos festivales, BlaBlaCar conciertos, transporte a conciertos, coche compartido música, ride-sharing festivales",
     ogType: "website",
   });
 

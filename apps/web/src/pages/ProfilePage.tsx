@@ -1,12 +1,14 @@
 import { useEffect, useState } from "react";
-import { Navigate } from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
 import { motion } from "motion/react";
-import { Check, Star } from "lucide-react";
-import type { Review } from "@concertride/types";
+import { Bell, BellOff, Check, Link2, ShieldCheck, Star, TrendingUp, Upload } from "lucide-react";
+import type { Review, Ride } from "@concertride/types";
 import { api, ApiError } from "@/lib/api";
 import { useSession } from "@/lib/session";
+import { usePush } from "@/lib/usePush";
 import { SPANISH_CITIES } from "@/lib/constants";
-import { initials, formatDay } from "@/lib/format";
+import { initials, formatDay, formatDate } from "@/lib/format";
+import { useSeoMeta } from "@/lib/useSeoMeta";
 
 type Tristate = "yes" | "no" | "";
 
@@ -75,10 +77,18 @@ export default function ProfilePage() {
 
   const [reviews, setReviews] = useState<Review[]>([]);
   const [reviewsLoading, setReviewsLoading] = useState(false);
+  const [myRides, setMyRides] = useState<Ride[]>([]);
+  const [refCopied, setRefCopied] = useState(false);
+  const [verifying, setVerifying] = useState(false);
+  const [verifyError, setVerifyError] = useState<string | null>(null);
+  const { state: pushState, subscribe: pushSubscribe, unsubscribe: pushUnsubscribe } = usePush();
 
-  useEffect(() => {
-    document.title = "Mi perfil — ConcertRide ES";
-  }, []);
+  useSeoMeta({
+    title: "Mi perfil",
+    description: "Gestiona tu perfil de ConcertRide ES: datos personales, ciudad base, preferencias de viaje y vehículo.",
+    canonical: "https://concertride.es/profile",
+    noindex: true,
+  });
 
   useEffect(() => {
     if (!user) return;
@@ -99,6 +109,14 @@ export default function ProfilePage() {
       .then((r) => setReviews(r.reviews))
       .catch(() => setReviews([]))
       .finally(() => setReviewsLoading(false));
+  }, [user?.id]);
+
+  useEffect(() => {
+    if (!user) return;
+    api.rides
+      .list({ driver_id: user.id })
+      .then((r) => setMyRides(r.rides))
+      .catch(() => setMyRides([]));
   }, [user?.id]);
 
   if (!loading && !user) return <Navigate to="/login?next=/profile" replace />;
@@ -167,6 +185,116 @@ export default function ProfilePage() {
           </div>
         </dl>
 
+        {/* Driver earnings panel — only shown if user has license or has published rides */}
+        {(user.has_license || myRides.length > 0) && (
+          <section className="space-y-4 border border-cr-border p-5">
+            <header className="flex items-center gap-2">
+              <TrendingUp size={14} className="text-cr-primary" aria-hidden="true" />
+              <h2 className="font-sans text-[11px] font-semibold uppercase tracking-[0.16em] text-cr-primary">
+                Panel de conductor
+              </h2>
+            </header>
+            <dl className="grid grid-cols-3 gap-4">
+              <div>
+                <dt className="font-sans text-[10px] font-semibold uppercase tracking-[0.12em] text-cr-text-muted mb-1">
+                  Viajes dados
+                </dt>
+                <dd className="font-mono text-xl text-cr-text">{user.rides_given}</dd>
+              </div>
+              <div>
+                <dt className="font-sans text-[10px] font-semibold uppercase tracking-[0.12em] text-cr-text-muted mb-1">
+                  Ganancias estimadas
+                </dt>
+                <dd className="font-mono text-xl text-cr-primary">
+                  €{myRides
+                    .filter((r) => r.status === "completed")
+                    .reduce((sum, r) => sum + r.price_per_seat * (r.seats_total - r.seats_left), 0)
+                    .toFixed(0)}
+                </dd>
+              </div>
+              <div>
+                <dt className="font-sans text-[10px] font-semibold uppercase tracking-[0.12em] text-cr-text-muted mb-1">
+                  Plazas vendidas
+                </dt>
+                <dd className="font-mono text-xl text-cr-text">
+                  {myRides.reduce((sum, r) => sum + (r.seats_total - r.seats_left), 0)}
+                </dd>
+              </div>
+            </dl>
+
+            {myRides.filter((r) => r.status === "active" || r.status === "full").length > 0 && (
+              <div className="border-t border-dashed border-cr-border pt-4 space-y-2">
+                <p className="font-sans text-[10px] font-semibold uppercase tracking-[0.12em] text-cr-text-muted">
+                  Próximos viajes
+                </p>
+                <ul className="space-y-2">
+                  {myRides
+                    .filter((r) => r.status === "active" || r.status === "full")
+                    .slice(0, 3)
+                    .map((r) => (
+                      <li key={r.id}>
+                        <Link
+                          to={`/rides/${r.id}`}
+                          className="flex items-center justify-between gap-4 py-2 border-b border-dashed border-cr-border last:border-0 hover:text-cr-primary transition-colors group"
+                        >
+                          <div className="min-w-0">
+                            <p className="font-sans text-xs font-semibold text-cr-text group-hover:text-cr-primary truncate">
+                              {r.concert.artist}
+                            </p>
+                            <p className="font-mono text-[11px] text-cr-text-muted">
+                              {r.origin_city} → {r.concert.venue.city} · {formatDate(r.departure_time)}
+                            </p>
+                          </div>
+                          <div className="text-right shrink-0">
+                            <p className="font-mono text-xs text-cr-primary">€{r.price_per_seat}/plaza</p>
+                            <p className="font-mono text-[11px] text-cr-text-muted">
+                              {r.seats_left}/{r.seats_total} libres
+                            </p>
+                          </div>
+                        </Link>
+                      </li>
+                    ))}
+                </ul>
+              </div>
+            )}
+            {user.referral_code && (
+              <div className="border-t border-dashed border-cr-border pt-4 space-y-2">
+                <p className="font-sans text-[10px] font-semibold uppercase tracking-[0.12em] text-cr-text-muted">
+                  Enlace de invitación
+                  {user.referral_count >= 3 && (
+                    <span className="ml-2 bg-cr-primary text-black px-1.5 py-0.5 text-[9px]">
+                      ★ Embajador
+                    </span>
+                  )}
+                </p>
+                <div className="flex items-center gap-2">
+                  <code className="flex-1 font-mono text-[11px] text-cr-text bg-cr-bg border border-cr-border px-2 py-1.5 truncate">
+                    {`${window.location.origin}/register?ref=${user.referral_code}`}
+                  </code>
+                  <button
+                    type="button"
+                    onClick={() => {
+                      navigator.clipboard
+                        .writeText(`${window.location.origin}/register?ref=${user.referral_code}`)
+                        .then(() => {
+                          setRefCopied(true);
+                          setTimeout(() => setRefCopied(false), 2000);
+                        });
+                    }}
+                    className="shrink-0 inline-flex items-center gap-1.5 font-sans text-xs font-semibold uppercase tracking-[0.1em] text-cr-text-muted hover:text-cr-primary border border-cr-border hover:border-cr-primary px-3 py-1.5 transition-colors"
+                  >
+                    <Link2 size={12} aria-hidden="true" />
+                    {refCopied ? "¡Copiado!" : "Copiar"}
+                  </button>
+                </div>
+                <p className="font-mono text-[11px] text-cr-text-muted">
+                  {user.referral_count} conductor{user.referral_count === 1 ? "" : "es"} invitado{user.referral_count === 1 ? "" : "s"}
+                </p>
+              </div>
+            )}
+          </section>
+        )}
+
         {/* Reviews received */}
         {(reviewsLoading || reviews.length > 0) && (
           <section className="space-y-3">
@@ -205,6 +333,45 @@ export default function ProfilePage() {
               </ul>
             )}
           </section>
+        )}
+
+        {/* Push notifications */}
+        {pushState !== "unsupported" && (
+          <div className="flex items-center justify-between gap-4 border border-dashed border-cr-border px-4 py-3">
+            <div className="flex items-center gap-2">
+              {pushState === "subscribed" ? (
+                <Bell size={14} className="text-cr-primary shrink-0" aria-hidden="true" />
+              ) : (
+                <BellOff size={14} className="text-cr-text-muted shrink-0" aria-hidden="true" />
+              )}
+              <div>
+                <p className="font-sans text-xs font-semibold text-cr-text">
+                  {pushState === "subscribed" ? "Notificaciones activadas" : "Notificaciones desactivadas"}
+                </p>
+                <p className="font-mono text-[11px] text-cr-text-muted">
+                  {pushState === "denied"
+                    ? "Bloqueadas en el navegador — actívalas en Ajustes"
+                    : pushState === "subscribed"
+                      ? "Recibirás avisos de solicitudes y mensajes"
+                      : "Actívalas para no perderte solicitudes ni mensajes"}
+                </p>
+              </div>
+            </div>
+            {pushState !== "denied" && (
+              <button
+                type="button"
+                onClick={pushState === "subscribed" ? pushUnsubscribe : pushSubscribe}
+                disabled={pushState === "loading"}
+                className={`shrink-0 font-sans text-xs font-semibold uppercase tracking-[0.1em] border-2 px-3 py-1.5 transition-colors disabled:opacity-40 ${
+                  pushState === "subscribed"
+                    ? "border-cr-border text-cr-text-muted hover:border-cr-secondary hover:text-cr-secondary"
+                    : "border-cr-primary text-cr-primary hover:bg-cr-primary/10"
+                }`}
+              >
+                {pushState === "loading" ? "…" : pushState === "subscribed" ? "Desactivar" : "Activar"}
+              </button>
+            )}
+          </div>
         )}
 
         <form onSubmit={submit} className="space-y-8">
@@ -288,6 +455,68 @@ export default function ProfilePage() {
                 { value: "yes", label: "Sí fumo" },
               ]}
             />
+
+            {/* License verification */}
+            {user.license_verified ? (
+              <div className="flex items-center gap-2 border border-cr-primary/40 bg-cr-primary/[0.06] px-4 py-3">
+                <ShieldCheck size={14} className="text-cr-primary shrink-0" aria-hidden="true" />
+                <p className="font-sans text-xs font-semibold uppercase tracking-[0.1em] text-cr-primary">
+                  Conductor verificado
+                </p>
+              </div>
+            ) : (
+              <div className="space-y-3 border border-dashed border-cr-border p-4">
+                <div className="flex items-start gap-3">
+                  <ShieldCheck size={14} className="text-cr-text-muted mt-0.5 shrink-0" aria-hidden="true" />
+                  <div>
+                    <p className="font-sans text-xs font-semibold text-cr-text">
+                      Verifica tu carnet de conducir
+                    </p>
+                    <p className="font-sans text-xs text-cr-text-muted mt-0.5">
+                      Sube una foto del carnet (anverso). Aparecerá el badge ★ Verificado en tu perfil y en tus rides.
+                    </p>
+                  </div>
+                </div>
+                <label className="block cursor-pointer">
+                  <input
+                    type="file"
+                    accept="image/jpeg,image/png,image/webp,application/pdf"
+                    className="sr-only"
+                    disabled={verifying}
+                    onChange={async (e) => {
+                      const file = e.target.files?.[0];
+                      if (!file) return;
+                      setVerifying(true);
+                      setVerifyError(null);
+                      try {
+                        const res = await api.auth.verifyLicense(file);
+                        await refresh();
+                        if (res.user) {
+                          // session refreshed — component re-renders with license_verified=true
+                        }
+                      } catch (err) {
+                        setVerifyError(err instanceof Error ? err.message : "Error al enviar el documento");
+                      } finally {
+                        setVerifying(false);
+                      }
+                    }}
+                  />
+                  <span
+                    className={`inline-flex items-center gap-2 font-sans text-xs font-semibold uppercase tracking-[0.12em] border-2 border-cr-border px-4 py-2 transition-colors ${
+                      verifying
+                        ? "opacity-40 pointer-events-none"
+                        : "hover:border-cr-primary hover:text-cr-primary cursor-pointer"
+                    }`}
+                  >
+                    <Upload size={12} aria-hidden="true" />
+                    {verifying ? "Verificando…" : "Subir carnet"}
+                  </span>
+                </label>
+                {verifyError && (
+                  <p className="font-mono text-xs text-cr-secondary">{verifyError}</p>
+                )}
+              </div>
+            )}
           </section>
 
           {/* Coche */}

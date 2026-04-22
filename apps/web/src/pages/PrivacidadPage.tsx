@@ -1,10 +1,12 @@
-import { useEffect } from "react";
 import { Link } from "react-router-dom";
+import { useSeoMeta } from "@/lib/useSeoMeta";
 
 export default function PrivacidadPage() {
-  useEffect(() => {
-    document.title = "Política de privacidad — ConcertRide ES";
-  }, []);
+  useSeoMeta({
+    title: "Política de privacidad",
+    description: "Cómo ConcertRide ES trata tus datos personales (RGPD): qué recopilamos, para qué, tus derechos y cómo ejercerlos.",
+    canonical: "https://concertride.es/privacidad",
+  });
 
   return (
     <main id="main" className="min-h-dvh bg-cr-bg text-cr-text pt-14">

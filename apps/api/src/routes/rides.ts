@@ -3,10 +3,12 @@ import { z } from "zod";
 import type { MessagesResponse, RequestStatus, ReviewsResponse, RidesResponse } from "@concertride/types";
 import type { HonoEnv } from "../types";
 import { requireUser } from "../lib/identity";
+import { notifyUser } from "../lib/notify";
 
 const listQuery = z.object({
   concert_id: z.string().min(1).optional(),
   origin_city: z.string().min(1).optional(),
+  driver_id: z.string().min(1).optional(),
   vibe: z.enum(["party", "chill", "mixed"]).optional(),
   max_price: z.coerce.number().positive().optional(),
   round_trip: z
@@ -39,12 +41,14 @@ const createRideSchema = z.object({
   max_luggage: z.enum(["none", "small", "backpack", "cabin", "large", "extra"]).optional(),
   notes: z.string().max(500).optional(),
   instant_booking: z.boolean().optional(),
+  accepted_payment: z.enum(["cash", "bizum", "cash_or_bizum"]).optional(),
 });
 
 const requestSeatSchema = z.object({
   seats: z.number().int().min(1).max(8),
   message: z.string().max(500).optional(),
   luggage: z.enum(["none", "small", "backpack", "cabin", "large", "extra"]).optional(),
+  payment_method: z.enum(["cash", "bizum", "cash_or_bizum"]).optional(),
 });
 
 const patchRequestSchema = z.object({
@@ -52,7 +56,9 @@ const patchRequestSchema = z.object({
 });
 
 const sendMessageSchema = z.object({
-  body: z.string().min(1).max(280),
+  body: z.string().min(0).max(280).default(""),
+  kind: z.enum(["text", "location", "photo"]).optional(),
+  attachment_url: z.string().url().optional(),
 });
 
 const createReviewSchema = z.object({
@@ -92,6 +98,25 @@ route.post("/", async (c) => {
   if (!concert) return c.json({ error: "concert_not_found" }, 404);
 
   const ride = await c.var.store.createRide(userOrResp, concert, parsed.data);
+
+  // Notify users who signalled interest in this concert
+  c.executionCtx.waitUntil(
+    (async () => {
+      const interested = await c.var.store.listInterestedUsers(concert.id).catch(() => []);
+      await Promise.allSettled(
+        interested
+          .filter((u) => u.id !== userOrResp.id)
+          .map((u) =>
+            notifyUser(c.var.store, c.env, u.id, {
+              title: `Nuevo viaje a ${concert.artist} 🎶`,
+              body: `Hay un viaje desde ${ride.origin_city} a €${ride.price_per_seat}/plaza.`,
+              url: `/rides/${ride.id}`,
+            }),
+          ),
+      );
+    })(),
+  );
+
   return c.json(ride, 201);
 });
 
@@ -114,8 +139,19 @@ route.post("/:id/request", async (c) => {
     parsed.data.seats,
     parsed.data.message,
     parsed.data.luggage,
+    parsed.data.payment_method,
   );
   if (result.error) return c.json({ error: result.error }, 409);
+
+  // Notify driver of new seat request
+  c.executionCtx.waitUntil(
+    notifyUser(c.var.store, c.env, ride.driver_id, {
+      title: "Nueva solicitud de plaza 🚗",
+      body: `${userOrResp.name} quiere ${parsed.data.seats} plaza${parsed.data.seats === 1 ? "" : "s"} en tu viaje a ${ride.concert.artist}.`,
+      url: `/rides/${ride.id}`,
+    }),
+  );
+
   return c.json(result.request, 201);
 });
 
@@ -139,6 +175,7 @@ route.post("/:id/book", async (c) => {
     parsed.data.seats,
     parsed.data.message,
     parsed.data.luggage,
+    parsed.data.payment_method,
   );
   if (result.error || !result.request) return c.json({ error: result.error ?? "create_failed" }, 409);
 
@@ -170,6 +207,26 @@ route.patch("/:id/request/:rid", async (c) => {
     existing.id,
     parsed.data.status as RequestStatus,
   );
+
+  // Notify passenger of decision
+  if (updated && parsed.data.status === "confirmed") {
+    c.executionCtx.waitUntil(
+      notifyUser(c.var.store, c.env, existing.passenger_id, {
+        title: "¡Plaza confirmada! 🎉",
+        body: `${ride.driver.name} ha aceptado tu solicitud para ir a ${ride.concert.artist}.`,
+        url: `/rides/${ride.id}`,
+      }),
+    );
+  } else if (updated && parsed.data.status === "rejected") {
+    c.executionCtx.waitUntil(
+      notifyUser(c.var.store, c.env, existing.passenger_id, {
+        title: "Solicitud rechazada",
+        body: `Tu solicitud para el viaje a ${ride.concert.artist} no fue aceptada.`,
+        url: `/concerts/${ride.concert_id}`,
+      }),
+    );
+  }
+
   return c.json(updated);
 });
 
@@ -216,8 +273,56 @@ route.post("/:id/messages", async (c) => {
   const parsed = sendMessageSchema.safeParse(rawBody);
   if (!parsed.success) return c.json({ error: "bad_request", issues: parsed.error.issues }, 400);
 
-  const msg = await c.var.store.createMessage({ ride_id: ride.id }, userOrResp, parsed.data.body);
+  const { body, kind, attachment_url } = parsed.data;
+  const msg = await c.var.store.createMessage(
+    { ride_id: ride.id },
+    userOrResp,
+    body,
+    { kind: kind ?? "text", attachment_url },
+  );
   return c.json(msg, 201);
+});
+
+route.post("/:id/complete", async (c) => {
+  const userOrResp = await requireUser(c);
+  if (userOrResp instanceof Response) return userOrResp;
+
+  const ride = await c.var.store.getRide(c.req.param("id"));
+  if (!ride) return c.json({ error: "ride_not_found" }, 404);
+  if (ride.status === "cancelled") return c.json({ error: "ride_cancelled" }, 409);
+  if (ride.status === "completed") return c.json({ error: "already_completed" }, 409);
+
+  const isDriver = ride.driver_id === userOrResp.id;
+  const confirmedRequests = await c.var.store.listRequestsForRide(ride.id);
+  const isPassenger = confirmedRequests.some(
+    (r) => r.passenger_id === userOrResp.id && r.status === "confirmed",
+  );
+
+  if (!isDriver && !isPassenger) return c.json({ error: "forbidden" }, 403);
+
+  const role: "driver" | "passenger" = isDriver ? "driver" : "passenger";
+  const updated = await c.var.store.confirmRideComplete(ride.id, role);
+  if (!updated) return c.json({ error: "update_failed" }, 500);
+  return c.json(updated);
+});
+
+// Driver undoes their own "viaje completado" confirmation before the passenger
+// confirms. Forbidden once the ride has been marked completed.
+route.delete("/:id/complete", async (c) => {
+  const userOrResp = await requireUser(c);
+  if (userOrResp instanceof Response) return userOrResp;
+
+  const ride = await c.var.store.getRide(c.req.param("id"));
+  if (!ride) return c.json({ error: "ride_not_found" }, 404);
+  if (ride.driver_id !== userOrResp.id) return c.json({ error: "forbidden" }, 403);
+  if (ride.status === "completed") return c.json({ error: "already_completed" }, 409);
+  if (ride.completion_confirmed_by !== "driver") {
+    return c.json({ error: "nothing_to_revoke" }, 409);
+  }
+
+  const updated = await c.var.store.revokeDriverCompletion(ride.id);
+  if (!updated) return c.json({ error: "update_failed" }, 500);
+  return c.json(updated);
 });
 
 route.get("/:id/reviews", async (c) => {
