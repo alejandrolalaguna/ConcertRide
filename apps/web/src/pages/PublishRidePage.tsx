@@ -308,6 +308,31 @@ export default function PublishRidePage() {
           <Stepper step={step} />
         </header>
 
+        {user && !user.license_verified && (
+          <section className="border-2 border-cr-secondary bg-cr-secondary/5 p-5 md:p-6 space-y-3">
+            <div className="flex items-start gap-3">
+              <span aria-hidden="true" className="text-lg">🛂</span>
+              <div className="flex-1 space-y-1.5">
+                <p className="font-sans text-sm font-semibold text-cr-text">
+                  Verifica tu carnet para publicar
+                </p>
+                <p className="font-sans text-xs text-cr-text-muted">
+                  Para mantener la confianza de la comunidad solo los conductores con carnet
+                  verificado pueden publicar viajes. Tarda 30 segundos.
+                </p>
+              </div>
+            </div>
+            <div className="flex justify-end">
+              <Link
+                to="/profile"
+                className="font-sans text-xs font-semibold uppercase tracking-[0.12em] border-2 border-cr-secondary text-cr-secondary hover:bg-cr-secondary hover:text-white px-4 py-2 transition-colors"
+              >
+                Verificar carnet →
+              </Link>
+            </div>
+          </section>
+        )}
+
         {step === 1 && (
           <section aria-labelledby="step1" className="space-y-5">
             <h2 id="step1" className="font-display text-lg uppercase tracking-wide">

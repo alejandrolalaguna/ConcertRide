@@ -16,10 +16,10 @@ export function Footer() {
           <p className="font-mono text-xs text-cr-text-muted">
             ¿Dudas o incidencias?{" "}
             <a
-              href="mailto:hola@concertride.es"
+              href="mailto:alejandrolalaguna@gmail.com"
               className="text-cr-primary hover:text-cr-primary/80 underline underline-offset-2"
             >
-              hola@concertride.es
+              alejandrolalaguna@gmail.com
             </a>
           </p>
         </div>

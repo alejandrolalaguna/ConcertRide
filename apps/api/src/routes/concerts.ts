@@ -80,6 +80,10 @@ const sendMessageSchema = z.object({
     .optional(),
 });
 
+// Concert chat is an OPEN room for any signed-in user: it's a shared space
+// for fans of the same concert, regardless of whether they already have a
+// ride booked. This is what turns each concert page into a community hub
+// and keeps users coming back between rides.
 route.get("/:id/messages", async (c) => {
   const userOrResp = await requireUser(c);
   if (userOrResp instanceof Response) return userOrResp;
@@ -87,9 +91,6 @@ route.get("/:id/messages", async (c) => {
   const concertId = c.req.param("id");
   const concert = await c.var.store.getConcert(concertId);
   if (!concert) return c.json({ error: "concert_not_found" }, 404);
-
-  const allowed = await c.var.store.isParticipant({ concert_id: concertId }, userOrResp.id);
-  if (!allowed) return c.json({ error: "forbidden", message: "Only confirmed travelers can read this chat" }, 403);
 
   const msgs = await c.var.store.listMessages({ concert_id: concertId });
   const body: MessagesResponse = { messages: msgs };
@@ -103,9 +104,6 @@ route.post("/:id/messages", async (c) => {
   const concertId = c.req.param("id");
   const concert = await c.var.store.getConcert(concertId);
   if (!concert) return c.json({ error: "concert_not_found" }, 404);
-
-  const allowed = await c.var.store.isParticipant({ concert_id: concertId }, userOrResp.id);
-  if (!allowed) return c.json({ error: "forbidden", message: "Only confirmed travelers can post in this chat" }, 403);
 
   const rawBody = await c.req.json().catch(() => null);
   if (!rawBody) return c.json({ error: "bad_request", message: "Invalid JSON" }, 400);

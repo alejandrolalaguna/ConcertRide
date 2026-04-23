@@ -78,6 +78,11 @@ export default function RideDetailPage() {
   const [reserve, setReserve] = useState<ReserveState>({ status: "idle" });
   const [completing, setCompleting] = useState(false);
   const [copied, setCopied] = useState(false);
+  const [myRequest, setMyRequest] = useState<RideRequest | null>(null);
+  const [cancellingMine, setCancellingMine] = useState(false);
+  const [confirmedPassengers, setConfirmedPassengers] = useState<
+    Array<{ id: string; name: string; initial: string; seats: number }>
+  >([]);
 
   useEffect(() => {
     if (!id) return;
@@ -91,6 +96,24 @@ export default function RideDetailPage() {
         else setError("load_failed");
       });
   }, [id]);
+
+  // Load my own request (if any) + the list of confirmed passengers. Both
+  // refresh whenever the user/ride combination changes.
+  useEffect(() => {
+    if (!id || !user) {
+      setMyRequest(null);
+      return;
+    }
+    api.rides.getMyRequest(id).then((r) => setMyRequest(r.request)).catch(() => {});
+  }, [id, user]);
+
+  useEffect(() => {
+    if (!id) return;
+    api.rides
+      .confirmedPassengers(id)
+      .then((r) => setConfirmedPassengers(r.passengers))
+      .catch(() => setConfirmedPassengers([]));
+  }, [id, myRequest?.status]);
 
   if (error === "ride_not_found") {
     return (
@@ -182,6 +205,7 @@ export default function RideDetailPage() {
         ? await api.rides.bookInstant(ride.id, payload)
         : await api.rides.requestSeat(ride.id, payload);
       setReserve({ status: "success", request: req });
+      setMyRequest(req);
       track(ride.instant_booking ? "seat_booked_instant" : "seat_requested", {
         ride_id: ride.id,
         concert_id: ride.concert_id,
@@ -428,6 +452,55 @@ export default function RideDetailPage() {
           </div>
         </motion.article>
 
+        {confirmedPassengers.length > 0 && (
+          <section aria-labelledby="passengers-title" className="space-y-3">
+            <h2
+              id="passengers-title"
+              className="font-display text-sm uppercase tracking-wide text-cr-text-muted"
+            >
+              Quién va
+            </h2>
+            <div className="flex items-center gap-3">
+              <div className="flex -space-x-2">
+                {confirmedPassengers.slice(0, 5).map((p) => (
+                  <Link
+                    key={p.id}
+                    to={`/drivers/${p.id}`}
+                    title={p.name}
+                    className="w-9 h-9 rounded-full bg-cr-primary text-black font-display text-sm flex items-center justify-center border-2 border-cr-bg hover:z-10 hover:scale-110 transition-transform"
+                    aria-label={`Perfil de ${p.name}`}
+                  >
+                    {p.initial}
+                  </Link>
+                ))}
+                {confirmedPassengers.length > 5 && (
+                  <span className="w-9 h-9 rounded-full bg-cr-surface-2 text-cr-text font-mono text-xs flex items-center justify-center border-2 border-cr-bg">
+                    +{confirmedPassengers.length - 5}
+                  </span>
+                )}
+              </div>
+              <p className="font-sans text-sm text-cr-text-muted">
+                {confirmedPassengers.length === 1 ? (
+                  <>
+                    <span className="text-cr-text font-semibold">{confirmedPassengers[0]?.name}</span> va en este viaje.
+                  </>
+                ) : confirmedPassengers.length === 2 ? (
+                  <>
+                    <span className="text-cr-text font-semibold">{confirmedPassengers[0]?.name}</span> y{" "}
+                    <span className="text-cr-text font-semibold">{confirmedPassengers[1]?.name}</span> van en este viaje.
+                  </>
+                ) : (
+                  <>
+                    <span className="text-cr-text font-semibold">{confirmedPassengers[0]?.name}</span>,{" "}
+                    <span className="text-cr-text font-semibold">{confirmedPassengers[1]?.name}</span> y{" "}
+                    <span className="text-cr-text font-semibold">{confirmedPassengers.length - 2} más</span> van en este viaje.
+                  </>
+                )}
+              </p>
+            </div>
+          </section>
+        )}
+
         <section aria-labelledby="route-title" className="space-y-3">
           <h2 id="route-title" className="font-display text-sm uppercase tracking-wide text-cr-text-muted">
             Ruta
@@ -455,14 +528,22 @@ export default function RideDetailPage() {
           <section className="border border-dashed border-cr-border p-6 md:p-8 text-center space-y-4">
             <p className="font-display text-lg uppercase">Inicia sesión para reservar</p>
             <p className="font-sans text-sm text-cr-text-muted">
-              Te mandamos un enlace mágico, sin contraseñas. Vuelves a esta página al confirmar.
+              Tarda menos de 1 minuto. Volverás a esta página tras entrar o registrarte.
             </p>
-            <Link
-              to={`/login?next=${encodeURIComponent(`/rides/${ride.id}`)}`}
-              className="inline-flex items-center justify-center bg-cr-primary text-black font-sans font-semibold uppercase tracking-[0.12em] text-sm border-2 border-black px-6 py-3 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] hover:translate-x-[2px] hover:translate-y-[2px] transition-all duration-100"
-            >
-              Entrar
-            </Link>
+            <div className="flex flex-wrap gap-3 justify-center">
+              <Link
+                to={`/login?next=${encodeURIComponent(`/rides/${ride.id}`)}`}
+                className="inline-flex items-center justify-center bg-cr-primary text-black font-sans font-semibold uppercase tracking-[0.12em] text-sm border-2 border-black px-6 py-3 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] hover:translate-x-[2px] hover:translate-y-[2px] transition-all duration-100"
+              >
+                Entrar
+              </Link>
+              <Link
+                to={`/register?next=${encodeURIComponent(`/rides/${ride.id}`)}`}
+                className="inline-flex items-center justify-center font-sans font-semibold uppercase tracking-[0.12em] text-sm border-2 border-cr-border text-cr-text hover:border-cr-primary hover:text-cr-primary px-6 py-3 transition-colors"
+              >
+                Crear cuenta
+              </Link>
+            </div>
           </section>
         ) : user ? (
           <section
@@ -485,7 +566,57 @@ export default function RideDetailPage() {
               )}
             </header>
 
-            {reserve.status === "success" ? (
+            {myRequest && (myRequest.status === "pending" || myRequest.status === "confirmed") ? (
+              <div className="border border-cr-primary/40 bg-cr-primary/[0.06] p-5 space-y-4">
+                <p className="font-sans text-[11px] font-semibold uppercase tracking-[0.12em] text-cr-primary inline-flex items-center gap-2">
+                  <Check size={14} aria-hidden="true" />
+                  {myRequest.status === "confirmed" ? "Plaza confirmada" : "Solicitud pendiente"}
+                </p>
+                <p className="font-sans text-sm text-cr-text">
+                  {myRequest.status === "confirmed" ? (
+                    <>
+                      <span className="font-mono text-cr-primary">{myRequest.seats}</span>{" "}
+                      plaza{myRequest.seats === 1 ? "" : "s"} confirmada{myRequest.seats === 1 ? "" : "s"} con {ride.driver.name}. Nos vemos en el viaje.
+                    </>
+                  ) : (
+                    <>
+                      Pediste <span className="font-mono text-cr-primary">{myRequest.seats}</span>{" "}
+                      plaza{myRequest.seats === 1 ? "" : "s"} a {ride.driver.name}. Te avisamos cuando confirme.
+                    </>
+                  )}
+                </p>
+                <button
+                  type="button"
+                  disabled={cancellingMine}
+                  onClick={async () => {
+                    if (!confirm("¿Cancelar tu reserva? Se libera la plaza para otros pasajeros.")) return;
+                    setCancellingMine(true);
+                    try {
+                      const updated = await api.rides.updateRequest(ride.id, myRequest.id, "cancelled");
+                      setMyRequest(updated);
+                      // Refresh ride to reflect freed seats
+                      const fresh = await api.rides.get(ride.id);
+                      setRide(fresh);
+                      setReserve({ status: "idle" });
+                    } catch {
+                      // silent — keep state
+                    } finally {
+                      setCancellingMine(false);
+                    }
+                  }}
+                  className="font-sans text-[11px] font-semibold uppercase tracking-[0.12em] border border-cr-border text-cr-text-muted hover:border-cr-secondary hover:text-cr-secondary px-3 py-1.5 transition-colors disabled:opacity-40 disabled:pointer-events-none"
+                >
+                  {cancellingMine ? "Cancelando…" : "Cancelar reserva"}
+                </button>
+              </div>
+            ) : myRequest && myRequest.status === "rejected" ? (
+              <div className="border border-dashed border-cr-border p-5 space-y-2">
+                <p className="font-sans text-sm font-semibold text-cr-text">Solicitud rechazada</p>
+                <p className="font-sans text-xs text-cr-text-muted">
+                  {ride.driver.name} no pudo aceptar tu plaza. Hay más viajes a este concierto.
+                </p>
+              </div>
+            ) : reserve.status === "success" ? (
               <div className="border border-cr-primary/40 bg-cr-primary/[0.06] p-5 space-y-3">
                 <p className="font-sans text-[11px] font-semibold uppercase tracking-[0.12em] text-cr-primary inline-flex items-center gap-2">
                   <Check size={14} aria-hidden="true" /> Solicitud enviada

@@ -2,7 +2,7 @@ import type { StoreAdapter } from "../store/adapter";
 import type { Env } from "../env";
 import { sendWebPush, type PushPayload } from "./webpush";
 
-const VAPID_SUBJECT = "mailto:hola@concertride.es";
+const VAPID_SUBJECT = "mailto:alejandrolalaguna@gmail.com";
 
 export async function notifyUser(
   store: StoreAdapter,

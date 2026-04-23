@@ -13,6 +13,9 @@ export interface Env {
   // Optional. Admin address that receives new-report notifications. When
   // unset, reports are only persisted.
   SUPPORT_EMAIL: string;
+  // Comma-separated list of user IDs allowed to access /admin/*. Checked
+  // server-side on every admin route. Empty = no admins (admin routes 403).
+  ADMIN_USER_IDS: string;
   ENVIRONMENT: "development" | "production";
   ASSETS: Fetcher;
   CACHE: KVNamespace;

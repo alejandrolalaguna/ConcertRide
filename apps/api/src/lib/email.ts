@@ -15,7 +15,7 @@ export interface SendResult {
 }
 
 const FROM_ADDRESS = "ConcertRide <no-reply@concertride.es>";
-const REPLY_TO = "hola@concertride.es";
+const REPLY_TO = "alejandrolalaguna@gmail.com";
 
 // ── Low-level send ────────────────────────────────────────────────────────
 export async function sendEmail(
@@ -72,7 +72,7 @@ function shell(headline: string, preheader: string, body: string): string {
     ${body}
     <hr style="border:none;border-top:1px solid #222;margin:40px 0 16px 0;" />
     <p style="color:#555;font-size:11px;line-height:1.6;margin:0;">
-      ConcertRide · Madrid, España · <a href="mailto:hola@concertride.es" style="color:#888;text-decoration:underline;">hola@concertride.es</a><br/>
+      ConcertRide · Madrid, España · <a href="mailto:alejandrolalaguna@gmail.com" style="color:#888;text-decoration:underline;">alejandrolalaguna@gmail.com</a><br/>
       Recibes este correo porque tienes una cuenta en concertride.es.
       <a href="https://concertride.es/profile" style="color:#888;text-decoration:underline;">Gestiona tus notificaciones</a>.
     </p>
@@ -130,7 +130,7 @@ export function sendWelcomeEmail(env: Env, email: string, name: string): Promise
       <li><strong style="color:#DBFF00;">Seguir</strong> artistas, conciertos o ciudades para recibir avisos cuando haya nuevos viajes.</li>
     </ul>
     ${cta("https://concertride.es/concerts", "Explorar conciertos")}
-    <p style="color:#666;font-size:12px;margin-top:24px;">Si tienes cualquier duda, responde a este correo o escríbenos a hola@concertride.es.</p>
+    <p style="color:#666;font-size:12px;margin-top:24px;">Si tienes cualquier duda, responde a este correo o escríbenos a alejandrolalaguna@gmail.com.</p>
     `,
   );
   return sendEmail(env, { to: email, subject, html });

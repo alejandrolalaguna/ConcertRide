@@ -615,14 +615,21 @@ export class MemoryStore implements StoreAdapter {
   ): Promise<RideRequest | null> {
     const req = this.requests.find((r) => r.id === requestId);
     if (!req) return null;
+    const prevStatus = req.status;
     req.status = status;
 
-    if (status === "confirmed") {
-      const ride = this.rides.find((r) => r.id === req.ride_id);
-      if (ride) {
-        ride.seats_left = Math.max(0, ride.seats_left - req.seats);
-        if (ride.seats_left === 0) ride.status = "full";
-      }
+    const ride = this.rides.find((r) => r.id === req.ride_id);
+    if (!ride) return req;
+
+    // Transition: not-confirmed → confirmed  ⇒  take seats
+    if (prevStatus !== "confirmed" && status === "confirmed") {
+      ride.seats_left = Math.max(0, ride.seats_left - req.seats);
+      if (ride.seats_left === 0) ride.status = "full";
+    }
+    // Transition: confirmed → cancelled/rejected  ⇒  give seats back
+    if (prevStatus === "confirmed" && (status === "cancelled" || status === "rejected")) {
+      ride.seats_left = Math.min(ride.seats_total, ride.seats_left + req.seats);
+      if (ride.status === "full" && ride.seats_left > 0) ride.status = "active";
     }
     return req;
   }
@@ -912,6 +919,33 @@ export class MemoryStore implements StoreAdapter {
 
   async countReportsByReporterSince(reporterId: string, sinceISO: string): Promise<number> {
     return this.reports.filter((r) => r.reporter_id === reporterId && r.created_at >= sinceISO).length;
+  }
+
+  async listReportsForAdmin(
+    filter?: { status?: import("@concertride/types").ReportStatus },
+  ): Promise<Array<Report & { reporter: User | null; target_user: User | null }>> {
+    let list = this.reports;
+    if (filter?.status) list = list.filter((r) => r.status === filter.status);
+    return list
+      .slice()
+      .sort((a, b) => b.created_at.localeCompare(a.created_at))
+      .map((r) => ({
+        ...r,
+        reporter: this.users.find((u) => u.id === r.reporter_id) ?? null,
+        target_user: r.target_user_id
+          ? this.users.find((u) => u.id === r.target_user_id) ?? null
+          : null,
+      }));
+  }
+
+  async updateReportStatus(
+    id: string,
+    status: import("@concertride/types").ReportStatus,
+  ): Promise<Report | null> {
+    const report = this.reports.find((r) => r.id === id);
+    if (!report) return null;
+    report.status = status;
+    return report;
   }
 }
 

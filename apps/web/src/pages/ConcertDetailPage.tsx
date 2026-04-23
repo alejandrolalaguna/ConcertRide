@@ -24,6 +24,7 @@ import { TicketCardSkeleton } from "@/components/LoadingStates";
 import { FilterBar, EMPTY_FILTERS, type FilterState } from "@/components/FilterBar";
 import { FavoriteButton } from "@/components/FavoriteButton";
 import { ConcertPoster } from "@/components/ConcertPoster";
+import { ConcertChatSection } from "@/components/ConcertChatSection";
 
 function hueFromString(s: string): number {
   let h = 0;
@@ -448,6 +449,12 @@ export default function ConcertDetailPage() {
           </>
         )}
       </section>
+
+      {concert && !isPast && (
+        <section className="max-w-6xl mx-auto px-6 pb-16">
+          <ConcertChatSection concertId={concert.id} artist={concert.artist} />
+        </section>
+      )}
     </main>
   );
 }

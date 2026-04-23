@@ -17,6 +17,7 @@ import push from "./routes/push";
 import messages from "./routes/messages";
 import favorites from "./routes/favorites";
 import reports from "./routes/reports";
+import admin from "./routes/admin";
 import { rateLimit } from "./lib/ratelimit";
 import * as Sentry from "@sentry/cloudflare";
 
@@ -103,6 +104,7 @@ app.route("/api/push", push);
 app.route("/api/messages", messages);
 app.route("/api/favorites", favorites);
 app.route("/api/reports", reports);
+app.route("/api/admin", admin);
 
 app.notFound((c) => {
   if (c.req.path.startsWith("/api/")) {

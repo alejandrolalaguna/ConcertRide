@@ -48,8 +48,10 @@ export default function TerminosPage() {
               económicas.
             </p>
             <p>
-              La información sobre conciertos se obtiene de la Ticketmaster Discovery API v2 y puede
-              estar sujeta a cambios o cancelaciones fuera de nuestro control.
+              La información sobre conciertos procede de datos curados manualmente (con enlace a la
+              web oficial del festival u organizador) y de la Ticketmaster Discovery API v2. Toda
+              ella puede estar sujeta a cambios, aplazamientos o cancelaciones fuera de nuestro
+              control; la compra de entradas se realiza siempre en las webs oficiales enlazadas.
             </p>
           </section>
 
@@ -146,9 +148,15 @@ export default function TerminosPage() {
             <h2 className="font-display text-xl uppercase text-cr-primary">10. Suspensión y baja de cuenta</h2>
             <p>
               ConcertRide ES puede suspender o eliminar cuentas que incumplan estos términos, previa
-              notificación salvo en casos de conducta gravemente perjudicial. Los usuarios pueden
-              solicitar la baja de su cuenta en cualquier momento desde su perfil o contactando con
-              nosotros.
+              notificación salvo en casos de conducta gravemente perjudicial para otros usuarios.
+            </p>
+            <p>
+              Los usuarios pueden solicitar la baja de su cuenta en cualquier momento desde{" "}
+              <em>Mi perfil → Zona peligro → Eliminar cuenta</em>. La baja es inmediata: se anonimiza
+              el perfil, se cancelan los viajes activos que publicaste como conductor y las
+              solicitudes pendientes, y se eliminan las suscripciones a notificaciones y los
+              favoritos. Las reseñas se conservan de forma anónima para mantener la integridad del
+              sistema de confianza.
             </p>
           </section>
 
@@ -175,7 +183,12 @@ export default function TerminosPage() {
             <h2 className="font-display text-xl uppercase text-cr-primary">13. Contacto</h2>
             <p>
               Para cualquier consulta sobre estos términos:{" "}
-              <span className="font-mono text-cr-primary">[CORREO DE CONTACTO]</span>
+              <a
+                href="mailto:alejandrolalaguna@gmail.com"
+                className="font-mono text-cr-primary underline underline-offset-2"
+              >
+                alejandrolalaguna@gmail.com
+              </a>
             </p>
           </section>
 

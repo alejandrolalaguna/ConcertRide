@@ -180,6 +180,14 @@ export const api = {
       request<Ride>(`/api/rides/${encodeURIComponent(rideId)}/complete`, { method: "POST" }),
     revokeComplete: (rideId: string) =>
       request<Ride>(`/api/rides/${encodeURIComponent(rideId)}/complete`, { method: "DELETE" }),
+    getMyRequest: (rideId: string) =>
+      request<{ request: RideRequest | null }>(
+        `/api/rides/${encodeURIComponent(rideId)}/my-request`,
+      ),
+    confirmedPassengers: (rideId: string) =>
+      request<{ passengers: Array<{ id: string; name: string; initial: string; seats: number }> }>(
+        `/api/rides/${encodeURIComponent(rideId)}/confirmed-passengers`,
+      ),
   },
   venues: {
     list: () => request<VenuesResponse>("/api/venues"),
@@ -234,6 +242,25 @@ export const api = {
       request<Report>("/api/reports", {
         method: "POST",
         body: JSON.stringify(input),
+      }),
+  },
+  admin: {
+    me: () => request<{ ok: true; user: User }>("/api/admin/me"),
+    listReports: (status?: "pending" | "reviewed" | "resolved" | "dismissed") => {
+      const qs = status ? `?status=${status}` : "";
+      return request<{
+        reports: Array<
+          Report & {
+            reporter: User | null;
+            target_user: User | null;
+          }
+        >;
+      }>(`/api/admin/reports${qs}`);
+    },
+    updateReport: (id: string, status: "pending" | "reviewed" | "resolved" | "dismissed") =>
+      request<Report>(`/api/admin/reports/${encodeURIComponent(id)}`, {
+        method: "PATCH",
+        body: JSON.stringify({ status }),
       }),
   },
   favorites: {

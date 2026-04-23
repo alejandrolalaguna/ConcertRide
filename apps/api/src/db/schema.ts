@@ -349,6 +349,12 @@ export const pushSubscriptionsRelations = relations(pushSubscriptions, ({ one })
   user: one(users, { fields: [pushSubscriptions.user_id], references: [users.id] }),
 }));
 
+export const reportsRelations = relations(reports, ({ one }) => ({
+  reporter: one(users, { fields: [reports.reporter_id], references: [users.id], relationName: "reporter" }),
+  target_user: one(users, { fields: [reports.target_user_id], references: [users.id], relationName: "target_user" }),
+  ride: one(rides, { fields: [reports.ride_id], references: [rides.id] }),
+}));
+
 export type VenueRow = typeof venues.$inferSelect;
 export type UserRow = typeof users.$inferSelect;
 export type ConcertRow = typeof concerts.$inferSelect;

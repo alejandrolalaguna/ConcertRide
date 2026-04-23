@@ -6,6 +6,7 @@ import { requireUser } from "../lib/identity";
 import { notifyUser } from "../lib/notify";
 import {
   sendDemandMatchEmail,
+  sendEmail,
   sendSeatDecisionEmail,
   sendSeatRequestedEmail,
 } from "../lib/email";
@@ -98,6 +99,21 @@ route.get("/:id", async (c) => {
 route.post("/", async (c) => {
   const userOrResp = await requireUser(c);
   if (userOrResp instanceof Response) return userOrResp;
+
+  // Trust gate: only drivers who've uploaded (and we've approved) a valid
+  // driver's licence can publish rides. This is the core coherence check of
+  // the "verified drivers" value prop — without it, `license_verified` badges
+  // on cards are theatre.
+  if (!userOrResp.license_verified) {
+    return c.json(
+      {
+        error: "license_not_verified",
+        message:
+          "Necesitas verificar tu carnet de conducir antes de publicar un viaje. Hazlo desde Mi perfil → Verificar carnet.",
+      },
+      403,
+    );
+  }
 
   const body = await c.req.json().catch(() => null);
   if (!body) return c.json({ error: "bad_request", message: "Invalid JSON" }, 400);
@@ -248,8 +264,6 @@ route.patch("/:id/request/:rid", async (c) => {
 
   const ride = await c.var.store.getRide(c.req.param("id"));
   if (!ride) return c.json({ error: "ride_not_found" }, 404);
-  if (ride.driver_id !== userOrResp.id)
-    return c.json({ error: "forbidden", message: "Only the driver can change request status" }, 403);
 
   const existing = await c.var.store.getRequest(c.req.param("rid"));
   if (!existing || existing.ride_id !== ride.id)
@@ -261,10 +275,57 @@ route.patch("/:id/request/:rid", async (c) => {
   const parsed = patchRequestSchema.safeParse(body);
   if (!parsed.success) return c.json({ error: "bad_request", issues: parsed.error.issues }, 400);
 
+  const isDriver = ride.driver_id === userOrResp.id;
+  const isPassenger = existing.passenger_id === userOrResp.id;
+
+  // Auth matrix:
+  //   • Driver → can set any status (confirmed / rejected / cancelled)
+  //   • Passenger → can only cancel their OWN pending/confirmed request
+  if (!isDriver && !isPassenger) {
+    return c.json({ error: "forbidden" }, 403);
+  }
+  if (isPassenger && !isDriver) {
+    if (parsed.data.status !== "cancelled") {
+      return c.json(
+        { error: "forbidden", message: "Como pasajero solo puedes cancelar tu propia reserva." },
+        403,
+      );
+    }
+    if (existing.status !== "pending" && existing.status !== "confirmed") {
+      return c.json(
+        { error: "invalid_transition", message: "Esta reserva ya no se puede cancelar." },
+        409,
+      );
+    }
+  }
+
   const updated = await c.var.store.updateRequestStatus(
     existing.id,
     parsed.data.status as RequestStatus,
   );
+
+  // Passenger self-cancel → notify the driver so they can re-publish the
+  // freed seat mentally / emotionally.
+  if (updated && isPassenger && !isDriver && parsed.data.status === "cancelled") {
+    c.executionCtx.waitUntil(
+      (async () => {
+        await Promise.allSettled([
+          notifyUser(c.var.store, c.env, ride.driver_id, {
+            title: "Reserva cancelada",
+            body: `${userOrResp.name} canceló su plaza en tu viaje a ${ride.concert.artist}.`,
+            url: `/rides/${ride.id}`,
+          }),
+          ride.driver.email && !ride.driver.deleted_at
+            ? sendEmail(c.env, {
+                to: ride.driver.email,
+                subject: `Reserva cancelada — ${ride.concert.artist}`,
+                html: `<p>Hola, ${ride.driver.name}.</p><p><strong>${userOrResp.name}</strong> ha cancelado su plaza en tu viaje a <strong>${ride.concert.artist}</strong> desde ${ride.origin_city}. La plaza vuelve a estar disponible.</p><p><a href="https://concertride.es/rides/${ride.id}">Ver el viaje</a></p>`,
+              })
+            : Promise.resolve(),
+        ]);
+      })(),
+    );
+  }
 
   // Notify passenger of decision — push + email
   if (updated && (parsed.data.status === "confirmed" || parsed.data.status === "rejected")) {
@@ -312,6 +373,40 @@ route.get("/:id/requests", async (c) => {
   return c.json({ requests });
 });
 
+// Returns the current user's own request on this ride (or null). Used by the
+// ride detail page to show the right banner on reload (pending / confirmed /
+// cancelled / rejected) and expose a "Cancelar reserva" action.
+route.get("/:id/my-request", async (c) => {
+  const userOrResp = await requireUser(c);
+  if (userOrResp instanceof Response) return userOrResp;
+
+  const rideId = c.req.param("id");
+  const requests = await c.var.store.listRequestsForRide(rideId);
+  const mine = requests.find((r) => r.passenger_id === userOrResp.id) ?? null;
+  return c.json({ request: mine });
+});
+
+// Public list of confirmed passengers for social proof. Returns only first
+// name + initial so other users can see "Laura, Dani y 3 más van también"
+// without leaking full identities or emails. Readable by anyone with a
+// session (not just driver / confirmed peers).
+route.get("/:id/confirmed-passengers", async (c) => {
+  const userOrResp = await requireUser(c);
+  if (userOrResp instanceof Response) return userOrResp;
+
+  const rideId = c.req.param("id");
+  const requests = await c.var.store.listRequestsForRide(rideId);
+  const confirmed = requests
+    .filter((r) => r.status === "confirmed" && !r.passenger?.deleted_at)
+    .map((r) => ({
+      id: r.passenger.id,
+      name: r.passenger.name.split(/\s+/)[0] ?? r.passenger.name, // first name only
+      initial: r.passenger.name.trim().charAt(0).toUpperCase() || "?",
+      seats: r.seats,
+    }));
+  return c.json({ passengers: confirmed });
+});
+
 route.get("/:id/messages", async (c) => {
   const userOrResp = await requireUser(c);
   if (userOrResp instanceof Response) return userOrResp;
@@ -350,6 +445,37 @@ route.post("/:id/messages", async (c) => {
     body,
     { kind: kind ?? "text", attachment_url },
   );
+
+  // Fan out a push notification to every other participant in this ride —
+  // driver + confirmed passengers, excluding the sender. No email, it'd be
+  // way too spammy for a chat.
+  c.executionCtx.waitUntil(
+    (async () => {
+      const requests = await c.var.store.listRequestsForRide(ride.id).catch(() => []);
+      const confirmed = requests.filter((r) => r.status === "confirmed");
+      const recipientIds = new Set<string>();
+      if (ride.driver_id !== userOrResp.id) recipientIds.add(ride.driver_id);
+      for (const r of confirmed) {
+        if (r.passenger_id !== userOrResp.id) recipientIds.add(r.passenger_id);
+      }
+      const preview =
+        kind === "photo"
+          ? "📷 Foto"
+          : kind === "location"
+            ? "📍 Ubicación"
+            : body.slice(0, 80);
+      await Promise.allSettled(
+        [...recipientIds].map((id) =>
+          notifyUser(c.var.store, c.env, id, {
+            title: `${userOrResp.name} — ${ride.concert.artist}`,
+            body: preview,
+            url: `/rides/${ride.id}`,
+          }),
+        ),
+      );
+    })(),
+  );
+
   return c.json(msg, 201);
 });
 

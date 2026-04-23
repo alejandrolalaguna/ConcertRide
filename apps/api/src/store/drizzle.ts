@@ -887,6 +887,7 @@ export class DrizzleStore implements StoreAdapter {
         .set({ status })
         .where(eq(schema.rideRequests.id, requestId));
 
+      // Take seats when newly confirming
       if (status === "confirmed" && existing.status !== "confirmed") {
         const ride = await tx.query.rides.findFirst({
           where: eq(schema.rides.id, existing.ride_id),
@@ -898,6 +899,25 @@ export class DrizzleStore implements StoreAdapter {
             .set({
               seats_left: seatsLeft,
               status: seatsLeft === 0 ? "full" : ride.status,
+            })
+            .where(eq(schema.rides.id, ride.id));
+        }
+      }
+      // Give seats back when a previously-confirmed seat is cancelled/rejected
+      if (
+        existing.status === "confirmed" &&
+        (status === "cancelled" || status === "rejected")
+      ) {
+        const ride = await tx.query.rides.findFirst({
+          where: eq(schema.rides.id, existing.ride_id),
+        });
+        if (ride) {
+          const seatsLeft = Math.min(ride.seats_total, ride.seats_left + existing.seats);
+          await tx
+            .update(schema.rides)
+            .set({
+              seats_left: seatsLeft,
+              status: ride.status === "full" && seatsLeft > 0 ? "active" : ride.status,
             })
             .where(eq(schema.rides.id, ride.id));
         }
@@ -1447,6 +1467,50 @@ export class DrizzleStore implements StoreAdapter {
         ),
       );
     return row?.cnt ?? 0;
+  }
+
+  async listReportsForAdmin(filter?: {
+    status?: import("@concertride/types").ReportStatus;
+  }): Promise<Array<Report & { reporter: User | null; target_user: User | null }>> {
+    const rows = await this.db.query.reports.findMany({
+      where: filter?.status ? eq(schema.reports.status, filter.status) : undefined,
+      orderBy: (r, { desc: _desc }) => [_desc(r.created_at)],
+      with: { reporter: true, target_user: true },
+    });
+    return rows.map((r) => ({
+      id: r.id,
+      reporter_id: r.reporter_id,
+      target_user_id: r.target_user_id,
+      ride_id: r.ride_id,
+      reason: r.reason as import("@concertride/types").ReportReason,
+      body: r.body,
+      status: r.status as import("@concertride/types").ReportStatus,
+      created_at: r.created_at,
+      reporter: r.reporter ? hydrateUser(r.reporter) : null,
+      target_user: r.target_user ? hydrateUser(r.target_user) : null,
+    }));
+  }
+
+  async updateReportStatus(
+    id: string,
+    status: import("@concertride/types").ReportStatus,
+  ): Promise<Report | null> {
+    await this.db
+      .update(schema.reports)
+      .set({ status })
+      .where(eq(schema.reports.id, id));
+    const row = await this.db.query.reports.findFirst({ where: eq(schema.reports.id, id) });
+    if (!row) return null;
+    return {
+      id: row.id,
+      reporter_id: row.reporter_id,
+      target_user_id: row.target_user_id,
+      ride_id: row.ride_id,
+      reason: row.reason as import("@concertride/types").ReportReason,
+      body: row.body,
+      status: row.status as import("@concertride/types").ReportStatus,
+      created_at: row.created_at,
+    };
   }
 }
 

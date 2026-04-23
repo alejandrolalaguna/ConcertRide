@@ -8,6 +8,7 @@ import { LoadingSpinner } from "./components/ui";
 
 const LandingPage = lazy(() => import("./pages/LandingPage"));
 const FavoritesPage = lazy(() => import("./pages/FavoritesPage"));
+const AdminReportsPage = lazy(() => import("./pages/AdminReportsPage"));
 const ForgotPasswordPage = lazy(() => import("./pages/ForgotPasswordPage"));
 const ResetPasswordPage = lazy(() => import("./pages/ResetPasswordPage"));
 const ConcertsPage = lazy(() => import("./pages/ConcertsPage"));
@@ -47,6 +48,7 @@ export default function App() {
             <Route path="/forgot-password" element={<ForgotPasswordPage />} />
             <Route path="/reset-password" element={<ResetPasswordPage />} />
             <Route path="/favoritos" element={<FavoritesPage />} />
+            <Route path="/admin/reports" element={<AdminReportsPage />} />
             <Route path="/profile" element={<ProfilePage />} />
             <Route path="/drivers/:id" element={<DriverProfilePage />} />
             <Route path="/aviso-legal" element={<AvisoLegalPage />} />

@@ -22,26 +22,7 @@ export default function AvisoLegalPage() {
         <div className="space-y-10 font-sans text-sm text-cr-text leading-relaxed">
 
           <section className="space-y-3">
-            <h2 className="font-display text-xl uppercase text-cr-primary">1. Datos del titular</h2>
-            <p>
-              En cumplimiento del artículo 10 de la Ley 34/2002, de 11 de julio, de Servicios de la
-              Sociedad de la Información y de Comercio Electrónico (LSSI-CE), se ponen a disposición
-              del usuario los siguientes datos identificativos del titular del sitio web:
-            </p>
-            <ul className="font-mono text-xs text-cr-text-muted space-y-1 pl-4 border-l-2 border-cr-border">
-              <li><span className="text-cr-text">Denominación social:</span> [NOMBRE O RAZÓN SOCIAL]</li>
-              <li><span className="text-cr-text">CIF/NIF:</span> [CIF/NIF]</li>
-              <li><span className="text-cr-text">Domicilio:</span> [DIRECCIÓN COMPLETA], España</li>
-              <li><span className="text-cr-text">Correo electrónico:</span> [CORREO DE CONTACTO]</li>
-              <li><span className="text-cr-text">Sitio web:</span> https://concertride.es</li>
-            </ul>
-            <p className="font-mono text-xs text-cr-text-dim">
-              * Los campos entre corchetes deben completarse con los datos reales del titular antes de publicar.
-            </p>
-          </section>
-
-          <section className="space-y-3">
-            <h2 className="font-display text-xl uppercase text-cr-primary">2. Objeto y actividad</h2>
+            <h2 className="font-display text-xl uppercase text-cr-primary">1. Objeto y actividad</h2>
             <p>
               ConcertRide ES es una plataforma digital de intermediación que facilita la puesta en
               contacto entre personas que desean compartir vehículo particular para desplazarse a
@@ -55,31 +36,36 @@ export default function AvisoLegalPage() {
           </section>
 
           <section className="space-y-3">
-            <h2 className="font-display text-xl uppercase text-cr-primary">3. Propiedad intelectual e industrial</h2>
+            <h2 className="font-display text-xl uppercase text-cr-primary">2. Propiedad intelectual e industrial</h2>
             <p>
               El nombre, logotipo, diseño, código fuente y demás elementos distintivos de ConcertRide
               ES son titularidad exclusiva del responsable del sitio o están debidamente licenciados.
               Queda prohibida su reproducción, distribución o uso sin autorización expresa.
             </p>
             <p>
-              Los datos de conciertos, artistas y recintos se obtienen de fuentes de terceros
-              mediante sus APIs públicas:
+              La información sobre conciertos y festivales procede de dos fuentes:
             </p>
-            <p>
-              Los datos de conciertos (artistas, recintos, fechas, precios e imágenes) se obtienen
-              exclusivamente de la{" "}
-              <a
-                href="https://developer.ticketmaster.com"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-cr-primary underline underline-offset-2"
-              >
-                Ticketmaster Discovery API v2
-              </a>
-              . Son propiedad de Ticketmaster y se muestran de conformidad con sus términos de uso
-              para desarrolladores. Cada concierto incluye un enlace directo a la página oficial
-              de Ticketmaster para la compra de entradas.
-            </p>
+            <ul className="space-y-1 pl-4 list-disc text-cr-text-muted">
+              <li>
+                Datos curados manualmente (nombre del evento, fecha aproximada, recinto y{" "}
+                <strong className="text-cr-text">enlace a la web oficial</strong> del festival u organizador).
+                Estos datos son factuales y públicos, y cada ficha enlaza al origen oficial para la compra
+                de entradas. No reproducimos carteles, logos, ni contenido promocional con derechos de terceros.
+              </li>
+              <li>
+                Datos obtenidos mediante la{" "}
+                <a
+                  href="https://developer.ticketmaster.com"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-cr-primary underline underline-offset-2"
+                >
+                  Ticketmaster Discovery API v2
+                </a>
+                , utilizada de conformidad con sus términos de uso para desarrolladores. Cuando procede,
+                la ficha del concierto incluye el enlace oficial a Ticketmaster para la compra.
+              </li>
+            </ul>
             <p>
               Los mapas se muestran con datos de{" "}
               <a
@@ -104,7 +90,7 @@ export default function AvisoLegalPage() {
           </section>
 
           <section className="space-y-3">
-            <h2 className="font-display text-xl uppercase text-cr-primary">4. Exclusión de responsabilidad</h2>
+            <h2 className="font-display text-xl uppercase text-cr-primary">3. Exclusión de responsabilidad</h2>
             <p>
               ConcertRide ES no garantiza la exactitud, integridad o actualidad de la información
               sobre conciertos procedente de terceros. El titular no se responsabiliza de los daños
@@ -118,7 +104,7 @@ export default function AvisoLegalPage() {
           </section>
 
           <section className="space-y-3">
-            <h2 className="font-display text-xl uppercase text-cr-primary">5. Legislación aplicable y jurisdicción</h2>
+            <h2 className="font-display text-xl uppercase text-cr-primary">4. Legislación aplicable y jurisdicción</h2>
             <p>
               Las presentes condiciones se rigen por la legislación española. Para la resolución de
               cualquier controversia derivada del uso de este sitio web, las partes se someten a los
@@ -128,10 +114,16 @@ export default function AvisoLegalPage() {
           </section>
 
           <section className="space-y-3">
-            <h2 className="font-display text-xl uppercase text-cr-primary">6. Contacto</h2>
+            <h2 className="font-display text-xl uppercase text-cr-primary">5. Contacto</h2>
             <p>
               Para cualquier consulta relacionada con este aviso legal, puede contactar con nosotros
-              en: <span className="font-mono text-cr-primary">[CORREO DE CONTACTO]</span>
+              en:{" "}
+              <a
+                href="mailto:alejandrolalaguna@gmail.com"
+                className="font-mono text-cr-primary underline underline-offset-2"
+              >
+                alejandrolalaguna@gmail.com
+              </a>
             </p>
           </section>
 

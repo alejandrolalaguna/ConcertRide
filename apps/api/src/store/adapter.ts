@@ -109,6 +109,22 @@ export interface StoreAdapter {
     args: { target_user_id?: string; ride_id?: string; reason: ReportReason; body?: string },
   ): Promise<Report>;
   countReportsByReporterSince(reporterId: string, sinceISO: string): Promise<number>;
+  // Admin-only. Returns reports with hydrated reporter + target_user for
+  // the moderation dashboard. Filter by status; defaults to all.
+  listReportsForAdmin(
+    filter?: { status?: import("@concertride/types").ReportStatus },
+  ): Promise<
+    Array<
+      Report & {
+        reporter: User | null;
+        target_user: User | null;
+      }
+    >
+  >;
+  updateReportStatus(
+    id: string,
+    status: import("@concertride/types").ReportStatus,
+  ): Promise<Report | null>;
 
   // --- favorites ---
   listFavorites(userId: string): Promise<Favorite[]>;

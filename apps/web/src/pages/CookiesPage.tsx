@@ -31,10 +31,11 @@ export default function CookiesPage() {
           </section>
 
           <section className="space-y-4">
-            <h2 className="font-display text-xl uppercase text-cr-primary">Cookies que usa este sitio</h2>
+            <h2 className="font-display text-xl uppercase text-cr-primary">Cookies y almacenamiento que usa este sitio</h2>
             <p>
-              ConcertRide ES usa <strong>únicamente una cookie</strong>, estrictamente necesaria
-              para el funcionamiento de la autenticación:
+              ConcertRide ES usa una sola cookie estrictamente necesaria. De manera opcional (solo si
+              lo aceptas en el banner) activamos analítica anónima de producto alojada en la UE. No
+              hay cookies publicitarias.
             </p>
 
             <div className="overflow-x-auto">
@@ -53,8 +54,35 @@ export default function CookiesPage() {
                     <td className="py-3 pr-4 text-cr-text">Propia · Necesaria</td>
                     <td className="py-3 pr-4 text-cr-text">30 días</td>
                     <td className="py-3 text-cr-text-muted">
-                      Mantiene la sesión iniciada. Contiene un token JWT
-                      firmado. HTTP-only; no accesible desde JavaScript.
+                      Mantiene la sesión iniciada. Contiene un token JWT firmado.
+                      HTTP-only; no accesible desde JavaScript.
+                    </td>
+                  </tr>
+                  <tr className="border-b border-cr-border/30">
+                    <td className="py-3 pr-4 text-cr-primary">cr_cookie_notice_v1</td>
+                    <td className="py-3 pr-4 text-cr-text">Propia · Necesaria (localStorage)</td>
+                    <td className="py-3 pr-4 text-cr-text">Permanente</td>
+                    <td className="py-3 text-cr-text-muted">
+                      Guarda tu elección en el banner de cookies para no volver a mostrártelo.
+                    </td>
+                  </tr>
+                  <tr className="border-b border-cr-border/30">
+                    <td className="py-3 pr-4 text-cr-primary">cr_analytics_consent_v1</td>
+                    <td className="py-3 pr-4 text-cr-text">Propia · Consentimiento (localStorage)</td>
+                    <td className="py-3 pr-4 text-cr-text">Permanente</td>
+                    <td className="py-3 text-cr-text-muted">
+                      Registra si has concedido o denegado la analítica anónima. Sin este flag en
+                      <code className="text-cr-primary"> granted</code>, PostHog no se carga.
+                    </td>
+                  </tr>
+                  <tr className="border-b border-cr-border/30">
+                    <td className="py-3 pr-4 text-cr-primary">ph_* (PostHog)</td>
+                    <td className="py-3 pr-4 text-cr-text">Terceros · Analítica opcional</td>
+                    <td className="py-3 pr-4 text-cr-text">12 meses</td>
+                    <td className="py-3 text-cr-text-muted">
+                      Identificador aleatorio anónimo + estado de sesión para agregar métricas de
+                      uso. Solo se crea si aceptas "Aceptar todo" en el banner. Servidor en la UE
+                      (Frankfurt). No se comparte con terceros.
                     </td>
                   </tr>
                 </tbody>
@@ -63,11 +91,12 @@ export default function CookiesPage() {
 
             <div className="bg-cr-surface border border-cr-border p-4 space-y-1">
               <p className="font-sans text-xs font-semibold uppercase tracking-[0.1em] text-cr-primary">
-                Sin cookies de seguimiento ni publicidad
+                Sin publicidad ni seguimiento entre sitios
               </p>
               <p className="font-mono text-xs text-cr-text-muted">
                 No usamos Google Analytics, píxeles de Facebook, cookies de remarketing ni ninguna
-                otra tecnología de seguimiento. No compartimos datos de navegación con anunciantes.
+                otra tecnología de cross-site tracking. No compartimos datos de navegación con
+                anunciantes. La analítica opcional es agregada y anónima.
               </p>
             </div>
           </section>
@@ -98,15 +127,27 @@ export default function CookiesPage() {
           <section className="space-y-3">
             <h2 className="font-display text-xl uppercase text-cr-primary">¿Necesito dar mi consentimiento?</h2>
             <p>
-              La única cookie que usa este sitio (<code className="font-mono">cr_session</code>) es
-              estrictamente necesaria para prestar el servicio solicitado (mantener tu sesión
-              iniciada). De acuerdo con el artículo 22.2 de la LSSI-CE y la Directiva ePrivacy,
-              las cookies estrictamente necesarias{" "}
-              <strong>no requieren tu consentimiento previo</strong>.
+              Las cookies y el almacenamiento local estrictamente necesarios
+              (<code className="font-mono">cr_session</code>, <code className="font-mono">cr_cookie_notice_v1</code>) no requieren consentimiento previo,
+              conforme al artículo 22.2 de la LSSI-CE y la Directiva ePrivacy.
             </p>
             <p>
-              Si no deseas que se deposite esta cookie, simplemente no inicies sesión o cierra la
-              sesión en cualquier momento desde el menú de usuario.
+              La <strong>analítica de producto (PostHog EU)</strong> sí requiere tu consentimiento
+              explícito: solo se carga cuando pulsas <em>"Aceptar todo"</em> en el banner. Si pulsas
+              <em> "Solo esenciales"</em>, PostHog no se inicializa y no se almacenan ni se envían
+              eventos.
+            </p>
+            <p>
+              Puedes revocar tu consentimiento en cualquier momento borrando el valor
+              <code className="font-mono"> cr_analytics_consent_v1</code> del localStorage o
+              escribiéndonos a{" "}
+              <a
+                href="mailto:alejandrolalaguna@gmail.com"
+                className="text-cr-primary underline underline-offset-2"
+              >
+                alejandrolalaguna@gmail.com
+              </a>
+              .
             </p>
           </section>
 
