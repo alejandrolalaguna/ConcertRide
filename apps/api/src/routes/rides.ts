@@ -90,6 +90,24 @@ route.get("/", async (c) => {
   return c.json(body);
 });
 
+// Aggregated "Mis viajes" view: all rides published by the user as driver
+// plus all requests the user made as passenger. Declared BEFORE the /:id
+// capturing route so Hono doesn't match "mine" as an id param.
+route.get("/mine", async (c) => {
+  const userOrResp = await requireUser(c);
+  if (userOrResp instanceof Response) return userOrResp;
+
+  const [driverResult, passengerRequests] = await Promise.all([
+    c.var.store.listRides({ driver_id: userOrResp.id }),
+    c.var.store.listRequestsByPassenger(userOrResp.id),
+  ]);
+
+  return c.json({
+    driver_rides: driverResult,
+    passenger_requests: passengerRequests,
+  });
+});
+
 route.get("/:id", async (c) => {
   const ride = await c.var.store.getRide(c.req.param("id"));
   if (!ride) return c.json({ error: "not_found" }, 404);
@@ -401,25 +419,6 @@ route.get("/:id/requests", async (c) => {
 
   const requests = await c.var.store.listRequestsForRide(ride.id);
   return c.json({ requests });
-});
-
-// Aggregated "Mis viajes" view: all rides published by the user as driver
-// plus all requests the user made as passenger (with the ride hydrated).
-// Must be declared BEFORE /:id patch/delete so Hono doesn't match "mine"
-// as an id param.
-route.get("/mine", async (c) => {
-  const userOrResp = await requireUser(c);
-  if (userOrResp instanceof Response) return userOrResp;
-
-  const [driverResult, passengerRequests] = await Promise.all([
-    c.var.store.listRides({ driver_id: userOrResp.id }),
-    c.var.store.listRequestsByPassenger(userOrResp.id),
-  ]);
-
-  return c.json({
-    driver_rides: driverResult,
-    passenger_requests: passengerRequests,
-  });
 });
 
 // Driver cancels the whole ride. Cascades cancellations to all pending /

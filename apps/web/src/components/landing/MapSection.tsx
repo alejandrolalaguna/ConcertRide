@@ -37,7 +37,7 @@ export function MapSection({ concerts, rides }: Props) {
             </p>
           </div>
         </div>
-        <p className="font-mono text-xs text-cr-text-dim max-w-md">
+        <p className="font-mono text-xs text-cr-text-muted max-w-md">
           Filtra por ciudad. Haz clic en un concierto para ver los viajes disponibles.
         </p>
       </header>

@@ -47,7 +47,21 @@ route.post("/", async (c) => {
     );
   }
 
-  const report = await c.var.store.createReport(userOrResp.id, parsed.data);
+  // Catch FK violations (invalid target_user_id / ride_id) as 400 instead of
+  // leaking a raw SQL error to the client.
+  let report;
+  try {
+    report = await c.var.store.createReport(userOrResp.id, parsed.data);
+  } catch (err) {
+    const msg = err instanceof Error ? err.message : String(err);
+    if (/FOREIGN KEY|foreign key/i.test(msg)) {
+      return c.json(
+        { error: "bad_request", message: "Usuario o viaje reportado no existe." },
+        400,
+      );
+    }
+    throw err;
+  }
 
   // Fire-and-forget admin notification. Silently drops when SUPPORT_EMAIL /
   // RESEND_API_KEY aren't configured.

@@ -60,7 +60,7 @@ export function ConcertCard({ concert, className = "", onClick }: Props) {
         {concert.image_url ? (
           <img
             src={concert.image_url}
-            alt=""
+            alt={`${concert.artist} — ${concert.venue.name}, ${concert.venue.city}`}
             loading="lazy"
             className="absolute inset-0 w-full h-full object-cover transition-transform duration-300 group-hover:scale-[1.02]"
           />
@@ -105,7 +105,7 @@ export function ConcertCard({ concert, className = "", onClick }: Props) {
             </span>
           )}
           <span
-            className={`font-mono text-xs ${hasRides ? "text-cr-primary" : "text-cr-text-dim"}`}
+            className={`font-mono text-xs ${hasRides ? "text-cr-primary" : "text-cr-text-muted"}`}
             title={hasRides ? "Viajes publicados" : "Nadie ha publicado viaje todavía"}
           >
             {hasRides ? `${ridesCount} viaje${ridesCount === 1 ? "" : "s"}` : "Sin viajes"}

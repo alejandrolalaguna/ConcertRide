@@ -75,6 +75,30 @@ export default function LandingPage() {
 
   return (
     <main id="main" className="bg-cr-bg text-cr-text">
+      {/* Landing-level JSON-LD graph. The homepage already emits the site-wide
+          Organization/WebSite in index.html; here we add an ItemList of the
+          upcoming concerts so LLMs + rich results crawlers can parse the
+          inventory without rendering React. */}
+      {activeConcerts.length > 0 && (
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "ItemList",
+              name: "Próximos conciertos con viajes compartidos en España",
+              itemListOrder: "https://schema.org/ItemListOrderAscending",
+              numberOfItems: activeConcerts.length,
+              itemListElement: activeConcerts.slice(0, 10).map((c, i) => ({
+                "@type": "ListItem",
+                position: i + 1,
+                url: `https://concertride.es/concerts/${c.id}`,
+                name: `${c.artist} — ${c.venue.name}, ${c.venue.city}`,
+              })),
+            }),
+          }}
+        />
+      )}
       <Hero />
       <StatsBar />
       {activeConcerts.length > 0 && <HorizontalCarousel concerts={activeConcerts} />}

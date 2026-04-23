@@ -18,7 +18,19 @@
   Cache-Control: public, max-age=3600
   Content-Type: text/plain; charset=utf-8
 
+/llms-full.txt
+  Cache-Control: public, max-age=3600
+  Content-Type: text/plain; charset=utf-8
+
+/ai.txt
+  Cache-Control: public, max-age=3600
+  Content-Type: text/plain; charset=utf-8
+
 /sitemap.xml
+  Cache-Control: public, max-age=3600
+  Content-Type: application/xml; charset=utf-8
+
+/sitemap-static.xml
   Cache-Control: public, max-age=3600
   Content-Type: application/xml; charset=utf-8
 

@@ -107,6 +107,16 @@ export default function DriverProfilePage() {
               url: `https://concertride.es/drivers/${driver.id}`,
               description: `Conductor en ConcertRide ES con ${driver.rides_given} viajes realizados.`,
               memberOf: { "@id": "https://concertride.es/#organization" },
+              ...(driver.home_city && {
+                homeLocation: {
+                  "@type": "Place",
+                  address: {
+                    "@type": "PostalAddress",
+                    addressLocality: driver.home_city,
+                    addressCountry: "ES",
+                  },
+                },
+              }),
               ...(driver.rating_count > 0 && {
                 aggregateRating: {
                   "@type": "AggregateRating",
@@ -115,6 +125,21 @@ export default function DriverProfilePage() {
                   bestRating: "5",
                   worstRating: "1",
                 },
+                review: reviews.slice(0, 5).map((r) => ({
+                  "@type": "Review",
+                  author: {
+                    "@type": "Person",
+                    name: r.reviewer?.name ?? "Usuario",
+                  },
+                  datePublished: r.created_at,
+                  reviewRating: {
+                    "@type": "Rating",
+                    ratingValue: r.rating,
+                    bestRating: "5",
+                    worstRating: "1",
+                  },
+                  ...(r.comment && { reviewBody: r.comment }),
+                })),
               }),
             },
           }),

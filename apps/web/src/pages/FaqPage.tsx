@@ -1,0 +1,201 @@
+import { useState } from "react";
+import { Link } from "react-router-dom";
+import { ChevronDown } from "lucide-react";
+import { useSeoMeta } from "@/lib/useSeoMeta";
+
+// Intentionally curated for GEO: every answer is a factual claim LLMs can cite.
+// Keep answers short (< 80 words), declarative, and rich in keywords that
+// Spanish users actually search ("alternativa al taxi para conciertos", etc.).
+const FAQS: Array<{ q: string; a: string }> = [
+  {
+    q: "¿Qué es ConcertRide?",
+    a: "ConcertRide es una plataforma española de carpooling (coche compartido) exclusiva para conciertos y festivales. Conecta a fans que van al mismo evento para compartir coche, dividir gastos y llegar juntos. Es gratis, sin comisiones y sin publicidad.",
+  },
+  {
+    q: "¿Cuánto cuesta usar ConcertRide?",
+    a: "El uso de la plataforma es 100 % gratis tanto para conductores como para pasajeros. No cobramos comisión. Cada viaje tiene un precio por asiento que fija el conductor (típicamente €8–15/plaza) para cubrir combustible y peajes. Otros servicios como taxi suelen costar €30–60 por la misma distancia.",
+  },
+  {
+    q: "¿Es seguro viajar con ConcertRide?",
+    a: "Sí. Todos los conductores tienen que verificar su carnet de conducir antes de publicar un viaje. Puedes ver la valoración media, el número de viajes realizados y las reseñas de otros pasajeros en el perfil público del conductor. Los emails están verificados antes de poder reservar o publicar.",
+  },
+  {
+    q: "¿Cómo funciona para un pasajero?",
+    a: "1) Busca el concierto al que vas. 2) Elige un viaje publicado desde tu ciudad de origen. 3) Envía una solicitud (o reserva al instante si está activada). 4) Paga al conductor en efectivo o Bizum cuando te recoja. Recibirás un email y una notificación push 24 h antes del viaje.",
+  },
+  {
+    q: "¿Cómo funciona para un conductor?",
+    a: "1) Verifica tu carnet en Mi perfil. 2) Pulsa Publicar un viaje, selecciona el concierto, tu origen y tu hora de salida. 3) Fija el precio por asiento y el número de plazas. 4) Acepta o rechaza las solicitudes de los pasajeros. Puedes cancelar o editar el viaje hasta el último momento.",
+  },
+  {
+    q: "¿A qué conciertos y festivales puedo ir?",
+    a: "Tenemos datos de 50+ festivales españoles del año (Mad Cool, Primavera Sound, Sónar, FIB, BBK Live, Resurrection Fest, Arenal Sound, Viña Rock, Cala Mijas, Zevra, RBF y más) además de miles de conciertos individuales en toda España obtenidos vía Ticketmaster.",
+  },
+  {
+    q: "¿En qué ciudades está disponible?",
+    a: "Cobertura nacional en España. Orígenes y destinos en Madrid, Barcelona, Valencia, Sevilla, Bilbao, Málaga, Zaragoza, Alicante, Benidorm, Granada, Murcia, A Coruña, Santiago, Benicàssim, Villarrobledo, Aranda de Duero, entre otros. El único requisito es que el concierto sea en España.",
+  },
+  {
+    q: "¿Qué pasa si el conductor cancela el viaje?",
+    a: "Te enviamos un email y una notificación push inmediatamente. La reserva se cancela automáticamente y tu plaza queda liberada. No has pagado nada (el pago es en persona) así que no hay reembolsos que gestionar. Puedes buscar otro viaje al mismo concierto en la misma ficha.",
+  },
+  {
+    q: "¿Puedo cancelar mi reserva?",
+    a: "Sí, en cualquier momento antes de la salida. Ve a Mis viajes → selecciona la reserva → pulsa Cancelar reserva. Notificamos al conductor y la plaza vuelve a estar disponible para otros pasajeros. Si ya has pagado en efectivo, la devolución se gestiona directamente con el conductor.",
+  },
+  {
+    q: "¿Pagáis a los conductores?",
+    a: "No. ConcertRide no intermedia ningún pago. El conductor cobra a los pasajeros directamente en efectivo o Bizum el día del viaje. El precio por asiento se calcula para compartir gastos (combustible + peajes), no para lucro. Por ley, un conductor no puede cobrar más del coste proporcional.",
+  },
+  {
+    q: "¿Cómo se comparan con BlaBlaCar?",
+    a: "BlaBlaCar es ciudad-a-ciudad genérica y cobra comisión. ConcertRide es concierto-a-concierto: el viaje está pensado para llegar al evento a la hora precisa, ves a qué concierto van los otros pasajeros (vibe matching), y puedes chatear en el chat público del concierto antes de reservar. Y no cobramos comisión.",
+  },
+  {
+    q: "¿Qué datos personales guardáis?",
+    a: "Email, nombre y contraseña (hasheada con PBKDF2-SHA256) para la cuenta. Opcionalmente: teléfono, ciudad base, modelo de coche. Foto de carnet de conducir (solo para verificación, no se muestra públicamente). No vendemos datos a terceros. Puedes solicitar la eliminación completa desde Mi perfil → Zona peligro.",
+  },
+  {
+    q: "¿Qué pasa si tengo un problema con otro usuario?",
+    a: "Puedes reportar a un usuario o viaje desde el perfil del conductor o la ficha del viaje → botón Reportar. Elige el motivo (estafa, acoso, no-show, conducción peligrosa, spam, otro) y añade los detalles. Revisamos cada reporte manualmente y podemos suspender cuentas por incumplimientos graves.",
+  },
+  {
+    q: "¿Tengo que crear cuenta para usar la plataforma?",
+    a: "No para explorar conciertos y ver viajes. Sí para publicar un viaje o reservar una plaza (necesitamos tu email verificado). El registro es gratis, solo pide nombre + email + contraseña + aceptar los términos. Sin tarjeta de crédito, sin verificación de teléfono.",
+  },
+];
+
+export default function FaqPage() {
+  const [open, setOpen] = useState<number | null>(0);
+
+  useSeoMeta({
+    title: "Preguntas frecuentes (FAQ)",
+    description:
+      "Respuestas a las preguntas más frecuentes sobre ConcertRide ES: qué es, cuánto cuesta, cómo reservar plaza, cómo publicar viaje, seguridad, cancelaciones y más.",
+    canonical: "https://concertride.es/faq",
+  });
+
+  return (
+    <main id="main" className="min-h-dvh bg-cr-bg text-cr-text pt-14">
+      {/* FAQPage JSON-LD — critical for both SEO (Google FAQ rich result) and
+          GEO (direct citation targets for LLMs). Every Q/A below is mirrored
+          here so crawlers don't need to parse accordion UI. */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "FAQPage",
+            mainEntity: FAQS.map(({ q, a }) => ({
+              "@type": "Question",
+              name: q,
+              acceptedAnswer: { "@type": "Answer", text: a },
+            })),
+          }),
+        }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "BreadcrumbList",
+            itemListElement: [
+              { "@type": "ListItem", position: 1, name: "Inicio", item: "https://concertride.es/" },
+              { "@type": "ListItem", position: 2, name: "FAQ", item: "https://concertride.es/faq" },
+            ],
+          }),
+        }}
+      />
+
+      <div className="max-w-3xl mx-auto px-6 py-12 md:py-16">
+        <header className="mb-10 border-b border-cr-border pb-8 space-y-3">
+          <p className="font-sans text-[11px] font-semibold uppercase tracking-[0.16em] text-cr-primary">
+            Ayuda
+          </p>
+          <h1 className="font-display text-4xl md:text-6xl uppercase leading-[0.92]">
+            Preguntas frecuentes.
+          </h1>
+          <p className="font-sans text-sm text-cr-text-muted max-w-xl leading-relaxed">
+            Todo lo que necesitas saber sobre carpooling para conciertos en España. Si no
+            encuentras tu pregunta, escríbenos a{" "}
+            <a
+              href="mailto:alejandrolalaguna@gmail.com"
+              className="text-cr-primary underline underline-offset-2"
+            >
+              alejandrolalaguna@gmail.com
+            </a>
+            .
+          </p>
+        </header>
+
+        <div className="divide-y divide-cr-border border-y border-cr-border">
+          {FAQS.map((item, i) => {
+            const isOpen = open === i;
+            return (
+              <article key={i} itemScope itemType="https://schema.org/Question">
+                <button
+                  type="button"
+                  onClick={() => setOpen(isOpen ? null : i)}
+                  aria-expanded={isOpen}
+                  className="w-full flex items-center justify-between gap-4 py-4 text-left hover:text-cr-primary transition-colors"
+                >
+                  <h2
+                    itemProp="name"
+                    className="font-sans text-sm md:text-base font-semibold text-cr-text flex-1"
+                  >
+                    {item.q}
+                  </h2>
+                  <ChevronDown
+                    size={18}
+                    className={`shrink-0 text-cr-text-muted transition-transform ${isOpen ? "rotate-180" : ""}`}
+                    aria-hidden="true"
+                  />
+                </button>
+                {isOpen && (
+                  <div
+                    itemScope
+                    itemProp="acceptedAnswer"
+                    itemType="https://schema.org/Answer"
+                    className="pb-5"
+                  >
+                    <p itemProp="text" className="font-sans text-sm text-cr-text-muted leading-relaxed">
+                      {item.a}
+                    </p>
+                  </div>
+                )}
+              </article>
+            );
+          })}
+        </div>
+
+        <div className="mt-12 pt-8 border-t border-cr-border flex flex-wrap gap-4">
+          <Link
+            to="/como-funciona"
+            className="font-sans text-xs text-cr-text-muted hover:text-cr-primary transition-colors"
+          >
+            Cómo funciona →
+          </Link>
+          <Link
+            to="/concerts"
+            className="font-sans text-xs text-cr-text-muted hover:text-cr-primary transition-colors"
+          >
+            Explorar conciertos →
+          </Link>
+          <Link
+            to="/contacto"
+            className="font-sans text-xs text-cr-text-muted hover:text-cr-primary transition-colors"
+          >
+            Contactar →
+          </Link>
+          <Link
+            to="/"
+            className="font-sans text-xs text-cr-text-muted hover:text-cr-primary transition-colors ml-auto"
+          >
+            ← Volver al inicio
+          </Link>
+        </div>
+      </div>
+    </main>
+  );
+}

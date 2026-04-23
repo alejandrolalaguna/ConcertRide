@@ -25,7 +25,7 @@ export function Footer() {
         </div>
 
         <div>
-          <p className="font-sans text-[10px] font-semibold uppercase tracking-[0.16em] text-cr-text-dim mb-4">
+          <p className="font-sans text-[10px] font-semibold uppercase tracking-[0.16em] text-cr-text-muted mb-4">
             Plataforma
           </p>
           <nav className="flex flex-col gap-2">
@@ -47,11 +47,35 @@ export function Footer() {
             >
               Crear cuenta
             </Link>
+            <Link
+              to="/como-funciona"
+              className="font-sans text-xs text-cr-text-muted hover:text-cr-primary transition-colors"
+            >
+              Cómo funciona
+            </Link>
+            <Link
+              to="/faq"
+              className="font-sans text-xs text-cr-text-muted hover:text-cr-primary transition-colors"
+            >
+              Preguntas frecuentes
+            </Link>
+            <Link
+              to="/acerca-de"
+              className="font-sans text-xs text-cr-text-muted hover:text-cr-primary transition-colors"
+            >
+              Acerca de
+            </Link>
+            <Link
+              to="/contacto"
+              className="font-sans text-xs text-cr-text-muted hover:text-cr-primary transition-colors"
+            >
+              Contacto
+            </Link>
           </nav>
         </div>
 
         <div>
-          <p className="font-sans text-[10px] font-semibold uppercase tracking-[0.16em] text-cr-text-dim mb-4">
+          <p className="font-sans text-[10px] font-semibold uppercase tracking-[0.16em] text-cr-text-muted mb-4">
             Legal
           </p>
           <nav className="flex flex-col gap-2">
@@ -85,10 +109,10 @@ export function Footer() {
 
       <div className="border-t border-cr-border">
         <div className="max-w-6xl mx-auto px-6 py-4 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2">
-          <p className="font-mono text-[10px] text-cr-text-dim">
+          <p className="font-mono text-[10px] text-cr-text-muted">
             © {year} ConcertRide ES. Todos los derechos reservados.
           </p>
-          <p className="font-mono text-[10px] text-cr-text-dim flex flex-wrap gap-x-2 gap-y-1">
+          <p className="font-mono text-[10px] text-cr-text-muted flex flex-wrap gap-x-2 gap-y-1">
             <span>Datos:</span>
             <a
               href="https://developer.ticketmaster.com"

@@ -1,5 +1,5 @@
 import { lazy, Suspense } from "react";
-import { Navigate, Route, Routes } from "react-router-dom";
+import { Route, Routes } from "react-router-dom";
 import { TopNav } from "./components/TopNav";
 import { Footer } from "./components/Footer";
 import { CookieBanner } from "./components/CookieBanner";
@@ -25,6 +25,12 @@ const PrivacidadPage = lazy(() => import("./pages/PrivacidadPage"));
 const CookiesPage = lazy(() => import("./pages/CookiesPage"));
 const TerminosPage = lazy(() => import("./pages/TerminosPage"));
 const DriverProfilePage = lazy(() => import("./pages/DriverProfilePage"));
+const FaqPage = lazy(() => import("./pages/FaqPage"));
+const HowItWorksPage = lazy(() => import("./pages/HowItWorksPage"));
+const ContactoPage = lazy(() => import("./pages/ContactoPage"));
+const AcercaDePage = lazy(() => import("./pages/AcercaDePage"));
+const CityLandingPage = lazy(() => import("./pages/CityLandingPage"));
+const NotFoundPage = lazy(() => import("./pages/NotFoundPage"));
 const DevShowcase = lazy(() => import("./pages/DevShowcase"));
 
 export default function App() {
@@ -44,6 +50,7 @@ export default function App() {
             <Route path="/" element={<LandingPage />} />
             <Route path="/concerts" element={<ConcertsPage />} />
             <Route path="/concerts/:id" element={<ConcertDetailPage />} />
+            <Route path="/conciertos/:city" element={<CityLandingPage />} />
             <Route path="/rides/:id" element={<RideDetailPage />} />
             <Route path="/publish" element={<PublishRidePage />} />
             <Route path="/login" element={<LoginPage />} />
@@ -59,8 +66,12 @@ export default function App() {
             <Route path="/privacidad" element={<PrivacidadPage />} />
             <Route path="/cookies" element={<CookiesPage />} />
             <Route path="/terminos" element={<TerminosPage />} />
+            <Route path="/faq" element={<FaqPage />} />
+            <Route path="/como-funciona" element={<HowItWorksPage />} />
+            <Route path="/contacto" element={<ContactoPage />} />
+            <Route path="/acerca-de" element={<AcercaDePage />} />
             <Route path="/_dev" element={<DevShowcase />} />
-            <Route path="*" element={<Navigate to="/" replace />} />
+            <Route path="*" element={<NotFoundPage />} />
           </Routes>
         </Suspense>
       </ErrorBoundary>
