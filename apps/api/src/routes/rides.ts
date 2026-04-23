@@ -4,6 +4,11 @@ import type { MessagesResponse, RequestStatus, ReviewsResponse, RidesResponse } 
 import type { HonoEnv } from "../types";
 import { requireUser } from "../lib/identity";
 import { notifyUser } from "../lib/notify";
+import {
+  sendDemandMatchEmail,
+  sendSeatDecisionEmail,
+  sendSeatRequestedEmail,
+} from "../lib/email";
 
 const listQuery = z.object({
   concert_id: z.string().min(1).optional(),
@@ -58,7 +63,13 @@ const patchRequestSchema = z.object({
 const sendMessageSchema = z.object({
   body: z.string().min(0).max(280).default(""),
   kind: z.enum(["text", "location", "photo"]).optional(),
-  attachment_url: z.string().url().optional(),
+  // Accept either a full URL (e.g. Ticketmaster image) or an internal path
+  // like `/api/messages/media/<id>` returned by our own upload endpoint.
+  attachment_url: z
+    .string()
+    .max(500)
+    .regex(/^(https?:\/\/|\/)/, "must be an URL or absolute path")
+    .optional(),
 });
 
 const createReviewSchema = z.object({
@@ -99,20 +110,28 @@ route.post("/", async (c) => {
 
   const ride = await c.var.store.createRide(userOrResp, concert, parsed.data);
 
-  // Notify users who signalled interest in this concert
+  // Notify users who signalled interest in this concert — push AND email
   c.executionCtx.waitUntil(
     (async () => {
       const interested = await c.var.store.listInterestedUsers(concert.id).catch(() => []);
+      const rideUrl = `https://concertride.es/rides/${ride.id}`;
       await Promise.allSettled(
         interested
-          .filter((u) => u.id !== userOrResp.id)
-          .map((u) =>
+          .filter((u) => u.id !== userOrResp.id && !u.deleted_at)
+          .flatMap((u) => [
             notifyUser(c.var.store, c.env, u.id, {
               title: `Nuevo viaje a ${concert.artist} 🎶`,
               body: `Hay un viaje desde ${ride.origin_city} a €${ride.price_per_seat}/plaza.`,
               url: `/rides/${ride.id}`,
             }),
-          ),
+            sendDemandMatchEmail(c.env, u.email, {
+              name: u.name,
+              artist: concert.artist,
+              origin: ride.origin_city,
+              price: ride.price_per_seat,
+              rideUrl,
+            }),
+          ]),
       );
     })(),
   );
@@ -143,13 +162,28 @@ route.post("/:id/request", async (c) => {
   );
   if (result.error) return c.json({ error: result.error }, 409);
 
-  // Notify driver of new seat request
+  // Notify driver — push + email
   c.executionCtx.waitUntil(
-    notifyUser(c.var.store, c.env, ride.driver_id, {
-      title: "Nueva solicitud de plaza 🚗",
-      body: `${userOrResp.name} quiere ${parsed.data.seats} plaza${parsed.data.seats === 1 ? "" : "s"} en tu viaje a ${ride.concert.artist}.`,
-      url: `/rides/${ride.id}`,
-    }),
+    (async () => {
+      await Promise.allSettled([
+        notifyUser(c.var.store, c.env, ride.driver_id, {
+          title: "Nueva solicitud de plaza 🚗",
+          body: `${userOrResp.name} quiere ${parsed.data.seats} plaza${parsed.data.seats === 1 ? "" : "s"} en tu viaje a ${ride.concert.artist}.`,
+          url: `/rides/${ride.id}`,
+        }),
+        ride.driver.email && !ride.driver.deleted_at
+          ? sendSeatRequestedEmail(c.env, ride.driver.email, {
+              driverName: ride.driver.name,
+              passengerName: userOrResp.name,
+              seats: parsed.data.seats,
+              artist: ride.concert.artist,
+              origin: ride.origin_city,
+              rideUrl: `https://concertride.es/rides/${ride.id}`,
+              instantBooking: false,
+            })
+          : Promise.resolve(),
+      ]);
+    })(),
   );
 
   return c.json(result.request, 201);
@@ -181,6 +215,30 @@ route.post("/:id/book", async (c) => {
 
   // Auto-confirm immediately
   const confirmed = await c.var.store.updateRequestStatus(result.request.id, "confirmed");
+  // Notify driver of the instant booking — email is the main channel since
+  // many drivers won't have push subscriptions.
+  c.executionCtx.waitUntil(
+    (async () => {
+      await Promise.allSettled([
+        notifyUser(c.var.store, c.env, ride.driver_id, {
+          title: "Nueva reserva 🎟️",
+          body: `${userOrResp.name} reservó ${parsed.data.seats} plaza${parsed.data.seats === 1 ? "" : "s"} para ${ride.concert.artist}.`,
+          url: `/rides/${ride.id}`,
+        }),
+        ride.driver.email && !ride.driver.deleted_at
+          ? sendSeatRequestedEmail(c.env, ride.driver.email, {
+              driverName: ride.driver.name,
+              passengerName: userOrResp.name,
+              seats: parsed.data.seats,
+              artist: ride.concert.artist,
+              origin: ride.origin_city,
+              rideUrl: `https://concertride.es/rides/${ride.id}`,
+              instantBooking: true,
+            })
+          : Promise.resolve(),
+      ]);
+    })(),
+  );
   return c.json(confirmed, 201);
 });
 
@@ -208,22 +266,34 @@ route.patch("/:id/request/:rid", async (c) => {
     parsed.data.status as RequestStatus,
   );
 
-  // Notify passenger of decision
-  if (updated && parsed.data.status === "confirmed") {
+  // Notify passenger of decision — push + email
+  if (updated && (parsed.data.status === "confirmed" || parsed.data.status === "rejected")) {
+    const status = parsed.data.status;
+    const passenger = existing.passenger;
+    const passengerEmail = passenger?.email;
     c.executionCtx.waitUntil(
-      notifyUser(c.var.store, c.env, existing.passenger_id, {
-        title: "¡Plaza confirmada! 🎉",
-        body: `${ride.driver.name} ha aceptado tu solicitud para ir a ${ride.concert.artist}.`,
-        url: `/rides/${ride.id}`,
-      }),
-    );
-  } else if (updated && parsed.data.status === "rejected") {
-    c.executionCtx.waitUntil(
-      notifyUser(c.var.store, c.env, existing.passenger_id, {
-        title: "Solicitud rechazada",
-        body: `Tu solicitud para el viaje a ${ride.concert.artist} no fue aceptada.`,
-        url: `/concerts/${ride.concert_id}`,
-      }),
+      (async () => {
+        await Promise.allSettled([
+          notifyUser(c.var.store, c.env, existing.passenger_id, {
+            title: status === "confirmed" ? "¡Plaza confirmada! 🎉" : "Solicitud rechazada",
+            body:
+              status === "confirmed"
+                ? `${ride.driver.name} ha aceptado tu solicitud para ir a ${ride.concert.artist}.`
+                : `Tu solicitud para el viaje a ${ride.concert.artist} no fue aceptada.`,
+            url: status === "confirmed" ? `/rides/${ride.id}` : `/concerts/${ride.concert_id}`,
+          }),
+          passengerEmail && passenger && !passenger.deleted_at
+            ? sendSeatDecisionEmail(c.env, passengerEmail, {
+                passengerName: passenger.name,
+                driverName: ride.driver.name,
+                artist: ride.concert.artist,
+                origin: ride.origin_city,
+                rideUrl: `https://concertride.es/rides/${ride.id}`,
+                status,
+              })
+            : Promise.resolve(),
+        ]);
+      })(),
     );
   }
 

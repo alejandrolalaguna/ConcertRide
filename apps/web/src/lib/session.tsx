@@ -1,6 +1,7 @@
 import { createContext, useCallback, useContext, useEffect, useState } from "react";
 import type { User } from "@concertride/types";
 import { api } from "./api";
+import { identify, resetIdentity } from "./observability";
 
 interface SessionValue {
   user: User | null;
@@ -19,6 +20,13 @@ export function SessionProvider({ children }: { children: React.ReactNode }) {
     try {
       const res = await api.auth.me();
       setUser(res.user);
+      if (res.user) {
+        identify(res.user.id, {
+          home_city: res.user.home_city ?? undefined,
+          verified: res.user.verified,
+          license_verified: res.user.license_verified,
+        });
+      }
     } catch {
       setUser(null);
     } finally {
@@ -33,6 +41,7 @@ export function SessionProvider({ children }: { children: React.ReactNode }) {
       /* ignore */
     }
     setUser(null);
+    resetIdentity();
   }, []);
 
   useEffect(() => {

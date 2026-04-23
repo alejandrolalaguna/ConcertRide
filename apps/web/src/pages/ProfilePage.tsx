@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
-import { Link, Navigate } from "react-router-dom";
+import { Link, Navigate, useNavigate } from "react-router-dom";
 import { motion } from "motion/react";
-import { Bell, BellOff, Check, Link2, ShieldCheck, Star, TrendingUp, Upload } from "lucide-react";
+import { AlertTriangle, Bell, BellOff, Check, Link2, ShieldCheck, Star, TrendingUp, Upload } from "lucide-react";
 import type { Review, Ride } from "@concertride/types";
 import { api, ApiError } from "@/lib/api";
 import { useSession } from "@/lib/session";
@@ -61,7 +61,12 @@ function TristateToggle({
 }
 
 export default function ProfilePage() {
-  const { user, loading, refresh } = useSession();
+  const { user, loading, refresh, logout } = useSession();
+  const navigate = useNavigate();
+  const [deleting, setDeleting] = useState(false);
+  const [confirmDelete, setConfirmDelete] = useState(false);
+  const [confirmText, setConfirmText] = useState("");
+  const [deleteError, setDeleteError] = useState<string | null>(null);
 
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
@@ -568,6 +573,78 @@ export default function ProfilePage() {
             ) : "Guardar cambios"}
           </button>
         </form>
+
+        {/* Danger zone — GDPR art.17 right-to-erasure */}
+        <section className="mt-16 pt-8 border-t border-cr-border space-y-4">
+          <h2 className="font-sans text-[11px] font-semibold uppercase tracking-[0.16em] text-cr-secondary flex items-center gap-2">
+            <AlertTriangle size={13} />
+            Zona peligro
+          </h2>
+          {!confirmDelete ? (
+            <div className="flex items-start justify-between gap-4 border border-cr-border p-4">
+              <div>
+                <p className="font-sans text-sm text-cr-text font-semibold mb-1">Eliminar cuenta</p>
+                <p className="font-sans text-xs text-cr-text-muted">
+                  Se cancelarán tus viajes activos, se eliminarán favoritos, señales de interés y
+                  notificaciones push. Las reseñas se conservan anonimizadas. Acción irreversible.
+                </p>
+              </div>
+              <button
+                type="button"
+                onClick={() => setConfirmDelete(true)}
+                className="flex-shrink-0 font-sans text-xs font-semibold uppercase tracking-[0.1em] border-2 border-cr-secondary text-cr-secondary hover:bg-cr-secondary hover:text-white px-3 py-2 transition-colors"
+              >
+                Eliminar
+              </button>
+            </div>
+          ) : (
+            <div className="border-2 border-cr-secondary bg-cr-secondary/5 p-4 space-y-3">
+              <p className="font-sans text-sm text-cr-text">
+                Para confirmar, escribe <strong className="font-mono text-cr-secondary">ELIMINAR</strong> abajo. Esta acción no se puede deshacer.
+              </p>
+              <input
+                type="text"
+                value={confirmText}
+                onChange={(e) => setConfirmText(e.target.value)}
+                placeholder="ELIMINAR"
+                autoFocus
+                className="w-full bg-cr-bg border-2 border-cr-border focus:border-cr-secondary outline-none px-3 py-2 font-mono text-sm text-cr-text placeholder:text-cr-text-dim"
+              />
+              {deleteError && (
+                <p className="font-mono text-xs text-cr-secondary" role="alert">{deleteError}</p>
+              )}
+              <div className="flex gap-2 justify-end">
+                <button
+                  type="button"
+                  onClick={() => { setConfirmDelete(false); setConfirmText(""); setDeleteError(null); }}
+                  disabled={deleting}
+                  className="font-sans text-xs font-semibold uppercase tracking-[0.1em] border border-cr-border text-cr-text-muted hover:text-cr-text px-3 py-2 transition-colors disabled:opacity-50"
+                >
+                  Cancelar
+                </button>
+                <button
+                  type="button"
+                  disabled={deleting || confirmText !== "ELIMINAR"}
+                  onClick={async () => {
+                    setDeleting(true);
+                    setDeleteError(null);
+                    try {
+                      await api.auth.deleteAccount();
+                      await logout();
+                      navigate("/", { replace: true });
+                    } catch {
+                      setDeleteError("No se pudo eliminar la cuenta. Prueba más tarde.");
+                      setDeleting(false);
+                    }
+                  }}
+                  className="font-sans text-xs font-semibold uppercase tracking-[0.1em] bg-cr-secondary text-white px-4 py-2 hover:bg-cr-secondary/90 transition-colors disabled:opacity-40 disabled:pointer-events-none"
+                >
+                  {deleting ? "Eliminando…" : "Eliminar cuenta definitivamente"}
+                </button>
+              </div>
+            </div>
+          )}
+        </section>
       </div>
     </main>
   );

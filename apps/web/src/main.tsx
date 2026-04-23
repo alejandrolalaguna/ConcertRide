@@ -4,7 +4,12 @@ import { BrowserRouter } from "react-router-dom";
 import App from "./App";
 import { SessionProvider } from "./lib/session";
 import { FavoritesProvider } from "./lib/favorites";
+import { initSentry } from "./lib/observability";
 import "./index.css";
+
+// Initialise Sentry as early as possible so even render-phase errors are
+// caught. PostHog is initialised lazily on consent from the cookie banner.
+initSentry();
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>

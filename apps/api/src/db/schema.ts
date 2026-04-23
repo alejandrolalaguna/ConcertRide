@@ -35,6 +35,14 @@ export const users = sqliteTable(
     referral_count: integer("referral_count").notNull().default(0),
     password_hash: text("password_hash"),
     password_salt: text("password_salt"),
+    // Timestamp of Terms & Privacy acceptance during registration. Required by
+    // GDPR art.6/7 (proof of consent). Nullable for users created before the
+    // ToS flow was introduced.
+    tos_accepted_at: text("tos_accepted_at"),
+    // Soft-delete marker. When non-null the account is anonymised and all PII
+    // stripped. We keep the row so reviews/history attributed to it stay
+    // consistent for other users.
+    deleted_at: text("deleted_at"),
     created_at: text("created_at").notNull().default(sql`CURRENT_TIMESTAMP`),
   },
   (t) => ({
@@ -56,6 +64,13 @@ export const concerts = sqliteTable(
     image_url: text("image_url"),
     ticketmaster_id: text("ticketmaster_id"),
     ticketmaster_url: text("ticketmaster_url"),
+    // Festival/concert organiser website (e.g. https://sonar.es). Distinct from
+    // ticketmaster_url because most Spanish festivals sell tickets through
+    // their own platform or non-TM partners.
+    official_url: text("official_url"),
+    // Pipe-or-dot-separated headliners for festivals. Null for solo concerts
+    // (the `artist` column already holds the performer).
+    lineup: text("lineup"),
     genre: text("genre"),
     price_min: real("price_min"),
     price_max: real("price_max"),
@@ -102,6 +117,9 @@ export const rides = sqliteTable(
       .default("active"),
     completed_at: text("completed_at"),
     completion_confirmed_by: text("completion_confirmed_by", { enum: ["driver", "both"] }),
+    // Timestamp of the last 24h-reminder email so the cron doesn't fire twice
+    // for the same ride.
+    reminded_at: text("reminded_at"),
     created_at: text("created_at").notNull().default(sql`CURRENT_TIMESTAMP`),
   },
   (t) => ({
@@ -220,6 +238,32 @@ export const favorites = sqliteTable(
   (t) => ({
     userIdx: index("favorites_user_idx").on(t.user_id),
     uniqueFav: uniqueIndex("favorites_unique_idx").on(t.user_id, t.kind, t.target_id),
+  }),
+);
+
+export const reports = sqliteTable(
+  "reports",
+  {
+    id: text("id").primaryKey(),
+    reporter_id: text("reporter_id")
+      .notNull()
+      .references(() => users.id),
+    // Target may be a user, a ride, or both. At least one must be present.
+    target_user_id: text("target_user_id").references(() => users.id),
+    ride_id: text("ride_id").references(() => rides.id),
+    reason: text("reason", {
+      enum: ["spam", "scam", "harassment", "no_show", "unsafe", "other"],
+    }).notNull(),
+    body: text("body"),
+    status: text("status", { enum: ["pending", "reviewed", "resolved", "dismissed"] })
+      .notNull()
+      .default("pending"),
+    created_at: text("created_at").notNull().default(sql`CURRENT_TIMESTAMP`),
+  },
+  (t) => ({
+    reporterIdx: index("reports_reporter_idx").on(t.reporter_id),
+    targetUserIdx: index("reports_target_user_idx").on(t.target_user_id),
+    statusIdx: index("reports_status_idx").on(t.status),
   }),
 );
 

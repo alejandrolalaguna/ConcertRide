@@ -25,6 +25,8 @@ const createConcertSchema = z.object({
   venue_city: z.string().min(1).max(80),
   date: z.string().datetime({ offset: true }),
   genre: z.string().max(80).optional(),
+  official_url: z.string().url().max(500).optional(),
+  lineup: z.string().max(500).optional(),
 });
 
 const route = new Hono<HonoEnv>();
@@ -69,7 +71,13 @@ route.post("/", async (c) => {
 const sendMessageSchema = z.object({
   body: z.string().min(0).max(280).default(""),
   kind: z.enum(["text", "location", "photo"]).optional(),
-  attachment_url: z.string().url().optional(),
+  // Accept either a full URL (e.g. Ticketmaster image) or an internal path
+  // like `/api/messages/media/<id>` returned by our own upload endpoint.
+  attachment_url: z
+    .string()
+    .max(500)
+    .regex(/^(https?:\/\/|\/)/, "must be an URL or absolute path")
+    .optional(),
 });
 
 route.get("/:id/messages", async (c) => {

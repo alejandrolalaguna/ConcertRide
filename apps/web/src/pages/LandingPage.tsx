@@ -38,10 +38,16 @@ export default function LandingPage() {
       });
   }, []);
 
-  // Solo los 10 conciertos futuros más próximos
+  // Solo los 10 conciertos futuros más próximos. Hard date check — the server's
+  // `date_from` uses lexicographic comparison which can leak same-day concerts
+  // whose UTC instant has already passed when mixed with `+02:00` timezones.
   const activeConcerts = useMemo(() => {
+    const nowMs = Date.now();
     const futuros = (concerts ?? [])
-      .filter((c) => concertStatus(c.date) === "upcoming")
+      .filter((c) => {
+        const t = new Date(c.date).getTime();
+        return Number.isFinite(t) && t > nowMs && concertStatus(c.date) === "upcoming";
+      })
       .sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
     return futuros.slice(0, 10);
   }, [concerts]);

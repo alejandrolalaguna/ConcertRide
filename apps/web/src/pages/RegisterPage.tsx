@@ -17,6 +17,7 @@ export default function RegisterPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showPw, setShowPw] = useState(false);
+  const [tosAccepted, setTosAccepted] = useState(false);
   const [phone, setPhone] = useState("");
   const [homeCity, setHomeCity] = useState("");
   const [smoker, setSmoker] = useState<"yes" | "no" | "">("");
@@ -37,6 +38,10 @@ export default function RegisterPage() {
   async function submit(e: React.FormEvent) {
     e.preventDefault();
     if (!name.trim() || !email.trim() || !password) return;
+    if (!tosAccepted) {
+      setError("Debes aceptar los términos y la política de privacidad.");
+      return;
+    }
     setSubmitting(true);
     setError(null);
     try {
@@ -215,6 +220,28 @@ export default function RegisterPage() {
             </div>
           </div>
 
+          <label className="flex items-start gap-2.5 cursor-pointer">
+            <input
+              type="checkbox"
+              checked={tosAccepted}
+              onChange={(e) => setTosAccepted(e.target.checked)}
+              className="mt-0.5 w-4 h-4 accent-cr-primary flex-shrink-0 cursor-pointer"
+              required
+              aria-required="true"
+            />
+            <span className="font-sans text-xs text-cr-text-muted leading-relaxed">
+              He leído y acepto los{" "}
+              <Link to="/terminos" target="_blank" className="text-cr-primary underline underline-offset-2">
+                términos y condiciones
+              </Link>{" "}
+              y la{" "}
+              <Link to="/privacidad" target="_blank" className="text-cr-primary underline underline-offset-2">
+                política de privacidad
+              </Link>
+              .
+            </span>
+          </label>
+
           {error && (
             <p className="font-mono text-xs text-cr-secondary" role="alert">
               {error}
@@ -223,7 +250,7 @@ export default function RegisterPage() {
 
           <button
             type="submit"
-            disabled={submitting || !name.trim() || !email.trim() || password.length < 8}
+            disabled={submitting || !name.trim() || !email.trim() || password.length < 8 || !tosAccepted}
             className="w-full bg-cr-primary text-black font-sans font-semibold uppercase tracking-[0.12em] text-sm border-2 border-black px-6 py-3 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] hover:translate-x-[2px] hover:translate-y-[2px] active:shadow-none active:translate-x-[4px] active:translate-y-[4px] transition-all duration-100 disabled:opacity-50 disabled:pointer-events-none"
           >
             {submitting ? "Creando cuenta…" : "Crear cuenta"}

@@ -16,6 +16,9 @@ import ingest from "./routes/ingest";
 import push from "./routes/push";
 import messages from "./routes/messages";
 import favorites from "./routes/favorites";
+import reports from "./routes/reports";
+import { rateLimit } from "./lib/ratelimit";
+import * as Sentry from "@sentry/cloudflare";
 
 const ALLOWED_ORIGINS = [
   "http://localhost:5173",
@@ -47,6 +50,17 @@ app.get("/api/health", (c) =>
 );
 
 app.use("/api/*", storeMiddleware);
+
+// Universal rate limit for every write (POST/PUT/PATCH/DELETE). Keeps bursts
+// from bots / buggy clients bounded. Auth routes have their own stricter
+// limit layered on top (10/min).
+const writeLimiter = rateLimit({ scope: "write", limit: 60, windowSec: 60 });
+app.use("/api/*", async (c, next) => {
+  if (c.req.method === "GET" || c.req.method === "HEAD" || c.req.method === "OPTIONS") {
+    return next();
+  }
+  return writeLimiter(c, next);
+});
 
 // Dynamic concerts sitemap (served under /api/ to bypass the static assets handler).
 // The root /sitemap.xml is a sitemap index in public/ that references this endpoint.
@@ -88,6 +102,7 @@ app.route("/api/ingest", ingest);
 app.route("/api/push", push);
 app.route("/api/messages", messages);
 app.route("/api/favorites", favorites);
+app.route("/api/reports", reports);
 
 app.notFound((c) => {
   if (c.req.path.startsWith("/api/")) {
@@ -98,12 +113,43 @@ app.notFound((c) => {
 
 app.onError((err, c) => {
   console.error("api.error", err);
+  // Best-effort forward to Sentry (Sentry.withSentry wraps captureException
+  // automatically, but we also report here so the user sees the error logged
+  // with their path/context).
+  try {
+    Sentry.captureException(err, {
+      tags: { path: c.req.path, method: c.req.method },
+    });
+  } catch {
+    // ignore
+  }
   return c.json({ error: "internal", message: err.message }, 500);
 });
 
-export default {
+const baseHandler: ExportedHandler<Env> = {
   fetch: app.fetch,
   async scheduled(event: ScheduledController, env: Env, ctx: ExecutionContext) {
     await dispatchScheduled(event, env, ctx);
   },
-} satisfies ExportedHandler<Env>;
+};
+
+// Sentry.withSentry wraps every `fetch` / `scheduled` invocation so uncaught
+// exceptions are reported to the project DSN. No-op when SENTRY_DSN env var
+// is missing — keeps local dev silent.
+export default Sentry.withSentry(
+  (env: Env) => ({
+    dsn: env.SENTRY_DSN,
+    environment: env.ENVIRONMENT,
+    tracesSampleRate: 0,
+    // Strip cookies + auth headers before send so we don't ship JWTs to Sentry.
+    beforeSend(event) {
+      if (event.request?.cookies) delete event.request.cookies;
+      if (event.request?.headers) {
+        delete event.request.headers.Cookie;
+        delete event.request.headers.Authorization;
+      }
+      return event;
+    },
+  }),
+  baseHandler,
+);

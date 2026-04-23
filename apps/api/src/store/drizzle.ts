@@ -16,6 +16,8 @@ import type {
   Favorite,
   FavoriteKind,
   Message,
+  Report,
+  ReportReason,
   RequestStatus,
   Review,
   Ride,
@@ -125,6 +127,8 @@ function hydrateUser(row: UserRow): User {
     license_verified: row.license_verified ?? false,
     referral_code: row.referral_code ?? null,
     referral_count: row.referral_count ?? 0,
+    tos_accepted_at: row.tos_accepted_at ?? null,
+    deleted_at: row.deleted_at ?? null,
     created_at: row.created_at,
   };
 }
@@ -141,6 +145,8 @@ function hydrateConcert(row: ConcertWith, activeRidesCount = 0, demandCount?: nu
     image_url: row.image_url,
     ticketmaster_id: row.ticketmaster_id,
     ticketmaster_url: row.ticketmaster_url ?? null,
+    official_url: row.official_url ?? null,
+    lineup: row.lineup ?? null,
     genre: row.genre,
     price_min: row.price_min,
     price_max: row.price_max,
@@ -178,6 +184,7 @@ function hydrateRide(row: RideWith): Ride {
     status: row.status,
     completed_at: row.completed_at ?? null,
     completion_confirmed_by: (row.completion_confirmed_by as Ride["completion_confirmed_by"]) ?? null,
+    reminded_at: row.reminded_at ?? null,
     created_at: row.created_at,
   };
 }
@@ -275,6 +282,8 @@ export class DrizzleStore implements StoreAdapter {
       license_verified: false,
       referral_code: makeReferralCode(),
       referral_count: 0,
+      tos_accepted_at: new Date().toISOString(),
+      deleted_at: null as string | null,
       password_hash: hash,
       password_salt: salt,
       created_at: new Date().toISOString(),
@@ -317,6 +326,52 @@ export class DrizzleStore implements StoreAdapter {
       .update(schema.users)
       .set({ password_hash: hash, password_salt: salt })
       .where(eq(schema.users.id, userId));
+  }
+
+  async deleteUser(userId: string): Promise<void> {
+    const now = new Date().toISOString();
+    await this.db.transaction(async (tx) => {
+      // Anonymise PII + mark as deleted
+      await tx
+        .update(schema.users)
+        .set({
+          email: `deleted+${userId}@concertride.es`,
+          name: "Usuario eliminado",
+          avatar_url: null,
+          phone: null,
+          home_city: null,
+          car_model: null,
+          car_color: null,
+          password_hash: null,
+          password_salt: null,
+          deleted_at: now,
+        })
+        .where(eq(schema.users.id, userId));
+      // Cancel active rides they drive
+      await tx
+        .update(schema.rides)
+        .set({ status: "cancelled" })
+        .where(
+          and(
+            eq(schema.rides.driver_id, userId),
+            inArray(schema.rides.status, ["active", "full"]),
+          ),
+        );
+      // Cancel pending/confirmed requests as passenger
+      await tx
+        .update(schema.rideRequests)
+        .set({ status: "cancelled" })
+        .where(
+          and(
+            eq(schema.rideRequests.passenger_id, userId),
+            inArray(schema.rideRequests.status, ["pending", "confirmed"]),
+          ),
+        );
+      // Hard-delete data that can't be kept without PII
+      await tx.delete(schema.pushSubscriptions).where(eq(schema.pushSubscriptions.user_id, userId));
+      await tx.delete(schema.favorites).where(eq(schema.favorites.user_id, userId));
+      await tx.delete(schema.demandSignals).where(eq(schema.demandSignals.user_id, userId));
+    });
   }
 
   async listVenues(): Promise<Venue[]> {
@@ -511,6 +566,8 @@ export class DrizzleStore implements StoreAdapter {
       image_url: null,
       ticketmaster_id: null,
       ticketmaster_url: null,
+      official_url: input.official_url ?? null,
+      lineup: input.lineup ?? null,
       genre: input.genre ?? null,
       price_min: null,
       price_max: null,
@@ -673,6 +730,27 @@ export class DrizzleStore implements StoreAdapter {
     const created = await this.getRide(id);
     if (!created) throw new Error(`Ride ${id} missing after insert`);
     return created;
+  }
+
+  async listRidesForReminder(fromISO: string, toISO: string): Promise<Ride[]> {
+    const rows = await this.db.query.rides.findMany({
+      where: (r, { and: _and, gte: _gte, lte: _lte, isNull, inArray: _inArray }) =>
+        _and(
+          _gte(r.departure_time, fromISO),
+          _lte(r.departure_time, toISO),
+          isNull(r.reminded_at),
+          _inArray(r.status, ["active", "full"]),
+        ),
+      with: { driver: true, concert: { with: { venue: true } } },
+    });
+    return rows.map(hydrateRide);
+  }
+
+  async markRideReminded(rideId: string): Promise<void> {
+    await this.db
+      .update(schema.rides)
+      .set({ reminded_at: new Date().toISOString() })
+      .where(eq(schema.rides.id, rideId));
   }
 
   async revokeDriverCompletion(rideId: string): Promise<Ride | null> {
@@ -1328,6 +1406,47 @@ export class DrizzleStore implements StoreAdapter {
         comment: r.comment,
         created_at: r.created_at,
       }));
+  }
+
+  async createReport(
+    reporterId: string,
+    args: { target_user_id?: string; ride_id?: string; reason: ReportReason; body?: string },
+  ): Promise<Report> {
+    const id = `rep_${crypto.randomUUID().slice(0, 10)}`;
+    const created_at = new Date().toISOString();
+    await this.db.insert(schema.reports).values({
+      id,
+      reporter_id: reporterId,
+      target_user_id: args.target_user_id ?? null,
+      ride_id: args.ride_id ?? null,
+      reason: args.reason,
+      body: args.body ?? null,
+      status: "pending",
+      created_at,
+    });
+    return {
+      id,
+      reporter_id: reporterId,
+      target_user_id: args.target_user_id ?? null,
+      ride_id: args.ride_id ?? null,
+      reason: args.reason,
+      body: args.body ?? null,
+      status: "pending",
+      created_at,
+    };
+  }
+
+  async countReportsByReporterSince(reporterId: string, sinceISO: string): Promise<number> {
+    const [row] = await this.db
+      .select({ cnt: count() })
+      .from(schema.reports)
+      .where(
+        and(
+          eq(schema.reports.reporter_id, reporterId),
+          gte(schema.reports.created_at, sinceISO),
+        ),
+      );
+    return row?.cnt ?? 0;
   }
 }
 

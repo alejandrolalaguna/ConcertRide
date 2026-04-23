@@ -10,6 +10,8 @@ import type {
   Favorite,
   FavoriteKind,
   Message,
+  Report,
+  ReportReason,
   RequestStatus,
   Review,
   Ride,
@@ -128,6 +130,7 @@ export class MemoryStore implements StoreAdapter {
   private staging: StagingRow[] = [];
   private pushSubscriptions: Array<{ id: string; user_id: string; endpoint: string; p256dh: string; auth: string }> = [];
   private favorites: Array<Favorite & { user_id: string }> = [];
+  private reports: Report[] = [];
 
   async getUser(id: string): Promise<User | null> {
     return this.users.find((u) => u.id === id) ?? null;
@@ -159,6 +162,8 @@ export class MemoryStore implements StoreAdapter {
       license_verified: false,
       referral_code: crypto.randomUUID().replace(/-/g, "").slice(0, 8).toUpperCase(),
       referral_count: 0,
+      tos_accepted_at: null,
+      deleted_at: null,
       password_hash: null,
       password_salt: null,
       created_at: new Date().toISOString(),
@@ -192,6 +197,8 @@ export class MemoryStore implements StoreAdapter {
       license_verified: false,
       referral_code: crypto.randomUUID().replace(/-/g, "").slice(0, 8).toUpperCase(),
       referral_count: 0,
+      tos_accepted_at: new Date().toISOString(),
+      deleted_at: null,
       password_hash: hash,
       password_salt: salt,
       created_at: new Date().toISOString(),
@@ -224,6 +231,37 @@ export class MemoryStore implements StoreAdapter {
     if (!u) return;
     u.password_hash = hash;
     u.password_salt = salt;
+  }
+
+  async deleteUser(userId: string): Promise<void> {
+    const u = this.users.find((u) => u.id === userId);
+    if (!u) return;
+    const now = new Date().toISOString();
+    u.email = `deleted+${u.id}@concertride.es`;
+    u.name = "Usuario eliminado";
+    u.avatar_url = null;
+    u.phone = null;
+    u.home_city = null;
+    u.car_model = null;
+    u.car_color = null;
+    u.password_hash = null;
+    u.password_salt = null;
+    u.deleted_at = now;
+    // Cancel active rides they drive
+    this.rides = this.rides.map((r) =>
+      r.driver_id === userId && (r.status === "active" || r.status === "full")
+        ? { ...r, status: "cancelled" as const }
+        : r,
+    );
+    // Cancel pending/confirmed requests as passenger
+    this.requests = this.requests.map((r) =>
+      r.passenger_id === userId && (r.status === "pending" || r.status === "confirmed")
+        ? { ...r, status: "cancelled" as const }
+        : r,
+    );
+    this.pushSubscriptions = this.pushSubscriptions.filter((p) => p.user_id !== userId);
+    this.favorites = this.favorites.filter((f) => f.user_id !== userId);
+    this.demandSignals = this.demandSignals.filter((d) => d.user_id !== userId);
   }
 
   async useReferral(referralCode: string, _newUserId: string): Promise<void> {
@@ -349,6 +387,8 @@ export class MemoryStore implements StoreAdapter {
       image_url: null,
       ticketmaster_id: null,
       ticketmaster_url: null,
+      official_url: input.official_url ?? null,
+      lineup: input.lineup ?? null,
       genre: input.genre ?? null,
       price_min: null,
       price_max: null,
@@ -408,6 +448,8 @@ export class MemoryStore implements StoreAdapter {
       image_url: raw.image_url,
       ticketmaster_id: raw.source === "ticketmaster" ? raw.source_event_id : null,
       ticketmaster_url: raw.source === "ticketmaster" ? raw.source_url : null,
+      official_url: null,
+      lineup: null,
       genre: raw.genre,
       price_min: raw.price_min,
       price_max: raw.price_max,
@@ -479,10 +521,26 @@ export class MemoryStore implements StoreAdapter {
       status: "active",
       completed_at: null,
       completion_confirmed_by: null,
+      reminded_at: null,
       created_at: new Date().toISOString(),
     };
     this.rides = [ride, ...this.rides];
     return ride;
+  }
+
+  async listRidesForReminder(fromISO: string, toISO: string): Promise<Ride[]> {
+    return this.rides.filter(
+      (r) =>
+        !r.reminded_at &&
+        (r.status === "active" || r.status === "full") &&
+        r.departure_time >= fromISO &&
+        r.departure_time <= toISO,
+    );
+  }
+
+  async markRideReminded(rideId: string): Promise<void> {
+    const ride = this.rides.find((r) => r.id === rideId);
+    if (ride) ride.reminded_at = new Date().toISOString();
   }
 
   async revokeDriverCompletion(rideId: string): Promise<Ride | null> {
@@ -832,6 +890,28 @@ export class MemoryStore implements StoreAdapter {
     );
     this.concerts = this.concerts.filter((c) => !toDelete.some((d) => d.id === c.id));
     return toDelete.length;
+  }
+
+  async createReport(
+    reporterId: string,
+    args: { target_user_id?: string; ride_id?: string; reason: ReportReason; body?: string },
+  ): Promise<Report> {
+    const report: Report = {
+      id: `rep_${crypto.randomUUID().slice(0, 10)}`,
+      reporter_id: reporterId,
+      target_user_id: args.target_user_id ?? null,
+      ride_id: args.ride_id ?? null,
+      reason: args.reason,
+      body: args.body ?? null,
+      status: "pending",
+      created_at: new Date().toISOString(),
+    };
+    this.reports = [report, ...this.reports];
+    return report;
+  }
+
+  async countReportsByReporterSince(reporterId: string, sinceISO: string): Promise<number> {
+    return this.reports.filter((r) => r.reporter_id === reporterId && r.created_at >= sinceISO).length;
   }
 }
 

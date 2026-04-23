@@ -7,6 +7,8 @@ import type {
   Favorite,
   FavoriteKind,
   Message,
+  Report,
+  ReportReason,
   RequestStatus,
   Review,
   Ride,
@@ -77,6 +79,11 @@ export interface StoreAdapter {
   updateUser(id: string, input: UpdateProfileInput): Promise<User | null>;
   getPasswordHash(userId: string): Promise<{ hash: string; salt: string } | null>;
   updatePassword(userId: string, hash: string, salt: string): Promise<void>;
+  // GDPR art.17 right-to-erasure. Anonymises the user (email, name, phone,
+  // avatar cleared), cancels their active rides, removes push subscriptions,
+  // favorites and demand signals. Reviews are kept for marketplace integrity
+  // but attributed to "Usuario eliminado".
+  deleteUser(userId: string): Promise<void>;
   useReferral(referralCode: string, newUserId: string): Promise<void>;
   verifyLicense(userId: string): Promise<User | null>;
 
@@ -95,6 +102,13 @@ export interface StoreAdapter {
   // drives the dropdowns on /concerts so the filter options always match
   // what's actually in the DB.
   listConcertFacets(): Promise<ConcertFacets>;
+
+  // --- abuse reports ---
+  createReport(
+    reporterId: string,
+    args: { target_user_id?: string; ride_id?: string; reason: ReportReason; body?: string },
+  ): Promise<Report>;
+  countReportsByReporterSince(reporterId: string, sinceISO: string): Promise<number>;
 
   // --- favorites ---
   listFavorites(userId: string): Promise<Favorite[]>;
@@ -116,6 +130,11 @@ export interface StoreAdapter {
   // Driver revokes their own confirmation before the passenger confirms —
   // only valid while status is still active/full and confirmation === "driver".
   revokeDriverCompletion(rideId: string): Promise<Ride | null>;
+
+  // Rides with departure_time in the given ISO window whose `reminded_at` is
+  // still null. Used by the hourly cron that sends the 24h reminder email.
+  listRidesForReminder(fromISO: string, toISO: string): Promise<Ride[]>;
+  markRideReminded(rideId: string): Promise<void>;
 
   // --- ride requests ---
   listRequestsForRide(rideId: string): Promise<RideRequest[]>;

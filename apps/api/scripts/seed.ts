@@ -6,6 +6,7 @@
 
 import { config as loadEnv } from "dotenv";
 import { createClient } from "@libsql/client";
+import { sql } from "drizzle-orm";
 import { drizzle } from "drizzle-orm/libsql";
 import { CONCERTS, USERS, VENUES } from "../src/fixtures";
 import { computeFingerprint } from "../src/lib/fingerprint";
@@ -78,6 +79,9 @@ async function seed() {
       date: c.date,
       image_url: c.image_url,
       ticketmaster_id: c.ticketmaster_id,
+      ticketmaster_url: c.ticketmaster_url,
+      official_url: c.official_url,
+      lineup: c.lineup,
       genre: c.genre,
       price_min: c.price_min,
       price_max: c.price_max,
@@ -85,7 +89,23 @@ async function seed() {
       sources_json: "[]",
     })),
   );
-  await db.insert(schema.concerts).values(concertRows).onConflictDoNothing();
+  await db
+    .insert(schema.concerts)
+    .values(concertRows)
+    .onConflictDoUpdate({
+      target: schema.concerts.id,
+      // Refresh editorial fields so re-running the seed picks up cartel /
+      // official URL changes added to the fixtures.
+      set: {
+        name: sql`excluded.name`,
+        official_url: sql`excluded.official_url`,
+        lineup: sql`excluded.lineup`,
+        genre: sql`excluded.genre`,
+        price_min: sql`excluded.price_min`,
+        price_max: sql`excluded.price_max`,
+        image_url: sql`excluded.image_url`,
+      },
+    });
 
   console.log("✓ seed complete");
 }

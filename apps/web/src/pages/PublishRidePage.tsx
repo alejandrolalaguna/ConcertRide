@@ -8,6 +8,7 @@ import { api, ApiError } from "@/lib/api";
 import { SPANISH_CITIES, SPANISH_CITIES_BY_NAME } from "@/lib/constants";
 import { formatDate, formatTime } from "@/lib/format";
 import { useSession } from "@/lib/session";
+import { track } from "@/lib/observability";
 import { VibeSelector } from "@/components/VibeSelector";
 import { PulsingDot } from "@/components/LoadingStates";
 import { useSeoMeta } from "@/lib/useSeoMeta";
@@ -201,6 +202,15 @@ export default function PublishRidePage() {
         ...(form.notes.trim() ? { notes: form.notes.trim() } : {}),
       });
       setCreated(ride);
+      track("ride_published", {
+        ride_id: ride.id,
+        concert_id: ride.concert_id,
+        origin_city: ride.origin_city,
+        price_per_seat: ride.price_per_seat,
+        seats_total: ride.seats_total,
+        vibe: ride.vibe,
+        adhoc: manualMode,
+      });
       if (!window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
         confetti({
           particleCount: 120,

@@ -5,11 +5,13 @@ import type {
   CreateConcertInput,
   CreateReviewRequest,
   CreateRideRequest,
+  CreateReportRequest,
   DemandSignal,
   Favorite,
   FavoriteKind,
   FavoritesResponse,
   HealthResponse,
+  Report,
   Message,
   MessagesResponse,
   RequestSeatRequest,
@@ -93,8 +95,10 @@ export const api = {
     ) =>
       request<AuthResponse>(`/api/auth/register${ref ? `?ref=${encodeURIComponent(ref)}` : ""}`, {
         method: "POST",
-        body: JSON.stringify({ email, password, name, ...profile }),
+        body: JSON.stringify({ email, password, name, tos_accepted: true, ...profile }),
       }),
+    deleteAccount: () =>
+      request<{ ok: true }>("/api/auth/me", { method: "DELETE" }),
     login: (email: string, password: string) =>
       request<AuthResponse>("/api/auth/login", {
         method: "POST",
@@ -224,6 +228,13 @@ export const api = {
   },
   fuel: {
     prices: () => request<{ gasoline95: number; diesel: number; updatedAt: string }>("/api/fuel-price"),
+  },
+  reports: {
+    create: (input: CreateReportRequest) =>
+      request<Report>("/api/reports", {
+        method: "POST",
+        body: JSON.stringify(input),
+      }),
   },
   favorites: {
     list: () => request<FavoritesResponse>("/api/favorites"),

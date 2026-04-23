@@ -235,6 +235,7 @@ export const RIDES: Ride[] = SEEDS.map((s) => {
     status: s.seats_left === 0 ? "full" : "active",
     completed_at: null,
     completion_confirmed_by: null,
+    reminded_at: null,
     created_at: "2026-04-10T12:00:00.000Z",
   };
 });

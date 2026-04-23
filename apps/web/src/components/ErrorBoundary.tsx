@@ -1,4 +1,5 @@
 import { Component, type ErrorInfo, type ReactNode } from "react";
+import * as Sentry from "@sentry/react";
 
 interface Props {
   children: ReactNode;
@@ -16,8 +17,15 @@ export class ErrorBoundary extends Component<Props, State> {
   }
 
   override componentDidCatch(error: Error, info: ErrorInfo) {
-    // Log for Cloudflare / browser console. Swap for Sentry once wired.
     console.error("ErrorBoundary caught:", error, info.componentStack);
+    // Best-effort forward to Sentry; no-op if Sentry isn't initialised.
+    try {
+      Sentry.captureException(error, {
+        contexts: { react: { componentStack: info.componentStack ?? "" } },
+      });
+    } catch {
+      // ignore
+    }
   }
 
   private reload = () => {

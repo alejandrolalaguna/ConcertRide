@@ -26,6 +26,8 @@ export interface Concert {
   image_url: string | null;
   ticketmaster_id: string | null;
   ticketmaster_url: string | null;
+  official_url: string | null;
+  lineup: string | null;
   genre: string | null;
   price_min: number | null;
   price_max: number | null;
@@ -51,7 +53,30 @@ export interface User {
   license_verified: boolean;
   referral_code: string | null;
   referral_count: number;
+  tos_accepted_at: string | null;
+  deleted_at: string | null;
   created_at: string;
+}
+
+export type ReportReason = "spam" | "scam" | "harassment" | "no_show" | "unsafe" | "other";
+export type ReportStatus = "pending" | "reviewed" | "resolved" | "dismissed";
+
+export interface Report {
+  id: string;
+  reporter_id: string;
+  target_user_id: string | null;
+  ride_id: string | null;
+  reason: ReportReason;
+  body: string | null;
+  status: ReportStatus;
+  created_at: string;
+}
+
+export interface CreateReportRequest {
+  target_user_id?: string;
+  ride_id?: string;
+  reason: ReportReason;
+  body?: string;
 }
 
 export interface UpdateProfileInput {
@@ -90,6 +115,7 @@ export interface Ride {
   status: RideStatus;
   completed_at: string | null;
   completion_confirmed_by: "driver" | "both" | null;
+  reminded_at: string | null;
   created_at: string;
 }
 
@@ -227,6 +253,8 @@ export interface CreateConcertInput {
   venue_city: string;
   date: string;
   genre?: string;
+  official_url?: string;
+  lineup?: string;
 }
 
 export interface RidesQuery {

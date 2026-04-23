@@ -8,10 +8,13 @@ import { useSeoMeta } from "@/lib/useSeoMeta";
 import { VibeBadge } from "@/components/VibeBadge";
 import { PulsingDot } from "@/components/LoadingStates";
 import { initials, formatDate, formatDay } from "@/lib/format";
+import { ReportButton } from "@/components/ReportButton";
+import { useSession } from "@/lib/session";
 
 type PublicUser = Omit<User, "email">;
 
 export default function DriverProfilePage() {
+  const { user: currentUser } = useSession();
   const { id } = useParams<{ id: string }>();
   const [driver, setDriver] = useState<PublicUser | null>(null);
   const [rides, setRides] = useState<Ride[]>([]);
@@ -167,6 +170,11 @@ export default function DriverProfilePage() {
                 </span>
               )}
             </div>
+            {currentUser && currentUser.id !== driver.id && (
+              <div className="pt-2">
+                <ReportButton targetUserId={driver.id} variant="inline" />
+              </div>
+            )}
           </div>
         </motion.header>
 

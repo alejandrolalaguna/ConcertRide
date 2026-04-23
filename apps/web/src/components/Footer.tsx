@@ -13,6 +13,15 @@ export function Footer() {
           <p className="font-mono text-xs text-cr-text-muted leading-relaxed max-w-xs">
             La plataforma de viajes compartidos a conciertos en España. Sin intermediarios, sin comisiones.
           </p>
+          <p className="font-mono text-xs text-cr-text-muted">
+            ¿Dudas o incidencias?{" "}
+            <a
+              href="mailto:hola@concertride.es"
+              className="text-cr-primary hover:text-cr-primary/80 underline underline-offset-2"
+            >
+              hola@concertride.es
+            </a>
+          </p>
         </div>
 
         <div>

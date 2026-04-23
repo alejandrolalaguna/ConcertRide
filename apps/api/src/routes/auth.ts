@@ -6,7 +6,7 @@ import { hashPassword, verifyPassword } from "../lib/password";
 import { signSession, verifySession } from "../lib/jwt";
 import { requireUser } from "../lib/identity";
 import { rateLimit } from "../lib/ratelimit";
-import { sendPasswordResetEmail } from "../lib/email";
+import { sendPasswordResetEmail, sendWelcomeEmail } from "../lib/email";
 
 export const SESSION_COOKIE = "cr_session";
 const MAX_AGE = 60 * 60 * 24 * 30;
@@ -30,6 +30,12 @@ const registerSchema = z.object({
   phone: z.string().max(20).optional(),
   home_city: z.string().max(80).optional(),
   smoker: z.boolean().optional(),
+  // GDPR consent. Required at registration from the ToS flow onwards.
+  // Users created before this flow have tos_accepted_at = NULL and will be
+  // prompted to re-accept the next time they touch a consent-gated feature.
+  tos_accepted: z.literal(true, {
+    errorMap: () => ({ message: "Debes aceptar los términos y la política de privacidad" }),
+  }),
 });
 
 const loginSchema = z.object({
@@ -67,6 +73,9 @@ route.post("/register", authLimiter, async (c) => {
   });
 
   if (ref) await c.var.store.useReferral(ref, user.id).catch(() => {});
+
+  // Fire-and-forget welcome email. Silently drops in dev without RESEND_API_KEY.
+  c.executionCtx.waitUntil(sendWelcomeEmail(c.env, user.email, user.name).then(() => undefined));
 
   const jwt = await signSession({ sub: user.id, email: user.email }, c.env.JWT_SECRET);
   const secure = new URL(c.req.url).protocol === "https:";
@@ -221,6 +230,17 @@ route.post("/reset-password", authLimiter, async (c) => {
 });
 
 route.post("/logout", (c) => {
+  deleteCookie(c, SESSION_COOKIE, { path: "/" });
+  return c.json({ ok: true });
+});
+
+// GDPR art.17 right-to-erasure. Irreversible. The row remains for foreign-key
+// integrity (reviews, past rides) but all PII is wiped and the account is
+// marked `deleted_at`. The user is logged out.
+route.delete("/me", async (c) => {
+  const userOrResp = await requireUser(c);
+  if (userOrResp instanceof Response) return userOrResp;
+  await c.var.store.deleteUser(userOrResp.id);
   deleteCookie(c, SESSION_COOKIE, { path: "/" });
   return c.json({ ok: true });
 });

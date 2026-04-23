@@ -20,6 +20,7 @@
   "dependencies": {
     "@concertride/types": "*",
     "@libsql/client": "^0.14.0",
+    "@sentry/cloudflare": "^8.55.1",
     "drizzle-orm": "^0.36.4",
     "hono": "^4.6.12",
     "jose": "^5.9.6",

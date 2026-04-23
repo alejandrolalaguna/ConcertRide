@@ -89,6 +89,8 @@ export default function DevShowcase() {
     license_verified: true,
     referral_code: "DEMO0001",
     referral_count: 0,
+    tos_accepted_at: "2025-06-14T10:00:00.000Z",
+    deleted_at: null,
     created_at: "2025-06-14T10:00:00.000Z",
   };
 

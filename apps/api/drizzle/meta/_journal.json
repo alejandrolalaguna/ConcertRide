@@ -43,6 +43,20 @@
       "when": 1776890921295,
       "tag": "0005_deep_crusher_hogan",
       "breakpoints": true
+    },
+    {
+      "idx": 6,
+      "version": "6",
+      "when": 1776892825904,
+      "tag": "0006_rich_molten_man",
+      "breakpoints": true
+    },
+    {
+      "idx": 7,
+      "version": "6",
+      "when": 1776931983556,
+      "tag": "0007_amused_captain_cross",
+      "breakpoints": true
     }
   ]
 }

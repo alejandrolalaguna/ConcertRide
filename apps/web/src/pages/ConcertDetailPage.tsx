@@ -23,6 +23,7 @@ import { TicketCard } from "@/components/TicketCard";
 import { TicketCardSkeleton } from "@/components/LoadingStates";
 import { FilterBar, EMPTY_FILTERS, type FilterState } from "@/components/FilterBar";
 import { FavoriteButton } from "@/components/FavoriteButton";
+import { ConcertPoster } from "@/components/ConcertPoster";
 
 function hueFromString(s: string): number {
   let h = 0;
@@ -143,14 +144,30 @@ export default function ConcertDetailPage() {
       )}
 
       <section
-        className="relative overflow-hidden border-b border-cr-border"
+        className="relative overflow-hidden border-b border-cr-border min-h-[280px] md:min-h-[360px]"
         style={{
-          background: concert
-            ? `radial-gradient(circle at 30% 20%, hsl(${hue} 60% 10%), #080808 70%)`
-            : "#080808",
+          background: concert && !concert.image_url
+            ? undefined
+            : concert?.image_url
+              ? "#080808"
+              : `radial-gradient(circle at 30% 20%, hsl(${hue} 60% 10%), #080808 70%)`,
         }}
       >
-        <div className="absolute inset-0 pointer-events-none bg-gradient-to-t from-cr-bg via-cr-bg/50 to-transparent" />
+        {/* Background poster (procedural) when no real image is available */}
+        {concert && !concert.image_url && (
+          <div aria-hidden="true" className="absolute inset-0 opacity-70">
+            <ConcertPoster concert={concert} />
+          </div>
+        )}
+        {/* Real image as backdrop when available */}
+        {concert?.image_url && (
+          <img
+            src={concert.image_url}
+            alt=""
+            className="absolute inset-0 w-full h-full object-cover opacity-30"
+          />
+        )}
+        <div className="absolute inset-0 pointer-events-none bg-gradient-to-t from-cr-bg via-cr-bg/70 to-cr-bg/30" />
         <div className="relative max-w-6xl mx-auto px-6 py-12 md:py-20 space-y-5">
           <div className="flex items-center justify-between gap-4">
             <button
@@ -235,20 +252,40 @@ export default function ConcertDetailPage() {
                 />
               </div>
 
-              {concert.ticketmaster_url && (
-                <div className="pt-1">
-                  <a
-                    href={concert.ticketmaster_url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center gap-2 font-sans text-xs font-semibold uppercase tracking-[0.1em] border border-cr-border text-cr-text-muted hover:border-cr-primary hover:text-cr-primary px-3 py-1.5 transition-colors"
-                  >
-                    <span aria-hidden="true" className="text-[10px] font-mono text-cr-text-dim">TM</span>
-                    Comprar entradas →
-                  </a>
-                  <p className="font-mono text-[10px] text-cr-text-dim mt-1">
-                    Vía Ticketmaster
+              {concert.lineup && (
+                <div className="pt-2">
+                  <p className="font-sans text-[10px] font-semibold uppercase tracking-[0.16em] text-cr-text-muted mb-1">
+                    Cartel
                   </p>
+                  <p className="font-mono text-sm text-cr-text leading-relaxed">
+                    {concert.lineup}
+                  </p>
+                </div>
+              )}
+
+              {(concert.official_url || concert.ticketmaster_url) && (
+                <div className="pt-1 flex flex-wrap gap-2">
+                  {concert.official_url && (
+                    <a
+                      href={concert.official_url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-2 font-sans text-xs font-semibold uppercase tracking-[0.1em] border-2 border-cr-primary text-cr-primary hover:bg-cr-primary/10 px-3 py-1.5 transition-colors"
+                    >
+                      Web oficial / entradas →
+                    </a>
+                  )}
+                  {concert.ticketmaster_url && (
+                    <a
+                      href={concert.ticketmaster_url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-2 font-sans text-xs font-semibold uppercase tracking-[0.1em] border border-cr-border text-cr-text-muted hover:border-cr-primary hover:text-cr-primary px-3 py-1.5 transition-colors"
+                    >
+                      <span aria-hidden="true" className="text-[10px] font-mono text-cr-text-dim">TM</span>
+                      Ticketmaster →
+                    </a>
+                  )}
                 </div>
               )}
             </motion.div>
@@ -466,7 +503,7 @@ function JsonLdEvent({ concert }: { concert: Concert }) {
       price: String(concert.price_min),
       priceCurrency: "EUR",
       availability: "https://schema.org/InStock",
-      url: concert.ticketmaster_url ?? url,
+      url: concert.official_url ?? concert.ticketmaster_url ?? url,
       validFrom: new Date().toISOString(),
     };
   }

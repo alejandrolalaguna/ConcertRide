@@ -2,6 +2,7 @@ import { createContext, useCallback, useContext, useEffect, useMemo, useState } 
 import type { Concert, Favorite, FavoriteKind } from "@concertride/types";
 import { api } from "./api";
 import { useSession } from "./session";
+import { track } from "./observability";
 
 interface FavoritesValue {
   favorites: Favorite[];
@@ -74,6 +75,7 @@ export function FavoritesProvider({ children }: { children: React.ReactNode }) {
         setFavorites((list) => list.filter((f) => !(f.kind === kind && f.target_id === id)));
         try {
           await api.favorites.remove(kind, id);
+          track("favorite_removed", { kind, target_id: id });
           void refresh(); // re-pull upcoming concerts
           return false;
         } catch {
@@ -93,6 +95,7 @@ export function FavoritesProvider({ children }: { children: React.ReactNode }) {
         try {
           const saved = await api.favorites.add(kind, id, label);
           setFavorites((list) => list.map((f) => (f.id === temp.id ? saved : f)));
+          track("favorite_added", { kind, target_id: id });
           void refresh();
           return true;
         } catch {

@@ -3,6 +3,7 @@ import type { Concert } from "@concertride/types";
 import { formatDay } from "@/lib/format";
 import { parseGenreTags } from "@/lib/genre";
 import { FavoriteButton } from "./FavoriteButton";
+import { ConcertPoster } from "./ConcertPoster";
 
 const ONE_WEEK_MS = 7 * 24 * 60 * 60 * 1000;
 const THREE_WEEKS_MS = 21 * 24 * 60 * 60 * 1000;
@@ -18,12 +19,6 @@ export function isPastConcert(date: string) {
   return Date.now() - new Date(date).getTime() >= ONE_WEEK_MS;
 }
 
-function hueFromString(s: string): number {
-  let h = 0;
-  for (let i = 0; i < s.length; i++) h = (h * 31 + s.charCodeAt(i)) | 0;
-  return Math.abs(h) % 360;
-}
-
 interface Props {
   concert: Concert;
   className?: string;
@@ -31,7 +26,6 @@ interface Props {
 }
 
 export function ConcertCard({ concert, className = "", onClick }: Props) {
-  const hue = hueFromString(concert.artist);
   const status = concertStatus(concert.date);
   const tags = parseGenreTags(concert.genre).slice(0, 2);
   const ridesCount = concert.active_rides_count;
@@ -71,17 +65,7 @@ export function ConcertCard({ concert, className = "", onClick }: Props) {
             className="absolute inset-0 w-full h-full object-cover transition-transform duration-300 group-hover:scale-[1.02]"
           />
         ) : (
-          <div
-            aria-hidden="true"
-            className="absolute inset-0 flex items-center justify-center"
-            style={{
-              background: `radial-gradient(circle at 30% 20%, hsl(${hue} 60% 10%), #080808 70%)`,
-            }}
-          >
-            <span className="font-display text-[160px] leading-none text-cr-border/60 select-none">
-              {concert.artist[0]}
-            </span>
-          </div>
+          <ConcertPoster concert={concert} className="transition-transform duration-300 group-hover:scale-[1.02]" />
         )}
 
         <div className="absolute inset-0 bg-gradient-to-t from-cr-bg via-cr-bg/40 to-transparent" />

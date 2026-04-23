@@ -201,18 +201,22 @@ export default function MapView({ concerts, rides }: Props) {
         ))}
       </MapContainer>
 
-      {/* City filter chips */}
-      <div className="absolute top-3 left-3 right-3 z-[1000] flex flex-wrap gap-1.5 pointer-events-none">
-        <div className="pointer-events-auto flex flex-wrap gap-1.5">
-          <FilterChip active={activeCity === null} onClick={() => setActiveCity(null)}>
-            Todos
-          </FilterChip>
+      {/* City filter dropdown */}
+      <div className="absolute top-3 left-3 z-[1000] pointer-events-auto">
+        <label className="sr-only" htmlFor="map-city-filter">Ciudad</label>
+        <select
+          id="map-city-filter"
+          value={activeCity ?? ""}
+          onChange={(e) => setActiveCity(e.target.value || null)}
+          className="bg-cr-bg/90 backdrop-blur border border-cr-border text-cr-text font-sans text-[11px] font-semibold uppercase tracking-[0.1em] px-3 py-1.5 pr-7 hover:border-cr-primary focus:border-cr-primary focus:outline-none transition-colors [color-scheme:dark]"
+        >
+          <option value="">Todas las ciudades</option>
           {cities.map((city) => (
-            <FilterChip key={city} active={activeCity === city} onClick={() => setActiveCity(city)}>
+            <option key={city} value={city}>
               {city}
-            </FilterChip>
+            </option>
           ))}
-        </div>
+        </select>
       </div>
 
       {/* Stats overlay */}
@@ -391,26 +395,3 @@ export default function MapView({ concerts, rides }: Props) {
   );
 }
 
-function FilterChip({
-  active,
-  onClick,
-  children,
-}: {
-  active: boolean;
-  onClick: () => void;
-  children: React.ReactNode;
-}) {
-  return (
-    <button
-      type="button"
-      onClick={onClick}
-      className={`font-sans text-[10px] font-semibold uppercase tracking-[0.12em] px-2.5 py-1 border transition-colors ${
-        active
-          ? "bg-cr-primary text-black border-cr-primary"
-          : "bg-cr-bg/85 backdrop-blur text-cr-text-muted border-cr-border hover:border-cr-primary hover:text-cr-primary"
-      }`}
-    >
-      {children}
-    </button>
-  );
-}

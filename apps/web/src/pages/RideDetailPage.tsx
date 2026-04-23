@@ -6,6 +6,8 @@ import { ArrowLeft, Check, CheckCheck, Clock, Link2, MapPin, Minus, Music, Plus 
 import type { Luggage, PaymentMethod, Ride, RideRequest, SmokingPolicy } from "@concertride/types";
 import { api, ApiError } from "@/lib/api";
 import { rideShareUrl } from "@/lib/utm";
+import { track } from "@/lib/observability";
+import { ReportButton } from "@/components/ReportButton";
 
 const LUGGAGE_LABEL: Record<Luggage, string> = {
   none: "Sin equipaje",
@@ -180,6 +182,12 @@ export default function RideDetailPage() {
         ? await api.rides.bookInstant(ride.id, payload)
         : await api.rides.requestSeat(ride.id, payload);
       setReserve({ status: "success", request: req });
+      track(ride.instant_booking ? "seat_booked_instant" : "seat_requested", {
+        ride_id: ride.id,
+        concert_id: ride.concert_id,
+        seats: payload.seats,
+        price_total: payload.seats * ride.price_per_seat,
+      });
     } catch (err) {
       setReserve({
         status: "error",
@@ -384,6 +392,11 @@ export default function RideDetailPage() {
                   Conductor
                 </p>
                 <TrustBadge user={ride.driver} linkToProfile />
+                {user && user.id !== ride.driver_id && (
+                  <div className="pt-2">
+                    <ReportButton targetUserId={ride.driver_id} rideId={ride.id} variant="inline" />
+                  </div>
+                )}
               </div>
             </div>
 
