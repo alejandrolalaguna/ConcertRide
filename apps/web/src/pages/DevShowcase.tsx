@@ -90,6 +90,7 @@ export default function DevShowcase() {
     referral_code: "DEMO0001",
     referral_count: 0,
     tos_accepted_at: "2025-06-14T10:00:00.000Z",
+    email_verified_at: "2025-06-14T10:00:00.000Z",
     deleted_at: null,
     created_at: "2025-06-14T10:00:00.000Z",
   };

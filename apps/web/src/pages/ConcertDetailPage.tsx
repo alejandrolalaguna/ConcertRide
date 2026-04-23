@@ -179,21 +179,40 @@ export default function ConcertDetailPage() {
               <ArrowLeft size={14} /> Volver
             </button>
             {concert && (
-              <button
-                type="button"
-                onClick={() => {
-                  const campaign = concert.artist.toLowerCase().replace(/\s+/g, "-").slice(0, 30);
-                  const url = concertShareUrl(concert.id, campaign, "copy");
-                  navigator.clipboard.writeText(url).then(() => {
-                    setCopied(true);
-                    setTimeout(() => setCopied(false), 2000);
-                  });
-                }}
-                className="inline-flex items-center gap-2 font-sans text-xs font-semibold uppercase tracking-[0.12em] text-cr-text-muted hover:text-cr-primary transition-colors"
-              >
-                <Link2 size={14} aria-hidden="true" />
-                {copied ? "¡Copiado!" : "Compartir"}
-              </button>
+              <div className="flex items-center gap-3">
+                <button
+                  type="button"
+                  onClick={() => {
+                    const campaign = concert.artist.toLowerCase().replace(/\s+/g, "-").slice(0, 30);
+                    const url = concertShareUrl(concert.id, campaign, "whatsapp");
+                    const text = `🎶 ${concert.artist} en ${concert.venue.city}. ¿Nos organizamos un viaje? ${url}`;
+                    window.open(
+                      `https://wa.me/?text=${encodeURIComponent(text)}`,
+                      "_blank",
+                      "noopener,noreferrer",
+                    );
+                  }}
+                  title="Compartir por WhatsApp"
+                  className="inline-flex items-center gap-1.5 font-sans text-xs font-semibold uppercase tracking-[0.12em] text-cr-text-muted hover:text-cr-primary transition-colors"
+                >
+                  <span aria-hidden="true">💬</span> WhatsApp
+                </button>
+                <button
+                  type="button"
+                  onClick={() => {
+                    const campaign = concert.artist.toLowerCase().replace(/\s+/g, "-").slice(0, 30);
+                    const url = concertShareUrl(concert.id, campaign, "copy");
+                    navigator.clipboard.writeText(url).then(() => {
+                      setCopied(true);
+                      setTimeout(() => setCopied(false), 2000);
+                    });
+                  }}
+                  className="inline-flex items-center gap-2 font-sans text-xs font-semibold uppercase tracking-[0.12em] text-cr-text-muted hover:text-cr-primary transition-colors"
+                >
+                  <Link2 size={14} aria-hidden="true" />
+                  {copied ? "¡Copiado!" : "Copiar enlace"}
+                </button>
+              </div>
             )}
           </div>
 

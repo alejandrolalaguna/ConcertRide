@@ -39,6 +39,10 @@ export const users = sqliteTable(
     // GDPR art.6/7 (proof of consent). Nullable for users created before the
     // ToS flow was introduced.
     tos_accepted_at: text("tos_accepted_at"),
+    // Timestamp when the user clicked the verification link sent on register.
+    // Null = email not verified. Soft-gates write actions (publish ride,
+    // book seat) until confirmed, via a banner nudge.
+    email_verified_at: text("email_verified_at"),
     // Soft-delete marker. When non-null the account is anonymised and all PII
     // stripped. We keep the row so reviews/history attributed to it stay
     // consistent for other users.

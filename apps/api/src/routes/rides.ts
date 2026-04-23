@@ -100,10 +100,20 @@ route.post("/", async (c) => {
   const userOrResp = await requireUser(c);
   if (userOrResp instanceof Response) return userOrResp;
 
-  // Trust gate: only drivers who've uploaded (and we've approved) a valid
-  // driver's licence can publish rides. This is the core coherence check of
-  // the "verified drivers" value prop — without it, `license_verified` badges
-  // on cards are theatre.
+  // Trust gates:
+  //  1. Email verified → anti-spam, anti-fraud (banned accounts can't respawn
+  //     with arbitrary email)
+  //  2. License verified → coherence of the "verified drivers" value prop
+  if (!userOrResp.email_verified_at) {
+    return c.json(
+      {
+        error: "email_not_verified",
+        message:
+          "Verifica tu email antes de publicar un viaje. Revisa tu bandeja de entrada o reenvíalo desde Mi perfil.",
+      },
+      403,
+    );
+  }
   if (!userOrResp.license_verified) {
     return c.json(
       {
@@ -159,6 +169,16 @@ route.post("/:id/request", async (c) => {
   const userOrResp = await requireUser(c);
   if (userOrResp instanceof Response) return userOrResp;
 
+  if (!userOrResp.email_verified_at) {
+    return c.json(
+      {
+        error: "email_not_verified",
+        message: "Verifica tu email antes de reservar una plaza.",
+      },
+      403,
+    );
+  }
+
   const ride = await c.var.store.getRide(c.req.param("id"));
   if (!ride) return c.json({ error: "ride_not_found" }, 404);
 
@@ -208,6 +228,16 @@ route.post("/:id/request", async (c) => {
 route.post("/:id/book", async (c) => {
   const userOrResp = await requireUser(c);
   if (userOrResp instanceof Response) return userOrResp;
+
+  if (!userOrResp.email_verified_at) {
+    return c.json(
+      {
+        error: "email_not_verified",
+        message: "Verifica tu email antes de reservar una plaza.",
+      },
+      403,
+    );
+  }
 
   const ride = await c.var.store.getRide(c.req.param("id"));
   if (!ride) return c.json({ error: "ride_not_found" }, 404);
@@ -371,6 +401,136 @@ route.get("/:id/requests", async (c) => {
 
   const requests = await c.var.store.listRequestsForRide(ride.id);
   return c.json({ requests });
+});
+
+// Aggregated "Mis viajes" view: all rides published by the user as driver
+// plus all requests the user made as passenger (with the ride hydrated).
+// Must be declared BEFORE /:id patch/delete so Hono doesn't match "mine"
+// as an id param.
+route.get("/mine", async (c) => {
+  const userOrResp = await requireUser(c);
+  if (userOrResp instanceof Response) return userOrResp;
+
+  const [driverResult, passengerRequests] = await Promise.all([
+    c.var.store.listRides({ driver_id: userOrResp.id }),
+    c.var.store.listRequestsByPassenger(userOrResp.id),
+  ]);
+
+  return c.json({
+    driver_rides: driverResult,
+    passenger_requests: passengerRequests,
+  });
+});
+
+// Driver cancels the whole ride. Cascades cancellations to all pending /
+// confirmed passenger requests, then fan-outs push + email to each of them
+// so they can look for another ride.
+route.delete("/:id", async (c) => {
+  const userOrResp = await requireUser(c);
+  if (userOrResp instanceof Response) return userOrResp;
+
+  const ride = await c.var.store.getRide(c.req.param("id"));
+  if (!ride) return c.json({ error: "ride_not_found" }, 404);
+  if (ride.driver_id !== userOrResp.id) return c.json({ error: "forbidden" }, 403);
+  if (ride.status === "completed") return c.json({ error: "already_completed" }, 409);
+  if (ride.status === "cancelled") return c.json({ error: "already_cancelled" }, 409);
+
+  // Snapshot affected passengers before cascading the cancellation
+  const requests = await c.var.store.listRequestsForRide(ride.id).catch(() => []);
+  const toNotify = requests.filter(
+    (r) => (r.status === "pending" || r.status === "confirmed") && r.passenger?.id && !r.passenger.deleted_at,
+  );
+
+  const updated = await c.var.store.cancelRide(ride.id);
+  if (!updated) return c.json({ error: "update_failed" }, 500);
+
+  c.executionCtx.waitUntil(
+    (async () => {
+      await Promise.allSettled(
+        toNotify.flatMap((r) => [
+          notifyUser(c.var.store, c.env, r.passenger_id, {
+            title: "Viaje cancelado",
+            body: `${ride.driver.name} ha cancelado el viaje a ${ride.concert.artist}.`,
+            url: `/concerts/${ride.concert_id}`,
+          }),
+          r.passenger?.email
+            ? sendEmail(c.env, {
+                to: r.passenger.email,
+                subject: `Viaje a ${ride.concert.artist} cancelado`,
+                html: `<p>Hola, ${r.passenger.name}.</p><p>${ride.driver.name} ha cancelado el viaje a <strong>${ride.concert.artist}</strong> desde ${ride.origin_city}. Te recomendamos buscar otro viaje desde la página del concierto.</p><p><a href="https://concertride.es/concerts/${ride.concert_id}">Buscar otro viaje</a></p>`,
+              })
+            : Promise.resolve(),
+        ]),
+      );
+    })(),
+  );
+
+  return c.json(updated);
+});
+
+// Driver edits mutable fields of the ride. Immutable: concert_id, driver_id,
+// round_trip (it's easier to just cancel and republish if the trip changes
+// enough to be a different ride).
+const updateRideSchema = z.object({
+  departure_time: z.string().datetime().optional(),
+  return_time: z.string().datetime().optional(),
+  price_per_seat: z.number().positive().max(500).optional(),
+  seats_total: z.number().int().min(1).max(8).optional(),
+  notes: z.string().max(500).nullable().optional(),
+  playlist_url: z.string().url().max(500).nullable().optional(),
+  vibe: z.enum(["party", "chill", "mixed"]).optional(),
+  smoking_policy: z.enum(["no", "yes"]).optional(),
+  max_luggage: z.enum(["none", "small", "backpack", "cabin", "large", "extra"]).optional(),
+  instant_booking: z.boolean().optional(),
+  accepted_payment: z.enum(["cash", "bizum", "cash_or_bizum"]).optional(),
+  origin_address: z.string().min(1).max(200).optional(),
+});
+
+route.patch("/:id", async (c) => {
+  const userOrResp = await requireUser(c);
+  if (userOrResp instanceof Response) return userOrResp;
+
+  const ride = await c.var.store.getRide(c.req.param("id"));
+  if (!ride) return c.json({ error: "ride_not_found" }, 404);
+  if (ride.driver_id !== userOrResp.id) return c.json({ error: "forbidden" }, 403);
+  if (ride.status === "completed") return c.json({ error: "already_completed" }, 409);
+  if (ride.status === "cancelled") return c.json({ error: "already_cancelled" }, 409);
+
+  const body = await c.req.json().catch(() => null);
+  const parsed = updateRideSchema.safeParse(body);
+  if (!parsed.success) return c.json({ error: "bad_request", issues: parsed.error.issues }, 400);
+
+  // Seats can only grow — we can't yank seats from already-confirmed passengers
+  if (parsed.data.seats_total !== undefined && parsed.data.seats_total < ride.seats_total) {
+    return c.json(
+      { error: "cannot_shrink_seats", message: "No se puede reducir plazas por debajo del total ya publicado." },
+      409,
+    );
+  }
+
+  const updated = await c.var.store.updateRide(ride.id, parsed.data);
+  if (!updated) return c.json({ error: "update_failed" }, 500);
+
+  // If time or price changed, notify confirmed passengers
+  const timeChanged = parsed.data.departure_time !== undefined && parsed.data.departure_time !== ride.departure_time;
+  const priceChanged = parsed.data.price_per_seat !== undefined && parsed.data.price_per_seat !== ride.price_per_seat;
+  if (timeChanged || priceChanged) {
+    const requests = await c.var.store.listRequestsForRide(ride.id).catch(() => []);
+    const confirmed = requests.filter((r) => r.status === "confirmed" && r.passenger?.id);
+    c.executionCtx.waitUntil(
+      Promise.allSettled(
+        confirmed.map((r) =>
+          notifyUser(c.var.store, c.env, r.passenger_id, {
+            title: "Viaje actualizado",
+            body: `${ride.driver.name} ha actualizado el viaje a ${ride.concert.artist}.`,
+            url: `/rides/${ride.id}`,
+          }),
+        ),
+      ).then(() => undefined),
+    );
+  }
+
+  return c.json(updated);
 });
 
 // Returns the current user's own request on this ride (or null). Used by the

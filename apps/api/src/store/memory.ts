@@ -163,6 +163,7 @@ export class MemoryStore implements StoreAdapter {
       referral_code: crypto.randomUUID().replace(/-/g, "").slice(0, 8).toUpperCase(),
       referral_count: 0,
       tos_accepted_at: null,
+      email_verified_at: null,
       deleted_at: null,
       password_hash: null,
       password_salt: null,
@@ -198,6 +199,7 @@ export class MemoryStore implements StoreAdapter {
       referral_code: crypto.randomUUID().replace(/-/g, "").slice(0, 8).toUpperCase(),
       referral_count: 0,
       tos_accepted_at: new Date().toISOString(),
+      email_verified_at: null,
       deleted_at: null,
       password_hash: hash,
       password_salt: salt,
@@ -231,6 +233,13 @@ export class MemoryStore implements StoreAdapter {
     if (!u) return;
     u.password_hash = hash;
     u.password_salt = salt;
+  }
+
+  async markEmailVerified(userId: string): Promise<User | null> {
+    const u = this.users.find((u) => u.id === userId);
+    if (!u) return null;
+    u.email_verified_at = new Date().toISOString();
+    return u;
   }
 
   async deleteUser(userId: string): Promise<void> {
@@ -543,6 +552,64 @@ export class MemoryStore implements StoreAdapter {
     if (ride) ride.reminded_at = new Date().toISOString();
   }
 
+  async cancelRide(rideId: string): Promise<Ride | null> {
+    const ride = this.rides.find((r) => r.id === rideId);
+    if (!ride) return null;
+    ride.status = "cancelled";
+    ride.seats_left = 0;
+    // Cascade: cancel any pending/confirmed requests
+    this.requests = this.requests.map((r) =>
+      r.ride_id === rideId && (r.status === "pending" || r.status === "confirmed")
+        ? { ...r, status: "cancelled" as const }
+        : r,
+    );
+    return ride;
+  }
+
+  async updateRide(
+    rideId: string,
+    patch: Partial<
+      Pick<
+        Ride,
+        | "departure_time"
+        | "return_time"
+        | "price_per_seat"
+        | "seats_total"
+        | "notes"
+        | "playlist_url"
+        | "vibe"
+        | "smoking_policy"
+        | "max_luggage"
+        | "instant_booking"
+        | "accepted_payment"
+        | "origin_address"
+      >
+    >,
+  ): Promise<Ride | null> {
+    const ride = this.rides.find((r) => r.id === rideId);
+    if (!ride) return null;
+    // Seats can only grow or stay equal. If seats_total grows, seats_left
+    // grows by the delta; if it stays equal, seats_left is untouched.
+    if (patch.seats_total !== undefined && patch.seats_total >= ride.seats_total) {
+      const delta = patch.seats_total - ride.seats_total;
+      ride.seats_total = patch.seats_total;
+      ride.seats_left = Math.min(ride.seats_total, ride.seats_left + delta);
+      if (ride.status === "full" && ride.seats_left > 0) ride.status = "active";
+    }
+    if (patch.departure_time !== undefined) ride.departure_time = patch.departure_time;
+    if (patch.return_time !== undefined) ride.return_time = patch.return_time;
+    if (patch.price_per_seat !== undefined) ride.price_per_seat = patch.price_per_seat;
+    if (patch.notes !== undefined) ride.notes = patch.notes;
+    if (patch.playlist_url !== undefined) ride.playlist_url = patch.playlist_url;
+    if (patch.vibe !== undefined) ride.vibe = patch.vibe;
+    if (patch.smoking_policy !== undefined) ride.smoking_policy = patch.smoking_policy;
+    if (patch.max_luggage !== undefined) ride.max_luggage = patch.max_luggage;
+    if (patch.instant_booking !== undefined) ride.instant_booking = patch.instant_booking;
+    if (patch.accepted_payment !== undefined) ride.accepted_payment = patch.accepted_payment;
+    if (patch.origin_address !== undefined) ride.origin_address = patch.origin_address;
+    return ride;
+  }
+
   async revokeDriverCompletion(rideId: string): Promise<Ride | null> {
     const ride = this.rides.find((r) => r.id === rideId);
     if (!ride) return null;
@@ -575,6 +642,19 @@ export class MemoryStore implements StoreAdapter {
 
   async getRequest(id: string): Promise<RideRequest | null> {
     return this.requests.find((r) => r.id === id) ?? null;
+  }
+
+  async listRequestsByPassenger(
+    passengerId: string,
+  ): Promise<Array<RideRequest & { ride: Ride }>> {
+    return this.requests
+      .filter((r) => r.passenger_id === passengerId)
+      .map((r) => {
+        const ride = this.rides.find((ride) => ride.id === r.ride_id);
+        return ride ? { ...r, ride } : null;
+      })
+      .filter((r): r is RideRequest & { ride: Ride } => r !== null)
+      .sort((a, b) => b.ride.departure_time.localeCompare(a.ride.departure_time));
   }
 
   async createRequest(

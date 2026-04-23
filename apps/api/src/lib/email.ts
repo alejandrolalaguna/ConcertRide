@@ -115,21 +115,28 @@ export function sendPasswordResetEmail(
   return sendEmail(env, { to: email, subject, html });
 }
 
-// ── Welcome (post-register) ──────────────────────────────────────────────
-export function sendWelcomeEmail(env: Env, email: string, name: string): Promise<SendResult> {
-  const subject = "Bienvenid@ a ConcertRide 🎶";
+// ── Welcome + email verification (post-register) ─────────────────────────
+export function sendWelcomeEmail(
+  env: Env,
+  email: string,
+  name: string,
+  verifyUrl: string,
+): Promise<SendResult> {
+  const subject = "Bienvenid@ a ConcertRide 🎶 — verifica tu email";
   const html = shell(
     "Bienvenid@ a ConcertRide",
-    "Comparte coche, divide costes, llega al show",
+    "Verifica tu email para empezar",
     `
     <h1 style="font-family:Georgia,serif;font-size:32px;line-height:1.1;margin:0 0 12px 0;letter-spacing:-0.5px;">Hola, ${escapeHtml(name)}. 👋</h1>
-    <p style="color:#ccc;margin:0 0 16px 0;line-height:1.6;font-size:15px;">Gracias por unirte a ConcertRide. A partir de ahora puedes:</p>
-    <ul style="color:#ccc;margin:0 0 32px 0;padding-left:20px;line-height:1.8;">
+    <p style="color:#ccc;margin:0 0 16px 0;line-height:1.6;font-size:15px;">Gracias por unirte a ConcertRide. Antes de nada, <strong style="color:#DBFF00;">verifica tu email</strong> para poder publicar viajes y reservar plazas:</p>
+    ${cta(verifyUrl, "Verificar mi email")}
+    <p style="color:#666;font-size:12px;margin-top:16px;">El enlace expira en 7 días.</p>
+    <p style="color:#ccc;margin:24px 0 12px 0;line-height:1.6;font-size:15px;">Mientras tanto, lo que puedes hacer en la plataforma:</p>
+    <ul style="color:#ccc;margin:0 0 24px 0;padding-left:20px;line-height:1.8;">
       <li><strong style="color:#DBFF00;">Publicar un viaje</strong> si vas en coche a un concierto y quieres compartir gastos.</li>
       <li><strong style="color:#DBFF00;">Reservar plaza</strong> en un viaje publicado por otros fans.</li>
-      <li><strong style="color:#DBFF00;">Seguir</strong> artistas, conciertos o ciudades para recibir avisos cuando haya nuevos viajes.</li>
+      <li><strong style="color:#DBFF00;">Seguir</strong> artistas, conciertos o ciudades para recibir avisos.</li>
     </ul>
-    ${cta("https://concertride.es/concerts", "Explorar conciertos")}
     <p style="color:#666;font-size:12px;margin-top:24px;">Si tienes cualquier duda, responde a este correo o escríbenos a alejandrolalaguna@gmail.com.</p>
     `,
   );

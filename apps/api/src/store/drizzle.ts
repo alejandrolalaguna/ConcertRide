@@ -128,6 +128,7 @@ function hydrateUser(row: UserRow): User {
     referral_code: row.referral_code ?? null,
     referral_count: row.referral_count ?? 0,
     tos_accepted_at: row.tos_accepted_at ?? null,
+    email_verified_at: row.email_verified_at ?? null,
     deleted_at: row.deleted_at ?? null,
     created_at: row.created_at,
   };
@@ -283,6 +284,7 @@ export class DrizzleStore implements StoreAdapter {
       referral_code: makeReferralCode(),
       referral_count: 0,
       tos_accepted_at: new Date().toISOString(),
+      email_verified_at: null as string | null,
       deleted_at: null as string | null,
       password_hash: hash,
       password_salt: salt,
@@ -326,6 +328,15 @@ export class DrizzleStore implements StoreAdapter {
       .update(schema.users)
       .set({ password_hash: hash, password_salt: salt })
       .where(eq(schema.users.id, userId));
+  }
+
+  async markEmailVerified(userId: string): Promise<User | null> {
+    const now = new Date().toISOString();
+    await this.db
+      .update(schema.users)
+      .set({ email_verified_at: now })
+      .where(eq(schema.users.id, userId));
+    return this.getUser(userId);
   }
 
   async deleteUser(userId: string): Promise<void> {
@@ -753,6 +764,75 @@ export class DrizzleStore implements StoreAdapter {
       .where(eq(schema.rides.id, rideId));
   }
 
+  async cancelRide(rideId: string): Promise<Ride | null> {
+    await this.db.transaction(async (tx) => {
+      await tx
+        .update(schema.rides)
+        .set({ status: "cancelled", seats_left: 0 })
+        .where(eq(schema.rides.id, rideId));
+      await tx
+        .update(schema.rideRequests)
+        .set({ status: "cancelled" })
+        .where(
+          and(
+            eq(schema.rideRequests.ride_id, rideId),
+            inArray(schema.rideRequests.status, ["pending", "confirmed"]),
+          ),
+        );
+    });
+    return this.getRide(rideId);
+  }
+
+  async updateRide(
+    rideId: string,
+    patch: Partial<
+      Pick<
+        Ride,
+        | "departure_time"
+        | "return_time"
+        | "price_per_seat"
+        | "seats_total"
+        | "notes"
+        | "playlist_url"
+        | "vibe"
+        | "smoking_policy"
+        | "max_luggage"
+        | "instant_booking"
+        | "accepted_payment"
+        | "origin_address"
+      >
+    >,
+  ): Promise<Ride | null> {
+    const row = await this.db.query.rides.findFirst({ where: eq(schema.rides.id, rideId) });
+    if (!row) return null;
+
+    const updates: Partial<typeof schema.rides.$inferInsert> = {};
+    if (patch.departure_time !== undefined) updates.departure_time = patch.departure_time;
+    if (patch.return_time !== undefined) updates.return_time = patch.return_time;
+    if (patch.price_per_seat !== undefined) updates.price_per_seat = patch.price_per_seat;
+    if (patch.notes !== undefined) updates.notes = patch.notes;
+    if (patch.playlist_url !== undefined) updates.playlist_url = patch.playlist_url;
+    if (patch.vibe !== undefined) updates.vibe = patch.vibe;
+    if (patch.smoking_policy !== undefined) updates.smoking_policy = patch.smoking_policy;
+    if (patch.max_luggage !== undefined) updates.max_luggage = patch.max_luggage;
+    if (patch.instant_booking !== undefined) updates.instant_booking = patch.instant_booking;
+    if (patch.accepted_payment !== undefined) updates.accepted_payment = patch.accepted_payment;
+    if (patch.origin_address !== undefined) updates.origin_address = patch.origin_address;
+    // Seats can only grow — can't remove booked passengers
+    if (patch.seats_total !== undefined && patch.seats_total >= row.seats_total) {
+      const delta = patch.seats_total - row.seats_total;
+      updates.seats_total = patch.seats_total;
+      updates.seats_left = Math.min(patch.seats_total, row.seats_left + delta);
+      if (row.status === "full" && (updates.seats_left ?? 0) > 0) {
+        updates.status = "active";
+      }
+    }
+    if (Object.keys(updates).length > 0) {
+      await this.db.update(schema.rides).set(updates).where(eq(schema.rides.id, rideId));
+    }
+    return this.getRide(rideId);
+  }
+
   async revokeDriverCompletion(rideId: string): Promise<Ride | null> {
     const row = await this.db.query.rides.findFirst({ where: eq(schema.rides.id, rideId) });
     if (!row) return null;
@@ -812,6 +892,25 @@ export class DrizzleStore implements StoreAdapter {
       with: { passenger: true },
     });
     return row ? hydrateRequest(row) : null;
+  }
+
+  async listRequestsByPassenger(
+    passengerId: string,
+  ): Promise<Array<RideRequest & { ride: Ride }>> {
+    const rows = await this.db.query.rideRequests.findMany({
+      where: eq(schema.rideRequests.passenger_id, passengerId),
+      with: {
+        passenger: true,
+        ride: { with: { driver: true, concert: { with: { venue: true } } } },
+      },
+      orderBy: (r) => [desc(r.created_at)],
+    });
+    return rows
+      .filter((r) => r.passenger && r.ride)
+      .map((r) => ({
+        ...hydrateRequest(r),
+        ride: hydrateRide(r.ride as Parameters<typeof hydrateRide>[0]),
+      }));
   }
 
   async createRequest(

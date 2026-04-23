@@ -79,6 +79,7 @@ export interface StoreAdapter {
   updateUser(id: string, input: UpdateProfileInput): Promise<User | null>;
   getPasswordHash(userId: string): Promise<{ hash: string; salt: string } | null>;
   updatePassword(userId: string, hash: string, salt: string): Promise<void>;
+  markEmailVerified(userId: string): Promise<User | null>;
   // GDPR art.17 right-to-erasure. Anonymises the user (email, name, phone,
   // avatar cleared), cancels their active rides, removes push subscriptions,
   // favorites and demand signals. Reviews are kept for marketplace integrity
@@ -146,6 +147,32 @@ export interface StoreAdapter {
   // Driver revokes their own confirmation before the passenger confirms —
   // only valid while status is still active/full and confirmation === "driver".
   revokeDriverCompletion(rideId: string): Promise<Ride | null>;
+  // Driver cancels the ride entirely. Cascades: any pending/confirmed
+  // requests are also set to "cancelled" so the UX is consistent for
+  // passengers who had booked.
+  cancelRide(rideId: string): Promise<Ride | null>;
+  // Update mutable fields of a ride. Only the driver should call this via
+  // the route layer; the store doesn't enforce authz.
+  updateRide(
+    rideId: string,
+    patch: Partial<
+      Pick<
+        Ride,
+        | "departure_time"
+        | "return_time"
+        | "price_per_seat"
+        | "seats_total"
+        | "notes"
+        | "playlist_url"
+        | "vibe"
+        | "smoking_policy"
+        | "max_luggage"
+        | "instant_booking"
+        | "accepted_payment"
+        | "origin_address"
+      >
+    >,
+  ): Promise<Ride | null>;
 
   // Rides with departure_time in the given ISO window whose `reminded_at` is
   // still null. Used by the hourly cron that sends the 24h reminder email.
@@ -155,6 +182,11 @@ export interface StoreAdapter {
   // --- ride requests ---
   listRequestsForRide(rideId: string): Promise<RideRequest[]>;
   getRequest(id: string): Promise<RideRequest | null>;
+  // All requests created by a given passenger, with the associated ride
+  // hydrated. Used by the "Mis viajes" page.
+  listRequestsByPassenger(
+    passengerId: string,
+  ): Promise<Array<RideRequest & { ride: Ride }>>;
   createRequest(
     ride: Ride,
     passenger: User,

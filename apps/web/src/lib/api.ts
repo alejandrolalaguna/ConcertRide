@@ -109,6 +109,10 @@ export const api = {
         method: "POST",
         body: JSON.stringify({ email }),
       }),
+    resendVerification: () =>
+      request<{ ok: true; already?: boolean }>("/api/auth/resend-verification", {
+        method: "POST",
+      }),
     resetPassword: (token: string, password: string) =>
       request<AuthResponse>("/api/auth/reset-password", {
         method: "POST",
@@ -176,6 +180,34 @@ export const api = {
           body: JSON.stringify({ status }),
         },
       ),
+    cancel: (rideId: string) =>
+      request<Ride>(`/api/rides/${encodeURIComponent(rideId)}`, { method: "DELETE" }),
+    update: (
+      rideId: string,
+      patch: Partial<{
+        departure_time: string;
+        return_time: string;
+        price_per_seat: number;
+        seats_total: number;
+        notes: string | null;
+        playlist_url: string | null;
+        vibe: "party" | "chill" | "mixed";
+        smoking_policy: "no" | "yes";
+        max_luggage: "none" | "small" | "backpack" | "cabin" | "large" | "extra";
+        instant_booking: boolean;
+        accepted_payment: "cash" | "bizum" | "cash_or_bizum";
+        origin_address: string;
+      }>,
+    ) =>
+      request<Ride>(`/api/rides/${encodeURIComponent(rideId)}`, {
+        method: "PATCH",
+        body: JSON.stringify(patch),
+      }),
+    listMine: () =>
+      request<{
+        driver_rides: Ride[];
+        passenger_requests: Array<RideRequest & { ride: Ride }>;
+      }>("/api/rides/mine"),
     confirmComplete: (rideId: string) =>
       request<Ride>(`/api/rides/${encodeURIComponent(rideId)}/complete`, { method: "POST" }),
     revokeComplete: (rideId: string) =>

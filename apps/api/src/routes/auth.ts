@@ -74,8 +74,23 @@ route.post("/register", authLimiter, async (c) => {
 
   if (ref) await c.var.store.useReferral(ref, user.id).catch(() => {});
 
+  // Email verification token: 32 bytes hex in KV with 7-day TTL. Link is the
+  // only way to set email_verified_at. No-op if CACHE isn't bound.
+  let verifyUrl = "";
+  if (c.env.CACHE) {
+    const rawBytes = crypto.getRandomValues(new Uint8Array(32));
+    const token = Array.from(rawBytes)
+      .map((b) => b.toString(16).padStart(2, "0"))
+      .join("");
+    await c.env.CACHE.put(`everify:${token}`, user.id, { expirationTtl: 7 * 24 * 3600 });
+    const origin = new URL(c.req.url).origin;
+    verifyUrl = `${origin}/api/auth/verify-email?token=${token}`;
+  }
+
   // Fire-and-forget welcome email. Silently drops in dev without RESEND_API_KEY.
-  c.executionCtx.waitUntil(sendWelcomeEmail(c.env, user.email, user.name).then(() => undefined));
+  c.executionCtx.waitUntil(
+    sendWelcomeEmail(c.env, user.email, user.name, verifyUrl).then(() => undefined),
+  );
 
   const jwt = await signSession({ sub: user.id, email: user.email }, c.env.JWT_SECRET);
   const secure = new URL(c.req.url).protocol === "https:";
@@ -231,6 +246,49 @@ route.post("/reset-password", authLimiter, async (c) => {
 
 route.post("/logout", (c) => {
   deleteCookie(c, SESSION_COOKIE, { path: "/" });
+  return c.json({ ok: true });
+});
+
+// Verify email — called by the link in the welcome email. Validates the
+// one-time KV token, sets `email_verified_at`, then 302s the user to the
+// home with a banner. Intentionally a GET so it works straight from the mail
+// client without requiring JS.
+route.get("/verify-email", async (c) => {
+  const token = c.req.query("token") ?? "";
+  const origin = new URL(c.req.url).origin;
+  if (!token || !c.env.CACHE) {
+    return c.redirect(`${origin}/?verify=invalid`, 302);
+  }
+  const userId = await c.env.CACHE.get(`everify:${token}`);
+  if (!userId) {
+    return c.redirect(`${origin}/?verify=expired`, 302);
+  }
+  await c.var.store.markEmailVerified(userId);
+  await c.env.CACHE.delete(`everify:${token}`);
+  return c.redirect(`${origin}/?verify=ok`, 302);
+});
+
+// Re-send the verification email if the user lost the original. Requires
+// auth so we can only send to the user's own address (no enumeration).
+route.post("/resend-verification", authLimiter, async (c) => {
+  const userOrResp = await requireUser(c);
+  if (userOrResp instanceof Response) return userOrResp;
+  if (userOrResp.email_verified_at) {
+    return c.json({ ok: true, already: true });
+  }
+  if (!c.env.CACHE) return c.json({ error: "service_unavailable" }, 503);
+
+  const rawBytes = crypto.getRandomValues(new Uint8Array(32));
+  const token = Array.from(rawBytes)
+    .map((b) => b.toString(16).padStart(2, "0"))
+    .join("");
+  await c.env.CACHE.put(`everify:${token}`, userOrResp.id, { expirationTtl: 7 * 24 * 3600 });
+  const origin = new URL(c.req.url).origin;
+  const verifyUrl = `${origin}/api/auth/verify-email?token=${token}`;
+
+  c.executionCtx.waitUntil(
+    sendWelcomeEmail(c.env, userOrResp.email, userOrResp.name, verifyUrl).then(() => undefined),
+  );
   return c.json({ ok: true });
 });
 

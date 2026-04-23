@@ -39,6 +39,7 @@ import { TrustBadge } from "@/components/TrustBadge";
 import { VibeBadge } from "@/components/VibeBadge";
 import { PulsingDot } from "@/components/LoadingStates";
 import { DriverInbox } from "@/components/DriverInbox";
+import { DriverRideActions } from "@/components/DriverRideActions";
 import { RideChatSection } from "@/components/RideChatSection";
 import { RideReviewsSection } from "@/components/RideReviewsSection";
 
@@ -161,6 +162,14 @@ export default function RideDetailPage() {
       setCopied(true);
       setTimeout(() => setCopied(false), 2000);
     });
+  }
+
+  function handleShareWhatsApp() {
+    if (!ride) return;
+    const campaign = ride.concert.artist.toLowerCase().replace(/\s+/g, "-").slice(0, 30);
+    const url = rideShareUrl(ride.id, campaign, "whatsapp");
+    const text = `🎶 Voy al concierto de ${ride.concert.artist} desde ${ride.origin_city}. ¿Te vienes? ${url}`;
+    window.open(`https://wa.me/?text=${encodeURIComponent(text)}`, "_blank", "noopener,noreferrer");
   }
 
   async function handleConfirmComplete() {
@@ -305,14 +314,24 @@ export default function RideDetailPage() {
           >
             <ArrowLeft size={14} /> Volver
           </button>
-          <button
-            type="button"
-            onClick={handleShare}
-            className="inline-flex items-center gap-2 font-sans text-xs font-semibold uppercase tracking-[0.12em] text-cr-text-muted hover:text-cr-primary transition-colors"
-          >
-            <Link2 size={14} aria-hidden="true" />
-            {copied ? "¡Copiado!" : "Compartir"}
-          </button>
+          <div className="flex items-center gap-3">
+            <button
+              type="button"
+              onClick={handleShareWhatsApp}
+              title="Compartir por WhatsApp"
+              className="inline-flex items-center gap-1.5 font-sans text-xs font-semibold uppercase tracking-[0.12em] text-cr-text-muted hover:text-cr-primary transition-colors"
+            >
+              <span aria-hidden="true">💬</span> WhatsApp
+            </button>
+            <button
+              type="button"
+              onClick={handleShare}
+              className="inline-flex items-center gap-2 font-sans text-xs font-semibold uppercase tracking-[0.12em] text-cr-text-muted hover:text-cr-primary transition-colors"
+            >
+              <Link2 size={14} aria-hidden="true" />
+              {copied ? "¡Copiado!" : "Copiar enlace"}
+            </button>
+          </div>
         </div>
 
         <motion.article
@@ -520,10 +539,23 @@ export default function RideDetailPage() {
         </section>
 
         {isDriver ? (
-          <DriverInbox
-            ride={ride}
-            onRequestUpdated={(fresh) => setRide(fresh)}
-          />
+          <>
+            <DriverInbox
+              ride={ride}
+              onRequestUpdated={(fresh) => setRide(fresh)}
+            />
+            {!isCompleted && ride.status !== "cancelled" && (
+              <DriverRideActions ride={ride} onUpdated={(r) => setRide(r)} />
+            )}
+            {ride.status === "cancelled" && (
+              <section className="border-2 border-cr-secondary/60 bg-cr-secondary/10 p-5 space-y-2">
+                <p className="font-display text-base uppercase text-cr-secondary">Viaje cancelado</p>
+                <p className="font-sans text-xs text-cr-text-muted">
+                  Las reservas pendientes y confirmadas fueron canceladas y se notificó a los pasajeros.
+                </p>
+              </section>
+            )}
+          </>
         ) : !user && !sessionLoading ? (
           <section className="border border-dashed border-cr-border p-6 md:p-8 text-center space-y-4">
             <p className="font-display text-lg uppercase">Inicia sesión para reservar</p>

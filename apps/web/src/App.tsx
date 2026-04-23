@@ -4,10 +4,12 @@ import { TopNav } from "./components/TopNav";
 import { Footer } from "./components/Footer";
 import { CookieBanner } from "./components/CookieBanner";
 import { ErrorBoundary } from "./components/ErrorBoundary";
+import { VerifyEmailBanner } from "./components/VerifyEmailBanner";
 import { LoadingSpinner } from "./components/ui";
 
 const LandingPage = lazy(() => import("./pages/LandingPage"));
 const FavoritesPage = lazy(() => import("./pages/FavoritesPage"));
+const MyRidesPage = lazy(() => import("./pages/MyRidesPage"));
 const AdminReportsPage = lazy(() => import("./pages/AdminReportsPage"));
 const ForgotPasswordPage = lazy(() => import("./pages/ForgotPasswordPage"));
 const ResetPasswordPage = lazy(() => import("./pages/ResetPasswordPage"));
@@ -35,6 +37,7 @@ export default function App() {
         Saltar al contenido principal
       </a>
       <TopNav />
+      <VerifyEmailBanner />
       <ErrorBoundary>
         <Suspense fallback={<LoadingSpinner text="Cargando…" />}>
           <Routes>
@@ -48,6 +51,7 @@ export default function App() {
             <Route path="/forgot-password" element={<ForgotPasswordPage />} />
             <Route path="/reset-password" element={<ResetPasswordPage />} />
             <Route path="/favoritos" element={<FavoritesPage />} />
+            <Route path="/mis-viajes" element={<MyRidesPage />} />
             <Route path="/admin/reports" element={<AdminReportsPage />} />
             <Route path="/profile" element={<ProfilePage />} />
             <Route path="/drivers/:id" element={<DriverProfilePage />} />
