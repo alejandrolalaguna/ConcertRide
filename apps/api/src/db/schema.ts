@@ -47,6 +47,11 @@ export const users = sqliteTable(
     // stripped. We keep the row so reviews/history attributed to it stay
     // consistent for other users.
     deleted_at: text("deleted_at"),
+    // Set by admin when banning. Banned users cannot login or create rides/requests.
+    banned_at: text("banned_at"),
+    ban_reason: text("ban_reason"),
+    // Set when user verifies their phone number via OTP.
+    phone_verified_at: text("phone_verified_at"),
     created_at: text("created_at").notNull().default(sql`CURRENT_TIMESTAMP`),
   },
   (t) => ({
@@ -292,6 +297,63 @@ export const pushSubscriptions = sqliteTable(
   }),
 );
 
+// Emails that can never re-register. Populated when a user is banned or
+// when a deleted account is flagged for abuse. Prevents cycling through
+// new accounts after a ban.
+export const bannedEmails = sqliteTable(
+  "banned_emails",
+  {
+    id: text("id").primaryKey(),
+    email: text("email").notNull(),
+    reason: text("reason"),
+    created_at: text("created_at").notNull().default(sql`CURRENT_TIMESTAMP`),
+  },
+  (t) => ({
+    emailIdx: uniqueIndex("banned_emails_email_idx").on(t.email),
+  }),
+);
+
+// Immutable audit trail of admin actions (ban, license approve/reject, report resolve).
+export const adminAuditLog = sqliteTable(
+  "admin_audit_log",
+  {
+    id: text("id").primaryKey(),
+    admin_id: text("admin_id").notNull().references(() => users.id),
+    action: text("action", {
+      enum: ["ban_user", "unban_user", "license_approve", "license_reject", "report_resolve", "report_dismiss"],
+    }).notNull(),
+    target_user_id: text("target_user_id").references(() => users.id),
+    details: text("details"),
+    created_at: text("created_at").notNull().default(sql`CURRENT_TIMESTAMP`),
+  },
+  (t) => ({
+    adminIdx: index("audit_log_admin_idx").on(t.admin_id),
+    targetIdx: index("audit_log_target_idx").on(t.target_user_id),
+    createdIdx: index("audit_log_created_idx").on(t.created_at),
+  }),
+);
+
+export const licenseReviews = sqliteTable(
+  "license_reviews",
+  {
+    id: text("id").primaryKey(),
+    user_id: text("user_id")
+      .notNull()
+      .references(() => users.id),
+    file_kv_key: text("file_kv_key").notNull(),
+    status: text("status", { enum: ["pending", "approved", "rejected"] })
+      .notNull()
+      .default("pending"),
+    rejection_reason: text("rejection_reason"),
+    submitted_at: text("submitted_at").notNull().default(sql`CURRENT_TIMESTAMP`),
+    reviewed_at: text("reviewed_at"),
+  },
+  (t) => ({
+    userIdx: index("license_reviews_user_idx").on(t.user_id),
+    statusIdx: index("license_reviews_status_idx").on(t.status),
+  }),
+);
+
 // Staging table for the multi-source ingestion layer (M5).
 // One row per raw fetched event, pre-dedup.
 export const concertSources = sqliteTable(
@@ -362,6 +424,10 @@ export const reportsRelations = relations(reports, ({ one }) => ({
   ride: one(rides, { fields: [reports.ride_id], references: [rides.id] }),
 }));
 
+export const licenseReviewsRelations = relations(licenseReviews, ({ one }) => ({
+  user: one(users, { fields: [licenseReviews.user_id], references: [users.id] }),
+}));
+
 export type VenueRow = typeof venues.$inferSelect;
 export type UserRow = typeof users.$inferSelect;
 export type ConcertRow = typeof concerts.$inferSelect;
@@ -371,3 +437,6 @@ export type DemandSignalRow = typeof demandSignals.$inferSelect;
 export type MessageRow = typeof messages.$inferSelect;
 export type ReviewRow = typeof reviews.$inferSelect;
 export type ConcertSourceRow = typeof concertSources.$inferSelect;
+export type LicenseReviewRow = typeof licenseReviews.$inferSelect;
+export type BannedEmailRow = typeof bannedEmails.$inferSelect;
+export type AdminAuditLogRow = typeof adminAuditLog.$inferSelect;

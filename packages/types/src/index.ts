@@ -55,8 +55,49 @@ export interface User {
   referral_count: number;
   tos_accepted_at: string | null;
   email_verified_at: string | null;
+  phone_verified_at: string | null;
   deleted_at: string | null;
+  banned_at: string | null;
+  ban_reason: string | null;
   created_at: string;
+}
+
+export interface AdminStats {
+  users: {
+    total: number;
+    verified_email: number;
+    license_verified: number;
+    new_last_7d: number;
+  };
+  rides: {
+    total_active: number;
+    total_all_time: number;
+    published_last_7d: number;
+    seats_available: number;
+  };
+  bookings: {
+    confirmed_all_time: number;
+    confirmed_last_7d: number;
+    pending: number;
+  };
+  concerts: {
+    total: number;
+    upcoming: number;
+    with_active_rides: number;
+  };
+  top_cities: Array<{ city: string; ride_count: number }>;
+}
+
+export type LicenseReviewStatus = "pending" | "approved" | "rejected";
+
+export interface LicenseReview {
+  id: string;
+  user_id: string;
+  file_kv_key: string;
+  status: LicenseReviewStatus;
+  rejection_reason: string | null;
+  submitted_at: string;
+  reviewed_at: string | null;
 }
 
 export type ReportReason = "spam" | "scam" | "harassment" | "no_show" | "unsafe" | "other";
@@ -207,6 +248,17 @@ export interface CreateReviewRequest {
 export interface ReviewsResponse {
   reviews: Review[];
   total: number;
+}
+
+export type AdminAuditAction = "ban_user" | "unban_user" | "license_approve" | "license_reject" | "report_resolve" | "report_dismiss";
+
+export interface AdminAuditLogEntry {
+  id: string;
+  admin_id: string;
+  action: AdminAuditAction;
+  target_user_id: string | null;
+  details: string | null;
+  created_at: string;
 }
 
 export interface CreateRideRequest {

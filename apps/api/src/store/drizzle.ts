@@ -8,6 +8,8 @@ import { createClient } from "@libsql/client/web";
 import { and, avg, count, desc, eq, gte, inArray, like, lte, lt, notInArray, or, sql } from "drizzle-orm";
 import { drizzle } from "drizzle-orm/libsql";
 import type {
+  AdminAuditAction,
+  AdminAuditLogEntry,
   Concert,
   CreateConcertInput,
   CreateReviewRequest,
@@ -129,7 +131,10 @@ function hydrateUser(row: UserRow): User {
     referral_count: row.referral_count ?? 0,
     tos_accepted_at: row.tos_accepted_at ?? null,
     email_verified_at: row.email_verified_at ?? null,
+    phone_verified_at: row.phone_verified_at ?? null,
     deleted_at: row.deleted_at ?? null,
+    banned_at: row.banned_at ?? null,
+    ban_reason: row.ban_reason ?? null,
     created_at: row.created_at,
   };
 }
@@ -1609,6 +1614,225 @@ export class DrizzleStore implements StoreAdapter {
       body: row.body,
       status: row.status as import("@concertride/types").ReportStatus,
       created_at: row.created_at,
+    };
+  }
+
+  async createLicenseReview(userId: string, fileKvKey: string): Promise<import("@concertride/types").LicenseReview> {
+    const id = `lr_${crypto.randomUUID().slice(0, 10)}`;
+    await this.db.insert(schema.licenseReviews).values({ id, user_id: userId, file_kv_key: fileKvKey });
+    const row = await this.db.query.licenseReviews.findFirst({ where: eq(schema.licenseReviews.id, id) });
+    return row as import("@concertride/types").LicenseReview;
+  }
+
+  async listLicenseReviews(
+    filter?: { status?: "pending" | "approved" | "rejected" },
+  ): Promise<Array<import("@concertride/types").LicenseReview & { user: import("@concertride/types").User | null }>> {
+    const where = filter?.status
+      ? eq(schema.licenseReviews.status, filter.status)
+      : undefined;
+    const rows = await this.db.query.licenseReviews.findMany({
+      where,
+      with: { user: true },
+      orderBy: (r, { desc }) => [desc(r.submitted_at)],
+    });
+    return rows.map((r) => ({
+      id: r.id,
+      user_id: r.user_id,
+      file_kv_key: r.file_kv_key,
+      status: r.status as import("@concertride/types").LicenseReviewStatus,
+      rejection_reason: r.rejection_reason,
+      submitted_at: r.submitted_at,
+      reviewed_at: r.reviewed_at,
+      user: r.user ? hydrateUser(r.user) : null,
+    }));
+  }
+
+  async approveLicenseReview(
+    reviewId: string,
+  ): Promise<{ review: import("@concertride/types").LicenseReview; user: import("@concertride/types").User | null }> {
+    const now = new Date().toISOString();
+    await this.db
+      .update(schema.licenseReviews)
+      .set({ status: "approved", reviewed_at: now })
+      .where(eq(schema.licenseReviews.id, reviewId));
+    const row = await this.db.query.licenseReviews.findFirst({ where: eq(schema.licenseReviews.id, reviewId) });
+    if (!row) throw new Error("license_review_not_found");
+    const user = await this.verifyLicense(row.user_id);
+    return {
+      review: {
+        id: row.id,
+        user_id: row.user_id,
+        file_kv_key: row.file_kv_key,
+        status: "approved",
+        rejection_reason: null,
+        submitted_at: row.submitted_at,
+        reviewed_at: now,
+      },
+      user,
+    };
+  }
+
+  async getAdminStats(): Promise<import("./adapter").AdminStats> {
+    const now = new Date().toISOString();
+    const sevenDaysAgo = new Date(Date.now() - 7 * 24 * 60 * 60 * 1000).toISOString();
+
+    const [
+      totalUsers,
+      verifiedEmailUsers,
+      licenseVerifiedUsers,
+      newLast7dUsers,
+      totalActiveRides,
+      totalAllRides,
+      publishedLast7dRides,
+      seatsAvailable,
+      confirmedAllTime,
+      confirmedLast7d,
+      pendingBookings,
+      totalConcerts,
+      upcomingConcerts,
+    ] = await Promise.all([
+      this.db.select({ c: count() }).from(schema.users),
+      this.db.select({ c: count() }).from(schema.users).where(sql`${schema.users.email_verified_at} IS NOT NULL`),
+      this.db.select({ c: count() }).from(schema.users).where(eq(schema.users.license_verified, true)),
+      this.db.select({ c: count() }).from(schema.users).where(gte(schema.users.created_at, sevenDaysAgo)),
+      this.db.select({ c: count() }).from(schema.rides).where(eq(schema.rides.status, "active")),
+      this.db.select({ c: count() }).from(schema.rides),
+      this.db.select({ c: count() }).from(schema.rides).where(gte(schema.rides.created_at, sevenDaysAgo)),
+      this.db.select({ s: sql<number>`COALESCE(SUM(${schema.rides.seats_left}), 0)` }).from(schema.rides).where(eq(schema.rides.status, "active")),
+      this.db.select({ c: count() }).from(schema.rideRequests).where(eq(schema.rideRequests.status, "confirmed")),
+      this.db.select({ c: count() }).from(schema.rideRequests).where(and(eq(schema.rideRequests.status, "confirmed"), gte(schema.rideRequests.created_at, sevenDaysAgo))),
+      this.db.select({ c: count() }).from(schema.rideRequests).where(eq(schema.rideRequests.status, "pending")),
+      this.db.select({ c: count() }).from(schema.concerts),
+      this.db.select({ c: count() }).from(schema.concerts).where(gte(schema.concerts.date, now)),
+    ]);
+
+    const concertsWithRides = await this.db
+      .selectDistinct({ concert_id: schema.rides.concert_id })
+      .from(schema.rides)
+      .where(eq(schema.rides.status, "active"));
+
+    const topCitiesRows = await this.db
+      .select({ city: schema.rides.origin_city, ride_count: count() })
+      .from(schema.rides)
+      .groupBy(schema.rides.origin_city)
+      .orderBy(desc(count()))
+      .limit(5);
+
+    return {
+      users: {
+        total: totalUsers[0]?.c ?? 0,
+        verified_email: verifiedEmailUsers[0]?.c ?? 0,
+        license_verified: licenseVerifiedUsers[0]?.c ?? 0,
+        new_last_7d: newLast7dUsers[0]?.c ?? 0,
+      },
+      rides: {
+        total_active: totalActiveRides[0]?.c ?? 0,
+        total_all_time: totalAllRides[0]?.c ?? 0,
+        published_last_7d: publishedLast7dRides[0]?.c ?? 0,
+        seats_available: Number(seatsAvailable[0]?.s ?? 0),
+      },
+      bookings: {
+        confirmed_all_time: confirmedAllTime[0]?.c ?? 0,
+        confirmed_last_7d: confirmedLast7d[0]?.c ?? 0,
+        pending: pendingBookings[0]?.c ?? 0,
+      },
+      concerts: {
+        total: totalConcerts[0]?.c ?? 0,
+        upcoming: upcomingConcerts[0]?.c ?? 0,
+        with_active_rides: concertsWithRides.length,
+      },
+      top_cities: topCitiesRows.map((r) => ({ city: r.city, ride_count: r.ride_count })),
+    };
+  }
+
+  async banUser(adminId: string, userId: string, reason: string): Promise<User | null> {
+    const now = new Date().toISOString();
+    await this.db.update(schema.users).set({ banned_at: now, ban_reason: reason }).where(eq(schema.users.id, userId));
+    const user = await this.db.query.users.findFirst({ where: eq(schema.users.id, userId) });
+    if (!user) return null;
+    // Add to banned_emails so they can't re-register with the same email
+    if (user.email) {
+      const emailId = `be_${crypto.randomUUID().slice(0, 10)}`;
+      await this.db.insert(schema.bannedEmails).values({ id: emailId, email: user.email, reason }).onConflictDoNothing();
+    }
+    await this.logAdminAction(adminId, "ban_user", userId, reason);
+    return this.getUser(userId);
+  }
+
+  async unbanUser(adminId: string, userId: string): Promise<User | null> {
+    await this.db.update(schema.users).set({ banned_at: null, ban_reason: null }).where(eq(schema.users.id, userId));
+    await this.logAdminAction(adminId, "unban_user", userId);
+    return this.getUser(userId);
+  }
+
+  async isEmailBanned(email: string): Promise<boolean> {
+    const row = await this.db.query.bannedEmails.findFirst({
+      where: eq(schema.bannedEmails.email, email.toLowerCase()),
+    });
+    return !!row;
+  }
+
+  async logAdminAction(
+    adminId: string,
+    action: AdminAuditAction,
+    targetUserId?: string,
+    details?: string,
+  ): Promise<AdminAuditLogEntry> {
+    const id = `al_${crypto.randomUUID().slice(0, 10)}`;
+    await this.db.insert(schema.adminAuditLog).values({
+      id,
+      admin_id: adminId,
+      action,
+      target_user_id: targetUserId ?? null,
+      details: details ?? null,
+    });
+    return {
+      id,
+      admin_id: adminId,
+      action,
+      target_user_id: targetUserId ?? null,
+      details: details ?? null,
+      created_at: new Date().toISOString(),
+    };
+  }
+
+  async listAdminAuditLog(limit = 100): Promise<AdminAuditLogEntry[]> {
+    const rows = await this.db.query.adminAuditLog.findMany({
+      orderBy: desc(schema.adminAuditLog.created_at),
+      limit,
+    });
+    return rows.map((r) => ({
+      id: r.id,
+      admin_id: r.admin_id,
+      action: r.action as AdminAuditAction,
+      target_user_id: r.target_user_id,
+      details: r.details,
+      created_at: r.created_at,
+    }));
+  }
+
+  async markPhoneVerified(userId: string): Promise<User | null> {
+    const now = new Date().toISOString();
+    await this.db.update(schema.users).set({ phone_verified_at: now }).where(eq(schema.users.id, userId));
+    return this.getUser(userId);
+  }
+
+  async rejectLicenseReview(reviewId: string, reason: string): Promise<import("@concertride/types").LicenseReview | null> {
+    const now = new Date().toISOString();
+    await this.db
+      .update(schema.licenseReviews)
+      .set({ status: "rejected", rejection_reason: reason, reviewed_at: now })
+      .where(eq(schema.licenseReviews.id, reviewId));
+    const row = await this.db.query.licenseReviews.findFirst({ where: eq(schema.licenseReviews.id, reviewId) });
+    if (!row) return null;
+    return {
+      id: row.id,
+      user_id: row.user_id,
+      file_kv_key: row.file_kv_key,
+      status: "rejected",
+      rejection_reason: reason,
+      submitted_at: row.submitted_at,
+      reviewed_at: now,
     };
   }
 }

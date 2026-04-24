@@ -154,6 +154,14 @@ export default function PublishRidePage() {
 
   async function submit() {
     if (!form.vibe) return;
+    if (manualMode && form.manual_date && new Date(form.manual_date) < new Date()) {
+      setError("La fecha del concierto no puede ser en el pasado.");
+      return;
+    }
+    if (form.departure_time && new Date(form.departure_time) < new Date()) {
+      setError("La hora de salida no puede ser en el pasado.");
+      return;
+    }
     const coord = SPANISH_CITIES_BY_NAME[form.origin_city];
     if (!coord) {
       setError("Ciudad no reconocida");

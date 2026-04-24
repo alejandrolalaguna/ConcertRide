@@ -1,5 +1,7 @@
 import type { User } from "@concertride/types";
 
+const NULL_SAFETY = { phone_verified_at: null, banned_at: null, ban_reason: null } as const;
+
 export const USERS: User[] = [
   {
     id: "u_laura",
@@ -23,6 +25,7 @@ export const USERS: User[] = [
     email_verified_at: "2025-06-14T10:00:00.000Z",
     deleted_at: null,
     created_at: "2025-06-14T10:00:00.000Z",
+    ...NULL_SAFETY,
   },
   {
     id: "u_dani",
@@ -46,6 +49,7 @@ export const USERS: User[] = [
     email_verified_at: "2025-08-02T09:30:00.000Z",
     deleted_at: null,
     created_at: "2025-08-02T09:30:00.000Z",
+    ...NULL_SAFETY,
   },
   {
     id: "u_paula",
@@ -69,6 +73,7 @@ export const USERS: User[] = [
     email_verified_at: "2025-11-11T18:00:00.000Z",
     deleted_at: null,
     created_at: "2025-11-11T18:00:00.000Z",
+    ...NULL_SAFETY,
   },
   {
     id: "u_marcos",
@@ -92,6 +97,7 @@ export const USERS: User[] = [
     email_verified_at: null,
     deleted_at: null,
     created_at: "2026-01-20T12:15:00.000Z",
+    ...NULL_SAFETY,
   },
   {
     id: "u_irene",
@@ -115,6 +121,7 @@ export const USERS: User[] = [
     email_verified_at: "2025-04-05T08:00:00.000Z",
     deleted_at: null,
     created_at: "2025-04-05T08:00:00.000Z",
+    ...NULL_SAFETY,
   },
   {
     id: "u_jorge",
@@ -138,6 +145,7 @@ export const USERS: User[] = [
     email_verified_at: "2025-09-30T14:45:00.000Z",
     deleted_at: null,
     created_at: "2025-09-30T14:45:00.000Z",
+    ...NULL_SAFETY,
   },
 ];
 

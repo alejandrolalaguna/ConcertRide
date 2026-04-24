@@ -1,4 +1,6 @@
 import type {
+  AdminAuditAction,
+  AdminAuditLogEntry,
   Concert,
   CreateConcertInput,
   CreateRideRequest,
@@ -6,6 +8,7 @@ import type {
   DemandSignal,
   Favorite,
   FavoriteKind,
+  LicenseReview,
   Message,
   Report,
   ReportReason,
@@ -19,6 +22,32 @@ import type {
   Vibe,
 } from "@concertride/types";
 import type { RawConcert, SourceId } from "../ingest/types";
+
+export interface AdminStats {
+  users: {
+    total: number;
+    verified_email: number;
+    license_verified: number;
+    new_last_7d: number;
+  };
+  rides: {
+    total_active: number;
+    total_all_time: number;
+    published_last_7d: number;
+    seats_available: number;
+  };
+  bookings: {
+    confirmed_all_time: number;
+    confirmed_last_7d: number;
+    pending: number;
+  };
+  concerts: {
+    total: number;
+    upcoming: number;
+    with_active_rides: number;
+  };
+  top_cities: Array<{ city: string; ride_count: number }>;
+}
 
 export interface ConcertFilters {
   city?: string;
@@ -87,6 +116,16 @@ export interface StoreAdapter {
   deleteUser(userId: string): Promise<void>;
   useReferral(referralCode: string, newUserId: string): Promise<void>;
   verifyLicense(userId: string): Promise<User | null>;
+
+  // --- license reviews ---
+  // Stores the KV key of the uploaded document and creates a pending review.
+  createLicenseReview(userId: string, fileKvKey: string): Promise<LicenseReview>;
+  // Admin: list all reviews, optionally filtered by status.
+  listLicenseReviews(filter?: { status?: "pending" | "approved" | "rejected" }): Promise<Array<LicenseReview & { user: User | null }>>;
+  // Admin: approve — sets review to approved + calls verifyLicense on the user.
+  approveLicenseReview(reviewId: string): Promise<{ review: LicenseReview; user: User | null }>;
+  // Admin: reject — sets review to rejected with a reason.
+  rejectLicenseReview(reviewId: string, reason: string): Promise<LicenseReview | null>;
 
   // --- venues ---
   listVenues(): Promise<Venue[]>;
@@ -237,6 +276,26 @@ export interface StoreAdapter {
     concert_id: string | null;
     raw_json: string;
   }): Promise<void>;
+
+  // --- admin stats ---
+  getAdminStats(): Promise<AdminStats>;
+
+  // --- ban system ---
+  banUser(adminId: string, userId: string, reason: string): Promise<User | null>;
+  unbanUser(adminId: string, userId: string): Promise<User | null>;
+  isEmailBanned(email: string): Promise<boolean>;
+
+  // --- admin audit log ---
+  logAdminAction(
+    adminId: string,
+    action: AdminAuditAction,
+    targetUserId?: string,
+    details?: string,
+  ): Promise<AdminAuditLogEntry>;
+  listAdminAuditLog(limit?: number): Promise<AdminAuditLogEntry[]>;
+
+  // --- phone verification ---
+  markPhoneVerified(userId: string): Promise<User | null>;
 
   // --- maintenance ---
   // Deletes concerts whose date is before `beforeDate` and have no active rides.

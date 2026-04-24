@@ -1,4 +1,6 @@
 import type {
+  AdminAuditLogEntry,
+  AdminStats,
   Concert,
   ConcertsQuery,
   ConcertsResponse,
@@ -11,6 +13,7 @@ import type {
   FavoriteKind,
   FavoritesResponse,
   HealthResponse,
+  LicenseReview,
   Report,
   Message,
   MessagesResponse,
@@ -127,11 +130,21 @@ export const api = {
     verifyLicense: (file: File) => {
       const form = new FormData();
       form.append("document", file);
-      return request<{ ok: true; user: import("@concertride/types").User }>("/api/auth/verify-license", {
+      return request<{ ok: true; status: "pending"; review_id: string }>("/api/auth/verify-license", {
         method: "POST",
         body: form,
       });
     },
+    sendPhoneOtp: (phone: string) =>
+      request<{ ok: true; otp?: string }>("/api/auth/send-phone-otp", {
+        method: "POST",
+        body: JSON.stringify({ phone }),
+      }),
+    verifyPhoneOtp: (otp: string) =>
+      request<{ ok: true; user: User }>("/api/auth/verify-phone-otp", {
+        method: "POST",
+        body: JSON.stringify({ otp }),
+      }),
     logout: () => request<{ ok: true }>("/api/auth/logout", { method: "POST" }),
   },
   concerts: {
@@ -277,6 +290,7 @@ export const api = {
       }),
   },
   admin: {
+    stats: () => request<AdminStats>("/api/admin/stats"),
     me: () => request<{ ok: true; user: User }>("/api/admin/me"),
     listReports: (status?: "pending" | "reviewed" | "resolved" | "dismissed") => {
       const qs = status ? `?status=${status}` : "";
@@ -294,6 +308,30 @@ export const api = {
         method: "PATCH",
         body: JSON.stringify({ status }),
       }),
+    listLicenseReviews: (status?: "pending" | "approved" | "rejected") => {
+      const qs = status ? `?status=${status}` : "";
+      return request<{ reviews: Array<LicenseReview & { user: User | null }> }>(`/api/admin/license-reviews${qs}`);
+    },
+    approveLicenseReview: (id: string) =>
+      request<{ ok: true; review: LicenseReview }>(`/api/admin/license-reviews/${encodeURIComponent(id)}/approve`, {
+        method: "POST",
+      }),
+    rejectLicenseReview: (id: string, reason: string) =>
+      request<{ ok: true; review: LicenseReview }>(`/api/admin/license-reviews/${encodeURIComponent(id)}/reject`, {
+        method: "POST",
+        body: JSON.stringify({ reason }),
+      }),
+    banUser: (id: string, reason: string) =>
+      request<{ ok: true; user: User }>(`/api/admin/users/${encodeURIComponent(id)}/ban`, {
+        method: "POST",
+        body: JSON.stringify({ reason }),
+      }),
+    unbanUser: (id: string) =>
+      request<{ ok: true; user: User }>(`/api/admin/users/${encodeURIComponent(id)}/unban`, {
+        method: "POST",
+      }),
+    auditLog: (limit = 50) =>
+      request<{ entries: AdminAuditLogEntry[] }>(`/api/admin/audit-log?limit=${limit}`),
   },
   favorites: {
     list: () => request<FavoritesResponse>("/api/favorites"),

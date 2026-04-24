@@ -83,9 +83,17 @@ export default function ProfilePage() {
   const [reviews, setReviews] = useState<Review[]>([]);
   const [reviewsLoading, setReviewsLoading] = useState(false);
   const [myRides, setMyRides] = useState<Ride[]>([]);
+  const [confirmedTrips, setConfirmedTrips] = useState(0);
   const [refCopied, setRefCopied] = useState(false);
   const [verifying, setVerifying] = useState(false);
   const [verifyError, setVerifyError] = useState<string | null>(null);
+  const [licenseSubmitted, setLicenseSubmitted] = useState(false);
+  const [selectedFileName, setSelectedFileName] = useState<string | null>(null);
+  const [otpSent, setOtpSent] = useState(false);
+  const [otpCode, setOtpCode] = useState("");
+  const [otpSending, setOtpSending] = useState(false);
+  const [otpVerifying, setOtpVerifying] = useState(false);
+  const [otpError, setOtpError] = useState<string | null>(null);
   const { state: pushState, subscribe: pushSubscribe, unsubscribe: pushUnsubscribe } = usePush();
 
   useSeoMeta({
@@ -122,6 +130,14 @@ export default function ProfilePage() {
       .list({ driver_id: user.id })
       .then((r) => setMyRides(r.rides))
       .catch(() => setMyRides([]));
+  }, [user?.id]);
+
+  useEffect(() => {
+    if (!user) return;
+    api.rides
+      .listMine()
+      .then((r) => setConfirmedTrips(r.passenger_requests.filter((req) => req.status === "confirmed").length))
+      .catch(() => {});
   }, [user?.id]);
 
   if (!loading && !user) return <Navigate to="/login?next=/profile" replace />;
@@ -300,6 +316,39 @@ export default function ProfilePage() {
           </section>
         )}
 
+        {/* Tu impacto */}
+        {(user.rides_given > 0 || confirmedTrips > 0) && (
+          <section className="space-y-4 border border-cr-border p-5">
+            <header className="flex items-center gap-2">
+              <span className="font-sans text-[11px] font-semibold uppercase tracking-[0.16em] text-cr-primary">
+                Tu impacto
+              </span>
+            </header>
+            <dl className="grid grid-cols-3 gap-4">
+              <div>
+                <dt className="font-sans text-[10px] font-semibold uppercase tracking-[0.12em] text-cr-text-muted mb-1">
+                  Viajes como conductor
+                </dt>
+                <dd className="font-mono text-xl text-cr-text">{user.rides_given}</dd>
+              </div>
+              <div>
+                <dt className="font-sans text-[10px] font-semibold uppercase tracking-[0.12em] text-cr-text-muted mb-1">
+                  Viajes como pasajero
+                </dt>
+                <dd className="font-mono text-xl text-cr-text">{confirmedTrips}</dd>
+              </div>
+              <div>
+                <dt className="font-sans text-[10px] font-semibold uppercase tracking-[0.12em] text-cr-text-muted mb-1">
+                  CO₂ ahorrado est.
+                </dt>
+                <dd className="font-mono text-xl text-cr-primary">
+                  {Math.round((user.rides_given + confirmedTrips) * 120 * 0.12)} kg
+                </dd>
+              </div>
+            </dl>
+          </section>
+        )}
+
         {/* Reviews received */}
         {(reviewsLoading || reviews.length > 0) && (
           <section className="space-y-3">
@@ -398,19 +447,89 @@ export default function ProfilePage() {
                 className="w-full bg-cr-surface border-2 border-cr-border focus:border-cr-primary outline-none px-3 py-3 font-sans text-sm text-cr-text transition-colors"
               />
             </label>
-            <label className="block space-y-2">
-              <span className="font-sans text-[11px] font-semibold uppercase tracking-[0.12em] text-cr-text-muted">
-                Teléfono <span className="font-normal normal-case tracking-normal text-cr-text-dim">(opcional)</span>
-              </span>
-              <input
-                type="tel"
-                autoComplete="tel"
-                value={phone}
-                onChange={(e) => setPhone(e.target.value)}
-                placeholder="+34 600 000 000"
-                className="w-full bg-cr-surface border-2 border-cr-border focus:border-cr-primary outline-none px-3 py-3 font-mono text-sm text-cr-text placeholder:text-cr-text-dim transition-colors"
-              />
-            </label>
+            <div className="space-y-2">
+              <div className="flex items-center gap-2">
+                <span className="font-sans text-[11px] font-semibold uppercase tracking-[0.12em] text-cr-text-muted">
+                  Teléfono
+                </span>
+                {user.phone_verified_at ? (
+                  <span className="font-sans text-[10px] font-semibold uppercase tracking-[0.1em] text-cr-primary border border-cr-primary/40 px-1.5 py-0.5">Verificado</span>
+                ) : (
+                  <span className="font-sans text-[10px] text-cr-text-dim">(no verificado)</span>
+                )}
+              </div>
+              <div className="flex gap-2">
+                <input
+                  type="tel"
+                  autoComplete="tel"
+                  value={phone}
+                  onChange={(e) => setPhone(e.target.value)}
+                  placeholder="+34 600 000 000"
+                  className="flex-1 bg-cr-surface border-2 border-cr-border focus:border-cr-primary outline-none px-3 py-3 font-mono text-sm text-cr-text placeholder:text-cr-text-dim transition-colors"
+                />
+                {!user.phone_verified_at && phone.trim().length >= 6 && !otpSent && (
+                  <button
+                    type="button"
+                    disabled={otpSending}
+                    onClick={async () => {
+                      setOtpSending(true);
+                      setOtpError(null);
+                      try {
+                        await api.auth.sendPhoneOtp(phone.trim());
+                        setOtpSent(true);
+                      } catch {
+                        setOtpError("No se pudo enviar el código. Inténtalo de nuevo.");
+                      } finally {
+                        setOtpSending(false);
+                      }
+                    }}
+                    className="font-sans text-xs font-semibold uppercase tracking-[0.1em] border-2 border-cr-primary text-cr-primary px-3 py-2 hover:bg-cr-primary/10 disabled:opacity-40 transition-colors whitespace-nowrap"
+                  >
+                    {otpSending ? "Enviando…" : "Verificar"}
+                  </button>
+                )}
+              </div>
+              {otpSent && !user.phone_verified_at && (
+                <div className="space-y-2">
+                  <p className="font-sans text-xs text-cr-text-muted">Introduce el código de 6 dígitos enviado a {phone}:</p>
+                  <div className="flex gap-2">
+                    <input
+                      type="text"
+                      inputMode="numeric"
+                      maxLength={6}
+                      value={otpCode}
+                      onChange={(e) => setOtpCode(e.target.value.replace(/\D/g, ""))}
+                      placeholder="123456"
+                      className="w-36 bg-cr-surface border-2 border-cr-border focus:border-cr-primary outline-none px-3 py-2 font-mono text-sm text-cr-text placeholder:text-cr-text-dim transition-colors"
+                    />
+                    <button
+                      type="button"
+                      disabled={otpCode.length !== 6 || otpVerifying}
+                      onClick={async () => {
+                        setOtpVerifying(true);
+                        setOtpError(null);
+                        try {
+                          const result = await api.auth.verifyPhoneOtp(otpCode);
+                          await refresh();
+                          setOtpSent(false);
+                          setOtpCode("");
+                          if (result.user) setOtpError(null);
+                        } catch {
+                          setOtpError("Código incorrecto o expirado.");
+                        } finally {
+                          setOtpVerifying(false);
+                        }
+                      }}
+                      className="font-sans text-xs font-semibold uppercase tracking-[0.1em] bg-cr-primary text-black px-3 py-2 disabled:opacity-40 transition-opacity"
+                    >
+                      {otpVerifying ? "Verificando…" : "Confirmar"}
+                    </button>
+                    <button type="button" onClick={() => { setOtpSent(false); setOtpCode(""); }} className="font-sans text-xs text-cr-text-dim px-2">Cancelar</button>
+                  </div>
+                </div>
+              )}
+              {otpError && <p className="font-mono text-xs text-cr-secondary">{otpError}</p>}
+            </div>
           </section>
 
           {/* Ubicación */}
@@ -469,6 +588,13 @@ export default function ProfilePage() {
                   Conductor verificado
                 </p>
               </div>
+            ) : licenseSubmitted ? (
+              <div className="flex items-center gap-2 border border-yellow-500/40 bg-yellow-500/[0.06] px-4 py-3">
+                <ShieldCheck size={14} className="text-yellow-400 shrink-0" aria-hidden="true" />
+                <p className="font-sans text-xs font-semibold uppercase tracking-[0.1em] text-yellow-400">
+                  Carnet enviado — revisaremos en 24–48 h
+                </p>
+              </div>
             ) : (
               <div className="space-y-3 border border-dashed border-cr-border p-4">
                 <div className="flex items-start gap-3">
@@ -478,11 +604,17 @@ export default function ProfilePage() {
                       Verifica tu carnet de conducir
                     </p>
                     <p className="font-sans text-xs text-cr-text-muted mt-0.5">
-                      Sube una foto del carnet (anverso). Aparecerá el badge ★ Verificado en tu perfil y en tus rides.
+                      Sube una foto del carnet (anverso). Revisaremos el documento en 24–48 h y te avisamos por email.
                     </p>
                   </div>
                 </div>
-                <label className="block cursor-pointer">
+                <label
+                  className={`flex flex-col items-start gap-2 w-full border-2 border-dashed border-cr-border px-4 py-5 transition-colors cursor-pointer ${
+                    verifying
+                      ? "opacity-40 pointer-events-none"
+                      : "hover:border-cr-primary"
+                  }`}
+                >
                   <input
                     type="file"
                     accept="image/jpeg,image/png,image/webp,application/pdf"
@@ -491,14 +623,12 @@ export default function ProfilePage() {
                     onChange={async (e) => {
                       const file = e.target.files?.[0];
                       if (!file) return;
+                      setSelectedFileName(file.name);
                       setVerifying(true);
                       setVerifyError(null);
                       try {
-                        const res = await api.auth.verifyLicense(file);
-                        await refresh();
-                        if (res.user) {
-                          // session refreshed — component re-renders with license_verified=true
-                        }
+                        await api.auth.verifyLicense(file);
+                        setLicenseSubmitted(true);
                       } catch (err) {
                         setVerifyError(err instanceof Error ? err.message : "Error al enviar el documento");
                       } finally {
@@ -506,16 +636,20 @@ export default function ProfilePage() {
                       }
                     }}
                   />
-                  <span
-                    className={`inline-flex items-center gap-2 font-sans text-xs font-semibold uppercase tracking-[0.12em] border-2 border-cr-border px-4 py-2 transition-colors ${
-                      verifying
-                        ? "opacity-40 pointer-events-none"
-                        : "hover:border-cr-primary hover:text-cr-primary cursor-pointer"
-                    }`}
-                  >
+                  <span className="inline-flex items-center gap-2 font-sans text-xs font-semibold uppercase tracking-[0.12em] text-cr-text-muted">
                     <Upload size={12} aria-hidden="true" />
-                    {verifying ? "Verificando…" : "Subir carnet"}
+                    {verifying ? "Enviando…" : "Seleccionar archivo"}
                   </span>
+                  {selectedFileName && !verifying && (
+                    <span className="font-mono text-[11px] text-cr-text-dim truncate max-w-full">
+                      {selectedFileName}
+                    </span>
+                  )}
+                  {verifying && (
+                    <span className="font-mono text-[11px] text-cr-text-muted animate-pulse">
+                      Subiendo…
+                    </span>
+                  )}
                 </label>
                 {verifyError && (
                   <p className="font-mono text-xs text-cr-secondary">{verifyError}</p>

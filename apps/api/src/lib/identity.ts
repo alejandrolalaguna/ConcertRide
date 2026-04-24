@@ -43,3 +43,18 @@ export async function requireUser(c: Context<HonoEnv>): Promise<User | Response>
   }
   return user;
 }
+
+export async function requireVerifiedEmail(c: Context<HonoEnv>): Promise<User | Response> {
+  const userOrResp = await requireUser(c);
+  if (userOrResp instanceof Response) return userOrResp;
+  if (!userOrResp.email_verified_at) {
+    return c.json(
+      {
+        error: "email_not_verified",
+        message: "Verifica tu email antes de continuar.",
+      },
+      403,
+    );
+  }
+  return userOrResp;
+}

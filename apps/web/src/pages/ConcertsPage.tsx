@@ -50,6 +50,7 @@ export default function ConcertsPage() {
   const [total, setTotal] = useState(0);
   const [page, setPage] = useState(1);
   const [loading, setLoading] = useState(true);
+  const [loadError, setLoadError] = useState(false);
   const [filters, setFilters] = useState<Filters>(EMPTY_FILTERS);
   const [showFilters, setShowFilters] = useState(false);
   const [facets, setFacets] = useState<{ genres: string[]; cities: string[] }>({ genres: [], cities: [] });
@@ -120,6 +121,7 @@ export default function ConcertsPage() {
         : baseDateTo,
     };
 
+    setLoadError(false);
     api.concerts
       .list(params)
       .then((r) => {
@@ -129,6 +131,7 @@ export default function ConcertsPage() {
       .catch(() => {
         setConcerts([]);
         setTotal(0);
+        setLoadError(true);
       })
       .finally(() => setLoading(false));
   }, [tab, page, filters.city, filters.genre, filters.festival, filters.dateFrom, filters.dateTo, debouncedArtist]);
@@ -329,6 +332,11 @@ export default function ConcertsPage() {
       <div ref={gridRef} className="max-w-6xl mx-auto px-6 pb-24">
         {loading ? (
           <LoadingSpinner text="Cargando conciertos…" />
+        ) : loadError ? (
+          <div className="py-24 text-center">
+            <p className="font-display text-2xl uppercase text-cr-text-muted mb-2">Error al cargar</p>
+            <p className="font-sans text-sm text-cr-text-dim">No se pudieron cargar los conciertos. Inténtalo de nuevo.</p>
+          </div>
         ) : pageConcerts.length === 0 ? (
           <div className="py-24 text-center">
             <p className="font-display text-2xl uppercase text-cr-text-muted mb-2">

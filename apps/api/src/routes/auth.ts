@@ -6,7 +6,11 @@ import { hashPassword, verifyPassword } from "../lib/password";
 import { signSession, verifySession } from "../lib/jwt";
 import { requireUser } from "../lib/identity";
 import { rateLimit } from "../lib/ratelimit";
-import { sendPasswordResetEmail, sendWelcomeEmail } from "../lib/email";
+import {
+  sendLicenseReviewAdminEmail,
+  sendPasswordResetEmail,
+  sendWelcomeEmail,
+} from "../lib/email";
 
 export const SESSION_COOKIE = "cr_session";
 const MAX_AGE = 60 * 60 * 24 * 30;
@@ -65,6 +69,9 @@ route.post("/register", authLimiter, async (c) => {
   const existing = await c.var.store.getUserByEmail(email);
   if (existing) return c.json({ error: "email_taken", message: "Ya existe una cuenta con ese email" }, 409);
 
+  const emailBanned = await c.var.store.isEmailBanned(email.toLowerCase());
+  if (emailBanned) return c.json({ error: "email_banned", message: "No es posible crear una cuenta con este email" }, 403);
+
   const { hash, salt } = await hashPassword(password);
   const user = await c.var.store.createUserWithPassword(email, name, hash, salt, {
     phone,
@@ -119,6 +126,10 @@ route.post("/login", authLimiter, async (c) => {
 
   if (!user || !valid) {
     return c.json({ error: "invalid_credentials", message: "Email o contraseña incorrectos" }, 401);
+  }
+
+  if (user.banned_at) {
+    return c.json({ error: "account_banned", message: "Tu cuenta ha sido suspendida. Contacta con soporte si crees que es un error." }, 403);
   }
 
   const jwt = await signSession({ sub: user.id, email: user.email }, c.env.JWT_SECRET);
@@ -179,9 +190,31 @@ route.post("/verify-license", async (c) => {
     return c.json({ error: "bad_request", message: "El archivo no puede superar 10 MB" }, 400);
   }
 
-  const updated = await c.var.store.verifyLicense(userOrResp.id);
-  if (!updated) return c.json({ error: "not_found" }, 404);
-  return c.json({ ok: true, user: updated });
+  // Store document in KV with 90-day TTL (admin needs time to review)
+  const kvKey = `license_doc:${userOrResp.id}:${Date.now()}`;
+  const ext = file.type === "application/pdf" ? "pdf" : file.type.split("/")[1];
+  const kvKeyWithExt = `${kvKey}.${ext}`;
+
+  const arrayBuffer = await file.arrayBuffer();
+  const base64 = btoa(String.fromCharCode(...new Uint8Array(arrayBuffer)));
+  const dataUrl = `data:${file.type};base64,${base64}`;
+
+  if (c.env.CACHE) {
+    await c.env.CACHE.put(kvKeyWithExt, dataUrl, { expirationTtl: 90 * 24 * 60 * 60 });
+  }
+
+  const review = await c.var.store.createLicenseReview(userOrResp.id, kvKeyWithExt);
+
+  // Notify admin — fire and forget, don't block the response
+  const fileUrl = `https://concertride.es/api/auth/license-doc/${encodeURIComponent(kvKeyWithExt)}`;
+  sendLicenseReviewAdminEmail(c.env, {
+    userName: userOrResp.name,
+    userId: userOrResp.id,
+    reviewId: review.id,
+    fileUrl,
+  }).catch(() => {});
+
+  return c.json({ ok: true, status: "pending", review_id: review.id });
 });
 
 route.post("/forgot-password", authLimiter, async (c) => {
@@ -301,6 +334,79 @@ route.delete("/me", async (c) => {
   await c.var.store.deleteUser(userOrResp.id);
   deleteCookie(c, SESSION_COOKIE, { path: "/" });
   return c.json({ ok: true });
+});
+
+// Admin-only: serve a license document stored in KV.
+route.get("/license-doc/:key{.+}", async (c) => {
+  const userOrResp = await requireUser(c);
+  if (userOrResp instanceof Response) return userOrResp;
+  const { isAdminUserId } = await import("../lib/admin");
+  if (!isAdminUserId(c.env, userOrResp.id)) return c.json({ error: "not_found" }, 404);
+  const key = decodeURIComponent(c.req.param("key"));
+  if (!c.env.CACHE) return c.json({ error: "kv_not_available" }, 503);
+  const dataUrl = await c.env.CACHE.get(key);
+  if (!dataUrl) return c.json({ error: "not_found" }, 404);
+
+  const match = dataUrl.match(/^data:([^;]+);base64,(.+)$/);
+  if (!match) return c.json({ error: "corrupt" }, 500);
+  const contentType = match[1] ?? "application/octet-stream";
+  const b64 = match[2] ?? "";
+  const binary = Uint8Array.from(atob(b64), (ch) => ch.charCodeAt(0));
+  return new Response(binary, {
+    headers: {
+      "content-type": contentType,
+      "cache-control": "private, no-store",
+    },
+  });
+});
+
+// Phone verification — OTP via KV (6-digit code, 10-min TTL).
+// No SMS provider needed: in dev the code is returned in the response body.
+// In production, wire to a Twilio/vonage webhook here.
+route.post("/send-phone-otp", authLimiter, async (c) => {
+  const userOrResp = await requireUser(c);
+  if (userOrResp instanceof Response) return userOrResp;
+  if (userOrResp.phone_verified_at) return c.json({ ok: true, already: true });
+
+  const body = await c.req.json().catch(() => null);
+  const parsed = z.object({ phone: z.string().min(6).max(20) }).safeParse(body);
+  if (!parsed.success) return c.json({ error: "bad_request", message: "Número de teléfono inválido" }, 400);
+
+  const otp = String(Math.floor(100000 + Math.random() * 900000));
+  const kvKey = `phone_otp:${userOrResp.id}`;
+
+  if (c.env.CACHE) {
+    await c.env.CACHE.put(kvKey, JSON.stringify({ otp, phone: parsed.data.phone }), { expirationTtl: 600 });
+  }
+
+  // Update phone field with the submitted number
+  await c.var.store.updateUser(userOrResp.id, { phone: parsed.data.phone });
+
+  // In production, send SMS here. For now, return code only in non-prod.
+  const isDev = c.env.ENVIRONMENT !== "production";
+  console.log(`[phone-otp] ${parsed.data.phone} → ${otp}`);
+  return c.json({ ok: true, ...(isDev ? { otp } : {}) });
+});
+
+route.post("/verify-phone-otp", authLimiter, async (c) => {
+  const userOrResp = await requireUser(c);
+  if (userOrResp instanceof Response) return userOrResp;
+  if (userOrResp.phone_verified_at) return c.json({ ok: true, already: true });
+
+  const body = await c.req.json().catch(() => null);
+  const parsed = z.object({ otp: z.string().length(6) }).safeParse(body);
+  if (!parsed.success) return c.json({ error: "bad_request", message: "Código inválido" }, 400);
+
+  if (!c.env.CACHE) return c.json({ error: "service_unavailable" }, 503);
+  const stored = await c.env.CACHE.get(`phone_otp:${userOrResp.id}`);
+  if (!stored) return c.json({ error: "otp_expired", message: "El código ha expirado. Solicita uno nuevo." }, 410);
+
+  const { otp } = JSON.parse(stored) as { otp: string; phone: string };
+  if (otp !== parsed.data.otp) return c.json({ error: "otp_invalid", message: "Código incorrecto" }, 400);
+
+  await c.env.CACHE.delete(`phone_otp:${userOrResp.id}`);
+  const user = await c.var.store.markPhoneVerified(userOrResp.id);
+  return c.json({ ok: true, user });
 });
 
 export default route;

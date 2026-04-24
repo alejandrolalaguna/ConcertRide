@@ -91,7 +91,10 @@ export default function DevShowcase() {
     referral_count: 0,
     tos_accepted_at: "2025-06-14T10:00:00.000Z",
     email_verified_at: "2025-06-14T10:00:00.000Z",
+    phone_verified_at: null,
     deleted_at: null,
+    banned_at: null,
+    ban_reason: null,
     created_at: "2025-06-14T10:00:00.000Z",
   };
 

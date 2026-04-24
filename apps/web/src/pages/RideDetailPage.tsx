@@ -116,6 +116,23 @@ export default function RideDetailPage() {
       .catch(() => setConfirmedPassengers([]));
   }, [id, myRequest?.status]);
 
+  if (error === "load_failed") {
+    return (
+      <main className="min-h-dvh flex items-center justify-center px-6 bg-cr-bg">
+        <div className="text-center space-y-4 max-w-md">
+          <p className="font-display text-3xl uppercase text-cr-text-muted">Error al cargar</p>
+          <p className="font-sans text-sm text-cr-text-dim">No se pudo cargar el viaje. Inténtalo de nuevo.</p>
+          <Link
+            to="/"
+            className="inline-block font-sans text-xs font-semibold uppercase tracking-[0.12em] text-cr-primary border-b border-cr-primary pb-0.5"
+          >
+            ← Volver al inicio
+          </Link>
+        </div>
+      </main>
+    );
+  }
+
   if (error === "ride_not_found") {
     return (
       <main className="min-h-dvh flex items-center justify-center px-6 bg-cr-bg">

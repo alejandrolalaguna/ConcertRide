@@ -17,6 +17,7 @@ export default function MyRidesPage() {
   const [driverRides, setDriverRides] = useState<Ride[]>([]);
   const [passengerRequests, setPassengerRequests] = useState<PassengerRequest[]>([]);
   const [loading, setLoading] = useState(true);
+  const [loadError, setLoadError] = useState(false);
   const [tab, setTab] = useState<Tab>("upcoming");
 
   useSeoMeta({
@@ -29,6 +30,7 @@ export default function MyRidesPage() {
   useEffect(() => {
     if (sessionLoading || !user) return;
     setLoading(true);
+    setLoadError(false);
     api.rides
       .listMine()
       .then((r) => {
@@ -38,6 +40,7 @@ export default function MyRidesPage() {
       .catch(() => {
         setDriverRides([]);
         setPassengerRequests([]);
+        setLoadError(true);
       })
       .finally(() => setLoading(false));
   }, [user, sessionLoading]);
@@ -99,6 +102,11 @@ export default function MyRidesPage() {
       <div className="max-w-5xl mx-auto px-6 pb-24 pt-8 space-y-12">
         {loading ? (
           <LoadingSpinner text="Cargando viajes…" />
+        ) : loadError ? (
+          <div className="py-24 text-center space-y-2">
+            <p className="font-display text-2xl uppercase text-cr-text-muted">Error al cargar</p>
+            <p className="font-sans text-sm text-cr-text-dim">No se pudieron cargar tus viajes. Inténtalo de nuevo.</p>
+          </div>
         ) : isEmpty ? (
           <div className="border border-dashed border-cr-border p-10 text-center space-y-3">
             <p className="font-display text-2xl uppercase text-cr-text-muted">

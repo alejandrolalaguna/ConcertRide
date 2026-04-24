@@ -2,7 +2,7 @@ import { Hono } from "hono";
 import { z } from "zod";
 import type { MessagesResponse, RequestStatus, ReviewsResponse, RidesResponse } from "@concertride/types";
 import type { HonoEnv } from "../types";
-import { requireUser } from "../lib/identity";
+import { requireUser, requireVerifiedEmail } from "../lib/identity";
 import { notifyUser } from "../lib/notify";
 import {
   sendDemandMatchEmail,
@@ -115,23 +115,11 @@ route.get("/:id", async (c) => {
 });
 
 route.post("/", async (c) => {
-  const userOrResp = await requireUser(c);
-  if (userOrResp instanceof Response) return userOrResp;
-
   // Trust gates:
-  //  1. Email verified → anti-spam, anti-fraud (banned accounts can't respawn
-  //     with arbitrary email)
+  //  1. Email verified → anti-spam, anti-fraud
   //  2. License verified → coherence of the "verified drivers" value prop
-  if (!userOrResp.email_verified_at) {
-    return c.json(
-      {
-        error: "email_not_verified",
-        message:
-          "Verifica tu email antes de publicar un viaje. Revisa tu bandeja de entrada o reenvíalo desde Mi perfil.",
-      },
-      403,
-    );
-  }
+  const userOrResp = await requireVerifiedEmail(c);
+  if (userOrResp instanceof Response) return userOrResp;
   if (!userOrResp.license_verified) {
     return c.json(
       {
@@ -184,18 +172,8 @@ route.post("/", async (c) => {
 });
 
 route.post("/:id/request", async (c) => {
-  const userOrResp = await requireUser(c);
+  const userOrResp = await requireVerifiedEmail(c);
   if (userOrResp instanceof Response) return userOrResp;
-
-  if (!userOrResp.email_verified_at) {
-    return c.json(
-      {
-        error: "email_not_verified",
-        message: "Verifica tu email antes de reservar una plaza.",
-      },
-      403,
-    );
-  }
 
   const ride = await c.var.store.getRide(c.req.param("id"));
   if (!ride) return c.json({ error: "ride_not_found" }, 404);
@@ -244,18 +222,8 @@ route.post("/:id/request", async (c) => {
 });
 
 route.post("/:id/book", async (c) => {
-  const userOrResp = await requireUser(c);
+  const userOrResp = await requireVerifiedEmail(c);
   if (userOrResp instanceof Response) return userOrResp;
-
-  if (!userOrResp.email_verified_at) {
-    return c.json(
-      {
-        error: "email_not_verified",
-        message: "Verifica tu email antes de reservar una plaza.",
-      },
-      403,
-    );
-  }
 
   const ride = await c.var.store.getRide(c.req.param("id"));
   if (!ride) return c.json({ error: "ride_not_found" }, 404);

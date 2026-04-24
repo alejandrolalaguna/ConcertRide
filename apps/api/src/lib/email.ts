@@ -289,6 +289,85 @@ export function sendDemandMatchEmail(
   return sendEmail(env, { to: email, subject, html });
 }
 
+// ── License review submitted → admin notification ────────────────────────
+export function sendLicenseReviewAdminEmail(
+  env: Env,
+  args: {
+    userName: string;
+    userId: string;
+    reviewId: string;
+    fileUrl: string;
+  },
+): Promise<SendResult> {
+  const subject = `[Admin] Nuevo carnet para verificar — ${args.userName}`;
+  const adminUrl = `https://concertride.es/admin`;
+  const html = shell(
+    subject,
+    `Acción requerida: revisar carnet`,
+    `
+    <h1 style="font-family:Georgia,serif;font-size:24px;line-height:1.15;margin:0 0 12px 0;">Nuevo carnet de conducir pendiente.</h1>
+    <p style="color:#ccc;margin:0 0 8px 0;line-height:1.6;font-size:15px;"><strong style="color:#DBFF00;">${escapeHtml(args.userName)}</strong> (ID: ${escapeHtml(args.userId)}) ha enviado su carnet para verificación.</p>
+    <p style="color:#ccc;margin:0 0 24px 0;line-height:1.6;font-size:15px;">Review ID: <code style="color:#DBFF00;">${escapeHtml(args.reviewId)}</code></p>
+    <p style="margin:0 0 12px 0;">${cta(args.fileUrl, "Ver documento")}</p>
+    <p style="margin:0 0 24px 0;">${cta(adminUrl, "Ir al panel admin")}</p>
+    `,
+  );
+  return sendEmail(env, { to: env.SUPPORT_EMAIL, subject, html });
+}
+
+// ── License review result → conductor ────────────────────────────────────
+export function sendLicenseReviewResultEmail(
+  env: Env,
+  email: string,
+  args: {
+    name: string;
+    approved: boolean;
+    reason?: string;
+  },
+): Promise<SendResult> {
+  const subject = args.approved
+    ? "Tu carnet ha sido verificado ✓"
+    : "Tu carnet no ha podido ser verificado";
+  const html = shell(
+    subject,
+    args.approved ? "¡Ya puedes publicar viajes!" : "Puedes intentarlo de nuevo",
+    args.approved
+      ? `
+    <h1 style="font-family:Georgia,serif;font-size:28px;line-height:1.15;margin:0 0 12px 0;">Carnet verificado. 🎉</h1>
+    <p style="color:#ccc;margin:0 0 24px 0;line-height:1.6;font-size:15px;">Hola, ${escapeHtml(args.name)}. Hemos revisado tu carnet de conducir y todo está en orden. Ya puedes publicar viajes como conductor en ConcertRide.</p>
+    ${cta("https://concertride.es/publish", "Publicar mi primer viaje")}
+    `
+      : `
+    <h1 style="font-family:Georgia,serif;font-size:28px;line-height:1.15;margin:0 0 12px 0;">No hemos podido verificar tu carnet.</h1>
+    <p style="color:#ccc;margin:0 0 16px 0;line-height:1.6;font-size:15px;">Hola, ${escapeHtml(args.name)}. Lamentablemente no hemos podido verificar tu carnet de conducir.</p>
+    ${args.reason ? `<p style="color:#ccc;margin:0 0 24px 0;line-height:1.6;font-size:15px;"><strong>Motivo:</strong> ${escapeHtml(args.reason)}</p>` : ""}
+    <p style="color:#ccc;margin:0 0 24px 0;line-height:1.6;font-size:15px;">Puedes volver a intentarlo desde tu perfil subiendo una imagen más clara del documento.</p>
+    ${cta("https://concertride.es/profile", "Volver a intentarlo")}
+    `,
+  );
+  return sendEmail(env, { to: email, subject, html });
+}
+
+// ── Account ban notification → user ──────────────────────────────────────
+export function sendBanNotificationEmail(
+  env: Env,
+  email: string,
+  args: { name: string; reason: string },
+): Promise<SendResult> {
+  const subject = "Tu cuenta en ConcertRide ha sido suspendida";
+  const html = shell(
+    subject,
+    "Información sobre tu cuenta",
+    `
+    <h1 style="font-family:Georgia,serif;font-size:28px;line-height:1.15;margin:0 0 12px 0;">Cuenta suspendida.</h1>
+    <p style="color:#ccc;margin:0 0 16px 0;line-height:1.6;font-size:15px;">Hola, ${escapeHtml(args.name)}. Tu cuenta en ConcertRide ha sido suspendida por incumplimiento de nuestras normas de comunidad.</p>
+    <p style="color:#ccc;margin:0 0 24px 0;line-height:1.6;font-size:15px;"><strong>Motivo:</strong> ${escapeHtml(args.reason)}</p>
+    <p style="color:#888;font-size:13px;margin-top:24px;line-height:1.6;">Si crees que se trata de un error, responde a este correo con el asunto "Apelación de suspensión" y lo revisaremos.</p>
+    `,
+  );
+  return sendEmail(env, { to: email, subject, html });
+}
+
 // Legacy stub kept for backwards-compat with any old callers. Not wired.
 export function sendMagicLinkEmail(
   _env: Env,

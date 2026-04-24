@@ -131,6 +131,9 @@ export class MemoryStore implements StoreAdapter {
   private pushSubscriptions: Array<{ id: string; user_id: string; endpoint: string; p256dh: string; auth: string }> = [];
   private favorites: Array<Favorite & { user_id: string }> = [];
   private reports: Report[] = [];
+  private licenseReviews: import("@concertride/types").LicenseReview[] = [];
+  private bannedEmails: string[] = [];
+  private auditLog: import("@concertride/types").AdminAuditLogEntry[] = [];
 
   async getUser(id: string): Promise<User | null> {
     return this.users.find((u) => u.id === id) ?? null;
@@ -164,7 +167,10 @@ export class MemoryStore implements StoreAdapter {
       referral_count: 0,
       tos_accepted_at: null,
       email_verified_at: null,
+      phone_verified_at: null,
       deleted_at: null,
+      banned_at: null,
+      ban_reason: null,
       password_hash: null,
       password_salt: null,
       created_at: new Date().toISOString(),
@@ -200,7 +206,10 @@ export class MemoryStore implements StoreAdapter {
       referral_count: 0,
       tos_accepted_at: new Date().toISOString(),
       email_verified_at: null,
+      phone_verified_at: null,
       deleted_at: null,
+      banned_at: null,
+      ban_reason: null,
       password_hash: hash,
       password_salt: salt,
       created_at: new Date().toISOString(),
@@ -1026,6 +1035,110 @@ export class MemoryStore implements StoreAdapter {
     if (!report) return null;
     report.status = status;
     return report;
+  }
+
+  async getAdminStats(): Promise<import("./adapter").AdminStats> {
+    return {
+      users: { total: this.users.length, verified_email: 0, license_verified: 0, new_last_7d: 0 },
+      rides: { total_active: this.rides.filter((r) => r.status === "active").length, total_all_time: this.rides.length, published_last_7d: 0, seats_available: 0 },
+      bookings: { confirmed_all_time: 0, confirmed_last_7d: 0, pending: 0 },
+      concerts: { total: 0, upcoming: 0, with_active_rides: 0 },
+      top_cities: [],
+    };
+  }
+
+  async createLicenseReview(userId: string, fileKvKey: string): Promise<import("@concertride/types").LicenseReview> {
+    const review: import("@concertride/types").LicenseReview = {
+      id: `lr_${crypto.randomUUID().slice(0, 10)}`,
+      user_id: userId,
+      file_kv_key: fileKvKey,
+      status: "pending",
+      rejection_reason: null,
+      submitted_at: new Date().toISOString(),
+      reviewed_at: null,
+    };
+    this.licenseReviews.push(review);
+    return review;
+  }
+
+  async listLicenseReviews(
+    filter?: { status?: "pending" | "approved" | "rejected" },
+  ): Promise<Array<import("@concertride/types").LicenseReview & { user: User | null }>> {
+    const reviews = filter?.status
+      ? this.licenseReviews.filter((r) => r.status === filter.status)
+      : [...this.licenseReviews];
+    return reviews.map((r) => ({ ...r, user: this.users.find((u) => u.id === r.user_id) ?? null }));
+  }
+
+  async approveLicenseReview(
+    reviewId: string,
+  ): Promise<{ review: import("@concertride/types").LicenseReview; user: User | null }> {
+    const review = this.licenseReviews.find((r) => r.id === reviewId);
+    if (!review) throw new Error("license_review_not_found");
+    review.status = "approved";
+    review.reviewed_at = new Date().toISOString();
+    const user = await this.verifyLicense(review.user_id);
+    return { review, user };
+  }
+
+  async rejectLicenseReview(reviewId: string, reason: string): Promise<import("@concertride/types").LicenseReview | null> {
+    const review = this.licenseReviews.find((r) => r.id === reviewId);
+    if (!review) return null;
+    review.status = "rejected";
+    review.rejection_reason = reason;
+    review.reviewed_at = new Date().toISOString();
+    return review;
+  }
+
+  async banUser(_adminId: string, userId: string, reason: string): Promise<User | null> {
+    const user = this.users.find((u) => u.id === userId);
+    if (!user) return null;
+    user.banned_at = new Date().toISOString();
+    user.ban_reason = reason;
+    this.bannedEmails.push(user.email.toLowerCase());
+    return user;
+  }
+
+  async unbanUser(_adminId: string, userId: string): Promise<User | null> {
+    const user = this.users.find((u) => u.id === userId);
+    if (!user) return null;
+    user.banned_at = null;
+    user.ban_reason = null;
+    this.bannedEmails = this.bannedEmails.filter((e) => e !== user.email.toLowerCase());
+    return user;
+  }
+
+  async isEmailBanned(email: string): Promise<boolean> {
+    return this.bannedEmails.includes(email.toLowerCase());
+  }
+
+  async logAdminAction(
+    adminId: string,
+    action: import("@concertride/types").AdminAuditAction,
+    targetUserId?: string,
+    details?: string,
+  ): Promise<import("@concertride/types").AdminAuditLogEntry> {
+    const entry: import("@concertride/types").AdminAuditLogEntry = {
+      id: `al_${crypto.randomUUID().slice(0, 10)}`,
+      admin_id: adminId,
+      action,
+      target_user_id: targetUserId ?? null,
+      details: details ?? null,
+      created_at: new Date().toISOString(),
+    };
+    this.auditLog.unshift(entry);
+    return entry;
+  }
+
+  async listAdminAuditLog(limit = 100): Promise<import("@concertride/types").AdminAuditLogEntry[]> {
+    return this.auditLog.slice(0, limit);
+  }
+
+  async markPhoneVerified(userId: string): Promise<User | null> {
+    const user = this.users.find((u) => u.id === userId);
+    if (!user) return null;
+    user.phone_verified_at = new Date().toISOString();
+    return user;
   }
 }
 
