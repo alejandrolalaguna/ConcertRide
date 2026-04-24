@@ -30,6 +30,8 @@ const HowItWorksPage = lazy(() => import("./pages/HowItWorksPage"));
 const ContactoPage = lazy(() => import("./pages/ContactoPage"));
 const AcercaDePage = lazy(() => import("./pages/AcercaDePage"));
 const CityLandingPage = lazy(() => import("./pages/CityLandingPage"));
+const FestivalLandingPage = lazy(() => import("./pages/FestivalLandingPage"));
+const GuiaTransporteFestivalesPage = lazy(() => import("./pages/GuiaTransporteFestivalesPage"));
 const NotFoundPage = lazy(() => import("./pages/NotFoundPage"));
 const DevShowcase = lazy(() => import("./pages/DevShowcase"));
 
@@ -51,6 +53,8 @@ export default function App() {
             <Route path="/concerts" element={<ConcertsPage />} />
             <Route path="/concerts/:id" element={<ConcertDetailPage />} />
             <Route path="/conciertos/:city" element={<CityLandingPage />} />
+            <Route path="/festivales/:festival" element={<FestivalLandingPage />} />
+            <Route path="/guia-transporte-festivales" element={<GuiaTransporteFestivalesPage />} />
             <Route path="/rides/:id" element={<RideDetailPage />} />
             <Route path="/publish" element={<PublishRidePage />} />
             <Route path="/login" element={<LoginPage />} />

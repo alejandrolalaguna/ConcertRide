@@ -5,7 +5,7 @@ export function Footer() {
 
   return (
     <footer className="border-t border-cr-border bg-cr-bg text-cr-text">
-      <div className="max-w-6xl mx-auto px-6 py-12 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-10">
+      <div className="max-w-6xl mx-auto px-6 py-12 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-10">
         <div className="space-y-4">
           <p className="font-display text-lg uppercase tracking-[0.06em]">
             Concert<span className="text-cr-primary">Ride</span>
@@ -54,6 +54,12 @@ export function Footer() {
               Cómo funciona
             </Link>
             <Link
+              to="/guia-transporte-festivales"
+              className="font-sans text-xs text-cr-text-muted hover:text-cr-primary transition-colors"
+            >
+              Guía de transporte
+            </Link>
+            <Link
               to="/faq"
               className="font-sans text-xs text-cr-text-muted hover:text-cr-primary transition-colors"
             >
@@ -70,6 +76,62 @@ export function Footer() {
               className="font-sans text-xs text-cr-text-muted hover:text-cr-primary transition-colors"
             >
               Contacto
+            </Link>
+          </nav>
+        </div>
+
+        <div>
+          <p className="font-sans text-[10px] font-semibold uppercase tracking-[0.16em] text-cr-text-muted mb-4">
+            Festivales
+          </p>
+          <nav className="flex flex-col gap-2">
+            <Link
+              to="/festivales/mad-cool"
+              className="font-sans text-xs text-cr-text-muted hover:text-cr-primary transition-colors"
+            >
+              Mad Cool
+            </Link>
+            <Link
+              to="/festivales/primavera-sound"
+              className="font-sans text-xs text-cr-text-muted hover:text-cr-primary transition-colors"
+            >
+              Primavera Sound
+            </Link>
+            <Link
+              to="/festivales/sonar"
+              className="font-sans text-xs text-cr-text-muted hover:text-cr-primary transition-colors"
+            >
+              Sónar
+            </Link>
+            <Link
+              to="/festivales/fib"
+              className="font-sans text-xs text-cr-text-muted hover:text-cr-primary transition-colors"
+            >
+              FIB Benicàssim
+            </Link>
+            <Link
+              to="/festivales/bbk-live"
+              className="font-sans text-xs text-cr-text-muted hover:text-cr-primary transition-colors"
+            >
+              BBK Live
+            </Link>
+            <Link
+              to="/festivales/resurrection-fest"
+              className="font-sans text-xs text-cr-text-muted hover:text-cr-primary transition-colors"
+            >
+              Resurrection Fest
+            </Link>
+            <Link
+              to="/festivales/vina-rock"
+              className="font-sans text-xs text-cr-text-muted hover:text-cr-primary transition-colors"
+            >
+              Viña Rock
+            </Link>
+            <Link
+              to="/festivales/arenal-sound"
+              className="font-sans text-xs text-cr-text-muted hover:text-cr-primary transition-colors"
+            >
+              Arenal Sound
             </Link>
           </nav>
         </div>

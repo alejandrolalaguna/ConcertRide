@@ -49,11 +49,11 @@ export default function ConcertDetailPage() {
       ? `Viajes a ${concert.artist} en ${concert.venue.name} — ConcertRide ES`
       : "Concierto — ConcertRide ES",
     description: concert
-      ? `Encuentra un viaje compartido para ver a ${concert.artist} en ${concert.venue.name}, ${concert.venue.city}. Divide el coste y llega al concierto desde cualquier ciudad.`
+      ? `Viaje compartido para ver a ${concert.artist} en ${concert.venue.name} (${concert.venue.city}). Carpooling desde cualquier ciudad, sin comisión, conductores verificados. Divide el coste con otros fans.`
       : "Encuentra un viaje compartido para ir al concierto en España.",
     canonical: id ? `https://concertride.es/concerts/${id}` : undefined,
     keywords: concert
-      ? `${concert.artist}, concierto ${concert.venue.city}, viaje compartido ${concert.artist}, carpooling ${concert.venue.city}, ${concert.genre ?? "conciertos"} España`
+      ? `${concert.artist}, cómo ir a ${concert.artist}, viaje compartido ${concert.artist}, carpooling ${concert.venue.city}, transporte ${concert.artist} ${concert.venue.city}, coche compartido ${concert.venue.name}, concierto ${concert.venue.city} 2026, ${concert.genre ?? "conciertos"} España, compartir coche ${concert.venue.city}`
       : undefined,
     ogImage: concert?.image_url ?? undefined,
     ogType: "article",

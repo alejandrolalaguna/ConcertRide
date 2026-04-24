@@ -7,6 +7,7 @@ import { ConcertCard } from "@/components/ConcertCard";
 import { LoadingSpinner } from "@/components/ui";
 import { useSeoMeta } from "@/lib/useSeoMeta";
 import { CITY_LANDINGS, CITY_LANDINGS_BY_SLUG } from "@/lib/cityLandings";
+import { FESTIVAL_LANDINGS } from "@/lib/festivalLandings";
 
 export default function CityLandingPage() {
   const { city: slug } = useParams<{ city: string }>();
@@ -224,6 +225,31 @@ export default function CityLandingPage() {
           </Link>
         </div>
       </section>
+
+      {/* Festival hub for this city — internal linking to festival pages */}
+      {(() => {
+        const cityFestivals = FESTIVAL_LANDINGS.filter((f) => f.citySlug === landing.slug);
+        if (cityFestivals.length === 0) return null;
+        return (
+          <section className="max-w-6xl mx-auto px-6 pb-12 border-t border-cr-border pt-10">
+            <h2 className="font-display text-lg uppercase text-cr-text-muted mb-4">
+              Festivales en {landing.display}
+            </h2>
+            <ul className="flex flex-wrap gap-2">
+              {cityFestivals.map((f) => (
+                <li key={f.slug}>
+                  <Link
+                    to={`/festivales/${f.slug}`}
+                    className="inline-flex items-center gap-1.5 font-sans text-xs text-cr-text-muted hover:text-cr-primary border border-cr-border hover:border-cr-primary px-3 py-1.5 transition-colors"
+                  >
+                    Cómo ir a {f.shortName} →
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </section>
+        );
+      })()}
 
       {/* Internal link hub to other city landings — helps SEO crawl + user nav */}
       <section className="max-w-6xl mx-auto px-6 pb-24 border-t border-cr-border pt-10">

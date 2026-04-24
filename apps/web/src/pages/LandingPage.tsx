@@ -10,6 +10,7 @@ import { HowItWorks } from "@/components/HowItWorks";
 import { AdhocRidesSection } from "@/components/landing/AdhocRidesSection";
 import { MapSection } from "@/components/landing/MapSection";
 import { TrustSection } from "@/components/landing/TrustSection";
+import { TestimonialsSection } from "@/components/landing/TestimonialsSection";
 import { FinalCTA } from "@/components/landing/FinalCTA";
 import { PastConcertsSection } from "@/components/landing/PastConcertsSection";
 
@@ -19,7 +20,7 @@ export default function LandingPage() {
     description:
       "Carpooling para conciertos en España. Comparte coche, divide gastos y llega seguro. Publica un viaje o busca uno en 2 minutos. Gratis, sin comisiones.",
     canonical: "https://concertride.es/",
-    keywords: "carpooling conciertos España, viajes compartidos festivales, BlaBlaCar conciertos, transporte a conciertos, coche compartido música, ride-sharing festivales",
+    keywords: "carpooling conciertos España, viajes compartidos festivales, BlaBlaCar conciertos, transporte a conciertos, coche compartido música, ride-sharing festivales, deja tu coche en casa festival, compartir coche festival España, alternativa taxi concierto, volver festival madrugada, movilidad sostenible festival, compartir gastos festival, ir al festival sin coche",
     ogType: "website",
   });
 
@@ -106,7 +107,7 @@ export default function LandingPage() {
       <AdhocRidesSection />
       {mapConcerts.length > 0 && <MapSection concerts={mapConcerts} rides={mapRides} />}
       <TrustSection />
-      {/* Eliminada la sección de conciertos pasados */}
+      <TestimonialsSection />
       <FinalCTA />
     </main>
   );

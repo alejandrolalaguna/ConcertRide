@@ -58,6 +58,8 @@ export default function HowItWorksPage() {
     description:
       "Guía paso a paso: cómo reservar plaza en un viaje compartido a un concierto o cómo publicar tu propio viaje en ConcertRide ES. Gratis, sin comisiones, con conductores verificados.",
     canonical: "https://concertride.es/como-funciona",
+    keywords:
+      "cómo funciona carpooling conciertos, cómo reservar viaje compartido concierto, cómo publicar viaje a festival, compartir coche concierto España, cómo ir al concierto en coche compartido, carpooling festival sin comisión, conductor verificado concierto",
   });
 
   return (

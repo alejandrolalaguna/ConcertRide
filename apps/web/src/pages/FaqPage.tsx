@@ -63,16 +63,74 @@ const FAQS: Array<{ q: string; a: string }> = [
     q: "¿Tengo que crear cuenta para usar la plataforma?",
     a: "No para explorar conciertos y ver viajes. Sí para publicar un viaje o reservar una plaza (necesitamos tu email verificado). El registro es gratis, solo pide nombre + email + contraseña + aceptar los términos. Sin tarjeta de crédito, sin verificación de teléfono.",
   },
+  {
+    q: "¿Puedo ir a un festival sin coche propio?",
+    a: "Sí, ese es el uso principal de ConcertRide. Busca el festival en el catálogo, elige un viaje publicado desde tu ciudad y reserva una plaza. El conductor te recoge en un punto acordado. El 80 % de los pasajeros de ConcertRide no tiene coche propio o prefiere no conducir al festival.",
+  },
+  {
+    q: "¿Cuál es la alternativa al taxi para volver de un concierto de noche?",
+    a: "El carpooling de ConcertRide. Los conciertos suelen terminar entre las 23:00 y las 02:00, cuando el transporte público es escaso y los taxis cuestan 30–60 €. Con ConcertRide, varios fans que vienen del mismo sitio comparten el viaje de vuelta — precio habitual 8–15 € por asiento desde ciudades cercanas.",
+  },
+  {
+    q: "¿Cómo compartir los gastos del viaje a un concierto?",
+    a: "Publica un viaje en ConcertRide indicando tu ruta, hora y precio por asiento (te sugerimos el precio justo según km y precio real del combustible MITECO). Los pasajeros reservan y te pagan en efectivo o Bizum el día del viaje. Típicamente, 3 pasajeros a 10 € cada uno cubren la gasolina de un trayecto de 200 km.",
+  },
+  {
+    q: "¿Hay autobuses directos a los festivales de España?",
+    a: "Pocos. Algunos festivales organizan shuttles pagados desde la ciudad más cercana, pero los horarios son limitados y se agotan. Desde ciudades más distantes (Madrid, Barcelona, Valencia) no existe transporte público directo a recintos como Resurrection Fest (Viveiro), Arenal Sound (Burriana) o Viña Rock (Villarrobledo). ConcertRide cubre específicamente estos trayectos que el transporte público no cubre.",
+  },
+  {
+    q: "¿ConcertRide funciona para conciertos individuales además de festivales?",
+    a: "Sí. Aunque los festivales concentran la mayoría del tráfico, ConcertRide funciona para cualquier concierto en recintos con difícil acceso nocturno: WiZink Center (Madrid), Palau Sant Jordi (Barcelona), Kobetamendi (Bilbao), etc. Puedes buscar cualquier artista o sala en el catálogo.",
+  },
+  {
+    q: "¿Cómo sé que el conductor es de confianza?",
+    a: "Tres capas de verificación: (1) email verificado obligatorio para todos los usuarios; (2) foto del carnet de conducir verificada manualmente antes de publicar el primer viaje; (3) sistema de valoraciones 1–5 estrellas con reseñas de pasajeros anteriores, visibles en el perfil público. Puedes ver con quién más va el viaje antes de reservar.",
+  },
+  {
+    q: "¿Cómo volver del festival de madrugada?",
+    a: "Es la pregunta clave. Los festivales acaban entre la 1:00 y las 4:00 de la mañana, cuando el metro ya cerró o está saturado y los taxis cuestan 60–100 €. Con ConcertRide, publicas o buscas viaje de vuelta con antelación: acuerda la hora de salida con el conductor (ej. «salimos cuando acabe el último bolo, sobre las 2:30») y te recoge en el punto pactado. No dependes de nada ni de nadie.",
+  },
+  {
+    q: "¿Cuál es la diferencia entre ConcertRide y los buses de festival (BusForfun, DeFestivales, Festymas)?",
+    a: "Los buses de festival (BusForfun, DeFestivales, Festymas, Divertis en Vivo) son autocares organizados desde unas pocas ciudades, con horarios fijos, que suelen agotarse semanas antes. ConcertRide es carpooling entre particulares: sale desde tu calle, a la hora que acordáis, y cuesta entre 3 y 20 € según la distancia. No hay plazas limitadas —cualquiera puede publicar un viaje desde cualquier ciudad.",
+  },
+  {
+    q: "¿ConcertRide es más sostenible que ir en coche solo?",
+    a: "Sí. Un coche con 4 pasajeros emite un 75 % menos CO₂ por persona que ir solo. Los festivales de música generan el 80 % de su huella de carbono a través del transporte de los asistentes (fuente: estudios de movilidad de festivales europeos). Compartir coche a través de ConcertRide elimina decenas de coches de la carretera por cada viaje compartido.",
+  },
+  {
+    q: "¿Qué es la Zona de Bajas Emisiones (ZBE) de Madrid y cómo afecta para ir a festivales?",
+    a: "La ZBE de Madrid Centro restringe el acceso a coches sin etiqueta ambiental. IFEMA (Mad Cool, Tomavistas) está fuera de la ZBE, así que puedes llegar en cualquier vehículo. Sin embargo, muchos fans de Madrid prefieren ConcertRide para evitar el parking saturado de IFEMA (12–18 €/día) y salir en grupo directamente desde el barrio.",
+  },
+  {
+    q: "¿Puedo ir al festival en grupo con una furgoneta compartida?",
+    a: "Sí. Muchos conductores publican viajes en furgoneta de 7–9 plazas en ConcertRide. Es la opción más económica para grupos de amigos: dividir la gasolina de una furgoneta entre 7 personas sale a 3–8 € por persona incluso desde 300 km. Busca en la ficha del concierto los viajes con mayor número de plazas.",
+  },
+  {
+    q: "¿Puedo ganar dinero llevando gente a conciertos y festivales?",
+    a: "No es para ganar dinero, sino para no perderlo. Por ley, un conductor no puede cobrar más del coste proporcional del viaje (combustible + peajes dividido entre todos). En la práctica: si vas al festival de todas formas y publicas 3 plazas, los pasajeros te cubren la gasolina de ida y vuelta, convirtiendo un viaje de 40 € en gasolina en un viaje gratis. Es la razón principal por la que los conductores publican viajes.",
+  },
+  {
+    q: "¿Qué hago si no encuentro ningún viaje a mi concierto?",
+    a: "Activa el botón 'Me interesa un viaje' en la ficha del concierto. Esto registra tu demanda: el sistema la muestra a posibles conductores (con el contador 'X personas buscan viaje') y te notifica por email y push en cuanto alguien publique un viaje desde tu ciudad. Cuantas más personas marquen interés, más probable es que aparezca un conductor.",
+  },
+  {
+    q: "¿Cómo se compara ConcertRide con BlaBlaCar para ir a festivales?",
+    a: "BlaBlaCar es un servicio ciudad-a-ciudad genérico con comisión del 12–18 %. ConcertRide es exclusivo para conciertos: el viaje está sincronizado con el horario del evento, ves a qué show van los otros pasajeros, puedes chatear en el chat del concierto antes de reservar, y el 100 % del precio va al conductor. Además, BlaBlaCar no tiene catálogo de festivales ni filtros por evento.",
+  },
 ];
 
 export default function FaqPage() {
   const [open, setOpen] = useState<number | null>(0);
 
   useSeoMeta({
-    title: "Preguntas frecuentes (FAQ)",
+    title: "Preguntas frecuentes — Carpooling para conciertos y festivales",
     description:
-      "Respuestas a las preguntas más frecuentes sobre ConcertRide ES: qué es, cuánto cuesta, cómo reservar plaza, cómo publicar viaje, seguridad, cancelaciones y más.",
+      "FAQ completo sobre ConcertRide: cómo compartir coche a un festival, alternativa al taxi para volver de noche, diferencia con BusForfun y BlaBlaCar, sostenibilidad, ZBE Madrid y más.",
     canonical: "https://concertride.es/faq",
+    keywords:
+      "preguntas frecuentes carpooling conciertos, cómo compartir coche concierto, alternativa taxi concierto, transporte festival España, ir al festival sin coche, compartir gastos concierto, carpooling festival España, coche compartido festival, volver festival madrugada, autobús festival vs carpooling, movilidad sostenible festival, ZBE Madrid concierto, furgoneta compartida festival",
   });
 
   return (
