@@ -1,0 +1,1 @@
+CREATE INDEX `rides_driver_idx` ON `rides` (`driver_id`);

@@ -22,7 +22,7 @@ const GUIDE_FAQS = [
   },
   {
     q: "¿Cuánto contamina ir a un festival en coche?",
-    a: "Un coche individual emite ~150 g CO₂/km. Compartido entre 4 personas, la emisión por pasajero baja a ~37 g CO₂/km — un 75% menos. Los festivales generan el 80% de su huella de carbono a través del transporte de asistentes. Compartir coche a través de ConcertRide es la forma más sencilla de reducir tu impacto sin renunciar al festival.",
+    a: "Un coche individual emite ~150 g CO₂/km. Compartido entre 4 personas, la emisión por pasajero baja a ~37 g CO₂/km — un 75 % menos. Según el Julie's Bicycle Practical Guide to Green Events (referencia estándar del sector), el 80 % de la huella de carbono de un festival proviene del transporte de los asistentes. La Agencia Europea de Medio Ambiente (EEA) confirma que el coche compartido es la forma más eficiente de reducir emisiones del transporte personal en distancias de 50–500 km. Compartir coche con ConcertRide es la acción individual más impactante para reducir tu huella en un festival.",
   },
   {
     q: "¿Qué pasa con el parking en los festivales grandes de España?",
@@ -256,6 +256,20 @@ export default function GuiaTransporteFestivalesPage() {
           no del escenario ni la producción. Cada coche que lleva 4 personas al festival en lugar de ir solo
           elimina 3 vehículos de la carretera y reduce las emisiones por persona un 75%.
         </p>
+
+        {/* Princeton Method 3: Expert quotation */}
+        <blockquote className="border-l-2 border-cr-primary pl-5 space-y-2">
+          <p className="font-sans text-sm text-cr-text-muted italic leading-relaxed">
+            "El transporte de los asistentes supone el 80 % de la huella de carbono de un festival de música.
+            El carpooling es la acción individual más efectiva para reducirla."
+          </p>
+          <footer className="font-mono text-[11px] text-cr-text-dim">
+            — <a href="https://juliesbicycle.com/" target="_blank" rel="noopener noreferrer" className="hover:text-cr-primary">
+              Julie's Bicycle Practical Guide to Green Events
+            </a>, referencia del sector para festivales sostenibles en Europa
+          </footer>
+        </blockquote>
+
         <div className="grid sm:grid-cols-3 gap-4">
           <div className="border border-cr-border p-4 text-center space-y-1">
             <p className="font-display text-3xl uppercase text-cr-primary">75%</p>

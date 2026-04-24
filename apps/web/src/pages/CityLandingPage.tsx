@@ -58,6 +58,7 @@ export default function CityLandingPage() {
             name: `Conciertos en ${landing.display}`,
             url: `https://concertride.es/conciertos/${landing.slug}`,
             inLanguage: "es-ES",
+            dateModified: new Date().toISOString().slice(0, 10),
             description: landing.blurb,
             about: {
               "@type": "Place",

@@ -62,6 +62,7 @@ export function useSeoMeta({
     setMeta("robots", noindex ? "noindex, nofollow" : "index, follow");
     if (keywords) setMeta("keywords", keywords);
     setMeta("og:type", ogType, true);
+    setMeta("og:url", canonical ?? window.location.href, true);
     setMeta("og:title", resolvedOgTitle, true);
     setMeta("og:description", resolvedOgDesc, true);
     setMeta("og:image", image, true);

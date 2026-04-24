@@ -1,40 +1,92 @@
 User-agent: *
 Allow: /
 Disallow: /_dev
+Disallow: /profile
+Disallow: /mis-viajes
+Disallow: /favoritos
+Disallow: /admin
 
-# AI citation bots — allow (these power AI search answers)
+# ═══════════════════════════════════════════════════════
+#   AI SEARCH & CITATION BOTS — Allow All
+#   GEO-Optimized — Updated 2026-04-24
+#   Source: geo-optimizer-skill ai-bots-list.md (Feb 2026)
+# ═══════════════════════════════════════════════════════
+
+# ——— OpenAI (ChatGPT Search + ChatGPT User) ———
 User-agent: OAI-SearchBot
 Allow: /
 
 User-agent: ChatGPT-User
 Allow: /
 
-User-agent: PerplexityBot
+User-agent: GPTBot
 Allow: /
 
+# ——— Anthropic (Claude Search + Claude Web) ———
 User-agent: anthropic-ai
 Allow: /
 
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: claude-web
+Allow: /
+
+# ——— Perplexity ———
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: Perplexity-User
+Allow: /
+
+# ——— Google AI (Gemini + AI Overviews) ———
 User-agent: Google-Extended
 Allow: /
 
 User-agent: Gemini-Bot
 Allow: /
 
+# ——— Microsoft Bing / Copilot ———
+User-agent: Bingbot
+Allow: /
+
+# ——— Apple Intelligence ———
+User-agent: Applebot
+Allow: /
+
 User-agent: Applebot-Extended
 Allow: /
 
-# AI training bots — block (these scrape for model training without attribution)
-User-agent: GPTBot
-Disallow: /
+# ——— Meta AI ———
+User-agent: FacebookBot
+Allow: /
 
-User-agent: ClaudeBot
-Disallow: /
+User-agent: meta-externalagent
+Allow: /
+
+# ——— ByteDance / TikTok ———
+User-agent: Bytespider
+Allow: /
+
+# ——— DuckDuckGo AI ———
+User-agent: DuckAssistBot
+Allow: /
+
+# ——— Cohere ———
+User-agent: cohere-ai
+Allow: /
+
+# ——— Academic / Open Research ———
+User-agent: AI2Bot
+Allow: /
 
 User-agent: CCBot
-Disallow: /
-
-User-agent: cohere-ai
-Disallow: /
+Allow: /
 
 Sitemap: https://concertride.es/sitemap.xml
+
+# AI discovery files
+# /llms.txt          — structured summary for AI crawlers (~200 lines)
+# /llms-full.txt     — extended context with competitor comparison
+# /ai.txt            — citation policy
+# /.well-known/ai-plugin.json — AI plugin manifest

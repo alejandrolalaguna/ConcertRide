@@ -132,12 +132,53 @@ export default function FestivalLandingPage() {
     ],
   };
 
+  const jsonLdHowTo = {
+    "@context": "https://schema.org",
+    "@type": "HowTo",
+    name: `Cómo ir a ${festival.name} en carpooling`,
+    description: `Guía paso a paso para encontrar y reservar un viaje compartido a ${festival.name} desde cualquier ciudad de España.`,
+    totalTime: "PT10M",
+    estimatedCost: {
+      "@type": "MonetaryAmount",
+      currency: "EUR",
+      value: festival.originCities[0]?.concertRideRange?.split("–")[0] ?? "3",
+    },
+    step: [
+      {
+        "@type": "HowToStep",
+        position: 1,
+        name: "Busca el festival en ConcertRide",
+        text: `Entra en concertride.es/concerts y filtra por ciudad (${festival.city}) o busca directamente "${festival.shortName}". Verás los viajes publicados con precio por asiento.`,
+        url: "https://concertride.es/concerts",
+      },
+      {
+        "@type": "HowToStep",
+        position: 2,
+        name: "Elige el viaje que más te convenga",
+        text: "Compara precio por asiento, ciudad de salida, hora de partida y perfil del conductor. Puedes leer las valoraciones de otros pasajeros.",
+      },
+      {
+        "@type": "HowToStep",
+        position: 3,
+        name: "Solicita tu plaza",
+        text: "Si el conductor tiene reserva instantánea, tu plaza queda confirmada al momento. Si no, el conductor revisa tu solicitud en pocas horas.",
+      },
+      {
+        "@type": "HowToStep",
+        position: 4,
+        name: "Viaja y paga en persona",
+        text: `El día del festival, te encuentras con el conductor en el punto acordado. Pagas en efectivo o Bizum directamente al conductor. Sin comisiones, sin plataforma de por medio.`,
+      },
+    ],
+  };
+
   return (
     <main id="main" className="min-h-dvh bg-cr-bg text-cr-text pt-14">
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdEvent) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdSeries) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdFaq) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdBreadcrumb) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdHowTo) }} />
 
       {/* ── Hero ── */}
       <div className="max-w-6xl mx-auto px-6 pt-10 pb-6 space-y-4">
@@ -306,7 +347,8 @@ export default function FestivalLandingPage() {
           <article className="space-y-2">
             <h3 className="font-display text-base uppercase text-cr-primary">Sin intermediarios</h3>
             <p>
-              El 100&nbsp;% del precio del asiento va al conductor. ConcertRide no cobra comisión.
+              El 100&nbsp;% del precio del asiento va al conductor. ConcertRide no cobra comisión
+              (BlaBlaCar cobra entre el 12 y el 18&nbsp;% al pasajero).
               El pago es en efectivo o Bizum el día del viaje.
             </p>
           </article>
@@ -321,9 +363,52 @@ export default function FestivalLandingPage() {
             <h3 className="font-display text-base uppercase text-cr-primary">Horario flexible</h3>
             <p>
               Llegas y vuelves en el horario que quieras. No dependes del último metro
-              ni de taxis a precio de festival.
+              ni de taxis a precio de festival (30–90&nbsp;€ de madrugada).
             </p>
           </article>
+        </div>
+
+        {/* Competidor comparison inline */}
+        <div className="overflow-x-auto mt-4">
+          <table className="w-full text-left border border-cr-border font-sans text-xs">
+            <caption className="text-left font-sans text-[11px] text-cr-text-muted mb-2">
+              ConcertRide vs otras opciones para ir a {festival.shortName}
+            </caption>
+            <thead>
+              <tr className="border-b border-cr-border">
+                <th className="py-2 px-3 font-semibold text-cr-text-muted uppercase tracking-wide">Opción</th>
+                <th className="py-2 px-3 font-semibold text-cr-text-muted uppercase tracking-wide">Precio desde {festival.originCities[0]?.city ?? "ciudad cercana"}</th>
+                <th className="py-2 px-3 font-semibold text-cr-text-muted uppercase tracking-wide">Comisión</th>
+                <th className="py-2 px-3 font-semibold text-cr-text-muted uppercase tracking-wide">Vuelta flexible</th>
+              </tr>
+            </thead>
+            <tbody className="divide-y divide-cr-border">
+              <tr className="bg-cr-primary/5">
+                <td className="py-2 px-3 font-semibold text-cr-primary">ConcertRide</td>
+                <td className="py-2 px-3 text-cr-text">{festival.originCities[0]?.concertRideRange ?? "3–20 €"}</td>
+                <td className="py-2 px-3 text-cr-text">0 %</td>
+                <td className="py-2 px-3 text-cr-text">Sí (acuerdo con conductor)</td>
+              </tr>
+              <tr>
+                <td className="py-2 px-3 text-cr-text-muted">BlaBlaCar</td>
+                <td className="py-2 px-3 text-cr-text-muted">Variable + comisión</td>
+                <td className="py-2 px-3 text-cr-text-muted">12–18 %</td>
+                <td className="py-2 px-3 text-cr-text-muted">Sí, pero sin contexto evento</td>
+              </tr>
+              <tr>
+                <td className="py-2 px-3 text-cr-text-muted">Bus festival organizado</td>
+                <td className="py-2 px-3 text-cr-text-muted">15–35 €</td>
+                <td className="py-2 px-3 text-cr-text-muted">0 %</td>
+                <td className="py-2 px-3 text-cr-text-muted">No (horario fijo)</td>
+              </tr>
+              <tr>
+                <td className="py-2 px-3 text-cr-text-muted">Taxi / VTC</td>
+                <td className="py-2 px-3 text-cr-text-muted">30–90 €</td>
+                <td className="py-2 px-3 text-cr-text-muted">0 %</td>
+                <td className="py-2 px-3 text-cr-text-muted">Sí (pero muy caro de noche)</td>
+              </tr>
+            </tbody>
+          </table>
         </div>
 
         <div className="pt-6 flex flex-wrap gap-4 border-t border-cr-border">
@@ -346,6 +431,40 @@ export default function FestivalLandingPage() {
             Publicar un viaje <ArrowRight size={12} />
           </Link>
         </div>
+      </section>
+
+      {/* ── Cómo funciona (HowTo visual) ── */}
+      <section className="max-w-6xl mx-auto px-6 pb-16 border-t border-cr-border pt-12 space-y-6">
+        <h2 className="font-display text-2xl md:text-3xl uppercase">
+          Cómo reservar un viaje a {festival.shortName} en 4 pasos
+        </h2>
+        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
+          {[
+            { n: "01", title: "Busca el festival", body: `Entra en concertride.es/concerts y filtra por ${festival.city} o busca directamente "${festival.shortName}".` },
+            { n: "02", title: "Elige el viaje", body: "Compara precio por asiento, hora de salida y perfil del conductor. Lee las valoraciones de otros pasajeros." },
+            { n: "03", title: "Solicita tu plaza", body: "Con reserva instantánea queda confirmada al momento. Sin ella, el conductor suele responder en pocas horas." },
+            { n: "04", title: "Viaja y paga", body: "El día del festival te encuentras con el conductor en el punto acordado. Pagas en efectivo o Bizum. Sin comisión." },
+          ].map(({ n, title, body }) => (
+            <article key={n} className="border border-cr-border p-4 space-y-2">
+              <p className="font-mono text-[11px] text-cr-primary">{n}</p>
+              <h3 className="font-display text-base uppercase">{title}</h3>
+              <p className="font-sans text-xs text-cr-text-muted leading-relaxed">{body}</p>
+            </article>
+          ))}
+        </div>
+
+        <blockquote className="border-l-2 border-cr-primary pl-5 space-y-2">
+          <p className="font-sans text-sm text-cr-text-muted italic leading-relaxed">
+            "El 80 % de la huella de carbono de un festival proviene del transporte de los asistentes.
+            El carpooling es la acción individual más efectiva para reducirla."
+          </p>
+          <footer className="font-mono text-[11px] text-cr-text-dim">
+            —{" "}
+            <a href="https://juliesbicycle.com/" target="_blank" rel="noopener noreferrer" className="hover:text-cr-primary">
+              Julie's Bicycle Practical Guide to Green Events
+            </a>
+          </footer>
+        </blockquote>
       </section>
 
       {/* ── FAQ ── */}

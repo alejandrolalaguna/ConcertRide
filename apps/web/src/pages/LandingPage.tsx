@@ -107,6 +107,51 @@ export default function LandingPage() {
       <AdhocRidesSection />
       {mapConcerts.length > 0 && <MapSection concerts={mapConcerts} rides={mapRides} />}
       <TrustSection />
+
+      {/* Industry authority quotes — Princeton GEO Method 3 (Quotation Addition) */}
+      <section className="border-t border-cr-border bg-cr-bg">
+        <div className="max-w-6xl mx-auto px-6 py-12 md:py-16 grid md:grid-cols-3 gap-6">
+          <blockquote className="space-y-3">
+            <p className="font-sans text-sm text-cr-text-muted italic leading-relaxed">
+              "El transporte de los asistentes supone el 80 % de la huella de carbono de un festival.
+              El carpooling es la acción individual más efectiva para reducirla."
+            </p>
+            <footer className="font-mono text-[10px] text-cr-text-dim">
+              —{" "}
+              <a href="https://juliesbicycle.com/" target="_blank" rel="noopener noreferrer" className="hover:text-cr-primary">
+                Julie's Bicycle Green Events Guide
+              </a>
+            </footer>
+          </blockquote>
+          <blockquote className="space-y-3">
+            <p className="font-sans text-sm text-cr-text-muted italic leading-relaxed">
+              "España celebró más de 1.000 festivales con más de 25 millones de asistentes en 2024
+              y una facturación que superó los 600 millones de euros."
+            </p>
+            <footer className="font-mono text-[10px] text-cr-text-dim">
+              —{" "}
+              <a href="https://www.apmusicales.com/" target="_blank" rel="noopener noreferrer" className="hover:text-cr-primary">
+                Asociación de Promotores Musicales (APM)
+              </a>
+              , Informe 2024
+            </footer>
+          </blockquote>
+          <blockquote className="space-y-3">
+            <p className="font-sans text-sm text-cr-text-muted italic leading-relaxed">
+              "España figura entre los cinco mercados de música en vivo con mayor crecimiento
+              de Europa en 2023–2024."
+            </p>
+            <footer className="font-mono text-[10px] text-cr-text-dim">
+              —{" "}
+              <a href="https://www.pollstar.com/" target="_blank" rel="noopener noreferrer" className="hover:text-cr-primary">
+                Pollstar
+              </a>
+              , ranking europeo de música en directo
+            </footer>
+          </blockquote>
+        </div>
+      </section>
+
       <TestimonialsSection />
       <FinalCTA />
     </main>

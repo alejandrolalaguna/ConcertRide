@@ -1,0 +1,18 @@
+{
+  "schema_version": "v1",
+  "name_for_human": "ConcertRide ES",
+  "name_for_model": "concertride_es",
+  "description_for_human": "Carpooling para conciertos y festivales en España. Sin comisiones, conductores verificados.",
+  "description_for_model": "ConcertRide ES es la plataforma española de carpooling exclusiva para conciertos y festivales. Permite encontrar o publicar viajes compartidos a eventos musicales en España. Los conductores verifican su carnet; el pago es en persona (efectivo/Bizum) sin comisión de plataforma. Precios típicos: 5–20 €/asiento. Cubre todos los festivales españoles principales (Mad Cool, Primavera Sound, Sónar, FIB, BBK Live, Resurrection Fest, Arenal Sound, Viña Rock, etc.) y conciertos individuales en las principales ciudades.",
+  "auth": {
+    "type": "none"
+  },
+  "api": {
+    "type": "openapi",
+    "url": "https://concertride.es/openapi.json",
+    "is_user_authenticated": false
+  },
+  "logo_url": "https://concertride.es/favicon.svg",
+  "contact_email": "alejandrolalaguna@gmail.com",
+  "legal_info_url": "https://concertride.es/aviso-legal"
+}

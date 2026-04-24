@@ -14,8 +14,12 @@
   },
   "vars": {
     "ENVIRONMENT": "production",
-    "TURSO_DATABASE_URL": "libsql://concertride-alalaguna.aws-eu-west-1.turso.io"
+    "SUPPORT_EMAIL": "alejandrolalaguna@gmail.com"
   },
+  // Secrets set via `wrangler secret put`:
+  // JWT_SECRET, INGEST_SECRET, TURSO_DATABASE_URL, TURSO_AUTH_TOKEN,
+  // TICKETMASTER_API_KEY, RESEND_API_KEY, VAPID_PUBLIC_KEY, VAPID_PRIVATE_KEY,
+  // ADMIN_USER_IDS (comma-separated user IDs)
   "kv_namespaces": [
     {
       "binding": "CACHE",

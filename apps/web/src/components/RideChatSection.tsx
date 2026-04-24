@@ -11,6 +11,59 @@ interface Props {
 type Tab = "ride" | "concert";
 
 const POLL_MS = 5000;
+const MAX_BACKOFF_MS = 60_000;
+
+function usePollingFetch(
+  fetchFn: () => Promise<void>,
+  deps: unknown[],
+) {
+  const backoffRef = useRef(POLL_MS);
+  const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const mountedRef = useRef(true);
+
+  const schedule = useCallback(() => {
+    if (timerRef.current) clearTimeout(timerRef.current);
+    timerRef.current = setTimeout(async () => {
+      if (!mountedRef.current || document.hidden) {
+        backoffRef.current = POLL_MS;
+        schedule();
+        return;
+      }
+      try {
+        await fetchFn();
+        backoffRef.current = POLL_MS;
+      } catch {
+        backoffRef.current = Math.min(backoffRef.current * 2, MAX_BACKOFF_MS);
+      }
+      if (mountedRef.current) schedule();
+    }, backoffRef.current);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, deps);
+
+  useEffect(() => {
+    mountedRef.current = true;
+    backoffRef.current = POLL_MS;
+    void fetchFn();
+    schedule();
+
+    const onVisible = () => {
+      if (!document.hidden && mountedRef.current) {
+        if (timerRef.current) clearTimeout(timerRef.current);
+        backoffRef.current = POLL_MS;
+        void fetchFn();
+        schedule();
+      }
+    };
+    document.addEventListener("visibilitychange", onVisible);
+
+    return () => {
+      mountedRef.current = false;
+      if (timerRef.current) clearTimeout(timerRef.current);
+      document.removeEventListener("visibilitychange", onVisible);
+    };
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [schedule]);
+}
 
 export function RideChatSection({ ride, currentUser }: Props) {
   const [tab, setTab] = useState<Tab>("ride");
@@ -23,9 +76,6 @@ export function RideChatSection({ ride, currentUser }: Props) {
   const [concertLoading, setConcertLoading] = useState(true);
   const [concertForbidden, setConcertForbidden] = useState(false);
 
-  const rideIntervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
-  const concertIntervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
-
   const fetchRide = useCallback(async () => {
     try {
       const res = await api.messages.listRideThread(ride.id);
@@ -33,6 +83,7 @@ export function RideChatSection({ ride, currentUser }: Props) {
       setRideForbidden(false);
     } catch (err) {
       if (err instanceof ApiError && err.status === 403) setRideForbidden(true);
+      throw err;
     } finally {
       setRideLoading(false);
     }
@@ -45,22 +96,14 @@ export function RideChatSection({ ride, currentUser }: Props) {
       setConcertForbidden(false);
     } catch (err) {
       if (err instanceof ApiError && err.status === 403) setConcertForbidden(true);
+      throw err;
     } finally {
       setConcertLoading(false);
     }
   }, [ride.concert_id]);
 
-  useEffect(() => {
-    fetchRide();
-    rideIntervalRef.current = setInterval(fetchRide, POLL_MS);
-    return () => { if (rideIntervalRef.current) clearInterval(rideIntervalRef.current); };
-  }, [fetchRide]);
-
-  useEffect(() => {
-    fetchConcert();
-    concertIntervalRef.current = setInterval(fetchConcert, POLL_MS);
-    return () => { if (concertIntervalRef.current) clearInterval(concertIntervalRef.current); };
-  }, [fetchConcert]);
+  usePollingFetch(fetchRide, [fetchRide]);
+  usePollingFetch(fetchConcert, [fetchConcert]);
 
   async function sendRide(body: string, kind?: MessageKind, attachment_url?: string) {
     const msg = await api.messages.postRideThread(ride.id, { body, kind, attachment_url });

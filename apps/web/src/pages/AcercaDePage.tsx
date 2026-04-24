@@ -3,10 +3,12 @@ import { useSeoMeta } from "@/lib/useSeoMeta";
 
 export default function AcercaDePage() {
   useSeoMeta({
-    title: "Acerca de ConcertRide",
+    title: "Acerca de ConcertRide ES — Carpooling para conciertos en España",
     description:
-      "Qué es ConcertRide, por qué existe y cómo funciona el carpooling para conciertos en España. Misión, tecnología, equipo y principios.",
+      "Qué es ConcertRide, por qué existe y cómo funciona el carpooling para conciertos en España. Alternativa sin comisión al taxi y a BlaBlaCar para ir a festivales.",
     canonical: "https://concertride.es/acerca-de",
+    keywords:
+      "qué es ConcertRide, sobre ConcertRide, carpooling conciertos España, alternativa BlaBlaCar festivales, plataforma viajes compartidos conciertos, sin comisión carpooling, misión ConcertRide",
   });
 
   return (
@@ -19,20 +21,36 @@ export default function AcercaDePage() {
             "@type": "AboutPage",
             name: "Acerca de ConcertRide ES",
             url: "https://concertride.es/acerca-de",
+            inLanguage: "es-ES",
+            datePublished: "2026-04-10",
+            dateModified: "2026-04-24",
+            breadcrumb: {
+              "@type": "BreadcrumbList",
+              itemListElement: [
+                { "@type": "ListItem", position: 1, name: "Inicio", item: "https://concertride.es/" },
+                { "@type": "ListItem", position: 2, name: "Acerca de", item: "https://concertride.es/acerca-de" },
+              ],
+            },
             mainEntity: {
               "@type": "Organization",
+              "@id": "https://concertride.es/#organization",
               name: "ConcertRide ES",
               url: "https://concertride.es",
               foundingDate: "2026",
               areaServed: { "@type": "Country", name: "Spain" },
               knowsAbout: [
                 "Carpooling",
-                "Conciertos",
+                "Conciertos en España",
                 "Festivales de música",
                 "Transporte compartido",
+                "Movilidad sostenible",
               ],
               description:
-                "Plataforma de viajes compartidos exclusiva para conciertos y festivales en España. Sin comisiones, con conductores verificados.",
+                "Plataforma de viajes compartidos exclusiva para conciertos y festivales en España. Sin comisiones, con conductores verificados. Alternativa gratuita al taxi o BlaBlaCar para llegar a festivales de música.",
+              sameAs: [
+                "https://twitter.com/concertride_es",
+                "https://www.instagram.com/concertride_es/",
+              ],
             },
           }),
         }}
@@ -51,13 +69,28 @@ export default function AcercaDePage() {
         <section className="space-y-4 font-sans text-base text-cr-text-muted leading-relaxed">
           <p>
             <strong className="text-cr-text">ConcertRide</strong> nació para resolver un problema
-            muy concreto: <strong className="text-cr-primary">el transporte a festivales y conciertos en España es caro, estresante y en ocasiones imposible</strong>. Los taxis cobran €30–60 por desplazamientos cortos. El transporte público raramente cubre los horarios de salida de conciertos (23:00–02:00) o el acceso a recintos rurales. Los trenes no llegan a recintos como Arenal Sound, Resurrection Fest o Mad Cool.
+            muy concreto: <strong className="text-cr-primary">el transporte a festivales y conciertos en España es caro, estresante y en ocasiones imposible</strong>. Según la{" "}
+            <a href="https://www.apmusicales.com/" target="_blank" rel="noopener noreferrer" className="text-cr-primary underline underline-offset-2">
+              Asociación de Promotores Musicales (APM)
+            </a>
+            , España celebró más de 1.000 festivales con más de 25 millones de asistentes en 2024 — y el problema del transporte sigue sin resolverse. Los taxis cobran 30–60 € por trayecto, el transporte público raramente cubre los horarios de madrugada (23:00–02:00) y los trenes no llegan a recintos como Arenal Sound en Burriana, Resurrection Fest en Viveiro o Mad Cool en IFEMA.
           </p>
           <p>
-            Al mismo tiempo, <strong className="text-cr-text">miles de personas van al mismo evento en coche con asientos vacíos</strong>. Compartir ese coche ahorra dinero, reduce tráfico, reduce emisiones y, sobre todo, mejora la experiencia: llegas al concierto con gente que va al mismo show.
+            Al mismo tiempo, <strong className="text-cr-text">miles de personas van al mismo evento en coche con asientos vacíos</strong>. Compartir ese coche reduce el coste por persona entre un 50 y un 75 %, reduce el tráfico, y mejora la experiencia: llegas con gente que va al mismo show.
           </p>
+          <blockquote className="border-l-2 border-cr-primary pl-4 my-4">
+            <p className="font-sans text-sm text-cr-text-muted italic leading-relaxed">
+              "El transporte de los asistentes supone el 80 % de la huella de carbono de un festival de música.
+              El carpooling es la acción individual más efectiva para reducirla."
+            </p>
+            <footer className="font-mono text-[11px] text-cr-text-dim mt-1">
+              — <a href="https://juliesbicycle.com/" target="_blank" rel="noopener noreferrer" className="hover:text-cr-primary">
+                Julie's Bicycle Practical Guide to Green Events
+              </a>
+            </footer>
+          </blockquote>
           <p>
-            La solución no es nueva — BlaBlaCar demostró que funciona para trayectos ciudad-a-ciudad genéricos. Pero ir a un concierto es diferente: hay una hora precisa de llegada, un lugar concreto, un tipo de música compartida y una conversación que nace antes de subir al coche. <strong className="text-cr-text">ConcertRide está diseñada para ese contexto específico</strong>.
+            La solución no es nueva — BlaBlaCar demostró que el carpooling funciona para trayectos ciudad-a-ciudad genéricos (cobra entre el 12 y el 18 % de comisión al pasajero). Pero ir a un concierto es diferente: hay una hora precisa de llegada, un recinto específico, un tipo de música compartida y una conversación que nace antes de subir al coche. <strong className="text-cr-text">ConcertRide está diseñada para ese contexto específico</strong>, sin comisión, con conductores verificados y pago en persona.
           </p>
         </section>
 
@@ -127,6 +160,17 @@ export default function AcercaDePage() {
             </p>
             <p className="font-display text-xl uppercase leading-tight group-hover:text-cr-primary transition-colors">
               Cómo funciona →
+            </p>
+          </Link>
+          <Link
+            to="/guia-transporte-festivales"
+            className="border border-cr-border p-5 hover:border-cr-primary transition-colors group"
+          >
+            <p className="font-sans text-[11px] font-semibold uppercase tracking-[0.12em] text-cr-primary mb-2">
+              Todas las opciones
+            </p>
+            <p className="font-display text-xl uppercase leading-tight group-hover:text-cr-primary transition-colors">
+              Guía de transporte →
             </p>
           </Link>
           <Link

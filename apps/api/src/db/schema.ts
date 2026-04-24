@@ -129,6 +129,7 @@ export const rides = sqliteTable(
   (t) => ({
     concertIdx: index("rides_concert_idx").on(t.concert_id),
     originIdx: index("rides_origin_idx").on(t.origin_city),
+    driverIdx: index("rides_driver_idx").on(t.driver_id),
   }),
 );
 
@@ -155,6 +156,8 @@ export const rideRequests = sqliteTable(
   },
   (t) => ({
     rideIdx: index("ride_requests_ride_idx").on(t.ride_id),
+    passengerIdx: index("ride_requests_passenger_idx").on(t.passenger_id),
+    uniqueRequest: uniqueIndex("ride_requests_unique_idx").on(t.ride_id, t.passenger_id),
   }),
 );
 

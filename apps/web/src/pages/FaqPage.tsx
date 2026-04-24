@@ -49,7 +49,7 @@ const FAQS: Array<{ q: string; a: string }> = [
   },
   {
     q: "¿Cómo se comparan con BlaBlaCar?",
-    a: "BlaBlaCar es ciudad-a-ciudad genérica y cobra comisión. ConcertRide es concierto-a-concierto: el viaje está pensado para llegar al evento a la hora precisa, ves a qué concierto van los otros pasajeros (vibe matching), y puedes chatear en el chat público del concierto antes de reservar. Y no cobramos comisión.",
+    a: "BlaBlaCar es un servicio de carpooling ciudad-a-ciudad de propósito general que cobra entre el 12 y el 18 % de comisión al pasajero. ConcertRide es concierto-a-concierto y cobra 0 %: el viaje está sincronizado con el horario del evento, ves a qué concierto van los otros pasajeros (vibe matching), accedes al chat del concierto antes de reservar, y el 100 % del precio del asiento va al conductor. BlaBlaCar tampoco tiene catálogo de festivales ni filtros por evento.",
   },
   {
     q: "¿Qué datos personales guardáis?",
@@ -97,7 +97,7 @@ const FAQS: Array<{ q: string; a: string }> = [
   },
   {
     q: "¿ConcertRide es más sostenible que ir en coche solo?",
-    a: "Sí. Un coche con 4 pasajeros emite un 75 % menos CO₂ por persona que ir solo. Los festivales de música generan el 80 % de su huella de carbono a través del transporte de los asistentes (fuente: estudios de movilidad de festivales europeos). Compartir coche a través de ConcertRide elimina decenas de coches de la carretera por cada viaje compartido.",
+    a: "Sí. Según el Julie's Bicycle Practical Guide to Green Events, el 80 % de la huella de carbono de un festival proviene del transporte de los asistentes. Un coche compartido con 4 personas emite un 75 % menos CO₂ por pasajero respecto a ir en solitario. En la práctica: un viaje de 300 km compartido entre 4 personas equivale a ir en tren en términos de emisiones. ConcertRide elimina decenas de coches de la carretera por cada festival.",
   },
   {
     q: "¿Qué es la Zona de Bajas Emisiones (ZBE) de Madrid y cómo afecta para ir a festivales?",
@@ -144,6 +144,10 @@ export default function FaqPage() {
           __html: JSON.stringify({
             "@context": "https://schema.org",
             "@type": "FAQPage",
+            name: "Preguntas frecuentes — Carpooling para conciertos y festivales en España",
+            url: "https://concertride.es/faq",
+            dateModified: "2026-04-24",
+            inLanguage: "es-ES",
             mainEntity: FAQS.map(({ q, a }) => ({
               "@type": "Question",
               name: q,

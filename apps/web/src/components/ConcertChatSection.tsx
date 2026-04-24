@@ -11,6 +11,7 @@ interface Props {
 }
 
 const POLL_MS = 5000;
+const MAX_BACKOFF_MS = 60_000;
 
 // Public concert chat — any signed-in user can read and post, no ride booking
 // required. This turns the concert page into a shared hub for fans going to
@@ -20,7 +21,10 @@ export function ConcertChatSection({ concertId, artist }: Props) {
   const [messages, setMessages] = useState<Message[]>([]);
   const [loading, setLoading] = useState(true);
   const [forbidden, setForbidden] = useState(false);
-  const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
+
+  const backoffRef = useRef(POLL_MS);
+  const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const mountedRef = useRef(true);
 
   const fetchMessages = useCallback(async () => {
     if (!user) return;
@@ -30,6 +34,7 @@ export function ConcertChatSection({ concertId, artist }: Props) {
       setForbidden(false);
     } catch (err) {
       if (err instanceof ApiError && err.status === 403) setForbidden(true);
+      throw err;
     } finally {
       setLoading(false);
     }
@@ -40,10 +45,45 @@ export function ConcertChatSection({ concertId, artist }: Props) {
       setLoading(false);
       return;
     }
+
+    mountedRef.current = true;
+    backoffRef.current = POLL_MS;
+
+    const schedule = () => {
+      if (timerRef.current) clearTimeout(timerRef.current);
+      timerRef.current = setTimeout(async () => {
+        if (!mountedRef.current || document.hidden) {
+          backoffRef.current = POLL_MS;
+          schedule();
+          return;
+        }
+        try {
+          await fetchMessages();
+          backoffRef.current = POLL_MS;
+        } catch {
+          backoffRef.current = Math.min(backoffRef.current * 2, MAX_BACKOFF_MS);
+        }
+        if (mountedRef.current) schedule();
+      }, backoffRef.current);
+    };
+
     void fetchMessages();
-    intervalRef.current = setInterval(fetchMessages, POLL_MS);
+    schedule();
+
+    const onVisible = () => {
+      if (!document.hidden && mountedRef.current) {
+        if (timerRef.current) clearTimeout(timerRef.current);
+        backoffRef.current = POLL_MS;
+        void fetchMessages();
+        schedule();
+      }
+    };
+    document.addEventListener("visibilitychange", onVisible);
+
     return () => {
-      if (intervalRef.current) clearInterval(intervalRef.current);
+      mountedRef.current = false;
+      if (timerRef.current) clearTimeout(timerRef.current);
+      document.removeEventListener("visibilitychange", onVisible);
     };
   }, [fetchMessages, user]);
 

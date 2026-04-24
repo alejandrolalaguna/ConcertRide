@@ -62,7 +62,7 @@ const patchRequestSchema = z.object({
 });
 
 const sendMessageSchema = z.object({
-  body: z.string().min(0).max(280).default(""),
+  body: z.string().min(1).max(280),
   kind: z.enum(["text", "location", "photo"]).optional(),
   // Accept either a full URL (e.g. Ticketmaster image) or an internal path
   // like `/api/messages/media/<id>` returned by our own upload endpoint.
