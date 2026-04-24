@@ -15,7 +15,7 @@
   "vars": {
     "ENVIRONMENT": "production",
     "SUPPORT_EMAIL": "alejandrolalaguna@gmail.com",
-    "ADMIN_USER_IDS": "u_2a5956aa"
+    "ADMIN_USER_IDS": "u_2a5956aa,u_ba0612cd"
   },
   "kv_namespaces": [
     {
