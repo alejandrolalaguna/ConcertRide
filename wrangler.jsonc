@@ -16,7 +16,7 @@
     "ENVIRONMENT": "production",
     "SUPPORT_EMAIL": "alejandrolalaguna@gmail.com",
     "ADMIN_USER_IDS": "u_2a5956aa"
-  }
+  },
   "kv_namespaces": [
     {
       "binding": "CACHE",
