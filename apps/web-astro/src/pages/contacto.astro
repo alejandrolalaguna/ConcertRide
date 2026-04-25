@@ -1,0 +1,67 @@
+---
+import Layout from "@/layouts/Layout.astro";
+
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "ContactPage",
+  name: "Contacto — ConcertRide ES",
+  url: "https://concertride.es/contacto",
+  mainEntity: {
+    "@type": "Organization",
+    name: "ConcertRide ES",
+    email: "alejandrolalaguna@gmail.com",
+    contactPoint: { "@type": "ContactPoint", contactType: "customer support", email: "alejandrolalaguna@gmail.com", areaServed: "ES", availableLanguage: ["es"] },
+  },
+};
+---
+
+<Layout
+  title="Contacto"
+  description="Contacta con el equipo de ConcertRide ES. Atendemos consultas sobre viajes compartidos a conciertos, reportes de abuso, dudas legales y partnerships con festivales."
+  canonical="https://concertride.es/contacto"
+>
+  <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+
+  <main id="main" class="min-h-dvh bg-cr-bg text-cr-text pt-14">
+    <div class="max-w-3xl mx-auto px-6 py-12 md:py-16 space-y-12">
+      <header class="border-b border-cr-border pb-8 space-y-3">
+        <p class="font-sans text-[11px] font-semibold uppercase tracking-[0.16em] text-cr-primary">Atención al usuario</p>
+        <h1 class="font-display text-4xl md:text-5xl uppercase leading-[0.92]">Contacto.</h1>
+        <p class="font-sans text-sm text-cr-text-muted max-w-xl leading-relaxed">Respondemos en 24–48 h laborables.</p>
+      </header>
+
+      <section class="space-y-6">
+        <article class="border border-cr-border bg-cr-surface p-5 space-y-2">
+          <p class="font-sans text-[11px] font-semibold uppercase tracking-[0.16em] text-cr-primary">Correo general</p>
+          <p class="font-sans text-sm text-cr-text">Dudas, incidencias con viajes, partnerships, prensa.</p>
+          <a href="mailto:alejandrolalaguna@gmail.com" class="inline-block font-mono text-cr-primary underline underline-offset-2 break-all">alejandrolalaguna@gmail.com</a>
+        </article>
+
+        <article class="border border-cr-border bg-cr-surface p-5 space-y-2">
+          <p class="font-sans text-[11px] font-semibold uppercase tracking-[0.16em] text-cr-primary">Preguntas frecuentes</p>
+          <p class="font-sans text-sm text-cr-text">Antes de escribirnos, revisa si tu duda está resuelta en la sección de FAQ.</p>
+          <a href="/faq" class="inline-block font-sans text-xs font-semibold uppercase tracking-[0.12em] border-2 border-cr-border text-cr-text hover:border-cr-primary hover:text-cr-primary px-4 py-2 transition-colors">Ver FAQ →</a>
+        </article>
+
+        <article class="border border-cr-border bg-cr-surface p-5 space-y-2">
+          <p class="font-sans text-[11px] font-semibold uppercase tracking-[0.16em] text-cr-secondary">Reportar abuso</p>
+          <p class="font-sans text-sm text-cr-text">Usa el botón <em>Reportar</em> en el perfil del conductor o en la ficha del viaje. Lo revisamos uno a uno.</p>
+        </article>
+
+        <article class="border border-cr-border bg-cr-surface p-5 space-y-2">
+          <p class="font-sans text-[11px] font-semibold uppercase tracking-[0.16em] text-cr-text-muted">Datos y privacidad (RGPD)</p>
+          <p class="font-sans text-sm text-cr-text">
+            Para ejercer tus derechos RGPD (acceso, rectificación, supresión, portabilidad), escríbenos al correo general.
+            La supresión completa de la cuenta puedes hacerla directamente en <a href="/profile" class="text-cr-primary underline underline-offset-2">Mi perfil → Zona peligro</a>.
+          </p>
+        </article>
+      </section>
+
+      <div class="pt-8 border-t border-cr-border flex flex-wrap gap-4">
+        <a href="/faq" class="font-sans text-xs text-cr-text-muted hover:text-cr-primary transition-colors">Preguntas frecuentes →</a>
+        <a href="/privacidad" class="font-sans text-xs text-cr-text-muted hover:text-cr-primary transition-colors">Política de privacidad →</a>
+        <a href="/" class="font-sans text-xs text-cr-text-muted hover:text-cr-primary transition-colors ml-auto">← Volver al inicio</a>
+      </div>
+    </div>
+  </main>
+</Layout>

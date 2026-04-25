@@ -1,0 +1,97 @@
+---
+import Layout from "@/layouts/Layout.astro";
+import FaqAccordion from "@/components/FaqAccordion";
+
+const FAQS = [
+  { q: "¿Qué es ConcertRide?", a: "ConcertRide es una plataforma española de carpooling exclusiva para conciertos y festivales. Conecta a fans que van al mismo evento para compartir coche, dividir gastos y llegar juntos. Es gratis, sin comisiones y sin publicidad." },
+  { q: "¿Cuánto cuesta usar ConcertRide?", a: "El uso de la plataforma es 100 % gratis tanto para conductores como para pasajeros. No cobramos comisión. Cada viaje tiene un precio por asiento que fija el conductor (típicamente €8–15/plaza) para cubrir combustible y peajes." },
+  { q: "¿Es seguro viajar con ConcertRide?", a: "Sí. Todos los conductores verifican su carnet de conducir antes de publicar un viaje. Puedes ver la valoración media, el número de viajes realizados y las reseñas de otros pasajeros." },
+  { q: "¿Cómo funciona para un pasajero?", a: "1) Busca el concierto al que vas. 2) Elige un viaje publicado desde tu ciudad. 3) Envía una solicitud o reserva al instante. 4) Paga al conductor en efectivo o Bizum cuando te recoja." },
+  { q: "¿Cómo funciona para un conductor?", a: "1) Verifica tu carnet en Mi perfil. 2) Pulsa Publicar un viaje. 3) Fija el precio por asiento y el número de plazas. 4) Acepta o rechaza las solicitudes." },
+  { q: "¿A qué conciertos y festivales puedo ir?", a: "Tenemos datos de 50+ festivales: Mad Cool, Primavera Sound, Sónar, FIB, BBK Live, Resurrection Fest, Arenal Sound, Viña Rock y más, además de miles de conciertos individuales en toda España." },
+  { q: "¿En qué ciudades está disponible?", a: "Cobertura nacional en España. Madrid, Barcelona, Valencia, Sevilla, Bilbao, Málaga, Zaragoza, Granada, Santiago de Compostela, Benicàssim, Villarrobledo, entre otros." },
+  { q: "¿Qué pasa si el conductor cancela el viaje?", a: "Te enviamos email y notificación push inmediatamente. La reserva se cancela automáticamente. No has pagado nada (el pago es en persona)." },
+  { q: "¿Puedo cancelar mi reserva?", a: "Sí, en cualquier momento antes de la salida desde Mis viajes → Cancelar reserva. Notificamos al conductor y la plaza vuelve a estar disponible." },
+  { q: "¿Pagáis a los conductores?", a: "No. ConcertRide no intermedia ningún pago. El conductor cobra directamente en efectivo o Bizum el día del viaje. El precio cubre gastos compartidos, no lucro." },
+  { q: "¿Qué datos personales guardáis?", a: "Email, nombre y contraseña hasheada. Opcionalmente: teléfono, ciudad, coche. No vendemos datos a terceros. Puedes eliminar tu cuenta desde Mi perfil." },
+  { q: "¿Tengo que crear cuenta?", a: "No para explorar. Sí para publicar o reservar. El registro es gratis: nombre + email + contraseña. Sin tarjeta de crédito." },
+  { q: "¿Puedo ir a un festival sin coche propio?", a: "Sí, ese es el uso principal. Busca el festival, elige un viaje y reserva una plaza. El conductor te recoge en el punto acordado." },
+  { q: "¿Cuál es la alternativa al taxi para volver de noche?", a: "El carpooling de ConcertRide. Cuando los taxis cobran 30–60 € de madrugada, con ConcertRide compartes el viaje de vuelta por 8–15 €/asiento." },
+  { q: "¿ConcertRide es más sostenible que ir solo?", a: "Sí. Un coche compartido con 4 personas emite un 75 % menos CO₂ por pasajero. El transporte supone el 80 % de la huella de un festival." },
+  { q: "¿Qué hago si no encuentro ningún viaje?", a: "Activa 'Me interesa un viaje' en la ficha del concierto. Notificamos a posibles conductores y te avisamos cuando alguien publique." },
+];
+
+const jsonLdFaq = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  name: "Preguntas frecuentes — Carpooling para conciertos y festivales en España",
+  url: "https://concertride.es/faq",
+  dateModified: "2026-04-25",
+  inLanguage: "es-ES",
+  mainEntity: FAQS.map(({ q, a }) => ({
+    "@type": "Question",
+    name: q,
+    acceptedAnswer: { "@type": "Answer", text: a },
+  })),
+};
+
+const jsonLdBreadcrumb = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  itemListElement: [
+    { "@type": "ListItem", position: 1, name: "Inicio", item: "https://concertride.es/" },
+    { "@type": "ListItem", position: 2, name: "FAQ", item: "https://concertride.es/faq" },
+  ],
+};
+---
+
+<Layout
+  title="Preguntas frecuentes — Carpooling para conciertos y festivales"
+  description="FAQ sobre ConcertRide: cómo compartir coche a un festival, alternativa económica para volver de noche, carpooling sin comisiones, sostenibilidad y más."
+  canonical="https://concertride.es/faq"
+  keywords="preguntas frecuentes carpooling conciertos, cómo compartir coche concierto, alternativa taxi concierto, transporte festival España, carpooling sin comisiones"
+>
+  <script type="application/ld+json" set:html={JSON.stringify(jsonLdFaq)} />
+  <script type="application/ld+json" set:html={JSON.stringify(jsonLdBreadcrumb)} />
+
+  <main id="main" class="min-h-dvh bg-cr-bg text-cr-text pt-14">
+    <div class="max-w-3xl mx-auto px-6 py-12 md:py-16">
+      <header class="mb-10 border-b border-cr-border pb-8 space-y-3">
+        <p class="font-sans text-[11px] font-semibold uppercase tracking-[0.16em] text-cr-primary">Ayuda</p>
+        <h1 class="font-display text-4xl md:text-6xl uppercase leading-[0.92]">Preguntas frecuentes.</h1>
+        <p class="font-sans text-sm text-cr-text-muted max-w-xl leading-relaxed">
+          Todo lo que necesitas saber sobre carpooling para conciertos en España. Si no encuentras tu pregunta,
+          escríbenos a <a href="mailto:alejandrolalaguna@gmail.com" class="text-cr-primary underline underline-offset-2">alejandrolalaguna@gmail.com</a>.
+        </p>
+      </header>
+
+      <!-- All FAQs visible in static HTML for Google — accordion is progressive enhancement -->
+      <noscript>
+        <dl class="divide-y divide-cr-border border-y border-cr-border">
+          {FAQS.map(({ q, a }) => (
+            <div class="py-4 space-y-2">
+              <dt class="font-sans text-sm font-semibold text-cr-text">{q}</dt>
+              <dd class="font-sans text-sm text-cr-text-muted leading-relaxed">{a}</dd>
+            </div>
+          ))}
+        </dl>
+      </noscript>
+
+      <div class="js-only">
+        <FaqAccordion client:load />
+      </div>
+
+      <!-- Static fallback visible without JS, hidden when JS loads -->
+      <script>
+        document.querySelector('.js-only')?.previousElementSibling?.remove();
+      </script>
+
+      <div class="mt-12 pt-8 border-t border-cr-border flex flex-wrap gap-4">
+        <a href="/como-funciona" class="font-sans text-xs text-cr-text-muted hover:text-cr-primary transition-colors">Cómo funciona →</a>
+        <a href="/concerts" class="font-sans text-xs text-cr-text-muted hover:text-cr-primary transition-colors">Explorar conciertos →</a>
+        <a href="/contacto" class="font-sans text-xs text-cr-text-muted hover:text-cr-primary transition-colors">Contactar →</a>
+        <a href="/" class="font-sans text-xs text-cr-text-muted hover:text-cr-primary transition-colors ml-auto">← Volver al inicio</a>
+      </div>
+    </div>
+  </main>
+</Layout>
