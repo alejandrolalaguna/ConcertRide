@@ -447,6 +447,21 @@ export default function FestivalLandingPage() {
           ))}
         </ul>
       </section>
+
+      {/* ── Legal disclaimer ── */}
+      <section className="max-w-6xl mx-auto px-6 pb-10 border-t border-cr-border pt-8">
+        <p className="font-mono text-[11px] text-cr-text-dim leading-relaxed">
+          ConcertRide no es un socio oficial, patrocinador ni representante de{" "}
+          {festival.name} ni de su organización. Los nombres de festivales y eventos
+          se utilizan con carácter meramente descriptivo para identificar el destino
+          del viaje. Para la compra de entradas o información oficial acude siempre
+          a la web del organizador.{" "}
+          <Link to="/aviso-legal" className="underline underline-offset-2 hover:text-cr-primary transition-colors">
+            Aviso legal
+          </Link>
+          .
+        </p>
+      </section>
     </main>
   );
 }

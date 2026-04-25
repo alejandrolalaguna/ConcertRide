@@ -22,7 +22,24 @@ export default function AvisoLegalPage() {
         <div className="space-y-10 font-sans text-sm text-cr-text leading-relaxed">
 
           <section className="space-y-3">
-            <h2 className="font-display text-xl uppercase text-cr-primary">1. Objeto y actividad</h2>
+            <h2 className="font-display text-xl uppercase text-cr-primary">1. Datos del titular</h2>
+            <p>
+              En cumplimiento del artículo 10 de la Ley 34/2002, de Servicios de la Sociedad de la
+              Información y Comercio Electrónico (LSSI-CE), se informa que el responsable de este
+              sitio web es:
+            </p>
+            <ul className="space-y-1 pl-4 list-disc text-cr-text-muted">
+              <li><strong className="text-cr-text">Titular:</strong> Alejandro Lalaguna</li>
+              <li><strong className="text-cr-text">Correo electrónico de contacto:</strong>{" "}
+                <a href="mailto:alejandrolalaguna@gmail.com" className="font-mono text-cr-primary underline underline-offset-2">
+                  alejandrolalaguna@gmail.com
+                </a>
+              </li>
+            </ul>
+          </section>
+
+          <section className="space-y-3">
+            <h2 className="font-display text-xl uppercase text-cr-primary">2. Objeto y actividad del sitio</h2>
             <p>
               ConcertRide ES es una plataforma digital de intermediación que facilita la puesta en
               contacto entre personas que desean compartir vehículo particular para desplazarse a
@@ -36,7 +53,7 @@ export default function AvisoLegalPage() {
           </section>
 
           <section className="space-y-3">
-            <h2 className="font-display text-xl uppercase text-cr-primary">2. Propiedad intelectual e industrial</h2>
+            <h2 className="font-display text-xl uppercase text-cr-primary">3. Propiedad intelectual e industrial</h2>
             <p>
               El nombre, logotipo, diseño, código fuente y demás elementos distintivos de ConcertRide
               ES son titularidad exclusiva del responsable del sitio o están debidamente licenciados.
@@ -67,6 +84,16 @@ export default function AvisoLegalPage() {
               </li>
             </ul>
             <p>
+              Los nombres de festivales y eventos musicales (Mad Cool, Primavera Sound, Sónar, FIB,
+              BBK Live, Resurrection Fest, Viña Rock, Arenal Sound y otros) se utilizan
+              exclusivamente con carácter descriptivo para identificar el destino de los viajes
+              compartidos. ConcertRide ES no está afiliada, no está patrocinada ni representa a
+              ninguno de estos festivales ni a sus organizadores. El uso de dichos nombres
+              constituye un uso nominativo protegido por el derecho de referencia. Todos los
+              derechos sobre los nombres, marcas y logotipos de los festivales pertenecen a sus
+              respectivos titulares.
+            </p>
+            <p>
               Los mapas se muestran con datos de{" "}
               <a
                 href="https://www.openstreetmap.org/copyright"
@@ -90,7 +117,7 @@ export default function AvisoLegalPage() {
           </section>
 
           <section className="space-y-3">
-            <h2 className="font-display text-xl uppercase text-cr-primary">3. Exclusión de responsabilidad</h2>
+            <h2 className="font-display text-xl uppercase text-cr-primary">4. Exclusión de responsabilidad</h2>
             <p>
               ConcertRide ES no garantiza la exactitud, integridad o actualidad de la información
               sobre conciertos procedente de terceros. El titular no se responsabiliza de los daños
@@ -104,7 +131,7 @@ export default function AvisoLegalPage() {
           </section>
 
           <section className="space-y-3">
-            <h2 className="font-display text-xl uppercase text-cr-primary">4. Legislación aplicable y jurisdicción</h2>
+            <h2 className="font-display text-xl uppercase text-cr-primary">5. Legislación aplicable y jurisdicción</h2>
             <p>
               Las presentes condiciones se rigen por la legislación española. Para la resolución de
               cualquier controversia derivada del uso de este sitio web, las partes se someten a los
@@ -114,7 +141,7 @@ export default function AvisoLegalPage() {
           </section>
 
           <section className="space-y-3">
-            <h2 className="font-display text-xl uppercase text-cr-primary">5. Contacto</h2>
+            <h2 className="font-display text-xl uppercase text-cr-primary">6. Contacto</h2>
             <p>
               Para cualquier consulta relacionada con este aviso legal, puede contactar con nosotros
               en:{" "}

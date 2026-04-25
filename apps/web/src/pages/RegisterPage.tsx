@@ -18,6 +18,7 @@ export default function RegisterPage() {
   const [password, setPassword] = useState("");
   const [showPw, setShowPw] = useState(false);
   const [tosAccepted, setTosAccepted] = useState(false);
+  const [ageConfirmed, setAgeConfirmed] = useState(false);
   const [phone, setPhone] = useState("");
   const [homeCity, setHomeCity] = useState("");
   const [smoker, setSmoker] = useState<"yes" | "no" | "">("");
@@ -223,6 +224,20 @@ export default function RegisterPage() {
           <label className="flex items-start gap-2.5 cursor-pointer">
             <input
               type="checkbox"
+              checked={ageConfirmed}
+              onChange={(e) => setAgeConfirmed(e.target.checked)}
+              className="mt-0.5 w-4 h-4 accent-cr-primary flex-shrink-0 cursor-pointer"
+              required
+              aria-required="true"
+            />
+            <span className="font-sans text-xs text-cr-text-muted leading-relaxed">
+              Confirmo que tengo al menos <strong className="text-cr-text">18 años</strong> de edad.
+            </span>
+          </label>
+
+          <label className="flex items-start gap-2.5 cursor-pointer">
+            <input
+              type="checkbox"
               checked={tosAccepted}
               onChange={(e) => setTosAccepted(e.target.checked)}
               className="mt-0.5 w-4 h-4 accent-cr-primary flex-shrink-0 cursor-pointer"
@@ -250,7 +265,7 @@ export default function RegisterPage() {
 
           <button
             type="submit"
-            disabled={submitting || !name.trim() || !email.trim() || password.length < 8 || !tosAccepted}
+            disabled={submitting || !name.trim() || !email.trim() || password.length < 8 || !tosAccepted || !ageConfirmed}
             className="w-full bg-cr-primary text-black font-sans font-semibold uppercase tracking-[0.12em] text-sm border-2 border-black px-6 py-3 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] hover:translate-x-[2px] hover:translate-y-[2px] active:shadow-none active:translate-x-[4px] active:translate-y-[4px] transition-all duration-100 disabled:opacity-50 disabled:pointer-events-none"
           >
             {submitting ? "Creando cuenta…" : "Crear cuenta"}

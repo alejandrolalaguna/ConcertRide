@@ -44,7 +44,7 @@ export function CookieBanner() {
             onClick={() => dismiss("essential")}
             className="font-sans text-xs font-semibold uppercase tracking-[0.1em] text-cr-text-muted hover:text-cr-text border border-cr-border px-3 py-2 transition-colors"
           >
-            Solo esenciales
+            Rechazar opcionales
           </button>
           <button
             type="button"

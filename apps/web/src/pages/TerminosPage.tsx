@@ -76,11 +76,19 @@ export default function TerminosPage() {
               <li>No ofrecer más plazas de las que el vehículo tiene homologadas.</li>
               <li>
                 No cobrar a los pasajeros más de lo que corresponde al reparto proporcional de los
-                gastos del viaje (combustible + peajes). La plataforma está diseñada para la
-                compartición de costes, no para la obtención de lucro.
+                gastos del viaje. Los únicos conceptos recuperables son: combustible, peajes y un
+                componente razonable de desgaste del vehículo. La plataforma está diseñada para la
+                compartición de costes, no para la obtención de lucro. Cualquier importe que supere
+                los gastos reales constituye transporte retribuido no autorizado y queda
+                expresamente prohibido (Ley 16/1987, LOTT).
               </li>
               <li>Confirmar o rechazar las solicitudes de plaza en un plazo razonable.</li>
               <li>Notificar con antelación cualquier cancelación del viaje.</li>
+              <li>
+                Disponer de un seguro de vehículo en vigor que cubra el uso del vehículo durante el
+                viaje. Los pasajeros viajan bajo la cobertura de la póliza del conductor; ConcertRide
+                no proporciona ninguna cobertura adicional.
+              </li>
             </ul>
           </section>
 
@@ -111,13 +119,30 @@ export default function TerminosPage() {
             <h2 className="font-display text-xl uppercase text-cr-primary">7. Valoraciones y reseñas</h2>
             <p>
               El sistema de valoraciones tiene como objetivo fomentar la confianza entre usuarios.
-              Las valoraciones deben ser honestas y basarse en experiencias reales. ConcertRide ES
-              se reserva el derecho a eliminar valoraciones que incumplan estas condiciones.
+              Las valoraciones deben ser honestas y basarse en experiencias reales del viaje.
+            </p>
+            <p>Queda prohibido:</p>
+            <ul className="space-y-1 pl-4 list-disc text-cr-text-muted">
+              <li>Publicar reseñas falsas o sobre viajes no realizados.</li>
+              <li>Incluir insultos, amenazas o contenido discriminatorio.</li>
+              <li>Manipular la valoración de otro usuario con cuentas falsas o múltiples.</li>
+            </ul>
+            <p>
+              ConcertRide ES se reserva el derecho a eliminar valoraciones que incumplan esta
+              política, así como a suspender las cuentas involucradas. Las decisiones de eliminación
+              pueden apelarse escribiendo a{" "}
+              <a
+                href="mailto:alejandrolalaguna@gmail.com"
+                className="font-mono text-cr-primary underline underline-offset-2"
+              >
+                alejandrolalaguna@gmail.com
+              </a>
+              .
             </p>
           </section>
 
           <section className="space-y-3">
-            <h2 className="font-display text-xl uppercase text-cr-primary">8. Limitación de responsabilidad</h2>
+            <h2 className="font-display text-xl uppercase text-cr-primary">8. Limitación de responsabilidad y seguros</h2>
             <p>
               ConcertRide ES actúa únicamente como intermediario y no asume responsabilidad por:
             </p>
@@ -128,6 +153,14 @@ export default function TerminosPage() {
               <li>Daños derivados del uso de la plataforma o de la imposibilidad de acceder a ella.</li>
               <li>Exactitud de la información de perfil aportada por otros usuarios.</li>
             </ul>
+            <p>
+              <strong>Seguros:</strong> ConcertRide ES no proporciona ningún seguro de accidentes
+              ni de responsabilidad civil para los viajes acordados entre usuarios. Los pasajeros
+              viajan exclusivamente bajo la cobertura de la póliza de seguro del conductor. Se
+              recomienda a los pasajeros verificar con el conductor que su póliza cubre el
+              transporte de personas en régimen de compartición de costes, antes de realizar el
+              viaje.
+            </p>
             <p>
               La responsabilidad de ConcertRide ES, en los casos en que sea aplicable, se
               limitará al máximo permitido por la legislación española de consumo.
@@ -171,16 +204,35 @@ export default function TerminosPage() {
           </section>
 
           <section className="space-y-3">
-            <h2 className="font-display text-xl uppercase text-cr-primary">12. Legislación y fuero</h2>
+            <h2 className="font-display text-xl uppercase text-cr-primary">12. Resolución de litigios en línea (ODR)</h2>
             <p>
-              Estos términos se rigen por la legislación española. Para cualquier controversia,
-              las partes se someten a los tribunales del domicilio del titular, sin perjuicio de
-              la normativa imperativa de protección al consumidor que pudiera resultar aplicable.
+              Conforme al Reglamento (UE) n.º 524/2013 sobre resolución de litigios en línea en
+              materia de consumo, los usuarios residentes en la Unión Europea pueden acudir a la
+              plataforma de resolución de litigios en línea de la Comisión Europea:{" "}
+              <a
+                href="https://ec.europa.eu/consumers/odr"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-cr-primary underline underline-offset-2"
+              >
+                https://ec.europa.eu/consumers/odr
+              </a>
+              .
             </p>
           </section>
 
           <section className="space-y-3">
-            <h2 className="font-display text-xl uppercase text-cr-primary">13. Contacto</h2>
+            <h2 className="font-display text-xl uppercase text-cr-primary">13. Legislación y fuero</h2>
+            <p>
+              Estos términos se rigen por la legislación española. Para la resolución de cualquier
+              controversia derivada del uso de la plataforma, serán competentes los juzgados y
+              tribunales del domicilio del usuario, de conformidad con lo establecido en el Real
+              Decreto Legislativo 1/2007 (TRLGDCU) en materia de protección de consumidores.
+            </p>
+          </section>
+
+          <section className="space-y-3">
+            <h2 className="font-display text-xl uppercase text-cr-primary">14. Contacto</h2>
             <p>
               Para cualquier consulta sobre estos términos:{" "}
               <a

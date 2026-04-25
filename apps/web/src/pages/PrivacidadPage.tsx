@@ -118,6 +118,14 @@ export default function PrivacidadPage() {
                 <strong className="text-cr-text">Eventos de analítica</strong> — PostHog los conserva
                 como máximo 12 meses. Puedes revocar el consentimiento en cualquier momento.
               </li>
+              <li>
+                <strong className="text-cr-text">Documentos de verificación de licencia</strong> —
+                las imágenes del carnet de conducir aportadas para la verificación se eliminan
+                automáticamente transcurridos 90 días desde su carga, o antes si la verificación
+                se completa. El acceso durante ese período está restringido exclusivamente al
+                administrador de la plataforma. Los documentos se transmiten y almacenan cifrados
+                (HTTPS en tránsito, cifrado en reposo por Cloudflare KV).
+              </li>
             </ul>
           </section>
 
@@ -140,7 +148,9 @@ export default function PrivacidadPage() {
               <li>
                 <strong className="text-cr-text">Resend Inc.</strong> — envío de correos
                 transaccionales (bienvenida, recordatorios, solicitudes y confirmaciones de viaje).
-                Solo recibe el nombre y correo del destinatario + el texto del correo.
+                Solo recibe el nombre y correo del destinatario + el texto del correo. Los datos
+                se transfieren a EE. UU. bajo las Cláusulas Contractuales Tipo aprobadas por la
+                Comisión Europea (Art. 46 RGPD).
               </li>
               <li>
                 <strong className="text-cr-text">PostHog EU</strong> — analítica anónima de producto.
@@ -149,7 +159,9 @@ export default function PrivacidadPage() {
               <li>
                 <strong className="text-cr-text">Sentry.io</strong> — registro de errores para
                 corregir fallos. Recibe metadatos técnicos (URL, mensaje de error, navegador); los
-                correos electrónicos y cabeceras de autenticación se filtran antes del envío.
+                correos electrónicos y cabeceras de autenticación se filtran antes del envío. Los
+                datos se transfieren a EE. UU. bajo las Cláusulas Contractuales Tipo aprobadas
+                por la Comisión Europea (Art. 46 RGPD).
               </li>
               <li>
                 <strong className="text-cr-text">Proveedor de servicios de push del navegador</strong>{" "}
