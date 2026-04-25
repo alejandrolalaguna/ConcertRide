@@ -869,9 +869,12 @@ interface PageData {
 }
 
 function resolvePageData(pathname: string, base: string): PageData | null {
-  // Static routes
+  // Static routes — try both with and without trailing slash
   const staticRoutes = buildStaticRoutes(base);
-  const staticMatch = staticRoutes[pathname] ?? staticRoutes[pathname.replace(/\/$/, "")] ?? null;
+  const pathWithoutTrailingSlash = pathname.replace(/\/$/, "");
+  const pathWithTrailingSlash = pathWithoutTrailingSlash === pathname ? `${pathname}/` : pathname;
+
+  const staticMatch = staticRoutes[pathname] ?? staticRoutes[pathWithoutTrailingSlash] ?? staticRoutes[pathWithTrailingSlash] ?? null;
   if (staticMatch) {
     return {
       title: staticMatch.title,
