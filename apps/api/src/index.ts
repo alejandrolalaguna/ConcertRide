@@ -20,6 +20,7 @@ import reports from "./routes/reports";
 import admin from "./routes/admin";
 import { rateLimit } from "./lib/ratelimit";
 import { htmlToMarkdown, estimateTokens } from "./lib/markdown";
+import { seoPrerender } from "./lib/seoPrerender";
 import * as Sentry from "@sentry/cloudflare";
 
 const ALLOWED_ORIGINS = [
@@ -309,6 +310,12 @@ const FESTIVAL_META: Record<string, { name: string; city: string; venue: string;
   "tomavistas": { name: "Tomavistas", city: "Madrid", venue: "IFEMA", dates: "15–17 mayo 2026" },
   "cruilla": { name: "Cruïlla Barcelona", city: "Barcelona", venue: "Parc del Fòrum", dates: "9–12 julio 2026" },
 };
+
+// ─── SEO prerender for search bots ───────────────────────────────────────────
+// Intercepts known crawler User-Agents on SPA routes and rewrites the static
+// index.html with per-route <title>, <meta name="description">, and canonical
+// before delivery — solving the SPA/Googlebot visibility problem without SSR.
+app.use("*", seoPrerender);
 
 // ─── Markdown negotiation for all non-API routes ─────────────────────────────
 // This middleware runs on every non-API GET so that requests with
