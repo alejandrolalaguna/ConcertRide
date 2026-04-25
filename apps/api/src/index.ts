@@ -38,6 +38,12 @@ const app = new Hono<HonoEnv>();
 app.use("*", logger());
 app.use("*", prettyJSON());
 
+// ─── SEO prerender for search bots (runs early, before any route matching) ──
+// This must run before CORS/routes so it intercepts bot requests before
+// Cloudflare/Hono make trailing-slash redirects.
+app.use("*", storeMiddleware);
+app.use("*", seoPrerender);
+
 app.use("/api/*", (c, next) =>
   cors({
     origin: (origin) => {
@@ -325,12 +331,6 @@ const FESTIVAL_META: Record<string, { name: string; city: string; venue: string;
   "tomavistas": { name: "Tomavistas", city: "Madrid", venue: "IFEMA", dates: "15–17 mayo 2026" },
   "cruilla": { name: "Cruïlla Barcelona", city: "Barcelona", venue: "Parc del Fòrum", dates: "9–12 julio 2026" },
 };
-
-// ─── SEO prerender for search bots ───────────────────────────────────────────
-// Intercepts known crawler User-Agents on SPA routes and rewrites the static
-// index.html with per-route <title>, <meta name="description">, and canonical
-// before delivery — solving the SPA/Googlebot visibility problem without SSR.
-app.use("*", seoPrerender);
 
 // ─── Markdown negotiation for all non-API routes ─────────────────────────────
 // This middleware runs on every non-API GET so that requests with
