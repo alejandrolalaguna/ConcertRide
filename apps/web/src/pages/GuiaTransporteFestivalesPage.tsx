@@ -6,15 +6,15 @@ import { FESTIVAL_LANDINGS } from "@/lib/festivalLandings";
 const GUIDE_FAQS = [
   {
     q: "¿Cuál es la forma más barata de ir a un festival en España?",
-    a: "El carpooling entre particulares. Dividir la gasolina entre 3–4 personas sale a 3–20 €/asiento según la distancia, frente a los 30–90 € de un taxi o los 15–40 € de un bus de festival organizado. ConcertRide conecta a fans que van al mismo evento para compartir el viaje.",
+    a: "El carpooling entre particulares. Dividir la gasolina entre 3–4 personas sale a 3–20 €/asiento según la distancia — una de las opciones más económicas disponibles. ConcertRide conecta a fans que van al mismo evento para compartir el viaje sin comisiones ni intermediarios.",
   },
   {
     q: "¿Cómo volver de un festival de madrugada?",
     a: "Con ConcertRide, acuerdas la hora de vuelta con el conductor antes del viaje. La mayoría de los conductores publican viajes de ida y vuelta (el concierto acaba a las 2:00, salimos a las 2:30). No dependes del metro (que cierra) ni de taxis de madrugada (x3 precio). Es la solución más usada por los que vienen de fuera de la ciudad del festival.",
   },
   {
-    q: "¿Son fiables los autobuses de festival (BusForfun, DeFestivales, Festymas)?",
-    a: "Son una opción válida para trayectos desde Madrid o Barcelona hacia festivales como Viña Rock o Resurrection Fest. Tienen horarios fijos y suelen agotarse. La desventaja: solo ofrecen origen-destino predefinido, el horario de vuelta es fijo, y en temporada alta puede no quedar plaza. El carpooling es más flexible y generalmente más barato.",
+    q: "¿Son fiables los autobuses organizados a festivales?",
+    a: "Existen operadoras privadas que ofrecen autobuses a algunos festivales. Son una opción válida para trayectos concretos desde grandes ciudades, aunque tienen horarios fijos y suelen agotarse. La desventaja: solo ofrecen origen-destino predefinido, el horario de vuelta es fijo, y en temporada alta puede no quedar plaza. El carpooling es más flexible y generalmente más económico.",
   },
   {
     q: "¿Es mejor el carpooling o el transporte público para ir a un festival?",
@@ -164,7 +164,7 @@ export default function GuiaTransporteFestivalesPage() {
               <Bus size={18} className="text-cr-text-muted" />
               <h3 className="font-display text-lg uppercase">Autobús de festival</h3>
             </div>
-            <p className="font-sans text-[11px] text-cr-text-muted italic">BusForfun, DeFestivales, Festymas, Divertis en Vivo</p>
+            <p className="font-sans text-[11px] text-cr-text-muted italic">Autocares organizados por operadoras privadas</p>
             <ul className="font-sans text-sm text-cr-text-muted space-y-1.5 leading-relaxed">
               <li>✓ Salida garantizada desde tu ciudad</li>
               <li>✓ Cómodo para no conducir</li>
@@ -204,7 +204,7 @@ export default function GuiaTransporteFestivalesPage() {
               <Zap size={18} className="text-cr-text-muted" />
               <h3 className="font-display text-lg uppercase">Taxi / VTC</h3>
             </div>
-            <p className="font-sans text-[11px] text-cr-text-muted italic">Uber, Cabify, Free Now, taxi convencional</p>
+            <p className="font-sans text-[11px] text-cr-text-muted italic">Plataformas VTC y taxi convencional</p>
             <ul className="font-sans text-sm text-cr-text-muted space-y-1.5 leading-relaxed">
               <li>✓ Disponible a cualquier hora</li>
               <li>✓ Puerta a puerta</li>

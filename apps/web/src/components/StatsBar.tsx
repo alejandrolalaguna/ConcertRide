@@ -11,7 +11,7 @@ interface Stat {
 // verifiable sources:
 // - festivales: count of curated festivals in our 2026 catalogue (see fixtures)
 // - conciertos: approximate number of upcoming events (curated + Ticketmaster)
-// - ahorro: based on public Cabify/Uber pricing vs ConcertRide typical seat
+// - ahorro: based on typical taxi/VTC pricing vs ConcertRide typical seat price
 const STATS: Stat[] = [
   { label: "festivales en el catálogo 2026", target: 50, suffix: "+" },
   { label: "conciertos con viajes activos", target: 340, suffix: "+" },
@@ -73,7 +73,7 @@ export function StatsBar() {
                 value: 70,
                 unitCode: "P1",
                 description:
-                  "Ahorro medio estimado de un trayecto compartido frente al taxi equivalente, según precios públicos Cabify/Uber vs precio medio por plaza en ConcertRide",
+                  "Ahorro medio estimado de un trayecto compartido frente al taxi equivalente, según tarifas habituales de taxi/VTC vs precio medio por plaza en ConcertRide",
               },
             ],
           }),

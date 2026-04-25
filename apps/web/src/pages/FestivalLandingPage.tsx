@@ -256,7 +256,7 @@ export default function FestivalLandingPage() {
                 <span>{oc.drivingTime}</span>
               </div>
               <p className="font-sans text-[11px] text-cr-text-muted">
-                frente a ~{Math.round(oc.km / 10 + 20)}–{Math.round(oc.km / 7 + 25)} € en taxi/VTC
+                sin comisión — pagas directamente al conductor
               </p>
             </article>
           ))}
@@ -269,48 +269,6 @@ export default function FestivalLandingPage() {
           </p>
         </div>
 
-        {/* Comparison: ConcertRide vs alternatives */}
-        <div className="mt-8 overflow-x-auto">
-          <table className="w-full text-left border border-cr-border font-sans text-xs">
-            <caption className="text-left font-sans text-[11px] text-cr-text-muted mb-2 pb-2">
-              Comparativa de opciones de transporte a {festival.shortName}
-            </caption>
-            <thead>
-              <tr className="border-b border-cr-border">
-                <th className="py-2 px-3 font-semibold text-cr-text-muted uppercase tracking-wide">Opción</th>
-                <th className="py-2 px-3 font-semibold text-cr-text-muted uppercase tracking-wide">Precio (ciudad cercana)</th>
-                <th className="py-2 px-3 font-semibold text-cr-text-muted uppercase tracking-wide">Horario vuelta</th>
-                <th className="py-2 px-3 font-semibold text-cr-text-muted uppercase tracking-wide">Reserva</th>
-              </tr>
-            </thead>
-            <tbody className="divide-y divide-cr-border">
-              <tr className="bg-cr-primary/5">
-                <td className="py-2 px-3 font-semibold text-cr-primary">ConcertRide</td>
-                <td className="py-2 px-3 text-cr-text">{festival.originCities[0]?.concertRideRange ?? "3–15 €"}</td>
-                <td className="py-2 px-3 text-cr-text">Flexible (acuerdo con el conductor)</td>
-                <td className="py-2 px-3 text-cr-text">Gratuito, sin comisión</td>
-              </tr>
-              <tr>
-                <td className="py-2 px-3 text-cr-text-muted">Taxi / VTC</td>
-                <td className="py-2 px-3 text-cr-text-muted">30–90 € (ida)</td>
-                <td className="py-2 px-3 text-cr-text-muted">Bajo demanda, caro de noche</td>
-                <td className="py-2 px-3 text-cr-text-muted">App (Uber, Cabify, taxi)</td>
-              </tr>
-              <tr>
-                <td className="py-2 px-3 text-cr-text-muted">Autobús / tren</td>
-                <td className="py-2 px-3 text-cr-text-muted">10–40 € (si existe)</td>
-                <td className="py-2 px-3 text-cr-text-muted">Horarios fijos, escasos de noche</td>
-                <td className="py-2 px-3 text-cr-text-muted">Renfe / empresa regional</td>
-              </tr>
-              <tr>
-                <td className="py-2 px-3 text-cr-text-muted">Shuttle oficial festival</td>
-                <td className="py-2 px-3 text-cr-text-muted">10–25 € (si hay)</td>
-                <td className="py-2 px-3 text-cr-text-muted">Horarios limitados</td>
-                <td className="py-2 px-3 text-cr-text-muted">Web del festival (se agota)</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
       </section>
 
       {/* ── Viajes disponibles (dynamic) ── */}
@@ -359,9 +317,8 @@ export default function FestivalLandingPage() {
           <article className="space-y-2">
             <h3 className="font-display text-base uppercase text-cr-primary">Sin intermediarios</h3>
             <p>
-              El 100&nbsp;% del precio del asiento va al conductor. ConcertRide no cobra comisión
-              (BlaBlaCar cobra entre el 12 y el 18&nbsp;% al pasajero).
-              El pago es en efectivo o Bizum el día del viaje.
+              El 100&nbsp;% del precio del asiento va al conductor. ConcertRide no cobra comisión,
+              nunca. El pago es en efectivo o Bizum el día del viaje: económico, directo y sin sorpresas.
             </p>
           </article>
           <article className="space-y-2">
@@ -378,49 +335,6 @@ export default function FestivalLandingPage() {
               ni de taxis a precio de festival (30–90&nbsp;€ de madrugada).
             </p>
           </article>
-        </div>
-
-        {/* Competidor comparison inline */}
-        <div className="overflow-x-auto mt-4">
-          <table className="w-full text-left border border-cr-border font-sans text-xs">
-            <caption className="text-left font-sans text-[11px] text-cr-text-muted mb-2">
-              ConcertRide vs otras opciones para ir a {festival.shortName}
-            </caption>
-            <thead>
-              <tr className="border-b border-cr-border">
-                <th className="py-2 px-3 font-semibold text-cr-text-muted uppercase tracking-wide">Opción</th>
-                <th className="py-2 px-3 font-semibold text-cr-text-muted uppercase tracking-wide">Precio desde {festival.originCities[0]?.city ?? "ciudad cercana"}</th>
-                <th className="py-2 px-3 font-semibold text-cr-text-muted uppercase tracking-wide">Comisión</th>
-                <th className="py-2 px-3 font-semibold text-cr-text-muted uppercase tracking-wide">Vuelta flexible</th>
-              </tr>
-            </thead>
-            <tbody className="divide-y divide-cr-border">
-              <tr className="bg-cr-primary/5">
-                <td className="py-2 px-3 font-semibold text-cr-primary">ConcertRide</td>
-                <td className="py-2 px-3 text-cr-text">{festival.originCities[0]?.concertRideRange ?? "3–20 €"}</td>
-                <td className="py-2 px-3 text-cr-text">0 %</td>
-                <td className="py-2 px-3 text-cr-text">Sí (acuerdo con conductor)</td>
-              </tr>
-              <tr>
-                <td className="py-2 px-3 text-cr-text-muted">BlaBlaCar</td>
-                <td className="py-2 px-3 text-cr-text-muted">Variable + comisión</td>
-                <td className="py-2 px-3 text-cr-text-muted">12–18 %</td>
-                <td className="py-2 px-3 text-cr-text-muted">Sí, pero sin contexto evento</td>
-              </tr>
-              <tr>
-                <td className="py-2 px-3 text-cr-text-muted">Bus festival organizado</td>
-                <td className="py-2 px-3 text-cr-text-muted">15–35 €</td>
-                <td className="py-2 px-3 text-cr-text-muted">0 %</td>
-                <td className="py-2 px-3 text-cr-text-muted">No (horario fijo)</td>
-              </tr>
-              <tr>
-                <td className="py-2 px-3 text-cr-text-muted">Taxi / VTC</td>
-                <td className="py-2 px-3 text-cr-text-muted">30–90 €</td>
-                <td className="py-2 px-3 text-cr-text-muted">0 %</td>
-                <td className="py-2 px-3 text-cr-text-muted">Sí (pero muy caro de noche)</td>
-              </tr>
-            </tbody>
-          </table>
         </div>
 
         <div className="pt-6 flex flex-wrap gap-4 border-t border-cr-border">

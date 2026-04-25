@@ -5,10 +5,10 @@ export default function AcercaDePage() {
   useSeoMeta({
     title: "Acerca de ConcertRide ES — Carpooling para conciertos en España",
     description:
-      "Qué es ConcertRide, por qué existe y cómo funciona el carpooling para conciertos en España. Alternativa sin comisión al taxi y a BlaBlaCar para ir a festivales.",
+      "Qué es ConcertRide, por qué existe y cómo funciona el carpooling para conciertos en España. Plataforma gratuita, sin comisiones, con conductores verificados.",
     canonical: "https://concertride.es/acerca-de",
     keywords:
-      "qué es ConcertRide, sobre ConcertRide, carpooling conciertos España, alternativa BlaBlaCar festivales, plataforma viajes compartidos conciertos, sin comisión carpooling, misión ConcertRide",
+      "qué es ConcertRide, sobre ConcertRide, carpooling conciertos España, plataforma viajes compartidos conciertos, sin comisión carpooling, misión ConcertRide, transporte económico festivales",
   });
 
   return (
@@ -46,7 +46,7 @@ export default function AcercaDePage() {
                 "Movilidad sostenible",
               ],
               description:
-                "Plataforma de viajes compartidos exclusiva para conciertos y festivales en España. Sin comisiones, con conductores verificados. Alternativa gratuita al taxi o BlaBlaCar para llegar a festivales de música.",
+                "Plataforma de viajes compartidos exclusiva para conciertos y festivales en España. Sin comisiones, con conductores verificados. La forma más económica y social de llegar a festivales de música.",
               sameAs: [
                 "https://twitter.com/concertride_es",
                 "https://www.instagram.com/concertride_es/",
@@ -90,7 +90,7 @@ export default function AcercaDePage() {
             </footer>
           </blockquote>
           <p>
-            La solución no es nueva — BlaBlaCar demostró que el carpooling funciona para trayectos ciudad-a-ciudad genéricos (cobra entre el 12 y el 18 % de comisión al pasajero). Pero ir a un concierto es diferente: hay una hora precisa de llegada, un recinto específico, un tipo de música compartida y una conversación que nace antes de subir al coche. <strong className="text-cr-text">ConcertRide está diseñada para ese contexto específico</strong>, sin comisión, con conductores verificados y pago en persona.
+            El carpooling ya existía para trayectos genéricos, pero ir a un concierto es diferente: hay una hora precisa de llegada, un recinto específico, un tipo de música compartida y una conversación que nace antes de subir al coche. <strong className="text-cr-text">ConcertRide está diseñada para ese contexto específico</strong>, sin comisión, con conductores verificados y pago en persona.
           </p>
         </section>
 
@@ -132,22 +132,6 @@ export default function AcercaDePage() {
               </dd>
             </div>
           </dl>
-        </section>
-
-        <section className="space-y-4 border-t border-cr-border pt-8">
-          <h2 className="font-display text-2xl md:text-3xl uppercase leading-tight">
-            Tecnología
-          </h2>
-          <p className="font-sans text-sm text-cr-text-muted leading-relaxed">
-            ConcertRide está construido sobre infraestructura edge — Cloudflare Workers (backend),
-            Turso (SQLite distribuido), Resend (emails), VAPID Web Push (notificaciones). Frontend
-            en React + Vite + Tailwind, con Progressive Web App instalable. Sentry para errores,
-            PostHog EU para analítica (opt-in). Todo en la UE.
-          </p>
-          <p className="font-sans text-sm text-cr-text-muted leading-relaxed">
-            Contraseñas hasheadas con PBKDF2-SHA256 (100 000 iteraciones). Sesiones JWT HS256 en
-            cookies HTTP-only. CSP estricta, HSTS con preload, rate limiting en todos los POST.
-          </p>
         </section>
 
         <section className="border-t border-cr-border pt-8 grid md:grid-cols-2 gap-4">

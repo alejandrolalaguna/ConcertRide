@@ -48,8 +48,8 @@ const FAQS: Array<{ q: string; a: string }> = [
     a: "No. ConcertRide no intermedia ningún pago. El conductor cobra a los pasajeros directamente en efectivo o Bizum el día del viaje. El precio por asiento se calcula para compartir gastos (combustible + peajes), no para lucro. Por ley, un conductor no puede cobrar más del coste proporcional.",
   },
   {
-    q: "¿Cómo se comparan con BlaBlaCar?",
-    a: "BlaBlaCar es un servicio de carpooling ciudad-a-ciudad de propósito general que cobra entre el 12 y el 18 % de comisión al pasajero. ConcertRide es concierto-a-concierto y cobra 0 %: el viaje está sincronizado con el horario del evento, ves a qué concierto van los otros pasajeros (vibe matching), accedes al chat del concierto antes de reservar, y el 100 % del precio del asiento va al conductor. BlaBlaCar tampoco tiene catálogo de festivales ni filtros por evento.",
+    q: "¿Qué ventajas tiene ConcertRide frente a otras opciones de transporte?",
+    a: "ConcertRide es la única plataforma diseñada exclusivamente para conciertos y festivales. El viaje está sincronizado con el horario del evento, ves a qué concierto van los otros pasajeros (vibe matching), accedes al chat del concierto antes de reservar, y el 100 % del precio del asiento va al conductor — sin comisión de ningún tipo. No existe otra plataforma con catálogo de festivales ni filtros por evento.",
   },
   {
     q: "¿Qué datos personales guardáis?",
@@ -92,8 +92,8 @@ const FAQS: Array<{ q: string; a: string }> = [
     a: "Es la pregunta clave. Los festivales acaban entre la 1:00 y las 4:00 de la mañana, cuando el metro ya cerró o está saturado y los taxis cuestan 60–100 €. Con ConcertRide, publicas o buscas viaje de vuelta con antelación: acuerda la hora de salida con el conductor (ej. «salimos cuando acabe el último bolo, sobre las 2:30») y te recoge en el punto pactado. No dependes de nada ni de nadie.",
   },
   {
-    q: "¿Cuál es la diferencia entre ConcertRide y los buses de festival (BusForfun, DeFestivales, Festymas)?",
-    a: "Los buses de festival (BusForfun, DeFestivales, Festymas, Divertis en Vivo) son autocares organizados desde unas pocas ciudades, con horarios fijos, que suelen agotarse semanas antes. ConcertRide es carpooling entre particulares: sale desde tu calle, a la hora que acordáis, y cuesta entre 3 y 20 € según la distancia. No hay plazas limitadas —cualquiera puede publicar un viaje desde cualquier ciudad.",
+    q: "¿Hay autobuses organizados a los festivales y cómo se comparan con ConcertRide?",
+    a: "Existen servicios de autobuses organizados a algunos festivales, pero solo desde ciudades concretas, con horarios fijos, y suelen agotarse semanas antes. ConcertRide es carpooling entre particulares: sale desde tu calle, a la hora que acordáis, y cuesta entre 3 y 20 € según la distancia. No hay plazas limitadas — cualquiera puede publicar un viaje desde cualquier ciudad.",
   },
   {
     q: "¿ConcertRide es más sostenible que ir en coche solo?",
@@ -116,8 +116,8 @@ const FAQS: Array<{ q: string; a: string }> = [
     a: "Activa el botón 'Me interesa un viaje' en la ficha del concierto. Esto registra tu demanda: el sistema la muestra a posibles conductores (con el contador 'X personas buscan viaje') y te notifica por email y push en cuanto alguien publique un viaje desde tu ciudad. Cuantas más personas marquen interés, más probable es que aparezca un conductor.",
   },
   {
-    q: "¿Cómo se compara ConcertRide con BlaBlaCar para ir a festivales?",
-    a: "BlaBlaCar es un servicio ciudad-a-ciudad genérico con comisión del 12–18 %. ConcertRide es exclusivo para conciertos: el viaje está sincronizado con el horario del evento, ves a qué show van los otros pasajeros, puedes chatear en el chat del concierto antes de reservar, y el 100 % del precio va al conductor. Además, BlaBlaCar no tiene catálogo de festivales ni filtros por evento.",
+    q: "¿Por qué ConcertRide es mejor para ir a festivales que una plataforma de carpooling genérica?",
+    a: "ConcertRide está diseñada específicamente para conciertos: el viaje está sincronizado con el horario del evento, ves a qué show van los otros pasajeros, puedes chatear en el chat del concierto antes de reservar, y el 100 % del precio va al conductor sin comisión. Las plataformas genéricas no tienen catálogo de festivales ni filtros por evento.",
   },
 ];
 
@@ -127,10 +127,10 @@ export default function FaqPage() {
   useSeoMeta({
     title: "Preguntas frecuentes — Carpooling para conciertos y festivales",
     description:
-      "FAQ completo sobre ConcertRide: cómo compartir coche a un festival, alternativa al taxi para volver de noche, diferencia con BusForfun y BlaBlaCar, sostenibilidad, ZBE Madrid y más.",
+      "FAQ completo sobre ConcertRide: cómo compartir coche a un festival, alternativa económica para volver de noche, carpooling sin comisiones, sostenibilidad, ZBE Madrid y más.",
     canonical: "https://concertride.es/faq",
     keywords:
-      "preguntas frecuentes carpooling conciertos, cómo compartir coche concierto, alternativa taxi concierto, transporte festival España, ir al festival sin coche, compartir gastos concierto, carpooling festival España, coche compartido festival, volver festival madrugada, autobús festival vs carpooling, movilidad sostenible festival, ZBE Madrid concierto, furgoneta compartida festival",
+      "preguntas frecuentes carpooling conciertos, cómo compartir coche concierto, alternativa taxi concierto, transporte festival España, ir al festival sin coche, compartir gastos concierto, carpooling festival España, coche compartido festival, volver festival madrugada, carpooling sin comisiones, movilidad sostenible festival, ZBE Madrid concierto, furgoneta compartida festival",
   });
 
   return (

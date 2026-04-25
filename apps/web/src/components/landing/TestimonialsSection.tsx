@@ -8,7 +8,7 @@ const TESTIMONIALS = [
     city: "Valencia",
     festival: "Mad Cool 2025",
     stars: 5,
-    text: "Vine desde Valencia a Mad Cool con ConcertRide. Pagué 11 € por asiento, el conductor nos esperó a la salida a las 2:30 y llegué a casa sin el agobio del taxi. El año pasado me gasté 75 € en Cabify de vuelta. Nunca más.",
+    text: "Vine desde Valencia a Mad Cool con ConcertRide. Pagué 11 € por asiento, el conductor nos esperó a la salida a las 2:30 y llegué a casa sin el agobio ni el gasto del transporte nocturno. Nunca más vuelvo solo.",
   },
   {
     name: "Andrés T.",
