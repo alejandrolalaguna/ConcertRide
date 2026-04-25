@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { Link, Navigate, useNavigate } from "react-router-dom";
 import { motion } from "motion/react";
 import { AlertTriangle, Bell, BellOff, Check, Link2, ShieldCheck, Star, TrendingUp, Upload } from "lucide-react";
-import type { Review, Ride } from "@concertride/types";
+import type { LicenseReview, Review, Ride } from "@concertride/types";
 import { api, ApiError } from "@/lib/api";
 import { useSession } from "@/lib/session";
 import { usePush } from "@/lib/usePush";
@@ -87,7 +87,7 @@ export default function ProfilePage() {
   const [refCopied, setRefCopied] = useState(false);
   const [verifying, setVerifying] = useState(false);
   const [verifyError, setVerifyError] = useState<string | null>(null);
-  const [licenseSubmitted, setLicenseSubmitted] = useState(false);
+  const [licenseReview, setLicenseReview] = useState<LicenseReview | null | undefined>(undefined);
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [previewUrl, setPreviewUrl] = useState<string | null>(null);
   const [otpSent, setOtpSent] = useState(false);
@@ -140,6 +140,11 @@ export default function ProfilePage() {
       .then((r) => setConfirmedTrips(r.passenger_requests.filter((req) => req.status === "confirmed").length))
       .catch(() => {});
   }, [user?.id]);
+
+  useEffect(() => {
+    if (!user || user.license_verified) return;
+    api.auth.myLicenseReview().then((r) => setLicenseReview(r.review)).catch(() => setLicenseReview(null));
+  }, [user?.id, user?.license_verified]);
 
   if (!loading && !user) return <Navigate to="/login?next=/profile" replace />;
   if (loading || !user) return null;
@@ -589,12 +594,57 @@ export default function ProfilePage() {
                   Conductor verificado
                 </p>
               </div>
-            ) : licenseSubmitted ? (
-              <div className="flex items-center gap-2 border border-yellow-500/40 bg-yellow-500/[0.06] px-4 py-3">
-                <ShieldCheck size={14} className="text-yellow-400 shrink-0" aria-hidden="true" />
-                <p className="font-sans text-xs font-semibold uppercase tracking-[0.1em] text-yellow-400">
-                  Carnet enviado — revisaremos en 24–48 h
+            ) : licenseReview?.status === "pending" ? (
+              <div className="space-y-3 border border-yellow-500/40 bg-yellow-500/[0.04] p-4">
+                <div className="flex items-center gap-2">
+                  <ShieldCheck size={14} className="text-yellow-400 shrink-0" aria-hidden="true" />
+                  <p className="font-sans text-xs font-semibold uppercase tracking-[0.1em] text-yellow-400">
+                    Pendiente de aprobación
+                  </p>
+                </div>
+                <p className="font-sans text-xs text-cr-text-muted">
+                  Recibimos tu carnet el{" "}
+                  {new Date(licenseReview.submitted_at).toLocaleDateString("es-ES", { day: "numeric", month: "long" })}.
+                  Lo revisaremos en 24–48 h y te avisamos por email.
                 </p>
+                <a
+                  href={`mailto:alejandrolalaguna@gmail.com?subject=${encodeURIComponent("Estado verificación carnet — " + user.name)}&body=${encodeURIComponent("Hola,\n\nQuería preguntar por el estado de la verificación de mi carnet de conducir.\n\nMi usuario: " + user.email + "\nID de revisión: " + licenseReview.id + "\n\nGracias.")}`}
+                  className="inline-flex items-center gap-1.5 font-sans text-xs text-cr-text-muted hover:text-cr-primary underline underline-offset-2 transition-colors"
+                >
+                  Preguntar por el estado →
+                </a>
+              </div>
+            ) : licenseReview?.status === "rejected" ? (
+              <div className="space-y-3 border border-cr-secondary/40 bg-cr-secondary/[0.04] p-4">
+                <div className="flex items-center gap-2">
+                  <AlertTriangle size={14} className="text-cr-secondary shrink-0" aria-hidden="true" />
+                  <p className="font-sans text-xs font-semibold uppercase tracking-[0.1em] text-cr-secondary">
+                    Verificación rechazada
+                  </p>
+                </div>
+                {licenseReview.rejection_reason && (
+                  <p className="font-sans text-xs text-cr-text-muted">
+                    Motivo: {licenseReview.rejection_reason}
+                  </p>
+                )}
+                <p className="font-sans text-xs text-cr-text-muted">
+                  Puedes enviar un nuevo documento corrigiendo el problema.
+                </p>
+                <div className="flex flex-wrap gap-3">
+                  <button
+                    type="button"
+                    onClick={() => setLicenseReview(null)}
+                    className="font-sans text-xs font-semibold uppercase tracking-[0.1em] bg-cr-primary text-black px-3 py-2 hover:bg-cr-primary/90 transition-colors"
+                  >
+                    Enviar nuevo documento
+                  </button>
+                  <a
+                    href={`mailto:alejandrolalaguna@gmail.com?subject=${encodeURIComponent("Revisión rechazo carnet — " + user.name)}&body=${encodeURIComponent("Hola,\n\nMi verificación fue rechazada y me gustaría entender el motivo o enviar un documento nuevo.\n\nMi usuario: " + user.email + "\nID de revisión: " + licenseReview.id + "\n\nGracias.")}`}
+                    className="inline-flex items-center gap-1.5 font-sans text-xs text-cr-text-muted hover:text-cr-primary underline underline-offset-2 transition-colors"
+                  >
+                    Preguntar al equipo →
+                  </a>
+                </div>
               </div>
             ) : (
               <div className="space-y-3 border border-dashed border-cr-border p-4">
@@ -684,9 +734,9 @@ export default function ProfilePage() {
                           setVerifying(true);
                           setVerifyError(null);
                           try {
-                            await api.auth.verifyLicense(selectedFile);
+                            const result = await api.auth.verifyLicense(selectedFile);
                             if (previewUrl) URL.revokeObjectURL(previewUrl);
-                            setLicenseSubmitted(true);
+                            setLicenseReview({ id: result.review_id, user_id: user.id, file_kv_key: "", status: "pending", submitted_at: new Date().toISOString(), reviewed_at: null, rejection_reason: null });
                             setSelectedFile(null);
                             setPreviewUrl(null);
                           } catch (err) {

@@ -1075,6 +1075,12 @@ export class MemoryStore implements StoreAdapter {
     };
   }
 
+  async getMyLicenseReview(userId: string): Promise<import("@concertride/types").LicenseReview | null> {
+    const userReviews = this.licenseReviews.filter((r) => r.user_id === userId);
+    if (userReviews.length === 0) return null;
+    return userReviews.sort((a, b) => b.submitted_at.localeCompare(a.submitted_at))[0]!;
+  }
+
   async createLicenseReview(userId: string, fileKvKey: string): Promise<import("@concertride/types").LicenseReview> {
     const review: import("@concertride/types").LicenseReview = {
       id: `lr_${crypto.randomUUID().slice(0, 10)}`,

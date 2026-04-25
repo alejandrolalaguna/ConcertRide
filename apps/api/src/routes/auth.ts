@@ -220,6 +220,13 @@ route.post("/verify-license", async (c) => {
   return c.json({ ok: true, status: "pending", review_id: review.id });
 });
 
+route.get("/verify-license/status", async (c) => {
+  const userOrResp = await requireUser(c);
+  if (userOrResp instanceof Response) return userOrResp;
+  const review = await c.var.store.getMyLicenseReview(userOrResp.id);
+  return c.json({ review: review ?? null });
+});
+
 route.post("/forgot-password", authLimiter, async (c) => {
   const body = await c.req.json().catch(() => null);
   const parsed = forgotPasswordSchema.safeParse(body);

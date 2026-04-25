@@ -120,6 +120,8 @@ export interface StoreAdapter {
   // --- license reviews ---
   // Stores the KV key of the uploaded document and creates a pending review.
   createLicenseReview(userId: string, fileKvKey: string): Promise<LicenseReview>;
+  // User: get own latest license review (null if never submitted).
+  getMyLicenseReview(userId: string): Promise<LicenseReview | null>;
   // Admin: list all reviews, optionally filtered by status.
   listLicenseReviews(filter?: { status?: "pending" | "approved" | "rejected" }): Promise<Array<LicenseReview & { user: User | null }>>;
   // Admin: approve — sets review to approved + calls verifyLicense on the user.

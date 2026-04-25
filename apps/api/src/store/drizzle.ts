@@ -1643,6 +1643,14 @@ export class DrizzleStore implements StoreAdapter {
     };
   }
 
+  async getMyLicenseReview(userId: string): Promise<import("@concertride/types").LicenseReview | null> {
+    const row = await this.db.query.licenseReviews.findFirst({
+      where: eq(schema.licenseReviews.user_id, userId),
+      orderBy: (t, { desc }) => [desc(t.submitted_at)],
+    });
+    return row ?? null;
+  }
+
   async createLicenseReview(userId: string, fileKvKey: string): Promise<import("@concertride/types").LicenseReview> {
     const id = `lr_${crypto.randomUUID().slice(0, 10)}`;
     await this.db.insert(schema.licenseReviews).values({ id, user_id: userId, file_kv_key: fileKvKey });

@@ -128,6 +128,8 @@ export const api = {
         method: "PATCH",
         body: JSON.stringify(input),
       }),
+    myLicenseReview: () =>
+      request<{ review: import("@concertride/types").LicenseReview | null }>("/api/auth/verify-license/status"),
     verifyLicense: (file: File) => {
       const form = new FormData();
       form.append("document", file);
