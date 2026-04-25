@@ -1080,7 +1080,15 @@ export async function seoPrerender(c: Context<HonoEnv>, next: Next): Promise<Res
   const base = getSiteUrl(c.env);
 
   // Resolve page data — concert pages need the store, everything else is static
+  // Also try with trailing slash appended/removed if initial match fails
   let page: PageData | null = resolvePageData(c.req.path, base);
+
+  if (!page) {
+    // Try normalizing trailing slash
+    const pathWithoutSlash = c.req.path.replace(/\/$/, "");
+    const pathWithSlash = pathWithoutSlash === c.req.path ? `${c.req.path}/` : pathWithoutSlash;
+    page = resolvePageData(pathWithSlash, base);
+  }
 
   if (!page) {
     // /concerts/:id — fetch concert data from store for rich SEO
