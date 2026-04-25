@@ -231,6 +231,7 @@ export const RIDES: Ride[] = SEEDS.map((s) => {
     max_luggage: "backpack",
     notes: s.notes,
     instant_booking: false,
+    price_negotiable: false,
     accepted_payment: "cash_or_bizum",
     status: s.seats_left === 0 ? "full" : "active",
     completed_at: null,

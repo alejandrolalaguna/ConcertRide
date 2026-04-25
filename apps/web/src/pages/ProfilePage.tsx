@@ -539,7 +539,7 @@ export default function ProfilePage() {
             </h2>
             <label className="block space-y-2">
               <span className="font-sans text-[11px] font-semibold uppercase tracking-[0.12em] text-cr-text-muted">
-                Ciudad habitual
+                Ciudad habitual — se autocompleta como origen al publicar viajes
               </span>
               <select
                 value={homeCity}
@@ -557,7 +557,7 @@ export default function ProfilePage() {
           {/* Sobre ti */}
           <section className="space-y-4">
             <h2 className="font-sans text-[11px] font-semibold uppercase tracking-[0.16em] text-cr-primary border-b border-cr-border pb-2">
-              Sobre ti
+              Preferencias de viaje
             </h2>
             <TristateToggle
               label="Carnet de conducir"
@@ -570,7 +570,7 @@ export default function ProfilePage() {
               ]}
             />
             <TristateToggle
-              label="¿Fumas?"
+              label="¿Fumas? — se usará como valor por defecto al publicar viajes"
               value={smoker}
               onChange={setSmoker}
               options={[
@@ -661,8 +661,19 @@ export default function ProfilePage() {
           {/* Coche */}
           <section className="space-y-4">
             <h2 className="font-sans text-[11px] font-semibold uppercase tracking-[0.16em] text-cr-primary border-b border-cr-border pb-2">
-              Coche <span className="font-sans font-normal normal-case tracking-normal text-cr-text-dim text-xs">(si ofreces viajes)</span>
+              Tu vehículo
             </h2>
+            <div className="bg-cr-surface border border-dashed border-cr-border px-4 py-3 flex items-start gap-3">
+              <span aria-hidden="true" className="text-base mt-0.5">🚗</span>
+              <div className="space-y-0.5">
+                <p className="font-sans text-xs font-semibold text-cr-text">
+                  Los pasajeros ven estos datos en la página de tu viaje
+                </p>
+                <p className="font-sans text-xs text-cr-text-muted">
+                  Modelo y color ayudan a identificarte en el punto de recogida. También aparecen en tu perfil público de conductor.
+                </p>
+              </div>
+            </div>
             <div className="grid grid-cols-2 gap-4">
               <label className="block space-y-2">
                 <span className="font-sans text-[11px] font-semibold uppercase tracking-[0.12em] text-cr-text-muted">
@@ -689,6 +700,12 @@ export default function ProfilePage() {
                 />
               </label>
             </div>
+            {(carModel || carColor) && (
+              <div className="flex items-center gap-2 font-mono text-[11px] text-cr-text-muted">
+                <span aria-hidden="true">👁</span>
+                <span>Los pasajeros verán: <strong className="text-cr-text">{[carModel, carColor].filter(Boolean).join(" · ")}</strong></span>
+              </div>
+            )}
           </section>
 
           {error && (

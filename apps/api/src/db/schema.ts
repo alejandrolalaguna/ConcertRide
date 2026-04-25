@@ -120,6 +120,7 @@ export const rides = sqliteTable(
     max_luggage: text("max_luggage", { enum: ["none", "small", "backpack", "cabin", "large", "extra"] }).notNull().default("backpack"),
     notes: text("notes"),
     instant_booking: integer("instant_booking", { mode: "boolean" }).notNull().default(sql`0`),
+    price_negotiable: integer("price_negotiable", { mode: "boolean" }).notNull().default(sql`0`),
     accepted_payment: text("accepted_payment", { enum: ["cash", "bizum", "cash_or_bizum"] }).notNull().default("cash"),
     status: text("status", { enum: ["active", "full", "cancelled", "completed"] })
       .notNull()

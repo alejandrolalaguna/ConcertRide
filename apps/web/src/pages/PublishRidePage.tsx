@@ -2,7 +2,7 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import { Link, Navigate, useNavigate } from "react-router-dom";
 import { motion } from "motion/react";
 import confetti from "canvas-confetti";
-import { ArrowLeft, ArrowRight, Check, PenLine, Search } from "lucide-react";
+import { ArrowLeft, ArrowRight, Check, PenLine, Search, Sparkles } from "lucide-react";
 import type { Concert, CreateConcertInput, Luggage, PaymentMethod, Ride, SmokingPolicy, Vibe } from "@concertride/types";
 import { api, ApiError } from "@/lib/api";
 import { SPANISH_CITIES, SPANISH_CITIES_BY_NAME } from "@/lib/constants";
@@ -33,6 +33,7 @@ interface Form {
   price_per_seat: number;
   vibe: Vibe | null;
   instant_booking: boolean;
+  price_negotiable: boolean;
   accepted_payment: PaymentMethod;
   smoking_policy: SmokingPolicy;
   max_luggage: Luggage;
@@ -57,6 +58,7 @@ const INITIAL: Form = {
   price_per_seat: 15,
   vibe: null,
   instant_booking: false,
+  price_negotiable: false,
   accepted_payment: "cash_or_bizum",
   smoking_policy: "no",
   max_luggage: "backpack",
@@ -76,6 +78,7 @@ export default function PublishRidePage() {
   const [error, setError] = useState<string | null>(null);
   const [created, setCreated] = useState<Ride | null>(null);
   const [suggestedPrice, setSuggestedPrice] = useState<number | null>(null);
+  const [autofilledFields, setAutofilledFields] = useState<string[]>([]);
 
   useSeoMeta({
     title: "Publicar un viaje a un concierto",
@@ -90,12 +93,20 @@ export default function PublishRidePage() {
   // Pre-fill fields from profile (only on first render, before user edits)
   useEffect(() => {
     if (!user) return;
-    setForm((f) => ({
-      ...f,
-      ...(user.home_city && !f.origin_city ? { origin_city: user.home_city } : {}),
-      // If user smokes, default the ride to smokers-ok
-      smoking_policy: user.smoker === true ? "yes" : "no",
-    }));
+    const filled: string[] = [];
+    setForm((f) => {
+      const patch: Partial<Form> = {};
+      if (user.home_city && !f.origin_city) {
+        patch.origin_city = user.home_city;
+        filled.push(`Ciudad de origen: ${user.home_city}`);
+      }
+      if (user.smoker === true) {
+        patch.smoking_policy = "yes";
+        filled.push("Política de tabaco: fumadores OK");
+      }
+      return { ...f, ...patch };
+    });
+    if (filled.length > 0) setAutofilledFields(filled);
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user?.id]);
 
@@ -204,6 +215,7 @@ export default function PublishRidePage() {
         ...(form.playlist_url.trim() ? { playlist_url: form.playlist_url.trim() } : {}),
         vibe: form.vibe,
         instant_booking: form.instant_booking,
+        price_negotiable: form.price_negotiable,
         accepted_payment: form.accepted_payment,
         smoking_policy: form.smoking_policy,
         max_luggage: form.max_luggage,
@@ -339,6 +351,52 @@ export default function PublishRidePage() {
               </Link>
             </div>
           </section>
+        )}
+
+        {user && !user.car_model && (
+          <section className="border border-dashed border-cr-border bg-cr-surface p-4 flex items-start gap-3">
+            <span aria-hidden="true" className="text-base mt-0.5">🚗</span>
+            <div className="flex-1 space-y-1">
+              <p className="font-sans text-xs font-semibold text-cr-text">
+                Añade tu coche al perfil para generar más confianza
+              </p>
+              <p className="font-sans text-xs text-cr-text-muted">
+                Modelo y color aparecen en la página del viaje y ayudan a los pasajeros a identificarte en el punto de recogida.
+              </p>
+            </div>
+            <Link
+              to="/profile"
+              className="shrink-0 font-sans text-[11px] font-semibold uppercase tracking-[0.1em] border border-cr-border text-cr-text-muted hover:border-cr-primary hover:text-cr-primary px-3 py-1.5 transition-colors whitespace-nowrap"
+            >
+              Ir al perfil
+            </Link>
+          </section>
+        )}
+
+        {autofilledFields.length > 0 && (
+          <motion.section
+            initial={{ opacity: 0, y: -8 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="border border-cr-primary/30 bg-cr-primary/[0.04] p-4 flex items-start gap-3"
+          >
+            <Sparkles size={14} className="text-cr-primary mt-0.5 shrink-0" aria-hidden="true" />
+            <div className="flex-1 space-y-1">
+              <p className="font-sans text-xs font-semibold text-cr-primary">Rellenado automáticamente desde tu perfil</p>
+              <ul className="space-y-0.5">
+                {autofilledFields.map((f) => (
+                  <li key={f} className="font-mono text-[11px] text-cr-text-muted">· {f}</li>
+                ))}
+              </ul>
+            </div>
+            <button
+              type="button"
+              onClick={() => setAutofilledFields([])}
+              className="shrink-0 font-mono text-[11px] text-cr-text-dim hover:text-cr-text transition-colors"
+              aria-label="Cerrar"
+            >
+              ✕
+            </button>
+          </motion.section>
         )}
 
         {step === 1 && (
@@ -622,6 +680,24 @@ export default function PublishRidePage() {
               )}
             </div>
 
+            {user && (user.car_model || user.car_color) && (
+              <div className="flex items-center gap-3 border border-cr-border bg-cr-surface px-4 py-3">
+                <span aria-hidden="true" className="text-base">🚗</span>
+                <div className="flex-1 min-w-0">
+                  <p className="font-sans text-[11px] font-semibold uppercase tracking-[0.1em] text-cr-text-muted">Tu vehículo</p>
+                  <p className="font-sans text-sm text-cr-text truncate">
+                    {[user.car_model, user.car_color].filter(Boolean).join(" · ")}
+                  </p>
+                </div>
+                <Link
+                  to="/profile"
+                  className="shrink-0 font-mono text-[11px] text-cr-text-dim hover:text-cr-primary transition-colors"
+                >
+                  Editar
+                </Link>
+              </div>
+            )}
+
             {form.seats_total >= 1 && (
               <EarningsCalculator
                 pricePerSeat={form.price_per_seat}
@@ -671,6 +747,32 @@ export default function PublishRidePage() {
                 <span
                   className={`absolute top-0.5 w-4 h-4 bg-black transition-transform duration-150 ${
                     form.instant_booking ? "translate-x-5" : "translate-x-0.5"
+                  }`}
+                />
+              </button>
+            </div>
+
+            <div className="border border-cr-border p-4 flex items-start gap-4">
+              <div className="flex-1 space-y-1">
+                <p className="font-sans text-sm font-semibold text-cr-text">
+                  Precio negociable
+                </p>
+                <p className="font-sans text-xs text-cr-text-muted">
+                  Los pasajeros podrán hacerte una propuesta de precio en el mensaje al solicitar plaza. Tú decides si aceptas.
+                </p>
+              </div>
+              <button
+                type="button"
+                role="switch"
+                aria-checked={form.price_negotiable}
+                onClick={() => update("price_negotiable", !form.price_negotiable)}
+                className={`relative flex-shrink-0 w-11 h-6 border-2 transition-colors duration-150 ${
+                  form.price_negotiable ? "bg-cr-primary border-cr-primary" : "bg-cr-surface-2 border-cr-border"
+                }`}
+              >
+                <span
+                  className={`absolute top-0.5 w-4 h-4 bg-black transition-transform duration-150 ${
+                    form.price_negotiable ? "translate-x-5" : "translate-x-0.5"
                   }`}
                 />
               </button>

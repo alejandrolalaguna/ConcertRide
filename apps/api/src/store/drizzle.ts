@@ -186,6 +186,7 @@ function hydrateRide(row: RideWith): Ride {
     max_luggage: row.max_luggage,
     notes: row.notes,
     instant_booking: row.instant_booking,
+    price_negotiable: row.price_negotiable ?? false,
     accepted_payment: (row.accepted_payment as Ride["accepted_payment"]) ?? "cash",
     status: row.status,
     completed_at: row.completed_at ?? null,
@@ -740,6 +741,7 @@ export class DrizzleStore implements StoreAdapter {
       max_luggage: input.max_luggage ?? "backpack",
       notes: input.notes ?? null,
       instant_booking: input.instant_booking ?? false,
+      price_negotiable: input.price_negotiable ?? false,
       accepted_payment: input.accepted_payment ?? "cash",
       status: "active",
       created_at: now,
@@ -825,6 +827,7 @@ export class DrizzleStore implements StoreAdapter {
         | "smoking_policy"
         | "max_luggage"
         | "instant_booking"
+        | "price_negotiable"
         | "accepted_payment"
         | "origin_address"
       >
@@ -843,6 +846,7 @@ export class DrizzleStore implements StoreAdapter {
     if (patch.smoking_policy !== undefined) updates.smoking_policy = patch.smoking_policy;
     if (patch.max_luggage !== undefined) updates.max_luggage = patch.max_luggage;
     if (patch.instant_booking !== undefined) updates.instant_booking = patch.instant_booking;
+    if (patch.price_negotiable !== undefined) updates.price_negotiable = patch.price_negotiable;
     if (patch.accepted_payment !== undefined) updates.accepted_payment = patch.accepted_payment;
     if (patch.origin_address !== undefined) updates.origin_address = patch.origin_address;
     // Seats can only grow — can't remove booked passengers

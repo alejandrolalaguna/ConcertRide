@@ -47,6 +47,7 @@ const createRideSchema = z.object({
   max_luggage: z.enum(["none", "small", "backpack", "cabin", "large", "extra"]).optional(),
   notes: z.string().max(500).optional(),
   instant_booking: z.boolean().optional(),
+  price_negotiable: z.boolean().optional(),
   accepted_payment: z.enum(["cash", "bizum", "cash_or_bizum"]).optional(),
 });
 
@@ -449,6 +450,7 @@ const updateRideSchema = z.object({
   smoking_policy: z.enum(["no", "yes"]).optional(),
   max_luggage: z.enum(["none", "small", "backpack", "cabin", "large", "extra"]).optional(),
   instant_booking: z.boolean().optional(),
+  price_negotiable: z.boolean().optional(),
   accepted_payment: z.enum(["cash", "bizum", "cash_or_bizum"]).optional(),
   origin_address: z.string().min(1).max(200).optional(),
 });

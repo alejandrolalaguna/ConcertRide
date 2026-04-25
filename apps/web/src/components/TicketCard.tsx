@@ -105,6 +105,11 @@ export function TicketCard({ ride, onClick }: Props) {
                 Instante
               </span>
             )}
+            {ride.price_negotiable && (
+              <span className="inline-block font-sans text-[10px] font-semibold text-cr-primary border border-cr-primary px-1.5 py-0.5 tracking-[0.08em]">
+                Negociable
+              </span>
+            )}
             <HotRidesBadge seatsTaken={ride.seats_total - ride.seats_left} seatsTotal={ride.seats_total} />
           </div>
           <SocialProofText seatsTaken={ride.seats_total - ride.seats_left} seatsTotal={ride.seats_total} />

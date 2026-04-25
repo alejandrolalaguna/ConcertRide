@@ -153,6 +153,7 @@ export interface Ride {
   max_luggage: Luggage;
   notes: string | null;
   instant_booking: boolean;
+  price_negotiable: boolean;
   accepted_payment: PaymentMethod;
   status: RideStatus;
   completed_at: string | null;
@@ -291,6 +292,7 @@ export interface CreateRideRequest {
   max_luggage?: Luggage;
   notes?: string;
   instant_booking?: boolean;
+  price_negotiable?: boolean;
   accepted_payment?: PaymentMethod;
 }
 

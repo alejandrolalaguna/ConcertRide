@@ -475,6 +475,11 @@ export default function RideDetailPage() {
                 <p className="font-sans text-[10px] font-semibold uppercase tracking-[0.12em] text-cr-text-muted mt-1">
                   /asiento
                 </p>
+                {ride.price_negotiable && (
+                  <span className="inline-block mt-2 font-sans text-[10px] font-semibold uppercase tracking-[0.08em] border border-cr-primary text-cr-primary px-1.5 py-0.5">
+                    Negociable
+                  </span>
+                )}
               </div>
               <div className="flex md:flex-col md:items-start items-end gap-2">
                 <p className="font-mono text-sm text-cr-text">
@@ -677,6 +682,11 @@ export default function RideDetailPage() {
                   Confirmación inmediata
                 </span>
               )}
+              {ride.price_negotiable && (
+                <span className="inline-block font-sans text-[10px] font-semibold uppercase tracking-[0.12em] border border-cr-primary text-cr-primary px-2 py-0.5">
+                  Precio negociable
+                </span>
+              )}
             </header>
 
             {myRequest && (myRequest.status === "pending" || myRequest.status === "confirmed") ? (
@@ -849,15 +859,26 @@ export default function RideDetailPage() {
 
                 <label className="block space-y-2">
                   <span className="font-sans text-[11px] font-semibold uppercase tracking-[0.12em] text-cr-text-muted">
-                    Mensaje al conductor (opcional)
+                    {ride.price_negotiable ? "Tu propuesta al conductor" : "Mensaje al conductor (opcional)"}
                   </span>
+                  {ride.price_negotiable && (
+                    <p className="font-mono text-[11px] text-cr-primary">
+                      Este viaje acepta negociación de precio. Indica aquí tu oferta y el conductor decidirá.
+                    </p>
+                  )}
                   <textarea
                     value={message}
                     onChange={(e) => setMessage(e.target.value)}
                     rows={3}
                     maxLength={500}
-                    placeholder="Soy puntual, no fumo, llevo mochila pequeña…"
-                    className="w-full bg-cr-bg border-2 border-cr-border focus:border-cr-primary outline-none px-3 py-2 font-sans text-sm text-cr-text placeholder:text-cr-text-dim transition-colors"
+                    placeholder={
+                      ride.price_negotiable
+                        ? "Ej: Ofrezco €10 por plaza, somos 2, somos puntuales…"
+                        : "Soy puntual, no fumo, llevo mochila pequeña…"
+                    }
+                    className={`w-full bg-cr-bg border-2 outline-none px-3 py-2 font-sans text-sm text-cr-text placeholder:text-cr-text-dim transition-colors ${
+                      ride.price_negotiable ? "border-cr-primary/50 focus:border-cr-primary" : "border-cr-border focus:border-cr-primary"
+                    }`}
                   />
                 </label>
 

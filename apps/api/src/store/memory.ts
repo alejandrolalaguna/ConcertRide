@@ -544,6 +544,7 @@ export class MemoryStore implements StoreAdapter {
       max_luggage: input.max_luggage ?? "backpack",
       notes: input.notes ?? null,
       instant_booking: input.instant_booking ?? false,
+      price_negotiable: input.price_negotiable ?? false,
       accepted_payment: input.accepted_payment ?? "cash",
       status: "active",
       completed_at: null,
@@ -615,6 +616,7 @@ export class MemoryStore implements StoreAdapter {
         | "smoking_policy"
         | "max_luggage"
         | "instant_booking"
+        | "price_negotiable"
         | "accepted_payment"
         | "origin_address"
       >
@@ -639,6 +641,7 @@ export class MemoryStore implements StoreAdapter {
     if (patch.smoking_policy !== undefined) ride.smoking_policy = patch.smoking_policy;
     if (patch.max_luggage !== undefined) ride.max_luggage = patch.max_luggage;
     if (patch.instant_booking !== undefined) ride.instant_booking = patch.instant_booking;
+    if (patch.price_negotiable !== undefined) ride.price_negotiable = patch.price_negotiable;
     if (patch.accepted_payment !== undefined) ride.accepted_payment = patch.accepted_payment;
     if (patch.origin_address !== undefined) ride.origin_address = patch.origin_address;
     return ride;
