@@ -5,6 +5,7 @@ import { ArrowLeft, Eye, EyeOff } from "lucide-react";
 import { api, ApiError } from "@/lib/api";
 import { useSession } from "@/lib/session";
 import { useSeoMeta } from "@/lib/useSeoMeta";
+import { SITE_URL } from "@/lib/siteUrl";
 
 export default function ResetPasswordPage() {
   const [params] = useSearchParams();
@@ -21,7 +22,7 @@ export default function ResetPasswordPage() {
   useSeoMeta({
     title: "Nueva contraseña",
     description: "Crea una nueva contraseña para tu cuenta de ConcertRide ES.",
-    canonical: "https://concertride.es/reset-password",
+    canonical: `${SITE_URL}/reset-password`,
     noindex: true,
   });
 

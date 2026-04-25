@@ -121,7 +121,7 @@ The `DrizzleStore` must only be imported via a dynamic `import()` inside `factor
 
 **Workers compat** — `wrangler.jsonc` targets `compatibility_date: "2026-04-18"` with `nodejs_compat` flag. Runtime only supports `@libsql/client/web` (not the Node client). Scripts (`seed.ts`, `smoke-ingest.ts`) run under Node with `tsx` and use the regular `@libsql/client`.
 
-**CORS** — hardcoded allowlist in `apps/api/src/index.ts`: `localhost:5173`, `concertride.es`, `www.concertride.es`. Any other origin is blocked.
+**CORS** — hardcoded allowlist in `apps/api/src/index.ts`: `localhost:5173`, `https://concertride.alejandrolalaguna.workers.dev/`, `https://concertride.alejandrolalaguna.workers.dev/`. Any other origin is blocked.
 
 **PWA** — `vite-plugin-pwa` in `apps/web/vite.config.ts` generates a service worker with auto-update and a StaleWhileRevalidate cache for `/api/(concerts|rides)` (5-minute TTL). Register/prompt logic lives in `apps/web/src/main.tsx`.
 

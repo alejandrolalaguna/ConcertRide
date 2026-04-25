@@ -5,6 +5,7 @@ import type { AdminStats, LicenseReview, Report, ReportStatus, User } from "@con
 import { api, ApiError } from "@/lib/api";
 import { useSession } from "@/lib/session";
 import { useSeoMeta } from "@/lib/useSeoMeta";
+import { SITE_URL } from "@/lib/siteUrl";
 import { LoadingSpinner } from "@/components/ui";
 
 type HydratedReport = Report & { reporter: User | null; target_user: User | null };
@@ -50,7 +51,7 @@ export default function AdminReportsPage() {
 
   useSeoMeta({
     title: "Admin · Reportes",
-    canonical: "https://concertride.es/admin/reports",
+    canonical: `${SITE_URL}/admin/reports`,
     noindex: true,
   });
 

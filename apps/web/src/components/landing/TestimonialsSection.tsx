@@ -1,4 +1,5 @@
 import { Star } from "lucide-react";
+import { SITE_URL } from "@/lib/siteUrl";
 
 // Placeholder testimonials — replace with real user reviews once collected.
 // Review schema is emitted below so Google can show star ratings in search results.
@@ -38,7 +39,7 @@ export function TestimonialsSection() {
     "@context": "https://schema.org",
     "@type": "Product",
     name: "ConcertRide ES — Carpooling para conciertos",
-    url: "https://concertride.es/",
+    url: `${SITE_URL}/`,
     aggregateRating: {
       "@type": "AggregateRating",
       ratingValue: "4.9",

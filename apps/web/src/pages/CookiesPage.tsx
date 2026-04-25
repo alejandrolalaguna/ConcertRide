@@ -1,11 +1,12 @@
 import { Link } from "react-router-dom";
 import { useSeoMeta } from "@/lib/useSeoMeta";
+import { SITE_URL } from "@/lib/siteUrl";
 
 export default function CookiesPage() {
   useSeoMeta({
     title: "Política de cookies",
     description: "Política de cookies de ConcertRide ES: qué cookies usamos, para qué y cómo puedes gestionar tus preferencias.",
-    canonical: "https://concertride.es/cookies",
+    canonical: `${SITE_URL}/cookies`,
   });
 
   return (

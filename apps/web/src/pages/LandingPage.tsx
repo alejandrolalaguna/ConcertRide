@@ -2,6 +2,7 @@ import { useEffect, useMemo, useState } from "react";
 import type { Concert, Ride } from "@concertride/types";
 import { api } from "@/lib/api";
 import { useSeoMeta } from "@/lib/useSeoMeta";
+import { SITE_URL } from "@/lib/siteUrl";
 import { concertStatus } from "@/components/ConcertCard";
 import { Hero } from "@/components/landing/Hero";
 import { StatsBar } from "@/components/StatsBar";
@@ -19,7 +20,7 @@ export default function LandingPage() {
     title: "ConcertRide ES — Carpooling para conciertos en España | Viajes compartidos",
     description:
       "Carpooling para conciertos en España. Comparte coche, divide gastos y llega seguro. Publica un viaje o busca uno en 2 minutos. Gratis, sin comisiones.",
-    canonical: "https://concertride.es/",
+    canonical: `${SITE_URL}/`,
     keywords: "carpooling conciertos España, viajes compartidos festivales, transporte a conciertos, coche compartido música, ride-sharing festivales, deja tu coche en casa festival, compartir coche festival España, carpooling sin comisiones, volver festival madrugada, movilidad sostenible festival, compartir gastos festival, ir al festival sin coche",
     ogType: "website",
   });
@@ -93,7 +94,7 @@ export default function LandingPage() {
               itemListElement: activeConcerts.slice(0, 10).map((c, i) => ({
                 "@type": "ListItem",
                 position: i + 1,
-                url: `https://concertride.es/concerts/${c.id}`,
+                url: `${SITE_URL}/concerts/${c.id}`,
                 name: `${c.artist} — ${c.venue.name}, ${c.venue.city}`,
               })),
             }),

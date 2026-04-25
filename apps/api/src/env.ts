@@ -17,6 +17,10 @@ export interface Env {
   // server-side on every admin route. Empty = no admins (admin routes 403).
   ADMIN_USER_IDS: string;
   ENVIRONMENT: "development" | "production";
+  // Public site origin (no trailing slash) used in canonicals, sitemap,
+  // OG meta, JSON-LD `@id`s, and OAuth/MCP discovery docs. Set via
+  // wrangler.jsonc `vars`. Defaults to https://concertride.me when missing.
+  SITE_URL: string;
   ASSETS: Fetcher;
   CACHE: KVNamespace;
 }

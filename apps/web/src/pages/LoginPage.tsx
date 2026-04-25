@@ -5,6 +5,7 @@ import { ArrowLeft, Eye, EyeOff } from "lucide-react";
 import { api, ApiError } from "@/lib/api";
 import { useSession } from "@/lib/session";
 import { useSeoMeta } from "@/lib/useSeoMeta";
+import { SITE_URL } from "@/lib/siteUrl";
 
 export default function LoginPage() {
   const { user, loading, refresh } = useSession();
@@ -20,7 +21,7 @@ export default function LoginPage() {
   useSeoMeta({
     title: "Entrar",
     description: "Inicia sesión en ConcertRide ES para reservar viajes compartidos a conciertos o gestionar los que has publicado.",
-    canonical: "https://concertride.es/login",
+    canonical: `${SITE_URL}/login`,
     noindex: true,
   });
 

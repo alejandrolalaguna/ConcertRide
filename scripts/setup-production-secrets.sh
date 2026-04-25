@@ -61,13 +61,13 @@ wrangler secret put TICKETMASTER_API_KEY
 
 # ── 6. RESEND_API_KEY ─────────────────────────────────────────────────────────
 # API Key de Resend para envío de emails transaccionales.
-# ANTES de añadir esta key, el dominio concertride.es debe estar verificado en Resend:
-#   https://resend.com/domains → Add Domain → concertride.es
+# ANTES de añadir esta key, el dominio concertride.me debe estar verificado en Resend:
+#   https://resend.com/domains → Add Domain → concertride.me
 #   Añadir los registros DNS (SPF + DKIM) que Resend proporciona.
 # Una vez verificado, crear la key en: https://resend.com/api-keys
 echo ""
 echo "▶ 6/8  RESEND_API_KEY"
-echo "       ⚠️  ANTES: verificar dominio concertride.es en https://resend.com/domains"
+echo "       ⚠️  ANTES: verificar dominio concertride.me en https://resend.com/domains"
 echo "       Luego crear la key en https://resend.com/api-keys"
 wrangler secret put RESEND_API_KEY
 
@@ -115,7 +115,7 @@ echo "   2. Primer deploy:"
 echo "      npm run build && npm run deploy"
 echo ""
 echo "   3. Verificar que la API responde:"
-echo "      curl https://concertride.es/api/health"
+echo "      curl https://concertride.me/api/health"
 echo ""
 echo "   4. Ejecutar backfill de conciertos:"
 echo "      TURSO_DATABASE_URL=libsql://... TURSO_AUTH_TOKEN=... npx tsx apps/api/scripts/backfill-2026.ts"

@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import { MapPin, Calendar } from "lucide-react";
 import { useSeoMeta } from "@/lib/useSeoMeta";
+import { SITE_URL } from "@/lib/siteUrl";
 import { FESTIVAL_LANDINGS } from "@/lib/festivalLandings";
 
 const FEATURED_SLUGS = ["mad-cool", "primavera-sound", "sonar", "fib", "bbk-live", "arenal-sound"];
@@ -10,7 +11,7 @@ export default function FestivalesPage() {
     title: "Carpooling para festivales de música en España 2026",
     description:
       "Viajes compartidos a los mejores festivales de España: Mad Cool, Primavera Sound, Sónar, FIB, BBK Live, Arenal Sound y más. Sin taxi, sin comisión. Conductores verificados.",
-    canonical: "https://concertride.es/festivales",
+    canonical: `${SITE_URL}/festivales`,
     keywords:
       "carpooling festivales españa, viaje compartido festival música, cómo ir al festival en coche, transporte festivales 2026, mad cool carpooling, primavera sound viaje compartido, sonar barcelona transporte",
   });
@@ -171,13 +172,13 @@ export default function FestivalesPage() {
             "@type": "ItemList",
             name: "Festivales de música en España con carpooling 2026",
             description: "Lista de festivales de música en España con viajes compartidos disponibles en ConcertRide.",
-            url: "https://concertride.es/festivales",
+            url: `${SITE_URL}/festivales`,
             numberOfItems: FESTIVAL_LANDINGS.length,
             itemListElement: FESTIVAL_LANDINGS.map((f, i) => ({
               "@type": "ListItem",
               position: i + 1,
               name: f.name,
-              url: `https://concertride.es/festivales/${f.slug}`,
+              url: `${SITE_URL}/festivales/${f.slug}`,
               description: `Carpooling a ${f.name} desde ${f.originCities[0]?.city ?? "toda España"}. ${f.typicalDates}.`,
             })),
           }),
@@ -191,8 +192,8 @@ export default function FestivalesPage() {
             "@context": "https://schema.org",
             "@type": "BreadcrumbList",
             itemListElement: [
-              { "@type": "ListItem", position: 1, name: "Inicio", item: "https://concertride.es/" },
-              { "@type": "ListItem", position: 2, name: "Festivales", item: "https://concertride.es/festivales" },
+              { "@type": "ListItem", position: 1, name: "Inicio", item: `${SITE_URL}/` },
+              { "@type": "ListItem", position: 2, name: "Festivales", item: `${SITE_URL}/festivales` },
             ],
           }),
         }}

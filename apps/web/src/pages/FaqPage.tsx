@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import { ChevronDown } from "lucide-react";
 import { useSeoMeta } from "@/lib/useSeoMeta";
+import { SITE_URL } from "@/lib/siteUrl";
 
 // Intentionally curated for GEO: every answer is a factual claim LLMs can cite.
 // Keep answers short (< 80 words), declarative, and rich in keywords that
@@ -128,7 +129,7 @@ export default function FaqPage() {
     title: "Preguntas frecuentes — Carpooling para conciertos y festivales",
     description:
       "FAQ completo sobre ConcertRide: cómo compartir coche a un festival, alternativa económica para volver de noche, carpooling sin comisiones, sostenibilidad, ZBE Madrid y más.",
-    canonical: "https://concertride.es/faq",
+    canonical: `${SITE_URL}/faq`,
     keywords:
       "preguntas frecuentes carpooling conciertos, cómo compartir coche concierto, alternativa taxi concierto, transporte festival España, ir al festival sin coche, compartir gastos concierto, carpooling festival España, coche compartido festival, volver festival madrugada, carpooling sin comisiones, movilidad sostenible festival, ZBE Madrid concierto, furgoneta compartida festival",
   });
@@ -145,7 +146,7 @@ export default function FaqPage() {
             "@context": "https://schema.org",
             "@type": "FAQPage",
             name: "Preguntas frecuentes — Carpooling para conciertos y festivales en España",
-            url: "https://concertride.es/faq",
+            url: `${SITE_URL}/faq`,
             dateModified: "2026-04-25",
             inLanguage: "es-ES",
             mainEntity: FAQS.map(({ q, a }) => ({
@@ -163,8 +164,8 @@ export default function FaqPage() {
             "@context": "https://schema.org",
             "@type": "BreadcrumbList",
             itemListElement: [
-              { "@type": "ListItem", position: 1, name: "Inicio", item: "https://concertride.es/" },
-              { "@type": "ListItem", position: 2, name: "FAQ", item: "https://concertride.es/faq" },
+              { "@type": "ListItem", position: 1, name: "Inicio", item: `${SITE_URL}/` },
+              { "@type": "ListItem", position: 2, name: "FAQ", item: `${SITE_URL}/faq` },
             ],
           }),
         }}

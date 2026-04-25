@@ -146,7 +146,7 @@ Allow: /
 User-agent: Screaming Frog SEO Spider
 Allow: /
 
-Sitemap: https://concertride.es/sitemap.xml
+Sitemap: https://concertride.me/sitemap.xml
 
 # ═══════════════════════════════════════════════════════
 # AI discovery files

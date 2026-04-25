@@ -353,7 +353,7 @@ export class DrizzleStore implements StoreAdapter {
       await tx
         .update(schema.users)
         .set({
-          email: `deleted+${userId}@concertride.es`,
+          email: `deleted+${userId}@concertride.me`,
           name: "Usuario eliminado",
           avatar_url: null,
           phone: null,

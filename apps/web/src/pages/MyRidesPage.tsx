@@ -6,6 +6,7 @@ import type { Ride, RideRequest } from "@concertride/types";
 import { api } from "@/lib/api";
 import { useSession } from "@/lib/session";
 import { useSeoMeta } from "@/lib/useSeoMeta";
+import { SITE_URL } from "@/lib/siteUrl";
 import { formatDate, formatTime } from "@/lib/format";
 import { LoadingSpinner } from "@/components/ui";
 
@@ -23,7 +24,7 @@ export default function MyRidesPage() {
   useSeoMeta({
     title: "Mis viajes",
     description: "Tus reservas de pasajero y viajes publicados como conductor en ConcertRide ES.",
-    canonical: "https://concertride.es/mis-viajes",
+    canonical: `${SITE_URL}/mis-viajes`,
     noindex: true,
   });
 

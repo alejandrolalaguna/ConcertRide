@@ -1,11 +1,12 @@
 import { Link } from "react-router-dom";
 import { useSeoMeta } from "@/lib/useSeoMeta";
+import { SITE_URL } from "@/lib/siteUrl";
 
 export default function PrivacidadPage() {
   useSeoMeta({
     title: "Política de privacidad",
     description: "Cómo ConcertRide ES trata tus datos personales (RGPD): qué recopilamos, para qué, tus derechos y cómo ejercerlos.",
-    canonical: "https://concertride.es/privacidad",
+    canonical: `${SITE_URL}/privacidad`,
   });
 
   return (

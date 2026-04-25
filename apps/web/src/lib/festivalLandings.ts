@@ -85,7 +85,7 @@ export const FESTIVAL_LANDINGS: FestivalLanding[] = [
       },
       {
         q: "¿Cuándo se celebra Mad Cool 2026?",
-        a: "La edición 2026 de Mad Cool Festival está prevista para el 9, 10 y 11 de julio en IFEMA Madrid. Puedes buscar viajes disponibles para esas fechas en concertride.es.",
+        a: "La edición 2026 de Mad Cool Festival está prevista para el 9, 10 y 11 de julio en IFEMA Madrid. Puedes buscar viajes disponibles para esas fechas en concertride.me.",
       },
     ],
     relatedFestivals: ["tomavistas", "sonorama-ribera"],
@@ -139,7 +139,7 @@ export const FESTIVAL_LANDINGS: FestivalLanding[] = [
       },
       {
         q: "¿En qué fechas es Primavera Sound 2026?",
-        a: "Primavera Sound 2026 está previsto para el 28 de mayo al 1 de junio en el Parc del Fòrum de Barcelona. Busca viajes en concertride.es para esas fechas.",
+        a: "Primavera Sound 2026 está previsto para el 28 de mayo al 1 de junio en el Parc del Fòrum de Barcelona. Busca viajes en concertride.me para esas fechas.",
       },
     ],
     relatedFestivals: ["sonar", "cruilla"],
@@ -192,7 +192,7 @@ export const FESTIVAL_LANDINGS: FestivalLanding[] = [
       },
       {
         q: "¿Cuándo es Sónar 2026?",
-        a: "Sónar 2026 está previsto para el 18, 19 y 20 de junio en Barcelona (Fira Montjuïc y Fira Gran Via de L'Hospitalet). Busca viajes en concertride.es.",
+        a: "Sónar 2026 está previsto para el 18, 19 y 20 de junio en Barcelona (Fira Montjuïc y Fira Gran Via de L'Hospitalet). Busca viajes en concertride.me.",
       },
     ],
     relatedFestivals: ["primavera-sound", "cruilla"],
@@ -254,7 +254,7 @@ export const FESTIVAL_LANDINGS: FestivalLanding[] = [
       },
       {
         q: "¿Cuándo es el FIB 2026?",
-        a: "El Festival Internacional de Benicàssim 2026 está previsto para el 16, 17, 18 y 19 de julio. Busca viajes disponibles en concertride.es con destino Benicàssim.",
+        a: "El Festival Internacional de Benicàssim 2026 está previsto para el 16, 17, 18 y 19 de julio. Busca viajes disponibles en concertride.me con destino Benicàssim.",
       },
     ],
     relatedFestivals: ["arenal-sound", "medusa-festival", "low-festival"],
@@ -304,7 +304,7 @@ export const FESTIVAL_LANDINGS: FestivalLanding[] = [
       },
       {
         q: "¿Cuándo es el BBK Live 2026?",
-        a: "Bilbao BBK Live 2026 está previsto para el 9, 10 y 11 de julio. Busca viajes en concertride.es con destino Bilbao.",
+        a: "Bilbao BBK Live 2026 está previsto para el 9, 10 y 11 de julio. Busca viajes en concertride.me con destino Bilbao.",
       },
     ],
     relatedFestivals: ["resurrection-fest", "sonorama-ribera"],
@@ -358,7 +358,7 @@ export const FESTIVAL_LANDINGS: FestivalLanding[] = [
       },
       {
         q: "¿Cuándo es Resurrection Fest 2026?",
-        a: "La edición 2026 de Resurrection Fest está prevista para el 25, 26, 27 y 28 de junio en A Gañidoira, Viveiro (Lugo). Busca viajes en concertride.es.",
+        a: "La edición 2026 de Resurrection Fest está prevista para el 25, 26, 27 y 28 de junio en A Gañidoira, Viveiro (Lugo). Busca viajes en concertride.me.",
       },
     ],
     relatedFestivals: ["o-son-do-camino", "sonorama-ribera"],
@@ -420,7 +420,7 @@ export const FESTIVAL_LANDINGS: FestivalLanding[] = [
       },
       {
         q: "¿Cuándo es Arenal Sound 2026?",
-        a: "Arenal Sound 2026 está previsto del 29 de julio al 2 de agosto en la playa de Burriana (Castellón). Busca viajes en concertride.es.",
+        a: "Arenal Sound 2026 está previsto del 29 de julio al 2 de agosto en la playa de Burriana (Castellón). Busca viajes en concertride.me.",
       },
     ],
     relatedFestivals: ["fib", "medusa-festival", "low-festival"],
@@ -478,7 +478,7 @@ export const FESTIVAL_LANDINGS: FestivalLanding[] = [
       },
       {
         q: "¿Cuándo es Medusa Festival 2026?",
-        a: "Medusa Festival 2026 está previsto para el 12 al 16 de agosto en la playa de Cullera (Valencia). Busca viajes en concertride.es.",
+        a: "Medusa Festival 2026 está previsto para el 12 al 16 de agosto en la playa de Cullera (Valencia). Busca viajes en concertride.me.",
       },
     ],
     relatedFestivals: ["arenal-sound", "fib", "low-festival"],
@@ -536,7 +536,7 @@ export const FESTIVAL_LANDINGS: FestivalLanding[] = [
       },
       {
         q: "¿Cuándo es Viña Rock 2026?",
-        a: "Viña Rock 2026 se celebra del 30 de abril al 3 de mayo en La Pulgosa, Villarrobledo (Albacete). Busca viajes en concertride.es.",
+        a: "Viña Rock 2026 se celebra del 30 de abril al 3 de mayo en La Pulgosa, Villarrobledo (Albacete). Busca viajes en concertride.me.",
       },
     ],
     relatedFestivals: ["mad-cool", "sonorama-ribera"],
@@ -590,7 +590,7 @@ export const FESTIVAL_LANDINGS: FestivalLanding[] = [
       },
       {
         q: "¿Cuándo es O Son do Camiño 2026?",
-        a: "O Son do Camiño 2026 está previsto para el 18, 19 y 20 de junio en el Monte do Gozo, Santiago de Compostela. Busca viajes en concertride.es.",
+        a: "O Son do Camiño 2026 está previsto para el 18, 19 y 20 de junio en el Monte do Gozo, Santiago de Compostela. Busca viajes en concertride.me.",
       },
     ],
     relatedFestivals: ["resurrection-fest"],
@@ -648,7 +648,7 @@ export const FESTIVAL_LANDINGS: FestivalLanding[] = [
       },
       {
         q: "¿Cuándo es Cala Mijas Fest 2026?",
-        a: "Cala Mijas Fest 2026 está previsto para el 2, 3 y 4 de octubre en el Cortijo de Torres, Málaga. Busca viajes en concertride.es.",
+        a: "Cala Mijas Fest 2026 está previsto para el 2, 3 y 4 de octubre en el Cortijo de Torres, Málaga. Busca viajes en concertride.me.",
       },
     ],
     relatedFestivals: ["sonar", "primavera-sound"],
@@ -702,7 +702,7 @@ export const FESTIVAL_LANDINGS: FestivalLanding[] = [
       },
       {
         q: "¿Cuándo es Sonorama Ribera 2026?",
-        a: "Sonorama Ribera 2026 está previsto del 6 al 9 de agosto en Aranda de Duero (Burgos). Busca viajes en concertride.es.",
+        a: "Sonorama Ribera 2026 está previsto del 6 al 9 de agosto en Aranda de Duero (Burgos). Busca viajes en concertride.me.",
       },
       {
         q: "¿Hay camping en Sonorama?",
@@ -763,7 +763,7 @@ export const FESTIVAL_LANDINGS: FestivalLanding[] = [
       },
       {
         q: "¿Cuándo es Zevra Festival 2026?",
-        a: "Las fechas exactas de Zevra Festival 2026 aún están por confirmar. Se espera en verano (julio–agosto) en La Marina de Valencia. Consulta concertride.es para viajes disponibles cuando se anuncie el cartel.",
+        a: "Las fechas exactas de Zevra Festival 2026 aún están por confirmar. Se espera en verano (julio–agosto) en La Marina de Valencia. Consulta concertride.me para viajes disponibles cuando se anuncie el cartel.",
       },
     ],
     relatedFestivals: ["medusa-festival", "arenal-sound", "fib"],
@@ -820,7 +820,7 @@ export const FESTIVAL_LANDINGS: FestivalLanding[] = [
       },
       {
         q: "¿Cuándo es Low Festival 2026?",
-        a: "Low Festival 2026 está previsto para el 24, 25 y 26 de julio en el Balneario de la Paloma, Benidorm (Alicante). Busca viajes en concertride.es.",
+        a: "Low Festival 2026 está previsto para el 24, 25 y 26 de julio en el Balneario de la Paloma, Benidorm (Alicante). Busca viajes en concertride.me.",
       },
     ],
     relatedFestivals: ["fib", "arenal-sound", "medusa-festival"],
@@ -873,7 +873,7 @@ export const FESTIVAL_LANDINGS: FestivalLanding[] = [
       },
       {
         q: "¿Cuándo es Tomavistas 2026?",
-        a: "Tomavistas Festival 2026 está previsto para el 15, 16 y 17 de mayo en IFEMA, Madrid. Busca viajes en concertride.es.",
+        a: "Tomavistas Festival 2026 está previsto para el 15, 16 y 17 de mayo en IFEMA, Madrid. Busca viajes en concertride.me.",
       },
     ],
     relatedFestivals: ["mad-cool", "sonorama-ribera"],
@@ -927,7 +927,7 @@ export const FESTIVAL_LANDINGS: FestivalLanding[] = [
       },
       {
         q: "¿En qué fechas es Cruïlla 2026?",
-        a: "Cruïlla Barcelona 2026 está previsto para el 9, 10, 11 y 12 de julio en el Parc del Fòrum de Barcelona. Busca viajes en concertride.es para esas fechas.",
+        a: "Cruïlla Barcelona 2026 está previsto para el 9, 10, 11 y 12 de julio en el Parc del Fòrum de Barcelona. Busca viajes en concertride.me para esas fechas.",
       },
     ],
     relatedFestivals: ["primavera-sound", "sonar"],

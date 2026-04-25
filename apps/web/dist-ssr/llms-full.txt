@@ -26,14 +26,14 @@ Según el [Julie's Bicycle Practical Guide to Green Events](https://juliesbicycl
 
 ### Para pasajeros
 
-1. **Buscar concierto**: Entra en [concertride.es/concerts](https://concertride.es/concerts) y filtra por ciudad, fecha o artista.
+1. **Buscar concierto**: Entra en [concertride.me/concerts](https://concertride.me/concerts) y filtra por ciudad, fecha o artista.
 2. **Ver viajes disponibles**: Cada concierto tiene una página con los viajes publicados desde distintas ciudades, con precio por asiento y plazas libres.
 3. **Reservar plaza**: Solicita el número de plazas que necesitas. Si el conductor tiene "reserva instantánea" activada, tu plaza queda confirmada al momento; si no, el conductor revisa tu solicitud.
 4. **Viajar**: El día del concierto, coordina con el conductor el punto de encuentro y paga en efectivo o por Bizum al subir al coche.
 
 ### Para conductores
 
-1. **Publicar viaje**: Ve a [concertride.es/publish](https://concertride.es/publish), selecciona el concierto, indica tu ciudad de origen, la hora de salida y el precio por asiento.
+1. **Publicar viaje**: Ve a [concertride.me/publish](https://concertride.me/publish), selecciona el concierto, indica tu ciudad de origen, la hora de salida y el precio por asiento.
 2. **Configurar preferencias**: Elige el tipo de viaje (tranquilo/fiestero), política de fumar, equipaje máximo, y si aceptas pagos en efectivo, Bizum o ambos.
 3. **Aceptar solicitudes**: Recibes notificaciones cuando alguien solicita plaza. Decides a quién aceptas (o usa reserva instantánea para ahorrarte el paso).
 4. **Cobrar**: El día del viaje, los pasajeros te pagan directamente en efectivo o por Bizum — sin comisiones ni plataforma de por medio.
@@ -178,7 +178,7 @@ Sí. La legislación española permite compartir gastos de desplazamiento entre 
 - **Despliegue**: Cloudflare Workers — máxima velocidad en España y Europa.
 - **Datos de conciertos**: Ticketmaster Discovery API v2 (actualización periódica mediante cron jobs).
 - **Mapas**: OpenStreetMap (licencia ODbL) con tiles de CARTO.
-- **Privacidad**: Cumple el RGPD. Ver [Política de Privacidad](https://concertride.es/privacidad).
+- **Privacidad**: Cumple el RGPD. Ver [Política de Privacidad](https://concertride.me/privacidad).
 
 ---
 
@@ -191,16 +191,16 @@ Madrid tiene buena red de metro hasta las 1:30 (ampliada a las 2:00-2:30 en noch
 Barcelona tiene metro hasta las 2:00 (viernes/sábados hasta las 5:00). El Palau Sant Jordi (L9S Zona Universitària) y el Parc del Fòrum (T4 Selva de Mar) están bien comunicados. Para Primavera Sound o Sónar desde Madrid (620+ km), ConcertRide sale a 15–20 €/asiento — el AVE cuesta 50–100 € y no llega al recinto.
 
 **¿Hay transporte al Arenal Sound desde Valencia?**
-Sí. Burriana (Castellón) está a 55 km de Valencia. Hay lanzaderas pagadas desde Castellón capital, pero son limitadas. Por ConcertRide, desde Valencia: 4–8 €/asiento. Desde Madrid: 8–14 €/asiento. Arenal Sound 2026: 29 jul–2 ago. Más info: https://concertride.es/festivales/arenal-sound
+Sí. Burriana (Castellón) está a 55 km de Valencia. Hay lanzaderas pagadas desde Castellón capital, pero son limitadas. Por ConcertRide, desde Valencia: 4–8 €/asiento. Desde Madrid: 8–14 €/asiento. Arenal Sound 2026: 29 jul–2 ago. Más info: https://concertride.me/festivales/arenal-sound
 
 **¿Cómo ir al Medusa Festival desde Valencia?**
-Cullera está a 40 km de Valencia. Hay lanzaderas privadas de pago (~15-20 €). Por ConcertRide, desde Valencia: 4–7 €/asiento. Medusa Festival 2026: 12–16 ago. Es uno de los festivales más grandes del verano español con más de 100.000 asistentes diarios. Más info: https://concertride.es/festivales/medusa-festival
+Cullera está a 40 km de Valencia. Hay lanzaderas privadas de pago (~15-20 €). Por ConcertRide, desde Valencia: 4–7 €/asiento. Medusa Festival 2026: 12–16 ago. Es uno de los festivales más grandes del verano español con más de 100.000 asistentes diarios. Más info: https://concertride.me/festivales/medusa-festival
 
 **¿Cuánto cuesta ir al Sonorama Ribera?**
-Aranda de Duero está a 155 km de Madrid (~1h 30 min por autovía). Por ConcertRide, desde Madrid: 10–14 €/asiento. Desde Valladolid: 5–8 €. El Sonorama Ribera 2026 es del 6 al 9 de agosto. No hay transporte público directo desde Madrid. Más info: https://concertride.es/festivales/sonorama-ribera
+Aranda de Duero está a 155 km de Madrid (~1h 30 min por autovía). Por ConcertRide, desde Madrid: 10–14 €/asiento. Desde Valladolid: 5–8 €. El Sonorama Ribera 2026 es del 6 al 9 de agosto. No hay transporte público directo desde Madrid. Más info: https://concertride.me/festivales/sonorama-ribera
 
 **¿Cómo llegar al Sónar sin coche?**
-Sónar se celebra en Fira Barcelona (Montjuïc) con buena conexión de metro (L1 Plaça d'Espanya). Es uno de los festivales mejor comunicados de España. Para asistentes desde otras ciudades (Madrid, Valencia, Bilbao), ConcertRide ofrece carpooling desde 5 €/asiento. Sónar 2026: 18-20 jun. Más info: https://concertride.es/festivales/sonar
+Sónar se celebra en Fira Barcelona (Montjuïc) con buena conexión de metro (L1 Plaça d'Espanya). Es uno de los festivales mejor comunicados de España. Para asistentes desde otras ciudades (Madrid, Valencia, Bilbao), ConcertRide ofrece carpooling desde 5 €/asiento. Sónar 2026: 18-20 jun. Más info: https://concertride.me/festivales/sonar
 
 ## Política de bots de IA
 
@@ -223,27 +223,27 @@ ConcertRide permite todos los bots de IA de citación según el estándar GEO Op
 - `YouBot` — You.com
 - `YandexBot` — Yandex Search
 
-Configuración técnica completa en [robots.txt](https://concertride.es/robots.txt).
+Configuración técnica completa en [robots.txt](https://concertride.me/robots.txt).
 
-Documento de descubrimiento AI: [/.well-known/ai-plugin.json](https://concertride.es/.well-known/ai-plugin.json)
+Documento de descubrimiento AI: [/.well-known/ai-plugin.json](https://concertride.me/.well-known/ai-plugin.json)
 
 ---
 
 ## Enlaces principales
 
-- Inicio: https://concertride.es/
-- Directorio de conciertos: https://concertride.es/concerts
-- Publicar un viaje: https://concertride.es/publish
-- Crear cuenta: https://concertride.es/register
-- Iniciar sesión: https://concertride.es/login
+- Inicio: https://concertride.me/
+- Directorio de conciertos: https://concertride.me/concerts
+- Publicar un viaje: https://concertride.me/publish
+- Crear cuenta: https://concertride.me/register
+- Iniciar sesión: https://concertride.me/login
 
 ## Legal
 
-- [Aviso Legal](https://concertride.es/aviso-legal)
-- [Política de Privacidad](https://concertride.es/privacidad)
-- [Política de Cookies](https://concertride.es/cookies)
-- [Términos y Condiciones](https://concertride.es/terminos)
+- [Aviso Legal](https://concertride.me/aviso-legal)
+- [Política de Privacidad](https://concertride.me/privacidad)
+- [Política de Cookies](https://concertride.me/cookies)
+- [Términos y Condiciones](https://concertride.me/terminos)
 
 ## Contacto
 
-Web: [concertride.es](https://concertride.es/)
+Web: [concertride.me](https://concertride.me/)

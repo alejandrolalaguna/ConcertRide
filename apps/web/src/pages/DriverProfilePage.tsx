@@ -5,6 +5,7 @@ import { ArrowLeft, ShieldCheck, Star } from "lucide-react";
 import type { Review, Ride, User } from "@concertride/types";
 import { api } from "@/lib/api";
 import { useSeoMeta } from "@/lib/useSeoMeta";
+import { SITE_URL } from "@/lib/siteUrl";
 import { VibeBadge } from "@/components/VibeBadge";
 import { PulsingDot } from "@/components/LoadingStates";
 import { initials, formatDate, formatDay } from "@/lib/format";
@@ -28,7 +29,7 @@ export default function DriverProfilePage() {
     description: driver
       ? `${driver.name} ha hecho ${driver.rides_given} viajes en ConcertRide. Valoración: ${driver.rating.toFixed(1)}/5.`
       : "Conductor en ConcertRide ES.",
-    canonical: id ? `https://concertride.es/drivers/${id}` : undefined,
+    canonical: id ? `${SITE_URL}/drivers/${id}` : undefined,
     ogImage: driver?.avatar_url ?? undefined,
     ogType: "article",
   });
@@ -85,9 +86,9 @@ export default function DriverProfilePage() {
             "@context": "https://schema.org",
             "@type": "BreadcrumbList",
             itemListElement: [
-              { "@type": "ListItem", position: 1, name: "Inicio", item: "https://concertride.es/" },
-              { "@type": "ListItem", position: 2, name: "Conductores", item: "https://concertride.es/drivers" },
-              { "@type": "ListItem", position: 3, name: driver.name, item: `https://concertride.es/drivers/${driver.id}` },
+              { "@type": "ListItem", position: 1, name: "Inicio", item: `${SITE_URL}/` },
+              { "@type": "ListItem", position: 2, name: "Conductores", item: `${SITE_URL}/drivers` },
+              { "@type": "ListItem", position: 3, name: driver.name, item: `${SITE_URL}/drivers/${driver.id}` },
             ],
           }),
         }}
@@ -98,15 +99,15 @@ export default function DriverProfilePage() {
           __html: JSON.stringify({
             "@context": "https://schema.org",
             "@type": "ProfilePage",
-            url: `https://concertride.es/drivers/${driver.id}`,
+            url: `${SITE_URL}/drivers/${driver.id}`,
             mainEntity: {
               "@type": "Person",
-              "@id": `https://concertride.es/drivers/${driver.id}`,
+              "@id": `${SITE_URL}/drivers/${driver.id}`,
               name: driver.name,
               image: driver.avatar_url ?? undefined,
-              url: `https://concertride.es/drivers/${driver.id}`,
+              url: `${SITE_URL}/drivers/${driver.id}`,
               description: `Conductor en ConcertRide ES con ${driver.rides_given} viajes realizados.`,
-              memberOf: { "@id": "https://concertride.es/#organization" },
+              memberOf: { "@id": `${SITE_URL}/#organization` },
               ...(driver.home_city && {
                 homeLocation: {
                   "@type": "Place",

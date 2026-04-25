@@ -4,6 +4,7 @@ import { motion } from "motion/react";
 import { ArrowLeft } from "lucide-react";
 import { api } from "@/lib/api";
 import { useSeoMeta } from "@/lib/useSeoMeta";
+import { SITE_URL } from "@/lib/siteUrl";
 
 export default function ForgotPasswordPage() {
   const [email, setEmail] = useState("");
@@ -13,7 +14,7 @@ export default function ForgotPasswordPage() {
   useSeoMeta({
     title: "Recuperar contraseña",
     description: "Recupera el acceso a tu cuenta de ConcertRide ES.",
-    canonical: "https://concertride.es/forgot-password",
+    canonical: `${SITE_URL}/forgot-password`,
     noindex: true,
   });
 

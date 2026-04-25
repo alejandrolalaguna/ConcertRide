@@ -7,6 +7,7 @@
 // local dev still works without a Resend account, and failures in prod
 // don't break request paths.
 import type { Env } from "../env";
+import { getSiteUrl } from "./siteUrl";
 
 export interface SendResult {
   sent: boolean;
@@ -14,7 +15,9 @@ export interface SendResult {
   error?: string;
 }
 
-const FROM_ADDRESS = "ConcertRide <no-reply@concertride.es>";
+// Sender address. The local-part `no-reply@` is fine; the domain must be a
+// verified Resend sending domain. Update when you switch sending domains.
+const FROM_ADDRESS = "ConcertRide <no-reply@concertride.me>";
 const REPLY_TO = "alejandrolalaguna@gmail.com";
 
 // ── Low-level send ────────────────────────────────────────────────────────
@@ -56,7 +59,9 @@ export async function sendEmail(
 }
 
 // ── Shared template helpers ──────────────────────────────────────────────
-function shell(headline: string, preheader: string, body: string): string {
+function shell(env: Env, headline: string, preheader: string, body: string): string {
+  const base = getSiteUrl(env);
+  const host = base.replace(/^https?:\/\//, "");
   return `<!DOCTYPE html>
 <html lang="es">
 <head>
@@ -73,8 +78,8 @@ function shell(headline: string, preheader: string, body: string): string {
     <hr style="border:none;border-top:1px solid #222;margin:40px 0 16px 0;" />
     <p style="color:#555;font-size:11px;line-height:1.6;margin:0;">
       ConcertRide · Madrid, España · <a href="mailto:alejandrolalaguna@gmail.com" style="color:#888;text-decoration:underline;">alejandrolalaguna@gmail.com</a><br/>
-      Recibes este correo porque tienes una cuenta en concertride.es.
-      <a href="https://concertride.es/profile" style="color:#888;text-decoration:underline;">Gestiona tus notificaciones</a>.
+      Recibes este correo porque tienes una cuenta en ${escapeHtml(host)}.
+      <a href="${base}/profile" style="color:#888;text-decoration:underline;">Gestiona tus notificaciones</a>.
     </p>
   </div>
 </body>
@@ -102,6 +107,7 @@ export function sendPasswordResetEmail(
 ): Promise<SendResult> {
   const subject = "Restablece tu contraseña en ConcertRide";
   const html = shell(
+    env,
     "Restablece tu contraseña",
     "El enlace expira en 30 minutos",
     `
@@ -124,6 +130,7 @@ export function sendWelcomeEmail(
 ): Promise<SendResult> {
   const subject = "Bienvenid@ a ConcertRide 🎶 — verifica tu email";
   const html = shell(
+    env,
     "Bienvenid@ a ConcertRide",
     "Verifica tu email para empezar",
     `
@@ -164,6 +171,7 @@ export function sendSeatRequestedEmail(
     ? `${escapeHtml(args.passengerName)} ha <strong style="color:#DBFF00;">reservado ${args.seats} plaza${args.seats === 1 ? "" : "s"}</strong> en tu viaje a ${escapeHtml(args.artist)} desde ${escapeHtml(args.origin)}.`
     : `${escapeHtml(args.passengerName)} quiere <strong style="color:#DBFF00;">${args.seats} plaza${args.seats === 1 ? "" : "s"}</strong> en tu viaje a ${escapeHtml(args.artist)} desde ${escapeHtml(args.origin)}. Confírmala o recházala cuanto antes.`;
   const html = shell(
+    env,
     subject,
     `${args.passengerName} — ${args.seats} plaza${args.seats === 1 ? "" : "s"}`,
     `
@@ -196,8 +204,8 @@ export function sendSeatDecisionEmail(
     ? `<p style="color:#ccc;margin:0 0 24px 0;line-height:1.6;font-size:15px;"><strong style="color:#DBFF00;">${escapeHtml(args.driverName)}</strong> ha aceptado tu solicitud de plaza en el viaje a ${escapeHtml(args.artist)} desde ${escapeHtml(args.origin)}. Te enviaremos un recordatorio 24h antes.</p>
        ${cta(args.rideUrl, "Ver el viaje")}`
     : `<p style="color:#ccc;margin:0 0 24px 0;line-height:1.6;font-size:15px;">${escapeHtml(args.driverName)} no ha podido aceptar tu solicitud de plaza en el viaje a ${escapeHtml(args.artist)} desde ${escapeHtml(args.origin)}. No te preocupes: hay más viajes publicados para este concierto.</p>
-       ${cta("https://concertride.es/concerts", "Buscar otro viaje")}`;
-  const html = shell(subject, `${args.artist} · ${args.origin}`, `
+       ${cta(`${getSiteUrl(env)}/concerts`, "Buscar otro viaje")}`;
+  const html = shell(env, subject, `${args.artist} · ${args.origin}`, `
     <h1 style="font-family:Georgia,serif;font-size:28px;line-height:1.15;margin:0 0 12px 0;">Hola, ${escapeHtml(args.passengerName)}.</h1>
     ${body}
     `);
@@ -223,6 +231,7 @@ export function sendRideReminderEmail(
     ? "Recuerda contactar con tus pasajeros para afinar el punto de encuentro."
     : "Recuerda contactar con el conductor si aún no habéis acordado el punto exacto de encuentro.";
   const html = shell(
+    env,
     subject,
     `Salida ${args.departureLocal}`,
     `
@@ -263,6 +272,7 @@ export function sendPaymentReminderEmail(
     ? "Verifica que todos tus pasajeros están listos. Si alguien no se presenta, puedes cancelar desde la app."
     : "Asegúrate de que estés listo en el punto de recogida. Contacta al conductor si tienes dudas.";
   const html = shell(
+    env,
     subject,
     `¡Ya casi! Salida en 1 hora`,
     `
@@ -294,6 +304,7 @@ export function sendReviewPromptEmail(
 ): Promise<SendResult> {
   const subject = `¿Cómo fue el viaje a ${args.artist}?`;
   const html = shell(
+    env,
     subject,
     `Deja una reseña a ${args.otherPartyName}`,
     `
@@ -319,6 +330,7 @@ export function sendDemandMatchEmail(
 ): Promise<SendResult> {
   const subject = `Hay nuevo viaje a ${args.artist} 🎶`;
   const html = shell(
+    env,
     subject,
     `Desde ${args.origin} · €${args.price}/plaza`,
     `
@@ -342,8 +354,9 @@ export function sendLicenseReviewAdminEmail(
   },
 ): Promise<SendResult> {
   const subject = `[Admin] Nuevo carnet para verificar — ${args.userName}`;
-  const adminUrl = `https://concertride.es/admin`;
+  const adminUrl = `${getSiteUrl(env)}/admin`;
   const html = shell(
+    env,
     subject,
     `Acción requerida: revisar carnet`,
     `
@@ -371,20 +384,21 @@ export function sendLicenseReviewResultEmail(
     ? "Tu carnet ha sido verificado ✓"
     : "Tu carnet no ha podido ser verificado";
   const html = shell(
+    env,
     subject,
     args.approved ? "¡Ya puedes publicar viajes!" : "Puedes intentarlo de nuevo",
     args.approved
       ? `
     <h1 style="font-family:Georgia,serif;font-size:28px;line-height:1.15;margin:0 0 12px 0;">Carnet verificado. 🎉</h1>
     <p style="color:#ccc;margin:0 0 24px 0;line-height:1.6;font-size:15px;">Hola, ${escapeHtml(args.name)}. Hemos revisado tu carnet de conducir y todo está en orden. Ya puedes publicar viajes como conductor en ConcertRide.</p>
-    ${cta("https://concertride.es/publish", "Publicar mi primer viaje")}
+    ${cta(`${getSiteUrl(env)}/publish`, "Publicar mi primer viaje")}
     `
       : `
     <h1 style="font-family:Georgia,serif;font-size:28px;line-height:1.15;margin:0 0 12px 0;">No hemos podido verificar tu carnet.</h1>
     <p style="color:#ccc;margin:0 0 16px 0;line-height:1.6;font-size:15px;">Hola, ${escapeHtml(args.name)}. Lamentablemente no hemos podido verificar tu carnet de conducir.</p>
     ${args.reason ? `<p style="color:#ccc;margin:0 0 24px 0;line-height:1.6;font-size:15px;"><strong>Motivo:</strong> ${escapeHtml(args.reason)}</p>` : ""}
     <p style="color:#ccc;margin:0 0 24px 0;line-height:1.6;font-size:15px;">Puedes volver a intentarlo desde tu perfil subiendo una imagen más clara del documento.</p>
-    ${cta("https://concertride.es/profile", "Volver a intentarlo")}
+    ${cta(`${getSiteUrl(env)}/profile`, "Volver a intentarlo")}
     `,
   );
   return sendEmail(env, { to: email, subject, html });
@@ -398,6 +412,7 @@ export function sendBanNotificationEmail(
 ): Promise<SendResult> {
   const subject = "Tu cuenta en ConcertRide ha sido suspendida";
   const html = shell(
+    env,
     subject,
     "Información sobre tu cuenta",
     `

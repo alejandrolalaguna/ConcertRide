@@ -12,6 +12,7 @@ import { track } from "@/lib/observability";
 import { VibeSelector } from "@/components/VibeSelector";
 import { PulsingDot } from "@/components/LoadingStates";
 import { useSeoMeta } from "@/lib/useSeoMeta";
+import { SITE_URL } from "@/lib/siteUrl";
 
 type Step = 1 | 2 | 3;
 
@@ -86,7 +87,7 @@ export default function PublishRidePage() {
   useSeoMeta({
     title: "Publicar un viaje a un concierto",
     description: "Publica gratis tu viaje compartido a un concierto o festival en España. Fija el precio por asiento y divide los gastos con otros fans.",
-    canonical: "https://concertride.es/publish",
+    canonical: `${SITE_URL}/publish`,
   });
 
   useEffect(() => {

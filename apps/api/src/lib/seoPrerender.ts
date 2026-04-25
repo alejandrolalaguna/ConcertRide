@@ -12,9 +12,8 @@
 
 import type { Context, Next } from "hono";
 import type { HonoEnv } from "../types";
+import { getSiteUrl } from "./siteUrl";
 
-const BASE = "https://concertride.es";
-const DEFAULT_IMG = `${BASE}/og/home.png`;
 const SITE_NAME = "ConcertRide ES";
 
 const SEARCH_BOTS =
@@ -27,62 +26,64 @@ interface RouteMeta {
   ogImage?: string;
 }
 
-// ── Static route table ────────────────────────────────────────────────────────
-const STATIC_ROUTES: Record<string, RouteMeta> = {
-  "/": {
-    title: `${SITE_NAME} — Carpooling para conciertos en España | Viajes compartidos`,
-    description:
-      "Carpooling para conciertos en España. Comparte coche, divide gastos y llega seguro. Publica un viaje o busca uno en 2 minutos. Gratis, sin comisiones.",
-    canonical: `${BASE}/`,
-  },
-  "/concerts": {
-    title: `Conciertos en España 2026 — Carpooling sin comisiones | ${SITE_NAME}`,
-    description:
-      "Directorio de conciertos en España con viajes compartidos disponibles. Filtra por ciudad, artista o fecha. Sin comisión. ConcertRide.",
-    canonical: `${BASE}/concerts`,
-  },
-  "/festivales": {
-    title: `Carpooling para festivales de música en España 2026 — ${SITE_NAME}`,
-    description:
-      "Viajes compartidos a los festivales más grandes de España: Mad Cool, Primavera Sound, Sónar, FIB, BBK Live y más. Sin taxi, sin comisión.",
-    canonical: `${BASE}/festivales`,
-  },
-  "/guia-transporte-festivales": {
-    title: `Guía de transporte para festivales de música en España — ${SITE_NAME}`,
-    description:
-      "Cómo llegar a los principales festivales de España en coche compartido. Precios, tiempos y consejos para Mad Cool, Primavera Sound, Sónar y más.",
-    canonical: `${BASE}/guia-transporte-festivales`,
-  },
-  "/como-funciona": {
-    title: `Cómo funciona el carpooling para conciertos — ${SITE_NAME}`,
-    description:
-      "Publica o reserva un viaje compartido a un concierto en 2 minutos. Sin comisión, conductores verificados, pago directo al conductor.",
-    canonical: `${BASE}/como-funciona`,
-  },
-  "/faq": {
-    title: `Preguntas frecuentes sobre carpooling a conciertos — ${SITE_NAME}`,
-    description:
-      "Respuestas a las preguntas más frecuentes sobre ConcertRide: seguridad, pagos, cancelaciones y más.",
-    canonical: `${BASE}/faq`,
-  },
-  "/acerca-de": {
-    title: `Acerca de ConcertRide — Carpooling para la cultura en España`,
-    description:
-      "ConcertRide es la plataforma española de carpooling para conciertos y festivales. Sin comisiones, sin intermediarios, conductores verificados.",
-    canonical: `${BASE}/acerca-de`,
-  },
-  "/contacto": {
-    title: `Contacto — ${SITE_NAME}`,
-    description: "Ponte en contacto con el equipo de ConcertRide.",
-    canonical: `${BASE}/contacto`,
-  },
-  "/publish": {
-    title: `Publicar un viaje a un concierto — ${SITE_NAME}`,
-    description:
-      "Abre tu coche a un concierto o festival y comparte gastos con otros fans. Publica gratis en 2 minutos.",
-    canonical: `${BASE}/publish`,
-  },
-};
+// ── Static route table (canonical built per-request from env SITE_URL) ───────
+function buildStaticRoutes(base: string): Record<string, RouteMeta> {
+  return {
+    "/": {
+      title: `${SITE_NAME} — Carpooling para conciertos en España | Viajes compartidos`,
+      description:
+        "Carpooling para conciertos en España. Comparte coche, divide gastos y llega seguro. Publica un viaje o busca uno en 2 minutos. Gratis, sin comisiones.",
+      canonical: `${base}/`,
+    },
+    "/concerts": {
+      title: `Conciertos en España 2026 — Carpooling sin comisiones | ${SITE_NAME}`,
+      description:
+        "Directorio de conciertos en España con viajes compartidos disponibles. Filtra por ciudad, artista o fecha. Sin comisión. ConcertRide.",
+      canonical: `${base}/concerts`,
+    },
+    "/festivales": {
+      title: `Carpooling para festivales de música en España 2026 — ${SITE_NAME}`,
+      description:
+        "Viajes compartidos a los festivales más grandes de España: Mad Cool, Primavera Sound, Sónar, FIB, BBK Live y más. Sin taxi, sin comisión.",
+      canonical: `${base}/festivales`,
+    },
+    "/guia-transporte-festivales": {
+      title: `Guía de transporte para festivales de música en España — ${SITE_NAME}`,
+      description:
+        "Cómo llegar a los principales festivales de España en coche compartido. Precios, tiempos y consejos para Mad Cool, Primavera Sound, Sónar y más.",
+      canonical: `${base}/guia-transporte-festivales`,
+    },
+    "/como-funciona": {
+      title: `Cómo funciona el carpooling para conciertos — ${SITE_NAME}`,
+      description:
+        "Publica o reserva un viaje compartido a un concierto en 2 minutos. Sin comisión, conductores verificados, pago directo al conductor.",
+      canonical: `${base}/como-funciona`,
+    },
+    "/faq": {
+      title: `Preguntas frecuentes sobre carpooling a conciertos — ${SITE_NAME}`,
+      description:
+        "Respuestas a las preguntas más frecuentes sobre ConcertRide: seguridad, pagos, cancelaciones y más.",
+      canonical: `${base}/faq`,
+    },
+    "/acerca-de": {
+      title: `Acerca de ConcertRide — Carpooling para la cultura en España`,
+      description:
+        "ConcertRide es la plataforma española de carpooling para conciertos y festivales. Sin comisiones, sin intermediarios, conductores verificados.",
+      canonical: `${base}/acerca-de`,
+    },
+    "/contacto": {
+      title: `Contacto — ${SITE_NAME}`,
+      description: "Ponte en contacto con el equipo de ConcertRide.",
+      canonical: `${base}/contacto`,
+    },
+    "/publish": {
+      title: `Publicar un viaje a un concierto — ${SITE_NAME}`,
+      description:
+        "Abre tu coche a un concierto o festival y comparte gastos con otros fans. Publica gratis en 2 minutos.",
+      canonical: `${base}/publish`,
+    },
+  };
+}
 
 // ── Festival pages ─────────────────────────────────────────────────────────────
 interface FestivalMeta {
@@ -127,9 +128,10 @@ const CITIES: Record<string, { name: string; region: string }> = {
   "santiago-de-compostela": { name: "Santiago de Compostela", region: "Galicia" },
 };
 
-function resolveMeta(pathname: string): RouteMeta | null {
+function resolveMeta(pathname: string, base: string): RouteMeta | null {
   // Exact static match
-  const exact = STATIC_ROUTES[pathname] ?? STATIC_ROUTES[pathname.replace(/\/$/, "")] ?? null;
+  const routes = buildStaticRoutes(base);
+  const exact = routes[pathname] ?? routes[pathname.replace(/\/$/, "")] ?? null;
   if (exact) return exact;
 
   // /festivales/:slug
@@ -141,7 +143,7 @@ function resolveMeta(pathname: string): RouteMeta | null {
     return {
       title: `Carpooling ${f.shortName} ${f.dates.match(/\d{4}$/)?.[0] ?? "2026"} — Comparte coche a ${f.name} | ${SITE_NAME}`,
       description: `Carpooling a ${f.name} (${f.venue}, ${f.city}) ${f.dates}. Viajes compartidos desde toda España desde ${f.priceFrom} €/asiento. Sin taxi, sin comisión. Conductores verificados.`,
-      canonical: `${BASE}/festivales/${slug}`,
+      canonical: `${base}/festivales/${slug}`,
     };
   }
 
@@ -154,7 +156,7 @@ function resolveMeta(pathname: string): RouteMeta | null {
     return {
       title: `Conciertos en ${c.name} 2026 — Carpooling sin comisiones | ${SITE_NAME}`,
       description: `Carpooling a conciertos y festivales en ${c.name} (${c.region}). Encuentra o publica un viaje compartido gratis. Sin comisiones, conductores verificados.`,
-      canonical: `${BASE}/conciertos/${slug}`,
+      canonical: `${base}/conciertos/${slug}`,
     };
   }
 
@@ -165,11 +167,11 @@ function escape(s: string): string {
   return s.replace(/&/g, "&amp;").replace(/"/g, "&quot;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
 }
 
-function injectMeta(html: string, meta: RouteMeta): string {
+function injectMeta(html: string, meta: RouteMeta, base: string): string {
   const title = escape(meta.title);
   const desc = escape(meta.description);
   const canonical = escape(meta.canonical);
-  const img = escape(meta.ogImage ?? DEFAULT_IMG);
+  const img = escape(meta.ogImage ?? `${base}/og/home.png`);
   const siteName = escape(SITE_NAME);
 
   // Build the replacement block — identical structure to what useSeoMeta sets client-side
@@ -230,21 +232,22 @@ export async function seoPrerender(c: Context<HonoEnv>, next: Next): Promise<Res
     return next();
   }
 
-  const meta = resolveMeta(c.req.path);
+  const base = getSiteUrl(c.env);
+  const meta = resolveMeta(c.req.path, base);
   if (!meta) {
     return next();
   }
 
   // Fetch the SPA shell from ASSETS
   const assetRes = await c.env.ASSETS.fetch(
-    new Request(`${BASE}/`, { headers: c.req.raw.headers }),
+    new Request(`${base}/`, { headers: c.req.raw.headers }),
   );
   if (!assetRes.ok || !assetRes.headers.get("content-type")?.includes("text/html")) {
     return next();
   }
 
   const html = await assetRes.text();
-  const rewritten = injectMeta(html, meta);
+  const rewritten = injectMeta(html, meta, base);
 
   return new Response(rewritten, {
     status: 200,

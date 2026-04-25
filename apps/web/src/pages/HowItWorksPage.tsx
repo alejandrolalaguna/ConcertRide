@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import { Car, MapPin, Music2, ShieldCheck, Users } from "lucide-react";
 import { useSeoMeta } from "@/lib/useSeoMeta";
+import { SITE_URL } from "@/lib/siteUrl";
 
 // Two parallel walkthroughs (passenger + driver) + a safety/privacy block.
 // Every step is numbered, short and written in direct instructive Spanish so
@@ -57,7 +58,7 @@ export default function HowItWorksPage() {
     title: "Cómo funciona ConcertRide",
     description:
       "Guía paso a paso: cómo reservar plaza en un viaje compartido a un concierto o cómo publicar tu propio viaje en ConcertRide ES. Gratis, sin comisiones, con conductores verificados.",
-    canonical: "https://concertride.es/como-funciona",
+    canonical: `${SITE_URL}/como-funciona`,
     keywords:
       "cómo funciona carpooling conciertos, cómo reservar viaje compartido concierto, cómo publicar viaje a festival, compartir coche concierto España, cómo ir al concierto en coche compartido, carpooling festival sin comisión, conductor verificado concierto",
   });
@@ -84,7 +85,7 @@ export default function HowItWorksPage() {
               position: i + 1,
               name: s.title,
               text: s.body,
-              url: `https://concertride.es/como-funciona#passenger-${i + 1}`,
+              url: `${SITE_URL}/como-funciona#passenger-${i + 1}`,
             })),
           }),
         }}
@@ -105,7 +106,7 @@ export default function HowItWorksPage() {
               position: i + 1,
               name: s.title,
               text: s.body,
-              url: `https://concertride.es/como-funciona#driver-${i + 1}`,
+              url: `${SITE_URL}/como-funciona#driver-${i + 1}`,
             })),
           }),
         }}
@@ -117,12 +118,12 @@ export default function HowItWorksPage() {
             "@context": "https://schema.org",
             "@type": "BreadcrumbList",
             itemListElement: [
-              { "@type": "ListItem", position: 1, name: "Inicio", item: "https://concertride.es/" },
+              { "@type": "ListItem", position: 1, name: "Inicio", item: `${SITE_URL}/` },
               {
                 "@type": "ListItem",
                 position: 2,
                 name: "Cómo funciona",
-                item: "https://concertride.es/como-funciona",
+                item: `${SITE_URL}/como-funciona`,
               },
             ],
           }),

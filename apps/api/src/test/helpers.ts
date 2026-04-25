@@ -59,6 +59,7 @@ export function buildTestApp(overrides: Partial<Env> = {}) {
     SUPPORT_EMAIL: "",
     ADMIN_USER_IDS: "",
     ENVIRONMENT: "development",
+    SITE_URL: "https://concertride.me",
     ASSETS: { fetch: async () => new Response("", { status: 404 }) } as unknown as Fetcher,
     CACHE: kv as unknown as KVNamespace,
     ...overrides,

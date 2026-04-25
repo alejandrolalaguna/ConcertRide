@@ -1,6 +1,7 @@
 import { Link, Navigate } from "react-router-dom";
 import { Heart, MapPin, Mic2, Music } from "lucide-react";
 import { useSeoMeta } from "@/lib/useSeoMeta";
+import { SITE_URL } from "@/lib/siteUrl";
 import { useFavorites } from "@/lib/favorites";
 import { useSession } from "@/lib/session";
 import { ConcertCard } from "@/components/ConcertCard";
@@ -14,7 +15,7 @@ export default function FavoritesPage() {
   useSeoMeta({
     title: "Mis favoritos",
     description: "Conciertos, artistas y ciudades que has marcado como favoritos en ConcertRide ES.",
-    canonical: "https://concertride.es/favoritos",
+    canonical: `${SITE_URL}/favoritos`,
     noindex: true,
   });
 

@@ -6,6 +6,7 @@ import { api } from "@/lib/api";
 import { ConcertCard } from "@/components/ConcertCard";
 import { LoadingSpinner } from "@/components/ui";
 import { useSeoMeta } from "@/lib/useSeoMeta";
+import { SITE_URL } from "@/lib/siteUrl";
 import { CITY_LANDINGS, CITY_LANDINGS_BY_SLUG } from "@/lib/cityLandings";
 import { FESTIVAL_LANDINGS } from "@/lib/festivalLandings";
 
@@ -21,8 +22,8 @@ export default function CityLandingPage() {
       ? `Todos los conciertos y festivales en ${landing.display}: ${landing.venues.slice(0, 3).join(", ")} y más. Carpooling para llegar desde cualquier ciudad de España, sin taxi ni comisiones.`
       : "Explora conciertos por ciudad en España.",
     canonical: landing
-      ? `https://concertride.es/conciertos/${landing.slug}`
-      : "https://concertride.es/concerts",
+      ? `${SITE_URL}/conciertos/${landing.slug}`
+      : `${SITE_URL}/concerts`,
     keywords: landing
       ? `conciertos ${landing.display}, festivales ${landing.display}, carpooling ${landing.display}, coche compartido ${landing.display}, cómo ir al concierto ${landing.display}`
       : undefined,
@@ -56,7 +57,7 @@ export default function CityLandingPage() {
             "@context": "https://schema.org",
             "@type": "CollectionPage",
             name: `Conciertos en ${landing.display}`,
-            url: `https://concertride.es/conciertos/${landing.slug}`,
+            url: `${SITE_URL}/conciertos/${landing.slug}`,
             inLanguage: "es-ES",
             dateModified: new Date().toISOString().slice(0, 10),
             description: landing.blurb,
@@ -72,9 +73,9 @@ export default function CityLandingPage() {
             },
             isPartOf: {
               "@type": "WebSite",
-              "@id": "https://concertride.es/#website",
+              "@id": `${SITE_URL}/#website`,
               name: "ConcertRide ES",
-              url: "https://concertride.es",
+              url: SITE_URL,
             },
             mainEntity: {
               "@type": "ItemList",
@@ -82,7 +83,7 @@ export default function CityLandingPage() {
               itemListElement: futureConcerts.slice(0, 20).map((c, i) => ({
                 "@type": "ListItem",
                 position: i + 1,
-                url: `https://concertride.es/concerts/${c.id}`,
+                url: `${SITE_URL}/concerts/${c.id}`,
                 name: `${c.artist} — ${c.venue.name}`,
               })),
             },
@@ -96,13 +97,13 @@ export default function CityLandingPage() {
             "@context": "https://schema.org",
             "@type": "BreadcrumbList",
             itemListElement: [
-              { "@type": "ListItem", position: 1, name: "Inicio", item: "https://concertride.es/" },
-              { "@type": "ListItem", position: 2, name: "Conciertos", item: "https://concertride.es/concerts" },
+              { "@type": "ListItem", position: 1, name: "Inicio", item: `${SITE_URL}/` },
+              { "@type": "ListItem", position: 2, name: "Conciertos", item: `${SITE_URL}/concerts` },
               {
                 "@type": "ListItem",
                 position: 3,
                 name: landing.display,
-                item: `https://concertride.es/conciertos/${landing.slug}`,
+                item: `${SITE_URL}/conciertos/${landing.slug}`,
               },
             ],
           }),

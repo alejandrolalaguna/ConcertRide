@@ -1,3 +1,4 @@
+var _a;
 import { jsx, jsxs, Fragment } from "react/jsx-runtime";
 import { renderToString } from "react-dom/server";
 import * as React from "react";
@@ -1516,8 +1517,8 @@ const formatTime$1 = (iso) => TIME_FMT.format(new Date(iso));
 const formatDay = (iso) => DAY_FMT.format(new Date(iso));
 function initials(name) {
   return name.split(/\s+/).filter(Boolean).slice(0, 2).map((part) => {
-    var _a;
-    return ((_a = part[0]) == null ? void 0 : _a.toUpperCase()) ?? "";
+    var _a2;
+    return ((_a2 = part[0]) == null ? void 0 : _a2.toUpperCase()) ?? "";
   }).join("");
 }
 function TopNav() {
@@ -1527,8 +1528,8 @@ function TopNav() {
   const ref = useRef(null);
   useEffect(() => {
     function onDocClick(e) {
-      var _a;
-      if (!((_a = ref.current) == null ? void 0 : _a.contains(e.target))) setOpen(false);
+      var _a2;
+      if (!((_a2 = ref.current) == null ? void 0 : _a2.contains(e.target))) setOpen(false);
     }
     document.addEventListener("mousedown", onDocClick);
     return () => document.removeEventListener("mousedown", onDocClick);
@@ -2000,8 +2001,10 @@ function useFavorites() {
   if (!ctx) throw new Error("useFavorites must be used inside <FavoritesProvider>");
   return ctx;
 }
+const __vite_import_meta_env__ = {};
+const SITE_URL = ((_a = __vite_import_meta_env__ == null ? void 0 : __vite_import_meta_env__.VITE_SITE_URL) == null ? void 0 : _a.replace(/\/+$/, "")) || "https://concertride.me";
 const DEFAULT_DESCRIPTION = "Carpooling para conciertos en España. Comparte coche, divide gastos y llega seguro. Publica un viaje o busca uno en 2 minutos. Gratis.";
-const DEFAULT_OG_IMAGE = "https://concertride.es/og/home.png";
+const DEFAULT_OG_IMAGE = `${SITE_URL}/og/home.png`;
 const DEFAULT_OG_IMAGE_WIDTH = 1200;
 const DEFAULT_OG_IMAGE_HEIGHT = 630;
 const SITE_NAME = "ConcertRide ES";
@@ -2086,7 +2089,7 @@ function useSeoMeta(meta) {
       if (r.articleModifiedTime) setMeta("article:modified_time", r.articleModifiedTime, true);
       if (r.articleAuthor) setMeta("article:author", r.articleAuthor, true);
       if (r.articleSection) setMeta("article:section", r.articleSection, true);
-      setMeta("article:publisher", "https://www.facebook.com/concertride.es", true);
+      setMeta("article:publisher", "https://www.facebook.com/concertride.me", true);
     } else {
       removeMeta("article:published_time", true);
       removeMeta("article:modified_time", true);
@@ -2559,7 +2562,7 @@ function loadExternalIsValidProp(isValidProp) {
 }
 try {
   loadExternalIsValidProp(require("@emotion/is-prop-valid").default);
-} catch (_a) {
+} catch (_a2) {
 }
 function filterProps(props, isDom, forwardMotionProps) {
   const filteredProps = {};
@@ -2686,7 +2689,7 @@ const optimizedAppearDataAttribute = "data-" + camelToDash(optimizedAppearDataId
 const { schedule: microtask } = createRenderBatcher(queueMicrotask, false);
 const SwitchLayoutGroupContext = createContext({});
 function useVisualElement(Component2, visualState, props, createVisualElement, ProjectionNodeConstructor) {
-  var _a, _b;
+  var _a2, _b;
   const { visualElement: parent } = useContext(MotionContext);
   const lazyContext = useContext(LazyContext);
   const presenceContext = useContext(PresenceContext);
@@ -2715,7 +2718,7 @@ function useVisualElement(Component2, visualState, props, createVisualElement, P
     }
   });
   const optimisedAppearId = props[optimizedAppearDataAttribute];
-  const wantsHandoff = useRef(Boolean(optimisedAppearId) && !((_a = window.MotionHandoffIsComplete) === null || _a === void 0 ? void 0 : _a.call(window, optimisedAppearId)) && ((_b = window.MotionHasOptimisedAnimation) === null || _b === void 0 ? void 0 : _b.call(window, optimisedAppearId)));
+  const wantsHandoff = useRef(Boolean(optimisedAppearId) && !((_a2 = window.MotionHandoffIsComplete) === null || _a2 === void 0 ? void 0 : _a2.call(window, optimisedAppearId)) && ((_b = window.MotionHasOptimisedAnimation) === null || _b === void 0 ? void 0 : _b.call(window, optimisedAppearId)));
   useIsomorphicLayoutEffect(() => {
     if (!visualElement)
       return;
@@ -2735,8 +2738,8 @@ function useVisualElement(Component2, visualState, props, createVisualElement, P
     }
     if (wantsHandoff.current) {
       queueMicrotask(() => {
-        var _a2;
-        (_a2 = window.MotionHandoffMarkAsComplete) === null || _a2 === void 0 ? void 0 : _a2.call(window, optimisedAppearId);
+        var _a3;
+        (_a3 = window.MotionHandoffMarkAsComplete) === null || _a3 === void 0 ? void 0 : _a3.call(window, optimisedAppearId);
       });
       wantsHandoff.current = false;
     }
@@ -2770,7 +2773,7 @@ function getClosestProjectingNode(visualElement) {
   return visualElement.options.allowProjection !== false ? visualElement.projection : getClosestProjectingNode(visualElement.parent);
 }
 function createRendererMotionComponent({ preloadedFeatures, createVisualElement, useRender, useVisualState, Component: Component2 }) {
-  var _a, _b;
+  var _a2, _b;
   preloadedFeatures && loadFeatures(preloadedFeatures);
   function MotionComponent(props, externalRef) {
     let MeasureLayout2;
@@ -2790,7 +2793,7 @@ function createRendererMotionComponent({ preloadedFeatures, createVisualElement,
     }
     return jsxs(MotionContext.Provider, { value: context, children: [MeasureLayout2 && context.visualElement ? jsx(MeasureLayout2, { visualElement: context.visualElement, ...configAndProps }) : null, useRender(Component2, props, useMotionRef(visualState, context.visualElement, externalRef), visualState, isStatic, context.visualElement)] });
   }
-  MotionComponent.displayName = `motion.${typeof Component2 === "string" ? Component2 : `create(${(_b = (_a = Component2.displayName) !== null && _a !== void 0 ? _a : Component2.name) !== null && _b !== void 0 ? _b : ""})`}`;
+  MotionComponent.displayName = `motion.${typeof Component2 === "string" ? Component2 : `create(${(_b = (_a2 = Component2.displayName) !== null && _a2 !== void 0 ? _a2 : Component2.name) !== null && _b !== void 0 ? _b : ""})`}`;
   const ForwardRefMotionComponent = forwardRef(MotionComponent);
   ForwardRefMotionComponent[motionComponentSymbol] = Component2;
   return ForwardRefMotionComponent;
@@ -3303,11 +3306,11 @@ function isForcedMotionValue(key, { layout: layout2, layoutId }) {
   return transformProps.has(key) || key.startsWith("origin") || (layout2 || layoutId !== void 0) && (!!scaleCorrectors[key] || key === "opacity");
 }
 function scrapeMotionValuesFromProps$1(props, prevProps, visualElement) {
-  var _a;
+  var _a2;
   const { style } = props;
   const newValues = {};
   for (const key in style) {
-    if (isMotionValue(style[key]) || prevProps.style && isMotionValue(prevProps.style[key]) || isForcedMotionValue(key, props) || ((_a = visualElement === null || visualElement === void 0 ? void 0 : visualElement.getValue(key)) === null || _a === void 0 ? void 0 : _a.liveStyle) !== void 0) {
+    if (isMotionValue(style[key]) || prevProps.style && isMotionValue(prevProps.style[key]) || isForcedMotionValue(key, props) || ((_a2 = visualElement === null || visualElement === void 0 ? void 0 : visualElement.getValue(key)) === null || _a2 === void 0 ? void 0 : _a2.liveStyle) !== void 0) {
       newValues[key] = style[key];
     }
   }
@@ -3950,8 +3953,8 @@ const supportsFlags = {
 function memoSupports(callback, supportsFlag) {
   const memoized = /* @__PURE__ */ memo(callback);
   return () => {
-    var _a;
-    return (_a = supportsFlags[supportsFlag]) !== null && _a !== void 0 ? _a : memoized();
+    var _a2;
+    return (_a2 = supportsFlags[supportsFlag]) !== null && _a2 !== void 0 ? _a2 : memoized();
   };
 }
 const supportsLinearEasing = /* @__PURE__ */ memoSupports(() => {
@@ -4131,8 +4134,8 @@ const color = {
 };
 const colorRegex = /(?:#[\da-f]{3,8}|(?:rgb|hsl)a?\((?:-?[\d.]+%?[,\s]+){2}-?[\d.]+%?\s*(?:[,/]\s*)?(?:\b\d+(?:\.\d+)?|\.\d+)?%?\))/giu;
 function test(v) {
-  var _a, _b;
-  return isNaN(v) && typeof v === "string" && (((_a = v.match(floatRegex)) === null || _a === void 0 ? void 0 : _a.length) || 0) + (((_b = v.match(colorRegex)) === null || _b === void 0 ? void 0 : _b.length) || 0) > 0;
+  var _a2, _b;
+  return isNaN(v) && typeof v === "string" && (((_a2 = v.match(floatRegex)) === null || _a2 === void 0 ? void 0 : _a2.length) || 0) + (((_b = v.match(colorRegex)) === null || _b === void 0 ? void 0 : _b.length) || 0) > 0;
 }
 const NUMBER_TOKEN = "number";
 const COLOR_TOKEN = "color";
@@ -4334,8 +4337,8 @@ function measureAllKeyframes() {
       const restore = transformsToRestore.get(element);
       if (restore) {
         restore.forEach(([key, value]) => {
-          var _a;
-          (_a = element.getValue(key)) === null || _a === void 0 ? void 0 : _a.set(value);
+          var _a2;
+          (_a2 = element.getValue(key)) === null || _a2 === void 0 ? void 0 : _a2.set(value);
         });
       }
     });
@@ -4544,7 +4547,7 @@ class DOMKeyframesResolver extends KeyframeResolver {
     }
   }
   measureEndState() {
-    var _a;
+    var _a2;
     const { element, name, unresolvedKeyframes } = this;
     if (!element || !element.current)
       return;
@@ -4556,7 +4559,7 @@ class DOMKeyframesResolver extends KeyframeResolver {
     if (finalKeyframe !== null && this.finalKeyframe === void 0) {
       this.finalKeyframe = finalKeyframe;
     }
-    if ((_a = this.removedTransforms) === null || _a === void 0 ? void 0 : _a.length) {
+    if ((_a2 = this.removedTransforms) === null || _a2 === void 0 ? void 0 : _a2.length) {
       this.removedTransforms.forEach(([unsetTransformName, unsetTransformValue]) => {
         element.getValue(unsetTransformName).set(unsetTransformValue);
       });
@@ -4836,13 +4839,13 @@ function mixObject(a, b) {
   };
 }
 function matchOrder(origin, target) {
-  var _a;
+  var _a2;
   const orderedOrigin = [];
   const pointers = { color: 0, var: 0, number: 0 };
   for (let i = 0; i < target.values.length; i++) {
     const type = target.types[i];
     const originIndex = origin.indexes[type][pointers[type]];
-    const originValue = (_a = origin.values[originIndex]) !== null && _a !== void 0 ? _a : 0;
+    const originValue = (_a2 = origin.values[originIndex]) !== null && _a2 !== void 0 ? _a2 : 0;
     orderedOrigin[i] = originValue;
     pointers[type]++;
   }
@@ -5476,13 +5479,13 @@ class MainThreadAnimation extends BaseAnimation {
     this.driver.start();
   }
   pause() {
-    var _a;
+    var _a2;
     if (!this._resolved) {
       this.pendingPlayState = "paused";
       return;
     }
     this.state = "paused";
-    this.holdTime = (_a = this.currentTime) !== null && _a !== void 0 ? _a : 0;
+    this.holdTime = (_a2 = this.currentTime) !== null && _a2 !== void 0 ? _a2 : 0;
   }
   complete() {
     if (this.state !== "running") {
@@ -5875,14 +5878,14 @@ function shouldBlockAnimation({ protectedKeys, needsAnimating }, key) {
   return shouldBlock;
 }
 function animateTarget(visualElement, targetAndTransition, { delay: delay2 = 0, transitionOverride, type } = {}) {
-  var _a;
+  var _a2;
   let { transition = visualElement.getDefaultTransition(), transitionEnd, ...target } = targetAndTransition;
   if (transitionOverride)
     transition = transitionOverride;
   const animations2 = [];
   const animationTypeState = type && visualElement.animationState && visualElement.animationState.getState()[type];
   for (const key in target) {
-    const value = visualElement.getValue(key, (_a = visualElement.latestValues[key]) !== null && _a !== void 0 ? _a : null);
+    const value = visualElement.getValue(key, (_a2 = visualElement.latestValues[key]) !== null && _a2 !== void 0 ? _a2 : null);
     const valueTarget = target[key];
     if (valueTarget === void 0 || animationTypeState && shouldBlockAnimation(animationTypeState, key)) {
       continue;
@@ -5919,8 +5922,8 @@ function animateTarget(visualElement, targetAndTransition, { delay: delay2 = 0, 
   return animations2;
 }
 function animateVariant(visualElement, variant, options = {}) {
-  var _a;
-  const resolved = resolveVariant(visualElement, variant, options.type === "exit" ? (_a = visualElement.presenceContext) === null || _a === void 0 ? void 0 : _a.custom : void 0);
+  var _a2;
+  const resolved = resolveVariant(visualElement, variant, options.type === "exit" ? (_a2 = visualElement.presenceContext) === null || _a2 === void 0 ? void 0 : _a2.custom : void 0);
   let { transition = visualElement.getDefaultTransition() || {} } = resolved || {};
   if (options.transitionOverride) {
     transition = options.transitionOverride;
@@ -6001,8 +6004,8 @@ function createAnimationState(visualElement) {
   let state = createState();
   let isInitialRender = true;
   const buildResolvedTypeValues = (type) => (acc, definition) => {
-    var _a;
-    const resolved = resolveVariant(visualElement, definition, type === "exit" ? (_a = visualElement.presenceContext) === null || _a === void 0 ? void 0 : _a.custom : void 0);
+    var _a2;
+    const resolved = resolveVariant(visualElement, definition, type === "exit" ? (_a2 = visualElement.presenceContext) === null || _a2 === void 0 ? void 0 : _a2.custom : void 0);
     if (resolved) {
       const { transition, transitionEnd, ...target } = resolved;
       acc = { ...acc, ...target, ...transitionEnd };
@@ -6124,12 +6127,12 @@ function createAnimationState(visualElement) {
     return shouldAnimate ? animate(animations2) : Promise.resolve();
   }
   function setActive(type, isActive) {
-    var _a;
+    var _a2;
     if (state[type].isActive === isActive)
       return Promise.resolve();
-    (_a = visualElement.variantChildren) === null || _a === void 0 ? void 0 : _a.forEach((child) => {
-      var _a2;
-      return (_a2 = child.animationState) === null || _a2 === void 0 ? void 0 : _a2.setActive(type, isActive);
+    (_a2 = visualElement.variantChildren) === null || _a2 === void 0 ? void 0 : _a2.forEach((child) => {
+      var _a3;
+      return (_a3 = child.animationState) === null || _a3 === void 0 ? void 0 : _a3.setActive(type, isActive);
     });
     state[type].isActive = isActive;
     const animations2 = animateChanges(type);
@@ -6214,9 +6217,9 @@ class AnimationFeature extends Feature {
     }
   }
   unmount() {
-    var _a;
+    var _a2;
     this.node.animationState.reset();
-    (_a = this.unmountControls) === null || _a === void 0 ? void 0 : _a.call(this);
+    (_a2 = this.unmountControls) === null || _a2 === void 0 ? void 0 : _a2.call(this);
   }
 }
 let id$1 = 0;
@@ -6770,8 +6773,8 @@ class VisualElementDragControls {
     };
     const onSessionEnd = (event, info) => this.stop(event, info);
     const resumeAnimation = () => eachAxis((axis) => {
-      var _a;
-      return this.getAnimationState(axis) === "paused" && ((_a = this.getAxisMotionValue(axis).animation) === null || _a === void 0 ? void 0 : _a.play());
+      var _a2;
+      return this.getAnimationState(axis) === "paused" && ((_a2 = this.getAxisMotionValue(axis).animation) === null || _a2 === void 0 ? void 0 : _a2.play());
     });
     const { dragSnapToOrigin } = this.getProps();
     this.panSession = new PanSession(originEvent, {
@@ -6825,9 +6828,9 @@ class VisualElementDragControls {
     axisValue.set(next);
   }
   resolveConstraints() {
-    var _a;
+    var _a2;
     const { dragConstraints, dragElastic } = this.getProps();
-    const layout2 = this.visualElement.projection && !this.visualElement.projection.layout ? this.visualElement.projection.measure(false) : (_a = this.visualElement.projection) === null || _a === void 0 ? void 0 : _a.layout;
+    const layout2 = this.visualElement.projection && !this.visualElement.projection.layout ? this.visualElement.projection.measure(false) : (_a2 = this.visualElement.projection) === null || _a2 === void 0 ? void 0 : _a2.layout;
     const prevConstraints = this.constraints;
     if (dragConstraints && isRefObject(dragConstraints)) {
       if (!this.constraints) {
@@ -6906,13 +6909,13 @@ class VisualElementDragControls {
   }
   pauseAnimation() {
     eachAxis((axis) => {
-      var _a;
-      return (_a = this.getAxisMotionValue(axis).animation) === null || _a === void 0 ? void 0 : _a.pause();
+      var _a2;
+      return (_a2 = this.getAxisMotionValue(axis).animation) === null || _a2 === void 0 ? void 0 : _a2.pause();
     });
   }
   getAnimationState(axis) {
-    var _a;
-    return (_a = this.getAxisMotionValue(axis).animation) === null || _a === void 0 ? void 0 : _a.state;
+    var _a2;
+    return (_a2 = this.getAxisMotionValue(axis).animation) === null || _a2 === void 0 ? void 0 : _a2.state;
   }
   /**
    * Drag works differently depending on which props are provided.
@@ -7915,12 +7918,12 @@ function createProjectionNode({ attachResizeListener, defaultParent, measureScro
       };
     }
     measurePageBox() {
-      var _a;
+      var _a2;
       const { visualElement } = this.options;
       if (!visualElement)
         return createBox();
       const box = visualElement.measureViewportBox();
-      const wasInScrollRoot = ((_a = this.scroll) === null || _a === void 0 ? void 0 : _a.wasRoot) || this.path.some(checkNodeWasScrollRoot);
+      const wasInScrollRoot = ((_a2 = this.scroll) === null || _a2 === void 0 ? void 0 : _a2.wasRoot) || this.path.some(checkNodeWasScrollRoot);
       if (!wasInScrollRoot) {
         const { scroll: scroll2 } = this.root;
         if (scroll2) {
@@ -7931,10 +7934,10 @@ function createProjectionNode({ attachResizeListener, defaultParent, measureScro
       return box;
     }
     removeElementScroll(box) {
-      var _a;
+      var _a2;
       const boxWithoutScroll = createBox();
       copyBoxInto(boxWithoutScroll, box);
-      if ((_a = this.scroll) === null || _a === void 0 ? void 0 : _a.wasRoot) {
+      if ((_a2 = this.scroll) === null || _a2 === void 0 ? void 0 : _a2.wasRoot) {
         return boxWithoutScroll;
       }
       for (let i = 0; i < this.path.length; i++) {
@@ -8019,13 +8022,13 @@ function createProjectionNode({ attachResizeListener, defaultParent, measureScro
       }
     }
     resolveTargetDelta(forceRecalculation = false) {
-      var _a;
+      var _a2;
       const lead = this.getLead();
       this.isProjectionDirty || (this.isProjectionDirty = lead.isProjectionDirty);
       this.isTransformDirty || (this.isTransformDirty = lead.isTransformDirty);
       this.isSharedProjectionDirty || (this.isSharedProjectionDirty = lead.isSharedProjectionDirty);
       const isShared = Boolean(this.resumingFrom) || this !== lead;
-      const canSkip = !(forceRecalculation || isShared && this.isSharedProjectionDirty || this.isProjectionDirty || ((_a = this.parent) === null || _a === void 0 ? void 0 : _a.isProjectionDirty) || this.attemptToResolveRelativeTarget || this.root.updateBlockedByResize);
+      const canSkip = !(forceRecalculation || isShared && this.isSharedProjectionDirty || this.isProjectionDirty || ((_a2 = this.parent) === null || _a2 === void 0 ? void 0 : _a2.isProjectionDirty) || this.attemptToResolveRelativeTarget || this.root.updateBlockedByResize);
       if (canSkip)
         return;
       const { layout: layout2, layoutId } = this.options;
@@ -8096,11 +8099,11 @@ function createProjectionNode({ attachResizeListener, defaultParent, measureScro
       return Boolean((this.relativeTarget || this.targetDelta || this.options.layoutRoot) && this.layout);
     }
     calcProjection() {
-      var _a;
+      var _a2;
       const lead = this.getLead();
       const isShared = Boolean(this.resumingFrom) || this !== lead;
       let canSkip = true;
-      if (this.isProjectionDirty || ((_a = this.parent) === null || _a === void 0 ? void 0 : _a.isProjectionDirty)) {
+      if (this.isProjectionDirty || ((_a2 = this.parent) === null || _a2 === void 0 ? void 0 : _a2.isProjectionDirty)) {
         canSkip = false;
       }
       if (isShared && (this.isSharedProjectionDirty || this.isTransformDirty)) {
@@ -8157,8 +8160,8 @@ function createProjectionNode({ attachResizeListener, defaultParent, measureScro
       this.isVisible = true;
     }
     scheduleRender(notifyAll2 = true) {
-      var _a;
-      (_a = this.options.visualElement) === null || _a === void 0 ? void 0 : _a.scheduleRender();
+      var _a2;
+      (_a2 = this.options.visualElement) === null || _a2 === void 0 ? void 0 : _a2.scheduleRender();
       if (notifyAll2) {
         const stack = this.getStack();
         stack && stack.scheduleRender();
@@ -8296,14 +8299,14 @@ function createProjectionNode({ attachResizeListener, defaultParent, measureScro
       return stack ? stack.lead === this : true;
     }
     getLead() {
-      var _a;
+      var _a2;
       const { layoutId } = this.options;
-      return layoutId ? ((_a = this.getStack()) === null || _a === void 0 ? void 0 : _a.lead) || this : this;
+      return layoutId ? ((_a2 = this.getStack()) === null || _a2 === void 0 ? void 0 : _a2.lead) || this : this;
     }
     getPrevLead() {
-      var _a;
+      var _a2;
       const { layoutId } = this.options;
-      return layoutId ? (_a = this.getStack()) === null || _a === void 0 ? void 0 : _a.prevLead : void 0;
+      return layoutId ? (_a2 = this.getStack()) === null || _a2 === void 0 ? void 0 : _a2.prevLead : void 0;
     }
     getStack() {
       const { layoutId } = this.options;
@@ -8358,7 +8361,7 @@ function createProjectionNode({ attachResizeListener, defaultParent, measureScro
       visualElement.scheduleRender();
     }
     getProjectionStyles(styleProp) {
-      var _a, _b;
+      var _a2, _b;
       if (!this.instance || this.isSVG)
         return void 0;
       if (!this.isVisible) {
@@ -8397,7 +8400,7 @@ function createProjectionNode({ attachResizeListener, defaultParent, measureScro
       const { x, y } = this.projectionDelta;
       styles.transformOrigin = `${x.origin * 100}% ${y.origin * 100}% 0`;
       if (lead.animationValues) {
-        styles.opacity = lead === this ? (_b = (_a = valuesToRender.opacity) !== null && _a !== void 0 ? _a : this.latestValues.opacity) !== null && _b !== void 0 ? _b : 1 : this.preserveOpacity ? this.latestValues.opacity : valuesToRender.opacityExit;
+        styles.opacity = lead === this ? (_b = (_a2 = valuesToRender.opacity) !== null && _a2 !== void 0 ? _a2 : this.latestValues.opacity) !== null && _b !== void 0 ? _b : 1 : this.preserveOpacity ? this.latestValues.opacity : valuesToRender.opacityExit;
       } else {
         styles.opacity = lead === this ? valuesToRender.opacity !== void 0 ? valuesToRender.opacity : "" : valuesToRender.opacityExit !== void 0 ? valuesToRender.opacityExit : 0;
       }
@@ -8426,8 +8429,8 @@ function createProjectionNode({ attachResizeListener, defaultParent, measureScro
     // Only run on root
     resetTree() {
       this.root.nodes.forEach((node) => {
-        var _a;
-        return (_a = node.currentAnimation) === null || _a === void 0 ? void 0 : _a.stop();
+        var _a2;
+        return (_a2 = node.currentAnimation) === null || _a2 === void 0 ? void 0 : _a2.stop();
       });
       this.root.nodes.forEach(clearMeasurements);
       this.root.sharedNodes.clear();
@@ -8438,8 +8441,8 @@ function updateLayout(node) {
   node.updateLayout();
 }
 function notifyLayoutUpdate(node) {
-  var _a;
-  const snapshot = ((_a = node.resumeFrom) === null || _a === void 0 ? void 0 : _a.snapshot) || node.snapshot;
+  var _a2;
+  const snapshot = ((_a2 = node.resumeFrom) === null || _a2 === void 0 ? void 0 : _a2.snapshot) || node.snapshot;
   if (node.isLead() && node.layout && snapshot && node.hasListeners("didUpdate")) {
     const { layoutBox: layout2, measuredBox: measuredLayout } = node.layout;
     const { animationType } = node.options;
@@ -8589,8 +8592,8 @@ function shouldAnimatePositionOnly(animationType, snapshot, layout2) {
   return animationType === "position" || animationType === "preserve-aspect" && !isNear(aspectRatio(snapshot), aspectRatio(layout2), 0.2);
 }
 function checkNodeWasScrollRoot(node) {
-  var _a;
-  return node !== node.root && ((_a = node.scroll) === null || _a === void 0 ? void 0 : _a.wasRoot);
+  var _a2;
+  return node !== node.root && ((_a2 = node.scroll) === null || _a2 === void 0 ? void 0 : _a2.wasRoot);
 }
 const DocumentProjectionNode = createProjectionNode({
   attachResizeListener: (ref, notify) => addDomEvent(ref, "resize", notify),
@@ -8633,12 +8636,12 @@ const drag = {
   }
 };
 function resolveElements(elementOrSelector, scope, selectorCache) {
-  var _a;
+  var _a2;
   if (elementOrSelector instanceof Element) {
     return [elementOrSelector];
   } else if (typeof elementOrSelector === "string") {
     let root = document;
-    const elements = (_a = void 0) !== null && _a !== void 0 ? _a : root.querySelectorAll(elementOrSelector);
+    const elements = (_a2 = void 0) !== null && _a2 !== void 0 ? _a2 : root.querySelectorAll(elementOrSelector);
     return elements ? Array.from(elements) : [];
   }
   return Array.from(elementOrSelector);
@@ -9297,8 +9300,8 @@ class VisualElement {
    * directly from the instance (which might have performance implications).
    */
   readValue(key, target) {
-    var _a;
-    let value = this.latestValues[key] !== void 0 || !this.current ? this.latestValues[key] : (_a = this.getBaseTargetFromProps(this.props, key)) !== null && _a !== void 0 ? _a : this.readValueFromInstance(this.current, key, this.options);
+    var _a2;
+    let value = this.latestValues[key] !== void 0 || !this.current ? this.latestValues[key] : (_a2 = this.getBaseTargetFromProps(this.props, key)) !== null && _a2 !== void 0 ? _a2 : this.readValueFromInstance(this.current, key, this.options);
     if (value !== void 0 && value !== null) {
       if (typeof value === "string" && (isNumericalString(value) || isZeroValueString(value))) {
         value = parseFloat(value);
@@ -9321,11 +9324,11 @@ class VisualElement {
    * props.
    */
   getBaseTarget(key) {
-    var _a;
+    var _a2;
     const { initial } = this.props;
     let valueFromInitial;
     if (typeof initial === "string" || typeof initial === "object") {
-      const variant = resolveVariantFromProps(this.props, initial, (_a = this.presenceContext) === null || _a === void 0 ? void 0 : _a.custom);
+      const variant = resolveVariantFromProps(this.props, initial, (_a2 = this.presenceContext) === null || _a2 === void 0 ? void 0 : _a2.custom);
       if (variant) {
         valueFromInitial = variant[key];
       }
@@ -9483,8 +9486,8 @@ function getElementSize(target, borderBoxSize) {
   }
 }
 function notifyTarget({ target, contentRect, borderBoxSize }) {
-  var _a;
-  (_a = resizeHandlers.get(target)) === null || _a === void 0 ? void 0 : _a.forEach((handler) => {
+  var _a2;
+  (_a2 = resizeHandlers.get(target)) === null || _a2 === void 0 ? void 0 : _a2.forEach((handler) => {
     handler({
       target,
       contentSize: contentRect,
@@ -9794,7 +9797,7 @@ function scrollInfo(onScroll, { container = document.documentElement, ...options
   const listener = scrollListeners.get(container);
   frame.read(listener, false, true);
   return () => {
-    var _a;
+    var _a2;
     cancelFrame(listener);
     const currentHandlers = onScrollHandlers.get(container);
     if (!currentHandlers)
@@ -9806,7 +9809,7 @@ function scrollInfo(onScroll, { container = document.documentElement, ...options
     scrollListeners.delete(container);
     if (scrollListener) {
       getEventTarget(container).removeEventListener("scroll", scrollListener);
-      (_a = resizeListeners.get(container)) === null || _a === void 0 ? void 0 : _a();
+      (_a2 = resizeListeners.get(container)) === null || _a2 === void 0 ? void 0 : _a2();
       window.removeEventListener("resize", scrollListener);
     }
   };
@@ -10064,16 +10067,16 @@ function posterHue(artist, genre) {
   return (base + offset + 360) % 360;
 }
 function initialsFor(artist) {
-  var _a;
+  var _a2;
   const words = artist.trim().split(/\s+/);
   if (words[0] && /^[A-Z]{2,4}$/.test(words[0])) return words[0];
   const noise = /^(festival|fest|de|del|do|da|la|el|los|las|un|una|the|of)$/i;
   const meaningful = words.filter((w) => w && !noise.test(w));
   const letters = meaningful.slice(0, 3).map((w) => {
-    var _a2;
-    return ((_a2 = w[0]) == null ? void 0 : _a2.toUpperCase()) ?? "";
+    var _a3;
+    return ((_a3 = w[0]) == null ? void 0 : _a3.toUpperCase()) ?? "";
   }).join("");
-  return letters || ((_a = artist[0]) == null ? void 0 : _a.toUpperCase()) || "?";
+  return letters || ((_a2 = artist[0]) == null ? void 0 : _a2.toUpperCase()) || "?";
 }
 function isFestival(genre) {
   return !!genre && /festival/i.test(genre);
@@ -10847,7 +10850,7 @@ function StatsBar() {
                 "@type": "Dataset",
                 name: "ConcertRide ES — datos clave",
                 description: "Hechos verificables sobre la plataforma ConcertRide: catálogo de festivales, conciertos activos y ahorro frente a taxi.",
-                license: "https://concertride.es/ai.txt",
+                license: `${SITE_URL}/ai.txt`,
                 variableMeasured: [
                   {
                     "@type": "PropertyValue",
@@ -11669,7 +11672,7 @@ function TestimonialsSection() {
     "@context": "https://schema.org",
     "@type": "Product",
     name: "ConcertRide ES — Carpooling para conciertos",
-    url: "https://concertride.es/",
+    url: `${SITE_URL}/`,
     aggregateRating: {
       "@type": "AggregateRating",
       ratingValue: "4.9",
@@ -11840,7 +11843,7 @@ function LandingPage() {
   useSeoMeta({
     title: "ConcertRide ES — Carpooling para conciertos en España | Viajes compartidos",
     description: "Carpooling para conciertos en España. Comparte coche, divide gastos y llega seguro. Publica un viaje o busca uno en 2 minutos. Gratis, sin comisiones.",
-    canonical: "https://concertride.es/",
+    canonical: `${SITE_URL}/`,
     keywords: "carpooling conciertos España, viajes compartidos festivales, transporte a conciertos, coche compartido música, ride-sharing festivales, deja tu coche en casa festival, compartir coche festival España, carpooling sin comisiones, volver festival madrugada, movilidad sostenible festival, compartir gastos festival, ir al festival sin coche",
     ogType: "website"
   });
@@ -11893,7 +11896,7 @@ function LandingPage() {
             itemListElement: activeConcerts.slice(0, 10).map((c, i) => ({
               "@type": "ListItem",
               position: i + 1,
-              url: `https://concertride.es/concerts/${c.id}`,
+              url: `${SITE_URL}/concerts/${c.id}`,
               name: `${c.artist} — ${c.venue.name}, ${c.venue.city}`
             }))
           })
@@ -11956,8 +11959,8 @@ const BREADCRUMB_CONCERTS_JSON_LD = JSON.stringify({
   "@context": "https://schema.org",
   "@type": "BreadcrumbList",
   itemListElement: [
-    { "@type": "ListItem", position: 1, name: "Inicio", item: "https://concertride.es/" },
-    { "@type": "ListItem", position: 2, name: "Conciertos", item: "https://concertride.es/concerts" }
+    { "@type": "ListItem", position: 1, name: "Inicio", item: `${SITE_URL}/` },
+    { "@type": "ListItem", position: 2, name: "Conciertos", item: `${SITE_URL}/concerts` }
   ]
 });
 function ConcertsPage() {
@@ -11986,7 +11989,7 @@ function ConcertsPage() {
   useSeoMeta({
     title: dynamicTitle,
     description: filters.city ? `Todos los conciertos y festivales en ${filters.city}. Encuentra viajes compartidos baratos desde cualquier ciudad con ConcertRide ES.` : "Todos los conciertos y festivales de música en España. Encuentra viajes compartidos baratos para llegar al show desde Madrid, Barcelona, Valencia, Sevilla y más.",
-    canonical: "https://concertride.es/concerts",
+    canonical: `${SITE_URL}/concerts`,
     keywords: `conciertos ${filters.city || "España"}, festivales música, carpooling conciertos, viajes compartidos, ${filters.genre || "música en directo"}`
   });
   const debounceRef = useRef(null);
@@ -12026,9 +12029,9 @@ function ConcertsPage() {
     }).finally(() => setLoading(false));
   }, [tab, page, filters.city, filters.genre, filters.festival, filters.dateFrom, filters.dateTo, debouncedArtist]);
   useEffect(() => {
-    var _a;
+    var _a2;
     fetchConcerts();
-    if (page > 1) (_a = gridRef.current) == null ? void 0 : _a.scrollIntoView({ behavior: "smooth", block: "start" });
+    if (page > 1) (_a2 = gridRef.current) == null ? void 0 : _a2.scrollIntoView({ behavior: "smooth", block: "start" });
   }, [fetchConcerts, page]);
   function setFilter(key, value) {
     setFilters((f) => ({ ...f, [key]: value }));
@@ -12040,9 +12043,9 @@ function ConcertsPage() {
     setPage(1);
   }
   function goToPage(p) {
-    var _a;
+    var _a2;
     setPage(p);
-    (_a = gridRef.current) == null ? void 0 : _a.scrollIntoView({ behavior: "smooth", block: "start" });
+    (_a2 = gridRef.current) == null ? void 0 : _a2.scrollIntoView({ behavior: "smooth", block: "start" });
   }
   const pageConcerts = concerts ?? [];
   const totalPages = Math.ceil(total / PAGE_SIZE);
@@ -12250,7 +12253,7 @@ function ConcertsPage() {
   ] });
 }
 function buildShareUrl(path, utm) {
-  const base = typeof window !== "undefined" ? window.location.origin : "https://concertride.es";
+  const base = typeof window !== "undefined" ? window.location.origin : SITE_URL;
   const url = new URL(path, base);
   url.searchParams.set("utm_source", utm.source);
   url.searchParams.set("utm_medium", utm.medium);
@@ -12553,16 +12556,16 @@ function ChatPanel({ messages, loading, forbidden, currentUserId, onSend }) {
   const bottomRef = useRef(null);
   const fileRef = useRef(null);
   useEffect(() => {
-    var _a;
-    (_a = bottomRef.current) == null ? void 0 : _a.scrollIntoView({ behavior: "smooth" });
+    var _a2;
+    (_a2 = bottomRef.current) == null ? void 0 : _a2.scrollIntoView({ behavior: "smooth" });
   }, [messages.length]);
   function pickPhoto() {
-    var _a;
-    (_a = fileRef.current) == null ? void 0 : _a.click();
+    var _a2;
+    (_a2 = fileRef.current) == null ? void 0 : _a2.click();
   }
   function onFileChange(e) {
-    var _a;
-    const file = (_a = e.target.files) == null ? void 0 : _a[0];
+    var _a2;
+    const file = (_a2 = e.target.files) == null ? void 0 : _a2[0];
     if (!file) return;
     const previewUrl = URL.createObjectURL(file);
     setPending({ kind: "photo", file, previewUrl });
@@ -12853,7 +12856,7 @@ function ConcertDetailPage() {
   useSeoMeta({
     title: concert ? `Viajes a ${concert.artist} en ${concert.venue.name} — ConcertRide ES` : "Concierto — ConcertRide ES",
     description: concert ? `Viaje compartido para ver a ${concert.artist} en ${concert.venue.name} (${concert.venue.city}). Carpooling desde cualquier ciudad, sin comisión, conductores verificados. Divide el coste con otros fans.` : "Encuentra un viaje compartido para ir al concierto en España.",
-    canonical: id2 ? `https://concertride.es/concerts/${id2}` : void 0,
+    canonical: id2 ? `${SITE_URL}/concerts/${id2}` : void 0,
     keywords: concert ? `${concert.artist}, cómo ir a ${concert.artist}, viaje compartido ${concert.artist}, carpooling ${concert.venue.city}, transporte ${concert.artist} ${concert.venue.city}, coche compartido ${concert.venue.name}, concierto ${concert.venue.city} 2026, ${concert.genre ?? "conciertos"} España, compartir coche ${concert.venue.city}` : void 0,
     ogImage: (concert == null ? void 0 : concert.image_url) ?? void 0
   });
@@ -12920,9 +12923,9 @@ function ConcertDetailPage() {
             "@context": "https://schema.org",
             "@type": "BreadcrumbList",
             itemListElement: [
-              { "@type": "ListItem", position: 1, name: "Inicio", item: "https://concertride.es/" },
-              { "@type": "ListItem", position: 2, name: "Conciertos", item: "https://concertride.es/concerts" },
-              { "@type": "ListItem", position: 3, name: concert.artist, item: `https://concertride.es/concerts/${concert.id}` }
+              { "@type": "ListItem", position: 1, name: "Inicio", item: `${SITE_URL}/` },
+              { "@type": "ListItem", position: 2, name: "Conciertos", item: `${SITE_URL}/concerts` },
+              { "@type": "ListItem", position: 3, name: concert.artist, item: `${SITE_URL}/concerts/${concert.id}` }
             ]
           })
         }
@@ -13233,7 +13236,7 @@ function ConcertDetailPage() {
 function JsonLdEvent({ concert }) {
   const startMs = new Date(concert.date).getTime();
   const endDate = Number.isFinite(startMs) ? new Date(startMs + 3 * 60 * 60 * 1e3).toISOString() : void 0;
-  const url = `https://concertride.es/concerts/${concert.id}`;
+  const url = `${SITE_URL}/concerts/${concert.id}`;
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "MusicEvent",
@@ -13247,7 +13250,7 @@ function JsonLdEvent({ concert }) {
     organizer: {
       "@type": "Organization",
       name: "ConcertRide ES",
-      url: "https://concertride.es/"
+      url: `${SITE_URL}/`
     },
     startDate: concert.date,
     eventStatus: "https://schema.org/EventScheduled",
@@ -13442,7 +13445,7 @@ const FESTIVAL_LANDINGS = [
       },
       {
         q: "¿Cuándo se celebra Mad Cool 2026?",
-        a: "La edición 2026 de Mad Cool Festival está prevista para el 9, 10 y 11 de julio en IFEMA Madrid. Puedes buscar viajes disponibles para esas fechas en concertride.es."
+        a: "La edición 2026 de Mad Cool Festival está prevista para el 9, 10 y 11 de julio en IFEMA Madrid. Puedes buscar viajes disponibles para esas fechas en concertride.me."
       }
     ],
     relatedFestivals: ["tomavistas", "sonorama-ribera"]
@@ -13494,7 +13497,7 @@ const FESTIVAL_LANDINGS = [
       },
       {
         q: "¿En qué fechas es Primavera Sound 2026?",
-        a: "Primavera Sound 2026 está previsto para el 28 de mayo al 1 de junio en el Parc del Fòrum de Barcelona. Busca viajes en concertride.es para esas fechas."
+        a: "Primavera Sound 2026 está previsto para el 28 de mayo al 1 de junio en el Parc del Fòrum de Barcelona. Busca viajes en concertride.me para esas fechas."
       }
     ],
     relatedFestivals: ["sonar", "cruilla"]
@@ -13545,7 +13548,7 @@ const FESTIVAL_LANDINGS = [
       },
       {
         q: "¿Cuándo es Sónar 2026?",
-        a: "Sónar 2026 está previsto para el 18, 19 y 20 de junio en Barcelona (Fira Montjuïc y Fira Gran Via de L'Hospitalet). Busca viajes en concertride.es."
+        a: "Sónar 2026 está previsto para el 18, 19 y 20 de junio en Barcelona (Fira Montjuïc y Fira Gran Via de L'Hospitalet). Busca viajes en concertride.me."
       }
     ],
     relatedFestivals: ["primavera-sound", "cruilla"]
@@ -13605,7 +13608,7 @@ const FESTIVAL_LANDINGS = [
       },
       {
         q: "¿Cuándo es el FIB 2026?",
-        a: "El Festival Internacional de Benicàssim 2026 está previsto para el 16, 17, 18 y 19 de julio. Busca viajes disponibles en concertride.es con destino Benicàssim."
+        a: "El Festival Internacional de Benicàssim 2026 está previsto para el 16, 17, 18 y 19 de julio. Busca viajes disponibles en concertride.me con destino Benicàssim."
       }
     ],
     relatedFestivals: ["arenal-sound", "medusa-festival", "low-festival"]
@@ -13653,7 +13656,7 @@ const FESTIVAL_LANDINGS = [
       },
       {
         q: "¿Cuándo es el BBK Live 2026?",
-        a: "Bilbao BBK Live 2026 está previsto para el 9, 10 y 11 de julio. Busca viajes en concertride.es con destino Bilbao."
+        a: "Bilbao BBK Live 2026 está previsto para el 9, 10 y 11 de julio. Busca viajes en concertride.me con destino Bilbao."
       }
     ],
     relatedFestivals: ["resurrection-fest", "sonorama-ribera"]
@@ -13705,7 +13708,7 @@ const FESTIVAL_LANDINGS = [
       },
       {
         q: "¿Cuándo es Resurrection Fest 2026?",
-        a: "La edición 2026 de Resurrection Fest está prevista para el 25, 26, 27 y 28 de junio en A Gañidoira, Viveiro (Lugo). Busca viajes en concertride.es."
+        a: "La edición 2026 de Resurrection Fest está prevista para el 25, 26, 27 y 28 de junio en A Gañidoira, Viveiro (Lugo). Busca viajes en concertride.me."
       }
     ],
     relatedFestivals: ["o-son-do-camino", "sonorama-ribera"]
@@ -13765,7 +13768,7 @@ const FESTIVAL_LANDINGS = [
       },
       {
         q: "¿Cuándo es Arenal Sound 2026?",
-        a: "Arenal Sound 2026 está previsto del 29 de julio al 2 de agosto en la playa de Burriana (Castellón). Busca viajes en concertride.es."
+        a: "Arenal Sound 2026 está previsto del 29 de julio al 2 de agosto en la playa de Burriana (Castellón). Busca viajes en concertride.me."
       }
     ],
     relatedFestivals: ["fib", "medusa-festival", "low-festival"]
@@ -13821,7 +13824,7 @@ const FESTIVAL_LANDINGS = [
       },
       {
         q: "¿Cuándo es Medusa Festival 2026?",
-        a: "Medusa Festival 2026 está previsto para el 12 al 16 de agosto en la playa de Cullera (Valencia). Busca viajes en concertride.es."
+        a: "Medusa Festival 2026 está previsto para el 12 al 16 de agosto en la playa de Cullera (Valencia). Busca viajes en concertride.me."
       }
     ],
     relatedFestivals: ["arenal-sound", "fib", "low-festival"]
@@ -13877,7 +13880,7 @@ const FESTIVAL_LANDINGS = [
       },
       {
         q: "¿Cuándo es Viña Rock 2026?",
-        a: "Viña Rock 2026 se celebra del 30 de abril al 3 de mayo en La Pulgosa, Villarrobledo (Albacete). Busca viajes en concertride.es."
+        a: "Viña Rock 2026 se celebra del 30 de abril al 3 de mayo en La Pulgosa, Villarrobledo (Albacete). Busca viajes en concertride.me."
       }
     ],
     relatedFestivals: ["mad-cool", "sonorama-ribera"]
@@ -13929,7 +13932,7 @@ const FESTIVAL_LANDINGS = [
       },
       {
         q: "¿Cuándo es O Son do Camiño 2026?",
-        a: "O Son do Camiño 2026 está previsto para el 18, 19 y 20 de junio en el Monte do Gozo, Santiago de Compostela. Busca viajes en concertride.es."
+        a: "O Son do Camiño 2026 está previsto para el 18, 19 y 20 de junio en el Monte do Gozo, Santiago de Compostela. Busca viajes en concertride.me."
       }
     ],
     relatedFestivals: ["resurrection-fest"]
@@ -13985,7 +13988,7 @@ const FESTIVAL_LANDINGS = [
       },
       {
         q: "¿Cuándo es Cala Mijas Fest 2026?",
-        a: "Cala Mijas Fest 2026 está previsto para el 2, 3 y 4 de octubre en el Cortijo de Torres, Málaga. Busca viajes en concertride.es."
+        a: "Cala Mijas Fest 2026 está previsto para el 2, 3 y 4 de octubre en el Cortijo de Torres, Málaga. Busca viajes en concertride.me."
       }
     ],
     relatedFestivals: ["sonar", "primavera-sound"]
@@ -14037,7 +14040,7 @@ const FESTIVAL_LANDINGS = [
       },
       {
         q: "¿Cuándo es Sonorama Ribera 2026?",
-        a: "Sonorama Ribera 2026 está previsto del 6 al 9 de agosto en Aranda de Duero (Burgos). Busca viajes en concertride.es."
+        a: "Sonorama Ribera 2026 está previsto del 6 al 9 de agosto en Aranda de Duero (Burgos). Busca viajes en concertride.me."
       },
       {
         q: "¿Hay camping en Sonorama?",
@@ -14096,7 +14099,7 @@ const FESTIVAL_LANDINGS = [
       },
       {
         q: "¿Cuándo es Zevra Festival 2026?",
-        a: "Las fechas exactas de Zevra Festival 2026 aún están por confirmar. Se espera en verano (julio–agosto) en La Marina de Valencia. Consulta concertride.es para viajes disponibles cuando se anuncie el cartel."
+        a: "Las fechas exactas de Zevra Festival 2026 aún están por confirmar. Se espera en verano (julio–agosto) en La Marina de Valencia. Consulta concertride.me para viajes disponibles cuando se anuncie el cartel."
       }
     ],
     relatedFestivals: ["medusa-festival", "arenal-sound", "fib"]
@@ -14151,7 +14154,7 @@ const FESTIVAL_LANDINGS = [
       },
       {
         q: "¿Cuándo es Low Festival 2026?",
-        a: "Low Festival 2026 está previsto para el 24, 25 y 26 de julio en el Balneario de la Paloma, Benidorm (Alicante). Busca viajes en concertride.es."
+        a: "Low Festival 2026 está previsto para el 24, 25 y 26 de julio en el Balneario de la Paloma, Benidorm (Alicante). Busca viajes en concertride.me."
       }
     ],
     relatedFestivals: ["fib", "arenal-sound", "medusa-festival"]
@@ -14202,7 +14205,7 @@ const FESTIVAL_LANDINGS = [
       },
       {
         q: "¿Cuándo es Tomavistas 2026?",
-        a: "Tomavistas Festival 2026 está previsto para el 15, 16 y 17 de mayo en IFEMA, Madrid. Busca viajes en concertride.es."
+        a: "Tomavistas Festival 2026 está previsto para el 15, 16 y 17 de mayo en IFEMA, Madrid. Busca viajes en concertride.me."
       }
     ],
     relatedFestivals: ["mad-cool", "sonorama-ribera"]
@@ -14254,7 +14257,7 @@ const FESTIVAL_LANDINGS = [
       },
       {
         q: "¿En qué fechas es Cruïlla 2026?",
-        a: "Cruïlla Barcelona 2026 está previsto para el 9, 10, 11 y 12 de julio en el Parc del Fòrum de Barcelona. Busca viajes en concertride.es para esas fechas."
+        a: "Cruïlla Barcelona 2026 está previsto para el 9, 10, 11 y 12 de julio en el Parc del Fòrum de Barcelona. Busca viajes en concertride.me para esas fechas."
       }
     ],
     relatedFestivals: ["primavera-sound", "sonar"]
@@ -14270,7 +14273,7 @@ function CityLandingPage() {
   useSeoMeta({
     title: landing ? `Conciertos en ${landing.display} ${(/* @__PURE__ */ new Date()).getFullYear()}` : "Conciertos por ciudad",
     description: landing ? `Todos los conciertos y festivales en ${landing.display}: ${landing.venues.slice(0, 3).join(", ")} y más. Carpooling para llegar desde cualquier ciudad de España, sin taxi ni comisiones.` : "Explora conciertos por ciudad en España.",
-    canonical: landing ? `https://concertride.es/conciertos/${landing.slug}` : "https://concertride.es/concerts",
+    canonical: landing ? `${SITE_URL}/conciertos/${landing.slug}` : `${SITE_URL}/concerts`,
     keywords: landing ? `conciertos ${landing.display}, festivales ${landing.display}, carpooling ${landing.display}, coche compartido ${landing.display}, cómo ir al concierto ${landing.display}` : void 0
   });
   useEffect(() => {
@@ -14296,7 +14299,7 @@ function CityLandingPage() {
             "@context": "https://schema.org",
             "@type": "CollectionPage",
             name: `Conciertos en ${landing.display}`,
-            url: `https://concertride.es/conciertos/${landing.slug}`,
+            url: `${SITE_URL}/conciertos/${landing.slug}`,
             inLanguage: "es-ES",
             dateModified: (/* @__PURE__ */ new Date()).toISOString().slice(0, 10),
             description: landing.blurb,
@@ -14312,9 +14315,9 @@ function CityLandingPage() {
             },
             isPartOf: {
               "@type": "WebSite",
-              "@id": "https://concertride.es/#website",
+              "@id": `${SITE_URL}/#website`,
               name: "ConcertRide ES",
-              url: "https://concertride.es"
+              url: SITE_URL
             },
             mainEntity: {
               "@type": "ItemList",
@@ -14322,7 +14325,7 @@ function CityLandingPage() {
               itemListElement: futureConcerts.slice(0, 20).map((c, i) => ({
                 "@type": "ListItem",
                 position: i + 1,
-                url: `https://concertride.es/concerts/${c.id}`,
+                url: `${SITE_URL}/concerts/${c.id}`,
                 name: `${c.artist} — ${c.venue.name}`
               }))
             }
@@ -14339,13 +14342,13 @@ function CityLandingPage() {
             "@context": "https://schema.org",
             "@type": "BreadcrumbList",
             itemListElement: [
-              { "@type": "ListItem", position: 1, name: "Inicio", item: "https://concertride.es/" },
-              { "@type": "ListItem", position: 2, name: "Conciertos", item: "https://concertride.es/concerts" },
+              { "@type": "ListItem", position: 1, name: "Inicio", item: `${SITE_URL}/` },
+              { "@type": "ListItem", position: 2, name: "Conciertos", item: `${SITE_URL}/concerts` },
               {
                 "@type": "ListItem",
                 position: 3,
                 name: landing.display,
-                item: `https://concertride.es/conciertos/${landing.slug}`
+                item: `${SITE_URL}/conciertos/${landing.slug}`
               }
             ]
           })
@@ -14497,14 +14500,14 @@ function CityLandingPage() {
   ] });
 }
 function FestivalLandingPage() {
-  var _a, _b, _c, _d, _e, _f;
+  var _a2, _b, _c, _d, _e, _f;
   const { festival: slug } = useParams();
   const festival = slug ? FESTIVAL_LANDINGS_BY_SLUG[slug] : void 0;
   const [concerts, setConcerts] = useState(null);
   useSeoMeta({
     title: festival ? `Cómo ir a ${festival.shortName} ${(/* @__PURE__ */ new Date()).getFullYear()} — Carpooling desde toda España` : "Festivales de música en España",
-    description: festival ? `Carpooling a ${festival.name} desde ${festival.originCities.slice(0, 3).map((c) => c.city).join(", ")} y más ciudades. Precios desde ${((_a = festival.originCities[0]) == null ? void 0 : _a.concertRideRange) ?? "3 €"}/asiento. Sin taxi, sin comisión. Conductores verificados.` : "Carpooling a festivales de música en España con ConcertRide.",
-    canonical: festival ? `https://concertride.es/festivales/${festival.slug}` : "https://concertride.es/concerts",
+    description: festival ? `Carpooling a ${festival.name} desde ${festival.originCities.slice(0, 3).map((c) => c.city).join(", ")} y más ciudades. Precios desde ${((_a2 = festival.originCities[0]) == null ? void 0 : _a2.concertRideRange) ?? "3 €"}/asiento. Sin taxi, sin comisión. Conductores verificados.` : "Carpooling a festivales de música en España con ConcertRide.",
+    canonical: festival ? `${SITE_URL}/festivales/${festival.slug}` : `${SITE_URL}/concerts`,
     keywords: festival ? `cómo ir a ${festival.shortName}, cómo llegar a ${festival.shortName}, transporte ${festival.shortName}, carpooling ${festival.name}, coche compartido ${festival.shortName}, ${festival.shortName} ${festival.city}, viaje compartido ${festival.shortName} 2026, compartir coche ${festival.shortName}, alternativa taxi ${festival.shortName}, ir a ${festival.shortName} sin coche, precio carpooling ${festival.shortName}` : void 0
   });
   useEffect(() => {
@@ -14543,7 +14546,7 @@ function FestivalLandingPage() {
     "@context": "https://schema.org",
     "@type": "MusicEvent",
     name: festival.name,
-    url: `https://concertride.es/festivales/${festival.slug}`,
+    url: `${SITE_URL}/festivales/${festival.slug}`,
     description: festival.blurb,
     startDate: festival.startDate,
     endDate: festival.endDate,
@@ -14558,7 +14561,7 @@ function FestivalLandingPage() {
     inLanguage: "es",
     offers: {
       "@type": "Offer",
-      url: `https://concertride.es/festivales/${festival.slug}`,
+      url: `${SITE_URL}/festivales/${festival.slug}`,
       price: ((_d = (_c = (_b = festival.originCities[0]) == null ? void 0 : _b.concertRideRange) == null ? void 0 : _c.split("–")[0]) == null ? void 0 : _d.replace(/[^0-9]/g, "")) ?? "3",
       priceCurrency: "EUR",
       availability: "https://schema.org/InStock",
@@ -14569,7 +14572,7 @@ function FestivalLandingPage() {
     "@context": "https://schema.org",
     "@type": "EventSeries",
     name: festival.name,
-    url: `https://concertride.es/festivales/${festival.slug}`,
+    url: `${SITE_URL}/festivales/${festival.slug}`,
     description: festival.blurb,
     startDate: festival.startDate,
     endDate: festival.endDate,
@@ -14600,13 +14603,13 @@ function FestivalLandingPage() {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
     itemListElement: [
-      { "@type": "ListItem", position: 1, name: "Inicio", item: "https://concertride.es/" },
-      { "@type": "ListItem", position: 2, name: "Conciertos y festivales", item: "https://concertride.es/concerts" },
+      { "@type": "ListItem", position: 1, name: "Inicio", item: `${SITE_URL}/` },
+      { "@type": "ListItem", position: 2, name: "Conciertos y festivales", item: `${SITE_URL}/concerts` },
       {
         "@type": "ListItem",
         position: 3,
         name: festival.name,
-        item: `https://concertride.es/festivales/${festival.slug}`
+        item: `${SITE_URL}/festivales/${festival.slug}`
       }
     ]
   };
@@ -14626,8 +14629,8 @@ function FestivalLandingPage() {
         "@type": "HowToStep",
         position: 1,
         name: "Busca el festival en ConcertRide",
-        text: `Entra en concertride.es/concerts y filtra por ciudad (${festival.city}) o busca directamente "${festival.shortName}". Verás los viajes publicados con precio por asiento.`,
-        url: "https://concertride.es/concerts"
+        text: `Entra en concertride.me/concerts y filtra por ciudad (${festival.city}) o busca directamente "${festival.shortName}". Verás los viajes publicados con precio por asiento.`,
+        url: `${SITE_URL}/concerts`
       },
       {
         "@type": "HowToStep",
@@ -14818,7 +14821,7 @@ function FestivalLandingPage() {
         " en 4 pasos"
       ] }),
       /* @__PURE__ */ jsx("div", { className: "grid sm:grid-cols-2 lg:grid-cols-4 gap-4", children: [
-        { n: "01", title: "Busca el festival", body: `Entra en concertride.es/concerts y filtra por ${festival.city} o busca directamente "${festival.shortName}".` },
+        { n: "01", title: "Busca el festival", body: `Entra en concertride.me/concerts y filtra por ${festival.city} o busca directamente "${festival.shortName}".` },
         { n: "02", title: "Elige el viaje", body: "Compara precio por asiento, hora de salida y perfil del conductor. Lee las valoraciones de otros pasajeros." },
         { n: "03", title: "Solicita tu plaza", body: "Con reserva instantánea queda confirmada al momento. Sin ella, el conductor suele responder en pocas horas." },
         { n: "04", title: "Viaja y paga", body: "El día del festival te encuentras con el conductor en el punto acordado. Pagas en efectivo o Bizum. Sin comisión." }
@@ -14888,7 +14891,7 @@ function FestivalesPage() {
   useSeoMeta({
     title: "Carpooling para festivales de música en España 2026",
     description: "Viajes compartidos a los mejores festivales de España: Mad Cool, Primavera Sound, Sónar, FIB, BBK Live, Arenal Sound y más. Sin taxi, sin comisión. Conductores verificados.",
-    canonical: "https://concertride.es/festivales",
+    canonical: `${SITE_URL}/festivales`,
     keywords: "carpooling festivales españa, viaje compartido festival música, cómo ir al festival en coche, transporte festivales 2026, mad cool carpooling, primavera sound viaje compartido, sonar barcelona transporte"
   });
   const featured = FESTIVAL_LANDINGS.filter((f) => FEATURED_SLUGS.includes(f.slug));
@@ -14930,7 +14933,7 @@ function FestivalesPage() {
       /* @__PURE__ */ jsx("h2", { className: "font-display text-2xl md:text-3xl uppercase mb-2", children: "Festivales principales" }),
       /* @__PURE__ */ jsx("p", { className: "font-sans text-sm text-cr-text-muted mb-8 max-w-xl", children: "Los festivales con mayor demanda de carpooling en ConcertRide." }),
       /* @__PURE__ */ jsx("div", { className: "grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4", children: featured.map((f) => {
-        var _a;
+        var _a2;
         return /* @__PURE__ */ jsxs(
           Link,
           {
@@ -14961,7 +14964,7 @@ function FestivalesPage() {
               ] }),
               /* @__PURE__ */ jsxs("p", { className: "font-mono text-[11px] text-cr-primary font-semibold", children: [
                 "Desde ",
-                ((_a = f.originCities[0]) == null ? void 0 : _a.concertRideRange) ?? "3 €/asiento",
+                ((_a2 = f.originCities[0]) == null ? void 0 : _a2.concertRideRange) ?? "3 €/asiento",
                 " →"
               ] })
             ]
@@ -14974,7 +14977,7 @@ function FestivalesPage() {
       /* @__PURE__ */ jsx("h2", { className: "font-display text-2xl md:text-3xl uppercase mb-2", children: "Más festivales en ConcertRide" }),
       /* @__PURE__ */ jsx("p", { className: "font-sans text-sm text-cr-text-muted mb-8 max-w-xl", children: "Carpooling a festivales de todos los géneros y regiones de España." }),
       /* @__PURE__ */ jsx("div", { className: "grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3", children: rest.map((f) => {
-        var _a;
+        var _a2;
         return /* @__PURE__ */ jsxs(
           Link,
           {
@@ -14989,7 +14992,7 @@ function FestivalesPage() {
                   f.startDate.slice(5, 10).split("-").reverse().join("/")
                 ] })
               ] }),
-              /* @__PURE__ */ jsx("span", { className: "font-mono text-[11px] text-cr-primary font-semibold whitespace-nowrap shrink-0", children: ((_a = f.originCities[0]) == null ? void 0 : _a.concertRideRange) ?? "—" })
+              /* @__PURE__ */ jsx("span", { className: "font-mono text-[11px] text-cr-primary font-semibold whitespace-nowrap shrink-0", children: ((_a2 = f.originCities[0]) == null ? void 0 : _a2.concertRideRange) ?? "—" })
             ]
           },
           f.slug
@@ -15023,16 +15026,16 @@ function FestivalesPage() {
             "@type": "ItemList",
             name: "Festivales de música en España con carpooling 2026",
             description: "Lista de festivales de música en España con viajes compartidos disponibles en ConcertRide.",
-            url: "https://concertride.es/festivales",
+            url: `${SITE_URL}/festivales`,
             numberOfItems: FESTIVAL_LANDINGS.length,
             itemListElement: FESTIVAL_LANDINGS.map((f, i) => {
-              var _a;
+              var _a2;
               return {
                 "@type": "ListItem",
                 position: i + 1,
                 name: f.name,
-                url: `https://concertride.es/festivales/${f.slug}`,
-                description: `Carpooling a ${f.name} desde ${((_a = f.originCities[0]) == null ? void 0 : _a.city) ?? "toda España"}. ${f.typicalDates}.`
+                url: `${SITE_URL}/festivales/${f.slug}`,
+                description: `Carpooling a ${f.name} desde ${((_a2 = f.originCities[0]) == null ? void 0 : _a2.city) ?? "toda España"}. ${f.typicalDates}.`
               };
             })
           })
@@ -15048,8 +15051,8 @@ function FestivalesPage() {
             "@context": "https://schema.org",
             "@type": "BreadcrumbList",
             itemListElement: [
-              { "@type": "ListItem", position: 1, name: "Inicio", item: "https://concertride.es/" },
-              { "@type": "ListItem", position: 2, name: "Festivales", item: "https://concertride.es/festivales" }
+              { "@type": "ListItem", position: 1, name: "Inicio", item: `${SITE_URL}/` },
+              { "@type": "ListItem", position: 2, name: "Festivales", item: `${SITE_URL}/festivales` }
             ]
           })
         }
@@ -15087,7 +15090,7 @@ function GuiaTransporteFestivalesPage() {
   useSeoMeta({
     title: `Guía de transporte para festivales de España ${(/* @__PURE__ */ new Date()).getFullYear()}`,
     description: "Cómo llegar a los festivales de música en España sin taxi, sin agobios y sin pagar de más. Carpooling, buses, transporte público y todo lo que necesitas saber para 2026.",
-    canonical: "https://concertride.es/guia-transporte-festivales",
+    canonical: `${SITE_URL}/guia-transporte-festivales`,
     keywords: "transporte festivales España, cómo ir al festival sin coche, alternativa taxi festival España, autobús festival España, carpooling festival, guía transporte festival 2026, volver festival madrugada, cómo llegar festival España, movilidad sostenible festival, deja tu coche en casa festival, festival sin coche propio, transporte nocturno festival"
   });
   const jsonLdArticle = {
@@ -15095,19 +15098,19 @@ function GuiaTransporteFestivalesPage() {
     "@type": "Article",
     headline: "Guía de transporte para festivales de España 2026",
     description: "Guía completa: todas las opciones para llegar a los festivales de música en España en 2026 — carpooling, autobuses organizados, transporte público y consejos para volver de madrugada.",
-    url: "https://concertride.es/guia-transporte-festivales",
+    url: `${SITE_URL}/guia-transporte-festivales`,
     inLanguage: "es-ES",
     author: {
       "@type": "Organization",
       name: "ConcertRide ES",
-      url: "https://concertride.es"
+      url: SITE_URL
     },
     publisher: {
-      "@id": "https://concertride.es/#organization"
+      "@id": `${SITE_URL}/#organization`
     },
     datePublished: "2026-04-24",
     dateModified: "2026-04-25",
-    mainEntityOfPage: "https://concertride.es/guia-transporte-festivales",
+    mainEntityOfPage: `${SITE_URL}/guia-transporte-festivales`,
     about: {
       "@type": "Thing",
       name: "Transporte para festivales de música en España"
@@ -15121,7 +15124,7 @@ function GuiaTransporteFestivalesPage() {
     totalTime: "PT5M",
     estimatedCost: { "@type": "MonetaryAmount", currency: "EUR", value: "8-15" },
     step: [
-      { "@type": "HowToStep", position: 1, name: "Buscar el festival", text: "Entra en concertride.es/concerts y busca el festival por nombre o selecciona la landing page del festival (e.g. concertride.es/festivales/mad-cool). Verás todos los viajes disponibles agrupados por ciudad de origen." },
+      { "@type": "HowToStep", position: 1, name: "Buscar el festival", text: "Entra en concertride.me/concerts y busca el festival por nombre o selecciona la landing page del festival (e.g. concertride.me/festivales/mad-cool). Verás todos los viajes disponibles agrupados por ciudad de origen." },
       { "@type": "HowToStep", position: 2, name: "Elegir un viaje desde tu ciudad", text: "Filtra por tu ciudad de origen. Compara precios por asiento, vibe (tranquilo/fiestero), plazas libres y valoración del conductor. Mira quiénes son los pasajeros ya confirmados." },
       { "@type": "HowToStep", position: 3, name: "Reservar tu plaza", text: "Pulsa 'Reservar asiento' y selecciona el número de plazas. Si el conductor tiene reserva instantánea, quedas confirmado al instante. Si no, el conductor revisa tu solicitud en horas." },
       { "@type": "HowToStep", position: 4, name: "Viajar y pagar", text: "El día del festival, el conductor te recoge en el punto acordado. Pagas directamente en efectivo o Bizum al conductor — sin comisión de plataforma. Acuerda también la hora de vuelta." }
@@ -15140,12 +15143,12 @@ function GuiaTransporteFestivalesPage() {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
     itemListElement: [
-      { "@type": "ListItem", position: 1, name: "Inicio", item: "https://concertride.es/" },
+      { "@type": "ListItem", position: 1, name: "Inicio", item: `${SITE_URL}/` },
       {
         "@type": "ListItem",
         position: 2,
         name: "Guía de transporte para festivales",
-        item: "https://concertride.es/guia-transporte-festivales"
+        item: `${SITE_URL}/guia-transporte-festivales`
       }
     ]
   };
@@ -15427,7 +15430,7 @@ function HowItWorksPage() {
   useSeoMeta({
     title: "Cómo funciona ConcertRide",
     description: "Guía paso a paso: cómo reservar plaza en un viaje compartido a un concierto o cómo publicar tu propio viaje en ConcertRide ES. Gratis, sin comisiones, con conductores verificados.",
-    canonical: "https://concertride.es/como-funciona",
+    canonical: `${SITE_URL}/como-funciona`,
     keywords: "cómo funciona carpooling conciertos, cómo reservar viaje compartido concierto, cómo publicar viaje a festival, compartir coche concierto España, cómo ir al concierto en coche compartido, carpooling festival sin comisión, conductor verificado concierto"
   });
   return /* @__PURE__ */ jsxs("main", { id: "main", className: "min-h-dvh bg-cr-bg text-cr-text pt-14", children: [
@@ -15451,7 +15454,7 @@ function HowItWorksPage() {
               position: i + 1,
               name: s.title,
               text: s.body,
-              url: `https://concertride.es/como-funciona#passenger-${i + 1}`
+              url: `${SITE_URL}/como-funciona#passenger-${i + 1}`
             }))
           })
         }
@@ -15474,7 +15477,7 @@ function HowItWorksPage() {
               position: i + 1,
               name: s.title,
               text: s.body,
-              url: `https://concertride.es/como-funciona#driver-${i + 1}`
+              url: `${SITE_URL}/como-funciona#driver-${i + 1}`
             }))
           })
         }
@@ -15489,12 +15492,12 @@ function HowItWorksPage() {
             "@context": "https://schema.org",
             "@type": "BreadcrumbList",
             itemListElement: [
-              { "@type": "ListItem", position: 1, name: "Inicio", item: "https://concertride.es/" },
+              { "@type": "ListItem", position: 1, name: "Inicio", item: `${SITE_URL}/` },
               {
                 "@type": "ListItem",
                 position: 2,
                 name: "Cómo funciona",
-                item: "https://concertride.es/como-funciona"
+                item: `${SITE_URL}/como-funciona`
               }
             ]
           })
@@ -15778,7 +15781,7 @@ function FaqPage() {
   useSeoMeta({
     title: "Preguntas frecuentes — Carpooling para conciertos y festivales",
     description: "FAQ completo sobre ConcertRide: cómo compartir coche a un festival, alternativa económica para volver de noche, carpooling sin comisiones, sostenibilidad, ZBE Madrid y más.",
-    canonical: "https://concertride.es/faq",
+    canonical: `${SITE_URL}/faq`,
     keywords: "preguntas frecuentes carpooling conciertos, cómo compartir coche concierto, alternativa taxi concierto, transporte festival España, ir al festival sin coche, compartir gastos concierto, carpooling festival España, coche compartido festival, volver festival madrugada, carpooling sin comisiones, movilidad sostenible festival, ZBE Madrid concierto, furgoneta compartida festival"
   });
   return /* @__PURE__ */ jsxs("main", { id: "main", className: "min-h-dvh bg-cr-bg text-cr-text pt-14", children: [
@@ -15791,7 +15794,7 @@ function FaqPage() {
             "@context": "https://schema.org",
             "@type": "FAQPage",
             name: "Preguntas frecuentes — Carpooling para conciertos y festivales en España",
-            url: "https://concertride.es/faq",
+            url: `${SITE_URL}/faq`,
             dateModified: "2026-04-25",
             inLanguage: "es-ES",
             mainEntity: FAQS.map(({ q, a }) => ({
@@ -15812,8 +15815,8 @@ function FaqPage() {
             "@context": "https://schema.org",
             "@type": "BreadcrumbList",
             itemListElement: [
-              { "@type": "ListItem", position: 1, name: "Inicio", item: "https://concertride.es/" },
-              { "@type": "ListItem", position: 2, name: "FAQ", item: "https://concertride.es/faq" }
+              { "@type": "ListItem", position: 1, name: "Inicio", item: `${SITE_URL}/` },
+              { "@type": "ListItem", position: 2, name: "FAQ", item: `${SITE_URL}/faq` }
             ]
           })
         }
@@ -15920,7 +15923,7 @@ function ContactoPage() {
   useSeoMeta({
     title: "Contacto",
     description: "Contacta con el equipo de ConcertRide ES. Atendemos consultas sobre viajes compartidos a conciertos, reportes de abuso, dudas legales y partnerships con festivales.",
-    canonical: "https://concertride.es/contacto"
+    canonical: `${SITE_URL}/contacto`
   });
   return /* @__PURE__ */ jsxs("main", { id: "main", className: "min-h-dvh bg-cr-bg text-cr-text pt-14", children: [
     /* @__PURE__ */ jsx(
@@ -15932,7 +15935,7 @@ function ContactoPage() {
             "@context": "https://schema.org",
             "@type": "ContactPage",
             name: "Contacto — ConcertRide ES",
-            url: "https://concertride.es/contacto",
+            url: `${SITE_URL}/contacto`,
             mainEntity: {
               "@type": "Organization",
               name: "ConcertRide ES",
@@ -15958,8 +15961,8 @@ function ContactoPage() {
             "@context": "https://schema.org",
             "@type": "BreadcrumbList",
             itemListElement: [
-              { "@type": "ListItem", position: 1, name: "Inicio", item: "https://concertride.es/" },
-              { "@type": "ListItem", position: 2, name: "Contacto", item: "https://concertride.es/contacto" }
+              { "@type": "ListItem", position: 1, name: "Inicio", item: `${SITE_URL}/` },
+              { "@type": "ListItem", position: 2, name: "Contacto", item: `${SITE_URL}/contacto` }
             ]
           })
         }
@@ -16035,7 +16038,7 @@ function AcercaDePage() {
   useSeoMeta({
     title: "Acerca de ConcertRide ES — Carpooling para conciertos en España",
     description: "Qué es ConcertRide, por qué existe y cómo funciona el carpooling para conciertos en España. Plataforma gratuita, sin comisiones, con conductores verificados.",
-    canonical: "https://concertride.es/acerca-de",
+    canonical: `${SITE_URL}/acerca-de`,
     keywords: "qué es ConcertRide, sobre ConcertRide, carpooling conciertos España, plataforma viajes compartidos conciertos, sin comisión carpooling, misión ConcertRide, transporte económico festivales"
   });
   return /* @__PURE__ */ jsxs("main", { id: "main", className: "min-h-dvh bg-cr-bg text-cr-text pt-14", children: [
@@ -16048,22 +16051,22 @@ function AcercaDePage() {
             "@context": "https://schema.org",
             "@type": "AboutPage",
             name: "Acerca de ConcertRide ES",
-            url: "https://concertride.es/acerca-de",
+            url: `${SITE_URL}/acerca-de`,
             inLanguage: "es-ES",
             datePublished: "2026-04-10",
             dateModified: "2026-04-24",
             breadcrumb: {
               "@type": "BreadcrumbList",
               itemListElement: [
-                { "@type": "ListItem", position: 1, name: "Inicio", item: "https://concertride.es/" },
-                { "@type": "ListItem", position: 2, name: "Acerca de", item: "https://concertride.es/acerca-de" }
+                { "@type": "ListItem", position: 1, name: "Inicio", item: `${SITE_URL}/` },
+                { "@type": "ListItem", position: 2, name: "Acerca de", item: `${SITE_URL}/acerca-de` }
               ]
             },
             mainEntity: {
               "@type": "Organization",
-              "@id": "https://concertride.es/#organization",
+              "@id": `${SITE_URL}/#organization`,
               name: "ConcertRide ES",
-              url: "https://concertride.es",
+              url: SITE_URL,
               foundingDate: "2026",
               areaServed: { "@type": "Country", name: "Spain" },
               knowsAbout: [
@@ -16179,7 +16182,7 @@ function AvisoLegalPage() {
   useSeoMeta({
     title: "Aviso legal",
     description: "Aviso legal de ConcertRide ES: datos del titular, actividad, propiedad intelectual y condiciones de uso de la plataforma de carpooling para conciertos en España.",
-    canonical: "https://concertride.es/aviso-legal"
+    canonical: `${SITE_URL}/aviso-legal`
   });
   return /* @__PURE__ */ jsx("main", { id: "main", className: "min-h-dvh bg-cr-bg text-cr-text pt-14", children: /* @__PURE__ */ jsxs("div", { className: "max-w-3xl mx-auto px-6 py-12", children: [
     /* @__PURE__ */ jsxs("header", { className: "mb-10 border-b border-cr-border pb-8 space-y-2", children: [
@@ -16302,7 +16305,7 @@ function PrivacidadPage() {
   useSeoMeta({
     title: "Política de privacidad",
     description: "Cómo ConcertRide ES trata tus datos personales (RGPD): qué recopilamos, para qué, tus derechos y cómo ejercerlos.",
-    canonical: "https://concertride.es/privacidad"
+    canonical: `${SITE_URL}/privacidad`
   });
   return /* @__PURE__ */ jsx("main", { id: "main", className: "min-h-dvh bg-cr-bg text-cr-text pt-14", children: /* @__PURE__ */ jsxs("div", { className: "max-w-3xl mx-auto px-6 py-12", children: [
     /* @__PURE__ */ jsxs("header", { className: "mb-10 border-b border-cr-border pb-8 space-y-2", children: [
@@ -16521,7 +16524,7 @@ function CookiesPage() {
   useSeoMeta({
     title: "Política de cookies",
     description: "Política de cookies de ConcertRide ES: qué cookies usamos, para qué y cómo puedes gestionar tus preferencias.",
-    canonical: "https://concertride.es/cookies"
+    canonical: `${SITE_URL}/cookies`
   });
   return /* @__PURE__ */ jsx("main", { id: "main", className: "min-h-dvh bg-cr-bg text-cr-text pt-14", children: /* @__PURE__ */ jsxs("div", { className: "max-w-3xl mx-auto px-6 py-12", children: [
     /* @__PURE__ */ jsxs("header", { className: "mb-10 border-b border-cr-border pb-8 space-y-2", children: [
@@ -16685,7 +16688,7 @@ function TerminosPage() {
   useSeoMeta({
     title: "Términos y condiciones",
     description: "Términos y condiciones de uso de ConcertRide ES: obligaciones de usuarios, política de cancelación, resolución de disputas y normativa aplicable.",
-    canonical: "https://concertride.es/terminos"
+    canonical: `${SITE_URL}/terminos`
   });
   return /* @__PURE__ */ jsx("main", { id: "main", className: "min-h-dvh bg-cr-bg text-cr-text pt-14", children: /* @__PURE__ */ jsxs("div", { className: "max-w-3xl mx-auto px-6 py-12", children: [
     /* @__PURE__ */ jsxs("header", { className: "mb-10 border-b border-cr-border pb-8 space-y-2", children: [

@@ -18,6 +18,10 @@ const webRoot = path.resolve(__dirname, "..");
 const distDir = path.join(webRoot, "dist");
 const ssrDir = path.join(webRoot, "dist-ssr");
 
+// Public site origin baked into the generated HTML — must match VITE_SITE_URL
+// used at build time so canonicals/og:url/sitemap entries all agree.
+const SITE_URL = (process.env.VITE_SITE_URL ?? "https://concertride.me").replace(/\/+$/, "");
+
 // ── Load SSR bundle ─────────────────────────────────────────────────────────
 const ssrEntry = path.join(ssrDir, "entry-server.js");
 if (!(await exists(ssrEntry))) {
@@ -111,7 +115,7 @@ function injectIntoShell(shellHtml, bodyHtml, seo, url) {
     }
 
     // OG / Twitter — patch the obvious ones, otherwise append
-    const ogUrl = seo.canonical ?? `https://concertride.es${url}`;
+    const ogUrl = seo.canonical ?? `${SITE_URL}${url}`;
     out = patchMeta(out, "og:url", ogUrl, true);
     out = patchMeta(out, "og:title", seo.ogTitle, true);
     out = patchMeta(out, "og:description", seo.ogDescription, true);
@@ -193,7 +197,7 @@ async function writeSitemap(urls) {
     return "monthly";
   };
   const entries = urls.map((u) => `  <url>
-    <loc>https://concertride.es${u === "/" ? "/" : u}</loc>
+    <loc>${SITE_URL}${u === "/" ? "/" : u}</loc>
     <lastmod>${today}</lastmod>
     <changefreq>${FREQ(u)}</changefreq>
     <priority>${PRIORITY(u)}</priority>

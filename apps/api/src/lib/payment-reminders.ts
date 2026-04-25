@@ -2,6 +2,7 @@ import type { Env } from "../env";
 import type { StoreAdapter } from "../store/adapter";
 import { sendPaymentReminderEmail } from "./email";
 import { notifyUser } from "./notify";
+import { getSiteUrl } from "./siteUrl";
 
 // Runs every hour. Picks up rides whose departure_time is between now+55min and
 // now+65min and whose `payment_reminder_sent_at` is still null — then emails + pushes
@@ -25,7 +26,7 @@ export async function runPaymentReminders(env: Env, store: StoreAdapter): Promis
         timeStyle: "short",
         timeZone: "Europe/Madrid",
       });
-      const rideUrl = `https://concertride.es/rides/${ride.id}`;
+      const rideUrl = `${getSiteUrl(env)}/rides/${ride.id}`;
 
       const jobs: Promise<unknown>[] = [];
 

@@ -21,12 +21,15 @@ import admin from "./routes/admin";
 import { rateLimit } from "./lib/ratelimit";
 import { htmlToMarkdown, estimateTokens } from "./lib/markdown";
 import { seoPrerender } from "./lib/seoPrerender";
+import { getSiteUrl } from "./lib/siteUrl";
 import * as Sentry from "@sentry/cloudflare";
 
-const ALLOWED_ORIGINS = [
+// Origins always allowed for CORS. The configured SITE_URL (and its `www.`
+// variant) is added at request time inside the cors() origin callback so
+// changing the canonical domain only requires updating wrangler `vars`.
+const STATIC_ALLOWED_ORIGINS = [
   "http://localhost:5173",
-  "https://concertride.es",
-  "https://www.concertride.es",
+  "https://concertride.alejandrolalaguna.workers.dev",
 ];
 
 const app = new Hono<HonoEnv>();
@@ -34,14 +37,19 @@ const app = new Hono<HonoEnv>();
 app.use("*", logger());
 app.use("*", prettyJSON());
 
-app.use(
-  "/api/*",
+app.use("/api/*", (c, next) =>
   cors({
-    origin: (origin) =>
-      ALLOWED_ORIGINS.includes(origin ?? "") ? origin : null,
+    origin: (origin) => {
+      if (!origin) return null;
+      if (STATIC_ALLOWED_ORIGINS.includes(origin)) return origin;
+      const site = getSiteUrl(c.env);
+      const host = site.replace(/^https?:\/\//, "");
+      if (origin === site || origin === `https://www.${host}`) return origin;
+      return null;
+    },
     credentials: true,
     maxAge: 86400,
-  }),
+  })(c, next),
 );
 
 app.get("/api/health", (c) =>
@@ -71,13 +79,14 @@ app.use("/api/*", async (c, next) => {
 
 // RFC 9727 API Catalog — application/linkset+json
 app.get("/.well-known/api-catalog", (c) => {
+  const base = getSiteUrl(c.env);
   const catalog = {
     linkset: [
       {
-        anchor: "https://concertride.es/api",
-        "service-desc": [{ href: "https://concertride.es/openapi.json", type: "application/openapi+json" }],
-        "service-doc": [{ href: "https://concertride.es/acerca-de" }],
-        "status": [{ href: "https://concertride.es/api/health" }],
+        anchor: `${base}/api`,
+        "service-desc": [{ href: `${base}/openapi.json`, type: "application/openapi+json" }],
+        "service-doc": [{ href: `${base}/acerca-de` }],
+        "status": [{ href: `${base}/api/health` }],
       },
     ],
   };
@@ -93,20 +102,21 @@ app.get("/.well-known/api-catalog", (c) => {
 // publishing this metadata allows agents to programmatically discover
 // the auth flow and future API scopes.
 app.get("/.well-known/oauth-authorization-server", (c) => {
+  const base = getSiteUrl(c.env);
   const metadata = {
-    issuer: "https://concertride.es",
-    authorization_endpoint: "https://concertride.es/login",
-    token_endpoint: "https://concertride.es/api/auth/login",
-    jwks_uri: "https://concertride.es/.well-known/jwks.json",
-    registration_endpoint: "https://concertride.es/api/auth/register",
+    issuer: base,
+    authorization_endpoint: `${base}/login`,
+    token_endpoint: `${base}/api/auth/login`,
+    jwks_uri: `${base}/.well-known/jwks.json`,
+    registration_endpoint: `${base}/api/auth/register`,
     scopes_supported: ["openid", "profile", "email"],
     response_types_supported: ["token"],
     grant_types_supported: ["password", "client_credentials"],
     token_endpoint_auth_methods_supported: ["client_secret_post"],
-    service_documentation: "https://concertride.es/acerca-de",
+    service_documentation: `${base}/acerca-de`,
     ui_locales_supported: ["es-ES"],
-    op_policy_uri: "https://concertride.es/privacidad",
-    op_tos_uri: "https://concertride.es/terminos",
+    op_policy_uri: `${base}/privacidad`,
+    op_tos_uri: `${base}/terminos`,
   };
   return c.body(JSON.stringify(metadata, null, 2), 200, {
     "Content-Type": "application/json; charset=utf-8",
@@ -117,13 +127,14 @@ app.get("/.well-known/oauth-authorization-server", (c) => {
 
 // RFC 9728 OAuth Protected Resource Metadata
 app.get("/.well-known/oauth-protected-resource", (c) => {
+  const base = getSiteUrl(c.env);
   const metadata = {
-    resource: "https://concertride.es/api",
-    authorization_servers: ["https://concertride.es"],
+    resource: `${base}/api`,
+    authorization_servers: [base],
     scopes_supported: ["openid", "profile", "email"],
     bearer_methods_supported: ["header", "cookie"],
-    resource_documentation: "https://concertride.es/openapi.json",
-    resource_policy_uri: "https://concertride.es/privacidad",
+    resource_documentation: `${base}/openapi.json`,
+    resource_policy_uri: `${base}/privacidad`,
   };
   return c.body(JSON.stringify(metadata, null, 2), 200, {
     "Content-Type": "application/json; charset=utf-8",
@@ -134,18 +145,19 @@ app.get("/.well-known/oauth-protected-resource", (c) => {
 
 // MCP Server Card (SEP-1649 draft)
 app.get("/.well-known/mcp/server-card.json", (c) => {
+  const base = getSiteUrl(c.env);
   const card = {
     serverInfo: {
       name: "concertride-es",
       version: "1.0.0",
       title: "ConcertRide ES",
       description: "Carpooling para conciertos y festivales en España. Sin comisiones, conductores verificados.",
-      contact: { email: "alejandrolalaguna@gmail.com", url: "https://concertride.es/contacto" },
-      license: { name: "Proprietary", url: "https://concertride.es/terminos" },
+      contact: { email: "alejandrolalaguna@gmail.com", url: `${base}/contacto` },
+      license: { name: "Proprietary", url: `${base}/terminos` },
     },
     transport: {
       type: "streamable-http",
-      endpoint: "https://concertride.es/mcp",
+      endpoint: `${base}/mcp`,
     },
     capabilities: {
       tools: true,
@@ -196,10 +208,10 @@ app.get("/.well-known/mcp/server-card.json", (c) => {
       },
     ],
     links: {
-      homepage: "https://concertride.es",
-      documentation: "https://concertride.es/como-funciona",
-      openapi: "https://concertride.es/openapi.json",
-      llmstxt: "https://concertride.es/llms.txt",
+      homepage: base,
+      documentation: `${base}/como-funciona`,
+      openapi: `${base}/openapi.json`,
+      llmstxt: `${base}/llms.txt`,
     },
   };
   return c.body(JSON.stringify(card, null, 2), 200, {
@@ -211,6 +223,7 @@ app.get("/.well-known/mcp/server-card.json", (c) => {
 
 // Agent Skills Discovery Index (Agent Skills Discovery RFC v0.2.0)
 app.get("/.well-known/agent-skills/index.json", (c) => {
+  const base = getSiteUrl(c.env);
   const index = {
     $schema: "https://schemas.agentskills.io/discovery/0.2.0/schema.json",
     skills: [
@@ -218,21 +231,21 @@ app.get("/.well-known/agent-skills/index.json", (c) => {
         name: "search-concerts",
         type: "skill-md",
         description: "Search concerts and festivals in Spain available on ConcertRide",
-        url: "https://concertride.es/.well-known/agent-skills/search-concerts/SKILL.md",
+        url: `${base}/.well-known/agent-skills/search-concerts/SKILL.md`,
         digest: "sha256:0000000000000000000000000000000000000000000000000000000000000001",
       },
       {
         name: "search-rides",
         type: "skill-md",
         description: "Find carpooling rides to a specific concert or festival in Spain",
-        url: "https://concertride.es/.well-known/agent-skills/search-rides/SKILL.md",
+        url: `${base}/.well-known/agent-skills/search-rides/SKILL.md`,
         digest: "sha256:0000000000000000000000000000000000000000000000000000000000000002",
       },
       {
         name: "get-festival-transport",
         type: "skill-md",
         description: "Get transport options and carpooling prices to any major Spanish festival",
-        url: "https://concertride.es/.well-known/agent-skills/get-festival-transport/SKILL.md",
+        url: `${base}/.well-known/agent-skills/get-festival-transport/SKILL.md`,
         digest: "sha256:0000000000000000000000000000000000000000000000000000000000000003",
       },
     ],
@@ -248,7 +261,7 @@ app.get("/.well-known/agent-skills/index.json", (c) => {
 // (served under /api/ to bypass the static assets handler).
 // The root /sitemap.xml is a sitemap index in public/ that references this endpoint.
 app.get("/api/sitemap-concerts.xml", storeMiddleware, async (c) => {
-  const BASE = "https://concertride.es";
+  const base = getSiteUrl(c.env);
   const today = new Date().toISOString().slice(0, 10);
 
   let concertUrls = "";
@@ -260,7 +273,7 @@ app.get("/api/sitemap-concerts.xml", storeMiddleware, async (c) => {
     });
     concertUrls = concerts
       .map((concert) => {
-        return `  <url>\n    <loc>${BASE}/concerts/${concert.id}</loc>\n    <lastmod>${today}</lastmod>\n    <changefreq>daily</changefreq>\n    <priority>0.7</priority>\n  </url>`;
+        return `  <url>\n    <loc>${base}/concerts/${concert.id}</loc>\n    <lastmod>${today}</lastmod>\n    <changefreq>daily</changefreq>\n    <priority>0.7</priority>\n  </url>`;
       })
       .join("\n");
   } catch {
@@ -338,9 +351,10 @@ app.use("*", async (c, next) => {
     const slug = festivalMatch[1] ?? "";
     const meta = FESTIVAL_META[slug];
     if (meta) {
+      const base = getSiteUrl(c.env);
       const title = `Cómo ir a ${meta.name} 2026 — Carpooling desde toda España`;
       const desc = `Carpooling a ${meta.name} (${meta.venue}, ${meta.city}) ${meta.dates}. Viajes compartidos desde cualquier ciudad. Desde 5 €/asiento. Sin taxi, sin comisión. ConcertRide.`;
-      const url = `https://concertride.es/festivales/${slug}`;
+      const url = `${base}/festivales/${slug}`;
       const markdown = [
         `# ${title}`,
         "",
@@ -411,9 +425,10 @@ app.notFound(async (c) => {
     const slug = festivalMatch[1] ?? "";
     const meta = FESTIVAL_META[slug];
     if (meta) {
+      const base = getSiteUrl(c.env);
       const title = `Cómo ir a ${meta.name} 2026 — Carpooling desde toda España`;
       const desc = `Carpooling a ${meta.name} (${meta.venue}, ${meta.city}) ${meta.dates}. Viajes compartidos desde cualquier ciudad. Desde 5 €/asiento. Sin taxi, sin comisión. ConcertRide.`;
-      const url = `https://concertride.es/festivales/${slug}`;
+      const url = `${base}/festivales/${slug}`;
 
       if (wantsMarkdown) {
         const markdown = [
@@ -447,7 +462,7 @@ app.notFound(async (c) => {
         });
       }
 
-      const html = `<!doctype html><html lang="es"><head><meta charset="UTF-8"/><title>${title}</title><meta name="description" content="${desc}"/><link rel="canonical" href="${url}"/><meta property="og:type" content="website"/><meta property="og:url" content="${url}"/><meta property="og:title" content="${title}"/><meta property="og:description" content="${desc}"/><meta property="og:image" content="https://concertride.es/og/home.png"/><meta property="og:locale" content="es_ES"/><meta name="twitter:card" content="summary_large_image"/><meta name="twitter:title" content="${title}"/><meta name="twitter:description" content="${desc}"/><meta name="twitter:image" content="https://concertride.es/og/home.png"/></head><body><p>Cargando ConcertRide…</p><script>window.location.href="${url}"</script></body></html>`;
+      const html = `<!doctype html><html lang="es"><head><meta charset="UTF-8"/><title>${title}</title><meta name="description" content="${desc}"/><link rel="canonical" href="${url}"/><meta property="og:type" content="website"/><meta property="og:url" content="${url}"/><meta property="og:title" content="${title}"/><meta property="og:description" content="${desc}"/><meta property="og:image" content="${base}/og/home.png"/><meta property="og:locale" content="es_ES"/><meta name="twitter:card" content="summary_large_image"/><meta name="twitter:title" content="${title}"/><meta name="twitter:description" content="${desc}"/><meta name="twitter:image" content="${base}/og/home.png"/></head><body><p>Cargando ConcertRide…</p><script>window.location.href="${url}"</script></body></html>`;
       return c.html(html, 200, { "Cache-Control": "public, max-age=3600" });
     }
   }

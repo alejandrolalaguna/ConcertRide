@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { useSeoMeta } from "@/lib/useSeoMeta";
+import { SITE_URL } from "@/lib/siteUrl";
 import { motion } from "motion/react";
 import { ArrowLeft, Calendar, Link2, MapPin, Music2, Star, Users } from "lucide-react";
 import { concertShareUrl } from "@/lib/utm";
@@ -51,7 +52,7 @@ export default function ConcertDetailPage() {
     description: concert
       ? `Viaje compartido para ver a ${concert.artist} en ${concert.venue.name} (${concert.venue.city}). Carpooling desde cualquier ciudad, sin comisión, conductores verificados. Divide el coste con otros fans.`
       : "Encuentra un viaje compartido para ir al concierto en España.",
-    canonical: id ? `https://concertride.es/concerts/${id}` : undefined,
+    canonical: id ? `${SITE_URL}/concerts/${id}` : undefined,
     keywords: concert
       ? `${concert.artist}, cómo ir a ${concert.artist}, viaje compartido ${concert.artist}, carpooling ${concert.venue.city}, transporte ${concert.artist} ${concert.venue.city}, coche compartido ${concert.venue.name}, concierto ${concert.venue.city} 2026, ${concert.genre ?? "conciertos"} España, compartir coche ${concert.venue.city}`
       : undefined,
@@ -134,9 +135,9 @@ export default function ConcertDetailPage() {
               "@context": "https://schema.org",
               "@type": "BreadcrumbList",
               itemListElement: [
-                { "@type": "ListItem", position: 1, name: "Inicio", item: "https://concertride.es/" },
-                { "@type": "ListItem", position: 2, name: "Conciertos", item: "https://concertride.es/concerts" },
-                { "@type": "ListItem", position: 3, name: concert.artist, item: `https://concertride.es/concerts/${concert.id}` },
+                { "@type": "ListItem", position: 1, name: "Inicio", item: `${SITE_URL}/` },
+                { "@type": "ListItem", position: 2, name: "Conciertos", item: `${SITE_URL}/concerts` },
+                { "@type": "ListItem", position: 3, name: concert.artist, item: `${SITE_URL}/concerts/${concert.id}` },
               ],
             }),
           }}
@@ -482,7 +483,7 @@ function JsonLdEvent({ concert }: { concert: Concert }) {
   const endDate = Number.isFinite(startMs)
     ? new Date(startMs + 3 * 60 * 60 * 1000).toISOString()
     : undefined;
-  const url = `https://concertride.es/concerts/${concert.id}`;
+  const url = `${SITE_URL}/concerts/${concert.id}`;
 
   const jsonLd: Record<string, unknown> = {
     "@context": "https://schema.org",
@@ -497,7 +498,7 @@ function JsonLdEvent({ concert }: { concert: Concert }) {
     organizer: {
       "@type": "Organization",
       name: "ConcertRide ES",
-      url: "https://concertride.es/",
+      url: `${SITE_URL}/`,
     },
     startDate: concert.date,
     eventStatus: "https://schema.org/EventScheduled",

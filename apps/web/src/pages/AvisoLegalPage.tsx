@@ -1,11 +1,12 @@
 import { Link } from "react-router-dom";
 import { useSeoMeta } from "@/lib/useSeoMeta";
+import { SITE_URL } from "@/lib/siteUrl";
 
 export default function AvisoLegalPage() {
   useSeoMeta({
     title: "Aviso legal",
     description: "Aviso legal de ConcertRide ES: datos del titular, actividad, propiedad intelectual y condiciones de uso de la plataforma de carpooling para conciertos en España.",
-    canonical: "https://concertride.es/aviso-legal",
+    canonical: `${SITE_URL}/aviso-legal`,
   });
 
   return (

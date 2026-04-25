@@ -6,6 +6,7 @@ import { api, ApiError } from "@/lib/api";
 import { useSession } from "@/lib/session";
 import { SPANISH_CITIES } from "@/lib/constants";
 import { useSeoMeta } from "@/lib/useSeoMeta";
+import { SITE_URL } from "@/lib/siteUrl";
 
 export default function RegisterPage() {
   const { user, loading, refresh } = useSession();
@@ -28,7 +29,7 @@ export default function RegisterPage() {
   useSeoMeta({
     title: "Crear cuenta gratis",
     description: "Regístrate gratis en ConcertRide ES para reservar o publicar viajes compartidos a conciertos en España. Solo email y contraseña.",
-    canonical: "https://concertride.es/register",
+    canonical: `${SITE_URL}/register`,
     noindex: true,
   });
 

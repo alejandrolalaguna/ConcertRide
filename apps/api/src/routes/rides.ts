@@ -4,6 +4,7 @@ import type { MessagesResponse, RequestStatus, ReviewsResponse, RidesResponse } 
 import type { HonoEnv } from "../types";
 import { requireUser, requireVerifiedEmail } from "../lib/identity";
 import { notifyUser } from "../lib/notify";
+import { getSiteUrl } from "../lib/siteUrl";
 import {
   sendDemandMatchEmail,
   sendEmail,
@@ -147,7 +148,7 @@ route.post("/", async (c) => {
   c.executionCtx.waitUntil(
     (async () => {
       const interested = await c.var.store.listInterestedUsers(concert.id).catch(() => []);
-      const rideUrl = `https://concertride.es/rides/${ride.id}`;
+      const rideUrl = `${getSiteUrl(c.env)}/rides/${ride.id}`;
       await Promise.allSettled(
         interested
           .filter((u) => u.id !== userOrResp.id && !u.deleted_at)
@@ -211,7 +212,7 @@ route.post("/:id/request", async (c) => {
               seats: parsed.data.seats,
               artist: ride.concert.artist,
               origin: ride.origin_city,
-              rideUrl: `https://concertride.es/rides/${ride.id}`,
+              rideUrl: `${getSiteUrl(c.env)}/rides/${ride.id}`,
               instantBooking: false,
             })
           : Promise.resolve(),
@@ -265,7 +266,7 @@ route.post("/:id/book", async (c) => {
               seats: parsed.data.seats,
               artist: ride.concert.artist,
               origin: ride.origin_city,
-              rideUrl: `https://concertride.es/rides/${ride.id}`,
+              rideUrl: `${getSiteUrl(c.env)}/rides/${ride.id}`,
               instantBooking: true,
             })
           : Promise.resolve(),
@@ -336,7 +337,7 @@ route.patch("/:id/request/:rid", async (c) => {
             ? sendEmail(c.env, {
                 to: ride.driver.email,
                 subject: `Reserva cancelada — ${ride.concert.artist}`,
-                html: `<p>Hola, ${ride.driver.name}.</p><p><strong>${userOrResp.name}</strong> ha cancelado su plaza en tu viaje a <strong>${ride.concert.artist}</strong> desde ${ride.origin_city}. La plaza vuelve a estar disponible.</p><p><a href="https://concertride.es/rides/${ride.id}">Ver el viaje</a></p>`,
+                html: `<p>Hola, ${ride.driver.name}.</p><p><strong>${userOrResp.name}</strong> ha cancelado su plaza en tu viaje a <strong>${ride.concert.artist}</strong> desde ${ride.origin_city}. La plaza vuelve a estar disponible.</p><p><a href="${getSiteUrl(c.env)}/rides/${ride.id}">Ver el viaje</a></p>`,
               })
             : Promise.resolve(),
         ]);
@@ -366,7 +367,7 @@ route.patch("/:id/request/:rid", async (c) => {
                 driverName: ride.driver.name,
                 artist: ride.concert.artist,
                 origin: ride.origin_city,
-                rideUrl: `https://concertride.es/rides/${ride.id}`,
+                rideUrl: `${getSiteUrl(c.env)}/rides/${ride.id}`,
                 status,
               })
             : Promise.resolve(),
@@ -425,7 +426,7 @@ route.delete("/:id", async (c) => {
             ? sendEmail(c.env, {
                 to: r.passenger.email,
                 subject: `Viaje a ${ride.concert.artist} cancelado`,
-                html: `<p>Hola, ${r.passenger.name}.</p><p>${ride.driver.name} ha cancelado el viaje a <strong>${ride.concert.artist}</strong> desde ${ride.origin_city}. Te recomendamos buscar otro viaje desde la página del concierto.</p><p><a href="https://concertride.es/concerts/${ride.concert_id}">Buscar otro viaje</a></p>`,
+                html: `<p>Hola, ${r.passenger.name}.</p><p>${ride.driver.name} ha cancelado el viaje a <strong>${ride.concert.artist}</strong> desde ${ride.origin_city}. Te recomendamos buscar otro viaje desde la página del concierto.</p><p><a href="${getSiteUrl(c.env)}/concerts/${ride.concert_id}">Buscar otro viaje</a></p>`,
               })
             : Promise.resolve(),
         ]),

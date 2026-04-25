@@ -1,6 +1,7 @@
 import { Suspense, lazy, useEffect, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { useSeoMeta } from "@/lib/useSeoMeta";
+import { SITE_URL } from "@/lib/siteUrl";
 import { motion } from "motion/react";
 import { ArrowLeft, Check, CheckCheck, Clock, Link2, MapPin, Minus, Music, Plus } from "lucide-react";
 import type { Luggage, PaymentMethod, Ride, RideRequest, SmokingPolicy } from "@concertride/types";
@@ -66,7 +67,7 @@ export default function RideDetailPage() {
     description: ride
       ? `Viaje compartido desde ${ride.origin_city} hasta ${ride.concert.venue.city} para ver a ${ride.concert.artist}. ${ride.seats_left} plaza${ride.seats_left === 1 ? "" : "s"} disponible${ride.seats_left === 1 ? "" : "s"} a €${ride.price_per_seat}/asiento.`
       : "Encuentra un viaje compartido para conciertos en España.",
-    canonical: id ? `https://concertride.es/rides/${id}` : undefined,
+    canonical: id ? `${SITE_URL}/rides/${id}` : undefined,
     keywords: ride
       ? `viaje compartido ${ride.origin_city}, carpooling ${ride.concert.artist}, coche compartido ${ride.concert.venue.city}`
       : undefined,
@@ -264,11 +265,11 @@ export default function RideDetailPage() {
             "@context": "https://schema.org",
             "@type": "BreadcrumbList",
             itemListElement: [
-              { "@type": "ListItem", position: 1, name: "Inicio", item: "https://concertride.es/" },
-              { "@type": "ListItem", position: 2, name: "Conciertos", item: "https://concertride.es/concerts" },
+              { "@type": "ListItem", position: 1, name: "Inicio", item: `${SITE_URL}/` },
+              { "@type": "ListItem", position: 2, name: "Conciertos", item: `${SITE_URL}/concerts` },
               ...(ride ? [
-                { "@type": "ListItem", position: 3, name: ride.concert.artist, item: `https://concertride.es/concerts/${ride.concert.id}` },
-                { "@type": "ListItem", position: 4, name: `Viaje desde ${ride.origin_city}`, item: `https://concertride.es/rides/${ride.id}` },
+                { "@type": "ListItem", position: 3, name: ride.concert.artist, item: `${SITE_URL}/concerts/${ride.concert.id}` },
+                { "@type": "ListItem", position: 4, name: `Viaje desde ${ride.origin_city}`, item: `${SITE_URL}/rides/${ride.id}` },
               ] : []),
             ],
           }),
@@ -281,12 +282,12 @@ export default function RideDetailPage() {
             __html: JSON.stringify({
               "@context": "https://schema.org",
               "@type": "Trip",
-              "@id": `https://concertride.es/rides/${ride.id}`,
+              "@id": `${SITE_URL}/rides/${ride.id}`,
               name: `Viaje compartido desde ${ride.origin_city} a ${ride.concert.venue.city} para ${ride.concert.artist}`,
               description: `Carpooling desde ${ride.origin_city} hasta ${ride.concert.venue.name} (${ride.concert.venue.city}) para el concierto de ${ride.concert.artist}. ${ride.seats_left} plaza${ride.seats_left === 1 ? "" : "s"} disponible${ride.seats_left === 1 ? "" : "s"}.`,
-              url: `https://concertride.es/rides/${ride.id}`,
+              url: `${SITE_URL}/rides/${ride.id}`,
               departureTime: ride.departure_time,
-              provider: { "@id": "https://concertride.es/#organization" },
+              provider: { "@id": `${SITE_URL}/#organization` },
               itinerary: [
                 {
                   "@type": "Place",
@@ -325,7 +326,7 @@ export default function RideDetailPage() {
                   ride.seats_left > 0
                     ? "https://schema.org/InStock"
                     : "https://schema.org/SoldOut",
-                url: `https://concertride.es/rides/${ride.id}`,
+                url: `${SITE_URL}/rides/${ride.id}`,
               },
             }),
           }}

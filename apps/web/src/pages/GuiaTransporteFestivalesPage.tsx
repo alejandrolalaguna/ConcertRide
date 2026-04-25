@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import { ArrowRight, Bus, Car, Train, Zap } from "lucide-react";
 import { useSeoMeta } from "@/lib/useSeoMeta";
+import { SITE_URL } from "@/lib/siteUrl";
 import { FESTIVAL_LANDINGS } from "@/lib/festivalLandings";
 
 const GUIDE_FAQS = [
@@ -35,7 +36,7 @@ export default function GuiaTransporteFestivalesPage() {
     title: `Guía de transporte para festivales de España ${new Date().getFullYear()}`,
     description:
       "Cómo llegar a los festivales de música en España sin taxi, sin agobios y sin pagar de más. Carpooling, buses, transporte público y todo lo que necesitas saber para 2026.",
-    canonical: "https://concertride.es/guia-transporte-festivales",
+    canonical: `${SITE_URL}/guia-transporte-festivales`,
     keywords:
       "transporte festivales España, cómo ir al festival sin coche, alternativa taxi festival España, autobús festival España, carpooling festival, guía transporte festival 2026, volver festival madrugada, cómo llegar festival España, movilidad sostenible festival, deja tu coche en casa festival, festival sin coche propio, transporte nocturno festival",
   });
@@ -46,19 +47,19 @@ export default function GuiaTransporteFestivalesPage() {
     headline: "Guía de transporte para festivales de España 2026",
     description:
       "Guía completa: todas las opciones para llegar a los festivales de música en España en 2026 — carpooling, autobuses organizados, transporte público y consejos para volver de madrugada.",
-    url: "https://concertride.es/guia-transporte-festivales",
+    url: `${SITE_URL}/guia-transporte-festivales`,
     inLanguage: "es-ES",
     author: {
       "@type": "Organization",
       name: "ConcertRide ES",
-      url: "https://concertride.es",
+      url: SITE_URL,
     },
     publisher: {
-      "@id": "https://concertride.es/#organization",
+      "@id": `${SITE_URL}/#organization`,
     },
     datePublished: "2026-04-24",
     dateModified: "2026-04-25",
-    mainEntityOfPage: "https://concertride.es/guia-transporte-festivales",
+    mainEntityOfPage: `${SITE_URL}/guia-transporte-festivales`,
     about: {
       "@type": "Thing",
       name: "Transporte para festivales de música en España",
@@ -73,7 +74,7 @@ export default function GuiaTransporteFestivalesPage() {
     totalTime: "PT5M",
     estimatedCost: { "@type": "MonetaryAmount", currency: "EUR", value: "8-15" },
     step: [
-      { "@type": "HowToStep", position: 1, name: "Buscar el festival", text: "Entra en concertride.es/concerts y busca el festival por nombre o selecciona la landing page del festival (e.g. concertride.es/festivales/mad-cool). Verás todos los viajes disponibles agrupados por ciudad de origen." },
+      { "@type": "HowToStep", position: 1, name: "Buscar el festival", text: "Entra en concertride.me/concerts y busca el festival por nombre o selecciona la landing page del festival (e.g. concertride.me/festivales/mad-cool). Verás todos los viajes disponibles agrupados por ciudad de origen." },
       { "@type": "HowToStep", position: 2, name: "Elegir un viaje desde tu ciudad", text: "Filtra por tu ciudad de origen. Compara precios por asiento, vibe (tranquilo/fiestero), plazas libres y valoración del conductor. Mira quiénes son los pasajeros ya confirmados." },
       { "@type": "HowToStep", position: 3, name: "Reservar tu plaza", text: "Pulsa 'Reservar asiento' y selecciona el número de plazas. Si el conductor tiene reserva instantánea, quedas confirmado al instante. Si no, el conductor revisa tu solicitud en horas." },
       { "@type": "HowToStep", position: 4, name: "Viajar y pagar", text: "El día del festival, el conductor te recoge en el punto acordado. Pagas directamente en efectivo o Bizum al conductor — sin comisión de plataforma. Acuerda también la hora de vuelta." },
@@ -94,12 +95,12 @@ export default function GuiaTransporteFestivalesPage() {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
     itemListElement: [
-      { "@type": "ListItem", position: 1, name: "Inicio", item: "https://concertride.es/" },
+      { "@type": "ListItem", position: 1, name: "Inicio", item: `${SITE_URL}/` },
       {
         "@type": "ListItem",
         position: 2,
         name: "Guía de transporte para festivales",
-        item: "https://concertride.es/guia-transporte-festivales",
+        item: `${SITE_URL}/guia-transporte-festivales`,
       },
     ],
   };

@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { Link, useSearchParams } from "react-router-dom";
 import { useSeoMeta } from "@/lib/useSeoMeta";
+import { SITE_URL } from "@/lib/siteUrl";
 import { SlidersHorizontal, Sparkles, X, Clock, Zap, ChevronLeft, ChevronRight } from "lucide-react";
 import type { Concert } from "@concertride/types";
 import { api } from "@/lib/api";
@@ -39,8 +40,8 @@ const BREADCRUMB_CONCERTS_JSON_LD = JSON.stringify({
   "@context": "https://schema.org",
   "@type": "BreadcrumbList",
   itemListElement: [
-    { "@type": "ListItem", position: 1, name: "Inicio", item: "https://concertride.es/" },
-    { "@type": "ListItem", position: 2, name: "Conciertos", item: "https://concertride.es/concerts" },
+    { "@type": "ListItem", position: 1, name: "Inicio", item: `${SITE_URL}/` },
+    { "@type": "ListItem", position: 2, name: "Conciertos", item: `${SITE_URL}/concerts` },
   ],
 });
 
@@ -78,7 +79,7 @@ export default function ConcertsPage() {
     description: filters.city
       ? `Todos los conciertos y festivales en ${filters.city}. Encuentra viajes compartidos baratos desde cualquier ciudad con ConcertRide ES.`
       : "Todos los conciertos y festivales de música en España. Encuentra viajes compartidos baratos para llegar al show desde Madrid, Barcelona, Valencia, Sevilla y más.",
-    canonical: "https://concertride.es/concerts",
+    canonical: `${SITE_URL}/concerts`,
     keywords: `conciertos ${filters.city || "España"}, festivales música, carpooling conciertos, viajes compartidos, ${filters.genre || "música en directo"}`,
   });
 

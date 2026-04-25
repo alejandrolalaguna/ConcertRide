@@ -1,12 +1,13 @@
 import { Link } from "react-router-dom";
 import { useSeoMeta } from "@/lib/useSeoMeta";
+import { SITE_URL } from "@/lib/siteUrl";
 
 export default function AcercaDePage() {
   useSeoMeta({
     title: "Acerca de ConcertRide ES — Carpooling para conciertos en España",
     description:
       "Qué es ConcertRide, por qué existe y cómo funciona el carpooling para conciertos en España. Plataforma gratuita, sin comisiones, con conductores verificados.",
-    canonical: "https://concertride.es/acerca-de",
+    canonical: `${SITE_URL}/acerca-de`,
     keywords:
       "qué es ConcertRide, sobre ConcertRide, carpooling conciertos España, plataforma viajes compartidos conciertos, sin comisión carpooling, misión ConcertRide, transporte económico festivales",
   });
@@ -20,22 +21,22 @@ export default function AcercaDePage() {
             "@context": "https://schema.org",
             "@type": "AboutPage",
             name: "Acerca de ConcertRide ES",
-            url: "https://concertride.es/acerca-de",
+            url: `${SITE_URL}/acerca-de`,
             inLanguage: "es-ES",
             datePublished: "2026-04-10",
             dateModified: "2026-04-24",
             breadcrumb: {
               "@type": "BreadcrumbList",
               itemListElement: [
-                { "@type": "ListItem", position: 1, name: "Inicio", item: "https://concertride.es/" },
-                { "@type": "ListItem", position: 2, name: "Acerca de", item: "https://concertride.es/acerca-de" },
+                { "@type": "ListItem", position: 1, name: "Inicio", item: `${SITE_URL}/` },
+                { "@type": "ListItem", position: 2, name: "Acerca de", item: `${SITE_URL}/acerca-de` },
               ],
             },
             mainEntity: {
               "@type": "Organization",
-              "@id": "https://concertride.es/#organization",
+              "@id": `${SITE_URL}/#organization`,
               name: "ConcertRide ES",
-              url: "https://concertride.es",
+              url: SITE_URL,
               foundingDate: "2026",
               areaServed: { "@type": "Country", name: "Spain" },
               knowsAbout: [

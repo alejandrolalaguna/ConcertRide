@@ -9,6 +9,7 @@ import { usePush } from "@/lib/usePush";
 import { SPANISH_CITIES } from "@/lib/constants";
 import { initials, formatDay, formatDate } from "@/lib/format";
 import { useSeoMeta } from "@/lib/useSeoMeta";
+import { SITE_URL } from "@/lib/siteUrl";
 
 type Tristate = "yes" | "no" | "";
 
@@ -100,7 +101,7 @@ export default function ProfilePage() {
   useSeoMeta({
     title: "Mi perfil",
     description: "Gestiona tu perfil de ConcertRide ES: datos personales, ciudad base, preferencias de viaje y vehículo.",
-    canonical: "https://concertride.es/profile",
+    canonical: `${SITE_URL}/profile`,
     noindex: true,
   });
 

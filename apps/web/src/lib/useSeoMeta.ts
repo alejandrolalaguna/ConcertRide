@@ -1,4 +1,5 @@
 import { useEffect } from "react";
+import { SITE_URL } from "./siteUrl";
 
 interface SeoMeta {
   title: string;
@@ -20,7 +21,7 @@ interface SeoMeta {
 
 const DEFAULT_DESCRIPTION =
   "Carpooling para conciertos en España. Comparte coche, divide gastos y llega seguro. Publica un viaje o busca uno en 2 minutos. Gratis.";
-const DEFAULT_OG_IMAGE = "https://concertride.es/og/home.png";
+const DEFAULT_OG_IMAGE = `${SITE_URL}/og/home.png`;
 const DEFAULT_OG_IMAGE_WIDTH = 1200;
 const DEFAULT_OG_IMAGE_HEIGHT = 630;
 const SITE_NAME = "ConcertRide ES";
@@ -152,7 +153,7 @@ export function useSeoMeta(meta: SeoMeta) {
       if (r.articleModifiedTime) setMeta("article:modified_time", r.articleModifiedTime, true);
       if (r.articleAuthor) setMeta("article:author", r.articleAuthor, true);
       if (r.articleSection) setMeta("article:section", r.articleSection, true);
-      setMeta("article:publisher", "https://www.facebook.com/concertride.es", true);
+      setMeta("article:publisher", "https://www.facebook.com/concertride.me", true);
     } else {
       removeMeta("article:published_time", true);
       removeMeta("article:modified_time", true);
@@ -188,8 +189,7 @@ export function renderSeoToHtml(seo: ResolvedSeo, urlPath: string): {
   metaTags: string;
   linkTags: string;
 } {
-  const SITE_BASE = "https://concertride.es";
-  const ogUrl = seo.canonical ?? `${SITE_BASE}${urlPath}`;
+  const ogUrl = seo.canonical ?? `${SITE_URL}${urlPath}`;
 
   const lines: string[] = [];
   const push = (tag: string) => lines.push(`    ${tag}`);
@@ -223,7 +223,7 @@ export function renderSeoToHtml(seo: ResolvedSeo, urlPath: string): {
       push(`<meta property="article:modified_time" content="${escapeAttr(seo.articleModifiedTime)}" />`);
     if (seo.articleAuthor) push(`<meta property="article:author" content="${escapeAttr(seo.articleAuthor)}" />`);
     if (seo.articleSection) push(`<meta property="article:section" content="${escapeAttr(seo.articleSection)}" />`);
-    push(`<meta property="article:publisher" content="https://www.facebook.com/concertride.es" />`);
+    push(`<meta property="article:publisher" content="https://www.facebook.com/concertride.me" />`);
   }
 
   push(`<meta name="twitter:card" content="summary_large_image" />`);

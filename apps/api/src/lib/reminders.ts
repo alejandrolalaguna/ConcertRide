@@ -2,6 +2,7 @@ import type { Env } from "../env";
 import type { StoreAdapter } from "../store/adapter";
 import { sendRideReminderEmail } from "./email";
 import { notifyUser } from "./notify";
+import { getSiteUrl } from "./siteUrl";
 
 // Runs every hour. Picks up rides whose departure_time is between now+23h and
 // now+25h and whose `reminded_at` is still null — then emails + pushes both
@@ -25,7 +26,7 @@ export async function runRideReminders(env: Env, store: StoreAdapter): Promise<n
         timeStyle: "short",
         timeZone: "Europe/Madrid",
       });
-      const rideUrl = `https://concertride.es/rides/${ride.id}`;
+      const rideUrl = `${getSiteUrl(env)}/rides/${ride.id}`;
 
       const jobs: Promise<unknown>[] = [];
 

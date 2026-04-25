@@ -6,6 +6,7 @@ import { api } from "@/lib/api";
 import { ConcertCard } from "@/components/ConcertCard";
 import { LoadingSpinner } from "@/components/ui";
 import { useSeoMeta } from "@/lib/useSeoMeta";
+import { SITE_URL } from "@/lib/siteUrl";
 import { FESTIVAL_LANDINGS, FESTIVAL_LANDINGS_BY_SLUG } from "@/lib/festivalLandings";
 
 export default function FestivalLandingPage() {
@@ -22,8 +23,8 @@ export default function FestivalLandingPage() {
       ? `Carpooling a ${festival.name} desde ${festival.originCities.slice(0, 3).map((c) => c.city).join(", ")} y más ciudades. Precios desde ${festival.originCities[0]?.concertRideRange ?? "3 €"}/asiento. Sin taxi, sin comisión. Conductores verificados.`
       : "Carpooling a festivales de música en España con ConcertRide.",
     canonical: festival
-      ? `https://concertride.es/festivales/${festival.slug}`
-      : "https://concertride.es/concerts",
+      ? `${SITE_URL}/festivales/${festival.slug}`
+      : `${SITE_URL}/concerts`,
     keywords: festival
       ? `cómo ir a ${festival.shortName}, cómo llegar a ${festival.shortName}, transporte ${festival.shortName}, carpooling ${festival.name}, coche compartido ${festival.shortName}, ${festival.shortName} ${festival.city}, viaje compartido ${festival.shortName} 2026, compartir coche ${festival.shortName}, alternativa taxi ${festival.shortName}, ir a ${festival.shortName} sin coche, precio carpooling ${festival.shortName}`
       : undefined,
@@ -73,7 +74,7 @@ export default function FestivalLandingPage() {
     "@context": "https://schema.org",
     "@type": "MusicEvent",
     name: festival.name,
-    url: `https://concertride.es/festivales/${festival.slug}`,
+    url: `${SITE_URL}/festivales/${festival.slug}`,
     description: festival.blurb,
     startDate: festival.startDate,
     endDate: festival.endDate,
@@ -88,7 +89,7 @@ export default function FestivalLandingPage() {
     inLanguage: "es",
     offers: {
       "@type": "Offer",
-      url: `https://concertride.es/festivales/${festival.slug}`,
+      url: `${SITE_URL}/festivales/${festival.slug}`,
       price: festival.originCities[0]?.concertRideRange?.split("–")[0]?.replace(/[^0-9]/g, "") ?? "3",
       priceCurrency: "EUR",
       availability: "https://schema.org/InStock",
@@ -100,7 +101,7 @@ export default function FestivalLandingPage() {
     "@context": "https://schema.org",
     "@type": "EventSeries",
     name: festival.name,
-    url: `https://concertride.es/festivales/${festival.slug}`,
+    url: `${SITE_URL}/festivales/${festival.slug}`,
     description: festival.blurb,
     startDate: festival.startDate,
     endDate: festival.endDate,
@@ -133,13 +134,13 @@ export default function FestivalLandingPage() {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
     itemListElement: [
-      { "@type": "ListItem", position: 1, name: "Inicio", item: "https://concertride.es/" },
-      { "@type": "ListItem", position: 2, name: "Conciertos y festivales", item: "https://concertride.es/concerts" },
+      { "@type": "ListItem", position: 1, name: "Inicio", item: `${SITE_URL}/` },
+      { "@type": "ListItem", position: 2, name: "Conciertos y festivales", item: `${SITE_URL}/concerts` },
       {
         "@type": "ListItem",
         position: 3,
         name: festival.name,
-        item: `https://concertride.es/festivales/${festival.slug}`,
+        item: `${SITE_URL}/festivales/${festival.slug}`,
       },
     ],
   };
@@ -160,8 +161,8 @@ export default function FestivalLandingPage() {
         "@type": "HowToStep",
         position: 1,
         name: "Busca el festival en ConcertRide",
-        text: `Entra en concertride.es/concerts y filtra por ciudad (${festival.city}) o busca directamente "${festival.shortName}". Verás los viajes publicados con precio por asiento.`,
-        url: "https://concertride.es/concerts",
+        text: `Entra en concertride.me/concerts y filtra por ciudad (${festival.city}) o busca directamente "${festival.shortName}". Verás los viajes publicados con precio por asiento.`,
+        url: `${SITE_URL}/concerts`,
       },
       {
         "@type": "HowToStep",
@@ -366,7 +367,7 @@ export default function FestivalLandingPage() {
         </h2>
         <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
           {[
-            { n: "01", title: "Busca el festival", body: `Entra en concertride.es/concerts y filtra por ${festival.city} o busca directamente "${festival.shortName}".` },
+            { n: "01", title: "Busca el festival", body: `Entra en concertride.me/concerts y filtra por ${festival.city} o busca directamente "${festival.shortName}".` },
             { n: "02", title: "Elige el viaje", body: "Compara precio por asiento, hora de salida y perfil del conductor. Lee las valoraciones de otros pasajeros." },
             { n: "03", title: "Solicita tu plaza", body: "Con reserva instantánea queda confirmada al momento. Sin ella, el conductor suele responder en pocas horas." },
             { n: "04", title: "Viaja y paga", body: "El día del festival te encuentras con el conductor en el punto acordado. Pagas en efectivo o Bizum. Sin comisión." },

@@ -148,7 +148,7 @@ export const ticketmaster: SourceAdapter = {
         url.searchParams.set("sort", "date,asc");
 
         let res = await fetch(url.toString(), {
-          headers: { "User-Agent": "ConcertRideESBot/1.0 (+https://concertride.es/bot)" },
+          headers: { "User-Agent": "ConcertRideESBot/1.0 (+https://concertride.me/bot)" },
         });
         // Exponential backoff on 429.
         for (let attempt = 0; res.status === 429 && attempt < BACKOFF_MS.length; attempt++) {
@@ -156,7 +156,7 @@ export const ticketmaster: SourceAdapter = {
           console.warn(`ticketmaster: 429 on ${window.start} page ${page}, retrying in ${delay}ms`);
           await new Promise((resolve) => setTimeout(resolve, delay));
           res = await fetch(url.toString(), {
-            headers: { "User-Agent": "ConcertRideESBot/1.0 (+https://concertride.es/bot)" },
+            headers: { "User-Agent": "ConcertRideESBot/1.0 (+https://concertride.me/bot)" },
           });
         }
         if (res.status === 429) {

@@ -264,7 +264,7 @@ export class MemoryStore implements StoreAdapter {
     const u = this.users.find((u) => u.id === userId);
     if (!u) return;
     const now = new Date().toISOString();
-    u.email = `deleted+${u.id}@concertride.es`;
+    u.email = `deleted+${u.id}@concertride.me`;
     u.name = "Usuario eliminado";
     u.avatar_url = null;
     u.phone = null;

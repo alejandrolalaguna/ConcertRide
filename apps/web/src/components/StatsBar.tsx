@@ -1,4 +1,5 @@
 import { useCountUp, useInView } from "@/hooks/useCountUp";
+import { SITE_URL } from "@/lib/siteUrl";
 
 interface Stat {
   label: string;
@@ -53,7 +54,7 @@ export function StatsBar() {
             name: "ConcertRide ES — datos clave",
             description:
               "Hechos verificables sobre la plataforma ConcertRide: catálogo de festivales, conciertos activos y ahorro frente a taxi.",
-            license: "https://concertride.es/ai.txt",
+            license: `${SITE_URL}/ai.txt`,
             variableMeasured: [
               {
                 "@type": "PropertyValue",

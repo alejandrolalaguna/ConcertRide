@@ -8,6 +8,8 @@
  * signal can be used to deregister tools on cleanup.
  */
 
+import { SITE_URL } from "./siteUrl";
+
 interface WebMCPTool {
   name: string;
   description: string;
@@ -132,7 +134,7 @@ export function initWebMCP(): AbortController | null {
         });
         if (!res.ok) throw new Error(`get_festival_info failed: ${res.status}`);
         const markdown = await res.text();
-        return { slug, markdown, url: `https://concertride.es/festivales/${slug}` };
+        return { slug, markdown, url: `${SITE_URL}/festivales/${slug}` };
       },
     },
 
@@ -162,7 +164,7 @@ export function initWebMCP(): AbortController | null {
         });
         if (!res.ok) throw new Error(`get_city_concerts failed: ${res.status}`);
         const markdown = await res.text();
-        return { slug, markdown, url: `https://concertride.es/conciertos/${slug}` };
+        return { slug, markdown, url: `${SITE_URL}/conciertos/${slug}` };
       },
     },
 
@@ -181,7 +183,7 @@ export function initWebMCP(): AbortController | null {
         });
         if (!res.ok) throw new Error(`get_transport_guide failed: ${res.status}`);
         const markdown = await res.text();
-        return { markdown, url: "https://concertride.es/guia-transporte-festivales" };
+        return { markdown, url: `${SITE_URL}/guia-transporte-festivales` };
       },
     },
   ];

@@ -6,6 +6,7 @@ import { hashPassword, verifyPassword } from "../lib/password";
 import { signSession, verifySession } from "../lib/jwt";
 import { requireUser } from "../lib/identity";
 import { rateLimit } from "../lib/ratelimit";
+import { getSiteUrl } from "../lib/siteUrl";
 import {
   sendLicenseReviewAdminEmail,
   sendPasswordResetEmail,
@@ -209,7 +210,7 @@ route.post("/verify-license", async (c) => {
   const review = await c.var.store.createLicenseReview(userOrResp.id, kvKeyWithExt);
 
   // Notify admin — fire and forget, don't block the response
-  const fileUrl = `https://concertride.es/api/auth/license-doc/${encodeURIComponent(kvKeyWithExt)}`;
+  const fileUrl = `${getSiteUrl(c.env)}/api/auth/license-doc/${encodeURIComponent(kvKeyWithExt)}`;
   sendLicenseReviewAdminEmail(c.env, {
     userName: userOrResp.name,
     userId: userOrResp.id,

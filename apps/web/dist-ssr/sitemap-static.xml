@@ -5,63 +5,63 @@
         http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
   <!-- Home — highest priority, crawled daily -->
   <url>
-    <loc>https://concertride.es/</loc>
+    <loc>https://concertride.me/</loc>
     <lastmod>2026-04-25</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
   </url>
   <!-- Concert catalog — dynamic, crawled daily -->
   <url>
-    <loc>https://concertride.es/concerts</loc>
+    <loc>https://concertride.me/concerts</loc>
     <lastmod>2026-04-25</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.9</priority>
   </url>
   <!-- Festival hub — landing with all 16 festivals -->
   <url>
-    <loc>https://concertride.es/festivales</loc>
+    <loc>https://concertride.me/festivales</loc>
     <lastmod>2026-04-25</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <!-- Transport guide — high-value SEO content page -->
   <url>
-    <loc>https://concertride.es/guia-transporte-festivales</loc>
+    <loc>https://concertride.me/guia-transporte-festivales</loc>
     <lastmod>2026-04-25</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <!-- Publish a ride — conversion page -->
   <url>
-    <loc>https://concertride.es/publish</loc>
+    <loc>https://concertride.me/publish</loc>
     <lastmod>2026-04-25</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <!-- How it works — evergreen informational -->
   <url>
-    <loc>https://concertride.es/como-funciona</loc>
+    <loc>https://concertride.me/como-funciona</loc>
     <lastmod>2026-04-25</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <!-- FAQ — rich snippet target -->
   <url>
-    <loc>https://concertride.es/faq</loc>
+    <loc>https://concertride.me/faq</loc>
     <lastmod>2026-04-25</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <!-- About — authority/E-E-A-T page -->
   <url>
-    <loc>https://concertride.es/acerca-de</loc>
+    <loc>https://concertride.me/acerca-de</loc>
     <lastmod>2026-04-25</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <!-- Contact -->
   <url>
-    <loc>https://concertride.es/contacto</loc>
+    <loc>https://concertride.me/contacto</loc>
     <lastmod>2026-04-25</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
@@ -69,61 +69,61 @@
 
   <!-- ── City landing pages ── -->
   <url>
-    <loc>https://concertride.es/conciertos/madrid</loc>
+    <loc>https://concertride.me/conciertos/madrid</loc>
     <lastmod>2026-04-25</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://concertride.es/conciertos/barcelona</loc>
+    <loc>https://concertride.me/conciertos/barcelona</loc>
     <lastmod>2026-04-25</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://concertride.es/conciertos/valencia</loc>
+    <loc>https://concertride.me/conciertos/valencia</loc>
     <lastmod>2026-04-25</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://concertride.es/conciertos/sevilla</loc>
+    <loc>https://concertride.me/conciertos/sevilla</loc>
     <lastmod>2026-04-25</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://concertride.es/conciertos/bilbao</loc>
+    <loc>https://concertride.me/conciertos/bilbao</loc>
     <lastmod>2026-04-25</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://concertride.es/conciertos/malaga</loc>
+    <loc>https://concertride.me/conciertos/malaga</loc>
     <lastmod>2026-04-25</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://concertride.es/conciertos/zaragoza</loc>
+    <loc>https://concertride.me/conciertos/zaragoza</loc>
     <lastmod>2026-04-25</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://concertride.es/conciertos/granada</loc>
+    <loc>https://concertride.me/conciertos/granada</loc>
     <lastmod>2026-04-25</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://concertride.es/conciertos/donostia</loc>
+    <loc>https://concertride.me/conciertos/donostia</loc>
     <lastmod>2026-04-25</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://concertride.es/conciertos/santiago-de-compostela</loc>
+    <loc>https://concertride.me/conciertos/santiago-de-compostela</loc>
     <lastmod>2026-04-25</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.7</priority>
@@ -131,97 +131,97 @@
 
   <!-- ── Festival landing pages /festivales/:slug ── -->
   <url>
-    <loc>https://concertride.es/festivales/mad-cool</loc>
+    <loc>https://concertride.me/festivales/mad-cool</loc>
     <lastmod>2026-04-25</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://concertride.es/festivales/primavera-sound</loc>
+    <loc>https://concertride.me/festivales/primavera-sound</loc>
     <lastmod>2026-04-25</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://concertride.es/festivales/sonar</loc>
+    <loc>https://concertride.me/festivales/sonar</loc>
     <lastmod>2026-04-25</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://concertride.es/festivales/fib</loc>
+    <loc>https://concertride.me/festivales/fib</loc>
     <lastmod>2026-04-25</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://concertride.es/festivales/bbk-live</loc>
+    <loc>https://concertride.me/festivales/bbk-live</loc>
     <lastmod>2026-04-25</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://concertride.es/festivales/resurrection-fest</loc>
+    <loc>https://concertride.me/festivales/resurrection-fest</loc>
     <lastmod>2026-04-25</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://concertride.es/festivales/arenal-sound</loc>
+    <loc>https://concertride.me/festivales/arenal-sound</loc>
     <lastmod>2026-04-25</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://concertride.es/festivales/medusa-festival</loc>
+    <loc>https://concertride.me/festivales/medusa-festival</loc>
     <lastmod>2026-04-25</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://concertride.es/festivales/vina-rock</loc>
+    <loc>https://concertride.me/festivales/vina-rock</loc>
     <lastmod>2026-04-25</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://concertride.es/festivales/o-son-do-camino</loc>
+    <loc>https://concertride.me/festivales/o-son-do-camino</loc>
     <lastmod>2026-04-25</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://concertride.es/festivales/cala-mijas</loc>
+    <loc>https://concertride.me/festivales/cala-mijas</loc>
     <lastmod>2026-04-25</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://concertride.es/festivales/sonorama-ribera</loc>
+    <loc>https://concertride.me/festivales/sonorama-ribera</loc>
     <lastmod>2026-04-25</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://concertride.es/festivales/zevra-festival</loc>
+    <loc>https://concertride.me/festivales/zevra-festival</loc>
     <lastmod>2026-04-25</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://concertride.es/festivales/low-festival</loc>
+    <loc>https://concertride.me/festivales/low-festival</loc>
     <lastmod>2026-04-25</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://concertride.es/festivales/tomavistas</loc>
+    <loc>https://concertride.me/festivales/tomavistas</loc>
     <lastmod>2026-04-25</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://concertride.es/festivales/cruilla</loc>
+    <loc>https://concertride.me/festivales/cruilla</loc>
     <lastmod>2026-04-25</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
@@ -229,25 +229,25 @@
 
   <!-- ── Legal pages — low priority, rarely change ── -->
   <url>
-    <loc>https://concertride.es/aviso-legal</loc>
+    <loc>https://concertride.me/aviso-legal</loc>
     <lastmod>2026-04-25</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.2</priority>
   </url>
   <url>
-    <loc>https://concertride.es/privacidad</loc>
+    <loc>https://concertride.me/privacidad</loc>
     <lastmod>2026-04-25</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.2</priority>
   </url>
   <url>
-    <loc>https://concertride.es/cookies</loc>
+    <loc>https://concertride.me/cookies</loc>
     <lastmod>2026-04-25</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.2</priority>
   </url>
   <url>
-    <loc>https://concertride.es/terminos</loc>
+    <loc>https://concertride.me/terminos</loc>
     <lastmod>2026-04-25</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.2</priority>

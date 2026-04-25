@@ -1,13 +1,14 @@
 import { Link } from "react-router-dom";
 import { Mail, MessageCircleQuestion, ShieldAlert } from "lucide-react";
 import { useSeoMeta } from "@/lib/useSeoMeta";
+import { SITE_URL } from "@/lib/siteUrl";
 
 export default function ContactoPage() {
   useSeoMeta({
     title: "Contacto",
     description:
       "Contacta con el equipo de ConcertRide ES. Atendemos consultas sobre viajes compartidos a conciertos, reportes de abuso, dudas legales y partnerships con festivales.",
-    canonical: "https://concertride.es/contacto",
+    canonical: `${SITE_URL}/contacto`,
   });
 
   return (
@@ -19,7 +20,7 @@ export default function ContactoPage() {
             "@context": "https://schema.org",
             "@type": "ContactPage",
             name: "Contacto — ConcertRide ES",
-            url: "https://concertride.es/contacto",
+            url: `${SITE_URL}/contacto`,
             mainEntity: {
               "@type": "Organization",
               name: "ConcertRide ES",
@@ -42,8 +43,8 @@ export default function ContactoPage() {
             "@context": "https://schema.org",
             "@type": "BreadcrumbList",
             itemListElement: [
-              { "@type": "ListItem", position: 1, name: "Inicio", item: "https://concertride.es/" },
-              { "@type": "ListItem", position: 2, name: "Contacto", item: "https://concertride.es/contacto" },
+              { "@type": "ListItem", position: 1, name: "Inicio", item: `${SITE_URL}/` },
+              { "@type": "ListItem", position: 2, name: "Contacto", item: `${SITE_URL}/contacto` },
             ],
           }),
         }}
