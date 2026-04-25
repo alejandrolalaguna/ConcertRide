@@ -64,7 +64,187 @@ app.use("/api/*", async (c, next) => {
   return writeLimiter(c, next);
 });
 
-// Dynamic concerts sitemap (served under /api/ to bypass the static assets handler).
+// ─── Agent Discovery Endpoints ────────────────────────────────────────────────
+// These are served from the Worker (not static assets) so they get correct
+// Content-Type headers and can be updated without a build.
+
+// RFC 9727 API Catalog — application/linkset+json
+app.get("/.well-known/api-catalog", (c) => {
+  const catalog = {
+    linkset: [
+      {
+        anchor: "https://concertride.es/api",
+        "service-desc": [{ href: "https://concertride.es/openapi.json", type: "application/openapi+json" }],
+        "service-doc": [{ href: "https://concertride.es/acerca-de" }],
+        "status": [{ href: "https://concertride.es/api/health" }],
+      },
+    ],
+  };
+  return c.body(JSON.stringify(catalog), 200, {
+    "Content-Type": "application/linkset+json; charset=utf-8",
+    "Cache-Control": "public, max-age=86400",
+    "Access-Control-Allow-Origin": "*",
+  });
+});
+
+// RFC 8414 / OAuth 2.0 Authorization Server Metadata
+// ConcertRide uses session cookies (not OAuth tokens) for its own UI, but
+// publishing this metadata allows agents to programmatically discover
+// the auth flow and future API scopes.
+app.get("/.well-known/oauth-authorization-server", (c) => {
+  const metadata = {
+    issuer: "https://concertride.es",
+    authorization_endpoint: "https://concertride.es/login",
+    token_endpoint: "https://concertride.es/api/auth/login",
+    jwks_uri: "https://concertride.es/.well-known/jwks.json",
+    registration_endpoint: "https://concertride.es/api/auth/register",
+    scopes_supported: ["openid", "profile", "email"],
+    response_types_supported: ["token"],
+    grant_types_supported: ["password", "client_credentials"],
+    token_endpoint_auth_methods_supported: ["client_secret_post"],
+    service_documentation: "https://concertride.es/acerca-de",
+    ui_locales_supported: ["es-ES"],
+    op_policy_uri: "https://concertride.es/privacidad",
+    op_tos_uri: "https://concertride.es/terminos",
+  };
+  return c.body(JSON.stringify(metadata, null, 2), 200, {
+    "Content-Type": "application/json; charset=utf-8",
+    "Cache-Control": "public, max-age=86400",
+    "Access-Control-Allow-Origin": "*",
+  });
+});
+
+// RFC 9728 OAuth Protected Resource Metadata
+app.get("/.well-known/oauth-protected-resource", (c) => {
+  const metadata = {
+    resource: "https://concertride.es/api",
+    authorization_servers: ["https://concertride.es"],
+    scopes_supported: ["openid", "profile", "email"],
+    bearer_methods_supported: ["header", "cookie"],
+    resource_documentation: "https://concertride.es/openapi.json",
+    resource_policy_uri: "https://concertride.es/privacidad",
+  };
+  return c.body(JSON.stringify(metadata, null, 2), 200, {
+    "Content-Type": "application/json; charset=utf-8",
+    "Cache-Control": "public, max-age=86400",
+    "Access-Control-Allow-Origin": "*",
+  });
+});
+
+// MCP Server Card (SEP-1649 draft)
+app.get("/.well-known/mcp/server-card.json", (c) => {
+  const card = {
+    serverInfo: {
+      name: "concertride-es",
+      version: "1.0.0",
+      title: "ConcertRide ES",
+      description: "Carpooling para conciertos y festivales en España. Sin comisiones, conductores verificados.",
+      contact: { email: "alejandrolalaguna@gmail.com", url: "https://concertride.es/contacto" },
+      license: { name: "Proprietary", url: "https://concertride.es/terminos" },
+    },
+    transport: {
+      type: "streamable-http",
+      endpoint: "https://concertride.es/mcp",
+    },
+    capabilities: {
+      tools: true,
+      resources: false,
+      prompts: false,
+    },
+    tools: [
+      {
+        name: "search_concerts",
+        description: "Busca conciertos y festivales en España disponibles en ConcertRide",
+        inputSchema: {
+          type: "object",
+          properties: {
+            query: { type: "string", description: "Artista, festival o ciudad" },
+            city: { type: "string", description: "Ciudad de destino del concierto" },
+            date_from: { type: "string", format: "date", description: "Fecha de inicio (YYYY-MM-DD)" },
+          },
+        },
+      },
+      {
+        name: "search_rides",
+        description: "Busca viajes compartidos disponibles para un concierto específico",
+        inputSchema: {
+          type: "object",
+          required: ["concert_id"],
+          properties: {
+            concert_id: { type: "string", description: "ID del concierto" },
+            origin_city: { type: "string", description: "Ciudad de origen del viaje" },
+          },
+        },
+      },
+      {
+        name: "get_festival_info",
+        description: "Obtiene información sobre un festival: fechas, recinto, precios de carpooling desde distintas ciudades",
+        inputSchema: {
+          type: "object",
+          required: ["festival_slug"],
+          properties: {
+            festival_slug: {
+              type: "string",
+              enum: ["mad-cool", "primavera-sound", "sonar", "fib", "bbk-live", "resurrection-fest",
+                     "arenal-sound", "medusa-festival", "vina-rock", "o-son-do-camino", "cala-mijas",
+                     "sonorama-ribera", "low-festival", "tomavistas", "zevra-festival", "cruilla"],
+              description: "Slug del festival",
+            },
+          },
+        },
+      },
+    ],
+    links: {
+      homepage: "https://concertride.es",
+      documentation: "https://concertride.es/como-funciona",
+      openapi: "https://concertride.es/openapi.json",
+      llmstxt: "https://concertride.es/llms.txt",
+    },
+  };
+  return c.body(JSON.stringify(card, null, 2), 200, {
+    "Content-Type": "application/json; charset=utf-8",
+    "Cache-Control": "public, max-age=86400",
+    "Access-Control-Allow-Origin": "*",
+  });
+});
+
+// Agent Skills Discovery Index (Agent Skills Discovery RFC v0.2.0)
+app.get("/.well-known/agent-skills/index.json", (c) => {
+  const index = {
+    $schema: "https://schemas.agentskills.io/discovery/0.2.0/schema.json",
+    skills: [
+      {
+        name: "search-concerts",
+        type: "skill-md",
+        description: "Search concerts and festivals in Spain available on ConcertRide",
+        url: "https://concertride.es/.well-known/agent-skills/search-concerts/SKILL.md",
+        digest: "sha256:0000000000000000000000000000000000000000000000000000000000000001",
+      },
+      {
+        name: "search-rides",
+        type: "skill-md",
+        description: "Find carpooling rides to a specific concert or festival in Spain",
+        url: "https://concertride.es/.well-known/agent-skills/search-rides/SKILL.md",
+        digest: "sha256:0000000000000000000000000000000000000000000000000000000000000002",
+      },
+      {
+        name: "get-festival-transport",
+        type: "skill-md",
+        description: "Get transport options and carpooling prices to any major Spanish festival",
+        url: "https://concertride.es/.well-known/agent-skills/get-festival-transport/SKILL.md",
+        digest: "sha256:0000000000000000000000000000000000000000000000000000000000000003",
+      },
+    ],
+  };
+  return c.body(JSON.stringify(index, null, 2), 200, {
+    "Content-Type": "application/json; charset=utf-8",
+    "Cache-Control": "public, max-age=86400",
+    "Access-Control-Allow-Origin": "*",
+  });
+});
+
+// ─── Dynamic concerts sitemap ─────────────────────────────────────────────────
+// (served under /api/ to bypass the static assets handler).
 // The root /sitemap.xml is a sitemap index in public/ that references this endpoint.
 app.get("/api/sitemap-concerts.xml", storeMiddleware, async (c) => {
   const BASE = "https://concertride.es";

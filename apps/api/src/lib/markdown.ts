@@ -9,7 +9,7 @@
  */
 
 /** Very rough token estimate: ~4 chars per token (GPT-4 average). */
-function estimateTokens(text: string): number {
+export function estimateTokens(text: string): number {
   return Math.ceil(text.length / 4);
 }
 

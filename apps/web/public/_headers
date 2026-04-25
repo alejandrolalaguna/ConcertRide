@@ -48,6 +48,31 @@
   Content-Type: application/json; charset=utf-8
   Access-Control-Allow-Origin: *
 
+/.well-known/api-catalog
+  Cache-Control: public, max-age=86400
+  Content-Type: application/linkset+json; charset=utf-8
+  Access-Control-Allow-Origin: *
+
+/.well-known/oauth-authorization-server
+  Cache-Control: public, max-age=86400
+  Content-Type: application/json; charset=utf-8
+  Access-Control-Allow-Origin: *
+
+/.well-known/oauth-protected-resource
+  Cache-Control: public, max-age=86400
+  Content-Type: application/json; charset=utf-8
+  Access-Control-Allow-Origin: *
+
+/.well-known/mcp/server-card.json
+  Cache-Control: public, max-age=86400
+  Content-Type: application/json; charset=utf-8
+  Access-Control-Allow-Origin: *
+
+/.well-known/agent-skills/index.json
+  Cache-Control: public, max-age=86400
+  Content-Type: application/json; charset=utf-8
+  Access-Control-Allow-Origin: *
+
 /openapi.json
   Cache-Control: public, max-age=86400
   Content-Type: application/json; charset=utf-8
