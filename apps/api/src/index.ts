@@ -78,8 +78,7 @@ app.get("/api/sitemap-concerts.xml", storeMiddleware, async (c) => {
     });
     concertUrls = concerts
       .map((concert) => {
-        const lastmod = concert.date ? concert.date.slice(0, 10) : today;
-        return `  <url>\n    <loc>${BASE}/concerts/${concert.id}</loc>\n    <lastmod>${lastmod}</lastmod>\n    <changefreq>daily</changefreq>\n    <priority>0.7</priority>\n  </url>`;
+        return `  <url>\n    <loc>${BASE}/concerts/${concert.id}</loc>\n    <lastmod>${today}</lastmod>\n    <changefreq>daily</changefreq>\n    <priority>0.7</priority>\n  </url>`;
       })
       .join("\n");
   } catch {
@@ -127,6 +126,7 @@ const FESTIVAL_META: Record<string, { name: string; city: string; venue: string;
   "zevra-festival": { name: "Zevra Festival", city: "Valencia", venue: "La Marina de Valencia", dates: "Verano 2026" },
   "low-festival": { name: "Low Festival", city: "Benidorm", venue: "Benidorm Beach", dates: "24–26 julio 2026" },
   "tomavistas": { name: "Tomavistas", city: "Madrid", venue: "IFEMA", dates: "15–17 mayo 2026" },
+  "cruilla": { name: "Cruïlla Barcelona", city: "Barcelona", venue: "Parc del Fòrum", dates: "9–12 julio 2026" },
 };
 
 app.notFound((c) => {

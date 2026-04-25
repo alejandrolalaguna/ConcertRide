@@ -16,7 +16,7 @@ export default function FestivalLandingPage() {
 
   useSeoMeta({
     title: festival
-      ? `Cómo ir a ${festival.shortName} 2026 — Carpooling desde toda España`
+      ? `Cómo ir a ${festival.shortName} ${new Date().getFullYear()} — Carpooling desde toda España`
       : "Festivales de música en España",
     description: festival
       ? `Carpooling a ${festival.name} desde ${festival.originCities.slice(0, 3).map((c) => c.city).join(", ")} y más ciudades. Precios desde ${festival.originCities[0]?.concertRideRange ?? "3 €"}/asiento. Sin taxi, sin comisión. Conductores verificados.`
@@ -75,6 +75,8 @@ export default function FestivalLandingPage() {
     name: festival.name,
     url: `https://concertride.es/festivales/${festival.slug}`,
     description: festival.blurb,
+    startDate: festival.startDate,
+    endDate: festival.endDate,
     location: festivalPlace,
     organizer: {
       "@type": "Organization",
@@ -84,6 +86,14 @@ export default function FestivalLandingPage() {
     eventStatus: "https://schema.org/EventScheduled",
     typicalAgeRange: "18-",
     inLanguage: "es",
+    offers: {
+      "@type": "Offer",
+      url: `https://concertride.es/festivales/${festival.slug}`,
+      price: festival.originCities[0]?.concertRideRange?.split("–")[0]?.replace(/[^0-9]/g, "") ?? "3",
+      priceCurrency: "EUR",
+      availability: "https://schema.org/InStock",
+      description: "Carpooling desde toda España con ConcertRide",
+    },
   };
 
   const jsonLdSeries = {
@@ -92,6 +102,8 @@ export default function FestivalLandingPage() {
     name: festival.name,
     url: `https://concertride.es/festivales/${festival.slug}`,
     description: festival.blurb,
+    startDate: festival.startDate,
+    endDate: festival.endDate,
     location: festivalPlace,
     eventSchedule: {
       "@type": "Schedule",
@@ -122,7 +134,7 @@ export default function FestivalLandingPage() {
     "@type": "BreadcrumbList",
     itemListElement: [
       { "@type": "ListItem", position: 1, name: "Inicio", item: "https://concertride.es/" },
-      { "@type": "ListItem", position: 2, name: "Festivales", item: "https://concertride.es/concerts" },
+      { "@type": "ListItem", position: 2, name: "Conciertos y festivales", item: "https://concertride.es/concerts" },
       {
         "@type": "ListItem",
         position: 3,

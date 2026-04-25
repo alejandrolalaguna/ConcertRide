@@ -32,7 +32,7 @@ const GUIDE_FAQS = [
 
 export default function GuiaTransporteFestivalesPage() {
   useSeoMeta({
-    title: "Guía de transporte para festivales de España 2026",
+    title: `Guía de transporte para festivales de España ${new Date().getFullYear()}`,
     description:
       "Cómo llegar a los festivales de música en España sin taxi, sin agobios y sin pagar de más. Carpooling, buses, transporte público y todo lo que necesitas saber para 2026.",
     canonical: "https://concertride.es/guia-transporte-festivales",

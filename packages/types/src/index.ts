@@ -158,6 +158,7 @@ export interface Ride {
   completed_at: string | null;
   completion_confirmed_by: "driver" | "both" | null;
   reminded_at: string | null;
+  payment_reminder_sent_at: string | null;
   created_at: string;
 }
 

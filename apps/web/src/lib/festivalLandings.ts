@@ -25,6 +25,8 @@ export interface FestivalLanding {
   venueAddress: string;
   lat: number;
   lng: number;
+  startDate: string;        // ISO 8601, e.g. "2026-07-09"
+  endDate: string;          // ISO 8601, e.g. "2026-07-11"
   typicalDates: string;     // human description, e.g. "Primera semana de julio"
   capacity: string;         // "80.000 personas/día"
   blurb: string;            // factual, LLM-citable paragraph
@@ -45,6 +47,8 @@ export const FESTIVAL_LANDINGS: FestivalLanding[] = [
     venueAddress: "Av. del Partenón, 5, 28042 Madrid",
     lat: 40.464,
     lng: -3.61,
+    startDate: "2026-07-09",
+    endDate: "2026-07-11",
     typicalDates: "Primera quincena de julio (edición 2026: 9–11 julio)",
     capacity: "80.000 personas/día",
     blurb:
@@ -98,6 +102,8 @@ export const FESTIVAL_LANDINGS: FestivalLanding[] = [
     venueAddress: "Rambla del Prim, 2-4, 08019 Barcelona",
     lat: 41.4066,
     lng: 2.2218,
+    startDate: "2026-05-28",
+    endDate: "2026-06-01",
     typicalDates: "Última semana de mayo / primera de junio (edición 2026: 28 mayo–1 junio)",
     capacity: "60.000 personas/día",
     blurb:
@@ -150,6 +156,8 @@ export const FESTIVAL_LANDINGS: FestivalLanding[] = [
     venueAddress: "Av. Joan Carles I, 64, 08908 L'Hospitalet de Llobregat",
     lat: 41.3561,
     lng: 2.1302,
+    startDate: "2026-06-18",
+    endDate: "2026-06-20",
     typicalDates: "Tercera semana de junio (edición 2026: 18–20 junio)",
     capacity: "120.000 personas (edición completa)",
     blurb:
@@ -201,6 +209,8 @@ export const FESTIVAL_LANDINGS: FestivalLanding[] = [
     venueAddress: "Av. de Ferrandis Salvador, s/n, 12560 Benicàssim, Castellón",
     lat: 40.059,
     lng: 0.061,
+    startDate: "2026-07-16",
+    endDate: "2026-07-19",
     typicalDates: "Segunda semana de julio (edición 2026: 16–19 julio)",
     capacity: "45.000 personas/día",
     blurb:
@@ -261,6 +271,8 @@ export const FESTIVAL_LANDINGS: FestivalLanding[] = [
     venueAddress: "Barrio Landabaso, 48015 Bilbao",
     lat: 43.272,
     lng: -2.949,
+    startDate: "2026-07-09",
+    endDate: "2026-07-11",
     typicalDates: "Segunda semana de julio (edición 2026: 9–11 julio)",
     capacity: "30.000 personas/día",
     blurb:
@@ -309,6 +321,8 @@ export const FESTIVAL_LANDINGS: FestivalLanding[] = [
     venueAddress: "Parque A Gañidoira, 27850 Viveiro, Lugo",
     lat: 43.666,
     lng: -7.599,
+    startDate: "2026-06-25",
+    endDate: "2026-06-28",
     typicalDates: "Última semana de junio / primera de julio (edición 2026: 25–28 junio)",
     capacity: "30.000 personas/día",
     blurb:
@@ -361,6 +375,8 @@ export const FESTIVAL_LANDINGS: FestivalLanding[] = [
     venueAddress: "Playa de Burriana, 12530 Burriana, Castellón",
     lat: 39.881,
     lng: -0.078,
+    startDate: "2026-07-29",
+    endDate: "2026-08-02",
     typicalDates: "Primera semana de agosto (edición 2026: 29 julio–2 agosto)",
     capacity: "40.000 personas/día",
     blurb:
@@ -421,6 +437,8 @@ export const FESTIVAL_LANDINGS: FestivalLanding[] = [
     venueAddress: "Playa Marenys de Rafalcaid, 46400 Cullera, Valencia",
     lat: 39.156,
     lng: -0.246,
+    startDate: "2026-08-12",
+    endDate: "2026-08-16",
     typicalDates: "Segunda semana de agosto (edición 2026: 12–16 agosto)",
     capacity: "60.000 personas/día",
     blurb:
@@ -477,6 +495,8 @@ export const FESTIVAL_LANDINGS: FestivalLanding[] = [
     venueAddress: "Parque La Pulgosa, 02600 Villarrobledo, Albacete",
     lat: 39.264,
     lng: -2.602,
+    startDate: "2026-04-30",
+    endDate: "2026-05-03",
     typicalDates: "Puente de mayo (edición 2026: 30 abril–3 mayo)",
     capacity: "50.000 personas/día",
     blurb:
@@ -533,6 +553,8 @@ export const FESTIVAL_LANDINGS: FestivalLanding[] = [
     venueAddress: "Monte do Gozo, 15820 Santiago de Compostela, A Coruña",
     lat: 42.894,
     lng: -8.517,
+    startDate: "2026-06-18",
+    endDate: "2026-06-20",
     typicalDates: "Segunda quincena de junio (edición 2026: 18–20 junio)",
     capacity: "90.000 personas (3 días)",
     blurb:
@@ -585,6 +607,8 @@ export const FESTIVAL_LANDINGS: FestivalLanding[] = [
     venueAddress: "Av. Juan Carlos I, s/n, 29016 Málaga",
     lat: 36.692,
     lng: -4.513,
+    startDate: "2026-10-02",
+    endDate: "2026-10-04",
     typicalDates: "Primera semana de octubre (edición 2026: 2–4 octubre)",
     capacity: "30.000 personas/día",
     blurb:
@@ -641,6 +665,8 @@ export const FESTIVAL_LANDINGS: FestivalLanding[] = [
     venueAddress: "C. del Estadio, 09400 Aranda de Duero, Burgos",
     lat: 41.668,
     lng: -3.689,
+    startDate: "2026-08-06",
+    endDate: "2026-08-09",
     typicalDates: "Primera semana de agosto (edición 2026: 6–9 agosto)",
     capacity: "25.000 personas/día",
     blurb:
@@ -701,6 +727,8 @@ export const FESTIVAL_LANDINGS: FestivalLanding[] = [
     venueAddress: "La Marina de València, Moll de la Duana, 46024 Valencia",
     lat: 39.457,
     lng: -0.336,
+    startDate: "2026-07-01",
+    endDate: "2026-07-31",
     typicalDates: "Verano 2026 (julio–agosto)",
     capacity: "20.000 personas/día",
     blurb:
@@ -752,6 +780,8 @@ export const FESTIVAL_LANDINGS: FestivalLanding[] = [
     venueAddress: "Av. de la Comunitat Valenciana, 03503 Benidorm, Alicante",
     lat: 38.541,
     lng: 0.123,
+    startDate: "2026-07-24",
+    endDate: "2026-07-26",
     typicalDates: "Finales de julio (edición 2026: 24–26 julio)",
     capacity: "20.000 personas/día",
     blurb:
@@ -807,6 +837,8 @@ export const FESTIVAL_LANDINGS: FestivalLanding[] = [
     venueAddress: "Av. del Partenón, 5, 28042 Madrid",
     lat: 40.464,
     lng: -3.61,
+    startDate: "2026-05-15",
+    endDate: "2026-05-17",
     typicalDates: "Segunda quincena de mayo (edición 2026: 15–17 mayo)",
     capacity: "25.000 personas/día",
     blurb:
@@ -858,6 +890,8 @@ export const FESTIVAL_LANDINGS: FestivalLanding[] = [
     venueAddress: "Rambla del Prim, 2-4, 08019 Barcelona",
     lat: 41.4066,
     lng: 2.2218,
+    startDate: "2026-07-09",
+    endDate: "2026-07-12",
     typicalDates: "Segunda semana de julio (edición 2026: 9–12 julio)",
     capacity: "30.000 personas/día",
     blurb:

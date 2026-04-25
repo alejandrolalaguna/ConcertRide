@@ -130,3 +130,19 @@ The `DrizzleStore` must only be imported via a dynamic `import()` inside `factor
 **Wrangler KV** — a `CACHE` KV namespace is bound in `wrangler.jsonc` and available as `c.env.CACHE` in route handlers. Used for photo/media storage (`POST /api/messages/upload` → `GET /api/messages/media/:id`).
 
 **Message scoping** — messages are ride-scoped (`ride_id` set, `concert_id` null) or concert-scoped (`concert_id` set, `ride_id` null). Never both. Photo uploads bypass the database entirely; only the KV key is stored as `attachment_url`.
+
+## Recent Features (2026-04-25)
+
+**Instant Booking** — `POST /api/rides/:id/book` auto-confirms passengers without driver approval. Toggle `instant_booking` in PublishRidePage. Badge "Instante" shows in TicketCard. Frontend uses `api.rides.bookInstant()` vs `api.rides.requestSeat()` based on `ride.instant_booking` flag.
+
+**Vibe Matching** — `GET /api/rides/:id/confirmed-passengers` returns public list of confirmed passengers (first name + initial only, privacy-safe). Endpoint filters `status="confirmed"`. Frontend displays overlapped avatars + dynamic text ("Laura, Dani y 2 más van"). Link to `/drivers/:id` for clickable profiles.
+
+**Pre-Ride Checklist** — New `ride_checklist` table (migration 0013) with items: `pickup_location`, `pickup_time`, `driver_phone`, `luggage_confirmation`. Endpoints: GET/POST/PATCH `/api/rides/:id/checklist*`. Driver creates items; passengers confirm via checkboxes. Status: `pending` → `confirmed` (immutable). Auth: driver-only for POST, driver + passengers for GET/PATCH. Frontend: `api.rides.listChecklist()`, `api.rides.createChecklistItem()`, `api.rides.confirmChecklistItem()`.
+
+**Payment Reminder** — Cron job `runPaymentReminders()` fires every hour at :15 (PAYMENT_REMINDERS_CRON = "15 * * * *"). Finds rides departing in 55-65 min window with `payment_reminder_sent_at IS NULL`. Sends email + push to driver + all confirmed passengers. Migration 0014 adds `rides.payment_reminder_sent_at` column. Idempotent: marks ride as reminded to prevent duplicates. Email: `sendPaymentReminderEmail()` with role-specific content (driver gets passenger count).
+
+**Driver Profile Mini** — New component `DriverProfileMini.tsx` displays avatar + name + verification badges (email ✓, license ✓) + rating + ride count + car details. Replaces TrustBadge in RideDetailPage. Entire card is clickable link to `/drivers/:id`. Styling: border hover effect, rounded, padding consistent with other cards.
+
+**Social Proof Badges** — Components `HotRidesBadge` (shows "🔥 Popular" if occupancy >= 75%) and `SocialProofText` (shows "X confirmados · Y% lleno"). Integrated into TicketCard badges row. Client-side only: calculates `seatsTaken = seats_total - seats_left`. No backend changes. Purely presentational components.
+
+See `INSTANT_BOOKING_FEATURE.md`, `VIBE_MATCHING_FEATURE.md`, `PRE_RIDE_CHECKLIST_FEATURE.md`, `PAYMENT_REMINDER_FEATURE.md`, `DRIVER_PROFILE_MINI_FEATURE.md`, `SOCIAL_PROOF_BADGES_FEATURE.md` for full documentation.

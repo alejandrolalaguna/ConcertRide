@@ -56,7 +56,6 @@ export default function ConcertDetailPage() {
       ? `${concert.artist}, cómo ir a ${concert.artist}, viaje compartido ${concert.artist}, carpooling ${concert.venue.city}, transporte ${concert.artist} ${concert.venue.city}, coche compartido ${concert.venue.name}, concierto ${concert.venue.city} 2026, ${concert.genre ?? "conciertos"} España, compartir coche ${concert.venue.city}`
       : undefined,
     ogImage: concert?.image_url ?? undefined,
-    ogType: "article",
   });
 
   useEffect(() => {

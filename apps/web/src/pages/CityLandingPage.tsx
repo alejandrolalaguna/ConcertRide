@@ -16,7 +16,7 @@ export default function CityLandingPage() {
   const [concerts, setConcerts] = useState<Concert[] | null>(null);
 
   useSeoMeta({
-    title: landing ? `Conciertos en ${landing.display} 2026` : "Conciertos por ciudad",
+    title: landing ? `Conciertos en ${landing.display} ${new Date().getFullYear()}` : "Conciertos por ciudad",
     description: landing
       ? `Todos los conciertos y festivales en ${landing.display}: ${landing.venues.slice(0, 3).join(", ")} y más. Carpooling para llegar desde cualquier ciudad de España, sin taxi ni comisiones.`
       : "Explora conciertos por ciudad en España.",

@@ -236,6 +236,7 @@ export const RIDES: Ride[] = SEEDS.map((s) => {
     completed_at: null,
     completion_confirmed_by: null,
     reminded_at: null,
+    payment_reminder_sent_at: null,
     created_at: "2026-04-10T12:00:00.000Z",
   };
 });

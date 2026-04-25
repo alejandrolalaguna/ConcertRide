@@ -37,6 +37,7 @@ import { formatDate, formatTime } from "@/lib/format";
 import { useSession } from "@/lib/session";
 import { TrustBadge } from "@/components/TrustBadge";
 import { VibeBadge } from "@/components/VibeBadge";
+import { DriverProfileMini } from "@/components/DriverProfileMini";
 import { PulsingDot } from "@/components/LoadingStates";
 import { DriverInbox } from "@/components/DriverInbox";
 import { DriverRideActions } from "@/components/DriverRideActions";
@@ -70,7 +71,6 @@ export default function RideDetailPage() {
       ? `viaje compartido ${ride.origin_city}, carpooling ${ride.concert.artist}, coche compartido ${ride.concert.venue.city}`
       : undefined,
     ogImage: ride?.concert.image_url ?? undefined,
-    ogType: "article",
   });
   const [seats, setSeats] = useState(1);
   const [message, setMessage] = useState("");
@@ -460,7 +460,7 @@ export default function RideDetailPage() {
                 <p className="font-sans text-[10px] font-semibold uppercase tracking-[0.12em] text-cr-text-muted mb-3">
                   Conductor
                 </p>
-                <TrustBadge user={ride.driver} linkToProfile />
+                <DriverProfileMini driver={ride.driver} />
                 {user && user.id !== ride.driver_id && (
                   <div className="pt-2">
                     <ReportButton targetUserId={ride.driver_id} rideId={ride.id} variant="inline" />

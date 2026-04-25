@@ -191,6 +191,7 @@ function hydrateRide(row: RideWith): Ride {
     completed_at: row.completed_at ?? null,
     completion_confirmed_by: (row.completion_confirmed_by as Ride["completion_confirmed_by"]) ?? null,
     reminded_at: row.reminded_at ?? null,
+    payment_reminder_sent_at: row.payment_reminder_sent_at ?? null,
     created_at: row.created_at,
   };
 }
@@ -766,6 +767,27 @@ export class DrizzleStore implements StoreAdapter {
     await this.db
       .update(schema.rides)
       .set({ reminded_at: new Date().toISOString() })
+      .where(eq(schema.rides.id, rideId));
+  }
+
+  async listRidesForPaymentReminder(fromISO: string, toISO: string): Promise<Ride[]> {
+    const rows = await this.db.query.rides.findMany({
+      where: (r, { and: _and, gte: _gte, lte: _lte, isNull, inArray: _inArray }) =>
+        _and(
+          _gte(r.departure_time, fromISO),
+          _lte(r.departure_time, toISO),
+          isNull(r.payment_reminder_sent_at),
+          _inArray(r.status, ["active", "full"]),
+        ),
+      with: { driver: true, concert: { with: { venue: true } } },
+    });
+    return rows.map(hydrateRide);
+  }
+
+  async markPaymentReminderSent(rideId: string): Promise<void> {
+    await this.db
+      .update(schema.rides)
+      .set({ payment_reminder_sent_at: new Date().toISOString() })
       .where(eq(schema.rides.id, rideId));
   }
 

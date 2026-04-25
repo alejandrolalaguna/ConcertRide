@@ -218,6 +218,11 @@ export interface StoreAdapter {
   listRidesForReminder(fromISO: string, toISO: string): Promise<Ride[]>;
   markRideReminded(rideId: string): Promise<void>;
 
+  // Rides with departure_time in the given ISO window whose `payment_reminder_sent_at`
+  // is still null. Used by the hourly cron that sends the 1h payment reminder.
+  listRidesForPaymentReminder(fromISO: string, toISO: string): Promise<Ride[]>;
+  markPaymentReminderSent(rideId: string): Promise<void>;
+
   // --- ride requests ---
   listRequestsForRide(rideId: string): Promise<RideRequest[]>;
   getRequest(id: string): Promise<RideRequest | null>;

@@ -3,6 +3,8 @@ import { Music, Users } from "lucide-react";
 import type { Luggage, Ride } from "@concertride/types";
 import { formatDay, formatTime, initials } from "@/lib/format";
 import { VibeBadge } from "./VibeBadge";
+import { HotRidesBadge } from "./HotRidesBadge";
+import { SocialProofText } from "./SocialProofText";
 
 const LUGGAGE_LABEL: Record<Luggage, string> = {
   none: "Sin equipaje",
@@ -103,7 +105,9 @@ export function TicketCard({ ride, onClick }: Props) {
                 Instante
               </span>
             )}
+            <HotRidesBadge seatsTaken={ride.seats_total - ride.seats_left} seatsTotal={ride.seats_total} />
           </div>
+          <SocialProofText seatsTaken={ride.seats_total - ride.seats_left} seatsTotal={ride.seats_total} />
           <p className="font-mono text-[10px] text-cr-text-dim">
             {ride.smoking_policy === "no" ? "🚭" : "🚬"}{" "}
             {ride.smoking_policy === "no" ? "No fumar" : "Fumadores"}

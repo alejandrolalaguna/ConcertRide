@@ -58,15 +58,19 @@ export function useSeoMeta({
     const resolvedOgTitle = ogTitle ?? title;
     const resolvedOgDesc = ogDescription ?? desc;
 
+    const ogUrl = canonical ?? (window.location.origin + window.location.pathname);
+
     setMeta("description", desc);
     setMeta("robots", noindex ? "noindex, nofollow" : "index, follow");
     if (keywords) setMeta("keywords", keywords);
     setMeta("og:type", ogType, true);
-    setMeta("og:url", canonical ?? window.location.href, true);
+    setMeta("og:url", ogUrl, true);
     setMeta("og:title", resolvedOgTitle, true);
     setMeta("og:description", resolvedOgDesc, true);
     setMeta("og:image", image, true);
     setMeta("og:image:secure_url", image, true);
+    setMeta("og:image:alt", `${resolvedOgTitle} — ${SITE_NAME}`, true);
+    setMeta("twitter:card", "summary_large_image");
     setMeta("twitter:title", resolvedOgTitle, true);
     setMeta("twitter:description", resolvedOgDesc, true);
     setMeta("twitter:image", image, true);

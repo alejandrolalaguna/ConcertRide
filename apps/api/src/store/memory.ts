@@ -549,6 +549,7 @@ export class MemoryStore implements StoreAdapter {
       completed_at: null,
       completion_confirmed_by: null,
       reminded_at: null,
+      payment_reminder_sent_at: null,
       created_at: new Date().toISOString(),
     };
     this.rides = [ride, ...this.rides];
@@ -568,6 +569,21 @@ export class MemoryStore implements StoreAdapter {
   async markRideReminded(rideId: string): Promise<void> {
     const ride = this.rides.find((r) => r.id === rideId);
     if (ride) ride.reminded_at = new Date().toISOString();
+  }
+
+  async listRidesForPaymentReminder(fromISO: string, toISO: string): Promise<Ride[]> {
+    return this.rides.filter(
+      (r) =>
+        !r.payment_reminder_sent_at &&
+        (r.status === "active" || r.status === "full") &&
+        r.departure_time >= fromISO &&
+        r.departure_time <= toISO,
+    );
+  }
+
+  async markPaymentReminderSent(rideId: string): Promise<void> {
+    const ride = this.rides.find((r) => r.id === rideId);
+    if (ride) ride.payment_reminder_sent_at = new Date().toISOString();
   }
 
   async cancelRide(rideId: string): Promise<Ride | null> {

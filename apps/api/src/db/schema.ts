@@ -129,6 +129,8 @@ export const rides = sqliteTable(
     // Timestamp of the last 24h-reminder email so the cron doesn't fire twice
     // for the same ride.
     reminded_at: text("reminded_at"),
+    // Timestamp of the 1h-reminder payment confirmation so the cron doesn't fire twice
+    payment_reminder_sent_at: text("payment_reminder_sent_at"),
     created_at: text("created_at").notNull().default(sql`CURRENT_TIMESTAMP`),
   },
   (t) => ({

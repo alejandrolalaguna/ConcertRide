@@ -239,6 +239,48 @@ export function sendRideReminderEmail(
   return sendEmail(env, { to: email, subject, html });
 }
 
+// ── Ride payment reminder (→ driver + passengers, 1h before) ──────────────
+export function sendPaymentReminderEmail(
+  env: Env,
+  email: string,
+  args: {
+    name: string;
+    role: "driver" | "passenger";
+    artist: string;
+    departureLocal: string;
+    origin: string;
+    venueCity: string;
+    passengerCount: number;
+    paymentMethod: string;
+    rideUrl: string;
+  },
+): Promise<SendResult> {
+  const subject = `En 1 hora: ${args.artist} · salida desde ${args.origin}`;
+  const driverDetails = args.role === "driver"
+    ? `<tr><td style="padding:4px 16px 4px 0;color:#666;">Pasajeros</td><td style="padding:4px 0;color:#fff;">${args.passengerCount} confirmados</td></tr>`
+    : "";
+  const roleLine = args.role === "driver"
+    ? "Verifica que todos tus pasajeros están listos. Si alguien no se presenta, puedes cancelar desde la app."
+    : "Asegúrate de que estés listo en el punto de recogida. Contacta al conductor si tienes dudas.";
+  const html = shell(
+    subject,
+    `¡Ya casi! Salida en 1 hora`,
+    `
+    <h1 style="font-family:Georgia,serif;font-size:28px;line-height:1.15;margin:0 0 12px 0;">¡Ya casi llega la hora! 🎶</h1>
+    <p style="color:#ccc;margin:0 0 20px 0;line-height:1.7;font-size:15px;">Hola, ${escapeHtml(args.name)}. Tu viaje a <strong style="color:#DBFF00;">${escapeHtml(args.artist)}</strong> sale en <strong style="color:#ff4f00;">1 hora</strong>.</p>
+    <table style="border-collapse:collapse;margin:0 0 24px 0;color:#aaa;font-size:14px;">
+      <tr><td style="padding:4px 16px 4px 0;color:#666;">Salida</td><td style="padding:4px 0;color:#fff;">${escapeHtml(args.departureLocal)}</td></tr>
+      <tr><td style="padding:4px 16px 4px 0;color:#666;">Origen</td><td style="padding:4px 0;color:#fff;">${escapeHtml(args.origin)}</td></tr>
+      <tr><td style="padding:4px 16px 4px 0;color:#666;">Pago</td><td style="padding:4px 0;color:#fff;">${escapeHtml(args.paymentMethod)}</td></tr>
+      ${driverDetails}
+    </table>
+    <p style="color:#ccc;margin:0 0 24px 0;line-height:1.6;font-size:14px;">${roleLine}</p>
+    ${cta(args.rideUrl, "Ver el viaje")}
+    `,
+  );
+  return sendEmail(env, { to: email, subject, html });
+}
+
 // ── Ride completed → review prompt (→ passenger + driver) ───────────────
 export function sendReviewPromptEmail(
   env: Env,
