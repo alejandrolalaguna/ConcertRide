@@ -78,6 +78,7 @@ export default function PublishRidePage() {
   const [error, setError] = useState<string | null>(null);
   const [created, setCreated] = useState<Ride | null>(null);
   const [suggestedPrice, setSuggestedPrice] = useState<number | null>(null);
+  const [maxReasonablePrice, setMaxReasonablePrice] = useState<number | null>(null);
   const [autofilledFields, setAutofilledFields] = useState<string[]>([]);
 
   useSeoMeta({
@@ -629,20 +630,12 @@ export default function PublishRidePage() {
                   onChange={(e) => update("price_per_seat", Number(e.target.value))}
                   className="w-full bg-cr-surface border-2 border-cr-border focus:border-cr-primary outline-none px-3 py-3 font-mono text-sm text-cr-text transition-colors"
                 />
-                {suggestedPrice !== null && form.price_per_seat !== suggestedPrice && (
-                  <button
-                    type="button"
-                    onClick={() => update("price_per_seat", suggestedPrice)}
-                    className="mt-1.5 font-mono text-[11px] text-cr-primary hover:underline text-left"
-                  >
-                    Sugerido: €{suggestedPrice} (basado en combustible) → aplicar
-                  </button>
-                )}
-                {suggestedPrice !== null && form.price_per_seat === suggestedPrice && (
-                  <p className="mt-1.5 font-mono text-[11px] text-cr-primary/70">
-                    ✓ Usando el precio sugerido por combustible
-                  </p>
-                )}
+                <PriceWarning
+                  pricePerSeat={form.price_per_seat}
+                  suggestedPrice={suggestedPrice}
+                  maxReasonablePrice={maxReasonablePrice}
+                  onApplySuggested={() => suggestedPrice !== null && update("price_per_seat", suggestedPrice)}
+                />
               </Field>
 
               <Field label="Plazas disponibles">
@@ -707,6 +700,7 @@ export default function PublishRidePage() {
                   form.concert?.venue.city ?? form.manual_venue_city ?? ""
                 }
                 onSuggestedPrice={setSuggestedPrice}
+                onMaxReasonablePrice={setMaxReasonablePrice}
               />
             )}
 
@@ -922,18 +916,29 @@ interface FuelPrices { gasoline95: number; diesel: number; updatedAt: string; }
 const DEFAULT_PRICES: FuelPrices = { gasoline95: 1.72, diesel: 1.62, updatedAt: "" };
 const DEFAULT_CONSUMPTION: Record<FuelType, number> = { gasoline95: 7.0, diesel: 6.0 };
 
+// Price thresholds as multiples of per-seat fuel cost:
+// - reasonable:   up to THRESHOLD_HIGH  (fuel + wear + driver premium)  → no warning
+// - high:         THRESHOLD_HIGH to THRESHOLD_VERY_HIGH                 → yellow advisory
+// - very high:    above THRESHOLD_VERY_HIGH                             → orange advisory
+const WEAR_MULTIPLIER = 1.20;       // +20% for tyres/maintenance
+const DRIVER_PREMIUM_MULTIPLIER = 1.40; // +40% driver time/risk premium
+const THRESHOLD_HIGH = WEAR_MULTIPLIER * DRIVER_PREMIUM_MULTIPLIER; // ×1.68 of fuel cost/seat
+const THRESHOLD_VERY_HIGH = 2.5;    // ×2.5 of fuel cost/seat
+
 function EarningsCalculator({
   pricePerSeat,
   seatsTotal,
   originCity,
   destinationCity,
   onSuggestedPrice,
+  onMaxReasonablePrice,
 }: {
   pricePerSeat: number;
   seatsTotal: number;
   originCity: string;
   destinationCity: string;
   onSuggestedPrice?: (price: number) => void;
+  onMaxReasonablePrice?: (price: number) => void;
 }) {
   const [fuelType, setFuelType] = useState<FuelType>("gasoline95");
   const [consumption, setConsumption] = useState<string>("7.0"); // L/100km
@@ -982,6 +987,13 @@ function EarningsCalculator({
     const suggested = Math.max(5, Math.round((fuelCost / seatsTotal) * 1.1));
     onSuggestedPrice(suggested);
   }, [fuelCost, seatsTotal, onSuggestedPrice]);
+
+  // Emit max reasonable price: fuel/seat × wear × driver premium, rounded up
+  useEffect(() => {
+    if (!onMaxReasonablePrice || !fuelCost || seatsTotal < 1) return;
+    const maxReasonable = Math.round((fuelCost / seatsTotal) * THRESHOLD_HIGH);
+    onMaxReasonablePrice(Math.max(maxReasonable, 5));
+  }, [fuelCost, seatsTotal, onMaxReasonablePrice]);
 
   return (
     <div className="border-2 border-cr-primary/30 bg-cr-primary/[0.04] p-4 space-y-4">
@@ -1080,6 +1092,94 @@ function EarningsCalculator({
 function pricesPerLitreLabel(price: number, loading: boolean): string {
   if (loading) return "cargando…";
   return `${price.toFixed(3)} €/L`;
+}
+
+function PriceWarning({
+  pricePerSeat,
+  suggestedPrice,
+  maxReasonablePrice,
+  onApplySuggested,
+}: {
+  pricePerSeat: number;
+  suggestedPrice: number | null;
+  maxReasonablePrice: number | null;
+  onApplySuggested: () => void;
+}) {
+  // No data yet — just show the basic suggested price hint
+  if (maxReasonablePrice === null || suggestedPrice === null) {
+    return suggestedPrice !== null && pricePerSeat !== suggestedPrice ? (
+      <button
+        type="button"
+        onClick={onApplySuggested}
+        className="mt-1.5 font-mono text-[11px] text-cr-primary hover:underline text-left"
+      >
+        Sugerido: €{suggestedPrice} (basado en combustible) → aplicar
+      </button>
+    ) : suggestedPrice !== null ? (
+      <p className="mt-1.5 font-mono text-[11px] text-cr-primary/70">
+        ✓ Usando el precio sugerido por combustible
+      </p>
+    ) : null;
+  }
+
+  const fuelCostPerSeat = suggestedPrice / 1.1; // reverse the 10% margin
+  const ratio = fuelCostPerSeat > 0 ? pricePerSeat / fuelCostPerSeat : 0;
+
+  if (ratio > THRESHOLD_VERY_HIGH) {
+    return (
+      <div className="mt-2 border border-cr-secondary/40 bg-cr-secondary/5 px-3 py-2 space-y-1">
+        <p className="font-sans text-[11px] font-semibold text-cr-secondary uppercase tracking-[0.1em]">
+          Precio muy por encima del coste
+        </p>
+        <p className="font-mono text-[11px] text-cr-text-muted leading-relaxed">
+          €{pricePerSeat}/asiento es más de {THRESHOLD_VERY_HIGH}× el coste de combustible
+          estimado. La LOTT prohíbe cobrar con ánimo de lucro en viajes compartidos entre
+          particulares. Considera bajar a{" "}
+          <button
+            type="button"
+            onClick={onApplySuggested}
+            className="text-cr-primary underline underline-offset-2"
+          >
+            €{suggestedPrice}
+          </button>{" "}
+          o como máximo €{maxReasonablePrice}.
+        </p>
+      </div>
+    );
+  }
+
+  if (ratio > THRESHOLD_HIGH) {
+    return (
+      <div className="mt-2 border border-amber-500/30 bg-amber-500/5 px-3 py-2 space-y-1">
+        <p className="font-sans text-[11px] font-semibold text-amber-400 uppercase tracking-[0.1em]">
+          Precio alto — repasa que sea razonable
+        </p>
+        <p className="font-mono text-[11px] text-cr-text-muted leading-relaxed">
+          €{pricePerSeat}/asiento cubre el combustible + un margen para desgaste y tu tiempo.
+          Recuerda que la plataforma es de compartición de costes, no de transporte con
+          beneficio.
+        </p>
+      </div>
+    );
+  }
+
+  if (pricePerSeat === suggestedPrice) {
+    return (
+      <p className="mt-1.5 font-mono text-[11px] text-cr-primary/70">
+        ✓ Usando el precio sugerido por combustible
+      </p>
+    );
+  }
+
+  return (
+    <button
+      type="button"
+      onClick={onApplySuggested}
+      className="mt-1.5 font-mono text-[11px] text-cr-primary hover:underline text-left"
+    >
+      Sugerido: €{suggestedPrice} (basado en combustible) → aplicar
+    </button>
+  );
 }
 
 function Stepper({ step }: { step: Step }) {
