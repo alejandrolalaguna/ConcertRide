@@ -1,12 +1,11 @@
 import { useEffect, useMemo, useRef, useState } from "react";
-import { Link, Navigate, useNavigate } from "react-router-dom";
+import { Link, Navigate, useNavigate, useSearchParams } from "react-router-dom";
 import { motion } from "motion/react";
 import confetti from "canvas-confetti";
 import { ArrowLeft, ArrowRight, Check, PenLine, Search, Sparkles } from "lucide-react";
 import type { Concert, CreateConcertInput, Luggage, PaymentMethod, Ride, SmokingPolicy, Vibe } from "@concertride/types";
 import { api, ApiError } from "@/lib/api";
 import { SPANISH_CITIES, SPANISH_CITIES_BY_NAME } from "@/lib/constants";
-import { LocationAutocomplete, type LocationValue } from "@/components/LocationAutocomplete";
 import { formatDate, formatTime } from "@/lib/format";
 import { useSession } from "@/lib/session";
 import { track } from "@/lib/observability";
@@ -26,8 +25,6 @@ interface Form {
   manual_date: string;
   manual_genre: string;
   origin_city: string;
-  origin_lat: number | null;
-  origin_lng: number | null;
   origin_address: string;
   departure_time: string;
   round_trip: boolean;
@@ -53,8 +50,6 @@ const INITIAL: Form = {
   manual_date: "",
   manual_genre: "",
   origin_city: "",
-  origin_lat: null,
-  origin_lng: null,
   origin_address: "",
   departure_time: "",
   round_trip: false,
@@ -73,6 +68,8 @@ const INITIAL: Form = {
 
 export default function PublishRidePage() {
   const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
+  const preselectedConcertId = searchParams.get("concert");
   const { user, loading: sessionLoading } = useSession();
   const [step, setStep] = useState<Step>(1);
   const [form, setForm] = useState<Form>(INITIAL);
@@ -93,8 +90,19 @@ export default function PublishRidePage() {
   });
 
   useEffect(() => {
-    api.concerts.list({ limit: 50 }).then((res) => setConcerts(res.concerts)).catch(() => setConcerts([]));
+    api.concerts
+      .list({ limit: 200, date_from: new Date().toISOString() })
+      .then((res) => setConcerts(res.concerts))
+      .catch(() => setConcerts([]));
   }, []);
+
+  // Pre-select concert from ?concert= query param once the list is loaded
+  useEffect(() => {
+    if (!preselectedConcertId || !concerts || form.concert) return;
+    const match = concerts.find((c) => c.id === preselectedConcertId);
+    if (match) update("concert", match);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [concerts, preselectedConcertId]);
 
   // Pre-fill fields from profile (only on first render, before user edits)
   useEffect(() => {
@@ -104,8 +112,6 @@ export default function PublishRidePage() {
       const patch: Partial<Form> = {};
       if (user.home_city && !f.origin_city) {
         patch.origin_city = user.home_city;
-        const knownCoord = SPANISH_CITIES.find((c) => c.name === user.home_city);
-        if (knownCoord) { patch.origin_lat = knownCoord.lat; patch.origin_lng = knownCoord.lng; }
         filled.push(`Ciudad de origen: ${user.home_city}`);
       }
       if (user.smoker === true) {
@@ -140,7 +146,7 @@ export default function PublishRidePage() {
 
   const canContinueStep1 = manualMode ? manualConcertValid : !!form.concert;
   const canContinueStep2 =
-    !!form.origin_city && !!form.origin_lat && !!form.origin_lng &&
+    !!form.origin_city &&
     form.origin_address.trim().length >= 3 &&
     !!form.departure_time &&
     (!form.round_trip || !!form.return_time) &&
@@ -181,8 +187,9 @@ export default function PublishRidePage() {
       setError("La hora de salida no puede ser en el pasado.");
       return;
     }
-    if (!form.origin_lat || !form.origin_lng) {
-      setError("Selecciona una ciudad de origen de la lista de sugerencias.");
+    const coord = SPANISH_CITIES_BY_NAME[form.origin_city];
+    if (!coord) {
+      setError("Ciudad no reconocida");
       return;
     }
     setSubmitting(true);
@@ -208,9 +215,9 @@ export default function PublishRidePage() {
 
       const ride = await api.rides.create({
         concert_id: concertId,
-        origin_city: form.origin_city,
-        origin_lat: form.origin_lat!,
-        origin_lng: form.origin_lng!,
+        origin_city: coord.name,
+        origin_lat: coord.lat,
+        origin_lng: coord.lng,
         origin_address: form.origin_address.trim(),
         departure_time: new Date(form.departure_time).toISOString(),
         price_per_seat: form.price_per_seat,
@@ -594,19 +601,18 @@ export default function PublishRidePage() {
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <Field label="Ciudad de origen">
-                <LocationAutocomplete
-                  value={form.origin_lat && form.origin_lng ? { name: form.origin_city, lat: form.origin_lat, lng: form.origin_lng } : null}
-                  onChange={(loc: LocationValue | null) => {
-                    if (loc) {
-                      setForm((f) => ({ ...f, origin_city: loc.name, origin_lat: loc.lat, origin_lng: loc.lng }));
-                    } else {
-                      setForm((f) => ({ ...f, origin_city: "", origin_lat: null, origin_lng: null }));
-                    }
-                  }}
-                  placeholder="Escribe tu ciudad o pueblo…"
-                  label="Ciudad de origen"
-                  quickCities={SPANISH_CITIES}
-                />
+                <select
+                  value={form.origin_city}
+                  onChange={(e) => update("origin_city", e.target.value)}
+                  className="w-full bg-cr-surface border-2 border-cr-border focus:border-cr-primary outline-none px-3 py-3 font-sans text-sm text-cr-text [color-scheme:dark] transition-colors"
+                >
+                  <option value="">Selecciona…</option>
+                  {SPANISH_CITIES.map((city) => (
+                    <option key={city.name} value={city.name}>
+                      {city.name}
+                    </option>
+                  ))}
+                </select>
               </Field>
 
               <Field label="Dirección de recogida">
