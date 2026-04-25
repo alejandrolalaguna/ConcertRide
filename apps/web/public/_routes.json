@@ -13,6 +13,8 @@
     "/manifest.webmanifest",
     "/og/*",
     "/*.xml",
-    "/*.txt"
+    "/*.txt",
+    "/*.json",
+    "/.well-known/*"
   ]
 }

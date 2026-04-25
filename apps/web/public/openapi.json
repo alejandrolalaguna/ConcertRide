@@ -1,0 +1,130 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "ConcertRide ES API",
+    "description": "API pública de ConcertRide ES — Carpooling para conciertos y festivales en España. Permite buscar conciertos y viajes disponibles.",
+    "version": "1.0.0",
+    "contact": {
+      "email": "alejandrolalaguna@gmail.com"
+    }
+  },
+  "servers": [
+    {
+      "url": "https://concertride.me/api",
+      "description": "Producción"
+    }
+  ],
+  "paths": {
+    "/concerts": {
+      "get": {
+        "operationId": "listConcerts",
+        "summary": "Listar conciertos",
+        "description": "Devuelve los conciertos y festivales disponibles en ConcertRide ES, con filtros opcionales por artista, ciudad y fecha.",
+        "parameters": [
+          {
+            "name": "artist",
+            "in": "query",
+            "description": "Filtrar por nombre de artista o festival",
+            "required": false,
+            "schema": { "type": "string" }
+          },
+          {
+            "name": "city",
+            "in": "query",
+            "description": "Filtrar por ciudad (ej: Madrid, Barcelona, Valencia)",
+            "required": false,
+            "schema": { "type": "string" }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "Número máximo de resultados (por defecto 20)",
+            "required": false,
+            "schema": { "type": "integer", "default": 20 }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Lista de conciertos",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "concerts": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "id": { "type": "string" },
+                          "artist": { "type": "string" },
+                          "venue": { "type": "string" },
+                          "city": { "type": "string" },
+                          "date": { "type": "string", "format": "date-time" },
+                          "active_rides_count": { "type": "integer" }
+                        }
+                      }
+                    },
+                    "total": { "type": "integer" }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/rides": {
+      "get": {
+        "operationId": "listRides",
+        "summary": "Listar viajes compartidos",
+        "description": "Devuelve los viajes compartidos disponibles hacia un concierto específico.",
+        "parameters": [
+          {
+            "name": "concert_id",
+            "in": "query",
+            "description": "ID del concierto para filtrar viajes",
+            "required": false,
+            "schema": { "type": "string" }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "Número máximo de resultados (por defecto 20)",
+            "required": false,
+            "schema": { "type": "integer", "default": 20 }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Lista de viajes disponibles",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "rides": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "id": { "type": "string" },
+                          "origin_label": { "type": "string" },
+                          "price_per_seat": { "type": "number" },
+                          "seats_left": { "type": "integer" },
+                          "departure_time": { "type": "string", "format": "date-time" },
+                          "instant_booking": { "type": "boolean" }
+                        }
+                      }
+                    },
+                    "total": { "type": "integer" }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

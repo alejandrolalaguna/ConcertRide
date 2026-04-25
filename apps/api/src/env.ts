@@ -21,6 +21,11 @@ export interface Env {
   // OG meta, JSON-LD `@id`s, and OAuth/MCP discovery docs. Set via
   // wrangler.jsonc `vars`. Defaults to https://concertride.me when missing.
   SITE_URL: string;
+  // Optional search engine verification tokens. When set, the Worker injects
+  // them into the rendered HTML for all pages instead of the static placeholders.
+  GSC_VERIFICATION_TOKEN?: string;
+  BING_VERIFICATION_TOKEN?: string;
+  YANDEX_VERIFICATION_TOKEN?: string;
   ASSETS: Fetcher;
   CACHE: KVNamespace;
 }

@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
     <meta name="theme-color" content="#080808" />
 
-    <title>ConcertRide ES — Carpooling para conciertos en España | Viajes compartidos</title>
+    <title>ConcertRide ES — Carpooling para conciertos en España</title>
     <meta
       name="description"
       content="Carpooling para conciertos en España. Comparte coche, divide gastos y llega seguro. Publica un viaje o busca uno en 2 minutos. Gratis, sin comisiones."
@@ -52,13 +52,10 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
     <meta name="mobile-web-app-capable" content="yes" />
     <meta name="format-detection" content="telephone=no" />
-    <meta name="keywords" content="carpooling conciertos, viajes compartidos España, transporte conciertos, festivales música España, ride-sharing música, BlaBlaCar conciertos, coche compartido festivales, compartir coche concierto, alternativa taxi concierto, compartir gastos festival, sin coche al festival, cómo ir al concierto, transporte nocturno concierto, carpooling festival España, viaje compartido festival" />
     <meta name="geo.region" content="ES" />
     <meta name="geo.placename" content="España" />
     <meta name="geo.position" content="40.4168;-3.7038" />
     <meta name="ICBM" content="40.4168, -3.7038" />
-    <meta name="rating" content="General" />
-    <meta name="revisit-after" content="3 days" />
     <meta name="language" content="Spanish" />
 
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
@@ -73,8 +70,8 @@
 
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="preconnect" href="https://basemaps.cartocdn.com" crossorigin />
     <link rel="dns-prefetch" href="https://api.ticketmaster.com" />
-    <link rel="dns-prefetch" href="https://basemaps.cartocdn.com" />
     <link rel="dns-prefetch" href="https://s1.ticketm.net" />
     <link
       rel="preload"
@@ -175,7 +172,7 @@
             "@type": "EntryPoint",
             "urlTemplate": "https://concertride.me/concerts?artist={search_term_string}"
           },
-          "query-input": "required name=search_term_string"
+          "query": "required name=search_term_string"
         }
       }
     </script>
@@ -275,7 +272,7 @@
     <script type="application/ld+json">
       {
         "@context": "https://schema.org",
-        "@type": ["LocalBusiness", "OnlineBusiness"],
+        "@type": "LocalBusiness",
         "@id": "https://concertride.me/#localbusiness",
         "name": "ConcertRide ES",
         "url": "https://concertride.me/",
@@ -300,7 +297,6 @@
           "latitude": 40.4168,
           "longitude": -3.7038
         },
-        "telephone": "",
         "email": "alejandrolalaguna@gmail.com",
         "openingHours": "Mo-Su 00:00-24:00",
         "sameAs": [
@@ -308,6 +304,23 @@
           "https://www.instagram.com/concertride_es/",
           "https://www.facebook.com/concertride.me",
           "https://www.linkedin.com/company/concertride-es"
+        ]
+      }
+    </script>
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Person",
+        "@id": "https://concertride.me/#founder",
+        "name": "Alejandro Lalaguna",
+        "url": "https://concertride.me/acerca-de",
+        "email": "alejandrolalaguna@gmail.com",
+        "jobTitle": "Founder",
+        "worksFor": { "@id": "https://concertride.me/#organization" },
+        "knowsAbout": ["Carpooling", "Ride-sharing", "Festivales de música", "Desarrollo web"],
+        "sameAs": [
+          "https://www.linkedin.com/company/concertride-es",
+          "https://twitter.com/concertride_es"
         ]
       }
     </script>
@@ -390,6 +403,46 @@
             "acceptedAnswer": {
               "@type": "Answer",
               "text": "Sí. Muchos conductores publican explícitamente el viaje de vuelta tras el festival, con hora estimada de salida. Es una de las principales ventajas frente al transporte público, que suele dejar de funcionar antes de que termine el show."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "¿Cuánto cuesta un viaje en ConcertRide?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "El precio lo fija libremente el conductor para cubrir combustible y peajes. El rango habitual es 3–35 €/asiento según la distancia. El precio medio es de 8–15 €/asiento. ConcertRide no añade ninguna comisión adicional."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "¿Cómo ir al Mad Cool Festival sin coche?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Puedes encontrar viajes compartidos desde Madrid y otras ciudades en ConcertRide. El festival se celebra en IFEMA (Madrid). Los viajes de ida desde el centro de Madrid cuestan entre 4 y 7 €/asiento. También puedes publicar un viaje si tienes coche y quieres dividir gastos."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "¿Qué festivales cubre ConcertRide en 2026?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "ConcertRide cubre más de 50 festivales de música en España en 2026, incluyendo Mad Cool (Madrid), Primavera Sound (Barcelona), Sónar (Barcelona), FIB (Benicàssim), BBK Live (Bilbao), Resurrection Fest (Viveiro), Arenal Sound (Burriana), Medusa Festival (Cullera), Viña Rock (Villarrobledo), O Son do Camiño (Santiago de Compostela), Cala Mijas (Málaga), Sonorama Ribera (Aranda de Duero), Low Festival (Benidorm), Tomavistas (Madrid) y Cruïlla (Barcelona)."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "¿Es más barato ConcertRide que BlaBlaCar para ir a conciertos?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Sí. ConcertRide no cobra comisión (0%), mientras que BlaBlaCar cobra entre un 12% y un 18% al pasajero. En un viaje de 10 €, el pasajero ahorra hasta 1,80 € por asiento. Además, ConcertRide está especializado en eventos musicales, lo que permite encontrar viajes con personas que van al mismo concierto."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "¿Qué ciudades tienen carpooling para festivales en ConcertRide?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "ConcertRide tiene viajes desde Madrid, Barcelona, Valencia, Sevilla, Bilbao, Málaga, Zaragoza, Granada, Donostia-San Sebastián y Santiago de Compostela. Son los 10 principales núcleos de demanda de transporte a festivales en España."
             }
           }
         ]

@@ -33,7 +33,7 @@ function esc(s: string): string {
 function buildStaticRoutes(base: string): Record<string, { title: string; description: string; canonical: string; h1: string; body: string }> {
   return {
     "/": {
-      title: `${SITE_NAME} — Carpooling para conciertos en España | Viajes compartidos`,
+      title: `${SITE_NAME} — Carpooling para conciertos en España`,
       description: "Carpooling para conciertos en España. Comparte coche, divide gastos y llega seguro. Publica un viaje o busca uno en 2 minutos. Gratis, sin comisiones.",
       canonical: `${base}/`,
       h1: "Carpooling para conciertos en España",
@@ -202,6 +202,34 @@ function buildStaticRoutes(base: string): Record<string, { title: string; descri
       canonical: `${base}/prensa`,
       h1: "Sala de prensa — ConcertRide",
       body: `<p>ConcertRide es la plataforma española de carpooling exclusiva para conciertos y festivales. Para peticiones de prensa, contacta con nosotros.</p>`,
+    },
+    "/aviso-legal": {
+      title: `Aviso Legal — ${SITE_NAME}`,
+      description: "Aviso legal de ConcertRide ES. Información sobre el titular, condiciones de uso y responsabilidad.",
+      canonical: `${base}/aviso-legal`,
+      h1: "Aviso Legal",
+      body: `<p>Información legal sobre ConcertRide ES y las condiciones de uso de la plataforma.</p>`,
+    },
+    "/privacidad": {
+      title: `Política de Privacidad — ${SITE_NAME}`,
+      description: "Política de privacidad de ConcertRide ES. Cómo recogemos, usamos y protegemos tus datos personales.",
+      canonical: `${base}/privacidad`,
+      h1: "Política de Privacidad",
+      body: `<p>Información sobre el tratamiento de datos personales en ConcertRide ES según el RGPD y la LOPDGDD.</p>`,
+    },
+    "/cookies": {
+      title: `Política de Cookies — ${SITE_NAME}`,
+      description: "Política de cookies de ConcertRide ES. Qué cookies usamos y cómo puedes gestionarlas.",
+      canonical: `${base}/cookies`,
+      h1: "Política de Cookies",
+      body: `<p>Información sobre el uso de cookies en ConcertRide ES y cómo puedes configurar tus preferencias.</p>`,
+    },
+    "/terminos": {
+      title: `Términos y Condiciones — ${SITE_NAME}`,
+      description: "Términos y condiciones de uso de ConcertRide ES. Reglas para conductores y pasajeros.",
+      canonical: `${base}/terminos`,
+      h1: "Términos y Condiciones de Uso",
+      body: `<p>Condiciones que rigen el uso de ConcertRide ES por parte de conductores y pasajeros.</p>`,
     },
     "/rutas": {
       title: `Rutas de carpooling a festivales en España | ${SITE_NAME}`,
@@ -866,6 +894,9 @@ interface PageData {
   h1: string;
   body: string;
   ogImage?: string;
+  ogType?: "website" | "article" | "music.event";
+  articlePublishedTime?: string;
+  articleAuthor?: string;
 }
 
 function resolvePageData(pathname: string, base: string): PageData | null {
@@ -929,6 +960,9 @@ function resolvePageData(pathname: string, base: string): PageData | null {
       canonical: `${base}/blog/${slug}`,
       h1: p.h1,
       body: blogBody(slug, p, base),
+      ogType: "article",
+      articlePublishedTime: p.publishedAt,
+      articleAuthor: p.author,
     };
   }
 
@@ -951,7 +985,7 @@ function resolvePageData(pathname: string, base: string): PageData | null {
 }
 
 // ── Full HTML renderer ──────────────────────────────────────────────────────
-function buildRenderedHtml(html: string, page: PageData, base: string): string {
+function buildRenderedHtml(html: string, page: PageData, base: string, env?: { GSC_VERIFICATION_TOKEN?: string; BING_VERIFICATION_TOKEN?: string; YANDEX_VERIFICATION_TOKEN?: string }): string {
   const title = esc(page.title);
   const desc = esc(page.description);
   const canonical = esc(page.canonical);
@@ -960,16 +994,42 @@ function buildRenderedHtml(html: string, page: PageData, base: string): string {
   let result = html
     .replace(/<title>[^<]*<\/title>/, `<title>${title}</title>`)
     .replace(/<meta\s+name="description"[^>]*>/, `<meta name="description" content="${desc}"/>`)
+    .replace(/<meta\s+name="robots"[^>]*>/, `<meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1"/>`)
     .replace(/<link\s+rel="canonical"[^>]*>/, `<link rel="canonical" href="${canonical}"/>`)
     .replace(/<link\s+rel="alternate"\s+hreflang="es-ES"[^>]*>/, `<link rel="alternate" hreflang="es-ES" href="${canonical}"/>`)
     .replace(/<link\s+rel="alternate"\s+hreflang="x-default"[^>]*>/, `<link rel="alternate" hreflang="x-default" href="${canonical}"/>`)
     .replace(/<meta\s+property="og:url"[^>]*>/, `<meta property="og:url" content="${canonical}"/>`)
     .replace(/<meta\s+property="og:title"[^>]*>/, `<meta property="og:title" content="${title}"/>`)
     .replace(/<meta\s+property="og:description"[^>]*>/, `<meta property="og:description" content="${desc}"/>`)
+    .replace(/<meta\s+property="og:image"[^>]*>/, `<meta property="og:image" content="${img}"/>`)
+    .replace(/<meta\s+property="og:image:secure_url"[^>]*>/, `<meta property="og:image:secure_url" content="${img}"/>`)
+    .replace(/<meta\s+property="og:image:alt"[^>]*>/, `<meta property="og:image:alt" content="${title}"/>`)
     .replace(/<meta\s+name="twitter:title"[^>]*>/, `<meta name="twitter:title" content="${title}"/>`)
     .replace(/<meta\s+name="twitter:description"[^>]*>/, `<meta name="twitter:description" content="${desc}"/>`)
-    .replace(/<meta\s+property="og:image"[^>]*>/, `<meta property="og:image" content="${img}"/>`)
-    .replace(/<meta\s+property="og:image:secure_url"[^>]*>/, `<meta property="og:image:secure_url" content="${img}"/>`);
+    .replace(/<meta\s+name="twitter:image"[^>]*>/, `<meta name="twitter:image" content="${img}"/>`)
+    .replace(/<meta\s+property="og:type"[^>]*>/, `<meta property="og:type" content="${esc(page.ogType ?? "website")}"/>`);
+
+  // Search engine verification tokens — replace placeholders from env when available
+  if (env?.GSC_VERIFICATION_TOKEN && env.GSC_VERIFICATION_TOKEN !== "REPLACE_WITH_GSC_TOKEN") {
+    result = result.replace(/content="REPLACE_WITH_GSC_TOKEN"/, `content="${esc(env.GSC_VERIFICATION_TOKEN)}"`);
+  }
+  if (env?.BING_VERIFICATION_TOKEN && env.BING_VERIFICATION_TOKEN !== "REPLACE_WITH_BING_TOKEN") {
+    result = result.replace(/content="REPLACE_WITH_BING_TOKEN"/, `content="${esc(env.BING_VERIFICATION_TOKEN)}"`);
+  }
+  if (env?.YANDEX_VERIFICATION_TOKEN && env.YANDEX_VERIFICATION_TOKEN !== "REPLACE_WITH_YANDEX_TOKEN") {
+    result = result.replace(/content="REPLACE_WITH_YANDEX_TOKEN"/, `content="${esc(env.YANDEX_VERIFICATION_TOKEN)}"`);
+  }
+
+  // Article meta tags — inject before </head> when page is an article
+  if (page.ogType === "article" && page.articlePublishedTime) {
+    const articleMeta = [
+      `<meta property="article:published_time" content="${esc(page.articlePublishedTime)}"/>`,
+      page.articleAuthor ? `<meta property="article:author" content="${esc(page.articleAuthor)}"/>` : "",
+      `<meta property="article:section" content="Carpooling"/>`,
+      `<meta property="article:publisher" content="https://www.facebook.com/concertride.me"/>`,
+    ].filter(Boolean).join("\n    ");
+    result = result.replace("</head>", `    ${articleMeta}\n  </head>`);
+  }
 
   // Inject static body content into the #root div so crawlers see real content.
   // The React app will hydrate on top of this when JS loads for real users,
@@ -1110,7 +1170,7 @@ export async function seoPrerender(c: Context<HonoEnv>, next: Next): Promise<Res
   }
 
   const html = await assetRes.text();
-  const rendered = buildRenderedHtml(html, page, base);
+  const rendered = buildRenderedHtml(html, page, base, c.env);
 
   return new Response(rendered, {
     status: 200,

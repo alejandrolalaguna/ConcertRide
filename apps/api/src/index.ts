@@ -84,6 +84,11 @@ app.get("/acerca-de", seoPrerender);
 app.get("/contacto", seoPrerender);
 app.get("/publish", seoPrerender);
 app.get("/prensa", seoPrerender);
+app.get("/aviso-legal", seoPrerender);
+app.get("/privacidad", seoPrerender);
+app.get("/cookies", seoPrerender);
+app.get("/terminos", seoPrerender);
+app.get("/concerts/:id", seoPrerender);
 
 app.use("/api/*", storeMiddleware);
 
