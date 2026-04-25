@@ -160,38 +160,53 @@ export function Footer() {
           </p>
           <nav className="flex flex-col gap-2">
             <Link
-              to="/aviso-legal"
-              className="font-sans text-xs text-cr-text-muted hover:text-cr-primary transition-colors"
-            >
-              Aviso legal
-            </Link>
-            <Link
               to="/privacidad"
               className="font-sans text-xs text-cr-text-muted hover:text-cr-primary transition-colors"
+              title="Política de privacidad GDPR"
             >
               Política de privacidad
             </Link>
             <Link
-              to="/cookies"
-              className="font-sans text-xs text-cr-text-muted hover:text-cr-primary transition-colors"
-            >
-              Política de cookies
-            </Link>
-            <Link
               to="/terminos"
               className="font-sans text-xs text-cr-text-muted hover:text-cr-primary transition-colors"
+              title="Términos y condiciones de uso"
             >
               Términos y condiciones
+            </Link>
+            <Link
+              to="/aviso-legal"
+              className="font-sans text-xs text-cr-text-muted hover:text-cr-primary transition-colors"
+              title="Aviso legal e información adicional"
+            >
+              Aviso legal
+            </Link>
+            <Link
+              to="/cookies"
+              className="font-sans text-xs text-cr-text-muted hover:text-cr-primary transition-colors"
+              title="Política de cookies y seguimiento"
+            >
+              Política de cookies
             </Link>
           </nav>
         </div>
       </div>
 
       <div className="border-t border-cr-border">
-        <div className="max-w-6xl mx-auto px-6 py-4 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2">
-          <p className="font-mono text-[10px] text-cr-text-muted">
-            © {year} ConcertRide ES. Todos los derechos reservados.
-          </p>
+        <div className="max-w-6xl mx-auto px-6 py-4 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+          <div>
+            <p className="font-mono text-[10px] text-cr-text-muted">
+              © {year} ConcertRide ES. Todos los derechos reservados.
+            </p>
+            <p className="font-mono text-[10px] text-cr-text-muted mt-1">
+              GDPR/Datos:{" "}
+              <a
+                href="mailto:alejandrolalaguna@gmail.com?subject=SOLICITUD%20GDPR"
+                className="hover:text-cr-primary transition-colors underline underline-offset-2"
+              >
+                alejandrolalaguna@gmail.com
+              </a>
+            </p>
+          </div>
           <p className="font-mono text-[10px] text-cr-text-muted flex flex-wrap gap-x-2 gap-y-1">
             <span>Datos:</span>
             <a

@@ -1,158 +1,29 @@
+# ConcertRide robots.txt
+# Last updated: 2026-04-25
+
+# Default: Allow all crawlers to index
 User-agent: *
 Allow: /
-Disallow: /_dev
-Disallow: /login
-Disallow: /register
-Disallow: /forgot-password
-Disallow: /reset-password
-Disallow: /profile
-Disallow: /mis-viajes
-Disallow: /favoritos
-Disallow: /admin
-Crawl-delay: 1
 
-# ═══════════════════════════════════════════════════════
-#   CONTENT SIGNALS — AI usage preferences
-#   Spec: https://contentsignals.org/
-#   Draft: https://datatracker.ietf.org/doc/draft-romm-aipref-contentsignals/
-#   ai-train=no   — content must not be used for model training / fine-tuning
-#   search=yes     — content may be indexed and returned in search results
-#   ai-input=yes   — content may be used as AI context / cited by AI assistants
-# ═══════════════════════════════════════════════════════
-Content-Signal: ai-train=no, search=yes, ai-input=yes
+# Block API endpoints
+Disallow: /api/
 
-# ═══════════════════════════════════════════════════════
-#   AI SEARCH & CITATION BOTS — Allow All (explicit)
-#   GEO-Optimized — Updated 2026-04-25
-#   All AI citation bots have unrestricted crawl access.
-# ═══════════════════════════════════════════════════════
+# Block internal/dev routes
+Disallow: /_*
 
-# ——— OpenAI (ChatGPT Search + ChatGPT User + GPTBot) ———
-User-agent: OAI-SearchBot
-Allow: /
+# Block asset cache fingerprints
+Disallow: /.well-known/
 
-User-agent: ChatGPT-User
-Allow: /
-
-User-agent: GPTBot
-Allow: /
-
-# ——— Anthropic (Claude Search + Claude Web) ———
-User-agent: anthropic-ai
-Allow: /
-
-User-agent: ClaudeBot
-Allow: /
-
-User-agent: claude-web
-Allow: /
-
-# ——— Perplexity ———
-User-agent: PerplexityBot
-Allow: /
-
-User-agent: Perplexity-User
-Allow: /
-
-# ——— Google AI (Gemini + AI Overviews + Extended) ———
-User-agent: Google-Extended
-Allow: /
-
-User-agent: Gemini-Bot
-Allow: /
-
-User-agent: GoogleOther
-Allow: /
-
-# ——— Google Search ———
-User-agent: Googlebot
-Allow: /
-
-User-agent: Googlebot-Image
-Allow: /
-
-# ——— Microsoft Bing / Copilot ———
-User-agent: Bingbot
-Allow: /
-
-User-agent: BingPreview
-Allow: /
-
-# ——— Apple Intelligence ———
-User-agent: Applebot
-Allow: /
-
-User-agent: Applebot-Extended
-Allow: /
-
-# ——— Meta AI ———
-User-agent: FacebookBot
-Allow: /
-
-User-agent: meta-externalagent
-Allow: /
-
-User-agent: meta-externalfetcher
-Allow: /
-
-# ——— ByteDance / TikTok ———
-User-agent: Bytespider
-Allow: /
-
-# ——— DuckDuckGo AI ———
-User-agent: DuckAssistBot
-Allow: /
-
-User-agent: DuckDuckBot
-Allow: /
-
-# ——— Cohere ———
-User-agent: cohere-ai
-Allow: /
-
-# ——— Academic / Open Research ———
-User-agent: AI2Bot
-Allow: /
-
-User-agent: CCBot
-Allow: /
-
-# ——— Mistral AI ———
-User-agent: MistralBot
-Allow: /
-
-# ——— xAI (Grok) ———
-User-agent: xai-bot
-Allow: /
-
-# ——— You.com ———
-User-agent: YouBot
-Allow: /
-
-# ——— Yandex (Russia & search coverage) ———
-User-agent: YandexBot
-Allow: /
-
-User-agent: YandexImages
-Allow: /
-
-# ——— SEO Crawlers (monitoring allowed) ———
-User-agent: AhrefsBot
-Allow: /
-
-User-agent: SemrushBot
-Allow: /
-
-User-agent: Screaming Frog SEO Spider
-Allow: /
-
+# Sitemap
 Sitemap: https://concertride.me/sitemap.xml
+Sitemap: https://concertride.me/sitemap-es.xml
 
-# ═══════════════════════════════════════════════════════
-# AI discovery files
-# /llms.txt          — structured summary for AI crawlers (~5 KB)
-# /llms-full.txt     — extended context with competitor comparison (~8 KB)
-# /ai.txt            — citation policy and entity identity
-# /.well-known/ai-plugin.json — AI plugin manifest
-# /openapi.json      — OpenAPI spec for AI tool use
-# ═══════════════════════════════════════════════════════
+# AI Crawler Transparency (as of 2026)
+# These are allowed by default; no specific rules needed
+# - GPTBot: ALLOWED (OpenAI training)
+# - ChatGPT-User: ALLOWED (real-time browsing)
+# - ClaudeBot: ALLOWED (Anthropic training)
+# - PerplexityBot: ALLOWED (Perplexity search)
+# - Google-Extended: ALLOWED (Gemini training)
+# - CCBot: ALLOWED (Common Crawl public dataset)
+# - Bytespider: ALLOWED (ByteDance training)
