@@ -57,12 +57,27 @@ export default function GuiaTransporteFestivalesPage() {
       "@id": "https://concertride.es/#organization",
     },
     datePublished: "2026-04-24",
-    dateModified: "2026-04-24",
+    dateModified: "2026-04-25",
     mainEntityOfPage: "https://concertride.es/guia-transporte-festivales",
     about: {
       "@type": "Thing",
       name: "Transporte para festivales de música en España",
     },
+  };
+
+  const jsonLdHowToPassenger = {
+    "@context": "https://schema.org",
+    "@type": "HowTo",
+    name: "Cómo encontrar carpooling para un festival en España",
+    description: "Proceso en 4 pasos para reservar un viaje compartido a un festival de música en España usando ConcertRide.",
+    totalTime: "PT5M",
+    estimatedCost: { "@type": "MonetaryAmount", currency: "EUR", value: "8-15" },
+    step: [
+      { "@type": "HowToStep", position: 1, name: "Buscar el festival", text: "Entra en concertride.es/concerts y busca el festival por nombre o selecciona la landing page del festival (e.g. concertride.es/festivales/mad-cool). Verás todos los viajes disponibles agrupados por ciudad de origen." },
+      { "@type": "HowToStep", position: 2, name: "Elegir un viaje desde tu ciudad", text: "Filtra por tu ciudad de origen. Compara precios por asiento, vibe (tranquilo/fiestero), plazas libres y valoración del conductor. Mira quiénes son los pasajeros ya confirmados." },
+      { "@type": "HowToStep", position: 3, name: "Reservar tu plaza", text: "Pulsa 'Reservar asiento' y selecciona el número de plazas. Si el conductor tiene reserva instantánea, quedas confirmado al instante. Si no, el conductor revisa tu solicitud en horas." },
+      { "@type": "HowToStep", position: 4, name: "Viajar y pagar", text: "El día del festival, el conductor te recoge en el punto acordado. Pagas directamente en efectivo o Bizum al conductor — sin comisión de plataforma. Acuerda también la hora de vuelta." },
+    ],
   };
 
   const jsonLdFaq = {
@@ -92,6 +107,7 @@ export default function GuiaTransporteFestivalesPage() {
   return (
     <main id="main" className="min-h-dvh bg-cr-bg text-cr-text pt-14">
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdArticle) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdHowToPassenger) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdFaq) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdBreadcrumb) }} />
 

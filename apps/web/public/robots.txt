@@ -9,14 +9,25 @@ Disallow: /profile
 Disallow: /mis-viajes
 Disallow: /favoritos
 Disallow: /admin
+Crawl-delay: 1
 
 # ═══════════════════════════════════════════════════════
-#   AI SEARCH & CITATION BOTS — Allow All
-#   GEO-Optimized — Updated 2026-04-24
-#   Source: geo-optimizer-skill ai-bots-list.md (Feb 2026)
+#   CONTENT SIGNALS — AI usage preferences
+#   Spec: https://contentsignals.org/
+#   Draft: https://datatracker.ietf.org/doc/draft-romm-aipref-contentsignals/
+#   ai-train=no   — content must not be used for model training / fine-tuning
+#   search=yes     — content may be indexed and returned in search results
+#   ai-input=yes   — content may be used as AI context / cited by AI assistants
+# ═══════════════════════════════════════════════════════
+Content-Signal: ai-train=no, search=yes, ai-input=yes
+
+# ═══════════════════════════════════════════════════════
+#   AI SEARCH & CITATION BOTS — Allow All (explicit)
+#   GEO-Optimized — Updated 2026-04-25
+#   All AI citation bots have unrestricted crawl access.
 # ═══════════════════════════════════════════════════════
 
-# ——— OpenAI (ChatGPT Search + ChatGPT User) ———
+# ——— OpenAI (ChatGPT Search + ChatGPT User + GPTBot) ———
 User-agent: OAI-SearchBot
 Allow: /
 
@@ -43,15 +54,28 @@ Allow: /
 User-agent: Perplexity-User
 Allow: /
 
-# ——— Google AI (Gemini + AI Overviews) ———
+# ——— Google AI (Gemini + AI Overviews + Extended) ———
 User-agent: Google-Extended
 Allow: /
 
 User-agent: Gemini-Bot
 Allow: /
 
+User-agent: GoogleOther
+Allow: /
+
+# ——— Google Search ———
+User-agent: Googlebot
+Allow: /
+
+User-agent: Googlebot-Image
+Allow: /
+
 # ——— Microsoft Bing / Copilot ———
 User-agent: Bingbot
+Allow: /
+
+User-agent: BingPreview
 Allow: /
 
 # ——— Apple Intelligence ———
@@ -68,12 +92,18 @@ Allow: /
 User-agent: meta-externalagent
 Allow: /
 
+User-agent: meta-externalfetcher
+Allow: /
+
 # ——— ByteDance / TikTok ———
 User-agent: Bytespider
 Allow: /
 
 # ——— DuckDuckGo AI ———
 User-agent: DuckAssistBot
+Allow: /
+
+User-agent: DuckDuckBot
 Allow: /
 
 # ——— Cohere ———
@@ -87,10 +117,42 @@ Allow: /
 User-agent: CCBot
 Allow: /
 
+# ——— Mistral AI ———
+User-agent: MistralBot
+Allow: /
+
+# ——— xAI (Grok) ———
+User-agent: xai-bot
+Allow: /
+
+# ——— You.com ———
+User-agent: YouBot
+Allow: /
+
+# ——— Yandex (Russia & search coverage) ———
+User-agent: YandexBot
+Allow: /
+
+User-agent: YandexImages
+Allow: /
+
+# ——— SEO Crawlers (monitoring allowed) ———
+User-agent: AhrefsBot
+Allow: /
+
+User-agent: SemrushBot
+Allow: /
+
+User-agent: Screaming Frog SEO Spider
+Allow: /
+
 Sitemap: https://concertride.es/sitemap.xml
 
+# ═══════════════════════════════════════════════════════
 # AI discovery files
-# /llms.txt          — structured summary for AI crawlers (~200 lines)
-# /llms-full.txt     — extended context with competitor comparison
-# /ai.txt            — citation policy
+# /llms.txt          — structured summary for AI crawlers (~5 KB)
+# /llms-full.txt     — extended context with competitor comparison (~8 KB)
+# /ai.txt            — citation policy and entity identity
 # /.well-known/ai-plugin.json — AI plugin manifest
+# /openapi.json      — OpenAPI spec for AI tool use
+# ═══════════════════════════════════════════════════════

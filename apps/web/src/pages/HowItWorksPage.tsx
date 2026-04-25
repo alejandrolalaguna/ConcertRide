@@ -94,6 +94,27 @@ export default function HowItWorksPage() {
         dangerouslySetInnerHTML={{
           __html: JSON.stringify({
             "@context": "https://schema.org",
+            "@type": "HowTo",
+            name: "Cómo publicar un viaje a un concierto en ConcertRide (conductor)",
+            description:
+              "Proceso en 4 pasos para ofrecer plazas en tu coche a un concierto o festival usando ConcertRide. Recuperas el coste de gasolina y peajes sin comisión.",
+            totalTime: "PT10M",
+            estimatedCost: { "@type": "MonetaryAmount", currency: "EUR", value: "0" },
+            step: DRIVER_STEPS.map((s, i) => ({
+              "@type": "HowToStep",
+              position: i + 1,
+              name: s.title,
+              text: s.body,
+              url: `https://concertride.es/como-funciona#driver-${i + 1}`,
+            })),
+          }),
+        }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
             "@type": "BreadcrumbList",
             itemListElement: [
               { "@type": "ListItem", position: 1, name: "Inicio", item: "https://concertride.es/" },

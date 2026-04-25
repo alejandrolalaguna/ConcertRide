@@ -19,6 +19,7 @@ import favorites from "./routes/favorites";
 import reports from "./routes/reports";
 import admin from "./routes/admin";
 import { rateLimit } from "./lib/ratelimit";
+import { htmlToMarkdown, estimateTokens } from "./lib/markdown";
 import * as Sentry from "@sentry/cloudflare";
 
 const ALLOWED_ORIGINS = [
@@ -129,24 +130,81 @@ const FESTIVAL_META: Record<string, { name: string; city: string; venue: string;
   "cruilla": { name: "Cruïlla Barcelona", city: "Barcelona", venue: "Parc del Fòrum", dates: "9–12 julio 2026" },
 };
 
-app.notFound((c) => {
+app.notFound(async (c) => {
   if (c.req.path.startsWith("/api/")) {
     return c.json({ error: "not_found", path: c.req.path }, 404);
   }
 
   // Inject festival-specific OG meta for social/AI crawlers
   const ua = c.req.header("User-Agent") ?? "";
+  const accept = c.req.header("Accept") ?? "";
+  const wantsMarkdown = accept.includes("text/markdown");
+
   const festivalMatch = c.req.path.match(/^\/festivales\/([^/]+)$/);
-  if (festivalMatch && SOCIAL_BOTS.test(ua)) {
+  if (festivalMatch && (SOCIAL_BOTS.test(ua) || wantsMarkdown)) {
     const slug = festivalMatch[1] ?? "";
     const meta = FESTIVAL_META[slug];
     if (meta) {
       const title = `Cómo ir a ${meta.name} 2026 — Carpooling desde toda España`;
       const desc = `Carpooling a ${meta.name} (${meta.venue}, ${meta.city}) ${meta.dates}. Viajes compartidos desde cualquier ciudad. Desde 5 €/asiento. Sin taxi, sin comisión. ConcertRide.`;
       const url = `https://concertride.es/festivales/${slug}`;
+
+      if (wantsMarkdown) {
+        const markdown = [
+          `# ${title}`,
+          "",
+          desc,
+          "",
+          `**Festival:** ${meta.name}`,
+          `**Ciudad:** ${meta.city}`,
+          `**Recinto:** ${meta.venue}`,
+          `**Fechas:** ${meta.dates}`,
+          "",
+          `Reserva tu viaje en [ConcertRide](${url})`,
+          "",
+          "## Precios desde distintas ciudades",
+          "- Desde ciudades cercanas: 3–8 €/asiento",
+          "- Desde capitales de provincia: 8–20 €/asiento",
+          "- Sin comisión de plataforma. Pago en efectivo o Bizum al conductor.",
+          "",
+          `Más información: ${url}`,
+        ].join("\n");
+        const tokens = estimateTokens(markdown);
+        return new Response(markdown, {
+          status: 200,
+          headers: {
+            "Content-Type": "text/markdown; charset=utf-8",
+            "x-markdown-tokens": String(tokens),
+            "Cache-Control": "public, max-age=3600",
+            "Vary": "Accept",
+          },
+        });
+      }
+
       const html = `<!doctype html><html lang="es"><head><meta charset="UTF-8"/><title>${title}</title><meta name="description" content="${desc}"/><link rel="canonical" href="${url}"/><meta property="og:type" content="website"/><meta property="og:url" content="${url}"/><meta property="og:title" content="${title}"/><meta property="og:description" content="${desc}"/><meta property="og:image" content="https://concertride.es/og/home.png"/><meta property="og:locale" content="es_ES"/><meta name="twitter:card" content="summary_large_image"/><meta name="twitter:title" content="${title}"/><meta name="twitter:description" content="${desc}"/><meta name="twitter:image" content="https://concertride.es/og/home.png"/></head><body><p>Cargando ConcertRide…</p><script>window.location.href="${url}"</script></body></html>`;
       return c.html(html, 200, { "Cache-Control": "public, max-age=3600" });
     }
+  }
+
+  // Markdown negotiation for all other pages (SPA HTML shell)
+  if (wantsMarkdown) {
+    const assetResponse = await c.env.ASSETS.fetch(c.req.raw);
+    const contentType = assetResponse.headers.get("content-type") ?? "";
+    if (contentType.includes("text/html")) {
+      const html = await assetResponse.text();
+      const markdown = htmlToMarkdown(html);
+      const tokens = estimateTokens(markdown);
+      return new Response(markdown, {
+        status: assetResponse.status,
+        headers: {
+          "Content-Type": "text/markdown; charset=utf-8",
+          "x-markdown-tokens": String(tokens),
+          "Cache-Control": "public, max-age=3600",
+          "Vary": "Accept",
+        },
+      });
+    }
+    return assetResponse;
   }
 
   return c.env.ASSETS.fetch(c.req.raw);
