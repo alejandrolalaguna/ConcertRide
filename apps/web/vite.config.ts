@@ -4,11 +4,17 @@ import tailwindcss from "@tailwindcss/vite";
 import { VitePWA } from "vite-plugin-pwa";
 import path from "node:path";
 
+// SSR build is enabled by setting VITE_SSR_BUILD=1 in the env. The prerender
+// script builds twice: once for the browser (default), once for Node SSR
+// (entry-server.tsx). Keeping a single config keeps tailwind + alias aligned
+// across both.
+const isSsrBuild = process.env.VITE_SSR_BUILD === "1";
+
 export default defineConfig({
   plugins: [
     react(),
     tailwindcss(),
-    VitePWA({
+    !isSsrBuild && VitePWA({
       registerType: "autoUpdate",
       strategies: "injectManifest",
       srcDir: "src",
@@ -42,7 +48,7 @@ export default defineConfig({
         globPatterns: ["**/*.{js,css,html,ico,png,svg,webp,woff,woff2}"],
       },
     }),
-  ],
+  ].filter(Boolean),
   resolve: {
     alias: {
       "@": path.resolve(__dirname, "./src"),
@@ -59,8 +65,22 @@ export default defineConfig({
       },
     },
   },
-  build: {
-    outDir: "dist",
-    sourcemap: true,
+  build: isSsrBuild
+    ? {
+        outDir: "dist-ssr",
+        ssr: "src/entry-server.tsx",
+        sourcemap: false,
+        rollupOptions: {
+          output: { format: "esm" },
+        },
+      }
+    : {
+        outDir: "dist",
+        sourcemap: true,
+      },
+  ssr: {
+    // Bundle these so the SSR output is fully self-contained — Node has no
+    // browser globals these libs may touch on import.
+    noExternal: ["react-router-dom", "lucide-react", "motion"],
   },
 });
