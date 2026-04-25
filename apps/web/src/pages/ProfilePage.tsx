@@ -88,7 +88,8 @@ export default function ProfilePage() {
   const [verifying, setVerifying] = useState(false);
   const [verifyError, setVerifyError] = useState<string | null>(null);
   const [licenseSubmitted, setLicenseSubmitted] = useState(false);
-  const [selectedFileName, setSelectedFileName] = useState<string | null>(null);
+  const [selectedFile, setSelectedFile] = useState<File | null>(null);
+  const [previewUrl, setPreviewUrl] = useState<string | null>(null);
   const [otpSent, setOtpSent] = useState(false);
   const [otpCode, setOtpCode] = useState("");
   const [otpSending, setOtpSending] = useState(false);
@@ -608,49 +609,100 @@ export default function ProfilePage() {
                     </p>
                   </div>
                 </div>
-                <label
-                  className={`flex flex-col items-start gap-2 w-full border-2 border-dashed border-cr-border px-4 py-5 transition-colors cursor-pointer ${
-                    verifying
-                      ? "opacity-40 pointer-events-none"
-                      : "hover:border-cr-primary"
-                  }`}
-                >
-                  <input
-                    type="file"
-                    accept="image/jpeg,image/png,image/webp,application/pdf"
-                    className="sr-only"
-                    disabled={verifying}
-                    onChange={async (e) => {
-                      const file = e.target.files?.[0];
-                      if (!file) return;
-                      setSelectedFileName(file.name);
-                      setVerifying(true);
-                      setVerifyError(null);
-                      try {
-                        await api.auth.verifyLicense(file);
-                        setLicenseSubmitted(true);
-                      } catch (err) {
-                        setVerifyError(err instanceof Error ? err.message : "Error al enviar el documento");
-                      } finally {
-                        setVerifying(false);
-                      }
-                    }}
-                  />
-                  <span className="inline-flex items-center gap-2 font-sans text-xs font-semibold uppercase tracking-[0.12em] text-cr-text-muted">
-                    <Upload size={12} aria-hidden="true" />
-                    {verifying ? "Enviando…" : "Seleccionar archivo"}
-                  </span>
-                  {selectedFileName && !verifying && (
-                    <span className="font-mono text-[11px] text-cr-text-dim truncate max-w-full">
-                      {selectedFileName}
+
+                {/* Step 1: file picker (hidden once a file is selected) */}
+                {!selectedFile && (
+                  <label className="flex flex-col items-center gap-3 w-full border-2 border-dashed border-cr-border px-4 py-6 transition-colors cursor-pointer hover:border-cr-primary">
+                    <input
+                      type="file"
+                      accept="image/jpeg,image/png,image/webp,application/pdf"
+                      className="sr-only"
+                      onChange={(e) => {
+                        const file = e.target.files?.[0];
+                        if (!file) return;
+                        setSelectedFile(file);
+                        setVerifyError(null);
+                        if (file.type.startsWith("image/")) {
+                          const url = URL.createObjectURL(file);
+                          setPreviewUrl(url);
+                        } else {
+                          setPreviewUrl(null);
+                        }
+                      }}
+                    />
+                    <Upload size={20} className="text-cr-text-muted" aria-hidden="true" />
+                    <span className="font-sans text-xs font-semibold uppercase tracking-[0.12em] text-cr-text-muted">
+                      Seleccionar archivo
                     </span>
-                  )}
-                  {verifying && (
-                    <span className="font-mono text-[11px] text-cr-text-muted animate-pulse">
-                      Subiendo…
+                    <span className="font-mono text-[10px] text-cr-text-dim">
+                      JPEG · PNG · WebP · PDF — máx. 4 MB
                     </span>
-                  )}
-                </label>
+                  </label>
+                )}
+
+                {/* Step 2: preview + confirm */}
+                {selectedFile && (
+                  <div className="space-y-3">
+                    {previewUrl ? (
+                      <div className="border border-cr-border bg-cr-surface p-2">
+                        <img
+                          src={previewUrl}
+                          alt="Vista previa del carnet"
+                          className="max-h-52 w-full object-contain"
+                        />
+                      </div>
+                    ) : (
+                      <div className="flex items-center gap-2 border border-cr-border bg-cr-surface px-3 py-3">
+                        <Upload size={13} className="text-cr-text-muted shrink-0" aria-hidden="true" />
+                        <span className="font-mono text-xs text-cr-text truncate">{selectedFile.name}</span>
+                      </div>
+                    )}
+
+                    <p className="font-mono text-[11px] text-cr-text-muted">
+                      {selectedFile.name} · {(selectedFile.size / 1024).toFixed(0)} KB
+                    </p>
+
+                    <div className="flex gap-2">
+                      <button
+                        type="button"
+                        disabled={verifying}
+                        onClick={() => {
+                          if (previewUrl) URL.revokeObjectURL(previewUrl);
+                          setSelectedFile(null);
+                          setPreviewUrl(null);
+                          setVerifyError(null);
+                        }}
+                        className="flex-1 font-sans text-xs font-semibold uppercase tracking-[0.1em] text-cr-text-muted border border-cr-border px-3 py-2 hover:border-cr-primary hover:text-cr-text transition-colors disabled:opacity-40"
+                      >
+                        Cambiar
+                      </button>
+                      <button
+                        type="button"
+                        disabled={verifying}
+                        onClick={async () => {
+                          if (!selectedFile) return;
+                          setVerifying(true);
+                          setVerifyError(null);
+                          try {
+                            await api.auth.verifyLicense(selectedFile);
+                            if (previewUrl) URL.revokeObjectURL(previewUrl);
+                            setLicenseSubmitted(true);
+                            setSelectedFile(null);
+                            setPreviewUrl(null);
+                          } catch (err) {
+                            setVerifyError(err instanceof Error ? err.message : "Error al enviar el documento");
+                          } finally {
+                            setVerifying(false);
+                          }
+                        }}
+                        className="flex-1 font-sans text-xs font-semibold uppercase tracking-[0.1em] bg-cr-primary text-black px-3 py-2 hover:bg-cr-primary/90 transition-colors disabled:opacity-50 disabled:pointer-events-none"
+                      >
+                        {verifying ? "Enviando…" : "Confirmar y enviar"}
+                      </button>
+                    </div>
+                  </div>
+                )}
+
                 {verifyError && (
                   <p className="font-mono text-xs text-cr-secondary">{verifyError}</p>
                 )}

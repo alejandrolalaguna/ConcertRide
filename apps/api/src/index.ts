@@ -325,7 +325,50 @@ app.use("*", async (c, next) => {
     return next();
   }
 
-  // Fetch the asset (or let the rest of the chain handle it)
+  // Festival pages: return rich markdown directly (the SPA shell has no content)
+  const festivalMatch = c.req.path.match(/^\/festivales\/([^/]+)$/);
+  if (festivalMatch) {
+    const slug = festivalMatch[1] ?? "";
+    const meta = FESTIVAL_META[slug];
+    if (meta) {
+      const title = `Cómo ir a ${meta.name} 2026 — Carpooling desde toda España`;
+      const desc = `Carpooling a ${meta.name} (${meta.venue}, ${meta.city}) ${meta.dates}. Viajes compartidos desde cualquier ciudad. Desde 5 €/asiento. Sin taxi, sin comisión. ConcertRide.`;
+      const url = `https://concertride.es/festivales/${slug}`;
+      const markdown = [
+        `# ${title}`,
+        "",
+        desc,
+        "",
+        `**Festival:** ${meta.name}`,
+        `**Ciudad:** ${meta.city}`,
+        `**Recinto:** ${meta.venue}`,
+        `**Fechas:** ${meta.dates}`,
+        "",
+        `Reserva tu viaje en [ConcertRide](${url})`,
+        "",
+        "## Precios desde distintas ciudades",
+        "- Desde ciudades cercanas: 3–8 €/asiento",
+        "- Desde capitales de provincia: 8–20 €/asiento",
+        "- Sin comisión de plataforma. Pago en efectivo o Bizum al conductor.",
+        "",
+        `Más información: ${url}`,
+      ].join("\n");
+      const tokens = estimateTokens(markdown);
+      return new Response(markdown, {
+        status: 200,
+        headers: {
+          "Content-Type": "text/markdown; charset=utf-8",
+          "x-markdown-tokens": String(tokens),
+          "Cache-Control": "public, max-age=3600",
+          "Vary": "Accept",
+        },
+      });
+    }
+  }
+
+  // For other pages: fetch the static asset and convert its HTML to markdown.
+  // The SPA shell (index.html) has little content so the result is thin but
+  // still valid — agents that crawl the root or unknown paths get something.
   const assetResponse = await c.env.ASSETS.fetch(c.req.raw);
   const contentType = assetResponse.headers.get("content-type") ?? "";
   if (!contentType.includes("text/html")) {
