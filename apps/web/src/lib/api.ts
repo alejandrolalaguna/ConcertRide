@@ -368,6 +368,13 @@ export const api = {
         method: "DELETE",
       }),
   },
+  alerts: {
+    subscribeFestival: (email: string, festival_slug: string) =>
+      request<{ ok: true; created: boolean }>("/api/alerts/festival", {
+        method: "POST",
+        body: JSON.stringify({ email, festival_slug }),
+      }),
+  },
 };
 
 export { ApiError };

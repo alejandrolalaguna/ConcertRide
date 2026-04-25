@@ -316,6 +316,11 @@ export interface StoreAdapter {
   // Update checklist item status to "confirmed"
   confirmChecklistItem(itemId: string): Promise<{ id: string; item_type: string; value: string | null; status: string; created_at: string; confirmed_at: string | null } | null>;
 
+  // --- festival alerts ---
+  // Subscribe an email to ride-published notifications for a festival.
+  // Returns { created: true } on first subscribe, { created: false } if already subscribed.
+  subscribeFestivalAlert(email: string, festivalSlug: string): Promise<{ created: boolean }>;
+
   // --- maintenance ---
   // Deletes concerts whose date is before `beforeDate` and have no active rides.
   deletePastConcerts(beforeDate: string): Promise<number>;

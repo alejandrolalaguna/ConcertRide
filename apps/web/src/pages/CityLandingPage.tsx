@@ -9,6 +9,7 @@ import { useSeoMeta } from "@/lib/useSeoMeta";
 import { SITE_URL } from "@/lib/siteUrl";
 import { CITY_LANDINGS, CITY_LANDINGS_BY_SLUG } from "@/lib/cityLandings";
 import { FESTIVAL_LANDINGS } from "@/lib/festivalLandings";
+import { trackCityView } from "@/lib/seoEvents";
 
 export default function CityLandingPage() {
   const { city: slug } = useParams<{ city: string }>();
@@ -38,8 +39,14 @@ export default function CityLandingPage() {
         date_from: new Date().toISOString(),
         limit: 50,
       })
-      .then((r) => setConcerts(r.concerts))
-      .catch(() => setConcerts([]));
+      .then((r) => {
+        setConcerts(r.concerts);
+        trackCityView(landing.slug, landing.display, r.concerts.filter((c) => new Date(c.date).getTime() > Date.now()).length);
+      })
+      .catch(() => {
+        setConcerts([]);
+        trackCityView(landing.slug, landing.display, 0);
+      });
   }, [landing]);
 
   if (!slug || !landing) return <Navigate to="/concerts" replace />;
@@ -105,6 +112,46 @@ export default function CityLandingPage() {
                 name: landing.display,
                 item: `${SITE_URL}/conciertos/${landing.slug}`,
               },
+            ],
+          }),
+        }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "LocalBusiness",
+            "@id": `${SITE_URL}/conciertos/${landing.slug}#localbusiness`,
+            name: `ConcertRide — Carpooling para conciertos en ${landing.display}`,
+            description: landing.blurb,
+            url: `${SITE_URL}/conciertos/${landing.slug}`,
+            logo: `${SITE_URL}/favicon.svg`,
+            image: `${SITE_URL}/og/home.png`,
+            telephone: "",
+            priceRange: "€3–€35",
+            currenciesAccepted: "EUR",
+            paymentAccepted: "Cash, Bizum",
+            openingHours: "Mo-Su 00:00-24:00",
+            areaServed: {
+              "@type": "City",
+              name: landing.display,
+              sameAs: `https://www.wikidata.org/wiki/Special:Search/${encodeURIComponent(landing.display)}`,
+            },
+            address: {
+              "@type": "PostalAddress",
+              addressLocality: landing.display,
+              addressRegion: landing.region,
+              addressCountry: "ES",
+            },
+            geo: {
+              "@type": "GeoCoordinates",
+              latitude: landing.lat,
+              longitude: landing.lng,
+            },
+            sameAs: [
+              "https://twitter.com/concertride_es",
+              "https://www.instagram.com/concertride_es/",
             ],
           }),
         }}

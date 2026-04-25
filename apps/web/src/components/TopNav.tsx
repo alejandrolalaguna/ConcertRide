@@ -33,6 +33,28 @@ export function TopNav() {
       >
         Concert<span className="text-cr-primary">Ride</span>
       </Link>
+
+      {/* Centre nav links — hidden on small screens */}
+      <div className="hidden md:flex items-center gap-6 absolute left-1/2 -translate-x-1/2">
+        <Link
+          to="/concerts"
+          className="font-sans text-[11px] font-semibold uppercase tracking-[0.12em] text-cr-text-muted hover:text-cr-primary transition-colors"
+        >
+          Conciertos
+        </Link>
+        <Link
+          to="/festivales"
+          className="font-sans text-[11px] font-semibold uppercase tracking-[0.12em] text-cr-text-muted hover:text-cr-primary transition-colors"
+        >
+          Festivales
+        </Link>
+        <Link
+          to="/blog"
+          className="font-sans text-[11px] font-semibold uppercase tracking-[0.12em] text-cr-text-muted hover:text-cr-primary transition-colors"
+        >
+          Blog
+        </Link>
+      </div>
       {user ? (
         <div className="relative">
           <button

@@ -1,4 +1,6 @@
 import { useEffect, useMemo, useState } from "react";
+import { Link } from "react-router-dom";
+import { ArrowRight } from "lucide-react";
 import type { Concert, Ride } from "@concertride/types";
 import { api } from "@/lib/api";
 import { useSeoMeta } from "@/lib/useSeoMeta";
@@ -150,6 +152,125 @@ export default function LandingPage() {
               , ranking europeo de música en directo
             </footer>
           </blockquote>
+        </div>
+      </section>
+
+      {/* ── Content hub — internal linking para SEO ── */}
+      <section className="border-t border-cr-border bg-cr-bg">
+        <div className="max-w-6xl mx-auto px-6 py-12 md:py-16 space-y-10">
+          <div className="space-y-2">
+            <p className="font-sans text-[11px] font-semibold uppercase tracking-[0.16em] text-cr-primary">
+              Guías y recursos
+            </p>
+            <h2 className="font-display text-2xl md:text-3xl uppercase">
+              Todo lo que necesitas saber
+            </h2>
+          </div>
+
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+            {/* Blog */}
+            <Link
+              to="/blog/blablacar-vs-concertride"
+              className="border border-cr-border p-5 hover:border-cr-primary/50 transition-colors group space-y-3"
+            >
+              <p className="font-mono text-[10px] uppercase tracking-[0.14em] text-cr-primary">Comparativa</p>
+              <h3 className="font-display text-base uppercase leading-tight group-hover:text-cr-primary transition-colors">
+                BlaBlaCar vs ConcertRide 2026
+              </h3>
+              <p className="font-sans text-xs text-cr-text-muted leading-relaxed">
+                Comisiones, vuelta de madrugada, política de cancelación. Te decimos cuándo conviene cada una.
+              </p>
+              <span className="inline-flex items-center gap-1 font-sans text-xs text-cr-primary">
+                Leer <ArrowRight size={11} />
+              </span>
+            </Link>
+
+            {/* Guía transporte */}
+            <Link
+              to="/guia-transporte-festivales"
+              className="border border-cr-border p-5 hover:border-cr-primary/50 transition-colors group space-y-3"
+            >
+              <p className="font-mono text-[10px] uppercase tracking-[0.14em] text-cr-primary">Guía</p>
+              <h3 className="font-display text-base uppercase leading-tight group-hover:text-cr-primary transition-colors">
+                Guía de transporte para festivales
+              </h3>
+              <p className="font-sans text-xs text-cr-text-muted leading-relaxed">
+                Carpooling, lanzaderas, tren o taxi: cuándo usar cada opción y cómo ahorrar en el trayecto.
+              </p>
+              <span className="inline-flex items-center gap-1 font-sans text-xs text-cr-primary">
+                Leer <ArrowRight size={11} />
+              </span>
+            </Link>
+
+            {/* Vuelta madrugada */}
+            <Link
+              to="/blog/como-volver-festival-madrugada"
+              className="border border-cr-border p-5 hover:border-cr-primary/50 transition-colors group space-y-3"
+            >
+              <p className="font-mono text-[10px] uppercase tracking-[0.14em] text-cr-primary">Guía</p>
+              <h3 className="font-display text-base uppercase leading-tight group-hover:text-cr-primary transition-colors">
+                Cómo volver de un festival de madrugada
+              </h3>
+              <p className="font-sans text-xs text-cr-text-muted leading-relaxed">
+                El último metro sale a la 1:30 y el festival acaba a las 2:30. Opciones reales sin pagar 90&nbsp;€ de taxi.
+              </p>
+              <span className="inline-flex items-center gap-1 font-sans text-xs text-cr-primary">
+                Leer <ArrowRight size={11} />
+              </span>
+            </Link>
+
+            {/* Rutas top */}
+            <Link
+              to="/rutas/madrid-mad-cool"
+              className="border border-cr-border p-5 hover:border-cr-primary/50 transition-colors group space-y-3"
+            >
+              <p className="font-mono text-[10px] uppercase tracking-[0.14em] text-cr-primary">Ruta</p>
+              <h3 className="font-display text-base uppercase leading-tight group-hover:text-cr-primary transition-colors">
+                Carpooling Madrid → Mad Cool
+              </h3>
+              <p className="font-sans text-xs text-cr-text-muted leading-relaxed">
+                Precios, tiempo de conducción y horarios de vuelta para la ruta más popular a Mad Cool 2026.
+              </p>
+              <span className="inline-flex items-center gap-1 font-sans text-xs text-cr-primary">
+                Ver ruta <ArrowRight size={11} />
+              </span>
+            </Link>
+
+            <Link
+              to="/rutas/madrid-primavera-sound"
+              className="border border-cr-border p-5 hover:border-cr-primary/50 transition-colors group space-y-3"
+            >
+              <p className="font-mono text-[10px] uppercase tracking-[0.14em] text-cr-primary">Ruta</p>
+              <h3 className="font-display text-base uppercase leading-tight group-hover:text-cr-primary transition-colors">
+                Carpooling Madrid → Primavera Sound
+              </h3>
+              <p className="font-sans text-xs text-cr-text-muted leading-relaxed">
+                Madrid–Barcelona en coche compartido: 620 km, ~5 h 30 min, desde 14&nbsp;€/asiento.
+              </p>
+              <span className="inline-flex items-center gap-1 font-sans text-xs text-cr-primary">
+                Ver ruta <ArrowRight size={11} />
+              </span>
+            </Link>
+
+            {/* Blog index */}
+            <Link
+              to="/blog"
+              className="border border-cr-border p-5 hover:border-cr-primary/50 transition-colors group space-y-3 flex flex-col justify-between"
+            >
+              <div className="space-y-3">
+                <p className="font-mono text-[10px] uppercase tracking-[0.14em] text-cr-primary">Blog</p>
+                <h3 className="font-display text-base uppercase leading-tight group-hover:text-cr-primary transition-colors">
+                  Más artículos y guías
+                </h3>
+                <p className="font-sans text-xs text-cr-text-muted leading-relaxed">
+                  Comparativas, datos de sostenibilidad y todo lo que necesitas para ir a un festival en España.
+                </p>
+              </div>
+              <span className="inline-flex items-center gap-1 font-sans text-xs text-cr-primary mt-3">
+                Ver blog <ArrowRight size={11} />
+              </span>
+            </Link>
+          </div>
         </div>
       </section>
 

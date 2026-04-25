@@ -1231,6 +1231,23 @@ export class MemoryStore implements StoreAdapter {
       confirmed_at: item.confirmed_at,
     };
   }
+
+  // --- festival alerts ---
+  private festivalAlerts: Array<{ id: string; email: string; festival_slug: string; created_at: string }> = [];
+
+  async subscribeFestivalAlert(email: string, festivalSlug: string): Promise<{ created: boolean }> {
+    const exists = this.festivalAlerts.some(
+      (a) => a.email === email && a.festival_slug === festivalSlug,
+    );
+    if (exists) return { created: false };
+    this.festivalAlerts.push({
+      id: `fa_${crypto.randomUUID().slice(0, 10)}`,
+      email,
+      festival_slug: festivalSlug,
+      created_at: new Date().toISOString(),
+    });
+    return { created: true };
+  }
 }
 
 // Module-level singleton so state persists across requests in the same isolate.

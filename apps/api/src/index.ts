@@ -18,6 +18,7 @@ import messages from "./routes/messages";
 import favorites from "./routes/favorites";
 import reports from "./routes/reports";
 import admin from "./routes/admin";
+import alerts from "./routes/alerts";
 import { rateLimit } from "./lib/ratelimit";
 import { htmlToMarkdown, estimateTokens } from "./lib/markdown";
 import { seoPrerender } from "./lib/seoPrerender";
@@ -299,6 +300,7 @@ app.route("/api/messages", messages);
 app.route("/api/favorites", favorites);
 app.route("/api/reports", reports);
 app.route("/api/admin", admin);
+app.route("/api/alerts", alerts);
 
 // Social / AI crawlers get a thin OG-enriched HTML shell for festival pages
 // so WhatsApp, Twitter, LinkedIn and AI scrapers see correct title/description/image

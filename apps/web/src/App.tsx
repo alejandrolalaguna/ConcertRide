@@ -33,6 +33,11 @@ const CityLandingPage = lazy(() => import("./pages/CityLandingPage"));
 const FestivalLandingPage = lazy(() => import("./pages/FestivalLandingPage"));
 const FestivalesPage = lazy(() => import("./pages/FestivalesPage"));
 const GuiaTransporteFestivalesPage = lazy(() => import("./pages/GuiaTransporteFestivalesPage"));
+const BlogIndexPage = lazy(() => import("./pages/BlogIndexPage"));
+const BlogPostPage = lazy(() => import("./pages/BlogPostPage"));
+const RouteLandingPage = lazy(() => import("./pages/RouteLandingPage"));
+const RutasIndexPage = lazy(() => import("./pages/RutasIndexPage"));
+const PrensaPage = lazy(() => import("./pages/PrensaPage"));
 const NotFoundPage = lazy(() => import("./pages/NotFoundPage"));
 const DevShowcase = lazy(() => import("./pages/DevShowcase"));
 
@@ -57,6 +62,11 @@ export default function App() {
             <Route path="/festivales" element={<FestivalesPage />} />
             <Route path="/festivales/:festival" element={<FestivalLandingPage />} />
             <Route path="/guia-transporte-festivales" element={<GuiaTransporteFestivalesPage />} />
+            <Route path="/blog" element={<BlogIndexPage />} />
+            <Route path="/blog/:slug" element={<BlogPostPage />} />
+            <Route path="/rutas" element={<RutasIndexPage />} />
+            <Route path="/rutas/:route" element={<RouteLandingPage />} />
+            <Route path="/prensa" element={<PrensaPage />} />
             <Route path="/rides/:id" element={<RideDetailPage />} />
             <Route path="/publish" element={<PublishRidePage />} />
             <Route path="/login" element={<LoginPage />} />

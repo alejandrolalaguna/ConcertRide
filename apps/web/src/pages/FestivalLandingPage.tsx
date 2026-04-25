@@ -8,6 +8,8 @@ import { LoadingSpinner } from "@/components/ui";
 import { useSeoMeta } from "@/lib/useSeoMeta";
 import { SITE_URL } from "@/lib/siteUrl";
 import { FESTIVAL_LANDINGS, FESTIVAL_LANDINGS_BY_SLUG } from "@/lib/festivalLandings";
+import { trackFestivalView } from "@/lib/seoEvents";
+import { FestivalAlertWidget } from "@/components/FestivalAlertWidget";
 
 export default function FestivalLandingPage() {
   const { festival: slug } = useParams<{ festival: string }>();
@@ -39,8 +41,14 @@ export default function FestivalLandingPage() {
         date_from: new Date().toISOString(),
         limit: 12,
       })
-      .then((r) => setConcerts(r.concerts))
-      .catch(() => setConcerts([]));
+      .then((r) => {
+        setConcerts(r.concerts);
+        trackFestivalView(festival.slug, festival.name, r.concerts.filter((c) => new Date(c.date).getTime() > Date.now()).length);
+      })
+      .catch(() => {
+        setConcerts([]);
+        trackFestivalView(festival.slug, festival.name, 0);
+      });
   }, [festival]);
 
   if (!slug || !festival) return <Navigate to="/concerts" replace />;
@@ -307,6 +315,11 @@ export default function FestivalLandingPage() {
             ))}
           </div>
         )}
+      </section>
+
+      {/* ── Alerta de viajes ── */}
+      <section className="max-w-6xl mx-auto px-6 pb-16 border-t border-cr-border pt-12">
+        <FestivalAlertWidget festivalSlug={festival.slug} festivalName={festival.shortName} />
       </section>
 
       {/* ── Por qué ConcertRide para este festival ── */}

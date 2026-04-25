@@ -28,7 +28,7 @@ if (!(await exists(ssrEntry))) {
   console.error(`[prerender] SSR bundle missing at ${ssrEntry}. Did the SSR build run?`);
   process.exit(1);
 }
-const { render, FESTIVAL_SLUGS, CITY_SLUGS } = await import(pathToFileURL(ssrEntry).href);
+const { render, FESTIVAL_SLUGS, CITY_SLUGS, BLOG_SLUGS, ROUTE_SLUGS } = await import(pathToFileURL(ssrEntry).href);
 
 // ── Read shell ──────────────────────────────────────────────────────────────
 const shellPath = path.join(distDir, "index.html");
@@ -40,6 +40,9 @@ const STATIC_ROUTES = [
   "/concerts",
   "/festivales",
   "/guia-transporte-festivales",
+  "/blog",
+  "/rutas",
+  "/prensa",
   "/como-funciona",
   "/faq",
   "/contacto",
@@ -50,13 +53,18 @@ const STATIC_ROUTES = [
   "/terminos",
 ];
 
+const BLOG_POST_SLUGS = BLOG_SLUGS ?? [];
+const ROUTE_LANDING_SLUGS = ROUTE_SLUGS ?? [];
+
 const ROUTES = [
   ...STATIC_ROUTES,
   ...FESTIVAL_SLUGS.map((slug) => `/festivales/${slug}`),
   ...CITY_SLUGS.map((slug) => `/conciertos/${slug}`),
+  ...BLOG_POST_SLUGS.map((slug) => `/blog/${slug}`),
+  ...ROUTE_LANDING_SLUGS.map((slug) => `/rutas/${slug}`),
 ];
 
-console.log(`[prerender] ${ROUTES.length} routes (${FESTIVAL_SLUGS.length} festivals, ${CITY_SLUGS.length} cities)`);
+console.log(`[prerender] ${ROUTES.length} routes (${FESTIVAL_SLUGS.length} festivals, ${CITY_SLUGS.length} cities, ${BLOG_POST_SLUGS.length} blog posts, ${ROUTE_LANDING_SLUGS.length} routes)`);
 
 let ok = 0;
 let failed = 0;
@@ -184,16 +192,22 @@ async function writeSitemap(urls) {
   const today = new Date().toISOString().slice(0, 10);
   const PRIORITY = (u) => {
     if (u === "/") return "1.0";
-    if (u === "/concerts" || u === "/festivales" || u === "/guia-transporte-festivales") return "0.9";
+    if (u === "/concerts" || u === "/festivales" || u === "/guia-transporte-festivales" || u === "/rutas") return "0.9";
     if (u.startsWith("/festivales/")) return "0.85";
     if (u.startsWith("/conciertos/")) return "0.8";
+    if (u === "/blog") return "0.8";
+    if (u.startsWith("/blog/")) return "0.75";
+    if (u.startsWith("/rutas/")) return "0.7";
     if (["/como-funciona", "/faq"].includes(u)) return "0.7";
-    if (["/acerca-de", "/contacto"].includes(u)) return "0.6";
+    if (["/acerca-de", "/contacto", "/prensa"].includes(u)) return "0.6";
     return "0.3";
   };
   const FREQ = (u) => {
     if (u === "/" || u === "/concerts") return "daily";
     if (u.startsWith("/festivales") || u.startsWith("/conciertos/")) return "weekly";
+    if (u === "/blog" || u === "/rutas") return "weekly";
+    if (u.startsWith("/blog/")) return "monthly";
+    if (u.startsWith("/rutas/")) return "monthly";
     return "monthly";
   };
   const entries = urls.map((u) => `  <url>

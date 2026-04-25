@@ -1926,6 +1926,21 @@ export class DrizzleStore implements StoreAdapter {
       confirmed_at: row.confirmed_at,
     };
   }
+
+  // --- festival alerts ---
+  async subscribeFestivalAlert(email: string, festivalSlug: string): Promise<{ created: boolean }> {
+    try {
+      await this.db.insert(schema.festivalAlerts).values({
+        id: `fa_${crypto.randomUUID().slice(0, 10)}`,
+        email,
+        festival_slug: festivalSlug,
+      });
+      return { created: true };
+    } catch {
+      // Unique constraint violation — already subscribed
+      return { created: false };
+    }
+  }
 }
 
 export function createDrizzleStore(env: Env): StoreAdapter {

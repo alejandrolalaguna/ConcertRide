@@ -54,6 +54,12 @@ export function Footer() {
               Cómo funciona
             </Link>
             <Link
+              to="/rutas"
+              className="font-sans text-xs text-cr-text-muted hover:text-cr-primary transition-colors"
+            >
+              Rutas de carpooling
+            </Link>
+            <Link
               to="/guia-transporte-festivales"
               className="font-sans text-xs text-cr-text-muted hover:text-cr-primary transition-colors"
             >
@@ -64,6 +70,18 @@ export function Footer() {
               className="font-sans text-xs text-cr-text-muted hover:text-cr-primary transition-colors"
             >
               Preguntas frecuentes
+            </Link>
+            <Link
+              to="/blog"
+              className="font-sans text-xs text-cr-text-muted hover:text-cr-primary transition-colors"
+            >
+              Blog
+            </Link>
+            <Link
+              to="/prensa"
+              className="font-sans text-xs text-cr-text-muted hover:text-cr-primary transition-colors"
+            >
+              Prensa
             </Link>
             <Link
               to="/acerca-de"

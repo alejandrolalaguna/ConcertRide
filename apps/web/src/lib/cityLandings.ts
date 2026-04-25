@@ -10,6 +10,8 @@ export interface CityLanding {
   region: string;        // CC.AA. for schema.org addressRegion
   blurb: string;         // short factual description, LLM-friendly
   venues: string[];      // notable venues/festivals in that city
+  lat: number;           // WGS84 latitude — for LocalBusiness schema
+  lng: number;           // WGS84 longitude
 }
 
 export const CITY_LANDINGS: CityLanding[] = [
@@ -27,6 +29,7 @@ export const CITY_LANDINGS: CityLanding[] = [
       "IFEMA (Mad Cool Festival)",
       "Coca-Cola Music Experience",
     ],
+    lat: 40.4168, lng: -3.7038,
   },
   {
     slug: "barcelona",
@@ -41,6 +44,7 @@ export const CITY_LANDINGS: CityLanding[] = [
       "Fira Montjuïc (Sónar)",
       "Palau Blaugrana",
     ],
+    lat: 41.3851, lng: 2.1734,
   },
   {
     slug: "valencia",
@@ -55,6 +59,7 @@ export const CITY_LANDINGS: CityLanding[] = [
       "Medusa Festival (Cullera)",
       "Iboga Summer (Tavernes)",
     ],
+    lat: 39.4699, lng: -0.3763,
   },
   {
     slug: "sevilla",
@@ -68,6 +73,7 @@ export const CITY_LANDINGS: CityLanding[] = [
       "FIBES Sevilla",
       "Interestelar Sevilla (Charco de la Pava)",
     ],
+    lat: 37.3891, lng: -5.9845,
   },
   {
     slug: "bilbao",
@@ -77,6 +83,7 @@ export const CITY_LANDINGS: CityLanding[] = [
     blurb:
       "Bilbao es referencia para festivales internacionales del norte: BBK Live en Kobetamendi cada julio, y Bilbao Arena para tours indoor. La proximidad con Donostia (Jazzaldia) y la cornisa cantábrica hace que el carpooling sea la forma natural de moverse por los festivales del verano vasco.",
     venues: ["Kobetamendi (BBK Live)", "Bilbao Arena"],
+    lat: 43.2630, lng: -2.9350,
   },
   {
     slug: "malaga",
@@ -86,6 +93,7 @@ export const CITY_LANDINGS: CityLanding[] = [
     blurb:
       "Málaga concentra los festivales más solares de España: Cala Mijas (Mijas), Andalucía Big (Cortijo de Torres), Marenostrum (Castillo Sohail de Fuengirola). La Costa del Sol es densa en eventos pero el transporte público es limitado — el coche compartido es la opción por defecto.",
     venues: ["Cala Mijas Fest", "Andalucía Big Festival", "Marenostrum Music Castle"],
+    lat: 36.7213, lng: -4.4217,
   },
   {
     slug: "zaragoza",
@@ -95,6 +103,7 @@ export const CITY_LANDINGS: CityLanding[] = [
     blurb:
       "Zaragoza es nodo estratégico por su ubicación equidistante entre Madrid y Barcelona. Además de conciertos en el Príncipe Felipe, es origen natural para viajes a Pirineos Sur (Lanuza), Primavera Sound (Barcelona) y Mad Cool (Madrid).",
     venues: ["Pabellón Príncipe Felipe", "Pirineos Sur (Lanuza)"],
+    lat: 41.6488, lng: -0.8891,
   },
   {
     slug: "granada",
@@ -104,6 +113,7 @@ export const CITY_LANDINGS: CityLanding[] = [
     blurb:
       "Granada acoge Granada Sound en septiembre (Cortijo del Conde) y conciertos independientes durante todo el año. Origen frecuente para viajes a festivales andaluces del verano: Cala Mijas, Andalucía Big, Interestelar Sevilla.",
     venues: ["Granada Sound (Cortijo del Conde)"],
+    lat: 37.1773, lng: -3.5986,
   },
   {
     slug: "donostia",
@@ -113,6 +123,7 @@ export const CITY_LANDINGS: CityLanding[] = [
     blurb:
       "Donostia destaca por Heineken Jazzaldia en julio (Plaza de la Trinidad, Kursaal) y una agenda indie densa en salas pequeñas. Cercanía con BBK Live y Azkena Rock hace que muchos viajes compartidos salgan de aquí en verano.",
     venues: ["Plaza de la Trinidad", "Kursaal", "Heineken Jazzaldia"],
+    lat: 43.3183, lng: -1.9812,
   },
   {
     slug: "santiago-de-compostela",
@@ -122,6 +133,7 @@ export const CITY_LANDINGS: CityLanding[] = [
     blurb:
       "Santiago acoge O Son do Camiño en Monte do Gozo cada junio, uno de los festivales con mayor aforo de España (90 000+ personas). ConcertRide es especialmente útil para gallegos que viven en aldeas sin transporte directo al recinto.",
     venues: ["Monte do Gozo (O Son do Camiño)"],
+    lat: 42.8782, lng: -8.5448,
   },
 ];
 

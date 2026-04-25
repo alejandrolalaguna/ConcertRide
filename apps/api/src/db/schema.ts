@@ -478,3 +478,19 @@ export type LicenseReviewRow = typeof licenseReviews.$inferSelect;
 export type BannedEmailRow = typeof bannedEmails.$inferSelect;
 export type AdminAuditLogRow = typeof adminAuditLog.$inferSelect;
 export type RideChecklistRow = typeof rideChecklist.$inferSelect;
+
+export const festivalAlerts = sqliteTable(
+  "festival_alerts",
+  {
+    id: text("id").primaryKey(),
+    email: text("email").notNull(),
+    festival_slug: text("festival_slug").notNull(),
+    created_at: text("created_at").notNull().default(sql`CURRENT_TIMESTAMP`),
+  },
+  (t) => ({
+    emailSlugUniq: uniqueIndex("festival_alerts_email_slug_uniq").on(t.email, t.festival_slug),
+    slugIdx: index("festival_alerts_slug_idx").on(t.festival_slug),
+  }),
+);
+
+export type FestivalAlertRow = typeof festivalAlerts.$inferSelect;

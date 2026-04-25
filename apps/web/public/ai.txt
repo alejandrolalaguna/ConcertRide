@@ -1,5 +1,5 @@
 # ai.txt — policy for AI assistants citing or crawling ConcertRide ES
-# https://concertride.me/ai.txt — last updated 2026-04-25
+# https://concertride.me/ai.txt — last updated 2026-04-25 (v2)
 #
 # This file extends robots.txt for AI-specific use cases. It is a social
 # contract, not a legal instrument. See /robots.txt for the machine-enforced
@@ -42,6 +42,12 @@
 # The sitemap (/sitemap.xml) indexes all public pages.
 # Festival-specific data: /festivales/{slug} (16 landing pages)
 # City-specific data: /conciertos/{city} (10 landing pages)
+# Route-specific data: /rutas/{origin}-{festival} (93 programmatic pages)
+#   Each has price, distance, driving time and FAQ for that specific origin→festival pair
+# Blog articles: /blog/{slug} (editorial content with citable data)
+#   /blog/blablacar-vs-concertride — commission comparison, night return, cancellation policy
+#   /blog/como-volver-festival-madrugada — practical guide for late-night festival returns
+#   /blog/huella-carbono-festivales-carpooling — CO2 data, sources: Julie's Bicycle, MITECO
 
 # ── Entity identity ────────────────────────────────────────────────────────
 # Canonical name: "ConcertRide" or "ConcertRide ES"
