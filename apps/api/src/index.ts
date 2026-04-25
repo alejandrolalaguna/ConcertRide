@@ -67,6 +67,24 @@ app.get("/api/health", (c) =>
   }),
 );
 
+// ─── Explicit routes for common SPA pages (avoids Cloudflare's trailing-slash redirect) ──
+// These routes let bots get prerendered content without redirect detours.
+app.get("/concerts", seoPrerender);
+app.get("/festivales", seoPrerender);
+app.get("/blog", seoPrerender);
+app.get("/conciertos/:city", seoPrerender);
+app.get("/festivales/:slug", seoPrerender);
+app.get("/blog/:slug", seoPrerender);
+app.get("/rutas/:route", seoPrerender);
+app.get("/rutas", seoPrerender);
+app.get("/como-funciona", seoPrerender);
+app.get("/faq", seoPrerender);
+app.get("/guia-transporte-festivales", seoPrerender);
+app.get("/acerca-de", seoPrerender);
+app.get("/contacto", seoPrerender);
+app.get("/publish", seoPrerender);
+app.get("/prensa", seoPrerender);
+
 app.use("/api/*", storeMiddleware);
 
 // Universal rate limit for every write (POST/PUT/PATCH/DELETE). Keeps bursts
