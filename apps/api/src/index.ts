@@ -310,6 +310,42 @@ const FESTIVAL_META: Record<string, { name: string; city: string; venue: string;
   "cruilla": { name: "Cruïlla Barcelona", city: "Barcelona", venue: "Parc del Fòrum", dates: "9–12 julio 2026" },
 };
 
+// ─── Markdown negotiation for all non-API routes ─────────────────────────────
+// This middleware runs on every non-API GET so that requests with
+// `Accept: text/markdown` are served as Markdown regardless of whether the
+// path resolves to a static asset (which Cloudflare would otherwise serve
+// directly, bypassing notFound). Must be registered before notFound.
+app.use("*", async (c, next) => {
+  // Only intercept non-API GETs that explicitly want Markdown
+  if (
+    c.req.method !== "GET" ||
+    c.req.path.startsWith("/api/") ||
+    !((c.req.header("Accept") ?? "").includes("text/markdown"))
+  ) {
+    return next();
+  }
+
+  // Fetch the asset (or let the rest of the chain handle it)
+  const assetResponse = await c.env.ASSETS.fetch(c.req.raw);
+  const contentType = assetResponse.headers.get("content-type") ?? "";
+  if (!contentType.includes("text/html")) {
+    return assetResponse;
+  }
+
+  const html = await assetResponse.text();
+  const markdown = htmlToMarkdown(html);
+  const tokens = estimateTokens(markdown);
+  return new Response(markdown, {
+    status: assetResponse.status,
+    headers: {
+      "Content-Type": "text/markdown; charset=utf-8",
+      "x-markdown-tokens": String(tokens),
+      "Cache-Control": "public, max-age=3600",
+      "Vary": "Accept",
+    },
+  });
+});
+
 app.notFound(async (c) => {
   if (c.req.path.startsWith("/api/")) {
     return c.json({ error: "not_found", path: c.req.path }, 404);
@@ -364,27 +400,6 @@ app.notFound(async (c) => {
       const html = `<!doctype html><html lang="es"><head><meta charset="UTF-8"/><title>${title}</title><meta name="description" content="${desc}"/><link rel="canonical" href="${url}"/><meta property="og:type" content="website"/><meta property="og:url" content="${url}"/><meta property="og:title" content="${title}"/><meta property="og:description" content="${desc}"/><meta property="og:image" content="https://concertride.es/og/home.png"/><meta property="og:locale" content="es_ES"/><meta name="twitter:card" content="summary_large_image"/><meta name="twitter:title" content="${title}"/><meta name="twitter:description" content="${desc}"/><meta name="twitter:image" content="https://concertride.es/og/home.png"/></head><body><p>Cargando ConcertRide…</p><script>window.location.href="${url}"</script></body></html>`;
       return c.html(html, 200, { "Cache-Control": "public, max-age=3600" });
     }
-  }
-
-  // Markdown negotiation for all other pages (SPA HTML shell)
-  if (wantsMarkdown) {
-    const assetResponse = await c.env.ASSETS.fetch(c.req.raw);
-    const contentType = assetResponse.headers.get("content-type") ?? "";
-    if (contentType.includes("text/html")) {
-      const html = await assetResponse.text();
-      const markdown = htmlToMarkdown(html);
-      const tokens = estimateTokens(markdown);
-      return new Response(markdown, {
-        status: assetResponse.status,
-        headers: {
-          "Content-Type": "text/markdown; charset=utf-8",
-          "x-markdown-tokens": String(tokens),
-          "Cache-Control": "public, max-age=3600",
-          "Vary": "Accept",
-        },
-      });
-    }
-    return assetResponse;
   }
 
   return c.env.ASSETS.fetch(c.req.raw);
