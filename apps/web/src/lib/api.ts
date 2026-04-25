@@ -22,6 +22,7 @@ import type {
   Review,
   ReviewsResponse,
   Ride,
+  RideChecklistItem,
   RideRequest,
   RidesQuery,
   RidesResponse,
@@ -232,6 +233,26 @@ export const api = {
     confirmedPassengers: (rideId: string) =>
       request<{ passengers: Array<{ id: string; name: string; initial: string; seats: number }> }>(
         `/api/rides/${encodeURIComponent(rideId)}/confirmed-passengers`,
+      ),
+    listChecklist: (rideId: string) =>
+      request<{ items: import("@concertride/types").RideChecklistItem[] }>(
+        `/api/rides/${encodeURIComponent(rideId)}/checklist`,
+      ),
+    createChecklistItem: (
+      rideId: string,
+      item: { item_type: import("@concertride/types").RideChecklistItemType; value?: string },
+    ) =>
+      request<import("@concertride/types").RideChecklistItem>(
+        `/api/rides/${encodeURIComponent(rideId)}/checklist`,
+        {
+          method: "POST",
+          body: JSON.stringify(item),
+        },
+      ),
+    confirmChecklistItem: (rideId: string, itemId: string) =>
+      request<import("@concertride/types").RideChecklistItem>(
+        `/api/rides/${encodeURIComponent(rideId)}/checklist/${encodeURIComponent(itemId)}`,
+        { method: "PATCH" },
       ),
   },
   venues: {

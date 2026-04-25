@@ -297,6 +297,18 @@ export interface StoreAdapter {
   // --- phone verification ---
   markPhoneVerified(userId: string): Promise<User | null>;
 
+  // --- ride checklist ---
+  // Get all checklist items for a ride
+  listChecklistForRide(rideId: string): Promise<Array<{ id: string; item_type: string; value: string | null; status: string; created_at: string; confirmed_at: string | null }>>;
+  // Create a new checklist item
+  createChecklistItem(
+    rideId: string,
+    itemType: "pickup_location" | "pickup_time" | "driver_phone" | "luggage_confirmation",
+    value?: string,
+  ): Promise<{ id: string; item_type: string; value: string | null; status: string; created_at: string; confirmed_at: string | null }>;
+  // Update checklist item status to "confirmed"
+  confirmChecklistItem(itemId: string): Promise<{ id: string; item_type: string; value: string | null; status: string; created_at: string; confirmed_at: string | null } | null>;
+
   // --- maintenance ---
   // Deletes concerts whose date is before `beforeDate` and have no active rides.
   deletePastConcerts(beforeDate: string): Promise<number>;

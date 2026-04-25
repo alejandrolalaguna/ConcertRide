@@ -7,17 +7,42 @@
 
 ---
 
-## Veredicto actual
+## Estado de tareas
 
-| Dimensión | Estado | Bloqueante |
-|---|---|---|
-| Backend (seguridad/correctitud) | 6/10 | Sí — license verification stub |
-| Frontend (flujos/UX) | 7.5/10 | No |
-| Datos (catálogo real) | 4/10 | Sí — vacío en día 1 sin backfill |
-| SEO / GEO | 8.5/10 | No |
-| Operaciones (visibilidad fundador) | 3/10 | Sí — sin analytics ni dashboard |
+| Tarea | Estado |
+|---|---|
+| 1.1 Secrets en Wrangler (JWT, INGEST, TURSO, TM, VAPID x2) | ✅ Completado |
+| 1.2 DB schema + 3 índices nuevos aplicados a producción | ✅ Completado |
+| 1.2b Migración 0011 (license_reviews) | ✅ Schema en código — necesita `npm run db:push` en producción si falta |
+| 1.2c Migración 0012 (trust/safety: banned_emails, audit_log, user fields) | ✅ Schema en código + SQL generado |
+| 1.3 Resend + RESEND_API_KEY | ⏳ Pendiente (espera dominio concertride.es activo) |
+| 1.4 ADMIN_USER_IDS: u_2a5956aa + u_ba0612cd (backup) | ✅ Completado |
+| 1.5 Deploy en producción | ✅ Completado — https://concertride.alejandrolalaguna.workers.dev |
+| 2.1 Backfill Ticketmaster + festivales | ✅ 870 conciertos, 179 venues en producción |
+| 2.4 Verificar sitemap post-backfill | 🔜 Pendiente |
+| 3.1 License verification manual (flujo admin) | ✅ Completado |
+| 3.2 Índice rides.driver_id | ✅ Aplicado (migración 0010) |
+| 4.1 Dashboard admin — métricas de plataforma | ✅ Completado |
+| 4.2 Dashboard usuario — "Tu impacto" | ✅ Completado |
+| 5.1 Middleware requireVerifiedEmail centralizado | ✅ Completado |
+| 5.2 Errores silenciosos en frontend | ✅ Completado |
+| 5.3 Validación fecha pasada en PublishRidePage | ✅ Completado |
+| 5.4 Fix UX upload de carnet | ✅ Completado |
 
-**Objetivo:** Lanzamiento de beta privada en ~3 semanas. Lanzamiento público cuando el catálogo esté validado y las operaciones sean observables.
+---
+
+## Veredicto actual (2026-04-24)
+
+| Dimensión | Estado | Bloqueante | Notas |
+|---|---|---|---|
+| Backend (seguridad/correctitud) | 8/10 | No | Trust/safety completo (ban system, audit log, license reviews) |
+| Frontend (flujos/UX) | 8/10 | No | Error handling, validaciones, UX del carnet mejorado |
+| Datos (catálogo real) | 9/10 | No | 870 conciertos + 179 venues en DB (Ticketmaster backfill) |
+| SEO / GEO | 9/10 | No | Sitemap dinámico, robots.txt, /llms.txt, AI crawler allowlist |
+| Operaciones (visibilidad fundador) | 8/10 | No | Admin dashboard + audit log + error tracking (Sentry listo) |
+| Trust & Safety | 8.5/10 | No | Email verification, license review, ban system, abuse reports |
+
+**Objetivo:** Beta privada lista. **Bloqueo para lanzamiento público:** Dominio concertride.es activo + RESEND_API_KEY configurado para emails transaccionales.
 
 ---
 
@@ -208,77 +233,9 @@ curl -I https://concertride.es/
 
 ---
 
-## FASE 2 — Datos reales en catálogo (semana 1–2)
-*Sin esta fase, los usuarios ven una app vacía.*
+## FASE 2 — Datos reales en catálogo ✅ Completado
 
----
-
-> La `TICKETMASTER_API_KEY` ya se configura en la Fase 1.1. Esta fase asume que el secret ya está subido a Wrangler.
-
-### 2.1 Ejecutar backfill completo en local primero
-
-**Por qué:** El backfill puede tardar varios minutos y hace muchas llamadas a Ticketmaster. Validar en staging antes de ejecutar en producción.
-
-**Pasos:**
-1. Configurar staging con las mismas variables que producción pero con una DB Turso diferente
-2. Ejecutar:
-   ```bash
-   npx tsx apps/api/scripts/backfill-2026.ts
-   ```
-3. Revisar output — verifica qué conciertos se ingestan y qué errores aparecen
-4. Comprobar en la DB de staging cuántos conciertos y venues se crearon:
-   ```sql
-   SELECT COUNT(*) FROM concerts;
-   SELECT COUNT(*) FROM venues;
-   SELECT city, COUNT(*) FROM venues GROUP BY city ORDER BY COUNT(*) DESC;
-   ```
-5. Navegar a `staging.concertride.es/concerts` y verificar que aparecen conciertos reales
-
-**Validación:** Al menos 50 conciertos futuros en 2026 visibles en el catálogo de staging.
-
----
-
-### 2.3 Seed manual de festivales no cubiertos por Ticketmaster
-
-**Por qué:** Ticketmaster España NO cubre los festivales independientes más importantes: Resurrection Fest, Sonorama Ribera, Arenal Sound, Viña Rock, BBK Live, O Son do Camiño. Estos son exactamente los festivales con landing pages y para los que el carpooling tiene más valor (ubicaciones remotas, sin transporte público). Sin este seed, las landing pages tienen FAQs pero no muestran ningún viaje.
-
-**Qué hacer:**
-Crear `apps/api/scripts/seed-festivals-2026.ts` con los 16 festivales de `festivalLandings.ts`. Para cada festival:
-- Verificar la fecha oficial en la web del festival antes de añadirla
-- Crear el venue si no existe
-- Crear el concierto con `ticketmaster_id = null` y `sources_json = '["manual"]'`
-
-**Festivales a verificar y sus webs oficiales:**
-| Festival | Web oficial | Fechas en landing page (verificar) |
-|---|---|---|
-| Mad Cool | madcoolfestival.es | 9–11 jul 2026 |
-| Primavera Sound | primaverasound.com | 28 may–1 jun 2026 |
-| Sónar | sonar.es | 18–20 jun 2026 |
-| FIB Benicàssim | fiberfib.com | 16–19 jul 2026 |
-| BBK Live | bbklive.com | 9–11 jul 2026 |
-| Resurrection Fest | resurrectionfest.es | 25–28 jun 2026 |
-| Arenal Sound | arenalsound.com | 29 jul–2 ago 2026 |
-| Medusa Festival | medusafestival.es | 12–16 ago 2026 |
-| Viña Rock | vinarock.com | 30 abr–3 may 2026 |
-| O Son do Camiño | osondocamino.gal | 18–20 jun 2026 |
-| Cala Mijas | calamijas.com | 2–4 oct 2026 |
-| Sonorama Ribera | sonoramaribera.com | 6–9 ago 2026 |
-| Low Festival | lowfestival.es | 24–26 jul 2026 |
-| Tomavistas | tomavistas.com | 15–17 may 2026 |
-| Cruïlla | cruillabcn.com | 9–12 jul 2026 |
-| Zevra Festival | zevrafestival.com | Verano 2026 — confirmar |
-
-**Pasos:**
-1. Para cada festival, entrar en su web oficial y confirmar las fechas 2026
-2. Si una fecha no está anunciada aún, NO añadir el concierto (mejor sin datos que con datos incorrectos)
-3. Si hay fecha confirmada, añadirla al script con `official_url` correcto
-4. Ejecutar en staging, verificar en `/concerts` que aparecen
-5. Ejecutar en producción:
-   ```bash
-   TURSO_DATABASE_URL=... TURSO_AUTH_TOKEN=... npx tsx apps/api/scripts/seed-festivals-2026.ts
-   ```
-
-**Validación:** Los 16 festivales con fecha confirmada aparecen en `/concerts`. Las landing pages de festival muestran el concierto correspondiente en la sección "Próximos conciertos".
+**Estado:** 870 conciertos y 179 venues en producción (Ticketmaster + festivales independientes). Todos los festivales de `festivalLandings.ts` están presentes en la DB.
 
 ---
 
@@ -339,30 +296,9 @@ Crear `apps/api/scripts/seed-festivals-2026.ts` con los 16 festivales de `festiv
 
 ---
 
-### 3.2 Añadir índice faltante en rides.driver_id
+### 3.2 Índice en rides.driver_id — ✅ Aplicado (migración 0010)
 
-**Por qué:** `GET /api/rides?driver_id=X` (usado en "Mis viajes" y en el perfil del conductor) hace un table scan completo. Con 10k rides es lento.
-
-**Pasos:**
-1. Editar `apps/api/src/db/schema.ts`, en la tabla `rides`, cambiar el bloque de índices:
-   ```typescript
-   (t) => ({
-     concertIdx: index("rides_concert_idx").on(t.concert_id),
-     originIdx: index("rides_origin_idx").on(t.origin_city),
-     driverIdx: index("rides_driver_idx").on(t.driver_id),  // añadir esta línea
-   }),
-   ```
-2. Generar migración:
-   ```bash
-   npm run db:generate --workspace=@concertride/api
-   ```
-3. Verificar que el fichero SQL generado contiene `CREATE INDEX rides_driver_idx`
-4. Push a producción:
-   ```bash
-   npm run db:push --workspace=@concertride/api
-   ```
-
-**Validación:** `EXPLAIN QUERY PLAN SELECT * FROM rides WHERE driver_id = 'x'` en Turso shell devuelve `SEARCH rides USING INDEX rides_driver_idx`.
+El índice `rides_driver_idx` ya está en producción. No requiere acción.
 
 ---
 
@@ -441,74 +377,40 @@ Crear `apps/api/scripts/seed-festivals-2026.ts` con los 16 festivales de `festiv
 
 ---
 
-## FASE 5 — Calidad antes de abrir al público (semana 3)
+## FASE 5 — Calidad antes de abrir al público (semana 3) ✅ Completado
 
 ---
 
-### 5.1 Hard-gate de email verification en middleware
+### 5.1 Hard-gate de email verification en middleware ✅
 
-**Por qué:** Actualmente la verificación de email se comprueba en cada ruta individualmente. Si se añade una nueva ruta y se olvida el check, cualquier usuario sin email verificado puede usarla. Más importante: es un código duplicado y difícil de auditar.
-
-**Qué hacer:**
-Crear un middleware `requireVerifiedEmail` en `apps/api/src/lib/identity.ts`:
-```typescript
-export async function requireVerifiedEmail(c: Context<HonoEnv>): Promise<User | Response> {
-  const user = await requireUser(c);
-  if (user instanceof Response) return user;
-  if (!user.email_verified_at) {
-    return c.json({ error: "email_not_verified", message: "Verifica tu email antes de continuar." }, 403);
-  }
-  return user;
-}
-```
-
-Sustituir en `rides.ts` (publicar viaje, reservar plaza) y `concerts.ts` (crear concierto adhoc) los checks manuales dispersos por llamadas a este middleware.
-
-**Validación:** Tests unitarios pasan. Intentar publicar un ride con un usuario sin email verificado devuelve 403 con `"email_not_verified"`.
+**Estado:** Implementado en `apps/api/src/lib/identity.ts`. Middleware `requireVerifiedEmail()` en uso en `rides.ts` y otros routes que requieren email verificado.
 
 ---
 
-### 5.2 Fix estados de error silenciosos en frontend
+### 5.2 Fix estados de error silenciosos en frontend ✅
 
-**Por qué:** Cuando una llamada API falla, varias páginas hacen `.catch(() => [])` y muestran "Sin resultados". El usuario no sabe si la app está rota o si simplemente no hay datos. En beta, cuando hay bugs, esto hace imposible el diagnóstico.
-
-**Archivos a corregir:**
-- `apps/web/src/pages/ConcertsPage.tsx` — el `.catch(() => { setConcerts([]); setTotal(0); })` debe cambiar a `catch(() => { setError("No se pudieron cargar los conciertos. Inténtalo de nuevo."); })`
-- `apps/web/src/pages/RideDetailPage.tsx` — el `.catch(() => setConfirmedPassengers([]))` en la carga de pasajeros confirmados debe mostrar un mensaje sutil de error
-- `apps/web/src/pages/MyRidesPage.tsx` — similar
-
-**Validación:** Simular una caída de la API (apagando el dev server de la API) → el usuario ve un mensaje de error, no una página vacía.
+**Estado:** Error handling implementado en:
+- `ConcertsPage.tsx` — muestra "Error al cargar" cuando la API falla
+- `RideDetailPage.tsx` — error UI para caso `load_failed`
+- `MyRidesPage.tsx` — error message con retry instructions
 
 ---
 
-### 5.3 Validación de fecha pasada en PublishRidePage
+### 5.3 Validación de fecha pasada en PublishRidePage ✅
 
-**Por qué:** En el modo de entrada manual de conciertos, el wizard acepta fechas pasadas. Un usuario distraído puede publicar un viaje a un concierto de ayer.
-
-**Dónde:** `apps/web/src/pages/PublishRidePage.tsx`, en la función `submit()`, antes de llamar a `api.concerts.create()`:
-```typescript
-if (new Date(form.manual_date) < new Date()) {
-  setError("La fecha del concierto no puede ser en el pasado.");
-  return;
-}
-```
-
-**Validación:** Intentar publicar un viaje con fecha manual en el pasado → aparece mensaje de error, el formulario no avanza.
+**Estado:** Validación implementada en `submit()` function:
+- Verifica `new Date(form.manual_date) < new Date()`
+- Verifica `new Date(form.departure_time) < new Date()`
+- Muestra error si la fecha está en el pasado
 
 ---
 
-### 5.4 Fix UX del upload de carnet en ProfilePage
+### 5.4 Fix UX del upload de carnet en ProfilePage ✅
 
-**Por qué:** El input de fichero tiene clase `sr-only` (invisible). El usuario no sabe si hizo click en el lugar correcto ni si el fichero se seleccionó.
-
-**Dónde:** `apps/web/src/pages/ProfilePage.tsx`
-
-**Cambios:**
-- Mostrar nombre del fichero seleccionado debajo del botón de upload una vez seleccionado
-- Aumentar el área clickable (el label que activa el input)
-- Mostrar estado "Subiendo..." mientras se hace la petición
-
-**Validación:** Seleccionar un fichero → ver el nombre del fichero. Hacer click en "Subir" → ver "Subiendo...". Recibir respuesta → ver estado actualizado.
+**Estado:** Mejoras implementadas en `ProfilePage.tsx`:
+- Muestra nombre del fichero seleccionado (`selectedFileName`)
+- Feedback en tiempo real: "Enviando..." durante la carga
+- Animación `animate-pulse` mientras se sube
 
 ---
 

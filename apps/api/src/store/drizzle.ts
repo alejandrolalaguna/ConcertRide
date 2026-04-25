@@ -5,7 +5,7 @@
 // apps/api/scripts/seed.ts for the bring-up flow.
 
 import { createClient } from "@libsql/client/web";
-import { and, avg, count, desc, eq, gte, inArray, like, lte, lt, notInArray, or, sql } from "drizzle-orm";
+import { and, asc, avg, count, desc, eq, gte, inArray, like, lte, lt, notInArray, or, sql } from "drizzle-orm";
 import { drizzle } from "drizzle-orm/libsql";
 import type {
   AdminAuditAction,
@@ -1833,6 +1833,63 @@ export class DrizzleStore implements StoreAdapter {
       rejection_reason: reason,
       submitted_at: row.submitted_at,
       reviewed_at: now,
+    };
+  }
+
+  async listChecklistForRide(rideId: string) {
+    const rows = await this.db.query.rideChecklist.findMany({
+      where: eq(schema.rideChecklist.ride_id, rideId),
+      orderBy: asc(schema.rideChecklist.created_at),
+    });
+    return rows.map((r) => ({
+      id: r.id,
+      item_type: r.item_type,
+      value: r.value,
+      status: r.status,
+      created_at: r.created_at,
+      confirmed_at: r.confirmed_at,
+    }));
+  }
+
+  async createChecklistItem(
+    rideId: string,
+    itemType: "pickup_location" | "pickup_time" | "driver_phone" | "luggage_confirmation",
+    value?: string,
+  ) {
+    const id = `rc_${crypto.randomUUID().slice(0, 10)}`;
+    const now = new Date().toISOString();
+    await this.db.insert(schema.rideChecklist).values({
+      id,
+      ride_id: rideId,
+      item_type: itemType,
+      value,
+      status: "pending",
+      created_at: now,
+    });
+    const row = await this.db.query.rideChecklist.findFirst({ where: eq(schema.rideChecklist.id, id) });
+    if (!row) throw new Error("Failed to create checklist item");
+    return {
+      id: row.id,
+      item_type: row.item_type,
+      value: row.value,
+      status: row.status,
+      created_at: row.created_at,
+      confirmed_at: row.confirmed_at,
+    };
+  }
+
+  async confirmChecklistItem(itemId: string) {
+    const now = new Date().toISOString();
+    await this.db.update(schema.rideChecklist).set({ status: "confirmed", confirmed_at: now }).where(eq(schema.rideChecklist.id, itemId));
+    const row = await this.db.query.rideChecklist.findFirst({ where: eq(schema.rideChecklist.id, itemId) });
+    if (!row) return null;
+    return {
+      id: row.id,
+      item_type: row.item_type,
+      value: row.value,
+      status: row.status,
+      created_at: row.created_at,
+      confirmed_at: row.confirmed_at,
     };
   }
 }

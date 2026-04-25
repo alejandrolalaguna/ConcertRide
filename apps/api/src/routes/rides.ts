@@ -675,4 +675,58 @@ route.post("/:id/reviews", async (c) => {
   return c.json(result.review, 201);
 });
 
+route.get("/:id/checklist", async (c) => {
+  const userOrResp = await requireUser(c);
+  if (userOrResp instanceof Response) return userOrResp;
+
+  const ride = await c.var.store.getRide(c.req.param("id"));
+  if (!ride) return c.json({ error: "ride_not_found" }, 404);
+
+  const allowed = await c.var.store.isParticipant({ ride_id: ride.id }, userOrResp.id);
+  if (!allowed) return c.json({ error: "forbidden", message: "Only driver and confirmed passengers can view checklist" }, 403);
+
+  const items = await c.var.store.listChecklistForRide(ride.id);
+  return c.json({ items });
+});
+
+route.post("/:id/checklist", async (c) => {
+  const userOrResp = await requireUser(c);
+  if (userOrResp instanceof Response) return userOrResp;
+
+  const ride = await c.var.store.getRide(c.req.param("id"));
+  if (!ride) return c.json({ error: "ride_not_found" }, 404);
+
+  if (ride.driver_id !== userOrResp.id) {
+    return c.json({ error: "forbidden", message: "Only the driver can create checklist items" }, 403);
+  }
+
+  const body = await c.req.json().catch(() => null);
+  if (!body) return c.json({ error: "bad_request", message: "Invalid JSON" }, 400);
+
+  const { item_type, value } = body;
+  if (!item_type || !["pickup_location", "pickup_time", "driver_phone", "luggage_confirmation"].includes(item_type)) {
+    return c.json({ error: "bad_request", message: "Invalid item_type" }, 400);
+  }
+
+  const item = await c.var.store.createChecklistItem(ride.id, item_type, value);
+  return c.json(item, 201);
+});
+
+route.patch("/:id/checklist/:itemId", async (c) => {
+  const userOrResp = await requireUser(c);
+  if (userOrResp instanceof Response) return userOrResp;
+
+  const ride = await c.var.store.getRide(c.req.param("id"));
+  if (!ride) return c.json({ error: "ride_not_found" }, 404);
+
+  const allowed = await c.var.store.isParticipant({ ride_id: ride.id }, userOrResp.id);
+  if (!allowed) return c.json({ error: "forbidden", message: "Only driver and confirmed passengers can confirm items" }, 403);
+
+  const itemId = c.req.param("itemId");
+  const item = await c.var.store.confirmChecklistItem(itemId);
+  if (!item) return c.json({ error: "item_not_found" }, 404);
+
+  return c.json(item);
+});
+
 export default route;

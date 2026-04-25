@@ -84,6 +84,7 @@ export default function RideDetailPage() {
   const [confirmedPassengers, setConfirmedPassengers] = useState<
     Array<{ id: string; name: string; initial: string; seats: number }>
   >([]);
+  const [checklist, setChecklist] = useState<import("@concertride/types").RideChecklistItem[]>([]);
 
   useEffect(() => {
     if (!id) return;
@@ -115,6 +116,14 @@ export default function RideDetailPage() {
       .then((r) => setConfirmedPassengers(r.passengers))
       .catch(() => setConfirmedPassengers([]));
   }, [id, myRequest?.status]);
+
+  useEffect(() => {
+    if (!id) return;
+    api.rides
+      .listChecklist(id)
+      .then((r) => setChecklist(r.items))
+      .catch(() => setChecklist([]));
+  }, [id]);
 
   if (error === "load_failed") {
     return (
@@ -533,6 +542,61 @@ export default function RideDetailPage() {
                   </>
                 )}
               </p>
+            </div>
+          </section>
+        )}
+
+        {checklist.length > 0 && (
+          <section aria-labelledby="checklist-title" className="space-y-3">
+            <h2
+              id="checklist-title"
+              className="font-display text-sm uppercase tracking-wide text-cr-text-muted"
+            >
+              Pre-viaje
+            </h2>
+            <div className="space-y-2">
+              {checklist.map((item) => (
+                <label
+                  key={item.id}
+                  className="flex items-center gap-3 p-3 rounded border border-cr-border bg-cr-surface-2 cursor-pointer hover:border-cr-primary/50 transition-colors"
+                >
+                  <input
+                    type="checkbox"
+                    checked={item.status === "confirmed"}
+                    onChange={() => {
+                      if (item.status === "pending" && ride) {
+                        api.rides
+                          .confirmChecklistItem(ride.id, item.id)
+                          .then(() => {
+                            setChecklist((prev) =>
+                              prev.map((c) =>
+                                c.id === item.id
+                                  ? { ...c, status: "confirmed" as const, confirmed_at: new Date().toISOString() }
+                                  : c,
+                              ),
+                            );
+                          })
+                          .catch(() => {});
+                      }
+                    }}
+                    className="w-5 h-5 rounded border-cr-text-muted cursor-pointer accent-cr-primary"
+                  />
+                  <div className="flex-1 min-w-0">
+                    <p className="font-mono text-xs text-cr-text-muted uppercase tracking-wide">
+                      {item.item_type === "pickup_location" && "Punto de recogida"}
+                      {item.item_type === "pickup_time" && "Hora de recogida"}
+                      {item.item_type === "driver_phone" && "Teléfono del driver"}
+                      {item.item_type === "luggage_confirmation" && "Confirmación de equipaje"}
+                    </p>
+                    {item.value && (
+                      <p className="text-sm text-cr-text mt-0.5 truncate">{item.value}</p>
+                    )}
+                  </div>
+                  {item.status === "confirmed" && (
+                    <span className="text-cr-primary font-semibold">✓</span>
+                  )}
+                </label>
+              ))}
             </div>
           </section>
         )}

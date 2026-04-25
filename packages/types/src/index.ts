@@ -174,6 +174,18 @@ export interface RideRequest {
   created_at: string;
 }
 
+export type RideChecklistItemType = "pickup_location" | "pickup_time" | "driver_phone" | "luggage_confirmation";
+
+export interface RideChecklistItem {
+  id: string;
+  ride_id: string;
+  item_type: RideChecklistItemType;
+  value: string | null;
+  status: "pending" | "confirmed";
+  created_at: string;
+  confirmed_at: string | null;
+}
+
 export interface DemandSignal {
   count: number;
   user_has_signaled: boolean;

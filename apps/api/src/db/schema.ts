@@ -375,6 +375,36 @@ export const concertSources = sqliteTable(
   }),
 );
 
+// Pre-ride coordination checklist. Populated after ride request is confirmed.
+// Helps passengers and drivers agree on pickup location, time, phone number, etc.
+export const rideChecklist = sqliteTable(
+  "ride_checklist",
+  {
+    id: text("id").primaryKey(),
+    ride_id: text("ride_id")
+      .notNull()
+      .references(() => rides.id),
+    item_type: text("item_type", {
+      enum: ["pickup_location", "pickup_time", "driver_phone", "luggage_confirmation"],
+    }).notNull(),
+    // For pickup_location: address or coordinates
+    // For pickup_time: ISO timestamp
+    // For driver_phone: phone number
+    // For luggage_confirmation: "small" | "large" | etc
+    value: text("value"),
+    // "pending" = not confirmed, "confirmed" = both parties agreed
+    status: text("status", { enum: ["pending", "confirmed"] })
+      .notNull()
+      .default("pending"),
+    created_at: text("created_at").notNull().default(sql`CURRENT_TIMESTAMP`),
+    confirmed_at: text("confirmed_at"),
+  },
+  (t) => ({
+    rideIdx: index("ride_checklist_ride_idx").on(t.ride_id),
+    statusIdx: index("ride_checklist_status_idx").on(t.status),
+  }),
+);
+
 // --- Relations for typed relational queries (db.query.*.findMany({ with: {...} })) ---
 
 export const venuesRelations = relations(venues, ({ many }) => ({
@@ -428,6 +458,10 @@ export const licenseReviewsRelations = relations(licenseReviews, ({ one }) => ({
   user: one(users, { fields: [licenseReviews.user_id], references: [users.id] }),
 }));
 
+export const rideChecklistRelations = relations(rideChecklist, ({ one }) => ({
+  ride: one(rides, { fields: [rideChecklist.ride_id], references: [rides.id] }),
+}));
+
 export type VenueRow = typeof venues.$inferSelect;
 export type UserRow = typeof users.$inferSelect;
 export type ConcertRow = typeof concerts.$inferSelect;
@@ -440,3 +474,4 @@ export type ConcertSourceRow = typeof concertSources.$inferSelect;
 export type LicenseReviewRow = typeof licenseReviews.$inferSelect;
 export type BannedEmailRow = typeof bannedEmails.$inferSelect;
 export type AdminAuditLogRow = typeof adminAuditLog.$inferSelect;
+export type RideChecklistRow = typeof rideChecklist.$inferSelect;

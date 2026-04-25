@@ -96,7 +96,14 @@ export function TicketCard({ ride, onClick }: Props) {
             <Users size={12} aria-hidden="true" />
             {ride.seats_left === 0 ? "Completo" : `${ride.seats_left} plaza${ride.seats_left === 1 ? "" : "s"}`}
           </p>
-          <VibeBadge vibe={ride.vibe} />
+          <div className="flex gap-1.5 flex-wrap">
+            <VibeBadge vibe={ride.vibe} />
+            {ride.instant_booking && (
+              <span className="inline-block font-sans text-[10px] font-semibold text-black bg-cr-primary px-1.5 py-0.5 tracking-[0.08em]">
+                Instante
+              </span>
+            )}
+          </div>
           <p className="font-mono text-[10px] text-cr-text-dim">
             {ride.smoking_policy === "no" ? "🚭" : "🚬"}{" "}
             {ride.smoking_policy === "no" ? "No fumar" : "Fumadores"}

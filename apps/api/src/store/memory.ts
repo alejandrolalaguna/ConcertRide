@@ -134,6 +134,15 @@ export class MemoryStore implements StoreAdapter {
   private licenseReviews: import("@concertride/types").LicenseReview[] = [];
   private bannedEmails: string[] = [];
   private auditLog: import("@concertride/types").AdminAuditLogEntry[] = [];
+  private rideChecklist: Record<string, {
+    id: string;
+    ride_id: string;
+    item_type: string;
+    value: string | null;
+    status: string;
+    created_at: string;
+    confirmed_at: string | null;
+  }> = {};
 
   async getUser(id: string): Promise<User | null> {
     return this.users.find((u) => u.id === id) ?? null;
@@ -1139,6 +1148,63 @@ export class MemoryStore implements StoreAdapter {
     if (!user) return null;
     user.phone_verified_at = new Date().toISOString();
     return user;
+  }
+
+  async listChecklistForRide(rideId: string) {
+    return Object.values(this.rideChecklist)
+      .filter((item) => item.ride_id === rideId)
+      .sort((a, b) => new Date(a.created_at).getTime() - new Date(b.created_at).getTime())
+      .map((item) => ({
+        id: item.id,
+        item_type: item.item_type,
+        value: item.value,
+        status: item.status,
+        created_at: item.created_at,
+        confirmed_at: item.confirmed_at,
+      }));
+  }
+
+  async createChecklistItem(
+    rideId: string,
+    itemType: "pickup_location" | "pickup_time" | "driver_phone" | "luggage_confirmation",
+    value?: string,
+  ) {
+    const id = `rc_${crypto.randomUUID().slice(0, 10)}`;
+    const now = new Date().toISOString();
+    const item = {
+      id,
+      ride_id: rideId,
+      item_type: itemType,
+      value: value ?? null,
+      status: "pending" as const,
+      created_at: now,
+      confirmed_at: null as string | null,
+    };
+    this.rideChecklist[id] = item;
+    return {
+      id: item.id,
+      item_type: item.item_type,
+      value: item.value,
+      status: item.status,
+      created_at: item.created_at,
+      confirmed_at: item.confirmed_at,
+    };
+  }
+
+  async confirmChecklistItem(itemId: string) {
+    const item = this.rideChecklist[itemId];
+    if (!item) return null;
+    const now = new Date().toISOString();
+    item.status = "confirmed";
+    item.confirmed_at = now;
+    return {
+      id: item.id,
+      item_type: item.item_type,
+      value: item.value,
+      status: item.status,
+      created_at: item.created_at,
+      confirmed_at: item.confirmed_at,
+    };
   }
 }
 
