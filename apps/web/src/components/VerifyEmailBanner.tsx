@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useSearchParams } from "react-router-dom";
+import { useLocation, useSearchParams } from "react-router-dom";
 import { AlertCircle, Check, Mail, X } from "lucide-react";
 import { api } from "@/lib/api";
 import { useSession } from "@/lib/session";
@@ -13,7 +13,9 @@ import { useSession } from "@/lib/session";
 export function VerifyEmailBanner() {
   const { user, refresh } = useSession();
   const [params, setParams] = useSearchParams();
-  const verifyStatus = params.get("verify");
+  const location = useLocation();
+  // Accept verify status from either ?verify= query param (legacy) or router state (new flow).
+  const verifyStatus = params.get("verify") ?? (location.state as { verify?: string } | null)?.verify ?? null;
   const [dismissed, setDismissed] = useState(false);
   const [resending, setResending] = useState(false);
   const [resentAt, setResentAt] = useState<number | null>(null);

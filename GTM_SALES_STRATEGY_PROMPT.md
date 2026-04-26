@@ -12,7 +12,7 @@ You are a GTM strategist and business development lead for ConcertRide. Your goa
 - Tech: Cloudflare Workers, Turso, React SPA (low-cost, global edge deployment)
 - Market position: Niche play (concert + transport), underserved vs. Blablacar/Uber
 
-**Geographic focus (initial):** Spain (Spanish domain `concertride.es`, potential for LATAM expansion)
+**Geographic focus (initial):** Spain (Spanish domain `concertride.me`, potential for LATAM expansion)
 
 **Unit Economics (assumptions you should validate):**
 - Driver acquisition cost (CAC): TBD

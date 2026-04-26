@@ -38,6 +38,7 @@ const BlogPostPage = lazy(() => import("./pages/BlogPostPage"));
 const RouteLandingPage = lazy(() => import("./pages/RouteLandingPage"));
 const RutasIndexPage = lazy(() => import("./pages/RutasIndexPage"));
 const PrensaPage = lazy(() => import("./pages/PrensaPage"));
+const VerifyEmailPage = lazy(() => import("./pages/VerifyEmailPage"));
 const NotFoundPage = lazy(() => import("./pages/NotFoundPage"));
 const DevShowcase = lazy(() => import("./pages/DevShowcase"));
 
@@ -73,6 +74,7 @@ export default function App() {
             <Route path="/register" element={<RegisterPage />} />
             <Route path="/forgot-password" element={<ForgotPasswordPage />} />
             <Route path="/reset-password" element={<ResetPasswordPage />} />
+            <Route path="/verify-email" element={<VerifyEmailPage />} />
             <Route path="/favoritos" element={<FavoritesPage />} />
             <Route path="/mis-viajes" element={<MyRidesPage />} />
             <Route path="/admin/reports" element={<AdminReportsPage />} />

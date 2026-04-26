@@ -113,6 +113,13 @@ export const api = {
         method: "POST",
         body: JSON.stringify({ email }),
       }),
+    checkVerifyToken: (token: string) =>
+      request<{ valid: boolean }>(`/api/auth/verify-email?token=${encodeURIComponent(token)}`),
+    verifyEmail: (token: string) =>
+      request<{ ok: true }>("/api/auth/verify-email", {
+        method: "POST",
+        body: JSON.stringify({ token }),
+      }),
     resendVerification: () =>
       request<{ ok: true; already?: boolean }>("/api/auth/resend-verification", {
         method: "POST",

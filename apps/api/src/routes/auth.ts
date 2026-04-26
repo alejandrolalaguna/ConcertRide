@@ -91,7 +91,7 @@ route.post("/register", authLimiter, async (c) => {
       .map((b) => b.toString(16).padStart(2, "0"))
       .join("");
     await c.env.CACHE.put(`everify:${token}`, user.id, { expirationTtl: 7 * 24 * 3600 });
-    verifyUrl = `${getSiteUrl(c.env)}/api/auth/verify-email?token=${token}`;
+    verifyUrl = `${getSiteUrl(c.env)}/verify-email?token=${token}`;
   }
 
   // Fire-and-forget welcome email. Silently drops in dev without RESEND_API_KEY.
@@ -292,13 +292,31 @@ route.post("/logout", (c) => {
   return c.json({ ok: true });
 });
 
-// Verify email — called by the link in the welcome email. Validates the
-// one-time KV token, sets `email_verified_at`, then 302s the user to the
-// home with a banner. Intentionally a GET so it works straight from the mail
-// client without requiring JS.
+// Verify email — two-step flow to prevent pre-fetchers (Gmail, Google Safe
+// Browsing) from consuming the one-time token before the user clicks.
+//
+// GET  /verify-email?token=… → checks the token exists (no side-effects).
+//      Returns 200 {valid:true} or 400 {valid:false}. The frontend uses this
+//      to show a confirmation page with a button.
+// POST /verify-email         → consumes the token and marks email_verified_at.
+//      Body: { token: string }. Redirects to /?verify=ok on success.
 route.get("/verify-email", async (c) => {
   const token = c.req.query("token") ?? "";
+  if (!token || !c.env.CACHE) return c.json({ valid: false }, 400);
+  const userId = await c.env.CACHE.get(`everify:${token}`);
+  if (!userId) return c.json({ valid: false }, 400);
+  return c.json({ valid: true });
+});
+
+route.post("/verify-email", async (c) => {
   const origin = new URL(c.req.url).origin;
+  let token = "";
+  try {
+    const body = await c.req.json<{ token?: string }>();
+    token = body?.token ?? "";
+  } catch {
+    return c.redirect(`${origin}/?verify=invalid`, 302);
+  }
   if (!token || !c.env.CACHE) {
     return c.redirect(`${origin}/?verify=invalid`, 302);
   }
@@ -326,7 +344,7 @@ route.post("/resend-verification", authLimiter, async (c) => {
     .map((b) => b.toString(16).padStart(2, "0"))
     .join("");
   await c.env.CACHE.put(`everify:${token}`, userOrResp.id, { expirationTtl: 7 * 24 * 3600 });
-  const verifyUrl = `${getSiteUrl(c.env)}/api/auth/verify-email?token=${token}`;
+  const verifyUrl = `${getSiteUrl(c.env)}/verify-email?token=${token}`;
 
   c.executionCtx.waitUntil(
     sendWelcomeEmail(c.env, userOrResp.email, userOrResp.name, verifyUrl).then(() => undefined),
