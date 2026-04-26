@@ -49,7 +49,7 @@ export function FinalCTA() {
           transition={{ duration: 0.5, delay: 0.3 }}
           className="font-mono text-xs text-cr-text-muted"
         >
-          Madrid · Barcelona · Valencia · Sevilla · Bilbao · + 40 ciudades
+          Madrid · Barcelona · Valencia · Sevilla · Bilbao · Zaragoza · y más
         </motion.p>
       </div>
     </section>

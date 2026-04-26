@@ -1,13 +1,10 @@
 import { motion } from "motion/react";
-import { Star } from "lucide-react";
 import { initials } from "@/lib/format";
 
 export interface Testimonial {
   quote: string;
   name: string;
   city: string;
-  rating: number;
-  rides_given: number;
   concert: string;
 }
 
@@ -62,11 +59,9 @@ export function TestimonialCard({
           </div>
         </div>
         <div className="text-right leading-tight">
-          <p className="font-mono text-xs text-cr-primary flex items-center justify-end gap-1">
-            <Star size={10} className="fill-cr-primary" aria-hidden="true" />
-            {t.rating.toFixed(1)}
-          </p>
-          <p className="font-mono text-[10px] text-cr-text-muted">{t.rides_given} viajes</p>
+          <span className="font-mono text-[10px] text-cr-primary border border-cr-primary/30 px-2 py-0.5">
+            Verificado
+          </span>
         </div>
       </figcaption>
     </motion.figure>

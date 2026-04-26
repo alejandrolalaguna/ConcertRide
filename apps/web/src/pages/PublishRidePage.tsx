@@ -88,6 +88,7 @@ export default function PublishRidePage() {
     title: "Publicar un viaje a un concierto",
     description: "Publica gratis tu viaje compartido a un concierto o festival en España. Fija el precio por asiento y divide los gastos con otros fans.",
     canonical: `${SITE_URL}/publish`,
+    noindex: true,
   });
 
   useEffect(() => {

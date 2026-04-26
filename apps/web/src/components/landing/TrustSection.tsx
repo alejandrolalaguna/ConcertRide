@@ -7,8 +7,6 @@ const TESTIMONIALS: Testimonial[] = [
       "Fui desde Valencia al Palau Sant Jordi por 20€ ida y vuelta. Playlist colaborativa y conocí a dos personas increíbles.",
     name: "Elena Ruiz",
     city: "Valencia",
-    rating: 4.9,
-    rides_given: 18,
     concert: "C. Tangana",
   },
   {
@@ -16,8 +14,6 @@ const TESTIMONIALS: Testimonial[] = [
       "Llevar el coche medio vacío era una locura. Ahora cubro gasolina y peajes con tres personas majas. Viajé a Mad Cool sin pisar el tren.",
     name: "Adrián López",
     city: "Zaragoza",
-    rating: 5.0,
-    rides_given: 27,
     concert: "Mad Cool Festival",
   },
   {
@@ -25,15 +21,13 @@ const TESTIMONIALS: Testimonial[] = [
       "La vibe chill de verdad existe. De Sevilla a Málaga escuchando el álbum del concierto. Llegué sin estrés y lista para saltar.",
     name: "Claudia Sánchez",
     city: "Sevilla",
-    rating: 4.8,
-    rides_given: 12,
     concert: "Bad Bunny",
   },
 ];
 
 const TRUST_POINTS = [
   "Perfil verificado con DNI",
-  "Valoración media 4.9 / 5",
+  "Conductores con valoraciones reales",
   "Seguro de viaje incluido",
 ];
 

@@ -1,8 +1,5 @@
 import { Star } from "lucide-react";
-import { SITE_URL } from "@/lib/siteUrl";
 
-// Placeholder testimonials — replace with real user reviews once collected.
-// Review schema is emitted below so Google can show star ratings in search results.
 const TESTIMONIALS = [
   {
     name: "Marta G.",
@@ -35,37 +32,8 @@ const TESTIMONIALS = [
 ];
 
 export function TestimonialsSection() {
-  const jsonLdReviews = {
-    "@context": "https://schema.org",
-    "@type": "Product",
-    name: "ConcertRide ES — Carpooling para conciertos",
-    url: `${SITE_URL}/`,
-    aggregateRating: {
-      "@type": "AggregateRating",
-      ratingValue: "4.9",
-      reviewCount: TESTIMONIALS.length.toString(),
-      bestRating: "5",
-      worstRating: "1",
-    },
-    review: TESTIMONIALS.map((t) => ({
-      "@type": "Review",
-      author: { "@type": "Person", name: t.name },
-      reviewBody: t.text,
-      reviewRating: {
-        "@type": "Rating",
-        ratingValue: t.stars.toString(),
-        bestRating: "5",
-      },
-      datePublished: "2026-01-01",
-    })),
-  };
-
   return (
     <section aria-labelledby="testimonials-title" className="border-t border-cr-border">
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdReviews) }}
-      />
       <div className="max-w-6xl mx-auto px-6 py-16 md:py-24 space-y-10">
         <header className="space-y-3">
           <p className="font-sans text-[11px] font-semibold uppercase tracking-[0.16em] text-cr-primary">
@@ -84,8 +52,6 @@ export function TestimonialsSection() {
             <article
               key={t.name}
               className="border border-cr-border p-5 space-y-4 hover:border-cr-primary/30 transition-colors"
-              itemScope
-              itemType="https://schema.org/Review"
             >
               <div className="flex items-center gap-1" aria-label={`${t.stars} de 5 estrellas`}>
                 {Array.from({ length: 5 }).map((_, i) => (
@@ -99,15 +65,14 @@ export function TestimonialsSection() {
               </div>
 
               <blockquote
-                itemProp="reviewBody"
                 className="font-sans text-sm text-cr-text-muted leading-relaxed"
               >
                 "{t.text}"
               </blockquote>
 
               <footer className="flex items-center justify-between pt-2 border-t border-cr-border">
-                <div itemScope itemType="https://schema.org/Person" itemProp="author">
-                  <p itemProp="name" className="font-sans text-xs font-semibold text-cr-text">
+                <div>
+                  <p className="font-sans text-xs font-semibold text-cr-text">
                     {t.name}
                   </p>
                   <p className="font-mono text-[10px] text-cr-text-muted">{t.city}</p>
