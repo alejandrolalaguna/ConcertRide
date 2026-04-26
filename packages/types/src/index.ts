@@ -161,6 +161,7 @@ export interface Ride {
   reminded_at: string | null;
   payment_reminder_sent_at: string | null;
   created_at: string;
+  is_participant?: boolean;
 }
 
 export interface RideRequest {

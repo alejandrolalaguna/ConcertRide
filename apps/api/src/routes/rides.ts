@@ -1,4 +1,5 @@
 import { Hono } from "hono";
+import { getCookie } from "hono/cookie";
 import { z } from "zod";
 import type { MessagesResponse, RequestStatus, ReviewsResponse, RidesResponse } from "@concertride/types";
 import type { HonoEnv } from "../types";
@@ -113,7 +114,22 @@ route.get("/mine", async (c) => {
 route.get("/:id", async (c) => {
   const ride = await c.var.store.getRide(c.req.param("id"));
   if (!ride) return c.json({ error: "not_found" }, 404);
-  return c.json(ride);
+
+  // Attach is_participant so the frontend can gate the review form correctly.
+  // Best-effort: if auth fails or is absent we just omit the field.
+  let is_participant = false;
+  try {
+    const jwt = getCookie(c, "cr_session");
+    if (jwt && c.env.JWT_SECRET) {
+      const { verifySession } = await import("../lib/jwt");
+      const session = await verifySession(jwt, c.env.JWT_SECRET);
+      if (session?.sub) {
+        is_participant = await c.var.store.isParticipant({ ride_id: ride.id }, session.sub);
+      }
+    }
+  } catch { /* unauthenticated — leave false */ }
+
+  return c.json({ ...ride, is_participant });
 });
 
 route.post("/", async (c) => {
@@ -666,6 +682,9 @@ route.post("/:id/reviews", async (c) => {
 
   const ride = await c.var.store.getRide(c.req.param("id"));
   if (!ride) return c.json({ error: "ride_not_found" }, 404);
+
+  const participated = await c.var.store.isParticipant({ ride_id: ride.id }, userOrResp.id);
+  if (!participated) return c.json({ error: "forbidden", message: "Solo pueden valorar quienes participaron en el viaje." }, 403);
 
   const body = await c.req.json().catch(() => null);
   if (!body) return c.json({ error: "bad_request", message: "Invalid JSON" }, 400);

@@ -103,9 +103,10 @@ export function RideReviewsSection({ ride, currentUser }: Props) {
   const [formState, setFormState] = useState<FormState>("idle");
   const [formError, setFormError] = useState("");
 
-  // Build list of reviewable users: driver + confirmed passengers (driver sees passengers, passengers see driver)
+  // Only participants (driver + confirmed passengers) can review.
+  // is_participant comes from GET /rides/:id when the user is authenticated.
   const reviewableUsers: User[] = [];
-  if (currentUser) {
+  if (currentUser && ride.is_participant) {
     if (currentUser.id !== ride.driver_id) {
       reviewableUsers.push(ride.driver);
     }
