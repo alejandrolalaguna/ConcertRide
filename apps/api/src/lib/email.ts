@@ -159,7 +159,7 @@ function infoTable(rows: Array<[string, string]>): string {
  * type: 'success' (lime) | 'warning' (orange) | 'info' (neutral) | 'danger' (red)
  */
 function alertBox(message: string, type: "success" | "warning" | "info" | "danger" = "info"): string {
-  const colors: Record<string, { border: string; bg: string; text: string }> = {
+  const colors: Record<"success" | "warning" | "info" | "danger", { border: string; bg: string; text: string }> = {
     success: { border: "#DBFF00", bg: "#0f1500", text: "#DBFF00" },
     warning: { border: "#ff4f00", bg: "#150800", text: "#ff4f00" },
     info:    { border: "#333",    bg: "#111",    text: "#aaa"    },
@@ -176,7 +176,7 @@ function alertBox(message: string, type: "success" | "warning" | "info" | "dange
  * Small inline badge for status labels.
  */
 function badge(label: string, type: "success" | "warning" | "danger" | "neutral" = "neutral"): string {
-  const colors: Record<string, { bg: string; color: string }> = {
+  const colors: Record<"success" | "warning" | "danger" | "neutral", { bg: string; color: string }> = {
     success: { bg: "#DBFF00", color: "#000" },
     warning: { bg: "#ff4f00", color: "#fff" },
     danger:  { bg: "#cc3333", color: "#fff" },
