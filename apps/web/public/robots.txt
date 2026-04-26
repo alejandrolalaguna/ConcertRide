@@ -16,7 +16,6 @@ Disallow: /.well-known/
 
 # Sitemap
 Sitemap: https://concertride.me/sitemap.xml
-Sitemap: https://concertride.me/sitemap-es.xml
 
 # AI Crawler Transparency (as of 2026)
 # These are allowed by default; no specific rules needed
