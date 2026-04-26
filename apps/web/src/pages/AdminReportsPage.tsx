@@ -6,6 +6,7 @@ import { api, ApiError } from "@/lib/api";
 import { useSession } from "@/lib/session";
 import { useSeoMeta } from "@/lib/useSeoMeta";
 import { SITE_URL } from "@/lib/siteUrl";
+import { driverPath } from "@/lib/format";
 import { LoadingSpinner } from "@/components/ui";
 
 type HydratedReport = Report & { reporter: User | null; target_user: User | null };
@@ -275,7 +276,7 @@ export default function AdminReportsPage() {
                       <div className="font-sans text-sm text-cr-text">
                         <span className="text-cr-text-muted">Contra</span>{" "}
                         <Link
-                          to={`/drivers/${r.target_user.id}`}
+                          to={driverPath(r.target_user.id)}
                           className="font-semibold text-cr-primary hover:underline"
                         >
                           {r.target_user.name}

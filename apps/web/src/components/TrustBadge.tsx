@@ -1,7 +1,7 @@
 import { Check, ShieldCheck, Star } from "lucide-react";
 import { Link } from "react-router-dom";
 import type { User } from "@concertride/types";
-import { initials } from "@/lib/format";
+import { driverPath, initials } from "@/lib/format";
 
 interface Props {
   user: User | Omit<User, "email">;
@@ -47,7 +47,7 @@ export function TrustBadge({ user, compact = false, linkToProfile = false }: Pro
       <div className="leading-tight">
         {linkToProfile ? (
           <Link
-            to={`/drivers/${user.id}`}
+            to={driverPath(user.id)}
             className="flex items-center gap-1 text-sm text-cr-text flex-wrap hover:text-cr-primary transition-colors"
           >
             {nameContent}

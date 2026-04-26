@@ -110,6 +110,37 @@ function makeReferralCode(): string {
   return crypto.randomUUID().replace(/-/g, "").slice(0, 8).toUpperCase();
 }
 
+// Minimal user shape for embedding in public responses (messages, rides, reviews).
+// Never include phone, home_city, referral_code, or internal timestamps.
+function hydratePublicUser(row: UserRow): User {
+  return {
+    id: row.id,
+    email: "",
+    name: row.name,
+    avatar_url: row.avatar_url,
+    verified: row.verified,
+    license_verified: row.license_verified ?? false,
+    rating: row.rating,
+    rating_count: row.rating_count,
+    rides_given: row.rides_given,
+    car_model: row.car_model,
+    car_color: row.car_color,
+    smoker: row.smoker ?? null,
+    has_license: row.has_license ?? null,
+    phone: null,
+    home_city: null,
+    referral_code: null,
+    referral_count: 0,
+    tos_accepted_at: null,
+    email_verified_at: null,
+    phone_verified_at: null,
+    deleted_at: null,
+    banned_at: null,
+    ban_reason: null,
+    created_at: row.created_at,
+  };
+}
+
 function hydrateUser(row: UserRow): User {
   return {
     id: row.id,
@@ -167,7 +198,7 @@ function hydrateRide(row: RideWith): Ride {
   return {
     id: row.id,
     driver_id: row.driver_id,
-    driver: hydrateUser(row.driver),
+    driver: hydratePublicUser(row.driver),
     concert_id: row.concert_id,
     concert: hydrateConcert(row.concert),
     origin_city: row.origin_city,
@@ -203,7 +234,7 @@ function hydrateRequest(row: RequestWith): RideRequest {
     id: row.id,
     ride_id: row.ride_id,
     passenger_id: row.passenger_id,
-    passenger: hydrateUser(row.passenger),
+    passenger: hydratePublicUser(row.passenger),
     seats: row.seats,
     status: row.status,
     message: row.message,
@@ -1373,7 +1404,7 @@ export class DrizzleStore implements StoreAdapter {
         ride_id: r.ride_id,
         concert_id: r.concert_id,
         user_id: r.user_id,
-        user: hydrateUser(r.user!),
+        user: hydratePublicUser(r.user!),
         kind: (r.kind as import("@concertride/types").MessageKind) ?? "text",
         body: r.body,
         attachment_url: r.attachment_url ?? null,
@@ -1534,9 +1565,9 @@ export class DrizzleStore implements StoreAdapter {
         id: r.id,
         ride_id: r.ride_id,
         reviewer_id: r.reviewer_id,
-        reviewer: hydrateUser(r.reviewer!),
+        reviewer: hydratePublicUser(r.reviewer!),
         reviewee_id: r.reviewee_id,
-        reviewee: hydrateUser(r.reviewee!),
+        reviewee: hydratePublicUser(r.reviewee!),
         rating: r.rating,
         comment: r.comment,
         created_at: r.created_at,
@@ -1555,9 +1586,9 @@ export class DrizzleStore implements StoreAdapter {
         id: r.id,
         ride_id: r.ride_id,
         reviewer_id: r.reviewer_id,
-        reviewer: hydrateUser(r.reviewer!),
+        reviewer: hydratePublicUser(r.reviewer!),
         reviewee_id: r.reviewee_id,
-        reviewee: hydrateUser(r.reviewee!),
+        reviewee: hydratePublicUser(r.reviewee!),
         rating: r.rating,
         comment: r.comment,
         created_at: r.created_at,

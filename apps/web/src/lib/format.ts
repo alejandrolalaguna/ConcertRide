@@ -21,6 +21,11 @@ export const formatTime = (iso: string) => TIME_FMT.format(new Date(iso));
 export const formatDay = (iso: string) => DAY_FMT.format(new Date(iso));
 export const formatPrice = (n: number) => `€${Math.round(n)}`;
 
+/** Strips the internal "u_" prefix to build public-facing driver profile URLs. */
+export function driverPath(userId: string): string {
+  return `/drivers/${userId.startsWith("u_") ? userId.slice(2) : userId}`;
+}
+
 export function initials(name: string): string {
   return name
     .split(/\s+/)

@@ -2,7 +2,7 @@ import { Hono } from "hono";
 import { z } from "zod";
 import type { ConcertsResponse, DemandSignal, MessagesResponse } from "@concertride/types";
 import type { HonoEnv } from "../types";
-import { requireUser } from "../lib/identity";
+import { requireUser, requireVerifiedEmail } from "../lib/identity";
 
 const querySchema = z.object({
   city: z.string().min(1).optional(),
@@ -98,7 +98,7 @@ route.get("/:id/messages", async (c) => {
 });
 
 route.post("/:id/messages", async (c) => {
-  const userOrResp = await requireUser(c);
+  const userOrResp = await requireVerifiedEmail(c);
   if (userOrResp instanceof Response) return userOrResp;
 
   const concertId = c.req.param("id");

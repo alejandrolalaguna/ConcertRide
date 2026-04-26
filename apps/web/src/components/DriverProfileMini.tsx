@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { initials } from "@/lib/format";
+import { driverPath, initials } from "@/lib/format";
 import type { User } from "@concertride/types";
 
 interface Props {
@@ -10,7 +10,7 @@ interface Props {
 export function DriverProfileMini({ driver, rideCount = 0 }: Props) {
   return (
     <Link
-      to={`/drivers/${driver.id}`}
+      to={driverPath(driver.id)}
       className="block p-3 rounded border border-cr-border bg-cr-surface-2 hover:border-cr-primary/40 hover:bg-cr-surface transition-all group"
     >
       <div className="flex gap-3">

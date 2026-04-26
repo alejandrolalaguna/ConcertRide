@@ -8,7 +8,7 @@ import { useSeoMeta } from "@/lib/useSeoMeta";
 import { SITE_URL } from "@/lib/siteUrl";
 import { VibeBadge } from "@/components/VibeBadge";
 import { PulsingDot } from "@/components/LoadingStates";
-import { initials, formatDate, formatDay } from "@/lib/format";
+import { driverPath, initials, formatDate, formatDay } from "@/lib/format";
 import { ReportButton } from "@/components/ReportButton";
 import { useSession } from "@/lib/session";
 
@@ -88,7 +88,7 @@ export default function DriverProfilePage() {
             itemListElement: [
               { "@type": "ListItem", position: 1, name: "Inicio", item: `${SITE_URL}/` },
               { "@type": "ListItem", position: 2, name: "Conductores", item: `${SITE_URL}/drivers` },
-              { "@type": "ListItem", position: 3, name: driver.name, item: `${SITE_URL}/drivers/${driver.id}` },
+              { "@type": "ListItem", position: 3, name: driver.name, item: `${SITE_URL}${driverPath(driver.id)}` },
             ],
           }),
         }}
@@ -99,13 +99,13 @@ export default function DriverProfilePage() {
           __html: JSON.stringify({
             "@context": "https://schema.org",
             "@type": "ProfilePage",
-            url: `${SITE_URL}/drivers/${driver.id}`,
+            url: `${SITE_URL}${driverPath(driver.id)}`,
             mainEntity: {
               "@type": "Person",
-              "@id": `${SITE_URL}/drivers/${driver.id}`,
+              "@id": `${SITE_URL}${driverPath(driver.id)}`,
               name: driver.name,
               image: driver.avatar_url ?? undefined,
-              url: `${SITE_URL}/drivers/${driver.id}`,
+              url: `${SITE_URL}${driverPath(driver.id)}`,
               description: `Conductor en ConcertRide ES con ${driver.rides_given} viajes realizados.`,
               memberOf: { "@id": `${SITE_URL}/#organization` },
               ...(driver.home_city && {
