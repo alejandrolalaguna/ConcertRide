@@ -21,7 +21,7 @@ export const SEO_CONFIG = {
       "carpooling conciertos españa",
       "transporte compartido festivales",
       "viajes compartidos música",
-      "blablablablar alternativa",
+      "alternativa carpooling festivales",
       "ride-sharing españa",
     ],
     long_tail: [

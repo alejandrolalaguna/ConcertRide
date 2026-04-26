@@ -317,14 +317,6 @@ export default function RouteLandingPage() {
               Guía de transporte para festivales
             </Link>
           </li>
-          <li>
-            <Link
-              to="/blog/blablacar-vs-concertride"
-              className="inline-flex items-center gap-1.5 font-sans text-xs text-cr-text-muted hover:text-cr-primary border border-cr-border hover:border-cr-primary px-3 py-1.5 transition-colors"
-            >
-              BlaBlaCar vs ConcertRide
-            </Link>
-          </li>
         </ul>
       </section>
     </main>

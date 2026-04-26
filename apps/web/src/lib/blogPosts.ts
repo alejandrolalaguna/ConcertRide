@@ -47,87 +47,6 @@ export interface BlogPost {
 export const BLOG_POSTS: BlogPost[] = [
   // ──────────────────────────────────────────────────────────────────────
   {
-    slug: "blablacar-vs-concertride",
-    title: "BlaBlaCar vs ConcertRide 2026: ¿qué app de carpooling te conviene para festivales?",
-    h1: "BlaBlaCar vs ConcertRide: comparativa para ir a conciertos en España",
-    excerpt:
-      "Comparativa real entre BlaBlaCar y ConcertRide para llegar a festivales: comisiones, tiempos de espera, perfil de usuario, política de cancelación y precio por asiento. Te decimos cuándo te conviene cada una.",
-    category: "comparativas",
-    tags: ["BlaBlaCar", "carpooling", "festivales", "comparativa"],
-    publishedAt: "2026-04-25T09:00:00.000Z",
-    author: "Equipo ConcertRide",
-    readingMinutes: 7,
-    lede:
-      "Si vas a un festival este verano y dudas entre BlaBlaCar y ConcertRide, esta comparativa va al grano. Sin clickbait y sin pelotas: cada plataforma encaja en un escenario distinto.",
-    sections: [
-      {
-        heading: "Comisiones: la diferencia más visible",
-        paragraphs: [
-          "BlaBlaCar cobra comisión de servicio al pasajero (entre el 15 % y el 25 % según la ruta). En un viaje Madrid → Mad Cool de 18 €, el pasajero paga unos 22 € reales y el conductor recibe los 18 € íntegros del precio publicado.",
-          "ConcertRide no cobra comisión. El precio que ves es el precio que pagas, en efectivo o Bizum, directamente al conductor el día del viaje. El 100 % va al conductor.",
-        ],
-      },
-      {
-        heading: "Perfil de usuario: rutas largas vs eventos concretos",
-        paragraphs: [
-          "BlaBlaCar es generalista: cubre cualquier ruta entre dos ciudades, con miles de viajes diarios. Es la herramienta lógica si vives en una ruta troncal (Madrid–Barcelona, Valencia–Madrid) y necesitas movilidad cualquier día.",
-          "ConcertRide está especializado en eventos. Cada viaje está vinculado a un concierto o festival concreto, así que sabes que tu compañero de coche también va al show. Mejor para llegar la noche del evento, peor para una mudanza de un domingo cualquiera.",
-        ],
-      },
-      {
-        heading: "Vuelta de madrugada: aquí gana ConcertRide",
-        paragraphs: [
-          "El gran problema del transporte público a festivales es la vuelta. El último metro de Madrid sale a las 1:30 y un Mad Cool acaba a las 2:30 — es físicamente imposible volver sin coche o taxi (y los taxis cuestan 30–90 € a esas horas).",
-          "BlaBlaCar tiene pocos viajes de vuelta a esas horas porque sus conductores no están casados con el evento. ConcertRide sí: los conductores publican explícitamente el viaje de vuelta tras el festival, y el match es alto.",
-        ],
-      },
-      {
-        heading: "Cancelaciones y reembolsos",
-        paragraphs: [
-          "BlaBlaCar tiene políticas de reembolso estrictas con escalas de tiempo. Funciona bien porque el pago es en plataforma.",
-          "En ConcertRide el pago es en persona, así que las cancelaciones se gestionan por chat directo. Ventaja: cero fricción si te cae un imprevisto. Desventaja: depende del entendimiento entre conductor y pasajero (recomendamos avisar con 24 h de antelación).",
-        ],
-      },
-      {
-        heading: "Tabla resumen",
-        paragraphs: [
-          "Aquí tienes los criterios condensados para que decidas en 30 segundos.",
-        ],
-        bullets: [
-          "Comisión: BlaBlaCar 15–25 % · ConcertRide 0 %",
-          "Vuelta de madrugada: BlaBlaCar limitada · ConcertRide alta disponibilidad para festivales",
-          "Verificación: ambas verifican identidad y carnet",
-          "Pago: BlaBlaCar en plataforma · ConcertRide en efectivo/Bizum al conductor",
-          "Cobertura: BlaBlaCar global · ConcertRide solo España, solo eventos",
-          "Reservar instantánea: ambas (cuando el conductor lo activa)",
-        ],
-      },
-    ],
-    faqs: [
-      {
-        q: "¿Es legal el carpooling sin licencia VTC?",
-        a: "Sí. Tanto BlaBlaCar como ConcertRide operan bajo la figura de gastos compartidos: el conductor no obtiene beneficio, solo cubre combustible y peajes. La sentencia del Tribunal Supremo (caso BlaBlaCar 2017) lo dejó claro: no es transporte profesional, no requiere licencia VTC ni de taxi.",
-      },
-      {
-        q: "¿Cuál es más barato a un festival concreto?",
-        a: "Para Mad Cool, Primavera Sound, Sónar y la mayoría de festivales españoles, ConcertRide sale 15–25 % más barato porque no cobra comisión. La diferencia se nota más en distancias largas (Madrid → Barcelona, por ejemplo).",
-      },
-      {
-        q: "¿Puedo usar las dos a la vez?",
-        a: "Claro. Mucha gente busca primero en ConcertRide (porque le interesa que el otro vaya al mismo festival) y, si no encuentra, busca en BlaBlaCar como alternativa.",
-      },
-    ],
-    relatedLinks: [
-      { label: "Cómo volver de un festival de madrugada", to: "/blog/como-volver-festival-madrugada" },
-      { label: "Guía de transporte para festivales en España", to: "/guia-transporte-festivales" },
-      { label: "Carpooling a Mad Cool 2026", to: "/festivales/mad-cool" },
-      { label: "Carpooling a Primavera Sound 2026", to: "/festivales/primavera-sound" },
-    ],
-    relatedPosts: ["como-volver-festival-madrugada", "huella-carbono-festivales-carpooling"],
-  },
-
-  // ──────────────────────────────────────────────────────────────────────
-  {
     slug: "como-volver-festival-madrugada",
     title: "Cómo volver de un festival de madrugada (sin taxi a 90 €)",
     h1: "Cómo volver de un festival de madrugada en España",
@@ -175,7 +94,7 @@ export const BLOG_POSTS: BlogPost[] = [
         ],
         bullets: [
           "1. Busca tu festival en concertride.me y filtra por “con regreso incluido”.",
-          "2. Si no encuentras, mira BlaBlaCar (rutas troncales con horario nocturno).",
+          "2. Si no encuentras, busca lanzadera oficial del festival o autobús nocturno.",
           "3. Si tampoco, reserva la lanzadera oficial del festival (siempre cobran solo a la salida).",
           "4. Como último recurso, comparte taxi entre 4: divide el coste, evita el caos.",
         ],
@@ -197,10 +116,9 @@ export const BLOG_POSTS: BlogPost[] = [
     ],
     relatedLinks: [
       { label: "Guía de transporte para festivales en España", to: "/guia-transporte-festivales" },
-      { label: "BlaBlaCar vs ConcertRide", to: "/blog/blablacar-vs-concertride" },
       { label: "Carpooling a Mad Cool", to: "/festivales/mad-cool" },
     ],
-    relatedPosts: ["blablacar-vs-concertride", "huella-carbono-festivales-carpooling"],
+    relatedPosts: ["huella-carbono-festivales-carpooling"],
   },
 
   // ──────────────────────────────────────────────────────────────────────
@@ -273,11 +191,10 @@ export const BLOG_POSTS: BlogPost[] = [
       },
     ],
     relatedLinks: [
-      { label: "BlaBlaCar vs ConcertRide", to: "/blog/blablacar-vs-concertride" },
       { label: "Cómo volver de un festival de madrugada", to: "/blog/como-volver-festival-madrugada" },
       { label: "Guía de transporte para festivales", to: "/guia-transporte-festivales" },
     ],
-    relatedPosts: ["blablacar-vs-concertride", "como-volver-festival-madrugada"],
+    relatedPosts: ["como-volver-festival-madrugada"],
   },
 ];
 

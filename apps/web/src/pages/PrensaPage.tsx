@@ -200,7 +200,7 @@ export default function PrensaPage() {
             },
             {
               stat: "0 %",
-              body: "de comisión cobra ConcertRide vs el 12–18 % de BlaBlaCar y el 20–25 % de Uber/Cabify.",
+              body: "de comisión cobra ConcertRide. El precio que ves es el precio que pagas, sin intermediarios.",
               source: "Tarifas públicas de cada plataforma, abril 2026",
               href: undefined,
             },
@@ -244,7 +244,6 @@ export default function PrensaPage() {
         <h2 className="font-display text-lg uppercase text-cr-text-muted">Ángulos de cobertura sugeridos</h2>
         <ul className="flex flex-wrap gap-2">
           {[
-            { label: "BlaBlaCar vs ConcertRide", to: "/blog/blablacar-vs-concertride" },
             { label: "Sostenibilidad en festivales", to: "/blog/huella-carbono-festivales-carpooling" },
             { label: "Guía transporte festivales", to: "/guia-transporte-festivales" },
             { label: "Volver de madrugada", to: "/blog/como-volver-festival-madrugada" },

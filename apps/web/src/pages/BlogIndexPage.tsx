@@ -11,7 +11,7 @@ export default function BlogIndexPage() {
       "Comparativas, guías de transporte y sostenibilidad para asistentes a festivales en España. Aprende a moverte mejor, gastar menos y reducir tu huella.",
     canonical: `${SITE_URL}/blog`,
     keywords:
-      "blog carpooling, comparativa BlaBlaCar, guía festivales España, transporte concierto, huella carbono festival",
+      "blog carpooling, guía festivales España, transporte concierto, huella carbono festival, carpooling conciertos",
   });
 
   const sorted = [...BLOG_POSTS].sort((a, b) => b.publishedAt.localeCompare(a.publishedAt));

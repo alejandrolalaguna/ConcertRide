@@ -168,23 +168,6 @@ export default function LandingPage() {
           </div>
 
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
-            {/* Blog */}
-            <Link
-              to="/blog/blablacar-vs-concertride"
-              className="border border-cr-border p-5 hover:border-cr-primary/50 transition-colors group space-y-3"
-            >
-              <p className="font-mono text-[10px] uppercase tracking-[0.14em] text-cr-primary">Comparativa</p>
-              <h3 className="font-display text-base uppercase leading-tight group-hover:text-cr-primary transition-colors">
-                BlaBlaCar vs ConcertRide 2026
-              </h3>
-              <p className="font-sans text-xs text-cr-text-muted leading-relaxed">
-                Comisiones, vuelta de madrugada, política de cancelación. Te decimos cuándo conviene cada una.
-              </p>
-              <span className="inline-flex items-center gap-1 font-sans text-xs text-cr-primary">
-                Leer <ArrowRight size={11} />
-              </span>
-            </Link>
-
             {/* Guía transporte */}
             <Link
               to="/guia-transporte-festivales"

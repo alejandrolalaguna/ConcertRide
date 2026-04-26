@@ -222,8 +222,6 @@ export function Hero() {
           transition={{ duration: 0.5, delay: 0.4 }}
           className="font-mono text-xs text-cr-text-muted"
         >
-          <span aria-hidden="true">🎸</span> 12,000+ viajeros nos avalan ·{" "}
-          <span className="text-cr-primary">★ 4.9</span>
         </motion.p>
       </div>
 

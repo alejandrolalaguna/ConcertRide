@@ -91,8 +91,7 @@ route.post("/register", authLimiter, async (c) => {
       .map((b) => b.toString(16).padStart(2, "0"))
       .join("");
     await c.env.CACHE.put(`everify:${token}`, user.id, { expirationTtl: 7 * 24 * 3600 });
-    const origin = new URL(c.req.url).origin;
-    verifyUrl = `${origin}/api/auth/verify-email?token=${token}`;
+    verifyUrl = `${getSiteUrl(c.env)}/api/auth/verify-email?token=${token}`;
   }
 
   // Fire-and-forget welcome email. Silently drops in dev without RESEND_API_KEY.
@@ -327,8 +326,7 @@ route.post("/resend-verification", authLimiter, async (c) => {
     .map((b) => b.toString(16).padStart(2, "0"))
     .join("");
   await c.env.CACHE.put(`everify:${token}`, userOrResp.id, { expirationTtl: 7 * 24 * 3600 });
-  const origin = new URL(c.req.url).origin;
-  const verifyUrl = `${origin}/api/auth/verify-email?token=${token}`;
+  const verifyUrl = `${getSiteUrl(c.env)}/api/auth/verify-email?token=${token}`;
 
   c.executionCtx.waitUntil(
     sendWelcomeEmail(c.env, userOrResp.email, userOrResp.name, verifyUrl).then(() => undefined),
