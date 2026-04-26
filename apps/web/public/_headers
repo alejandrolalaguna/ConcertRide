@@ -8,3 +8,6 @@
   Content-Security-Policy: default-src 'self'; script-src 'self' 'wasm-unsafe-eval'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: blob: https://*.basemaps.cartocdn.com https://basemaps.cartocdn.com https://*.tile.openstreetmap.org https://*.ticketm.net https://s1.ticketm.net; connect-src 'self' https://*.workers.dev https://concertride.me https://www.concertride.me https://api.ticketmaster.com https://*.ingest.sentry.io https://o*.ingest.sentry.io https://app.posthog.com https://eu.posthog.com; frame-ancestors 'none'; base-uri 'self'; form-action 'self'; object-src 'none'; upgrade-insecure-requests
   Cross-Origin-Opener-Policy: same-origin
   Cross-Origin-Resource-Policy: cross-origin
+
+/
+  Link: </sitemap.xml>; rel="sitemap", </llms.txt>; rel="describedby", </openapi.json>; rel="service-desc"

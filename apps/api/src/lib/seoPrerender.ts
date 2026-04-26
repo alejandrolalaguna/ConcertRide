@@ -1179,6 +1179,7 @@ export async function seoPrerender(c: Context<HonoEnv>, next: Next): Promise<Res
       "Cache-Control": "public, max-age=3600, s-maxage=3600",
       "Vary": "User-Agent",
       "X-SEO-Prerender": "1",
+      "Link": `<${base}/sitemap.xml>; rel="sitemap", <${base}/llms.txt>; rel="describedby", <${base}/openapi.json>; rel="service-desc"`,
     },
   });
 }
