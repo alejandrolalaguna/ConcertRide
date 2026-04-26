@@ -25,6 +25,10 @@
       "preview_id": "471a1a80baf64bdfae93bde69a363fcf"
     }
   ],
+  "routes": [
+    { "pattern": "concertride.me", "custom_domain": true },
+    { "pattern": "www.concertride.me", "custom_domain": true }
+  ],
   "triggers": {
     "crons": [
       "0 3 * * 1",
