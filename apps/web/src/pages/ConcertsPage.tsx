@@ -10,7 +10,7 @@ import { LoadingSpinner } from "@/components/ui";
 
 const PAGE_SIZE = 24;
 // Past tab: show concerts from up to 3 months ago
-const THREE_MONTHS_MS = 90 * 24 * 60 * 60 * 1000;
+const TWO_MONTHS_MS = 60 * 24 * 60 * 60 * 1000;
 
 type Tab = "active" | "past";
 
@@ -97,12 +97,12 @@ export default function ConcertsPage() {
   const fetchConcerts = useCallback(() => {
     // Compute fresh dates on every fetch — not at module load time
     const nowISO = new Date().toISOString();
-    const threeMonthsAgoISO = new Date(Date.now() - THREE_MONTHS_MS).toISOString();
+    const twoMonthsAgoISO = new Date(Date.now() - TWO_MONTHS_MS).toISOString();
 
     setLoading(true);
     setConcerts(null);
 
-    const baseDateFrom = tab === "past" ? threeMonthsAgoISO : nowISO;
+    const baseDateFrom = tab === "past" ? twoMonthsAgoISO : nowISO;
     const baseDateTo = tab === "past" ? nowISO : undefined;
 
     const params = {
