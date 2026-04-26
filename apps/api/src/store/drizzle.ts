@@ -484,8 +484,14 @@ export class DrizzleStore implements StoreAdapter {
       ? filtered.slice(f.offset ?? 0, (f.offset ?? 0) + (f.limit ?? 100))
       : filtered;
 
-    // Batch demand + active ride counts for the current page
+    // Batch demand + active ride counts for the current page.
+    // For past concerts (date_to <= now) also count "completed" rides so the
+    // card shows real historical activity instead of always "Sin viajes".
     const now = new Date().toISOString();
+    const isPastQuery = !!f.date_to && f.date_to <= now;
+    const rideStatuses: ("active" | "full" | "cancelled" | "completed")[] = isPastQuery
+      ? ["active", "full", "completed"]
+      : ["active"];
     const pageIds = pageRows.map((c) => c.id);
     const [demandRows, rideRows] = pageIds.length
       ? await Promise.all([
@@ -505,7 +511,7 @@ export class DrizzleStore implements StoreAdapter {
             .where(
               and(
                 inArray(schema.rides.concert_id, pageIds),
-                inArray(schema.rides.status, ["active", "full"]),
+                inArray(schema.rides.status, rideStatuses),
               ),
             )
             .groupBy(schema.rides.concert_id),

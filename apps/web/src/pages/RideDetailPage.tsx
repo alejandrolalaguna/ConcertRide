@@ -378,71 +378,71 @@ export default function RideDetailPage() {
                     {ride.concert.artist}
                   </h1>
                 </Link>
-                <p className="font-mono text-xs text-cr-text-muted">
+                <p className="font-sans text-sm text-cr-text-muted">
                   {ride.concert.venue.name} · {formatDate(ride.concert.date)}
                 </p>
               </div>
 
-              <dl className="grid grid-cols-2 gap-x-4 gap-y-3 text-sm border-t border-dashed border-cr-border pt-4">
+              <dl className="grid grid-cols-2 gap-x-4 gap-y-4 border-t border-dashed border-cr-border pt-4">
                 <div>
-                  <dt className="font-sans text-[10px] font-semibold uppercase tracking-[0.12em] text-cr-text-muted">
+                  <dt className="font-sans text-xs font-semibold uppercase tracking-[0.1em] text-cr-text-muted">
                     Origen
                   </dt>
-                  <dd className="font-mono text-xs text-cr-text mt-1 flex items-center gap-1.5">
-                    <MapPin size={10} aria-hidden="true" />
+                  <dd className="font-sans text-sm text-cr-text mt-1 flex items-center gap-1.5">
+                    <MapPin size={11} aria-hidden="true" />
                     {ride.origin_address}
                   </dd>
                 </div>
                 <div>
-                  <dt className="font-sans text-[10px] font-semibold uppercase tracking-[0.12em] text-cr-text-muted">
+                  <dt className="font-sans text-xs font-semibold uppercase tracking-[0.1em] text-cr-text-muted">
                     Salida
                   </dt>
-                  <dd className="font-mono text-xs text-cr-text mt-1 flex items-center gap-1.5">
-                    <Clock size={10} aria-hidden="true" />
+                  <dd className="font-sans text-sm text-cr-text mt-1 flex items-center gap-1.5">
+                    <Clock size={11} aria-hidden="true" />
                     {formatDate(ride.departure_time)} · {formatTime(ride.departure_time)}
                   </dd>
                 </div>
                 <div>
-                  <dt className="font-sans text-[10px] font-semibold uppercase tracking-[0.12em] text-cr-text-muted">
+                  <dt className="font-sans text-xs font-semibold uppercase tracking-[0.1em] text-cr-text-muted">
                     Vuelta
                   </dt>
-                  <dd className="font-mono text-xs text-cr-text mt-1">
+                  <dd className="font-sans text-sm text-cr-text mt-1">
                     {ride.round_trip && ride.return_time
                       ? `${formatDate(ride.return_time)} · ${formatTime(ride.return_time)}`
                       : "—"}
                   </dd>
                 </div>
                 <div>
-                  <dt className="font-sans text-[10px] font-semibold uppercase tracking-[0.12em] text-cr-text-muted">
+                  <dt className="font-sans text-xs font-semibold uppercase tracking-[0.1em] text-cr-text-muted">
                     Coche
                   </dt>
-                  <dd className="font-mono text-xs text-cr-text mt-1">
+                  <dd className="font-sans text-sm text-cr-text mt-1">
                     {ride.driver.car_model
                       ? `${ride.driver.car_model}${ride.driver.car_color ? ` · ${ride.driver.car_color}` : ""}`
                       : "—"}
                   </dd>
                 </div>
                 <div>
-                  <dt className="font-sans text-[10px] font-semibold uppercase tracking-[0.12em] text-cr-text-muted">
+                  <dt className="font-sans text-xs font-semibold uppercase tracking-[0.1em] text-cr-text-muted">
                     Fumar
                   </dt>
-                  <dd className="font-mono text-xs text-cr-text mt-1">
+                  <dd className="font-sans text-sm text-cr-text mt-1">
                     {SMOKING_LABEL[ride.smoking_policy]}
                   </dd>
                 </div>
                 <div>
-                  <dt className="font-sans text-[10px] font-semibold uppercase tracking-[0.12em] text-cr-text-muted">
+                  <dt className="font-sans text-xs font-semibold uppercase tracking-[0.1em] text-cr-text-muted">
                     Equipaje máx.
                   </dt>
-                  <dd className="font-mono text-xs text-cr-text mt-1">
+                  <dd className="font-sans text-sm text-cr-text mt-1">
                     🧳 {LUGGAGE_LABEL[ride.max_luggage]}
                   </dd>
                 </div>
                 <div>
-                  <dt className="font-sans text-[10px] font-semibold uppercase tracking-[0.12em] text-cr-text-muted">
+                  <dt className="font-sans text-xs font-semibold uppercase tracking-[0.1em] text-cr-text-muted">
                     Pago aceptado
                   </dt>
-                  <dd className="font-mono text-xs text-cr-text mt-1">
+                  <dd className="font-sans text-sm text-cr-text mt-1">
                     {PAYMENT_LABEL[ride.accepted_payment]}
                   </dd>
                 </div>
@@ -450,7 +450,7 @@ export default function RideDetailPage() {
 
               {ride.notes && (
                 <div className="border-t border-dashed border-cr-border pt-4">
-                  <p className="font-sans text-[10px] font-semibold uppercase tracking-[0.12em] text-cr-text-muted mb-1">
+                  <p className="font-sans text-xs font-semibold uppercase tracking-[0.1em] text-cr-text-muted mb-1">
                     Notas del conductor
                   </p>
                   <p className="font-sans text-sm text-cr-text leading-relaxed">{ride.notes}</p>
@@ -458,7 +458,7 @@ export default function RideDetailPage() {
               )}
 
               <div className="border-t border-dashed border-cr-border pt-4">
-                <p className="font-sans text-[10px] font-semibold uppercase tracking-[0.12em] text-cr-text-muted mb-3">
+                <p className="font-sans text-xs font-semibold uppercase tracking-[0.1em] text-cr-text-muted mb-3">
                   Conductor
                 </p>
                 <DriverProfileMini driver={ride.driver} />
@@ -473,17 +473,17 @@ export default function RideDetailPage() {
             <div className="relative md:w-56 md:border-l md:border-dashed md:border-cr-border border-t md:border-t-0 border-dashed border-cr-border p-6 md:p-8 flex md:flex-col justify-between gap-4">
               <div>
                 <p className="font-mono text-4xl text-cr-primary leading-none">€{ride.price_per_seat}</p>
-                <p className="font-sans text-[10px] font-semibold uppercase tracking-[0.12em] text-cr-text-muted mt-1">
+                <p className="font-sans text-xs font-semibold uppercase tracking-[0.1em] text-cr-text-muted mt-1">
                   /asiento
                 </p>
                 {ride.price_negotiable && (
-                  <span className="inline-block mt-2 font-sans text-[10px] font-semibold uppercase tracking-[0.08em] border border-cr-primary text-cr-primary px-1.5 py-0.5">
+                  <span className="inline-block mt-2 font-sans text-xs font-semibold uppercase tracking-[0.08em] border border-cr-primary text-cr-primary px-1.5 py-0.5">
                     Negociable
                   </span>
                 )}
               </div>
               <div className="flex md:flex-col md:items-start items-end gap-2">
-                <p className="font-mono text-sm text-cr-text">
+                <p className="font-sans text-sm text-cr-text">
                   {ride.seats_left} plaza{ride.seats_left === 1 ? "" : "s"}
                 </p>
                 <VibeBadge vibe={ride.vibe} />
@@ -492,7 +492,7 @@ export default function RideDetailPage() {
                     href={ride.playlist_url}
                     target="_blank"
                     rel="noreferrer"
-                    className="inline-flex items-center gap-1.5 font-mono text-[11px] text-cr-text-muted hover:text-cr-primary"
+                    className="inline-flex items-center gap-1.5 font-sans text-xs text-cr-text-muted hover:text-cr-primary"
                   >
                     <Music size={12} aria-hidden="true" />
                     Playlist

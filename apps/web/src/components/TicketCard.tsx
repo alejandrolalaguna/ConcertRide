@@ -32,7 +32,7 @@ export function TicketCard({ ride, onClick }: Props) {
       className="group relative flex bg-cr-surface border border-cr-border hover:border-cr-primary/40 transition-colors cursor-pointer"
     >
       <div className="flex-1 p-5 space-y-3 min-w-0">
-        <span className="inline-block font-sans text-[10px] font-semibold uppercase tracking-[0.12em] text-cr-primary">
+        <span className="inline-block font-sans text-xs font-semibold uppercase tracking-[0.12em] text-cr-primary">
           De · {ride.origin_city}
         </span>
 
@@ -40,10 +40,10 @@ export function TicketCard({ ride, onClick }: Props) {
           <h3 className="font-display text-lg uppercase leading-tight truncate">
             {concert.artist}
           </h3>
-          <p className="font-mono text-xs text-cr-text-muted truncate">
+          <p className="font-sans text-sm text-cr-text-muted truncate">
             {concert.venue.name} · {concert.venue.city}
           </p>
-          <p className="font-mono text-xs text-cr-text-dim">
+          <p className="font-sans text-sm text-cr-text-dim">
             {formatDay(concert.date)} · salida {formatTime(ride.departure_time)}
           </p>
         </div>
@@ -51,12 +51,12 @@ export function TicketCard({ ride, onClick }: Props) {
         <div className="flex items-center gap-3 pt-2">
           <div
             aria-hidden="true"
-            className="w-9 h-9 rounded-full bg-cr-surface-2 border border-cr-border flex items-center justify-center font-mono text-[11px] text-cr-text"
+            className="w-9 h-9 rounded-full bg-cr-surface-2 border border-cr-border flex items-center justify-center font-sans text-xs font-semibold text-cr-text"
           >
             {initials(driver.name)}
           </div>
           <div className="leading-tight">
-            <p className="text-xs text-cr-text flex items-center gap-1">
+            <p className="font-sans text-sm text-cr-text flex items-center gap-1">
               {driver.name}
               {driver.verified && (
                 <span className="text-cr-primary" aria-label="Perfil verificado">
@@ -64,7 +64,7 @@ export function TicketCard({ ride, onClick }: Props) {
                 </span>
               )}
             </p>
-            <p className="font-mono text-[11px] text-cr-text-muted flex items-center gap-1">
+            <p className="font-sans text-xs text-cr-text-muted flex items-center gap-1">
               {driver.rating_count >= 3 ? (
                 <span className="text-cr-primary">★ {driver.rating.toFixed(1)} <span className="text-cr-text-dim">({driver.rating_count})</span> ·</span>
               ) : null}
@@ -94,31 +94,31 @@ export function TicketCard({ ride, onClick }: Props) {
         </div>
 
         <div className="space-y-1.5">
-          <p className={`font-mono text-xs flex items-center gap-1.5 ${ride.seats_left === 1 ? "text-cr-secondary font-semibold" : "text-cr-text-muted"}`}>
+          <p className={`font-sans text-sm flex items-center gap-1.5 ${ride.seats_left === 1 ? "text-cr-secondary font-semibold" : "text-cr-text-muted"}`}>
             <Users size={12} aria-hidden="true" />
             {ride.seats_left === 0 ? "Completo" : `${ride.seats_left} plaza${ride.seats_left === 1 ? "" : "s"}`}
           </p>
           <div className="flex gap-1.5 flex-wrap">
             <VibeBadge vibe={ride.vibe} />
             {ride.instant_booking && (
-              <span className="inline-block font-sans text-[10px] font-semibold text-black bg-cr-primary px-1.5 py-0.5 tracking-[0.08em]">
+              <span className="inline-block font-sans text-xs font-semibold text-black bg-cr-primary px-1.5 py-0.5 tracking-[0.08em]">
                 Instante
               </span>
             )}
             {ride.price_negotiable && (
-              <span className="inline-block font-sans text-[10px] font-semibold text-cr-primary border border-cr-primary px-1.5 py-0.5 tracking-[0.08em]">
+              <span className="inline-block font-sans text-xs font-semibold text-cr-primary border border-cr-primary px-1.5 py-0.5 tracking-[0.08em]">
                 Negociable
               </span>
             )}
             <HotRidesBadge seatsTaken={ride.seats_total - ride.seats_left} seatsTotal={ride.seats_total} />
           </div>
           <SocialProofText seatsTaken={ride.seats_total - ride.seats_left} seatsTotal={ride.seats_total} />
-          <p className="font-mono text-[10px] text-cr-text-dim">
+          <p className="font-sans text-xs text-cr-text-dim">
             {ride.smoking_policy === "no" ? "🚭" : "🚬"}{" "}
             {ride.smoking_policy === "no" ? "No fumar" : "Fumadores"}
           </p>
           {ride.max_luggage !== "extra" && (
-            <p className="font-mono text-[10px] text-cr-text-dim truncate">
+            <p className="font-sans text-xs text-cr-text-dim truncate">
               🧳 {LUGGAGE_LABEL[ride.max_luggage]}
             </p>
           )}
