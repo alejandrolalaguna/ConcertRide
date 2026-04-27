@@ -1,34 +1,9 @@
-import { Check } from "lucide-react";
-import { TestimonialCard, type Testimonial } from "./TestimonialCard";
-
-const TESTIMONIALS: Testimonial[] = [
-  {
-    quote:
-      "Fui desde Valencia al Palau Sant Jordi por 20€ ida y vuelta. Playlist colaborativa y conocí a dos personas increíbles.",
-    name: "Elena Ruiz",
-    city: "Valencia",
-    concert: "C. Tangana",
-  },
-  {
-    quote:
-      "Llevar el coche medio vacío era una locura. Ahora cubro gasolina y peajes con tres personas majas. Viajé a Mad Cool sin pisar el tren.",
-    name: "Adrián López",
-    city: "Zaragoza",
-    concert: "Mad Cool Festival",
-  },
-  {
-    quote:
-      "La vibe chill de verdad existe. De Sevilla a Málaga escuchando el álbum del concierto. Llegué sin estrés y lista para saltar.",
-    name: "Claudia Sánchez",
-    city: "Sevilla",
-    concert: "Bad Bunny",
-  },
-];
+import { Check, MessageSquare } from "lucide-react";
 
 const TRUST_POINTS = [
   "Perfil verificado con DNI",
-  "Conductores con valoraciones reales",
-  "Seguro de viaje incluido",
+  "Conductores con carnet verificado",
+  "Sin comisiones de plataforma",
 ];
 
 export function TrustSection() {
@@ -49,10 +24,17 @@ export function TrustSection() {
           </h2>
         </header>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
-          {TESTIMONIALS.map((t, i) => (
-            <TestimonialCard key={t.name} testimonial={t} index={i} />
-          ))}
+        <div className="border border-dashed border-cr-border p-10 md:p-16 flex flex-col items-center gap-4 text-center">
+          <MessageSquare size={28} className="text-cr-text-dim" aria-hidden="true" />
+          <p className="font-sans text-sm text-cr-text-muted max-w-sm leading-relaxed">
+            Sé el primero en compartir tu experiencia. Las valoraciones de usuarios reales aparecerán aquí.
+          </p>
+          <a
+            href="/concerts"
+            className="font-sans text-xs font-semibold uppercase tracking-[0.12em] text-cr-primary border border-cr-primary/40 px-4 py-2 hover:bg-cr-primary hover:text-black transition-colors"
+          >
+            Buscar viaje →
+          </a>
         </div>
 
         <ul className="flex flex-wrap items-center gap-x-8 gap-y-3 border-t border-dashed border-cr-border pt-8">
