@@ -31,6 +31,7 @@ export const users = sqliteTable(
     smoker: integer("smoker", { mode: "boolean" }),
     has_license: integer("has_license", { mode: "boolean" }),
     license_verified: integer("license_verified", { mode: "boolean" }).notNull().default(false),
+    identity_verified: integer("identity_verified", { mode: "boolean" }).notNull().default(false),
     referral_code: text("referral_code"),
     referral_count: integer("referral_count").notNull().default(0),
     password_hash: text("password_hash"),
@@ -323,7 +324,7 @@ export const adminAuditLog = sqliteTable(
     id: text("id").primaryKey(),
     admin_id: text("admin_id").notNull().references(() => users.id),
     action: text("action", {
-      enum: ["ban_user", "unban_user", "license_approve", "license_reject", "report_resolve", "report_dismiss"],
+      enum: ["ban_user", "unban_user", "license_approve", "license_reject", "identity_approve", "identity_reject", "report_resolve", "report_dismiss"],
     }).notNull(),
     target_user_id: text("target_user_id").references(() => users.id),
     details: text("details"),
@@ -354,6 +355,27 @@ export const licenseReviews = sqliteTable(
   (t) => ({
     userIdx: index("license_reviews_user_idx").on(t.user_id),
     statusIdx: index("license_reviews_status_idx").on(t.status),
+  }),
+);
+
+export const identityReviews = sqliteTable(
+  "identity_reviews",
+  {
+    id: text("id").primaryKey(),
+    user_id: text("user_id")
+      .notNull()
+      .references(() => users.id),
+    file_kv_key: text("file_kv_key").notNull(),
+    status: text("status", { enum: ["pending", "approved", "rejected"] })
+      .notNull()
+      .default("pending"),
+    rejection_reason: text("rejection_reason"),
+    submitted_at: text("submitted_at").notNull().default(sql`CURRENT_TIMESTAMP`),
+    reviewed_at: text("reviewed_at"),
+  },
+  (t) => ({
+    userIdx: index("identity_reviews_user_idx").on(t.user_id),
+    statusIdx: index("identity_reviews_status_idx").on(t.status),
   }),
 );
 
@@ -461,6 +483,10 @@ export const licenseReviewsRelations = relations(licenseReviews, ({ one }) => ({
   user: one(users, { fields: [licenseReviews.user_id], references: [users.id] }),
 }));
 
+export const identityReviewsRelations = relations(identityReviews, ({ one }) => ({
+  user: one(users, { fields: [identityReviews.user_id], references: [users.id] }),
+}));
+
 export const rideChecklistRelations = relations(rideChecklist, ({ one }) => ({
   ride: one(rides, { fields: [rideChecklist.ride_id], references: [rides.id] }),
 }));
@@ -475,6 +501,7 @@ export type MessageRow = typeof messages.$inferSelect;
 export type ReviewRow = typeof reviews.$inferSelect;
 export type ConcertSourceRow = typeof concertSources.$inferSelect;
 export type LicenseReviewRow = typeof licenseReviews.$inferSelect;
+export type IdentityReviewRow = typeof identityReviews.$inferSelect;
 export type BannedEmailRow = typeof bannedEmails.$inferSelect;
 export type AdminAuditLogRow = typeof adminAuditLog.$inferSelect;
 export type RideChecklistRow = typeof rideChecklist.$inferSelect;

@@ -196,17 +196,14 @@ export default function FaqPage() {
           {FAQS.map((item, i) => {
             const isOpen = open === i;
             return (
-              <article key={i} itemScope itemType="https://schema.org/Question">
+              <article key={i}>
                 <button
                   type="button"
                   onClick={() => setOpen(isOpen ? null : i)}
                   aria-expanded={isOpen}
                   className="w-full flex items-center justify-between gap-4 py-4 text-left hover:text-cr-primary transition-colors"
                 >
-                  <h2
-                    itemProp="name"
-                    className="font-sans text-sm md:text-base font-semibold text-cr-text flex-1"
-                  >
+                  <h2 className="font-sans text-sm md:text-base font-semibold text-cr-text flex-1">
                     {item.q}
                   </h2>
                   <ChevronDown
@@ -216,13 +213,8 @@ export default function FaqPage() {
                   />
                 </button>
                 {isOpen && (
-                  <div
-                    itemScope
-                    itemProp="acceptedAnswer"
-                    itemType="https://schema.org/Answer"
-                    className="pb-5"
-                  >
-                    <p itemProp="text" className="font-sans text-sm text-cr-text-muted leading-relaxed">
+                  <div className="pb-5">
+                    <p className="font-sans text-sm text-cr-text-muted leading-relaxed">
                       {item.a}
                     </p>
                   </div>

@@ -87,6 +87,7 @@ export default function RouteLandingPage() {
       price: (originData.concertRideRange.split("–")[0] ?? "3").replace(/[^0-9]/g, "") || "3",
       priceCurrency: "EUR",
       availability: "https://schema.org/InStock",
+      validFrom: new Date().toISOString(),
       url: `${SITE_URL}/rutas/${landing.slug}`,
     },
   };

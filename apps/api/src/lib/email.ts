@@ -698,6 +698,94 @@ export function sendLicenseReviewResultEmail(
   return sendEmail(env, { to: email, subject, html });
 }
 
+// ── Identity review submitted → admin notification ───────────────────────
+export function sendIdentityReviewAdminEmail(
+  env: Env,
+  args: {
+    userName: string;
+    userId: string;
+    reviewId: string;
+    fileUrl: string;
+  },
+): Promise<SendResult> {
+  const subject = `[Admin] Nueva identidad para verificar — ${args.userName}`;
+  const adminUrl = `${getSiteUrl(env)}/admin`;
+  const html = shell(
+    env,
+    subject,
+    `Acción requerida: revisar identidad de ${args.userName}`,
+    `
+    <h1 style="font-family:Georgia,serif;font-size:24px;line-height:1.15;margin:0 0 12px 0;">Nuevo documento de identidad pendiente de revisión.</h1>
+    <p style="color:#ccc;margin:0 0 24px 0;line-height:1.6;font-size:15px;">Un pasajero ha enviado su DNI/pasaporte para verificación. Revísalo en el panel de administración.</p>
+
+    ${infoTable([
+      ["Usuario", args.userName],
+      ["User ID", args.userId],
+      ["Review ID", args.reviewId],
+    ])}
+
+    ${alertBox(`🔍 Comprueba que el documento es legible, pertenece al usuario y está vigente. Aprueba o rechaza desde el panel admin indicando el motivo si procede.`, "info")}
+
+    <p style="margin:0 0 12px 0;">${cta(args.fileUrl, "Ver documento")}</p>
+    <p style="margin:0;">${ctaSecondary(adminUrl, "Ir al panel admin")}</p>
+    `,
+  );
+  return sendEmail(env, { to: env.SUPPORT_EMAIL, subject, html });
+}
+
+// ── Identity review result → pasajero ────────────────────────────────────
+export function sendIdentityReviewResultEmail(
+  env: Env,
+  email: string,
+  args: {
+    name: string;
+    approved: boolean;
+    reason?: string;
+  },
+): Promise<SendResult> {
+  const base = getSiteUrl(env);
+  const subject = args.approved
+    ? "Tu identidad ha sido verificada ✓"
+    : "Tu documento de identidad no ha podido ser verificado";
+
+  const body = args.approved
+    ? `
+    <h1 style="font-family:Georgia,serif;font-size:28px;line-height:1.15;margin:0 0 12px 0;">Identidad verificada. ✅</h1>
+    <p style="margin:0 0 4px 0;">${badge("Verificado", "success")}</p>
+    <p style="color:#ccc;margin:16px 0 24px 0;line-height:1.6;font-size:15px;">Hola, ${escapeHtml(args.name)}. Hemos revisado tu documento de identidad y todo está en orden. Ya puedes reservar plazas con total confianza en ConcertRide.</p>
+
+    ${alertBox(`🎶 Tu perfil ahora muestra el sello de identidad verificada, lo que aumenta la confianza de los conductores al aceptar tu solicitud.`, "success")}
+
+    <p style="margin:0 0 8px 0;">${cta(`${base}/concerts`, "Ver conciertos disponibles")}</p>
+    `
+    : `
+    <h1 style="font-family:Georgia,serif;font-size:28px;line-height:1.15;margin:0 0 12px 0;">No hemos podido verificar tu documento.</h1>
+    <p style="margin:0 0 4px 0;">${badge("No verificado", "danger")}</p>
+    <p style="color:#ccc;margin:16px 0 24px 0;line-height:1.6;font-size:15px;">Hola, ${escapeHtml(args.name)}. Lamentablemente no hemos podido verificar tu documento de identidad.</p>
+
+    ${args.reason ? alertBox(`<strong>Motivo:</strong> ${escapeHtml(args.reason)}`, "danger") : ""}
+
+    <p style="color:#ccc;margin:0 0 24px 0;line-height:1.6;font-size:15px;">Puedes volver a intentarlo subiendo una imagen más clara del documento desde tu perfil:</p>
+    <ul style="color:#888;font-size:13px;line-height:2;margin:0 0 28px 0;padding-left:20px;">
+      <li>La imagen está bien iluminada y sin reflejos</li>
+      <li>Todos los datos son legibles (nombre, fecha, número)</li>
+      <li>El documento está vigente</li>
+      <li>Sube el anverso completo del documento</li>
+    </ul>
+
+    <p style="margin:0 0 8px 0;">${cta(`${base}/profile`, "Volver a intentarlo")}</p>
+    <p style="color:#444;font-size:12px;margin-top:16px;">Si crees que es un error, responde a este correo y lo revisamos.</p>
+    `;
+
+  const html = shell(
+    env,
+    subject,
+    args.approved ? "¡Tu identidad está verificada!" : "Puedes reintentar la verificación",
+    body,
+  );
+  return sendEmail(env, { to: email, subject, html });
+}
+
 // ── Account ban notification → user ──────────────────────────────────────
 export function sendBanNotificationEmail(
   env: Env,

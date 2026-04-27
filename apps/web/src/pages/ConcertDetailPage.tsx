@@ -474,7 +474,67 @@ export default function ConcertDetailPage() {
           <ConcertChatSection concertId={concert.id} artist={concert.artist} />
         </section>
       )}
+
+      {concert && !isPast && (
+        <section className="max-w-6xl mx-auto px-6 pb-16">
+          <EmbedSnippet concertId={concert.id} />
+        </section>
+      )}
     </main>
+  );
+}
+
+function EmbedSnippet({ concertId }: { concertId: string }) {
+  const [copied, setCopied] = useState(false);
+  const [open, setOpen] = useState(false);
+  const snippet = `<iframe\n  src="${SITE_URL}/widget/concert/${concertId}"\n  width="100%"\n  height="320"\n  frameborder="0"\n  style="border-radius:4px;"\n  title="Viajes compartidos — ConcertRide"\n></iframe>`;
+
+  if (!open) {
+    return (
+      <button
+        type="button"
+        onClick={() => setOpen(true)}
+        className="font-sans text-[11px] font-semibold uppercase tracking-[0.12em] text-cr-text-dim hover:text-cr-text-muted transition-colors"
+      >
+        ¿Eres promotora? Incrusta los viajes en tu web →
+      </button>
+    );
+  }
+
+  return (
+    <div className="border border-dashed border-cr-border p-5 space-y-3">
+      <div className="flex items-start justify-between gap-4">
+        <div>
+          <p className="font-sans text-xs font-semibold uppercase tracking-[0.12em] text-cr-text-muted">
+            Widget para tu web
+          </p>
+          <p className="font-mono text-[11px] text-cr-text-dim mt-1">
+            Copia este código HTML en tu web para mostrar los viajes disponibles en tiempo real.
+          </p>
+        </div>
+        <button
+          type="button"
+          onClick={() => setOpen(false)}
+          className="font-mono text-[11px] text-cr-text-dim hover:text-cr-text transition-colors"
+          aria-label="Cerrar"
+        >✕</button>
+      </div>
+      <pre className="bg-cr-surface border border-cr-border p-3 font-mono text-[11px] text-cr-text-muted overflow-x-auto whitespace-pre-wrap break-all">
+        {snippet}
+      </pre>
+      <button
+        type="button"
+        onClick={() => {
+          navigator.clipboard.writeText(snippet).then(() => {
+            setCopied(true);
+            setTimeout(() => setCopied(false), 2000);
+          });
+        }}
+        className="font-sans text-xs font-semibold uppercase tracking-[0.12em] border border-cr-border text-cr-text-muted hover:border-cr-primary hover:text-cr-primary px-4 py-2 transition-colors"
+      >
+        {copied ? "¡Copiado!" : "Copiar snippet"}
+      </button>
+    </div>
   );
 }
 

@@ -8,6 +8,7 @@ import type {
   DemandSignal,
   Favorite,
   FavoriteKind,
+  IdentityReview,
   LicenseReview,
   Message,
   Report,
@@ -128,6 +129,14 @@ export interface StoreAdapter {
   approveLicenseReview(reviewId: string): Promise<{ review: LicenseReview; user: User | null }>;
   // Admin: reject — sets review to rejected with a reason.
   rejectLicenseReview(reviewId: string, reason: string): Promise<LicenseReview | null>;
+
+  // --- identity reviews (passenger DNI/passport) ---
+  createIdentityReview(userId: string, fileKvKey: string): Promise<IdentityReview>;
+  getMyIdentityReview(userId: string): Promise<IdentityReview | null>;
+  listIdentityReviews(filter?: { status?: "pending" | "approved" | "rejected" }): Promise<Array<IdentityReview & { user: User | null }>>;
+  approveIdentityReview(reviewId: string): Promise<{ review: IdentityReview; user: User | null }>;
+  rejectIdentityReview(reviewId: string, reason: string): Promise<IdentityReview | null>;
+  verifyIdentity(userId: string): Promise<User | null>;
 
   // --- venues ---
   listVenues(): Promise<Venue[]>;

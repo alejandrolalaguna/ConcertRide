@@ -28,7 +28,17 @@ export function TrustBadge({ user, compact = false, linkToProfile = false }: Pro
           title="Carnet de conducir verificado"
         >
           <ShieldCheck size={9} strokeWidth={3} aria-hidden="true" />
-          Verificado
+          Conductor
+        </span>
+      )}
+      {user.identity_verified && (
+        <span
+          className="inline-flex items-center gap-0.5 font-sans text-[9px] font-semibold uppercase tracking-[0.1em] bg-cr-primary/20 text-cr-primary px-1 py-0.5"
+          aria-label="Identidad verificada"
+          title="Identidad verificada (DNI/pasaporte)"
+        >
+          <ShieldCheck size={9} strokeWidth={3} aria-hidden="true" />
+          ID
         </span>
       )}
     </>

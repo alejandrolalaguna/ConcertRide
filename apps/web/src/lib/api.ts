@@ -145,6 +145,16 @@ export const api = {
         body: form,
       });
     },
+    myIdentityReview: () =>
+      request<{ review: import("@concertride/types").IdentityReview | null }>("/api/auth/verify-identity/status"),
+    verifyIdentity: (file: File) => {
+      const form = new FormData();
+      form.append("document", file);
+      return request<{ ok: true; status: "pending"; review_id: string }>("/api/auth/verify-identity", {
+        method: "POST",
+        body: form,
+      });
+    },
     sendPhoneOtp: (phone: string) =>
       request<{ ok: true; otp?: string }>("/api/auth/send-phone-otp", {
         method: "POST",

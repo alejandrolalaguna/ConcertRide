@@ -227,6 +227,90 @@ route.get("/verify-license/status", async (c) => {
   return c.json({ review: review ?? null });
 });
 
+// POST /auth/verify-identity — passenger uploads DNI/passport for review
+route.post("/verify-identity", async (c) => {
+  const userOrResp = await requireUser(c);
+  if (userOrResp instanceof Response) return userOrResp;
+
+  const body = await c.req.parseBody().catch(() => null);
+  if (!body || !body["document"]) {
+    return c.json({ error: "bad_request", message: "Falta el documento" }, 400);
+  }
+
+  const file = body["document"];
+  if (!(file instanceof File)) {
+    return c.json({ error: "bad_request", message: "El campo 'document' debe ser un fichero" }, 400);
+  }
+
+  const allowedTypes = ["image/jpeg", "image/png", "image/webp", "application/pdf"];
+  if (!allowedTypes.includes(file.type)) {
+    return c.json({ error: "bad_request", message: "Formato no admitido. Usa JPG, PNG, WEBP o PDF" }, 400);
+  }
+  if (file.size > 10 * 1024 * 1024) {
+    return c.json({ error: "bad_request", message: "El archivo no puede superar 10 MB" }, 400);
+  }
+
+  const kvKey = `identity_doc:${userOrResp.id}:${Date.now()}`;
+  const ext = file.type === "application/pdf" ? "pdf" : file.type.split("/")[1];
+  const kvKeyWithExt = `${kvKey}.${ext}`;
+
+  const arrayBuffer = await file.arrayBuffer();
+  const bytes = new Uint8Array(arrayBuffer);
+  let binary = "";
+  for (let i = 0; i < bytes.length; i++) binary += String.fromCharCode(bytes[i]!);
+  const base64 = btoa(binary);
+  const dataUrl = `data:${file.type};base64,${base64}`;
+
+  if (c.env.CACHE) {
+    await c.env.CACHE.put(kvKeyWithExt, dataUrl, { expirationTtl: 90 * 24 * 60 * 60 });
+  }
+
+  const review = await c.var.store.createIdentityReview(userOrResp.id, kvKeyWithExt);
+
+  const { sendIdentityReviewAdminEmail } = await import("../lib/email");
+  const fileUrl = `${getSiteUrl(c.env)}/api/auth/identity-doc/${encodeURIComponent(kvKeyWithExt)}`;
+  sendIdentityReviewAdminEmail(c.env, {
+    userName: userOrResp.name,
+    userId: userOrResp.id,
+    reviewId: review.id,
+    fileUrl,
+  }).catch(() => {});
+
+  return c.json({ ok: true, status: "pending", review_id: review.id });
+});
+
+// GET /auth/verify-identity/status — check own identity review status
+route.get("/verify-identity/status", async (c) => {
+  const userOrResp = await requireUser(c);
+  if (userOrResp instanceof Response) return userOrResp;
+  const review = await c.var.store.getMyIdentityReview(userOrResp.id);
+  return c.json({ review: review ?? null });
+});
+
+// Admin-only: serve an identity document stored in KV.
+route.get("/identity-doc/:key{.+}", async (c) => {
+  const userOrResp = await requireUser(c);
+  if (userOrResp instanceof Response) return userOrResp;
+  const { isAdminUserId } = await import("../lib/admin");
+  if (!isAdminUserId(c.env, userOrResp.id)) return c.json({ error: "not_found" }, 404);
+  const key = decodeURIComponent(c.req.param("key"));
+  if (!c.env.CACHE) return c.json({ error: "kv_not_available" }, 503);
+  const dataUrl = await c.env.CACHE.get(key);
+  if (!dataUrl) return c.json({ error: "not_found" }, 404);
+
+  const match = dataUrl.match(/^data:([^;]+);base64,(.+)$/);
+  if (!match) return c.json({ error: "corrupt" }, 500);
+  const contentType = match[1] ?? "application/octet-stream";
+  const b64 = match[2] ?? "";
+  const binary = Uint8Array.from(atob(b64), (ch) => ch.charCodeAt(0));
+  return new Response(binary, {
+    headers: {
+      "content-type": contentType,
+      "cache-control": "private, no-store",
+    },
+  });
+});
+
 route.post("/forgot-password", authLimiter, async (c) => {
   const body = await c.req.json().catch(() => null);
   const parsed = forgotPasswordSchema.safeParse(body);

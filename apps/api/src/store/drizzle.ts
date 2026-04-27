@@ -120,6 +120,7 @@ function hydratePublicUser(row: UserRow): User {
     avatar_url: row.avatar_url,
     verified: row.verified,
     license_verified: row.license_verified ?? false,
+    identity_verified: row.identity_verified ?? false,
     rating: row.rating,
     rating_count: row.rating_count,
     rides_given: row.rides_given,
@@ -158,6 +159,7 @@ function hydrateUser(row: UserRow): User {
     smoker: row.smoker ?? null,
     has_license: row.has_license ?? null,
     license_verified: row.license_verified ?? false,
+    identity_verified: row.identity_verified ?? false,
     referral_code: row.referral_code ?? null,
     referral_count: row.referral_count ?? 0,
     tos_accepted_at: row.tos_accepted_at ?? null,
@@ -1905,6 +1907,88 @@ export class DrizzleStore implements StoreAdapter {
       submitted_at: row.submitted_at,
       reviewed_at: now,
     };
+  }
+
+  async createIdentityReview(userId: string, fileKvKey: string): Promise<import("@concertride/types").IdentityReview> {
+    const id = `ir_${crypto.randomUUID().slice(0, 10)}`;
+    await this.db.insert(schema.identityReviews).values({ id, user_id: userId, file_kv_key: fileKvKey });
+    const row = await this.db.query.identityReviews.findFirst({ where: eq(schema.identityReviews.id, id) });
+    return row as import("@concertride/types").IdentityReview;
+  }
+
+  async getMyIdentityReview(userId: string): Promise<import("@concertride/types").IdentityReview | null> {
+    const row = await this.db.query.identityReviews.findFirst({
+      where: eq(schema.identityReviews.user_id, userId),
+      orderBy: (t, { desc }) => [desc(t.submitted_at)],
+    });
+    return row ?? null;
+  }
+
+  async listIdentityReviews(filter?: { status?: "pending" | "approved" | "rejected" }): Promise<Array<import("@concertride/types").IdentityReview & { user: import("@concertride/types").User | null }>> {
+    const rows = await this.db.query.identityReviews.findMany({
+      where: filter?.status ? eq(schema.identityReviews.status, filter.status) : undefined,
+      orderBy: (t, { desc }) => [desc(t.submitted_at)],
+    });
+    const result = await Promise.all(
+      rows.map(async (r) => ({
+        ...r,
+        status: r.status as import("@concertride/types").IdentityReviewStatus,
+        rejection_reason: r.rejection_reason ?? null,
+        reviewed_at: r.reviewed_at ?? null,
+        user: await this.getUser(r.user_id),
+      })),
+    );
+    return result;
+  }
+
+  async approveIdentityReview(reviewId: string): Promise<{ review: import("@concertride/types").IdentityReview; user: import("@concertride/types").User | null }> {
+    const now = new Date().toISOString();
+    await this.db
+      .update(schema.identityReviews)
+      .set({ status: "approved", reviewed_at: now })
+      .where(eq(schema.identityReviews.id, reviewId));
+    const row = await this.db.query.identityReviews.findFirst({ where: eq(schema.identityReviews.id, reviewId) });
+    if (!row) throw new Error("identity_review_not_found");
+    const user = await this.verifyIdentity(row.user_id);
+    return {
+      review: {
+        id: row.id,
+        user_id: row.user_id,
+        file_kv_key: row.file_kv_key,
+        status: "approved",
+        rejection_reason: null,
+        submitted_at: row.submitted_at,
+        reviewed_at: now,
+      },
+      user,
+    };
+  }
+
+  async rejectIdentityReview(reviewId: string, reason: string): Promise<import("@concertride/types").IdentityReview | null> {
+    const now = new Date().toISOString();
+    await this.db
+      .update(schema.identityReviews)
+      .set({ status: "rejected", rejection_reason: reason, reviewed_at: now })
+      .where(eq(schema.identityReviews.id, reviewId));
+    const row = await this.db.query.identityReviews.findFirst({ where: eq(schema.identityReviews.id, reviewId) });
+    if (!row) return null;
+    return {
+      id: row.id,
+      user_id: row.user_id,
+      file_kv_key: row.file_kv_key,
+      status: "rejected",
+      rejection_reason: reason,
+      submitted_at: row.submitted_at,
+      reviewed_at: now,
+    };
+  }
+
+  async verifyIdentity(userId: string): Promise<import("@concertride/types").User | null> {
+    await this.db
+      .update(schema.users)
+      .set({ identity_verified: true })
+      .where(eq(schema.users.id, userId));
+    return this.getUser(userId);
   }
 
   async listChecklistForRide(rideId: string) {

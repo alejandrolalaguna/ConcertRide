@@ -132,6 +132,7 @@ export class MemoryStore implements StoreAdapter {
   private favorites: Array<Favorite & { user_id: string }> = [];
   private reports: Report[] = [];
   private licenseReviews: import("@concertride/types").LicenseReview[] = [];
+  private identityReviews: import("@concertride/types").IdentityReview[] = [];
   private bannedEmails: string[] = [];
   private auditLog: import("@concertride/types").AdminAuditLogEntry[] = [];
   private rideChecklist: Record<string, {
@@ -172,6 +173,7 @@ export class MemoryStore implements StoreAdapter {
       smoker: null,
       has_license: null,
       license_verified: false,
+      identity_verified: false,
       referral_code: crypto.randomUUID().replace(/-/g, "").slice(0, 8).toUpperCase(),
       referral_count: 0,
       tos_accepted_at: null,
@@ -211,6 +213,7 @@ export class MemoryStore implements StoreAdapter {
       smoker: profile?.smoker ?? null,
       has_license: profile?.has_license ?? null,
       license_verified: false,
+      identity_verified: false,
       referral_code: crypto.randomUUID().replace(/-/g, "").slice(0, 8).toUpperCase(),
       referral_count: 0,
       tos_accepted_at: new Date().toISOString(),
@@ -1122,6 +1125,57 @@ export class MemoryStore implements StoreAdapter {
     review.rejection_reason = reason;
     review.reviewed_at = new Date().toISOString();
     return review;
+  }
+
+  async createIdentityReview(userId: string, fileKvKey: string): Promise<import("@concertride/types").IdentityReview> {
+    const review: import("@concertride/types").IdentityReview = {
+      id: `ir_${crypto.randomUUID().slice(0, 10)}`,
+      user_id: userId,
+      file_kv_key: fileKvKey,
+      status: "pending",
+      rejection_reason: null,
+      submitted_at: new Date().toISOString(),
+      reviewed_at: null,
+    };
+    this.identityReviews.push(review);
+    return review;
+  }
+
+  async getMyIdentityReview(userId: string): Promise<import("@concertride/types").IdentityReview | null> {
+    const reviews = this.identityReviews.filter((r) => r.user_id === userId);
+    return reviews.sort((a, b) => b.submitted_at.localeCompare(a.submitted_at))[0] ?? null;
+  }
+
+  async listIdentityReviews(filter?: { status?: "pending" | "approved" | "rejected" }): Promise<Array<import("@concertride/types").IdentityReview & { user: User | null }>> {
+    const reviews = filter?.status
+      ? this.identityReviews.filter((r) => r.status === filter.status)
+      : this.identityReviews;
+    return reviews.map((r) => ({ ...r, user: this.users.find((u) => u.id === r.user_id) ?? null }));
+  }
+
+  async approveIdentityReview(reviewId: string): Promise<{ review: import("@concertride/types").IdentityReview; user: User | null }> {
+    const review = this.identityReviews.find((r) => r.id === reviewId);
+    if (!review) throw new Error("identity_review_not_found");
+    review.status = "approved";
+    review.reviewed_at = new Date().toISOString();
+    const user = await this.verifyIdentity(review.user_id);
+    return { review, user };
+  }
+
+  async rejectIdentityReview(reviewId: string, reason: string): Promise<import("@concertride/types").IdentityReview | null> {
+    const review = this.identityReviews.find((r) => r.id === reviewId);
+    if (!review) return null;
+    review.status = "rejected";
+    review.rejection_reason = reason;
+    review.reviewed_at = new Date().toISOString();
+    return review;
+  }
+
+  async verifyIdentity(userId: string): Promise<User | null> {
+    const user = this.users.find((u) => u.id === userId);
+    if (!user) return null;
+    user.identity_verified = true;
+    return user;
   }
 
   async banUser(_adminId: string, userId: string, reason: string): Promise<User | null> {

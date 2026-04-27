@@ -51,6 +51,7 @@ export interface User {
   smoker: boolean | null;
   has_license: boolean | null;
   license_verified: boolean;
+  identity_verified: boolean;
   referral_code: string | null;
   referral_count: number;
   tos_accepted_at: string | null;
@@ -95,6 +96,18 @@ export interface LicenseReview {
   user_id: string;
   file_kv_key: string;
   status: LicenseReviewStatus;
+  rejection_reason: string | null;
+  submitted_at: string;
+  reviewed_at: string | null;
+}
+
+export type IdentityReviewStatus = "pending" | "approved" | "rejected";
+
+export interface IdentityReview {
+  id: string;
+  user_id: string;
+  file_kv_key: string;
+  status: IdentityReviewStatus;
   rejection_reason: string | null;
   submitted_at: string;
   reviewed_at: string | null;
@@ -265,7 +278,7 @@ export interface ReviewsResponse {
   total: number;
 }
 
-export type AdminAuditAction = "ban_user" | "unban_user" | "license_approve" | "license_reject" | "report_resolve" | "report_dismiss";
+export type AdminAuditAction = "ban_user" | "unban_user" | "license_approve" | "license_reject" | "identity_approve" | "identity_reject" | "report_resolve" | "report_dismiss";
 
 export interface AdminAuditLogEntry {
   id: string;

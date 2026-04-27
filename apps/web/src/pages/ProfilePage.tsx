@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { Link, Navigate, useNavigate } from "react-router-dom";
 import { motion } from "motion/react";
 import { AlertTriangle, Bell, BellOff, Check, Link2, ShieldCheck, Star, TrendingUp, Upload } from "lucide-react";
-import type { LicenseReview, Review, Ride } from "@concertride/types";
+import type { IdentityReview, LicenseReview, Review, Ride } from "@concertride/types";
 import { api, ApiError } from "@/lib/api";
 import { useSession } from "@/lib/session";
 import { usePush } from "@/lib/usePush";
@@ -91,6 +91,11 @@ export default function ProfilePage() {
   const [licenseReview, setLicenseReview] = useState<LicenseReview | null | undefined>(undefined);
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [previewUrl, setPreviewUrl] = useState<string | null>(null);
+  const [identityReview, setIdentityReview] = useState<IdentityReview | null | undefined>(undefined);
+  const [identityVerifying, setIdentityVerifying] = useState(false);
+  const [identityVerifyError, setIdentityVerifyError] = useState<string | null>(null);
+  const [identitySelectedFile, setIdentitySelectedFile] = useState<File | null>(null);
+  const [identityPreviewUrl, setIdentityPreviewUrl] = useState<string | null>(null);
   const [otpSent, setOtpSent] = useState(false);
   const [otpCode, setOtpCode] = useState("");
   const [otpSending, setOtpSending] = useState(false);
@@ -146,6 +151,11 @@ export default function ProfilePage() {
     if (!user || user.license_verified) return;
     api.auth.myLicenseReview().then((r) => setLicenseReview(r.review)).catch(() => setLicenseReview(null));
   }, [user?.id, user?.license_verified]);
+
+  useEffect(() => {
+    if (!user || user.identity_verified) return;
+    api.auth.myIdentityReview().then((r) => setIdentityReview(r.review)).catch(() => setIdentityReview(null));
+  }, [user?.id, user?.identity_verified]);
 
   if (!loading && !user) return <Navigate to="/login?next=/profile" replace />;
   if (loading || !user) return null;
@@ -658,6 +668,13 @@ export default function ProfilePage() {
                     <p className="font-sans text-xs text-cr-text-muted mt-0.5">
                       Sube una foto del carnet (anverso). Revisaremos el documento en 24–48 h y te avisamos por email.
                     </p>
+                    <p className="font-sans text-[11px] text-cr-text-dim mt-2 leading-relaxed">
+                      Tu documento se usa únicamente para verificar que eres conductor habilitado. Se almacena cifrado y se elimina automáticamente a los 90 días.{" "}
+                      <Link to="/privacidad" className="underline underline-offset-2 hover:text-cr-primary">
+                        Política de privacidad
+                      </Link>
+                      .
+                    </p>
                   </div>
                 </div>
 
@@ -756,6 +773,173 @@ export default function ProfilePage() {
 
                 {verifyError && (
                   <p className="font-mono text-xs text-cr-secondary">{verifyError}</p>
+                )}
+              </div>
+            )}
+          </section>
+
+          {/* Identity verification */}
+          <section className="space-y-3 border-t border-dashed border-cr-border pt-5">
+            <h3 className="font-display text-sm uppercase tracking-wide text-cr-text-muted">
+              Identidad como pasajero
+            </h3>
+
+            {user.identity_verified ? (
+              <div className="flex items-center gap-2 border border-cr-primary/40 bg-cr-primary/[0.06] px-4 py-3">
+                <ShieldCheck size={14} className="text-cr-primary shrink-0" aria-hidden="true" />
+                <p className="font-sans text-xs font-semibold uppercase tracking-[0.1em] text-cr-primary">
+                  Identidad verificada
+                </p>
+              </div>
+            ) : identityReview?.status === "pending" ? (
+              <div className="space-y-3 border border-yellow-500/40 bg-yellow-500/[0.04] p-4">
+                <div className="flex items-center gap-2">
+                  <ShieldCheck size={14} className="text-yellow-400 shrink-0" aria-hidden="true" />
+                  <p className="font-sans text-xs font-semibold uppercase tracking-[0.1em] text-yellow-400">
+                    Pendiente de aprobación
+                  </p>
+                </div>
+                <p className="font-sans text-xs text-cr-text-muted">
+                  Recibimos tu documento el{" "}
+                  {new Date(identityReview.submitted_at).toLocaleDateString("es-ES", { day: "numeric", month: "long" })}.
+                  Lo revisaremos en 24–48 h y te avisamos por email.
+                </p>
+              </div>
+            ) : identityReview?.status === "rejected" ? (
+              <div className="space-y-3 border border-cr-secondary/40 bg-cr-secondary/[0.04] p-4">
+                <div className="flex items-center gap-2">
+                  <AlertTriangle size={14} className="text-cr-secondary shrink-0" aria-hidden="true" />
+                  <p className="font-sans text-xs font-semibold uppercase tracking-[0.1em] text-cr-secondary">
+                    Verificación rechazada
+                  </p>
+                </div>
+                {identityReview.rejection_reason && (
+                  <p className="font-sans text-xs text-cr-text-muted">
+                    Motivo: {identityReview.rejection_reason}
+                  </p>
+                )}
+                <p className="font-sans text-xs text-cr-text-muted">
+                  Puedes enviar un nuevo documento corrigiendo el problema.
+                </p>
+                <button
+                  type="button"
+                  onClick={() => setIdentityReview(null)}
+                  className="font-sans text-xs font-semibold uppercase tracking-[0.1em] bg-cr-primary text-black px-3 py-2 hover:bg-cr-primary/90 transition-colors"
+                >
+                  Enviar nuevo documento
+                </button>
+              </div>
+            ) : (
+              <div className="space-y-3 border border-dashed border-cr-border p-4">
+                <div className="flex items-start gap-3">
+                  <ShieldCheck size={14} className="text-cr-text-muted mt-0.5 shrink-0" aria-hidden="true" />
+                  <div>
+                    <p className="font-sans text-xs font-semibold text-cr-text">
+                      Verifica tu identidad como pasajero
+                    </p>
+                    <p className="font-sans text-xs text-cr-text-muted mt-0.5">
+                      Sube una foto de tu DNI o pasaporte (anverso). Genera más confianza en los conductores al solicitar plaza. Revisaremos el documento en 24–48 h.
+                    </p>
+                    <p className="font-sans text-[11px] text-cr-text-dim mt-2 leading-relaxed">
+                      Tu documento se usa únicamente para confirmar tu identidad ante otros usuarios. Se almacena cifrado y se elimina automáticamente a los 90 días. No lo compartimos con terceros.{" "}
+                      <Link to="/privacidad" className="underline underline-offset-2 hover:text-cr-primary">
+                        Política de privacidad
+                      </Link>
+                      .
+                    </p>
+                  </div>
+                </div>
+
+                {!identitySelectedFile && (
+                  <label className="flex flex-col items-center gap-3 w-full border-2 border-dashed border-cr-border px-4 py-6 transition-colors cursor-pointer hover:border-cr-primary">
+                    <input
+                      type="file"
+                      accept="image/jpeg,image/png,image/webp,application/pdf"
+                      className="sr-only"
+                      onChange={(e) => {
+                        const file = e.target.files?.[0];
+                        if (!file) return;
+                        setIdentitySelectedFile(file);
+                        setIdentityVerifyError(null);
+                        if (file.type.startsWith("image/")) {
+                          setIdentityPreviewUrl(URL.createObjectURL(file));
+                        } else {
+                          setIdentityPreviewUrl(null);
+                        }
+                      }}
+                    />
+                    <Upload size={20} className="text-cr-text-muted" aria-hidden="true" />
+                    <span className="font-sans text-xs font-semibold uppercase tracking-[0.12em] text-cr-text-muted">
+                      Seleccionar archivo
+                    </span>
+                    <span className="font-mono text-[10px] text-cr-text-dim">
+                      JPEG · PNG · WebP · PDF — máx. 10 MB
+                    </span>
+                  </label>
+                )}
+
+                {identitySelectedFile && (
+                  <div className="space-y-3">
+                    {identityPreviewUrl ? (
+                      <div className="border border-cr-border bg-cr-surface p-2">
+                        <img
+                          src={identityPreviewUrl}
+                          alt="Vista previa del documento"
+                          className="max-h-52 w-full object-contain"
+                        />
+                      </div>
+                    ) : (
+                      <div className="flex items-center gap-2 border border-cr-border bg-cr-surface px-3 py-3">
+                        <Upload size={13} className="text-cr-text-muted shrink-0" aria-hidden="true" />
+                        <span className="font-mono text-xs text-cr-text truncate">{identitySelectedFile.name}</span>
+                      </div>
+                    )}
+                    <p className="font-mono text-[11px] text-cr-text-muted">
+                      {identitySelectedFile.name} · {(identitySelectedFile.size / 1024).toFixed(0)} KB
+                    </p>
+                    <div className="flex gap-2">
+                      <button
+                        type="button"
+                        disabled={identityVerifying}
+                        onClick={() => {
+                          if (identityPreviewUrl) URL.revokeObjectURL(identityPreviewUrl);
+                          setIdentitySelectedFile(null);
+                          setIdentityPreviewUrl(null);
+                          setIdentityVerifyError(null);
+                        }}
+                        className="flex-1 font-sans text-xs font-semibold uppercase tracking-[0.1em] text-cr-text-muted border border-cr-border px-3 py-2 hover:border-cr-primary hover:text-cr-text transition-colors disabled:opacity-40"
+                      >
+                        Cambiar
+                      </button>
+                      <button
+                        type="button"
+                        disabled={identityVerifying}
+                        onClick={async () => {
+                          if (!identitySelectedFile) return;
+                          setIdentityVerifying(true);
+                          setIdentityVerifyError(null);
+                          try {
+                            const result = await api.auth.verifyIdentity(identitySelectedFile);
+                            if (identityPreviewUrl) URL.revokeObjectURL(identityPreviewUrl);
+                            setIdentityReview({ id: result.review_id, user_id: user.id, file_kv_key: "", status: "pending", submitted_at: new Date().toISOString(), reviewed_at: null, rejection_reason: null });
+                            setIdentitySelectedFile(null);
+                            setIdentityPreviewUrl(null);
+                          } catch (err) {
+                            setIdentityVerifyError(err instanceof Error ? err.message : "Error al enviar el documento");
+                          } finally {
+                            setIdentityVerifying(false);
+                          }
+                        }}
+                        className="flex-1 font-sans text-xs font-semibold uppercase tracking-[0.1em] bg-cr-primary text-black px-3 py-2 hover:bg-cr-primary/90 transition-colors disabled:opacity-50 disabled:pointer-events-none"
+                      >
+                        {identityVerifying ? "Enviando…" : "Confirmar y enviar"}
+                      </button>
+                    </div>
+                  </div>
+                )}
+
+                {identityVerifyError && (
+                  <p className="font-mono text-xs text-cr-secondary">{identityVerifyError}</p>
                 )}
               </div>
             )}

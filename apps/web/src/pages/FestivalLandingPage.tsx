@@ -83,13 +83,19 @@ export default function FestivalLandingPage() {
     "@type": "MusicEvent",
     name: festival.name,
     url: `${SITE_URL}/festivales/${festival.slug}`,
+    image: `${SITE_URL}/og-festival.jpg`,
     description: festival.blurb,
     startDate: festival.startDate,
     endDate: festival.endDate,
     location: festivalPlace,
+    performer: {
+      "@type": "PerformingGroup",
+      name: festival.name,
+    },
     organizer: {
       "@type": "Organization",
       name: festival.name,
+      url: `${SITE_URL}/festivales/${festival.slug}`,
     },
     eventAttendanceMode: "https://schema.org/OfflineEventAttendanceMode",
     eventStatus: "https://schema.org/EventScheduled",
@@ -101,6 +107,7 @@ export default function FestivalLandingPage() {
       price: festival.originCities[0]?.concertRideRange?.split("–")[0]?.replace(/[^0-9]/g, "") ?? "3",
       priceCurrency: "EUR",
       availability: "https://schema.org/InStock",
+      validFrom: new Date().toISOString(),
       description: "Carpooling desde toda España con ConcertRide",
     },
   };

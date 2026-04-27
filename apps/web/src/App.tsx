@@ -41,10 +41,26 @@ const PrensaPage = lazy(() => import("./pages/PrensaPage"));
 const VerifyEmailPage = lazy(() => import("./pages/VerifyEmailPage"));
 const NotFoundPage = lazy(() => import("./pages/NotFoundPage"));
 const DevShowcase = lazy(() => import("./pages/DevShowcase"));
+const ConcertWidgetPage = lazy(() => import("./pages/ConcertWidgetPage"));
 
 export default function App() {
   return (
-    <>
+    <Routes>
+      {/* Widget embed routes — no nav/footer/banner */}
+      <Route
+        path="/widget/concert/:id"
+        element={
+          <Suspense fallback={null}>
+            <ConcertWidgetPage />
+          </Suspense>
+        }
+      />
+
+      {/* Main app layout */}
+      <Route
+        path="*"
+        element={
+      <>
       <a
         href="#main"
         className="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-[100] focus:bg-cr-primary focus:text-black focus:px-4 focus:py-2 focus:font-sans focus:font-semibold focus:uppercase focus:tracking-[0.12em] focus:text-sm"
@@ -96,5 +112,8 @@ export default function App() {
       <Footer />
       <CookieBanner />
     </>
+        }
+      />
+    </Routes>
   );
 }

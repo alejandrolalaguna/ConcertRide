@@ -1,6 +1,6 @@
 import type { User } from "@concertride/types";
 
-const NULL_SAFETY = { phone_verified_at: null, banned_at: null, ban_reason: null } as const;
+const NULL_SAFETY = { phone_verified_at: null, banned_at: null, ban_reason: null, identity_verified: false } as const;
 
 export const USERS: User[] = [
   {

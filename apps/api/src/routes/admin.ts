@@ -3,7 +3,7 @@ import { z } from "zod";
 import type { HonoEnv } from "../types";
 import { requireUser } from "../lib/identity";
 import { isAdminUserId } from "../lib/admin";
-import { sendLicenseReviewResultEmail, sendBanNotificationEmail } from "../lib/email";
+import { sendLicenseReviewResultEmail, sendBanNotificationEmail, sendIdentityReviewResultEmail } from "../lib/email";
 
 const route = new Hono<HonoEnv>();
 
@@ -111,6 +111,57 @@ route.post("/license-reviews/:id/reject", async (c) => {
   const user = await c.var.store.getUser(review.user_id);
   if (user?.email) {
     sendLicenseReviewResultEmail(c.env, user.email, {
+      name: user.name,
+      approved: false,
+      reason: parsed.data.reason,
+    }).catch(() => {});
+  }
+  return c.json({ ok: true, review });
+});
+
+// ── Identity reviews ──────────────────────────────────────────────────────
+
+route.get("/identity-reviews", async (c) => {
+  const gate = await requireAdmin(c);
+  if (gate instanceof Response) return gate;
+
+  const statusParam = c.req.query("status");
+  const parsed = statusParam ? licenseStatusSchema.safeParse(statusParam) : null;
+  const reviews = await c.var.store.listIdentityReviews({
+    status: parsed?.success ? parsed.data : undefined,
+  });
+  return c.json({ reviews });
+});
+
+route.post("/identity-reviews/:id/approve", async (c) => {
+  const gate = await requireAdmin(c);
+  if (gate instanceof Response) return gate;
+
+  const { review, user } = await c.var.store.approveIdentityReview(c.req.param("id")).catch(() => ({ review: null, user: null }));
+  if (!review) return c.json({ error: "not_found" }, 404);
+
+  c.var.store.logAdminAction(gate.id, "identity_approve", review.user_id).catch(() => {});
+  if (user?.email) {
+    sendIdentityReviewResultEmail(c.env, user.email, { name: user.name, approved: true }).catch(() => {});
+  }
+  return c.json({ ok: true, review });
+});
+
+route.post("/identity-reviews/:id/reject", async (c) => {
+  const gate = await requireAdmin(c);
+  if (gate instanceof Response) return gate;
+
+  const body = await c.req.json().catch(() => null);
+  const parsed = z.object({ reason: z.string().min(1).max(500) }).safeParse(body);
+  if (!parsed.success) return c.json({ error: "bad_request", message: "Se requiere un motivo" }, 400);
+
+  const review = await c.var.store.rejectIdentityReview(c.req.param("id"), parsed.data.reason);
+  if (!review) return c.json({ error: "not_found" }, 404);
+
+  c.var.store.logAdminAction(gate.id, "identity_reject", review.user_id, parsed.data.reason).catch(() => {});
+  const user = await c.var.store.getUser(review.user_id);
+  if (user?.email) {
+    sendIdentityReviewResultEmail(c.env, user.email, {
       name: user.name,
       approved: false,
       reason: parsed.data.reason,
