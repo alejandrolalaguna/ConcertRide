@@ -8,7 +8,7 @@ interface Stat {
 }
 
 const STATS: Stat[] = [
-  { label: "festivales en el catálogo 2026", target: 50, suffix: "+" },
+  { label: "festivales en el catálogo 2026", target: 16, suffix: "" },
   { label: "ciudades cubiertas en España", target: 20, suffix: "+" },
   { label: "ahorro estimado vs taxi", target: 60, suffix: "%" },
 ];

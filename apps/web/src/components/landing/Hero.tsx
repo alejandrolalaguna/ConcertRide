@@ -17,7 +17,6 @@ interface TicketData {
   rating: number;
   ridCode: string;
   ticketNum: string;
-  liveCount: number;
 }
 
 const TICKETS: TicketData[] = [
@@ -36,7 +35,7 @@ const TICKETS: TicketData[] = [
     rating: 4.9,
     ridCode: "RID-2026-VAL-MAD",
     ticketNum: "#CR-00842",
-    liveCount: 12,
+
   },
   {
     id: "badbunny",
@@ -53,7 +52,7 @@ const TICKETS: TicketData[] = [
     rating: 4.8,
     ridCode: "RID-2026-COR-SEV",
     ticketNum: "#CR-00921",
-    liveCount: 34,
+
   },
   {
     id: "madcool",
@@ -70,7 +69,7 @@ const TICKETS: TicketData[] = [
     rating: 4.9,
     ridCode: "RID-2026-BIL-MAD",
     ticketNum: "#CR-01034",
-    liveCount: 58,
+
   },
   {
     id: "primavera",
@@ -87,7 +86,7 @@ const TICKETS: TicketData[] = [
     rating: 4.7,
     ridCode: "RID-2026-ZGZ-BCN",
     ticketNum: "#CR-00887",
-    liveCount: 41,
+
   },
   {
     id: "quevedo",
@@ -104,7 +103,7 @@ const TICKETS: TicketData[] = [
     rating: 5.0,
     ridCode: "RID-2026-VIT-BIL",
     ticketNum: "#CR-00763",
-    liveCount: 14,
+
   },
 ];
 
@@ -367,7 +366,7 @@ function TicketStub({ ticket }: { ticket: TicketData }) {
         letterSpacing="1.6"
         dominantBaseline="middle"
       >
-        LIVE · {ticket.liveCount} VIAJES ACTIVOS
+        CARPOOLING · CONCIERTOS · FESTIVALES
       </text>
 
       {/* Artist name — big with subtle offset shadow for depth */}

@@ -66,7 +66,7 @@ const FAQS: Array<{ q: string; a: string }> = [
   },
   {
     q: "¿Puedo ir a un festival sin coche propio?",
-    a: "Sí, ese es el uso principal de ConcertRide. Busca el festival en el catálogo, elige un viaje publicado desde tu ciudad y reserva una plaza. El conductor te recoge en un punto acordado. El 80 % de los pasajeros de ConcertRide no tiene coche propio o prefiere no conducir al festival.",
+    a: "Sí, ese es el uso principal de ConcertRide. Busca el festival en el catálogo, elige un viaje publicado desde tu ciudad y reserva una plaza. El conductor te recoge en un punto acordado.",
   },
   {
     q: "¿Cuál es la alternativa al taxi para volver de un concierto de noche?",

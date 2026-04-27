@@ -193,9 +193,9 @@ export default function PrensaPage() {
               href: "https://www.apmusicales.com/",
             },
             {
-              stat: "0–30 min",
-              body: "tiempo máximo de espera de taxi en la salida de un festival grande (vs 45–90 min real en pico).",
-              source: "Estimación interna ConcertRide basada en datos de usuarios 2026",
+              stat: "45–90 min",
+              body: "de espera de taxi en la salida de un festival grande en hora pico, según conductores y asistentes.",
+              source: "Relatos de usuarios y conductores, 2024–2025",
               href: undefined,
             },
             {
