@@ -668,7 +668,7 @@ export default function ProfilePage() {
                     <p className="font-sans text-xs text-cr-text-muted mt-0.5">
                       Sube una foto del carnet (anverso). Revisaremos el documento en 24–48 h y te avisamos por email.
                     </p>
-                    <p className="font-sans text-[11px] text-cr-text-dim mt-2 leading-relaxed">
+                    <p className="font-sans text-[11px] text-cr-text-muted mt-2 leading-relaxed">
                       Tu documento se usa únicamente para verificar que eres conductor habilitado. Se almacena cifrado y se elimina automáticamente a los 90 días.{" "}
                       <Link to="/privacidad" className="underline underline-offset-2 hover:text-cr-primary">
                         Política de privacidad
@@ -840,7 +840,7 @@ export default function ProfilePage() {
                     <p className="font-sans text-xs text-cr-text-muted mt-0.5">
                       Sube una foto de tu DNI o pasaporte (anverso). Genera más confianza en los conductores al solicitar plaza. Revisaremos el documento en 24–48 h.
                     </p>
-                    <p className="font-sans text-[11px] text-cr-text-dim mt-2 leading-relaxed">
+                    <p className="font-sans text-[11px] text-cr-text-muted mt-2 leading-relaxed">
                       Tu documento se usa únicamente para confirmar tu identidad ante otros usuarios. Se almacena cifrado y se elimina automáticamente a los 90 días. No lo compartimos con terceros.{" "}
                       <Link to="/privacidad" className="underline underline-offset-2 hover:text-cr-primary">
                         Política de privacidad
