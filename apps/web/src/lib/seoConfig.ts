@@ -156,11 +156,9 @@ export const SEO_CONFIG = {
     },
   },
 
-  // Tracking & Analytics
+  // Tracking & Analytics — GSC verified via Cloudflare DNS record
   analytics: {
-    googleSiteVerification: "REPLACE_WITH_GSC_TOKEN",
-    bingVerification: "REPLACE_WITH_BING_TOKEN",
-    yandexVerification: "REPLACE_WITH_YANDEX_TOKEN",
+    googleSiteVerification: "verified-via-cloudflare-dns",
   },
 } as const;
 
