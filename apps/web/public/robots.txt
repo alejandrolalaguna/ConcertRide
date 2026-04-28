@@ -1,28 +1,45 @@
 # ConcertRide robots.txt
-# Last updated: 2026-04-25
+# Last updated: 2026-04-28
 
-# Default: Allow all crawlers to index
+# Default: allow all crawlers
 User-agent: *
 Allow: /
-
-# Block API endpoints
 Disallow: /api/
-
-# Block internal/dev routes
 Disallow: /_*
-
-# Block asset cache fingerprints
-Disallow: /.well-known/
 
 # Sitemap
 Sitemap: https://concertride.me/sitemap.xml
 
-# AI Crawler Transparency (as of 2026)
-# These are allowed by default; no specific rules needed
-# - GPTBot: ALLOWED (OpenAI training)
-# - ChatGPT-User: ALLOWED (real-time browsing)
-# - ClaudeBot: ALLOWED (Anthropic training)
-# - PerplexityBot: ALLOWED (Perplexity search)
-# - Google-Extended: ALLOWED (Gemini training)
-# - CCBot: ALLOWED (Common Crawl public dataset)
-# - Bytespider: ALLOWED (ByteDance training)
+# AI crawlers — explicit Allow overrides any CDN-level Disallow rules
+User-agent: GPTBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: CCBot
+Allow: /
+
+User-agent: Bytespider
+Allow: /
+
+User-agent: Amazonbot
+Allow: /
+
+User-agent: Applebot-Extended
+Allow: /
+
+User-agent: meta-externalagent
+Allow: /
+
+User-agent: OAI-SearchBot
+Allow: /
