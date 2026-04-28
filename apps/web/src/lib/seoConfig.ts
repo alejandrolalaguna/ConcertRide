@@ -79,10 +79,10 @@ export const SEO_CONFIG = {
       ],
     },
 
-    localbusiness: {
+    onlinebusiness: {
       "@context": "https://schema.org",
-      "@type": "LocalBusiness",
-      "@id": "https://concertride.me/#localbusiness",
+      "@type": "OnlineBusiness",
+      "@id": "https://concertride.me/#onlinebusiness",
       name: "ConcertRide ES",
       url: "https://concertride.me/",
       currenciesAccepted: "EUR",
@@ -91,17 +91,6 @@ export const SEO_CONFIG = {
         "@type": "Country",
         name: "Spain",
       },
-      address: {
-        "@type": "PostalAddress",
-        addressCountry: "ES",
-        addressLocality: "Madrid",
-      },
-      geo: {
-        "@type": "GeoCoordinates",
-        latitude: 40.4168,
-        longitude: -3.7038,
-      },
-      openingHours: "Mo-Su 00:00-24:00",
     },
   },
 
@@ -127,7 +116,6 @@ export const SEO_CONFIG = {
     disallow: ["/api/", "/_*"],
     sitemaps: [
       "https://concertride.me/sitemap.xml",
-      "https://concertride.me/sitemap-es.xml",
     ],
   },
 

@@ -30,6 +30,7 @@ export interface FestivalLanding {
   typicalDates: string;     // human description, e.g. "Primera semana de julio"
   capacity: string;         // "80.000 personas/día"
   blurb: string;            // factual, LLM-citable paragraph
+  ogImage?: string;         // absolute URL to per-festival OG image (1200×630); falls back to /og/festival-default.png
   originCities: OriginCity[];
   faqs: FestivalFaq[];
   relatedFestivals: string[];

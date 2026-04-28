@@ -8,6 +8,8 @@ import { LoadingSpinner } from "@/components/ui";
 import { useSeoMeta } from "@/lib/useSeoMeta";
 import { SITE_URL } from "@/lib/siteUrl";
 import { FESTIVAL_LANDINGS, FESTIVAL_LANDINGS_BY_SLUG } from "@/lib/festivalLandings";
+
+const FESTIVAL_DEFAULT_OG = `${SITE_URL}/og/festival-default.png`;
 import { trackFestivalView } from "@/lib/seoEvents";
 import { FestivalAlertWidget } from "@/components/FestivalAlertWidget";
 
@@ -16,6 +18,8 @@ export default function FestivalLandingPage() {
   const festival = slug ? FESTIVAL_LANDINGS_BY_SLUG[slug] : undefined;
 
   const [concerts, setConcerts] = useState<Concert[] | null>(null);
+
+  const festivalOgImage = festival?.ogImage ?? FESTIVAL_DEFAULT_OG;
 
   useSeoMeta({
     title: festival
@@ -27,6 +31,8 @@ export default function FestivalLandingPage() {
     canonical: festival
       ? `${SITE_URL}/festivales/${festival.slug}`
       : `${SITE_URL}/concerts`,
+    ogImage: festivalOgImage,
+    ogType: "music.event",
     keywords: festival
       ? `cómo ir a ${festival.shortName}, cómo llegar a ${festival.shortName}, transporte ${festival.shortName}, carpooling ${festival.name}, coche compartido ${festival.shortName}, ${festival.shortName} ${festival.city}, viaje compartido ${festival.shortName} 2026, compartir coche ${festival.shortName}, alternativa taxi ${festival.shortName}, ir a ${festival.shortName} sin coche, precio carpooling ${festival.shortName}`
       : undefined,
@@ -83,7 +89,7 @@ export default function FestivalLandingPage() {
     "@type": "MusicEvent",
     name: festival.name,
     url: `${SITE_URL}/festivales/${festival.slug}`,
-    image: `${SITE_URL}/og-festival.jpg`,
+    image: festivalOgImage,
     description: festival.blurb,
     startDate: festival.startDate,
     endDate: festival.endDate,
@@ -95,7 +101,6 @@ export default function FestivalLandingPage() {
     organizer: {
       "@type": "Organization",
       name: festival.name,
-      url: `${SITE_URL}/festivales/${festival.slug}`,
     },
     eventAttendanceMode: "https://schema.org/OfflineEventAttendanceMode",
     eventStatus: "https://schema.org/EventScheduled",
