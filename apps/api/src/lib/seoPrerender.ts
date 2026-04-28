@@ -767,7 +767,6 @@ function festivalBody(slug: string, f: FestivalData, base: string): string {
   });
 
   return `<script type="application/ld+json">${eventJsonLd}</script>
-<script type="application/ld+json">${faqJsonLd}</script>
 <script type="application/ld+json">${breadcrumbJsonLd}</script>
 <nav aria-label="Breadcrumb"><a href="${base}/">Inicio</a> / <a href="${base}/festivales">Festivales</a> / <span>${esc(f.shortName)}</span></nav>
 <p>${esc(f.blurb)}</p>
