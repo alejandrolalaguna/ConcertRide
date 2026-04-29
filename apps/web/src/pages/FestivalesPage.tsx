@@ -7,13 +7,13 @@ import { FESTIVAL_LANDINGS } from "@/lib/festivalLandings";
 const FEATURED_SLUGS = ["mad-cool", "primavera-sound", "sonar", "fib", "bbk-live", "arenal-sound"];
 
 export default function FestivalesPage() {
+  const year = new Date().getFullYear();
   useSeoMeta({
-    title: "Carpooling para festivales de música en España 2026",
-    description:
-      "Viajes compartidos a los mejores festivales de España: Mad Cool, Primavera Sound, Sónar, FIB, BBK Live, Arenal Sound y más. Sin taxi, sin comisión. Conductores verificados.",
+    title: `Festivales de música en España ${year}: carpooling, autobuses y guía completa`,
+    description: `Viajes compartidos y autobuses a los festivales de España ${year}: Mad Cool, Primavera Sound, Sónar, FIB, BBK Live, Arenal Sound, Viña Rock, Resurrection Fest y más. Sin taxi, sin comisión. Conductores verificados.`,
     canonical: `${SITE_URL}/festivales`,
     keywords:
-      "carpooling festivales españa, viaje compartido festival música, cómo ir al festival en coche, transporte festivales 2026, mad cool carpooling, primavera sound viaje compartido, sonar barcelona transporte",
+      "festivales españa 2026, carpooling festivales españa, viaje compartido festival música, autobuses festivales españa, bus festivales, cómo ir al festival en coche, transporte festivales 2026, mad cool carpooling, primavera sound viaje compartido, sonar barcelona transporte, viña rock buses, arenal sound bus, bbk live santander, resurrection fest viajes",
   });
 
   const featured = FESTIVAL_LANDINGS.filter((f) => FEATURED_SLUGS.includes(f.slug));
@@ -30,16 +30,20 @@ export default function FestivalesPage() {
         </nav>
 
         <p className="font-sans text-[11px] font-semibold uppercase tracking-[0.16em] text-cr-primary">
-          Temporada 2026
+          Temporada {year}
         </p>
 
         <h1 className="font-display text-4xl md:text-6xl uppercase leading-[0.92]">
-          Carpooling<br />para festivales.
+          Festivales de música<br />en España {year}.
         </h1>
 
         <p className="font-sans text-sm md:text-base text-cr-text-muted max-w-2xl leading-relaxed">
           Encuentra o publica un viaje compartido a cualquier festival de España. Sin comisión,
           el 100&nbsp;% del precio va al conductor. Pago en efectivo o Bizum el día del viaje.
+          Cubrimos los principales festivales del calendario {year}: Mad Cool (Madrid), Primavera Sound y Cruïlla (Barcelona),
+          Sónar, BBK Live (Bilbao), Arenal Sound (Burriana), Viña Rock (Villarrobledo), Resurrection Fest (Viveiro),
+          FIB (Benicàssim), Sonorama Ribera (Aranda de Duero), Cala Mijas (Málaga), Medusa (Cullera),
+          O Son do Camiño (Santiago), Zevra (Valencia) y Low Festival (Benidorm).
         </p>
 
         <div className="flex flex-wrap gap-3 pt-2">
@@ -131,6 +135,36 @@ export default function FestivalesPage() {
             </Link>
           ))}
         </div>
+      </section>
+
+      {/* ── Autobuses, buses y lanzaderas — body keyword block ── */}
+      <section className="max-w-6xl mx-auto px-6 pb-16 border-t border-cr-border pt-12 space-y-5">
+        <h2 className="font-display text-2xl md:text-3xl uppercase">
+          Autobuses, buses y lanzaderas a festivales {year}
+        </h2>
+        <p className="font-sans text-sm text-cr-text-muted max-w-3xl leading-relaxed">
+          ¿Buscas autobuses a Viña Rock, bus a Arenal Sound, lanzadera oficial del BBK Live
+          o cómo llegar al Mad Cool? Cada festival tiene logística distinta: algunos operan
+          autobuses lanzadera oficiales (BBK Live, Arenal Sound, Sonorama, Medusa, Viña Rock
+          desde Albacete), otros dependen de líneas de larga distancia (ALSA, Avanza,
+          FlixBus) y otros no tienen ninguna conexión de transporte público nocturno
+          (Resurrection Fest, Cala Mijas, Sonorama). Donde el bus oficial no llega o no
+          opera de madrugada, el carpooling con ConcertRide es la opción más usada por
+          los asistentes.
+        </p>
+        <ul className="font-sans text-xs text-cr-text-muted space-y-1.5 max-w-3xl">
+          <li>· <Link to="/festivales/vina-rock" className="hover:text-cr-primary underline-offset-2">Viña Rock</Link>: bus lanzadera Albacete → La Pulgosa, autobuses privados Madrid–Viña Rock 35–55 €.</li>
+          <li>· <Link to="/festivales/arenal-sound" className="hover:text-cr-primary underline-offset-2">Arenal Sound</Link>: lanzadera Castellón → Burriana, sin tren directo a la playa.</li>
+          <li>· <Link to="/festivales/bbk-live" className="hover:text-cr-primary underline-offset-2">BBK Live</Link>: lanzadera oficial gratuita desde Bilbao centro a Kobetamendi.</li>
+          <li>· <Link to="/festivales/mad-cool" className="hover:text-cr-primary underline-offset-2">Mad Cool</Link>: Metro L8 Madrid (servicio ampliado hasta 2:30), sin lanzadera oficial.</li>
+          <li>· <Link to="/festivales/resurrection-fest" className="hover:text-cr-primary underline-offset-2">Resurrection Fest</Link>: ALSA A Coruña–Lugo–Viveiro 2–3 al día, sin nocturno.</li>
+          <li>· <Link to="/festivales/sonorama-ribera" className="hover:text-cr-primary underline-offset-2">Sonorama</Link>: bus La Sepulvedana Madrid–Aranda 10–15 €, sin nocturno.</li>
+          <li>· <Link to="/festivales/cala-mijas" className="hover:text-cr-primary underline-offset-2">Cala Mijas</Link>: sin shuttle oficial, taxi 25–40 € desde Málaga centro.</li>
+          <li>· <Link to="/festivales/medusa-festival" className="hover:text-cr-primary underline-offset-2">Medusa Festival</Link>: lanzadera Valencia → Cullera, plazas limitadas.</li>
+        </ul>
+        <p className="font-mono text-[11px] text-cr-text-dim">
+          Guía detallada festival por festival: <Link to="/blog/autobuses-festivales-espana-2026" className="hover:text-cr-primary underline underline-offset-2">Autobuses a festivales de España {year}</Link>.
+        </p>
       </section>
 
       {/* ── Por qué ConcertRide ── */}

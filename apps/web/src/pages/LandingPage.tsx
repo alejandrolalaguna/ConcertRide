@@ -19,11 +19,11 @@ import { PastConcertsSection } from "@/components/landing/PastConcertsSection";
 
 export default function LandingPage() {
   useSeoMeta({
-    title: "ConcertRide ES — Carpooling para conciertos en España | Viajes compartidos",
+    title: "ConcertRide — Carpooling y autobuses para conciertos y festivales en España 2026",
     description:
-      "Carpooling para conciertos en España. Comparte coche, divide gastos y llega seguro. Publica un viaje o busca uno en 2 minutos. Gratis, sin comisiones.",
+      "Carpooling para conciertos y festivales en España: Mad Cool, Primavera Sound, Sónar, BBK Live, Arenal Sound, Viña Rock, Resurrection Fest. Alternativa a los autobuses oficiales y de larga distancia. Sin comisión, conductores verificados.",
     canonical: `${SITE_URL}/`,
-    keywords: "carpooling conciertos España, viajes compartidos festivales, transporte a conciertos, coche compartido música, ride-sharing festivales, deja tu coche en casa festival, compartir coche festival España, carpooling sin comisiones, volver festival madrugada, movilidad sostenible festival, compartir gastos festival, ir al festival sin coche",
+    keywords: "carpooling conciertos España, viajes compartidos festivales, autobuses festivales españa, bus festivales 2026, transporte a conciertos, coche compartido música, ride-sharing festivales, conciertos en madrid, conciertos en barcelona, conciertos en sevilla, conciertos en bilbao 2026, conciertos en donostia 2026, conciertos en zaragoza, viña rock buses, arenal sound como llegar, bbk santander, mad cool carpooling, primavera sound viaje compartido, deja tu coche en casa festival, carpooling sin comisiones, volver festival madrugada, ir al festival sin coche",
     ogType: "website",
   });
 

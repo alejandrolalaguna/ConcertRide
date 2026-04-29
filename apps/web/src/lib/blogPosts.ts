@@ -47,6 +47,140 @@ export interface BlogPost {
 export const BLOG_POSTS: BlogPost[] = [
   // ──────────────────────────────────────────────────────────────────────
   {
+    slug: "autobuses-festivales-espana-2026",
+    title: "Autobuses a festivales de España 2026: guía completa por festival",
+    h1: "Autobuses a festivales de España 2026: cómo llegar a Viña Rock, Arenal Sound, BBK Live, Mad Cool y más",
+    excerpt:
+      "¿Hay autobús a Viña Rock? ¿Bus oficial a Arenal Sound? ¿Lanzadera a BBK Live? Esta guía recoge, festival por festival, las opciones reales de bus, autobús, tren y coche compartido para 2026 — con horarios, precios, salidas y trampas a evitar.",
+    category: "guias",
+    tags: ["autobuses", "buses", "transporte", "festivales", "carpooling", "lanzadera"],
+    publishedAt: "2026-04-29T09:00:00.000Z",
+    author: "Equipo ConcertRide",
+    readingMinutes: 9,
+    lede:
+      "Buscas \"autobuses Viñarock\", \"bus Arenal Sound\", \"lanzadera BBK Live\" o \"viajes Resurrection Fest\" y nadie te da una respuesta clara. Aquí tienes la guía honesta — qué bus existe, qué bus es oficial, cuál es lanzadera, cuál es privado y dónde queda el carpooling.",
+    sections: [
+      {
+        heading: "Tres tipos de autobús a un festival (no son lo mismo)",
+        paragraphs: [
+          "Antes de buscar tu festival es importante distinguir las tres categorías de bus que aparecen mezcladas en redes sociales y resultados de búsqueda:",
+        ],
+        bullets: [
+          "Bus / autobús oficial del festival: organizado por la promotora, suele salir desde la estación de autobuses de la ciudad cabecera (Albacete, Castellón, Bilbao centro). Plazas limitadas, horario fijo, no opera de madrugada normalmente.",
+          "Autobús de larga distancia (ALSA, Avanza, FlixBus): líneas regulares de transporte público interurbano. Llegan a la ciudad más cercana al recinto, no al festival. Hay que sumar lanzadera o taxi adicional.",
+          "Autobús privado (operador no oficial): ofrecido por agencias o promotoras alternativas, salidas desde Madrid Méndez Álvaro, Nuevos Ministerios, Barcelona Sants. Plaza con vuelta a hora fija (suele ser las 6:00 del último día). Precio 35–55 €.",
+        ],
+      },
+      {
+        heading: "Viña Rock 2026 (Villarrobledo, Albacete) — autobuses y bus",
+        paragraphs: [
+          "Viña Rock 2026 (30 abril–3 mayo) en La Pulgosa, Villarrobledo, no tiene autobús directo desde Madrid: las consultas \"autobuses Viña Rock\", \"bus Viñarock\" o \"viajes Viña Rock\" se resuelven con cuatro caminos reales.",
+        ],
+        bullets: [
+          "Bus lanzadera oficial Albacete–Villarrobledo (50 km, 40 min): sale de la estación de autobuses de Albacete cada 1–2 horas los días de festival, hasta aproximadamente la 1:00. Plaza no garantizada las horas punta.",
+          "Autobús privado Madrid–Viña Rock: operadores no oficiales, 35–55 €, salidas desde Méndez Álvaro y Nuevos Ministerios, vuelta a hora fija sin flexibilidad.",
+          "Tren AVE Madrid/Valencia–Albacete (15–45 €) + bus lanzadera del festival: 1h 30 min en tren, 40 min en bus. Funciona bien para la ida, no para la vuelta de madrugada.",
+          "Coche compartido por ConcertRide desde Madrid (6–9 €), Valencia (6–9 €), Albacete (3–5 €), Alicante (5–8 €) o Cuenca (4–6 €): llegada directa a La Pulgosa y vuelta cuando termine el cabeza de cartel.",
+        ],
+      },
+      {
+        heading: "Arenal Sound 2026 (Burriana, Castellón) — bus, tren y autobús",
+        paragraphs: [
+          "Arenal Sound 2026 (29 julio–2 agosto) se celebra en la playa de Burriana. El recinto está a 2 km del centro de Burriana, 10 km de Castellón ciudad y 65 km de Valencia. La búsqueda \"como ir al Arenal Sound\" recibe estas opciones:",
+        ],
+        bullets: [
+          "Bus lanzadera Castellón–Burriana del festival (10 km, 20 min): sale de la estación de autobuses de Castellón en franjas de entrada y salida. Plazas limitadas.",
+          "Tren Cercanías Renfe C6 Valencia–Castellón de la Plana (45–60 min, 4–8 €): no llega a la playa, requiere taxi (10–15 €) o lanzadera adicional. Sin servicio nocturno desde Castellón después de las 23:00 — la vuelta de madrugada es imposible.",
+          "Autobuses de larga distancia Madrid–Castellón / Barcelona–Castellón (ALSA): 15–25 €, llegan a Castellón ciudad, no al festival.",
+          "Coche compartido por ConcertRide desde Burriana (2–4 €), Castellón (3–5 €), Valencia (3–6 €), Barcelona (8–12 €), Madrid (12–17 €) o Alicante (4–7 €): llegada directa al recinto con todo el equipo de camping.",
+        ],
+      },
+      {
+        heading: "BBK Live 2026 (Kobetamendi, Bilbao) — lanzadera y bus de larga distancia",
+        paragraphs: [
+          "Bilbao BBK Live 2026 (9–11 julio) es uno de los pocos festivales con buen servicio de bus dentro de Bilbao gracias a su lanzadera oficial:",
+        ],
+        bullets: [
+          "Lanzadera oficial BBK Live: sale desde plaza Moyúa y la estación de Abando con frecuencia de 15 minutos. Precio incluido en la entrada. Sube hasta el monte Kobetamendi.",
+          "Autobús ALSA Madrid–Bilbao Termibús (20–35 €, 5–6h): llega a 5 km del festival, hay que sumar shuttle u taxi.",
+          "Tren Renfe Santander–Bilbao (8–15 €, 2h): último servicio antes de las 22:00, no sirve para volver del festival. Viaje BBK Santander solo viable en coche o carpooling.",
+          "Coche compartido (carpooling) por ConcertRide desde Donostia (4–7 €), Vitoria (3–6 €), Pamplona (5–8 €), Santander (4–7 €), Burgos (5–8 €) o Madrid (11–16 €): llegada al centro de Bilbao, donde se enlaza con la lanzadera oficial.",
+        ],
+      },
+      {
+        heading: "Mad Cool 2026 (IFEMA, Madrid) — metro y carpooling",
+        paragraphs: [
+          "Mad Cool no opera buses oficiales propios. La opción de transporte público directo es la línea 8 del Metro de Madrid (estación Feria de Madrid), que amplía servicio hasta las 2:00–2:30 en noches de festival. Los autobuses nocturnos N1 y N6 cubren la Avenida de América y Canillejas pero no paran en IFEMA. Los lanzaderas privadas que aparecen en redes sociales son iniciativas no oficiales. El carpooling con ConcertRide desde Toledo (4–7 €), Guadalajara (3–6 €), Segovia (4–7 €), Valencia (10–14 €), Zaragoza (9–13 €) o Barcelona (15–20 €) es la opción más utilizada por asistentes de fuera de Madrid.",
+        ],
+      },
+      {
+        heading: "Resurrection Fest 2026 (Viveiro, Lugo) — el caso extremo",
+        paragraphs: [
+          "Resurrection Fest 2026 (25–28 junio) es probablemente el festival español más dependiente del coche compartido. Viveiro es una pequeña ciudad de la costa lucense sin AVE, sin aeropuerto cercano (lo más próximo: Santiago a 2h 30 min) y con apenas 2–3 frecuencias diarias de bus ALSA desde A Coruña, Lugo y Oviedo. No hay servicio nocturno. La búsqueda \"viajes Resurrection Fest\" lleva sí o sí al carpooling: los grupos de fans del metal organizan viajes desde A Coruña (4–7 €), Vigo (6–9 €), Santiago (6–9 €), Oviedo (6–9 €), Bilbao (10–15 €) y Madrid (16–22 €) ya como tradición del festival.",
+        ],
+      },
+      {
+        heading: "Otros festivales con buses y lanzaderas relevantes 2026",
+        paragraphs: [
+          "Resumen rápido de los principales festivales españoles y su servicio de bus oficial:",
+        ],
+        bullets: [
+          "Sonorama Ribera (Aranda de Duero): bus Madrid–Aranda La Sepulvedana (10–15 €), no opera de madrugada. Sin shuttle oficial.",
+          "O Son do Camiño (Santiago): lanzadera oficial desde el centro de Santiago hasta Monte do Gozo. 5 km.",
+          "Cala Mijas Fest (Málaga): sin shuttle oficial. Taxi 25–40 € desde Málaga centro al Cortijo de Torres.",
+          "Medusa Festival (Cullera): lanzadera del festival desde estación Joaquín Sorolla Valencia y Xàtiva. Plazas limitadas.",
+          "Low Festival (Benidorm): TRAM L1 Alicante–Benidorm (1h 20 min) hasta medianoche. Sin shuttle oficial.",
+          "FIB (Benicàssim): tren Cercanías Renfe Castellón–Benicàssim (5 min) y lanzadera al recinto.",
+          "Sónar (Barcelona): metro L1 Espanya y autobús urbano. Servicio amplio en Sónar de Día.",
+          "Cruïlla (Barcelona): metro L4 El Maresme-Fòrum a 5 min del recinto. Buen transporte público nocturno.",
+          "Primavera Sound (Barcelona): metro L4 Besòs Mar al Parc del Fòrum. Saturación habitual de madrugada.",
+          "Zevra Festival (Valencia): metro L4 La Marina (servicio ampliado hasta 1:00–2:00) y EMT 19/95.",
+        ],
+      },
+      {
+        heading: "Cuándo elegir bus, cuándo elegir coche compartido",
+        paragraphs: [
+          "El bus oficial gana al carpooling en tres casos: 1) cuando la lanzadera es gratuita o barata y sale hasta tarde (BBK Live, Cruïlla); 2) cuando el recinto está dentro del área metropolitana con metro nocturno (Sónar, Zevra, Mad Cool con limitaciones); 3) cuando la salida del festival es temprana (festivales de día, conciertos en estadio).",
+          "El coche compartido gana al bus en tres casos opuestos: 1) cuando el recinto está fuera de la red de transporte público (Viña Rock, Resurrection Fest, Sonorama, Cala Mijas); 2) cuando la vuelta es después de medianoche (que es la mayoría); 3) cuando vienes de otra provincia y el tren + lanzadera + taxi suma más de 20 € por trayecto.",
+        ],
+      },
+    ],
+    faqs: [
+      {
+        q: "¿Hay autobús oficial a Viña Rock desde Madrid?",
+        a: "No existe un bus oficial directo del festival Madrid–Viña Rock. Hay autobuses privados (operadores no oficiales) que salen de Méndez Álvaro y Nuevos Ministerios por 35–55 € con vuelta a hora fija. La alternativa más flexible y económica es el carpooling con ConcertRide (6–9 €/asiento). Detalles completos en concertride.me/festivales/vina-rock.",
+      },
+      {
+        q: "¿Hay tren al recinto del Arenal Sound?",
+        a: "No. El tren Cercanías C6 Valencia–Castellón llega a la estación de Castellón de la Plana, a 10 km del recinto. Hay que añadir bus lanzadera o taxi adicional. Sin servicio nocturno: la vuelta de madrugada en tren es imposible. Detalles en concertride.me/festivales/arenal-sound.",
+      },
+      {
+        q: "¿Cuánto cuesta la lanzadera oficial del BBK Live?",
+        a: "La lanzadera oficial del BBK Live (Bilbao centro → Kobetamendi) está incluida en el precio de la entrada al festival, sin coste adicional. Sale desde plaza Moyúa y la estación de Abando con frecuencia de 15 minutos durante toda la jornada del festival.",
+      },
+      {
+        q: "¿Hay bus desde Santander a BBK Live?",
+        a: "El bus ALSA Santander–Bilbao Termibús (1h 30 min, 6–15 €) opera varias veces al día pero no en horarios nocturnos. Para volver del festival a Santander de madrugada hay que ir en coche compartido o particular. Más detalles en concertride.me/rutas/santander-bbk-live.",
+      },
+      {
+        q: "¿Es seguro el carpooling para ir a un festival?",
+        a: "ConcertRide verifica el carnet de conducir de todos los conductores antes de publicar viajes. Cada conductor tiene perfil con valoraciones de pasajeros anteriores. El pago es directo conductor-pasajero (efectivo o Bizum) sin intermediarios y sin comisión de plataforma.",
+      },
+    ],
+    relatedLinks: [
+      { label: "Cómo volver de un festival de madrugada", to: "/blog/como-volver-festival-madrugada" },
+      { label: "Guía de transporte para festivales", to: "/guia-transporte-festivales" },
+      { label: "Cómo ir a Viña Rock", to: "/festivales/vina-rock" },
+      { label: "Cómo ir a Arenal Sound", to: "/festivales/arenal-sound" },
+      { label: "Cómo ir a BBK Live", to: "/festivales/bbk-live" },
+      { label: "Cómo ir a Mad Cool", to: "/festivales/mad-cool" },
+      { label: "Cómo ir a Resurrection Fest", to: "/festivales/resurrection-fest" },
+    ],
+    relatedPosts: ["como-volver-festival-madrugada", "huella-carbono-festivales-carpooling"],
+  },
+
+  // ──────────────────────────────────────────────────────────────────────
+  {
     slug: "como-volver-festival-madrugada",
     title: "Cómo volver de un festival de madrugada (sin taxi a 90 €)",
     h1: "Cómo volver de un festival de madrugada en España",

@@ -46,6 +46,41 @@ export default function RouteLandingPage() {
 
   const { festival, originData, originCity } = landing;
 
+  // Pre-computed FAQ entries — rendered in body and emitted as FAQPage JSON-LD.
+  const routeFaqs = [
+    {
+      q: `¿Cuánto cuesta el carpooling de ${originCity} a ${festival.shortName}?`,
+      a: `El precio por asiento de ${originCity} a ${festival.shortName} está entre ${originData.concertRideRange}. El conductor fija el precio para cubrir combustible y peajes. Sin comisión: lo que ves es lo que pagas, en efectivo o Bizum el día del viaje.`,
+    },
+    {
+      q: `¿Cuánto se tarda en coche de ${originCity} a ${festival.shortName}?`,
+      a: `La distancia es de ${originData.km} km. El tiempo estimado de conducción es de ${originData.drivingTime} sin paradas. Con pausa de servicio y tráfico en la entrada al recinto, cuenta aproximadamente 30 min extra.`,
+    },
+    {
+      q: `¿Hay carpooling de vuelta desde ${festival.shortName} a ${originCity}?`,
+      a: `Sí. La mayoría de conductores publican el viaje de ida y vuelta. Busca en ConcertRide filtrando por "${festival.city}" y verás los viajes con hora de salida del festival.`,
+    },
+    {
+      q: `¿Hay autobús directo de ${originCity} a ${festival.shortName}?`,
+      a: `${originData.km < 50 ? `${originCity} y ${festival.city} están muy cerca (${originData.km} km), por lo que casi siempre hay autobuses urbanos o de cercanías que conectan ambas localidades en horario diurno.` : `No suele existir autobús directo de larga distancia ${originCity}–${festival.shortName}: las líneas de bus llegan a la ciudad cabecera del festival (${festival.city}) y de ahí hace falta lanzadera o taxi al recinto.`} El carpooling con ConcertRide (${originData.concertRideRange}) llega directamente al recinto y permite vuelta a cualquier hora.`,
+    },
+    {
+      q: `¿Es seguro el carpooling a ${festival.shortName} con ConcertRide?`,
+      a: `Todos los conductores verifican su carnet de conducir antes de publicar. Puedes ver su perfil completo, valoraciones de otros pasajeros y el chat del evento. El pago siempre es en persona — nunca adelantas dinero.`,
+    },
+  ];
+
+  const jsonLdFaq = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    inLanguage: "es-ES",
+    mainEntity: routeFaqs.map((f) => ({
+      "@type": "Question",
+      name: f.q,
+      acceptedAnswer: { "@type": "Answer", text: f.a },
+    })),
+  };
+
   const jsonLdBreadcrumb = {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
@@ -101,6 +136,7 @@ export default function RouteLandingPage() {
     <main id="main" className="min-h-dvh bg-cr-bg text-cr-text pt-14">
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdBreadcrumb) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdTrip) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdFaq) }} />
 
       {/* ── Hero ── */}
       <div className="max-w-6xl mx-auto px-6 pt-10 pb-6 space-y-4">
@@ -239,24 +275,7 @@ export default function RouteLandingPage() {
           Preguntas frecuentes
         </h2>
         <dl className="space-y-6">
-          {[
-            {
-              q: `¿Cuánto cuesta el carpooling de ${originCity} a ${festival.shortName}?`,
-              a: `El precio por asiento de ${originCity} a ${festival.shortName} está entre ${originData.concertRideRange}. El conductor fija el precio para cubrir combustible y peajes. Sin comisión: lo que ves es lo que pagas, en efectivo o Bizum el día del viaje.`,
-            },
-            {
-              q: `¿Cuánto se tarda en coche de ${originCity} a ${festival.shortName}?`,
-              a: `La distancia es de ${originData.km} km. El tiempo estimado de conducción es de ${originData.drivingTime} sin paradas. Con pausa de servicio y tráfico en la entrada al recinto, cuenta aproximadamente 30 min extra.`,
-            },
-            {
-              q: `¿Hay carpooling de vuelta desde ${festival.shortName} a ${originCity}?`,
-              a: `Sí. La mayoría de conductores publican el viaje de ida y vuelta. Busca en ConcertRide filtrando por "${festival.city}" y verás los viajes con hora de salida del festival.`,
-            },
-            {
-              q: `¿Es seguro el carpooling a ${festival.shortName} con ConcertRide?`,
-              a: `Todos los conductores verifican su carnet de conducir antes de publicar. Puedes ver su perfil completo, valoraciones de otros pasajeros y el chat del evento. El pago siempre es en persona — nunca adelantas dinero.`,
-            },
-          ].map((faq) => (
+          {routeFaqs.map((faq) => (
             <div key={faq.q} className="border-b border-cr-border pb-6 space-y-2">
               <dt className="font-display text-base uppercase text-cr-text">{faq.q}</dt>
               <dd className="font-sans text-sm text-cr-text-muted leading-relaxed max-w-2xl">{faq.a}</dd>

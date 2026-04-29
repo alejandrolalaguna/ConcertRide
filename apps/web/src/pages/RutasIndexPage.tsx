@@ -10,12 +10,11 @@ const ALL_FESTIVALS = [{ slug: "", shortName: "Todos" }, ...FESTIVAL_LANDINGS.ma
 
 export default function RutasIndexPage() {
   useSeoMeta({
-    title: "Rutas de carpooling a festivales en España 2026",
-    description:
-      "93 rutas de viaje compartido a festivales de música en España. Carpooling Madrid–Mad Cool, Barcelona–Primavera Sound, Valencia–FIB y más. Sin comisión, conductores verificados.",
+    title: `Rutas de carpooling a festivales en España ${new Date().getFullYear()}`,
+    description: `${ROUTE_LANDINGS.length} rutas de viaje compartido a festivales de música en España. Carpooling Madrid–Mad Cool, Barcelona–Primavera Sound, Valencia–Arenal Sound, Santander–BBK Live, Marbella–Cala Mijas y más. Sin comisión, conductores verificados.`,
     canonical: `${SITE_URL}/rutas`,
     keywords:
-      "rutas carpooling festivales, viaje compartido festival, madrid mad cool carpooling, barcelona primavera sound viaje compartido, valencia fib transporte, carpooling festivales españa 2026",
+      "rutas carpooling festivales, viaje compartido festival, madrid mad cool carpooling, barcelona primavera sound viaje compartido, valencia fib transporte, santander bbk live, marbella cala mijas, burriana arenal sound, autobuses festivales españa, bus festivales 2026, carpooling festivales españa 2026",
   });
 
   const [activeFilter, setActiveFilter] = useState("");
@@ -76,12 +75,13 @@ export default function RutasIndexPage() {
         </p>
 
         <h1 className="font-display text-4xl md:text-6xl uppercase leading-[0.92]">
-          Rutas de<br />carpooling.
+          Rutas de<br />carpooling {new Date().getFullYear()}.
         </h1>
 
         <p className="font-sans text-sm md:text-base text-cr-text-muted max-w-2xl leading-relaxed">
           Viajes compartidos desde todas las ciudades de España a los mejores festivales.
-          Sin comisión, pago en efectivo o Bizum el día del viaje.
+          Alternativa a los autobuses oficiales y de larga distancia (ALSA, Avanza, FlixBus)
+          cuando no operan en horarios de festival. Sin comisión, pago en efectivo o Bizum el día del viaje.
         </p>
 
         <div className="flex flex-wrap gap-3 pt-2">

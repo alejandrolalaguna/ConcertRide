@@ -88,8 +88,16 @@ export const FESTIVAL_LANDINGS: FestivalLanding[] = [
         q: "¿Cuándo se celebra Mad Cool 2026?",
         a: "La edición 2026 de Mad Cool Festival está prevista para el 9, 10 y 11 de julio en IFEMA Madrid. Puedes buscar viajes disponibles para esas fechas en concertride.me.",
       },
+      {
+        q: "¿Mad Cool es en Barcelona o en Madrid?",
+        a: "Mad Cool Festival se celebra en Madrid, no en Barcelona. La búsqueda 'mad cool barcelona' es habitual porque muchos asistentes catalanes lo confunden con festivales como Primavera Sound (que sí es en Barcelona). El recinto de Mad Cool está en IFEMA Madrid, en el barrio de Hortaleza, a 15 km del centro. Para ir desde Barcelona a Mad Cool son 620 km (5h 30 min por la AP-2/A-2). Con ConcertRide hay viajes Barcelona–Mad Cool por 15–20 €/asiento. Si buscas un festival similar a Mad Cool en Barcelona, los más parecidos en cartel son Primavera Sound (mayo–junio) y Cruïlla (julio).",
+      },
+      {
+        q: "¿Mad Cool Barcelona existe?",
+        a: "No existe ninguna edición de Mad Cool en Barcelona. Mad Cool es un festival íntegramente madrileño que se celebra cada julio en IFEMA Madrid. Los rumores sobre 'Mad Cool Barcelona' que circulan en redes sociales corresponden a Primavera Sound, festival catalán con cartel internacional similar (indie, rock, pop alternativo) celebrado en el Parc del Fòrum de Barcelona en mayo–junio.",
+      },
     ],
-    relatedFestivals: ["tomavistas", "sonorama-ribera"],
+    relatedFestivals: ["tomavistas", "sonorama-ribera", "primavera-sound"],
   },
 
   {
@@ -316,6 +324,10 @@ export const FESTIVAL_LANDINGS: FestivalLanding[] = [
         q: "¿Cuándo es el BBK Live 2026?",
         a: "Bilbao BBK Live 2026 está previsto para el 9, 10 y 11 de julio. Busca viajes en concertride.me con destino Bilbao.",
       },
+      {
+        q: "BBK Live desde Santander: opciones de bus, tren y coche",
+        a: "El binomio BBK Santander es uno de los más buscados del festival. Santander–Bilbao son 100 km (1h por la A-8). Resumen de opciones: 1) Bus de larga distancia (ALSA, FlixBus): 6–15 €, 1h 30 min, llega a Termibús Bilbao (5 km del recinto) y requiere shuttle u taxi adicional, sin frecuencias de madrugada. 2) Tren Renfe Media Distancia: 8–15 €, 2h–2h 30 min, último servicio antes de las 22:00 — imposible para volver del festival. 3) Coche propio: 100 km, parking limitado en Kobetamendi (recomendado aparcar en Bilbao centro y subir en lanzadera oficial). 4) Coche compartido (ConcertRide): 4–7 € por asiento, llegada directa al centro de Bilbao para tomar el shuttle al monte, vuelta flexible a cualquier hora. Es la única opción práctica para volver a Santander tras los conciertos de madrugada.",
+      },
     ],
     relatedFestivals: ["resurrection-fest", "sonorama-ribera"],
   },
@@ -370,6 +382,10 @@ export const FESTIVAL_LANDINGS: FestivalLanding[] = [
         q: "¿Cuándo es Resurrection Fest 2026?",
         a: "La edición 2026 de Resurrection Fest está prevista para el 25, 26, 27 y 28 de junio en A Gañidoira, Viveiro (Lugo). Busca viajes en concertride.me.",
       },
+      {
+        q: "Viajes a Resurrection Fest 2026: cómo organizarlos en grupo",
+        a: "Resurrection Fest es probablemente el festival español más dependiente del coche compartido por su ubicación (Viveiro, Lugo, sin AVE ni aeropuerto cercano). La mayoría de fans organizan viajes a Resurrection Fest en grupos de 3–4 personas saliendo desde A Coruña (100 km, 4–7 €/asiento), Vigo (200 km, 6–9 €), Santiago (185 km, 6–9 €), Oviedo (195 km, 6–9 €), Bilbao (375 km, 10–15 €) o Madrid (600 km, 16–22 €). El servicio ALSA opera autobuses Madrid–A Coruña–Viveiro pero con 2–3 frecuencias al día y sin servicio nocturno; en la práctica todos los asistentes vuelven en coche. Publica o reserva un viaje compartido en concertride.me/festivales/resurrection-fest.",
+      },
     ],
     relatedFestivals: ["o-son-do-camino", "sonorama-ribera"],
   },
@@ -394,12 +410,17 @@ export const FESTIVAL_LANDINGS: FestivalLanding[] = [
     originCities: [
       { city: "Valencia", km: 65, drivingTime: "45 min", concertRideRange: "3–6 €/asiento" },
       { city: "Castellón de la Plana", km: 10, drivingTime: "15 min", concertRideRange: "3–5 €/asiento" },
+      { city: "Burriana", km: 2, drivingTime: "5 min", concertRideRange: "2–4 €/asiento" },
       { city: "Madrid", km: 460, drivingTime: "4h", concertRideRange: "12–17 €/asiento" },
       { city: "Barcelona", km: 305, drivingTime: "2h 50 min", concertRideRange: "8–12 €/asiento" },
       { city: "Zaragoza", km: 275, drivingTime: "2h 30 min", concertRideRange: "8–12 €/asiento" },
       { city: "Alicante", km: 115, drivingTime: "1h 15 min", concertRideRange: "4–7 €/asiento" },
     ],
     faqs: [
+      {
+        q: "¿Cómo llegar al Arenal Sound? Localización del recinto",
+        a: "El Arenal Sound se celebra en la Playa de Burriana (Castellón), a 2 km del centro de Burriana, 10 km de Castellón de la Plana y 65 km de Valencia. Coordenadas: 39.881 N, -0.078 W. La carretera de acceso principal es la AP-7 (salida Burriana) o la N-340 desde Castellón. No hay estación de tren ni metro en la propia playa — la opción más cercana es la estación de Cercanías Renfe C6 en Castellón. Para llegar directamente al recinto, los asistentes vienen en coche propio, en lanzadera del festival desde Castellón (cuando opera) o en carpooling con ConcertRide desde Valencia (3–6 €), Castellón (3–5 €), Burriana (2–4 €), Madrid (12–17 €), Barcelona (8–12 €) o Alicante (4–7 €).",
+      },
       {
         q: "¿Cómo ir a Arenal Sound desde Valencia?",
         a: "Valencia está a solo 65 km de Burriana (45 minutos por la AP-7 o la N-340). Con ConcertRide, los viajes desde Valencia cuestan entre 3 y 6 € por asiento. También hay trenes de Cercanías Valencia–Castellón (C6, 45–60 min, frecuencia horaria en días laborables), aunque el acceso a la playa del festival desde la estación de Castellón requiere bus o taxi adicional (10–15 min).",
@@ -443,6 +464,10 @@ export const FESTIVAL_LANDINGS: FestivalLanding[] = [
       {
         q: "¿Cuándo es Arenal Sound 2026?",
         a: "Arenal Sound 2026 está previsto del 29 de julio al 2 de agosto en la playa de Burriana (Castellón). Busca viajes en concertride.me.",
+      },
+      {
+        q: "Resumen transporte Arenal Sound 2026: bus, tren, autobús y coche",
+        a: "Resumen rápido de las opciones para llegar al Arenal Sound 2026 en Burriana: 1) Bus / autobús lanzadera del festival desde la estación de autobuses de Castellón de la Plana (10 km, 20 min, plazas limitadas, no opera de madrugada). 2) Tren: Cercanías Renfe C6 Valencia–Castellón (45–60 min) hasta Castellón de la Plana, sin tren directo a la playa, requiere taxi o lanzadera adicional. 3) Autobuses de larga distancia desde Madrid (15–25 €), Barcelona (15–30 €) o Valencia (3–8 €) llegan a Castellón ciudad pero no al recinto. 4) Coche compartido por ConcertRide: precios desde 2 € (Burriana), 3 € (Castellón), 3–6 € (Valencia), 8–12 € (Barcelona) o 12–17 € (Madrid), llegada directa al recinto y vuelta flexible.",
       },
     ],
     relatedFestivals: ["fib", "medusa-festival", "low-festival"],
@@ -568,6 +593,14 @@ export const FESTIVAL_LANDINGS: FestivalLanding[] = [
         q: "¿Cuándo es Viña Rock 2026?",
         a: "Viña Rock 2026 se celebra del 30 de abril al 3 de mayo en La Pulgosa, Villarrobledo (Albacete). Busca viajes en concertride.me.",
       },
+      {
+        q: "Resumen transporte Viña Rock 2026: buses, autobuses, tren y coche compartido",
+        a: "Para ir al Viña Rock (Viñarock) 2026 en Villarrobledo (Albacete) hay cuatro vías reales: 1) Buses lanzadera oficiales desde la estación de autobuses de Albacete (50 km, 40 min, frecuencia cada 1–2 horas, no opera de madrugada). 2) Autobuses privados Madrid–Viña Rock (35–55 €, salidas desde Méndez Álvaro y Nuevos Ministerios, vuelta a hora fija). 3) Tren AVE Madrid/Valencia–Albacete (15–45 €, 1h 30 min) más bus lanzadera o taxi al recinto. 4) Coche compartido (carpooling) por ConcertRide desde Madrid (6–9 €), Valencia (6–9 €), Albacete (3–5 €), Alicante (5–8 €), Murcia (5–8 €) o Cuenca (4–6 €), llegada directa a La Pulgosa y vuelta a la hora que prefieras. La mayoría de los asistentes (>80%) llegan en coche propio o compartido por la falta de transporte público nocturno hasta el recinto.",
+      },
+      {
+        q: "¿Hay autobús desde Valencia a Viña Rock (Viñarock)?",
+        a: "No existe autobús de línea regular Valencia–Villarrobledo en horarios de festival. La opción de transporte público sería bus Valencia–Albacete (empresas ALSA o Avanza, 2h 30 min, 12–20 €) más lanzadera del festival desde Albacete a La Pulgosa, con un trayecto total de unas 4 horas. Los autobuses privados Valencia–Viña Rock que aparecen en redes sociales son iniciativas no oficiales de plazas limitadas. Para los valencianos, la opción más usada es el coche compartido con ConcertRide (200 km por la A-3, 6–9 € por asiento) que llega en 2 horas directamente al recinto.",
+      },
     ],
     relatedFestivals: ["mad-cool", "sonorama-ribera"],
   },
@@ -646,6 +679,8 @@ export const FESTIVAL_LANDINGS: FestivalLanding[] = [
     originCities: [
       { city: "Málaga", km: 25, drivingTime: "25 min", concertRideRange: "3–5 €/asiento" },
       { city: "Marbella", km: 50, drivingTime: "45 min", concertRideRange: "3–6 €/asiento" },
+      { city: "Mijas", km: 30, drivingTime: "30 min", concertRideRange: "3–5 €/asiento" },
+      { city: "Fuengirola", km: 35, drivingTime: "35 min", concertRideRange: "3–5 €/asiento" },
       { city: "Sevilla", km: 200, drivingTime: "2h", concertRideRange: "6–9 €/asiento" },
       { city: "Granada", km: 125, drivingTime: "1h 30 min", concertRideRange: "5–8 €/asiento" },
       { city: "Almería", km: 190, drivingTime: "2h", concertRideRange: "6–9 €/asiento" },
@@ -679,6 +714,18 @@ export const FESTIVAL_LANDINGS: FestivalLanding[] = [
       {
         q: "¿Cuándo es Cala Mijas Fest 2026?",
         a: "Cala Mijas Fest 2026 está previsto para el 2, 3 y 4 de octubre en el Cortijo de Torres, Málaga. Busca viajes en concertride.me.",
+      },
+      {
+        q: "¿Cuándo es Cala Mijas Festival 2026? Fechas y cartel",
+        a: "Cala Mijas Festival 2026 (también escrito como 'Cala Mijas Fest') se celebra del 2 al 4 de octubre en el Cortijo de Torres de Málaga, sobre la costa del Sol. El cartel oficial se publica habitualmente entre febrero y abril del año del festival. Las entradas y abonos se ponen a la venta a finales del año previo. Busca viajes compartidos a Cala Mijas Festival 2026 desde Málaga, Marbella, Sevilla, Granada, Córdoba o Almería en concertride.me/festivales/cala-mijas.",
+      },
+      {
+        q: "Marbella to La Cala de Mijas / Cala Mijas: how to get there",
+        a: "From Marbella to La Cala de Mijas (and the Cala Mijas Festival venue at Cortijo de Torres, Málaga) it's about 50 km (45 min) along the AP-7 / A-7 coastal motorway. Options: 1) Local Avanza bus Marbella–Málaga (1h 15min, €5–8) plus taxi or local bus to the festival site. 2) Taxi or VTC (Uber, Cabify, Bolt) — €60–80 one-way, doubled at night during festival hours. 3) Carpooling with ConcertRide — €3–6 per seat, drops you directly at the venue, return ride flexible. La Cala de Mijas town itself is on the coast at km 28 of the A-7; the festival venue Cortijo de Torres is in Málaga city, 25 km further north.",
+      },
+      {
+        q: "¿Cómo llegar de Marbella a Cala Mijas Festival?",
+        a: "De Marbella al recinto de Cala Mijas Festival (Cortijo de Torres, Málaga) son 50 km (45 min por la A-7). Opciones: 1) Autobús de línea Avanza Marbella–Málaga (1h 15 min, 5–8 €) más taxi o transporte urbano hasta el recinto. 2) Taxi o VTC (40–80 € en horario diurno, hasta 120 € en madrugada). 3) Carpooling con ConcertRide desde Marbella (3–6 €/asiento, llegada directa al recinto). El pueblo de La Cala de Mijas (donde el festival celebró su primera edición en 2022) queda en el km 28 de la A-7, pero desde 2023 el festival se traslada al Cortijo de Torres en Málaga capital, a 25 km al norte.",
       },
     ],
     relatedFestivals: ["sonar", "primavera-sound"],
@@ -806,6 +853,14 @@ export const FESTIVAL_LANDINGS: FestivalLanding[] = [
       {
         q: "¿Cuándo es Zevra Festival 2026?",
         a: "Las fechas exactas de Zevra Festival 2026 aún están por confirmar. Se espera en verano (julio–agosto) en La Marina de Valencia. Consulta concertride.me para viajes disponibles cuando se anuncie el cartel.",
+      },
+      {
+        q: "Zevra Festival Valencia: localización, recinto y dirección",
+        a: "Zevra Festival Valencia se celebra en La Marina de València (también escrito 'La Marina de Valencia'), Moll de la Duana, 46024 Valencia. El recinto está junto al puerto, a 5 km del centro histórico. Coordenadas GPS: 39.457 N, 0.336 W. Acceso: metro L4 paradas Marítim-Serreria o Neptú; autobús EMT líneas 19 y 95. Es uno de los pocos festivales urbanos españoles con conexión directa de transporte público al recinto en horario diurno. La búsqueda 'Zevra Festival Valencia' lleva habitualmente a información sobre localización, cartel y horarios de la edición vigente.",
+      },
+      {
+        q: "Zevra Festival horarios: ¿a qué hora empieza y termina cada día?",
+        a: "Zevra Festival horarios típicos por jornada (los oficiales se publican 2–3 semanas antes del festival): apertura del recinto 18:30–19:00, primer concierto sobre las 19:30–20:00, cabezas de cartel 23:00–01:00, cierre del recinto entre la 1:30 y las 3:00 según la noche. El metro L4 amplía servicio hasta la 1:00–2:00 en noches de festival. Para vueltas más tardías, taxi (30–50 €) o coche compartido por ConcertRide (3–14 €/asiento según ciudad de origen). Consulta el horario oficial del festival y los viajes compartidos disponibles en concertride.me/festivales/zevra-festival.",
       },
     ],
     relatedFestivals: ["medusa-festival", "arenal-sound", "fib"],

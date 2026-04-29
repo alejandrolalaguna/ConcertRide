@@ -212,6 +212,7 @@ function buildStaticRoutes(base: string): Record<string, { title: string; descri
       body: `<p>Guías, comparativas y consejos para ir a conciertos y festivales en coche compartido.</p>
 <h2>Últimos artículos</h2>
 <ul>
+  <li><a href="${base}/blog/autobuses-festivales-espana-2026">Autobuses a festivales de España 2026: guía completa por festival</a></li>
   <li><a href="${base}/blog/blablacar-vs-concertride">BlaBlaCar vs ConcertRide 2026: ¿qué app te conviene para festivales?</a></li>
   <li><a href="${base}/blog/como-volver-festival-madrugada">Cómo volver de un festival de madrugada (sin taxi a 90 €)</a></li>
   <li><a href="${base}/blog/huella-carbono-festivales-carpooling">Huella de carbono de un festival: por qué el carpooling es la acción más efectiva</a></li>
@@ -662,6 +663,13 @@ const CITIES: Record<string, CityData> = {
   granada: { name: "Granada", region: "Andalucía", blurb: "Granada acoge Granada Sound en septiembre y es origen frecuente para viajes a festivales andaluces del verano.", venues: ["Granada Sound (Cortijo del Conde)"] },
   donostia: { name: "Donostia / San Sebastián", region: "País Vasco", blurb: "Donostia destaca por Heineken Jazzaldia en julio y una agenda indie densa en salas pequeñas.", venues: ["Plaza de la Trinidad", "Kursaal", "Heineken Jazzaldia"] },
   "santiago-de-compostela": { name: "Santiago de Compostela", region: "Galicia", blurb: "Santiago acoge O Son do Camiño en Monte do Gozo cada junio, uno de los festivales con mayor aforo de España.", venues: ["Monte do Gozo (O Son do Camiño)"] },
+  alicante: { name: "Alicante", region: "Comunidad Valenciana", blurb: "Alicante concentra giras nacionales e internacionales en la Plaza de Toros, ADDA y Pabellón Pitiu Rochel. Provincia con Low Festival (Benidorm) y Iboga Summer (Tavernes).", venues: ["Plaza de Toros de Alicante", "ADDA", "Pabellón Pitiu Rochel"] },
+  pamplona: { name: "Pamplona / Iruña", region: "Navarra", blurb: "Pamplona / Iruña concentra la actividad musical de Navarra: Navarra Arena, Anaitasuna y Sala Totem son las referencias del directo.", venues: ["Navarra Arena", "Anaitasuna", "Sala Totem"] },
+  "vitoria-gasteiz": { name: "Vitoria-Gasteiz", region: "País Vasco", blurb: "Vitoria-Gasteiz es referencia para el rock alternativo: Azkena Rock Festival en Mendizabala cada junio. Iradier Arena y Sala Helldorado cubren el resto del año.", venues: ["Mendizabala (Azkena Rock)", "Iradier Arena", "Sala Helldorado"] },
+  "a-coruna": { name: "A Coruña", region: "Galicia", blurb: "A Coruña es el principal punto de origen para Resurrection Fest. Coliseum, Palexco y Sala Pelícano acogen las giras internacionales.", venues: ["Coliseum A Coruña", "Palexco", "Sala Pelícano"] },
+  vigo: { name: "Vigo", region: "Galicia", blurb: "Vigo concentra la actividad musical del sur de Galicia: Auditorio Mar de Vigo, Pabellón Multiusos y salas Rouge / La Iguana Club.", venues: ["Auditorio Mar de Vigo", "Pabellón Multiusos de Vigo", "Sala Rouge", "La Iguana Club"] },
+  murcia: { name: "Murcia", region: "Región de Murcia", blurb: "Murcia acoge SOS 4.8, WAM y R-Murcia. Auditorio Víctor Villegas y salas REM/Mamba completan la oferta.", venues: ["Auditorio Víctor Villegas", "Sala REM", "Sala Mamba", "SOS 4.8"] },
+  valladolid: { name: "Valladolid", region: "Castilla y León", blurb: "Valladolid es punto neurálgico de Castilla y León: Plaza de Toros, Pabellón Pisuerga y Sala Porta Caeli reciben giras nacionales e internacionales.", venues: ["Plaza de Toros de Valladolid", "Pabellón Pisuerga", "Sala Porta Caeli"] },
 };
 
 // ── Blog post data ──────────────────────────────────────────────────────────
@@ -675,6 +683,14 @@ interface BlogData {
 }
 
 const BLOG_POSTS: Record<string, BlogData> = {
+  "autobuses-festivales-espana-2026": {
+    title: "Autobuses a festivales de España 2026: guía completa por festival",
+    excerpt: "¿Hay autobús a Viña Rock? ¿Bus oficial a Arenal Sound? ¿Lanzadera a BBK Live? Esta guía recoge, festival por festival, las opciones reales de bus, autobús, tren y coche compartido para 2026.",
+    author: "Equipo ConcertRide",
+    publishedAt: "2026-04-29",
+    h1: "Autobuses a festivales de España 2026: cómo llegar a Viña Rock, Arenal Sound, BBK Live, Mad Cool y más",
+    intro: "Buscas \"autobuses Viñarock\", \"bus Arenal Sound\", \"lanzadera BBK Live\" o \"viajes Resurrection Fest\" y nadie te da una respuesta clara. Esta guía recoge festival por festival las opciones reales de bus oficial, autobús de larga distancia, tren, lanzadera y coche compartido para llegar a los festivales españoles de 2026.",
+  },
   "blablacar-vs-concertride": {
     title: "BlaBlaCar vs ConcertRide 2026: ¿qué app de carpooling te conviene para festivales?",
     excerpt: "Comparativa real entre BlaBlaCar y ConcertRide para llegar a festivales: comisiones, tiempos de espera, perfil de usuario, política de cancelación y precio por asiento.",
