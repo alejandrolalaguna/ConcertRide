@@ -96,19 +96,40 @@ function buildStaticRoutes(base: string): Record<string, { title: string; descri
     },
     "/guia-transporte-festivales": {
       title: `Guía de transporte para festivales de música en España — ${SITE_NAME}`,
-      description: "Cómo llegar a los principales festivales de España en coche compartido. Precios, tiempos y consejos para Mad Cool, Primavera Sound, Sónar y más.",
+      description: "Cómo llegar a los principales festivales de España en coche compartido. Carpooling, autobús, tren y consejos para volver de madrugada sin taxi.",
       canonical: `${base}/guia-transporte-festivales`,
-      h1: "Guía de transporte para festivales en España",
-      body: `<p>Cómo llegar a los principales festivales de música en España: opciones de transporte, precios reales de carpooling, y consejos para no quedarte tirado de madrugada.</p>
+      h1: "Guía de transporte para festivales de música en España 2026",
+      body: `<p>Guía completa con todas las opciones para llegar a los festivales de música en España en 2026: carpooling, autobuses organizados, transporte público y consejos para volver de madrugada sin pagar de más.</p>
 <h2>Por qué el carpooling es la mejor opción para festivales</h2>
-<p>El transporte público rara vez cubre el horario real de los festivales — el último metro sale antes de que acabe el cabeza de cartel. Un taxi de madrugada puede costar 30–90 € por trayecto. El carpooling con ConcertRide sale por 4–20 € dependiendo de la distancia, y el conductor también va al festival.</p>
-<h2>Festivales por ciudad</h2>
+<p>El transporte público rara vez cubre el horario real de los festivales — el último metro sale antes de que acabe el cabeza de cartel. Un taxi de madrugada puede costar 30–90 € por trayecto. El carpooling con ConcertRide sale por 4–20 € dependiendo de la distancia, y el conductor también va al festival. Sin comisión, sin horario fijo, pago en efectivo o Bizum directamente al conductor.</p>
+<h2>Comparativa de opciones de transporte a festivales</h2>
 <ul>
-  <li><a href="${base}/festivales/mad-cool">Cómo ir al Mad Cool en coche compartido — Madrid</a></li>
-  <li><a href="${base}/festivales/primavera-sound">Cómo ir al Primavera Sound en coche compartido — Barcelona</a></li>
-  <li><a href="${base}/festivales/sonar">Cómo ir al Sónar en coche compartido — Barcelona</a></li>
-  <li><a href="${base}/festivales/bbk-live">Cómo ir al BBK Live en coche compartido — Bilbao</a></li>
-</ul>`,
+  <li><strong>Carpooling (ConcertRide)</strong>: 3–20 €/asiento. Puerta a puerta, horario flexible, vuelta cuando quieras.</li>
+  <li><strong>Autobús organizado</strong>: 15–35 €. Origen fijo, horario de vuelta inamovible, se agota semanas antes.</li>
+  <li><strong>Transporte público</strong>: 0–5 €. Solo funciona en recintos bien comunicados (Parc del Fòrum, Fira Montjuïc). No cubre la vuelta de madrugada.</li>
+  <li><strong>Taxi / VTC</strong>: 40–90 € en madrugada de festival. Precio multiplicado x2–x3 por alta demanda.</li>
+</ul>
+<h2>Cómo llegar a cada festival en coche compartido</h2>
+<ul>
+  <li><a href="${base}/festivales/mad-cool">Cómo ir al Mad Cool en coche compartido — Madrid, julio 2026</a></li>
+  <li><a href="${base}/festivales/primavera-sound">Cómo ir al Primavera Sound en coche compartido — Barcelona, mayo–junio 2026</a></li>
+  <li><a href="${base}/festivales/sonar">Cómo ir al Sónar en coche compartido — Barcelona, junio 2026</a></li>
+  <li><a href="${base}/festivales/fib">Cómo ir al FIB en coche compartido — Benicàssim, julio 2026</a></li>
+  <li><a href="${base}/festivales/bbk-live">Cómo ir al BBK Live en coche compartido — Bilbao, julio 2026</a></li>
+  <li><a href="${base}/festivales/resurrection-fest">Cómo ir al Resurrection Fest en coche compartido — Viveiro, junio 2026</a></li>
+  <li><a href="${base}/festivales/arenal-sound">Cómo ir al Arenal Sound en coche compartido — Burriana, julio–agosto 2026</a></li>
+  <li><a href="${base}/festivales/medusa-festival">Cómo ir al Medusa Festival en coche compartido — Cullera, agosto 2026</a></li>
+  <li><a href="${base}/festivales/vina-rock">Cómo ir a Viña Rock en coche compartido — Villarrobledo, mayo 2026</a></li>
+  <li><a href="${base}/festivales/o-son-do-camino">Cómo ir al O Son do Camiño en coche compartido — Santiago, junio 2026</a></li>
+  <li><a href="${base}/festivales/cala-mijas">Cómo ir a Cala Mijas en coche compartido — Mijas, octubre 2026</a></li>
+  <li><a href="${base}/festivales/sonorama-ribera">Cómo ir al Sonorama Ribera en coche compartido — Aranda de Duero, agosto 2026</a></li>
+  <li><a href="${base}/festivales/low-festival">Cómo ir al Low Festival en coche compartido — Benidorm, julio 2026</a></li>
+  <li><a href="${base}/festivales/tomavistas">Cómo ir al Tomavistas en coche compartido — Madrid, mayo 2026</a></li>
+  <li><a href="${base}/festivales/zevra-festival">Cómo ir al Zevra Festival en coche compartido — Valencia, verano 2026</a></li>
+  <li><a href="${base}/festivales/cruilla">Cómo ir al Cruïlla en coche compartido — Barcelona, julio 2026</a></li>
+</ul>
+<h2>El problema de volver de noche de un festival</h2>
+<p>La mayoría de festivales terminan entre la 1:00 y las 4:00. El metro de Madrid cierra a la 1:30, el de Barcelona a las 2:00. Los autobuses nocturnos (búhos en Madrid, nitbus en Barcelona) no llegan a los recintos de festival. Los taxis y VTC multiplican el precio x2–x3 en noches de alta demanda. Con ConcertRide, acuerdas la hora de vuelta con el conductor antes del festival: salís juntos cuando acabe el último bolo.</p>`,
     },
     "/como-funciona": {
       title: `Cómo funciona el carpooling para conciertos — ${SITE_NAME}`,

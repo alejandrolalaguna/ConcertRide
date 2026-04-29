@@ -137,19 +137,6 @@ export default function FestivalLandingPage() {
     inLanguage: "es",
   };
 
-  const jsonLdFaq = {
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    mainEntity: festival.faqs.map((faq) => ({
-      "@type": "Question",
-      name: faq.q,
-      acceptedAnswer: {
-        "@type": "Answer",
-        text: faq.a,
-      },
-    })),
-  };
-
   const jsonLdBreadcrumb = {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
@@ -165,53 +152,11 @@ export default function FestivalLandingPage() {
     ],
   };
 
-  const jsonLdHowTo = {
-    "@context": "https://schema.org",
-    "@type": "HowTo",
-    name: `Cómo ir a ${festival.name} en carpooling`,
-    description: `Guía paso a paso para encontrar y reservar un viaje compartido a ${festival.name} desde cualquier ciudad de España.`,
-    totalTime: "PT10M",
-    estimatedCost: {
-      "@type": "MonetaryAmount",
-      currency: "EUR",
-      value: festival.originCities[0]?.concertRideRange?.split("–")[0] ?? "3",
-    },
-    step: [
-      {
-        "@type": "HowToStep",
-        position: 1,
-        name: "Busca el festival en ConcertRide",
-        text: `Entra en concertride.me/concerts y filtra por ciudad (${festival.city}) o busca directamente "${festival.shortName}". Verás los viajes publicados con precio por asiento.`,
-        url: `${SITE_URL}/concerts`,
-      },
-      {
-        "@type": "HowToStep",
-        position: 2,
-        name: "Elige el viaje que más te convenga",
-        text: "Compara precio por asiento, ciudad de salida, hora de partida y perfil del conductor. Puedes leer las valoraciones de otros pasajeros.",
-      },
-      {
-        "@type": "HowToStep",
-        position: 3,
-        name: "Solicita tu plaza",
-        text: "Si el conductor tiene reserva instantánea, tu plaza queda confirmada al momento. Si no, el conductor revisa tu solicitud en pocas horas.",
-      },
-      {
-        "@type": "HowToStep",
-        position: 4,
-        name: "Viaja y paga en persona",
-        text: `El día del festival, te encuentras con el conductor en el punto acordado. Pagas en efectivo o Bizum directamente al conductor. Sin comisiones, sin plataforma de por medio.`,
-      },
-    ],
-  };
-
   return (
     <main id="main" className="min-h-dvh bg-cr-bg text-cr-text pt-14">
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdEvent) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdSeries) }} />
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdFaq) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdBreadcrumb) }} />
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdHowTo) }} />
 
       {/* ── Hero ── */}
       <div className="max-w-6xl mx-auto px-6 pt-10 pb-6 space-y-4">

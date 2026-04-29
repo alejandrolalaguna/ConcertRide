@@ -284,6 +284,7 @@ export const FESTIVAL_LANDINGS: FestivalLanding[] = [
       { city: "Vitoria-Gasteiz", km: 65, drivingTime: "45 min", concertRideRange: "3–6 €/asiento" },
       { city: "Pamplona", km: 155, drivingTime: "1h 30 min", concertRideRange: "5–8 €/asiento" },
       { city: "Santander", km: 100, drivingTime: "1h", concertRideRange: "4–7 €/asiento" },
+      { city: "Burgos", km: 155, drivingTime: "1h 30 min", concertRideRange: "5–8 €/asiento" },
       { city: "Madrid", km: 395, drivingTime: "3h 30 min", concertRideRange: "11–16 €/asiento" },
     ],
     faqs: [
@@ -302,6 +303,14 @@ export const FESTIVAL_LANDINGS: FestivalLanding[] = [
       {
         q: "¿Cuánto cuesta ir al BBK Live desde Madrid?",
         a: "El trayecto Madrid–Bilbao son 395 km (3h 30 min por la A-1 o la AP-1). Por ConcertRide, los precios están entre 11 y 16 € por asiento. El vuelo suele costar entre 60 y 120 € con equipaje, sin incluir el desplazamiento al recinto. El autobús de larga distancia Madrid–Bilbao cuesta 20–35 € pero llega a la estación de Termibús, a 5 km del festival.",
+      },
+      {
+        q: "¿Cómo ir al BBK Live desde Santander?",
+        a: "Santander está a 100 km de Bilbao (1 hora por la A-8). Con ConcertRide, el precio por asiento desde Santander está entre 4 y 7 €. El tren Renfe Santander–Bilbao (vía Renfe Media Distancia) tarda entre 2h y 2h 30 min y cuesta entre 8 y 15 €, pero el último servicio de vuelta sale antes de las 22:00 — imposible para volver del festival. El carpooling con ConcertRide es la única opción práctica para ir y volver desde Santander en horarios de festival.",
+      },
+      {
+        q: "¿Cómo ir al BBK Live desde Burgos?",
+        a: "Burgos está a 155 km de Bilbao (1h 30 min por la A-1). Con ConcertRide, el precio por asiento desde Burgos está entre 5 y 8 €. No hay tren directo Burgos–Bilbao con frecuencias adecuadas para el festival.",
       },
       {
         q: "¿Cuándo es el BBK Live 2026?",
@@ -420,6 +429,18 @@ export const FESTIVAL_LANDINGS: FestivalLanding[] = [
         a: "Sí, Arenal Sound tiene zona de camping junto a la playa, incluida con el pase del festival. Muchos asistentes llegan el miércoles y se quedan toda la semana. El carpooling con ConcertRide es la opción más habitual para los que vienen de Madrid, Zaragoza o Barcelona, ya que permite traer todo el equipo directamente.",
       },
       {
+        q: "¿Hay tren a Arenal Sound? ¿Cómo llegar en tren?",
+        a: "No existe tren directo al recinto de Arenal Sound en la playa de Burriana. La opción más cercana en tren es la línea de Cercanías Renfe C6 Valencia–Castellón (45–60 min, frecuencia cada 30–60 min), con parada en Castellón de la Plana. Desde allí quedan 10 km hasta el recinto, que deben cubrirse en taxi (10–15 €) o en el autobús lanzadera del festival cuando esté operativo. En la práctica, esta combinación tren + taxi/lanzadera solo funciona bien en horario diurno: no hay trenes de Cercanías desde Castellón después de las 23:00, por lo que la vuelta a madrugada es imposible en transporte público. Para los que vienen de Valencia, ConcertRide (3–6 €/asiento, puerta a puerta) es más rápido y cómodo que la combinación tren+taxi.",
+      },
+      {
+        q: "¿Hay autobús de Castellón a Burriana para Arenal Sound?",
+        a: "Durante el festival, Arenal Sound habilita autobuses lanzadera desde la estación de autobuses de Castellón de la Plana hasta el recinto de la playa de Burriana (10 km, unos 20 min). El servicio suele operar en las franjas de llegada (tarde/noche) y de regreso (madrugada/mañana), pero las plazas son limitadas y se agotan rápido en los días de mayor afluencia. Fuera del horario de lanzadera, un taxi Castellón–Burriana cuesta entre 10 y 15 €. Para los que vienen de otras ciudades — Madrid (12–17 €), Barcelona (8–12 €), Alicante (4–7 €) — ConcertRide permite llegar directamente al recinto sin pasar por Castellón, con todo el equipo de camping y sin horarios fijos.",
+      },
+      {
+        q: "¿Cómo llegar a Arenal Sound desde Alicante?",
+        a: "Alicante–Burriana son 115 km (1h 15 min por la A-7). Con ConcertRide, el precio por asiento desde Alicante está entre 4 y 7 €. No existe transporte público directo Alicante–Burriana en horarios de festival. El tren Alicante–Castellón (Euromed, 1h 15 min) más lanzadera o taxi al recinto es una opción para la ida, pero no cubre la vuelta de madrugada.",
+      },
+      {
         q: "¿Cuándo es Arenal Sound 2026?",
         a: "Arenal Sound 2026 está previsto del 29 de julio al 2 de agosto en la playa de Burriana (Castellón). Busca viajes en concertride.me.",
       },
@@ -490,7 +511,7 @@ export const FESTIVAL_LANDINGS: FestivalLanding[] = [
     name: "Viña Rock",
     shortName: "Viña Rock",
     city: "Villarrobledo",
-    citySlug: "madrid",
+    citySlug: "valencia",
     region: "Castilla-La Mancha",
     venue: "La Pulgosa",
     venueAddress: "Parque La Pulgosa, 02600 Villarrobledo, Albacete",
@@ -534,6 +555,14 @@ export const FESTIVAL_LANDINGS: FestivalLanding[] = [
       {
         q: "¿Cuánto cuesta ir a Viña Rock desde Valencia?",
         a: "Valencia–Villarrobledo son 200 km (2 horas por la A-3). Por ConcertRide, el precio por asiento está entre 6 y 9 €. Un autobús de línea Valencia–Albacete + taxi al festival costaría entre 25 y 40 €.",
+      },
+      {
+        q: "¿Hay autobús o bus oficial a Viña Rock desde Madrid?",
+        a: "No existe autobús directo oficial desde Madrid al recinto de La Pulgosa. Algunos operadores privados ofrecen autobuses Madrid–Viña Rock (35–55 €, salida fija desde Nuevos Ministerios o Méndez Álvaro), pero las plazas son muy limitadas, el horario de salida es inamovible y la vuelta suele ser a las 6:00 del domingo sin posibilidad de ajustarla. ConcertRide es la alternativa más flexible: el precio por asiento desde Madrid es de 6 a 9 € y tú eliges el conductor, el punto de salida y la hora de regreso. Muchos asistentes se organizan grupos de 3–4 personas para ir y volver cómodamente.",
+      },
+      {
+        q: "¿Hay bus desde Albacete a Viña Rock?",
+        a: "Sí, el festival habilita autobuses lanzadera desde la estación de autobuses de Albacete (50 km, unos 40 min) durante los días de llegada y salida del festival. Las frecuencias suelen ser cada 1–2 horas entre las 18:00 y la 1:00. Es la única opción de transporte público colectivo que conecta con el recinto. Para quienes vienen de otras ciudades (Madrid, Valencia, Alicante), ConcertRide resulta más económico y directo al recinto que llegar en AVE a Albacete y luego tomar el bus del festival.",
       },
       {
         q: "¿Cuándo es Viña Rock 2026?",
@@ -761,6 +790,18 @@ export const FESTIVAL_LANDINGS: FestivalLanding[] = [
       {
         q: "¿Cómo ir a Zevra Festival desde Alicante?",
         a: "Alicante–La Marina de Valencia son 175 km (1h 45 min por la A-7). Con ConcertRide, el precio por asiento desde Alicante está entre 5 y 8 €. El tren Alicante–Valencia (Euromed o MD) tarda entre 1h 30 min y 2h y cuesta entre 10 y 25 €, pero las frecuencias nocturnas son limitadas.",
+      },
+      {
+        q: "¿Cuáles son los horarios de Zevra Festival 2026?",
+        a: "Los horarios de Zevra Festival 2026 aún están por confirmar. En ediciones anteriores, los conciertos comenzaban a las 19:00–20:00 y los últimos bolos terminaban entre las 2:00 y las 4:00. El metro L4 de Valencia amplía su servicio hasta las 1:00–2:00 en noches de festival, pero no cubre las salidas de madrugada más tardías. Para la vuelta a cualquier hora, ConcertRide permite coordinar el regreso directamente con el conductor, sin depender de los últimos metros ni de taxis con tarifa nocturna (30–50 € desde La Marina al centro).",
+      },
+      {
+        q: "¿Hay bus a Zevra Festival desde el centro de Valencia?",
+        a: "Sí, La Marina de Valencia está bien comunicada en transporte público. El metro línea L4 (paradas Marítim-Serreria o Neptú) tarda unos 15 minutos desde el centro y cuesta 1,50 €. Las líneas de autobús EMT 19 y 95 también paran cerca del recinto en horario diurno y parte del nocturno. Para los que vienen de fuera de Valencia (Madrid, Alicante, Murcia, Barcelona), ConcertRide es la opción más directa: el conductor lleva al pasajero hasta La Marina sin transbordos.",
+      },
+      {
+        q: "¿Hay bus desde Madrid a Zevra Festival?",
+        a: "No existe autobús directo Madrid–Zevra Festival. El AVE Madrid–Valencia (Estación Joaquín Sorolla) tarda 1h 40 min y cuesta entre 25 y 60 €, con metro adicional hasta La Marina (20 min, L4). Con ConcertRide, el viaje completo Madrid–La Marina cuesta entre 10 y 14 € por asiento. Para la vuelta de madrugada, el AVE nocturno puede no coincidir con los horarios del festival — el carpooling es la única opción flexible.",
       },
       {
         q: "¿Cuándo es Zevra Festival 2026?",

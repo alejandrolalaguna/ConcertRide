@@ -17,16 +17,17 @@ export default function CityLandingPage() {
 
   const [concerts, setConcerts] = useState<Concert[] | null>(null);
 
+  const year = new Date().getFullYear();
   useSeoMeta({
-    title: landing ? `Conciertos en ${landing.display} ${new Date().getFullYear()}` : "Conciertos por ciudad",
+    title: landing ? `Conciertos en ${landing.display} ${year}` : "Conciertos por ciudad",
     description: landing
-      ? `Todos los conciertos y festivales en ${landing.display}: ${landing.venues.slice(0, 3).join(", ")} y más. Carpooling para llegar desde cualquier ciudad de España, sin taxi ni comisiones.`
+      ? `Conciertos y festivales en ${landing.display} ${year}: ${landing.venues.slice(0, 3).join(", ")} y más. Carpooling para llegar desde cualquier ciudad de España, sin taxi ni comisiones.`
       : "Explora conciertos por ciudad en España.",
     canonical: landing
       ? `${SITE_URL}/conciertos/${landing.slug}`
       : `${SITE_URL}/concerts`,
     keywords: landing
-      ? `conciertos ${landing.display}, festivales ${landing.display}, carpooling ${landing.display}, coche compartido ${landing.display}, cómo ir al concierto ${landing.display}`
+      ? `conciertos en ${landing.display}, conciertos ${landing.display} ${year}, próximos conciertos ${landing.display}, música ${landing.display}, festivales ${landing.display}, carpooling ${landing.display}, coche compartido ${landing.display}, cómo ir al concierto ${landing.display}`
       : undefined,
   });
 
@@ -121,33 +122,20 @@ export default function CityLandingPage() {
         dangerouslySetInnerHTML={{
           __html: JSON.stringify({
             "@context": "https://schema.org",
-            "@type": "LocalBusiness",
-            "@id": `${SITE_URL}/conciertos/${landing.slug}#localbusiness`,
+            "@type": "OnlineBusiness",
+            "@id": `${SITE_URL}/conciertos/${landing.slug}#onlinebusiness`,
             name: `ConcertRide — Carpooling para conciertos en ${landing.display}`,
             description: landing.blurb,
             url: `${SITE_URL}/conciertos/${landing.slug}`,
             logo: `${SITE_URL}/favicon.svg`,
             image: `${SITE_URL}/og/home.png`,
-            telephone: "",
             priceRange: "€3–€35",
             currenciesAccepted: "EUR",
             paymentAccepted: "Cash, Bizum",
-            openingHours: "Mo-Su 00:00-24:00",
             areaServed: {
               "@type": "City",
               name: landing.display,
               sameAs: `https://www.wikidata.org/wiki/Special:Search/${encodeURIComponent(landing.display)}`,
-            },
-            address: {
-              "@type": "PostalAddress",
-              addressLocality: landing.display,
-              addressRegion: landing.region,
-              addressCountry: "ES",
-            },
-            geo: {
-              "@type": "GeoCoordinates",
-              latitude: landing.lat,
-              longitude: landing.lng,
             },
             sameAs: [
               "https://twitter.com/concertride_es",

@@ -724,11 +724,22 @@ const createLucideIcon = (iconName, iconNode) => {
  * This source code is licensed under the ISC license.
  * See the LICENSE file in the root directory of this source tree.
  */
-const __iconNode$C = [
+const __iconNode$D = [
   ["path", { d: "m12 19-7-7 7-7", key: "1l729n" }],
   ["path", { d: "M19 12H5", key: "x3x0zl" }]
 ];
-const ArrowLeft = createLucideIcon("arrow-left", __iconNode$C);
+const ArrowLeft = createLucideIcon("arrow-left", __iconNode$D);
+/**
+ * @license lucide-react v1.8.0 - ISC
+ *
+ * This source code is licensed under the ISC license.
+ * See the LICENSE file in the root directory of this source tree.
+ */
+const __iconNode$C = [
+  ["path", { d: "M5 12h14", key: "1ays0h" }],
+  ["path", { d: "m12 5 7 7-7 7", key: "xquz4c" }]
+];
+const ArrowRight = createLucideIcon("arrow-right", __iconNode$C);
 /**
  * @license lucide-react v1.8.0 - ISC
  *
@@ -736,17 +747,6 @@ const ArrowLeft = createLucideIcon("arrow-left", __iconNode$C);
  * See the LICENSE file in the root directory of this source tree.
  */
 const __iconNode$B = [
-  ["path", { d: "M5 12h14", key: "1ays0h" }],
-  ["path", { d: "m12 5 7 7-7 7", key: "xquz4c" }]
-];
-const ArrowRight = createLucideIcon("arrow-right", __iconNode$B);
-/**
- * @license lucide-react v1.8.0 - ISC
- *
- * This source code is licensed under the ISC license.
- * See the LICENSE file in the root directory of this source tree.
- */
-const __iconNode$A = [
   ["path", { d: "M10.268 21a2 2 0 0 0 3.464 0", key: "vwvbt9" }],
   [
     "path",
@@ -756,14 +756,14 @@ const __iconNode$A = [
     }
   ]
 ];
-const Bell = createLucideIcon("bell", __iconNode$A);
+const Bell = createLucideIcon("bell", __iconNode$B);
 /**
  * @license lucide-react v1.8.0 - ISC
  *
  * This source code is licensed under the ISC license.
  * See the LICENSE file in the root directory of this source tree.
  */
-const __iconNode$z = [
+const __iconNode$A = [
   ["path", { d: "M8 6v6", key: "18i7km" }],
   ["path", { d: "M15 6v6", key: "1sg6z9" }],
   ["path", { d: "M2 12h19.6", key: "de5uta" }],
@@ -778,7 +778,20 @@ const __iconNode$z = [
   ["path", { d: "M9 18h5", key: "lrx6i" }],
   ["circle", { cx: "16", cy: "18", r: "2", key: "1v4tcr" }]
 ];
-const Bus = createLucideIcon("bus", __iconNode$z);
+const Bus = createLucideIcon("bus", __iconNode$A);
+/**
+ * @license lucide-react v1.8.0 - ISC
+ *
+ * This source code is licensed under the ISC license.
+ * See the LICENSE file in the root directory of this source tree.
+ */
+const __iconNode$z = [
+  ["path", { d: "M8 2v4", key: "1cmpym" }],
+  ["path", { d: "M16 2v4", key: "4m81vk" }],
+  ["rect", { width: "18", height: "18", x: "3", y: "4", rx: "2", key: "1hopcy" }],
+  ["path", { d: "M3 10h18", key: "8toen8" }]
+];
+const Calendar = createLucideIcon("calendar", __iconNode$z);
 /**
  * @license lucide-react v1.8.0 - ISC
  *
@@ -786,19 +799,6 @@ const Bus = createLucideIcon("bus", __iconNode$z);
  * See the LICENSE file in the root directory of this source tree.
  */
 const __iconNode$y = [
-  ["path", { d: "M8 2v4", key: "1cmpym" }],
-  ["path", { d: "M16 2v4", key: "4m81vk" }],
-  ["rect", { width: "18", height: "18", x: "3", y: "4", rx: "2", key: "1hopcy" }],
-  ["path", { d: "M3 10h18", key: "8toen8" }]
-];
-const Calendar = createLucideIcon("calendar", __iconNode$y);
-/**
- * @license lucide-react v1.8.0 - ISC
- *
- * This source code is licensed under the ISC license.
- * See the LICENSE file in the root directory of this source tree.
- */
-const __iconNode$x = [
   [
     "path",
     {
@@ -810,39 +810,50 @@ const __iconNode$x = [
   ["path", { d: "M9 17h6", key: "r8uit2" }],
   ["circle", { cx: "17", cy: "17", r: "2", key: "axvx0g" }]
 ];
-const Car = createLucideIcon("car", __iconNode$x);
+const Car = createLucideIcon("car", __iconNode$y);
 /**
  * @license lucide-react v1.8.0 - ISC
  *
  * This source code is licensed under the ISC license.
  * See the LICENSE file in the root directory of this source tree.
  */
-const __iconNode$w = [["path", { d: "M20 6 9 17l-5-5", key: "1gmf2c" }]];
-const Check = createLucideIcon("check", __iconNode$w);
+const __iconNode$x = [["path", { d: "M20 6 9 17l-5-5", key: "1gmf2c" }]];
+const Check = createLucideIcon("check", __iconNode$x);
 /**
  * @license lucide-react v1.8.0 - ISC
  *
  * This source code is licensed under the ISC license.
  * See the LICENSE file in the root directory of this source tree.
  */
-const __iconNode$v = [["path", { d: "m6 9 6 6 6-6", key: "qrunsl" }]];
-const ChevronDown = createLucideIcon("chevron-down", __iconNode$v);
+const __iconNode$w = [["path", { d: "m6 9 6 6 6-6", key: "qrunsl" }]];
+const ChevronDown = createLucideIcon("chevron-down", __iconNode$w);
 /**
  * @license lucide-react v1.8.0 - ISC
  *
  * This source code is licensed under the ISC license.
  * See the LICENSE file in the root directory of this source tree.
  */
-const __iconNode$u = [["path", { d: "m15 18-6-6 6-6", key: "1wnfg3" }]];
-const ChevronLeft = createLucideIcon("chevron-left", __iconNode$u);
+const __iconNode$v = [["path", { d: "m15 18-6-6 6-6", key: "1wnfg3" }]];
+const ChevronLeft = createLucideIcon("chevron-left", __iconNode$v);
 /**
  * @license lucide-react v1.8.0 - ISC
  *
  * This source code is licensed under the ISC license.
  * See the LICENSE file in the root directory of this source tree.
  */
-const __iconNode$t = [["path", { d: "m9 18 6-6-6-6", key: "mthhwq" }]];
-const ChevronRight = createLucideIcon("chevron-right", __iconNode$t);
+const __iconNode$u = [["path", { d: "m9 18 6-6-6-6", key: "mthhwq" }]];
+const ChevronRight = createLucideIcon("chevron-right", __iconNode$u);
+/**
+ * @license lucide-react v1.8.0 - ISC
+ *
+ * This source code is licensed under the ISC license.
+ * See the LICENSE file in the root directory of this source tree.
+ */
+const __iconNode$t = [
+  ["circle", { cx: "12", cy: "12", r: "10", key: "1mglay" }],
+  ["path", { d: "M12 6v6l4 2", key: "mmk7yg" }]
+];
+const Clock = createLucideIcon("clock", __iconNode$t);
 /**
  * @license lucide-react v1.8.0 - ISC
  *
@@ -850,10 +861,11 @@ const ChevronRight = createLucideIcon("chevron-right", __iconNode$t);
  * See the LICENSE file in the root directory of this source tree.
  */
 const __iconNode$s = [
-  ["circle", { cx: "12", cy: "12", r: "10", key: "1mglay" }],
-  ["path", { d: "M12 6v6l4 2", key: "mmk7yg" }]
+  ["path", { d: "M12 15V3", key: "m9g1x1" }],
+  ["path", { d: "M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4", key: "ih7n3h" }],
+  ["path", { d: "m7 10 5 5 5-5", key: "brsn70" }]
 ];
-const Clock = createLucideIcon("clock", __iconNode$s);
+const Download = createLucideIcon("download", __iconNode$s);
 /**
  * @license lucide-react v1.8.0 - ISC
  *
@@ -861,18 +873,6 @@ const Clock = createLucideIcon("clock", __iconNode$s);
  * See the LICENSE file in the root directory of this source tree.
  */
 const __iconNode$r = [
-  ["path", { d: "M12 15V3", key: "m9g1x1" }],
-  ["path", { d: "M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4", key: "ih7n3h" }],
-  ["path", { d: "m7 10 5 5 5-5", key: "brsn70" }]
-];
-const Download = createLucideIcon("download", __iconNode$r);
-/**
- * @license lucide-react v1.8.0 - ISC
- *
- * This source code is licensed under the ISC license.
- * See the LICENSE file in the root directory of this source tree.
- */
-const __iconNode$q = [
   ["path", { d: "M4 10h12", key: "1y6xl8" }],
   ["path", { d: "M4 14h9", key: "1loblj" }],
   [
@@ -883,7 +883,19 @@ const __iconNode$q = [
     }
   ]
 ];
-const Euro = createLucideIcon("euro", __iconNode$q);
+const Euro = createLucideIcon("euro", __iconNode$r);
+/**
+ * @license lucide-react v1.8.0 - ISC
+ *
+ * This source code is licensed under the ISC license.
+ * See the LICENSE file in the root directory of this source tree.
+ */
+const __iconNode$q = [
+  ["path", { d: "M15 3h6v6", key: "1q9fwt" }],
+  ["path", { d: "M10 14 21 3", key: "gplh6r" }],
+  ["path", { d: "M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6", key: "a6xqqp" }]
+];
+const ExternalLink = createLucideIcon("external-link", __iconNode$q);
 /**
  * @license lucide-react v1.8.0 - ISC
  *
@@ -891,18 +903,6 @@ const Euro = createLucideIcon("euro", __iconNode$q);
  * See the LICENSE file in the root directory of this source tree.
  */
 const __iconNode$p = [
-  ["path", { d: "M15 3h6v6", key: "1q9fwt" }],
-  ["path", { d: "M10 14 21 3", key: "gplh6r" }],
-  ["path", { d: "M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6", key: "a6xqqp" }]
-];
-const ExternalLink = createLucideIcon("external-link", __iconNode$p);
-/**
- * @license lucide-react v1.8.0 - ISC
- *
- * This source code is licensed under the ISC license.
- * See the LICENSE file in the root directory of this source tree.
- */
-const __iconNode$o = [
   [
     "path",
     {
@@ -911,34 +911,34 @@ const __iconNode$o = [
     }
   ]
 ];
-const Heart = createLucideIcon("heart", __iconNode$o);
+const Heart = createLucideIcon("heart", __iconNode$p);
 /**
  * @license lucide-react v1.8.0 - ISC
  *
  * This source code is licensed under the ISC license.
  * See the LICENSE file in the root directory of this source tree.
  */
-const __iconNode$n = [
+const __iconNode$o = [
   ["path", { d: "M9 17H7A5 5 0 0 1 7 7h2", key: "8i5ue5" }],
   ["path", { d: "M15 7h2a5 5 0 1 1 0 10h-2", key: "1b9ql8" }],
   ["line", { x1: "8", x2: "16", y1: "12", y2: "12", key: "1jonct" }]
 ];
-const Link2 = createLucideIcon("link-2", __iconNode$n);
+const Link2 = createLucideIcon("link-2", __iconNode$o);
 /**
  * @license lucide-react v1.8.0 - ISC
  *
  * This source code is licensed under the ISC license.
  * See the LICENSE file in the root directory of this source tree.
  */
-const __iconNode$m = [["path", { d: "M21 12a9 9 0 1 1-6.219-8.56", key: "13zald" }]];
-const LoaderCircle = createLucideIcon("loader-circle", __iconNode$m);
+const __iconNode$n = [["path", { d: "M21 12a9 9 0 1 1-6.219-8.56", key: "13zald" }]];
+const LoaderCircle = createLucideIcon("loader-circle", __iconNode$n);
 /**
  * @license lucide-react v1.8.0 - ISC
  *
  * This source code is licensed under the ISC license.
  * See the LICENSE file in the root directory of this source tree.
  */
-const __iconNode$l = [
+const __iconNode$m = [
   ["line", { x1: "2", x2: "5", y1: "12", y2: "12", key: "bvdh0s" }],
   ["line", { x1: "19", x2: "22", y1: "12", y2: "12", key: "1tbv5k" }],
   ["line", { x1: "12", x2: "12", y1: "2", y2: "5", key: "11lu5j" }],
@@ -946,7 +946,19 @@ const __iconNode$l = [
   ["circle", { cx: "12", cy: "12", r: "7", key: "fim9np" }],
   ["circle", { cx: "12", cy: "12", r: "3", key: "1v7zrd" }]
 ];
-const LocateFixed = createLucideIcon("locate-fixed", __iconNode$l);
+const LocateFixed = createLucideIcon("locate-fixed", __iconNode$m);
+/**
+ * @license lucide-react v1.8.0 - ISC
+ *
+ * This source code is licensed under the ISC license.
+ * See the LICENSE file in the root directory of this source tree.
+ */
+const __iconNode$l = [
+  ["path", { d: "m16 17 5-5-5-5", key: "1bji2h" }],
+  ["path", { d: "M21 12H9", key: "dn1m92" }],
+  ["path", { d: "M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4", key: "1uf3rs" }]
+];
+const LogOut = createLucideIcon("log-out", __iconNode$l);
 /**
  * @license lucide-react v1.8.0 - ISC
  *
@@ -954,11 +966,10 @@ const LocateFixed = createLucideIcon("locate-fixed", __iconNode$l);
  * See the LICENSE file in the root directory of this source tree.
  */
 const __iconNode$k = [
-  ["path", { d: "m16 17 5-5-5-5", key: "1bji2h" }],
-  ["path", { d: "M21 12H9", key: "dn1m92" }],
-  ["path", { d: "M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4", key: "1uf3rs" }]
+  ["path", { d: "m22 7-8.991 5.727a2 2 0 0 1-2.009 0L2 7", key: "132q7q" }],
+  ["rect", { x: "2", y: "4", width: "20", height: "16", rx: "2", key: "izxlao" }]
 ];
-const LogOut = createLucideIcon("log-out", __iconNode$k);
+const Mail = createLucideIcon("mail", __iconNode$k);
 /**
  * @license lucide-react v1.8.0 - ISC
  *
@@ -966,10 +977,16 @@ const LogOut = createLucideIcon("log-out", __iconNode$k);
  * See the LICENSE file in the root directory of this source tree.
  */
 const __iconNode$j = [
-  ["path", { d: "m22 7-8.991 5.727a2 2 0 0 1-2.009 0L2 7", key: "132q7q" }],
-  ["rect", { x: "2", y: "4", width: "20", height: "16", rx: "2", key: "izxlao" }]
+  [
+    "path",
+    {
+      d: "M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0",
+      key: "1r0f0z"
+    }
+  ],
+  ["circle", { cx: "12", cy: "10", r: "3", key: "ilqhr7" }]
 ];
-const Mail = createLucideIcon("mail", __iconNode$j);
+const MapPin = createLucideIcon("map-pin", __iconNode$j);
 /**
  * @license lucide-react v1.8.0 - ISC
  *
@@ -980,13 +997,14 @@ const __iconNode$i = [
   [
     "path",
     {
-      d: "M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0",
-      key: "1r0f0z"
+      d: "M2.992 16.342a2 2 0 0 1 .094 1.167l-1.065 3.29a1 1 0 0 0 1.236 1.168l3.413-.998a2 2 0 0 1 1.099.092 10 10 0 1 0-4.777-4.719",
+      key: "1sd12s"
     }
   ],
-  ["circle", { cx: "12", cy: "10", r: "3", key: "ilqhr7" }]
+  ["path", { d: "M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3", key: "1u773s" }],
+  ["path", { d: "M12 17h.01", key: "p32p05" }]
 ];
-const MapPin = createLucideIcon("map-pin", __iconNode$i);
+const MessageCircleQuestionMark = createLucideIcon("message-circle-question-mark", __iconNode$i);
 /**
  * @license lucide-react v1.8.0 - ISC
  *
@@ -997,14 +1015,12 @@ const __iconNode$h = [
   [
     "path",
     {
-      d: "M2.992 16.342a2 2 0 0 1 .094 1.167l-1.065 3.29a1 1 0 0 0 1.236 1.168l3.413-.998a2 2 0 0 1 1.099.092 10 10 0 1 0-4.777-4.719",
-      key: "1sd12s"
+      d: "M22 17a2 2 0 0 1-2 2H6.828a2 2 0 0 0-1.414.586l-2.202 2.202A.71.71 0 0 1 2 21.286V5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2z",
+      key: "18887p"
     }
-  ],
-  ["path", { d: "M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3", key: "1u773s" }],
-  ["path", { d: "M12 17h.01", key: "p32p05" }]
+  ]
 ];
-const MessageCircleQuestionMark = createLucideIcon("message-circle-question-mark", __iconNode$h);
+const MessageSquare = createLucideIcon("message-square", __iconNode$h);
 /**
  * @license lucide-react v1.8.0 - ISC
  *
@@ -1319,6 +1335,11 @@ const api = {
       method: "POST",
       body: JSON.stringify({ email })
     }),
+    checkVerifyToken: (token) => request(`/api/auth/verify-email?token=${encodeURIComponent(token)}`),
+    verifyEmail: (token) => request("/api/auth/verify-email", {
+      method: "POST",
+      body: JSON.stringify({ token })
+    }),
     resendVerification: () => request("/api/auth/resend-verification", {
       method: "POST"
     }),
@@ -1336,6 +1357,15 @@ const api = {
       const form = new FormData();
       form.append("document", file);
       return request("/api/auth/verify-license", {
+        method: "POST",
+        body: form
+      });
+    },
+    myIdentityReview: () => request("/api/auth/verify-identity/status"),
+    verifyIdentity: (file) => {
+      const form = new FormData();
+      form.append("document", file);
+      return request("/api/auth/verify-identity", {
         method: "POST",
         body: form
       });
@@ -1954,25 +1984,10 @@ function Footer() {
           /* @__PURE__ */ jsx(
             Link,
             {
-              to: "/aviso-legal",
-              className: "font-sans text-xs text-cr-text-muted hover:text-cr-primary transition-colors",
-              children: "Aviso legal"
-            }
-          ),
-          /* @__PURE__ */ jsx(
-            Link,
-            {
               to: "/privacidad",
               className: "font-sans text-xs text-cr-text-muted hover:text-cr-primary transition-colors",
+              title: "Política de privacidad GDPR",
               children: "Política de privacidad"
-            }
-          ),
-          /* @__PURE__ */ jsx(
-            Link,
-            {
-              to: "/cookies",
-              className: "font-sans text-xs text-cr-text-muted hover:text-cr-primary transition-colors",
-              children: "Política de cookies"
             }
           ),
           /* @__PURE__ */ jsx(
@@ -1980,17 +1995,50 @@ function Footer() {
             {
               to: "/terminos",
               className: "font-sans text-xs text-cr-text-muted hover:text-cr-primary transition-colors",
+              title: "Términos y condiciones de uso",
               children: "Términos y condiciones"
+            }
+          ),
+          /* @__PURE__ */ jsx(
+            Link,
+            {
+              to: "/aviso-legal",
+              className: "font-sans text-xs text-cr-text-muted hover:text-cr-primary transition-colors",
+              title: "Aviso legal e información adicional",
+              children: "Aviso legal"
+            }
+          ),
+          /* @__PURE__ */ jsx(
+            Link,
+            {
+              to: "/cookies",
+              className: "font-sans text-xs text-cr-text-muted hover:text-cr-primary transition-colors",
+              title: "Política de cookies y seguimiento",
+              children: "Política de cookies"
             }
           )
         ] })
       ] })
     ] }),
-    /* @__PURE__ */ jsx("div", { className: "border-t border-cr-border", children: /* @__PURE__ */ jsxs("div", { className: "max-w-6xl mx-auto px-6 py-4 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2", children: [
-      /* @__PURE__ */ jsxs("p", { className: "font-mono text-[10px] text-cr-text-muted", children: [
-        "© ",
-        year,
-        " ConcertRide ES. Todos los derechos reservados."
+    /* @__PURE__ */ jsx("div", { className: "border-t border-cr-border", children: /* @__PURE__ */ jsxs("div", { className: "max-w-6xl mx-auto px-6 py-4 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4", children: [
+      /* @__PURE__ */ jsxs("div", { children: [
+        /* @__PURE__ */ jsxs("p", { className: "font-mono text-[10px] text-cr-text-muted", children: [
+          "© ",
+          year,
+          " ConcertRide ES. Todos los derechos reservados."
+        ] }),
+        /* @__PURE__ */ jsxs("p", { className: "font-mono text-[10px] text-cr-text-muted mt-1", children: [
+          "GDPR/Datos:",
+          " ",
+          /* @__PURE__ */ jsx(
+            "a",
+            {
+              href: "mailto:alejandrolalaguna@gmail.com?subject=SOLICITUD%20GDPR",
+              className: "hover:text-cr-primary transition-colors underline underline-offset-2",
+              children: "alejandrolalaguna@gmail.com"
+            }
+          )
+        ] })
       ] }),
       /* @__PURE__ */ jsxs("p", { className: "font-mono text-[10px] text-cr-text-muted flex flex-wrap gap-x-2 gap-y-1", children: [
         /* @__PURE__ */ jsx("span", { children: "Datos:" }),
@@ -10399,8 +10447,7 @@ const TICKETS = [
     driverName: "Laura M.",
     rating: 4.9,
     ridCode: "RID-2026-VAL-MAD",
-    ticketNum: "#CR-00842",
-    liveCount: 12
+    ticketNum: "#CR-00842"
   },
   {
     id: "badbunny",
@@ -10416,8 +10463,7 @@ const TICKETS = [
     driverName: "Dani R.",
     rating: 4.8,
     ridCode: "RID-2026-COR-SEV",
-    ticketNum: "#CR-00921",
-    liveCount: 34
+    ticketNum: "#CR-00921"
   },
   {
     id: "madcool",
@@ -10433,8 +10479,7 @@ const TICKETS = [
     driverName: "Irene S.",
     rating: 4.9,
     ridCode: "RID-2026-BIL-MAD",
-    ticketNum: "#CR-01034",
-    liveCount: 58
+    ticketNum: "#CR-01034"
   },
   {
     id: "primavera",
@@ -10450,8 +10495,7 @@ const TICKETS = [
     driverName: "Jorge B.",
     rating: 4.7,
     ridCode: "RID-2026-ZGZ-BCN",
-    ticketNum: "#CR-00887",
-    liveCount: 41
+    ticketNum: "#CR-00887"
   },
   {
     id: "quevedo",
@@ -10467,8 +10511,7 @@ const TICKETS = [
     driverName: "Paula G.",
     rating: 5,
     ridCode: "RID-2026-VIT-BIL",
-    ticketNum: "#CR-00763",
-    liveCount: 14
+    ticketNum: "#CR-00763"
   }
 ];
 function usePrefersReducedMotion() {
@@ -10590,19 +10633,13 @@ function Hero() {
               ]
             }
           ),
-          /* @__PURE__ */ jsxs(
+          /* @__PURE__ */ jsx(
             motion.p,
             {
               initial: { opacity: 0 },
               animate: { opacity: 1 },
               transition: { duration: 0.5, delay: 0.4 },
-              className: "font-mono text-xs text-cr-text-muted",
-              children: [
-                /* @__PURE__ */ jsx("span", { "aria-hidden": "true", children: "🎸" }),
-                " 12,000+ viajeros nos avalan ·",
-                " ",
-                /* @__PURE__ */ jsx("span", { className: "text-cr-primary", children: "★ 4.9" })
-              ]
+              className: "font-mono text-xs text-cr-text-muted"
             }
           )
         ] }),
@@ -10718,7 +10755,7 @@ function TicketStub({ ticket }) {
           /* @__PURE__ */ jsx("animate", { attributeName: "r", values: "4;10;4", dur: "1.4s", repeatCount: "indefinite" }),
           /* @__PURE__ */ jsx("animate", { attributeName: "opacity", values: "0.8;0;0.8", dur: "1.4s", repeatCount: "indefinite" })
         ] }),
-        /* @__PURE__ */ jsxs(
+        /* @__PURE__ */ jsx(
           "text",
           {
             x: "38",
@@ -10729,11 +10766,7 @@ function TicketStub({ ticket }) {
             fontSize: "9",
             letterSpacing: "1.6",
             dominantBaseline: "middle",
-            children: [
-              "LIVE · ",
-              ticket.liveCount,
-              " VIAJES ACTIVOS"
-            ]
+            children: "CARPOOLING · CONCIERTOS · FESTIVALES"
           }
         ),
         /* @__PURE__ */ jsx(
@@ -10931,9 +10964,9 @@ function useInView(options = { amount: 0.2 }) {
   return { ref, inView };
 }
 const STATS$1 = [
-  { label: "festivales en el catálogo 2026", target: 50, suffix: "+" },
-  { label: "conciertos con viajes activos", target: 340, suffix: "+" },
-  { label: "ahorro vs taxi por trayecto", target: 70, suffix: "%" }
+  { label: "festivales en el catálogo 2026", target: 16, suffix: "" },
+  { label: "ciudades cubiertas en España", target: 20, suffix: "+" },
+  { label: "ahorro estimado vs taxi", target: 60, suffix: "%" }
 ];
 function Counter({ stat, enabled }) {
   const value = useCountUp({ target: stat.target, enabled });
@@ -10948,51 +10981,13 @@ function Counter({ stat, enabled }) {
 }
 function StatsBar() {
   const { ref, inView } = useInView();
-  return /* @__PURE__ */ jsxs(
+  return /* @__PURE__ */ jsx(
     "section",
     {
       ref,
       "aria-label": "Estadísticas",
       className: "border-y border-cr-border bg-cr-surface py-12 md:py-16",
-      children: [
-        /* @__PURE__ */ jsx(
-          "script",
-          {
-            type: "application/ld+json",
-            dangerouslySetInnerHTML: {
-              __html: JSON.stringify({
-                "@context": "https://schema.org",
-                "@type": "Dataset",
-                name: "ConcertRide ES — datos clave",
-                description: "Hechos verificables sobre la plataforma ConcertRide: catálogo de festivales, conciertos activos y ahorro frente a taxi.",
-                license: `${SITE_URL}/ai.txt`,
-                variableMeasured: [
-                  {
-                    "@type": "PropertyValue",
-                    name: "festivales_catalogados_2026",
-                    value: 50,
-                    description: "Festivales españoles curados manualmente en el catálogo 2026"
-                  },
-                  {
-                    "@type": "PropertyValue",
-                    name: "conciertos_con_viajes_activos",
-                    value: 340,
-                    description: "Conciertos con al menos un viaje compartido publicado"
-                  },
-                  {
-                    "@type": "PropertyValue",
-                    name: "ahorro_medio_vs_taxi_pct",
-                    value: 70,
-                    unitCode: "P1",
-                    description: "Ahorro medio estimado de un trayecto compartido frente al taxi equivalente, según tarifas habituales de taxi/VTC vs precio medio por plaza en ConcertRide"
-                  }
-                ]
-              })
-            }
-          }
-        ),
-        /* @__PURE__ */ jsx("div", { className: "max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-10 md:gap-6 px-6", children: STATS$1.map((s) => /* @__PURE__ */ jsx(Counter, { stat: s, enabled: inView }, s.label)) })
-      ]
+      children: /* @__PURE__ */ jsx("div", { className: "max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-10 md:gap-6 px-6", children: STATS$1.map((s) => /* @__PURE__ */ jsx(Counter, { stat: s, enabled: inView }, s.label)) })
     }
   );
 }
@@ -11323,18 +11318,18 @@ function TicketCard({ ride, onClick }) {
       className: "group relative flex bg-cr-surface border border-cr-border hover:border-cr-primary/40 transition-colors cursor-pointer",
       children: [
         /* @__PURE__ */ jsxs("div", { className: "flex-1 p-5 space-y-3 min-w-0", children: [
-          /* @__PURE__ */ jsxs("span", { className: "inline-block font-sans text-[10px] font-semibold uppercase tracking-[0.12em] text-cr-primary", children: [
+          /* @__PURE__ */ jsxs("span", { className: "inline-block font-sans text-xs font-semibold uppercase tracking-[0.12em] text-cr-primary", children: [
             "De · ",
             ride.origin_city
           ] }),
           /* @__PURE__ */ jsxs("div", { className: "space-y-1", children: [
             /* @__PURE__ */ jsx("h3", { className: "font-display text-lg uppercase leading-tight truncate", children: concert.artist }),
-            /* @__PURE__ */ jsxs("p", { className: "font-mono text-xs text-cr-text-muted truncate", children: [
+            /* @__PURE__ */ jsxs("p", { className: "font-sans text-sm text-cr-text-muted truncate", children: [
               concert.venue.name,
               " · ",
               concert.venue.city
             ] }),
-            /* @__PURE__ */ jsxs("p", { className: "font-mono text-xs text-cr-text-dim", children: [
+            /* @__PURE__ */ jsxs("p", { className: "font-sans text-sm text-cr-text-dim", children: [
               formatDay(concert.date),
               " · salida ",
               formatTime$1(ride.departure_time)
@@ -11345,16 +11340,16 @@ function TicketCard({ ride, onClick }) {
               "div",
               {
                 "aria-hidden": "true",
-                className: "w-9 h-9 rounded-full bg-cr-surface-2 border border-cr-border flex items-center justify-center font-mono text-[11px] text-cr-text",
+                className: "w-9 h-9 rounded-full bg-cr-surface-2 border border-cr-border flex items-center justify-center font-sans text-xs font-semibold text-cr-text",
                 children: initials(driver.name)
               }
             ),
             /* @__PURE__ */ jsxs("div", { className: "leading-tight", children: [
-              /* @__PURE__ */ jsxs("p", { className: "text-xs text-cr-text flex items-center gap-1", children: [
+              /* @__PURE__ */ jsxs("p", { className: "font-sans text-sm text-cr-text flex items-center gap-1", children: [
                 driver.name,
                 driver.verified && /* @__PURE__ */ jsx("span", { className: "text-cr-primary", "aria-label": "Perfil verificado", children: "✓" })
               ] }),
-              /* @__PURE__ */ jsxs("p", { className: "font-mono text-[11px] text-cr-text-muted flex items-center gap-1", children: [
+              /* @__PURE__ */ jsxs("p", { className: "font-sans text-xs text-cr-text-muted flex items-center gap-1", children: [
                 driver.rating_count >= 3 ? /* @__PURE__ */ jsxs("span", { className: "text-cr-primary", children: [
                   "★ ",
                   driver.rating.toFixed(1),
@@ -11399,23 +11394,23 @@ function TicketCard({ ride, onClick }) {
             /* @__PURE__ */ jsx("p", { className: "font-sans text-[10px] font-semibold text-cr-text-muted uppercase tracking-[0.08em] mt-1", children: "/asiento" })
           ] }),
           /* @__PURE__ */ jsxs("div", { className: "space-y-1.5", children: [
-            /* @__PURE__ */ jsxs("p", { className: `font-mono text-xs flex items-center gap-1.5 ${ride.seats_left === 1 ? "text-cr-secondary font-semibold" : "text-cr-text-muted"}`, children: [
+            /* @__PURE__ */ jsxs("p", { className: `font-sans text-sm flex items-center gap-1.5 ${ride.seats_left === 1 ? "text-cr-secondary font-semibold" : "text-cr-text-muted"}`, children: [
               /* @__PURE__ */ jsx(Users, { size: 12, "aria-hidden": "true" }),
               ride.seats_left === 0 ? "Completo" : `${ride.seats_left} plaza${ride.seats_left === 1 ? "" : "s"}`
             ] }),
             /* @__PURE__ */ jsxs("div", { className: "flex gap-1.5 flex-wrap", children: [
               /* @__PURE__ */ jsx(VibeBadge, { vibe: ride.vibe }),
-              ride.instant_booking && /* @__PURE__ */ jsx("span", { className: "inline-block font-sans text-[10px] font-semibold text-black bg-cr-primary px-1.5 py-0.5 tracking-[0.08em]", children: "Instante" }),
-              ride.price_negotiable && /* @__PURE__ */ jsx("span", { className: "inline-block font-sans text-[10px] font-semibold text-cr-primary border border-cr-primary px-1.5 py-0.5 tracking-[0.08em]", children: "Negociable" }),
+              ride.instant_booking && /* @__PURE__ */ jsx("span", { className: "inline-block font-sans text-xs font-semibold text-black bg-cr-primary px-1.5 py-0.5 tracking-[0.08em]", children: "Instante" }),
+              ride.price_negotiable && /* @__PURE__ */ jsx("span", { className: "inline-block font-sans text-xs font-semibold text-cr-primary border border-cr-primary px-1.5 py-0.5 tracking-[0.08em]", children: "Negociable" }),
               /* @__PURE__ */ jsx(HotRidesBadge, { seatsTaken: ride.seats_total - ride.seats_left, seatsTotal: ride.seats_total })
             ] }),
             /* @__PURE__ */ jsx(SocialProofText, { seatsTaken: ride.seats_total - ride.seats_left, seatsTotal: ride.seats_total }),
-            /* @__PURE__ */ jsxs("p", { className: "font-mono text-[10px] text-cr-text-dim", children: [
+            /* @__PURE__ */ jsxs("p", { className: "font-sans text-xs text-cr-text-dim", children: [
               ride.smoking_policy === "no" ? "🚭" : "🚬",
               " ",
               ride.smoking_policy === "no" ? "No fumar" : "Fumadores"
             ] }),
-            ride.max_luggage !== "extra" && /* @__PURE__ */ jsxs("p", { className: "font-mono text-[10px] text-cr-text-dim truncate", children: [
+            ride.max_luggage !== "extra" && /* @__PURE__ */ jsxs("p", { className: "font-sans text-xs text-cr-text-dim truncate", children: [
               "🧳 ",
               LUGGAGE_LABEL[ride.max_luggage]
             ] })
@@ -11622,104 +11617,10 @@ function MapSection({ concerts, rides }) {
     )
   ] });
 }
-function TestimonialCard({
-  testimonial,
-  index
-}) {
-  const t = testimonial;
-  return /* @__PURE__ */ jsxs(
-    motion.figure,
-    {
-      initial: { opacity: 0, y: 30 },
-      whileInView: { opacity: 1, y: 0 },
-      viewport: { once: true, amount: 0.3 },
-      transition: { duration: 0.4, delay: index * 0.08, ease: [0.25, 0.46, 0.45, 0.94] },
-      className: "relative bg-cr-surface border border-cr-border p-6 space-y-5 h-full flex flex-col",
-      children: [
-        /* @__PURE__ */ jsx(
-          "span",
-          {
-            "aria-hidden": "true",
-            className: "absolute -top-4 left-6 font-display text-7xl leading-none text-cr-primary/40",
-            children: "“"
-          }
-        ),
-        /* @__PURE__ */ jsxs(
-          "span",
-          {
-            "aria-hidden": "true",
-            className: "absolute top-3 right-3 font-sans text-[10px] font-semibold uppercase tracking-[0.16em] text-cr-text-dim",
-            children: [
-              "#",
-              String(index + 1).padStart(2, "0")
-            ]
-          }
-        ),
-        /* @__PURE__ */ jsx("blockquote", { className: "font-sans text-sm text-cr-text leading-relaxed pt-4", children: t.quote }),
-        /* @__PURE__ */ jsxs("p", { className: "font-mono text-[11px] text-cr-text-muted mt-auto", children: [
-          "Viaje a ",
-          /* @__PURE__ */ jsx("span", { className: "text-cr-primary", children: t.concert })
-        ] }),
-        /* @__PURE__ */ jsxs("figcaption", { className: "flex items-center justify-between pt-4 border-t border-dashed border-cr-border", children: [
-          /* @__PURE__ */ jsxs("div", { className: "flex items-center gap-3", children: [
-            /* @__PURE__ */ jsx(
-              "div",
-              {
-                "aria-hidden": "true",
-                className: "w-9 h-9 rounded-full bg-cr-surface-2 border border-cr-border grid place-items-center font-mono text-[11px] text-cr-text",
-                children: initials(t.name)
-              }
-            ),
-            /* @__PURE__ */ jsxs("div", { className: "leading-tight", children: [
-              /* @__PURE__ */ jsx("p", { className: "text-xs text-cr-text", children: t.name }),
-              /* @__PURE__ */ jsx("p", { className: "font-mono text-[10px] text-cr-text-muted", children: t.city })
-            ] })
-          ] }),
-          /* @__PURE__ */ jsxs("div", { className: "text-right leading-tight", children: [
-            /* @__PURE__ */ jsxs("p", { className: "font-mono text-xs text-cr-primary flex items-center justify-end gap-1", children: [
-              /* @__PURE__ */ jsx(Star, { size: 10, className: "fill-cr-primary", "aria-hidden": "true" }),
-              t.rating.toFixed(1)
-            ] }),
-            /* @__PURE__ */ jsxs("p", { className: "font-mono text-[10px] text-cr-text-muted", children: [
-              t.rides_given,
-              " viajes"
-            ] })
-          ] })
-        ] })
-      ]
-    }
-  );
-}
-const TESTIMONIALS$1 = [
-  {
-    quote: "Fui desde Valencia al Palau Sant Jordi por 20€ ida y vuelta. Playlist colaborativa y conocí a dos personas increíbles.",
-    name: "Elena Ruiz",
-    city: "Valencia",
-    rating: 4.9,
-    rides_given: 18,
-    concert: "C. Tangana"
-  },
-  {
-    quote: "Llevar el coche medio vacío era una locura. Ahora cubro gasolina y peajes con tres personas majas. Viajé a Mad Cool sin pisar el tren.",
-    name: "Adrián López",
-    city: "Zaragoza",
-    rating: 5,
-    rides_given: 27,
-    concert: "Mad Cool Festival"
-  },
-  {
-    quote: "La vibe chill de verdad existe. De Sevilla a Málaga escuchando el álbum del concierto. Llegué sin estrés y lista para saltar.",
-    name: "Claudia Sánchez",
-    city: "Sevilla",
-    rating: 4.8,
-    rides_given: 12,
-    concert: "Bad Bunny"
-  }
-];
 const TRUST_POINTS = [
   "Perfil verificado con DNI",
-  "Valoración media 4.9 / 5",
-  "Seguro de viaje incluido"
+  "Conductores con carnet verificado",
+  "Sin comisiones de plataforma"
 ];
 function TrustSection() {
   return /* @__PURE__ */ jsx(
@@ -11736,7 +11637,18 @@ function TrustSection() {
             "Viajes de verdad."
           ] })
         ] }),
-        /* @__PURE__ */ jsx("div", { className: "grid grid-cols-1 md:grid-cols-3 gap-5", children: TESTIMONIALS$1.map((t, i) => /* @__PURE__ */ jsx(TestimonialCard, { testimonial: t, index: i }, t.name)) }),
+        /* @__PURE__ */ jsxs("div", { className: "border border-dashed border-cr-border p-10 md:p-16 flex flex-col items-center gap-4 text-center", children: [
+          /* @__PURE__ */ jsx(MessageSquare, { size: 28, className: "text-cr-text-dim", "aria-hidden": "true" }),
+          /* @__PURE__ */ jsx("p", { className: "font-sans text-sm text-cr-text-muted max-w-sm leading-relaxed", children: "Sé el primero en compartir tu experiencia. Las valoraciones de usuarios reales aparecerán aquí." }),
+          /* @__PURE__ */ jsx(
+            "a",
+            {
+              href: "/concerts",
+              className: "font-sans text-xs font-semibold uppercase tracking-[0.12em] text-cr-primary border border-cr-primary/40 px-4 py-2 hover:bg-cr-primary hover:text-black transition-colors",
+              children: "Buscar viaje →"
+            }
+          )
+        ] }),
         /* @__PURE__ */ jsx("ul", { className: "flex flex-wrap items-center gap-x-8 gap-y-3 border-t border-dashed border-cr-border pt-8", children: TRUST_POINTS.map((point2) => /* @__PURE__ */ jsxs(
           "li",
           {
@@ -11752,126 +11664,36 @@ function TrustSection() {
     }
   );
 }
-const TESTIMONIALS = [
-  {
-    name: "Marta G.",
-    city: "Valencia",
-    festival: "Mad Cool 2025",
-    stars: 5,
-    text: "Vine desde Valencia a Mad Cool con ConcertRide. Pagué 11 € por asiento, el conductor nos esperó a la salida a las 2:30 y llegué a casa sin el agobio ni el gasto del transporte nocturno. Nunca más vuelvo solo."
-  },
-  {
-    name: "Andrés T.",
-    city: "Bilbao",
-    festival: "Resurrection Fest 2025",
-    stars: 5,
-    text: "Conductor verificado, música de metal en el coche, llegamos todos al mismo bolo de Slipknot. Compartimos gasolina desde Bilbao, me salió por 17 €. El autobús oficial estaba agotado. Cien veces mejor."
-  },
-  {
-    name: "Laura P.",
-    city: "Barcelona",
-    festival: "FIB Benicàssim 2025",
-    stars: 5,
-    text: "Fui los 4 días con el mismo conductor que encontré en ConcertRide. Salíamos a las 14:00 y volvíamos cuando queríamos. Para el FIB desde Barcelona sale 9 € por persona, y el conductor encantador."
-  },
-  {
-    name: "Álvaro S.",
-    city: "Madrid",
-    festival: "Viña Rock 2026",
-    stars: 4,
-    text: "Me sorprendió lo bien que funciona. Publiqué el viaje 3 días antes de Viña Rock y se llenaron las 3 plazas en 24 horas. Me cubrieron la gasolina completa de ida y vuelta. Repetiré."
-  }
-];
 function TestimonialsSection() {
-  const jsonLdReviews = {
-    "@context": "https://schema.org",
-    "@type": "Product",
-    name: "ConcertRide ES — Carpooling para conciertos",
-    url: `${SITE_URL}/`,
-    aggregateRating: {
-      "@type": "AggregateRating",
-      ratingValue: "4.9",
-      reviewCount: TESTIMONIALS.length.toString(),
-      bestRating: "5",
-      worstRating: "1"
-    },
-    review: TESTIMONIALS.map((t) => ({
-      "@type": "Review",
-      author: { "@type": "Person", name: t.name },
-      reviewBody: t.text,
-      reviewRating: {
-        "@type": "Rating",
-        ratingValue: t.stars.toString(),
-        bestRating: "5"
-      },
-      datePublished: "2026-01-01"
-    }))
-  };
-  return /* @__PURE__ */ jsxs("section", { "aria-labelledby": "testimonials-title", className: "border-t border-cr-border", children: [
-    /* @__PURE__ */ jsx(
-      "script",
-      {
-        type: "application/ld+json",
-        dangerouslySetInnerHTML: { __html: JSON.stringify(jsonLdReviews) }
-      }
-    ),
-    /* @__PURE__ */ jsxs("div", { className: "max-w-6xl mx-auto px-6 py-16 md:py-24 space-y-10", children: [
-      /* @__PURE__ */ jsxs("header", { className: "space-y-3", children: [
-        /* @__PURE__ */ jsx("p", { className: "font-sans text-[11px] font-semibold uppercase tracking-[0.16em] text-cr-primary", children: "Comunidad" }),
-        /* @__PURE__ */ jsxs(
-          "h2",
-          {
-            id: "testimonials-title",
-            className: "font-display text-3xl md:text-5xl uppercase leading-[0.95]",
-            children: [
-              "Lo que dicen",
-              /* @__PURE__ */ jsx("br", {}),
-              "los usuarios."
-            ]
-          }
-        )
-      ] }),
-      /* @__PURE__ */ jsx("div", { className: "grid grid-cols-1 sm:grid-cols-2 gap-5", children: TESTIMONIALS.map((t) => /* @__PURE__ */ jsxs(
-        "article",
+  return /* @__PURE__ */ jsx("section", { "aria-labelledby": "testimonials-title", className: "border-t border-cr-border", children: /* @__PURE__ */ jsxs("div", { className: "max-w-6xl mx-auto px-6 py-16 md:py-24 space-y-10", children: [
+    /* @__PURE__ */ jsxs("header", { className: "space-y-3", children: [
+      /* @__PURE__ */ jsx("p", { className: "font-sans text-[11px] font-semibold uppercase tracking-[0.16em] text-cr-primary", children: "Comunidad" }),
+      /* @__PURE__ */ jsxs(
+        "h2",
         {
-          className: "border border-cr-border p-5 space-y-4 hover:border-cr-primary/30 transition-colors",
-          itemScope: true,
-          itemType: "https://schema.org/Review",
+          id: "testimonials-title",
+          className: "font-display text-3xl md:text-5xl uppercase leading-[0.95]",
           children: [
-            /* @__PURE__ */ jsx("div", { className: "flex items-center gap-1", "aria-label": `${t.stars} de 5 estrellas`, children: Array.from({ length: 5 }).map((_, i) => /* @__PURE__ */ jsx(
-              Star,
-              {
-                size: 12,
-                className: i < t.stars ? "text-cr-primary fill-cr-primary" : "text-cr-border fill-cr-border",
-                "aria-hidden": "true"
-              },
-              i
-            )) }),
-            /* @__PURE__ */ jsxs(
-              "blockquote",
-              {
-                itemProp: "reviewBody",
-                className: "font-sans text-sm text-cr-text-muted leading-relaxed",
-                children: [
-                  '"',
-                  t.text,
-                  '"'
-                ]
-              }
-            ),
-            /* @__PURE__ */ jsxs("footer", { className: "flex items-center justify-between pt-2 border-t border-cr-border", children: [
-              /* @__PURE__ */ jsxs("div", { itemScope: true, itemType: "https://schema.org/Person", itemProp: "author", children: [
-                /* @__PURE__ */ jsx("p", { itemProp: "name", className: "font-sans text-xs font-semibold text-cr-text", children: t.name }),
-                /* @__PURE__ */ jsx("p", { className: "font-mono text-[10px] text-cr-text-muted", children: t.city })
-              ] }),
-              /* @__PURE__ */ jsx("span", { className: "font-mono text-[10px] text-cr-primary border border-cr-primary/30 px-2 py-0.5", children: t.festival })
-            ] })
+            "Lo que dicen",
+            /* @__PURE__ */ jsx("br", {}),
+            "los usuarios."
           ]
-        },
-        t.name
-      )) })
+        }
+      )
+    ] }),
+    /* @__PURE__ */ jsxs("div", { className: "border border-dashed border-cr-border p-10 md:p-16 flex flex-col items-center gap-4 text-center", children: [
+      /* @__PURE__ */ jsx(MessageSquare, { size: 28, className: "text-cr-text-dim", "aria-hidden": "true" }),
+      /* @__PURE__ */ jsx("p", { className: "font-sans text-sm text-cr-text-muted max-w-sm leading-relaxed", children: "Sé el primero en compartir tu experiencia. Las valoraciones de usuarios reales aparecerán aquí." }),
+      /* @__PURE__ */ jsx(
+        "a",
+        {
+          href: "/concerts",
+          className: "font-sans text-xs font-semibold uppercase tracking-[0.12em] text-cr-primary border border-cr-primary/40 px-4 py-2 hover:bg-cr-primary hover:text-black transition-colors",
+          children: "Buscar viaje →"
+        }
+      )
     ] })
-  ] });
+  ] }) });
 }
 function FinalCTA() {
   return /* @__PURE__ */ jsxs(
@@ -11934,7 +11756,7 @@ function FinalCTA() {
               viewport: { once: true },
               transition: { duration: 0.5, delay: 0.3 },
               className: "font-mono text-xs text-cr-text-muted",
-              children: "Madrid · Barcelona · Valencia · Sevilla · Bilbao · + 40 ciudades"
+              children: "Madrid · Barcelona · Valencia · Sevilla · Bilbao · Zaragoza · y más"
             }
           )
         ] })
@@ -12062,22 +11884,6 @@ function LandingPage() {
         /* @__PURE__ */ jsxs(
           Link,
           {
-            to: "/blog/blablacar-vs-concertride",
-            className: "border border-cr-border p-5 hover:border-cr-primary/50 transition-colors group space-y-3",
-            children: [
-              /* @__PURE__ */ jsx("p", { className: "font-mono text-[10px] uppercase tracking-[0.14em] text-cr-primary", children: "Comparativa" }),
-              /* @__PURE__ */ jsx("h3", { className: "font-display text-base uppercase leading-tight group-hover:text-cr-primary transition-colors", children: "BlaBlaCar vs ConcertRide 2026" }),
-              /* @__PURE__ */ jsx("p", { className: "font-sans text-xs text-cr-text-muted leading-relaxed", children: "Comisiones, vuelta de madrugada, política de cancelación. Te decimos cuándo conviene cada una." }),
-              /* @__PURE__ */ jsxs("span", { className: "inline-flex items-center gap-1 font-sans text-xs text-cr-primary", children: [
-                "Leer ",
-                /* @__PURE__ */ jsx(ArrowRight, { size: 11 })
-              ] })
-            ]
-          }
-        ),
-        /* @__PURE__ */ jsxs(
-          Link,
-          {
             to: "/guia-transporte-festivales",
             className: "border border-cr-border p-5 hover:border-cr-primary/50 transition-colors group space-y-3",
             children: [
@@ -12164,7 +11970,7 @@ function LandingPage() {
   ] });
 }
 const PAGE_SIZE = 24;
-const THREE_MONTHS_MS = 90 * 24 * 60 * 60 * 1e3;
+const TWO_MONTHS_MS = 60 * 24 * 60 * 60 * 1e3;
 const EMPTY_FILTERS$1 = {
   city: "",
   dateFrom: "",
@@ -12224,10 +12030,10 @@ function ConcertsPage() {
   }, [filters.artist]);
   const fetchConcerts = useCallback(() => {
     const nowISO = (/* @__PURE__ */ new Date()).toISOString();
-    const threeMonthsAgoISO = new Date(Date.now() - THREE_MONTHS_MS).toISOString();
+    const twoMonthsAgoISO = new Date(Date.now() - TWO_MONTHS_MS).toISOString();
     setLoading(true);
     setConcerts(null);
-    const baseDateFrom = tab === "past" ? threeMonthsAgoISO : nowISO;
+    const baseDateFrom = tab === "past" ? twoMonthsAgoISO : nowISO;
     const baseDateTo = tab === "past" ? nowISO : void 0;
     const params = {
       limit: PAGE_SIZE,
@@ -13451,7 +13257,64 @@ function ConcertDetailPage() {
         ] })
       ] })
     ] }),
-    concert && !isPast && /* @__PURE__ */ jsx("section", { className: "max-w-6xl mx-auto px-6 pb-16", children: /* @__PURE__ */ jsx(ConcertChatSection, { concertId: concert.id, artist: concert.artist }) })
+    concert && !isPast && /* @__PURE__ */ jsx("section", { className: "max-w-6xl mx-auto px-6 pb-16", children: /* @__PURE__ */ jsx(ConcertChatSection, { concertId: concert.id, artist: concert.artist }) }),
+    concert && !isPast && /* @__PURE__ */ jsx("section", { className: "max-w-6xl mx-auto px-6 pb-16", children: /* @__PURE__ */ jsx(EmbedSnippet, { concertId: concert.id }) })
+  ] });
+}
+function EmbedSnippet({ concertId }) {
+  const [copied, setCopied] = useState(false);
+  const [open, setOpen] = useState(false);
+  const snippet = `<iframe
+  src="${SITE_URL}/widget/concert/${concertId}"
+  width="100%"
+  height="320"
+  frameborder="0"
+  style="border-radius:4px;"
+  title="Viajes compartidos — ConcertRide"
+></iframe>`;
+  if (!open) {
+    return /* @__PURE__ */ jsx(
+      "button",
+      {
+        type: "button",
+        onClick: () => setOpen(true),
+        className: "font-sans text-[11px] font-semibold uppercase tracking-[0.12em] text-cr-text-dim hover:text-cr-text-muted transition-colors",
+        children: "¿Eres promotora? Incrusta los viajes en tu web →"
+      }
+    );
+  }
+  return /* @__PURE__ */ jsxs("div", { className: "border border-dashed border-cr-border p-5 space-y-3", children: [
+    /* @__PURE__ */ jsxs("div", { className: "flex items-start justify-between gap-4", children: [
+      /* @__PURE__ */ jsxs("div", { children: [
+        /* @__PURE__ */ jsx("p", { className: "font-sans text-xs font-semibold uppercase tracking-[0.12em] text-cr-text-muted", children: "Widget para tu web" }),
+        /* @__PURE__ */ jsx("p", { className: "font-mono text-[11px] text-cr-text-dim mt-1", children: "Copia este código HTML en tu web para mostrar los viajes disponibles en tiempo real." })
+      ] }),
+      /* @__PURE__ */ jsx(
+        "button",
+        {
+          type: "button",
+          onClick: () => setOpen(false),
+          className: "font-mono text-[11px] text-cr-text-dim hover:text-cr-text transition-colors",
+          "aria-label": "Cerrar",
+          children: "✕"
+        }
+      )
+    ] }),
+    /* @__PURE__ */ jsx("pre", { className: "bg-cr-surface border border-cr-border p-3 font-mono text-[11px] text-cr-text-muted overflow-x-auto whitespace-pre-wrap break-all", children: snippet }),
+    /* @__PURE__ */ jsx(
+      "button",
+      {
+        type: "button",
+        onClick: () => {
+          navigator.clipboard.writeText(snippet).then(() => {
+            setCopied(true);
+            setTimeout(() => setCopied(false), 2e3);
+          });
+        },
+        className: "font-sans text-xs font-semibold uppercase tracking-[0.12em] border border-cr-border text-cr-text-muted hover:border-cr-primary hover:text-cr-primary px-4 py-2 transition-colors",
+        children: copied ? "¡Copiado!" : "Copiar snippet"
+      }
+    )
   ] });
 }
 function JsonLdEvent({ concert }) {
@@ -13564,11 +13427,13 @@ const CITY_LANDINGS = [
     city: "Sevilla",
     display: "Sevilla",
     region: "Andalucía",
-    blurb: "Sevilla es el centro musical de Andalucía occidental. Estadio La Cartuja acoge los conciertos más grandes (estadio), FIBES alberga tours mid-size e Interestelar Sevilla se celebra en Charco de la Pava. Cercanía con los festivales de Málaga (Cala Mijas, Andalucía Big, Marenostrum) hace que compartir coche sea especialmente eficiente.",
+    blurb: "Sevilla concentra los conciertos más grandes de Andalucía en 2026. El Estadio La Cartuja acoge giras de estadio (aforo 60.000), FIBES Sevilla alberga tours mid-size y el Palacio de los Deportes San Pablo cubre el circuito indoor. Interestelar Sevilla se celebra cada verano en el Charco de la Pava. La cercanía con los festivales de Málaga (Cala Mijas, 200 km) y Huelva hace que Sevilla sea un punto de origen habitual para viajes compartidos a festivales andaluces. ConcertRide conecta a asistentes de Sevilla con conductores de toda España para llegar a cualquier concierto o festival sin depender de transporte público nocturno.",
     venues: [
       "Estadio La Cartuja",
       "FIBES Sevilla",
-      "Interestelar Sevilla (Charco de la Pava)"
+      "Palacio de los Deportes San Pablo",
+      "Interestelar Sevilla (Charco de la Pava)",
+      "Teatro de la Maestranza"
     ],
     lat: 37.3891,
     lng: -5.9845
@@ -13876,6 +13741,7 @@ const FESTIVAL_LANDINGS = [
       { city: "Vitoria-Gasteiz", km: 65, drivingTime: "45 min", concertRideRange: "3–6 €/asiento" },
       { city: "Pamplona", km: 155, drivingTime: "1h 30 min", concertRideRange: "5–8 €/asiento" },
       { city: "Santander", km: 100, drivingTime: "1h", concertRideRange: "4–7 €/asiento" },
+      { city: "Burgos", km: 155, drivingTime: "1h 30 min", concertRideRange: "5–8 €/asiento" },
       { city: "Madrid", km: 395, drivingTime: "3h 30 min", concertRideRange: "11–16 €/asiento" }
     ],
     faqs: [
@@ -13894,6 +13760,14 @@ const FESTIVAL_LANDINGS = [
       {
         q: "¿Cuánto cuesta ir al BBK Live desde Madrid?",
         a: "El trayecto Madrid–Bilbao son 395 km (3h 30 min por la A-1 o la AP-1). Por ConcertRide, los precios están entre 11 y 16 € por asiento. El vuelo suele costar entre 60 y 120 € con equipaje, sin incluir el desplazamiento al recinto. El autobús de larga distancia Madrid–Bilbao cuesta 20–35 € pero llega a la estación de Termibús, a 5 km del festival."
+      },
+      {
+        q: "¿Cómo ir al BBK Live desde Santander?",
+        a: "Santander está a 100 km de Bilbao (1 hora por la A-8). Con ConcertRide, el precio por asiento desde Santander está entre 4 y 7 €. El tren Renfe Santander–Bilbao (vía Renfe Media Distancia) tarda entre 2h y 2h 30 min y cuesta entre 8 y 15 €, pero el último servicio de vuelta sale antes de las 22:00 — imposible para volver del festival. El carpooling con ConcertRide es la única opción práctica para ir y volver desde Santander en horarios de festival."
+      },
+      {
+        q: "¿Cómo ir al BBK Live desde Burgos?",
+        a: "Burgos está a 155 km de Bilbao (1h 30 min por la A-1). Con ConcertRide, el precio por asiento desde Burgos está entre 5 y 8 €. No hay tren directo Burgos–Bilbao con frecuencias adecuadas para el festival."
       },
       {
         q: "¿Cuándo es el BBK Live 2026?",
@@ -14008,6 +13882,18 @@ const FESTIVAL_LANDINGS = [
         a: "Sí, Arenal Sound tiene zona de camping junto a la playa, incluida con el pase del festival. Muchos asistentes llegan el miércoles y se quedan toda la semana. El carpooling con ConcertRide es la opción más habitual para los que vienen de Madrid, Zaragoza o Barcelona, ya que permite traer todo el equipo directamente."
       },
       {
+        q: "¿Hay tren a Arenal Sound? ¿Cómo llegar en tren?",
+        a: "No existe tren directo al recinto de Arenal Sound en la playa de Burriana. La opción más cercana en tren es la línea de Cercanías Renfe C6 Valencia–Castellón (45–60 min, frecuencia cada 30–60 min), con parada en Castellón de la Plana. Desde allí quedan 10 km hasta el recinto, que deben cubrirse en taxi (10–15 €) o en el autobús lanzadera del festival cuando esté operativo. En la práctica, esta combinación tren + taxi/lanzadera solo funciona bien en horario diurno: no hay trenes de Cercanías desde Castellón después de las 23:00, por lo que la vuelta a madrugada es imposible en transporte público. Para los que vienen de Valencia, ConcertRide (3–6 €/asiento, puerta a puerta) es más rápido y cómodo que la combinación tren+taxi."
+      },
+      {
+        q: "¿Hay autobús de Castellón a Burriana para Arenal Sound?",
+        a: "Durante el festival, Arenal Sound habilita autobuses lanzadera desde la estación de autobuses de Castellón de la Plana hasta el recinto de la playa de Burriana (10 km, unos 20 min). El servicio suele operar en las franjas de llegada (tarde/noche) y de regreso (madrugada/mañana), pero las plazas son limitadas y se agotan rápido en los días de mayor afluencia. Fuera del horario de lanzadera, un taxi Castellón–Burriana cuesta entre 10 y 15 €. Para los que vienen de otras ciudades — Madrid (12–17 €), Barcelona (8–12 €), Alicante (4–7 €) — ConcertRide permite llegar directamente al recinto sin pasar por Castellón, con todo el equipo de camping y sin horarios fijos."
+      },
+      {
+        q: "¿Cómo llegar a Arenal Sound desde Alicante?",
+        a: "Alicante–Burriana son 115 km (1h 15 min por la A-7). Con ConcertRide, el precio por asiento desde Alicante está entre 4 y 7 €. No existe transporte público directo Alicante–Burriana en horarios de festival. El tren Alicante–Castellón (Euromed, 1h 15 min) más lanzadera o taxi al recinto es una opción para la ida, pero no cubre la vuelta de madrugada."
+      },
+      {
         q: "¿Cuándo es Arenal Sound 2026?",
         a: "Arenal Sound 2026 está previsto del 29 de julio al 2 de agosto en la playa de Burriana (Castellón). Busca viajes en concertride.me."
       }
@@ -14075,7 +13961,7 @@ const FESTIVAL_LANDINGS = [
     name: "Viña Rock",
     shortName: "Viña Rock",
     city: "Villarrobledo",
-    citySlug: "madrid",
+    citySlug: "valencia",
     region: "Castilla-La Mancha",
     venue: "La Pulgosa",
     venueAddress: "Parque La Pulgosa, 02600 Villarrobledo, Albacete",
@@ -14118,6 +14004,14 @@ const FESTIVAL_LANDINGS = [
       {
         q: "¿Cuánto cuesta ir a Viña Rock desde Valencia?",
         a: "Valencia–Villarrobledo son 200 km (2 horas por la A-3). Por ConcertRide, el precio por asiento está entre 6 y 9 €. Un autobús de línea Valencia–Albacete + taxi al festival costaría entre 25 y 40 €."
+      },
+      {
+        q: "¿Hay autobús o bus oficial a Viña Rock desde Madrid?",
+        a: "No existe autobús directo oficial desde Madrid al recinto de La Pulgosa. Algunos operadores privados ofrecen autobuses Madrid–Viña Rock (35–55 €, salida fija desde Nuevos Ministerios o Méndez Álvaro), pero las plazas son muy limitadas, el horario de salida es inamovible y la vuelta suele ser a las 6:00 del domingo sin posibilidad de ajustarla. ConcertRide es la alternativa más flexible: el precio por asiento desde Madrid es de 6 a 9 € y tú eliges el conductor, el punto de salida y la hora de regreso. Muchos asistentes se organizan grupos de 3–4 personas para ir y volver cómodamente."
+      },
+      {
+        q: "¿Hay bus desde Albacete a Viña Rock?",
+        a: "Sí, el festival habilita autobuses lanzadera desde la estación de autobuses de Albacete (50 km, unos 40 min) durante los días de llegada y salida del festival. Las frecuencias suelen ser cada 1–2 horas entre las 18:00 y la 1:00. Es la única opción de transporte público colectivo que conecta con el recinto. Para quienes vienen de otras ciudades (Madrid, Valencia, Alicante), ConcertRide resulta más económico y directo al recinto que llegar en AVE a Albacete y luego tomar el bus del festival."
       },
       {
         q: "¿Cuándo es Viña Rock 2026?",
@@ -14339,6 +14233,18 @@ const FESTIVAL_LANDINGS = [
         a: "Alicante–La Marina de Valencia son 175 km (1h 45 min por la A-7). Con ConcertRide, el precio por asiento desde Alicante está entre 5 y 8 €. El tren Alicante–Valencia (Euromed o MD) tarda entre 1h 30 min y 2h y cuesta entre 10 y 25 €, pero las frecuencias nocturnas son limitadas."
       },
       {
+        q: "¿Cuáles son los horarios de Zevra Festival 2026?",
+        a: "Los horarios de Zevra Festival 2026 aún están por confirmar. En ediciones anteriores, los conciertos comenzaban a las 19:00–20:00 y los últimos bolos terminaban entre las 2:00 y las 4:00. El metro L4 de Valencia amplía su servicio hasta las 1:00–2:00 en noches de festival, pero no cubre las salidas de madrugada más tardías. Para la vuelta a cualquier hora, ConcertRide permite coordinar el regreso directamente con el conductor, sin depender de los últimos metros ni de taxis con tarifa nocturna (30–50 € desde La Marina al centro)."
+      },
+      {
+        q: "¿Hay bus a Zevra Festival desde el centro de Valencia?",
+        a: "Sí, La Marina de Valencia está bien comunicada en transporte público. El metro línea L4 (paradas Marítim-Serreria o Neptú) tarda unos 15 minutos desde el centro y cuesta 1,50 €. Las líneas de autobús EMT 19 y 95 también paran cerca del recinto en horario diurno y parte del nocturno. Para los que vienen de fuera de Valencia (Madrid, Alicante, Murcia, Barcelona), ConcertRide es la opción más directa: el conductor lleva al pasajero hasta La Marina sin transbordos."
+      },
+      {
+        q: "¿Hay bus desde Madrid a Zevra Festival?",
+        a: "No existe autobús directo Madrid–Zevra Festival. El AVE Madrid–Valencia (Estación Joaquín Sorolla) tarda 1h 40 min y cuesta entre 25 y 60 €, con metro adicional hasta La Marina (20 min, L4). Con ConcertRide, el viaje completo Madrid–La Marina cuesta entre 10 y 14 € por asiento. Para la vuelta de madrugada, el AVE nocturno puede no coincidir con los horarios del festival — el carpooling es la única opción flexible."
+      },
+      {
         q: "¿Cuándo es Zevra Festival 2026?",
         a: "Las fechas exactas de Zevra Festival 2026 aún están por confirmar. Se espera en verano (julio–agosto) en La Marina de Valencia. Consulta concertride.me para viajes disponibles cuando se anuncie el cartel."
       }
@@ -14521,11 +14427,12 @@ function CityLandingPage() {
   const { city: slug } = useParams();
   const landing = slug ? CITY_LANDINGS_BY_SLUG[slug] : void 0;
   const [concerts, setConcerts] = useState(null);
+  const year = (/* @__PURE__ */ new Date()).getFullYear();
   useSeoMeta({
-    title: landing ? `Conciertos en ${landing.display} ${(/* @__PURE__ */ new Date()).getFullYear()}` : "Conciertos por ciudad",
-    description: landing ? `Todos los conciertos y festivales en ${landing.display}: ${landing.venues.slice(0, 3).join(", ")} y más. Carpooling para llegar desde cualquier ciudad de España, sin taxi ni comisiones.` : "Explora conciertos por ciudad en España.",
+    title: landing ? `Conciertos en ${landing.display} ${year}` : "Conciertos por ciudad",
+    description: landing ? `Conciertos y festivales en ${landing.display} ${year}: ${landing.venues.slice(0, 3).join(", ")} y más. Carpooling para llegar desde cualquier ciudad de España, sin taxi ni comisiones.` : "Explora conciertos por ciudad en España.",
     canonical: landing ? `${SITE_URL}/conciertos/${landing.slug}` : `${SITE_URL}/concerts`,
-    keywords: landing ? `conciertos ${landing.display}, festivales ${landing.display}, carpooling ${landing.display}, coche compartido ${landing.display}, cómo ir al concierto ${landing.display}` : void 0
+    keywords: landing ? `conciertos en ${landing.display}, conciertos ${landing.display} ${year}, próximos conciertos ${landing.display}, música ${landing.display}, festivales ${landing.display}, carpooling ${landing.display}, coche compartido ${landing.display}, cómo ir al concierto ${landing.display}` : void 0
   });
   useEffect(() => {
     if (!landing) return;
@@ -14619,33 +14526,20 @@ function CityLandingPage() {
         dangerouslySetInnerHTML: {
           __html: JSON.stringify({
             "@context": "https://schema.org",
-            "@type": "LocalBusiness",
-            "@id": `${SITE_URL}/conciertos/${landing.slug}#localbusiness`,
+            "@type": "OnlineBusiness",
+            "@id": `${SITE_URL}/conciertos/${landing.slug}#onlinebusiness`,
             name: `ConcertRide — Carpooling para conciertos en ${landing.display}`,
             description: landing.blurb,
             url: `${SITE_URL}/conciertos/${landing.slug}`,
             logo: `${SITE_URL}/favicon.svg`,
             image: `${SITE_URL}/og/home.png`,
-            telephone: "",
             priceRange: "€3–€35",
             currenciesAccepted: "EUR",
             paymentAccepted: "Cash, Bizum",
-            openingHours: "Mo-Su 00:00-24:00",
             areaServed: {
               "@type": "City",
               name: landing.display,
               sameAs: `https://www.wikidata.org/wiki/Special:Search/${encodeURIComponent(landing.display)}`
-            },
-            address: {
-              "@type": "PostalAddress",
-              addressLocality: landing.display,
-              addressRegion: landing.region,
-              addressCountry: "ES"
-            },
-            geo: {
-              "@type": "GeoCoordinates",
-              latitude: landing.lat,
-              longitude: landing.lng
             },
             sameAs: [
               "https://twitter.com/concertride_es",
@@ -14881,15 +14775,19 @@ function FestivalAlertWidget({ festivalSlug, festivalName }) {
     ] })
   ] });
 }
+const FESTIVAL_DEFAULT_OG = `${SITE_URL}/og/festival-default.png`;
 function FestivalLandingPage() {
-  var _a2, _b, _c, _d, _e, _f;
+  var _a2, _b, _c, _d;
   const { festival: slug } = useParams();
   const festival = slug ? FESTIVAL_LANDINGS_BY_SLUG[slug] : void 0;
   const [concerts, setConcerts] = useState(null);
+  const festivalOgImage = (festival == null ? void 0 : festival.ogImage) ?? FESTIVAL_DEFAULT_OG;
   useSeoMeta({
     title: festival ? `Cómo ir a ${festival.shortName} ${(/* @__PURE__ */ new Date()).getFullYear()} — Carpooling desde toda España` : "Festivales de música en España",
     description: festival ? `Carpooling a ${festival.name} desde ${festival.originCities.slice(0, 3).map((c) => c.city).join(", ")} y más ciudades. Precios desde ${((_a2 = festival.originCities[0]) == null ? void 0 : _a2.concertRideRange) ?? "3 €"}/asiento. Sin taxi, sin comisión. Conductores verificados.` : "Carpooling a festivales de música en España con ConcertRide.",
     canonical: festival ? `${SITE_URL}/festivales/${festival.slug}` : `${SITE_URL}/concerts`,
+    ogImage: festivalOgImage,
+    ogType: "music.event",
     keywords: festival ? `cómo ir a ${festival.shortName}, cómo llegar a ${festival.shortName}, transporte ${festival.shortName}, carpooling ${festival.name}, coche compartido ${festival.shortName}, ${festival.shortName} ${festival.city}, viaje compartido ${festival.shortName} 2026, compartir coche ${festival.shortName}, alternativa taxi ${festival.shortName}, ir a ${festival.shortName} sin coche, precio carpooling ${festival.shortName}` : void 0
   });
   useEffect(() => {
@@ -14935,10 +14833,15 @@ function FestivalLandingPage() {
     "@type": "MusicEvent",
     name: festival.name,
     url: `${SITE_URL}/festivales/${festival.slug}`,
+    image: festivalOgImage,
     description: festival.blurb,
     startDate: festival.startDate,
     endDate: festival.endDate,
     location: festivalPlace,
+    performer: {
+      "@type": "PerformingGroup",
+      name: festival.name
+    },
     organizer: {
       "@type": "Organization",
       name: festival.name
@@ -14953,6 +14856,7 @@ function FestivalLandingPage() {
       price: ((_d = (_c = (_b = festival.originCities[0]) == null ? void 0 : _b.concertRideRange) == null ? void 0 : _c.split("–")[0]) == null ? void 0 : _d.replace(/[^0-9]/g, "")) ?? "3",
       priceCurrency: "EUR",
       availability: "https://schema.org/InStock",
+      validFrom: (/* @__PURE__ */ new Date()).toISOString(),
       description: "Carpooling desde toda España con ConcertRide"
     }
   };
@@ -14975,18 +14879,6 @@ function FestivalLandingPage() {
     },
     inLanguage: "es"
   };
-  const jsonLdFaq = {
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    mainEntity: festival.faqs.map((faq) => ({
-      "@type": "Question",
-      name: faq.q,
-      acceptedAnswer: {
-        "@type": "Answer",
-        text: faq.a
-      }
-    }))
-  };
   const jsonLdBreadcrumb = {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
@@ -15001,51 +14893,10 @@ function FestivalLandingPage() {
       }
     ]
   };
-  const jsonLdHowTo = {
-    "@context": "https://schema.org",
-    "@type": "HowTo",
-    name: `Cómo ir a ${festival.name} en carpooling`,
-    description: `Guía paso a paso para encontrar y reservar un viaje compartido a ${festival.name} desde cualquier ciudad de España.`,
-    totalTime: "PT10M",
-    estimatedCost: {
-      "@type": "MonetaryAmount",
-      currency: "EUR",
-      value: ((_f = (_e = festival.originCities[0]) == null ? void 0 : _e.concertRideRange) == null ? void 0 : _f.split("–")[0]) ?? "3"
-    },
-    step: [
-      {
-        "@type": "HowToStep",
-        position: 1,
-        name: "Busca el festival en ConcertRide",
-        text: `Entra en concertride.me/concerts y filtra por ciudad (${festival.city}) o busca directamente "${festival.shortName}". Verás los viajes publicados con precio por asiento.`,
-        url: `${SITE_URL}/concerts`
-      },
-      {
-        "@type": "HowToStep",
-        position: 2,
-        name: "Elige el viaje que más te convenga",
-        text: "Compara precio por asiento, ciudad de salida, hora de partida y perfil del conductor. Puedes leer las valoraciones de otros pasajeros."
-      },
-      {
-        "@type": "HowToStep",
-        position: 3,
-        name: "Solicita tu plaza",
-        text: "Si el conductor tiene reserva instantánea, tu plaza queda confirmada al momento. Si no, el conductor revisa tu solicitud en pocas horas."
-      },
-      {
-        "@type": "HowToStep",
-        position: 4,
-        name: "Viaja y paga en persona",
-        text: `El día del festival, te encuentras con el conductor en el punto acordado. Pagas en efectivo o Bizum directamente al conductor. Sin comisiones, sin plataforma de por medio.`
-      }
-    ]
-  };
   return /* @__PURE__ */ jsxs("main", { id: "main", className: "min-h-dvh bg-cr-bg text-cr-text pt-14", children: [
     /* @__PURE__ */ jsx("script", { type: "application/ld+json", dangerouslySetInnerHTML: { __html: JSON.stringify(jsonLdEvent) } }),
     /* @__PURE__ */ jsx("script", { type: "application/ld+json", dangerouslySetInnerHTML: { __html: JSON.stringify(jsonLdSeries) } }),
-    /* @__PURE__ */ jsx("script", { type: "application/ld+json", dangerouslySetInnerHTML: { __html: JSON.stringify(jsonLdFaq) } }),
     /* @__PURE__ */ jsx("script", { type: "application/ld+json", dangerouslySetInnerHTML: { __html: JSON.stringify(jsonLdBreadcrumb) } }),
-    /* @__PURE__ */ jsx("script", { type: "application/ld+json", dangerouslySetInnerHTML: { __html: JSON.stringify(jsonLdHowTo) } }),
     /* @__PURE__ */ jsxs("div", { className: "max-w-6xl mx-auto px-6 pt-10 pb-6 space-y-4", children: [
       /* @__PURE__ */ jsxs("nav", { "aria-label": "Breadcrumb", className: "font-mono text-[11px] text-cr-text-muted flex items-center gap-2", children: [
         /* @__PURE__ */ jsx(Link, { to: "/", className: "hover:text-cr-primary", children: "Inicio" }),
@@ -15498,35 +15349,12 @@ function GuiaTransporteFestivalesPage() {
       "@id": `${SITE_URL}/#organization`
     },
     datePublished: "2026-04-24",
-    dateModified: "2026-04-25",
+    dateModified: "2026-04-29",
     mainEntityOfPage: `${SITE_URL}/guia-transporte-festivales`,
     about: {
       "@type": "Thing",
       name: "Transporte para festivales de música en España"
     }
-  };
-  const jsonLdHowToPassenger = {
-    "@context": "https://schema.org",
-    "@type": "HowTo",
-    name: "Cómo encontrar carpooling para un festival en España",
-    description: "Proceso en 4 pasos para reservar un viaje compartido a un festival de música en España usando ConcertRide.",
-    totalTime: "PT5M",
-    estimatedCost: { "@type": "MonetaryAmount", currency: "EUR", value: "8-15" },
-    step: [
-      { "@type": "HowToStep", position: 1, name: "Buscar el festival", text: "Entra en concertride.me/concerts y busca el festival por nombre o selecciona la landing page del festival (e.g. concertride.me/festivales/mad-cool). Verás todos los viajes disponibles agrupados por ciudad de origen." },
-      { "@type": "HowToStep", position: 2, name: "Elegir un viaje desde tu ciudad", text: "Filtra por tu ciudad de origen. Compara precios por asiento, vibe (tranquilo/fiestero), plazas libres y valoración del conductor. Mira quiénes son los pasajeros ya confirmados." },
-      { "@type": "HowToStep", position: 3, name: "Reservar tu plaza", text: "Pulsa 'Reservar asiento' y selecciona el número de plazas. Si el conductor tiene reserva instantánea, quedas confirmado al instante. Si no, el conductor revisa tu solicitud en horas." },
-      { "@type": "HowToStep", position: 4, name: "Viajar y pagar", text: "El día del festival, el conductor te recoge en el punto acordado. Pagas directamente en efectivo o Bizum al conductor — sin comisión de plataforma. Acuerda también la hora de vuelta." }
-    ]
-  };
-  const jsonLdFaq = {
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    mainEntity: GUIDE_FAQS.map(({ q, a }) => ({
-      "@type": "Question",
-      name: q,
-      acceptedAnswer: { "@type": "Answer", text: a }
-    }))
   };
   const jsonLdBreadcrumb = {
     "@context": "https://schema.org",
@@ -15543,8 +15371,6 @@ function GuiaTransporteFestivalesPage() {
   };
   return /* @__PURE__ */ jsxs("main", { id: "main", className: "min-h-dvh bg-cr-bg text-cr-text pt-14", children: [
     /* @__PURE__ */ jsx("script", { type: "application/ld+json", dangerouslySetInnerHTML: { __html: JSON.stringify(jsonLdArticle) } }),
-    /* @__PURE__ */ jsx("script", { type: "application/ld+json", dangerouslySetInnerHTML: { __html: JSON.stringify(jsonLdHowToPassenger) } }),
-    /* @__PURE__ */ jsx("script", { type: "application/ld+json", dangerouslySetInnerHTML: { __html: JSON.stringify(jsonLdFaq) } }),
     /* @__PURE__ */ jsx("script", { type: "application/ld+json", dangerouslySetInnerHTML: { __html: JSON.stringify(jsonLdBreadcrumb) } }),
     /* @__PURE__ */ jsxs("div", { className: "max-w-4xl mx-auto px-6 pt-10 pb-6 space-y-4 border-b border-cr-border", children: [
       /* @__PURE__ */ jsxs("nav", { "aria-label": "Breadcrumb", className: "font-mono text-[11px] text-cr-text-muted flex items-center gap-2", children: [
@@ -15782,84 +15608,6 @@ function GuiaTransporteFestivalesPage() {
 const BLOG_POSTS = [
   // ──────────────────────────────────────────────────────────────────────
   {
-    slug: "blablacar-vs-concertride",
-    title: "BlaBlaCar vs ConcertRide 2026: ¿qué app de carpooling te conviene para festivales?",
-    h1: "BlaBlaCar vs ConcertRide: comparativa para ir a conciertos en España",
-    excerpt: "Comparativa real entre BlaBlaCar y ConcertRide para llegar a festivales: comisiones, tiempos de espera, perfil de usuario, política de cancelación y precio por asiento. Te decimos cuándo te conviene cada una.",
-    category: "comparativas",
-    tags: ["BlaBlaCar", "carpooling", "festivales", "comparativa"],
-    publishedAt: "2026-04-25T09:00:00.000Z",
-    author: "Equipo ConcertRide",
-    readingMinutes: 7,
-    lede: "Si vas a un festival este verano y dudas entre BlaBlaCar y ConcertRide, esta comparativa va al grano. Sin clickbait y sin pelotas: cada plataforma encaja en un escenario distinto.",
-    sections: [
-      {
-        heading: "Comisiones: la diferencia más visible",
-        paragraphs: [
-          "BlaBlaCar cobra comisión de servicio al pasajero (entre el 15 % y el 25 % según la ruta). En un viaje Madrid → Mad Cool de 18 €, el pasajero paga unos 22 € reales y el conductor recibe los 18 € íntegros del precio publicado.",
-          "ConcertRide no cobra comisión. El precio que ves es el precio que pagas, en efectivo o Bizum, directamente al conductor el día del viaje. El 100 % va al conductor."
-        ]
-      },
-      {
-        heading: "Perfil de usuario: rutas largas vs eventos concretos",
-        paragraphs: [
-          "BlaBlaCar es generalista: cubre cualquier ruta entre dos ciudades, con miles de viajes diarios. Es la herramienta lógica si vives en una ruta troncal (Madrid–Barcelona, Valencia–Madrid) y necesitas movilidad cualquier día.",
-          "ConcertRide está especializado en eventos. Cada viaje está vinculado a un concierto o festival concreto, así que sabes que tu compañero de coche también va al show. Mejor para llegar la noche del evento, peor para una mudanza de un domingo cualquiera."
-        ]
-      },
-      {
-        heading: "Vuelta de madrugada: aquí gana ConcertRide",
-        paragraphs: [
-          "El gran problema del transporte público a festivales es la vuelta. El último metro de Madrid sale a las 1:30 y un Mad Cool acaba a las 2:30 — es físicamente imposible volver sin coche o taxi (y los taxis cuestan 30–90 € a esas horas).",
-          "BlaBlaCar tiene pocos viajes de vuelta a esas horas porque sus conductores no están casados con el evento. ConcertRide sí: los conductores publican explícitamente el viaje de vuelta tras el festival, y el match es alto."
-        ]
-      },
-      {
-        heading: "Cancelaciones y reembolsos",
-        paragraphs: [
-          "BlaBlaCar tiene políticas de reembolso estrictas con escalas de tiempo. Funciona bien porque el pago es en plataforma.",
-          "En ConcertRide el pago es en persona, así que las cancelaciones se gestionan por chat directo. Ventaja: cero fricción si te cae un imprevisto. Desventaja: depende del entendimiento entre conductor y pasajero (recomendamos avisar con 24 h de antelación)."
-        ]
-      },
-      {
-        heading: "Tabla resumen",
-        paragraphs: [
-          "Aquí tienes los criterios condensados para que decidas en 30 segundos."
-        ],
-        bullets: [
-          "Comisión: BlaBlaCar 15–25 % · ConcertRide 0 %",
-          "Vuelta de madrugada: BlaBlaCar limitada · ConcertRide alta disponibilidad para festivales",
-          "Verificación: ambas verifican identidad y carnet",
-          "Pago: BlaBlaCar en plataforma · ConcertRide en efectivo/Bizum al conductor",
-          "Cobertura: BlaBlaCar global · ConcertRide solo España, solo eventos",
-          "Reservar instantánea: ambas (cuando el conductor lo activa)"
-        ]
-      }
-    ],
-    faqs: [
-      {
-        q: "¿Es legal el carpooling sin licencia VTC?",
-        a: "Sí. Tanto BlaBlaCar como ConcertRide operan bajo la figura de gastos compartidos: el conductor no obtiene beneficio, solo cubre combustible y peajes. La sentencia del Tribunal Supremo (caso BlaBlaCar 2017) lo dejó claro: no es transporte profesional, no requiere licencia VTC ni de taxi."
-      },
-      {
-        q: "¿Cuál es más barato a un festival concreto?",
-        a: "Para Mad Cool, Primavera Sound, Sónar y la mayoría de festivales españoles, ConcertRide sale 15–25 % más barato porque no cobra comisión. La diferencia se nota más en distancias largas (Madrid → Barcelona, por ejemplo)."
-      },
-      {
-        q: "¿Puedo usar las dos a la vez?",
-        a: "Claro. Mucha gente busca primero en ConcertRide (porque le interesa que el otro vaya al mismo festival) y, si no encuentra, busca en BlaBlaCar como alternativa."
-      }
-    ],
-    relatedLinks: [
-      { label: "Cómo volver de un festival de madrugada", to: "/blog/como-volver-festival-madrugada" },
-      { label: "Guía de transporte para festivales en España", to: "/guia-transporte-festivales" },
-      { label: "Carpooling a Mad Cool 2026", to: "/festivales/mad-cool" },
-      { label: "Carpooling a Primavera Sound 2026", to: "/festivales/primavera-sound" }
-    ],
-    relatedPosts: ["como-volver-festival-madrugada", "huella-carbono-festivales-carpooling"]
-  },
-  // ──────────────────────────────────────────────────────────────────────
-  {
     slug: "como-volver-festival-madrugada",
     title: "Cómo volver de un festival de madrugada (sin taxi a 90 €)",
     h1: "Cómo volver de un festival de madrugada en España",
@@ -15905,7 +15653,7 @@ const BLOG_POSTS = [
         ],
         bullets: [
           "1. Busca tu festival en concertride.me y filtra por “con regreso incluido”.",
-          "2. Si no encuentras, mira BlaBlaCar (rutas troncales con horario nocturno).",
+          "2. Si no encuentras, busca lanzadera oficial del festival o autobús nocturno.",
           "3. Si tampoco, reserva la lanzadera oficial del festival (siempre cobran solo a la salida).",
           "4. Como último recurso, comparte taxi entre 4: divide el coste, evita el caos."
         ]
@@ -15927,10 +15675,9 @@ const BLOG_POSTS = [
     ],
     relatedLinks: [
       { label: "Guía de transporte para festivales en España", to: "/guia-transporte-festivales" },
-      { label: "BlaBlaCar vs ConcertRide", to: "/blog/blablacar-vs-concertride" },
       { label: "Carpooling a Mad Cool", to: "/festivales/mad-cool" }
     ],
-    relatedPosts: ["blablacar-vs-concertride", "huella-carbono-festivales-carpooling"]
+    relatedPosts: ["huella-carbono-festivales-carpooling"]
   },
   // ──────────────────────────────────────────────────────────────────────
   {
@@ -16000,11 +15747,10 @@ const BLOG_POSTS = [
       }
     ],
     relatedLinks: [
-      { label: "BlaBlaCar vs ConcertRide", to: "/blog/blablacar-vs-concertride" },
       { label: "Cómo volver de un festival de madrugada", to: "/blog/como-volver-festival-madrugada" },
       { label: "Guía de transporte para festivales", to: "/guia-transporte-festivales" }
     ],
-    relatedPosts: ["blablacar-vs-concertride", "como-volver-festival-madrugada"]
+    relatedPosts: ["como-volver-festival-madrugada"]
   }
 ];
 const BLOG_POSTS_BY_SLUG = Object.fromEntries(
@@ -16022,7 +15768,7 @@ function BlogIndexPage() {
     title: "Blog ConcertRide — Carpooling, festivales y sostenibilidad",
     description: "Comparativas, guías de transporte y sostenibilidad para asistentes a festivales en España. Aprende a moverte mejor, gastar menos y reducir tu huella.",
     canonical: `${SITE_URL}/blog`,
-    keywords: "blog carpooling, comparativa BlaBlaCar, guía festivales España, transporte concierto, huella carbono festival"
+    keywords: "blog carpooling, guía festivales España, transporte concierto, huella carbono festival, carpooling conciertos"
   });
   const sorted = [...BLOG_POSTS].sort((a, b) => b.publishedAt.localeCompare(a.publishedAt));
   const jsonLdItemList = {
@@ -16375,10 +16121,10 @@ function RouteLandingPage() {
   const landing = slug ? ROUTE_LANDINGS_BY_SLUG[slug] : void 0;
   const [concerts, setConcerts] = useState(null);
   useSeoMeta({
-    title: landing ? `Carpooling ${landing.originCity} → ${landing.festival.shortName} 2026 — Viaje compartido` : "Ruta de carpooling",
-    description: landing ? `Viaje compartido de ${landing.originCity} a ${landing.festival.name}. ${landing.originData.km} km · ${landing.originData.drivingTime} · desde ${landing.originData.concertRideRange}. Sin comisión, conductores verificados.` : "Carpooling a festivales en España.",
+    title: landing ? `Carpooling ${landing.originCity} a ${landing.festival.shortName} — ${landing.originData.concertRideRange} · ${landing.originData.drivingTime}` : "Ruta de carpooling",
+    description: landing ? `Viaje compartido de ${landing.originCity} a ${landing.festival.name} (${landing.festival.city}). ${landing.originData.km} km · ${landing.originData.drivingTime} · desde ${landing.originData.concertRideRange}/asiento. Sin comisión, sin taxi, conductores verificados.` : "Carpooling a festivales en España.",
     canonical: landing ? `${SITE_URL}/rutas/${landing.slug}` : `${SITE_URL}/concerts`,
-    keywords: landing ? `carpooling ${landing.originCity} ${landing.festival.shortName}, coche compartido ${landing.originCity} ${landing.festival.shortName}, viaje compartido ${landing.originCity} ${landing.festival.shortName}, cómo ir ${landing.festival.shortName} desde ${landing.originCity}` : void 0
+    keywords: landing ? `carpooling ${landing.originCity} ${landing.festival.shortName}, coche compartido ${landing.originCity} ${landing.festival.shortName}, viaje compartido ${landing.originCity} ${landing.festival.shortName}, como ir ${landing.festival.shortName} desde ${landing.originCity}, cómo ir ${landing.festival.shortName} desde ${landing.originCity}, transporte ${landing.originCity} ${landing.festival.shortName}, bus ${landing.originCity} ${landing.festival.shortName}` : void 0
   });
   useEffect(() => {
     if (!landing) return;
@@ -16430,38 +16176,9 @@ function RouteLandingPage() {
       price: (originData.concertRideRange.split("–")[0] ?? "3").replace(/[^0-9]/g, "") || "3",
       priceCurrency: "EUR",
       availability: "https://schema.org/InStock",
+      validFrom: (/* @__PURE__ */ new Date()).toISOString(),
       url: `${SITE_URL}/rutas/${landing.slug}`
     }
-  };
-  const jsonLdFaq = {
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    mainEntity: [
-      {
-        "@type": "Question",
-        name: `¿Cuánto cuesta el carpooling de ${originCity} a ${festival.shortName}?`,
-        acceptedAnswer: {
-          "@type": "Answer",
-          text: `El precio por asiento de ${originCity} a ${festival.shortName} está entre ${originData.concertRideRange}. El conductor fija el precio para cubrir combustible y peajes sin obtener beneficio económico.`
-        }
-      },
-      {
-        "@type": "Question",
-        name: `¿Cuánto se tarda en coche de ${originCity} a ${festival.shortName}?`,
-        acceptedAnswer: {
-          "@type": "Answer",
-          text: `La distancia de ${originCity} a ${festival.venue} es de aproximadamente ${originData.km} km. El tiempo estimado de conducción es de ${originData.drivingTime} sin paradas.`
-        }
-      },
-      {
-        "@type": "Question",
-        name: `¿Hay carpooling de vuelta desde ${festival.shortName} a ${originCity}?`,
-        acceptedAnswer: {
-          "@type": "Answer",
-          text: `Sí. Los conductores que publican el viaje de ida suelen publicar también el de vuelta, con salida entre 30 y 60 minutos después del fin del festival. Busca en ConcertRide filtrando por "${festival.city}" y marca la opción "con regreso".`
-        }
-      }
-    ]
   };
   const futureConcerts = (concerts ?? []).filter(
     (c) => new Date(c.date).getTime() > Date.now()
@@ -16469,7 +16186,6 @@ function RouteLandingPage() {
   return /* @__PURE__ */ jsxs("main", { id: "main", className: "min-h-dvh bg-cr-bg text-cr-text pt-14", children: [
     /* @__PURE__ */ jsx("script", { type: "application/ld+json", dangerouslySetInnerHTML: { __html: JSON.stringify(jsonLdBreadcrumb) } }),
     /* @__PURE__ */ jsx("script", { type: "application/ld+json", dangerouslySetInnerHTML: { __html: JSON.stringify(jsonLdTrip) } }),
-    /* @__PURE__ */ jsx("script", { type: "application/ld+json", dangerouslySetInnerHTML: { __html: JSON.stringify(jsonLdFaq) } }),
     /* @__PURE__ */ jsxs("div", { className: "max-w-6xl mx-auto px-6 pt-10 pb-6 space-y-4", children: [
       /* @__PURE__ */ jsxs("nav", { "aria-label": "Breadcrumb", className: "font-mono text-[11px] text-cr-text-muted flex items-center gap-2 flex-wrap", children: [
         /* @__PURE__ */ jsx(Link, { to: "/", className: "hover:text-cr-primary", children: "Inicio" }),
@@ -16667,20 +16383,23 @@ function RouteLandingPage() {
             ]
           }
         ) }),
+        /* @__PURE__ */ jsx("li", { children: /* @__PURE__ */ jsxs(
+          Link,
+          {
+            to: `/conciertos/${festival.citySlug}`,
+            className: "inline-flex items-center gap-1.5 font-sans text-xs text-cr-text-muted hover:text-cr-primary border border-cr-border hover:border-cr-primary px-3 py-1.5 transition-colors",
+            children: [
+              "Conciertos en ",
+              festival.city
+            ]
+          }
+        ) }),
         /* @__PURE__ */ jsx("li", { children: /* @__PURE__ */ jsx(
           Link,
           {
             to: "/guia-transporte-festivales",
             className: "inline-flex items-center gap-1.5 font-sans text-xs text-cr-text-muted hover:text-cr-primary border border-cr-border hover:border-cr-primary px-3 py-1.5 transition-colors",
             children: "Guía de transporte para festivales"
-          }
-        ) }),
-        /* @__PURE__ */ jsx("li", { children: /* @__PURE__ */ jsx(
-          Link,
-          {
-            to: "/blog/blablacar-vs-concertride",
-            className: "inline-flex items-center gap-1.5 font-sans text-xs text-cr-text-muted hover:text-cr-primary border border-cr-border hover:border-cr-primary px-3 py-1.5 transition-colors",
-            children: "BlaBlaCar vs ConcertRide"
           }
         ) })
       ] })
@@ -17001,14 +16720,14 @@ function PrensaPage() {
           href: "https://www.apmusicales.com/"
         },
         {
-          stat: "0–30 min",
-          body: "tiempo máximo de espera de taxi en la salida de un festival grande (vs 45–90 min real en pico).",
-          source: "Estimación interna ConcertRide basada en datos de usuarios 2026",
+          stat: "45–90 min",
+          body: "de espera de taxi en la salida de un festival grande en hora pico, según conductores y asistentes.",
+          source: "Relatos de usuarios y conductores, 2024–2025",
           href: void 0
         },
         {
           stat: "0 %",
-          body: "de comisión cobra ConcertRide vs el 12–18 % de BlaBlaCar y el 20–25 % de Uber/Cabify.",
+          body: "de comisión cobra ConcertRide. El precio que ves es el precio que pagas, sin intermediarios.",
           source: "Tarifas públicas de cada plataforma, abril 2026",
           href: void 0
         }
@@ -17037,7 +16756,6 @@ function PrensaPage() {
     /* @__PURE__ */ jsxs("section", { className: "max-w-6xl mx-auto px-6 pb-24 border-t border-cr-border pt-10 space-y-4", children: [
       /* @__PURE__ */ jsx("h2", { className: "font-display text-lg uppercase text-cr-text-muted", children: "Ángulos de cobertura sugeridos" }),
       /* @__PURE__ */ jsx("ul", { className: "flex flex-wrap gap-2", children: [
-        { label: "BlaBlaCar vs ConcertRide", to: "/blog/blablacar-vs-concertride" },
         { label: "Sostenibilidad en festivales", to: "/blog/huella-carbono-festivales-carpooling" },
         { label: "Guía transporte festivales", to: "/guia-transporte-festivales" },
         { label: "Volver de madrugada", to: "/blog/como-volver-festival-madrugada" },
@@ -17388,7 +17106,7 @@ const FAQS = [
   },
   {
     q: "¿Puedo ir a un festival sin coche propio?",
-    a: "Sí, ese es el uso principal de ConcertRide. Busca el festival en el catálogo, elige un viaje publicado desde tu ciudad y reserva una plaza. El conductor te recoge en un punto acordado. El 80 % de los pasajeros de ConcertRide no tiene coche propio o prefiere no conducir al festival."
+    a: "Sí, ese es el uso principal de ConcertRide. Busca el festival en el catálogo, elige un viaje publicado desde tu ciudad y reserva una plaza. El conductor te recoge en un punto acordado."
   },
   {
     q: "¿Cuál es la alternativa al taxi para volver de un concierto de noche?",
@@ -17509,7 +17227,7 @@ function FaqPage() {
       ] }),
       /* @__PURE__ */ jsx("div", { className: "divide-y divide-cr-border border-y border-cr-border", children: FAQS.map((item, i) => {
         const isOpen = open === i;
-        return /* @__PURE__ */ jsxs("article", { itemScope: true, itemType: "https://schema.org/Question", children: [
+        return /* @__PURE__ */ jsxs("article", { children: [
           /* @__PURE__ */ jsxs(
             "button",
             {
@@ -17518,14 +17236,7 @@ function FaqPage() {
               "aria-expanded": isOpen,
               className: "w-full flex items-center justify-between gap-4 py-4 text-left hover:text-cr-primary transition-colors",
               children: [
-                /* @__PURE__ */ jsx(
-                  "h2",
-                  {
-                    itemProp: "name",
-                    className: "font-sans text-sm md:text-base font-semibold text-cr-text flex-1",
-                    children: item.q
-                  }
-                ),
+                /* @__PURE__ */ jsx("h2", { className: "font-sans text-sm md:text-base font-semibold text-cr-text flex-1", children: item.q }),
                 /* @__PURE__ */ jsx(
                   ChevronDown,
                   {
@@ -17537,16 +17248,7 @@ function FaqPage() {
               ]
             }
           ),
-          isOpen && /* @__PURE__ */ jsx(
-            "div",
-            {
-              itemScope: true,
-              itemProp: "acceptedAnswer",
-              itemType: "https://schema.org/Answer",
-              className: "pb-5",
-              children: /* @__PURE__ */ jsx("p", { itemProp: "text", className: "font-sans text-sm text-cr-text-muted leading-relaxed", children: item.a })
-            }
-          )
+          isOpen && /* @__PURE__ */ jsx("div", { className: "pb-5", children: /* @__PURE__ */ jsx("p", { className: "font-sans text-sm text-cr-text-muted leading-relaxed", children: item.a }) })
         ] }, i);
       }) }),
       /* @__PURE__ */ jsxs("div", { className: "mt-12 pt-8 border-t border-cr-border flex flex-wrap gap-4", children: [

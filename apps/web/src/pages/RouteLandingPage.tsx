@@ -19,14 +19,14 @@ export default function RouteLandingPage() {
 
   useSeoMeta({
     title: landing
-      ? `Carpooling ${landing.originCity} → ${landing.festival.shortName} 2026 — Viaje compartido`
+      ? `Carpooling ${landing.originCity} a ${landing.festival.shortName} — ${landing.originData.concertRideRange} · ${landing.originData.drivingTime}`
       : "Ruta de carpooling",
     description: landing
-      ? `Viaje compartido de ${landing.originCity} a ${landing.festival.name}. ${landing.originData.km} km · ${landing.originData.drivingTime} · desde ${landing.originData.concertRideRange}. Sin comisión, conductores verificados.`
+      ? `Viaje compartido de ${landing.originCity} a ${landing.festival.name} (${landing.festival.city}). ${landing.originData.km} km · ${landing.originData.drivingTime} · desde ${landing.originData.concertRideRange}/asiento. Sin comisión, sin taxi, conductores verificados.`
       : "Carpooling a festivales en España.",
     canonical: landing ? `${SITE_URL}/rutas/${landing.slug}` : `${SITE_URL}/concerts`,
     keywords: landing
-      ? `carpooling ${landing.originCity} ${landing.festival.shortName}, coche compartido ${landing.originCity} ${landing.festival.shortName}, viaje compartido ${landing.originCity} ${landing.festival.shortName}, cómo ir ${landing.festival.shortName} desde ${landing.originCity}`
+      ? `carpooling ${landing.originCity} ${landing.festival.shortName}, coche compartido ${landing.originCity} ${landing.festival.shortName}, viaje compartido ${landing.originCity} ${landing.festival.shortName}, como ir ${landing.festival.shortName} desde ${landing.originCity}, cómo ir ${landing.festival.shortName} desde ${landing.originCity}, transporte ${landing.originCity} ${landing.festival.shortName}, bus ${landing.originCity} ${landing.festival.shortName}`
       : undefined,
   });
 
@@ -92,36 +92,6 @@ export default function RouteLandingPage() {
     },
   };
 
-  const jsonLdFaq = {
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    mainEntity: [
-      {
-        "@type": "Question",
-        name: `¿Cuánto cuesta el carpooling de ${originCity} a ${festival.shortName}?`,
-        acceptedAnswer: {
-          "@type": "Answer",
-          text: `El precio por asiento de ${originCity} a ${festival.shortName} está entre ${originData.concertRideRange}. El conductor fija el precio para cubrir combustible y peajes sin obtener beneficio económico.`,
-        },
-      },
-      {
-        "@type": "Question",
-        name: `¿Cuánto se tarda en coche de ${originCity} a ${festival.shortName}?`,
-        acceptedAnswer: {
-          "@type": "Answer",
-          text: `La distancia de ${originCity} a ${festival.venue} es de aproximadamente ${originData.km} km. El tiempo estimado de conducción es de ${originData.drivingTime} sin paradas.`,
-        },
-      },
-      {
-        "@type": "Question",
-        name: `¿Hay carpooling de vuelta desde ${festival.shortName} a ${originCity}?`,
-        acceptedAnswer: {
-          "@type": "Answer",
-          text: `Sí. Los conductores que publican el viaje de ida suelen publicar también el de vuelta, con salida entre 30 y 60 minutos después del fin del festival. Busca en ConcertRide filtrando por "${festival.city}" y marca la opción "con regreso".`,
-        },
-      },
-    ],
-  };
 
   const futureConcerts = (concerts ?? []).filter(
     (c) => new Date(c.date).getTime() > Date.now(),
@@ -131,7 +101,6 @@ export default function RouteLandingPage() {
     <main id="main" className="min-h-dvh bg-cr-bg text-cr-text pt-14">
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdBreadcrumb) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdTrip) }} />
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdFaq) }} />
 
       {/* ── Hero ── */}
       <div className="max-w-6xl mx-auto px-6 pt-10 pb-6 space-y-4">
@@ -308,6 +277,14 @@ export default function RouteLandingPage() {
               className="inline-flex items-center gap-1.5 font-sans text-xs text-cr-text-muted hover:text-cr-primary border border-cr-border hover:border-cr-primary px-3 py-1.5 transition-colors"
             >
               Carpooling a {festival.shortName} — todas las ciudades
+            </Link>
+          </li>
+          <li>
+            <Link
+              to={`/conciertos/${festival.citySlug}`}
+              className="inline-flex items-center gap-1.5 font-sans text-xs text-cr-text-muted hover:text-cr-primary border border-cr-border hover:border-cr-primary px-3 py-1.5 transition-colors"
+            >
+              Conciertos en {festival.city}
             </Link>
           </li>
           <li>

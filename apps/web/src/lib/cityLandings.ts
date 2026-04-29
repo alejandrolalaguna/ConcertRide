@@ -67,11 +67,13 @@ export const CITY_LANDINGS: CityLanding[] = [
     display: "Sevilla",
     region: "Andalucía",
     blurb:
-      "Sevilla es el centro musical de Andalucía occidental. Estadio La Cartuja acoge los conciertos más grandes (estadio), FIBES alberga tours mid-size e Interestelar Sevilla se celebra en Charco de la Pava. Cercanía con los festivales de Málaga (Cala Mijas, Andalucía Big, Marenostrum) hace que compartir coche sea especialmente eficiente.",
+      "Sevilla concentra los conciertos más grandes de Andalucía en 2026. El Estadio La Cartuja acoge giras de estadio (aforo 60.000), FIBES Sevilla alberga tours mid-size y el Palacio de los Deportes San Pablo cubre el circuito indoor. Interestelar Sevilla se celebra cada verano en el Charco de la Pava. La cercanía con los festivales de Málaga (Cala Mijas, 200 km) y Huelva hace que Sevilla sea un punto de origen habitual para viajes compartidos a festivales andaluces. ConcertRide conecta a asistentes de Sevilla con conductores de toda España para llegar a cualquier concierto o festival sin depender de transporte público nocturno.",
     venues: [
       "Estadio La Cartuja",
       "FIBES Sevilla",
+      "Palacio de los Deportes San Pablo",
       "Interestelar Sevilla (Charco de la Pava)",
+      "Teatro de la Maestranza",
     ],
     lat: 37.3891, lng: -5.9845,
   },
