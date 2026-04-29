@@ -8,8 +8,9 @@ import { LoadingSpinner } from "@/components/ui";
 import { useSeoMeta } from "@/lib/useSeoMeta";
 import { SITE_URL } from "@/lib/siteUrl";
 import { FESTIVAL_LANDINGS, FESTIVAL_LANDINGS_BY_SLUG } from "@/lib/festivalLandings";
+import { ROUTE_LANDINGS } from "@/lib/routeLandings";
 
-const FESTIVAL_DEFAULT_OG = `${SITE_URL}/og/festival-default.png`;
+const FESTIVAL_DEFAULT_OG = `${SITE_URL}/og-fallback.png`;
 import { trackFestivalView } from "@/lib/seoEvents";
 import { FestivalAlertWidget } from "@/components/FestivalAlertWidget";
 
@@ -205,27 +206,49 @@ export default function FestivalLandingPage() {
         </p>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
-          {festival.originCities.map((oc) => (
-            <article
-              key={oc.city}
-              className="border border-cr-border p-4 space-y-2 hover:border-cr-primary/40 transition-colors"
-            >
-              <div className="flex items-center justify-between">
-                <h3 className="font-display text-base uppercase">{oc.city}</h3>
-                <span className="font-mono text-xs text-cr-primary font-semibold">
-                  {oc.concertRideRange}
-                </span>
-              </div>
-              <div className="flex gap-4 font-mono text-[11px] text-cr-text-muted">
-                <span>{oc.km} km</span>
-                <span>·</span>
-                <span>{oc.drivingTime}</span>
-              </div>
-              <p className="font-sans text-[11px] text-cr-text-muted">
-                sin comisión — pagas directamente al conductor
-              </p>
-            </article>
-          ))}
+          {festival.originCities.map((oc) => {
+            const route = ROUTE_LANDINGS.find(
+              (r) => r.festival.slug === festival.slug && r.originCity === oc.city,
+            );
+            const card = (
+              <>
+                <div className="flex items-center justify-between">
+                  <h3 className="font-display text-base uppercase">{oc.city}</h3>
+                  <span className="font-mono text-xs text-cr-primary font-semibold">
+                    {oc.concertRideRange}
+                  </span>
+                </div>
+                <div className="flex gap-4 font-mono text-[11px] text-cr-text-muted">
+                  <span>{oc.km} km</span>
+                  <span>·</span>
+                  <span>{oc.drivingTime}</span>
+                </div>
+                <p className="font-sans text-[11px] text-cr-text-muted">
+                  {route ? (
+                    <>Ver carpooling {oc.city} → {festival.shortName} →</>
+                  ) : (
+                    <>sin comisión — pagas directamente al conductor</>
+                  )}
+                </p>
+              </>
+            );
+            return route ? (
+              <Link
+                key={oc.city}
+                to={`/rutas/${route.slug}`}
+                className="border border-cr-border p-4 space-y-2 hover:border-cr-primary/40 transition-colors block"
+              >
+                {card}
+              </Link>
+            ) : (
+              <article
+                key={oc.city}
+                className="border border-cr-border p-4 space-y-2 hover:border-cr-primary/40 transition-colors"
+              >
+                {card}
+              </article>
+            );
+          })}
         </div>
 
         <div className="mt-8 p-4 border border-cr-primary/30 bg-cr-primary/5 space-y-1">

@@ -13520,7 +13520,7 @@ const FESTIVAL_LANDINGS = [
     capacity: "80.000 personas/día",
     blurb: "Mad Cool es el festival de rock e indie alternativo más grande de Madrid, celebrado en IFEMA desde 2016. Convoca a 80.000 asistentes diarios con artistas internacionales de primera línea. El recinto queda a 15 km del centro de Madrid pero está mal comunicado en transporte público pasada la medianoche: el último metro (línea 8) cierra a la 1:30 y los autobuses nocturnos N1 y N6 no llegan a IFEMA directamente. Según la APM, Mad Cool fue uno de los festivales con mayor afluencia internacional de España en 2024. El coche compartido a través de ConcertRide es la opción preferida de quienes vienen desde otras provincias o desde barrios sin acceso directo a IFEMA.",
     originCities: [
-      { city: "Centro de Madrid", km: 15, drivingTime: "25 min", concertRideRange: "4–7 €/asiento" },
+      { city: "Madrid", km: 15, drivingTime: "25 min", concertRideRange: "4–7 €/asiento" },
       { city: "Toledo", km: 75, drivingTime: "55 min", concertRideRange: "4–7 €/asiento" },
       { city: "Guadalajara", km: 60, drivingTime: "50 min", concertRideRange: "3–6 €/asiento" },
       { city: "Segovia", km: 90, drivingTime: "1h 10 min", concertRideRange: "4–7 €/asiento" },
@@ -13736,8 +13736,8 @@ const FESTIVAL_LANDINGS = [
     capacity: "30.000 personas/día",
     blurb: "Bilbao BBK Live es el festival internacional de referencia del norte de España, celebrado cada julio en el monte Kobetamendi con vistas a la ría de Bilbao. El recinto está a unos 4 km del centro de Bilbao y el acceso en transporte público nocturno es limitado. El carpooling es especialmente útil para asistentes que vienen desde Donostia, Vitoria, Pamplona o Madrid.",
     originCities: [
-      { city: "Centro de Bilbao", km: 5, drivingTime: "15 min", concertRideRange: "3–5 €/asiento" },
-      { city: "Donostia / San Sebastián", km: 100, drivingTime: "1h", concertRideRange: "4–7 €/asiento" },
+      { city: "Bilbao", km: 5, drivingTime: "15 min", concertRideRange: "3–5 €/asiento" },
+      { city: "Donostia", km: 100, drivingTime: "1h", concertRideRange: "4–7 €/asiento" },
       { city: "Vitoria-Gasteiz", km: 65, drivingTime: "45 min", concertRideRange: "3–6 €/asiento" },
       { city: "Pamplona", km: 155, drivingTime: "1h 30 min", concertRideRange: "5–8 €/asiento" },
       { city: "Santander", km: 100, drivingTime: "1h", concertRideRange: "4–7 €/asiento" },
@@ -14037,7 +14037,7 @@ const FESTIVAL_LANDINGS = [
     capacity: "90.000 personas (3 días)",
     blurb: "O Son do Camiño es el festival más importante de Galicia, celebrado en el Monte do Gozo de Santiago de Compostela desde 2019, con 90.000 asistentes en tres jornadas que combinan pop, indie y rock nacional e internacional junto al camino jacobeo. El recinto del Monte do Gozo se encuentra a 5 km del casco histórico de Santiago, accesible por la autovía AG-54 (salida Monte do Gozo) o en autobús lanzadera desde el centro de la ciudad, pero sin conexión de transporte público directo desde Vigo (90 km), Oviedo (295 km) o Madrid (585 km) en horarios de madrugada. Organizar el viaje con ConcertRide es especialmente útil para los asistentes de toda Galicia y del norte de España que quieren llegar directamente al recinto y coordinar la vuelta a cualquier hora.",
     originCities: [
-      { city: "Santiago de Compostela (centro)", km: 5, drivingTime: "10 min", concertRideRange: "3–5 €/asiento" },
+      { city: "Santiago de Compostela", km: 5, drivingTime: "10 min", concertRideRange: "3–5 €/asiento" },
       { city: "A Coruña", km: 70, drivingTime: "50 min", concertRideRange: "3–6 €/asiento" },
       { city: "Vigo", km: 90, drivingTime: "1h", concertRideRange: "4–7 €/asiento" },
       { city: "Pontevedra", km: 60, drivingTime: "45 min", concertRideRange: "3–5 €/asiento" },
@@ -14205,7 +14205,7 @@ const FESTIVAL_LANDINGS = [
     capacity: "20.000 personas/día",
     blurb: "Zevra Festival es el festival urbano de referencia de Valencia, celebrado en La Marina de València con vistas privilegiadas al puerto mediterráneo. Combina música electrónica, indie y pop en un entorno singular junto al mar, con capacidad para 20.000 asistentes diarios. El recinto es accesible en metro (línea L4, paradas Marítim-Serreria o Neptú) y en autobús de la EMT desde el centro de Valencia, pero los asistentes de Madrid (355 km por la A-3), Murcia (210 km por la A-7) o Alicante (175 km por la A-7) prefieren el carpooling con ConcertRide para llegar directamente sin transbordos y organizar la vuelta a cualquier hora de la madrugada.",
     originCities: [
-      { city: "Valencia (centro)", km: 10, drivingTime: "15 min", concertRideRange: "3–5 €/asiento" },
+      { city: "Valencia", km: 10, drivingTime: "15 min", concertRideRange: "3–5 €/asiento" },
       { city: "Madrid", km: 355, drivingTime: "3h 20 min", concertRideRange: "10–14 €/asiento" },
       { city: "Alicante", km: 175, drivingTime: "1h 45 min", concertRideRange: "5–8 €/asiento" },
       { city: "Murcia", km: 210, drivingTime: "2h", concertRideRange: "7–10 €/asiento" },
@@ -14323,7 +14323,7 @@ const FESTIVAL_LANDINGS = [
     capacity: "25.000 personas/día",
     blurb: "Tomavistas es el festival de indie y pop alternativo de Madrid, celebrado en primavera con artistas de primer nivel nacional e internacional desde 2014. Ha consolidado su cita como la apertura de la temporada de festivales madrileña, con 25.000 asistentes diarios en IFEMA. El recinto comparte las mismas limitaciones de transporte nocturno que Mad Cool: el último metro (línea 8, estación Feria de Madrid) cierra sobre la 1:30, y los autobuses nocturnos N1 y N6 no llegan directamente a IFEMA, dejando a los asistentes de provincias sin alternativa de transporte público. Con ConcertRide, quienes llegan desde Toledo, Guadalajara, Valencia o Zaragoza pueden organizar el viaje de ida y vuelta sin depender del transporte público madrileño.",
     originCities: [
-      { city: "Centro de Madrid", km: 15, drivingTime: "25 min", concertRideRange: "4–7 €/asiento" },
+      { city: "Madrid", km: 15, drivingTime: "25 min", concertRideRange: "4–7 €/asiento" },
       { city: "Toledo", km: 75, drivingTime: "55 min", concertRideRange: "4–7 €/asiento" },
       { city: "Guadalajara", km: 60, drivingTime: "50 min", concertRideRange: "3–6 €/asiento" },
       { city: "Valencia", km: 355, drivingTime: "3h 20 min", concertRideRange: "10–14 €/asiento" },
@@ -14413,6 +14413,30 @@ const FESTIVAL_LANDINGS = [
 const FESTIVAL_LANDINGS_BY_SLUG = Object.fromEntries(
   FESTIVAL_LANDINGS.map((f) => [f.slug, f])
 );
+function cityToSlug(city) {
+  return city.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "");
+}
+function buildRoutes() {
+  const routes = [];
+  for (const festival of FESTIVAL_LANDINGS) {
+    for (const oc of festival.originCities) {
+      const originSlug = cityToSlug(oc.city);
+      routes.push({
+        slug: `${originSlug}-${festival.slug}`,
+        originCity: oc.city,
+        originCitySlug: originSlug,
+        festival,
+        originData: oc
+      });
+    }
+  }
+  return routes;
+}
+const ROUTE_LANDINGS = buildRoutes();
+const ROUTE_LANDINGS_BY_SLUG = Object.fromEntries(
+  ROUTE_LANDINGS.map((r) => [r.slug, r])
+);
+const ROUTE_SLUGS$1 = ROUTE_LANDINGS.map((r) => r.slug);
 function trackFestivalView(slug, name, futureRides) {
 }
 function trackCityView(slug, name, concertCount) {
@@ -14680,6 +14704,31 @@ function CityLandingPage() {
         ) }, f.slug)) })
       ] });
     })(),
+    (() => {
+      const routesFromCity = ROUTE_LANDINGS.filter(
+        (r) => r.originCitySlug === landing.slug
+      );
+      if (routesFromCity.length === 0) return null;
+      return /* @__PURE__ */ jsxs("section", { className: "max-w-6xl mx-auto px-6 pb-12 border-t border-cr-border pt-10", children: [
+        /* @__PURE__ */ jsxs("h2", { className: "font-display text-lg uppercase text-cr-text-muted mb-4", children: [
+          "Carpooling desde ",
+          landing.display,
+          " a festivales"
+        ] }),
+        /* @__PURE__ */ jsx("ul", { className: "flex flex-wrap gap-2", children: routesFromCity.map((r) => /* @__PURE__ */ jsx("li", { children: /* @__PURE__ */ jsxs(
+          Link,
+          {
+            to: `/rutas/${r.slug}`,
+            className: "inline-flex items-center gap-1.5 font-sans text-xs text-cr-text-muted hover:text-cr-primary border border-cr-border hover:border-cr-primary px-3 py-1.5 transition-colors",
+            children: [
+              landing.display,
+              " → ",
+              r.festival.shortName
+            ]
+          }
+        ) }, r.slug)) })
+      ] });
+    })(),
     /* @__PURE__ */ jsxs("section", { className: "max-w-6xl mx-auto px-6 pb-24 border-t border-cr-border pt-10", children: [
       /* @__PURE__ */ jsx("h2", { className: "font-display text-lg uppercase text-cr-text-muted mb-4", children: "Otras ciudades" }),
       /* @__PURE__ */ jsx("ul", { className: "flex flex-wrap gap-2", children: CITY_LANDINGS.filter((c) => c.slug !== landing.slug).map((c) => /* @__PURE__ */ jsx("li", { children: /* @__PURE__ */ jsx(
@@ -14775,7 +14824,7 @@ function FestivalAlertWidget({ festivalSlug, festivalName }) {
     ] })
   ] });
 }
-const FESTIVAL_DEFAULT_OG = `${SITE_URL}/og/festival-default.png`;
+const FESTIVAL_DEFAULT_OG = `${SITE_URL}/og-fallback.png`;
 function FestivalLandingPage() {
   var _a2, _b, _c, _d;
   const { festival: slug } = useParams();
@@ -14941,28 +14990,48 @@ function FestivalLandingPage() {
         festival.shortName
       ] }),
       /* @__PURE__ */ jsx("p", { className: "font-sans text-sm text-cr-text-muted mb-8 max-w-xl", children: "Precio medio por asiento con ConcertRide desde las principales ciudades de origen. El 100 % va al conductor, sin comisión." }),
-      /* @__PURE__ */ jsx("div", { className: "grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3", children: festival.originCities.map((oc) => /* @__PURE__ */ jsxs(
-        "article",
-        {
-          className: "border border-cr-border p-4 space-y-2 hover:border-cr-primary/40 transition-colors",
-          children: [
-            /* @__PURE__ */ jsxs("div", { className: "flex items-center justify-between", children: [
-              /* @__PURE__ */ jsx("h3", { className: "font-display text-base uppercase", children: oc.city }),
-              /* @__PURE__ */ jsx("span", { className: "font-mono text-xs text-cr-primary font-semibold", children: oc.concertRideRange })
+      /* @__PURE__ */ jsx("div", { className: "grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3", children: festival.originCities.map((oc) => {
+        const route = ROUTE_LANDINGS.find(
+          (r) => r.festival.slug === festival.slug && r.originCity === oc.city
+        );
+        const card = /* @__PURE__ */ jsxs(Fragment, { children: [
+          /* @__PURE__ */ jsxs("div", { className: "flex items-center justify-between", children: [
+            /* @__PURE__ */ jsx("h3", { className: "font-display text-base uppercase", children: oc.city }),
+            /* @__PURE__ */ jsx("span", { className: "font-mono text-xs text-cr-primary font-semibold", children: oc.concertRideRange })
+          ] }),
+          /* @__PURE__ */ jsxs("div", { className: "flex gap-4 font-mono text-[11px] text-cr-text-muted", children: [
+            /* @__PURE__ */ jsxs("span", { children: [
+              oc.km,
+              " km"
             ] }),
-            /* @__PURE__ */ jsxs("div", { className: "flex gap-4 font-mono text-[11px] text-cr-text-muted", children: [
-              /* @__PURE__ */ jsxs("span", { children: [
-                oc.km,
-                " km"
-              ] }),
-              /* @__PURE__ */ jsx("span", { children: "·" }),
-              /* @__PURE__ */ jsx("span", { children: oc.drivingTime })
-            ] }),
-            /* @__PURE__ */ jsx("p", { className: "font-sans text-[11px] text-cr-text-muted", children: "sin comisión — pagas directamente al conductor" })
-          ]
-        },
-        oc.city
-      )) }),
+            /* @__PURE__ */ jsx("span", { children: "·" }),
+            /* @__PURE__ */ jsx("span", { children: oc.drivingTime })
+          ] }),
+          /* @__PURE__ */ jsx("p", { className: "font-sans text-[11px] text-cr-text-muted", children: route ? /* @__PURE__ */ jsxs(Fragment, { children: [
+            "Ver carpooling ",
+            oc.city,
+            " → ",
+            festival.shortName,
+            " →"
+          ] }) : /* @__PURE__ */ jsx(Fragment, { children: "sin comisión — pagas directamente al conductor" }) })
+        ] });
+        return route ? /* @__PURE__ */ jsx(
+          Link,
+          {
+            to: `/rutas/${route.slug}`,
+            className: "border border-cr-border p-4 space-y-2 hover:border-cr-primary/40 transition-colors block",
+            children: card
+          },
+          oc.city
+        ) : /* @__PURE__ */ jsx(
+          "article",
+          {
+            className: "border border-cr-border p-4 space-y-2 hover:border-cr-primary/40 transition-colors",
+            children: card
+          },
+          oc.city
+        );
+      }) }),
       /* @__PURE__ */ jsx("div", { className: "mt-8 p-4 border border-cr-primary/30 bg-cr-primary/5 space-y-1", children: /* @__PURE__ */ jsxs("p", { className: "font-sans text-xs text-cr-text-muted", children: [
         /* @__PURE__ */ jsx("strong", { className: "text-cr-text", children: "Precios orientativos" }),
         " basados en tarifas reales publicadas en ConcertRide. El conductor fija el precio por asiento para cubrir combustible y peajes (tarifa MITECO de referencia)."
@@ -16092,37 +16161,13 @@ function BlogPostPage() {
     ] })
   ] });
 }
-function cityToSlug(city) {
-  return city.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "");
-}
-function buildRoutes() {
-  const routes = [];
-  for (const festival of FESTIVAL_LANDINGS) {
-    for (const oc of festival.originCities) {
-      const originSlug = cityToSlug(oc.city);
-      routes.push({
-        slug: `${originSlug}-${festival.slug}`,
-        originCity: oc.city,
-        originCitySlug: originSlug,
-        festival,
-        originData: oc
-      });
-    }
-  }
-  return routes;
-}
-const ROUTE_LANDINGS = buildRoutes();
-const ROUTE_LANDINGS_BY_SLUG = Object.fromEntries(
-  ROUTE_LANDINGS.map((r) => [r.slug, r])
-);
-const ROUTE_SLUGS$1 = ROUTE_LANDINGS.map((r) => r.slug);
 function RouteLandingPage() {
   const { route: slug } = useParams();
   const landing = slug ? ROUTE_LANDINGS_BY_SLUG[slug] : void 0;
   const [concerts, setConcerts] = useState(null);
   useSeoMeta({
     title: landing ? `Carpooling ${landing.originCity} a ${landing.festival.shortName} — ${landing.originData.concertRideRange} · ${landing.originData.drivingTime}` : "Ruta de carpooling",
-    description: landing ? `Viaje compartido de ${landing.originCity} a ${landing.festival.name} (${landing.festival.city}). ${landing.originData.km} km · ${landing.originData.drivingTime} · desde ${landing.originData.concertRideRange}/asiento. Sin comisión, sin taxi, conductores verificados.` : "Carpooling a festivales en España.",
+    description: landing ? `Viaje compartido de ${landing.originCity} a ${landing.festival.name} (${landing.festival.city}). ${landing.originData.km} km · ${landing.originData.drivingTime} · desde ${landing.originData.concertRideRange}. Sin comisión, sin taxi, conductores verificados.` : "Carpooling a festivales en España.",
     canonical: landing ? `${SITE_URL}/rutas/${landing.slug}` : `${SITE_URL}/concerts`,
     keywords: landing ? `carpooling ${landing.originCity} ${landing.festival.shortName}, coche compartido ${landing.originCity} ${landing.festival.shortName}, viaje compartido ${landing.originCity} ${landing.festival.shortName}, como ir ${landing.festival.shortName} desde ${landing.originCity}, cómo ir ${landing.festival.shortName} desde ${landing.originCity}, transporte ${landing.originCity} ${landing.festival.shortName}, bus ${landing.originCity} ${landing.festival.shortName}` : void 0
   });
@@ -16257,7 +16302,7 @@ function RouteLandingPage() {
           /* @__PURE__ */ jsx("h3", { className: "font-display text-base uppercase text-cr-primary", children: "Precio estimado" }),
           /* @__PURE__ */ jsxs("p", { className: "font-sans text-sm text-cr-text-muted", children: [
             originData.concertRideRange,
-            " por asiento. Sin comisión — el 100 % va al conductor."
+            ". Sin comisión — el 100 % va al conductor."
           ] })
         ] }),
         /* @__PURE__ */ jsxs("article", { className: "border border-cr-border p-4 space-y-2", children: [

@@ -30,7 +30,7 @@ export interface FestivalLanding {
   typicalDates: string;     // human description, e.g. "Primera semana de julio"
   capacity: string;         // "80.000 personas/día"
   blurb: string;            // factual, LLM-citable paragraph
-  ogImage?: string;         // absolute URL to per-festival OG image (1200×630); falls back to /og/festival-default.png
+  ogImage?: string;         // absolute URL to per-festival OG image (1200×630); falls back to /og-fallback.png
   originCities: OriginCity[];
   faqs: FestivalFaq[];
   relatedFestivals: string[];
@@ -55,7 +55,7 @@ export const FESTIVAL_LANDINGS: FestivalLanding[] = [
     blurb:
       "Mad Cool es el festival de rock e indie alternativo más grande de Madrid, celebrado en IFEMA desde 2016. Convoca a 80.000 asistentes diarios con artistas internacionales de primera línea. El recinto queda a 15 km del centro de Madrid pero está mal comunicado en transporte público pasada la medianoche: el último metro (línea 8) cierra a la 1:30 y los autobuses nocturnos N1 y N6 no llegan a IFEMA directamente. Según la APM, Mad Cool fue uno de los festivales con mayor afluencia internacional de España en 2024. El coche compartido a través de ConcertRide es la opción preferida de quienes vienen desde otras provincias o desde barrios sin acceso directo a IFEMA.",
     originCities: [
-      { city: "Centro de Madrid", km: 15, drivingTime: "25 min", concertRideRange: "4–7 €/asiento" },
+      { city: "Madrid", km: 15, drivingTime: "25 min", concertRideRange: "4–7 €/asiento" },
       { city: "Toledo", km: 75, drivingTime: "55 min", concertRideRange: "4–7 €/asiento" },
       { city: "Guadalajara", km: 60, drivingTime: "50 min", concertRideRange: "3–6 €/asiento" },
       { city: "Segovia", km: 90, drivingTime: "1h 10 min", concertRideRange: "4–7 €/asiento" },
@@ -279,8 +279,8 @@ export const FESTIVAL_LANDINGS: FestivalLanding[] = [
     blurb:
       "Bilbao BBK Live es el festival internacional de referencia del norte de España, celebrado cada julio en el monte Kobetamendi con vistas a la ría de Bilbao. El recinto está a unos 4 km del centro de Bilbao y el acceso en transporte público nocturno es limitado. El carpooling es especialmente útil para asistentes que vienen desde Donostia, Vitoria, Pamplona o Madrid.",
     originCities: [
-      { city: "Centro de Bilbao", km: 5, drivingTime: "15 min", concertRideRange: "3–5 €/asiento" },
-      { city: "Donostia / San Sebastián", km: 100, drivingTime: "1h", concertRideRange: "4–7 €/asiento" },
+      { city: "Bilbao", km: 5, drivingTime: "15 min", concertRideRange: "3–5 €/asiento" },
+      { city: "Donostia", km: 100, drivingTime: "1h", concertRideRange: "4–7 €/asiento" },
       { city: "Vitoria-Gasteiz", km: 65, drivingTime: "45 min", concertRideRange: "3–6 €/asiento" },
       { city: "Pamplona", km: 155, drivingTime: "1h 30 min", concertRideRange: "5–8 €/asiento" },
       { city: "Santander", km: 100, drivingTime: "1h", concertRideRange: "4–7 €/asiento" },
@@ -590,7 +590,7 @@ export const FESTIVAL_LANDINGS: FestivalLanding[] = [
     blurb:
       "O Son do Camiño es el festival más importante de Galicia, celebrado en el Monte do Gozo de Santiago de Compostela desde 2019, con 90.000 asistentes en tres jornadas que combinan pop, indie y rock nacional e internacional junto al camino jacobeo. El recinto del Monte do Gozo se encuentra a 5 km del casco histórico de Santiago, accesible por la autovía AG-54 (salida Monte do Gozo) o en autobús lanzadera desde el centro de la ciudad, pero sin conexión de transporte público directo desde Vigo (90 km), Oviedo (295 km) o Madrid (585 km) en horarios de madrugada. Organizar el viaje con ConcertRide es especialmente útil para los asistentes de toda Galicia y del norte de España que quieren llegar directamente al recinto y coordinar la vuelta a cualquier hora.",
     originCities: [
-      { city: "Santiago de Compostela (centro)", km: 5, drivingTime: "10 min", concertRideRange: "3–5 €/asiento" },
+      { city: "Santiago de Compostela", km: 5, drivingTime: "10 min", concertRideRange: "3–5 €/asiento" },
       { city: "A Coruña", km: 70, drivingTime: "50 min", concertRideRange: "3–6 €/asiento" },
       { city: "Vigo", km: 90, drivingTime: "1h", concertRideRange: "4–7 €/asiento" },
       { city: "Pontevedra", km: 60, drivingTime: "45 min", concertRideRange: "3–5 €/asiento" },
@@ -764,7 +764,7 @@ export const FESTIVAL_LANDINGS: FestivalLanding[] = [
     blurb:
       "Zevra Festival es el festival urbano de referencia de Valencia, celebrado en La Marina de València con vistas privilegiadas al puerto mediterráneo. Combina música electrónica, indie y pop en un entorno singular junto al mar, con capacidad para 20.000 asistentes diarios. El recinto es accesible en metro (línea L4, paradas Marítim-Serreria o Neptú) y en autobús de la EMT desde el centro de Valencia, pero los asistentes de Madrid (355 km por la A-3), Murcia (210 km por la A-7) o Alicante (175 km por la A-7) prefieren el carpooling con ConcertRide para llegar directamente sin transbordos y organizar la vuelta a cualquier hora de la madrugada.",
     originCities: [
-      { city: "Valencia (centro)", km: 10, drivingTime: "15 min", concertRideRange: "3–5 €/asiento" },
+      { city: "Valencia", km: 10, drivingTime: "15 min", concertRideRange: "3–5 €/asiento" },
       { city: "Madrid", km: 355, drivingTime: "3h 20 min", concertRideRange: "10–14 €/asiento" },
       { city: "Alicante", km: 175, drivingTime: "1h 45 min", concertRideRange: "5–8 €/asiento" },
       { city: "Murcia", km: 210, drivingTime: "2h", concertRideRange: "7–10 €/asiento" },
@@ -886,7 +886,7 @@ export const FESTIVAL_LANDINGS: FestivalLanding[] = [
     blurb:
       "Tomavistas es el festival de indie y pop alternativo de Madrid, celebrado en primavera con artistas de primer nivel nacional e internacional desde 2014. Ha consolidado su cita como la apertura de la temporada de festivales madrileña, con 25.000 asistentes diarios en IFEMA. El recinto comparte las mismas limitaciones de transporte nocturno que Mad Cool: el último metro (línea 8, estación Feria de Madrid) cierra sobre la 1:30, y los autobuses nocturnos N1 y N6 no llegan directamente a IFEMA, dejando a los asistentes de provincias sin alternativa de transporte público. Con ConcertRide, quienes llegan desde Toledo, Guadalajara, Valencia o Zaragoza pueden organizar el viaje de ida y vuelta sin depender del transporte público madrileño.",
     originCities: [
-      { city: "Centro de Madrid", km: 15, drivingTime: "25 min", concertRideRange: "4–7 €/asiento" },
+      { city: "Madrid", km: 15, drivingTime: "25 min", concertRideRange: "4–7 €/asiento" },
       { city: "Toledo", km: 75, drivingTime: "55 min", concertRideRange: "4–7 €/asiento" },
       { city: "Guadalajara", km: 60, drivingTime: "50 min", concertRideRange: "3–6 €/asiento" },
       { city: "Valencia", km: 355, drivingTime: "3h 20 min", concertRideRange: "10–14 €/asiento" },

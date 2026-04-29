@@ -9,6 +9,7 @@ import { useSeoMeta } from "@/lib/useSeoMeta";
 import { SITE_URL } from "@/lib/siteUrl";
 import { CITY_LANDINGS, CITY_LANDINGS_BY_SLUG } from "@/lib/cityLandings";
 import { FESTIVAL_LANDINGS } from "@/lib/festivalLandings";
+import { ROUTE_LANDINGS } from "@/lib/routeLandings";
 import { trackCityView } from "@/lib/seoEvents";
 
 export default function CityLandingPage() {
@@ -280,6 +281,33 @@ export default function CityLandingPage() {
                     className="inline-flex items-center gap-1.5 font-sans text-xs text-cr-text-muted hover:text-cr-primary border border-cr-border hover:border-cr-primary px-3 py-1.5 transition-colors"
                   >
                     Cómo ir a {f.shortName} →
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </section>
+        );
+      })()}
+
+      {/* Carpooling routes from this city → festivals — high-intent SEO internal links */}
+      {(() => {
+        const routesFromCity = ROUTE_LANDINGS.filter(
+          (r) => r.originCitySlug === landing.slug,
+        );
+        if (routesFromCity.length === 0) return null;
+        return (
+          <section className="max-w-6xl mx-auto px-6 pb-12 border-t border-cr-border pt-10">
+            <h2 className="font-display text-lg uppercase text-cr-text-muted mb-4">
+              Carpooling desde {landing.display} a festivales
+            </h2>
+            <ul className="flex flex-wrap gap-2">
+              {routesFromCity.map((r) => (
+                <li key={r.slug}>
+                  <Link
+                    to={`/rutas/${r.slug}`}
+                    className="inline-flex items-center gap-1.5 font-sans text-xs text-cr-text-muted hover:text-cr-primary border border-cr-border hover:border-cr-primary px-3 py-1.5 transition-colors"
+                  >
+                    {landing.display} → {r.festival.shortName}
                   </Link>
                 </li>
               ))}

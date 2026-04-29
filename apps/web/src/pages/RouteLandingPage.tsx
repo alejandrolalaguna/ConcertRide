@@ -22,7 +22,7 @@ export default function RouteLandingPage() {
       ? `Carpooling ${landing.originCity} a ${landing.festival.shortName} — ${landing.originData.concertRideRange} · ${landing.originData.drivingTime}`
       : "Ruta de carpooling",
     description: landing
-      ? `Viaje compartido de ${landing.originCity} a ${landing.festival.name} (${landing.festival.city}). ${landing.originData.km} km · ${landing.originData.drivingTime} · desde ${landing.originData.concertRideRange}/asiento. Sin comisión, sin taxi, conductores verificados.`
+      ? `Viaje compartido de ${landing.originCity} a ${landing.festival.name} (${landing.festival.city}). ${landing.originData.km} km · ${landing.originData.drivingTime} · desde ${landing.originData.concertRideRange}. Sin comisión, sin taxi, conductores verificados.`
       : "Carpooling a festivales en España.",
     canonical: landing ? `${SITE_URL}/rutas/${landing.slug}` : `${SITE_URL}/concerts`,
     keywords: landing
@@ -159,7 +159,7 @@ export default function RouteLandingPage() {
           <article className="border border-cr-border p-4 space-y-2">
             <h3 className="font-display text-base uppercase text-cr-primary">Precio estimado</h3>
             <p className="font-sans text-sm text-cr-text-muted">
-              {originData.concertRideRange} por asiento. Sin comisión —
+              {originData.concertRideRange}. Sin comisión —
               el 100&nbsp;% va al conductor.
             </p>
           </article>
