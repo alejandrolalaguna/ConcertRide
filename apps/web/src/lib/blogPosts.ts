@@ -330,6 +330,89 @@ export const BLOG_POSTS: BlogPost[] = [
     ],
     relatedPosts: ["como-volver-festival-madrugada"],
   },
+  // ──────────────────────────────────────────────────────────────────────
+  {
+    slug: "blablacar-vs-concertride",
+    title: "BlaBlaCar vs ConcertRide 2026: ¿qué app te conviene para ir a festivales?",
+    h1: "BlaBlaCar vs ConcertRide para festivales: diferencias clave en 2026",
+    excerpt:
+      "BlaBlaCar es la plataforma de carpooling más conocida en España, pero ConcertRide es la alternativa especializada en conciertos y festivales. ¿Cuál da mejores resultados para ir a Mad Cool, Primavera Sound o Arenal Sound? Comparamos precios, experiencia y fiabilidad.",
+    category: "comparativas",
+    tags: ["blablacar", "comparativa", "carpooling", "festivales", "alternativa blablacar"],
+    publishedAt: "2026-04-15T09:00:00.000Z",
+    author: "Equipo ConcertRide",
+    readingMinutes: 6,
+    lede:
+      "Buscas carpooling para un festival y dudas entre BlaBlaCar y ConcertRide. No son iguales: una es genérica y cobra comisión, la otra es especializada en eventos y es gratuita. Aquí tienes la comparativa honesta.",
+    sections: [
+      {
+        heading: "La diferencia fundamental: generalista vs. especializado",
+        paragraphs: [
+          "BlaBlaCar es una plataforma generalista de viaje compartido que cubre cualquier trayecto entre ciudades: trabajo, familia, viajes de ocio. Es útil cuando necesitas ir de Madrid a Barcelona cualquier día. Su modelo se basa en cobrar una comisión del 15–20 % sobre el precio que paga el pasajero.",
+          "ConcertRide nació exclusivamente para conciertos y festivales. Los viajes están vinculados a un evento concreto, lo que significa que conductor y pasajeros van al mismo lugar, a la misma hora, y tienen el mismo plan de vuelta. Sin comisión: el 100 % del precio va al conductor.",
+        ],
+      },
+      {
+        heading: "Precio: comisión vs. sin comisión",
+        paragraphs: [
+          "En BlaBlaCar, si un conductor pone 10 € por plaza, tú pagas entre 11,50 y 12 € (comisión incluida). En viajes de larga distancia como Madrid–Benicàssim (FIB) o Madrid–Barcelona (Primavera Sound), esa comisión puede superar los 3–4 € por trayecto.",
+          "En ConcertRide no hay comisión. Lo que fija el conductor es lo que pagas — en efectivo o Bizum el día del viaje. Para un grupo de amigos que va y vuelve del festival, el ahorro acumulado puede ser de 15–25 € por persona.",
+        ],
+        bullets: [
+          "BlaBlaCar: conductor pone 10 € → pasajero paga ~12 € (comisión ~15-20 %)",
+          "ConcertRide: conductor pone 10 € → pasajero paga 10 € (sin comisión)",
+          "Pago en BlaBlaCar: tarjeta online antes del viaje",
+          "Pago en ConcertRide: efectivo o Bizum al conductor el día del evento",
+        ],
+      },
+      {
+        heading: "Oferta de viajes a festivales: ¿dónde hay más?",
+        paragraphs: [
+          "BlaBlaCar tiene más usuarios en total, pero su buscador no filtra por festival. Para encontrar viajes a, por ejemplo, el Arenal Sound en Burriana, tienes que buscar «Castellón» o «Burriana» y filtrar manualmente por fecha — a menudo entre viajes de trabajo o turismo que no tienen nada que ver.",
+          "ConcertRide agrupa los viajes por concierto y festival. Buscas «Arenal Sound» y ves todos los viajes publicados para ese evento, desde cualquier origen, con fecha y hora ajustadas al festival. La oferta es más pequeña en número total, pero 100 % relevante.",
+        ],
+      },
+      {
+        heading: "Verificación de conductores",
+        paragraphs: [
+          "BlaBlaCar verifica el perfil del conductor mediante documentación de identidad y valoraciones de viajes anteriores. Es un sistema maduro con millones de valoraciones acumuladas.",
+          "ConcertRide verifica el carnet de conducir de los conductores antes de que puedan publicar viajes. Al ser una plataforma más pequeña y especializada, el sistema de valoraciones está en crecimiento, pero la verificación del carnet es obligatoria desde el primer viaje.",
+        ],
+      },
+      {
+        heading: "¿Cuándo usar BlaBlaCar y cuándo ConcertRide?",
+        paragraphs: [
+          "Usa BlaBlaCar si necesitas un trayecto interurbano genérico: Madrid a Sevilla un martes cualquiera, vuelta de un puente desde casa de tus padres, etc. Su red de conductores es amplia y encontrarás viajes casi siempre.",
+          "Usa ConcertRide si vas a un concierto o festival. Los conductores ya van al mismo evento, la coordinación de horarios es automática, no hay comisión y el pago es directo. Para festivales como Mad Cool, Primavera Sound, Arenal Sound, FIB, BBK Live o Resurrection Fest, es la opción más eficiente.",
+        ],
+      },
+    ],
+    faqs: [
+      {
+        q: "¿Es BlaBlaCar gratis para los pasajeros?",
+        a: "No. BlaBlaCar cobra una comisión de servicio del 15–20 % sobre el precio del viaje que paga el pasajero. El conductor recibe el precio base que ha fijado.",
+      },
+      {
+        q: "¿ConcertRide cobra comisión?",
+        a: "No. ConcertRide es completamente gratuito, sin comisiones para conductores ni pasajeros. El pago se realiza directamente entre conductor y pasajero (efectivo o Bizum) el día del viaje.",
+      },
+      {
+        q: "¿Puedo encontrar viajes a festivales en BlaBlaCar?",
+        a: "Sí, pero el buscador es genérico: tienes que buscar por ciudad de destino y filtrar por fecha. Los resultados mezclan viajes a festivales con viajes de trabajo o turismo. ConcertRide agrupa los viajes directamente por festival.",
+      },
+      {
+        q: "¿Cuál tiene más viajes disponibles?",
+        a: "BlaBlaCar tiene más usuarios en total. ConcertRide tiene menos viajes en total pero todos son relevantes para conciertos y festivales — no hay ruido de viajes no relacionados.",
+      },
+    ],
+    relatedLinks: [
+      { label: "Carpooling al Mad Cool Festival", to: "/festivales/mad-cool" },
+      { label: "Carpooling al Primavera Sound", to: "/festivales/primavera-sound" },
+      { label: "Cómo volver de un festival de madrugada", to: "/blog/como-volver-festival-madrugada" },
+      { label: "Guía de transporte para festivales en España", to: "/guia-transporte-festivales" },
+    ],
+    relatedPosts: ["autobuses-festivales-espana-2026", "como-volver-festival-madrugada"],
+  },
 ];
 
 export const BLOG_POSTS_BY_SLUG: Record<string, BlogPost> = Object.fromEntries(
