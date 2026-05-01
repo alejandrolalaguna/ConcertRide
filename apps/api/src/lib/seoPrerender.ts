@@ -269,6 +269,9 @@ function buildStaticRoutes(base: string): Record<string, { title: string; descri
   <li><a href="${base}/rutas/madrid-bbk-live">Carpooling Madrid → BBK Live Bilbao</a></li>
   <li><a href="${base}/rutas/madrid-arenal-sound">Carpooling Madrid → Arenal Sound</a></li>
   <li><a href="${base}/rutas/valencia-arenal-sound">Carpooling Valencia → Arenal Sound</a></li>
+  <li><a href="${base}/rutas/zaragoza-arenal-sound">Carpooling Zaragoza → Arenal Sound</a></li>
+  <li><a href="${base}/rutas/zaragoza-primavera-sound">Carpooling Zaragoza → Primavera Sound</a></li>
+  <li><a href="${base}/rutas/tarragona-primavera-sound">Carpooling Tarragona → Primavera Sound</a></li>
 </ul>`,
     },
   };
@@ -730,9 +733,11 @@ interface RouteData {
 
 const ROUTES: Record<string, RouteData> = {
   "madrid-mad-cool": { originCity: "Madrid", festivalShortName: "Mad Cool", festivalName: "Mad Cool Festival", festivalCity: "Madrid", distance: "15", drivingTime: "20 min", priceFrom: "4" },
-  "barcelona-primavera-sound": { originCity: "Barcelona", festivalShortName: "Primavera Sound", festivalName: "Primavera Sound", festivalCity: "Barcelona", distance: "10", drivingTime: "15 min", priceFrom: "5" },
-  "madrid-primavera-sound": { originCity: "Madrid", festivalShortName: "Primavera Sound", festivalName: "Primavera Sound", festivalCity: "Barcelona", distance: "620", drivingTime: "5h 30min", priceFrom: "15" },
-  "valencia-primavera-sound": { originCity: "Valencia", festivalShortName: "Primavera Sound", festivalName: "Primavera Sound", festivalCity: "Barcelona", distance: "355", drivingTime: "3h 30min", priceFrom: "10" },
+  "barcelona-primavera-sound": { originCity: "Barcelona", festivalShortName: "Primavera Sound", festivalName: "Primavera Sound Barcelona", festivalCity: "Barcelona", distance: "10", drivingTime: "15 min", priceFrom: "5" },
+  "madrid-primavera-sound": { originCity: "Madrid", festivalShortName: "Primavera Sound", festivalName: "Primavera Sound Barcelona", festivalCity: "Barcelona", distance: "620", drivingTime: "5h 30 min", priceFrom: "15" },
+  "valencia-primavera-sound": { originCity: "Valencia", festivalShortName: "Primavera Sound", festivalName: "Primavera Sound Barcelona", festivalCity: "Barcelona", distance: "355", drivingTime: "3h 15 min", priceFrom: "10" },
+  "zaragoza-primavera-sound": { originCity: "Zaragoza", festivalShortName: "Primavera Sound", festivalName: "Primavera Sound Barcelona", festivalCity: "Barcelona", distance: "306", drivingTime: "2h 45 min", priceFrom: "8" },
+  "tarragona-primavera-sound": { originCity: "Tarragona", festivalShortName: "Primavera Sound", festivalName: "Primavera Sound Barcelona", festivalCity: "Barcelona", distance: "100", drivingTime: "1h", priceFrom: "4" },
   "sevilla-mad-cool": { originCity: "Sevilla", festivalShortName: "Mad Cool", festivalName: "Mad Cool Festival", festivalCity: "Madrid", distance: "530", drivingTime: "5h", priceFrom: "14" },
   "bilbao-mad-cool": { originCity: "Bilbao", festivalShortName: "Mad Cool", festivalName: "Mad Cool Festival", festivalCity: "Madrid", distance: "395", drivingTime: "4h", priceFrom: "12" },
   "madrid-sonar": { originCity: "Madrid", festivalShortName: "Sónar", festivalName: "Sónar Festival", festivalCity: "Barcelona", distance: "620", drivingTime: "5h 30min", priceFrom: "15" },
@@ -740,9 +745,10 @@ const ROUTES: Record<string, RouteData> = {
   "barcelona-fib": { originCity: "Barcelona", festivalShortName: "FIB", festivalName: "FIB Benicàssim", festivalCity: "Benicàssim", distance: "230", drivingTime: "2h 15min", priceFrom: "8" },
   "madrid-bbk-live": { originCity: "Madrid", festivalShortName: "BBK Live", festivalName: "Bilbao BBK Live", festivalCity: "Bilbao", distance: "395", drivingTime: "4h", priceFrom: "12" },
   "barcelona-bbk-live": { originCity: "Barcelona", festivalShortName: "BBK Live", festivalName: "Bilbao BBK Live", festivalCity: "Bilbao", distance: "615", drivingTime: "5h 30min", priceFrom: "15" },
-  "madrid-arenal-sound": { originCity: "Madrid", festivalShortName: "Arenal Sound", festivalName: "Arenal Sound", festivalCity: "Burriana", distance: "360", drivingTime: "3h 30min", priceFrom: "10" },
-  "barcelona-arenal-sound": { originCity: "Barcelona", festivalShortName: "Arenal Sound", festivalName: "Arenal Sound", festivalCity: "Burriana", distance: "190", drivingTime: "2h", priceFrom: "7" },
-  "valencia-arenal-sound": { originCity: "Valencia", festivalShortName: "Arenal Sound", festivalName: "Arenal Sound", festivalCity: "Burriana", distance: "65", drivingTime: "45 min", priceFrom: "4" },
+  "madrid-arenal-sound": { originCity: "Madrid", festivalShortName: "Arenal Sound", festivalName: "Arenal Sound", festivalCity: "Burriana", distance: "460", drivingTime: "4h", priceFrom: "12" },
+  "barcelona-arenal-sound": { originCity: "Barcelona", festivalShortName: "Arenal Sound", festivalName: "Arenal Sound", festivalCity: "Burriana", distance: "305", drivingTime: "2h 50 min", priceFrom: "8" },
+  "valencia-arenal-sound": { originCity: "Valencia", festivalShortName: "Arenal Sound", festivalName: "Arenal Sound", festivalCity: "Burriana", distance: "65", drivingTime: "45 min", priceFrom: "3" },
+  "zaragoza-arenal-sound": { originCity: "Zaragoza", festivalShortName: "Arenal Sound", festivalName: "Arenal Sound", festivalCity: "Burriana", distance: "275", drivingTime: "2h 30 min", priceFrom: "8" },
   "madrid-medusa-festival": { originCity: "Madrid", festivalShortName: "Medusa", festivalName: "Medusa Festival", festivalCity: "Cullera", distance: "360", drivingTime: "3h 30min", priceFrom: "10" },
   "barcelona-medusa-festival": { originCity: "Barcelona", festivalShortName: "Medusa", festivalName: "Medusa Festival", festivalCity: "Cullera", distance: "370", drivingTime: "3h 40min", priceFrom: "10" },
   "madrid-vina-rock": { originCity: "Madrid", festivalShortName: "Viña Rock", festivalName: "Viña Rock", festivalCity: "Villarrobledo", distance: "180", drivingTime: "1h 50min", priceFrom: "6" },
