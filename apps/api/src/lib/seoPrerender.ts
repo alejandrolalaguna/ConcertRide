@@ -1175,20 +1175,33 @@ export async function seoPrerender(c: Context<HonoEnv>, next: Next): Promise<Res
 
   const base = getSiteUrl(c.env);
 
+  // Auth pages — bots get a minimal noindex response so GSC doesn't index
+  // /login?next=... variants (query params are stripped for matching).
+  const authPaths = ["/login", "/register", "/forgot-password", "/reset-password", "/verify-email"];
+  if (authPaths.includes(c.req.path)) {
+    return new Response(
+      `<!doctype html><html lang="es"><head><meta charset="UTF-8"/><title>Acceso — ConcertRide ES</title><meta name="robots" content="noindex, nofollow"/><link rel="canonical" href="${base}${c.req.path}"/></head><body></body></html>`,
+      { status: 200, headers: { "Content-Type": "text/html; charset=utf-8", "X-SEO-Prerender": "noindex" } },
+    );
+  }
+
   // Resolve page data — concert pages need the store, everything else is static
-  // Also try with trailing slash appended/removed if initial match fails
-  let page: PageData | null = resolvePageData(c.req.path, base);
+  // Also try with trailing slash appended/removed if initial match fails.
+  // Use only the pathname (strip query string) so /login?next=... etc. don't
+  // leak through the auth guard above or produce phantom page matches below.
+  const pathname = c.req.path;
+  let page: PageData | null = resolvePageData(pathname, base);
 
   if (!page) {
     // Try normalizing trailing slash
-    const pathWithoutSlash = c.req.path.replace(/\/$/, "");
-    const pathWithSlash = pathWithoutSlash === c.req.path ? `${c.req.path}/` : pathWithoutSlash;
+    const pathWithoutSlash = pathname.replace(/\/$/, "");
+    const pathWithSlash = pathWithoutSlash === pathname ? `${pathname}/` : pathWithoutSlash;
     page = resolvePageData(pathWithSlash, base);
   }
 
   if (!page) {
     // /concerts/:id — fetch concert data from store for rich SEO
-    const concertMatch = c.req.path.match(/^\/concerts\/([^/]+)\/?$/);
+    const concertMatch = pathname.match(/^\/concerts\/([^/]+)\/?$/);
     if (concertMatch && c.var.store) {
       page = await resolveConcertPage(concertMatch[1] ?? "", base, c.var.store);
     }
