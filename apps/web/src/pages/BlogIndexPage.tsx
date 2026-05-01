@@ -11,27 +11,23 @@ export default function BlogIndexPage() {
       "Comparativas, guías de transporte y sostenibilidad para asistentes a festivales en España. Aprende a moverte mejor, gastar menos y reducir tu huella.",
     canonical: `${SITE_URL}/blog`,
     keywords:
-      "blog carpooling, guía festivales España, transporte concierto, huella carbono festival, carpooling conciertos",
+      "blog carpooling festivales, guía transporte festivales españa, autobuses festivales 2026, como ir a un festival sin coche, cómo volver de un festival de madrugada, blablacar alternativa festivales, carpooling sin comisión, transporte concierto españa, huella carbono festival carpooling, coche compartido festival verano, festivales música españa 2026, que llevar al festival, vuelta madrugada festival, taxi festival precio alternativa",
   });
 
   const sorted = [...BLOG_POSTS].sort((a, b) => b.publishedAt.localeCompare(a.publishedAt));
 
   const jsonLdItemList = {
     "@context": "https://schema.org",
-    "@type": "Blog",
-    name: "Blog ConcertRide",
+    "@type": "ItemList",
+    name: "Blog ConcertRide — Guías de transporte para festivales",
     url: `${SITE_URL}/blog`,
-    inLanguage: "es-ES",
-    publisher: { "@id": `${SITE_URL}/#organization` },
-    blogPost: sorted.map((p) => ({
-      "@type": "BlogPosting",
-      headline: p.title,
+    numberOfItems: BLOG_POSTS.length,
+    itemListElement: BLOG_POSTS.map((p, i) => ({
+      "@type": "ListItem",
+      position: i + 1,
+      name: p.title,
       url: `${SITE_URL}/blog/${p.slug}`,
-      datePublished: p.publishedAt,
-      dateModified: p.updatedAt ?? p.publishedAt,
-      author: { "@type": "Organization", name: p.author },
       description: p.excerpt,
-      articleSection: p.category,
     })),
   };
 

@@ -129,6 +129,63 @@ export default function HowItWorksPage() {
           }),
         }}
       />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "FAQPage",
+            mainEntity: [
+              {
+                "@type": "Question",
+                name: "¿Es gratis usar ConcertRide?",
+                acceptedAnswer: {
+                  "@type": "Answer",
+                  text: "Sí. ConcertRide no cobra comisión ni a pasajeros ni a conductores. El precio del asiento va íntegramente al conductor, que decide libremente cuánto cobrar para cubrir el coste del combustible y los peajes.",
+                },
+              },
+              {
+                "@type": "Question",
+                name: "¿Cómo sé que el conductor es de confianza?",
+                acceptedAnswer: {
+                  "@type": "Answer",
+                  text: "Todos los conductores han verificado su carnet de conducir antes de publicar su primer viaje. Además, el registro requiere email confirmado y el sistema de valoraciones permite ver las reseñas reales de viajes anteriores.",
+                },
+              },
+              {
+                "@type": "Question",
+                name: "¿Cómo se paga el viaje?",
+                acceptedAnswer: {
+                  "@type": "Answer",
+                  text: "El pago se realiza en efectivo o Bizum directamente al conductor el día del viaje, en el momento del embarque. ConcertRide no gestiona ningún cobro online.",
+                },
+              },
+              {
+                "@type": "Question",
+                name: "¿Puedo cancelar una solicitud de plaza?",
+                acceptedAnswer: {
+                  "@type": "Answer",
+                  text: "Sí, puedes cancelar desde la ficha de tu viaje. Te recomendamos avisar al conductor con la mayor antelación posible para que pueda ofrecer la plaza a otro pasajero.",
+                },
+              },
+            ],
+          }),
+        }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "WebPage",
+            speakable: {
+              "@type": "SpeakableSpecification",
+              cssSelector: ["h1", "h2", ".speakable", "p:first-of-type"],
+            },
+            url: `${SITE_URL}/como-funciona`,
+          }),
+        }}
+      />
 
       <div className="max-w-4xl mx-auto px-6 py-12 md:py-16 space-y-16">
         <header className="border-b border-cr-border pb-8 space-y-3">

@@ -125,6 +125,16 @@ const FAQS: Array<{ q: string; a: string }> = [
 export default function FaqPage() {
   const [open, setOpen] = useState<number | null>(0);
 
+  const jsonLdSpeakable = {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    speakable: {
+      "@type": "SpeakableSpecification",
+      cssSelector: ["h1", "dt", "dd"],
+    },
+    url: `${SITE_URL}/faq`,
+  };
+
   useSeoMeta({
     title: "Preguntas frecuentes — Carpooling para conciertos y festivales",
     description:
@@ -147,7 +157,7 @@ export default function FaqPage() {
             "@type": "FAQPage",
             name: "Preguntas frecuentes — Carpooling para conciertos y festivales en España",
             url: `${SITE_URL}/faq`,
-            dateModified: "2026-04-25",
+            dateModified: "2026-05-01",
             inLanguage: "es-ES",
             mainEntity: FAQS.map(({ q, a }) => ({
               "@type": "Question",
@@ -170,6 +180,7 @@ export default function FaqPage() {
           }),
         }}
       />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdSpeakable) }} />
 
       <div className="max-w-3xl mx-auto px-6 py-12 md:py-16">
         <header className="mb-10 border-b border-cr-border pb-8 space-y-3">

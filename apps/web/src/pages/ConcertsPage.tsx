@@ -77,10 +77,25 @@ export default function ConcertsPage() {
   useSeoMeta({
     title: dynamicTitle,
     description: filters.city
-      ? `Todos los conciertos y festivales en ${filters.city}. Encuentra viajes compartidos baratos desde cualquier ciudad con ConcertRide ES.`
-      : "Todos los conciertos y festivales de música en España. Encuentra viajes compartidos baratos para llegar al show desde Madrid, Barcelona, Valencia, Sevilla y más.",
+      ? `Conciertos y festivales en ${filters.city} ${new Date().getFullYear()}. Carpooling sin comisión para llegar al show — conductores verificados, pago en efectivo o Bizum.`
+      : `Conciertos en España ${new Date().getFullYear()} con carpooling disponible. Mad Cool, Primavera Sound, Arenal Sound y más. Sin comisión, sin taxi. ConcertRide ES.`,
     canonical: `${SITE_URL}/concerts`,
-    keywords: `conciertos ${filters.city || "España"}, festivales música, carpooling conciertos, viajes compartidos, ${filters.genre || "música en directo"}`,
+    keywords: [
+      `conciertos en España ${new Date().getFullYear()}`,
+      `conciertos ${filters.city || "España"}`,
+      "conciertos música España",
+      "carpooling conciertos España",
+      "viajes compartidos conciertos",
+      "coche compartido festival España",
+      "carpooling festival España",
+      "conciertos sin taxi",
+      "transporte compartido conciertos",
+      "cómo ir al concierto en coche compartido",
+      filters.genre ? `conciertos ${filters.genre} España` : "festivales música España",
+      "carpooling sin comisión España",
+      "BlaBlaCar conciertos alternativa",
+      `conciertos ${new Date().getFullYear()} ${new Date().getFullYear() + 1}`,
+    ].filter(Boolean).join(", "),
   });
 
   const debounceRef = useRef<ReturnType<typeof setTimeout> | null>(null);

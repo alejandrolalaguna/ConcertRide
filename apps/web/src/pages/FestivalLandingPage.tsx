@@ -171,13 +171,8 @@ export default function FestivalLandingPage() {
     "@type": "BreadcrumbList",
     itemListElement: [
       { "@type": "ListItem", position: 1, name: "Inicio", item: `${SITE_URL}/` },
-      { "@type": "ListItem", position: 2, name: "Conciertos y festivales", item: `${SITE_URL}/concerts` },
-      {
-        "@type": "ListItem",
-        position: 3,
-        name: festival.name,
-        item: `${SITE_URL}/festivales/${festival.slug}`,
-      },
+      { "@type": "ListItem", position: 2, name: "Festivales", item: `${SITE_URL}/festivales` },
+      { "@type": "ListItem", position: 3, name: festival.shortName, item: `${SITE_URL}/festivales/${festival.slug}` },
     ],
   };
 

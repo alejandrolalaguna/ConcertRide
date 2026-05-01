@@ -147,7 +147,7 @@ export default function CityLandingPage() {
               {
                 "@type": "ListItem",
                 position: 3,
-                name: landing.display,
+                name: `Conciertos en ${landing.display}`,
                 item: `${SITE_URL}/conciertos/${landing.slug}`,
               },
             ],
@@ -174,8 +174,8 @@ export default function CityLandingPage() {
         dangerouslySetInnerHTML={{
           __html: JSON.stringify({
             "@context": "https://schema.org",
-            "@type": "OnlineBusiness",
-            "@id": `${SITE_URL}/conciertos/${landing.slug}#onlinebusiness`,
+            "@type": "LocalBusiness",
+            "@id": `${SITE_URL}/conciertos/${landing.slug}#localbusiness`,
             name: `ConcertRide — Carpooling para conciertos en ${landing.display}`,
             description: landing.blurb,
             url: `${SITE_URL}/conciertos/${landing.slug}`,
@@ -184,6 +184,17 @@ export default function CityLandingPage() {
             priceRange: "€3–€35",
             currenciesAccepted: "EUR",
             paymentAccepted: "Cash, Bizum",
+            geo: {
+              "@type": "GeoCoordinates",
+              latitude: landing.lat,
+              longitude: landing.lng,
+            },
+            address: {
+              "@type": "PostalAddress",
+              addressLocality: landing.display,
+              addressRegion: landing.region,
+              addressCountry: "ES",
+            },
             areaServed: {
               "@type": "City",
               name: landing.display,

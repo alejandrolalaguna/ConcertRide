@@ -19,7 +19,7 @@ import { PastConcertsSection } from "@/components/landing/PastConcertsSection";
 
 export default function LandingPage() {
   useSeoMeta({
-    title: "ConcertRide — Carpooling y autobuses para conciertos y festivales en España 2026",
+    title: "ConcertRide — Carpooling para conciertos y festivales en España",
     description:
       "Carpooling para conciertos y festivales en España: Mad Cool, Primavera Sound, Sónar, BBK Live, Arenal Sound, Viña Rock, Resurrection Fest. Alternativa a los autobuses oficiales y de larga distancia. Sin comisión, conductores verificados.",
     canonical: `${SITE_URL}/`,

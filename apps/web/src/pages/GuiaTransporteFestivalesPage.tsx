@@ -64,6 +64,10 @@ export default function GuiaTransporteFestivalesPage() {
       "@type": "Thing",
       name: "Transporte para festivales de música en España",
     },
+    speakable: {
+      "@type": "SpeakableSpecification",
+      cssSelector: ["h1", "h2", ".speakable", "article p:first-of-type"],
+    },
   };
 
   const jsonLdBreadcrumb = {
@@ -71,19 +75,39 @@ export default function GuiaTransporteFestivalesPage() {
     "@type": "BreadcrumbList",
     itemListElement: [
       { "@type": "ListItem", position: 1, name: "Inicio", item: `${SITE_URL}/` },
+      { "@type": "ListItem", position: 2, name: "Blog", item: `${SITE_URL}/blog` },
       {
         "@type": "ListItem",
-        position: 2,
+        position: 3,
         name: "Guía de transporte para festivales",
         item: `${SITE_URL}/guia-transporte-festivales`,
       },
     ],
   };
 
+  const jsonLdFaq = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: GUIDE_FAQS.slice(0, 4).map((faq) => ({
+      "@type": "Question",
+      name: faq.q,
+      acceptedAnswer: { "@type": "Answer", text: faq.a },
+    })),
+  };
+
+  const jsonLdTable = {
+    "@context": "https://schema.org",
+    "@type": "Table",
+    about: "Comparativa de opciones de transporte para festivales de música en España",
+    description: "Comparativa de carpooling, autobús organizado, transporte público y taxi para ir a festivales en España: precios, pros, contras y disponibilidad nocturna.",
+  };
+
   return (
     <main id="main" className="min-h-dvh bg-cr-bg text-cr-text pt-14">
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdArticle) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdBreadcrumb) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdFaq) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdTable) }} />
 
       {/* ── Hero ── */}
       <div className="max-w-4xl mx-auto px-6 pt-10 pb-6 space-y-4 border-b border-cr-border">
@@ -102,6 +126,9 @@ export default function GuiaTransporteFestivalesPage() {
           Taxi, autobús organizado, metro, carpooling… Cada festival tiene su mejor opción.
           Esta guía compara todas las alternativas para que llegues al concierto, y vuelvas de madrugada,
           sin sustos en el precio ni en el horario.
+        </p>
+        <p className="font-sans text-sm text-cr-text-muted leading-relaxed max-w-2xl speakable">
+          ConcertRide es la plataforma española de carpooling para conciertos y festivales. El carpooling cuesta entre 3 y 20 €/asiento según la distancia — frente a los 30–90 € de taxi de madrugada. Sin comisión, pago en persona al conductor.
         </p>
       </div>
 

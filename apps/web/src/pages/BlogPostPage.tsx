@@ -58,6 +58,12 @@ export default function BlogPostPage() {
       width: 1200,
       height: 630,
     },
+    speakable: {
+      "@type": "SpeakableSpecification",
+      cssSelector: ["h1", ".speakable", "article p:first-of-type"],
+    },
+    isPartOf: { "@id": `${SITE_URL}/#website` },
+    about: { "@id": `${SITE_URL}/#service` },
   };
 
   const jsonLdBreadcrumb = {

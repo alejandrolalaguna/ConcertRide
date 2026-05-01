@@ -15,40 +15,129 @@ Disallow: /profile
 Disallow: /mis-viajes
 Disallow: /favoritos
 Disallow: /publish
+Disallow: /admin
 
 # Sitemap
 Sitemap: https://concertride.me/sitemap.xml
 
-# AI crawlers — explicit Allow overrides any CDN-level Disallow rules
+# AI crawlers — explicitly allow public content, keep private routes blocked
 User-agent: GPTBot
+Disallow: /api/
+Disallow: /login
+Disallow: /register
+Disallow: /profile
+Disallow: /mis-viajes
+Disallow: /favoritos
+Disallow: /publish
+Disallow: /admin
 Allow: /
 
 User-agent: ChatGPT-User
+Disallow: /api/
+Disallow: /login
+Disallow: /register
+Disallow: /profile
+Disallow: /mis-viajes
+Disallow: /favoritos
+Disallow: /publish
+Disallow: /admin
 Allow: /
 
 User-agent: ClaudeBot
+Disallow: /api/
+Disallow: /login
+Disallow: /register
+Disallow: /profile
+Disallow: /mis-viajes
+Disallow: /favoritos
+Disallow: /publish
+Disallow: /admin
 Allow: /
 
 User-agent: Google-Extended
+Disallow: /api/
+Disallow: /login
+Disallow: /register
+Disallow: /profile
+Disallow: /mis-viajes
+Disallow: /favoritos
+Disallow: /publish
+Disallow: /admin
 Allow: /
 
 User-agent: PerplexityBot
+Disallow: /api/
+Disallow: /login
+Disallow: /register
+Disallow: /profile
+Disallow: /mis-viajes
+Disallow: /favoritos
+Disallow: /publish
+Disallow: /admin
 Allow: /
 
 User-agent: CCBot
+Disallow: /api/
+Disallow: /login
+Disallow: /register
+Disallow: /profile
+Disallow: /mis-viajes
+Disallow: /favoritos
+Disallow: /publish
+Disallow: /admin
 Allow: /
 
 User-agent: Bytespider
+Disallow: /api/
+Disallow: /login
+Disallow: /register
+Disallow: /profile
+Disallow: /mis-viajes
+Disallow: /favoritos
+Disallow: /publish
+Disallow: /admin
 Allow: /
 
 User-agent: Amazonbot
+Disallow: /api/
+Disallow: /login
+Disallow: /register
+Disallow: /profile
+Disallow: /mis-viajes
+Disallow: /favoritos
+Disallow: /publish
+Disallow: /admin
 Allow: /
 
 User-agent: Applebot-Extended
+Disallow: /api/
+Disallow: /login
+Disallow: /register
+Disallow: /profile
+Disallow: /mis-viajes
+Disallow: /favoritos
+Disallow: /publish
+Disallow: /admin
 Allow: /
 
 User-agent: meta-externalagent
+Disallow: /api/
+Disallow: /login
+Disallow: /register
+Disallow: /profile
+Disallow: /mis-viajes
+Disallow: /favoritos
+Disallow: /publish
+Disallow: /admin
 Allow: /
 
 User-agent: OAI-SearchBot
+Disallow: /api/
+Disallow: /login
+Disallow: /register
+Disallow: /profile
+Disallow: /mis-viajes
+Disallow: /favoritos
+Disallow: /publish
+Disallow: /admin
 Allow: /
