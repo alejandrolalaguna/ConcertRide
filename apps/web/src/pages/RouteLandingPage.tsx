@@ -26,7 +26,22 @@ export default function RouteLandingPage() {
       : "Carpooling a festivales en España.",
     canonical: landing ? `${SITE_URL}/rutas/${landing.slug}` : `${SITE_URL}/concerts`,
     keywords: landing
-      ? `carpooling ${landing.originCity} ${landing.festival.shortName}, coche compartido ${landing.originCity} ${landing.festival.shortName}, viaje compartido ${landing.originCity} ${landing.festival.shortName}, como ir ${landing.festival.shortName} desde ${landing.originCity}, cómo ir ${landing.festival.shortName} desde ${landing.originCity}, transporte ${landing.originCity} ${landing.festival.shortName}, bus ${landing.originCity} ${landing.festival.shortName}`
+      ? [
+          `carpooling ${landing.originCity} ${landing.festival.shortName}`,
+          `coche compartido ${landing.originCity} ${landing.festival.shortName}`,
+          `viaje compartido ${landing.originCity} ${landing.festival.shortName}`,
+          `como ir ${landing.festival.shortName} desde ${landing.originCity}`,
+          `cómo ir ${landing.festival.shortName} desde ${landing.originCity}`,
+          `transporte ${landing.originCity} ${landing.festival.shortName}`,
+          `bus ${landing.originCity} ${landing.festival.shortName}`,
+          `precio carpooling ${landing.originCity} ${landing.festival.shortName}`,
+          `distancia ${landing.originCity} ${landing.festival.city}`,
+          `cuanto tarda ${landing.originCity} ${landing.festival.city}`,
+          `alternativa taxi ${landing.festival.shortName} desde ${landing.originCity}`,
+          `vuelta ${landing.festival.shortName} ${landing.originCity}`,
+          `${landing.originCity} ${landing.festival.shortName} ${new Date().getFullYear()}`,
+          `compartir coche ${landing.originCity} ${landing.festival.city}`,
+        ].join(", ")
       : undefined,
   });
 

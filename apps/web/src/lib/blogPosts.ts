@@ -413,6 +413,253 @@ export const BLOG_POSTS: BlogPost[] = [
     ],
     relatedPosts: ["autobuses-festivales-espana-2026", "como-volver-festival-madrugada"],
   },
+
+  // ──────────────────────────────────────────────────────────────────────
+  {
+    slug: "que-llevar-al-festival",
+    title: "Qué llevar al festival: lista completa 2026 (para los que van en coche)",
+    h1: "Qué llevar al festival: la lista definitiva para 2026",
+    excerpt:
+      "¿Tiket comprado, pero no sabes qué meter en la mochila? Esta lista cubre todo lo que necesitas para un festival de uno, dos o varios días: equipaje, comida, documentación, ropa y los imprescindibles si vas en coche compartido.",
+    category: "guias",
+    tags: ["qué llevar", "mochila", "festival", "equipo", "camping", "lista"],
+    publishedAt: "2026-05-01T09:00:00.000Z",
+    author: "Equipo ConcertRide",
+    readingMinutes: 7,
+    lede:
+      "La diferencia entre un festival que recuerdas con cariño y uno que recuerdas con ampollas suele estar en la mochila. Aquí tienes la lista honesta — sin los 20 objetos que no vas a usar.",
+    sections: [
+      {
+        heading: "Los imprescindibles (que se olvidan el 30 % de las veces)",
+        paragraphs: [
+          "Antes de entrar en detalles, estos son los objetos que más gente olvida y que arruinan el día si faltan:",
+        ],
+        bullets: [
+          "Entrada o código QR descargado sin conexión (capturas de pantalla en el carrete, no solo en el email).",
+          "DNI o pasaporte — sin él no entras si hay control de acceso.",
+          "Tarjeta bancaria física — los festivales con pago cashless o pulsera recargable no aceptan siempre Apple/Google Pay.",
+          "Auriculares de espuma (protección auditiva) — reducen el riesgo de daño auditivo sin quitar sonido.",
+          "Cargador portátil (powerbank) cargado al 100 % el día anterior.",
+          "Dinero en efectivo — para el conductor del carpooling y para los puestos de street food sin TPV.",
+        ],
+      },
+      {
+        heading: "Ropa: la regla de las capas y el calzado correcto",
+        paragraphs: [
+          "La mayoría de festivaleros sobre-empacan ropa y sub-empacan calzado cómodo. La regla práctica: para un festival de verano de 3 días, 2–3 camisetas, 1 capa media (sudadera ligera o camisa de manga larga), y 1 chubasquero compacto. Los festivales nocturnos bajan hasta los 15 °C incluso en julio en zonas de interior.",
+          "El calzado es el factor número uno de bienestar. Si el recinto es exterior con terreno de tierra o hierba, las zapatillas de running son mejor opción que las botas de trabajo o las Converse. Lleva calcetines extra — los calcetines secos cambian el día.",
+        ],
+        bullets: [
+          "Festival de día (1 día): camiseta + pantalón corto + zapatillas + gorra o sombrero.",
+          "Festival nocturno verano (1–2 días): añade sudadera ligera + chubasquero.",
+          "Festival con acampada (3+ días): añade chubasquero impermeable + ropa térmica ligera para la madrugada.",
+          "Evita: jeans (pesan, tardan en secar), sandalias de plataforma, ropa nueva sin estrenar.",
+        ],
+      },
+      {
+        heading: "Lo que llevar en la mochila de día (mochila pequeña, 10–20 L)",
+        paragraphs: [
+          "La mochila que entra al recinto debe ser ligera. La mayoría de festivales tienen límite de tamaño (35x40 cm aprox.) y lo revisan. Lo que debe ir dentro:",
+        ],
+        bullets: [
+          "Agua (botella vacía rellenable — muchos festivales tienen puntos de agua gratis).",
+          "Protección solar SPF 50+ — el olvido más caro en festividales de verano.",
+          "Analgésico (ibuprofeno o paracetamol) + tiritas + alcohol en gel.",
+          "Tapones para los oídos (el equivalente a 30 dB de reducción).",
+          "Powerbank + cable USB-C/Lightning.",
+          "Dinero en efectivo (20–50 €) + tarjeta.",
+          "Gorra o pañuelo para el sol.",
+          "Impermeable plegable ultraligero (100 g, cabe en un bolsillo).",
+        ],
+      },
+      {
+        heading: "Si el festival tiene camping: lo que cambia",
+        paragraphs: [
+          "Para festivales con acampada (Resurrection Fest, Arenal Sound, Viña Rock, FIB, Medusa) necesitas equipaje extra. Si vas en coche compartido, es fundamental acordar con el conductor qué entra en el maletero antes del día del festival.",
+        ],
+        bullets: [
+          "Tienda de campaña (2x2 m mínimo, impermeable 1500 mm HH o más).",
+          "Saco de dormir (válido hasta 10 °C en verano, aunque parezca mucho).",
+          "Esterilla o colchoneta hinchable.",
+          "Linterna frontal (las pilas no se consumen con el móvil).",
+          "Cerrojo para cremallera de tienda (disuasorio contra robos menores).",
+          "Bolsa de basura grande (para guardar el equipo mojado y no ensuciar el coche de vuelta).",
+        ],
+      },
+      {
+        heading: "Lo que NO llevar (y que te quitarán en la entrada)",
+        paragraphs: [
+          "Cada festival tiene su propia lista de objetos prohibidos, pero estos son los más comunes:",
+        ],
+        bullets: [
+          "Botellas de cristal o latas (permitidas en algunos, prohibidas en la mayoría).",
+          "Paraguas con varillas metálicas (aceptan chubasqueros, no paraguas).",
+          "Sillas plegables con altura (suelen prohibir las que bloquean visión).",
+          "Cámaras con objetivo desmontable o zoom > 10 cm (prensa acreditada).",
+          "Drones sin acreditación.",
+          "Alcohol propio en grandes festivales (en recinto queda precintado o confiscado).",
+        ],
+      },
+      {
+        heading: "Lista específica si vas en coche compartido (ConcertRide)",
+        paragraphs: [
+          "Si llegas al festival en carpooling hay dos reglas de oro: confirma con el conductor el punto de encuentro y la hora exacta, y ten el dinero del viaje preparado en efectivo o Bizum antes de salir de casa.",
+          "Para el maletero compartido, acuerda de antemano cuántos bultos caben. Un coche estándar con 4 personas y acampada solo admite mochilas medianas (40–50 L) si el maletero se reparte entre todos.",
+        ],
+        bullets: [
+          "Precio del viaje en efectivo o Bizum listo (no le hagas esperar a que saques del cajero).",
+          "Punto de encuentro guardado en Google Maps sin conexión.",
+          "Número de teléfono del conductor guardado (el chat de ConcertRide funciona sin datos si tienes WiFi).",
+          "Mochila de maletero: no más de 40–50 L si vais 4 con acampada.",
+          "Mochila de cabina (la que llevas a tu lado en el coche): lo que necesitas los primeros 30 min en el recinto.",
+        ],
+      },
+    ],
+    faqs: [
+      {
+        q: "¿Qué ropa llevar a un festival de verano en España?",
+        a: "Para festivales de verano diurnos: camiseta, pantalón corto, zapatillas cómodas, gorra y protección solar. Para festivales nocturnos o de varios días añade una sudadera ligera y un chubasquero compacto — las noches en festivales de interior bajan hasta 12–15 °C incluso en julio.",
+      },
+      {
+        q: "¿Puedo llevar comida al festival?",
+        a: "Depende del festival. La mayoría permiten snacks envasados y sándwiches, pero no bebidas alcohólicas ni comida que requiera cocinar. Siempre es válido llevar barritas energéticas, fruta y bocadillos para ahorrarte en los puestos de comida.",
+      },
+      {
+        q: "¿Qué llevo si voy en coche compartido a un festival de acampada?",
+        a: "Acuerda con el conductor el espacio de maletero antes del día. Con 4 personas y acampada, lo práctico es una mochila grande (50–60 L) para el camping y una pequeña (10–20 L) para llevar al recinto. Ten el dinero del viaje preparado — efectivo o Bizum — para entregárselo al conductor al llegar.",
+      },
+      {
+        q: "¿Qué no puedo llevar a un festival?",
+        a: "Los objetos más frecuentemente prohibidos son: botellas de cristal, paraguas con varillas metálicas, latas (en algunos festivales), cámaras con objetivo desmontable, drones y sillas que bloqueen la visión de otros asistentes. Consulta siempre las normas específicas del festival antes de hacer la maleta.",
+      },
+    ],
+    relatedLinks: [
+      { label: "Cómo volver de un festival de madrugada", to: "/blog/como-volver-festival-madrugada" },
+      { label: "Guía de transporte para festivales en España", to: "/guia-transporte-festivales" },
+      { label: "Autobuses a festivales de España 2026", to: "/blog/autobuses-festivales-espana-2026" },
+      { label: "Carpooling a Mad Cool", to: "/festivales/mad-cool" },
+      { label: "Carpooling a Primavera Sound", to: "/festivales/primavera-sound" },
+      { label: "Carpooling a Arenal Sound", to: "/festivales/arenal-sound" },
+    ],
+    relatedPosts: ["como-volver-festival-madrugada", "autobuses-festivales-espana-2026"],
+  },
+
+  // ──────────────────────────────────────────────────────────────────────
+  {
+    slug: "festivales-musica-espana-2026",
+    title: "Festivales de música en España 2026: fechas, ciudades y cómo llegar",
+    h1: "Festivales de música en España 2026: la guía completa",
+    excerpt:
+      "Mad Cool, Primavera Sound, Sónar, FIB, BBK Live, Arenal Sound, Viña Rock y 40 festivales más. Fechas confirmadas, ciudad y recinto, precio de entrada aproximado y la mejor forma de llegar a cada uno sin pagar un taxi de 90 €.",
+    category: "guias",
+    tags: ["festivales 2026", "festivales España", "agenda festivales", "fechas", "Mad Cool", "Primavera Sound"],
+    publishedAt: "2026-05-01T10:00:00.000Z",
+    author: "Equipo ConcertRide",
+    readingMinutes: 10,
+    lede:
+      "El verano de 2026 tiene agenda. Repasamos los principales festivales de música en España, con fechas confirmadas, recinto, ciudad y las opciones reales de transporte para cada uno.",
+    sections: [
+      {
+        heading: "Mayo 2026: el inicio de la temporada",
+        paragraphs: [
+          "La temporada de festivales de verano arranca en mayo con dos grandes citas en Madrid y Barcelona:",
+        ],
+        bullets: [
+          "Viña Rock 2026 — 30 abril–3 mayo — Villarrobledo (Albacete). Festival de punk, metal y rock en La Pulgosa. Uno de los más veteranos de España, con entrada desde 35 €/día. Cómo llegar: carpooling desde Albacete (3–5 €), Madrid (6–9 €) o Valencia (6–9 €).",
+          "Tomavistas 2026 — 15–17 mayo — Madrid (Recinto Ferial de la Casa de Campo). Festival indie y pop en la Casa de Campo. Metro línea 10 (Lago) o coche compartido desde Toledo, Guadalajara o Segovia.",
+          "Primavera Sound 2026 — 28 mayo–1 junio — Barcelona (Parc del Fòrum). El festival de indie y alternativo más influyente de Europa. Metro L4 Besòs Mar + 10 min a pie. Carpooling desde Madrid (15–20 €), Valencia (10–14 €), Zaragoza (8–12 €).",
+        ],
+      },
+      {
+        heading: "Junio 2026: el mes más denso",
+        paragraphs: [
+          "Junio concentra los festivales de mayor componente electrónico y rock alternativo:",
+        ],
+        bullets: [
+          "Sónar 2026 — 18–20 junio — Barcelona (Fira de Barcelona + Fira Gran Via). Referencia mundial de música avanzada. Metro L1 Espanya (Sónar de Día) y L9 Fira (Sónar de Noche). Carpooling desde Madrid o Valencia desde 15 €.",
+          "O Son do Camiño 2026 — 18–20 junio — Santiago de Compostela (Monte do Gozo). Festival de rock e indie con lanzadera oficial desde el centro de Santiago.",
+          "Resurrection Fest 2026 — 25–28 junio — Viveiro (Lugo). El festival de metal más importante de España. Sin transporte público nocturno: el carpooling desde A Coruña (4–7 €), Oviedo (6–9 €), Bilbao (10–15 €) o Madrid (16–22 €) es prácticamente la única opción.",
+        ],
+      },
+      {
+        heading: "Julio 2026: el pico de la temporada",
+        paragraphs: [
+          "Julio es el mes con mayor concentración de grandes festivales. Muchos se solapan en fechas, lo que crea una demanda altísima de transporte:",
+        ],
+        bullets: [
+          "Mad Cool Festival 2026 — 9–11 julio — Madrid (IFEMA). Festival de rock e indie, 80.000 asistentes diarios. Metro L8 Feria de Madrid (con ampliación de horario). Carpooling desde Toledo (4–7 €), Barcelona (15–20 €), Valencia (10–14 €).",
+          "BBK Live 2026 — 9–11 julio — Bilbao (Kobetamendi). Lanzadera oficial desde Plaza Moyúa (incluida en entrada). Carpooling desde Madrid (12–16 €), Donostia (4–7 €), Pamplona (5–8 €).",
+          "FIB Benicàssim 2026 — 16–19 julio — Benicàssim (Castellón). Cercanías Renfe Castellón–Benicàssim (5 min) + lanzadera al recinto. Carpooling desde Valencia (4–6 €), Madrid (10–14 €).",
+          "Low Festival 2026 — 24–26 julio — Benidorm. TRAM L1 Alicante–Benidorm hasta medianoche. Carpooling desde Alicante (3–5 €), Valencia (5–8 €).",
+          "Arenal Sound 2026 — 29 julio–2 agosto — Burriana (Castellón). Sin tren al recinto. Lanzadera oficial desde Castellón ciudad. Carpooling desde Valencia (3–6 €), Barcelona (8–12 €), Madrid (12–17 €).",
+          "Cruïlla 2026 — 9–12 julio — Barcelona (Parc del Fòrum). Metro L4 El Maresme-Fòrum a 5 min. Buen transporte público.",
+        ],
+      },
+      {
+        heading: "Agosto 2026: festivales de largo recorrido",
+        paragraphs: [
+          "En agosto continúan los festivales de varios días con alta demanda de camping y transporte:",
+        ],
+        bullets: [
+          "Medusa Festival 2026 — 12–16 agosto — Cullera (Valencia). Lanzadera oficial desde Xàtiva y Joaquín Sorolla. Carpooling desde Valencia (3–5 €), Madrid (10–14 €).",
+          "Sonorama Ribera 2026 — 6–9 agosto — Aranda de Duero (Burgos). Bus ALSA Madrid–Aranda (10–15 €, no nocturno). Carpooling desde Madrid (6–9 €), Burgos (3–5 €), Zaragoza (7–10 €).",
+        ],
+      },
+      {
+        heading: "Octubre 2026: el final de temporada",
+        paragraphs: [
+          "La temporada cierra con Cala Mijas, uno de los festivales de mayor crecimiento reciente:",
+        ],
+        bullets: [
+          "Cala Mijas 2026 — 2–4 octubre — Mijas (Málaga). Sin transporte público al recinto. Taxi desde Málaga centro: 25–40 €. Carpooling desde Málaga (5–8 €), Sevilla (8–12 €), Granada (5–8 €).",
+        ],
+      },
+      {
+        heading: "Cómo organizar el transporte a los festivales de 2026",
+        paragraphs: [
+          "El transporte sigue siendo el mayor problema no resuelto de los festivales españoles. La mayoría de recintos están fuera del área metropolitana, los servicios nocturnos terminan antes del cabeza de cartel y los taxis cuestan entre 50 y 90 € en madrugada.",
+          "Las tres opciones reales, ordenadas por comodidad para volver de madrugada:",
+        ],
+        bullets: [
+          "Coche compartido (carpooling): llega y sale del recinto a cualquier hora. 3–22 € según distancia. Reserva con 2–4 semanas de antelación para festivales grandes.",
+          "Lanzadera oficial del festival: disponible en BBK Live (gratuita), Medusa, FIB, O Son do Camiño. Sale a horas fijas, puede tener cola de 30–60 min en las salidas.",
+          "Transporte público: solo práctico en festivales con metro o cercanías (Sónar, Primavera Sound, Cruïlla, Low Festival). Falla en las madrugadas para el 80 % de los festivales.",
+        ],
+      },
+    ],
+    faqs: [
+      {
+        q: "¿Cuándo es el Primavera Sound 2026?",
+        a: "Primavera Sound 2026 se celebra del 28 de mayo al 1 de junio en el Parc del Fòrum de Barcelona. La edición de 2026 mantiene el formato de 5 días con escenarios en el recinto del mar.",
+      },
+      {
+        q: "¿Cuándo es el Mad Cool 2026?",
+        a: "Mad Cool Festival 2026 está previsto para el 9, 10 y 11 de julio en IFEMA Madrid. El acceso es por metro línea 8 (estación Feria de Madrid) o carpooling.",
+      },
+      {
+        q: "¿Cuál es el festival de música más grande de España?",
+        a: "Mad Cool Festival y Primavera Sound son los festivales más grandes de España en aforo, con 70.000–80.000 asistentes diarios. BBK Live, FIB y Arenal Sound siguen con 50.000–60.000. Resurrection Fest es el de mayor reputación internacional en el circuito de metal.",
+      },
+      {
+        q: "¿Cómo llegar a los festivales de España sin coche propio?",
+        a: "Las opciones varían por festival. Para recintos dentro de ciudades (Sónar, Cruïlla, Low Festival) el metro o TRAM llega al recinto. Para los que están fuera de la ciudad (Viña Rock, Resurrection Fest, Sonorama, Cala Mijas) el coche compartido con ConcertRide es la opción más flexible y económica (3–22 € según distancia).",
+      },
+      {
+        q: "¿Hay festivales de música en España en otoño?",
+        a: "Sí. Cala Mijas (octubre, Málaga) es el más destacado del calendario de otoño de 2026. Otros festivales de formato sala o pequeño aforo en Madrid y Barcelona también tienen agenda de otoño, aunque no son al aire libre.",
+      },
+    ],
+    relatedLinks: [
+      { label: "Carpooling al Mad Cool Festival", to: "/festivales/mad-cool" },
+      { label: "Carpooling al Primavera Sound", to: "/festivales/primavera-sound" },
+      { label: "Carpooling al BBK Live Bilbao", to: "/festivales/bbk-live" },
+      { label: "Carpooling al Arenal Sound", to: "/festivales/arenal-sound" },
+      { label: "Carpooling al Resurrection Fest", to: "/festivales/resurrection-fest" },
+      { label: "Guía de transporte para festivales", to: "/guia-transporte-festivales" },
+      { label: "Autobuses a festivales España 2026", to: "/blog/autobuses-festivales-espana-2026" },
+    ],
+    relatedPosts: ["autobuses-festivales-espana-2026", "que-llevar-al-festival"],
+  },
 ];
 
 export const BLOG_POSTS_BY_SLUG: Record<string, BlogPost> = Object.fromEntries(

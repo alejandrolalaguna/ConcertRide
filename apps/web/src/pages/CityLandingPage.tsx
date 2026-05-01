@@ -76,6 +76,14 @@ export default function CityLandingPage() {
         q: `¿Cuánto cuesta el carpooling para ir a un concierto en ${landing.display}?`,
         a: `El precio del coche compartido a ${landing.display} depende de la distancia: entre 3 y 8 € por asiento para trayectos de menos de 200 km y entre 10 y 20 € para distancias más largas (Madrid, Barcelona). En ConcertRide el conductor cobra solo el coste de combustible y peajes, sin comisión de plataforma. El pago es en efectivo o Bizum el día del viaje.`,
       },
+      {
+        q: `¿Hay parking gratuito en los recintos de conciertos en ${landing.display}?`,
+        a: `La mayoría de grandes recintos en ${landing.display} (palacios de deportes, estadios, ferias de exposiciones) tienen parking propio de pago, con precios de 5–15 € por noche. Los recintos en el centro suelen carecer de parking propio y requieren aparcar en la calle o en aparcamientos públicos cercanos. Venir en coche compartido con ConcertRide evita el coste y el estrés del parking: el conductor lleva el coche y los pasajeros se dividen los gastos.`,
+      },
+      {
+        q: `¿Es seguro el coche compartido para ir a conciertos en ${landing.display}?`,
+        a: `Sí. En ConcertRide todos los conductores verifican su carnet de conducir antes de publicar un viaje. Puedes ver el perfil completo del conductor, sus valoraciones de otros pasajeros y comunicarte por chat antes del viaje. El pago siempre es en persona el día del evento — nunca adelantas dinero online. El modelo de gastos compartidos sin comisión está reconocido como legal en España por el Tribunal Supremo (caso BlaBlaCar, 2017).`,
+      },
     ];
   }, [landing, year, nextYear]);
 

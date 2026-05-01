@@ -35,7 +35,27 @@ export default function FestivalLandingPage() {
     ogImage: festivalOgImage,
     ogType: "music.event",
     keywords: festival
-      ? `cómo ir a ${festival.shortName}, cómo llegar a ${festival.shortName}, transporte ${festival.shortName}, carpooling ${festival.name}, coche compartido ${festival.shortName}, ${festival.shortName} ${festival.city}, viaje compartido ${festival.shortName} 2026, compartir coche ${festival.shortName}, alternativa taxi ${festival.shortName}, ir a ${festival.shortName} sin coche, precio carpooling ${festival.shortName}`
+      ? [
+          `cómo ir a ${festival.shortName}`,
+          `cómo llegar a ${festival.shortName}`,
+          `transporte ${festival.shortName}`,
+          `carpooling ${festival.name}`,
+          `coche compartido ${festival.shortName}`,
+          `${festival.shortName} ${festival.city}`,
+          `viaje compartido ${festival.shortName} ${new Date().getFullYear()}`,
+          `compartir coche ${festival.shortName}`,
+          `alternativa taxi ${festival.shortName}`,
+          `ir a ${festival.shortName} sin coche`,
+          `precio carpooling ${festival.shortName}`,
+          `autobús ${festival.shortName}`,
+          `bus ${festival.shortName}`,
+          `lanzadera ${festival.shortName}`,
+          `como llegar ${festival.shortName} ${new Date().getFullYear()}`,
+          `transporte ${festival.shortName} ${festival.city}`,
+          `${festival.shortName} transporte público`,
+          `viaje ${festival.shortName} desde ${festival.originCities[0]?.city ?? "Madrid"}`,
+          `carpooling ${festival.city} ${festival.shortName}`,
+        ].join(", ")
       : undefined,
   });
 

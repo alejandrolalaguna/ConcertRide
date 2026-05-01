@@ -132,48 +132,119 @@ function buildStaticRoutes(base: string): Record<string, { title: string; descri
 <p>La mayoría de festivales terminan entre la 1:00 y las 4:00. El metro de Madrid cierra a la 1:30, el de Barcelona a las 2:00. Los autobuses nocturnos (búhos en Madrid, nitbus en Barcelona) no llegan a los recintos de festival. Los taxis y VTC multiplican el precio x2–x3 en noches de alta demanda. Con ConcertRide, acuerdas la hora de vuelta con el conductor antes del festival: salís juntos cuando acabe el último bolo.</p>`,
     },
     "/como-funciona": {
-      title: `Cómo funciona el carpooling para conciertos — ${SITE_NAME}`,
-      description: "Publica o reserva un viaje compartido a un concierto en 2 minutos. Sin comisión, conductores verificados, pago directo al conductor.",
+      title: `Cómo funciona el carpooling para conciertos y festivales — ${SITE_NAME}`,
+      description: "Publica o reserva un viaje compartido a un concierto en 2 minutos. Sin comisión, conductores verificados con carnet, pago directo en efectivo o Bizum.",
       canonical: `${base}/como-funciona`,
       h1: "Cómo funciona el carpooling para conciertos",
-      body: `<p>ConcertRide conecta conductores y pasajeros que van al mismo concierto o festival. El proceso es simple, gratis y sin comisiones.</p>
-<h2>Para pasajeros</h2>
+      body: (() => {
+        const howToPassengerJsonLd = JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "HowTo",
+          name: "Cómo reservar un viaje compartido a un concierto en ConcertRide",
+          description: "Reserva un asiento en un coche compartido para ir a un concierto o festival en España. Gratis, sin comisión.",
+          totalTime: "PT2M",
+          step: [
+            { "@type": "HowToStep", position: 1, name: "Busca tu concierto", text: "Entra en concertride.me y busca el festival o concierto al que quieres ir.", url: `${base}/concerts` },
+            { "@type": "HowToStep", position: 2, name: "Elige un viaje", text: "Filtra por ciudad de origen, precio por asiento y hora de salida. Lee el perfil del conductor y sus valoraciones." },
+            { "@type": "HowToStep", position: 3, name: "Solicita tu plaza", text: "Pulsa 'Solicitar plaza'. Si el conductor tiene reserva instantánea, se confirma al momento. Si no, espera su respuesta por chat." },
+            { "@type": "HowToStep", position: 4, name: "Paga el día del viaje", text: "El día del evento, te reúnes con el conductor en el punto acordado y pagas en efectivo o Bizum. ConcertRide no gestiona pagos ni cobra comisión." },
+          ],
+        });
+        const howToDriverJsonLd = JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "HowTo",
+          name: "Cómo publicar un viaje a un concierto en ConcertRide",
+          description: "Ofrece plazas en tu coche para un concierto o festival y comparte gastos de combustible con otros fans. Gratis.",
+          totalTime: "PT3M",
+          step: [
+            { "@type": "HowToStep", position: 1, name: "Crea una cuenta y verifica tu carnet", text: "Regístrate en concertride.me y sube una foto de tu carnet de conducir para que otros pasajeros confíen en ti.", url: `${base}/register` },
+            { "@type": "HowToStep", position: 2, name: "Publica un viaje", text: "Elige el concierto, indica el punto de recogida, el número de plazas disponibles y el precio por asiento (solo combustible y peajes)." },
+            { "@type": "HowToStep", position: 3, name: "Acepta solicitudes", text: "Revisa los perfiles de los solicitantes y acepta los que quieras. O activa reserva instantánea para confirmar automáticamente." },
+            { "@type": "HowToStep", position: 4, name: "Cobra el día del viaje", text: "El día del concierto, los pasajeros te pagan en efectivo o Bizum. ConcertRide no cobra comisión — el 100 % es para ti." },
+          ],
+        });
+        const faqJsonLd = JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "FAQPage",
+          inLanguage: "es-ES",
+          mainEntity: [
+            { "@type": "Question", name: "¿Es legal el carpooling sin licencia VTC?", acceptedAnswer: { "@type": "Answer", text: "Sí. Operar bajo la figura de gastos compartidos sin beneficio económico está reconocido como legal por el Tribunal Supremo español (sentencia 2017, caso BlaBlaCar). El conductor solo puede cobrar su parte proporcional del combustible y peajes." } },
+            { "@type": "Question", name: "¿ConcertRide cobra comisión?", acceptedAnswer: { "@type": "Answer", text: "No. Registrarse, buscar y publicar viajes es completamente gratuito. El 100 % del precio del asiento va al conductor." } },
+            { "@type": "Question", name: "¿Cómo se paga en ConcertRide?", acceptedAnswer: { "@type": "Answer", text: "El pago es en efectivo o Bizum directamente al conductor el día del viaje. ConcertRide no gestiona pagos ni retiene dinero." } },
+            { "@type": "Question", name: "¿Puedo reservar el viaje de vuelta también?", acceptedAnswer: { "@type": "Answer", text: "Sí. Muchos conductores publican el viaje de ida y vuelta al mismo tiempo. Filtra por 'con regreso incluido' al buscar." } },
+          ],
+        });
+        return `<script type="application/ld+json">${howToPassengerJsonLd}</script>
+<script type="application/ld+json">${howToDriverJsonLd}</script>
+<script type="application/ld+json">${faqJsonLd}</script>
+<p>ConcertRide conecta conductores y pasajeros que van al mismo concierto o festival en España. El proceso es simple, gratis y sin comisiones.</p>
+<h2>Para pasajeros — cómo reservar un viaje compartido a un concierto</h2>
 <ol>
-  <li>Busca tu concierto en ConcertRide.</li>
-  <li>Elige un viaje por precio, hora de salida y perfil del conductor.</li>
-  <li>Solicita tu plaza. Con reserva instantánea se confirma al momento.</li>
-  <li>El día del evento, te reúnes con el conductor y pagas en efectivo o Bizum.</li>
+  <li><strong>Busca tu concierto</strong> en <a href="${base}/concerts">concertride.me/concerts</a>.</li>
+  <li><strong>Elige un viaje</strong> por precio, hora de salida y perfil del conductor.</li>
+  <li><strong>Solicita tu plaza</strong>. Con reserva instantánea se confirma al momento.</li>
+  <li><strong>Paga el día del evento</strong> en efectivo o Bizum directamente al conductor.</li>
 </ol>
-<h2>Para conductores</h2>
+<h2>Para conductores — cómo publicar un viaje al concierto</h2>
 <ol>
-  <li>Crea una cuenta y verifica tu carnet de conducir.</li>
-  <li>Publica un viaje: elige el concierto, el punto de salida, las plazas y el precio.</li>
-  <li>Acepta solicitudes (o activa reserva instantánea para confirmación automática).</li>
-  <li>Cobra directamente a los pasajeros el día del viaje. ConcertRide no cobra comisión.</li>
+  <li><strong>Crea una cuenta</strong> y verifica tu carnet de conducir.</li>
+  <li><strong>Publica un viaje</strong>: elige el concierto, el punto de salida, las plazas y el precio por asiento.</li>
+  <li><strong>Acepta solicitudes</strong> o activa reserva instantánea para confirmación automática.</li>
+  <li><strong>Cobra directamente</strong> a los pasajeros el día del viaje. ConcertRide no cobra comisión.</li>
 </ol>
 <h2>Preguntas frecuentes</h2>
 <dl>
   <dt>¿Es legal el carpooling sin licencia VTC?</dt>
-  <dd>Sí. Operar bajo la figura de gastos compartidos sin beneficio económico está reconocido por el Tribunal Supremo español (sentencia 2017, caso BlaBlaCar).</dd>
+  <dd>Sí. Operar bajo la figura de gastos compartidos sin beneficio económico está reconocido por el Tribunal Supremo español (sentencia 2017, caso BlaBlaCar). El conductor solo cubre combustible y peajes.</dd>
   <dt>¿ConcertRide cobra comisión?</dt>
   <dd>No. Registrarse, buscar y publicar viajes es completamente gratuito. El 100 % del precio del asiento va al conductor.</dd>
-</dl>`,
+  <dt>¿Cómo se paga?</dt>
+  <dd>El pago es en efectivo o Bizum directamente al conductor el día del viaje. ConcertRide no gestiona pagos ni retiene dinero.</dd>
+  <dt>¿Puedo reservar la vuelta también?</dt>
+  <dd>Sí. Muchos conductores publican el viaje de ida y vuelta. Filtra por "con regreso incluido" al buscar.</dd>
+</dl>
+<p><a href="${base}/concerts">Buscar conciertos con carpooling disponible →</a></p>
+<p><a href="${base}/publish">Publicar un viaje a un concierto →</a></p>`;
+      })(),
     },
     "/faq": {
-      title: `Preguntas frecuentes sobre carpooling a conciertos — ${SITE_NAME}`,
-      description: "Respuestas a las preguntas más frecuentes sobre ConcertRide: seguridad, pagos, cancelaciones y más.",
+      title: `Preguntas frecuentes sobre carpooling a conciertos y festivales — ${SITE_NAME}`,
+      description: "Respuestas a las 12 preguntas más frecuentes sobre ConcertRide: seguridad, pagos, cancelaciones, legalidad y diferencias con BlaBlaCar.",
       canonical: `${base}/faq`,
-      h1: "Preguntas frecuentes — ConcertRide",
-      body: `<dl>
-  <dt>¿Es seguro compartir coche con desconocidos para ir a un concierto?</dt>
-  <dd>Todos los conductores verifican su carnet de conducir antes de publicar. Puedes ver las valoraciones de otros pasajeros antes de reservar.</dd>
-  <dt>¿Cómo se paga en ConcertRide?</dt>
-  <dd>El pago es en efectivo o Bizum directamente al conductor el día del viaje. ConcertRide no gestiona pagos ni cobra comisión.</dd>
-  <dt>¿Qué pasa si el conductor cancela?</dt>
-  <dd>El conductor avisa por el chat de la plataforma. Puedes buscar otro viaje o publicar tú mismo una solicitud.</dd>
-  <dt>¿Puedo reservar la vuelta también?</dt>
-  <dd>Sí. Muchos conductores publican el viaje de ida y vuelta juntos. Filtra por "con regreso incluido" al buscar.</dd>
-</dl>`,
+      h1: "Preguntas frecuentes — ConcertRide carpooling para conciertos",
+      body: (() => {
+        const faqs = [
+          { q: "¿Es seguro compartir coche con desconocidos para ir a un concierto?", a: "Todos los conductores verifican su carnet de conducir antes de publicar viajes. Puedes ver el perfil completo, las valoraciones de otros pasajeros y comunicarte por chat antes del viaje. El pago es siempre en persona." },
+          { q: "¿Cómo se paga en ConcertRide?", a: "El pago es en efectivo o Bizum directamente al conductor el día del viaje. ConcertRide no gestiona pagos ni cobra comisión." },
+          { q: "¿Qué pasa si el conductor cancela?", a: "El conductor avisa por el chat de la plataforma. Puedes buscar otro viaje disponible al mismo concierto o publicar tú mismo una solicitud de carpooling." },
+          { q: "¿Puedo reservar la vuelta también?", a: "Sí. Muchos conductores publican el viaje de ida y vuelta juntos. Filtra por 'con regreso incluido' al buscar." },
+          { q: "¿ConcertRide cobra comisión?", a: "No. Registrarse, buscar y publicar viajes es completamente gratuito. El 100 % del precio del asiento va directamente al conductor." },
+          { q: "¿Es legal el carpooling a festivales?", a: "Sí. El carpooling bajo la figura de gastos compartidos está reconocido como legal por el Tribunal Supremo español (caso BlaBlaCar, 2017). El conductor solo puede cubrir el coste del combustible y peajes — no puede obtener beneficio económico." },
+          { q: "¿Cuánto cuesta compartir coche a un festival?", a: "El precio lo fija el conductor para cubrir combustible y peajes. Los rangos orientativos son: 3–8 €/asiento para trayectos cortos (menos de 200 km) y 10–22 €/asiento para larga distancia. Consulta las páginas de cada festival para ver precios por ciudad de origen." },
+          { q: "¿Puedo ir a un concierto solo con ConcertRide?", a: "Sí. Puedes reservar una sola plaza en el coche de un conductor que ya va al mismo concierto. No hace falta ir en grupo." },
+          { q: "¿Qué diferencia hay entre ConcertRide y BlaBlaCar?", a: "ConcertRide está especializado en conciertos y festivales: cada viaje está vinculado a un evento concreto, el horario de vuelta está alineado con el fin del show y no hay comisión. BlaBlaCar es una plataforma generalista que cobra entre el 15 y el 20 % de comisión por cada viaje." },
+          { q: "¿Cómo verifico que el conductor es de confianza?", a: "Antes de publicar su primer viaje, cada conductor sube una foto de su carnet de conducir. Puedes ver el perfil, las valoraciones de otros pasajeros y el chat del evento antes de confirmar la reserva." },
+          { q: "¿Puedo publicar un viaje si tengo carnet de conducir pero no soy titular del coche?", a: "Sí, siempre que tengas permiso del titular y el seguro del vehículo cubra el uso por terceros (seguro a terceros completo)." },
+          { q: "¿Qué pasa si llego tarde al punto de encuentro?", a: "El conductor espera un tiempo prudencial. Si vas a llegar tarde, avísale por el chat de ConcertRide con tiempo suficiente para no perder el viaje." },
+        ];
+        const faqJsonLd = JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "FAQPage",
+          inLanguage: "es-ES",
+          mainEntity: faqs.map((f) => ({
+            "@type": "Question",
+            name: f.q,
+            acceptedAnswer: { "@type": "Answer", text: f.a },
+          })),
+        });
+        const items = faqs.map((f) => `<dt>${esc(f.q)}</dt>\n  <dd>${esc(f.a)}</dd>`).join("\n  ");
+        return `<script type="application/ld+json">${faqJsonLd}</script>
+<dl>
+  ${items}
+</dl>
+<p><a href="${base}/como-funciona">Cómo funciona ConcertRide →</a></p>
+<p><a href="${base}/concerts">Buscar conciertos con carpooling →</a></p>`;
+      })(),
     },
     "/publish": {
       title: `Publicar un viaje a un concierto — ${SITE_NAME}`,
@@ -718,6 +789,22 @@ const BLOG_POSTS: Record<string, BlogData> = {
     h1: "Huella de carbono y festivales: lo que el carpooling cambia de verdad",
     intro: "El 80% de la huella de carbono de un festival grande viene del transporte de los asistentes — no del escenario, no de los grupos, no de los vasos. Del coche que cada fan usa para llegar.",
   },
+  "que-llevar-al-festival": {
+    title: "Qué llevar al festival: lista completa 2026 (para los que van en coche)",
+    excerpt: "Lista completa de qué meter en la mochila para un festival de uno, dos o varios días: equipaje, ropa, documentación y lo imprescindible si vas en coche compartido.",
+    author: "Equipo ConcertRide",
+    publishedAt: "2026-05-01",
+    h1: "Qué llevar al festival: la lista definitiva para 2026",
+    intro: "La diferencia entre un festival que recuerdas con cariño y uno que recuerdas con ampollas suele estar en la mochila. Aquí tienes la lista honesta — sin los 20 objetos que no vas a usar.",
+  },
+  "festivales-musica-espana-2026": {
+    title: "Festivales de música en España 2026: fechas, ciudades y cómo llegar",
+    excerpt: "Mad Cool, Primavera Sound, Sónar, FIB, BBK Live, Arenal Sound, Viña Rock y más. Fechas confirmadas, ciudad, recinto y cómo llegar a cada uno sin taxi.",
+    author: "Equipo ConcertRide",
+    publishedAt: "2026-05-01",
+    h1: "Festivales de música en España 2026: la guía completa",
+    intro: "El verano de 2026 tiene agenda. Mad Cool, Primavera Sound, Sónar, FIB, BBK Live y más. Repasamos los principales festivales de música en España con fechas confirmadas, recinto y opciones de transporte.",
+  },
 };
 
 // ── Route landing data ──────────────────────────────────────────────────────
@@ -838,6 +925,43 @@ function festivalBody(slug: string, f: FestivalData, base: string): string {
 function cityBody(slug: string, c: CityData, base: string): string {
   const venueItems = c.venues.map((v) => `<li>${esc(v)}</li>`).join("\n  ");
 
+  const year = new Date().getFullYear();
+  const nextYear = year + 1;
+
+  const cityFaqs = [
+    {
+      q: `¿Qué conciertos hay en ${c.name} en ${year} y ${nextYear}?`,
+      a: `Los principales recintos de ${c.name} para conciertos son: ${c.venues.slice(0, 3).join(", ")}${c.venues.length > 3 ? " y otros" : ""}. La agenda cubre giras nacionales e internacionales de pop, rock, indie y electrónica. Consulta la lista actualizada en concertride.me/conciertos/${slug}.`,
+    },
+    {
+      q: `¿Cómo ir a un concierto en ${c.name} en coche compartido?`,
+      a: `Con ConcertRide puedes buscar viajes compartidos a conciertos en ${c.name} desde cualquier ciudad de España. Elige por precio, ciudad de origen y perfil del conductor. El pago es en efectivo o Bizum directamente al conductor el día del viaje. Sin comisión.`,
+    },
+    {
+      q: `¿Cuánto cuesta el carpooling a ${c.name}?`,
+      a: `El precio del coche compartido a ${c.name} varía según la distancia: entre 3 y 8 €/asiento para trayectos cortos (menos de 200 km) y entre 10 y 20 € para larga distancia. El conductor fija el precio para cubrir combustible y peajes, sin comisión de plataforma.`,
+    },
+    {
+      q: `¿Es seguro el carpooling para ir a conciertos en ${c.name}?`,
+      a: `Sí. En ConcertRide todos los conductores verifican su carnet de conducir antes de publicar viajes. Puedes ver el perfil, las valoraciones y comunicarte por chat antes del evento. El pago es en persona — nunca adelantas dinero.`,
+    },
+  ];
+
+  const faqItems = cityFaqs
+    .map((f) => `<dt>${esc(f.q)}</dt>\n  <dd>${esc(f.a)}</dd>`)
+    .join("\n  ");
+
+  const faqJsonLd = JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    inLanguage: "es-ES",
+    mainEntity: cityFaqs.map((f) => ({
+      "@type": "Question",
+      name: f.q,
+      acceptedAnswer: { "@type": "Answer", text: f.a },
+    })),
+  });
+
   const breadcrumbJsonLd = JSON.stringify({
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
@@ -848,7 +972,24 @@ function cityBody(slug: string, c: CityData, base: string): string {
     ],
   });
 
+  const collectionJsonLd = JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "CollectionPage",
+    name: `Conciertos en ${c.name} ${year}–${nextYear}`,
+    description: c.blurb,
+    url: `${base}/conciertos/${slug}`,
+    inLanguage: "es-ES",
+    about: {
+      "@type": "Place",
+      name: c.name,
+      address: { "@type": "PostalAddress", addressLocality: c.name, addressRegion: c.region, addressCountry: "ES" },
+    },
+    isPartOf: { "@type": "WebSite", "@id": `${base}/#website`, name: "ConcertRide ES", url: base },
+  });
+
   return `<script type="application/ld+json">${breadcrumbJsonLd}</script>
+<script type="application/ld+json">${collectionJsonLd}</script>
+<script type="application/ld+json">${faqJsonLd}</script>
 <nav aria-label="Breadcrumb"><a href="${base}/">Inicio</a> / <a href="${base}/concerts">Conciertos</a> / <span>${esc(c.name)}</span></nav>
 <p>${esc(c.blurb)}</p>
 <h2>Recintos y festivales en ${esc(c.name)}</h2>
@@ -857,11 +998,16 @@ function cityBody(slug: string, c: CityData, base: string): string {
 </ul>
 <h2>Cómo ir a un concierto en ${esc(c.name)} con ConcertRide</h2>
 <ol>
-  <li>Busca el concierto al que vas en esta página.</li>
-  <li>Elige un viaje por precio por asiento, ciudad de origen y perfil del conductor.</li>
-  <li>Reserva tu plaza. Pagas en efectivo o Bizum directamente al conductor el día del viaje.</li>
+  <li>Busca el concierto al que vas en concertride.me/conciertos/${esc(slug)}.</li>
+  <li>Elige un viaje por precio, ciudad de origen y perfil del conductor.</li>
+  <li>Reserva tu plaza. Pagas en efectivo o Bizum directamente al conductor el día del viaje. Sin comisión.</li>
 </ol>
-<p><a href="${base}/concerts">Ver todos los conciertos en España →</a></p>`;
+<h2>Preguntas frecuentes — conciertos en ${esc(c.name)}</h2>
+<dl>
+  ${faqItems}
+</dl>
+<p><a href="${base}/concerts">Ver todos los conciertos en España →</a></p>
+<p><a href="${base}/festivales">Ver festivales con carpooling disponible →</a></p>`;
 }
 
 function blogBody(slug: string, p: BlogData, base: string): string {
@@ -896,36 +1042,99 @@ function blogBody(slug: string, p: BlogData, base: string): string {
 }
 
 function routeBody(slug: string, r: RouteData, base: string): string {
+  const festivalSlug = slug.replace(
+    new RegExp(`^${r.originCity.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "")}-`),
+    "",
+  );
+
+  const routeFaqs = [
+    {
+      q: `¿Cuánto cuesta el carpooling de ${r.originCity} a ${r.festivalShortName}?`,
+      a: `El precio por asiento de ${r.originCity} a ${r.festivalShortName} parte desde ${r.priceFrom} €. El conductor fija el precio para cubrir combustible y peajes — sin comisión de ConcertRide. El pago es en efectivo o Bizum el día del viaje.`,
+    },
+    {
+      q: `¿Cuánto se tarda en coche de ${r.originCity} a ${r.festivalShortName}?`,
+      a: `La distancia de ${r.originCity} a ${r.festivalCity} es de ${r.distance} km. El tiempo estimado de conducción es de ${r.drivingTime} sin paradas.`,
+    },
+    {
+      q: `¿Hay carpooling de vuelta desde ${r.festivalShortName} a ${r.originCity}?`,
+      a: `Sí. La mayoría de conductores publican el viaje de ida y vuelta. Busca en ConcertRide filtrando por "${r.festivalCity}" para ver los viajes con hora de salida del festival.`,
+    },
+    {
+      q: `¿Es seguro el carpooling ${r.originCity}–${r.festivalShortName}?`,
+      a: `Todos los conductores verifican su carnet antes de publicar. Puedes ver el perfil, valoraciones y chatear antes del viaje. El pago es en persona — nunca adelantas dinero.`,
+    },
+  ];
+
+  const faqItems = routeFaqs.map((f) => `<dt>${esc(f.q)}</dt>\n  <dd>${esc(f.a)}</dd>`).join("\n  ");
+
+  const faqJsonLd = JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    inLanguage: "es-ES",
+    mainEntity: routeFaqs.map((f) => ({
+      "@type": "Question",
+      name: f.q,
+      acceptedAnswer: { "@type": "Answer", text: f.a },
+    })),
+  });
+
+  const tripJsonLd = JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "TouristTrip",
+    name: `Carpooling de ${r.originCity} a ${r.festivalName}`,
+    description: `Viaje compartido de ${r.originCity} a ${r.festivalName} (${r.festivalCity}). ${r.distance} km, ${r.drivingTime}, desde ${r.priceFrom} €/asiento. Sin comisión.`,
+    url: `${base}/rutas/${slug}`,
+    touristType: "Aficionados a la música",
+    itinerary: [
+      { "@type": "Place", name: r.originCity, address: { "@type": "PostalAddress", addressLocality: r.originCity, addressCountry: "ES" } },
+      { "@type": "Place", name: r.festivalName, address: { "@type": "PostalAddress", addressLocality: r.festivalCity, addressCountry: "ES" } },
+    ],
+    offers: {
+      "@type": "Offer",
+      price: r.priceFrom,
+      priceCurrency: "EUR",
+      availability: "https://schema.org/InStock",
+      url: `${base}/rutas/${slug}`,
+    },
+  });
+
   const breadcrumbJsonLd = JSON.stringify({
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
     itemListElement: [
       { "@type": "ListItem", position: 1, name: "Inicio", item: `${base}/` },
-      { "@type": "ListItem", position: 2, name: "Festivales", item: `${base}/festivales` },
+      { "@type": "ListItem", position: 2, name: "Rutas", item: `${base}/rutas` },
       { "@type": "ListItem", position: 3, name: `${r.originCity} → ${r.festivalShortName}`, item: `${base}/rutas/${slug}` },
     ],
   });
 
-  const festivalSlug = slug.replace(`${slug.split("-")[0]}-`, "").replace(new RegExp(`^${r.originCity.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "")}-`), "");
-
   return `<script type="application/ld+json">${breadcrumbJsonLd}</script>
-<nav aria-label="Breadcrumb"><a href="${base}/">Inicio</a> / <a href="${base}/festivales">Festivales</a> / <span>${esc(r.originCity)} → ${esc(r.festivalShortName)}</span></nav>
+<script type="application/ld+json">${tripJsonLd}</script>
+<script type="application/ld+json">${faqJsonLd}</script>
+<nav aria-label="Breadcrumb"><a href="${base}/">Inicio</a> / <a href="${base}/rutas">Rutas</a> / <span>${esc(r.originCity)} → ${esc(r.festivalShortName)}</span></nav>
 <p>Viaje compartido de ${esc(r.originCity)} a ${esc(r.festivalName)} en ${esc(r.festivalCity)}. ${r.distance} km · ${esc(r.drivingTime)} · desde ${r.priceFrom} €/asiento con ConcertRide.</p>
-<h2>Detalles del trayecto</h2>
+<h2>Detalles del trayecto ${esc(r.originCity)} → ${esc(r.festivalShortName)}</h2>
 <ul>
   <li><strong>Origen:</strong> ${esc(r.originCity)}</li>
   <li><strong>Destino:</strong> ${esc(r.festivalName)} — ${esc(r.festivalCity)}</li>
   <li><strong>Distancia:</strong> ${r.distance} km</li>
   <li><strong>Tiempo estimado:</strong> ${esc(r.drivingTime)}</li>
-  <li><strong>Precio orientativo:</strong> desde ${r.priceFrom} €/asiento (sin comisión)</li>
+  <li><strong>Precio desde:</strong> ${r.priceFrom} €/asiento (sin comisión)</li>
 </ul>
-<h2>Por qué ir con ConcertRide</h2>
+<h2>Por qué ir a ${esc(r.festivalShortName)} con ConcertRide</h2>
 <ul>
-  <li>Sin comisión — el 100% del precio va al conductor.</li>
-  <li>Conductores verificados con carnet comprobado.</li>
-  <li>Pago en efectivo o Bizum directamente al conductor el día del viaje.</li>
+  <li><strong>Sin comisión</strong> — el 100% del precio va al conductor.</li>
+  <li><strong>Conductores verificados</strong> — carnet comprobado y valoraciones de pasajeros.</li>
+  <li><strong>Vuelta del festival</strong> — acuerda la hora de regreso con el conductor antes de salir.</li>
+  <li><strong>Pago en persona</strong> — efectivo o Bizum el día del viaje.</li>
 </ul>
-<p><a href="${base}/festivales/${festivalSlug}">Ver todos los viajes a ${esc(r.festivalShortName)} →</a></p>`;
+<h2>Preguntas frecuentes — carpooling ${esc(r.originCity)} a ${esc(r.festivalShortName)}</h2>
+<dl>
+  ${faqItems}
+</dl>
+<p><a href="${base}/festivales/${festivalSlug}">Ver todos los viajes a ${esc(r.festivalShortName)} →</a></p>
+<p><a href="${base}/rutas">Ver todas las rutas de carpooling →</a></p>`;
 }
 
 // ── Meta + body resolver ────────────────────────────────────────────────────
@@ -966,11 +1175,12 @@ function resolvePageData(pathname: string, base: string): PageData | null {
     if (!f) return null;
     const yearMatch = f.dates.match(/\d{4}/);
     const year = yearMatch ? yearMatch[0] : "2026";
+    const originList = f.originCities.slice(0, 3).map((o) => `${o.city} (${o.range})`).join(", ");
     return {
-      title: `Carpooling al ${f.shortName} ${year} — Cómo ir desde toda España | ${SITE_NAME}`,
-      description: `Comparte coche a ${f.name} (${f.venue}, ${f.city}) ${f.dates}. Desde ${f.priceFrom} €/asiento. Sin taxi, sin comisión. Conductores verificados.`,
+      title: `Cómo ir a ${f.shortName} ${year} en carpooling — desde ${f.priceFrom} € | ${SITE_NAME}`,
+      description: `Carpooling a ${f.name} (${f.city}, ${f.dates}). Desde ${originList}. Sin taxi, sin comisión. Conductores verificados con carnet.`,
       canonical: `${base}/festivales/${slug}`,
-      h1: `Cómo ir a ${f.shortName} en coche compartido — ${year}`,
+      h1: `Cómo ir a ${f.shortName} ${year} en coche compartido`,
       body: festivalBody(slug, f, base),
     };
   }
@@ -981,11 +1191,13 @@ function resolvePageData(pathname: string, base: string): PageData | null {
     const slug = cityMatch[1] ?? "";
     const c = CITIES[slug];
     if (!c) return null;
+    const year = new Date().getFullYear();
+    const nextYear = year + 1;
     return {
-      title: `Conciertos en ${c.name} 2026 — Carpooling sin comisiones | ${SITE_NAME}`,
-      description: `Carpooling a conciertos y festivales en ${c.name} (${c.region}). Encuentra o publica un viaje compartido gratis. Sin comisiones, conductores verificados.`,
+      title: `Conciertos en ${c.name} ${year}–${nextYear} — Carpooling sin comisión | ${SITE_NAME}`,
+      description: `Próximos conciertos en ${c.name} (${c.region}): ${c.venues.slice(0, 2).join(", ")} y más. Carpooling desde cualquier ciudad de España, sin taxi ni comisión. Conductores verificados.`,
       canonical: `${base}/conciertos/${slug}`,
-      h1: `Conciertos en ${c.name} — Carpooling disponible`,
+      h1: `Conciertos en ${c.name} ${year} — Carpooling disponible`,
       body: cityBody(slug, c, base),
     };
   }
@@ -1015,10 +1227,10 @@ function resolvePageData(pathname: string, base: string): PageData | null {
     const r = ROUTES[slug];
     if (!r) return null;
     return {
-      title: `Carpooling ${r.originCity} → ${r.festivalShortName} 2026 — Viaje compartido sin comisión | ${SITE_NAME}`,
-      description: `Viaje compartido de ${r.originCity} a ${r.festivalName} (${r.festivalCity}). ${r.distance} km, ${r.drivingTime}. Desde ${r.priceFrom} €/asiento. Sin comisión. Conductores verificados.`,
+      title: `Carpooling ${r.originCity} → ${r.festivalShortName} — desde ${r.priceFrom} € · ${r.drivingTime} | ${SITE_NAME}`,
+      description: `Viaje compartido de ${r.originCity} a ${r.festivalName} (${r.festivalCity}). ${r.distance} km · ${r.drivingTime} · desde ${r.priceFrom} €/asiento. Sin taxi, sin comisión. Conductores verificados con carnet.`,
       canonical: `${base}/rutas/${slug}`,
-      h1: `Carpooling de ${r.originCity} a ${r.festivalShortName}`,
+      h1: `Carpooling de ${r.originCity} a ${r.festivalShortName} — desde ${r.priceFrom} €`,
       body: routeBody(slug, r, base),
     };
   }
