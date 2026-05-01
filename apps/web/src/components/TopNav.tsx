@@ -135,6 +135,7 @@ export function TopNav() {
       ) : (
         <Link
           to={`/login${next !== "%2F" ? `?next=${next}` : ""}`}
+          rel="nofollow"
           className="inline-flex items-center gap-1.5 bg-cr-surface/85 backdrop-blur border border-cr-border hover:border-cr-primary text-cr-text hover:text-cr-primary px-3 py-1.5 font-semibold uppercase tracking-[0.12em] transition-colors"
         >
           Entrar

@@ -1,11 +1,20 @@
 # ConcertRide robots.txt
-# Last updated: 2026-04-28
+# Last updated: 2026-05-01
 
 # Default: allow all crawlers
 User-agent: *
 Allow: /
 Disallow: /api/
 Disallow: /_*
+Disallow: /login
+Disallow: /register
+Disallow: /forgot-password
+Disallow: /reset-password
+Disallow: /verify-email
+Disallow: /profile
+Disallow: /mis-viajes
+Disallow: /favoritos
+Disallow: /publish
 
 # Sitemap
 Sitemap: https://concertride.me/sitemap.xml
