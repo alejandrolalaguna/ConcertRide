@@ -14,6 +14,20 @@ const FESTIVAL_DEFAULT_OG = `${SITE_URL}/og-fallback.png`;
 import { trackFestivalView } from "@/lib/seoEvents";
 import { FestivalAlertWidget } from "@/components/FestivalAlertWidget";
 
+const FESTIVAL_WIKIDATA: Record<string, string> = {
+  "mad-cool": "https://www.wikidata.org/wiki/Q22808739",
+  "primavera-sound": "https://www.wikidata.org/wiki/Q578193",
+  "sonar": "https://www.wikidata.org/wiki/Q1101937",
+  "fib": "https://www.wikidata.org/wiki/Q630302",
+  "bbk-live": "https://www.wikidata.org/wiki/Q1966430",
+  "resurrection-fest": "https://www.wikidata.org/wiki/Q7316296",
+  "arenal-sound": "https://www.wikidata.org/wiki/Q4791029",
+  "medusa-festival": "https://www.wikidata.org/wiki/Q60882827",
+  "vina-rock": "https://www.wikidata.org/wiki/Q2311477",
+  "o-son-do-camino": "https://www.wikidata.org/wiki/Q16537994",
+  "sonorama-ribera": "https://www.wikidata.org/wiki/Q1305386",
+};
+
 export default function FestivalLandingPage() {
   const { festival: slug } = useParams<{ festival: string }>();
   const festival = slug ? FESTIVAL_LANDINGS_BY_SLUG[slug] : undefined;
@@ -189,11 +203,14 @@ export default function FestivalLandingPage() {
   // Build an abstract: festival name + location + date + price range + differentiator (≤60 words)
   const festivalAbstract = `${festival.name} se celebra en ${festival.venue}, ${festival.city} (${festival.region}), del ${festival.startDate} al ${festival.endDate}. Aforo: ${festival.capacity}. Carpooling con ConcertRide desde ${festival.originCities[0]?.city ?? "toda España"} desde ${festival.originCities[0]?.concertRideRange ?? "3 €"}/asiento, sin comisión de plataforma. ${festival.originCities.length} ciudades de origen cubiertas.`;
 
+  const festivalWikidataUri = FESTIVAL_WIKIDATA[festival.slug];
+
   const jsonLdEvent = {
     "@context": "https://schema.org",
     "@type": "MusicEvent",
     name: festival.name,
     url: `${SITE_URL}/festivales/${festival.slug}`,
+    ...(festivalWikidataUri ? { sameAs: festivalWikidataUri } : {}),
     image: festivalOgImage,
     description: festival.blurb,
     abstract: festivalAbstract,
@@ -253,7 +270,9 @@ export default function FestivalLandingPage() {
       name: festival.name,
     },
     inLanguage: "es",
-    sameAs: `${SITE_URL}/festivales/${festival.slug}`,
+    sameAs: festivalWikidataUri
+      ? [festivalWikidataUri, `${SITE_URL}/festivales/${festival.slug}`]
+      : `${SITE_URL}/festivales/${festival.slug}`,
   };
 
   const jsonLdBreadcrumb = {

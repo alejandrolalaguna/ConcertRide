@@ -237,7 +237,7 @@ function buildStaticRoutes(base: string): Record<string, { title: string; descri
             { "@type": "ListItem", position: 9, name: "Viña Rock — Villarrobledo — 30 abr–3 may 2026", url: `${base}/festivales/vina-rock` },
             { "@type": "ListItem", position: 10, name: "O Son do Camiño — Santiago — 18–20 jun 2026", url: `${base}/festivales/o-son-do-camino` },
             { "@type": "ListItem", position: 11, name: "Sonorama Ribera — Aranda de Duero — 6–9 ago 2026", url: `${base}/festivales/sonorama-ribera` },
-            { "@type": "ListItem", position: 12, name: "Cala Mijas — Mijas — 2–4 oct 2026", url: `${base}/festivales/cala-mijas` },
+            { "@type": "ListItem", position: 12, name: "Cala Mijas Fest — Cortijo de Torres, Málaga — 2–4 oct 2026", url: `${base}/festivales/cala-mijas` },
             { "@type": "ListItem", position: 13, name: "Low Festival — Benidorm — 24–26 jul 2026", url: `${base}/festivales/low-festival` },
             { "@type": "ListItem", position: 14, name: "Tomavistas — Madrid — 15–17 may 2026", url: `${base}/festivales/tomavistas` },
             { "@type": "ListItem", position: 15, name: "Zevra Festival — Valencia — verano 2026", url: `${base}/festivales/zevra-festival` },
@@ -1601,6 +1601,20 @@ const FESTIVAL_TRANSPORT_SUMMARY: Record<string, string> = {
   "low-festival": `<p><strong>Transporte a Low Festival Benidorm 2026 — resumen:</strong> El recinto está en el Parque de Actividades de Benidorm. No hay transporte público directo al recinto. Opciones: (1) <strong>TRAM Alicante–Benidorm</strong> (L1, 45 min, 3,50 €) — la estación de Benidorm queda a 15 min a pie del recinto; (2) <strong>Bus ALSA</strong> desde Valencia (1h 45 min) o Alicante (40 min); (3) <strong>Carpooling ConcertRide</strong> desde Valencia (20–30 €, 1h 45 min), Alicante (15 €, 40 min), Madrid (18–26 €, 3h 30 min) o Barcelona (20–28 €, 4h 30 min). La vuelta de madrugada (1:00–3:00 AM) no tiene servicio público — el carpooling es la única opción práctica.</p>`,
 };
 
+const FESTIVAL_WIKIDATA: Record<string, string> = {
+  "mad-cool": "https://www.wikidata.org/wiki/Q22808739",
+  "primavera-sound": "https://www.wikidata.org/wiki/Q578193",
+  "sonar": "https://www.wikidata.org/wiki/Q1101937",
+  "fib": "https://www.wikidata.org/wiki/Q630302",
+  "bbk-live": "https://www.wikidata.org/wiki/Q1966430",
+  "resurrection-fest": "https://www.wikidata.org/wiki/Q7316296",
+  "arenal-sound": "https://www.wikidata.org/wiki/Q4791029",
+  "medusa-festival": "https://www.wikidata.org/wiki/Q60882827",
+  "vina-rock": "https://www.wikidata.org/wiki/Q2311477",
+  "o-son-do-camino": "https://www.wikidata.org/wiki/Q16537994",
+  "sonorama-ribera": "https://www.wikidata.org/wiki/Q1305386",
+};
+
 function festivalBody(slug: string, f: FestivalData, base: string): string {
   const transportSummary = FESTIVAL_TRANSPORT_SUMMARY[slug] ?? "";
 
@@ -1622,6 +1636,7 @@ function festivalBody(slug: string, f: FestivalData, base: string): string {
     })),
   });
 
+  const wikidataUri = FESTIVAL_WIKIDATA[slug];
   const eventJsonLd = JSON.stringify({
     "@context": "https://schema.org",
     "@type": "MusicEvent",
@@ -1629,6 +1644,7 @@ function festivalBody(slug: string, f: FestivalData, base: string): string {
     name: f.name,
     startDate: f.startDate,
     endDate: f.endDate,
+    ...(wikidataUri ? { sameAs: wikidataUri } : {}),
     location: {
       "@type": "Place",
       name: f.venue,
@@ -1727,6 +1743,96 @@ function cityBody(slug: string, c: CityData, base: string): string {
       { q: "¿Hay metro al Parc del Fòrum (Primavera Sound / Cruïlla)?", a: "Sí. El metro L4 (parada Besòs Mar) conecta con el Parc del Fòrum en 2 minutos a pie. El servicio se amplía hasta las 5:00 los viernes y sábados en temporada de festival. Las colas de salida pueden ser de 30–45 minutos. El carpooling desde otras ciudades (Madrid 14–22 €, Valencia 10–14 €) llega directo al recinto." },
       { q: "¿Cuánto cuesta el carpooling a Barcelona para un concierto o festival?", a: "Desde Madrid: 14–22 €/asiento (620 km, 5h 30 min). Desde Valencia: 10–14 € (350 km, 3h 15 min). Desde Zaragoza: 8–12 € (300 km, 2h 45 min). Desde Bilbao: 12–18 € (615 km, 5h). Sin comisión de plataforma." },
       { q: "¿Es seguro el carpooling para ir a festivales en Barcelona?", a: "Sí. En ConcertRide todos los conductores verifican su carnet de conducir antes de publicar viajes. Puedes ver el perfil, las valoraciones y comunicarte por chat antes del evento. El pago es en persona — nunca adelantas dinero." },
+    ],
+    bilbao: [
+      { q: "¿Qué conciertos y festivales hay en Bilbao en 2026?", a: "El festival principal de Bilbao en 2026 es BBK Live (Kobetamendi, 9–11 julio, 30.000 personas/día). El Bilbao Arena Miribilla (10.000 plazas) acoge tours indoor, y el Palacio Euskalduna cubre formatos más íntimos. Acceso a BBK Live solo por lanzadera oficial gratuita desde Plaza Moyúa." },
+      { q: "¿Cómo llegar al BBK Live en Kobetamendi?", a: "El recinto de BBK Live (Kobetamendi) es accesible únicamente por lanzadera oficial gratuita desde Plaza Moyúa (incluida en la entrada). No se puede llegar en coche propio. Para venir desde otras ciudades: ConcertRide desde Santander (100 km, 4–7 €), Donostia (100 km, 5–8 €), Madrid (395 km, 11–16 €)." },
+      { q: "¿Cuánto cuesta el carpooling a Bilbao para el BBK Live?", a: "Desde Santander: 4–7 €/asiento (100 km, 1h). Desde Vitoria-Gasteiz: 3–6 € (65 km, 45 min). Desde Pamplona: 5–8 € (155 km, 1h 30 min). Desde Madrid: 11–16 € (395 km, 3h 30 min). Sin comisión de plataforma." },
+      { q: "¿Es seguro el carpooling para BBK Live?", a: "Sí. ConcertRide verifica el carnet de conducir de todos los conductores. El pago es en efectivo o Bizum el día del viaje — sin riesgo económico en cancelaciones anticipadas." },
+    ],
+    valencia: [
+      { q: "¿Qué festivales y conciertos hay en Valencia en 2026?", a: "Valencia ciudad acoge Zevra Festival (La Marina de València, verano 2026; Metro L4 Marítim-Serreria). La provincia es densa en festivales: Arenal Sound (Burriana, 55 km, 29 jul–2 ago), Medusa Festival (Cullera, 40 km, 12–16 ago) y FIB (Benicàssim, 75 km, 16–19 jul). ConcertRide cubre todas las rutas desde Valencia." },
+      { q: "¿Cómo llegar al Zevra Festival en La Marina de Valencia?", a: "Metro L4, paradas Marítim-Serreria o Neptú (5–8 min a pie al recinto). El servicio se amplía hasta la 1:00–2:00 en noches de festival. El carpooling desde Madrid cuesta 10–14 €; desde Alicante 5–8 €." },
+      { q: "¿Cuánto cuesta el carpooling desde Valencia a los festivales cercanos?", a: "Arenal Sound (Burriana, 55 km): 3–6 €/asiento. Medusa (Cullera, 40 km): 3–5 €. FIB (Benicàssim, 75 km): 3–6 €. Zevra Festival (La Marina, dentro de Valencia): 3–5 €. Sin comisión — precio íntegro al conductor." },
+      { q: "¿Es seguro el carpooling a los festivales de Valencia?", a: "Sí. En ConcertRide todos los conductores verifican su carnet de conducir antes de publicar viajes. El pago es directo al conductor en efectivo o Bizum el día del viaje." },
+    ],
+    sevilla: [
+      { q: "¿Qué conciertos y festivales hay en Sevilla en 2026?", a: "Los principales recintos de conciertos en Sevilla son: Estadio La Cartuja (60.000 plazas), FIBES (9.500 plazas), Palacio de los Deportes San Pablo (7.000) y Cartuja Center CITE. Festivales: Interestelar Sevilla (mayo, Charco de la Pava, 40.000 asistentes) e Icónica Sevilla Fest (Plaza de España). Sevilla es también punto de origen para Cala Mijas (200 km, 6–9 €)." },
+      { q: "¿Cómo ir a Cala Mijas Fest desde Sevilla?", a: "Cala Mijas Fest 2026 (2–4 oct) se celebra en Cortijo de Torres, Málaga capital — a 200 km de Sevilla (2h por la A-92). No hay shuttle oficial. Con ConcertRide: 6–9 €/asiento desde Sevilla. No hay transporte público nocturno desde el recinto." },
+      { q: "¿Cuánto cuesta el carpooling desde Sevilla a festivales de otras ciudades?", a: "A Cala Mijas (Málaga, 200 km): 6–9 €/asiento. A Mad Cool (Madrid, 530 km): 12–18 €. A Primavera Sound (Barcelona, 1.000 km): 22–30 €. A Viña Rock (Villarrobledo, 420 km): 10–15 €. Sin comisión de plataforma." },
+      { q: "¿Es seguro el carpooling para ir a conciertos desde Sevilla?", a: "Sí. ConcertRide verifica el carnet de conducir de todos los conductores. El pago es en efectivo o Bizum el día del viaje — nunca pagas por adelantado." },
+    ],
+    malaga: [
+      { q: "¿Qué festivales y conciertos hay en Málaga en 2026?", a: "Málaga y su costa acogen Cala Mijas Fest (2–4 oct, Cortijo de Torres, Málaga capital), Andalucía Big Festival y Marenostrum Music Castle (Castillo Sohail de Fuengirola). No confundir: el recinto de Cala Mijas está en Málaga capital, no en La Cala de Mijas." },
+      { q: "¿Dónde es exactamente el Cala Mijas Festival?", a: "Cala Mijas Fest se celebra en el Recinto Cortijo de Torres, Av. Juan Carlos I, Málaga capital (no en el pueblo La Cala de Mijas). A 25 km del centro de Málaga (25 min por la MA-20/A-7). Sin shuttle oficial — taxi 25–40 €; ConcertRide desde Málaga 3–5 €." },
+      { q: "¿Cuánto cuesta el carpooling al Cala Mijas Fest?", a: "Desde Málaga centro: 3–5 €/asiento (25 km). Desde Marbella: 3–6 € (35 km). Desde Fuengirola: 3–5 € (15 km). Desde Sevilla: 6–9 € (200 km). Desde Madrid: 14–20 € (590 km). Sin comisión." },
+      { q: "¿Es seguro el carpooling para ir a conciertos en Málaga?", a: "Sí. ConcertRide verifica el carnet de conducir de todos los conductores antes de publicar viajes. El pago es directo al conductor en efectivo o Bizum." },
+    ],
+    zaragoza: [
+      { q: "¿Qué conciertos hay en Zaragoza en 2026?", a: "El Pabellón Príncipe Felipe (10.700 plazas) acoge la mayoría de giras nacionales e internacionales en Zaragoza. La Sala López y el Auditorio cubren mid-size. Pirineos Sur (Lanuza, 130 km) es el festival de música del mundo más relevante del Pirineo aragonés. Zaragoza es origen estratégico para Mad Cool (320 km), Primavera Sound (300 km) y Arenal Sound (275 km)." },
+      { q: "¿Cuánto cuesta el carpooling desde Zaragoza a los festivales más importantes?", a: "A Mad Cool (Madrid, 325 km): 9–13 €/asiento. A Primavera Sound (Barcelona, 306 km): 8–12 €. A Arenal Sound (Burriana, 275 km): 8–12 €. A FIB (Benicàssim, 270 km): 7–11 €. Sin comisión de plataforma." },
+      { q: "¿Cómo ir a festivales desde Zaragoza en coche compartido?", a: "Con ConcertRide buscas por festival y encuentras conductores que salen de Zaragoza o de ciudades cercanas. La posición equidistante de Zaragoza entre Madrid y Barcelona hace que haya buena oferta en ambas direcciones." },
+      { q: "¿Es seguro el carpooling desde Zaragoza?", a: "Sí. ConcertRide verifica el carnet de conducir de todos los conductores. El pago es en efectivo o Bizum el día del viaje." },
+    ],
+    "a-coruna": [
+      { q: "¿Qué conciertos hay en A Coruña en 2026?", a: "A Coruña es el principal punto de origen para el Resurrection Fest (Viveiro, 100 km, 25–28 jun 2026), el festival de metal más importante de España. El Coliseum (10.000 plazas), Palexco y la Sala Pelícano acogen conciertos nacionales e internacionales durante todo el año." },
+      { q: "¿Cuánto cuesta el carpooling de A Coruña al Resurrection Fest?", a: "Viveiro está a 100 km de A Coruña (1h 15 min). Con ConcertRide el precio por asiento es 4–7 €. Es el trayecto más habitual del festival: el carpooling es la única opción viable para volver de madrugada." },
+      { q: "¿Hay transporte público de A Coruña a Viveiro para el Resurrection Fest?", a: "El bus ALSA A Coruña–Viveiro (2–3 frecuencias al día, 2h 30 min) no opera en horario nocturno. Para la vuelta del festival (madrugada 1:00–3:00) el carpooling con ConcertRide es la única opción práctica." },
+      { q: "¿Es seguro el carpooling al Resurrection Fest?", a: "Sí. ConcertRide verifica el carnet de conducir de todos los conductores. El pago es directo al conductor en efectivo o Bizum el día del viaje." },
+    ],
+    "santiago-de-compostela": [
+      { q: "¿Qué festivales hay en Santiago de Compostela en 2026?", a: "El festival más importante con sede en Santiago es O Son do Camiño (Monte do Gozo, 18–20 jun 2026, 90.000+ asistentes). Bus urbano C10 desde el centro de la ciudad hasta el recinto. ConcertRide conecta a asistentes desde A Coruña (60 km), Vigo (90 km), Oviedo (250 km) y más." },
+      { q: "¿Cómo llegar a O Son do Camiño desde Santiago?", a: "El recinto de O Son do Camiño está en Monte do Gozo, a 5 km del centro de Santiago. Bus urbano C10 desde la Rúa do Franco. También accesible en taxi (10–15 €) o con ConcertRide desde otras ciudades gallegas." },
+      { q: "¿Cuánto cuesta el carpooling a O Son do Camiño?", a: "Desde A Coruña: 10–12 €/asiento (60 km, 1h 15 min). Desde Vigo: 12–15 € (90 km, 1h 30 min). Desde Oviedo: 14–18 € (250 km, 2h 30 min). Sin comisión de plataforma." },
+      { q: "¿Es seguro el carpooling a O Son do Camiño?", a: "Sí. ConcertRide verifica el carnet de conducir de todos los conductores. El pago es directo al conductor en efectivo o Bizum el día del viaje." },
+    ],
+    alicante: [
+      { q: "¿Qué festivales hay cerca de Alicante en 2026?", a: "Cerca de Alicante hay varios festivales importantes: Low Festival (Benidorm, 45 km, 24–26 jul), Arenal Sound (Burriana, 115 km, 29 jul–2 ago), Medusa Festival (Cullera, 100 km, 12–16 ago) y Zevra Festival (Valencia, 175 km). ConcertRide cubre todas las rutas desde Alicante con precios entre 3 y 8 €/asiento." },
+      { q: "¿Cómo llegar al Low Festival desde Alicante?", a: "Low Festival (Benidorm) está a 45 km de Alicante (35 min por la A-7). No hay transporte público nocturno al recinto. Con ConcertRide el precio es 15 €/asiento. El TRAM L1 Alicante–Benidorm opera hasta medianoche — no es válido para la vuelta de madrugada." },
+      { q: "¿Cuánto cuesta el carpooling desde Alicante a festivales?", a: "A Low Festival (Benidorm, 45 km): 15 €/asiento. A Arenal Sound (Burriana, 115 km): 4–7 €. A Medusa Festival (Cullera, 100 km): 4–6 €. A Viña Rock (Villarrobledo, 165 km): 5–8 €. Sin comisión." },
+      { q: "¿Es seguro el carpooling desde Alicante?", a: "Sí. ConcertRide verifica el carnet de conducir de todos los conductores. El pago es en efectivo o Bizum directamente al conductor el día del viaje." },
+    ],
+    pamplona: [
+      { q: "¿Qué festivales están cerca de Pamplona en 2026?", a: "Desde Pamplona los festivales más accesibles son: BBK Live (Bilbao, 155 km, 9–11 jul), Sonorama Ribera (Aranda de Duero, 250 km, 6–9 ago) y Mad Cool (Madrid, 390 km, 9–11 jul). Navarra Arena y Anaitasuna acogen conciertos nacionales en Pamplona ciudad." },
+      { q: "¿Cuánto cuesta el carpooling desde Pamplona a BBK Live?", a: "BBK Live (Bilbao) está a 155 km de Pamplona (1h 30 min por la A-15). Con ConcertRide el precio es 5–8 €/asiento. Desde Bilbao hay lanzadera gratuita al Kobetamendi (incluida en la entrada)." },
+      { q: "¿Cómo ir desde Pamplona a festivales del norte en coche compartido?", a: "ConcertRide conecta a pamploneses con conductores hacia BBK Live (5–8 €), Azkena Rock Vitoria (95 km, 4–6 €), Donostia (100 km, 4–7 €) y otros festivales del arco norte de España." },
+      { q: "¿Es seguro el carpooling desde Pamplona?", a: "Sí. ConcertRide verifica el carnet de conducir de todos los conductores. El pago es en efectivo o Bizum el día del viaje." },
+    ],
+    "vitoria-gasteiz": [
+      { q: "¿Qué festivales hay cerca de Vitoria-Gasteiz en 2026?", a: "Vitoria-Gasteiz es sede del Azkena Rock Festival (Mendizabala, junio, 35.000 personas/día). A poca distancia: BBK Live Bilbao (65 km, 9–11 jul) con lanzadera gratuita al Kobetamendi. Iradier Arena y Sala Helldorado acogen conciertos durante el año." },
+      { q: "¿Cuánto cuesta el carpooling de Vitoria a BBK Live?", a: "BBK Live (Bilbao) está a 65 km de Vitoria-Gasteiz (45 min). Con ConcertRide: 3–6 €/asiento. Desde Bilbao hay lanzadera gratuita al Kobetamendi incluida en la entrada." },
+      { q: "¿Cómo ir a festivales del País Vasco desde Vitoria-Gasteiz?", a: "ConcertRide conecta a vitorianos con conductores hacia BBK Live (3–6 €), Donostia (80 km, 3–6 €), Sonorama Ribera (185 km, 5–8 €) y Mad Cool (350 km, 9–13 €)." },
+      { q: "¿Es seguro el carpooling desde Vitoria-Gasteiz?", a: "Sí. ConcertRide verifica el carnet de conducir de todos los conductores. El pago es en efectivo o Bizum el día del viaje." },
+    ],
+    vigo: [
+      { q: "¿Qué conciertos y festivales hay cerca de Vigo en 2026?", a: "Desde Vigo los festivales más próximos son: O Son do Camiño (Santiago, 90 km, 18–20 jun) y Resurrection Fest (Viveiro, 200 km, 25–28 jun). El Auditorio Mar de Vigo (3.000 plazas) y el Pabellón Multiusos (12.000) acogen conciertos nacionales." },
+      { q: "¿Cuánto cuesta el carpooling de Vigo al Resurrection Fest?", a: "Viveiro está a 200 km de Vigo (2h 15 min). Con ConcertRide el precio es 6–9 €/asiento. Sin transporte nocturno de vuelta — el carpooling es la única opción práctica para volver de madrugada." },
+      { q: "¿Cómo ir desde Vigo a festivales gallegos?", a: "ConcertRide conecta a vigueses con conductores hacia Resurrection Fest (6–9 €), O Son do Camiño (12–15 €) y Festival de la Luz (Boimorto). La red de carpooling gallega es especialmente activa en festivales de metal y folk." },
+      { q: "¿Es seguro el carpooling desde Vigo?", a: "Sí. ConcertRide verifica el carnet de conducir de todos los conductores. El pago es en efectivo o Bizum el día del viaje." },
+    ],
+    murcia: [
+      { q: "¿Qué festivales hay cerca de Murcia en 2026?", a: "Desde Murcia los festivales más accesibles son: Medusa Festival (Cullera, 180 km, 12–16 ago), Arenal Sound (Burriana, 250 km, 29 jul–2 ago) y Viña Rock (Villarrobledo, 155 km, 30 abr–3 may). Murcia acoge también SOS 4.8, R-Murcia Festival y el WAM." },
+      { q: "¿Cuánto cuesta el carpooling desde Murcia a festivales de España?", a: "A Medusa Festival (Cullera, 180 km): 5–8 €/asiento. A Viña Rock (Villarrobledo, 155 km): 5–8 €. A Arenal Sound (Burriana, 250 km): 7–11 €. A Mad Cool (Madrid, 400 km): 10–15 €. Sin comisión." },
+      { q: "¿Cómo ir al Viña Rock desde Murcia en coche compartido?", a: "Viña Rock (Villarrobledo, Albacete) está a 155 km de Murcia (1h 30 min por la A-30). Con ConcertRide: 5–8 €/asiento. No hay transporte público nocturno al recinto." },
+      { q: "¿Es seguro el carpooling desde Murcia?", a: "Sí. ConcertRide verifica el carnet de conducir de todos los conductores. El pago es directo al conductor en efectivo o Bizum." },
+    ],
+    valladolid: [
+      { q: "¿Qué festivales hay cerca de Valladolid en 2026?", a: "El festival más próximo a Valladolid es Sonorama Ribera (Aranda de Duero, 100 km, 6–9 ago). Mad Cool (Madrid, 200 km) y BBK Live (Bilbao, 280 km) también son destinos habituales para el carpooling desde Valladolid. La Plaza de Toros y el Pabellón Pisuerga acogen conciertos nacionales." },
+      { q: "¿Cuánto cuesta el carpooling de Valladolid al Sonorama Ribera?", a: "Sonorama Ribera (Aranda de Duero) está a 100 km de Valladolid (1h). Con ConcertRide el precio es 8–12 €/asiento. Es el festival más accesible para los vallisoletanos — más barato que el bus." },
+      { q: "¿Cómo ir desde Valladolid a Madrid en coche compartido para conciertos?", a: "Madrid está a 200 km de Valladolid (1h 45 min por la A-62). Con ConcertRide: 6–10 €/asiento para conciertos en WiZink Center, Vistalegre, IFEMA (Mad Cool) o Caja Mágica." },
+      { q: "¿Es seguro el carpooling desde Valladolid?", a: "Sí. ConcertRide verifica el carnet de conducir de todos los conductores. El pago es en efectivo o Bizum el día del viaje." },
+    ],
+    granada: [
+      { q: "¿Qué festivales hay cerca de Granada en 2026?", a: "Granada acoge Granada Sound (Cortijo del Conde, septiembre). La cercanía con Málaga (90 km) la convierte en punto de origen para Cala Mijas Fest (Cortijo de Torres, Málaga, 2–4 oct). Desde Granada también hay carpooling a Interestelar Sevilla (260 km) y festivales andaluces." },
+      { q: "¿Cuánto cuesta el carpooling desde Granada al Cala Mijas Fest?", a: "Cala Mijas Fest (Cortijo de Torres, Málaga) está a 125 km de Granada (1h 15 min por la A-92). Con ConcertRide el precio es 5–8 €/asiento. Sin shuttle oficial al recinto." },
+      { q: "¿Cómo ir desde Granada a festivales andaluces en coche compartido?", a: "ConcertRide conecta a granadinos con conductores hacia Cala Mijas (5–8 €), Interestelar Sevilla (260 km, 7–11 €) y Mad Cool (470 km, 12–18 €). Pago en efectivo o Bizum, sin comisión." },
+      { q: "¿Es seguro el carpooling desde Granada?", a: "Sí. ConcertRide verifica el carnet de conducir de todos los conductores. El pago es directo al conductor en efectivo o Bizum." },
+    ],
+    donostia: [
+      { q: "¿Qué conciertos y festivales hay en Donostia en 2026?", a: "El Heineken Jazzaldia (Plaza de la Trinidad y Kursaal, julio) y Donostia Arena (10.000 plazas) son los principales eventos de música en Donostia. La cercanía con BBK Live Bilbao (100 km) hace que muchos viajes compartidos desde Donostia vayan al Kobetamendi." },
+      { q: "¿Cuánto cuesta el carpooling de Donostia al BBK Live?", a: "BBK Live (Bilbao) está a 100 km de Donostia (1h por la A-8). Con ConcertRide el precio es 5–8 €/asiento. Desde Bilbao, lanzadera oficial gratuita al Kobetamendi incluida en la entrada del festival." },
+      { q: "¿Cómo ir a festivales del norte de España desde Donostia?", a: "ConcertRide conecta a donostiarras con conductores hacia BBK Live (5–8 €), Azkena Rock Vitoria (100 km, 4–6 €), Sonorama Ribera (370 km, 10–15 €) y Mad Cool (450 km, 12–18 €)." },
+      { q: "¿Es seguro el carpooling desde Donostia?", a: "Sí. ConcertRide verifica el carnet de conducir de todos los conductores. El pago es en efectivo o Bizum el día del viaje." },
     ],
   };
 

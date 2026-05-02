@@ -96,6 +96,14 @@ export const FESTIVAL_LANDINGS: FestivalLanding[] = [
         q: "¿Mad Cool Barcelona existe?",
         a: "No existe ninguna edición de Mad Cool en Barcelona. Mad Cool es un festival íntegramente madrileño que se celebra cada julio en IFEMA Madrid. Los rumores sobre 'Mad Cool Barcelona' que circulan en redes sociales corresponden a Primavera Sound, festival catalán con cartel internacional similar (indie, rock, pop alternativo) celebrado en el Parc del Fòrum de Barcelona en mayo–junio.",
       },
+      {
+        q: "¿Es seguro ir a Mad Cool en coche compartido?",
+        a: "Sí. Todos los conductores de ConcertRide verifican su carnet de conducir antes de publicar el primer viaje. Puedes ver el perfil del conductor, sus valoraciones de pasajeros anteriores y contactarle por chat antes de confirmar. El pago es en efectivo o Bizum el día del viaje — sin datos bancarios compartidos en la plataforma. ConcertRide opera bajo la legislación española de carpooling de gastos compartidos (Sentencia del Tribunal Supremo 2017).",
+      },
+      {
+        q: "¿Qué pasa si el conductor cancela el viaje a Mad Cool?",
+        a: "Si el conductor cancela, recibirás un aviso por la plataforma y podrás buscar otro viaje disponible. Al pagar en efectivo o Bizum el día del viaje (no antes), no hay riesgo económico en caso de cancelación anticipada. Se recomienda confirmar el punto de encuentro con el conductor la tarde anterior y tener su número de teléfono por si hay imprevistos de tráfico.",
+      },
     ],
     relatedFestivals: ["tomavistas", "sonorama-ribera", "primavera-sound"],
   },
@@ -150,6 +158,14 @@ export const FESTIVAL_LANDINGS: FestivalLanding[] = [
         q: "¿En qué fechas es Primavera Sound 2026?",
         a: "Primavera Sound 2026 está previsto para el 28 de mayo al 1 de junio en el Parc del Fòrum de Barcelona. Busca viajes en concertride.me para esas fechas.",
       },
+      {
+        q: "¿Es seguro ir a Primavera Sound en coche compartido?",
+        a: "Sí. ConcertRide verifica el carnet de conducir de todos los conductores antes de que puedan publicar viajes. Puedes ver las valoraciones de viajes anteriores, el historial del conductor y contactarle por chat antes de confirmar la plaza. El pago en efectivo o Bizum el día del viaje elimina cualquier riesgo económico de cancelación anticipada.",
+      },
+      {
+        q: "¿Puedo reservar ida y vuelta al Primavera Sound?",
+        a: "Sí. Muchos conductores en ConcertRide publican viajes de ida y vuelta al Primavera Sound. Puedes buscar por separado 'Madrid–Barcelona' para la ida y 'Barcelona–Madrid' para la vuelta, o coordinarlo directamente con el conductor por chat para acordar día y hora de regreso según el cartel que más te interese.",
+      },
     ],
     relatedFestivals: ["sonar", "cruilla"],
   },
@@ -202,6 +218,10 @@ export const FESTIVAL_LANDINGS: FestivalLanding[] = [
       {
         q: "¿Cuándo es Sónar 2026?",
         a: "Sónar 2026 está previsto para el 18, 19 y 20 de junio en Barcelona (Fira Montjuïc y Fira Gran Via de L'Hospitalet). Busca viajes en concertride.me.",
+      },
+      {
+        q: "¿Es seguro el carpooling al Sónar?",
+        a: "Sí. ConcertRide verifica el carnet de conducir de todos los conductores. Puedes ver el perfil, las valoraciones y contactarle por chat antes de confirmar. El pago es en efectivo o Bizum el día del viaje — sin adelantos ni datos bancarios.",
       },
     ],
     relatedFestivals: ["primavera-sound", "cruilla"],
@@ -264,6 +284,10 @@ export const FESTIVAL_LANDINGS: FestivalLanding[] = [
       {
         q: "¿Cuándo es el FIB 2026?",
         a: "El Festival Internacional de Benicàssim 2026 está previsto para el 16, 17, 18 y 19 de julio. Busca viajes disponibles en concertride.me con destino Benicàssim.",
+      },
+      {
+        q: "¿Es seguro el carpooling al FIB?",
+        a: "Sí. ConcertRide verifica el carnet de conducir de todos los conductores antes de publicar. El pago es en efectivo o Bizum directamente al conductor el día del viaje. Sin adelantos ni datos bancarios en la plataforma.",
       },
     ],
     relatedFestivals: ["arenal-sound", "medusa-festival", "low-festival"],
@@ -328,6 +352,10 @@ export const FESTIVAL_LANDINGS: FestivalLanding[] = [
         q: "BBK Live desde Santander: opciones de bus, tren y coche",
         a: "El binomio BBK Santander es uno de los más buscados del festival. Santander–Bilbao son 100 km (1h por la A-8). Resumen de opciones: 1) Bus de larga distancia (ALSA, FlixBus): 6–15 €, 1h 30 min, llega a Termibús Bilbao (5 km del recinto) y requiere shuttle u taxi adicional, sin frecuencias de madrugada. 2) Tren Renfe Media Distancia: 8–15 €, 2h–2h 30 min, último servicio antes de las 22:00 — imposible para volver del festival. 3) Coche propio: 100 km, parking limitado en Kobetamendi (recomendado aparcar en Bilbao centro y subir en lanzadera oficial). 4) Coche compartido (ConcertRide): 4–7 € por asiento, llegada directa al centro de Bilbao para tomar el shuttle al monte, vuelta flexible a cualquier hora. Es la única opción práctica para volver a Santander tras los conciertos de madrugada.",
       },
+      {
+        q: "¿Es seguro el carpooling al BBK Live?",
+        a: "Sí. ConcertRide verifica el carnet de conducir de todos los conductores. El pago es en efectivo o Bizum el día del viaje — sin adelantos ni datos bancarios. Puedes ver el perfil y las valoraciones del conductor antes de confirmar la reserva.",
+      },
     ],
     relatedFestivals: ["resurrection-fest", "sonorama-ribera"],
   },
@@ -385,6 +413,10 @@ export const FESTIVAL_LANDINGS: FestivalLanding[] = [
       {
         q: "Viajes a Resurrection Fest 2026: cómo organizarlos en grupo",
         a: "Resurrection Fest es probablemente el festival español más dependiente del coche compartido por su ubicación (Viveiro, Lugo, sin AVE ni aeropuerto cercano). La mayoría de fans organizan viajes a Resurrection Fest en grupos de 3–4 personas saliendo desde A Coruña (100 km, 4–7 €/asiento), Vigo (200 km, 6–9 €), Santiago (185 km, 6–9 €), Oviedo (195 km, 6–9 €), Bilbao (375 km, 10–15 €) o Madrid (600 km, 16–22 €). El servicio ALSA opera autobuses Madrid–A Coruña–Viveiro pero con 2–3 frecuencias al día y sin servicio nocturno; en la práctica todos los asistentes vuelven en coche. Publica o reserva un viaje compartido en concertride.me/festivales/resurrection-fest.",
+      },
+      {
+        q: "¿Es seguro el carpooling al Resurrection Fest?",
+        a: "Sí. ConcertRide verifica el carnet de conducir de todos los conductores. El pago es en efectivo o Bizum el día del viaje. Dado que Viveiro carece de transporte público nocturno, muchos fans del Resurrection Fest llevan años usando carpooling de forma habitual — es la opción de vuelta más normalizada de este festival.",
       },
     ],
     relatedFestivals: ["o-son-do-camino", "sonorama-ribera"],
@@ -469,6 +501,10 @@ export const FESTIVAL_LANDINGS: FestivalLanding[] = [
         q: "Resumen transporte Arenal Sound 2026: bus, tren, autobús y coche",
         a: "Resumen rápido de las opciones para llegar al Arenal Sound 2026 en Burriana: 1) Bus / autobús lanzadera del festival desde la estación de autobuses de Castellón de la Plana (10 km, 20 min, plazas limitadas, no opera de madrugada). 2) Tren: Cercanías Renfe C6 Valencia–Castellón (45–60 min) hasta Castellón de la Plana, sin tren directo a la playa, requiere taxi o lanzadera adicional. 3) Autobuses de larga distancia desde Madrid (15–25 €), Barcelona (15–30 €) o Valencia (3–8 €) llegan a Castellón ciudad pero no al recinto. 4) Coche compartido por ConcertRide: precios desde 2 € (Burriana), 3 € (Castellón), 3–6 € (Valencia), 8–12 € (Barcelona) o 12–17 € (Madrid), llegada directa al recinto y vuelta flexible.",
       },
+      {
+        q: "¿Es seguro el carpooling al Arenal Sound?",
+        a: "Sí. ConcertRide verifica el carnet de conducir de todos los conductores antes de publicar viajes. El pago es en efectivo o Bizum el día del viaje — sin adelantos. Puedes ver el perfil y las valoraciones del conductor antes de confirmar tu plaza.",
+      },
     ],
     relatedFestivals: ["fib", "medusa-festival", "low-festival"],
   },
@@ -526,6 +562,10 @@ export const FESTIVAL_LANDINGS: FestivalLanding[] = [
       {
         q: "¿Cuándo es Medusa Festival 2026?",
         a: "Medusa Festival 2026 está previsto para el 12 al 16 de agosto en la playa de Cullera (Valencia). Busca viajes en concertride.me.",
+      },
+      {
+        q: "¿Es seguro el carpooling al Medusa Festival?",
+        a: "Sí. ConcertRide verifica el carnet de conducir de todos los conductores. El pago es en efectivo o Bizum el día del viaje. Sin adelantos ni datos bancarios en la plataforma. Puedes ver el perfil y las valoraciones del conductor antes de confirmar.",
       },
     ],
     relatedFestivals: ["arenal-sound", "fib", "low-festival"],
@@ -601,6 +641,10 @@ export const FESTIVAL_LANDINGS: FestivalLanding[] = [
         q: "¿Hay autobús desde Valencia a Viña Rock (Viñarock)?",
         a: "No existe autobús de línea regular Valencia–Villarrobledo en horarios de festival. La opción de transporte público sería bus Valencia–Albacete (empresas ALSA o Avanza, 2h 30 min, 12–20 €) más lanzadera del festival desde Albacete a La Pulgosa, con un trayecto total de unas 4 horas. Los autobuses privados Valencia–Viña Rock que aparecen en redes sociales son iniciativas no oficiales de plazas limitadas. Para los valencianos, la opción más usada es el coche compartido con ConcertRide (200 km por la A-3, 6–9 € por asiento) que llega en 2 horas directamente al recinto.",
       },
+      {
+        q: "¿Es seguro el carpooling al Viña Rock?",
+        a: "Sí. ConcertRide verifica el carnet de conducir de todos los conductores antes de publicar viajes. El pago es en efectivo o Bizum el día del viaje — sin adelantos ni datos bancarios en la plataforma.",
+      },
     ],
     relatedFestivals: ["mad-cool", "sonorama-ribera"],
   },
@@ -654,6 +698,10 @@ export const FESTIVAL_LANDINGS: FestivalLanding[] = [
       {
         q: "¿Cuándo es O Son do Camiño 2026?",
         a: "O Son do Camiño 2026 está previsto para el 18, 19 y 20 de junio en el Monte do Gozo, Santiago de Compostela. Busca viajes en concertride.me.",
+      },
+      {
+        q: "¿Es seguro el carpooling al O Son do Camiño?",
+        a: "Sí. ConcertRide verifica el carnet de conducir de todos los conductores. El pago es en efectivo o Bizum directamente al conductor el día del viaje. Sin adelantos ni datos bancarios en la plataforma.",
       },
     ],
     relatedFestivals: ["resurrection-fest"],
@@ -727,6 +775,10 @@ export const FESTIVAL_LANDINGS: FestivalLanding[] = [
         q: "¿Cómo llegar de Marbella a Cala Mijas Festival?",
         a: "De Marbella al recinto de Cala Mijas Festival (Cortijo de Torres, Málaga) son 50 km (45 min por la A-7). Opciones: 1) Autobús de línea Avanza Marbella–Málaga (1h 15 min, 5–8 €) más taxi o transporte urbano hasta el recinto. 2) Taxi o VTC (40–80 € en horario diurno, hasta 120 € en madrugada). 3) Carpooling con ConcertRide desde Marbella (3–6 €/asiento, llegada directa al recinto). El pueblo de La Cala de Mijas (donde el festival celebró su primera edición en 2022) queda en el km 28 de la A-7, pero desde 2023 el festival se traslada al Cortijo de Torres en Málaga capital, a 25 km al norte.",
       },
+      {
+        q: "¿Es seguro el carpooling a Cala Mijas Fest?",
+        a: "Sí. ConcertRide verifica el carnet de conducir de todos los conductores. El pago es en efectivo o Bizum directamente al conductor el día del viaje. Sin adelantos ni datos bancarios en la plataforma.",
+      },
     ],
     relatedFestivals: ["sonar", "primavera-sound"],
   },
@@ -788,6 +840,10 @@ export const FESTIVAL_LANDINGS: FestivalLanding[] = [
       {
         q: "¿Cómo llegar a Sonorama desde Bilbao?",
         a: "Bilbao–Aranda de Duero son 185 km (2 horas por la AP-68/A-1). Por ConcertRide, el precio por asiento es de 6 a 9 €. El tren Bilbao–Burgos + autobús Burgos–Aranda es una alternativa pero con horarios muy restringidos.",
+      },
+      {
+        q: "¿Es seguro el carpooling a Sonorama Ribera?",
+        a: "Sí. ConcertRide verifica el carnet de conducir de todos los conductores. El pago es en efectivo o Bizum directamente al conductor el día del viaje. Sin adelantos ni datos bancarios en la plataforma.",
       },
     ],
     relatedFestivals: ["mad-cool", "vina-rock", "bbk-live"],
@@ -862,6 +918,10 @@ export const FESTIVAL_LANDINGS: FestivalLanding[] = [
         q: "Zevra Festival horarios: ¿a qué hora empieza y termina cada día?",
         a: "Zevra Festival horarios típicos por jornada (los oficiales se publican 2–3 semanas antes del festival): apertura del recinto 18:30–19:00, primer concierto sobre las 19:30–20:00, cabezas de cartel 23:00–01:00, cierre del recinto entre la 1:30 y las 3:00 según la noche. El metro L4 amplía servicio hasta la 1:00–2:00 en noches de festival. Para vueltas más tardías, taxi (30–50 €) o coche compartido por ConcertRide (3–14 €/asiento según ciudad de origen). Consulta el horario oficial del festival y los viajes compartidos disponibles en concertride.me/festivales/zevra-festival.",
       },
+      {
+        q: "¿Es seguro el carpooling a Zevra Festival?",
+        a: "Sí. ConcertRide verifica el carnet de conducir de todos los conductores. El pago es en efectivo o Bizum directamente al conductor el día del viaje. Sin adelantos ni datos bancarios en la plataforma.",
+      },
     ],
     relatedFestivals: ["medusa-festival", "arenal-sound", "fib"],
   },
@@ -919,6 +979,10 @@ export const FESTIVAL_LANDINGS: FestivalLanding[] = [
         q: "¿Cuándo es Low Festival 2026?",
         a: "Low Festival 2026 está previsto para el 24, 25 y 26 de julio en el Balneario de la Paloma, Benidorm (Alicante). Busca viajes en concertride.me.",
       },
+      {
+        q: "¿Es seguro el carpooling a Low Festival?",
+        a: "Sí. ConcertRide verifica el carnet de conducir de todos los conductores. El pago es en efectivo o Bizum directamente al conductor el día del viaje. Sin adelantos ni datos bancarios en la plataforma.",
+      },
     ],
     relatedFestivals: ["fib", "arenal-sound", "medusa-festival"],
   },
@@ -971,6 +1035,10 @@ export const FESTIVAL_LANDINGS: FestivalLanding[] = [
       {
         q: "¿Cuándo es Tomavistas 2026?",
         a: "Tomavistas Festival 2026 está previsto para el 15, 16 y 17 de mayo en IFEMA, Madrid. Busca viajes en concertride.me.",
+      },
+      {
+        q: "¿Es seguro el carpooling a Tomavistas?",
+        a: "Sí. ConcertRide verifica el carnet de conducir de todos los conductores. El pago es en efectivo o Bizum directamente al conductor el día del viaje. Sin adelantos ni datos bancarios en la plataforma.",
       },
     ],
     relatedFestivals: ["mad-cool", "sonorama-ribera"],
@@ -1025,6 +1093,10 @@ export const FESTIVAL_LANDINGS: FestivalLanding[] = [
       {
         q: "¿En qué fechas es Cruïlla 2026?",
         a: "Cruïlla Barcelona 2026 está previsto para el 9, 10, 11 y 12 de julio en el Parc del Fòrum de Barcelona. Busca viajes en concertride.me para esas fechas.",
+      },
+      {
+        q: "¿Es seguro el carpooling a Cruïlla?",
+        a: "Sí. ConcertRide verifica el carnet de conducir de todos los conductores. El pago es en efectivo o Bizum directamente al conductor el día del viaje. Sin adelantos ni datos bancarios en la plataforma.",
       },
     ],
     relatedFestivals: ["primavera-sound", "sonar"],
