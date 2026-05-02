@@ -10,11 +10,11 @@ const ALL_FESTIVALS = [{ slug: "", shortName: "Todos" }, ...FESTIVAL_LANDINGS.ma
 
 export default function RutasIndexPage() {
   useSeoMeta({
-    title: `Rutas de carpooling a festivales en España ${new Date().getFullYear()} | ConcertRide`,
-    description: `${ROUTE_LANDINGS.length} rutas de viaje compartido a festivales de música en España. Carpooling Madrid–Mad Cool, Barcelona–Primavera Sound, Valencia–Arenal Sound, Santander–BBK Live, Marbella–Cala Mijas y más. Sin comisión, conductores verificados.`,
+    title: `Rutas carpooling festivales España ${new Date().getFullYear()} | ConcertRide`,
+    description: `+${ROUTE_LANDINGS.length} rutas carpooling a festivales en España ${new Date().getFullYear()}: Madrid–Mad Cool, Barcelona–Primavera Sound, Valencia–Arenal Sound, Bilbao–BBK Live y más. Sin comisión.`,
     canonical: `${SITE_URL}/rutas`,
     keywords:
-      `rutas carpooling festivales, viaje compartido festival, madrid mad cool carpooling, barcelona primavera sound viaje compartido, valencia fib transporte, santander bbk live, marbella cala mijas, burriana arenal sound, autobuses festivales españa, bus festivales ${new Date().getFullYear()}, carpooling festivales españa ${new Date().getFullYear()}`,
+      `rutas carpooling festivales ${new Date().getFullYear()}, viaje compartido festival españa, madrid mad cool carpooling ${new Date().getFullYear()}, barcelona primavera sound viaje compartido, valencia fib transporte, bilbao bbk live carpooling, marbella cala mijas transporte, burriana arenal sound bus, autobuses festivales españa ${new Date().getFullYear()}, carpooling festivales verano ${new Date().getFullYear()}, rutas coche compartido festivales, carpooling festival música españa`,
   });
 
   const [activeFilter, setActiveFilter] = useState("");
@@ -44,6 +44,8 @@ export default function RutasIndexPage() {
     name: `Rutas de carpooling a festivales en España ${year} | ConcertRide`,
     description: `${ROUTE_LANDINGS.length} rutas de viaje compartido a festivales de música en España. Sin comisión, conductores verificados.`,
     inLanguage: "es-ES",
+    datePublished: "2026-04-10",
+    dateModified: "2026-05-02",
     isPartOf: { "@id": `${SITE_URL}/#website` },
     about: { "@id": `${SITE_URL}/#service` },
     speakable: {
@@ -64,7 +66,7 @@ export default function RutasIndexPage() {
   const jsonLdItemList = {
     "@context": "https://schema.org",
     "@type": "ItemList",
-    name: "Rutas de carpooling a festivales en España 2026",
+    name: `Rutas de carpooling a festivales en España ${year}`,
     url: `${SITE_URL}/rutas`,
     itemListOrder: "https://schema.org/ItemListOrderAscending",
     numberOfItems: ROUTE_LANDINGS.length,

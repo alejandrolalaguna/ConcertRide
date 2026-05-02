@@ -27,7 +27,7 @@ export default function FestivalLandingPage() {
       ? `Carpooling ${festival.shortName} ${new Date().getFullYear()} — sin comisión | ConcertRide`
       : "Festivales de música en España",
     description: festival
-      ? `Cómo ir a ${festival.name} en carpooling desde ${festival.originCities.slice(0, 3).map((c) => c.city).join(", ")}. Desde ${((festival.originCities[0]?.concertRideRange ?? "3 €/asiento").split("–").at(0) ?? "3").replace(/[^0-9]/g, "") || "3"} €/asiento sin comisión. Sin taxi, conductores verificados. Pago en efectivo o Bizum.`
+      ? `Cómo ir a ${festival.shortName} ${new Date(festival.startDate).getFullYear()} en carpooling desde ${festival.originCities.slice(0, 2).map((c) => c.city).join(", ")} y más. Desde ${((festival.originCities[0]?.concertRideRange ?? "3 €/asiento").split("–").at(0) ?? "3").replace(/[^0-9]/g, "") || "3"} €/asiento, sin comisión. Conductores verificados. Reserva ya.`
       : "Carpooling a festivales de música en España con ConcertRide.",
     canonical: festival
       ? `${SITE_URL}/festivales/${festival.slug}`
@@ -113,6 +113,9 @@ export default function FestivalLandingPage() {
     })),
   };
 
+  // Build an abstract: festival name + location + date + price range + differentiator (≤60 words)
+  const festivalAbstract = `${festival.name} se celebra en ${festival.venue}, ${festival.city} (${festival.region}), del ${festival.startDate} al ${festival.endDate}. Aforo: ${festival.capacity}. Carpooling con ConcertRide desde ${festival.originCities[0]?.city ?? "toda España"} desde ${festival.originCities[0]?.concertRideRange ?? "3 €"}/asiento, sin comisión de plataforma. ${festival.originCities.length} ciudades de origen cubiertas.`;
+
   const jsonLdEvent = {
     "@context": "https://schema.org",
     "@type": "MusicEvent",
@@ -120,9 +123,18 @@ export default function FestivalLandingPage() {
     url: `${SITE_URL}/festivales/${festival.slug}`,
     image: festivalOgImage,
     description: festival.blurb,
+    abstract: festivalAbstract,
     startDate: festival.startDate,
     endDate: festival.endDate,
     location: festivalPlace,
+    keywords: [
+      `carpooling ${festival.shortName}`,
+      `cómo ir a ${festival.shortName}`,
+      `transporte ${festival.shortName} ${festival.city}`,
+      `${festival.shortName} ${new Date(festival.startDate).getFullYear()}`,
+      `autobús ${festival.shortName}`,
+      `bus ${festival.shortName}`,
+    ].join(", "),
     performer: {
       "@type": "PerformingGroup",
       name: festival.name,
@@ -130,6 +142,7 @@ export default function FestivalLandingPage() {
     organizer: {
       "@type": "Organization",
       name: festival.name,
+      url: `${SITE_URL}/festivales/${festival.slug}`,
     },
     eventAttendanceMode: "https://schema.org/OfflineEventAttendanceMode",
     eventStatus: "https://schema.org/EventScheduled",
@@ -142,7 +155,7 @@ export default function FestivalLandingPage() {
       priceCurrency: "EUR",
       availability: "https://schema.org/InStock",
       validFrom: new Date().toISOString(),
-      description: "Carpooling desde toda España con ConcertRide",
+      description: `Carpooling desde ${festival.originCities.length} ciudades de España con ConcertRide. Precio desde ${festival.originCities[0]?.concertRideRange ?? "3 €"}/asiento, sin comisión de plataforma.`,
     },
   };
 
@@ -202,12 +215,19 @@ export default function FestivalLandingPage() {
         "@id": `${SITE_URL}/festivales/${festival.slug}#webpage`,
         "url": `${SITE_URL}/festivales/${festival.slug}`,
         "name": `Cómo ir a ${festival.name} — Carpooling sin comisión | ConcertRide`,
-        "description": festival.blurb,
+        "description": `Guía de transporte para ${festival.name} (${festival.venue}, ${festival.city}, ${festival.typicalDates}). Carpooling desde ${festival.originCities.length} ciudades españolas desde ${festival.originCities[0]?.concertRideRange ?? "3 €"}/asiento sin comisión. Opciones de autobús, tren y coche compartido con precios y tiempos de trayecto reales.`,
         "inLanguage": "es-ES",
         "isPartOf": { "@id": `${SITE_URL}/#website` },
+        "about": {
+          "@type": "MusicEvent",
+          "name": festival.name,
+          "startDate": festival.startDate,
+          "location": { "@type": "Place", "name": festival.venue, "addressLocality": festival.city }
+        },
+        "keywords": `cómo ir a ${festival.shortName}, carpooling ${festival.name}, transporte ${festival.shortName} ${festival.city}, autobús ${festival.shortName}, bus ${festival.shortName}, ${festival.shortName} ${new Date(festival.startDate).getFullYear()}`,
         "speakable": {
           "@type": "SpeakableSpecification",
-          "cssSelector": ["h1", ".speakable", "article p:first-of-type"],
+          "cssSelector": ["h1", ".speakable", ".festival-summary", ".transport-info", "article p:first-of-type"],
         },
       }) }} />
 
@@ -229,8 +249,8 @@ export default function FestivalLandingPage() {
           Cómo ir a<br />{festival.shortName} {new Date(festival.startDate).getFullYear()}.
         </h1>
 
-        <p className="font-sans text-sm font-semibold text-cr-text max-w-2xl speakable">
-          La opción más usada es el carpooling con ConcertRide desde {festival.originCities[0]?.city}: desde {festival.originCities[0]?.concertRideRange ?? "3 €"}/asiento, sin comisión, conductores verificados.
+        <p className="font-sans text-sm font-semibold text-cr-text max-w-2xl speakable festival-summary">
+          {festival.name} se celebra en {festival.venue}, {festival.city} ({festival.typicalDates}). La opción más usada para llegar desde otras provincias es el carpooling con ConcertRide desde {festival.originCities[0]?.city}: desde {festival.originCities[0]?.concertRideRange ?? "3 €"}/asiento, sin comisión, conductores verificados con carnet.
         </p>
 
         <p className="font-sans text-sm md:text-base text-cr-text-muted max-w-2xl leading-relaxed speakable">
@@ -269,7 +289,7 @@ export default function FestivalLandingPage() {
       </div>
 
       {/* ── Cómo llegar a [festival]: localización + autobús/tren/coche ── */}
-      <section className="max-w-6xl mx-auto px-6 pb-12 border-t border-cr-border pt-12 space-y-6">
+      <section className="max-w-6xl mx-auto px-6 pb-12 border-t border-cr-border pt-12 space-y-6 transport-info">
         <h2 className="font-display text-2xl md:text-3xl uppercase">
           Cómo llegar a {festival.shortName}: localización y transporte
         </h2>

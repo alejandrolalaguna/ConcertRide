@@ -47,17 +47,17 @@ export default function ConcertDetailPage() {
 
   useSeoMeta({
     title: concert
-      ? `Viajes a ${concert.artist} en ${concert.venue.name} — ConcertRide`
+      ? `${concert.artist} en ${concert.venue.city} ${new Date(concert.date).getFullYear()} — Carpooling | ConcertRide`
       : "Concierto — ConcertRide",
     description: concert
-      ? `Viaje compartido para ver a ${concert.artist} en ${concert.venue.name} (${concert.venue.city}). Carpooling desde cualquier ciudad, sin comisión, conductores verificados. Divide el coste con otros fans.`
+      ? `Carpooling para ver a ${concert.artist} en ${concert.venue.name}, ${concert.venue.city}. Sin comisión, conductores verificados. Divide el coste con otros fans y llega sin taxi.`
       : "Encuentra un viaje compartido para ir al concierto en España.",
     canonical: id ? `${SITE_URL}/concerts/${id}` : undefined,
     keywords: concert
-      ? `${concert.artist}, cómo ir a ${concert.artist}, viaje compartido ${concert.artist}, carpooling ${concert.venue.city}, transporte ${concert.artist} ${concert.venue.city}, coche compartido ${concert.venue.name}, concierto ${concert.venue.city} 2026, ${concert.genre ?? "conciertos"} España, compartir coche ${concert.venue.city}`
+      ? `${concert.artist} ${concert.venue.city} ${new Date(concert.date).getFullYear()}, carpooling ${concert.artist}, viaje compartido ${concert.artist}, cómo ir a ${concert.artist}, transporte ${concert.artist} ${concert.venue.city}, coche compartido ${concert.venue.name}, concierto ${concert.venue.city} ${new Date(concert.date).getFullYear()}, ${concert.genre ?? "conciertos"} España, compartir coche ${concert.venue.city}, carpooling concierto ${concert.venue.city}`
       : undefined,
     ogImage: concert?.image_url ?? undefined,
-    ogType: "article",
+    ogType: "website",
   });
 
   useEffect(() => {
@@ -226,6 +226,8 @@ export default function ConcertDetailPage() {
             src={concert.image_url}
             alt={`${concert.artist} en ${concert.venue?.name ?? concert.venue?.city ?? ""}`}
             fetchPriority="high"
+            loading="eager"
+            sizes="100vw"
             width={1200}
             height={630}
             className="absolute inset-0 w-full h-full object-cover opacity-30"
@@ -290,7 +292,7 @@ export default function ConcertDetailPage() {
                 Concierto · {concert.genre ?? "Música en vivo"}
               </p>
               <h1 className="font-display uppercase text-4xl md:text-7xl leading-[0.95]">
-                {concert.artist} — Carpooling en {concert.venue?.city ?? concert.venue?.name}
+                {concert.artist} — {concert.venue?.city ?? concert.venue?.name} {new Date(concert.date).getFullYear()}
               </h1>
               <div className="flex flex-wrap gap-x-6 gap-y-2 font-mono text-xs text-cr-text-muted">
                 <span className="inline-flex items-center gap-1.5">
@@ -624,6 +626,7 @@ function JsonLdEvent({ concert }: { concert: Concert }) {
       url: `${SITE_URL}/`,
     },
     startDate: concert.date,
+    dateModified: new Date().toISOString(),
     eventStatus: "https://schema.org/EventScheduled",
     eventAttendanceMode: "https://schema.org/OfflineEventAttendanceMode",
     location: {

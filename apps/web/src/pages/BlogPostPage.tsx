@@ -10,8 +10,15 @@ export default function BlogPostPage() {
   const { slug } = useParams<{ slug: string }>();
   const post = slug ? BLOG_POSTS_BY_SLUG[slug] : undefined;
 
+  // Only append year to title if the title doesn't already contain a 4-digit year.
+  const postYear = post ? new Date(post.publishedAt).getFullYear() : null;
+  const titleHasYear = post ? /\b20\d{2}\b/.test(post.title) : false;
   useSeoMeta({
-    title: post ? `${post.title} ${new Date(post.publishedAt).getFullYear()} | ConcertRide` : "Artículo no encontrado",
+    title: post
+      ? titleHasYear
+        ? `${post.title} | ConcertRide`
+        : `${post.title} ${postYear} | ConcertRide`
+      : "Artículo no encontrado",
     description: post?.excerpt,
     canonical: post ? `${SITE_URL}/blog/${post.slug}` : `${SITE_URL}/blog`,
     keywords: post?.tags.join(", "),
@@ -32,13 +39,41 @@ export default function BlogPostPage() {
   const categoryLabel = BLOG_CATEGORIES.find((c) => c.slug === post.category)?.label ?? post.category;
   const url = `${SITE_URL}/blog/${post.slug}`;
 
+  // Build a fact-rich abstract: first 2 sentences of the excerpt (≤60 words, key finding + data)
+  const articleAbstract = (() => {
+    const sentences = post.excerpt.split(/(?<=[.!?])\s+/);
+    let abstract = "";
+    for (const s of sentences) {
+      if ((abstract + " " + s).trim().split(/\s+/).length > 60) break;
+      abstract = (abstract + " " + s).trim();
+    }
+    return abstract || post.excerpt.slice(0, 280);
+  })();
+
+  // Known entity sameAs URIs for common tags
+  const ENTITY_SAME_AS: Record<string, string> = {
+    "autobuses": "https://www.wikidata.org/wiki/Q928830",
+    "buses": "https://www.wikidata.org/wiki/Q928830",
+    "carpooling": "https://www.wikidata.org/wiki/Q1343571",
+    "festivales": "https://www.wikidata.org/wiki/Q213492",
+    "transporte": "https://www.wikidata.org/wiki/Q7590",
+    "Mad Cool": "https://www.madcoolfestival.es/",
+    "Primavera Sound": "https://www.primaverasound.com/",
+    "Sónar": "https://sonar.es/",
+    "BBK Live": "https://bbklive.com/",
+    "Arenal Sound": "https://arenalsound.com/",
+    "Viña Rock": "https://www.vinarock.es/",
+    "Resurrection Fest": "https://www.resurrectionfest.es/",
+    "BlaBlaCar": "https://www.blablacar.es/",
+  };
+
   const jsonLdArticle = {
     "@context": "https://schema.org",
     "@type": "BlogPosting",
     headline: post.title,
     name: post.title,
     description: post.excerpt,
-    abstract: post.excerpt,
+    abstract: articleAbstract,
     url,
     mainEntityOfPage: { "@type": "WebPage", "@id": url },
     datePublished: post.publishedAt,
@@ -52,6 +87,10 @@ export default function BlogPostPage() {
       name: post.author,
       url: `${SITE_URL}/acerca-de`,
       "@id": `${SITE_URL}/#founder`,
+      sameAs: [
+        "https://www.linkedin.com/company/concertride-es",
+        "https://twitter.com/concertride_es",
+      ],
     },
     publisher: { "@id": `${SITE_URL}/#organization` },
     image: {
@@ -65,10 +104,15 @@ export default function BlogPostPage() {
       cssSelector: ["h1", ".speakable", "article p:first-of-type"],
     },
     isPartOf: { "@id": `${SITE_URL}/#website` },
-    about: { "@id": `${SITE_URL}/#service` },
+    about: {
+      "@type": "Thing",
+      name: post.tags[0] ?? "Carpooling festivales España",
+      ...(ENTITY_SAME_AS[post.tags[0] ?? ""] ? { sameAs: ENTITY_SAME_AS[post.tags[0] ?? ""] } : {}),
+    },
     mentions: (post.tags ?? []).map((tag: string) => ({
       "@type": "Thing",
       name: tag,
+      ...(ENTITY_SAME_AS[tag] ? { sameAs: ENTITY_SAME_AS[tag] } : {}),
     })),
   };
 

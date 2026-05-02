@@ -6,32 +6,48 @@ import { BLOG_POSTS, BLOG_CATEGORIES } from "@/lib/blogPosts";
 
 export default function BlogIndexPage() {
   useSeoMeta({
-    title: "Blog — Carpooling, festivales y sostenibilidad | ConcertRide",
+    title: "Blog ConcertRide — Carpooling y festivales España 2026",
     description:
-      "Comparativas, guías de transporte y sostenibilidad para asistentes a festivales en España. Aprende a moverte mejor, gastar menos y reducir tu huella.",
+      "Guías y comparativas de transporte para festivales en España 2026. Carpooling vs taxi, autobuses, huella de carbono. Viaja mejor y gasta menos.",
     canonical: `${SITE_URL}/blog`,
     keywords:
-      "blog carpooling festivales, guía transporte festivales españa, autobuses festivales 2026, como ir a un festival sin coche, cómo volver de un festival de madrugada, blablacar alternativa festivales, carpooling sin comisión, transporte concierto españa, huella carbono festival carpooling, coche compartido festival verano, festivales música españa 2026, que llevar al festival, vuelta madrugada festival, taxi festival precio alternativa",
+      "blog carpooling festivales 2026, guía transporte festivales españa 2026, autobuses festivales 2026, como ir a un festival sin coche, cómo volver de un festival de madrugada, alternativa blablacar festivales, carpooling sin comisión festivales, transporte concierto españa 2026, huella carbono festival carpooling, coche compartido festival verano 2026, festivales música españa 2026, que llevar al festival verano, vuelta madrugada festival carpooling, taxi festival precio alternativa, sostenibilidad festivales españa",
   });
 
   const sorted = [...BLOG_POSTS].sort((a, b) => b.publishedAt.localeCompare(a.publishedAt));
 
-  const jsonLdWebPage = {
+  const jsonLdBlog = {
     "@context": "https://schema.org",
-    "@type": "CollectionPage",
-    "@id": `${SITE_URL}/blog#webpage`,
+    "@type": "Blog",
+    "@id": `${SITE_URL}/blog#blog`,
     url: `${SITE_URL}/blog`,
     name: "Blog ConcertRide — Carpooling, festivales y sostenibilidad",
     description: "Comparativas, guías de transporte y sostenibilidad para asistentes a festivales en España.",
     inLanguage: "es-ES",
     datePublished: "2026-04-10",
-    dateModified: new Date().toISOString().slice(0, 10),
+    dateModified: sorted[0]?.publishedAt ?? new Date().toISOString().slice(0, 10),
     isPartOf: { "@id": `${SITE_URL}/#website` },
     about: { "@id": `${SITE_URL}/#service` },
+    publisher: { "@id": `${SITE_URL}/#organization` },
     speakable: {
       "@type": "SpeakableSpecification",
       cssSelector: ["h1", ".speakable"],
     },
+    blogPost: sorted.map((p) => ({
+      "@type": "BlogPosting",
+      "@id": `${SITE_URL}/blog/${p.slug}#article`,
+      headline: p.title,
+      description: p.excerpt,
+      url: `${SITE_URL}/blog/${p.slug}`,
+      datePublished: p.publishedAt,
+      dateModified: p.updatedAt ?? p.publishedAt,
+      author: {
+        "@type": "Person",
+        name: p.author,
+      },
+      publisher: { "@id": `${SITE_URL}/#organization` },
+      inLanguage: "es-ES",
+    })),
   };
 
   const jsonLdItemList = {
@@ -58,11 +74,43 @@ export default function BlogIndexPage() {
     ],
   };
 
+  const jsonLdFaq = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: [
+      {
+        "@type": "Question",
+        name: "¿Qué es ConcertRide?",
+        acceptedAnswer: {
+          "@type": "Answer",
+          text: "ConcertRide es la primera plataforma española de carpooling exclusiva para conciertos y festivales. Conecta conductores y pasajeros que van al mismo evento, sin comisión y con conductores verificados.",
+        },
+      },
+      {
+        "@type": "Question",
+        name: "¿Cómo funciona el carpooling para festivales?",
+        acceptedAnswer: {
+          "@type": "Answer",
+          text: "El conductor publica un viaje con origen, destino (el festival), precio por asiento y plazas disponibles. El pasajero encuentra el viaje, contacta al conductor y reserva. El pago se realiza en efectivo o Bizum el día del viaje. ConcertRide no cobra comisión.",
+        },
+      },
+      {
+        "@type": "Question",
+        name: "¿Cuánto cuesta un viaje compartido a un festival en España?",
+        acceptedAnswer: {
+          "@type": "Answer",
+          text: "Los precios van de 3 a 20 € por asiento según la distancia. El conductor fija el precio para cubrir combustible y peajes. Es entre un 50 y un 75 % más barato que un taxi.",
+        },
+      },
+    ],
+  };
+
   return (
     <main id="main" className="min-h-dvh bg-cr-bg text-cr-text pt-14">
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdWebPage) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdBlog) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdItemList) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdBreadcrumb) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdFaq) }} />
 
       <div className="max-w-6xl mx-auto px-6 pt-10 pb-6 space-y-4">
         <nav aria-label="Breadcrumb" className="font-mono text-[11px] text-cr-text-muted flex items-center gap-2">
@@ -75,9 +123,10 @@ export default function BlogIndexPage() {
           Blog
         </p>
         <h1 className="font-display text-4xl md:text-6xl uppercase leading-[0.92]">
-          Carpooling,<br />festivales,<br />sostenibilidad.
+          Carpooling festivales<br />España 2026:<br />guías y comparativas.
         </h1>
         <p className="font-sans text-sm md:text-base text-cr-text-muted max-w-2xl leading-relaxed speakable">
+          ConcertRide es la plataforma española de carpooling para conciertos y festivales.
           Comparativas honestas, guías prácticas y datos reales para que ir a un festival
           en España sea más barato, más sostenible y menos estresante.
         </p>

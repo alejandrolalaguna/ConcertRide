@@ -1,7 +1,7 @@
 /**
  * SEO Configuration for ConcertRide ES
  * Centralized configuration for meta tags, schema markup, and SEO best practices
- * Last updated: 2026-04-25
+ * Last updated: 2026-05-02
  */
 
 export const SEO_CONFIG = {
@@ -19,17 +19,65 @@ export const SEO_CONFIG = {
   keywords: {
     primary: [
       "carpooling conciertos españa",
+      "carpooling festivales españa",
       "transporte compartido festivales",
       "viajes compartidos música",
+      "viaje compartido festival música españa",
+      "coche compartido conciertos",
       "alternativa carpooling festivales",
-      "ride-sharing españa",
+      "ride-sharing eventos musicales españa",
+    ],
+    year_specific: [
+      "carpooling festivales españa 2026",
+      "festivales españa 2026 transporte",
+      "viaje compartido festival 2026",
+      "carpooling festival verano 2026",
+      "transporte festivales 2026",
+      "cómo ir a festivales 2026",
     ],
     long_tail: [
+      // Transport intents
       "cómo ir barato a conciertos",
-      "transporte a festivales españoles",
-      "carpooling mad cool madrid",
+      "transporte a festivales españoles sin coche",
+      "cómo volver de un festival de madrugada",
+      "alternativa taxi festival",
+      "autobús festival madrugada alternativa",
+      "ir a festival sin coche propio",
+      // Festival-specific
+      "carpooling mad cool madrid 2026",
+      "carpooling primavera sound barcelona 2026",
+      "viaje compartido bbk live bilbao 2026",
+      "carpooling arenal sound burriana 2026",
+      "viaje compartido viña rock 2026",
+      "carpooling sonar barcelona 2026",
+      "transporte fib benicassim 2026",
+      "carpooling resurrection fest viveiro 2026",
+      "cómo llegar al mad cool sin metro",
+      "bus primavera sound barcelona",
+      "lanzadera bbk live bilbao",
+      // City-based
       "viaje compartido barcelona conciertos",
-      "transporte primavera sound",
+      "carpooling madrid festivales",
+      "coche compartido valencia conciertos",
+      "transporte sevilla conciertos verano",
+      // Sustainability
+      "huella carbono festival carpooling",
+      "festival sostenible transporte compartido",
+      "reducir emisiones festival música",
+      // Competitor displacement
+      "alternativa blablacar festivales",
+      "blablacar festival música",
+      "carpooling sin comisión festivales",
+      // Pricing intents
+      "precio carpooling festival españa",
+      "cuánto cuesta ir a festival en coche",
+      "dividir gastos concierto",
+    ],
+    brand: [
+      "concertride",
+      "concert ride",
+      "concertride.me",
+      "concertride carpooling",
     ],
   },
 
@@ -140,19 +188,19 @@ export const SEO_CONFIG = {
   // Page-specific defaults
   pages: {
     home: {
-      title: "ConcertRide ES — Carpooling para conciertos en España",
-      description: "Carpooling para conciertos en España. Comparte coche, divide gastos y llega seguro. Publica un viaje o busca uno en 2 minutos. Gratis, sin comisiones.",
-      keywords: "carpooling, conciertos, españa, transporte, compartido",
+      title: "ConcertRide — Carpooling conciertos y festivales España",
+      description: "Carpooling para conciertos y festivales en España. Sin comisión, conductores verificados. Publica un viaje o busca uno en 2 minutos. Pago en efectivo o Bizum.",
+      keywords: "carpooling conciertos españa, viaje compartido festivales, coche compartido concierto, carpooling festivales 2026, sin comisión",
     },
     concerts: {
-      title: "Explorar conciertos y viajes compartidos | ConcertRide ES",
-      description: "Busca conciertos y festivales en España, encuentra viajes compartidos a los eventos que te interesan.",
-      keywords: "conciertos, festivales, viajes, españa, carpooling",
+      title: "Conciertos en España 2026 — Carpooling disponible | ConcertRide",
+      description: "Busca conciertos y festivales en España 2026. Encuentra carpooling para ir a los eventos que te interesan: pop, rock, indie, electrónica y más. Sin comisión.",
+      keywords: "conciertos españa 2026, próximos conciertos españa, carpooling conciertos, viaje compartido concierto, festivales 2026 españa",
     },
     publish: {
-      title: "Publicar un viaje — ConcertRide ES",
-      description: "Publica tu viaje a un concierto, busca pasajeros y reduce costos. Sin comisiones, pago directo.",
-      keywords: "publicar viaje, ofertar carpooling, conductor",
+      title: "Publicar viaje a concierto o festival — ConcertRide",
+      description: "Publica tu viaje a un concierto o festival. Busca pasajeros y divide gastos. Sin comisiones, el 100 % va a ti. Pago en efectivo o Bizum el día del viaje.",
+      keywords: "publicar viaje carpooling, ofrecer plaza coche concierto, conductor carpooling festival, cómo publicar carpooling concierto",
     },
   },
 

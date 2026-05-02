@@ -80,9 +80,56 @@ export function WebSiteSchema({ name, url }: { name: string; url: string }) {
     url,
     potentialAction: {
       '@type': 'SearchAction',
-      target: `${url}/concerts?artist={search_term_string}`,
+      target: {
+        '@type': 'EntryPoint',
+        urlTemplate: `${url}/concerts?q={search_term_string}`,
+      },
       'query-input': 'required name=search_term_string',
     },
+  }
+  return <SchemaMarkup schema={schema} />
+}
+
+/**
+ * WebPage schema helper with optional SpeakableSpecification
+ */
+export function WebPageSchema({
+  id,
+  url,
+  name,
+  description,
+  datePublished,
+  dateModified,
+  isPartOf,
+  speakable = true,
+  speakableCssSelectors,
+}: {
+  id?: string
+  url: string
+  name: string
+  description?: string
+  datePublished?: string
+  dateModified?: string
+  isPartOf?: string
+  speakable?: boolean
+  speakableCssSelectors?: string[]
+}) {
+  const schema: Record<string, any> = {
+    '@context': 'https://schema.org',
+    '@type': 'WebPage',
+    ...(id && { '@id': id }),
+    url,
+    name,
+    ...(description && { description }),
+    ...(datePublished && { datePublished }),
+    ...(dateModified && { dateModified }),
+    ...(isPartOf && { isPartOf: { '@id': isPartOf } }),
+  }
+  if (speakable) {
+    schema['speakable'] = {
+      '@type': 'SpeakableSpecification',
+      cssSelector: speakableCssSelectors ?? ['h1', '.speakable'],
+    }
   }
   return <SchemaMarkup schema={schema} />
 }
@@ -111,24 +158,40 @@ export function BreadcrumbSchema({ items }: { items: BreadcrumbItem[] }) {
 }
 
 /**
- * Article schema helper
+ * Article schema helper with abstract, mentions, about, and SpeakableSpecification
  */
 export function ArticleSchema({
   headline,
   description,
+  abstract,
   image,
   datePublished,
   dateModified,
   author,
+  authorUrl,
+  authorSameAs,
+  url,
+  mentions,
+  about,
+  speakable = true,
+  speakableCssSelectors,
 }: {
   headline: string
   description: string
+  abstract?: string
   image: string
   datePublished: string
   dateModified?: string
   author?: string
+  authorUrl?: string
+  authorSameAs?: string[]
+  url?: string
+  mentions?: Array<{ name: string; type?: string; sameAs?: string }>
+  about?: { name: string; type?: string; sameAs?: string }
+  speakable?: boolean
+  speakableCssSelectors?: string[]
 }) {
-  const schema = {
+  const schema: Record<string, any> = {
     '@context': 'https://schema.org',
     '@type': 'Article',
     headline,
@@ -136,12 +199,37 @@ export function ArticleSchema({
     image,
     datePublished,
     dateModified: dateModified || datePublished,
+    inLanguage: 'es-ES',
+    ...(abstract && { abstract }),
+    ...(url && { url }),
+    ...(about && {
+      about: {
+        '@type': about.type ?? 'Thing',
+        name: about.name,
+        ...(about.sameAs && { sameAs: about.sameAs }),
+      },
+    }),
+    ...(mentions && mentions.length > 0 && {
+      mentions: mentions.map((m) => ({
+        '@type': m.type ?? 'Thing',
+        name: m.name,
+        ...(m.sameAs && { sameAs: m.sameAs }),
+      })),
+    }),
     ...(author && {
       author: {
         '@type': 'Person',
         name: author,
+        ...(authorUrl && { url: authorUrl }),
+        ...(authorSameAs && authorSameAs.length > 0 && { sameAs: authorSameAs }),
       },
     }),
+  }
+  if (speakable) {
+    schema['speakable'] = {
+      '@type': 'SpeakableSpecification',
+      cssSelector: speakableCssSelectors ?? ['h1', 'h2', '.speakable'],
+    }
   }
   return <SchemaMarkup schema={schema} />
 }
@@ -166,6 +254,126 @@ export function FAQSchema({ items }: { items: FAQItem[] }) {
         text: item.answer,
       },
     })),
+  }
+  return <SchemaMarkup schema={schema} />
+}
+
+/**
+ * SpeakableSchema — standalone component to inject SpeakableSpecification
+ * on any WebPage. AI assistants and voice interfaces use this to identify
+ * the most citeable content regions on the page.
+ */
+export function SpeakableSchema({
+  url,
+  name,
+  cssSelectors = ['h1', '.speakable', 'article p:first-of-type'],
+}: {
+  url: string
+  name: string
+  cssSelectors?: string[]
+}) {
+  const schema = {
+    '@context': 'https://schema.org',
+    '@type': 'WebPage',
+    url,
+    name,
+    speakable: {
+      '@type': 'SpeakableSpecification',
+      cssSelector: cssSelectors,
+    },
+  }
+  return <SchemaMarkup schema={schema} />
+}
+
+/**
+ * EventSchema — MusicEvent / generic Event schema component.
+ * Use on festival landing pages, concert detail pages, and any page
+ * describing a scheduled real-world event to enable AI engine citations
+ * and Google rich-results for events.
+ */
+export interface EventSchemaProps {
+  type?: 'MusicEvent' | 'Event'
+  name: string
+  url: string
+  startDate: string
+  endDate?: string
+  description?: string
+  image?: string
+  locationName: string
+  locationAddress?: string
+  locationCity?: string
+  locationRegion?: string
+  lat?: number
+  lng?: number
+  organizerName?: string
+  offerPrice?: string
+  offerCurrency?: string
+  eventStatus?: string
+  eventAttendanceMode?: string
+}
+
+export function EventSchema({
+  type = 'MusicEvent',
+  name,
+  url,
+  startDate,
+  endDate,
+  description,
+  image,
+  locationName,
+  locationAddress,
+  locationCity,
+  locationRegion,
+  lat,
+  lng,
+  organizerName,
+  offerPrice,
+  offerCurrency = 'EUR',
+  eventStatus = 'https://schema.org/EventScheduled',
+  eventAttendanceMode = 'https://schema.org/OfflineEventAttendanceMode',
+}: EventSchemaProps) {
+  const schema: Record<string, any> = {
+    '@context': 'https://schema.org',
+    '@type': type,
+    name,
+    url,
+    startDate,
+    ...(endDate && { endDate }),
+    ...(description && { description }),
+    ...(image && { image }),
+    eventStatus,
+    eventAttendanceMode,
+    inLanguage: 'es',
+    location: {
+      '@type': 'Place',
+      name: locationName,
+      ...(locationAddress || locationCity || locationRegion
+        ? {
+            address: {
+              '@type': 'PostalAddress',
+              ...(locationAddress && { streetAddress: locationAddress }),
+              ...(locationCity && { addressLocality: locationCity }),
+              ...(locationRegion && { addressRegion: locationRegion }),
+              addressCountry: 'ES',
+            },
+          }
+        : {}),
+      ...(lat !== undefined && lng !== undefined
+        ? { geo: { '@type': 'GeoCoordinates', latitude: lat, longitude: lng } }
+        : {}),
+    },
+    ...(organizerName && {
+      organizer: { '@type': 'Organization', name: organizerName },
+    }),
+    ...(offerPrice !== undefined && {
+      offers: {
+        '@type': 'Offer',
+        url,
+        price: offerPrice,
+        priceCurrency: offerCurrency,
+        availability: 'https://schema.org/InStock',
+      },
+    }),
   }
   return <SchemaMarkup schema={schema} />
 }

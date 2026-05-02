@@ -42,15 +42,15 @@ export default function CityLandingPage() {
   const year = new Date().getFullYear();
   const nextYear = year + 1;
   useSeoMeta({
-    title: landing ? `Conciertos en ${landing.display} ${year}–${nextYear} — Carpooling sin comisión | ConcertRide` : "Conciertos por ciudad",
+    title: landing ? `Conciertos en ${landing.display} ${year} — Carpooling | ConcertRide` : "Conciertos por ciudad",
     description: landing
-      ? `Próximos conciertos en ${landing.display} ${year} y ${nextYear}: ${landing.venues.slice(0, 3).join(", ")} y más. Carpooling para llegar desde cualquier ciudad de España, sin taxi ni comisiones.`
+      ? `Próximos conciertos en ${landing.display} ${year}: ${landing.venues.slice(0, 2).join(", ")} y más. Carpooling sin comisión para llegar desde cualquier ciudad de España.`
       : "Explora conciertos por ciudad en España.",
     canonical: landing
       ? `${SITE_URL}/conciertos/${landing.slug}`
       : `${SITE_URL}/concerts`,
     keywords: landing
-      ? `conciertos en ${landing.display}, conciertos ${landing.display} ${year}, conciertos ${landing.display} ${nextYear}, próximos conciertos ${landing.display}, próximos conciertos en ${landing.display}, conciertos música ${landing.display}, conciertos y recitales ${landing.display}, concierto ${landing.display}, ${landing.display} concert, música ${landing.display}, festivales ${landing.display}, carpooling ${landing.display}, coche compartido ${landing.display}, cómo ir al concierto ${landing.display}`
+      ? `conciertos en ${landing.display} ${year}, conciertos ${landing.display} ${nextYear}, próximos conciertos ${landing.display}, conciertos música ${landing.display}, festivales ${landing.display}, carpooling ${landing.display} ${year}, coche compartido concierto ${landing.display}, cómo ir al concierto ${landing.display}, carpooling concierto ${landing.display}, viaje compartido ${landing.display} ${year}`
       : undefined,
   });
 
@@ -237,8 +237,16 @@ export default function CityLandingPage() {
             "@id": `${SITE_URL}/conciertos/${landing.slug}#webpage`,
             "url": `${SITE_URL}/conciertos/${landing.slug}`,
             "name": `Conciertos en ${landing.display} con carpooling | ConcertRide`,
-            "description": landing.blurb,
+            "description": `Agenda de conciertos en ${landing.display} (${landing.region}) para ${year} y ${nextYear}: ${landing.venues.slice(0, 3).join(", ")}${landing.venues.length > 3 ? " y más recintos" : ""}. Carpooling sin comisión desde cualquier ciudad de España. Precio medio 3–20 €/asiento según distancia. Conductores verificados con carnet de conducir.`,
             "inLanguage": "es-ES",
+            "keywords": `conciertos en ${landing.display}, conciertos ${landing.display} ${year}, próximos conciertos ${landing.display}, carpooling ${landing.display}, cómo ir al concierto ${landing.display}`,
+            "about": {
+              "@type": "Place",
+              "name": landing.display,
+              "addressRegion": landing.region,
+              "addressCountry": "ES",
+              ...(CITY_WIKIDATA[landing.display] ? { "sameAs": CITY_WIKIDATA[landing.display] } : {}),
+            },
             "speakable": {
               "@type": "SpeakableSpecification",
               "cssSelector": ["h1", ".speakable", "article p:first-of-type"],

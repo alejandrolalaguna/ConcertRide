@@ -9,11 +9,11 @@ const FEATURED_SLUGS = ["mad-cool", "primavera-sound", "sonar", "fib", "bbk-live
 export default function FestivalesPage() {
   const year = new Date().getFullYear();
   useSeoMeta({
-    title: `Festivales España ${year}: carpooling y transporte | ConcertRide`,
-    description: `Viajes compartidos y autobuses a los festivales de España ${year}: Mad Cool, Primavera Sound, Sónar, FIB, BBK Live, Arenal Sound, Viña Rock, Resurrection Fest y más. Sin taxi, sin comisión. Conductores verificados.`,
+    title: `Carpooling festivales España ${year} — sin comisión | ConcertRide`,
+    description: `+${FESTIVAL_LANDINGS.length} festivales con viaje compartido en España ${year}: Mad Cool, Primavera Sound, BBK Live, Arenal Sound y más. Sin comisión. Únete ahora.`,
     canonical: `${SITE_URL}/festivales`,
     keywords:
-      "festivales españa 2026, carpooling festivales españa, viaje compartido festival música, autobuses festivales españa, bus festivales, cómo ir al festival en coche, transporte festivales 2026, mad cool carpooling, primavera sound viaje compartido, sonar barcelona transporte, viña rock buses, arenal sound bus, bbk live santander, resurrection fest viajes",
+      `carpooling festivales españa ${year}, festivales españa ${year}, viaje compartido festival música ${year}, autobuses festivales españa, bus festivales ${year}, cómo ir al festival en coche compartido, transporte festivales ${year}, mad cool carpooling ${year}, primavera sound viaje compartido ${year}, sonar barcelona transporte, viña rock buses ${year}, arenal sound bus ${year}, bbk live santander carpooling, resurrection fest viajes compartidos, fib benicassim carpooling, sonorama ribera aranda carpooling, cala mijas malaga transporte, medusa cullera carpooling, o son do camino santiago carpooling, carpooling festivales verano ${year}`,
   });
 
   const featured = FESTIVAL_LANDINGS.filter((f) => FEATURED_SLUGS.includes(f.slug));
@@ -25,9 +25,13 @@ export default function FestivalesPage() {
     "@type": "CollectionPage",
     "@id": `${url}#webpage`,
     url,
-    name: `Festivales de música España ${year}: carpooling y transporte | ConcertRide`,
-    description: `Viajes compartidos a los festivales de España ${year}. Sin comisión, conductores verificados.`,
+    name: `Carpooling festivales España ${year} — sin comisión | ConcertRide`,
+    description: `Directorio de ${FESTIVAL_LANDINGS.length} festivales de música en España ${year} con carpooling disponible. Mad Cool (IFEMA Madrid, 9–11 jul), Primavera Sound (Parc del Fòrum Barcelona, 28 may–1 jun), Sónar (Fira de Barcelona, 18–20 jun), BBK Live (Kobetamendi Bilbao, 9–11 jul), Arenal Sound (Burriana, 29 jul–2 ago), Viña Rock (Villarrobledo, 30 abr–3 may) y más. Precios desde 3 €/asiento sin comisión.`,
     inLanguage: "es-ES",
+    numberOfItems: FESTIVAL_LANDINGS.length,
+    keywords: `festivales España ${year}, carpooling festivales, Mad Cool carpooling, Primavera Sound viaje compartido, Sónar transporte, BBK Live Bilbao, Arenal Sound Burriana, Viña Rock Villarrobledo`,
+    datePublished: "2026-04-10",
+    dateModified: "2026-05-02",
     isPartOf: { "@id": `${SITE_URL}/#website` },
     about: { "@id": `${SITE_URL}/#service` },
     speakable: {
@@ -43,11 +47,59 @@ export default function FestivalesPage() {
       { "@type": "ListItem", position: 2, name: "Festivales", item: url },
     ],
   };
+  const jsonLdFaq = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    inLanguage: "es-ES",
+    mainEntity: [
+      {
+        "@type": "Question",
+        name: `¿Cuáles son los festivales más grandes de España en ${year}?`,
+        acceptedAnswer: {
+          "@type": "Answer",
+          text: `Los cinco festivales con mayor aforo de España en ${year} son: Mad Cool (IFEMA Madrid, 9–11 jul, ~80.000 asistentes/día), Primavera Sound (Parc del Fòrum Barcelona, 28 may–1 jun, ~60.000/día), Medusa Festival (Playa de Cullera, 12–16 ago, +300.000 totales), Arenal Sound (Playa del Arenal Burriana, 29 jul–2 ago) y BBK Live (Kobetamendi Bilbao, 9–11 jul). Todos tienen viajes compartidos disponibles en ConcertRide.`,
+        },
+      },
+      {
+        "@type": "Question",
+        name: "¿Hay autobuses a los festivales de España?",
+        acceptedAnswer: {
+          "@type": "Answer",
+          text: `Solo 8 de los 16 festivales cubiertos por ConcertRide disponen de autobús lanzadera oficial: BBK Live (gratuita desde Plaza Moyúa, Bilbao), Arenal Sound (lanzadera Castellón–Burriana), Medusa (lanzadera Valencia–Cullera), Viña Rock (bus Albacete–La Pulgosa, 35–55 € desde Madrid), Sonorama Ribera (La Sepulvedana Madrid–Aranda, 10–15 €), O Son do Camiño, Mad Cool (Metro L8 hasta las 2:30) y Primavera Sound (Metro L4). Los horarios son fijos y las plazas se agotan semanas antes. El carpooling con ConcertRide cubre los 16 festivales sin horario inamovible.`,
+        },
+      },
+      {
+        "@type": "Question",
+        name: "¿Cuánto cuesta el carpooling a un festival de España?",
+        acceptedAnswer: {
+          "@type": "Answer",
+          text: `El precio lo fija cada conductor para cubrir combustible y peajes. Rangos orientativos: trayectos cortos (<100 km, ej. Valencia→FIB 75 km): 4–8 €/asiento; distancia media (100–300 km, ej. Zaragoza→Primavera Sound 306 km): 8–14 €/asiento; larga distancia (>400 km, ej. Madrid→Resurrection Fest ~620 km): 18–35 €/asiento. ConcertRide no cobra comisión: el 100 % va al conductor.`,
+        },
+      },
+      {
+        "@type": "Question",
+        name: "¿Es ConcertRide mejor que BlaBlaCar para ir a festivales?",
+        acceptedAnswer: {
+          "@type": "Answer",
+          text: `Para festivales, ConcertRide tiene tres ventajas sobre BlaBlaCar: (1) 0 % de comisión — BlaBlaCar cobra 12–18 % al pasajero; (2) cada viaje está vinculado a un evento concreto, con hora de vuelta alineada al fin del show; (3) los conductores van al mismo festival, no a paradas genéricas de carretera. Además, ConcertRide no retiene el pago: se paga en efectivo o Bizum directamente al conductor el día del viaje.`,
+        },
+      },
+      {
+        "@type": "Question",
+        name: "¿Cómo puedo volver de un festival de madrugada?",
+        acceptedAnswer: {
+          "@type": "Answer",
+          text: `La mejor opción es reservar la vuelta por adelantado en ConcertRide. El metro de Madrid cierra a la 1:30 (ampliado hasta las 2:30 en noches de festival), el de Barcelona a las 2:00. Los taxis cuestan 60–100 € de madrugada desde festivales periféricos. Con ConcertRide, acuerdas la hora de salida con el conductor (normalmente cuando acaba el último bolo, hacia las 2:00–3:00) y pagas 8–15 €/asiento según distancia. Es la opción más usada en festivales como Resurrection Fest (Viveiro), Cala Mijas (Mijas) y Sonorama Ribera (Aranda de Duero), donde no existe transporte público nocturno.`,
+        },
+      },
+    ],
+  };
 
   return (
     <main id="main" className="min-h-dvh bg-cr-bg text-cr-text pt-14">
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdWebPage) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdBreadcrumb) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdFaq) }} />
       {/* ── Hero ── */}
       <div className="max-w-6xl mx-auto px-6 pt-10 pb-6 space-y-4">
         <nav aria-label="Breadcrumb" className="font-mono text-[11px] text-cr-text-muted flex items-center gap-2">
@@ -61,7 +113,7 @@ export default function FestivalesPage() {
         </p>
 
         <h1 className="font-display text-4xl md:text-6xl uppercase leading-[0.92]">
-          Festivales de música<br />en España {year}.
+          Carpooling festivales<br />España {year}.
         </h1>
 
         <p className="font-sans text-sm md:text-base text-cr-text-muted max-w-2xl leading-relaxed speakable">
@@ -231,7 +283,7 @@ export default function FestivalesPage() {
           __html: JSON.stringify({
             "@context": "https://schema.org",
             "@type": "ItemList",
-            name: "Festivales de música en España con carpooling 2026",
+            name: `Festivales de música en España con carpooling ${year}`,
             description: "Lista de festivales de música en España con viajes compartidos disponibles en ConcertRide.",
             url: `${SITE_URL}/festivales`,
             itemListOrder: "https://schema.org/ItemListOrderAscending",

@@ -78,7 +78,7 @@ function initPostHogIfAllowed() {
   if (!key) return;
 
   posthog.init(key, {
-    api_host: (import.meta.env.VITE_POSTHOG_HOST as string | undefined) ?? "https://eu.i.posthog.com",
+    api_host: (import.meta.env.VITE_POSTHOG_HOST as string | undefined) ?? "https://us.i.posthog.com",
     // We're GDPR-conservative: no session recording, no autocapture of forms.
     autocapture: false,
     capture_pageview: true,

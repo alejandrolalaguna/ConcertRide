@@ -19,10 +19,10 @@ export default function RouteLandingPage() {
 
   useSeoMeta({
     title: landing
-      ? `Carpooling ${landing.originCity} → ${landing.festival.shortName} — desde ${(landing.originData.concertRideRange.split("–")[0] ?? "3").replace(/[^0-9]/g, "") || "3"} € · ${landing.originData.drivingTime} | ConcertRide`
+      ? `Carpooling ${landing.originCity}–${landing.festival.shortName} ${new Date().getFullYear()} desde ${(landing.originData.concertRideRange.split("–")[0] ?? "3").replace(/[^0-9]/g, "") || "3"} € | ConcertRide`
       : "Ruta de carpooling",
     description: landing
-      ? `Viaje compartido de ${landing.originCity} a ${landing.festival.name} (${landing.festival.city}). ${landing.originData.km} km · ${landing.originData.drivingTime} · desde ${landing.originData.concertRideRange}. Sin comisión, sin taxi, conductores verificados.`
+      ? `Carpooling ${landing.originCity} → ${landing.festival.shortName}. ${landing.originData.km} km · ${landing.originData.drivingTime} · desde ${landing.originData.concertRideRange}. Sin comisión, conductores verificados. Reserva ya.`
       : "Carpooling a festivales en España.",
     canonical: landing ? `${SITE_URL}/rutas/${landing.slug}` : `${SITE_URL}/concerts`,
     keywords: landing
