@@ -1,4 +1,4 @@
-# ConcertRide ES
+# ConcertRide
 
 > Plataforma española de carpooling exclusiva para conciertos y festivales. Sin comisión (0%), conductores verificados, pago directo al conductor (efectivo o Bizum). Cubre 16+ festivales y conciertos en toda España.
 
@@ -94,23 +94,23 @@ ConcertRide ES (concertride.me) is a Spanish carpooling platform built exclusive
 
 ## Páginas de ciudades (conciertos en cada ciudad)
 
-- [Conciertos en Madrid](https://concertride.me/conciertos/madrid): Próximos conciertos en Madrid con carpooling disponible
-- [Conciertos en Barcelona](https://concertride.me/conciertos/barcelona): Próximos conciertos en Barcelona con carpooling disponible
-- [Conciertos en Valencia](https://concertride.me/conciertos/valencia): Próximos conciertos en Valencia con carpooling disponible
-- [Conciertos en Sevilla](https://concertride.me/conciertos/sevilla): Próximos conciertos en Sevilla con carpooling disponible
-- [Conciertos en Bilbao](https://concertride.me/conciertos/bilbao): Próximos conciertos en Bilbao con carpooling disponible
-- [Conciertos en Málaga](https://concertride.me/conciertos/malaga): Próximos conciertos en Málaga con carpooling disponible
-- [Conciertos en Zaragoza](https://concertride.me/conciertos/zaragoza): Próximos conciertos en Zaragoza con carpooling disponible
-- [Conciertos en Donostia / San Sebastián](https://concertride.me/conciertos/donostia): Próximos conciertos en Donostia con carpooling disponible
-- [Conciertos en Granada](https://concertride.me/conciertos/granada): Próximos conciertos en Granada con carpooling disponible
-- [Conciertos en Santiago de Compostela](https://concertride.me/conciertos/santiago-de-compostela): Próximos conciertos en Santiago con carpooling disponible
-- [Conciertos en Alicante](https://concertride.me/conciertos/alicante): Próximos conciertos en Alicante con carpooling disponible
-- [Conciertos en Pamplona](https://concertride.me/conciertos/pamplona): Próximos conciertos en Pamplona con carpooling disponible
-- [Conciertos en Vitoria-Gasteiz](https://concertride.me/conciertos/vitoria-gasteiz): Próximos conciertos en Vitoria-Gasteiz con carpooling disponible
-- [Conciertos en A Coruña](https://concertride.me/conciertos/a-coruna): Próximos conciertos en A Coruña con carpooling disponible
-- [Conciertos en Vigo](https://concertride.me/conciertos/vigo): Próximos conciertos en Vigo con carpooling disponible
-- [Conciertos en Murcia](https://concertride.me/conciertos/murcia): Próximos conciertos en Murcia con carpooling disponible
-- [Conciertos en Valladolid](https://concertride.me/conciertos/valladolid): Próximos conciertos en Valladolid con carpooling disponible
+- [Conciertos en Madrid](https://concertride.me/conciertos/madrid): Próximos conciertos en Madrid con carpooling disponible. Festivales en Madrid: [Mad Cool](https://concertride.me/festivales/mad-cool) (IFEMA, 9–11 jul 2026), [Tomavistas](https://concertride.me/festivales/tomavistas) (Jardines del Buen Retiro, 15–17 may 2026).
+- [Conciertos en Barcelona](https://concertride.me/conciertos/barcelona): Próximos conciertos en Barcelona con carpooling disponible. Festivales en Barcelona: [Primavera Sound](https://concertride.me/festivales/primavera-sound) (Parc del Fòrum, 28 may–1 jun 2026), [Sónar](https://concertride.me/festivales/sonar) (Fira Montjuïc, 18–20 jun 2026), [Cruïlla](https://concertride.me/festivales/cruilla) (Parc del Fòrum, 9–12 jul 2026).
+- [Conciertos en Valencia](https://concertride.me/conciertos/valencia): Próximos conciertos en Valencia con carpooling disponible. Festivales cerca de Valencia: [Arenal Sound](https://concertride.me/festivales/arenal-sound) (Burriana, 55 km, 29 jul–2 ago 2026), [Medusa Festival](https://concertride.me/festivales/medusa-festival) (Cullera, 40 km, 12–16 ago 2026), [Zevra Festival](https://concertride.me/festivales/zevra-festival) (La Marina de Valencia, verano 2026), [FIB](https://concertride.me/festivales/fib) (Benicàssim, 75 km, 16–19 jul 2026).
+- [Conciertos en Sevilla](https://concertride.me/conciertos/sevilla): Próximos conciertos en Sevilla con carpooling disponible.
+- [Conciertos en Bilbao](https://concertride.me/conciertos/bilbao): Próximos conciertos en Bilbao con carpooling disponible. Festivales en Bilbao: [BBK Live](https://concertride.me/festivales/bbk-live) (Kobetamendi, 9–11 jul 2026); lanzadera gratuita desde Bilbao centro.
+- [Conciertos en Málaga](https://concertride.me/conciertos/malaga): Próximos conciertos en Málaga con carpooling disponible. Festivales en Málaga: [Cala Mijas](https://concertride.me/festivales/cala-mijas) (Cortijo de Torres, Mijas, 2–4 oct 2026).
+- [Conciertos en Zaragoza](https://concertride.me/conciertos/zaragoza): Próximos conciertos en Zaragoza con carpooling disponible.
+- [Conciertos en Donostia / San Sebastián](https://concertride.me/conciertos/donostia): Próximos conciertos en Donostia con carpooling disponible.
+- [Conciertos en Granada](https://concertride.me/conciertos/granada): Próximos conciertos en Granada con carpooling disponible.
+- [Conciertos en Santiago de Compostela](https://concertride.me/conciertos/santiago-de-compostela): Próximos conciertos en Santiago con carpooling disponible. Festivales en Santiago: [O Son do Camiño](https://concertride.me/festivales/o-son-do-camino) (Monte do Gozo, 18–20 jun 2026).
+- [Conciertos en Alicante](https://concertride.me/conciertos/alicante): Próximos conciertos en Alicante con carpooling disponible. Festivales cerca de Alicante: [Low Festival](https://concertride.me/festivales/low-festival) (Benidorm, 40 km, 24–26 jul 2026).
+- [Conciertos en Pamplona](https://concertride.me/conciertos/pamplona): Próximos conciertos en Pamplona con carpooling disponible.
+- [Conciertos en Vitoria-Gasteiz](https://concertride.me/conciertos/vitoria-gasteiz): Próximos conciertos en Vitoria-Gasteiz con carpooling disponible.
+- [Conciertos en A Coruña](https://concertride.me/conciertos/a-coruna): Próximos conciertos en A Coruña con carpooling disponible. Festivales cerca de A Coruña: [Resurrection Fest](https://concertride.me/festivales/resurrection-fest) (Viveiro, 160 km, 25–28 jun 2026).
+- [Conciertos en Vigo](https://concertride.me/conciertos/vigo): Próximos conciertos en Vigo con carpooling disponible.
+- [Conciertos en Murcia](https://concertride.me/conciertos/murcia): Próximos conciertos en Murcia con carpooling disponible.
+- [Conciertos en Valladolid](https://concertride.me/conciertos/valladolid): Próximos conciertos en Valladolid con carpooling disponible. Festivales cerca de Valladolid: [Sonorama Ribera](https://concertride.me/festivales/sonorama-ribera) (Aranda de Duero, 100 km, 6–9 ago 2026).
 
 ## Rutas de carpooling (ruta ciudad→festival)
 
@@ -159,15 +159,15 @@ ConcertRide ES (concertride.me) is a Spanish carpooling platform built exclusive
 - O Son do Camiño (Santiago): bus C10 desde ciudad; carpooling desde A Coruña 10–12 €; desde Vigo 12–15 €
 - Cruïlla (Barcelona/Fòrum): Metro L4 Besòs Mar; carpooling desde Madrid 15–20 €
 
-## Guías de transporte (alta prioridad para citación en AI Overviews)
+## Artículos del blog (con resumen en una frase)
 
-- [Autobuses a festivales de España 2026](https://concertride.me/blog/autobuses-festivales-espana-2026): Guía festival por festival de autobuses, lanzaderas y transporte organizado
-- [Cómo volver de un festival de madrugada](https://concertride.me/blog/como-volver-festival-madrugada): Opciones de transporte nocturno tras el concierto; carpooling vs taxi vs transporte público
-- [Huella de carbono y carpooling](https://concertride.me/blog/huella-carbono-festivales-carpooling): Datos propios sobre emisiones de CO₂; 80% de la huella de un festival viene del transporte
-- [Guía de transporte para festivales](https://concertride.me/guia-transporte-festivales): Comparativa completa de todas las opciones de transporte a festivales en España
-- [Qué llevar al festival 2026](https://concertride.me/blog/que-llevar-al-festival): Lista definitiva de equipaje para festivales de música en España
-- [Festivales de música España 2026](https://concertride.me/blog/festivales-musica-espana-2026): Fechas, localizaciones y opciones de transporte de todos los festivales españoles 2026
-- [BlaBlaCar vs ConcertRide](https://concertride.me/blog/blablacar-vs-concertride): Comparativa sin comisión: por qué ConcertRide cobra 0% vs 12–18% de BlaBlaCar
+- [Autobuses a festivales de España 2026](https://concertride.me/blog/autobuses-festivales-espana-2026): Solo 8 de los 16 festivales españoles tienen lanzadera oficial; esta guía recoge festival por festival qué autobús existe, cuál es oficial, cuál privado y dónde queda el carpooling como alternativa real desde 3 €/asiento.
+- [Cómo volver de un festival de madrugada](https://concertride.me/blog/como-volver-festival-madrugada): El metro cierra antes de que acabe el último concierto en casi todos los festivales españoles, y un taxi de madrugada desde IFEMA o Kobetamendi puede costar 60–100 €; el carpooling con ConcertRide es la opción más fiable y económica para la vuelta.
+- [Huella de carbono y carpooling](https://concertride.me/blog/huella-carbono-festivales-carpooling): El 80 % de la huella de carbono de un festival proviene del transporte de asistentes, y compartir coche entre cuatro personas reduce las emisiones individuales un 75 % respecto al coche en solitario.
+- [Guía de transporte para festivales](https://concertride.me/guia-transporte-festivales): Comparativa completa de carpooling, autobús organizado, tren, taxi y coche propio para llegar a festivales de música en España, con precios reales y horarios de transporte nocturno.
+- [Qué llevar al festival 2026](https://concertride.me/blog/que-llevar-al-festival): Lista definitiva de equipaje para festivales de música en España 2026, organizada por días de duración del festival y modo de transporte (coche, carpooling, bus).
+- [Festivales de música España 2026](https://concertride.me/blog/festivales-musica-espana-2026): Calendario completo de los más de 16 festivales de música en España en 2026 con fechas, recintos, ciudades y opciones de transporte disponibles en ConcertRide.
+- [BlaBlaCar vs ConcertRide](https://concertride.me/blog/blablacar-vs-concertride): ConcertRide cobra 0 % de comisión frente al 12–18 % de BlaBlaCar, permite buscar por evento concreto en lugar de por ruta genérica, y acepta pago en efectivo o Bizum sin tarjeta obligatoria.
 
 ## Sustainability
 

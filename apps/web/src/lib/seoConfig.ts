@@ -193,7 +193,7 @@ export const SEO_CONFIG = {
       keywords: "carpooling conciertos españa, viaje compartido festivales, coche compartido concierto, carpooling festivales 2026, sin comisión",
     },
     concerts: {
-      title: "Conciertos en España 2026 — Carpooling disponible | ConcertRide",
+      title: "Conciertos España 2026 — Carpooling disponible | ConcertRide",
       description: "Busca conciertos y festivales en España 2026. Encuentra carpooling para ir a los eventos que te interesan: pop, rock, indie, electrónica y más. Sin comisión.",
       keywords: "conciertos españa 2026, próximos conciertos españa, carpooling conciertos, viaje compartido concierto, festivales 2026 españa",
     },

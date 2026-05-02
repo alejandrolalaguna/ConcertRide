@@ -9,7 +9,7 @@ const FEATURED_SLUGS = ["mad-cool", "primavera-sound", "sonar", "fib", "bbk-live
 export default function FestivalesPage() {
   const year = new Date().getFullYear();
   useSeoMeta({
-    title: `Carpooling festivales España ${year} — sin comisión | ConcertRide`,
+    title: `Carpooling festivales música España ${year} | ConcertRide`,
     description: `+${FESTIVAL_LANDINGS.length} festivales con viaje compartido en España ${year}: Mad Cool, Primavera Sound, BBK Live, Arenal Sound y más. Sin comisión. Únete ahora.`,
     canonical: `${SITE_URL}/festivales`,
     keywords:
@@ -25,7 +25,7 @@ export default function FestivalesPage() {
     "@type": "CollectionPage",
     "@id": `${url}#webpage`,
     url,
-    name: `Carpooling festivales España ${year} — sin comisión | ConcertRide`,
+    name: `Carpooling festivales música España ${year} | ConcertRide`,
     description: `Directorio de ${FESTIVAL_LANDINGS.length} festivales de música en España ${year} con carpooling disponible. Mad Cool (IFEMA Madrid, 9–11 jul), Primavera Sound (Parc del Fòrum Barcelona, 28 may–1 jun), Sónar (Fira de Barcelona, 18–20 jun), BBK Live (Kobetamendi Bilbao, 9–11 jul), Arenal Sound (Burriana, 29 jul–2 ago), Viña Rock (Villarrobledo, 30 abr–3 may) y más. Precios desde 3 €/asiento sin comisión.`,
     inLanguage: "es-ES",
     numberOfItems: FESTIVAL_LANDINGS.length,
