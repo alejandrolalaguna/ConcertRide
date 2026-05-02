@@ -22,12 +22,40 @@ export default function FestivalLandingPage() {
 
   const festivalOgImage = festival?.ogImage ?? FESTIVAL_DEFAULT_OG;
 
+  const festYear = festival ? new Date(festival.startDate).getFullYear() : new Date().getFullYear();
+
+  // Per-festival title/description overrides targeting top GSC queries
+  const FESTIVAL_META_OVERRIDES: Record<string, { title: string; description: string }> = {
+    "vina-rock": {
+      title: `Autobuses Viña Rock ${festYear}: buses, lanzadera y carpooling | ConcertRide`,
+      description: `¿Hay autobús a Viña Rock ${festYear}? Bus lanzadera desde Albacete (50 km, 40 min). Autobuses privados Madrid–Viñarock (35–55 €). Carpooling ConcertRide desde Madrid (6–9 €/asiento). Sin comisión.`,
+    },
+    "arenal-sound": {
+      title: `Bus Arenal Sound ${festYear}: autobús Castellón–Burriana y carpooling | ConcertRide`,
+      description: `Autobús Castellón a Burriana Arenal Sound: lanzadera oficial desde estación Castellón (10 km, 20 min). Tren Valencia–Castellón + lanzadera. Carpooling desde Valencia (3–6 €). Sin comisión.`,
+    },
+    "cala-mijas": {
+      title: `Cala Mijas Festival ${festYear}: transporte desde Málaga y Marbella | ConcertRide`,
+      description: `Cala Mijas Fest ${festYear} en Cortijo de Torres, Málaga (no en La Cala de Mijas). Sin shuttle oficial. Carpooling desde Málaga (3–5 €), Marbella (3–6 €) o Fuengirola (3–5 €). 2–4 octubre 2026.`,
+    },
+    "bbk-live": {
+      title: `Cómo llegar al BBK Live ${festYear}: lanzadera, carpooling | ConcertRide`,
+      description: `BBK Live ${festYear} en Kobetamendi, Bilbao. Lanzadera oficial gratuita desde Plaza Moyúa. Carpooling desde Madrid (11–16 €), Santander (4–7 €), Donostia (5–8 €). 9–11 jul 2026.`,
+    },
+    "zevra-festival": {
+      title: `Zevra Festival ${festYear}: horarios, transporte y carpooling | ConcertRide`,
+      description: `Zevra Festival Valencia ${festYear} en La Marina de València. Horarios: apertura 18:30, cabezas de cartel 23:00–01:00. Metro L4 hasta Marítim-Serreria. Carpooling desde Madrid (10–14 €).`,
+    },
+  };
+
+  const festOverride = festival ? FESTIVAL_META_OVERRIDES[festival.slug] : undefined;
+
   useSeoMeta({
     title: festival
-      ? `Carpooling ${festival.shortName} ${new Date().getFullYear()} — sin comisión | ConcertRide`
+      ? festOverride?.title ?? `Cómo llegar a ${festival.shortName} ${festYear}: buses, tren y carpooling | ConcertRide`
       : "Festivales de música en España",
     description: festival
-      ? `Cómo ir a ${festival.shortName} ${new Date(festival.startDate).getFullYear()} en carpooling desde ${festival.originCities.slice(0, 2).map((c) => c.city).join(", ")} y más. Desde ${((festival.originCities[0]?.concertRideRange ?? "3 €/asiento").split("–").at(0) ?? "3").replace(/[^0-9]/g, "") || "3"} €/asiento, sin comisión. Conductores verificados. Reserva ya.`
+      ? festOverride?.description ?? `${festival.shortName} ${festYear} en ${festival.venue}, ${festival.city}. Transporte: autobús, tren y carpooling desde ${festival.originCities.slice(0, 2).map((c) => c.city).join(", ")}. Cómo llegar sin coche desde ${((festival.originCities[0]?.concertRideRange ?? "3 €/asiento").split("–").at(0) ?? "3").replace(/[^0-9]/g, "") || "3"} €.`
       : "Carpooling a festivales de música en España con ConcertRide.",
     canonical: festival
       ? `${SITE_URL}/festivales/${festival.slug}`
@@ -36,23 +64,24 @@ export default function FestivalLandingPage() {
     ogType: "music.event",
     keywords: festival
       ? [
-          `cómo ir a ${festival.shortName}`,
           `cómo llegar a ${festival.shortName}`,
+          `cómo ir a ${festival.shortName}`,
+          `autobus ${festival.shortName}`,
+          `autobús ${festival.shortName}`,
+          `buses ${festival.shortName}`,
+          `bus ${festival.shortName}`,
           `transporte ${festival.shortName}`,
+          `como llegar ${festival.shortName} ${new Date(festival.startDate).getFullYear()}`,
+          `transporte ${festival.shortName} ${new Date(festival.startDate).getFullYear()}`,
           `carpooling ${festival.name}`,
           `coche compartido ${festival.shortName}`,
           `${festival.shortName} ${festival.city}`,
           `viaje compartido ${festival.shortName} ${new Date().getFullYear()}`,
           `compartir coche ${festival.shortName}`,
-          `alternativa taxi ${festival.shortName}`,
-          `ir a ${festival.shortName} sin coche`,
-          `precio carpooling ${festival.shortName}`,
-          `autobús ${festival.shortName}`,
-          `bus ${festival.shortName}`,
           `lanzadera ${festival.shortName}`,
-          `como llegar ${festival.shortName} ${new Date().getFullYear()}`,
           `transporte ${festival.shortName} ${festival.city}`,
           `${festival.shortName} transporte público`,
+          `tren ${festival.shortName}`,
           `viaje ${festival.shortName} desde ${festival.originCities[0]?.city ?? "Madrid"}`,
           `carpooling ${festival.city} ${festival.shortName}`,
         ].join(", ")
@@ -214,7 +243,7 @@ export default function FestivalLandingPage() {
         "@type": "WebPage",
         "@id": `${SITE_URL}/festivales/${festival.slug}#webpage`,
         "url": `${SITE_URL}/festivales/${festival.slug}`,
-        "name": `Cómo ir a ${festival.name} — Carpooling sin comisión | ConcertRide`,
+        "name": `Cómo llegar a ${festival.name} ${new Date(festival.startDate).getFullYear()}: buses, tren y carpooling | ConcertRide`,
         "description": `Guía de transporte para ${festival.name} (${festival.venue}, ${festival.city}, ${festival.typicalDates}). Carpooling desde ${festival.originCities.length} ciudades españolas desde ${festival.originCities[0]?.concertRideRange ?? "3 €"}/asiento sin comisión. Opciones de autobús, tren y coche compartido con precios y tiempos de trayecto reales.`,
         "inLanguage": "es-ES",
         "isPartOf": { "@id": `${SITE_URL}/#website` },
@@ -246,7 +275,7 @@ export default function FestivalLandingPage() {
         </p>
 
         <h1 className="font-display text-4xl md:text-6xl uppercase leading-[0.92]">
-          Cómo ir a<br />{festival.shortName} {new Date(festival.startDate).getFullYear()}.
+          Cómo llegar a<br />{festival.shortName} {new Date(festival.startDate).getFullYear()}.
         </h1>
 
         <p className="font-sans text-sm font-semibold text-cr-text max-w-2xl speakable festival-summary">

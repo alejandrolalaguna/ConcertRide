@@ -91,6 +91,7 @@ console.log(`[prerender] done — ${ok} ok, ${failed} failed`);
 
 // ── Sitemap ─────────────────────────────────────────────────────────────────
 await writeSitemap(succeeded);
+await writeSitemapIndex();
 
 // ── Helpers ─────────────────────────────────────────────────────────────────
 function injectIntoShell(shellHtml, bodyHtml, seo, url) {
@@ -186,6 +187,20 @@ function escapeRegex(s) {
 
 async function exists(p) {
   try { await fs.access(p); return true; } catch { return false; }
+}
+
+async function writeSitemapIndex() {
+  const today = new Date().toISOString().slice(0, 10);
+  const xml = `<?xml version="1.0" encoding="UTF-8"?>
+<sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <sitemap>
+    <loc>${SITE_URL}/sitemap-static.xml</loc>
+    <lastmod>${today}</lastmod>
+  </sitemap>
+</sitemapindex>
+`;
+  await fs.writeFile(path.join(distDir, "sitemap.xml"), xml, "utf8");
+  console.log(`[prerender] sitemap.xml updated — lastmod ${today}`);
 }
 
 async function writeSitemap(urls) {

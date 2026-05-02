@@ -38,6 +38,17 @@ const app = new Hono<HonoEnv>();
 app.use("*", logger());
 app.use("*", prettyJSON());
 
+// ─── Trailing-slash normalisation (runs first, before SEO/routes) ───────────
+// Redirects /path/ → /path for all GET requests (except bare "/").
+// Prevents GSC "page with redirect" exclusions from trailing-slash variants.
+app.use("*", async (c, next) => {
+  const url = new URL(c.req.url);
+  if (c.req.method === "GET" && url.pathname !== "/" && url.pathname.endsWith("/")) {
+    return c.redirect(url.pathname.slice(0, -1) + url.search, 301);
+  }
+  return next();
+});
+
 // ─── SEO prerender for search bots (runs early, before any route matching) ──
 // This must run before CORS/routes so it intercepts bot requests before
 // Cloudflare/Hono make trailing-slash redirects.

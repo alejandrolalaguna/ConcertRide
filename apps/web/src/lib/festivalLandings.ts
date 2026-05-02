@@ -536,10 +536,10 @@ export const FESTIVAL_LANDINGS: FestivalLanding[] = [
     name: "Viña Rock",
     shortName: "Viña Rock",
     city: "Villarrobledo",
-    citySlug: "valencia",
+    citySlug: "murcia",
     region: "Castilla-La Mancha",
-    venue: "La Pulgosa",
-    venueAddress: "Parque La Pulgosa, 02600 Villarrobledo, Albacete",
+    venue: "Parque La Pulgosa",
+    venueAddress: "Parque La Pulgosa, Ctra. Minaya s/n, 02600 Villarrobledo, Albacete",
     lat: 39.264,
     lng: -2.602,
     startDate: "2026-04-30",
@@ -547,7 +547,7 @@ export const FESTIVAL_LANDINGS: FestivalLanding[] = [
     typicalDates: "Puente de mayo (edición 2026: 30 abril–3 mayo)",
     capacity: "50.000 personas/día",
     blurb:
-      "Viña Rock es el festival de rock alternativo, punk y metal más longevo de España, celebrado en Villarrobledo (Albacete) desde 1996 en el puente de mayo. El recinto de La Pulgosa está situado en plena meseta manchega, a 190 km de Madrid (A-3), 200 km de Valencia (A-3) y 165 km de Alicante (A-31), sin ninguna línea de transporte público que llegue al recinto en horarios de festival. Con 50.000 asistentes diarios y una zona de camping de referencia, Viña Rock es uno de los festivales con mayor dependencia del coche particular y el carpooling: más del 80% de los asistentes llegan en coche, y ConcertRide es la herramienta habitual para organizar el viaje compartido desde Madrid, Valencia o Alicante.",
+      "Viña Rock es el festival de rock alternativo, punk y metal más longevo de España, celebrado en el Parque La Pulgosa de Villarrobledo (Albacete) desde 1996 en el puente de mayo. El recinto está situado en plena meseta manchega, a 190 km de Madrid (≈2 h por la A-3), 200 km de Valencia y 165 km de Alicante, sin ninguna línea de transporte público que llegue al recinto en horarios de festival. El único autobús / bus oficial es la lanzadera del propio festival desde la estación de autobuses de Albacete (50 km, 40 min). Los autobuses privados Madrid–Viña Rock (Viñarock) salen desde Méndez Álvaro o Nuevos Ministerios (35–55 €) con horario fijo. Con 50.000 asistentes diarios y una zona de camping de referencia, más del 80 % de los asistentes llegan en coche o en autobús; ConcertRide es la herramienta habitual para organizar el viaje compartido desde Madrid, Valencia o Alicante.",
     originCities: [
       { city: "Madrid", km: 190, drivingTime: "1h 55 min", concertRideRange: "6–9 €/asiento" },
       { city: "Valencia", km: 200, drivingTime: "2h", concertRideRange: "6–9 €/asiento" },

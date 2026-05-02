@@ -186,8 +186,8 @@ function buildStaticRoutes(base: string): Record<string, { title: string; descri
       })(),
     },
     "/guia-transporte-festivales": {
-      title: `Guía de transporte para festivales de música en España — ${SITE_NAME}`,
-      description: "Cómo llegar a los principales festivales de España en coche compartido. Carpooling, autobús, tren y consejos para volver de madrugada sin taxi.",
+      title: `Guía de transporte para festivales de España 2026: autobús, tren y carpooling | ${SITE_NAME}`,
+      description: "Cómo llegar a los festivales de música en España: autobús organizado, tren, lanzadera oficial y carpooling comparados. Precios, pros, contras y opciones de vuelta de madrugada.",
       canonical: `${base}/guia-transporte-festivales`,
       h1: "Guía de transporte para festivales de música en España 2026",
       body: `<p>Guía completa con todas las opciones para llegar a los festivales de música en España en 2026: carpooling, autobuses organizados, transporte público y consejos para volver de madrugada sin pagar de más.</p>
@@ -565,9 +565,10 @@ const FESTIVALS: Record<string, FestivalData> = {
     priceFrom: "4",
     blurb: "Mad Cool es el festival de rock e indie alternativo más grande de Madrid, celebrado en IFEMA desde 2016. Convoca a 80.000 asistentes diarios. El recinto queda a 15 km del centro pero el transporte nocturno es limitado: el metro cierra a la 1:30 y los taxis cuestan 60–90 €. ConcertRide es la alternativa preferida de quienes vienen desde otras provincias.",
     originCities: [
-      { city: "Centro de Madrid", km: 15, drivingTime: "25 min", range: "4–7 €/asiento" },
+      { city: "Madrid", km: 15, drivingTime: "25 min", range: "4–7 €/asiento" },
       { city: "Toledo", km: 75, drivingTime: "55 min", range: "4–7 €/asiento" },
       { city: "Guadalajara", km: 60, drivingTime: "50 min", range: "3–6 €/asiento" },
+      { city: "Segovia", km: 90, drivingTime: "1h 10 min", range: "4–7 €/asiento" },
       { city: "Valencia", km: 355, drivingTime: "3h 20 min", range: "10–14 €/asiento" },
       { city: "Zaragoza", km: 325, drivingTime: "3h", range: "9–13 €/asiento" },
       { city: "Barcelona", km: 620, drivingTime: "5h 30 min", range: "15–20 €/asiento" },
@@ -618,9 +619,10 @@ const FESTIVALS: Record<string, FestivalData> = {
     blurb: "Sónar es el festival de referencia de música avanzada y tecnología creativa, con dos sedes: Sónar de Día en Fira Montjuïc y Sónar de Noche en Fira Gran Via (L'Hospitalet). El transporte entre sedes y el acceso nocturno hacen del coche compartido la opción más práctica.",
     originCities: [
       { city: "Madrid", km: 620, drivingTime: "5h 30 min", range: "15–20 €/asiento" },
-      { city: "Valencia", km: 355, drivingTime: "3h 30 min", range: "10–14 €/asiento" },
+      { city: "Valencia", km: 355, drivingTime: "3h 15 min", range: "10–14 €/asiento" },
       { city: "Zaragoza", km: 306, drivingTime: "2h 45 min", range: "8–12 €/asiento" },
-      { city: "Lleida", km: 170, drivingTime: "1h 45 min", range: "5–8 €/asiento" },
+      { city: "Girona", km: 100, drivingTime: "1h", range: "4–7 €/asiento" },
+      { city: "Tarragona", km: 100, drivingTime: "1h", range: "4–7 €/asiento" },
     ],
     faqs: [
       { q: "¿Qué es Sónar de Día y Sónar de Noche?", a: "Sónar de Día se celebra en Fira Montjuïc (Barcelona centro) y acaba sobre las 22h. Sónar de Noche es en Fira Gran Via (L'Hospitalet) y va hasta las 6am. Con ConcertRide puedes coordinar el transporte para ambas sedes." },
@@ -640,10 +642,12 @@ const FESTIVALS: Record<string, FestivalData> = {
     priceFrom: "6",
     blurb: "El FIB (Festival Internacional de Benicàssim) es uno de los festivales con más historia de España. Combina música indie y alternativa con el entorno mediterráneo de Benicàssim. El recinto queda lejos de las estaciones de tren, por lo que el coche compartido es la forma más cómoda de llegar.",
     originCities: [
-      { city: "Madrid", km: 390, drivingTime: "3h 45 min", range: "10–14 €/asiento" },
-      { city: "Barcelona", km: 230, drivingTime: "2h 15 min", range: "7–10 €/asiento" },
-      { city: "Valencia", km: 75, drivingTime: "1h", range: "4–6 €/asiento" },
-      { city: "Zaragoza", km: 270, drivingTime: "2h 30 min", range: "8–11 €/asiento" },
+      { city: "Valencia", km: 70, drivingTime: "50 min", range: "3–6 €/asiento" },
+      { city: "Castellón de la Plana", km: 15, drivingTime: "20 min", range: "3–5 €/asiento" },
+      { city: "Madrid", km: 465, drivingTime: "4h", range: "12–17 €/asiento" },
+      { city: "Barcelona", km: 300, drivingTime: "2h 45 min", range: "8–12 €/asiento" },
+      { city: "Alicante", km: 175, drivingTime: "1h 45 min", range: "5–8 €/asiento" },
+      { city: "Zaragoza", km: 270, drivingTime: "2h 30 min", range: "7–11 €/asiento" },
     ],
     faqs: [
       { q: "¿Cómo llegar al FIB desde Valencia?", a: "Desde Valencia son unos 75 km (1h en coche). Con ConcertRide, el precio típico es 4–6 €/asiento. También hay autobuses directos desde Valencia capital." },
@@ -654,23 +658,27 @@ const FESTIVALS: Record<string, FestivalData> = {
     name: "Bilbao BBK Live",
     shortName: "BBK Live",
     city: "Bilbao",
-    venue: "Kobetamendi",
-    venueAddress: "Kobetamendi, 48006 Bilbao",
+    venue: "Parque de Kobetamendi",
+    venueAddress: "Recinto Kobetamendi, Barrio Landabaso, 48015 Bilbao",
     dates: "9–11 julio 2026",
     startDate: "2026-07-09",
     endDate: "2026-07-11",
     priceFrom: "5",
-    blurb: "BBK Live se celebra en lo alto del monte Kobetamendi, con vistas a Bilbao. El acceso es por lanzaderas oficiales desde el centro, pero en horarios tardíos son insuficientes. El coche compartido es la mejor alternativa para quien viene de fuera del País Vasco.",
+    blurb: "BBK Live se celebra en el Recinto Kobetamendi (Parque de Kobetamendi), en lo alto del monte del mismo nombre con vistas a la ría de Bilbao. El acceso al recinto Kobetamendi es únicamente por lanzadera oficial gratuita desde la Plaza Moyúa (Bilbao centro). Para quien viene desde fuera del País Vasco — Madrid (395 km), Donostia (100 km), Santander (100 km), Pamplona (155 km) — el carpooling con ConcertRide es la opción más económica para llegar a Bilbao y conectar con la lanzadera.",
     originCities: [
-      { city: "Madrid", km: 395, drivingTime: "4h", range: "12–16 €/asiento" },
-      { city: "Barcelona", km: 615, drivingTime: "5h 30 min", range: "15–20 €/asiento" },
+      { city: "Bilbao", km: 5, drivingTime: "15 min", range: "3–5 €/asiento" },
       { city: "Donostia", km: 100, drivingTime: "1h", range: "4–7 €/asiento" },
-      { city: "Vitoria", km: 65, drivingTime: "50 min", range: "3–6 €/asiento" },
-      { city: "Pamplona", km: 80, drivingTime: "1h", range: "4–7 €/asiento" },
+      { city: "Vitoria-Gasteiz", km: 65, drivingTime: "45 min", range: "3–6 €/asiento" },
+      { city: "Pamplona", km: 155, drivingTime: "1h 30 min", range: "5–8 €/asiento" },
+      { city: "Santander", km: 100, drivingTime: "1h", range: "4–7 €/asiento" },
+      { city: "Burgos", km: 155, drivingTime: "1h 30 min", range: "5–8 €/asiento" },
+      { city: "Madrid", km: 395, drivingTime: "3h 30 min", range: "11–16 €/asiento" },
     ],
     faqs: [
-      { q: "¿Cómo llegar al BBK Live desde el centro de Bilbao?", a: "Hay lanzaderas oficiales desde la Plaza Moyúa. También puedes ir en coche compartido con ConcertRide (4–7 € desde el centro)." },
-      { q: "¿Cuánto cuesta ir al BBK Live desde Madrid?", a: "Unos 395 km (4h). El precio por asiento en ConcertRide es normalmente 12–16 €." },
+      { q: "¿Cómo llegar al Recinto Kobetamendi (BBK Live)?", a: "El recinto de BBK Live está en el Parque de Kobetamendi, Bilbao. El acceso es por lanzadera oficial gratuita desde Plaza Moyúa (incluida en la entrada). No se puede acceder en coche propio. Para llegar desde fuera del País Vasco, usa ConcertRide hasta Bilbao y desde allí la lanzadera." },
+      { q: "¿Cómo llegar al BBK Live desde el centro de Bilbao?", a: "Hay lanzaderas gratuitas desde la Plaza Moyúa hasta el recinto Kobetamendi con frecuencia de 15 min. También taxi (12–18 €). ConcertRide conecta desde otras ciudades hasta Bilbao." },
+      { q: "¿Cuánto cuesta ir al BBK Live desde Madrid?", a: "Madrid–Bilbao (Kobetamendi) son 395 km (3h 30 min). El precio por asiento en ConcertRide es 11–16 €. Desde allí, lanzadera gratuita al recinto." },
+      { q: "¿Cómo ir al BBK Live desde Santander?", a: "Santander–Bilbao son 100 km (1h por la A-8). Con ConcertRide el precio es 4–7 €/asiento. La vuelta de madrugada en tren o bus es imposible; el carpooling es la única opción práctica." },
     ],
   },
   "resurrection-fest": {
@@ -685,10 +693,12 @@ const FESTIVALS: Record<string, FestivalData> = {
     priceFrom: "8",
     blurb: "El Resurrection Fest es el mayor festival de metal de España, celebrado en Viveiro (Lugo). La ubicación remota hace que el coche compartido sea prácticamente la única opción viable para llegar desde las grandes ciudades.",
     originCities: [
-      { city: "Madrid", km: 620, drivingTime: "6h", range: "16–22 €/asiento" },
-      { city: "Santiago de Compostela", km: 115, drivingTime: "1h 15 min", range: "4–7 €/asiento" },
-      { city: "A Coruña", km: 140, drivingTime: "1h 30 min", range: "5–8 €/asiento" },
-      { city: "Oviedo", km: 130, drivingTime: "1h 30 min", range: "5–8 €/asiento" },
+      { city: "A Coruña", km: 100, drivingTime: "1h 15 min", range: "4–7 €/asiento" },
+      { city: "Santiago de Compostela", km: 185, drivingTime: "2h", range: "6–9 €/asiento" },
+      { city: "Vigo", km: 200, drivingTime: "2h 15 min", range: "6–9 €/asiento" },
+      { city: "Oviedo", km: 195, drivingTime: "2h", range: "6–9 €/asiento" },
+      { city: "Madrid", km: 600, drivingTime: "6h", range: "16–22 €/asiento" },
+      { city: "Bilbao", km: 375, drivingTime: "4h", range: "10–15 €/asiento" },
     ],
     faqs: [
       { q: "¿Cómo llegar al Resurrection Fest desde Madrid?", a: "Son unos 620 km (6h en coche). Con ConcertRide el precio por asiento es 16–22 €. Muchos grupos organizan el viaje en van desde Madrid." },
@@ -699,22 +709,27 @@ const FESTIVALS: Record<string, FestivalData> = {
     name: "Arenal Sound",
     shortName: "Arenal Sound",
     city: "Burriana",
-    venue: "Playa del Arenal",
-    venueAddress: "Playa del Arenal, 12530 Burriana, Castellón",
+    venue: "Playa de Burriana",
+    venueAddress: "Playa de Burriana, 12530 Burriana, Castellón de la Plana",
     dates: "29 jul–2 ago 2026",
     startDate: "2026-07-29",
     endDate: "2026-08-02",
     priceFrom: "4",
-    blurb: "Arenal Sound es el festival de pop-rock y electrónica de la costa valenciana, en la playa de Burriana. Cerca de Valencia y con gran afluencia desde toda España.",
+    blurb: "Arenal Sound es el festival de pop-rock y electrónica en la playa de Burriana (Castellón), a 10 km de Castellón de la Plana y 65 km de Valencia. No es en Alicante: el recinto está en la provincia de Castellón. El festival habilita autobús lanzadera desde la estación de autobuses de Castellón de la Plana (10 km, 20 min). Gran afluencia desde Valencia, Madrid y Barcelona.",
     originCities: [
-      { city: "Valencia", km: 65, drivingTime: "45 min", range: "4–6 €/asiento" },
-      { city: "Madrid", km: 360, drivingTime: "3h 30 min", range: "10–14 €/asiento" },
-      { city: "Barcelona", km: 190, drivingTime: "2h", range: "7–10 €/asiento" },
-      { city: "Zaragoza", km: 270, drivingTime: "2h 30 min", range: "8–11 €/asiento" },
+      { city: "Valencia", km: 65, drivingTime: "45 min", range: "3–6 €/asiento" },
+      { city: "Castellón de la Plana", km: 10, drivingTime: "15 min", range: "3–5 €/asiento" },
+      { city: "Burriana", km: 2, drivingTime: "5 min", range: "2–4 €/asiento" },
+      { city: "Madrid", km: 460, drivingTime: "4h", range: "12–17 €/asiento" },
+      { city: "Barcelona", km: 305, drivingTime: "2h 50 min", range: "8–12 €/asiento" },
+      { city: "Zaragoza", km: 275, drivingTime: "2h 30 min", range: "8–12 €/asiento" },
+      { city: "Alicante", km: 115, drivingTime: "1h 15 min", range: "4–7 €/asiento" },
     ],
     faqs: [
-      { q: "¿Cómo llegar al Arenal Sound desde Valencia?", a: "Solo 65 km (45 min en coche). Con ConcertRide, el precio es 4–6 € por asiento." },
-      { q: "¿Hay camping en el Arenal Sound?", a: "Sí, el festival tiene zona de camping. ConcertRide es ideal para llegar con la carpa y el equipo sin depender del transporte público." },
+      { q: "¿Cómo llegar al Arenal Sound? Localización", a: "Arenal Sound se celebra en la Playa de Burriana (Castellón), a 10 km de Castellón de la Plana y 65 km de Valencia. No está en Alicante: el recinto está en la provincia de Castellón. Hay autobús lanzadera oficial desde la estación de autobuses de Castellón de la Plana (10 km, 20 min)." },
+      { q: "¿Hay autobús de Castellón a Burriana para Arenal Sound?", a: "Sí. El festival habilita autobuses lanzadera desde Castellón de la Plana a Burriana (10 km, 20 min) durante los días del evento. Plazas limitadas; fuera del horario de lanzadera, taxi Castellón–Burriana 10–15 €. Para quienes vienen de Madrid (12–17 €), Valencia (3–6 €) o Barcelona (8–12 €), ConcertRide llega directamente al recinto." },
+      { q: "¿Cómo llegar al Arenal Sound desde Valencia?", a: "Solo 65 km (45 min en coche). Con ConcertRide, el precio es 3–6 € por asiento desde Valencia." },
+      { q: "¿Hay camping en el Arenal Sound?", a: "Sí, el festival tiene zona de camping junto a la playa de Burriana. ConcertRide es ideal para llegar con la carpa y el equipo sin depender del transporte público." },
     ],
   },
   "medusa-festival": {
@@ -729,10 +744,12 @@ const FESTIVALS: Record<string, FestivalData> = {
     priceFrom: "5",
     blurb: "Medusa Festival es el mayor festival de música electrónica de España, con más de 300.000 asistentes en la playa de Cullera. El acceso en transporte público es muy limitado; el coche compartido es la opción dominante.",
     originCities: [
-      { city: "Valencia", km: 40, drivingTime: "40 min", range: "3–5 €/asiento" },
-      { city: "Madrid", km: 360, drivingTime: "3h 30 min", range: "10–14 €/asiento" },
-      { city: "Barcelona", km: 370, drivingTime: "3h 40 min", range: "10–14 €/asiento" },
-      { city: "Alicante", km: 130, drivingTime: "1h 20 min", range: "5–8 €/asiento" },
+      { city: "Valencia", km: 45, drivingTime: "40 min", range: "3–5 €/asiento" },
+      { city: "Madrid", km: 385, drivingTime: "3h 30 min", range: "10–14 €/asiento" },
+      { city: "Barcelona", km: 375, drivingTime: "3h 30 min", range: "10–14 €/asiento" },
+      { city: "Alicante", km: 100, drivingTime: "1h", range: "4–7 €/asiento" },
+      { city: "Zaragoza", km: 320, drivingTime: "3h", range: "9–13 €/asiento" },
+      { city: "Murcia", km: 180, drivingTime: "1h 45 min", range: "5–8 €/asiento" },
     ],
     faqs: [
       { q: "¿Cómo llegar al Medusa Festival desde Valencia?", a: "Solo 40 km (40 min). Con ConcertRide, el precio es 3–5 €/asiento desde Valencia." },
@@ -743,21 +760,26 @@ const FESTIVALS: Record<string, FestivalData> = {
     name: "Viña Rock",
     shortName: "Viña Rock",
     city: "Villarrobledo",
-    venue: "Recinto Viña Rock",
-    venueAddress: "Ctra. de las Minas, s/n, 02600 Villarrobledo, Albacete",
+    venue: "Parque La Pulgosa",
+    venueAddress: "Parque La Pulgosa, Ctra. Minaya s/n, 02600 Villarrobledo, Albacete",
     dates: "30 abr–3 mayo 2026",
     startDate: "2026-04-30",
     endDate: "2026-05-03",
     priceFrom: "5",
-    blurb: "Viña Rock es el festival de referencia del rock en castellano, celebrado en Villarrobledo (Albacete). Punto de encuentro para fans de toda España.",
+    blurb: "Viña Rock (también escrito Viñarock) es el festival de referencia del rock alternativo, punk y metal en castellano, celebrado en el Parque La Pulgosa de Villarrobledo (Albacete) desde 1996. El recinto está a 190 km de Madrid (≈2 h por la A-3), 200 km de Valencia y 50 km de Albacete. No hay transporte público al recinto: el único autobús / bus oficial es la lanzadera del festival desde Albacete (40 min). Autobuses privados Madrid–Viña Rock: 35–55 € desde Méndez Álvaro. Carpooling desde Madrid con ConcertRide: 6–9 €/asiento, llegada directa a La Pulgosa.",
     originCities: [
-      { city: "Madrid", km: 180, drivingTime: "1h 50 min", range: "6–9 €/asiento" },
+      { city: "Madrid", km: 190, drivingTime: "1h 55 min", range: "6–9 €/asiento" },
       { city: "Valencia", km: 200, drivingTime: "2h", range: "6–9 €/asiento" },
-      { city: "Murcia", km: 140, drivingTime: "1h 30 min", range: "5–8 €/asiento" },
       { city: "Albacete", km: 50, drivingTime: "40 min", range: "3–5 €/asiento" },
+      { city: "Alicante", km: 165, drivingTime: "1h 35 min", range: "5–8 €/asiento" },
+      { city: "Murcia", km: 155, drivingTime: "1h 30 min", range: "5–8 €/asiento" },
+      { city: "Cuenca", km: 100, drivingTime: "1h", range: "4–6 €/asiento" },
     ],
     faqs: [
-      { q: "¿Cómo llegar al Viña Rock desde Madrid?", a: "Unos 180 km (1h 50 min). Con ConcertRide, el precio es 6–9 €/asiento desde Madrid." },
+      { q: "¿Cómo llegar al Viña Rock desde Madrid?", a: "Madrid–Villarrobledo son 190 km (≈2 h por la A-3, salida Villarrobledo). Con ConcertRide el precio es 6–9 €/asiento desde Madrid. Autobuses privados Madrid–Viñarock: 35–55 € desde Méndez Álvaro, horario fijo." },
+      { q: "¿Hay autobús / bus a Viña Rock desde Madrid?", a: "No hay bus oficial directo desde Madrid al recinto de La Pulgosa. Operadores privados ofrecen autobuses Viña Rock desde Madrid (35–55 €, Méndez Álvaro). La lanzadera oficial sale desde Albacete (50 km, 40 min). El carpooling Madrid–Viña Rock con ConcertRide (6–9 €) es más económico y llega directamente al recinto." },
+      { q: "¿Hay lanzadera de autobuses desde Albacete a Viña Rock?", a: "Sí, el festival habilita autobuses lanzadera desde la estación de autobuses de Albacete (50 km, 40 min) durante los días del festival. Plazas limitadas; consulta el sitio oficial de Viña Rock." },
+      { q: "¿Cuándo es Viña Rock 2026?", a: "Viña Rock 2026 se celebra del 30 de abril al 3 de mayo en el Parque La Pulgosa, Villarrobledo (Albacete, Castilla-La Mancha)." },
     ],
   },
   "o-son-do-camino": {
@@ -772,10 +794,12 @@ const FESTIVALS: Record<string, FestivalData> = {
     priceFrom: "8",
     blurb: "O Son do Camiño es el festival gallego con mayor aforo (90.000+ personas), celebrado en Monte do Gozo a las afueras de Santiago de Compostela. ConcertRide es especialmente útil para gallegos que viven en zonas sin transporte directo al recinto.",
     originCities: [
-      { city: "A Coruña", km: 75, drivingTime: "50 min", range: "4–7 €/asiento" },
-      { city: "Vigo", km: 95, drivingTime: "1h 10 min", range: "4–7 €/asiento" },
-      { city: "Lugo", km: 105, drivingTime: "1h 15 min", range: "4–7 €/asiento" },
-      { city: "Madrid", km: 620, drivingTime: "6h", range: "16–22 €/asiento" },
+      { city: "Santiago de Compostela", km: 5, drivingTime: "10 min", range: "3–5 €/asiento" },
+      { city: "A Coruña", km: 70, drivingTime: "50 min", range: "3–6 €/asiento" },
+      { city: "Vigo", km: 90, drivingTime: "1h", range: "4–7 €/asiento" },
+      { city: "Pontevedra", km: 60, drivingTime: "45 min", range: "3–5 €/asiento" },
+      { city: "Oviedo", km: 295, drivingTime: "3h", range: "9–13 €/asiento" },
+      { city: "Madrid", km: 585, drivingTime: "5h 30 min", range: "15–20 €/asiento" },
     ],
     faqs: [
       { q: "¿Cómo llegar a O Son do Camiño desde A Coruña?", a: "Unos 75 km (50 min). Con ConcertRide el precio es 4–7 €/asiento." },
@@ -784,21 +808,28 @@ const FESTIVALS: Record<string, FestivalData> = {
   "cala-mijas": {
     name: "Cala Mijas Fest",
     shortName: "Cala Mijas",
-    city: "Mijas",
-    venue: "Cala Mijas",
-    venueAddress: "Recinto Cala Mijas, 29650 Mijas, Málaga",
+    city: "Málaga",
+    venue: "Recinto Cortijo de Torres",
+    venueAddress: "Cortijo de Torres, Av. Juan Carlos I s/n, 29016 Málaga",
     dates: "2–4 octubre 2026",
     startDate: "2026-10-02",
     endDate: "2026-10-04",
     priceFrom: "5",
-    blurb: "Cala Mijas es el festival indie y pop de otoño en la Costa del Sol, con artistas internacionales y un entorno único en la serranía malagueña.",
+    blurb: "Cala Mijas Fest es el festival indie y pop de otoño en la Costa del Sol, celebrado en el Recinto Cortijo de Torres (Málaga), a 25 km del centro de Málaga y a 50 km de Marbella. No está en La Cala de Mijas (pueblo): el recinto es Cortijo de Torres en Málaga capital. Sin shuttle oficial; taxi desde Málaga 25–40 €. Carpooling desde Málaga con ConcertRide desde 3 €/asiento.",
     originCities: [
-      { city: "Málaga", km: 30, drivingTime: "35 min", range: "3–5 €/asiento" },
-      { city: "Sevilla", km: 210, drivingTime: "2h 15 min", range: "7–10 €/asiento" },
-      { city: "Madrid", km: 540, drivingTime: "5h 15 min", range: "14–18 €/asiento" },
+      { city: "Málaga", km: 25, drivingTime: "25 min", range: "3–5 €/asiento" },
+      { city: "Marbella", km: 50, drivingTime: "45 min", range: "3–6 €/asiento" },
+      { city: "Mijas", km: 30, drivingTime: "30 min", range: "3–5 €/asiento" },
+      { city: "Fuengirola", km: 35, drivingTime: "35 min", range: "3–5 €/asiento" },
+      { city: "Sevilla", km: 200, drivingTime: "2h", range: "6–9 €/asiento" },
+      { city: "Granada", km: 125, drivingTime: "1h 30 min", range: "5–8 €/asiento" },
+      { city: "Almería", km: 190, drivingTime: "2h", range: "6–9 €/asiento" },
+      { city: "Córdoba", km: 190, drivingTime: "2h", range: "6–9 €/asiento" },
     ],
     faqs: [
-      { q: "¿Cómo llegar a Cala Mijas desde Málaga?", a: "Son unos 30 km (35 min). Con ConcertRide el precio es 3–5 €/asiento desde Málaga." },
+      { q: "¿Cómo llegar a Cala Mijas Fest desde Málaga?", a: "El recinto Cortijo de Torres está a 25 km del centro de Málaga (25 min por la MA-20/A-7). Con ConcertRide el precio es 3–5 €/asiento desde Málaga. No hay shuttle oficial; taxi 25–40 €." },
+      { q: "Cala Mijas Festival 2026: fechas y localización", a: "Cala Mijas Festival 2026 se celebra del 2 al 4 de octubre en el Recinto Cortijo de Torres, Málaga (Costa del Sol). Nota: aunque el festival se llama 'Cala Mijas', el recinto es en Málaga capital, no en el pueblo La Cala de Mijas." },
+      { q: "Marbella to Cala Mijas Festival — how to get there", a: "From Marbella to Cala Mijas Festival (Cortijo de Torres, Málaga) it's about 50 km along the AP-7/A-7. Options: taxi/VTC (€60–80 at night), local bus Marbella–Málaga + taxi to the venue, or ConcertRide carpooling from Marbella (€3–6/seat, drops you at the venue)." },
     ],
   },
   "sonorama-ribera": {
@@ -813,10 +844,12 @@ const FESTIVALS: Record<string, FestivalData> = {
     priceFrom: "6",
     blurb: "Sonorama Ribera es el festival de indie y alternativo de la Ribera del Duero, integrado en la ciudad de Aranda. Conocido por su ambiente de barrio y su alta calidad musical.",
     originCities: [
-      { city: "Madrid", km: 160, drivingTime: "1h 40 min", range: "6–9 €/asiento" },
+      { city: "Madrid", km: 150, drivingTime: "1h 30 min", range: "5–8 €/asiento" },
       { city: "Valladolid", km: 100, drivingTime: "1h", range: "4–7 €/asiento" },
-      { city: "Barcelona", km: 550, drivingTime: "5h", range: "14–18 €/asiento" },
-      { city: "Burgos", km: 85, drivingTime: "55 min", range: "4–6 €/asiento" },
+      { city: "Burgos", km: 70, drivingTime: "45 min", range: "3–6 €/asiento" },
+      { city: "Bilbao", km: 185, drivingTime: "2h", range: "6–9 €/asiento" },
+      { city: "Zaragoza", km: 290, drivingTime: "2h 30 min", range: "8–12 €/asiento" },
+      { city: "Segovia", km: 125, drivingTime: "1h 15 min", range: "4–7 €/asiento" },
     ],
     faqs: [
       { q: "¿Cómo llegar al Sonorama desde Madrid?", a: "Unos 160 km (1h 40 min). Con ConcertRide el precio es 6–9 €/asiento." },
@@ -826,20 +859,25 @@ const FESTIVALS: Record<string, FestivalData> = {
     name: "Zevra Festival",
     shortName: "Zevra",
     city: "Valencia",
-    venue: "La Marina de Valencia",
-    venueAddress: "Marina de Valencia, 46024 Valencia",
-    dates: "Verano 2026",
+    venue: "La Marina de València",
+    venueAddress: "La Marina de València, Moll de la Duana, 46024 Valencia",
+    dates: "Verano 2026 (julio–agosto)",
     startDate: "2026-07-01",
     endDate: "2026-07-31",
     priceFrom: "4",
-    blurb: "Zevra Festival es el nuevo festival urbano de Valencia, en el espacio de La Marina. Combina música electrónica, pop y urbano con la gastronomía y el entorno del puerto.",
+    blurb: "Zevra Festival Valencia es el festival urbano de La Marina de València (también escrito La Marina de Valencia), junto al puerto mediterráneo. Accesible en metro L4 (paradas Marítim-Serreria o Neptú). Asistentes desde Madrid (355 km, 3h 20 min), Alicante (175 km) y Barcelona (355 km) usan ConcertRide para llegar directamente sin transbordos. Metro L4 amplía servicio hasta las 1:00–2:00 en noches de festival.",
     originCities: [
+      { city: "Valencia", km: 10, drivingTime: "15 min", range: "3–5 €/asiento" },
       { city: "Madrid", km: 355, drivingTime: "3h 20 min", range: "10–14 €/asiento" },
-      { city: "Barcelona", km: 355, drivingTime: "3h 30 min", range: "10–14 €/asiento" },
-      { city: "Alicante", km: 165, drivingTime: "1h 45 min", range: "5–8 €/asiento" },
+      { city: "Alicante", km: 175, drivingTime: "1h 45 min", range: "5–8 €/asiento" },
+      { city: "Barcelona", km: 355, drivingTime: "3h 20 min", range: "10–14 €/asiento" },
+      { city: "Murcia", km: 210, drivingTime: "2h", range: "7–10 €/asiento" },
     ],
     faqs: [
-      { q: "¿Cómo llegar al Zevra Festival desde Madrid?", a: "Unos 355 km (3h 20 min). Con ConcertRide el precio es 10–14 €/asiento." },
+      { q: "¿Cómo llegar al Zevra Festival desde Madrid?", a: "Madrid–La Marina de Valencia son 355 km (3h 20 min). Con ConcertRide el precio es 10–14 €/asiento. Metro L4 desde Joaquín Sorolla hasta Marítim-Serreria (20 min adicional)." },
+      { q: "Zevra Festival Valencia: localización y dirección", a: "Zevra Festival se celebra en La Marina de València, Moll de la Duana, 46024 Valencia. Metro L4 paradas Marítim-Serreria o Neptú. A 5 km del centro histórico de Valencia." },
+      { q: "Zevra Festival horarios: ¿a qué hora empieza y termina?", a: "Los horarios de Zevra Festival por jornada: apertura del recinto 18:30–19:00, primer concierto 19:30–20:00, cabezas de cartel 23:00–01:00, cierre entre 1:30 y 3:00. Metro L4 amplía hasta las 1:00–2:00 en noches de festival. Para vueltas más tardías, ConcertRide (3–14 €/asiento según ciudad)." },
+      { q: "¿Hay bus desde Madrid a Zevra Festival?", a: "No hay autobús directo Madrid–Zevra Festival. El AVE Madrid–Valencia (1h 40 min, 25–60 €) más metro L4 hasta La Marina es la opción en tren. Con ConcertRide, el viaje completo Madrid–La Marina cuesta 10–14 €/asiento." },
     ],
   },
   "low-festival": {
@@ -854,10 +892,11 @@ const FESTIVALS: Record<string, FestivalData> = {
     priceFrom: "5",
     blurb: "Low Festival es el festival de pop-rock e indie en la playa de Benidorm. Aprovecha el entorno único de la Costa Blanca con una programación de alta calidad.",
     originCities: [
-      { city: "Valencia", km: 145, drivingTime: "1h 30 min", range: "5–8 €/asiento" },
-      { city: "Madrid", km: 440, drivingTime: "4h 15 min", range: "12–16 €/asiento" },
-      { city: "Murcia", km: 80, drivingTime: "1h", range: "4–6 €/asiento" },
-      { city: "Alicante", km: 50, drivingTime: "40 min", range: "3–5 €/asiento" },
+      { city: "Alicante", km: 45, drivingTime: "35 min", range: "3–5 €/asiento" },
+      { city: "Valencia", km: 150, drivingTime: "1h 30 min", range: "5–8 €/asiento" },
+      { city: "Murcia", km: 90, drivingTime: "1h", range: "4–7 €/asiento" },
+      { city: "Madrid", km: 440, drivingTime: "4h", range: "12–17 €/asiento" },
+      { city: "Barcelona", km: 500, drivingTime: "4h 30 min", range: "13–18 €/asiento" },
     ],
     faqs: [
       { q: "¿Cómo llegar al Low Festival desde Valencia?", a: "Unos 145 km (1h 30 min). Con ConcertRide el precio es 5–8 €/asiento." },
@@ -875,9 +914,11 @@ const FESTIVALS: Record<string, FestivalData> = {
     priceFrom: "4",
     blurb: "Tomavistas es el festival de indie y alternativo de Madrid, con una programación selecta en IFEMA. Muy popular entre el público madrileño y de provincias cercanas.",
     originCities: [
+      { city: "Madrid", km: 15, drivingTime: "25 min", range: "4–7 €/asiento" },
       { city: "Toledo", km: 75, drivingTime: "55 min", range: "4–7 €/asiento" },
       { city: "Guadalajara", km: 60, drivingTime: "50 min", range: "3–6 €/asiento" },
-      { city: "Segovia", km: 90, drivingTime: "1h 10 min", range: "4–7 €/asiento" },
+      { city: "Valencia", km: 355, drivingTime: "3h 20 min", range: "10–14 €/asiento" },
+      { city: "Zaragoza", km: 325, drivingTime: "3h", range: "9–13 €/asiento" },
     ],
     faqs: [
       { q: "¿Cuándo se celebra Tomavistas 2026?", a: "La edición 2026 está prevista para el 15, 16 y 17 de mayo en IFEMA Madrid." },
@@ -896,9 +937,11 @@ const FESTIVALS: Record<string, FestivalData> = {
     blurb: "Cruïlla es el festival multicultural de Barcelona, con música de todos los géneros y un ambiente familiar único en el Parc del Fòrum.",
     originCities: [
       { city: "Madrid", km: 620, drivingTime: "5h 30 min", range: "15–20 €/asiento" },
-      { city: "Valencia", km: 355, drivingTime: "3h 30 min", range: "10–14 €/asiento" },
+      { city: "Valencia", km: 355, drivingTime: "3h 15 min", range: "10–14 €/asiento" },
       { city: "Zaragoza", km: 306, drivingTime: "2h 45 min", range: "8–12 €/asiento" },
       { city: "Tarragona", km: 100, drivingTime: "1h", range: "4–7 €/asiento" },
+      { city: "Lleida", km: 170, drivingTime: "1h 45 min", range: "5–8 €/asiento" },
+      { city: "Girona", km: 100, drivingTime: "1h", range: "4–7 €/asiento" },
     ],
     faqs: [
       { q: "¿Cómo llegar al Cruïlla desde Madrid?", a: "Unos 620 km (5h 30 min). Con ConcertRide el precio es 15–20 €/asiento." },
@@ -918,12 +961,12 @@ const CITIES: Record<string, CityData> = {
   madrid: { name: "Madrid", region: "Comunidad de Madrid", blurb: "Madrid concentra la mayor parte de la actividad de conciertos y festivales de España. WiZink Center, Palacio Vistalegre, Caja Mágica e IFEMA (sede de Mad Cool) acogen cada año giras internacionales y festivales de referencia.", venues: ["WiZink Center", "Palacio Vistalegre", "Caja Mágica", "IFEMA (Mad Cool Festival)"] },
   barcelona: { name: "Barcelona", region: "Cataluña", blurb: "Barcelona es la capital europea de los festivales de música electrónica e indie. Palau Sant Jordi, Parc del Fòrum (Primavera Sound, Cruïlla) y Fira Montjuïc (Sónar) son los tres epicentros.", venues: ["Palau Sant Jordi", "Parc del Fòrum (Primavera Sound / Cruïlla)", "Fira Montjuïc (Sónar)"] },
   valencia: { name: "Valencia", region: "Comunidad Valenciana", blurb: "Valencia ciudad acoge Zevra Festival y conciertos urbanos frecuentes. Su provincia concentra Arenal Sound en Burriana, Medusa en Cullera y FIB en Benicàssim.", venues: ["Zevra Festival (La Marina)", "Arenal Sound (Burriana)", "Medusa Festival (Cullera)"] },
-  sevilla: { name: "Sevilla", region: "Andalucía", blurb: "Sevilla es el centro musical de Andalucía occidental. Estadio La Cartuja, FIBES e Interestelar Sevilla son los escenarios principales.", venues: ["Estadio La Cartuja", "FIBES Sevilla", "Interestelar Sevilla"] },
+  sevilla: { name: "Sevilla", region: "Andalucía", blurb: "Próximos conciertos en Sevilla 2026: los recintos principales son Estadio La Cartuja (giras de estadio, 60.000 plazas), FIBES Sevilla (9.500 plazas), Palacio de los Deportes San Pablo (7.000 plazas) y Cartuja Center CITE. El festival Interestelar Sevilla se celebra cada mayo en el Charco de la Pava (40.000 personas) y el Icónica Sevilla Fest en la Plaza de España. La música en Sevilla incluye también conciertos de cantautor e indie en el Teatro de la Maestranza y el Teatro Lope de Vega. Sevilla es punto de origen para festivales andaluces: Cala Mijas en Málaga (200 km) y Andalucía Big. ConcertRide conecta a asistentes de Sevilla con conductores de toda España.", venues: ["Estadio La Cartuja", "FIBES Sevilla", "Palacio de los Deportes San Pablo", "Interestelar Sevilla (Charco de la Pava)", "Icónica Sevilla Fest"] },
   bilbao: { name: "Bilbao", region: "País Vasco", blurb: "Bilbao es referencia para festivales internacionales del norte: BBK Live en Kobetamendi y Bilbao Arena para tours indoor.", venues: ["Kobetamendi (BBK Live)", "Bilbao Arena"] },
   malaga: { name: "Málaga", region: "Andalucía", blurb: "Málaga concentra los festivales más solares de España: Cala Mijas en Mijas, Andalucía Big y Marenostrum en Fuengirola.", venues: ["Cala Mijas Fest", "Andalucía Big Festival", "Marenostrum Music Castle"] },
   zaragoza: { name: "Zaragoza", region: "Aragón", blurb: "Zaragoza es nodo estratégico equidistante entre Madrid y Barcelona, y origen natural para viajes a Primavera Sound, Mad Cool y Pirineos Sur.", venues: ["Pabellón Príncipe Felipe", "Pirineos Sur (Lanuza)"] },
   granada: { name: "Granada", region: "Andalucía", blurb: "Granada acoge Granada Sound en septiembre y es origen frecuente para viajes a festivales andaluces del verano.", venues: ["Granada Sound (Cortijo del Conde)"] },
-  donostia: { name: "Donostia / San Sebastián", region: "País Vasco", blurb: "Donostia destaca por Heineken Jazzaldia en julio y una agenda indie densa en salas pequeñas.", venues: ["Plaza de la Trinidad", "Kursaal", "Heineken Jazzaldia"] },
+  donostia: { name: "Donostia / San Sebastián", region: "País Vasco", blurb: "Conciertos en Donostia 2026 y conciertos en San Sebastián 2026: el Heineken Jazzaldia (Plaza de la Trinidad / Kursaal) cada julio es el evento de referencia. Donostia Arena (10.000 plazas) acoge giras nacionales e internacionales. La música en Donostia incluye conciertos en el Velódromo de Anoeta y el Teatro Victoria Eugenia. La cercanía con BBK Live Bilbao (100 km) y Azkena Rock Vitoria (100 km) hace que muchos viajes compartidos a festivales del norte salgan de Donostia.", venues: ["Plaza de la Trinidad (Jazzaldia)", "Kursaal", "Donostia Arena", "Velódromo de Anoeta", "Sala Dabadaba"] },
   "santiago-de-compostela": { name: "Santiago de Compostela", region: "Galicia", blurb: "Santiago acoge O Son do Camiño en Monte do Gozo cada junio, uno de los festivales con mayor aforo de España.", venues: ["Monte do Gozo (O Son do Camiño)"] },
   alicante: { name: "Alicante", region: "Comunidad Valenciana", blurb: "Alicante concentra giras nacionales e internacionales en la Plaza de Toros, ADDA y Pabellón Pitiu Rochel. Provincia con Low Festival (Benidorm) y Iboga Summer (Tavernes).", venues: ["Plaza de Toros de Alicante", "ADDA", "Pabellón Pitiu Rochel"] },
   pamplona: { name: "Pamplona / Iruña", region: "Navarra", blurb: "Pamplona / Iruña concentra la actividad musical de Navarra: Navarra Arena, Anaitasuna y Sala Totem son las referencias del directo.", venues: ["Navarra Arena", "Anaitasuna", "Sala Totem"] },
@@ -1006,37 +1049,58 @@ interface RouteData {
   priceFrom: string;
 }
 
-const ROUTES: Record<string, RouteData> = {
-  "madrid-mad-cool": { originCity: "Madrid", festivalShortName: "Mad Cool", festivalName: "Mad Cool Festival", festivalCity: "Madrid", distance: "15", drivingTime: "20 min", priceFrom: "4" },
-  "barcelona-primavera-sound": { originCity: "Barcelona", festivalShortName: "Primavera Sound", festivalName: "Primavera Sound Barcelona", festivalCity: "Barcelona", distance: "10", drivingTime: "15 min", priceFrom: "5" },
-  "madrid-primavera-sound": { originCity: "Madrid", festivalShortName: "Primavera Sound", festivalName: "Primavera Sound Barcelona", festivalCity: "Barcelona", distance: "620", drivingTime: "5h 30 min", priceFrom: "15" },
-  "valencia-primavera-sound": { originCity: "Valencia", festivalShortName: "Primavera Sound", festivalName: "Primavera Sound Barcelona", festivalCity: "Barcelona", distance: "355", drivingTime: "3h 15 min", priceFrom: "10" },
-  "zaragoza-primavera-sound": { originCity: "Zaragoza", festivalShortName: "Primavera Sound", festivalName: "Primavera Sound Barcelona", festivalCity: "Barcelona", distance: "306", drivingTime: "2h 45 min", priceFrom: "8" },
-  "tarragona-primavera-sound": { originCity: "Tarragona", festivalShortName: "Primavera Sound", festivalName: "Primavera Sound Barcelona", festivalCity: "Barcelona", distance: "100", drivingTime: "1h", priceFrom: "4" },
-  "sevilla-mad-cool": { originCity: "Sevilla", festivalShortName: "Mad Cool", festivalName: "Mad Cool Festival", festivalCity: "Madrid", distance: "530", drivingTime: "5h", priceFrom: "14" },
-  "bilbao-mad-cool": { originCity: "Bilbao", festivalShortName: "Mad Cool", festivalName: "Mad Cool Festival", festivalCity: "Madrid", distance: "395", drivingTime: "4h", priceFrom: "12" },
-  "madrid-sonar": { originCity: "Madrid", festivalShortName: "Sónar", festivalName: "Sónar Festival", festivalCity: "Barcelona", distance: "620", drivingTime: "5h 30min", priceFrom: "15" },
-  "madrid-fib": { originCity: "Madrid", festivalShortName: "FIB", festivalName: "FIB Benicàssim", festivalCity: "Benicàssim", distance: "390", drivingTime: "3h 45min", priceFrom: "10" },
-  "barcelona-fib": { originCity: "Barcelona", festivalShortName: "FIB", festivalName: "FIB Benicàssim", festivalCity: "Benicàssim", distance: "230", drivingTime: "2h 15min", priceFrom: "8" },
-  "madrid-bbk-live": { originCity: "Madrid", festivalShortName: "BBK Live", festivalName: "Bilbao BBK Live", festivalCity: "Bilbao", distance: "395", drivingTime: "4h", priceFrom: "12" },
-  "barcelona-bbk-live": { originCity: "Barcelona", festivalShortName: "BBK Live", festivalName: "Bilbao BBK Live", festivalCity: "Bilbao", distance: "615", drivingTime: "5h 30min", priceFrom: "15" },
-  "madrid-arenal-sound": { originCity: "Madrid", festivalShortName: "Arenal Sound", festivalName: "Arenal Sound", festivalCity: "Burriana", distance: "460", drivingTime: "4h", priceFrom: "12" },
-  "barcelona-arenal-sound": { originCity: "Barcelona", festivalShortName: "Arenal Sound", festivalName: "Arenal Sound", festivalCity: "Burriana", distance: "305", drivingTime: "2h 50 min", priceFrom: "8" },
-  "valencia-arenal-sound": { originCity: "Valencia", festivalShortName: "Arenal Sound", festivalName: "Arenal Sound", festivalCity: "Burriana", distance: "65", drivingTime: "45 min", priceFrom: "3" },
-  "zaragoza-arenal-sound": { originCity: "Zaragoza", festivalShortName: "Arenal Sound", festivalName: "Arenal Sound", festivalCity: "Burriana", distance: "275", drivingTime: "2h 30 min", priceFrom: "8" },
-  "madrid-medusa-festival": { originCity: "Madrid", festivalShortName: "Medusa", festivalName: "Medusa Festival", festivalCity: "Cullera", distance: "360", drivingTime: "3h 30min", priceFrom: "10" },
-  "barcelona-medusa-festival": { originCity: "Barcelona", festivalShortName: "Medusa", festivalName: "Medusa Festival", festivalCity: "Cullera", distance: "370", drivingTime: "3h 40min", priceFrom: "10" },
-  "madrid-vina-rock": { originCity: "Madrid", festivalShortName: "Viña Rock", festivalName: "Viña Rock", festivalCity: "Villarrobledo", distance: "180", drivingTime: "1h 50min", priceFrom: "6" },
-  "barcelona-sonorama-ribera": { originCity: "Barcelona", festivalShortName: "Sonorama", festivalName: "Sonorama Ribera", festivalCity: "Aranda de Duero", distance: "550", drivingTime: "5h", priceFrom: "14" },
-  "madrid-sonorama-ribera": { originCity: "Madrid", festivalShortName: "Sonorama", festivalName: "Sonorama Ribera", festivalCity: "Aranda de Duero", distance: "160", drivingTime: "1h 40min", priceFrom: "6" },
-  "madrid-tomavistas": { originCity: "Madrid", festivalShortName: "Tomavistas", festivalName: "Tomavistas", festivalCity: "Madrid", distance: "15", drivingTime: "20 min", priceFrom: "4" },
-  "barcelona-cruilla": { originCity: "Barcelona", festivalShortName: "Cruïlla", festivalName: "Cruïlla Barcelona", festivalCity: "Barcelona", distance: "10", drivingTime: "15 min", priceFrom: "5" },
-  "madrid-cruilla": { originCity: "Madrid", festivalShortName: "Cruïlla", festivalName: "Cruïlla Barcelona", festivalCity: "Barcelona", distance: "620", drivingTime: "5h 30min", priceFrom: "15" },
-};
+function cityToSlug(city: string): string {
+  return city
+    .toLowerCase()
+    .normalize("NFD")
+    .replace(/[̀-ͯ]/g, "")
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-+|-+$/g, "");
+}
+
+// Built dynamically from FESTIVALS so every (originCity × festival) pair gets
+// a proper bot prerender — same set as routeLandings.ts, no duplication.
+function buildRoutes(): Record<string, RouteData> {
+  const result: Record<string, RouteData> = {};
+  for (const [festSlug, f] of Object.entries(FESTIVALS)) {
+    for (const oc of f.originCities) {
+      const slug = `${cityToSlug(oc.city)}-${festSlug}`;
+      const priceFrom = oc.range.match(/\d+/)?.[0] ?? f.priceFrom;
+      result[slug] = {
+        originCity: oc.city,
+        festivalShortName: f.shortName,
+        festivalName: f.name,
+        festivalCity: f.city,
+        distance: String(oc.km),
+        drivingTime: oc.drivingTime,
+        priceFrom,
+      };
+    }
+  }
+  return result;
+}
+
+const ROUTES: Record<string, RouteData> = buildRoutes();
 
 // ── Body generators ─────────────────────────────────────────────────────────
 
+// Per-festival transport summary shown answer-first before the blurb.
+// Targets "autobuses [festival]", "bus [festival]", "como llegar [festival]" queries.
+const FESTIVAL_TRANSPORT_SUMMARY: Record<string, string> = {
+  "vina-rock": `<p><strong>Transporte a Viña Rock (Viñarock) 2026 — resumen:</strong> No hay transporte público directo al recinto de La Pulgosa. Las opciones reales son: (1) <strong>Autobús / bus lanzadera oficial</strong> desde la estación de autobuses de Albacete (50 km, 40 min, frecuencia 1–2h, no opera de madrugada); (2) <strong>Autobuses privados Madrid–Viña Rock</strong> desde Méndez Álvaro o Nuevos Ministerios (35–55 €, horario fijo); (3) <strong>Carpooling ConcertRide</strong> desde Madrid (6–9 €), Valencia (6–9 €), Alicante (5–8 €), Murcia (5–8 €) o Cuenca (4–6 €), llegada directa a La Pulgosa sin horario fijo. El coche compartido es la opción dominante: más del 80 % de los asistentes llegan en coche.</p>`,
+  "arenal-sound": `<p><strong>Transporte a Arenal Sound 2026 — resumen:</strong> No hay tren ni metro al recinto de la playa. Las opciones reales son: (1) <strong>Bus lanzadera oficial</strong> desde la estación de autobuses de Castellón de la Plana (10 km, 20 min, plazas limitadas, no opera de madrugada); (2) <strong>Autobús + lanzadera</strong> desde Valencia: Cercanías C6 Valencia–Castellón (45–60 min) más lanzadera al recinto; (3) <strong>Carpooling ConcertRide</strong> desde Valencia (3–6 €), Castellón (3–5 €), Madrid (12–17 €), Barcelona (8–12 €) o Alicante (4–7 €), llegada directa a la playa.</p>`,
+  "bbk-live": `<p><strong>Transporte a BBK Live 2026 — resumen:</strong> BBK Live es el único festival grande de España con <strong>lanzadera oficial gratuita</strong> desde el centro de Bilbao (Plaza Moyúa, salidas cada 15–20 min). El recinto Kobetamendi no es accesible en coche propio durante el festival. Para quienes vienen de fuera de Bilbao: carpooling ConcertRide desde Madrid (11–16 €), Santander (4–7 €), Vitoria (4–6 €), Pamplona (5–8 €) o Donostia (5–8 €).</p>`,
+  "mad-cool": `<p><strong>Transporte a Mad Cool 2026 — resumen:</strong> El recinto IFEMA está a 15 km del centro de Madrid. Las opciones son: (1) <strong>Metro L8</strong> hasta parada "Feria de Madrid" (ampliado hasta las 2:30 AM); (2) <strong>Taxi / VTC</strong> desde Madrid centro (60–90 €, precio x2–3 a la salida); (3) <strong>Carpooling ConcertRide</strong> desde Madrid (4–7 €), Valencia (10–14 €), Zaragoza (9–13 €) o Barcelona (15–20 €). No existe lanzadera oficial.</p>`,
+  "o-son-do-camino": `<p><strong>Transporte a O Son do Camiño 2026 — resumen:</strong> El Monte do Gozo está a 5 km de Santiago de Compostela. Opciones: (1) <strong>Lanzadera oficial</strong> desde el centro de Santiago (Rúa do Franco, cada 15–20 min); (2) <strong>Carpooling ConcertRide</strong> desde A Coruña (3–6 €), Vigo (4–7 €), Pontevedra (3–5 €) u Oviedo (9–13 €).</p>`,
+  "cala-mijas": `<p><strong>Transporte a Cala Mijas Fest 2026 — resumen:</strong> El recinto es Cortijo de Torres en Málaga capital (no en La Cala de Mijas pueblo). No hay shuttle oficial ni transporte público nocturno al Cortijo de Torres. Opciones: (1) <strong>Taxi / VTC</strong> desde Málaga centro (25–40 €); (2) <strong>Carpooling ConcertRide</strong> desde Málaga (3–5 €), Marbella (3–6 €), Fuengirola (3–5 €), Sevilla (6–9 €) o Granada (5–8 €).</p>`,
+  "zevra-festival": `<p><strong>Transporte a Zevra Festival 2026 — resumen:</strong> La Marina de València está a 5 km del centro histórico. Opciones: (1) <strong>Metro L4</strong> hasta Marítim-Serreria o Neptú (ampliado hasta las 1:00–2:00 AM); (2) <strong>Carpooling ConcertRide</strong> desde Madrid (10–14 €), Alicante (5–8 €), Barcelona (10–14 €) o Murcia (7–10 €). Horarios típicos: apertura 18:30, cabezas de cartel 23:00–01:00, cierre 1:30–3:00.</p>`,
+  "medusa-festival": `<p><strong>Transporte a Medusa Festival 2026 — resumen:</strong> El recinto está en la playa de Cullera, 45 km al sur de Valencia. Opciones: (1) <strong>Lanzadera del festival</strong> desde estación del Norte de Valencia (opera en franjas de llegada y salida, plazas limitadas); (2) <strong>Carpooling ConcertRide</strong> desde Valencia (3–5 €), Alicante (4–7 €), Madrid (10–14 €), Barcelona (10–14 €) o Murcia (5–8 €). No hay transporte nocturno desde Alicante, Madrid o Zaragoza.</p>`,
+  "resurrection-fest": `<p><strong>Transporte a Resurrection Fest 2026 — resumen:</strong> Viveiro es una villa costera de Lugo sin transporte público desde el sur. El coche compartido es la opción dominante. Carpooling ConcertRide desde Madrid (15–22 €), A Coruña (5–8 €), Vigo (8–12 €) u Oviedo (9–14 €). No existe autobús de línea Madrid–Viveiro en horarios de festival.</p>`,
+};
+
 function festivalBody(slug: string, f: FestivalData, base: string): string {
+  const transportSummary = FESTIVAL_TRANSPORT_SUMMARY[slug] ?? "";
+
   const originRows = f.originCities
     .map((oc) => `<li><strong>${esc(oc.city)}</strong> — ${oc.km} km · ${esc(oc.drivingTime)} · desde <strong>${esc(oc.range)}</strong></li>`)
     .join("\n    ");
@@ -1101,7 +1165,9 @@ function festivalBody(slug: string, f: FestivalData, base: string): string {
   return `<script type="application/ld+json">${eventJsonLd}</script>
 <script type="application/ld+json">${breadcrumbJsonLd}</script>
 <nav aria-label="Breadcrumb"><a href="${base}/">Inicio</a> / <a href="${base}/festivales">Festivales</a> / <span>${esc(f.shortName)}</span></nav>
-<p>${esc(f.blurb)}</p>
+${transportSummary}<p>${esc(f.blurb)}</p>
+<h2>Cómo llegar a ${esc(f.shortName)}: transporte y localización</h2>
+<p>${esc(f.shortName)} se celebra en ${esc(f.venue)}, ${esc(f.city)}. Las opciones de transporte incluyen: autobús lanzadera oficial, transporte público (metro/tren) y carpooling desde distintas ciudades de España.</p>
 <h2>¿Cómo llegar a ${esc(f.shortName)} en coche compartido?</h2>
 <p>El ${esc(f.venue)} queda en ${esc(f.city)}. El carpooling es la opción más cómoda y económica para asistentes de otras ciudades: el conductor también va al festival, así que el horario de vuelta está alineado con el fin real del show.</p>
 <p><a href="${base}/como-funciona">Descubre cómo funciona ConcertRide →</a></p>
@@ -1378,11 +1444,42 @@ function resolvePageData(pathname: string, base: string): PageData | null {
     const yearMatch = f.dates.match(/\d{4}/);
     const year = yearMatch ? yearMatch[0] : "2026";
     const originList = f.originCities.slice(0, 3).map((o) => `${o.city} (${o.range})`).join(", ");
+
+    // Per-festival title/description overrides targeting top GSC queries
+    const META_OVERRIDES: Record<string, { title: string; description: string; h1: string }> = {
+      "vina-rock": {
+        title: `Autobuses Viña Rock ${year}: buses, lanzadera y carpooling | ConcertRide`,
+        description: `¿Hay autobús a Viña Rock ${year}? Bus lanzadera desde Albacete (50 km, 40 min). Autobuses privados Madrid–Viñarock (35–55 €). Carpooling ConcertRide desde Madrid (6–9 €/asiento). Sin comisión.`,
+        h1: `Autobuses y transporte a Viña Rock ${year}`,
+      },
+      "arenal-sound": {
+        title: `Bus Arenal Sound ${year}: autobús Castellón–Burriana y carpooling | ConcertRide`,
+        description: `Autobús Castellón a Burriana Arenal Sound: lanzadera oficial desde estación Castellón (10 km, 20 min). Tren Valencia–Castellón + lanzadera. Carpooling desde Valencia (3–6 €). Sin comisión.`,
+        h1: `Bus y autobús a Arenal Sound ${year} desde Castellón y Valencia`,
+      },
+      "cala-mijas": {
+        title: `Cala Mijas Festival ${year}: transporte desde Málaga y Marbella | ConcertRide`,
+        description: `Cala Mijas Fest ${year} en Cortijo de Torres, Málaga (no en La Cala de Mijas). Sin shuttle oficial. Carpooling desde Málaga (3–5 €), Marbella (3–6 €) o Fuengirola (3–5 €). 2–4 octubre 2026.`,
+        h1: `Cómo ir a Cala Mijas Festival ${year}: transporte desde Málaga y Costa del Sol`,
+      },
+      "bbk-live": {
+        title: `Cómo llegar al BBK Live ${year}: lanzadera, carpooling | ConcertRide`,
+        description: `BBK Live ${year} en Kobetamendi, Bilbao. Lanzadera oficial gratuita desde Plaza Moyúa. Carpooling desde Madrid (11–16 €), Santander (4–7 €), Donostia (5–8 €). 9–11 jul 2026.`,
+        h1: `Cómo llegar al BBK Live ${year}: lanzadera y carpooling`,
+      },
+      "zevra-festival": {
+        title: `Zevra Festival ${year}: horarios, transporte y carpooling | ConcertRide`,
+        description: `Zevra Festival Valencia ${year} en La Marina de València. Horarios: apertura 18:30, cabezas de cartel 23:00–01:00. Metro L4 hasta Marítim-Serreria. Carpooling desde Madrid (10–14 €).`,
+        h1: `Zevra Festival ${year}: horarios y cómo llegar a La Marina de València`,
+      },
+    };
+
+    const override = META_OVERRIDES[slug];
     return {
-      title: `Carpooling a ${f.shortName} ${year} — desde ${f.priceFrom} € · sin comisión | ConcertRide`,
-      description: `Carpooling a ${f.name} (${f.city}, ${f.dates}). Desde ${originList}. Sin taxi, sin comisión. Conductores verificados con carnet.`,
+      title: override?.title ?? `Cómo llegar a ${f.shortName} ${year}: buses, tren y carpooling | ConcertRide`,
+      description: override?.description ?? `${f.shortName} ${year} en ${f.venue}, ${f.city}. Transporte: autobús, tren y carpooling desde ${originList}. Cómo llegar sin coche desde ${f.priceFrom} €.`,
       canonical: `${base}/festivales/${slug}`,
-      h1: `Cómo ir a ${f.shortName} ${year} en coche compartido`,
+      h1: override?.h1 ?? `Cómo llegar a ${f.shortName} ${year}`,
       body: festivalBody(slug, f, base),
     };
   }
@@ -1395,11 +1492,37 @@ function resolvePageData(pathname: string, base: string): PageData | null {
     if (!c) return null;
     const year = new Date().getFullYear();
     const nextYear = year + 1;
+
+    // Per-city title/description overrides for high-impression GSC pages
+    const CITY_META_OVERRIDES: Record<string, { title: string; description: string }> = {
+      sevilla: {
+        title: `Conciertos en Sevilla ${year}–${nextYear}: música, festivales y carpooling | ConcertRide`,
+        description: `Próximos conciertos en Sevilla ${year}: La Cartuja (60.000 plazas), FIBES, Interestelar Sevilla, Icónica Fest. Carpooling sin comisión desde 3 €/asiento. Conductores verificados.`,
+      },
+      donostia: {
+        title: `Conciertos en Donostia ${year}: Jazzaldia, festivales y carpooling | ConcertRide`,
+        description: `Próximos conciertos en Donostia–San Sebastián ${year}: Jazzaldia, Donostia Arena, Anoeta. Carpooling sin comisión a BBK Live (100 km) y Azkena Rock (100 km). Desde 4 €/asiento.`,
+      },
+      alicante: {
+        title: `Conciertos en Alicante ${year}: Plaza de Toros, festivales y carpooling | ConcertRide`,
+        description: `Próximos conciertos en Alicante ${year}: Plaza de Toros, ADDA. Carpooling a Low Festival Benidorm (45 km), Arenal Sound (115 km), Viña Rock (165 km). Desde 3 €/asiento.`,
+      },
+      bilbao: {
+        title: `Conciertos en Bilbao ${year}: BBK Live, Kobetamendi y carpooling | ConcertRide`,
+        description: `Conciertos en Bilbao ${year}: BBK Live (Kobetamendi, 9–11 jul), Bilbao Arena, Euskalduna. Carpooling desde Santander (4–7 €), Vitoria (4–6 €), Madrid (11–16 €). Sin comisión.`,
+      },
+      zaragoza: {
+        title: `Conciertos en Zaragoza ${year}: próximos conciertos y carpooling | ConcertRide`,
+        description: `Próximos conciertos en Zaragoza ${year}: Pabellón Príncipe Felipe, Sala López, Pirineos Sur. Carpooling a Mad Cool (9–13 €), Primavera Sound (8–12 €), Arenal Sound (8–12 €). Sin comisión.`,
+      },
+    };
+
+    const override = CITY_META_OVERRIDES[slug];
     return {
-      title: `Conciertos en ${c.name} ${year}–${nextYear} — Carpooling sin comisión | ConcertRide`,
-      description: `Próximos conciertos en ${c.name} (${c.region}): ${c.venues.slice(0, 2).join(", ")} y más. Carpooling desde cualquier ciudad de España, sin taxi ni comisión. Conductores verificados.`,
+      title: override?.title ?? `Conciertos en ${c.name} ${year}–${nextYear} — Carpooling sin comisión | ConcertRide`,
+      description: override?.description ?? `Conciertos y festivales en ${c.name} ${year}: ${c.venues.slice(0, 2).join(", ")} y más. Carpooling sin comisión desde 3 €/asiento. Conductores verificados.`,
       canonical: `${base}/conciertos/${slug}`,
-      h1: `Conciertos en ${c.name} ${year} — Carpooling disponible`,
+      h1: `Conciertos en ${c.name} ${year}`,
       body: cityBody(slug, c, base),
     };
   }
@@ -1628,6 +1751,21 @@ export async function seoPrerender(c: Context<HonoEnv>, next: Next): Promise<Res
   }
 
   if (!page) {
+    // Unknown slug in a known dynamic pattern (e.g. /festivales/nonexistent-slug,
+    // /conciertos/unknown-city, /blog/missing-post, /rutas/no-route).
+    // Return an explicit 404 so Google does not soft-404 these as 200 shells.
+    const isDynamicPattern =
+      /^\/festivales\/[^/]+\/?$/.test(pathname) ||
+      /^\/conciertos\/[^/]+\/?$/.test(pathname) ||
+      /^\/blog\/[^/]+\/?$/.test(pathname) ||
+      /^\/rutas\/[^/]+\/?$/.test(pathname);
+    if (isDynamicPattern) {
+      const base = getSiteUrl(c.env);
+      return new Response(
+        `<!doctype html><html lang="es"><head><meta charset="UTF-8"/><title>No encontrado — ConcertRide</title><meta name="robots" content="noindex, nofollow"/><link rel="canonical" href="${base}${pathname}"/></head><body><h1>Página no encontrada</h1><p><a href="${base}/">Volver al inicio</a></p></body></html>`,
+        { status: 404, headers: { "Content-Type": "text/html; charset=utf-8" } },
+      );
+    }
     return next();
   }
 

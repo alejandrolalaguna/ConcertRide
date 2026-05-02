@@ -18,6 +18,7 @@ Disallow: /favoritos
 Disallow: /publish
 Disallow: /admin
 Disallow: /widget/
+Disallow: /rides/
 
 # Sitemap
 Sitemap: https://concertride.me/sitemap.xml
@@ -39,6 +40,7 @@ Disallow: /favoritos
 Disallow: /publish
 Disallow: /admin
 Disallow: /widget/
+Disallow: /rides/
 
 User-agent: ChatGPT-User
 Allow: /
@@ -55,6 +57,7 @@ Disallow: /favoritos
 Disallow: /publish
 Disallow: /admin
 Disallow: /widget/
+Disallow: /rides/
 
 User-agent: OAI-SearchBot
 Allow: /
@@ -71,6 +74,7 @@ Disallow: /favoritos
 Disallow: /publish
 Disallow: /admin
 Disallow: /widget/
+Disallow: /rides/
 
 User-agent: anthropic-ai
 Allow: /
@@ -87,6 +91,7 @@ Disallow: /favoritos
 Disallow: /publish
 Disallow: /admin
 Disallow: /widget/
+Disallow: /rides/
 
 User-agent: ClaudeBot
 Allow: /
@@ -103,6 +108,7 @@ Disallow: /favoritos
 Disallow: /publish
 Disallow: /admin
 Disallow: /widget/
+Disallow: /rides/
 
 User-agent: PerplexityBot
 Allow: /
@@ -119,6 +125,7 @@ Disallow: /favoritos
 Disallow: /publish
 Disallow: /admin
 Disallow: /widget/
+Disallow: /rides/
 
 User-agent: CCBot
 Allow: /
@@ -135,6 +142,7 @@ Disallow: /favoritos
 Disallow: /publish
 Disallow: /admin
 Disallow: /widget/
+Disallow: /rides/
 
 User-agent: Google-Extended
 Allow: /
@@ -151,6 +159,7 @@ Disallow: /favoritos
 Disallow: /publish
 Disallow: /admin
 Disallow: /widget/
+Disallow: /rides/
 
 User-agent: Bytespider
 Allow: /
@@ -167,6 +176,7 @@ Disallow: /favoritos
 Disallow: /publish
 Disallow: /admin
 Disallow: /widget/
+Disallow: /rides/
 
 User-agent: Amazonbot
 Allow: /
@@ -183,6 +193,7 @@ Disallow: /favoritos
 Disallow: /publish
 Disallow: /admin
 Disallow: /widget/
+Disallow: /rides/
 
 User-agent: Applebot-Extended
 Allow: /
@@ -199,6 +210,7 @@ Disallow: /favoritos
 Disallow: /publish
 Disallow: /admin
 Disallow: /widget/
+Disallow: /rides/
 
 User-agent: meta-externalagent
 Allow: /
@@ -215,6 +227,7 @@ Disallow: /favoritos
 Disallow: /publish
 Disallow: /admin
 Disallow: /widget/
+Disallow: /rides/
 
 User-agent: Diffbot
 Allow: /
@@ -231,6 +244,7 @@ Disallow: /favoritos
 Disallow: /publish
 Disallow: /admin
 Disallow: /widget/
+Disallow: /rides/
 
 User-agent: DuckAssistBot
 Allow: /
@@ -247,3 +261,4 @@ Disallow: /favoritos
 Disallow: /publish
 Disallow: /admin
 Disallow: /widget/
+Disallow: /rides/

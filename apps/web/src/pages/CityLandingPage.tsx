@@ -41,16 +41,50 @@ export default function CityLandingPage() {
 
   const year = new Date().getFullYear();
   const nextYear = year + 1;
+
+  // Per-city title/description overrides targeting top GSC queries
+  const CITY_META_OVERRIDES: Record<string, { title: string; description: string; keywords?: string }> = {
+    sevilla: {
+      title: `Conciertos en Sevilla ${year}–${nextYear}: música, festivales y carpooling | ConcertRide`,
+      description: `Próximos conciertos en Sevilla ${year}: La Cartuja (60.000 plazas), FIBES, Interestelar Sevilla, Icónica Fest. Carpooling sin comisión desde 3 €/asiento. Conductores verificados.`,
+      keywords: `conciertos en Sevilla ${year}, conciertos Sevilla ${nextYear}, conciertos música Sevilla, conciertos y recitales Sevilla, próximos conciertos Sevilla, agenda musical Sevilla, concierto Sevilla, conciertos sevilla 2026, sevilla concierto, música en Sevilla, Interestelar Sevilla, Icónica Sevilla Fest, carpooling Sevilla festivales`,
+    },
+    donostia: {
+      title: `Conciertos en Donostia ${year}: Jazzaldia, festivales y carpooling | ConcertRide`,
+      description: `Próximos conciertos en Donostia–San Sebastián ${year}: Jazzaldia, Donostia Arena, Anoeta. Carpooling sin comisión a BBK Live (100 km) y Azkena Rock (100 km). Desde 4 €/asiento.`,
+      keywords: `conciertos en Donostia ${year}, conciertos Donostia ${year}, conciertos San Sebastián ${year}, conciertos en donostia 2026, conciertos en San Sebastián, Jazzaldia ${year}, música en Donostia, carpooling BBK Live desde Donostia`,
+    },
+    alicante: {
+      title: `Conciertos en Alicante ${year}: Plaza de Toros, festivales y carpooling | ConcertRide`,
+      description: `Próximos conciertos en Alicante ${year}: Plaza de Toros, ADDA. Carpooling a Low Festival Benidorm (45 km), Arenal Sound (115 km), Viña Rock (165 km). Desde 3 €/asiento.`,
+      keywords: `conciertos en Alicante ${year}, conciertos Alicante ${nextYear}, plaza de toros alicante conciertos ${year}, conciertos plaza toros alicante ${year}, carpooling Alicante festivales`,
+    },
+    bilbao: {
+      title: `Conciertos en Bilbao ${year}: BBK Live, Kobetamendi y carpooling | ConcertRide`,
+      description: `Conciertos en Bilbao ${year}: BBK Live (Kobetamendi, 9–11 jul), Bilbao Arena, Euskalduna. Carpooling desde Santander (4–7 €), Vitoria (4–6 €), Madrid (11–16 €). Sin comisión.`,
+      keywords: `conciertos Bilbao ${year}, conciertos en Bilbao ${nextYear}, BBK Live ${year}, Kobetamendi, bilbao concert, como llegar BBK Live Bilbao, carpooling Bilbao festivales`,
+    },
+    zaragoza: {
+      title: `Conciertos en Zaragoza ${year}: próximos conciertos y carpooling | ConcertRide`,
+      description: `Próximos conciertos en Zaragoza ${year}: Pabellón Príncipe Felipe, Sala López, Pirineos Sur. Carpooling a Mad Cool (9–13 €), Primavera Sound (8–12 €), Arenal Sound (8–12 €). Sin comisión.`,
+      keywords: `conciertos en Zaragoza ${year}, próximos conciertos Zaragoza, conciertos 2025 Zaragoza, conciertos Zaragoza ${nextYear}, Pabellón Príncipe Felipe, carpooling Zaragoza festivales`,
+    },
+  };
+
+  const cityOverride = landing ? CITY_META_OVERRIDES[landing.slug] : undefined;
+
   useSeoMeta({
-    title: landing ? `Conciertos en ${landing.display} ${year} — Carpooling | ConcertRide` : "Conciertos por ciudad",
+    title: landing
+      ? cityOverride?.title ?? `Conciertos en ${landing.display} ${year}–${nextYear} — Carpooling sin comisión | ConcertRide`
+      : "Conciertos por ciudad",
     description: landing
-      ? `Próximos conciertos en ${landing.display} ${year}: ${landing.venues.slice(0, 2).join(", ")} y más. Carpooling sin comisión para llegar desde cualquier ciudad de España.`
+      ? cityOverride?.description ?? `Conciertos y festivales en ${landing.display} ${year}: ${landing.venues.slice(0, 2).join(", ")} y más. Carpooling sin comisión desde 3 €/asiento. Conductores verificados.`
       : "Explora conciertos por ciudad en España.",
     canonical: landing
       ? `${SITE_URL}/conciertos/${landing.slug}`
       : `${SITE_URL}/concerts`,
     keywords: landing
-      ? `conciertos en ${landing.display} ${year}, conciertos ${landing.display} ${nextYear}, próximos conciertos ${landing.display}, conciertos música ${landing.display}, festivales ${landing.display}, carpooling ${landing.display} ${year}, coche compartido concierto ${landing.display}, cómo ir al concierto ${landing.display}, carpooling concierto ${landing.display}, viaje compartido ${landing.display} ${year}`
+      ? cityOverride?.keywords ?? `conciertos en ${landing.display} ${year}, conciertos ${landing.display} ${nextYear}, agenda musical ${landing.display} ${year}, próximos conciertos ${landing.display}, conciertos música ${landing.display}, como ir a conciertos ${landing.display}, festivales ${landing.display}, carpooling ${landing.display} ${year}, coche compartido concierto ${landing.display}, cómo ir al concierto ${landing.display}, carpooling concierto ${landing.display}, viaje compartido ${landing.display} ${year}`
       : undefined,
   });
 
@@ -236,7 +270,7 @@ export default function CityLandingPage() {
             "@type": "WebPage",
             "@id": `${SITE_URL}/conciertos/${landing.slug}#webpage`,
             "url": `${SITE_URL}/conciertos/${landing.slug}`,
-            "name": `Conciertos en ${landing.display} con carpooling | ConcertRide`,
+            "name": `Conciertos en ${landing.display} ${year} — Cómo llegar | ConcertRide`,
             "description": `Agenda de conciertos en ${landing.display} (${landing.region}) para ${year} y ${nextYear}: ${landing.venues.slice(0, 3).join(", ")}${landing.venues.length > 3 ? " y más recintos" : ""}. Carpooling sin comisión desde cualquier ciudad de España. Precio medio 3–20 €/asiento según distancia. Conductores verificados con carnet de conducir.`,
             "inLanguage": "es-ES",
             "keywords": `conciertos en ${landing.display}, conciertos ${landing.display} ${year}, próximos conciertos ${landing.display}, carpooling ${landing.display}, cómo ir al concierto ${landing.display}`,

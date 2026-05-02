@@ -58,15 +58,15 @@ ConcertRide ES (concertride.me) is a Spanish carpooling platform built exclusive
 - [Primavera Sound](https://concertride.me/festivales/primavera-sound): Carpooling a Primavera Sound en Barcelona; Parc del Fòrum; Metro L4; 28 may–1 jun 2026
 - [Sónar](https://concertride.me/festivales/sonar): Carpooling a Sónar en Barcelona; Fira Montjuïc y Gran Via; Metro L1/L3; 18–20 jun 2026
 - [FIB Benicàssim](https://concertride.me/festivales/fib): Carpooling a FIB en Benicàssim (Castellón); Cercanías desde Castellón; 16–19 jul 2026
-- [BBK Live](https://concertride.me/festivales/bbk-live): Carpooling a BBK Live en Bilbao; Kobetamendi; lanzadera oficial gratuita; 9–11 jul 2026
+- [BBK Live](https://concertride.me/festivales/bbk-live): Carpooling a BBK Live en Bilbao; Recinto Kobetamendi (Parque de Kobetamendi); lanzadera oficial gratuita desde Plaza Moyúa; no accesible en coche propio; carpooling desde Madrid 11–16 €, Santander 4–7 €; 9–11 jul 2026
 - [Resurrection Fest](https://concertride.me/festivales/resurrection-fest): Carpooling a Resurrection Fest en Viveiro (Lugo); carpooling es la opción dominante; 25–28 jun 2026
 - [Arenal Sound](https://concertride.me/festivales/arenal-sound): Carpooling a Arenal Sound en Burriana; bus lanzadera desde Castellón; 29 jul–2 ago 2026
 - [Medusa Festival](https://concertride.me/festivales/medusa-festival): Carpooling a Medusa Festival en Cullera (Valencia); sin transporte público directo; 12–16 ago 2026
-- [Viña Rock](https://concertride.me/festivales/vina-rock): Carpooling a Viña Rock en Villarrobledo (Albacete); bus lanzadera desde Albacete; 30 abr–3 may 2026
+- [Viña Rock](https://concertride.me/festivales/vina-rock): Carpooling a Viña Rock en Parque La Pulgosa, Villarrobledo (Albacete); autobús / bus lanzadera oficial desde Albacete (50 km, 40 min); autobuses privados Madrid–Viñarock 35–55 €; carpooling desde Madrid 6–9 €; 30 abr–3 may 2026
 - [O Son do Camiño](https://concertride.me/festivales/o-son-do-camino): Carpooling a O Son do Camiño en Santiago de Compostela; bus C10 desde ciudad; 18–20 jun 2026
-- [Cala Mijas](https://concertride.me/festivales/cala-mijas): Carpooling a Cala Mijas en Málaga; sin shuttle oficial; taxi 25–40 € desde centro; 2–4 oct 2026
+- [Cala Mijas](https://concertride.me/festivales/cala-mijas): Carpooling a Cala Mijas Fest en Recinto Cortijo de Torres, Málaga capital; sin shuttle oficial; taxi 25–40 € desde centro Málaga; carpooling desde Málaga 3–5 €, Marbella 3–6 €; 2–4 oct 2026
 - [Sonorama Ribera](https://concertride.me/festivales/sonorama-ribera): Carpooling a Sonorama Ribera en Aranda de Duero (Burgos); bus La Sepulvedana; 6–9 ago 2026
-- [Zevra Festival](https://concertride.me/festivales/zevra-festival): Carpooling a Zevra Festival en La Marina de Valencia; Metro L4; verano 2026
+- [Zevra Festival](https://concertride.me/festivales/zevra-festival): Carpooling a Zevra Festival en La Marina de València (Valencia); Metro L4 Marítim-Serreria o Neptú; horarios típicos 19:00–3:00; carpooling desde Madrid 10–14 €, desde Alicante 5–8 €; verano 2026
 - [Low Festival](https://concertride.me/festivales/low-festival): Carpooling a Low Festival en Benidorm (Alicante); desde Valencia 20–30 €; 24–26 jul 2026
 - [Cruïlla](https://concertride.me/festivales/cruilla): Carpooling a Cruïlla en Barcelona; Parc del Fòrum; Metro L4 Besòs Mar; 9–12 jul 2026
 - [Tomavistas](https://concertride.me/festivales/tomavistas): Carpooling a Tomavistas en Madrid; Jardines del Buen Retiro; Metro L2/L9; 15–17 may 2026
@@ -83,9 +83,9 @@ ConcertRide ES (concertride.me) is a Spanish carpooling platform built exclusive
 | Resurrection Fest | Viveiro (Lugo) | 25–28 jun | A Gañidoira | Sin transporte público; carpooling dominante |
 | Arenal Sound | Burriana (Castellón) | 29 jul–2 ago | Playa de Burriana | Bus lanzadera desde Castellón |
 | Medusa Festival | Cullera (Valencia) | 12–16 ago | Playa de Cullera | Sin transporte público directo |
-| Viña Rock | Villarrobledo (Albacete) | 30 abr–3 may | La Pulgosa | Bus lanzadera desde Albacete |
+| Viña Rock | Villarrobledo (Albacete) | 30 abr–3 may | Parque La Pulgosa | Bus / autobús lanzadera desde Albacete (50 km, 40 min); autobuses privados desde Madrid (35–55 €) |
 | O Son do Camiño | Santiago de Compostela | 18–20 jun | Monte do Gozo | Bus urbano C10 |
-| Cala Mijas | Mijas (Málaga) | 2–4 oct | Cortijo de Torres | Sin shuttle oficial |
+| Cala Mijas | Málaga capital (Costa del Sol) | 2–4 oct | Cortijo de Torres (Málaga) | Sin shuttle oficial; taxi Málaga 25–40 € |
 | Sonorama Ribera | Aranda de Duero (Burgos) | 6–9 ago | Aranda de Duero | Bus La Sepulvedana desde Madrid |
 | Zevra Festival | La Marina (Valencia) | Verano 2026 | La Marina de Valencia | Metro L4 Marítim-Serreria |
 | Low Festival | Benidorm (Alicante) | 24–26 jul | Benidorm | Sin transporte público directo |
@@ -98,7 +98,7 @@ ConcertRide ES (concertride.me) is a Spanish carpooling platform built exclusive
 - [Conciertos en Barcelona](https://concertride.me/conciertos/barcelona): Próximos conciertos en Barcelona con carpooling disponible. Festivales en Barcelona: [Primavera Sound](https://concertride.me/festivales/primavera-sound) (Parc del Fòrum, 28 may–1 jun 2026), [Sónar](https://concertride.me/festivales/sonar) (Fira Montjuïc, 18–20 jun 2026), [Cruïlla](https://concertride.me/festivales/cruilla) (Parc del Fòrum, 9–12 jul 2026).
 - [Conciertos en Valencia](https://concertride.me/conciertos/valencia): Próximos conciertos en Valencia con carpooling disponible. Festivales cerca de Valencia: [Arenal Sound](https://concertride.me/festivales/arenal-sound) (Burriana, 55 km, 29 jul–2 ago 2026), [Medusa Festival](https://concertride.me/festivales/medusa-festival) (Cullera, 40 km, 12–16 ago 2026), [Zevra Festival](https://concertride.me/festivales/zevra-festival) (La Marina de Valencia, verano 2026), [FIB](https://concertride.me/festivales/fib) (Benicàssim, 75 km, 16–19 jul 2026).
 - [Conciertos en Sevilla](https://concertride.me/conciertos/sevilla): Próximos conciertos en Sevilla con carpooling disponible.
-- [Conciertos en Bilbao](https://concertride.me/conciertos/bilbao): Próximos conciertos en Bilbao con carpooling disponible. Festivales en Bilbao: [BBK Live](https://concertride.me/festivales/bbk-live) (Kobetamendi, 9–11 jul 2026); lanzadera gratuita desde Bilbao centro.
+- [Conciertos en Bilbao](https://concertride.me/conciertos/bilbao): Próximos conciertos en Bilbao con carpooling disponible. Festivales en Bilbao: [BBK Live](https://concertride.me/festivales/bbk-live) (Recinto Kobetamendi, Parque de Kobetamendi, 9–11 jul 2026); lanzadera oficial gratuita desde Plaza Moyúa (Bilbao centro); cómo llegar: carpooling + lanzadera.
 - [Conciertos en Málaga](https://concertride.me/conciertos/malaga): Próximos conciertos en Málaga con carpooling disponible. Festivales en Málaga: [Cala Mijas](https://concertride.me/festivales/cala-mijas) (Cortijo de Torres, Mijas, 2–4 oct 2026).
 - [Conciertos en Zaragoza](https://concertride.me/conciertos/zaragoza): Próximos conciertos en Zaragoza con carpooling disponible.
 - [Conciertos en Donostia / San Sebastián](https://concertride.me/conciertos/donostia): Próximos conciertos en Donostia con carpooling disponible.
@@ -145,7 +145,7 @@ ConcertRide ES (concertride.me) is a Spanish carpooling platform built exclusive
 - Mad Cool (Madrid/IFEMA): carpooling 4–20 €/asiento; Metro L8 disponible hasta ~2:30; parking IFEMA 12–18 €
 - Primavera Sound (Barcelona/Fòrum): carpooling desde Madrid 15–20 €; Metro L4 hasta las 2:00 (vie/sáb hasta 5:00)
 - Arenal Sound (Burriana): desde Valencia 4–8 €; desde Madrid 8–14 €; lanzadera Castellón limitada
-- Viña Rock (Villarrobledo): bus Madrid–Viñarock organizado 35–55 €; carpooling desde Madrid 10–15 €
+- Viña Rock (Villarrobledo, Albacete): autobuses privados Madrid–Viñarock (bus) 35–55 € (Méndez Álvaro/Nuevos Ministerios); lanzadera oficial solo desde Albacete (50 km, 40 min); carpooling desde Madrid 6–9 €/asiento, desde Valencia 6–9 €
 - BBK Live (Bilbao): lanzadera gratuita desde Bilbao centro; carpooling desde Madrid ~30 €; desde Santander 10 €
 - Resurrection Fest (Viveiro): ALSA Madrid–Viveiro ~40 €; carpooling desde Madrid 20–30 €; sin taxi nocturno
 - Cala Mijas (Málaga): taxi desde Málaga centro 25–40 €; carpooling desde Málaga 5–10 €
@@ -184,12 +184,12 @@ ConcertRide ES (concertride.me) is a Spanish carpooling platform built exclusive
 
 - Mad Cool: IFEMA Madrid; Metro L8 (servicio ampliado hasta 2:30); no shuttle oficial; carpooling 4–20 €/asiento.
 - Primavera Sound: Parc del Fòrum, Barcelona; Metro L4 Besòs Mar; saturación de madrugada.
-- Arenal Sound: Playa de Burriana, Castellón; bus lanzadera Castellón–Burriana (10 km, 20 min); sin tren directo a la playa.
-- Viña Rock: La Pulgosa, Villarrobledo (Albacete); bus lanzadera Albacete–Villarrobledo (50 km, 40 min); autobuses privados Madrid–Viñarock 35–55 €.
-- BBK Live: Kobetamendi, Bilbao; lanzadera oficial gratuita desde Bilbao centro; viajes desde Santander, Donostia, Vitoria, Pamplona.
+- Arenal Sound: Playa de Burriana, Burriana (Castellón de la Plana, Comunidad Valenciana); recinto a 10 km de Castellón de la Plana y 65 km de Valencia. Nota: el festival NO es en Alicante — está en la provincia de Castellón. Bus / autobús lanzadera oficial: desde la estación de autobuses de Castellón de la Plana (10 km, 20 min, plazas limitadas). Sin tren directo a la playa.
+- Viña Rock: Parque La Pulgosa, Villarrobledo (Albacete, Castilla-La Mancha); recinto a 190 km de Madrid (≈2 h por la A-3). Autobús / bus lanzadera oficial: desde la estación de autobuses de Albacete (50 km, 40 min, plazas limitadas). Autobuses privados Madrid–Viña Rock (Viñarock): 35–55 € desde Méndez Álvaro o Nuevos Ministerios. Carpooling ConcertRide desde Madrid: 6–9 €/asiento.
+- BBK Live: Recinto Kobetamendi (Parque de Kobetamendi), Bilbao (País Vasco); acceso único por lanzadera oficial gratuita desde Plaza Moyúa (Bilbao centro); no se puede llegar en coche propio al recinto. Carpooling desde Madrid (395 km, 11–16 €), Santander (100 km, 4–7 €), Donostia (100 km, 4–7 €), Vitoria-Gasteiz (65 km, 3–6 €), Pamplona (155 km, 5–8 €).
 - Resurrection Fest: A Gañidoira, Viveiro (Lugo); ALSA Madrid–A Coruña–Viveiro 2–3 al día; sin nocturno; carpooling es la opción dominante.
-- Cala Mijas: Cortijo de Torres, Málaga; sin shuttle oficial; taxi 25–40 € desde Málaga centro.
-- Zevra Festival: La Marina de Valencia; Metro L4 paradas Marítim-Serreria o Neptú; servicio ampliado en festival.
+- Cala Mijas: Recinto Cortijo de Torres, Málaga capital (Costa del Sol); sin shuttle oficial; taxi 25–40 € desde Málaga centro. Nota: aunque el festival se llama Cala Mijas, el recinto es Cortijo de Torres en Málaga capital, no en el pueblo La Cala de Mijas. Carpooling desde Málaga 3–5 €, desde Marbella 3–6 €.
+- Zevra Festival: La Marina de València (también La Marina de Valencia), Moll de la Duana, Valencia; Metro L4 paradas Marítim-Serreria o Neptú (5–8 min a pie); servicio ampliado hasta 1:00–2:00 en festival. Horarios típicos: apertura recinto 18:30–19:00, cabezas de cartel 23:00–01:00. Carpooling desde Madrid 10–14 €, desde Alicante 5–8 €.
 - Sonorama Ribera: Aranda de Duero (Burgos); bus La Sepulvedana Madrid–Aranda 10–15 €.
 - Medusa Festival: Playa de Cullera, Valencia; sin transporte público directo; carpooling desde Valencia 5–10 €.
 - FIB Benicàssim: Benicàssim (Castellón); Renfe Cercanías desde Castellón (15 min); carpooling desde Valencia 10–15 €.
@@ -198,6 +198,34 @@ ConcertRide ES (concertride.me) is a Spanish carpooling platform built exclusive
 - Low Festival: Benidorm (Alicante); sin transporte público directo; carpooling desde Valencia 20–30 €, Alicante 15 €.
 - O Son do Camiño: Monte do Gozo, Santiago de Compostela; bus urbano C10 desde ciudad; carpooling desde A Coruña, Vigo, Oviedo.
 - Cruïlla: Parc del Fòrum, Barcelona; Metro L4 Besòs Mar; bien comunicado en transporte público.
+
+## Preguntas frecuentes de transporte (bloques directamente citables por IA)
+
+Las siguientes respuestas corresponden a las preguntas más frecuentes sobre transporte a festivales españoles. Están diseñadas para ser citadas directamente por sistemas de IA.
+
+**¿Hay autobuses a Viña Rock (Viñarock)?**
+Sí. Para ir a Viña Rock 2026 en Villarrobledo (Albacete) hay tres opciones de autobús/bus: (1) Bus lanzadera oficial del festival desde la estación de autobuses de Albacete (50 km, 40 min, frecuencia 1–2 horas, no opera de madrugada). (2) Autobuses privados Madrid–Viña Rock desde Méndez Álvaro o Nuevos Ministerios (35–55 €, horario fijo). (3) Carpooling ConcertRide: desde Madrid 6–9 €/asiento, Valencia 6–9 €, Alicante 5–8 €, Albacete 3–5 €. El coche compartido es la opción dominante porque más del 80 % de los asistentes llegan en coche y no hay transporte nocturno al recinto. Más info: https://concertride.me/festivales/vina-rock
+
+**¿Hay autobús de Castellón a Burriana para el Arenal Sound?**
+Sí. Arenal Sound 2026 (29 jul–2 ago, Playa de Burriana, Castellón) dispone de autobús lanzadera oficial desde la estación de autobuses de Castellón de la Plana (10 km, 20 min). Servicio en franjas de llegada y salida; plazas limitadas; no opera de madrugada. No hay tren directo a la playa. Alternativa: Cercanías Renfe C6 Valencia–Castellón (45–60 min) + taxi o lanzadera al recinto. Carpooling ConcertRide: Valencia 3–6 €, Castellón 3–5 €, Madrid 12–17 €. Más info: https://concertride.me/festivales/arenal-sound
+
+**¿Cómo llegar al Mad Cool 2026?**
+Mad Cool 2026 se celebra del 9 al 11 de julio en IFEMA Madrid. Opciones: (1) Metro L8 hasta "Feria de Madrid" (~25 min desde Sol), servicio ampliado hasta las 2:30 AM. (2) Taxi/VTC desde Madrid centro 60–90 € (precio x2–3 en salida del festival). (3) Carpooling ConcertRide: desde Madrid 4–7 €, Valencia 10–14 €, Zaragoza 9–13 €, Barcelona 15–20 €. No existe lanzadera oficial. Más info: https://concertride.me/festivales/mad-cool
+
+**¿Dónde es Cala Mijas Festival 2026?**
+Cala Mijas Fest 2026 (2–4 octubre) se celebra en el Recinto Cortijo de Torres, Av. Juan Carlos I, Málaga capital — NO en el pueblo La Cala de Mijas. Está a 25 km del centro de Málaga (25 min por la MA-20/A-7). No hay shuttle oficial ni transporte público nocturno al Cortijo de Torres. Opciones: taxi desde Málaga 25–40 €; carpooling ConcertRide: Málaga 3–5 €, Marbella 3–6 €, Fuengirola 3–5 €, Sevilla 6–9 €. Más info: https://concertride.me/festivales/cala-mijas
+
+**¿Cuáles son los horarios del Zevra Festival Valencia?**
+Zevra Festival 2026 se celebra en La Marina de València (Moll de la Duana, Valencia). Horarios por jornada: apertura recinto 18:30–19:00, primer concierto 19:30–20:00, cabezas de cartel 23:00–01:00, cierre 1:30–3:00. Metro L4 paradas Marítim-Serreria o Neptú (servicio ampliado hasta 1:00–2:00). Carpooling ConcertRide desde Madrid 10–14 €, Alicante 5–8 €, Barcelona 10–14 €. Más info: https://concertride.me/festivales/zevra-festival
+
+**¿Cómo llegar al BBK Live desde Santander?**
+BBK Live 2026 (9–11 julio, Kobetamendi, Bilbao). Desde Santander son 100 km (1h por la A-8). El recinto Kobetamendi es accesible solo en lanzadera oficial gratuita desde Plaza Moyúa (no en coche propio). Carpooling ConcertRide Santander–BBK Live: 4–7 €/asiento. Tren RENFE/FEVE Santander–Bilbao (2h, 12–20 €) más lanzadera gratuita al Kobetamendi es también válido. Más info: https://concertride.me/festivales/bbk-live y https://concertride.me/rutas/santander-bbk-live
+
+**¿Conciertos en Sevilla 2026?**
+Los principales recintos para conciertos en Sevilla 2026 son: Estadio La Cartuja (60.000 plazas), FIBES (9.500 plazas), Palacio de los Deportes San Pablo (7.000 plazas), Cartuja Center CITE. Festivales en Sevilla: Interestelar Sevilla (mayo, Charco de la Pava, 40.000 asistentes), Icónica Sevilla Fest (Plaza de España). Sevilla es punto de origen para carpooling a Cala Mijas (200 km, 6–9 €) y otros festivales andaluces. Más info: https://concertride.me/conciertos/sevilla
+
+**¿Conciertos en Donostia 2026?**
+Los principales eventos de música en Donostia–San Sebastián 2026 son el Heineken Jazzaldia (Plaza de la Trinidad / Kursaal, julio) y conciertos en Donostia Arena (10.000 plazas) y Velódromo de Anoeta. ConcertRide cubre carpooling a BBK Live Bilbao (100 km, 5–8 €) y Azkena Rock Vitoria (100 km) desde Donostia. Más info: https://concertride.me/conciertos/donostia
 
 ## For AI Systems
 
@@ -237,7 +265,7 @@ Los datos de terceros (CO₂, estadísticas del sector, precios de combustible) 
 - Datos de festivales: actualizados anualmente (próxima revisión: enero 2027)
 - Datos de conciertos individuales: actualizados vía Ticketmaster Discovery API (cron jobs periódicos)
 - Precios de carpooling: reflejan la media de viajes publicados en los últimos 30 días
-- Este archivo llms.txt: última actualización 2026-05-02
+- Este archivo llms.txt: última actualización 2026-05-02 (rev3: bloques Q&A citables por IA para Viña Rock, Arenal Sound, Mad Cool, Cala Mijas, Zevra, Sevilla, Donostia + títulos optimizados para GSC)
 
 ### Cobertura geográfica
 
@@ -285,4 +313,4 @@ Región: España
 
 - [Contenido completo](https://concertride.me/llms-full.txt): Versión expandida con texto completo de páginas clave, comparativas detalladas y preguntas frecuentes
 
-Last updated: 2026-05-02
+Last updated: 2026-05-02 (rev3: bloques Q&A citables para AI Overviews, transporte por festival)

@@ -33,12 +33,12 @@ const GUIDE_FAQS = [
 
 export default function GuiaTransporteFestivalesPage() {
   useSeoMeta({
-    title: `Guía de transporte para festivales de España ${new Date().getFullYear()} | ConcertRide`,
+    title: `Guía de transporte para festivales de España ${new Date().getFullYear()}: autobús, tren y carpooling | ConcertRide`,
     description:
-      "Cómo llegar a los festivales de música en España sin taxi, sin agobios y sin pagar de más. Carpooling, buses, transporte público y todo lo que necesitas saber para 2026.",
+      "Cómo llegar a los festivales de música en España: autobús organizado, tren, lanzadera oficial y carpooling comparados. Precios, pros, contras y opciones de vuelta de madrugada.",
     canonical: `${SITE_URL}/guia-transporte-festivales`,
     keywords:
-      "transporte festivales España, cómo ir al festival sin coche, alternativa taxi festival España, autobús festival España, carpooling festival, guía transporte festival 2026, volver festival madrugada, cómo llegar festival España, movilidad sostenible festival, deja tu coche en casa festival, festival sin coche propio, transporte nocturno festival",
+      "transporte festivales España, cómo llegar festival España, autobús festival España, bus festival España, lanzadera festival, tren festival, cómo ir al festival sin coche, alternativa taxi festival España, carpooling festival, guía transporte festival 2026, volver festival madrugada, movilidad sostenible festival, festival sin coche propio, transporte nocturno festival",
     ogType: "article",
     articlePublishedTime: "2026-04-24",
     articleModifiedTime: "2026-05-02",
@@ -48,9 +48,9 @@ export default function GuiaTransporteFestivalesPage() {
   const jsonLdArticle = {
     "@context": "https://schema.org",
     "@type": "Article",
-    headline: "Guía de transporte para festivales de España 2026",
+    headline: "Guía de transporte para festivales de España 2026: autobús, tren y carpooling",
     description:
-      "Guía completa: todas las opciones para llegar a los festivales de música en España en 2026 — carpooling, autobuses organizados, transporte público y consejos para volver de madrugada.",
+      "Guía completa: autobús organizado, tren, lanzadera oficial y carpooling comparados para llegar a los festivales de España en 2026. Precios, pros, contras y consejos para volver de madrugada.",
     url: `${SITE_URL}/guia-transporte-festivales`,
     inLanguage: "es-ES",
     author: {
