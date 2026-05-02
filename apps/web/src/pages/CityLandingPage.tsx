@@ -69,6 +69,66 @@ export default function CityLandingPage() {
       description: `Próximos conciertos en Zaragoza ${year}: Pabellón Príncipe Felipe, Sala López, Pirineos Sur. Carpooling a Mad Cool (9–13 €), Primavera Sound (8–12 €), Arenal Sound (8–12 €). Sin comisión.`,
       keywords: `conciertos en Zaragoza ${year}, próximos conciertos Zaragoza, conciertos 2025 Zaragoza, conciertos Zaragoza ${nextYear}, Pabellón Príncipe Felipe, carpooling Zaragoza festivales`,
     },
+    madrid: {
+      title: `Conciertos en Madrid ${year}–${nextYear}: WiZink, IFEMA y carpooling | ConcertRide`,
+      description: `Próximos conciertos en Madrid ${year}: WiZink Center, Vistalegre, IFEMA (Mad Cool), Caja Mágica. Carpooling sin comisión desde toda España. Desde 4 €/asiento, conductores verificados.`,
+      keywords: `conciertos en Madrid ${year}, conciertos Madrid ${nextYear}, próximos conciertos Madrid, WiZink Center ${year}, Mad Cool Madrid, IFEMA conciertos, carpooling Madrid festivales, cómo llegar conciertos Madrid`,
+    },
+    barcelona: {
+      title: `Conciertos en Barcelona ${year}: Primavera Sound, Sónar, Cruïlla | ConcertRide`,
+      description: `Próximos conciertos en Barcelona ${year}: Primavera Sound (Fòrum, 28 may–1 jun), Sónar (Fira Montjuïc, 18–20 jun), Cruïlla (Fòrum, 9–12 jul). Carpooling desde Madrid (14–22 €). Sin comisión.`,
+      keywords: `conciertos en Barcelona ${year}, conciertos Barcelona ${nextYear}, Primavera Sound ${year}, Sónar Barcelona, Cruïlla ${year}, carpooling Barcelona festivales, Palau Sant Jordi conciertos`,
+    },
+    valencia: {
+      title: `Conciertos en Valencia ${year}: Zevra, Medusa, Arenal Sound | ConcertRide`,
+      description: `Próximos conciertos en Valencia ${year}: Zevra Festival (La Marina), Arenal Sound (Burriana, 55 km), Medusa (Cullera, 40 km), FIB (Benicàssim, 75 km). Carpooling desde 3 €/asiento. Sin comisión.`,
+      keywords: `conciertos en Valencia ${year}, conciertos Valencia ${nextYear}, Zevra Festival Valencia, Arenal Sound Valencia, Medusa Festival Valencia, carpooling Valencia festivales, festivales cerca Valencia`,
+    },
+    malaga: {
+      title: `Conciertos en Málaga ${year}: Cala Mijas, La Cartuja y carpooling | ConcertRide`,
+      description: `Próximos conciertos en Málaga ${year}: Cala Mijas Fest (Cortijo de Torres, 2–4 oct), Marenostrum (Fuengirola), Andalucía Big. Carpooling desde Sevilla (6–9 €), Madrid (12–16 €). Sin comisión.`,
+      keywords: `conciertos en Málaga ${year}, Cala Mijas ${year}, Cortijo de Torres Málaga, carpooling Málaga festivales, festivales Málaga Costa del Sol`,
+    },
+    "a-coruna": {
+      title: `Conciertos en A Coruña ${year}: Resurrection Fest y carpooling | ConcertRide`,
+      description: `Próximos conciertos en A Coruña ${year}: Coliseum, Palexco. Carpooling a Resurrection Fest en Viveiro (100 km, 10–14 €) y O Son do Camiño en Santiago (85 km, 8–12 €). Sin comisión.`,
+      keywords: `conciertos en A Coruña ${year}, Resurrection Fest carpooling, carpooling A Coruña Viveiro, O Son do Camiño carpooling, Coliseum A Coruña conciertos`,
+    },
+    pamplona: {
+      title: `Conciertos en Pamplona ${year}: Navarra Arena y carpooling festivales | ConcertRide`,
+      description: `Próximos conciertos en Pamplona ${year}: Navarra Arena (12.500), Anaitasuna. Carpooling a BBK Live (155 km, 5–8 €), Azkena Rock (95 km, 4–7 €), Mad Cool (390 km, 11–16 €). Sin comisión.`,
+      keywords: `conciertos en Pamplona ${year}, conciertos Pamplona Navarra, Navarra Arena, carpooling Pamplona festivales, BBK Live desde Pamplona`,
+    },
+    "vitoria-gasteiz": {
+      title: `Conciertos en Vitoria-Gasteiz ${year}: Azkena Rock y carpooling | ConcertRide`,
+      description: `Próximos conciertos en Vitoria-Gasteiz ${year}: Azkena Rock Festival (Mendizabala, jun), Iradier Arena. Carpooling a BBK Live (65 km, 3–6 €), Sonorama (185 km, 7–11 €). Sin comisión.`,
+      keywords: `conciertos en Vitoria ${year}, Azkena Rock ${year}, Mendizabala conciertos, carpooling Vitoria-Gasteiz festivales, BBK Live desde Vitoria`,
+    },
+    vigo: {
+      title: `Conciertos en Vigo ${year}: carpooling Resurrection Fest y festivales | ConcertRide`,
+      description: `Próximos conciertos en Vigo ${year}: Auditorio Mar de Vigo, Pabellón Multiusos. Carpooling a Resurrection Fest (200 km, 12–16 €), O Son do Camiño en Santiago (90 km, 8–12 €). Sin comisión.`,
+      keywords: `conciertos en Vigo ${year}, Resurrection Fest desde Vigo, O Son do Camiño Vigo, Auditorio Mar de Vigo conciertos, carpooling Vigo festivales`,
+    },
+    murcia: {
+      title: `Conciertos en Murcia ${year}: SOS 4.8, Medusa y carpooling | ConcertRide`,
+      description: `Próximos conciertos en Murcia ${year}: SOS 4.8, Auditorio Víctor Villegas. Carpooling a Medusa (180 km, 8–12 €), Arenal Sound (250 km, 10–14 €), Viña Rock (155 km, 6–9 €). Sin comisión.`,
+      keywords: `conciertos en Murcia ${year}, SOS 4.8 Murcia, Auditorio Víctor Villegas, carpooling Murcia festivales, Medusa Festival desde Murcia`,
+    },
+    valladolid: {
+      title: `Conciertos en Valladolid ${year}: Sonorama y carpooling festivales | ConcertRide`,
+      description: `Próximos conciertos en Valladolid ${year}: Plaza de Toros, Pabellón Pisuerga. Carpooling a Sonorama Ribera (100 km, 8–12 €), Mad Cool Madrid (200 km, 8–12 €). Sin comisión.`,
+      keywords: `conciertos en Valladolid ${year}, Sonorama Ribera desde Valladolid, carpooling Valladolid festivales, Plaza de Toros Valladolid conciertos`,
+    },
+    granada: {
+      title: `Conciertos en Granada ${year}: Granada Sound y carpooling | ConcertRide`,
+      description: `Próximos conciertos en Granada ${year}: Granada Sound (Cortijo del Conde, septiembre). Carpooling a Cala Mijas (170 km, 6–9 €), Interestelar Sevilla (250 km, 8–12 €). Sin comisión.`,
+      keywords: `conciertos en Granada ${year}, Granada Sound ${year}, Cortijo del Conde, carpooling Granada festivales, Cala Mijas desde Granada`,
+    },
+    "santiago-de-compostela": {
+      title: `Conciertos en Santiago de Compostela ${year}: O Son do Camiño | ConcertRide`,
+      description: `Próximos conciertos en Santiago ${year}: O Son do Camiño (Monte do Gozo, 18–20 jun, 90.000+). Carpooling desde A Coruña (10–12 €), Vigo (12–15 €), Madrid (20–30 €). Sin comisión.`,
+      keywords: `conciertos en Santiago de Compostela ${year}, O Son do Camiño ${year}, Monte do Gozo, carpooling Santiago festivales, A Coruña Santiago carpooling`,
+    },
   };
 
   const cityOverride = landing ? CITY_META_OVERRIDES[landing.slug] : undefined;
@@ -283,8 +343,10 @@ export default function CityLandingPage() {
             },
             "speakable": {
               "@type": "SpeakableSpecification",
-              "cssSelector": ["h1", ".speakable", "article p:first-of-type"],
+              "cssSelector": ["h1", ".speakable", ".city-summary", ".transport-info", "article p:first-of-type", "dt", "dd"],
             },
+            "isPartOf": { "@type": "WebSite", "@id": `${SITE_URL}/#website`, name: "ConcertRide", url: SITE_URL },
+            "dateModified": new Date().toISOString().slice(0, 10),
           }),
         }}
       />

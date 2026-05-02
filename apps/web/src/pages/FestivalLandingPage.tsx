@@ -26,6 +26,30 @@ export default function FestivalLandingPage() {
 
   // Per-festival title/description overrides targeting top GSC queries
   const FESTIVAL_META_OVERRIDES: Record<string, { title: string; description: string }> = {
+    "mad-cool": {
+      title: `Cómo llegar al Mad Cool ${festYear}: metro, bus y carpooling | ConcertRide`,
+      description: `Mad Cool ${festYear} en IFEMA Madrid (9–11 jul). Metro L8 hasta Feria de Madrid. Sin lanzadera oficial. Carpooling desde Madrid (4–7 €), Valencia (10–14 €), Barcelona (15–20 €). Sin comisión.`,
+    },
+    "primavera-sound": {
+      title: `Cómo llegar al Primavera Sound ${festYear}: metro, AVE y carpooling | ConcertRide`,
+      description: `Primavera Sound ${festYear} en Parc del Fòrum, Barcelona (28 may–1 jun). Metro L4 Besòs Mar. AVE desde Madrid 50–100 €. Carpooling desde Madrid (15–20 €), Valencia (10–14 €), Zaragoza (8–12 €). Sin comisión.`,
+    },
+    "sonar": {
+      title: `Cómo llegar al Sónar ${festYear}: metro y carpooling Barcelona | ConcertRide`,
+      description: `Sónar ${festYear} en Fira Montjuïc y Gran Via, Barcelona (18–20 jun). Metro L1 Espanya o L3 Tarragona. Carpooling desde Madrid (14–22 €/asiento, 5h 30 min), Valencia (10–14 €). Sin comisión.`,
+    },
+    "fib": {
+      title: `Cómo llegar al FIB ${festYear}: Cercanías, bus y carpooling | ConcertRide`,
+      description: `FIB Benicàssim ${festYear} (16–19 jul). Cercanías Renfe desde Castellón (10 km, 15 min). Autobús desde Valencia. Carpooling desde Valencia (10–15 €, 1h 15 min), Madrid (14–22 €). Sin comisión.`,
+    },
+    "resurrection-fest": {
+      title: `Carpooling Resurrection Fest ${festYear}: cómo llegar a Viveiro | ConcertRide`,
+      description: `Resurrection Fest ${festYear} en Viveiro (Lugo), 25–28 jun. Sin transporte público. ALSA Madrid–Viveiro ~40 €. Carpooling desde Madrid (20–30 €), A Coruña (10–14 €), Vigo (12–16 €). Sin comisión.`,
+    },
+    "medusa-festival": {
+      title: `Medusa Festival ${festYear}: cómo llegar a Cullera sin coche | ConcertRide`,
+      description: `Medusa Festival ${festYear} en Playa de Cullera (Valencia), 12–16 ago. Sin transporte público directo. Carpooling desde Valencia (5–10 €/asiento, 40 min), Madrid (12–18 €), Barcelona (14–20 €). Sin comisión.`,
+    },
     "vina-rock": {
       title: `Autobuses Viña Rock ${festYear}: buses, lanzadera y carpooling | ConcertRide`,
       description: `¿Hay autobús a Viña Rock ${festYear}? Bus lanzadera desde Albacete (50 km, 40 min). Autobuses privados Madrid–Viñarock (35–55 €). Carpooling ConcertRide desde Madrid (6–9 €/asiento). Sin comisión.`,
@@ -34,13 +58,33 @@ export default function FestivalLandingPage() {
       title: `Bus Arenal Sound ${festYear}: autobús Castellón–Burriana y carpooling | ConcertRide`,
       description: `Autobús Castellón a Burriana Arenal Sound: lanzadera oficial desde estación Castellón (10 km, 20 min). Tren Valencia–Castellón + lanzadera. Carpooling desde Valencia (3–6 €). Sin comisión.`,
     },
+    "o-son-do-camino": {
+      title: `O Son do Camiño ${festYear}: transporte a Santiago de Compostela | ConcertRide`,
+      description: `O Son do Camiño ${festYear} en Monte do Gozo, Santiago (18–20 jun). Bus urbano C10 desde ciudad. Carpooling desde A Coruña (10–12 €, 1h 15 min), Vigo (12–15 €, 1h 30 min), Madrid (20–30 €). Sin comisión.`,
+    },
     "cala-mijas": {
       title: `Cala Mijas Festival ${festYear}: transporte desde Málaga y Marbella | ConcertRide`,
       description: `Cala Mijas Fest ${festYear} en Cortijo de Torres, Málaga (no en La Cala de Mijas). Sin shuttle oficial. Carpooling desde Málaga (3–5 €), Marbella (3–6 €) o Fuengirola (3–5 €). 2–4 octubre 2026.`,
     },
+    "sonorama-ribera": {
+      title: `Sonorama Ribera ${festYear}: bus desde Madrid y carpooling | ConcertRide`,
+      description: `Sonorama Ribera ${festYear} en Aranda de Duero (Burgos), 6–9 ago. Bus La Sepulvedana Madrid–Aranda (10–15 €). Carpooling desde Madrid (10–14 €, 1h 45 min), Valladolid (8–12 €, 1h). Sin comisión.`,
+    },
     "bbk-live": {
       title: `Cómo llegar al BBK Live ${festYear}: lanzadera, carpooling | ConcertRide`,
       description: `BBK Live ${festYear} en Kobetamendi, Bilbao. Lanzadera oficial gratuita desde Plaza Moyúa. Carpooling desde Madrid (11–16 €), Santander (4–7 €), Donostia (5–8 €). 9–11 jul 2026.`,
+    },
+    "low-festival": {
+      title: `Low Festival ${festYear}: cómo llegar a Benidorm sin coche | ConcertRide`,
+      description: `Low Festival ${festYear} en Benidorm (Alicante), 24–26 jul. Sin transporte público directo al recinto. Carpooling desde Valencia (20–30 €, 1h 45 min), Alicante (15 €, 40 min), Madrid (18–26 €). Sin comisión.`,
+    },
+    "cruilla": {
+      title: `Cruïlla ${festYear}: cómo llegar al festival de Barcelona | ConcertRide`,
+      description: `Cruïlla ${festYear} en Parc del Fòrum, Barcelona (9–12 jul). Metro L4 Besòs Mar. Carpooling desde Madrid (15–20 €/asiento, 5h 30 min), Valencia (10–14 €), Zaragoza (8–12 €). Sin comisión.`,
+    },
+    "tomavistas": {
+      title: `Tomavistas ${festYear}: cómo llegar al festival del Retiro | ConcertRide`,
+      description: `Tomavistas ${festYear} en Jardines del Buen Retiro, Madrid (15–17 may). Metro L2 Retiro o L9 Ibiza. Carpooling desde Valencia (10–14 €), Zaragoza (9–13 €), Barcelona (15–20 €). Sin comisión.`,
     },
     "zevra-festival": {
       title: `Zevra Festival ${festYear}: horarios, transporte y carpooling | ConcertRide`,
@@ -199,13 +243,17 @@ export default function FestivalLandingPage() {
     location: festivalPlace,
     eventSchedule: {
       "@type": "Schedule",
+      scheduleTimezone: "Europe/Madrid",
       repeatFrequency: "P1Y",
+      byMonth: new Date(festival.startDate).getMonth() + 1,
+      startDate: festival.startDate.slice(0, 7),
     },
     organizer: {
       "@type": "Organization",
       name: festival.name,
     },
     inLanguage: "es",
+    sameAs: `${SITE_URL}/festivales/${festival.slug}`,
   };
 
   const jsonLdBreadcrumb = {
@@ -238,6 +286,42 @@ export default function FestivalLandingPage() {
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdSeries) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdBreadcrumb) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdFaq) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({
+        "@context": "https://schema.org",
+        "@type": "HowTo",
+        name: `Cómo reservar un carpooling a ${festival.name} en 4 pasos`,
+        description: `Guía paso a paso para reservar un viaje compartido (carpooling) a ${festival.name} en ${festival.venue}, ${festival.city}. Gratis, sin comisión, pago en efectivo o Bizum.`,
+        totalTime: "PT5M",
+        supply: [{ "@type": "HowToSupply", name: "Cuenta en ConcertRide (gratuita)" }],
+        tool: [{ "@type": "HowToTool", name: "concertride.me" }],
+        step: [
+          {
+            "@type": "HowToStep",
+            position: 1,
+            name: "Busca el festival",
+            text: `Entra en concertride.me/concerts y filtra por ${festival.city} o busca directamente "${festival.shortName}".`,
+            url: `${SITE_URL}/concerts`,
+          },
+          {
+            "@type": "HowToStep",
+            position: 2,
+            name: "Elige el viaje",
+            text: "Compara precio por asiento, hora de salida y perfil del conductor. Lee las valoraciones de otros pasajeros.",
+          },
+          {
+            "@type": "HowToStep",
+            position: 3,
+            name: "Solicita tu plaza",
+            text: "Con reserva instantánea queda confirmada al momento. Sin ella, el conductor suele responder en pocas horas.",
+          },
+          {
+            "@type": "HowToStep",
+            position: 4,
+            name: "Viaja y paga",
+            text: `El día del festival te encuentras con el conductor en el punto acordado en ${festival.city}. Pagas en efectivo o Bizum. Sin comisión de plataforma.`,
+          },
+        ],
+      }) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({
         "@context": "https://schema.org",
         "@type": "WebPage",

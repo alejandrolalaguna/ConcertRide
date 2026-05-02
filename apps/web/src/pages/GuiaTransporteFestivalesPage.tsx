@@ -120,12 +120,90 @@ export default function GuiaTransporteFestivalesPage() {
     description: "Comparativa de carpooling, autobús organizado, transporte público y taxi para ir a festivales en España: precios, pros, contras y disponibilidad nocturna.",
   };
 
+  const jsonLdComparison = {
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    name: "Opciones de transporte a festivales de música en España 2026",
+    description: "Comparativa de precio, disponibilidad nocturna y flexibilidad de cada opción de transporte para festivales en España.",
+    numberOfItems: 4,
+    itemListElement: [
+      {
+        "@type": "ListItem",
+        position: 1,
+        name: "Carpooling (ConcertRide)",
+        description: "Precio: 3–20 €/asiento según distancia. Sin comisión. Horario flexible. Vuelta pactada con el conductor. Pago en efectivo o Bizum. Funciona para cualquier festival incluyendo los rurales.",
+        url: `${SITE_URL}/como-funciona`,
+      },
+      {
+        "@type": "ListItem",
+        position: 2,
+        name: "Autobús organizado de festival",
+        description: "Precio: 15–35 €/asiento. Solo disponible desde ciudades grandes. Horario de vuelta fijo. Se agota semanas antes del festival. Operadoras: BusForfun, DeFestivales.",
+        url: `${SITE_URL}/blog/autobuses-festivales-espana-2026`,
+      },
+      {
+        "@type": "ListItem",
+        position: 3,
+        name: "Transporte público (metro / lanzadera)",
+        description: "Precio: 0–5 €. Solo válido para recintos bien comunicados (Parc del Fòrum, Fira Montjuïc, IFEMA vía L8). Metro cierra a la 1:30 (Madrid) o 2:00 (Barcelona). No cubre la vuelta de madrugada ni festivales rurales.",
+      },
+      {
+        "@type": "ListItem",
+        position: 4,
+        name: "Taxi / VTC (Uber, Cabify, Bolt)",
+        description: "Precio vuelta de madrugada: 40–90 €. Precio multiplicado x2–x3 en horario de alta demanda. Disponible 24h pero largas esperas a la salida. No recomendado para festivales rurales.",
+      },
+    ],
+  };
+
+  const jsonLdCarpoolingVsBlablacar = {
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    name: "ConcertRide vs BlaBlaCar para festivales de música en España",
+    description: "Comparativa entre ConcertRide (0% comisión, especializado en conciertos) y BlaBlaCar (12–18% comisión, plataforma generalista) para carpooling a festivales en España.",
+    url: `${SITE_URL}/blog/blablacar-vs-concertride`,
+    itemListElement: [
+      {
+        "@type": "ListItem",
+        position: 1,
+        name: "Comisión de plataforma",
+        description: "ConcertRide: 0%. BlaBlaCar: 12–18% del precio del asiento (cobrado al pasajero).",
+      },
+      {
+        "@type": "ListItem",
+        position: 2,
+        name: "Búsqueda por festival o evento",
+        description: "ConcertRide: Sí, cada viaje está vinculado a un concierto o festival concreto. BlaBlaCar: No, solo permite buscar por origen–destino genérico.",
+      },
+      {
+        "@type": "ListItem",
+        position: 3,
+        name: "Hora de vuelta",
+        description: "ConcertRide: Flexible, pactada con el conductor (quien también va al festival). BlaBlaCar: Horario fijo preestablecido.",
+      },
+      {
+        "@type": "ListItem",
+        position: 4,
+        name: "Forma de pago",
+        description: "ConcertRide: Efectivo o Bizum en persona el día del viaje. BlaBlaCar: Tarjeta bancaria gestionada por la plataforma.",
+      },
+      {
+        "@type": "ListItem",
+        position: 5,
+        name: "Verificación del conductor",
+        description: "ConcertRide: Carnet de conducir obligatorio antes de publicar. BlaBlaCar: Verificación opcional.",
+      },
+    ],
+  };
+
   return (
     <main id="main" className="min-h-dvh bg-cr-bg text-cr-text pt-14">
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdArticle) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdBreadcrumb) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdFaq) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdTable) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdComparison) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdCarpoolingVsBlablacar) }} />
 
       {/* ── Hero ── */}
       <div className="max-w-4xl mx-auto px-6 pt-10 pb-6 space-y-4 border-b border-cr-border">
@@ -323,6 +401,50 @@ export default function GuiaTransporteFestivalesPage() {
           ConcertRide no es solo más barato que el taxi — es la forma más sostenible de llegar a un festival
           si ya vas a ir en coche. Sin aplicación de empresa, sin flotas de vehículos adicionales:
           aprovecha los asientos vacíos de coches que ya iban a hacer el trayecto.
+        </p>
+      </section>
+
+      {/* ── ConcertRide vs BlaBlaCar ── */}
+      <section className="max-w-4xl mx-auto px-6 pb-16 border-t border-cr-border pt-12 space-y-6">
+        <h2 className="font-display text-3xl md:text-4xl uppercase">
+          ConcertRide vs BlaBlaCar para festivales
+        </h2>
+        <p className="font-sans text-sm text-cr-text-muted leading-relaxed max-w-2xl speakable">
+          BlaBlaCar es la plataforma de carpooling genérica más usada en España. ConcertRide está especializado en conciertos y festivales. La diferencia principal: comisión 0% vs 12–18%, búsqueda por evento vs por ruta, y hora de vuelta alineada con el festival.
+        </p>
+        <div className="overflow-x-auto">
+          <table className="w-full font-sans text-sm text-cr-text-muted border-collapse">
+            <thead>
+              <tr className="border-b border-cr-border">
+                <th className="text-left py-3 pr-4 font-display text-xs uppercase text-cr-text">Característica</th>
+                <th className="text-left py-3 pr-4 font-display text-xs uppercase text-cr-primary">ConcertRide</th>
+                <th className="text-left py-3 font-display text-xs uppercase text-cr-text-muted">BlaBlaCar</th>
+              </tr>
+            </thead>
+            <tbody className="divide-y divide-cr-border">
+              {[
+                ["Comisión de plataforma", "0%", "12–18%"],
+                ["Búsqueda por festival", "Sí (por concierto específico)", "No (solo origen→destino)"],
+                ["Hora vuelta alineada", "Sí (conductor también va al festival)", "No (horario fijo)"],
+                ["Pago", "Efectivo / Bizum", "Tarjeta bancaria obligatoria"],
+                ["Verificación conductor", "Carnet obligatorio", "Opcional"],
+                ["Precio medio asiento", "8–15 €", "10–20 € + 12–18% comisión"],
+                ["Chat por evento", "Sí", "No"],
+              ].map(([feat, cr, bbc]) => (
+                <tr key={feat}>
+                  <td className="py-3 pr-4 font-medium text-cr-text">{feat}</td>
+                  <td className="py-3 pr-4 text-cr-primary font-medium">{cr}</td>
+                  <td className="py-3 text-cr-text-dim">{bbc}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+        <p className="font-mono text-[11px] text-cr-text-dim">
+          Fuente: tarifas publicadas en concertride.me y blablacar.es en mayo 2026.{" "}
+          <Link to="/blog/blablacar-vs-concertride" className="hover:text-cr-primary underline underline-offset-2">
+            Comparativa completa →
+          </Link>
         </p>
       </section>
 
