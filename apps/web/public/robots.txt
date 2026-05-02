@@ -17,6 +17,7 @@ Disallow: /mis-viajes
 Disallow: /favoritos
 Disallow: /publish
 Disallow: /admin
+Disallow: /widget/
 
 # Sitemap
 Sitemap: https://concertride.me/sitemap.xml
@@ -37,6 +38,7 @@ Disallow: /mis-viajes
 Disallow: /favoritos
 Disallow: /publish
 Disallow: /admin
+Disallow: /widget/
 
 User-agent: ChatGPT-User
 Allow: /
@@ -52,6 +54,7 @@ Disallow: /mis-viajes
 Disallow: /favoritos
 Disallow: /publish
 Disallow: /admin
+Disallow: /widget/
 
 User-agent: OAI-SearchBot
 Allow: /
@@ -67,6 +70,7 @@ Disallow: /mis-viajes
 Disallow: /favoritos
 Disallow: /publish
 Disallow: /admin
+Disallow: /widget/
 
 User-agent: anthropic-ai
 Allow: /
@@ -82,6 +86,7 @@ Disallow: /mis-viajes
 Disallow: /favoritos
 Disallow: /publish
 Disallow: /admin
+Disallow: /widget/
 
 User-agent: ClaudeBot
 Allow: /
@@ -97,6 +102,7 @@ Disallow: /mis-viajes
 Disallow: /favoritos
 Disallow: /publish
 Disallow: /admin
+Disallow: /widget/
 
 User-agent: PerplexityBot
 Allow: /
@@ -112,6 +118,7 @@ Disallow: /mis-viajes
 Disallow: /favoritos
 Disallow: /publish
 Disallow: /admin
+Disallow: /widget/
 
 User-agent: CCBot
 Allow: /
@@ -127,6 +134,7 @@ Disallow: /mis-viajes
 Disallow: /favoritos
 Disallow: /publish
 Disallow: /admin
+Disallow: /widget/
 
 User-agent: Google-Extended
 Allow: /
@@ -142,6 +150,7 @@ Disallow: /mis-viajes
 Disallow: /favoritos
 Disallow: /publish
 Disallow: /admin
+Disallow: /widget/
 
 User-agent: Bytespider
 Allow: /
@@ -157,6 +166,7 @@ Disallow: /mis-viajes
 Disallow: /favoritos
 Disallow: /publish
 Disallow: /admin
+Disallow: /widget/
 
 User-agent: Amazonbot
 Allow: /
@@ -172,6 +182,7 @@ Disallow: /mis-viajes
 Disallow: /favoritos
 Disallow: /publish
 Disallow: /admin
+Disallow: /widget/
 
 User-agent: Applebot-Extended
 Allow: /
@@ -187,6 +198,7 @@ Disallow: /mis-viajes
 Disallow: /favoritos
 Disallow: /publish
 Disallow: /admin
+Disallow: /widget/
 
 User-agent: meta-externalagent
 Allow: /
@@ -202,6 +214,7 @@ Disallow: /mis-viajes
 Disallow: /favoritos
 Disallow: /publish
 Disallow: /admin
+Disallow: /widget/
 
 User-agent: Diffbot
 Allow: /
@@ -217,6 +230,7 @@ Disallow: /mis-viajes
 Disallow: /favoritos
 Disallow: /publish
 Disallow: /admin
+Disallow: /widget/
 
 User-agent: DuckAssistBot
 Allow: /
@@ -232,3 +246,4 @@ Disallow: /mis-viajes
 Disallow: /favoritos
 Disallow: /publish
 Disallow: /admin
+Disallow: /widget/

@@ -33,11 +33,13 @@ export default function BlogIndexPage() {
       "@type": "SpeakableSpecification",
       cssSelector: ["h1", ".speakable"],
     },
-    blogPost: sorted.map((p) => ({
+    blogPost: sorted.map((p, idx) => ({
       "@type": "BlogPosting",
       "@id": `${SITE_URL}/blog/${p.slug}#article`,
       headline: p.title,
       description: p.excerpt,
+      // Include abstract on at least top 3 posts so AI engines can cite the key claim
+      ...(idx < 3 && { abstract: p.excerpt }),
       url: `${SITE_URL}/blog/${p.slug}`,
       datePublished: p.publishedAt,
       dateModified: p.updatedAt ?? p.publishedAt,
