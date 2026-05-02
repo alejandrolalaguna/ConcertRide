@@ -20,7 +20,7 @@ export default function LoginPage() {
 
   useSeoMeta({
     title: "Entrar",
-    description: "Inicia sesión en ConcertRide ES para reservar viajes compartidos a conciertos o gestionar los que has publicado.",
+    description: "Inicia sesión en ConcertRide para reservar viajes compartidos a conciertos o gestionar los que has publicado.",
     canonical: `${SITE_URL}/login`,
     noindex: true,
   });

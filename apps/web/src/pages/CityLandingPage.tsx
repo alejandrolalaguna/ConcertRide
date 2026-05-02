@@ -12,6 +12,27 @@ import { FESTIVAL_LANDINGS } from "@/lib/festivalLandings";
 import { ROUTE_LANDINGS } from "@/lib/routeLandings";
 import { trackCityView } from "@/lib/seoEvents";
 
+const CITY_WIKIDATA: Record<string, string> = {
+  "Madrid": "https://www.wikidata.org/wiki/Q2807",
+  "Barcelona": "https://www.wikidata.org/wiki/Q1492",
+  "Valencia": "https://www.wikidata.org/wiki/Q8818",
+  "Sevilla": "https://www.wikidata.org/wiki/Q8717",
+  "Bilbao": "https://www.wikidata.org/wiki/Q10282",
+  "Málaga": "https://www.wikidata.org/wiki/Q8851",
+  "Zaragoza": "https://www.wikidata.org/wiki/Q10305",
+  "Granada": "https://www.wikidata.org/wiki/Q8810",
+  "Donostia": "https://www.wikidata.org/wiki/Q10313",
+  "Donostia / San Sebastián": "https://www.wikidata.org/wiki/Q10313",
+  "Santiago de Compostela": "https://www.wikidata.org/wiki/Q15682",
+  "Alicante": "https://www.wikidata.org/wiki/Q11959",
+  "Pamplona": "https://www.wikidata.org/wiki/Q10284",
+  "Vitoria-Gasteiz": "https://www.wikidata.org/wiki/Q10288",
+  "A Coruña": "https://www.wikidata.org/wiki/Q8900",
+  "Vigo": "https://www.wikidata.org/wiki/Q8875",
+  "Murcia": "https://www.wikidata.org/wiki/Q12225",
+  "Valladolid": "https://www.wikidata.org/wiki/Q8356",
+};
+
 export default function CityLandingPage() {
   const { city: slug } = useParams<{ city: string }>();
   const landing = slug ? CITY_LANDINGS_BY_SLUG[slug] : undefined;
@@ -21,7 +42,7 @@ export default function CityLandingPage() {
   const year = new Date().getFullYear();
   const nextYear = year + 1;
   useSeoMeta({
-    title: landing ? `Conciertos en ${landing.display} ${year}–${nextYear}` : "Conciertos por ciudad",
+    title: landing ? `Conciertos en ${landing.display} ${year}–${nextYear} — Carpooling sin comisión | ConcertRide` : "Conciertos por ciudad",
     description: landing
       ? `Próximos conciertos en ${landing.display} ${year} y ${nextYear}: ${landing.venues.slice(0, 3).join(", ")} y más. Carpooling para llegar desde cualquier ciudad de España, sin taxi ni comisiones.`
       : "Explora conciertos por ciudad en España.",
@@ -119,7 +140,7 @@ export default function CityLandingPage() {
             isPartOf: {
               "@type": "WebSite",
               "@id": `${SITE_URL}/#website`,
-              name: "ConcertRide ES",
+              name: "ConcertRide",
               url: SITE_URL,
             },
             mainEntity: {
@@ -198,12 +219,30 @@ export default function CityLandingPage() {
             areaServed: {
               "@type": "City",
               name: landing.display,
-              sameAs: `https://www.wikidata.org/wiki/Special:Search/${encodeURIComponent(landing.display)}`,
+              sameAs: CITY_WIKIDATA[landing.display] ?? `https://www.wikidata.org/wiki/Special:Search/${encodeURIComponent(landing.display)}`,
             },
             sameAs: [
               "https://twitter.com/concertride_es",
               "https://www.instagram.com/concertride_es/",
             ],
+          }),
+        }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "WebPage",
+            "@id": `${SITE_URL}/conciertos/${landing.slug}#webpage`,
+            "url": `${SITE_URL}/conciertos/${landing.slug}`,
+            "name": `Conciertos en ${landing.display} con carpooling | ConcertRide`,
+            "description": landing.blurb,
+            "inLanguage": "es-ES",
+            "speakable": {
+              "@type": "SpeakableSpecification",
+              "cssSelector": ["h1", ".speakable", "article p:first-of-type"],
+            },
           }),
         }}
       />
@@ -226,7 +265,7 @@ export default function CityLandingPage() {
         <h1 className="font-display text-4xl md:text-6xl uppercase leading-[0.92]">
           Conciertos en {landing.display} {year}.
         </h1>
-        <p className="font-sans text-sm md:text-base text-cr-text-muted max-w-2xl leading-relaxed">
+        <p className="font-sans text-sm md:text-base text-cr-text-muted max-w-2xl leading-relaxed speakable">
           {landing.blurb}
         </p>
 

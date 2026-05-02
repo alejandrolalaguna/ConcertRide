@@ -24,10 +24,10 @@ export default function FestivalLandingPage() {
 
   useSeoMeta({
     title: festival
-      ? `Cómo ir a ${festival.shortName} ${new Date().getFullYear()} — Carpooling desde toda España`
+      ? `Carpooling ${festival.shortName} ${new Date().getFullYear()} — sin comisión | ConcertRide`
       : "Festivales de música en España",
     description: festival
-      ? `Carpooling a ${festival.name} desde ${festival.originCities.slice(0, 3).map((c) => c.city).join(", ")} y más ciudades. Precios desde ${festival.originCities[0]?.concertRideRange ?? "3 €"}/asiento. Sin taxi, sin comisión. Conductores verificados.`
+      ? `Cómo ir a ${festival.name} en carpooling desde ${festival.originCities.slice(0, 3).map((c) => c.city).join(", ")}. Desde ${((festival.originCities[0]?.concertRideRange ?? "3 €/asiento").split("–").at(0) ?? "3").replace(/[^0-9]/g, "") || "3"} €/asiento sin comisión. Sin taxi, conductores verificados. Pago en efectivo o Bizum.`
       : "Carpooling a festivales de música en España con ConcertRide.",
     canonical: festival
       ? `${SITE_URL}/festivales/${festival.slug}`
@@ -196,13 +196,27 @@ export default function FestivalLandingPage() {
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdSeries) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdBreadcrumb) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdFaq) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({
+        "@context": "https://schema.org",
+        "@type": "WebPage",
+        "@id": `${SITE_URL}/festivales/${festival.slug}#webpage`,
+        "url": `${SITE_URL}/festivales/${festival.slug}`,
+        "name": `Cómo ir a ${festival.name} — Carpooling sin comisión | ConcertRide`,
+        "description": festival.blurb,
+        "inLanguage": "es-ES",
+        "isPartOf": { "@id": `${SITE_URL}/#website` },
+        "speakable": {
+          "@type": "SpeakableSpecification",
+          "cssSelector": ["h1", ".speakable", "article p:first-of-type"],
+        },
+      }) }} />
 
       {/* ── Hero ── */}
       <div className="max-w-6xl mx-auto px-6 pt-10 pb-6 space-y-4">
         <nav aria-label="Breadcrumb" className="font-mono text-[11px] text-cr-text-muted flex items-center gap-2">
           <Link to="/" className="hover:text-cr-primary">Inicio</Link>
           <span aria-hidden="true">/</span>
-          <Link to="/concerts" className="hover:text-cr-primary">Conciertos</Link>
+          <Link to="/festivales" className="hover:text-cr-primary">Festivales</Link>
           <span aria-hidden="true">/</span>
           <span className="text-cr-text-muted">{festival.shortName}</span>
         </nav>
@@ -215,7 +229,11 @@ export default function FestivalLandingPage() {
           Cómo ir a<br />{festival.shortName} {new Date(festival.startDate).getFullYear()}.
         </h1>
 
-        <p className="font-sans text-sm md:text-base text-cr-text-muted max-w-2xl leading-relaxed">
+        <p className="font-sans text-sm font-semibold text-cr-text max-w-2xl speakable">
+          La opción más usada es el carpooling con ConcertRide desde {festival.originCities[0]?.city}: desde {festival.originCities[0]?.concertRideRange ?? "3 €"}/asiento, sin comisión, conductores verificados.
+        </p>
+
+        <p className="font-sans text-sm md:text-base text-cr-text-muted max-w-2xl leading-relaxed speakable">
           {festival.blurb}
         </p>
 

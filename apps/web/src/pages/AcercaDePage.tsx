@@ -4,7 +4,7 @@ import { SITE_URL } from "@/lib/siteUrl";
 
 export default function AcercaDePage() {
   useSeoMeta({
-    title: "Acerca de ConcertRide ES — Carpooling para conciertos en España",
+    title: "Acerca de ConcertRide — Carpooling para conciertos en España | ConcertRide",
     description:
       "Qué es ConcertRide, por qué existe y cómo funciona el carpooling para conciertos en España. Plataforma gratuita, sin comisiones, con conductores verificados.",
     canonical: `${SITE_URL}/acerca-de`,
@@ -20,11 +20,15 @@ export default function AcercaDePage() {
           __html: JSON.stringify({
             "@context": "https://schema.org",
             "@type": "AboutPage",
-            name: "Acerca de ConcertRide ES",
+            name: "Acerca de ConcertRide",
             url: `${SITE_URL}/acerca-de`,
             inLanguage: "es-ES",
             datePublished: "2026-04-10",
-            dateModified: "2026-04-24",
+            dateModified: "2026-05-02",
+            speakable: {
+              "@type": "SpeakableSpecification",
+              cssSelector: ["h1", ".speakable"],
+            },
             breadcrumb: {
               "@type": "BreadcrumbList",
               itemListElement: [
@@ -35,7 +39,7 @@ export default function AcercaDePage() {
             mainEntity: {
               "@type": "Organization",
               "@id": `${SITE_URL}/#organization`,
-              name: "ConcertRide ES",
+              name: "ConcertRide",
               url: SITE_URL,
               foundingDate: "2026",
               areaServed: { "@type": "Country", name: "Spain" },
@@ -59,6 +63,11 @@ export default function AcercaDePage() {
 
       <div className="max-w-3xl mx-auto px-6 py-12 md:py-16 space-y-12">
         <header className="border-b border-cr-border pb-8 space-y-3">
+          <nav aria-label="Breadcrumb" className="font-mono text-[11px] text-cr-text-muted flex items-center gap-2">
+            <Link to="/" className="hover:text-cr-primary">Inicio</Link>
+            <span aria-hidden="true">/</span>
+            <span className="text-cr-text-muted">Acerca de</span>
+          </nav>
           <p className="font-sans text-[11px] font-semibold uppercase tracking-[0.16em] text-cr-primary">
             La plataforma
           </p>
@@ -68,7 +77,7 @@ export default function AcercaDePage() {
         </header>
 
         <section className="space-y-4 font-sans text-base text-cr-text-muted leading-relaxed">
-          <p>
+          <p className="speakable">
             <strong className="text-cr-text">ConcertRide</strong> nació para resolver un problema
             muy concreto: <strong className="text-cr-primary">el transporte a festivales y conciertos en España es caro, estresante y en ocasiones imposible</strong>. Según la{" "}
             <a href="https://www.apmusicales.com/" target="_blank" rel="noopener noreferrer" className="text-cr-primary underline underline-offset-2">

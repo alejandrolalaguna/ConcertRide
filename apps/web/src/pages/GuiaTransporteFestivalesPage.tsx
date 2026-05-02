@@ -33,7 +33,7 @@ const GUIDE_FAQS = [
 
 export default function GuiaTransporteFestivalesPage() {
   useSeoMeta({
-    title: `Guía de transporte para festivales de España ${new Date().getFullYear()}`,
+    title: `Guía de transporte para festivales de España ${new Date().getFullYear()} | ConcertRide`,
     description:
       "Cómo llegar a los festivales de música en España sin taxi, sin agobios y sin pagar de más. Carpooling, buses, transporte público y todo lo que necesitas saber para 2026.",
     canonical: `${SITE_URL}/guia-transporte-festivales`,
@@ -50,16 +50,25 @@ export default function GuiaTransporteFestivalesPage() {
     url: `${SITE_URL}/guia-transporte-festivales`,
     inLanguage: "es-ES",
     author: {
-      "@type": "Organization",
-      name: "ConcertRide ES",
-      url: SITE_URL,
+      "@type": "Person",
+      name: "Alejandro Lalaguna",
+      url: `${SITE_URL}/acerca-de`,
+      "@id": `${SITE_URL}/#founder`,
     },
     publisher: {
       "@id": `${SITE_URL}/#organization`,
     },
     datePublished: "2026-04-24",
-    dateModified: "2026-04-29",
+    dateModified: "2026-05-02",
+    image: {
+      "@type": "ImageObject",
+      url: "https://concertride.me/og/home.png",
+      width: 1200,
+      height: 630,
+    },
     mainEntityOfPage: `${SITE_URL}/guia-transporte-festivales`,
+    articleSection: "Guía de viaje",
+    keywords: "transporte festivales, carpooling festivales España, autobús festival, cómo ir al festival, carpooling sin comisión, BlaBlaCar alternativa",
     about: {
       "@type": "Thing",
       name: "Transporte para festivales de música en España",
@@ -88,7 +97,7 @@ export default function GuiaTransporteFestivalesPage() {
   const jsonLdFaq = {
     "@context": "https://schema.org",
     "@type": "FAQPage",
-    mainEntity: GUIDE_FAQS.slice(0, 4).map((faq) => ({
+    mainEntity: GUIDE_FAQS.map((faq) => ({
       "@type": "Question",
       name: faq.q,
       acceptedAnswer: { "@type": "Answer", text: faq.a },

@@ -16,7 +16,7 @@ import type { Context, Next } from "hono";
 import type { HonoEnv } from "../types";
 import { getSiteUrl } from "./siteUrl";
 
-const SITE_NAME = "ConcertRide ES";
+const SITE_NAME = "ConcertRide";
 
 const SEARCH_BOTS =
   /Googlebot|bingbot|Slurp|DuckDuckBot|Baiduspider|YandexBot|Sogou|Exabot|facebot|ia_archiver|AhrefsBot|SemrushBot|MJ12bot|DotBot|Applebot|LinkedInBot|Twitterbot|facebookexternalhit|WhatsApp|Slackbot|TelegramBot|Discordbot|OAI-SearchBot|PerplexityBot|anthropic-ai|Google-Extended|GPTBot|ChatGPT-User|CCBot|ClaudeBot/i;
@@ -70,7 +70,7 @@ function buildStaticRoutes(base: string): Record<string, { title: string; descri
 </ul>`,
     },
     "/festivales": {
-      title: `Carpooling para festivales de música en España 2026 — ${SITE_NAME}`,
+      title: `Festivales de música España 2026: carpooling y transporte | ConcertRide`,
       description: "Viajes compartidos a los festivales más grandes de España: Mad Cool, Primavera Sound, Sónar, FIB, BBK Live y más. Sin taxi, sin comisión.",
       canonical: `${base}/festivales`,
       h1: "Festivales de música en España con viaje compartido",
@@ -223,8 +223,8 @@ function buildStaticRoutes(base: string): Record<string, { title: string; descri
 <p>La mayoría de festivales terminan entre la 1:00 y las 4:00. El metro de Madrid cierra a la 1:30, el de Barcelona a las 2:00. Los autobuses nocturnos (búhos en Madrid, nitbus en Barcelona) no llegan a los recintos de festival. Los taxis y VTC multiplican el precio x2–x3 en noches de alta demanda. Con ConcertRide, acuerdas la hora de vuelta con el conductor antes del festival: salís juntos cuando acabe el último bolo.</p>`,
     },
     "/como-funciona": {
-      title: `Cómo funciona el carpooling para conciertos y festivales — ${SITE_NAME}`,
-      description: "Publica o reserva un viaje compartido a un concierto en 2 minutos. Sin comisión, conductores verificados con carnet, pago directo en efectivo o Bizum.",
+      title: `Cómo funciona ConcertRide — Carpooling para conciertos | ConcertRide`,
+      description: "Guía paso a paso: cómo reservar plaza en un viaje compartido a un concierto o cómo publicar tu propio viaje en ConcertRide. Gratis, sin comisiones, con conductores verificados.",
       canonical: `${base}/como-funciona`,
       h1: "Cómo funciona el carpooling para conciertos",
       body: (() => {
@@ -270,10 +270,10 @@ function buildStaticRoutes(base: string): Record<string, { title: string; descri
           "@type": "WebPage",
           "@id": `${base}/como-funciona#webpage`,
           url: `${base}/como-funciona`,
-          name: "Cómo funciona el carpooling para conciertos y festivales — ConcertRide ES",
+          name: "Cómo funciona ConcertRide — Carpooling para conciertos",
           inLanguage: "es-ES",
           dateModified: "2026-05-01",
-          isPartOf: { "@type": "WebSite", "@id": `${base}/#website`, name: "ConcertRide ES", url: base },
+          isPartOf: { "@type": "WebSite", "@id": `${base}/#website`, name: "ConcertRide", url: base },
         });
         return `<script type="application/ld+json">${webPageJsonLd}</script>
 <script type="application/ld+json">${howToPassengerJsonLd}</script>
@@ -344,10 +344,10 @@ function buildStaticRoutes(base: string): Record<string, { title: string; descri
           "@type": "WebPage",
           "@id": `${base}/faq#webpage`,
           url: `${base}/faq`,
-          name: "Preguntas frecuentes sobre carpooling a conciertos y festivales — ConcertRide ES",
+          name: "Preguntas frecuentes sobre carpooling a conciertos y festivales — ConcertRide",
           inLanguage: "es-ES",
           dateModified: "2026-05-01",
-          isPartOf: { "@type": "WebSite", "@id": `${base}/#website`, name: "ConcertRide ES", url: base },
+          isPartOf: { "@type": "WebSite", "@id": `${base}/#website`, name: "ConcertRide", url: base },
         });
         const items = faqs.map((f) => `<dt>${esc(f.q)}</dt>\n  <dd>${esc(f.a)}</dd>`).join("\n  ");
         return `<script type="application/ld+json">${webPageJsonLd}</script>
@@ -449,31 +449,31 @@ ${posts.map((p) => `  <li><a href="${base}/blog/${p.slug}">${p.title}</a></li>`)
     },
     "/aviso-legal": {
       title: `Aviso Legal — ${SITE_NAME}`,
-      description: "Aviso legal de ConcertRide ES. Información sobre el titular, condiciones de uso y responsabilidad.",
+      description: "Aviso legal de ConcertRide. Información sobre el titular, condiciones de uso y responsabilidad de la plataforma de carpooling para conciertos en España.",
       canonical: `${base}/aviso-legal`,
       h1: "Aviso Legal",
-      body: `<p>Información legal sobre ConcertRide ES y las condiciones de uso de la plataforma.</p>`,
+      body: `<p>Información legal sobre ConcertRide y las condiciones de uso de la plataforma.</p>`,
     },
     "/privacidad": {
       title: `Política de Privacidad — ${SITE_NAME}`,
-      description: "Política de privacidad de ConcertRide ES. Cómo recogemos, usamos y protegemos tus datos personales.",
+      description: "Política de privacidad de ConcertRide. Cómo recogemos, usamos y protegemos tus datos personales según el RGPD.",
       canonical: `${base}/privacidad`,
       h1: "Política de Privacidad",
-      body: `<p>Información sobre el tratamiento de datos personales en ConcertRide ES según el RGPD y la LOPDGDD.</p>`,
+      body: `<p>Información sobre el tratamiento de datos personales en ConcertRide según el RGPD y la LOPDGDD.</p>`,
     },
     "/cookies": {
       title: `Política de Cookies — ${SITE_NAME}`,
-      description: "Política de cookies de ConcertRide ES. Qué cookies usamos y cómo puedes gestionarlas.",
+      description: "Política de cookies de ConcertRide. Qué cookies usamos, para qué las usamos y cómo puedes gestionarlas o rechazarlas.",
       canonical: `${base}/cookies`,
       h1: "Política de Cookies",
-      body: `<p>Información sobre el uso de cookies en ConcertRide ES y cómo puedes configurar tus preferencias.</p>`,
+      body: `<p>Información sobre el uso de cookies en ConcertRide y cómo puedes configurar tus preferencias.</p>`,
     },
     "/terminos": {
       title: `Términos y Condiciones — ${SITE_NAME}`,
-      description: "Términos y condiciones de uso de ConcertRide ES. Reglas para conductores y pasajeros.",
+      description: "Términos y condiciones de uso de ConcertRide. Reglas para conductores y pasajeros en la plataforma de carpooling para conciertos.",
       canonical: `${base}/terminos`,
       h1: "Términos y Condiciones de Uso",
-      body: `<p>Condiciones que rigen el uso de ConcertRide ES por parte de conductores y pasajeros.</p>`,
+      body: `<p>Condiciones que rigen el uso de ConcertRide por parte de conductores y pasajeros.</p>`,
     },
     "/rutas": {
       title: `Rutas de carpooling a festivales en España 2026 — Precios y tiempos | ${SITE_NAME}`,
@@ -1186,7 +1186,7 @@ function cityBody(slug: string, c: CityData, base: string): string {
       name: c.name,
       address: { "@type": "PostalAddress", addressLocality: c.name, addressRegion: c.region, addressCountry: "ES" },
     },
-    isPartOf: { "@type": "WebSite", "@id": `${base}/#website`, name: "ConcertRide ES", url: base },
+    isPartOf: { "@type": "WebSite", "@id": `${base}/#website`, name: "ConcertRide", url: base },
   });
 
   return `<script type="application/ld+json">${breadcrumbJsonLd}</script>
@@ -1219,7 +1219,7 @@ function blogBody(slug: string, p: BlogData, base: string): string {
     headline: p.title,
     description: p.excerpt,
     author: { "@type": "Organization", name: p.author },
-    publisher: { "@type": "Organization", name: "ConcertRide ES", logo: { "@type": "ImageObject", url: `${base}/favicon.svg` } },
+    publisher: { "@type": "Organization", name: "ConcertRide", logo: { "@type": "ImageObject", url: `${base}/favicon.svg` } },
     datePublished: p.publishedAt,
     url: `${base}/blog/${slug}`,
   });
@@ -1379,7 +1379,7 @@ function resolvePageData(pathname: string, base: string): PageData | null {
     const year = yearMatch ? yearMatch[0] : "2026";
     const originList = f.originCities.slice(0, 3).map((o) => `${o.city} (${o.range})`).join(", ");
     return {
-      title: `Cómo ir a ${f.shortName} ${year} en carpooling — desde ${f.priceFrom} € | ${SITE_NAME}`,
+      title: `Carpooling a ${f.shortName} ${year} — desde ${f.priceFrom} € · sin comisión | ConcertRide`,
       description: `Carpooling a ${f.name} (${f.city}, ${f.dates}). Desde ${originList}. Sin taxi, sin comisión. Conductores verificados con carnet.`,
       canonical: `${base}/festivales/${slug}`,
       h1: `Cómo ir a ${f.shortName} ${year} en coche compartido`,
@@ -1396,7 +1396,7 @@ function resolvePageData(pathname: string, base: string): PageData | null {
     const year = new Date().getFullYear();
     const nextYear = year + 1;
     return {
-      title: `Conciertos en ${c.name} ${year}–${nextYear} — Carpooling sin comisión | ${SITE_NAME}`,
+      title: `Conciertos en ${c.name} ${year}–${nextYear} — Carpooling sin comisión | ConcertRide`,
       description: `Próximos conciertos en ${c.name} (${c.region}): ${c.venues.slice(0, 2).join(", ")} y más. Carpooling desde cualquier ciudad de España, sin taxi ni comisión. Conductores verificados.`,
       canonical: `${base}/conciertos/${slug}`,
       h1: `Conciertos en ${c.name} ${year} — Carpooling disponible`,
@@ -1429,7 +1429,7 @@ function resolvePageData(pathname: string, base: string): PageData | null {
     const r = ROUTES[slug];
     if (!r) return null;
     return {
-      title: `Carpooling ${r.originCity} → ${r.festivalShortName} — desde ${r.priceFrom} € · ${r.drivingTime} | ${SITE_NAME}`,
+      title: `Carpooling ${r.originCity} → ${r.festivalShortName} — desde ${r.priceFrom} € · ${r.drivingTime} | ConcertRide`,
       description: `Viaje compartido de ${r.originCity} a ${r.festivalName} (${r.festivalCity}). ${r.distance} km · ${r.drivingTime} · desde ${r.priceFrom} €/asiento. Sin taxi, sin comisión. Conductores verificados con carnet.`,
       canonical: `${base}/rutas/${slug}`,
       h1: `Carpooling de ${r.originCity} a ${r.festivalShortName} — desde ${r.priceFrom} €`,

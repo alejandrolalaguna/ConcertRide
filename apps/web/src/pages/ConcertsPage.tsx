@@ -45,6 +45,22 @@ const BREADCRUMB_CONCERTS_JSON_LD = JSON.stringify({
   ],
 });
 
+const WEBPAGE_CONCERTS_JSON_LD = JSON.stringify({
+  "@context": "https://schema.org",
+  "@type": "CollectionPage",
+  "@id": `${SITE_URL}/concerts#webpage`,
+  url: `${SITE_URL}/concerts`,
+  name: "Conciertos y festivales en España con carpooling | ConcertRide",
+  description: "Directorio de conciertos en España con viajes compartidos disponibles. Filtra por ciudad, artista o fecha. Sin comisión, conductores verificados.",
+  inLanguage: "es-ES",
+  isPartOf: { "@id": `${SITE_URL}/#website` },
+  about: { "@id": `${SITE_URL}/#service` },
+  speakable: {
+    "@type": "SpeakableSpecification",
+    cssSelector: ["h1", ".speakable"],
+  },
+});
+
 export default function ConcertsPage() {
   const [searchParams, setSearchParams] = useSearchParams();
   const [concerts, setConcerts] = useState<Concert[] | null>(null);
@@ -66,19 +82,20 @@ export default function ConcertsPage() {
   }, []);
 
   const dynamicTitle = useMemo(() => {
-    if (!hasActiveFilters(filters)) return "Conciertos y festivales en España";
+    const year = new Date().getFullYear();
+    if (!hasActiveFilters(filters)) return `Conciertos y festivales en España ${year} | ConcertRide`;
     const parts: string[] = [];
     if (filters.artist) parts.push(`de ${filters.artist}`);
     if (filters.city) parts.push(`en ${filters.city}`);
     if (filters.genre) parts.push(filters.genre);
-    return `Conciertos ${parts.join(" ")}`.trim();
+    return `Conciertos ${parts.join(" ")} ${year} | ConcertRide`.trim();
   }, [filters]);
 
   useSeoMeta({
     title: dynamicTitle,
     description: filters.city
       ? `Conciertos y festivales en ${filters.city} ${new Date().getFullYear()}. Carpooling sin comisión para llegar al show — conductores verificados, pago en efectivo o Bizum.`
-      : `Conciertos en España ${new Date().getFullYear()} con carpooling disponible. Mad Cool, Primavera Sound, Arenal Sound y más. Sin comisión, sin taxi. ConcertRide ES.`,
+      : `Conciertos en España ${new Date().getFullYear()} con carpooling disponible. Mad Cool, Primavera Sound, Arenal Sound y más. Sin comisión, sin taxi. ConcertRide.`,
     canonical: `${SITE_URL}/concerts`,
     keywords: [
       `conciertos en España ${new Date().getFullYear()}`,
@@ -179,12 +196,38 @@ export default function ConcertsPage() {
 
   return (
     <div className="min-h-screen bg-cr-bg text-cr-text pt-16">
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: WEBPAGE_CONCERTS_JSON_LD }} />
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: BREADCRUMB_CONCERTS_JSON_LD }}
       />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "ItemList",
+            name: "Conciertos y festivales en España con carpooling",
+            description: "Listado de conciertos y festivales en España con viajes compartidos disponibles en ConcertRide.",
+            url: `${SITE_URL}/concerts`,
+            numberOfItems: total,
+            itemListOrder: "https://schema.org/ItemListOrderAscending",
+            itemListElement: (concerts ?? []).slice(0, 20).map((c, i) => ({
+              "@type": "ListItem",
+              position: i + 1,
+              url: `${SITE_URL}/concerts/${c.id}`,
+              name: `${c.artist} — ${c.venue?.name ?? ""}`,
+            })),
+          }),
+        }}
+      />
       {/* Header */}
       <div className="max-w-6xl mx-auto px-6 pt-10 pb-6 space-y-4">
+        <nav aria-label="Breadcrumb" className="font-mono text-[11px] text-cr-text-muted flex items-center gap-2">
+          <Link to="/" className="hover:text-cr-primary">Inicio</Link>
+          <span aria-hidden="true">/</span>
+          <span className="text-cr-text-muted">Conciertos</span>
+        </nav>
         <p className="font-sans text-[11px] font-semibold uppercase tracking-[0.16em] text-cr-primary">
           Explorar
         </p>

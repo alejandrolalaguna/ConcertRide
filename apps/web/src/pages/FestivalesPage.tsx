@@ -9,7 +9,7 @@ const FEATURED_SLUGS = ["mad-cool", "primavera-sound", "sonar", "fib", "bbk-live
 export default function FestivalesPage() {
   const year = new Date().getFullYear();
   useSeoMeta({
-    title: `Festivales de música en España ${year}: carpooling, autobuses y guía completa`,
+    title: `Festivales de música España ${year}: carpooling y transporte | ConcertRide`,
     description: `Viajes compartidos y autobuses a los festivales de España ${year}: Mad Cool, Primavera Sound, Sónar, FIB, BBK Live, Arenal Sound, Viña Rock, Resurrection Fest y más. Sin taxi, sin comisión. Conductores verificados.`,
     canonical: `${SITE_URL}/festivales`,
     keywords:
@@ -19,8 +19,35 @@ export default function FestivalesPage() {
   const featured = FESTIVAL_LANDINGS.filter((f) => FEATURED_SLUGS.includes(f.slug));
   const rest = FESTIVAL_LANDINGS.filter((f) => !FEATURED_SLUGS.includes(f.slug));
 
+  const url = `${SITE_URL}/festivales`;
+  const jsonLdWebPage = {
+    "@context": "https://schema.org",
+    "@type": "CollectionPage",
+    "@id": `${url}#webpage`,
+    url,
+    name: `Festivales de música España ${year}: carpooling y transporte | ConcertRide`,
+    description: `Viajes compartidos a los festivales de España ${year}. Sin comisión, conductores verificados.`,
+    inLanguage: "es-ES",
+    isPartOf: { "@id": `${SITE_URL}/#website` },
+    about: { "@id": `${SITE_URL}/#service` },
+    speakable: {
+      "@type": "SpeakableSpecification",
+      cssSelector: ["h1", ".speakable"],
+    },
+  };
+  const jsonLdBreadcrumb = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      { "@type": "ListItem", position: 1, name: "Inicio", item: `${SITE_URL}/` },
+      { "@type": "ListItem", position: 2, name: "Festivales", item: url },
+    ],
+  };
+
   return (
     <main id="main" className="min-h-dvh bg-cr-bg text-cr-text pt-14">
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdWebPage) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdBreadcrumb) }} />
       {/* ── Hero ── */}
       <div className="max-w-6xl mx-auto px-6 pt-10 pb-6 space-y-4">
         <nav aria-label="Breadcrumb" className="font-mono text-[11px] text-cr-text-muted flex items-center gap-2">
@@ -37,7 +64,7 @@ export default function FestivalesPage() {
           Festivales de música<br />en España {year}.
         </h1>
 
-        <p className="font-sans text-sm md:text-base text-cr-text-muted max-w-2xl leading-relaxed">
+        <p className="font-sans text-sm md:text-base text-cr-text-muted max-w-2xl leading-relaxed speakable">
           Encuentra o publica un viaje compartido a cualquier festival de España. Sin comisión,
           el 100&nbsp;% del precio va al conductor. Pago en efectivo o Bizum el día del viaje.
           Cubrimos los principales festivales del calendario {year}: Mad Cool (Madrid), Primavera Sound y Cruïlla (Barcelona),
@@ -207,6 +234,7 @@ export default function FestivalesPage() {
             name: "Festivales de música en España con carpooling 2026",
             description: "Lista de festivales de música en España con viajes compartidos disponibles en ConcertRide.",
             url: `${SITE_URL}/festivales`,
+            itemListOrder: "https://schema.org/ItemListOrderAscending",
             numberOfItems: FESTIVAL_LANDINGS.length,
             itemListElement: FESTIVAL_LANDINGS.map((f, i) => ({
               "@type": "ListItem",

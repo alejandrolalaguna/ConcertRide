@@ -4,8 +4,8 @@ import { SITE_URL } from "@/lib/siteUrl";
 
 export default function TerminosPage() {
   useSeoMeta({
-    title: "Términos y condiciones",
-    description: "Términos y condiciones de uso de ConcertRide ES: obligaciones de usuarios, política de cancelación, resolución de disputas y normativa aplicable.",
+    title: "Términos y condiciones | ConcertRide",
+    description: "Términos y condiciones de uso de ConcertRide: obligaciones de usuarios, política de cancelación, resolución de disputas y normativa aplicable.",
     canonical: `${SITE_URL}/terminos`,
   });
 

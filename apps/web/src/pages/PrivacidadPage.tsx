@@ -4,8 +4,8 @@ import { SITE_URL } from "@/lib/siteUrl";
 
 export default function PrivacidadPage() {
   useSeoMeta({
-    title: "Política de privacidad",
-    description: "Cómo ConcertRide ES trata tus datos personales (RGPD): qué recopilamos, para qué, tus derechos y cómo ejercerlos.",
+    title: "Política de privacidad | ConcertRide",
+    description: "Cómo ConcertRide trata tus datos personales (RGPD): qué recopilamos, para qué, tus derechos y cómo ejercerlos en la plataforma de carpooling para conciertos.",
     canonical: `${SITE_URL}/privacidad`,
   });
 

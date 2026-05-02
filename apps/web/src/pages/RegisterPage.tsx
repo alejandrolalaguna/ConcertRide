@@ -28,7 +28,7 @@ export default function RegisterPage() {
 
   useSeoMeta({
     title: "Crear cuenta gratis",
-    description: "Regístrate gratis en ConcertRide ES para reservar o publicar viajes compartidos a conciertos en España. Solo email y contraseña.",
+    description: "Regístrate gratis en ConcertRide para reservar o publicar viajes compartidos a conciertos en España. Solo email y contraseña.",
     canonical: `${SITE_URL}/register`,
     noindex: true,
   });

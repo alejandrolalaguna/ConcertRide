@@ -54,6 +54,17 @@ Disallow: /publish
 Disallow: /admin
 Allow: /
 
+User-agent: anthropic-ai
+Disallow: /api/
+Disallow: /login
+Disallow: /register
+Disallow: /profile
+Disallow: /mis-viajes
+Disallow: /favoritos
+Disallow: /publish
+Disallow: /admin
+Allow: /
+
 User-agent: Google-Extended
 Disallow: /api/
 Disallow: /login

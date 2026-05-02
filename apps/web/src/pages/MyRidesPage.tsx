@@ -23,7 +23,7 @@ export default function MyRidesPage() {
 
   useSeoMeta({
     title: "Mis viajes",
-    description: "Tus reservas de pasajero y viajes publicados como conductor en ConcertRide ES.",
+    description: "Tus reservas de pasajero y viajes publicados como conductor en ConcertRide.",
     canonical: `${SITE_URL}/mis-viajes`,
     noindex: true,
   });

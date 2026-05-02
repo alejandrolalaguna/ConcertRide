@@ -19,7 +19,7 @@ export default function RouteLandingPage() {
 
   useSeoMeta({
     title: landing
-      ? `Carpooling ${landing.originCity} a ${landing.festival.shortName} — ${landing.originData.concertRideRange} · ${landing.originData.drivingTime}`
+      ? `Carpooling ${landing.originCity} → ${landing.festival.shortName} — desde ${(landing.originData.concertRideRange.split("–")[0] ?? "3").replace(/[^0-9]/g, "") || "3"} € · ${landing.originData.drivingTime} | ConcertRide`
       : "Ruta de carpooling",
     description: landing
       ? `Viaje compartido de ${landing.originCity} a ${landing.festival.name} (${landing.festival.city}). ${landing.originData.km} km · ${landing.originData.drivingTime} · desde ${landing.originData.concertRideRange}. Sin comisión, sin taxi, conductores verificados.`
@@ -135,6 +135,12 @@ export default function RouteLandingPage() {
     offers: {
       "@type": "Offer",
       price: (originData.concertRideRange.split("–")[0] ?? "3").replace(/[^0-9]/g, "") || "3",
+      priceSpecification: {
+        "@type": "PriceSpecification",
+        price: (originData.concertRideRange.split("–")[0] ?? "3").replace(/[^0-9]/g, "") || "3",
+        maxPrice: (originData.concertRideRange.split("–")[1] ?? originData.concertRideRange.split("–")[0] ?? "20").replace(/[^0-9]/g, "") || "20",
+        priceCurrency: "EUR",
+      },
       priceCurrency: "EUR",
       availability: "https://schema.org/InStock",
       validFrom: new Date().toISOString(),
@@ -142,6 +148,20 @@ export default function RouteLandingPage() {
     },
   };
 
+
+  const jsonLdWebPage = {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    "@id": `${SITE_URL}/rutas/${landing.slug}#webpage`,
+    "url": `${SITE_URL}/rutas/${landing.slug}`,
+    "name": `Carpooling ${originCity} → ${festival.shortName} | ConcertRide`,
+    "description": `Viaje compartido de ${originCity} a ${festival.name} (${festival.city}). ${originData.km} km, ${originData.drivingTime}, desde ${originData.concertRideRange}. Sin comisión.`,
+    "inLanguage": "es-ES",
+    "speakable": {
+      "@type": "SpeakableSpecification",
+      "cssSelector": ["h1", ".speakable", "article p:first-of-type"],
+    },
+  };
 
   const futureConcerts = (concerts ?? []).filter(
     (c) => new Date(c.date).getTime() > Date.now(),
@@ -152,13 +172,14 @@ export default function RouteLandingPage() {
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdBreadcrumb) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdTrip) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdFaq) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdWebPage) }} />
 
       {/* ── Hero ── */}
       <div className="max-w-6xl mx-auto px-6 pt-10 pb-6 space-y-4">
         <nav aria-label="Breadcrumb" className="font-mono text-[11px] text-cr-text-muted flex items-center gap-2 flex-wrap">
           <Link to="/" className="hover:text-cr-primary">Inicio</Link>
           <span aria-hidden="true">/</span>
-          <Link to={`/festivales/${festival.slug}`} className="hover:text-cr-primary">{festival.shortName}</Link>
+          <Link to="/rutas" className="hover:text-cr-primary">Rutas</Link>
           <span aria-hidden="true">/</span>
           <span className="text-cr-text-muted">Desde {originCity}</span>
         </nav>
@@ -171,9 +192,8 @@ export default function RouteLandingPage() {
           {originCity}<br />→ {festival.shortName}.
         </h1>
 
-        <p className="font-sans text-sm md:text-base text-cr-text-muted max-w-2xl leading-relaxed">
-          Viaje compartido de {originCity} a {festival.name} ({festival.city}).
-          Comparte coche, divide gastos y llega al festival sin taxi ni comisiones.
+        <p className="font-sans text-sm md:text-base text-cr-text-muted max-w-2xl leading-relaxed speakable">
+          ConcertRide ofrece carpooling de {originCity} a {festival.name} ({festival.city}) por {originData.concertRideRange}/asiento. Distancia: {originData.km} km · {originData.drivingTime}. Sin comisión — el 100&nbsp;% del precio va al conductor.
         </p>
 
         {/* Route stats */}

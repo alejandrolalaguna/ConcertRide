@@ -136,7 +136,7 @@ export default function FaqPage() {
   };
 
   useSeoMeta({
-    title: "Preguntas frecuentes — Carpooling para conciertos y festivales",
+    title: "Preguntas frecuentes — Carpooling para conciertos y festivales | ConcertRide",
     description:
       "FAQ completo sobre ConcertRide: cómo compartir coche a un festival, alternativa económica para volver de noche, carpooling sin comisiones, sostenibilidad, ZBE Madrid y más.",
     canonical: `${SITE_URL}/faq`,

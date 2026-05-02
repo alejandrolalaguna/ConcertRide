@@ -85,7 +85,7 @@ export default function PublishRidePage() {
   const [autofilledFields, setAutofilledFields] = useState<string[]>([]);
 
   useSeoMeta({
-    title: "Publicar un viaje a un concierto",
+    title: "Publicar un viaje a un concierto | ConcertRide",
     description: "Publica gratis tu viaje compartido a un concierto o festival en España. Fija el precio por asiento y divide los gastos con otros fans.",
     canonical: `${SITE_URL}/publish`,
     noindex: true,

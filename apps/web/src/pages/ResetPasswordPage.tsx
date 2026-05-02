@@ -21,7 +21,7 @@ export default function ResetPasswordPage() {
 
   useSeoMeta({
     title: "Nueva contraseña",
-    description: "Crea una nueva contraseña para tu cuenta de ConcertRide ES.",
+    description: "Crea una nueva contraseña para tu cuenta de ConcertRide.",
     canonical: `${SITE_URL}/reset-password`,
     noindex: true,
   });

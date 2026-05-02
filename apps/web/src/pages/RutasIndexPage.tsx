@@ -10,7 +10,7 @@ const ALL_FESTIVALS = [{ slug: "", shortName: "Todos" }, ...FESTIVAL_LANDINGS.ma
 
 export default function RutasIndexPage() {
   useSeoMeta({
-    title: `Rutas de carpooling a festivales en España ${new Date().getFullYear()}`,
+    title: `Rutas de carpooling a festivales en España ${new Date().getFullYear()} | ConcertRide`,
     description: `${ROUTE_LANDINGS.length} rutas de viaje compartido a festivales de música en España. Carpooling Madrid–Mad Cool, Barcelona–Primavera Sound, Valencia–Arenal Sound, Santander–BBK Live, Marbella–Cala Mijas y más. Sin comisión, conductores verificados.`,
     canonical: `${SITE_URL}/rutas`,
     keywords:
@@ -34,6 +34,24 @@ export default function RutasIndexPage() {
     return map;
   }, [filtered]);
 
+  const year = new Date().getFullYear();
+
+  const jsonLdWebPage = {
+    "@context": "https://schema.org",
+    "@type": "CollectionPage",
+    "@id": `${SITE_URL}/rutas#webpage`,
+    url: `${SITE_URL}/rutas`,
+    name: `Rutas de carpooling a festivales en España ${year} | ConcertRide`,
+    description: `${ROUTE_LANDINGS.length} rutas de viaje compartido a festivales de música en España. Sin comisión, conductores verificados.`,
+    inLanguage: "es-ES",
+    isPartOf: { "@id": `${SITE_URL}/#website` },
+    about: { "@id": `${SITE_URL}/#service` },
+    speakable: {
+      "@type": "SpeakableSpecification",
+      cssSelector: ["h1", ".speakable"],
+    },
+  };
+
   const jsonLdBreadcrumb = {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
@@ -48,8 +66,9 @@ export default function RutasIndexPage() {
     "@type": "ItemList",
     name: "Rutas de carpooling a festivales en España 2026",
     url: `${SITE_URL}/rutas`,
+    itemListOrder: "https://schema.org/ItemListOrderAscending",
     numberOfItems: ROUTE_LANDINGS.length,
-    itemListElement: ROUTE_LANDINGS.slice(0, 50).map((r, i) => ({
+    itemListElement: ROUTE_LANDINGS.map((r, i) => ({
       "@type": "ListItem",
       position: i + 1,
       name: `Carpooling ${r.originCity} → ${r.festival.shortName}`,
@@ -59,6 +78,7 @@ export default function RutasIndexPage() {
 
   return (
     <main id="main" className="min-h-dvh bg-cr-bg text-cr-text pt-14">
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdWebPage) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdBreadcrumb) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdItemList) }} />
 
@@ -78,7 +98,7 @@ export default function RutasIndexPage() {
           Rutas de<br />carpooling {new Date().getFullYear()}.
         </h1>
 
-        <p className="font-sans text-sm md:text-base text-cr-text-muted max-w-2xl leading-relaxed">
+        <p className="font-sans text-sm md:text-base text-cr-text-muted max-w-2xl leading-relaxed speakable">
           Viajes compartidos desde todas las ciudades de España a los mejores festivales.
           Alternativa a los autobuses oficiales y de larga distancia (ALSA, Avanza, FlixBus)
           cuando no operan en horarios de festival. Sin comisión, pago en efectivo o Bizum el día del viaje.

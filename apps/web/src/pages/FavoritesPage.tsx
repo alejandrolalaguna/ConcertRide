@@ -14,7 +14,7 @@ export default function FavoritesPage() {
 
   useSeoMeta({
     title: "Mis favoritos",
-    description: "Conciertos, artistas y ciudades que has marcado como favoritos en ConcertRide ES.",
+    description: "Conciertos, artistas y ciudades que has marcado como favoritos en ConcertRide.",
     canonical: `${SITE_URL}/favoritos`,
     noindex: true,
   });

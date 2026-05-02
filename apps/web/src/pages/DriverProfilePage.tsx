@@ -24,11 +24,11 @@ export default function DriverProfilePage() {
 
   useSeoMeta({
     title: driver
-      ? `${driver.name} — Conductor en ConcertRide ES`
-      : "Perfil de conductor — ConcertRide ES",
+      ? `${driver.name} — Conductor en ConcertRide`
+      : "Perfil de conductor — ConcertRide",
     description: driver
       ? `${driver.name} ha hecho ${driver.rides_given} viajes en ConcertRide. Valoración: ${driver.rating.toFixed(1)}/5.`
-      : "Conductor en ConcertRide ES.",
+      : "Conductor en ConcertRide.",
     canonical: id ? `${SITE_URL}/drivers/${id}` : undefined,
     ogImage: driver?.avatar_url ?? undefined,
     ogType: "article",
@@ -106,7 +106,7 @@ export default function DriverProfilePage() {
               name: driver.name,
               image: driver.avatar_url ?? undefined,
               url: `${SITE_URL}${driverPath(driver.id)}`,
-              description: `Conductor en ConcertRide ES con ${driver.rides_given} viajes realizados.`,
+              description: `Conductor en ConcertRide con ${driver.rides_given} viajes realizados.`,
               memberOf: { "@id": `${SITE_URL}/#organization` },
               ...(driver.home_city && {
                 homeLocation: {

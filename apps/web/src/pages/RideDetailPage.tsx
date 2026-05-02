@@ -62,8 +62,8 @@ export default function RideDetailPage() {
 
   useSeoMeta({
     title: ride
-      ? `Viaje a ${ride.concert.artist} desde ${ride.origin_city} — ConcertRide ES`
-      : "Viaje compartido — ConcertRide ES",
+      ? `Viaje a ${ride.concert.artist} desde ${ride.origin_city} — ConcertRide`
+      : "Viaje compartido — ConcertRide",
     description: ride
       ? `Viaje compartido desde ${ride.origin_city} hasta ${ride.concert.venue.city} para ver a ${ride.concert.artist}. ${ride.seats_left} plaza${ride.seats_left === 1 ? "" : "s"} disponible${ride.seats_left === 1 ? "" : "s"} a €${ride.price_per_seat}/asiento.`
       : "Encuentra un viaje compartido para conciertos en España.",

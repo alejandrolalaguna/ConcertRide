@@ -10,8 +10,9 @@
       name="description"
       content="Carpooling y autobuses para conciertos y festivales en España 2026. Mad Cool, Primavera Sound, Sónar, BBK Live, Arenal Sound. Sin comisión, conductores verificados."
     />
-    <meta name="robots" content="index, follow" />
+    <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
     <link rel="canonical" href="https://concertride.me/" />
+    <link rel="sitemap" type="application/xml" href="/sitemap.xml" />
     <link rel="alternate" hreflang="es-ES" href="https://concertride.me/" />
     <link rel="alternate" hreflang="x-default" href="https://concertride.me/" />
 
@@ -29,7 +30,7 @@
     <meta property="og:image:height" content="630" />
     <meta property="og:image:type" content="image/png" />
     <meta property="og:image:secure_url" content="https://concertride.me/og/home.png" />
-    <meta property="og:image:alt" content="ConcertRide ES — Carpooling para conciertos en España" />
+    <meta property="og:image:alt" content="ConcertRide — Carpooling para conciertos en España" />
 
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:site" content="@concertride_es" />
@@ -41,8 +42,8 @@
     />
     <meta name="twitter:image" content="https://concertride.me/og/home.png" />
 
-    <meta name="author" content="ConcertRide ES" />
-    <meta name="application-name" content="ConcertRide ES" />
+    <meta name="author" content="ConcertRide" />
+    <meta name="application-name" content="ConcertRide" />
     <meta name="apple-mobile-web-app-title" content="ConcertRide" />
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
@@ -63,6 +64,7 @@
     <link rel="manifest" href="/manifest.webmanifest" />
     <!-- AI plugin discovery — lets AI assistants find ConcertRide capabilities -->
     <link rel="ai-plugin" type="application/json" href="/.well-known/ai-plugin.json" />
+    <link rel="llms-txt" type="text/plain" href="/llms.txt" />
 
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -86,7 +88,7 @@
       {
         "@context": "https://schema.org",
         "@type": "SoftwareApplication",
-        "name": "ConcertRide ES",
+        "name": "ConcertRide",
         "alternateName": "ConcertRide España",
         "applicationCategory": "TravelApplication",
         "operatingSystem": "Web",
@@ -112,7 +114,7 @@
         "@context": "https://schema.org",
         "@type": "Organization",
         "@id": "https://concertride.me/#organization",
-        "name": "ConcertRide ES",
+        "name": "ConcertRide",
         "alternateName": "ConcertRide España",
         "url": "https://concertride.me/",
         "logo": {
@@ -122,7 +124,7 @@
           "height": 512
         },
         "image": "https://concertride.me/og/home.png",
-        "description": "ConcertRide ES es la plataforma española de carpooling exclusiva para conciertos y festivales. Conecta conductores y pasajeros que van al mismo evento para compartir gastos de desplazamiento. Alternativa gratuita y sin comisión al taxi o BlaBlaCar para llegar a festivales de música en España.",
+        "description": "ConcertRide es la plataforma española de carpooling exclusiva para conciertos y festivales. Conecta conductores y pasajeros que van al mismo evento para compartir gastos de desplazamiento. Alternativa gratuita y sin comisión al taxi o BlaBlaCar para llegar a festivales de música en España.",
         "foundingDate": "2026",
         "numberOfEmployees": { "@type": "QuantitativeValue", "minValue": 1, "maxValue": 10 },
         "slogan": "Carpooling para conciertos en España. Sin comisiones.",
@@ -149,8 +151,18 @@
           "https://twitter.com/concertride_es",
           "https://www.instagram.com/concertride_es/",
           "https://www.facebook.com/concertride.me",
-          "https://www.linkedin.com/company/concertride-es"
-        ]
+          "https://www.linkedin.com/company/concertride-es",
+          "https://www.crunchbase.com/organization/concertride-es",
+          "https://concertride.me/"
+        ],
+        "potentialAction": {
+          "@type": "SearchAction",
+          "target": {
+            "@type": "EntryPoint",
+            "urlTemplate": "https://concertride.me/concerts?q={search_term_string}"
+          },
+          "query-input": "required name=search_term_string"
+        }
       }
     </script>
     <script type="application/ld+json">
@@ -158,13 +170,17 @@
         "@context": "https://schema.org",
         "@type": "WebSite",
         "@id": "https://concertride.me/#website",
-        "name": "ConcertRide ES",
+        "name": "ConcertRide",
         "url": "https://concertride.me/",
+        "description": "Carpooling para conciertos y festivales en España",
         "inLanguage": "es-ES",
         "publisher": { "@id": "https://concertride.me/#organization" },
         "potentialAction": {
           "@type": "SearchAction",
-          "target": "https://concertride.me/concerts?artist={search_term_string}",
+          "target": {
+            "@type": "EntryPoint",
+            "urlTemplate": "https://concertride.me/concerts?q={search_term_string}"
+          },
           "query-input": "required name=search_term_string"
         }
       }
@@ -237,7 +253,7 @@
         "@type": "WebPage",
         "@id": "https://concertride.me/#webpage",
         "url": "https://concertride.me/",
-        "name": "ConcertRide ES — Carpooling para conciertos en España",
+        "name": "ConcertRide — Carpooling para conciertos en España",
         "description": "Carpooling para conciertos en España. Comparte coche, divide gastos y llega seguro. Publica un viaje o busca uno en 2 minutos. Gratis, sin comisiones.",
         "inLanguage": "es-ES",
         "isPartOf": { "@id": "https://concertride.me/#website" },
@@ -267,7 +283,7 @@
         "@context": "https://schema.org",
         "@type": "OnlineBusiness",
         "@id": "https://concertride.me/#onlinebusiness",
-        "name": "ConcertRide ES",
+        "name": "ConcertRide",
         "url": "https://concertride.me/",
         "logo": "https://concertride.me/favicon.svg",
         "image": "https://concertride.me/og/home.png",

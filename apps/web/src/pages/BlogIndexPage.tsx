@@ -6,7 +6,7 @@ import { BLOG_POSTS, BLOG_CATEGORIES } from "@/lib/blogPosts";
 
 export default function BlogIndexPage() {
   useSeoMeta({
-    title: "Blog ConcertRide — Carpooling, festivales y sostenibilidad",
+    title: "Blog — Carpooling, festivales y sostenibilidad | ConcertRide",
     description:
       "Comparativas, guías de transporte y sostenibilidad para asistentes a festivales en España. Aprende a moverte mejor, gastar menos y reducir tu huella.",
     canonical: `${SITE_URL}/blog`,
@@ -15,6 +15,22 @@ export default function BlogIndexPage() {
   });
 
   const sorted = [...BLOG_POSTS].sort((a, b) => b.publishedAt.localeCompare(a.publishedAt));
+
+  const jsonLdWebPage = {
+    "@context": "https://schema.org",
+    "@type": "CollectionPage",
+    "@id": `${SITE_URL}/blog#webpage`,
+    url: `${SITE_URL}/blog`,
+    name: "Blog ConcertRide — Carpooling, festivales y sostenibilidad",
+    description: "Comparativas, guías de transporte y sostenibilidad para asistentes a festivales en España.",
+    inLanguage: "es-ES",
+    isPartOf: { "@id": `${SITE_URL}/#website` },
+    about: { "@id": `${SITE_URL}/#service` },
+    speakable: {
+      "@type": "SpeakableSpecification",
+      cssSelector: ["h1", ".speakable"],
+    },
+  };
 
   const jsonLdItemList = {
     "@context": "https://schema.org",
@@ -42,6 +58,7 @@ export default function BlogIndexPage() {
 
   return (
     <main id="main" className="min-h-dvh bg-cr-bg text-cr-text pt-14">
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdWebPage) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdItemList) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdBreadcrumb) }} />
 
@@ -58,7 +75,7 @@ export default function BlogIndexPage() {
         <h1 className="font-display text-4xl md:text-6xl uppercase leading-[0.92]">
           Carpooling,<br />festivales,<br />sostenibilidad.
         </h1>
-        <p className="font-sans text-sm md:text-base text-cr-text-muted max-w-2xl leading-relaxed">
+        <p className="font-sans text-sm md:text-base text-cr-text-muted max-w-2xl leading-relaxed speakable">
           Comparativas honestas, guías prácticas y datos reales para que ir a un festival
           en España sea más barato, más sostenible y menos estresante.
         </p>

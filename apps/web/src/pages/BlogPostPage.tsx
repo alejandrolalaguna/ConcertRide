@@ -11,7 +11,7 @@ export default function BlogPostPage() {
   const post = slug ? BLOG_POSTS_BY_SLUG[slug] : undefined;
 
   useSeoMeta({
-    title: post?.title ?? "Artículo no encontrado",
+    title: post ? `${post.title} ${new Date(post.publishedAt).getFullYear()} | ConcertRide` : "Artículo no encontrado",
     description: post?.excerpt,
     canonical: post ? `${SITE_URL}/blog/${post.slug}` : `${SITE_URL}/blog`,
     keywords: post?.tags.join(", "),
@@ -38,6 +38,7 @@ export default function BlogPostPage() {
     headline: post.title,
     name: post.title,
     description: post.excerpt,
+    abstract: post.excerpt,
     url,
     mainEntityOfPage: { "@type": "WebPage", "@id": url },
     datePublished: post.publishedAt,
@@ -47,9 +48,10 @@ export default function BlogPostPage() {
     keywords: post.tags.join(", "),
     wordCount: post.sections.reduce((acc, s) => acc + s.paragraphs.join(" ").split(/\s+/).length, 0),
     author: {
-      "@type": "Organization",
+      "@type": "Person",
       name: post.author,
-      url: `${SITE_URL}/`,
+      url: `${SITE_URL}/acerca-de`,
+      "@id": `${SITE_URL}/#founder`,
     },
     publisher: { "@id": `${SITE_URL}/#organization` },
     image: {
@@ -64,6 +66,10 @@ export default function BlogPostPage() {
     },
     isPartOf: { "@id": `${SITE_URL}/#website` },
     about: { "@id": `${SITE_URL}/#service` },
+    mentions: (post.tags ?? []).map((tag: string) => ({
+      "@type": "Thing",
+      name: tag,
+    })),
   };
 
   const jsonLdBreadcrumb = {
@@ -133,14 +139,13 @@ export default function BlogPostPage() {
         <h1 className="font-display text-3xl md:text-5xl uppercase leading-[0.96]">
           {post.h1}
         </h1>
-
-        <p className="font-sans text-base md:text-lg text-cr-text leading-relaxed">
-          {post.lede}
-        </p>
       </header>
 
       {/* ── Body ── */}
       <article className="max-w-3xl mx-auto px-6 pb-16 border-t border-cr-border pt-10 space-y-12">
+        <p className="font-sans text-base md:text-lg text-cr-text leading-relaxed speakable">
+          {post.lede}
+        </p>
         {post.sections.map((section) => (
           <section key={section.heading} className="space-y-4">
             <h2 className="font-display text-2xl md:text-3xl uppercase">

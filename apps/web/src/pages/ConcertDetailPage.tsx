@@ -47,8 +47,8 @@ export default function ConcertDetailPage() {
 
   useSeoMeta({
     title: concert
-      ? `Viajes a ${concert.artist} en ${concert.venue.name} — ConcertRide ES`
-      : "Concierto — ConcertRide ES",
+      ? `Viajes a ${concert.artist} en ${concert.venue.name} — ConcertRide`
+      : "Concierto — ConcertRide",
     description: concert
       ? `Viaje compartido para ver a ${concert.artist} en ${concert.venue.name} (${concert.venue.city}). Carpooling desde cualquier ciudad, sin comisión, conductores verificados. Divide el coste con otros fans.`
       : "Encuentra un viaje compartido para ir al concierto en España.",
@@ -57,6 +57,7 @@ export default function ConcertDetailPage() {
       ? `${concert.artist}, cómo ir a ${concert.artist}, viaje compartido ${concert.artist}, carpooling ${concert.venue.city}, transporte ${concert.artist} ${concert.venue.city}, coche compartido ${concert.venue.name}, concierto ${concert.venue.city} 2026, ${concert.genre ?? "conciertos"} España, compartir coche ${concert.venue.city}`
       : undefined,
     ogImage: concert?.image_url ?? undefined,
+    ogType: "music.event",
   });
 
   useEffect(() => {
@@ -124,6 +125,21 @@ export default function ConcertDetailPage() {
   const hue = concert ? hueFromString(concert.artist) : 0;
   const isPast = concert ? concertStatus(concert.date) !== "upcoming" : false;
 
+  const jsonLdWebPage = concert ? {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    "@id": `${SITE_URL}/concerts/${concert.id}#webpage`,
+    "url": `${SITE_URL}/concerts/${concert.id}`,
+    "name": `${concert.artist} en ${concert.venue?.name || concert.venue?.city} — Carpooling | ConcertRide`,
+    "description": `Viaje compartido a ${concert.artist} en ${concert.venue?.name || concert.venue?.city}. Busca o publica carpooling para este concierto en ConcertRide.`,
+    "inLanguage": "es-ES",
+    "isPartOf": { "@id": `${SITE_URL}/#website` },
+    "speakable": {
+      "@type": "SpeakableSpecification",
+      "cssSelector": ["h1", ".speakable", "article p:first-of-type"]
+    }
+  } : null;
+
   return (
     <main id="main" className="bg-cr-bg text-cr-text min-h-dvh">
       {concert && <JsonLdEvent concert={concert} />}
@@ -143,6 +159,7 @@ export default function ConcertDetailPage() {
           }}
         />
       )}
+      {jsonLdWebPage && <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdWebPage) }} />}
 
       <section
         className="relative overflow-hidden border-b border-cr-border min-h-[280px] md:min-h-[360px]"
@@ -164,7 +181,10 @@ export default function ConcertDetailPage() {
         {concert?.image_url && (
           <img
             src={concert.image_url}
-            alt=""
+            alt={`${concert.artist} en ${concert.venue?.name ?? concert.venue?.city ?? ""}`}
+            fetchPriority="high"
+            width={1200}
+            height={630}
             className="absolute inset-0 w-full h-full object-cover opacity-30"
           />
         )}
@@ -277,7 +297,7 @@ export default function ConcertDetailPage() {
                   <p className="font-sans text-[10px] font-semibold uppercase tracking-[0.16em] text-cr-text-muted mb-1">
                     Cartel
                   </p>
-                  <p className="font-mono text-sm text-cr-text leading-relaxed">
+                  <p className="font-mono text-sm text-cr-text leading-relaxed speakable">
                     {concert.lineup}
                   </p>
                 </div>
@@ -557,7 +577,7 @@ function JsonLdEvent({ concert }: { concert: Concert }) {
     },
     organizer: {
       "@type": "Organization",
-      name: "ConcertRide ES",
+      name: "ConcertRide",
       url: `${SITE_URL}/`,
     },
     startDate: concert.date,

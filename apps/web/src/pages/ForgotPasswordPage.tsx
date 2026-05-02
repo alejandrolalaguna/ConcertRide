@@ -13,7 +13,7 @@ export default function ForgotPasswordPage() {
 
   useSeoMeta({
     title: "Recuperar contraseña",
-    description: "Recupera el acceso a tu cuenta de ConcertRide ES.",
+    description: "Recupera el acceso a tu cuenta de ConcertRide.",
     canonical: `${SITE_URL}/forgot-password`,
     noindex: true,
   });

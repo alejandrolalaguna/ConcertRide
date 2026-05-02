@@ -105,7 +105,7 @@ export default function ProfilePage() {
 
   useSeoMeta({
     title: "Mi perfil",
-    description: "Gestiona tu perfil de ConcertRide ES: datos personales, ciudad base, preferencias de viaje y vehículo.",
+    description: "Gestiona tu perfil de ConcertRide: datos personales, ciudad base, preferencias de viaje y vehículo.",
     canonical: `${SITE_URL}/profile`,
     noindex: true,
   });

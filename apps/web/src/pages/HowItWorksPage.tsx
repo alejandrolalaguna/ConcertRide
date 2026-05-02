@@ -55,9 +55,9 @@ const DRIVER_STEPS = [
 
 export default function HowItWorksPage() {
   useSeoMeta({
-    title: "Cómo funciona ConcertRide",
+    title: "Cómo funciona ConcertRide — Carpooling para conciertos | ConcertRide",
     description:
-      "Guía paso a paso: cómo reservar plaza en un viaje compartido a un concierto o cómo publicar tu propio viaje en ConcertRide ES. Gratis, sin comisiones, con conductores verificados.",
+      "Guía paso a paso: cómo reservar plaza en un viaje compartido a un concierto o cómo publicar tu propio viaje en ConcertRide. Gratis, sin comisiones, con conductores verificados.",
     canonical: `${SITE_URL}/como-funciona`,
     keywords:
       "cómo funciona carpooling conciertos, cómo reservar viaje compartido concierto, cómo publicar viaje a festival, compartir coche concierto España, cómo ir al concierto en coche compartido, carpooling festival sin comisión, conductor verificado concierto",
@@ -270,6 +270,10 @@ export default function HowItWorksPage() {
           >
             Publicar mi viaje
           </Link>
+
+          <p className="font-sans text-sm text-cr-text-muted leading-relaxed speakable">
+            A diferencia de BlaBlaCar, que cobra una comisión de entre el 12 y el 18&nbsp;% sobre el precio del asiento, ConcertRide no cobra ninguna comisión: el 100&nbsp;% del precio que paga el pasajero va al conductor. Tampoco hay intermediación en el pago — se paga en efectivo o Bizum el día del viaje.
+          </p>
         </section>
 
         <section aria-labelledby="trust-title" className="space-y-6 border-t border-cr-border pt-16">

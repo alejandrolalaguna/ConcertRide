@@ -59,7 +59,7 @@ export interface ResolvedSeo {
 }
 
 function resolve(meta: SeoMeta): ResolvedSeo {
-  const fullTitle = meta.title.includes(SITE_NAME) ? meta.title : `${meta.title} — ${SITE_NAME}`;
+  const fullTitle = meta.title.includes("ConcertRide") ? meta.title : `${meta.title} — ${SITE_NAME}`;
   return {
     title: meta.title,
     fullTitle,

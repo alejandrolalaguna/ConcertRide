@@ -31,9 +31,9 @@ const LINKS = [
 
 export default function PrensaPage() {
   useSeoMeta({
-    title: "Prensa y medios — ConcertRide ES",
+    title: "Prensa y medios | ConcertRide",
     description:
-      "Datos clave, cifras, recursos gráficos y contacto para medios. ConcertRide ES es la plataforma española de carpooling para conciertos y festivales de música. Sin comisiones, conductores verificados.",
+      "Datos clave, cifras, recursos gráficos y contacto para medios. ConcertRide es la plataforma española de carpooling para conciertos y festivales de música. Sin comisiones, conductores verificados.",
     canonical: `${SITE_URL}/prensa`,
     keywords: "press kit ConcertRide, medios ConcertRide, datos ConcertRide, carpooling festivales España prensa",
   });
@@ -51,7 +51,7 @@ export default function PrensaPage() {
     "@context": "https://schema.org",
     "@type": "Organization",
     "@id": `${SITE_URL}/#organization`,
-    name: "ConcertRide ES",
+    name: "ConcertRide",
     url: SITE_URL,
     logo: `${SITE_URL}/favicon.svg`,
     image: `${SITE_URL}/og/home.png`,
