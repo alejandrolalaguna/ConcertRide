@@ -57,7 +57,7 @@ export default function ConcertDetailPage() {
       ? `${concert.artist}, cómo ir a ${concert.artist}, viaje compartido ${concert.artist}, carpooling ${concert.venue.city}, transporte ${concert.artist} ${concert.venue.city}, coche compartido ${concert.venue.name}, concierto ${concert.venue.city} 2026, ${concert.genre ?? "conciertos"} España, compartir coche ${concert.venue.city}`
       : undefined,
     ogImage: concert?.image_url ?? undefined,
-    ogType: "music.event",
+    ogType: "article",
   });
 
   useEffect(() => {
@@ -160,6 +160,49 @@ export default function ConcertDetailPage() {
         />
       )}
       {jsonLdWebPage && <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdWebPage) }} />}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "FAQPage",
+            mainEntity: [
+              {
+                "@type": "Question",
+                name: "¿Cómo reservo un viaje compartido a este concierto?",
+                acceptedAnswer: {
+                  "@type": "Answer",
+                  text: "Busca viajes disponibles en esta página, elige el que mejor te encaje por precio y ciudad de origen, y contacta al conductor. El pago se hace en efectivo o Bizum el día del viaje.",
+                },
+              },
+              {
+                "@type": "Question",
+                name: "¿Cuánto cuesta el carpooling a un concierto?",
+                acceptedAnswer: {
+                  "@type": "Answer",
+                  text: "Los conductores en ConcertRide fijan un precio para cubrir combustible y peajes, típicamente entre 3 y 20 € por asiento según la distancia. ConcertRide no cobra comisión.",
+                },
+              },
+              {
+                "@type": "Question",
+                name: "¿Son seguros los conductores?",
+                acceptedAnswer: {
+                  "@type": "Answer",
+                  text: "Sí. Todos los conductores verifican su carnet de conducir antes de publicar viajes. Puedes ver valoraciones y reseñas de viajes anteriores en el perfil de cada conductor.",
+                },
+              },
+              {
+                "@type": "Question",
+                name: "¿Puedo volver con el mismo conductor después del concierto?",
+                acceptedAnswer: {
+                  "@type": "Answer",
+                  text: "Sí, si el conductor publica también el viaje de vuelta. Puedes consultarlo en el chat directo con el conductor al reservar el viaje de ida.",
+                },
+              },
+            ],
+          }),
+        }}
+      />
 
       <section
         className="relative overflow-hidden border-b border-cr-border min-h-[280px] md:min-h-[360px]"
@@ -247,7 +290,7 @@ export default function ConcertDetailPage() {
                 Concierto · {concert.genre ?? "Música en vivo"}
               </p>
               <h1 className="font-display uppercase text-4xl md:text-7xl leading-[0.95]">
-                {concert.artist}
+                {concert.artist} — Carpooling en {concert.venue?.city ?? concert.venue?.name}
               </h1>
               <div className="flex flex-wrap gap-x-6 gap-y-2 font-mono text-xs text-cr-text-muted">
                 <span className="inline-flex items-center gap-1.5">

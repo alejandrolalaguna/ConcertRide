@@ -221,6 +221,41 @@ export default function ConcertsPage() {
           }),
         }}
       />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "FAQPage",
+            mainEntity: [
+              {
+                "@type": "Question",
+                name: "¿Qué es ConcertRide?",
+                acceptedAnswer: {
+                  "@type": "Answer",
+                  text: "ConcertRide es la primera plataforma española de carpooling exclusiva para conciertos y festivales. Conecta conductores y pasajeros que van al mismo evento, sin comisión y con conductores verificados.",
+                },
+              },
+              {
+                "@type": "Question",
+                name: "¿Cómo busco un viaje compartido a un concierto?",
+                acceptedAnswer: {
+                  "@type": "Answer",
+                  text: "Introduce el nombre del artista, la ciudad o el festival en el buscador. Verás todos los viajes disponibles con precio, origen y valoraciones del conductor. El pago se hace en efectivo o Bizum el día del viaje.",
+                },
+              },
+              {
+                "@type": "Question",
+                name: "¿Cuánto cuesta un viaje compartido a un concierto en España?",
+                acceptedAnswer: {
+                  "@type": "Answer",
+                  text: "Los precios típicos van de 3 a 20 € por asiento según la distancia. Los conductores fijan el precio para cubrir combustible y peajes. ConcertRide no cobra comisión ni cargos de servicio.",
+                },
+              },
+            ],
+          }),
+        }}
+      />
       {/* Header */}
       <div className="max-w-6xl mx-auto px-6 pt-10 pb-6 space-y-4">
         <nav aria-label="Breadcrumb" className="font-mono text-[11px] text-cr-text-muted flex items-center gap-2">
@@ -232,11 +267,16 @@ export default function ConcertsPage() {
           Explorar
         </p>
         <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4">
-          <h1 className="font-display text-4xl md:text-6xl uppercase leading-[0.92]">
-            Todos los
-            <br />
-            conciertos.
-          </h1>
+          <div>
+            <h1 className="font-display text-4xl md:text-6xl uppercase leading-[0.92]">
+              Todos los
+              <br />
+              conciertos.
+            </h1>
+            <p className="font-sans text-sm text-cr-text-muted max-w-2xl leading-relaxed speakable mt-3">
+              ConcertRide es la plataforma española de carpooling exclusiva para conciertos y festivales. Busca viajes compartidos a más de 50 festivales y miles de conciertos en España — sin comisión, sin taxi, con conductores verificados.
+            </p>
+          </div>
           <div className="flex items-center gap-2">
             <button
               onClick={() => setFilter("festival", !filters.festival)}

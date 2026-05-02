@@ -9,7 +9,7 @@ const FEATURED_SLUGS = ["mad-cool", "primavera-sound", "sonar", "fib", "bbk-live
 export default function FestivalesPage() {
   const year = new Date().getFullYear();
   useSeoMeta({
-    title: `Festivales de música España ${year}: carpooling y transporte | ConcertRide`,
+    title: `Festivales España ${year}: carpooling y transporte | ConcertRide`,
     description: `Viajes compartidos y autobuses a los festivales de España ${year}: Mad Cool, Primavera Sound, Sónar, FIB, BBK Live, Arenal Sound, Viña Rock, Resurrection Fest y más. Sin taxi, sin comisión. Conductores verificados.`,
     canonical: `${SITE_URL}/festivales`,
     keywords:
@@ -247,19 +247,6 @@ export default function FestivalesPage() {
         }}
       />
 
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify({
-            "@context": "https://schema.org",
-            "@type": "BreadcrumbList",
-            itemListElement: [
-              { "@type": "ListItem", position: 1, name: "Inicio", item: `${SITE_URL}/` },
-              { "@type": "ListItem", position: 2, name: "Festivales", item: `${SITE_URL}/festivales` },
-            ],
-          }),
-        }}
-      />
     </main>
   );
 }

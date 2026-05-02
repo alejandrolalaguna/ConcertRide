@@ -24,6 +24,8 @@ export default function BlogIndexPage() {
     name: "Blog ConcertRide — Carpooling, festivales y sostenibilidad",
     description: "Comparativas, guías de transporte y sostenibilidad para asistentes a festivales en España.",
     inLanguage: "es-ES",
+    datePublished: "2026-04-10",
+    dateModified: new Date().toISOString().slice(0, 10),
     isPartOf: { "@id": `${SITE_URL}/#website` },
     about: { "@id": `${SITE_URL}/#service` },
     speakable: {

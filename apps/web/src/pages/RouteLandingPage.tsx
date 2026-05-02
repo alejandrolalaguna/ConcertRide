@@ -132,6 +132,7 @@ export default function RouteLandingPage() {
         geo: { "@type": "GeoCoordinates", latitude: festival.lat, longitude: festival.lng },
       },
     ],
+    provider: { "@type": "Organization", "@id": `${SITE_URL}/#organization` },
     offers: {
       "@type": "Offer",
       price: (originData.concertRideRange.split("–")[0] ?? "3").replace(/[^0-9]/g, "") || "3",

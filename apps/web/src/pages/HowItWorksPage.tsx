@@ -55,7 +55,7 @@ const DRIVER_STEPS = [
 
 export default function HowItWorksPage() {
   useSeoMeta({
-    title: "Cómo funciona ConcertRide — Carpooling para conciertos | ConcertRide",
+    title: "Cómo funciona el carpooling para conciertos | ConcertRide",
     description:
       "Guía paso a paso: cómo reservar plaza en un viaje compartido a un concierto o cómo publicar tu propio viaje en ConcertRide. Gratis, sin comisiones, con conductores verificados.",
     canonical: `${SITE_URL}/como-funciona`,
@@ -76,6 +76,8 @@ export default function HowItWorksPage() {
             description:
               "Proceso en 4 pasos para reservar plaza en un coche compartido hasta un concierto o festival usando ConcertRide.",
             totalTime: "PT5M",
+            keywords: "carpooling conciertos, cómo reservar viaje compartido concierto, transporte festival sin taxi",
+            about: { "@type": "Service", "@id": `${SITE_URL}/#service` },
             supply: [
               { "@type": "HowToSupply", name: "Cuenta gratuita en ConcertRide" },
               { "@type": "HowToSupply", name: "Entrada para el concierto" },
@@ -100,6 +102,8 @@ export default function HowItWorksPage() {
             description:
               "Proceso en 4 pasos para ofrecer plazas en tu coche a un concierto o festival usando ConcertRide. Recuperas el coste de gasolina y peajes sin comisión.",
             totalTime: "PT10M",
+            keywords: "publicar viaje compartido concierto, conductor carpooling festival, cómo ganar dinero yendo a conciertos",
+            about: { "@type": "Service", "@id": `${SITE_URL}/#service` },
             estimatedCost: { "@type": "MonetaryAmount", currency: "EUR", value: "0" },
             step: DRIVER_STEPS.map((s, i) => ({
               "@type": "HowToStep",

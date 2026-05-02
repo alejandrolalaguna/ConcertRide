@@ -19,6 +19,19 @@ export default function AcercaDePage() {
         dangerouslySetInnerHTML={{
           __html: JSON.stringify({
             "@context": "https://schema.org",
+            "@type": "BreadcrumbList",
+            itemListElement: [
+              { "@type": "ListItem", position: 1, name: "Inicio", item: `${SITE_URL}/` },
+              { "@type": "ListItem", position: 2, name: "Acerca de", item: `${SITE_URL}/acerca-de` },
+            ],
+          }),
+        }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
             "@type": "AboutPage",
             name: "Acerca de ConcertRide",
             url: `${SITE_URL}/acerca-de`,
@@ -28,13 +41,6 @@ export default function AcercaDePage() {
             speakable: {
               "@type": "SpeakableSpecification",
               cssSelector: ["h1", ".speakable"],
-            },
-            breadcrumb: {
-              "@type": "BreadcrumbList",
-              itemListElement: [
-                { "@type": "ListItem", position: 1, name: "Inicio", item: `${SITE_URL}/` },
-                { "@type": "ListItem", position: 2, name: "Acerca de", item: `${SITE_URL}/acerca-de` },
-              ],
             },
             mainEntity: {
               "@type": "Organization",
@@ -51,12 +57,27 @@ export default function AcercaDePage() {
                 "Movilidad sostenible",
               ],
               description:
-                "Plataforma de viajes compartidos exclusiva para conciertos y festivales en España. Sin comisiones, con conductores verificados. La forma más económica y social de llegar a festivales de música.",
+                "Plataforma de carpooling para conciertos y festivales en España. Conductores verificados, sin comisión, pago en persona.",
               sameAs: [
                 "https://twitter.com/concertride_es",
                 "https://www.instagram.com/concertride_es/",
               ],
             },
+          }),
+        }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "Person",
+            "@id": `${SITE_URL}/#founder`,
+            name: "Alejandro Lalaguna",
+            url: `${SITE_URL}/acerca-de`,
+            jobTitle: "Fundador",
+            worksFor: { "@type": "Organization", "@id": `${SITE_URL}/#organization` },
+            knowsAbout: ["Carpooling", "Conciertos en España", "Festivales de música", "Movilidad sostenible"],
           }),
         }}
       />

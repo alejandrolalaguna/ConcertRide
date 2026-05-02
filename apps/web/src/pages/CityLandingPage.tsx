@@ -269,12 +269,6 @@ export default function CityLandingPage() {
           {landing.blurb}
         </p>
 
-        <p className="font-sans text-xs text-cr-text-dim max-w-2xl leading-relaxed">
-          También conocido como: conciertos {landing.display} {year}, conciertos {landing.display} {nextYear},
-          próximos conciertos en {landing.display}, concierto {landing.display}, {landing.display} concierto,
-          conciertos música {landing.display}, conciertos y recitales {landing.display}, música en {landing.display}.
-        </p>
-
         {landing.venues.length > 0 && (
           <div className="flex flex-wrap gap-2 pt-2">
             {landing.venues.map((v) => (

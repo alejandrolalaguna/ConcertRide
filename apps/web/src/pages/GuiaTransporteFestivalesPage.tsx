@@ -39,6 +39,10 @@ export default function GuiaTransporteFestivalesPage() {
     canonical: `${SITE_URL}/guia-transporte-festivales`,
     keywords:
       "transporte festivales España, cómo ir al festival sin coche, alternativa taxi festival España, autobús festival España, carpooling festival, guía transporte festival 2026, volver festival madrugada, cómo llegar festival España, movilidad sostenible festival, deja tu coche en casa festival, festival sin coche propio, transporte nocturno festival",
+    ogType: "article",
+    articlePublishedTime: "2026-04-24",
+    articleModifiedTime: "2026-05-02",
+    articleAuthor: "Alejandro Lalaguna",
   });
 
   const jsonLdArticle = {
@@ -73,6 +77,12 @@ export default function GuiaTransporteFestivalesPage() {
       "@type": "Thing",
       name: "Transporte para festivales de música en España",
     },
+    mentions: [
+      { "@type": "Organization", "name": "Julie's Bicycle", "url": "https://juliesbicycle.com/" },
+      { "@type": "Organization", "name": "Asociación de Promotores Musicales", "url": "https://www.apmusicales.com/" },
+      { "@type": "Organization", "name": "BlaBlaCar", "url": "https://www.blablacar.es/" },
+      { "@type": "Organization", "name": "Agencia Europea de Medio Ambiente", "url": "https://www.eea.europa.eu/" },
+    ],
     speakable: {
       "@type": "SpeakableSpecification",
       cssSelector: ["h1", "h2", ".speakable", "article p:first-of-type"],
@@ -84,10 +94,9 @@ export default function GuiaTransporteFestivalesPage() {
     "@type": "BreadcrumbList",
     itemListElement: [
       { "@type": "ListItem", position: 1, name: "Inicio", item: `${SITE_URL}/` },
-      { "@type": "ListItem", position: 2, name: "Blog", item: `${SITE_URL}/blog` },
       {
         "@type": "ListItem",
-        position: 3,
+        position: 2,
         name: "Guía de transporte para festivales",
         item: `${SITE_URL}/guia-transporte-festivales`,
       },

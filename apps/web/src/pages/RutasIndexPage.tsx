@@ -14,7 +14,7 @@ export default function RutasIndexPage() {
     description: `${ROUTE_LANDINGS.length} rutas de viaje compartido a festivales de música en España. Carpooling Madrid–Mad Cool, Barcelona–Primavera Sound, Valencia–Arenal Sound, Santander–BBK Live, Marbella–Cala Mijas y más. Sin comisión, conductores verificados.`,
     canonical: `${SITE_URL}/rutas`,
     keywords:
-      "rutas carpooling festivales, viaje compartido festival, madrid mad cool carpooling, barcelona primavera sound viaje compartido, valencia fib transporte, santander bbk live, marbella cala mijas, burriana arenal sound, autobuses festivales españa, bus festivales 2026, carpooling festivales españa 2026",
+      `rutas carpooling festivales, viaje compartido festival, madrid mad cool carpooling, barcelona primavera sound viaje compartido, valencia fib transporte, santander bbk live, marbella cala mijas, burriana arenal sound, autobuses festivales españa, bus festivales ${new Date().getFullYear()}, carpooling festivales españa ${new Date().getFullYear()}`,
   });
 
   const [activeFilter, setActiveFilter] = useState("");
