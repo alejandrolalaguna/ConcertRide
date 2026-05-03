@@ -656,6 +656,42 @@ export default function FestivalLandingPage() {
 
       </section>
 
+      {/* ── Internal linking: Transport guides + related topics ── */}
+      <section className="max-w-6xl mx-auto px-6 pb-12 border-t border-cr-border pt-12 space-y-5">
+        <h2 className="font-display text-2xl md:text-3xl uppercase">
+          Recursos relacionados: Guías de transporte y carpooling
+        </h2>
+        <p className="font-sans text-sm text-cr-text-muted max-w-3xl leading-relaxed">
+          Más información sobre opciones de transporte a festivales, cómo ahorrar en viajes y alternativas a otros servicios.
+        </p>
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+          <Link
+            to="/blog/autobuses-festivales-espana-2026"
+            className="border border-cr-border p-4 space-y-2 hover:border-cr-primary/40 transition-colors"
+          >
+            <h3 className="font-display text-base uppercase">Autobuses a festivales 2026</h3>
+            <p className="font-sans text-[11px] text-cr-text-muted">Guía completa por festival: buses oficiales, lanzaderas, alternativas de transporte.</p>
+            <span className="inline-flex items-center gap-1 font-sans text-xs text-cr-primary">Leer más <ArrowRight size={10} /></span>
+          </Link>
+          <Link
+            to="/blog"
+            className="border border-cr-border p-4 space-y-2 hover:border-cr-primary/40 transition-colors"
+          >
+            <h3 className="font-display text-base uppercase">Blog ConcertRide</h3>
+            <p className="font-sans text-[11px] text-cr-text-muted">Artículos sobre transporte a festivales, comparativas de opciones, consejos de viaje.</p>
+            <span className="inline-flex items-center gap-1 font-sans text-xs text-cr-primary">Ver todos <ArrowRight size={10} /></span>
+          </Link>
+          <Link
+            to={`/conciertos/${festival.citySlug}`}
+            className="border border-cr-border p-4 space-y-2 hover:border-cr-primary/40 transition-colors"
+          >
+            <h3 className="font-display text-base uppercase">Otros conciertos en {festival.city}</h3>
+            <p className="font-sans text-[11px] text-cr-text-muted">Agenda completa de eventos y conciertos en {festival.city} con opciones de carpooling.</p>
+            <span className="inline-flex items-center gap-1 font-sans text-xs text-cr-primary">Explorar <ArrowRight size={10} /></span>
+          </Link>
+        </div>
+      </section>
+
       {/* ── Viajes disponibles (dynamic) ── */}
       <section className="max-w-6xl mx-auto px-6 pb-16 border-t border-cr-border pt-12">
         <h2 className="font-display text-2xl md:text-3xl uppercase mb-2">

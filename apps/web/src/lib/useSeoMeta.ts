@@ -1,6 +1,12 @@
 import { useEffect } from "react";
 import { SITE_URL } from "./siteUrl";
 
+export interface BreadcrumbItem {
+  position: number;
+  name: string;
+  url: string;
+}
+
 interface SeoMeta {
   title: string;
   description?: string;
@@ -25,6 +31,8 @@ interface SeoMeta {
   geoLat?: number;
   /** Decimal longitude, e.g. -3.7038 */
   geoLng?: number;
+  /** Breadcrumb items for JSON-LD BreadcrumbList */
+  breadcrumb?: BreadcrumbItem[];
 }
 
 const DEFAULT_DESCRIPTION =
@@ -68,6 +76,7 @@ export interface ResolvedSeo {
   geoPlacename?: string;
   geoLat?: number;
   geoLng?: number;
+  breadcrumb?: BreadcrumbItem[];
 }
 
 function resolve(meta: SeoMeta): ResolvedSeo {
@@ -93,6 +102,7 @@ function resolve(meta: SeoMeta): ResolvedSeo {
     geoPlacename: meta.geoPlacename,
     geoLat: meta.geoLat,
     geoLng: meta.geoLng,
+    breadcrumb: meta.breadcrumb,
   };
 }
 
@@ -298,4 +308,20 @@ function escapeAttr(s: string): string {
     .replace(/"/g, "&quot;")
     .replace(/</g, "&lt;")
     .replace(/>/g, "&gt;");
+}
+
+// Breadcrumb JSON-LD helper for prerender script
+export function renderBreadcrumbToHtml(breadcrumb: BreadcrumbItem[]): string {
+  if (!breadcrumb || breadcrumb.length === 0) return "";
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: breadcrumb.map((item) => ({
+      "@type": "ListItem",
+      position: item.position,
+      name: item.name,
+      item: item.url,
+    })),
+  };
+  return `    <script type="application/ld+json">${JSON.stringify(jsonLd)}</script>`;
 }

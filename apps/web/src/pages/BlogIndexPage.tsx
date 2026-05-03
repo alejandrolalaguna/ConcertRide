@@ -1,10 +1,16 @@
-import { Link } from "react-router-dom";
-import { ArrowRight, Calendar, Clock } from "lucide-react";
+import { useState, useMemo } from "react";
+import { Link, useSearchParams } from "react-router-dom";
+import { ArrowRight, Calendar, Clock, X } from "lucide-react";
 import { useSeoMeta } from "@/lib/useSeoMeta";
 import { SITE_URL } from "@/lib/siteUrl";
 import { BLOG_POSTS, BLOG_CATEGORIES } from "@/lib/blogPosts";
 
 export default function BlogIndexPage() {
+  const [searchParams, setSearchParams] = useSearchParams();
+  const selectedCategory = searchParams.get("category") ?? undefined;
+  const searchQuery = searchParams.get("search") ?? "";
+  const [searchInput, setSearchInput] = useState(searchQuery);
+
   useSeoMeta({
     title: "Blog ConcertRide — Carpooling y festivales España 2026",
     description:
@@ -14,7 +20,24 @@ export default function BlogIndexPage() {
       "blog carpooling festivales 2026, guía transporte festivales españa 2026, autobuses festivales 2026, como ir a un festival sin coche, cómo volver de un festival de madrugada, alternativa blablacar festivales, carpooling sin comisión festivales, transporte concierto españa 2026, huella carbono festival carpooling, coche compartido festival verano 2026, festivales música españa 2026, que llevar al festival verano, vuelta madrugada festival carpooling, taxi festival precio alternativa, sostenibilidad festivales españa",
   });
 
-  const sorted = [...BLOG_POSTS].sort((a, b) => b.publishedAt.localeCompare(a.publishedAt));
+  const sorted = useMemo(() => {
+    let filtered = [...BLOG_POSTS];
+
+    if (selectedCategory) {
+      filtered = filtered.filter((p) => p.category === selectedCategory);
+    }
+
+    if (searchQuery.trim()) {
+      const query = searchQuery.toLowerCase();
+      filtered = filtered.filter((p) =>
+        p.title.toLowerCase().includes(query) ||
+        p.excerpt.toLowerCase().includes(query) ||
+        p.tags.some((t) => t.toLowerCase().includes(query))
+      );
+    }
+
+    return filtered.sort((a, b) => b.publishedAt.localeCompare(a.publishedAt));
+  }, [selectedCategory, searchQuery]);
 
   const jsonLdBlog = {
     "@context": "https://schema.org",
@@ -133,20 +156,83 @@ export default function BlogIndexPage() {
         </p>
       </div>
 
-      <section className="max-w-6xl mx-auto px-6 pb-16 border-t border-cr-border pt-12">
-        <ul className="flex flex-wrap gap-2 mb-10">
-          {BLOG_CATEGORIES.map((cat) => {
-            const count = BLOG_POSTS.filter((p) => p.category === cat.slug).length;
-            if (count === 0) return null;
-            return (
-              <li key={cat.slug}>
-                <span className="inline-flex items-center gap-1.5 font-mono text-[11px] text-cr-text-muted border border-cr-border px-3 py-1.5">
-                  {cat.label} <span className="text-cr-primary">{count}</span>
-                </span>
-              </li>
-            );
-          })}
-        </ul>
+      <section className="max-w-6xl mx-auto px-6 pb-16 border-t border-cr-border pt-12 space-y-6">
+        <div className="space-y-4">
+          <div className="relative">
+            <input
+              type="text"
+              placeholder="Buscar artículos..."
+              value={searchInput}
+              onChange={(e) => {
+                setSearchInput(e.target.value);
+                const newParams = new URLSearchParams(searchParams);
+                if (e.target.value.trim()) {
+                  newParams.set("search", e.target.value);
+                } else {
+                  newParams.delete("search");
+                }
+                setSearchParams(newParams);
+              }}
+              className="w-full px-4 py-3 bg-cr-bg border border-cr-border text-cr-text placeholder-cr-text-muted focus:outline-none focus:border-cr-primary focus:ring-1 focus:ring-cr-primary/30 font-sans text-sm"
+            />
+            {searchInput && (
+              <button
+                onClick={() => {
+                  setSearchInput("");
+                  const newParams = new URLSearchParams(searchParams);
+                  newParams.delete("search");
+                  setSearchParams(newParams);
+                }}
+                className="absolute right-3 top-1/2 -translate-y-1/2 text-cr-text-muted hover:text-cr-text"
+              >
+                <X size={18} />
+              </button>
+            )}
+          </div>
+
+          <div className="flex flex-wrap gap-2">
+            <button
+              onClick={() => {
+                const newParams = new URLSearchParams(searchParams);
+                newParams.delete("category");
+                setSearchParams(newParams);
+              }}
+              className={`inline-flex items-center gap-1.5 font-mono text-[11px] px-3 py-1.5 transition-colors ${
+                !selectedCategory
+                  ? "border border-cr-primary bg-cr-primary/10 text-cr-primary"
+                  : "border border-cr-border text-cr-text-muted hover:border-cr-primary/40"
+              }`}
+            >
+              Todas
+            </button>
+            {BLOG_CATEGORIES.map((cat) => {
+              const count = BLOG_POSTS.filter((p) => p.category === cat.slug).length;
+              if (count === 0) return null;
+              const isSelected = selectedCategory === cat.slug;
+              return (
+                <button
+                  key={cat.slug}
+                  onClick={() => {
+                    const newParams = new URLSearchParams(searchParams);
+                    if (isSelected) {
+                      newParams.delete("category");
+                    } else {
+                      newParams.set("category", cat.slug);
+                    }
+                    setSearchParams(newParams);
+                  }}
+                  className={`inline-flex items-center gap-1.5 font-mono text-[11px] px-3 py-1.5 transition-colors ${
+                    isSelected
+                      ? "border border-cr-primary bg-cr-primary/10 text-cr-primary"
+                      : "border border-cr-border text-cr-text-muted hover:border-cr-primary/40"
+                  }`}
+                >
+                  {cat.label} <span className={isSelected ? "text-cr-primary" : "text-cr-text-muted"}>{count}</span>
+                </button>
+              );
+            })}
+          </div>
+        </div>
 
         <ol className="space-y-8">
           {sorted.map((post) => (

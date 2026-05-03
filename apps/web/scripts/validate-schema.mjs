@@ -92,6 +92,23 @@ function validateSchema(jsonStr, filePath, blockIndex) {
       }
     }
 
+    // Check 6: HowToTravelPage structure validation
+    if (obj["@type"] === "HowToTravelPage") {
+      if (!Array.isArray(obj.step) || obj.step.length < 3) {
+        errors.push(`${fileRef} [block ${blockIndex}]: HowToTravelPage must have ≥3 steps, got ${obj.step?.length ?? 0}`);
+      } else {
+        obj.step.forEach((s, i) => {
+          if (s["@type"] !== "HowToStep") {
+            errors.push(`${fileRef} [block ${blockIndex}] step[${i}]: Must be HowToStep, got "${s["@type"]}"`);
+          }
+          if (!s.position || !s.name || !s.text) {
+            const missing = ["position", "name", "text"].filter(f => !s[f]).join(", ");
+            errors.push(`${fileRef} [block ${blockIndex}] step[${i}]: Missing required fields: ${missing}`);
+          }
+        });
+      }
+    }
+
     // Recurse into nested objects
     for (const [key, val] of Object.entries(obj)) {
       if (key.startsWith("@")) continue;

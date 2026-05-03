@@ -356,6 +356,45 @@ export default function CityLandingPage() {
           }),
         }}
       />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "HowToTravelPage",
+            name: `Cómo ir a conciertos en ${landing.display}`,
+            url: `${SITE_URL}/conciertos/${landing.slug}`,
+            inLanguage: "es-ES",
+            step: [
+              {
+                "@type": "HowToStep",
+                position: 1,
+                name: "Elige el festival o concierto",
+                text: `Busca un concierto o festival en ${landing.display}. ConcertRide ofrece carpooling tanto para eventos locales como para festivales nacionales a los que ir desde ${landing.display}.`,
+                url: `${SITE_URL}/conciertos/${landing.slug}`,
+              },
+              {
+                "@type": "HowToStep",
+                position: 2,
+                name: "Busca tu viaje compartido",
+                text: `Abre ConcertRide, selecciona el concierto o festival y filtra por fecha. Verás todos los viajes publicados desde ${landing.display} y otras ciudades cercanas. Compara precio, horario y valoración del conductor.`,
+              },
+              {
+                "@type": "HowToStep",
+                position: 3,
+                name: "Reserva y viaja",
+                text: `Confirma con el conductor mediante mensajes privados en ConcertRide. Presenta te el día del viaje en el lugar acordado. Disfruta del viaje y llega seguro al evento.`,
+              },
+              {
+                "@type": "HowToStep",
+                position: 4,
+                name: "Paga y vuelve",
+                text: `Paga al conductor en efectivo o Bizum el día del viaje. Valora tu experiencia. Busca un viaje de vuelta a ${landing.display} para el día siguiente si lo necesitas.`,
+              },
+            ],
+          }),
+        }}
+      />
 
       <div className="max-w-6xl mx-auto px-6 pt-10 pb-6 space-y-4">
         <nav

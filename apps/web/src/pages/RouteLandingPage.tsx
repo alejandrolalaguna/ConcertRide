@@ -217,6 +217,42 @@ export default function RouteLandingPage() {
     },
   };
 
+  const jsonLdHowToTravel = {
+    "@context": "https://schema.org",
+    "@type": "HowToTravelPage",
+    name: `Cómo viajar a ${festival.shortName} desde ${originCity}`,
+    url: `${SITE_URL}/rutas/${landing.slug}`,
+    inLanguage: "es-ES",
+    step: [
+      {
+        "@type": "HowToStep",
+        position: 1,
+        name: "Busca el viaje compartido",
+        text: `Abre ConcertRide, busca ${originCity} → ${festival.shortName} y selecciona un viaje disponible con fecha y horario que te convenga.`,
+        url: `${SITE_URL}/rutas/${landing.slug}`,
+      },
+      {
+        "@type": "HowToStep",
+        position: 2,
+        name: "Confirma con el conductor",
+        text: `Escribe un mensaje al conductor mediante ConcertRide. Llega 10 minutos antes del horario de salida acordado.`,
+      },
+      {
+        "@type": "HowToStep",
+        position: 3,
+        name: "Viaja al festival",
+        text: `Recorre ${originData.km} km en ${originData.drivingTime} en coche compartido. Chatea con el conductor durante el viaje. Puedes parar en una gasolinera para estirar las piernas.`,
+      },
+      {
+        "@type": "HowToStep",
+        position: 4,
+        name: "Paga y disfruta",
+        text: `Paga ${originData.concertRideRange} al conductor en efectivo o Bizum el día del festival. Valora al conductor y al viaje en ConcertRide. ¡A disfrutar del festival!`,
+      },
+    ],
+    subjectOf: { "@type": "TouristTrip", "@id": `${SITE_URL}/rutas/${landing.slug}#trip` },
+  };
+
   const futureConcerts = (concerts ?? []).filter(
     (c) => new Date(c.date).getTime() > Date.now(),
   );
@@ -228,6 +264,7 @@ export default function RouteLandingPage() {
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdFaq) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdWebPage) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdService) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdHowToTravel) }} />
 
       {/* ── Hero ── */}
       <div className="max-w-6xl mx-auto px-6 pt-10 pb-6 space-y-4">
