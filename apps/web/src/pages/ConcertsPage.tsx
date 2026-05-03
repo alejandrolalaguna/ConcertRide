@@ -68,7 +68,12 @@ export default function ConcertsPage() {
   const [page, setPage] = useState(1);
   const [loading, setLoading] = useState(true);
   const [loadError, setLoadError] = useState(false);
-  const [filters, setFilters] = useState<Filters>(EMPTY_FILTERS);
+  const [filters, setFilters] = useState<Filters>(() => {
+    const q = searchParams.get("q") ?? "";
+    const city = searchParams.get("city") ?? "";
+    const genre = searchParams.get("genre") ?? "";
+    return { ...EMPTY_FILTERS, artist: q, city, genre };
+  });
   const [showFilters, setShowFilters] = useState(false);
   const [facets, setFacets] = useState<{ genres: string[]; cities: string[] }>({ genres: [], cities: [] });
   const tab: Tab = searchParams.get("tab") === "past" ? "past" : "active";

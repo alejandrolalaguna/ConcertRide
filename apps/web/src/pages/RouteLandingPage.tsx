@@ -7,6 +7,7 @@ import { ConcertCard } from "@/components/ConcertCard";
 import { LoadingSpinner } from "@/components/ui";
 import { useSeoMeta } from "@/lib/useSeoMeta";
 import { SITE_URL } from "@/lib/siteUrl";
+import { REGION_ISO } from "@/lib/seoConfig";
 import { ROUTE_LANDINGS_BY_SLUG } from "@/lib/routeLandings";
 import { FestivalAlertWidget } from "@/components/FestivalAlertWidget";
 import { trackRouteSearch } from "@/lib/seoEvents";
@@ -43,6 +44,10 @@ export default function RouteLandingPage() {
           `compartir coche ${landing.originCity} ${landing.festival.city}`,
         ].join(", ")
       : undefined,
+    geoRegion: landing ? (REGION_ISO[landing.festival.region] ?? undefined) : undefined,
+    geoPlacename: landing ? `${landing.festival.city}, España` : undefined,
+    geoLat: landing?.festival.lat,
+    geoLng: landing?.festival.lng,
   });
 
   useEffect(() => {
@@ -106,6 +111,9 @@ export default function RouteLandingPage() {
     ],
   };
 
+  const priceMin = (originData.concertRideRange.split("–")[0] ?? "3").replace(/[^0-9]/g, "") || "3";
+  const priceMax = (originData.concertRideRange.split("–")[1] ?? originData.concertRideRange.split("–")[0] ?? "20").replace(/[^0-9]/g, "") || "20";
+
   const routeAbstract = `Carpooling de ${originCity} a ${festival.name} (${festival.venue}, ${festival.city}): ${originData.km} km · ${originData.drivingTime} · desde ${originData.concertRideRange}/asiento sin comisión de plataforma. Conductores verificados; pago en efectivo o Bizum el día del festival.`;
 
   const jsonLdTrip = {
@@ -139,11 +147,11 @@ export default function RouteLandingPage() {
     subjectOf: { "@type": "MusicEvent", "@id": `${SITE_URL}/festivales/${festival.slug}#event` },
     offers: {
       "@type": "Offer",
-      price: (originData.concertRideRange.split("–")[0] ?? "3").replace(/[^0-9]/g, "") || "3",
+      price: priceMin,
       priceSpecification: {
         "@type": "PriceSpecification",
-        price: (originData.concertRideRange.split("–")[0] ?? "3").replace(/[^0-9]/g, "") || "3",
-        maxPrice: (originData.concertRideRange.split("–")[1] ?? originData.concertRideRange.split("–")[0] ?? "20").replace(/[^0-9]/g, "") || "20",
+        price: priceMin,
+        maxPrice: priceMax,
         priceCurrency: "EUR",
       },
       priceCurrency: "EUR",
@@ -174,6 +182,41 @@ export default function RouteLandingPage() {
     },
   };
 
+  const jsonLdService = {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    "@id": `${SITE_URL}/rutas/${landing.slug}#service`,
+    name: `Carpooling ${originCity} → ${festival.shortName}`,
+    description: `Servicio de coche compartido de ${originCity} a ${festival.name}. Sin comisión (0%). Conductores verificados. Pago en efectivo o Bizum.`,
+    serviceType: "Carpooling",
+    url: `${SITE_URL}/rutas/${landing.slug}`,
+    provider: {
+      "@type": "Organization",
+      "@id": `${SITE_URL}/#organization`,
+      name: "ConcertRide ES",
+    },
+    areaServed: {
+      "@type": "Country",
+      name: "España",
+      sameAs: "https://www.wikidata.org/wiki/Q29",
+    },
+    offers: {
+      "@type": "Offer",
+      name: `Asiento carpooling ${originCity} → ${festival.shortName}`,
+      price: priceMin,
+      priceSpecification: {
+        "@type": "PriceSpecification",
+        minPrice: priceMin,
+        maxPrice: priceMax,
+        priceCurrency: "EUR",
+        unitText: "por asiento",
+      },
+      priceCurrency: "EUR",
+      availability: "https://schema.org/InStock",
+      url: `${SITE_URL}/rutas/${landing.slug}`,
+    },
+  };
+
   const futureConcerts = (concerts ?? []).filter(
     (c) => new Date(c.date).getTime() > Date.now(),
   );
@@ -184,6 +227,7 @@ export default function RouteLandingPage() {
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdTrip) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdFaq) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdWebPage) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdService) }} />
 
       {/* ── Hero ── */}
       <div className="max-w-6xl mx-auto px-6 pt-10 pb-6 space-y-4">

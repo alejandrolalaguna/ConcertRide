@@ -31,6 +31,11 @@ export interface FestivalLanding {
   capacity: string;         // "80.000 personas/día"
   blurb: string;            // factual, LLM-citable paragraph
   ogImage?: string;         // absolute URL to per-festival OG image (1200×630); falls back to /og-fallback.png
+  announcement?: {
+    text: string;           // short factual update (cancellation, venue change, etc.)
+    expires: string;        // ISO 8601 date after which this is no longer shown
+    url?: string;           // link to official source
+  };
   originCities: OriginCity[];
   faqs: FestivalFaq[];
   relatedFestivals: string[];
@@ -54,6 +59,7 @@ export const FESTIVAL_LANDINGS: FestivalLanding[] = [
     capacity: "80.000 personas/día",
     blurb:
       "Mad Cool es el festival de rock e indie alternativo más grande de Madrid, celebrado en IFEMA desde 2016. Convoca a 80.000 asistentes diarios con artistas internacionales de primera línea. El recinto queda a 15 km del centro de Madrid pero está mal comunicado en transporte público pasada la medianoche: el último metro (línea 8) cierra a la 1:30 y los autobuses nocturnos N1 y N6 no llegan a IFEMA directamente. Según la APM, Mad Cool fue uno de los festivales con mayor afluencia internacional de España en 2024. El coche compartido a través de ConcertRide es la opción preferida de quienes vienen desde otras provincias o desde barrios sin acceso directo a IFEMA.",
+    ogImage: "/og/mad-cool.png",
     originCities: [
       { city: "Madrid", km: 15, drivingTime: "25 min", concertRideRange: "4–7 €/asiento" },
       { city: "Toledo", km: 75, drivingTime: "55 min", concertRideRange: "4–7 €/asiento" },
@@ -125,6 +131,7 @@ export const FESTIVAL_LANDINGS: FestivalLanding[] = [
     capacity: "60.000 personas/día",
     blurb:
       "Primavera Sound es el festival de indie y alternativo más influyente de Europa, celebrado cada año en el Parc del Fòrum de Barcelona desde 2001. Atrae asistentes de toda España y de más de 80 países, con más de 60.000 asistentes diarios en su recinto de Sant Adrià de Besòs. El metro L4 (Besòs Mar) llega al Fòrum pero se colapsa en las salidas de madrugada, con colas de 30–45 minutos habituales. Los asientos de AVE desde Madrid (50–100 €) se agotan semanas antes del festival. Viajar en coche compartido desde Madrid (15–20 €), Valencia (10–14 €) o Zaragoza (8–12 €) es la opción más popular y económica para asistentes de fuera de Cataluña.",
+    ogImage: "/og/primavera-sound.png",
     originCities: [
       { city: "Madrid", km: 620, drivingTime: "5h 30 min", concertRideRange: "15–20 €/asiento" },
       { city: "Valencia", km: 355, drivingTime: "3h 15 min", concertRideRange: "10–14 €/asiento" },
@@ -187,6 +194,7 @@ export const FESTIVAL_LANDINGS: FestivalLanding[] = [
     capacity: "120.000 personas (edición completa)",
     blurb:
       "Sónar es el festival internacional de música avanzada, creatividad y tecnología más reconocido del mundo, celebrado en Barcelona desde 1994. Funciona en dos sedes simultáneas: Sónar by Day en Fira Montjuïc (Gran Via de les Corts Catalanes, Montjuïc) y Sónar by Night en Fira Gran Via de L'Hospitalet de Llobregat, a 8 km del centro de Barcelona. El festival atrae cada año a más de 120.000 asistentes de más de 100 países y es referencia mundial de la electrónica y la cultura digital. La Fira Gran Via es accesible en metro L9 Sur (parada Fira), pero el festival termina entre las 6:00 y las 8:00, hora en que el metro ya ha reanudado el servicio. Los asistentes de Madrid, Valencia y Zaragoza prefieren el carpooling con ConcertRide para llegar directamente sin combinar AVE, metro y taxi.",
+    ogImage: "/og/sonar.png",
     originCities: [
       { city: "Madrid", km: 620, drivingTime: "5h 30 min", concertRideRange: "15–20 €/asiento" },
       { city: "Valencia", km: 355, drivingTime: "3h 15 min", concertRideRange: "10–14 €/asiento" },
@@ -244,6 +252,7 @@ export const FESTIVAL_LANDINGS: FestivalLanding[] = [
     capacity: "45.000 personas/día",
     blurb:
       "El FIB (Festival Internacional de Benicàssim) es uno de los festivales de indie y alternativo más veteranos de España, celebrado desde 1995 en la Costa del Azahar a 15 km de Castellón de la Plana y 70 km de Valencia. El recinto está junto a la playa, con acceso en coche por la N-340 o la AP-7 (salida 47, Benicàssim Nord), pero el transporte público nocturno desde Castellón es prácticamente nulo después de las 2:00, y desde Valencia no existe conexión directa al recinto de madrugada. Más del 60% de los asistentes llegan en coche o carpooling desde otras provincias, lo que hace de ConcertRide la herramienta más útil para organizar la logística de los 4 días del festival.",
+    ogImage: "/og/fib.png",
     originCities: [
       { city: "Valencia", km: 70, drivingTime: "50 min", concertRideRange: "3–6 €/asiento" },
       { city: "Castellón de la Plana", km: 15, drivingTime: "20 min", concertRideRange: "3–5 €/asiento" },
@@ -310,6 +319,7 @@ export const FESTIVAL_LANDINGS: FestivalLanding[] = [
     capacity: "30.000 personas/día",
     blurb:
       "Bilbao BBK Live es el festival internacional de referencia del norte de España, celebrado cada julio en el monte Kobetamendi con vistas a la ría de Bilbao. El recinto está a unos 4 km del centro de Bilbao y el acceso en transporte público nocturno es limitado. El carpooling es especialmente útil para asistentes que vienen desde Donostia, Vitoria, Pamplona o Madrid.",
+    ogImage: "/og/bbk-live.png",
     originCities: [
       { city: "Bilbao", km: 5, drivingTime: "15 min", concertRideRange: "3–5 €/asiento" },
       { city: "Donostia", km: 100, drivingTime: "1h", concertRideRange: "4–7 €/asiento" },
@@ -377,6 +387,7 @@ export const FESTIVAL_LANDINGS: FestivalLanding[] = [
     capacity: "30.000 personas/día",
     blurb:
       "Resurrection Fest es el festival de metal y rock pesado más importante de España, celebrado en Viveiro (Lugo) desde 2006. El recinto de A Gañidoira está situado a las afueras del municipio, con transporte público prácticamente nulo en horarios nocturnos. La mayoría de los asistentes llegan en coche, y el carpooling entre fans de metal es una tradición desde los primeros años del festival.",
+    ogImage: "/og/resurrection-fest.png",
     originCities: [
       { city: "A Coruña", km: 100, drivingTime: "1h 15 min", concertRideRange: "4–7 €/asiento" },
       { city: "Santiago de Compostela", km: 185, drivingTime: "2h", concertRideRange: "6–9 €/asiento" },
@@ -439,6 +450,7 @@ export const FESTIVAL_LANDINGS: FestivalLanding[] = [
     capacity: "40.000 personas/día",
     blurb:
       "Arenal Sound es el festival de playa más popular del Mediterráneo español, celebrado en la costa de Burriana (Castellón) desde 2010 durante 5 días en agosto. Combina música pop, indie y electrónica con ambiente playero a pie de mar, con capacidad para 40.000 asistentes diarios. El recinto se encuentra a 10 km de Castellón de la Plana (por la N-340) y a 65 km de Valencia (por la AP-7 o la N-340), pero el transporte público nocturno es prácticamente inexistente desde la playa a las 6:00 de la mañana: no hay tren directo al recinto ni autobús nocturno desde Castellón. La gran mayoría de asistentes organizan su logística en coche compartido a través de ConcertRide, que permite llegar directamente al festival con el equipo de camping y coordinar la vuelta al final de la semana.",
+    ogImage: "/og/arenal-sound.png",
     originCities: [
       { city: "Valencia", km: 65, drivingTime: "45 min", concertRideRange: "3–6 €/asiento" },
       { city: "Castellón de la Plana", km: 10, drivingTime: "15 min", concertRideRange: "3–5 €/asiento" },
@@ -526,6 +538,7 @@ export const FESTIVAL_LANDINGS: FestivalLanding[] = [
     capacity: "60.000 personas/día",
     blurb:
       "Medusa Festival es el mayor festival de música electrónica de España, celebrado en la playa de Cullera (Valencia) desde 2012, con 60.000 fans de techno, house y electrónica durante 5 días con el mar Mediterráneo al fondo. El recinto se encuentra a 45 km al sur de Valencia (por la V-31 y la CV-500), con acceso en autobús metropolitano desde Valencia hasta Cullera y lanzadera final hasta la playa, pero el servicio se interrumpe en la madrugada y no hay transporte nocturno desde Alicante, Madrid o Zaragoza. La zona de camping del festival aloja a la mayoría de los asistentes de fuera de la Comunidad Valenciana, que llegan habitualmente en coche compartido por ConcertRide para evitar la complejidad de combinar trenes y autobuses con equipo de camping.",
+    ogImage: "/og/medusa-festival.png",
     originCities: [
       { city: "Valencia", km: 45, drivingTime: "40 min", concertRideRange: "3–5 €/asiento" },
       { city: "Madrid", km: 385, drivingTime: "3h 30 min", concertRideRange: "10–14 €/asiento" },
@@ -588,6 +601,7 @@ export const FESTIVAL_LANDINGS: FestivalLanding[] = [
     capacity: "50.000 personas/día",
     blurb:
       "Viña Rock es el festival de rock alternativo, punk y metal más longevo de España, celebrado en el Parque La Pulgosa de Villarrobledo (Albacete) desde 1996 en el puente de mayo. El recinto está situado en plena meseta manchega, a 190 km de Madrid (≈2 h por la A-3), 200 km de Valencia y 165 km de Alicante, sin ninguna línea de transporte público que llegue al recinto en horarios de festival. El único autobús / bus oficial es la lanzadera del propio festival desde la estación de autobuses de Albacete (50 km, 40 min). Los autobuses privados Madrid–Viña Rock (Viñarock) salen desde Méndez Álvaro o Nuevos Ministerios (35–55 €) con horario fijo. Con 50.000 asistentes diarios y una zona de camping de referencia, más del 80 % de los asistentes llegan en coche o en autobús; ConcertRide es la herramienta habitual para organizar el viaje compartido desde Madrid, Valencia o Alicante.",
+    ogImage: "/og/vina-rock.png",
     originCities: [
       { city: "Madrid", km: 190, drivingTime: "1h 55 min", concertRideRange: "6–9 €/asiento" },
       { city: "Valencia", km: 200, drivingTime: "2h", concertRideRange: "6–9 €/asiento" },
@@ -666,6 +680,7 @@ export const FESTIVAL_LANDINGS: FestivalLanding[] = [
     capacity: "90.000 personas (3 días)",
     blurb:
       "O Son do Camiño es el festival más importante de Galicia, celebrado en el Monte do Gozo de Santiago de Compostela desde 2019, con 90.000 asistentes en tres jornadas que combinan pop, indie y rock nacional e internacional junto al camino jacobeo. El recinto del Monte do Gozo se encuentra a 5 km del casco histórico de Santiago, accesible por la autovía AG-54 (salida Monte do Gozo) o en autobús lanzadera desde el centro de la ciudad, pero sin conexión de transporte público directo desde Vigo (90 km), Oviedo (295 km) o Madrid (585 km) en horarios de madrugada. Organizar el viaje con ConcertRide es especialmente útil para los asistentes de toda Galicia y del norte de España que quieren llegar directamente al recinto y coordinar la vuelta a cualquier hora.",
+    ogImage: "/og/o-son-do-camino.png",
     originCities: [
       { city: "Santiago de Compostela", km: 5, drivingTime: "10 min", concertRideRange: "3–5 €/asiento" },
       { city: "A Coruña", km: 70, drivingTime: "50 min", concertRideRange: "3–6 €/asiento" },
@@ -724,6 +739,7 @@ export const FESTIVAL_LANDINGS: FestivalLanding[] = [
     capacity: "30.000 personas/día",
     blurb:
       "Cala Mijas Fest es el festival de indie y alternativo de la Costa del Sol, celebrado en el Cortijo de Torres de Málaga desde 2021 con artistas nacionales e internacionales de primer nivel. El recinto se sitúa a 25 km del centro de Málaga (por la MA-20/A-7) y a unos 30 km de Marbella, con acceso complicado en transporte público nocturno: no existe ninguna línea de bus nocturna que llegue al Cortijo de Torres, y el taxi desde el centro de Málaga cuesta entre 25 y 40 €. Para los asistentes de Sevilla (200 km), Granada (125 km) o Córdoba (190 km) el carpooling con ConcertRide es la solución más cómoda y económica para llegar directamente al recinto y volver sin depender de taxis.",
+    ogImage: "/og/cala-mijas.png",
     originCities: [
       { city: "Málaga", km: 25, drivingTime: "25 min", concertRideRange: "3–5 €/asiento" },
       { city: "Marbella", km: 50, drivingTime: "45 min", concertRideRange: "3–6 €/asiento" },
@@ -800,6 +816,7 @@ export const FESTIVAL_LANDINGS: FestivalLanding[] = [
     capacity: "25.000 personas/día",
     blurb:
       "Sonorama Ribera es el festival de pop y rock español más querido del panorama independiente, celebrado en Aranda de Duero (Burgos) desde 1998. Con música de artistas en castellano y actuaciones únicas, convoca a fans de todo el país durante 4 días en agosto. Aranda de Duero está a 150 km de Madrid (por la A-1), 100 km de Valladolid y 70 km de Burgos, en plena Ribera del Duero, con una única línea de autobús Madrid–Aranda que no opera en horarios de madrugada y sin servicio de tren al municipio. El carpooling con ConcertRide es esencial para la mayoría de los asistentes que llegan de Madrid, Bilbao, Zaragoza o Valladolid, y se ha convertido en parte de la cultura del festival.",
+    ogImage: "/og/sonorama-ribera.png",
     originCities: [
       { city: "Madrid", km: 150, drivingTime: "1h 30 min", concertRideRange: "5–8 €/asiento" },
       { city: "Valladolid", km: 100, drivingTime: "1h", concertRideRange: "4–7 €/asiento" },
@@ -866,6 +883,7 @@ export const FESTIVAL_LANDINGS: FestivalLanding[] = [
     capacity: "20.000 personas/día",
     blurb:
       "Zevra Festival es el festival urbano de referencia de Valencia, celebrado en La Marina de València con vistas privilegiadas al puerto mediterráneo. Combina música electrónica, indie y pop en un entorno singular junto al mar, con capacidad para 20.000 asistentes diarios. El recinto es accesible en metro (línea L4, paradas Marítim-Serreria o Neptú) y en autobús de la EMT desde el centro de Valencia, pero los asistentes de Madrid (355 km por la A-3), Murcia (210 km por la A-7) o Alicante (175 km por la A-7) prefieren el carpooling con ConcertRide para llegar directamente sin transbordos y organizar la vuelta a cualquier hora de la madrugada.",
+    ogImage: "/og/zevra-festival.png",
     originCities: [
       { city: "Valencia", km: 10, drivingTime: "15 min", concertRideRange: "3–5 €/asiento" },
       { city: "Madrid", km: 355, drivingTime: "3h 20 min", concertRideRange: "10–14 €/asiento" },
@@ -943,6 +961,7 @@ export const FESTIVAL_LANDINGS: FestivalLanding[] = [
     capacity: "20.000 personas/día",
     blurb:
       "Low Festival es el festival indie de Benidorm, celebrado junto al mar en la costa alicantina desde 2012. Combina artistas de pop independiente, folk y alternativo en un ambiente familiar y luminoso a pie de playa. El recinto del Balneario de la Paloma está en el paseo marítimo de Benidorm, a 45 km de Alicante (por la A-70 y la N-332) y a 150 km de Valencia (por la AP-7). Benidorm tiene conexión de TRAM Metropolità d'Alacant desde Alicante (línea L1, 1h 20 min, frecuencia horaria), pero el servicio se interrumpe cerca de la medianoche, lo que deja sin transporte a los asistentes que salen de los conciertos a las 2:00–3:00. Los fans de Valencia, Madrid o Murcia llegan habitualmente en coche compartido con ConcertRide.",
+    ogImage: "/og/low-festival.png",
     originCities: [
       { city: "Alicante", km: 45, drivingTime: "35 min", concertRideRange: "3–5 €/asiento" },
       { city: "Valencia", km: 150, drivingTime: "1h 30 min", concertRideRange: "5–8 €/asiento" },
@@ -1004,6 +1023,7 @@ export const FESTIVAL_LANDINGS: FestivalLanding[] = [
     capacity: "25.000 personas/día",
     blurb:
       "Tomavistas es el festival de indie y pop alternativo de Madrid, celebrado cada primavera en los Jardines del Buen Retiro desde 2014. Con artistas de primer nivel nacional e internacional y 25.000 asistentes diarios, es la apertura de la temporada de festivales madrileña. El recinto es accesible en metro (L2 parada Retiro o L9 parada Ibiza) y tiene buena comunicación con el centro de Madrid. Sin embargo, los asistentes de otras provincias — Toledo, Guadalajara, Valencia, Zaragoza — prefieren el coche compartido con ConcertRide para llegar directamente al Retiro y organizar la vuelta a cualquier hora de la madrugada, cuando el último metro puede no coincidir con el fin de los conciertos.",
+    ogImage: "/og/tomavistas.png",
     originCities: [
       { city: "Madrid", km: 15, drivingTime: "25 min", concertRideRange: "4–7 €/asiento" },
       { city: "Toledo", km: 75, drivingTime: "55 min", concertRideRange: "4–7 €/asiento" },
@@ -1061,6 +1081,7 @@ export const FESTIVAL_LANDINGS: FestivalLanding[] = [
     capacity: "30.000 personas/día",
     blurb:
       "Cruïlla Barcelona es el festival de música del mundo, pop y alternativo más ecléctico del verano barcelonés, celebrado cada julio en el Parc del Fòrum desde 2008. Combina artistas de world music, reggae, hip-hop, pop y rock en cuatro días en el mismo espacio portuario de Sant Adrià de Besòs que alberga Primavera Sound, con 30.000 asistentes diarios y un ambiente familiar. El recinto comparte la misma situación de transporte que Primavera Sound: el metro L4 (parada Besòs Mar) llega al Fòrum en 10 minutos a pie, pero las salidas de madrugada generan colas de 30–45 minutos, y los asistentes de Madrid, Valencia o Zaragoza que vienen expresamente para el festival prefieren el carpooling con ConcertRide para llegar directamente y organizar la vuelta de forma flexible.",
+    ogImage: "/og/cruilla.png",
     originCities: [
       { city: "Madrid", km: 620, drivingTime: "5h 30 min", concertRideRange: "15–20 €/asiento" },
       { city: "Valencia", km: 355, drivingTime: "3h 15 min", concertRideRange: "10–14 €/asiento" },
@@ -1106,3 +1127,6 @@ export const FESTIVAL_LANDINGS: FestivalLanding[] = [
 export const FESTIVAL_LANDINGS_BY_SLUG = Object.fromEntries(
   FESTIVAL_LANDINGS.map((f) => [f.slug, f]),
 );
+
+/** Last time festival data (dates, prices, venues) was updated — use for stable dateModified in schemas and sitemap. */
+export const FESTIVAL_LANDINGS_LAST_UPDATED = "2026-05-03";

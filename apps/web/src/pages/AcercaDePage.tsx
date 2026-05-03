@@ -134,6 +134,38 @@ export default function AcercaDePage() {
         }}
       />
 
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "Dataset",
+            name: "ConcertRide España — Estadísticas y datos de carpooling a festivales 2026",
+            description: "Datos propios de ConcertRide sobre carpooling a festivales de música en España: festivales cubiertos, rutas disponibles, precios por asiento, cobertura geográfica y métricas de sostenibilidad.",
+            url: `${SITE_URL}/acerca-de`,
+            creator: {
+              "@type": "Organization",
+              "@id": `${SITE_URL}/#organization`,
+              name: "ConcertRide ES",
+            },
+            dateModified: "2026-05-03",
+            inLanguage: "es-ES",
+            license: "https://creativecommons.org/licenses/by/4.0/",
+            variableMeasured: [
+              { "@type": "PropertyValue", name: "Festivales cubiertos en 2026", value: "16+", unitText: "festivales" },
+              { "@type": "PropertyValue", name: "Rutas activas ciudad→festival", value: "96+", unitText: "rutas" },
+              { "@type": "PropertyValue", name: "Ciudades de origen con landing page", value: "16+", unitText: "ciudades" },
+              { "@type": "PropertyValue", name: "Precio mínimo por asiento", value: "3", unitText: "EUR" },
+              { "@type": "PropertyValue", name: "Precio máximo por asiento", value: "35", unitText: "EUR" },
+              { "@type": "PropertyValue", name: "Precio medio por asiento", value: "8-15", unitText: "EUR" },
+              { "@type": "PropertyValue", name: "Comisión de plataforma", value: "0", unitText: "%" },
+              { "@type": "PropertyValue", name: "Reducción de emisiones por carpooling (4 personas vs individual)", value: "75", unitText: "%" },
+              { "@type": "PropertyValue", name: "% de la huella de carbono de un festival atribuible al transporte de asistentes", value: "80", unitText: "%" },
+            ],
+          }),
+        }}
+      />
+
       <div className="max-w-3xl mx-auto px-6 py-12 md:py-16 space-y-12">
         <header className="border-b border-cr-border pb-8 space-y-3">
           <nav aria-label="Breadcrumb" className="font-mono text-[11px] text-cr-text-muted flex items-center gap-2">

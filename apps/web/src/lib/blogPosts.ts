@@ -546,6 +546,550 @@ export const BLOG_POSTS: BlogPost[] = [
 
   // ──────────────────────────────────────────────────────────────────────
   {
+    slug: "coldplay-madrid-barcelona-2026-como-llegar",
+    title: "Coldplay en España 2026: cómo llegar al concierto en Madrid y Barcelona | ConcertRide",
+    h1: "Coldplay en España 2026: guía de transporte para Madrid y Barcelona",
+    excerpt:
+      "Coldplay agotó sus conciertos en España en horas. Si ya tienes entrada, el siguiente problema es el transporte. Esta guía cubre metro, tren, bus y carpooling para llegar (y volver) al Estadio Bernabéu de Madrid y al Estadi Olímpic de Barcelona para los conciertos de 2026.",
+    category: "guias",
+    tags: ["coldplay", "concierto madrid", "concierto barcelona", "carpooling artistas", "cómo llegar"],
+    publishedAt: "2026-05-03T09:00:00.000Z",
+    author: "Equipo ConcertRide",
+    readingMinutes: 8,
+    lede:
+      "Tienes la entrada. El transporte, todavía no. Te explicamos cómo llegar al concierto de Coldplay en Madrid y Barcelona sin taxi de 60 € y sin quedarte tirado a las 2 de la mañana.",
+    sections: [
+      {
+        heading: "Coldplay en el Estadio Bernabéu de Madrid — cómo llegar",
+        paragraphs: [
+          "El Estadio Santiago Bernabéu está muy bien comunicado con el centro de Madrid. La opción más directa es el metro: la línea 10 (línea verde oscura) tiene parada en Estadio de Santiago Bernabéu, a menos de 5 minutos a pie de las taquillas. El metro opera con frecuencia alta en noches de concierto y suele ampliar el último servicio hasta las 2:00–2:30. Desde Sol o Gran Vía el trayecto es de unos 15–18 minutos.",
+          "El autobús urbano EMT también cubre la zona: las líneas 149, 150 y C1 paran en el entorno del estadio. Sin embargo, en noches de concierto la saturación del entorno hace que los autobuses lleguen con retraso. El metro sigue siendo la opción más fiable dentro de Madrid.",
+          "Para los asistentes que vienen de otras provincias, existen autobuses de larga distancia directos desde Valencia (Avanza/ALSA, 3h 30 min, 20–35 €), Barcelona (ALSA, 5h–6h, 25–45 €) y Zaragoza (Avanza, 3h 15 min, 15–25 €) que llegan a la estación de Méndez Álvaro o Avenida de América. Desde ahí el metro cubre el resto del trayecto en 20 minutos.",
+          "Si prefieres llegar directamente al estadio sin transbordo, el carpooling con ConcertRide es la opción más práctica: desde Valencia el precio oscila entre 10 y 14 € por asiento, desde Zaragoza entre 9 y 13 €, y desde Barcelona entre 15 y 20 €. El punto de encuentro suele acordarse en el parking de Paseo de la Castellana o en los alrededores del estadio, a 5 minutos a pie de las puertas.",
+        ],
+      },
+      {
+        heading: "Coldplay en el Estadi Olímpic de Barcelona — transporte",
+        paragraphs: [
+          "El Estadi Olímpic Lluís Companys está en la ladera de Montjuïc, lo que complica ligeramente el acceso pero no lo hace difícil. La mejor opción de metro es la línea L1 hasta la parada Espanya, desde donde se puede subir en el autobús 55 (parada en la misma Avenida de l'Estadi) o a pie en unos 20 minutos por el Passeig Olímpic. La línea L2, parada Paral·lel, permite enlazar con el funicular de Montjuïc hasta el Parc de Montjuïc, desde donde hay un paseo de unos 10 minutos.",
+          "El tranvía T1, T2 y T3 con parada en Pl. Espanya también complementa la red para acceder desde Sarrià o Sant Gervasi. En noches de gran concierto, TMB suele reforzar las frecuencias del metro y el bus nocturno para gestionar las salidas masivas.",
+          "Para asistentes de fuera de Cataluña, el carpooling es la opción más flexible. Desde Madrid el precio habitual es de 15 a 20 € por asiento (un trayecto de unas 6 horas), desde Valencia entre 10 y 14 € y desde Zaragoza entre 8 y 12 €. El punto de llegada más habitual en Barcelona para los viajes de carpooling es la estación de Sants o la Plaza de España, con acceso directo al estadio en metro.",
+          "A diferencia del Bernabéu, el Estadi Olímpic no tiene aparcamiento propio para todos los asistentes. La recomendación general del Ajuntament de Barcelona es llegar en transporte público o coche compartido y no intentar aparcar en Montjuïc la noche del concierto.",
+        ],
+      },
+      {
+        heading: "Transporte de vuelta del concierto de Coldplay a medianoche",
+        paragraphs: [
+          "El mayor problema de los conciertos en estadio no es la llegada sino la vuelta. Un concierto de Coldplay termina típicamente entre la 1:00 y las 1:30, justo cuando el metro de Madrid cierra (última salida del Bernabéu alrededor de la 1:40 en noches de evento) y el de Barcelona opera en modo nocturno reducido.",
+          "En Madrid, el metro L10 mantiene servicio hasta las 2:00 en noches especiales, pero hay colas de 20–40 minutos para bajar al andén justo después del concierto. Los autobuses nocturnos N201, N202 y N304 cubren la zona de Castellana pero con frecuencias de 30 minutos. Los VTC y taxis en el entorno del Bernabéu pueden tener multiplicadores de tarifa nocturna de evento.",
+          "En Barcelona, el metro nocturno (línea L9 y L1) opera cada 20–30 minutos a partir de medianoche los fines de semana. Los Nitbusos de TMB cubren la Plaza de España y la mayoría de barrios. Sin embargo, la salida simultánea de 50.000–70.000 personas satura todos los sistemas durante los primeros 30–45 minutos.",
+          "El carpooling de ConcertRide resuelve este problema de manera natural: el conductor también asistió al concierto, el punto de encuentro está acordado de antemano y la salida se coordina para coincidir con el final del show. Sin esperas en paradas saturadas, sin multiplicadores de tarifa y con llegada directa a tu ciudad de origen.",
+        ],
+      },
+      {
+        heading: "Comparativa de opciones de transporte al concierto de Coldplay",
+        paragraphs: [
+          "No todas las opciones son iguales en coste, tiempo y fiabilidad. Esta comparativa cubre los cuatro escenarios principales para un asistente que viene de otra provincia:",
+        ],
+        bullets: [
+          "Metro (solo válido dentro de Madrid/Barcelona): 1,50–2,40 € — ideal si ya estás en la ciudad, no funciona de madrugada en la vuelta.",
+          "Taxi/VTC desde el estadio: 25–60 € por trayecto — rápido pero caro, con multiplicadores nocturnos y escasez después del concierto.",
+          "Autobús privado no oficial: 35–55 € ida y vuelta — vuelta a hora fija, sin flexibilidad si el concierto se alarga.",
+          "Carpooling ConcertRide (interurbano): 8–20 € por trayecto — llegada y vuelta desde tu ciudad de origen, precio acordado antes del evento.",
+        ],
+      },
+      {
+        heading: "Precios de carpooling al concierto de Coldplay desde distintas ciudades",
+        paragraphs: [
+          "Los precios de ConcertRide son fijados por los conductores como contribución a los gastos de combustible y peajes. A continuación los rangos habituales por ruta para los conciertos de Coldplay en Madrid (Bernabéu) y en Barcelona (Estadi Olímpic):",
+        ],
+        bullets: [
+          "Madrid centro → Estadio Bernabéu: 4–7 € (desplazamiento dentro de la ciudad, para asistentes de barrios lejanos).",
+          "Valencia → Madrid Bernabéu: 10–14 € por asiento (3h 30 min, autovía A-3).",
+          "Zaragoza → Madrid Bernabéu: 9–13 € (3h 15 min, autovía A-2).",
+          "Barcelona → Madrid Bernabéu: 15–20 € (5h 30 min–6h, autovía A-2).",
+          "Sevilla → Madrid Bernabéu: 13–18 € (4h 30 min, autovía A-4).",
+          "Valencia → Barcelona Estadi Olímpic: 10–14 € (3h 30 min, autopista AP-7).",
+          "Zaragoza → Barcelona Estadi Olímpic: 8–12 € (3h, autopista AP-2).",
+          "Madrid → Barcelona Estadi Olímpic: 15–20 € (6h, autopista AP-2).",
+        ],
+      },
+    ],
+    faqs: [
+      {
+        q: "¿Qué metro llega al Estadio Bernabéu?",
+        a: "La línea 10 del Metro de Madrid (línea verde oscura) tiene parada en Estadio de Santiago Bernabéu, a menos de 5 minutos a pie de las entradas del estadio. En noches de concierto el metro amplía su horario de cierre hasta aproximadamente las 2:00.",
+      },
+      {
+        q: "¿Hay autobús directo desde Valencia al concierto de Coldplay en Madrid?",
+        a: "Sí. ALSA y Avanza operan líneas directas Valencia–Madrid Méndez Álvaro (3h 30 min, 20–35 €). Desde Méndez Álvaro hay que hacer transbordo a metro (línea 6 o 10) para llegar al Bernabéu en unos 20 minutos. El problema es la vuelta: los autobuses de larga distancia no operan frecuencias adecuadas a las 1:30–2:00 am. El carpooling ConcertRide (10–14 €) resuelve tanto la ida como la vuelta.",
+      },
+      {
+        q: "¿Cuánto cuesta el carpooling al concierto de Coldplay?",
+        a: "Los precios de ConcertRide varían según la distancia. Dentro de Madrid: 4–7 €. Desde Valencia a Madrid: 10–14 €. Desde Zaragoza a Madrid: 9–13 €. Desde Barcelona a Madrid: 15–20 €. Para el concierto en Barcelona, desde Valencia: 10–14 €; desde Zaragoza: 8–12 €. Los precios son fijados por los conductores y no incluyen comisión de plataforma.",
+      },
+      {
+        q: "¿Hay transporte de vuelta después del concierto de Coldplay?",
+        a: "El metro de Madrid opera hasta aproximadamente las 2:00 en noches de gran evento, pero las colas en la estación Bernabéu tras el concierto pueden ser de 20–40 minutos. En Barcelona el metro nocturno opera cada 20–30 minutos. La opción más fiable para volver a otra ciudad de madrugada es el carpooling ConcertRide: el punto de salida está acordado antes del evento y la vuelta no depende de horarios de transporte público.",
+      },
+      {
+        q: "¿Puedo llegar en coche y aparcar en el Bernabéu o el Estadi Olímpic?",
+        a: "El Estadio Bernabéu tiene aparcamiento pero es limitado y se llena horas antes. El Estadi Olímpic de Barcelona no tiene aparcamiento propio suficiente para todos los asistentes, y el Ajuntament recomienda el transporte público. Si llegas en coche, lo más práctico es usar el carpooling hasta el entorno de la ciudad y acabar en metro.",
+      },
+    ],
+    relatedLinks: [
+      { label: "Coldplay en Madrid y Barcelona", to: "/artistas/coldplay" },
+      { label: "Conciertos en Madrid", to: "/conciertos/madrid" },
+      { label: "Conciertos en Barcelona", to: "/conciertos/barcelona" },
+      { label: "Primavera Sound Barcelona", to: "/festivales/primavera-sound" },
+    ],
+    relatedPosts: ["autobuses-festivales-espana-2026"],
+  },
+
+  // ──────────────────────────────────────────────────────────────────────
+  {
+    slug: "festivales-verano-espana-2026-transporte",
+    title: "Festivales de verano en España 2026: guía de transporte festival a festival | ConcertRide",
+    h1: "Festivales de verano en España 2026: cómo llegar a cada festival",
+    excerpt:
+      "Más de 16 festivales en España entre mayo y octubre de 2026. Primavera Sound, Mad Cool, BBK Live, Arenal Sound, Medusa... ¿Cómo llegar a cada uno? Esta guía cubre el transporte, precios de carpooling y qué lanzaderas existen para los principales festivales del verano.",
+    category: "guias",
+    tags: ["festivales verano", "festivales 2026", "transporte festivales", "calendario festivales"],
+    publishedAt: "2026-05-03T10:00:00.000Z",
+    author: "Equipo ConcertRide",
+    readingMinutes: 11,
+    lede:
+      "El verano de 2026 en España arranca con Viña Rock en mayo y no termina hasta Cala Mijas en octubre. 16 festivales cubiertos por ConcertRide. Esta guía recoge el transporte de cada uno: qué hay, qué falta, y cuánto cuesta el carpooling.",
+    sections: [
+      {
+        heading: "Mayo–junio: Viña Rock, Primavera Sound, Sónar y O Son do Camiño",
+        paragraphs: [
+          "Viña Rock 2026 (30 abril–3 mayo, Villarrobledo, Albacete) abre la temporada. Es uno de los festivales más difíciles de alcanzar en transporte público: Villarrobledo está a 50 km de Albacete y no hay bus nocturno de regreso. El bus lanzadera oficial sale desde la estación de Albacete, pero no opera de madrugada. El carpooling ConcertRide desde Madrid (6–9 €), Valencia (6–9 €) y Albacete (3–5 €) es la alternativa mayoritaria.",
+          "Primavera Sound 2026 (28 mayo–1 junio, Parc del Fòrum, Barcelona) es uno de los mejor comunicados por transporte público: el metro L4 con parada Besòs Mar queda a 10 minutos a pie del recinto. Sin embargo, la salida masiva de madrugada satura la parada durante 30–45 minutos. El carpooling ConcertRide desde Madrid (15–20 €), Valencia (10–14 €) y Zaragoza (8–12 €) es la opción para asistentes de fuera de Cataluña.",
+          "Sónar 2026 (18–20 junio, Fira de Barcelona) es el festival mejor comunicado de todos: Sónar de Día en Montjuïc tiene metro L1 Espanya a 5 minutos; Sónar de Noche en Fira Gran Via tiene metro L9 Europa-Fira a la puerta. El carpooling interurbano desde Madrid cuesta entre 15 y 20 € por asiento. O Son do Camiño 2026 (18–20 junio, Santiago de Compostela) dispone de lanzadera oficial desde el centro de la ciudad hasta Monte do Gozo (5 km). El carpooling desde A Coruña (4–7 €), Vigo (5–8 €) o Oviedo (7–10 €) cubre la demanda de asistentes de fuera de Galicia.",
+        ],
+      },
+      {
+        heading: "Julio: Mad Cool, BBK Live, FIB, Resurrection Fest, Arenal Sound y Cruïlla",
+        paragraphs: [
+          "Mad Cool 2026 (9–11 julio, IFEMA, Madrid) tiene metro directo con la línea 8 (Feria de Madrid), con ampliación de servicio hasta las 2:00–2:30 en noches de festival. El carpooling ConcertRide es la opción principal para asistentes de provincias: desde Toledo (4–7 €), Valencia (10–14 €), Zaragoza (9–13 €) o Barcelona (15–20 €).",
+          "BBK Live 2026 (9–11 julio, Kobetamendi, Bilbao) es el festival con mejor lanzadera oficial: gratuita con la entrada, sale desde Plaza Moyúa y Abando cada 15 minutos. Para quienes vienen de otras ciudades, el carpooling desde Madrid (12–16 €), Donostia (4–7 €), Pamplona (5–8 €) o Santander (4–7 €) cubre los trayectos interurbanos. FIB 2026 (16–19 julio, Benicàssim) tiene Cercanías Renfe C6 Castellón–Benicàssim (5 min, 1,50 €) más lanzadera al recinto. Carpooling desde Valencia (4–6 €) y Madrid (10–14 €).",
+          "Resurrection Fest 2026 (25–28 junio, Viveiro, Lugo) es el festival más aislado de España: sin tren, sin aeropuerto cercano, con apenas 2–3 buses diarios desde A Coruña o Lugo que no operan de madrugada. El carpooling ConcertRide desde A Coruña (4–7 €), Santiago (6–9 €), Oviedo (6–9 €), Bilbao (10–15 €) o Madrid (16–22 €) no es una opción alternativa: es prácticamente la única opción. Arenal Sound 2026 (29 julio–2 agosto, Burriana, Castellón) tiene lanzadera oficial desde Castellón ciudad pero sin servicio nocturno de vuelta. Carpooling desde Valencia (3–6 €) y Barcelona (8–12 €). Cruïlla 2026 (9–12 julio, Parc del Fòrum, Barcelona) es el más cómodo de acceder: metro L4 El Maresme-Fòrum a 5 minutos del recinto con buen servicio nocturno.",
+        ],
+      },
+      {
+        heading: "Agosto: Medusa, Sonorama Ribera y Low Festival",
+        paragraphs: [
+          "Medusa Festival 2026 (12–16 agosto, Cullera, Valencia) tiene lanzadera oficial desde la estación Joaquín Sorolla de Valencia y desde Xàtiva, con plazas limitadas. El carpooling ConcertRide desde Valencia (3–5 €) es la opción más flexible. Para asistentes de Madrid el precio es de 10–14 €, con una duración de viaje de unas 3 horas.",
+          "Sonorama Ribera 2026 (6–9 agosto, Aranda de Duero, Burgos) tiene bus ALSA Madrid–Aranda (1h 30 min, 10–15 €) pero no opera de madrugada. El carpooling ConcertRide desde Madrid (6–9 €), Burgos (3–5 €) o Valladolid (4–6 €) cubre tanto la ida como la vuelta a cualquier hora. Low Festival 2026 (24–26 julio, Benidorm) es accesible en TRAM L1 Alicante–Benidorm (1h 20 min, 3–5 €) hasta medianoche. Carpooling desde Alicante (3–5 €) y Valencia (5–8 €). El TRAM solo opera hasta las 0:30 los fines de semana, por lo que la vuelta de madrugada requiere carpooling o taxi.",
+        ],
+      },
+      {
+        heading: "Octubre: Cala Mijas",
+        paragraphs: [
+          "Cala Mijas 2026 (2–4 octubre, Mijas, Málaga) cierra la temporada de festivales de verano. El recinto del Cortijo de Torres está a unos 10 km de Málaga capital, sin transporte público directo. El taxi desde Málaga centro cuesta entre 25 y 40 € por trayecto, y los VTC pueden aplicar multiplicadores en las salidas nocturnas.",
+          "El carpooling ConcertRide es la opción más empleada: desde Málaga ciudad (5–8 €), Sevilla (8–12 €), Granada (5–8 €) o Madrid (13–18 €). Al ser el último gran festival del año, la demanda de asistentes de toda España es alta y los viajes suelen publicarse con 3–4 semanas de antelación.",
+        ],
+      },
+      {
+        heading: "Tabla resumen: todos los festivales de verano 2026 con precios de carpooling",
+        paragraphs: [
+          "Resumen de todos los festivales de verano 2026 en España cubiertos por ConcertRide, con la ciudad más cercana y los rangos de precio de carpooling:",
+        ],
+        bullets: [
+          "Viña Rock (Villarrobledo, 30 abr–3 may) — Desde Madrid: 6–9 €; desde Valencia: 6–9 €; desde Albacete: 3–5 €.",
+          "Primavera Sound (Barcelona, 28 may–1 jun) — Desde Madrid: 15–20 €; desde Valencia: 10–14 €; desde Zaragoza: 8–12 €.",
+          "Sónar (Barcelona, 18–20 jun) — Desde Madrid: 15–20 €; desde Valencia: 10–14 €; desde Zaragoza: 8–12 €.",
+          "O Son do Camiño (Santiago, 18–20 jun) — Desde A Coruña: 4–7 €; desde Vigo: 5–8 €; desde Oviedo: 7–10 €.",
+          "Resurrection Fest (Viveiro, 25–28 jun) — Desde A Coruña: 4–7 €; desde Oviedo: 6–9 €; desde Madrid: 16–22 €.",
+          "Mad Cool (Madrid, 9–11 jul) — Desde Toledo: 4–7 €; desde Valencia: 10–14 €; desde Barcelona: 15–20 €.",
+          "BBK Live (Bilbao, 9–11 jul) — Desde Donostia: 4–7 €; desde Pamplona: 5–8 €; desde Madrid: 12–16 €.",
+          "Cruïlla (Barcelona, 9–12 jul) — Desde Madrid: 15–20 €; desde Valencia: 10–14 €; desde Zaragoza: 8–12 €.",
+          "FIB Benicàssim (Castellón, 16–19 jul) — Desde Valencia: 4–6 €; desde Madrid: 10–14 €; desde Barcelona: 8–12 €.",
+          "Low Festival (Benidorm, 24–26 jul) — Desde Alicante: 3–5 €; desde Valencia: 5–8 €; desde Madrid: 12–16 €.",
+          "Arenal Sound (Burriana, 29 jul–2 ago) — Desde Valencia: 3–6 €; desde Barcelona: 8–12 €; desde Madrid: 12–17 €.",
+          "Medusa Festival (Cullera, 12–16 ago) — Desde Valencia: 3–5 €; desde Madrid: 10–14 €; desde Barcelona: 10–14 €.",
+          "Sonorama Ribera (Aranda de Duero, 6–9 ago) — Desde Madrid: 6–9 €; desde Burgos: 3–5 €; desde Valladolid: 4–6 €.",
+          "Cala Mijas (Mijas, 2–4 oct) — Desde Málaga: 5–8 €; desde Sevilla: 8–12 €; desde Granada: 5–8 €.",
+        ],
+      },
+      {
+        heading: "Por qué el carpooling es la mejor opción para los festivales de verano",
+        paragraphs: [
+          "Los festivales de verano en España comparten un problema estructural de transporte: la mayoría de recintos están fuera de las redes de transporte público nocturno, los últimos metros y cercanías cierran antes de que acabe el cabeza de cartel, y los taxis y VTC aplican multiplicadores de tarifa nocturna en eventos masivos.",
+          "El carpooling ConcertRide resuelve estos tres problemas a la vez. El conductor va al mismo festival, así que el horario de salida es el real (después del último artista), el punto de encuentro es el recinto (no una parada de metro en otro barrio) y el precio está fijado de antemano sin multiplicadores. Para festivales de varios días con acampada, muchos conductores publican viajes de vuelta independientes para cada día.",
+          "Desde el punto de vista medioambiental, compartir coche entre 4 asistentes reduce las emisiones por persona en un 75 % comparado con 4 coches individuales. Para un festival de 50.000 personas, el efecto agregado es equivalente al ahorro de varias decenas de toneladas de CO₂ por edición.",
+        ],
+      },
+    ],
+    faqs: [
+      {
+        q: "¿Qué festivales de verano hay en España en 2026?",
+        a: "Los principales festivales de verano en España en 2026 son: Viña Rock (Villarrobledo, 30 abr–3 may), Primavera Sound (Barcelona, 28 may–1 jun), Sónar (Barcelona, 18–20 jun), O Son do Camiño (Santiago, 18–20 jun), Resurrection Fest (Viveiro, 25–28 jun), Mad Cool (Madrid, 9–11 jul), BBK Live (Bilbao, 9–11 jul), Cruïlla (Barcelona, 9–12 jul), FIB (Benicàssim, 16–19 jul), Low Festival (Benidorm, 24–26 jul), Arenal Sound (Burriana, 29 jul–2 ago), Medusa (Cullera, 12–16 ago), Sonorama Ribera (Aranda de Duero, 6–9 ago) y Cala Mijas (Mijas, oct).",
+      },
+      {
+        q: "¿Cuándo es Primavera Sound 2026?",
+        a: "Primavera Sound 2026 se celebra del 28 de mayo al 1 de junio en el Parc del Fòrum de Barcelona. El acceso por transporte público es por metro L4, parada Besòs Mar. El carpooling ConcertRide desde Madrid cuesta entre 15 y 20 € por asiento.",
+      },
+      {
+        q: "¿Cuánto cuesta ir al Mad Cool en carpooling?",
+        a: "Desde Toledo: 4–7 €. Desde Valencia: 10–14 €. Desde Zaragoza: 9–13 €. Desde Barcelona: 15–20 €. Desde Sevilla: 13–18 €. El Mad Cool se celebra en IFEMA, Madrid (9–11 julio), y el acceso es por metro línea 8, estación Feria de Madrid.",
+      },
+      {
+        q: "¿Hay transporte oficial a Arenal Sound?",
+        a: "Sí. El Arenal Sound tiene una lanzadera oficial desde la estación de autobuses de Castellón ciudad hasta el recinto de Burriana (10 km). La lanzadera opera en franjas de entrada y salida pero no tiene servicio nocturno de madrugada. El Cercanías Renfe C6 llega a Castellón pero no al recinto, y no opera por la noche. El carpooling ConcertRide desde Valencia (3–6 €) o Barcelona (8–12 €) es la opción para la vuelta de madrugada.",
+      },
+      {
+        q: "¿Qué festival de verano tiene más opciones de transporte?",
+        a: "Sónar y Cruïlla en Barcelona son los festivales con mejor acceso en transporte público: metro directo al recinto con servicio ampliado. BBK Live en Bilbao tiene la mejor lanzadera oficial (gratuita con la entrada, cada 15 min). Resurrection Fest en Viveiro es el que menos opciones de transporte público tiene — el carpooling es prácticamente la única alternativa al coche propio.",
+      },
+    ],
+    relatedLinks: [
+      { label: "Todos los festivales en España", to: "/festivales" },
+      { label: "Carpooling al Mad Cool", to: "/festivales/mad-cool" },
+      { label: "Carpooling a Primavera Sound", to: "/festivales/primavera-sound" },
+      { label: "Carpooling a Arenal Sound", to: "/festivales/arenal-sound" },
+    ],
+    relatedPosts: ["autobuses-festivales-espana-2026"],
+  },
+
+  // ──────────────────────────────────────────────────────────────────────
+  {
+    slug: "festivales-cataluna-2026",
+    title: "Festivales en Cataluña 2026: Primavera Sound, Sónar, Cruïlla y cómo llegar | ConcertRide",
+    h1: "Festivales en Cataluña 2026: guía de transporte y carpooling",
+    excerpt:
+      "Cataluña tiene tres de los mejores festivales de Europa en 2026: Primavera Sound (28 may–1 jun), Sónar (18–20 jun) y Cruïlla (9–12 jul) — todos en Barcelona. Si vives en Madrid, Valencia, Zaragoza o el norte de España, aquí tienes la guía de transporte para llegar.",
+    category: "guias",
+    tags: ["festivales cataluña", "primavera sound", "sonar festival", "cruilla barcelona", "carpooling barcelona"],
+    publishedAt: "2026-05-03T11:00:00.000Z",
+    author: "Equipo ConcertRide",
+    readingMinutes: 8,
+    lede:
+      "Barcelona tiene el calendario de festivales más denso de España: tres eventos de referencia internacional entre mayo y julio de 2026. Esta guía cubre cómo llegar a cada uno, qué transporte público existe y cuánto cuesta el carpooling desde el resto de España.",
+    sections: [
+      {
+        heading: "Primavera Sound 2026 — cómo llegar al Parc del Fòrum desde toda España",
+        paragraphs: [
+          "Primavera Sound 2026 (28 mayo–1 junio) se celebra en el Parc del Fòrum, en el extremo nordeste del litoral de Barcelona. El acceso en transporte público es directo: metro L4 (línea amarilla), parada Besòs Mar o El Maresme-Fòrum, a unos 10 minutos a pie del recinto principal. En noches de festival TMB amplía la frecuencia del metro y del Nitbus. El problema clásico de Primavera Sound es la saturación de la parada Besòs Mar en las salidas de madrugada, con esperas de 20–40 minutos para acceder al andén.",
+          "Para asistentes de fuera de Cataluña, la opción más popular en ConcertRide es el trayecto Madrid–Barcelona (15–20 € por asiento, 6 horas en coche compartido). El punto de llegada más habitual es la estación de Sants o la Diagonal, donde los viajeros enlazan con el metro hasta el Fòrum. Desde Valencia el precio oscila entre 10 y 14 € (3h 30 min) y desde Zaragoza entre 8 y 12 € (3 horas).",
+          "Una ventaja de llegar en carpooling para Primavera Sound es el festival spread: muchos asistentes de Madrid o Valencia vienen para 2–3 días y coordinan viaje de ida, viaje de vuelta e incluso alojamiento compartido en el mismo grupo de ConcertRide. El festival dura 5 días, y la demanda de carpooling crece especialmente hacia el miércoles y jueves (días con mayor aforo)",
+        ],
+      },
+      {
+        heading: "Sónar 2026 — transporte a Fira Barcelona (Montjuïc y Gran Via)",
+        paragraphs: [
+          "Sónar 2026 (18–20 junio) es el festival mejor comunicado de los tres. Tiene dos recintos: Sónar de Día en el Pavelló Mies van der Rohe (Montjuïc, metro L1 Espanya a 5 minutos) y Sónar de Noche en Fira Gran Via L'Hospitalet (metro L9 Europa-Fira y L1 Les Moreres, a 2 minutos del acceso principal). Ambas paradas tienen servicio nocturno ampliado los fines de semana.",
+          "Sónar de Noche es el espacio más masivo y el que genera mayor demanda de transporte de vuelta. El Nitbus con parada en Gran Via cubre Barcelona ciudad hasta las 5:00, y el metro de la L9 opera hasta las 2:00 los jueves y 5:00 los viernes y sábados. Para asistentes de Madrid, el carpooling ConcertRide (15–20 € por trayecto) es la solución para el sábado de noche, que es la jornada con mayor demanda de regreso.",
+          "Sónar tiene también una demanda específica de carpooling desde el área metropolitana de Barcelona (Hospitalet, Badalona, Cornellà): trayectos cortos de 3–8 € en los que el coche compartido compite directamente con el taxi.",
+        ],
+      },
+      {
+        heading: "Cruïlla 2026 — también en el Fòrum, cómo llegar",
+        paragraphs: [
+          "Cruïlla 2026 (9–12 julio) se celebra en el mismo Parc del Fòrum que Primavera Sound, por lo que el acceso en transporte público es idéntico: metro L4, paradas El Maresme-Fòrum o Besòs Mar, 10 minutos a pie. Cruïlla tiene una ventaja respecto a Primavera Sound: su horario de cierre suele ser anterior (2:00–2:30), lo que coincide mejor con el último metro y reduce el problema de la saturación nocturna.",
+          "El perfil de asistente de Cruïlla es más local-Barcelona que el de Primavera Sound, que atrae mucho turismo nacional e internacional. Aun así, la demanda de carpooling desde Madrid (15–20 €), Valencia (10–14 €) y Zaragoza (8–12 €) es significativa, especialmente para el fin de semana central. Al coincidir en fechas con Mad Cool en Madrid, muchos asistentes que van a los dos festivales coordinan viajes de ida a Barcelona para Cruïlla y vuelta a Madrid para Mad Cool en el mismo fin de semana.",
+        ],
+      },
+      {
+        heading: "Carpooling desde Madrid a Barcelona: cómo funciona para los festivales",
+        paragraphs: [
+          "El trayecto Madrid–Barcelona (620 km) es la ruta de carpooling de larga distancia más demandada en ConcertRide. Existen dos alternativas principales: el AVE (2h 30 min, 50–120 € por trayecto dependiendo de la antelación) y el coche compartido (5h 30 min–6h, 15–20 € por asiento). La diferencia de tiempo es real, pero la diferencia de precio puede superar los 100 € ida y vuelta.",
+          "Para asistentes que viajan en grupo de 3–4 personas, el carpooling suele ser la opción elegida: el ahorro frente al AVE compensa el tiempo adicional de viaje, el maletero cabe fácilmente (no hay facturación), y la coordinación de horarios es más flexible. Un viaje de ConcertRide Madrid–Barcelona para Primavera Sound suele publicarse con punto de encuentro en el Intercambiador de Avenida de América o en el parking de la calle Fuencarral, y llegada en las inmediaciones de la Diagonal o de Sants.",
+          "La vuelta desde Barcelona de madrugada (tras Primavera Sound, Sónar o Cruïlla) es la parte más valorada del carpooling: el conductor tiene el mismo interés en salir tarde del recinto y la vuelta directa a Madrid evita el caos del metro a las 2:00 am.",
+        ],
+      },
+      {
+        heading: "Tabla comparativa de transporte Madrid–Barcelona para festivales",
+        paragraphs: [
+          "Comparativa de las principales opciones para ir de Madrid a Barcelona para cualquiera de los tres festivales:",
+        ],
+        bullets: [
+          "AVE Renfe (Madrid Atocha → Barcelona Sants): 2h 30 min — 50–120 € por trayecto — reserva obligatoria — sin flexibilidad de horario nocturno.",
+          "ALSA/FlixBus (Méndez Álvaro → Barcelona Nord): 7–8h — 15–35 € — salidas nocturnas disponibles — llegada estación, no al festival.",
+          "Carpooling ConcertRide: 5h 30 min–6h — 15–20 € por asiento — ida y vuelta coordinadas con el festival — llegada y salida del recinto.",
+          "Coche propio: 5h 30 min — 45–60 € en gasolina + peajes (AP-2) — aparcamiento en Barcelona: 20–30 €/día.",
+        ],
+      },
+    ],
+    faqs: [
+      {
+        q: "¿Cuánto cuesta el AVE de Madrid a Barcelona para Primavera Sound?",
+        a: "El AVE Madrid Atocha–Barcelona Sants cuesta entre 50 y 120 € por trayecto según la antelación y la tarifa elegida. Para Primavera Sound (28 may–1 jun 2026), los trenes del jueves y viernes anterior al festival suelen agotarse con semanas de antelación. El carpooling ConcertRide (15–20 € por asiento) es la alternativa más económica, con una duración de viaje de 5h 30 min–6h.",
+      },
+      {
+        q: "¿Qué metro hay en el Parc del Fòrum?",
+        a: "El Parc del Fòrum (sede de Primavera Sound y Cruïlla) está servido por el metro de Barcelona L4 (línea amarilla), con paradas El Maresme-Fòrum y Besòs Mar, ambas a unos 10 minutos a pie del recinto. En noches de festival TMB amplía las frecuencias nocturnas y el Nitbus cubre los barrios sin metro.",
+      },
+      {
+        q: "¿Puedo ir a Sónar, Primavera Sound y Cruïlla el mismo verano en carpooling?",
+        a: "Sí. Los tres festivales se celebran entre mayo y julio en Barcelona. Muchos usuarios de ConcertRide coordinan los tres viajes con 4–8 semanas de antelación: Primavera Sound (28 may–1 jun), Sónar (18–20 jun) y Cruïlla (9–12 jul). El mismo grupo de Madrid puede hacer los tres en coche compartido por menos de lo que cuesta un solo AVE de ida y vuelta.",
+      },
+    ],
+    relatedLinks: [
+      { label: "Primavera Sound Barcelona", to: "/festivales/primavera-sound" },
+      { label: "Sónar Barcelona", to: "/festivales/sonar" },
+      { label: "Cruïlla Barcelona", to: "/festivales/cruilla" },
+      { label: "Conciertos en Barcelona", to: "/conciertos/barcelona" },
+      { label: "Festivales en Cataluña", to: "/festivales-en/cataluna" },
+    ],
+    relatedPosts: ["festivales-verano-espana-2026-transporte", "autobuses-festivales-espana-2026"],
+  },
+
+  // ──────────────────────────────────────────────────────────────────────
+  {
+    slug: "festivales-comunidad-valenciana-2026",
+    title: "Festivales en Valencia 2026: Arenal Sound, Medusa, FIB, Zevra y Low Festival | ConcertRide",
+    h1: "Festivales en la Comunidad Valenciana 2026: guía de transporte",
+    excerpt:
+      "La Comunidad Valenciana tiene 5 festivales cubiertos por ConcertRide en 2026: Arenal Sound (Burriana), Medusa (Cullera), FIB (Benicàssim), Zevra Festival (Valencia) y Low Festival (Benidorm). ¿Cómo llegar a cada uno? Lanzaderas, carpooling y transporte público.",
+    category: "guias",
+    tags: ["festivales valencia", "arenal sound", "medusa festival", "fib benicassim", "carpooling valencia"],
+    publishedAt: "2026-05-03T12:00:00.000Z",
+    author: "Equipo ConcertRide",
+    readingMinutes: 10,
+    lede:
+      "La Comunidad Valenciana es la región de España con mayor concentración de festivales de verano por kilómetro de costa. Entre mayo y agosto, cinco grandes eventos demandan transporte desde toda España. Esta guía cubre cómo llegar a cada uno.",
+    sections: [
+      {
+        heading: "FIB Benicàssim 2026 — cómo llegar desde Valencia, Madrid y Barcelona",
+        paragraphs: [
+          "El FIB (Festival Internacional de Benicàssim) 2026 se celebra del 16 al 19 de julio en el Recinto Mediterráneo de Benicàssim (Castellón). Es uno de los festivales con mejor acceso ferroviario de España: el tren Cercanías Renfe C6 cubre el trayecto Castellón–Benicàssim en solo 5 minutos (1,50–2 €), y desde Benicàssim hay una lanzadera del festival hasta el recinto. Desde Valencia capital, el tren Cercanías C6 tarda unos 55 minutos y cuesta entre 4 y 8 €.",
+          "Para asistentes de Madrid, el AVE Madrid–Castellón (2h 15 min, 25–55 €) combinado con el Cercanías es la opción más cómoda, aunque cara. El carpooling ConcertRide desde Madrid cuesta entre 10 y 14 € por asiento (3h 30 min en coche) y llega directamente al recinto. Desde Barcelona el trayecto es de unas 3 horas y el precio del carpooling oscila entre 8 y 12 €.",
+          "El FIB tiene acampada oficial en el recinto, lo que hace especialmente práctico el carpooling: se puede llevar todo el equipo de camping en el maletero sin restricciones de equipaje en tren. Los conductores suelen acordar el punto de encuentro en la estación de Benicàssim o directamente en la entrada del recinto.",
+        ],
+      },
+      {
+        heading: "Arenal Sound 2026 — transporte a Burriana (Castellón)",
+        paragraphs: [
+          "Arenal Sound 2026 (29 julio–2 agosto) es uno de los festivales más complicados de alcanzar sin coche propio. El recinto de la playa de Burriana está a 2 km del centro de Burriana y a 10 km de Castellón ciudad. El tren Cercanías no llega al municipio de Burriana; la parada más cercana es Nules-Villavieja, a 5 km del festival.",
+          "El festival opera una lanzadera oficial desde la estación de autobuses de Castellón en franjas de entrada (17:00–22:00) y salida (02:00–06:00). Las plazas son limitadas y se agotan en los días de mayor afluencia. El Cercanías C6 Valencia–Castellón opera hasta las 23:00 los días laborables y hasta las 0:30 los fines de semana, lo que deja un gap de transporte para la vuelta de madrugada.",
+          "El carpooling ConcertRide desde Valencia es el método más utilizado para Arenal Sound: 3–6 € por asiento, 45–55 minutos de trayecto, llegada directa al recinto. Para asistentes de Madrid el precio es de 12–17 €, de Barcelona 8–12 €. Al ser un festival de 5 días con acampada masiva, los conductores suelen publicar viajes de ida para el primer día y vuelta para cada día posterior, lo que da mucha flexibilidad.",
+        ],
+      },
+      {
+        heading: "Medusa Festival 2026 — cómo ir a Cullera",
+        paragraphs: [
+          "Medusa Festival 2026 (12–16 agosto) se celebra en la playa de Cullera, a 40 km al sur de Valencia. Es uno de los festivales de música electrónica más grandes de Europa, con más de 200.000 asistentes en sus 5 días de duración. El festival organiza una lanzadera oficial desde la estación de Xàtiva (línea C3 Renfe Valencia–Xàtiva) y desde la estación de Valencia Joaquín Sorolla. Las plazas son muy limitadas y es necesario reservar con semanas de antelación.",
+          "Para los que no consiguen la lanzadera, el carpooling ConcertRide desde Valencia ciudad (3–5 €, 40 min) es la alternativa más frecuente. El recinto tiene un parking habilitado para coches, pero en días punta el acceso por carretera puede tardar 1–2 horas adicionales. Desde Madrid el carpooling cuesta entre 10 y 14 € y desde Barcelona entre 10 y 14 € también (ambas ciudades están a una distancia similar de Cullera).",
+          "La vuelta de Medusa Festival es especialmente problemática: el festival cierra a las 8:00–9:00 de la mañana, lo que coincide con el inicio del tráfico de verano en la CV-50. Muchos asistentes optan por quedarse en el camping del festival o coordinar la vuelta para las primeras horas de la tarde.",
+        ],
+      },
+      {
+        heading: "Zevra Festival 2026 — La Marina de València, acceso fácil",
+        paragraphs: [
+          "Zevra Festival 2026 se celebra en La Marina de València, el recinto del antiguo puerto deportivo reconvertido en espacio de eventos. Es el festival con mejor acceso de transporte público de la Comunidad Valenciana: el metro de Valencia línea 4 (azul) tiene la parada La Marina a 5 minutos del recinto, y los autobuses de la EMT 19 y 95 también dan servicio. En noches de festival el metro amplía su horario hasta la 1:30–2:00.",
+          "Al estar dentro de la ciudad de Valencia, Zevra tiene menor demanda de carpooling interurbano. Sin embargo, ConcertRide registra viajes desde Madrid (2h 30 min–3h, 8–12 €), Barcelona (3h 30 min, 10–14 €) y Alicante (1h 45 min, 4–7 €) para asistentes que aprovechan el evento para combinar con unos días en Valencia.",
+        ],
+      },
+      {
+        heading: "Low Festival 2026 — transporte a Benidorm",
+        paragraphs: [
+          "Low Festival 2026 (24–26 julio) se celebra en el recinto de Benidorm, con el mar de fondo y el skyline característico de la ciudad. El acceso en transporte público es posible gracias al TRAM Metropolitano de Alicante: la línea L1 cubre el trayecto Alicante–Benidorm (1h 20 min, 3,50–5 €) y opera hasta las 0:30 los fines de semana. Para las sesiones que terminan después de medianoche, el carpooling o el taxi son necesarios.",
+          "El carpooling ConcertRide desde Alicante es el más barato y frecuente: 3–5 € por asiento, 35–45 minutos. Desde Valencia el precio es de 5–8 € (2h en coche) y desde Madrid de 12–16 € (4h). Benidorm tiene oferta hotelera amplia y económica fuera de temporada de verano alta, por lo que muchos asistentes de fuera combinan el festival con 1–2 noches en la ciudad y el carpooling solo para la ida.",
+        ],
+      },
+      {
+        heading: "Resumen: todos los festivales de Valencia 2026 en un vistazo",
+        paragraphs: [
+          "Los cinco festivales de la Comunidad Valenciana cubiertos por ConcertRide en 2026, con sus fechas y opciones principales de transporte:",
+        ],
+        bullets: [
+          "FIB Benicàssim (Castellón, 16–19 jul) — Cercanías Renfe desde Valencia (55 min, 4–8 €) + lanzadera. Carpooling desde Madrid: 10–14 €.",
+          "Arenal Sound (Burriana, 29 jul–2 ago) — Lanzadera oficial desde Castellón (limitada). Carpooling desde Valencia: 3–6 €; desde Madrid: 12–17 €.",
+          "Medusa Festival (Cullera, 12–16 ago) — Lanzadera oficial desde Valencia (plazas limitadas). Carpooling desde Valencia: 3–5 €; desde Madrid: 10–14 €.",
+          "Zevra Festival (La Marina de València, fechas por confirmar) — Metro L4 parada La Marina. Carpooling desde Alicante: 4–7 €; desde Madrid: 8–12 €.",
+          "Low Festival (Benidorm, 24–26 jul) — TRAM L1 desde Alicante (1h 20 min) hasta medianoche. Carpooling desde Alicante: 3–5 €; desde Valencia: 5–8 €.",
+        ],
+      },
+    ],
+    faqs: [
+      {
+        q: "¿Hay bus oficial al Arenal Sound?",
+        a: "Sí, el Arenal Sound tiene una lanzadera oficial desde la estación de autobuses de Castellón ciudad, a 10 km del recinto. Opera en franjas de entrada y salida pero con plazas muy limitadas. No cubre el trayecto en horario de madrugada de forma fiable. El carpooling ConcertRide desde Valencia (3–6 €) es la alternativa más flexible.",
+      },
+      {
+        q: "¿Cuánto cuesta el carpooling de Madrid al FIB?",
+        a: "El carpooling de Madrid al FIB Benicàssim cuesta entre 10 y 14 € por asiento en ConcertRide (trayecto de 3h 30 min). La llegada suele ser directamente al recinto de Benicàssim o a la estación de tren de Benicàssim. El AVE Madrid–Castellón cuesta 25–55 € más el Cercanías adicional.",
+      },
+      {
+        q: "¿Cuándo es Medusa Festival 2026?",
+        a: "Medusa Festival 2026 se celebra del 12 al 16 de agosto en la playa de Cullera (Valencia). Es uno de los festivales de música electrónica más grandes de Europa. La lanzadera oficial desde Valencia tiene plazas muy limitadas y requiere reserva previa. El carpooling ConcertRide desde Valencia ciudad cuesta entre 3 y 5 € por asiento.",
+      },
+    ],
+    relatedLinks: [
+      { label: "Carpooling a Arenal Sound", to: "/festivales/arenal-sound" },
+      { label: "Carpooling a Medusa Festival", to: "/festivales/medusa-festival" },
+      { label: "Carpooling al FIB Benicàssim", to: "/festivales/fib" },
+      { label: "Festivales en la Comunidad Valenciana", to: "/festivales-en/comunidad-valenciana" },
+    ],
+    relatedPosts: ["festivales-verano-espana-2026-transporte", "autobuses-festivales-espana-2026"],
+  },
+
+  // ──────────────────────────────────────────────────────────────────────
+  {
+    slug: "festivales-pais-vasco-2026",
+    title: "Festivales en País Vasco 2026: BBK Live, Resurrection Fest (Galicia) y carpooling | ConcertRide",
+    h1: "Festivales en País Vasco y norte de España 2026",
+    excerpt:
+      "El norte de España concentra dos de los festivales más emblemáticos del metal y el indie: BBK Live (Bilbao, 9–11 jul) y Resurrection Fest (Viveiro, 2–5 jul). Lejos de Madrid y Barcelona, el transporte público es limitado — el carpooling es la opción más práctica.",
+    category: "guias",
+    tags: ["festivales pais vasco", "bbk live", "resurrection fest", "carpooling bilbao", "north spain festivals"],
+    publishedAt: "2026-05-03T13:00:00.000Z",
+    author: "Equipo ConcertRide",
+    readingMinutes: 7,
+    lede:
+      "El norte de España tiene festivales de referencia pero una red de transporte nocturno muy limitada. BBK Live en Bilbao tiene lanzadera oficial desde la ciudad; Resurrection Fest en Viveiro, directamente, no tiene transporte público adecuado. El carpooling lo resuelve en ambos casos.",
+    sections: [
+      {
+        heading: "BBK Live 2026 — Kobetamendi, Bilbao: transporte y carpooling",
+        paragraphs: [
+          "BBK Live 2026 (9–11 julio) se celebra en el monte Kobetamendi, a unos 5 km del centro de Bilbao. Es el festival español con mejor servicio de lanzadera oficial: incluida en el precio de la entrada, sale desde Plaza Moyúa y la estación de Abando con una frecuencia de 15 minutos durante toda la jornada del festival. El trayecto dura unos 20–25 minutos.",
+          "Para asistentes de fuera del País Vasco, el acceso a Bilbao es variado: Renfe opera trenes desde Madrid (5h, Alvia, 25–60 €), desde Barcelona (6h 30 min, 30–70 €) y desde San Sebastián (1h, 8–15 €). Desde Madrid, el bus ALSA Termibús (5–6h, 20–35 €) es otra opción. Sin embargo, todos estos medios llegan al centro de Bilbao, no a Kobetamendi: hay que combinar con la lanzadera oficial.",
+          "El carpooling ConcertRide para BBK Live tiene una demanda muy alta desde ciudades del entorno: Donostia (4–7 €, 1h), Vitoria (3–6 €, 45 min), Pamplona (5–8 €, 1h 15 min) y Santander (4–7 €, 1h). Desde Madrid el precio es de 12–16 € con un trayecto de unas 4h 30 min. Muchos conductores publican el punto de encuentro en Plaza Moyúa, donde ya está la parada de la lanzadera oficial.",
+        ],
+      },
+      {
+        heading: "Resurrection Fest 2026 — Viveiro, Lugo: cómo llegar",
+        paragraphs: [
+          "Resurrection Fest 2026 (2–5 julio) se celebra en Viveiro, una pequeña ciudad portuaria de la costa lucense con unos 15.000 habitantes. Es, sin duda, el festival español más difícil de alcanzar en transporte público: no hay AVE, el aeropuerto más cercano es el de Santiago de Compostela (a 2h 30 min en coche), y el servicio de bus ALSA desde A Coruña, Lugo u Oviedo tiene apenas 2–3 frecuencias diarias sin ninguna en horario nocturno.",
+          "Esta realidad convierte al coche compartido en la opción casi exclusiva para la gran mayoría de asistentes. En ConcertRide los viajes para Resurrection Fest suelen publicarse con 4–6 semanas de antelación desde A Coruña (4–7 €, 1h 30 min), Santiago de Compostela (6–9 €, 2h), Vigo (6–9 €, 2h 30 min), Oviedo (6–9 €, 2h), Gijón (7–10 €, 2h 15 min), Bilbao (10–15 €, 3h 30 min) y Madrid (16–22 €, 8h). Los grupos de amigos aficionados al metal tienen una tradición consolidada de organizar el carpooling para Resurrection Fest como parte de la experiencia del festival.",
+          "La vuelta desde Viveiro es igual de complicada: no hay buses nocturnos y los primeros buses del día salen a las 7:00–8:00. El carpooling es la única opción viable para quienes no tienen coche propio o no quieren conducir tras varios días de festival.",
+        ],
+      },
+      {
+        heading: "Transporte de vuelta de madrugada desde Kobetamendi",
+        paragraphs: [
+          "Aunque BBK Live tiene una lanzadera oficial excelente durante el festival, la vuelta al final de la última noche puede presentar esperas. La lanzadera opera hasta que se vacía el recinto, pero las colas para subir al bus pueden superar los 30 minutos cuando terminan los cabezas de cartel.",
+          "Para quienes vuelven a otras ciudades esa misma noche, el punto de coordinación más práctico es la Plaza Moyúa (parada central de la lanzadera), que tiene buena conexión con la estación de Abando y con los aparcamientos del centro de Bilbao. El carpooling ConcertRide habitualmente tiene el punto de encuentro de vuelta en la misma Plaza Moyúa, lo que simplifica la coordinación.",
+        ],
+      },
+      {
+        heading: "Carpooling desde Madrid, Barcelona y otras ciudades al norte",
+        paragraphs: [
+          "El norte de España (Bilbao, Donostia, Santander, A Coruña, Vigo, Oviedo) tiene una red de carpooling de festivales consolidada en ConcertRide. Las rutas más demandadas para BBK Live desde ciudades no vascas son: Madrid–Bilbao (4h 30 min, 12–16 €), Barcelona–Bilbao (6h, 14–18 €) y Zaragoza–Bilbao (3h, 8–12 €).",
+          "Para Resurrection Fest, la ruta más larga pero con mayor demanda es Madrid–Viveiro (8h, 16–22 €), seguida de Oviedo–Viveiro (2h, 6–9 €) y Bilbao–Viveiro (3h 30 min, 10–15 €). Dado el esfuerzo del desplazamiento, la mayoría de viajeros de carpooling a Resurrection Fest asisten los 4 días del festival y reservan plaza para la vuelta en el mismo momento que la ida.",
+        ],
+      },
+      {
+        heading: "¿Merece la pena el desplazamiento? Precio vs experiencia",
+        paragraphs: [
+          "BBK Live y Resurrection Fest tienen ambos reputaciones muy altas entre sus comunidades de fans respectivas. BBK Live es un festival de rock e indie con line-up internacional comparable al de Mad Cool o Primavera Sound, en un entorno único de monte con vistas a la ría de Bilbao. Resurrection Fest es la cita referente del metal y el hardcore en España y atrae asistentes de toda Europa.",
+          "Para ambos, el coste total de asistencia (entrada + transporte + alojamiento) puede ser mayor que en festivales de ciudades grandes con mejor transporte público. Pero la experiencia de comunidad — especialmente en Resurrection Fest — hace que muchos asistentes consideren el desplazamiento parte de la experiencia, no un inconveniente. El carpooling contribuye a esto: compartir el viaje de 8 horas de Madrid a Viveiro suele generar amistades duraderas dentro del festival.",
+        ],
+      },
+    ],
+    faqs: [
+      {
+        q: "¿Hay lanzadera oficial al BBK Live?",
+        a: "Sí. El BBK Live tiene una lanzadera oficial incluida en el precio de la entrada, sin coste adicional. Sale desde Plaza Moyúa y la estación de Abando en Bilbao con frecuencia de 15 minutos durante toda la jornada del festival. El trayecto hasta Kobetamendi dura unos 20–25 minutos.",
+      },
+      {
+        q: "¿Cómo llegar a Resurrection Fest?",
+        a: "Resurrection Fest (Viveiro, Lugo) no tiene transporte público nocturno adecuado. Las opciones son: coche propio, carpooling ConcertRide (desde A Coruña: 4–7 €, desde Oviedo: 6–9 €, desde Madrid: 16–22 €) o bus ALSA con pocas frecuencias diurnas. El carpooling es la opción más utilizada por la mayoría de los asistentes.",
+      },
+      {
+        q: "¿Cuánto cuesta el carpooling de Madrid a Bilbao para el BBK?",
+        a: "El carpooling de Madrid a Bilbao para el BBK Live cuesta entre 12 y 16 € por asiento en ConcertRide (trayecto de unas 4h 30 min). El punto de llegada más habitual es el centro de Bilbao (Plaza Moyúa o Abando), desde donde la lanzadera oficial gratuita sube a Kobetamendi.",
+      },
+    ],
+    relatedLinks: [
+      { label: "Carpooling al BBK Live Bilbao", to: "/festivales/bbk-live" },
+      { label: "Carpooling a Resurrection Fest", to: "/festivales/resurrection-fest" },
+    ],
+    relatedPosts: ["festivales-verano-espana-2026-transporte", "autobuses-festivales-espana-2026"],
+  },
+
+  // ──────────────────────────────────────────────────────────────────────
+  {
+    slug: "carpooling-vs-taxi-festival-espana",
+    title: "Carpooling vs taxi para ir a festivales en España: cuánto ahorras | ConcertRide",
+    h1: "Carpooling vs taxi a festivales: la comparativa definitiva",
+    excerpt:
+      "Un taxi de Madrid a IFEMA cuesta 25–40 € por trayecto. Un Uber de vuelta del BBK Live a las 2:00 AM puede superar los 80 € con multiplicador. El carpooling de ConcertRide cuesta 4–15 € por trayecto. Esta es la comparativa real, con datos.",
+    category: "comparativas",
+    tags: ["carpooling vs taxi", "ahorro festival", "taxi festival precio", "uber festival", "alternativa taxi festival"],
+    publishedAt: "2026-05-02T09:00:00.000Z",
+    author: "Equipo ConcertRide",
+    readingMinutes: 6,
+    lede:
+      "No es que el taxi sea caro. Es que el taxi a las 2:00 AM de Kobetamendi, mientras 30.000 personas buscan lo mismo, es imposible de encontrar a precio normal. Te explicamos por qué el carpooling no es solo más barato, es más fiable.",
+    sections: [
+      {
+        heading: "Precio real del taxi vs carpooling a festivales populares",
+        paragraphs: [
+          "Los precios de taxi a continuación son tarifas estimadas en horario nocturno de evento (tarifa 3 o 4 en muchas ciudades) y no incluyen esperas ni multiplicadores de VTC. El carpooling es el precio habitual en ConcertRide por asiento:",
+        ],
+        bullets: [
+          "Mad Cool (IFEMA, Madrid) → Centro de Madrid: Taxi aprox. 25–40 €; Carpooling ConcertRide (desde Toledo): 4–7 €. Ahorro: hasta 33 €.",
+          "BBK Live (Kobetamendi) → Centro de Bilbao: Taxi aprox. 20–35 €; Carpooling ConcertRide (desde Donostia): 4–7 €. Ahorro: hasta 28 €.",
+          "Primavera Sound (Fòrum, Barcelona) → Centro de Barcelona: Taxi aprox. 15–25 €; Carpooling ConcertRide (desde Madrid): 15–20 €. Ahorro: variable.",
+          "Arenal Sound (Burriana) → Valencia: Taxi aprox. 45–70 €; Carpooling ConcertRide: 3–6 €. Ahorro: hasta 64 €.",
+          "Resurrection Fest (Viveiro) → A Coruña: Taxi aprox. 80–120 € (si encuentras uno); Carpooling ConcertRide: 4–7 €. Ahorro: hasta 113 €.",
+          "Cala Mijas (Mijas) → Málaga Centro: Taxi aprox. 25–45 €; Carpooling ConcertRide: 5–8 €. Ahorro: hasta 37 €.",
+        ],
+      },
+      {
+        heading: "El problema del taxi nocturno post-festival: escasez y multiplicadores",
+        paragraphs: [
+          "El problema del taxi en la salida de un festival no es solo el precio: es la disponibilidad. Cuando 50.000 personas salen de IFEMA a las 2:00 AM al mismo tiempo, la oferta de taxis y VTC en la zona colapsa. Las apps muestran tiempos de espera de 45–90 minutos y en la práctica muchos coches nunca llegan porque captan una carrera en otra zona con menos competencia.",
+          "Este fenómeno es especialmente grave en recintos alejados de la trama urbana: Kobetamendi (BBK Live), La Pulgosa (Viña Rock), Viveiro (Resurrection Fest) o el Cortijo de Torres (Cala Mijas) son zonas donde no hay taxis de base. Los conductores de VTC que van hasta allí cobran tarifas muy altas para compensar el trayecto de vuelta vacío.",
+          "La consecuencia práctica: en festivales fuera de ciudad, el taxi post-concierto no es caro — es inexistente a precio razonable. Quienes no tienen coche y no han organizado carpooling terminan esperando horas o pagando precios abusivos.",
+        ],
+      },
+      {
+        heading: "Uber y Cabify en festivales: el multiplicador de precio nocturno",
+        paragraphs: [
+          "Uber y Cabify aplican precios dinámicos basados en la demanda. En situaciones de alta demanda y baja oferta — que es exactamente lo que ocurre en la salida de un festival masivo de madrugada — el multiplicador puede ser de 2x a 5x sobre la tarifa base. Un trayecto que normalmente costaría 20 € puede mostrar 60–100 € en la app a las 2:00 AM de Kobetamendi.",
+          "Además, el precio mostrado en la app en el momento de la búsqueda no es garantía de lo que se paga: si el coche tarda 20 minutos en llegar y la demanda sigue alta, el precio puede aumentar antes de confirmar. Muchos usuarios reportan que la tarifa estimada y la final difieren significativamente en noches de gran evento.",
+          "Esto no ocurre con el carpooling de ConcertRide: el precio es fijado por el conductor al publicar el viaje, antes del festival, sin posibilidad de multiplicadores dinámicos. Lo que ves al reservar es lo que pagas.",
+        ],
+      },
+      {
+        heading: "ConcertRide: precio fijo acordado antes del festival",
+        paragraphs: [
+          "El modelo de ConcertRide es estructuralmente diferente al de los VTC: el conductor publica su viaje días o semanas antes del festival, fija el precio por asiento como contribución a los gastos de combustible y peajes, y ese precio no cambia independientemente de la demanda en el momento de la salida. No hay comisión de plataforma, no hay tarifa dinámica, no hay multiplicadores.",
+          "Esto tiene una implicación práctica importante: el precio del carpooling en ConcertRide no solo es más bajo que el taxi en circunstancias normales — es especialmente más bajo en las circunstancias exactas en las que el taxi es más caro (salida masiva de madrugada en recinto alejado). La brecha de precio entre carpooling y VTC es mayor a las 2:00 AM que a las 20:00.",
+          "La única condición es la coordinación previa: hay que reservar el viaje antes del festival. Dejar el transporte para el mismo día del evento elimina la principal ventaja del carpooling. Con 1–2 semanas de antelación hay habitualmente plazas disponibles para todos los festivales grandes de la temporada.",
+        ],
+      },
+      {
+        heading: "Cuándo sí tiene sentido el taxi (y cuándo no)",
+        paragraphs: [
+          "El taxi tiene sentido en tres escenarios concretos relacionados con festivales: cuando el recinto está dentro del área urbana y hay disponibilidad normal (Sónar en Barcelona, Zevra en Valencia), cuando la distancia es corta (menos de 5 km dentro de la ciudad) y cuando el grupo es grande (4–6 personas que pueden compartir el coste del taxi y este resulta comparable o más cómodo que el carpooling).",
+          "El taxi no tiene sentido — y el carpooling gana claramente — en: recintos fuera de la ciudad (Viña Rock, Arenal Sound, BBK Live, Resurrection Fest, Cala Mijas), salidas de madrugada con demanda pico (cualquier festival que acabe después de las 1:00), y trayectos interurbanos de larga distancia (Madrid–Barcelona, Madrid–Bilbao) donde el precio del taxi o VTC sería prohibitivo.",
+          "Un indicador práctico: si el festival tiene hashtag #transporteXfestival lleno de mensajes de gente buscando taxi a las 3:00 AM, es que el taxi no funciona ahí. Esos son exactamente los eventos donde el carpooling ConcertRide es la opción más inteligente.",
+        ],
+      },
+    ],
+    faqs: [
+      {
+        q: "¿Cuánto cobra un taxi de IFEMA al centro de Madrid?",
+        a: "Un taxi de IFEMA (Mad Cool, FITUR) al centro de Madrid cuesta aproximadamente 25–40 € en horario nocturno de evento (tarifa 3). Si hay alto volumen de demanda y el taxímetro aplica tarifa de evento, puede superar los 40 €. Los VTC como Uber o Cabify pueden aplicar multiplicadores y superar los 60 € a la salida del festival.",
+      },
+      {
+        q: "¿Por qué Uber es tan caro después de un festival?",
+        a: "Uber y Cabify aplican precios dinámicos: cuando la demanda es alta y la oferta de conductores es baja (como en la salida de un festival masivo de madrugada), el algoritmo sube el precio automáticamente. En festivales como Mad Cool o BBK Live, el multiplicador puede ser de 2x a 5x sobre la tarifa base, resultando en precios de 60–100 € por trayecto.",
+      },
+      {
+        q: "¿Es seguro el carpooling vs el taxi?",
+        a: "ConcertRide verifica el carnet de conducir de todos los conductores antes de que puedan publicar viajes. Cada conductor tiene perfil con valoraciones de pasajeros anteriores. El pago es directo conductor-pasajero (efectivo o Bizum) sin intermediarios. Los taxis y VTC están regulados, pero el historial de cada conductor no siempre es visible para el pasajero.",
+      },
+      {
+        q: "¿Puedo comparar precios antes del festival?",
+        a: "Sí. En ConcertRide puedes ver los viajes publicados para cada festival con precio por asiento, punto de encuentro y hora de salida días o semanas antes del evento. El precio está fijo desde el momento de la publicación — no cambia por demanda. Con Uber o Cabify el precio real solo se conoce en el momento de pedir el coche.",
+      },
+    ],
+    relatedLinks: [
+      { label: "Cómo funciona ConcertRide", to: "/como-funciona" },
+      { label: "Carpooling al Mad Cool Festival", to: "/festivales/mad-cool" },
+      { label: "Carpooling al BBK Live Bilbao", to: "/festivales/bbk-live" },
+    ],
+    relatedPosts: ["autobuses-festivales-espana-2026", "blablacar-vs-concertride"],
+  },
+
+  // ──────────────────────────────────────────────────────────────────────
+  {
     slug: "festivales-musica-espana-2026",
     title: "Festivales de música en España 2026: fechas, ciudades y cómo llegar",
     h1: "Festivales de música en España 2026: la guía completa",

@@ -7,6 +7,7 @@ import { ConcertCard } from "@/components/ConcertCard";
 import { LoadingSpinner } from "@/components/ui";
 import { useSeoMeta } from "@/lib/useSeoMeta";
 import { SITE_URL } from "@/lib/siteUrl";
+import { REGION_ISO } from "@/lib/seoConfig";
 import { CITY_LANDINGS, CITY_LANDINGS_BY_SLUG } from "@/lib/cityLandings";
 import { FESTIVAL_LANDINGS } from "@/lib/festivalLandings";
 import { ROUTE_LANDINGS } from "@/lib/routeLandings";
@@ -147,6 +148,10 @@ export default function CityLandingPage() {
     keywords: landing
       ? cityOverride?.keywords ?? `conciertos en ${landing.display} ${year}, conciertos ${landing.display} ${nextYear}, agenda musical ${landing.display} ${year}, próximos conciertos ${landing.display}, conciertos música ${landing.display}, como ir a conciertos ${landing.display}, festivales ${landing.display}, carpooling ${landing.display} ${year}, coche compartido concierto ${landing.display}, cómo ir al concierto ${landing.display}, carpooling concierto ${landing.display}, viaje compartido ${landing.display} ${year}`
       : undefined,
+    geoRegion: landing ? (REGION_ISO[landing.region] ?? undefined) : undefined,
+    geoPlacename: landing ? `${landing.display}, España` : undefined,
+    geoLat: landing?.lat,
+    geoLng: landing?.lng,
   });
 
   useEffect(() => {

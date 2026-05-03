@@ -26,20 +26,30 @@ import HowItWorksPage from "./pages/HowItWorksPage";
 import FaqPage from "./pages/FaqPage";
 import ContactoPage from "./pages/ContactoPage";
 import AcercaDePage from "./pages/AcercaDePage";
+import ArtistLandingPage from "./pages/ArtistLandingPage";
+import VenueLandingPage from "./pages/VenueLandingPage";
+import RegionLandingPage from "./pages/RegionLandingPage";
 import AvisoLegalPage from "./pages/AvisoLegalPage";
 import PrivacidadPage from "./pages/PrivacidadPage";
 import CookiesPage from "./pages/CookiesPage";
 import TerminosPage from "./pages/TerminosPage";
 import NotFoundPage from "./pages/NotFoundPage";
-import { FESTIVAL_LANDINGS } from "./lib/festivalLandings";
+import { FESTIVAL_LANDINGS, FESTIVAL_LANDINGS_LAST_UPDATED } from "./lib/festivalLandings";
 import { CITY_LANDINGS } from "./lib/cityLandings";
 import { BLOG_SLUGS as BLOG_POST_SLUGS } from "./lib/blogPosts";
 import { ROUTE_SLUGS as ALL_ROUTE_SLUGS } from "./lib/routeLandings";
+import { ARTIST_SLUGS as ALL_ARTIST_SLUGS } from "./lib/artistLandings";
+import { VENUE_SLUGS as ALL_VENUE_SLUGS } from "./lib/venueLandings";
+import { REGION_SLUGS as ALL_REGION_SLUGS } from "./lib/regionLandings";
 
 export const FESTIVAL_SLUGS = FESTIVAL_LANDINGS.map((f) => f.slug);
 export const CITY_SLUGS = CITY_LANDINGS.map((c) => c.slug);
 export const BLOG_SLUGS = BLOG_POST_SLUGS;
 export const ROUTE_SLUGS = ALL_ROUTE_SLUGS;
+export const ARTIST_SLUGS = ALL_ARTIST_SLUGS;
+export const VENUE_SLUGS = ALL_VENUE_SLUGS;
+export const REGION_SLUGS = ALL_REGION_SLUGS;
+export const CONTENT_LAST_UPDATED = FESTIVAL_LANDINGS_LAST_UPDATED;
 
 function ServerApp() {
   return (
@@ -52,6 +62,9 @@ function ServerApp() {
         <Route path="/conciertos/:city" element={<CityLandingPage />} />
         <Route path="/festivales" element={<FestivalesPage />} />
         <Route path="/festivales/:festival" element={<FestivalLandingPage />} />
+        <Route path="/artistas/:slug" element={<ArtistLandingPage />} />
+        <Route path="/recintos/:slug" element={<VenueLandingPage />} />
+        <Route path="/festivales-en/:slug" element={<RegionLandingPage />} />
         <Route path="/guia-transporte-festivales" element={<GuiaTransporteFestivalesPage />} />
         <Route path="/blog" element={<BlogIndexPage />} />
         <Route path="/blog/:slug" element={<BlogPostPage />} />

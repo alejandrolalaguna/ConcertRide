@@ -17,6 +17,14 @@ interface SeoMeta {
   articlePublishedTime?: string;
   articleModifiedTime?: string;
   articleSection?: string;
+  /** ISO 3166-2 region code, e.g. "ES-MD", "ES-CT", "ES-PV" */
+  geoRegion?: string;
+  /** Human-readable place name, e.g. "Madrid" or "Bilbao, País Vasco" */
+  geoPlacename?: string;
+  /** Decimal latitude, e.g. 40.4168 */
+  geoLat?: number;
+  /** Decimal longitude, e.g. -3.7038 */
+  geoLng?: number;
 }
 
 const DEFAULT_DESCRIPTION =
@@ -56,6 +64,10 @@ export interface ResolvedSeo {
   articlePublishedTime?: string;
   articleModifiedTime?: string;
   articleSection?: string;
+  geoRegion?: string;
+  geoPlacename?: string;
+  geoLat?: number;
+  geoLng?: number;
 }
 
 function resolve(meta: SeoMeta): ResolvedSeo {
@@ -77,6 +89,10 @@ function resolve(meta: SeoMeta): ResolvedSeo {
     articlePublishedTime: meta.articlePublishedTime,
     articleModifiedTime: meta.articleModifiedTime,
     articleSection: meta.articleSection,
+    geoRegion: meta.geoRegion,
+    geoPlacename: meta.geoPlacename,
+    geoLat: meta.geoLat,
+    geoLng: meta.geoLng,
   };
 }
 
@@ -175,11 +191,31 @@ export function useSeoMeta(meta: SeoMeta) {
       setLink("alternate", r.canonical, { hreflang: "es-ES" });
       setLink("alternate", r.canonical, { hreflang: "x-default" });
     }
+
+    // Geo meta tags — dynamic per page (not hardcoded to Madrid)
+    if (r.geoRegion) {
+      setMeta("geo.region", r.geoRegion);
+    } else {
+      removeMeta("geo.region");
+    }
+    if (r.geoPlacename) {
+      setMeta("geo.placename", r.geoPlacename);
+    } else {
+      removeMeta("geo.placename");
+    }
+    if (r.geoLat != null && r.geoLng != null) {
+      setMeta("geo.position", `${r.geoLat};${r.geoLng}`);
+      setMeta("ICBM", `${r.geoLat}, ${r.geoLng}`);
+    } else {
+      removeMeta("geo.position");
+      removeMeta("ICBM");
+    }
   }, [
     meta.title, meta.description, meta.canonical, meta.keywords,
     meta.ogTitle, meta.ogDescription, meta.ogImage, meta.ogImageWidth,
     meta.ogImageHeight, meta.ogType, meta.noindex,
     meta.articleAuthor, meta.articlePublishedTime, meta.articleModifiedTime, meta.articleSection,
+    meta.geoRegion, meta.geoPlacename, meta.geoLat, meta.geoLng,
   ]);
 }
 
@@ -233,6 +269,14 @@ export function renderSeoToHtml(seo: ResolvedSeo, urlPath: string): {
   push(`<meta name="twitter:description" content="${escapeAttr(seo.ogDescription)}" />`);
   push(`<meta name="twitter:image" content="${escapeAttr(seo.ogImage)}" />`);
   push(`<meta name="twitter:image:alt" content="${escapeAttr(`${seo.ogTitle} — ${SITE_NAME}`)}" />`);
+
+  // Geo meta tags — dynamic per page
+  if (seo.geoRegion) push(`<meta name="geo.region" content="${escapeAttr(seo.geoRegion)}" />`);
+  if (seo.geoPlacename) push(`<meta name="geo.placename" content="${escapeAttr(seo.geoPlacename)}" />`);
+  if (seo.geoLat != null && seo.geoLng != null) {
+    push(`<meta name="geo.position" content="${seo.geoLat};${seo.geoLng}" />`);
+    push(`<meta name="ICBM" content="${seo.geoLat}, ${seo.geoLng}" />`);
+  }
 
   const linkLines: string[] = [];
   if (seo.canonical) {

@@ -240,3 +240,24 @@ export function buildSchema(schemaType: keyof typeof SEO_CONFIG.schema) {
 export function getAiCrawlerPolicy() {
   return SEO_CONFIG.ai_crawlers;
 }
+
+/** Maps Spanish region names to ISO 3166-2 codes for geo meta tags */
+export const REGION_ISO: Record<string, string> = {
+  "Comunidad de Madrid": "ES-MD",
+  "Cataluña": "ES-CT",
+  "Comunidad Valenciana": "ES-VC",
+  "País Vasco": "ES-PV",
+  "Andalucía": "ES-AN",
+  "Galicia": "ES-GA",
+  "Castilla y León": "ES-CL",
+  "Castilla-La Mancha": "ES-CM",
+  "Aragón": "ES-AR",
+  "Navarra": "ES-NC",
+  "Cantabria": "ES-CB",
+  "Asturias": "ES-AS",
+  "Extremadura": "ES-EX",
+  "La Rioja": "ES-RI",
+  "Murcia": "ES-MC",
+  "Islas Baleares": "ES-IB",
+  "Islas Canarias": "ES-CN",
+};

@@ -28,7 +28,7 @@ if (!(await exists(ssrEntry))) {
   console.error(`[prerender] SSR bundle missing at ${ssrEntry}. Did the SSR build run?`);
   process.exit(1);
 }
-const { render, FESTIVAL_SLUGS, CITY_SLUGS, BLOG_SLUGS, ROUTE_SLUGS } = await import(pathToFileURL(ssrEntry).href);
+const { render, FESTIVAL_SLUGS, CITY_SLUGS, BLOG_SLUGS, ROUTE_SLUGS, ARTIST_SLUGS, VENUE_SLUGS, REGION_SLUGS, CONTENT_LAST_UPDATED } = await import(pathToFileURL(ssrEntry).href);
 
 // ── Read shell ──────────────────────────────────────────────────────────────
 const shellPath = path.join(distDir, "index.html");
@@ -55,6 +55,9 @@ const STATIC_ROUTES = [
 
 const BLOG_POST_SLUGS = BLOG_SLUGS ?? [];
 const ROUTE_LANDING_SLUGS = ROUTE_SLUGS ?? [];
+const ARTIST_LANDING_SLUGS = ARTIST_SLUGS ?? [];
+const VENUE_LANDING_SLUGS = VENUE_SLUGS ?? [];
+const REGION_LANDING_SLUGS = REGION_SLUGS ?? [];
 
 const ROUTES = [
   ...STATIC_ROUTES,
@@ -62,9 +65,12 @@ const ROUTES = [
   ...CITY_SLUGS.map((slug) => `/conciertos/${slug}`),
   ...BLOG_POST_SLUGS.map((slug) => `/blog/${slug}`),
   ...ROUTE_LANDING_SLUGS.map((slug) => `/rutas/${slug}`),
+  ...ARTIST_LANDING_SLUGS.map((slug) => `/artistas/${slug}`),
+  ...VENUE_LANDING_SLUGS.map((slug) => `/recintos/${slug}`),
+  ...REGION_LANDING_SLUGS.map((slug) => `/festivales-en/${slug}`),
 ];
 
-console.log(`[prerender] ${ROUTES.length} routes (${FESTIVAL_SLUGS.length} festivals, ${CITY_SLUGS.length} cities, ${BLOG_POST_SLUGS.length} blog posts, ${ROUTE_LANDING_SLUGS.length} routes)`);
+console.log(`[prerender] ${ROUTES.length} routes (${FESTIVAL_SLUGS.length} festivals, ${CITY_SLUGS.length} cities, ${BLOG_POST_SLUGS.length} blog posts, ${ROUTE_LANDING_SLUGS.length} routes, ${ARTIST_LANDING_SLUGS.length} artists, ${VENUE_LANDING_SLUGS.length} venues, ${REGION_LANDING_SLUGS.length} regions)`);
 
 let ok = 0;
 let failed = 0;
@@ -151,6 +157,18 @@ function injectIntoShell(shellHtml, bodyHtml, seo, url) {
         : "index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1",
       false,
     );
+
+    // Geo meta tags — dynamic per page (overrides the hardcoded Madrid values in index.html)
+    if (seo.geoRegion) {
+      out = patchMeta(out, "geo.region", seo.geoRegion, false);
+    }
+    if (seo.geoPlacename) {
+      out = patchMeta(out, "geo.placename", seo.geoPlacename, false);
+    }
+    if (seo.geoLat != null && seo.geoLng != null) {
+      out = patchMeta(out, "geo.position", `${seo.geoLat};${seo.geoLng}`, false);
+      out = patchMeta(out, "ICBM", `${seo.geoLat}, ${seo.geoLng}`, false);
+    }
   }
 
   // Inject the rendered body. The shell uses <div id="root"></div>.
@@ -197,14 +215,25 @@ async function writeSitemapIndex() {
     <loc>${SITE_URL}/sitemap-static.xml</loc>
     <lastmod>${today}</lastmod>
   </sitemap>
+  <sitemap>
+    <loc>${SITE_URL}/api/sitemap-concerts.xml</loc>
+    <lastmod>${today}</lastmod>
+  </sitemap>
 </sitemapindex>
 `;
   await fs.writeFile(path.join(distDir, "sitemap.xml"), xml, "utf8");
-  console.log(`[prerender] sitemap.xml updated — lastmod ${today}`);
+  console.log(`[prerender] sitemap.xml updated — 2 sitemaps (static + dynamic concerts)`);
 }
 
 async function writeSitemap(urls) {
   const today = new Date().toISOString().slice(0, 10);
+  const contentDate = CONTENT_LAST_UPDATED ?? today;
+  const LASTMOD = (u) => {
+    if (u === "/" || u === "/concerts") return today;
+    if (u.startsWith("/festivales/") || u.startsWith("/conciertos/") || u.startsWith("/rutas/") ||
+        u.startsWith("/artistas/") || u.startsWith("/recintos/") || u.startsWith("/festivales-en/")) return contentDate;
+    return today;
+  };
   const PRIORITY = (u) => {
     if (u === "/") return "1.0";
     if (u === "/concerts" || u === "/festivales" || u === "/guia-transporte-festivales" || u === "/rutas") return "0.9";
@@ -213,6 +242,9 @@ async function writeSitemap(urls) {
     if (u === "/blog") return "0.8";
     if (u.startsWith("/blog/")) return "0.75";
     if (u.startsWith("/rutas/")) return "0.7";
+    if (u.startsWith("/artistas/")) return "0.75";
+    if (u.startsWith("/recintos/")) return "0.7";
+    if (u.startsWith("/festivales-en/")) return "0.75";
     if (["/como-funciona", "/faq"].includes(u)) return "0.7";
     if (["/acerca-de", "/contacto", "/prensa"].includes(u)) return "0.6";
     return "0.3";
@@ -223,16 +255,30 @@ async function writeSitemap(urls) {
     if (u === "/blog" || u === "/rutas") return "weekly";
     if (u.startsWith("/blog/")) return "monthly";
     if (u.startsWith("/rutas/")) return "monthly";
+    if (u.startsWith("/artistas/")) return "weekly";
+    if (u.startsWith("/recintos/")) return "monthly";
+    if (u.startsWith("/festivales-en/")) return "monthly";
     return "monthly";
   };
-  const entries = urls.map((u) => `  <url>
+  const FESTIVAL_OG_SLUG = (u) => {
+    const m = u.match(/^\/festivales\/(.+)$/);
+    return m ? m[1] : null;
+  };
+  const entries = urls.map((u) => {
+    const festSlug = FESTIVAL_OG_SLUG(u);
+    const imageBlock = festSlug
+      ? `\n    <image:image>\n      <image:loc>${SITE_URL}/og/${festSlug}.png</image:loc>\n      <image:title>Carpooling a ${festSlug.replace(/-/g, " ")} — ConcertRide</image:title>\n    </image:image>`
+      : "";
+    return `  <url>
     <loc>${SITE_URL}${u === "/" ? "/" : u}</loc>
-    <lastmod>${today}</lastmod>
+    <lastmod>${LASTMOD(u)}</lastmod>
     <changefreq>${FREQ(u)}</changefreq>
-    <priority>${PRIORITY(u)}</priority>
-  </url>`).join("\n");
+    <priority>${PRIORITY(u)}</priority>${imageBlock}
+  </url>`;
+  }).join("\n");
   const xml = `<?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
 ${entries}
 </urlset>
 `;

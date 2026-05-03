@@ -7,6 +7,7 @@ import { ConcertCard } from "@/components/ConcertCard";
 import { LoadingSpinner } from "@/components/ui";
 import { useSeoMeta } from "@/lib/useSeoMeta";
 import { SITE_URL } from "@/lib/siteUrl";
+import { REGION_ISO } from "@/lib/seoConfig";
 import { FESTIVAL_LANDINGS, FESTIVAL_LANDINGS_BY_SLUG } from "@/lib/festivalLandings";
 import { ROUTE_LANDINGS } from "@/lib/routeLandings";
 
@@ -39,7 +40,9 @@ export default function FestivalLandingPage() {
 
   const [concerts, setConcerts] = useState<Concert[] | null>(null);
 
-  const festivalOgImage = festival?.ogImage ?? FESTIVAL_DEFAULT_OG;
+  const festivalOgImage = festival?.ogImage
+    ? (festival.ogImage.startsWith("http") ? festival.ogImage : `${SITE_URL}${festival.ogImage}`)
+    : FESTIVAL_DEFAULT_OG;
 
   const festYear = festival ? new Date(festival.startDate).getFullYear() : new Date().getFullYear();
 
@@ -149,6 +152,10 @@ export default function FestivalLandingPage() {
           `carpooling ${festival.city} ${festival.shortName}`,
         ].join(", ")
       : undefined,
+    geoRegion: festival ? (REGION_ISO[festival.region] ?? undefined) : undefined,
+    geoPlacename: festival ? `${festival.city}, España` : undefined,
+    geoLat: festival?.lat,
+    geoLng: festival?.lng,
   });
 
   useEffect(() => {
@@ -312,12 +319,31 @@ export default function FestivalLandingPage() {
     })),
   };
 
+  const jsonLdAnnouncement = festival.announcement && new Date(festival.announcement.expires) > new Date()
+    ? {
+        "@context": "https://schema.org",
+        "@type": "SpecialAnnouncement",
+        name: `Actualización sobre ${festival.name}`,
+        text: festival.announcement.text,
+        datePosted: new Date().toISOString().slice(0, 10),
+        expires: festival.announcement.expires,
+        announcementLocation: {
+          "@type": "MusicVenue",
+          name: festival.venue,
+          address: festival.venueAddress,
+        },
+        ...(festival.announcement.url ? { url: festival.announcement.url } : {}),
+        about: { "@type": "MusicEvent", "@id": `${SITE_URL}/festivales/${festival.slug}#event` },
+      }
+    : null;
+
   return (
     <main id="main" className="min-h-dvh bg-cr-bg text-cr-text pt-14">
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdEvent) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdSeries) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdBreadcrumb) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdFaq) }} />
+      {jsonLdAnnouncement && <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdAnnouncement) }} />}
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({
         "@context": "https://schema.org",
         "@type": "HowTo",

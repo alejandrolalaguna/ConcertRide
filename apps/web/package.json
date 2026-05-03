@@ -5,12 +5,15 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "tsc --noEmit && vite build && npm run build:ssr && npm run prerender",
+    "build": "tsc --noEmit && vite build && npm run build:ssr && npm run prerender && npm run gen:llms-routes && npm run validate:schema",
     "build:ssr": "node scripts/build-ssr.mjs",
     "prerender": "node scripts/prerender.mjs",
+    "validate:schema": "node scripts/validate-schema.mjs",
     "preview": "vite preview",
     "type-check": "tsc --noEmit",
     "favicons": "node scripts/gen-favicons.mjs",
+    "gen:og": "node scripts/gen-og-festivals.mjs",
+    "gen:llms-routes": "node scripts/gen-llms-routes.mjs",
     "test": "vitest run",
     "test:watch": "vitest"
   },
