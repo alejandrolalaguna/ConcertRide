@@ -655,6 +655,7 @@ interface FestivalData {
   endDate: string;
   priceFrom: string;
   blurb: string;
+  image?: string;
   originCities: { city: string; km: number; drivingTime: string; range: string }[];
   faqs: { q: string; a: string }[];
 }
@@ -1637,6 +1638,7 @@ function festivalBody(slug: string, f: FestivalData, base: string): string {
   });
 
   const wikidataUri = FESTIVAL_WIKIDATA[slug];
+  const festivalImage = f.image ?? `${base}/og-fallback.png`;
   const eventJsonLd = JSON.stringify({
     "@context": "https://schema.org",
     "@type": "MusicEvent",
@@ -1644,25 +1646,28 @@ function festivalBody(slug: string, f: FestivalData, base: string): string {
     name: f.name,
     startDate: f.startDate,
     endDate: f.endDate,
+    image: festivalImage,
+    description: `${f.blurb} Encuentra o publica un viaje compartido a ${f.name} desde cualquier ciudad de España. Sin comisión. ConcertRide.`,
+    url: `${base}/festivales/${slug}`,
+    eventStatus: "https://schema.org/EventScheduled",
+    eventAttendanceMode: "https://schema.org/OfflineEventAttendanceMode",
     ...(wikidataUri ? { sameAs: wikidataUri } : {}),
     location: {
       "@type": "Place",
       name: f.venue,
       address: { "@type": "PostalAddress", streetAddress: f.venueAddress, addressLocality: f.city, addressCountry: "ES" },
     },
-    url: `${base}/festivales/${slug}`,
-    description: `${f.blurb} Encuentra o publica un viaje compartido a ${f.name} desde cualquier ciudad de España. Sin comisión. ConcertRide.`,
+    performer: { "@type": "PerformingGroup", name: f.name },
+    organizer: { "@type": "Organization", name: f.name, url: `${base}/festivales/${slug}` },
     offers: {
       "@type": "Offer",
       price: f.priceFrom,
       priceCurrency: "EUR",
       availability: "https://schema.org/InStock",
+      validFrom: f.startDate,
       url: `${base}/festivales/${slug}`,
       description: `Carpooling a ${f.name} desde ${f.priceFrom} €/asiento. Sin comisión.`,
     },
-    organizer: { "@type": "Organization", name: f.name },
-    eventAttendanceMode: "https://schema.org/OfflineEventAttendanceMode",
-    eventStatus: "https://schema.org/EventScheduled",
     superEvent: {
       "@type": "EventSeries",
       name: f.name,
@@ -2052,9 +2057,48 @@ function routeBody(slug: string, r: RouteData, base: string): string {
       price: r.priceFrom,
       priceCurrency: "EUR",
       availability: "https://schema.org/InStock",
+      validFrom: FESTIVALS[festivalSlug]?.startDate ?? new Date().toISOString().slice(0, 10),
       url: `${base}/rutas/${slug}`,
     },
   });
+
+  const festivalForRoute = FESTIVALS[festivalSlug];
+  const routeEventJsonLd = festivalForRoute
+    ? JSON.stringify({
+        "@context": "https://schema.org",
+        "@type": "MusicEvent",
+        "@id": `${base}/festivales/${festivalSlug}#event`,
+        name: festivalForRoute.name,
+        startDate: festivalForRoute.startDate,
+        endDate: festivalForRoute.endDate,
+        image: festivalForRoute.image ?? `${base}/og-fallback.png`,
+        description: festivalForRoute.blurb,
+        url: `${base}/festivales/${festivalSlug}`,
+        eventStatus: "https://schema.org/EventScheduled",
+        eventAttendanceMode: "https://schema.org/OfflineEventAttendanceMode",
+        location: {
+          "@type": "Place",
+          name: festivalForRoute.venue,
+          address: {
+            "@type": "PostalAddress",
+            streetAddress: festivalForRoute.venueAddress,
+            addressLocality: festivalForRoute.city,
+            addressCountry: "ES",
+          },
+        },
+        performer: { "@type": "PerformingGroup", name: festivalForRoute.name },
+        organizer: { "@type": "Organization", name: festivalForRoute.name, url: `${base}/festivales/${festivalSlug}` },
+        offers: {
+          "@type": "Offer",
+          price: r.priceFrom,
+          priceCurrency: "EUR",
+          availability: "https://schema.org/InStock",
+          validFrom: festivalForRoute.startDate,
+          url: `${base}/festivales/${festivalSlug}`,
+          description: `Carpooling a ${festivalForRoute.name} desde ${r.priceFrom} €/asiento. Sin comisión.`,
+        },
+      })
+    : null;
 
   const breadcrumbJsonLd = JSON.stringify({
     "@context": "https://schema.org",
@@ -2068,6 +2112,7 @@ function routeBody(slug: string, r: RouteData, base: string): string {
 
   return `<script type="application/ld+json">${breadcrumbJsonLd}</script>
 <script type="application/ld+json">${tripJsonLd}</script>
+${routeEventJsonLd ? `<script type="application/ld+json">${routeEventJsonLd}</script>` : ""}
 <script type="application/ld+json">${faqJsonLd}</script>
 <nav aria-label="Breadcrumb"><a href="${base}/">Inicio</a> / <a href="${base}/rutas">Rutas</a> / <span>${esc(r.originCity)} → ${esc(r.festivalShortName)}</span></nav>
 <p>Viaje compartido de ${esc(r.originCity)} a ${esc(r.festivalName)} en ${esc(r.festivalCity)}. ${r.distance} km · ${esc(r.drivingTime)} · desde ${r.priceFrom} €/asiento con ConcertRide.</p>
