@@ -319,3 +319,7 @@ Documento de descubrimiento AI: [/.well-known/ai-plugin.json](https://concertrid
 ## Contacto
 
 Web: [concertride.me](https://concertride.me/)
+
+---
+
+Last updated: 2026-05-03 (rev21: low-festival citySlug fixed malaga→alicante; FestivalesPage duplicate ItemList JSON-LD removed)

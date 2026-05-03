@@ -41,7 +41,7 @@ export default function GuiaTransporteFestivalesPage() {
       "transporte festivales España, cómo llegar festival España, autobús festival España, bus festival España, lanzadera festival, tren festival, cómo ir al festival sin coche, alternativa taxi festival España, carpooling festival, guía transporte festival 2026, volver festival madrugada, movilidad sostenible festival, festival sin coche propio, transporte nocturno festival",
     ogType: "article",
     articlePublishedTime: "2026-04-24",
-    articleModifiedTime: "2026-05-02",
+    articleModifiedTime: new Date().toISOString().slice(0, 10),
     articleAuthor: "Alejandro Lalaguna",
   });
 
@@ -63,7 +63,7 @@ export default function GuiaTransporteFestivalesPage() {
       "@id": `${SITE_URL}/#organization`,
     },
     datePublished: "2026-04-24",
-    dateModified: "2026-05-03",
+    dateModified: new Date().toISOString().slice(0, 10),
     image: {
       "@type": "ImageObject",
       url: "https://concertride.me/og/home.png",

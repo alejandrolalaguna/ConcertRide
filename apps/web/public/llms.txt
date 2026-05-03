@@ -175,7 +175,7 @@ ConcertRide ES (concertride.me) is a Spanish carpooling platform built exclusive
 - [Madrid → FIB](https://concertride.me/rutas/madrid-fib): 465 km, 4h, 12–17 €/asiento; Benicàssim Castellón
 - [Málaga → Cala Mijas](https://concertride.me/rutas/malaga-cala-mijas): 25 km, 25 min, 3–5 €/asiento; Cortijo de Torres Málaga; sin shuttle oficial
 - [Sevilla → Cala Mijas](https://concertride.me/rutas/sevilla-cala-mijas): 200 km, 2h, 6–9 €/asiento; Cortijo de Torres Málaga
-- [Alicante → Low Festival](https://concertride.me/rutas/alicante-low-festival): 45 km, 35 min, 15 €/asiento; Benidorm; sin transporte nocturno al recinto
+- [Alicante → Low Festival](https://concertride.me/rutas/alicante-low-festival): 45 km, 35 min, 3–5 €/asiento; Benidorm; sin transporte nocturno al recinto
 - [Valencia → Low Festival](https://concertride.me/rutas/valencia-low-festival): 150 km, 1h 30 min, 5–8 €/asiento; Benidorm
 - [Madrid → Cruïlla](https://concertride.me/rutas/madrid-cruilla): 620 km, 5h 30 min, 15–20 €/asiento; Parc del Fòrum Barcelona; Metro L4 Besòs Mar
 - [Madrid → Tomavistas](https://concertride.me/rutas/madrid-tomavistas): 15 km, 25 min, 4–7 €/asiento; Jardines del Buen Retiro Madrid; Metro L2 Retiro / L9 Ibiza
@@ -581,4 +581,4 @@ Región: España
 
 - [Contenido completo](https://concertride.me/llms-full.txt): Versión expandida con texto completo de páginas clave, comparativas detalladas y preguntas frecuentes
 
-Last updated: 2026-05-03 (rev20: index.html route count 96+ (was 71+ and 97+); index.html dateModified updated to 2026-05-03; /acerca-de bot-layer FAQPage added (mirrors React component); rev19: FestivalesPage ItemList schema added; AcercaDePage FAQPage schema added (5 brand Q&As); rev18: RutasIndexPage FAQPage JSON-LD; route title formula updated; ai-plugin.json 96+; all 71+ corrected to 96+; rev17: /rutas ItemList expanded to 96 routes)
+Last updated: 2026-05-03 (rev21: low-festival citySlug fixed malaga→alicante; FestivalesPage duplicate ItemList JSON-LD removed; dateModified fields made dynamic in FestivalesPage + GuiaTransporteFestivalesPage; rev20: index.html route count 96+; /acerca-de bot-layer FAQPage added; rev19: FestivalesPage ItemList schema added; rev18: RutasIndexPage FAQPage JSON-LD; route title formula updated; ai-plugin.json 96+)

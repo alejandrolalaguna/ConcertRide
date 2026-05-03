@@ -1038,10 +1038,10 @@ ${posts.map((p) => `  <li><a href="${base}/blog/${p.slug}">${p.title}</a></li>`)
           { slug: "murcia-zevra-festival", label: "Murcia → Zevra Festival Valencia", price: "8–12 €", time: "2 h" },
           { slug: "valencia-zevra-festival", label: "Valencia → Zevra Festival", price: "3–5 €", time: "20 min" },
           // Low Festival
-          { slug: "madrid-low-festival", label: "Madrid → Low Festival Benidorm", price: "14–20 €", time: "3 h 30 min" },
-          { slug: "valencia-low-festival", label: "Valencia → Low Festival Benidorm", price: "6–10 €", time: "1 h 30 min" },
-          { slug: "alicante-low-festival", label: "Alicante → Low Festival Benidorm", price: "4–7 €", time: "45 min" },
-          { slug: "murcia-low-festival", label: "Murcia → Low Festival Benidorm", price: "6–9 €", time: "1 h 30 min" },
+          { slug: "madrid-low-festival", label: "Madrid → Low Festival Benidorm", price: "12–17 €", time: "4 h" },
+          { slug: "valencia-low-festival", label: "Valencia → Low Festival Benidorm", price: "5–8 €", time: "1 h 30 min" },
+          { slug: "alicante-low-festival", label: "Alicante → Low Festival Benidorm", price: "3–5 €", time: "35 min" },
+          { slug: "murcia-low-festival", label: "Murcia → Low Festival Benidorm", price: "4–7 €", time: "1 h" },
           // Tomavistas
           { slug: "toledo-tomavistas", label: "Toledo → Tomavistas Madrid", price: "4–7 €", time: "55 min" },
           { slug: "segovia-tomavistas", label: "Segovia → Tomavistas Madrid", price: "4–7 €", time: "1 h 10 min" },
@@ -1499,7 +1499,7 @@ const FESTIVALS: Record<string, FestivalData> = {
     shortName: "Tomavistas",
     city: "Madrid",
     venue: "Jardines del Buen Retiro",
-    venueAddress: "Jardines del Buen Retiro, Parque del Retiro, 28009 Madrid",
+    venueAddress: "Paseo de la Argentina, s/n, 28009 Madrid",
     dates: "15–17 mayo 2026",
     startDate: "2026-05-15",
     endDate: "2026-05-17",

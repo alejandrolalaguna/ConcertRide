@@ -31,7 +31,7 @@ export default function FestivalesPage() {
     numberOfItems: FESTIVAL_LANDINGS.length,
     keywords: `festivales España ${year}, carpooling festivales, Mad Cool carpooling, Primavera Sound viaje compartido, Sónar transporte, BBK Live Bilbao, Arenal Sound Burriana, Viña Rock Villarrobledo`,
     datePublished: "2026-04-10",
-    dateModified: "2026-05-03",
+    dateModified: new Date().toISOString().slice(0, 10),
     isPartOf: { "@id": `${SITE_URL}/#website` },
     about: { "@id": `${SITE_URL}/#service` },
     speakable: {
@@ -293,29 +293,6 @@ export default function FestivalesPage() {
           </article>
         </div>
       </section>
-
-      {/* ── Schema.org ItemList ── */}
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify({
-            "@context": "https://schema.org",
-            "@type": "ItemList",
-            name: `Festivales de música en España con carpooling ${year}`,
-            description: "Lista de festivales de música en España con viajes compartidos disponibles en ConcertRide.",
-            url: `${SITE_URL}/festivales`,
-            itemListOrder: "https://schema.org/ItemListOrderAscending",
-            numberOfItems: FESTIVAL_LANDINGS.length,
-            itemListElement: FESTIVAL_LANDINGS.map((f, i) => ({
-              "@type": "ListItem",
-              position: i + 1,
-              name: f.name,
-              url: `${SITE_URL}/festivales/${f.slug}`,
-              description: `Carpooling a ${f.name} desde ${f.originCities[0]?.city ?? "toda España"}. ${f.typicalDates}.`,
-            })),
-          }),
-        }}
-      />
 
     </main>
   );
