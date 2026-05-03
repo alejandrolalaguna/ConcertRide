@@ -242,6 +242,7 @@ export default function FestivalLandingPage() {
     eventAttendanceMode: "https://schema.org/OfflineEventAttendanceMode",
     eventStatus: "https://schema.org/EventScheduled",
     typicalAgeRange: "18-",
+    audience: { "@type": "Audience", audienceType: "Aficionados a la música", geographicArea: { "@type": "Country", name: "Spain" } },
     inLanguage: "es-ES",
     superEvent: {
       "@type": "EventSeries",
@@ -366,7 +367,8 @@ export default function FestivalLandingPage() {
           "@type": "MusicEvent",
           "name": festival.name,
           "startDate": festival.startDate,
-          "location": { "@type": "Place", "name": festival.venue, "addressLocality": festival.city }
+          "location": { "@type": "Place", "name": festival.venue, "addressLocality": festival.city },
+          ...(festivalWikidataUri ? { "sameAs": festivalWikidataUri } : {}),
         },
         "keywords": `cómo ir a ${festival.shortName}, carpooling ${festival.name}, transporte ${festival.shortName} ${festival.city}, autobús ${festival.shortName}, bus ${festival.shortName}, ${festival.shortName} ${new Date(festival.startDate).getFullYear()}`,
         "speakable": {

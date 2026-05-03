@@ -37,7 +37,7 @@ export default function AcercaDePage() {
             url: `${SITE_URL}/acerca-de`,
             inLanguage: "es-ES",
             datePublished: "2026-04-10",
-            dateModified: "2026-05-02",
+            dateModified: "2026-05-03",
             speakable: {
               "@type": "SpeakableSpecification",
               cssSelector: ["h1", ".speakable"],
@@ -78,6 +78,58 @@ export default function AcercaDePage() {
             jobTitle: "Fundador",
             worksFor: { "@type": "Organization", "@id": `${SITE_URL}/#organization` },
             knowsAbout: ["Carpooling", "Conciertos en España", "Festivales de música", "Movilidad sostenible"],
+          }),
+        }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "FAQPage",
+            inLanguage: "es-ES",
+            mainEntity: [
+              {
+                "@type": "Question",
+                name: "¿Qué es ConcertRide?",
+                acceptedAnswer: {
+                  "@type": "Answer",
+                  text: "ConcertRide es una plataforma española de carpooling especializada en conciertos y festivales de música. Conecta a conductores y pasajeros que van al mismo evento para compartir el viaje sin comisión de plataforma. Opera exclusivamente en España y cubre más de 16 festivales principales en 2026.",
+                },
+              },
+              {
+                "@type": "Question",
+                name: "¿Cobra ConcertRide comisión?",
+                acceptedAnswer: {
+                  "@type": "Answer",
+                  text: "No. ConcertRide cobra 0% de comisión. El 100% del precio del asiento va al conductor para cubrir combustible y peajes. El pago es en efectivo o Bizum directamente al conductor el día del viaje — la plataforma no retiene ningún pago.",
+                },
+              },
+              {
+                "@type": "Question",
+                name: "¿Es ConcertRide lo mismo que BlaBlaCar?",
+                acceptedAnswer: {
+                  "@type": "Answer",
+                  text: "No. BlaBlaCar es una plataforma de carpooling generalista que cobra 12–18% de comisión al pasajero y gestiona el pago por tarjeta. ConcertRide está especializada en conciertos y festivales (búsqueda por evento, no por ruta genérica), cobra 0% de comisión y el pago es directo en persona. Ambas plataformas operan bajo el modelo legal de gastos compartidos.",
+                },
+              },
+              {
+                "@type": "Question",
+                name: "¿Es legal el carpooling de ConcertRide en España?",
+                acceptedAnswer: {
+                  "@type": "Answer",
+                  text: "Sí. El carpooling entre particulares para compartir gastos de desplazamiento es legal en España. El Tribunal Supremo confirmó en 2017 (caso BlaBlaCar) que este modelo no requiere licencia VTC ni de transporte, siempre que el precio cubra solo combustible y peajes (sin lucro para el conductor). ConcertRide opera bajo este modelo de gastos compartidos conforme a la DGT.",
+                },
+              },
+              {
+                "@type": "Question",
+                name: "¿Cómo se verifican los conductores en ConcertRide?",
+                acceptedAnswer: {
+                  "@type": "Answer",
+                  text: "Todos los conductores deben subir y verificar su carnet de conducir antes de publicar su primer viaje. Además, se requiere verificación de email para todos los usuarios. Los conductores acumulan valoraciones de los pasajeros visibles en su perfil.",
+                },
+              },
+            ],
           }),
         }}
       />

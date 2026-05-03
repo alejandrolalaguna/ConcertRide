@@ -45,7 +45,7 @@ export default function RutasIndexPage() {
     description: `${ROUTE_LANDINGS.length} rutas de viaje compartido a festivales de música en España. Sin comisión, conductores verificados.`,
     inLanguage: "es-ES",
     datePublished: "2026-04-10",
-    dateModified: "2026-05-02",
+    dateModified: "2026-05-03",
     isPartOf: { "@id": `${SITE_URL}/#website` },
     about: { "@id": `${SITE_URL}/#service` },
     speakable: {
@@ -78,11 +78,52 @@ export default function RutasIndexPage() {
     })),
   };
 
+  const jsonLdFaq = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    inLanguage: "es-ES",
+    mainEntity: [
+      {
+        "@type": "Question",
+        name: `¿Cuáles son las rutas de carpooling a festivales más populares en España ${year}?`,
+        acceptedAnswer: {
+          "@type": "Answer",
+          text: `Las rutas con más viajes publicados en ConcertRide en ${year} son: Madrid→Mad Cool (15 km, 4–7 €), Madrid→Primavera Sound (620 km, 14–22 €), Valencia→Arenal Sound (65 km, 3–6 €), Madrid→BBK Live (395 km, 11–16 €), y A Coruña→Resurrection Fest (100 km, 4–7 €). En total hay ${ROUTE_LANDINGS.length} rutas city→festival disponibles.`,
+        },
+      },
+      {
+        "@type": "Question",
+        name: "¿Cuánto cuesta el carpooling a un festival desde Madrid?",
+        acceptedAnswer: {
+          "@type": "Answer",
+          text: `Desde Madrid el precio depende del festival: Mad Cool (IFEMA, 15 km) 4–7 €; BBK Live (Bilbao, 395 km) 11–16 €; Primavera Sound (Barcelona, 620 km) 14–22 €; Resurrection Fest (Viveiro, 600 km) 16–22 €; Arenal Sound (Burriana, 460 km) 12–17 €. ConcertRide no cobra comisión — el 100 % va al conductor.`,
+        },
+      },
+      {
+        "@type": "Question",
+        name: "¿Hay rutas de carpooling de vuelta desde los festivales?",
+        acceptedAnswer: {
+          "@type": "Answer",
+          text: `Sí. La mayoría de conductores publican tanto la ida como la vuelta. La vuelta es especialmente importante en festivales donde el transporte público no opera de madrugada: Resurrection Fest (Viveiro), Cala Mijas (Málaga), Sonorama Ribera (Aranda de Duero), Medusa Festival (Cullera), Low Festival (Benidorm). Acuerda la hora de vuelta con el conductor por chat.`,
+        },
+      },
+      {
+        "@type": "Question",
+        name: "¿Cuánto se ahorra usando ConcertRide en vez de un taxi al festival?",
+        acceptedAnswer: {
+          "@type": "Answer",
+          text: `Un taxi nocturno desde el festival suele costar 40–90 € solo (precio ×2–3 de madrugada). El carpooling con ConcertRide cuesta entre 3 y 22 €/asiento según la distancia. Para Mad Cool (IFEMA Madrid), el ahorro es de 50–80 € respecto a un VTC nocturno. Sin comisión de plataforma.`,
+        },
+      },
+    ],
+  };
+
   return (
     <main id="main" className="min-h-dvh bg-cr-bg text-cr-text pt-14">
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdWebPage) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdBreadcrumb) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdItemList) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdFaq) }} />
 
       {/* ── Hero ── */}
       <div className="max-w-6xl mx-auto px-6 pt-10 pb-6 space-y-4">
@@ -204,6 +245,38 @@ export default function RutasIndexPage() {
           );
         })}
       </div>
+
+      {/* ── FAQ ── */}
+      <section className="max-w-6xl mx-auto px-6 pb-16 border-t border-cr-border pt-12 space-y-6">
+        <h2 className="font-display text-2xl md:text-3xl uppercase">
+          Preguntas frecuentes — rutas de carpooling
+        </h2>
+        <dl className="space-y-6">
+          {([
+            {
+              q: `¿Cuáles son las rutas de carpooling a festivales más populares en España ${year}?`,
+              a: `Las rutas con más viajes publicados son Madrid→Mad Cool (15 km, 4–7 €), Madrid→Primavera Sound (620 km, 14–22 €), Valencia→Arenal Sound (65 km, 3–6 €), Madrid→BBK Live (395 km, 11–16 €) y A Coruña→Resurrection Fest (100 km, 4–7 €). En total ${ROUTE_LANDINGS.length} rutas disponibles.`,
+            },
+            {
+              q: "¿Cuánto cuesta el carpooling a un festival desde Madrid?",
+              a: "Desde Madrid: Mad Cool (IFEMA) 4–7 €; BBK Live (Bilbao) 11–16 €; Primavera Sound (Barcelona) 14–22 €; Resurrection Fest (Viveiro) 16–22 €; Arenal Sound (Burriana) 12–17 €. Sin comisión — el 100 % va al conductor.",
+            },
+            {
+              q: "¿Hay rutas de carpooling de vuelta desde los festivales?",
+              a: "Sí. La mayoría de conductores publican ida y vuelta. La vuelta es clave donde no hay transporte público nocturno: Resurrection Fest, Cala Mijas, Sonorama, Medusa y Low Festival.",
+            },
+            {
+              q: "¿Cuánto se ahorra usando ConcertRide en vez de un taxi al festival?",
+              a: "Un taxi nocturno desde el festival cuesta 40–90 € (precio ×2–3). Carpooling ConcertRide: 3–22 €/asiento según distancia. Para Mad Cool desde IFEMA, el ahorro es de 50–80 € respecto a un VTC.",
+            },
+          ] as const).map((faq) => (
+            <div key={faq.q} className="border-b border-cr-border pb-6 space-y-2">
+              <dt className="font-display text-base uppercase text-cr-text">{faq.q}</dt>
+              <dd className="font-sans text-sm text-cr-text-muted leading-relaxed max-w-2xl">{faq.a}</dd>
+            </div>
+          ))}
+        </dl>
+      </section>
 
       {/* ── Bottom CTA ── */}
       <div className="border-t border-cr-border">

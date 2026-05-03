@@ -671,6 +671,7 @@ function buildStaticRoutes(base: string): Record<string, { title: string; descri
           isPartOf: { "@type": "WebSite", "@id": `${base}/#website` },
           about: { "@type": "Organization", "@id": `${base}/#organization` },
           dateModified: "2026-05-03",
+          speakable: { "@type": "SpeakableSpecification", cssSelector: ["h1", ".speakable", "p:first-of-type"] },
         });
         const orgDetailJsonLd = JSON.stringify({
           "@context": "https://schema.org",
@@ -685,12 +686,25 @@ function buildStaticRoutes(base: string): Record<string, { title: string; descri
           knowsAbout: ["carpooling", "festivales de música", "conciertos en España", "transporte compartido", "ride-sharing", "economía colaborativa"],
           hasOfferCatalog: {
             "@type": "OfferCatalog",
-            name: "Rutas de carpooling a festivales",
-            numberOfItems: 71,
+            name: "Rutas de carpooling a festivales de música en España 2026",
+            numberOfItems: 96,
             itemListElement: [
-              { "@type": "Offer", name: "Carpooling a Mad Cool Festival", price: "4", priceCurrency: "EUR", url: `${base}/festivales/mad-cool` },
-              { "@type": "Offer", name: "Carpooling a Primavera Sound", price: "14", priceCurrency: "EUR", url: `${base}/festivales/primavera-sound` },
-              { "@type": "Offer", name: "Carpooling a BBK Live", price: "11", priceCurrency: "EUR", url: `${base}/festivales/bbk-live` },
+              { "@type": "Offer", name: "Carpooling a Mad Cool Festival (Madrid)", price: "4", priceCurrency: "EUR", url: `${base}/festivales/mad-cool` },
+              { "@type": "Offer", name: "Carpooling a Primavera Sound (Barcelona)", price: "5", priceCurrency: "EUR", url: `${base}/festivales/primavera-sound` },
+              { "@type": "Offer", name: "Carpooling a BBK Live (Bilbao)", price: "5", priceCurrency: "EUR", url: `${base}/festivales/bbk-live` },
+              { "@type": "Offer", name: "Carpooling a Sónar (Barcelona)", price: "5", priceCurrency: "EUR", url: `${base}/festivales/sonar` },
+              { "@type": "Offer", name: "Carpooling a FIB Benicàssim", price: "6", priceCurrency: "EUR", url: `${base}/festivales/fib` },
+              { "@type": "Offer", name: "Carpooling a Resurrection Fest (Viveiro)", price: "8", priceCurrency: "EUR", url: `${base}/festivales/resurrection-fest` },
+              { "@type": "Offer", name: "Carpooling a Arenal Sound (Castellón)", price: "4", priceCurrency: "EUR", url: `${base}/festivales/arenal-sound` },
+              { "@type": "Offer", name: "Carpooling a Medusa Festival (Cullera)", price: "5", priceCurrency: "EUR", url: `${base}/festivales/medusa-festival` },
+              { "@type": "Offer", name: "Carpooling a Viña Rock (Almansa)", price: "5", priceCurrency: "EUR", url: `${base}/festivales/vina-rock` },
+              { "@type": "Offer", name: "Carpooling a O Son do Camiño (Santiago)", price: "8", priceCurrency: "EUR", url: `${base}/festivales/o-son-do-camino` },
+              { "@type": "Offer", name: "Carpooling a Cala Mijas Fest (Málaga)", price: "5", priceCurrency: "EUR", url: `${base}/festivales/cala-mijas` },
+              { "@type": "Offer", name: "Carpooling a Sonorama Ribera (Aranda de Duero)", price: "6", priceCurrency: "EUR", url: `${base}/festivales/sonorama-ribera` },
+              { "@type": "Offer", name: "Carpooling a Zevra Festival (Valencia)", price: "4", priceCurrency: "EUR", url: `${base}/festivales/zevra-festival` },
+              { "@type": "Offer", name: "Carpooling a Low Festival (Benidorm)", price: "5", priceCurrency: "EUR", url: `${base}/festivales/low-festival` },
+              { "@type": "Offer", name: "Carpooling a Tomavistas (Madrid)", price: "4", priceCurrency: "EUR", url: `${base}/festivales/tomavistas` },
+              { "@type": "Offer", name: "Carpooling a Cruïlla (Barcelona)", price: "5", priceCurrency: "EUR", url: `${base}/festivales/cruilla` },
             ],
           },
           sameAs: [
@@ -720,9 +734,22 @@ function buildStaticRoutes(base: string): Record<string, { title: string; descri
           worksFor: { "@type": "Organization", "@id": `${base}/#organization` },
           knowsAbout: ["Carpooling", "Conciertos en España", "Festivales de música", "Movilidad sostenible"],
         });
+        const acercaFaqJsonLd = JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "FAQPage",
+          inLanguage: "es-ES",
+          mainEntity: [
+            { "@type": "Question", name: "¿Qué es ConcertRide?", acceptedAnswer: { "@type": "Answer", text: "ConcertRide es una plataforma española de carpooling especializada en conciertos y festivales de música. Conecta conductores y pasajeros que van al mismo evento para compartir el viaje sin comisión de plataforma. Opera exclusivamente en España y cubre más de 16 festivales principales en 2026." } },
+            { "@type": "Question", name: "¿Cobra ConcertRide comisión?", acceptedAnswer: { "@type": "Answer", text: "No. ConcertRide cobra 0% de comisión. El 100% del precio del asiento va al conductor para cubrir combustible y peajes. El pago es en efectivo o Bizum directamente al conductor el día del viaje — la plataforma no retiene ningún pago." } },
+            { "@type": "Question", name: "¿Es ConcertRide lo mismo que BlaBlaCar?", acceptedAnswer: { "@type": "Answer", text: "No. BlaBlaCar es una plataforma de carpooling generalista que cobra 12–18% de comisión al pasajero y gestiona el pago por tarjeta. ConcertRide está especializada en conciertos y festivales (búsqueda por evento, no por ruta genérica), cobra 0% de comisión y el pago es directo en persona." } },
+            { "@type": "Question", name: "¿Es legal el carpooling de ConcertRide en España?", acceptedAnswer: { "@type": "Answer", text: "Sí. El carpooling entre particulares para compartir gastos de desplazamiento es legal en España. El Tribunal Supremo confirmó en 2017 (caso BlaBlaCar) que este modelo no requiere licencia VTC, siempre que el precio cubra solo combustible y peajes. ConcertRide opera bajo este modelo de gastos compartidos conforme a la DGT." } },
+            { "@type": "Question", name: "¿Cómo se verifican los conductores en ConcertRide?", acceptedAnswer: { "@type": "Answer", text: "Todos los conductores deben subir y verificar su carnet de conducir antes de publicar su primer viaje. Además, se requiere verificación de email para todos los usuarios. Los conductores acumulan valoraciones de los pasajeros visibles en su perfil." } },
+          ],
+        });
         return `<script type="application/ld+json">${aboutPageJsonLd}</script>
 <script type="application/ld+json">${orgDetailJsonLd}</script>
 <script type="application/ld+json">${founderJsonLd}</script>
+<script type="application/ld+json">${acercaFaqJsonLd}</script>
 <script type="application/ld+json">${breadcrumbJsonLd}</script>
 <p>ConcertRide es la plataforma española de viaje compartido exclusiva para conciertos y festivales. Fundada en 2026, conecta conductores y pasajeros que van al mismo evento para compartir gastos de desplazamiento. Sin comisiones, sin intermediarios.</p>
 <h2>Nuestra misión</h2>
@@ -733,7 +760,7 @@ function buildStaticRoutes(base: string): Record<string, { title: string; descri
 <ul>
   <li>0 % de comisión de plataforma</li>
   <li>16 festivales cubiertos en 2026</li>
-  <li>71+ rutas de carpooling programáticas</li>
+  <li>96+ rutas de carpooling programáticas</li>
   <li>17 ciudades con landing pages de conciertos</li>
   <li>Conductores verificados con carnet de conducir</li>
   <li>Precio medio: 8–15 € por asiento</li>
@@ -778,12 +805,12 @@ function buildStaticRoutes(base: string): Record<string, { title: string; descri
       h1: "Blog de ConcertRide — Carpooling para conciertos y festivales",
       body: (() => {
         const posts = [
-          { slug: "festivales-musica-espana-2026", title: "Festivales de música en España 2026: fechas, recintos y transporte" },
-          { slug: "que-llevar-al-festival", title: "Qué llevar al festival 2026: lista completa y consejos" },
-          { slug: "autobuses-festivales-espana-2026", title: "Autobuses a festivales de España 2026: guía completa festival por festival" },
-          { slug: "blablacar-vs-concertride", title: "BlaBlaCar vs ConcertRide 2026: qué app elegir para festivales sin comisión" },
-          { slug: "como-volver-festival-madrugada", title: "Cómo volver de un festival de madrugada (sin pagar 90 € de taxi)" },
-          { slug: "huella-carbono-festivales-carpooling", title: "Huella de carbono de un festival: por qué el carpooling es la acción más efectiva" },
+          { slug: "festivales-musica-espana-2026", title: "Festivales de música en España 2026: fechas, recintos y transporte", abstract: "Calendario completo de los 16 festivales de música en España en 2026: Mad Cool (Madrid, 9–11 jul), Primavera Sound (Barcelona, 28 may–1 jun), Sónar (Barcelona, 18–20 jun), BBK Live (Bilbao, 9–11 jul), Arenal Sound (Burriana, 29 jul–2 ago) y más. Fechas, recintos y opciones de carpooling desde ConcertRide." },
+          { slug: "que-llevar-al-festival", title: "Qué llevar al festival 2026: lista completa y consejos", abstract: "Lista definitiva de equipaje para festivales de música en España 2026: lo imprescindible, lo que se olvida siempre y lo que debes saber si vas en carpooling. Organizada por días de duración y modo de transporte." },
+          { slug: "autobuses-festivales-espana-2026", title: "Autobuses a festivales de España 2026: guía completa festival por festival", abstract: "Solo 8 de los 16 festivales españoles tienen lanzadera oficial. Guía festival por festival: qué autobús existe, si es oficial o privado, horarios, precios y cuándo el carpooling es la única alternativa real (desde 3 €/asiento)." },
+          { slug: "blablacar-vs-concertride", title: "BlaBlaCar vs ConcertRide 2026: qué app elegir para festivales sin comisión", abstract: "ConcertRide cobra 0% de comisión frente al 12–18% de BlaBlaCar, permite buscar por festival concreto en lugar de por ruta genérica, y acepta pago en efectivo o Bizum sin tarjeta obligatoria. Comparativa completa con 11 criterios." },
+          { slug: "como-volver-festival-madrugada", title: "Cómo volver de un festival de madrugada (sin pagar 90 € de taxi)", abstract: "El metro cierra antes de que acabe el último concierto en casi todos los festivales españoles. Un taxi de madrugada desde IFEMA o Kobetamendi cuesta 60–100 €. El carpooling con ConcertRide es la opción más fiable y económica para la vuelta — reservada antes del festival." },
+          { slug: "huella-carbono-festivales-carpooling", title: "Huella de carbono de un festival: por qué el carpooling es la acción más efectiva", abstract: "El 80% de la huella de carbono de un festival proviene del transporte de asistentes. Compartir coche entre cuatro personas reduce las emisiones individuales un 75% respecto al coche en solitario — más que cualquier otra acción individual." },
         ];
         const blogLd = JSON.stringify({
           "@context": "https://schema.org",
@@ -799,12 +826,12 @@ function buildStaticRoutes(base: string): Record<string, { title: string; descri
           about: { "@id": `${base}/#service` },
           publisher: { "@id": `${base}/#organization` },
           speakable: { "@type": "SpeakableSpecification", cssSelector: ["h1", ".speakable"] },
-          blogPost: posts.map((p, idx) => ({
+          blogPost: posts.map((p) => ({
             "@type": "BlogPosting",
             "@id": `${base}/blog/${p.slug}#article`,
             headline: p.title,
             url: `${base}/blog/${p.slug}`,
-            ...(idx < 3 && { abstract: p.title }),
+            abstract: p.abstract,
             inLanguage: "es-ES",
           })),
         });
@@ -887,7 +914,7 @@ ${posts.map((p) => `  <li><a href="${base}/blog/${p.slug}">${p.title}</a></li>`)
 <ul>
   <li>Fundada en 2026 en España</li>
   <li>16 festivales cubiertos en 2026 (Mad Cool, Primavera Sound, Sónar, BBK Live, Arenal Sound, etc.)</li>
-  <li>71+ rutas de carpooling programáticas (ciudad→festival)</li>
+  <li>96+ rutas de carpooling programáticas (ciudad→festival)</li>
   <li>0 % de comisión — el 100 % del precio va al conductor</li>
   <li>Pago en efectivo o Bizum (sin tarjeta obligatoria)</li>
   <li>Conductores verificados con carnet de conducir</li>
@@ -925,21 +952,102 @@ ${posts.map((p) => `  <li><a href="${base}/blog/${p.slug}">${p.title}</a></li>`)
     },
     "/rutas": {
       title: `Rutas de carpooling a festivales en España 2026 — Precios y tiempos | ${SITE_NAME}`,
-      description: "71+ rutas de coche compartido a festivales en España: Madrid, Barcelona, Valencia, Sevilla, Bilbao y más. Precios desde 4 €/asiento. Sin comisión.",
+      description: "96 rutas de coche compartido a festivales en España: Madrid, Barcelona, Valencia, Sevilla, Bilbao y más. Precios desde 3 €/asiento. Sin comisión.",
       canonical: `${base}/rutas`,
       h1: "Rutas de carpooling a festivales en España 2026",
       body: (() => {
         const topRoutes = [
-          { slug: "madrid-mad-cool", label: "Madrid → Mad Cool Festival", price: "4–8 €", time: "25 min" },
-          { slug: "madrid-primavera-sound", label: "Madrid → Primavera Sound", price: "14–22 €", time: "5 h 30 min" },
+          // Mad Cool
+          { slug: "madrid-mad-cool", label: "Madrid → Mad Cool Festival", price: "4–7 €", time: "25 min" },
+          { slug: "toledo-mad-cool", label: "Toledo → Mad Cool Festival", price: "4–7 €", time: "55 min" },
+          { slug: "guadalajara-mad-cool", label: "Guadalajara → Mad Cool Festival", price: "3–6 €", time: "50 min" },
+          { slug: "segovia-mad-cool", label: "Segovia → Mad Cool Festival", price: "4–7 €", time: "1 h 10 min" },
+          { slug: "valencia-mad-cool", label: "Valencia → Mad Cool Festival", price: "10–14 €", time: "3 h 20 min" },
+          { slug: "zaragoza-mad-cool", label: "Zaragoza → Mad Cool Festival", price: "9–13 €", time: "3 h" },
+          { slug: "barcelona-mad-cool", label: "Barcelona → Mad Cool Festival", price: "15–20 €", time: "5 h 30 min" },
+          // Primavera Sound
+          { slug: "madrid-primavera-sound", label: "Madrid → Primavera Sound", price: "15–20 €", time: "5 h 30 min" },
+          { slug: "valencia-primavera-sound", label: "Valencia → Primavera Sound", price: "10–14 €", time: "3 h 15 min" },
+          { slug: "zaragoza-primavera-sound", label: "Zaragoza → Primavera Sound", price: "8–12 €", time: "2 h 45 min" },
+          { slug: "bilbao-primavera-sound", label: "Bilbao → Primavera Sound", price: "15–20 €", time: "5 h" },
+          { slug: "lleida-primavera-sound", label: "Lleida → Primavera Sound", price: "5–8 €", time: "1 h 45 min" },
           { slug: "barcelona-primavera-sound", label: "Barcelona → Primavera Sound", price: "4–8 €", time: "25 min" },
+          // Sónar
+          { slug: "madrid-sonar", label: "Madrid → Sónar Barcelona", price: "15–20 €", time: "5 h 30 min" },
+          { slug: "zaragoza-sonar", label: "Zaragoza → Sónar Barcelona", price: "8–12 €", time: "2 h 45 min" },
+          { slug: "valencia-sonar", label: "Valencia → Sónar Barcelona", price: "10–14 €", time: "3 h 15 min" },
+          { slug: "barcelona-sonar", label: "Barcelona → Sónar", price: "4–8 €", time: "30 min" },
+          // FIB Benicàssim
+          { slug: "madrid-fib", label: "Madrid → FIB Benicàssim", price: "12–18 €", time: "3 h 45 min" },
+          { slug: "valencia-fib", label: "Valencia → FIB Benicàssim", price: "5–8 €", time: "1 h" },
+          { slug: "barcelona-fib", label: "Barcelona → FIB Benicàssim", price: "8–14 €", time: "2 h 30 min" },
+          { slug: "zaragoza-fib", label: "Zaragoza → FIB Benicàssim", price: "6–10 €", time: "2 h" },
+          // BBK Live
           { slug: "madrid-bbk-live", label: "Madrid → BBK Live Bilbao", price: "18–28 €", time: "4 h" },
-          { slug: "madrid-arenal-sound", label: "Madrid → Arenal Sound", price: "16–24 €", time: "4 h 30 min" },
-          { slug: "valencia-arenal-sound", label: "Valencia → Arenal Sound", price: "8–14 €", time: "1 h 30 min" },
-          { slug: "madrid-resurrection-fest", label: "Madrid → Resurrection Fest", price: "30–55 €", time: "7 h 30 min" },
-          { slug: "madrid-sonar", label: "Madrid → Sónar Barcelona", price: "14–22 €", time: "5 h 30 min" },
-          { slug: "madrid-vina-rock", label: "Madrid → Viña Rock", price: "8–14 €", time: "2 h" },
-          { slug: "madrid-fib", label: "Madrid → FIB Benicàssim", price: "14–22 €", time: "4 h" },
+          { slug: "barcelona-bbk-live", label: "Barcelona → BBK Live Bilbao", price: "15–22 €", time: "5 h" },
+          { slug: "san-sebastian-bbk-live", label: "San Sebastián → BBK Live Bilbao", price: "3–6 €", time: "1 h" },
+          { slug: "vitoria-gasteiz-bbk-live", label: "Vitoria-Gasteiz → BBK Live Bilbao", price: "3–6 €", time: "1 h" },
+          { slug: "pamplona-bbk-live", label: "Pamplona → BBK Live Bilbao", price: "5–8 €", time: "1 h 30 min" },
+          { slug: "santander-bbk-live", label: "Santander → BBK Live Bilbao", price: "4–7 €", time: "1 h 15 min" },
+          // Resurrection Fest
+          { slug: "madrid-resurrection-fest", label: "Madrid → Resurrection Fest Viveiro", price: "30–55 €", time: "7 h 30 min" },
+          { slug: "a-coruna-resurrection-fest", label: "A Coruña → Resurrection Fest Viveiro", price: "4–7 €", time: "1 h 30 min" },
+          { slug: "santiago-de-compostela-resurrection-fest", label: "Santiago de Compostela → Resurrection Fest", price: "4–7 €", time: "1 h 45 min" },
+          { slug: "bilbao-resurrection-fest", label: "Bilbao → Resurrection Fest Viveiro", price: "20–30 €", time: "4 h 30 min" },
+          // Arenal Sound
+          { slug: "madrid-arenal-sound", label: "Madrid → Arenal Sound Castellón", price: "14–22 €", time: "4 h" },
+          { slug: "valencia-arenal-sound", label: "Valencia → Arenal Sound Castellón", price: "4–7 €", time: "1 h" },
+          { slug: "barcelona-arenal-sound", label: "Barcelona → Arenal Sound Castellón", price: "8–14 €", time: "2 h 30 min" },
+          { slug: "castellon-de-la-plana-arenal-sound", label: "Castellón → Arenal Sound", price: "3–5 €", time: "20 min" },
+          { slug: "alicante-arenal-sound", label: "Alicante → Arenal Sound Castellón", price: "8–12 €", time: "2 h" },
+          // Medusa Festival
+          { slug: "madrid-medusa-festival", label: "Madrid → Medusa Festival Cullera", price: "12–18 €", time: "3 h 20 min" },
+          { slug: "barcelona-medusa-festival", label: "Barcelona → Medusa Festival Cullera", price: "10–16 €", time: "3 h" },
+          { slug: "valencia-medusa-festival", label: "Valencia → Medusa Festival Cullera", price: "4–7 €", time: "50 min" },
+          { slug: "alicante-medusa-festival", label: "Alicante → Medusa Festival Cullera", price: "6–10 €", time: "1 h 45 min" },
+          // Viña Rock
+          { slug: "madrid-vina-rock", label: "Madrid → Viña Rock Almansa", price: "8–14 €", time: "2 h" },
+          { slug: "valencia-vina-rock", label: "Valencia → Viña Rock Almansa", price: "6–10 €", time: "1 h 30 min" },
+          { slug: "murcia-vina-rock", label: "Murcia → Viña Rock Almansa", price: "5–8 €", time: "1 h 15 min" },
+          { slug: "alicante-vina-rock", label: "Alicante → Viña Rock Almansa", price: "5–8 €", time: "1 h 30 min" },
+          // O Son do Camiño
+          { slug: "madrid-o-son-do-camino", label: "Madrid → O Son do Camiño Santiago", price: "30–50 €", time: "7 h" },
+          { slug: "a-coruna-o-son-do-camino", label: "A Coruña → O Son do Camiño Santiago", price: "3–5 €", time: "45 min" },
+          { slug: "vigo-o-son-do-camino", label: "Vigo → O Son do Camiño Santiago", price: "4–6 €", time: "1 h" },
+          { slug: "pontevedra-o-son-do-camino", label: "Pontevedra → O Son do Camiño Santiago", price: "3–5 €", time: "40 min" },
+          // Cala Mijas
+          { slug: "madrid-cala-mijas", label: "Madrid → Cala Mijas Fest Málaga", price: "18–28 €", time: "4 h 30 min" },
+          { slug: "malaga-cala-mijas", label: "Málaga → Cala Mijas Fest", price: "3–5 €", time: "20 min" },
+          { slug: "sevilla-cala-mijas", label: "Sevilla → Cala Mijas Fest Málaga", price: "6–9 €", time: "2 h" },
+          { slug: "granada-cala-mijas", label: "Granada → Cala Mijas Fest Málaga", price: "5–8 €", time: "1 h 30 min" },
+          { slug: "cadiz-cala-mijas", label: "Cádiz → Cala Mijas Fest Málaga", price: "6–9 €", time: "2 h" },
+          // Sonorama Ribera
+          { slug: "madrid-sonorama-ribera", label: "Madrid → Sonorama Ribera Aranda", price: "6–10 €", time: "1 h 30 min" },
+          { slug: "valladolid-sonorama-ribera", label: "Valladolid → Sonorama Ribera Aranda", price: "4–7 €", time: "1 h" },
+          { slug: "burgos-sonorama-ribera", label: "Burgos → Sonorama Ribera Aranda", price: "3–6 €", time: "1 h" },
+          { slug: "zaragoza-sonorama-ribera", label: "Zaragoza → Sonorama Ribera Aranda", price: "8–12 €", time: "2 h 30 min" },
+          // Zevra Festival
+          { slug: "madrid-zevra-festival", label: "Madrid → Zevra Festival Valencia", price: "10–14 €", time: "3 h 20 min" },
+          { slug: "barcelona-zevra-festival", label: "Barcelona → Zevra Festival Valencia", price: "10–14 €", time: "3 h" },
+          { slug: "alicante-zevra-festival", label: "Alicante → Zevra Festival Valencia", price: "6–10 €", time: "1 h 30 min" },
+          { slug: "murcia-zevra-festival", label: "Murcia → Zevra Festival Valencia", price: "8–12 €", time: "2 h" },
+          { slug: "valencia-zevra-festival", label: "Valencia → Zevra Festival", price: "3–5 €", time: "20 min" },
+          // Low Festival
+          { slug: "madrid-low-festival", label: "Madrid → Low Festival Benidorm", price: "14–20 €", time: "3 h 30 min" },
+          { slug: "valencia-low-festival", label: "Valencia → Low Festival Benidorm", price: "6–10 €", time: "1 h 30 min" },
+          { slug: "alicante-low-festival", label: "Alicante → Low Festival Benidorm", price: "4–7 €", time: "45 min" },
+          { slug: "murcia-low-festival", label: "Murcia → Low Festival Benidorm", price: "6–9 €", time: "1 h 30 min" },
+          // Tomavistas
+          { slug: "toledo-tomavistas", label: "Toledo → Tomavistas Madrid", price: "4–7 €", time: "55 min" },
+          { slug: "segovia-tomavistas", label: "Segovia → Tomavistas Madrid", price: "4–7 €", time: "1 h 10 min" },
+          { slug: "guadalajara-tomavistas", label: "Guadalajara → Tomavistas Madrid", price: "3–5 €", time: "50 min" },
+          { slug: "valladolid-tomavistas", label: "Valladolid → Tomavistas Madrid", price: "6–9 €", time: "1 h 30 min" },
+          // Cruïlla
+          { slug: "madrid-cruilla", label: "Madrid → Cruïlla Barcelona", price: "15–20 €", time: "5 h 30 min" },
+          { slug: "zaragoza-cruilla", label: "Zaragoza → Cruïlla Barcelona", price: "8–12 €", time: "2 h 45 min" },
+          { slug: "tarragona-cruilla", label: "Tarragona → Cruïlla Barcelona", price: "4–7 €", time: "1 h" },
+          { slug: "lleida-cruilla", label: "Lleida → Cruïlla Barcelona", price: "5–8 €", time: "1 h 45 min" },
+          { slug: "barcelona-cruilla", label: "Barcelona → Cruïlla", price: "4–7 €", time: "25 min" },
         ];
         const collectionPageLd = JSON.stringify({
           "@context": "https://schema.org",
@@ -947,7 +1055,7 @@ ${posts.map((p) => `  <li><a href="${base}/blog/${p.slug}">${p.title}</a></li>`)
           "@id": `${base}/rutas#webpage`,
           url: `${base}/rutas`,
           name: "Rutas de carpooling a festivales en España 2026 | ConcertRide",
-          description: "71+ rutas de viaje compartido a festivales de música en España. Sin comisión, conductores verificados.",
+          description: "96+ rutas de viaje compartido a festivales de música en España. Sin comisión, conductores verificados.",
           inLanguage: "es-ES",
           datePublished: "2026-04-10",
           dateModified: "2026-05-03",
@@ -969,7 +1077,7 @@ ${posts.map((p) => `  <li><a href="${base}/blog/${p.slug}">${p.title}</a></li>`)
           "@type": "ItemList",
           name: "Rutas de carpooling a festivales en España 2026",
           url: `${base}/rutas`,
-          numberOfItems: 71,
+          numberOfItems: 96,
           itemListElement: topRoutes.map((r, i) => ({
             "@type": "ListItem",
             position: i + 1,
@@ -989,7 +1097,7 @@ ${posts.map((p) => `  <li><a href="${base}/blog/${p.slug}">${p.title}</a></li>`)
 <script type="application/ld+json">${faqLd}</script>
 <script type="application/ld+json">${itemListLd}</script>
 <script type="application/ld+json">${breadcrumbLd}</script>
-<p>ConcertRide ofrece 71+ rutas de carpooling a festivales en España en 2026. Precio medio por asiento: 4–55 € según distancia. Sin comisión — el 100 % del precio va al conductor. Pago en efectivo o Bizum el día del viaje. Conductores verificados con carnet.</p>
+<p>ConcertRide ofrece 96 rutas de carpooling a festivales en España en 2026, cubriendo los 16 festivales más importantes desde 40+ ciudades de origen. Precio por asiento: desde 3 € (rutas locales) hasta 55 € (Resurrection Fest desde Madrid). Sin comisión de plataforma — el 100 % del precio va al conductor. Pago en efectivo o Bizum el día del viaje. Conductores verificados con carnet de conducir.</p>
 <h2>Rutas más populares con precios</h2>
 <table>
   <tr><th>Ruta</th><th>Precio/asiento</th><th>Tiempo</th></tr>
@@ -2067,6 +2175,7 @@ function festivalBody(slug: string, f: FestivalData, base: string): string {
     eventStatus: "https://schema.org/EventScheduled",
     eventAttendanceMode: "https://schema.org/OfflineEventAttendanceMode",
     typicalAgeRange: "18-",
+    audience: { "@type": "Audience", audienceType: "Aficionados a la música", geographicArea: { "@type": "Country", name: "Spain" } },
     ...(wikidataUri ? { sameAs: wikidataUri } : {}),
     keywords: [
       `carpooling ${f.shortName}`,
@@ -2491,6 +2600,7 @@ function blogBody(slug: string, p: BlogData, base: string): string {
       ],
     },
     publisher: { "@type": "Organization", name: "ConcertRide", "@id": `${base}/#organization`, logo: { "@type": "ImageObject", url: `${base}/favicon.svg`, width: 512, height: 512 } },
+    audience: { "@type": "Audience", audienceType: "Aficionados a la música y asistentes a festivales en España", geographicArea: { "@type": "Country", name: "Spain" } },
     datePublished: p.publishedAt,
     dateModified: p.updatedAt ?? p.publishedAt,
     url: `${base}/blog/${slug}`,
@@ -2598,13 +2708,16 @@ function routeBody(slug: string, r: RouteData, base: string): string {
     })),
   });
 
+  const routeAbstractText = `Carpooling de ${r.originCity} a ${r.festivalName} (${r.festivalCity}): ${r.distance} km · ${r.drivingTime} · desde ${r.priceFrom}–${r.priceTo} €/asiento sin comisión de plataforma. Conductores verificados; pago en efectivo o Bizum el día del festival.`;
+
   const tripJsonLd = JSON.stringify({
     "@context": "https://schema.org",
     "@type": "TouristTrip",
     name: `Carpooling de ${r.originCity} a ${r.festivalName}`,
     description: `Viaje compartido de ${r.originCity} a ${r.festivalName} (${r.festivalCity}). ${r.distance} km, ${r.drivingTime}, desde ${r.priceFrom} €/asiento. Sin comisión.`,
+    abstract: routeAbstractText,
     url: `${base}/rutas/${slug}`,
-    touristType: "Aficionados a la música",
+    touristType: { "@type": "Audience", audienceType: "Aficionados a la música", geographicArea: { "@type": "Country", name: "Spain" } },
     itinerary: [
       { "@type": "Place", name: r.originCity, address: { "@type": "PostalAddress", addressLocality: r.originCity, addressCountry: "ES" } },
       { "@type": "Place", name: r.festivalName, address: { "@type": "PostalAddress", addressLocality: r.festivalCity, addressCountry: "ES" } },
@@ -2684,7 +2797,7 @@ function routeBody(slug: string, r: RouteData, base: string): string {
     name: `Carpooling ${r.originCity} → ${r.festivalShortName} — desde ${r.priceFrom} € · ${r.drivingTime} | ConcertRide`,
     inLanguage: "es-ES",
     dateModified: "2026-05-03",
-    speakable: { "@type": "SpeakableSpecification", cssSelector: ["h1", ".speakable", "p:first-of-type"] },
+    speakable: { "@type": "SpeakableSpecification", cssSelector: ["h1", ".route-summary", ".speakable", "p:first-of-type"] },
     isPartOf: { "@type": "WebSite", "@id": `${base}/#website`, name: "ConcertRide", url: base },
   });
 
@@ -2694,7 +2807,7 @@ function routeBody(slug: string, r: RouteData, base: string): string {
 ${routeEventJsonLd ? `<script type="application/ld+json">${routeEventJsonLd}</script>` : ""}
 <script type="application/ld+json">${faqJsonLd}</script>
 <nav aria-label="Breadcrumb"><a href="${base}/">Inicio</a> / <a href="${base}/rutas">Rutas</a> / <span>${esc(r.originCity)} → ${esc(r.festivalShortName)}</span></nav>
-<p>Viaje compartido de ${esc(r.originCity)} a ${esc(r.festivalName)} en ${esc(r.festivalCity)}. ${r.distance} km · ${esc(r.drivingTime)} · desde ${r.priceFrom} €/asiento con ConcertRide.</p>
+<p class="route-summary">Viaje compartido de ${esc(r.originCity)} a ${esc(r.festivalName)} en ${esc(r.festivalCity)}. ${r.distance} km · ${esc(r.drivingTime)} · desde ${r.priceFrom} €/asiento con ConcertRide. Sin comisión — el 100 % del precio va al conductor.</p>
 <h2>Detalles del trayecto ${esc(r.originCity)} → ${esc(r.festivalShortName)}</h2>
 <ul>
   <li><strong>Origen:</strong> ${esc(r.originCity)}</li>

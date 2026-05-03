@@ -157,7 +157,7 @@ export default function FaqPage() {
             "@type": "FAQPage",
             name: "Preguntas frecuentes — Carpooling para conciertos y festivales en España",
             url: `${SITE_URL}/faq`,
-            dateModified: "2026-05-01",
+            dateModified: "2026-05-03",
             inLanguage: "es-ES",
             mainEntity: FAQS.map(({ q, a }) => ({
               "@type": "Question",

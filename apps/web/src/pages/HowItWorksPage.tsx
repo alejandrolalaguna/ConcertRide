@@ -182,11 +182,17 @@ export default function HowItWorksPage() {
           __html: JSON.stringify({
             "@context": "https://schema.org",
             "@type": "WebPage",
+            "@id": `${SITE_URL}/como-funciona#webpage`,
+            url: `${SITE_URL}/como-funciona`,
+            inLanguage: "es-ES",
+            datePublished: "2026-04-10",
+            dateModified: "2026-05-03",
+            isPartOf: { "@id": `${SITE_URL}/#website` },
+            about: { "@id": `${SITE_URL}/#service` },
             speakable: {
               "@type": "SpeakableSpecification",
               cssSelector: ["h1", "h2", ".speakable", "p:first-of-type"],
             },
-            url: `${SITE_URL}/como-funciona`,
           }),
         }}
       />

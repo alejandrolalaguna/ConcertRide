@@ -19,10 +19,10 @@ export default function RouteLandingPage() {
 
   useSeoMeta({
     title: landing
-      ? `Carpooling ${landing.originCity}–${landing.festival.shortName} ${new Date().getFullYear()} desde ${(landing.originData.concertRideRange.split("–")[0] ?? "3").replace(/[^0-9]/g, "") || "3"} € | ConcertRide`
+      ? `Carpooling ${landing.originCity} → ${landing.festival.shortName} — desde ${(landing.originData.concertRideRange.split("–")[0] ?? "3").replace(/[^0-9]/g, "") || "3"} € · ${landing.originData.drivingTime} | ConcertRide`
       : "Ruta de carpooling",
     description: landing
-      ? `Carpooling ${landing.originCity} → ${landing.festival.shortName}. ${landing.originData.km} km · ${landing.originData.drivingTime} · desde ${landing.originData.concertRideRange}. Sin comisión, conductores verificados. Reserva ya.`
+      ? `Carpooling de ${landing.originCity} a ${landing.festival.shortName} en ${landing.originData.drivingTime}. Desde ${landing.originData.concertRideRange}/asiento. Ida y vuelta disponible. Sin comisión — el 100 % va al conductor. Conductores verificados.`
       : "Carpooling a festivales en España.",
     canonical: landing ? `${SITE_URL}/rutas/${landing.slug}` : `${SITE_URL}/concerts`,
     keywords: landing
@@ -106,13 +106,16 @@ export default function RouteLandingPage() {
     ],
   };
 
+  const routeAbstract = `Carpooling de ${originCity} a ${festival.name} (${festival.venue}, ${festival.city}): ${originData.km} km · ${originData.drivingTime} · desde ${originData.concertRideRange}/asiento sin comisión de plataforma. Conductores verificados; pago en efectivo o Bizum el día del festival.`;
+
   const jsonLdTrip = {
     "@context": "https://schema.org",
     "@type": "TouristTrip",
     name: `Carpooling de ${originCity} a ${festival.name}`,
     description: `Viaje compartido de ${originCity} a ${festival.name}. ${originData.km} km, ${originData.drivingTime}, desde ${originData.concertRideRange}.`,
+    abstract: routeAbstract,
     url: `${SITE_URL}/rutas/${landing.slug}`,
-    touristType: "Aficionados a la música",
+    touristType: { "@type": "Audience", audienceType: "Aficionados a la música", geographicArea: { "@type": "Country", name: "Spain" } },
     itinerary: [
       {
         "@type": "Place",
@@ -159,9 +162,15 @@ export default function RouteLandingPage() {
     "name": `Carpooling ${originCity} → ${festival.shortName} | ConcertRide`,
     "description": `Viaje compartido de ${originCity} a ${festival.name} (${festival.city}). ${originData.km} km, ${originData.drivingTime}, desde ${originData.concertRideRange}. Sin comisión.`,
     "inLanguage": "es-ES",
+    "dateModified": new Date().toISOString().slice(0, 10),
+    "isPartOf": { "@type": "WebSite", "@id": `${SITE_URL}/#website` },
+    "about": {
+      "@type": "TouristTrip",
+      "name": `Carpooling de ${originCity} a ${festival.name}`,
+    },
     "speakable": {
       "@type": "SpeakableSpecification",
-      "cssSelector": ["h1", ".speakable", "article p:first-of-type"],
+      "cssSelector": ["h1", ".route-summary", ".speakable", "p:first-of-type"],
     },
   };
 
@@ -194,7 +203,7 @@ export default function RouteLandingPage() {
           {originCity}<br />→ {festival.shortName}.
         </h1>
 
-        <p className="font-sans text-sm md:text-base text-cr-text-muted max-w-2xl leading-relaxed speakable">
+        <p className="font-sans text-sm md:text-base text-cr-text-muted max-w-2xl leading-relaxed speakable route-summary">
           ConcertRide ofrece carpooling de {originCity} a {festival.name} ({festival.city}) por {originData.concertRideRange}/asiento. Distancia: {originData.km} km · {originData.drivingTime}. Sin comisión — el 100&nbsp;% del precio va al conductor.
         </p>
 

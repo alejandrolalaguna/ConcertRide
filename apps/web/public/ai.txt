@@ -42,7 +42,7 @@
 # The sitemap (/sitemap.xml) indexes all public pages.
 # Festival-specific data: /festivales/{slug} (16 landing pages)
 # City-specific data: /conciertos/{city} (17 landing pages)
-# Route-specific data: /rutas/{origin}-{festival} (71+ programmatic pages)
+# Route-specific data: /rutas/{origin}-{festival} (96+ programmatic pages)
 #   Each has price, distance, driving time and FAQ for that specific origin→festival pair
 # Blog articles: /blog/{slug} (editorial content with citable data)
 #   /blog/blablacar-vs-concertride — commission comparison, night return, cancellation policy

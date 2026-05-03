@@ -93,6 +93,7 @@ export default function BlogPostPage() {
       ],
     },
     publisher: { "@id": `${SITE_URL}/#organization` },
+    audience: { "@type": "Audience", audienceType: "Aficionados a la música y asistentes a festivales en España", geographicArea: { "@type": "Country", name: "Spain" } },
     image: {
       "@type": "ImageObject",
       url: `${SITE_URL}/og/home.png`,

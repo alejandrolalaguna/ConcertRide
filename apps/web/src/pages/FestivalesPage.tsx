@@ -31,7 +31,7 @@ export default function FestivalesPage() {
     numberOfItems: FESTIVAL_LANDINGS.length,
     keywords: `festivales España ${year}, carpooling festivales, Mad Cool carpooling, Primavera Sound viaje compartido, Sónar transporte, BBK Live Bilbao, Arenal Sound Burriana, Viña Rock Villarrobledo`,
     datePublished: "2026-04-10",
-    dateModified: "2026-05-02",
+    dateModified: "2026-05-03",
     isPartOf: { "@id": `${SITE_URL}/#website` },
     about: { "@id": `${SITE_URL}/#service` },
     speakable: {
@@ -95,10 +95,28 @@ export default function FestivalesPage() {
     ],
   };
 
+  const jsonLdItemList = {
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    name: `Festivales de música en España ${year} con carpooling`,
+    url: `${SITE_URL}/festivales`,
+    inLanguage: "es-ES",
+    numberOfItems: FESTIVAL_LANDINGS.length,
+    itemListOrder: "https://schema.org/ItemListOrderAscending",
+    itemListElement: FESTIVAL_LANDINGS.map((f, i) => ({
+      "@type": "ListItem",
+      position: i + 1,
+      name: f.name,
+      url: `${SITE_URL}/festivales/${f.slug}`,
+      description: f.blurb.slice(0, 160),
+    })),
+  };
+
   return (
     <main id="main" className="min-h-dvh bg-cr-bg text-cr-text pt-14">
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdWebPage) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdBreadcrumb) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdItemList) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdFaq) }} />
       {/* ── Hero ── */}
       <div className="max-w-6xl mx-auto px-6 pt-10 pb-6 space-y-4">

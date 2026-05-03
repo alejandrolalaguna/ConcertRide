@@ -63,7 +63,7 @@ export default function GuiaTransporteFestivalesPage() {
       "@id": `${SITE_URL}/#organization`,
     },
     datePublished: "2026-04-24",
-    dateModified: "2026-05-02",
+    dateModified: "2026-05-03",
     image: {
       "@type": "ImageObject",
       url: "https://concertride.me/og/home.png",
