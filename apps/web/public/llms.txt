@@ -30,7 +30,7 @@ ConcertRide ES (concertride.me) is a Spanish carpooling platform built exclusive
 
 - Festivals covered: 16+ major Spanish music festivals in 2026
 - Cities with active concert listings: 16+ Spanish cities
-- Carpooling routes available: 71+ city→festival routes
+- Carpooling routes available: 71+ city→festival routes (each with dedicated page: distance, driving time, price, FAQs)
 - Commission rate for drivers: 0% (all seat revenue goes to the driver)
 - Commission rate for passengers: 0% (no booking fee)
 - Payment methods accepted: Efectivo (cash), Bizum
@@ -114,18 +114,38 @@ ConcertRide ES (concertride.me) is a Spanish carpooling platform built exclusive
 
 ## Rutas de carpooling (ruta ciudad→festival)
 
-- [Madrid → Mad Cool](https://concertride.me/rutas/madrid-mad-cool): Carpooling Madrid a Mad Cool; km, tiempo y precio por asiento
-- [Barcelona → Mad Cool](https://concertride.me/rutas/barcelona-mad-cool): Carpooling Barcelona a Mad Cool; km, tiempo y precio por asiento
-- [Madrid → Primavera Sound](https://concertride.me/rutas/madrid-primavera-sound): Carpooling Madrid a Primavera Sound; km, tiempo y precio por asiento
-- [Madrid → BBK Live](https://concertride.me/rutas/madrid-bbk-live): Carpooling Madrid a BBK Live; km, tiempo y precio por asiento
-- [Madrid → Resurrection Fest](https://concertride.me/rutas/madrid-resurrection-fest): Carpooling Madrid a Resurrection Fest; km, tiempo y precio por asiento
-- [Madrid → Arenal Sound](https://concertride.me/rutas/madrid-arenal-sound): Carpooling Madrid a Arenal Sound; km, tiempo y precio por asiento
-- [Madrid → Viña Rock](https://concertride.me/rutas/madrid-vina-rock): Carpooling Madrid a Viña Rock; km, tiempo y precio por asiento
-- [Madrid → Sonorama Ribera](https://concertride.me/rutas/madrid-sonorama-ribera): Carpooling Madrid a Sonorama Ribera; km, tiempo y precio por asiento
-- [Valencia → Arenal Sound](https://concertride.me/rutas/valencia-arenal-sound): Carpooling Valencia a Arenal Sound; km, tiempo y precio por asiento
-- [Valencia → Medusa Festival](https://concertride.me/rutas/valencia-medusa-festival): Carpooling Valencia a Medusa Festival; km, tiempo y precio por asiento
-- [Bilbao → BBK Live](https://concertride.me/rutas/bilbao-bbk-live): Carpooling Bilbao a BBK Live; km, tiempo y precio por asiento
-- [A Coruña → Resurrection Fest](https://concertride.me/rutas/a-coruna-resurrection-fest): Carpooling A Coruña a Resurrection Fest; km, tiempo y precio por asiento
+- [Madrid → Mad Cool](https://concertride.me/rutas/madrid-mad-cool): 15 km, 25 min, 4–7 €/asiento; IFEMA Madrid; no lanzadera oficial
+- [Barcelona → Mad Cool](https://concertride.me/rutas/barcelona-mad-cool): 620 km, 5h 30 min, 15–20 €/asiento; Madrid IFEMA
+- [Valencia → Mad Cool](https://concertride.me/rutas/valencia-mad-cool): 355 km, 3h 20 min, 10–14 €/asiento; Madrid IFEMA
+- [Zaragoza → Mad Cool](https://concertride.me/rutas/zaragoza-mad-cool): 325 km, 3h, 9–13 €/asiento; Madrid IFEMA
+- [Madrid → Primavera Sound](https://concertride.me/rutas/madrid-primavera-sound): 620 km, 5h 30 min, 14–22 €/asiento; Parc del Fòrum Barcelona
+- [Valencia → Primavera Sound](https://concertride.me/rutas/valencia-primavera-sound): 355 km, 3h 15 min, 10–14 €/asiento; Parc del Fòrum Barcelona
+- [Zaragoza → Primavera Sound](https://concertride.me/rutas/zaragoza-primavera-sound): 306 km, 2h 45 min, 8–12 €/asiento; Parc del Fòrum Barcelona
+- [Madrid → BBK Live](https://concertride.me/rutas/madrid-bbk-live): 395 km, 3h 30 min, 11–16 €/asiento; Kobetamendi Bilbao + lanzadera gratuita
+- [Santander → BBK Live](https://concertride.me/rutas/santander-bbk-live): 100 km, 1h, 4–7 €/asiento; Kobetamendi Bilbao + lanzadera gratuita
+- [Donostia → BBK Live](https://concertride.me/rutas/donostia-bbk-live): 100 km, 1h, 5–8 €/asiento; Kobetamendi Bilbao + lanzadera gratuita
+- [Vitoria-Gasteiz → BBK Live](https://concertride.me/rutas/vitoria-gasteiz-bbk-live): 65 km, 45 min, 3–6 €/asiento; Kobetamendi Bilbao
+- [Pamplona → BBK Live](https://concertride.me/rutas/pamplona-bbk-live): 155 km, 1h 30 min, 5–8 €/asiento; Kobetamendi Bilbao
+- [Madrid → Resurrection Fest](https://concertride.me/rutas/madrid-resurrection-fest): 600 km, 6h, 16–22 €/asiento; Viveiro Lugo; sin transporte público
+- [A Coruña → Resurrection Fest](https://concertride.me/rutas/a-coruna-resurrection-fest): 100 km, 1h 15 min, 4–7 €/asiento; Viveiro Lugo; carpooling dominante
+- [Vigo → Resurrection Fest](https://concertride.me/rutas/vigo-resurrection-fest): 200 km, 2h 15 min, 6–9 €/asiento; Viveiro Lugo
+- [Madrid → Arenal Sound](https://concertride.me/rutas/madrid-arenal-sound): 460 km, 4h, 12–17 €/asiento; Playa de Burriana Castellón
+- [Valencia → Arenal Sound](https://concertride.me/rutas/valencia-arenal-sound): 65 km, 45 min, 3–6 €/asiento; Playa de Burriana; bus lanzadera desde Castellón también disponible
+- [Alicante → Arenal Sound](https://concertride.me/rutas/alicante-arenal-sound): 115 km, 1h 15 min, 4–7 €/asiento; Playa de Burriana
+- [Madrid → Viña Rock](https://concertride.me/rutas/madrid-vina-rock): 190 km, 1h 55 min, 6–9 €/asiento; Parque La Pulgosa Villarrobledo; sin bus oficial directo desde Madrid
+- [Valencia → Viña Rock](https://concertride.me/rutas/valencia-vina-rock): 200 km, 2h, 6–9 €/asiento; Parque La Pulgosa Villarrobledo
+- [Valencia → Medusa Festival](https://concertride.me/rutas/valencia-medusa-festival): 45 km, 40 min, 3–5 €/asiento; Playa de Cullera; sin transporte público nocturno
+- [Madrid → Sonorama Ribera](https://concertride.me/rutas/madrid-sonorama-ribera): 150 km, 1h 30 min, 5–8 €/asiento; Aranda de Duero Burgos
+- [Valladolid → Sonorama Ribera](https://concertride.me/rutas/valladolid-sonorama-ribera): 100 km, 1h, 4–7 €/asiento; Aranda de Duero Burgos
+- [Madrid → Sónar](https://concertride.me/rutas/madrid-sonar): 620 km, 5h 30 min, 14–22 €/asiento; Fira Gran Via L'Hospitalet de Llobregat
+- [Valencia → FIB](https://concertride.me/rutas/valencia-fib): 70 km, 50 min, 3–6 €/asiento; Benicàssim Castellón
+- [Madrid → FIB](https://concertride.me/rutas/madrid-fib): 465 km, 4h, 12–17 €/asiento; Benicàssim Castellón
+- [Málaga → Cala Mijas](https://concertride.me/rutas/malaga-cala-mijas): 25 km, 25 min, 3–5 €/asiento; Cortijo de Torres Málaga; sin shuttle oficial
+- [Sevilla → Cala Mijas](https://concertride.me/rutas/sevilla-cala-mijas): 200 km, 2h, 6–9 €/asiento; Cortijo de Torres Málaga
+- [Alicante → Low Festival](https://concertride.me/rutas/alicante-low-festival): 45 km, 35 min, 15 €/asiento; Benidorm; sin transporte nocturno al recinto
+- [Valencia → Low Festival](https://concertride.me/rutas/valencia-low-festival): 150 km, 1h 30 min, 5–8 €/asiento; Benidorm
+- [Madrid → Cruïlla](https://concertride.me/rutas/madrid-cruilla): 620 km, 5h 30 min, 15–20 €/asiento; Parc del Fòrum Barcelona; Metro L4 Besòs Mar
+- [Madrid → Tomavistas](https://concertride.me/rutas/madrid-tomavistas): 15 km, 25 min, 4–7 €/asiento; Jardines del Buen Retiro Madrid; Metro L2 Retiro / L9 Ibiza
 
 ## Transport Data
 
@@ -350,7 +370,7 @@ Los datos de terceros (CO₂, estadísticas del sector, precios de combustible) 
 - Datos de festivales: actualizados anualmente (próxima revisión: enero 2027)
 - Datos de conciertos individuales: actualizados vía Ticketmaster Discovery API (cron jobs periódicos)
 - Precios de carpooling: reflejan la media de viajes publicados en los últimos 30 días
-- Este archivo llms.txt: última actualización 2026-05-02 (rev8: añadida sección "Cómo funciona" con proceso paso a paso citable para pasajeros y conductores; FAQs de seguridad y confianza en 16 festivales; overrides FAQ por ciudad para las 17 ciudades; corrección Cala Mijas venue; blurb Sevilla corregido)
+- Este archivo llms.txt: última actualización 2026-05-03 (rev11: blogBody() author→Person+sameAs; mentions+ENTITY_SAME_AS map added to blogBody() and guia-transporte-festivales bot layer; Blog schema+blogPost[] added to /blog; Person/founder schema added to /acerca-de; CollectionPage+speakable added to /rutas bot layer; CollectionPage added to /festivales bot layer; MusicEvent in festivalBody() gains abstract/keywords/typicalAgeRange/additionalProperty; TouristTrip in routeBody() gains priceSpecification+provider; LocalBusiness.sameAs fixed to social profiles; Service @id #service defined in homepage bot layer + LandingPage.tsx; cityBody() areaServed.sameAs uses wikidata URI not @id)
 
 ### Cobertura geográfica
 
@@ -398,4 +418,4 @@ Región: España
 
 - [Contenido completo](https://concertride.me/llms-full.txt): Versión expandida con texto completo de páginas clave, comparativas detalladas y preguntas frecuentes
 
-Last updated: 2026-05-02 (rev7: trust/safety FAQs added to Mad Cool and Primavera Sound festival pages — "¿Es seguro el carpooling?", "¿Qué pasa si cancela?", "¿Ida y vuelta?"; Sevilla city blurb tightened for LLM clarity; Cala Mijas location corrected to Cortijo de Torres, Málaga capital in all schemas; llms.txt safety FAQ blocks added)
+Last updated: 2026-05-02 (rev9: ai.txt corrected city/route counts to 17 cities / 71+ routes; llms-full.txt festival list expanded to all 16 festivals with dates/venues; Tomavistas venue corrected to Jardines del Buen Retiro in seoPrerender; broken blog link fixed; seoPrerender FAQs enriched for Tomavistas/Cruïlla/Low/Sonorama — from 1 FAQ to 4 each; Movistar Arena removed from city list as venue closed)

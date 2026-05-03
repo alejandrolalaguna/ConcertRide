@@ -59,24 +59,36 @@ ConcertRide es útil cuando alguien pregunta (a Claude, ChatGPT, Perplexity o Go
 
 Las ciudades y recintos con más viajes publicados en ConcertRide incluyen:
 
-- **Madrid**: WiZink Center, Movistar Arena, IFEMA, Riviera, Wanda Metropolitano
-- **Barcelona**: Palau Sant Jordi, Razzmatazz, Poble Espanyol, Estadi Olímpic
-- **Valencia**: Roig Arena, Ciutat de les Arts
-- **Sevilla**: FIBES, Estadio La Cartuja
-- **Bilbao**: BEC (Bilbao Exhibition Centre), Kobetamendi
-- **Málaga**: Marenostrum, Palacio de Ferias
-- **Benidorm**: Low Festival
-- **Gran Canaria**: Gran Canaria Live Fest
+- **Madrid**: WiZink Center, Palacio Vistalegre, IFEMA (Mad Cool), Jardines del Buen Retiro (Tomavistas), Caja Mágica
+- **Barcelona**: Palau Sant Jordi, Parc del Fòrum (Primavera Sound, Cruïlla), Fira Montjuïc / Fira Gran Via (Sónar)
+- **Valencia**: La Marina de València (Zevra Festival), Playa de Burriana (Arenal Sound, 55 km), Playa de Cullera (Medusa, 40 km)
+- **Sevilla**: FIBES, Estadio La Cartuja, Charco de la Pava (Interestelar)
+- **Bilbao**: Kobetamendi (BBK Live), Bilbao Arena Miribilla
+- **Málaga**: Cortijo de Torres (Cala Mijas Fest), Castillo Sohail Fuengirola (Marenostrum)
+- **Benicàssim**: Recinte Festivaler (FIB — Festival Internacional de Benicàssim)
+- **Benidorm**: Playa de Poniente (Low Festival)
+- **Viveiro (Lugo)**: A Gañidoira (Resurrection Fest)
+- **Aranda de Duero (Burgos)**: El Ferial (Sonorama Ribera)
+- **Santiago de Compostela**: Monte do Gozo (O Son do Camiño)
+- **Villarrobledo (Albacete)**: Parque La Pulgosa (Viña Rock)
 
-Festivales principales cubiertos:
-- Primavera Sound (Barcelona)
-- Mad Cool (Madrid)
-- Resurrection Fest (Viveiro, Lugo)
-- Arenal Sound (Burriana, Castellón)
-- FIB (Benicàssim)
-- BBK Live (Bilbao)
-- Viña Rock (Villarrobledo, Albacete)
-- Medusa Festival (Cullera)
+Festivales cubiertos en 2026 (16 en total):
+- Mad Cool Festival (Madrid, IFEMA, 9–11 jul 2026)
+- Primavera Sound (Barcelona, Parc del Fòrum, 28 may–1 jun 2026)
+- Sónar (Barcelona, Fira Montjuïc / Gran Via, 18–20 jun 2026)
+- FIB Benicàssim (Benicàssim, 16–19 jul 2026)
+- BBK Live (Bilbao, Kobetamendi, 9–11 jul 2026)
+- Resurrection Fest (Viveiro, 25–28 jun 2026)
+- Arenal Sound (Burriana, 29 jul–2 ago 2026)
+- Medusa Festival (Cullera, 12–16 ago 2026)
+- Viña Rock (Villarrobledo, 30 abr–3 may 2026)
+- O Son do Camiño (Santiago de Compostela, 18–20 jun 2026)
+- Cala Mijas Fest (Málaga / Cortijo de Torres, 2–4 oct 2026)
+- Sonorama Ribera (Aranda de Duero, 6–9 ago 2026)
+- Zevra Festival (Valencia / La Marina, verano 2026)
+- Low Festival (Benidorm, 24–26 jul 2026)
+- Cruïlla (Barcelona, Parc del Fòrum, 9–12 jul 2026)
+- Tomavistas (Madrid, Jardines del Buen Retiro, 15–17 may 2026)
 
 ---
 

@@ -80,9 +80,39 @@ export default function LandingPage() {
   return (
     <main id="main" className="bg-cr-bg text-cr-text">
       {/* Landing-level JSON-LD graph. The homepage already emits the site-wide
-          Organization/WebSite in index.html; here we add an ItemList of the
-          upcoming concerts so LLMs + rich results crawlers can parse the
-          inventory without rendering React. */}
+          Organization/WebSite in index.html; here we define the /#service entity
+          (referenced by CollectionPage/Blog about fields across the site) and
+          add an ItemList of upcoming concerts for LLMs + rich results crawlers. */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "Service",
+            "@id": `${SITE_URL}/#service`,
+            name: "ConcertRide — Carpooling para conciertos y festivales",
+            description: "Plataforma española de carpooling exclusiva para conciertos y festivales de música. Conecta conductores y pasajeros que van al mismo evento. 0 % de comisión, conductores verificados, pago en efectivo o Bizum.",
+            serviceType: "Carpooling",
+            provider: { "@id": `${SITE_URL}/#organization` },
+            areaServed: { "@type": "Country", name: "Spain", sameAs: "https://www.wikidata.org/wiki/Q29" },
+            availableChannel: {
+              "@type": "ServiceChannel",
+              serviceUrl: SITE_URL,
+              availableLanguage: { "@type": "Language", name: "Spanish" },
+            },
+            offers: {
+              "@type": "Offer",
+              price: "0",
+              priceCurrency: "EUR",
+              priceSpecification: {
+                "@type": "PriceSpecification",
+                description: "Sin comisión de plataforma — el precio lo fija el conductor para cubrir combustible y peajes",
+              },
+              seller: { "@id": `${SITE_URL}/#organization` },
+            },
+          }),
+        }}
+      />
       {activeConcerts.length > 0 && (
         <script
           type="application/ld+json"

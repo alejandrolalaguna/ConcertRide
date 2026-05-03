@@ -26,6 +26,11 @@ const FESTIVAL_WIKIDATA: Record<string, string> = {
   "vina-rock": "https://www.wikidata.org/wiki/Q2311477",
   "o-son-do-camino": "https://www.wikidata.org/wiki/Q16537994",
   "sonorama-ribera": "https://www.wikidata.org/wiki/Q1305386",
+  "cala-mijas": "https://www.wikidata.org/wiki/Q116748766",
+  "cruilla": "https://www.wikidata.org/wiki/Q5189432",
+  "low-festival": "https://www.wikidata.org/wiki/Q15270028",
+  "tomavistas": "https://www.wikidata.org/wiki/Q30292264",
+  "zevra-festival": "https://www.wikidata.org/wiki/Q120434562",
 };
 
 export default function FestivalLandingPage() {
@@ -237,7 +242,7 @@ export default function FestivalLandingPage() {
     eventAttendanceMode: "https://schema.org/OfflineEventAttendanceMode",
     eventStatus: "https://schema.org/EventScheduled",
     typicalAgeRange: "18-",
-    inLanguage: "es",
+    inLanguage: "es-ES",
     offers: {
       "@type": "Offer",
       url: `${SITE_URL}/festivales/${festival.slug}`,
@@ -269,7 +274,7 @@ export default function FestivalLandingPage() {
       "@type": "Organization",
       name: festival.name,
     },
-    inLanguage: "es",
+    inLanguage: "es-ES",
     sameAs: festivalWikidataUri
       ? [festivalWikidataUri, `${SITE_URL}/festivales/${festival.slug}`]
       : `${SITE_URL}/festivales/${festival.slug}`,

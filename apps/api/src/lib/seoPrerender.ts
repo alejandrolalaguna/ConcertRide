@@ -52,11 +52,18 @@ function buildStaticRoutes(base: string): Record<string, { title: string; descri
           },
           description: "Plataforma española de carpooling exclusiva para conciertos y festivales. Sin comisión (0 %), conductores verificados, pago directo en efectivo o Bizum.",
           foundingDate: "2026",
+          foundingLocation: { "@type": "Place", name: "España" },
+          legalName: "ConcertRide ES",
+          knowsAbout: ["carpooling", "festivales de música", "conciertos en España", "transporte compartido"],
           areaServed: { "@type": "Country", name: "Spain", sameAs: "https://www.wikidata.org/wiki/Q29" },
           sameAs: [
             "https://twitter.com/concertride_es",
             "https://www.instagram.com/concertride_es/",
-            "https://www.facebook.com/concertride.es",
+            "https://www.facebook.com/concertride.me",
+            "https://www.tiktok.com/@concertride_es",
+            "https://www.linkedin.com/company/concertride-es",
+            "https://www.crunchbase.com/organization/concertride-es",
+            "https://www.wikidata.org/wiki/Q130455178",
           ],
           contactPoint: {
             "@type": "ContactPoint",
@@ -91,9 +98,47 @@ function buildStaticRoutes(base: string): Record<string, { title: string; descri
             { "@type": "Question", name: "¿Es legal el carpooling a festivales en España?", acceptedAnswer: { "@type": "Answer", text: "Sí. El carpooling de gastos compartidos sin beneficio económico está reconocido como legal por el Tribunal Supremo español (sentencia 2017, caso BlaBlaCar). El conductor solo puede cobrar su parte proporcional del combustible y peajes." } },
           ],
         });
+        const serviceJsonLd = JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "Service",
+          "@id": `${base}/#service`,
+          name: "ConcertRide — Carpooling para conciertos y festivales",
+          description: "Plataforma española de carpooling exclusiva para conciertos y festivales de música. Conecta conductores y pasajeros que van al mismo evento. 0 % de comisión, conductores verificados, pago en efectivo o Bizum.",
+          serviceType: "Carpooling",
+          provider: { "@id": `${base}/#organization` },
+          areaServed: { "@type": "Country", name: "Spain", sameAs: "https://www.wikidata.org/wiki/Q29" },
+          availableChannel: {
+            "@type": "ServiceChannel",
+            serviceUrl: base,
+            servicePhone: "N/A",
+            availableLanguage: { "@type": "Language", name: "Spanish" },
+          },
+          offers: {
+            "@type": "Offer",
+            price: "0",
+            priceCurrency: "EUR",
+            priceSpecification: { "@type": "PriceSpecification", description: "Sin comisión de plataforma — el precio lo fija el conductor para cubrir combustible y peajes" },
+            seller: { "@id": `${base}/#organization` },
+          },
+          sameAs: "https://www.wikidata.org/wiki/Q1343571",
+        });
+        const homePageJsonLd = JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "WebPage",
+          "@id": `${base}/#webpage`,
+          url: `${base}/`,
+          name: "ConcertRide — Carpooling para conciertos en España",
+          inLanguage: "es-ES",
+          dateModified: "2026-05-02",
+          speakable: { "@type": "SpeakableSpecification", cssSelector: ["h1", ".speakable", "p:first-of-type"] },
+          isPartOf: { "@type": "WebSite", "@id": `${base}/#website`, name: "ConcertRide", url: base },
+          about: { "@type": "Organization", "@id": `${base}/#organization` },
+        });
         return `<script type="application/ld+json">${orgJsonLd}</script>
 <script type="application/ld+json">${websiteJsonLd}</script>
+<script type="application/ld+json">${serviceJsonLd}</script>
 <script type="application/ld+json">${faqJsonLd}</script>
+<script type="application/ld+json">${homePageJsonLd}</script>
 <p>ConcertRide es la plataforma de viaje compartido especializada en conciertos y festivales en España. Conectamos conductores y pasajeros que van al mismo evento. Sin comisiones, conductores verificados, pago directo.</p>
 <h2>¿Cómo funciona?</h2>
 <ol>
@@ -160,8 +205,17 @@ function buildStaticRoutes(base: string): Record<string, { title: string; descri
             { "@type": "Question", name: "¿Cuánto cuesta encontrar carpooling a un concierto en España?", acceptedAnswer: { "@type": "Answer", text: "ConcertRide es gratuito para buscar y publicar viajes. El precio del asiento lo fija el conductor para cubrir combustible: 3–8 €/asiento en distancias cortas y 10–35 € en distancias largas. No hay comisión de plataforma." } },
           ],
         });
+        const breadcrumbLd = JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "BreadcrumbList",
+          itemListElement: [
+            { "@type": "ListItem", position: 1, name: "Inicio", item: `${base}/` },
+            { "@type": "ListItem", position: 2, name: "Conciertos", item: `${base}/concerts` },
+          ],
+        });
         return `<script type="application/ld+json">${itemListLd}</script>
 <script type="application/ld+json">${faqLd}</script>
+<script type="application/ld+json">${breadcrumbLd}</script>
 <p>Encuentra todos los conciertos y festivales en España donde puedes compartir coche con otros asistentes. Gratis, sin comisión, conductores verificados.</p>
 <h2>Ciudades con más conciertos y carpooling disponible</h2>
 <ul>
@@ -182,6 +236,22 @@ function buildStaticRoutes(base: string): Record<string, { title: string; descri
       canonical: `${base}/festivales`,
       h1: "Festivales de música en España con viaje compartido",
       body: (() => {
+        const collectionPageJsonLd = JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "CollectionPage",
+          "@id": `${base}/festivales#webpage`,
+          url: `${base}/festivales`,
+          name: "Carpooling festivales música España 2026 | ConcertRide",
+          description: "Directorio de 16 festivales de música en España 2026 con carpooling disponible. Mad Cool (IFEMA Madrid, 9–11 jul), Primavera Sound (Parc del Fòrum Barcelona, 28 may–1 jun), Sónar (Fira de Barcelona, 18–20 jun), BBK Live (Kobetamendi Bilbao, 9–11 jul), Arenal Sound (Burriana, 29 jul–2 ago), Viña Rock (Villarrobledo, 30 abr–3 may) y más. Precios desde 3 €/asiento sin comisión.",
+          inLanguage: "es-ES",
+          numberOfItems: 16,
+          keywords: "festivales España 2026, carpooling festivales, Mad Cool carpooling, Primavera Sound viaje compartido, Sónar transporte, BBK Live Bilbao, Arenal Sound Burriana, Viña Rock Villarrobledo",
+          datePublished: "2026-04-10",
+          dateModified: "2026-05-02",
+          isPartOf: { "@id": `${base}/#website` },
+          about: { "@id": `${base}/#service` },
+          speakable: { "@type": "SpeakableSpecification", cssSelector: ["h1", ".speakable"] },
+        });
         const faqJsonLd = JSON.stringify({
           "@context": "https://schema.org",
           "@type": "FAQPage",
@@ -244,8 +314,18 @@ function buildStaticRoutes(base: string): Record<string, { title: string; descri
             { "@type": "ListItem", position: 16, name: "Cruïlla — Barcelona — 9–12 jul 2026", url: `${base}/festivales/cruilla` },
           ],
         });
-        return `<script type="application/ld+json">${faqJsonLd}</script>
+        const breadcrumbJsonLd = JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "BreadcrumbList",
+          itemListElement: [
+            { "@type": "ListItem", position: 1, name: "Inicio", item: `${base}/` },
+            { "@type": "ListItem", position: 2, name: "Festivales", item: `${base}/festivales` },
+          ],
+        });
+        return `<script type="application/ld+json">${collectionPageJsonLd}</script>
+<script type="application/ld+json">${faqJsonLd}</script>
 <script type="application/ld+json">${itemListJsonLd}</script>
+<script type="application/ld+json">${breadcrumbJsonLd}</script>
 <p>ConcertRide cubre el carpooling a 16 festivales de música en España en 2026: Mad Cool (Madrid, 9–11 jul), Primavera Sound (Barcelona, 28 may–1 jun), Sónar (Barcelona, 18–20 jun), FIB (Benicàssim, 16–19 jul), BBK Live (Bilbao, 9–11 jul), Resurrection Fest (Viveiro, 25–28 jun), Arenal Sound (Burriana, 29 jul–2 ago), Medusa (Cullera, 12–16 ago), Viña Rock (Villarrobledo, 30 abr–3 may), O Son do Camiño (Santiago, 18–20 jun), Sonorama (Aranda de Duero, 6–9 ago), Cala Mijas (Mijas, 2–4 oct), Low Festival (Benidorm, 24–26 jul), Tomavistas (Madrid, 15–17 may), Zevra (Valencia) y Cruïlla (Barcelona, 9–12 jul). Precio de carpooling: 4–55 € por asiento según distancia.</p>
 
 <h2>¿Por qué carpooling para ir a festivales?</h2>
@@ -289,7 +369,7 @@ function buildStaticRoutes(base: string): Record<string, { title: string; descri
   <li><a href="${base}/festivales/cala-mijas">Cala Mijas — Mijas — 2–4 oct 2026</a></li>
 </ul>
 
-<p>Lee más en el blog: <a href="${base}/blog/carpooling-festivales-espana-2026">Guía completa de carpooling a festivales 2026</a> · <a href="${base}/guia-transporte-festivales">Guía de transporte a festivales</a></p>`;
+<p>Lee más en el blog: <a href="${base}/blog/festivales-musica-espana-2026">Guía completa de carpooling a festivales 2026</a> · <a href="${base}/guia-transporte-festivales">Guía de transporte a festivales</a></p>`;
       })(),
     },
     "/guia-transporte-festivales": {
@@ -297,7 +377,65 @@ function buildStaticRoutes(base: string): Record<string, { title: string; descri
       description: "Cómo llegar a los festivales de música en España: autobús organizado, tren, lanzadera oficial y carpooling comparados. Precios, pros, contras y opciones de vuelta de madrugada.",
       canonical: `${base}/guia-transporte-festivales`,
       h1: "Guía de transporte para festivales de música en España 2026",
-      body: `<p>Guía completa con todas las opciones para llegar a los festivales de música en España en 2026: carpooling, autobuses organizados, transporte público y consejos para volver de madrugada sin pagar de más.</p>
+      body: (() => {
+        const guideArticleJsonLd = JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "Article",
+          headline: "Guía de transporte para festivales de música en España 2026",
+          description: "Cómo llegar a los festivales de música en España: autobús organizado, tren, lanzadera oficial y carpooling comparados. Precios, pros, contras y opciones de vuelta de madrugada.",
+          author: {
+            "@type": "Person",
+            name: "Alejandro Lalaguna",
+            url: `${base}/acerca-de`,
+            "@id": `${base}/#founder`,
+          },
+          publisher: { "@type": "Organization", name: "ConcertRide", "@id": `${base}/#organization`, logo: { "@type": "ImageObject", url: `${base}/favicon.svg`, width: 512, height: 512 } },
+          datePublished: "2026-04-24",
+          dateModified: "2026-05-02",
+          url: `${base}/guia-transporte-festivales`,
+          inLanguage: "es-ES",
+          mainEntityOfPage: { "@type": "WebPage", "@id": `${base}/guia-transporte-festivales` },
+          articleSection: "Guía de viaje",
+          keywords: "transporte festivales España 2026, cómo llegar a festivales, autobús festival, carpooling festival, lanzadera festival, vuelta festival madrugada",
+          about: [
+            { "@type": "Thing", name: "Carpooling", sameAs: "https://www.wikidata.org/wiki/Q1343571" },
+            { "@type": "Thing", name: "Festivales de música en España", sameAs: "https://www.wikidata.org/wiki/Q213492" },
+          ],
+          mentions: [
+            { "@type": "MusicEvent", name: "Mad Cool Festival", sameAs: "https://www.madcoolfestival.es/" },
+            { "@type": "MusicEvent", name: "Primavera Sound", sameAs: "https://www.primaverasound.com/" },
+            { "@type": "MusicEvent", name: "Sónar", sameAs: "https://sonar.es/" },
+            { "@type": "MusicEvent", name: "BBK Live", sameAs: "https://bbklive.com/" },
+            { "@type": "MusicEvent", name: "Arenal Sound", sameAs: "https://arenalsound.com/" },
+            { "@type": "MusicEvent", name: "Viña Rock", sameAs: "https://www.vinarock.es/" },
+            { "@type": "MusicEvent", name: "Resurrection Fest", sameAs: "https://www.resurrectionfest.es/" },
+            { "@type": "Organization", name: "BlaBlaCar", sameAs: "https://www.blablacar.es/" },
+          ],
+          speakable: { "@type": "SpeakableSpecification", cssSelector: ["h1", ".speakable", "p:first-of-type"] },
+        });
+        const guideFaqJsonLd = JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "FAQPage",
+          inLanguage: "es-ES",
+          mainEntity: [
+            { "@type": "Question", name: "¿Cuál es la mejor forma de ir a un festival en España?", acceptedAnswer: { "@type": "Answer", text: "Para la mayoría de festivales en España, el carpooling es la mejor opción: es 3–5 veces más barato que un taxi (3–20 € vs 40–90 €), más flexible que el autobús organizado (sin horario fijo de vuelta) y llega directamente al recinto cuando el transporte público no llega. ConcertRide ofrece carpooling sin comisión a 16 festivales desde 17 ciudades." } },
+            { "@type": "Question", name: "¿Hay autobuses nocturnos a los festivales en España?", acceptedAnswer: { "@type": "Answer", text: "Los autobuses nocturnos (búho en Madrid, nitbus en Barcelona) no llegan a los recintos de festival. El metro de Madrid cierra a las 1:30, el de Barcelona a las 2:00. Para la vuelta de madrugada, el carpooling con ConcertRide es la opción más práctica: acuerdas la hora de salida directamente con el conductor." } },
+            { "@type": "Question", name: "¿Cuánto cuesta el carpooling a un festival vs taxi?", acceptedAnswer: { "@type": "Answer", text: "Carpooling ConcertRide: 3–20 €/asiento según distancia. Taxi nocturno de festival: 40–90 € por trayecto (precio x2–x3 por alta demanda). El carpooling desde Madrid al Mad Cool (IFEMA) cuesta 4–8 €. El taxi equivalente cuesta 25–45 €." } },
+            { "@type": "Question", name: "¿Qué festivales tienen lanzadera oficial en 2026?", acceptedAnswer: { "@type": "Answer", text: "Los festivales con lanzadera oficial en 2026 son: BBK Live (gratuita desde Plaza Moyúa, Bilbao), Viña Rock (desde Albacete), FIB (desde Castellón), Arenal Sound (desde Castellón). Mad Cool no tiene lanzadera oficial — usa Metro L8. Primavera Sound, Sónar y Cruïlla son accesibles en Metro L4." } },
+          ],
+        });
+        const guideBreadcrumbJsonLd = JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "BreadcrumbList",
+          itemListElement: [
+            { "@type": "ListItem", position: 1, name: "Inicio", item: `${base}/` },
+            { "@type": "ListItem", position: 2, name: "Guía de transporte a festivales", item: `${base}/guia-transporte-festivales` },
+          ],
+        });
+        return `<script type="application/ld+json">${guideArticleJsonLd}</script>
+<script type="application/ld+json">${guideFaqJsonLd}</script>
+<script type="application/ld+json">${guideBreadcrumbJsonLd}</script>
+<p>Guía completa con todas las opciones para llegar a los festivales de música en España en 2026: carpooling, autobuses organizados, transporte público y consejos para volver de madrugada sin pagar de más.</p>
 <h2>Por qué el carpooling es la mejor opción para festivales</h2>
 <p>El transporte público rara vez cubre el horario real de los festivales — el último metro sale antes de que acabe el cabeza de cartel. Un taxi de madrugada puede costar 30–90 € por trayecto. El carpooling con ConcertRide sale por 4–20 € dependiendo de la distancia, y el conductor también va al festival. Sin comisión, sin horario fijo, pago en efectivo o Bizum directamente al conductor.</p>
 <h2>Comparativa de opciones de transporte a festivales</h2>
@@ -327,7 +465,8 @@ function buildStaticRoutes(base: string): Record<string, { title: string; descri
   <li><a href="${base}/festivales/cruilla">Cómo ir al Cruïlla en coche compartido — Barcelona, julio 2026</a></li>
 </ul>
 <h2>El problema de volver de noche de un festival</h2>
-<p>La mayoría de festivales terminan entre la 1:00 y las 4:00. El metro de Madrid cierra a la 1:30, el de Barcelona a las 2:00. Los autobuses nocturnos (búhos en Madrid, nitbus en Barcelona) no llegan a los recintos de festival. Los taxis y VTC multiplican el precio x2–x3 en noches de alta demanda. Con ConcertRide, acuerdas la hora de vuelta con el conductor antes del festival: salís juntos cuando acabe el último bolo.</p>`,
+<p>La mayoría de festivales terminan entre la 1:00 y las 4:00. El metro de Madrid cierra a la 1:30, el de Barcelona a las 2:00. Los autobuses nocturnos (búhos en Madrid, nitbus en Barcelona) no llegan a los recintos de festival. Los taxis y VTC multiplican el precio x2–x3 en noches de alta demanda. Con ConcertRide, acuerdas la hora de vuelta con el conductor antes del festival: salís juntos cuando acabe el último bolo.</p>`;
+      })(),
     },
     "/como-funciona": {
       title: `Cómo funciona ConcertRide — Carpooling para conciertos | ConcertRide`,
@@ -379,10 +518,20 @@ function buildStaticRoutes(base: string): Record<string, { title: string; descri
           url: `${base}/como-funciona`,
           name: "Cómo funciona ConcertRide — Carpooling para conciertos",
           inLanguage: "es-ES",
-          dateModified: "2026-05-01",
+          dateModified: "2026-05-02",
+          speakable: { "@type": "SpeakableSpecification", cssSelector: ["h1", "h2", ".speakable", "p:first-of-type"] },
           isPartOf: { "@type": "WebSite", "@id": `${base}/#website`, name: "ConcertRide", url: base },
         });
+        const breadcrumbJsonLd = JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "BreadcrumbList",
+          itemListElement: [
+            { "@type": "ListItem", position: 1, name: "Inicio", item: `${base}/` },
+            { "@type": "ListItem", position: 2, name: "Cómo funciona", item: `${base}/como-funciona` },
+          ],
+        });
         return `<script type="application/ld+json">${webPageJsonLd}</script>
+<script type="application/ld+json">${breadcrumbJsonLd}</script>
 <script type="application/ld+json">${howToPassengerJsonLd}</script>
 <script type="application/ld+json">${howToDriverJsonLd}</script>
 <script type="application/ld+json">${faqJsonLd}</script>
@@ -417,24 +566,40 @@ function buildStaticRoutes(base: string): Record<string, { title: string; descri
       })(),
     },
     "/faq": {
-      title: `Preguntas frecuentes sobre carpooling a conciertos y festivales — ${SITE_NAME}`,
-      description: "Respuestas a las 12 preguntas más frecuentes sobre ConcertRide: seguridad, pagos, cancelaciones, legalidad y diferencias con BlaBlaCar.",
+      title: `FAQ — Carpooling para conciertos y festivales | ${SITE_NAME}`,
+      description: "FAQ completo sobre ConcertRide: cómo compartir coche a un festival, alternativa económica para volver de noche, carpooling sin comisiones, sostenibilidad y más.",
       canonical: `${base}/faq`,
       h1: "Preguntas frecuentes — ConcertRide carpooling para conciertos",
       body: (() => {
         const faqs = [
-          { q: "¿Es seguro compartir coche con desconocidos para ir a un concierto?", a: "Todos los conductores verifican su carnet de conducir antes de publicar viajes. Puedes ver el perfil completo, las valoraciones de otros pasajeros y comunicarte por chat antes del viaje. El pago es siempre en persona." },
-          { q: "¿Cómo se paga en ConcertRide?", a: "El pago es en efectivo o Bizum directamente al conductor el día del viaje. ConcertRide no gestiona pagos ni cobra comisión." },
-          { q: "¿Qué pasa si el conductor cancela?", a: "El conductor avisa por el chat de la plataforma. Puedes buscar otro viaje disponible al mismo concierto o publicar tú mismo una solicitud de carpooling." },
-          { q: "¿Puedo reservar la vuelta también?", a: "Sí. Muchos conductores publican el viaje de ida y vuelta juntos. Filtra por 'con regreso incluido' al buscar." },
-          { q: "¿ConcertRide cobra comisión?", a: "No. Registrarse, buscar y publicar viajes es completamente gratuito. El 100 % del precio del asiento va directamente al conductor." },
-          { q: "¿Es legal el carpooling a festivales?", a: "Sí. El carpooling bajo la figura de gastos compartidos está reconocido como legal por el Tribunal Supremo español (caso BlaBlaCar, 2017). El conductor solo puede cubrir el coste del combustible y peajes — no puede obtener beneficio económico." },
-          { q: "¿Cuánto cuesta compartir coche a un festival?", a: "El precio lo fija el conductor para cubrir combustible y peajes. Los rangos orientativos son: 3–8 €/asiento para trayectos cortos (menos de 200 km) y 10–22 €/asiento para larga distancia. Consulta las páginas de cada festival para ver precios por ciudad de origen." },
-          { q: "¿Puedo ir a un concierto solo con ConcertRide?", a: "Sí. Puedes reservar una sola plaza en el coche de un conductor que ya va al mismo concierto. No hace falta ir en grupo." },
-          { q: "¿Qué diferencia hay entre ConcertRide y BlaBlaCar?", a: "ConcertRide está especializado en conciertos y festivales: cada viaje está vinculado a un evento concreto, el horario de vuelta está alineado con el fin del show y no hay comisión. BlaBlaCar es una plataforma generalista que cobra entre el 15 y el 20 % de comisión por cada viaje." },
-          { q: "¿Cómo verifico que el conductor es de confianza?", a: "Antes de publicar su primer viaje, cada conductor sube una foto de su carnet de conducir. Puedes ver el perfil, las valoraciones de otros pasajeros y el chat del evento antes de confirmar la reserva." },
-          { q: "¿Puedo publicar un viaje si tengo carnet de conducir pero no soy titular del coche?", a: "Sí, siempre que tengas permiso del titular y el seguro del vehículo cubra el uso por terceros (seguro a terceros completo)." },
-          { q: "¿Qué pasa si llego tarde al punto de encuentro?", a: "El conductor espera un tiempo prudencial. Si vas a llegar tarde, avísale por el chat de ConcertRide con tiempo suficiente para no perder el viaje." },
+          { q: "¿Qué es ConcertRide?", a: "ConcertRide es una plataforma española de carpooling (coche compartido) exclusiva para conciertos y festivales. Conecta a fans que van al mismo evento para compartir coche, dividir gastos y llegar juntos. Es gratis, sin comisiones y sin publicidad." },
+          { q: "¿Cuánto cuesta usar ConcertRide?", a: "El uso de la plataforma es 100 % gratis tanto para conductores como para pasajeros. No cobramos comisión. Cada viaje tiene un precio por asiento que fija el conductor (típicamente 8–15 €/plaza) para cubrir combustible y peajes. Otros servicios como taxi suelen costar 30–60 € por la misma distancia." },
+          { q: "¿Es seguro viajar con ConcertRide?", a: "Sí. Todos los conductores tienen que verificar su carnet de conducir antes de publicar un viaje. Puedes ver la valoración media, el número de viajes realizados y las reseñas de otros pasajeros en el perfil público del conductor. Los emails están verificados antes de poder reservar o publicar." },
+          { q: "¿Cómo funciona para un pasajero?", a: "1) Busca el concierto al que vas. 2) Elige un viaje publicado desde tu ciudad de origen. 3) Envía una solicitud (o reserva al instante si está activada). 4) Paga al conductor en efectivo o Bizum cuando te recoja." },
+          { q: "¿Cómo funciona para un conductor?", a: "1) Verifica tu carnet en Mi perfil. 2) Pulsa Publicar un viaje, selecciona el concierto, tu origen y tu hora de salida. 3) Fija el precio por asiento y el número de plazas. 4) Acepta o rechaza las solicitudes de los pasajeros." },
+          { q: "¿A qué conciertos y festivales puedo ir?", a: "Tenemos datos de 16+ festivales españoles del año (Mad Cool, Primavera Sound, Sónar, FIB, BBK Live, Resurrection Fest, Arenal Sound, Viña Rock, Cala Mijas, Zevra, Cruïlla y más) además de miles de conciertos individuales en toda España." },
+          { q: "¿En qué ciudades está disponible?", a: "Cobertura nacional en España. Orígenes y destinos en Madrid, Barcelona, Valencia, Sevilla, Bilbao, Málaga, Zaragoza, Alicante, Benidorm, Granada, Murcia, A Coruña, Santiago, Benicàssim, Villarrobledo, Aranda de Duero, entre otros." },
+          { q: "¿Qué pasa si el conductor cancela el viaje?", a: "Te enviamos un email y una notificación push inmediatamente. La reserva se cancela automáticamente y tu plaza queda liberada. No has pagado nada (el pago es en persona) así que no hay reembolsos que gestionar." },
+          { q: "¿Puedo cancelar mi reserva?", a: "Sí, en cualquier momento antes de la salida. Ve a Mis viajes → selecciona la reserva → pulsa Cancelar reserva. Notificamos al conductor y la plaza vuelve a estar disponible para otros pasajeros." },
+          { q: "¿Pagáis a los conductores?", a: "No. ConcertRide no intermedia ningún pago. El conductor cobra a los pasajeros directamente en efectivo o Bizum el día del viaje. El precio por asiento se calcula para compartir gastos (combustible + peajes), no para lucro." },
+          { q: "¿Qué ventajas tiene ConcertRide frente a otras opciones de transporte?", a: "ConcertRide es la única plataforma diseñada exclusivamente para conciertos y festivales. El viaje está sincronizado con el horario del evento, ves a qué concierto van los otros pasajeros, y el 100 % del precio del asiento va al conductor — sin comisión de ningún tipo." },
+          { q: "¿Qué datos personales guardáis?", a: "Email, nombre y contraseña (hasheada con PBKDF2-SHA256) para la cuenta. Opcionalmente: teléfono, ciudad base, modelo de coche. Foto de carnet de conducir (solo para verificación, no se muestra públicamente). No vendemos datos a terceros." },
+          { q: "¿Qué pasa si tengo un problema con otro usuario?", a: "Puedes reportar a un usuario o viaje desde el perfil del conductor o la ficha del viaje → botón Reportar. Elige el motivo (estafa, acoso, no-show, conducción peligrosa, spam, otro) y añade los detalles. Revisamos cada reporte manualmente." },
+          { q: "¿Tengo que crear cuenta para usar la plataforma?", a: "No para explorar conciertos y ver viajes. Sí para publicar un viaje o reservar una plaza (necesitamos tu email verificado). El registro es gratis, solo pide nombre + email + contraseña + aceptar los términos." },
+          { q: "¿Puedo ir a un festival sin coche propio?", a: "Sí, ese es el uso principal de ConcertRide. Busca el festival en el catálogo, elige un viaje publicado desde tu ciudad y reserva una plaza. El conductor te recoge en un punto acordado." },
+          { q: "¿Cuál es la alternativa al taxi para volver de un concierto de noche?", a: "El carpooling de ConcertRide. Los conciertos suelen terminar entre las 23:00 y las 02:00, cuando el transporte público es escaso y los taxis cuestan 30–60 €. Con ConcertRide, varios fans comparten el viaje de vuelta — precio habitual 8–15 € por asiento." },
+          { q: "¿Cómo compartir los gastos del viaje a un concierto?", a: "Publica un viaje en ConcertRide indicando tu ruta, hora y precio por asiento. Los pasajeros reservan y te pagan en efectivo o Bizum el día del viaje. Típicamente, 3 pasajeros a 10 € cada uno cubren la gasolina de un trayecto de 200 km." },
+          { q: "¿Hay autobuses directos a los festivales de España?", a: "Pocos. Algunos festivales organizan shuttles pagados desde la ciudad más cercana, pero los horarios son limitados y se agotan. Desde ciudades más distantes no existe transporte público directo a recintos como Resurrection Fest (Viveiro), Arenal Sound (Burriana) o Viña Rock (Villarrobledo)." },
+          { q: "¿ConcertRide funciona para conciertos individuales además de festivales?", a: "Sí. ConcertRide funciona para cualquier concierto en recintos con difícil acceso nocturno: WiZink Center (Madrid), Palau Sant Jordi (Barcelona), Kobetamendi (Bilbao), etc. Puedes buscar cualquier artista o sala en el catálogo." },
+          { q: "¿Cómo sé que el conductor es de confianza?", a: "Tres capas de verificación: (1) email verificado obligatorio para todos los usuarios; (2) foto del carnet de conducir verificada manualmente antes del primer viaje; (3) sistema de valoraciones 1–5 estrellas con reseñas de pasajeros anteriores, visibles en el perfil público." },
+          { q: "¿Cómo volver del festival de madrugada?", a: "Los festivales acaban entre la 1:00 y las 4:00 de la madrugada, cuando el metro ya cerró y los taxis cuestan 60–100 €. Con ConcertRide, publicas o buscas viaje de vuelta con antelación: acuerda la hora de salida con el conductor y te recoge en el punto pactado." },
+          { q: "¿Hay autobuses organizados a los festivales y cómo se comparan con ConcertRide?", a: "Existen autobuses organizados a algunos festivales, pero solo desde ciudades concretas, con horarios fijos, y suelen agotarse semanas antes. ConcertRide sale desde tu calle, a la hora que acordáis, y cuesta entre 3 y 20 € según la distancia." },
+          { q: "¿ConcertRide es más sostenible que ir en coche solo?", a: "Sí. Según el Julie's Bicycle Practical Guide to Green Events, el 80 % de la huella de carbono de un festival proviene del transporte. Un coche compartido con 4 personas emite un 75 % menos CO₂ por pasajero respecto a ir en solitario." },
+          { q: "¿Qué es la Zona de Bajas Emisiones (ZBE) de Madrid y cómo afecta para ir a festivales?", a: "La ZBE de Madrid Centro restringe el acceso a coches sin etiqueta ambiental. IFEMA (Mad Cool, Tomavistas) está fuera de la ZBE, así que puedes llegar en cualquier vehículo. Muchos fans prefieren ConcertRide para evitar el parking saturado de IFEMA (12–18 €/día)." },
+          { q: "¿Puedo ir al festival en grupo con una furgoneta compartida?", a: "Sí. Muchos conductores publican viajes en furgoneta de 7–9 plazas. Es la opción más económica para grupos: dividir la gasolina entre 7 personas sale a 3–8 € por persona incluso desde 300 km." },
+          { q: "¿Puedo ganar dinero llevando gente a conciertos y festivales?", a: "No es para ganar dinero, sino para no perderlo. Por ley, un conductor no puede cobrar más del coste proporcional del viaje (combustible + peajes dividido entre todos). En la práctica, los pasajeros cubren la gasolina convirtiendo el viaje de 40 € en gasolina en un viaje gratis." },
+          { q: "¿Qué hago si no encuentro ningún viaje a mi concierto?", a: "Activa el botón 'Me interesa un viaje' en la ficha del concierto. El sistema muestra tu demanda a posibles conductores con el contador 'X personas buscan viaje' y te notifica por email y push en cuanto alguien publique un viaje desde tu ciudad." },
+          { q: "¿Por qué ConcertRide es mejor para ir a festivales que una plataforma de carpooling genérica?", a: "ConcertRide está diseñada específicamente para conciertos: el viaje está sincronizado con el horario del evento, ves a qué show van los otros pasajeros, puedes chatear en el chat del concierto y el 100 % del precio va al conductor sin comisión." },
         ];
         const faqJsonLd = JSON.stringify({
           "@context": "https://schema.org",
@@ -453,11 +618,21 @@ function buildStaticRoutes(base: string): Record<string, { title: string; descri
           url: `${base}/faq`,
           name: "Preguntas frecuentes sobre carpooling a conciertos y festivales — ConcertRide",
           inLanguage: "es-ES",
-          dateModified: "2026-05-01",
+          dateModified: "2026-05-02",
+          speakable: { "@type": "SpeakableSpecification", cssSelector: ["h1", "dt", "dd"] },
           isPartOf: { "@type": "WebSite", "@id": `${base}/#website`, name: "ConcertRide", url: base },
+        });
+        const breadcrumbJsonLd = JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "BreadcrumbList",
+          itemListElement: [
+            { "@type": "ListItem", position: 1, name: "Inicio", item: `${base}/` },
+            { "@type": "ListItem", position: 2, name: "FAQ", item: `${base}/faq` },
+          ],
         });
         const items = faqs.map((f) => `<dt>${esc(f.q)}</dt>\n  <dd>${esc(f.a)}</dd>`).join("\n  ");
         return `<script type="application/ld+json">${webPageJsonLd}</script>
+<script type="application/ld+json">${breadcrumbJsonLd}</script>
 <script type="application/ld+json">${faqJsonLd}</script>
 <dl>
   ${items}
@@ -484,16 +659,117 @@ function buildStaticRoutes(base: string): Record<string, { title: string; descri
       description: "ConcertRide es la plataforma española de carpooling para conciertos y festivales. Sin comisiones, sin intermediarios, conductores verificados.",
       canonical: `${base}/acerca-de`,
       h1: "Acerca de ConcertRide",
-      body: `<p>ConcertRide es la plataforma española de viaje compartido exclusiva para conciertos y festivales. Fundada en 2026, conecta conductores y pasajeros que van al mismo evento para compartir gastos de desplazamiento. Sin comisiones, sin intermediarios.</p>
+      body: (() => {
+        const aboutPageJsonLd = JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "AboutPage",
+          "@id": `${base}/acerca-de#webpage`,
+          url: `${base}/acerca-de`,
+          name: "Acerca de ConcertRide — Carpooling para conciertos y festivales en España",
+          description: "ConcertRide es la plataforma española de viaje compartido exclusiva para conciertos y festivales. Fundada en 2026. Sin comisiones, sin intermediarios. Conductores verificados.",
+          inLanguage: "es-ES",
+          isPartOf: { "@type": "WebSite", "@id": `${base}/#website` },
+          about: { "@type": "Organization", "@id": `${base}/#organization` },
+          dateModified: "2026-05-02",
+        });
+        const orgDetailJsonLd = JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "Organization",
+          "@id": `${base}/#organization`,
+          name: "ConcertRide",
+          url: base,
+          foundingDate: "2026",
+          foundingLocation: { "@type": "Place", name: "España" },
+          legalName: "ConcertRide ES",
+          description: "Plataforma española de carpooling exclusiva para conciertos y festivales de música. 0 % de comisión. Conductores verificados con carnet. Pago directo en efectivo o Bizum.",
+          knowsAbout: ["carpooling", "festivales de música", "conciertos en España", "transporte compartido", "ride-sharing", "economía colaborativa"],
+          hasOfferCatalog: {
+            "@type": "OfferCatalog",
+            name: "Rutas de carpooling a festivales",
+            numberOfItems: 71,
+            itemListElement: [
+              { "@type": "Offer", name: "Carpooling a Mad Cool Festival", price: "4", priceCurrency: "EUR", url: `${base}/festivales/mad-cool` },
+              { "@type": "Offer", name: "Carpooling a Primavera Sound", price: "14", priceCurrency: "EUR", url: `${base}/festivales/primavera-sound` },
+              { "@type": "Offer", name: "Carpooling a BBK Live", price: "11", priceCurrency: "EUR", url: `${base}/festivales/bbk-live` },
+            ],
+          },
+          sameAs: [
+            "https://twitter.com/concertride_es",
+            "https://www.instagram.com/concertride_es/",
+            "https://www.facebook.com/concertride.me",
+            "https://www.linkedin.com/company/concertride-es",
+            "https://www.crunchbase.com/organization/concertride-es",
+            "https://www.wikidata.org/wiki/Q130455178",
+          ],
+        });
+        const breadcrumbJsonLd = JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "BreadcrumbList",
+          itemListElement: [
+            { "@type": "ListItem", position: 1, name: "Inicio", item: `${base}/` },
+            { "@type": "ListItem", position: 2, name: "Acerca de", item: `${base}/acerca-de` },
+          ],
+        });
+        const founderJsonLd = JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "Person",
+          "@id": `${base}/#founder`,
+          name: "Alejandro Lalaguna",
+          url: `${base}/acerca-de`,
+          jobTitle: "Fundador",
+          worksFor: { "@type": "Organization", "@id": `${base}/#organization` },
+          knowsAbout: ["Carpooling", "Conciertos en España", "Festivales de música", "Movilidad sostenible"],
+        });
+        return `<script type="application/ld+json">${aboutPageJsonLd}</script>
+<script type="application/ld+json">${orgDetailJsonLd}</script>
+<script type="application/ld+json">${founderJsonLd}</script>
+<script type="application/ld+json">${breadcrumbJsonLd}</script>
+<p>ConcertRide es la plataforma española de viaje compartido exclusiva para conciertos y festivales. Fundada en 2026, conecta conductores y pasajeros que van al mismo evento para compartir gastos de desplazamiento. Sin comisiones, sin intermediarios.</p>
 <h2>Nuestra misión</h2>
-<p>Que nadie se quede sin ir a un concierto por falta de transporte o por no poder pagar un taxi. Y que el 80 % de las emisiones de carbono que genera el transporte de asistentes a festivales empiece a reducirse.</p>`,
+<p>Que nadie se quede sin ir a un concierto por falta de transporte o por no poder pagar un taxi. Y que el 80 % de las emisiones de carbono que genera el transporte de asistentes a festivales empiece a reducirse.</p>
+<h2>Cómo funciona</h2>
+<p>ConcertRide conecta conductores con plazas libres y pasajeros que van al mismo concierto o festival. El conductor publica el viaje, fija el precio por asiento (solo combustible y peajes), y los pasajeros reservan. El pago es en efectivo o Bizum el día del viaje. ConcertRide no cobra comisión — el 100 % del precio va al conductor.</p>
+<h2>Datos clave</h2>
+<ul>
+  <li>0 % de comisión de plataforma</li>
+  <li>16 festivales cubiertos en 2026</li>
+  <li>71+ rutas de carpooling programáticas</li>
+  <li>17 ciudades con landing pages de conciertos</li>
+  <li>Conductores verificados con carnet de conducir</li>
+  <li>Precio medio: 8–15 € por asiento</li>
+</ul>`;
+      })(),
     },
     "/contacto": {
       title: `Contacto — ${SITE_NAME}`,
-      description: "Ponte en contacto con el equipo de ConcertRide.",
+      description: "Ponte en contacto con el equipo de ConcertRide. Soporte para conductores, pasajeros, prensa y colaboraciones.",
       canonical: `${base}/contacto`,
-      h1: "Contacto",
-      body: `<p>¿Tienes alguna pregunta o sugerencia? Escríbenos y te responderemos lo antes posible.</p>`,
+      h1: "Contacto — ConcertRide",
+      body: (() => {
+        const contactPageJsonLd = JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "ContactPage",
+          "@id": `${base}/contacto#webpage`,
+          url: `${base}/contacto`,
+          name: "Contacto — ConcertRide",
+          inLanguage: "es-ES",
+          isPartOf: { "@type": "WebSite", "@id": `${base}/#website`, name: "ConcertRide", url: base },
+          about: { "@type": "Organization", "@id": `${base}/#organization` },
+        });
+        const breadcrumbJsonLd = JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "BreadcrumbList",
+          itemListElement: [
+            { "@type": "ListItem", position: 1, name: "Inicio", item: `${base}/` },
+            { "@type": "ListItem", position: 2, name: "Contacto", item: `${base}/contacto` },
+          ],
+        });
+        return `<script type="application/ld+json">${contactPageJsonLd}</script>
+<script type="application/ld+json">${breadcrumbJsonLd}</script>
+<p>¿Tienes alguna pregunta o sugerencia? Escríbenos a <a href="mailto:alejandrolalaguna@gmail.com">alejandrolalaguna@gmail.com</a> y te responderemos lo antes posible.</p>
+<p>Para soporte de usuarios: usa el chat en la plataforma o escríbenos por email.</p>
+<p>Para medios y prensa: <a href="${base}/prensa">Sala de prensa →</a></p>`;
+      })(),
     },
     "/blog": {
       title: `Blog ConcertRide — Guías de transporte para festivales y conciertos en España | ${SITE_NAME}`,
@@ -509,6 +785,29 @@ function buildStaticRoutes(base: string): Record<string, { title: string; descri
           { slug: "como-volver-festival-madrugada", title: "Cómo volver de un festival de madrugada (sin pagar 90 € de taxi)" },
           { slug: "huella-carbono-festivales-carpooling", title: "Huella de carbono de un festival: por qué el carpooling es la acción más efectiva" },
         ];
+        const blogLd = JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "Blog",
+          "@id": `${base}/blog#blog`,
+          url: `${base}/blog`,
+          name: "Blog ConcertRide — Carpooling, festivales y sostenibilidad",
+          description: "Comparativas, guías de transporte y sostenibilidad para asistentes a festivales en España.",
+          inLanguage: "es-ES",
+          datePublished: "2026-04-10",
+          dateModified: posts[0] ? "2026-05-01" : "2026-04-10",
+          isPartOf: { "@id": `${base}/#website` },
+          about: { "@id": `${base}/#service` },
+          publisher: { "@id": `${base}/#organization` },
+          speakable: { "@type": "SpeakableSpecification", cssSelector: ["h1", ".speakable"] },
+          blogPost: posts.map((p, idx) => ({
+            "@type": "BlogPosting",
+            "@id": `${base}/blog/${p.slug}#article`,
+            headline: p.title,
+            url: `${base}/blog/${p.slug}`,
+            ...(idx < 3 && { abstract: p.title }),
+            inLanguage: "es-ES",
+          })),
+        });
         const faqLd = JSON.stringify({
           "@context": "https://schema.org",
           "@type": "FAQPage",
@@ -531,8 +830,18 @@ function buildStaticRoutes(base: string): Record<string, { title: string; descri
             url: `${base}/blog/${p.slug}`,
           })),
         });
-        return `<script type="application/ld+json">${faqLd}</script>
+        const breadcrumbLd = JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "BreadcrumbList",
+          itemListElement: [
+            { "@type": "ListItem", position: 1, name: "Inicio", item: `${base}/` },
+            { "@type": "ListItem", position: 2, name: "Blog", item: `${base}/blog` },
+          ],
+        });
+        return `<script type="application/ld+json">${blogLd}</script>
+<script type="application/ld+json">${faqLd}</script>
 <script type="application/ld+json">${itemListLd}</script>
+<script type="application/ld+json">${breadcrumbLd}</script>
 <p>Guías de transporte, comparativas y consejos para asistentes a festivales y conciertos en España. Todo lo que necesitas saber para llegar sin taxi, volver de madrugada y reducir tu huella de carbono.</p>
 <h2>Últimos artículos</h2>
 <ul>
@@ -552,7 +861,39 @@ ${posts.map((p) => `  <li><a href="${base}/blog/${p.slug}">${p.title}</a></li>`)
       description: "Sala de prensa de ConcertRide. Contacto para medios, notas de prensa y recursos gráficos.",
       canonical: `${base}/prensa`,
       h1: "Sala de prensa — ConcertRide",
-      body: `<p>ConcertRide es la plataforma española de carpooling exclusiva para conciertos y festivales. Para peticiones de prensa, contacta con nosotros.</p>`,
+      body: (() => {
+        const webPageJsonLd = JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "WebPage",
+          "@id": `${base}/prensa#webpage`,
+          url: `${base}/prensa`,
+          name: "Sala de prensa — ConcertRide",
+          inLanguage: "es-ES",
+          isPartOf: { "@type": "WebSite", "@id": `${base}/#website`, name: "ConcertRide", url: base },
+          about: { "@type": "Organization", "@id": `${base}/#organization` },
+        });
+        const breadcrumbJsonLd = JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "BreadcrumbList",
+          itemListElement: [
+            { "@type": "ListItem", position: 1, name: "Inicio", item: `${base}/` },
+            { "@type": "ListItem", position: 2, name: "Prensa", item: `${base}/prensa` },
+          ],
+        });
+        return `<script type="application/ld+json">${webPageJsonLd}</script>
+<script type="application/ld+json">${breadcrumbJsonLd}</script>
+<p>ConcertRide es la plataforma española de carpooling exclusiva para conciertos y festivales. Para peticiones de prensa, contacta con nosotros.</p>
+<h2>Datos clave de ConcertRide</h2>
+<ul>
+  <li>Fundada en 2026 en España</li>
+  <li>16 festivales cubiertos en 2026 (Mad Cool, Primavera Sound, Sónar, BBK Live, Arenal Sound, etc.)</li>
+  <li>71+ rutas de carpooling programáticas (ciudad→festival)</li>
+  <li>0 % de comisión — el 100 % del precio va al conductor</li>
+  <li>Pago en efectivo o Bizum (sin tarjeta obligatoria)</li>
+  <li>Conductores verificados con carnet de conducir</li>
+</ul>
+<p>Contacto para medios: <a href="mailto:alejandrolalaguna@gmail.com">alejandrolalaguna@gmail.com</a></p>`;
+      })(),
     },
     "/aviso-legal": {
       title: `Aviso Legal — ${SITE_NAME}`,
@@ -600,6 +941,20 @@ ${posts.map((p) => `  <li><a href="${base}/blog/${p.slug}">${p.title}</a></li>`)
           { slug: "madrid-vina-rock", label: "Madrid → Viña Rock", price: "8–14 €", time: "2 h" },
           { slug: "madrid-fib", label: "Madrid → FIB Benicàssim", price: "14–22 €", time: "4 h" },
         ];
+        const collectionPageLd = JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "CollectionPage",
+          "@id": `${base}/rutas#webpage`,
+          url: `${base}/rutas`,
+          name: "Rutas de carpooling a festivales en España 2026 | ConcertRide",
+          description: "71+ rutas de viaje compartido a festivales de música en España. Sin comisión, conductores verificados.",
+          inLanguage: "es-ES",
+          datePublished: "2026-04-10",
+          dateModified: "2026-05-02",
+          isPartOf: { "@id": `${base}/#website` },
+          about: { "@id": `${base}/#service` },
+          speakable: { "@type": "SpeakableSpecification", cssSelector: ["h1", ".speakable"] },
+        });
         const faqLd = JSON.stringify({
           "@context": "https://schema.org",
           "@type": "FAQPage",
@@ -622,8 +977,18 @@ ${posts.map((p) => `  <li><a href="${base}/blog/${p.slug}">${p.title}</a></li>`)
             url: `${base}/rutas/${r.slug}`,
           })),
         });
-        return `<script type="application/ld+json">${faqLd}</script>
+        const breadcrumbLd = JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "BreadcrumbList",
+          itemListElement: [
+            { "@type": "ListItem", position: 1, name: "Inicio", item: `${base}/` },
+            { "@type": "ListItem", position: 2, name: "Rutas", item: `${base}/rutas` },
+          ],
+        });
+        return `<script type="application/ld+json">${collectionPageLd}</script>
+<script type="application/ld+json">${faqLd}</script>
 <script type="application/ld+json">${itemListLd}</script>
+<script type="application/ld+json">${breadcrumbLd}</script>
 <p>ConcertRide ofrece 71+ rutas de carpooling a festivales en España en 2026. Precio medio por asiento: 4–55 € según distancia. Sin comisión — el 100 % del precio va al conductor. Pago en efectivo o Bizum el día del viaje. Conductores verificados con carnet.</p>
 <h2>Rutas más populares con precios</h2>
 <table>
@@ -960,7 +1325,10 @@ const FESTIVALS: Record<string, FestivalData> = {
       { city: "Segovia", km: 125, drivingTime: "1h 15 min", range: "4–7 €/asiento" },
     ],
     faqs: [
-      { q: "¿Cómo llegar al Sonorama desde Madrid?", a: "Unos 160 km (1h 40 min). Con ConcertRide el precio es 6–9 €/asiento." },
+      { q: "¿Cómo llegar al Sonorama desde Madrid?", a: "Aranda de Duero está a 150 km de Madrid (1h 30 min por la A-1). Con ConcertRide el precio es 5–8 €/asiento. Bus La Sepulvedana Madrid–Aranda: 10–15 €, 2 veces al día." },
+      { q: "¿Hay bus desde Madrid al Sonorama Ribera?", a: "Sí. El autobús La Sepulvedana Madrid–Aranda de Duero cuesta 10–15 € y tarda unas 2 horas, pero solo opera 2 veces al día y no hay servicio nocturno. El carpooling con ConcertRide (5–8 €/asiento) sale a la hora que acordáis y permite volver de madrugada." },
+      { q: "¿Cómo llegar al Sonorama desde Valladolid?", a: "Valladolid–Aranda de Duero son 100 km (1h por la A-11 o N-122). Con ConcertRide el precio es 4–7 €/asiento. Es la ruta más corta al festival desde una ciudad grande." },
+      { q: "¿Cuándo es el Sonorama Ribera 2026?", a: "Sonorama Ribera 2026 se celebra del 6 al 9 de agosto en El Ferial, Aranda de Duero (Burgos, Castilla y León)." },
     ],
   },
   "zevra-festival": {
@@ -1007,20 +1375,23 @@ const FESTIVALS: Record<string, FestivalData> = {
       { city: "Barcelona", km: 500, drivingTime: "4h 30 min", range: "13–18 €/asiento" },
     ],
     faqs: [
-      { q: "¿Cómo llegar al Low Festival desde Valencia?", a: "Unos 145 km (1h 30 min). Con ConcertRide el precio es 5–8 €/asiento." },
+      { q: "¿Cómo llegar al Low Festival desde Valencia?", a: "Benidorm está a 150 km de Valencia (1h 30 min por la AP-7). Con ConcertRide el precio es 5–8 €/asiento. No existe transporte público directo al recinto del festival." },
+      { q: "¿Cómo llegar al Low Festival desde Alicante?", a: "Benidorm está a 45 km de Alicante (35 min por la AP-7). Con ConcertRide el precio es 3–5 €/asiento. Taxi desde Alicante 35–50 €. El TRAM (tranvía) Alicante–Benidorm funciona pero no conecta directamente con el recinto del festival." },
+      { q: "¿Hay transporte público al Low Festival?", a: "No existe lanzadera oficial ni transporte público directo al recinto del Low Festival en Benidorm. El TRAM Alicante–Benidorm llega a la ciudad pero no al recinto. El carpooling con ConcertRide (3–17 €/asiento) es la opción más usada para quienes vienen de Alicante, Valencia y Madrid." },
+      { q: "¿Cuándo es el Low Festival 2026?", a: "Low Festival 2026 se celebra del 24 al 26 de julio en la Playa de Poniente, Benidorm (Alicante)." },
     ],
   },
   "tomavistas": {
     name: "Tomavistas",
     shortName: "Tomavistas",
     city: "Madrid",
-    venue: "IFEMA",
-    venueAddress: "IFEMA, 28042 Madrid",
+    venue: "Jardines del Buen Retiro",
+    venueAddress: "Jardines del Buen Retiro, Parque del Retiro, 28009 Madrid",
     dates: "15–17 mayo 2026",
     startDate: "2026-05-15",
     endDate: "2026-05-17",
     priceFrom: "4",
-    blurb: "Tomavistas es el festival de indie y alternativo de Madrid, con una programación selecta en IFEMA. Muy popular entre el público madrileño y de provincias cercanas.",
+    blurb: "Tomavistas es el festival de indie y alternativo de Madrid, celebrado en los Jardines del Buen Retiro (Parque del Retiro). Accesible en metro L2 (Retiro) o L9 (Ibiza). Muy popular entre el público madrileño y visitantes de provincias cercanas.",
     originCities: [
       { city: "Madrid", km: 15, drivingTime: "25 min", range: "4–7 €/asiento" },
       { city: "Toledo", km: 75, drivingTime: "55 min", range: "4–7 €/asiento" },
@@ -1029,7 +1400,10 @@ const FESTIVALS: Record<string, FestivalData> = {
       { city: "Zaragoza", km: 325, drivingTime: "3h", range: "9–13 €/asiento" },
     ],
     faqs: [
-      { q: "¿Cuándo se celebra Tomavistas 2026?", a: "La edición 2026 está prevista para el 15, 16 y 17 de mayo en IFEMA Madrid." },
+      { q: "¿Cuándo se celebra Tomavistas 2026?", a: "La edición 2026 de Tomavistas está prevista para el 15, 16 y 17 de mayo en los Jardines del Buen Retiro, Madrid." },
+      { q: "¿Cómo llegar a Tomavistas en transporte público?", a: "Los Jardines del Buen Retiro están muy bien comunicados: metro L2 parada Retiro o L9 parada Ibiza, ambas a menos de 5 minutos a pie del recinto. La N26 es el bus nocturno de vuelta." },
+      { q: "¿Hay parking en Tomavistas?", a: "No hay parking en los Jardines del Buen Retiro. El metro es la opción recomendada para residentes en Madrid. Los visitantes de fuera de Madrid usan ConcertRide para llegar directamente (10–14 € desde Valencia, 9–13 € desde Zaragoza, 15–20 € desde Barcelona)." },
+      { q: "¿Cuánto cuesta ir a Tomavistas desde Valencia?", a: "Valencia–Madrid son 355 km (3h 20 min). Por ConcertRide el precio es 10–14 €/asiento. Desde Zaragoza: 325 km (3h), 9–13 €/asiento. Desde Barcelona: 620 km (5h 30 min), 15–20 €/asiento." },
     ],
   },
   "cruilla": {
@@ -1052,7 +1426,10 @@ const FESTIVALS: Record<string, FestivalData> = {
       { city: "Girona", km: 100, drivingTime: "1h", range: "4–7 €/asiento" },
     ],
     faqs: [
-      { q: "¿Cómo llegar al Cruïlla desde Madrid?", a: "Unos 620 km (5h 30 min). Con ConcertRide el precio es 15–20 €/asiento." },
+      { q: "¿Cómo llegar al Cruïlla desde Madrid?", a: "Madrid–Barcelona (Parc del Fòrum) son 620 km (5h 30 min). Con ConcertRide el precio es 15–20 €/asiento desde Madrid. Metro L4 Besòs Mar a 10 min a pie del recinto." },
+      { q: "¿Cómo llegar al Cruïlla en metro desde Barcelona?", a: "Metro L4 (línea amarilla), parada Besòs Mar. A 10 minutos a pie del Parc del Fòrum. Servicio ampliado en noches de festival hasta las 3:00–4:00." },
+      { q: "¿Cuánto cuesta ir a Cruïlla desde Valencia?", a: "Valencia–Barcelona (Fòrum) son 355 km (3h 15 min). Por ConcertRide el precio es 10–14 €/asiento desde Valencia. El AVE Valencia–Barcelona cuesta 20–60 € pero no llega al recinto." },
+      { q: "¿Cuándo es Cruïlla 2026?", a: "Cruïlla 2026 se celebra del 9 al 12 de julio en el Parc del Fòrum, Barcelona. Busca viajes disponibles en concertride.me." },
     ],
   },
 };
@@ -1063,26 +1440,28 @@ interface CityData {
   region: string;
   blurb: string;
   venues: string[];
+  lat: number;
+  lng: number;
 }
 
 const CITIES: Record<string, CityData> = {
-  madrid: { name: "Madrid", region: "Comunidad de Madrid", blurb: "Madrid concentra la mayor parte de la actividad de conciertos y festivales de España. WiZink Center, Palacio Vistalegre, Caja Mágica e IFEMA (sede de Mad Cool) acogen cada año giras internacionales y festivales de referencia.", venues: ["WiZink Center", "Palacio Vistalegre", "Caja Mágica", "IFEMA (Mad Cool Festival)"] },
-  barcelona: { name: "Barcelona", region: "Cataluña", blurb: "Barcelona es la capital europea de los festivales de música electrónica e indie. Palau Sant Jordi, Parc del Fòrum (Primavera Sound, Cruïlla) y Fira Montjuïc (Sónar) son los tres epicentros.", venues: ["Palau Sant Jordi", "Parc del Fòrum (Primavera Sound / Cruïlla)", "Fira Montjuïc (Sónar)"] },
-  valencia: { name: "Valencia", region: "Comunidad Valenciana", blurb: "Valencia ciudad acoge Zevra Festival y conciertos urbanos frecuentes. Su provincia concentra Arenal Sound en Burriana, Medusa en Cullera y FIB en Benicàssim.", venues: ["Zevra Festival (La Marina)", "Arenal Sound (Burriana)", "Medusa Festival (Cullera)"] },
-  sevilla: { name: "Sevilla", region: "Andalucía", blurb: "Próximos conciertos en Sevilla 2026: los recintos principales son Estadio La Cartuja (giras de estadio, 60.000 plazas), FIBES Sevilla (9.500 plazas), Palacio de los Deportes San Pablo (7.000 plazas) y Cartuja Center CITE. El festival Interestelar Sevilla se celebra cada mayo en el Charco de la Pava (40.000 personas) y el Icónica Sevilla Fest en la Plaza de España. La música en Sevilla incluye también conciertos de cantautor e indie en el Teatro de la Maestranza y el Teatro Lope de Vega. Sevilla es punto de origen para festivales andaluces: Cala Mijas en Málaga (200 km) y Andalucía Big. ConcertRide conecta a asistentes de Sevilla con conductores de toda España.", venues: ["Estadio La Cartuja", "FIBES Sevilla", "Palacio de los Deportes San Pablo", "Interestelar Sevilla (Charco de la Pava)", "Icónica Sevilla Fest"] },
-  bilbao: { name: "Bilbao", region: "País Vasco", blurb: "Bilbao es referencia para festivales internacionales del norte: BBK Live en Kobetamendi y Bilbao Arena para tours indoor.", venues: ["Kobetamendi (BBK Live)", "Bilbao Arena"] },
-  malaga: { name: "Málaga", region: "Andalucía", blurb: "Málaga concentra los festivales más solares de España: Cala Mijas en Mijas, Andalucía Big y Marenostrum en Fuengirola.", venues: ["Cala Mijas Fest", "Andalucía Big Festival", "Marenostrum Music Castle"] },
-  zaragoza: { name: "Zaragoza", region: "Aragón", blurb: "Zaragoza es nodo estratégico equidistante entre Madrid y Barcelona, y origen natural para viajes a Primavera Sound, Mad Cool y Pirineos Sur.", venues: ["Pabellón Príncipe Felipe", "Pirineos Sur (Lanuza)"] },
-  granada: { name: "Granada", region: "Andalucía", blurb: "Granada acoge Granada Sound en septiembre y es origen frecuente para viajes a festivales andaluces del verano.", venues: ["Granada Sound (Cortijo del Conde)"] },
-  donostia: { name: "Donostia / San Sebastián", region: "País Vasco", blurb: "Conciertos en Donostia 2026 y conciertos en San Sebastián 2026: el Heineken Jazzaldia (Plaza de la Trinidad / Kursaal) cada julio es el evento de referencia. Donostia Arena (10.000 plazas) acoge giras nacionales e internacionales. La música en Donostia incluye conciertos en el Velódromo de Anoeta y el Teatro Victoria Eugenia. La cercanía con BBK Live Bilbao (100 km) y Azkena Rock Vitoria (100 km) hace que muchos viajes compartidos a festivales del norte salgan de Donostia.", venues: ["Plaza de la Trinidad (Jazzaldia)", "Kursaal", "Donostia Arena", "Velódromo de Anoeta", "Sala Dabadaba"] },
-  "santiago-de-compostela": { name: "Santiago de Compostela", region: "Galicia", blurb: "Santiago acoge O Son do Camiño en Monte do Gozo cada junio, uno de los festivales con mayor aforo de España.", venues: ["Monte do Gozo (O Son do Camiño)"] },
-  alicante: { name: "Alicante", region: "Comunidad Valenciana", blurb: "Alicante concentra giras nacionales e internacionales en la Plaza de Toros, ADDA y Pabellón Pitiu Rochel. Provincia con Low Festival (Benidorm) y Iboga Summer (Tavernes).", venues: ["Plaza de Toros de Alicante", "ADDA", "Pabellón Pitiu Rochel"] },
-  pamplona: { name: "Pamplona / Iruña", region: "Navarra", blurb: "Pamplona / Iruña concentra la actividad musical de Navarra: Navarra Arena, Anaitasuna y Sala Totem son las referencias del directo.", venues: ["Navarra Arena", "Anaitasuna", "Sala Totem"] },
-  "vitoria-gasteiz": { name: "Vitoria-Gasteiz", region: "País Vasco", blurb: "Vitoria-Gasteiz es referencia para el rock alternativo: Azkena Rock Festival en Mendizabala cada junio. Iradier Arena y Sala Helldorado cubren el resto del año.", venues: ["Mendizabala (Azkena Rock)", "Iradier Arena", "Sala Helldorado"] },
-  "a-coruna": { name: "A Coruña", region: "Galicia", blurb: "A Coruña es el principal punto de origen para Resurrection Fest. Coliseum, Palexco y Sala Pelícano acogen las giras internacionales.", venues: ["Coliseum A Coruña", "Palexco", "Sala Pelícano"] },
-  vigo: { name: "Vigo", region: "Galicia", blurb: "Vigo concentra la actividad musical del sur de Galicia: Auditorio Mar de Vigo, Pabellón Multiusos y salas Rouge / La Iguana Club.", venues: ["Auditorio Mar de Vigo", "Pabellón Multiusos de Vigo", "Sala Rouge", "La Iguana Club"] },
-  murcia: { name: "Murcia", region: "Región de Murcia", blurb: "Murcia acoge SOS 4.8, WAM y R-Murcia. Auditorio Víctor Villegas y salas REM/Mamba completan la oferta.", venues: ["Auditorio Víctor Villegas", "Sala REM", "Sala Mamba", "SOS 4.8"] },
-  valladolid: { name: "Valladolid", region: "Castilla y León", blurb: "Valladolid es punto neurálgico de Castilla y León: Plaza de Toros, Pabellón Pisuerga y Sala Porta Caeli reciben giras nacionales e internacionales.", venues: ["Plaza de Toros de Valladolid", "Pabellón Pisuerga", "Sala Porta Caeli"] },
+  madrid: { name: "Madrid", region: "Comunidad de Madrid", blurb: "Madrid concentra la mayor parte de la actividad de conciertos y festivales de España. WiZink Center, Palacio Vistalegre, Caja Mágica e IFEMA (sede de Mad Cool) acogen cada año giras internacionales y festivales de referencia.", venues: ["WiZink Center", "Palacio Vistalegre", "Caja Mágica", "IFEMA (Mad Cool Festival)"], lat: 40.4168, lng: -3.7038 },
+  barcelona: { name: "Barcelona", region: "Cataluña", blurb: "Barcelona es la capital europea de los festivales de música electrónica e indie. Palau Sant Jordi, Parc del Fòrum (Primavera Sound, Cruïlla) y Fira Montjuïc (Sónar) son los tres epicentros.", venues: ["Palau Sant Jordi", "Parc del Fòrum (Primavera Sound / Cruïlla)", "Fira Montjuïc (Sónar)"], lat: 41.3851, lng: 2.1734 },
+  valencia: { name: "Valencia", region: "Comunidad Valenciana", blurb: "Valencia ciudad acoge Zevra Festival y conciertos urbanos frecuentes. Su provincia concentra Arenal Sound en Burriana, Medusa en Cullera y FIB en Benicàssim.", venues: ["Zevra Festival (La Marina)", "Arenal Sound (Burriana)", "Medusa Festival (Cullera)"], lat: 39.4699, lng: -0.3763 },
+  sevilla: { name: "Sevilla", region: "Andalucía", blurb: "Próximos conciertos en Sevilla 2026: los recintos principales son Estadio La Cartuja (giras de estadio, 60.000 plazas), FIBES Sevilla (9.500 plazas), Palacio de los Deportes San Pablo (7.000 plazas) y Cartuja Center CITE. El festival Interestelar Sevilla se celebra cada mayo en el Charco de la Pava (40.000 personas) y el Icónica Sevilla Fest en la Plaza de España. La música en Sevilla incluye también conciertos de cantautor e indie en el Teatro de la Maestranza y el Teatro Lope de Vega. Sevilla es punto de origen para festivales andaluces: Cala Mijas en Málaga (200 km) y Andalucía Big. ConcertRide conecta a asistentes de Sevilla con conductores de toda España.", venues: ["Estadio La Cartuja", "FIBES Sevilla", "Palacio de los Deportes San Pablo", "Interestelar Sevilla (Charco de la Pava)", "Icónica Sevilla Fest"], lat: 37.3891, lng: -5.9845 },
+  bilbao: { name: "Bilbao", region: "País Vasco", blurb: "Bilbao es referencia para festivales internacionales del norte: BBK Live en Kobetamendi y Bilbao Arena para tours indoor.", venues: ["Kobetamendi (BBK Live)", "Bilbao Arena"], lat: 43.2630, lng: -2.9340 },
+  malaga: { name: "Málaga", region: "Andalucía", blurb: "Málaga concentra los festivales más solares de España: Cala Mijas en Mijas, Andalucía Big y Marenostrum en Fuengirola.", venues: ["Cala Mijas Fest", "Andalucía Big Festival", "Marenostrum Music Castle"], lat: 36.7213, lng: -4.4214 },
+  zaragoza: { name: "Zaragoza", region: "Aragón", blurb: "Zaragoza es nodo estratégico equidistante entre Madrid y Barcelona, y origen natural para viajes a Primavera Sound, Mad Cool y Pirineos Sur.", venues: ["Pabellón Príncipe Felipe", "Pirineos Sur (Lanuza)"], lat: 41.6488, lng: -0.8891 },
+  granada: { name: "Granada", region: "Andalucía", blurb: "Granada acoge Granada Sound en septiembre y es origen frecuente para viajes a festivales andaluces del verano.", venues: ["Granada Sound (Cortijo del Conde)"], lat: 37.1773, lng: -3.5986 },
+  donostia: { name: "Donostia / San Sebastián", region: "País Vasco", blurb: "Conciertos en Donostia 2026 y conciertos en San Sebastián 2026: el Heineken Jazzaldia (Plaza de la Trinidad / Kursaal) cada julio es el evento de referencia. Donostia Arena (10.000 plazas) acoge giras nacionales e internacionales. La música en Donostia incluye conciertos en el Velódromo de Anoeta y el Teatro Victoria Eugenia. La cercanía con BBK Live Bilbao (100 km) y Azkena Rock Vitoria (100 km) hace que muchos viajes compartidos a festivales del norte salgan de Donostia.", venues: ["Plaza de la Trinidad (Jazzaldia)", "Kursaal", "Donostia Arena", "Velódromo de Anoeta", "Sala Dabadaba"], lat: 43.3183, lng: -1.9812 },
+  "santiago-de-compostela": { name: "Santiago de Compostela", region: "Galicia", blurb: "Santiago acoge O Son do Camiño en Monte do Gozo cada junio, uno de los festivales con mayor aforo de España.", venues: ["Monte do Gozo (O Son do Camiño)"], lat: 42.8782, lng: -8.5448 },
+  alicante: { name: "Alicante", region: "Comunidad Valenciana", blurb: "Alicante concentra giras nacionales e internacionales en la Plaza de Toros, ADDA y Pabellón Pitiu Rochel. Provincia con Low Festival (Benidorm) y Iboga Summer (Tavernes).", venues: ["Plaza de Toros de Alicante", "ADDA", "Pabellón Pitiu Rochel"], lat: 38.3452, lng: -0.4815 },
+  pamplona: { name: "Pamplona / Iruña", region: "Navarra", blurb: "Pamplona / Iruña concentra la actividad musical de Navarra: Navarra Arena, Anaitasuna y Sala Totem son las referencias del directo.", venues: ["Navarra Arena", "Anaitasuna", "Sala Totem"], lat: 42.8125, lng: -1.6458 },
+  "vitoria-gasteiz": { name: "Vitoria-Gasteiz", region: "País Vasco", blurb: "Vitoria-Gasteiz es referencia para el rock alternativo: Azkena Rock Festival en Mendizabala cada junio. Iradier Arena y Sala Helldorado cubren el resto del año.", venues: ["Mendizabala (Azkena Rock)", "Iradier Arena", "Sala Helldorado"], lat: 42.8467, lng: -2.6726 },
+  "a-coruna": { name: "A Coruña", region: "Galicia", blurb: "A Coruña es el principal punto de origen para Resurrection Fest. Coliseum, Palexco y Sala Pelícano acogen las giras internacionales.", venues: ["Coliseum A Coruña", "Palexco", "Sala Pelícano"], lat: 43.3623, lng: -8.4115 },
+  vigo: { name: "Vigo", region: "Galicia", blurb: "Vigo concentra la actividad musical del sur de Galicia: Auditorio Mar de Vigo, Pabellón Multiusos y salas Rouge / La Iguana Club.", venues: ["Auditorio Mar de Vigo", "Pabellón Multiusos de Vigo", "Sala Rouge", "La Iguana Club"], lat: 42.2328, lng: -8.7226 },
+  murcia: { name: "Murcia", region: "Región de Murcia", blurb: "Murcia acoge SOS 4.8, WAM y R-Murcia. Auditorio Víctor Villegas y salas REM/Mamba completan la oferta.", venues: ["Auditorio Víctor Villegas", "Sala REM", "Sala Mamba", "SOS 4.8"], lat: 37.9922, lng: -1.1307 },
+  valladolid: { name: "Valladolid", region: "Castilla y León", blurb: "Valladolid es punto neurálgico de Castilla y León: Plaza de Toros, Pabellón Pisuerga y Sala Porta Caeli reciben giras nacionales e internacionales.", venues: ["Plaza de Toros de Valladolid", "Pabellón Pisuerga", "Sala Porta Caeli"], lat: 41.6523, lng: -4.7245 },
 };
 
 // ── Blog post data ──────────────────────────────────────────────────────────
@@ -1102,11 +1481,13 @@ interface BlogData {
   excerpt: string;
   author: string;
   publishedAt: string;
+  updatedAt?: string;
   h1: string;
   intro: string;
   sections: BlogSection[];
   faqs?: BlogFaq[];
   relatedLinks?: { label: string; to: string }[];
+  tags?: string[];
 }
 
 const BLOG_POSTS: Record<string, BlogData> = {
@@ -1115,6 +1496,8 @@ const BLOG_POSTS: Record<string, BlogData> = {
     excerpt: "¿Hay autobús a Viña Rock? ¿Bus oficial a Arenal Sound? ¿Lanzadera a BBK Live? Esta guía recoge, festival por festival, las opciones reales de bus, autobús, tren y coche compartido para 2026.",
     author: "Equipo ConcertRide",
     publishedAt: "2026-04-29",
+    updatedAt: "2026-05-02",
+    tags: ["autobuses festivales España", "bus oficial festival", "lanzadera festival", "transporte festivales 2026", "carpooling festivales", "cómo llegar al festival"],
     h1: "Autobuses a festivales de España 2026: cómo llegar a Viña Rock, Arenal Sound, BBK Live, Mad Cool y más",
     intro: "Buscas «autobuses Viñarock», «bus Arenal Sound», «lanzadera BBK Live» o «viajes Resurrection Fest» y nadie te da una respuesta clara. Esta guía recoge festival por festival las opciones reales de bus oficial, autobús de larga distancia, tren, lanzadera y coche compartido para llegar a los festivales españoles de 2026.",
     sections: [
@@ -1209,6 +1592,7 @@ const BLOG_POSTS: Record<string, BlogData> = {
     excerpt: "Comparativa real entre BlaBlaCar y ConcertRide para llegar a festivales: comisiones, tiempos de espera, perfil de usuario, política de cancelación y precio por asiento.",
     author: "Equipo ConcertRide",
     publishedAt: "2026-04-25",
+    tags: ["BlaBlaCar alternativa", "BlaBlaCar vs ConcertRide", "carpooling festivales sin comisión", "comparativa carpooling", "coche compartido festivales"],
     h1: "BlaBlaCar vs ConcertRide: comparativa para ir a conciertos en España",
     intro: "Si vas a un festival este verano y dudas entre BlaBlaCar y ConcertRide, esta comparativa va al grano. La diferencia principal: ConcertRide no cobra comisión (el 100% va al conductor) y cada viaje está vinculado a un concierto concreto.",
     sections: [
@@ -1271,6 +1655,7 @@ const BLOG_POSTS: Record<string, BlogData> = {
     excerpt: "El último metro sale a las 1:30 y el festival acaba a las 2:30. Opciones reales para volver: carpooling, lanzaderas oficiales, autobús nocturno o taxi compartido.",
     author: "Equipo ConcertRide",
     publishedAt: "2026-04-25",
+    tags: ["cómo volver festival madrugada", "transporte nocturno festival", "vuelta festival", "taxi festival caro", "carpooling vuelta festival"],
     h1: "Cómo volver de un festival de madrugada en España",
     intro: "El 80% de los problemas de un festival no son la cola de los baños — son volver a casa. El transporte público no llega: el último metro de Madrid sale a la 1:30 y un Mad Cool acaba a las 2:30.",
     sections: [
@@ -1325,6 +1710,7 @@ const BLOG_POSTS: Record<string, BlogData> = {
     excerpt: "El 80% de las emisiones de un festival vienen del transporte de los asistentes. Compartir coche reduce esas emisiones hasta un 75% por persona.",
     author: "Equipo ConcertRide",
     publishedAt: "2026-04-25",
+    tags: ["huella carbono festival", "sostenibilidad festivales", "carpooling CO2", "emisiones transporte festival", "festival ecológico"],
     h1: "Huella de carbono y festivales: lo que el carpooling cambia de verdad",
     intro: "El 80% de la huella de carbono de un festival grande viene del transporte de los asistentes — no del escenario, no de los grupos, no de los vasos. Del coche que cada fan usa para llegar.",
     sections: [
@@ -1381,6 +1767,8 @@ const BLOG_POSTS: Record<string, BlogData> = {
     excerpt: "Lista completa de qué meter en la mochila para un festival de uno, dos o varios días: equipaje, ropa, documentación y lo imprescindible si vas en coche compartido.",
     author: "Equipo ConcertRide",
     publishedAt: "2026-05-01",
+    updatedAt: "2026-05-02",
+    tags: ["qué llevar al festival", "mochila festival", "lista festival 2026", "equipo festival", "checklist festival carpooling"],
     h1: "Qué llevar al festival: la lista definitiva para 2026",
     intro: "La diferencia entre un festival que recuerdas con cariño y uno que recuerdas con ampollas suele estar en la mochila. Aquí tienes la lista honesta — sin los 20 objetos que no vas a usar.",
     sections: [
@@ -1464,6 +1852,8 @@ const BLOG_POSTS: Record<string, BlogData> = {
     excerpt: "Mad Cool, Primavera Sound, Sónar, FIB, BBK Live, Arenal Sound, Viña Rock y más. Fechas confirmadas, ciudad, recinto y cómo llegar a cada uno sin taxi.",
     author: "Equipo ConcertRide",
     publishedAt: "2026-05-01",
+    updatedAt: "2026-05-02",
+    tags: ["festivales música España 2026", "agenda festivales 2026", "Mad Cool 2026", "Primavera Sound 2026", "BBK Live 2026", "carpooling festivales España"],
     h1: "Festivales de música en España 2026: la guía completa",
     intro: "El verano de 2026 tiene agenda. Mad Cool, Primavera Sound, Sónar, FIB, BBK Live y más. Repasamos los principales festivales de música en España con fechas confirmadas, recinto y opciones de transporte.",
     sections: [
@@ -1544,6 +1934,7 @@ interface RouteData {
   distance: string;
   drivingTime: string;
   priceFrom: string;
+  priceTo: string;
 }
 
 function cityToSlug(city: string): string {
@@ -1562,7 +1953,9 @@ function buildRoutes(): Record<string, RouteData> {
   for (const [festSlug, f] of Object.entries(FESTIVALS)) {
     for (const oc of f.originCities) {
       const slug = `${cityToSlug(oc.city)}-${festSlug}`;
-      const priceFrom = oc.range.match(/\d+/)?.[0] ?? f.priceFrom;
+      const priceMatches = [...oc.range.matchAll(/\d+/g)].map((m) => m[0]);
+      const priceFrom = priceMatches[0] ?? f.priceFrom;
+      const priceTo = priceMatches[1] ?? priceMatches[0] ?? f.priceFrom;
       result[slug] = {
         originCity: oc.city,
         festivalShortName: f.shortName,
@@ -1571,6 +1964,7 @@ function buildRoutes(): Record<string, RouteData> {
         distance: String(oc.km),
         drivingTime: oc.drivingTime,
         priceFrom,
+        priceTo,
       };
     }
   }
@@ -1614,6 +2008,10 @@ const FESTIVAL_WIKIDATA: Record<string, string> = {
   "vina-rock": "https://www.wikidata.org/wiki/Q2311477",
   "o-son-do-camino": "https://www.wikidata.org/wiki/Q16537994",
   "sonorama-ribera": "https://www.wikidata.org/wiki/Q1305386",
+  "cala-mijas": "https://www.wikidata.org/wiki/Q116748766",
+  "cruilla": "https://www.wikidata.org/wiki/Q5189432",
+  "low-festival": "https://www.wikidata.org/wiki/Q15270028",
+  "tomavistas": "https://www.wikidata.org/wiki/Q30292264",
 };
 
 function festivalBody(slug: string, f: FestivalData, base: string): string {
@@ -1639,6 +2037,8 @@ function festivalBody(slug: string, f: FestivalData, base: string): string {
 
   const wikidataUri = FESTIVAL_WIKIDATA[slug];
   const festivalImage = f.image ?? `${base}/og-fallback.png`;
+  const festYear = new Date(f.startDate).getFullYear();
+  const festAbstract = `${f.name} se celebra en ${f.venue}, ${f.city}, del ${f.startDate} al ${f.endDate}. Carpooling con ConcertRide desde ${f.originCities[0]?.city ?? "toda España"} desde ${f.originCities[0]?.range ?? f.priceFrom + " €"}/asiento, sin comisión de plataforma. ${f.originCities.length} ciudades de origen cubiertas.`;
   const eventJsonLd = JSON.stringify({
     "@context": "https://schema.org",
     "@type": "MusicEvent",
@@ -1648,15 +2048,31 @@ function festivalBody(slug: string, f: FestivalData, base: string): string {
     endDate: f.endDate,
     image: festivalImage,
     description: `${f.blurb} Encuentra o publica un viaje compartido a ${f.name} desde cualquier ciudad de España. Sin comisión. ConcertRide.`,
+    abstract: festAbstract,
     url: `${base}/festivales/${slug}`,
     eventStatus: "https://schema.org/EventScheduled",
     eventAttendanceMode: "https://schema.org/OfflineEventAttendanceMode",
+    typicalAgeRange: "18-",
     ...(wikidataUri ? { sameAs: wikidataUri } : {}),
+    keywords: [
+      `carpooling ${f.shortName}`,
+      `cómo ir a ${f.shortName}`,
+      `transporte ${f.shortName} ${f.city}`,
+      `${f.shortName} ${festYear}`,
+      `autobús ${f.shortName}`,
+      `bus ${f.shortName}`,
+    ].join(", "),
     location: {
       "@type": "Place",
       name: f.venue,
       address: { "@type": "PostalAddress", streetAddress: f.venueAddress, addressLocality: f.city, addressCountry: "ES" },
+      additionalProperty: f.originCities.map((oc) => ({
+        "@type": "PropertyValue",
+        name: `Distancia desde ${oc.city}`,
+        value: `${oc.km} km · ${oc.drivingTime} · carpooling ${oc.range}`,
+      })),
     },
+    inLanguage: "es-ES",
     performer: { "@type": "PerformingGroup", name: f.name },
     organizer: { "@type": "Organization", name: f.name, url: `${base}/festivales/${slug}` },
     offers: {
@@ -1700,10 +2116,24 @@ function festivalBody(slug: string, f: FestivalData, base: string): string {
     ],
   });
 
+  const webPageJsonLd = JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    "@id": `${base}/festivales/${slug}#webpage`,
+    url: `${base}/festivales/${slug}`,
+    name: `Carpooling a ${f.name} ${new Date(f.startDate).getFullYear()} — desde ${f.priceFrom} € · sin comisión | ConcertRide`,
+    inLanguage: "es-ES",
+    dateModified: "2026-05-02",
+    speakable: { "@type": "SpeakableSpecification", cssSelector: ["h1", ".speakable", ".festival-summary", "p:first-of-type"] },
+    isPartOf: { "@type": "WebSite", "@id": `${base}/#website`, name: "ConcertRide", url: base },
+    about: { "@type": "MusicEvent", "@id": `${base}/festivales/${slug}#event` },
+  });
+
   return `<script type="application/ld+json">${eventJsonLd}</script>
 <script type="application/ld+json">${faqJsonLd}</script>
 <script type="application/ld+json">${breadcrumbJsonLd}</script>
 <script type="application/ld+json">${howToJsonLd}</script>
+<script type="application/ld+json">${webPageJsonLd}</script>
 <nav aria-label="Breadcrumb"><a href="${base}/">Inicio</a> / <a href="${base}/festivales">Festivales</a> / <span>${esc(f.shortName)}</span></nav>
 ${transportSummary}<p>${esc(f.blurb)}</p>
 <h2>Cómo llegar a ${esc(f.shortName)}: transporte y localización</h2>
@@ -1913,7 +2343,57 @@ function cityBody(slug: string, c: CityData, base: string): string {
     ],
   });
 
+  const localBusinessJsonLd = JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "LocalBusiness",
+    "@id": `${base}/conciertos/${slug}#localbusiness`,
+    name: `ConcertRide — Carpooling a conciertos en ${c.name}`,
+    description: c.blurb,
+    url: `${base}/conciertos/${slug}`,
+    inLanguage: "es-ES",
+    address: {
+      "@type": "PostalAddress",
+      addressLocality: c.name,
+      addressRegion: c.region,
+      addressCountry: "ES",
+    },
+    geo: {
+      "@type": "GeoCoordinates",
+      latitude: c.lat,
+      longitude: c.lng,
+    },
+    areaServed: {
+      "@type": "City",
+      name: c.name,
+      sameAs: `https://www.wikidata.org/wiki/Q${slug === "madrid" ? "2807" : slug === "barcelona" ? "1492" : slug === "valencia" ? "8818" : slug === "sevilla" ? "8717" : slug === "bilbao" ? "8692" : slug === "malaga" ? "8862" : slug === "zaragoza" ? "10305" : slug === "granada" ? "8811" : slug === "donostia" ? "10313" : slug === "santiago-de-compostela" ? "8823" : slug === "alicante" ? "11959" : slug === "pamplona" ? "10282" : slug === "vitoria-gasteiz" ? "10330" : slug === "a-coruna" ? "8757" : slug === "vigo" ? "8745" : slug === "murcia" ? "12225" : slug === "valladolid" ? "8748" : "0"}`,
+    },
+    priceRange: "3–35 €/asiento",
+    currenciesAccepted: "EUR",
+    paymentAccepted: "Efectivo, Bizum",
+    openingHours: "Mo-Su 00:00-24:00",
+    sameAs: [
+      "https://twitter.com/concertride_es",
+      "https://www.instagram.com/concertride_es/",
+    ],
+    parentOrganization: { "@type": "Organization", "@id": `${base}/#organization`, name: "ConcertRide" },
+  });
+
+  const webPageJsonLd = JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "CollectionPage",
+    "@id": `${base}/conciertos/${slug}#webpage`,
+    url: `${base}/conciertos/${slug}`,
+    name: `Conciertos en ${c.name} 2026–2027 — Carpooling sin comisión | ConcertRide`,
+    inLanguage: "es-ES",
+    dateModified: "2026-05-02",
+    speakable: { "@type": "SpeakableSpecification", cssSelector: ["h1", ".speakable", "p:first-of-type"] },
+    isPartOf: { "@type": "WebSite", "@id": `${base}/#website`, name: "ConcertRide", url: base },
+    about: { "@type": "LocalBusiness", "@id": `${base}/conciertos/${slug}#localbusiness` },
+  });
+
   return `<script type="application/ld+json">${breadcrumbJsonLd}</script>
+<script type="application/ld+json">${webPageJsonLd}</script>
+<script type="application/ld+json">${localBusinessJsonLd}</script>
 <script type="application/ld+json">${collectionJsonLd}</script>
 <script type="application/ld+json">${faqJsonLd}</script>
 <script type="application/ld+json">${howToJsonLd}</script>
@@ -1937,22 +2417,71 @@ function cityBody(slug: string, c: CityData, base: string): string {
 <p><a href="${base}/festivales">Ver festivales con carpooling disponible →</a></p>`;
 }
 
+const BLOG_ENTITY_SAME_AS: Record<string, string> = {
+  "autobuses": "https://www.wikidata.org/wiki/Q928830",
+  "buses": "https://www.wikidata.org/wiki/Q928830",
+  "carpooling": "https://www.wikidata.org/wiki/Q1343571",
+  "festivales": "https://www.wikidata.org/wiki/Q213492",
+  "transporte": "https://www.wikidata.org/wiki/Q7590",
+  "Mad Cool": "https://www.madcoolfestival.es/",
+  "Primavera Sound": "https://www.primaverasound.com/",
+  "Sónar": "https://sonar.es/",
+  "BBK Live": "https://bbklive.com/",
+  "Arenal Sound": "https://arenalsound.com/",
+  "Viña Rock": "https://www.vinarock.es/",
+  "Resurrection Fest": "https://www.resurrectionfest.es/",
+  "BlaBlaCar": "https://www.blablacar.es/",
+};
+
 function blogBody(slug: string, p: BlogData, base: string): string {
+  const wordCount = p.sections.reduce((acc, s) => acc + s.paragraphs.join(" ").split(/\s+/).length, 0);
+  const abstract = (() => {
+    const sentences = p.excerpt.split(/(?<=[.!?])\s+/);
+    let result = "";
+    for (const s of sentences) {
+      if ((result + " " + s).trim().split(/\s+/).length > 60) break;
+      result = (result + " " + s).trim();
+    }
+    return result || p.excerpt.slice(0, 280);
+  })();
+  const firstTag = p.tags && p.tags.length > 0 ? p.tags[0] : "";
   const articleJsonLd = JSON.stringify({
     "@context": "https://schema.org",
     "@type": "BlogPosting",
     headline: p.title,
+    name: p.title,
     description: p.excerpt,
-    author: { "@type": "Organization", name: p.author, "@id": `${base}/#organization` },
+    abstract,
+    wordCount,
+    author: {
+      "@type": "Person",
+      name: p.author,
+      url: `${base}/acerca-de`,
+      "@id": `${base}/#founder`,
+      sameAs: [
+        "https://www.linkedin.com/company/concertride-es",
+        "https://twitter.com/concertride_es",
+      ],
+    },
     publisher: { "@type": "Organization", name: "ConcertRide", "@id": `${base}/#organization`, logo: { "@type": "ImageObject", url: `${base}/favicon.svg`, width: 512, height: 512 } },
     datePublished: p.publishedAt,
-    dateModified: p.publishedAt,
+    dateModified: p.updatedAt ?? p.publishedAt,
     url: `${base}/blog/${slug}`,
     inLanguage: "es-ES",
     mainEntityOfPage: { "@type": "WebPage", "@id": `${base}/blog/${slug}` },
     isPartOf: { "@type": "Blog", "@id": `${base}/blog`, name: "Blog ConcertRide", url: `${base}/blog` },
     articleSection: "Carpooling y festivales",
-    keywords: p.title,
+    keywords: p.tags && p.tags.length > 0 ? p.tags.join(", ") : p.title,
+    speakable: { "@type": "SpeakableSpecification", cssSelector: ["h1", ".speakable", "article p:first-of-type"] },
+    about: firstTag
+      ? { "@type": "Thing", name: firstTag, ...(BLOG_ENTITY_SAME_AS[firstTag] ? { sameAs: BLOG_ENTITY_SAME_AS[firstTag] } : {}) }
+      : { "@type": "Thing", name: "Carpooling festivales España" },
+    mentions: (p.tags ?? []).map((tag) => ({
+      "@type": "Thing",
+      name: tag,
+      ...(BLOG_ENTITY_SAME_AS[tag] ? { sameAs: BLOG_ENTITY_SAME_AS[tag] } : {}),
+    })),
+    image: { "@type": "ImageObject", url: `${base}/og/home.png`, width: 1200, height: 630 },
   });
 
   const breadcrumbJsonLd = JSON.stringify({
@@ -2052,9 +2581,16 @@ function routeBody(slug: string, r: RouteData, base: string): string {
       { "@type": "Place", name: r.originCity, address: { "@type": "PostalAddress", addressLocality: r.originCity, addressCountry: "ES" } },
       { "@type": "Place", name: r.festivalName, address: { "@type": "PostalAddress", addressLocality: r.festivalCity, addressCountry: "ES" } },
     ],
+    provider: { "@type": "Organization", "@id": `${base}/#organization` },
     offers: {
       "@type": "Offer",
       price: r.priceFrom,
+      priceSpecification: {
+        "@type": "PriceSpecification",
+        price: r.priceFrom,
+        maxPrice: r.priceTo,
+        priceCurrency: "EUR",
+      },
       priceCurrency: "EUR",
       availability: "https://schema.org/InStock",
       validFrom: FESTIVALS[festivalSlug]?.startDate ?? new Date().toISOString().slice(0, 10),
@@ -2086,6 +2622,7 @@ function routeBody(slug: string, r: RouteData, base: string): string {
             addressCountry: "ES",
           },
         },
+        inLanguage: "es-ES",
         performer: { "@type": "PerformingGroup", name: festivalForRoute.name },
         organizer: { "@type": "Organization", name: festivalForRoute.name, url: `${base}/festivales/${festivalSlug}` },
         offers: {
@@ -2110,7 +2647,20 @@ function routeBody(slug: string, r: RouteData, base: string): string {
     ],
   });
 
+  const webPageJsonLd = JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    "@id": `${base}/rutas/${slug}#webpage`,
+    url: `${base}/rutas/${slug}`,
+    name: `Carpooling ${r.originCity} → ${r.festivalShortName} — desde ${r.priceFrom} € · ${r.drivingTime} | ConcertRide`,
+    inLanguage: "es-ES",
+    dateModified: "2026-05-02",
+    speakable: { "@type": "SpeakableSpecification", cssSelector: ["h1", ".speakable", "p:first-of-type"] },
+    isPartOf: { "@type": "WebSite", "@id": `${base}/#website`, name: "ConcertRide", url: base },
+  });
+
   return `<script type="application/ld+json">${breadcrumbJsonLd}</script>
+<script type="application/ld+json">${webPageJsonLd}</script>
 <script type="application/ld+json">${tripJsonLd}</script>
 ${routeEventJsonLd ? `<script type="application/ld+json">${routeEventJsonLd}</script>` : ""}
 <script type="application/ld+json">${faqJsonLd}</script>
@@ -2149,6 +2699,7 @@ interface PageData {
   ogImage?: string;
   ogType?: "website" | "article" | "music.event";
   articlePublishedTime?: string;
+  articleModifiedTime?: string;
   articleAuthor?: string;
 }
 
@@ -2323,6 +2874,7 @@ function resolvePageData(pathname: string, base: string): PageData | null {
       body: blogBody(slug, p, base),
       ogType: "article",
       articlePublishedTime: p.publishedAt,
+      articleModifiedTime: p.updatedAt ?? p.publishedAt,
       articleAuthor: p.author,
     };
   }
@@ -2385,7 +2937,7 @@ function buildRenderedHtml(html: string, page: PageData, base: string, env?: { G
   if (page.ogType === "article" && page.articlePublishedTime) {
     const articleMeta = [
       `<meta property="article:published_time" content="${esc(page.articlePublishedTime)}"/>`,
-      `<meta property="article:modified_time" content="${esc(page.articlePublishedTime)}"/>`,
+      `<meta property="article:modified_time" content="${esc(page.articleModifiedTime ?? page.articlePublishedTime)}"/>`,
       page.articleAuthor ? `<meta property="article:author" content="${esc(page.articleAuthor)}"/>` : "",
       `<meta property="article:section" content="Carpooling y festivales"/>`,
       `<meta property="article:publisher" content="https://www.facebook.com/concertride.me"/>`,
