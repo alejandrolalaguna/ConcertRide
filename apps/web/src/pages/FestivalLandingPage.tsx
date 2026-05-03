@@ -243,6 +243,13 @@ export default function FestivalLandingPage() {
     eventStatus: "https://schema.org/EventScheduled",
     typicalAgeRange: "18-",
     inLanguage: "es-ES",
+    superEvent: {
+      "@type": "EventSeries",
+      name: festival.name,
+      url: `${SITE_URL}/festivales/${festival.slug}`,
+      description: `Festival de música que se celebra anualmente en ${festival.city}, España.`,
+      ...(festivalWikidataUri ? { sameAs: festivalWikidataUri } : {}),
+    },
     offers: {
       "@type": "Offer",
       url: `${SITE_URL}/festivales/${festival.slug}`,
@@ -746,6 +753,62 @@ export default function FestivalLandingPage() {
             </a>
           </footer>
         </blockquote>
+      </section>
+
+      {/* ── Transport comparison table — citable by Perplexity/ChatGPT for "X vs Y" queries ── */}
+      <section className="max-w-6xl mx-auto px-6 pb-16 border-t border-cr-border pt-12 space-y-6">
+        <h2 className="font-display text-2xl md:text-3xl uppercase">
+          Comparativa de transporte a {festival.shortName} {new Date(festival.startDate).getFullYear()}
+        </h2>
+        <p className="font-sans text-sm text-cr-text-muted max-w-2xl">
+          Resumen de las opciones de transporte para ir a {festival.name} desde {festival.originCities[0]?.city ?? "tu ciudad"}.
+        </p>
+        <div className="overflow-x-auto">
+          <table className="w-full font-sans text-xs border-collapse">
+            <thead>
+              <tr className="border-b border-cr-border text-left">
+                <th className="py-2 pr-4 font-semibold text-cr-text">Opción</th>
+                <th className="py-2 pr-4 font-semibold text-cr-text">Precio desde {festival.originCities[0]?.city ?? "origen"}</th>
+                <th className="py-2 pr-4 font-semibold text-cr-text">Comisión</th>
+                <th className="py-2 pr-4 font-semibold text-cr-text">Vuelta madrugada</th>
+                <th className="py-2 font-semibold text-cr-text">Reserva</th>
+              </tr>
+            </thead>
+            <tbody className="text-cr-text-muted">
+              <tr className="border-b border-cr-border/50">
+                <td className="py-2 pr-4 font-semibold text-cr-primary">ConcertRide carpooling</td>
+                <td className="py-2 pr-4">{festival.originCities[0]?.concertRideRange ?? "desde 3 €"}/asiento</td>
+                <td className="py-2 pr-4 font-semibold text-cr-primary">0 %</td>
+                <td className="py-2 pr-4">Sí (coordinada con el conductor)</td>
+                <td className="py-2">Instantánea</td>
+              </tr>
+              <tr className="border-b border-cr-border/50">
+                <td className="py-2 pr-4">Taxi / VTC (Uber, Cabify)</td>
+                <td className="py-2 pr-4">35–80 € ida (precio nocturno)</td>
+                <td className="py-2 pr-4">—</td>
+                <td className="py-2 pr-4">Sí (precio ×2–3 de madrugada)</td>
+                <td className="py-2">App</td>
+              </tr>
+              <tr className="border-b border-cr-border/50">
+                <td className="py-2 pr-4">BlaBlaCar</td>
+                <td className="py-2 pr-4">{festival.originCities[0]?.concertRideRange ?? "precio similar"} + 12–18 %</td>
+                <td className="py-2 pr-4">12–18 %</td>
+                <td className="py-2 pr-4">Depende del conductor</td>
+                <td className="py-2">Con aprobación</td>
+              </tr>
+              <tr>
+                <td className="py-2 pr-4">Autobús / tren público</td>
+                <td className="py-2 pr-4">3–15 € (si hay servicio)</td>
+                <td className="py-2 pr-4">—</td>
+                <td className="py-2 pr-4">No (último ~1:30)</td>
+                <td className="py-2">Taquilla / app</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <p className="font-mono text-[10px] text-cr-text-dim">
+          Datos de ConcertRide, estimaciones de VTC nocturno y tarifas EMT/Renfe 2026. BlaBlaCar comisión media actualizada a mayo 2026.
+        </p>
       </section>
 
       {/* ── FAQ ── */}

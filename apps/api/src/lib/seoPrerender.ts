@@ -129,7 +129,7 @@ function buildStaticRoutes(base: string): Record<string, { title: string; descri
           url: `${base}/`,
           name: "ConcertRide — Carpooling para conciertos en España",
           inLanguage: "es-ES",
-          dateModified: "2026-05-02",
+          dateModified: "2026-05-03",
           speakable: { "@type": "SpeakableSpecification", cssSelector: ["h1", ".speakable", "p:first-of-type"] },
           isPartOf: { "@type": "WebSite", "@id": `${base}/#website`, name: "ConcertRide", url: base },
           about: { "@type": "Organization", "@id": `${base}/#organization` },
@@ -247,7 +247,7 @@ function buildStaticRoutes(base: string): Record<string, { title: string; descri
           numberOfItems: 16,
           keywords: "festivales España 2026, carpooling festivales, Mad Cool carpooling, Primavera Sound viaje compartido, Sónar transporte, BBK Live Bilbao, Arenal Sound Burriana, Viña Rock Villarrobledo",
           datePublished: "2026-04-10",
-          dateModified: "2026-05-02",
+          dateModified: "2026-05-03",
           isPartOf: { "@id": `${base}/#website` },
           about: { "@id": `${base}/#service` },
           speakable: { "@type": "SpeakableSpecification", cssSelector: ["h1", ".speakable"] },
@@ -391,7 +391,7 @@ function buildStaticRoutes(base: string): Record<string, { title: string; descri
           },
           publisher: { "@type": "Organization", name: "ConcertRide", "@id": `${base}/#organization`, logo: { "@type": "ImageObject", url: `${base}/favicon.svg`, width: 512, height: 512 } },
           datePublished: "2026-04-24",
-          dateModified: "2026-05-02",
+          dateModified: "2026-05-03",
           url: `${base}/guia-transporte-festivales`,
           inLanguage: "es-ES",
           mainEntityOfPage: { "@type": "WebPage", "@id": `${base}/guia-transporte-festivales` },
@@ -518,7 +518,7 @@ function buildStaticRoutes(base: string): Record<string, { title: string; descri
           url: `${base}/como-funciona`,
           name: "Cómo funciona ConcertRide — Carpooling para conciertos",
           inLanguage: "es-ES",
-          dateModified: "2026-05-02",
+          dateModified: "2026-05-03",
           speakable: { "@type": "SpeakableSpecification", cssSelector: ["h1", "h2", ".speakable", "p:first-of-type"] },
           isPartOf: { "@type": "WebSite", "@id": `${base}/#website`, name: "ConcertRide", url: base },
         });
@@ -618,7 +618,7 @@ function buildStaticRoutes(base: string): Record<string, { title: string; descri
           url: `${base}/faq`,
           name: "Preguntas frecuentes sobre carpooling a conciertos y festivales — ConcertRide",
           inLanguage: "es-ES",
-          dateModified: "2026-05-02",
+          dateModified: "2026-05-03",
           speakable: { "@type": "SpeakableSpecification", cssSelector: ["h1", "dt", "dd"] },
           isPartOf: { "@type": "WebSite", "@id": `${base}/#website`, name: "ConcertRide", url: base },
         });
@@ -670,7 +670,7 @@ function buildStaticRoutes(base: string): Record<string, { title: string; descri
           inLanguage: "es-ES",
           isPartOf: { "@type": "WebSite", "@id": `${base}/#website` },
           about: { "@type": "Organization", "@id": `${base}/#organization` },
-          dateModified: "2026-05-02",
+          dateModified: "2026-05-03",
         });
         const orgDetailJsonLd = JSON.stringify({
           "@context": "https://schema.org",
@@ -950,7 +950,7 @@ ${posts.map((p) => `  <li><a href="${base}/blog/${p.slug}">${p.title}</a></li>`)
           description: "71+ rutas de viaje compartido a festivales de música en España. Sin comisión, conductores verificados.",
           inLanguage: "es-ES",
           datePublished: "2026-04-10",
-          dateModified: "2026-05-02",
+          dateModified: "2026-05-03",
           isPartOf: { "@id": `${base}/#website` },
           about: { "@id": `${base}/#service` },
           speakable: { "@type": "SpeakableSpecification", cssSelector: ["h1", ".speakable"] },
@@ -1469,6 +1469,7 @@ interface BlogSection {
   heading: string;
   paragraphs: string[];
   bullets?: string[];
+  tableHtml?: string;
 }
 
 interface BlogFaq {
@@ -1496,7 +1497,7 @@ const BLOG_POSTS: Record<string, BlogData> = {
     excerpt: "¿Hay autobús a Viña Rock? ¿Bus oficial a Arenal Sound? ¿Lanzadera a BBK Live? Esta guía recoge, festival por festival, las opciones reales de bus, autobús, tren y coche compartido para 2026.",
     author: "Equipo ConcertRide",
     publishedAt: "2026-04-29",
-    updatedAt: "2026-05-02",
+    updatedAt: "2026-05-03",
     tags: ["autobuses festivales España", "bus oficial festival", "lanzadera festival", "transporte festivales 2026", "carpooling festivales", "cómo llegar al festival"],
     h1: "Autobuses a festivales de España 2026: cómo llegar a Viña Rock, Arenal Sound, BBK Live, Mad Cool y más",
     intro: "Buscas «autobuses Viñarock», «bus Arenal Sound», «lanzadera BBK Live» o «viajes Resurrection Fest» y nadie te da una respuesta clara. Esta guía recoge festival por festival las opciones reales de bus oficial, autobús de larga distancia, tren, lanzadera y coche compartido para llegar a los festivales españoles de 2026.",
@@ -1592,6 +1593,7 @@ const BLOG_POSTS: Record<string, BlogData> = {
     excerpt: "Comparativa real entre BlaBlaCar y ConcertRide para llegar a festivales: comisiones, tiempos de espera, perfil de usuario, política de cancelación y precio por asiento.",
     author: "Equipo ConcertRide",
     publishedAt: "2026-04-25",
+    updatedAt: "2026-05-03",
     tags: ["BlaBlaCar alternativa", "BlaBlaCar vs ConcertRide", "carpooling festivales sin comisión", "comparativa carpooling", "coche compartido festivales"],
     h1: "BlaBlaCar vs ConcertRide: comparativa para ir a conciertos en España",
     intro: "Si vas a un festival este verano y dudas entre BlaBlaCar y ConcertRide, esta comparativa va al grano. La diferencia principal: ConcertRide no cobra comisión (el 100% va al conductor) y cada viaje está vinculado a un concierto concreto.",
@@ -1609,12 +1611,22 @@ const BLOG_POSTS: Record<string, BlogData> = {
           "En BlaBlaCar, si un conductor pone 10 € por plaza, tú pagas entre 11,50 y 12 € (comisión incluida). En viajes de larga distancia como Madrid–Benicàssim (FIB) o Madrid–Barcelona (Primavera Sound), esa comisión puede superar los 3–4 € por trayecto.",
           "En ConcertRide no hay comisión. Lo que fija el conductor es lo que pagas — en efectivo o Bizum el día del viaje. Para un grupo de amigos que va y vuelve del festival, el ahorro acumulado puede ser de 15–25 € por persona.",
         ],
-        bullets: [
-          "BlaBlaCar: conductor pone 10 € → pasajero paga ~12 € (comisión ~15–20 %)",
-          "ConcertRide: conductor pone 10 € → pasajero paga 10 € (sin comisión)",
-          "Pago en BlaBlaCar: tarjeta online antes del viaje",
-          "Pago en ConcertRide: efectivo o Bizum al conductor el día del evento",
-        ],
+        tableHtml: `<table>
+  <thead>
+    <tr><th></th><th>ConcertRide</th><th>BlaBlaCar</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>Comisión</td><td><strong>0 %</strong></td><td>15–20 % sobre precio del pasajero</td></tr>
+    <tr><td>Ejemplo (conductor pone 10 €)</td><td><strong>Pasajero paga 10 €</strong></td><td>Pasajero paga ~11,50–12 €</td></tr>
+    <tr><td>Pago</td><td>Efectivo o Bizum al conductor (el día)</td><td>Tarjeta online (antes del viaje)</td></tr>
+    <tr><td>Tipo de viajes</td><td>Solo conciertos y festivales</td><td>Cualquier trayecto interurbano</td></tr>
+    <tr><td>Búsqueda</td><td>Por festival o concierto</td><td>Por ciudad de origen/destino</td></tr>
+    <tr><td>Vuelta coordinada</td><td>Sí (conductor también va al festival)</td><td>No garantizada</td></tr>
+    <tr><td>Verificación conductor</td><td>Carnet de conducir obligatorio</td><td>Identidad + historial de valoraciones</td></tr>
+    <tr><td>Cancelación pasajero</td><td>Sin coste (pago en persona)</td><td>Posibles penalizaciones por cancelación tardía</td></tr>
+  </tbody>
+</table>
+<p><em>Datos actualizados a mayo 2026. Comisión BlaBlaCar varía según ruta y demanda.</em></p>`,
       },
       {
         heading: "Oferta de viajes a festivales: ¿dónde hay más?",
@@ -1655,6 +1667,7 @@ const BLOG_POSTS: Record<string, BlogData> = {
     excerpt: "El último metro sale a las 1:30 y el festival acaba a las 2:30. Opciones reales para volver: carpooling, lanzaderas oficiales, autobús nocturno o taxi compartido.",
     author: "Equipo ConcertRide",
     publishedAt: "2026-04-25",
+    updatedAt: "2026-05-03",
     tags: ["cómo volver festival madrugada", "transporte nocturno festival", "vuelta festival", "taxi festival caro", "carpooling vuelta festival"],
     h1: "Cómo volver de un festival de madrugada en España",
     intro: "El 80% de los problemas de un festival no son la cola de los baños — son volver a casa. El transporte público no llega: el último metro de Madrid sale a la 1:30 y un Mad Cool acaba a las 2:30.",
@@ -1710,6 +1723,7 @@ const BLOG_POSTS: Record<string, BlogData> = {
     excerpt: "El 80% de las emisiones de un festival vienen del transporte de los asistentes. Compartir coche reduce esas emisiones hasta un 75% por persona.",
     author: "Equipo ConcertRide",
     publishedAt: "2026-04-25",
+    updatedAt: "2026-05-03",
     tags: ["huella carbono festival", "sostenibilidad festivales", "carpooling CO2", "emisiones transporte festival", "festival ecológico"],
     h1: "Huella de carbono y festivales: lo que el carpooling cambia de verdad",
     intro: "El 80% de la huella de carbono de un festival grande viene del transporte de los asistentes — no del escenario, no de los grupos, no de los vasos. Del coche que cada fan usa para llegar.",
@@ -1767,7 +1781,7 @@ const BLOG_POSTS: Record<string, BlogData> = {
     excerpt: "Lista completa de qué meter en la mochila para un festival de uno, dos o varios días: equipaje, ropa, documentación y lo imprescindible si vas en coche compartido.",
     author: "Equipo ConcertRide",
     publishedAt: "2026-05-01",
-    updatedAt: "2026-05-02",
+    updatedAt: "2026-05-03",
     tags: ["qué llevar al festival", "mochila festival", "lista festival 2026", "equipo festival", "checklist festival carpooling"],
     h1: "Qué llevar al festival: la lista definitiva para 2026",
     intro: "La diferencia entre un festival que recuerdas con cariño y uno que recuerdas con ampollas suele estar en la mochila. Aquí tienes la lista honesta — sin los 20 objetos que no vas a usar.",
@@ -1852,7 +1866,7 @@ const BLOG_POSTS: Record<string, BlogData> = {
     excerpt: "Mad Cool, Primavera Sound, Sónar, FIB, BBK Live, Arenal Sound, Viña Rock y más. Fechas confirmadas, ciudad, recinto y cómo llegar a cada uno sin taxi.",
     author: "Equipo ConcertRide",
     publishedAt: "2026-05-01",
-    updatedAt: "2026-05-02",
+    updatedAt: "2026-05-03",
     tags: ["festivales música España 2026", "agenda festivales 2026", "Mad Cool 2026", "Primavera Sound 2026", "BBK Live 2026", "carpooling festivales España"],
     h1: "Festivales de música en España 2026: la guía completa",
     intro: "El verano de 2026 tiene agenda. Mad Cool, Primavera Sound, Sónar, FIB, BBK Live y más. Repasamos los principales festivales de música en España con fechas confirmadas, recinto y opciones de transporte.",
@@ -2123,7 +2137,7 @@ function festivalBody(slug: string, f: FestivalData, base: string): string {
     url: `${base}/festivales/${slug}`,
     name: `Carpooling a ${f.name} ${new Date(f.startDate).getFullYear()} — desde ${f.priceFrom} € · sin comisión | ConcertRide`,
     inLanguage: "es-ES",
-    dateModified: "2026-05-02",
+    dateModified: "2026-05-03",
     speakable: { "@type": "SpeakableSpecification", cssSelector: ["h1", ".speakable", ".festival-summary", "p:first-of-type"] },
     isPartOf: { "@type": "WebSite", "@id": `${base}/#website`, name: "ConcertRide", url: base },
     about: { "@type": "MusicEvent", "@id": `${base}/festivales/${slug}#event` },
@@ -2153,6 +2167,19 @@ ${transportSummary}<p>${esc(f.blurb)}</p>
   <li><strong>Vuelta de madrugada</strong> — el conductor también va al festival, coordináis la vuelta.</li>
   <li><strong>Reserva instantánea</strong> — muchos conductores la activan para confirmar al momento.</li>
 </ul>
+<h2>Comparativa de transporte a ${esc(f.shortName)} ${festYear}</h2>
+<table>
+  <thead>
+    <tr><th>Opción</th><th>Precio desde ${esc(f.originCities[0]?.city ?? "origen")}</th><th>Comisión</th><th>Vuelta madrugada</th><th>Reserva</th></tr>
+  </thead>
+  <tbody>
+    <tr><td><strong>ConcertRide carpooling</strong></td><td>${esc(f.originCities[0]?.range ?? f.priceFrom + " €")}/asiento</td><td>0 %</td><td>Sí (coordinada con el conductor)</td><td>Instantánea</td></tr>
+    <tr><td>Taxi / VTC (Uber, Cabify)</td><td>35–80 € ida (precio nocturno)</td><td>—</td><td>Sí (precio x2–x3 de madrugada)</td><td>App</td></tr>
+    <tr><td>BlaBlaCar</td><td>${esc(f.originCities[0]?.range ?? f.priceFrom + " €")} + 12–18 % comisión</td><td>12–18 %</td><td>Depende del conductor</td><td>Con aprobación</td></tr>
+    <tr><td>Autobús / tren público</td><td>3–15 € (si hay servicio)</td><td>—</td><td>No (último servicio ~1:30)</td><td>Taquilla / app</td></tr>
+  </tbody>
+</table>
+<p><em>Tabla elaborada con datos de ConcertRide, EMT/Renfe y estimaciones de tarificación nocturna de VTC (2026).</em></p>
 <h2>Preguntas frecuentes — ${esc(f.shortName)}</h2>
 <dl>
   ${faqItems}
@@ -2385,7 +2412,7 @@ function cityBody(slug: string, c: CityData, base: string): string {
     url: `${base}/conciertos/${slug}`,
     name: `Conciertos en ${c.name} 2026–2027 — Carpooling sin comisión | ConcertRide`,
     inLanguage: "es-ES",
-    dateModified: "2026-05-02",
+    dateModified: "2026-05-03",
     speakable: { "@type": "SpeakableSpecification", cssSelector: ["h1", ".speakable", "p:first-of-type"] },
     isPartOf: { "@type": "WebSite", "@id": `${base}/#website`, name: "ConcertRide", url: base },
     about: { "@type": "LocalBusiness", "@id": `${base}/conciertos/${slug}#localbusiness` },
@@ -2509,7 +2536,8 @@ function blogBody(slug: string, p: BlogData, base: string): string {
     const bullets = s.bullets && s.bullets.length > 0
       ? `<ul>\n${s.bullets.map((b) => `  <li>${esc(b)}</li>`).join("\n")}\n</ul>`
       : "";
-    return `<h2>${esc(s.heading)}</h2>\n${paras}\n${bullets}`;
+    const table = s.tableHtml ?? "";
+    return `<h2>${esc(s.heading)}</h2>\n${paras}\n${bullets}\n${table}`;
   }).join("\n");
 
   const faqsHtml = (p.faqs ?? []).length > 0
@@ -2582,6 +2610,7 @@ function routeBody(slug: string, r: RouteData, base: string): string {
       { "@type": "Place", name: r.festivalName, address: { "@type": "PostalAddress", addressLocality: r.festivalCity, addressCountry: "ES" } },
     ],
     provider: { "@type": "Organization", "@id": `${base}/#organization` },
+    subjectOf: { "@type": "MusicEvent", "@id": `${base}/festivales/${festivalSlug}#event` },
     offers: {
       "@type": "Offer",
       price: r.priceFrom,
@@ -2654,7 +2683,7 @@ function routeBody(slug: string, r: RouteData, base: string): string {
     url: `${base}/rutas/${slug}`,
     name: `Carpooling ${r.originCity} → ${r.festivalShortName} — desde ${r.priceFrom} € · ${r.drivingTime} | ConcertRide`,
     inLanguage: "es-ES",
-    dateModified: "2026-05-02",
+    dateModified: "2026-05-03",
     speakable: { "@type": "SpeakableSpecification", cssSelector: ["h1", ".speakable", "p:first-of-type"] },
     isPartOf: { "@type": "WebSite", "@id": `${base}/#website`, name: "ConcertRide", url: base },
   });
@@ -2681,6 +2710,19 @@ ${routeEventJsonLd ? `<script type="application/ld+json">${routeEventJsonLd}</sc
   <li><strong>Vuelta del festival</strong> — acuerda la hora de regreso con el conductor antes de salir.</li>
   <li><strong>Pago en persona</strong> — efectivo o Bizum el día del viaje.</li>
 </ul>
+<h2>Comparativa de transporte ${esc(r.originCity)} → ${esc(r.festivalShortName)}</h2>
+<table>
+  <thead>
+    <tr><th>Opción</th><th>Precio estimado</th><th>Tiempo</th><th>Comisión</th><th>Vuelta madrugada</th></tr>
+  </thead>
+  <tbody>
+    <tr><td><strong>ConcertRide carpooling</strong></td><td>${r.priceFrom}–${r.priceTo} €/asiento</td><td>${esc(r.drivingTime)}</td><td>0 %</td><td>Sí (coordinada)</td></tr>
+    <tr><td>Taxi / VTC (Uber, Cabify)</td><td>35–80 € ida (precio nocturno)</td><td>${esc(r.drivingTime)}</td><td>—</td><td>Sí (precio x2–x3)</td></tr>
+    <tr><td>BlaBlaCar</td><td>${r.priceFrom}–${r.priceTo} € + 12–18 %</td><td>${esc(r.drivingTime)}</td><td>12–18 %</td><td>Depende</td></tr>
+    <tr><td>Autobús / tren</td><td>3–15 € (si disponible)</td><td>Variable</td><td>—</td><td>No (último ~1:30)</td></tr>
+  </tbody>
+</table>
+<p><em>Precios orientativos. ConcertRide cobra 0 % de comisión — el precio lo fija el conductor para cubrir combustible y peajes.</em></p>
 <h2>Preguntas frecuentes — carpooling ${esc(r.originCity)} a ${esc(r.festivalShortName)}</h2>
 <dl>
   ${faqItems}

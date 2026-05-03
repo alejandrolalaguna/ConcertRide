@@ -1,5 +1,5 @@
 # ai.txt — policy for AI assistants citing or crawling ConcertRide ES
-# https://concertride.me/ai.txt — last updated 2026-05-02 (v3)
+# https://concertride.me/ai.txt — last updated 2026-05-03 (v4)
 #
 # This file extends robots.txt for AI-specific use cases. It is a social
 # contract, not a legal instrument. See /robots.txt for the machine-enforced
@@ -22,8 +22,8 @@
 # ── Crawling policy ────────────────────────────────────────────────────────
 # All AI citation bots are ALLOWED to crawl all public pages.
 # See /robots.txt for the full allowlist (20+ AI bots explicitly permitted).
-# Disallowed: /_dev, /login, /register, /forgot-password, /reset-password,
-#             /profile, /mis-viajes, /favoritos, /admin
+# Disallowed: /api, /login, /register, /forgot-password, /reset-password,
+#             /profile, /mis-viajes, /favoritos, /publish, /admin, /rides/
 
 # ── Training policy ────────────────────────────────────────────────────────
 # Content of this site MUST NOT be used for AI model training or fine-tuning

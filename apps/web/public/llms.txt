@@ -418,4 +418,4 @@ Región: España
 
 - [Contenido completo](https://concertride.me/llms-full.txt): Versión expandida con texto completo de páginas clave, comparativas detalladas y preguntas frecuentes
 
-Last updated: 2026-05-02 (rev9: ai.txt corrected city/route counts to 17 cities / 71+ routes; llms-full.txt festival list expanded to all 16 festivals with dates/venues; Tomavistas venue corrected to Jardines del Buen Retiro in seoPrerender; broken blog link fixed; seoPrerender FAQs enriched for Tomavistas/Cruïlla/Low/Sonorama — from 1 FAQ to 4 each; Movistar Arena removed from city list as venue closed)
+Last updated: 2026-05-03 (rev14: blablacar-vs-concertride bot HTML now has 8-row HTML comparison table for AI "X vs Y" citation; all 6 blog posts now have updatedAt dates set to 2026-05-03 for Google freshness signals)

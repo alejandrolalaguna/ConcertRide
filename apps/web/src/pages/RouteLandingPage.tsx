@@ -133,6 +133,7 @@ export default function RouteLandingPage() {
       },
     ],
     provider: { "@type": "Organization", "@id": `${SITE_URL}/#organization` },
+    subjectOf: { "@type": "MusicEvent", "@id": `${SITE_URL}/festivales/${festival.slug}#event` },
     offers: {
       "@type": "Offer",
       price: (originData.concertRideRange.split("–")[0] ?? "3").replace(/[^0-9]/g, "") || "3",
@@ -303,6 +304,59 @@ export default function RouteLandingPage() {
       {/* ── Alert widget ── */}
       <section className="max-w-6xl mx-auto px-6 pb-16 border-t border-cr-border pt-12">
         <FestivalAlertWidget festivalSlug={festival.slug} festivalName={festival.shortName} />
+      </section>
+
+      {/* ── Transport comparison table — citable for "X vs Y" queries ── */}
+      <section className="max-w-6xl mx-auto px-6 pb-16 border-t border-cr-border pt-12 space-y-6">
+        <h2 className="font-display text-2xl md:text-3xl uppercase">
+          Comparativa de transporte {originCity} → {festival.shortName}
+        </h2>
+        <div className="overflow-x-auto">
+          <table className="w-full font-sans text-xs border-collapse">
+            <thead>
+              <tr className="border-b border-cr-border text-left">
+                <th className="py-2 pr-4 font-semibold text-cr-text">Opción</th>
+                <th className="py-2 pr-4 font-semibold text-cr-text">Precio</th>
+                <th className="py-2 pr-4 font-semibold text-cr-text">Tiempo</th>
+                <th className="py-2 pr-4 font-semibold text-cr-text">Comisión</th>
+                <th className="py-2 font-semibold text-cr-text">Vuelta madrugada</th>
+              </tr>
+            </thead>
+            <tbody className="text-cr-text-muted">
+              <tr className="border-b border-cr-border/50">
+                <td className="py-2 pr-4 font-semibold text-cr-primary">ConcertRide carpooling</td>
+                <td className="py-2 pr-4">{originData.concertRideRange}/asiento</td>
+                <td className="py-2 pr-4">{originData.drivingTime}</td>
+                <td className="py-2 pr-4 font-semibold text-cr-primary">0 %</td>
+                <td className="py-2">Sí (coordinada)</td>
+              </tr>
+              <tr className="border-b border-cr-border/50">
+                <td className="py-2 pr-4">Taxi / VTC (Uber, Cabify)</td>
+                <td className="py-2 pr-4">35–80 € ida (nocturno)</td>
+                <td className="py-2 pr-4">{originData.drivingTime}</td>
+                <td className="py-2 pr-4">—</td>
+                <td className="py-2">Sí (precio ×2–3)</td>
+              </tr>
+              <tr className="border-b border-cr-border/50">
+                <td className="py-2 pr-4">BlaBlaCar</td>
+                <td className="py-2 pr-4">{originData.concertRideRange} + 12–18 %</td>
+                <td className="py-2 pr-4">{originData.drivingTime}</td>
+                <td className="py-2 pr-4">12–18 %</td>
+                <td className="py-2">Depende</td>
+              </tr>
+              <tr>
+                <td className="py-2 pr-4">Autobús / tren</td>
+                <td className="py-2 pr-4">3–15 € (si disponible)</td>
+                <td className="py-2 pr-4">Variable</td>
+                <td className="py-2 pr-4">—</td>
+                <td className="py-2">No (último ~1:30)</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <p className="font-mono text-[10px] text-cr-text-dim">
+          Precios orientativos 2026. ConcertRide no cobra comisión — el conductor fija el precio para cubrir combustible y peajes.
+        </p>
       </section>
 
       {/* ── FAQ ── */}
