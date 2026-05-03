@@ -115,7 +115,7 @@ export default function FestivalLandingPage() {
 
   useSeoMeta({
     title: festival
-      ? festOverride?.title ?? `Cómo llegar a ${festival.shortName} ${festYear}: buses, tren y carpooling | ConcertRide`
+      ? festOverride?.title ?? `Carpooling a ${festival.shortName} ${festYear} — desde ${festival.originCities[0]?.concertRideRange?.split("–")[0]?.replace(/[^0-9]/g, "") ?? "3"} € · sin comisión | ConcertRide`
       : "Festivales de música en España",
     description: festival
       ? festOverride?.description ?? `${festival.shortName} ${festYear} en ${festival.venue}, ${festival.city}. Transporte: autobús, tren y carpooling desde ${festival.originCities.slice(0, 2).map((c) => c.city).join(", ")}. Cómo llegar sin coche desde ${((festival.originCities[0]?.concertRideRange ?? "3 €/asiento").split("–").at(0) ?? "3").replace(/[^0-9]/g, "") || "3"} €.`

@@ -78,10 +78,10 @@ export default function GuiaTransporteFestivalesPage() {
       name: "Transporte para festivales de música en España",
     },
     mentions: [
-      { "@type": "Organization", "name": "Julie's Bicycle", "url": "https://juliesbicycle.com/" },
+      { "@type": "Organization", "name": "Julie's Bicycle", "url": "https://juliesbicycle.com/", "sameAs": "https://www.wikidata.org/wiki/Q6303945" },
       { "@type": "Organization", "name": "Asociación de Promotores Musicales", "url": "https://www.apmusicales.com/" },
-      { "@type": "Organization", "name": "BlaBlaCar", "url": "https://www.blablacar.es/" },
-      { "@type": "Organization", "name": "Agencia Europea de Medio Ambiente", "url": "https://www.eea.europa.eu/" },
+      { "@type": "Organization", "name": "BlaBlaCar", "url": "https://www.blablacar.es/", "sameAs": "https://www.wikidata.org/wiki/Q2115189" },
+      { "@type": "Organization", "name": "Agencia Europea de Medio Ambiente", "url": "https://www.eea.europa.eu/", "sameAs": "https://www.wikidata.org/wiki/Q188509" },
     ],
     speakable: {
       "@type": "SpeakableSpecification",
@@ -377,9 +377,22 @@ export default function GuiaTransporteFestivalesPage() {
             El carpooling es la acción individual más efectiva para reducirla."
           </p>
           <footer className="font-mono text-[11px] text-cr-text-dim">
-            — <a href="https://juliesbicycle.com/" target="_blank" rel="noopener noreferrer" className="hover:text-cr-primary">
+            — <cite><a href="https://juliesbicycle.com/" target="_blank" rel="noopener noreferrer" className="hover:text-cr-primary">
               Julie's Bicycle Practical Guide to Green Events
-            </a>, referencia del sector para festivales sostenibles en Europa
+            </a></cite>, referencia del sector para festivales sostenibles en Europa
+          </footer>
+        </blockquote>
+
+        <blockquote className="border-l-2 border-cr-secondary pl-5 space-y-2">
+          <p className="font-sans text-sm text-cr-text-muted italic leading-relaxed">
+            "El coche compartido emite entre 33 y 50 gramos de CO₂ equivalente por pasajero-kilómetro
+            cuando viajan 3–4 personas, comparable al tren y muy por debajo del coche individual
+            (130–150 g CO₂/pkm)."
+          </p>
+          <footer className="font-mono text-[11px] text-cr-text-dim">
+            — <cite><a href="https://www.eea.europa.eu/media/infographics/co2-emissions-from-passenger-transport/" target="_blank" rel="noopener noreferrer" className="hover:text-cr-primary">
+              Agencia Europea de Medio Ambiente, CO2 Emissions from Passenger Transport
+            </a></cite>, datos 2023
           </footer>
         </blockquote>
 

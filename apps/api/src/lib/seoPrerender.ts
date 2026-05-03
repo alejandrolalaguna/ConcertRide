@@ -139,6 +139,7 @@ function buildStaticRoutes(base: string): Record<string, { title: string; descri
 <script type="application/ld+json">${serviceJsonLd}</script>
 <script type="application/ld+json">${faqJsonLd}</script>
 <script type="application/ld+json">${homePageJsonLd}</script>
+<p>ConcertRide conecta conductores y pasajeros para ir juntos a conciertos y festivales en España. Cubre 16 festivales en 2026 con 96+ rutas desde 17 ciudades. Precio medio de carpooling: 8–15 €/asiento, frente a los 40–90 € de un taxi de madrugada en noches de festival. Comisión de plataforma: 0 %. Fuente: tarifas publicadas en concertride.me, mayo 2026.</p>
 <p>ConcertRide es la plataforma de viaje compartido especializada en conciertos y festivales en España. Conectamos conductores y pasajeros que van al mismo evento. Sin comisiones, conductores verificados, pago directo.</p>
 <h2>¿Cómo funciona?</h2>
 <ol>
@@ -163,7 +164,8 @@ function buildStaticRoutes(base: string): Record<string, { title: string; descri
   <tr><td>Pago</td><td>Efectivo / Bizum</td><td>Tarjeta (plataforma)</td></tr>
   <tr><td>Hora vuelta alineada con show</td><td>Sí</td><td>No</td></tr>
   <tr><td>Verificación conductor</td><td>Carnet obligatorio</td><td>Opcional</td></tr>
-</table>`;
+</table>
+<p style="font-size:11px;color:#666;">Actualizado: <time datetime="2026-05-03">3 de mayo de 2026</time> — datos de transporte y precios verificados para la temporada de festivales 2026.</p>`;
       })(),
     },
     "/concerts": {
@@ -369,7 +371,8 @@ function buildStaticRoutes(base: string): Record<string, { title: string; descri
   <li><a href="${base}/festivales/cala-mijas">Cala Mijas — Mijas — 2–4 oct 2026</a></li>
 </ul>
 
-<p>Lee más en el blog: <a href="${base}/blog/festivales-musica-espana-2026">Guía completa de carpooling a festivales 2026</a> · <a href="${base}/guia-transporte-festivales">Guía de transporte a festivales</a></p>`;
+<p>Lee más en el blog: <a href="${base}/blog/festivales-musica-espana-2026">Guía completa de carpooling a festivales 2026</a> · <a href="${base}/guia-transporte-festivales">Guía de transporte a festivales</a></p>
+<p style="font-size:11px;color:#666;">Actualizado: <time datetime="2026-05-03">3 de mayo de 2026</time> — datos de transporte y precios verificados para la temporada de festivales 2026.</p>`;
       })(),
     },
     "/guia-transporte-festivales": {
@@ -465,7 +468,8 @@ function buildStaticRoutes(base: string): Record<string, { title: string; descri
   <li><a href="${base}/festivales/cruilla">Cómo ir al Cruïlla en coche compartido — Barcelona, julio 2026</a></li>
 </ul>
 <h2>El problema de volver de noche de un festival</h2>
-<p>La mayoría de festivales terminan entre la 1:00 y las 4:00. El metro de Madrid cierra a la 1:30, el de Barcelona a las 2:00. Los autobuses nocturnos (búhos en Madrid, nitbus en Barcelona) no llegan a los recintos de festival. Los taxis y VTC multiplican el precio x2–x3 en noches de alta demanda. Con ConcertRide, acuerdas la hora de vuelta con el conductor antes del festival: salís juntos cuando acabe el último bolo.</p>`;
+<p>La mayoría de festivales terminan entre la 1:00 y las 4:00. El metro de Madrid cierra a la 1:30, el de Barcelona a las 2:00. Los autobuses nocturnos (búhos en Madrid, nitbus en Barcelona) no llegan a los recintos de festival. Los taxis y VTC multiplican el precio x2–x3 en noches de alta demanda. Con ConcertRide, acuerdas la hora de vuelta con el conductor antes del festival: salís juntos cuando acabe el último bolo.</p>
+<p style="font-size:11px;color:#666;">Actualizado: <time datetime="2026-05-03">3 de mayo de 2026</time> — datos de transporte y precios verificados para la temporada de festivales 2026.</p>`;
       })(),
     },
     "/como-funciona": {
@@ -638,7 +642,8 @@ function buildStaticRoutes(base: string): Record<string, { title: string; descri
   ${items}
 </dl>
 <p><a href="${base}/como-funciona">Cómo funciona ConcertRide →</a></p>
-<p><a href="${base}/concerts">Buscar conciertos con carpooling →</a></p>`;
+<p><a href="${base}/concerts">Buscar conciertos con carpooling →</a></p>
+<p style="font-size:11px;color:#666;">Actualizado: <time datetime="2026-05-03">3 de mayo de 2026</time> — preguntas y respuestas verificadas para la temporada de festivales 2026.</p>`;
       })(),
     },
     "/publish": {

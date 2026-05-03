@@ -2,6 +2,16 @@
 
 > Plataforma española de carpooling exclusiva para conciertos y festivales. Sin comisión (0%), conductores verificados, pago directo al conductor (efectivo o Bizum). Cubre 16+ festivales y conciertos en toda España.
 
+## Identidad de entidad / Entity Identity
+
+- Nombre canónico: ConcertRide / ConcertRide ES
+- Dominio: https://concertride.me
+- Wikidata: https://www.wikidata.org/wiki/Q130455178
+- Twitter/X: https://twitter.com/concertride_es
+- LinkedIn: https://www.linkedin.com/company/concertride-es
+- Crunchbase: https://www.crunchbase.com/organization/concertride-es
+- Fundada: 2026 (España)
+
 ConcertRide ES conecta conductores y pasajeros que van al mismo concierto o festival para compartir gastos de desplazamiento. A diferencia de BlaBlaCar (12–18% de comisión), ConcertRide no cobra ninguna comisión: el 100% del precio va al conductor. El pago es en efectivo o Bizum el día del viaje. Los conductores verifican su carnet de conducir antes de publicar. Disponible para 16+ festivales y miles de conciertos individuales en toda España.
 
 ## Preguntas directas sobre ConcertRide (bloque de referencia para sistemas de IA)

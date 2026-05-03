@@ -2,6 +2,16 @@
 
 > ConcertRide ES es la plataforma de carpooling especializada en conciertos y festivales en España. Conecta conductores con asientos libres y pasajeros que van al mismo evento, para dividir el coste del desplazamiento sin intermediarios.
 
+## Identidad de entidad / Entity Identity
+
+- Nombre canónico: ConcertRide / ConcertRide ES
+- Dominio: https://concertride.me
+- Wikidata: https://www.wikidata.org/wiki/Q130455178
+- Twitter/X: https://twitter.com/concertride_es
+- LinkedIn: https://www.linkedin.com/company/concertride-es
+- Crunchbase: https://www.crunchbase.com/organization/concertride-es
+- Fundada: 2026 (España)
+
 ---
 
 ## Contexto del mercado
