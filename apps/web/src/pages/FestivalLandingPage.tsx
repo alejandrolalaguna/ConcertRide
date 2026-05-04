@@ -10,6 +10,7 @@ import { SITE_URL } from "@/lib/siteUrl";
 import { REGION_ISO } from "@/lib/seoConfig";
 import { FESTIVAL_LANDINGS, FESTIVAL_LANDINGS_BY_SLUG } from "@/lib/festivalLandings";
 import { ROUTE_LANDINGS } from "@/lib/routeLandings";
+import { FESTIVAL_SEO_OVERRIDES } from "@/lib/seoOverrides";
 
 const FESTIVAL_DEFAULT_OG = `${SITE_URL}/og-fallback.png`;
 import { trackFestivalView } from "@/lib/seoEvents";
@@ -47,70 +48,26 @@ export default function FestivalLandingPage() {
   const festYear = festival ? new Date(festival.startDate).getFullYear() : new Date().getFullYear();
 
   // Per-festival title/description overrides targeting top GSC queries
+  // Merge centralized overrides with local transport-specific content
   const FESTIVAL_META_OVERRIDES: Record<string, { title: string; description: string }> = {
+    ...Object.fromEntries(
+      Object.entries(FESTIVAL_SEO_OVERRIDES).map(([slug, override]) => [
+        slug,
+        { title: override.title, description: override.description }
+      ])
+    ),
+    // Transport-specific overrides (can override the general ones)
     "mad-cool": {
       title: `Mad Cool ${festYear}: metro, bus, carpooling | ConcertRide`,
-      description: `Mad Cool ${festYear} en IFEMA Madrid (9–11 jul). Metro L8 hasta Feria de Madrid. Sin lanzadera oficial. Carpooling desde Madrid (4–7 €), Valencia (10–14 €), Barcelona (15–20 €). Sin comisión.`,
+      description: `Mad Cool ${festYear} en IFEMA Madrid (9–11 jul): Metro L8 hasta Feria de Madrid. Carpooling sin comisión desde Barcelona (15–20€), Valencia (10–14€), Zaragoza (8–12€).`,
     },
     "primavera-sound": {
-      title: `Primavera Sound ${festYear}: metro, AVE, carpooling | ConcertRide`,
-      description: `Primavera Sound ${festYear} en Parc del Fòrum, Barcelona (28 may–1 jun). Metro L4 Besòs Mar. AVE desde Madrid 50–100 €. Carpooling desde Madrid (15–20 €), Valencia (10–14 €), Zaragoza (8–12 €). Sin comisión.`,
-    },
-    "sonar": {
-      title: `Sónar ${festYear}: metro, carpooling Barcelona | ConcertRide`,
-      description: `Sónar ${festYear} en Fira Montjuïc y Gran Via, Barcelona (18–20 jun). Metro L1 Espanya o L3 Tarragona. Carpooling desde Madrid (14–22 €/asiento, 5h 30 min), Valencia (10–14 €). Sin comisión.`,
-    },
-    "fib": {
-      title: `FIB ${festYear}: Cercanías, bus, carpooling | ConcertRide`,
-      description: `FIB Benicàssim ${festYear} (16–19 jul). Cercanías Renfe desde Castellón (10 km, 15 min). Autobús desde Valencia. Carpooling desde Valencia (10–15 €, 1h 15 min), Madrid (14–22 €). Sin comisión.`,
-    },
-    "resurrection-fest": {
-      title: `Resurrection Fest ${festYear}: Viveiro, carpooling | ConcertRide`,
-      description: `Resurrection Fest ${festYear} en Viveiro (Lugo), 25–28 jun. Sin transporte público. ALSA Madrid–Viveiro ~40 €. Carpooling desde Madrid (20–30 €), A Coruña (10–14 €), Vigo (12–16 €). Sin comisión.`,
-    },
-    "medusa-festival": {
-      title: `Medusa Festival ${festYear}: Cullera, carpooling | ConcertRide`,
-      description: `Medusa Festival ${festYear} en Playa de Cullera (Valencia), 12–16 ago. Sin transporte público directo. Carpooling desde Valencia (5–10 €/asiento, 40 min), Madrid (12–18 €), Barcelona (14–20 €). Sin comisión.`,
-    },
-    "vina-rock": {
-      title: `Viña Rock ${festYear}: buses, lanzadera, carpooling | ConcertRide`,
-      description: `¿Hay autobús a Viña Rock ${festYear}? Bus lanzadera desde Albacete (50 km, 40 min). Autobuses privados Madrid–Viñarock (35–55 €). Carpooling ConcertRide desde Madrid (6–9 €/asiento). Sin comisión.`,
-    },
-    "arenal-sound": {
-      title: `Arenal Sound ${festYear}: bus, lanzadera, carpooling | ConcertRide`,
-      description: `Autobús Castellón a Burriana Arenal Sound: lanzadera oficial desde estación Castellón (10 km, 20 min). Tren Valencia–Castellón + lanzadera. Carpooling desde Valencia (3–6 €). Sin comisión.`,
-    },
-    "o-son-do-camino": {
-      title: `O Son do Camiño ${festYear}: Santiago, carpooling | ConcertRide`,
-      description: `O Son do Camiño ${festYear} en Monte do Gozo, Santiago (18–20 jun). Bus urbano C10 desde ciudad. Carpooling desde A Coruña (10–12 €, 1h 15 min), Vigo (12–15 €, 1h 30 min), Madrid (20–30 €). Sin comisión.`,
-    },
-    "cala-mijas": {
-      title: `Cala Mijas Festival ${festYear}: Málaga, Marbella | ConcertRide`,
-      description: `Cala Mijas Fest ${festYear} en Cortijo de Torres, Málaga (no en La Cala de Mijas). Sin shuttle oficial. Carpooling desde Málaga (3–5 €), Marbella (3–6 €) o Fuengirola (3–5 €). 2–4 octubre 2026.`,
-    },
-    "sonorama-ribera": {
-      title: `Sonorama Ribera ${festYear}: bus, carpooling Madrid | ConcertRide`,
-      description: `Sonorama Ribera ${festYear} en Aranda de Duero (Burgos), 6–9 ago. Bus La Sepulvedana Madrid–Aranda (10–15 €). Carpooling desde Madrid (10–14 €, 1h 45 min), Valladolid (8–12 €, 1h). Sin comisión.`,
+      title: `Primavera Sound ${festYear}: metro, carpooling | ConcertRide`,
+      description: `Primavera Sound Barcelona ${festYear} (28 may–1 jun) Parc del Fòrum. Metro L4 Besòs Mar. Carpooling desde Madrid (15–20€), Valencia (10–14€). AVE 50–100€. Sin comisión.`,
     },
     "bbk-live": {
-      title: `BBK Live ${festYear}: lanzadera, carpooling Bilbao | ConcertRide`,
-      description: `BBK Live ${festYear} en Kobetamendi, Bilbao. Lanzadera oficial gratuita desde Plaza Moyúa. Carpooling desde Madrid (11–16 €), Santander (4–7 €), Donostia (5–8 €). 9–11 jul 2026.`,
-    },
-    "low-festival": {
-      title: `Low Festival ${festYear}: Benidorm, carpooling | ConcertRide`,
-      description: `Low Festival ${festYear} en Benidorm (Alicante), 24–26 jul. Sin transporte público directo al recinto. Carpooling desde Valencia (20–30 €, 1h 45 min), Alicante (15 €, 40 min), Madrid (18–26 €). Sin comisión.`,
-    },
-    "cruilla": {
-      title: `Cruïlla ${festYear}: Barcelona, carpooling | ConcertRide`,
-      description: `Cruïlla ${festYear} en Parc del Fòrum, Barcelona (9–12 jul). Metro L4 Besòs Mar. Carpooling desde Madrid (15–20 €/asiento, 5h 30 min), Valencia (10–14 €), Zaragoza (8–12 €). Sin comisión.`,
-    },
-    "tomavistas": {
-      title: `Tomavistas ${festYear}: Madrid, carpooling | ConcertRide`,
-      description: `Tomavistas ${festYear} en Jardines del Buen Retiro, Madrid (15–17 may). Metro L2 Retiro o L9 Ibiza. Carpooling desde Valencia (10–14 €), Zaragoza (9–13 €), Barcelona (15–20 €). Sin comisión.`,
-    },
-    "zevra-festival": {
-      title: `Zevra Festival ${festYear}: Valencia, carpooling | ConcertRide`,
-      description: `Zevra Festival Valencia ${festYear} en La Marina de València. Horarios: apertura 18:30, cabezas de cartel 23:00–01:00. Metro L4 hasta Marítim-Serreria. Carpooling desde Madrid (10–14 €).`,
+      title: `BBK Live ${festYear}: lanzadera, carpooling | ConcertRide`,
+      description: `BBK Live Bilbao ${festYear} (9–11 jul) Kobetamendi: lanzadera gratuita desde Plaza Moyúa. Carpooling desde Madrid (11–16€), Donostia (5–8€). Sin comisión.`,
     },
   };
 
@@ -118,7 +75,7 @@ export default function FestivalLandingPage() {
 
   useSeoMeta({
     title: festival
-      ? festOverride?.title ?? `Carpooling a ${festival.shortName} ${festYear} — desde ${festival.originCities[0]?.concertRideRange?.split("–")[0]?.replace(/[^0-9]/g, "") ?? "3"} € · sin comisión | ConcertRide`
+      ? festOverride?.title ?? `Llegar a ${festival.shortName} ${festYear}: carpooling | ConcertRide`
       : "Festivales de música en España",
     description: festival
       ? festOverride?.description ?? `${festival.shortName} ${festYear} en ${festival.venue}, ${festival.city}. Transporte: autobús, tren y carpooling desde ${festival.originCities.slice(0, 2).map((c) => c.city).join(", ")}. Cómo llegar sin coche desde ${((festival.originCities[0]?.concertRideRange ?? "3 €/asiento").split("–").at(0) ?? "3").replace(/[^0-9]/g, "") || "3"} €.`
@@ -261,7 +218,7 @@ export default function FestivalLandingPage() {
     offers: {
       "@type": "Offer",
       url: `${SITE_URL}/festivales/${festival.slug}`,
-      price: festival.originCities[0]?.concertRideRange?.split("–")[0]?.replace(/[^0-9]/g, "") ?? "3",
+      price: Number(festival.originCities[0]?.concertRideRange?.split("–")[0]?.replace(/[^0-9]/g, "") ?? "3"),
       priceCurrency: "EUR",
       availability: "https://schema.org/InStock",
       validFrom: new Date().toISOString(),

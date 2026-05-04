@@ -652,7 +652,12 @@ function JsonLdEvent({ concert }: { concert: Concert }) {
   if (concert.price_min !== null) {
     jsonLd.offers = {
       "@type": "Offer",
-      price: String(concert.price_min),
+      priceSpecification: {
+        "@type": "PriceSpecification",
+        price: concert.price_min,
+        priceCurrency: "EUR",
+        unitText: "por asiento",
+      },
       priceCurrency: "EUR",
       availability: "https://schema.org/InStock",
       url: concert.official_url ?? concert.ticketmaster_url ?? url,

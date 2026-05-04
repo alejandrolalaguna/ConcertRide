@@ -28,7 +28,7 @@ if (!(await exists(ssrEntry))) {
   console.error(`[prerender] SSR bundle missing at ${ssrEntry}. Did the SSR build run?`);
   process.exit(1);
 }
-const { render, FESTIVAL_SLUGS, CITY_SLUGS, BLOG_SLUGS, ROUTE_SLUGS, ARTIST_SLUGS, VENUE_SLUGS, REGION_SLUGS, CONTENT_LAST_UPDATED } = await import(pathToFileURL(ssrEntry).href);
+const { render, FESTIVAL_SLUGS, CITY_SLUGS, BLOG_SLUGS, ROUTE_SLUGS, ARTIST_SLUGS, VENUE_SLUGS, REGION_SLUGS, HOW_TO_GET_THERE_PAGE_SLUGS, CONTENT_LAST_UPDATED } = await import(pathToFileURL(ssrEntry).href);
 
 // ── Read shell ──────────────────────────────────────────────────────────────
 const shellPath = path.join(distDir, "index.html");
@@ -58,6 +58,7 @@ const ROUTE_LANDING_SLUGS = ROUTE_SLUGS ?? [];
 const ARTIST_LANDING_SLUGS = ARTIST_SLUGS ?? [];
 const VENUE_LANDING_SLUGS = VENUE_SLUGS ?? [];
 const REGION_LANDING_SLUGS = REGION_SLUGS ?? [];
+const HOW_TO_GET_THERE_SLUGS = HOW_TO_GET_THERE_PAGE_SLUGS ?? [];
 
 const ROUTES = [
   ...STATIC_ROUTES,
@@ -68,9 +69,10 @@ const ROUTES = [
   ...ARTIST_LANDING_SLUGS.map((slug) => `/artistas/${slug}`),
   ...VENUE_LANDING_SLUGS.map((slug) => `/recintos/${slug}`),
   ...REGION_LANDING_SLUGS.map((slug) => `/festivales-en/${slug}`),
+  ...HOW_TO_GET_THERE_SLUGS.map((slug) => `/como-llegar/${slug}`),
 ];
 
-console.log(`[prerender] ${ROUTES.length} routes (${FESTIVAL_SLUGS.length} festivals, ${CITY_SLUGS.length} cities, ${BLOG_POST_SLUGS.length} blog posts, ${ROUTE_LANDING_SLUGS.length} routes, ${ARTIST_LANDING_SLUGS.length} artists, ${VENUE_LANDING_SLUGS.length} venues, ${REGION_LANDING_SLUGS.length} regions)`);
+console.log(`[prerender] ${ROUTES.length} routes (${FESTIVAL_SLUGS.length} festivals, ${CITY_SLUGS.length} cities, ${BLOG_POST_SLUGS.length} blog posts, ${ROUTE_LANDING_SLUGS.length} routes, ${ARTIST_LANDING_SLUGS.length} artists, ${VENUE_LANDING_SLUGS.length} venues, ${REGION_LANDING_SLUGS.length} regions, ${HOW_TO_GET_THERE_SLUGS.length} how-to-get-there)`);
 
 let ok = 0;
 let failed = 0;

@@ -45,6 +45,7 @@ const VerifyEmailPage = lazy(() => import("./pages/VerifyEmailPage"));
 const NotFoundPage = lazy(() => import("./pages/NotFoundPage"));
 const DevShowcase = lazy(() => import("./pages/DevShowcase"));
 const ConcertWidgetPage = lazy(() => import("./pages/ConcertWidgetPage"));
+const HowToGetTherePage = lazy(() => import("./pages/HowToGetTherePage"));
 
 export default function App() {
   return (
@@ -89,6 +90,7 @@ export default function App() {
             <Route path="/blog/:slug" element={<BlogPostPage />} />
             <Route path="/rutas" element={<RutasIndexPage />} />
             <Route path="/rutas/:route" element={<RouteLandingPage />} />
+            <Route path="/como-llegar/:festival" element={<HowToGetTherePage />} />
             <Route path="/prensa" element={<PrensaPage />} />
             <Route path="/rides/:id" element={<RideDetailPage />} />
             <Route path="/publish" element={<PublishRidePage />} />

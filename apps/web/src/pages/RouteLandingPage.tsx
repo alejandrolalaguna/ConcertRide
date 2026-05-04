@@ -20,7 +20,7 @@ export default function RouteLandingPage() {
 
   useSeoMeta({
     title: landing
-      ? `Carpooling ${landing.originCity} → ${landing.festival.shortName} ${new Date().getFullYear()} | ConcertRide`
+      ? `Carpooling ${landing.originCity} → ${landing.festival.shortName} | ConcertRide`
       : "Ruta de carpooling",
     description: landing
       ? `Carpooling de ${landing.originCity} a ${landing.festival.shortName} en ${landing.originData.drivingTime}. Desde ${landing.originData.concertRideRange}/asiento. Ida y vuelta disponible. Sin comisión — el 100 % va al conductor. Conductores verificados.`
@@ -111,8 +111,8 @@ export default function RouteLandingPage() {
     ],
   };
 
-  const priceMin = (originData.concertRideRange.split("–")[0] ?? "3").replace(/[^0-9]/g, "") || "3";
-  const priceMax = (originData.concertRideRange.split("–")[1] ?? originData.concertRideRange.split("–")[0] ?? "20").replace(/[^0-9]/g, "") || "20";
+  const priceMin = Number((originData.concertRideRange.split("–")[0] ?? "3").replace(/[^0-9]/g, "") || "3");
+  const priceMax = Number((originData.concertRideRange.split("–")[1] ?? originData.concertRideRange.split("–")[0] ?? "20").replace(/[^0-9]/g, "") || "20");
 
   const routeAbstract = `Carpooling de ${originCity} a ${festival.name} (${festival.venue}, ${festival.city}): ${originData.km} km · ${originData.drivingTime} · desde ${originData.concertRideRange}/asiento sin comisión de plataforma. Conductores verificados; pago en efectivo o Bizum el día del festival.`;
 

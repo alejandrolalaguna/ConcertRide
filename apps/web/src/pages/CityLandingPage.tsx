@@ -11,6 +11,7 @@ import { REGION_ISO } from "@/lib/seoConfig";
 import { CITY_LANDINGS, CITY_LANDINGS_BY_SLUG } from "@/lib/cityLandings";
 import { FESTIVAL_LANDINGS } from "@/lib/festivalLandings";
 import { ROUTE_LANDINGS } from "@/lib/routeLandings";
+import { CITY_SEO_IMPROVEMENTS } from "@/lib/seoOverrides";
 import { trackCityView } from "@/lib/seoEvents";
 
 const CITY_WIKIDATA: Record<string, string> = {
@@ -133,11 +134,11 @@ export default function CityLandingPage() {
     },
   };
 
-  const cityOverride = landing ? CITY_META_OVERRIDES[landing.slug] : undefined;
+  const cityOverride = landing ? (CITY_SEO_IMPROVEMENTS[landing.slug] || CITY_META_OVERRIDES[landing.slug]) : undefined;
 
   useSeoMeta({
     title: landing
-      ? cityOverride?.title ?? `Conciertos en ${landing.display} ${year}–${nextYear} — Carpooling sin comisión | ConcertRide`
+      ? cityOverride?.title ?? `Conciertos en ${landing.display} ${year}: carpooling | ConcertRide`
       : "Conciertos por ciudad",
     description: landing
       ? cityOverride?.description ?? `Conciertos y festivales en ${landing.display} ${year}: ${landing.venues.slice(0, 2).join(", ")} y más. Carpooling sin comisión desde 3 €/asiento. Conductores verificados.`
