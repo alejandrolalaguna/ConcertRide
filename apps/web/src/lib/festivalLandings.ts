@@ -589,7 +589,7 @@ export const FESTIVAL_LANDINGS: FestivalLanding[] = [
     name: "Viña Rock",
     shortName: "Viña Rock",
     city: "Villarrobledo",
-    citySlug: "murcia",
+    citySlug: "madrid",
     region: "Castilla-La Mancha",
     venue: "Parque La Pulgosa",
     venueAddress: "Parque La Pulgosa, Ctra. Minaya s/n, 02600 Villarrobledo, Albacete",

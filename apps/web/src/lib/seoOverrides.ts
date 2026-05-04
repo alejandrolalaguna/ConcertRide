@@ -187,6 +187,36 @@ export const HOW_TO_GET_THERE_SEO: Record<string, { title: string; description: 
     description: `Zevra Festival ${YEAR} La Marina Valencia: metro L4 La Marina, bus EMT. Carpooling desde Madrid (16–22€), Barcelona (14–20€), Alicante (8–12€). Sin comisión.`,
     keywords: `como llegar zevra festival ${YEAR}, zevra festival bus horarios, zevra festival metro, zevra festival transporte, zevra festival valencia carpooling`,
   },
+  "sonar": {
+    title: `Cómo llegar a Sónar Barcelona ${YEAR}: Metro L9, shuttle y carpooling | ConcertRide`,
+    description: `Sónar ${YEAR} Fira Gran Via (L'Hospitalet): metro L9 Sur parada Fira. Sónar by Day en Fira Montjuïc (metro Espanya). Carpooling desde Madrid (15–20€), Valencia (10–14€), Zaragoza (8–12€). Sin comisión.`,
+    keywords: `como llegar sonar barcelona ${YEAR}, sonar metro, sonar transporte, sonar barcelona metro l9, sonar fira gran via como llegar, sonar fira montjuic, carpooling sonar`,
+  },
+  "fib": {
+    title: `Cómo llegar al FIB Benicàssim ${YEAR}: Bus, tren y carpooling | ConcertRide`,
+    description: `FIB ${YEAR} Benicàssim (Castellón): bus lanzadera desde Castellón (15 km, 15 min), tren Cercanías C6 Valencia–Castellón (45 min). Carpooling desde Valencia (3–6€), Madrid (12–17€), Barcelona (8–12€). Sin comisión.`,
+    keywords: `como llegar fib benicassim ${YEAR}, fib transporte, fib bus lanzadera castellon, fib tren cercanias, fib benicassim carpooling, fib como llegar`,
+  },
+  "low-festival": {
+    title: `Cómo llegar a Low Festival Benidorm ${YEAR}: Bus, tren y carpooling | ConcertRide`,
+    description: `Low Festival Benidorm ${YEAR} (agosto): tren TRAM L9 Alicante–Benidorm. Carpooling desde Alicante (45 km, 3–6€), Valencia (100 km, 8–12€), Madrid (420 km, 14–20€). Sin comisión.`,
+    keywords: `como llegar low festival benidorm ${YEAR}, low festival transporte, low festival tren, low festival bus, low festival carpooling, benidorm festival como llegar`,
+  },
+  "cruilla": {
+    title: `Cómo llegar a Cruïlla Barcelona ${YEAR}: Metro, bus y carpooling | ConcertRide`,
+    description: `Cruïlla ${YEAR} Parc del Fòrum Barcelona (julio): metro L4 Besòs Mar. Carpooling desde Madrid (15–20€), Valencia (10–14€), Zaragoza (8–12€). Sin comisión.`,
+    keywords: `como llegar cruilla barcelona ${YEAR}, cruilla metro, cruilla transporte, cruilla forum carpooling, cruilla barcelona como llegar`,
+  },
+  "sonorama-ribera": {
+    title: `Cómo llegar a Sonorama Ribera ${YEAR}: Bus, tren y carpooling | Aranda de Duero | ConcertRide`,
+    description: `Sonorama Ribera ${YEAR} Aranda de Duero (agosto): autobús desde Burgos, tren Renfe desde Madrid–Aranda (2h). Carpooling desde Madrid (8–12€), Burgos (3–6€), Valladolid (4–7€). Sin comisión.`,
+    keywords: `como llegar sonorama ribera ${YEAR}, sonorama transporte, sonorama aranda de duero bus, sonorama tren, sonorama ribera carpooling, como ir sonorama`,
+  },
+  "o-son-do-camino": {
+    title: `Cómo llegar a O Son do Camiño ${YEAR}: Bus, tren y carpooling | Santiago | ConcertRide`,
+    description: `O Son do Camiño ${YEAR} Monte do Gozo, Santiago de Compostela: autobús urbano hasta Monte do Gozo, tren AVE a Santiago. Carpooling desde A Coruña (3–6€), Vigo (4–7€), Madrid (15–20€). Sin comisión.`,
+    keywords: `como llegar o son do camino ${YEAR}, o son do camiño transporte, o son do camino bus santiago, o son do camiño carpooling, monte do gozo como llegar`,
+  },
 };
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -194,24 +224,132 @@ export const HOW_TO_GET_THERE_SEO: Record<string, { title: string; description: 
 // ─────────────────────────────────────────────────────────────────────────────
 
 export const ROUTE_SEO_IMPROVEMENTS: Record<string, { title: string; keywords?: string }> = {
+  // ── Viña Rock (top GSC queries) ─────────────────────────────────────────
+  "madrid-vina-rock": {
+    title: `Carpooling Madrid → Viña Rock ${YEAR}: Desde 6€ | 260 km | ConcertRide`,
+    keywords: `carpooling madrid viña rock, viaje compartido madrid villarrobledo, bus madrid viña rock, como ir viña rock desde madrid, transporte madrid vina rock ${YEAR}, viñarock desde madrid`,
+  },
+  "valencia-vina-rock": {
+    title: `Carpooling Valencia → Viña Rock ${YEAR}: Desde 6€ | 255 km | ConcertRide`,
+    keywords: `carpooling valencia viña rock, viaje compartido valencia viña rock, como llegar viña rock desde valencia, transporte valencia vina rock ${YEAR}`,
+  },
+  "alicante-vina-rock": {
+    title: `Carpooling Alicante → Viña Rock ${YEAR}: Desde 5€ | 195 km | ConcertRide`,
+    keywords: `carpooling alicante viña rock, viaje compartido alicante viña rock, como ir viña rock desde alicante, bus alicante viña rock`,
+  },
+  "albacete-vina-rock": {
+    title: `Carpooling Albacete → Viña Rock ${YEAR}: Desde 3€ | 40 km | ConcertRide`,
+    keywords: `carpooling albacete viña rock, bus albacete viña rock, lanzadera albacete viña rock, viaje compartido albacete villarrobledo`,
+  },
+  "sevilla-vina-rock": {
+    title: `Carpooling Sevilla → Viña Rock ${YEAR}: Desde 9€ | 410 km | ConcertRide`,
+    keywords: `carpooling sevilla viña rock, viaje compartido sevilla viña rock, como ir viña rock desde sevilla`,
+  },
+  // ── Arenal Sound ────────────────────────────────────────────────────────
   "madrid-arenal-sound": {
     title: `Carpooling Madrid → Arenal Sound ${YEAR}: Desde 12€ | 460 km | ConcertRide`,
-    keywords: `carpooling madrid arenal sound, viaje compartido madrid burriana, como llegar arenal sound desde madrid`,
+    keywords: `carpooling madrid arenal sound, viaje compartido madrid burriana, como llegar arenal sound desde madrid, bus madrid arenal sound, transporte madrid arenal sound ${YEAR}`,
   },
+  "valencia-arenal-sound": {
+    title: `Carpooling Valencia → Arenal Sound Burriana ${YEAR}: Desde 3€ | 65 km | ConcertRide`,
+    keywords: `carpooling valencia arenal sound, viaje compartido valencia burriana, autobus castellon burriana arenal sound, como ir arenal sound desde valencia`,
+  },
+  "barcelona-arenal-sound": {
+    title: `Carpooling Barcelona → Arenal Sound ${YEAR}: Desde 8€ | 305 km | ConcertRide`,
+    keywords: `carpooling barcelona arenal sound, viaje compartido barcelona burriana, como llegar arenal sound desde barcelona`,
+  },
+  "zaragoza-arenal-sound": {
+    title: `Carpooling Zaragoza → Arenal Sound ${YEAR}: Desde 8€ | 275 km | ConcertRide`,
+    keywords: `carpooling zaragoza arenal sound, viaje compartido zaragoza arenal sound, como ir arenal sound desde zaragoza`,
+  },
+  "alicante-arenal-sound": {
+    title: `Carpooling Alicante → Arenal Sound ${YEAR}: Desde 4€ | 115 km | ConcertRide`,
+    keywords: `carpooling alicante arenal sound, viaje compartido alicante burriana arenal sound`,
+  },
+  // ── BBK Live ────────────────────────────────────────────────────────────
   "madrid-bbk-live": {
     title: `Carpooling Madrid → BBK Live Bilbao ${YEAR}: Desde 11€ | 395 km | ConcertRide`,
-    keywords: `carpooling madrid bbk live, viaje compartido madrid bilbao, como llegar bbk live desde madrid`,
+    keywords: `carpooling madrid bbk live, viaje compartido madrid bilbao, como llegar bbk live desde madrid, bus madrid bbk live`,
   },
+  "donostia-bbk-live": {
+    title: `Carpooling Donostia → BBK Live Bilbao ${YEAR}: Desde 4€ | 100 km | ConcertRide`,
+    keywords: `carpooling donostia bbk live, viaje compartido san sebastian bilbao bbk live, como ir bbk live desde donostia`,
+  },
+  "santander-bbk-live": {
+    title: `Carpooling Santander → BBK Live ${YEAR}: Desde 4€ | 100 km | ConcertRide`,
+    keywords: `carpooling santander bbk live, viaje compartido santander bilbao bbk live, como ir bbk live desde santander, bus santander bilbao bbk live`,
+  },
+  "vitoria-gasteiz-bbk-live": {
+    title: `Carpooling Vitoria → BBK Live Bilbao ${YEAR}: Desde 3€ | 65 km | ConcertRide`,
+    keywords: `carpooling vitoria bbk live, viaje compartido vitoria bilbao bbk live, como ir bbk live desde vitoria`,
+  },
+  "pamplona-bbk-live": {
+    title: `Carpooling Pamplona → BBK Live ${YEAR}: Desde 5€ | 155 km | ConcertRide`,
+    keywords: `carpooling pamplona bbk live, viaje compartido pamplona bilbao bbk live`,
+  },
+  // ── Resurrection Fest ───────────────────────────────────────────────────
+  "madrid-resurrection-fest": {
+    title: `Carpooling Madrid → Resurrection Fest ${YEAR}: Desde 16€ | 600 km | ConcertRide`,
+    keywords: `carpooling madrid resurrection fest, viaje compartido madrid viveiro resurrection fest, como ir resurrection fest desde madrid, viajes resurrection fest madrid`,
+  },
+  "a-coruna-resurrection-fest": {
+    title: `Carpooling A Coruña → Resurrection Fest ${YEAR}: Desde 4€ | 100 km | ConcertRide`,
+    keywords: `carpooling a coruña resurrection fest, viaje compartido a coruña viveiro, resurrection fest desde a coruña`,
+  },
+  "vigo-resurrection-fest": {
+    title: `Carpooling Vigo → Resurrection Fest ${YEAR}: Desde 6€ | 200 km | ConcertRide`,
+    keywords: `carpooling vigo resurrection fest, viaje compartido vigo viveiro resurrection fest`,
+  },
+  "bilbao-resurrection-fest": {
+    title: `Carpooling Bilbao → Resurrection Fest ${YEAR}: Desde 10€ | 375 km | ConcertRide`,
+    keywords: `carpooling bilbao resurrection fest, viaje compartido bilbao viveiro`,
+  },
+  // ── Primavera Sound / Sónar / Mad Cool ─────────────────────────────────
   "madrid-primavera-sound": {
     title: `Carpooling Madrid → Primavera Sound Barcelona ${YEAR}: Desde 15€ | 620 km | ConcertRide`,
-    keywords: `carpooling madrid barcelona primavera sound, viaje compartido madrid barcelona festival`,
+    keywords: `carpooling madrid barcelona primavera sound, viaje compartido madrid barcelona festival, como ir primavera sound desde madrid`,
+  },
+  "madrid-sonar": {
+    title: `Carpooling Madrid → Sónar Barcelona ${YEAR}: Desde 15€ | 620 km | ConcertRide`,
+    keywords: `carpooling madrid sonar barcelona, viaje compartido madrid sonar, como ir sonar desde madrid`,
   },
   "barcelona-mad-cool": {
     title: `Carpooling Barcelona → Mad Cool Madrid ${YEAR}: Desde 15€ | 620 km | ConcertRide`,
-    keywords: `carpooling barcelona madrid mad cool, viaje compartido barcelona madrid festival`,
+    keywords: `carpooling barcelona madrid mad cool, viaje compartido barcelona madrid festival, como ir mad cool desde barcelona`,
   },
-  "valencia-arenal-sound": {
-    title: `Carpooling Valencia → Arenal Sound Burriana ${YEAR}: Desde 8€ | 55 km | ConcertRide`,
-    keywords: `carpooling valencia arenal sound, viaje compartido valencia burriana`,
+  "valencia-mad-cool": {
+    title: `Carpooling Valencia → Mad Cool Madrid ${YEAR}: Desde 10€ | 355 km | ConcertRide`,
+    keywords: `carpooling valencia mad cool, viaje compartido valencia madrid mad cool, como ir mad cool desde valencia`,
+  },
+  "zaragoza-mad-cool": {
+    title: `Carpooling Zaragoza → Mad Cool Madrid ${YEAR}: Desde 9€ | 325 km | ConcertRide`,
+    keywords: `carpooling zaragoza mad cool, viaje compartido zaragoza madrid mad cool`,
+  },
+  // ── Cala Mijas ──────────────────────────────────────────────────────────
+  "malaga-cala-mijas": {
+    title: `Carpooling Málaga → Cala Mijas Festival ${YEAR}: Desde 3€ | 60 km | ConcertRide`,
+    keywords: `carpooling malaga cala mijas, viaje compartido malaga cala mijas festival, como llegar cala mijas desde malaga`,
+  },
+  "madrid-cala-mijas": {
+    title: `Carpooling Madrid → Cala Mijas Festival ${YEAR}: Desde 14€ | 560 km | ConcertRide`,
+    keywords: `carpooling madrid cala mijas festival, viaje compartido madrid cala mijas, como ir cala mijas desde madrid`,
+  },
+  // ── FIB Benicàssim ──────────────────────────────────────────────────────
+  "madrid-fib": {
+    title: `Carpooling Madrid → FIB Benicàssim ${YEAR}: Desde 12€ | 465 km | ConcertRide`,
+    keywords: `carpooling madrid fib benicassim, viaje compartido madrid fib, como ir fib desde madrid, fib benicassim desde madrid`,
+  },
+  "barcelona-fib": {
+    title: `Carpooling Barcelona → FIB Benicàssim ${YEAR}: Desde 8€ | 300 km | ConcertRide`,
+    keywords: `carpooling barcelona fib benicassim, viaje compartido barcelona fib, como ir fib desde barcelona`,
+  },
+  "valencia-fib": {
+    title: `Carpooling Valencia → FIB Benicàssim ${YEAR}: Desde 3€ | 70 km | ConcertRide`,
+    keywords: `carpooling valencia fib benicassim, viaje compartido valencia fib, como ir fib desde valencia`,
+  },
+  // ── O Son do Camiño ─────────────────────────────────────────────────────
+  "madrid-o-son-do-camino": {
+    title: `Carpooling Madrid → O Son do Camiño ${YEAR}: Desde 15€ | 585 km | ConcertRide`,
+    keywords: `carpooling madrid o son do camiño, viaje compartido madrid santiago festival, como ir o son do camino desde madrid`,
   },
 };

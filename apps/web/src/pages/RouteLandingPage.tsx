@@ -9,6 +9,7 @@ import { useSeoMeta } from "@/lib/useSeoMeta";
 import { SITE_URL } from "@/lib/siteUrl";
 import { REGION_ISO } from "@/lib/seoConfig";
 import { ROUTE_LANDINGS_BY_SLUG } from "@/lib/routeLandings";
+import { ROUTE_SEO_IMPROVEMENTS } from "@/lib/seoOverrides";
 import { FestivalAlertWidget } from "@/components/FestivalAlertWidget";
 import { trackRouteSearch } from "@/lib/seoEvents";
 
@@ -18,16 +19,18 @@ export default function RouteLandingPage() {
 
   const [concerts, setConcerts] = useState<Concert[] | null>(null);
 
+  const routeOverride = landing ? ROUTE_SEO_IMPROVEMENTS[landing.slug] : undefined;
+
   useSeoMeta({
     title: landing
-      ? `Carpooling ${landing.originCity} → ${landing.festival.shortName} | ConcertRide`
+      ? routeOverride?.title ?? `Carpooling ${landing.originCity} → ${landing.festival.shortName} ${new Date().getFullYear()} | ConcertRide`
       : "Ruta de carpooling",
     description: landing
       ? `Carpooling de ${landing.originCity} a ${landing.festival.shortName} en ${landing.originData.drivingTime}. Desde ${landing.originData.concertRideRange}/asiento. Ida y vuelta disponible. Sin comisión — el 100 % va al conductor. Conductores verificados.`
       : "Carpooling a festivales en España.",
     canonical: landing ? `${SITE_URL}/rutas/${landing.slug}` : `${SITE_URL}/concerts`,
     keywords: landing
-      ? [
+      ? routeOverride?.keywords ?? [
           `carpooling ${landing.originCity} ${landing.festival.shortName}`,
           `coche compartido ${landing.originCity} ${landing.festival.shortName}`,
           `viaje compartido ${landing.originCity} ${landing.festival.shortName}`,

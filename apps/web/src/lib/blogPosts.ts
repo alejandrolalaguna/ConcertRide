@@ -1314,6 +1314,117 @@ export const BLOG_POSTS: BlogPost[] = [
     ],
     relatedPosts: ["autobuses-festivales-espana-2026", "como-volver-festival-madrugada"],
   },
+
+  // ──────────────────────────────────────────────────────────────────────
+  {
+    slug: "como-llegar-resurrection-fest-2026",
+    title: "Cómo llegar a Resurrection Fest 2026: transporte, carpooling y organización del viaje",
+    h1: "Cómo llegar a Resurrection Fest 2026: guía completa de transporte a Viveiro",
+    excerpt:
+      "Resurrection Fest está en Viveiro (Lugo), sin AVE ni aeropuerto cercano. Esta guía explica todas las opciones reales para llegar: carpooling desde A Coruña (4–7€), Madrid (16–22€), Vigo (6–9€), Bilbao (10–15€), incluyendo cómo organizar grupos y la vuelta de madrugada.",
+    category: "guias",
+    tags: ["resurrection fest", "viveiro", "carpooling", "transporte", "metal", "galicia", "viajes festival"],
+    publishedAt: "2026-05-05T09:00:00.000Z",
+    author: "Equipo ConcertRide",
+    readingMinutes: 8,
+    lede:
+      "Viveiro no tiene AVE, no tiene aeropuerto y no tiene autobús nocturno. Pero cada año 30.000 fans de metal consiguen llegar a Resurrection Fest. Aquí explicamos cómo.",
+    sections: [
+      {
+        heading: "Dónde está Resurrection Fest: el reto logístico",
+        paragraphs: [
+          "Resurrection Fest se celebra en el recinto de A Gañidoira, en las afueras de Viveiro (Lugo), en la Costa Lucense del norte de Galicia. La dirección exacta es: Parque A Gañidoira, 27850 Viveiro, Lugo. Coordenadas GPS: 43.666 N, 7.599 W.",
+          "Viveiro es un municipio de unos 15.000 habitantes sin conexión de AVE, sin aeropuerto propio y con transporte público muy limitado en horarios nocturnos. El aeropuerto más cercano con vuelos frecuentes desde Madrid o Barcelona es el de Asturias (BCA) o el de Santiago de Compostela (SCQ), a 3 horas y 2h 30 min en coche respectivamente.",
+          "Por esta razón, Resurrection Fest es el festival español con mayor dependencia del coche particular y del carpooling. Más del 80% de los asistentes llegan en coche, y la práctica del viaje compartido entre fans de metal lleva siendo habitual desde las primeras ediciones del festival.",
+        ],
+      },
+      {
+        heading: "Cómo llegar a Resurrection Fest en coche compartido: precios por ciudad",
+        paragraphs: [
+          "El carpooling con ConcertRide es la opción más utilizada para ir a Resurrection Fest porque permite llegar directamente al recinto, organizar la vuelta a cualquier hora y dividir los gastos de gasolina entre 3–4 personas. Estas son las principales rutas:",
+        ],
+        bullets: [
+          "A Coruña → Viveiro: 100 km, 1h 15 min, desde 4–7 €/asiento. La ruta más habitual para los gallegos del norte.",
+          "Santiago de Compostela → Viveiro: 185 km, 2h, desde 6–9 €/asiento. La segunda opción más popular en Galicia.",
+          "Vigo → Viveiro: 200 km, 2h 15 min, desde 6–9 €/asiento. Los fans de Vigo y Pontevedra suelen organizar grupos de 4.",
+          "Oviedo → Viveiro: 195 km, 2h, desde 6–9 €/asiento. Muy habitual entre asturianos que van al festival.",
+          "Bilbao → Viveiro: 375 km, 4h, desde 10–15 €/asiento. Ruta larga pero habitual entre los fans vascos.",
+          "Madrid → Viveiro: 600 km, 6h, desde 16–22 €/asiento. La ruta más larga — muchos madrileños salen el miércoles y se quedan en camping.",
+        ],
+      },
+      {
+        heading: "Opciones de bus y tren a Resurrection Fest",
+        paragraphs: [
+          "La realidad del transporte público a Viveiro es dura: no existe ninguna opción cómoda que permita llegar al recinto en horarios de festival de madrugada.",
+          "ALSA opera autobuses regulares desde A Coruña, Lugo y Oviedo hasta Viveiro, pero con solo 2–3 frecuencias al día y sin ningún servicio entre las 20:00 y las 6:00. Esto significa que si llegas en autobús de línea no puedes volver en madrugada — tendrías que quedarte en el camping.",
+          "El tren Renfe no llega a Viveiro. La línea de Feve (tren estrecho) más cercana es la de A Coruña–Ferrol, que tampoco llega a Viveiro. El aeropuerto más operativo para llegar en avión es Santiago de Compostela (SCQ) con vuelos desde Madrid y Barcelona, pero desde el aeropuerto a Viveiro son 2h 30 min más en coche.",
+          "Algunos organizadores privados venden autobuses discrecionales desde A Coruña y Vigo para el festival, pero con plazas muy limitadas y horarios fijos de vuelta. El carpooling con ConcertRide sigue siendo la alternativa más flexible.",
+        ],
+      },
+      {
+        heading: "El camping de Resurrection Fest: clave para la logística",
+        paragraphs: [
+          "Resurrection Fest tiene una amplia zona de camping adyacente al recinto de A Gañidoira, incluida con algunos tipos de abono. El camping abre desde el miércoles, un día antes del inicio oficial del festival.",
+          "Para los que vienen de lejos (Madrid, Bilbao, Vigo), lo más habitual es llegar al camping el miércoles o jueves y quedarse los 4 días del festival. Esto elimina el problema de la vuelta de madrugada: duermes en el camping y vuelves a casa el domingo con calma.",
+          "El ConcertRide es especialmente útil para este grupo: puedes buscar conductores que también vayan a quedarse los 4 días, llegar juntos con todo el equipo de camping en el maletero y coordinarse para la vuelta el domingo por la mañana.",
+          "La zona de autocaravanas también está disponible cerca del camping, por lo que muchos fans veteranos del festival vienen en autocaravana o furgoneta amenizada — el carpooling les permite añadir pasajeros y reducir el coste del combustible en un trayecto de 600 km desde Madrid.",
+        ],
+      },
+      {
+        heading: "Cómo organizar el viaje a Resurrection Fest en grupo",
+        paragraphs: [
+          "Resurrection Fest es especialmente apto para organizar el viaje en grupo de 3–5 amigos. Si sois 4 personas desde Madrid (600 km), el coste de gasolina ronda los 80–100 € en total (≈ 20–25 €/persona), frente a los 16–22 € por asiento de ConcertRide si cada uno busca su propio viaje.",
+          "La diferencia es que con ConcertRide no necesitas coche: si no tienes carnet o no quieres conducir 12 horas en total (ida y vuelta), encuentras conductores verificados que van al mismo festival y acuerdan el punto de recogida y la hora de regreso.",
+          "Consejo para organizar el grupo: publica o busca en ConcertRide con al menos 3 semanas de antelación. Los conductores que van al camping suelen publicar primero los viajes de ida (para el miércoles–jueves) y añaden la vuelta más tarde cuando confirman el día de regreso.",
+        ],
+        bullets: [
+          "Filtra por 'Viveiro' o 'Resurrection Fest' en ConcertRide para ver los viajes disponibles.",
+          "Comunícate con el conductor antes de confirmar: pregunta si lleva equipo de camping y a qué hora sale.",
+          "Si sois 4, considera si alguno puede conducir y publicar el viaje él mismo — así controláis el horario.",
+          "Para la vuelta: acordad con el conductor si es el último día del festival o el domingo por la mañana.",
+        ],
+      },
+      {
+        heading: "Resurrection Fest 2026: fechas y cartel",
+        paragraphs: [
+          "La edición 2026 de Resurrection Fest está prevista para el 25, 26, 27 y 28 de junio en A Gañidoira, Viveiro (Lugo). El festival abre el jueves por la tarde y cierra el domingo a medianoche.",
+          "Resurrection Fest es el festival de metal más importante de España y uno de los más relevantes de Europa, con artistas internacionales de la talla de Metallica, Slipknot, Iron Maiden, Rammstein y cientos de bandas de metal, punk, hardcore y rock extremo.",
+          "Si vas al festival y todavía no tienes transporte organizado, en ConcertRide puedes publicar tu viaje o buscar conductores desde tu ciudad. El servicio es gratuito para el conductor y el pasajero solo paga el coste de gasolina y peajes — sin comisión de plataforma.",
+        ],
+      },
+    ],
+    faqs: [
+      {
+        q: "¿Cómo llegar a Resurrection Fest sin coche?",
+        a: "Sin coche propio, las opciones son: carpooling con ConcertRide (la más habitual — conecta con conductores que van al festival), autobús de línea ALSA desde A Coruña o Lugo (con frecuencia muy baja y sin servicio nocturno), o avión hasta Santiago de Compostela o Asturias y luego carpooling hasta Viveiro (2h–3h más). La combinación vuelo + carpooling desde Santiago o Asturias es la más usada por los asistentes de Madrid y Barcelona.",
+      },
+      {
+        q: "¿Hay autobús directo a Resurrection Fest desde Madrid?",
+        a: "No existe autobús directo regular Madrid–Viveiro con horarios de festival. ALSA opera Madrid–A Coruña pero el servicio tarda 8–9 horas y no llega a Viveiro directamente. Algunos organizadores privados venden plazas en autobuses discrecionales Madrid–Resurrection Fest (50–70 €), pero con cupos muy limitados. La alternativa más habitual para los madrileños es ConcertRide (16–22 €/asiento desde Madrid, 6 horas).",
+      },
+      {
+        q: "¿Puedo ir a Resurrection Fest sin quedarse en el camping?",
+        a: "Técnicamente sí, pero es complicado logísticamente. Si te alojas en Viveiro o en los municipios cercanos (Cervo, Burela, Ribadeo), puedes coger taxi de vuelta cada noche (15–25 € desde el recinto al centro de Viveiro). El problema es que el taxi en Viveiro tiene capacidad muy limitada en noches de festival — es habitual que no queden taxis a las 3:00 am. Para visitantes de una noche, el carpooling de ConcertRide con el conductor que también se queda en el camping es la opción más segura.",
+      },
+      {
+        q: "¿Cuánto cuesta llegar a Resurrection Fest desde Madrid?",
+        a: "En carpooling ConcertRide desde Madrid, el precio por asiento es de 16 a 22 €. Si vais 4 amigos en coche propio, la gasolina ronda 80–100 € en total (20–25 €/persona). El autobús de línea Madrid–A Coruña cuesta 30–50 € pero no llega a Viveiro. El avión Madrid–Asturias o Madrid–Santiago cuesta 50–120 € con equipaje, sin incluir el transporte hasta Viveiro.",
+      },
+      {
+        q: "¿El carpooling a Resurrection Fest es seguro?",
+        a: "Sí. ConcertRide verifica el carnet de conducir de todos los conductores antes de publicar viajes. Puedes ver el perfil completo, las valoraciones de viajes anteriores y contactarle por chat antes de confirmar. El pago es en efectivo o Bizum directamente al conductor el día del viaje — sin adelantos ni datos bancarios. La comunidad del Resurrection Fest lleva años usando carpooling de forma habitual — es el festival español donde más arraigada está esta práctica.",
+      },
+    ],
+    relatedLinks: [
+      { label: "Carpooling a Resurrection Fest — ConcertRide", to: "/festivales/resurrection-fest" },
+      { label: "Cómo llegar a Resurrection Fest (guía)", to: "/como-llegar/resurrection-fest" },
+      { label: "Carpooling desde Madrid", to: "/rutas/madrid-resurrection-fest" },
+      { label: "Carpooling desde A Coruña", to: "/rutas/a-coruna-resurrection-fest" },
+      { label: "Carpooling desde Vigo", to: "/rutas/vigo-resurrection-fest" },
+      { label: "Autobuses a festivales España 2026", to: "/blog/autobuses-festivales-espana-2026" },
+    ],
+    relatedPosts: ["autobuses-festivales-espana-2026", "guia-transporte-vina-rock-2026"],
+  },
 ];
 
 export const BLOG_POSTS_BY_SLUG: Record<string, BlogPost> = Object.fromEntries(
