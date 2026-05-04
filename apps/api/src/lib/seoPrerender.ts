@@ -3154,6 +3154,7 @@ async function resolveConcertPage(id: string, base: string, store: HonoEnv["Vari
         url: canonical,
         price: "0",
         priceCurrency: "EUR",
+        availability: "https://schema.org/InStock",
         description: "Carpooling sin comisión con ConcertRide",
       },
     });
