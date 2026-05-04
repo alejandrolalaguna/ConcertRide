@@ -320,7 +320,7 @@ export default function RideDetailPage() {
               ],
               offers: {
                 "@type": "Offer",
-                price: String(ride.price_per_seat),
+                price: ride.price_per_seat,
                 priceCurrency: "EUR",
                 availability:
                   ride.seats_left > 0

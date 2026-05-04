@@ -247,7 +247,7 @@ ConcertRide ES (concertride.me) is a Spanish carpooling platform built exclusive
 - Arenal Sound (Burriana): desde Valencia 4–8 €; desde Madrid 8–14 €; lanzadera Castellón limitada
 - Viña Rock (Villarrobledo, Albacete): autobuses privados Madrid–Viñarock (bus) 35–55 € (Méndez Álvaro/Nuevos Ministerios); lanzadera oficial solo desde Albacete (50 km, 40 min); carpooling desde Madrid 6–9 €/asiento, desde Valencia 6–9 €
 - BBK Live (Bilbao): lanzadera gratuita desde Bilbao centro; carpooling desde Madrid ~30 €; desde Santander 10 €
-- Resurrection Fest (Viveiro): ALSA Madrid–Viveiro ~40 €; carpooling desde Madrid 20–30 €; sin taxi nocturno
+- Resurrection Fest (Viveiro): ALSA Madrid–Viveiro ~40 €; carpooling desde Madrid 16–22 €/asiento; sin taxi nocturno
 - Cala Mijas (Málaga): taxi desde Málaga centro 25–40 €; carpooling desde Málaga 5–10 €
 - Zevra Festival (Valencia/Marina): Metro L4 Marítim-Serreria; carpooling desde Valencia 3–7 €
 - Sonorama Ribera (Aranda de Duero): bus La Sepulvedana Madrid–Aranda 10–15 €; carpooling desde Madrid 10–14 €
@@ -367,7 +367,7 @@ Barcelona es sede de tres de los festivales más importantes de España en 2026:
 Primavera Sound 2026 (28 may–1 jun, Parc del Fòrum, Barcelona). Desde Madrid hay tres opciones: (1) AVE Madrid–Barcelona (2h 30 min, 50–100 €, se agota semanas antes). (2) Autobús nocturno (ALSA/FlixBus, 6–7 h, 15–30 €). (3) Carpooling ConcertRide: 620 km, 5h 30 min, precio 14–22 €/asiento. El AVE es el transporte más rápido pero el carpooling es el más barato y flexible para grupos. Más info: https://concertride.me/festivales/primavera-sound y https://concertride.me/rutas/madrid-primavera-sound
 
 **¿Cuánto cuesta ir al Resurrection Fest en coche compartido?**
-Resurrection Fest 2026 (25–28 jun, A Gañidoira, Viveiro, Lugo). Es el festival más remoto de España: sin transporte público directo ni taxis nocturnos desde Viveiro. Opciones: ALSA Madrid–A Coruña–Viveiro (~40 €, 7–8 h); carpooling ConcertRide desde Madrid (30–55 €/asiento, 7h 30 min), A Coruña (10–14 €, 1h 15 min), Vigo (12–16 €, 1h 30 min). El carpooling es la opción dominante para la vuelta de madrugada. Más info: https://concertride.me/festivales/resurrection-fest
+Resurrection Fest 2026 (25–28 jun, A Gañidoira, Viveiro, Lugo). Es el festival más remoto de España: sin transporte público directo ni taxis nocturnos desde Viveiro. Opciones: ALSA Madrid–A Coruña–Viveiro (~40 €, 7–8 h); carpooling ConcertRide desde Madrid (16–22 €/asiento, 6h), A Coruña (4–7 €, 1h 15 min), Vigo (6–9 €, 2h 15 min), Oviedo (8–12 €, 2h). El carpooling es la opción dominante para la vuelta de madrugada. Más info: https://concertride.me/festivales/resurrection-fest
 
 **¿Hay transporte al Low Festival en Benidorm?**
 Low Festival 2026 (24–26 jul, Benidorm, Alicante). El recinto no dispone de transporte público directo ni lanzadera oficial. Opciones: taxi desde Alicante (45 km, 30–40 min, 35–50 €); carpooling ConcertRide desde Alicante (15 €/asiento, 40 min), Valencia (20–30 €, 1h 45 min), Madrid (18–26 €, 4h 30 min). Más info: https://concertride.me/festivales/low-festival

@@ -11,6 +11,9 @@ import { REGION_ISO } from "@/lib/seoConfig";
 import { FESTIVAL_LANDINGS, FESTIVAL_LANDINGS_BY_SLUG } from "@/lib/festivalLandings";
 import { ROUTE_LANDINGS } from "@/lib/routeLandings";
 import { FESTIVAL_SEO_OVERRIDES } from "@/lib/seoOverrides";
+import { ARTIST_LANDINGS } from "@/lib/artistLandings";
+import { VENUE_LANDINGS } from "@/lib/venueLandings";
+import { REGION_LANDINGS } from "@/lib/regionLandings";
 
 const FESTIVAL_DEFAULT_OG = `${SITE_URL}/og-fallback.png`;
 import { trackFestivalView } from "@/lib/seoEvents";
@@ -252,13 +255,16 @@ export default function FestivalLandingPage() {
       : `${SITE_URL}/festivales/${festival.slug}`,
   };
 
+  const festRegion = REGION_LANDINGS.find((r) => r.festivalsInRegion.includes(festival.slug));
+
   const jsonLdBreadcrumb = {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
     itemListElement: [
       { "@type": "ListItem", position: 1, name: "Inicio", item: `${SITE_URL}/` },
       { "@type": "ListItem", position: 2, name: "Festivales", item: `${SITE_URL}/festivales` },
-      { "@type": "ListItem", position: 3, name: festival.shortName, item: `${SITE_URL}/festivales/${festival.slug}` },
+      ...(festRegion ? [{ "@type": "ListItem", position: 3, name: festRegion.displayName, item: `${SITE_URL}/festivales-en/${festRegion.slug}` }] : []),
+      { "@type": "ListItem", position: festRegion ? 4 : 3, name: festival.shortName, item: `${SITE_URL}/festivales/${festival.slug}` },
     ],
   };
 
@@ -362,10 +368,16 @@ export default function FestivalLandingPage() {
 
       {/* ── Hero ── */}
       <div className="max-w-6xl mx-auto px-6 pt-10 pb-6 space-y-4">
-        <nav aria-label="Breadcrumb" className="font-mono text-[11px] text-cr-text-muted flex items-center gap-2">
+        <nav aria-label="Breadcrumb" className="font-mono text-[11px] text-cr-text-muted flex items-center gap-2 flex-wrap">
           <Link to="/" className="hover:text-cr-primary">Inicio</Link>
           <span aria-hidden="true">/</span>
           <Link to="/festivales" className="hover:text-cr-primary">Festivales</Link>
+          {festRegion && (
+            <>
+              <span aria-hidden="true">/</span>
+              <Link to={`/festivales-en/${festRegion.slug}`} className="hover:text-cr-primary">{festRegion.displayName}</Link>
+            </>
+          )}
           <span aria-hidden="true">/</span>
           <span className="text-cr-text-muted">{festival.shortName}</span>
         </nav>
@@ -846,6 +858,69 @@ export default function FestivalLandingPage() {
           ))}
         </dl>
       </section>
+
+      {/* ── Artistas con carpooling en este festival ── */}
+      {(() => {
+        const festArtists = ARTIST_LANDINGS.filter((a) => a.relatedFestivals.includes(festival.slug));
+        if (festArtists.length === 0) return null;
+        return (
+          <section className="max-w-6xl mx-auto px-6 pb-12 border-t border-cr-border pt-10">
+            <h2 className="font-display text-lg uppercase text-cr-text-muted mb-4">
+              Artistas en {festival.shortName}
+            </h2>
+            <ul className="flex flex-wrap gap-2">
+              {festArtists.map((a) => (
+                <li key={a.slug}>
+                  <Link
+                    to={`/artistas/${a.slug}`}
+                    className="inline-flex items-center gap-1.5 font-sans text-xs text-cr-text-muted hover:text-cr-primary border border-cr-border hover:border-cr-primary px-3 py-1.5 transition-colors"
+                  >
+                    {a.name} →
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </section>
+        );
+      })()}
+
+      {/* ── Recinto del festival ── */}
+      {(() => {
+        const festVenue = VENUE_LANDINGS.find((v) => v.relatedFestivals.includes(festival.slug));
+        if (!festVenue) return null;
+        return (
+          <section className="max-w-6xl mx-auto px-6 pb-12 border-t border-cr-border pt-10">
+            <h2 className="font-display text-lg uppercase text-cr-text-muted mb-4">
+              Recinto
+            </h2>
+            <Link
+              to={`/recintos/${festVenue.slug}`}
+              className="inline-flex items-center gap-2 font-sans text-xs text-cr-text-muted hover:text-cr-primary border border-cr-border hover:border-cr-primary px-3 py-1.5 transition-colors"
+            >
+              {festVenue.name} — cómo llegar, metro, parking <ArrowRight size={10} />
+            </Link>
+          </section>
+        );
+      })()}
+
+      {/* ── Región — sibling festivals ── */}
+      {(() => {
+        const region = REGION_LANDINGS.find((r) => r.festivalsInRegion.includes(festival.slug));
+        if (!region) return null;
+        return (
+          <section className="max-w-6xl mx-auto px-6 pb-12 border-t border-cr-border pt-10">
+            <h2 className="font-display text-lg uppercase text-cr-text-muted mb-2">
+              Festivales en {region.displayName}
+            </h2>
+            <Link
+              to={`/festivales-en/${region.slug}`}
+              className="inline-flex items-center gap-2 font-sans text-xs text-cr-primary border-b border-cr-primary/40 hover:border-cr-primary transition-colors"
+            >
+              Ver todos los festivales en {region.displayName} <ArrowRight size={10} />
+            </Link>
+          </section>
+        );
+      })()}
 
       {/* ── Related festivals ── */}
       {relatedFestivals.length > 0 && (

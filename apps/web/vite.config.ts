@@ -76,7 +76,7 @@ export default defineConfig({
       }
     : {
         outDir: "dist",
-        sourcemap: true,
+        sourcemap: false,
       },
   ssr: {
     // Bundle these so the SSR output is fully self-contained — Node has no

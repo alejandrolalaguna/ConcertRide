@@ -30,12 +30,12 @@ export const FESTIVAL_SEO_OVERRIDES: Record<string, { title: string; description
   },
   "arenal-sound": {
     title: `Arenal Sound ${YEAR} + Transporte: Carpooling desde 8€ | Burriana | ConcertRide`,
-    description: `Arenal Sound Burriana (Valencia) ${YEAR} (10–12 ago): carpooling desde Madrid (270 km, 15–20€), Barcelona (300 km, 18–22€), Valencia (55 km, 8–11€). Conductores verificados, sin comisión.`,
+    description: `Arenal Sound Burriana (Castellón) ${YEAR} (29 jul–2 ago): carpooling desde Madrid (460 km, 12–17€), Barcelona (305 km, 8–12€), Valencia (65 km, 3–6€). Conductores verificados, sin comisión.`,
     keywords: `arenal sound carpooling, como llegar arenal sound, transporte arenal sound, autobús arenal sound, viaje compartido burriana, arenal sound desde madrid`,
   },
   "mad-cool": {
     title: `Mad Cool ${YEAR} Madrid + Cómo llegar: Carpooling desde 4€ | ConcertRide`,
-    description: `Mad Cool Festival IFEMA Madrid ${YEAR} (10–12 julio): carpooling desde toda España. Barcelona (625 km, 22–28€), Valencia (315 km, 12–16€), Sevilla (530 km, 18–24€). Desde 4€/asiento, sin comisión.`,
+    description: `Mad Cool Festival IFEMA Madrid ${YEAR} (9–11 julio): carpooling desde toda España. Barcelona (620 km, 15–20€), Valencia (355 km, 10–14€), Zaragoza (325 km, 9–13€). Desde 4€/asiento, sin comisión.`,
     keywords: `mad cool ${YEAR}, mad cool madrid carpooling, como llegar mad cool, transporte mad cool, viaje compartido mad cool, carpooling madrid ifema`,
   },
   "bbk-live": {
@@ -45,17 +45,17 @@ export const FESTIVAL_SEO_OVERRIDES: Record<string, { title: string; description
   },
   "primavera-sound": {
     title: `Primavera Sound ${YEAR} Barcelona + Cómo ir: Carpooling desde 14€ | ConcertRide`,
-    description: `Primavera Sound Parc del Fòrum Barcelona (28 may–1 jun): carpooling desde Madrid (625 km, 22–28€), Valencia (315 km, 14–18€), Zaragoza (300 km, 12–16€). Conductores verificados, sin comisión.`,
+    description: `Primavera Sound Parc del Fòrum Barcelona (28 may–1 jun): carpooling desde Madrid (620 km, 15–20€), Valencia (355 km, 10–14€), Zaragoza (306 km, 8–12€). Conductores verificados, sin comisión.`,
     keywords: `primavera sound ${YEAR}, primavera sound carpooling, como llegar primavera sound barcelona, transporte primavera sound, viaje compartido barcelona fòrum`,
   },
   "sonar": {
     title: `Sónar Barcelona ${YEAR} + Cómo llegar: Carpooling desde 16€ | Fira Montjuïc | ConcertRide`,
-    description: `Sónar Festival Fira Montjuïc Barcelona (18–20 jun): carpooling desde Madrid (625 km, 22–28€), Valencia (315 km, 14–18€). Desde 16€/asiento, sin comisión. Electrónica, house, techno.`,
+    description: `Sónar Festival Fira Montjuïc Barcelona (18–20 jun): carpooling desde Madrid (620 km, 14–22€), Valencia (355 km, 10–14€). Desde 14€/asiento, sin comisión. Electrónica, house, techno.`,
     keywords: `sonar barcelona ${YEAR}, sonar carpooling, como llegar sonar festival, transporte sonar barcelona, viaje compartido sonar fira montjuïc`,
   },
   "resurrection-fest": {
     title: `Resurrection Fest ${YEAR} Viveiro + Cómo llegar: Metal, carpooling desde 8€ | ConcertRide`,
-    description: `Resurrection Fest Viveiro Galicia (agosto): carpooling desde A Coruña (100 km, 8–12€), Vigo (200 km, 12–16€), Madrid (600 km, 20–28€). Metal, punk, rock. Sin comisión.`,
+    description: `Resurrection Fest Viveiro Galicia (jun): carpooling desde A Coruña (100 km, 4–7€), Vigo (200 km, 6–9€), Madrid (600 km, 16–22€). Metal, punk, rock. Sin comisión.`,
     keywords: `resurrection fest ${YEAR}, resurrection fest viveiro carpooling, como llegar resurrection fest, transporte metal festival, viaje compartido resurrection fest`,
   },
   "cala-mijas": {
@@ -70,7 +70,7 @@ export const FESTIVAL_SEO_OVERRIDES: Record<string, { title: string; description
   },
   "o-son-do-camiño": {
     title: `O Son do Camiño ${YEAR} Santiago + Cómo llegar: Carpooling desde 8€ | 90.000+ | ConcertRide`,
-    description: `O Son do Camiño Monte do Gozo Santiago (18–20 junio): carpooling desde A Coruña (85 km, 8–12€), Vigo (90 km, 8–12€), Madrid (600 km, 20–28€). 90.000+ personas. Sin comisión.`,
+    description: `O Son do Camiño Monte do Gozo Santiago (18–20 junio): carpooling desde A Coruña (70 km, 3–6€), Vigo (90 km, 4–7€), Madrid (585 km, 15–20€). 90.000+ personas. Sin comisión.`,
     keywords: `o son do camiño ${YEAR}, o son do camiño santiago carpooling, como llegar o son do camiño, transporte monte do gozo, viaje compartido santiago festival`,
   },
   "low-festival": {
@@ -161,7 +161,7 @@ export const HOW_TO_GET_THERE_SEO: Record<string, { title: string; description: 
 
 export const ROUTE_SEO_IMPROVEMENTS: Record<string, { title: string; keywords?: string }> = {
   "madrid-arenal-sound": {
-    title: `Carpooling Madrid → Arenal Sound ${YEAR}: Desde 11€ | 270 km | ConcertRide`,
+    title: `Carpooling Madrid → Arenal Sound ${YEAR}: Desde 12€ | 460 km | ConcertRide`,
     keywords: `carpooling madrid arenal sound, viaje compartido madrid burriana, como llegar arenal sound desde madrid`,
   },
   "madrid-bbk-live": {
@@ -169,11 +169,11 @@ export const ROUTE_SEO_IMPROVEMENTS: Record<string, { title: string; keywords?: 
     keywords: `carpooling madrid bbk live, viaje compartido madrid bilbao, como llegar bbk live desde madrid`,
   },
   "madrid-primavera-sound": {
-    title: `Carpooling Madrid → Primavera Sound Barcelona ${YEAR}: Desde 22€ | 625 km | ConcertRide`,
+    title: `Carpooling Madrid → Primavera Sound Barcelona ${YEAR}: Desde 15€ | 620 km | ConcertRide`,
     keywords: `carpooling madrid barcelona primavera sound, viaje compartido madrid barcelona festival`,
   },
   "barcelona-mad-cool": {
-    title: `Carpooling Barcelona → Mad Cool Madrid ${YEAR}: Desde 22€ | 625 km | ConcertRide`,
+    title: `Carpooling Barcelona → Mad Cool Madrid ${YEAR}: Desde 15€ | 620 km | ConcertRide`,
     keywords: `carpooling barcelona madrid mad cool, viaje compartido barcelona madrid festival`,
   },
   "valencia-arenal-sound": {
