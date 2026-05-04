@@ -48,11 +48,6 @@ export const FESTIVAL_SEO_OVERRIDES: Record<string, { title: string; description
     description: `Primavera Sound Parc del Fòrum Barcelona (28 may–1 jun): carpooling desde Madrid (620 km, 15–20€), Valencia (355 km, 10–14€), Zaragoza (306 km, 8–12€). Conductores verificados, sin comisión.`,
     keywords: `primavera sound ${YEAR}, primavera sound carpooling, como llegar primavera sound barcelona, transporte primavera sound, viaje compartido barcelona fòrum`,
   },
-  "sonar": {
-    title: `Sónar Barcelona ${YEAR} + Cómo llegar: Carpooling desde 16€ | Fira Montjuïc | ConcertRide`,
-    description: `Sónar Festival Fira Montjuïc Barcelona (18–20 jun): carpooling desde Madrid (620 km, 14–22€), Valencia (355 km, 10–14€). Desde 14€/asiento, sin comisión. Electrónica, house, techno.`,
-    keywords: `sonar barcelona ${YEAR}, sonar carpooling, como llegar sonar festival, transporte sonar barcelona, viaje compartido sonar fira montjuïc`,
-  },
   "resurrection-fest": {
     title: `Resurrection Fest ${YEAR} Viveiro + Cómo llegar: Metal, carpooling desde 8€ | ConcertRide`,
     description: `Resurrection Fest Viveiro Galicia (jun): carpooling desde A Coruña (100 km, 4–7€), Vigo (200 km, 6–9€), Madrid (600 km, 16–22€). Metal, punk, rock. Sin comisión.`,

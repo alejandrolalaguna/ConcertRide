@@ -1204,6 +1204,116 @@ export const BLOG_POSTS: BlogPost[] = [
     ],
     relatedPosts: ["autobuses-festivales-espana-2026", "que-llevar-al-festival"],
   },
+
+  // ──────────────────────────────────────────────────────────────────────
+  {
+    slug: "guia-transporte-vina-rock-2026",
+    title: "Guía de transporte a Viña Rock 2026: autobús, tren y carpooling desde todas las ciudades",
+    h1: "Cómo ir a Viña Rock 2026: autobuses, tren y carpooling",
+    excerpt:
+      "¿Buscas autobús a Viña Rock? ¿Cómo llegar a La Pulgosa, Villarrobledo? Esta guía cubre todas las opciones reales para 2026: bus lanzadera oficial desde Albacete, autobuses privados desde Madrid, tren AVE + lanzadera, y carpooling con ConcertRide desde Madrid (6–9 €), Valencia (6–9 €) y Alicante (5–8 €). Sin comisión.",
+    category: "guias",
+    tags: ["viña rock", "viña rock 2026", "autobús viña rock", "bus viñarock", "como llegar viña rock", "transporte viña rock", "carpooling viña rock"],
+    publishedAt: "2026-05-04T10:00:00.000Z",
+    author: "Equipo ConcertRide",
+    readingMinutes: 8,
+    lede:
+      "\"Autobuses Viña Rock\", \"bus viñarock\" y \"cómo llegar a Viña Rock\" son de las búsquedas más frecuentes cada primavera en España. Aquí tienes la guía honesta: qué transporte existe, qué no existe y qué es la mejor opción para llegar a La Pulgosa y volver de madrugada.",
+    sections: [
+      {
+        heading: "Dónde está Viña Rock: localización y cómo llegar en coche",
+        paragraphs: [
+          "Viña Rock 2026 se celebra en La Pulgosa, Villarrobledo, provincia de Albacete (Castilla-La Mancha). La dirección exacta es Ctra. N-310, km 265, Villarrobledo, 02600 Albacete. Coordenadas GPS: 39.261, -2.614.",
+          "Villarrobledo está a 150 km de Madrid (por la A-3 o la A-4 + N-310), a 170 km de Valencia (A-3 + N-310), a 165 km de Alicante (A-31 + A-3 + N-310), y a 50 km de la capital provincial, Albacete (N-301 o A-31). El recinto de La Pulgosa está a las afueras de Villarrobledo, no en el centro del pueblo.",
+        ],
+      },
+      {
+        heading: "Autobuses a Viña Rock 2026: lanzadera oficial y buses privados",
+        paragraphs: [
+          "Las búsquedas \"autobuses Viña Rock\", \"bus viñarock\" o \"autobus viña rock desde madrid\" mezclan tres tipos de transporte muy distintos. Es importante distinguirlos:",
+        ],
+        bullets: [
+          "Bus lanzadera oficial Albacete–Villarrobledo: organizado por el festival, sale desde la estación de autobuses de Albacete cada 1–2 horas los días de festival. Coste aproximado: 5–10 € ida y vuelta. Duración: 40 minutos. Plazas limitadas — se agotan los días de mayor afluencia. Último servicio de vuelta: aproximadamente a las 6:00 am.",
+          "Autobuses privados no oficiales Madrid–Viña Rock: operadores particulares (no el festival) que salen desde Méndez Álvaro, Nuevos Ministerios o Atocha. Precio: 35–55 € ida y vuelta. Vuelta a hora fija (suele ser las 5:00–6:00 del último día). Sin flexibilidad de horario.",
+          "Autobuses de larga distancia ALSA Madrid–Albacete: líneas regulares (2h 30 min, 12–20 €). Llegan a la estación de Albacete, no al festival. Hay que sumar la lanzadera oficial del festival (5–10 €) o taxi (25–35 €) desde Albacete a La Pulgosa. Sin servicio nocturno de madrugada.",
+          "Autobús ALSA Valencia–Albacete: 1h 30 min, 8–15 €. Mismo problema: llega a Albacete, no al recinto.",
+        ],
+      },
+      {
+        heading: "Tren a Viña Rock 2026: AVE Madrid–Albacete + lanzadera",
+        paragraphs: [
+          "El tren AVE Madrid Atocha–Albacete Los Llanos es la opción ferroviaria más rápida (1h 30 min, 15–45 € según antelación). Desde Albacete hay que sumar bus lanzadera del festival (5–10 €, 40 min) o taxi (25–35 €).",
+          "El problema crítico del tren es la vuelta de madrugada: el último Cercanías Renfe de Albacete a Madrid sale antes de las 22:00. Para volver de Viña Rock a las 4:00–6:00 am, el tren no es una opción real. La única solución de vuelta desde la estación de Albacete es el taxi (35–50 €) o el carpooling.",
+          "Desde Valencia, el tren Cercanías o Media Distancia cubre el trayecto Valencia–Albacete en 1h 30 min–2h (5–15 €), con el mismo problema de la vuelta nocturna.",
+        ],
+      },
+      {
+        heading: "Carpooling a Viña Rock con ConcertRide: la opción más práctica",
+        paragraphs: [
+          "El carpooling con ConcertRide es la opción dominante para ir a Viña Rock desde Madrid, Valencia, Alicante, Cuenca y otras ciudades. La razón es simple: el festival termina a las 5:00–6:00 am y el transporte público nocturno no llega al recinto. Los conductores de ConcertRide van al festival y coordinan la vuelta con los pasajeros.",
+        ],
+        bullets: [
+          "Desde Madrid (150 km): 6–9 €/asiento, 1h 45 min. Sin comisión. Punto de encuentro: Méndez Álvaro, Nuevos Ministerios o domicilio acordado.",
+          "Desde Valencia (170 km): 6–9 €/asiento, 1h 50 min por la A-3.",
+          "Desde Alicante (165 km): 5–8 €/asiento, 1h 40 min por la A-31.",
+          "Desde Albacete (50 km): 3–5 €/asiento, 35–40 min.",
+          "Desde Cuenca (90 km): 4–6 €/asiento, 1h 10 min.",
+          "Desde Murcia (155 km): 6–9 €/asiento, 1h 35 min.",
+        ],
+      },
+      {
+        heading: "Comparativa completa: bus, tren y carpooling a Viña Rock",
+        paragraphs: [
+          "Resumen de las opciones de transporte a Viña Rock 2026 para un asistente que viene de Madrid:",
+        ],
+        bullets: [
+          "Bus privado no oficial Madrid→Viña Rock: 35–55 € ida y vuelta — vuelta a hora fija — sin flexibilidad.",
+          "AVE Madrid–Albacete + taxi al recinto: 40–80 € ida y vuelta — rápido a la ida — vuelta imposible de madrugada.",
+          "ALSA Madrid–Albacete + lanzadera oficial: 17–30 € — llega a Albacete (no al festival) — vuelta limitada.",
+          "Carpooling ConcertRide Madrid→Viña Rock: 12–18 € ida y vuelta — llegada y vuelta desde el recinto — hora coordinada con el festival.",
+        ],
+      },
+      {
+        heading: "Consejo para el camping y el maletero",
+        paragraphs: [
+          "Viña Rock tiene zona de acampada oficial en el recinto. Si vas con equipo de camping (tienda, saco, esterilla), el carpooling tiene ventaja sobre el autobús: el maletero del coche permite llevar mochilas grandes sin restricciones de equipaje.",
+          "Acuerda de antemano con el conductor el espacio de maletero. Con 4 personas y acampada, lo práctico es limitarse a una mochila de 50–60 L por persona. Los autobuses privados suelen tener bodega, pero el espacio depende de la ocupación.",
+        ],
+      },
+    ],
+    faqs: [
+      {
+        q: "¿Hay autobús oficial a Viña Rock desde Madrid?",
+        a: "No existe un autobús oficial del festival directo desde Madrid. Hay autobuses privados no oficiales que salen de Méndez Álvaro y Nuevos Ministerios por 35–55 € con vuelta a hora fija. La lanzadera oficial del festival sale desde Albacete (a 150 km de Madrid). La alternativa más flexible y económica es el carpooling con ConcertRide (6–9 €/asiento desde Madrid).",
+      },
+      {
+        q: "¿Cómo llegar a Viña Rock desde Albacete?",
+        a: "Viña Rock está a 50 km de Albacete por la N-301. El bus lanzadera oficial del festival sale desde la estación de autobuses de Albacete cada 1–2 horas los días de festival (5–10 € ida y vuelta, 40 minutos). También hay taxi (25–35 €). El carpooling ConcertRide desde Albacete cuesta entre 3 y 5 €.",
+      },
+      {
+        q: "¿Cuánto cuesta el bus a Viña Rock?",
+        a: "El bus lanzadera oficial desde Albacete cuesta aproximadamente 5–10 € ida y vuelta. Los autobuses privados no oficiales desde Madrid cuestan 35–55 € con vuelta a hora fija. El carpooling con ConcertRide desde Madrid cuesta entre 6 y 9 €/asiento.",
+      },
+      {
+        q: "¿Cómo volver de Viña Rock de madrugada?",
+        a: "La vuelta de madrugada (4:00–6:00 am) es el mayor problema logístico de Viña Rock. El transporte público no opera a esas horas en Villarrobledo. Las opciones reales son: carpooling con ConcertRide (el conductor también está en el festival y coordinan la vuelta), bus privado no oficial (vuelta a hora fija sin flexibilidad), o taxi desde el recinto (40–70 € a Albacete o 120–180 € a Madrid).",
+      },
+      {
+        q: "¿Dónde está exactamente el recinto de Viña Rock?",
+        a: "Viña Rock se celebra en La Pulgosa, Villarrobledo, Albacete. Dirección: Ctra. N-310, km 265, 02600 Villarrobledo (Albacete). Coordenadas GPS: 39.261 N, 2.614 W. A 4 km del centro de Villarrobledo.",
+      },
+    ],
+    relatedLinks: [
+      { label: "Carpooling a Viña Rock — ConcertRide", to: "/festivales/vina-rock" },
+      { label: "Cómo llegar a Viña Rock (guía de transporte)", to: "/como-llegar/vina-rock" },
+      { label: "Autobuses a festivales España 2026", to: "/blog/autobuses-festivales-espana-2026" },
+      { label: "Cómo volver de un festival de madrugada", to: "/blog/como-volver-festival-madrugada" },
+      { label: "Carpooling desde Madrid", to: "/rutas/madrid-vina-rock" },
+      { label: "Carpooling desde Valencia", to: "/rutas/valencia-vina-rock" },
+      { label: "Carpooling desde Alicante", to: "/rutas/alicante-vina-rock" },
+    ],
+    relatedPosts: ["autobuses-festivales-espana-2026", "como-volver-festival-madrugada"],
+  },
 ];
 
 export const BLOG_POSTS_BY_SLUG: Record<string, BlogPost> = Object.fromEntries(

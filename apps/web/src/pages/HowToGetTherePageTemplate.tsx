@@ -90,9 +90,11 @@ export default function HowToGetTherePage() {
 
   // SEO Title: use centralized overrides first, then fallback to computed
   const festName = festival.shortName;
+  const firstCity = mainCities[0];
+  const firstCitySlug = firstCity?.slug ?? "";
   const seoOverride = HOW_TO_GET_THERE_SEO[festival.slug];
   const seoTitle = seoOverride?.title ?? `Cómo llegar a ${festName} ${YEAR}: Bus, Carpooling y Tren | ConcertRide`;
-  const seoDescription = seoOverride?.description ?? `Guía completa: cómo llegar a ${festName} ${YEAR} (${festival.venue}, ${festival.city}). Carpooling desde ${estimatedPrices[mainCities[0]?.slug] ?? 5}€/asiento. Bus, tren y coche compartido. Sin comisión.`;
+  const seoDescription = seoOverride?.description ?? `Guía completa: cómo llegar a ${festName} ${YEAR} (${festival.venue}, ${festival.city}). Carpooling desde ${estimatedPrices[firstCitySlug] ?? 5}€/asiento. Bus, tren y coche compartido. Sin comisión.`;
 
   useSeoMeta({
     title: seoTitle,
@@ -111,11 +113,11 @@ export default function HowToGetTherePage() {
   const faqs = [
     {
       q: `¿Cómo llegar a ${festName} ${YEAR}?`,
-      a: `Tienes 4 opciones: (1) Carpooling con ConcertRide (más barato: ${estimatedPrices[mainCities[0]?.slug] ?? 5}–20€/asiento), (2) Autobús (Flixbus, Blablabus), (3) Tren (si disponible), (4) Coche personal. El carpooling es la opción más económica y sostenible.`,
+      a: `Tienes 4 opciones: (1) Carpooling con ConcertRide (más barato: ${estimatedPrices[firstCitySlug] ?? 5}–20€/asiento), (2) Autobús (Flixbus, Blablabus), (3) Tren (si disponible), (4) Coche personal. El carpooling es la opción más económica y sostenible.`,
     },
     {
-      q: `¿Cuál es la distancia desde ${mainCities[0]?.display} a ${festName}?`,
-      a: `Aproximadamente ${estimatedDistances[mainCities[0]?.slug] ?? 100} km. En coche: ${estimatedTimes[mainCities[0]?.slug] ?? 1.5}–2 horas. Precio en ConcertRide: ${estimatedPrices[mainCities[0]?.slug] ?? 5}–8€/asiento.`,
+      q: `¿Cuál es la distancia desde ${firstCity?.display ?? "tu ciudad"} a ${festName}?`,
+      a: `Aproximadamente ${estimatedDistances[firstCitySlug] ?? 100} km. En coche: ${estimatedTimes[firstCitySlug] ?? 1.5}–2 horas. Precio en ConcertRide: ${estimatedPrices[firstCitySlug] ?? 5}–8€/asiento.`,
     },
     {
       q: `¿Es seguro el carpooling con ConcertRide?`,
@@ -172,7 +174,7 @@ export default function HowToGetTherePage() {
                 <h3 className="text-xl font-bold">Carpooling ConcertRide</h3>
               </div>
               <ul className="space-y-2 text-gray-300">
-                <li>💰 Desde {estimatedPrices[mainCities[0]?.slug] ?? 5}€/asiento</li>
+                <li>💰 Desde {estimatedPrices[firstCitySlug] ?? 5}€/asiento</li>
                 <li>✅ Sin comisión plataforma</li>
                 <li>👥 Conductores verificados</li>
                 <li>📱 Compartir ubicación en tiempo real</li>
@@ -211,14 +213,19 @@ export default function HowToGetTherePage() {
                 </tr>
               </thead>
               <tbody>
-                {mainCities.map((city) => (
-                  <tr key={city.slug} className="border-b border-gray-700 hover:bg-gray-900">
-                    <td className="py-3 px-4 font-medium">{city.display}</td>
-                    <td className="text-center py-3 px-4">{estimatedDistances[city.slug]}  km</td>
-                    <td className="text-center py-3 px-4">~{estimatedTimes[city.slug]} h</td>
-                    <td className="text-center py-3 px-4 text-cr-primary font-bold">{estimatedPrices[city.slug]}–{estimatedPrices[city.slug] + 3}€</td>
-                  </tr>
-                ))}
+                {mainCities.map((city) => {
+                  const dist = estimatedDistances[city.slug] ?? 0;
+                  const time = estimatedTimes[city.slug] ?? 1;
+                  const price = estimatedPrices[city.slug] ?? 5;
+                  return (
+                    <tr key={city.slug} className="border-b border-gray-700 hover:bg-gray-900">
+                      <td className="py-3 px-4 font-medium">{city.display}</td>
+                      <td className="text-center py-3 px-4">{dist} km</td>
+                      <td className="text-center py-3 px-4">~{time} h</td>
+                      <td className="text-center py-3 px-4 text-cr-primary font-bold">{price}–{price + 3}€</td>
+                    </tr>
+                  );
+                })}
               </tbody>
             </table>
           </div>
@@ -260,11 +267,62 @@ export default function HowToGetTherePage() {
             Conductores verificados, sin comisión, precio justo. Comparte gastos, llega seguro.
           </p>
           <a
-            href={`/festivales/${festival.slug}#available-rides`}
+            href={`/festivales/${festival.slug}`}
             className="inline-block px-8 py-3 bg-cr-primary text-black font-bold rounded-lg hover:bg-opacity-90 transition"
           >
-            Ver Viajes Disponibles
+            Ver Viajes Disponibles →
           </a>
+        </div>
+      </section>
+
+      {/* Internal links — connect to related pages for SEO link equity */}
+      <section className="py-10 px-4 border-t border-gray-800">
+        <div className="max-w-4xl mx-auto space-y-4">
+          <h2 className="text-xl font-bold font-archivo-black">También te puede interesar</h2>
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-3">
+            <Link
+              to={`/festivales/${festival.slug}`}
+              className="flex items-center justify-between p-3 bg-gray-900 hover:bg-gray-800 transition rounded text-sm"
+            >
+              <span>Carpooling a {festName}</span>
+              <ArrowRight className="w-4 h-4 text-cr-primary flex-shrink-0" />
+            </Link>
+            <Link
+              to={`/conciertos/${festival.citySlug}`}
+              className="flex items-center justify-between p-3 bg-gray-900 hover:bg-gray-800 transition rounded text-sm"
+            >
+              <span>Conciertos en {festival.city}</span>
+              <ArrowRight className="w-4 h-4 text-cr-primary flex-shrink-0" />
+            </Link>
+            <Link
+              to="/blog/autobuses-festivales-espana-2026"
+              className="flex items-center justify-between p-3 bg-gray-900 hover:bg-gray-800 transition rounded text-sm"
+            >
+              <span>Guía de autobuses a festivales</span>
+              <ArrowRight className="w-4 h-4 text-cr-primary flex-shrink-0" />
+            </Link>
+            <Link
+              to="/blog/como-volver-festival-madrugada"
+              className="flex items-center justify-between p-3 bg-gray-900 hover:bg-gray-800 transition rounded text-sm"
+            >
+              <span>Cómo volver de un festival de madrugada</span>
+              <ArrowRight className="w-4 h-4 text-cr-primary flex-shrink-0" />
+            </Link>
+            <Link
+              to="/rutas"
+              className="flex items-center justify-between p-3 bg-gray-900 hover:bg-gray-800 transition rounded text-sm"
+            >
+              <span>Todas las rutas de carpooling</span>
+              <ArrowRight className="w-4 h-4 text-cr-primary flex-shrink-0" />
+            </Link>
+            <Link
+              to="/guia-transporte-festivales"
+              className="flex items-center justify-between p-3 bg-gray-900 hover:bg-gray-800 transition rounded text-sm"
+            >
+              <span>Guía completa de transporte a festivales</span>
+              <ArrowRight className="w-4 h-4 text-cr-primary flex-shrink-0" />
+            </Link>
+          </div>
         </div>
       </section>
     </main>

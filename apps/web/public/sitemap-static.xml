@@ -133,9 +133,9 @@
   </url>
   <url>
     <loc>https://concertride.me/festivales/arenal-sound</loc>
-    <lastmod>2026-05-03</lastmod>
+    <lastmod>2026-05-04</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
+    <priority>0.95</priority>
   </url>
   <url>
     <loc>https://concertride.me/festivales/medusa-festival</loc>
@@ -145,9 +145,9 @@
   </url>
   <url>
     <loc>https://concertride.me/festivales/vina-rock</loc>
-    <lastmod>2026-05-03</lastmod>
+    <lastmod>2026-05-04</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
+    <priority>0.95</priority>
   </url>
   <url>
     <loc>https://concertride.me/festivales/o-son-do-camino</loc>
@@ -157,9 +157,9 @@
   </url>
   <url>
     <loc>https://concertride.me/festivales/cala-mijas</loc>
-    <lastmod>2026-05-03</lastmod>
+    <lastmod>2026-05-04</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
+    <priority>0.90</priority>
   </url>
   <url>
     <loc>https://concertride.me/festivales/sonorama-ribera</loc>
@@ -213,9 +213,9 @@
   </url>
   <url>
     <loc>https://concertride.me/conciertos/sevilla</loc>
-    <lastmod>2026-05-03</lastmod>
+    <lastmod>2026-05-04</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.85</priority>
   </url>
   <url>
     <loc>https://concertride.me/conciertos/bilbao</loc>
@@ -231,9 +231,9 @@
   </url>
   <url>
     <loc>https://concertride.me/conciertos/zaragoza</loc>
-    <lastmod>2026-05-03</lastmod>
+    <lastmod>2026-05-04</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.85</priority>
   </url>
   <url>
     <loc>https://concertride.me/conciertos/granada</loc>
@@ -243,9 +243,9 @@
   </url>
   <url>
     <loc>https://concertride.me/conciertos/donostia</loc>
-    <lastmod>2026-05-03</lastmod>
+    <lastmod>2026-05-04</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.85</priority>
   </url>
   <url>
     <loc>https://concertride.me/conciertos/santiago-de-compostela</loc>
@@ -255,9 +255,9 @@
   </url>
   <url>
     <loc>https://concertride.me/conciertos/alicante</loc>
-    <lastmod>2026-05-03</lastmod>
+    <lastmod>2026-05-04</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.85</priority>
   </url>
   <url>
     <loc>https://concertride.me/conciertos/pamplona</loc>
@@ -285,9 +285,9 @@
   </url>
   <url>
     <loc>https://concertride.me/conciertos/murcia</loc>
-    <lastmod>2026-05-03</lastmod>
+    <lastmod>2026-05-04</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.6</priority>
+    <priority>0.80</priority>
   </url>
   <url>
     <loc>https://concertride.me/conciertos/valladolid</loc>
@@ -987,12 +987,6 @@
     <changefreq>weekly</changefreq>
     <priority>0.75</priority>
   </url>
-  <url>
-    <loc>https://concertride.me/como-llegar/azkena-rock</loc>
-    <lastmod>2026-05-04</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.75</priority>
-  </url>
 
   <!-- ── Blog posts (/blog/:slug) ── -->
   <url>
@@ -1048,6 +1042,12 @@
     <lastmod>2026-05-04</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.75</priority>
+  </url>
+  <url>
+    <loc>https://concertride.me/blog/guia-transporte-vina-rock-2026</loc>
+    <lastmod>2026-05-04</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
   </url>
 
 </urlset>
