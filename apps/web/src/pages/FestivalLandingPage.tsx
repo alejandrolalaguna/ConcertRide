@@ -13,6 +13,8 @@ import { ROUTE_LANDINGS } from "@/lib/routeLandings";
 import { FESTIVAL_SEO_OVERRIDES } from "@/lib/seoOverrides";
 import { ARTIST_LANDINGS } from "@/lib/artistLandings";
 import { VENUE_LANDINGS } from "@/lib/venueLandings";
+import { TransportTable } from "@/components/TransportTable";
+import { CostComparator } from "@/components/CostComparator";
 import { REGION_LANDINGS } from "@/lib/regionLandings";
 
 const FESTIVAL_DEFAULT_OG = `${SITE_URL}/og-fallback.png`;
@@ -52,27 +54,12 @@ export default function FestivalLandingPage() {
 
   // Per-festival title/description overrides targeting top GSC queries
   // Merge centralized overrides with local transport-specific content
-  const FESTIVAL_META_OVERRIDES: Record<string, { title: string; description: string }> = {
-    ...Object.fromEntries(
-      Object.entries(FESTIVAL_SEO_OVERRIDES).map(([slug, override]) => [
-        slug,
-        { title: override.title, description: override.description }
-      ])
-    ),
-    // Transport-specific overrides (can override the general ones)
-    "mad-cool": {
-      title: `Mad Cool ${festYear}: metro, bus, carpooling | ConcertRide`,
-      description: `Mad Cool ${festYear} en IFEMA Madrid (9–11 jul): Metro L8 hasta Feria de Madrid. Carpooling sin comisión desde Barcelona (15–20€), Valencia (10–14€), Zaragoza (8–12€).`,
-    },
-    "primavera-sound": {
-      title: `Primavera Sound ${festYear}: metro, carpooling | ConcertRide`,
-      description: `Primavera Sound Barcelona ${festYear} (28 may–1 jun) Parc del Fòrum. Metro L4 Besòs Mar. Carpooling desde Madrid (15–20€), Valencia (10–14€). AVE 50–100€. Sin comisión.`,
-    },
-    "bbk-live": {
-      title: `BBK Live ${festYear}: lanzadera, carpooling | ConcertRide`,
-      description: `BBK Live Bilbao ${festYear} (9–11 jul) Kobetamendi: lanzadera gratuita desde Plaza Moyúa. Carpooling desde Madrid (11–16€), Donostia (5–8€). Sin comisión.`,
-    },
-  };
+  const FESTIVAL_META_OVERRIDES: Record<string, { title: string; description: string }> = Object.fromEntries(
+    Object.entries(FESTIVAL_SEO_OVERRIDES).map(([slug, override]) => [
+      slug,
+      { title: override.title, description: override.description },
+    ])
+  );
 
   const festOverride = festival ? FESTIVAL_META_OVERRIDES[festival.slug] : undefined;
 
@@ -268,6 +255,22 @@ export default function FestivalLandingPage() {
     ],
   };
 
+  // FAQs dinámicas por ciudad de origen — atacan queries como "bus [ciudad] [festival]"
+  const cityFaqs = festival.originCities.flatMap((oc) => {
+    const priceFrom = oc.concertRideRange.match(/(\d+)/)?.[1] ?? "5";
+    const fuelEst = Math.round((oc.km * 2 * 0.07 * 1.65) / 4); // 4 personas, 7L/100, 1.65€/L
+    return [
+      {
+        q: `¿Cómo llegar desde ${oc.city} a ${festival.shortName}?`,
+        a: `Desde ${oc.city} hay ${oc.km} km hasta ${festival.venue} en ${festival.city} (${oc.drivingTime} en coche). La opción más económica es el carpooling con ConcertRide desde ${oc.concertRideRange}/asiento, sin comisión de plataforma. También puedes ir en tren o autobús hasta ${festival.city} y desde allí tomar transporte local hasta el recinto.`,
+      },
+      {
+        q: `¿Cuánto cuesta el viaje de ${oc.city} a ${festival.shortName}?`,
+        a: `En carpooling desde ${oc.city} con ConcertRide, el precio por asiento es de ${oc.concertRideRange}. En coche propio (si vais 4 personas), la gasolina de ida y vuelta sale a unos ${fuelEst} € por persona. El taxi o VTC desde ${oc.city} puede costar ${Math.round(oc.km * 1.1 * 1.3)} € solo de ida.`,
+      },
+    ];
+  });
+
   // FAQPage JSON-LD — emits the festival FAQs as structured data so AI engines
   // (Perplexity, ChatGPT, Google AI Overviews) can cite us for "cómo llegar a X",
   // "autobús a X", "tren a X" queries even when Google rich-results are gated.
@@ -275,11 +278,18 @@ export default function FestivalLandingPage() {
     "@context": "https://schema.org",
     "@type": "FAQPage",
     inLanguage: "es-ES",
-    mainEntity: festival.faqs.map((f) => ({
-      "@type": "Question",
-      name: f.q,
-      acceptedAnswer: { "@type": "Answer", text: f.a },
-    })),
+    mainEntity: [
+      ...festival.faqs.map((f) => ({
+        "@type": "Question",
+        name: f.q,
+        acceptedAnswer: { "@type": "Answer", text: f.a },
+      })),
+      ...cityFaqs.slice(0, 10).map((f) => ({  // máximo 10 cityFaqs en JSON-LD
+        "@type": "Question",
+        name: f.q,
+        acceptedAnswer: { "@type": "Answer", text: f.a },
+      })),
+    ],
   };
 
   const jsonLdAnnouncement = festival.announcement && new Date(festival.announcement.expires) > new Date()
@@ -487,77 +497,41 @@ export default function FestivalLandingPage() {
         </p>
       </section>
 
-      {/* ── Bus / autobús / tren targeted block — single source of truth for transport queries. ── */}
-      <section className="max-w-6xl mx-auto px-6 pb-12 border-t border-cr-border pt-12 space-y-5">
-        <h2 className="font-display text-2xl md:text-3xl uppercase">
-          Autobuses a {festival.shortName} {new Date(festival.startDate).getFullYear()}: bus, lanzadera y alternativas
-        </h2>
-        <p className="font-sans text-sm text-cr-text-muted max-w-3xl leading-relaxed">
-          Resumen de las opciones de bus, autobús, lanzadera oficial y tren para llegar a{" "}
-          <strong className="text-cr-text">{festival.name}</strong> en {festival.venue} ({festival.city}).
-          Cuando no hay servicio público en horario de festival, la alternativa más usada es
-          el coche compartido (carpooling) con ConcertRide.
-        </p>
-
-        <div className="grid sm:grid-cols-2 gap-3">
-          <article className="border border-cr-border p-4 space-y-2">
-            <h3 className="font-display text-base uppercase text-cr-primary">
-              ¿Hay autobús oficial a {festival.shortName}?
-            </h3>
-            <p className="font-sans text-xs text-cr-text-muted leading-relaxed">
-              Algunos festivales operan lanzaderas oficiales desde la ciudad cabecera
-              ({festival.originCities[0]?.city}). Suelen funcionar en franjas de
-              entrada y de regreso pero con plazas limitadas y sin cobertura nocturna
-              completa. Mira los detalles ciudad por ciudad en las preguntas frecuentes.
+      {/* ── TransportHub: tabla detallada de transporte (bus, tren, lanzadera, carpooling) ── */}
+      <section className="max-w-6xl mx-auto px-6 pb-12 border-t border-cr-border pt-12">
+        {festival.transport_options && festival.transport_options.length > 0 ? (
+          <TransportTable
+            options={festival.transport_options}
+            officialShuttle={festival.official_shuttle}
+            festivalName={festival.shortName}
+          />
+        ) : (
+          /* Fallback genérico para festivales sin datos curados */
+          <div className="space-y-5">
+            <h2 className="font-display text-2xl md:text-3xl uppercase">
+              Autobuses a {festival.shortName} {new Date(festival.startDate).getFullYear()}: bus, lanzadera y alternativas
+            </h2>
+            <p className="font-sans text-sm text-cr-text-muted max-w-3xl leading-relaxed">
+              Resumen de las opciones de bus, autobús, lanzadera oficial y tren para llegar a{" "}
+              <strong className="text-cr-text">{festival.name}</strong> en {festival.venue} ({festival.city}).
+              Cuando no hay servicio público en horario de festival, la alternativa más usada es
+              el coche compartido (carpooling) con ConcertRide.
             </p>
-          </article>
-          <article className="border border-cr-border p-4 space-y-2">
-            <h3 className="font-display text-base uppercase text-cr-primary">
-              ¿Hay tren a {festival.shortName}?
-            </h3>
-            <p className="font-sans text-xs text-cr-text-muted leading-relaxed">
-              Renfe (AVE, Cercanías o Media Distancia) llega a la estación de{" "}
-              {festival.city}, no al recinto. Hay que sumar lanzadera, taxi o
-              caminata. La vuelta de madrugada en tren es prácticamente imposible
-              en cualquier festival español.
-            </p>
-          </article>
-          <article className="border border-cr-border p-4 space-y-2">
-            <h3 className="font-display text-base uppercase text-cr-primary">
-              {festival.shortName} localización y dirección
-            </h3>
-            <p className="font-sans text-xs text-cr-text-muted leading-relaxed">
-              Dirección exacta: {festival.venueAddress}. Coordenadas GPS:{" "}
-              {festival.lat.toFixed(4)}, {festival.lng.toFixed(4)}. Región:{" "}
-              {festival.region}.
-            </p>
-          </article>
-          <article className="border border-cr-border p-4 space-y-2">
-            <h3 className="font-display text-base uppercase text-cr-primary">
-              Horarios de {festival.shortName}
-            </h3>
-            <p className="font-sans text-xs text-cr-text-muted leading-relaxed">
-              Fechas: {festival.typicalDates}. Los horarios de cada jornada se publican
-              normalmente 2–4 semanas antes. La mayoría de festivales abren el recinto
-              entre las 17:00 y las 19:00 y los conciertos terminan entre la 1:00 y
-              las 5:00 de la madrugada.
-            </p>
-          </article>
-        </div>
-
-        <ul className="font-sans text-xs text-cr-text-muted space-y-1 max-w-3xl">
-          <li>
-            <strong className="text-cr-text">Autobús desde {festival.originCities[0]?.city}:</strong>{" "}
-            {festival.originCities[0]?.km} km · {festival.originCities[0]?.drivingTime} ·{" "}
-            carpooling desde {festival.originCities[0]?.concertRideRange ?? "3 €"}.
-          </li>
-          {festival.originCities.slice(1, 4).map((oc) => (
-            <li key={oc.city}>
-              <strong className="text-cr-text">Bus / coche desde {oc.city}:</strong>{" "}
-              {oc.km} km · {oc.drivingTime} · carpooling desde {oc.concertRideRange}.
-            </li>
-          ))}
-        </ul>
+            <ul className="font-sans text-xs text-cr-text-muted space-y-1 max-w-3xl">
+              <li>
+                <strong className="text-cr-text">Desde {festival.originCities[0]?.city}:</strong>{" "}
+                {festival.originCities[0]?.km} km · {festival.originCities[0]?.drivingTime} ·{" "}
+                carpooling desde {festival.originCities[0]?.concertRideRange ?? "3 €"}.
+              </li>
+              {festival.originCities.slice(1, 4).map((oc) => (
+                <li key={oc.city}>
+                  <strong className="text-cr-text">Desde {oc.city}:</strong>{" "}
+                  {oc.km} km · {oc.drivingTime} · carpooling desde {oc.concertRideRange}.
+                </li>
+              ))}
+            </ul>
+          </div>
+        )}
       </section>
 
       {/* ── Origin cities — Cómo llegar desde tu ciudad ── */}
@@ -623,6 +597,15 @@ export default function FestivalLandingPage() {
           </p>
         </div>
 
+      </section>
+
+      {/* ── CostComparator: calculadora de coste de transporte ── */}
+      <section className="max-w-6xl mx-auto px-6 pb-4 border-t border-cr-border pt-12">
+        <CostComparator
+          originCities={festival.originCities}
+          festivalName={festival.shortName}
+          festivalCity={festival.city}
+        />
       </section>
 
       {/* ── Internal linking: Transport guides + related topics ── */}
@@ -857,6 +840,26 @@ export default function FestivalLandingPage() {
             </div>
           ))}
         </dl>
+
+        {/* FAQs por ciudad de origen */}
+        {cityFaqs.length > 0 && (
+          <div className="mt-6 space-y-2">
+            <h3 className="text-sm font-semibold text-cr-text-muted uppercase tracking-wide mb-3">
+              Preguntas por ciudad de origen
+            </h3>
+            {cityFaqs.map((faq, i) => (
+              <details key={i} className="group rounded-xl border border-white/10 bg-white/3">
+                <summary className="cursor-pointer px-5 py-4 text-sm font-medium text-cr-text hover:text-cr-primary transition-colors list-none flex justify-between items-center">
+                  {faq.q}
+                  <span className="text-cr-text-muted group-open:rotate-180 transition-transform text-xs">▼</span>
+                </summary>
+                <div className="px-5 pb-4 text-sm text-cr-text-muted leading-relaxed">
+                  {faq.a}
+                </div>
+              </details>
+            ))}
+          </div>
+        )}
       </section>
 
       {/* ── Artistas con carpooling en este festival ── */}

@@ -23,7 +23,6 @@ export const HOW_TO_GET_THERE_SLUGS = [
   "sonar",                  // GSC: "sonar barcelona como llegar"
   "resurrection-fest",      // GSC: "resurrection fest viajes"
   "cala-mijas",             // GSC: "cala mijas festival 2026"
-  "azkena-rock",            // Rock festival high engagement
   "o-son-do-camino",        // GSC: "o son do camino como llegar"
   "low-festival",           // Growing festival
   "medusa-festival",        // Beach festival

@@ -58,11 +58,6 @@ export const FESTIVAL_SEO_OVERRIDES: Record<string, { title: string; description
     description: `Cala Mijas Fest ${YEAR} Cortijo de Torres, Mijas (Málaga): carpooling desde Málaga (60 km, 3–6€), Sevilla (200 km, 6–9€), Granada (170 km, 8–11€), Madrid (560 km, 14–20€). Sin comisión.`,
     keywords: `cala mijas festival ${YEAR}, cala mijas ${YEAR}, cala mijas carpooling, como llegar cala mijas, transporte cala mijas, cala mijas mijas málaga, cala mijas festival málaga, cortijo de torres mijas, viaje compartido cala mijas, cala mijas desde málaga`,
   },
-  "azkena-rock": {
-    title: `Azkena Rock Festival ${YEAR} Vitoria + Transporte: Carpooling desde 5€ | ConcertRide`,
-    description: `Azkena Rock Mendizabala Vitoria-Gasteiz (junio): carpooling desde Bilbao (65 km, 3–6€), Donostia (100 km, 5–8€), Pamplona (95 km, 4–7€). Rock alternativo, punk. Sin comisión.`,
-    keywords: `azkena rock ${YEAR}, azkena rock carpooling, como llegar azkena rock vitoria, transporte azkena rock, viaje compartido mendizabala`,
-  },
   "o-son-do-camiño": {
     title: `O Son do Camiño ${YEAR} Santiago + Cómo llegar: Carpooling desde 8€ | 90.000+ | ConcertRide`,
     description: `O Son do Camiño Monte do Gozo Santiago (18–20 junio): carpooling desde A Coruña (70 km, 3–6€), Vigo (90 km, 4–7€), Madrid (585 km, 15–20€). 90.000+ personas. Sin comisión.`,

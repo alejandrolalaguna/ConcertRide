@@ -21,12 +21,16 @@ export default function RouteLandingPage() {
 
   const routeOverride = landing ? ROUTE_SEO_IMPROVEMENTS[landing.slug] : undefined;
 
+  // Extrae precio mínimo del range (ej: "9–14 €/asiento" → "9")
+  const priceFrom = landing?.originData.concertRideRange.match(/(\d+)/)?.[1] ?? "5";
+  const routeYear = landing ? new Date(landing.festival.startDate).getFullYear() : new Date().getFullYear();
+
   useSeoMeta({
     title: landing
-      ? routeOverride?.title ?? `Carpooling ${landing.originCity} → ${landing.festival.shortName} ${new Date().getFullYear()} | ConcertRide`
+      ? routeOverride?.title ?? `Carpooling ${landing.originCity} → ${landing.festival.shortName} ${routeYear}: desde ${priceFrom}€/asiento | ConcertRide`
       : "Ruta de carpooling",
     description: landing
-      ? `Carpooling de ${landing.originCity} a ${landing.festival.shortName} en ${landing.originData.drivingTime}. Desde ${landing.originData.concertRideRange}/asiento. Ida y vuelta disponible. Sin comisión — el 100 % va al conductor. Conductores verificados.`
+      ? `Viaje compartido de ${landing.originCity} a ${landing.festival.shortName} ${routeYear}. ${landing.originData.km} km, ${landing.originData.drivingTime}. Precio desde ${landing.originData.concertRideRange}. Sin comisión de plataforma. Conductores verificados.`
       : "Carpooling a festivales en España.",
     canonical: landing ? `${SITE_URL}/rutas/${landing.slug}` : `${SITE_URL}/concerts`,
     keywords: landing

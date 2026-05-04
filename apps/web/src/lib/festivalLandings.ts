@@ -14,6 +14,18 @@ export interface FestivalFaq {
   a: string;
 }
 
+export interface TransportOption {
+  type: 'bus' | 'train' | 'shuttle' | 'carpooling';
+  provider: string;        // "ALSA", "Renfe Cercanías", "Autobús oficial festival"
+  origin: string;          // "Castellón de la Plana"
+  price_from: number;      // 8
+  price_to?: number;       // 15
+  frequency?: string;      // "Cada 30 min", "Solo días de festival"
+  schedule?: string;       // "18:00–03:00"
+  booking_url?: string;    // URL externa (puede ser null)
+  notes?: string;          // "No hay servicio de vuelta nocturno"
+}
+
 export interface FestivalLanding {
   slug: string;
   name: string;             // full official name
@@ -39,6 +51,14 @@ export interface FestivalLanding {
   originCities: OriginCity[];
   faqs: FestivalFaq[];
   relatedFestivals: string[];
+  transport_options?: TransportOption[];
+  official_shuttle?: {
+    available: boolean;
+    price_from?: number;
+    booking_url?: string;
+    pickup_points?: string[];
+    notes?: string;
+  };
 }
 
 export const FESTIVAL_LANDINGS: FestivalLanding[] = [
@@ -112,6 +132,17 @@ export const FESTIVAL_LANDINGS: FestivalLanding[] = [
       },
     ],
     relatedFestivals: ["tomavistas", "sonorama-ribera", "primavera-sound"],
+    transport_options: [
+      { type: 'train', provider: 'Metro Madrid L8', origin: 'Madrid centro → IFEMA', price_from: 2, price_to: 3, frequency: 'Cada 5 min (ampliado en festival)', schedule: 'Hasta 2:30 en noches de festival', notes: 'Parada "Feria de Madrid". Desde Sol ~25 min. Se colapsa en salidas (1:00–2:30).' },
+      { type: 'bus', provider: 'Bus nocturno N1 / N6', origin: 'Madrid centro', price_from: 2, notes: 'No llegan directamente a IFEMA. Dejan en Avenida de América / Canillejas.' },
+      { type: 'carpooling', provider: 'ConcertRide', origin: 'Barcelona', price_from: 15, price_to: 20 },
+      { type: 'carpooling', provider: 'ConcertRide', origin: 'Valencia', price_from: 10, price_to: 14 },
+      { type: 'carpooling', provider: 'ConcertRide', origin: 'Zaragoza', price_from: 9, price_to: 13 },
+    ],
+    official_shuttle: {
+      available: false,
+      notes: 'Mad Cool no opera lanzadera oficial propia. El único transporte oficial es Metro L8 (Feria de Madrid).'
+    },
   },
 
   {
@@ -300,6 +331,19 @@ export const FESTIVAL_LANDINGS: FestivalLanding[] = [
       },
     ],
     relatedFestivals: ["arenal-sound", "medusa-festival", "low-festival"],
+    transport_options: [
+      { type: 'shuttle', provider: 'Autobús oficial FIB', origin: 'Castellón de la Plana — Estación Autobuses', price_from: 5, price_to: 8, frequency: 'Cada 20–30 min días de festival', schedule: '18:00–madrugada', notes: 'Unos 15 km, 15 minutos de trayecto. Plazas limitadas.' },
+      { type: 'train', provider: 'Renfe Cercanías C6', origin: 'Valencia → Castellón', price_from: 4, price_to: 6, frequency: 'Cada 30–60 min', notes: 'Desde Castellón, tomar lanzadera FIB o taxi al recinto (15 km).' },
+      { type: 'carpooling', provider: 'ConcertRide', origin: 'Valencia', price_from: 3, price_to: 6 },
+      { type: 'carpooling', provider: 'ConcertRide', origin: 'Barcelona', price_from: 8, price_to: 12 },
+      { type: 'carpooling', provider: 'ConcertRide', origin: 'Madrid', price_from: 12, price_to: 17 },
+    ],
+    official_shuttle: {
+      available: true,
+      price_from: 5,
+      pickup_points: ['Castellón — Estación de Autobuses'],
+      notes: 'Lanzadera oficial FIB desde Castellón días de festival.'
+    },
   },
 
   {
@@ -368,6 +412,20 @@ export const FESTIVAL_LANDINGS: FestivalLanding[] = [
       },
     ],
     relatedFestivals: ["resurrection-fest", "sonorama-ribera"],
+    transport_options: [
+      { type: 'shuttle', provider: 'Lanzadera gratuita BBK Live', origin: 'Bilbao — Plaza Moyúa', price_from: 0, frequency: 'Continua durante el festival', schedule: '17:00–06:00', notes: 'Incluida en el precio de la entrada. Sube y baja cada 15 min.' },
+      { type: 'bus', provider: 'Bilbobus / Bizkaibus', origin: 'Bilbao centro', price_from: 2, price_to: 3, notes: 'Líneas urbanas hasta zona Kobetamendi. Revisar mapa de Bilbobus.' },
+      { type: 'train', provider: 'Euskotren / Renfe', origin: 'Donostia → Bilbao', price_from: 7, price_to: 12, frequency: 'Cada hora', notes: 'Estación Bilbao Abando. Desde allí tomar lanzadera gratuita BBK Live desde Plaza Moyúa.' },
+      { type: 'carpooling', provider: 'ConcertRide', origin: 'Donostia', price_from: 4, price_to: 7 },
+      { type: 'carpooling', provider: 'ConcertRide', origin: 'Vitoria-Gasteiz', price_from: 3, price_to: 6 },
+      { type: 'carpooling', provider: 'ConcertRide', origin: 'Madrid', price_from: 11, price_to: 16 },
+    ],
+    official_shuttle: {
+      available: true,
+      price_from: 0,
+      pickup_points: ['Bilbao — Plaza Moyúa', 'Bilbao — Termibus'],
+      notes: 'Lanzadera GRATUITA incluida con la entrada BBK Live. Servicio continuo ida y vuelta.'
+    },
   },
 
   {
@@ -519,6 +577,20 @@ export const FESTIVAL_LANDINGS: FestivalLanding[] = [
       },
     ],
     relatedFestivals: ["fib", "medusa-festival", "low-festival"],
+    transport_options: [
+      { type: 'shuttle', provider: 'Autobús oficial Arenal Sound', origin: 'Castellón de la Plana', price_from: 5, price_to: 8, frequency: 'Días de festival', schedule: '15:00–07:00', notes: 'Salida desde Estación de Autobuses de Castellón' },
+      { type: 'bus', provider: 'Herca/Avanzabus', origin: 'Valencia', price_from: 8, price_to: 12, frequency: 'Varias salidas', notes: 'Valencia → Castellón → Burriana. Revisar horarios en temporada de festival.' },
+      { type: 'train', provider: 'Renfe Cercanías C6', origin: 'Valencia → Castellón', price_from: 4, price_to: 6, frequency: 'Cada 30–60 min', notes: 'Tren hasta Castellón (45 min) + lanzadera/taxi hasta Burriana (15 km, ~15€)' },
+      { type: 'carpooling', provider: 'ConcertRide', origin: 'Valencia', price_from: 3, price_to: 6 },
+      { type: 'carpooling', provider: 'ConcertRide', origin: 'Castellón', price_from: 3, price_to: 5 },
+      { type: 'carpooling', provider: 'ConcertRide', origin: 'Madrid', price_from: 12, price_to: 17 },
+    ],
+    official_shuttle: {
+      available: true,
+      price_from: 5,
+      pickup_points: ['Castellón — Estación de Autobuses', 'Castellón — Avenida del Mar'],
+      notes: 'Lanzadera oficial días de festival. Plazas limitadas — se recomienda anticipación.'
+    },
   },
 
   {
@@ -661,6 +733,20 @@ export const FESTIVAL_LANDINGS: FestivalLanding[] = [
       },
     ],
     relatedFestivals: ["mad-cool", "sonorama-ribera"],
+    transport_options: [
+      { type: 'shuttle', provider: 'Autobús oficial Viña Rock', origin: 'Albacete', price_from: 8, price_to: 12, frequency: 'Días de festival', schedule: '14:00–06:00', notes: 'Plazas limitadas — comprar antes de que se agoten' },
+      { type: 'bus', provider: 'ALSA', origin: 'Madrid', price_from: 14, price_to: 20, frequency: 'Varias salidas diarias', booking_url: 'https://www.alsa.es' },
+      { type: 'train', provider: 'Renfe', origin: 'Madrid Atocha → Albacete', price_from: 12, price_to: 25, schedule: 'Consultar horarios Renfe', notes: 'Estación Albacete a 40 km del recinto — necesitas taxi o lanzadera desde Albacete' },
+      { type: 'carpooling', provider: 'ConcertRide', origin: 'Madrid', price_from: 6, price_to: 9 },
+      { type: 'carpooling', provider: 'ConcertRide', origin: 'Valencia', price_from: 6, price_to: 9 },
+      { type: 'carpooling', provider: 'ConcertRide', origin: 'Alicante', price_from: 5, price_to: 8 },
+    ],
+    official_shuttle: {
+      available: true,
+      price_from: 8,
+      pickup_points: ['Albacete — Estación de Autobuses', 'Albacete — Recinto Ferial'],
+      notes: 'Lanzadera oficial desde Albacete incluida en algunos packs de abono. Consultar web oficial de Viña Rock.'
+    },
   },
 
   {
