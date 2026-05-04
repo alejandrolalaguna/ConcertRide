@@ -15,21 +15,22 @@ import { FESTIVAL_LANDINGS } from "./festivalLandings";
 // Festivals with dedicated "cómo llegar" pages
 // These are high-traffic festivals that deserve dedicated transport guides
 export const HOW_TO_GET_THERE_SLUGS = [
-  "arenal-sound",           // 141 implied traffic from user data
-  "vina-rock",              // 141 impresiones en GSC
-  "mad-cool",               // Major festival
-  "bbk-live",               // Major festival
-  "primavera-sound",        // Major festival
-  "sónar",                  // Major festival
-  "resurrection-fest",      // Metal-focused, high engagement
-  "cala-mijas",             // Growing festival
-  "azkena-rock",            // Rock festival
-  "o-son-do-camiño",        // Galician major festival
-  "low-festival",           // Rising festival
+  "arenal-sound",           // GSC: "arenal sound como llegar" top query
+  "vina-rock",              // GSC: "viña rock buses" top query
+  "mad-cool",               // GSC: "mad cool como llegar"
+  "bbk-live",               // GSC: "bbk live como llegar"
+  "primavera-sound",        // GSC: "primavera sound como llegar"
+  "sonar",                  // GSC: "sonar barcelona como llegar"
+  "resurrection-fest",      // GSC: "resurrection fest viajes"
+  "cala-mijas",             // GSC: "cala mijas festival 2026"
+  "azkena-rock",            // Rock festival high engagement
+  "o-son-do-camino",        // GSC: "o son do camino como llegar"
+  "low-festival",           // Growing festival
   "medusa-festival",        // Beach festival
-  "cruïlla",                // Barcelona major
-  "interestelar-sevilla",   // Andalusian major
-  "viñarock",               // Already has traffic
+  "cruilla",                // Barcelona major
+  "sonorama-ribera",        // Aranda de Duero traffic
+  "zevra-festival",         // GSC: "zevra festival bus"
+  "fib",                    // Classic festival, high traffic
 ].filter(slug => FESTIVAL_LANDINGS.some(f => f.slug === slug)); // Verify exists
 
 export const HOW_TO_GET_THERE_SLUGS_EXPORT = HOW_TO_GET_THERE_SLUGS;

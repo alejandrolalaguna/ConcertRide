@@ -10,14 +10,15 @@
  * Data-driven by festivalLandings and route-availability logic.
  */
 
-import { useParams, Navigate } from "react-router-dom";
+import { useParams, Navigate, Link } from "react-router-dom";
 import { useMemo } from "react";
 import { FESTIVAL_LANDINGS } from "@/lib/festivalLandings";
 import { CITY_LANDINGS } from "@/lib/cityLandings";
 import { useSeoMeta } from "@/lib/useSeoMeta";
 import { SITE_URL } from "@/lib/siteUrl";
 import { generateBreadcrumbSchema, generateFAQSchema } from "@/lib/schemaGenerators";
-import { MapPin, Bus, Clock, DollarSign, Users } from "lucide-react";
+import { HOW_TO_GET_THERE_SEO } from "@/lib/seoOverrides";
+import { MapPin, Bus, Clock, DollarSign, Users, ArrowRight } from "lucide-react";
 
 const YEAR = new Date().getFullYear();
 
@@ -87,27 +88,33 @@ export default function HowToGetTherePage() {
 
   const { festival, mainCities, estimatedDistances, estimatedPrices, estimatedTimes } = data;
 
-  // SEO Title: include year, festival name, intención clara
-  const seoTitle = `${festival.display} ${festival.dates.split("–")[0]}: Cómo llegar ${YEAR} | Transporte, Bus, Carpooling | ConcertRide`;
-  const seoDescription = `Guía completa: cómo llegar a ${festival.display} ${YEAR}. Distancias, horarios, transporte público, autobús, tren, carpooling (${estimatedPrices[mainCities[0]?.slug] ?? 5}€). Sin comisión.`;
+  // SEO Title: use centralized overrides first, then fallback to computed
+  const festName = festival.shortName;
+  const seoOverride = HOW_TO_GET_THERE_SEO[festival.slug];
+  const seoTitle = seoOverride?.title ?? `Cómo llegar a ${festName} ${YEAR}: Bus, Carpooling y Tren | ConcertRide`;
+  const seoDescription = seoOverride?.description ?? `Guía completa: cómo llegar a ${festName} ${YEAR} (${festival.venue}, ${festival.city}). Carpooling desde ${estimatedPrices[mainCities[0]?.slug] ?? 5}€/asiento. Bus, tren y coche compartido. Sin comisión.`;
 
   useSeoMeta({
     title: seoTitle,
     description: seoDescription,
     canonical: `${SITE_URL}/como-llegar/${festival.slug}`,
-    keywords: `${festival.display} como llegar ${YEAR}, como ir a ${festival.display}, transporte ${festival.display}, bus ${festival.display}, carpooling ${festival.display}, autobús ${festival.display}`,
+    keywords: seoOverride?.keywords ?? `${festName} como llegar ${YEAR}, como ir a ${festName}, transporte ${festName}, bus ${festName}, carpooling ${festName}, autobús ${festName}, ${festName} localización`,
     ogImage: festival.ogImage,
     ogType: "article",
-    articlePublishedTime: festival.datePublished || new Date().toISOString(),
+    geoRegion: festival.region ? `ES` : undefined,
+    geoPlacename: `${festival.city}, España`,
+    geoLat: festival.lat,
+    geoLng: festival.lng,
+    articlePublishedTime: new Date().toISOString(),
   });
 
   const faqs = [
     {
-      q: `¿Cómo llegar a ${festival.display} ${YEAR}?`,
+      q: `¿Cómo llegar a ${festName} ${YEAR}?`,
       a: `Tienes 4 opciones: (1) Carpooling con ConcertRide (más barato: ${estimatedPrices[mainCities[0]?.slug] ?? 5}–20€/asiento), (2) Autobús (Flixbus, Blablabus), (3) Tren (si disponible), (4) Coche personal. El carpooling es la opción más económica y sostenible.`,
     },
     {
-      q: `¿Cuál es la distancia desde ${mainCities[0]?.display} a ${festival.display}?`,
+      q: `¿Cuál es la distancia desde ${mainCities[0]?.display} a ${festName}?`,
       a: `Aproximadamente ${estimatedDistances[mainCities[0]?.slug] ?? 100} km. En coche: ${estimatedTimes[mainCities[0]?.slug] ?? 1.5}–2 horas. Precio en ConcertRide: ${estimatedPrices[mainCities[0]?.slug] ?? 5}–8€/asiento.`,
     },
     {
@@ -115,7 +122,7 @@ export default function HowToGetTherePage() {
       a: `Sí. Todos los conductores están verificados (DNI, antecedentes penales). La app muestra valoraciones de otros pasajeros. Puedes compartir tu ubicación en tiempo real.`,
     },
     {
-      q: `¿Hay estacionamiento en ${festival.display}?`,
+      q: `¿Hay estacionamiento en ${festName}?`,
       a: `Generalmente sí, pero limitado. El carpooling evita el caos de aparcar. Pregunta al conductor sobre opciones de estacionamiento cercano.`,
     },
   ];
@@ -123,7 +130,7 @@ export default function HowToGetTherePage() {
   const breadcrumbs = [
     { name: "Inicio", url: "/" },
     { name: "Festivales", url: "/festivales" },
-    { name: festival.display, url: `/festivales/${festival.slug}` },
+    { name: festName, url: `/festivales/${festival.slug}` },
     { name: "Cómo llegar", url: `/como-llegar/${festival.slug}` },
   ];
 
@@ -145,7 +152,7 @@ export default function HowToGetTherePage() {
       <section className="bg-gradient-to-b from-cr-primary/20 to-black py-12 px-4">
         <div className="max-w-4xl mx-auto">
           <h1 className="text-4xl md:text-5xl font-bold font-archivo-black mb-4">
-            Cómo llegar a {festival.display} {YEAR}
+            Cómo llegar a {festName} {YEAR}
           </h1>
           <p className="text-xl text-gray-300 leading-relaxed">
             Guía completa: distancias, horarios, transporte público, autobús y carpooling económico sin comisión.
@@ -248,7 +255,7 @@ export default function HowToGetTherePage() {
       {/* CTA */}
       <section className="py-12 px-4 bg-gradient-to-b from-black to-gray-900">
         <div className="max-w-2xl mx-auto text-center">
-          <h2 className="text-3xl font-bold font-archivo-black mb-4">Encuentra tu carpooling a {festival.display}</h2>
+          <h2 className="text-3xl font-bold font-archivo-black mb-4">Encuentra tu carpooling a {festName}</h2>
           <p className="text-gray-300 mb-8">
             Conductores verificados, sin comisión, precio justo. Comparte gastos, llega seguro.
           </p>

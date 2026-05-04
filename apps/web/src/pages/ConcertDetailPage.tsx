@@ -5,6 +5,7 @@ import { SITE_URL } from "@/lib/siteUrl";
 import { motion } from "motion/react";
 import { ArrowLeft, Calendar, Link2, MapPin, Music2, Star, Users } from "lucide-react";
 import { concertShareUrl } from "@/lib/utm";
+import { cfImage } from "@/lib/imageUrl";
 
 function haversineKm(lat1: number, lng1: number, lat2: number, lng2: number): number {
   const R = 6371;
@@ -223,11 +224,12 @@ export default function ConcertDetailPage() {
         {/* Real image as backdrop when available */}
         {concert?.image_url && (
           <img
-            src={concert.image_url}
+            src={cfImage(concert.image_url, { width: 1200, height: 630, quality: 75 })}
+            srcSet={`${cfImage(concert.image_url, { width: 800, height: 420, quality: 75 })} 800w, ${cfImage(concert.image_url, { width: 1200, height: 630, quality: 75 })} 1200w`}
+            sizes="100vw"
             alt={`${concert.artist} en ${concert.venue?.name ?? concert.venue?.city ?? ""}`}
             fetchPriority="high"
             loading="eager"
-            sizes="100vw"
             width={1200}
             height={630}
             className="absolute inset-0 w-full h-full object-cover opacity-30"

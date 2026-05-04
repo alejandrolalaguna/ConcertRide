@@ -77,6 +77,26 @@ export default defineConfig({
     : {
         outDir: "dist",
         sourcemap: false,
+        rollupOptions: {
+          output: {
+            manualChunks(id) {
+              // Leaflet + react-leaflet: only needed on map pages
+              if (id.includes("leaflet")) return "vendor-map";
+              // Motion: animation library, not needed for SSR/prerendered pages
+              if (id.includes("motion")) return "vendor-motion";
+              // Sentry: error monitoring, split so it doesn't block page render
+              if (id.includes("@sentry")) return "vendor-sentry";
+              // PostHog: analytics, lazy-loaded behind consent
+              if (id.includes("posthog")) return "vendor-posthog";
+              // React core: shared by all chunks
+              if (id.includes("node_modules/react/") || id.includes("node_modules/react-dom/")) {
+                return "vendor-react";
+              }
+              // React Router
+              if (id.includes("react-router")) return "vendor-router";
+            },
+          },
+        },
       },
   ssr: {
     // Bundle these so the SSR output is fully self-contained — Node has no

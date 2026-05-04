@@ -7,7 +7,6 @@
 // loaded and no events are fired (GDPR-compliant).
 
 import * as Sentry from "@sentry/react";
-import posthog from "posthog-js";
 
 const ANALYTICS_CONSENT_KEY = "cr_analytics_consent_v1";
 
@@ -27,20 +26,6 @@ export function grantAnalyticsConsent() {
   }
   // Lazy-init PostHog on the first consent grant in-session
   initPostHogIfAllowed();
-}
-
-export function revokeAnalyticsConsent() {
-  try {
-    localStorage.setItem(ANALYTICS_CONSENT_KEY, "denied");
-  } catch {
-    // ignore
-  }
-  try {
-    posthog.opt_out_capturing();
-    posthog.reset(true);
-  } catch {
-    // PostHog not initialised yet — nothing to do
-  }
 }
 
 // ── Sentry ───────────────────────────────────────────────────────────────
@@ -69,59 +54,75 @@ export function initSentry() {
 }
 
 // ── PostHog ──────────────────────────────────────────────────────────────
+// Loaded dynamically so it doesn't enter the initial JS bundle for users
+// who haven't granted analytics consent yet.
 let posthogInitialised = false;
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+let _posthog: any = null;
 
-function initPostHogIfAllowed() {
+async function initPostHogIfAllowed() {
   if (posthogInitialised) return;
   if (!hasAnalyticsConsent()) return;
   const key = import.meta.env.VITE_POSTHOG_KEY as string | undefined;
   if (!key) return;
 
+  const { default: posthog } = await import("posthog-js");
   posthog.init(key, {
     api_host: (import.meta.env.VITE_POSTHOG_HOST as string | undefined) ?? "https://us.i.posthog.com",
-    // We're GDPR-conservative: no session recording, no autocapture of forms.
     autocapture: false,
     capture_pageview: true,
     disable_session_recording: true,
     persistence: "localStorage",
-    // EU residency
     loaded: (ph) => {
       if (import.meta.env.DEV) ph.debug(false);
     },
   });
+  _posthog = posthog;
   posthogInitialised = true;
 }
 
-// Auto-init on module load for users who already granted consent on a prior
-// visit. No-op for new visitors until they accept the banner.
+// Auto-init on module load for users who already granted consent on a prior visit.
 initPostHogIfAllowed();
 
-// ── Unified event API ────────────────────────────────────────────────────
-// Call `track()` freely; it becomes a silent no-op when consent is absent or
-// PostHog wasn't initialised. This is intentional so callers never need to
-// guard.
-export function track(event: string, properties?: Record<string, unknown>) {
-  if (!posthogInitialised) return;
+export function revokeAnalyticsConsent() {
   try {
-    posthog.capture(event, properties);
+    localStorage.setItem("cr_analytics_consent_v1", "denied");
+  } catch {
+    // ignore
+  }
+  if (_posthog) {
+    try {
+      _posthog.opt_out_capturing();
+      _posthog.reset(true);
+    } catch {
+      // ignore
+    }
+  }
+}
+
+// ── Unified event API ────────────────────────────────────────────────────
+export function track(event: string, properties?: Record<string, unknown>) {
+  if (!posthogInitialised || !_posthog) return;
+  try {
+    _posthog.capture(event, properties);
   } catch {
     // swallow
   }
 }
 
 export function identify(userId: string, properties?: Record<string, unknown>) {
-  if (!posthogInitialised) return;
+  if (!posthogInitialised || !_posthog) return;
   try {
-    posthog.identify(userId, properties);
+    _posthog.identify(userId, properties);
   } catch {
     // swallow
   }
 }
 
 export function resetIdentity() {
-  if (!posthogInitialised) return;
+  if (!posthogInitialised || !_posthog) return;
   try {
-    posthog.reset();
+    _posthog.reset();
   } catch {
     // swallow
   }

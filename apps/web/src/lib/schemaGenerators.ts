@@ -173,7 +173,7 @@ export function generateLocalBusinessSchema({
   rating?: number;
   reviewCount?: number;
 }) {
-  const schema = {
+  const schema: Record<string, unknown> = {
     "@context": "https://schema.org",
     "@type": "LocalBusiness",
     name,

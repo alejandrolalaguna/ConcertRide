@@ -66,10 +66,10 @@ function HorizontalCarouselComponent({ concerts }: Props) {
             style={{ x }}
             className="flex gap-6 px-[6vw]"
           >
-            {concerts.map((c) => (
+            {concerts.map((c, i) => (
               <li key={c.id} className="shrink-0 w-[340px] lg:w-[400px]">
                 <Link to={`/concerts/${c.id}`} className="block">
-                  <ConcertCard concert={c} />
+                  <ConcertCard concert={c} priority={i === 0} />
                 </Link>
               </li>
             ))}
@@ -89,10 +89,10 @@ function HorizontalCarouselComponent({ concerts }: Props) {
       {/* Mobile: native horizontal scroll with snap */}
       <div className="md:hidden">
         <ol className="flex gap-4 overflow-x-auto snap-x snap-mandatory px-6 pb-10 -mx-1 scroll-pl-6">
-          {concerts.map((c) => (
+          {concerts.map((c, i) => (
             <li key={c.id} className="shrink-0 w-[78%] snap-start">
               <Link to={`/concerts/${c.id}`} className="block">
-                <ConcertCard concert={c} />
+                <ConcertCard concert={c} priority={i === 0} />
               </Link>
             </li>
           ))}

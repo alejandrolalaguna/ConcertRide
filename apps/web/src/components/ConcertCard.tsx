@@ -5,6 +5,7 @@ import { formatDay } from "@/lib/format";
 import { parseGenreTags } from "@/lib/genre";
 import { FavoriteButton } from "./FavoriteButton";
 import { ConcertPoster } from "./ConcertPoster";
+import { cfImage } from "@/lib/imageUrl";
 
 const ONE_WEEK_MS = 7 * 24 * 60 * 60 * 1000;
 const THREE_WEEKS_MS = 21 * 24 * 60 * 60 * 1000;
@@ -24,9 +25,11 @@ interface Props {
   concert: Concert;
   className?: string;
   onClick?: () => void;
+  /** Set true for above-the-fold cards to prioritise their image load */
+  priority?: boolean;
 }
 
-function ConcertCardComponent({ concert, className = "", onClick }: Props) {
+function ConcertCardComponent({ concert, className = "", onClick, priority = false }: Props) {
   const status = concertStatus(concert.date);
   const tags = parseGenreTags(concert.genre).slice(0, 2);
   const ridesCount = concert.active_rides_count;
@@ -60,9 +63,14 @@ function ConcertCardComponent({ concert, className = "", onClick }: Props) {
       <div className="aspect-[4/3] relative overflow-hidden">
         {concert.image_url ? (
           <img
-            src={concert.image_url}
+            src={cfImage(concert.image_url, { width: 400, height: 300, quality: 80 })}
+            srcSet={`${cfImage(concert.image_url, { width: 400, height: 300, quality: 75 })} 400w, ${cfImage(concert.image_url, { width: 700, height: 525, quality: 75 })} 700w`}
+            sizes="(max-width: 768px) 78vw, 400px"
             alt={`${concert.artist} — ${concert.venue.name}, ${concert.venue.city}`}
-            loading="lazy"
+            width={400}
+            height={300}
+            loading={priority ? "eager" : "lazy"}
+            fetchPriority={priority ? "high" : "auto"}
             className="absolute inset-0 w-full h-full object-cover transition-transform duration-300 group-hover:scale-[1.02]"
           />
         ) : (

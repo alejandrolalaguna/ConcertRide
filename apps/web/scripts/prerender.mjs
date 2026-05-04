@@ -247,6 +247,7 @@ async function writeSitemap(urls) {
     if (u.startsWith("/artistas/")) return "0.75";
     if (u.startsWith("/recintos/")) return "0.7";
     if (u.startsWith("/festivales-en/")) return "0.75";
+    if (u.startsWith("/como-llegar/")) return "0.85";
     if (["/como-funciona", "/faq"].includes(u)) return "0.7";
     if (["/acerca-de", "/contacto", "/prensa"].includes(u)) return "0.6";
     return "0.3";
@@ -260,6 +261,7 @@ async function writeSitemap(urls) {
     if (u.startsWith("/artistas/")) return "weekly";
     if (u.startsWith("/recintos/")) return "monthly";
     if (u.startsWith("/festivales-en/")) return "monthly";
+    if (u.startsWith("/como-llegar/")) return "weekly";
     return "monthly";
   };
   const FESTIVAL_OG_SLUG = (u) => {
