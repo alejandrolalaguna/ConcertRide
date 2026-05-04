@@ -1,635 +1,1073 @@
-﻿<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 
   <!-- ── Static pages ── -->
   <url>
     <loc>https://concertride.me/</loc>
-    <lastmod>2026-05-02</lastmod>
+    <lastmod>2026-05-03</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>1.0</priority>
   </url>
   <url>
     <loc>https://concertride.me/festivales</loc>
-    <lastmod>2026-05-02</lastmod>
+    <lastmod>2026-05-03</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
   </url>
   <url>
     <loc>https://concertride.me/rutas</loc>
-    <lastmod>2026-05-02</lastmod>
+    <lastmod>2026-05-03</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
   </url>
   <url>
     <loc>https://concertride.me/concerts</loc>
-    <lastmod>2026-05-02</lastmod>
+    <lastmod>2026-05-03</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.9</priority>
   </url>
   <url>
     <loc>https://concertride.me/blog</loc>
-    <lastmod>2026-05-02</lastmod>
+    <lastmod>2026-05-03</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://concertride.me/guia-transporte-festivales</loc>
-    <lastmod>2026-05-02</lastmod>
+    <lastmod>2026-05-03</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
   </url>
   <url>
     <loc>https://concertride.me/faq</loc>
-    <lastmod>2026-05-02</lastmod>
+    <lastmod>2026-05-03</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
   </url>
   <url>
     <loc>https://concertride.me/como-funciona</loc>
-    <lastmod>2026-05-02</lastmod>
+    <lastmod>2026-05-03</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
   </url>
   <url>
     <loc>https://concertride.me/acerca-de</loc>
-    <lastmod>2026-05-02</lastmod>
+    <lastmod>2026-05-03</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
   </url>
   <url>
     <loc>https://concertride.me/contacto</loc>
-    <lastmod>2026-05-02</lastmod>
+    <lastmod>2026-05-03</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
   </url>
   <url>
     <loc>https://concertride.me/prensa</loc>
-    <lastmod>2026-05-02</lastmod>
+    <lastmod>2026-05-03</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
   </url>
 
   <url>
     <loc>https://concertride.me/aviso-legal</loc>
-    <lastmod>2026-05-02</lastmod>
+    <lastmod>2026-05-03</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.3</priority>
   </url>
   <url>
     <loc>https://concertride.me/privacidad</loc>
-    <lastmod>2026-05-02</lastmod>
+    <lastmod>2026-05-03</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.3</priority>
   </url>
   <url>
     <loc>https://concertride.me/cookies</loc>
-    <lastmod>2026-05-02</lastmod>
+    <lastmod>2026-05-03</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.3</priority>
   </url>
   <url>
     <loc>https://concertride.me/terminos</loc>
-    <lastmod>2026-05-02</lastmod>
+    <lastmod>2026-05-03</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.3</priority>
   </url>
 
   <!-- ── Festival landings (/festivales/:slug) ── -->
   <url>
     <loc>https://concertride.me/festivales/mad-cool</loc>
-    <lastmod>2026-05-02</lastmod>
+    <lastmod>2026-05-03</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
   </url>
   <url>
     <loc>https://concertride.me/festivales/primavera-sound</loc>
-    <lastmod>2026-05-02</lastmod>
+    <lastmod>2026-05-03</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
   </url>
   <url>
     <loc>https://concertride.me/festivales/sonar</loc>
-    <lastmod>2026-05-02</lastmod>
+    <lastmod>2026-05-03</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
   </url>
   <url>
     <loc>https://concertride.me/festivales/fib</loc>
-    <lastmod>2026-05-02</lastmod>
+    <lastmod>2026-05-03</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://concertride.me/festivales/bbk-live</loc>
-    <lastmod>2026-05-02</lastmod>
+    <lastmod>2026-05-03</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
   </url>
   <url>
     <loc>https://concertride.me/festivales/resurrection-fest</loc>
-    <lastmod>2026-05-02</lastmod>
+    <lastmod>2026-05-03</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://concertride.me/festivales/arenal-sound</loc>
-    <lastmod>2026-05-02</lastmod>
+    <lastmod>2026-05-04</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.95</priority>
   </url>
   <url>
     <loc>https://concertride.me/festivales/medusa-festival</loc>
-    <lastmod>2026-05-02</lastmod>
+    <lastmod>2026-05-03</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://concertride.me/festivales/vina-rock</loc>
-    <lastmod>2026-05-02</lastmod>
+    <lastmod>2026-05-04</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.95</priority>
   </url>
   <url>
     <loc>https://concertride.me/festivales/o-son-do-camino</loc>
-    <lastmod>2026-05-02</lastmod>
+    <lastmod>2026-05-03</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://concertride.me/festivales/cala-mijas</loc>
-    <lastmod>2026-05-02</lastmod>
+    <lastmod>2026-05-04</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.90</priority>
   </url>
   <url>
     <loc>https://concertride.me/festivales/sonorama-ribera</loc>
-    <lastmod>2026-05-02</lastmod>
+    <lastmod>2026-05-03</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://concertride.me/festivales/zevra-festival</loc>
-    <lastmod>2026-05-02</lastmod>
+    <lastmod>2026-05-03</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
   </url>
   <url>
     <loc>https://concertride.me/festivales/low-festival</loc>
-    <lastmod>2026-05-02</lastmod>
+    <lastmod>2026-05-03</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://concertride.me/festivales/tomavistas</loc>
-    <lastmod>2026-05-02</lastmod>
+    <lastmod>2026-05-03</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://concertride.me/festivales/cruilla</loc>
-    <lastmod>2026-05-02</lastmod>
+    <lastmod>2026-05-03</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
   </url>
 
   <!-- ── City landings (/conciertos/:city) ── -->
   <url>
     <loc>https://concertride.me/conciertos/madrid</loc>
-    <lastmod>2026-05-02</lastmod>
+    <lastmod>2026-05-03</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://concertride.me/conciertos/barcelona</loc>
-    <lastmod>2026-05-02</lastmod>
+    <lastmod>2026-05-03</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://concertride.me/conciertos/valencia</loc>
-    <lastmod>2026-05-02</lastmod>
+    <lastmod>2026-05-03</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://concertride.me/conciertos/sevilla</loc>
-    <lastmod>2026-05-02</lastmod>
+    <lastmod>2026-05-04</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
   </url>
   <url>
     <loc>https://concertride.me/conciertos/bilbao</loc>
-    <lastmod>2026-05-02</lastmod>
+    <lastmod>2026-05-03</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://concertride.me/conciertos/malaga</loc>
-    <lastmod>2026-05-02</lastmod>
+    <lastmod>2026-05-03</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
   </url>
   <url>
     <loc>https://concertride.me/conciertos/zaragoza</loc>
-    <lastmod>2026-05-02</lastmod>
+    <lastmod>2026-05-04</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
   </url>
   <url>
     <loc>https://concertride.me/conciertos/granada</loc>
-    <lastmod>2026-05-02</lastmod>
+    <lastmod>2026-05-03</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
   </url>
   <url>
     <loc>https://concertride.me/conciertos/donostia</loc>
-    <lastmod>2026-05-02</lastmod>
+    <lastmod>2026-05-04</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
   </url>
   <url>
     <loc>https://concertride.me/conciertos/santiago-de-compostela</loc>
-    <lastmod>2026-05-02</lastmod>
+    <lastmod>2026-05-03</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
   </url>
   <url>
     <loc>https://concertride.me/conciertos/alicante</loc>
-    <lastmod>2026-05-02</lastmod>
+    <lastmod>2026-05-04</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
   </url>
   <url>
     <loc>https://concertride.me/conciertos/pamplona</loc>
-    <lastmod>2026-05-02</lastmod>
+    <lastmod>2026-05-03</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
   </url>
   <url>
     <loc>https://concertride.me/conciertos/vitoria-gasteiz</loc>
-    <lastmod>2026-05-02</lastmod>
+    <lastmod>2026-05-03</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
   </url>
   <url>
     <loc>https://concertride.me/conciertos/a-coruna</loc>
-    <lastmod>2026-05-02</lastmod>
+    <lastmod>2026-05-03</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
   </url>
   <url>
     <loc>https://concertride.me/conciertos/vigo</loc>
-    <lastmod>2026-05-02</lastmod>
+    <lastmod>2026-05-03</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
   </url>
   <url>
     <loc>https://concertride.me/conciertos/murcia</loc>
-    <lastmod>2026-05-02</lastmod>
+    <lastmod>2026-05-04</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.80</priority>
   </url>
   <url>
     <loc>https://concertride.me/conciertos/valladolid</loc>
-    <lastmod>2026-05-02</lastmod>
+    <lastmod>2026-05-03</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
   </url>
 
   <!-- ── Route landings (/rutas/:route) ── -->
   <!-- mad-cool routes -->
   <url>
     <loc>https://concertride.me/rutas/madrid-mad-cool</loc>
-    <lastmod>2026-05-02</lastmod>
+    <lastmod>2026-05-03</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://concertride.me/rutas/toledo-mad-cool</loc>
-    <lastmod>2026-05-02</lastmod>
+    <lastmod>2026-05-03</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
   </url>
   <url>
     <loc>https://concertride.me/rutas/guadalajara-mad-cool</loc>
-    <lastmod>2026-05-02</lastmod>
+    <lastmod>2026-05-03</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
   </url>
   <url>
     <loc>https://concertride.me/rutas/segovia-mad-cool</loc>
-    <lastmod>2026-05-02</lastmod>
+    <lastmod>2026-05-03</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
   </url>
   <url>
     <loc>https://concertride.me/rutas/valencia-mad-cool</loc>
-    <lastmod>2026-05-02</lastmod>
+    <lastmod>2026-05-03</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://concertride.me/rutas/zaragoza-mad-cool</loc>
-    <lastmod>2026-05-02</lastmod>
+    <lastmod>2026-05-03</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
   </url>
   <url>
     <loc>https://concertride.me/rutas/barcelona-mad-cool</loc>
-    <lastmod>2026-05-02</lastmod>
+    <lastmod>2026-05-03</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
   </url>
   <!-- primavera-sound routes -->
   <url>
     <loc>https://concertride.me/rutas/madrid-primavera-sound</loc>
-    <lastmod>2026-05-02</lastmod>
+    <lastmod>2026-05-03</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://concertride.me/rutas/valencia-primavera-sound</loc>
-    <lastmod>2026-05-02</lastmod>
+    <lastmod>2026-05-03</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://concertride.me/rutas/zaragoza-primavera-sound</loc>
-    <lastmod>2026-05-02</lastmod>
+    <lastmod>2026-05-03</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
   </url>
   <url>
     <loc>https://concertride.me/rutas/bilbao-primavera-sound</loc>
-    <lastmod>2026-05-02</lastmod>
+    <lastmod>2026-05-03</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
   </url>
   <url>
     <loc>https://concertride.me/rutas/lleida-primavera-sound</loc>
-    <lastmod>2026-05-02</lastmod>
+    <lastmod>2026-05-03</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
   </url>
   <url>
     <loc>https://concertride.me/rutas/tarragona-primavera-sound</loc>
-    <lastmod>2026-05-02</lastmod>
+    <lastmod>2026-05-03</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
   </url>
   <!-- sonar routes -->
   <url>
     <loc>https://concertride.me/rutas/madrid-sonar</loc>
-    <lastmod>2026-05-02</lastmod>
+    <lastmod>2026-05-03</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://concertride.me/rutas/valencia-sonar</loc>
-    <lastmod>2026-05-02</lastmod>
+    <lastmod>2026-05-03</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
   </url>
   <url>
     <loc>https://concertride.me/rutas/zaragoza-sonar</loc>
-    <lastmod>2026-05-02</lastmod>
+    <lastmod>2026-05-03</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
   </url>
   <url>
     <loc>https://concertride.me/rutas/girona-sonar</loc>
-    <lastmod>2026-05-02</lastmod>
+    <lastmod>2026-05-03</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
   </url>
   <url>
     <loc>https://concertride.me/rutas/tarragona-sonar</loc>
-    <lastmod>2026-05-02</lastmod>
+    <lastmod>2026-05-03</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
   </url>
   <!-- fib routes -->
   <url>
     <loc>https://concertride.me/rutas/valencia-fib</loc>
-    <lastmod>2026-05-02</lastmod>
+    <lastmod>2026-05-03</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://concertride.me/rutas/castellon-de-la-plana-fib</loc>
-    <lastmod>2026-05-02</lastmod>
+    <lastmod>2026-05-03</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
   </url>
   <url>
     <loc>https://concertride.me/rutas/madrid-fib</loc>
-    <lastmod>2026-05-02</lastmod>
+    <lastmod>2026-05-03</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
   </url>
   <url>
     <loc>https://concertride.me/rutas/barcelona-fib</loc>
-    <lastmod>2026-05-02</lastmod>
+    <lastmod>2026-05-03</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
   </url>
   <url>
     <loc>https://concertride.me/rutas/alicante-fib</loc>
-    <lastmod>2026-05-02</lastmod>
+    <lastmod>2026-05-03</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
   </url>
   <url>
     <loc>https://concertride.me/rutas/zaragoza-fib</loc>
-    <lastmod>2026-05-02</lastmod>
+    <lastmod>2026-05-03</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
   </url>
   <!-- bbk-live routes -->
   <url>
     <loc>https://concertride.me/rutas/bilbao-bbk-live</loc>
-    <lastmod>2026-05-02</lastmod>
+    <lastmod>2026-05-03</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://concertride.me/rutas/donostia-bbk-live</loc>
-    <lastmod>2026-05-02</lastmod>
+    <lastmod>2026-05-03</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
   </url>
   <url>
     <loc>https://concertride.me/rutas/vitoria-gasteiz-bbk-live</loc>
-    <lastmod>2026-05-02</lastmod>
+    <lastmod>2026-05-03</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
   </url>
   <url>
     <loc>https://concertride.me/rutas/pamplona-bbk-live</loc>
-    <lastmod>2026-05-02</lastmod>
+    <lastmod>2026-05-03</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
   </url>
   <url>
     <loc>https://concertride.me/rutas/santander-bbk-live</loc>
-    <lastmod>2026-05-02</lastmod>
+    <lastmod>2026-05-03</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
   </url>
   <url>
     <loc>https://concertride.me/rutas/burgos-bbk-live</loc>
-    <lastmod>2026-05-02</lastmod>
+    <lastmod>2026-05-03</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
   </url>
   <url>
     <loc>https://concertride.me/rutas/madrid-bbk-live</loc>
-    <lastmod>2026-05-02</lastmod>
+    <lastmod>2026-05-03</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
   </url>
   <!-- resurrection-fest routes -->
   <url>
     <loc>https://concertride.me/rutas/a-coruna-resurrection-fest</loc>
-    <lastmod>2026-05-02</lastmod>
+    <lastmod>2026-05-03</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
   </url>
   <url>
     <loc>https://concertride.me/rutas/santiago-de-compostela-resurrection-fest</loc>
-    <lastmod>2026-05-02</lastmod>
+    <lastmod>2026-05-03</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
   </url>
   <url>
     <loc>https://concertride.me/rutas/vigo-resurrection-fest</loc>
-    <lastmod>2026-05-02</lastmod>
+    <lastmod>2026-05-03</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
   </url>
   <url>
     <loc>https://concertride.me/rutas/oviedo-resurrection-fest</loc>
-    <lastmod>2026-05-02</lastmod>
+    <lastmod>2026-05-03</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
   </url>
   <url>
     <loc>https://concertride.me/rutas/madrid-resurrection-fest</loc>
-    <lastmod>2026-05-02</lastmod>
+    <lastmod>2026-05-03</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
   </url>
   <url>
     <loc>https://concertride.me/rutas/bilbao-resurrection-fest</loc>
-    <lastmod>2026-05-02</lastmod>
+    <lastmod>2026-05-03</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
   </url>
   <!-- arenal-sound routes -->
   <url>
     <loc>https://concertride.me/rutas/valencia-arenal-sound</loc>
-    <lastmod>2026-05-02</lastmod>
+    <lastmod>2026-05-03</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://concertride.me/rutas/castellon-de-la-plana-arenal-sound</loc>
-    <lastmod>2026-05-02</lastmod>
+    <lastmod>2026-05-03</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
   </url>
   <url>
     <loc>https://concertride.me/rutas/burriana-arenal-sound</loc>
-    <lastmod>2026-05-02</lastmod>
+    <lastmod>2026-05-03</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
   </url>
   <url>
     <loc>https://concertride.me/rutas/madrid-arenal-sound</loc>
-    <lastmod>2026-05-02</lastmod>
+    <lastmod>2026-05-03</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://concertride.me/rutas/barcelona-arenal-sound</loc>
-    <lastmod>2026-05-02</lastmod>
+    <lastmod>2026-05-03</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
   </url>
   <url>
     <loc>https://concertride.me/rutas/zaragoza-arenal-sound</loc>
-    <lastmod>2026-05-02</lastmod>
+    <lastmod>2026-05-03</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
   </url>
   <url>
     <loc>https://concertride.me/rutas/alicante-arenal-sound</loc>
-    <lastmod>2026-05-02</lastmod>
+    <lastmod>2026-05-03</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
   </url>
   <!-- medusa-festival routes -->
   <url>
     <loc>https://concertride.me/rutas/valencia-medusa-festival</loc>
-    <lastmod>2026-05-02</lastmod>
+    <lastmod>2026-05-03</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
   </url>
   <url>
     <loc>https://concertride.me/rutas/madrid-medusa-festival</loc>
-    <lastmod>2026-05-02</lastmod>
+    <lastmod>2026-05-03</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
   </url>
   <url>
     <loc>https://concertride.me/rutas/barcelona-medusa-festival</loc>
-    <lastmod>2026-05-02</lastmod>
+    <lastmod>2026-05-03</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
   </url>
   <url>
     <loc>https://concertride.me/rutas/alicante-medusa-festival</loc>
-    <lastmod>2026-05-02</lastmod>
+    <lastmod>2026-05-03</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
   </url>
   <url>
     <loc>https://concertride.me/rutas/zaragoza-medusa-festival</loc>
-    <lastmod>2026-05-02</lastmod>
+    <lastmod>2026-05-03</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
   </url>
   <url>
     <loc>https://concertride.me/rutas/murcia-medusa-festival</loc>
-    <lastmod>2026-05-02</lastmod>
+    <lastmod>2026-05-03</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
   </url>
   <!-- vina-rock routes -->
   <url>
     <loc>https://concertride.me/rutas/madrid-vina-rock</loc>
-    <lastmod>2026-05-02</lastmod>
+    <lastmod>2026-05-03</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
   </url>
   <url>
     <loc>https://concertride.me/rutas/valencia-vina-rock</loc>
-    <lastmod>2026-05-02</lastmod>
+    <lastmod>2026-05-03</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
   </url>
   <url>
     <loc>https://concertride.me/rutas/albacete-vina-rock</loc>
-    <lastmod>2026-05-02</lastmod>
+    <lastmod>2026-05-03</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
   </url>
   <url>
     <loc>https://concertride.me/rutas/alicante-vina-rock</loc>
-    <lastmod>2026-05-02</lastmod>
+    <lastmod>2026-05-03</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
   </url>
   <url>
     <loc>https://concertride.me/rutas/murcia-vina-rock</loc>
-    <lastmod>2026-05-02</lastmod>
+    <lastmod>2026-05-03</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
   </url>
   <url>
     <loc>https://concertride.me/rutas/cuenca-vina-rock</loc>
-    <lastmod>2026-05-02</lastmod>
+    <lastmod>2026-05-03</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
   </url>
   <!-- o-son-do-camino routes -->
   <url>
     <loc>https://concertride.me/rutas/santiago-de-compostela-o-son-do-camino</loc>
-    <lastmod>2026-05-02</lastmod>
+    <lastmod>2026-05-03</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
   </url>
   <url>
     <loc>https://concertride.me/rutas/a-coruna-o-son-do-camino</loc>
-    <lastmod>2026-05-02</lastmod>
+    <lastmod>2026-05-03</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
   </url>
   <url>
     <loc>https://concertride.me/rutas/vigo-o-son-do-camino</loc>
-    <lastmod>2026-05-02</lastmod>
+    <lastmod>2026-05-03</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
   </url>
   <url>
     <loc>https://concertride.me/rutas/pontevedra-o-son-do-camino</loc>
-    <lastmod>2026-05-02</lastmod>
+    <lastmod>2026-05-03</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
   </url>
   <url>
     <loc>https://concertride.me/rutas/oviedo-o-son-do-camino</loc>
-    <lastmod>2026-05-02</lastmod>
+    <lastmod>2026-05-03</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
   </url>
   <url>
     <loc>https://concertride.me/rutas/madrid-o-son-do-camino</loc>
-    <lastmod>2026-05-02</lastmod>
+    <lastmod>2026-05-03</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
   </url>
   <!-- cala-mijas routes -->
   <url>
     <loc>https://concertride.me/rutas/malaga-cala-mijas</loc>
-    <lastmod>2026-05-02</lastmod>
+    <lastmod>2026-05-03</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
   </url>
   <url>
     <loc>https://concertride.me/rutas/marbella-cala-mijas</loc>
-    <lastmod>2026-05-02</lastmod>
+    <lastmod>2026-05-03</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
   </url>
   <url>
     <loc>https://concertride.me/rutas/mijas-cala-mijas</loc>
-    <lastmod>2026-05-02</lastmod>
+    <lastmod>2026-05-03</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
   </url>
   <url>
     <loc>https://concertride.me/rutas/fuengirola-cala-mijas</loc>
-    <lastmod>2026-05-02</lastmod>
+    <lastmod>2026-05-03</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
   </url>
   <url>
     <loc>https://concertride.me/rutas/sevilla-cala-mijas</loc>
-    <lastmod>2026-05-02</lastmod>
+    <lastmod>2026-05-03</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
   </url>
   <url>
     <loc>https://concertride.me/rutas/granada-cala-mijas</loc>
-    <lastmod>2026-05-02</lastmod>
+    <lastmod>2026-05-03</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
   </url>
   <url>
     <loc>https://concertride.me/rutas/almeria-cala-mijas</loc>
-    <lastmod>2026-05-02</lastmod>
+    <lastmod>2026-05-03</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
   </url>
   <url>
     <loc>https://concertride.me/rutas/cordoba-cala-mijas</loc>
-    <lastmod>2026-05-02</lastmod>
+    <lastmod>2026-05-03</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
   </url>
   <!-- sonorama-ribera routes -->
   <url>
     <loc>https://concertride.me/rutas/madrid-sonorama-ribera</loc>
-    <lastmod>2026-05-02</lastmod>
+    <lastmod>2026-05-03</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
   </url>
   <url>
     <loc>https://concertride.me/rutas/valladolid-sonorama-ribera</loc>
-    <lastmod>2026-05-02</lastmod>
+    <lastmod>2026-05-03</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
   </url>
   <url>
     <loc>https://concertride.me/rutas/burgos-sonorama-ribera</loc>
-    <lastmod>2026-05-02</lastmod>
+    <lastmod>2026-05-03</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
   </url>
   <url>
     <loc>https://concertride.me/rutas/bilbao-sonorama-ribera</loc>
-    <lastmod>2026-05-02</lastmod>
+    <lastmod>2026-05-03</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
   </url>
   <url>
     <loc>https://concertride.me/rutas/zaragoza-sonorama-ribera</loc>
-    <lastmod>2026-05-02</lastmod>
+    <lastmod>2026-05-03</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
   </url>
   <url>
     <loc>https://concertride.me/rutas/segovia-sonorama-ribera</loc>
-    <lastmod>2026-05-02</lastmod>
+    <lastmod>2026-05-03</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
   </url>
   <!-- zevra-festival routes -->
   <url>
     <loc>https://concertride.me/rutas/valencia-zevra-festival</loc>
-    <lastmod>2026-05-02</lastmod>
+    <lastmod>2026-05-03</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
   </url>
   <url>
     <loc>https://concertride.me/rutas/madrid-zevra-festival</loc>
-    <lastmod>2026-05-02</lastmod>
+    <lastmod>2026-05-03</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
   </url>
   <url>
     <loc>https://concertride.me/rutas/alicante-zevra-festival</loc>
-    <lastmod>2026-05-02</lastmod>
+    <lastmod>2026-05-03</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
   </url>
   <url>
     <loc>https://concertride.me/rutas/murcia-zevra-festival</loc>
-    <lastmod>2026-05-02</lastmod>
+    <lastmod>2026-05-03</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
   </url>
   <url>
     <loc>https://concertride.me/rutas/barcelona-zevra-festival</loc>
-    <lastmod>2026-05-02</lastmod>
+    <lastmod>2026-05-03</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
   </url>
   <!-- low-festival routes -->
   <url>
     <loc>https://concertride.me/rutas/alicante-low-festival</loc>
-    <lastmod>2026-05-02</lastmod>
+    <lastmod>2026-05-03</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
   </url>
   <url>
     <loc>https://concertride.me/rutas/valencia-low-festival</loc>
-    <lastmod>2026-05-02</lastmod>
+    <lastmod>2026-05-03</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
   </url>
   <url>
     <loc>https://concertride.me/rutas/murcia-low-festival</loc>
-    <lastmod>2026-05-02</lastmod>
+    <lastmod>2026-05-03</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
   </url>
   <url>
     <loc>https://concertride.me/rutas/madrid-low-festival</loc>
-    <lastmod>2026-05-02</lastmod>
+    <lastmod>2026-05-03</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
   </url>
   <url>
     <loc>https://concertride.me/rutas/barcelona-low-festival</loc>
-    <lastmod>2026-05-02</lastmod>
+    <lastmod>2026-05-03</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
   </url>
   <!-- tomavistas routes -->
   <url>
     <loc>https://concertride.me/rutas/madrid-tomavistas</loc>
-    <lastmod>2026-05-02</lastmod>
+    <lastmod>2026-05-03</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
   </url>
   <url>
     <loc>https://concertride.me/rutas/toledo-tomavistas</loc>
-    <lastmod>2026-05-02</lastmod>
+    <lastmod>2026-05-03</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
   </url>
   <url>
     <loc>https://concertride.me/rutas/guadalajara-tomavistas</loc>
-    <lastmod>2026-05-02</lastmod>
+    <lastmod>2026-05-03</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
   </url>
   <url>
     <loc>https://concertride.me/rutas/valencia-tomavistas</loc>
-    <lastmod>2026-05-02</lastmod>
+    <lastmod>2026-05-03</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
   </url>
   <url>
     <loc>https://concertride.me/rutas/zaragoza-tomavistas</loc>
-    <lastmod>2026-05-02</lastmod>
+    <lastmod>2026-05-03</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
   </url>
   <!-- cruilla routes -->
   <url>
     <loc>https://concertride.me/rutas/madrid-cruilla</loc>
-    <lastmod>2026-05-02</lastmod>
+    <lastmod>2026-05-03</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
   </url>
   <url>
     <loc>https://concertride.me/rutas/valencia-cruilla</loc>
-    <lastmod>2026-05-02</lastmod>
+    <lastmod>2026-05-03</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
   </url>
   <url>
     <loc>https://concertride.me/rutas/zaragoza-cruilla</loc>
-    <lastmod>2026-05-02</lastmod>
+    <lastmod>2026-05-03</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
   </url>
   <url>
     <loc>https://concertride.me/rutas/tarragona-cruilla</loc>
-    <lastmod>2026-05-02</lastmod>
+    <lastmod>2026-05-03</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
   </url>
   <url>
     <loc>https://concertride.me/rutas/lleida-cruilla</loc>
-    <lastmod>2026-05-02</lastmod>
+    <lastmod>2026-05-03</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
   </url>
   <url>
     <loc>https://concertride.me/rutas/girona-cruilla</loc>
-    <lastmod>2026-05-02</lastmod>
+    <lastmod>2026-05-03</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
+  </url>
+
+  <!-- ── Cómo llegar (/como-llegar/:slug) — high-priority transport guides ── -->
+  <url>
+    <loc>https://concertride.me/como-llegar/vina-rock</loc>
+    <lastmod>2026-05-04</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://concertride.me/como-llegar/arenal-sound</loc>
+    <lastmod>2026-05-04</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://concertride.me/como-llegar/mad-cool</loc>
+    <lastmod>2026-05-04</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://concertride.me/como-llegar/bbk-live</loc>
+    <lastmod>2026-05-04</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://concertride.me/como-llegar/primavera-sound</loc>
+    <lastmod>2026-05-04</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://concertride.me/como-llegar/resurrection-fest</loc>
+    <lastmod>2026-05-04</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://concertride.me/como-llegar/cala-mijas</loc>
+    <lastmod>2026-05-04</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.80</priority>
+  </url>
+  <url>
+    <loc>https://concertride.me/como-llegar/sonar</loc>
+    <lastmod>2026-05-04</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.80</priority>
+  </url>
+  <url>
+    <loc>https://concertride.me/como-llegar/zevra-festival</loc>
+    <lastmod>2026-05-04</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.80</priority>
+  </url>
+  <url>
+    <loc>https://concertride.me/como-llegar/fib</loc>
+    <lastmod>2026-05-04</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.80</priority>
+  </url>
+  <url>
+    <loc>https://concertride.me/como-llegar/medusa-festival</loc>
+    <lastmod>2026-05-04</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.75</priority>
+  </url>
+  <url>
+    <loc>https://concertride.me/como-llegar/low-festival</loc>
+    <lastmod>2026-05-04</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.75</priority>
+  </url>
+  <url>
+    <loc>https://concertride.me/como-llegar/cruilla</loc>
+    <lastmod>2026-05-04</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.75</priority>
+  </url>
+  <url>
+    <loc>https://concertride.me/como-llegar/sonorama-ribera</loc>
+    <lastmod>2026-05-04</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.75</priority>
+  </url>
+  <url>
+    <loc>https://concertride.me/como-llegar/o-son-do-camino</loc>
+    <lastmod>2026-05-04</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.75</priority>
   </url>
 
   <!-- ── Blog posts (/blog/:slug) ── -->
   <url>
     <loc>https://concertride.me/blog/autobuses-festivales-espana-2026</loc>
-    <lastmod>2026-05-02</lastmod>
+    <lastmod>2026-05-03</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://concertride.me/blog/como-volver-festival-madrugada</loc>
-    <lastmod>2026-05-02</lastmod>
+    <lastmod>2026-05-03</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://concertride.me/blog/huella-carbono-festivales-carpooling</loc>
-    <lastmod>2026-05-02</lastmod>
+    <lastmod>2026-05-03</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
   </url>
   <url>
     <loc>https://concertride.me/blog/blablacar-vs-concertride</loc>
-    <lastmod>2026-05-02</lastmod>
+    <lastmod>2026-05-03</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://concertride.me/blog/que-llevar-al-festival</loc>
-    <lastmod>2026-05-02</lastmod>
+    <lastmod>2026-05-03</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
   </url>
   <url>
     <loc>https://concertride.me/blog/festivales-musica-espana-2026</loc>
-    <lastmod>2026-05-02</lastmod>
+    <lastmod>2026-05-03</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://concertride.me/blog/coldplay-madrid-barcelona-2026-como-llegar</loc>
+    <lastmod>2026-05-04</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://concertride.me/blog/festivales-verano-espana-2026-transporte</loc>
+    <lastmod>2026-05-04</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://concertride.me/blog/festivales-comunidad-valenciana-2026</loc>
+    <lastmod>2026-05-04</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.75</priority>
+  </url>
+  <url>
+    <loc>https://concertride.me/blog/guia-transporte-vina-rock-2026</loc>
+    <lastmod>2026-05-04</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://concertride.me/blog/como-llegar-resurrection-fest-2026</loc>
+    <lastmod>2026-05-05</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+  </url>
+
+  <!-- ── New high-value rutas not previously in sitemap ── -->
+  <url>
+    <loc>https://concertride.me/rutas/sevilla-vina-rock</loc>
+    <lastmod>2026-05-05</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.75</priority>
+  </url>
+  <url>
+    <loc>https://concertride.me/rutas/madrid-cala-mijas</loc>
+    <lastmod>2026-05-05</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.75</priority>
   </url>
 
 </urlset>

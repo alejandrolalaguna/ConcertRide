@@ -174,7 +174,7 @@ describe("DELETE /api/auth/me (GDPR erasure)", () => {
 });
 
 describe("Email verification flow", () => {
-  it("sets email_verified_at when the KV token is valid", async () => {
+  it("GET returns valid:true and POST stamps email_verified_at", async () => {
     const app = buildTestApp();
     await app.request("/api/auth/register", {
       method: "POST",
@@ -191,20 +191,28 @@ describe("Email verification flow", () => {
     expect(tokenKey).toBeTruthy();
     const token = tokenKey!.slice("everify:".length);
 
-    const res = await app.request(`/api/auth/verify-email?token=${token}`);
-    expect(res.status).toBe(302);
-    const loc = (res.body as string) || "";
-    // redirect target is set via Location header but our helper doesn't expose
-    // headers; we verify the user's email_verified_at was stamped.
+    // GET validates the token (200 {valid:true}) without consuming it
+    const getRes = await app.request(`/api/auth/verify-email?token=${token}`);
+    expect(getRes.status).toBe(200);
+    expect((getRes.body as { valid: boolean }).valid).toBe(true);
+
+    // POST consumes the token and redirects (302)
+    const postRes = await app.request("/api/auth/verify-email", {
+      method: "POST",
+      body: JSON.stringify({ token }),
+    });
+    expect(postRes.status).toBe(302);
+
+    // email_verified_at must be stamped after POST
     const user = await app.store.getUserByEmail("verify@concertride.test");
     expect(user?.email_verified_at).toBeTruthy();
-    expect(loc).toBeDefined(); // redirect body is empty string in Hono
   });
 
-  it("ignores unknown tokens gracefully", async () => {
+  it("GET returns 400 for unknown tokens", async () => {
     const app = buildTestApp();
     const res = await app.request("/api/auth/verify-email?token=nope");
-    expect(res.status).toBe(302); // redirect to /?verify=expired
+    expect(res.status).toBe(400);
+    expect((res.body as { valid: boolean }).valid).toBe(false);
   });
 });
 

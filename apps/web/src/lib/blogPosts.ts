@@ -170,11 +170,13 @@ export const BLOG_POSTS: BlogPost[] = [
     relatedLinks: [
       { label: "Cómo volver de un festival de madrugada", to: "/blog/como-volver-festival-madrugada" },
       { label: "Guía de transporte para festivales", to: "/guia-transporte-festivales" },
-      { label: "Cómo ir a Viña Rock", to: "/festivales/vina-rock" },
-      { label: "Cómo ir a Arenal Sound", to: "/festivales/arenal-sound" },
-      { label: "Cómo ir a BBK Live", to: "/festivales/bbk-live" },
-      { label: "Cómo ir a Mad Cool", to: "/festivales/mad-cool" },
-      { label: "Cómo ir a Resurrection Fest", to: "/festivales/resurrection-fest" },
+      { label: "Cómo llegar a Viña Rock", to: "/como-llegar/vina-rock" },
+      { label: "Cómo llegar a Arenal Sound", to: "/como-llegar/arenal-sound" },
+      { label: "Cómo llegar a BBK Live", to: "/como-llegar/bbk-live" },
+      { label: "Cómo llegar a Mad Cool", to: "/como-llegar/mad-cool" },
+      { label: "Cómo llegar a Resurrection Fest", to: "/como-llegar/resurrection-fest" },
+      { label: "Cómo llegar a Low Festival", to: "/como-llegar/low-festival" },
+      { label: "Cómo llegar a Medusa Festival", to: "/como-llegar/medusa-festival" },
     ],
     relatedPosts: ["como-volver-festival-madrugada", "huella-carbono-festivales-carpooling"],
   },
@@ -251,6 +253,12 @@ export const BLOG_POSTS: BlogPost[] = [
     relatedLinks: [
       { label: "Guía de transporte para festivales en España", to: "/guia-transporte-festivales" },
       { label: "Carpooling a Mad Cool", to: "/festivales/mad-cool" },
+      { label: "Cómo llegar a Viña Rock", to: "/como-llegar/vina-rock" },
+      { label: "Cómo llegar a Arenal Sound", to: "/como-llegar/arenal-sound" },
+      { label: "Cómo llegar a BBK Live", to: "/como-llegar/bbk-live" },
+      { label: "Cómo llegar a Primavera Sound", to: "/como-llegar/primavera-sound" },
+      { label: "Cómo llegar a Sónar", to: "/como-llegar/sonar" },
+      { label: "Cómo llegar al FIB", to: "/como-llegar/fib" },
     ],
     relatedPosts: ["huella-carbono-festivales-carpooling"],
   },
@@ -258,7 +266,7 @@ export const BLOG_POSTS: BlogPost[] = [
   // ──────────────────────────────────────────────────────────────────────
   {
     slug: "huella-carbono-festivales-carpooling",
-    title: "Huella de carbono de un festival: por qué el carpooling es la acción más efectiva",
+    title: "Huella de carbono en festivales: el carpooling como solución real",
     h1: "Huella de carbono y festivales: lo que el carpooling cambia de verdad",
     excerpt:
       "El 80 % de las emisiones de un festival vienen del transporte de los asistentes. Compartir coche reduce esas emisiones hasta un 75 % por persona. Datos, fuentes y cálculo paso a paso.",
@@ -333,7 +341,7 @@ export const BLOG_POSTS: BlogPost[] = [
   // ──────────────────────────────────────────────────────────────────────
   {
     slug: "blablacar-vs-concertride",
-    title: "BlaBlaCar vs ConcertRide 2026: ¿qué app te conviene para ir a festivales?",
+    title: "BlaBlaCar vs ConcertRide 2026: ¿cuál elegir para ir a festivales?",
     h1: "BlaBlaCar vs ConcertRide para festivales: diferencias clave en 2026",
     excerpt:
       "BlaBlaCar es la plataforma de carpooling más conocida en España, pero ConcertRide es la alternativa especializada en conciertos y festivales. ¿Cuál da mejores resultados para ir a Mad Cool, Primavera Sound o Arenal Sound? Comparamos precios, experiencia y fiabilidad.",
@@ -410,8 +418,9 @@ export const BLOG_POSTS: BlogPost[] = [
       { label: "Carpooling al Primavera Sound", to: "/festivales/primavera-sound" },
       { label: "Cómo volver de un festival de madrugada", to: "/blog/como-volver-festival-madrugada" },
       { label: "Guía de transporte para festivales en España", to: "/guia-transporte-festivales" },
+      { label: "Carpooling vs taxi en festivales", to: "/blog/carpooling-vs-taxi-festival-espana" },
     ],
-    relatedPosts: ["autobuses-festivales-espana-2026", "como-volver-festival-madrugada"],
+    relatedPosts: ["autobuses-festivales-espana-2026", "como-volver-festival-madrugada", "carpooling-vs-taxi-festival-espana"],
   },
 
   // ──────────────────────────────────────────────────────────────────────
@@ -540,14 +549,15 @@ export const BLOG_POSTS: BlogPost[] = [
       { label: "Carpooling a Mad Cool", to: "/festivales/mad-cool" },
       { label: "Carpooling a Primavera Sound", to: "/festivales/primavera-sound" },
       { label: "Carpooling a Arenal Sound", to: "/festivales/arenal-sound" },
+      { label: "Coldplay Madrid y Barcelona 2026: cómo llegar", to: "/blog/coldplay-madrid-barcelona-2026-como-llegar" },
     ],
-    relatedPosts: ["como-volver-festival-madrugada", "autobuses-festivales-espana-2026"],
+    relatedPosts: ["como-volver-festival-madrugada", "autobuses-festivales-espana-2026", "coldplay-madrid-barcelona-2026-como-llegar"],
   },
 
   // ──────────────────────────────────────────────────────────────────────
   {
     slug: "coldplay-madrid-barcelona-2026-como-llegar",
-    title: "Coldplay en España 2026: cómo llegar al concierto en Madrid y Barcelona | ConcertRide",
+    title: "Coldplay España 2026: cómo llegar al concierto en Madrid y Barcelona",
     h1: "Coldplay en España 2026: guía de transporte para Madrid y Barcelona",
     excerpt:
       "Coldplay agotó sus conciertos en España en horas. Si ya tienes entrada, el siguiente problema es el transporte. Esta guía cubre metro, tren, bus y carpooling para llegar (y volver) al Estadio Bernabéu de Madrid y al Estadi Olímpic de Barcelona para los conciertos de 2026.",
@@ -649,7 +659,7 @@ export const BLOG_POSTS: BlogPost[] = [
   // ──────────────────────────────────────────────────────────────────────
   {
     slug: "festivales-verano-espana-2026-transporte",
-    title: "Festivales de verano en España 2026: guía de transporte festival a festival | ConcertRide",
+    title: "Festivales de verano en España 2026: guía de transporte y carpooling",
     h1: "Festivales de verano en España 2026: cómo llegar a cada festival",
     excerpt:
       "Más de 16 festivales en España entre mayo y octubre de 2026. Primavera Sound, Mad Cool, BBK Live, Arenal Sound, Medusa... ¿Cómo llegar a cada uno? Esta guía cubre el transporte, precios de carpooling y qué lanzaderas existen para los principales festivales del verano.",
@@ -749,14 +759,23 @@ export const BLOG_POSTS: BlogPost[] = [
       { label: "Carpooling al Mad Cool", to: "/festivales/mad-cool" },
       { label: "Carpooling a Primavera Sound", to: "/festivales/primavera-sound" },
       { label: "Carpooling a Arenal Sound", to: "/festivales/arenal-sound" },
+      { label: "Coldplay Madrid y Barcelona 2026: cómo llegar", to: "/blog/coldplay-madrid-barcelona-2026-como-llegar" },
+      { label: "Cómo llegar a Resurrection Fest", to: "/blog/como-llegar-resurrection-fest-2026" },
+      { label: "Cómo llegar a Cala Mijas Festival", to: "/como-llegar/cala-mijas" },
+      { label: "Cómo llegar a Zevra Festival", to: "/como-llegar/zevra-festival" },
+      { label: "Conciertos en Sevilla", to: "/conciertos/sevilla" },
+      { label: "Conciertos en Zaragoza", to: "/conciertos/zaragoza" },
+      { label: "Conciertos en Granada", to: "/conciertos/granada" },
+      { label: "Conciertos en Pamplona", to: "/conciertos/pamplona" },
+      { label: "Conciertos en Vigo", to: "/conciertos/vigo" },
     ],
-    relatedPosts: ["autobuses-festivales-espana-2026"],
+    relatedPosts: ["autobuses-festivales-espana-2026", "coldplay-madrid-barcelona-2026-como-llegar", "como-llegar-resurrection-fest-2026"],
   },
 
   // ──────────────────────────────────────────────────────────────────────
   {
     slug: "festivales-cataluna-2026",
-    title: "Festivales en Cataluña 2026: Primavera Sound, Sónar, Cruïlla y cómo llegar | ConcertRide",
+    title: "Festivales en Cataluña 2026: Primavera Sound, Sónar, Cruïlla y transporte",
     h1: "Festivales en Cataluña 2026: guía de transporte y carpooling",
     excerpt:
       "Cataluña tiene tres de los mejores festivales de Europa en 2026: Primavera Sound (28 may–1 jun), Sónar (18–20 jun) y Cruïlla (9–12 jul) — todos en Barcelona. Si vives en Madrid, Valencia, Zaragoza o el norte de España, aquí tienes la guía de transporte para llegar.",
@@ -839,7 +858,7 @@ export const BLOG_POSTS: BlogPost[] = [
   // ──────────────────────────────────────────────────────────────────────
   {
     slug: "festivales-comunidad-valenciana-2026",
-    title: "Festivales en Valencia 2026: Arenal Sound, Medusa, FIB, Zevra y Low Festival | ConcertRide",
+    title: "Festivales en Valencia 2026: Arenal Sound, Medusa, FIB y cómo llegar",
     h1: "Festivales en la Comunidad Valenciana 2026: guía de transporte",
     excerpt:
       "La Comunidad Valenciana tiene 5 festivales cubiertos por ConcertRide en 2026: Arenal Sound (Burriana), Medusa (Cullera), FIB (Benicàssim), Zevra Festival (Valencia) y Low Festival (Benidorm). ¿Cómo llegar a cada uno? Lanzaderas, carpooling y transporte público.",
@@ -922,6 +941,9 @@ export const BLOG_POSTS: BlogPost[] = [
       { label: "Carpooling a Medusa Festival", to: "/festivales/medusa-festival" },
       { label: "Carpooling al FIB Benicàssim", to: "/festivales/fib" },
       { label: "Festivales en la Comunidad Valenciana", to: "/festivales-en/comunidad-valenciana" },
+      { label: "Conciertos en Valencia", to: "/conciertos/valencia" },
+      { label: "Conciertos en Alicante", to: "/conciertos/alicante" },
+      { label: "Conciertos en Murcia", to: "/conciertos/murcia" },
     ],
     relatedPosts: ["festivales-verano-espana-2026-transporte", "autobuses-festivales-espana-2026"],
   },
@@ -929,7 +951,7 @@ export const BLOG_POSTS: BlogPost[] = [
   // ──────────────────────────────────────────────────────────────────────
   {
     slug: "festivales-pais-vasco-2026",
-    title: "Festivales en País Vasco 2026: BBK Live, Resurrection Fest (Galicia) y carpooling | ConcertRide",
+    title: "Festivales en País Vasco 2026: BBK Live y carpooling desde Bilbao",
     h1: "Festivales en País Vasco y norte de España 2026",
     excerpt:
       "El norte de España concentra dos de los festivales más emblemáticos del metal y el indie: BBK Live (Bilbao, 9–11 jul) y Resurrection Fest (Viveiro, 2–5 jul). Lejos de Madrid y Barcelona, el transporte público es limitado — el carpooling es la opción más práctica.",
@@ -1003,7 +1025,7 @@ export const BLOG_POSTS: BlogPost[] = [
   // ──────────────────────────────────────────────────────────────────────
   {
     slug: "carpooling-vs-taxi-festival-espana",
-    title: "Carpooling vs taxi para ir a festivales en España: cuánto ahorras | ConcertRide",
+    title: "Carpooling vs taxi para ir a festivales en España: cuánto ahorras",
     h1: "Carpooling vs taxi a festivales: la comparativa definitiva",
     excerpt:
       "Un taxi de Madrid a IFEMA cuesta 25–40 € por trayecto. Un Uber de vuelta del BBK Live a las 2:00 AM puede superar los 80 € con multiplicador. El carpooling de ConcertRide cuesta 4–15 € por trayecto. Esta es la comparativa real, con datos.",
@@ -1201,6 +1223,10 @@ export const BLOG_POSTS: BlogPost[] = [
       { label: "Carpooling al Resurrection Fest", to: "/festivales/resurrection-fest" },
       { label: "Guía de transporte para festivales", to: "/guia-transporte-festivales" },
       { label: "Autobuses a festivales España 2026", to: "/blog/autobuses-festivales-espana-2026" },
+      { label: "Cómo llegar a Sónar Barcelona", to: "/como-llegar/sonar" },
+      { label: "Cómo llegar a Cruïlla Barcelona", to: "/como-llegar/cruilla" },
+      { label: "Cómo llegar a Sonorama Ribera", to: "/como-llegar/sonorama-ribera" },
+      { label: "Cómo llegar a O Son do Camiño", to: "/como-llegar/o-son-do-camino" },
     ],
     relatedPosts: ["autobuses-festivales-espana-2026", "que-llevar-al-festival"],
   },
@@ -1208,7 +1234,7 @@ export const BLOG_POSTS: BlogPost[] = [
   // ──────────────────────────────────────────────────────────────────────
   {
     slug: "guia-transporte-vina-rock-2026",
-    title: "Guía de transporte a Viña Rock 2026: autobús, tren y carpooling desde todas las ciudades",
+    title: "Guía de transporte a Viña Rock 2026: autobús, tren y carpooling",
     h1: "Cómo ir a Viña Rock 2026: autobuses, tren y carpooling",
     excerpt:
       "¿Buscas autobús a Viña Rock? ¿Cómo llegar a La Pulgosa, Villarrobledo? Esta guía cubre todas las opciones reales para 2026: bus lanzadera oficial desde Albacete, autobuses privados desde Madrid, tren AVE + lanzadera, y carpooling con ConcertRide desde Madrid (6–9 €), Valencia (6–9 €) y Alicante (5–8 €). Sin comisión.",
@@ -1318,7 +1344,7 @@ export const BLOG_POSTS: BlogPost[] = [
   // ──────────────────────────────────────────────────────────────────────
   {
     slug: "como-llegar-resurrection-fest-2026",
-    title: "Cómo llegar a Resurrection Fest 2026: transporte, carpooling y organización del viaje",
+    title: "Cómo llegar a Resurrection Fest 2026: carpooling y transporte a Viveiro",
     h1: "Cómo llegar a Resurrection Fest 2026: guía completa de transporte a Viveiro",
     excerpt:
       "Resurrection Fest está en Viveiro (Lugo), sin AVE ni aeropuerto cercano. Esta guía explica todas las opciones reales para llegar: carpooling desde A Coruña (4–7€), Madrid (16–22€), Vigo (6–9€), Bilbao (10–15€), incluyendo cómo organizar grupos y la vuelta de madrugada.",

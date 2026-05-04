@@ -11,6 +11,7 @@ import { REGION_ISO } from "@/lib/seoConfig";
 import { FESTIVAL_LANDINGS, FESTIVAL_LANDINGS_BY_SLUG } from "@/lib/festivalLandings";
 import { ROUTE_LANDINGS } from "@/lib/routeLandings";
 import { FESTIVAL_SEO_OVERRIDES } from "@/lib/seoOverrides";
+import { HOW_TO_GET_THERE_SLUGS } from "@/lib/howToGetThereSlugs";
 import { ARTIST_LANDINGS } from "@/lib/artistLandings";
 import { VENUE_LANDINGS } from "@/lib/venueLandings";
 import { TransportTable } from "@/components/TransportTable";
@@ -664,6 +665,16 @@ export default function FestivalLandingPage() {
             <p className="font-sans text-[11px] text-cr-text-muted">Agenda completa de eventos y conciertos en {festival.city} con opciones de carpooling.</p>
             <span className="inline-flex items-center gap-1 font-sans text-xs text-cr-primary">Explorar <ArrowRight size={10} /></span>
           </Link>
+          {HOW_TO_GET_THERE_SLUGS.includes(festival.slug) && (
+            <Link
+              to={`/como-llegar/${festival.slug}`}
+              className="border border-cr-border p-4 space-y-2 hover:border-cr-primary/40 transition-colors"
+            >
+              <h3 className="font-display text-base uppercase">Cómo llegar a {festival.shortName}</h3>
+              <p className="font-sans text-[11px] text-cr-text-muted">Guía completa de transporte: bus, tren, metro y carpooling con precios y tiempos reales.</p>
+              <span className="inline-flex items-center gap-1 font-sans text-xs text-cr-primary">Ver guía <ArrowRight size={10} /></span>
+            </Link>
+          )}
         </div>
       </section>
 

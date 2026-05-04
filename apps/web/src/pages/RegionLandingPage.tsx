@@ -67,7 +67,7 @@ const REGION_PRICE_TABLE: Record<string, Array<{ city: string; range: string; km
 };
 
 export default function RegionLandingPage() {
-  const { region: slug } = useParams<{ region: string }>();
+  const { slug } = useParams<{ slug: string }>();
   const region = slug ? REGION_LANDINGS_BY_SLUG[slug] : undefined;
 
   if (!slug || !region) return <Navigate to="/festivales" replace />;

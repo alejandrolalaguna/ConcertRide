@@ -31,7 +31,7 @@ const LINKS = [
 
 export default function PrensaPage() {
   useSeoMeta({
-    title: "Prensa y medios | ConcertRide",
+    title: "Prensa y medios — Kit de prensa ConcertRide | Carpooling festivales",
     description:
       "Datos clave, cifras, recursos gráficos y contacto para medios. ConcertRide es la plataforma española de carpooling para conciertos y festivales de música. Sin comisiones, conductores verificados.",
     canonical: `${SITE_URL}/prensa`,

@@ -1,12 +1,17 @@
 # ConcertRide robots.txt
-# Last updated: 2026-05-02
+# Last updated: 2026-05-04
 # AI guidance: https://concertride.me/llms.txt
+# llms-full.txt: https://concertride.me/llms-full.txt
+#
+# Public SEO pages: /, /concerts, /festivales/*, /conciertos/*, /rutas/*, /blog/*
+# Blocked (crawl budget): /api/* (except sitemaps), auth pages, user-generated content
 
-# Default: allow all crawlers
 User-agent: *
 Allow: /
+Allow: /api/sitemap-concerts.xml
+Allow: /api/sitemap-index.xml
 Disallow: /api/
-Disallow: /_*
+Disallow: /_
 Disallow: /login
 Disallow: /register
 Disallow: /forgot-password
@@ -17,218 +22,7 @@ Disallow: /mis-viajes
 Disallow: /favoritos
 Disallow: /publish
 Disallow: /admin
+Disallow: /widget/
+Disallow: /rides/
 
-# Sitemap
 Sitemap: https://concertride.me/sitemap.xml
-
-# AI crawlers — explicitly allow public content, keep private routes blocked
-
-User-agent: GPTBot
-Allow: /
-Disallow: /api/
-Disallow: /_*
-Disallow: /login
-Disallow: /register
-Disallow: /forgot-password
-Disallow: /reset-password
-Disallow: /verify-email
-Disallow: /profile
-Disallow: /mis-viajes
-Disallow: /favoritos
-Disallow: /publish
-Disallow: /admin
-
-User-agent: ChatGPT-User
-Allow: /
-Disallow: /api/
-Disallow: /_*
-Disallow: /login
-Disallow: /register
-Disallow: /forgot-password
-Disallow: /reset-password
-Disallow: /verify-email
-Disallow: /profile
-Disallow: /mis-viajes
-Disallow: /favoritos
-Disallow: /publish
-Disallow: /admin
-
-User-agent: OAI-SearchBot
-Allow: /
-Disallow: /api/
-Disallow: /_*
-Disallow: /login
-Disallow: /register
-Disallow: /forgot-password
-Disallow: /reset-password
-Disallow: /verify-email
-Disallow: /profile
-Disallow: /mis-viajes
-Disallow: /favoritos
-Disallow: /publish
-Disallow: /admin
-
-User-agent: anthropic-ai
-Allow: /
-Disallow: /api/
-Disallow: /_*
-Disallow: /login
-Disallow: /register
-Disallow: /forgot-password
-Disallow: /reset-password
-Disallow: /verify-email
-Disallow: /profile
-Disallow: /mis-viajes
-Disallow: /favoritos
-Disallow: /publish
-Disallow: /admin
-
-User-agent: ClaudeBot
-Allow: /
-Disallow: /api/
-Disallow: /_*
-Disallow: /login
-Disallow: /register
-Disallow: /forgot-password
-Disallow: /reset-password
-Disallow: /verify-email
-Disallow: /profile
-Disallow: /mis-viajes
-Disallow: /favoritos
-Disallow: /publish
-Disallow: /admin
-
-User-agent: PerplexityBot
-Allow: /
-Disallow: /api/
-Disallow: /_*
-Disallow: /login
-Disallow: /register
-Disallow: /forgot-password
-Disallow: /reset-password
-Disallow: /verify-email
-Disallow: /profile
-Disallow: /mis-viajes
-Disallow: /favoritos
-Disallow: /publish
-Disallow: /admin
-
-User-agent: CCBot
-Allow: /
-Disallow: /api/
-Disallow: /_*
-Disallow: /login
-Disallow: /register
-Disallow: /forgot-password
-Disallow: /reset-password
-Disallow: /verify-email
-Disallow: /profile
-Disallow: /mis-viajes
-Disallow: /favoritos
-Disallow: /publish
-Disallow: /admin
-
-User-agent: Google-Extended
-Allow: /
-Disallow: /api/
-Disallow: /_*
-Disallow: /login
-Disallow: /register
-Disallow: /forgot-password
-Disallow: /reset-password
-Disallow: /verify-email
-Disallow: /profile
-Disallow: /mis-viajes
-Disallow: /favoritos
-Disallow: /publish
-Disallow: /admin
-
-User-agent: Bytespider
-Allow: /
-Disallow: /api/
-Disallow: /_*
-Disallow: /login
-Disallow: /register
-Disallow: /forgot-password
-Disallow: /reset-password
-Disallow: /verify-email
-Disallow: /profile
-Disallow: /mis-viajes
-Disallow: /favoritos
-Disallow: /publish
-Disallow: /admin
-
-User-agent: Amazonbot
-Allow: /
-Disallow: /api/
-Disallow: /_*
-Disallow: /login
-Disallow: /register
-Disallow: /forgot-password
-Disallow: /reset-password
-Disallow: /verify-email
-Disallow: /profile
-Disallow: /mis-viajes
-Disallow: /favoritos
-Disallow: /publish
-Disallow: /admin
-
-User-agent: Applebot-Extended
-Allow: /
-Disallow: /api/
-Disallow: /_*
-Disallow: /login
-Disallow: /register
-Disallow: /forgot-password
-Disallow: /reset-password
-Disallow: /verify-email
-Disallow: /profile
-Disallow: /mis-viajes
-Disallow: /favoritos
-Disallow: /publish
-Disallow: /admin
-
-User-agent: meta-externalagent
-Allow: /
-Disallow: /api/
-Disallow: /_*
-Disallow: /login
-Disallow: /register
-Disallow: /forgot-password
-Disallow: /reset-password
-Disallow: /verify-email
-Disallow: /profile
-Disallow: /mis-viajes
-Disallow: /favoritos
-Disallow: /publish
-Disallow: /admin
-
-User-agent: Diffbot
-Allow: /
-Disallow: /api/
-Disallow: /_*
-Disallow: /login
-Disallow: /register
-Disallow: /forgot-password
-Disallow: /reset-password
-Disallow: /verify-email
-Disallow: /profile
-Disallow: /mis-viajes
-Disallow: /favoritos
-Disallow: /publish
-Disallow: /admin
-
-User-agent: DuckAssistBot
-Allow: /
-Disallow: /api/
-Disallow: /_*
-Disallow: /login
-Disallow: /register
-Disallow: /forgot-password
-Disallow: /reset-password
-Disallow: /verify-email
-Disallow: /profile
-Disallow: /mis-viajes
-Disallow: /favoritos
-Disallow: /publish
-Disallow: /admin
