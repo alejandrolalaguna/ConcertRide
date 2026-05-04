@@ -15,6 +15,8 @@ import { ARTIST_LANDINGS } from "@/lib/artistLandings";
 import { VENUE_LANDINGS } from "@/lib/venueLandings";
 import { TransportTable } from "@/components/TransportTable";
 import { CostComparator } from "@/components/CostComparator";
+import { DemandSignalWidget } from "@/components/DemandSignalWidget";
+import { PickupMap } from "@/components/PickupMap";
 import { REGION_LANDINGS } from "@/lib/regionLandings";
 
 const FESTIVAL_DEFAULT_OG = `${SITE_URL}/og-fallback.png`;
@@ -599,12 +601,33 @@ export default function FestivalLandingPage() {
 
       </section>
 
+      {/* ── PickupMap: puntos de recogida frecuentes ── */}
+      {festival.common_pickup_points && festival.common_pickup_points.length > 0 && (
+        <section className="max-w-6xl mx-auto px-6 pb-4 border-t border-cr-border pt-12">
+          <PickupMap
+            points={festival.common_pickup_points}
+            festivalName={festival.shortName}
+            festivalLat={festival.lat}
+            festivalLng={festival.lng}
+          />
+        </section>
+      )}
+
       {/* ── CostComparator: calculadora de coste de transporte ── */}
       <section className="max-w-6xl mx-auto px-6 pb-4 border-t border-cr-border pt-12">
         <CostComparator
           originCities={festival.originCities}
           festivalName={festival.shortName}
           festivalCity={festival.city}
+        />
+      </section>
+
+      {/* ── DemandSignal: alerta cuando haya viaje ── */}
+      <section className="max-w-6xl mx-auto px-6 pb-4 border-t border-cr-border pt-12">
+        <DemandSignalWidget
+          festivalSlug={festival.slug}
+          festivalName={festival.shortName}
+          originCities={festival.originCities.map((c) => c.city)}
         />
       </section>
 

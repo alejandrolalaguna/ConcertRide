@@ -5,7 +5,7 @@
 // apps/api/scripts/seed.ts for the bring-up flow.
 
 import { createClient } from "@libsql/client/web";
-import { and, asc, avg, count, desc, eq, gte, inArray, like, lte, lt, notInArray, or, sql } from "drizzle-orm";
+import { and, asc, avg, count, desc, eq, gte, inArray, isNull, like, lte, lt, notInArray, or, sql } from "drizzle-orm";
 import { drizzle } from "drizzle-orm/libsql";
 import type {
   AdminAuditAction,
@@ -2061,6 +2061,89 @@ export class DrizzleStore implements StoreAdapter {
       // Unique constraint violation — already subscribed
       return { created: false };
     }
+  }
+
+  // --- festival demand signals ---
+  async registerFestivalDemand(params: {
+    festival_slug: string;
+    origin_city: string;
+    user_id?: string;
+    email?: string;
+  }): Promise<{ created: boolean }> {
+    const id = crypto.randomUUID();
+    try {
+      await this.db.insert(schema.festivalDemand).values({
+        id,
+        festival_slug: params.festival_slug,
+        origin_city: params.origin_city,
+        user_id: params.user_id ?? null,
+        email: params.email ?? null,
+        created_at: new Date().toISOString(),
+        notified_at: null,
+      });
+      return { created: true };
+    } catch {
+      return { created: false };
+    }
+  }
+
+  async getFestivalDemandCount(festival_slug: string, origin_city?: string): Promise<number> {
+    const conditions = [eq(schema.festivalDemand.festival_slug, festival_slug)];
+    if (origin_city) conditions.push(eq(schema.festivalDemand.origin_city, origin_city));
+    const rows = await this.db
+      .select({ count: sql<number>`count(*)` })
+      .from(schema.festivalDemand)
+      .where(and(...conditions));
+    return rows[0]?.count ?? 0;
+  }
+
+  async notifyFestivalDemand(festival_slug: string, origin_city: string): Promise<number> {
+    const pending = await this.db
+      .select()
+      .from(schema.festivalDemand)
+      .where(
+        and(
+          eq(schema.festivalDemand.festival_slug, festival_slug),
+          eq(schema.festivalDemand.origin_city, origin_city),
+          isNull(schema.festivalDemand.notified_at),
+        ),
+      );
+    if (pending.length === 0) return 0;
+    await this.db
+      .update(schema.festivalDemand)
+      .set({ notified_at: new Date().toISOString() })
+      .where(
+        and(
+          eq(schema.festivalDemand.festival_slug, festival_slug),
+          eq(schema.festivalDemand.origin_city, origin_city),
+          isNull(schema.festivalDemand.notified_at),
+        ),
+      );
+    return pending.length;
+  }
+
+  async getPopularPickupPoints(city: string): Promise<Array<{
+    origin_address: string;
+    origin_lat: number;
+    origin_lng: number;
+    frequency: number;
+  }>> {
+    // Join rides → concerts → venues to filter by city
+    const rows = await this.db
+      .select({
+        origin_address: schema.rides.origin_address,
+        origin_lat: schema.rides.origin_lat,
+        origin_lng: schema.rides.origin_lng,
+        frequency: sql<number>`count(*)`,
+      })
+      .from(schema.rides)
+      .innerJoin(schema.concerts, eq(schema.rides.concert_id, schema.concerts.id))
+      .innerJoin(schema.venues, eq(schema.concerts.venue_id, schema.venues.id))
+      .where(eq(schema.venues.city, city))
+      .groupBy(schema.rides.origin_lat, schema.rides.origin_lng)
+      .orderBy(sql`count(*) desc`)
+      .limit(10);
+    return rows;
   }
 }
 

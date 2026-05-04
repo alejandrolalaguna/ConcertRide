@@ -189,6 +189,23 @@ export const demandSignals = sqliteTable(
   }),
 );
 
+export const festivalDemand = sqliteTable(
+  "festival_demand",
+  {
+    id: text("id").primaryKey(),
+    festival_slug: text("festival_slug").notNull(),
+    origin_city: text("origin_city").notNull(),
+    user_id: text("user_id").references(() => users.id),
+    email: text("email"),
+    created_at: text("created_at").notNull().default(sql`CURRENT_TIMESTAMP`),
+    notified_at: text("notified_at"),
+  },
+  (t) => ({
+    festivalIdx: index("festival_demand_festival_idx").on(t.festival_slug),
+    cityIdx: index("festival_demand_city_idx").on(t.festival_slug, t.origin_city),
+  }),
+);
+
 export const messages = sqliteTable(
   "messages",
   {
@@ -521,3 +538,4 @@ export const festivalAlerts = sqliteTable(
 );
 
 export type FestivalAlertRow = typeof festivalAlerts.$inferSelect;
+export type FestivalDemandRow = typeof festivalDemand.$inferSelect;

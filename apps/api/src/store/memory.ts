@@ -1302,6 +1302,34 @@ export class MemoryStore implements StoreAdapter {
     });
     return { created: true };
   }
+
+  // --- popular pickup points (stub — in-memory dev only) ---
+  async getPopularPickupPoints(_city: string): Promise<Array<{
+    origin_address: string;
+    origin_lat: number;
+    origin_lng: number;
+    frequency: number;
+  }>> {
+    return [];
+  }
+
+  // --- festival demand signals (stubs — in-memory dev only) ---
+  async registerFestivalDemand(_params: {
+    festival_slug: string;
+    origin_city: string;
+    user_id?: string;
+    email?: string;
+  }): Promise<{ created: boolean }> {
+    return { created: true };
+  }
+
+  async getFestivalDemandCount(_festival_slug: string, _origin_city?: string): Promise<number> {
+    return 0;
+  }
+
+  async notifyFestivalDemand(_festival_slug: string, _origin_city: string): Promise<number> {
+    return 0;
+  }
 }
 
 // Module-level singleton so state persists across requests in the same isolate.

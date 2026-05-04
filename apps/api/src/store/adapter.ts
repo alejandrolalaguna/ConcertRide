@@ -330,7 +330,34 @@ export interface StoreAdapter {
   // Returns { created: true } on first subscribe, { created: false } if already subscribed.
   subscribeFestivalAlert(email: string, festivalSlug: string): Promise<{ created: boolean }>;
 
+  // --- popular pickup points ---
+  // Returns the most-used origin coordinates for rides going to a given city,
+  // aggregated from real driver data. Used by the PickupMap component.
+  getPopularPickupPoints(city: string): Promise<Array<{
+    origin_address: string;
+    origin_lat: number;
+    origin_lng: number;
+    frequency: number;
+  }>>;
+
   // --- maintenance ---
   // Deletes concerts whose date is before `beforeDate` and have no active rides.
   deletePastConcerts(beforeDate: string): Promise<number>;
+
+  // --- festival demand signals ---
+  // Register interest for a festival × origin city (supports anonymous users via email).
+  // Returns { created: true } on first registration, { created: false } if already registered.
+  registerFestivalDemand(params: {
+    festival_slug: string;
+    origin_city: string;
+    user_id?: string;
+    email?: string;
+  }): Promise<{ created: boolean }>;
+
+  // Count demand registrations for a festival, optionally filtered by origin_city.
+  getFestivalDemandCount(festival_slug: string, origin_city?: string): Promise<number>;
+
+  // Mark pending demand signals as notified for a festival × origin city.
+  // Returns the number of signals notified.
+  notifyFestivalDemand(festival_slug: string, origin_city: string): Promise<number>;
 }

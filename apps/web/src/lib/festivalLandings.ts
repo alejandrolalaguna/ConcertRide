@@ -26,6 +26,36 @@ export interface TransportOption {
   notes?: string;          // "No hay servicio de vuelta nocturno"
 }
 
+export interface PackingItem {
+  item: string;
+  category: 'esencial' | 'comodidad' | 'opcional';
+  notes?: string;
+}
+
+export interface FestivalGuide {
+  logistics: {
+    gates_open: string;
+    last_entry?: string;
+    parking_available: boolean;
+    parking_price?: string;
+    camping_available: boolean;
+    camping_notes?: string;
+  };
+  packing_list: PackingItem[];
+  venue_tips: string[];
+  network_coverage: string;
+  emergency_number?: string;
+}
+
+export interface PickupPoint {
+  name: string;
+  lat: number;
+  lng: number;
+  address: string;
+  transport_access: string;
+  notes?: string;
+}
+
 export interface FestivalLanding {
   slug: string;
   name: string;             // full official name
@@ -59,6 +89,8 @@ export interface FestivalLanding {
     pickup_points?: string[];
     notes?: string;
   };
+  guide?: FestivalGuide;
+  common_pickup_points?: PickupPoint[];
 }
 
 export const FESTIVAL_LANDINGS: FestivalLanding[] = [
@@ -142,6 +174,38 @@ export const FESTIVAL_LANDINGS: FestivalLanding[] = [
     official_shuttle: {
       available: false,
       notes: 'Mad Cool no opera lanzadera oficial propia. El único transporte oficial es Metro L8 (Feria de Madrid).'
+    },
+    guide: {
+      logistics: {
+        gates_open: "15:00",
+        last_entry: "22:00",
+        parking_available: true,
+        parking_price: "12–18 €/día",
+        camping_available: false,
+        camping_notes: "No hay camping. Alojamiento en Madrid (múltiples opciones en la ciudad).",
+      },
+      packing_list: [
+        { item: "Protector solar FPS 50+", category: "esencial", notes: "IFEMA es explanada sin sombra" },
+        { item: "Calzado muy cómodo", category: "esencial", notes: "3 días de más de 15.000 pasos" },
+        { item: "Ropa en capas", category: "esencial", notes: "El día calienta, las noches de julio en Madrid refrescan" },
+        { item: "Tapones para los oídos", category: "esencial" },
+        { item: "Botella de agua reutilizable", category: "esencial" },
+        { item: "Powerbank", category: "esencial", notes: "Enchufes escasos en el recinto" },
+        { item: "DNI / pasaporte", category: "esencial", notes: "Control de acceso en la entrada" },
+        { item: "Efectivo y Bizum", category: "esencial", notes: "Para el carpooling y las barras" },
+        { item: "Sombrero o gorra", category: "comodidad" },
+        { item: "Mochila pequeña", category: "comodidad" },
+        { item: "Impermeable ligero", category: "opcional", notes: "Madrid en julio raramente llueve, pero por si acaso" },
+      ],
+      venue_tips: [
+        "IFEMA tiene 4 escenarios separados por distancias largas — planifica los cruces con tiempo.",
+        "El metro L8 (Feria de Madrid) es el transporte más rápido desde el centro pero se colapsa a la salida.",
+        "Llega 30 min antes de la actuación que más te interese — las colas de acceso son largas.",
+        "Hay zona de parking para bicicletas vigilada gratuita dentro del recinto.",
+        "Las barras de las zonas VIP son accesibles con upgrade de última hora — consulta en la app oficial.",
+      ],
+      network_coverage: "Cobertura Movistar, Orange y Vodafone reforzada por acuerdo con Mad Cool. El área está preparada para 80.000 usuarios simultáneos.",
+      emergency_number: "112",
     },
   },
 
@@ -426,6 +490,35 @@ export const FESTIVAL_LANDINGS: FestivalLanding[] = [
       pickup_points: ['Bilbao — Plaza Moyúa', 'Bilbao — Termibus'],
       notes: 'Lanzadera GRATUITA incluida con la entrada BBK Live. Servicio continuo ida y vuelta.'
     },
+    common_pickup_points: [
+      {
+        name: "Bilbao — Plaza Moyúa",
+        lat: 43.2641, lng: -2.9348,
+        address: "Plaza Moyúa, 48009 Bilbao",
+        transport_access: "Metro L1 y L2 Moyua. Lanzadera gratuita oficial BBK Live.",
+        notes: "PUNTO OFICIAL de la lanzadera gratuita incluida con la entrada BBK Live.",
+      },
+      {
+        name: "Bilbao — Termibus (Estación de Autobuses)",
+        lat: 43.2579, lng: -2.9440,
+        address: "Gurtubay Kalea, 1, 48014 Bilbao",
+        transport_access: "Metro L2 San Mamés. Autobuses interurbanos desde toda Euskadi.",
+        notes: "Punto de llegada para carpoolings de Donostia, Vitoria y Santander.",
+      },
+      {
+        name: "Donostia — Estación de Autobuses (Punto de Salida)",
+        lat: 43.3128, lng: -1.9770,
+        address: "Pl. Pío XII, s/n, 20010 Donostia",
+        transport_access: "Bus urbano múltiples líneas. A 10 min del centro.",
+        notes: "100 km de Bilbao. Carpoolings Donostia → BBK Live desde 4€. Ruta ~1h.",
+      },
+      {
+        name: "Kobetamendi — Recinto BBK Live",
+        lat: 43.2495, lng: -2.9427,
+        address: "Monte Kobetamendi, Bilbao",
+        transport_access: "Destino final. Lanzadera desde Plaza Moyúa cada 15 min.",
+      },
+    ],
   },
 
   {
@@ -591,6 +684,68 @@ export const FESTIVAL_LANDINGS: FestivalLanding[] = [
       pickup_points: ['Castellón — Estación de Autobuses', 'Castellón — Avenida del Mar'],
       notes: 'Lanzadera oficial días de festival. Plazas limitadas — se recomienda anticipación.'
     },
+    guide: {
+      logistics: {
+        gates_open: "12:00",
+        last_entry: "23:00",
+        parking_available: true,
+        parking_price: "15–20 €/día",
+        camping_available: true,
+        camping_notes: "Zona de acampada a 500 m del recinto. Incluida en el abono camping. Acceso 24h.",
+      },
+      packing_list: [
+        { item: "Protector solar FPS 50+", category: "esencial", notes: "Playa + festival = sol intenso todo el día" },
+        { item: "Ropa de baño", category: "esencial", notes: "La zona de playa está a 5 min del recinto" },
+        { item: "Calzado que se pueda mojar o mojar arena", category: "esencial" },
+        { item: "Tienda de campaña (si vas al camping)", category: "esencial" },
+        { item: "Saco de dormir", category: "esencial", notes: "Las noches de julio en Burriana refrescan" },
+        { item: "Botella de agua grande reutilizable", category: "esencial" },
+        { item: "Tapones para los oídos", category: "esencial" },
+        { item: "Powerbank", category: "comodidad" },
+        { item: "Toalla playa", category: "comodidad" },
+        { item: "Sandalia + zapatillas (dos calzados)", category: "comodidad" },
+        { item: "Efectivo y Bizum", category: "esencial", notes: "Para pagar el carpooling" },
+        { item: "Linterna de cabeza", category: "opcional", notes: "Útil en el camping de madrugada" },
+      ],
+      venue_tips: [
+        "El festival es en la playa — combina conciertos con baño. Llega temprano para pillar sitio.",
+        "El camping es la opción más popular: 4 noches con ambiente 24h.",
+        "Las colas de entrada son largas el primer día — llega antes de las 14:00.",
+        "Los escenarios principales están en el paseo marítimo. El sonido se escucha desde la playa.",
+        "Hay duchas en la zona del camping incluidas en el precio del abono camping.",
+      ],
+      network_coverage: "Cobertura Movistar y Orange reforzada en todo el recinto. La señal cae los días de máxima afluencia (jueves y sábado).",
+      emergency_number: "112",
+    },
+    common_pickup_points: [
+      {
+        name: "Castellón — Estación de Autobuses",
+        lat: 39.9843, lng: -0.0355,
+        address: "Carrer del Pintor Oliet, 2, 12003 Castellón de la Plana",
+        transport_access: "Autobús urbano L1, L4, L9. Punto de salida de la lanzadera oficial Arenal Sound.",
+        notes: "Lanzadera oficial sale desde aquí. Carpoolings de Valencia también suelen pasar.",
+      },
+      {
+        name: "Valencia — Estación del Norte",
+        lat: 39.4652, lng: -0.3774,
+        address: "Carrer de Xàtiva, 24, 46007 Valencia",
+        transport_access: "Metro L3, L5 Xàtiva. Cercanías C4 hacia Castellón.",
+        notes: "Punto de salida más popular para carpoolings Valencia → Arenal Sound. 65 km al recinto.",
+      },
+      {
+        name: "Valencia — Colón (Metro)",
+        lat: 39.4701, lng: -0.3774,
+        address: "Carrer de Jorge Juan, 19, 46004 Valencia",
+        transport_access: "Metro L3, L5 Colón. Centro de Valencia.",
+        notes: "Alternativa a Estación del Norte para conductores que salen del centro.",
+      },
+      {
+        name: "Burriana — Recinto Arenal Sound",
+        lat: 39.8872, lng: -0.0845,
+        address: "Playa Arenal, Burriana, Castellón",
+        transport_access: "Destino final en la playa. Parking de pago disponible.",
+      },
+    ],
   },
 
   {
@@ -747,6 +902,66 @@ export const FESTIVAL_LANDINGS: FestivalLanding[] = [
       pickup_points: ['Albacete — Estación de Autobuses', 'Albacete — Recinto Ferial'],
       notes: 'Lanzadera oficial desde Albacete incluida en algunos packs de abono. Consultar web oficial de Viña Rock.'
     },
+    guide: {
+      logistics: {
+        gates_open: "13:00",
+        last_entry: "23:00",
+        parking_available: true,
+        parking_price: "10–15 €/día",
+        camping_available: false,
+        camping_notes: "No hay zona de acampada oficial. Alojamiento en Villarrobledo (10 km) o Albacete (40 km).",
+      },
+      packing_list: [
+        { item: "Protector solar FPS 50+", category: "esencial", notes: "La Mancha en mayo: sol directo sin sombra" },
+        { item: "Ropa de abrigo / chaqueta", category: "esencial", notes: "Las noches en Villarrobledo bajan de 10°C en mayo" },
+        { item: "Calzado cómodo cerrado", category: "esencial" },
+        { item: "Botella de agua reutilizable", category: "esencial", notes: "Hay puntos de recarga gratuitos" },
+        { item: "Tapones para los oídos", category: "esencial" },
+        { item: "Powerbank", category: "comodidad" },
+        { item: "Muda extra", category: "comodidad" },
+        { item: "Efectivo y Bizum", category: "esencial", notes: "Para pagar el carpooling al conductor" },
+        { item: "Silla plegable de camping", category: "opcional" },
+        { item: "Impermeable ligero", category: "opcional" },
+      ],
+      venue_tips: [
+        "El recinto es campo abierto — no hay zonas techadas. Lleva sombrero o gorra.",
+        "Los escenarios principal y secundario están a 10 min a pie entre sí.",
+        "Las colas para la barra se disparan entre actuaciones. Aprovecha los cambios de bolo.",
+        "El parking gratuito está a 500 m de la entrada. Salir con coche es lento — coordina la vuelta con ConcertRide.",
+        "El festival tiene zona de pérdida y encontrada en la carpa de información (entrada principal).",
+      ],
+      network_coverage: "Movistar y Orange tienen cobertura reforzada. Vodafone cae en momentos de alta concurrencia.",
+      emergency_number: "112",
+    },
+    common_pickup_points: [
+      {
+        name: "Albacete — Estación de Autobuses",
+        lat: 38.9946, lng: -1.8584,
+        address: "Calle Marqués de Villores, 1, 02001 Albacete",
+        transport_access: "Bus urbano L1, L3, L10. Punto de encuentro habitual para carpoolings de Madrid y Valencia.",
+        notes: "40 km del recinto. Muchos conductores salen desde aquí a las 14:00–15:00.",
+      },
+      {
+        name: "Albacete — Estación de Tren",
+        lat: 38.9962, lng: -1.8585,
+        address: "Pl. de la Estación, s/n, 02001 Albacete",
+        transport_access: "Renfe AVE y MD desde Madrid (2h). A 5 min a pie de la estación de autobuses.",
+        notes: "Punto de recogida muy popular para quienes llegan en AVE desde Madrid.",
+      },
+      {
+        name: "Madrid — Estación de Atocha (Carpooling)",
+        lat: 40.4065, lng: -3.6897,
+        address: "Glorieta del Emperador Carlos V, 28045 Madrid",
+        transport_access: "Metro L1 Atocha Renfe, múltiples líneas de bus.",
+        notes: "Punto de salida preferido para carpoolings Madrid → Viña Rock. Coordinar por WhatsApp con el conductor.",
+      },
+      {
+        name: "Villarrobledo — Entrada al Recinto La Pulgosa",
+        lat: 39.2625, lng: -2.5974,
+        address: "La Pulgosa, Villarrobledo, Albacete",
+        transport_access: "Destino final. Parking gratuito disponible a 500 m.",
+      },
+    ],
   },
 
   {

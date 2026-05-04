@@ -156,4 +156,13 @@ route.post("/sync", (c) => {
   return c.json({ error: "not_implemented", message: "Wired in M5 (ingestion)" }, 501);
 });
 
+// Popular pickup points for a festival city — aggregated from real rides
+route.get("/pickup-points", async (c) => {
+  const city = c.req.query("city");
+  if (!city) return c.json({ error: "city_required" }, 400);
+
+  const points = await c.var.store.getPopularPickupPoints(city);
+  return c.json({ points });
+});
+
 export default route;

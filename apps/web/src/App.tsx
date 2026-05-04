@@ -31,6 +31,7 @@ const ContactoPage = lazy(() => import("./pages/ContactoPage"));
 const AcercaDePage = lazy(() => import("./pages/AcercaDePage"));
 const CityLandingPage = lazy(() => import("./pages/CityLandingPage"));
 const FestivalLandingPage = lazy(() => import("./pages/FestivalLandingPage"));
+const FestivalGuidePage = lazy(() => import("./pages/FestivalGuidePage"));
 const FestivalesPage = lazy(() => import("./pages/FestivalesPage"));
 const ArtistLandingPage = lazy(() => import("./pages/ArtistLandingPage"));
 const VenueLandingPage = lazy(() => import("./pages/VenueLandingPage"));
@@ -81,6 +82,7 @@ export default function App() {
             <Route path="/concerts/:id" element={<ConcertDetailPage />} />
             <Route path="/conciertos/:city" element={<CityLandingPage />} />
             <Route path="/festivales" element={<FestivalesPage />} />
+            <Route path="/festivales/:festival/guia" element={<FestivalGuidePage />} />
             <Route path="/festivales/:festival" element={<FestivalLandingPage />} />
             <Route path="/artistas/:slug" element={<ArtistLandingPage />} />
             <Route path="/recintos/:slug" element={<VenueLandingPage />} />

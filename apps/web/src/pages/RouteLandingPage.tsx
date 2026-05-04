@@ -11,6 +11,7 @@ import { REGION_ISO } from "@/lib/seoConfig";
 import { ROUTE_LANDINGS_BY_SLUG } from "@/lib/routeLandings";
 import { ROUTE_SEO_IMPROVEMENTS } from "@/lib/seoOverrides";
 import { FestivalAlertWidget } from "@/components/FestivalAlertWidget";
+import { DemandSignalWidget } from "@/components/DemandSignalWidget";
 import { trackRouteSearch } from "@/lib/seoEvents";
 
 export default function RouteLandingPage() {
@@ -399,8 +400,18 @@ export default function RouteLandingPage() {
       </section>
 
       {/* ── Alert widget ── */}
-      <section className="max-w-6xl mx-auto px-6 pb-16 border-t border-cr-border pt-12">
+      <section className="max-w-6xl mx-auto px-6 pb-6 border-t border-cr-border pt-12">
         <FestivalAlertWidget festivalSlug={festival.slug} festivalName={festival.shortName} />
+      </section>
+
+      {/* ── DemandSignal: avísame cuando haya viaje en esta ruta ── */}
+      <section className="max-w-6xl mx-auto px-6 pb-16">
+        <DemandSignalWidget
+          festivalSlug={festival.slug}
+          festivalName={festival.shortName}
+          originCities={festival.originCities.map((c) => c.city)}
+          defaultCity={landing.originCity}
+        />
       </section>
 
       {/* ── Transport comparison table — citable for "X vs Y" queries ── */}

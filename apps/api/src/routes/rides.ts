@@ -160,6 +160,9 @@ route.post("/", async (c) => {
 
   const ride = await c.var.store.createRide(userOrResp, concert, parsed.data);
 
+  // Notificar demanda de festival si aplica (fire-and-forget)
+  c.var.store.notifyFestivalDemand(ride.concert_id, ride.origin_city).catch(() => {});
+
   // Notify users who signalled interest in this concert — push AND email
   c.executionCtx.waitUntil(
     (async () => {
