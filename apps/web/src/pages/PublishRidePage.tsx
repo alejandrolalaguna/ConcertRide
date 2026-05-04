@@ -86,7 +86,7 @@ export default function PublishRidePage() {
 
   useSeoMeta({
     title: "Publicar un viaje a un concierto | ConcertRide",
-    description: "Publica gratis tu viaje compartido a un concierto o festival en España. Fija el precio por asiento y divide los gastos con otros fans.",
+    description: "Publica tu viaje a conciertos: carpoolea sin comisión, fija precio por asiento, paga en efectivo o Bizum. Conductores y pasajeros verificados.",
     canonical: `${SITE_URL}/publish`,
     noindex: true,
   });

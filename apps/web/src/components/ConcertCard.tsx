@@ -1,4 +1,5 @@
 import { motion } from "motion/react";
+import React from "react";
 import type { Concert } from "@concertride/types";
 import { formatDay } from "@/lib/format";
 import { parseGenreTags } from "@/lib/genre";
@@ -25,7 +26,7 @@ interface Props {
   onClick?: () => void;
 }
 
-export function ConcertCard({ concert, className = "", onClick }: Props) {
+function ConcertCardComponent({ concert, className = "", onClick }: Props) {
   const status = concertStatus(concert.date);
   const tags = parseGenreTags(concert.genre).slice(0, 2);
   const ridesCount = concert.active_rides_count;
@@ -115,3 +116,5 @@ export function ConcertCard({ concert, className = "", onClick }: Props) {
     </motion.article>
   );
 }
+
+export const ConcertCard = React.memo(ConcertCardComponent);

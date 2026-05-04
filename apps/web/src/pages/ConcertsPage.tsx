@@ -99,8 +99,8 @@ export default function ConcertsPage() {
   useSeoMeta({
     title: dynamicTitle,
     description: filters.city
-      ? `Conciertos y festivales en ${filters.city} ${new Date().getFullYear()}. Carpooling sin comisión para llegar al show — conductores verificados, pago en efectivo o Bizum.`
-      : `Conciertos en España ${new Date().getFullYear()} con carpooling disponible. Mad Cool, Primavera Sound, Arenal Sound y más. Sin comisión, sin taxi. ConcertRide.`,
+      ? `Conciertos en ${filters.city} ${new Date().getFullYear()}: Mad Cool, Primavera Sound, Arenal Sound. Carpooling desde 3–7 €/asiento sin comisión. Conductores verificados.`
+      : `Conciertos en España ${new Date().getFullYear()} con carpooling desde 3–7 €/asiento. Mad Cool, Primavera Sound, Arenal Sound, FIB. Sin comisión, pago efectivo/Bizum.`,
     canonical: `${SITE_URL}/concerts`,
     keywords: [
       `conciertos en España ${new Date().getFullYear()}`,

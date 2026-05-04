@@ -298,18 +298,21 @@ app.get("/.well-known/agent-skills/index.json", (c) => {
   });
 });
 
-// ─── Dynamic concerts sitemap ─────────────────────────────────────────────────
-// (served under /api/ to bypass the static assets handler).
-// The root /sitemap.xml is a sitemap index in public/ that references this endpoint.
+// ─── Dynamic concerts sitemap with pagination ──────────────────────────────────
+// Serves paginated sitemaps (up to 50K URLs per file, Google limit is 50K).
+// The root /sitemap.xml references the sitemap index at /api/sitemap-index.xml.
 app.get("/api/sitemap-concerts.xml", storeMiddleware, async (c) => {
   const base = getSiteUrl(c.env);
   const today = new Date().toISOString().slice(0, 10);
+  const page = parseInt(c.req.query("page") ?? "0", 10);
+  const pageSize = 1000; // 1000 URLs per page
+  const offset = page * pageSize;
 
   let concertUrls = "";
   try {
-    const { concerts } = await c.var.store.listConcerts({
-      limit: 1000,
-      offset: 0,
+    const { concerts, total } = await c.var.store.listConcerts({
+      limit: pageSize,
+      offset,
       date_from: new Date().toISOString(),
     });
     concertUrls = concerts
@@ -317,11 +320,49 @@ app.get("/api/sitemap-concerts.xml", storeMiddleware, async (c) => {
         return `  <url>\n    <loc>${base}/concerts/${concert.id}</loc>\n    <lastmod>${today}</lastmod>\n    <changefreq>daily</changefreq>\n    <priority>0.7</priority>\n  </url>`;
       })
       .join("\n");
+
+    // Include pagination info in response header for debugging
+    c.header("X-Total-Count", total?.toString() ?? "unknown");
+    c.header("X-Page", page.toString());
+    c.header("X-Page-Size", pageSize.toString());
   } catch {
     // store unavailable — serve empty dynamic sitemap (still valid XML)
   }
 
   const xml = `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${concertUrls}\n</urlset>`;
+  return c.body(xml, 200, {
+    "Content-Type": "application/xml; charset=utf-8",
+    "Cache-Control": "public, max-age=3600",
+  });
+});
+
+// ─── Dynamic sitemap index ──────────────────────────────────────────────────────
+// Generates index of all sitemap pages: static, festivals, cities, routes, artists, venues, concerts (paginated)
+app.get("/api/sitemap-index.xml", storeMiddleware, async (c) => {
+  const base = getSiteUrl(c.env);
+  const today = new Date().toISOString().slice(0, 10);
+  
+  let indexEntries = `  <sitemap>\n    <loc>${base}/sitemap-static.xml</loc>\n    <lastmod>${today}</lastmod>\n  </sitemap>\n`;
+
+  // Add paginated concerts sitemaps
+  try {
+    const { total } = await c.var.store.listConcerts({ 
+      limit: 1, 
+      offset: 0,
+      date_from: new Date().toISOString(),
+    });
+    const pageSize = 1000;
+    const totalPages = Math.ceil((total ?? 0) / pageSize);
+    
+    for (let page = 0; page < totalPages; page++) {
+      indexEntries += `  <sitemap>\n    <loc>${base}/api/sitemap-concerts.xml?page=${page}</loc>\n    <lastmod>${today}</lastmod>\n  </sitemap>\n`;
+    }
+  } catch {
+    // Store unavailable — include at least page 0
+    indexEntries += `  <sitemap>\n    <loc>${base}/api/sitemap-concerts.xml?page=0</loc>\n    <lastmod>${today}</lastmod>\n  </sitemap>\n`;
+  }
+
+  const xml = `<?xml version="1.0" encoding="UTF-8"?>\n<sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${indexEntries}</sitemapindex>`;
   return c.body(xml, 200, {
     "Content-Type": "application/xml; charset=utf-8",
     "Cache-Control": "public, max-age=3600",

@@ -20,7 +20,7 @@ export default function RouteLandingPage() {
 
   useSeoMeta({
     title: landing
-      ? `Carpooling ${landing.originCity} → ${landing.festival.shortName} — desde ${(landing.originData.concertRideRange.split("–")[0] ?? "3").replace(/[^0-9]/g, "") || "3"} € · ${landing.originData.drivingTime} | ConcertRide`
+      ? `Carpooling ${landing.originCity} → ${landing.festival.shortName} ${new Date().getFullYear()} | ConcertRide`
       : "Ruta de carpooling",
     description: landing
       ? `Carpooling de ${landing.originCity} a ${landing.festival.shortName} en ${landing.originData.drivingTime}. Desde ${landing.originData.concertRideRange}/asiento. Ida y vuelta disponible. Sin comisión — el 100 % va al conductor. Conductores verificados.`

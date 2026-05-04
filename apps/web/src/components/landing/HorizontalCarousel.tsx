@@ -1,6 +1,7 @@
-import { useRef } from "react";
+import { useRef, useMemo } from "react";
 import { Link } from "react-router-dom";
 import { motion, useScroll, useTransform } from "motion/react";
+import React from "react";
 import { ArrowRight } from "lucide-react";
 import type { Concert } from "@concertride/types";
 import { ConcertCard } from "@/components/ConcertCard";
@@ -9,22 +10,24 @@ interface Props {
   concerts: Concert[];
 }
 
-export function HorizontalCarousel({ concerts }: Props) {
+function HorizontalCarouselComponent({ concerts }: Props) {
   const ref = useRef<HTMLDivElement | null>(null);
   const { scrollYProgress } = useScroll({
     target: ref,
     offset: ["start start", "end end"],
   });
 
-  // 180vh gives a comfortable slow scroll pace.
-  // Translation stops when 2 cards are still visible — user never needs to
-  // scroll past all cards to reach content below.
-  const totalCards = concerts.length + 1; // +1 for "Ver todos"
-  const CARD_WIDTH_PX = 400; // matches lg:w-[400px]
-  const GAP_PX = 24;
-  const totalWidthPx = totalCards * (CARD_WIDTH_PX + GAP_PX);
-  const keepVisiblePx = 2 * (CARD_WIDTH_PX + GAP_PX);
-  const translatePx = Math.max(0, totalWidthPx - keepVisiblePx);
+  // Memoize expensive calculations
+  const { totalWidthPx, keepVisiblePx, translatePx } = useMemo(() => {
+    const totalCards = concerts.length + 1;
+    const CARD_WIDTH_PX = 400;
+    const GAP_PX = 24;
+    const totalW = totalCards * (CARD_WIDTH_PX + GAP_PX);
+    const keepV = 2 * (CARD_WIDTH_PX + GAP_PX);
+    const translate = Math.max(0, totalW - keepV);
+    return { totalWidthPx: totalW, keepVisiblePx: keepV, translatePx: translate };
+  }, [concerts.length]);
+
   const x = useTransform(scrollYProgress, [0, 1], ["0px", `-${translatePx}px`]);
 
   return (
@@ -107,3 +110,5 @@ export function HorizontalCarousel({ concerts }: Props) {
     </section>
   );
 }
+
+export const HorizontalCarousel = React.memo(HorizontalCarouselComponent);
