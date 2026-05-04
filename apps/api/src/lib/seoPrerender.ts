@@ -117,6 +117,7 @@ function buildStaticRoutes(base: string): Record<string, { title: string; descri
             "@type": "Offer",
             price: "0",
             priceCurrency: "EUR",
+            availability: "https://schema.org/InStock",
             priceSpecification: { "@type": "PriceSpecification", description: "Sin comisión de plataforma — el precio lo fija el conductor para cubrir combustible y peajes" },
             seller: { "@id": `${base}/#organization` },
           },
