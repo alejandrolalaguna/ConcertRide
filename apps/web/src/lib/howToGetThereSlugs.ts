@@ -12,24 +12,10 @@
 
 import { FESTIVAL_LANDINGS } from "./festivalLandings";
 
-// Festivals with dedicated "cómo llegar" pages
-// These are high-traffic festivals that deserve dedicated transport guides
-export const HOW_TO_GET_THERE_SLUGS = [
-  "arenal-sound",           // GSC: "arenal sound como llegar" top query
-  "vina-rock",              // GSC: "viña rock buses" top query
-  "mad-cool",               // GSC: "mad cool como llegar"
-  "bbk-live",               // GSC: "bbk live como llegar"
-  "primavera-sound",        // GSC: "primavera sound como llegar"
-  "sonar",                  // GSC: "sonar barcelona como llegar"
-  "resurrection-fest",      // GSC: "resurrection fest viajes"
-  "cala-mijas",             // GSC: "cala mijas festival 2026"
-  "o-son-do-camino",        // GSC: "o son do camino como llegar"
-  "low-festival",           // Growing festival
-  "medusa-festival",        // Beach festival
-  "cruilla",                // Barcelona major
-  "sonorama-ribera",        // Aranda de Duero traffic
-  "zevra-festival",         // GSC: "zevra festival bus"
-  "fib",                    // Classic festival, high traffic
-].filter(slug => FESTIVAL_LANDINGS.some(f => f.slug === slug)); // Verify exists
-
+// Export a comprehensive list of festival slugs for which we want a
+// dedicated "/como-llegar/<festival>" page. For scale (and to reach the
+// target page counts) we include every festival defined in
+// `FESTIVAL_LANDINGS`. This intentionally expands the set of transport
+// guide pages so prerender will produce a how-to page per festival.
+export const HOW_TO_GET_THERE_SLUGS = FESTIVAL_LANDINGS.map((f) => f.slug);
 export const HOW_TO_GET_THERE_SLUGS_EXPORT = HOW_TO_GET_THERE_SLUGS;

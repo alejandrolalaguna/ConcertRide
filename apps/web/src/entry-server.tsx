@@ -14,6 +14,7 @@ import LandingPage from "./pages/LandingPage";
 import ConcertsPage from "./pages/ConcertsPage";
 import ConcertDetailPage from "./pages/ConcertDetailPage";
 import CityLandingPage from "./pages/CityLandingPage";
+import CityYearPage from "./pages/CityYearPage";
 import FestivalLandingPage from "./pages/FestivalLandingPage";
 import FestivalesPage from "./pages/FestivalesPage";
 import GuiaTransporteFestivalesPage from "./pages/GuiaTransporteFestivalesPage";
@@ -46,6 +47,10 @@ import { HOW_TO_GET_THERE_SLUGS } from "./lib/howToGetThereSlugs";
 
 export const FESTIVAL_SLUGS = FESTIVAL_LANDINGS.map((f) => f.slug);
 export const CITY_SLUGS = CITY_LANDINGS.map((c) => c.slug);
+const CITY_YEARS = ["2025", "2026", "2027"] as const;
+export const CITY_YEAR_SLUGS: string[] = CITY_LANDINGS.flatMap((c) =>
+  CITY_YEARS.map((y) => `${c.slug}/${y}`),
+);
 export const BLOG_SLUGS = BLOG_POST_SLUGS;
 export const ROUTE_SLUGS = ALL_ROUTE_SLUGS;
 export const ARTIST_SLUGS = ALL_ARTIST_SLUGS;
@@ -62,6 +67,7 @@ function ServerApp() {
         <Route path="/" element={<LandingPage />} />
         <Route path="/concerts" element={<ConcertsPage />} />
         <Route path="/concerts/:id" element={<ConcertDetailPage />} />
+        <Route path="/conciertos/:city/:year" element={<CityYearPage />} />
         <Route path="/conciertos/:city" element={<CityLandingPage />} />
         <Route path="/festivales" element={<FestivalesPage />} />
         <Route path="/festivales/:festival" element={<FestivalLandingPage />} />

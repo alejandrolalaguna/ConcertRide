@@ -15,6 +15,8 @@
 import type { Context, Next } from "hono";
 import type { HonoEnv } from "../types";
 import { getSiteUrl } from "./siteUrl";
+import { ARTIST_LANDINGS } from "../../../web/src/lib/artistLandings";
+import { VENUE_LANDINGS } from "../../../web/src/lib/venueLandings";
 
 const SITE_NAME = "ConcertRide";
 
@@ -569,6 +571,68 @@ function buildStaticRoutes(base: string): Record<string, { title: string; descri
 <p><a href="${base}/concerts">Buscar conciertos con carpooling disponible →</a></p>
 <p><a href="${base}/publish">Publicar un viaje a un concierto →</a></p>`;
       })(),
+    },
+    "/como-funciona-carpooling": {
+      title: `¿Qué es el carpooling para conciertos? Guía completa | ConcertRide`,
+      description: "Guía clara sobre qué es el carpooling para conciertos, cómo reservar plaza, cómo publicar viajes y por qué es una alternativa barata al taxi o al autobús.",
+      canonical: `${base}/como-funciona-carpooling`,
+      h1: "¿Qué es el carpooling para conciertos? Guía completa",
+      body: `<p>ConcertRide es carpooling pensado para conciertos y festivales: personas que van al mismo evento comparten coche, dividen gastos y coordinan la vuelta de madrugada sin comisiones de plataforma.</p>
+<h2>Cómo funciona</h2>
+<ol>
+  <li><strong>Busca el festival o concierto</strong> al que quieres ir.</li>
+  <li><strong>Compara precio, ciudad y horario</strong> antes de reservar.</li>
+  <li><strong>Reserva tu plaza</strong> o publica tu viaje si vas conduciendo.</li>
+  <li><strong>Viaja, paga y vuelve tranquilo</strong> sin depender del último metro ni de taxis caros.</li>
+</ol>
+<h2>Para pasajeros</h2>
+<p>Reservar es rápido: eliges el viaje que mejor encaja, envías la solicitud y pagas al conductor el día del viaje en efectivo o Bizum.</p>
+<h2>Para conductores</h2>
+<p>Si tienes coche, puedes publicar tu viaje, verificar tu carnet y compartir gastos con otros fans. ConcertRide no cobra comisión.</p>
+<h2>FAQ rápida</h2>
+<ul>
+  <li>Es gratis usar ConcertRide.</li>
+  <li>El conductor decide el precio del asiento para cubrir gasolina y peajes.</li>
+  <li>La vuelta de madrugada se acuerda antes del viaje.</li>
+  <li>La verificación del carnet aporta confianza al resto de usuarios.</li>
+</ul>
+<p><a href="${base}/concerts">Buscar conciertos con carpooling disponible →</a></p>
+<p><a href="${base}/publish">Publicar un viaje →</a></p>`,
+    },
+    "/comparativa/concertride-vs-blablacar": {
+      title: `ConcertRide vs BlaBlaCar para festivales | ConcertRide`,
+      description: "ConcertRide cobra 0 % de comisión; BlaBlaCar cobra 12–18 %. Comparativa real para festivales en España: especialización, pago, vuelta de madrugada y verificación de conductores.",
+      canonical: `${base}/comparativa/concertride-vs-blablacar`,
+      h1: "ConcertRide vs BlaBlaCar para festivales",
+      body: `<p>ConcertRide está pensado para conciertos y festivales; BlaBlaCar es una plataforma generalista. Si quieres viajar con personas que van al mismo evento, la experiencia de ConcertRide encaja mejor.</p>
+<h2>Comparativa rápida</h2>
+<table>
+  <tr><th>Concepto</th><th>ConcertRide</th><th>BlaBlaCar</th></tr>
+  <tr><td>Comisión</td><td>0 %</td><td>12–18 %</td></tr>
+  <tr><td>Búsqueda por evento</td><td>Sí</td><td>No</td></tr>
+  <tr><td>Vuelta de madrugada</td><td>Se pacta con el conductor</td><td>Depende de la ruta publicada</td></tr>
+  <tr><td>Pago</td><td>Efectivo o Bizum</td><td>Tarjeta</td></tr>
+  <tr><td>Verificación</td><td>Carnet obligatorio</td><td>Variable</td></tr>
+</table>
+<p>Para ir a festivales, ConcertRide reduce fricción y se centra en el caso de uso real: llegar y volver del evento con gente que tiene el mismo plan.</p>
+<p><a href="${base}/como-funciona-carpooling">Cómo funciona el carpooling →</a></p>`,
+    },
+    "/comparativa/carpooling-vs-taxi-festival": {
+      title: `Carpooling vs taxi para ir a un festival | ConcertRide`,
+      description: "El carpooling cuesta 3–20 €/asiento; un taxi de ida y vuelta supera los 50–100 €. Comparativa real para festivales en España: precio, vuelta de madrugada y CO₂ evitado.",
+      canonical: `${base}/comparativa/carpooling-vs-taxi-festival`,
+      h1: "Carpooling vs taxi para ir a un festival",
+      body: `<p>El taxi funciona para trayectos cortos y urgencias, pero para festivales suele perder frente al carpooling en precio total, coordinación de vuelta y huella por pasajero.</p>
+<h2>Tabla rápida</h2>
+<table>
+  <tr><th>Escenario</th><th>Carpooling</th><th>Taxi</th></tr>
+  <tr><td>Trayecto corto</td><td>3–5 € por asiento</td><td>20–35 € ida</td></tr>
+  <tr><td>Trayecto medio</td><td>5–10 € por asiento</td><td>35–60 € ida</td></tr>
+  <tr><td>Trayecto largo</td><td>10–20 € por asiento</td><td>80–140 € ida</td></tr>
+  <tr><td>Vuelta de madrugada</td><td>Se coordina con el conductor</td><td>Disponible, pero más cara</td></tr>
+</table>
+<p>Para festivales y conciertos de noche, el carpooling suele ser la opción más equilibrada: ahorro, flexibilidad y menos emisiones por persona.</p>
+<p><a href="${base}/concerts">Buscar viaje compartido →</a></p>`,
     },
     "/faq": {
       title: `FAQ — Carpooling para conciertos y festivales | ${SITE_NAME}`,
@@ -1126,6 +1190,7 @@ ${topRoutes.map((r) => `  <tr><td><a href="${base}/rutas/${r.slug}">${r.label}</
 interface FestivalData {
   name: string;
   shortName: string;
+  slug?: string;
   city: string;
   venue: string;
   venueAddress: string;
@@ -1313,10 +1378,11 @@ const FESTIVALS: Record<string, FestivalData> = {
       { city: "Alicante", km: 115, drivingTime: "1h 15 min", range: "4–7 €/asiento" },
     ],
     faqs: [
-      { q: "¿Cómo llegar al Arenal Sound? Localización", a: "Arenal Sound se celebra en la Playa de Burriana (Castellón), a 10 km de Castellón de la Plana y 65 km de Valencia. No está en Alicante: el recinto está en la provincia de Castellón. Hay autobús lanzadera oficial desde la estación de autobuses de Castellón de la Plana (10 km, 20 min)." },
-      { q: "¿Hay autobús de Castellón a Burriana para Arenal Sound?", a: "Sí. El festival habilita autobuses lanzadera desde Castellón de la Plana a Burriana (10 km, 20 min) durante los días del evento. Plazas limitadas; fuera del horario de lanzadera, taxi Castellón–Burriana 10–15 €. Para quienes vienen de Madrid (12–17 €), Valencia (3–6 €) o Barcelona (8–12 €), ConcertRide llega directamente al recinto." },
-      { q: "¿Cómo llegar al Arenal Sound desde Valencia?", a: "Solo 65 km (45 min en coche). Con ConcertRide, el precio es 3–6 € por asiento desde Valencia." },
-      { q: "¿Hay camping en el Arenal Sound?", a: "Sí, el festival tiene zona de camping junto a la playa de Burriana. ConcertRide es ideal para llegar con la carpa y el equipo sin depender del transporte público." },
+      { q: "¿Cómo llegar al Arenal Sound 2026? Localización exacta", a: "Arenal Sound 2026 se celebra en la Playa de Burriana (Castellón de la Plana), no en Alicante. El recinto está a 10 km de Castellón ciudad y 65 km de Valencia. Dirección: Playa de Burriana, 12530 Burriana (Castellón). Hay autobús lanzadera oficial desde Castellón de la Plana (10 km, 20 min, plazas limitadas)." },
+      { q: "¿Hay autobús de Castellón a Burriana para el Arenal Sound?", a: "Sí. El autobús lanzadera oficial Castellón–Burriana Arenal Sound sale de la estación de autobuses de Castellón de la Plana (10 km, 20 min, frecuencia cada 20–30 min durante el festival). Las plazas son limitadas; compra con antelación en el sitio oficial. Fuera del horario de lanzadera, el taxi Castellón–Burriana cuesta 10–15 €. Para quienes vienen de Valencia (3–6 €) o Madrid (12–17 €) en ConcertRide, el carpooling llega directamente al recinto." },
+      { q: "¿Cómo ir al Arenal Sound en tren desde Valencia?", a: "Cercanías Renfe C6 Valencia–Castellón de la Plana (45–60 min, 3,90 €, cada 30 min). Desde la estación de Castellón, lanzadera oficial al recinto de Burriana (10 km, 20 min). El último tren Valencia–Castellón sale a la 1:30 AM — para la vuelta de madrugada, el carpooling ConcertRide desde Valencia (3–6 €) es la única opción flexible." },
+      { q: "¿Cómo llegar al Arenal Sound desde Valencia en coche compartido?", a: "Solo 65 km (45 min por la AP-7). Con ConcertRide el precio es 3–6 €/asiento desde Valencia, llegada directa a la Playa de Burriana. Es el viaje más corto y económico al festival: más de la mitad de los asistentes vienen de la provincia de Valencia y Castellón." },
+      { q: "¿Hay camping en el Arenal Sound?", a: "Sí, el festival tiene zona de camping junto a la playa de Burriana. ConcertRide es ideal para llegar con la carpa y el equipo sin depender del horario del autobús lanzadera." },
     ],
   },
   "medusa-festival": {
@@ -1363,10 +1429,12 @@ const FESTIVALS: Record<string, FestivalData> = {
       { city: "Cuenca", km: 100, drivingTime: "1h", range: "4–6 €/asiento" },
     ],
     faqs: [
-      { q: "¿Cómo llegar al Viña Rock desde Madrid?", a: "Madrid–Villarrobledo son 190 km (≈2 h por la A-3, salida Villarrobledo). Con ConcertRide el precio es 6–9 €/asiento desde Madrid. Autobuses privados Madrid–Viñarock: 35–55 € desde Méndez Álvaro, horario fijo." },
-      { q: "¿Hay autobús / bus a Viña Rock desde Madrid?", a: "No hay bus oficial directo desde Madrid al recinto de La Pulgosa. Operadores privados ofrecen autobuses Viña Rock desde Madrid (35–55 €, Méndez Álvaro). La lanzadera oficial sale desde Albacete (50 km, 40 min). El carpooling Madrid–Viña Rock con ConcertRide (6–9 €) es más económico y llega directamente al recinto." },
-      { q: "¿Hay lanzadera de autobuses desde Albacete a Viña Rock?", a: "Sí, el festival habilita autobuses lanzadera desde la estación de autobuses de Albacete (50 km, 40 min) durante los días del festival. Plazas limitadas; consulta el sitio oficial de Viña Rock." },
-      { q: "¿Cuándo es Viña Rock 2026?", a: "Viña Rock 2026 se celebra del 30 de abril al 3 de mayo en el Parque La Pulgosa, Villarrobledo (Albacete, Castilla-La Mancha)." },
+      { q: "¿Hay autobús a Viña Rock 2026? Buses y lanzadera oficial", a: "Sí. Opciones de autobús a Viña Rock (Viñarock) 2026: (1) Lanzadera oficial desde Albacete (50 km, 40 min, plazas limitadas, compra en viñarock.es); (2) Autobuses privados Madrid–Viñarock desde Méndez Álvaro/Nuevos Ministerios (35–55 €, horario fijo); (3) No hay servicio de autobús nocturno de vuelta — el carpooling con ConcertRide desde Madrid (6–9 €) es la única opción flexible para la vuelta de madrugada." },
+      { q: "¿Cómo llegar al Viña Rock desde Madrid?", a: "Madrid–Villarrobledo son 190 km (≈2 h por la A-3, salida Villarrobledo). Opciones: autobús privado desde Méndez Álvaro (35–55 €, horario fijo); carpooling ConcertRide (6–9 €/asiento, llegada directa a La Pulgosa). No hay transporte público de vuelta de madrugada — el carpooling es la opción dominante." },
+      { q: "¿Hay lanzadera de autobuses desde Albacete a Viña Rock?", a: "Sí, el festival habilita autobuses lanzadera desde la estación de autobuses de Albacete (50 km, 40 min) durante los días del festival. Plazas limitadas; compra en el sitio oficial de Viña Rock. Para quienes vienen de más lejos, el carpooling desde Valencia (6–9 €), Alicante (5–8 €) o Murcia (5–8 €) sale directamente al recinto." },
+      { q: "¿Cómo llegar al Viña Rock desde Valencia?", a: "Valencia–Villarrobledo son 200 km (≈2 h por la A-3). No hay autobús directo Valencia–Viña Rock. Carpooling ConcertRide desde Valencia: 6–9 €/asiento, llegada directa al Parque La Pulgosa. La vuelta de madrugada se coordina con el conductor." },
+      { q: "¿Cómo ir a Viña Rock desde Alicante o Murcia?", a: "Alicante está a 165 km de Villarrobledo (1h 35 min, A-31). Murcia a 155 km (1h 30 min, A-30). Con ConcertRide: 5–8 €/asiento desde Alicante, 5–8 € desde Murcia. Sin autobús directo desde estas ciudades al recinto de La Pulgosa." },
+      { q: "¿Cuándo es Viña Rock 2026?", a: "Viña Rock 2026 se celebra del 30 de abril al 3 de mayo en el Parque La Pulgosa, Villarrobledo (Albacete, Castilla-La Mancha). La edición de 2025 tuvo más de 300.000 asistentes." },
     ],
   },
   "o-son-do-camino": {
@@ -2106,7 +2174,7 @@ const ROUTES: Record<string, RouteData> = buildRoutes();
 // Per-festival transport summary shown answer-first before the blurb.
 // Targets "autobuses [festival]", "bus [festival]", "como llegar [festival]" queries.
 const FESTIVAL_TRANSPORT_SUMMARY: Record<string, string> = {
-  "vina-rock": `<p><strong>Transporte a Viña Rock (Viñarock) 2026 — resumen:</strong> No hay transporte público directo al recinto de La Pulgosa. Las opciones reales son: (1) <strong>Autobús / bus lanzadera oficial</strong> desde la estación de autobuses de Albacete (50 km, 40 min, frecuencia 1–2h, no opera de madrugada); (2) <strong>Autobuses privados Madrid–Viña Rock</strong> desde Méndez Álvaro o Nuevos Ministerios (35–55 €, horario fijo); (3) <strong>Carpooling ConcertRide</strong> desde Madrid (6–9 €), Valencia (6–9 €), Alicante (5–8 €), Murcia (5–8 €) o Cuenca (4–6 €), llegada directa a La Pulgosa sin horario fijo. El coche compartido es la opción dominante: más del 80 % de los asistentes llegan en coche.</p>`,
+  "vina-rock": `<p><strong>Autobuses Viña Rock (Viñarock) 2026 — opciones de transporte al recinto de La Pulgosa:</strong></p><table><thead><tr><th>Opción</th><th>Origen</th><th>Precio</th><th>Duración</th><th>Vuelta madrugada</th></tr></thead><tbody><tr><td><strong>Bus lanzadera oficial</strong></td><td>Albacete (estación autobuses)</td><td>Incluida / precio oficial</td><td>50 km · 40 min</td><td>No (horario fijo)</td></tr><tr><td><strong>Autobuses privados Madrid</strong></td><td>Méndez Álvaro / Nuevos Ministerios</td><td>35–55 €</td><td>190 km · 2h</td><td>No (horario fijo)</td></tr><tr><td><strong>Carpooling ConcertRide</strong></td><td>Madrid, Valencia, Alicante, Murcia, Cuenca</td><td>4–9 €/asiento</td><td>Según origen</td><td>Sí (coordinada)</td></tr><tr><td>Taxi / VTC</td><td>Albacete, ciudades cercanas</td><td>60–120 € coche completo</td><td>Según origen</td><td>Sí (precio x2–3)</td></tr></tbody></table><p><em>El Parque La Pulgosa (recinto de Viña Rock) no está comunicado por transporte público regular. Los autobuses de Viña Rock son la única alternativa al coche. Más del 80 % de los asistentes llegan en coche particular o coche compartido.</em></p>`,
   "arenal-sound": `<p><strong>Transporte a Arenal Sound 2026 — resumen:</strong> No hay tren ni metro al recinto de la playa. Las opciones reales son: (1) <strong>Bus lanzadera oficial</strong> desde la estación de autobuses de Castellón de la Plana (10 km, 20 min, plazas limitadas, no opera de madrugada); (2) <strong>Autobús + lanzadera</strong> desde Valencia: Cercanías C6 Valencia–Castellón (45–60 min) más lanzadera al recinto; (3) <strong>Carpooling ConcertRide</strong> desde Valencia (3–6 €), Castellón (3–5 €), Madrid (12–17 €), Barcelona (8–12 €) o Alicante (4–7 €), llegada directa a la playa.</p>`,
   "bbk-live": `<p><strong>Transporte a BBK Live 2026 — resumen:</strong> BBK Live es el único festival grande de España con <strong>lanzadera oficial gratuita</strong> desde el centro de Bilbao (Plaza Moyúa, salidas cada 15–20 min). El recinto Kobetamendi no es accesible en coche propio durante el festival. Para quienes vienen de fuera de Bilbao: carpooling ConcertRide desde Madrid (11–16 €), Santander (4–7 €), Vitoria (4–6 €), Pamplona (5–8 €) o Donostia (5–8 €).</p>`,
   "mad-cool": `<p><strong>Transporte a Mad Cool 2026 — resumen:</strong> El recinto IFEMA está a 15 km del centro de Madrid. Las opciones son: (1) <strong>Metro L8</strong> hasta parada "Feria de Madrid" (ampliado hasta las 2:30 AM); (2) <strong>Taxi / VTC</strong> desde Madrid centro (60–90 €, precio x2–3 a la salida); (3) <strong>Carpooling ConcertRide</strong> desde Madrid (4–7 €), Valencia (10–14 €), Zaragoza (9–13 €) o Barcelona (15–20 €). No existe lanzadera oficial.</p>`,
@@ -2335,10 +2403,11 @@ function cityBody(slug: string, c: CityData, base: string): string {
       { q: "¿Es seguro el carpooling a los festivales de Valencia?", a: "Sí. En ConcertRide todos los conductores verifican su carnet de conducir antes de publicar viajes. El pago es directo al conductor en efectivo o Bizum el día del viaje." },
     ],
     sevilla: [
-      { q: "¿Qué conciertos y festivales hay en Sevilla en 2026?", a: "Los principales recintos de conciertos en Sevilla son: Estadio La Cartuja (60.000 plazas), FIBES (9.500 plazas), Palacio de los Deportes San Pablo (7.000) y Cartuja Center CITE. Festivales: Interestelar Sevilla (mayo, Charco de la Pava, 40.000 asistentes) e Icónica Sevilla Fest (Plaza de España). Sevilla es también punto de origen para Cala Mijas (200 km, 6–9 €)." },
+      { q: "¿Qué conciertos hay en Sevilla en 2026?", a: "Los principales conciertos y festivales en Sevilla 2026 se celebran en: Estadio La Cartuja (60.000 plazas — grandes giras de estadio), FIBES Sevilla (9.500 plazas — conciertos nacionales), Palacio de los Deportes San Pablo (7.000 plazas), Cartuja Center CITE y la Plaza de España. Festivales: Interestelar Sevilla (mayo, Charco de la Pava, 40.000 asistentes) e Icónica Sevilla Fest (Plaza de España, verano). Comprueba la programación actualizada en concertride.me/conciertos/sevilla." },
+      { q: "¿Qué conciertos hay en Sevilla en 2027?", a: "La programación de conciertos en Sevilla para 2027 en el Estadio La Cartuja, FIBES y Cartuja Center CITE se anuncia de forma progresiva desde mediados de 2026. Los festivales Interestelar Sevilla e Icónica Sevilla Fest confirman sus ediciones entre octubre y diciembre del año anterior. Consulta concertride.me/conciertos/sevilla para la agenda actualizada." },
+      { q: "¿Cómo ir a conciertos en Sevilla en coche compartido?", a: "ConcertRide conecta a asistentes de toda España con conductores que van a conciertos en Sevilla. Desde Madrid (530 km): 12–18 €/asiento. Desde Málaga (200 km): 6–9 €. Desde Cádiz (120 km): 4–7 €. Desde Córdoba (145 km): 4–7 €. Sin comisión de plataforma." },
       { q: "¿Cómo ir a Cala Mijas Fest desde Sevilla?", a: "Cala Mijas Fest 2026 (2–4 oct) se celebra en Cortijo de Torres, Málaga capital — a 200 km de Sevilla (2h por la A-92). No hay shuttle oficial. Con ConcertRide: 6–9 €/asiento desde Sevilla. No hay transporte público nocturno desde el recinto." },
       { q: "¿Cuánto cuesta el carpooling desde Sevilla a festivales de otras ciudades?", a: "A Cala Mijas (Málaga, 200 km): 6–9 €/asiento. A Mad Cool (Madrid, 530 km): 12–18 €. A Primavera Sound (Barcelona, 1.000 km): 22–30 €. A Viña Rock (Villarrobledo, 420 km): 10–15 €. Sin comisión de plataforma." },
-      { q: "¿Es seguro el carpooling para ir a conciertos desde Sevilla?", a: "Sí. ConcertRide verifica el carnet de conducir de todos los conductores. El pago es en efectivo o Bizum el día del viaje — nunca pagas por adelantado." },
     ],
     malaga: [
       { q: "¿Qué festivales y conciertos hay en Málaga en 2026?", a: "Málaga y su costa acogen Cala Mijas Fest (2–4 oct, Cortijo de Torres, Málaga capital), Andalucía Big Festival y Marenostrum Music Castle (Castillo Sohail de Fuengirola). No confundir: el recinto de Cala Mijas está en Málaga capital, no en La Cala de Mijas." },
@@ -2365,9 +2434,10 @@ function cityBody(slug: string, c: CityData, base: string): string {
       { q: "¿Es seguro el carpooling a O Son do Camiño?", a: "Sí. ConcertRide verifica el carnet de conducir de todos los conductores. El pago es directo al conductor en efectivo o Bizum el día del viaje." },
     ],
     alicante: [
+      { q: "¿Qué conciertos hay en la Plaza de Toros de Alicante en 2026?", a: "La Plaza de Toros de Alicante (Alicante Festium, 9.000 plazas) acoge en 2026 una programación de pop y rock nacional e internacional durante los meses de verano. Los principales conciertos de la temporada se anuncian entre marzo y mayo. ConcertRide conecta a asistentes de Madrid, Valencia y Murcia con conductores que van a la Plaza de Toros de Alicante." },
       { q: "¿Qué festivales hay cerca de Alicante en 2026?", a: "Cerca de Alicante hay varios festivales importantes: Low Festival (Benidorm, 45 km, 24–26 jul), Arenal Sound (Burriana, 115 km, 29 jul–2 ago), Medusa Festival (Cullera, 100 km, 12–16 ago) y Zevra Festival (Valencia, 175 km). ConcertRide cubre todas las rutas desde Alicante con precios entre 3 y 8 €/asiento." },
-      { q: "¿Cómo llegar al Low Festival desde Alicante?", a: "Low Festival (Benidorm) está a 45 km de Alicante (35 min por la A-7). No hay transporte público nocturno al recinto. Con ConcertRide el precio es 15 €/asiento. El TRAM L1 Alicante–Benidorm opera hasta medianoche — no es válido para la vuelta de madrugada." },
-      { q: "¿Cuánto cuesta el carpooling desde Alicante a festivales?", a: "A Low Festival (Benidorm, 45 km): 15 €/asiento. A Arenal Sound (Burriana, 115 km): 4–7 €. A Medusa Festival (Cullera, 100 km): 4–6 €. A Viña Rock (Villarrobledo, 165 km): 5–8 €. Sin comisión." },
+      { q: "¿Cómo llegar al Low Festival desde Alicante?", a: "Low Festival (Benidorm) está a 45 km de Alicante (35 min por la A-7). No hay transporte público nocturno al recinto. Con ConcertRide el precio es 3–5 €/asiento. El TRAM L1 Alicante–Benidorm opera hasta medianoche — no es válido para la vuelta de madrugada." },
+      { q: "¿Cuánto cuesta el carpooling desde Alicante a festivales?", a: "A Low Festival (Benidorm, 45 km): 3–5 €/asiento. A Arenal Sound (Burriana, 115 km): 4–7 €. A Medusa Festival (Cullera, 100 km): 4–6 €. A Viña Rock (Villarrobledo, 165 km): 5–8 €. Sin comisión." },
       { q: "¿Es seguro el carpooling desde Alicante?", a: "Sí. ConcertRide verifica el carnet de conducir de todos los conductores. El pago es en efectivo o Bizum directamente al conductor el día del viaje." },
     ],
     pamplona: [
@@ -2407,9 +2477,10 @@ function cityBody(slug: string, c: CityData, base: string): string {
       { q: "¿Es seguro el carpooling desde Granada?", a: "Sí. ConcertRide verifica el carnet de conducir de todos los conductores. El pago es directo al conductor en efectivo o Bizum." },
     ],
     donostia: [
-      { q: "¿Qué conciertos y festivales hay en Donostia en 2026?", a: "El Heineken Jazzaldia (Plaza de la Trinidad y Kursaal, julio) y Donostia Arena (10.000 plazas) son los principales eventos de música en Donostia. La cercanía con BBK Live Bilbao (100 km) hace que muchos viajes compartidos desde Donostia vayan al Kobetamendi." },
+      { q: "¿Qué conciertos hay en Donostia en 2026?", a: "Los principales conciertos en Donostia–San Sebastián 2026: Heineken Jazzaldia (Plaza de la Trinidad, Kursaal y Auditorio Kursaal, julio, entrada gratuita en escenarios exteriores), Donostia Arena (10.000 plazas — giras nacionales e internacionales), Velódromo de Anoeta y Sala Dabadaba (pequeño formato). La programación del Donostia Arena para 2026 se confirma entre enero y mayo." },
+      { q: "¿Qué conciertos hay en Donosti 2026?", a: "En Donosti (San Sebastián) 2026 los principales eventos musicales son el Jazzaldia (julio) y los conciertos del Donostia Arena (10.000 plazas). Varios festivales vascos están a menos de 2 horas: BBK Live (Bilbao, 100 km, julio), Azkena Rock (Vitoria, 100 km, junio). ConcertRide cubre carpooling desde Donostia a todos estos festivales." },
       { q: "¿Cuánto cuesta el carpooling de Donostia al BBK Live?", a: "BBK Live (Bilbao) está a 100 km de Donostia (1h por la A-8). Con ConcertRide el precio es 5–8 €/asiento. Desde Bilbao, lanzadera oficial gratuita al Kobetamendi incluida en la entrada del festival." },
-      { q: "¿Cómo ir a festivales del norte de España desde Donostia?", a: "ConcertRide conecta a donostiarras con conductores hacia BBK Live (5–8 €), Azkena Rock Vitoria (100 km, 4–6 €), Sonorama Ribera (370 km, 10–15 €) y Mad Cool (450 km, 12–18 €)." },
+      { q: "¿Cómo ir a festivales del norte de España desde Donostia?", a: "ConcertRide conecta a donostiarras con conductores hacia BBK Live (5–8 €), Azkena Rock Vitoria (100 km, 4–6 €), Sonorama Ribera (370 km, 10–15 €) y Mad Cool (450 km, 12–18 €). Sin comisión de plataforma." },
       { q: "¿Es seguro el carpooling desde Donostia?", a: "Sí. ConcertRide verifica el carnet de conducir de todos los conductores. El pago es en efectivo o Bizum el día del viaje." },
     ],
   };
@@ -2852,6 +2923,188 @@ ${routeEventJsonLd ? `<script type="application/ld+json">${routeEventJsonLd}</sc
 <p><a href="${base}/rutas">Ver todas las rutas de carpooling →</a></p>`;
 }
 
+type ArtistLanding = (typeof ARTIST_LANDINGS)[number];
+type VenueLanding = (typeof VENUE_LANDINGS)[number];
+
+function artistBody(artist: ArtistLanding, base: string): string {
+  const upcomingItems = artist.upcomingConcerts
+    .map((c) => `<li><strong>${esc(c.city)}</strong> — ${esc(c.venue)} · ${esc(c.date)} · carpooling desde <strong>${esc(c.concertRideRange)}</strong></li>`)
+    .join("\n  ");
+
+  const relatedFestivalItems = artist.relatedFestivals
+    .map((slug) => FESTIVALS[slug])
+    .filter((f): f is NonNullable<typeof f> => Boolean(f))
+    .map((f) => `<li><a href="${base}/festivales/${f.slug}">${esc(f.shortName)}</a> — ${esc(f.city)} · ${esc(f.venue)}</li>`)
+    .join("\n  ");
+
+  const faqItems = [
+    ...artist.upcomingConcerts.map((c) => `  <dt>¿Cómo llegar al concierto de ${esc(artist.name)} en ${esc(c.city)}?</dt>\n  <dd>Carpooling con ConcertRide desde ${esc(c.originCities[0]?.city ?? c.city)} por ${esc(c.originCities[0]?.range ?? c.concertRideRange)}/asiento, sin comisión. También puedes llegar en metro, tren o taxi, aunque la vuelta nocturna suele ser más complicada.</dd>`),
+    `  <dt>¿Es seguro el carpooling para conciertos de ${esc(artist.name)}?</dt>\n  <dd>Sí. Los conductores verifican su carnet de conducir, puedes ver valoraciones y coordinar la vuelta con antelación. El pago es en efectivo o Bizum el día del viaje.</dd>`,
+  ].join("\n");
+
+  const jsonLdBreadcrumb = JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      { "@type": "ListItem", position: 1, name: "Inicio", item: `${base}/` },
+      { "@type": "ListItem", position: 2, name: "Artistas", item: `${base}/artistas` },
+      { "@type": "ListItem", position: 3, name: artist.name, item: `${base}/artistas/${artist.slug}` },
+    ],
+  });
+
+  const jsonLdMusicGroup = JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "MusicGroup",
+    name: artist.name,
+    url: `${base}/artistas/${artist.slug}`,
+    sameAs: artist.wikidata ? [`https://www.wikidata.org/wiki/${artist.wikidata}`] : undefined,
+    genre: artist.genre,
+    knowsAbout: ["Conciertos en España", "Música", ...artist.genre],
+  });
+
+  const jsonLdFaq = JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    inLanguage: "es-ES",
+    mainEntity: [
+      ...artist.upcomingConcerts.map((c) => ({
+        "@type": "Question",
+        name: `¿Cómo llegar al concierto de ${artist.name} en ${c.city}?`,
+        acceptedAnswer: { "@type": "Answer", text: `Carpooling con ConcertRide desde ${c.originCities[0]?.city ?? c.city} (${c.originCities[0]?.range ?? c.concertRideRange}/asiento, sin comisión). El resto de opciones son metro, tren o taxi, pero el coche compartido suele ser la opción más flexible para la vuelta.` },
+      })),
+      { "@type": "Question", name: `¿Cuánto cuesta el carpooling al concierto de ${artist.name}?`, acceptedAnswer: { "@type": "Answer", text: `El precio depende de la ciudad de origen, pero suele estar entre ${artist.upcomingConcerts[0]?.originCities[0]?.range ?? "9 €/asiento"} y ${artist.upcomingConcerts[0]?.concertRideRange ?? "20 €/asiento"}. ConcertRide no cobra comisión.` } },
+    ],
+  });
+
+  const jsonLdItemList = JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    name: `Conciertos de ${artist.name} en España`,
+    itemListElement: artist.upcomingConcerts.map((c, i) => ({
+      "@type": "ListItem",
+      position: i + 1,
+      name: `${artist.name} en ${c.city}`,
+      item: {
+        "@type": "MusicEvent",
+        name: `${artist.name} en ${c.city}`,
+        location: { "@type": "MusicVenue", name: c.venue, address: { "@type": "PostalAddress", addressLocality: c.city, addressCountry: "ES" } },
+        startDate: c.date,
+        performer: { "@type": "MusicGroup", name: artist.name },
+      },
+    })),
+  });
+
+  return `<script type="application/ld+json">${jsonLdBreadcrumb}</script>
+<script type="application/ld+json">${jsonLdMusicGroup}</script>
+<script type="application/ld+json">${jsonLdFaq}</script>
+<script type="application/ld+json">${jsonLdItemList}</script>
+<nav aria-label="Breadcrumb"><a href="${base}/">Inicio</a> / <a href="${base}/artistas">Artistas</a> / <span>${esc(artist.name)}</span></nav>
+<p>${esc(artist.blurb)}</p>
+<h2>Próximos conciertos de ${esc(artist.name)} en España</h2>
+<ul>
+  ${upcomingItems}
+</ul>
+<h2>Festivales relacionados</h2>
+<ul>
+  ${relatedFestivalItems || `<li>${esc(artist.name)} aparece en el contexto de los festivales de ${artist.relatedFestivals.length} eventos cubiertos por ConcertRide.</li>`}
+</ul>
+<h2>Preguntas frecuentes — ${esc(artist.name)}</h2>
+<dl>
+${faqItems}
+</dl>
+<p><a href="${base}/concerts">Buscar conciertos con carpooling →</a></p>
+<p><a href="${base}/festivales">Ver festivales con carpooling disponible →</a></p>`;
+}
+
+function venueBody(venue: VenueLanding, base: string): string {
+  const originItems = venue.originCities
+    .map((oc) => `<li><strong>${esc(oc.city)}</strong> — ${oc.km} km · ${esc(oc.drivingTime)} · desde <strong>${esc(oc.concertRideRange)}</strong></li>`)
+    .join("\n  ");
+
+  const relatedFestivalItems = venue.relatedFestivals
+    .map((slug) => FESTIVALS[slug])
+    .filter((f): f is NonNullable<typeof f> => Boolean(f))
+    .map((f) => `<li><a href="${base}/festivales/${f.slug}">${esc(f.shortName)}</a> — ${esc(f.city)} · ${esc(f.venue)}</li>`)
+    .join("\n  ");
+
+  const faqItems = venue.faqs
+    .map((faq) => `<dt>${esc(faq.q)}</dt>\n  <dd>${esc(faq.a)}</dd>`)
+    .join("\n  ");
+
+  const jsonLdBreadcrumb = JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      { "@type": "ListItem", position: 1, name: "Inicio", item: `${base}/` },
+      { "@type": "ListItem", position: 2, name: "Recintos", item: `${base}/recintos` },
+      { "@type": "ListItem", position: 3, name: venue.shortName, item: `${base}/recintos/${venue.slug}` },
+    ],
+  });
+
+  const jsonLdPlace = JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": venue.venueType === "Arena" || venue.venueType === "Teatro" ? "PerformingArtsTheater" : "CivicStructure",
+    name: venue.name,
+    url: `${base}/recintos/${venue.slug}`,
+    description: venue.blurb,
+    address: { "@type": "PostalAddress", streetAddress: venue.address, addressLocality: venue.city, addressRegion: venue.region, addressCountry: "ES" },
+    geo: { "@type": "GeoCoordinates", latitude: venue.lat, longitude: venue.lng },
+    additionalProperty: venue.originCities.map((oc) => ({ "@type": "PropertyValue", name: `Carpooling desde ${oc.city}`, value: `${oc.km} km · ${oc.drivingTime} · ${oc.concertRideRange}` })),
+  });
+
+  const jsonLdFaq = JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    inLanguage: "es-ES",
+    mainEntity: venue.faqs.map((faq) => ({
+      "@type": "Question",
+      name: faq.q,
+      acceptedAnswer: { "@type": "Answer", text: faq.a },
+    })),
+  });
+
+  const jsonLdItemList = JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    name: `Cómo llegar a ${venue.name}`,
+    itemListElement: venue.originCities.slice(0, 6).map((oc, i) => ({
+      "@type": "ListItem",
+      position: i + 1,
+      name: `${oc.city}: ${oc.km} km · ${oc.drivingTime} · ${oc.concertRideRange}`,
+    })),
+  });
+
+  return `<script type="application/ld+json">${jsonLdBreadcrumb}</script>
+<script type="application/ld+json">${jsonLdPlace}</script>
+<script type="application/ld+json">${jsonLdFaq}</script>
+<script type="application/ld+json">${jsonLdItemList}</script>
+<nav aria-label="Breadcrumb"><a href="${base}/">Inicio</a> / <a href="${base}/recintos">Recintos</a> / <span>${esc(venue.shortName)}</span></nav>
+<p>${esc(venue.blurb)}</p>
+<h2>Cómo llegar a ${esc(venue.shortName)}</h2>
+<p>${esc(venue.name)}, ${esc(venue.city)} (${esc(venue.address)}). Coordenadas GPS: ${venue.lat.toFixed(4)}, ${venue.lng.toFixed(4)}.</p>
+<h2>Transporte público y parking</h2>
+<ul>
+  ${venue.transport.metro ? `<li><strong>Metro:</strong> ${esc(venue.transport.metro)}</li>` : ""}
+  ${venue.transport.bus ? `<li><strong>Bus:</strong> ${esc(venue.transport.bus)}</li>` : ""}
+  ${venue.transport.tren ? `<li><strong>Tren:</strong> ${esc(venue.transport.tren)}</li>` : ""}
+  ${venue.transport.parking ? `<li><strong>Parking:</strong> ${esc(venue.transport.parking)}</li>` : ""}
+</ul>
+<h2>Carpooling hacia ${esc(venue.shortName)} desde distintas ciudades</h2>
+<ul>
+  ${originItems}
+</ul>
+<h2>Festivales relacionados</h2>
+<ul>
+  ${relatedFestivalItems || `<li>Recinto usado para conciertos y festivales en ${esc(venue.city)}.</li>`}
+</ul>
+<h2>Preguntas frecuentes — ${esc(venue.shortName)}</h2>
+<dl>
+  ${faqItems}
+</dl>
+<p><a href="${base}/conciertos/${venue.citySlug}">Ver conciertos en ${esc(venue.city)} →</a></p>
+<p><a href="${base}/festivales">Ver festivales con carpooling disponible →</a></p>`;
+}
+
 // ── Meta + body resolver ────────────────────────────────────────────────────
 interface PageData {
   title: string;
@@ -2896,9 +3149,9 @@ function resolvePageData(pathname: string, base: string): PageData | null {
     // Per-festival title/description overrides targeting top GSC queries
     const META_OVERRIDES: Record<string, { title: string; description: string; h1: string }> = {
       "vina-rock": {
-        title: `Autobuses Viña Rock ${year}: buses, lanzadera y carpooling | ConcertRide`,
-        description: `¿Hay autobús a Viña Rock ${year}? Bus lanzadera desde Albacete (50 km, 40 min). Autobuses privados Madrid–Viñarock (35–55 €). Carpooling ConcertRide desde Madrid (6–9 €/asiento). Sin comisión.`,
-        h1: `Autobuses y transporte a Viña Rock ${year}`,
+        title: `Autobuses Viña Rock ${year}: bus lanzadera, buses privados y carpooling | ConcertRide`,
+        description: `¿Hay autobús a Viña Rock ${year}? Sí: bus lanzadera oficial desde Albacete (50 km, 40 min) y autobuses privados Madrid–Viñarock (35–55 €). Carpooling desde Madrid (6–9 €/asiento), Valencia (6–9 €), Alicante (5–8 €). Sin comisión.`,
+        h1: `Autobuses Viña Rock ${year}: bus lanzadera, buses privados y carpooling`,
       },
       "arenal-sound": {
         title: `Bus Arenal Sound ${year}: autobús Castellón–Burriana y carpooling | ConcertRide`,
@@ -2919,6 +3172,21 @@ function resolvePageData(pathname: string, base: string): PageData | null {
         title: `Zevra Festival ${year}: horarios, transporte y carpooling | ConcertRide`,
         description: `Zevra Festival Valencia ${year} en La Marina de València. Horarios: apertura 18:30, cabezas de cartel 23:00–01:00. Metro L4 hasta Marítim-Serreria. Carpooling desde Madrid (10–14 €).`,
         h1: `Zevra Festival ${year}: horarios y cómo llegar a La Marina de València`,
+      },
+      "sonorama-ribera": {
+        title: `Sonorama Ribera ${year} Aranda de Duero: Bus y Carpooling desde 5€ | ConcertRide`,
+        description: `Sonorama Ribera ${year} en Aranda de Duero (Burgos), 6–9 ago. Bus La Sepulvedana desde Madrid (1h 30 min, 10–15 €). Carpooling desde Madrid (5–8 €/asiento), Burgos (3–6 €), Valladolid (4–7 €). Sin comisión.`,
+        h1: `Cómo llegar a Sonorama Ribera ${year}: bus y carpooling desde Madrid y Castilla`,
+      },
+      "medusa-festival": {
+        title: `Medusa Festival ${year} Cullera: Lanzadera y Carpooling desde 3€ | ConcertRide`,
+        description: `Medusa Festival ${year} Playa de Cullera (Valencia), 12–16 ago. Lanzadera oficial desde Valencia. Carpooling desde Valencia (3–5 €/asiento), Alicante (5–8 €), Madrid (15–20 €). Sin comisión.`,
+        h1: `Cómo llegar a Medusa Festival ${year}: lanzadera y carpooling`,
+      },
+      "cruilla": {
+        title: `Cruïlla Barcelona ${year}: Metro L4 y Carpooling desde 8€ | ConcertRide`,
+        description: `Cruïlla ${year} en Parc del Fòrum, Barcelona (9–12 jul). Metro L4 Besòs Mar. Carpooling desde Madrid (15–20 €), Valencia (10–14 €), Zaragoza (8–12 €). Sin comisión de plataforma.`,
+        h1: `Cómo llegar a Cruïlla Barcelona ${year}: metro y carpooling`,
       },
     };
 
@@ -2944,16 +3212,16 @@ function resolvePageData(pathname: string, base: string): PageData | null {
     // Per-city title/description overrides for high-impression GSC pages
     const CITY_META_OVERRIDES: Record<string, { title: string; description: string }> = {
       sevilla: {
-        title: `Conciertos en Sevilla ${year}–${nextYear}: música, festivales y carpooling | ConcertRide`,
-        description: `Próximos conciertos en Sevilla ${year}: La Cartuja (60.000 plazas), FIBES, Interestelar Sevilla, Icónica Fest. Carpooling sin comisión desde 3 €/asiento. Conductores verificados.`,
+        title: `Conciertos en Sevilla ${year}–${nextYear}: La Cartuja, FIBES y festivales | ConcertRide`,
+        description: `Conciertos en Sevilla ${year}: La Cartuja (60.000 plazas), FIBES (9.500), Interestelar (mayo, 40.000), Icónica Fest (Plaza España). Carpooling sin comisión desde Madrid, Málaga, Cádiz. Desde 4 €/asiento.`,
       },
       donostia: {
         title: `Conciertos en Donostia ${year}: Jazzaldia, festivales y carpooling | ConcertRide`,
         description: `Próximos conciertos en Donostia–San Sebastián ${year}: Jazzaldia, Donostia Arena, Anoeta. Carpooling sin comisión a BBK Live (100 km) y Azkena Rock (100 km). Desde 4 €/asiento.`,
       },
       alicante: {
-        title: `Conciertos en Alicante ${year}: Plaza de Toros, festivales y carpooling | ConcertRide`,
-        description: `Próximos conciertos en Alicante ${year}: Plaza de Toros, ADDA. Carpooling a Low Festival Benidorm (45 km), Arenal Sound (115 km), Viña Rock (165 km). Desde 3 €/asiento.`,
+        title: `Conciertos Plaza de Toros Alicante ${year}: agenda y carpooling | ConcertRide`,
+        description: `Conciertos en Plaza de Toros de Alicante ${year}: agenda veraniega, ADDA y Pitiu Rochel. Carpooling a Low Festival Benidorm (45 km, 3–5 €), Arenal Sound (115 km, 4–7 €), Viña Rock (165 km, 5–8 €). Sin comisión.`,
       },
       bilbao: {
         title: `Conciertos en Bilbao ${year}: BBK Live, Kobetamendi y carpooling | ConcertRide`,
@@ -3020,6 +3288,38 @@ function resolvePageData(pathname: string, base: string): PageData | null {
       canonical: `${base}/conciertos/${slug}`,
       h1: `Conciertos en ${c.name} ${year}`,
       body: cityBody(slug, c, base),
+    };
+  }
+
+  // /artistas/:slug
+  const artistMatch = pathname.match(/^\/artistas\/([^/]+)\/?$/);
+  if (artistMatch) {
+    const slug = artistMatch[1] ?? "";
+    const artist = ARTIST_LANDINGS.find((a) => a.slug === slug);
+    if (!artist) return null;
+    const upcomingCities = artist.upcomingConcerts.slice(0, 3).map((c) => c.city).join(", ");
+    return {
+      title: `${artist.name} en España 2026: conciertos y carpooling | ConcertRide`,
+      description: `Conciertos de ${artist.name} en España 2026${upcomingCities ? ` — ${upcomingCities}` : ""}. Carpooling desde ${artist.upcomingConcerts[0]?.originCities[0]?.range ?? "9 €/asiento"}, 0 % de comisión, conductores verificados.`,
+      canonical: `${base}/artistas/${slug}`,
+      h1: `${artist.name} en España`,
+      body: artistBody(artist, base),
+    };
+  }
+
+  // /recintos/:slug
+  const venueMatch = pathname.match(/^\/recintos\/([^/]+)\/?$/);
+  if (venueMatch) {
+    const slug = venueMatch[1] ?? "";
+    const venue = VENUE_LANDINGS.find((v) => v.slug === slug);
+    if (!venue) return null;
+    const topOrigin = venue.originCities[0];
+    return {
+      title: `Cómo llegar a ${venue.name}: transporte y carpooling | ConcertRide`,
+      description: `${venue.name} (${venue.city}): ${venue.transport.metro ? `Metro ${venue.transport.metro}.` : ""} ${venue.transport.bus ? `Bus ${venue.transport.bus}.` : ""} Carpooling desde ${topOrigin?.city ?? "tu ciudad"} desde ${topOrigin?.concertRideRange ?? "9 €/asiento"} sin comisión.`,
+      canonical: `${base}/recintos/${slug}`,
+      h1: `Cómo llegar a ${venue.shortName}`,
+      body: venueBody(venue, base),
     };
   }
 
@@ -3223,7 +3523,7 @@ export async function seoPrerender(c: Context<HonoEnv>, next: Next): Promise<Res
   if (authPaths.includes(c.req.path)) {
     return new Response(
       `<!doctype html><html lang="es"><head><meta charset="UTF-8"/><title>Acceso — ConcertRide ES</title><meta name="robots" content="noindex, nofollow"/><link rel="canonical" href="${base}${c.req.path}"/></head><body></body></html>`,
-      { status: 200, headers: { "Content-Type": "text/html; charset=utf-8", "X-SEO-Prerender": "noindex" } },
+      { status: 200, headers: { "Content-Type": "text/html; charset=utf-8", "X-Robots-Tag": "noindex, nofollow", "X-SEO-Prerender": "noindex" } },
     );
   }
 

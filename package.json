@@ -18,6 +18,8 @@
     "test": "npm run test --workspaces --if-present",
     "e2e": "playwright test",
     "deploy": "npm run build:web && wrangler deploy"
+    ,
+    "count-sitemaps": "node scripts/count-sitemaps.js"
   },
   "devDependencies": {
     "@axe-core/playwright": "^4.11.2",

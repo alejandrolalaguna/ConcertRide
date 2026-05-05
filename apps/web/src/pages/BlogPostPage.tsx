@@ -4,11 +4,24 @@ import { ArrowRight, Calendar, Clock, ArrowLeft } from "lucide-react";
 import { useSeoMeta } from "@/lib/useSeoMeta";
 import { SITE_URL } from "@/lib/siteUrl";
 import { BLOG_POSTS_BY_SLUG, BLOG_CATEGORIES } from "@/lib/blogPosts";
+import { FESTIVAL_LANDINGS_BY_SLUG } from "@/lib/festivalLandings";
+import { AutoLinksForFestival } from "@/lib/autoLinking";
 import { trackBlogView } from "@/lib/seoEvents";
 
 export default function BlogPostPage() {
   const { slug } = useParams<{ slug: string }>();
   const post = slug ? BLOG_POSTS_BY_SLUG[slug] : undefined;
+
+  // Detect if this post links to a festival how-to page (e.g. "/como-llegar/arenal-sound")
+  const relatedFestivalSlug = post
+    ? (post.relatedLinks ?? [])
+        .map((l) => l.to)
+        .find((t) => t.startsWith("/como-llegar/"))
+        ?.split("/")
+        .pop()
+    : undefined;
+
+  const relatedFestival = relatedFestivalSlug ? FESTIVAL_LANDINGS_BY_SLUG[relatedFestivalSlug] : undefined;
 
   // Only append year to title if the title doesn't already contain a 4-digit year.
   const postYear = post ? new Date(post.publishedAt).getFullYear() : null;
@@ -28,6 +41,11 @@ export default function BlogPostPage() {
     articleModifiedTime: post?.updatedAt ?? post?.publishedAt,
     articleSection: post ? BLOG_CATEGORIES.find((c) => c.slug === post.category)?.label : undefined,
     noindex: !post,
+    // GEO hints when the post is explicitly about a festival/how-to page
+    geoRegion: relatedFestival ? relatedFestival.region : undefined,
+    geoPlacename: relatedFestival ? `${relatedFestival.city}, España` : undefined,
+    geoLat: relatedFestival ? relatedFestival.lat : undefined,
+    geoLng: relatedFestival ? relatedFestival.lng : undefined,
   });
 
   useEffect(() => {
@@ -196,6 +214,7 @@ export default function BlogPostPage() {
         <p className="font-sans text-base md:text-lg text-cr-text leading-relaxed speakable">
           {post.lede}
         </p>
+        {relatedFestivalSlug && <AutoLinksForFestival slug={relatedFestivalSlug} />}
         {post.sections.map((section) => (
           <section key={section.heading} className="space-y-4">
             <h2 className="font-display text-2xl md:text-3xl uppercase">

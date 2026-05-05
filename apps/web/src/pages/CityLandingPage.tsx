@@ -13,6 +13,7 @@ import { FESTIVAL_LANDINGS } from "@/lib/festivalLandings";
 import { ROUTE_LANDINGS } from "@/lib/routeLandings";
 import { CITY_SEO_IMPROVEMENTS } from "@/lib/seoOverrides";
 import { trackCityView } from "@/lib/seoEvents";
+import { AutoLinksForCity } from "@/lib/autoLinking";
 
 const CITY_WIKIDATA: Record<string, string> = {
   "Madrid": "https://www.wikidata.org/wiki/Q2807",
@@ -37,12 +38,30 @@ const CITY_WIKIDATA: Record<string, string> = {
 };
 
 export default function CityLandingPage() {
-  const { city: slug } = useParams<{ city: string }>();
-  const landing = slug ? CITY_LANDINGS_BY_SLUG[slug] : undefined;
+  const params = useParams<{ city?: string; year?: string }>();
+  const { city: cityParam, year: yearParam } = params;
+
+  // Support both /conciertos/:city and /conciertos/:city/:year and /conciertos/:city-:year
+  const { baseSlug, pageYear } = useMemo(() => {
+    const defaultYear = new Date().getFullYear();
+    // Case A: /conciertos/:city/:year
+    if (cityParam && yearParam && /^20\d{2}$/.test(yearParam)) {
+      return { baseSlug: cityParam, pageYear: Number(yearParam) };
+    }
+    // Case B: /conciertos/:city where city may be 'sevilla-2026'
+    if (cityParam) {
+      const m = cityParam.match(/^(.+)-(20\d{2})$/);
+      if (m) return { baseSlug: m[1], pageYear: Number(m[2]) };
+      return { baseSlug: cityParam, pageYear: defaultYear };
+    }
+    return { baseSlug: undefined as string | undefined, pageYear: defaultYear };
+  }, [cityParam, yearParam]);
+
+  const landing = baseSlug ? CITY_LANDINGS_BY_SLUG[baseSlug] : undefined;
 
   const [concerts, setConcerts] = useState<Concert[] | null>(null);
 
-  const year = new Date().getFullYear();
+  const year = pageYear;
   const nextYear = year + 1;
 
   // Per-city title/description overrides targeting top GSC queries
@@ -209,7 +228,121 @@ export default function CityLandingPage() {
     ];
   }, [landing, year, nextYear]);
 
-  if (!slug || !landing) return <Navigate to="/concerts" replace />;
+  const cityJsonLdVariants: Array<Record<string, unknown>> = useMemo(() => {
+    if (!landing) return [];
+
+    const cityFestivals = FESTIVAL_LANDINGS.filter((f) => f.citySlug === landing.slug).slice(0, 6);
+    const cityRoutes = ROUTE_LANDINGS.filter((r) => r.originCitySlug === landing.slug).slice(0, 6);
+    const topVenues = landing.venues.slice(0, 5);
+    const originCoords = { lat: landing.lat, lng: landing.lng };
+
+    return [
+      {
+        "@context": "https://schema.org",
+        "@type": "ItemList",
+        name: `Resumen de ciudad: ${landing.display}`,
+        itemListElement: [
+          { "@type": "ListItem", position: 1, name: landing.display },
+          { "@type": "ListItem", position: 2, name: landing.region },
+          { "@type": "ListItem", position: 3, name: `${year}` },
+        ],
+      },
+      {
+        "@context": "https://schema.org",
+        "@type": "ItemList",
+        name: `Recintos en ${landing.display}`,
+        itemListElement: topVenues.map((venue, index) => ({
+          "@type": "ListItem",
+          position: index + 1,
+          name: venue,
+        })),
+      },
+      {
+        "@context": "https://schema.org",
+        "@type": "ItemList",
+        name: `Festivales en ${landing.display}`,
+        itemListElement: cityFestivals.map((festival, index) => ({
+          "@type": "ListItem",
+          position: index + 1,
+          name: festival.shortName,
+          item: { "@id": `${SITE_URL}/festivales/${festival.slug}`, "@type": "WebPage", name: festival.name },
+        })),
+      },
+      {
+        "@context": "https://schema.org",
+        "@type": "ItemList",
+        name: `Rutas desde ${landing.display}`,
+        itemListElement: cityRoutes.map((route, index) => ({
+          "@type": "ListItem",
+          position: index + 1,
+          name: `${route.originCity} → ${route.festival.shortName}`,
+          item: { "@id": `${SITE_URL}/rutas/${route.slug}`, "@type": "WebPage" },
+        })),
+      },
+      {
+        "@context": "https://schema.org",
+        "@type": "ItemList",
+        name: `Transporte y accesos: ${landing.display}`,
+        itemListElement: [
+          { "@type": "ListItem", position: 1, name: `Transporte público: metro, bus y taxi` },
+          { "@type": "ListItem", position: 2, name: `Carpooling sin comisión` },
+          { "@type": "ListItem", position: 3, name: `Vuelta nocturna coordinada` },
+        ],
+      },
+      {
+        "@context": "https://schema.org",
+        "@type": "ItemList",
+        name: `Preguntas frecuentes: ${landing.display}`,
+        itemListElement: cityFaqs.slice(0, 5).map((faq, index) => ({
+          "@type": "ListItem",
+          position: index + 1,
+          name: faq.q,
+        })),
+      },
+      {
+        "@context": "https://schema.org",
+        "@type": "ItemList",
+        name: `Coordenadas de ${landing.display}`,
+        itemListElement: [
+          { "@type": "ListItem", position: 1, name: `Latitud: ${originCoords.lat}` },
+          { "@type": "ListItem", position: 2, name: `Longitud: ${originCoords.lng}` },
+          { "@type": "ListItem", position: 3, name: `Wikidata: ${CITY_WIKIDATA[landing.display] ?? CITY_WIKIDATA[landing.slug] ?? 'n/d'}` },
+        ],
+      },
+      {
+        "@context": "https://schema.org",
+        "@type": "ItemList",
+        name: `Agenda rápida ${landing.display} ${year}`,
+        itemListElement: [
+          { "@type": "ListItem", position: 1, name: `Conciertos en ${landing.display} ${year}` },
+          { "@type": "ListItem", position: 2, name: `Conciertos en ${landing.display} ${nextYear}` },
+          { "@type": "ListItem", position: 3, name: `Carpooling desde ${landing.display}` },
+        ],
+      },
+      {
+        "@context": "https://schema.org",
+        "@type": "ItemList",
+        name: `Enlaces de ciudad: ${landing.display}`,
+        itemListElement: [
+          { "@type": "ListItem", position: 1, name: `Página ciudad`, item: { "@id": `${SITE_URL}/conciertos/${landing.slug}` } },
+          { "@type": "ListItem", position: 2, name: `Buscar viajes`, item: { "@id": `${SITE_URL}/concerts` } },
+          { "@type": "ListItem", position: 3, name: `Publicar viaje`, item: { "@id": `${SITE_URL}/publish` } },
+        ],
+      },
+      {
+        "@context": "https://schema.org",
+        "@type": "ItemList",
+        name: `Resumen LLM ${landing.display}`,
+        itemListElement: [
+          { "@type": "ListItem", position: 1, name: `${landing.display}, ${landing.region}` },
+          { "@type": "ListItem", position: 2, name: `${cityFestivals.length} festivales destacados` },
+          { "@type": "ListItem", position: 3, name: `${cityRoutes.length} rutas de carpooling` },
+        ],
+      },
+    ];
+  }, [landing, cityFaqs, year, nextYear]);
+
+  if (!baseSlug || !landing) return <Navigate to="/concerts" replace />;
 
   const futureConcerts = (concerts ?? []).filter(
     (c) => new Date(c.date).getTime() > Date.now(),
@@ -357,6 +490,13 @@ export default function CityLandingPage() {
           }),
         }}
       />
+      {cityJsonLdVariants.map((variant, index) => (
+        <script
+          key={`city-json-variant-${index}`}
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(variant) }}
+        />
+      ))}
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
@@ -431,6 +571,8 @@ export default function CityLandingPage() {
             ))}
           </div>
         )}
+
+        <AutoLinksForCity slug={landing.slug} />
       </div>
 
       <section className="max-w-6xl mx-auto px-6 pb-16">

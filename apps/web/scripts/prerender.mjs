@@ -28,7 +28,7 @@ if (!(await exists(ssrEntry))) {
   console.error(`[prerender] SSR bundle missing at ${ssrEntry}. Did the SSR build run?`);
   process.exit(1);
 }
-const { render, FESTIVAL_SLUGS, CITY_SLUGS, BLOG_SLUGS, ROUTE_SLUGS, ARTIST_SLUGS, VENUE_SLUGS, REGION_SLUGS, HOW_TO_GET_THERE_PAGE_SLUGS, CONTENT_LAST_UPDATED } = await import(pathToFileURL(ssrEntry).href);
+const { render, FESTIVAL_SLUGS, CITY_SLUGS, CITY_YEAR_SLUGS, BLOG_SLUGS, ROUTE_SLUGS, ARTIST_SLUGS, VENUE_SLUGS, REGION_SLUGS, HOW_TO_GET_THERE_PAGE_SLUGS, CONTENT_LAST_UPDATED } = await import(pathToFileURL(ssrEntry).href);
 
 // ── Read shell ──────────────────────────────────────────────────────────────
 const shellPath = path.join(distDir, "index.html");
@@ -42,6 +42,9 @@ const STATIC_ROUTES = [
   "/guia-transporte-festivales",
   "/blog",
   "/rutas",
+  "/como-funciona-carpooling",
+  "/comparativa/concertride-vs-blablacar",
+  "/comparativa/carpooling-vs-taxi-festival",
   "/prensa",
   "/como-funciona",
   "/faq",
@@ -59,11 +62,13 @@ const ARTIST_LANDING_SLUGS = ARTIST_SLUGS ?? [];
 const VENUE_LANDING_SLUGS = VENUE_SLUGS ?? [];
 const REGION_LANDING_SLUGS = REGION_SLUGS ?? [];
 const HOW_TO_GET_THERE_SLUGS = HOW_TO_GET_THERE_PAGE_SLUGS ?? [];
+const CITY_YEAR_LANDING_SLUGS = CITY_YEAR_SLUGS ?? [];
 
 const ROUTES = [
   ...STATIC_ROUTES,
   ...FESTIVAL_SLUGS.map((slug) => `/festivales/${slug}`),
   ...CITY_SLUGS.map((slug) => `/conciertos/${slug}`),
+  ...CITY_YEAR_LANDING_SLUGS.map((slug) => `/conciertos/${slug}`),
   ...BLOG_POST_SLUGS.map((slug) => `/blog/${slug}`),
   ...ROUTE_LANDING_SLUGS.map((slug) => `/rutas/${slug}`),
   ...ARTIST_LANDING_SLUGS.map((slug) => `/artistas/${slug}`),
@@ -72,7 +77,7 @@ const ROUTES = [
   ...HOW_TO_GET_THERE_SLUGS.map((slug) => `/como-llegar/${slug}`),
 ];
 
-console.log(`[prerender] ${ROUTES.length} routes (${FESTIVAL_SLUGS.length} festivals, ${CITY_SLUGS.length} cities, ${BLOG_POST_SLUGS.length} blog posts, ${ROUTE_LANDING_SLUGS.length} routes, ${ARTIST_LANDING_SLUGS.length} artists, ${VENUE_LANDING_SLUGS.length} venues, ${REGION_LANDING_SLUGS.length} regions, ${HOW_TO_GET_THERE_SLUGS.length} how-to-get-there)`);
+console.log(`[prerender] ${ROUTES.length} routes (${FESTIVAL_SLUGS.length} festivals, ${CITY_SLUGS.length} cities, ${CITY_YEAR_LANDING_SLUGS.length} city-year, ${BLOG_POST_SLUGS.length} blog posts, ${ROUTE_LANDING_SLUGS.length} routes, ${ARTIST_LANDING_SLUGS.length} artists, ${VENUE_LANDING_SLUGS.length} venues, ${REGION_LANDING_SLUGS.length} regions, ${HOW_TO_GET_THERE_SLUGS.length} how-to-get-there)`);
 
 let ok = 0;
 let failed = 0;
@@ -98,7 +103,8 @@ for (const url of ROUTES) {
 console.log(`[prerender] done — ${ok} ok, ${failed} failed`);
 
 // ── Sitemap ─────────────────────────────────────────────────────────────────
-await writeSitemap(succeeded);
+// Write multiple structured sitemaps (grouped) and sitemap index
+await writeSeparateSitemaps(succeeded);
 await writeSitemapIndex();
 
 // ── Helpers ─────────────────────────────────────────────────────────────────
@@ -211,12 +217,21 @@ async function exists(p) {
 
 async function writeSitemapIndex() {
   const today = new Date().toISOString().slice(0, 10);
+  const staticSitemaps = [
+    "sitemap-static.xml",
+    "sitemap-festivals.xml",
+    "sitemap-cities.xml",
+    "sitemap-routes.xml",
+    "sitemap-blog.xml",
+    "sitemap-how-to-get-there.xml",
+    "sitemap-static-others.xml",
+  ];
+  const entries = staticSitemaps
+    .map((f) => `  <sitemap>\n    <loc>${SITE_URL}/${f}</loc>\n    <lastmod>${today}</lastmod>\n  </sitemap>`)
+    .join("\n");
   const xml = `<?xml version="1.0" encoding="UTF-8"?>
 <sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <sitemap>
-    <loc>${SITE_URL}/sitemap-static.xml</loc>
-    <lastmod>${today}</lastmod>
-  </sitemap>
+${entries}
   <sitemap>
     <loc>${SITE_URL}/api/sitemap-concerts.xml</loc>
     <lastmod>${today}</lastmod>
@@ -224,7 +239,7 @@ async function writeSitemapIndex() {
 </sitemapindex>
 `;
   await fs.writeFile(path.join(distDir, "sitemap.xml"), xml, "utf8");
-  console.log(`[prerender] sitemap.xml updated — 2 sitemaps (static + dynamic concerts)`);
+  console.log(`[prerender] sitemap.xml updated — ${staticSitemaps.length + 1} sitemaps (${staticSitemaps.length} static + dynamic concerts)`);
 }
 
 async function writeSitemap(urls) {
@@ -240,6 +255,7 @@ async function writeSitemap(urls) {
     if (u === "/") return "1.0";
     if (u === "/concerts" || u === "/festivales" || u === "/guia-transporte-festivales" || u === "/rutas") return "0.9";
     if (u.startsWith("/festivales/")) return "0.85";
+    if (u.match(/^\/conciertos\/[^/]+\/\d{4}$/)) return "0.78";
     if (u.startsWith("/conciertos/")) return "0.8";
     if (u === "/blog") return "0.8";
     if (u.startsWith("/blog/")) return "0.75";
@@ -249,11 +265,14 @@ async function writeSitemap(urls) {
     if (u.startsWith("/festivales-en/")) return "0.75";
     if (u.startsWith("/como-llegar/")) return "0.85";
     if (["/como-funciona", "/faq"].includes(u)) return "0.7";
+    if (u === "/como-funciona-carpooling") return "0.75";
+    if (u.startsWith("/comparativa/")) return "0.72";
     if (["/acerca-de", "/contacto", "/prensa"].includes(u)) return "0.6";
     return "0.3";
   };
   const FREQ = (u) => {
     if (u === "/" || u === "/concerts") return "daily";
+    if (u.match(/^\/conciertos\/[^/]+\/\d{4}$/)) return "monthly";
     if (u.startsWith("/festivales") || u.startsWith("/conciertos/")) return "weekly";
     if (u === "/blog" || u === "/rutas") return "weekly";
     if (u.startsWith("/blog/")) return "monthly";
@@ -288,4 +307,33 @@ ${entries}
 `;
   await fs.writeFile(path.join(distDir, "sitemap-static.xml"), xml, "utf8");
   console.log(`[prerender] sitemap-static.xml — ${urls.length} URLs`);
+}
+
+// Split static URLs into separate sitemaps for better crawl prioritization
+async function writeSeparateSitemaps(urls) {
+  const today = new Date().toISOString().slice(0, 10);
+  const contentDate = CONTENT_LAST_UPDATED ?? today;
+
+  const groups = {
+    festivals: urls.filter((u) => u.startsWith("/festivales/")),
+    cities: urls.filter((u) => u.startsWith("/conciertos/")),
+    routes: urls.filter((u) => u.startsWith("/rutas/")),
+    howto: urls.filter((u) => u.startsWith("/como-llegar/")),
+    blog: urls.filter((u) => u.startsWith("/blog/")),
+    others: urls.filter((u) => !["/festivales/", "/conciertos/", "/rutas/", "/como-llegar/", "/blog/"].some((p) => u.startsWith(p))),
+  };
+
+  const write = async (filename, list, freq = "weekly", priority = "0.7") => {
+    const entries = list.map((u) => `  <url>\n    <loc>${SITE_URL}${u}</loc>\n    <lastmod>${contentDate}</lastmod>\n    <changefreq>${freq}</changefreq>\n    <priority>${priority}</priority>\n  </url>`).join("\n");
+    const xml = `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${entries}\n</urlset>\n`;
+    await fs.writeFile(path.join(distDir, filename), xml, "utf8");
+    console.log(`[prerender] wrote ${filename} — ${list.length} URLs`);
+  };
+
+  await write("sitemap-festivals.xml", groups.festivals, "weekly", "0.85");
+  await write("sitemap-cities.xml", groups.cities, "weekly", "0.8");
+  await write("sitemap-routes.xml", groups.routes, "monthly", "0.7");
+  await write("sitemap-how-to-get-there.xml", groups.howto, "weekly", "0.85");
+  await write("sitemap-blog.xml", groups.blog, "monthly", "0.75");
+  await write("sitemap-static-others.xml", groups.others, "monthly", "0.6");
 }

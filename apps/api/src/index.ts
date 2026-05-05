@@ -23,6 +23,8 @@ import { rateLimit } from "./lib/ratelimit";
 import { htmlToMarkdown, estimateTokens } from "./lib/markdown";
 import { seoPrerender } from "./lib/seoPrerender";
 import { getSiteUrl } from "./lib/siteUrl";
+import { ARTIST_LANDINGS } from "../../web/src/lib/artistLandings";
+import { VENUE_LANDINGS } from "../../web/src/lib/venueLandings";
 import * as Sentry from "@sentry/cloudflare";
 
 // Origins always allowed for CORS. The configured SITE_URL (and its `www.`
@@ -47,6 +49,18 @@ app.use("*", async (c, next) => {
     return c.redirect(url.pathname.slice(0, -1) + url.search, 301);
   }
   return next();
+});
+
+// ─── noindex header for auth pages (all user agents, not just bots) ─────────
+// Googlebot's Chrome-based renderer sees HTTP headers before executing JS.
+// This ensures /login, /register (and their ?next=... variants) are always
+// treated as noindex regardless of User-Agent or JS execution.
+const AUTH_NOINDEX_PATHS = new Set(["/login", "/register", "/forgot-password", "/reset-password", "/verify-email"]);
+app.use("*", async (c, next) => {
+  await next();
+  if (c.req.method === "GET" && AUTH_NOINDEX_PATHS.has(c.req.path)) {
+    c.res.headers.set("X-Robots-Tag", "noindex, nofollow");
+  }
 });
 
 // ─── SEO prerender for search bots (runs early, before any route matching) ──
@@ -344,6 +358,9 @@ app.get("/api/sitemap-index.xml", storeMiddleware, async (c) => {
   
   let indexEntries = `  <sitemap>\n    <loc>${base}/sitemap-static.xml</loc>\n    <lastmod>${today}</lastmod>\n  </sitemap>\n`;
 
+  indexEntries += `  <sitemap>\n    <loc>${base}/api/sitemap-artists.xml</loc>\n    <lastmod>${today}</lastmod>\n  </sitemap>\n`;
+  indexEntries += `  <sitemap>\n    <loc>${base}/api/sitemap-venues.xml</loc>\n    <lastmod>${today}</lastmod>\n  </sitemap>\n`;
+
   // Add paginated concerts sitemaps
   try {
     const { total } = await c.var.store.listConcerts({ 
@@ -363,6 +380,28 @@ app.get("/api/sitemap-index.xml", storeMiddleware, async (c) => {
   }
 
   const xml = `<?xml version="1.0" encoding="UTF-8"?>\n<sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${indexEntries}</sitemapindex>`;
+  return c.body(xml, 200, {
+    "Content-Type": "application/xml; charset=utf-8",
+    "Cache-Control": "public, max-age=3600",
+  });
+});
+
+app.get("/api/sitemap-artists.xml", async (c) => {
+  const base = getSiteUrl(c.env);
+  const today = new Date().toISOString().slice(0, 10);
+  const urls = ARTIST_LANDINGS.map((artist) => `  <url>\n    <loc>${base}/artistas/${artist.slug}</loc>\n    <lastmod>${today}</lastmod>\n    <changefreq>monthly</changefreq>\n    <priority>0.6</priority>\n  </url>`).join("\n");
+  const xml = `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${urls}\n</urlset>`;
+  return c.body(xml, 200, {
+    "Content-Type": "application/xml; charset=utf-8",
+    "Cache-Control": "public, max-age=3600",
+  });
+});
+
+app.get("/api/sitemap-venues.xml", async (c) => {
+  const base = getSiteUrl(c.env);
+  const today = new Date().toISOString().slice(0, 10);
+  const urls = VENUE_LANDINGS.map((venue) => `  <url>\n    <loc>${base}/recintos/${venue.slug}</loc>\n    <lastmod>${today}</lastmod>\n    <changefreq>monthly</changefreq>\n    <priority>0.6</priority>\n  </url>`).join("\n");
+  const xml = `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${urls}\n</urlset>`;
   return c.body(xml, 200, {
     "Content-Type": "application/xml; charset=utf-8",
     "Cache-Control": "public, max-age=3600",

@@ -23,6 +23,7 @@ import { REGION_LANDINGS } from "@/lib/regionLandings";
 const FESTIVAL_DEFAULT_OG = `${SITE_URL}/og-fallback.png`;
 import { trackFestivalView } from "@/lib/seoEvents";
 import { FestivalAlertWidget } from "@/components/FestivalAlertWidget";
+import { AutoLinksForFestival } from "@/lib/autoLinking";
 
 const FESTIVAL_WIKIDATA: Record<string, string> = {
   "mad-cool": "https://www.wikidata.org/wiki/Q22808739",
@@ -313,10 +314,185 @@ export default function FestivalLandingPage() {
       }
     : null;
 
+  const jsonLdKeyFacts = {
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    "name": `Datos clave: ${festival.name}`,
+    "itemListElement": (() => {
+      // derive price range across origin cities
+      const nums = festival.originCities
+        .map((oc) => (oc.concertRideRange || '').match(/(\d+)/g))
+        .flat()
+        .map((n) => Number(n))
+        .filter(Boolean);
+      const priceMin = nums.length ? Math.min(...nums) : null;
+      const priceMax = nums.length ? Math.max(...nums) : null;
+      const topOrigins = festival.originCities.slice(0, 3).map((o) => o.city).join(', ');
+
+      const items = [
+        { "@type": "ListItem", "position": 1, "name": `Ciudades de origen documentadas: ${festival.originCities.length}` },
+        { "@type": "ListItem", "position": 2, "name": `Principales ciudades de origen: ${topOrigins}` },
+        { "@type": "ListItem", "position": 3, "name": `Distancia típica (ej. desde ${festival.originCities[0]?.city ?? 'varias'}): ${festival.originCities[0]?.km ?? '-'} km` },
+        { "@type": "ListItem", "position": 4, "name": `Precio orientativo carpooling: ${priceMin ? `desde ${priceMin}€` : 'desde 3€'}${priceMax && priceMax !== priceMin ? ` hasta ${priceMax}€` : ''}/asiento` },
+        { "@type": "ListItem", "position": 5, "name": `Modos de transporte: ${["autobús", "tren", "coche compartido"].join(", ")}` },
+        { "@type": "ListItem", "position": 6, "name": `Fechas habituales: ${festival.typicalDates}` },
+        { "@type": "ListItem", "position": 7, "name": `Aforo aproximado: ${festival.capacity}` },
+      ];
+      // Append detailed top-origin entries (top 3) with km, time, price
+      const top = festival.originCities.slice(0, 3);
+      top.forEach((oc, i) => {
+        const pos = items.length + 1;
+        items.push({
+          "@type": "ListItem",
+          "position": pos,
+          "name": `Desde ${oc.city}: ${oc.km} km · ${oc.drivingTime} · precio orientativo ${oc.concertRideRange}`,
+        });
+      });
+      return items;
+    })(),
+  };
+
+  // Generate multiple ItemList variants to improve LLM citability (10 variants)
+  const jsonLdVariants = (() => {
+    const variants: any[] = [];
+
+    // v1: Top origins (names)
+    variants.push({
+      "@context": "https://schema.org",
+      "@type": "ItemList",
+      name: `Top ciudades origen: ${festival.name}`,
+      itemListElement: festival.originCities.slice(0, 6).map((oc, i) => ({
+        "@type": "ListItem",
+        position: i + 1,
+        name: oc.city,
+      })),
+    });
+
+    // v2: Top origins detailed (city + km + time + price)
+    variants.push({
+      "@context": "https://schema.org",
+      "@type": "ItemList",
+      name: `Ciudades origen detalladas: ${festival.name}`,
+      itemListElement: festival.originCities.slice(0, 6).map((oc, i) => ({
+        "@type": "ListItem",
+        position: i + 1,
+        name: `${oc.city}: ${oc.km} km · ${oc.drivingTime} · ${oc.concertRideRange}`,
+      })),
+    });
+
+    // v3: Origins with route links (if route exists)
+    variants.push({
+      "@context": "https://schema.org",
+      "@type": "ItemList",
+      name: `Enlaces a rutas: ${festival.name}`,
+      itemListElement: festival.originCities.slice(0, 6).map((oc, i) => {
+        const route = ROUTE_LANDINGS.find((r) => r.festival.slug === festival.slug && r.originCity === oc.city);
+        return {
+          "@type": "ListItem",
+          position: i + 1,
+          name: oc.city,
+          ...(route ? { item: { "@id": `${SITE_URL}/rutas/${route.slug}`, "@type": "WebPage", name: `Ruta ${oc.city} → ${festival.shortName}` } } : {}),
+        };
+      }),
+    });
+
+    // v4: Price buckets summary
+    const prices = festival.originCities.map((oc) => (oc.concertRideRange || '').match(/(\d+)/g)).flat().filter(Boolean).map(Number);
+    const minP = prices.length ? Math.min(...prices) : null;
+    const maxP = prices.length ? Math.max(...prices) : null;
+    variants.push({
+      "@context": "https://schema.org",
+      "@type": "ItemList",
+      name: `Rango de precios: ${festival.name}`,
+      itemListElement: [
+        { "@type": "ListItem", position: 1, name: `Precio mínimo orientativo: ${minP ?? '3'} €` },
+        { "@type": "ListItem", position: 2, name: `Precio máximo orientativo: ${maxP ?? '20'} €` },
+        { "@type": "ListItem", position: 3, name: `Rango medio estimado: ${minP && maxP ? `${Math.round((minP + maxP) / 2)} €` : '—'}` },
+      ],
+    });
+
+    // v5: Travel times list
+    variants.push({
+      "@context": "https://schema.org",
+      "@type": "ItemList",
+      name: `Tiempos de viaje: ${festival.name}`,
+      itemListElement: festival.originCities.slice(0, 8).map((oc, i) => ({
+        "@type": "ListItem",
+        position: i + 1,
+        name: `${oc.city}: ${oc.drivingTime}`,
+      })),
+    });
+
+    // v6: Coordinates + venue link
+    variants.push({
+      "@context": "https://schema.org",
+      "@type": "ItemList",
+      name: `Coordenadas y lugar: ${festival.name}`,
+      itemListElement: [
+        { "@type": "ListItem", position: 1, name: `Recinto: ${festival.venue}` },
+        { "@type": "ListItem", position: 2, name: `Ciudad: ${festival.city}` },
+        { "@type": "ListItem", position: 3, name: `Coordenadas: ${festival.lat ?? '-'}, ${festival.lng ?? '-'}` },
+        { "@type": "ListItem", position: 4, name: `Página del festival: ${SITE_URL}/festivales/${festival.slug}` },
+      ],
+    });
+
+    // v7: Speakable short bullets (good for voice assistants)
+    variants.push({
+      "@context": "https://schema.org",
+      "@type": "ItemList",
+      name: `Resumen rápido (speakable): ${festival.name}`,
+      itemListElement: [
+        { "@type": "ListItem", position: 1, name: `${festival.shortName} en ${festival.city}` },
+        { "@type": "ListItem", position: 2, name: `Fechas: ${festival.typicalDates}` },
+        { "@type": "ListItem", position: 3, name: `Carpooling desde ${festival.originCities.slice(0,3).map(o=>o.city).join(', ')}` },
+      ],
+    });
+
+    // v8: Accessibility & transport modes
+    variants.push({
+      "@context": "https://schema.org",
+      "@type": "ItemList",
+      name: `Accesibilidad y transporte: ${festival.name}`,
+      itemListElement: [
+        { "@type": "ListItem", position: 1, name: `Modos de transporte: autobús, tren, coche compartido` },
+        { "@type": "ListItem", position: 2, name: `Accesibilidad: información disponible en la web del organizador` },
+      ],
+    });
+
+    // v9: Organizer & attendance
+    variants.push({
+      "@context": "https://schema.org",
+      "@type": "ItemList",
+      name: `Organizador y aforo: ${festival.name}`,
+      itemListElement: [
+        { "@type": "ListItem", position: 1, name: `Organizador: ${festival.name}` },
+        { "@type": "ListItem", position: 2, name: `Aforo aproximado: ${festival.capacity}` },
+      ],
+    });
+
+    // v10: Quick links to related festival pages
+    variants.push({
+      "@context": "https://schema.org",
+      "@type": "ItemList",
+      name: `Enlaces relacionados: ${festival.name}`,
+      itemListElement: [
+        { "@type": "ListItem", position: 1, name: `Página del festival`, item: { "@id": `${SITE_URL}/festivales/${festival.slug}` } },
+        { "@type": "ListItem", position: 2, name: `Rutas desde principales ciudades`, item: { "@id": `${SITE_URL}/rutas` } },
+        { "@type": "ListItem", position: 3, name: `Buscar viajes hacia ${festival.city}`, item: { "@id": `${SITE_URL}/concerts?city=${encodeURIComponent(festival.city)}` } },
+      ],
+    });
+
+    return variants;
+  })();
+
   return (
     <main id="main" className="min-h-dvh bg-cr-bg text-cr-text pt-14">
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdEvent) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdSeries) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdKeyFacts) }} />
+      {jsonLdVariants.map((v, i) => (
+        <script key={`json-variant-${i}`} type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(v) }} />
+      ))}
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdBreadcrumb) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdFaq) }} />
       {jsonLdAnnouncement && <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdAnnouncement) }} />}
@@ -427,6 +603,8 @@ export default function FestivalLandingPage() {
           {" "}horarios {festival.shortName.toLowerCase()},
           {" "}viajes {festival.shortName.toLowerCase()}.
         </p>
+
+        <AutoLinksForFestival slug={festival.slug} />
 
         {/* Festival meta strip */}
         <div className="flex flex-wrap gap-4 pt-2">

@@ -265,6 +265,54 @@ export default function LandingPage() {
               </span>
             </Link>
 
+            <Link
+              to="/como-funciona-carpooling"
+              className="border border-cr-border p-5 hover:border-cr-primary/50 transition-colors group space-y-3"
+            >
+              <p className="font-mono text-[10px] uppercase tracking-[0.14em] text-cr-primary">Guía</p>
+              <h3 className="font-display text-base uppercase leading-tight group-hover:text-cr-primary transition-colors">
+                Qué es el carpooling para conciertos
+              </h3>
+              <p className="font-sans text-xs text-cr-text-muted leading-relaxed">
+                Respuesta directa, pasos numerados y comparación con taxi y autobús para entenderlo en un minuto.
+              </p>
+              <span className="inline-flex items-center gap-1 font-sans text-xs text-cr-primary">
+                Leer <ArrowRight size={11} />
+              </span>
+            </Link>
+
+            <Link
+              to="/comparativa/concertride-vs-blablacar"
+              className="border border-cr-border p-5 hover:border-cr-primary/50 transition-colors group space-y-3"
+            >
+              <p className="font-mono text-[10px] uppercase tracking-[0.14em] text-cr-primary">Comparativa</p>
+              <h3 className="font-display text-base uppercase leading-tight group-hover:text-cr-primary transition-colors">
+                ConcertRide vs BlaBlaCar
+              </h3>
+              <p className="font-sans text-xs text-cr-text-muted leading-relaxed">
+                Comisión, especialización, pago y vuelta de madrugada: por qué ConcertRide encaja mejor en festivales.
+              </p>
+              <span className="inline-flex items-center gap-1 font-sans text-xs text-cr-primary">
+                Leer <ArrowRight size={11} />
+              </span>
+            </Link>
+
+            <Link
+              to="/comparativa/carpooling-vs-taxi-festival"
+              className="border border-cr-border p-5 hover:border-cr-primary/50 transition-colors group space-y-3"
+            >
+              <p className="font-mono text-[10px] uppercase tracking-[0.14em] text-cr-primary">Comparativa</p>
+              <h3 className="font-display text-base uppercase leading-tight group-hover:text-cr-primary transition-colors">
+                Carpooling vs taxi en festivales
+              </h3>
+              <p className="font-sans text-xs text-cr-text-muted leading-relaxed">
+                Un taxi de ida y vuelta supera los 50&nbsp;€. El carpooling sale entre 3 y 20&nbsp;€ por asiento según distancia.
+              </p>
+              <span className="inline-flex items-center gap-1 font-sans text-xs text-cr-primary">
+                Leer <ArrowRight size={11} />
+              </span>
+            </Link>
+
             {/* Blog index */}
             <Link
               to="/blog"

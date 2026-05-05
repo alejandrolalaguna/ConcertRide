@@ -27,9 +27,13 @@ const TerminosPage = lazy(() => import("./pages/TerminosPage"));
 const DriverProfilePage = lazy(() => import("./pages/DriverProfilePage"));
 const FaqPage = lazy(() => import("./pages/FaqPage"));
 const HowItWorksPage = lazy(() => import("./pages/HowItWorksPage"));
+const ComoFuncionaCarpoolingPage = lazy(() => import("./pages/ComoFuncionaCarpoolingPage"));
 const ContactoPage = lazy(() => import("./pages/ContactoPage"));
 const AcercaDePage = lazy(() => import("./pages/AcercaDePage"));
+const ComparativaBlaBlaCar = lazy(() => import("./pages/ComparativaBlaBlaCar"));
+const ComparativaTaxi = lazy(() => import("./pages/ComparativaTaxi"));
 const CityLandingPage = lazy(() => import("./pages/CityLandingPage"));
+const CityYearPage = lazy(() => import("./pages/CityYearPage"));
 const FestivalLandingPage = lazy(() => import("./pages/FestivalLandingPage"));
 const FestivalGuidePage = lazy(() => import("./pages/FestivalGuidePage"));
 const FestivalesPage = lazy(() => import("./pages/FestivalesPage"));
@@ -80,6 +84,7 @@ export default function App() {
             <Route path="/" element={<LandingPage />} />
             <Route path="/concerts" element={<ConcertsPage />} />
             <Route path="/concerts/:id" element={<ConcertDetailPage />} />
+            <Route path="/conciertos/:city/:year" element={<CityYearPage />} />
             <Route path="/conciertos/:city" element={<CityLandingPage />} />
             <Route path="/festivales" element={<FestivalesPage />} />
             <Route path="/festivales/:festival/guia" element={<FestivalGuidePage />} />
@@ -112,6 +117,9 @@ export default function App() {
             <Route path="/terminos" element={<TerminosPage />} />
             <Route path="/faq" element={<FaqPage />} />
             <Route path="/como-funciona" element={<HowItWorksPage />} />
+            <Route path="/como-funciona-carpooling" element={<ComoFuncionaCarpoolingPage />} />
+            <Route path="/comparativa/concertride-vs-blablacar" element={<ComparativaBlaBlaCar />} />
+            <Route path="/comparativa/carpooling-vs-taxi-festival" element={<ComparativaTaxi />} />
             <Route path="/contacto" element={<ContactoPage />} />
             <Route path="/acerca-de" element={<AcercaDePage />} />
             <Route path="/_dev" element={<DevShowcase />} />

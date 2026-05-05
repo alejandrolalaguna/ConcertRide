@@ -1,0 +1,55 @@
+name: Build & Prerender Web
+
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch: {}
+
+jobs:
+  build-prerender:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Type check (optional)
+        run: npm run type-check || true
+
+      - name: Build web workspace
+        run: npm run build:web
+
+      - name: Prerender static pages
+        run: node apps/web/scripts/prerender.mjs
+
+      - name: Upload prerendered dist artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: web-dist
+          path: apps/web/dist
+
+      - name: Count sitemap URLs
+        run: npm run count-sitemaps
+
+      - name: Upload sitemap artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: sitemaps
+          path: |
+            apps/web/dist/sitemap-static.xml
+            apps/web/dist/sitemap.xml
+            apps/web/dist/sitemap-*.xml
+
+      - name: Upload sitemap count report
+        uses: actions/upload-artifact@v4
+        with:
+          name: sitemap-count-report
+          path: apps/web/dist/sitemap-counts.json
