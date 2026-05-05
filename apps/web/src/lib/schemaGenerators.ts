@@ -200,3 +200,77 @@ export function generateLocalBusinessSchema({
 
   return schema;
 }
+
+/**
+ * SpeakableSpecification — marks page sections readable by voice assistants
+ * and GEO AI engines (Google SGE, Perplexity, etc.).
+ * Pass CSS selectors that wrap the most factual, quotable content.
+ */
+export function generateSpeakableSchema(cssSelectors: string[] = ["h1", ".speakable", "p:first-of-type"]) {
+  return {
+    "@type": "SpeakableSpecification",
+    cssSelector: cssSelectors,
+  };
+}
+
+/**
+ * WebSite + SearchAction schema for the home page.
+ * Enables Google Sitelinks Search Box and signals the site's search endpoint.
+ */
+export function generateWebSiteSchema(siteUrl: string) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "@id": `${siteUrl}/#website`,
+    url: siteUrl,
+    name: "ConcertRide ES",
+    description: "Carpooling para conciertos y festivales en España",
+    inLanguage: "es-ES",
+    potentialAction: {
+      "@type": "SearchAction",
+      target: {
+        "@type": "EntryPoint",
+        urlTemplate: `${siteUrl}/concerts?q={search_term_string}`,
+      },
+      "query-input": "required name=search_term_string",
+    },
+  };
+}
+
+/**
+ * TripAction schema for route pages (/rutas/:route).
+ * Describes a carpooling trip action between two locations.
+ */
+export function generateTripActionSchema(
+  origin: string,
+  destination: string,
+  routeName: string,
+) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "TripAction",
+    name: routeName,
+    fromLocation: {
+      "@type": "Place",
+      name: origin,
+      address: {
+        "@type": "PostalAddress",
+        addressLocality: origin,
+        addressCountry: "ES",
+      },
+    },
+    toLocation: {
+      "@type": "Place",
+      name: destination,
+      address: {
+        "@type": "PostalAddress",
+        addressLocality: destination,
+        addressCountry: "ES",
+      },
+    },
+    provider: {
+      "@type": "Organization",
+      name: "ConcertRide",
+    },
+  };
+}

@@ -17,6 +17,7 @@ import type { HonoEnv } from "../types";
 import { getSiteUrl } from "./siteUrl";
 import { ARTIST_LANDINGS } from "../../../web/src/lib/artistLandings";
 import { VENUE_LANDINGS } from "../../../web/src/lib/venueLandings";
+import { REGION_LANDINGS } from "../../../web/src/lib/regionLandings";
 
 const SITE_NAME = "ConcertRide";
 
@@ -3357,6 +3358,216 @@ function resolvePageData(pathname: string, base: string): PageData | null {
     };
   }
 
+  // /festivales/:festival/guia
+  const festGuiaMatch = pathname.match(/^\/festivales\/([^/]+)\/guia\/?$/);
+  if (festGuiaMatch) {
+    const slug = festGuiaMatch[1] ?? "";
+    const f = FESTIVALS[slug];
+    if (!f) return null;
+    const yearMatch = f.dates.match(/\d{4}/);
+    const year = yearMatch ? yearMatch[0] : "2026";
+    const guiaBreadcrumb = JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      itemListElement: [
+        { "@type": "ListItem", position: 1, name: "Inicio", item: `${base}/` },
+        { "@type": "ListItem", position: 2, name: "Festivales", item: `${base}/festivales` },
+        { "@type": "ListItem", position: 3, name: f.shortName, item: `${base}/festivales/${slug}` },
+        { "@type": "ListItem", position: 4, name: "Guía", item: `${base}/festivales/${slug}/guia` },
+      ],
+    });
+    const guiaArticleJsonLd = JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "Article",
+      headline: `Guía ${f.shortName} ${year}: qué llevar, cómo llegar y consejos`,
+      description: `Guía completa para ${f.name} ${year}. Qué llevar al festival, logística del recinto, transporte y consejos de veteranos. ${f.venue}, ${f.city}.`,
+      author: { "@type": "Organization", name: "ConcertRide", "@id": `${base}/#organization` },
+      publisher: { "@type": "Organization", name: "ConcertRide", "@id": `${base}/#organization`, logo: { "@type": "ImageObject", url: `${base}/favicon.svg`, width: 512, height: 512 } },
+      datePublished: "2026-04-10",
+      dateModified: "2026-05-03",
+      url: `${base}/festivales/${slug}/guia`,
+      inLanguage: "es-ES",
+      mainEntityOfPage: { "@type": "WebPage", "@id": `${base}/festivales/${slug}/guia` },
+      about: { "@type": "MusicEvent", name: f.name, startDate: f.startDate, location: { "@type": "Place", name: f.venue, addressLocality: f.city } },
+      speakable: { "@type": "SpeakableSpecification", cssSelector: ["h1", ".speakable", "p:first-of-type"] },
+    });
+    return {
+      title: `Guía ${f.shortName} ${year}: qué llevar, cómo llegar y consejos | ConcertRide`,
+      description: `Guía completa para ${f.name} ${year}. Qué llevar al festival, logística del recinto, transporte y consejos. ${f.venue}, ${f.city} (${f.dates}).`,
+      canonical: `${base}/festivales/${slug}/guia`,
+      h1: `Guía ${f.shortName} ${year}: qué llevar y cómo llegar`,
+      body: `<script type="application/ld+json">${guiaBreadcrumb}</script>
+<script type="application/ld+json">${guiaArticleJsonLd}</script>
+<nav aria-label="Breadcrumb"><a href="${base}/">Inicio</a> / <a href="${base}/festivales">Festivales</a> / <a href="${base}/festivales/${slug}">${esc(f.shortName)}</a> / <span>Guía</span></nav>
+<p>Guía completa para asistir a ${esc(f.name)} ${year} en ${esc(f.venue)}, ${esc(f.city)}. Todo lo que necesitas saber para disfrutar del festival sin imprevistos.</p>
+<h2>Qué llevar al festival</h2>
+<ul>
+  <li><strong>Imprescindible:</strong> Entrada (digital o física), DNI/pasaporte, protector solar FPS 50+, agua y botella reutilizable, power bank.</li>
+  <li><strong>Comodidad:</strong> Ropa de repuesto, poncho o chubasquero ligero, tapones para los oídos, calzado cómodo cerrado.</li>
+  <li><strong>Opcional:</strong> Silla de camping (si está permitida), nevera portátil, efectivo (Bizum suele funcionar en el recinto).</li>
+</ul>
+<h2>Cómo llegar a ${esc(f.shortName)}</h2>
+<p>${esc(f.blurb)}</p>
+<ul>
+${f.originCities.map((o) => `  <li><strong>${esc(o.city)}</strong> — ${o.km} km · ${esc(o.drivingTime)} · carpooling desde <strong>${esc(o.range)}</strong></li>`).join("\n")}
+</ul>
+<h2>Carpooling con ConcertRide</h2>
+<p>ConcertRide es la forma más popular de llegar a ${esc(f.shortName)} desde fuera de ${esc(f.city)}. Sin comisión, conductores verificados, pago en efectivo o Bizum el día del viaje.</p>
+<p><a href="${base}/festivales/${slug}">Ver viajes disponibles a ${esc(f.shortName)} →</a></p>
+<p><a href="${base}/festivales">Ver todos los festivales →</a></p>`,
+    };
+  }
+
+  // /festivales-en/:slug (region landing pages)
+  const regionMatch = pathname.match(/^\/festivales-en\/([^/]+)\/?$/);
+  if (regionMatch) {
+    const slug = regionMatch[1] ?? "";
+    const region = REGION_LANDINGS.find((r) => r.slug === slug);
+    if (!region) return null;
+    const year = new Date().getFullYear();
+    const festivalNames = region.festivalsInRegion
+      .map((s) => FESTIVALS[s]?.shortName ?? s)
+      .filter(Boolean);
+    const regionBreadcrumb = JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      itemListElement: [
+        { "@type": "ListItem", position: 1, name: "Inicio", item: `${base}/` },
+        { "@type": "ListItem", position: 2, name: "Festivales por región", item: `${base}/festivales` },
+        { "@type": "ListItem", position: 3, name: `Festivales en ${region.displayName}`, item: `${base}/festivales-en/${slug}` },
+      ],
+    });
+    const regionFaqJsonLd = JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      inLanguage: "es-ES",
+      mainEntity: region.faqs.map((faq) => ({
+        "@type": "Question",
+        name: faq.q,
+        acceptedAnswer: { "@type": "Answer", text: faq.a },
+      })),
+    });
+    const regionPageJsonLd = JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "WebPage",
+      "@id": `${base}/festivales-en/${slug}#webpage`,
+      url: `${base}/festivales-en/${slug}`,
+      name: `Festivales en ${region.name} ${year}: carpooling y transporte | ConcertRide`,
+      inLanguage: "es-ES",
+      dateModified: "2026-05-03",
+      about: {
+        "@type": "AdministrativeArea",
+        name: region.name,
+        identifier: region.isoCode,
+        geo: { "@type": "GeoCoordinates", latitude: region.lat, longitude: region.lng },
+      },
+      speakable: { "@type": "SpeakableSpecification", cssSelector: ["h1", ".speakable", "p:first-of-type"] },
+      isPartOf: { "@type": "WebSite", "@id": `${base}/#website`, name: "ConcertRide", url: base },
+    });
+    return {
+      title: `Festivales en ${region.name} ${year}: carpooling y transporte | ConcertRide`,
+      description: `Festivales en ${region.name} ${year}: ${festivalNames.slice(0, 3).join(", ")}. Carpooling sin comisión desde ${region.mainCities.slice(0, 3).join(", ")}. Conductores verificados, desde 3 €/asiento.`,
+      canonical: `${base}/festivales-en/${slug}`,
+      h1: `Festivales en ${region.name} ${year}`,
+      body: `<script type="application/ld+json">${regionBreadcrumb}</script>
+<script type="application/ld+json">${regionFaqJsonLd}</script>
+<script type="application/ld+json">${regionPageJsonLd}</script>
+<nav aria-label="Breadcrumb"><a href="${base}/">Inicio</a> / <a href="${base}/festivales">Festivales</a> / <span>Festivales en ${esc(region.displayName)}</span></nav>
+<p>${esc(region.blurb)}</p>
+<h2>Festivales en ${esc(region.name)} en ${year}</h2>
+<ul>
+${region.festivalsInRegion.map((s) => {
+  const f = FESTIVALS[s];
+  return f
+    ? `  <li><a href="${base}/festivales/${s}">${esc(f.name)} — ${esc(f.city)} — ${esc(f.dates)}</a></li>`
+    : `  <li><a href="${base}/festivales/${s}">${esc(s)}</a></li>`;
+}).join("\n")}
+</ul>
+<h2>Carpooling a festivales de ${esc(region.displayName)}</h2>
+<p>ConcertRide ofrece carpooling sin comisión a todos los festivales de ${esc(region.name)} desde ${region.mainCities.slice(0, 4).join(", ")} y más ciudades. Conductores verificados, pago directo en efectivo o Bizum.</p>
+<h2>Preguntas frecuentes — festivales en ${esc(region.displayName)}</h2>
+<dl>
+${region.faqs.map((faq) => `  <dt>${esc(faq.q)}</dt>\n  <dd>${esc(faq.a)}</dd>`).join("\n")}
+</dl>
+<p><a href="${base}/festivales">Ver todos los festivales →</a></p>`,
+    };
+  }
+
+  // /como-llegar/:festival
+  const comoLlegarMatch = pathname.match(/^\/como-llegar\/([^/]+)\/?$/);
+  if (comoLlegarMatch) {
+    const slug = comoLlegarMatch[1] ?? "";
+    const f = FESTIVALS[slug];
+    if (!f) return null;
+    const yearMatch = f.dates.match(/\d{4}/);
+    const year = yearMatch ? yearMatch[0] : "2026";
+    const comoLlegarBreadcrumb = JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      itemListElement: [
+        { "@type": "ListItem", position: 1, name: "Inicio", item: `${base}/` },
+        { "@type": "ListItem", position: 2, name: "Festivales", item: `${base}/festivales` },
+        { "@type": "ListItem", position: 3, name: `Cómo llegar a ${f.shortName}`, item: `${base}/como-llegar/${slug}` },
+      ],
+    });
+    const comoLlegarFaqJsonLd = JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      inLanguage: "es-ES",
+      mainEntity: f.faqs.slice(0, 4).map((faq) => ({
+        "@type": "Question",
+        name: faq.q,
+        acceptedAnswer: { "@type": "Answer", text: faq.a },
+      })),
+    });
+    const comoLlegarPageJsonLd = JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "Article",
+      headline: `Cómo llegar a ${f.name} ${year}: carpooling, bus y tren`,
+      description: `Guía de transporte para ${f.name} ${year} en ${f.venue}, ${f.city}. Opciones de carpooling, bus, tren y lanzadera. Precios desde ${f.priceFrom} €/asiento.`,
+      author: { "@type": "Organization", name: "ConcertRide", "@id": `${base}/#organization` },
+      publisher: { "@type": "Organization", name: "ConcertRide", "@id": `${base}/#organization`, logo: { "@type": "ImageObject", url: `${base}/favicon.svg`, width: 512, height: 512 } },
+      datePublished: "2026-04-10",
+      dateModified: "2026-05-03",
+      url: `${base}/como-llegar/${slug}`,
+      inLanguage: "es-ES",
+      mainEntityOfPage: { "@type": "WebPage", "@id": `${base}/como-llegar/${slug}` },
+      speakable: { "@type": "SpeakableSpecification", cssSelector: ["h1", ".speakable", "p:first-of-type"] },
+    });
+    const originList = f.originCities.slice(0, 3).map((o) => `${o.city} (${o.range})`).join(", ");
+    return {
+      title: `Cómo llegar a ${f.shortName} ${year}: Carpooling desde ${f.priceFrom}€ | ConcertRide`,
+      description: `Cómo llegar a ${f.name} ${year} en ${f.venue}, ${f.city} (${f.dates}). Carpooling desde ${originList}. Sin comisión, conductores verificados.`,
+      canonical: `${base}/como-llegar/${slug}`,
+      h1: `Cómo llegar a ${f.shortName} ${year}`,
+      body: `<script type="application/ld+json">${comoLlegarBreadcrumb}</script>
+<script type="application/ld+json">${comoLlegarFaqJsonLd}</script>
+<script type="application/ld+json">${comoLlegarPageJsonLd}</script>
+<nav aria-label="Breadcrumb"><a href="${base}/">Inicio</a> / <a href="${base}/festivales">Festivales</a> / <span>Cómo llegar a ${esc(f.shortName)}</span></nav>
+<p>${esc(f.blurb)}</p>
+<h2>Opciones de transporte a ${esc(f.shortName)}</h2>
+<ul>
+${f.originCities.map((o) => `  <li><strong>${esc(o.city)}</strong> — ${o.km} km · ${esc(o.drivingTime)} · carpooling desde <strong>${esc(o.range)}</strong></li>`).join("\n")}
+</ul>
+<h2>Por qué el carpooling con ConcertRide</h2>
+<p>ConcertRide cubre el transporte a ${esc(f.shortName)} sin comisión. Los conductores verifican su carnet, y el pago es en efectivo o Bizum el día del viaje. Sin necesidad de tarjeta bancaria.</p>
+<h2>Comparativa de transporte a ${esc(f.shortName)}</h2>
+<table>
+  <tr><th>Opción</th><th>Precio estimado</th><th>Disponibilidad nocturna</th></tr>
+  <tr><td>ConcertRide carpooling</td><td>desde ${esc(f.priceFrom)} €/asiento</td><td>Sí (hora acordada)</td></tr>
+  <tr><td>Taxi / VTC</td><td>40–90 € (precio nocturno)</td><td>Sí (precio x2–x3)</td></tr>
+  <tr><td>Autobús organizado</td><td>15–35 €</td><td>Horario fijo</td></tr>
+  <tr><td>BlaBlaCar</td><td>precio + 12–18 % comisión</td><td>Limitado</td></tr>
+</table>
+<h2>Preguntas frecuentes — cómo llegar a ${esc(f.shortName)}</h2>
+<dl>
+${f.faqs.slice(0, 4).map((faq) => `  <dt>${esc(faq.q)}</dt>\n  <dd>${esc(faq.a)}</dd>`).join("\n")}
+</dl>
+<p><a href="${base}/festivales/${slug}">Ver viajes compartidos disponibles a ${esc(f.shortName)} →</a></p>
+<p><a href="${base}/rutas">Ver todas las rutas de carpooling →</a></p>`,
+    };
+  }
+
   return null;
 }
 
@@ -3555,9 +3766,12 @@ export async function seoPrerender(c: Context<HonoEnv>, next: Next): Promise<Res
     // Return an explicit 404 so Google does not soft-404 these as 200 shells.
     const isDynamicPattern =
       /^\/festivales\/[^/]+\/?$/.test(pathname) ||
+      /^\/festivales\/[^/]+\/guia\/?$/.test(pathname) ||
       /^\/conciertos\/[^/]+\/?$/.test(pathname) ||
       /^\/blog\/[^/]+\/?$/.test(pathname) ||
-      /^\/rutas\/[^/]+\/?$/.test(pathname);
+      /^\/rutas\/[^/]+\/?$/.test(pathname) ||
+      /^\/festivales-en\/[^/]+\/?$/.test(pathname) ||
+      /^\/como-llegar\/[^/]+\/?$/.test(pathname);
     if (isDynamicPattern) {
       const base = getSiteUrl(c.env);
       return new Response(

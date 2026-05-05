@@ -1,0 +1,412 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>ConcertRide Blog — Carpooling para conciertos en España</title>
+    <link>https://concertride.me/blog</link>
+    <description>Guías, consejos y noticias sobre carpooling para festivales y conciertos en España</description>
+    <language>es</language>
+    <lastBuildDate>Tue, 05 May 2026 20:38:01 GMT</lastBuildDate>
+    <atom:link href="https://concertride.me/rss.xml" rel="self" type="application/rss+xml"/>
+    <image>
+      <url>https://concertride.me/android-chrome-192x192.png</url>
+      <title>ConcertRide Blog</title>
+      <link>https://concertride.me/blog</link>
+    </image>
+    <item>
+      <title>Autobuses a festivales de España 2026: guía completa</title>
+      <link>https://concertride.me/blog/autobuses-festivales-espana-2026</link>
+      <guid isPermaLink="true">https://concertride.me/blog/autobuses-festivales-espana-2026</guid>
+      <pubDate>Mon, 20 Apr 2026 00:00:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>Cómo volver de un festival de madrugada</title>
+      <link>https://concertride.me/blog/como-volver-festival-madrugada</link>
+      <guid isPermaLink="true">https://concertride.me/blog/como-volver-festival-madrugada</guid>
+      <pubDate>Sat, 18 Apr 2026 00:00:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>Huella de carbono en festivales: carpooling como solución</title>
+      <link>https://concertride.me/blog/huella-carbono-festivales-carpooling</link>
+      <guid isPermaLink="true">https://concertride.me/blog/huella-carbono-festivales-carpooling</guid>
+      <pubDate>Wed, 15 Apr 2026 00:00:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>BlaBlaCar vs ConcertRide: ¿cuál elegir para ir a un festival?</title>
+      <link>https://concertride.me/blog/blablacar-vs-concertride</link>
+      <guid isPermaLink="true">https://concertride.me/blog/blablacar-vs-concertride</guid>
+      <pubDate>Fri, 10 Apr 2026 00:00:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>Qué llevar al festival: la lista definitiva</title>
+      <link>https://concertride.me/blog/que-llevar-al-festival</link>
+      <guid isPermaLink="true">https://concertride.me/blog/que-llevar-al-festival</guid>
+      <pubDate>Sun, 05 Apr 2026 00:00:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>Coldplay Madrid y Barcelona 2026: cómo llegar</title>
+      <link>https://concertride.me/blog/coldplay-madrid-barcelona-2026-como-llegar</link>
+      <guid isPermaLink="true">https://concertride.me/blog/coldplay-madrid-barcelona-2026-como-llegar</guid>
+      <pubDate>Wed, 01 Apr 2026 00:00:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>Festivales de verano en España 2026: guía de transporte</title>
+      <link>https://concertride.me/blog/festivales-verano-espana-2026-transporte</link>
+      <guid isPermaLink="true">https://concertride.me/blog/festivales-verano-espana-2026-transporte</guid>
+      <pubDate>Sat, 28 Mar 2026 00:00:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>Festivales de Cataluña 2026: agenda y transporte</title>
+      <link>https://concertride.me/blog/festivales-cataluna-2026</link>
+      <guid isPermaLink="true">https://concertride.me/blog/festivales-cataluna-2026</guid>
+      <pubDate>Wed, 25 Mar 2026 00:00:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>Festivales de la Comunitat Valenciana 2026</title>
+      <link>https://concertride.me/blog/festivales-comunidad-valenciana-2026</link>
+      <guid isPermaLink="true">https://concertride.me/blog/festivales-comunidad-valenciana-2026</guid>
+      <pubDate>Sun, 22 Mar 2026 00:00:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>Festivales del País Vasco 2026</title>
+      <link>https://concertride.me/blog/festivales-pais-vasco-2026</link>
+      <guid isPermaLink="true">https://concertride.me/blog/festivales-pais-vasco-2026</guid>
+      <pubDate>Fri, 20 Mar 2026 00:00:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>Carpooling vs taxi para ir a festivales en España</title>
+      <link>https://concertride.me/blog/carpooling-vs-taxi-festival-espana</link>
+      <guid isPermaLink="true">https://concertride.me/blog/carpooling-vs-taxi-festival-espana</guid>
+      <pubDate>Wed, 18 Mar 2026 00:00:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>Festivales de música en España 2026: la guía definitiva</title>
+      <link>https://concertride.me/blog/festivales-musica-espana-2026</link>
+      <guid isPermaLink="true">https://concertride.me/blog/festivales-musica-espana-2026</guid>
+      <pubDate>Sun, 15 Mar 2026 00:00:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>Guía de transporte para Viña Rock 2026</title>
+      <link>https://concertride.me/blog/guia-transporte-vina-rock-2026</link>
+      <guid isPermaLink="true">https://concertride.me/blog/guia-transporte-vina-rock-2026</guid>
+      <pubDate>Thu, 12 Mar 2026 00:00:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>Cómo llegar al Resurrection Fest 2026</title>
+      <link>https://concertride.me/blog/como-llegar-resurrection-fest-2026</link>
+      <guid isPermaLink="true">https://concertride.me/blog/como-llegar-resurrection-fest-2026</guid>
+      <pubDate>Tue, 10 Mar 2026 00:00:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>Cómo volver de madrugada después de un festival</title>
+      <link>https://concertride.me/blog/volver-de-madrugada-despues-de-un-festival</link>
+      <guid isPermaLink="true">https://concertride.me/blog/volver-de-madrugada-despues-de-un-festival</guid>
+      <pubDate>Sun, 08 Mar 2026 00:00:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>Carpooling vs AVE: costes reales para ir a festivales 2026</title>
+      <link>https://concertride.me/blog/carpooling-vs-ave-costes-reales-2026</link>
+      <guid isPermaLink="true">https://concertride.me/blog/carpooling-vs-ave-costes-reales-2026</guid>
+      <pubDate>Thu, 05 Mar 2026 00:00:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>Top rutas en coche desde Madrid a festivales 2026</title>
+      <link>https://concertride.me/blog/top-rutas-madrid-festivales-2026</link>
+      <guid isPermaLink="true">https://concertride.me/blog/top-rutas-madrid-festivales-2026</guid>
+      <pubDate>Mon, 02 Mar 2026 00:00:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>Qué llevar al festival: guía de camping 2026</title>
+      <link>https://concertride.me/blog/que-llevar-al-festival-guia-camping-2026</link>
+      <guid isPermaLink="true">https://concertride.me/blog/que-llevar-al-festival-guia-camping-2026</guid>
+      <pubDate>Sat, 28 Feb 2026 00:00:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>Cómo calcular el precio por asiento en carpooling 2026</title>
+      <link>https://concertride.me/blog/calcula-precio-por-asiento-2026</link>
+      <guid isPermaLink="true">https://concertride.me/blog/calcula-precio-por-asiento-2026</guid>
+      <pubDate>Wed, 25 Feb 2026 00:00:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>Puntos de recogida en festivales: los más eficientes</title>
+      <link>https://concertride.me/blog/puntos-recogida-festivales-mas-eficientes</link>
+      <guid isPermaLink="true">https://concertride.me/blog/puntos-recogida-festivales-mas-eficientes</guid>
+      <pubDate>Sun, 22 Feb 2026 00:00:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>Viajar con equipaje de camping: consejos prácticos</title>
+      <link>https://concertride.me/blog/viajar-con-equipaje-de-camping-consejos</link>
+      <guid isPermaLink="true">https://concertride.me/blog/viajar-con-equipaje-de-camping-consejos</guid>
+      <pubDate>Fri, 20 Feb 2026 00:00:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>Cómo elegir un asiento seguro en carpooling</title>
+      <link>https://concertride.me/blog/como-elegir-asiento-seguro-carpooling</link>
+      <guid isPermaLink="true">https://concertride.me/blog/como-elegir-asiento-seguro-carpooling</guid>
+      <pubDate>Wed, 18 Feb 2026 00:00:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>Las mejores fechas para publicar tu viaje a un festival</title>
+      <link>https://concertride.me/blog/mejores-fechas-para-publicar-viaje-festival</link>
+      <guid isPermaLink="true">https://concertride.me/blog/mejores-fechas-para-publicar-viaje-festival</guid>
+      <pubDate>Sun, 15 Feb 2026 00:00:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>Cómo gestionar cancelaciones de conductores en ConcertRide</title>
+      <link>https://concertride.me/blog/como-gestionar-cancelaciones-de-conductores</link>
+      <guid isPermaLink="true">https://concertride.me/blog/como-gestionar-cancelaciones-de-conductores</guid>
+      <pubDate>Thu, 12 Feb 2026 00:00:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>Combo transporte y alojamiento para festivales</title>
+      <link>https://concertride.me/blog/combo-transporte-y-alojamiento-festival</link>
+      <guid isPermaLink="true">https://concertride.me/blog/combo-transporte-y-alojamiento-festival</guid>
+      <pubDate>Tue, 10 Feb 2026 00:00:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>Cómo organizar un viaje grupal a un festival</title>
+      <link>https://concertride.me/blog/como-organizar-viaje-grupal-festival</link>
+      <guid isPermaLink="true">https://concertride.me/blog/como-organizar-viaje-grupal-festival</guid>
+      <pubDate>Sun, 08 Feb 2026 00:00:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>Viajar de forma sostenible a festivales 2026</title>
+      <link>https://concertride.me/blog/viajar-sostenible-a-festivales-2026</link>
+      <guid isPermaLink="true">https://concertride.me/blog/viajar-sostenible-a-festivales-2026</guid>
+      <pubDate>Thu, 05 Feb 2026 00:00:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>¿Es seguro el carsharing en ConcertRide?</title>
+      <link>https://concertride.me/blog/seguro-en-carsharing-concertride</link>
+      <guid isPermaLink="true">https://concertride.me/blog/seguro-en-carsharing-concertride</guid>
+      <pubDate>Mon, 02 Feb 2026 00:00:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>Cómo elegir el punto de vuelta ideal en un festival</title>
+      <link>https://concertride.me/blog/como-elegir-punto-de-vuelta-festival</link>
+      <guid isPermaLink="true">https://concertride.me/blog/como-elegir-punto-de-vuelta-festival</guid>
+      <pubDate>Fri, 30 Jan 2026 00:00:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>Pagos y propinas en carsharing: recomendaciones</title>
+      <link>https://concertride.me/blog/pagos-y-propinas-en-carsharing-recomendaciones</link>
+      <guid isPermaLink="true">https://concertride.me/blog/pagos-y-propinas-en-carsharing-recomendaciones</guid>
+      <pubDate>Wed, 28 Jan 2026 00:00:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>GPS y navegación en rutas de festival: consejos</title>
+      <link>https://concertride.me/blog/gps-y-navegacion-en-rutas-de-festival</link>
+      <guid isPermaLink="true">https://concertride.me/blog/gps-y-navegacion-en-rutas-de-festival</guid>
+      <pubDate>Sun, 25 Jan 2026 00:00:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>Accesibilidad en viajes a festivales</title>
+      <link>https://concertride.me/blog/accesibilidad-en-viajes-festivales</link>
+      <guid isPermaLink="true">https://concertride.me/blog/accesibilidad-en-viajes-festivales</guid>
+      <pubDate>Thu, 22 Jan 2026 00:00:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>Checklist para el último día del festival y la vuelta</title>
+      <link>https://concertride.me/blog/checklist-ultimo-dia-festival-vuelta</link>
+      <guid isPermaLink="true">https://concertride.me/blog/checklist-ultimo-dia-festival-vuelta</guid>
+      <pubDate>Tue, 20 Jan 2026 00:00:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>FAQ para nuevos usuarios de ConcertRide</title>
+      <link>https://concertride.me/blog/faq-para-nuevos-usuarios-concertride</link>
+      <guid isPermaLink="true">https://concertride.me/blog/faq-para-nuevos-usuarios-concertride</guid>
+      <pubDate>Sun, 18 Jan 2026 00:00:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>Carpooling a Mad Cool desde Madrid 2026</title>
+      <link>https://concertride.me/blog/carpooling-mad-cool-desde-madrid-2026</link>
+      <guid isPermaLink="true">https://concertride.me/blog/carpooling-mad-cool-desde-madrid-2026</guid>
+      <pubDate>Thu, 15 Jan 2026 00:00:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>Carpooling a Primavera Sound desde Zaragoza 2026</title>
+      <link>https://concertride.me/blog/carpooling-primavera-sound-desde-zaragoza-2026</link>
+      <guid isPermaLink="true">https://concertride.me/blog/carpooling-primavera-sound-desde-zaragoza-2026</guid>
+      <pubDate>Mon, 12 Jan 2026 00:00:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>Carpooling a BBK Live desde Pamplona 2026</title>
+      <link>https://concertride.me/blog/carpooling-bbk-live-desde-pamplona-2026</link>
+      <guid isPermaLink="true">https://concertride.me/blog/carpooling-bbk-live-desde-pamplona-2026</guid>
+      <pubDate>Sat, 10 Jan 2026 00:00:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>Carpooling a Arenal Sound desde Valencia 2026</title>
+      <link>https://concertride.me/blog/carpooling-arenal-sound-desde-valencia-2026</link>
+      <guid isPermaLink="true">https://concertride.me/blog/carpooling-arenal-sound-desde-valencia-2026</guid>
+      <pubDate>Thu, 08 Jan 2026 00:00:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>Carpooling a Sonorama desde Valladolid 2026</title>
+      <link>https://concertride.me/blog/carpooling-sonorama-desde-valladolid-2026</link>
+      <guid isPermaLink="true">https://concertride.me/blog/carpooling-sonorama-desde-valladolid-2026</guid>
+      <pubDate>Mon, 05 Jan 2026 00:00:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>Carpooling al Resurrection Fest desde Vigo 2026</title>
+      <link>https://concertride.me/blog/carpooling-resurrection-fest-desde-vigo-2026</link>
+      <guid isPermaLink="true">https://concertride.me/blog/carpooling-resurrection-fest-desde-vigo-2026</guid>
+      <pubDate>Fri, 02 Jan 2026 00:00:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>Carpooling a Cala Mijas desde Sevilla 2026</title>
+      <link>https://concertride.me/blog/carpooling-cala-mijas-desde-sevilla-2026</link>
+      <guid isPermaLink="true">https://concertride.me/blog/carpooling-cala-mijas-desde-sevilla-2026</guid>
+      <pubDate>Tue, 30 Dec 2025 00:00:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>Carpooling a O Son do Camiño desde A Coruña 2026</title>
+      <link>https://concertride.me/blog/carpooling-o-son-do-camino-desde-a-coruna-2026</link>
+      <guid isPermaLink="true">https://concertride.me/blog/carpooling-o-son-do-camino-desde-a-coruna-2026</guid>
+      <pubDate>Sun, 28 Dec 2025 00:00:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>Carpooling a Viña Rock desde Alicante 2026</title>
+      <link>https://concertride.me/blog/carpooling-viña-rock-desde-alicante-2026</link>
+      <guid isPermaLink="true">https://concertride.me/blog/carpooling-viña-rock-desde-alicante-2026</guid>
+      <pubDate>Thu, 25 Dec 2025 00:00:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>Carpooling a Medusa Festival desde Murcia 2026</title>
+      <link>https://concertride.me/blog/carpooling-medusa-desde-murcia-2026</link>
+      <guid isPermaLink="true">https://concertride.me/blog/carpooling-medusa-desde-murcia-2026</guid>
+      <pubDate>Mon, 22 Dec 2025 00:00:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>Carpooling al Resurrection Fest 2026: guía completa</title>
+      <link>https://concertride.me/blog/carpooling-resurrection-fest-2026</link>
+      <guid isPermaLink="true">https://concertride.me/blog/carpooling-resurrection-fest-2026</guid>
+      <pubDate>Sat, 20 Dec 2025 00:00:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>Transporte a BBK Live Bilbao 2026</title>
+      <link>https://concertride.me/blog/transporte-bbk-live-bilbao-2026</link>
+      <guid isPermaLink="true">https://concertride.me/blog/transporte-bbk-live-bilbao-2026</guid>
+      <pubDate>Thu, 18 Dec 2025 00:00:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>Primavera Sound 2026: cómo llegar</title>
+      <link>https://concertride.me/blog/primavera-sound-2026-como-llegar</link>
+      <guid isPermaLink="true">https://concertride.me/blog/primavera-sound-2026-como-llegar</guid>
+      <pubDate>Mon, 15 Dec 2025 00:00:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>Arenal Sound 2026: guía de transporte</title>
+      <link>https://concertride.me/blog/arenal-sound-2026-transporte</link>
+      <guid isPermaLink="true">https://concertride.me/blog/arenal-sound-2026-transporte</guid>
+      <pubDate>Fri, 12 Dec 2025 00:00:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>Sónar Barcelona 2026: opciones de carpooling</title>
+      <link>https://concertride.me/blog/sonar-barcelona-2026-carpooling</link>
+      <guid isPermaLink="true">https://concertride.me/blog/sonar-barcelona-2026-carpooling</guid>
+      <pubDate>Wed, 10 Dec 2025 00:00:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>Guía de transporte a conciertos en Madrid 2026</title>
+      <link>https://concertride.me/blog/guia-transporte-conciertos-madrid-2026</link>
+      <guid isPermaLink="true">https://concertride.me/blog/guia-transporte-conciertos-madrid-2026</guid>
+      <pubDate>Mon, 08 Dec 2025 00:00:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>Guía de transporte a conciertos en Barcelona 2026</title>
+      <link>https://concertride.me/blog/guia-transporte-conciertos-barcelona-2026</link>
+      <guid isPermaLink="true">https://concertride.me/blog/guia-transporte-conciertos-barcelona-2026</guid>
+      <pubDate>Fri, 05 Dec 2025 00:00:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>Guía de transporte a conciertos en Bilbao 2026</title>
+      <link>https://concertride.me/blog/guia-transporte-conciertos-bilbao-2026</link>
+      <guid isPermaLink="true">https://concertride.me/blog/guia-transporte-conciertos-bilbao-2026</guid>
+      <pubDate>Tue, 02 Dec 2025 00:00:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>Guía de transporte a conciertos en Sevilla 2026</title>
+      <link>https://concertride.me/blog/guia-transporte-conciertos-sevilla-2026</link>
+      <guid isPermaLink="true">https://concertride.me/blog/guia-transporte-conciertos-sevilla-2026</guid>
+      <pubDate>Sun, 30 Nov 2025 00:00:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>Guía de transporte a conciertos en Valencia 2026</title>
+      <link>https://concertride.me/blog/guia-transporte-conciertos-valencia-2026</link>
+      <guid isPermaLink="true">https://concertride.me/blog/guia-transporte-conciertos-valencia-2026</guid>
+      <pubDate>Fri, 28 Nov 2025 00:00:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>Mad Cool 2026: guía completa de transporte</title>
+      <link>https://concertride.me/blog/mad-cool-2026-guia-completa</link>
+      <guid isPermaLink="true">https://concertride.me/blog/mad-cool-2026-guia-completa</guid>
+      <pubDate>Tue, 25 Nov 2025 00:00:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>Medusa Festival 2026: guía de transporte</title>
+      <link>https://concertride.me/blog/medusa-festival-2026-guia-transporte</link>
+      <guid isPermaLink="true">https://concertride.me/blog/medusa-festival-2026-guia-transporte</guid>
+      <pubDate>Sat, 22 Nov 2025 00:00:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>Viña Rock 2026: guía completa</title>
+      <link>https://concertride.me/blog/vina-rock-2026-guia-completa</link>
+      <guid isPermaLink="true">https://concertride.me/blog/vina-rock-2026-guia-completa</guid>
+      <pubDate>Thu, 20 Nov 2025 00:00:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>FIB Benicàssim 2026: guía de transporte</title>
+      <link>https://concertride.me/blog/fib-benicassim-2026-guia-transporte</link>
+      <guid isPermaLink="true">https://concertride.me/blog/fib-benicassim-2026-guia-transporte</guid>
+      <pubDate>Tue, 18 Nov 2025 00:00:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>Sonorama Ribera 2026: guía de transporte</title>
+      <link>https://concertride.me/blog/sonorama-ribera-2026-guia-transporte</link>
+      <guid isPermaLink="true">https://concertride.me/blog/sonorama-ribera-2026-guia-transporte</guid>
+      <pubDate>Sat, 15 Nov 2025 00:00:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>O Son do Camiño 2026: guía de transporte</title>
+      <link>https://concertride.me/blog/son-do-camino-2026-guia-transporte</link>
+      <guid isPermaLink="true">https://concertride.me/blog/son-do-camino-2026-guia-transporte</guid>
+      <pubDate>Wed, 12 Nov 2025 00:00:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>Cala Mijas 2026: guía de transporte</title>
+      <link>https://concertride.me/blog/cala-mijas-2026-guia-transporte</link>
+      <guid isPermaLink="true">https://concertride.me/blog/cala-mijas-2026-guia-transporte</guid>
+      <pubDate>Mon, 10 Nov 2025 00:00:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>Low Festival Benidorm 2026: transporte y carpooling</title>
+      <link>https://concertride.me/blog/low-festival-benidorm-2026-transporte</link>
+      <guid isPermaLink="true">https://concertride.me/blog/low-festival-benidorm-2026-transporte</guid>
+      <pubDate>Sat, 08 Nov 2025 00:00:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>Tomavistas Madrid 2026: cómo llegar</title>
+      <link>https://concertride.me/blog/tomavistas-madrid-2026-transporte</link>
+      <guid isPermaLink="true">https://concertride.me/blog/tomavistas-madrid-2026-transporte</guid>
+      <pubDate>Wed, 05 Nov 2025 00:00:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>Viaje en grupo a un festival: guía de organización</title>
+      <link>https://concertride.me/blog/viaje-en-grupo-festival-guia-organizacion</link>
+      <guid isPermaLink="true">https://concertride.me/blog/viaje-en-grupo-festival-guia-organizacion</guid>
+      <pubDate>Sun, 02 Nov 2025 00:00:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>Festivales gratuitos en España 2026</title>
+      <link>https://concertride.me/blog/festivales-gratuitos-espana-2026</link>
+      <guid isPermaLink="true">https://concertride.me/blog/festivales-gratuitos-espana-2026</guid>
+      <pubDate>Thu, 30 Oct 2025 00:00:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>Conciertos en estadios en España 2026: transporte</title>
+      <link>https://concertride.me/blog/conciertos-en-estadios-espana-2026-transporte</link>
+      <guid isPermaLink="true">https://concertride.me/blog/conciertos-en-estadios-espana-2026-transporte</guid>
+      <pubDate>Tue, 28 Oct 2025 00:00:00 GMT</pubDate>
+    </item>
+  </channel>
+</rss>

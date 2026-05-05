@@ -30,3 +30,117 @@ Disallow: /widget/
 Disallow: /rides/
 
 Sitemap: https://concertride.me/sitemap.xml
+Sitemap: https://concertride.me/sitemap-static.xml
+Sitemap: https://concertride.me/sitemap-festivales.xml
+Sitemap: https://concertride.me/sitemap-artistas.xml
+Sitemap: https://concertride.me/sitemap-recintos.xml
+Sitemap: https://concertride.me/sitemap-ciudades.xml
+Sitemap: https://concertride.me/sitemap-rutas.xml
+Sitemap: https://concertride.me/sitemap-blog.xml
+Sitemap: https://concertride.me/sitemap-como-llegar.xml
+
+# RSS Feed: https://concertride.me/rss.xml
+
+# ── AI / LLM crawlers — explicitly allowed ────────────────────────────────
+# OpenAI / ChatGPT
+User-agent: GPTBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: OAI-SearchBot
+Allow: /
+
+# Anthropic / Claude
+User-agent: anthropic-ai
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: claude-web
+Allow: /
+
+# Perplexity
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: Perplexity-User
+Allow: /
+
+# Google Gemini + AI Overviews
+User-agent: Google-Extended
+Allow: /
+
+User-agent: Gemini-Bot
+Allow: /
+
+# Microsoft Copilot (Bing)
+User-agent: Bingbot
+Allow: /
+
+User-agent: BingPreview
+Allow: /
+
+# Apple Intelligence
+User-agent: Applebot
+Allow: /
+
+User-agent: Applebot-Extended
+Allow: /
+
+# Meta AI
+User-agent: FacebookBot
+Allow: /
+
+User-agent: meta-externalagent
+Allow: /
+
+User-agent: meta-externalfetcher
+Allow: /
+
+# ByteDance / TikTok
+User-agent: Bytespider
+Allow: /
+
+# DuckDuckGo AI
+User-agent: DuckAssistBot
+Allow: /
+
+User-agent: DuckDuckBot
+Allow: /
+
+# xAI / Grok
+User-agent: xai-bot
+Allow: /
+
+# You.com
+User-agent: YouBot
+Allow: /
+
+# Cohere / AI2 / Common Crawl
+User-agent: cohere-ai
+Allow: /
+
+User-agent: AI2Bot
+Allow: /
+
+User-agent: CCBot
+Allow: /
+
+# Mistral
+User-agent: MistralBot
+Allow: /
+
+# Diffbot
+User-agent: Diffbot
+Allow: /
+
+# Amazon Alexa / AI
+User-agent: Amazonbot
+Allow: /
+
+# Yandex
+User-agent: YandexBot
+Allow: /

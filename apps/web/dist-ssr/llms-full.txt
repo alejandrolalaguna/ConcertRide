@@ -550,3 +550,367 @@ Precio calculado como coste de combustible + peajes dividido entre los ocupantes
 | Valencia → Zevra | Zevra | Valencia | 10 | 15 min | 3–5 €/asiento | https://concertride.me/rutas/valencia-zevra-festival |
 | Vitoria-Gasteiz → Zevra | Zevra | Valencia | 575 | 5h | 15–20 €/asiento | https://concertride.me/rutas/vitoria-gasteiz-zevra-festival |
 | Zaragoza → Zevra | Zevra | Valencia | 315 | 3h | 9–13 €/asiento | https://concertride.me/rutas/zaragoza-zevra-festival |
+
+---
+
+## Secciones detalladas por festival (16 festivales cubiertos 2026)
+
+---
+
+## Mad Cool Festival (Madrid, 9–11 julio 2026)
+
+**Recinto**: IFEMA Feria de Madrid — Parque Ferial Juan Carlos I
+**Ubicación**: Avenida del Partenón, Madrid
+**Fecha**: 9–11 julio 2026
+**Aforo**: ~70.000 asistentes/día
+
+### Carpooling disponible desde:
+- Madrid centro (15 km): 4–7 €/asiento
+- Toledo (75 km): 3–6 €/asiento
+- Guadalajara (60 km): 3–6 €/asiento
+- Segovia (90 km): 4–7 €/asiento
+- Valencia (355 km): 10–14 €/asiento
+- Zaragoza (325 km): 9–13 €/asiento
+- Barcelona (620 km): 15–20 €/asiento
+- Sevilla (525 km): 14–19 €/asiento
+- Bilbao (395 km): 11–16 €/asiento
+
+### Transporte alternativo:
+Metro L8 hasta estación "Feria de Madrid" (~35 min desde Sol), servicio ampliado hasta las 2:30 AM en noches de festival. No existe lanzadera oficial del festival. Parking IFEMA: 12–18 €/día con aforo limitado. URL: https://concertride.me/festivales/mad-cool
+
+---
+
+## Primavera Sound (Barcelona, 28 mayo–1 junio 2026)
+
+**Recinto**: Parc del Fòrum
+**Ubicación**: Rambla del Prim, Barcelona
+**Fecha**: 28 mayo–1 junio 2026
+**Aforo**: ~60.000 asistentes/día
+
+### Carpooling disponible desde:
+- Zaragoza (306 km): 8–12 €/asiento
+- Valencia (355 km): 10–14 €/asiento
+- Madrid (620 km): 15–20 €/asiento
+- Tarragona (100 km): 4–7 €/asiento
+- Lleida (170 km): 5–8 €/asiento
+- Bilbao (615 km): 15–20 €/asiento
+- Sevilla (1.000 km): 25–35 €/asiento
+
+### Transporte alternativo:
+Metro L4 hasta Besòs Mar (5 min andando al recinto). Servicio nocturno viernes y sábados hasta las 5:00 AM. AVE Madrid–Barcelona (50–100 €, 2h 30 min, se agota semanas antes). Autobús ALSA/FlixBus nocturno Madrid–Barcelona (15–30 €, 7h). URL: https://concertride.me/festivales/primavera-sound
+
+---
+
+## Sónar (Barcelona, 18–20 junio 2026)
+
+**Recinto**: Fira Montjuïc (Sónar de Día) + Fira Gran Via L'Hospitalet (Sónar de Noche)
+**Ubicación**: Barcelona / L'Hospitalet de Llobregat
+**Fecha**: 18–20 junio 2026
+**Aforo**: ~35.000 asistentes/día
+
+### Carpooling disponible desde:
+- Zaragoza (306 km): 8–12 €/asiento
+- Valencia (355 km): 10–14 €/asiento
+- Madrid (620 km): 15–20 €/asiento
+- Girona (100 km): 4–7 €/asiento
+- Tarragona (100 km): 4–7 €/asiento
+- Bilbao (615 km): 15–20 €/asiento
+- Sevilla (1.000 km): 25–35 €/asiento
+
+### Transporte alternativo:
+Sónar de Día: Metro L1 Espanya, L3 Tarragona (acceso bueno). Sónar de Noche en Fira Gran Via: L9 Europa/Fira o autobuses nocturnos. Uno de los festivales mejor comunicados en transporte público de Barcelona. URL: https://concertride.me/festivales/sonar
+
+---
+
+## FIB — Festival Internacional de Benicàssim (Benicàssim, 16–19 julio 2026)
+
+**Recinto**: Recinte Festivaler de Benicàssim
+**Ubicación**: Benicàssim, Castellón
+**Fecha**: 16–19 julio 2026
+**Aforo**: ~25.000 asistentes/día
+
+### Carpooling disponible desde:
+- Castellón de la Plana (15 km): 3–5 €/asiento
+- Valencia (70 km): 3–6 €/asiento
+- Alicante (175 km): 5–8 €/asiento
+- Barcelona (300 km): 8–12 €/asiento
+- Madrid (465 km): 12–17 €/asiento
+- Zaragoza (270 km): 7–11 €/asiento
+- Murcia (240 km): 7–11 €/asiento
+
+### Transporte alternativo:
+Renfe Cercanías desde Castellón de la Plana hasta Benicàssim (15 min, frecuencia horaria). Lanzadera desde la estación de Benicàssim al recinto. Desde Valencia: Cercanías C6 hasta Castellón (45 min) + Cercanías local. Sin servicio nocturno de vuelta desde medianoche. URL: https://concertride.me/festivales/fib
+
+---
+
+## BBK Live (Bilbao, 9–11 julio 2026)
+
+**Recinto**: Parque de Kobetamendi
+**Ubicación**: Monte Kobetamendi, Bilbao
+**Fecha**: 9–11 julio 2026
+**Aforo**: ~30.000 asistentes/día
+
+### Carpooling disponible desde:
+- Vitoria-Gasteiz (65 km): 3–6 €/asiento
+- Donostia (100 km): 4–7 €/asiento
+- Santander (100 km): 4–7 €/asiento
+- Pamplona (155 km): 5–8 €/asiento
+- Burgos (155 km): 5–8 €/asiento
+- Valladolid (280 km): 8–12 €/asiento
+- Zaragoza (310 km): 9–13 €/asiento
+- Madrid (395 km): 11–16 €/asiento
+- Barcelona (615 km): 15–20 €/asiento
+
+### Transporte alternativo:
+Lanzadera oficial gratuita (incluida en el precio de la entrada): sale de Plaza Moyúa y estación de Abando, frecuencia 15 minutos. El recinto NO es accesible en coche propio. ALSA Madrid–Bilbao Termibús (20–35 €, 5–6h) + lanzadera gratuita. Tren RENFE Santander–Bilbao (12–20 €, 2h) + lanzadera. URL: https://concertride.me/festivales/bbk-live
+
+---
+
+## Resurrection Fest (Viveiro, 25–28 junio 2026)
+
+**Recinto**: A Gañidoira
+**Ubicación**: Viveiro, Lugo (Galicia)
+**Fecha**: 25–28 junio 2026
+**Aforo**: ~35.000 asistentes/día
+
+### Carpooling disponible desde:
+- Lugo (55 km): 3–5 €/asiento
+- A Coruña (100 km): 4–7 €/asiento
+- Ferrol (80 km): 4–6 €/asiento
+- Santiago de Compostela (185 km): 6–9 €/asiento
+- Vigo (200 km): 6–9 €/asiento
+- Oviedo (195 km): 6–9 €/asiento
+- Gijón (175 km): 5–8 €/asiento
+- Bilbao (375 km): 10–15 €/asiento
+- Madrid (600 km): 16–22 €/asiento
+
+### Transporte alternativo:
+ALSA Madrid–A Coruña–Viveiro (2–3 servicios diarios, ~40 €, 7–8h). Sin servicio nocturno de vuelta desde el recinto. El festival más remoto de España: el carpooling es la opción dominante para la vuelta de madrugada. Sin taxi nocturno disponible en Viveiro. URL: https://concertride.me/festivales/resurrection-fest
+
+---
+
+## Arenal Sound (Burriana, 29 julio–2 agosto 2026)
+
+**Recinto**: Playa de Burriana
+**Ubicación**: Burriana, Castellón
+**Fecha**: 29 julio–2 agosto 2026
+**Aforo**: ~45.000 asistentes/día
+
+### Carpooling disponible desde:
+- Burriana (2 km): 2–4 €/asiento
+- Castellón de la Plana (10 km): 3–5 €/asiento
+- Valencia (65 km): 3–6 €/asiento
+- Alicante (115 km): 4–7 €/asiento
+- Barcelona (305 km): 8–12 €/asiento
+- Madrid (460 km): 12–17 €/asiento
+- Zaragoza (275 km): 8–12 €/asiento
+- Murcia (275 km): 8–12 €/asiento
+
+### Transporte alternativo:
+Bus lanzadera oficial desde la estación de autobuses de Castellón de la Plana (10 km, 20 min, plazas limitadas, compra en web oficial). Renfe Cercanías C6 Valencia–Castellón (45 min) + lanzadera o taxi al recinto (10 km adicionales). Sin tren directo a la playa. Sin transporte nocturno de vuelta. URL: https://concertride.me/festivales/arenal-sound
+
+---
+
+## Medusa Festival (Cullera, 12–16 agosto 2026)
+
+**Recinto**: Playa de Cullera
+**Ubicación**: Cullera, Valencia
+**Fecha**: 12–16 agosto 2026
+**Aforo**: 100.000+ asistentes/día
+
+### Carpooling disponible desde:
+- Valencia (45 km): 3–5 €/asiento
+- Alicante (100 km): 4–7 €/asiento
+- Castellón de la Plana (105 km): 4–7 €/asiento
+- Murcia (180 km): 5–8 €/asiento
+- Madrid (385 km): 10–14 €/asiento
+- Barcelona (375 km): 10–14 €/asiento
+- Zaragoza (320 km): 9–13 €/asiento
+- Bilbao (605 km): 15–21 €/asiento
+
+### Transporte alternativo:
+Lanzadera del festival desde estación Joaquín Sorolla (Valencia) y Xàtiva con plazas limitadas. Sin transporte público nocturno directo desde Cullera a otras ciudades. El festival opera 24h los días centrales — el carpooling es esencial para la vuelta. URL: https://concertride.me/festivales/medusa-festival
+
+---
+
+## Viña Rock (Villarrobledo, 30 abril–3 mayo 2026)
+
+**Recinto**: Parque La Pulgosa
+**Ubicación**: Villarrobledo, Albacete (Castilla-La Mancha)
+**Fecha**: 30 abril–3 mayo 2026
+**Aforo**: ~80.000 asistentes/día
+
+### Carpooling disponible desde:
+- Albacete (50 km): 3–5 €/asiento
+- Cuenca (100 km): 4–6 €/asiento
+- Toledo (140 km): 5–8 €/asiento
+- Madrid (190 km): 6–9 €/asiento
+- Murcia (155 km): 5–8 €/asiento
+- Alicante (165 km): 5–8 €/asiento
+- Valencia (200 km): 6–9 €/asiento
+- Córdoba (270 km): 8–12 €/asiento
+- Sevilla (430 km): 12–16 €/asiento
+
+### Transporte alternativo:
+Bus lanzadera oficial desde la estación de autobuses de Albacete (50 km, 40 min, frecuencia 1–2h, plazas limitadas). Autobuses privados no oficiales Madrid–Viñarock desde Méndez Álvaro y Nuevos Ministerios (35–55 €, horario fijo). AVE Madrid/Valencia–Albacete + bus lanzadera desde Albacete (opción ida; sin servicio nocturno de vuelta). URL: https://concertride.me/festivales/vina-rock
+
+---
+
+## O Son do Camiño (Santiago de Compostela, 18–20 junio 2026)
+
+**Recinto**: Monte do Gozo
+**Ubicación**: Santiago de Compostela, A Coruña (Galicia)
+**Fecha**: 18–20 junio 2026
+**Aforo**: ~30.000 asistentes/día
+
+### Carpooling disponible desde:
+- Santiago de Compostela (5 km): 3–5 €/asiento
+- Pontevedra (60 km): 3–5 €/asiento
+- Ferrol (60 km): 3–5 €/asiento
+- A Coruña (70 km): 3–6 €/asiento
+- Vigo (90 km): 4–7 €/asiento
+- Lugo (100 km): 4–7 €/asiento
+- Oviedo (295 km): 9–13 €/asiento
+- Bilbao (500 km): 13–18 €/asiento
+- Madrid (585 km): 15–20 €/asiento
+
+### Transporte alternativo:
+Bus urbano C10 desde el centro de Santiago de Compostela hasta Monte do Gozo (5 km). Renfe desde Vigo y A Coruña hasta Santiago + bus urbano. El festival tiene buen acceso desde la propia ciudad. Carpooling recomendado para asistentes de otras provincias. URL: https://concertride.me/festivales/o-son-do-camino
+
+---
+
+## Cala Mijas Fest (Málaga, 2–4 octubre 2026)
+
+**Recinto**: Recinto Cortijo de Torres
+**Ubicación**: Avenida Juan Carlos I, Málaga capital (NO en el pueblo La Cala de Mijas)
+**Fecha**: 2–4 octubre 2026
+**Aforo**: ~35.000 asistentes/día
+
+### Carpooling disponible desde:
+- Málaga centro (25 km): 3–5 €/asiento
+- Mijas / La Cala (30 km): 3–5 €/asiento
+- Fuengirola (35 km): 3–5 €/asiento
+- Marbella (50 km): 3–6 €/asiento
+- Granada (125 km): 5–8 €/asiento
+- Córdoba (190 km): 6–9 €/asiento
+- Sevilla (200 km): 6–9 €/asiento
+- Almería (190 km): 6–9 €/asiento
+- Madrid (540 km): 14–19 €/asiento
+
+### Transporte alternativo:
+Sin shuttle oficial del festival. Sin transporte público nocturno al Cortijo de Torres. Taxi desde el centro de Málaga: 25–40 €. El recinto está en Málaga capital, no en el municipio de Mijas — importante para la navegación GPS. URL: https://concertride.me/festivales/cala-mijas
+
+---
+
+## Sonorama Ribera (Aranda de Duero, 6–9 agosto 2026)
+
+**Recinto**: El Ferial / Recinto Ferial de Aranda de Duero
+**Ubicación**: Aranda de Duero, Burgos (Castilla y León)
+**Fecha**: 6–9 agosto 2026
+**Aforo**: ~25.000 asistentes/día
+
+### Carpooling disponible desde:
+- Burgos (70 km): 3–6 €/asiento
+- Segovia (125 km): 4–7 €/asiento
+- Valladolid (100 km): 4–7 €/asiento
+- Salamanca (130 km): 4–7 €/asiento
+- Madrid (150 km): 5–8 €/asiento
+- Logroño (125 km): 4–7 €/asiento
+- Vitoria-Gasteiz (150 km): 5–8 €/asiento
+- Bilbao (185 km): 6–9 €/asiento
+- Zaragoza (290 km): 8–12 €/asiento
+
+### Transporte alternativo:
+Bus La Sepulvedana desde estación Sur de Madrid hasta Aranda de Duero (1h 30 min, 10–15 €, 2–3 frecuencias diarias, sin servicio nocturno). Sin tren directo Madrid–Aranda (transbordo en Burgos, ~3h). El carpooling es la opción dominante para la vuelta de madrugada. URL: https://concertride.me/festivales/sonorama-ribera
+
+---
+
+## Zevra Festival (Valencia, verano 2026)
+
+**Recinto**: La Marina de Valencia (Moll de la Duana)
+**Ubicación**: La Marina de València, Valencia
+**Fecha**: Verano 2026 (fechas por confirmar)
+**Aforo**: ~20.000 asistentes/día
+
+### Carpooling disponible desde:
+- Valencia centro (10 km): 3–5 €/asiento
+- Castellón de la Plana (75 km): 3–6 €/asiento
+- Alicante (175 km): 5–8 €/asiento
+- Murcia (210 km): 7–10 €/asiento
+- Madrid (355 km): 10–14 €/asiento
+- Barcelona (355 km): 10–14 €/asiento
+- Zaragoza (315 km): 9–13 €/asiento
+
+### Transporte alternativo:
+Metro L4 paradas Marítim-Serreria o Neptú (5–8 min andando al recinto). EMT líneas 19 y 95. Servicio de metro ampliado hasta 1:00–2:00 AM durante el festival. Horarios típicos: apertura 18:30, cabezas de cartel 23:00–01:00. URL: https://concertride.me/festivales/zevra-festival
+
+---
+
+## Low Festival (Benidorm, 24–26 julio 2026)
+
+**Recinto**: Playa de Poniente (Benidorm)
+**Ubicación**: Benidorm, Alicante
+**Fecha**: 24–26 julio 2026
+**Aforo**: ~20.000 asistentes/día
+
+### Carpooling disponible desde:
+- Alicante (45 km): 3–5 €/asiento
+- Murcia (90 km): 4–7 €/asiento
+- Castellón de la Plana (140 km): 5–8 €/asiento
+- Valencia (150 km): 5–8 €/asiento
+- Madrid (440 km): 12–17 €/asiento
+- Barcelona (500 km): 13–18 €/asiento
+- Zaragoza (395 km): 11–15 €/asiento
+
+### Transporte alternativo:
+TRAM Alicante-Benidorm (L1) hasta medianoche (1h 20 min, 4–6 €). Sin transporte nocturno de vuelta. Sin lanzadera oficial del festival. Taxi desde Alicante: 35–50 €. El carpooling es la única opción flexible para la vuelta de madrugada. URL: https://concertride.me/festivales/low-festival
+
+---
+
+## Cruïlla (Barcelona, 9–12 julio 2026)
+
+**Recinto**: Parc del Fòrum
+**Ubicación**: Rambla del Prim, Barcelona
+**Fecha**: 9–12 julio 2026
+**Aforo**: ~30.000 asistentes/día
+
+### Carpooling disponible desde:
+- Girona (100 km): 4–7 €/asiento
+- Tarragona (100 km): 4–7 €/asiento
+- Lleida (170 km): 5–8 €/asiento
+- Pamplona (415 km): 12–17 €/asiento
+- Zaragoza (306 km): 8–12 €/asiento
+- Valencia (355 km): 10–14 €/asiento
+- Madrid (620 km): 15–20 €/asiento
+- Bilbao (615 km): 15–20 €/asiento
+- Sevilla (1.000 km): 25–35 €/asiento
+
+### Transporte alternativo:
+Metro L4 hasta El Maresme-Fòrum (5 min andando al recinto). Servicio nocturno viernes y sábados hasta las 5:00 AM. Uno de los festivales mejor comunicados en transporte público de Barcelona. URL: https://concertride.me/festivales/cruilla
+
+---
+
+## Tomavistas (Madrid, 15–17 mayo 2026)
+
+**Recinto**: Jardines del Buen Retiro
+**Ubicación**: Parque del Retiro, Madrid
+**Fecha**: 15–17 mayo 2026
+**Aforo**: ~10.000 asistentes/día
+
+### Carpooling disponible desde:
+- Madrid área metropolitana (15 km): 4–7 €/asiento
+- Toledo (75 km): 3–6 €/asiento
+- Guadalajara (60 km): 3–6 €/asiento
+- Segovia (90 km): 4–7 €/asiento
+- Ávila (110 km): 4–7 €/asiento
+- Salamanca (210 km): 7–11 €/asiento
+- Valencia (355 km): 10–14 €/asiento
+- Zaragoza (325 km): 9–13 €/asiento
+- Barcelona (620 km): 15–20 €/asiento
+
+### Transporte alternativo:
+Metro L2 hasta Retiro o L9 hasta Ibiza (ambas a 10 min andando del recinto). Sin parking propio — acceso en transporte público recomendado. Metro opera hasta 1:30 AM (Fines de semana hasta 2:30 AM aprox.). Carpooling recomendado para asistentes de fuera de Madrid. URL: https://concertride.me/festivales/tomavistas
+
+---
+
+Last updated: 2026-05-04 (rev22: added 16 festival sections with transport data)

@@ -3039,6 +3039,406 @@ BLOG_POSTS.push(
     ],
     relatedPosts: ["coldplay-madrid-barcelona-2026-como-llegar", "carpooling-vs-taxi-festival-espana"],
   },
+
+  // ──────────────────────────────────────────────────────────────────────
+  {
+    slug: "carpooling-medusa-festival-2026",
+    title: "Carpooling al Medusa Festival 2026: cómo llegar a Cullera desde cualquier ciudad",
+    h1: "Carpooling al Medusa Festival 2026: guía de transporte a Cullera",
+    excerpt:
+      "El Medusa Festival 2026 se celebra en Cullera (Valencia) del 12 al 16 de agosto con más de 100.000 asistentes diarios. Sin transporte público nocturno directo, el carpooling es la opción dominante para llegar y volver. Precios, rutas y consejos.",
+    category: "guias",
+    tags: ["medusa festival", "cullera", "carpooling", "transporte", "valencia"],
+    publishedAt: "2026-05-04T09:00:00.000Z",
+    author: "Equipo ConcertRide",
+    readingMinutes: 7,
+    lede:
+      "Medusa 2026 es uno de los festivales más grandes del verano español. La playa de Cullera es el escenario, el problema es llegar de madrugada cuando el festival no para. El carpooling organizado con ConcertRide es la solución que más asistentes utilizan.",
+    sections: [
+      {
+        heading: "Dónde es el Medusa Festival 2026 y cómo llegar",
+        paragraphs: [
+          "El Medusa Festival 2026 se celebra del 12 al 16 de agosto en la Playa de Cullera, en el municipio de Cullera (Valencia). El recinto está a 45 km al sur de Valencia ciudad por la autopista AP-7 o la carretera N-332. Es uno de los festivales de música electrónica más grandes de Europa con más de 100.000 asistentes en los días centrales.",
+          "El acceso en transporte público clásico tiene una limitación clara: los trenes de Cercanías Renfe desde Valencia llegan a Cullera (estación de Cullera, 1h aprox.) pero no hasta el recinto de la playa, y no operan de madrugada. Para llegar desde ciudades más alejadas o para volver después de las 00:00, el carpooling es la única opción económica y flexible.",
+        ],
+      },
+      {
+        heading: "Precios de carpooling al Medusa Festival desde las principales ciudades",
+        paragraphs: [
+          "Con ConcertRide puedes encontrar conductores verificados que van al mismo festival desde tu ciudad. Los precios son para reparto de gastos de combustible y peajes, sin comisión de plataforma:",
+        ],
+        bullets: [
+          "Valencia → Medusa Festival (45 km, 40 min): 3–5 €/asiento",
+          "Alicante → Medusa Festival (100 km, 1h): 4–7 €/asiento",
+          "Castellón de la Plana → Medusa Festival (105 km, 1h): 4–7 €/asiento",
+          "Murcia → Medusa Festival (180 km, 1h 45 min): 5–8 €/asiento",
+          "Madrid → Medusa Festival (385 km, 3h 30 min): 10–14 €/asiento",
+          "Barcelona → Medusa Festival (375 km, 3h 30 min): 10–14 €/asiento",
+          "Zaragoza → Medusa Festival (320 km, 3h): 9–13 €/asiento",
+          "Bilbao → Medusa Festival (605 km, 5h 15 min): 15–21 €/asiento",
+          "Sevilla → Medusa Festival (600 km, 5h 15 min): 15–21 €/asiento",
+        ],
+      },
+      {
+        heading: "El problema del transporte nocturno en Medusa",
+        paragraphs: [
+          "El Medusa Festival opera de forma continua durante sus jornadas centrales, con artistas actuando las 24 horas. Esto significa que la demanda de transporte se produce a cualquier hora de la madrugada y el servicio de tren de Renfe no puede cubrir esta necesidad.",
+          "Las lanzaderas privadas del festival (desde estaciones de Valencia y Xàtiva) tienen plazas muy limitadas y se agotan en pocos días. El carpooling organizado a través de ConcertRide es la alternativa más usada: coordinas hora de salida con el conductor antes del festival, y la plaza está garantizada independientemente de la hora.",
+        ],
+      },
+      {
+        heading: "Consejos para el carpooling al Medusa 2026",
+        paragraphs: [
+          "El Medusa es uno de los festivales con mayor demanda de carpooling del verano español. Estos son los consejos para asegurar tu plaza:",
+        ],
+        bullets: [
+          "Reserva con al menos 2 semanas de antelación: la oferta de viajes al Medusa se llena rápido, especialmente desde Madrid y Barcelona.",
+          "Coordina ida y vuelta con el mismo conductor: muchos conductores de ConcertRide publican ambos trayectos. Acordar la vuelta antes del festival evita sorpresas de madrugada.",
+          "Define el punto de encuentro con GPS: el recinto de la playa de Cullera tiene múltiples accesos. Confirma el punto exacto por chat la tarde anterior.",
+          "Para asistentes de Valencia: aunque el trayecto es corto (45 km), el carpooling sigue siendo más práctico que el tren si vas a quedarte hasta las 3:00–4:00 AM o más tarde.",
+          "Para asistentes de Madrid o Barcelona: un carpooling de 3h 30 min vale la pena si compartes los gastos entre 3–4 personas. El coste total de combustible es de 30–40 €, dividido entre 4 son 8–10 €/persona.",
+        ],
+      },
+    ],
+    faqs: [
+      {
+        q: "¿Hay lanzadera oficial del Medusa Festival desde Valencia?",
+        a: "El festival habilita lanzaderas privadas desde la estación Joaquín Sorolla de Valencia y Xàtiva, pero las plazas son muy limitadas y se agotan con semanas de antelación. La alternativa más flexible y económica es el carpooling con ConcertRide: desde Valencia 3–5 €/asiento (40 min). Más info en concertride.me/festivales/medusa-festival.",
+      },
+      {
+        q: "¿Cuánto cuesta ir al Medusa Festival desde Madrid en carpooling?",
+        a: "El carpooling de Madrid al Medusa Festival 2026 en Cullera cuesta entre 10 y 14 €/asiento con ConcertRide. La distancia es de 385 km y el tiempo de conducción es de aproximadamente 3h 30 min. Sin comisión de plataforma — el 100% va al conductor.",
+      },
+      {
+        q: "¿Cómo volver del Medusa Festival a Valencia de madrugada?",
+        a: "El tren de Cercanías Valencia–Cullera no opera de madrugada. Las opciones son: (1) Carpooling ConcertRide con conductor que sale a la hora acordada (3–5 €/asiento). (2) Taxi/VTC, con tarifa nocturna de 40–60 € para el trayecto completo a Valencia. El carpooling es la opción más económica y se coordina antes del festival.",
+      },
+    ],
+    relatedLinks: [
+      { label: "Carpooling a Medusa Festival", to: "/festivales/medusa-festival" },
+      { label: "Valencia → Medusa Festival", to: "/rutas/valencia-medusa-festival" },
+      { label: "Madrid → Medusa Festival", to: "/rutas/madrid-medusa-festival" },
+      { label: "Cómo llegar al Medusa Festival", to: "/como-llegar/medusa-festival" },
+    ],
+    relatedPosts: ["medusa-festival-2026-guia-transporte", "carpooling-medusa-desde-murcia-2026"],
+  },
+
+  // ──────────────────────────────────────────────────────────────────────
+  {
+    slug: "carpooling-sonorama-ribera-2026",
+    title: "Carpooling al Sonorama Ribera 2026: cómo llegar a Aranda de Duero en coche compartido",
+    h1: "Carpooling al Sonorama Ribera 2026: guía de transporte a Aranda de Duero",
+    excerpt:
+      "El Sonorama Ribera 2026 se celebra del 6 al 9 de agosto en Aranda de Duero (Burgos). A 150 km de Madrid y sin tren nocturno de vuelta, el carpooling con ConcertRide es la opción más popular. Rutas, precios y consejos para el festival del indie español.",
+    category: "guias",
+    tags: ["sonorama ribera", "aranda de duero", "carpooling", "transporte", "indie"],
+    publishedAt: "2026-05-04T09:30:00.000Z",
+    author: "Equipo ConcertRide",
+    readingMinutes: 6,
+    lede:
+      "El Sonorama Ribera es el festival del verano para el indie español. Aranda de Duero a principios de agosto: el Duero, el vino y los mejores conciertos en formato íntimo. El problema es que no hay tren de vuelta de madrugada. Aquí tienes la solución.",
+    sections: [
+      {
+        heading: "Cómo llegar al Sonorama Ribera 2026",
+        paragraphs: [
+          "El Sonorama Ribera 2026 se celebra del 6 al 9 de agosto en el Recinto Ferial de Aranda de Duero (Burgos), a orillas del Duero. Aranda es una ciudad de unos 30.000 habitantes en Castilla y León, equidistante de Madrid (150 km, 1h 30 min por la A-1), Valladolid (100 km, 1h), Burgos (70 km, 45 min) y Bilbao (185 km, 2h).",
+          "El transporte público hasta Aranda de Duero es limitado: el bus La Sepulvedana Madrid–Aranda opera con 3–4 expediciones diarias (10–15 €, 1h 30 min) pero sin servicio nocturno, por lo que la vuelta de madrugada en bus es imposible. No hay tren directo desde Madrid a Aranda de Duero.",
+        ],
+      },
+      {
+        heading: "Precios de carpooling al Sonorama Ribera desde las principales ciudades",
+        paragraphs: [
+          "Con ConcertRide puedes reservar plaza con conductores verificados que van al mismo festival. Los precios reflejan el coste real de combustible y peajes dividido entre los ocupantes:",
+        ],
+        bullets: [
+          "Madrid → Sonorama Ribera (150 km, 1h 30 min): 5–8 €/asiento",
+          "Valladolid → Sonorama Ribera (100 km, 1h): 4–7 €/asiento",
+          "Burgos → Sonorama Ribera (70 km, 45 min): 3–6 €/asiento",
+          "Salamanca → Sonorama Ribera (130 km, 1h 15 min): 4–7 €/asiento",
+          "Segovia → Sonorama Ribera (125 km, 1h 15 min): 4–7 €/asiento",
+          "Logroño → Sonorama Ribera (125 km, 1h 15 min): 4–7 €/asiento",
+          "Vitoria-Gasteiz → Sonorama Ribera (150 km, 1h 30 min): 5–8 €/asiento",
+          "Bilbao → Sonorama Ribera (185 km, 2h): 6–9 €/asiento",
+          "Zaragoza → Sonorama Ribera (290 km, 2h 30 min): 8–12 €/asiento",
+          "Barcelona → Sonorama Ribera (545 km, 5h): 14–20 €/asiento",
+        ],
+      },
+      {
+        heading: "Por qué el carpooling domina en Sonorama Ribera",
+        paragraphs: [
+          "El Sonorama tiene una particularidad que lo hace especialmente dependiente del coche compartido: es un festival de formato íntimo en una ciudad pequeña. No hay taxis disponibles en número suficiente para 25.000 asistentes a las 3:00 AM, y el bus La Sepulvedana opera su último servicio a media tarde.",
+          "Desde Madrid, el carpooling es además la opción más económica para ir y volver: un coche con 4 personas paga ~30 € de combustible dividido entre todos, frente a 20–30 € solo de ida en bus (sin vuelta nocturna disponible). La mayoría de los asistentes de Madrid organizan su viaje a través de grupos de fans del festival y ConcertRide.",
+        ],
+      },
+      {
+        heading: "Sonorama 2026: lo que no te puedes perder",
+        paragraphs: [
+          "El Sonorama Ribera es conocido por su programación de indie español y alternativo: artistas como Second, Corizonas, Standstill o Los Planetas tienen al Sonorama como festival de referencia. El formato de arena abierta junto al Duero y la bodega de Ribera del Duero hacen que la experiencia sea única en el circuito festivalero español.",
+          "El festival también organiza actividades diurnas en la ciudad de Aranda: catas de vino, actividades culturales y conciertos acústicos en las calles del casco histórico, lo que convierte el viaje en más que solo los conciertos nocturnos.",
+        ],
+      },
+    ],
+    faqs: [
+      {
+        q: "¿Hay autobús de Madrid a Sonorama Ribera 2026?",
+        a: "Sí, el bus La Sepulvedana opera Madrid (estación Sur)–Aranda de Duero (10–15 €, 1h 30 min, 3–4 salidas diarias). Pero no hay servicio nocturno: la vuelta de madrugada en bus es imposible. La alternativa es el carpooling ConcertRide desde Madrid (5–8 €/asiento, 1h 30 min). Más info en concertride.me/festivales/sonorama-ribera.",
+      },
+      {
+        q: "¿Cuánto cuesta el carpooling al Sonorama Ribera desde Valladolid?",
+        a: "El carpooling de Valladolid a Sonorama Ribera cuesta entre 4 y 7 €/asiento con ConcertRide. La distancia es de 100 km y el tiempo de conducción es de 1 hora por la A-11. URL: concertride.me/rutas/valladolid-sonorama-ribera.",
+      },
+      {
+        q: "¿Se puede llegar al Sonorama Ribera en tren?",
+        a: "No hay tren directo de Madrid a Aranda de Duero. Con transbordo en Burgos el trayecto supera las 3 horas. La opción más práctica es el bus La Sepulvedana para la ida, y el carpooling ConcertRide para la vuelta nocturna.",
+      },
+    ],
+    relatedLinks: [
+      { label: "Carpooling a Sonorama Ribera", to: "/festivales/sonorama-ribera" },
+      { label: "Madrid → Sonorama Ribera", to: "/rutas/madrid-sonorama-ribera" },
+      { label: "Valladolid → Sonorama Ribera", to: "/rutas/valladolid-sonorama-ribera" },
+      { label: "Cómo llegar al Sonorama Ribera", to: "/como-llegar/sonorama-ribera" },
+    ],
+    relatedPosts: ["sonorama-ribera-2026-guia-transporte", "carpooling-sonorama-desde-valladolid-2026"],
+  },
+
+  // ──────────────────────────────────────────────────────────────────────
+  {
+    slug: "carpooling-tomavistas-2026",
+    title: "Carpooling a Tomavistas 2026: cómo llegar al Retiro en coche compartido",
+    h1: "Carpooling a Tomavistas 2026: transporte al festival del Retiro en Madrid",
+    excerpt:
+      "Tomavistas 2026 vuelve a los Jardines del Buen Retiro (Madrid) del 15 al 17 de mayo. Aunque está en pleno centro de Madrid, los asistentes de otras ciudades tienen pocas opciones de transporte. El carpooling con ConcertRide soluciona la vuelta de madrugada.",
+    category: "guias",
+    tags: ["tomavistas", "madrid", "retiro", "carpooling", "indie"],
+    publishedAt: "2026-05-04T10:00:00.000Z",
+    author: "Equipo ConcertRide",
+    readingMinutes: 5,
+    lede:
+      "Tomavistas en el Retiro es el festival de primavera por excelencia en Madrid. Si vives en otra ciudad, combinar el tren con el metro funciona para la ida. Para la vuelta a la 1:00 AM cuando el AVE ya no sale, el carpooling es la opción inteligente.",
+    sections: [
+      {
+        heading: "Dónde es Tomavistas y cómo llegar",
+        paragraphs: [
+          "Tomavistas 2026 se celebra del 15 al 17 de mayo en los Jardines del Buen Retiro, Madrid. El recinto está en el interior del Parque del Retiro, accesible por la Puerta de Felipe IV. Metro: L2 Retiro (10 min andando) o L9 Ibiza (5 min andando). El metro opera hasta aproximadamente la 1:30 AM.",
+          "Para asistentes de fuera de Madrid, el AVE desde ciudades como Valencia, Barcelona o Sevilla es la opción más rápida para la ida, pero los trenes nocturnos de vuelta tienen horarios rígidos que pocas veces coinciden con el final de un concierto que puede acabar después de medianoche.",
+        ],
+      },
+      {
+        heading: "Carpooling a Tomavistas desde otras ciudades",
+        paragraphs: [
+          "Si vienes de fuera de Madrid, el carpooling organizado con ConcertRide te permite coordinar la llegada y —sobre todo— la vuelta con un conductor que también va al festival. Los precios de las rutas activas en 2026:",
+        ],
+        bullets: [
+          "Toledo → Tomavistas (75 km, 55 min): 3–6 €/asiento",
+          "Guadalajara → Tomavistas (60 km, 50 min): 3–6 €/asiento",
+          "Segovia → Tomavistas (90 km, 1h 10 min): 4–7 €/asiento",
+          "Ávila → Tomavistas (110 km, 1h 15 min): 4–7 €/asiento",
+          "Salamanca → Tomavistas (210 km, 2h): 7–11 €/asiento",
+          "Valladolid → Tomavistas (195 km, 2h): 6–10 €/asiento",
+          "Burgos → Tomavistas (240 km, 2h 15 min): 7–11 €/asiento",
+          "Valencia → Tomavistas (355 km, 3h 20 min): 10–14 €/asiento",
+          "Zaragoza → Tomavistas (325 km, 3h): 9–13 €/asiento",
+          "Barcelona → Tomavistas (620 km, 5h 30 min): 15–20 €/asiento",
+          "Bilbao → Tomavistas (395 km, 3h 30 min): 11–16 €/asiento",
+        ],
+      },
+      {
+        heading: "La vuelta de Tomavistas: el reto real",
+        paragraphs: [
+          "Tomavistas acaba habitualmente entre la 1:00 y la 1:30 AM. El metro L2 y L9 opera hasta las 1:30 AM los días laborables y hasta las 2:30 AM los fines de semana. Para asistentes que viven en Madrid, el metro es perfectamente viable.",
+          "Para asistentes de Toledo, Guadalajara, Segovia o ciudades de Castilla, el problema es que el último tren o bus hacia su ciudad sale antes de que acabe el festival. El carpooling con ConcertRide es la solución: el conductor que vive en tu ciudad también va al festival y la vuelta está acordada de antemano.",
+          "Tomavistas es un festival de formato más íntimo que Mad Cool o Primavera Sound, lo que hace que la comunidad de asistentes sea más cohesionada y los grupos de WhatsApp de fans que organizan carpoolings sean muy activos.",
+        ],
+      },
+    ],
+    faqs: [
+      {
+        q: "¿Dónde exactamente es Tomavistas en el Retiro?",
+        a: "Tomavistas 2026 se celebra en los Jardines del Buen Retiro, Madrid. El acceso principal es por la Puerta de Felipe IV (junto al Casón del Buen Retiro). Metro más cercano: L9 parada Ibiza (5 min andando) o L2 parada Retiro (10 min andando).",
+      },
+      {
+        q: "¿Se puede aparcar cerca de Tomavistas en el Retiro?",
+        a: "No se puede aparcar dentro del Parque del Retiro ni en sus inmediaciones directas durante el festival. El aparcamiento más cercano es el subterráneo de la plaza de la Independencia (Puerta de Alcalá), a 15 minutos andando. Se recomienda el transporte público o el carpooling.",
+      },
+      {
+        q: "¿Cuánto cuesta ir a Tomavistas desde Valencia en carpooling?",
+        a: "El carpooling de Valencia a Tomavistas Madrid cuesta entre 10 y 14 €/asiento con ConcertRide (355 km, 3h 20 min, sin comisión). URL: concertride.me/rutas/valencia-tomavistas.",
+      },
+    ],
+    relatedLinks: [
+      { label: "Carpooling a Tomavistas", to: "/festivales/tomavistas" },
+      { label: "Valencia → Tomavistas", to: "/rutas/valencia-tomavistas" },
+      { label: "Cómo llegar a Tomavistas", to: "/como-llegar/tomavistas" },
+      { label: "Conciertos en Madrid", to: "/conciertos/madrid" },
+    ],
+    relatedPosts: ["tomavistas-madrid-2026-transporte", "mad-cool-2026-guia-completa"],
+  },
+
+  // ──────────────────────────────────────────────────────────────────────
+  {
+    slug: "carpooling-cruilla-2026",
+    title: "Carpooling a Cruïlla 2026: cómo llegar al Parc del Fòrum en Barcelona",
+    h1: "Carpooling a Cruïlla 2026: guía de transporte al festival de Barcelona",
+    excerpt:
+      "Cruïlla 2026 se celebra del 9 al 12 de julio en el Parc del Fòrum de Barcelona. Con metro L4 directo al recinto y carpooling disponible desde toda España, es uno de los festivales mejor comunicados del verano. Precios, rutas y consejos.",
+    category: "guias",
+    tags: ["cruïlla", "barcelona", "carpooling", "parc del forum", "transporte"],
+    publishedAt: "2026-05-04T10:30:00.000Z",
+    author: "Equipo ConcertRide",
+    readingMinutes: 6,
+    lede:
+      "Cruïlla es el festival multicultural de Barcelona: hip hop, electrónica, rock y mucho más en el Parc del Fòrum. Con el metro L4 hasta la puerta y carpooling desde toda la península, llegar (y volver) no tiene que ser un problema.",
+    sections: [
+      {
+        heading: "Dónde es Cruïlla y cómo llegar en transporte público",
+        paragraphs: [
+          "Cruïlla 2026 se celebra del 9 al 12 de julio en el Parc del Fòrum, Barcelona. El Parc del Fòrum está a orillas del mar, en el distrito de Sant Martí. Es el mismo recinto que Primavera Sound, al final de la Rambla del Prim.",
+          "El acceso en transporte público es excelente: metro L4 parada Besòs Mar (5 minutos andando al recinto) o parada El Maresme-Fòrum. El metro de Barcelona opera hasta las 2:00 AM de domingo a jueves y hasta las 5:00 AM los viernes y sábados — lo que cubre perfectamente la vuelta de Cruïlla en fines de semana.",
+        ],
+      },
+      {
+        heading: "Carpooling a Cruïlla desde ciudades de toda España",
+        paragraphs: [
+          "Para los asistentes que vienen de fuera de Barcelona, el carpooling con ConcertRide permite coordinar el viaje con otros asistentes al mismo festival. Los precios por asiento reflejan el coste de combustible y peajes sin comisión:",
+        ],
+        bullets: [
+          "Girona → Cruïlla (100 km, 1h): 4–7 €/asiento",
+          "Tarragona → Cruïlla (100 km, 1h): 4–7 €/asiento",
+          "Lleida → Cruïlla (170 km, 1h 45 min): 5–8 €/asiento",
+          "Zaragoza → Cruïlla (306 km, 2h 45 min): 8–12 €/asiento",
+          "Pamplona → Cruïlla (415 km, 3h 45 min): 12–17 €/asiento",
+          "Bilbao → Cruïlla (615 km, 5h): 15–20 €/asiento",
+          "Donostia → Cruïlla (565 km, 5h): 15–20 €/asiento",
+          "Valencia → Cruïlla (355 km, 3h 15 min): 10–14 €/asiento",
+          "Murcia → Cruïlla (620 km, 5h 30 min): 16–22 €/asiento",
+          "Madrid → Cruïlla (620 km, 5h 30 min): 15–20 €/asiento",
+          "Sevilla → Cruïlla (1.000 km, 9h): 25–35 €/asiento",
+        ],
+      },
+      {
+        heading: "Cruïlla vs. otros festivales de Barcelona: transporte comparado",
+        paragraphs: [
+          "Cruïlla tiene una ventaja logística sobre Primavera Sound y Sónar: el metro L4 opera toda la noche los viernes y sábados, lo que significa que para asistentes de Barcelona o del área metropolitana, la vuelta en metro a las 2:00–3:00 AM es completamente viable.",
+          "Para asistentes de fuera de Barcelona, el carpooling es especialmente útil para el último día del festival (martes 12 de julio), que coincide con un día laborable. Los trenes AVE y los autobuses de vuelta a Madrid, Zaragoza o Valencia ya operan a primera hora del miércoles, pero si el festival acaba a la 1:30 AM del martes, el carpooling nocturno es la única opción de volver esa misma noche.",
+        ],
+      },
+      {
+        heading: "Qué ver en Barcelona durante Cruïlla",
+        paragraphs: [
+          "Cruïlla se celebra en julio, en plena temporada alta de Barcelona. El Parc del Fòrum está a pie de playa — muchos asistentes combinan el festival con días de turismo en la ciudad.",
+          "El barrio del Poblenou (5 minutos del Fòrum en metro) es la zona de referencia para el ocio nocturno relacionado con el festival: terrazas, bares y clubs que mantienen la noche de Cruïlla fuera del recinto. Alojamiento recomendado: hoteles en el eje Rambla del Poblenou o en el Eixample.",
+        ],
+      },
+    ],
+    faqs: [
+      {
+        q: "¿El metro llega al Parc del Fòrum para Cruïlla?",
+        a: "Sí. Metro L4 paradas El Maresme-Fòrum y Besòs Mar (5 minutos andando al recinto). El metro de Barcelona opera hasta las 2:00 AM los días de semana y hasta las 5:00 AM los viernes y sábados — perfecto para la vuelta de Cruïlla.",
+      },
+      {
+        q: "¿Cuánto cuesta el carpooling al Cruïlla desde Madrid?",
+        a: "El carpooling de Madrid a Cruïlla 2026 cuesta entre 15 y 20 €/asiento con ConcertRide (620 km, 5h 30 min). Sin comisión de plataforma. URL: concertride.me/rutas/madrid-cruilla.",
+      },
+      {
+        q: "¿Cuándo es el Cruïlla 2026?",
+        a: "Cruïlla 2026 se celebra del 9 al 12 de julio de 2026 en el Parc del Fòrum, Barcelona. Es un festival de 4 días con programación de hip hop, electrónica, indie y rock internacional.",
+      },
+    ],
+    relatedLinks: [
+      { label: "Carpooling a Cruïlla", to: "/festivales/cruilla" },
+      { label: "Madrid → Cruïlla", to: "/rutas/madrid-cruilla" },
+      { label: "Valencia → Cruïlla", to: "/rutas/valencia-cruilla" },
+      { label: "Cómo llegar a Cruïlla", to: "/como-llegar/cruilla" },
+      { label: "Conciertos en Barcelona", to: "/conciertos/barcelona" },
+    ],
+    relatedPosts: ["primavera-sound-2026-como-llegar", "sonar-barcelona-2026-carpooling"],
+  },
+
+  // ──────────────────────────────────────────────────────────────────────
+  {
+    slug: "carpooling-fib-benicassim-2026",
+    title: "Carpooling al FIB Benicàssim 2026: cómo llegar al Festival Internacional de Benicàssim",
+    h1: "Carpooling al FIB 2026: guía de transporte a Benicàssim (Castellón)",
+    excerpt:
+      "El FIB — Festival Internacional de Benicàssim 2026 se celebra del 16 al 19 de julio. Con Cercanías desde Castellón y carpooling desde toda España, llegar al FIB tiene múltiples opciones. Precios, rutas y todo lo que necesitas saber.",
+    category: "guias",
+    tags: ["fib", "benicassim", "carpooling", "transporte", "castellon"],
+    publishedAt: "2026-05-04T11:00:00.000Z",
+    author: "Equipo ConcertRide",
+    readingMinutes: 6,
+    lede:
+      "El FIB es el festival más internacional de España, cuatro días en la playa de Benicàssim con el mejor indie y pop alternativo. Desde Valencia son 70 km y desde Madrid 465 km — pero el carpooling con ConcertRide lo hace asequible desde cualquier ciudad.",
+    sections: [
+      {
+        heading: "Cómo llegar al FIB Benicàssim 2026",
+        paragraphs: [
+          "El FIB — Festival Internacional de Benicàssim 2026 se celebra del 16 al 19 de julio en el Recinte Festivaler de Benicàssim (Castellón). El recinto está en la playa de Benicàssim, a 15 km al norte de Castellón de la Plana y 70 km al norte de Valencia.",
+          "La opción de transporte público más práctica para la ida es combinar el tren Cercanías de Renfe con una lanzadera local: Cercanías C6 desde Valencia hasta Castellón (45 min, 4–8 €), o Cercanías desde Castellón hasta Benicàssim (5 min, 1–2 €) + lanzadera al recinto. Desde la misma estación de Benicàssim hay lanzadera hasta el recinto del festival. Sin embargo, el servicio de Cercanías no opera de madrugada — la vuelta nocturna requiere otra solución.",
+        ],
+      },
+      {
+        heading: "Precios de carpooling al FIB desde las principales ciudades",
+        paragraphs: [
+          "El carpooling con ConcertRide permite llegar al FIB desde cualquier ciudad de España con conductores verificados que van al mismo festival. Los precios son el coste real de combustible y peajes sin comisión:",
+        ],
+        bullets: [
+          "Castellón de la Plana → FIB (15 km, 20 min): 3–5 €/asiento",
+          "Valencia → FIB (70 km, 50 min): 3–6 €/asiento",
+          "Alicante → FIB (175 km, 1h 45 min): 5–8 €/asiento",
+          "Murcia → FIB (240 km, 2h 15 min): 7–11 €/asiento",
+          "Lleida → FIB (195 km, 1h 55 min): 6–10 €/asiento",
+          "Tarragona → FIB (200 km, 2h): 6–10 €/asiento",
+          "Zaragoza → FIB (270 km, 2h 30 min): 7–11 €/asiento",
+          "Barcelona → FIB (300 km, 2h 45 min): 8–12 €/asiento",
+          "Bilbao → FIB (480 km, 4h 15 min): 13–17 €/asiento",
+          "Pamplona → FIB (355 km, 3h 15 min): 10–14 €/asiento",
+          "Madrid → FIB (465 km, 4h): 12–17 €/asiento",
+          "Sevilla → FIB (660 km, 5h 45 min): 17–23 €/asiento",
+        ],
+      },
+      {
+        heading: "El FIB: el festival más internacional de España",
+        paragraphs: [
+          "El FIB es uno de los festivales con mayor porcentaje de asistentes internacionales de España: una parte significativa del público viene del Reino Unido, Alemania, Países Bajos y otros países europeos. El cartel suele combinar grandes headliners anglosajones con artistas de indie y pop alternativo internacional.",
+          "El formato del FIB es especial: cuatro días en la playa de Benicàssim, con el Mediterráneo de fondo. La mayoría de los asistentes nacionales se alojan en el camping del festival o en los apartamentos y hoteles de Benicàssim y Castellón, lo que hace que el carpooling de vuelta al final de cada jornada sea menos necesario que en otros festivales — la opción dominante es el trayecto final el lunes al terminar el festival.",
+        ],
+      },
+      {
+        heading: "Alojamiento y logística para el FIB 2026",
+        paragraphs: [
+          "El FIB tiene tres opciones de alojamiento principales: camping del festival (directamente en el recinto, aforo limitado), apartamentos y hoteles en Benicàssim (precios altos durante el festival), y hoteles en Castellón de la Plana (mejor precio, 15 km del recinto en tren o taxi).",
+          "Para asistentes que van solo un día o dos, el carpooling de ida y vuelta desde Valencia (70 km, 3–6 €) es la opción más cómoda: llegas al festival, disfrutas de la jornada y vuelves a Valencia cuando quieras coordinar con tu conductor.",
+        ],
+      },
+    ],
+    faqs: [
+      {
+        q: "¿Hay tren al FIB desde Valencia?",
+        a: "Sí. Renfe Cercanías C6 Valencia–Castellón (45 min, 4–8 €) + Cercanías Castellón–Benicàssim (5 min, 1–2 €) + lanzadera al recinto. El problema: sin servicio nocturno desde Benicàssim después de medianoche. Para la vuelta de madrugada, el carpooling ConcertRide desde Valencia (3–6 €/asiento) es la opción más flexible. Más info: concertride.me/festivales/fib.",
+      },
+      {
+        q: "¿Cuánto cuesta ir al FIB desde Madrid en carpooling?",
+        a: "El carpooling de Madrid al FIB Benicàssim 2026 cuesta entre 12 y 17 €/asiento con ConcertRide (465 km, 4h). Sin comisión de plataforma. URL: concertride.me/rutas/madrid-fib.",
+      },
+      {
+        q: "¿Cuándo es el FIB 2026?",
+        a: "El FIB — Festival Internacional de Benicàssim 2026 se celebra del 16 al 19 de julio de 2026 en el Recinte Festivaler de Benicàssim, Castellón. Son cuatro días de festival en la playa.",
+      },
+      {
+        q: "¿Hay camping en el FIB Benicàssim?",
+        a: "Sí. El FIB dispone de camping propio dentro del recinto con aforo limitado. Se recomienda comprar la entrada de camping con antelación. Hay también apartamentos y hoteles en Benicàssim y Castellón de la Plana como alternativa.",
+      },
+    ],
+    relatedLinks: [
+      { label: "Carpooling al FIB Benicàssim", to: "/festivales/fib" },
+      { label: "Valencia → FIB", to: "/rutas/valencia-fib" },
+      { label: "Madrid → FIB", to: "/rutas/madrid-fib" },
+      { label: "Cómo llegar al FIB", to: "/como-llegar/fib" },
+      { label: "Conciertos en Valencia", to: "/conciertos/valencia" },
+    ],
+    relatedPosts: ["fib-benicassim-2026-guia-transporte", "arenal-sound-2026-transporte"],
+  },
+
 );
 
 // Refresh derived exports

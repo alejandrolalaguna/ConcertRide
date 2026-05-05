@@ -63,6 +63,28 @@ app.use("*", async (c, next) => {
   }
 });
 
+// ─── Canonical Link header for HTML responses (all user agents) ─────────────
+// Adds Link: <canonical>; rel="canonical" to HTML page responses so crawlers
+// see the canonical even if they don't execute JS. Skips /api/*, assets, and
+// paths with file extensions. Bot responses from seoPrerender already include
+// this — this ensures non-bot HTML responses carry it too.
+app.use("*", async (c, next) => {
+  await next();
+  if (
+    c.req.method === "GET" &&
+    !c.req.path.startsWith("/api/") &&
+    !c.req.path.match(/\.[a-z0-9]{1,6}$/i) &&
+    c.res.headers.get("content-type")?.includes("text/html")
+  ) {
+    const site = getSiteUrl(c.env);
+    const canonical = `${site}${c.req.path}`;
+    // Only set if not already present (seoPrerender sets its own Link header)
+    if (!c.res.headers.has("Link")) {
+      c.res.headers.set("Link", `<${canonical}>; rel="canonical"`);
+    }
+  }
+});
+
 // ─── SEO prerender for search bots (runs early, before any route matching) ──
 // This must run before CORS/routes so it intercepts bot requests before
 // Cloudflare/Hono make trailing-slash redirects.
