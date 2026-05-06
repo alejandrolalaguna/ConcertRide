@@ -145,7 +145,7 @@ export default function ArtistLandingPage() {
               offers: {
                 "@type": "Offer",
                 url: `${SITE_URL}/artistas/${artist.slug}`,
-                price: c.originCities[0]?.range.split("–")[0]?.replace(/[^0-9]/g, "") ?? "9",
+                price: Number(c.originCities[0]?.range.split("–")[0]?.replace(/[^0-9]/g, "") || "9"),
                 priceCurrency: "EUR",
                 description: `Carpooling desde ${c.originCities[0]?.city ?? "España"} (${c.originCities[0]?.range ?? c.concertRideRange}/asiento, sin comisión). ConcertRide.`,
               },

@@ -76,8 +76,10 @@ export default function VenueLandingPage() {
     description: venue.blurb,
     address: {
       "@type": "PostalAddress",
-      streetAddress: venue.address.split(",").slice(0, -1).join(",").trim(),
-      addressLocality: venue.city,
+      ...(venue.address?.split(",").slice(0, -1).join(",").trim()
+        ? { streetAddress: venue.address.split(",").slice(0, -1).join(",").trim() }
+        : {}),
+      addressLocality: venue.city || venue.region,
       addressRegion: venue.region,
       addressCountry: "ES",
     },

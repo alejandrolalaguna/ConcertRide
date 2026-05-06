@@ -3640,29 +3640,47 @@ async function resolveConcertPage(id: string, base: string, store: HonoEnv["Vari
     const concert = await store.getConcert(id);
     if (!concert) return null;
 
-    const dateStr = concert.date
-      ? new Date(concert.date).toLocaleDateString("es-ES", { day: "numeric", month: "long", year: "numeric" })
-      : "";
-    const title = `Carpooling ${esc(concert.artist)} — ${esc(concert.venue?.name ?? "")} ${dateStr ? `· ${dateStr}` : ""} | ${SITE_NAME}`;
-    const description = `Viaje compartido para ir al concierto de ${concert.artist} en ${concert.venue?.name ?? ""} (${concert.venue?.city ?? ""}). Encuentra o publica un viaje. Sin comisión, conductores verificados.`;
+    const artist = concert.artist?.trim() || null;
+    const venueName = concert.venue?.name?.trim() || null;
+    const venueCity = concert.venue?.city?.trim() || null;
+    const startDate = concert.date?.trim() || null;
+
+    // Google requires name, startDate, and location — skip JSON-LD if any are missing
+    // to avoid GSC "missing field" critical errors.
+    if (!artist || !startDate || !venueName || !venueCity) return null;
+
+    const dateStr = new Date(startDate).toLocaleDateString("es-ES", {
+      day: "numeric",
+      month: "long",
+      year: "numeric",
+    });
+
+    const title = `Carpooling ${esc(artist)} — ${esc(venueName)} · ${dateStr} | ${SITE_NAME}`;
+    const description = `Viaje compartido para ir al concierto de ${artist} en ${venueName} (${venueCity}). Encuentra o publica un viaje. Sin comisión, conductores verificados.`;
     const canonical = `${base}/concerts/${id}`;
 
     const eventJsonLd = JSON.stringify({
       "@context": "https://schema.org",
       "@type": "MusicEvent",
-      name: `${concert.artist} — ${concert.venue?.name ?? ""}`,
-      startDate: concert.date,
+      "@id": `${canonical}#event`,
+      name: venueName !== artist ? `${artist} en ${venueName}` : artist,
+      startDate,
       location: {
         "@type": "Place",
-        name: concert.venue?.name ?? "",
+        name: venueName,
         address: {
           "@type": "PostalAddress",
-          addressLocality: concert.venue?.city ?? "",
+          addressLocality: venueCity,
           addressCountry: "ES",
         },
       },
+      performer: {
+        "@type": "MusicGroup",
+        name: artist,
+      },
       url: canonical,
       description,
+      ...(concert.image_url ? { image: concert.image_url } : {}),
       offers: {
         "@type": "Offer",
         url: canonical,
@@ -3679,16 +3697,16 @@ async function resolveConcertPage(id: string, base: string, store: HonoEnv["Vari
       itemListElement: [
         { "@type": "ListItem", position: 1, name: "Inicio", item: `${base}/` },
         { "@type": "ListItem", position: 2, name: "Conciertos", item: `${base}/concerts` },
-        { "@type": "ListItem", position: 3, name: `${concert.artist} — ${concert.venue?.name ?? ""}`, item: canonical },
+        { "@type": "ListItem", position: 3, name: `${artist} — ${venueName}`, item: canonical },
       ],
     });
 
     const body = `<script type="application/ld+json">${eventJsonLd}</script>
 <script type="application/ld+json">${breadcrumbJsonLd}</script>
-<nav aria-label="Breadcrumb"><a href="${base}/">Inicio</a> / <a href="${base}/concerts">Conciertos</a> / <span>${esc(concert.artist)}</span></nav>
-<p>${esc(concert.artist)} actúa en ${esc(concert.venue?.name ?? "")}${concert.venue?.city ? `, ${esc(concert.venue.city)}` : ""}${dateStr ? ` el ${dateStr}` : ""}.</p>
+<nav aria-label="Breadcrumb"><a href="${base}/">Inicio</a> / <a href="${base}/concerts">Conciertos</a> / <span>${esc(artist)}</span></nav>
+<p>${esc(artist)} actúa en ${esc(venueName)}, ${esc(venueCity)} el ${dateStr}.</p>
 <h2>Viajes compartidos a este concierto</h2>
-<p>Encuentra o publica un viaje a ${esc(concert.artist)}. Sin comisión, conductores verificados. Pago en efectivo o Bizum al conductor el día del evento.</p>
+<p>Encuentra o publica un viaje a ${esc(artist)}. Sin comisión, conductores verificados. Pago en efectivo o Bizum al conductor el día del evento.</p>
 <h2>¿Por qué ir con ConcertRide?</h2>
 <ul>
   <li><strong>Sin comisión</strong> — el 100% del precio va al conductor.</li>
@@ -3701,7 +3719,7 @@ async function resolveConcertPage(id: string, base: string, store: HonoEnv["Vari
       title,
       description,
       canonical,
-      h1: `Viajes compartidos a ${concert.artist}${concert.venue?.city ? ` en ${concert.venue.city}` : ""}`,
+      h1: `Viajes compartidos a ${artist} en ${venueCity}`,
       body,
       ogImage: concert.image_url ?? undefined,
     };
@@ -3732,6 +3750,15 @@ export async function seoPrerender(c: Context<HonoEnv>, next: Next): Promise<Res
   // /login?next=... variants (query params are stripped for matching).
   const authPaths = ["/login", "/register", "/forgot-password", "/reset-password", "/verify-email"];
   if (authPaths.includes(c.req.path)) {
+    // If /login?next=/rutas/... (or any indexable path), 301-redirect bots to the
+    // destination so Google indexes the real page instead of the login wrapper.
+    const nextParam = new URL(c.req.url).searchParams.get("next");
+    if (nextParam && nextParam.startsWith("/") && !authPaths.some((p) => nextParam.startsWith(p))) {
+      return new Response(null, {
+        status: 301,
+        headers: { Location: `${base}${nextParam}`, "X-SEO-Prerender": "bot-login-redirect" },
+      });
+    }
     return new Response(
       `<!doctype html><html lang="es"><head><meta charset="UTF-8"/><title>Acceso — ConcertRide ES</title><meta name="robots" content="noindex, nofollow"/><link rel="canonical" href="${base}${c.req.path}"/></head><body></body></html>`,
       { status: 200, headers: { "Content-Type": "text/html; charset=utf-8", "X-Robots-Tag": "noindex, nofollow", "X-SEO-Prerender": "noindex" } },

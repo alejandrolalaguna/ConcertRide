@@ -107,7 +107,7 @@ export default function BlogPostPage() {
     wordCount: post.sections.reduce((acc, s) => acc + s.paragraphs.join(" ").split(/\s+/).length, 0),
     author: {
       "@type": "Person",
-      name: post.author,
+      name: post.author?.trim() || "ConcertRide",
       url: `${SITE_URL}/acerca-de`,
       "@id": `${SITE_URL}/#founder`,
       sameAs: [

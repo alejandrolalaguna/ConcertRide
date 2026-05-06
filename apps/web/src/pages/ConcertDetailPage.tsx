@@ -612,12 +612,19 @@ function JsonLdEvent({ concert }: { concert: Concert }) {
     : undefined;
   const url = `${SITE_URL}/concerts/${concert.id}`;
 
+  const eventName = (concert.name || concert.artist || "").trim();
+  const venueName = concert.venue.name?.trim() || concert.venue.city?.trim() || "";
+  const venueCity = concert.venue.city?.trim() || "";
+
+  // Skip rendering if required GSC fields are missing
+  if (!eventName || !concert.date || !venueName || !venueCity) return null;
+
   const jsonLd: Record<string, unknown> = {
     "@context": "https://schema.org",
     "@type": "MusicEvent",
-    name: concert.name,
+    name: eventName,
     url,
-    description: `Concierto de ${concert.artist} en ${concert.venue.name} (${concert.venue.city}). Encuentra viajes compartidos desde toda España en ConcertRide.`,
+    description: `Concierto de ${concert.artist} en ${venueName} (${venueCity}). Encuentra viajes compartidos desde toda España en ConcertRide.`,
     performer: {
       "@type": "MusicGroup",
       name: concert.artist,
@@ -633,18 +640,20 @@ function JsonLdEvent({ concert }: { concert: Concert }) {
     eventAttendanceMode: "https://schema.org/OfflineEventAttendanceMode",
     location: {
       "@type": "Place",
-      name: concert.venue.name,
+      name: venueName,
       address: {
         "@type": "PostalAddress",
-        addressLocality: concert.venue.city,
+        addressLocality: venueCity,
         addressCountry: "ES",
-        streetAddress: concert.venue.address,
+        ...(concert.venue.address?.trim() ? { streetAddress: concert.venue.address.trim() } : {}),
       },
-      geo: {
-        "@type": "GeoCoordinates",
-        latitude: concert.venue.lat,
-        longitude: concert.venue.lng,
-      },
+      ...(concert.venue.lat && concert.venue.lng ? {
+        geo: {
+          "@type": "GeoCoordinates",
+          latitude: concert.venue.lat,
+          longitude: concert.venue.lng,
+        },
+      } : {}),
     },
   };
 
