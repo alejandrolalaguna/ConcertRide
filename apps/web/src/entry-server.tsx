@@ -23,6 +23,7 @@ import BlogPostPage from "./pages/BlogPostPage";
 import RouteLandingPage from "./pages/RouteLandingPage";
 import RutasIndexPage from "./pages/RutasIndexPage";
 import PrensaPage from "./pages/PrensaPage";
+import DatosPage from "./pages/DatosPage";
 import HowItWorksPage from "./pages/HowItWorksPage";
 import FaqPage from "./pages/FaqPage";
 import ContactoPage from "./pages/ContactoPage";
@@ -81,6 +82,7 @@ function ServerApp() {
         <Route path="/rutas/:route" element={<RouteLandingPage />} />
         <Route path="/como-llegar/:festival" element={<HowToGetTherePage />} />
         <Route path="/prensa" element={<PrensaPage />} />
+        <Route path="/datos" element={<DatosPage />} />
         <Route path="/como-funciona" element={<HowItWorksPage />} />
         <Route path="/faq" element={<FaqPage />} />
         <Route path="/contacto" element={<ContactoPage />} />

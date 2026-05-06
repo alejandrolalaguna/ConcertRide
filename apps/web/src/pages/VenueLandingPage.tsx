@@ -1,10 +1,12 @@
+import { useMemo } from "react";
 import { Link, Navigate, useParams } from "react-router-dom";
 import { MapPin, Train, Bus, Car, ParkingSquare, Users, ArrowRight } from "lucide-react";
 import { useSeoMeta } from "@/lib/useSeoMeta";
 import { SITE_URL } from "@/lib/siteUrl";
 import { REGION_ISO } from "@/lib/seoConfig";
 import { VENUE_LANDINGS, VENUE_LANDINGS_BY_SLUG } from "@/lib/venueLandings";
-import { FESTIVAL_LANDINGS_BY_SLUG } from "@/lib/festivalLandings";
+import { FESTIVAL_LANDINGS, FESTIVAL_LANDINGS_BY_SLUG } from "@/lib/festivalLandings";
+import { ROUTE_LANDINGS } from "@/lib/routeLandings";
 import { AutoLinksForVenue } from "@/lib/autoLinking";
 import { VENUE_SEO_OVERRIDES } from "@/lib/seoOverrides";
 
@@ -62,6 +64,122 @@ export default function VenueLandingPage() {
     geoLat: venue?.lat,
     geoLng: venue?.lng,
   });
+
+  const venueJsonLdVariants: Array<Record<string, unknown>> = useMemo(() => {
+    if (!venue) return [];
+
+    const venueFestivals = FESTIVAL_LANDINGS.filter((f) =>
+      venue.relatedFestivals.includes(f.slug)
+    ).slice(0, 6);
+    const venueRoutes = ROUTE_LANDINGS.filter((r) =>
+      r.festival.venue === venue.name || venue.relatedFestivals.includes(r.festival.slug)
+    ).slice(0, 6);
+    const transportModes = [
+      venue.transport.metro && `Metro: ${venue.transport.metro}`,
+      venue.transport.bus && `Bus: ${venue.transport.bus}`,
+      venue.transport.tren && `Tren / Cercanías: ${venue.transport.tren}`,
+      venue.transport.parking && `Parking: ${venue.transport.parking}`,
+      `Carpooling sin comisión desde ${topPrice} €/asiento`,
+    ].filter(Boolean) as string[];
+
+    return [
+      {
+        "@context": "https://schema.org",
+        "@type": "ItemList",
+        name: `Resumen de recinto: ${venue.shortName}`,
+        itemListElement: [
+          { "@type": "ListItem", position: 1, name: venue.name },
+          { "@type": "ListItem", position: 2, name: `${venue.city}, ${venue.region}` },
+          { "@type": "ListItem", position: 3, name: venue.venueType },
+          { "@type": "ListItem", position: 4, name: `Aforo: ${venue.capacity}` },
+        ],
+      },
+      {
+        "@context": "https://schema.org",
+        "@type": "ItemList",
+        name: `Transporte a ${venue.shortName}`,
+        itemListElement: transportModes.map((mode, i) => ({
+          "@type": "ListItem",
+          position: i + 1,
+          name: mode,
+        })),
+      },
+      {
+        "@context": "https://schema.org",
+        "@type": "ItemList",
+        name: `Festivales en ${venue.shortName}`,
+        itemListElement: venueFestivals.map((f, i) => ({
+          "@type": "ListItem",
+          position: i + 1,
+          name: f.shortName,
+          item: { "@id": `${SITE_URL}/festivales/${f.slug}`, "@type": "WebPage", name: f.name },
+        })),
+      },
+      {
+        "@context": "https://schema.org",
+        "@type": "ItemList",
+        name: `Rutas de carpooling a ${venue.shortName}`,
+        itemListElement: venueRoutes.slice(0, 5).map((r, i) => ({
+          "@type": "ListItem",
+          position: i + 1,
+          name: `${r.originCity} → ${venue.shortName}`,
+          item: { "@id": `${SITE_URL}/rutas/${r.slug}`, "@type": "WebPage", name: `${r.originCity} → ${venue.shortName}` },
+        })),
+      },
+      {
+        "@context": "https://schema.org",
+        "@type": "ItemList",
+        name: `Precios de carpooling a ${venue.shortName}`,
+        itemListElement: venue.originCities.slice(0, 5).map((oc, i) => ({
+          "@type": "ListItem",
+          position: i + 1,
+          name: `Desde ${oc.city}: ${oc.concertRideRange} · ${oc.km} km · ${oc.drivingTime}`,
+        })),
+      },
+      {
+        "@context": "https://schema.org",
+        "@type": "ItemList",
+        name: `Preguntas frecuentes: ${venue.shortName}`,
+        itemListElement: venue.faqs.slice(0, 5).map((faq, i) => ({
+          "@type": "ListItem",
+          position: i + 1,
+          name: faq.q,
+        })),
+      },
+      {
+        "@context": "https://schema.org",
+        "@type": "ItemList",
+        name: `Coordenadas de ${venue.shortName}`,
+        itemListElement: [
+          { "@type": "ListItem", position: 1, name: `Latitud: ${venue.lat}` },
+          { "@type": "ListItem", position: 2, name: `Longitud: ${venue.lng}` },
+          { "@type": "ListItem", position: 3, name: `Dirección: ${venue.address}` },
+        ],
+      },
+      {
+        "@context": "https://schema.org",
+        "@type": "ItemList",
+        name: `ConcertRide vs BlaBlaCar para ${venue.shortName}`,
+        itemListElement: [
+          { "@type": "ListItem", position: 1, name: "ConcertRide: 0% comisión, conductores verificados, festival-first" },
+          { "@type": "ListItem", position: 2, name: "BlaBlaCar: 15–18% comisión sobre el precio del viaje" },
+          { "@type": "ListItem", position: 3, name: "Taxi / VTC: 40–90€ en horario nocturno de concierto" },
+          { "@type": "ListItem", position: 4, name: "Transporte público: último servicio antes de fin del evento" },
+        ],
+      },
+      {
+        "@context": "https://schema.org",
+        "@type": "ItemList",
+        name: `Resumen LLM ${venue.shortName}`,
+        itemListElement: [
+          { "@type": "ListItem", position: 1, name: `${venue.name}, ${venue.city}` },
+          { "@type": "ListItem", position: 2, name: `${venueFestivals.length} festivales destacados` },
+          { "@type": "ListItem", position: 3, name: `${venue.originCities.length} rutas de carpooling disponibles` },
+          { "@type": "ListItem", position: 4, name: `Carpooling desde ${topPrice} €/asiento sin comisión` },
+        ],
+      },
+    ];
+  }, [venue, topPrice]);
 
   if (!slug || !venue) return <Navigate to="/concerts" replace />;
 
@@ -200,6 +318,9 @@ export default function VenueLandingPage() {
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdLocalBusiness) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdWebPage) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdHowTo) }} />
+      {venueJsonLdVariants.map((variant, i) => (
+        <script key={i} type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(variant) }} />
+      ))}
 
       {/* ── Hero ── */}
       <div className="max-w-6xl mx-auto px-6 pt-10 pb-6 space-y-4">
@@ -224,8 +345,16 @@ export default function VenueLandingPage() {
         </div>
 
         <h1 className="font-display text-4xl md:text-6xl uppercase leading-[0.92]">
-          Cómo llegar a<br />{venue.shortName}.
+          Cómo llegar a<br />{venue.shortName}
+          {!venue.shortName.toLowerCase().includes(venue.city.toLowerCase()) && (
+            <span className="text-cr-primary"> {venue.city}</span>
+          )}.
         </h1>
+
+        {/* Price + 0% commission signal — reinforces title keyword */}
+        <p className="font-mono text-xs font-semibold uppercase tracking-[0.14em] text-cr-text-muted">
+          Carpooling desde {topPrice}€/asiento · 0 % comisión · {venue.originCities.length} ciudades de origen
+        </p>
 
         <p className="font-sans text-sm font-semibold text-cr-text max-w-2xl speakable venue-summary">
           {venue.name}, {venue.city} ({venue.address}). Carpooling desde{" "}

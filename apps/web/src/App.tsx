@@ -46,6 +46,7 @@ const BlogPostPage = lazy(() => import("./pages/BlogPostPage"));
 const RouteLandingPage = lazy(() => import("./pages/RouteLandingPage"));
 const RutasIndexPage = lazy(() => import("./pages/RutasIndexPage"));
 const PrensaPage = lazy(() => import("./pages/PrensaPage"));
+const DatosPage = lazy(() => import("./pages/DatosPage"));
 const VerifyEmailPage = lazy(() => import("./pages/VerifyEmailPage"));
 const NotFoundPage = lazy(() => import("./pages/NotFoundPage"));
 const DevShowcase = lazy(() => import("./pages/DevShowcase"));
@@ -99,6 +100,7 @@ export default function App() {
             <Route path="/rutas/:route" element={<RouteLandingPage />} />
             <Route path="/como-llegar/:festival" element={<HowToGetTherePage />} />
             <Route path="/prensa" element={<PrensaPage />} />
+            <Route path="/datos" element={<DatosPage />} />
             <Route path="/rides/:id" element={<RideDetailPage />} />
             <Route path="/publish" element={<PublishRidePage />} />
             <Route path="/login" element={<LoginPage />} />

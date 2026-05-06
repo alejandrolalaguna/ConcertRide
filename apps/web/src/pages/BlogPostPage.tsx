@@ -35,10 +35,12 @@ export default function BlogPostPage() {
     description: post?.excerpt,
     canonical: post ? `${SITE_URL}/blog/${post.slug}` : `${SITE_URL}/blog`,
     keywords: post?.tags.join(", "),
+    ogImage: post?.coverImage?.src
+      ? (post.coverImage.src.startsWith("http") ? post.coverImage.src : `${SITE_URL}${post.coverImage.src}`)
+      : undefined,
     ogType: "article",
-    ogImageAlt: post
-      ? `${post.title} — guía de transporte y carpooling — ConcertRide`
-      : "Blog de transporte y carpooling para conciertos — ConcertRide",
+    ogImageAlt: post?.coverImage?.alt
+      ?? (post ? `${post.title} — guía de transporte y carpooling — ConcertRide` : "Blog de transporte y carpooling para conciertos — ConcertRide"),
     articleAuthor: post?.author,
     articlePublishedTime: post?.publishedAt,
     articleModifiedTime: post?.updatedAt ?? post?.publishedAt,
@@ -121,12 +123,20 @@ export default function BlogPostPage() {
     },
     publisher: { "@id": `${SITE_URL}/#organization` },
     audience: { "@type": "Audience", audienceType: "Aficionados a la música y asistentes a festivales en España", geographicArea: { "@type": "Country", name: "Spain" } },
-    image: {
-      "@type": "ImageObject",
-      url: `${SITE_URL}/og/home.png`,
-      width: 1200,
-      height: 630,
-    },
+    image: post.coverImage
+      ? {
+          "@type": "ImageObject",
+          url: post.coverImage.src.startsWith("http") ? post.coverImage.src : `${SITE_URL}${post.coverImage.src}`,
+          width: post.coverImage.width ?? 1200,
+          height: post.coverImage.height ?? 630,
+          caption: post.coverImage.alt,
+        }
+      : {
+          "@type": "ImageObject",
+          url: `${SITE_URL}/og/home.png`,
+          width: 1200,
+          height: 630,
+        },
     speakable: {
       "@type": "SpeakableSpecification",
       cssSelector: ["h1", ".speakable", "article p:first-of-type"],
@@ -214,6 +224,21 @@ export default function BlogPostPage() {
           {post.h1}
         </h1>
       </header>
+
+      {/* ── Cover image — first visible image, keyword-optimized alt text ── */}
+      {post.coverImage && (
+        <div className="max-w-3xl mx-auto px-6 pb-6">
+          <img
+            src={post.coverImage.src}
+            alt={post.coverImage.alt}
+            width={post.coverImage.width ?? 1200}
+            height={post.coverImage.height ?? 630}
+            loading="eager"
+            decoding="async"
+            className="w-full rounded-sm border border-cr-border object-cover aspect-[1200/630]"
+          />
+        </div>
+      )}
 
       {/* ── Body ── */}
       <article className="max-w-3xl mx-auto px-6 pb-16 border-t border-cr-border pt-10 space-y-12">

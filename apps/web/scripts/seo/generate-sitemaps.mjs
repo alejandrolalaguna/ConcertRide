@@ -205,6 +205,14 @@ const BLOG_POSTS = [
   { slug: "carpooling-gratuito-festivales-sin-comision",              title: "Carpooling sin comisión para festivales en España: cómo funciona 2026",   publishedAt: "2026-05-06" },
   { slug: "taylor-swift-eras-tour-espana-carpooling",                 title: "Taylor Swift Eras Tour España: cómo llegar en carpooling",               publishedAt: "2026-05-06" },
   { slug: "preguntas-frecuentes-carpooling-festivales-espana",        title: "FAQ carpooling festivales España: 25 preguntas y respuestas reales 2026", publishedAt: "2026-05-06" },
+  // Semanas 1-2 del calendario editorial mayo–julio 2026
+  { slug: "carpooling-mad-cool-desde-barcelona-2026",                title: "Carpooling a Mad Cool desde Barcelona 2026: guía completa de viaje compartido", publishedAt: "2026-05-07" },
+  { slug: "coldplay-madrid-2026-carpooling",                         title: "Coldplay Madrid 2026: cómo ir en carpooling al Estadio Santiago Bernabéu",      publishedAt: "2026-05-08" },
+  { slug: "como-ir-sonorama-ribera-desde-madrid-2026",               title: "Cómo ir a Sonorama Ribera desde Madrid 2026: carpooling, autobús y tren",        publishedAt: "2026-05-13" },
+  { slug: "bbk-live-2026-transporte-desde-donostia-pamplona-vitoria",title: "BBK Live 2026: transporte desde Donostia, Pamplona y Vitoria",                  publishedAt: "2026-05-14" },
+  { slug: "que-llevar-a-un-festival-de-musica",                      title: "Qué llevar a un festival de música: lista definitiva 2026",                     publishedAt: "2026-05-07" },
+  { slug: "festivales-espana-verano-2026",                            title: "Festivales en España verano 2026: agenda completa y transporte",                 publishedAt: "2026-05-07" },
+  { slug: "carpooling-madrid-festivales",                             title: "Carpooling desde Madrid a festivales: guía completa 2026",                      publishedAt: "2026-05-07" },
 ];
 
 // Prioridades por tipo de contenido

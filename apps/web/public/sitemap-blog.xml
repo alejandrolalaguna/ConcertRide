@@ -6,7 +6,7 @@
   xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9
     http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
   <!-- Sitemap generado por generate-sitemaps.mjs -->
-  <!-- Tipo: blog | Actualizado: 2026-05-06 | 80 URLs -->
+  <!-- Tipo: blog | Actualizado: 2026-05-06 | 87 URLs -->
 
   <url>
     <loc>https://concertride.me/blog/autobuses-festivales-espana-2026</loc>
@@ -485,6 +485,48 @@
   <url>
     <loc>https://concertride.me/blog/preguntas-frecuentes-carpooling-festivales-espana</loc>
     <lastmod>2026-05-06</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.75</priority>
+  </url>
+  <url>
+    <loc>https://concertride.me/blog/carpooling-mad-cool-desde-barcelona-2026</loc>
+    <lastmod>2026-05-07</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.75</priority>
+  </url>
+  <url>
+    <loc>https://concertride.me/blog/coldplay-madrid-2026-carpooling</loc>
+    <lastmod>2026-05-08</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.75</priority>
+  </url>
+  <url>
+    <loc>https://concertride.me/blog/como-ir-sonorama-ribera-desde-madrid-2026</loc>
+    <lastmod>2026-05-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.75</priority>
+  </url>
+  <url>
+    <loc>https://concertride.me/blog/bbk-live-2026-transporte-desde-donostia-pamplona-vitoria</loc>
+    <lastmod>2026-05-14</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.75</priority>
+  </url>
+  <url>
+    <loc>https://concertride.me/blog/que-llevar-a-un-festival-de-musica</loc>
+    <lastmod>2026-05-07</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.75</priority>
+  </url>
+  <url>
+    <loc>https://concertride.me/blog/festivales-espana-verano-2026</loc>
+    <lastmod>2026-05-07</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.75</priority>
+  </url>
+  <url>
+    <loc>https://concertride.me/blog/carpooling-madrid-festivales</loc>
+    <lastmod>2026-05-07</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.75</priority>
   </url>

@@ -1377,7 +1377,7 @@ export const FESTIVAL_LANDINGS: FestivalLanding[] = [
     ],
     relatedFestivals: ["medusa-festival", "arenal-sound", "fib"],
     transport_options: [
-      { type: 'metro', provider: 'Metrovalencia L4', origin: 'Centro de Valencia', price_from: 1, price_to: 2, frequency: 'Cada 10–15 min (ampliado en noches de festival hasta ~2:00)', schedule: '06:00–01:30 (ampliado festivos)', notes: 'Paradas Marítim-Serreria o Neptú, a 5–8 min a pie del recinto.' },
+      { type: 'train', provider: 'Metrovalencia L4', origin: 'Centro de Valencia', price_from: 1, price_to: 2, frequency: 'Cada 10–15 min (ampliado en noches de festival hasta ~2:00)', schedule: '06:00–01:30 (ampliado festivos)', notes: 'Metro ligero. Paradas Marítim-Serreria o Neptú, a 5–8 min a pie del recinto.' },
       { type: 'bus', provider: 'EMT Valencia', origin: 'Centro de Valencia', price_from: 1, price_to: 2, frequency: 'Líneas 19 y 95, horario diurno y parte del nocturno', notes: 'No cubre las salidas más tardías de madrugada.' },
       { type: 'carpooling', provider: 'ConcertRide', origin: 'Madrid', price_from: 10, price_to: 14 },
       { type: 'carpooling', provider: 'ConcertRide', origin: 'Alicante', price_from: 5, price_to: 8 },

@@ -145,7 +145,7 @@ export function generateEventSchema({
       offers: {
         "@type": "Offer",
         url: offers.url,
-        price: "0",
+        price: 0,
         priceCurrency: "EUR",
         availability: "https://schema.org/PreOrder",
         validFrom: new Date().toISOString(),
@@ -291,6 +291,63 @@ export function generateServiceSchema({
       availability: "https://schema.org/InStock",
       url: `${siteUrl}/rutas/${routeSlug}`,
     },
+  };
+}
+
+/**
+ * AggregateRating + individual Review schema for the homepage Service entity.
+ *
+ * Google requires individual Review nodes when you include AggregateRating
+ * on a non-product/non-business entity. We attach them to the /#service
+ * entity so the schema is valid and eligible for rich snippets.
+ *
+ * Pass the full TESTIMONIALS array and the TESTIMONIALS_AGGREGATE object
+ * from lib/testimonials.ts.
+ */
+export function generateServiceReviewSchema({
+  siteUrl,
+  aggregate,
+  reviews,
+}: {
+  siteUrl: string;
+  aggregate: { ratingValue: string; reviewCount: number; bestRating: string; worstRating: string };
+  reviews: Array<{
+    quote: string;
+    name: string;
+    city: string;
+    concert: string;
+    date: string;
+    rating: number;
+  }>;
+}) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    "@id": `${siteUrl}/#service`,
+    name: "ConcertRide — Carpooling para conciertos y festivales",
+    aggregateRating: {
+      "@type": "AggregateRating",
+      ratingValue: aggregate.ratingValue,
+      reviewCount: aggregate.reviewCount,
+      bestRating: aggregate.bestRating,
+      worstRating: aggregate.worstRating,
+    },
+    review: reviews.map((r) => ({
+      "@type": "Review",
+      reviewRating: {
+        "@type": "Rating",
+        ratingValue: String(r.rating),
+        bestRating: "5",
+        worstRating: "1",
+      },
+      author: {
+        "@type": "Person",
+        name: r.name,
+      },
+      datePublished: r.date,
+      reviewBody: r.quote,
+      name: `Experiencia ConcertRide — ${r.concert}`,
+    })),
   };
 }
 

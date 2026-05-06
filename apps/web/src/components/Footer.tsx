@@ -84,6 +84,12 @@ export function Footer() {
               Prensa
             </Link>
             <Link
+              to="/datos"
+              className="font-sans text-xs text-cr-text-muted hover:text-cr-primary transition-colors"
+            >
+              Datos
+            </Link>
+            <Link
               to="/acerca-de"
               className="font-sans text-xs text-cr-text-muted hover:text-cr-primary transition-colors"
             >

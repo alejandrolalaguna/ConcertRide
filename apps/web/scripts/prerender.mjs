@@ -46,6 +46,7 @@ const STATIC_ROUTES = [
   "/comparativa/concertride-vs-blablacar",
   "/comparativa/carpooling-vs-taxi-festival",
   "/prensa",
+  "/datos",
   "/como-funciona",
   "/faq",
   "/contacto",
@@ -269,6 +270,7 @@ async function writeSitemap(urls) {
     if (u === "/como-funciona-carpooling") return "0.75";
     if (u.startsWith("/comparativa/")) return "0.72";
     if (["/acerca-de", "/contacto", "/prensa"].includes(u)) return "0.6";
+    if (u === "/datos") return "0.7";
     return "0.3";
   };
   const FREQ = (u) => {

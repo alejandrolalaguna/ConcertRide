@@ -1,12 +1,8 @@
 import { motion } from "motion/react";
 import { initials } from "@/lib/format";
+import type { Testimonial } from "@/lib/testimonials";
 
-export interface Testimonial {
-  quote: string;
-  name: string;
-  city: string;
-  concert: string;
-}
+export type { Testimonial };
 
 export function TestimonialCard({
   testimonial,

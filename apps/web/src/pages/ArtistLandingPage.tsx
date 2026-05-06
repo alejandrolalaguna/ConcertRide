@@ -4,6 +4,7 @@ import { SITE_URL } from "@/lib/siteUrl";
 import { ARTIST_LANDINGS_BY_SLUG } from "@/lib/artistLandings";
 import { FESTIVAL_LANDINGS_BY_SLUG } from "@/lib/festivalLandings";
 import { AutoLinksForArtist } from "@/lib/autoLinking";
+import { ARTIST_SEO_OVERRIDES } from "@/lib/seoOverrides";
 
 export default function ArtistLandingPage() {
   const { slug } = useParams<{ slug: string }>();
@@ -19,20 +20,22 @@ export default function ArtistLandingPage() {
   const minPrice =
     artist?.upcomingConcerts[0]?.originCities[0]?.range.split("–")[0] ?? "9";
 
+  const artistOverride = artist ? ARTIST_SEO_OVERRIDES[artist.slug] : undefined;
+
   useSeoMeta({
     title: artist
-      ? `${artist.name} en España 2026: cómo llegar al concierto y carpooling | ConcertRide`
+      ? artistOverride?.title ?? `${artist.name} concierto España 2026: carpooling desde ${minPrice}€ sin comisión | ConcertRide`
       : "Artistas — ConcertRide",
     description: artist
-      ? `Conciertos de ${artist.name} en España 2026${venueCities ? ` — ${venueCities}` : ""}. Carpooling desde ${minPrice} €/asiento, 0 % de comisión, conductores verificados. Cómo llegar al concierto de ${artist.name} con ConcertRide.`
+      ? artistOverride?.description ?? `Conciertos de ${artist.name} en España 2026${venueCities ? ` — ${venueCities}` : ""}. Carpooling desde ${minPrice} €/asiento, 0 % de comisión, conductores verificados. Cómo llegar al concierto de ${artist.name} con ConcertRide.`
       : "Carpooling para conciertos de artistas en España con ConcertRide.",
     canonical: artist ? `${SITE_URL}/artistas/${artist.slug}` : undefined,
     ogImageAlt: artist
-      ? `Conciertos de ${artist.name} en España 2026: carpooling sin comisión — ConcertRide`
+      ? `Conciertos de ${artist.name} en España 2026: carpooling desde ${minPrice}€ sin comisión — ConcertRide`
       : "Artistas en concierto en España — ConcertRide",
     ogType: hasUpcoming ? "music.event" : "website",
     keywords: artist
-      ? [
+      ? artistOverride?.keywords ?? [
           `carpooling ${artist.name}`,
           `cómo llegar concierto ${artist.name} España`,
           `${artist.name} España 2026`,
@@ -122,14 +125,15 @@ export default function ArtistLandingPage() {
     ],
   };
 
+  const datedConcerts = artist.upcomingConcerts.filter((c) => c.date !== "TBD");
   const jsonLdEventList =
-    hasUpcoming
+    hasUpcoming && datedConcerts.length > 0
       ? {
           "@context": "https://schema.org",
           "@type": "ItemList",
           name: `Conciertos de ${artist.name} en España 2026`,
           url: `${SITE_URL}/artistas/${artist.slug}`,
-          itemListElement: artist.upcomingConcerts.map((c, i) => ({
+          itemListElement: datedConcerts.map((c, i) => ({
             "@type": "ListItem",
             position: i + 1,
             item: {
@@ -144,12 +148,12 @@ export default function ArtistLandingPage() {
                   addressCountry: "ES",
                 },
               },
-              startDate: c.date === "TBD" ? "2026" : c.date,
+              startDate: c.date,
               performer: { "@type": "MusicGroup", name: artist.name },
               offers: {
                 "@type": "Offer",
                 url: `${SITE_URL}/artistas/${artist.slug}`,
-                price: Number(c.originCities[0]?.range.split("–")[0]?.replace(/[^0-9]/g, "") || "9"),
+                price: Number(c.originCities[0]?.range.split("–")[0]?.replace(/[^0-9]/g, "") || 9),
                 priceCurrency: "EUR",
                 description: `Carpooling desde ${c.originCities[0]?.city ?? "España"} (${c.originCities[0]?.range ?? c.concertRideRange}/asiento, sin comisión). ConcertRide.`,
               },
@@ -233,8 +237,13 @@ export default function ArtistLandingPage() {
 
         {/* H1 */}
         <h1 className="font-display text-4xl md:text-6xl uppercase leading-[0.92]">
-          {artist.name.toUpperCase()} EN ESPAÑA
+          {artist.name.toUpperCase()} EN ESPAÑA 2026
         </h1>
+
+        {/* Price signal — reinforces title keyword and helps CTR match */}
+        <p className="font-mono text-xs font-semibold uppercase tracking-[0.14em] text-cr-text-muted">
+          Carpooling desde {minPrice}€/asiento · 0 % comisión · conductores verificados
+        </p>
 
         {/* Blurb — speakable for GEO */}
         <p className="speakable font-sans text-sm md:text-base text-cr-text-muted max-w-2xl leading-relaxed">
