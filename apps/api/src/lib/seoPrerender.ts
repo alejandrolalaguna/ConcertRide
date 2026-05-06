@@ -3201,6 +3201,55 @@ function resolvePageData(pathname: string, base: string): PageData | null {
     };
   }
 
+  // /conciertos/:city/:year
+  const cityYearMatch = pathname.match(/^\/conciertos\/([^/]+)\/(\d{4})\/?$/);
+  if (cityYearMatch) {
+    const slug = cityYearMatch[1] ?? "";
+    const yearParam = parseInt(cityYearMatch[2] ?? "0", 10);
+    const c = CITIES[slug];
+    if (!c) return null;
+    const currentYear = new Date().getFullYear();
+    // Only render valid years (current ±1)
+    if (yearParam < currentYear - 1 || yearParam > currentYear + 2) return null;
+    const breadcrumbLd = JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      itemListElement: [
+        { "@type": "ListItem", position: 1, name: "Inicio", item: `${base}/` },
+        { "@type": "ListItem", position: 2, name: "Conciertos", item: `${base}/concerts` },
+        { "@type": "ListItem", position: 3, name: `Conciertos en ${c.name}`, item: `${base}/conciertos/${slug}` },
+        { "@type": "ListItem", position: 4, name: String(yearParam), item: `${base}/conciertos/${slug}/${yearParam}` },
+      ],
+    });
+    const webPageLd = JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "WebPage",
+      "@id": `${base}/conciertos/${slug}/${yearParam}#webpage`,
+      url: `${base}/conciertos/${slug}/${yearParam}`,
+      name: `Conciertos en ${c.name} ${yearParam} — Carpooling sin comisión | ConcertRide`,
+      inLanguage: "es-ES",
+      dateModified: "2026-05-05",
+      about: { "@type": "Place", name: c.name, address: { "@type": "PostalAddress", addressLocality: c.name, addressCountry: "ES" } },
+      isPartOf: { "@type": "WebSite", "@id": `${base}/#website`, name: "ConcertRide", url: base },
+    });
+    return {
+      title: `Conciertos en ${c.name} ${yearParam} — Carpooling sin comisión | ConcertRide`,
+      description: `Todos los conciertos y festivales en ${c.name} ${yearParam}: ${c.venues.slice(0, 2).join(", ")} y más. Carpooling sin comisión desde 3 €/asiento. Conductores verificados.`,
+      canonical: `${base}/conciertos/${slug}/${yearParam}`,
+      h1: `Conciertos en ${c.name} ${yearParam}`,
+      body: `<script type="application/ld+json">${breadcrumbLd}</script>
+<script type="application/ld+json">${webPageLd}</script>
+<nav aria-label="Breadcrumb"><a href="${base}/">Inicio</a> / <a href="${base}/concerts">Conciertos</a> / <a href="${base}/conciertos/${slug}">${esc(c.name)}</a> / <span>${yearParam}</span></nav>
+<p>${esc(c.blurb)}</p>
+<h2>Recintos principales en ${esc(c.name)}</h2>
+<ul>${c.venues.map((v) => `<li>${esc(v)}</li>`).join("")}</ul>
+<h2>Carpooling a conciertos en ${esc(c.name)} ${yearParam}</h2>
+<p>ConcertRide ofrece carpooling sin comisión a conciertos y festivales en ${esc(c.name)} en ${yearParam}. Precio medio: 3–20 €/asiento según distancia. Conductores verificados con carnet. Pago en efectivo o Bizum.</p>
+<p><a href="${base}/conciertos/${slug}">Ver todos los conciertos en ${esc(c.name)} →</a></p>
+<p><a href="${base}/concerts">Ver todos los conciertos →</a></p>`,
+    };
+  }
+
   // /conciertos/:city
   const cityMatch = pathname.match(/^\/conciertos\/([^/]+)\/?$/);
   if (cityMatch) {
