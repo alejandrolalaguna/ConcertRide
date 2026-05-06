@@ -44,3 +44,57 @@
 
 /sw.js
   Cache-Control: public, max-age=0, must-revalidate
+
+# SEO content pages — short cache so Google re-crawls quickly
+/festivales/*
+  Cache-Control: public, max-age=3600, stale-while-revalidate=86400
+
+/conciertos/*
+  Cache-Control: public, max-age=3600, stale-while-revalidate=86400
+
+/rutas/*
+  Cache-Control: public, max-age=3600, stale-while-revalidate=86400
+
+/blog/*
+  Cache-Control: public, max-age=3600, stale-while-revalidate=86400
+
+/artistas/*
+  Cache-Control: public, max-age=3600, stale-while-revalidate=86400
+
+/recintos/*
+  Cache-Control: public, max-age=3600, stale-while-revalidate=86400
+
+/como-llegar/*
+  Cache-Control: public, max-age=3600, stale-while-revalidate=86400
+
+/festivales-en/*
+  Cache-Control: public, max-age=3600, stale-while-revalidate=86400
+
+# Auth / private pages — never cache, block indexing
+/publish
+  Cache-Control: no-store
+  X-Robots-Tag: noindex, nofollow
+
+/profile
+  Cache-Control: no-store
+  X-Robots-Tag: noindex, nofollow
+
+/mis-viajes
+  Cache-Control: no-store
+  X-Robots-Tag: noindex, nofollow
+
+/favoritos
+  Cache-Control: no-store
+  X-Robots-Tag: noindex, nofollow
+
+/login
+  Cache-Control: no-store
+  X-Robots-Tag: noindex, nofollow
+
+/register
+  Cache-Control: no-store
+  X-Robots-Tag: noindex, nofollow
+
+/admin
+  Cache-Control: no-store
+  X-Robots-Tag: noindex, nofollow

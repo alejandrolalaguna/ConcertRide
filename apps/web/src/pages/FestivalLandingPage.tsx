@@ -78,6 +78,9 @@ export default function FestivalLandingPage() {
       ? `${SITE_URL}/festivales/${festival.slug}`
       : `${SITE_URL}/concerts`,
     ogImage: festivalOgImage,
+    ogImageAlt: festival
+      ? `Carpooling a ${festival.shortName} ${festYear} en ${festival.city} — ConcertRide`
+      : "Carpooling a festivales de música en España — ConcertRide",
     ogType: "music.event",
     keywords: festival
       ? [
@@ -233,7 +236,7 @@ export default function FestivalLandingPage() {
       "@type": "Schedule",
       scheduleTimezone: "Europe/Madrid",
       repeatFrequency: "P1Y",
-      byMonth: new Date(festival.startDate).getMonth() + 1,
+      byMonth: [new Date(festival.startDate).getMonth() + 1],
       startDate: festival.startDate.slice(0, 7),
     },
     organizer: {
@@ -576,11 +579,12 @@ export default function FestivalLandingPage() {
         </p>
 
         <h1 className="font-display text-4xl md:text-6xl uppercase leading-[0.92]">
-          Cómo llegar a<br />{festival.shortName} {new Date(festival.startDate).getFullYear()}.
+          {festival.shortName} {new Date(festival.startDate).getFullYear()}<br />
+          <span className="text-cr-primary">desde {festival.originCities[0]?.concertRideRange ?? "3 €"}/asiento</span>
         </h1>
 
         <p className="font-sans text-sm font-semibold text-cr-text max-w-2xl speakable festival-summary">
-          {festival.name} se celebra en {festival.venue}, {festival.city} ({festival.typicalDates}). La opción más usada para llegar desde otras provincias es el carpooling con ConcertRide desde {festival.originCities[0]?.city}: desde {festival.originCities[0]?.concertRideRange ?? "3 €"}/asiento, sin comisión, conductores verificados con carnet.
+          Carpooling a {festival.name} desde {festival.originCities[0]?.concertRideRange ?? "3 €"}/asiento, sin comisión. Se celebra en {festival.venue}, {festival.city} ({festival.typicalDates}). Conductores verificados con carnet.
         </p>
 
         <p className="font-sans text-sm md:text-base text-cr-text-muted max-w-2xl leading-relaxed speakable">
@@ -623,7 +627,7 @@ export default function FestivalLandingPage() {
       {/* ── Cómo llegar a [festival]: localización + autobús/tren/coche ── */}
       <section className="max-w-6xl mx-auto px-6 pb-12 border-t border-cr-border pt-12 space-y-6 transport-info">
         <h2 className="font-display text-2xl md:text-3xl uppercase">
-          Cómo llegar a {festival.shortName}: localización y transporte
+          Cómo llegar a {festival.shortName} {festYear}: autobús, tren y carpooling desde {festival.originCities[0]?.city ?? "tu ciudad"}
         </h2>
         <p className="font-sans text-sm text-cr-text-muted max-w-3xl leading-relaxed">
           {festival.shortName} se celebra en <strong className="text-cr-text">{festival.venue}</strong> ({festival.venueAddress}),
@@ -635,7 +639,7 @@ export default function FestivalLandingPage() {
 
         <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-3 font-sans text-sm">
           <article className="border border-cr-border p-4 space-y-2">
-            <h3 className="font-display text-base uppercase text-cr-primary">Autobús / Bus</h3>
+            <h3 className="font-display text-base uppercase text-cr-primary">Autobús / Bus a {festival.shortName}</h3>
             <p className="text-cr-text-muted text-xs leading-relaxed">
               Algunos festivales habilitan buses lanzadera oficiales desde la ciudad
               más cercana. Suelen tener plazas limitadas y horario diurno. Los autobuses
@@ -645,7 +649,7 @@ export default function FestivalLandingPage() {
             </p>
           </article>
           <article className="border border-cr-border p-4 space-y-2">
-            <h3 className="font-display text-base uppercase text-cr-primary">Tren</h3>
+            <h3 className="font-display text-base uppercase text-cr-primary">Tren a {festival.shortName}</h3>
             <p className="text-cr-text-muted text-xs leading-relaxed">
               El AVE / Cercanías Renfe llega habitualmente a la estación más cercana,
               no al recinto del festival. La vuelta de madrugada en tren es casi siempre
@@ -653,7 +657,7 @@ export default function FestivalLandingPage() {
             </p>
           </article>
           <article className="border border-cr-border p-4 space-y-2">
-            <h3 className="font-display text-base uppercase text-cr-primary">Coche propio</h3>
+            <h3 className="font-display text-base uppercase text-cr-primary">Coche propio a {festival.shortName}: parking</h3>
             <p className="text-cr-text-muted text-xs leading-relaxed">
               Llegada directa al parking del festival, máxima flexibilidad de horario.
               Coste: combustible + peajes + parking (5–18 €/día). En recintos urbanos
@@ -661,7 +665,7 @@ export default function FestivalLandingPage() {
             </p>
           </article>
           <article className="border border-cr-border p-4 space-y-2">
-            <h3 className="font-display text-base uppercase text-cr-primary">Coche compartido</h3>
+            <h3 className="font-display text-base uppercase text-cr-primary">Carpooling a {festival.shortName} sin comisión</h3>
             <p className="text-cr-text-muted text-xs leading-relaxed">
               Carpooling con ConcertRide desde {festival.originCities.length} ciudades de origen.
               Precios desde {festival.originCities[0]?.concertRideRange ?? "3 €"}/asiento. Sin comisión:
@@ -690,7 +694,7 @@ export default function FestivalLandingPage() {
           /* Fallback genérico para festivales sin datos curados */
           <div className="space-y-5">
             <h2 className="font-display text-2xl md:text-3xl uppercase">
-              Autobuses a {festival.shortName} {new Date(festival.startDate).getFullYear()}: bus, lanzadera y alternativas
+              Autobuses a {festival.shortName} {festYear}: bus oficial, lanzadera y transporte alternativo
             </h2>
             <p className="font-sans text-sm text-cr-text-muted max-w-3xl leading-relaxed">
               Resumen de las opciones de bus, autobús, lanzadera oficial y tren para llegar a{" "}
@@ -718,7 +722,7 @@ export default function FestivalLandingPage() {
       {/* ── Origin cities — Cómo llegar desde tu ciudad ── */}
       <section className="max-w-6xl mx-auto px-6 pb-16 border-t border-cr-border pt-12">
         <h2 className="font-display text-2xl md:text-3xl uppercase mb-2">
-          Precios de carpooling a {festival.shortName}
+          Precio del carpooling a {festival.shortName} {festYear} por ciudad de origen
         </h2>
         <p className="font-sans text-sm text-cr-text-muted mb-8 max-w-xl">
           Precio medio por asiento con ConcertRide desde las principales ciudades de origen.
@@ -813,7 +817,7 @@ export default function FestivalLandingPage() {
       {/* ── Internal linking: Transport guides + related topics ── */}
       <section className="max-w-6xl mx-auto px-6 pb-12 border-t border-cr-border pt-12 space-y-5">
         <h2 className="font-display text-2xl md:text-3xl uppercase">
-          Recursos relacionados: Guías de transporte y carpooling
+          Guías de transporte y carpooling a {festival.shortName}: recursos relacionados
         </h2>
         <p className="font-sans text-sm text-cr-text-muted max-w-3xl leading-relaxed">
           Más información sobre opciones de transporte a festivales, cómo ahorrar en viajes y alternativas a otros servicios.
@@ -859,10 +863,10 @@ export default function FestivalLandingPage() {
       {/* ── Viajes disponibles (dynamic) ── */}
       <section className="max-w-6xl mx-auto px-6 pb-16 border-t border-cr-border pt-12">
         <h2 className="font-display text-2xl md:text-3xl uppercase mb-2">
-          Viajes disponibles en {festival.city}
+          Viajes disponibles para {festival.shortName} en {festival.city}
         </h2>
         <p className="font-sans text-sm text-cr-text-muted mb-8 max-w-xl">
-          Conciertos y eventos en {festival.city} con viajes compartidos publicados.
+          Conciertos y eventos en {festival.city} con carpooling publicado. Reserva tu asiento.
         </p>
 
         {concerts === null ? (
@@ -901,25 +905,25 @@ export default function FestivalLandingPage() {
       {/* ── Por qué ConcertRide para este festival ── */}
       <section className="max-w-6xl mx-auto px-6 pb-16 border-t border-cr-border pt-12 space-y-6">
         <h2 className="font-display text-2xl md:text-3xl uppercase">
-          Por qué ir a {festival.shortName} con ConcertRide
+          Por qué ir a {festival.shortName} en carpooling con ConcertRide vs. otras opciones
         </h2>
         <div className="grid md:grid-cols-3 gap-4 font-sans text-sm text-cr-text-muted leading-relaxed">
           <article className="space-y-2">
-            <h3 className="font-display text-base uppercase text-cr-primary">Sin intermediarios</h3>
+            <h3 className="font-display text-base uppercase text-cr-primary">Sin comisión para {festival.shortName}</h3>
             <p>
               El 100&nbsp;% del precio del asiento va al conductor. ConcertRide no cobra comisión,
               nunca. El pago es en efectivo o Bizum el día del viaje: económico, directo y sin sorpresas.
             </p>
           </article>
           <article className="space-y-2">
-            <h3 className="font-display text-base uppercase text-cr-primary">Conductores verificados</h3>
+            <h3 className="font-display text-base uppercase text-cr-primary">Conductores verificados para {festival.shortName}</h3>
             <p>
               Todos los conductores verifican su carnet de conducir antes de publicar.
               Puedes ver sus valoraciones y reseñas de otros pasajeros.
             </p>
           </article>
           <article className="space-y-2">
-            <h3 className="font-display text-base uppercase text-cr-primary">Horario flexible</h3>
+            <h3 className="font-display text-base uppercase text-cr-primary">Vuelta de madrugada desde {festival.shortName}</h3>
             <p>
               Llegas y vuelves en el horario que quieras. No dependes del último metro
               ni de taxis a precio de festival (30–90&nbsp;€ de madrugada).
@@ -952,7 +956,7 @@ export default function FestivalLandingPage() {
       {/* ── Cómo funciona (HowTo visual) ── */}
       <section className="max-w-6xl mx-auto px-6 pb-16 border-t border-cr-border pt-12 space-y-6">
         <h2 className="font-display text-2xl md:text-3xl uppercase">
-          Cómo reservar un viaje a {festival.shortName} en 4 pasos
+          Cómo reservar carpooling a {festival.shortName} {festYear} en 4 pasos
         </h2>
         <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
           {[
@@ -986,10 +990,10 @@ export default function FestivalLandingPage() {
       {/* ── Transport comparison table — citable by Perplexity/ChatGPT for "X vs Y" queries ── */}
       <section className="max-w-6xl mx-auto px-6 pb-16 border-t border-cr-border pt-12 space-y-6">
         <h2 className="font-display text-2xl md:text-3xl uppercase">
-          Comparativa de transporte a {festival.shortName} {new Date(festival.startDate).getFullYear()}
+          Comparativa de transporte a {festival.shortName} {festYear}: carpooling vs. bus vs. tren vs. taxi
         </h2>
         <p className="font-sans text-sm text-cr-text-muted max-w-2xl">
-          Resumen de las opciones de transporte para ir a {festival.name} desde {festival.originCities[0]?.city ?? "tu ciudad"}.
+          Precios, comisiones y disponibilidad nocturna para ir a {festival.name} desde {festival.originCities[0]?.city ?? "tu ciudad"}.
         </p>
         <div className="overflow-x-auto">
           <table className="w-full font-sans text-xs border-collapse">
@@ -1039,10 +1043,76 @@ export default function FestivalLandingPage() {
         </p>
       </section>
 
+      {/* ── Query fan-out: subconsultas de búsqueda — cubre 5 intenciones de "cómo ir a [festival]" ── */}
+      <section className="max-w-6xl mx-auto px-6 pb-16 border-t border-cr-border pt-12 space-y-8">
+        <h2 className="font-display text-2xl md:text-3xl uppercase">
+          Todo lo que necesitas saber para ir a {festival.shortName} {festYear}
+        </h2>
+        <p className="font-sans text-sm text-cr-text-muted max-w-3xl leading-relaxed">
+          Resumen de las cinco preguntas más habituales sobre transporte a {festival.shortName}: cuánto cuesta, cuánto se tarda, dónde aparcar, cómo volver de madrugada y qué opciones hay si no tienes coche.
+        </p>
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 font-sans text-sm">
+          {/* subconsulta 1: precio */}
+          <article className="border border-cr-border p-5 space-y-2">
+            <h3 className="font-display text-sm uppercase text-cr-primary">
+              ¿Cuánto cuesta ir a {festival.shortName} {festYear}?
+            </h3>
+            <p className="text-cr-text-muted text-xs leading-relaxed">
+              Carpooling ConcertRide: desde <strong className="text-cr-text">{festival.originCities[0]?.concertRideRange ?? "3 €"}/asiento</strong> desde {festival.originCities[0]?.city ?? "tu ciudad"} (sin comisión). Taxi/VTC: {Math.round((festival.originCities[0]?.km ?? 50) * 0.8)}–{Math.round((festival.originCities[0]?.km ?? 50) * 1.4)} € solo de ida. Autobús o tren hasta {festival.city} más lanzadera: precio variable. El carpooling es la opción más económica para trayectos de más de 60 km.
+            </p>
+          </article>
+          {/* subconsulta 2: tiempo */}
+          <article className="border border-cr-border p-5 space-y-2">
+            <h3 className="font-display text-sm uppercase text-cr-primary">
+              ¿Cuánto se tarda en llegar a {festival.shortName}?
+            </h3>
+            <p className="text-cr-text-muted text-xs leading-relaxed">
+              Desde {festival.originCities[0]?.city ?? "tu ciudad"}: <strong className="text-cr-text">{festival.originCities[0]?.km ?? "?"} km · {festival.originCities[0]?.drivingTime ?? "?"}</strong> en coche. Suma 20–40 min de tráfico en la entrada al recinto los días de mayor afluencia. Lo ideal es salir con 1 hora de margen.
+            </p>
+          </article>
+          {/* subconsulta 3: parking */}
+          <article className="border border-cr-border p-5 space-y-2">
+            <h3 className="font-display text-sm uppercase text-cr-primary">
+              Parking en {festival.shortName} {festYear}: coste y disponibilidad
+            </h3>
+            <p className="text-cr-text-muted text-xs leading-relaxed">
+              El parking en recintos de festival suele costar 5–18 €/día y se llena rápido en fin de semana. El carpooling evita el coste y el estrés del parking: el conductor lleva el coche y el coste se divide entre los pasajeros.
+            </p>
+          </article>
+          {/* subconsulta 4: vuelta de madrugada */}
+          <article className="border border-cr-border p-5 space-y-2">
+            <h3 className="font-display text-sm uppercase text-cr-primary">
+              Vuelta de madrugada desde {festival.shortName}: opciones reales
+            </h3>
+            <p className="text-cr-text-muted text-xs leading-relaxed">
+              El transporte público no opera de madrugada desde ningún recinto de festival español. Opciones: taxi/VTC (precio nocturno ×2–3, 40–150 €), o carpooling ConcertRide con vuelta coordinada después del headliner (03:00–05:00h). El carpooling es la única opción económica para la vuelta.
+            </p>
+          </article>
+          {/* subconsulta 5: sin coche */}
+          <article className="border border-cr-border p-5 space-y-2">
+            <h3 className="font-display text-sm uppercase text-cr-primary">
+              Cómo ir a {festival.shortName} sin coche propio
+            </h3>
+            <p className="text-cr-text-muted text-xs leading-relaxed">
+              Sin coche propio, las opciones son: (1) carpooling ConcertRide ({festival.originCities[0]?.concertRideRange ?? "desde 3 €"}, conductores verificados); (2) autobús/tren hasta {festival.city} + lanzadera al recinto (disponibilidad limitada); (3) taxi/VTC al recinto (precio elevado). El carpooling es la combinación óptima de precio y flexibilidad de horario.
+            </p>
+          </article>
+          {/* subconsulta 6: BlaBlaCar vs ConcertRide */}
+          <article className="border border-cr-border p-5 space-y-2">
+            <h3 className="font-display text-sm uppercase text-cr-primary">
+              BlaBlaCar vs ConcertRide para {festival.shortName}
+            </h3>
+            <p className="text-cr-text-muted text-xs leading-relaxed">
+              BlaBlaCar cobra 12–18 % de comisión y la vuelta de madrugada depende del conductor. ConcertRide es 0 % de comisión, especializado en festivales: los conductores publican viajes de ida y vuelta coordinados con el fin del show. Para festivales como {festival.shortName}, ConcertRide es la opción event-first.
+            </p>
+          </article>
+        </div>
+      </section>
+
       {/* ── FAQ ── */}
       <section className="max-w-6xl mx-auto px-6 pb-16 border-t border-cr-border pt-12 space-y-6">
         <h2 className="font-display text-2xl md:text-3xl uppercase">
-          Preguntas frecuentes — {festival.shortName}
+          Preguntas frecuentes sobre cómo ir a {festival.shortName} {festYear}
         </h2>
         <dl className="space-y-6">
           {festival.faqs.map((faq) => (

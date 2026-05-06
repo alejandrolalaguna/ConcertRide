@@ -1,5 +1,5 @@
 # ConcertRide robots.txt
-# Last updated: 2026-05-05
+# Last updated: 2026-05-06
 # AI guidance: https://concertride.me/llms.txt
 # llms-full.txt: https://concertride.me/llms-full.txt
 #
@@ -31,15 +31,7 @@ Disallow: /rides/
 Disallow: /drivers/
 
 Sitemap: https://concertride.me/sitemap.xml
-Sitemap: https://concertride.me/sitemap-static.xml
-Sitemap: https://concertride.me/sitemap-festivales.xml
-Sitemap: https://concertride.me/sitemap-artistas.xml
-Sitemap: https://concertride.me/sitemap-recintos.xml
-Sitemap: https://concertride.me/sitemap-ciudades.xml
-Sitemap: https://concertride.me/sitemap-rutas.xml
-Sitemap: https://concertride.me/sitemap-blog.xml
-Sitemap: https://concertride.me/sitemap-como-llegar.xml
-Sitemap: https://concertride.me/sitemap-guias.xml
+Sitemap: https://concertride.me/api/sitemap-concerts.xml
 
 # RSS Feed: https://concertride.me/rss.xml
 

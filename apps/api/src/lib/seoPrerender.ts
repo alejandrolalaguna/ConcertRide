@@ -22,7 +22,7 @@ import { REGION_LANDINGS } from "../../../web/src/lib/regionLandings";
 const SITE_NAME = "ConcertRide";
 
 const SEARCH_BOTS =
-  /Googlebot|bingbot|Slurp|DuckDuckBot|Baiduspider|YandexBot|Sogou|Exabot|facebot|ia_archiver|AhrefsBot|SemrushBot|MJ12bot|DotBot|Applebot|LinkedInBot|Twitterbot|facebookexternalhit|WhatsApp|Slackbot|TelegramBot|Discordbot|OAI-SearchBot|PerplexityBot|anthropic-ai|Google-Extended|GPTBot|ChatGPT-User|CCBot|ClaudeBot/i;
+  /Googlebot|Googlebot-Extended|bingbot|Slurp|DuckDuckBot|Baiduspider|YandexBot|Sogou|Exabot|facebot|ia_archiver|AhrefsBot|SemrushBot|MJ12bot|DotBot|Applebot|LinkedInBot|Twitterbot|facebookexternalhit|WhatsApp|Slackbot|TelegramBot|Discordbot|OAI-SearchBot|PerplexityBot|anthropic-ai|Google-Extended|GPTBot|ChatGPT-User|CCBot|ClaudeBot|Bytespider|xai-bot|YouBot/i;
 
 function esc(s: string): string {
   return s
@@ -882,6 +882,9 @@ function buildStaticRoutes(base: string): Record<string, { title: string; descri
           { slug: "blablacar-vs-concertride", title: "BlaBlaCar vs ConcertRide 2026: qué app elegir para festivales sin comisión", abstract: "ConcertRide cobra 0% de comisión frente al 12–18% de BlaBlaCar, permite buscar por festival concreto en lugar de por ruta genérica, y acepta pago en efectivo o Bizum sin tarjeta obligatoria. Comparativa completa con 11 criterios." },
           { slug: "como-volver-festival-madrugada", title: "Cómo volver de un festival de madrugada (sin pagar 90 € de taxi)", abstract: "El metro cierra antes de que acabe el último concierto en casi todos los festivales españoles. Un taxi de madrugada desde IFEMA o Kobetamendi cuesta 60–100 €. El carpooling con ConcertRide es la opción más fiable y económica para la vuelta — reservada antes del festival." },
           { slug: "huella-carbono-festivales-carpooling", title: "Huella de carbono de un festival: por qué el carpooling es la acción más efectiva", abstract: "El 80% de la huella de carbono de un festival proviene del transporte de asistentes. Compartir coche entre cuatro personas reduce las emisiones individuales un 75% respecto al coche en solitario — más que cualquier otra acción individual." },
+          { slug: "carpooling-vs-tren-ave-festivales-espana-2026", title: "Carpooling vs AVE: qué es más barato para ir a festivales en España 2026", abstract: "En 7 de las 8 rutas de festival más populares, el carpooling con ConcertRide (0% comisión) es entre 2 y 5 veces más barato que el AVE o Renfe. Y con una ventaja clave: el carpooling incluye vuelta de madrugada coordinada — el tren no." },
+          { slug: "como-volver-concierto-madrugada-espana-2026", title: "Cómo volver de un concierto de madrugada en España 2026", abstract: "A las 04:00h del festival no hay tren, los taxis cobran x3–5 por precio dinámico y los buses oficiales ya se fueron. El carpooling organizado con antelación en ConcertRide (3–20€/asiento, 0% comisión) es la única opción fiable para la vuelta de madrugada." },
+          { slug: "guia-carpooling-festivales-comunidades-autonomas-2026", title: "Carpooling a festivales por comunidad autónoma en España 2026", abstract: "Guía por CCAA: Madrid concentra el 35% de los viajes de festival en ConcertRide; Cataluña tiene Primavera Sound y Sónar; Galicia tiene los festivales más remotos (Resurrection Fest 16–22€ desde Madrid). Precios y rutas reales para cada comunidad." },
         ];
         const blogLd = JSON.stringify({
           "@context": "https://schema.org",
@@ -2120,6 +2123,130 @@ const BLOG_POSTS: Record<string, BlogData> = {
       { label: "Guía de transporte para festivales", to: "/guia-transporte-festivales" },
     ],
   },
+  "carpooling-vs-tren-ave-festivales-espana-2026": {
+    title: "Carpooling vs AVE vs tren: qué es más barato para ir a festivales en España 2026",
+    excerpt: "¿Sale más barato el tren o el carpooling para ir a Mad Cool, Primavera Sound o Viña Rock? Comparamos precios reales de AVE, Renfe, BlaBlaCar y ConcertRide para las rutas más frecuentes de festival. La respuesta depende de la ciudad y el festival.",
+    author: "Equipo ConcertRide",
+    publishedAt: "2026-05-06",
+    tags: ["carpooling", "tren", "AVE", "festivales", "comparativa", "transporte"],
+    h1: "Carpooling vs AVE y tren para festivales 2026: comparativa de precios real",
+    intro: "El AVE es rápido, pero no te lleva al recinto ni opera de madrugada. El carpooling con ConcertRide cuesta desde 3€/asiento y te coordina vuelta sin comisión. Comparamos las 8 rutas de festival más populares con precios reales de mayo 2026.",
+    sections: [
+      {
+        heading: "Resumen: carpooling gana en precio en 7 de cada 8 rutas de festival",
+        paragraphs: [
+          "Para ir a festivales en España, el carpooling es la opción más económica en la gran mayoría de rutas. El AVE solo gana en tiempo para trayectos superiores a 400 km (Madrid–Barcelona), pero tiene una limitación crítica: no hay vuelta de madrugada en tren — el último AVE Madrid–Barcelona sale antes de que termine el cabeza de cartel.",
+          "El precio del AVE Madrid–Barcelona ida y vuelta en temporada alta de festival ronda los 90–150€, frente a 30–40€ en carpooling ConcertRide (sin comisión).",
+        ],
+        bullets: [
+          "Madrid → Primavera Sound (Barcelona, 620 km): AVE 45–75€/persona | Carpooling ConcertRide 15–20€/asiento",
+          "Madrid → Mad Cool (IFEMA, 15 km): Metro 2€ | Carpooling desde fuera Madrid 4–13€/asiento",
+          "Madrid → Viña Rock (Villarrobledo, 200 km): No hay tren directo | Carpooling 6–9€/asiento",
+          "Madrid → BBK Live (Bilbao, 395 km): AVE–Alvia 35–60€ | Carpooling 11–16€/asiento",
+          "Barcelona → Arenal Sound (Burriana, 300 km): Tren Cercanías + taxi 25–35€ | Carpooling 8–12€/asiento",
+          "Valencia → Resurrection Fest (Viveiro, 800 km): No hay tren directo útil | Carpooling 20–28€/asiento",
+          "Madrid → Sonorama Ribera (Aranda, 155 km): Autobús La Sepulvedana 10–15€ | Carpooling 5–8€/asiento",
+          "Zaragoza → Primavera Sound (Barcelona, 306 km): AVE 30–50€ | Carpooling 8–12€/asiento",
+        ],
+      },
+      {
+        heading: "La limitación clave del tren: sin vuelta de madrugada",
+        paragraphs: [
+          "El principal problema del tren para festivales no es el precio, sino los horarios. El último AVE Madrid–Barcelona sale alrededor de las 21:30h desde Atocha. Ningún festival de verano termina antes de las 03:00h.",
+          "El carpooling con ConcertRide funciona al revés: el conductor publica el viaje de vuelta para cuando quiere salir (habitualmente 03:00–05:00h después del headliner), los pasajeros se suman y comparten coste. Sin servicio nocturno de tren, el carpooling es la única alternativa económica para volver en la madrugada del festival.",
+        ],
+      },
+    ],
+    faqs: [
+      { q: "¿Es más barato el carpooling o el tren para ir a festivales?", a: "En la mayoría de rutas de festival en España, el carpooling con ConcertRide es entre 2 y 5 veces más barato que el tren o AVE. Por ejemplo, Madrid–Primavera Sound (Barcelona): AVE 45–75€/persona vs carpooling 15–20€/asiento. La ventaja adicional del carpooling es que incluye vuelta de madrugada coordinada, algo imposible con tren porque el último sale antes de que termine el festival." },
+      { q: "¿Hay tren al Viña Rock desde Madrid?", a: "No hay tren directo al Viña Rock desde Madrid. El festival se celebra en La Pulgosa, Villarrobledo (Albacete). La estación más cercana es Albacete (60 km), con AVE Madrid–Albacete en 1h 15min (15–30€). Desde Albacete al recinto hay que coger taxi o bus lanzadera. El carpooling directo desde Madrid cuesta 6–9€ y dura 2h sin trasbordos." },
+      { q: "¿Cómo volver del festival si no hay tren de madrugada?", a: "El carpooling organizado con ConcertRide es la solución más usada. Los conductores publican el viaje de vuelta con la hora de salida del recinto (habitualmente entre las 03:00 y las 05:00h). Los pasajeros se unen antes del festival, confirman el punto de encuentro y pagan al conductor en efectivo o Bizum. Sin comisión de plataforma." },
+    ],
+    relatedLinks: [
+      { label: "Carpooling a Primavera Sound", to: "/festivales/primavera-sound" },
+      { label: "BlaBlaCar vs ConcertRide", to: "/blog/blablacar-vs-concertride" },
+    ],
+  },
+  "como-volver-concierto-madrugada-espana-2026": {
+    title: "Cómo volver de un concierto o festival de madrugada en España 2026",
+    excerpt: "La vuelta de madrugada es el problema número uno de los festivaleros en España. Taxis sin disponibilidad, trenes que no existen, autobuses que llevan horas esperando. Analizamos las opciones reales con precios para los principales festivales y ciudades.",
+    author: "Equipo ConcertRide",
+    publishedAt: "2026-05-06",
+    tags: ["vuelta madrugada", "transporte nocturno", "carpooling", "festival", "taxi"],
+    h1: "Cómo volver de un concierto de madrugada: opciones reales en España 2026",
+    intro: "Son las 04:00h, el headliner acaba de terminar y estás a 300 km de casa. El último tren salió hace horas, los taxis están todos ocupados y el bus oficial tiene 2 horas de espera. Esto es lo que funciona de verdad para volver de madrugada.",
+    sections: [
+      {
+        heading: "El problema real: por qué es tan difícil volver de festivales de madrugada",
+        paragraphs: [
+          "Los festivales de verano en España terminan típicamente entre las 04:00 y las 06:00h. En ese horario, el transporte público es inexistente o muy limitado: no hay trenes de largo recorrido, los autobuses urbanos han parado y los VTC (Uber, Cabify) se saturan con picos de precio de 3–5x.",
+          "El resultado: miles de asistentes esperando en colas de taxi de 2–3 horas, o pagando 80–120€ por un VTC que en condiciones normales costaría 20€. El carpooling organizado antes del festival es la única opción que garantiza vuelta coordinada sin sorpresas.",
+        ],
+        bullets: [
+          "Carpooling ConcertRide: 3–20€/asiento según distancia, coordinado antes del festival, 0% comisión — disponibilidad: alta si se reserva con antelación",
+          "Taxi clásico: 30–120€/trayecto (tarifa nocturna + suplemento festival), disponibilidad: baja (esperas de 1–3h a las 04h)",
+          "Uber / Cabify: precio dinámico x3–5 en picos, 40–150€ trayecto largo",
+          "Bus oficial del festival: gratuito o 5–10€, sale en convoy fijo — solo a ciudades principales cercanas",
+          "Tren de madrugada: No existe en la mayoría de rutas de festival en España",
+        ],
+      },
+      {
+        heading: "Cómo organizar la vuelta con carpooling antes de ir al festival",
+        paragraphs: [
+          "La clave del carpooling de festival es organizarlo antes, no al salir. Lo ideal es buscar conductor en ConcertRide 1–2 semanas antes: los conductores publican los viajes de vuelta con la hora estimada de salida (04:00–05:00h) y los pasajeros se confirman antes.",
+          "En el punto de encuentro (habitualmente el parking P0 o la salida principal del festival), el grupo se junta y sale coordinado. El coste por asiento está acordado y es fijo.",
+        ],
+      },
+    ],
+    faqs: [
+      { q: "¿Cómo volver de madrugada del Viña Rock?", a: "El Viña Rock se celebra en La Pulgosa (Villarrobledo, Albacete), sin transporte público de madrugada. La opción dominante es el carpooling organizado con ConcertRide: conductores desde Madrid (2h, 6–9€), Valencia (2h 30min, 6–9€) y Albacete (40 min, 3–5€) publican viajes de vuelta con salida entre las 04:00 y las 05:30h. Se coordina antes del festival en concertride.me/festivales/vina-rock." },
+      { q: "¿Hay buses de vuelta del festival de madrugada?", a: "Algunos festivales habilitan buses lanzadera de vuelta (BBK Live desde Kobetamendi al centro de Bilbao, incluido en la entrada; Medusa con lanzadera a Valencia). Pero estos buses solo llegan a la ciudad más cercana, no a tu ciudad de origen. Para rutas largas, el carpooling con ConcertRide es la única opción coordinada de madrugada." },
+      { q: "¿Cuánto cuesta un taxi de vuelta del festival?", a: "Un taxi de vuelta de un festival en horario de madrugada (03:00–05:00h) cuesta entre 30 y 120€ dependiendo de la distancia. La tarifa nocturna y los suplementos de festival elevan el precio. Para distancias superiores a 50 km, el VTC a esa hora puede superar los 80–150€ por precio dinámico. El carpooling con ConcertRide cuesta 3–20€/asiento para la misma ruta." },
+    ],
+    relatedLinks: [
+      { label: "Carpooling a Viña Rock", to: "/festivales/vina-rock" },
+      { label: "Carpooling a BBK Live", to: "/festivales/bbk-live" },
+    ],
+  },
+  "guia-carpooling-festivales-comunidades-autonomas-2026": {
+    title: "Guía de carpooling a festivales por comunidad autónoma en España 2026",
+    excerpt: "Desde Galicia con el Resurrection Fest hasta Valencia con el Arenal Sound, cada comunidad autónoma tiene sus festivales estrella y sus rutas de carpooling más demandadas. Guía completa con precios y rutas por CCAA para 2026.",
+    author: "Equipo ConcertRide",
+    publishedAt: "2026-05-06",
+    tags: ["carpooling", "festivales", "comunidades autónomas", "España", "rutas 2026"],
+    h1: "Carpooling a festivales en España por comunidad autónoma: precios y rutas 2026",
+    intro: "Cada comunidad autónoma tiene su festival de referencia y sus rutas de carpooling más usadas. Desde 3€/asiento para festivales cercanos hasta 20€ para los que cruzan la península. Repaso de las rutas más demandadas en ConcertRide para el verano 2026.",
+    sections: [
+      {
+        heading: "Madrid: hub de carpooling nacional con 4 festivales propios",
+        paragraphs: [
+          "Madrid es el mayor punto de origen y destino de carpooling de festival en España. Mad Cool (IFEMA), Tomavistas (Retiro) y otros atraen viajeros de toda España: Barcelona (620 km, 15–20€), Zaragoza (325 km, 9–13€), Sevilla (550 km, 14–20€).",
+          "Madrid también es el mayor origen de viajes salientes: Viña Rock (200 km, 6–9€), BBK Live (395 km, 11–16€), Sonorama (155 km, 5–8€). Las rutas desde Madrid concentran el 35% del volumen total de viajes de festival en ConcertRide.",
+        ],
+      },
+      {
+        heading: "Cataluña: Primavera Sound, Sónar y Cruïlla",
+        paragraphs: [
+          "Barcelona es el segundo gran hub de festivales en España. Primavera Sound, Sónar y Cruïlla atraen carpooling de Madrid (620 km, 15–20€), Valencia (355 km, 10–14€), Zaragoza (306 km, 8–12€) y el sur de Francia.",
+        ],
+      },
+      {
+        heading: "Galicia: Resurrection Fest y O Son do Camiño — los más remotos",
+        paragraphs: [
+          "Galicia concentra dos festivales de gran atracción pero ubicación periférica: Resurrection Fest en Viveiro y O Son do Camiño en Santiago. El carpooling desde Madrid cuesta 16–22€ y desde Barcelona 25–35€. Desde ciudades gallegas las distancias son menores: A Coruña–Viveiro 4–7€, Vigo–Santiago 3–5€.",
+        ],
+      },
+    ],
+    faqs: [
+      { q: "¿Cuáles son los festivales con más carpooling en España?", a: "Los festivales con mayor volumen de viajes compartidos en ConcertRide son Mad Cool (Madrid), Primavera Sound (Barcelona), Viña Rock (Villarrobledo), BBK Live (Bilbao) y Arenal Sound (Burriana). Las rutas más demandadas son Madrid–Mad Cool, Madrid–Primavera Sound, Madrid–Viña Rock y Barcelona–Primavera Sound." },
+      { q: "¿Cuánto cuesta el carpooling de Madrid a festivales del norte de España?", a: "Desde Madrid: BBK Live Bilbao (395 km) — 11–16€/asiento; Resurrection Fest Viveiro (600 km) — 16–22€; O Son do Camiño Santiago (600 km) — 16–22€. Todos los precios son orientativos sin comisión de plataforma en ConcertRide." },
+      { q: "¿En qué comunidades hay más festivales de verano en España?", a: "Las comunidades con mayor densidad de festivales de verano en España son Cataluña (Primavera Sound, Sónar, Cruïlla, FIB), Comunitat Valenciana (Arenal Sound, Medusa, FIB, Zevra) y Madrid (Mad Cool, Tomavistas). Galicia tiene los más remotos (Resurrection Fest, O Son do Camiño) y el País Vasco los más de culto (BBK Live, Azkena Rock)." },
+    ],
+    relatedLinks: [
+      { label: "Festivales en España", to: "/festivales" },
+      { label: "Carpooling al Resurrection Fest", to: "/festivales/resurrection-fest" },
+    ],
+  },
 };
 
 // ── Route landing data ──────────────────────────────────────────────────────
@@ -3114,6 +3241,7 @@ interface PageData {
   h1: string;
   body: string;
   ogImage?: string;
+  ogImageAlt?: string;
   ogType?: "website" | "article" | "music.event";
   articlePublishedTime?: string;
   articleModifiedTime?: string;
@@ -3626,6 +3754,7 @@ function buildRenderedHtml(html: string, page: PageData, base: string, env?: { G
   const desc = esc(page.description);
   const canonical = esc(page.canonical);
   const img = esc(page.ogImage ?? `${base}/og/home.png`);
+  const imgAlt = esc(page.ogImageAlt ?? page.title);
 
   let result = html
     .replace(/<title>[^<]*<\/title>/, `<title>${title}</title>`)
@@ -3639,7 +3768,7 @@ function buildRenderedHtml(html: string, page: PageData, base: string, env?: { G
     .replace(/<meta\s+property="og:description"[^>]*>/, `<meta property="og:description" content="${desc}"/>`)
     .replace(/<meta\s+property="og:image"[^>]*>/, `<meta property="og:image" content="${img}"/>`)
     .replace(/<meta\s+property="og:image:secure_url"[^>]*>/, `<meta property="og:image:secure_url" content="${img}"/>`)
-    .replace(/<meta\s+property="og:image:alt"[^>]*>/, `<meta property="og:image:alt" content="${title}"/>`)
+    .replace(/<meta\s+property="og:image:alt"[^>]*>/, `<meta property="og:image:alt" content="${imgAlt}"/>`)
     .replace(/<meta\s+name="twitter:title"[^>]*>/, `<meta name="twitter:title" content="${title}"/>`)
     .replace(/<meta\s+name="twitter:description"[^>]*>/, `<meta name="twitter:description" content="${desc}"/>`)
     .replace(/<meta\s+name="twitter:image"[^>]*>/, `<meta name="twitter:image" content="${img}"/>`)
@@ -3771,6 +3900,7 @@ async function resolveConcertPage(id: string, base: string, store: HonoEnv["Vari
       h1: `Viajes compartidos a ${artist} en ${venueCity}`,
       body,
       ogImage: concert.image_url ?? undefined,
+      ogImageAlt: `Carpooling a ${artist} en ${venueName}, ${venueCity} — ConcertRide`,
     };
   } catch {
     return null;

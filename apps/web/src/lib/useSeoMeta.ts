@@ -15,6 +15,7 @@ interface SeoMeta {
   ogTitle?: string;
   ogDescription?: string;
   ogImage?: string;
+  ogImageAlt?: string;
   ogImageWidth?: number;
   ogImageHeight?: number;
   ogType?: "website" | "article" | "music.event";
@@ -23,6 +24,7 @@ interface SeoMeta {
   articlePublishedTime?: string;
   articleModifiedTime?: string;
   articleSection?: string;
+  articleTags?: string[];
   /** ISO 3166-2 region code, e.g. "ES-MD", "ES-CT", "ES-PV" */
   geoRegion?: string;
   /** Human-readable place name, e.g. "Madrid" or "Bilbao, País Vasco" */
@@ -64,6 +66,7 @@ export interface ResolvedSeo {
   ogTitle: string;
   ogDescription: string;
   ogImage: string;
+  ogImageAlt: string;
   ogImageWidth: number;
   ogImageHeight: number;
   ogType: "website" | "article" | "music.event";
@@ -72,6 +75,7 @@ export interface ResolvedSeo {
   articlePublishedTime?: string;
   articleModifiedTime?: string;
   articleSection?: string;
+  articleTags?: string[];
   geoRegion?: string;
   geoPlacename?: string;
   geoLat?: number;
@@ -90,6 +94,7 @@ function resolve(meta: SeoMeta): ResolvedSeo {
     ogTitle: meta.ogTitle ?? meta.title,
     ogDescription: meta.ogDescription ?? meta.description ?? DEFAULT_DESCRIPTION,
     ogImage: meta.ogImage || DEFAULT_OG_IMAGE,
+    ogImageAlt: meta.ogImageAlt ?? meta.ogTitle ?? meta.title,
     ogImageWidth: meta.ogImageWidth ?? DEFAULT_OG_IMAGE_WIDTH,
     ogImageHeight: meta.ogImageHeight ?? DEFAULT_OG_IMAGE_HEIGHT,
     ogType: meta.ogType ?? "website",
@@ -98,6 +103,7 @@ function resolve(meta: SeoMeta): ResolvedSeo {
     articlePublishedTime: meta.articlePublishedTime,
     articleModifiedTime: meta.articleModifiedTime,
     articleSection: meta.articleSection,
+    articleTags: meta.articleTags,
     geoRegion: meta.geoRegion,
     geoPlacename: meta.geoPlacename,
     geoLat: meta.geoLat,
@@ -172,19 +178,23 @@ export function useSeoMeta(meta: SeoMeta) {
     setMeta("og:image:width", String(r.ogImageWidth), true);
     setMeta("og:image:height", String(r.ogImageHeight), true);
     setMeta("og:image:type", "image/png", true);
-    setMeta("og:image:alt", `${r.ogTitle} — ${SITE_NAME}`, true);
+    setMeta("og:image:alt", r.ogImageAlt.includes(SITE_NAME) ? r.ogImageAlt : `${r.ogImageAlt} — ${SITE_NAME}`, true);
 
     if (r.ogType === "article" && r.articlePublishedTime) {
       setMeta("article:published_time", r.articlePublishedTime, true);
       if (r.articleModifiedTime) setMeta("article:modified_time", r.articleModifiedTime, true);
       if (r.articleAuthor) setMeta("article:author", r.articleAuthor, true);
       if (r.articleSection) setMeta("article:section", r.articleSection, true);
+      if (r.articleTags?.length) {
+        r.articleTags.forEach((tag) => setMeta("article:tag", tag, true));
+      }
       setMeta("article:publisher", "https://www.facebook.com/concertride.me", true);
     } else {
       removeMeta("article:published_time", true);
       removeMeta("article:modified_time", true);
       removeMeta("article:author", true);
       removeMeta("article:section", true);
+      removeMeta("article:tag", true);
       removeMeta("article:publisher", true);
     }
 
@@ -194,7 +204,7 @@ export function useSeoMeta(meta: SeoMeta) {
     setMeta("twitter:title", r.ogTitle);
     setMeta("twitter:description", r.ogDescription);
     setMeta("twitter:image", r.ogImage);
-    setMeta("twitter:image:alt", `${r.ogTitle} — ${SITE_NAME}`);
+    setMeta("twitter:image:alt", r.ogImageAlt.includes(SITE_NAME) ? r.ogImageAlt : `${r.ogImageAlt} — ${SITE_NAME}`);
 
     if (r.canonical) {
       setLink("canonical", r.canonical);
@@ -224,7 +234,7 @@ export function useSeoMeta(meta: SeoMeta) {
     meta.title, meta.description, meta.canonical, meta.keywords,
     meta.ogTitle, meta.ogDescription, meta.ogImage, meta.ogImageWidth,
     meta.ogImageHeight, meta.ogType, meta.noindex,
-    meta.articleAuthor, meta.articlePublishedTime, meta.articleModifiedTime, meta.articleSection,
+    meta.articleAuthor, meta.articlePublishedTime, meta.articleModifiedTime, meta.articleSection, meta.articleTags,
     meta.geoRegion, meta.geoPlacename, meta.geoLat, meta.geoLng,
   ]);
 }
@@ -261,7 +271,7 @@ export function renderSeoToHtml(seo: ResolvedSeo, urlPath: string): {
   push(`<meta property="og:image:width" content="${seo.ogImageWidth}" />`);
   push(`<meta property="og:image:height" content="${seo.ogImageHeight}" />`);
   push(`<meta property="og:image:type" content="image/png" />`);
-  push(`<meta property="og:image:alt" content="${escapeAttr(`${seo.ogTitle} — ${SITE_NAME}`)}" />`);
+  push(`<meta property="og:image:alt" content="${escapeAttr(seo.ogImageAlt.includes(SITE_NAME) ? seo.ogImageAlt : `${seo.ogImageAlt} — ${SITE_NAME}`)}" />`);
 
   if (seo.ogType === "article" && seo.articlePublishedTime) {
     push(`<meta property="article:published_time" content="${escapeAttr(seo.articlePublishedTime)}" />`);
@@ -270,6 +280,11 @@ export function renderSeoToHtml(seo: ResolvedSeo, urlPath: string): {
     if (seo.articleAuthor) push(`<meta property="article:author" content="${escapeAttr(seo.articleAuthor)}" />`);
     if (seo.articleSection) push(`<meta property="article:section" content="${escapeAttr(seo.articleSection)}" />`);
     push(`<meta property="article:publisher" content="https://www.facebook.com/concertride.me" />`);
+    if (seo.articleTags?.length) {
+      seo.articleTags.forEach((tag) =>
+        push(`<meta property="article:tag" content="${escapeAttr(tag)}" />`),
+      );
+    }
   }
 
   push(`<meta name="twitter:card" content="summary_large_image" />`);
@@ -278,7 +293,7 @@ export function renderSeoToHtml(seo: ResolvedSeo, urlPath: string): {
   push(`<meta name="twitter:title" content="${escapeAttr(seo.ogTitle)}" />`);
   push(`<meta name="twitter:description" content="${escapeAttr(seo.ogDescription)}" />`);
   push(`<meta name="twitter:image" content="${escapeAttr(seo.ogImage)}" />`);
-  push(`<meta name="twitter:image:alt" content="${escapeAttr(`${seo.ogTitle} — ${SITE_NAME}`)}" />`);
+  push(`<meta name="twitter:image:alt" content="${escapeAttr(seo.ogImageAlt.includes(SITE_NAME) ? seo.ogImageAlt : `${seo.ogImageAlt} — ${SITE_NAME}`)}" />`);
 
   // Geo meta tags — dynamic per page
   if (seo.geoRegion) push(`<meta name="geo.region" content="${escapeAttr(seo.geoRegion)}" />`);

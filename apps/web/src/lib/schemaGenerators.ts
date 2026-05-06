@@ -122,7 +122,7 @@ export function generateEventSchema({
     "@type": "MusicEvent",
     name,
     description,
-    image: image || "https://via.placeholder.com/1200x630?text=" + encodeURIComponent(name),
+    image: image || "https://concertride.me/og/home.png",
     startDate,
     endDate,
     eventAttendanceMode: "OfflineEventAttendanceMode",
@@ -233,6 +233,63 @@ export function generateWebSiteSchema(siteUrl: string) {
         urlTemplate: `${siteUrl}/concerts?q={search_term_string}`,
       },
       "query-input": "required name=search_term_string",
+    },
+  };
+}
+
+/**
+ * Service schema for route pages (/rutas/:route).
+ * Describes the carpooling service between two locations with pricing.
+ */
+export function generateServiceSchema({
+  originCity,
+  festivalShortName,
+  festivalName,
+  routeSlug,
+  priceMin,
+  priceMax,
+  siteUrl,
+}: {
+  originCity: string;
+  festivalShortName: string;
+  festivalName: string;
+  routeSlug: string;
+  priceMin: string | number;
+  priceMax: string | number;
+  siteUrl: string;
+}) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    "@id": `${siteUrl}/rutas/${routeSlug}#service`,
+    name: `Carpooling ${originCity} → ${festivalShortName}`,
+    description: `Servicio de coche compartido de ${originCity} a ${festivalName}. Sin comisión (0%). Conductores verificados. Pago en efectivo o Bizum.`,
+    serviceType: "Carpooling",
+    url: `${siteUrl}/rutas/${routeSlug}`,
+    provider: {
+      "@type": "Organization",
+      "@id": `${siteUrl}/#organization`,
+      name: "ConcertRide ES",
+    },
+    areaServed: {
+      "@type": "Country",
+      name: "España",
+      sameAs: "https://www.wikidata.org/wiki/Q29",
+    },
+    offers: {
+      "@type": "Offer",
+      name: `Asiento carpooling ${originCity} → ${festivalShortName}`,
+      price: priceMin,
+      priceSpecification: {
+        "@type": "PriceSpecification",
+        minPrice: priceMin,
+        maxPrice: priceMax,
+        priceCurrency: "EUR",
+        unitText: "por asiento",
+      },
+      priceCurrency: "EUR",
+      availability: "https://schema.org/InStock",
+      url: `${siteUrl}/rutas/${routeSlug}`,
     },
   };
 }

@@ -67,14 +67,14 @@ export default function CityLandingPage() {
   // Per-city title/description overrides targeting top GSC queries
   const CITY_META_OVERRIDES: Record<string, { title: string; description: string; keywords?: string }> = {
     sevilla: {
-      title: `Conciertos Sevilla ${year}: festivales, carpooling | ConcertRide`,
-      description: `Próximos conciertos en Sevilla ${year}: La Cartuja (60.000 plazas), FIBES, Interestelar Sevilla, Icónica Fest. Carpooling sin comisión desde 3 €/asiento. Conductores verificados.`,
-      keywords: `conciertos en Sevilla ${year}, conciertos Sevilla ${nextYear}, conciertos música Sevilla, conciertos y recitales Sevilla, próximos conciertos Sevilla, agenda musical Sevilla, concierto Sevilla, conciertos sevilla 2026, sevilla concierto, música en Sevilla, Interestelar Sevilla, Icónica Sevilla Fest, carpooling Sevilla festivales`,
+      title: `Conciertos Sevilla ${year}–${nextYear}: La Cartuja, festivales y carpooling | ConcertRide`,
+      description: `Próximos conciertos en Sevilla ${year} y ${nextYear}: La Cartuja (60.000 plazas), FIBES, Interestelar Sevilla, Icónica Fest. Carpooling sin comisión desde 3 €/asiento. Conductores verificados.`,
+      keywords: `conciertos en Sevilla ${year}, conciertos Sevilla ${nextYear}, conciertos Sevilla ${nextYear + 1}, próximos conciertos Sevilla, conciertos música Sevilla, conciertos y recitales Sevilla, agenda musical Sevilla, concierto Sevilla, sevilla concierto, música en Sevilla, Interestelar Sevilla, Icónica Sevilla Fest, carpooling Sevilla festivales, festivales en Sevilla`,
     },
     donostia: {
-      title: `Conciertos Donostia ${year}: Jazzaldia, festivales | ConcertRide`,
-      description: `Próximos conciertos en Donostia–San Sebastián ${year}: Jazzaldia, Donostia Arena, Anoeta. Carpooling sin comisión a BBK Live (100 km) y Azkena Rock (100 km). Desde 4 €/asiento.`,
-      keywords: `conciertos en Donostia ${year}, conciertos Donostia ${year}, conciertos San Sebastián ${year}, conciertos en donostia 2026, conciertos en San Sebastián, Jazzaldia ${year}, música en Donostia, carpooling BBK Live desde Donostia`,
+      title: `Conciertos Donostia–San Sebastián ${year}: Jazzaldia y carpooling | ConcertRide`,
+      description: `Próximos conciertos en Donostia–San Sebastián ${year}: Jazzaldia (julio), Donostia Arena, Anoeta. Carpooling sin comisión a BBK Live (100 km, 4–7 €) y Azkena Rock (100 km, 4–7 €). Desde 4 €/asiento.`,
+      keywords: `conciertos Donostia ${year}, conciertos en Donostia ${year}, conciertos San Sebastián ${year}, conciertos en donostia 2026, conciertos en San Sebastián, conciertos en donosti ${year}, san sebastian conciertos, conciertos san sebastian, Jazzaldia ${year}, carpooling BBK Live desde Donostia`,
     },
     alicante: {
       title: `Conciertos Alicante ${year}: Plaza Toros, festivales | ConcertRide`,
@@ -87,9 +87,9 @@ export default function CityLandingPage() {
       keywords: `conciertos Bilbao ${year}, conciertos en Bilbao ${nextYear}, BBK Live ${year}, Kobetamendi, bilbao concert, como llegar BBK Live Bilbao, carpooling Bilbao festivales`,
     },
     zaragoza: {
-      title: `Conciertos Zaragoza ${year}: carpooling | ConcertRide`,
-      description: `Próximos conciertos en Zaragoza ${year}: Pabellón Príncipe Felipe, Sala López, Pirineos Sur. Carpooling a Mad Cool (9–13 €), Primavera Sound (8–12 €), Arenal Sound (8–12 €). Sin comisión.`,
-      keywords: `conciertos en Zaragoza ${year}, próximos conciertos Zaragoza, conciertos 2025 Zaragoza, conciertos Zaragoza ${nextYear}, Pabellón Príncipe Felipe, carpooling Zaragoza festivales`,
+      title: `Conciertos Zaragoza ${year}–${nextYear}: Príncipe Felipe y carpooling | ConcertRide`,
+      description: `Próximos conciertos en Zaragoza ${year} y ${nextYear}: Pabellón Príncipe Felipe, Sala López, Pirineos Sur. Carpooling a Mad Cool (9–13 €), Primavera Sound (8–12 €), Arenal Sound (8–12 €). Sin comisión.`,
+      keywords: `conciertos en Zaragoza ${year}, próximos conciertos Zaragoza, conciertos Zaragoza ${nextYear}, conciertos zaragoza ${nextYear + 1}, próximos conciertos en zaragoza, conciertos 2025 Zaragoza, Pabellón Príncipe Felipe, carpooling Zaragoza festivales`,
     },
     madrid: {
       title: `Conciertos Madrid ${year}: WiZink, IFEMA, carpooling | ConcertRide`,
@@ -132,9 +132,9 @@ export default function CityLandingPage() {
       keywords: `conciertos en Vigo ${year}, Resurrection Fest desde Vigo, O Son do Camiño Vigo, Auditorio Mar de Vigo conciertos, carpooling Vigo festivales`,
     },
     murcia: {
-      title: `Conciertos Murcia ${year}: SOS 4.8, Medusa | ConcertRide`,
-      description: `Próximos conciertos en Murcia ${year}: SOS 4.8, Auditorio Víctor Villegas. Carpooling a Medusa (180 km, 8–12 €), Arenal Sound (250 km, 10–14 €), Viña Rock (155 km, 6–9 €). Sin comisión.`,
-      keywords: `conciertos en Murcia ${year}, SOS 4.8 Murcia, Auditorio Víctor Villegas, carpooling Murcia festivales, Medusa Festival desde Murcia`,
+      title: `Conciertos Murcia ${year}–${nextYear}: SOS 4.8, agenda y carpooling | ConcertRide`,
+      description: `Próximos conciertos en Murcia ${year} y ${nextYear}: SOS 4.8, Auditorio Víctor Villegas. Carpooling a Medusa (180 km, 8–12 €), Arenal Sound (250 km, 10–14 €), Viña Rock (155 km, 6–9 €). Sin comisión.`,
+      keywords: `conciertos en Murcia ${year}, conciertos Murcia ${nextYear}, conciertos murcia ${nextYear + 1}, proximos conciertos en murcia, agenda conciertos murcia, concierto murcia, SOS 4.8 Murcia, Auditorio Víctor Villegas, carpooling Murcia festivales, Medusa Festival desde Murcia`,
     },
     valladolid: {
       title: `Conciertos Valladolid ${year}: Sonorama, festivales | ConcertRide`,
@@ -168,6 +168,9 @@ export default function CityLandingPage() {
     keywords: landing
       ? cityOverride?.keywords ?? `conciertos en ${landing.display} ${year}, conciertos ${landing.display} ${nextYear}, agenda musical ${landing.display} ${year}, próximos conciertos ${landing.display}, conciertos música ${landing.display}, como ir a conciertos ${landing.display}, festivales ${landing.display}, carpooling ${landing.display} ${year}, coche compartido concierto ${landing.display}, cómo ir al concierto ${landing.display}, carpooling concierto ${landing.display}, viaje compartido ${landing.display} ${year}`
       : undefined,
+    ogImageAlt: landing
+      ? `Conciertos y carpooling en ${landing.display} ${year} — ConcertRide`
+      : "Conciertos por ciudad en España — ConcertRide",
     geoRegion: landing ? (REGION_ISO[landing.region] ?? undefined) : undefined,
     geoPlacename: landing ? `${landing.display}, España` : undefined,
     geoLat: landing?.lat,
@@ -577,7 +580,7 @@ export default function CityLandingPage() {
 
       <section className="max-w-6xl mx-auto px-6 pb-16">
         <h2 className="font-display text-xl md:text-2xl uppercase mb-6">
-          Próximos conciertos en {landing.display}
+          Próximos conciertos en {landing.display} {year}: agenda actualizada
         </h2>
         {concerts === null ? (
           <LoadingSpinner text={`Cargando conciertos en ${landing.display}…`} />
@@ -607,27 +610,86 @@ export default function CityLandingPage() {
         )}
       </section>
 
+      <section className="max-w-6xl mx-auto px-6 pb-12 border-t border-cr-border pt-12 space-y-6">
+        <h2 className="font-display text-xl md:text-2xl uppercase">
+          Transporte para conciertos en {landing.display}: carpooling, bus, tren y taxi
+        </h2>
+        <p className="font-sans text-sm text-cr-text-muted max-w-3xl speakable">
+          Comparativa real de precios y disponibilidad para llegar a conciertos y festivales desde {landing.display} {year}. El carpooling sin comisión es la opción más económica para distancias largas y la única con vuelta de madrugada coordinada.
+        </p>
+        <div className="overflow-x-auto">
+          <table className="w-full font-sans text-xs text-cr-text-muted border-collapse">
+            <thead>
+              <tr className="border-b border-cr-border">
+                <th className="text-left py-2 pr-4 font-semibold text-cr-text uppercase tracking-[0.1em]">Opción</th>
+                <th className="text-left py-2 pr-4 font-semibold text-cr-text uppercase tracking-[0.1em]">Precio típico</th>
+                <th className="text-left py-2 pr-4 font-semibold text-cr-text uppercase tracking-[0.1em]">Comisión</th>
+                <th className="text-left py-2 pr-4 font-semibold text-cr-text uppercase tracking-[0.1em]">Vuelta madrugada</th>
+                <th className="text-left py-2 font-semibold text-cr-text uppercase tracking-[0.1em]">Reserva anticipada</th>
+              </tr>
+            </thead>
+            <tbody className="divide-y divide-cr-border">
+              <tr>
+                <td className="py-2 pr-4 font-semibold text-cr-primary">ConcertRide</td>
+                <td className="py-2 pr-4">3–35 €/asiento</td>
+                <td className="py-2 pr-4 text-green-400">0 %</td>
+                <td className="py-2 pr-4 text-green-400">Sí, coordinada</td>
+                <td className="py-2">Recomendada</td>
+              </tr>
+              <tr>
+                <td className="py-2 pr-4">BlaBlaCar</td>
+                <td className="py-2 pr-4">Precio similar</td>
+                <td className="py-2 pr-4 text-yellow-400">12–18 %</td>
+                <td className="py-2 pr-4">Variable</td>
+                <td className="py-2">Recomendada</td>
+              </tr>
+              <tr>
+                <td className="py-2 pr-4">Taxi / VTC</td>
+                <td className="py-2 pr-4">30–80 €/trayecto</td>
+                <td className="py-2 pr-4">—</td>
+                <td className="py-2 pr-4 text-yellow-400">Sí (sobrecargo)</td>
+                <td className="py-2">No necesaria</td>
+              </tr>
+              <tr>
+                <td className="py-2 pr-4">Autobús interurbano</td>
+                <td className="py-2 pr-4">5–20 €</td>
+                <td className="py-2 pr-4">—</td>
+                <td className="py-2 pr-4 text-red-400">No (último ~23h)</td>
+                <td className="py-2">Recomendada</td>
+              </tr>
+              <tr>
+                <td className="py-2 pr-4">Tren / AVE</td>
+                <td className="py-2 pr-4">10–60 €</td>
+                <td className="py-2 pr-4">—</td>
+                <td className="py-2 pr-4 text-red-400">No (último ~01h)</td>
+                <td className="py-2">Obligatoria</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
       <section className="max-w-6xl mx-auto px-6 pb-24 border-t border-cr-border pt-12 space-y-6">
         <h2 className="font-display text-xl md:text-2xl uppercase">
-          Cómo ir a un concierto en {landing.display}
+          Cómo reservar carpooling a conciertos en {landing.display} {year}: paso a paso
         </h2>
         <div className="grid md:grid-cols-3 gap-4 font-sans text-sm text-cr-text-muted leading-relaxed">
           <article className="space-y-2">
-            <h3 className="font-display text-base uppercase text-cr-primary">1. Busca el concierto</h3>
+            <h3 className="font-display text-base uppercase text-cr-primary">1. Busca el concierto en {landing.display}</h3>
             <p>
               Encuentra el evento al que vas en esta página. Cada ficha muestra cuántos viajes
               compartidos están ya publicados desde distintas ciudades de España.
             </p>
           </article>
           <article className="space-y-2">
-            <h3 className="font-display text-base uppercase text-cr-primary">2. Elige un viaje</h3>
+            <h3 className="font-display text-base uppercase text-cr-primary">2. Elige carpooling a {landing.display}</h3>
             <p>
               Revisa precio por plaza, vibe (party/chill/mixed) y la valoración del conductor.
               Puedes ver qué otros pasajeros ya están confirmados.
             </p>
           </article>
           <article className="space-y-2">
-            <h3 className="font-display text-base uppercase text-cr-primary">3. Llega juntos</h3>
+            <h3 className="font-display text-base uppercase text-cr-primary">3. Viaja y paga al llegar a {landing.display}</h3>
             <p>
               Pagas al conductor en efectivo o Bizum el día del viaje. Recibes un recordatorio
               24h antes con la hora y el punto de encuentro.
@@ -664,7 +726,7 @@ export default function CityLandingPage() {
         return (
           <section className="max-w-6xl mx-auto px-6 pb-12 border-t border-cr-border pt-10">
             <h2 className="font-display text-lg uppercase text-cr-text-muted mb-4">
-              Festivales en {landing.display}
+              Festivales en {landing.display} {year}: carpooling disponible
             </h2>
             <ul className="flex flex-wrap gap-2">
               {cityFestivals.map((f) => (
@@ -691,7 +753,7 @@ export default function CityLandingPage() {
         return (
           <section className="max-w-6xl mx-auto px-6 pb-12 border-t border-cr-border pt-10">
             <h2 className="font-display text-lg uppercase text-cr-text-muted mb-4">
-              Carpooling desde {landing.display} a festivales
+              Rutas de carpooling desde {landing.display} a festivales {year}
             </h2>
             <ul className="flex flex-wrap gap-2">
               {routesFromCity.map((r) => (
@@ -713,7 +775,7 @@ export default function CityLandingPage() {
       {cityFaqs.length > 0 && (
         <section className="max-w-6xl mx-auto px-6 pb-16 border-t border-cr-border pt-12 space-y-6">
           <h2 className="font-display text-2xl md:text-3xl uppercase">
-            Preguntas frecuentes — Conciertos en {landing.display}
+            Preguntas frecuentes sobre conciertos y carpooling en {landing.display} {year}
           </h2>
           <dl className="space-y-6">
             {cityFaqs.map((f) => (

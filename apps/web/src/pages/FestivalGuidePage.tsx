@@ -41,6 +41,7 @@ export default function FestivalGuidePage() {
     description: `Guía completa para ${festival.name} ${festYear}. Qué llevar al festival, logística del recinto, acampada, transporte y consejos de veteranos. ${festival.venue}, ${festival.city}.`,
     canonical: `${SITE_URL}/festivales/${slug}/guia`,
     keywords: `guia ${festival.shortName}, que llevar ${festival.shortName}, ${festival.shortName} lista, como prepararse ${festival.shortName}, ${festival.shortName} acampada, ${festival.shortName} consejos, lista que llevar festival`,
+    ogImageAlt: `Guía completa ${festival.shortName} ${festYear}: qué llevar, transporte y carpooling — ConcertRide`,
     geoLat: festival.lat,
     geoLng: festival.lng,
     geoPlacename: `${festival.city}, España`,
@@ -92,6 +93,17 @@ export default function FestivalGuidePage() {
     ],
   };
 
+  const jsonLdBreadcrumb = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      { "@type": "ListItem", position: 1, name: "Inicio", item: `${SITE_URL}/` },
+      { "@type": "ListItem", position: 2, name: "Festivales", item: `${SITE_URL}/festivales` },
+      { "@type": "ListItem", position: 3, name: festival.name, item: `${SITE_URL}/festivales/${slug}` },
+      { "@type": "ListItem", position: 4, name: `Guía ${festival.shortName} ${festYear}`, item: `${SITE_URL}/festivales/${slug}/guia` },
+    ],
+  };
+
   const jsonLdItemList = {
     "@context": "https://schema.org",
     "@type": "ItemList",
@@ -112,6 +124,7 @@ export default function FestivalGuidePage() {
 
   return (
     <main className="min-h-dvh bg-cr-bg text-cr-text pt-14">
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdBreadcrumb) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdHowTo) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdItemList) }} />
 

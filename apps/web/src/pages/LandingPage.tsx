@@ -25,6 +25,7 @@ export default function LandingPage() {
     canonical: `${SITE_URL}/`,
     keywords: "carpooling conciertos España, viajes compartidos festivales, autobuses festivales españa, bus festivales 2026, transporte a conciertos, coche compartido música, ride-sharing festivales, conciertos en madrid, conciertos en barcelona, conciertos en sevilla, conciertos en bilbao 2026, conciertos en donostia 2026, conciertos en zaragoza, viña rock buses, arenal sound como llegar, bbk santander, mad cool carpooling, primavera sound viaje compartido, deja tu coche en casa festival, carpooling sin comisiones, volver festival madrugada, ir al festival sin coche",
     ogType: "website",
+    ogImageAlt: "ConcertRide: carpooling sin comisión a conciertos y festivales en España — Mad Cool, Primavera Sound, BBK Live",
   });
 
   const [concerts, setConcerts] = useState<Concert[] | null>(null);
@@ -133,6 +134,36 @@ export default function LandingPage() {
           }}
         />
       )}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "ItemList",
+            name: "Guías cómo llegar a festivales de música en España",
+            description: "Guías de transporte con bus lanzadera, tren, metro y carpooling para los festivales más grandes de España",
+            numberOfItems: 16,
+            itemListElement: [
+              { "@type": "ListItem", position: 1, name: "Cómo llegar a Mad Cool", url: `${SITE_URL}/como-llegar/mad-cool` },
+              { "@type": "ListItem", position: 2, name: "Cómo llegar a Primavera Sound", url: `${SITE_URL}/como-llegar/primavera-sound` },
+              { "@type": "ListItem", position: 3, name: "Cómo llegar a Viña Rock", url: `${SITE_URL}/como-llegar/vina-rock` },
+              { "@type": "ListItem", position: 4, name: "Cómo llegar a BBK Live", url: `${SITE_URL}/como-llegar/bbk-live` },
+              { "@type": "ListItem", position: 5, name: "Cómo llegar a Arenal Sound", url: `${SITE_URL}/como-llegar/arenal-sound` },
+              { "@type": "ListItem", position: 6, name: "Cómo llegar a Resurrection Fest", url: `${SITE_URL}/como-llegar/resurrection-fest` },
+              { "@type": "ListItem", position: 7, name: "Cómo llegar a FIB Benicàssim", url: `${SITE_URL}/como-llegar/fib` },
+              { "@type": "ListItem", position: 8, name: "Cómo llegar a Medusa Festival", url: `${SITE_URL}/como-llegar/medusa-festival` },
+              { "@type": "ListItem", position: 9, name: "Cómo llegar a Sónar", url: `${SITE_URL}/como-llegar/sonar` },
+              { "@type": "ListItem", position: 10, name: "Cómo llegar a O Son do Camiño", url: `${SITE_URL}/como-llegar/o-son-do-camino` },
+              { "@type": "ListItem", position: 11, name: "Cómo llegar a Cala Mijas", url: `${SITE_URL}/como-llegar/cala-mijas` },
+              { "@type": "ListItem", position: 12, name: "Cómo llegar a Sonorama Ribera", url: `${SITE_URL}/como-llegar/sonorama-ribera` },
+              { "@type": "ListItem", position: 13, name: "Cómo llegar a Zevra Festival", url: `${SITE_URL}/como-llegar/zevra-festival` },
+              { "@type": "ListItem", position: 14, name: "Cómo llegar a Low Festival", url: `${SITE_URL}/como-llegar/low-festival` },
+              { "@type": "ListItem", position: 15, name: "Cómo llegar a Cruïlla Barcelona", url: `${SITE_URL}/como-llegar/cruilla` },
+              { "@type": "ListItem", position: 16, name: "Cómo llegar a Tomavistas Madrid", url: `${SITE_URL}/como-llegar/tomavistas` },
+            ],
+          }),
+        }}
+      />
       <Hero />
       <StatsBar />
       {activeConcerts.length > 0 && <HorizontalCarousel concerts={activeConcerts} />}

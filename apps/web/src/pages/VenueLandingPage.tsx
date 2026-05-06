@@ -5,6 +5,8 @@ import { SITE_URL } from "@/lib/siteUrl";
 import { REGION_ISO } from "@/lib/seoConfig";
 import { VENUE_LANDINGS, VENUE_LANDINGS_BY_SLUG } from "@/lib/venueLandings";
 import { FESTIVAL_LANDINGS_BY_SLUG } from "@/lib/festivalLandings";
+import { AutoLinksForVenue } from "@/lib/autoLinking";
+import { VENUE_SEO_OVERRIDES } from "@/lib/seoOverrides";
 
 const VENUE_DEFAULT_OG = `${SITE_URL}/og-fallback.png`;
 
@@ -19,20 +21,25 @@ export default function VenueLandingPage() {
   const topOrigin = venue?.originCities[0];
   const topPrice = topOrigin?.concertRideRange.split("–")[0]?.replace(/[^0-9]/g, "") ?? "9";
 
+  const venueOverride = venue ? VENUE_SEO_OVERRIDES[venue.slug] : undefined;
+
   useSeoMeta({
     title: venue
-      ? `Cómo llegar a ${venue.name} — transporte y carpooling | ConcertRide`
+      ? venueOverride?.title ?? `Cómo llegar a ${venue.name} — transporte y carpooling | ConcertRide`
       : "Recintos de conciertos en España | ConcertRide",
     description: venue
-      ? `${venue.name} (${venue.city}): ${venue.transport.metro ? `Metro ${venue.transport.metro}.` : ""} ${venue.transport.bus ? `Bus: ${venue.transport.bus}.` : ""} Carpooling desde ${topOrigin?.city ?? "tu ciudad"} desde ${topPrice} €/asiento sin comisión. ${venue.blurb.slice(0, 120)}…`
+      ? venueOverride?.description ?? `${venue.name} (${venue.city}): ${venue.transport.metro ? `Metro ${venue.transport.metro}.` : ""} ${venue.transport.bus ? `Bus: ${venue.transport.bus}.` : ""} Carpooling desde ${topOrigin?.city ?? "tu ciudad"} desde ${topPrice} €/asiento sin comisión. ${venue.blurb.slice(0, 120)}…`
       : "Guías de transporte para los principales recintos de conciertos de España. Cómo llegar, opciones de bus, metro y carpooling.",
     canonical: venue
       ? `${SITE_URL}/recintos/${venue.slug}`
       : `${SITE_URL}/concerts`,
     ogImage: venueOgImage,
+    ogImageAlt: venue
+      ? `Cómo llegar a ${venue.name} en ${venue.city}: carpooling y transporte — ConcertRide`
+      : "Recintos de conciertos en España — ConcertRide",
     ogType: "website",
     keywords: venue
-      ? [
+      ? venueOverride?.keywords ?? [
           `cómo llegar a ${venue.name}`,
           `cómo ir a ${venue.shortName}`,
           `transporte ${venue.shortName}`,
@@ -169,6 +176,21 @@ export default function VenueLandingPage() {
     },
   };
 
+  const jsonLdHowTo = {
+    "@context": "https://schema.org",
+    "@type": "HowTo",
+    name: `Cómo llegar a ${venue.name} en coche compartido`,
+    description: `Guía paso a paso para ir a ${venue.name} (${venue.city}) con carpooling desde ConcertRide.`,
+    step: [
+      { "@type": "HowToStep", position: 1, name: "Busca tu ciudad de origen", text: `Entra en concertride.me/recintos/${venue.slug} y selecciona tu ciudad de salida.` },
+      { "@type": "HowToStep", position: 2, name: "Elige el conductor", text: "Filtra por fecha, precio y valoraciones. Los conductores verifican su carnet antes de publicar." },
+      { "@type": "HowToStep", position: 3, name: "Confirma el viaje", text: "Chatea con el conductor para confirmar el punto de encuentro y la hora de vuelta del concierto." },
+      { "@type": "HowToStep", position: 4, name: "Paga en efectivo o Bizum", text: `Paga directamente al conductor el día del evento en ${venue.name}. Sin comisión (0% para conductor y pasajero).` },
+    ],
+    totalTime: "PT10M",
+    estimatedCost: { "@type": "MonetaryAmount", currency: "EUR", value: topPrice },
+  };
+
   return (
     <main id="main" className="min-h-dvh bg-cr-bg text-cr-text pt-14">
       {/* ── JSON-LD ── */}
@@ -177,6 +199,7 @@ export default function VenueLandingPage() {
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdFaq) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdLocalBusiness) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdWebPage) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdHowTo) }} />
 
       {/* ── Hero ── */}
       <div className="max-w-6xl mx-auto px-6 pt-10 pb-6 space-y-4">
@@ -231,7 +254,7 @@ export default function VenueLandingPage() {
       {/* ── Transport section ── */}
       <section className="max-w-6xl mx-auto px-6 pb-12 border-t border-cr-border pt-12 space-y-6 transport-info">
         <h2 className="font-display text-2xl md:text-3xl uppercase">
-          Cómo llegar en transporte público
+          Cómo llegar a {venue.shortName} en transporte público: metro, bus y tren
         </h2>
         <p className="font-sans text-sm text-cr-text-muted max-w-3xl leading-relaxed">
           Dirección exacta: <strong className="text-cr-text">{venue.address}</strong>.
@@ -243,7 +266,7 @@ export default function VenueLandingPage() {
           {venue.transport.metro && (
             <article className="border border-cr-border p-4 space-y-2">
               <h3 className="font-display text-base uppercase text-cr-primary flex items-center gap-1.5">
-                <Train size={14} /> Metro
+                <Train size={14} /> Metro a {venue.shortName}
               </h3>
               <p className="font-sans text-xs text-cr-text-muted leading-relaxed">
                 {venue.transport.metro}
@@ -253,7 +276,7 @@ export default function VenueLandingPage() {
           {venue.transport.bus && (
             <article className="border border-cr-border p-4 space-y-2">
               <h3 className="font-display text-base uppercase text-cr-primary flex items-center gap-1.5">
-                <Bus size={14} /> Autobús
+                <Bus size={14} /> Autobús a {venue.shortName}
               </h3>
               <p className="font-sans text-xs text-cr-text-muted leading-relaxed">
                 {venue.transport.bus}
@@ -263,7 +286,7 @@ export default function VenueLandingPage() {
           {venue.transport.tren && (
             <article className="border border-cr-border p-4 space-y-2">
               <h3 className="font-display text-base uppercase text-cr-primary flex items-center gap-1.5">
-                <Train size={14} /> Tren / Cercanías
+                <Train size={14} /> Tren / Cercanías a {venue.shortName}
               </h3>
               <p className="font-sans text-xs text-cr-text-muted leading-relaxed">
                 {venue.transport.tren}
@@ -273,7 +296,7 @@ export default function VenueLandingPage() {
           {venue.transport.parking && (
             <article className="border border-cr-border p-4 space-y-2">
               <h3 className="font-display text-base uppercase text-cr-primary flex items-center gap-1.5">
-                <ParkingSquare size={14} /> Parking
+                <ParkingSquare size={14} /> Parking en {venue.shortName}
               </h3>
               <p className="font-sans text-xs text-cr-text-muted leading-relaxed">
                 {venue.transport.parking}
@@ -282,7 +305,7 @@ export default function VenueLandingPage() {
           )}
           <article className="border border-cr-border p-4 space-y-2">
             <h3 className="font-display text-base uppercase text-cr-primary flex items-center gap-1.5">
-              <Car size={14} /> Coche compartido
+              <Car size={14} /> Carpooling a {venue.shortName} sin comisión
             </h3>
             <p className="font-sans text-xs text-cr-text-muted leading-relaxed">
               Carpooling con ConcertRide desde {venue.originCities.length} ciudades.
@@ -305,7 +328,7 @@ export default function VenueLandingPage() {
       {/* ── Origin cities table ── */}
       <section className="max-w-6xl mx-auto px-6 pb-16 border-t border-cr-border pt-12">
         <h2 className="font-display text-2xl md:text-3xl uppercase mb-2">
-          Precios de carpooling a {venue.shortName}
+          Precio del carpooling a {venue.shortName} desde tu ciudad: tarifas orientativas
         </h2>
         <p className="font-sans text-sm text-cr-text-muted mb-8 max-w-xl">
           Precio medio por asiento con ConcertRide desde las principales ciudades de origen.
@@ -371,10 +394,10 @@ export default function VenueLandingPage() {
       {/* ── Transport comparison table ── */}
       <section className="max-w-6xl mx-auto px-6 pb-16 border-t border-cr-border pt-12 space-y-6">
         <h2 className="font-display text-2xl md:text-3xl uppercase">
-          Comparativa de transporte a {venue.shortName}
+          Comparativa de transporte a {venue.shortName}: carpooling vs. taxi vs. metro vs. BlaBlaCar
         </h2>
         <p className="font-sans text-sm text-cr-text-muted max-w-2xl">
-          Resumen de opciones para ir a {venue.name} desde{" "}
+          Precios, comisiones y disponibilidad nocturna para llegar a {venue.name} desde{" "}
           {topOrigin?.city ?? "tu ciudad"}.
         </p>
         <div className="overflow-x-auto">
@@ -433,25 +456,25 @@ export default function VenueLandingPage() {
       {/* ── Por qué ConcertRide ── */}
       <section className="max-w-6xl mx-auto px-6 pb-16 border-t border-cr-border pt-12 space-y-6">
         <h2 className="font-display text-2xl md:text-3xl uppercase">
-          Por qué llegar a {venue.shortName} con ConcertRide
+          Por qué ir a {venue.shortName} con ConcertRide y no con BlaBlaCar o taxi
         </h2>
         <div className="grid md:grid-cols-3 gap-4 font-sans text-sm text-cr-text-muted leading-relaxed">
           <article className="space-y-2">
-            <h3 className="font-display text-base uppercase text-cr-primary">Sin comisión</h3>
+            <h3 className="font-display text-base uppercase text-cr-primary">Sin comisión para {venue.shortName}</h3>
             <p>
               El 100&nbsp;% del precio del asiento va al conductor. ConcertRide no cobra
               comisión nunca. Pagas en efectivo o Bizum el día del viaje.
             </p>
           </article>
           <article className="space-y-2">
-            <h3 className="font-display text-base uppercase text-cr-primary">Conductores verificados</h3>
+            <h3 className="font-display text-base uppercase text-cr-primary">Conductores verificados en {venue.shortName}</h3>
             <p>
               Todos los conductores verifican su carnet de conducir antes de publicar
               un viaje. Puedes ver sus valoraciones y reseñas de otros pasajeros.
             </p>
           </article>
           <article className="space-y-2">
-            <h3 className="font-display text-base uppercase text-cr-primary">Horario real</h3>
+            <h3 className="font-display text-base uppercase text-cr-primary">Vuelta de madrugada desde {venue.shortName}</h3>
             <p>
               El conductor espera a que el concierto termine antes de salir. No
               dependes del último metro ni de taxis a precio multiplicado de madrugada.
@@ -481,10 +504,15 @@ export default function VenueLandingPage() {
         </div>
       </section>
 
+      {/* ── AutoLinks ── */}
+      <div className="max-w-6xl mx-auto px-6">
+        <AutoLinksForVenue slug={venue.slug} />
+      </div>
+
       {/* ── FAQs ── */}
       <section className="max-w-6xl mx-auto px-6 pb-16 border-t border-cr-border pt-12 space-y-6">
         <h2 className="font-display text-2xl md:text-3xl uppercase">
-          Preguntas frecuentes — {venue.shortName}
+          Preguntas frecuentes sobre cómo llegar a {venue.shortName}: transporte y carpooling
         </h2>
         <dl className="space-y-0 divide-y divide-cr-border">
           {venue.faqs.map((faq) => (
@@ -512,7 +540,7 @@ export default function VenueLandingPage() {
       {relatedFestivals.length > 0 && (
         <section className="max-w-6xl mx-auto px-6 pb-16 border-t border-cr-border pt-10">
           <h2 className="font-display text-lg uppercase text-cr-text-muted mb-4">
-            Festivales en {venue.shortName}
+            Festivales en {venue.shortName}: carpooling y transporte
           </h2>
           <ul className="flex flex-wrap gap-2">
             {relatedFestivals.map((f) => (

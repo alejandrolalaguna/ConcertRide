@@ -3,6 +3,7 @@ import { useSeoMeta } from "@/lib/useSeoMeta";
 import { SITE_URL } from "@/lib/siteUrl";
 import { ARTIST_LANDINGS_BY_SLUG } from "@/lib/artistLandings";
 import { FESTIVAL_LANDINGS_BY_SLUG } from "@/lib/festivalLandings";
+import { AutoLinksForArtist } from "@/lib/autoLinking";
 
 export default function ArtistLandingPage() {
   const { slug } = useParams<{ slug: string }>();
@@ -26,6 +27,9 @@ export default function ArtistLandingPage() {
       ? `Conciertos de ${artist.name} en España 2026${venueCities ? ` — ${venueCities}` : ""}. Carpooling desde ${minPrice} €/asiento, 0 % de comisión, conductores verificados. Cómo llegar al concierto de ${artist.name} con ConcertRide.`
       : "Carpooling para conciertos de artistas en España con ConcertRide.",
     canonical: artist ? `${SITE_URL}/artistas/${artist.slug}` : undefined,
+    ogImageAlt: artist
+      ? `Conciertos de ${artist.name} en España 2026: carpooling sin comisión — ConcertRide`
+      : "Artistas en concierto en España — ConcertRide",
     ogType: hasUpcoming ? "music.event" : "website",
     keywords: artist
       ? [
@@ -149,12 +153,28 @@ export default function ArtistLandingPage() {
                 priceCurrency: "EUR",
                 description: `Carpooling desde ${c.originCities[0]?.city ?? "España"} (${c.originCities[0]?.range ?? c.concertRideRange}/asiento, sin comisión). ConcertRide.`,
               },
+              url: `${SITE_URL}/artistas/${artist.slug}`,
               eventAttendanceMode: "https://schema.org/OfflineEventAttendanceMode",
               eventStatus: "https://schema.org/EventScheduled",
             },
           })),
         }
       : null;
+
+  const jsonLdHowTo = {
+    "@context": "https://schema.org",
+    "@type": "HowTo",
+    name: `Cómo ir al concierto de ${artist.name} con carpooling`,
+    description: `Pasos para reservar tu carpooling al concierto de ${artist.name} en España con ConcertRide (0% comisión).`,
+    step: [
+      { "@type": "HowToStep", position: 1, name: "Busca el concierto", text: `Entra en concertride.me/artistas/${artist.slug} y selecciona el concierto de ${artist.name} en tu ciudad.` },
+      { "@type": "HowToStep", position: 2, name: "Elige un viaje compartido", text: "Filtra por ciudad de origen, precio y hora. Todos los conductores están verificados con carnet de conducir." },
+      { "@type": "HowToStep", position: 3, name: "Solicita una plaza", text: "Escribe al conductor y confirma punto de encuentro y hora de salida." },
+      { "@type": "HowToStep", position: 4, name: "Paga al conductor", text: `Paga en efectivo o Bizum directamente al conductor el día del concierto de ${artist.name}. Sin comisión de plataforma (0%).` },
+    ],
+    totalTime: "PT10M",
+    tool: [{ "@type": "HowToTool", name: "ConcertRide app" }],
+  };
 
   // ── Related festivals ──────────────────────────────────────────────────────
   const relatedFestivals = artist.relatedFestivals
@@ -183,6 +203,10 @@ export default function ArtistLandingPage() {
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdEventList) }}
         />
       )}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdHowTo) }}
+      />
 
       {/* ── Hero ── */}
       <div className="max-w-6xl mx-auto px-6 pt-10 pb-8 space-y-4">
@@ -503,6 +527,7 @@ export default function ArtistLandingPage() {
               </li>
             ))}
           </ul>
+          <AutoLinksForArtist slug={artist.slug} />
         </section>
       )}
 

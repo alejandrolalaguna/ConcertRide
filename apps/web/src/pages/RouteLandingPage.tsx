@@ -8,11 +8,12 @@ import { LoadingSpinner } from "@/components/ui";
 import { useSeoMeta } from "@/lib/useSeoMeta";
 import { SITE_URL } from "@/lib/siteUrl";
 import { REGION_ISO } from "@/lib/seoConfig";
+import { generateServiceSchema } from "@/lib/schemaGenerators";
 import { ROUTE_LANDINGS_BY_SLUG } from "@/lib/routeLandings";
 import { ROUTE_SEO_IMPROVEMENTS } from "@/lib/seoOverrides";
 import { FestivalAlertWidget } from "@/components/FestivalAlertWidget";
 import { DemandSignalWidget } from "@/components/DemandSignalWidget";
-import { AutoLinksForFestival } from "@/lib/autoLinking";
+import { AutoLinksForFestival, AutoLinksForRoute } from "@/lib/autoLinking";
 import { trackRouteSearch } from "@/lib/seoEvents";
 
 export default function RouteLandingPage() {
@@ -35,6 +36,9 @@ export default function RouteLandingPage() {
       ? `Viaje compartido de ${landing.originCity} a ${landing.festival.shortName} ${routeYear}. ${landing.originData.km} km, ${landing.originData.drivingTime}. Precio desde ${landing.originData.concertRideRange}. Sin comisión de plataforma. Conductores verificados.`
       : "Carpooling a festivales en España.",
     canonical: landing ? `${SITE_URL}/rutas/${landing.slug}` : `${SITE_URL}/concerts`,
+    ogImageAlt: landing
+      ? `Carpooling ${landing.originCity} a ${landing.festival.shortName} ${routeYear} — ConcertRide`
+      : "Carpooling a festivales de música en España — ConcertRide",
     keywords: landing
       ? routeOverride?.keywords ?? [
           `carpooling ${landing.originCity} ${landing.festival.shortName}`,
@@ -79,23 +83,30 @@ export default function RouteLandingPage() {
   const routeFaqs = [
     {
       q: `¿Cuánto cuesta el carpooling de ${originCity} a ${festival.shortName}?`,
-      a: `El precio por asiento de ${originCity} a ${festival.shortName} está entre ${originData.concertRideRange}. El conductor fija el precio para cubrir combustible y peajes. Sin comisión: lo que ves es lo que pagas, en efectivo o Bizum el día del viaje.`,
+      a: `El precio por asiento de ${originCity} a ${festival.shortName} con ConcertRide está entre ${originData.concertRideRange}. El conductor fija el precio para cubrir combustible y peajes del trayecto de ${originData.km} km. Sin comisión de plataforma: lo que ves es exactamente lo que pagas. El pago se hace en efectivo o Bizum directamente al conductor el día del viaje. BlaBlaCar cobra un 12–18 % adicional sobre el precio del asiento; en ConcertRide ese porcentaje es 0 %.`,
     },
     {
       q: `¿Cuánto se tarda en coche de ${originCity} a ${festival.shortName}?`,
-      a: `La distancia es de ${originData.km} km. El tiempo estimado de conducción es de ${originData.drivingTime} sin paradas. Con pausa de servicio y tráfico en la entrada al recinto, cuenta aproximadamente 30 min extra.`,
+      a: `La distancia de ${originCity} a ${festival.venue} (${festival.city}) es de ${originData.km} km por carretera. El tiempo estimado de conducción es de ${originData.drivingTime} sin paradas en condiciones normales de tráfico. Con una parada de servicio en gasolinera (5–10 min) y el tráfico habitual en la entrada al recinto el día del festival (15–30 min), calcula un total de ${originData.drivingTime} más unos 30–40 minutos adicionales. Lo más recomendable es coordinarlo con el conductor al reservar.`,
     },
     {
       q: `¿Hay carpooling de vuelta desde ${festival.shortName} a ${originCity}?`,
-      a: `Sí. La mayoría de conductores publican el viaje de ida y vuelta. Busca en ConcertRide filtrando por "${festival.city}" y verás los viajes con hora de salida del festival.`,
+      a: `Sí. La mayoría de conductores en ConcertRide publican el viaje de ida y vuelta con la hora de salida del festival (habitualmente entre las 03:00 y las 05:30h, después del headliner). Al reservar el viaje de ida, pregunta al conductor si también tiene publicado el de vuelta o si planea coordinar el regreso. Esta es la ventaja principal respecto al tren o autobús, que no tienen servicio nocturno desde los recintos de festival.`,
     },
     {
       q: `¿Hay autobús directo de ${originCity} a ${festival.shortName}?`,
-      a: `${originData.km < 50 ? `${originCity} y ${festival.city} están muy cerca (${originData.km} km), por lo que casi siempre hay autobuses urbanos o de cercanías que conectan ambas localidades en horario diurno.` : `No suele existir autobús directo de larga distancia ${originCity}–${festival.shortName}: las líneas de bus llegan a la ciudad cabecera del festival (${festival.city}) y de ahí hace falta lanzadera o taxi al recinto.`} El carpooling con ConcertRide (${originData.concertRideRange}) llega directamente al recinto y permite vuelta a cualquier hora.`,
+      a: `${originData.km < 50
+        ? `${originCity} y ${festival.city} están muy cerca (${originData.km} km), por lo que suele haber autobuses urbanos o de cercanías en horario diurno. Sin embargo, el transporte nocturno de madrugada (02:00–06:00h) es muy limitado o inexistente. Para la vuelta después del festival, el carpooling organizado con ConcertRide (${originData.concertRideRange}) es la opción más fiable.`
+        : `No suele existir autobús directo de larga distancia ${originCity}–${festival.shortName}: las líneas de bus llegan a la ciudad cabecera (${festival.city}) y desde allí hace falta una lanzadera o taxi hasta el recinto. Además, los autobuses no operan de madrugada, por lo que la vuelta después del festival en transporte público es prácticamente imposible.`
+      } El carpooling con ConcertRide (${originData.concertRideRange}) llega directamente al recinto y permite vuelta coordinada a cualquier hora de la noche.`,
     },
     {
       q: `¿Es seguro el carpooling a ${festival.shortName} con ConcertRide?`,
-      a: `Todos los conductores verifican su carnet de conducir antes de publicar. Puedes ver su perfil completo, valoraciones de otros pasajeros y el chat del evento. El pago siempre es en persona — nunca adelantas dinero.`,
+      a: `Sí. Todos los conductores verifican su carnet de conducir antes de poder publicar viajes en ConcertRide. Puedes ver el perfil completo de cada conductor, sus valoraciones de viajes anteriores, el número de viajes completados y el chat del evento para coordinarte. El pago siempre se hace en persona el día del viaje, en efectivo o Bizum — nunca adelantas dinero online. En caso de cancelación, recibes notificación directa del conductor.`,
+    },
+    {
+      q: `¿Cuánto cuesta comparado con el taxi o VTC de ${originCity} a ${festival.shortName}?`,
+      a: `Un taxi o VTC (Uber, Cabify) de ${originCity} al recinto de ${festival.shortName} en horario nocturno puede costar entre ${Math.round(originData.km * 0.8)}€ y ${Math.round(originData.km * 1.4)}€ por trayecto completo, dependiendo de la tarifa nocturna y el precio dinámico durante el festival. El carpooling con ConcertRide cuesta ${originData.concertRideRange}/asiento — entre 4 y 8 veces más barato para distancias superiores a 80 km. Si el taxi ha de volver vacío desde el recinto, el precio sube todavía más.`,
     },
   ];
 
@@ -334,38 +345,40 @@ export default function RouteLandingPage() {
     ];
   })();
 
-  const jsonLdService = {
+  const jsonLdService = generateServiceSchema({
+    originCity,
+    festivalShortName: festival.shortName,
+    festivalName: festival.name,
+    routeSlug: landing.slug,
+    priceMin,
+    priceMax,
+    siteUrl: SITE_URL,
+  });
+
+  const jsonLdTripAction = {
     "@context": "https://schema.org",
-    "@type": "Service",
-    "@id": `${SITE_URL}/rutas/${landing.slug}#service`,
+    "@type": "TripAction",
     name: `Carpooling ${originCity} → ${festival.shortName}`,
-    description: `Servicio de coche compartido de ${originCity} a ${festival.name}. Sin comisión (0%). Conductores verificados. Pago en efectivo o Bizum.`,
-    serviceType: "Carpooling",
-    url: `${SITE_URL}/rutas/${landing.slug}`,
-    provider: {
-      "@type": "Organization",
-      "@id": `${SITE_URL}/#organization`,
-      name: "ConcertRide ES",
-    },
-    areaServed: {
-      "@type": "Country",
-      name: "España",
-      sameAs: "https://www.wikidata.org/wiki/Q29",
-    },
-    offers: {
-      "@type": "Offer",
-      name: `Asiento carpooling ${originCity} → ${festival.shortName}`,
-      price: priceMin,
-      priceSpecification: {
-        "@type": "PriceSpecification",
-        minPrice: priceMin,
-        maxPrice: priceMax,
-        priceCurrency: "EUR",
-        unitText: "por asiento",
+    fromLocation: {
+      "@type": "Place",
+      name: originCity,
+      address: {
+        "@type": "PostalAddress",
+        addressLocality: originCity,
+        addressCountry: "ES",
       },
-      priceCurrency: "EUR",
-      availability: "https://schema.org/InStock",
-      url: `${SITE_URL}/rutas/${landing.slug}`,
+    },
+    toLocation: {
+      "@type": "Place",
+      name: festival.venue || festival.name,
+      address: {
+        "@type": "PostalAddress",
+        addressLocality: festival.city,
+        addressCountry: "ES",
+      },
+    },
+    provider: {
+      "@id": "https://concertride.me/#organization",
     },
   };
 
@@ -413,6 +426,7 @@ export default function RouteLandingPage() {
     <main id="main" className="min-h-dvh bg-cr-bg text-cr-text pt-14">
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdBreadcrumb) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdTrip) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdTripAction) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdFaq) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdWebPage) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdService) }} />
@@ -463,35 +477,36 @@ export default function RouteLandingPage() {
       {/* ── Route detail ── */}
       <section className="max-w-6xl mx-auto px-6 pb-16 border-t border-cr-border pt-12 space-y-6">
         <h2 className="font-display text-2xl md:text-3xl uppercase">
-          Detalles de la ruta
+          Carpooling {originCity} → {festival.shortName} {routeYear}: detalles de la ruta
         </h2>
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
           <article className="border border-cr-border p-4 space-y-2">
-            <h3 className="font-display text-base uppercase text-cr-primary">Origen</h3>
+            <h3 className="font-display text-base uppercase text-cr-primary">Origen: {originCity}</h3>
             <p className="font-sans text-sm text-cr-text-muted">{originCity}</p>
           </article>
           <article className="border border-cr-border p-4 space-y-2">
-            <h3 className="font-display text-base uppercase text-cr-primary">Destino</h3>
+            <h3 className="font-display text-base uppercase text-cr-primary">Destino: {festival.shortName} ({festival.city})</h3>
             <p className="font-sans text-sm text-cr-text-muted">{festival.venue}, {festival.city}</p>
           </article>
           <article className="border border-cr-border p-4 space-y-2">
-            <h3 className="font-display text-base uppercase text-cr-primary">Precio estimado</h3>
+            <h3 className="font-display text-base uppercase text-cr-primary">Precio carpooling {originCity} → {festival.shortName}</h3>
             <p className="font-sans text-sm text-cr-text-muted">
               {originData.concertRideRange}. Sin comisión —
               el 100&nbsp;% va al conductor.
             </p>
                 <AutoLinksForFestival slug={festival.slug} />
+                <AutoLinksForRoute originCitySlug={landing.originCitySlug} festivalSlug={festival.slug} />
           </article>
           <article className="border border-cr-border p-4 space-y-2">
-            <h3 className="font-display text-base uppercase text-cr-primary">Distancia</h3>
+            <h3 className="font-display text-base uppercase text-cr-primary">Distancia {originCity}–{festival.city}</h3>
             <p className="font-sans text-sm text-cr-text-muted">{originData.km} km por carretera</p>
           </article>
           <article className="border border-cr-border p-4 space-y-2">
-            <h3 className="font-display text-base uppercase text-cr-primary">Tiempo</h3>
+            <h3 className="font-display text-base uppercase text-cr-primary">Tiempo de viaje {originCity} a {festival.shortName}</h3>
             <p className="font-sans text-sm text-cr-text-muted">{originData.drivingTime} de conducción estimada</p>
           </article>
           <article className="border border-cr-border p-4 space-y-2">
-            <h3 className="font-display text-base uppercase text-cr-primary">Festival</h3>
+            <h3 className="font-display text-base uppercase text-cr-primary">Fechas {festival.shortName} {routeYear}</h3>
             <p className="font-sans text-sm text-cr-text-muted">{festival.typicalDates} · {festival.capacity}</p>
           </article>
         </div>
@@ -515,10 +530,10 @@ export default function RouteLandingPage() {
       {/* ── Viajes disponibles ── */}
       <section className="max-w-6xl mx-auto px-6 pb-16 border-t border-cr-border pt-12">
         <h2 className="font-display text-2xl md:text-3xl uppercase mb-2">
-          Conciertos en {festival.city}
+          Próximos conciertos en {festival.city} con carpooling desde {originCity}
         </h2>
         <p className="font-sans text-sm text-cr-text-muted mb-8 max-w-xl">
-          Eventos próximos en {festival.city} con viajes desde {originCity}.
+          Eventos próximos en {festival.city} con viajes compartidos publicados desde {originCity}.
         </p>
 
         {concerts === null ? (
@@ -565,7 +580,7 @@ export default function RouteLandingPage() {
       {/* ── Transport comparison table — citable for "X vs Y" queries ── */}
       <section className="max-w-6xl mx-auto px-6 pb-16 border-t border-cr-border pt-12 space-y-6">
         <h2 className="font-display text-2xl md:text-3xl uppercase">
-          Comparativa de transporte {originCity} → {festival.shortName}
+          Comparativa de transporte {originCity} → {festival.shortName} {routeYear}: precio, tiempo y comisión
         </h2>
         <div className="overflow-x-auto">
           <table className="w-full font-sans text-xs border-collapse">
@@ -618,7 +633,7 @@ export default function RouteLandingPage() {
       {/* ── FAQ ── */}
       <section className="max-w-6xl mx-auto px-6 pb-16 border-t border-cr-border pt-12 space-y-6">
         <h2 className="font-display text-2xl md:text-3xl uppercase">
-          Preguntas frecuentes
+          Preguntas frecuentes sobre carpooling {originCity} → {festival.shortName}
         </h2>
         <dl className="space-y-6">
           {routeFaqs.map((faq) => (
@@ -633,7 +648,7 @@ export default function RouteLandingPage() {
       {/* ── Links internos ── */}
       <section className="max-w-6xl mx-auto px-6 pb-24 border-t border-cr-border pt-10 space-y-4">
         <h2 className="font-display text-lg uppercase text-cr-text-muted">
-          Más información
+          Más rutas de carpooling desde {originCity} y a {festival.shortName}
         </h2>
         <ul className="flex flex-wrap gap-2">
           <li>

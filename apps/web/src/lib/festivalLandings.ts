@@ -1376,6 +1376,33 @@ export const FESTIVAL_LANDINGS: FestivalLanding[] = [
       },
     ],
     relatedFestivals: ["medusa-festival", "arenal-sound", "fib"],
+    transport_options: [
+      { type: 'metro', provider: 'Metrovalencia L4', origin: 'Centro de Valencia', price_from: 1, price_to: 2, frequency: 'Cada 10–15 min (ampliado en noches de festival hasta ~2:00)', schedule: '06:00–01:30 (ampliado festivos)', notes: 'Paradas Marítim-Serreria o Neptú, a 5–8 min a pie del recinto.' },
+      { type: 'bus', provider: 'EMT Valencia', origin: 'Centro de Valencia', price_from: 1, price_to: 2, frequency: 'Líneas 19 y 95, horario diurno y parte del nocturno', notes: 'No cubre las salidas más tardías de madrugada.' },
+      { type: 'carpooling', provider: 'ConcertRide', origin: 'Madrid', price_from: 10, price_to: 14 },
+      { type: 'carpooling', provider: 'ConcertRide', origin: 'Alicante', price_from: 5, price_to: 8 },
+      { type: 'carpooling', provider: 'ConcertRide', origin: 'Barcelona', price_from: 10, price_to: 14 },
+    ],
+    official_shuttle: {
+      available: false,
+      notes: 'No hay lanzadera oficial. Acceso recomendado: metro L4 (Marítim-Serreria o Neptú) desde el centro de Valencia. Parking en Moll de la Duana limitado en días de festival.',
+    },
+    common_pickup_points: [
+      {
+        name: 'Valencia — Estació del Nord',
+        lat: 39.4652, lng: -0.3774,
+        address: 'Carrer de Xàtiva, 24, 46007 Valencia',
+        transport_access: 'Metro L3, L5 Xàtiva. Cercanías C4.',
+        notes: 'Punto de salida habitual para carpoolings Madrid/Alicante → Zevra.',
+      },
+      {
+        name: 'La Marina de València — Moll de la Duana',
+        lat: 39.457, lng: -0.336,
+        address: 'Moll de la Duana, 46024 Valencia',
+        transport_access: 'Metro L4 Marítim-Serreria (5 min a pie). Bus EMT 19 y 95.',
+        notes: 'Recinto del festival. Parking público disponible (2–3 €/h).',
+      },
+    ],
   },
 
   {

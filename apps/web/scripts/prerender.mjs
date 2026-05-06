@@ -67,6 +67,7 @@ const CITY_YEAR_LANDING_SLUGS = CITY_YEAR_SLUGS ?? [];
 const ROUTES = [
   ...STATIC_ROUTES,
   ...FESTIVAL_SLUGS.map((slug) => `/festivales/${slug}`),
+  ...FESTIVAL_SLUGS.map((slug) => `/festivales/${slug}/guia`),
   ...CITY_SLUGS.map((slug) => `/conciertos/${slug}`),
   ...CITY_YEAR_LANDING_SLUGS.map((slug) => `/conciertos/${slug}`),
   ...BLOG_POST_SLUGS.map((slug) => `/blog/${slug}`),
@@ -77,7 +78,7 @@ const ROUTES = [
   ...HOW_TO_GET_THERE_SLUGS.map((slug) => `/como-llegar/${slug}`),
 ];
 
-console.log(`[prerender] ${ROUTES.length} routes (${FESTIVAL_SLUGS.length} festivals, ${CITY_SLUGS.length} cities, ${CITY_YEAR_LANDING_SLUGS.length} city-year, ${BLOG_POST_SLUGS.length} blog posts, ${ROUTE_LANDING_SLUGS.length} routes, ${ARTIST_LANDING_SLUGS.length} artists, ${VENUE_LANDING_SLUGS.length} venues, ${REGION_LANDING_SLUGS.length} regions, ${HOW_TO_GET_THERE_SLUGS.length} how-to-get-there)`);
+console.log(`[prerender] ${ROUTES.length} routes (${FESTIVAL_SLUGS.length} festivals + ${FESTIVAL_SLUGS.length} guias, ${CITY_SLUGS.length} cities, ${CITY_YEAR_LANDING_SLUGS.length} city-year, ${BLOG_POST_SLUGS.length} blog posts, ${ROUTE_LANDING_SLUGS.length} routes, ${ARTIST_LANDING_SLUGS.length} artists, ${VENUE_LANDING_SLUGS.length} venues, ${REGION_LANDING_SLUGS.length} regions, ${HOW_TO_GET_THERE_SLUGS.length} how-to-get-there)`);
 
 let ok = 0;
 let failed = 0;

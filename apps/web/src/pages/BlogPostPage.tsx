@@ -5,7 +5,7 @@ import { useSeoMeta } from "@/lib/useSeoMeta";
 import { SITE_URL } from "@/lib/siteUrl";
 import { BLOG_POSTS_BY_SLUG, BLOG_CATEGORIES } from "@/lib/blogPosts";
 import { FESTIVAL_LANDINGS_BY_SLUG } from "@/lib/festivalLandings";
-import { AutoLinksForFestival } from "@/lib/autoLinking";
+import { AutoLinksForFestival, AutoLinksForBlog } from "@/lib/autoLinking";
 import { trackBlogView } from "@/lib/seoEvents";
 
 export default function BlogPostPage() {
@@ -36,10 +36,14 @@ export default function BlogPostPage() {
     canonical: post ? `${SITE_URL}/blog/${post.slug}` : `${SITE_URL}/blog`,
     keywords: post?.tags.join(", "),
     ogType: "article",
+    ogImageAlt: post
+      ? `${post.title} — guía de transporte y carpooling — ConcertRide`
+      : "Blog de transporte y carpooling para conciertos — ConcertRide",
     articleAuthor: post?.author,
     articlePublishedTime: post?.publishedAt,
     articleModifiedTime: post?.updatedAt ?? post?.publishedAt,
     articleSection: post ? BLOG_CATEGORIES.find((c) => c.slug === post.category)?.label : undefined,
+    articleTags: post?.tags,
     noindex: !post,
     // GEO hints when the post is explicitly about a festival/how-to page
     geoRegion: relatedFestival ? relatedFestival.region : undefined,
@@ -128,11 +132,13 @@ export default function BlogPostPage() {
       cssSelector: ["h1", ".speakable", "article p:first-of-type"],
     },
     isPartOf: { "@id": `${SITE_URL}/#website` },
-    about: {
-      "@type": "Thing",
-      name: post.tags[0] ?? "Carpooling festivales España",
-      ...(ENTITY_SAME_AS[post.tags[0] ?? ""] ? { sameAs: ENTITY_SAME_AS[post.tags[0] ?? ""] } : {}),
-    },
+    about: (post.tags ?? []).length > 0
+      ? (post.tags ?? []).map((tag: string) => ({
+          "@type": "Thing",
+          name: tag,
+          ...(ENTITY_SAME_AS[tag] ? { sameAs: ENTITY_SAME_AS[tag] } : {}),
+        }))
+      : { "@type": "Thing", name: "Carpooling festivales España" },
     mentions: (post.tags ?? []).map((tag: string) => ({
       "@type": "Thing",
       name: tag,
@@ -239,6 +245,9 @@ export default function BlogPostPage() {
             )}
           </section>
         ))}
+
+        {/* ── Auto contextual links (festival/route cross-links) ── */}
+        {slug && <AutoLinksForBlog slug={slug} />}
 
         {/* ── FAQ ── */}
         {post.faqs && post.faqs.length > 0 && (
