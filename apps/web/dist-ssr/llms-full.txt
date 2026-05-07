@@ -281,278 +281,6 @@ Web: [concertride.me](https://concertride.me/)
 Last updated: 2026-05-03 (rev21: low-festival citySlug fixed malaga→alicante; FestivalesPage duplicate ItemList JSON-LD removed)
 ---
 
-## Tabla completa de rutas (263 rutas)
-
-Precio calculado como coste de combustible + peajes dividido entre los ocupantes, sin comisión de plataforma. Precios en EUR por asiento.
-
-| Ruta | Festival | Destino | km | Tiempo | Precio/asiento | URL |
-|---|---|---|---:|---|---|---|
-| Alicante → Arenal Sound | Arenal Sound | Burriana | 115 | 1h 15 min | 4–7 €/asiento | https://concertride.me/rutas/alicante-arenal-sound |
-| Barcelona → Arenal Sound | Arenal Sound | Burriana | 305 | 2h 50 min | 8–12 €/asiento | https://concertride.me/rutas/barcelona-arenal-sound |
-| Bilbao → Arenal Sound | Arenal Sound | Burriana | 480 | 4h 15 min | 13–17 €/asiento | https://concertride.me/rutas/bilbao-arenal-sound |
-| Burriana → Arenal Sound | Arenal Sound | Burriana | 2 | 5 min | 2–4 €/asiento | https://concertride.me/rutas/burriana-arenal-sound |
-| Castellón de la Plana → Arenal Sound | Arenal Sound | Burriana | 10 | 15 min | 3–5 €/asiento | https://concertride.me/rutas/castellon-de-la-plana-arenal-sound |
-| Donostia → Arenal Sound | Arenal Sound | Burriana | 480 | 4h 15 min | 13–17 €/asiento | https://concertride.me/rutas/donostia-arenal-sound |
-| Girona → Arenal Sound | Arenal Sound | Burriana | 440 | 4h | 12–17 €/asiento | https://concertride.me/rutas/girona-arenal-sound |
-| Lleida → Arenal Sound | Arenal Sound | Burriana | 195 | 1h 55 min | 6–10 €/asiento | https://concertride.me/rutas/lleida-arenal-sound |
-| Logroño → Arenal Sound | Arenal Sound | Burriana | 300 | 2h 45 min | 8–13 €/asiento | https://concertride.me/rutas/logrono-arenal-sound |
-| Madrid → Arenal Sound | Arenal Sound | Burriana | 460 | 4h | 12–17 €/asiento | https://concertride.me/rutas/madrid-arenal-sound |
-| Murcia → Arenal Sound | Arenal Sound | Burriana | 275 | 2h 30 min | 8–12 €/asiento | https://concertride.me/rutas/murcia-arenal-sound |
-| Pamplona → Arenal Sound | Arenal Sound | Burriana | 355 | 3h 15 min | 10–14 €/asiento | https://concertride.me/rutas/pamplona-arenal-sound |
-| Sevilla → Arenal Sound | Arenal Sound | Burriana | 650 | 5h 45 min | 17–23 €/asiento | https://concertride.me/rutas/sevilla-arenal-sound |
-| Tarragona → Arenal Sound | Arenal Sound | Burriana | 200 | 1h 50 min | 6–10 €/asiento | https://concertride.me/rutas/tarragona-arenal-sound |
-| Valencia → Arenal Sound | Arenal Sound | Burriana | 65 | 45 min | 3–6 €/asiento | https://concertride.me/rutas/valencia-arenal-sound |
-| Vitoria-Gasteiz → Arenal Sound | Arenal Sound | Burriana | 440 | 4h | 12–17 €/asiento | https://concertride.me/rutas/vitoria-gasteiz-arenal-sound |
-| Zaragoza → Arenal Sound | Arenal Sound | Burriana | 275 | 2h 30 min | 8–12 €/asiento | https://concertride.me/rutas/zaragoza-arenal-sound |
-| A Coruña → BBK Live | BBK Live | Bilbao | 470 | 4h 30 min | 13–18 €/asiento | https://concertride.me/rutas/a-coruna-bbk-live |
-| Barcelona → BBK Live | BBK Live | Bilbao | 615 | 5h | 15–20 €/asiento | https://concertride.me/rutas/barcelona-bbk-live |
-| Bilbao → BBK Live | BBK Live | Bilbao | 5 | 15 min | 3–5 €/asiento | https://concertride.me/rutas/bilbao-bbk-live |
-| Burgos → BBK Live | BBK Live | Bilbao | 155 | 1h 30 min | 5–8 €/asiento | https://concertride.me/rutas/burgos-bbk-live |
-| Donostia → BBK Live | BBK Live | Bilbao | 100 | 1h | 4–7 €/asiento | https://concertride.me/rutas/donostia-bbk-live |
-| Girona → BBK Live | BBK Live | Bilbao | 720 | 6h 15 min | 18–25 €/asiento | https://concertride.me/rutas/girona-bbk-live |
-| Logroño → BBK Live | BBK Live | Bilbao | 115 | 1h | 4–7 €/asiento | https://concertride.me/rutas/logrono-bbk-live |
-| Madrid → BBK Live | BBK Live | Bilbao | 395 | 3h 30 min | 11–16 €/asiento | https://concertride.me/rutas/madrid-bbk-live |
-| Oviedo → BBK Live | BBK Live | Bilbao | 290 | 2h 45 min | 8–13 €/asiento | https://concertride.me/rutas/oviedo-bbk-live |
-| Pamplona → BBK Live | BBK Live | Bilbao | 155 | 1h 30 min | 5–8 €/asiento | https://concertride.me/rutas/pamplona-bbk-live |
-| Santander → BBK Live | BBK Live | Bilbao | 100 | 1h | 4–7 €/asiento | https://concertride.me/rutas/santander-bbk-live |
-| Sevilla → BBK Live | BBK Live | Bilbao | 775 | 6h 45 min | 20–27 €/asiento | https://concertride.me/rutas/sevilla-bbk-live |
-| Tarragona → BBK Live | BBK Live | Bilbao | 660 | 5h 45 min | 17–23 €/asiento | https://concertride.me/rutas/tarragona-bbk-live |
-| Valladolid → BBK Live | BBK Live | Bilbao | 280 | 2h 30 min | 8–12 €/asiento | https://concertride.me/rutas/valladolid-bbk-live |
-| Vitoria-Gasteiz → BBK Live | BBK Live | Bilbao | 65 | 45 min | 3–6 €/asiento | https://concertride.me/rutas/vitoria-gasteiz-bbk-live |
-| Zaragoza → BBK Live | BBK Live | Bilbao | 310 | 2h 45 min | 9–13 €/asiento | https://concertride.me/rutas/zaragoza-bbk-live |
-| Almería → Cala Mijas | Cala Mijas | Mijas | 190 | 2h | 6–9 €/asiento | https://concertride.me/rutas/almeria-cala-mijas |
-| Badajoz → Cala Mijas | Cala Mijas | Mijas | 430 | 3h 45 min | 12–17 €/asiento | https://concertride.me/rutas/badajoz-cala-mijas |
-| Barcelona → Cala Mijas | Cala Mijas | Mijas | 920 | 8h | 23–32 €/asiento | https://concertride.me/rutas/barcelona-cala-mijas |
-| Cádiz → Cala Mijas | Cala Mijas | Mijas | 200 | 2h | 6–10 €/asiento | https://concertride.me/rutas/cadiz-cala-mijas |
-| Cartagena → Cala Mijas | Cala Mijas | Mijas | 370 | 3h 15 min | 10–15 €/asiento | https://concertride.me/rutas/cartagena-cala-mijas |
-| Córdoba → Cala Mijas | Cala Mijas | Mijas | 190 | 2h | 6–9 €/asiento | https://concertride.me/rutas/cordoba-cala-mijas |
-| Fuengirola → Cala Mijas | Cala Mijas | Mijas | 35 | 35 min | 3–5 €/asiento | https://concertride.me/rutas/fuengirola-cala-mijas |
-| Granada → Cala Mijas | Cala Mijas | Mijas | 125 | 1h 30 min | 5–8 €/asiento | https://concertride.me/rutas/granada-cala-mijas |
-| Huelva → Cala Mijas | Cala Mijas | Mijas | 255 | 2h 30 min | 8–12 €/asiento | https://concertride.me/rutas/huelva-cala-mijas |
-| Jaén → Cala Mijas | Cala Mijas | Mijas | 150 | 1h 30 min | 5–8 €/asiento | https://concertride.me/rutas/jaen-cala-mijas |
-| Jerez de la Frontera → Cala Mijas | Cala Mijas | Mijas | 220 | 2h 10 min | 7–11 €/asiento | https://concertride.me/rutas/jerez-de-la-frontera-cala-mijas |
-| Logroño → Cala Mijas | Cala Mijas | Mijas | 640 | 5h 30 min | 16–22 €/asiento | https://concertride.me/rutas/logrono-cala-mijas |
-| Madrid → Cala Mijas | Cala Mijas | Mijas | 540 | 4h 45 min | 14–19 €/asiento | https://concertride.me/rutas/madrid-cala-mijas |
-| Málaga → Cala Mijas | Cala Mijas | Mijas | 25 | 25 min | 3–5 €/asiento | https://concertride.me/rutas/malaga-cala-mijas |
-| Marbella → Cala Mijas | Cala Mijas | Mijas | 50 | 45 min | 3–6 €/asiento | https://concertride.me/rutas/marbella-cala-mijas |
-| Mijas → Cala Mijas | Cala Mijas | Mijas | 30 | 30 min | 3–5 €/asiento | https://concertride.me/rutas/mijas-cala-mijas |
-| Sevilla → Cala Mijas | Cala Mijas | Mijas | 200 | 2h | 6–9 €/asiento | https://concertride.me/rutas/sevilla-cala-mijas |
-| Valencia → Cala Mijas | Cala Mijas | Mijas | 640 | 5h 30 min | 16–22 €/asiento | https://concertride.me/rutas/valencia-cala-mijas |
-| A Coruña → Cruïlla | Cruïlla | Barcelona | 1100 | 10h | 28–38 €/asiento | https://concertride.me/rutas/a-coruna-cruilla |
-| Alicante → Cruïlla | Cruïlla | Barcelona | 510 | 4h 30 min | 14–19 €/asiento | https://concertride.me/rutas/alicante-cruilla |
-| Bilbao → Cruïlla | Cruïlla | Barcelona | 615 | 5h | 15–20 €/asiento | https://concertride.me/rutas/bilbao-cruilla |
-| Donostia → Cruïlla | Cruïlla | Barcelona | 565 | 5h | 15–20 €/asiento | https://concertride.me/rutas/donostia-cruilla |
-| Girona → Cruïlla | Cruïlla | Barcelona | 100 | 1h | 4–7 €/asiento | https://concertride.me/rutas/girona-cruilla |
-| Lleida → Cruïlla | Cruïlla | Barcelona | 170 | 1h 45 min | 5–8 €/asiento | https://concertride.me/rutas/lleida-cruilla |
-| Madrid → Cruïlla | Cruïlla | Barcelona | 620 | 5h 30 min | 15–20 €/asiento | https://concertride.me/rutas/madrid-cruilla |
-| Málaga → Cruïlla | Cruïlla | Barcelona | 920 | 8h | 23–32 €/asiento | https://concertride.me/rutas/malaga-cruilla |
-| Murcia → Cruïlla | Cruïlla | Barcelona | 620 | 5h 30 min | 16–22 €/asiento | https://concertride.me/rutas/murcia-cruilla |
-| Pamplona → Cruïlla | Cruïlla | Barcelona | 415 | 3h 45 min | 12–17 €/asiento | https://concertride.me/rutas/pamplona-cruilla |
-| Santander → Cruïlla | Cruïlla | Barcelona | 625 | 5h 30 min | 16–22 €/asiento | https://concertride.me/rutas/santander-cruilla |
-| Sevilla → Cruïlla | Cruïlla | Barcelona | 1000 | 9h | 25–35 €/asiento | https://concertride.me/rutas/sevilla-cruilla |
-| Tarragona → Cruïlla | Cruïlla | Barcelona | 100 | 1h | 4–7 €/asiento | https://concertride.me/rutas/tarragona-cruilla |
-| Valencia → Cruïlla | Cruïlla | Barcelona | 355 | 3h 15 min | 10–14 €/asiento | https://concertride.me/rutas/valencia-cruilla |
-| Vitoria-Gasteiz → Cruïlla | Cruïlla | Barcelona | 540 | 4h 45 min | 14–19 €/asiento | https://concertride.me/rutas/vitoria-gasteiz-cruilla |
-| Zaragoza → Cruïlla | Cruïlla | Barcelona | 306 | 2h 45 min | 8–12 €/asiento | https://concertride.me/rutas/zaragoza-cruilla |
-| Alicante → FIB | FIB | Benicàssim | 175 | 1h 45 min | 5–8 €/asiento | https://concertride.me/rutas/alicante-fib |
-| Barcelona → FIB | FIB | Benicàssim | 300 | 2h 45 min | 8–12 €/asiento | https://concertride.me/rutas/barcelona-fib |
-| Bilbao → FIB | FIB | Benicàssim | 480 | 4h 15 min | 13–17 €/asiento | https://concertride.me/rutas/bilbao-fib |
-| Castellón de la Plana → FIB | FIB | Benicàssim | 15 | 20 min | 3–5 €/asiento | https://concertride.me/rutas/castellon-de-la-plana-fib |
-| Girona → FIB | FIB | Benicàssim | 330 | 3h | 9–13 €/asiento | https://concertride.me/rutas/girona-fib |
-| Lleida → FIB | FIB | Benicàssim | 195 | 1h 55 min | 6–10 €/asiento | https://concertride.me/rutas/lleida-fib |
-| Logroño → FIB | FIB | Benicàssim | 290 | 2h 45 min | 8–12 €/asiento | https://concertride.me/rutas/logrono-fib |
-| Madrid → FIB | FIB | Benicàssim | 465 | 4h | 12–17 €/asiento | https://concertride.me/rutas/madrid-fib |
-| Murcia → FIB | FIB | Benicàssim | 240 | 2h 15 min | 7–11 €/asiento | https://concertride.me/rutas/murcia-fib |
-| Pamplona → FIB | FIB | Benicàssim | 355 | 3h 15 min | 10–14 €/asiento | https://concertride.me/rutas/pamplona-fib |
-| Santander → FIB | FIB | Benicàssim | 575 | 5h | 15–20 €/asiento | https://concertride.me/rutas/santander-fib |
-| Sevilla → FIB | FIB | Benicàssim | 660 | 5h 45 min | 17–23 €/asiento | https://concertride.me/rutas/sevilla-fib |
-| Tarragona → FIB | FIB | Benicàssim | 200 | 2h | 6–10 €/asiento | https://concertride.me/rutas/tarragona-fib |
-| Valencia → FIB | FIB | Benicàssim | 70 | 50 min | 3–6 €/asiento | https://concertride.me/rutas/valencia-fib |
-| Vitoria-Gasteiz → FIB | FIB | Benicàssim | 440 | 4h | 12–17 €/asiento | https://concertride.me/rutas/vitoria-gasteiz-fib |
-| Zaragoza → FIB | FIB | Benicàssim | 270 | 2h 30 min | 7–11 €/asiento | https://concertride.me/rutas/zaragoza-fib |
-| Albacete → Low Festival | Low Festival | Benidorm | 130 | 1h 20 min | 5–8 €/asiento | https://concertride.me/rutas/albacete-low-festival |
-| Alicante → Low Festival | Low Festival | Benidorm | 45 | 35 min | 3–5 €/asiento | https://concertride.me/rutas/alicante-low-festival |
-| Barcelona → Low Festival | Low Festival | Benidorm | 500 | 4h 30 min | 13–18 €/asiento | https://concertride.me/rutas/barcelona-low-festival |
-| Bilbao → Low Festival | Low Festival | Benidorm | 625 | 5h 30 min | 16–22 €/asiento | https://concertride.me/rutas/bilbao-low-festival |
-| Castellón de la Plana → Low Festival | Low Festival | Benidorm | 140 | 1h 20 min | 5–8 €/asiento | https://concertride.me/rutas/castellon-de-la-plana-low-festival |
-| Donostia → Low Festival | Low Festival | Benidorm | 700 | 6h | 18–25 €/asiento | https://concertride.me/rutas/donostia-low-festival |
-| Granada → Low Festival | Low Festival | Benidorm | 430 | 4h | 12–17 €/asiento | https://concertride.me/rutas/granada-low-festival |
-| Madrid → Low Festival | Low Festival | Benidorm | 440 | 4h | 12–17 €/asiento | https://concertride.me/rutas/madrid-low-festival |
-| Murcia → Low Festival | Low Festival | Benidorm | 90 | 1h | 4–7 €/asiento | https://concertride.me/rutas/murcia-low-festival |
-| Pamplona → Low Festival | Low Festival | Benidorm | 490 | 4h 30 min | 13–18 €/asiento | https://concertride.me/rutas/pamplona-low-festival |
-| Sevilla → Low Festival | Low Festival | Benidorm | 590 | 5h 15 min | 15–21 €/asiento | https://concertride.me/rutas/sevilla-low-festival |
-| Tarragona → Low Festival | Low Festival | Benidorm | 370 | 3h 20 min | 10–14 €/asiento | https://concertride.me/rutas/tarragona-low-festival |
-| Toledo → Low Festival | Low Festival | Benidorm | 360 | 3h 20 min | 10–14 €/asiento | https://concertride.me/rutas/toledo-low-festival |
-| Valencia → Low Festival | Low Festival | Benidorm | 150 | 1h 30 min | 5–8 €/asiento | https://concertride.me/rutas/valencia-low-festival |
-| Vitoria-Gasteiz → Low Festival | Low Festival | Benidorm | 590 | 5h 15 min | 15–20 €/asiento | https://concertride.me/rutas/vitoria-gasteiz-low-festival |
-| Zaragoza → Low Festival | Low Festival | Benidorm | 395 | 3h 40 min | 11–15 €/asiento | https://concertride.me/rutas/zaragoza-low-festival |
-| Alicante → Mad Cool | Mad Cool | Madrid | 430 | 4h | 12–17 €/asiento | https://concertride.me/rutas/alicante-mad-cool |
-| Barcelona → Mad Cool | Mad Cool | Madrid | 620 | 5h 30 min | 15–20 €/asiento | https://concertride.me/rutas/barcelona-mad-cool |
-| Bilbao → Mad Cool | Mad Cool | Madrid | 395 | 3h 30 min | 11–16 €/asiento | https://concertride.me/rutas/bilbao-mad-cool |
-| Burgos → Mad Cool | Mad Cool | Madrid | 240 | 2h 15 min | 7–11 €/asiento | https://concertride.me/rutas/burgos-mad-cool |
-| Donostia → Mad Cool | Mad Cool | Madrid | 465 | 4h 15 min | 13–17 €/asiento | https://concertride.me/rutas/donostia-mad-cool |
-| Guadalajara → Mad Cool | Mad Cool | Madrid | 60 | 50 min | 3–6 €/asiento | https://concertride.me/rutas/guadalajara-mad-cool |
-| Madrid → Mad Cool | Mad Cool | Madrid | 15 | 25 min | 4–7 €/asiento | https://concertride.me/rutas/madrid-mad-cool |
-| Murcia → Mad Cool | Mad Cool | Madrid | 480 | 4h 30 min | 13–18 €/asiento | https://concertride.me/rutas/murcia-mad-cool |
-| Pamplona → Mad Cool | Mad Cool | Madrid | 390 | 3h 30 min | 11–15 €/asiento | https://concertride.me/rutas/pamplona-mad-cool |
-| Salamanca → Mad Cool | Mad Cool | Madrid | 210 | 2h | 7–11 €/asiento | https://concertride.me/rutas/salamanca-mad-cool |
-| Santander → Mad Cool | Mad Cool | Madrid | 390 | 3h 30 min | 11–15 €/asiento | https://concertride.me/rutas/santander-mad-cool |
-| Segovia → Mad Cool | Mad Cool | Madrid | 90 | 1h 10 min | 4–7 €/asiento | https://concertride.me/rutas/segovia-mad-cool |
-| Sevilla → Mad Cool | Mad Cool | Madrid | 525 | 4h 45 min | 14–19 €/asiento | https://concertride.me/rutas/sevilla-mad-cool |
-| Tarragona → Mad Cool | Mad Cool | Madrid | 540 | 4h 45 min | 14–19 €/asiento | https://concertride.me/rutas/tarragona-mad-cool |
-| Toledo → Mad Cool | Mad Cool | Madrid | 75 | 55 min | 4–7 €/asiento | https://concertride.me/rutas/toledo-mad-cool |
-| Valencia → Mad Cool | Mad Cool | Madrid | 355 | 3h 20 min | 10–14 €/asiento | https://concertride.me/rutas/valencia-mad-cool |
-| Valladolid → Mad Cool | Mad Cool | Madrid | 195 | 2h | 6–10 €/asiento | https://concertride.me/rutas/valladolid-mad-cool |
-| Vitoria-Gasteiz → Mad Cool | Mad Cool | Madrid | 350 | 3h 10 min | 10–14 €/asiento | https://concertride.me/rutas/vitoria-gasteiz-mad-cool |
-| Zaragoza → Mad Cool | Mad Cool | Madrid | 325 | 3h | 9–13 €/asiento | https://concertride.me/rutas/zaragoza-mad-cool |
-| Alicante → Medusa | Medusa | Cullera | 100 | 1h | 4–7 €/asiento | https://concertride.me/rutas/alicante-medusa-festival |
-| Barcelona → Medusa | Medusa | Cullera | 375 | 3h 30 min | 10–14 €/asiento | https://concertride.me/rutas/barcelona-medusa-festival |
-| Bilbao → Medusa | Medusa | Cullera | 605 | 5h 15 min | 15–21 €/asiento | https://concertride.me/rutas/bilbao-medusa-festival |
-| Castellón de la Plana → Medusa | Medusa | Cullera | 105 | 1h | 4–7 €/asiento | https://concertride.me/rutas/castellon-de-la-plana-medusa-festival |
-| Girona → Medusa | Medusa | Cullera | 490 | 4h 30 min | 14–19 €/asiento | https://concertride.me/rutas/girona-medusa-festival |
-| Granada → Medusa | Medusa | Cullera | 470 | 4h 15 min | 13–17 €/asiento | https://concertride.me/rutas/granada-medusa-festival |
-| Logroño → Medusa | Medusa | Cullera | 480 | 4h 15 min | 13–17 €/asiento | https://concertride.me/rutas/logrono-medusa-festival |
-| Madrid → Medusa | Medusa | Cullera | 385 | 3h 30 min | 10–14 €/asiento | https://concertride.me/rutas/madrid-medusa-festival |
-| Málaga → Medusa | Medusa | Cullera | 590 | 5h | 15–21 €/asiento | https://concertride.me/rutas/malaga-medusa-festival |
-| Murcia → Medusa | Medusa | Cullera | 180 | 1h 45 min | 5–8 €/asiento | https://concertride.me/rutas/murcia-medusa-festival |
-| Pamplona → Medusa | Medusa | Cullera | 430 | 4h | 12–17 €/asiento | https://concertride.me/rutas/pamplona-medusa-festival |
-| Sevilla → Medusa | Medusa | Cullera | 600 | 5h 15 min | 15–21 €/asiento | https://concertride.me/rutas/sevilla-medusa-festival |
-| Tarragona → Medusa | Medusa | Cullera | 380 | 3h 30 min | 10–14 €/asiento | https://concertride.me/rutas/tarragona-medusa-festival |
-| Valencia → Medusa | Medusa | Cullera | 45 | 40 min | 3–5 €/asiento | https://concertride.me/rutas/valencia-medusa-festival |
-| Vitoria-Gasteiz → Medusa | Medusa | Cullera | 580 | 5h | 15–20 €/asiento | https://concertride.me/rutas/vitoria-gasteiz-medusa-festival |
-| Zaragoza → Medusa | Medusa | Cullera | 320 | 3h | 9–13 €/asiento | https://concertride.me/rutas/zaragoza-medusa-festival |
-| A Coruña → Primavera Sound | Primavera Sound | Barcelona | 1100 | 10h | 28–38 €/asiento | https://concertride.me/rutas/a-coruna-primavera-sound |
-| Alicante → Primavera Sound | Primavera Sound | Barcelona | 510 | 4h 30 min | 14–19 €/asiento | https://concertride.me/rutas/alicante-primavera-sound |
-| Bilbao → Primavera Sound | Primavera Sound | Barcelona | 615 | 5h | 15–20 €/asiento | https://concertride.me/rutas/bilbao-primavera-sound |
-| Donostia → Primavera Sound | Primavera Sound | Barcelona | 565 | 5h | 15–20 €/asiento | https://concertride.me/rutas/donostia-primavera-sound |
-| Granada → Primavera Sound | Primavera Sound | Barcelona | 840 | 7h 30 min | 22–30 €/asiento | https://concertride.me/rutas/granada-primavera-sound |
-| Lleida → Primavera Sound | Primavera Sound | Barcelona | 170 | 1h 45 min | 5–8 €/asiento | https://concertride.me/rutas/lleida-primavera-sound |
-| Madrid → Primavera Sound | Primavera Sound | Barcelona | 620 | 5h 30 min | 15–20 €/asiento | https://concertride.me/rutas/madrid-primavera-sound |
-| Málaga → Primavera Sound | Primavera Sound | Barcelona | 920 | 8h | 23–32 €/asiento | https://concertride.me/rutas/malaga-primavera-sound |
-| Murcia → Primavera Sound | Primavera Sound | Barcelona | 620 | 5h 30 min | 16–22 €/asiento | https://concertride.me/rutas/murcia-primavera-sound |
-| Pamplona → Primavera Sound | Primavera Sound | Barcelona | 415 | 3h 45 min | 12–17 €/asiento | https://concertride.me/rutas/pamplona-primavera-sound |
-| Santander → Primavera Sound | Primavera Sound | Barcelona | 625 | 5h 30 min | 16–22 €/asiento | https://concertride.me/rutas/santander-primavera-sound |
-| Sevilla → Primavera Sound | Primavera Sound | Barcelona | 1000 | 9h | 25–35 €/asiento | https://concertride.me/rutas/sevilla-primavera-sound |
-| Tarragona → Primavera Sound | Primavera Sound | Barcelona | 100 | 1h | 4–7 €/asiento | https://concertride.me/rutas/tarragona-primavera-sound |
-| Valencia → Primavera Sound | Primavera Sound | Barcelona | 355 | 3h 15 min | 10–14 €/asiento | https://concertride.me/rutas/valencia-primavera-sound |
-| Vitoria-Gasteiz → Primavera Sound | Primavera Sound | Barcelona | 540 | 4h 45 min | 14–19 €/asiento | https://concertride.me/rutas/vitoria-gasteiz-primavera-sound |
-| Zaragoza → Primavera Sound | Primavera Sound | Barcelona | 306 | 2h 45 min | 8–12 €/asiento | https://concertride.me/rutas/zaragoza-primavera-sound |
-| A Coruña → Resurrection Fest | Resurrection Fest | Viveiro | 100 | 1h 15 min | 4–7 €/asiento | https://concertride.me/rutas/a-coruna-resurrection-fest |
-| Barcelona → Resurrection Fest | Resurrection Fest | Viveiro | 1100 | 10h | 28–38 €/asiento | https://concertride.me/rutas/barcelona-resurrection-fest |
-| Bilbao → Resurrection Fest | Resurrection Fest | Viveiro | 375 | 4h | 10–15 €/asiento | https://concertride.me/rutas/bilbao-resurrection-fest |
-| Burgos → Resurrection Fest | Resurrection Fest | Viveiro | 370 | 3h 30 min | 10–14 €/asiento | https://concertride.me/rutas/burgos-resurrection-fest |
-| Ferrol → Resurrection Fest | Resurrection Fest | Viveiro | 80 | 1h | 4–6 €/asiento | https://concertride.me/rutas/ferrol-resurrection-fest |
-| Gijón → Resurrection Fest | Resurrection Fest | Viveiro | 175 | 1h 45 min | 5–8 €/asiento | https://concertride.me/rutas/gijon-resurrection-fest |
-| León → Resurrection Fest | Resurrection Fest | Viveiro | 265 | 2h 30 min | 8–12 €/asiento | https://concertride.me/rutas/leon-resurrection-fest |
-| Lugo → Resurrection Fest | Resurrection Fest | Viveiro | 55 | 45 min | 3–5 €/asiento | https://concertride.me/rutas/lugo-resurrection-fest |
-| Madrid → Resurrection Fest | Resurrection Fest | Viveiro | 600 | 6h | 16–22 €/asiento | https://concertride.me/rutas/madrid-resurrection-fest |
-| Oviedo → Resurrection Fest | Resurrection Fest | Viveiro | 195 | 2h | 6–9 €/asiento | https://concertride.me/rutas/oviedo-resurrection-fest |
-| Pontevedra → Resurrection Fest | Resurrection Fest | Viveiro | 250 | 2h 30 min | 7–11 €/asiento | https://concertride.me/rutas/pontevedra-resurrection-fest |
-| Santiago de Compostela → Resurrection Fest | Resurrection Fest | Viveiro | 185 | 2h | 6–9 €/asiento | https://concertride.me/rutas/santiago-de-compostela-resurrection-fest |
-| Valladolid → Resurrection Fest | Resurrection Fest | Viveiro | 360 | 3h 15 min | 10–14 €/asiento | https://concertride.me/rutas/valladolid-resurrection-fest |
-| Vigo → Resurrection Fest | Resurrection Fest | Viveiro | 200 | 2h 15 min | 6–9 €/asiento | https://concertride.me/rutas/vigo-resurrection-fest |
-| Zaragoza → Resurrection Fest | Resurrection Fest | Viveiro | 680 | 6h | 18–25 €/asiento | https://concertride.me/rutas/zaragoza-resurrection-fest |
-| A Coruña → Son do Camiño | Son do Camiño | Santiago de Compostela | 70 | 50 min | 3–6 €/asiento | https://concertride.me/rutas/a-coruna-o-son-do-camino |
-| Barcelona → Son do Camiño | Son do Camiño | Santiago de Compostela | 1200 | 11h | 30–40 €/asiento | https://concertride.me/rutas/barcelona-o-son-do-camino |
-| Bilbao → Son do Camiño | Son do Camiño | Santiago de Compostela | 500 | 4h 30 min | 13–18 €/asiento | https://concertride.me/rutas/bilbao-o-son-do-camino |
-| Burgos → Son do Camiño | Son do Camiño | Santiago de Compostela | 410 | 3h 45 min | 11–15 €/asiento | https://concertride.me/rutas/burgos-o-son-do-camino |
-| Ferrol → Son do Camiño | Son do Camiño | Santiago de Compostela | 60 | 50 min | 3–5 €/asiento | https://concertride.me/rutas/ferrol-o-son-do-camino |
-| Gijón → Son do Camiño | Son do Camiño | Santiago de Compostela | 300 | 3h | 9–13 €/asiento | https://concertride.me/rutas/gijon-o-son-do-camino |
-| León → Son do Camiño | Son do Camiño | Santiago de Compostela | 290 | 2h 45 min | 8–12 €/asiento | https://concertride.me/rutas/leon-o-son-do-camino |
-| Lugo → Son do Camiño | Son do Camiño | Santiago de Compostela | 100 | 1h 10 min | 4–7 €/asiento | https://concertride.me/rutas/lugo-o-son-do-camino |
-| Madrid → Son do Camiño | Son do Camiño | Santiago de Compostela | 585 | 5h 30 min | 15–20 €/asiento | https://concertride.me/rutas/madrid-o-son-do-camino |
-| Oviedo → Son do Camiño | Son do Camiño | Santiago de Compostela | 295 | 3h | 9–13 €/asiento | https://concertride.me/rutas/oviedo-o-son-do-camino |
-| Pontevedra → Son do Camiño | Son do Camiño | Santiago de Compostela | 60 | 45 min | 3–5 €/asiento | https://concertride.me/rutas/pontevedra-o-son-do-camino |
-| Santander → Son do Camiño | Son do Camiño | Santiago de Compostela | 480 | 4h 15 min | 13–18 €/asiento | https://concertride.me/rutas/santander-o-son-do-camino |
-| Santiago de Compostela → Son do Camiño | Son do Camiño | Santiago de Compostela | 5 | 10 min | 3–5 €/asiento | https://concertride.me/rutas/santiago-de-compostela-o-son-do-camino |
-| Valladolid → Son do Camiño | Son do Camiño | Santiago de Compostela | 400 | 3h 40 min | 11–15 €/asiento | https://concertride.me/rutas/valladolid-o-son-do-camino |
-| Vigo → Son do Camiño | Son do Camiño | Santiago de Compostela | 90 | 1h | 4–7 €/asiento | https://concertride.me/rutas/vigo-o-son-do-camino |
-| Zaragoza → Son do Camiño | Son do Camiño | Santiago de Compostela | 760 | 7h | 19–27 €/asiento | https://concertride.me/rutas/zaragoza-o-son-do-camino |
-| Alicante → Sónar | Sónar | Barcelona | 510 | 4h 30 min | 14–19 €/asiento | https://concertride.me/rutas/alicante-sonar |
-| Andorra la Vella → Sónar | Sónar | Barcelona | 200 | 2h | 6–10 €/asiento | https://concertride.me/rutas/andorra-la-vella-sonar |
-| Bilbao → Sónar | Sónar | Barcelona | 615 | 5h | 15–20 €/asiento | https://concertride.me/rutas/bilbao-sonar |
-| Donostia → Sónar | Sónar | Barcelona | 565 | 5h | 15–20 €/asiento | https://concertride.me/rutas/donostia-sonar |
-| Girona → Sónar | Sónar | Barcelona | 100 | 1h | 4–7 €/asiento | https://concertride.me/rutas/girona-sonar |
-| Lleida → Sónar | Sónar | Barcelona | 170 | 1h 45 min | 5–8 €/asiento | https://concertride.me/rutas/lleida-sonar |
-| Madrid → Sónar | Sónar | Barcelona | 620 | 5h 30 min | 15–20 €/asiento | https://concertride.me/rutas/madrid-sonar |
-| Murcia → Sónar | Sónar | Barcelona | 620 | 5h 30 min | 16–22 €/asiento | https://concertride.me/rutas/murcia-sonar |
-| Pamplona → Sónar | Sónar | Barcelona | 415 | 3h 45 min | 12–17 €/asiento | https://concertride.me/rutas/pamplona-sonar |
-| Sevilla → Sónar | Sónar | Barcelona | 1000 | 9h | 25–35 €/asiento | https://concertride.me/rutas/sevilla-sonar |
-| Tarragona → Sónar | Sónar | Barcelona | 100 | 1h | 4–7 €/asiento | https://concertride.me/rutas/tarragona-sonar |
-| Valencia → Sónar | Sónar | Barcelona | 355 | 3h 15 min | 10–14 €/asiento | https://concertride.me/rutas/valencia-sonar |
-| Vitoria-Gasteiz → Sónar | Sónar | Barcelona | 540 | 4h 45 min | 14–19 €/asiento | https://concertride.me/rutas/vitoria-gasteiz-sonar |
-| Zaragoza → Sónar | Sónar | Barcelona | 306 | 2h 45 min | 8–12 €/asiento | https://concertride.me/rutas/zaragoza-sonar |
-| A Coruña → Sonorama | Sonorama | Aranda de Duero | 530 | 4h 45 min | 14–19 €/asiento | https://concertride.me/rutas/a-coruna-sonorama-ribera |
-| Barcelona → Sonorama | Sonorama | Aranda de Duero | 545 | 5h | 14–20 €/asiento | https://concertride.me/rutas/barcelona-sonorama-ribera |
-| Bilbao → Sonorama | Sonorama | Aranda de Duero | 185 | 2h | 6–9 €/asiento | https://concertride.me/rutas/bilbao-sonorama-ribera |
-| Burgos → Sonorama | Sonorama | Aranda de Duero | 70 | 45 min | 3–6 €/asiento | https://concertride.me/rutas/burgos-sonorama-ribera |
-| Donostia → Sonorama | Sonorama | Aranda de Duero | 250 | 2h 20 min | 7–11 €/asiento | https://concertride.me/rutas/donostia-sonorama-ribera |
-| Granada → Sonorama | Sonorama | Aranda de Duero | 560 | 5h | 14–20 €/asiento | https://concertride.me/rutas/granada-sonorama-ribera |
-| León → Sonorama | Sonorama | Aranda de Duero | 175 | 1h 45 min | 6–9 €/asiento | https://concertride.me/rutas/leon-sonorama-ribera |
-| Logroño → Sonorama | Sonorama | Aranda de Duero | 125 | 1h 15 min | 4–7 €/asiento | https://concertride.me/rutas/logrono-sonorama-ribera |
-| Madrid → Sonorama | Sonorama | Aranda de Duero | 150 | 1h 30 min | 5–8 €/asiento | https://concertride.me/rutas/madrid-sonorama-ribera |
-| Oviedo → Sonorama | Sonorama | Aranda de Duero | 310 | 3h | 9–13 €/asiento | https://concertride.me/rutas/oviedo-sonorama-ribera |
-| Pamplona → Sonorama | Sonorama | Aranda de Duero | 215 | 2h | 7–11 €/asiento | https://concertride.me/rutas/pamplona-sonorama-ribera |
-| Salamanca → Sonorama | Sonorama | Aranda de Duero | 130 | 1h 15 min | 4–7 €/asiento | https://concertride.me/rutas/salamanca-sonorama-ribera |
-| Santander → Sonorama | Sonorama | Aranda de Duero | 195 | 1h 55 min | 6–10 €/asiento | https://concertride.me/rutas/santander-sonorama-ribera |
-| Segovia → Sonorama | Sonorama | Aranda de Duero | 125 | 1h 15 min | 4–7 €/asiento | https://concertride.me/rutas/segovia-sonorama-ribera |
-| Sevilla → Sonorama | Sonorama | Aranda de Duero | 570 | 5h | 14–20 €/asiento | https://concertride.me/rutas/sevilla-sonorama-ribera |
-| Valladolid → Sonorama | Sonorama | Aranda de Duero | 100 | 1h | 4–7 €/asiento | https://concertride.me/rutas/valladolid-sonorama-ribera |
-| Vitoria-Gasteiz → Sonorama | Sonorama | Aranda de Duero | 150 | 1h 30 min | 5–8 €/asiento | https://concertride.me/rutas/vitoria-gasteiz-sonorama-ribera |
-| Zaragoza → Sonorama | Sonorama | Aranda de Duero | 290 | 2h 30 min | 8–12 €/asiento | https://concertride.me/rutas/zaragoza-sonorama-ribera |
-| Alicante → Tomavistas | Tomavistas | Madrid | 430 | 4h | 12–17 €/asiento | https://concertride.me/rutas/alicante-tomavistas |
-| Ávila → Tomavistas | Tomavistas | Madrid | 110 | 1h 15 min | 4–7 €/asiento | https://concertride.me/rutas/avila-tomavistas |
-| Barcelona → Tomavistas | Tomavistas | Madrid | 620 | 5h 30 min | 15–20 €/asiento | https://concertride.me/rutas/barcelona-tomavistas |
-| Bilbao → Tomavistas | Tomavistas | Madrid | 395 | 3h 30 min | 11–16 €/asiento | https://concertride.me/rutas/bilbao-tomavistas |
-| Burgos → Tomavistas | Tomavistas | Madrid | 240 | 2h 15 min | 7–11 €/asiento | https://concertride.me/rutas/burgos-tomavistas |
-| Guadalajara → Tomavistas | Tomavistas | Madrid | 60 | 50 min | 3–6 €/asiento | https://concertride.me/rutas/guadalajara-tomavistas |
-| Madrid → Tomavistas | Tomavistas | Madrid | 15 | 25 min | 4–7 €/asiento | https://concertride.me/rutas/madrid-tomavistas |
-| Murcia → Tomavistas | Tomavistas | Madrid | 480 | 4h 30 min | 13–18 €/asiento | https://concertride.me/rutas/murcia-tomavistas |
-| Pamplona → Tomavistas | Tomavistas | Madrid | 390 | 3h 30 min | 11–15 €/asiento | https://concertride.me/rutas/pamplona-tomavistas |
-| Salamanca → Tomavistas | Tomavistas | Madrid | 210 | 2h | 7–11 €/asiento | https://concertride.me/rutas/salamanca-tomavistas |
-| Santander → Tomavistas | Tomavistas | Madrid | 390 | 3h 30 min | 11–15 €/asiento | https://concertride.me/rutas/santander-tomavistas |
-| Segovia → Tomavistas | Tomavistas | Madrid | 90 | 1h 10 min | 4–7 €/asiento | https://concertride.me/rutas/segovia-tomavistas |
-| Sevilla → Tomavistas | Tomavistas | Madrid | 525 | 4h 45 min | 14–19 €/asiento | https://concertride.me/rutas/sevilla-tomavistas |
-| Toledo → Tomavistas | Tomavistas | Madrid | 75 | 55 min | 4–7 €/asiento | https://concertride.me/rutas/toledo-tomavistas |
-| Valencia → Tomavistas | Tomavistas | Madrid | 355 | 3h 20 min | 10–14 €/asiento | https://concertride.me/rutas/valencia-tomavistas |
-| Valladolid → Tomavistas | Tomavistas | Madrid | 195 | 2h | 6–10 €/asiento | https://concertride.me/rutas/valladolid-tomavistas |
-| Zaragoza → Tomavistas | Tomavistas | Madrid | 325 | 3h | 9–13 €/asiento | https://concertride.me/rutas/zaragoza-tomavistas |
-| Albacete → Viña Rock | Viña Rock | Villarrobledo | 50 | 40 min | 3–5 €/asiento | https://concertride.me/rutas/albacete-vina-rock |
-| Alicante → Viña Rock | Viña Rock | Villarrobledo | 165 | 1h 35 min | 5–8 €/asiento | https://concertride.me/rutas/alicante-vina-rock |
-| Barcelona → Viña Rock | Viña Rock | Villarrobledo | 500 | 4h 45 min | 13–18 €/asiento | https://concertride.me/rutas/barcelona-vina-rock |
-| Bilbao → Viña Rock | Viña Rock | Villarrobledo | 555 | 5h | 14–20 €/asiento | https://concertride.me/rutas/bilbao-vina-rock |
-| Castellón de la Plana → Viña Rock | Viña Rock | Villarrobledo | 200 | 2h | 6–10 €/asiento | https://concertride.me/rutas/castellon-de-la-plana-vina-rock |
-| Córdoba → Viña Rock | Viña Rock | Villarrobledo | 270 | 2h 30 min | 8–12 €/asiento | https://concertride.me/rutas/cordoba-vina-rock |
-| Cuenca → Viña Rock | Viña Rock | Villarrobledo | 100 | 1h | 4–6 €/asiento | https://concertride.me/rutas/cuenca-vina-rock |
-| Granada → Viña Rock | Viña Rock | Villarrobledo | 280 | 2h 30 min | 8–12 €/asiento | https://concertride.me/rutas/granada-vina-rock |
-| Madrid → Viña Rock | Viña Rock | Villarrobledo | 190 | 1h 55 min | 6–9 €/asiento | https://concertride.me/rutas/madrid-vina-rock |
-| Murcia → Viña Rock | Viña Rock | Villarrobledo | 155 | 1h 30 min | 5–8 €/asiento | https://concertride.me/rutas/murcia-vina-rock |
-| Pamplona → Viña Rock | Viña Rock | Villarrobledo | 515 | 4h 45 min | 14–19 €/asiento | https://concertride.me/rutas/pamplona-vina-rock |
-| Salamanca → Viña Rock | Viña Rock | Villarrobledo | 265 | 2h 30 min | 8–12 €/asiento | https://concertride.me/rutas/salamanca-vina-rock |
-| Sevilla → Viña Rock | Viña Rock | Villarrobledo | 430 | 3h 45 min | 12–16 €/asiento | https://concertride.me/rutas/sevilla-vina-rock |
-| Toledo → Viña Rock | Viña Rock | Villarrobledo | 140 | 1h 25 min | 5–8 €/asiento | https://concertride.me/rutas/toledo-vina-rock |
-| Valencia → Viña Rock | Viña Rock | Villarrobledo | 200 | 2h | 6–9 €/asiento | https://concertride.me/rutas/valencia-vina-rock |
-| Valladolid → Viña Rock | Viña Rock | Villarrobledo | 305 | 2h 45 min | 9–13 €/asiento | https://concertride.me/rutas/valladolid-vina-rock |
-| Zaragoza → Viña Rock | Viña Rock | Villarrobledo | 430 | 4h | 12–17 €/asiento | https://concertride.me/rutas/zaragoza-vina-rock |
-| Alicante → Zevra | Zevra | Valencia | 175 | 1h 45 min | 5–8 €/asiento | https://concertride.me/rutas/alicante-zevra-festival |
-| Barcelona → Zevra | Zevra | Valencia | 355 | 3h 20 min | 10–14 €/asiento | https://concertride.me/rutas/barcelona-zevra-festival |
-| Bilbao → Zevra | Zevra | Valencia | 590 | 5h 15 min | 15–21 €/asiento | https://concertride.me/rutas/bilbao-zevra-festival |
-| Castellón de la Plana → Zevra | Zevra | Valencia | 75 | 50 min | 3–6 €/asiento | https://concertride.me/rutas/castellon-de-la-plana-zevra-festival |
-| Donostia → Zevra | Zevra | Valencia | 590 | 5h 15 min | 15–21 €/asiento | https://concertride.me/rutas/donostia-zevra-festival |
-| Granada → Zevra | Zevra | Valencia | 505 | 4h 30 min | 14–19 €/asiento | https://concertride.me/rutas/granada-zevra-festival |
-| Logroño → Zevra | Zevra | Valencia | 475 | 4h 15 min | 13–17 €/asiento | https://concertride.me/rutas/logrono-zevra-festival |
-| Madrid → Zevra | Zevra | Valencia | 355 | 3h 20 min | 10–14 €/asiento | https://concertride.me/rutas/madrid-zevra-festival |
-| Málaga → Zevra | Zevra | Valencia | 610 | 5h 20 min | 15–21 €/asiento | https://concertride.me/rutas/malaga-zevra-festival |
-| Murcia → Zevra | Zevra | Valencia | 210 | 2h | 7–10 €/asiento | https://concertride.me/rutas/murcia-zevra-festival |
-| Pamplona → Zevra | Zevra | Valencia | 430 | 4h | 12–17 €/asiento | https://concertride.me/rutas/pamplona-zevra-festival |
-| Sevilla → Zevra | Zevra | Valencia | 600 | 5h 15 min | 15–21 €/asiento | https://concertride.me/rutas/sevilla-zevra-festival |
-| Tarragona → Zevra | Zevra | Valencia | 260 | 2h 30 min | 8–12 €/asiento | https://concertride.me/rutas/tarragona-zevra-festival |
-| Valencia → Zevra | Zevra | Valencia | 10 | 15 min | 3–5 €/asiento | https://concertride.me/rutas/valencia-zevra-festival |
-| Vitoria-Gasteiz → Zevra | Zevra | Valencia | 575 | 5h | 15–20 €/asiento | https://concertride.me/rutas/vitoria-gasteiz-zevra-festival |
-| Zaragoza → Zevra | Zevra | Valencia | 315 | 3h | 9–13 €/asiento | https://concertride.me/rutas/zaragoza-zevra-festival |
-
----
-
 ## Secciones detalladas por festival (16 festivales cubiertos 2026)
 
 ---
@@ -914,3 +642,274 @@ Metro L2 hasta Retiro o L9 hasta Ibiza (ambas a 10 min andando del recinto). Sin
 ---
 
 Last updated: 2026-05-04 (rev22: added 16 festival sections with transport data)
+---
+
+## Tabla completa de rutas (263 rutas)
+
+Precio calculado como coste de combustible + peajes dividido entre los ocupantes, sin comisión de plataforma. Precios en EUR por asiento.
+
+| Ruta | Festival | Destino | km | Tiempo | Precio/asiento | URL |
+|---|---|---|---:|---|---|---|
+| Alicante → Arenal Sound | Arenal Sound | Burriana | 115 | 1h 15 min | 4–7 €/asiento | https://concertride.me/rutas/alicante-arenal-sound |
+| Barcelona → Arenal Sound | Arenal Sound | Burriana | 305 | 2h 50 min | 8–12 €/asiento | https://concertride.me/rutas/barcelona-arenal-sound |
+| Bilbao → Arenal Sound | Arenal Sound | Burriana | 480 | 4h 15 min | 13–17 €/asiento | https://concertride.me/rutas/bilbao-arenal-sound |
+| Burriana → Arenal Sound | Arenal Sound | Burriana | 2 | 5 min | 2–4 €/asiento | https://concertride.me/rutas/burriana-arenal-sound |
+| Castellón de la Plana → Arenal Sound | Arenal Sound | Burriana | 10 | 15 min | 3–5 €/asiento | https://concertride.me/rutas/castellon-de-la-plana-arenal-sound |
+| Donostia → Arenal Sound | Arenal Sound | Burriana | 480 | 4h 15 min | 13–17 €/asiento | https://concertride.me/rutas/donostia-arenal-sound |
+| Girona → Arenal Sound | Arenal Sound | Burriana | 440 | 4h | 12–17 €/asiento | https://concertride.me/rutas/girona-arenal-sound |
+| Lleida → Arenal Sound | Arenal Sound | Burriana | 195 | 1h 55 min | 6–10 €/asiento | https://concertride.me/rutas/lleida-arenal-sound |
+| Logroño → Arenal Sound | Arenal Sound | Burriana | 300 | 2h 45 min | 8–13 €/asiento | https://concertride.me/rutas/logrono-arenal-sound |
+| Madrid → Arenal Sound | Arenal Sound | Burriana | 460 | 4h | 12–17 €/asiento | https://concertride.me/rutas/madrid-arenal-sound |
+| Murcia → Arenal Sound | Arenal Sound | Burriana | 275 | 2h 30 min | 8–12 €/asiento | https://concertride.me/rutas/murcia-arenal-sound |
+| Pamplona → Arenal Sound | Arenal Sound | Burriana | 355 | 3h 15 min | 10–14 €/asiento | https://concertride.me/rutas/pamplona-arenal-sound |
+| Sevilla → Arenal Sound | Arenal Sound | Burriana | 650 | 5h 45 min | 17–23 €/asiento | https://concertride.me/rutas/sevilla-arenal-sound |
+| Tarragona → Arenal Sound | Arenal Sound | Burriana | 200 | 1h 50 min | 6–10 €/asiento | https://concertride.me/rutas/tarragona-arenal-sound |
+| Valencia → Arenal Sound | Arenal Sound | Burriana | 65 | 45 min | 3–6 €/asiento | https://concertride.me/rutas/valencia-arenal-sound |
+| Vitoria-Gasteiz → Arenal Sound | Arenal Sound | Burriana | 440 | 4h | 12–17 €/asiento | https://concertride.me/rutas/vitoria-gasteiz-arenal-sound |
+| Zaragoza → Arenal Sound | Arenal Sound | Burriana | 275 | 2h 30 min | 8–12 €/asiento | https://concertride.me/rutas/zaragoza-arenal-sound |
+| A Coruña → BBK Live | BBK Live | Bilbao | 470 | 4h 30 min | 13–18 €/asiento | https://concertride.me/rutas/a-coruna-bbk-live |
+| Barcelona → BBK Live | BBK Live | Bilbao | 615 | 5h | 15–20 €/asiento | https://concertride.me/rutas/barcelona-bbk-live |
+| Bilbao → BBK Live | BBK Live | Bilbao | 5 | 15 min | 3–5 €/asiento | https://concertride.me/rutas/bilbao-bbk-live |
+| Burgos → BBK Live | BBK Live | Bilbao | 155 | 1h 30 min | 5–8 €/asiento | https://concertride.me/rutas/burgos-bbk-live |
+| Donostia → BBK Live | BBK Live | Bilbao | 100 | 1h | 4–7 €/asiento | https://concertride.me/rutas/donostia-bbk-live |
+| Girona → BBK Live | BBK Live | Bilbao | 720 | 6h 15 min | 18–25 €/asiento | https://concertride.me/rutas/girona-bbk-live |
+| Logroño → BBK Live | BBK Live | Bilbao | 115 | 1h | 4–7 €/asiento | https://concertride.me/rutas/logrono-bbk-live |
+| Madrid → BBK Live | BBK Live | Bilbao | 395 | 3h 30 min | 11–16 €/asiento | https://concertride.me/rutas/madrid-bbk-live |
+| Oviedo → BBK Live | BBK Live | Bilbao | 290 | 2h 45 min | 8–13 €/asiento | https://concertride.me/rutas/oviedo-bbk-live |
+| Pamplona → BBK Live | BBK Live | Bilbao | 155 | 1h 30 min | 5–8 €/asiento | https://concertride.me/rutas/pamplona-bbk-live |
+| Santander → BBK Live | BBK Live | Bilbao | 100 | 1h | 4–7 €/asiento | https://concertride.me/rutas/santander-bbk-live |
+| Sevilla → BBK Live | BBK Live | Bilbao | 775 | 6h 45 min | 20–27 €/asiento | https://concertride.me/rutas/sevilla-bbk-live |
+| Tarragona → BBK Live | BBK Live | Bilbao | 660 | 5h 45 min | 17–23 €/asiento | https://concertride.me/rutas/tarragona-bbk-live |
+| Valladolid → BBK Live | BBK Live | Bilbao | 280 | 2h 30 min | 8–12 €/asiento | https://concertride.me/rutas/valladolid-bbk-live |
+| Vitoria-Gasteiz → BBK Live | BBK Live | Bilbao | 65 | 45 min | 3–6 €/asiento | https://concertride.me/rutas/vitoria-gasteiz-bbk-live |
+| Zaragoza → BBK Live | BBK Live | Bilbao | 310 | 2h 45 min | 9–13 €/asiento | https://concertride.me/rutas/zaragoza-bbk-live |
+| Almería → Cala Mijas | Cala Mijas | Mijas | 190 | 2h | 6–9 €/asiento | https://concertride.me/rutas/almeria-cala-mijas |
+| Badajoz → Cala Mijas | Cala Mijas | Mijas | 430 | 3h 45 min | 12–17 €/asiento | https://concertride.me/rutas/badajoz-cala-mijas |
+| Barcelona → Cala Mijas | Cala Mijas | Mijas | 920 | 8h | 23–32 €/asiento | https://concertride.me/rutas/barcelona-cala-mijas |
+| Cádiz → Cala Mijas | Cala Mijas | Mijas | 200 | 2h | 6–10 €/asiento | https://concertride.me/rutas/cadiz-cala-mijas |
+| Cartagena → Cala Mijas | Cala Mijas | Mijas | 370 | 3h 15 min | 10–15 €/asiento | https://concertride.me/rutas/cartagena-cala-mijas |
+| Córdoba → Cala Mijas | Cala Mijas | Mijas | 190 | 2h | 6–9 €/asiento | https://concertride.me/rutas/cordoba-cala-mijas |
+| Fuengirola → Cala Mijas | Cala Mijas | Mijas | 35 | 35 min | 3–5 €/asiento | https://concertride.me/rutas/fuengirola-cala-mijas |
+| Granada → Cala Mijas | Cala Mijas | Mijas | 125 | 1h 30 min | 5–8 €/asiento | https://concertride.me/rutas/granada-cala-mijas |
+| Huelva → Cala Mijas | Cala Mijas | Mijas | 255 | 2h 30 min | 8–12 €/asiento | https://concertride.me/rutas/huelva-cala-mijas |
+| Jaén → Cala Mijas | Cala Mijas | Mijas | 150 | 1h 30 min | 5–8 €/asiento | https://concertride.me/rutas/jaen-cala-mijas |
+| Jerez de la Frontera → Cala Mijas | Cala Mijas | Mijas | 220 | 2h 10 min | 7–11 €/asiento | https://concertride.me/rutas/jerez-de-la-frontera-cala-mijas |
+| Logroño → Cala Mijas | Cala Mijas | Mijas | 640 | 5h 30 min | 16–22 €/asiento | https://concertride.me/rutas/logrono-cala-mijas |
+| Madrid → Cala Mijas | Cala Mijas | Mijas | 540 | 4h 45 min | 14–19 €/asiento | https://concertride.me/rutas/madrid-cala-mijas |
+| Málaga → Cala Mijas | Cala Mijas | Mijas | 25 | 25 min | 3–5 €/asiento | https://concertride.me/rutas/malaga-cala-mijas |
+| Marbella → Cala Mijas | Cala Mijas | Mijas | 50 | 45 min | 3–6 €/asiento | https://concertride.me/rutas/marbella-cala-mijas |
+| Mijas → Cala Mijas | Cala Mijas | Mijas | 30 | 30 min | 3–5 €/asiento | https://concertride.me/rutas/mijas-cala-mijas |
+| Sevilla → Cala Mijas | Cala Mijas | Mijas | 200 | 2h | 6–9 €/asiento | https://concertride.me/rutas/sevilla-cala-mijas |
+| Valencia → Cala Mijas | Cala Mijas | Mijas | 640 | 5h 30 min | 16–22 €/asiento | https://concertride.me/rutas/valencia-cala-mijas |
+| A Coruña → Cruïlla | Cruïlla | Barcelona | 1100 | 10h | 28–38 €/asiento | https://concertride.me/rutas/a-coruna-cruilla |
+| Alicante → Cruïlla | Cruïlla | Barcelona | 510 | 4h 30 min | 14–19 €/asiento | https://concertride.me/rutas/alicante-cruilla |
+| Bilbao → Cruïlla | Cruïlla | Barcelona | 615 | 5h | 15–20 €/asiento | https://concertride.me/rutas/bilbao-cruilla |
+| Donostia → Cruïlla | Cruïlla | Barcelona | 565 | 5h | 15–20 €/asiento | https://concertride.me/rutas/donostia-cruilla |
+| Girona → Cruïlla | Cruïlla | Barcelona | 100 | 1h | 4–7 €/asiento | https://concertride.me/rutas/girona-cruilla |
+| Lleida → Cruïlla | Cruïlla | Barcelona | 170 | 1h 45 min | 5–8 €/asiento | https://concertride.me/rutas/lleida-cruilla |
+| Madrid → Cruïlla | Cruïlla | Barcelona | 620 | 5h 30 min | 15–20 €/asiento | https://concertride.me/rutas/madrid-cruilla |
+| Málaga → Cruïlla | Cruïlla | Barcelona | 920 | 8h | 23–32 €/asiento | https://concertride.me/rutas/malaga-cruilla |
+| Murcia → Cruïlla | Cruïlla | Barcelona | 620 | 5h 30 min | 16–22 €/asiento | https://concertride.me/rutas/murcia-cruilla |
+| Pamplona → Cruïlla | Cruïlla | Barcelona | 415 | 3h 45 min | 12–17 €/asiento | https://concertride.me/rutas/pamplona-cruilla |
+| Santander → Cruïlla | Cruïlla | Barcelona | 625 | 5h 30 min | 16–22 €/asiento | https://concertride.me/rutas/santander-cruilla |
+| Sevilla → Cruïlla | Cruïlla | Barcelona | 1000 | 9h | 25–35 €/asiento | https://concertride.me/rutas/sevilla-cruilla |
+| Tarragona → Cruïlla | Cruïlla | Barcelona | 100 | 1h | 4–7 €/asiento | https://concertride.me/rutas/tarragona-cruilla |
+| Valencia → Cruïlla | Cruïlla | Barcelona | 355 | 3h 15 min | 10–14 €/asiento | https://concertride.me/rutas/valencia-cruilla |
+| Vitoria-Gasteiz → Cruïlla | Cruïlla | Barcelona | 540 | 4h 45 min | 14–19 €/asiento | https://concertride.me/rutas/vitoria-gasteiz-cruilla |
+| Zaragoza → Cruïlla | Cruïlla | Barcelona | 306 | 2h 45 min | 8–12 €/asiento | https://concertride.me/rutas/zaragoza-cruilla |
+| Alicante → FIB | FIB | Benicàssim | 175 | 1h 45 min | 5–8 €/asiento | https://concertride.me/rutas/alicante-fib |
+| Barcelona → FIB | FIB | Benicàssim | 300 | 2h 45 min | 8–12 €/asiento | https://concertride.me/rutas/barcelona-fib |
+| Bilbao → FIB | FIB | Benicàssim | 480 | 4h 15 min | 13–17 €/asiento | https://concertride.me/rutas/bilbao-fib |
+| Castellón de la Plana → FIB | FIB | Benicàssim | 15 | 20 min | 3–5 €/asiento | https://concertride.me/rutas/castellon-de-la-plana-fib |
+| Girona → FIB | FIB | Benicàssim | 330 | 3h | 9–13 €/asiento | https://concertride.me/rutas/girona-fib |
+| Lleida → FIB | FIB | Benicàssim | 195 | 1h 55 min | 6–10 €/asiento | https://concertride.me/rutas/lleida-fib |
+| Logroño → FIB | FIB | Benicàssim | 290 | 2h 45 min | 8–12 €/asiento | https://concertride.me/rutas/logrono-fib |
+| Madrid → FIB | FIB | Benicàssim | 465 | 4h | 12–17 €/asiento | https://concertride.me/rutas/madrid-fib |
+| Murcia → FIB | FIB | Benicàssim | 240 | 2h 15 min | 7–11 €/asiento | https://concertride.me/rutas/murcia-fib |
+| Pamplona → FIB | FIB | Benicàssim | 355 | 3h 15 min | 10–14 €/asiento | https://concertride.me/rutas/pamplona-fib |
+| Santander → FIB | FIB | Benicàssim | 575 | 5h | 15–20 €/asiento | https://concertride.me/rutas/santander-fib |
+| Sevilla → FIB | FIB | Benicàssim | 660 | 5h 45 min | 17–23 €/asiento | https://concertride.me/rutas/sevilla-fib |
+| Tarragona → FIB | FIB | Benicàssim | 200 | 2h | 6–10 €/asiento | https://concertride.me/rutas/tarragona-fib |
+| Valencia → FIB | FIB | Benicàssim | 70 | 50 min | 3–6 €/asiento | https://concertride.me/rutas/valencia-fib |
+| Vitoria-Gasteiz → FIB | FIB | Benicàssim | 440 | 4h | 12–17 €/asiento | https://concertride.me/rutas/vitoria-gasteiz-fib |
+| Zaragoza → FIB | FIB | Benicàssim | 270 | 2h 30 min | 7–11 €/asiento | https://concertride.me/rutas/zaragoza-fib |
+| Albacete → Low Festival | Low Festival | Benidorm | 130 | 1h 20 min | 5–8 €/asiento | https://concertride.me/rutas/albacete-low-festival |
+| Alicante → Low Festival | Low Festival | Benidorm | 45 | 35 min | 3–5 €/asiento | https://concertride.me/rutas/alicante-low-festival |
+| Barcelona → Low Festival | Low Festival | Benidorm | 500 | 4h 30 min | 13–18 €/asiento | https://concertride.me/rutas/barcelona-low-festival |
+| Bilbao → Low Festival | Low Festival | Benidorm | 625 | 5h 30 min | 16–22 €/asiento | https://concertride.me/rutas/bilbao-low-festival |
+| Castellón de la Plana → Low Festival | Low Festival | Benidorm | 140 | 1h 20 min | 5–8 €/asiento | https://concertride.me/rutas/castellon-de-la-plana-low-festival |
+| Donostia → Low Festival | Low Festival | Benidorm | 700 | 6h | 18–25 €/asiento | https://concertride.me/rutas/donostia-low-festival |
+| Granada → Low Festival | Low Festival | Benidorm | 430 | 4h | 12–17 €/asiento | https://concertride.me/rutas/granada-low-festival |
+| Madrid → Low Festival | Low Festival | Benidorm | 440 | 4h | 12–17 €/asiento | https://concertride.me/rutas/madrid-low-festival |
+| Murcia → Low Festival | Low Festival | Benidorm | 90 | 1h | 4–7 €/asiento | https://concertride.me/rutas/murcia-low-festival |
+| Pamplona → Low Festival | Low Festival | Benidorm | 490 | 4h 30 min | 13–18 €/asiento | https://concertride.me/rutas/pamplona-low-festival |
+| Sevilla → Low Festival | Low Festival | Benidorm | 590 | 5h 15 min | 15–21 €/asiento | https://concertride.me/rutas/sevilla-low-festival |
+| Tarragona → Low Festival | Low Festival | Benidorm | 370 | 3h 20 min | 10–14 €/asiento | https://concertride.me/rutas/tarragona-low-festival |
+| Toledo → Low Festival | Low Festival | Benidorm | 360 | 3h 20 min | 10–14 €/asiento | https://concertride.me/rutas/toledo-low-festival |
+| Valencia → Low Festival | Low Festival | Benidorm | 150 | 1h 30 min | 5–8 €/asiento | https://concertride.me/rutas/valencia-low-festival |
+| Vitoria-Gasteiz → Low Festival | Low Festival | Benidorm | 590 | 5h 15 min | 15–20 €/asiento | https://concertride.me/rutas/vitoria-gasteiz-low-festival |
+| Zaragoza → Low Festival | Low Festival | Benidorm | 395 | 3h 40 min | 11–15 €/asiento | https://concertride.me/rutas/zaragoza-low-festival |
+| Alicante → Mad Cool | Mad Cool | Madrid | 430 | 4h | 12–17 €/asiento | https://concertride.me/rutas/alicante-mad-cool |
+| Barcelona → Mad Cool | Mad Cool | Madrid | 620 | 5h 30 min | 15–20 €/asiento | https://concertride.me/rutas/barcelona-mad-cool |
+| Bilbao → Mad Cool | Mad Cool | Madrid | 395 | 3h 30 min | 11–16 €/asiento | https://concertride.me/rutas/bilbao-mad-cool |
+| Burgos → Mad Cool | Mad Cool | Madrid | 240 | 2h 15 min | 7–11 €/asiento | https://concertride.me/rutas/burgos-mad-cool |
+| Donostia → Mad Cool | Mad Cool | Madrid | 465 | 4h 15 min | 13–17 €/asiento | https://concertride.me/rutas/donostia-mad-cool |
+| Guadalajara → Mad Cool | Mad Cool | Madrid | 60 | 50 min | 3–6 €/asiento | https://concertride.me/rutas/guadalajara-mad-cool |
+| Madrid → Mad Cool | Mad Cool | Madrid | 15 | 25 min | 4–7 €/asiento | https://concertride.me/rutas/madrid-mad-cool |
+| Murcia → Mad Cool | Mad Cool | Madrid | 480 | 4h 30 min | 13–18 €/asiento | https://concertride.me/rutas/murcia-mad-cool |
+| Pamplona → Mad Cool | Mad Cool | Madrid | 390 | 3h 30 min | 11–15 €/asiento | https://concertride.me/rutas/pamplona-mad-cool |
+| Salamanca → Mad Cool | Mad Cool | Madrid | 210 | 2h | 7–11 €/asiento | https://concertride.me/rutas/salamanca-mad-cool |
+| Santander → Mad Cool | Mad Cool | Madrid | 390 | 3h 30 min | 11–15 €/asiento | https://concertride.me/rutas/santander-mad-cool |
+| Segovia → Mad Cool | Mad Cool | Madrid | 90 | 1h 10 min | 4–7 €/asiento | https://concertride.me/rutas/segovia-mad-cool |
+| Sevilla → Mad Cool | Mad Cool | Madrid | 525 | 4h 45 min | 14–19 €/asiento | https://concertride.me/rutas/sevilla-mad-cool |
+| Tarragona → Mad Cool | Mad Cool | Madrid | 540 | 4h 45 min | 14–19 €/asiento | https://concertride.me/rutas/tarragona-mad-cool |
+| Toledo → Mad Cool | Mad Cool | Madrid | 75 | 55 min | 4–7 €/asiento | https://concertride.me/rutas/toledo-mad-cool |
+| Valencia → Mad Cool | Mad Cool | Madrid | 355 | 3h 20 min | 10–14 €/asiento | https://concertride.me/rutas/valencia-mad-cool |
+| Valladolid → Mad Cool | Mad Cool | Madrid | 195 | 2h | 6–10 €/asiento | https://concertride.me/rutas/valladolid-mad-cool |
+| Vitoria-Gasteiz → Mad Cool | Mad Cool | Madrid | 350 | 3h 10 min | 10–14 €/asiento | https://concertride.me/rutas/vitoria-gasteiz-mad-cool |
+| Zaragoza → Mad Cool | Mad Cool | Madrid | 325 | 3h | 9–13 €/asiento | https://concertride.me/rutas/zaragoza-mad-cool |
+| Alicante → Medusa | Medusa | Cullera | 100 | 1h | 4–7 €/asiento | https://concertride.me/rutas/alicante-medusa-festival |
+| Barcelona → Medusa | Medusa | Cullera | 375 | 3h 30 min | 10–14 €/asiento | https://concertride.me/rutas/barcelona-medusa-festival |
+| Bilbao → Medusa | Medusa | Cullera | 605 | 5h 15 min | 15–21 €/asiento | https://concertride.me/rutas/bilbao-medusa-festival |
+| Castellón de la Plana → Medusa | Medusa | Cullera | 105 | 1h | 4–7 €/asiento | https://concertride.me/rutas/castellon-de-la-plana-medusa-festival |
+| Girona → Medusa | Medusa | Cullera | 490 | 4h 30 min | 14–19 €/asiento | https://concertride.me/rutas/girona-medusa-festival |
+| Granada → Medusa | Medusa | Cullera | 470 | 4h 15 min | 13–17 €/asiento | https://concertride.me/rutas/granada-medusa-festival |
+| Logroño → Medusa | Medusa | Cullera | 480 | 4h 15 min | 13–17 €/asiento | https://concertride.me/rutas/logrono-medusa-festival |
+| Madrid → Medusa | Medusa | Cullera | 385 | 3h 30 min | 10–14 €/asiento | https://concertride.me/rutas/madrid-medusa-festival |
+| Málaga → Medusa | Medusa | Cullera | 590 | 5h | 15–21 €/asiento | https://concertride.me/rutas/malaga-medusa-festival |
+| Murcia → Medusa | Medusa | Cullera | 180 | 1h 45 min | 5–8 €/asiento | https://concertride.me/rutas/murcia-medusa-festival |
+| Pamplona → Medusa | Medusa | Cullera | 430 | 4h | 12–17 €/asiento | https://concertride.me/rutas/pamplona-medusa-festival |
+| Sevilla → Medusa | Medusa | Cullera | 600 | 5h 15 min | 15–21 €/asiento | https://concertride.me/rutas/sevilla-medusa-festival |
+| Tarragona → Medusa | Medusa | Cullera | 380 | 3h 30 min | 10–14 €/asiento | https://concertride.me/rutas/tarragona-medusa-festival |
+| Valencia → Medusa | Medusa | Cullera | 45 | 40 min | 3–5 €/asiento | https://concertride.me/rutas/valencia-medusa-festival |
+| Vitoria-Gasteiz → Medusa | Medusa | Cullera | 580 | 5h | 15–20 €/asiento | https://concertride.me/rutas/vitoria-gasteiz-medusa-festival |
+| Zaragoza → Medusa | Medusa | Cullera | 320 | 3h | 9–13 €/asiento | https://concertride.me/rutas/zaragoza-medusa-festival |
+| A Coruña → Primavera Sound | Primavera Sound | Barcelona | 1100 | 10h | 28–38 €/asiento | https://concertride.me/rutas/a-coruna-primavera-sound |
+| Alicante → Primavera Sound | Primavera Sound | Barcelona | 510 | 4h 30 min | 14–19 €/asiento | https://concertride.me/rutas/alicante-primavera-sound |
+| Bilbao → Primavera Sound | Primavera Sound | Barcelona | 615 | 5h | 15–20 €/asiento | https://concertride.me/rutas/bilbao-primavera-sound |
+| Donostia → Primavera Sound | Primavera Sound | Barcelona | 565 | 5h | 15–20 €/asiento | https://concertride.me/rutas/donostia-primavera-sound |
+| Granada → Primavera Sound | Primavera Sound | Barcelona | 840 | 7h 30 min | 22–30 €/asiento | https://concertride.me/rutas/granada-primavera-sound |
+| Lleida → Primavera Sound | Primavera Sound | Barcelona | 170 | 1h 45 min | 5–8 €/asiento | https://concertride.me/rutas/lleida-primavera-sound |
+| Madrid → Primavera Sound | Primavera Sound | Barcelona | 620 | 5h 30 min | 15–20 €/asiento | https://concertride.me/rutas/madrid-primavera-sound |
+| Málaga → Primavera Sound | Primavera Sound | Barcelona | 920 | 8h | 23–32 €/asiento | https://concertride.me/rutas/malaga-primavera-sound |
+| Murcia → Primavera Sound | Primavera Sound | Barcelona | 620 | 5h 30 min | 16–22 €/asiento | https://concertride.me/rutas/murcia-primavera-sound |
+| Pamplona → Primavera Sound | Primavera Sound | Barcelona | 415 | 3h 45 min | 12–17 €/asiento | https://concertride.me/rutas/pamplona-primavera-sound |
+| Santander → Primavera Sound | Primavera Sound | Barcelona | 625 | 5h 30 min | 16–22 €/asiento | https://concertride.me/rutas/santander-primavera-sound |
+| Sevilla → Primavera Sound | Primavera Sound | Barcelona | 1000 | 9h | 25–35 €/asiento | https://concertride.me/rutas/sevilla-primavera-sound |
+| Tarragona → Primavera Sound | Primavera Sound | Barcelona | 100 | 1h | 4–7 €/asiento | https://concertride.me/rutas/tarragona-primavera-sound |
+| Valencia → Primavera Sound | Primavera Sound | Barcelona | 355 | 3h 15 min | 10–14 €/asiento | https://concertride.me/rutas/valencia-primavera-sound |
+| Vitoria-Gasteiz → Primavera Sound | Primavera Sound | Barcelona | 540 | 4h 45 min | 14–19 €/asiento | https://concertride.me/rutas/vitoria-gasteiz-primavera-sound |
+| Zaragoza → Primavera Sound | Primavera Sound | Barcelona | 306 | 2h 45 min | 8–12 €/asiento | https://concertride.me/rutas/zaragoza-primavera-sound |
+| A Coruña → Resurrection Fest | Resurrection Fest | Viveiro | 100 | 1h 15 min | 4–7 €/asiento | https://concertride.me/rutas/a-coruna-resurrection-fest |
+| Barcelona → Resurrection Fest | Resurrection Fest | Viveiro | 1100 | 10h | 28–38 €/asiento | https://concertride.me/rutas/barcelona-resurrection-fest |
+| Bilbao → Resurrection Fest | Resurrection Fest | Viveiro | 375 | 4h | 10–15 €/asiento | https://concertride.me/rutas/bilbao-resurrection-fest |
+| Burgos → Resurrection Fest | Resurrection Fest | Viveiro | 370 | 3h 30 min | 10–14 €/asiento | https://concertride.me/rutas/burgos-resurrection-fest |
+| Ferrol → Resurrection Fest | Resurrection Fest | Viveiro | 80 | 1h | 4–6 €/asiento | https://concertride.me/rutas/ferrol-resurrection-fest |
+| Gijón → Resurrection Fest | Resurrection Fest | Viveiro | 175 | 1h 45 min | 5–8 €/asiento | https://concertride.me/rutas/gijon-resurrection-fest |
+| León → Resurrection Fest | Resurrection Fest | Viveiro | 265 | 2h 30 min | 8–12 €/asiento | https://concertride.me/rutas/leon-resurrection-fest |
+| Lugo → Resurrection Fest | Resurrection Fest | Viveiro | 55 | 45 min | 3–5 €/asiento | https://concertride.me/rutas/lugo-resurrection-fest |
+| Madrid → Resurrection Fest | Resurrection Fest | Viveiro | 600 | 6h | 16–22 €/asiento | https://concertride.me/rutas/madrid-resurrection-fest |
+| Oviedo → Resurrection Fest | Resurrection Fest | Viveiro | 195 | 2h | 6–9 €/asiento | https://concertride.me/rutas/oviedo-resurrection-fest |
+| Pontevedra → Resurrection Fest | Resurrection Fest | Viveiro | 250 | 2h 30 min | 7–11 €/asiento | https://concertride.me/rutas/pontevedra-resurrection-fest |
+| Santiago de Compostela → Resurrection Fest | Resurrection Fest | Viveiro | 185 | 2h | 6–9 €/asiento | https://concertride.me/rutas/santiago-de-compostela-resurrection-fest |
+| Valladolid → Resurrection Fest | Resurrection Fest | Viveiro | 360 | 3h 15 min | 10–14 €/asiento | https://concertride.me/rutas/valladolid-resurrection-fest |
+| Vigo → Resurrection Fest | Resurrection Fest | Viveiro | 200 | 2h 15 min | 6–9 €/asiento | https://concertride.me/rutas/vigo-resurrection-fest |
+| Zaragoza → Resurrection Fest | Resurrection Fest | Viveiro | 680 | 6h | 18–25 €/asiento | https://concertride.me/rutas/zaragoza-resurrection-fest |
+| A Coruña → Son do Camiño | Son do Camiño | Santiago de Compostela | 70 | 50 min | 3–6 €/asiento | https://concertride.me/rutas/a-coruna-o-son-do-camino |
+| Barcelona → Son do Camiño | Son do Camiño | Santiago de Compostela | 1200 | 11h | 30–40 €/asiento | https://concertride.me/rutas/barcelona-o-son-do-camino |
+| Bilbao → Son do Camiño | Son do Camiño | Santiago de Compostela | 500 | 4h 30 min | 13–18 €/asiento | https://concertride.me/rutas/bilbao-o-son-do-camino |
+| Burgos → Son do Camiño | Son do Camiño | Santiago de Compostela | 410 | 3h 45 min | 11–15 €/asiento | https://concertride.me/rutas/burgos-o-son-do-camino |
+| Ferrol → Son do Camiño | Son do Camiño | Santiago de Compostela | 60 | 50 min | 3–5 €/asiento | https://concertride.me/rutas/ferrol-o-son-do-camino |
+| Gijón → Son do Camiño | Son do Camiño | Santiago de Compostela | 300 | 3h | 9–13 €/asiento | https://concertride.me/rutas/gijon-o-son-do-camino |
+| León → Son do Camiño | Son do Camiño | Santiago de Compostela | 290 | 2h 45 min | 8–12 €/asiento | https://concertride.me/rutas/leon-o-son-do-camino |
+| Lugo → Son do Camiño | Son do Camiño | Santiago de Compostela | 100 | 1h 10 min | 4–7 €/asiento | https://concertride.me/rutas/lugo-o-son-do-camino |
+| Madrid → Son do Camiño | Son do Camiño | Santiago de Compostela | 585 | 5h 30 min | 15–20 €/asiento | https://concertride.me/rutas/madrid-o-son-do-camino |
+| Oviedo → Son do Camiño | Son do Camiño | Santiago de Compostela | 295 | 3h | 9–13 €/asiento | https://concertride.me/rutas/oviedo-o-son-do-camino |
+| Pontevedra → Son do Camiño | Son do Camiño | Santiago de Compostela | 60 | 45 min | 3–5 €/asiento | https://concertride.me/rutas/pontevedra-o-son-do-camino |
+| Santander → Son do Camiño | Son do Camiño | Santiago de Compostela | 480 | 4h 15 min | 13–18 €/asiento | https://concertride.me/rutas/santander-o-son-do-camino |
+| Santiago de Compostela → Son do Camiño | Son do Camiño | Santiago de Compostela | 5 | 10 min | 3–5 €/asiento | https://concertride.me/rutas/santiago-de-compostela-o-son-do-camino |
+| Valladolid → Son do Camiño | Son do Camiño | Santiago de Compostela | 400 | 3h 40 min | 11–15 €/asiento | https://concertride.me/rutas/valladolid-o-son-do-camino |
+| Vigo → Son do Camiño | Son do Camiño | Santiago de Compostela | 90 | 1h | 4–7 €/asiento | https://concertride.me/rutas/vigo-o-son-do-camino |
+| Zaragoza → Son do Camiño | Son do Camiño | Santiago de Compostela | 760 | 7h | 19–27 €/asiento | https://concertride.me/rutas/zaragoza-o-son-do-camino |
+| Alicante → Sónar | Sónar | Barcelona | 510 | 4h 30 min | 14–19 €/asiento | https://concertride.me/rutas/alicante-sonar |
+| Andorra la Vella → Sónar | Sónar | Barcelona | 200 | 2h | 6–10 €/asiento | https://concertride.me/rutas/andorra-la-vella-sonar |
+| Bilbao → Sónar | Sónar | Barcelona | 615 | 5h | 15–20 €/asiento | https://concertride.me/rutas/bilbao-sonar |
+| Donostia → Sónar | Sónar | Barcelona | 565 | 5h | 15–20 €/asiento | https://concertride.me/rutas/donostia-sonar |
+| Girona → Sónar | Sónar | Barcelona | 100 | 1h | 4–7 €/asiento | https://concertride.me/rutas/girona-sonar |
+| Lleida → Sónar | Sónar | Barcelona | 170 | 1h 45 min | 5–8 €/asiento | https://concertride.me/rutas/lleida-sonar |
+| Madrid → Sónar | Sónar | Barcelona | 620 | 5h 30 min | 15–20 €/asiento | https://concertride.me/rutas/madrid-sonar |
+| Murcia → Sónar | Sónar | Barcelona | 620 | 5h 30 min | 16–22 €/asiento | https://concertride.me/rutas/murcia-sonar |
+| Pamplona → Sónar | Sónar | Barcelona | 415 | 3h 45 min | 12–17 €/asiento | https://concertride.me/rutas/pamplona-sonar |
+| Sevilla → Sónar | Sónar | Barcelona | 1000 | 9h | 25–35 €/asiento | https://concertride.me/rutas/sevilla-sonar |
+| Tarragona → Sónar | Sónar | Barcelona | 100 | 1h | 4–7 €/asiento | https://concertride.me/rutas/tarragona-sonar |
+| Valencia → Sónar | Sónar | Barcelona | 355 | 3h 15 min | 10–14 €/asiento | https://concertride.me/rutas/valencia-sonar |
+| Vitoria-Gasteiz → Sónar | Sónar | Barcelona | 540 | 4h 45 min | 14–19 €/asiento | https://concertride.me/rutas/vitoria-gasteiz-sonar |
+| Zaragoza → Sónar | Sónar | Barcelona | 306 | 2h 45 min | 8–12 €/asiento | https://concertride.me/rutas/zaragoza-sonar |
+| A Coruña → Sonorama | Sonorama | Aranda de Duero | 530 | 4h 45 min | 14–19 €/asiento | https://concertride.me/rutas/a-coruna-sonorama-ribera |
+| Barcelona → Sonorama | Sonorama | Aranda de Duero | 545 | 5h | 14–20 €/asiento | https://concertride.me/rutas/barcelona-sonorama-ribera |
+| Bilbao → Sonorama | Sonorama | Aranda de Duero | 185 | 2h | 6–9 €/asiento | https://concertride.me/rutas/bilbao-sonorama-ribera |
+| Burgos → Sonorama | Sonorama | Aranda de Duero | 70 | 45 min | 3–6 €/asiento | https://concertride.me/rutas/burgos-sonorama-ribera |
+| Donostia → Sonorama | Sonorama | Aranda de Duero | 250 | 2h 20 min | 7–11 €/asiento | https://concertride.me/rutas/donostia-sonorama-ribera |
+| Granada → Sonorama | Sonorama | Aranda de Duero | 560 | 5h | 14–20 €/asiento | https://concertride.me/rutas/granada-sonorama-ribera |
+| León → Sonorama | Sonorama | Aranda de Duero | 175 | 1h 45 min | 6–9 €/asiento | https://concertride.me/rutas/leon-sonorama-ribera |
+| Logroño → Sonorama | Sonorama | Aranda de Duero | 125 | 1h 15 min | 4–7 €/asiento | https://concertride.me/rutas/logrono-sonorama-ribera |
+| Madrid → Sonorama | Sonorama | Aranda de Duero | 150 | 1h 30 min | 5–8 €/asiento | https://concertride.me/rutas/madrid-sonorama-ribera |
+| Oviedo → Sonorama | Sonorama | Aranda de Duero | 310 | 3h | 9–13 €/asiento | https://concertride.me/rutas/oviedo-sonorama-ribera |
+| Pamplona → Sonorama | Sonorama | Aranda de Duero | 215 | 2h | 7–11 €/asiento | https://concertride.me/rutas/pamplona-sonorama-ribera |
+| Salamanca → Sonorama | Sonorama | Aranda de Duero | 130 | 1h 15 min | 4–7 €/asiento | https://concertride.me/rutas/salamanca-sonorama-ribera |
+| Santander → Sonorama | Sonorama | Aranda de Duero | 195 | 1h 55 min | 6–10 €/asiento | https://concertride.me/rutas/santander-sonorama-ribera |
+| Segovia → Sonorama | Sonorama | Aranda de Duero | 125 | 1h 15 min | 4–7 €/asiento | https://concertride.me/rutas/segovia-sonorama-ribera |
+| Sevilla → Sonorama | Sonorama | Aranda de Duero | 570 | 5h | 14–20 €/asiento | https://concertride.me/rutas/sevilla-sonorama-ribera |
+| Valladolid → Sonorama | Sonorama | Aranda de Duero | 100 | 1h | 4–7 €/asiento | https://concertride.me/rutas/valladolid-sonorama-ribera |
+| Vitoria-Gasteiz → Sonorama | Sonorama | Aranda de Duero | 150 | 1h 30 min | 5–8 €/asiento | https://concertride.me/rutas/vitoria-gasteiz-sonorama-ribera |
+| Zaragoza → Sonorama | Sonorama | Aranda de Duero | 290 | 2h 30 min | 8–12 €/asiento | https://concertride.me/rutas/zaragoza-sonorama-ribera |
+| Alicante → Tomavistas | Tomavistas | Madrid | 430 | 4h | 12–17 €/asiento | https://concertride.me/rutas/alicante-tomavistas |
+| Ávila → Tomavistas | Tomavistas | Madrid | 110 | 1h 15 min | 4–7 €/asiento | https://concertride.me/rutas/avila-tomavistas |
+| Barcelona → Tomavistas | Tomavistas | Madrid | 620 | 5h 30 min | 15–20 €/asiento | https://concertride.me/rutas/barcelona-tomavistas |
+| Bilbao → Tomavistas | Tomavistas | Madrid | 395 | 3h 30 min | 11–16 €/asiento | https://concertride.me/rutas/bilbao-tomavistas |
+| Burgos → Tomavistas | Tomavistas | Madrid | 240 | 2h 15 min | 7–11 €/asiento | https://concertride.me/rutas/burgos-tomavistas |
+| Guadalajara → Tomavistas | Tomavistas | Madrid | 60 | 50 min | 3–6 €/asiento | https://concertride.me/rutas/guadalajara-tomavistas |
+| Madrid → Tomavistas | Tomavistas | Madrid | 15 | 25 min | 4–7 €/asiento | https://concertride.me/rutas/madrid-tomavistas |
+| Murcia → Tomavistas | Tomavistas | Madrid | 480 | 4h 30 min | 13–18 €/asiento | https://concertride.me/rutas/murcia-tomavistas |
+| Pamplona → Tomavistas | Tomavistas | Madrid | 390 | 3h 30 min | 11–15 €/asiento | https://concertride.me/rutas/pamplona-tomavistas |
+| Salamanca → Tomavistas | Tomavistas | Madrid | 210 | 2h | 7–11 €/asiento | https://concertride.me/rutas/salamanca-tomavistas |
+| Santander → Tomavistas | Tomavistas | Madrid | 390 | 3h 30 min | 11–15 €/asiento | https://concertride.me/rutas/santander-tomavistas |
+| Segovia → Tomavistas | Tomavistas | Madrid | 90 | 1h 10 min | 4–7 €/asiento | https://concertride.me/rutas/segovia-tomavistas |
+| Sevilla → Tomavistas | Tomavistas | Madrid | 525 | 4h 45 min | 14–19 €/asiento | https://concertride.me/rutas/sevilla-tomavistas |
+| Toledo → Tomavistas | Tomavistas | Madrid | 75 | 55 min | 4–7 €/asiento | https://concertride.me/rutas/toledo-tomavistas |
+| Valencia → Tomavistas | Tomavistas | Madrid | 355 | 3h 20 min | 10–14 €/asiento | https://concertride.me/rutas/valencia-tomavistas |
+| Valladolid → Tomavistas | Tomavistas | Madrid | 195 | 2h | 6–10 €/asiento | https://concertride.me/rutas/valladolid-tomavistas |
+| Zaragoza → Tomavistas | Tomavistas | Madrid | 325 | 3h | 9–13 €/asiento | https://concertride.me/rutas/zaragoza-tomavistas |
+| Albacete → Viña Rock | Viña Rock | Villarrobledo | 50 | 40 min | 3–5 €/asiento | https://concertride.me/rutas/albacete-vina-rock |
+| Alicante → Viña Rock | Viña Rock | Villarrobledo | 165 | 1h 35 min | 5–8 €/asiento | https://concertride.me/rutas/alicante-vina-rock |
+| Barcelona → Viña Rock | Viña Rock | Villarrobledo | 500 | 4h 45 min | 13–18 €/asiento | https://concertride.me/rutas/barcelona-vina-rock |
+| Bilbao → Viña Rock | Viña Rock | Villarrobledo | 555 | 5h | 14–20 €/asiento | https://concertride.me/rutas/bilbao-vina-rock |
+| Castellón de la Plana → Viña Rock | Viña Rock | Villarrobledo | 200 | 2h | 6–10 €/asiento | https://concertride.me/rutas/castellon-de-la-plana-vina-rock |
+| Córdoba → Viña Rock | Viña Rock | Villarrobledo | 270 | 2h 30 min | 8–12 €/asiento | https://concertride.me/rutas/cordoba-vina-rock |
+| Cuenca → Viña Rock | Viña Rock | Villarrobledo | 100 | 1h | 4–6 €/asiento | https://concertride.me/rutas/cuenca-vina-rock |
+| Granada → Viña Rock | Viña Rock | Villarrobledo | 280 | 2h 30 min | 8–12 €/asiento | https://concertride.me/rutas/granada-vina-rock |
+| Madrid → Viña Rock | Viña Rock | Villarrobledo | 190 | 1h 55 min | 6–9 €/asiento | https://concertride.me/rutas/madrid-vina-rock |
+| Murcia → Viña Rock | Viña Rock | Villarrobledo | 155 | 1h 30 min | 5–8 €/asiento | https://concertride.me/rutas/murcia-vina-rock |
+| Pamplona → Viña Rock | Viña Rock | Villarrobledo | 515 | 4h 45 min | 14–19 €/asiento | https://concertride.me/rutas/pamplona-vina-rock |
+| Salamanca → Viña Rock | Viña Rock | Villarrobledo | 265 | 2h 30 min | 8–12 €/asiento | https://concertride.me/rutas/salamanca-vina-rock |
+| Sevilla → Viña Rock | Viña Rock | Villarrobledo | 430 | 3h 45 min | 12–16 €/asiento | https://concertride.me/rutas/sevilla-vina-rock |
+| Toledo → Viña Rock | Viña Rock | Villarrobledo | 140 | 1h 25 min | 5–8 €/asiento | https://concertride.me/rutas/toledo-vina-rock |
+| Valencia → Viña Rock | Viña Rock | Villarrobledo | 200 | 2h | 6–9 €/asiento | https://concertride.me/rutas/valencia-vina-rock |
+| Valladolid → Viña Rock | Viña Rock | Villarrobledo | 305 | 2h 45 min | 9–13 €/asiento | https://concertride.me/rutas/valladolid-vina-rock |
+| Zaragoza → Viña Rock | Viña Rock | Villarrobledo | 430 | 4h | 12–17 €/asiento | https://concertride.me/rutas/zaragoza-vina-rock |
+| Alicante → Zevra | Zevra | Valencia | 175 | 1h 45 min | 5–8 €/asiento | https://concertride.me/rutas/alicante-zevra-festival |
+| Barcelona → Zevra | Zevra | Valencia | 355 | 3h 20 min | 10–14 €/asiento | https://concertride.me/rutas/barcelona-zevra-festival |
+| Bilbao → Zevra | Zevra | Valencia | 590 | 5h 15 min | 15–21 €/asiento | https://concertride.me/rutas/bilbao-zevra-festival |
+| Castellón de la Plana → Zevra | Zevra | Valencia | 75 | 50 min | 3–6 €/asiento | https://concertride.me/rutas/castellon-de-la-plana-zevra-festival |
+| Donostia → Zevra | Zevra | Valencia | 590 | 5h 15 min | 15–21 €/asiento | https://concertride.me/rutas/donostia-zevra-festival |
+| Granada → Zevra | Zevra | Valencia | 505 | 4h 30 min | 14–19 €/asiento | https://concertride.me/rutas/granada-zevra-festival |
+| Logroño → Zevra | Zevra | Valencia | 475 | 4h 15 min | 13–17 €/asiento | https://concertride.me/rutas/logrono-zevra-festival |
+| Madrid → Zevra | Zevra | Valencia | 355 | 3h 20 min | 10–14 €/asiento | https://concertride.me/rutas/madrid-zevra-festival |
+| Málaga → Zevra | Zevra | Valencia | 610 | 5h 20 min | 15–21 €/asiento | https://concertride.me/rutas/malaga-zevra-festival |
+| Murcia → Zevra | Zevra | Valencia | 210 | 2h | 7–10 €/asiento | https://concertride.me/rutas/murcia-zevra-festival |
+| Pamplona → Zevra | Zevra | Valencia | 430 | 4h | 12–17 €/asiento | https://concertride.me/rutas/pamplona-zevra-festival |
+| Sevilla → Zevra | Zevra | Valencia | 600 | 5h 15 min | 15–21 €/asiento | https://concertride.me/rutas/sevilla-zevra-festival |
+| Tarragona → Zevra | Zevra | Valencia | 260 | 2h 30 min | 8–12 €/asiento | https://concertride.me/rutas/tarragona-zevra-festival |
+| Valencia → Zevra | Zevra | Valencia | 10 | 15 min | 3–5 €/asiento | https://concertride.me/rutas/valencia-zevra-festival |
+| Vitoria-Gasteiz → Zevra | Zevra | Valencia | 575 | 5h | 15–20 €/asiento | https://concertride.me/rutas/vitoria-gasteiz-zevra-festival |
+| Zaragoza → Zevra | Zevra | Valencia | 315 | 3h | 9–13 €/asiento | https://concertride.me/rutas/zaragoza-zevra-festival |

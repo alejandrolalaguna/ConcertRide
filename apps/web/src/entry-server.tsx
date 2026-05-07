@@ -37,6 +37,10 @@ import CookiesPage from "./pages/CookiesPage";
 import TerminosPage from "./pages/TerminosPage";
 import NotFoundPage from "./pages/NotFoundPage";
 import HowToGetTherePage from "./pages/HowToGetTherePage";
+import FestivalGuidePage from "./pages/FestivalGuidePage";
+import ComoFuncionaCarpoolingPage from "./pages/ComoFuncionaCarpoolingPage";
+import ComparativaBlaBlaCar from "./pages/ComparativaBlaBlaCar";
+import ComparativaTaxi from "./pages/ComparativaTaxi";
 import { FESTIVAL_LANDINGS, FESTIVAL_LANDINGS_LAST_UPDATED } from "./lib/festivalLandings";
 import { CITY_LANDINGS } from "./lib/cityLandings";
 import { BLOG_SLUGS as BLOG_POST_SLUGS } from "./lib/blogPosts";
@@ -71,6 +75,7 @@ function ServerApp() {
         <Route path="/conciertos/:city/:year" element={<CityYearPage />} />
         <Route path="/conciertos/:city" element={<CityLandingPage />} />
         <Route path="/festivales" element={<FestivalesPage />} />
+        <Route path="/festivales/:festival/guia" element={<FestivalGuidePage />} />
         <Route path="/festivales/:festival" element={<FestivalLandingPage />} />
         <Route path="/artistas/:slug" element={<ArtistLandingPage />} />
         <Route path="/recintos/:slug" element={<VenueLandingPage />} />
@@ -81,6 +86,9 @@ function ServerApp() {
         <Route path="/rutas" element={<RutasIndexPage />} />
         <Route path="/rutas/:route" element={<RouteLandingPage />} />
         <Route path="/como-llegar/:festival" element={<HowToGetTherePage />} />
+        <Route path="/como-funciona-carpooling" element={<ComoFuncionaCarpoolingPage />} />
+        <Route path="/comparativa/concertride-vs-blablacar" element={<ComparativaBlaBlaCar />} />
+        <Route path="/comparativa/carpooling-vs-taxi-festival" element={<ComparativaTaxi />} />
         <Route path="/prensa" element={<PrensaPage />} />
         <Route path="/datos" element={<DatosPage />} />
         <Route path="/como-funciona" element={<HowItWorksPage />} />

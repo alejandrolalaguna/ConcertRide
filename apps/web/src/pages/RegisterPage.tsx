@@ -11,7 +11,17 @@ import { SITE_URL } from "@/lib/siteUrl";
 export default function RegisterPage() {
   const { user, loading, refresh } = useSession();
   const [params] = useSearchParams();
-  const next = params.get("next") ?? "/";
+  // Sanitize "next" — same logic as LoginPage to prevent nested chains.
+  const rawNext = params.get("next") ?? "/";
+  const next =
+    rawNext.startsWith("/") &&
+    !rawNext.startsWith("/login") &&
+    !rawNext.startsWith("/register") &&
+    !rawNext.startsWith("/forgot-password") &&
+    !rawNext.startsWith("/reset-password") &&
+    !rawNext.startsWith("//")
+      ? rawNext
+      : "/";
   const ref = params.get("ref") ?? undefined;
 
   const [name, setName] = useState("");

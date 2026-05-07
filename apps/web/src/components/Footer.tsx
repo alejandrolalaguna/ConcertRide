@@ -43,6 +43,7 @@ export function Footer() {
             </Link>
             <Link
               to="/register"
+              rel="nofollow"
               className="font-sans text-xs text-cr-text-muted hover:text-cr-primary transition-colors"
             >
               Crear cuenta

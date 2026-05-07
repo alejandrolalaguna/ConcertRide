@@ -20,7 +20,37 @@ export function TopNav() {
 
   if (loading) return null;
 
-  const next = encodeURIComponent(location.pathname + location.search);
+  // Avoid nested ?next= chains: if user is already on an auth page,
+  // forward the original next (or "/") instead of wrapping the auth URL.
+  // Otherwise GSC sees /login?next=/login?next=/login?next=/X infinitely nested.
+  const rawNext = location.pathname + location.search;
+  const isOnAuthPage =
+    location.pathname === "/login" ||
+    location.pathname === "/register" ||
+    location.pathname === "/forgot-password" ||
+    location.pathname === "/reset-password";
+  let safeNext = "/";
+  if (!isOnAuthPage) {
+    safeNext = rawNext;
+  } else {
+    // We're on an auth page — extract the existing next= from search params.
+    try {
+      const sp = new URLSearchParams(location.search);
+      const existing = sp.get("next");
+      // Only forward if it's a relative path that doesn't itself point to auth.
+      if (
+        existing &&
+        existing.startsWith("/") &&
+        !existing.startsWith("/login") &&
+        !existing.startsWith("/register") &&
+        !existing.startsWith("/forgot-password") &&
+        !existing.startsWith("/reset-password")
+      ) {
+        safeNext = existing;
+      }
+    } catch { /* fallthrough to "/" */ }
+  }
+  const next = encodeURIComponent(safeNext);
 
   return (
     <nav

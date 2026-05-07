@@ -34,9 +34,9 @@ export const FESTIVAL_SEO_OVERRIDES: Record<string, { title: string; description
     keywords: `arenal sound ${YEAR}, autobus castellon burriana arenal sound, autobuses castellon burriana arenal sound, bus burriana arenal sound, arenal sound como llegar, como ir al arenal sound, arenal sound localización, arenal sound tren, tren arenal sound, arenal sound bus, arenal sound autobuses, bus arenal sound, buses arenal sound, arenal sound carpooling, viaje compartido burriana arenal sound, arenal sound desde madrid, arenal sound guia transporte, arenal sound horarios, arenal sound entradas`,
   },
   "mad-cool": {
-    title: `Mad Cool ${YEAR} Madrid — Cómo llegar: Metro L8, carpooling desde 4€ | ConcertRide`,
-    description: `Mad Cool ${YEAR}, IFEMA Madrid (9–11 jul). Metro L8 → Feria de Madrid (25 min desde Sol). Carpooling desde Barcelona (15–20€), Valencia (10–14€), Zaragoza (9–13€). Mad Cool es en Madrid (no en Barcelona). Sin comisión.`,
-    keywords: `mad cool ${YEAR}, como llegar al mad cool ${YEAR}, mad cool como llegar, mad cool madrid carpooling, mad cool transporte, como ir mad cool, mad cool metro, mad cool ifema, mad cool barcelona, viaje compartido mad cool, carpooling madrid ifema`,
+    title: `Mad Cool ${YEAR} Madrid [9–11 jul IFEMA]: Metro L8 + Carpooling 4€ | ConcertRide`,
+    description: `Mad Cool ${YEAR} (9–11 jul, IFEMA Madrid, 80.000 pers/día): Metro L8 Feria de Madrid (25 min desde Sol, ampliado hasta 02:30). Carpooling sin comisión desde Barcelona (15–20€), Valencia (10–14€), Zaragoza (9–13€), Sevilla (14–20€), Bilbao (11–16€). Vuelta nocturna coordinada. Pago Bizum o efectivo, 0% comisión.`,
+    keywords: `mad cool ${YEAR}, como llegar al mad cool ${YEAR}, mad cool como llegar, mad cool madrid carpooling, mad cool transporte, como ir mad cool, mad cool metro, mad cool ifema, mad cool barcelona, viaje compartido mad cool, carpooling madrid ifema, mad cool entradas, mad cool cartel, mad cool fechas, mad cool 2026 horarios, mad cool desde barcelona`,
   },
   "bbk-live": {
     title: `BBK Live ${YEAR} Bilbao [Lanzadera Gratis + Carpooling 3€] | ConcertRide`,
@@ -59,14 +59,14 @@ export const FESTIVAL_SEO_OVERRIDES: Record<string, { title: string; description
     keywords: `cala mijas festival ${YEAR}, cala mijas ${YEAR}, mijas festival ${YEAR}, la cala festival ${YEAR}, cala mijas carpooling, como llegar cala mijas, transporte cala mijas, cala mijas festival málaga, cortijo de torres mijas, viaje compartido cala mijas, cala mijas desde málaga, cala de mijas festival, cala mijas entradas, cala mijas cartel, cala mijas shuttle, cala mijas desde sevilla`,
   },
   "o-son-do-camino": {
-    title: `O Son do Camiño ${YEAR} Santiago — Cómo llegar: carpooling desde 3€ | ConcertRide`,
-    description: `O Son do Camiño ${YEAR}, Monte do Gozo, Santiago de Compostela (18–20 jun). Cómo llegar: carpooling desde A Coruña (3–6€, 75 km), Vigo (4–7€, 90 km), Ourense (5–8€, 110 km), Madrid (15–20€, 585 km). 90.000+ asistentes. Sin comisión.`,
-    keywords: `o son do camiño ${YEAR}, o son do camino ${YEAR}, o son do camiño santiago carpooling, como llegar o son do camiño, como llegar o son do camino, transporte monte do gozo, viaje compartido santiago festival, o son do camiño desde madrid, o son do camiño desde a coruña, o son do camiño desde vigo, festival galicia ${YEAR}, festival santiago compostela ${YEAR}`,
+    title: `O Son do Camiño ${YEAR} Santiago [18–20 jun Monte do Gozo]: Lanzadera + Carpooling 3€ | ConcertRide`,
+    description: `O Son do Camiño ${YEAR} (18–20 jun, Monte do Gozo Santiago, 270.000 acumulados): lanzadera GRATIS desde Santiago centro hasta el recinto. Carpooling sin comisión desde A Coruña (3–6€, 75 km), Vigo (4–7€, 90 km), Ourense (5–8€, 110 km), Pontevedra (3–5€), Lugo (4–7€), Madrid (15–20€). Vuelta de madrugada coordinada.`,
+    keywords: `o son do camiño ${YEAR}, o son do camino ${YEAR}, o son do camiño santiago carpooling, como llegar o son do camiño, como llegar o son do camino, transporte monte do gozo, viaje compartido santiago festival, o son do camiño desde madrid, o son do camiño desde a coruña, o son do camiño desde vigo, festival galicia ${YEAR}, festival santiago compostela ${YEAR}, o son do camino entradas, o son do camino cartel ${YEAR}, monte do gozo lanzadera`,
   },
   "low-festival": {
-    title: `Low Festival ${YEAR} Benidorm — Cómo llegar: carpooling desde 5€ | ConcertRide`,
-    description: `Low Festival ${YEAR}, Benidorm (Alicante). Cómo llegar: carpooling desde Alicante (5–8€), Valencia (10–13€), Madrid (15–20€). Indie, pop, rock en la costa. Sin comisión.`,
-    keywords: `low festival benidorm ${YEAR}, low festival carpooling, como llegar low festival, transporte benidorm festival, viaje compartido low festival`,
+    title: `Low Festival ${YEAR} Benidorm [24–26 jul]: Indie + Pop + Carpooling 3€ | ConcertRide`,
+    description: `Low Festival ${YEAR} (24–26 jul, Ciudad Deportiva Guillermo Amor Benidorm, 65.000 acumulados): indie/pop/rock junto al Mediterráneo. TRAM L1 Alicante–Benidorm (1h, 4€). Carpooling sin comisión desde Benidorm centro (3€), Alicante (5–8€), Elche (4–7€), Valencia (5–8€), Madrid (15–20€). Vuelta nocturna coordinada — el TRAM cierra antes del cabeza de cartel.`,
+    keywords: `low festival benidorm ${YEAR}, low festival carpooling, como llegar low festival, transporte benidorm festival, viaje compartido low festival, low festival entradas, low festival cartel, low festival ciudad deportiva guillermo amor, festival benidorm indie, low festival fechas`,
   },
   "zevra-festival": {
     title: `Zevra Festival ${YEAR} Valencia [Horarios + Metro L4 + Carpooling] | ConcertRide`,
@@ -79,14 +79,14 @@ export const FESTIVAL_SEO_OVERRIDES: Record<string, { title: string; description
     keywords: `fib ${YEAR}, fib benicassim ${YEAR}, fib benicàssim como llegar, fib festival tren, autobús fib, fib carpooling, festival internacional benicassim, fib transporte, como ir fib, fib entradas, fib horarios, fib cartel, fib desde madrid, fib desde valencia, fib desde barcelona`,
   },
   "vive-latino": {
-    title: `Vive Latino España ${YEAR} Zaragoza (4–5 sep) — Carpooling desde Madrid (9€) | ConcertRide`,
-    description: `Vive Latino España ${YEAR}, Recinto Expo Zaragoza (4–5 sep). 40.000 personas/día. Carpooling desde Madrid (9–13€, 3h), Barcelona (8–12€, 2h 45min), Pamplona (5–8€), Huesca (3–5€). Primera edición europea. Sin comisión.`,
-    keywords: `vive latino españa ${YEAR}, vive latino zaragoza ${YEAR}, vive latino zaragoza septiembre, vive latino como llegar, carpooling vive latino, vive latino transporte, como ir al vive latino zaragoza, vive latino carpooling madrid, vive latino carpooling barcelona, vive latino recinto expo, vive latino zaragoza expo`,
+    title: `Vive Latino España ${YEAR} Zaragoza [4–5 sep Recinto Expo]: Carpooling 5€ | ConcertRide`,
+    description: `Vive Latino España ${YEAR} (4–5 sep, Recinto Expo Zaragoza, 40.000/día) — primera edición europea del festival latino más prestigioso. Carpooling sin comisión desde Madrid (9–13€, 3h), Barcelona (8–12€, 2h 45min), Pamplona (5–8€), Huesca (3–5€), Bilbao (9–13€), Valencia (9–13€). Vuelta nocturna coordinada con asistentes del mismo festival.`,
+    keywords: `vive latino españa ${YEAR}, vive latino zaragoza ${YEAR}, vive latino zaragoza septiembre, vive latino como llegar, carpooling vive latino, vive latino transporte, como ir al vive latino zaragoza, vive latino carpooling madrid, vive latino carpooling barcelona, vive latino recinto expo, vive latino zaragoza expo, vive latino entradas, vive latino cartel ${YEAR}, primera edicion europa vive latino`,
   },
   "festival-de-les-arts": {
-    title: `Festival de les Arts ${YEAR} Valencia — Carpooling desde Alicante (5€) | ConcertRide`,
-    description: `Festival de les Arts ${YEAR}, Ciudad de las Artes y las Ciencias Valencia (28–31 may). Carpooling desde Alicante (5–8€), Castellón (3–5€), Madrid (10–14€), Murcia (7–11€). Metro L3/L5/L7 (parada Alameda). Sin comisión.`,
-    keywords: `festival de les arts ${YEAR}, festival les arts valencia ${YEAR}, festival les arts como llegar, carpooling festival les arts, les arts transporte, como ir festival les arts, festival les arts carpooling alicante, festival les arts carpooling madrid`,
+    title: `Festival de les Arts ${YEAR} Valencia [28–31 may Ciudad Artes y Ciencias]: Carpooling 3€ | ConcertRide`,
+    description: `Festival de les Arts ${YEAR} (28–31 may, Ciudad de las Artes y las Ciencias Valencia, 25.000/día): Metro L3/L5/L7 parada Alameda. Carpooling sin comisión desde Alicante (5–8€), Castellón (3–5€), Gandia (3–5€), Madrid (10–14€), Murcia (7–11€), Tarragona (7–11€). Vuelta nocturna coordinada — Metro Valencia hasta 02:00.`,
+    keywords: `festival de les arts ${YEAR}, festival les arts valencia ${YEAR}, festival les arts como llegar, carpooling festival les arts, les arts transporte, como ir festival les arts, festival les arts carpooling alicante, festival les arts carpooling madrid, festival les arts entradas, festival les arts cartel ${YEAR}, ciudad artes y ciencias festival`,
   },
   "sonar": {
     title: `Sónar ${YEAR} Barcelona [Guía Transporte]: Metro L1 + carpooling 8€ | ConcertRide`,
@@ -99,19 +99,19 @@ export const FESTIVAL_SEO_OVERRIDES: Record<string, { title: string; description
     keywords: `sonorama ribera ${YEAR}, sonorama aranda de duero, sonorama ${YEAR}, como llegar sonorama ribera, transporte sonorama ribera, bus sonorama ribera, sonorama ribera carpooling, sonorama ribera desde madrid, sonorama ribera burgos, sonorama entradas, sonorama cartel, la sepulvedana sonorama, sonorama desde bilbao, sonorama desde valladolid`,
   },
   "medusa-festival": {
-    title: `Medusa Festival ${YEAR} Cullera — Cómo llegar: carpooling desde 3€ | ConcertRide`,
-    description: `Medusa Festival ${YEAR}, Playa de Cullera (Valencia). Cómo llegar: lanzadera oficial desde Valencia + carpooling desde Valencia (3–5€), Alicante (5–8€), Madrid (15–20€). Sin comisión.`,
-    keywords: `medusa festival ${YEAR}, medusa festival cullera, como llegar medusa festival, medusa festival carpooling, transporte medusa festival, medusa festival desde valencia, medusa festival lanzadera`,
+    title: `Medusa Festival ${YEAR} Cullera [12–16 ago]: Electrónica 5 días + Carpooling 3€ | ConcertRide`,
+    description: `Medusa Festival ${YEAR} (12–16 ago, Playa de Cullera Valencia, 200.000 acumulados, 5 días): electrónica nocturna mediterránea con lanzadera oficial Valencia–Cullera. Carpooling sin comisión desde Valencia (3–5€), Gandia (3–4€), Alicante (5–7€), Castellón (5–8€), Madrid (15–20€), Barcelona (10–14€). Vuelta nocturna coordinada.`,
+    keywords: `medusa festival ${YEAR}, medusa festival cullera, como llegar medusa festival, medusa festival carpooling, transporte medusa festival, medusa festival desde valencia, medusa festival lanzadera, medusa festival entradas, medusa festival cartel ${YEAR}, medusa playa de cullera, festival electronica valencia, medusa festival horarios`,
   },
   "cruilla": {
-    title: `Cruïlla ${YEAR} Barcelona — Cómo llegar: Metro L4 y carpooling desde 8€ | ConcertRide`,
-    description: `Cruïlla ${YEAR}, Parc del Fòrum Barcelona. Cómo llegar: Metro L4 Besòs Mar o carpooling desde Madrid (15–20€), Valencia (10–14€), Zaragoza (8–12€). Sin comisión.`,
-    keywords: `cruilla barcelona ${YEAR}, cruilla festival ${YEAR}, como llegar cruilla barcelona, cruilla metro, transporte cruilla, cruilla carpooling`,
+    title: `Cruïlla ${YEAR} Barcelona [9–12 jul Parc del Fòrum]: Metro L4 + Carpooling 5€ | ConcertRide`,
+    description: `Cruïlla ${YEAR} (9–12 jul, Parc del Fòrum Barcelona, 175.000 acumulados): pop/rock/electrónica con cabezas internacionales. Metro L4 Besòs Mar / Maresme directo al recinto. Carpooling sin comisión desde Madrid (15–20€), Valencia (10–14€), Zaragoza (8–12€), Tarragona (5–8€), Sabadell (3–5€), Mataró (3–5€). Vuelta de madrugada coordinada.`,
+    keywords: `cruilla barcelona ${YEAR}, cruilla festival ${YEAR}, como llegar cruilla barcelona, cruilla metro, transporte cruilla, cruilla carpooling, cruilla entradas, cruilla cartel ${YEAR}, cruilla parc del forum, cruilla fechas, cruilla horarios`,
   },
   "tomavistas": {
-    title: `Tomavistas ${YEAR} Madrid — Cómo llegar: Metro Retiro y carpooling desde 9€ | ConcertRide`,
-    description: `Tomavistas ${YEAR}, Jardines del Buen Retiro, Madrid. Cómo llegar: Metro L2 Retiro / L9 Ibiza o carpooling desde Barcelona (15–20€), Valencia (10–14€), Zaragoza (9–13€). Sin comisión.`,
-    keywords: `tomavistas ${YEAR}, tomavistas madrid ${YEAR}, como llegar tomavistas, tomavistas metro retiro, transporte tomavistas, tomavistas carpooling`,
+    title: `Tomavistas ${YEAR} Madrid [15–17 may El Retiro]: Indie + Metro L2 + Carpooling 3€ | ConcertRide`,
+    description: `Tomavistas ${YEAR} (15–17 may, Jardines del Buen Retiro Madrid, 20.000/día): festival urbano indie/pop en pleno centro. Metro L2 Retiro / L9 Ibiza directo al recinto. Carpooling sin comisión desde Móstoles (3–5€), Alcalá de Henares (3–5€), Barcelona (15–20€), Valencia (10–14€), Zaragoza (9–13€). Pago Bizum o efectivo.`,
+    keywords: `tomavistas ${YEAR}, tomavistas madrid ${YEAR}, como llegar tomavistas, tomavistas metro retiro, transporte tomavistas, tomavistas carpooling, tomavistas entradas, tomavistas cartel ${YEAR}, tomavistas fechas, festival retiro madrid, tomavistas jardines buen retiro`,
   },
   "festival-ortigueira": {
     title: `Festival de Ortigueira ${YEAR}: gratis, fechas y carpooling desde 4€ | ConcertRide`,
@@ -132,6 +132,31 @@ export const FESTIVAL_SEO_OVERRIDES: Record<string, { title: string; description
     title: `Granada Sound ${YEAR}: Cómo llegar al Cortijo del Conde, carpooling desde 5€ | ConcertRide`,
     description: `Granada Sound ${YEAR} (último fin de semana sept), Cortijo del Conde Granada. 25.000 personas/día. Bus lanzadera oficial desde Estación de Autobuses (5–7€). Carpooling desde Málaga (130 km, 5–8€), Sevilla (250 km, 8–11€), Madrid (430 km, 12–17€), Almería (170 km, 6–9€), Jaén (95 km, 4–7€). Sin comisión.`,
     keywords: `granada sound ${YEAR}, granada sound fechas, granada sound entradas, granada sound como llegar, granada sound carpooling, granada sound cortijo del conde, festival pop granada ${YEAR}, festival indie granada, granada sound shuttle, granada sound desde malaga, granada sound desde sevilla, festival andalucia oriental, festival granada septiembre`,
+  },
+  "pirineos-sur": {
+    title: `Pirineos Sur ${YEAR} [Lanuza] — World music sobre el embalse | Carpooling 3€ | ConcertRide`,
+    description: `Pirineos Sur ${YEAR} (10 jul–1 ago, 3 fines de semana), Auditorio flotante de Lanuza (Sallent de Gállego, Huesca). World music con escenario sobre el embalse pirenaico — único en Europa. Sin transporte público al pueblo. Carpooling sin comisión desde Huesca (75 km, 3–5€), Zaragoza (175 km, 6–9€), Madrid (480 km, 13–18€), Barcelona (430 km, 12–17€). Vuelta de madrugada coordinada.`,
+    keywords: `pirineos sur ${YEAR}, festival pirineos sur, festival lanuza, sallent de gallego festival, world music pirineos, escenario embalse lanuza, pirineos sur entradas, pirineos sur fechas ${YEAR}, pirineos sur como llegar, pirineos sur desde huesca, pirineos sur desde madrid, pirineos sur desde zaragoza, festival aragon ${YEAR}`,
+  },
+  "starlite-marbella": {
+    title: `Starlite Marbella ${YEAR} [Cantera Nagüeles]: 60+ noches conciertos | ConcertRide`,
+    description: `Starlite Catalana Occidente ${YEAR} (13 jun–31 ago, Cantera de Nagüeles Marbella). 60+ noches de conciertos consecutivas en anfiteatro al aire libre tallado en la roca (7.500 plazas). Lenny Kravitz, Tom Jones, Maluma, Pet Shop Boys, Robbie Williams. Carpooling sin comisión desde Málaga (60 km, 3–5€), Mijas (20 km, 3–4€), Fuengirola (25 km, 3–5€), Madrid (575 km, 14–20€). Vuelta nocturna coordinada.`,
+    keywords: `starlite marbella ${YEAR}, starlite festival marbella, starlite catalana occidente, cantera de nagueles marbella, starlite entradas, starlite cabezas de cartel, festival marbella verano ${YEAR}, conciertos marbella verano, starlite shuttle, starlite como llegar, starlite desde malaga, costa del sol festivales`,
+  },
+  "stone-music-festival": {
+    title: `Stone & Music ${YEAR} Mérida [Teatro Romano UNESCO] | Carpooling 3€ | ConcertRide`,
+    description: `Stone & Music Festival ${YEAR} (jul–sep, Teatro Romano Mérida siglo I a.C.). Conciertos en uno de los pocos espacios romanos en activo del mundo (3.000 plazas). Andrea Bocelli, Sting, Joaquín Sabina, Antonio Orozco, Manuel Carrasco. Carpooling sin comisión desde Cáceres (75 km, 4–6€), Badajoz (60 km, 3–5€), Sevilla (200 km, 6–9€), Madrid (340 km, 10–14€). 0% comisión.`,
+    keywords: `stone music festival ${YEAR}, stone music merida, festival merida teatro romano, teatro romano merida conciertos, stone music entradas, festival extremadura ${YEAR}, andrea bocelli merida, sting merida, joaquin sabina merida, conciertos teatro romano, festival merida ${YEAR}`,
+  },
+  "marenostrum-fuengirola": {
+    title: `Marenostrum Fuengirola ${YEAR} [Castle Park]: Carpooling 3€ | ConcertRide`,
+    description: `Marenostrum Fuengirola Festival ${YEAR} (15 jun–20 ago, Sohail Castle Park anfiteatro al aire libre junto al castillo árabe del siglo X). 50 Cent, Bryan Adams, Iggy Pop, Tom Jones, Sheryl Crow, Robbie Williams. 15.000 plazas/concierto. Cercanías Renfe C-1 Málaga–Fuengirola (35 min). Carpooling sin comisión desde Málaga (35 km, 3–5€), Mijas (10 km, 3–4€), Marbella (25 km, 3–5€), Granada (130 km, 5–8€).`,
+    keywords: `marenostrum fuengirola ${YEAR}, marenostrum castle park, fuengirola castle park festival, sohail castle park conciertos, marenostrum entradas, marenostrum cabezas de cartel, festival fuengirola ${YEAR}, fuengirola conciertos verano, costa del sol festivales, marenostrum como llegar, marenostrum desde malaga, cercanias malaga fuengirola`,
+  },
+  "tio-pepe-festival": {
+    title: `Tío Pepe Festival ${YEAR} Jerez [Bodegas González Byass]: Carpooling 3€ | ConcertRide`,
+    description: `Tío Pepe Festival ${YEAR} (25 jun–31 ago, Bodegas González Byass Jerez). Festival íntimo (1.800 plazas) en patio entre barricas históricas del vino de Jerez. Robbie Williams, Pet Shop Boys, Sting, Anastacia, Pablo Alborán, Joaquín Sabina. Entrada incluye copa de Tío Pepe. Carpooling sin comisión desde Cádiz (35 km, 3–5€), Sevilla (95 km, 4–7€), Algeciras (130 km, 5–7€), Madrid (655 km, 16–22€).`,
+    keywords: `tio pepe festival ${YEAR}, tio pepe jerez festival, bodegas gonzalez byass conciertos, festival jerez ${YEAR}, festival jerez de la frontera, tio pepe entradas, robbie williams jerez, pet shop boys jerez, sting jerez, festival cadiz ${YEAR}, jerez festival verano`,
   },
 };
 
@@ -518,6 +543,31 @@ export const HOW_TO_GET_THERE_SEO: Record<string, { title: string; description: 
     description: `Granada Sound ${YEAR} (Cortijo del Conde Granada): bus lanzadera oficial desde Estación de Autobuses (5–7€). Carpooling desde Málaga (130 km, 5–8€), Sevilla (250 km, 8–11€), Madrid (430 km, 12–17€), Jaén (95 km, 4–7€). Sin comisión.`,
     keywords: `como llegar granada sound ${YEAR}, granada sound transporte, granada sound shuttle, granada sound bus, granada sound carpooling, granada sound cortijo del conde como llegar, granada sound desde malaga, granada sound desde madrid`,
   },
+  "pirineos-sur": {
+    title: `Cómo llegar a Pirineos Sur ${YEAR}: carretera + carpooling | ConcertRide`,
+    description: `Pirineos Sur ${YEAR} (Lanuza, Sallent de Gállego): SIN transporte público al pueblo. Acceso por A-136 desde Huesca → Sabiñánigo. Carpooling ConcertRide desde Huesca (75 km, 3–5€), Zaragoza (175 km, 6–9€), Madrid (480 km, 13–18€), Barcelona (430 km, 12–17€). Sin comisión.`,
+    keywords: `como llegar pirineos sur ${YEAR}, pirineos sur transporte, pirineos sur lanuza como llegar, sallent de gallego festival, pirineos sur carpooling, pirineos sur desde huesca, pirineos sur desde zaragoza`,
+  },
+  "starlite-marbella": {
+    title: `Cómo llegar a Starlite Marbella ${YEAR}: lanzadera y carpooling | ConcertRide`,
+    description: `Starlite Marbella ${YEAR} (Cantera de Nagüeles): lanzadera oficial desde Hotel Don Pepe Marbella + Plaza de la Iglesia. Aparcamiento en el recinto. Carpooling ConcertRide desde Málaga (60 km, 3–5€), Mijas (20 km, 3–4€), Fuengirola (25 km, 3–5€), Madrid (575 km, 14–20€). Sin comisión.`,
+    keywords: `como llegar starlite marbella ${YEAR}, starlite transporte, cantera de nagueles como llegar, starlite shuttle marbella, starlite carpooling, starlite desde malaga, starlite desde madrid`,
+  },
+  "stone-music-festival": {
+    title: `Cómo llegar a Stone & Music Mérida ${YEAR}: tren + carpooling | ConcertRide`,
+    description: `Stone & Music Festival ${YEAR} (Teatro Romano Mérida): centro histórico, 5 min andando de Plaza España. Renfe Madrid–Mérida (3h 30 min, 25–45€). Carpooling ConcertRide desde Cáceres (75 km, 4–6€), Badajoz (60 km, 3–5€), Sevilla (200 km, 6–9€), Madrid (340 km, 10–14€). Sin comisión.`,
+    keywords: `como llegar stone music merida ${YEAR}, stone music transporte, teatro romano merida como llegar, stone music carpooling, stone music desde madrid, stone music desde sevilla, festival merida transporte`,
+  },
+  "marenostrum-fuengirola": {
+    title: `Cómo llegar a Marenostrum Fuengirola ${YEAR}: Cercanías + carpooling | ConcertRide`,
+    description: `Marenostrum Fuengirola ${YEAR} (Sohail Castle Park): Cercanías Renfe C-1 Málaga–Fuengirola (35 min, 3,90€) + 15 min andando. Carpooling ConcertRide desde Málaga (35 km, 3–5€), Mijas (10 km, 3–4€), Marbella (25 km, 3–5€), Granada (130 km, 5–8€). Sin comisión.`,
+    keywords: `como llegar marenostrum fuengirola ${YEAR}, marenostrum transporte, sohail castle park como llegar, fuengirola castle park, marenostrum cercanias, marenostrum carpooling, fuengirola conciertos`,
+  },
+  "tio-pepe-festival": {
+    title: `Cómo llegar a Tío Pepe Festival ${YEAR}: tren + carpooling | ConcertRide`,
+    description: `Tío Pepe Festival ${YEAR} (Bodegas González Byass Jerez): centro de Jerez, 5 min Plaza Arenal. Renfe Madrid–Jerez (4h 30 min, 35–60€). ALSA Sevilla–Jerez (1h, 8–12€). Carpooling ConcertRide desde Cádiz (35 km, 3–5€), Sevilla (95 km, 4–7€), Algeciras (130 km, 5–7€), Madrid (655 km, 16–22€). Sin comisión.`,
+    keywords: `como llegar tio pepe festival ${YEAR}, tio pepe transporte, bodegas gonzalez byass como llegar, tio pepe jerez tren, tio pepe carpooling, tio pepe desde sevilla, tio pepe desde madrid`,
+  },
 };
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -575,6 +625,26 @@ export const VENUE_SEO_OVERRIDES: Record<string, { title: string; description: s
     title: `Cómo llegar al Palau Blaugrana Barcelona: metro y carpooling | ConcertRide`,
     description: `Palau Blaugrana, Barcelona (7.500 plazas). Metro L3 Palau Reial (10 min a pie) / Tranvía T1/T2 Palau Reial. Bus H8, 54, 75. Carpooling desde Madrid (15–20€), Valencia (10–14€), Zaragoza (8–12€). Sin comisión.`,
     keywords: `como llegar palau blaugrana, palau blaugrana metro, palau blaugrana barcelona como ir, palau blaugrana parking, carpooling palau blaugrana, conciertos palau blaugrana barcelona`,
+  },
+  "estadio-santiago-bernabeu": {
+    title: `Estadio Santiago Bernabéu Madrid [Cómo Llegar]: Metro + carpooling | ConcertRide`,
+    description: `Estadio Santiago Bernabéu (85.000 plazas) — sede de mega-conciertos (Coldplay, Bruce Springsteen, Karol G). Metro L10 Santiago Bernabéu (puerta) o L5 Nuevos Ministerios. Bus 14, 27, 40, 43, 120, 147, 150. Bus nocturno N1, N22, N24. Carpooling sin comisión desde Barcelona (15€), Valencia (14€), Sevilla (14€), Zaragoza (9€). Pago Bizum o efectivo.`,
+    keywords: `como llegar bernabeu, estadio bernabeu como llegar, bernabeu metro, bernabeu santiago de chamartin parking, carpooling bernabeu, bernabeu conciertos, coldplay bernabeu como llegar, bernabeu transporte nocturno`,
+  },
+  "estadio-civitas-metropolitano": {
+    title: `Estadio Metropolitano Madrid [Cómo Llegar]: Metro L7 + carpooling | ConcertRide`,
+    description: `Estadio Cívitas Metropolitano (68.000 plazas, sede del Atlético) — recinto para giras de mega-estadio (Ed Sheeran, Drake, Metallica, Guns N' Roses, Bruce Springsteen). Metro L7 Estadio Metropolitano (3 min a pie). Cercanías Renfe C-1/C-7 Metropolitano. Carpooling sin comisión desde Barcelona (15€), Valencia (14€), Sevilla (14€), Bilbao (11€). Vuelta nocturna coordinada.`,
+    keywords: `como llegar estadio metropolitano, civitas metropolitano metro, estadio metropolitano madrid concierto, metropolitano l7, carpooling metropolitano, metropolitano conciertos, metallica metropolitano, ed sheeran metropolitano`,
+  },
+  "estadi-olimpic-lluis-companys": {
+    title: `Estadi Olímpic Lluís Companys Barcelona [Cómo Llegar] | ConcertRide`,
+    description: `Estadi Olímpic Lluís Companys (Montjuïc, 55.000 plazas) — Taylor Swift, Bruce Springsteen, Bad Bunny, Madonna. Metro L1/L3 Plaça Espanya + escaleras mecánicas Montjuïc, o autobús turístico. Bus nocturno N1 hasta Plaça Catalunya. Carpooling sin comisión desde Madrid (15–20€), Valencia (10–14€), Zaragoza (8–12€). Pago directo Bizum o efectivo.`,
+    keywords: `como llegar estadi olimpic lluis companys, olimpic montjuic como llegar, taylor swift barcelona como llegar, bruce springsteen barcelona, montjuic metro, carpooling olimpic barcelona, estadi olimpic transporte`,
+  },
+  "roig-arena": {
+    title: `Roig Arena Valencia [Cómo Llegar]: Metro + carpooling | ConcertRide`,
+    description: `Roig Arena Valencia (nueva 2026, 20.000 plazas) — el mayor recinto cubierto de la Comunidad Valenciana. Metro L4 Tarongers o L9 Albereda. Bus EMT 30, 31. Carpooling sin comisión desde Madrid (10–14€), Barcelona (10–14€), Alicante (5–8€), Castellón (3–5€), Murcia (7–11€). Pago Bizum o efectivo, vuelta nocturna coordinada.`,
+    keywords: `como llegar roig arena valencia, roig arena metro, roig arena conciertos, roig arena tarongers, carpooling roig arena, roig arena 2026 conciertos, valencia nueva arena`,
   },
 };
 
@@ -750,6 +820,81 @@ export const ARTIST_SEO_OVERRIDES: Record<string, { title: string; description: 
     title: `Doja Cat España ${YEAR}: carpooling al concierto desde 4€ | ConcertRide`,
     description: `Doja Cat en España ${YEAR} — Palau Sant Jordi Barcelona y WiZink Center Madrid. Carpooling sin comisión desde Valencia (10–14€), Zaragoza (8–12€), Sevilla (14–20€). 0% comisión, pago Bizum o efectivo, conductores verificados.`,
     keywords: `doja cat españa ${YEAR}, doja cat madrid como llegar, doja cat barcelona carpooling, doja cat scarlet tour, carpooling doja cat, viaje compartido doja cat, como ir concierto doja cat, doja cat wizink center, doja cat palau sant jordi`,
+  },
+  "vetusta-morla": {
+    title: `Vetusta Morla concierto España ${YEAR}: carpooling desde 4€ | ConcertRide`,
+    description: `Vetusta Morla en España ${YEAR} — WiZink Center Madrid, Palau Sant Jordi Barcelona, La Cartuja Sevilla, Mad Cool. La banda indie española más grande. Carpooling sin comisión desde Valencia (10–14€), Zaragoza (9–13€), Sevilla (14–20€), Bilbao (11–16€), Granada (12–17€). 0% comisión, pago Bizum, vuelta de madrugada coordinada con otros fans.`,
+    keywords: `vetusta morla ${YEAR}, vetusta morla concierto españa ${YEAR}, vetusta morla madrid como llegar, vetusta morla wizink center, vetusta morla palau sant jordi, vetusta morla la cartuja, carpooling vetusta morla, viaje compartido vetusta morla, vetusta morla tour ${YEAR}, vetusta morla mapa de los vientos, vetusta morla cabo polonio`,
+  },
+  estopa: {
+    title: `Estopa concierto España ${YEAR}: carpooling desde 4€, 0% comisión | ConcertRide`,
+    description: `Estopa en España ${YEAR} — WiZink Center Madrid, Palau Sant Jordi Barcelona, La Cartuja Sevilla. Los hermanos Muñoz vuelven con gira nacional 25 aniversario. Carpooling sin comisión desde Valencia (10–14€), Zaragoza (9–13€), Bilbao (11–16€), Sevilla (14–20€). 0% comisión, pago Bizum o efectivo. Cantando rumba española.`,
+    keywords: `estopa ${YEAR}, estopa concierto españa ${YEAR}, estopa madrid como llegar, estopa wizink center, estopa palau sant jordi, estopa la cartuja, carpooling estopa, viaje compartido estopa, estopa tour 25 aniversario, hermanos muñoz estopa, rumba española estopa`,
+  },
+  quevedo: {
+    title: `Quevedo concierto España ${YEAR}: carpooling desde 4€ | ConcertRide`,
+    description: `Quevedo en España ${YEAR} — WiZink Center Madrid, Palau Sant Jordi Barcelona, Estadio Gran Canaria Arena Las Palmas. El rapero canario más exitoso. Carpooling sin comisión desde Valencia (10–14€), Sevilla (14–20€), Zaragoza (9–13€), Las Palmas. 0% comisión, pago Bizum, conductores verificados.`,
+    keywords: `quevedo ${YEAR}, quevedo concierto españa ${YEAR}, quevedo madrid como llegar, quevedo wizink center, quevedo palau sant jordi, quevedo gran canaria, carpooling quevedo, viaje compartido quevedo, quevedo bizarrap session 52, quevedo donde quiero estar tour, quevedo rapero canario`,
+  },
+  bizarrap: {
+    title: `Bizarrap concierto España ${YEAR}: carpooling desde 4€ | ConcertRide`,
+    description: `Bizarrap en España ${YEAR} — WiZink Center Madrid, Palau Sant Jordi Barcelona, Mad Cool, Primavera Sound. El productor argentino #1 mundial con sus BZRP Music Sessions. Carpooling sin comisión desde Valencia (10–14€), Zaragoza (9–13€), Sevilla (14–20€). 0% comisión, pago Bizum o efectivo.`,
+    keywords: `bizarrap ${YEAR}, bizarrap concierto españa ${YEAR}, bizarrap madrid como llegar, bizarrap wizink center, bizarrap palau sant jordi, bizarrap mad cool, bizarrap primavera sound, carpooling bizarrap, viaje compartido bizarrap, bizarrap bzrp sessions, bizarrap shakira, bizarrap quevedo`,
+  },
+  camilo: {
+    title: `Camilo concierto España ${YEAR}: carpooling desde 4€, 0% comisión | ConcertRide`,
+    description: `Camilo en España ${YEAR} — WiZink Center Madrid y Palau Sant Jordi Barcelona. Cantautor colombiano de pop latino. Carpooling sin comisión desde Valencia (10–14€), Sevilla (14–20€), Zaragoza (9–13€), Bilbao (11–16€). 0% comisión, pago Bizum, vuelta nocturna coordinada con otros fans.`,
+    keywords: `camilo ${YEAR}, camilo concierto españa ${YEAR}, camilo madrid como llegar, camilo wizink center, camilo palau sant jordi, carpooling camilo, viaje compartido camilo, camilo de adentro pa fuera tour, camilo cantautor colombiano, vida de rico camilo`,
+  },
+  "manuel-carrasco": {
+    title: `Manuel Carrasco concierto España ${YEAR}: carpooling desde 4€ | ConcertRide`,
+    description: `Manuel Carrasco en España ${YEAR} — La Cartuja Sevilla, WiZink Center Madrid, Stone & Music Mérida, Palau Sant Jordi Barcelona. El artista andaluz más exitoso de su generación. Carpooling sin comisión desde Huelva (4–7€), Cádiz (5–8€), Córdoba (5–8€), Málaga (7–10€), Madrid (14–20€). 0% comisión.`,
+    keywords: `manuel carrasco ${YEAR}, manuel carrasco concierto españa, manuel carrasco la cartuja sevilla, manuel carrasco madrid wizink, manuel carrasco merida stone music, carpooling manuel carrasco, manuel carrasco gira ${YEAR}, manuel carrasco huelva, manuel carrasco bailar contigo`,
+  },
+  "pablo-lopez": {
+    title: `Pablo López concierto España ${YEAR}: carpooling desde 4€ | ConcertRide`,
+    description: `Pablo López en España ${YEAR} — WiZink Center Madrid, Palau Sant Jordi Barcelona, La Cartuja Sevilla, Stone & Music Mérida. El malagueño cantautor de pop. Carpooling sin comisión desde Málaga (3–5€ a Marenostrum/Cala Mijas), Valencia (10–14€), Zaragoza (9–13€), Madrid (14–20€). 0% comisión, pago Bizum o efectivo.`,
+    keywords: `pablo lopez ${YEAR}, pablo lopez concierto españa, pablo lopez wizink center, pablo lopez palau sant jordi, pablo lopez la cartuja, pablo lopez merida, carpooling pablo lopez, pablo lopez gira ${YEAR}, pablo lopez tour ${YEAR}, pablo lopez piano, pablo lopez malaga`,
+  },
+  "love-of-lesbian": {
+    title: `Love of Lesbian concierto España ${YEAR}: carpooling desde 4€ | ConcertRide`,
+    description: `Love of Lesbian en España ${YEAR} — Palau Sant Jordi Barcelona, WiZink Center Madrid, Cruïlla, Sonorama Ribera, Granada Sound. La banda indie pop catalana más popular. Carpooling sin comisión desde Madrid (15–20€), Valencia (10–14€), Tarragona (5–8€), Zaragoza (8–12€). Pago Bizum o efectivo, 0% comisión.`,
+    keywords: `love of lesbian ${YEAR}, love of lesbian concierto españa ${YEAR}, love of lesbian madrid, love of lesbian barcelona, love of lesbian palau sant jordi, love of lesbian wizink, carpooling love of lesbian, viaje compartido love of lesbian, love of lesbian gira ${YEAR}, indie pop catalan, santi balmes love of lesbian`,
+  },
+  "carolina-durante": {
+    title: `Carolina Durante concierto España ${YEAR}: carpooling desde 4€ | ConcertRide`,
+    description: `Carolina Durante en España ${YEAR} — WiZink Center Madrid, Sala Apolo Barcelona, Mad Cool, Sonorama Ribera, Primavera Sound, Granada Sound. La banda madrileña de indie rock más relevante de la nueva escena. Carpooling sin comisión desde Valencia (10–14€), Zaragoza (9–13€), Bilbao (11–16€), Sevilla (14–20€). 0% comisión.`,
+    keywords: `carolina durante ${YEAR}, carolina durante concierto españa ${YEAR}, carolina durante madrid wizink, carolina durante barcelona, carolina durante mad cool, carolina durante sonorama, carolina durante primavera sound, carpooling carolina durante, indie rock madrid carolina durante, diego ibañez carolina durante, cuatro chavales carolina durante`,
+  },
+  "lola-indigo": {
+    title: `Lola Indigo concierto España ${YEAR}: carpooling desde 4€ | ConcertRide`,
+    description: `Lola Indigo en España ${YEAR} — WiZink Center Madrid, Palau Sant Jordi Barcelona, La Cartuja Sevilla, Mad Cool. La cantante española de pop urbano (OT 2017). Carpooling sin comisión desde Valencia (10–14€), Sevilla (14–20€), Zaragoza (9–13€), Madrid (14–20€). 0% comisión, pago Bizum.`,
+    keywords: `lola indigo ${YEAR}, lola indigo concierto españa ${YEAR}, lola indigo madrid, lola indigo wizink center, lola indigo palau sant jordi, lola indigo barcelona, carpooling lola indigo, viaje compartido lola indigo, lola indigo gira ${YEAR}, mimi doblas lola indigo, akelarre lola indigo, mujer bruja lola indigo`,
+  },
+  saiko: {
+    title: `Saiko concierto España ${YEAR}: carpooling desde 4€ | ConcertRide`,
+    description: `Saiko en España ${YEAR} — WiZink Center Madrid, Palau Sant Jordi Barcelona, Pabellón Santiago Martín Tenerife. El rapero canario nacido en La Laguna. Carpooling sin comisión desde Valencia (10–14€), Sevilla (14–20€), Zaragoza (9–13€), Madrid (14–20€). En Tenerife: Santa Cruz centro → Pabellón Santiago Martín (3–4€). 0% comisión.`,
+    keywords: `saiko ${YEAR}, saiko concierto españa ${YEAR}, saiko madrid, saiko wizink center, saiko barcelona, saiko tenerife pabellon santiago martin, saiko polaris quevedo, saiko chata, carpooling saiko, viaje compartido saiko, ivan vazquez saiko, rap canario saiko`,
+  },
+  "anuel-aa": {
+    title: `Anuel AA concierto España ${YEAR}: carpooling desde 4€ | ConcertRide`,
+    description: `Anuel AA en España ${YEAR} — WiZink Center Madrid y Palau Sant Jordi Barcelona. El rapero puertorriqueño de trap latino. Carpooling sin comisión desde Valencia (10–14€), Sevilla (14–20€), Zaragoza (9–13€), Madrid (14–20€). 0% comisión, pago Bizum o efectivo.`,
+    keywords: `anuel aa ${YEAR}, anuel aa concierto españa ${YEAR}, anuel aa madrid, anuel aa wizink center, anuel aa palau sant jordi, anuel aa barcelona, carpooling anuel aa, anuel aa karol g, china anuel daddy yankee, trap latino anuel aa, real hasta la muerte anuel`,
+  },
+  "j-balvin": {
+    title: `J Balvin concierto España ${YEAR}: carpooling desde 4€ | ConcertRide`,
+    description: `J Balvin en España ${YEAR} — WiZink Center Madrid, Palau Sant Jordi Barcelona, Vive Latino España Zaragoza. El cantante colombiano de reggaetón. Carpooling sin comisión desde Valencia (10–14€), Sevilla (14–20€), Zaragoza (9–13€), Tarragona (5–8€). 0% comisión.`,
+    keywords: `j balvin ${YEAR}, j balvin concierto españa ${YEAR}, j balvin madrid, j balvin wizink center, j balvin palau sant jordi, j balvin barcelona, carpooling j balvin, viaje compartido j balvin, j balvin vive latino, j balvin mi gente, jose alvaro osorio j balvin, reggaeton colombia j balvin`,
+  },
+  "sebastian-yatra": {
+    title: `Sebastián Yatra concierto España ${YEAR}: carpooling desde 4€ | ConcertRide`,
+    description: `Sebastián Yatra en España ${YEAR} — WiZink Center Madrid y Palau Sant Jordi Barcelona. El cantante colombiano de pop latino (Tacones Rojos). Carpooling sin comisión desde Valencia (10–14€), Sevilla (14–20€), Zaragoza (9–13€), Madrid (14–20€). 0% comisión, pago Bizum.`,
+    keywords: `sebastian yatra ${YEAR}, sebastian yatra concierto españa ${YEAR}, sebastian yatra madrid, sebastian yatra wizink, sebastian yatra palau sant jordi, sebastian yatra barcelona, carpooling sebastian yatra, sebastian yatra tacones rojos, sebastian yatra robarte un beso, pop latino yatra`,
+  },
+  "manuel-turizo": {
+    title: `Manuel Turizo concierto España ${YEAR}: carpooling desde 4€ | ConcertRide`,
+    description: `Manuel Turizo (MTZ) en España ${YEAR} — WiZink Center Madrid y Palau Sant Jordi Barcelona. El cantante colombiano (La Bachata, Una Lady Como Tú). Carpooling sin comisión desde Valencia (10–14€), Sevilla (14–20€), Zaragoza (9–13€), Tarragona (5–8€). 0% comisión, pago Bizum.`,
+    keywords: `manuel turizo ${YEAR}, manuel turizo concierto españa ${YEAR}, manuel turizo madrid, manuel turizo wizink, manuel turizo palau sant jordi, manuel turizo barcelona, mtz manuel turizo, manuel turizo la bachata, manuel turizo una lady como tu, carpooling manuel turizo, reggaeton colombia turizo`,
   },
 };
 
@@ -1606,5 +1751,147 @@ export const ROUTE_SEO_IMPROVEMENTS: Record<string, { title: string; keywords?: 
   "merida-mad-cool": {
     title: `Carpooling Mérida → Mad Cool Madrid ${YEAR}: Desde 10€ | 340 km | ConcertRide`,
     keywords: `carpooling merida mad cool, viaje compartido merida madrid, mad cool desde merida`,
+  },
+  // ── Wave 10: routes for 5 new festivals ───────────────────────────────────
+  // Pirineos Sur (Lanuza)
+  "huesca-pirineos-sur": {
+    title: `Carpooling Huesca → Pirineos Sur ${YEAR}: Desde 3€ | 75 km | ConcertRide`,
+    keywords: `carpooling huesca pirineos sur, viaje compartido huesca lanuza, pirineos sur desde huesca, sallent de gallego desde huesca`,
+  },
+  "zaragoza-pirineos-sur": {
+    title: `Carpooling Zaragoza → Pirineos Sur ${YEAR}: Desde 6€ | 175 km | ConcertRide`,
+    keywords: `carpooling zaragoza pirineos sur, viaje compartido zaragoza lanuza, pirineos sur desde zaragoza, festival lanuza desde zaragoza`,
+  },
+  "pamplona-pirineos-sur": {
+    title: `Carpooling Pamplona → Pirineos Sur ${YEAR}: Desde 7€ | 215 km | ConcertRide`,
+    keywords: `carpooling pamplona pirineos sur, viaje compartido pamplona lanuza, pirineos sur desde pamplona`,
+  },
+  "madrid-pirineos-sur": {
+    title: `Carpooling Madrid → Pirineos Sur ${YEAR}: Desde 13€ | 480 km | ConcertRide`,
+    keywords: `carpooling madrid pirineos sur, viaje compartido madrid lanuza pirineos sur, pirineos sur desde madrid, festival aragon desde madrid`,
+  },
+  "barcelona-pirineos-sur": {
+    title: `Carpooling Barcelona → Pirineos Sur ${YEAR}: Desde 12€ | 430 km | ConcertRide`,
+    keywords: `carpooling barcelona pirineos sur, viaje compartido barcelona lanuza, pirineos sur desde barcelona`,
+  },
+  "lleida-pirineos-sur": {
+    title: `Carpooling Lleida → Pirineos Sur ${YEAR}: Desde 7€ | 200 km | ConcertRide`,
+    keywords: `carpooling lleida pirineos sur, viaje compartido lleida lanuza, pirineos sur desde lleida`,
+  },
+  "bilbao-pirineos-sur": {
+    title: `Carpooling Bilbao → Pirineos Sur ${YEAR}: Desde 11€ | 360 km | ConcertRide`,
+    keywords: `carpooling bilbao pirineos sur, viaje compartido bilbao lanuza, pirineos sur desde bilbao`,
+  },
+  // Starlite Marbella
+  "malaga-starlite-marbella": {
+    title: `Carpooling Málaga → Starlite Marbella ${YEAR}: Desde 3€ | 60 km | ConcertRide`,
+    keywords: `carpooling malaga starlite marbella, viaje compartido malaga marbella, starlite desde malaga, cantera de nagueles desde malaga`,
+  },
+  "mijas-starlite-marbella": {
+    title: `Carpooling Mijas → Starlite Marbella ${YEAR}: Desde 3€ | 20 km | ConcertRide`,
+    keywords: `carpooling mijas starlite marbella, viaje compartido mijas marbella, starlite desde mijas`,
+  },
+  "fuengirola-starlite-marbella": {
+    title: `Carpooling Fuengirola → Starlite Marbella ${YEAR}: Desde 3€ | 25 km | ConcertRide`,
+    keywords: `carpooling fuengirola starlite marbella, viaje compartido fuengirola marbella, starlite desde fuengirola`,
+  },
+  "granada-starlite-marbella": {
+    title: `Carpooling Granada → Starlite Marbella ${YEAR}: Desde 6€ | 155 km | ConcertRide`,
+    keywords: `carpooling granada starlite marbella, viaje compartido granada marbella, starlite desde granada`,
+  },
+  "sevilla-starlite-marbella": {
+    title: `Carpooling Sevilla → Starlite Marbella ${YEAR}: Desde 7€ | 210 km | ConcertRide`,
+    keywords: `carpooling sevilla starlite marbella, viaje compartido sevilla marbella, starlite desde sevilla, costa del sol festival desde sevilla`,
+  },
+  "madrid-starlite-marbella": {
+    title: `Carpooling Madrid → Starlite Marbella ${YEAR}: Desde 14€ | 575 km | ConcertRide`,
+    keywords: `carpooling madrid starlite marbella, viaje compartido madrid marbella, starlite desde madrid, costa del sol desde madrid`,
+  },
+  "algeciras-starlite-marbella": {
+    title: `Carpooling Algeciras → Starlite Marbella ${YEAR}: Desde 4€ | 80 km | ConcertRide`,
+    keywords: `carpooling algeciras starlite marbella, viaje compartido algeciras marbella, starlite desde algeciras`,
+  },
+  // Stone & Music Mérida
+  "caceres-stone-music-festival": {
+    title: `Carpooling Cáceres → Stone & Music Mérida ${YEAR}: Desde 4€ | 75 km | ConcertRide`,
+    keywords: `carpooling caceres stone music merida, viaje compartido caceres merida festival, stone music desde caceres, teatro romano merida desde caceres`,
+  },
+  "badajoz-stone-music-festival": {
+    title: `Carpooling Badajoz → Stone & Music Mérida ${YEAR}: Desde 3€ | 60 km | ConcertRide`,
+    keywords: `carpooling badajoz stone music merida, viaje compartido badajoz merida festival, stone music desde badajoz`,
+  },
+  "sevilla-stone-music-festival": {
+    title: `Carpooling Sevilla → Stone & Music Mérida ${YEAR}: Desde 6€ | 200 km | ConcertRide`,
+    keywords: `carpooling sevilla stone music merida, viaje compartido sevilla merida, stone music desde sevilla, teatro romano merida desde sevilla`,
+  },
+  "madrid-stone-music-festival": {
+    title: `Carpooling Madrid → Stone & Music Mérida ${YEAR}: Desde 10€ | 340 km | ConcertRide`,
+    keywords: `carpooling madrid stone music merida, viaje compartido madrid merida festival, stone music desde madrid, teatro romano merida desde madrid`,
+  },
+  "salamanca-stone-music-festival": {
+    title: `Carpooling Salamanca → Stone & Music Mérida ${YEAR}: Desde 7€ | 215 km | ConcertRide`,
+    keywords: `carpooling salamanca stone music merida, viaje compartido salamanca merida, stone music desde salamanca`,
+  },
+  "cordoba-stone-music-festival": {
+    title: `Carpooling Córdoba → Stone & Music Mérida ${YEAR}: Desde 8€ | 250 km | ConcertRide`,
+    keywords: `carpooling cordoba stone music merida, viaje compartido cordoba merida festival, stone music desde cordoba`,
+  },
+  // Marenostrum Fuengirola
+  "malaga-marenostrum-fuengirola": {
+    title: `Carpooling Málaga → Marenostrum Fuengirola ${YEAR}: Desde 3€ | 35 km | ConcertRide`,
+    keywords: `carpooling malaga marenostrum fuengirola, viaje compartido malaga fuengirola castle park, marenostrum desde malaga, sohail castle park desde malaga`,
+  },
+  "mijas-marenostrum-fuengirola": {
+    title: `Carpooling Mijas → Marenostrum Fuengirola ${YEAR}: Desde 3€ | 10 km | ConcertRide`,
+    keywords: `carpooling mijas marenostrum fuengirola, viaje compartido mijas fuengirola, marenostrum desde mijas`,
+  },
+  "marbella-marenostrum-fuengirola": {
+    title: `Carpooling Marbella → Marenostrum Fuengirola ${YEAR}: Desde 3€ | 25 km | ConcertRide`,
+    keywords: `carpooling marbella marenostrum fuengirola, viaje compartido marbella fuengirola, marenostrum desde marbella`,
+  },
+  "granada-marenostrum-fuengirola": {
+    title: `Carpooling Granada → Marenostrum Fuengirola ${YEAR}: Desde 5€ | 130 km | ConcertRide`,
+    keywords: `carpooling granada marenostrum fuengirola, viaje compartido granada fuengirola, marenostrum desde granada`,
+  },
+  "sevilla-marenostrum-fuengirola": {
+    title: `Carpooling Sevilla → Marenostrum Fuengirola ${YEAR}: Desde 7€ | 220 km | ConcertRide`,
+    keywords: `carpooling sevilla marenostrum fuengirola, viaje compartido sevilla fuengirola, marenostrum desde sevilla`,
+  },
+  "madrid-marenostrum-fuengirola": {
+    title: `Carpooling Madrid → Marenostrum Fuengirola ${YEAR}: Desde 14€ | 555 km | ConcertRide`,
+    keywords: `carpooling madrid marenostrum fuengirola, viaje compartido madrid fuengirola, marenostrum desde madrid`,
+  },
+  "algeciras-marenostrum-fuengirola": {
+    title: `Carpooling Algeciras → Marenostrum Fuengirola ${YEAR}: Desde 5€ | 105 km | ConcertRide`,
+    keywords: `carpooling algeciras marenostrum fuengirola, viaje compartido algeciras fuengirola, marenostrum desde algeciras`,
+  },
+  // Tío Pepe Festival Jerez
+  "cadiz-tio-pepe-festival": {
+    title: `Carpooling Cádiz → Tío Pepe Festival Jerez ${YEAR}: Desde 3€ | 35 km | ConcertRide`,
+    keywords: `carpooling cadiz tio pepe festival, viaje compartido cadiz jerez, tio pepe desde cadiz, bodegas gonzalez byass desde cadiz`,
+  },
+  "sevilla-tio-pepe-festival": {
+    title: `Carpooling Sevilla → Tío Pepe Festival Jerez ${YEAR}: Desde 4€ | 95 km | ConcertRide`,
+    keywords: `carpooling sevilla tio pepe festival, viaje compartido sevilla jerez festival, tio pepe desde sevilla`,
+  },
+  "huelva-tio-pepe-festival": {
+    title: `Carpooling Huelva → Tío Pepe Festival Jerez ${YEAR}: Desde 4€ | 110 km | ConcertRide`,
+    keywords: `carpooling huelva tio pepe festival, viaje compartido huelva jerez, tio pepe desde huelva`,
+  },
+  "cordoba-tio-pepe-festival": {
+    title: `Carpooling Córdoba → Tío Pepe Festival Jerez ${YEAR}: Desde 6€ | 195 km | ConcertRide`,
+    keywords: `carpooling cordoba tio pepe festival, viaje compartido cordoba jerez, tio pepe desde cordoba`,
+  },
+  "malaga-tio-pepe-festival": {
+    title: `Carpooling Málaga → Tío Pepe Festival Jerez ${YEAR}: Desde 7€ | 200 km | ConcertRide`,
+    keywords: `carpooling malaga tio pepe festival, viaje compartido malaga jerez, tio pepe desde malaga`,
+  },
+  "algeciras-tio-pepe-festival": {
+    title: `Carpooling Algeciras → Tío Pepe Festival Jerez ${YEAR}: Desde 5€ | 130 km | ConcertRide`,
+    keywords: `carpooling algeciras tio pepe festival, viaje compartido algeciras jerez, tio pepe desde algeciras`,
+  },
+  "madrid-tio-pepe-festival": {
+    title: `Carpooling Madrid → Tío Pepe Festival Jerez ${YEAR}: Desde 16€ | 655 km | ConcertRide`,
+    keywords: `carpooling madrid tio pepe festival, viaje compartido madrid jerez, tio pepe desde madrid, festival jerez desde madrid`,
   },
 };

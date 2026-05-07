@@ -1200,6 +1200,666 @@ export const ARTIST_LANDINGS: ArtistLanding[] = [
     ],
     relatedFestivals: ["primavera-sound", "sonorama-ribera"],
   },
+  // ── Wave 11: Spanish artists with overrides but no landings (close gap) ─────
+  {
+    slug: "vetusta-morla",
+    name: "Vetusta Morla",
+    genre: ["indie rock", "indie pop", "español"],
+    wikidata: "Q1421541",
+    blurb:
+      "Vetusta Morla es la banda de indie rock más grande de España. Originarios de Tres Cantos (Madrid), el grupo encadena llenazos en estadios y arenas con discos como 'Un Día en el Mundo', 'Mapa', 'La Deriva' y 'Cabo Polonio'. Sus directos en el WiZink Center, La Cartuja Sevilla y el Palau Sant Jordi agotan entradas en horas. Con ConcertRide, los fans desde Valencia llegan al WiZink Center por 10–14 €/asiento, sin comisión.",
+    upcomingConcerts: [
+      {
+        city: "Madrid",
+        citySlug: "madrid",
+        venue: "WiZink Center",
+        date: "TBD",
+        concertRideRange: "4–7 €/asiento",
+        originCities: [
+          { city: "Valencia", range: "10–14 €" },
+          { city: "Zaragoza", range: "9–13 €" },
+          { city: "Sevilla", range: "14–20 €" },
+        ],
+      },
+      {
+        city: "Barcelona",
+        citySlug: "barcelona",
+        venue: "Palau Sant Jordi",
+        date: "TBD",
+        concertRideRange: "4–7 €/asiento",
+        originCities: [
+          { city: "Madrid", range: "15–20 €" },
+          { city: "Valencia", range: "10–14 €" },
+          { city: "Zaragoza", range: "8–12 €" },
+        ],
+      },
+      {
+        city: "Sevilla",
+        citySlug: "sevilla",
+        venue: "Estadio La Cartuja",
+        date: "TBD",
+        concertRideRange: "4–7 €/asiento",
+        originCities: [
+          { city: "Cádiz", range: "5–8 €" },
+          { city: "Málaga", range: "7–10 €" },
+          { city: "Madrid", range: "14–20 €" },
+        ],
+      },
+    ],
+    relatedFestivals: ["mad-cool", "sonorama-ribera", "granada-sound"],
+  },
+  {
+    slug: "estopa",
+    name: "Estopa",
+    genre: ["rumba", "rock", "español"],
+    wikidata: "Q1376691",
+    blurb:
+      "Estopa es el dúo formado por los hermanos José y David Muñoz, originarios de Cornellà de Llobregat (Barcelona). Su mezcla única de rumba catalana y rock español los ha convertido en una de las bandas más populares de España desde 1999. Su gira nacional 25 aniversario en 2026 los lleva al WiZink Center Madrid, Palau Sant Jordi Barcelona y La Cartuja Sevilla. Con ConcertRide, los asistentes desde Valencia llegan a Madrid por 10–14 €/asiento, sin comisión.",
+    upcomingConcerts: [
+      {
+        city: "Madrid",
+        citySlug: "madrid",
+        venue: "WiZink Center",
+        date: "TBD",
+        concertRideRange: "4–7 €/asiento",
+        originCities: [
+          { city: "Valencia", range: "10–14 €" },
+          { city: "Zaragoza", range: "9–13 €" },
+          { city: "Bilbao", range: "11–16 €" },
+        ],
+      },
+      {
+        city: "Barcelona",
+        citySlug: "barcelona",
+        venue: "Palau Sant Jordi",
+        date: "TBD",
+        concertRideRange: "4–7 €/asiento",
+        originCities: [
+          { city: "Madrid", range: "15–20 €" },
+          { city: "Valencia", range: "10–14 €" },
+          { city: "Tarragona", range: "5–8 €" },
+        ],
+      },
+    ],
+    relatedFestivals: ["sonorama-ribera"],
+  },
+  {
+    slug: "quevedo",
+    name: "Quevedo",
+    genre: ["rap", "trap", "reggaetón", "español"],
+    wikidata: "Q113525345",
+    blurb:
+      "Quevedo es el rapero canario que protagonizó el éxito mundial 'BZRP Music Sessions #52 (Quédate)' con Bizarrap en 2022 — el tema más escuchado del año en Spotify globalmente. Natural de Las Palmas de Gran Canaria, su gira 'Donde Quiero Estar Tour' incluye fechas en el WiZink Center Madrid, Palau Sant Jordi Barcelona y Gran Canaria Arena Las Palmas. Con ConcertRide, los asistentes peninsulares al show de Las Palmas combinan vuelo + carpooling local Las Palmas centro–Gran Canaria Arena (3 km, 3–4 €/asiento).",
+    upcomingConcerts: [
+      {
+        city: "Madrid",
+        citySlug: "madrid",
+        venue: "WiZink Center",
+        date: "TBD",
+        concertRideRange: "4–7 €/asiento",
+        originCities: [
+          { city: "Valencia", range: "10–14 €" },
+          { city: "Sevilla", range: "14–20 €" },
+          { city: "Zaragoza", range: "9–13 €" },
+        ],
+      },
+      {
+        city: "Las Palmas de Gran Canaria",
+        citySlug: "las-palmas-de-gran-canaria",
+        venue: "Gran Canaria Arena",
+        date: "TBD",
+        concertRideRange: "3–4 €/asiento",
+        originCities: [
+          { city: "Las Palmas centro", range: "3 €" },
+          { city: "Telde", range: "3–5 €" },
+          { city: "Maspalomas", range: "5–8 €" },
+        ],
+      },
+    ],
+    relatedFestivals: ["mad-cool"],
+  },
+  {
+    slug: "bizarrap",
+    name: "Bizarrap",
+    genre: ["productor", "trap", "rap", "argentino"],
+    wikidata: "Q108068378",
+    blurb:
+      "Bizarrap (Gonzalo Julián Conde) es el productor y DJ argentino conocido mundialmente por sus 'BZRP Music Sessions' — colaboraciones grabadas en estudio con artistas como Shakira (Session #53, 1.500M de visualizaciones), Quevedo, Villano Antillano y Residente. Sus shows en directo combinan las sessions más conocidas con sets de DJ. En España, fechas confirmadas en WiZink Center Madrid, Palau Sant Jordi Barcelona, Mad Cool y Primavera Sound. Con ConcertRide, los asistentes desde Valencia llegan al WiZink por 10–14 €/asiento sin comisión.",
+    upcomingConcerts: [
+      {
+        city: "Madrid",
+        citySlug: "madrid",
+        venue: "WiZink Center",
+        date: "TBD",
+        concertRideRange: "4–7 €/asiento",
+        originCities: [
+          { city: "Valencia", range: "10–14 €" },
+          { city: "Zaragoza", range: "9–13 €" },
+          { city: "Sevilla", range: "14–20 €" },
+        ],
+      },
+      {
+        city: "Barcelona",
+        citySlug: "barcelona",
+        venue: "Palau Sant Jordi",
+        date: "TBD",
+        concertRideRange: "4–7 €/asiento",
+        originCities: [
+          { city: "Madrid", range: "15–20 €" },
+          { city: "Valencia", range: "10–14 €" },
+          { city: "Zaragoza", range: "8–12 €" },
+        ],
+      },
+    ],
+    relatedFestivals: ["mad-cool", "primavera-sound"],
+  },
+  {
+    slug: "camilo",
+    name: "Camilo",
+    genre: ["pop latino", "colombiano"],
+    wikidata: "Q83218252",
+    blurb:
+      "Camilo Echeverry es el cantautor colombiano de pop latino que ha dominado las listas con 'Vida de Rico', 'Tutu' (con Pedro Capó) y 'Bebé' (con El Alfa). Su 'Tour De Adentro Pa Fuera' lo lleva al WiZink Center Madrid y Palau Sant Jordi Barcelona en 2026. Con ConcertRide, los fans desde Valencia llegan al WiZink por 10–14 €/asiento, sin comisión.",
+    upcomingConcerts: [
+      {
+        city: "Madrid",
+        citySlug: "madrid",
+        venue: "WiZink Center",
+        date: "TBD",
+        concertRideRange: "4–7 €/asiento",
+        originCities: [
+          { city: "Valencia", range: "10–14 €" },
+          { city: "Sevilla", range: "14–20 €" },
+          { city: "Zaragoza", range: "9–13 €" },
+        ],
+      },
+      {
+        city: "Barcelona",
+        citySlug: "barcelona",
+        venue: "Palau Sant Jordi",
+        date: "TBD",
+        concertRideRange: "4–7 €/asiento",
+        originCities: [
+          { city: "Madrid", range: "15–20 €" },
+          { city: "Valencia", range: "10–14 €" },
+          { city: "Tarragona", range: "5–8 €" },
+        ],
+      },
+    ],
+    relatedFestivals: [],
+  },
+  {
+    slug: "manuel-carrasco",
+    name: "Manuel Carrasco",
+    genre: ["pop", "español"],
+    wikidata: "Q1377562",
+    blurb:
+      "Manuel Carrasco es el cantante onubense, ganador de Operación Triunfo en 2003. Su éxito 'Bailar Contigo' y discos como 'Bailar el Viento' lo han consolidado como una de las voces masculinas más populares del pop español. Su gira 2026 incluye fechas en el Estadio La Cartuja Sevilla, WiZink Center Madrid, Stone & Music Festival Mérida (Teatro Romano) y Palau Sant Jordi Barcelona. Con ConcertRide, los fans desde Huelva (su provincia natal) llegan a La Cartuja por 4–7 €/asiento sin comisión.",
+    upcomingConcerts: [
+      {
+        city: "Sevilla",
+        citySlug: "sevilla",
+        venue: "Estadio La Cartuja",
+        date: "TBD",
+        concertRideRange: "4–7 €/asiento",
+        originCities: [
+          { city: "Huelva", range: "4–7 €" },
+          { city: "Cádiz", range: "5–8 €" },
+          { city: "Córdoba", range: "5–8 €" },
+        ],
+      },
+      {
+        city: "Madrid",
+        citySlug: "madrid",
+        venue: "WiZink Center",
+        date: "TBD",
+        concertRideRange: "4–7 €/asiento",
+        originCities: [
+          { city: "Toledo", range: "4–7 €" },
+          { city: "Valencia", range: "10–14 €" },
+          { city: "Zaragoza", range: "9–13 €" },
+        ],
+      },
+      {
+        city: "Mérida",
+        citySlug: "merida",
+        venue: "Teatro Romano de Mérida",
+        date: "TBD",
+        concertRideRange: "3–5 €/asiento",
+        originCities: [
+          { city: "Cáceres", range: "4–6 €" },
+          { city: "Badajoz", range: "3–5 €" },
+          { city: "Sevilla", range: "6–9 €" },
+        ],
+      },
+    ],
+    relatedFestivals: ["stone-music-festival"],
+  },
+  {
+    slug: "pablo-lopez",
+    name: "Pablo López",
+    genre: ["pop", "balada", "español"],
+    wikidata: "Q15816218",
+    blurb:
+      "Pablo López es el cantante y pianista malagueño conocido por canciones como 'El Patio', 'Tu Enemigo' (con Juanes) y 'Atrás'. Su sonido pop con piano lo ha consolidado como una de las voces más respetadas del pop español. Su gira 2026 incluye WiZink Center Madrid, Palau Sant Jordi Barcelona, La Cartuja Sevilla y Stone & Music Mérida. Con ConcertRide, asistentes desde Málaga (su ciudad natal) llegan a Marenostrum Fuengirola y Cala Mijas por 3–5 €/asiento sin comisión.",
+    upcomingConcerts: [
+      {
+        city: "Madrid",
+        citySlug: "madrid",
+        venue: "WiZink Center",
+        date: "TBD",
+        concertRideRange: "4–7 €/asiento",
+        originCities: [
+          { city: "Valencia", range: "10–14 €" },
+          { city: "Sevilla", range: "14–20 €" },
+          { city: "Málaga", range: "14–20 €" },
+        ],
+      },
+      {
+        city: "Barcelona",
+        citySlug: "barcelona",
+        venue: "Palau Sant Jordi",
+        date: "TBD",
+        concertRideRange: "4–7 €/asiento",
+        originCities: [
+          { city: "Madrid", range: "15–20 €" },
+          { city: "Valencia", range: "10–14 €" },
+          { city: "Tarragona", range: "5–8 €" },
+        ],
+      },
+    ],
+    relatedFestivals: ["stone-music-festival", "marenostrum-fuengirola"],
+  },
+  // ── Wave 11: brand-new top Spanish/Latin artists (with overrides too) ───────
+  {
+    slug: "love-of-lesbian",
+    name: "Love of Lesbian",
+    genre: ["indie rock", "indie pop", "catalán"],
+    wikidata: "Q3263596",
+    blurb:
+      "Love of Lesbian es la banda de indie pop más popular de Cataluña. Liderados por Santi Balmes desde Sant Vicenç dels Horts, han marcado la escena indie española con álbumes como '1999 (O cómo generar incendios de nieve con una lupa apuntando al cielo)' y 'Cuentos chinos para niños del Japón'. Su gira 2026 los lleva al Palau Sant Jordi Barcelona, WiZink Center Madrid, Cruïlla, Sonorama Ribera y Granada Sound. Con ConcertRide, los fans desde Madrid llegan al Sant Jordi por 15–20 €/asiento sin comisión.",
+    upcomingConcerts: [
+      {
+        city: "Barcelona",
+        citySlug: "barcelona",
+        venue: "Palau Sant Jordi",
+        date: "TBD",
+        concertRideRange: "4–7 €/asiento",
+        originCities: [
+          { city: "Madrid", range: "15–20 €" },
+          { city: "Valencia", range: "10–14 €" },
+          { city: "Tarragona", range: "5–8 €" },
+        ],
+      },
+      {
+        city: "Madrid",
+        citySlug: "madrid",
+        venue: "WiZink Center",
+        date: "TBD",
+        concertRideRange: "4–7 €/asiento",
+        originCities: [
+          { city: "Valencia", range: "10–14 €" },
+          { city: "Zaragoza", range: "9–13 €" },
+          { city: "Sevilla", range: "14–20 €" },
+        ],
+      },
+    ],
+    relatedFestivals: ["primavera-sound", "cruilla", "sonorama-ribera", "granada-sound"],
+  },
+  {
+    slug: "carolina-durante",
+    name: "Carolina Durante",
+    genre: ["indie rock", "punk", "español"],
+    wikidata: "Q57063687",
+    blurb:
+      "Carolina Durante es la banda madrileña de indie rock formada en 2017 que ha revolucionado la nueva escena indie española con su mezcla de punk, pop y crítica social. Liderados por Diego Ibáñez, sus discos 'Carolina Durante' y 'Cuatro chavales' los han llevado a llenar el WiZink Center Madrid, Palau Sant Jordi Barcelona, Mad Cool y Sonorama. Con ConcertRide, los fans desde Valencia llegan a Madrid por 10–14 €/asiento, sin comisión.",
+    upcomingConcerts: [
+      {
+        city: "Madrid",
+        citySlug: "madrid",
+        venue: "WiZink Center",
+        date: "TBD",
+        concertRideRange: "4–7 €/asiento",
+        originCities: [
+          { city: "Valencia", range: "10–14 €" },
+          { city: "Zaragoza", range: "9–13 €" },
+          { city: "Bilbao", range: "11–16 €" },
+        ],
+      },
+      {
+        city: "Barcelona",
+        citySlug: "barcelona",
+        venue: "Sala Apolo",
+        date: "TBD",
+        concertRideRange: "4–7 €/asiento",
+        originCities: [
+          { city: "Madrid", range: "15–20 €" },
+          { city: "Valencia", range: "10–14 €" },
+          { city: "Zaragoza", range: "8–12 €" },
+        ],
+      },
+    ],
+    relatedFestivals: ["mad-cool", "primavera-sound", "sonorama-ribera", "granada-sound"],
+  },
+  {
+    slug: "lola-indigo",
+    name: "Lola Indigo",
+    genre: ["pop", "urbano", "español"],
+    wikidata: "Q57424143",
+    blurb:
+      "Lola Indigo (Mimi Doblas) es la cantante española que saltó a la fama con Operación Triunfo 2017. Su éxito 'Mujer Bruja' (con Mala Rodríguez) y discos como 'Akelarre' la han consolidado como una de las voces femeninas del pop urbano. Su gira 2026 incluye WiZink Center Madrid, Palau Sant Jordi Barcelona, La Cartuja Sevilla. Con ConcertRide, los fans desde Valencia llegan al WiZink por 10–14 €/asiento sin comisión.",
+    upcomingConcerts: [
+      {
+        city: "Madrid",
+        citySlug: "madrid",
+        venue: "WiZink Center",
+        date: "TBD",
+        concertRideRange: "4–7 €/asiento",
+        originCities: [
+          { city: "Valencia", range: "10–14 €" },
+          { city: "Sevilla", range: "14–20 €" },
+          { city: "Zaragoza", range: "9–13 €" },
+        ],
+      },
+      {
+        city: "Barcelona",
+        citySlug: "barcelona",
+        venue: "Palau Sant Jordi",
+        date: "TBD",
+        concertRideRange: "4–7 €/asiento",
+        originCities: [
+          { city: "Madrid", range: "15–20 €" },
+          { city: "Valencia", range: "10–14 €" },
+          { city: "Tarragona", range: "5–8 €" },
+        ],
+      },
+    ],
+    relatedFestivals: ["mad-cool"],
+  },
+  {
+    slug: "saiko",
+    name: "Saiko",
+    genre: ["urbano", "rap", "trap", "español"],
+    wikidata: "Q117308099",
+    blurb:
+      "Saiko (Iván Vázquez) es el cantante y rapero canario nacido en La Laguna (Tenerife) que se ha convertido en uno de los exponentes más populares de la nueva escena urbana española con éxitos como 'POLARIS' (con Quevedo) y 'CHATA'. Su gira 2026 incluye WiZink Center Madrid, Palau Sant Jordi Barcelona y Pabellón Santiago Martín Tenerife. Con ConcertRide, los fans canarios al show local de Tenerife coordinan carpooling desde Santa Cruz centro hasta el pabellón.",
+    upcomingConcerts: [
+      {
+        city: "Madrid",
+        citySlug: "madrid",
+        venue: "WiZink Center",
+        date: "TBD",
+        concertRideRange: "4–7 €/asiento",
+        originCities: [
+          { city: "Valencia", range: "10–14 €" },
+          { city: "Zaragoza", range: "9–13 €" },
+          { city: "Sevilla", range: "14–20 €" },
+        ],
+      },
+      {
+        city: "Santa Cruz de Tenerife",
+        citySlug: "santa-cruz-de-tenerife",
+        venue: "Pabellón Santiago Martín",
+        date: "TBD",
+        concertRideRange: "3–4 €/asiento",
+        originCities: [
+          { city: "Santa Cruz centro", range: "3 €" },
+          { city: "La Laguna", range: "3 €" },
+          { city: "Puerto de la Cruz", range: "5–7 €" },
+        ],
+      },
+    ],
+    relatedFestivals: [],
+  },
+  {
+    slug: "anuel-aa",
+    name: "Anuel AA",
+    genre: ["reggaetón", "trap latino", "puertorriqueño"],
+    wikidata: "Q33245068",
+    blurb:
+      "Anuel AA (Emmanuel Gazmey Santiago) es el cantante puertorriqueño pionero del trap latino. Sus colaboraciones con Karol G ('Secreto', 'Ella Quiere Beber') y temas como 'China' (con Daddy Yankee) lo han consolidado como uno de los referentes del urbano latino. Sus shows en España: WiZink Center Madrid y Palau Sant Jordi Barcelona. Con ConcertRide, los fans desde Valencia llegan al WiZink por 10–14 €/asiento sin comisión.",
+    upcomingConcerts: [
+      {
+        city: "Madrid",
+        citySlug: "madrid",
+        venue: "WiZink Center",
+        date: "TBD",
+        concertRideRange: "4–7 €/asiento",
+        originCities: [
+          { city: "Valencia", range: "10–14 €" },
+          { city: "Sevilla", range: "14–20 €" },
+          { city: "Zaragoza", range: "9–13 €" },
+        ],
+      },
+      {
+        city: "Barcelona",
+        citySlug: "barcelona",
+        venue: "Palau Sant Jordi",
+        date: "TBD",
+        concertRideRange: "4–7 €/asiento",
+        originCities: [
+          { city: "Madrid", range: "15–20 €" },
+          { city: "Valencia", range: "10–14 €" },
+          { city: "Zaragoza", range: "8–12 €" },
+        ],
+      },
+    ],
+    relatedFestivals: [],
+  },
+  {
+    slug: "j-balvin",
+    name: "J Balvin",
+    genre: ["reggaetón", "pop latino", "colombiano"],
+    wikidata: "Q4079650",
+    blurb:
+      "J Balvin (José Álvaro Osorio Balvín) es el cantante colombiano de reggaetón con más éxitos a nivel mundial. 'Mi Gente' (con Willy William, 5.500M de visualizaciones), 'I Like It' (con Cardi B y Bad Bunny) y 'In da Getto' (con Skrillex) son algunos de sus mayores hits. Sus shows en España: WiZink Center Madrid, Palau Sant Jordi Barcelona y festivales latinos como Vive Latino España. Con ConcertRide, los fans desde Valencia llegan al WiZink por 10–14 €/asiento sin comisión.",
+    upcomingConcerts: [
+      {
+        city: "Madrid",
+        citySlug: "madrid",
+        venue: "WiZink Center",
+        date: "TBD",
+        concertRideRange: "4–7 €/asiento",
+        originCities: [
+          { city: "Valencia", range: "10–14 €" },
+          { city: "Sevilla", range: "14–20 €" },
+          { city: "Zaragoza", range: "9–13 €" },
+        ],
+      },
+      {
+        city: "Barcelona",
+        citySlug: "barcelona",
+        venue: "Palau Sant Jordi",
+        date: "TBD",
+        concertRideRange: "4–7 €/asiento",
+        originCities: [
+          { city: "Madrid", range: "15–20 €" },
+          { city: "Valencia", range: "10–14 €" },
+          { city: "Tarragona", range: "5–8 €" },
+        ],
+      },
+    ],
+    relatedFestivals: ["vive-latino"],
+  },
+  {
+    slug: "sebastian-yatra",
+    name: "Sebastián Yatra",
+    genre: ["pop latino", "colombiano"],
+    wikidata: "Q24956514",
+    blurb:
+      "Sebastián Yatra es el cantante colombiano de pop latino con éxitos como 'Tacones Rojos' (Disco de Diamante en España), 'Robarte un Beso' (con Carlos Vives) y 'Pareja del Año' (con Myke Towers). Sus shows en España: WiZink Center Madrid y Palau Sant Jordi Barcelona en 2026. Con ConcertRide, los fans desde Valencia llegan al WiZink por 10–14 €/asiento sin comisión.",
+    upcomingConcerts: [
+      {
+        city: "Madrid",
+        citySlug: "madrid",
+        venue: "WiZink Center",
+        date: "TBD",
+        concertRideRange: "4–7 €/asiento",
+        originCities: [
+          { city: "Valencia", range: "10–14 €" },
+          { city: "Sevilla", range: "14–20 €" },
+          { city: "Zaragoza", range: "9–13 €" },
+        ],
+      },
+      {
+        city: "Barcelona",
+        citySlug: "barcelona",
+        venue: "Palau Sant Jordi",
+        date: "TBD",
+        concertRideRange: "4–7 €/asiento",
+        originCities: [
+          { city: "Madrid", range: "15–20 €" },
+          { city: "Valencia", range: "10–14 €" },
+          { city: "Zaragoza", range: "8–12 €" },
+        ],
+      },
+    ],
+    relatedFestivals: [],
+  },
+  {
+    slug: "manuel-turizo",
+    name: "Manuel Turizo",
+    genre: ["reggaetón", "pop latino", "colombiano"],
+    wikidata: "Q43274253",
+    blurb:
+      "Manuel Turizo es el cantante colombiano que saltó a la fama con 'Una Lady Como Tú' (1.500M de visualizaciones) y 'La Bachata' — uno de los temas más virales de TikTok en 2022 con más de 2.500M de visualizaciones en YouTube. Sus shows en España: WiZink Center Madrid y Palau Sant Jordi Barcelona. Con ConcertRide, los fans desde Valencia llegan al WiZink por 10–14 €/asiento sin comisión.",
+    upcomingConcerts: [
+      {
+        city: "Madrid",
+        citySlug: "madrid",
+        venue: "WiZink Center",
+        date: "TBD",
+        concertRideRange: "4–7 €/asiento",
+        originCities: [
+          { city: "Valencia", range: "10–14 €" },
+          { city: "Sevilla", range: "14–20 €" },
+          { city: "Zaragoza", range: "9–13 €" },
+        ],
+      },
+      {
+        city: "Barcelona",
+        citySlug: "barcelona",
+        venue: "Palau Sant Jordi",
+        date: "TBD",
+        concertRideRange: "4–7 €/asiento",
+        originCities: [
+          { city: "Madrid", range: "15–20 €" },
+          { city: "Valencia", range: "10–14 €" },
+          { city: "Tarragona", range: "5–8 €" },
+        ],
+      },
+    ],
+    relatedFestivals: [],
+  },
+  // ── Wave 13: 8 more top Spanish/Latin/clásico artists ─────────────────────────
+  {
+    slug: "antonio-orozco",
+    name: "Antonio Orozco",
+    genre: ["pop", "balada", "español"],
+    wikidata: "Q1379519",
+    blurb:
+      "Antonio Orozco es uno de los cantautores españoles con más discos vendidos del siglo XXI, con éxitos como 'Hoy Dejaste de Quererme', 'Devuélveme la Vida' y 'Mi Héroe'. Su gira 2026 incluye WiZink Center Madrid, Palau Sant Jordi Barcelona, Stone & Music Mérida y La Cartuja Sevilla. Con ConcertRide, los fans desde Valencia llegan al WiZink por 10–14 €/asiento sin comisión.",
+    upcomingConcerts: [
+      { city: "Madrid", citySlug: "madrid", venue: "WiZink Center", date: "TBD", concertRideRange: "4–7 €/asiento", originCities: [{ city: "Valencia", range: "10–14 €" }, { city: "Sevilla", range: "14–20 €" }, { city: "Zaragoza", range: "9–13 €" }] },
+      { city: "Barcelona", citySlug: "barcelona", venue: "Palau Sant Jordi", date: "TBD", concertRideRange: "4–7 €/asiento", originCities: [{ city: "Madrid", range: "15–20 €" }, { city: "Valencia", range: "10–14 €" }, { city: "Tarragona", range: "5–8 €" }] },
+      { city: "Mérida", citySlug: "merida", venue: "Teatro Romano de Mérida", date: "TBD", concertRideRange: "3–5 €/asiento", originCities: [{ city: "Cáceres", range: "4–6 €" }, { city: "Badajoz", range: "3–5 €" }, { city: "Sevilla", range: "6–9 €" }] },
+    ],
+    relatedFestivals: ["stone-music-festival"],
+  },
+  {
+    slug: "alejandro-sanz",
+    name: "Alejandro Sanz",
+    genre: ["pop", "balada", "español"],
+    wikidata: "Q379879",
+    blurb:
+      "Alejandro Sanz es uno de los cantautores hispanohablantes más reconocidos a nivel mundial, con 25 Latin Grammys y 4 Grammys anglosajones. Sus éxitos 'Corazón Partío', 'No es lo Mismo' y 'La Tortura' (con Shakira) forman parte del cancionero pop latino. Su gira 'Sanz Sanz' lo lleva a estadios y arenas de toda España. Con ConcertRide, los fans desde Valencia llegan al Estadio Bernabéu por 10–14 €/asiento sin comisión.",
+    upcomingConcerts: [
+      { city: "Madrid", citySlug: "madrid", venue: "Estadio Santiago Bernabéu", date: "TBD", concertRideRange: "4–7 €/asiento", originCities: [{ city: "Valencia", range: "10–14 €" }, { city: "Barcelona", range: "15–20 €" }, { city: "Sevilla", range: "14–20 €" }] },
+      { city: "Barcelona", citySlug: "barcelona", venue: "Estadi Olímpic Lluís Companys", date: "TBD", concertRideRange: "4–7 €/asiento", originCities: [{ city: "Madrid", range: "15–20 €" }, { city: "Valencia", range: "10–14 €" }, { city: "Zaragoza", range: "8–12 €" }] },
+      { city: "Sevilla", citySlug: "sevilla", venue: "Estadio La Cartuja", date: "TBD", concertRideRange: "4–7 €/asiento", originCities: [{ city: "Cádiz", range: "5–8 €" }, { city: "Málaga", range: "7–10 €" }, { city: "Madrid", range: "14–20 €" }] },
+    ],
+    relatedFestivals: [],
+  },
+  {
+    slug: "david-bisbal",
+    name: "David Bisbal",
+    genre: ["pop", "balada", "español"],
+    wikidata: "Q188113",
+    blurb:
+      "David Bisbal es el cantante almeriense ganador de Operación Triunfo 2002 y uno de los artistas pop españoles más exitosos. Sus éxitos 'Bulería', 'Ave María', 'Buleria' y 'A Partir de Hoy' (con Sebastián Yatra) son referentes del pop latino. Su gira 2026 incluye WiZink Center Madrid, Palau Sant Jordi Barcelona, La Cartuja Sevilla y Cala Mijas. Con ConcertRide, los fans desde Almería (su provincia natal) llegan a Cala Mijas por 7–11 €/asiento sin comisión.",
+    upcomingConcerts: [
+      { city: "Madrid", citySlug: "madrid", venue: "WiZink Center", date: "TBD", concertRideRange: "4–7 €/asiento", originCities: [{ city: "Valencia", range: "10–14 €" }, { city: "Sevilla", range: "14–20 €" }, { city: "Zaragoza", range: "9–13 €" }] },
+      { city: "Barcelona", citySlug: "barcelona", venue: "Palau Sant Jordi", date: "TBD", concertRideRange: "4–7 €/asiento", originCities: [{ city: "Madrid", range: "15–20 €" }, { city: "Valencia", range: "10–14 €" }, { city: "Tarragona", range: "5–8 €" }] },
+    ],
+    relatedFestivals: [],
+  },
+  {
+    slug: "marwan",
+    name: "Marwan",
+    genre: ["cantautor", "folk", "español"],
+    wikidata: "Q19515015",
+    blurb:
+      "Marwan Abu-Tahoun Recio es el cantautor madrileño de origen palestino conocido por su poesía lírica con guitarra acústica. Sus discos 'Las cosas que no te dije', 'Apuntes sobre mi paso por el invierno' y 'Antes de que sea tarde' lo han consolidado como uno de los referentes del folk-cantautor español del siglo XXI. Carpooling ConcertRide desde Valencia (10–14 €/asiento), Sevilla (14–20€), Zaragoza (9–13€). 0% comisión.",
+    upcomingConcerts: [
+      { city: "Madrid", citySlug: "madrid", venue: "Teatro Real / Sala La Riviera", date: "TBD", concertRideRange: "4–7 €/asiento", originCities: [{ city: "Valencia", range: "10–14 €" }, { city: "Zaragoza", range: "9–13 €" }, { city: "Sevilla", range: "14–20 €" }] },
+      { city: "Barcelona", citySlug: "barcelona", venue: "Sala Apolo / Razzmatazz", date: "TBD", concertRideRange: "4–7 €/asiento", originCities: [{ city: "Madrid", range: "15–20 €" }, { city: "Valencia", range: "10–14 €" }, { city: "Tarragona", range: "5–8 €" }] },
+    ],
+    relatedFestivals: [],
+  },
+  {
+    slug: "ivan-ferreiro",
+    name: "Iván Ferreiro",
+    genre: ["indie rock", "pop", "español", "gallego"],
+    wikidata: "Q3331069",
+    blurb:
+      "Iván Ferreiro es el cantante gallego ex-líder de Los Piratas, una de las bandas más influyentes del rock español de los 90. En carrera solista ha publicado discos como 'Canciones para el tiempo y la distancia' y 'Trinchera Pop', consolidándose como uno de los cantautores más respetados de España. Su gira 2026 incluye WiZink Center Madrid, Palau Sant Jordi Barcelona, Atlantic Fest Vilagarcía, PortAmérica Caldas, Mad Cool y Sonorama Ribera. Carpooling ConcertRide sin comisión.",
+    upcomingConcerts: [
+      { city: "Madrid", citySlug: "madrid", venue: "WiZink Center", date: "TBD", concertRideRange: "4–7 €/asiento", originCities: [{ city: "Valencia", range: "10–14 €" }, { city: "Zaragoza", range: "9–13 €" }, { city: "Sevilla", range: "14–20 €" }] },
+      { city: "Barcelona", citySlug: "barcelona", venue: "Palau Sant Jordi", date: "TBD", concertRideRange: "4–7 €/asiento", originCities: [{ city: "Madrid", range: "15–20 €" }, { city: "Valencia", range: "10–14 €" }, { city: "Tarragona", range: "5–8 €" }] },
+      { city: "Vigo", citySlug: "vigo", venue: "Mar de Vigo", date: "TBD", concertRideRange: "3–5 €/asiento", originCities: [{ city: "Pontevedra", range: "3 €" }, { city: "Santiago de Compostela", range: "4–7 €" }, { city: "A Coruña", range: "6–9 €" }] },
+    ],
+    relatedFestivals: ["atlantic-fest", "portamerica", "mad-cool", "sonorama-ribera"],
+  },
+  {
+    slug: "la-casa-azul",
+    name: "La Casa Azul",
+    genre: ["indie pop", "electrónica", "español"],
+    wikidata: "Q5946944",
+    blurb:
+      "La Casa Azul es el proyecto musical de Guille Milkyway desde Barcelona, una de las bandas de indie pop más influyentes del catálogo Elefant Records. Discos como 'La Revolución Sexual' y 'La Polinesia Meridional' han marcado el sonido del indie pop español. Su gira 2026 incluye Atlantic Fest, PortAmérica, SOS 4.8, Mallorca Live, Mad Cool, Sonorama Ribera y Granada Sound. Con ConcertRide, los fans desde Madrid llegan al Palau Sant Jordi por 15–20 €/asiento sin comisión.",
+    upcomingConcerts: [
+      { city: "Barcelona", citySlug: "barcelona", venue: "Palau Sant Jordi / Sala Apolo", date: "TBD", concertRideRange: "4–7 €/asiento", originCities: [{ city: "Madrid", range: "15–20 €" }, { city: "Valencia", range: "10–14 €" }, { city: "Tarragona", range: "5–8 €" }] },
+      { city: "Madrid", citySlug: "madrid", venue: "WiZink Center / Sala La Riviera", date: "TBD", concertRideRange: "4–7 €/asiento", originCities: [{ city: "Valencia", range: "10–14 €" }, { city: "Zaragoza", range: "9–13 €" }, { city: "Sevilla", range: "14–20 €" }] },
+    ],
+    relatedFestivals: ["atlantic-fest", "portamerica", "sos-48", "mallorca-live-festival", "mad-cool", "sonorama-ribera", "granada-sound"],
+  },
+  {
+    slug: "sidonie",
+    name: "Sidonie",
+    genre: ["indie rock", "español"],
+    wikidata: "Q3486283",
+    blurb:
+      "Sidonie es la banda barcelonesa de indie rock formada por Marc Ros, Jes Senra y Axel Pi. Discos como 'El Incendio' y 'Marc Ros' los han consolidado como una de las bandas más respetadas del indie español. Su gira 2026 incluye Mad Cool, Sonorama, Atlantic Fest, SOS 4.8, Granada Sound, Mallorca Live. Con ConcertRide, los fans desde Madrid llegan al Palau Sant Jordi por 15–20 €/asiento sin comisión.",
+    upcomingConcerts: [
+      { city: "Barcelona", citySlug: "barcelona", venue: "Palau Sant Jordi", date: "TBD", concertRideRange: "4–7 €/asiento", originCities: [{ city: "Madrid", range: "15–20 €" }, { city: "Valencia", range: "10–14 €" }, { city: "Tarragona", range: "5–8 €" }] },
+      { city: "Madrid", citySlug: "madrid", venue: "WiZink Center", date: "TBD", concertRideRange: "4–7 €/asiento", originCities: [{ city: "Valencia", range: "10–14 €" }, { city: "Zaragoza", range: "9–13 €" }, { city: "Sevilla", range: "14–20 €" }] },
+    ],
+    relatedFestivals: ["mad-cool", "sonorama-ribera", "atlantic-fest", "sos-48", "granada-sound", "mallorca-live-festival"],
+  },
+  {
+    slug: "daddy-yankee",
+    name: "Daddy Yankee",
+    genre: ["reggaetón", "puertorriqueño"],
+    wikidata: "Q193430",
+    blurb:
+      "Daddy Yankee (Ramón Ayala) es el rapero puertorriqueño conocido como el 'Big Boss' del reggaetón. Su éxito 'Gasolina' (2004) abrió el reggaetón al mercado mundial; 'Despacito' (con Luis Fonsi) es uno de los temas más vistos en YouTube de toda la historia (8.500M+ de visualizaciones). Sus shows en España incluyen WiZink Center Madrid, Palau Sant Jordi Barcelona y Reggaeton Beach Festival Salou. Con ConcertRide, los fans desde Valencia llegan al WiZink por 10–14 €/asiento sin comisión.",
+    upcomingConcerts: [
+      { city: "Madrid", citySlug: "madrid", venue: "WiZink Center", date: "TBD", concertRideRange: "4–7 €/asiento", originCities: [{ city: "Valencia", range: "10–14 €" }, { city: "Sevilla", range: "14–20 €" }, { city: "Zaragoza", range: "9–13 €" }] },
+      { city: "Barcelona", citySlug: "barcelona", venue: "Palau Sant Jordi", date: "TBD", concertRideRange: "4–7 €/asiento", originCities: [{ city: "Madrid", range: "15–20 €" }, { city: "Valencia", range: "10–14 €" }, { city: "Tarragona", range: "5–8 €" }] },
+      { city: "Salou", citySlug: "tarragona", venue: "Reggaeton Beach Festival", date: "TBD", concertRideRange: "3 €/asiento", originCities: [{ city: "Tarragona", range: "3 €" }, { city: "Reus", range: "3 €" }, { city: "Barcelona", range: "5–8 €" }] },
+    ],
+    relatedFestivals: ["reggaeton-beach-festival"],
+  },
 ];
 
 export const ARTIST_LANDINGS_BY_SLUG: Record<string, ArtistLanding> = Object.fromEntries(

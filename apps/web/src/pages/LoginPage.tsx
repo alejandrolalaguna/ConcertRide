@@ -10,7 +10,19 @@ import { SITE_URL } from "@/lib/siteUrl";
 export default function LoginPage() {
   const { user, loading, refresh } = useSession();
   const [params] = useSearchParams();
-  const next = params.get("next") ?? "/";
+  // Sanitize "next" — must be a relative path that doesn't itself point to
+  // another auth page. Prevents nested ?next= chains GSC was indexing as
+  // separate alternate-canonical URLs (/login?next=/login?next=/login?next=/X).
+  const rawNext = params.get("next") ?? "/";
+  const next =
+    rawNext.startsWith("/") &&
+    !rawNext.startsWith("/login") &&
+    !rawNext.startsWith("/register") &&
+    !rawNext.startsWith("/forgot-password") &&
+    !rawNext.startsWith("/reset-password") &&
+    !rawNext.startsWith("//") // protocol-relative URLs
+      ? rawNext
+      : "/";
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");

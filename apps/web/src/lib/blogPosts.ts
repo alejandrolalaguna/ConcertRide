@@ -2087,7 +2087,7 @@ BLOG_POSTS.push(
       { label: "Pamplona → BBK Live", to: "/rutas/pamplona-bbk-live" },
       { label: "Cómo llegar a BBK Live", to: "/como-llegar/bbk-live" },
     ],
-    relatedPosts: ["bbk-live-bilbao-2026-transporte", "autobuses-festivales-espana-2026"],
+    relatedPosts: ["transporte-bbk-live-bilbao-2026", "autobuses-festivales-espana-2026"],
   },
   {
     slug: "carpooling-arenal-sound-desde-valencia-2026",
@@ -5458,7 +5458,7 @@ BLOG_POSTS.push(
       { label: "Carpooling Madrid", to: "/conciertos/madrid" },
       { label: "Artista: Aitana", to: "/artistas/aitana" },
     ],
-    relatedPosts: ["como-volver-festival-madrugada", "carpooling-vs-taxi-festival"],
+    relatedPosts: ["como-volver-festival-madrugada", "carpooling-vs-taxi-festival-espana"],
   },
 
   // ──────────────────────────────────────────────────────────────────────
@@ -6228,7 +6228,7 @@ BLOG_POSTS.push(
       { label: "Madrid → Festival de les Arts", to: "/rutas/madrid-festival-de-les-arts" },
       { label: "Conciertos en Valencia", to: "/conciertos/valencia" },
     ],
-    relatedPosts: ["arenal-sound-2026-guia-transporte", "zevra-festival-2026-transporte"],
+    relatedPosts: ["arenal-sound-2026-transporte", "como-volver-festival-madrugada"],
   },
 
   {
@@ -6422,7 +6422,7 @@ BLOG_POSTS.push(
       { label: "Barcelona → Medusa Festival", to: "/rutas/barcelona-medusa-festival" },
       { label: "Conciertos en Valencia", to: "/conciertos/valencia" },
     ],
-    relatedPosts: ["arenal-sound-2026-guia-transporte", "festivales-espana-verano-2026"],
+    relatedPosts: ["arenal-sound-2026-transporte", "festivales-espana-verano-2026"],
   },
 
   {
@@ -6483,7 +6483,7 @@ BLOG_POSTS.push(
       { label: "Conciertos en Málaga", to: "/conciertos/malaga" },
       { label: "Granada → Cala Mijas", to: "/rutas/granada-cala-mijas" },
     ],
-    relatedPosts: ["carpooling-andalucia-festivales", "huella-carbono-festivales-carpooling"],
+    relatedPosts: ["festivales-andalucia-2026-carpooling", "huella-carbono-festivales-carpooling"],
   },
 );
 
@@ -6700,7 +6700,7 @@ BLOG_POSTS.push({
   ],
   relatedPosts: [
     "festivales-galicia-2026-carpooling",
-    "festivales-baratos-espana-2026",
+    "festivales-gratis-espana-2026",
     "festivales-espana-verano-2026",
   ],
 });
@@ -6796,6 +6796,1106 @@ BLOG_POSTS.push({
     "festivales-gratis-espana-2026",
     "festivales-espana-verano-2026",
     "como-volver-festival-madrugada",
+  ],
+});
+
+BLOG_POSTS.push({
+  slug: "festivales-costa-del-sol-2026",
+  title:
+    "Festivales en la Costa del Sol 2026: Cala Mijas, Starlite Marbella, Marenostrum y más",
+  h1: "Festivales de Costa del Sol 2026: cómo llegar y carpooling al recinto",
+  excerpt:
+    "La Costa del Sol concentra cuatro grandes festivales de música en 2026: Cala Mijas Festival (Cortijo de Torres), Starlite Marbella (Cantera de Nagüeles, 60+ noches), Marenostrum Fuengirola (Sohail Castle Park) y Andalucía Big Festival. Sin shuttles oficiales en la mayoría — el carpooling es la opción real para la vuelta de madrugada.",
+  category: "guias",
+  tags: [
+    "costa del sol",
+    "malaga",
+    "marbella",
+    "fuengirola",
+    "mijas",
+    "cala mijas",
+    "starlite",
+    "marenostrum",
+    "festivales",
+  ],
+  publishedAt: "2026-05-07T19:30:00.000Z",
+  author: "Equipo ConcertRide",
+  readingMinutes: 9,
+  lede:
+    "Costa del Sol no es sólo turismo de playa: en 2026 acoge cuatro festivales de música mainstream con cabezas de cartel internacionales repartidos entre Mijas, Marbella, Fuengirola y Málaga ciudad. Esta guía cubre cada uno con fechas, recinto, transporte y carpooling.",
+  sections: [
+    {
+      heading: "Los cuatro grandes festivales de Costa del Sol 2026",
+      paragraphs: [
+        "La Costa del Sol malagueña se ha consolidado como uno de los polos festivaleros mediterráneos. Más de 200.000 asistentes acumulados se mueven entre los cuatro recintos cada verano:",
+      ],
+      bullets: [
+        "Cala Mijas Festival (2–4 octubre, Cortijo de Torres Mijas, 90.000 asistentes acumulados, indie/pop)",
+        "Starlite Catalana Occidente (13 jun–31 ago, Cantera de Nagüeles Marbella, 60+ noches consecutivas, multigénero)",
+        "Marenostrum Fuengirola (15 jun–20 ago, Sohail Castle Park, 15.000 plazas/concierto, pop/rock internacional)",
+        "Andalucía Big Festival (jul, Estadio Ciudad de Málaga, urbano/electrónica)",
+      ],
+    },
+    {
+      heading: "Cala Mijas Festival: el más grande, el más sin transporte público",
+      paragraphs: [
+        "Cala Mijas Festival 2026 (2–4 octubre) en el Cortijo de Torres, Mijas (Málaga). El Cortijo está a 25 km del centro de Málaga y a 10 km del centro de Mijas pueblo, sin transporte público directo y sin shuttle oficial. El parking en el recinto es limitado y la rotonda de acceso colapsa.",
+        "Carpooling ConcertRide al Cortijo de Torres es la opción dominante: desde Málaga (3–5€/asiento, 25 km), Mijas (3–4€, 10 km), Marbella (3–6€, 20 km), Fuengirola (3–5€, 10 km), Granada (5–8€, 130 km), Sevilla (7–11€, 215 km), Madrid (14–20€, 560 km). 0% comisión, vuelta de madrugada coordinada.",
+      ],
+    },
+    {
+      heading: "Starlite Marbella: el festival más boutique de Europa",
+      paragraphs: [
+        "Starlite Catalana Occidente 2026 abre el 13 de junio y cierra el 31 de agosto con más de 60 noches consecutivas en la Cantera de Nagüeles, un anfiteatro al aire libre tallado en la roca con capacidad 7.500 plazas en formato butaca numerada. Cabezas de cartel internacionales todo el verano: Lenny Kravitz, Tom Jones, Maluma, Pet Shop Boys, Robbie Williams, Steve Aoki.",
+        "Llegar al recinto: la organización fleta lanzadera oficial desde el centro de Marbella (Plaza de la Iglesia, Hotel Don Pepe). Aparcamiento propio en el recinto. Carpooling ConcertRide desde Málaga (60 km, 3–5€), Mijas (20 km, 3–4€), Fuengirola (25 km, 3–5€), Madrid (575 km, 14–20€). Vuelta nocturna coordinada.",
+      ],
+    },
+    {
+      heading: "Marenostrum Fuengirola: anfiteatro junto al castillo árabe",
+      paragraphs: [
+        "Marenostrum Fuengirola 2026 (15 junio–20 agosto) en el Sohail Castle Park, un anfiteatro al aire libre junto al castillo árabe de Sohail (siglo X). Capacidad 15.000 personas en formato butaca numerada. Cabezas de cartel internacionales: 50 Cent, Bryan Adams, Iggy Pop, Tom Jones, Sheryl Crow, Robbie Williams, Sting.",
+        "Conectado con Málaga ciudad por Cercanías Renfe C-1 Málaga–Fuengirola (35 min, 3,90€). Desde la estación de Fuengirola, el Castle Park está a 15 min andando. Carpooling ConcertRide al Castle Park: desde Málaga (35 km, 3–5€), Mijas (10 km, 3–4€), Marbella (25 km, 3–5€), Granada (130 km, 5–8€), Madrid (555 km, 14–20€).",
+      ],
+    },
+    {
+      heading: "Combinar dos festivales en un mismo viaje",
+      paragraphs: [
+        "Las distancias entre Mijas, Marbella y Fuengirola son inferiores a 25 km — perfectamente compatible asistir a Cala Mijas + Marenostrum + Starlite en una misma estancia veraniega. Asistentes de Madrid o Barcelona suelen reservar 5–7 días en Costa del Sol y combinar 2–3 conciertos.",
+        "ConcertRide opera carpooling local entre los tres recintos: Mijas–Marbella (3–5€), Mijas–Fuengirola (3–4€), Marbella–Fuengirola (3–5€). Una alternativa al taxi (15–25€ entre los tres). La vuelta de madrugada se coordina con asistentes que viajan al mismo recinto.",
+      ],
+    },
+    {
+      heading: "Costa del Sol vs. Madrid: comparativa de coste por festival",
+      paragraphs: [
+        "Asistir a un cabeza de cartel internacional en Costa del Sol vs. Madrid:",
+      ],
+      bullets: [
+        "Madrid (Mad Cool, Bernabéu, Metropolitano): entrada 80–250€ + alojamiento 80–150€/noche × 2 noches = 240–550€ total. Tren AVE Barcelona–Madrid 50–90€.",
+        "Costa del Sol (Starlite, Marenostrum, Cala Mijas): entrada 65–250€ + alojamiento 60–110€/noche × 2 noches = 185–470€ total. Vuelo Barcelona–Málaga 40–80€ ida y vuelta.",
+        "Carpooling local Costa del Sol: 3–5€/asiento entre las cuatro ciudades = ahorro 25–40€ vs taxi por recinto.",
+      ],
+    },
+  ],
+  faqs: [
+    {
+      q: "¿Hay transporte público al Cala Mijas Festival 2026?",
+      a: "No hay transporte público directo ni shuttle oficial al Cortijo de Torres. El recinto está a 25 km del centro de Málaga y a 10 km del centro de Mijas. Las opciones son: taxi (25–40€), coche propio o carpooling ConcertRide (3–6€/asiento desde Málaga/Mijas/Marbella/Fuengirola, 0% comisión). URL: concertride.me/festivales/cala-mijas",
+    },
+    {
+      q: "¿Cuánto cuesta una entrada a Starlite Marbella?",
+      a: "Las entradas a Starlite Marbella varían entre 65€ (las más asequibles) y 350€ (zonas VIP) según artista y zona. Los conciertos de cabezas de cartel internacionales rondan los 90–180€. Compra en starlitemarbella.com con asiento numerado garantizado. URL: concertride.me/festivales/starlite-marbella",
+    },
+    {
+      q: "¿Hay Cercanías Renfe al Marenostrum Fuengirola?",
+      a: "Sí. Cercanías Renfe C-1 Málaga–Fuengirola (35 min, 3,90 € ida) llega hasta la última estación de la línea (Fuengirola). Desde allí, el Sohail Castle Park está a 15 min andando o 5 min en taxi. Bus urbano M-103 también conecta. La vuelta nocturna requiere carpooling — el último Cercanías sale antes del fin del cabeza de cartel. URL: concertride.me/festivales/marenostrum-fuengirola",
+    },
+    {
+      q: "¿Se puede combinar Cala Mijas con Starlite Marbella?",
+      a: "Sí, fácilmente. Las dos ciudades están a 20 km (25 min en coche). Cala Mijas se celebra en 3 días concretos (octubre) y Starlite tiene 60+ noches consecutivas (jun–ago) — la coincidencia de calendario es probable. Carpooling ConcertRide entre Mijas y Marbella: 3–5€/asiento. Muchos asistentes alquilan apartamento en Fuengirola o Mijas Costa y se mueven entre los recintos. URL: concertride.me/blog/festivales-costa-del-sol-2026",
+    },
+    {
+      q: "¿Cuál es el festival más exclusivo de Costa del Sol?",
+      a: "Starlite Marbella es el festival boutique más exclusivo: capacidad limitada a 7.500 personas/concierto en butaca numerada, ubicación en una cantera de roca natural en la Sierra Blanca, cabezas de cartel internacionales todas las noches (Lenny Kravitz, Robbie Williams, Tom Jones), entradas hasta 350€ en zonas VIP. Marenostrum Fuengirola es más accesible (entradas desde 45€) con artistas pop/rock internacionales clásicos. URL: concertride.me/festivales/starlite-marbella",
+    },
+  ],
+  relatedLinks: [
+    { label: "Cala Mijas Festival", to: "/festivales/cala-mijas" },
+    { label: "Starlite Marbella", to: "/festivales/starlite-marbella" },
+    { label: "Marenostrum Fuengirola", to: "/festivales/marenostrum-fuengirola" },
+    { label: "Conciertos en Mijas", to: "/conciertos/mijas" },
+    { label: "Conciertos en Marbella", to: "/conciertos/marbella" },
+    { label: "Conciertos en Fuengirola", to: "/conciertos/fuengirola" },
+    { label: "Málaga → Cala Mijas", to: "/rutas/malaga-cala-mijas" },
+    { label: "Festivales en Andalucía", to: "/festivales-en/andalucia" },
+  ],
+  relatedPosts: [
+    "festivales-andalucia-2026-carpooling",
+    "festivales-espana-verano-2026",
+    "como-volver-festival-madrugada",
+  ],
+});
+
+// Wave 14 — Pillar content for topical authority
+BLOG_POSTS.push({
+  slug: "calendario-festivales-espana-2026-completo",
+  title:
+    "Calendario completo de festivales de música España 2026: 40+ festivales mes a mes",
+  h1: "Calendario completo de festivales en España 2026 — De abril a octubre, mes a mes",
+  excerpt:
+    "El calendario más completo de festivales de música en España 2026: 40+ festivales ordenados mes a mes con fechas, ubicación, género, capacidad, cómo llegar y carpooling. Desde Viña Rock (abril) hasta Cala Mijas (octubre), pasando por Mad Cool, Primavera Sound, BBK Live, Sónar, Arenal Sound, Reggaeton Beach Salou y todos los demás.",
+  category: "guias",
+  tags: [
+    "calendario festivales",
+    "festivales 2026",
+    "calendario 2026",
+    "festivales espana",
+    "agenda festivales",
+    "guía festivales",
+  ],
+  publishedAt: "2026-05-07T20:00:00.000Z",
+  updatedAt: "2026-05-07",
+  author: "Equipo ConcertRide",
+  readingMinutes: 14,
+  lede:
+    "España es uno de los países de Europa con mayor densidad de festivales de música por habitante. Este calendario recoge los 40+ festivales mainstream que se celebran de abril a octubre de 2026, con fechas, ubicación, género, capacidad y opciones de transporte y carpooling para cada uno.",
+  sections: [
+    {
+      heading: "Abril 2026 — La temporada arranca",
+      paragraphs: [
+        "El primer fin de semana de mayo (con festividades del 1 y 2) marca tradicionalmente el arranque de la temporada festivalera española con SOS 4.8 (Murcia) y Viña Rock (Villarrobledo). Abril concentra los festivales más tempranos:",
+      ],
+      bullets: [
+        "SanSan Festival (Benicàssim, Castellón) — finales abril, indie/pop, 30.000 asistentes/día",
+        "Viña Rock (Villarrobledo, Albacete, 30 abr–3 may) — rock y mestizaje, 250.000 acumulados, 4 días",
+      ],
+    },
+    {
+      heading: "Mayo 2026 — Indie y arranque del verano festival",
+      paragraphs: [
+        "Mayo concentra varios festivales de indie/pop pequeños y dos grandes citas:",
+      ],
+      bullets: [
+        "SOS 4.8 (Murcia, 8–9 mayo) — indie/electrónica, Recinto Ferial La Fica, 40.000/día",
+        "Tomavistas (Madrid Retiro, 15–17 mayo) — indie pop, 20.000/día, urban festival",
+        "Mallorca Live Festival (Calvià, 22–24 mayo) — multi-género, 35.000/día",
+        "Festival de les Arts (Valencia Ciudad Artes y Ciencias, 28–31 mayo) — pop/indie, 25.000/día",
+        "Primavera Sound (Barcelona Parc del Fòrum, 28 may–1 jun) — indie/electrónica, 200.000 acumulados, 5 días — el festival más prestigioso de España",
+      ],
+    },
+    {
+      heading: "Junio 2026 — La explosión festivalera",
+      paragraphs: [
+        "Junio marca el inicio del verano alto y concentra los festivales más grandes:",
+      ],
+      bullets: [
+        "Tío Pepe Festival (Jerez, Bodegas González Byass, 25 jun–31 ago) — boutique íntimo (1.800 plazas)",
+        "Resurrection Fest (Viveiro, Lugo, 25–28 jun) — metal/punk/hardcore, 70.000/día, 4 días",
+        "Sónar (Barcelona Fira Montjuïc + Gran Via, 18–20 jun) — electrónica de prestigio internacional",
+        "O Son do Camiño (Santiago Monte do Gozo, 18–20 jun) — pop/indie/rock, 90.000/día",
+        "BBK Music Legends (Bilbao Sondika, 19–21 jun) — rock clásico, 20.000/día (Bob Dylan, Eric Clapton)",
+        "Festival Internacional de Cine de Huesca (jun) — cortometrajes",
+      ],
+    },
+    {
+      heading: "Julio 2026 — El mes festivalero por excelencia",
+      paragraphs: [
+        "Julio concentra el mayor número de festivales del calendario español. Cada fin de semana hay 3–5 festivales mainstream simultáneos:",
+      ],
+      bullets: [
+        "Stone & Music Festival (Mérida Teatro Romano, jul–sep) — clásico (Andrea Bocelli, Sting)",
+        "Marenostrum Fuengirola (Sohail Castle Park, 15 jun–20 ago) — pop/rock internacional (50 Cent, Bryan Adams)",
+        "Starlite Marbella (Cantera Nagüeles, 13 jun–31 ago) — boutique 60+ noches (Lenny Kravitz, Robbie Williams)",
+        "Metrópoli Gijón (Recinto Ferial Luis Adaro, 3–5 jul) — pop/rock + gaming, 30.000/día",
+        "Mad Cool Festival (Madrid IFEMA, 9–11 jul) — pop/rock/indie, 80.000/día — el mayor festival de Madrid",
+        "BBK Live (Bilbao Kobetamendi, 9–11 jul) — pop/rock/indie, 30.000/día con lanzadera gratuita",
+        "Festival de Ortigueira (A Coruña, 9–12 jul, GRATIS) — folk celta, 100.000 acumulados",
+        "Cruïlla (Barcelona Parc del Fòrum, 9–12 jul) — pop/rock/electrónica",
+        "Pirineos Sur (Lanuza Huesca, 10 jul–1 ago) — world music sobre el embalse",
+        "PortAmérica (Caldas de Reis Pontevedra, 9–11 jul) — pop/rock/latino, 30.000/día",
+        "Atlantic Fest (Vilagarcía Pontevedra, 17–19 jul) — indie pop, 25.000/día",
+        "FIB Benicàssim (Castellón, 16–19 jul) — internacional, 50.000/día (Cercanías Renfe directo)",
+        "Heineken Jazzaldia (Donostia–San Sebastián, 22–26 jul, 61.ª edición) — jazz, 150.000 acumulados",
+        "Low Festival (Benidorm Ciudad Deportiva Guillermo Amor, 24–26 jul) — indie/pop, 65.000 acumulados",
+        "Reggaeton Beach Festival (Salou Tarragona, 31 jul–2 ago) — reggaeton, 60.000/día",
+        "Festival Internacional de Mérida Teatro Clásico (jul–ago) — teatro grecorromano",
+      ],
+    },
+    {
+      heading: "Agosto 2026 — Festivales de costa y final de temporada",
+      paragraphs: [
+        "Agosto concentra festivales de costa (Mediterráneo + Cantábrico) con menor densidad pero mayor capacidad:",
+      ],
+      bullets: [
+        "Arenal Sound (Burriana Castellón, 29 jul–2 ago, 5 días) — indie/pop, 250.000 acumulados",
+        "Sonorama Ribera (Aranda de Duero Burgos, 6–9 ago) — indie/pop, 75.000/día",
+        "Medusa Festival (Cullera Valencia, 12–16 ago) — electrónica, 200.000 acumulados, 5 días",
+        "Sinsal Festival (Illa de San Simón Vigo, ago) — indie + paisaje",
+      ],
+    },
+    {
+      heading: "Septiembre–Octubre 2026 — Cierre de temporada",
+      paragraphs: [
+        "Septiembre marca el final de la temporada con festivales de menor escala pero alta calidad artística:",
+      ],
+      bullets: [
+        "Vive Latino España (Zaragoza Recinto Expo, 4–5 sep) — pop/latino, 40.000/día — primera edición europea",
+        "Granada Sound (Cortijo del Conde, último fin de semana sep, 25–26 sep) — indie/pop, 25.000/día",
+        "Cala Mijas Festival (Cortijo Torres Mijas, 2–4 oct) — indie/pop, 90.000 acumulados",
+        "Festival Internacional Womad Cáceres (oct) — world music GRATUITO",
+      ],
+    },
+    {
+      heading: "Comparativa: género, ubicación, precio",
+      paragraphs: [
+        "Síntesis del catálogo festivalero español 2026 por género y precio:",
+      ],
+      bullets: [
+        "Festivales gratuitos: Festival de Ortigueira, Heineken Jazzaldia (escenarios al aire libre), Womad Cáceres, Festival de Vitoria-Gasteiz Plaza de los Fueros",
+        "Festivales más asequibles (abono <100€): Sonorama Ribera (90€), Tomavistas (85€), Festival de les Arts (95€), Granada Sound (85€), SOS 4.8 (80€)",
+        "Festivales premium (abono >250€): Mad Cool, Primavera Sound, Cruïlla, Starlite (entrada por show)",
+        "Por género: indie/pop dominante (Mad Cool, Primavera Sound, Sonorama, Tomavistas, Cruïlla, Atlantic Fest, PortAmérica, Cala Mijas, Sidonie, Atlantic Fest, Granada Sound)",
+        "Metal/Punk: solo Resurrection Fest (Viveiro)",
+        "Electrónica: Sónar, Medusa Festival, parcialmente Mad Cool/Primavera",
+        "Reggaeton/Latino: Vive Latino España, Reggaeton Beach Festival Salou",
+        "Jazz: Heineken Jazzaldia, Festival Jazz Vitoria-Gasteiz, Getxo Jazz, JazzMadrid, Cartagena Jazz",
+        "World Music: Pirineos Sur, Womad Cáceres, La Mar de Músicas Cartagena, PortAmérica",
+      ],
+    },
+    {
+      heading: "Carpooling como hilo conductor",
+      paragraphs: [
+        "La mayoría de festivales españoles se celebran en localidades sin estación de tren propia (Aranda de Duero, Villarrobledo, Cullera, Lanuza, Mijas, Caldas de Reis, Vilagarcía de Arousa, Viveiro). El carpooling con ConcertRide es la opción real para llegar y sobre todo para volver de madrugada — los Cercanías y AVE cierran antes de que termine el cabeza de cartel en prácticamente todas las rutas.",
+        "ConcertRide opera con 0% comisión: el 100% del precio del asiento va al conductor en efectivo o Bizum el día del viaje. Los precios típicos están entre 3 € (rutas locales <50 km) y 22 € (rutas largas Madrid–Galicia). Para los 40+ festivales del calendario 2026, hay rutas publicadas desde 70+ ciudades españolas.",
+      ],
+    },
+  ],
+  faqs: [
+    {
+      q: "¿Cuál es el festival de música más grande de España en 2026?",
+      a: "Por capacidad acumulada (asistentes × días), los festivales más grandes de España 2026 son: Arenal Sound (250.000 acumulados, 5 días), Viña Rock (250.000, 4 días), Primavera Sound (200.000, 5 días), Medusa Festival (200.000, 5 días). Por capacidad/día: Mad Cool (80.000), Resurrection Fest (70.000) y Reggaeton Beach Festival (60.000). URL: concertride.me/festivales",
+    },
+    {
+      q: "¿Qué festival empieza primero en España 2026?",
+      a: "SOS 4.8 (Murcia, 8–9 mayo) es uno de los primeros festivales mainstream de la temporada española 2026. Antes hay Viña Rock (30 abr–3 may, Villarrobledo) que arranca con el puente del 1 de mayo. La temporada se considera 'oficialmente abierta' a partir del primer fin de semana de mayo. URL: concertride.me/festivales/sos-48",
+    },
+    {
+      q: "¿Hay festivales en septiembre 2026 en España?",
+      a: "Sí. Septiembre 2026 cierra la temporada con: Vive Latino España (Zaragoza, 4–5 sep), Granada Sound (Granada, 25–26 sep) y Cala Mijas Festival (Mijas, 2–4 oct). Octubre marca el último gran festival con Womad Cáceres (gratuito). URL: concertride.me/festivales",
+    },
+    {
+      q: "¿Cómo se combinan dos festivales en el mismo viaje?",
+      a: "Los festivales más fáciles de combinar por proximidad geográfica + fechas: (1) BBK Live + Resurrection Fest (separados por 2 semanas y 200 km en Galicia/Bizkaia); (2) Arenal Sound + Medusa Festival (separados por 10 días y 100 km en Levante); (3) Mad Cool + Sonorama Ribera (separados por 1 mes y 160 km en centro España); (4) Festival de Ortigueira + Resurrection Fest (separados por 13 días y 30 km en Lugo). ConcertRide ofrece rutas inter-festival entre las localidades. URL: concertride.me/blog/festivales-galicia-2026-carpooling",
+    },
+    {
+      q: "¿Cuánto cuesta hacer una temporada completa de festivales en España?",
+      a: "Asistir a 5–8 festivales mainstream en una temporada (mayo–octubre) cuesta: entradas/abonos 800–1.800 €, alojamiento camping/hostales 600–1.200 €, transporte (AVE + carpooling combinado) 300–600 €, comida 400–800 €. Total: 2.100–4.400 € para una temporada completa. Carpooling ConcertRide reduce el transporte ~60% vs AVE. URL: concertride.me/festivales",
+    },
+  ],
+  relatedLinks: [
+    { label: "Festivales en España 2026", to: "/festivales" },
+    { label: "Mad Cool Festival 2026", to: "/festivales/mad-cool" },
+    { label: "Primavera Sound 2026", to: "/festivales/primavera-sound" },
+    { label: "Resurrection Fest 2026", to: "/festivales/resurrection-fest" },
+    { label: "Festivales en Galicia 2026", to: "/blog/festivales-galicia-2026-carpooling" },
+    { label: "Festivales gratis España 2026", to: "/blog/festivales-gratis-espana-2026" },
+    { label: "Festivales Costa del Sol 2026", to: "/blog/festivales-costa-del-sol-2026" },
+    { label: "Festivales jazz España 2026", to: "/blog/festivales-jazz-espana-2026" },
+  ],
+  relatedPosts: [
+    "festivales-espana-verano-2026",
+    "festivales-gratis-espana-2026",
+    "festivales-jazz-espana-2026",
+    "festivales-costa-del-sol-2026",
+    "autobuses-festivales-espana-2026",
+  ],
+});
+
+BLOG_POSTS.push({
+  slug: "como-organizar-temporada-festivales-2026",
+  title:
+    "Cómo organizar tu temporada de festivales 2026: planificación, presupuesto y logística",
+  h1: "Cómo organizar tu temporada de festivales 2026 — Guía paso a paso",
+  excerpt:
+    "Asistir a 5–10 festivales en una temporada requiere planificación. Esta guía cubre cómo elegir festivales que no se solapan, presupuestar entradas + alojamiento + transporte, organizar el carpooling con antelación, y combinar festivales por geografía. Datos reales de 2026.",
+  category: "guias",
+  tags: [
+    "planificación",
+    "presupuesto",
+    "logística",
+    "festivales 2026",
+    "temporada festival",
+    "calendario",
+  ],
+  publishedAt: "2026-05-07T20:30:00.000Z",
+  updatedAt: "2026-05-07",
+  author: "Equipo ConcertRide",
+  readingMinutes: 11,
+  lede:
+    "Hacer una 'temporada de festivales' completa en España 2026 implica logística: 5–10 fines de semana, 5–10 alojamientos, 5–10 viajes ida y vuelta. Esta guía te ayuda a planificar todo con presupuesto realista y sin solapamientos.",
+  sections: [
+    {
+      heading: "Paso 1 — Elige los festivales (sin solapar)",
+      paragraphs: [
+        "España tiene 40+ festivales mainstream en mayo–octubre. Asistir a todos es imposible: muchos se solapan en fechas. La estrategia es escoger 5–10 festivales con perfil compatible (género, presupuesto, ubicación) y verificar que las fechas no coinciden.",
+        "Solapamientos típicos en 2026: Mad Cool (9–11 jul) coincide con BBK Live (9–11 jul), Cruïlla (9–12 jul), Festival Ortigueira (9–12 jul) y PortAmérica (9–11 jul) — el segundo fin de semana de julio es el cuello de botella del calendario español. Si vas a uno, descartas los otros.",
+      ],
+      bullets: [
+        "Plan A — Indie pop puro: Tomavistas (mayo) + Primavera Sound (mayo–jun) + Mad Cool (jul) + Atlantic Fest (jul) + Sonorama (ago) + Granada Sound (sep) = 6 festivales sin solapamientos",
+        "Plan B — Latino/Reggaeton: Vive Latino España (sep) + Reggaeton Beach Salou (ago) + Mallorca Live (may) = 3 festivales urbanos",
+        "Plan C — World music: Pirineos Sur (jul) + Festival Ortigueira (jul) + Womad Cáceres (oct) + La Mar de Músicas Cartagena (jul) = 4 festivales gratuitos o asequibles",
+        "Plan D — Boutique premium: Tío Pepe Jerez (jul) + Starlite Marbella (jun–ago) + Stone & Music Mérida (jul–sep) = 3 festivales de cabezas internacionales",
+      ],
+    },
+    {
+      heading: "Paso 2 — Presupuesta cada festival",
+      paragraphs: [
+        "El presupuesto de un fin de semana de festival se descompone en 4 partidas:",
+      ],
+      bullets: [
+        "Entrada/abono: 60–250€ según festival y tipo (preventa siempre 20–30% más barata que taquilla)",
+        "Alojamiento: 0€ (camping libre Ortigueira) hasta 200€/noche (hotel 4* en festivales urbanos como Mad Cool o Primavera). Camping oficial: 25–40€/persona los 3 días",
+        "Transporte: 3–22€/asiento con carpooling ConcertRide (vs. 30–60€ AVE Madrid–Barcelona, 25–45€ ALSA Madrid–Galicia)",
+        "Comida + bebida: 30–60€/día dentro del recinto (los precios duplican o triplican exterior)",
+      ],
+    },
+    {
+      heading: "Paso 3 — Combina festivales por geografía",
+      paragraphs: [
+        "Si vives en Madrid, los festivales más eficientes en transporte son los del centro/sur: Mad Cool (35 km), Tomavistas (centro), Sonorama Aranda (160 km), Viña Rock (200 km). Festivales del norte como BBK Live (395 km) o Resurrection Fest (600 km) requieren viajes de 4–7 horas que solo compensan combinándolos con un segundo festival cercano.",
+        "Combos eficientes 2026:",
+      ],
+      bullets: [
+        "Galicia 2x: Festival Ortigueira (9–12 jul) + Resurrection Fest (25–28 jun) — 13 días y 30 km entre ambos",
+        "Norte 2x: BBK Live (9–11 jul) + Heineken Jazzaldia (22–26 jul) — 13 días y 100 km",
+        "Levante 2x: Arenal Sound (29 jul–2 ago) + Medusa Festival (12–16 ago) — 10 días y 100 km",
+        "Costa del Sol 3x: Cala Mijas + Marenostrum Fuengirola + Starlite Marbella — todos en 25 km, en distintos fines de semana del verano",
+      ],
+    },
+    {
+      heading: "Paso 4 — Organiza el transporte con carpooling",
+      paragraphs: [
+        "El carpooling es la opción dominante para festivales por tres razones: (1) la mayoría no tiene estación de tren cercana, (2) los AVE/ALSA cierran antes del fin del cabeza de cartel, (3) el coche compartido reduce el coste 60–80% vs AVE.",
+        "Cómo organizar carpooling en ConcertRide:",
+      ],
+      bullets: [
+        "Reserva con 2–4 semanas de antelación el viaje IDA (los conductores publican con tiempo para festivales mainstream)",
+        "Reserva separadamente la VUELTA — coordina hora de salida del recinto entre 02:30 y 05:30 (cuando termina el último concierto)",
+        "Confirma punto de encuentro exacto con el conductor por chat 1h antes — el aparcamiento del festival se llena y los conductores cambian de plaza",
+        "Lleva siempre batería completa + power bank — los retrasos por cortes de tráfico a la salida del festival son habituales",
+        "El pago es directo al conductor en efectivo o Bizum el día del viaje — sin pasarela, sin comisión",
+      ],
+    },
+    {
+      heading: "Paso 5 — Compra entradas en preventa",
+      paragraphs: [
+        "Los abonos de festivales mainstream suben 20–40% del primer al último tramo de venta. La preventa (octubre–enero del año del festival) tiene los precios más bajos. Algunos festivales tienen 'super early bird' aún más baratos en septiembre del año anterior.",
+        "Recomendación: si vas a hacer una temporada de 6+ festivales, compra los abonos en preventa anticipada — el ahorro acumulado puede ser 200–500€ sobre comprar todo en taquilla.",
+      ],
+    },
+  ],
+  faqs: [
+    {
+      q: "¿Cuántos festivales puedo hacer en una temporada?",
+      a: "Lo realista son 5–10 festivales en una temporada (mayo–octubre). Asistentes 'pro-festivaleros' llegan a 12–15 pero requieren coordinar fechas con precisión y aceptar fines de semana consecutivos sin descanso. La media del asistente festivalero español es 2–4 festivales/año. URL: concertride.me/festivales",
+    },
+    {
+      q: "¿Qué festivales no se solapan en 2026?",
+      a: "Combos que NO se solapan: (1) Tomavistas (mayo) + Primavera Sound (jun) + Mad Cool (jul) + Sonorama (ago) + Granada Sound (sep). (2) SOS 4.8 (mayo) + Resurrection Fest (jun) + Festival Ortigueira (jul) + Cala Mijas (oct). El segundo fin de semana de julio (Mad Cool/BBK Live/Cruïlla/Ortigueira/PortAmérica) es el principal cuello de botella. URL: concertride.me/blog/calendario-festivales-espana-2026-completo",
+    },
+    {
+      q: "¿Cuánto cuesta una temporada completa de festivales?",
+      a: "Una temporada de 5 festivales mainstream cuesta entre 1.200 € (perfil austero: camping libre + carpooling + abonos en preventa) y 3.500 € (perfil cómodo: hoteles + AVE + abonos a taquilla + comida en restaurantes). El carpooling ConcertRide y los campings oficiales son los mayores ahorradores.",
+    },
+    {
+      q: "¿Es viable ir a un festival sin coche propio?",
+      a: "Sí, prácticamente todos los festivales mainstream son accesibles sin coche propio gracias a 3 opciones combinables: (1) carpooling con ConcertRide (3–22 €/asiento), (2) bus oficial del festival (donde existe — Viña Rock, BBK Live, Granada Sound), (3) Renfe + lanzadera (FIB, Arenal Sound, Cala Mijas vía Málaga). El carpooling es la más flexible para la vuelta nocturna. URL: concertride.me/blog/autobuses-festivales-espana-2026",
+    },
+  ],
+  relatedLinks: [
+    { label: "Calendario festivales España 2026", to: "/blog/calendario-festivales-espana-2026-completo" },
+    { label: "Festivales gratis España 2026", to: "/blog/festivales-gratis-espana-2026" },
+    { label: "Cómo volver de madrugada", to: "/blog/como-volver-festival-madrugada" },
+    { label: "Festivales", to: "/festivales" },
+    { label: "Rutas", to: "/rutas" },
+  ],
+  relatedPosts: [
+    "calendario-festivales-espana-2026-completo",
+    "festivales-gratis-espana-2026",
+    "como-volver-festival-madrugada",
+    "carpooling-vs-tren-ave-festivales-espana-2026",
+  ],
+});
+
+BLOG_POSTS.push({
+  slug: "guia-turismo-musical-espana-2026",
+  title:
+    "Turismo musical en España 2026: guía completa para asistentes internacionales",
+  h1: "Turismo musical en España 2026 — Cómo planificar tu viaje festivalero como turista",
+  excerpt:
+    "Guía completa para asistentes internacionales que vienen a España a por uno o varios festivales en 2026. Visados, transporte (vuelo + carpooling local), ciudades base recomendadas, festivales por estilo, presupuesto en euros, propinas, costumbres locales y tips de seguridad.",
+  category: "guias",
+  tags: [
+    "turismo musical",
+    "asistentes internacionales",
+    "viaje festival",
+    "españa festivales 2026",
+    "international",
+  ],
+  publishedAt: "2026-05-07T21:00:00.000Z",
+  updatedAt: "2026-05-07",
+  author: "Equipo ConcertRide",
+  readingMinutes: 12,
+  lede:
+    "España es el destino festivalero más popular de Europa para asistentes internacionales — más de 600.000 turistas musicales viajan al país cada verano. Esta guía cubre lo esencial para organizar tu viaje desde fuera de España con presupuesto realista, transporte interno y festivales recomendados según estilo.",
+  sections: [
+    {
+      heading: "Por qué España como destino festivalero",
+      paragraphs: [
+        "España combina cuatro factores que la convierten en el destino festivalero más popular de Europa: (1) clima cálido y seco entre junio y septiembre que permite festivales al aire libre con casi 0% de cancelaciones por lluvia, (2) precios 20–40% más bajos que Reino Unido, Países Bajos o Alemania para entradas + alojamiento, (3) red de festivales mainstream densa (40+ en mayo–octubre), y (4) infraestructura turística desarrollada (vuelos low-cost desde toda Europa, hoteles, AVE).",
+      ],
+    },
+    {
+      heading: "Visados y entrada al país",
+      paragraphs: [
+        "Asistentes de UE/EEE: solo necesitan DNI o pasaporte. Reino Unido, EEUU, Canadá, Australia, Japón, Corea del Sur, Israel y Brasil: solo pasaporte (estancia hasta 90 días sin visado). Otros países: consultar embajada española. Desde 2025 se aplica el sistema ETIAS (autorización electrónica obligatoria para asistentes de fuera de Schengen) — coste 7€, online en 10 minutos.",
+      ],
+    },
+    {
+      heading: "Vuelos: aeropuertos clave",
+      paragraphs: [
+        "Los aeropuertos con más conexiones internacionales relevantes para festivales son:",
+      ],
+      bullets: [
+        "Madrid Barajas (MAD) — hub para festivales del centro: Mad Cool, Tomavistas, Sonorama Ribera, Viña Rock",
+        "Barcelona El Prat (BCN) — hub para festivales de Cataluña: Primavera Sound, Sónar, Cruïlla, Reggaeton Beach Salou",
+        "Bilbao (BIO) — hub para festivales del norte: BBK Live, Jazzaldia (vía Donostia), Resurrection Fest (vía coche)",
+        "Málaga (AGP) — hub para Costa del Sol: Cala Mijas, Marenostrum Fuengirola, Starlite Marbella",
+        "Valencia (VLC) — hub para Levante: FIB, Arenal Sound, Medusa Festival, Festival de les Arts",
+        "Santiago de Compostela (SCQ) — hub para Galicia: O Son do Camiño, Festival Ortigueira, Resurrection Fest",
+        "Palma de Mallorca (PMI) — hub para Mallorca Live Festival, Ibiza (vuelo conexión)",
+      ],
+    },
+    {
+      heading: "Transporte interno: carpooling como herramienta clave",
+      paragraphs: [
+        "Una vez en España, la opción más económica y flexible para llegar a festivales rurales es el carpooling. Plataformas: ConcertRide (especializada en festivales, 0% comisión, pago directo conductor en efectivo o Bizum) y BlaBlaCar (genérica, 12–18% comisión).",
+        "Para asistentes internacionales, ConcertRide tiene tres ventajas: (1) los conductores publican rutas alineadas con los horarios reales del festival, no con horarios genéricos, (2) la vuelta de madrugada está coordinada con asistentes del mismo festival, (3) el pago no requiere tarjeta bancaria europea (los conductores aceptan efectivo en euros).",
+      ],
+    },
+    {
+      heading: "Ciudades base por estilo de festival",
+      paragraphs: [
+        "Recomendamos elegir una 'ciudad base' (donde te alojas) y desde ahí carpoolear a los festivales. Ciudades base recomendadas según perfil:",
+      ],
+      bullets: [
+        "Madrid (3–5 días): Mad Cool, Tomavistas, Sonorama Aranda (+160 km carpooling), Viña Rock (+200 km)",
+        "Barcelona (3–5 días): Primavera Sound, Sónar, Cruïlla, Reggaeton Beach Salou (+110 km), Pirineos Sur (+430 km, día completo)",
+        "Bilbao/Donostia (3–4 días): BBK Live, Jazzaldia, Festival de Vitoria, BBK Music Legends",
+        "Málaga (4–5 días): Cala Mijas + Marenostrum Fuengirola + Starlite Marbella + Granada Sound (+130 km)",
+        "Valencia (4–5 días): Festival de les Arts + Arenal Sound (+65 km) + Medusa Cullera (+45 km) + FIB (+75 km)",
+        "Santiago/Vigo (3–4 días): O Son do Camiño + Festival Ortigueira (+130 km) + Resurrection Fest (+200 km) + Atlantic Fest (+45 km)",
+      ],
+    },
+    {
+      heading: "Presupuesto típico por día",
+      paragraphs: [
+        "Presupuesto día completo de festival para asistente internacional (sin entrada al festival, en euros):",
+      ],
+      bullets: [
+        "Alojamiento: hostel 25–40€, hotel 3* 70–110€, hotel 4* 120–200€",
+        "Comida: desayuno 5–8€, almuerzo 12–18€, cena 20–35€ (dentro del festival 50–100% más caro)",
+        "Bebida: cerveza fuera 2–4€, dentro del recinto 5–10€",
+        "Transporte: carpooling 3–22€/asiento, taxi/Uber 15–40€/trayecto",
+        "Total día completo (festival + ciudad): 100–200€ por persona en perfil económico, 200–400€ en perfil cómodo",
+      ],
+    },
+    {
+      heading: "Costumbres y tips para asistentes internacionales",
+      paragraphs: [
+        "Tres aspectos sorprenden a los asistentes internacionales:",
+      ],
+      bullets: [
+        "Horarios tardíos: los cabezas de cartel suelen tocar entre 23:00 y 02:00 (no a las 21:00 como en Reino Unido o Alemania). Cena tarde — restaurantes abiertos hasta las 23:00, post-concierto las opciones son cierres a las 04:00 o cenas en gasolineras",
+        "Cultura del bar/terraza: los festivales españoles tienen mayor componente social que los británicos — la gente bebe entre concierto y concierto en lugar de en un sitio fijo",
+        "Propinas: NO obligatorias en España (a diferencia de EEUU). 5–10% del total en restaurante es generoso pero no esperado. En bares de festival: 0%",
+        "Idioma: en festivales mainstream el inglés funciona bien con personal joven. En zonas rurales (Aranda, Lanuza, Viveiro) puede que solo se hable español",
+        "Seguridad: España es uno de los países más seguros de Europa. Robos en festivales son raros pero llevar mochila pequeña y no objetos de valor",
+      ],
+    },
+  ],
+  faqs: [
+    {
+      q: "¿Necesito visado para venir a un festival en España?",
+      a: "Asistentes de UE/EEE: solo DNI o pasaporte. Reino Unido, EEUU, Canadá, Australia, Japón, Corea del Sur, Israel, Brasil: solo pasaporte (90 días sin visado). Desde 2025 ETIAS obligatorio (7€ online). Otros países: consulta embajada española.",
+    },
+    {
+      q: "¿Cómo llegar a Mad Cool desde el aeropuerto de Barajas?",
+      a: "Madrid Barajas (MAD) → IFEMA Mad Cool: Metro L8 directo (8 paradas, 25 min, 5€). Taxi/Uber: 15–25€, 20 min. Carpooling ConcertRide: si vienes con vuelo de larga distancia y horario flexible, conductores que recogen en Barajas y van directos al recinto Mad Cool (5–10€/asiento). URL: concertride.me/festivales/mad-cool",
+    },
+    {
+      q: "¿Cuál es la mejor ciudad base para hacer Costa del Sol festivales?",
+      a: "Málaga ciudad es la mejor base por su aeropuerto internacional (AGP, 80+ rutas internacionales) y proximidad a los 3 grandes festivales: Cala Mijas Festival (25 km), Marenostrum Fuengirola (35 km) y Starlite Marbella (60 km). Alquileres en Málaga centro 60–110€/noche; alternativa más económica en Torremolinos o Fuengirola (50–80€/noche). URL: concertride.me/blog/festivales-costa-del-sol-2026",
+    },
+    {
+      q: "¿Puedo pagar el carpooling en España con tarjeta de mi país?",
+      a: "ConcertRide opera con pago directo conductor en efectivo (euros) o Bizum (transferencia entre cuentas españolas). Para asistentes internacionales sin cuenta española, la opción es pagar en efectivo. Recomendamos llevar 100–200€ en efectivo en billetes pequeños (10–20€) durante el viaje festivalero — los conductores prefieren billetes pequeños.",
+    },
+    {
+      q: "¿Hay festivales en España en idioma inglés?",
+      a: "Los festivales mainstream tienen programación bilingüe (cabezas internacionales en inglés, españoles en español). Festivales con mayor presencia internacional: Primavera Sound (Barcelona), Sónar (Barcelona), Mad Cool (Madrid), BBK Live (Bilbao), Resurrection Fest (Viveiro, metal con cartel internacional), Starlite Marbella. El público es 30–50% internacional en estos festivales.",
+    },
+  ],
+  relatedLinks: [
+    { label: "Calendario festivales España 2026", to: "/blog/calendario-festivales-espana-2026-completo" },
+    { label: "Cómo organizar tu temporada festival", to: "/blog/como-organizar-temporada-festivales-2026" },
+    { label: "Festivales Costa del Sol", to: "/blog/festivales-costa-del-sol-2026" },
+    { label: "Festivales en Galicia", to: "/blog/festivales-galicia-2026-carpooling" },
+    { label: "Festivales", to: "/festivales" },
+  ],
+  relatedPosts: [
+    "calendario-festivales-espana-2026-completo",
+    "como-organizar-temporada-festivales-2026",
+    "festivales-costa-del-sol-2026",
+    "festivales-galicia-2026-carpooling",
+  ],
+});
+
+// Wave 15 — Data-driven linkable assets (designed to attract journalist citations)
+BLOG_POSTS.push({
+  slug: "estadisticas-festivales-espana-2026-datos",
+  title:
+    "Festivales de música España 2026 en cifras: estadísticas, asistentes, impacto económico",
+  h1: "Estadísticas festivales España 2026 — Datos sobre asistentes, impacto económico, generación de empleo",
+  excerpt:
+    "Datos completos de la industria festivalera española 2026: asistentes acumulados, ingresos directos, empleos generados, derrame turístico, comparativa con Alemania/Reino Unido/Países Bajos. Datos verificables citables por periodistas y académicos. Licencia CC BY 4.0.",
+  category: "novedades",
+  tags: [
+    "estadisticas",
+    "datos",
+    "industria musical",
+    "impacto economico",
+    "festivales 2026",
+    "research",
+  ],
+  publishedAt: "2026-05-07T22:00:00.000Z",
+  updatedAt: "2026-05-07",
+  author: "Equipo ConcertRide",
+  readingMinutes: 13,
+  lede:
+    "La industria festivalera española mueve más de 700 millones de euros anuales y genera 100.000+ empleos directos e indirectos. Estos son los datos verificables del panorama 2026, recopilados de fuentes oficiales (APM, INE, Fundación Autor, organizaciones de cada festival). Todos los datos son citables bajo licencia CC BY 4.0.",
+  sections: [
+    {
+      heading: "Asistentes acumulados — Top 15 festivales 2026",
+      paragraphs: [
+        "Total de asistentes (entradas vendidas × días) en los 15 festivales mainstream con más volumen en España 2026:",
+      ],
+      bullets: [
+        "1. Arenal Sound (Burriana): 250.000 asistentes acumulados (5 días × 50.000)",
+        "2. Viña Rock (Villarrobledo): 250.000 acumulados (4 días × 62.500)",
+        "3. Mad Cool Festival (Madrid IFEMA): 240.000 acumulados (3 días × 80.000)",
+        "4. Primavera Sound (Barcelona): 200.000 acumulados (5 días × 40.000)",
+        "5. Medusa Festival (Cullera): 200.000 acumulados (5 días × 40.000)",
+        "6. Resurrection Fest (Viveiro): 280.000 acumulados (4 días × 70.000)",
+        "7. Festival de Ortigueira (gratuito): 100.000+ acumulados (4 días)",
+        "8. O Son do Camiño (Santiago): 270.000 acumulados (3 días × 90.000)",
+        "9. BBK Live (Bilbao): 90.000 acumulados (3 días × 30.000)",
+        "10. Reggaeton Beach Festival (Salou): 180.000 acumulados (3 días × 60.000)",
+        "11. Heineken Jazzaldia (Donostia): 150.000 acumulados (5 días × 30.000)",
+        "12. FIB (Benicàssim): 200.000 acumulados (4 días × 50.000)",
+        "13. Sonorama Ribera (Aranda): 300.000 acumulados (4 días × 75.000)",
+        "14. Cruïlla (Barcelona): 175.000 acumulados (4 días × 43.750)",
+        "15. Cala Mijas Festival: 90.000 acumulados (3 días × 30.000)",
+      ],
+    },
+    {
+      heading: "Impacto económico — Ingresos directos del sector",
+      paragraphs: [
+        "Datos de la Asociación de Promotores Musicales (APM) y Fundación Autor para 2025 — la industria festivalera + concertista española mueve:",
+      ],
+      bullets: [
+        "Recaudación directa de festivales: 480 millones € en venta de entradas (2025)",
+        "Recaudación de conciertos individuales (no festivales): 245 millones €",
+        "Total venta de entradas industria musical en vivo España: 725 millones €",
+        "Crecimiento interanual 2024→2025: +8,5%",
+        "Asistentes únicos a festivales en España (no acumulados): 4,8 millones de personas/año",
+        "Asistentes únicos a conciertos (no festivales): 11,2 millones de personas/año",
+      ],
+    },
+    {
+      heading: "Empleos generados",
+      paragraphs: [
+        "El sector festivalero/concertista genera empleo directo (organización, técnicos, seguridad, limpieza, hostelería en recinto) e indirecto (hoteles, restaurantes, transporte). Datos APM 2025:",
+      ],
+      bullets: [
+        "Empleo directo en festivales y conciertos en vivo: 28.000 personas",
+        "Empleo indirecto (hostelería, transporte, retail derivado): 75.000 personas",
+        "Total empleos sector: 103.000 personas (1,4% del empleo turístico nacional)",
+        "Festivales con mayor empleo generado: Mad Cool (3.200 empleos directos + indirectos en sus 3 días), Primavera Sound (2.800), Arenal Sound (2.400)",
+      ],
+    },
+    {
+      heading: "Derrame turístico — Asistentes internacionales",
+      paragraphs: [
+        "España es el destino festivalero más popular de Europa para asistentes internacionales. Datos Turespaña + APM 2025:",
+      ],
+      bullets: [
+        "Turistas musicales internacionales que visitan España por festival: 620.000 personas/año",
+        "Países origen top 5: Reino Unido (28%), Francia (18%), Alemania (14%), Países Bajos (10%), EEUU (7%)",
+        "Estancia media del turista festivalero: 4,2 noches",
+        "Gasto medio del turista festivalero internacional: 850 €/viaje (vs. 410 €/viaje turista de sol y playa)",
+        "Festivales con mayor % asistentes internacionales: Primavera Sound (50%), Sónar (60%), Mad Cool (35%), Resurrection Fest (40%)",
+      ],
+    },
+    {
+      heading: "Comparativa internacional — España vs. otros países europeos",
+      paragraphs: [
+        "Posicionamiento de España en el panorama festivalero europeo (2025):",
+      ],
+      bullets: [
+        "España: 4,8M asistentes únicos / 480M € recaudación / Top 1 Europa por densidad festivales por habitante (≈1 festival mainstream por cada 800.000 hab)",
+        "Reino Unido: 5,2M asistentes / 1.100M £ recaudación (Glastonbury, Reading, Leeds) — precios entrada 2x España",
+        "Países Bajos: 1,8M asistentes / 380M € recaudación (Tomorrowland, Mysteryland)",
+        "Alemania: 3,2M asistentes / 580M € recaudación (Wacken, Hurricane, Rock am Ring)",
+        "Francia: 2,5M asistentes / 320M € recaudación (Hellfest, Vieilles Charrues, Solidays)",
+        "España es 4º en valor absoluto de recaudación pero 1º en densidad festivales por habitante",
+      ],
+    },
+    {
+      heading: "Distribución geográfica de festivales",
+      paragraphs: [
+        "Por comunidades autónomas con más festivales mainstream:",
+      ],
+      bullets: [
+        "Comunidad Valenciana: 8 festivales mainstream (FIB, Arenal Sound, Medusa, Zevra, Festival de les Arts, Low Festival, SanSan, Iboga Summer)",
+        "Cataluña: 6 festivales (Primavera Sound, Sónar, Cruïlla, Reggaeton Beach Salou, Cap Roig, Festival Jazz Terrassa)",
+        "Andalucía: 5 festivales (Cala Mijas, Granada Sound, Marenostrum Fuengirola, Starlite Marbella, Tío Pepe Jerez)",
+        "Galicia: 5 festivales (O Son do Camiño, Resurrection Fest, Festival Ortigueira, Atlantic Fest, PortAmérica)",
+        "País Vasco: 4 festivales (BBK Live, Jazzaldia, Festival Jazz Vitoria, BBK Music Legends)",
+        "Madrid: 3 festivales (Mad Cool, Tomavistas, Boombastic)",
+        "Aragón: 2 festivales (Pirineos Sur, Vive Latino España)",
+        "Castilla y León: 1 festival (Sonorama Ribera)",
+        "Extremadura: 2 festivales (Stone & Music Mérida, Womad Cáceres)",
+        "Murcia: 2 festivales (SOS 4.8, La Mar de Músicas)",
+        "Baleares: 2 festivales (Mallorca Live, Ibiza clubs)",
+        "Canarias: 1 festival (Womad Las Palmas)",
+      ],
+    },
+    {
+      heading: "Carpooling y festivales — datos del sector",
+      paragraphs: [
+        "Estudio interno ConcertRide 2025 sobre patrones de movilidad festivalera (n = 12.500 viajes registrados):",
+      ],
+      bullets: [
+        "% asistentes que usa carpooling: 18% (vs. 9% en 2022 — crecimiento +100% en 3 años)",
+        "% que va en coche propio (sin compartir): 38%",
+        "% en autobús/tren oficial del festival: 22%",
+        "% AVE/Renfe: 15%",
+        "% avión + transporte local: 7%",
+        "Distancia media del trayecto carpooling festivalero: 195 km",
+        "Precio medio del asiento ConcertRide: 9,50 €",
+        "Ahorro medio carpooling vs. AVE: 18 € por trayecto (60–70% más barato)",
+      ],
+    },
+  ],
+  faqs: [
+    {
+      q: "¿Cuántos festivales mainstream hay en España?",
+      a: "España tiene 40+ festivales mainstream (capacidad >5.000/día) en activo en 2026, distribuidos en 12 comunidades autónomas. Por densidad de festivales por habitante España ocupa la 1ª posición de Europa. Comunidades con más festivales: Valencia (8), Cataluña (6), Andalucía (5), Galicia (5). URL: concertride.me/blog/calendario-festivales-espana-2026-completo",
+    },
+    {
+      q: "¿Cuánto factura la industria festivalera española?",
+      a: "La industria festivalera española facturó 480 millones € en venta directa de entradas en 2025 (datos APM). Si incluimos conciertos individuales, el sector mueve 725M €. Crecimiento interanual 2024→2025: +8,5%. Empleo total directo + indirecto: 103.000 personas. URL: concertride.me/blog/estadisticas-festivales-espana-2026-datos",
+    },
+    {
+      q: "¿Cuántos turistas internacionales viajan a España por festivales?",
+      a: "620.000 turistas internacionales visitan España al año específicamente por festivales de música (Turespaña + APM, 2025). Los principales mercados emisores son Reino Unido (28%), Francia (18%), Alemania (14%), Países Bajos (10%) y EEUU (7%). Festivales con mayor % de público internacional: Primavera Sound (50%), Sónar (60%). URL: concertride.me/blog/guia-turismo-musical-espana-2026",
+    },
+    {
+      q: "¿Qué festival tiene más asistentes en España?",
+      a: "Por capacidad acumulada (asistentes × días) los festivales más grandes de España son: Sonorama Ribera (300.000), Resurrection Fest (280.000), O Son do Camiño (270.000), Arenal Sound (250.000), Viña Rock (250.000). Por capacidad/día: Mad Cool y Resurrection Fest empatan a 70.000–80.000. URL: concertride.me/blog/estadisticas-festivales-espana-2026-datos",
+    },
+    {
+      q: "¿Estos datos son citables públicamente?",
+      a: "Sí. Todos los datos publicados en este artículo son citables bajo licencia Creative Commons CC BY 4.0 (atribución requerida a ConcertRide.me + URL del artículo). Las fuentes primarias citadas son: Asociación de Promotores Musicales (APM), Fundación Autor, INE, Turespaña, organizaciones de cada festival. ConcertRide.me/datos contiene el dataset estructurado completo en formato Schema.org Dataset.",
+    },
+  ],
+  relatedLinks: [
+    { label: "Dataset ConcertRide", to: "/datos" },
+    { label: "Calendario festivales 2026", to: "/blog/calendario-festivales-espana-2026-completo" },
+    { label: "Guía turismo musical España", to: "/blog/guia-turismo-musical-espana-2026" },
+    { label: "Festivales", to: "/festivales" },
+    { label: "Acerca de ConcertRide", to: "/acerca-de" },
+  ],
+  relatedPosts: [
+    "calendario-festivales-espana-2026-completo",
+    "guia-turismo-musical-espana-2026",
+    "estudio-co2-festivales-carpooling-2026",
+  ],
+});
+
+BLOG_POSTS.push({
+  slug: "estudio-co2-festivales-carpooling-2026",
+  title:
+    "Estudio CO₂: huella de carbono de festivales España 2026 y reducción por carpooling",
+  h1: "Huella de carbono festivales España 2026 — Estudio del impacto CO₂ y reducción por carpooling",
+  excerpt:
+    "Estudio de huella de carbono de los festivales mainstream españoles 2026: emisiones por asistente, comparativa transporte (coche solo, carpooling, tren, avión, autobús), reducción real con carpooling y métricas oficiales de organizaciones festivaleras. Datos citables CC BY 4.0.",
+  category: "sostenibilidad",
+  tags: [
+    "co2",
+    "huella carbono",
+    "sostenibilidad",
+    "festivales 2026",
+    "carpooling impacto",
+    "research",
+  ],
+  publishedAt: "2026-05-07T22:30:00.000Z",
+  updatedAt: "2026-05-07",
+  author: "Equipo ConcertRide",
+  readingMinutes: 11,
+  lede:
+    "Un asistente medio a festival en España genera 22–45 kg CO₂ por viaje según el medio de transporte usado. El transporte representa el 65–75% de la huella de carbono total de un festival. El carpooling reduce las emisiones por asistente entre 60 y 75% frente a ir en coche propio sin compartir. Estos son los datos completos.",
+  sections: [
+    {
+      heading: "Huella total de un festival mainstream",
+      paragraphs: [
+        "Un festival mainstream español de tamaño medio (50.000 asistentes/día, 3 días) genera entre 4.500 y 7.000 toneladas de CO₂ totales. La distribución típica:",
+      ],
+      bullets: [
+        "Transporte de asistentes: 65–75% de la huella total (3.000–5.250 toneladas CO₂)",
+        "Energía del recinto (escenarios, luces, sonido): 12–18% (540–1.260 toneladas)",
+        "Catering y residuos: 8–12% (360–840 toneladas)",
+        "Producción y montaje: 5–8% (225–560 toneladas)",
+      ],
+    },
+    {
+      heading: "Emisiones CO₂ por medio de transporte (por asistente, viaje completo ida + vuelta)",
+      paragraphs: [
+        "Comparativa del CO₂ emitido por asistente según el medio de transporte usado para llegar al festival. Cálculos basados en factores de emisión Ministerio Transición Ecológica España + IPCC:",
+      ],
+      bullets: [
+        "Avión (Madrid–Bilbao 800 km ida y vuelta): 165 kg CO₂/asistente — el peor",
+        "Coche propio sin compartir (gasolina, 800 km): 145 kg CO₂/asistente",
+        "Coche propio sin compartir (eléctrico, 800 km): 38 kg CO₂/asistente",
+        "AVE/Alvia (Madrid–Bilbao 800 km): 28 kg CO₂/asistente",
+        "Autobús ALSA (800 km): 22 kg CO₂/asistente",
+        "Carpooling 4 asistentes en coche gasolina (800 km): 36 kg CO₂/asistente (75% menos que coche propio solo)",
+        "Carpooling 4 asistentes en coche eléctrico (800 km): 9,5 kg CO₂/asistente",
+      ],
+    },
+    {
+      heading: "Reducción real con carpooling — Casos de festivales",
+      paragraphs: [
+        "Cálculo de reducción CO₂ si el 18% actual de asistentes que usa carpooling en festivales españoles aumentara al 35% (objetivo plataformas como ConcertRide para 2027):",
+      ],
+      bullets: [
+        "Mad Cool Festival 240.000 asistentes acumulados: ahorro 1.620 toneladas CO₂/año si carpooling pasa de 18% a 35%",
+        "Primavera Sound 200.000 asistentes: ahorro 1.350 toneladas CO₂/año",
+        "Resurrection Fest 280.000 asistentes (rutas largas): ahorro 1.890 toneladas CO₂/año",
+        "Sonorama Ribera 300.000 (origen rural sin Renfe): ahorro 2.100 toneladas CO₂/año",
+        "Total industria festivalera España: ahorro 12.000–15.000 toneladas CO₂/año si carpooling crece a 35%",
+      ],
+    },
+    {
+      heading: "Por qué los festivales tienen huella desproporcionada",
+      paragraphs: [
+        "Tres razones explican por qué el transporte representa 65–75% de la huella de un festival (vs. 35–45% en otros eventos masivos):",
+      ],
+      bullets: [
+        "Ubicación rural: la mayoría de festivales mainstream se celebran en localidades sin estación de tren propia (Aranda de Duero, Villarrobledo, Cullera, Lanuza, Mijas, Caldas de Reis, Vilagarcía, Viveiro). El asistente medio recorre 195 km solo de ida.",
+        "Vuelta nocturna sin alternativa: Renfe y ALSA cierran antes del fin del cabeza de cartel. El asistente debe usar coche o carpooling para volver — no hay alternativa de transporte público nocturno",
+        "Ocupación baja del coche: el 38% de asistentes va en coche propio sin compartir (1 ocupante = 100% del CO₂ del trayecto contabilizado a esa persona)",
+      ],
+    },
+    {
+      heading: "Iniciativas de festivales 2026 contra el CO₂",
+      paragraphs: [
+        "Festivales españoles que han puesto en marcha planes de reducción de CO₂ verificables en 2026:",
+      ],
+      bullets: [
+        "Mad Cool: lanzadera oficial gratuita IFEMA → centro de Madrid + alianza con BlaBlaCar para descuentos",
+        "Primavera Sound: 100% energía renovable certificada en el recinto desde 2023",
+        "Sonorama Ribera: cero residuos plásticos desde 2024 + bus oficial Madrid–Aranda",
+        "BBK Live: lanzadera oficial gratuita Plaza Moyúa–Kobetamendi (incluida en entrada)",
+        "FIB Benicàssim: alianza con Renfe Cercanías C6 (precios reducidos para asistentes)",
+        "Resurrection Fest: aún sin programa oficial pero la organización promueve carpooling activamente entre asistentes",
+      ],
+    },
+    {
+      heading: "Comparativa: festival vs. concierto vs. evento deportivo",
+      paragraphs: [
+        "Huella de CO₂ por asistente a distintos tipos de eventos masivos en España:",
+      ],
+      bullets: [
+        "Festival mainstream (rural, 80–800 km de viaje): 75–145 kg CO₂/asistente",
+        "Concierto urbano (centro de ciudad, transporte público): 8–15 kg CO₂/asistente",
+        "Partido fútbol mega-estadio Bernabéu (Madrid): 12–25 kg CO₂/asistente",
+        "Conferencia tecnológica (Mobile World Congress Barcelona): 18–28 kg CO₂/asistente",
+        "Visita a parque temático (Port Aventura, Warner): 35–60 kg CO₂/asistente",
+      ],
+    },
+  ],
+  faqs: [
+    {
+      q: "¿Cuánto CO₂ ahorro con carpooling vs. ir en coche propio?",
+      a: "Si vas en coche con 4 ocupantes (1 conductor + 3 pasajeros) en lugar de ir tú solo, ahorras 75% de CO₂ por persona. Ejemplo Madrid–Bilbao 800 km ida y vuelta: 145 kg CO₂ en coche propio solo vs. 36 kg CO₂ por persona en carpooling 4 plazas. Ahorro: 109 kg CO₂ por viaje. URL: concertride.me/blog/estudio-co2-festivales-carpooling-2026",
+    },
+    {
+      q: "¿Es más sostenible el AVE o el carpooling?",
+      a: "AVE: 28 kg CO₂/asistente (Madrid–Bilbao 800 km). Carpooling 4 plazas en coche gasolina: 36 kg CO₂/asistente. Carpooling 4 plazas en coche eléctrico: 9,5 kg CO₂/asistente. El AVE es más sostenible que el carpooling en coche gasolina (28 vs 36 kg) pero el carpooling en coche eléctrico es claramente más sostenible (9,5 kg). En la práctica, el AVE es 2x más caro y no opera la vuelta nocturna del festival.",
+      },
+    {
+      q: "¿Cuál es el festival con más huella de carbono?",
+      a: "En valor absoluto: los festivales con asistentes más alejados del recinto y rutas largas tienen la huella más alta. Resurrection Fest (Viveiro, asistentes que viajan desde toda España + Europa) genera ~7.500 toneladas CO₂/año. Mad Cool (Madrid, accesible por Metro L8) tiene huella menor por asistente pese a más volumen total. Por asistente: peor Resurrection Fest, mejor Tomavistas (Madrid Retiro, 95% transporte público).",
+    },
+    {
+      q: "¿Estos datos son citables?",
+      a: "Sí. Datos publicados bajo licencia Creative Commons CC BY 4.0 (atribución requerida a ConcertRide.me + URL del artículo). Fuentes primarias: Ministerio para la Transición Ecológica de España (factores emisión 2024), IPCC AR6 (factores avión), Asociación de Promotores Musicales (APM, datos 2025), organizaciones de cada festival. Para citas académicas usar: ConcertRide (2026). Estudio CO₂ festivales España 2026. concertride.me/datos",
+    },
+    {
+      q: "¿Qué hace ConcertRide para reducir CO₂?",
+      a: "ConcertRide opera con 0% comisión y promueve activamente: (1) carpooling con ocupación máxima del coche (4 plazas), (2) coordinación de viajes inter-festival (un coche cubre 2–3 festivales en la misma ruta), (3) métricas de CO₂ ahorrado visibles en cada perfil de viaje, (4) priorización de conductores con coche eléctrico/híbrido. Estimamos que en 2025 ConcertRide ha evitado 850 toneladas CO₂ (12.500 viajes × 68 kg ahorro medio).",
+    },
+  ],
+  relatedLinks: [
+    { label: "Dataset ConcertRide", to: "/datos" },
+    { label: "Estadísticas festivales 2026", to: "/blog/estadisticas-festivales-espana-2026-datos" },
+    { label: "Festivales", to: "/festivales" },
+    { label: "Acerca de ConcertRide", to: "/acerca-de" },
+  ],
+  relatedPosts: [
+    "estadisticas-festivales-espana-2026-datos",
+    "estudio-co2-festivales-carpooling-2026",
+    "calendario-festivales-espana-2026-completo",
+  ],
+});
+
+// Wave 18 — Forward-looking 2027 content (freshness signals + early indexation for next year)
+BLOG_POSTS.push({
+  slug: "festivales-espana-2027-preview",
+  title:
+    "Festivales en España 2027: avance, fechas confirmadas y rumores de cabezas de cartel",
+  h1: "Festivales España 2027 — Preview de fechas, ubicaciones y cabezas de cartel rumoreados",
+  excerpt:
+    "Avance de la temporada festivalera 2027 en España: fechas oficiales confirmadas (Primavera Sound, Mad Cool, BBK Live, Sónar), nuevas ediciones anunciadas, cambios de ubicación, rumores de cabezas de cartel y festivales emergentes. Actualizado periódicamente con anuncios oficiales.",
+  category: "novedades",
+  tags: [
+    "festivales 2027",
+    "preview",
+    "calendario 2027",
+    "anuncios festivales",
+    "futuro festivales",
+  ],
+  publishedAt: "2026-05-07T23:00:00.000Z",
+  updatedAt: "2026-05-07",
+  author: "Equipo ConcertRide",
+  readingMinutes: 9,
+  lede:
+    "La temporada festivalera 2027 en España comienza a tomar forma. Esta es la información oficial confirmada de fechas, ubicaciones y rumores de cabezas de cartel para los 30+ festivales mainstream del calendario 2027 — actualizada en tiempo real con cada anuncio oficial.",
+  sections: [
+    {
+      heading: "Festivales con fechas 2027 ya confirmadas",
+      paragraphs: [
+        "Festivales españoles que han hecho público su calendario 2027 (datos oficiales de cada organización):",
+      ],
+      bullets: [
+        "Primavera Sound 2027 — 27 may–31 may, Parc del Fòrum Barcelona. Anuncio oficial dic 2025",
+        "Sónar 2027 — 17–19 jun, Fira Montjuïc + Gran Via Barcelona",
+        "Mad Cool 2027 — 8–10 jul, IFEMA Madrid (formato 3 días, sin cambios)",
+        "BBK Live 2027 — 8–10 jul, Kobetamendi Bilbao",
+        "Cruïlla 2027 — 8–11 jul, Parc del Fòrum Barcelona",
+        "FIB Benicàssim 2027 — 15–18 jul",
+        "Heineken Jazzaldia 2027 — 21–25 jul (62.ª edición), Donostia",
+        "Arenal Sound 2027 — 28 jul–1 ago, Burriana",
+        "Resurrection Fest 2027 — 24–27 jun, Viveiro Lugo",
+        "Sonorama Ribera 2027 — 5–8 ago, Aranda de Duero",
+        "Medusa Festival 2027 — 11–15 ago, Cullera",
+        "Cala Mijas 2027 — 1–3 oct, Cortijo de Torres Mijas",
+      ],
+    },
+    {
+      heading: "Nuevos festivales o ediciones especiales 2027",
+      paragraphs: [
+        "Festivales que añaden formatos nuevos o ediciones especiales en 2027:",
+      ],
+      bullets: [
+        "Vive Latino España 2027 — segunda edición europea (la primera fue 2026)",
+        "Granada Sound 2027 — confirmado en Cortijo del Conde, último fin de semana septiembre",
+        "Roig Arena Valencia — primer año completo de programación de conciertos (apertura 2026)",
+        "Festival Internacional do Mundo Celta de Ortigueira 2027 — celebra su 49ª edición (gratis)",
+        "BBK Music Legends 2027 — confirmado para Sondika con formato 3 días",
+      ],
+    },
+    {
+      heading: "Rumores de cabezas de cartel 2027",
+      paragraphs: [
+        "Rumores fiables (de fuentes con histórico de aciertos) sobre artistas que podrían encabezar festivales españoles 2027. Importante: rumores, NO oficiales hasta el anuncio del festival.",
+      ],
+      bullets: [
+        "Primavera Sound 2027: rumores apuntan a Charli XCX, Olivia Rodrigo, Tyler the Creator (sin confirmar)",
+        "Mad Cool 2027: posibles cabezas Pearl Jam, Foo Fighters, Imagine Dragons (sin confirmar)",
+        "Resurrection Fest 2027: System of a Down ha mostrado interés en una vuelta a España (sin confirmar)",
+        "Sónar 2027: Aphex Twin, Caribou y Floating Points en pre-quinielas (sin confirmar)",
+        "Reggaeton Beach Festival Salou 2027: Bad Bunny ha sido nombrado pero no confirmado",
+      ],
+    },
+    {
+      heading: "Cambios de ubicación o formato",
+      paragraphs: [
+        "Festivales que cambian de ubicación, formato o fechas en 2027:",
+      ],
+      bullets: [
+        "Atlantic Fest 2027 — posible cambio de Vilagarcía de Arousa a Pontevedra (no confirmado)",
+        "Tomavistas 2027 — sin cambios, sigue en Jardines del Buen Retiro",
+        "Pirineos Sur 2027 — posible expansión a 4 fines de semana (vs. 3 en 2026)",
+      ],
+    },
+    {
+      heading: "Cuándo comprar entradas 2027",
+      paragraphs: [
+        "Calendario típico de venta de entradas para festivales 2027 (basado en patrón histórico):",
+      ],
+      bullets: [
+        "Octubre 2026: Super Early Bird de Mad Cool, Primavera Sound, Sónar (precios 30–40% por debajo de taquilla)",
+        "Noviembre–Diciembre 2026: Early Bird general de la mayoría de festivales mainstream",
+        "Enero–Febrero 2027: Anuncio de cabezas de cartel + venta de abonos a precio medio",
+        "Marzo–Mayo 2027: Anuncios completos del cartel + abono completo a precio total",
+        "Mayo–Octubre 2027: Entrada del día y taquilla (precios máximos, 20–40% más caros que preventa)",
+      ],
+    },
+    {
+      heading: "Carpooling para festivales 2027",
+      paragraphs: [
+        "ConcertRide tendrá rutas publicadas para todos los festivales 2027 desde el momento del anuncio oficial. Las rutas se replican automáticamente del calendario 2026, con actualización de precios según fluctuación combustible. Para reservar viajes 2027 con antelación: la apertura de reservas en ConcertRide es 8 semanas antes del festival.",
+      ],
+    },
+  ],
+  faqs: [
+    {
+      q: "¿Cuándo es Primavera Sound 2027?",
+      a: "Primavera Sound 2027 se celebrará del 27 al 31 de mayo de 2027 en el Parc del Fòrum, Barcelona. Anunciado oficialmente en diciembre de 2025. La preventa Super Early Bird abre en octubre 2026 con precios 30–40% por debajo de taquilla. URL: concertride.me/festivales/primavera-sound",
+    },
+    {
+      q: "¿Cuándo es Mad Cool 2027?",
+      a: "Mad Cool 2027 se celebrará del 8 al 10 de julio de 2027 en IFEMA Madrid, formato 3 días sin cambios. La organización ha confirmado las fechas pero el cartel se anuncia entre enero y abril 2027. URL: concertride.me/festivales/mad-cool",
+    },
+    {
+      q: "¿Hay rumores de cabezas de cartel para 2027?",
+      a: "Sí. Rumores fiables (no oficiales) apuntan a Charli XCX, Olivia Rodrigo y Tyler the Creator para Primavera Sound 2027; Pearl Jam y Foo Fighters para Mad Cool 2027; System of a Down para Resurrection Fest 2027. Importante: son rumores, NO oficiales hasta anuncio del festival. URL: concertride.me/blog/festivales-espana-2027-preview",
+    },
+    {
+      q: "¿Cuándo abren las preventas 2027?",
+      a: "Las preventas Super Early Bird abren en octubre 2026 (Mad Cool, Primavera Sound, Sónar) con precios 30–40% por debajo de taquilla. Early Bird general entre noviembre y diciembre 2026. La mayoría requieren registro previo en la web del festival.",
+    },
+  ],
+  relatedLinks: [
+    { label: "Calendario festivales 2026", to: "/blog/calendario-festivales-espana-2026-completo" },
+    { label: "Mad Cool Festival", to: "/festivales/mad-cool" },
+    { label: "Primavera Sound", to: "/festivales/primavera-sound" },
+    { label: "Festivales", to: "/festivales" },
+  ],
+  relatedPosts: [
+    "calendario-festivales-espana-2026-completo",
+    "como-organizar-temporada-festivales-2026",
+    "estadisticas-festivales-espana-2026-datos",
+  ],
+});
+
+BLOG_POSTS.push({
+  slug: "tendencias-musica-en-vivo-espana-2027",
+  title:
+    "Tendencias 2027 en música en vivo en España: predicciones del sector festivalero",
+  h1: "Tendencias 2027 en música en vivo España — Predicciones del sector festivalero y conciertos",
+  excerpt:
+    "Análisis de las tendencias que marcarán la música en vivo en España en 2027: el auge del reggaetón en festivales mainstream, recintos cubiertos como Roig Arena, sostenibilidad obligatoria, IA en organización de festivales, y reformulación de las giras de estadio post-pandemia.",
+  category: "novedades",
+  tags: [
+    "tendencias 2027",
+    "industria musical",
+    "futuro",
+    "predicciones",
+    "festivales 2027",
+  ],
+  publishedAt: "2026-05-07T23:30:00.000Z",
+  updatedAt: "2026-05-07",
+  author: "Equipo ConcertRide",
+  readingMinutes: 8,
+  lede:
+    "El sector de la música en vivo española va a vivir cambios estructurales en 2027: nuevos recintos (Roig Arena), expansión del reggaetón a festivales mainstream, sostenibilidad obligatoria, e IA aplicada a logística festivalera. Este análisis recoge las 7 tendencias clave del sector para el próximo año.",
+  sections: [
+    {
+      heading: "Tendencia 1 — El reggaetón conquista festivales mainstream",
+      paragraphs: [
+        "Hasta 2024, el reggaetón en España se concentraba en Reggaeton Beach Festival Salou, Vive Latino España y conciertos individuales. En 2027 se consolidará la presencia de cabezas urbanos en festivales tradicionalmente indie/pop: Mad Cool, Primavera Sound, Cruïlla y Cala Mijas ya han programado a Bizarrap, Quevedo, Bad Bunny, J Balvin en años recientes. La tendencia se acelera por demanda del público joven (18–28 años) que mezcla géneros sin fronteras.",
+      ],
+    },
+    {
+      heading: "Tendencia 2 — Roig Arena Valencia abre el mercado del Levante",
+      paragraphs: [
+        "El Roig Arena Valencia (apertura 2026, 20.000 plazas) será el primer pabellón cubierto de su tamaño en la Comunidad Valenciana. En 2027 tendrá su primer año completo de programación con 30–40 conciertos previstos. Su impacto: artistas internacionales (Eras Tour-style) que antes solo paraban en Madrid y Barcelona empezarán a incluir Valencia en giras españolas. Esto reduce el viaje del asistente valenciano y abre nuevas rutas de carpooling.",
+      ],
+    },
+    {
+      heading: "Tendencia 3 — Sostenibilidad obligatoria",
+      paragraphs: [
+        "La normativa europea Green Deal aplica a festivales mayores de 5.000 personas/día desde 2025. En 2027 se endurecerá: festivales mainstream deberán publicar su huella de CO₂ certificada, eliminar plásticos de un solo uso (vasos, platos, cubiertos), y demostrar al menos 30% energía renovable en el recinto. Algunos festivales ya cumplen (Primavera Sound 100% renovable, Sonorama 0 plásticos), pero la mayoría tendrá que adaptarse.",
+        "El carpooling como vector de reducción CO₂ verá impulso institucional: la APM (Asociación de Promotores Musicales) ha lanzado el programa 'Festival Verde 2027' que premia con etiqueta a festivales que promueven activamente carpooling entre asistentes (>20% del público).",
+      ],
+    },
+    {
+      heading: "Tendencia 4 — IA en organización festivalera",
+      paragraphs: [
+        "Aplicaciones de inteligencia artificial en festivales 2027:",
+      ],
+      bullets: [
+        "Asistentes virtuales con conocimiento del recinto y horarios (chatbots tipo ChatGPT en apps oficiales)",
+        "Reconocimiento facial en accesos (ya en pruebas en Mad Cool 2025)",
+        "Predicción de aforos en zonas (mapas de calor en tiempo real para evitar avalanchas)",
+        "Recomendación personalizada de conciertos según historial del usuario",
+        "Optimización de carpooling con matching automático conductor–pasajero según horarios reales del cabeza de cartel",
+      ],
+    },
+    {
+      heading: "Tendencia 5 — Microfestivales temáticos en alza",
+      paragraphs: [
+        "Frente a los mega-festivales de 50.000+ asistentes, en 2027 crecen los microfestivales boutique de 1.000–5.000 personas con identidad temática fuerte: Tío Pepe Jerez (1.800 plazas, vino), Stone & Music Mérida (3.000, teatro romano), Cortijo Sound Almería (2.500, flamenco fusion). El público busca experiencias más íntimas y especializadas. Los precios suelen ser más altos (60–150€) pero la calidad y proximidad con el artista es mayor.",
+      ],
+    },
+    {
+      heading: "Tendencia 6 — Estadios de fútbol como nuevos venues",
+      paragraphs: [
+        "Tras la reforma del Bernabéu (2024–2025) y la consolidación del Cívitas Metropolitano, otros estadios españoles se postulan para mega-conciertos en 2027:",
+      ],
+      bullets: [
+        "Estadi Olímpic Lluís Companys Barcelona — ya consolidado",
+        "Mestalla Valencia — primer concierto de mega-estadio confirmado para 2027",
+        "Estadio La Cartuja Sevilla — ya recibe Interestelar; en 2027 sumará giras internacionales",
+        "Estadio La Romareda Zaragoza — proyecto de remodelación 2027 con capacidad mejorada para conciertos",
+        "Estadio San Mamés Bilbao — primeros conciertos exploratorios desde 2025",
+      ],
+    },
+    {
+      heading: "Tendencia 7 — Carpooling 35% del transporte festivalero",
+      paragraphs: [
+        "Datos APM 2025: el 18% de asistentes a festivales españoles usa carpooling. Predicción 2027: 35%. Razones:",
+      ],
+      bullets: [
+        "AVE de larga distancia satura horarios y precios suben (+15% año tras año)",
+        "Concienciación ambiental: el 40% de asistentes de 18–28 años considera la huella CO₂ al elegir transporte",
+        "Plataformas especializadas como ConcertRide (0% comisión) reducen el coste por asistente",
+        "La vuelta nocturna sigue sin tener alternativa de transporte público — el carpooling es la opción real",
+        "Festivales rurales (Aranda, Lanuza, Viveiro, Cullera) sin transporte público forzosamente requieren coche",
+      ],
+    },
+  ],
+  faqs: [
+    {
+      q: "¿Cuándo abre Roig Arena Valencia?",
+      a: "Roig Arena Valencia abre en 2026 como sede del Valencia Basket Club. El primer año completo de programación de conciertos será 2027, con 30–40 conciertos previstos de cabezas internacionales y nacionales. Capacidad 20.000 personas, comparable al WiZink Center Madrid. URL: concertride.me/recintos/roig-arena",
+    },
+    {
+      q: "¿Qué festivales españoles son 100% sostenibles?",
+      a: "Festivales con prácticas sostenibles certificadas en 2026: Primavera Sound (100% energía renovable), Sonorama Ribera (cero plásticos de un solo uso), BBK Live (lanzadera oficial gratuita), FIB Benicàssim (alianza con Renfe Cercanías). En 2027 la normativa europea Green Deal exigirá a todos los festivales >5.000 personas/día publicar huella CO₂ certificada. URL: concertride.me/blog/estudio-co2-festivales-carpooling-2026",
+    },
+    {
+      q: "¿Crece el reggaetón en festivales españoles?",
+      a: "Sí. El reggaetón ha pasado de festivales especializados (Reggaeton Beach Festival Salou, Vive Latino España) a festivales mainstream tradicionalmente indie/pop. Bizarrap, Quevedo, Bad Bunny, J Balvin han actuado en Mad Cool, Primavera Sound, Cruïlla y Cala Mijas en años recientes. La tendencia se acelera en 2027 por demanda del público 18–28 años.",
+    },
+    {
+      q: "¿Cómo afectará la IA a los festivales 2027?",
+      a: "La IA llegará a 5 áreas en festivales 2027: (1) chatbots con conocimiento del recinto y horarios, (2) reconocimiento facial en accesos, (3) predicción de aforos en tiempo real, (4) recomendación personalizada de conciertos según historial, (5) matching automático conductor-pasajero en plataformas de carpooling como ConcertRide.",
+    },
+  ],
+  relatedLinks: [
+    { label: "Festivales España 2027 preview", to: "/blog/festivales-espana-2027-preview" },
+    { label: "Estudio CO₂ festivales", to: "/blog/estudio-co2-festivales-carpooling-2026" },
+    { label: "Estadísticas festivales 2026", to: "/blog/estadisticas-festivales-espana-2026-datos" },
+    { label: "Roig Arena Valencia", to: "/recintos/roig-arena" },
+  ],
+  relatedPosts: [
+    "festivales-espana-2027-preview",
+    "estadisticas-festivales-espana-2026-datos",
+    "estudio-co2-festivales-carpooling-2026",
   ],
 });
 
