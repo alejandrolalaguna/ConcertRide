@@ -36827,9 +36827,9 @@ function ContactoPage() {
 function AcercaDePage() {
   useSeoMeta({
     title: "Acerca de ConcertRide — Carpooling para conciertos en España | ConcertRide",
-    description: "Qué es ConcertRide, por qué existe y cómo funciona el carpooling para conciertos en España. Plataforma gratuita, sin comisiones, con conductores verificados.",
+    description: "Qué es ConcertRide, quién lo hace y por qué existe: la plataforma española de carpooling para conciertos y festivales. Gratuita, sin comisiones, conductores verificados.",
     canonical: `${SITE_URL}/acerca-de`,
-    keywords: "qué es ConcertRide, sobre ConcertRide, carpooling conciertos España, plataforma viajes compartidos conciertos, sin comisión carpooling, misión ConcertRide, transporte económico festivales"
+    keywords: "qué es ConcertRide, sobre ConcertRide, fundador ConcertRide, equipo ConcertRide, carpooling conciertos España, plataforma viajes compartidos conciertos, sin comisión carpooling, misión ConcertRide, transporte económico festivales"
   });
   return /* @__PURE__ */ jsxs("main", { id: "main", className: "min-h-dvh bg-cr-bg text-cr-text pt-14", children: [
     /* @__PURE__ */ jsx(
@@ -36899,10 +36899,26 @@ function AcercaDePage() {
             "@type": "Person",
             "@id": `${SITE_URL}/#founder`,
             name: "Alejandro Lalaguna",
+            givenName: "Alejandro",
+            familyName: "Lalaguna",
             url: `${SITE_URL}/acerca-de`,
-            jobTitle: "Fundador",
+            jobTitle: "Fundador y CEO",
             worksFor: { "@type": "Organization", "@id": `${SITE_URL}/#organization` },
-            knowsAbout: ["Carpooling", "Conciertos en España", "Festivales de música", "Movilidad sostenible"]
+            knowsAbout: [
+              "Carpooling",
+              "Conciertos en España",
+              "Festivales de música",
+              "Movilidad sostenible",
+              "Plataformas de transporte compartido",
+              "SEO y marketing digital",
+              "Desarrollo de productos tecnológicos"
+            ],
+            description: "Fundador de ConcertRide, la plataforma española de carpooling para conciertos y festivales de música. Ingeniero de software con experiencia en IoT y desarrollo de producto. Festival-goer habitual con más de 15 festivales en los últimos 5 años.",
+            sameAs: [
+              "https://twitter.com/concertride_es",
+              "https://www.instagram.com/concertride_es/",
+              "https://www.linkedin.com/in/alejandrolalaguna/"
+            ]
           })
         }
       }
@@ -37055,6 +37071,101 @@ function AcercaDePage() {
           ] })
         ] })
       ] }),
+      /* @__PURE__ */ jsxs("section", { className: "space-y-6 border-t border-cr-border pt-8", itemScope: true, itemType: "https://schema.org/Person", children: [
+        /* @__PURE__ */ jsx("h2", { className: "font-display text-2xl md:text-3xl uppercase leading-tight", children: "Quién hay detrás" }),
+        /* @__PURE__ */ jsxs("div", { className: "flex gap-5 items-start", children: [
+          /* @__PURE__ */ jsx("div", { className: "w-14 h-14 rounded-full bg-cr-primary/10 border border-cr-primary/30 flex items-center justify-center shrink-0 font-display text-xl text-cr-primary uppercase select-none", children: "AL" }),
+          /* @__PURE__ */ jsxs("div", { className: "space-y-2", children: [
+            /* @__PURE__ */ jsx("p", { className: "font-display text-lg uppercase", itemProp: "name", children: "Alejandro Lalaguna" }),
+            /* @__PURE__ */ jsx("p", { className: "font-mono text-[11px] text-cr-primary uppercase tracking-[0.12em]", itemProp: "jobTitle", children: "Fundador y CEO" }),
+            /* @__PURE__ */ jsxs("p", { className: "font-sans text-sm text-cr-text-muted leading-relaxed", itemProp: "description", children: [
+              "Ingeniero de software con experiencia en IoT y desarrollo de producto en",
+              " ",
+              /* @__PURE__ */ jsx(
+                "a",
+                {
+                  href: "https://www.libelium.com/",
+                  target: "_blank",
+                  rel: "noopener noreferrer",
+                  className: "text-cr-primary hover:underline",
+                  children: "Libelium"
+                }
+              ),
+              ". Fan habitual de festivales en España — Resurrection Fest, Sonorama, Mad Cool, Primavera Sound — y convencido de que el transporte al festival no debería arruinar la experiencia. ConcertRide nació de un problema real: demasiados coches con asientos vacíos yendo al mismo concierto."
+            ] }),
+            /* @__PURE__ */ jsxs("div", { className: "flex gap-3 pt-1", children: [
+              /* @__PURE__ */ jsxs(
+                "a",
+                {
+                  href: "https://www.linkedin.com/in/alejandrolalaguna/",
+                  target: "_blank",
+                  rel: "noopener noreferrer",
+                  className: "inline-flex items-center gap-1.5 font-mono text-[11px] text-cr-text-muted hover:text-cr-primary transition-colors",
+                  itemProp: "sameAs",
+                  children: [
+                    "LinkedIn ",
+                    /* @__PURE__ */ jsx(ExternalLink, { size: 10 })
+                  ]
+                }
+              ),
+              /* @__PURE__ */ jsxs(
+                "a",
+                {
+                  href: "https://twitter.com/concertride_es",
+                  target: "_blank",
+                  rel: "noopener noreferrer",
+                  className: "inline-flex items-center gap-1.5 font-mono text-[11px] text-cr-text-muted hover:text-cr-primary transition-colors",
+                  itemProp: "sameAs",
+                  children: [
+                    "X / Twitter ",
+                    /* @__PURE__ */ jsx(ExternalLink, { size: 10 })
+                  ]
+                }
+              )
+            ] })
+          ] })
+        ] })
+      ] }),
+      /* @__PURE__ */ jsxs("section", { className: "space-y-4 border-t border-cr-border pt-8", children: [
+        /* @__PURE__ */ jsx("h2", { className: "font-display text-2xl md:text-3xl uppercase leading-tight", children: "ConcertRide en números" }),
+        /* @__PURE__ */ jsx("dl", { className: "grid grid-cols-2 md:grid-cols-4 gap-4", children: [
+          { value: "33+", label: "Festivales cubiertos" },
+          { value: "72+", label: "Ciudades de origen" },
+          { value: "400+", label: "Rutas disponibles" },
+          { value: "0 %", label: "Comisión de plataforma" }
+        ].map(({ value, label }) => /* @__PURE__ */ jsxs("div", { className: "border border-cr-border p-4 space-y-1", children: [
+          /* @__PURE__ */ jsx("dd", { className: "font-display text-3xl text-cr-primary", children: value }),
+          /* @__PURE__ */ jsx("dt", { className: "font-sans text-xs text-cr-text-muted", children: label })
+        ] }, label)) }),
+        /* @__PURE__ */ jsx("p", { className: "font-mono text-[10px] text-cr-text-dim", children: "Datos a mayo 2026. Festivales en España con páginas de transporte activas en ConcertRide." })
+      ] }),
+      /* @__PURE__ */ jsxs("section", { className: "space-y-4 border-t border-cr-border pt-8", children: [
+        /* @__PURE__ */ jsx("h2", { className: "font-display text-2xl md:text-3xl uppercase leading-tight", children: "Prensa y medios" }),
+        /* @__PURE__ */ jsx("p", { className: "font-sans text-sm text-cr-text-muted leading-relaxed", children: "¿Eres periodista o blogger y quieres escribir sobre ConcertRide, carpooling a festivales o transporte sostenible en España? Tenemos datos propios sobre rutas, precios y comportamiento de asistentes a festivales." }),
+        /* @__PURE__ */ jsxs("div", { className: "flex flex-wrap gap-3", children: [
+          /* @__PURE__ */ jsx(
+            Link,
+            {
+              to: "/prensa",
+              className: "inline-flex items-center gap-2 font-sans text-xs font-semibold uppercase tracking-[0.12em] border border-cr-primary text-cr-primary px-4 py-2 hover:bg-cr-primary hover:text-black transition-colors",
+              children: "Kit de prensa y datos →"
+            }
+          ),
+          /* @__PURE__ */ jsx(
+            Link,
+            {
+              to: "/datos",
+              className: "inline-flex items-center gap-2 font-sans text-xs font-semibold uppercase tracking-[0.12em] border border-cr-border text-cr-text-muted px-4 py-2 hover:border-cr-primary hover:text-cr-primary transition-colors",
+              children: "Dataset CC BY 4.0 →"
+            }
+          )
+        ] }),
+        /* @__PURE__ */ jsxs("p", { className: "font-sans text-xs text-cr-text-muted", children: [
+          "Contacto para medios:",
+          " ",
+          /* @__PURE__ */ jsx("a", { href: "mailto:hola@concertride.me", className: "text-cr-primary hover:underline", children: "hola@concertride.me" })
+        ] })
+      ] }),
       /* @__PURE__ */ jsxs("section", { className: "border-t border-cr-border pt-8 grid md:grid-cols-2 gap-4", children: [
         /* @__PURE__ */ jsxs(
           Link,
@@ -37086,6 +37197,17 @@ function AcercaDePage() {
             children: [
               /* @__PURE__ */ jsx("p", { className: "font-sans text-[11px] font-semibold uppercase tracking-[0.12em] text-cr-primary mb-2", children: "Habla con nosotros" }),
               /* @__PURE__ */ jsx("p", { className: "font-display text-xl uppercase leading-tight group-hover:text-cr-primary transition-colors", children: "Contactar →" })
+            ]
+          }
+        ),
+        /* @__PURE__ */ jsxs(
+          Link,
+          {
+            to: "/prensa",
+            className: "border border-cr-border p-5 hover:border-cr-primary transition-colors group",
+            children: [
+              /* @__PURE__ */ jsx("p", { className: "font-sans text-[11px] font-semibold uppercase tracking-[0.12em] text-cr-primary mb-2", children: "Medios" }),
+              /* @__PURE__ */ jsx("p", { className: "font-display text-xl uppercase leading-tight group-hover:text-cr-primary transition-colors", children: "Kit de prensa →" })
             ]
           }
         )
@@ -40792,6 +40914,1027 @@ function ComparativaTaxi() {
     ] })
   ] });
 }
+const GENRE_LANDINGS = [
+  {
+    slug: "rock",
+    name: "Rock",
+    nameFull: "Festivales de rock en España",
+    emoji: "🎸",
+    blurb: "España acoge cada año algunos de los mejores festivales de rock del mundo. Desde el clásico Viña Rock en Villarrobledo (Albacete), con 50.000 asistentes y 30 años de historia punk, rock alternativo y metal, hasta el BBK Live de Bilbao (pop-rock internacional) y el Mad Cool de Madrid (rock e indie de primer nivel). El Resurrection Fest en Viveiro (Lugo) es la meca del metal pesado español. Carpooling con ConcertRide desde cualquier ciudad española, sin comisión.",
+    festivalSlugs: [
+      "vina-rock",
+      "mad-cool",
+      "bbk-live",
+      "resurrection-fest",
+      "sonorama-ribera",
+      "fib",
+      "low-festival",
+      "o-son-do-camino",
+      "atlantic-fest",
+      "bbk-music-legends"
+    ],
+    relatedGenres: ["metal", "indie", "pop"],
+    faqs: [
+      {
+        q: "¿Cuál es el mejor festival de rock en España en 2026?",
+        a: "Los festivales de rock más destacados en España para 2026 son: Mad Cool (Madrid, julio, rock/indie internacional), Viña Rock (Albacete, mayo, punk/rock alternativo/metal, 50.000 asistentes), BBK Live (Bilbao, julio, pop-rock), Resurrection Fest (Viveiro, junio, metal) y Sonorama Ribera (Aranda de Duero, agosto, pop-rock en español). Para transporte sin comisión a cualquiera de ellos, ConcertRide cubre carpooling desde las principales ciudades españolas."
+      },
+      {
+        q: "¿Cómo llegar a los festivales de rock en España?",
+        a: "La mayoría de los grandes festivales de rock en España (Viña Rock, Resurrection Fest, Mad Cool, Sonorama) se celebran en recintos con transporte público limitado o nulo en horarios de madrugada. La opción más usada por los asistentes es el carpooling: compartir coche con otros fans del festival mediante ConcertRide, que conecta conductores y pasajeros sin cobrar comisión. Los precios oscilan entre 3 y 18 €/asiento según la distancia."
+      },
+      {
+        q: "¿Hay festivales de rock gratis en España?",
+        a: "Algunos municipios organizan conciertos de rock gratuitos en fiestas locales, pero los grandes festivales de rock en España (Mad Cool, Viña Rock, BBK Live, Resurrection Fest) requieren entrada de pago (40–150 €/día o abono de varios días). Sonorama Ribera en Aranda de Duero tiene zona de conciertos gratuita en el centro de la ciudad, aunque el recinto principal tiene acceso con abono."
+      },
+      {
+        q: "¿Cuándo son los festivales de rock en España 2026?",
+        a: "El calendario de festivales de rock en España 2026 arranca en mayo (Viña Rock, 30 abril–3 mayo), continúa en junio (Resurrection Fest, 25–28 junio), se concentra en julio (Mad Cool 9–11 jul, BBK Live 9–11 jul, FIB 16–19 jul, Low Festival 24–26 jul) y culmina en agosto (Sonorama 6–9 ago). El otoño tiene opciones más reducidas."
+      }
+    ]
+  },
+  {
+    slug: "indie",
+    name: "Indie",
+    nameFull: "Festivales indie en España",
+    emoji: "🎵",
+    blurb: "El circuito indie en España es uno de los más activos de Europa. Primavera Sound en Barcelona es referencia global con 210.000 asistentes en cuatro días, carteles eclécticos y capacidad para descubrir artistas emergentes junto a cabezas de cartel internacionales. Sonorama Ribera en Aranda de Duero es el festival de pop/rock en español más querido del panorama independiente. FIB en Benicàssim y Mad Cool en Madrid completan el cuadro. Todos con carpooling sin comisión desde ConcertRide.",
+    festivalSlugs: [
+      "primavera-sound",
+      "mad-cool",
+      "fib",
+      "sonorama-ribera",
+      "low-festival",
+      "tomavistas",
+      "sos-48",
+      "bbk-live",
+      "granada-sound",
+      "metropoli-gijon"
+    ],
+    relatedGenres: ["rock", "pop", "alternativo"],
+    faqs: [
+      {
+        q: "¿Cuál es el festival indie más importante en España?",
+        a: "Primavera Sound (Barcelona, mayo–junio) es el festival indie más importante de España y uno de los top del mundo, con 210.000 asistentes en cuatro días y carteles que combinan artistas emergentes con cabezas de cartel de primera línea. Sonorama Ribera (Aranda de Duero, agosto) es el más querido del indie en español. Mad Cool (Madrid, julio) ocupa el segundo lugar en términos de cartel internacional."
+      },
+      {
+        q: "¿Cuánto cuesta el carpooling a festivales indie en España?",
+        a: "Con ConcertRide, el carpooling a festivales indie en España cuesta entre 3 y 20 €/asiento según distancia: Madrid a Primavera Sound 15–20 €, Madrid a Sonorama Ribera 10–14 €, Valencia a FIB 5–8 €, Bilbao a Mad Cool 11–16 €, Madrid a Low Festival 12–17 €. El 100 % va al conductor, sin comisión de plataforma."
+      },
+      {
+        q: "¿Qué festivales indie hay en España en verano 2026?",
+        a: "El verano 2026 concentra los principales festivales indie de España: Primavera Sound (Barcelona, 28 mayo–1 jun), Tomavistas (Madrid, 15–17 mayo), FIB (Benicàssim, 16–19 jul), Mad Cool (Madrid, 9–11 jul), Low Festival (Benidorm, 24–26 jul), Sonorama Ribera (Aranda de Duero, 6–9 ago), Granada Sound (Granada, septiembre). Todos con transporte compartido disponible en ConcertRide."
+      }
+    ]
+  },
+  {
+    slug: "electronica",
+    name: "Electrónica",
+    nameFull: "Festivales de música electrónica en España",
+    emoji: "🎛️",
+    blurb: "España es el epicentro europeo de la música electrónica de verano. Medusa Festival en Cullera (Valencia) reúne a 120.000 personas en una semana con los mejores DJs del mundo. Sónar en Barcelona combina electrónica de vanguardia con instalaciones de arte digital desde 1994. Zevra Festival en El Ejido crece como referente del techno y house del sureste. Arenal Sound en Burriana mezcla electrónica con indie. Todos con carpooling sin comisión desde ConcertRide.",
+    festivalSlugs: [
+      "medusa-festival",
+      "sonar",
+      "zevra-festival",
+      "arenal-sound",
+      "cala-mijas",
+      "mallorca-live-festival"
+    ],
+    relatedGenres: ["dance", "techno", "house"],
+    faqs: [
+      {
+        q: "¿Cuál es el mejor festival de música electrónica en España?",
+        a: "Los mejores festivales de electrónica en España en 2026 son: Medusa Festival (Cullera, Valencia, agosto, techno/house/EDM, 120.000 asistentes), Sónar (Barcelona, junio, electrónica experimental y de vanguardia), Zevra Festival (El Ejido, Almería, techno y house), Arenal Sound (Burriana, agosto, mezcla indie + electrónica), Cala Mijas (Málaga, octubre, música electrónica en formato íntimo)."
+      },
+      {
+        q: "¿Cómo llegar a Medusa Festival sin coche?",
+        a: "Medusa Festival en Cullera (Valencia) no tiene acceso en transporte público regular en horarios nocturnos. Las opciones son: (1) Autobús lanzadera oficial del festival desde Valencia ciudad (precio 10–15€ ida/vuelta), (2) Taxi/VTC desde Valencia (30–50€ por coche), (3) Carpooling con ConcertRide desde Valencia (3–6€/asiento), Madrid (12–17€/asiento), Barcelona (12–17€/asiento) o Murcia (5–8€/asiento). El coche compartido es la opción más económica para quienes vienen de fuera de Valencia."
+      },
+      {
+        q: "¿Hay festivales de electrónica en Madrid en 2026?",
+        a: "Madrid no tiene un festival de electrónica equivalente a Medusa o Sónar en 2026. Los principales eventos de electrónica en Madrid son de club y sala (Fabrik, Mondo Disko, Sala But), no al aire libre de varios días. Los madrileños que quieren festivales de electrónica se desplazan a Medusa (Valencia, 12–16 agosto), Sónar (Barcelona, 18–20 junio) o Arenal Sound (Burriana, 29 jul–2 ago). ConcertRide cubre carpooling desde Madrid a todos ellos."
+      }
+    ]
+  },
+  {
+    slug: "reggaeton",
+    name: "Reggaetón & Urbano",
+    nameFull: "Festivales de reggaetón y música urbana en España",
+    emoji: "🔥",
+    blurb: "El reggaetón y la música urbana latina han conquistado los festivales de verano españoles. Reggaeton Beach Festival en Salou (Tarragona) concentra cada julio a los principales artistas del género urbano latino. Vive Latino en Zaragoza (septiembre 2026) trae la primera edición europea del histórico festival mexicano. Artistas como Bad Bunny, J Balvin, Anuel AA, Karol G o Peso Pluma agotan entradas en horas en venues españoles. ConcertRide cubre el carpooling a todos estos eventos.",
+    festivalSlugs: [
+      "reggaeton-beach-festival",
+      "vive-latino",
+      "mallorca-live-festival",
+      "arenal-sound",
+      "medusa-festival"
+    ],
+    relatedGenres: ["urbano", "latin", "pop"],
+    faqs: [
+      {
+        q: "¿Cuál es el mayor festival de reggaetón en España?",
+        a: "El Reggaeton Beach Festival (RBF) en Salou (Tarragona) es el mayor festival de reggaetón en España, con ediciones anuales en julio que reúnen a 50.000+ asistentes y carteles con los artistas del género urbano latino de mayor popularidad internacional. En 2026 se celebra el 31 julio–2 agosto en Salou. ConcertRide opera carpooling desde Barcelona (100 km, 5–8€/asiento), Madrid (550 km, 15–20€), Valencia (200 km, 6–10€) y Zaragoza (250 km, 8–12€)."
+      },
+      {
+        q: "¿Hay festivales de música latina en España en 2026?",
+        a: "Sí, varios: Reggaeton Beach Festival (Salou, 31 jul–2 ago), Vive Latino España (Zaragoza, 4–5 sept, primera edición europea del festival mexicano fundado en 1998), Arenal Sound (Burriana, 29 jul–2 ago, mezcla indie/electro/urbano), Mallorca Live Festival (Calvià, mayo, pop y urbano). Artistas latinoamericanos también actúan en fechas individuales en el WiZink Center, Palau Sant Jordi y estadios de fútbol."
+      },
+      {
+        q: "¿Cuánto cuesta ir al Reggaeton Beach Festival desde Barcelona?",
+        a: "Desde Barcelona al Reggaeton Beach Festival en Salou hay 100 km (aprox. 1 h en coche). Con ConcertRide, el carpooling cuesta 4–7 €/asiento (precio que cubre combustible y peaje del conductor). El tren de Renfe Barcelona–Salou/Port Aventura cuesta 5–15 €/trayecto, pero el último tren nocturno sale antes de que terminen los conciertos. El carpooling de vuelta es la opción más flexible y económica."
+      }
+    ]
+  },
+  {
+    slug: "metal",
+    name: "Metal",
+    nameFull: "Festivales de metal en España",
+    emoji: "🤘",
+    blurb: "España tiene una escena metal consolidada con un festival de referencia internacional: Resurrection Fest en Viveiro (Galicia), que desde 2006 congrega a 40.000 metaleros por día con bandas de talla mundial. Viña Rock en Albacete, aunque más amplio en géneros, tiene una tradición fuerte de metal y punk. BBK Music Legends en Bilbao cubre el rock clásico de los 70–80. Atlantic Fest en Ponteceso (Galicia) combina metal con indie y folk. Todos accesibles por carpooling sin comisión.",
+    festivalSlugs: [
+      "resurrection-fest",
+      "vina-rock",
+      "atlantic-fest",
+      "bbk-music-legends"
+    ],
+    relatedGenres: ["rock", "punk", "hardcore"],
+    faqs: [
+      {
+        q: "¿Cuál es el mejor festival de metal en España?",
+        a: "Resurrection Fest en Viveiro (Galicia) es el festival de metal más importante de España y uno de los más respetados de Europa. Se celebra la última semana de junio (edición 2026: 25–28 junio) con 40.000 asistentes/día y bandas de metal, hardcore, punk y rock pesado de primera línea mundial. Viveiro no tiene transporte público a esas horas; el carpooling con ConcertRide desde A Coruña, Oviedo, Bilbao o Madrid es la opción más usada."
+      },
+      {
+        q: "¿Cómo llegar a Resurrection Fest en Viveiro?",
+        a: "Viveiro (Lugo, Galicia) está mal comunicado en transporte público: el tren más cercano es la estación de Lugo (100 km). Las opciones reales son: (1) Autobús oficial del festival desde A Coruña y Lugo (precio variable, comprar con anticipación en la web del festival), (2) Coche propio, (3) Carpooling con ConcertRide desde A Coruña (80 km, 5–8€/asiento), Oviedo (220 km, 8–12€), Bilbao (390 km, 12–17€) o Madrid (590 km, 16–22€)."
+      },
+      {
+        q: "¿Hay festivales de metal en el norte de España?",
+        a: "Sí, el norte concentra los mejores festivales de metal en España: Resurrection Fest (Viveiro, Galicia, junio, el más grande), Atlantic Fest (Ponteceso, Galicia, julio, metal e indie), BBK Music Legends (Sondika, Bilbao, junio, rock clásico 70–80). El noroeste (Galicia, Asturias) tiene la escena metal más activa de España. ConcertRide cubre rutas de carpooling entre todas las ciudades del norte para estos festivales."
+      }
+    ]
+  },
+  {
+    slug: "pop",
+    name: "Pop",
+    nameFull: "Festivales de pop en España",
+    emoji: "🌟",
+    blurb: "Los festivales de pop en España aúnan artistas nacionales e internacionales del mainstream para audiencias masivas. Mad Cool en Madrid reúne 80.000 personas/día con carteles de rock y pop de primer nivel. FIB en Benicàssim es el festival de pop/indie internacional más veterano del Mediterráneo español. Starlite Marbella combina pop clásico y pop internacional en un entorno único de lujo. Metrópoli Gijón, Granada Sound y Les Arts Valencia completan el mapa estival. Carpooling sin comisión con ConcertRide.",
+    festivalSlugs: [
+      "mad-cool",
+      "fib",
+      "mallorca-live-festival",
+      "starlite-marbella",
+      "metropoli-gijon",
+      "granada-sound",
+      "festival-de-les-arts",
+      "arenal-sound",
+      "sos-48",
+      "tomavistas",
+      "marenostrum-fuengirola"
+    ],
+    relatedGenres: ["indie", "rock", "urbano"],
+    faqs: [
+      {
+        q: "¿Cuáles son los festivales de pop más grandes de España?",
+        a: "Los festivales de pop más masivos de España en 2026 son: Mad Cool (Madrid, julio, 80.000/día), FIB (Benicàssim, julio, 45.000/día), Arenal Sound (Burriana, agosto, 50.000/día), Mallorca Live (Calvià, mayo, 25.000/día), Granada Sound (Granada, septiembre, 25.000/día), Metrópoli Gijón (Gijón, julio, 30.000/día) y Festival de les Arts (Valencia, mayo, 25.000/día). Todos operan con carpooling sin comisión en ConcertRide."
+      },
+      {
+        q: "¿Hay festivales de pop en España en septiembre?",
+        a: "Septiembre tiene varios festivales de pop en España: Vive Latino (Zaragoza, 4–5 sept), Granada Sound (Granada, 25–27 sept) y Cala Mijas (Málaga, 2–4 oct). La temporada alta de festivales en España es mayo–agosto, pero septiembre ofrece alternativas con precios de entrada y carpooling más ajustados y menos aforo."
+      }
+    ]
+  },
+  {
+    slug: "world-music",
+    name: "World Music",
+    nameFull: "Festivales de world music en España",
+    emoji: "🌍",
+    blurb: "España acoge festivales de world music únicos en el panorama europeo. Pirineos Sur en el embalse de Lanuza (Huesca) es referente mundial con su escenario flotante y programación de música africana, latinoamericana y mediterránea. Festival de Ortigueira en Galicia es el mayor festival de música celta del mundo hispano. Jazzaldia en Donostia-San Sebastián combina jazz con world music en un entorno incomparable. Cruïlla Barcelona mezcla world music, reggae y pop en el Fòrum. ConcertRide cubre el transporte a todos.",
+    festivalSlugs: [
+      "pirineos-sur",
+      "festival-ortigueira",
+      "jazzaldia",
+      "cruilla",
+      "portamerica",
+      "tio-pepe-festival"
+    ],
+    relatedGenres: ["folk", "jazz", "flamenco"],
+    faqs: [
+      {
+        q: "¿Cuál es el mejor festival de world music en España?",
+        a: "Pirineos Sur (Sallent de Gállego, Huesca, julio) es el festival de world music más reconocido internacionalmente de España, con su escenario flotante sobre el embalse de Lanuza y programación de música africana, latinoamericana y mediterránea desde 1992. El Festival de Ortigueira (Galicia, julio) es el más grande de música celta. Jazzaldia en Donostia (julio) es el festival de jazz y world music más prestigioso del norte."
+      },
+      {
+        q: "¿Cómo llegar a Pirineos Sur en Sallent de Gállego?",
+        a: "Sallent de Gállego (Huesca, Pirineo aragonés) está a 75 km de Huesca y 175 km de Zaragoza, sin transporte público nocturno. Las opciones de transporte son: coche propio (recomendado, parking habilitado en el pueblo) o carpooling con ConcertRide desde Huesca (desde 4–7€/asiento), Zaragoza (desde 6–9€), Barcelona (desde 14–19€) o Madrid (desde 16–22€). La carretera de acceso (HU-V-7002) puede colapsar en horario de llegada los días de mayor afluencia."
+      }
+    ]
+  },
+  {
+    slug: "folk-flamenco",
+    name: "Folk & Flamenco",
+    nameFull: "Festivales de folk y flamenco en España",
+    emoji: "🪗",
+    blurb: "España es tierra de raíces musicales únicas. El Festival de Ortigueira en Galicia es el mayor festival de gaitas y música celta del mundo hispanohablante, con 80.000 asistentes en cuatro días. El Tío Pepe Festival en Jerez de la Frontera pone en valor el flamenco y el pop clásico en el entorno único de las bodegas González Byass. PortAmérica en Catoira (Pontevedra) mezcla folk, pop latinoamericano y alternativo en un entorno natural gallego. Carpooling sin comisión con ConcertRide.",
+    festivalSlugs: [
+      "festival-ortigueira",
+      "tio-pepe-festival",
+      "portamerica",
+      "pirineos-sur"
+    ],
+    relatedGenres: ["world-music", "tradicional", "roots"],
+    faqs: [
+      {
+        q: "¿Cuál es el festival de gaitas más importante de España?",
+        a: "El Festival Internacional del Mundo Celta de Ortigueira (A Coruña, Galicia) es el mayor festival de música celta y gaitas del mundo hispanohablante, declarado Bien de Interés Cultural. Se celebra el segundo fin de semana de julio con 80.000 asistentes y artistas de Galicia, Irlanda, Escocia, Bretaña, Asturias, Gales y Cornualles. ConcertRide opera carpooling desde A Coruña (60 km, 3–5€/asiento), Ferrol (40 km), Santiago de Compostela (100 km) y Oviedo (260 km)."
+      },
+      {
+        q: "¿Dónde ver flamenco en festival en España?",
+        a: "El Tío Pepe Festival en Jerez de la Frontera (Cádiz, junio–septiembre) programa flamenco junto a pop clásico en el marco de las bodegas González Byass. La Bienal de Flamenco de Sevilla (años pares) es el mayor festival de flamenco del mundo. El Festival de Jerez (febrero) es referente del flamenco puro. Para transporte a Jerez desde Sevilla (90 km) o Cádiz (35 km), ConcertRide ofrece carpooling desde 3–6€/asiento."
+      }
+    ]
+  }
+];
+const GENRE_LANDINGS_BY_SLUG = Object.fromEntries(
+  GENRE_LANDINGS.map((g) => [g.slug, g])
+);
+const GENRE_SLUGS$1 = GENRE_LANDINGS.map((g) => g.slug);
+function getGenreFestivals(genre) {
+  return genre.festivalSlugs.map((s) => FESTIVAL_LANDINGS_BY_SLUG[s]).filter(Boolean);
+}
+const GENRE_PRICE_REF = {
+  rock: [
+    { from: "Madrid", to: "Viña Rock (Albacete)", range: "9–13 €/asiento" },
+    { from: "Madrid", to: "Mad Cool (Madrid)", range: "3–6 €/asiento" },
+    { from: "Madrid", to: "Resurrection Fest (Viveiro)", range: "16–22 €/asiento" },
+    { from: "Barcelona", to: "Mad Cool (Madrid)", range: "15–20 €/asiento" },
+    { from: "Bilbao", to: "BBK Live (Bilbao)", range: "3–5 €/asiento" }
+  ],
+  indie: [
+    { from: "Madrid", to: "Primavera Sound (Barcelona)", range: "15–20 €/asiento" },
+    { from: "Madrid", to: "Sonorama (Aranda de Duero)", range: "10–14 €/asiento" },
+    { from: "Valencia", to: "FIB (Benicàssim)", range: "5–8 €/asiento" },
+    { from: "Bilbao", to: "Mad Cool (Madrid)", range: "11–16 €/asiento" },
+    { from: "Madrid", to: "Low Festival (Benidorm)", range: "12–17 €/asiento" }
+  ],
+  electronica: [
+    { from: "Madrid", to: "Medusa (Cullera)", range: "12–17 €/asiento" },
+    { from: "Valencia", to: "Medusa (Cullera)", range: "3–6 €/asiento" },
+    { from: "Madrid", to: "Sónar (Barcelona)", range: "15–20 €/asiento" },
+    { from: "Murcia", to: "Medusa (Cullera)", range: "5–8 €/asiento" },
+    { from: "Madrid", to: "Arenal Sound (Burriana)", range: "11–16 €/asiento" }
+  ],
+  reggaeton: [
+    { from: "Barcelona", to: "RBF Salou", range: "4–7 €/asiento" },
+    { from: "Madrid", to: "RBF Salou", range: "15–20 €/asiento" },
+    { from: "Valencia", to: "RBF Salou", range: "6–10 €/asiento" },
+    { from: "Zaragoza", to: "Vive Latino (Zaragoza)", range: "3–5 €/asiento" },
+    { from: "Madrid", to: "Vive Latino (Zaragoza)", range: "9–13 €/asiento" }
+  ],
+  metal: [
+    { from: "Madrid", to: "Resurrection Fest (Viveiro)", range: "16–22 €/asiento" },
+    { from: "A Coruña", to: "Resurrection Fest (Viveiro)", range: "5–8 €/asiento" },
+    { from: "Oviedo", to: "Resurrection Fest (Viveiro)", range: "8–12 €/asiento" },
+    { from: "Madrid", to: "Viña Rock (Albacete)", range: "9–13 €/asiento" },
+    { from: "Bilbao", to: "Atlantic Fest (Ponteceso)", range: "10–15 €/asiento" }
+  ],
+  pop: [
+    { from: "Madrid", to: "Mad Cool (Madrid)", range: "3–6 €/asiento" },
+    { from: "Valencia", to: "FIB (Benicàssim)", range: "5–8 €/asiento" },
+    { from: "Madrid", to: "Granada Sound (Granada)", range: "13–18 €/asiento" },
+    { from: "Madrid", to: "Arenal Sound (Burriana)", range: "11–16 €/asiento" },
+    { from: "Barcelona", to: "Starlite Marbella", range: "20–28 €/asiento" }
+  ],
+  "world-music": [
+    { from: "Zaragoza", to: "Pirineos Sur (Sallent de Gállego)", range: "6–9 €/asiento" },
+    { from: "A Coruña", to: "Ortigueira", range: "3–5 €/asiento" },
+    { from: "Madrid", to: "Jazzaldia (Donostia)", range: "11–16 €/asiento" },
+    { from: "Madrid", to: "Cruïlla (Barcelona)", range: "15–20 €/asiento" },
+    { from: "Bilbao", to: "Jazzaldia (Donostia)", range: "4–7 €/asiento" }
+  ],
+  "folk-flamenco": [
+    { from: "A Coruña", to: "Ortigueira", range: "3–5 €/asiento" },
+    { from: "Sevilla", to: "Tío Pepe Festival (Jerez)", range: "3–6 €/asiento" },
+    { from: "Madrid", to: "Ortigueira", range: "16–22 €/asiento" },
+    { from: "Vigo", to: "PortAmérica (Catoira)", range: "4–7 €/asiento" },
+    { from: "Madrid", to: "Tío Pepe Festival (Jerez)", range: "13–18 €/asiento" }
+  ]
+};
+function GenreLandingPage() {
+  var _a2;
+  const { slug } = useParams();
+  const genre = slug ? GENRE_LANDINGS_BY_SLUG[slug] : void 0;
+  if (!slug || !genre) return /* @__PURE__ */ jsx(Navigate, { to: "/festivales", replace: true });
+  const festivals = getGenreFestivals(genre);
+  const priceRows = GENRE_PRICE_REF[genre.slug] ?? [];
+  const year = 2026;
+  useSeoMeta({
+    title: `${genre.nameFull} ${year} — transporte y carpooling sin comisión | ConcertRide`,
+    description: `${genre.nameFull} ${year}: ${festivals.slice(0, 4).map((f) => f.shortName).join(", ")} y más. Carpooling desde ${((_a2 = priceRows[0]) == null ? void 0 : _a2.range) ?? "3 €/asiento"}. Conductores verificados, 0% comisión.`,
+    canonical: `${SITE_URL}/festivales-genero/${genre.slug}`,
+    keywords: [
+      `festivales ${genre.name.toLowerCase()} España ${year}`,
+      `festivales ${genre.name.toLowerCase()} España`,
+      `carpooling festivales ${genre.name.toLowerCase()}`,
+      `transporte festivales ${genre.name.toLowerCase()}`,
+      ...festivals.map((f) => `carpooling ${f.shortName}`),
+      `viaje compartido festival ${genre.name.toLowerCase()}`,
+      `cómo llegar festival ${genre.name.toLowerCase()}`
+    ].join(", ")
+  });
+  const jsonLdBreadcrumb = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      { "@type": "ListItem", position: 1, name: "Inicio", item: `${SITE_URL}/` },
+      { "@type": "ListItem", position: 2, name: "Festivales", item: `${SITE_URL}/festivales` },
+      {
+        "@type": "ListItem",
+        position: 3,
+        name: genre.nameFull,
+        item: `${SITE_URL}/festivales-genero/${genre.slug}`
+      }
+    ]
+  };
+  const jsonLdCollectionPage = {
+    "@context": "https://schema.org",
+    "@type": "CollectionPage",
+    name: `${genre.nameFull} ${year} — carpooling sin comisión`,
+    url: `${SITE_URL}/festivales-genero/${genre.slug}`,
+    description: genre.blurb,
+    inLanguage: "es-ES",
+    dateModified: (/* @__PURE__ */ new Date()).toISOString().slice(0, 10),
+    about: { "@type": "MusicGenre", name: genre.name },
+    hasPart: festivals.map((f) => ({
+      "@type": "WebPage",
+      url: `${SITE_URL}/festivales/${f.slug}`,
+      name: `Cómo ir a ${f.name} ${year} | ConcertRide`,
+      description: `Carpooling a ${f.shortName} (${f.venue}, ${f.city}).`
+    })),
+    isPartOf: { "@type": "WebSite", "@id": `${SITE_URL}/#website`, name: "ConcertRide", url: SITE_URL },
+    speakable: {
+      "@type": "SpeakableSpecification",
+      cssSelector: ["h1", ".speakable", ".genre-blurb"]
+    }
+  };
+  const jsonLdItemList = {
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    name: `${genre.nameFull} ${year}`,
+    description: genre.blurb,
+    url: `${SITE_URL}/festivales-genero/${genre.slug}`,
+    numberOfItems: festivals.length,
+    itemListElement: festivals.map((f, i) => ({
+      "@type": "ListItem",
+      position: i + 1,
+      name: f.name,
+      url: `${SITE_URL}/festivales/${f.slug}`,
+      description: `${f.shortName} — ${f.venue}, ${f.city}. ${f.typicalDates}. Capacidad: ${f.capacity}.`
+    }))
+  };
+  const jsonLdFaq = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    inLanguage: "es-ES",
+    mainEntity: genre.faqs.map((f) => ({
+      "@type": "Question",
+      name: f.q,
+      acceptedAnswer: { "@type": "Answer", text: f.a }
+    }))
+  };
+  return /* @__PURE__ */ jsxs("main", { id: "main", className: "min-h-dvh bg-cr-bg text-cr-text pt-14", children: [
+    /* @__PURE__ */ jsx("script", { type: "application/ld+json", dangerouslySetInnerHTML: { __html: JSON.stringify(jsonLdBreadcrumb) } }),
+    /* @__PURE__ */ jsx("script", { type: "application/ld+json", dangerouslySetInnerHTML: { __html: JSON.stringify(jsonLdCollectionPage) } }),
+    /* @__PURE__ */ jsx("script", { type: "application/ld+json", dangerouslySetInnerHTML: { __html: JSON.stringify(jsonLdItemList) } }),
+    /* @__PURE__ */ jsx("script", { type: "application/ld+json", dangerouslySetInnerHTML: { __html: JSON.stringify(jsonLdFaq) } }),
+    /* @__PURE__ */ jsxs("div", { className: "max-w-6xl mx-auto px-6 pt-10 pb-6 space-y-4", children: [
+      /* @__PURE__ */ jsxs("nav", { "aria-label": "Breadcrumb", className: "font-mono text-[11px] text-cr-text-muted flex items-center gap-2", children: [
+        /* @__PURE__ */ jsx(Link, { to: "/", className: "hover:text-cr-primary", children: "Inicio" }),
+        /* @__PURE__ */ jsx("span", { "aria-hidden": "true", children: "/" }),
+        /* @__PURE__ */ jsx(Link, { to: "/festivales", className: "hover:text-cr-primary", children: "Festivales" }),
+        /* @__PURE__ */ jsx("span", { "aria-hidden": "true", children: "/" }),
+        /* @__PURE__ */ jsx("span", { className: "text-cr-text-muted", children: genre.name })
+      ] }),
+      /* @__PURE__ */ jsxs("p", { className: "font-sans text-[11px] font-semibold uppercase tracking-[0.16em] text-cr-primary inline-flex items-center gap-2", children: [
+        /* @__PURE__ */ jsx(Music, { size: 12 }),
+        " Género musical"
+      ] }),
+      /* @__PURE__ */ jsxs("h1", { className: "font-display text-4xl md:text-6xl uppercase leading-[0.92]", children: [
+        genre.nameFull.toUpperCase(),
+        " ",
+        year
+      ] }),
+      /* @__PURE__ */ jsx("p", { className: "font-sans text-sm md:text-base text-cr-text-muted max-w-2xl leading-relaxed speakable genre-blurb", children: genre.blurb }),
+      /* @__PURE__ */ jsxs("div", { className: "flex flex-wrap gap-4 pt-2", children: [
+        /* @__PURE__ */ jsxs("span", { className: "inline-flex items-center gap-1.5 font-mono text-[11px] text-cr-text-muted border border-cr-border px-2 py-1", children: [
+          genre.emoji,
+          " ",
+          genre.name
+        ] }),
+        /* @__PURE__ */ jsxs("span", { className: "inline-flex items-center gap-1.5 font-mono text-[11px] text-cr-text-muted border border-cr-border px-2 py-1", children: [
+          festivals.length,
+          " ",
+          festivals.length === 1 ? "festival" : "festivales",
+          " en ConcertRide"
+        ] })
+      ] })
+    ] }),
+    /* @__PURE__ */ jsxs("section", { className: "max-w-6xl mx-auto px-6 pb-16 border-t border-cr-border pt-12 space-y-6", children: [
+      /* @__PURE__ */ jsxs("h2", { className: "font-display text-2xl md:text-3xl uppercase", children: [
+        genre.nameFull,
+        " en ",
+        year
+      ] }),
+      /* @__PURE__ */ jsxs("p", { className: "font-sans text-sm text-cr-text-muted max-w-2xl", children: [
+        "Festivales de ",
+        genre.name.toLowerCase(),
+        " con carpooling disponible en España para ",
+        year,
+        ". Precio por asiento sin comisión."
+      ] }),
+      festivals.length === 0 ? /* @__PURE__ */ jsxs("div", { className: "border border-dashed border-cr-border p-10 text-center space-y-3", children: [
+        /* @__PURE__ */ jsx("p", { className: "font-display text-xl uppercase text-cr-text-muted", children: "Próximamente más festivales" }),
+        /* @__PURE__ */ jsx(
+          Link,
+          {
+            to: "/festivales",
+            className: "inline-block font-sans text-xs font-semibold uppercase tracking-[0.12em] border-2 border-cr-primary text-cr-primary px-4 py-2 hover:bg-cr-primary hover:text-black transition-colors",
+            children: "Ver todos los festivales →"
+          }
+        )
+      ] }) : /* @__PURE__ */ jsx("div", { className: "grid sm:grid-cols-2 lg:grid-cols-3 gap-4", children: festivals.map((f, i) => {
+        var _a3;
+        return /* @__PURE__ */ jsxs(
+          Link,
+          {
+            to: `/festivales/${f.slug}`,
+            className: `border p-5 space-y-3 hover:border-cr-primary/50 transition-colors block ${i === 0 ? "border-cr-primary/40 bg-cr-primary/5" : "border-cr-border"}`,
+            children: [
+              /* @__PURE__ */ jsxs("div", { className: "flex items-start justify-between gap-2", children: [
+                /* @__PURE__ */ jsxs("div", { className: "space-y-1", children: [
+                  i === 0 && /* @__PURE__ */ jsx("p", { className: "font-mono text-[10px] text-cr-primary uppercase tracking-[0.14em]", children: "Destacado" }),
+                  /* @__PURE__ */ jsx("h3", { className: "font-display text-lg uppercase leading-tight", children: f.shortName }),
+                  /* @__PURE__ */ jsxs("p", { className: "font-mono text-[11px] text-cr-text-muted", children: [
+                    f.venue,
+                    ", ",
+                    f.city
+                  ] })
+                ] }),
+                /* @__PURE__ */ jsx("span", { className: "font-mono text-xs text-cr-primary font-semibold shrink-0", children: ((_a3 = f.originCities[0]) == null ? void 0 : _a3.concertRideRange) ?? "desde 3 €" })
+              ] }),
+              /* @__PURE__ */ jsxs("div", { className: "flex flex-wrap gap-2 font-mono text-[11px] text-cr-text-dim", children: [
+                /* @__PURE__ */ jsx("span", { children: f.typicalDates }),
+                /* @__PURE__ */ jsx("span", { children: "·" }),
+                /* @__PURE__ */ jsx("span", { children: f.capacity })
+              ] }),
+              /* @__PURE__ */ jsx("p", { className: "font-sans text-xs text-cr-text-muted leading-relaxed line-clamp-3", children: f.blurb }),
+              /* @__PURE__ */ jsxs("p", { className: "font-sans text-xs text-cr-primary inline-flex items-center gap-1", children: [
+                "Ver transporte y carpooling ",
+                /* @__PURE__ */ jsx(ArrowRight, { size: 10 })
+              ] })
+            ]
+          },
+          f.slug
+        );
+      }) })
+    ] }),
+    priceRows.length > 0 && /* @__PURE__ */ jsxs("section", { className: "max-w-6xl mx-auto px-6 pb-16 border-t border-cr-border pt-12 space-y-6", children: [
+      /* @__PURE__ */ jsxs("h2", { className: "font-display text-2xl md:text-3xl uppercase", children: [
+        "Precios de carpooling a festivales de ",
+        genre.name.toLowerCase()
+      ] }),
+      /* @__PURE__ */ jsx("p", { className: "font-sans text-sm text-cr-text-muted max-w-2xl", children: "Precio medio por asiento con ConcertRide desde las principales ciudades de origen. El 100 % va al conductor, sin comisión." }),
+      /* @__PURE__ */ jsx("div", { className: "overflow-x-auto", children: /* @__PURE__ */ jsxs("table", { className: "w-full font-sans text-xs border-collapse", children: [
+        /* @__PURE__ */ jsx("thead", { children: /* @__PURE__ */ jsxs("tr", { className: "border-b border-cr-border text-left", children: [
+          /* @__PURE__ */ jsx("th", { className: "py-2 pr-4 font-semibold text-cr-text", children: "Desde" }),
+          /* @__PURE__ */ jsx("th", { className: "py-2 pr-4 font-semibold text-cr-text", children: "Hasta" }),
+          /* @__PURE__ */ jsx("th", { className: "py-2 pr-4 font-semibold text-cr-text", children: "Precio por asiento" }),
+          /* @__PURE__ */ jsx("th", { className: "py-2 font-semibold text-cr-text", children: "Comisión" })
+        ] }) }),
+        /* @__PURE__ */ jsx("tbody", { className: "text-cr-text-muted", children: priceRows.map((row) => /* @__PURE__ */ jsxs("tr", { className: "border-b border-cr-border/50", children: [
+          /* @__PURE__ */ jsx("td", { className: "py-2 pr-4 font-semibold text-cr-text", children: row.from }),
+          /* @__PURE__ */ jsx("td", { className: "py-2 pr-4", children: row.to }),
+          /* @__PURE__ */ jsx("td", { className: "py-2 pr-4 font-semibold text-cr-primary", children: row.range }),
+          /* @__PURE__ */ jsx("td", { className: "py-2 font-semibold text-cr-primary", children: "0 %" })
+        ] }, `${row.from}-${row.to}`)) })
+      ] }) }),
+      /* @__PURE__ */ jsx("p", { className: "font-mono text-[10px] text-cr-text-dim", children: "Precios orientativos basados en tarifas reales publicadas en ConcertRide. El conductor fija el precio por asiento para cubrir combustible y peajes (tarifa MITECO de referencia). Sin comisión de plataforma." })
+    ] }),
+    genre.faqs.length > 0 && /* @__PURE__ */ jsxs("section", { className: "max-w-6xl mx-auto px-6 pb-16 border-t border-cr-border pt-12 space-y-6", children: [
+      /* @__PURE__ */ jsxs("h2", { className: "font-display text-2xl md:text-3xl uppercase", children: [
+        "Preguntas frecuentes — ",
+        genre.nameFull
+      ] }),
+      /* @__PURE__ */ jsx("dl", { className: "space-y-6", children: genre.faqs.map((faq) => /* @__PURE__ */ jsxs("div", { className: "border-b border-cr-border pb-6 space-y-2", children: [
+        /* @__PURE__ */ jsx("dt", { className: "font-display text-base uppercase text-cr-text", children: faq.q }),
+        /* @__PURE__ */ jsx("dd", { className: "font-sans text-sm text-cr-text-muted leading-relaxed max-w-2xl", children: faq.a })
+      ] }, faq.q)) })
+    ] }),
+    /* @__PURE__ */ jsxs("section", { className: "max-w-6xl mx-auto px-6 pb-12 border-t border-cr-border pt-10", children: [
+      /* @__PURE__ */ jsx("h2", { className: "font-display text-lg uppercase text-cr-text-muted mb-4", children: "Otros géneros musicales" }),
+      /* @__PURE__ */ jsx("ul", { className: "flex flex-wrap gap-2", children: GENRE_LANDINGS.filter((g) => g.slug !== genre.slug).map((g) => /* @__PURE__ */ jsx("li", { children: /* @__PURE__ */ jsxs(
+        Link,
+        {
+          to: `/festivales-genero/${g.slug}`,
+          className: "inline-flex items-center gap-1.5 font-sans text-xs text-cr-text-muted hover:text-cr-primary border border-cr-border hover:border-cr-primary px-3 py-1.5 transition-colors",
+          children: [
+            g.emoji,
+            " ",
+            g.name
+          ]
+        }
+      ) }, g.slug)) })
+    ] }),
+    genre.relatedGenres.length > 0 && /* @__PURE__ */ jsx("section", { className: "max-w-6xl mx-auto px-6 pb-8 border-t border-cr-border pt-8", children: /* @__PURE__ */ jsxs("p", { className: "font-mono text-[11px] text-cr-text-dim", children: [
+      "Géneros relacionados: ",
+      genre.relatedGenres.join(" · ")
+    ] }) }),
+    /* @__PURE__ */ jsx("section", { className: "max-w-6xl mx-auto px-6 pb-16 border-t border-cr-border pt-12", children: /* @__PURE__ */ jsxs("div", { className: "border border-cr-primary/30 bg-cr-primary/5 p-8 space-y-4 text-center", children: [
+      /* @__PURE__ */ jsxs("h2", { className: "font-display text-2xl md:text-3xl uppercase", children: [
+        "¿Vas a un festival de ",
+        genre.name.toLowerCase(),
+        " en ",
+        year,
+        "?"
+      ] }),
+      /* @__PURE__ */ jsx("p", { className: "font-sans text-sm text-cr-text-muted max-w-xl mx-auto", children: "Busca un viaje compartido o publica el tuyo en ConcertRide. Sin comisión, pago en efectivo o Bizum el día del festival." }),
+      /* @__PURE__ */ jsxs("div", { className: "flex flex-wrap gap-3 justify-center pt-2", children: [
+        /* @__PURE__ */ jsx(
+          Link,
+          {
+            to: "/concerts",
+            className: "inline-block font-sans text-xs font-semibold uppercase tracking-[0.12em] bg-cr-primary text-black px-5 py-2.5 hover:bg-cr-primary/90 transition-colors",
+            children: "Buscar viaje →"
+          }
+        ),
+        /* @__PURE__ */ jsx(
+          Link,
+          {
+            to: "/publish",
+            className: "inline-block font-sans text-xs font-semibold uppercase tracking-[0.12em] border-2 border-cr-primary text-cr-primary px-5 py-2.5 hover:bg-cr-primary hover:text-black transition-colors",
+            children: "Publicar viaje"
+          }
+        )
+      ] })
+    ] }) }),
+    /* @__PURE__ */ jsx("section", { className: "max-w-6xl mx-auto px-6 pb-10 border-t border-cr-border pt-8", children: /* @__PURE__ */ jsxs("p", { className: "font-mono text-[11px] text-cr-text-dim leading-relaxed", children: [
+      "ConcertRide no es un socio oficial ni representante de ninguno de los festivales mencionados. Los nombres de festivales se utilizan con carácter meramente descriptivo para identificar el destino del viaje.",
+      " ",
+      /* @__PURE__ */ jsx(Link, { to: "/aviso-legal", className: "underline underline-offset-2 hover:text-cr-primary transition-colors", children: "Aviso legal" }),
+      "."
+    ] }) })
+  ] });
+}
+const CALENDAR_LANDINGS = [
+  {
+    slug: "mayo-2026",
+    month: "Mayo",
+    year: 2026,
+    isoMonth: "2026-05",
+    festivalSlugs: [
+      "vina-rock",
+      // 30 abr – 3 may
+      "sos-48",
+      // 8–10 may
+      "tomavistas",
+      // 15–17 may
+      "mallorca-live-festival",
+      // 22–24 may
+      "primavera-sound",
+      // 28 may – 1 jun
+      "festival-de-les-arts"
+      // 28 may
+    ],
+    blurb: "Mayo 2026 es uno de los meses más intensos del calendario festivalero español, con seis festivales en apenas tres semanas. Arranca con Viña Rock en el puente de mayo (30 abr–3 may, Albacete, 50.000 asistentes de punk y rock alternativo), sigue con SOS 4.8 en Murcia (8–10 may), Tomavistas en Madrid (15–17 may, indie), Mallorca Live Festival (22–24 may) y cierra con Primavera Sound en Barcelona (28 may–1 jun, referencia indie mundial). Carpooling sin comisión con ConcertRide a todos ellos.",
+    searchIntent: "festivales mayo 2026 españa",
+    faqs: [
+      {
+        q: "¿Qué festivales hay en mayo 2026 en España?",
+        a: "En mayo 2026 hay seis festivales destacados en España: Viña Rock (Albacete, 30 abr–3 may), SOS 4.8 (Murcia, 8–10 mayo), Tomavistas (Madrid, 15–17 mayo), Mallorca Live Festival (Calvià, 22–24 mayo), Festival de les Arts (Valencia, 28 mayo) y Primavera Sound (Barcelona, 28 mayo–1 junio). Todos con carpooling disponible en ConcertRide desde las principales ciudades españolas, sin comisión."
+      },
+      {
+        q: "¿Es buen mes mayo para ir a festivales en España?",
+        a: "Sí, mayo es excelente para festivales en España: el clima es ideal (20–25°C, sin el calor extremo del verano), los festivales están menos masificados que en julio–agosto, los precios de alojamiento son menores y el repertorio de artistas es de primer nivel. El puente de mayo (1 de mayo, día festivo) concentra Viña Rock, el festival más largo de la temporada de primavera."
+      }
+    ]
+  },
+  {
+    slug: "junio-2026",
+    month: "Junio",
+    year: 2026,
+    isoMonth: "2026-06",
+    festivalSlugs: [
+      "starlite-marbella",
+      // 13 jun – sep
+      "marenostrum-fuengirola",
+      // 15 jun
+      "sonar",
+      // 18–20 jun
+      "o-son-do-camino",
+      // 18–20 jun
+      "resurrection-fest",
+      // 25–28 jun
+      "tio-pepe-festival",
+      // 25 jun
+      "bbk-music-legends"
+      // 19–21 jun
+    ],
+    blurb: "Junio 2026 da el pistoletazo de salida al verano festivalero en España. Destacan Sónar en Barcelona (18–20 junio, electrónica de vanguardia, referente mundial), Resurrection Fest en Viveiro (25–28 junio, metal, 40.000 metaleros), O Son do Camiño en Santiago de Compostela (18–20 junio), Starlite Marbella (desde el 13 junio, pop internacional de lujo) y Tío Pepe Festival en Jerez (25 junio). ConcertRide cubre el carpooling a todos sin comisión.",
+    searchIntent: "festivales junio 2026 españa",
+    faqs: [
+      {
+        q: "¿Qué festivales hay en junio 2026 en España?",
+        a: "Los principales festivales de junio 2026 en España son: Sónar (Barcelona, 18–20 jun, electrónica), O Son do Camiño (Santiago de Compostela, 18–20 jun, pop e indie), BBK Music Legends (Bilbao, 19–21 jun, rock clásico), Resurrection Fest (Viveiro, 25–28 jun, metal), Tío Pepe Festival (Jerez, 25 jun), Starlite Marbella (Marbella, desde 13 jun, pop internacional) y Marenostrum (Fuengirola, desde 15 jun)."
+      },
+      {
+        q: "¿Cómo llegar a Resurrection Fest en junio 2026?",
+        a: "Resurrection Fest se celebra en Viveiro (Lugo, Galicia) del 25 al 28 de junio de 2026. Viveiro no tiene tren ni autobús nocturno útil desde otras provincias. La mejor opción es carpooling con ConcertRide: desde A Coruña (80 km, 5–8€/asiento), Oviedo (220 km, 8–12€), Bilbao (390 km, 12–17€) o Madrid (590 km, 16–22€). El festival también tiene buses oficiales desde A Coruña y Lugo (comprar en web del festival con antelación)."
+      }
+    ]
+  },
+  {
+    slug: "julio-2026",
+    month: "Julio",
+    year: 2026,
+    isoMonth: "2026-07",
+    festivalSlugs: [
+      "mad-cool",
+      // 9–11 jul
+      "bbk-live",
+      // 9–11 jul
+      "cruilla",
+      // 9–12 jul
+      "festival-ortigueira",
+      // 9–12 jul
+      "zevra-festival",
+      // 1 jul
+      "pirineos-sur",
+      // 10 jul
+      "fib",
+      // 16–19 jul
+      "jazzaldia",
+      // 22–26 jul
+      "low-festival",
+      // 24–26 jul
+      "metropoli-gijon",
+      // 3 jul
+      "stone-music-festival",
+      // 10 jul
+      "atlantic-fest",
+      // 17 jul
+      "portamerica"
+      // 9 jul
+    ],
+    blurb: "Julio 2026 es el mes rey de los festivales en España: más de diez festivales simultáneos, los carteles más potentes del año y las temperaturas más altas. La semana del 9–12 de julio concentra Mad Cool (Madrid), BBK Live (Bilbao), Cruïlla (Barcelona) y el Festival de Ortigueira (Galicia) al mismo tiempo. El FIB en Benicàssim (16–19 julio) y Jazzaldia en Donostia (22–26 julio) completan un mes extraordinario. Carpooling sin comisión con ConcertRide.",
+    searchIntent: "festivales julio 2026 españa",
+    faqs: [
+      {
+        q: "¿Cuántos festivales hay en julio 2026 en España?",
+        a: "Julio es el mes con más festivales en España: Mad Cool (Madrid, 9–11 jul), BBK Live (Bilbao, 9–11 jul), Cruïlla (Barcelona, 9–12 jul), Ortigueira (Galicia, 9–12 jul), Pirineos Sur (Huesca, 10 jul), Stone & Music (Segovia, 10 jul), PortAmérica (Catoira, 9 jul), Metrópoli Gijón (Gijón, 3–6 jul), Atlantic Fest (Ponteceso, 17 jul), FIB (Benicàssim, 16–19 jul), Jazzaldia (Donostia, 22–26 jul), Low Festival (Benidorm, 24–26 jul) y Starlite Marbella continúa desde junio."
+      },
+      {
+        q: "¿Qué festival es mejor en julio 2026, Mad Cool o BBK Live?",
+        a: "Mad Cool (Madrid, 9–11 julio) y BBK Live (Bilbao, 9–11 julio) son ambos excelentes pero diferentes: Mad Cool tiene carteles de rock e indie internacional más grandes (80.000/día, IFEMA Madrid) y es accesible en metro (L8). BBK Live tiene un enclave único en Kobetamendi con vistas a Bilbao, ambiente más íntimo (35.000/día) y fuerte identidad local vasca. Si estás en el norte, BBK Live. Si vienes de fuera de España, Mad Cool tiene más nombre internacional."
+      },
+      {
+        q: "¿Hay festivales gratuitos en julio 2026 en España?",
+        a: "En julio hay conciertos gratuitos en fiestas patronales y ferias municipales de muchas ciudades, pero los festivales de múltiples días con cartel internacional (Mad Cool, BBK Live, FIB, Cruïlla) requieren entrada de pago (40–180 €/día). Jazzaldia en Donostia tiene algunos conciertos gratuitos en la Playa de La Concha (la mitad del programa es gratuito). ConcertRide opera carpooling a todos ellos sin comisión."
+      }
+    ]
+  },
+  {
+    slug: "agosto-2026",
+    month: "Agosto",
+    year: 2026,
+    isoMonth: "2026-08",
+    festivalSlugs: [
+      "arenal-sound",
+      // 29 jul – 2 ago
+      "sonorama-ribera",
+      // 6–9 ago
+      "medusa-festival",
+      // 12–16 ago
+      "reggaeton-beach-festival"
+      // 31 jul – 2 ago
+    ],
+    blurb: "Agosto 2026 es el mes del verano pleno festivalero: temperaturas máximas, ambiente de vacaciones y los festivales más masivos del verano en la costa mediterránea. Arenal Sound en Burriana (29 jul–2 ago, 50.000 asistentes/día, indie + electrónica junto al mar) domina el inicio. Sonorama Ribera en Aranda de Duero (6–9 ago, pop en español, el favorito del indie nacional) y Medusa Festival en Cullera (12–16 ago, 120.000 asistentes, el mayor festival de electrónica de España) completan el mes. Carpooling sin comisión.",
+    searchIntent: "festivales agosto 2026 españa",
+    faqs: [
+      {
+        q: "¿Qué festivales hay en agosto 2026 en España?",
+        a: "Los principales festivales de agosto 2026 en España son: Arenal Sound (Burriana, Valencia, 29 jul–2 ago, indie y electrónica, 50.000/día), Reggaeton Beach Festival (Salou, 31 jul–2 ago), Sonorama Ribera (Aranda de Duero, 6–9 ago, pop-rock en español), Medusa Festival (Cullera, Valencia, 12–16 ago, techno y house, 120.000 asistentes, el festival de electrónica más grande de España)."
+      },
+      {
+        q: "¿Cómo llegar a Arenal Sound en Burriana?",
+        a: "Burriana (Castellón) está a 70 km de Valencia, 320 km de Madrid y 225 km de Barcelona. No hay tren nocturno al recinto desde Valencia. Las opciones son: autobús lanzadera oficial del festival desde Valencia (precio variable, comprar online), taxi VTC desde Burriana ciudad (5 km, 10–15€), o carpooling con ConcertRide: desde Valencia (3–6€/asiento), Madrid (11–16€), Barcelona (8–12€) o Murcia (6–9€). El recinto está junto al mar — aparcar es complicado los días pico."
+      },
+      {
+        q: "¿Medusa Festival es el mayor festival de electrónica de España?",
+        a: "Sí. Medusa Festival en Cullera (Valencia, 12–16 agosto 2026) es el mayor festival de música electrónica de España por aforo, con 120.000 asistentes en cinco días y los mayores DJs del mundo de techno, house, trance y EDM. El segundo festival de electrónica más grande es Sónar (Barcelona, junio), con 130.000 asistentes totales pero en tres días. Para transporte desde Madrid, Barcelona o Murcia a Medusa, ConcertRide ofrece carpooling desde 5–17€/asiento."
+      }
+    ]
+  },
+  {
+    slug: "septiembre-2026",
+    month: "Septiembre",
+    year: 2026,
+    isoMonth: "2026-09",
+    festivalSlugs: [
+      "vive-latino",
+      // 4–5 sep
+      "granada-sound"
+      // 25–27 sep
+    ],
+    blurb: "Septiembre 2026 ofrece una alternativa al verano masificado con dos festivales muy distintos: Vive Latino España en Zaragoza (4–5 septiembre), la primera edición europea del festival de rock y pop latino más importante del mundo fundado en México DF en 1998, y Granada Sound en Granada (25–27 septiembre), el festival de pop, rock e indie de referencia en Andalucía oriental. Ambos con carpooling sin comisión desde ConcertRide desde cualquier punto de España.",
+    searchIntent: "festivales septiembre 2026 españa",
+    faqs: [
+      {
+        q: "¿Qué festivales hay en septiembre 2026 en España?",
+        a: "En septiembre 2026 hay dos festivales de música destacados: Vive Latino España (Zaragoza, Recinto Expo, 4–5 septiembre, rock alternativo, cumbia, reggaeton y pop en español, 40.000 personas/día) y Granada Sound (Cortijo del Conde, Granada, 25–27 septiembre, pop/rock/indie, 25.000 asistentes). También continúa Starlite Marbella con conciertos individuales hasta mediados de septiembre."
+      },
+      {
+        q: "¿Por qué ir a un festival en septiembre en lugar de julio?",
+        a: "Septiembre tiene varias ventajas sobre julio para ir a festivales en España: temperaturas más suaves (22–27°C, sin el calor extremo de agosto), precios de alojamiento más bajos, menos masificación, abonos de tren más económicos y menos tráfico en carretera. La contrapartida es que hay muchos menos festivales en septiembre que en julio–agosto. Para los que prefieren el otoño festivalero, Cala Mijas en Málaga (2–4 octubre) extiende la temporada."
+      }
+    ]
+  },
+  {
+    slug: "octubre-2026",
+    month: "Octubre",
+    year: 2026,
+    isoMonth: "2026-10",
+    festivalSlugs: [
+      "cala-mijas"
+      // 2–4 oct
+    ],
+    blurb: "Octubre cierra la temporada festivalera española 2026 con Cala Mijas en Málaga (2–4 octubre), un festival de música electrónica en formato íntimo celebrado en el Cortijo El Atabal de Málaga con DJs de culto y ambient internacional. Es la mejor opción para quienes buscan festivales de otoño en España con clima suave (20–24°C en Málaga en octubre). ConcertRide opera carpooling desde Sevilla (215 km), Granada (130 km), Madrid (540 km) y Almería (215 km).",
+    searchIntent: "festivales octubre 2026 españa",
+    faqs: [
+      {
+        q: "¿Hay festivales en octubre 2026 en España?",
+        a: "Sí. Cala Mijas (Málaga, 2–4 octubre 2026) es el principal festival de música electrónica de otoño en España, con DJs internacionales de culto en formato más íntimo que los grandes festivales de verano. Fuera de Cala Mijas, octubre tiene principalmente conciertos individuales en sala en toda España. La temporada festivalera al aire libre está prácticamente cerrada en octubre en España."
+      },
+      {
+        q: "¿Cómo llegar a Cala Mijas en Málaga?",
+        a: "Cala Mijas se celebra en el Cortijo El Atabal de Málaga, accesible por la A-357 (salida Campanillas). Desde el centro de Málaga son unos 8 km. Opciones: taxi/VTC desde Málaga (10–15€), autobús lanzadera si el festival lo habilita, o carpooling con ConcertRide desde Sevilla (215 km, 6–10€/asiento), Granada (130 km, 4–7€), Madrid (540 km, 15–20€) o Almería (215 km, 6–10€)."
+      }
+    ]
+  }
+];
+const CALENDAR_LANDINGS_BY_SLUG = Object.fromEntries(
+  CALENDAR_LANDINGS.map((c) => [c.slug, c])
+);
+const CALENDAR_SLUGS$1 = CALENDAR_LANDINGS.map((c) => c.slug);
+function getCalendarFestivals(cal) {
+  return cal.festivalSlugs.map((s) => FESTIVAL_LANDINGS_BY_SLUG[s]).filter(Boolean);
+}
+function CalendarLandingPage() {
+  const { slug } = useParams();
+  const cal = slug ? CALENDAR_LANDINGS_BY_SLUG[slug] : void 0;
+  if (!slug || !cal) return /* @__PURE__ */ jsx(Navigate, { to: "/festivales", replace: true });
+  const festivals = getCalendarFestivals(cal);
+  useSeoMeta({
+    title: `Festivales de música ${cal.month} ${cal.year} en España — carpooling sin comisión | ConcertRide`,
+    description: `¿Qué festivales hay en ${cal.month.toLowerCase()} ${cal.year} en España? ${festivals.slice(0, 3).map((f) => f.shortName).join(", ")} y más. Carpooling sin comisión con ConcertRide.`,
+    canonical: `${SITE_URL}/calendario-festivales/${cal.slug}`,
+    keywords: [
+      `festivales ${cal.month.toLowerCase()} ${cal.year}`,
+      `festivales música ${cal.month.toLowerCase()} ${cal.year} españa`,
+      `qué festivales hay en ${cal.month.toLowerCase()} ${cal.year}`,
+      `festival ${cal.month.toLowerCase()} españa`,
+      `carpooling festivales ${cal.month.toLowerCase()} ${cal.year}`,
+      `transporte festivales ${cal.month.toLowerCase()} ${cal.year}`,
+      ...festivals.map((f) => `carpooling ${f.shortName}`)
+    ].join(", ")
+  });
+  const jsonLdBreadcrumb = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      { "@type": "ListItem", position: 1, name: "Inicio", item: `${SITE_URL}/` },
+      { "@type": "ListItem", position: 2, name: "Festivales", item: `${SITE_URL}/festivales` },
+      {
+        "@type": "ListItem",
+        position: 3,
+        name: `Festivales ${cal.month} ${cal.year}`,
+        item: `${SITE_URL}/calendario-festivales/${cal.slug}`
+      }
+    ]
+  };
+  const jsonLdCollectionPage = {
+    "@context": "https://schema.org",
+    "@type": "CollectionPage",
+    name: `Festivales de música ${cal.month} ${cal.year} en España`,
+    url: `${SITE_URL}/calendario-festivales/${cal.slug}`,
+    description: cal.blurb,
+    inLanguage: "es-ES",
+    dateModified: (/* @__PURE__ */ new Date()).toISOString().slice(0, 10),
+    about: { "@type": "Thing", name: `Festivales de música en España en ${cal.month} ${cal.year}` },
+    hasPart: festivals.map((f) => ({
+      "@type": "WebPage",
+      url: `${SITE_URL}/festivales/${f.slug}`,
+      name: `Cómo ir a ${f.name} ${cal.year} | ConcertRide`
+    })),
+    isPartOf: { "@type": "WebSite", "@id": `${SITE_URL}/#website`, name: "ConcertRide", url: SITE_URL },
+    speakable: {
+      "@type": "SpeakableSpecification",
+      cssSelector: ["h1", ".speakable", ".calendar-blurb"]
+    }
+  };
+  const jsonLdItemList = {
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    name: `Festivales de música ${cal.month} ${cal.year} en España`,
+    description: cal.blurb,
+    url: `${SITE_URL}/calendario-festivales/${cal.slug}`,
+    numberOfItems: festivals.length,
+    itemListElement: festivals.map((f, i) => ({
+      "@type": "ListItem",
+      position: i + 1,
+      name: f.name,
+      url: `${SITE_URL}/festivales/${f.slug}`,
+      description: `${f.shortName} — ${f.venue}, ${f.city}. ${f.typicalDates}. Capacidad: ${f.capacity}.`
+    }))
+  };
+  const jsonLdFaq = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    inLanguage: "es-ES",
+    mainEntity: cal.faqs.map((f) => ({
+      "@type": "Question",
+      name: f.q,
+      acceptedAnswer: { "@type": "Answer", text: f.a }
+    }))
+  };
+  return /* @__PURE__ */ jsxs("main", { id: "main", className: "min-h-dvh bg-cr-bg text-cr-text pt-14", children: [
+    /* @__PURE__ */ jsx("script", { type: "application/ld+json", dangerouslySetInnerHTML: { __html: JSON.stringify(jsonLdBreadcrumb) } }),
+    /* @__PURE__ */ jsx("script", { type: "application/ld+json", dangerouslySetInnerHTML: { __html: JSON.stringify(jsonLdCollectionPage) } }),
+    /* @__PURE__ */ jsx("script", { type: "application/ld+json", dangerouslySetInnerHTML: { __html: JSON.stringify(jsonLdItemList) } }),
+    /* @__PURE__ */ jsx("script", { type: "application/ld+json", dangerouslySetInnerHTML: { __html: JSON.stringify(jsonLdFaq) } }),
+    /* @__PURE__ */ jsxs("div", { className: "max-w-6xl mx-auto px-6 pt-10 pb-6 space-y-4", children: [
+      /* @__PURE__ */ jsxs("nav", { "aria-label": "Breadcrumb", className: "font-mono text-[11px] text-cr-text-muted flex items-center gap-2", children: [
+        /* @__PURE__ */ jsx(Link, { to: "/", className: "hover:text-cr-primary", children: "Inicio" }),
+        /* @__PURE__ */ jsx("span", { "aria-hidden": "true", children: "/" }),
+        /* @__PURE__ */ jsx(Link, { to: "/festivales", className: "hover:text-cr-primary", children: "Festivales" }),
+        /* @__PURE__ */ jsx("span", { "aria-hidden": "true", children: "/" }),
+        /* @__PURE__ */ jsxs("span", { className: "text-cr-text-muted", children: [
+          cal.month,
+          " ",
+          cal.year
+        ] })
+      ] }),
+      /* @__PURE__ */ jsxs("p", { className: "font-sans text-[11px] font-semibold uppercase tracking-[0.16em] text-cr-primary inline-flex items-center gap-2", children: [
+        /* @__PURE__ */ jsx(Calendar, { size: 12 }),
+        " Calendario festivalero"
+      ] }),
+      /* @__PURE__ */ jsxs("h1", { className: "font-display text-4xl md:text-6xl uppercase leading-[0.92]", children: [
+        "FESTIVALES ",
+        cal.month.toUpperCase(),
+        " ",
+        cal.year,
+        " EN ESPAÑA"
+      ] }),
+      /* @__PURE__ */ jsx("p", { className: "font-sans text-sm md:text-base text-cr-text-muted max-w-2xl leading-relaxed speakable calendar-blurb", children: cal.blurb }),
+      /* @__PURE__ */ jsxs("div", { className: "flex flex-wrap gap-4 pt-2", children: [
+        /* @__PURE__ */ jsxs("span", { className: "inline-flex items-center gap-1.5 font-mono text-[11px] text-cr-text-muted border border-cr-border px-2 py-1", children: [
+          /* @__PURE__ */ jsx(Calendar, { size: 10 }),
+          " ",
+          cal.month,
+          " ",
+          cal.year
+        ] }),
+        /* @__PURE__ */ jsxs("span", { className: "inline-flex items-center gap-1.5 font-mono text-[11px] text-cr-text-muted border border-cr-border px-2 py-1", children: [
+          festivals.length,
+          " ",
+          festivals.length === 1 ? "festival" : "festivales",
+          " en ConcertRide"
+        ] })
+      ] })
+    ] }),
+    /* @__PURE__ */ jsxs("section", { className: "max-w-6xl mx-auto px-6 pb-16 border-t border-cr-border pt-12 space-y-6", children: [
+      /* @__PURE__ */ jsxs("h2", { className: "font-display text-2xl md:text-3xl uppercase", children: [
+        "¿Qué festivales hay en ",
+        cal.month,
+        " ",
+        cal.year,
+        "?"
+      ] }),
+      /* @__PURE__ */ jsxs("p", { className: "font-sans text-sm text-cr-text-muted max-w-2xl", children: [
+        "Festivales de música en España en ",
+        cal.month.toLowerCase(),
+        " ",
+        cal.year,
+        " con carpooling disponible en ConcertRide. Precio por asiento sin comisión."
+      ] }),
+      festivals.length === 0 ? /* @__PURE__ */ jsxs("div", { className: "border border-dashed border-cr-border p-10 text-center space-y-3", children: [
+        /* @__PURE__ */ jsx("p", { className: "font-display text-xl uppercase text-cr-text-muted", children: "Próximamente más festivales para este mes" }),
+        /* @__PURE__ */ jsx(
+          Link,
+          {
+            to: "/festivales",
+            className: "inline-block font-sans text-xs font-semibold uppercase tracking-[0.12em] border-2 border-cr-primary text-cr-primary px-4 py-2 hover:bg-cr-primary hover:text-black transition-colors",
+            children: "Ver todos los festivales →"
+          }
+        )
+      ] }) : /* @__PURE__ */ jsx("div", { className: "grid sm:grid-cols-2 lg:grid-cols-3 gap-4", children: festivals.map((f, i) => {
+        var _a2;
+        return /* @__PURE__ */ jsxs(
+          Link,
+          {
+            to: `/festivales/${f.slug}`,
+            className: `border p-5 space-y-3 hover:border-cr-primary/50 transition-colors block ${i === 0 ? "border-cr-primary/40 bg-cr-primary/5" : "border-cr-border"}`,
+            children: [
+              /* @__PURE__ */ jsxs("div", { className: "flex items-start justify-between gap-2", children: [
+                /* @__PURE__ */ jsxs("div", { className: "space-y-1", children: [
+                  /* @__PURE__ */ jsx("h3", { className: "font-display text-lg uppercase leading-tight", children: f.shortName }),
+                  /* @__PURE__ */ jsxs("p", { className: "font-mono text-[11px] text-cr-text-muted", children: [
+                    f.venue,
+                    ", ",
+                    f.city
+                  ] })
+                ] }),
+                /* @__PURE__ */ jsx("span", { className: "font-mono text-xs text-cr-primary font-semibold shrink-0", children: ((_a2 = f.originCities[0]) == null ? void 0 : _a2.concertRideRange) ?? "desde 3 €" })
+              ] }),
+              /* @__PURE__ */ jsxs("div", { className: "flex flex-wrap gap-2 font-mono text-[11px] text-cr-text-dim", children: [
+                /* @__PURE__ */ jsx("span", { children: f.typicalDates }),
+                /* @__PURE__ */ jsx("span", { children: "·" }),
+                /* @__PURE__ */ jsx("span", { children: f.capacity })
+              ] }),
+              /* @__PURE__ */ jsx("p", { className: "font-sans text-xs text-cr-text-muted leading-relaxed line-clamp-3", children: f.blurb }),
+              /* @__PURE__ */ jsxs("p", { className: "font-sans text-xs text-cr-primary inline-flex items-center gap-1", children: [
+                "Ver transporte y carpooling ",
+                /* @__PURE__ */ jsx(ArrowRight, { size: 10 })
+              ] })
+            ]
+          },
+          f.slug
+        );
+      }) })
+    ] }),
+    cal.faqs.length > 0 && /* @__PURE__ */ jsxs("section", { className: "max-w-6xl mx-auto px-6 pb-16 border-t border-cr-border pt-12 space-y-6", children: [
+      /* @__PURE__ */ jsxs("h2", { className: "font-display text-2xl md:text-3xl uppercase", children: [
+        "Preguntas frecuentes — Festivales en ",
+        cal.month,
+        " ",
+        cal.year
+      ] }),
+      /* @__PURE__ */ jsx("dl", { className: "space-y-6", children: cal.faqs.map((faq) => /* @__PURE__ */ jsxs("div", { className: "border-b border-cr-border pb-6 space-y-2", children: [
+        /* @__PURE__ */ jsx("dt", { className: "font-display text-base uppercase text-cr-text", children: faq.q }),
+        /* @__PURE__ */ jsx("dd", { className: "font-sans text-sm text-cr-text-muted leading-relaxed max-w-2xl", children: faq.a })
+      ] }, faq.q)) })
+    ] }),
+    /* @__PURE__ */ jsxs("section", { className: "max-w-6xl mx-auto px-6 pb-12 border-t border-cr-border pt-10", children: [
+      /* @__PURE__ */ jsx("h2", { className: "font-display text-lg uppercase text-cr-text-muted mb-4", children: "Otros meses del calendario festivalero" }),
+      /* @__PURE__ */ jsx("ul", { className: "flex flex-wrap gap-2", children: CALENDAR_LANDINGS.filter((c) => c.slug !== cal.slug).map((c) => /* @__PURE__ */ jsx("li", { children: /* @__PURE__ */ jsxs(
+        Link,
+        {
+          to: `/calendario-festivales/${c.slug}`,
+          className: "inline-flex items-center gap-1.5 font-sans text-xs text-cr-text-muted hover:text-cr-primary border border-cr-border hover:border-cr-primary px-3 py-1.5 transition-colors",
+          children: [
+            c.month,
+            " ",
+            c.year
+          ]
+        }
+      ) }, c.slug)) })
+    ] }),
+    /* @__PURE__ */ jsx("section", { className: "max-w-6xl mx-auto px-6 pb-16 border-t border-cr-border pt-12", children: /* @__PURE__ */ jsxs("div", { className: "border border-cr-primary/30 bg-cr-primary/5 p-8 space-y-4 text-center", children: [
+      /* @__PURE__ */ jsxs("h2", { className: "font-display text-2xl md:text-3xl uppercase", children: [
+        "¿Vas a un festival en ",
+        cal.month,
+        " ",
+        cal.year,
+        "?"
+      ] }),
+      /* @__PURE__ */ jsx("p", { className: "font-sans text-sm text-cr-text-muted max-w-xl mx-auto", children: "Busca un viaje compartido o publica el tuyo en ConcertRide. Sin comisión, pago en efectivo o Bizum el día del festival." }),
+      /* @__PURE__ */ jsxs("div", { className: "flex flex-wrap gap-3 justify-center pt-2", children: [
+        /* @__PURE__ */ jsx(
+          Link,
+          {
+            to: "/concerts",
+            className: "inline-block font-sans text-xs font-semibold uppercase tracking-[0.12em] bg-cr-primary text-black px-5 py-2.5 hover:bg-cr-primary/90 transition-colors",
+            children: "Buscar viaje →"
+          }
+        ),
+        /* @__PURE__ */ jsx(
+          Link,
+          {
+            to: "/publish",
+            className: "inline-block font-sans text-xs font-semibold uppercase tracking-[0.12em] border-2 border-cr-primary text-cr-primary px-5 py-2.5 hover:bg-cr-primary hover:text-black transition-colors",
+            children: "Publicar viaje"
+          }
+        )
+      ] })
+    ] }) }),
+    /* @__PURE__ */ jsx("section", { className: "max-w-6xl mx-auto px-6 pb-10 border-t border-cr-border pt-8", children: /* @__PURE__ */ jsxs("p", { className: "font-mono text-[11px] text-cr-text-dim leading-relaxed", children: [
+      "ConcertRide no es un socio oficial ni representante de ninguno de los festivales mencionados. Los nombres de festivales se utilizan con carácter meramente descriptivo para identificar el destino del viaje.",
+      " ",
+      /* @__PURE__ */ jsx(Link, { to: "/aviso-legal", className: "underline underline-offset-2 hover:text-cr-primary transition-colors", children: "Aviso legal" }),
+      "."
+    ] }) })
+  ] });
+}
 const FESTIVAL_SLUGS = FESTIVAL_LANDINGS.map((f) => f.slug);
 const CITY_SLUGS = CITY_LANDINGS.map((c) => c.slug);
 const CITY_YEARS = ["2025", "2026", "2027"];
@@ -40804,6 +41947,8 @@ const ARTIST_SLUGS = ARTIST_SLUGS$1;
 const VENUE_SLUGS = VENUE_SLUGS$1;
 const REGION_SLUGS = REGION_SLUGS$1;
 const HOW_TO_GET_THERE_PAGE_SLUGS = HOW_TO_GET_THERE_SLUGS;
+const GENRE_SLUGS = GENRE_SLUGS$1;
+const CALENDAR_SLUGS = CALENDAR_SLUGS$1;
 const CONTENT_LAST_UPDATED = FESTIVAL_LANDINGS_LAST_UPDATED;
 function ServerApp() {
   return /* @__PURE__ */ jsxs(Fragment, { children: [
@@ -40820,6 +41965,8 @@ function ServerApp() {
       /* @__PURE__ */ jsx(Route$1, { path: "/artistas/:slug", element: /* @__PURE__ */ jsx(ArtistLandingPage, {}) }),
       /* @__PURE__ */ jsx(Route$1, { path: "/recintos/:slug", element: /* @__PURE__ */ jsx(VenueLandingPage, {}) }),
       /* @__PURE__ */ jsx(Route$1, { path: "/festivales-en/:slug", element: /* @__PURE__ */ jsx(RegionLandingPage, {}) }),
+      /* @__PURE__ */ jsx(Route$1, { path: "/festivales-genero/:slug", element: /* @__PURE__ */ jsx(GenreLandingPage, {}) }),
+      /* @__PURE__ */ jsx(Route$1, { path: "/calendario-festivales/:slug", element: /* @__PURE__ */ jsx(CalendarLandingPage, {}) }),
       /* @__PURE__ */ jsx(Route$1, { path: "/guia-transporte-festivales", element: /* @__PURE__ */ jsx(GuiaTransporteFestivalesPage, {}) }),
       /* @__PURE__ */ jsx(Route$1, { path: "/blog", element: /* @__PURE__ */ jsx(BlogIndexPage, {}) }),
       /* @__PURE__ */ jsx(Route$1, { path: "/blog/:slug", element: /* @__PURE__ */ jsx(BlogPostPage, {}) }),
@@ -40855,10 +42002,12 @@ function render(url) {
 export {
   ARTIST_SLUGS,
   BLOG_SLUGS,
+  CALENDAR_SLUGS,
   CITY_SLUGS,
   CITY_YEAR_SLUGS,
   CONTENT_LAST_UPDATED,
   FESTIVAL_SLUGS,
+  GENRE_SLUGS,
   HOW_TO_GET_THERE_PAGE_SLUGS,
   Link as L,
   REGION_SLUGS,

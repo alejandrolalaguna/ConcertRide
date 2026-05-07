@@ -70,6 +70,12 @@
 /festivales-en/*
   Cache-Control: public, max-age=3600, stale-while-revalidate=86400
 
+/festivales-genero/*
+  Cache-Control: public, max-age=3600, stale-while-revalidate=86400
+
+/calendario-festivales/*
+  Cache-Control: public, max-age=3600, stale-while-revalidate=86400
+
 # Auth / private pages — never cache, block indexing
 /publish
   Cache-Control: no-store

@@ -1,15 +1,16 @@
 import { Link } from "react-router-dom";
 import { useSeoMeta } from "@/lib/useSeoMeta";
 import { SITE_URL } from "@/lib/siteUrl";
+import { ExternalLink } from "lucide-react";
 
 export default function AcercaDePage() {
   useSeoMeta({
     title: "Acerca de ConcertRide — Carpooling para conciertos en España | ConcertRide",
     description:
-      "Qué es ConcertRide, por qué existe y cómo funciona el carpooling para conciertos en España. Plataforma gratuita, sin comisiones, con conductores verificados.",
+      "Qué es ConcertRide, quién lo hace y por qué existe: la plataforma española de carpooling para conciertos y festivales. Gratuita, sin comisiones, conductores verificados.",
     canonical: `${SITE_URL}/acerca-de`,
     keywords:
-      "qué es ConcertRide, sobre ConcertRide, carpooling conciertos España, plataforma viajes compartidos conciertos, sin comisión carpooling, misión ConcertRide, transporte económico festivales",
+      "qué es ConcertRide, sobre ConcertRide, fundador ConcertRide, equipo ConcertRide, carpooling conciertos España, plataforma viajes compartidos conciertos, sin comisión carpooling, misión ConcertRide, transporte económico festivales",
   });
 
   return (
@@ -74,10 +75,27 @@ export default function AcercaDePage() {
             "@type": "Person",
             "@id": `${SITE_URL}/#founder`,
             name: "Alejandro Lalaguna",
+            givenName: "Alejandro",
+            familyName: "Lalaguna",
             url: `${SITE_URL}/acerca-de`,
-            jobTitle: "Fundador",
+            jobTitle: "Fundador y CEO",
             worksFor: { "@type": "Organization", "@id": `${SITE_URL}/#organization` },
-            knowsAbout: ["Carpooling", "Conciertos en España", "Festivales de música", "Movilidad sostenible"],
+            knowsAbout: [
+              "Carpooling",
+              "Conciertos en España",
+              "Festivales de música",
+              "Movilidad sostenible",
+              "Plataformas de transporte compartido",
+              "SEO y marketing digital",
+              "Desarrollo de productos tecnológicos",
+            ],
+            description:
+              "Fundador de ConcertRide, la plataforma española de carpooling para conciertos y festivales de música. Ingeniero de software con experiencia en IoT y desarrollo de producto. Festival-goer habitual con más de 15 festivales en los últimos 5 años.",
+            sameAs: [
+              "https://twitter.com/concertride_es",
+              "https://www.instagram.com/concertride_es/",
+              "https://www.linkedin.com/in/alejandrolalaguna/",
+            ],
           }),
         }}
       />
@@ -249,6 +267,113 @@ export default function AcercaDePage() {
           </dl>
         </section>
 
+        {/* ── Team / Founder section (E-E-A-T) ── */}
+        <section className="space-y-6 border-t border-cr-border pt-8" itemScope itemType="https://schema.org/Person">
+          <h2 className="font-display text-2xl md:text-3xl uppercase leading-tight">
+            Quién hay detrás
+          </h2>
+          <div className="flex gap-5 items-start">
+            <div className="w-14 h-14 rounded-full bg-cr-primary/10 border border-cr-primary/30 flex items-center justify-center shrink-0 font-display text-xl text-cr-primary uppercase select-none">
+              AL
+            </div>
+            <div className="space-y-2">
+              <p className="font-display text-lg uppercase" itemProp="name">Alejandro Lalaguna</p>
+              <p className="font-mono text-[11px] text-cr-primary uppercase tracking-[0.12em]" itemProp="jobTitle">Fundador y CEO</p>
+              <p className="font-sans text-sm text-cr-text-muted leading-relaxed" itemProp="description">
+                Ingeniero de software con experiencia en IoT y desarrollo de producto en{" "}
+                <a
+                  href="https://www.libelium.com/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-cr-primary hover:underline"
+                >
+                  Libelium
+                </a>
+                . Fan habitual de festivales en España — Resurrection Fest, Sonorama, Mad Cool, Primavera Sound —
+                y convencido de que el transporte al festival no debería arruinar la experiencia.
+                ConcertRide nació de un problema real: demasiados coches con asientos vacíos yendo
+                al mismo concierto.
+              </p>
+              <div className="flex gap-3 pt-1">
+                <a
+                  href="https://www.linkedin.com/in/alejandrolalaguna/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-1.5 font-mono text-[11px] text-cr-text-muted hover:text-cr-primary transition-colors"
+                  itemProp="sameAs"
+                >
+                  LinkedIn <ExternalLink size={10} />
+                </a>
+                <a
+                  href="https://twitter.com/concertride_es"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-1.5 font-mono text-[11px] text-cr-text-muted hover:text-cr-primary transition-colors"
+                  itemProp="sameAs"
+                >
+                  X / Twitter <ExternalLink size={10} />
+                </a>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* ── Stats / Hitos section ── */}
+        <section className="space-y-4 border-t border-cr-border pt-8">
+          <h2 className="font-display text-2xl md:text-3xl uppercase leading-tight">
+            ConcertRide en números
+          </h2>
+          <dl className="grid grid-cols-2 md:grid-cols-4 gap-4">
+            {[
+              { value: "33+", label: "Festivales cubiertos" },
+              { value: "72+", label: "Ciudades de origen" },
+              { value: "400+", label: "Rutas disponibles" },
+              { value: "0 %", label: "Comisión de plataforma" },
+            ].map(({ value, label }) => (
+              <div key={label} className="border border-cr-border p-4 space-y-1">
+                <dd className="font-display text-3xl text-cr-primary">{value}</dd>
+                <dt className="font-sans text-xs text-cr-text-muted">{label}</dt>
+              </div>
+            ))}
+          </dl>
+          <p className="font-mono text-[10px] text-cr-text-dim">
+            Datos a mayo 2026. Festivales en España con páginas de transporte activas en ConcertRide.
+          </p>
+        </section>
+
+        {/* ── Prensa / Medios (E-E-A-T press signal) ── */}
+        <section className="space-y-4 border-t border-cr-border pt-8">
+          <h2 className="font-display text-2xl md:text-3xl uppercase leading-tight">
+            Prensa y medios
+          </h2>
+          <p className="font-sans text-sm text-cr-text-muted leading-relaxed">
+            ¿Eres periodista o blogger y quieres escribir sobre ConcertRide, carpooling a festivales
+            o transporte sostenible en España? Tenemos datos propios sobre rutas, precios y
+            comportamiento de asistentes a festivales.
+          </p>
+          <div className="flex flex-wrap gap-3">
+            <Link
+              to="/prensa"
+              className="inline-flex items-center gap-2 font-sans text-xs font-semibold uppercase tracking-[0.12em] border border-cr-primary text-cr-primary px-4 py-2 hover:bg-cr-primary hover:text-black transition-colors"
+            >
+              Kit de prensa y datos →
+            </Link>
+            <Link
+              to="/datos"
+              className="inline-flex items-center gap-2 font-sans text-xs font-semibold uppercase tracking-[0.12em] border border-cr-border text-cr-text-muted px-4 py-2 hover:border-cr-primary hover:text-cr-primary transition-colors"
+            >
+              Dataset CC BY 4.0 →
+            </Link>
+          </div>
+          <p className="font-sans text-xs text-cr-text-muted">
+            Contacto para medios:{" "}
+            <a href="mailto:hola@concertride.me" className="text-cr-primary hover:underline">
+              hola@concertride.me
+            </a>
+          </p>
+        </section>
+
+        {/* ── Navigation links ── */}
         <section className="border-t border-cr-border pt-8 grid md:grid-cols-2 gap-4">
           <Link
             to="/como-funciona"
@@ -281,6 +406,17 @@ export default function AcercaDePage() {
             </p>
             <p className="font-display text-xl uppercase leading-tight group-hover:text-cr-primary transition-colors">
               Contactar →
+            </p>
+          </Link>
+          <Link
+            to="/prensa"
+            className="border border-cr-border p-5 hover:border-cr-primary transition-colors group"
+          >
+            <p className="font-sans text-[11px] font-semibold uppercase tracking-[0.12em] text-cr-primary mb-2">
+              Medios
+            </p>
+            <p className="font-display text-xl uppercase leading-tight group-hover:text-cr-primary transition-colors">
+              Kit de prensa →
             </p>
           </Link>
         </section>

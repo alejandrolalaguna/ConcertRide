@@ -28,7 +28,7 @@ if (!(await exists(ssrEntry))) {
   console.error(`[prerender] SSR bundle missing at ${ssrEntry}. Did the SSR build run?`);
   process.exit(1);
 }
-const { render, FESTIVAL_SLUGS, CITY_SLUGS, CITY_YEAR_SLUGS, BLOG_SLUGS, ROUTE_SLUGS, ARTIST_SLUGS, VENUE_SLUGS, REGION_SLUGS, HOW_TO_GET_THERE_PAGE_SLUGS, CONTENT_LAST_UPDATED } = await import(pathToFileURL(ssrEntry).href);
+const { render, FESTIVAL_SLUGS, CITY_SLUGS, CITY_YEAR_SLUGS, BLOG_SLUGS, ROUTE_SLUGS, ARTIST_SLUGS, VENUE_SLUGS, REGION_SLUGS, HOW_TO_GET_THERE_PAGE_SLUGS, GENRE_SLUGS, CALENDAR_SLUGS, CONTENT_LAST_UPDATED } = await import(pathToFileURL(ssrEntry).href);
 
 // ── Read shell ──────────────────────────────────────────────────────────────
 const shellPath = path.join(distDir, "index.html");
@@ -64,6 +64,8 @@ const VENUE_LANDING_SLUGS = VENUE_SLUGS ?? [];
 const REGION_LANDING_SLUGS = REGION_SLUGS ?? [];
 const HOW_TO_GET_THERE_SLUGS = HOW_TO_GET_THERE_PAGE_SLUGS ?? [];
 const CITY_YEAR_LANDING_SLUGS = CITY_YEAR_SLUGS ?? [];
+const GENRE_LANDING_SLUGS = GENRE_SLUGS ?? [];
+const CALENDAR_LANDING_SLUGS = CALENDAR_SLUGS ?? [];
 
 const ROUTES = [
   ...STATIC_ROUTES,
@@ -77,9 +79,11 @@ const ROUTES = [
   ...VENUE_LANDING_SLUGS.map((slug) => `/recintos/${slug}`),
   ...REGION_LANDING_SLUGS.map((slug) => `/festivales-en/${slug}`),
   ...HOW_TO_GET_THERE_SLUGS.map((slug) => `/como-llegar/${slug}`),
+  ...GENRE_LANDING_SLUGS.map((slug) => `/festivales-genero/${slug}`),
+  ...CALENDAR_LANDING_SLUGS.map((slug) => `/calendario-festivales/${slug}`),
 ];
 
-console.log(`[prerender] ${ROUTES.length} routes (${FESTIVAL_SLUGS.length} festivals + ${FESTIVAL_SLUGS.length} guias, ${CITY_SLUGS.length} cities, ${CITY_YEAR_LANDING_SLUGS.length} city-year, ${BLOG_POST_SLUGS.length} blog posts, ${ROUTE_LANDING_SLUGS.length} routes, ${ARTIST_LANDING_SLUGS.length} artists, ${VENUE_LANDING_SLUGS.length} venues, ${REGION_LANDING_SLUGS.length} regions, ${HOW_TO_GET_THERE_SLUGS.length} how-to-get-there)`);
+console.log(`[prerender] ${ROUTES.length} routes (${FESTIVAL_SLUGS.length} festivals + ${FESTIVAL_SLUGS.length} guias, ${CITY_SLUGS.length} cities, ${CITY_YEAR_LANDING_SLUGS.length} city-year, ${BLOG_POST_SLUGS.length} blog posts, ${ROUTE_LANDING_SLUGS.length} routes, ${ARTIST_LANDING_SLUGS.length} artists, ${VENUE_LANDING_SLUGS.length} venues, ${REGION_LANDING_SLUGS.length} regions, ${HOW_TO_GET_THERE_SLUGS.length} how-to-get-there, ${GENRE_LANDING_SLUGS.length} genres, ${CALENDAR_LANDING_SLUGS.length} calendar)`);
 
 let ok = 0;
 let failed = 0;
@@ -226,6 +230,11 @@ async function writeSitemapIndex() {
     "sitemap-routes.xml",
     "sitemap-blog.xml",
     "sitemap-how-to-get-there.xml",
+    "sitemap-artistas.xml",
+    "sitemap-recintos.xml",
+    "sitemap-regiones.xml",
+    "sitemap-generos.xml",
+    "sitemap-calendario.xml",
     "sitemap-static-others.xml",
   ];
   const entries = staticSitemaps
@@ -250,7 +259,9 @@ async function writeSitemap(urls) {
   const LASTMOD = (u) => {
     if (u === "/" || u === "/concerts") return today;
     if (u.startsWith("/festivales/") || u.startsWith("/conciertos/") || u.startsWith("/rutas/") ||
-        u.startsWith("/artistas/") || u.startsWith("/recintos/") || u.startsWith("/festivales-en/")) return contentDate;
+        u.startsWith("/artistas/") || u.startsWith("/recintos/") || u.startsWith("/festivales-en/") ||
+        u.startsWith("/festivales-genero/") || u.startsWith("/calendario-festivales/") ||
+        u.startsWith("/blog/") || u.startsWith("/como-llegar/")) return contentDate;
     return today;
   };
   const PRIORITY = (u) => {
@@ -265,6 +276,8 @@ async function writeSitemap(urls) {
     if (u.startsWith("/artistas/")) return "0.75";
     if (u.startsWith("/recintos/")) return "0.7";
     if (u.startsWith("/festivales-en/")) return "0.75";
+    if (u.startsWith("/festivales-genero/")) return "0.78";
+    if (u.startsWith("/calendario-festivales/")) return "0.78";
     if (u.startsWith("/como-llegar/")) return "0.85";
     if (["/como-funciona", "/faq"].includes(u)) return "0.7";
     if (u === "/como-funciona-carpooling") return "0.75";
@@ -283,6 +296,8 @@ async function writeSitemap(urls) {
     if (u.startsWith("/artistas/")) return "weekly";
     if (u.startsWith("/recintos/")) return "monthly";
     if (u.startsWith("/festivales-en/")) return "monthly";
+    if (u.startsWith("/festivales-genero/")) return "monthly";
+    if (u.startsWith("/calendario-festivales/")) return "monthly";
     if (u.startsWith("/como-llegar/")) return "weekly";
     return "monthly";
   };
@@ -317,13 +332,20 @@ async function writeSeparateSitemaps(urls) {
   const today = new Date().toISOString().slice(0, 10);
   const contentDate = CONTENT_LAST_UPDATED ?? today;
 
+  const INDEXED_PREFIXES = ["/festivales/", "/conciertos/", "/rutas/", "/como-llegar/", "/blog/",
+    "/festivales-genero/", "/calendario-festivales/", "/artistas/", "/recintos/", "/festivales-en/"];
   const groups = {
-    festivals: urls.filter((u) => u.startsWith("/festivales/")),
+    festivals: urls.filter((u) => u.startsWith("/festivales/") && !u.startsWith("/festivales-genero/") && !u.startsWith("/festivales-en/")),
     cities: urls.filter((u) => u.startsWith("/conciertos/")),
     routes: urls.filter((u) => u.startsWith("/rutas/")),
     howto: urls.filter((u) => u.startsWith("/como-llegar/")),
     blog: urls.filter((u) => u.startsWith("/blog/")),
-    others: urls.filter((u) => !["/festivales/", "/conciertos/", "/rutas/", "/como-llegar/", "/blog/"].some((p) => u.startsWith(p))),
+    genres: urls.filter((u) => u.startsWith("/festivales-genero/")),
+    calendar: urls.filter((u) => u.startsWith("/calendario-festivales/")),
+    artists: urls.filter((u) => u.startsWith("/artistas/")),
+    venues: urls.filter((u) => u.startsWith("/recintos/")),
+    regions: urls.filter((u) => u.startsWith("/festivales-en/")),
+    others: urls.filter((u) => !INDEXED_PREFIXES.some((p) => u.startsWith(p))),
   };
 
   const write = async (filename, list, freq = "weekly", priority = "0.7") => {
@@ -338,5 +360,10 @@ async function writeSeparateSitemaps(urls) {
   await write("sitemap-routes.xml", groups.routes, "monthly", "0.7");
   await write("sitemap-how-to-get-there.xml", groups.howto, "weekly", "0.85");
   await write("sitemap-blog.xml", groups.blog, "monthly", "0.75");
+  await write("sitemap-generos.xml", groups.genres, "monthly", "0.78");
+  await write("sitemap-calendario.xml", groups.calendar, "monthly", "0.78");
+  await write("sitemap-artistas.xml", groups.artists, "monthly", "0.75");
+  await write("sitemap-recintos.xml", groups.venues, "monthly", "0.72");
+  await write("sitemap-regiones.xml", groups.regions, "monthly", "0.75");
   await write("sitemap-static-others.xml", groups.others, "monthly", "0.6");
 }
