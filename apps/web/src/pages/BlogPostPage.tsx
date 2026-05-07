@@ -1,12 +1,65 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { Link, Navigate, useParams } from "react-router-dom";
-import { ArrowRight, Calendar, Clock, ArrowLeft } from "lucide-react";
+import { ArrowRight, Calendar, Check, Clock, Copy, ArrowLeft, Share2 } from "lucide-react";
 import { useSeoMeta } from "@/lib/useSeoMeta";
 import { SITE_URL } from "@/lib/siteUrl";
 import { BLOG_POSTS_BY_SLUG, BLOG_CATEGORIES } from "@/lib/blogPosts";
 import { FESTIVAL_LANDINGS_BY_SLUG } from "@/lib/festivalLandings";
 import { AutoLinksForFestival, AutoLinksForBlog } from "@/lib/autoLinking";
 import { trackBlogView } from "@/lib/seoEvents";
+
+function ShareCite({ url, title }: { url: string; title: string }) {
+  const [copiedUrl, setCopiedUrl] = useState(false);
+  const [copiedCite, setCopiedCite] = useState(false);
+  const year = new Date().getFullYear();
+  const citation = `${title}. ConcertRide (${year}). ${url}`;
+
+  function copyUrl() {
+    navigator.clipboard.writeText(url).then(() => {
+      setCopiedUrl(true);
+      setTimeout(() => setCopiedUrl(false), 2000);
+    });
+  }
+  function copyCite() {
+    navigator.clipboard.writeText(citation).then(() => {
+      setCopiedCite(true);
+      setTimeout(() => setCopiedCite(false), 2000);
+    });
+  }
+  const tweetText = encodeURIComponent(`${title} — vía @ConcertRide_ES ${url}`);
+
+  return (
+    <section className="border-t border-cr-border pt-8 space-y-3">
+      <p className="font-mono text-[11px] text-cr-text-muted uppercase tracking-[0.12em] flex items-center gap-2">
+        <Share2 size={11} /> Compartir y citar
+      </p>
+      <div className="flex flex-wrap gap-2">
+        <button
+          onClick={copyUrl}
+          className="inline-flex items-center gap-1.5 font-sans text-xs text-cr-text-muted hover:text-cr-primary border border-cr-border hover:border-cr-primary px-3 py-1.5 transition-colors"
+        >
+          {copiedUrl ? <Check size={11} /> : <Copy size={11} />}
+          {copiedUrl ? "URL copiada" : "Copiar URL"}
+        </button>
+        <button
+          onClick={copyCite}
+          className="inline-flex items-center gap-1.5 font-sans text-xs text-cr-text-muted hover:text-cr-primary border border-cr-border hover:border-cr-primary px-3 py-1.5 transition-colors"
+        >
+          {copiedCite ? <Check size={11} /> : <Copy size={11} />}
+          {copiedCite ? "Cita copiada" : "Citar artículo"}
+        </button>
+        <a
+          href={`https://twitter.com/intent/tweet?text=${tweetText}`}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="inline-flex items-center gap-1.5 font-sans text-xs text-cr-text-muted hover:text-cr-primary border border-cr-border hover:border-cr-primary px-3 py-1.5 transition-colors"
+        >
+          Compartir en X
+        </a>
+      </div>
+    </section>
+  );
+}
 
 export default function BlogPostPage() {
   const { slug } = useParams<{ slug: string }>();
@@ -288,6 +341,9 @@ export default function BlogPostPage() {
             </dl>
           </section>
         )}
+
+        {/* ── Share / Cite ── */}
+        <ShareCite url={url} title={post.title} />
 
         {/* ── Related links ── */}
         {post.relatedLinks && post.relatedLinks.length > 0 && (

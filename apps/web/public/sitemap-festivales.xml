@@ -188,4 +188,28 @@
       <image:title>Festival de les Arts Valencia — ConcertRide</image:title>
     </image:image>
   </url>
+  <url>
+    <loc>https://concertride.me/festivales/festival-ortigueira</loc>
+    <lastmod>2026-05-07</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://concertride.me/festivales/jazzaldia</loc>
+    <lastmod>2026-05-07</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://concertride.me/festivales/metropoli-gijon</loc>
+    <lastmod>2026-05-07</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://concertride.me/festivales/granada-sound</loc>
+    <lastmod>2026-05-07</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
 </urlset>

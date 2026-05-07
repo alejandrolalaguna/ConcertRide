@@ -614,4 +614,22 @@
     <changefreq>monthly</changefreq>
     <priority>0.78</priority>
   </url>
+  <url>
+    <loc>https://concertride.me/blog/festivales-galicia-2026-carpooling</loc>
+    <lastmod>2026-05-07</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.78</priority>
+  </url>
+  <url>
+    <loc>https://concertride.me/blog/festivales-gratis-espana-2026</loc>
+    <lastmod>2026-05-07</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.80</priority>
+  </url>
+  <url>
+    <loc>https://concertride.me/blog/festivales-jazz-espana-2026</loc>
+    <lastmod>2026-05-07</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.78</priority>
+  </url>
 </urlset>

@@ -1,5 +1,6 @@
+import { useState } from "react";
 import { Link } from "react-router-dom";
-import { ArrowRight, ExternalLink } from "lucide-react";
+import { ArrowRight, Check, Copy, ExternalLink } from "lucide-react";
 import { useSeoMeta } from "@/lib/useSeoMeta";
 import { SITE_URL } from "@/lib/siteUrl";
 
@@ -45,6 +46,26 @@ const METHODOLOGY = [
   "Los rangos de precio reflejan variación por tipo de combustible y número de pasajeros (2–4).",
   "Datos actualizados para la temporada de festivales " + YEAR + ". Precios de combustible: promedio España abril " + YEAR + ".",
 ];
+
+function CopyButton({ text, label = "Copiar" }: { text: string; label?: string }) {
+  const [copied, setCopied] = useState(false);
+  function handleCopy() {
+    navigator.clipboard.writeText(text).then(() => {
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    });
+  }
+  return (
+    <button
+      onClick={handleCopy}
+      className="inline-flex items-center gap-1.5 font-mono text-[10px] text-cr-text-muted hover:text-cr-primary border border-cr-border hover:border-cr-primary px-2 py-1 transition-colors shrink-0"
+      aria-label={label}
+    >
+      {copied ? <Check size={11} /> : <Copy size={11} />}
+      {copied ? "Copiado" : label}
+    </button>
+  );
+}
 
 export default function DatosPage() {
   const url = `${SITE_URL}/datos`;
@@ -232,6 +253,43 @@ export default function DatosPage() {
             (concertride.me).
           </p>
         </div>
+      </section>
+
+      {/* ── Citar estos datos ── */}
+      <section className="max-w-6xl mx-auto px-6 pb-16 border-t border-cr-border pt-12 space-y-6">
+        <div className="space-y-2">
+          <h2 className="font-display text-2xl md:text-3xl uppercase">Citar estos datos</h2>
+          <p className="font-sans text-sm text-cr-text-muted leading-relaxed max-w-2xl">
+            Dataset publicado bajo licencia CC BY 4.0. Puedes usarlo en artículos, estudios o
+            visualizaciones con atribución a ConcertRide. Formatos de cita listos para copiar:
+          </p>
+        </div>
+        <ul className="space-y-4">
+          {[
+            {
+              label: "Cita APA",
+              text: `ConcertRide. (${YEAR}). Índice de Carpooling a Festivales España ${YEAR} [Dataset]. ${SITE_URL}/datos. CC BY 4.0.`,
+            },
+            {
+              label: "Enlace HTML (artículo web)",
+              text: `<a href="${SITE_URL}/datos" rel="noopener">Índice de Carpooling a Festivales España ${YEAR}</a> (ConcertRide, CC BY 4.0)`,
+            },
+            {
+              label: "Mención en redes sociales",
+              text: `Datos: Índice de Carpooling a Festivales España ${YEAR} de @ConcertRide — ${SITE_URL}/datos (CC BY 4.0)`,
+            },
+          ].map((c) => (
+            <li key={c.label} className="border border-cr-border p-4 space-y-3">
+              <div className="flex items-center justify-between gap-4">
+                <p className="font-mono text-[11px] text-cr-primary uppercase tracking-[0.1em]">{c.label}</p>
+                <CopyButton text={c.text} />
+              </div>
+              <pre className="font-mono text-[10px] text-cr-text-muted bg-black/30 p-3 rounded overflow-x-auto whitespace-pre-wrap break-all leading-relaxed">
+                {c.text}
+              </pre>
+            </li>
+          ))}
+        </ul>
       </section>
 
       {/* ── CTA ── */}

@@ -408,6 +408,16 @@ export const CITY_LANDINGS: CityLanding[] = [
     lat: 42.4337, lng: -8.6486,
   },
   {
+    slug: "ourense",
+    city: "Ourense",
+    display: "Ourense",
+    region: "Galicia",
+    blurb:
+      "Ourense es la capital de la provincia interior de Galicia, con buena conexión por la AG-53 hacia Santiago de Compostela (110 km) y por la A-52 hacia Vigo (105 km). Es origen natural para asistentes a O Son do Camiño (Monte do Gozo) y al Festival de Ortigueira (250 km). El Pazo dos Deportes Paco Paz y el Auditorio Municipal acogen conciertos de mid-size. ConcertRide opera carpooling desde Ourense hacia los grandes festivales gallegos y madrileños (a Mad Cool: 470 km, 4h 30 min).",
+    venues: ["Pazo dos Deportes Paco Paz", "Auditorio Municipal de Ourense", "Expourense"],
+    lat: 42.3406, lng: -7.8642,
+  },
+  {
     slug: "badajoz",
     city: "Badajoz",
     display: "Badajoz",
@@ -476,6 +486,276 @@ export const CITY_LANDINGS: CityLanding[] = [
       "Ávila está a 110 km de Madrid y es punto de origen para asistentes a festivales madrileños y a Sonorama Ribera (Aranda de Duero, 120 km). El Palacio Municipal de Congresos y el Pabellón Multiusos de Ávila acogen eventos de mid-size. ConcertRide conecta a abulenses con conductores hacia Madrid y Castilla y León.",
     venues: ["Pabellón Multiusos de Ávila", "Palacio Municipal de Congresos"],
     lat: 40.6562, lng: -4.6834,
+  },
+  {
+    slug: "las-palmas-de-gran-canaria",
+    city: "Las Palmas de Gran Canaria",
+    display: "Las Palmas de Gran Canaria",
+    region: "Canarias",
+    blurb:
+      "Las Palmas de Gran Canaria es la capital de la provincia y la mayor ciudad de las Canarias (380.000 habitantes). Acoge la mayor parte de la oferta de conciertos del archipiélago: Gran Canaria Arena (12.000 plazas), Auditorio Alfredo Kraus (1.700), Plaza de la Música. Festival propio: Womad Las Palmas (noviembre, gratuito en el Parque Santa Catalina). Para festivales peninsulares, los canarios se desplazan en avión a Madrid o Barcelona y desde allí ConcertRide cubre el carpooling al recinto. La ruta Las Palmas–Tenerife (1h ferry o 35 min avión) es habitual entre asistentes interinsulares.",
+    venues: ["Gran Canaria Arena", "Auditorio Alfredo Kraus", "Plaza de la Música", "Parque Santa Catalina (Womad Las Palmas)"],
+    lat: 28.1235, lng: -15.4366,
+  },
+  {
+    slug: "santa-cruz-de-tenerife",
+    city: "Santa Cruz de Tenerife",
+    display: "Santa Cruz de Tenerife",
+    region: "Canarias",
+    blurb:
+      "Santa Cruz de Tenerife (capital de la provincia, 200.000 habitantes) concentra la actividad de conciertos del norte de Tenerife. El Auditorio Adán Martín (1.600 plazas), el Pabellón Santiago Martín (5.500) y la Plaza de España son las sedes principales. Tenerife acoge el Carnaval de Santa Cruz (febrero, segundo más grande del mundo tras Río) con conciertos urbanos masivos y gratuitos. Para festivales peninsulares, vuelo a Madrid o Barcelona + carpooling ConcertRide al recinto. Tenerife–Las Palmas: 1h en ferry, 35 min en avión.",
+    venues: ["Auditorio Adán Martín", "Pabellón Santiago Martín", "Plaza de España (Carnaval)"],
+    lat: 28.4636, lng: -16.2518,
+  },
+  {
+    slug: "cartagena",
+    city: "Cartagena",
+    display: "Cartagena",
+    region: "Región de Murcia",
+    blurb:
+      "Cartagena (215.000 habitantes) es la segunda ciudad de la Región de Murcia y nodo del sureste mediterráneo. Festival propio: La Mar de Músicas (julio, world music, 25 ediciones), Cartagena Jazz Festival (noviembre). Recintos: Plaza de Toros de Cartagena (12.000 plazas), Auditorio El Batel (1.400), Polideportivo Wssell de Guimbarda. Carpooling ConcertRide a Medusa Festival Cullera (175 km, 5–8€), Cala Mijas (290 km, 8–11€), Viña Rock Villarrobledo (220 km, 7–10€) y Mad Cool Madrid (445 km, 13–17€). Pago directo Bizum o efectivo, sin comisión.",
+    venues: ["Plaza de Toros de Cartagena", "Auditorio El Batel", "La Mar de Músicas", "Cartagena Jazz Festival"],
+    lat: 37.6063, lng: -0.9869,
+  },
+  {
+    slug: "jerez-de-la-frontera",
+    city: "Jerez de la Frontera",
+    display: "Jerez de la Frontera",
+    region: "Andalucía",
+    blurb:
+      "Jerez de la Frontera (211.000 habitantes) es la mayor ciudad de la provincia de Cádiz y referente del flamenco mundial. Festival de Jerez (febrero–marzo, flamenco, 3 semanas), Tío Pepe Festival (julio–agosto, ciclo de conciertos en las bodegas González Byass con cabezas de cartel internacionales como Pet Shop Boys o Robbie Williams). Recintos: Circuito de Jerez (capacidad festival hasta 30.000), Bodegas Tío Pepe, Teatro Villamarta. Carpooling ConcertRide a Cala Mijas Festival (235 km, 7–11€), Estadio La Cartuja Sevilla (95 km, 4–7€), Mad Cool Madrid (655 km, 16–22€). Sin comisión.",
+    venues: ["Circuito de Jerez", "Bodegas Tío Pepe (Tío Pepe Festival)", "Teatro Villamarta", "Festival de Jerez"],
+    lat: 36.6850, lng: -6.1261,
+  },
+  {
+    slug: "elche",
+    city: "Elche",
+    display: "Elche / Elx",
+    region: "Comunidad Valenciana",
+    blurb:
+      "Elche (235.000 habitantes) es la tercera ciudad de la Comunidad Valenciana y nodo industrial del calzado. Recintos: Pabellón Esperanza Lag (5.000 plazas), Auditorio Centro de Congresos. Festival propio: Festival Elx (julio, mediterráneo). Carpooling ConcertRide a Low Festival Benidorm (75 km, 4–7€), Arenal Sound Burriana (135 km, 5–8€), Medusa Festival Cullera (135 km, 5–8€), FIB Benicàssim (215 km, 6–9€), Mad Cool Madrid (425 km, 12–17€). Las rutas Elche–Alicante (25 km) son las más densas. 0% comisión, pago Bizum o efectivo.",
+    venues: ["Pabellón Esperanza Lag", "Auditorio Centro de Congresos Ciudad de Elche", "Festival Elx"],
+    lat: 38.2655, lng: -0.6987,
+  },
+  {
+    slug: "aranda-de-duero",
+    city: "Aranda de Duero",
+    display: "Aranda de Duero",
+    region: "Castilla y León",
+    blurb:
+      "Aranda de Duero (Burgos, 33.000 habitantes) es la sede de Sonorama Ribera (6–9 agosto), el festival de música más importante de Castilla y León con 75.000 asistentes/día. El recinto principal es la Plaza del Trigo y escenarios distribuidos por el centro histórico. Aranda está a 160 km de Madrid (1h 45 min, A-1) y a 75 km de Burgos. Sin estación de tren — el carpooling es la opción dominante para asistentes de fuera. Bus La Sepulvedana Madrid–Aranda (10–15€). Carpooling ConcertRide desde Madrid (5–8€), Burgos (3–6€), Valladolid (4–7€), Bilbao (5–8€). Sin comisión, vuelta de madrugada coordinada.",
+    venues: ["Plaza del Trigo (Sonorama Ribera)", "Centro Histórico de Aranda (escenarios distribuidos)", "Recinto Ferial de Aranda"],
+    lat: 41.6708, lng: -3.6885,
+  },
+  {
+    slug: "burriana",
+    city: "Burriana",
+    display: "Burriana / Borriana",
+    region: "Comunidad Valenciana",
+    blurb:
+      "Burriana (Castellón, 35.000 habitantes) es la sede de Arenal Sound, uno de los festivales de música pop/indie más importantes de España (29 jul–2 ago, 250.000 asistentes acumulados, 5 días). El recinto está en la Playa de Burriana, conectado con Castellón ciudad por bus lanzadera oficial (10 km, 20 min, 5–8€) y con Valencia por Cercanías Renfe C6 hasta Castellón + lanzadera. Carpooling ConcertRide directo al recinto desde Castellón (3–5€), Valencia (3–6€), Madrid (12–17€), Barcelona (8–12€). Camping oficial (Beach Camp) y libre. 0% comisión.",
+    venues: ["Playa de Burriana (Arenal Sound)", "Auditorio Municipal de Burriana"],
+    lat: 39.8889, lng: -0.0833,
+  },
+  {
+    slug: "mijas",
+    city: "Mijas",
+    display: "Mijas",
+    region: "Andalucía",
+    blurb:
+      "Mijas (Málaga, 88.000 habitantes) acoge Cala Mijas Festival en el Cortijo de Torres (2–4 octubre, 90.000 asistentes acumulados). El Cortijo está a 25 km del centro de Málaga y a 10 km del centro de Mijas pueblo, sin transporte público directo ni shuttle oficial — el carpooling es la opción dominante. Mijas Pueblo (blanco, en la sierra) y Mijas Costa (junto al Mediterráneo) son los dos núcleos. Carpooling ConcertRide al Cortijo de Torres desde Málaga (3–5€), Marbella (3–6€), Fuengirola (3–5€), Granada (5–8€), Sevilla (7–11€), Madrid (14–20€). Sin comisión.",
+    venues: ["Cortijo de Torres (Cala Mijas Festival)", "Plaza Virgen de la Peña Mijas Pueblo", "Polideportivo Las Cañadas"],
+    lat: 36.5957, lng: -4.6371,
+  },
+  {
+    slug: "marbella",
+    city: "Marbella",
+    display: "Marbella",
+    region: "Andalucía",
+    blurb:
+      "Marbella (150.000 habitantes) es uno de los grandes nodos turísticos de la Costa del Sol con eventos de music & lifestyle todo el verano: Starlite Festival (Cantera de Nagüeles, jul–ago, cabezas de cartel internacionales), Marbella Music Pavillion. Recinto principal: Cantera de Nagüeles (Starlite, 7.500 plazas, formato anfiteatro al aire libre). Carpooling ConcertRide a Cala Mijas Festival Cortijo de Torres (20 km, 3–6€), Estadio La Cartuja Sevilla (210 km, 7–10€), Mad Cool Madrid (575 km, 14–20€). Densidad alta de viajes locales (Marbella–Málaga 60 km, 3–5€). Sin comisión.",
+    venues: ["Cantera de Nagüeles (Starlite Festival)", "Palacio de Ferias y Congresos de Marbella", "Plaza de Toros de Puerto Banús"],
+    lat: 36.5099, lng: -4.8845,
+  },
+  {
+    slug: "fuengirola",
+    city: "Fuengirola",
+    display: "Fuengirola",
+    region: "Andalucía",
+    blurb:
+      "Fuengirola (Málaga, 84.000 habitantes) acoge Marenostrum Fuengirola Festival en el Castle Park (jul–ago, ciclo de cabezas de cartel internacionales: 50 Cent, Bryan Adams, Iggy Pop). El Castle Park (Sohail Castle Park) tiene capacidad para 15.000 personas en formato anfiteatro junto al castillo árabe de Sohail. Conectado con Málaga ciudad por Cercanías Renfe C-1 (35 min, 3,90€). Carpooling ConcertRide a Cala Mijas Festival (10 km, 3–5€) — la ruta más utilizada del Cortijo de Torres. También Marbella (25 km, 3–5€), Granada (130 km, 5–8€), Sevilla (220 km, 7–11€). 0% comisión.",
+    venues: ["Sohail Castle Park (Marenostrum Fuengirola)", "Palacio de la Paz", "Pabellón Elola"],
+    lat: 36.5400, lng: -4.6243,
+  },
+  {
+    slug: "merida",
+    city: "Mérida",
+    display: "Mérida",
+    region: "Extremadura",
+    blurb:
+      "Mérida (60.000 habitantes) es la capital de Extremadura y patrimonio mundial UNESCO por su conjunto arqueológico romano. Festival Internacional de Teatro Clásico de Mérida (julio–agosto, en el Teatro Romano de Mérida del siglo I a.C., 7.000 plazas) — uno de los festivales más antiguos de España (74 ediciones). Acoge también Stone & Music Festival (verano, en el mismo Teatro Romano, conciertos pop/rock con cabezas de cartel españoles e internacionales). Carpooling ConcertRide al Teatro Romano desde Cáceres (75 km, 4–6€), Badajoz (60 km, 3–5€), Sevilla (200 km, 6–9€), Madrid (340 km, 10–14€). Sin comisión.",
+    venues: ["Teatro Romano de Mérida (Stone & Music Festival)", "Festival de Teatro Clásico de Mérida", "Palacio de Congresos de Mérida"],
+    lat: 38.9145, lng: -6.3358,
+  },
+  {
+    slug: "ibiza",
+    city: "Ibiza",
+    display: "Ibiza / Eivissa",
+    region: "Islas Baleares",
+    blurb:
+      "Ibiza (Eivissa, 50.000 habitantes en la capital) es uno de los grandes destinos de música electrónica del mundo. Discotecas-templo: Pacha Ibiza, Ushuaïa Ibiza Beach Hotel (open-air club, capacidad 7.000), Hï Ibiza, Amnesia, DC10. Festival propio: International Music Summit (mayo, conferencia y showcases). En verano, residencias semanales de DJs como David Guetta, Calvin Harris, Marco Carola. Conexión con Península: ferry desde Barcelona (8h, 30–60€) y Valencia (5h, 25–55€), avión desde Madrid/Barcelona (1h, 60–120€). En la isla, ConcertRide opera carpooling Ibiza ciudad–Sant Antoni de Portmany (15 km), Eivissa–Es Canar, etc.",
+    venues: ["Ushuaïa Ibiza", "Hï Ibiza", "Pacha Ibiza", "Amnesia", "DC10"],
+    lat: 38.9067, lng: 1.4205,
+  },
+  {
+    slug: "sabadell",
+    city: "Sabadell",
+    display: "Sabadell",
+    region: "Cataluña",
+    blurb:
+      "Sabadell (215.000 habitantes) es la cuarta ciudad de Cataluña y parte del área metropolitana de Barcelona. Recintos: Pavelló Olímpic de Sabadell (5.000 plazas), Teatre La Faràndula. Conectado con Barcelona en 30 min por Renfe Cercanías (FGC y R4). Festival propio: Embassa't Festival (junio, indie/electrónica al aire libre en el Parc de Catalunya). Carpooling ConcertRide a Primavera Sound Barcelona (30 km, 3–5€), Cruïlla (30 km, 3–5€), Sónar (30 km, 3–5€), FIB Benicàssim (335 km, 9–13€). Las rutas a festivales catalanes son extremadamente densas. Sin comisión.",
+    venues: ["Pavelló Olímpic de Sabadell", "Teatre La Faràndula", "Parc de Catalunya (Embassa't Festival)"],
+    lat: 41.5483, lng: 2.1075,
+  },
+  {
+    slug: "terrassa",
+    city: "Terrassa",
+    display: "Terrassa",
+    region: "Cataluña",
+    blurb:
+      "Terrassa (220.000 habitantes) es la tercera ciudad de la provincia de Barcelona, nodo industrial textil y nudo ferroviario hacia el Vallès Occidental. Recintos: Centre Cultural Terrassa, Auditori Vallès. Festival propio: Festival de Jazz de Terrassa (marzo, 45 ediciones, uno de los referentes del jazz en Cataluña con figuras como Pat Metheny y Brad Mehldau). Carpooling ConcertRide a Primavera Sound Barcelona (30 km, 3–5€), Cruïlla, Sónar (30 km, 3–5€). Renfe R4 conecta con Barcelona Sants en 50 min. Sin comisión.",
+    venues: ["Centre Cultural Terrassa", "Auditori Vallès", "Festival de Jazz de Terrassa"],
+    lat: 41.5640, lng: 2.0078,
+  },
+  {
+    slug: "mataro",
+    city: "Mataró",
+    display: "Mataró",
+    region: "Cataluña",
+    blurb:
+      "Mataró (130.000 habitantes) es la capital del Maresme, en la costa catalana 30 km al norte de Barcelona. Recintos: Teatre Monumental, Pavelló de Mataró. Festival propio: Maresme Music Days (verano, conciertos urbanos gratuitos). Conectado con Barcelona por Renfe R1 Cercanías (40 min, 4€). Carpooling ConcertRide a Primavera Sound Barcelona (35 km, 3–5€), Cruïlla, Sónar, y al norte hacia Girona (75 km, 4–6€). Sin comisión, vuelta de madrugada coordinada — el último Cercanías Mataró–Barcelona sale antes del fin de los festivales del Fòrum.",
+    venues: ["Teatre Monumental de Mataró", "Pavelló de Mataró", "Maresme Music Days"],
+    lat: 41.5388, lng: 2.4449,
+  },
+  {
+    slug: "reus",
+    city: "Reus",
+    display: "Reus",
+    region: "Cataluña",
+    blurb:
+      "Reus (Tarragona, 105.000 habitantes) es la segunda ciudad de la provincia y nodo del Camp de Tarragona. Recintos: Teatre Bartrina, Pavelló Olímpic. Festival propio: Festival Trapezi (mayo, circo contemporáneo). Aeropuerto de Reus conecta con vuelos low-cost a Reino Unido y centro Europa. Carpooling ConcertRide a Primavera Sound Barcelona (110 km, 5–8€), Cruïlla (110 km, 5–8€), Sónar (110 km, 5–8€), FIB Benicàssim (190 km, 6–9€). Sin comisión, pago directo Bizum.",
+    venues: ["Teatre Bartrina", "Pavelló Olímpic de Reus", "Festival Trapezi"],
+    lat: 41.1561, lng: 1.1056,
+  },
+  {
+    slug: "manresa",
+    city: "Manresa",
+    display: "Manresa",
+    region: "Cataluña",
+    blurb:
+      "Manresa (Barcelona, 75.000 habitantes) es la capital del Bages, 70 km al norte de Barcelona en dirección a los Pirineos. Recintos: Kursaal de Manresa, Nou Congost. Festival propio: Hipnotik Festival (junio, hip-hop). Carpooling ConcertRide a Primavera Sound Barcelona (75 km, 4–6€), Cruïlla (75 km, 4–6€), Sónar (75 km, 4–6€), FIB Benicàssim (245 km, 7–10€), Pirineos Sur Lanuza (170 km, 6–9€). Renfe R4 conecta con Barcelona en 1h 30 min. 0% comisión.",
+    venues: ["Kursaal de Manresa", "Nou Congost", "Hipnotik Festival"],
+    lat: 41.7287, lng: 1.8266,
+  },
+  {
+    slug: "huesca",
+    city: "Huesca",
+    display: "Huesca",
+    region: "Aragón",
+    blurb:
+      "Huesca (53.000 habitantes) es la capital de la provincia más septentrional de Aragón, puerta de entrada al Pirineo aragonés. Festivales propios: Periferias Festival (otoño, world music), Festival Internacional de Cine de Huesca (junio). Recintos: Palacio de Congresos de Huesca, Pabellón Polideportivo. Hub clave para llegar a Pirineos Sur Festival (Lanuza, 75 km, world music en mitad del Pirineo). Carpooling ConcertRide a Vive Latino España Zaragoza (75 km, 3–5€), Mad Cool Madrid (390 km, 11–16€), Primavera Sound Barcelona (380 km, 11–16€), Pirineos Sur (75 km, 3–5€). Sin comisión.",
+    venues: ["Palacio de Congresos de Huesca", "Pabellón Polideportivo", "Periferias Festival", "Festival Cine Huesca"],
+    lat: 42.1401, lng: -0.4087,
+  },
+  {
+    slug: "benidorm",
+    city: "Benidorm",
+    display: "Benidorm",
+    region: "Comunidad Valenciana",
+    blurb:
+      "Benidorm (Alicante, 70.000 habitantes residentes, 350.000 en temporada alta) es la capital turística de la Costa Blanca. Acoge Low Festival (24–26 julio, indie y pop, 65.000 asistentes acumulados, recinto de la Ciudad Deportiva Guillermo Amor). También Benidorm Pride (septiembre) y Benidorm Fest (febrero, eurovisión nacional). Conectado con Alicante por Tram TRAM L1 (1h, 4€) y autovía AP-7. Carpooling ConcertRide a Low Festival desde Alicante (45 km, 3–5€), Valencia (150 km, 5–8€), Madrid (420 km, 12–17€), Barcelona (480 km, 13–18€). Sin comisión, vuelta de madrugada coordinada.",
+    venues: ["Ciudad Deportiva Guillermo Amor (Low Festival)", "Plaza de Toros de Benidorm", "Auditorio Julio Iglesias"],
+    lat: 38.5411, lng: -0.1226,
+  },
+  {
+    slug: "algeciras",
+    city: "Algeciras",
+    display: "Algeciras",
+    region: "Andalucía",
+    blurb:
+      "Algeciras (Cádiz, 122.000 habitantes) es el principal puerto del Estrecho de Gibraltar y nodo logístico hacia Marruecos. Festival propio: Algeciras Entre Dos Continentes (junio, world music). Recintos: Palacio de los Deportes Las Palmeras, Plaza de Toros de Las Palomas. Carpooling ConcertRide a Estadio La Cartuja Sevilla (175 km, 5–8€), Cala Mijas Festival (105 km, 5–7€), Cádiz (130 km, 5–7€), Granada (220 km, 7–10€), Madrid (660 km, 17–22€). Sin comisión, vuelta nocturna coordinada.",
+    venues: ["Palacio de los Deportes Las Palmeras", "Plaza de Toros Las Palomas", "Algeciras Entre Dos Continentes"],
+    lat: 36.1408, lng: -5.4527,
+  },
+  {
+    slug: "aviles",
+    city: "Avilés",
+    display: "Avilés",
+    region: "Asturias",
+    blurb:
+      "Avilés (Asturias, 78.000 habitantes) es la tercera ciudad asturiana, ribereña del estuario del Nalón, con el Centro Niemeyer (obra de Oscar Niemeyer) como ícono cultural. Recintos: Centro Niemeyer (auditorio + plaza para 8.000 personas), Plaza de España de Avilés, Pabellón Quirinal. Festival propio: AvilésAcción Festival de cortometrajes (mayo) y Celsius (literatura fantástica, julio). Conectado con Oviedo y Gijón por A-8. Carpooling ConcertRide a Metrópoli Gijón (25 km, 3–4€), BBK Live Bilbao (270 km, 9–12€), Resurrection Fest Viveiro (210 km, 7–10€), O Son do Camiño Santiago (310 km, 10–13€). Sin comisión.",
+    venues: ["Centro Niemeyer (auditorio y plaza)", "Plaza de España de Avilés", "Pabellón Quirinal"],
+    lat: 43.5547, lng: -5.9248,
+  },
+  {
+    slug: "ponferrada",
+    city: "Ponferrada",
+    display: "Ponferrada",
+    region: "Castilla y León",
+    blurb:
+      "Ponferrada (León, 64.000 habitantes) es la capital de El Bierzo y parada estratégica del Camino de Santiago. Recintos: Pabellón Lydia Valentín, Castillo de los Templarios (escenario en festivales urbanos). Festival propio: Festival 2 días Ponferrada (verano, indie/pop), Festival Avesedario (cultura y música). Carpooling ConcertRide a O Son do Camiño Santiago (210 km, 7–10€), Resurrection Fest Viveiro (250 km, 8–11€), BBK Live Bilbao (370 km, 11–15€), Mad Cool Madrid (390 km, 11–16€). Sin comisión.",
+    venues: ["Pabellón Lydia Valentín", "Castillo de los Templarios", "Plaza Encina"],
+    lat: 42.5460, lng: -6.5959,
+  },
+  {
+    slug: "talavera-de-la-reina",
+    city: "Talavera de la Reina",
+    display: "Talavera de la Reina",
+    region: "Castilla-La Mancha",
+    blurb:
+      "Talavera de la Reina (Toledo, 82.000 habitantes) es la mayor ciudad de la provincia toledana después de la propia Toledo. Recintos: Palacio de Ferias y Congresos, Plaza de Toros La Caprichosa. Festivales propios: Mondas Talavera (septiembre, fiestas mayores con conciertos urbanos), Festival Comarcal de la Cerámica. A 120 km de Madrid (1h 15 min, A-5). Carpooling ConcertRide a Mad Cool Madrid (120 km, 5–7€), Viña Rock Villarrobledo (180 km, 6–9€), Cala Mijas (475 km, 13–18€), Estadio La Cartuja Sevilla (380 km, 11–15€). Sin comisión.",
+    venues: ["Palacio de Ferias y Congresos de Talavera", "Plaza de Toros La Caprichosa", "Mondas Talavera"],
+    lat: 39.9624, lng: -4.8307,
+  },
+  {
+    slug: "mostoles",
+    city: "Móstoles",
+    display: "Móstoles",
+    region: "Comunidad de Madrid",
+    blurb:
+      "Móstoles (210.000 habitantes) es la segunda ciudad de la Comunidad de Madrid, parte del cinturón sur metropolitano. Recintos: Pabellón Andrés Torrejón, Teatro del Bosque. Conectado con Madrid centro por Cercanías Renfe C-5 (25 min) y Metro Sur L12 (40 min). Carpooling ConcertRide a Mad Cool IFEMA Madrid (35 km, 3–5€), Tomavistas Retiro (25 km, 3–5€), Viña Rock Villarrobledo (245 km, 7–10€), Sonorama Ribera Aranda (180 km, 6–9€). Hub natural para asistentes del sur de Madrid sin coche que evitan el centro. Sin comisión.",
+    venues: ["Pabellón Andrés Torrejón", "Teatro del Bosque", "Recinto Ferial El Soto"],
+    lat: 40.3220, lng: -3.8657,
+  },
+  {
+    slug: "alcala-de-henares",
+    city: "Alcalá de Henares",
+    display: "Alcalá de Henares",
+    region: "Comunidad de Madrid",
+    blurb:
+      "Alcalá de Henares (195.000 habitantes) es ciudad UNESCO Patrimonio de la Humanidad por su universidad cervantina y casco histórico. Festival propio: Festival de la Palabra (octubre), Don Juan en Alcalá (octubre, teatro), Festival Sefarad (julio). Recintos: Teatro Salón Cervantes, Plaza de Cervantes (escenario al aire libre, 8.000 personas), Recinto Ferial. Conectado con Madrid por Cercanías Renfe C-2/C-7 (35 min, 4€). Carpooling ConcertRide a Mad Cool IFEMA (25 km, 3–5€), Sonorama Ribera Aranda (130 km, 5–8€), Viña Rock Villarrobledo (240 km, 7–10€). Sin comisión.",
+    venues: ["Teatro Salón Cervantes", "Plaza de Cervantes (escenarios urbanos)", "Recinto Ferial Alcalá", "Don Juan en Alcalá"],
+    lat: 40.4815, lng: -3.3636,
+  },
+  {
+    slug: "getafe",
+    city: "Getafe",
+    display: "Getafe",
+    region: "Comunidad de Madrid",
+    blurb:
+      "Getafe (185.000 habitantes) es nodo del cinturón sur de Madrid con base aérea propia. Recintos: Coliseum Alfonso Pérez (estadio del Getafe CF, eventos de music & lifestyle), Pabellón Juan de la Cierva. Conectado con Madrid centro por Cercanías Renfe C-3/C-4 (20 min) y Metro Sur L12. Carpooling ConcertRide a Mad Cool IFEMA Madrid (30 km, 3–5€), Tomavistas (25 km, 3–5€), Viña Rock Villarrobledo (235 km, 7–10€), Cala Mijas (555 km, 14–20€). Sin comisión, vuelta nocturna coordinada con asistentes del mismo evento.",
+    venues: ["Coliseum Alfonso Pérez", "Pabellón Juan de la Cierva", "Centro Cultural García Lorca"],
+    lat: 40.3057, lng: -3.7325,
+  },
+  {
+    slug: "gandia",
+    city: "Gandia",
+    display: "Gandia",
+    region: "Comunidad Valenciana",
+    blurb:
+      "Gandia (Valencia, 75.000 habitantes) es la capital de La Safor, en la costa mediterránea 65 km al sur de Valencia. Festival propio: Polifònic Festival (julio, indie/pop, formato playa), Tu Otro Verano Music Festival. Recintos: Auditori del Raval, Pavelló Esportiu. Conectado con Valencia por Cercanías Renfe C1 (1h, 4,90€). Carpooling ConcertRide a Festival de les Arts Valencia (65 km, 3–5€), Zevra Festival La Marina (60 km, 3–5€), Medusa Festival Cullera (15 km, 3–4€), Arenal Sound Burriana (130 km, 5–8€). Hub natural para asistentes de la costa sur valenciana. Sin comisión.",
+    venues: ["Auditori del Raval", "Pavelló Esportiu de Gandia", "Polifònic Festival"],
+    lat: 38.9676, lng: -0.1815,
   },
 ];
 

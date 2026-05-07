@@ -50,7 +50,7 @@ export const BLOG_POSTS: BlogPost[] = [
   // ──────────────────────────────────────────────────────────────────────
   {
     slug: "autobuses-festivales-espana-2026",
-    title: "Autobuses a festivales de España 2026: guía completa por festival",
+    title: "Autobuses a festivales España 2026 [Guía Real]: Viña Rock, Arenal Sound, BBK Live + 12 más",
     h1: "Autobuses a festivales de España 2026: cómo llegar a Viña Rock, Arenal Sound, BBK Live, Mad Cool y más",
     excerpt:
       "¿Hay autobús a Viña Rock? ¿Bus oficial a Arenal Sound? ¿Lanzadera a BBK Live? Esta guía recoge, festival por festival, las opciones reales de bus, autobús, tren y coche compartido para 2026 — con horarios, precios, salidas y trampas a evitar.",
@@ -1275,7 +1275,7 @@ export const BLOG_POSTS: BlogPost[] = [
   // ──────────────────────────────────────────────────────────────────────
   {
     slug: "guia-transporte-vina-rock-2026",
-    title: "Guía de transporte a Viña Rock 2026: autobús, tren y carpooling",
+    title: "Viña Rock 2026 [Cómo Llegar]: Bus oficial Albacete, AVE, carpooling 6€",
     h1: "Cómo ir a Viña Rock 2026: autobuses, tren y carpooling",
     excerpt:
       "¿Buscas autobús a Viña Rock? ¿Cómo llegar a La Pulgosa, Villarrobledo? Esta guía cubre todas las opciones reales para 2026: bus lanzadera oficial desde Albacete, autobuses privados desde Madrid, tren AVE + lanzadera, y carpooling con ConcertRide desde Madrid (6–9 €), Valencia (6–9 €) y Alicante (5–8 €). Sin comisión.",
@@ -1385,7 +1385,7 @@ export const BLOG_POSTS: BlogPost[] = [
   // ──────────────────────────────────────────────────────────────────────
   {
     slug: "como-llegar-resurrection-fest-2026",
-    title: "Cómo llegar a Resurrection Fest 2026: carpooling y transporte a Viveiro",
+    title: "Resurrection Fest 2026 [Sin AVE]: Cómo llegar a Viveiro desde Madrid, A Coruña y Bilbao",
     h1: "Cómo llegar a Resurrection Fest 2026: guía completa de transporte a Viveiro",
     excerpt:
       "Resurrection Fest está en Viveiro (Lugo), sin AVE ni aeropuerto cercano. Esta guía explica todas las opciones reales para llegar: carpooling desde A Coruña (4–7€), Madrid (16–22€), Vigo (6–9€), Bilbao (10–15€), incluyendo cómo organizar grupos y la vuelta de madrugada.",
@@ -1654,6 +1654,11 @@ BLOG_POSTS.push(
     readingMinutes: 3,
     lede: "Fórmula práctica para calcular el precio por asiento que cubre gasolina, peajes y desgaste.",
     sections: [{ heading: "Fórmula rápida", paragraphs: ["Coste total estimado / plazas disponibles = precio base; añade 10–20% para imprevistos."] }],
+    relatedLinks: [
+      { label: "Índice de precios carpooling España 2026", to: "/datos" },
+      { label: "Rutas con precios por festival", to: "/rutas" },
+    ],
+    relatedPosts: ["faq-para-nuevos-usuarios-concertride", "carpooling-vs-taxi-festival-espana"],
   },
 
   // 2
@@ -1669,6 +1674,11 @@ BLOG_POSTS.push(
     readingMinutes: 2,
     lede: "Elegir puntos céntricos y con buen acceso evita perder pasajeros en la primera parada.",
     sections: [{ heading: "Reglas básicas", paragraphs: ["Elige estaciones, intercambiadores o grandes parkings; evita calles estrechas."] }],
+    relatedLinks: [
+      { label: "Publicar viaje a festival", to: "/publish" },
+      { label: "Cómo funciona ConcertRide", to: "/como-funciona" },
+    ],
+    relatedPosts: ["calcula-precio-por-asiento-2026", "como-elegir-punto-de-vuelta-festival"],
   },
 
   // 3
@@ -1684,6 +1694,11 @@ BLOG_POSTS.push(
     readingMinutes: 3,
     lede: "Separar equipo en bolsas compactas y acordar maletero asegura un viaje sin sorpresas.",
     sections: [{ heading: "Tips rápidos", paragraphs: ["Usa bolsas reutilizables, rotula sacos y acuerda reparto del espacio antes de salir."] }],
+    relatedLinks: [
+      { label: "Qué llevar al festival — guía completa", to: "/blog/que-llevar-al-festival" },
+      { label: "Festivales con camping en España 2026", to: "/blog/festivales-musica-espana-2026" },
+    ],
+    relatedPosts: ["que-llevar-al-festival", "checklist-ultimo-dia-festival-vuelta"],
   },
 
   // 4
@@ -1699,6 +1714,11 @@ BLOG_POSTS.push(
     readingMinutes: 2,
     lede: "Verifica valoraciones, perfil y comunicación previa; confía en señales claras del conductor.",
     sections: [{ heading: "Comprobaciones", paragraphs: ["Revisa valoraciones, fotos del coche y confirma identidad antes del viaje."] }],
+    relatedLinks: [
+      { label: "Seguridad y garantías en ConcertRide", to: "/blog/seguro-en-carsharing-concertride" },
+      { label: "FAQ — preguntas frecuentes", to: "/faq" },
+    ],
+    relatedPosts: ["seguro-en-carsharing-concertride", "faq-para-nuevos-usuarios-concertride"],
   },
 
   // 5
@@ -1714,6 +1734,11 @@ BLOG_POSTS.push(
     readingMinutes: 2,
     lede: "Publica 2–3 semanas antes y repite anuncios 48h y 24h antes; ofrece precio introductorio.",
     sections: [{ heading: "Reglas de oro", paragraphs: ["Anuncia con fotos, precio competitivo y punto de salida claro. Actualiza 48h antes."] }],
+    relatedLinks: [
+      { label: "Publicar viaje ahora", to: "/publish" },
+      { label: "Festivales con más demanda en España", to: "/festivales" },
+    ],
+    relatedPosts: ["calcula-precio-por-asiento-2026", "puntos-recogida-festivales-mas-eficientes"],
   },
 
   // 6
@@ -1729,6 +1754,11 @@ BLOG_POSTS.push(
     readingMinutes: 3,
     lede: "Revisa alternativas, contacta con soporte y publica alerta para buscar nuevo conductor.",
     sections: [{ heading: "Pasos inmediatos", paragraphs: ["Contacta soporte, busca viajes alternativos y comparte en la comunidad del festival."] }],
+    relatedLinks: [
+      { label: "FAQ y soporte", to: "/faq" },
+      { label: "Cómo funciona ConcertRide", to: "/como-funciona" },
+    ],
+    relatedPosts: ["seguro-en-carsharing-concertride", "faq-para-nuevos-usuarios-concertride"],
   },
 
   // 7
@@ -1744,6 +1774,11 @@ BLOG_POSTS.push(
     readingMinutes: 4,
     lede: "Buscar alojamiento cercano y compartir coche entre varias plazas reduce costes y logística.",
     sections: [{ heading: "Estrategias", paragraphs: ["Reserva alojamiento en grupos y coordina recogidas para minimizar transfer."] }],
+    relatedLinks: [
+      { label: "Rutas carpooling a festivales", to: "/rutas" },
+      { label: "Festivales España 2026", to: "/festivales" },
+    ],
+    relatedPosts: ["autobuses-festivales-espana-2026", "como-volver-festival-madrugada"],
   },
 
   // 8
@@ -1759,6 +1794,11 @@ BLOG_POSTS.push(
     readingMinutes: 4,
     lede: "Define conductor, copiloto y responsable de equipaje; usa checklist compartida.",
     sections: [{ heading: "Plantilla rápida", paragraphs: ["Asignar compras, repostajes y rotación de música para evitar conflictos."] }],
+    relatedLinks: [
+      { label: "Publicar viaje grupal", to: "/publish" },
+      { label: "Calcula el precio por asiento", to: "/blog/calcula-precio-por-asiento-2026" },
+    ],
+    relatedPosts: ["combo-transporte-y-alojamiento-festival", "viajar-con-equipaje-de-camping-consejos"],
   },
 
   // 9
@@ -1774,6 +1814,11 @@ BLOG_POSTS.push(
     readingMinutes: 3,
     lede: "El carpooling reduce emisiones por persona; escogiendo rutas eficientes ahorras CO2 y dinero.",
     sections: [{ heading: "Acciones concretas", paragraphs: ["Planifica ruta directa, llena plazas y evita trayectos innecesarios."] }],
+    relatedLinks: [
+      { label: "Huella CO₂ festivales y carpooling", to: "/blog/huella-carbono-festivales-carpooling" },
+      { label: "Datos y metodología carpooling España", to: "/datos" },
+    ],
+    relatedPosts: ["huella-carbono-festivales-carpooling", "blablacar-vs-concertride"],
   },
 
   // 10
@@ -1789,6 +1834,11 @@ BLOG_POSTS.push(
     readingMinutes: 3,
     lede: "Verificación de identidad, carnet y sistema de valoraciones: pilares de seguridad en la plataforma.",
     sections: [{ heading: "Qué validamos", paragraphs: ["Carnet, foto, valoraciones y control básico antes de publicar el primer viaje."] }],
+    relatedLinks: [
+      { label: "Acerca de ConcertRide", to: "/acerca-de" },
+      { label: "Preguntas frecuentes", to: "/faq" },
+    ],
+    relatedPosts: ["como-elegir-asiento-seguro-carpooling", "faq-para-nuevos-usuarios-concertride"],
   },
 
   // 11
@@ -1804,6 +1854,11 @@ BLOG_POSTS.push(
     readingMinutes: 2,
     lede: "Coordina punto visible, con cobertura móvil y lejos de las colas de salida para ahorrar tiempo.",
     sections: [{ heading: "Ejemplos", paragraphs: ["Elige plazas cercanas a salidas secundarias o parkings grandes para evitar atascos."] }],
+    relatedLinks: [
+      { label: "Cómo volver de madrugada de un festival", to: "/blog/como-volver-festival-madrugada" },
+      { label: "Rutas carpooling por festival", to: "/rutas" },
+    ],
+    relatedPosts: ["puntos-recogida-festivales-mas-eficientes", "checklist-ultimo-dia-festival-vuelta"],
   },
 
   // 12
@@ -1819,6 +1874,11 @@ BLOG_POSTS.push(
     readingMinutes: 3,
     lede: "Pago en efectivo o Bizum el día del viaje y dejar propina es una buena práctica si el conductor ayuda con equipaje.",
     sections: [{ heading: "Sugerencias", paragraphs: ["Acordar método y momento del pago en el chat previo al viaje."] }],
+    relatedLinks: [
+      { label: "Calcula el precio justo por asiento", to: "/blog/calcula-precio-por-asiento-2026" },
+      { label: "Preguntas frecuentes", to: "/faq" },
+    ],
+    relatedPosts: ["calcula-precio-por-asiento-2026", "seguro-en-carsharing-concertride"],
   },
 
   // 13
@@ -1834,6 +1894,11 @@ BLOG_POSTS.push(
     readingMinutes: 2,
     lede: "Usa apps con tráfico en tiempo real y comparte ruta con pasajeros para seguimiento.",
     sections: [{ heading: "Configuración", paragraphs: ["Activa rutas sin peaje solo si lo acordáis; planifica paradas cada 2–3 horas."] }],
+    relatedLinks: [
+      { label: "Rutas carpooling a festivales España", to: "/rutas" },
+      { label: "Puntos de recogida eficientes", to: "/blog/puntos-recogida-festivales-mas-eficientes" },
+    ],
+    relatedPosts: ["combo-transporte-y-alojamiento-festival", "viajar-con-equipaje-de-camping-consejos"],
   },
 
   // 14
@@ -1849,6 +1914,11 @@ BLOG_POSTS.push(
     readingMinutes: 3,
     lede: "Comunica necesidades al conductor y confirma espacio en el maletero o acceso adaptado.",
     sections: [{ heading: "Recomendaciones", paragraphs: ["Publica necesidades en el anuncio y contacta con el conductor antes de reservar."] }],
+    relatedLinks: [
+      { label: "Preguntas frecuentes ConcertRide", to: "/faq" },
+      { label: "Contacto y soporte", to: "/contacto" },
+    ],
+    relatedPosts: ["como-elegir-asiento-seguro-carpooling", "seguro-en-carsharing-concertride"],
   },
 
   // 15
@@ -1864,6 +1934,11 @@ BLOG_POSTS.push(
     readingMinutes: 2,
     lede: "Empaca temprano, vacía nevera y confirma hora con el conductor 2 horas antes.",
     sections: [{ heading: "Ritual de salida", paragraphs: ["Revisa tu mochila, recoge basura y confirma el punto de encuentro."] }],
+    relatedLinks: [
+      { label: "Qué llevar al festival: lista definitiva", to: "/blog/que-llevar-al-festival" },
+      { label: "Cómo volver de madrugada de un festival", to: "/blog/como-volver-festival-madrugada" },
+    ],
+    relatedPosts: ["viajar-con-equipaje-de-camping-consejos", "como-elegir-punto-de-vuelta-festival"],
   },
 
   // 16
@@ -1879,6 +1954,12 @@ BLOG_POSTS.push(
     readingMinutes: 5,
     lede: "Preguntas y respuestas prácticas para empezar con ConcertRide y publicar tu primer viaje.",
     sections: [{ heading: "Top 10 preguntas", paragraphs: ["¿Cómo me registro? ¿Cómo publico? ¿Cómo pago? — respuestas claras y directas."] }],
+    relatedLinks: [
+      { label: "Preguntas frecuentes completas", to: "/faq" },
+      { label: "Acerca de ConcertRide", to: "/acerca-de" },
+      { label: "Publicar tu primer viaje", to: "/publish" },
+    ],
+    relatedPosts: ["seguro-en-carsharing-concertride", "como-elegir-asiento-seguro-carpooling"],
   }
 );
 
@@ -1955,6 +2036,11 @@ BLOG_POSTS.push(
     readingMinutes: 3,
     lede: "Primavera Sound suele concentrar viajes desde el noreste: Zaragoza es una base ideal para compartir gastos.",
     sections: [{ heading: "Precio orientativo", paragraphs: ["La tarifa por asiento depende de la ocupación, pero el carpooling suele quedar por debajo de taxi o VTC en la misma ruta."] }],
+    relatedLinks: [
+      { label: "Primavera Sound 2026 — cómo llegar", to: "/festivales/primavera-sound" },
+      { label: "Ruta Zaragoza → Primavera Sound", to: "/rutas/zaragoza-primavera-sound" },
+    ],
+    relatedPosts: ["primavera-sound-2026-como-llegar", "festivales-cataluna-2026"],
   },
   {
     slug: "carpooling-bbk-live-desde-pamplona-2026",
@@ -2176,6 +2262,11 @@ BLOG_POSTS.push(
     readingMinutes: 3,
     lede: "Sevilla y la Costa del Sol tienen bastante demanda estacional, así que conviene publicar pronto.",
     sections: [{ heading: "Consejo", paragraphs: ["Marca un precio competitivo y ofrece un punto de recogida fácil para llenar plazas rápido."] }],
+    relatedLinks: [
+      { label: "Festivales de Andalucía 2026", to: "/blog/festivales-andalucia-2026-carpooling" },
+      { label: "Rutas carpooling desde Sevilla", to: "/conciertos/sevilla" },
+    ],
+    relatedPosts: ["festivales-andalucia-2026-carpooling", "autobuses-festivales-espana-2026"],
   },
   {
     slug: "carpooling-o-son-do-camino-desde-a-coruna-2026",
@@ -2189,6 +2280,11 @@ BLOG_POSTS.push(
     readingMinutes: 2,
     lede: "Es una de las rutas más cómodas del noroeste: corta, frecuente y muy fácil de coordinar.",
     sections: [{ heading: "Qué hacer", paragraphs: ["Coordina la salida temprano y deja el regreso pactado antes de entrar al recinto."] }],
+    relatedLinks: [
+      { label: "Festivales de Galicia 2026", to: "/blog/festivales-galicia-2026-carpooling" },
+      { label: "O Son do Camiño — cómo llegar", to: "/como-llegar/o-son-do-camino" },
+    ],
+    relatedPosts: ["festivales-galicia-2026-carpooling", "autobuses-festivales-espana-2026"],
   },
   {
     slug: "carpooling-viña-rock-desde-alicante-2026",
@@ -2202,6 +2298,11 @@ BLOG_POSTS.push(
     readingMinutes: 3,
     lede: "Alicante tiene buena salida hacia La Mancha; compartir coche reduce costes y simplifica la vuelta.",
     sections: [{ heading: "Resumen", paragraphs: ["Para rutas largas, el carpooling suele ganar por precio y por flexibilidad de horarios."] }],
+    relatedLinks: [
+      { label: "Viña Rock 2026 — cómo llegar", to: "/festivales/vina-rock" },
+      { label: "Guía completa transporte Viña Rock", to: "/blog/guia-transporte-vina-rock-2026" },
+    ],
+    relatedPosts: ["guia-transporte-vina-rock-2026", "autobuses-festivales-espana-2026"],
   },
   {
     slug: "carpooling-medusa-desde-murcia-2026",
@@ -2215,6 +2316,11 @@ BLOG_POSTS.push(
     readingMinutes: 3,
     lede: "Murcia es un origen útil para Medusa por la distancia y la facilidad para coordinar retorno en grupo.",
     sections: [{ heading: "Consejo práctico", paragraphs: ["Deja cerrada la salida de vuelta antes de entrar al festival y evita improvisar a última hora."] }],
+    relatedLinks: [
+      { label: "Medusa Festival 2026 — guía carpooling", to: "/blog/medusa-festival-2026-guia-carpooling" },
+      { label: "Festivales Comunidad Valenciana 2026", to: "/blog/festivales-comunidad-valenciana-2026" },
+    ],
+    relatedPosts: ["medusa-festival-2026-guia-carpooling", "arenal-sound-2026-transporte"],
   }
 );
 
@@ -2801,7 +2907,7 @@ BLOG_POSTS.push(
 
   {
     slug: "vina-rock-2026-guia-completa",
-    title: "Viña Rock 2026: guía completa de transporte y carpooling a La Pulgosa",
+    title: "Viña Rock 2026 [Guía Completa]: Fechas, cartel, autobús oficial y carpooling 3€",
     h1: "Viña Rock 2026: transporte, carpooling y todo lo que necesitas saber",
     excerpt:
       "Viña Rock 2026 (30 abril–3 mayo, La Pulgosa, Villarrobledo). Bus lanzadera oficial desde Albacete. Carpooling desde Madrid (6–9 €), Valencia (6–9 €), Alicante (5–8 €). Sin comisión.",
@@ -2940,7 +3046,7 @@ BLOG_POSTS.push(
 
   {
     slug: "son-do-camino-2026-guia-transporte",
-    title: "O Son do Camiño 2026: cómo llegar a Santiago en carpooling",
+    title: "O Son do Camiño 2026 [18–20 jun]: Cómo llegar al Monte do Gozo + carpooling 3€",
     h1: "Cómo llegar a O Son do Camiño 2026 en Santiago de Compostela",
     excerpt:
       "O Son do Camiño 2026 (18–20 junio, Monte do Gozo, Santiago de Compostela). Lanzadera oficial desde el centro de Santiago (5 km). Carpooling desde A Coruña (4–7 €), Vigo (5–8 €) y Oviedo (7–10 €).",
@@ -6380,6 +6486,318 @@ BLOG_POSTS.push(
     relatedPosts: ["carpooling-andalucia-festivales", "huella-carbono-festivales-carpooling"],
   },
 );
+
+BLOG_POSTS.push({
+  slug: "festivales-galicia-2026-carpooling",
+  title:
+    "Festivales en Galicia 2026: O Son do Camiño y Resurrection Fest — guía de transporte y carpooling",
+  h1:
+    "Festivales de Galicia 2026: cómo llegar a O Son do Camiño y Resurrection Fest",
+  excerpt:
+    "Galicia acoge los dos festivales más alejados del centro peninsular en 2026: O Son do Camiño (Santiago de Compostela, 18–20 jun, 90.000 asistentes) y Resurrection Fest (Viveiro, 25–28 jun, 70.000 asistentes). Sin tren nocturno, sin lanzaderas masivas, dispersión geográfica de 200 km entre ambos. Guía honesta de transporte y carpooling.",
+  category: "guias",
+  tags: [
+    "galicia",
+    "santiago de compostela",
+    "viveiro",
+    "o son do camiño",
+    "resurrection fest",
+    "carpooling",
+    "festivales",
+  ],
+  publishedAt: "2026-05-07T16:00:00.000Z",
+  author: "Equipo ConcertRide",
+  readingMinutes: 8,
+  lede:
+    "Galicia tiene dos festivales mainstream en 2026 que comparten el mismo mes pero ningún transporte público nocturno: O Son do Camiño en el Monte do Gozo de Santiago y Resurrection Fest en A Gañidoira de Viveiro. Esta es la guía real de cómo llegar y cómo volver — bus, ALSA, lanzadera y carpooling.",
+  sections: [
+    {
+      heading: "Los dos grandes festivales gallegos en 2026",
+      paragraphs: [
+        "Galicia acoge en junio de 2026 dos festivales con perfiles muy distintos: O Son do Camiño es el festival generalista más grande del noroeste peninsular (pop, indie, rock nacional e internacional, 90.000 asistentes/jornada), celebrado en el Monte do Gozo de Santiago de Compostela del 18 al 20 de junio. Resurrection Fest es el referente de metal, punk y hardcore del sur de Europa (70.000 asistentes/día), celebrado en A Gañidoira (Viveiro, Lugo) del 25 al 28 de junio.",
+        "Los recintos están separados por unos 200 km de carretera comarcal y autovía (2h 45 min en coche). Esto importa porque muchos asistentes que vienen de fuera de Galicia plantean ir a los dos en un solo viaje de 10 días — y esa logística requiere planificar ida, salto entre festivales y vuelta.",
+      ],
+    },
+    {
+      heading: "Cómo llegar a O Son do Camiño 2026 (Monte do Gozo, Santiago)",
+      paragraphs: [
+        "El recinto del Monte do Gozo se encuentra a 5 km del casco histórico de Santiago. Está conectado a la autovía AG-54 (salida Monte do Gozo), pero sin transporte público directo desde Vigo, Ourense o Oviedo en horarios de madrugada. Estas son las opciones reales para 2026.",
+      ],
+      bullets: [
+        "Lanzadera oficial Santiago centro → Monte do Gozo: gratuita durante el festival, sale de Praza de Galicia con frecuencia cada 15–30 min hasta las 03:30 aproximadamente. Plazas limitadas en hora punta.",
+        "Tren Renfe Madrid → Santiago: AVE Madrid Chamartín → Santiago de Compostela (3h 15 min, 30–60 €). Los últimos servicios salen sobre las 21:00, por lo que sólo cubren la ida. Vigo → Santiago en Renfe Cercanías (40 min, 5–8 €) opera hasta las 22:00.",
+        "ALSA Madrid → Santiago: 8h 30 min, 30–50 €. Opción nocturna disponible en algunos servicios pero pocas plazas en festival.",
+        "Carpooling ConcertRide a O Son do Camiño desde A Coruña (75 km, 1h, 3–6 €/asiento), Vigo (90 km, 1h 15 min, 4–7 €), Ourense (110 km, 1h 30 min, 5–8 €), Pontevedra (55 km, 45 min, 3–5 €), Oviedo (295 km, 3h 15 min, 9–12 €) y Madrid (585 km, 5h 30 min, 15–20 €). 0% comisión, vuelta de madrugada coordinada.",
+      ],
+    },
+    {
+      heading: "Cómo llegar a Resurrection Fest 2026 (A Gañidoira, Viveiro)",
+      paragraphs: [
+        "Viveiro es la localidad más complicada de los grandes festivales de España: 100 km de la ciudad gallega más cercana (A Coruña, Lugo), sin autovía directa, sin estación de tren propia. La opción de transporte público estándar es ALSA hasta Viveiro y de ahí lanzadera, pero las plazas se agotan en preventa.",
+      ],
+      bullets: [
+        "ALSA Madrid → Viveiro: 7–8 h, ~40 €. Solo 2–3 servicios diarios, todos diurnos. La vuelta nocturna es prácticamente inexistente.",
+        "Renfe Madrid → A Coruña/Lugo + ALSA hasta Viveiro: 5h 30 min de tren + 2h 30 min de bus. Total ~7h 30 min, 50–80 €. Sólo cubre la ida.",
+        "Lanzadera oficial Resurrection: opera desde Viveiro casco urbano hacia A Gañidoira, gratuita con la entrada. No cubre conexiones interurbanas.",
+        "Carpooling ConcertRide desde A Coruña (100 km, 1h 15 min, 4–7 €/asiento), Vigo (200 km, 2h 15 min, 6–9 €), Oviedo (190 km, 2h 15 min, 7–10 €), Bilbao (390 km, 4h, 12–17 €), Madrid (600 km, 6h, 16–22 €) y Barcelona (890 km, 8h 30 min, 22–30 €). Vuelta de madrugada coordinada con asistentes del mismo festival.",
+      ],
+    },
+    {
+      heading: "Combinar los dos festivales en un mismo viaje",
+      paragraphs: [
+        "Los dos festivales se celebran en semanas distintas (18–20 junio y 25–28 junio), por lo que es viable encadenar ambos con 4–5 días de descanso entre ellos. La ruta natural es entrar por Santiago para O Son do Camiño, descender a Vigo o Pontevedra los días intermedios y subir hacia Viveiro la semana siguiente.",
+        "El carpooling Santiago → Viveiro entre los dos festivales (215 km, 2h 45 min) suele costar 7–10 €/asiento con ConcertRide. Algunos asistentes publican rutas Madrid → Santiago el 17 jun y Santiago → Viveiro el 24 jun para cubrir el doble festival con un solo coche.",
+      ],
+    },
+    {
+      heading: "Carpooling vs. ALSA vs. tren para festivales gallegos",
+      paragraphs: [
+        "Para festivales gallegos en 2026, el orden de prioridad por flexibilidad y precio es:",
+      ],
+      bullets: [
+        "Carpooling local intra-gallego (3–8 €/asiento, vuelta de madrugada coordinada) — la mejor opción para asistentes de A Coruña, Vigo, Ourense, Pontevedra.",
+        "Carpooling de larga distancia desde Madrid/Bilbao (15–22 €) — más barato que ALSA y con vuelta posible (ALSA nocturno apenas existe).",
+        "AVE Madrid–Santiago + lanzadera (30–60 € + bus festival) — sólo cubre la ida; la vuelta requiere salir antes del cabeza de cartel.",
+        "ALSA Madrid–Viveiro (~40 €, sólo días específicos) — el peor en flexibilidad, pero existe.",
+      ],
+    },
+  ],
+  faqs: [
+    {
+      q: "¿Hay tren a O Son do Camiño desde Madrid?",
+      a: "No directamente al recinto. El AVE Madrid Chamartín → Santiago de Compostela tarda 3h 15 min (30–60 €). Desde la estación de Santiago hay lanzadera oficial gratuita al Monte do Gozo durante los días del festival. Para la vuelta de madrugada, el carpooling ConcertRide es la opción real (15–20 €/asiento desde Madrid, 0% comisión). URL: concertride.me/festivales/o-son-do-camino",
+    },
+    {
+      q: "¿Cómo se llega a Resurrection Fest sin coche?",
+      a: "ALSA Madrid → Viveiro (7–8h, ~40 €) cubre la ida. Renfe Madrid → A Coruña/Lugo + bus combinado también funciona. Para la vuelta de madrugada el transporte público no opera — la única opción real es el carpooling ConcertRide con asistentes del mismo festival (4–22 €/asiento según ciudad de salida). URL: concertride.me/festivales/resurrection-fest",
+    },
+    {
+      q: "¿Cuánto cuesta el carpooling de A Coruña a O Son do Camiño?",
+      a: "El carpooling de A Coruña a O Son do Camiño cuesta entre 3 y 6 €/asiento con ConcertRide (0% comisión). La distancia es de 75 km y el tiempo de conducción es de 1 hora. URL: concertride.me/rutas/a-coruna-o-son-do-camino",
+    },
+    {
+      q: "¿Se puede ir a Resurrection Fest desde Vigo en el día?",
+      a: "Sí, pero es ajustado. Vigo → Viveiro son 200 km (2h 15 min) y la vuelta debe organizarse antes de las 04:30 si no quieres pernoctar. Carpooling ConcertRide Vigo → Viveiro: 6–9 €/asiento con vuelta coordinada al mismo festival. URL: concertride.me/rutas/vigo-resurrection-fest",
+    },
+    {
+      q: "¿Qué festivales hay en Galicia además de O Son do Camiño y Resurrection Fest?",
+      a: "Otros festivales y citas musicales relevantes de Galicia en 2026: Festival de Ortigueira (folk celta, agosto), Sinsal (San Simón, agosto), Atlantic Fest (Vilagarcía de Arousa, julio), Caudal Fest (Lugo, julio) y Revenidas (Vilaxoán, agosto). Para todos ellos ConcertRide ofrece rutas locales gallegas con 0% comisión. URL: concertride.me/festivales-en/galicia",
+    },
+  ],
+  relatedLinks: [
+    { label: "Carpooling a O Son do Camiño", to: "/festivales/o-son-do-camino" },
+    { label: "Carpooling a Resurrection Fest", to: "/festivales/resurrection-fest" },
+    { label: "A Coruña → O Son do Camiño", to: "/rutas/a-coruna-o-son-do-camino" },
+    { label: "Vigo → O Son do Camiño", to: "/rutas/vigo-o-son-do-camino" },
+    { label: "A Coruña → Resurrection Fest", to: "/rutas/a-coruna-resurrection-fest" },
+    { label: "Conciertos en A Coruña", to: "/conciertos/a-coruna" },
+    { label: "Conciertos en Vigo", to: "/conciertos/vigo" },
+    { label: "Festivales en Galicia", to: "/festivales-en/galicia" },
+  ],
+  relatedPosts: [
+    "festivales-andalucia-2026-carpooling",
+    "festivales-espana-verano-2026",
+    "como-volver-festival-madrugada",
+  ],
+});
+
+BLOG_POSTS.push({
+  slug: "festivales-gratis-espana-2026",
+  title:
+    "Festivales gratis en España 2026: Ortigueira, Sonorama de día y otros gratuitos",
+  h1: "Festivales gratis en España 2026: la guía completa de los grandes eventos sin entrada",
+  excerpt:
+    "¿Qué festivales de música son gratis en España en 2026? Lista completa: Festival de Ortigueira (100.000 asistentes, gratis los 4 días), Sonorama escenarios de día (centro de Aranda), Jazzaldia (Plaza Trinidad), Bigsound, Mar de Pueblos, WOMAD Cáceres y más. Carpooling sin comisión.",
+  category: "guias",
+  tags: [
+    "festivales gratis",
+    "ortigueira",
+    "sonorama",
+    "jazzaldia",
+    "womad",
+    "festivales espana 2026",
+    "festivales sin entrada",
+  ],
+  publishedAt: "2026-05-07T17:00:00.000Z",
+  author: "Equipo ConcertRide",
+  readingMinutes: 8,
+  lede:
+    "Los festivales gratis de España en 2026 son una opción real para descubrir música en directo sin pagar entrada. Hay seis grandes festivales con escenarios totalmente gratuitos y otros con franjas de día sin coste, distribuidos por toda la península. Esta guía recoge fechas, ubicación, transporte y carpooling para cada uno.",
+  sections: [
+    {
+      heading: "Lista de festivales gratis en España 2026",
+      paragraphs: [
+        "España tiene más festivales gratuitos de gran formato de los que aparecen en redes sociales. Algunos son 100% gratis (todos los escenarios, todos los días); otros tienen franjas gratuitas o escenarios públicos al aire libre. La lista actualizada para 2026:",
+      ],
+      bullets: [
+        "Festival Internacional do Mundo Celta de Ortigueira (A Coruña, 9–12 julio): 100% gratuito, 100.000 asistentes acumulados, música celta y world.",
+        "Heineken Jazzaldia (Donostia–San Sebastián, 22–26 julio): 3 escenarios al aire libre completamente gratuitos (Plaza Trinidad, Plaza Sarriegi, Zurriola). Conciertos Kursaal y Victoria Eugenia son de pago.",
+        "WOMAD Cáceres (mayo): festival de world music en la plaza mayor histórica, 100% gratuito durante 4 días.",
+        "Mar de Pueblos (Cantabria, julio): festival folk gratuito en pueblos cántabros.",
+        "Bigsound (Vigo, julio): escenarios urbanos gratuitos durante una semana.",
+        "Festes de la Mercè Barcelona BAM (septiembre): conciertos gratuitos en plazas de Barcelona durante una semana.",
+        "Festival Folk Internacional de Olot (septiembre): folk catalán gratuito.",
+      ],
+    },
+    {
+      heading: "Festival de Ortigueira: el más grande gratis de España",
+      paragraphs: [
+        "Ortigueira es el festival gratuito de música de mayor magnitud en España. Celebrado en la villa marinera homónima de A Coruña cada segundo fin de semana de julio, en 2026 será del 9 al 12 de julio. Reúne más de 100.000 asistentes acumulados y combina cabezas de cartel internacionales (The Chieftains, Carlos Núñez, Capercaillie, Lúnasa) con artistas folk y celtas emergentes.",
+        "Toda la programación es gratuita. La organización se financia con patrocinios públicos (Concello de Ortigueira, Xunta de Galicia) y privados. La capacidad es libre — no hay aforo cerrado. Se recomienda llegar con horas de antelación a los conciertos cabecera del sábado por la noche.",
+        "Cómo llegar: Ortigueira no tiene tren propio. ALSA opera A Coruña–Ortigueira y Lugo–Ortigueira con plazas limitadas durante el festival. La opción más flexible es el carpooling ConcertRide desde A Coruña (100 km, 4–7 €/asiento), Lugo (110 km, 4–7 €), Vigo (195 km, 6–9 €), Madrid (690 km, 18–25 €) — sin comisión, vuelta de madrugada coordinada.",
+      ],
+    },
+    {
+      heading: "Jazzaldia: 3 escenarios gratuitos en San Sebastián",
+      paragraphs: [
+        "El Heineken Jazzaldia ofrece tres escenarios totalmente gratuitos al aire libre durante los cinco días del festival (22–26 julio 2026): Plaza de la Trinidad (cabezas de cartel), Plaza Sarriegi (jazz contemporáneo) y la playa de la Zurriola (electrónica + jazz).",
+        "Los conciertos en Auditorio Kursaal y Teatro Victoria Eugenia sí son de pago (35–80 € la entrada), pero un asistente puede planificar 4 días de festival sin pagar nada combinando los tres escenarios gratis. Es la mejor opción de festival jazz a coste cero en España.",
+        "Carpooling al Jazzaldia desde Bilbao (100 km, 4–7 €/asiento), Pamplona (90 km, 4–7 €), Madrid (450 km, 13–18 €) sin comisión.",
+      ],
+    },
+    {
+      heading: "WOMAD Cáceres: world music gratis en la Plaza Mayor",
+      paragraphs: [
+        "WOMAD Cáceres es la edición española del festival fundado por Peter Gabriel. Se celebra cada mayo en la plaza mayor de Cáceres (UNESCO World Heritage), 100% gratuita durante 4 días. Programa world music, fusión y artistas africanos, asiáticos y latinoamericanos.",
+        "Cómo llegar: Cáceres no tiene tren AVE pero sí Renfe Larga Distancia desde Madrid (3h 30 min, 25–45 €). Carpooling ConcertRide desde Madrid (270 km, 9–12 €/asiento), Sevilla (300 km, 10–14 €), Badajoz (90 km, 4–7 €).",
+      ],
+    },
+    {
+      heading: "Comparativa: festival gratis vs festival de pago",
+      paragraphs: [
+        "Un fin de semana de festival gratuito (Ortigueira, Jazzaldia escenarios públicos, WOMAD Cáceres) cuesta 0 € de entrada + 8–25 € de carpooling + 30–80 € de comida y alojamiento básico = 40–110 € totales por persona. Frente a Mad Cool (entrada 250 € + transporte y alojamiento) la diferencia es de 5–8 veces. La calidad artística no es comparable directamente — los festivales gratuitos suelen tener cabezas de cartel de world music o folk, no las grandes giras pop/rock — pero como descubrimiento musical son experiencia equivalente.",
+      ],
+    },
+  ],
+  faqs: [
+    {
+      q: "¿Qué festival de música más grande es gratis en España?",
+      a: "El Festival Internacional do Mundo Celta de Ortigueira (A Coruña, 9–12 julio 2026) es el festival 100% gratuito más grande de España, con más de 100.000 asistentes acumulados durante 4 días. Toda la programación (cabezas de cartel internacionales y artistas locales) es de entrada libre, sin venta de tickets. URL: concertride.me/festivales/festival-ortigueira",
+    },
+    {
+      q: "¿El Jazzaldia es gratis?",
+      a: "Parcialmente. El Heineken Jazzaldia (Donostia, 22–26 julio 2026) tiene tres escenarios al aire libre completamente gratuitos: Plaza de la Trinidad, Plaza Sarriegi y playa de la Zurriola. Los conciertos en el Auditorio Kursaal y Teatro Victoria Eugenia son de pago (35–80 €). Un asistente puede pasar los 5 días entre escenarios gratuitos. URL: concertride.me/festivales/jazzaldia",
+    },
+    {
+      q: "¿Cómo llegar al Festival de Ortigueira sin coche?",
+      a: "ALSA opera A Coruña–Ortigueira (1h 30 min, 8–12 €) y Lugo–Ortigueira (1h 30 min, 8–12 €) con horarios reforzados durante el festival, pero las plazas se agotan. Renfe no cubre directamente Ortigueira. Carpooling ConcertRide desde A Coruña 4–7 €/asiento (100 km), Lugo 4–7 € (110 km), Vigo 6–9 € (195 km), Madrid 18–25 € (690 km), 0% comisión. URL: concertride.me/rutas/a-coruna-festival-ortigueira",
+    },
+    {
+      q: "¿Qué festivales de world music son gratuitos en España?",
+      a: "Los festivales de world music gratuitos en España son: WOMAD Cáceres (mayo, plaza mayor histórica), Festival de Ortigueira (julio, A Coruña, celta y world), Mar de Pueblos (julio, Cantabria, folk), y Festes de la Mercè BAM Barcelona (septiembre). Todos con entrada libre y cabezas de cartel internacionales.",
+    },
+    {
+      q: "¿Hay alojamiento gratuito en festivales gratis?",
+      a: "Algunos festivales gratis incluyen camping libre y gratuito: Ortigueira habilita zonas de camping en parcelas próximas al recinto. Otros no — WOMAD Cáceres es urbano y requiere reserva en la ciudad. Para Jazzaldia, la opción más barata es albergue municipal o reservar con 3+ meses de antelación. El gasto principal en festival gratuito es transporte + alojamiento, no la entrada.",
+    },
+  ],
+  relatedLinks: [
+    { label: "Festival de Ortigueira", to: "/festivales/festival-ortigueira" },
+    { label: "Heineken Jazzaldia", to: "/festivales/jazzaldia" },
+    { label: "Festivales en Galicia", to: "/festivales-en/galicia" },
+    { label: "A Coruña → Ortigueira", to: "/rutas/a-coruna-festival-ortigueira" },
+    { label: "Bilbao → Jazzaldia", to: "/rutas/bilbao-jazzaldia" },
+  ],
+  relatedPosts: [
+    "festivales-galicia-2026-carpooling",
+    "festivales-baratos-espana-2026",
+    "festivales-espana-verano-2026",
+  ],
+});
+
+BLOG_POSTS.push({
+  slug: "festivales-jazz-espana-2026",
+  title:
+    "Festivales de jazz en España 2026: Jazzaldia, Vitoria Jazz, Getxo Jazz y más",
+  h1: "Festivales de jazz en España 2026: las grandes citas del jazz peninsular",
+  excerpt:
+    "Los festivales de jazz de España en 2026 incluyen Jazzaldia Donostia (61.ª edición, 22–26 jul), Vitoria Jazz (julio, Plaza de los Fueros), Getxo Jazz (julio, Bizkaia), Festival de Jazz de Madrid (otoño) y Jazz San Javier (Murcia). Programación, fechas, transporte y carpooling.",
+  category: "guias",
+  tags: [
+    "jazz",
+    "jazzaldia",
+    "vitoria jazz",
+    "getxo jazz",
+    "festivales jazz",
+    "festivales espana 2026",
+  ],
+  publishedAt: "2026-05-07T18:00:00.000Z",
+  author: "Equipo ConcertRide",
+  readingMinutes: 7,
+  lede:
+    "España es uno de los países de Europa con mayor densidad de festivales de jazz por habitante. Cinco festivales de referencia se concentran entre julio y noviembre, con cabezas de cartel internacionales (Wynton Marsalis, Herbie Hancock, Pat Metheny, Diana Krall) y artistas españoles como Chano Domínguez o Niño Josele. Esta guía recoge fechas, ubicación y transporte.",
+  sections: [
+    {
+      heading: "Heineken Jazzaldia (Donostia, 22–26 julio)",
+      paragraphs: [
+        "El Jazzaldia es el festival de jazz más antiguo del Estado español (61.ª edición en 2026) y uno de los tres más importantes de Europa, junto con Montreux (Suiza) y North Sea Jazz (Países Bajos). Combina escenarios de pago (Auditorio Kursaal, Teatro Victoria Eugenia) con tres escenarios al aire libre gratuitos: Plaza de la Trinidad, Plaza Sarriegi y la playa de la Zurriola.",
+        "Cómo llegar: Donostia tiene Renfe (Madrid–Donostia 4h 30 min, 35–60 €), ALSA (5h 30 min, 25–45 €) y avión a Hondarribia. Carpooling ConcertRide desde Bilbao (100 km, 4–7 €/asiento), Pamplona (90 km, 4–7 €), Madrid (450 km, 13–18 €), Barcelona (530 km, 14–20 €).",
+      ],
+    },
+    {
+      heading: "Vitoria-Gasteiz Jazz Festival (mediados julio)",
+      paragraphs: [
+        "El Festival de Jazz de Vitoria-Gasteiz se celebra cada mediados de julio en la Plaza de los Fueros y el Teatro Principal. Es el segundo festival de jazz más importante del País Vasco y atrae a 50.000 asistentes acumulados durante una semana. Cabezas de cartel históricos incluyen Diana Krall, Stevie Wonder, B.B. King y Chick Corea.",
+        "Cómo llegar: Vitoria-Gasteiz está bien conectada por Renfe (Madrid–Vitoria 4h, 30–55 €) y autovía A-1. Carpooling ConcertRide desde Bilbao (65 km, 3–6 €/asiento), Pamplona (95 km, 4–7 €), Madrid (350 km, 10–14 €).",
+      ],
+    },
+    {
+      heading: "Getxo Jazz Festival (Bizkaia, primer fin de semana julio)",
+      paragraphs: [
+        "Getxo Jazz se celebra en Algorta-Getxo (Gran Bilbao) cada primer fin de semana de julio. Es un festival de pequeño formato (5.000–8.000 asistentes/día) pero con cartel de gran nivel: Wynton Marsalis Septet, Pat Metheny Group, Bobby McFerrin han pasado por allí. Combina concursos de jazz emergente con conciertos de cabecera.",
+        "Cómo llegar: Bilbao Metro L1 hasta Algorta (15 min desde el centro). Desde fuera: carpooling ConcertRide a Bilbao (4–17 € según origen) + Metro al festival.",
+      ],
+    },
+    {
+      heading: "Festival de Jazz de Madrid JazzMadrid (octubre–noviembre)",
+      paragraphs: [
+        "JazzMadrid se celebra cada otoño (octubre–noviembre) en varios espacios de Madrid: Fernán Gómez Centro Cultural, Teatro Circo Price, Café Berlín. Más de un mes de programación con conciertos diarios. Es el festival de jazz urbano más extenso de España en duración.",
+        "Cómo llegar: cualquier asistente de Madrid puede ir en metro o autobús urbano. Desde fuera: Renfe AVE Madrid (Barcelona, Sevilla, Valencia), o carpooling ConcertRide a Madrid (4–22 € según origen).",
+      ],
+    },
+    {
+      heading: "Comparativa: programación y precio",
+      paragraphs: [
+        "Si tu prioridad es jazz internacional de máximo nivel, Jazzaldia Donostia es la opción. Si buscas formato íntimo con cabezas de cartel internacionales, Vitoria Jazz o Getxo Jazz. Si vives en Madrid, JazzMadrid ofrece la programación más larga del año (1+ mes). Todos combinan escenarios gratuitos con conciertos de pago — un asistente puede planificar un festival de jazz a coste 0 en Donostia o Vitoria.",
+        "Para combinarlos: Jazzaldia (22–26 jul) + Vitoria Jazz (mediados jul, anual) + Getxo Jazz (primer finde jul) son consecutivos en el calendario y separados por 65–115 km, viables como circuito vasco de jazz en una sola semana usando carpooling local.",
+      ],
+    },
+  ],
+  faqs: [
+    {
+      q: "¿Cuál es el festival de jazz más grande de España?",
+      a: "El Heineken Jazzaldia de Donostia–San Sebastián (61.ª edición en 2026) es el festival de jazz más grande del Estado español por número de asistentes acumulados (~150.000 durante 5 días) y por antigüedad. Se celebra desde 1966 cada última semana de julio. URL: concertride.me/festivales/jazzaldia",
+    },
+    {
+      q: "¿Cuándo es el Festival de Jazz de Vitoria 2026?",
+      a: "El Festival de Jazz de Vitoria-Gasteiz 2026 se celebra a mediados de julio en la Plaza de los Fueros y el Teatro Principal. Las fechas exactas se anuncian en jazzvitoria.com en marzo–abril. Históricamente coincide con la semana previa al Jazzaldia de Donostia, lo que permite asistir a ambos.",
+    },
+    {
+      q: "¿Cómo llegar al Jazzaldia desde Madrid?",
+      a: "Madrid → Donostia: Renfe AVE/Alvia (4h 30 min, 35–60 €), ALSA (5h 30 min, 25–45 €), avión Madrid–Hondarribia (1h, 60–120 €). Carpooling ConcertRide desde Madrid: 13–18 €/asiento (450 km, 4h 30 min), 0% comisión, vuelta de madrugada coordinada con asistentes del mismo festival. URL: concertride.me/rutas/madrid-jazzaldia",
+    },
+    {
+      q: "¿Hay festivales de jazz gratis en España?",
+      a: "Sí. El Jazzaldia tiene tres escenarios al aire libre completamente gratuitos (Plaza Trinidad, Plaza Sarriegi, Zurriola). Vitoria Jazz programa conciertos gratuitos en Plaza de los Fueros durante el festival. Getxo Jazz tiene jam sessions gratuitas. JazzMadrid ofrece conciertos gratuitos en bibliotecas y centros culturales. Un asistente puede planificar una semana completa de jazz a coste 0 + transporte.",
+    },
+    {
+      q: "¿Cuánto cuesta el carpooling al Jazzaldia desde Bilbao?",
+      a: "El carpooling de Bilbao a Donostia para el Jazzaldia cuesta 4–7 €/asiento con ConcertRide (100 km, 1h, 0% comisión). Es la ruta más utilizada del festival junto con Vitoria–Donostia (115 km, 5–7 €) y Pamplona–Donostia (90 km, 4–7 €). URL: concertride.me/rutas/bilbao-jazzaldia",
+    },
+  ],
+  relatedLinks: [
+    { label: "Heineken Jazzaldia", to: "/festivales/jazzaldia" },
+    { label: "Bilbao → Jazzaldia", to: "/rutas/bilbao-jazzaldia" },
+    { label: "Madrid → Jazzaldia", to: "/rutas/madrid-jazzaldia" },
+    { label: "Conciertos en Donostia", to: "/conciertos/donostia" },
+    { label: "Conciertos en Bilbao", to: "/conciertos/bilbao" },
+  ],
+  relatedPosts: [
+    "festivales-gratis-espana-2026",
+    "festivales-espana-verano-2026",
+    "como-volver-festival-madrugada",
+  ],
+});
 
 // Refresh derived exports
 export const BLOG_POSTS_BY_SLUG: Record<string, BlogPost> = Object.fromEntries(

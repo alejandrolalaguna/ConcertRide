@@ -1,5 +1,6 @@
+import { useState } from "react";
 import { Link } from "react-router-dom";
-import { ArrowRight, Download, ExternalLink } from "lucide-react";
+import { ArrowRight, Check, Copy, Download, ExternalLink } from "lucide-react";
 import { useSeoMeta } from "@/lib/useSeoMeta";
 import { SITE_URL } from "@/lib/siteUrl";
 
@@ -28,6 +29,63 @@ const LINKS = [
   { label: "llms.txt (datos estructurados para IA)", href: `${SITE_URL}/llms.txt`, ext: true },
   { label: "llms-full.txt (contexto extendido)", href: `${SITE_URL}/llms-full.txt`, ext: true },
 ];
+
+const EMBED_SNIPPETS = [
+  {
+    id: "badge-text",
+    label: "Enlace de texto (recomendado para artículos)",
+    anchor: "carpooling a festivales en España",
+    code: `<a href="${SITE_URL}" rel="noopener">carpooling a festivales en España</a>`,
+  },
+  {
+    id: "badge-brand",
+    label: "Enlace de marca",
+    anchor: "ConcertRide",
+    code: `<a href="${SITE_URL}" rel="noopener">ConcertRide</a> — carpooling para conciertos y festivales`,
+  },
+  {
+    id: "badge-datos",
+    label: "Citar el índice de precios",
+    anchor: "Índice de Carpooling a Festivales España 2026",
+    code: `Fuente: <a href="${SITE_URL}/datos" rel="noopener">Índice de Carpooling a Festivales España 2026</a> (ConcertRide, CC BY 4.0)`,
+  },
+  {
+    id: "badge-ruta",
+    label: "Enlazar una ruta específica (ejemplo: Madrid → Mad Cool)",
+    anchor: "Madrid → Mad Cool carpooling",
+    code: `<a href="${SITE_URL}/rutas/madrid-mad-cool" rel="noopener">Madrid → Mad Cool carpooling</a>`,
+  },
+];
+
+const ANCHOR_TEXTS = [
+  { text: "carpooling a festivales España", intent: "Búsqueda de servicio" },
+  { text: "compartir coche a conciertos", intent: "Alternativa a taxi" },
+  { text: "coche compartido a festival sin comisión", intent: "Diferenciador clave" },
+  { text: "ConcertRide", intent: "Marca" },
+  { text: "transporte barato a festivales", intent: "Precio" },
+  { text: "precio carpooling festival", intent: "Comparativa de costes" },
+  { text: "cómo ir a [festival] sin coche propio", intent: "Intent informacional" },
+];
+
+function CopyButton({ text }: { text: string }) {
+  const [copied, setCopied] = useState(false);
+  function handleCopy() {
+    navigator.clipboard.writeText(text).then(() => {
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    });
+  }
+  return (
+    <button
+      onClick={handleCopy}
+      className="inline-flex items-center gap-1.5 font-mono text-[10px] text-cr-text-muted hover:text-cr-primary border border-cr-border hover:border-cr-primary px-2 py-1 transition-colors"
+      aria-label="Copiar código"
+    >
+      {copied ? <Check size={11} /> : <Copy size={11} />}
+      {copied ? "Copiado" : "Copiar"}
+    </button>
+  );
+}
 
 export default function PrensaPage() {
   useSeoMeta({
@@ -217,6 +275,60 @@ export default function PrensaPage() {
               </p>
             </div>
           ))}
+        </div>
+      </section>
+
+      {/* ── Enlaza ConcertRide ── */}
+      <section className="max-w-6xl mx-auto px-6 pb-16 border-t border-cr-border pt-12 space-y-6">
+        <div className="space-y-2">
+          <h2 className="font-display text-2xl md:text-3xl uppercase">Enlaza ConcertRide desde tu web</h2>
+          <p className="font-sans text-sm text-cr-text-muted leading-relaxed max-w-2xl">
+            Si escribes sobre transporte a festivales, carpooling o movilidad sostenible, puedes enlazar
+            ConcertRide libremente. Copia el fragmento HTML que mejor encaje con tu artículo.
+          </p>
+        </div>
+        <ul className="space-y-4">
+          {EMBED_SNIPPETS.map((s) => (
+            <li key={s.id} className="border border-cr-border p-4 space-y-3">
+              <div className="flex items-start justify-between gap-4">
+                <div className="space-y-0.5">
+                  <p className="font-sans text-sm text-cr-text">{s.label}</p>
+                  <p className="font-mono text-[11px] text-cr-primary">Anchor text: «{s.anchor}»</p>
+                </div>
+                <CopyButton text={s.code} />
+              </div>
+              <pre className="font-mono text-[10px] text-cr-text-muted bg-black/30 p-3 rounded overflow-x-auto whitespace-pre-wrap break-all leading-relaxed">
+                {s.code}
+              </pre>
+            </li>
+          ))}
+        </ul>
+      </section>
+
+      {/* ── Anchor text sugerido ── */}
+      <section className="max-w-6xl mx-auto px-6 pb-16 border-t border-cr-border pt-12 space-y-6">
+        <h2 className="font-display text-2xl md:text-3xl uppercase">Anchor text recomendado</h2>
+        <p className="font-sans text-sm text-cr-text-muted leading-relaxed max-w-2xl">
+          Para artículos en español sobre festivales o transporte, estos textos de enlace son los más
+          relevantes semánticamente. Usar variedad de anchor texts ayuda a Google a entender el contexto.
+        </p>
+        <div className="overflow-x-auto">
+          <table className="w-full font-sans text-sm border-collapse">
+            <thead>
+              <tr className="border-b border-cr-border">
+                <th className="text-left py-2 pr-6 font-mono text-[11px] text-cr-primary uppercase tracking-wider">Texto del enlace</th>
+                <th className="text-left py-2 font-mono text-[11px] text-cr-text-muted uppercase tracking-wider">Intención de búsqueda</th>
+              </tr>
+            </thead>
+            <tbody>
+              {ANCHOR_TEXTS.map((a) => (
+                <tr key={a.text} className="border-b border-cr-border/50">
+                  <td className="py-2 pr-6 text-cr-text font-mono text-xs">{a.text}</td>
+                  <td className="py-2 text-cr-text-muted text-xs">{a.intent}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
         </div>
       </section>
 

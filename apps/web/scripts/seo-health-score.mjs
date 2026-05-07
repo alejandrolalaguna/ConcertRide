@@ -44,11 +44,40 @@ async function countPages() {
 
 async function validateSitemap() {
   try {
-    const content = await fs.readFile(path.join(distDir, "sitemap.xml"), "utf8");
-    const urlCount = (content.match(/<url>/g) || []).length;
-    return { exists: true, urlCount };
+    const masterPath = path.join(distDir, "sitemap.xml");
+    const content = await fs.readFile(masterPath, "utf8");
+    const directUrlCount = (content.match(/<url>/g) || []).length;
+    if (directUrlCount > 0) {
+      return { exists: true, urlCount: directUrlCount, kind: "urlset" };
+    }
+    // Sitemap-index path: aggregate URL counts from referenced sub-sitemaps.
+    // Match either remote <loc> entries (https://.../sitemap-*.xml) or local files in distDir.
+    const subRefs = Array.from(content.matchAll(/<loc>([^<]+sitemap-[^<]+\.xml)<\/loc>/g)).map(
+      (m) => m[1],
+    );
+    let aggregate = 0;
+    let resolvedFiles = 0;
+    for (const ref of subRefs) {
+      // Convert ref to local file path: take basename, look in distDir
+      const baseName = ref.split("/").pop();
+      const localPath = path.join(distDir, baseName);
+      try {
+        const subContent = await fs.readFile(localPath, "utf8");
+        aggregate += (subContent.match(/<url>/g) || []).length;
+        resolvedFiles++;
+      } catch {
+        // Sub-sitemap may live behind /api or be remote-only; skip silently
+      }
+    }
+    return {
+      exists: true,
+      urlCount: aggregate,
+      kind: "sitemapindex",
+      subSitemapCount: subRefs.length,
+      resolvedFiles,
+    };
   } catch {
-    return { exists: false, urlCount: 0 };
+    return { exists: false, urlCount: 0, kind: "missing" };
   }
 }
 
@@ -71,14 +100,27 @@ async function validateRobots() {
 async function validateLLMS() {
   try {
     const content = await fs.readFile(path.join(distDir, "llms.txt"), "utf8");
+    // Accept several Q&A conventions: explicit "Q:" markers OR Spanish "¿...?" questions
+    // (the format used in concertride.me/llms.txt) OR markdown bold questions.
+    const explicitQCount = (content.match(/\bQ:/g) || []).length;
+    const spanishQCount = (content.match(/¿[^?]{2,200}\?/g) || []).length;
+    const boldQCount = (content.match(/\*\*[^*]{4,200}\?\*\*/g) || []).length;
+    const totalQ = explicitQCount + spanishQCount + boldQCount;
     return {
       exists: true,
       size: content.length,
-      hasQ: content.includes("Q:"),
+      hasQ: totalQ >= 10,
+      questionCount: totalQ,
       hasFestivals: content.toLowerCase().includes("festival"),
     };
   } catch {
-    return { exists: false, size: 0, hasQ: false, hasFestivals: false };
+    return {
+      exists: false,
+      size: 0,
+      hasQ: false,
+      questionCount: 0,
+      hasFestivals: false,
+    };
   }
 }
 
@@ -191,11 +233,18 @@ async function main() {
   const llms = await validateLLMS();
   if (llms.exists && llms.size > 500 && llms.hasQ && llms.hasFestivals) {
     scoring.llms.score = 15;
-    console.log(`   ✓ llms.txt: ${llms.size} bytes, Q&A present, festivals listed`);
+    console.log(
+      `   ✓ llms.txt: ${llms.size} bytes, ${llms.questionCount} Q&A markers, festivals listed`,
+    );
     console.log(`   ✓ Score: ${scoring.llms.score}/${scoring.llms.weight}`);
   } else {
     scoring.llms.score = 5;
-    issues.push("llms.txt incomplete or missing content");
+    if (!llms.exists) issues.push("llms.txt missing in dist/");
+    else if (llms.size <= 500) issues.push(`llms.txt too small (${llms.size} bytes, need >500)`);
+    else if (!llms.hasQ)
+      issues.push(`llms.txt has too few Q&A markers (${llms.questionCount}, need ≥10)`);
+    else if (!llms.hasFestivals) issues.push("llms.txt does not mention festivals");
+    else issues.push("llms.txt incomplete or missing content");
   }
 
   // 5. robots.txt
@@ -255,7 +304,16 @@ async function main() {
   const sitemap = await validateSitemap();
   if (sitemap.exists && sitemap.urlCount >= 200) {
     scoring.sitemap.score = 10;
-    console.log(`   ✓ sitemap.xml with ${sitemap.urlCount} URLs`);
+    if (sitemap.kind === "sitemapindex") {
+      console.log(
+        `   ✓ sitemap.xml is a sitemap-index referencing ${sitemap.subSitemapCount} sub-sitemaps`,
+      );
+      console.log(
+        `   ✓ Aggregated ${sitemap.urlCount} URLs across ${sitemap.resolvedFiles} resolved sub-sitemaps`,
+      );
+    } else {
+      console.log(`   ✓ sitemap.xml with ${sitemap.urlCount} URLs`);
+    }
     console.log(`   ✓ Score: ${scoring.sitemap.score}/${scoring.sitemap.weight}`);
   } else {
     scoring.sitemap.score = 5;
