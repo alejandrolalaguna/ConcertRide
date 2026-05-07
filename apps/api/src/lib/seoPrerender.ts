@@ -3806,8 +3806,33 @@ function buildRenderedHtml(html: string, page: PageData, base: string, env?: { G
 ${page.body}
 </main>`;
 
-  // Whitespace-tolerant: handles `<div id="root"></div>` or with newlines/spaces inside
-  result = result.replace(/<div\s+id="root">\s*<\/div>/, `<div id="root">${staticBody}</div>`);
+  // Replace #root content regardless of whether it's empty or contains prerendered homepage HTML.
+  // The dist/index.html ships with the homepage prerender baked in; we must overwrite it
+  // for every bot request so festival/route/blog pages don't inherit homepage schemas (e.g.
+  // duplicate FAQPage that caused GSC "El campo FAQPage está duplicado" on medusa-festival).
+  // Strategy: find <div id="root">, then find the matching closing </div> by tracking depth.
+  const rootOpen = '<div id="root">';
+  const rootIdx = result.indexOf(rootOpen);
+  if (rootIdx !== -1) {
+    let depth = 1;
+    let pos = rootIdx + rootOpen.length;
+    while (pos < result.length && depth > 0) {
+      const nextOpen = result.indexOf("<div", pos);
+      const nextClose = result.indexOf("</div>", pos);
+      if (nextClose === -1) break;
+      if (nextOpen !== -1 && nextOpen < nextClose) {
+        depth++;
+        pos = nextOpen + 1;
+      } else {
+        depth--;
+        if (depth === 0) {
+          result = result.slice(0, rootIdx) + `<div id="root">${staticBody}</div>` + result.slice(nextClose + 6);
+          break;
+        }
+        pos = nextClose + 6;
+      }
+    }
+  }
 
   return result;
 }
