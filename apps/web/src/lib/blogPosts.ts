@@ -5258,6 +5258,1129 @@ BLOG_POSTS.push(
 
 );
 
+// ──────────────────────────────────────────────────────────────────────
+// Posts: artistas españoles de gira 2026 + Vive Latino + comparativas tren
+// ──────────────────────────────────────────────────────────────────────
+BLOG_POSTS.push(
+  // ──────────────────────────────────────────────────────────────────────
+  {
+    slug: "aitana-concierto-2026-como-llegar",
+    title:
+      "Concierto de Aitana 2026: cómo llegar al WiZink Center, Palau Sant Jordi y BEC! en carpooling",
+    h1: "Aitana ALPHA Tour 2026: cómo llegar en carpooling al WiZink Center (Madrid), Palau Sant Jordi (Barcelona) y BEC! (Bilbao)",
+    excerpt:
+      "Aitana llena pabellones en toda España en 2026. ¿Cuánto cuesta ir en carpooling al WiZink Center desde Toledo, Zaragoza o Valencia? ¿Y al Palau Sant Jordi desde Madrid? Guía de transporte para el ALPHA Tour con precios reales y alternativas al metro.",
+    category: "guias",
+    tags: ["aitana", "carpooling", "wizink center", "conciertos", "transporte", "alpha tour"],
+    publishedAt: "2026-05-06T10:00:00.000Z",
+    author: "Equipo ConcertRide",
+    readingMinutes: 7,
+    lede: "El ALPHA Tour de Aitana en 2026 recorre los principales pabellones de España: WiZink Center en Madrid, Palau Sant Jordi en Barcelona, BEC! en Bilbao. Aquí tienes los precios de carpooling reales, el transporte público disponible y los trucos para no quedarte sin vuelta de madrugada.",
+    coverImage: {
+      src: "/blog/aitana-alpha-tour-2026.jpg",
+      alt: "Concierto de Aitana en el WiZink Center Madrid 2026",
+      width: 1200,
+      height: 630,
+    },
+    sections: [
+      {
+        heading: "WiZink Center Madrid: cómo llegar al concierto de Aitana",
+        paragraphs: [
+          "El WiZink Center de Madrid está en el barrio de Ventas (Alcalá de Henares). Las opciones de transporte son: Metro línea 5 (Ventas, 2 min a pie), Metro línea 2 (Ventas, 2 min a pie), Bus 21, 30, 63, 143 y 145. El parking de la zona está a 500 m, pero se llena en las 2 horas previas al concierto y las multas en la zona de carga y descarga son frecuentes.",
+        ],
+        bullets: [
+          "Metro L5 (verde, parada Ventas): directo desde Sol (9 min), Nuevos Ministerios (12 min), Legazpi (18 min). Funciona hasta las 1:30–2:00 en noches de concierto.",
+          "Metro L2 (roja, parada Ventas): desde Goya (3 min), Retiro (6 min), Banco de España (8 min).",
+          "Carpooling con ConcertRide desde Toledo (4–7 €, 70 km), desde Guadalajara (3–6 €, 60 km), desde Segovia (4–7 €, 90 km), desde Ávila (5–8 €, 110 km), desde Zaragoza (9–13 €, 325 km). Llegada directa al WiZink Center con vuelta coordinada al terminar el concierto.",
+          "Taxi/Cabify desde el centro de Madrid: 10–15 € ida. Multiplicado por 2 pasajeros es más caro que el carpooling si vienes de fuera de Madrid.",
+          "AVE desde Valencia (10–14 €, 1h 40 min) o Barcelona (15–20 €, 2h 30 min) + Metro L5/L2 desde Atocha: viable, pero sin trenes de vuelta de madrugada.",
+        ],
+      },
+      {
+        heading: "Palau Sant Jordi Barcelona: cómo llegar al concierto de Aitana",
+        paragraphs: [
+          "El Palau Sant Jordi está en la montaña de Montjuïc, a 15 min del centro de Barcelona. Es uno de los recintos más difíciles de acceder en transporte público tras el concierto, ya que el teleférico no opera de madrugada y el metro L1 (España) está a 15 min a pie cuesta abajo.",
+        ],
+        bullets: [
+          "Metro L1 (parada España) + 15 min a pie por la montaña: la mejor opción de ida. De vuelta, a las 1:30–2:00 suele haber largas colas (40–60 min).",
+          "Bus de la montaña de Montjuïc (línea 150): sale desde la Plaça d'Espanya, servicio reducido de noche.",
+          "Carpooling con ConcertRide desde Madrid (15–20 €, 620 km, 5h 30 min), desde Valencia (10–14 €, 355 km, 3h 15 min), desde Zaragoza (8–12 €, 306 km, 2h 45 min). Llegada directa al Palau y vuelta sin depender del metro.",
+          "Taxi desde el centro de Barcelona hasta Montjuïc: 10–18 €. La demanda de madrugada puede disparar el precio hasta 35 €.",
+        ],
+      },
+      {
+        heading: "BEC! Bilbao: cómo llegar al concierto de Aitana",
+        paragraphs: [
+          "El Bilbao Exhibition Centre (BEC!) está en Barakaldo, a 8 km del centro de Bilbao. El metro de Bilbao (línea 1 o 2, parada Barakaldo) llega a 10 min a pie del recinto. El metro amplía servicio en noches de grandes conciertos hasta las 2:00.",
+        ],
+        bullets: [
+          "Metro Bilbao línea 1 (parada Barakaldo): desde el centro de Bilbao (Abando) en 12 min, 1,60–2,30 € según zona.",
+          "Carpooling con ConcertRide desde Donostia (4–7 €, 100 km), desde Vitoria-Gasteiz (3–6 €, 65 km), desde Pamplona (5–8 €, 155 km), desde Santander (4–7 €, 100 km). La mejor opción para asistentes del País Vasco y Navarra.",
+          "Autobús interurbano desde Pamplona (Conda, 6–10 €, 1h 30 min): llega a la estación de autobuses de Bilbao, no al BEC!. Hay que añadir metro o taxi (5–8 € más).",
+        ],
+      },
+      {
+        heading: "Tabla de precios de carpooling para el ALPHA Tour de Aitana 2026",
+        paragraphs: [
+          "Estos son los precios aproximados por asiento (sin comisión de ConcertRide) para los conciertos de Aitana en cada ciudad:",
+        ],
+        bullets: [
+          "Madrid (WiZink Center): desde Toledo 4–7 €, desde Guadalajara 3–6 €, desde Segovia 4–7 €, desde Zaragoza 9–13 €, desde Valencia 10–14 €.",
+          "Barcelona (Palau Sant Jordi): desde Madrid 15–20 €, desde Valencia 10–14 €, desde Zaragoza 8–12 €, desde Girona 4–7 €.",
+          "Bilbao (BEC!): desde Donostia 4–7 €, desde Vitoria-Gasteiz 3–6 €, desde Pamplona 5–8 €, desde Santander 4–7 €.",
+          "Valencia (Pabellón Fuente de San Luis): desde Alicante 5–8 €, desde Castellón 3–5 €, desde Murcia 7–11 €.",
+          "Sevilla (FIBES): desde Cádiz 4–7 €, desde Málaga 5–8 €, desde Córdoba 3–6 €, desde Huelva 5–8 €.",
+        ],
+      },
+    ],
+    faqs: [
+      {
+        q: "¿Cómo llegar al concierto de Aitana en el WiZink Center de Madrid?",
+        a: "En metro: línea L5 o L2, parada Ventas (2 min a pie). En carpooling: desde Toledo 4–7 €, desde Zaragoza 9–13 €, desde Valencia 10–14 €. ConcertRide tiene 0% comisión.",
+      },
+      {
+        q: "¿Hay carpooling para el concierto de Aitana en Barcelona?",
+        a: "Sí. Con ConcertRide, desde Madrid puedes ir al Palau Sant Jordi por 15–20 €/asiento. Desde Valencia, 10–14 €. Desde Zaragoza, 8–12 €. El carpooling incluye llegada directa al Palau y vuelta coordinada con el conductor.",
+      },
+      {
+        q: "¿Qué hacer si pierdo el metro después del concierto de Aitana?",
+        a: "En Madrid el metro opera hasta las 1:30–2:00. Si sales después, el carpooling de vuelta con ConcertRide es la opción más económica — coordina con el conductor antes del concierto. En Barcelona, el metro L1 para a las 2:00; el taxi de Montjuïc puede costar 20–35 € de madrugada.",
+      },
+    ],
+    relatedLinks: [
+      { label: "Viajes al WiZink Center Madrid", to: "/recintos/wizink-center" },
+      { label: "Carpooling Madrid", to: "/conciertos/madrid" },
+      { label: "Artista: Aitana", to: "/artistas/aitana" },
+    ],
+    relatedPosts: ["como-volver-festival-madrugada", "carpooling-vs-taxi-festival"],
+  },
+
+  // ──────────────────────────────────────────────────────────────────────
+  {
+    slug: "dani-martin-gira-2026-carpooling",
+    title: "Dani Martín Gira 2026: carpooling y transporte a Zaragoza, Madrid y A Coruña",
+    h1: "Dani Martín Gira 2026: cómo llegar al concierto en carpooling — Zaragoza, Madrid y A Coruña",
+    excerpt:
+      "Dani Martín está de vuelta en 2026 con una gira por los principales pabellones de España. Guía de transporte para llegar al Pabellón Príncipe Felipe de Zaragoza, al WiZink Center de Madrid y al Coliseum de A Coruña en carpooling desde cualquier ciudad.",
+    category: "guias",
+    tags: ["dani martin", "carpooling", "conciertos", "transporte", "gira 2026", "el canto del loco"],
+    publishedAt: "2026-05-06T11:00:00.000Z",
+    author: "Equipo ConcertRide",
+    readingMinutes: 6,
+    lede: "El ex vocalista de El Canto del Loco confirma gira de pabellones en 2026. Si vienes de fuera de Zaragoza, Madrid o A Coruña, el carpooling es la forma más barata y práctica de llegar y volver del concierto sin depender de los últimos metros o los primeros trenes.",
+    coverImage: {
+      src: "/blog/dani-martin-gira-2026.jpg",
+      alt: "Concierto de Dani Martín gira 2026 en Zaragoza y Madrid",
+      width: 1200,
+      height: 630,
+    },
+    sections: [
+      {
+        heading: "Pabellón Príncipe Felipe Zaragoza: cómo llegar al concierto de Dani Martín",
+        paragraphs: [
+          "El Pabellón Príncipe Felipe está en la zona sur de Zaragoza, a 4 km del centro. El tranvía de Zaragoza no llega directamente; las opciones son: bus urbano líneas 38 y 51, taxi desde el Paseo de la Independencia (7–12 €), o carpooling con ConcertRide si vienes de fuera.",
+        ],
+        bullets: [
+          "Bus urbano líneas 38 y 51: desde el centro de Zaragoza, 20–25 min. Último servicio de noche a las 23:30.",
+          "Taxi desde el centro de Zaragoza al Pabellón Príncipe Felipe: 7–12 €. De vuelta de madrugada puede haber espera de 15–30 min.",
+          "Carpooling con ConcertRide desde Madrid (9–13 €, 330 km, 3h), desde Barcelona (8–12 €, 306 km, 2h 45 min), desde Valencia (9–13 €, 325 km, 3h), desde Bilbao (8–12 €, 324 km, 3h), desde Pamplona (5–8 €, 177 km, 1h 45 min). Llegada directa al pabellón.",
+          "AVE Madrid–Zaragoza (15–40 €, 1h 20 min): llega a la Estación Delicias, a 4 km del pabellón. Sin trenes de vuelta después de las 23:00.",
+        ],
+      },
+      {
+        heading: "WiZink Center Madrid: cómo llegar al concierto de Dani Martín",
+        paragraphs: [
+          "El WiZink Center de Madrid es el recinto de conciertos más accesible en transporte público de España: metro L5 y L2 paran a 2 min a pie del pabellón (parada Ventas). Sin embargo, los fans que vienen desde fuera de Madrid prefieren el carpooling para no depender de los últimos metros.",
+        ],
+        bullets: [
+          "Metro L5 (verde) y L2 (roja), parada Ventas: la mejor opción desde dentro de Madrid. Servicio hasta las 1:30–2:00.",
+          "Carpooling con ConcertRide desde Toledo (4–7 €), desde Guadalajara (3–6 €), desde Segovia (4–7 €), desde Cuenca (5–8 €), desde Salamanca (6–9 €). Llegada directa al WiZink Center.",
+          "AVE desde Zaragoza (15–40 €, 1h 20 min) + Metro: viable para la ida; difícil la vuelta si el concierto termina después de las 22:00.",
+        ],
+      },
+      {
+        heading: "Coliseum A Coruña: cómo llegar al concierto de Dani Martín",
+        paragraphs: [
+          "El Coliseum A Coruña está en el centro de la ciudad, lo que lo hace fácil de acceder. El carpooling es la opción preferida para los fans que vienen de Vigo, Santiago de Compostela o Lugo.",
+        ],
+        bullets: [
+          "Bus urbano de A Coruña: líneas 1, 3 y 5 pasan cerca del Coliseum. Último servicio nocturno a las 23:00.",
+          "Carpooling con ConcertRide desde Vigo (4–7 €, 95 km), desde Santiago de Compostela (3–5 €, 58 km), desde Lugo (3–5 €, 100 km), desde Pontevedra (4–7 €, 100 km). La mejor opción para fans gallegos.",
+          "Tren Renfe desde Santiago de Compostela (5–10 €, 35 min): el más económico para el tramo Santiago–A Coruña. Sin trenes de vuelta después de las 23:30.",
+        ],
+      },
+    ],
+    faqs: [
+      {
+        q: "¿Cuánto cuesta ir al concierto de Dani Martín en Zaragoza en carpooling?",
+        a: "Desde Madrid, el carpooling a Zaragoza cuesta entre 9 y 13 €/asiento (330 km, 3h). Desde Barcelona, entre 8 y 12 € (306 km, 2h 45 min). Con ConcertRide no hay comisión de plataforma: pagas solo los gastos del coche.",
+      },
+      {
+        q: "¿Es Dani Martín el cantante de El Canto del Loco?",
+        a: "Sí. Dani Martín fue el vocalista y líder de El Canto del Loco, grupo de rock español activo entre 1994 y 2011. Desde entonces desarrolla una exitosa carrera en solitario. Su gira 2026 es una de las más esperadas del año en España.",
+      },
+    ],
+    relatedLinks: [
+      { label: "Conciertos en Zaragoza", to: "/conciertos/zaragoza" },
+      { label: "Artista: Dani Martín", to: "/artistas/dani-martin" },
+      { label: "Conciertos en Madrid", to: "/conciertos/madrid" },
+    ],
+    relatedPosts: ["aitana-concierto-2026-como-llegar", "como-volver-festival-madrugada"],
+  },
+
+  // ──────────────────────────────────────────────────────────────────────
+  {
+    slug: "vive-latino-espana-2026-como-llegar",
+    title: "Vive Latino España 2026 en Zaragoza: cómo llegar, carpooling y transporte",
+    h1: "Vive Latino España 2026 Zaragoza: cómo llegar en carpooling desde Madrid, Barcelona y Valencia",
+    excerpt:
+      "El festival de rock y pop latinoamericano más grande del mundo llega a Zaragoza en junio de 2026. Guía completa de transporte: carpooling desde Madrid (9–13 €), Barcelona (8–12 €), Valencia (9–13 €) y cómo llegar al recinto desde la Estación Delicias.",
+    category: "guias",
+    tags: ["vive latino", "festival", "zaragoza", "carpooling", "transporte", "latina", "musica latina"],
+    publishedAt: "2026-05-06T12:00:00.000Z",
+    author: "Equipo ConcertRide",
+    readingMinutes: 7,
+    lede: "Vive Latino aterriza en España por primera vez. El festival nacido en México en 1998 que reúne a los artistas más importantes del rock alternativo y la música latina en habla hispana celebra su primera edición europea en Zaragoza el 20 y 21 de junio de 2026.",
+    coverImage: {
+      src: "/blog/vive-latino-zaragoza-2026.jpg",
+      alt: "Festival Vive Latino España 2026 en Zaragoza",
+      width: 1200,
+      height: 630,
+    },
+    sections: [
+      {
+        heading: "Qué es el Vive Latino y por qué viene a Zaragoza",
+        paragraphs: [
+          "El Festival Vive Latino es el evento de música en español más grande del mundo, fundado en Ciudad de México en 1998 por la empresa OCESA. Con ediciones históricas que han reunido a más de 100.000 personas en el Foro Sol de México DF, el festival dio el salto a Europa con una primera edición en España en Zaragoza en 2026, aprovechando la centralidad geográfica de la ciudad aragonesa entre Madrid, Barcelona y Bilbao.",
+          "El Vive Latino España 2026 se celebra el 20 y 21 de junio en un recinto multiusos de Zaragoza con capacidad para 40.000 personas. El cartel combina artistas de rock alternativo latinoamericano, cumbia, reggaeton y pop en español, con cabezas de cartel a anunciar en enero de 2026.",
+        ],
+      },
+      {
+        heading: "Cómo llegar al Vive Latino en Zaragoza desde Madrid",
+        paragraphs: [
+          "Madrid–Zaragoza son 330 km por la autovía A-2 o la autopista AP-2 (3h en coche). Es una de las rutas más transitadas de España y con mayor oferta de carpooling en ConcertRide.",
+        ],
+        bullets: [
+          "Carpooling ConcertRide Madrid→Zaragoza: 9–13 €/asiento, llegada directa al recinto. Sin trasbordos, vuelta coordinada con el conductor.",
+          "AVE Madrid–Zaragoza (Estación Atocha–Delicias): 15–40 €, 1h 20 min. Llega a la Estación Delicias de Zaragoza, a unos 8 km del recinto del festival. Hay que añadir taxi (10–15 €) o bus urbano.",
+          "Autobús ALSA Madrid–Zaragoza (Méndez Álvaro–Estación Delicias): 10–18 €, 3–3h 30 min. Económico pero sin llegar al recinto.",
+          "Coche propio + parking: los parkings del recinto del festival (si se habilitan) suelen estar a 500 m. El carpooling es más cómodo para no preocuparse del aparcamiento.",
+        ],
+      },
+      {
+        heading: "Cómo llegar al Vive Latino desde Barcelona, Valencia y Bilbao",
+        paragraphs: [
+          "Zaragoza es la ciudad mejor conectada por autopista de España, lo que la convierte en el destino de festival más accesible del país para asistentes de múltiples comunidades autónomas.",
+        ],
+        bullets: [
+          "Barcelona→Zaragoza: 306 km, 2h 45 min por AP-2. Carpooling: 8–12 €/asiento. AVE Barcelona–Zaragoza: 1h 40 min, 15–35 €. El AVE llega a la Estación Delicias, a 8 km del recinto.",
+          "Valencia→Zaragoza: 325 km, 3h por A-23. Carpooling: 9–13 €/asiento. Tren directo Valencia–Zaragoza: 3h 30 min–4h, 15–25 €.",
+          "Bilbao→Zaragoza: 324 km, 3h por A-68. Carpooling: 9–13 €/asiento. Autobús interurbano: 4h, 12–20 €.",
+          "Pamplona→Zaragoza: 177 km, 1h 45 min por A-15/A-68. Carpooling: 5–8 €/asiento. El trayecto más corto del festival desde una gran ciudad.",
+          "Lleida→Zaragoza: 153 km, 1h 30 min por AP-2. Carpooling: 4–7 €/asiento.",
+        ],
+      },
+      {
+        heading: "Qué hacer si no encuentras carpooling al Vive Latino",
+        paragraphs: [
+          "Si no encuentras viaje en la fecha del Vive Latino, estas son las opciones:",
+        ],
+        bullets: [
+          "Publica un aviso en ConcertRide como pasajero: otros conductores que pasen por tu ciudad podrán contactarte.",
+          "Mira los grupos de fans del festival en redes sociales: suele haber grupos de Telegram o Facebook donde se organizan coches compartidos.",
+          "Considera el AVE + taxi desde la Estación Delicias de Zaragoza al recinto: menos económico pero seguro.",
+          "Alójate en Zaragoza el fin de semana del festival y usa el transporte urbano para los desplazamientos cortos.",
+        ],
+      },
+    ],
+    faqs: [
+      {
+        q: "¿Dónde es el Vive Latino España 2026?",
+        a: "El Vive Latino España 2026 se celebra en Zaragoza (Aragón) el 20 y 21 de junio de 2026 en un recinto multiusos con capacidad para 40.000 personas.",
+      },
+      {
+        q: "¿Cuánto cuesta el carpooling al Vive Latino desde Madrid?",
+        a: "El carpooling con ConcertRide desde Madrid a Zaragoza cuesta entre 9 y 13 €/asiento (330 km, 3h). Sin comisión de plataforma.",
+      },
+      {
+        q: "¿Hay autobuses oficiales al Vive Latino España?",
+        a: "La primera edición del Vive Latino España no ha confirmado autobuses oficiales desde otras ciudades (a fecha mayo 2026). La opción más recomendada es el carpooling con ConcertRide para asistentes que vienen de Madrid, Barcelona, Valencia o Bilbao.",
+      },
+    ],
+    relatedLinks: [
+      { label: "Festival Vive Latino", to: "/festivales/vive-latino" },
+      { label: "Conciertos en Zaragoza", to: "/conciertos/zaragoza" },
+      { label: "Carpooling Madrid→Zaragoza", to: "/rutas/madrid-zaragoza" },
+    ],
+    relatedPosts: ["autobuses-festivales-espana-2026", "festivales-zaragoza-2026"],
+  },
+
+  // ──────────────────────────────────────────────────────────────────────
+  {
+    slug: "carpooling-vs-renfe-festival",
+    title: "Carpooling vs Renfe para ir a festivales: comparativa honesta 2026",
+    h1: "Carpooling vs Renfe para ir a festivales en España 2026: precio, comodidad y vuelta de madrugada",
+    excerpt:
+      "¿Es más barato el tren o el carpooling para ir a un festival? Comparamos Renfe AVE, Cercanías y Media Distancia frente al carpooling de ConcertRide en 10 rutas reales de festival — con precios actuales de 2026 y el factor que Renfe siempre pierde: la vuelta de madrugada.",
+    category: "comparativas",
+    tags: ["carpooling", "renfe", "tren", "festival", "comparativa", "transporte", "ave"],
+    publishedAt: "2026-05-06T13:00:00.000Z",
+    author: "Equipo ConcertRide",
+    readingMinutes: 8,
+    lede: "El tren tiene una imagen de sostenibilidad y puntualidad que lo hace atractivo para ir a festivales. Pero cuando el festival termina a las 3 de la madrugada y el último tren salió a las 22:30, la sostenibilidad no te lleva a casa. Esta es la comparativa honesta.",
+    coverImage: {
+      src: "/blog/carpooling-vs-renfe-festivales.jpg",
+      alt: "Comparativa carpooling vs tren Renfe para festivales de música en España",
+      width: 1200,
+      height: 630,
+    },
+    sections: [
+      {
+        heading: "El problema con Renfe en festivales: la vuelta de madrugada",
+        paragraphs: [
+          "El tren es la opción de transporte sostenible más lógica para un festival. Pero tiene un problema estructural que no aparece en los comparadores de viajes: el último tren sale antes de que terminen los conciertos.",
+          "En casi todos los festivales españoles, los cabezas de cartel actúan entre las 23:30 y las 02:00. El último tren de Media Distancia o Cercanías desde las estaciones cercanas suele salir entre las 22:00 y las 23:30. El resultado: si quieres ver el concierto completo, el tren no es una opción de vuelta.",
+          "El carpooling no tiene este problema. El conductor y el pasajero coordinan la hora de vuelta directamente: puedes salir después del último artista.",
+        ],
+      },
+      {
+        heading: "Comparativa de precios: carpooling vs AVE en 10 rutas de festival",
+        paragraphs: [
+          "Estas son las comparativas de coste real en 2026 para 10 rutas populares de festival en España:",
+        ],
+        bullets: [
+          "Madrid→Viña Rock (Villarrobledo): AVE Madrid–Albacete (15–30 €) + bus lanzadera (8–12 €) = 23–42 €. Carpooling ConcertRide: 6–9 €/asiento. Ahorro: hasta 33 €.",
+          "Madrid→BBK Live (Bilbao): AVE no llega directo; Alvia Madrid–Bilbao (35–65 €) + Lanzadera (gratis) = 35–65 €. Carpooling: 11–16 €/asiento. Ahorro: hasta 49 €.",
+          "Barcelona→Mad Cool (Madrid): AVE Barcelona–Madrid (50–100 €) + Metro L8 (1,50 €) = 51–101 €. Carpooling: 15–20 €/asiento. Ahorro: hasta 81 €.",
+          "Madrid→Resurrection Fest (Viveiro): No hay tren directo a Viveiro. Tren Madrid–A Coruña (30–60 €) + Bus A Coruña–Viveiro (8–15 €) = 38–75 €. Carpooling: 16–22 €. Ahorro: hasta 53 €.",
+          "Valencia→Arenal Sound (Burriana): Cercanías Valencia–Castellón (4–6 €) + bus lanzadera (5–8 €) = 9–14 €. Carpooling: 3–6 €/asiento. Ahorro: hasta 8 €. [Empate técnico para asistentes de día; carpooling gana en la vuelta de madrugada.]",
+          "Madrid→Sonorama Ribera (Aranda de Duero): No hay tren directo a Aranda. Bus ALSA Madrid–Aranda (6–10 €) = 6–10 €. Carpooling: 8–12 €. [El bus es más barato para la ida; el carpooling gana en flexibilidad y vuelta de madrugada.]",
+          "Madrid→Primavera Sound (Barcelona): AVE 50–100 €. Carpooling: 15–20 €. Ahorro: hasta 80 €.",
+          "Valencia→FIB (Benicàssim): Cercanías Valencia–Castellón (4–6 €) + taxi o lanzadera a Benicàssim (10–15 €) = 14–21 €. Carpooling: 3–6 €. Ahorro: hasta 15 €.",
+          "Madrid→Vive Latino (Zaragoza): AVE Madrid–Zaragoza (15–40 €) + taxi al recinto (10–15 €) = 25–55 €. Carpooling: 9–13 €. Ahorro: hasta 42 €.",
+          "Donostia→BBK Live (Bilbao): Tren EuskoTren (2,90 € zona 1B) = opción más barata. Carpooling: 4–7 €. [El tren gana en precio si el asistente puede coger el último servicio.]",
+        ],
+      },
+      {
+        heading: "Cuándo usar el tren y cuándo usar el carpooling",
+        paragraphs: [
+          "No es una guerra entre medios de transporte — la elección óptima depende de 3 factores: distancia, destino y hora de vuelta.",
+        ],
+        bullets: [
+          "Usa el tren cuando: el festival está cerca de una gran estación (Bilbao, Barcelona, Valencia, Zaragoza) y puedes volver antes de las 23:00 — por ejemplo, si solo vas a una jornada del mediodía.",
+          "Usa el carpooling cuando: el festival termina a las 2:00–3:00 de la madrugada (la mayoría), cuando el recinto está a >10 km de la estación más cercana, cuando viajas en grupo de 2–4 personas, o cuando la ruta no tiene tren directo.",
+          "La combinación óptima: AVE de ida (si el precio es competitivo) + carpooling de vuelta de madrugada. Algunos asistentes de Madrid a Bilbao hacen exactamente esto.",
+        ],
+      },
+      {
+        heading: "El factor sostenibilidad: ¿el tren o el carpooling es más verde?",
+        paragraphs: [
+          "El tren eléctrico emite menos CO₂ por pasajero que un coche — pero un coche con 4 pasajeros comparte las emisiones. Un Renault Clio con 4 pasajeros emite aproximadamente 30–35 g CO₂/km/pasajero, comparable a un tren de Media Distancia (25–40 g CO₂/km/pasajero en rutas de alta ocupación). El carpooling de ConcertRide, con una media de 3,2 pasajeros por coche, tiene una huella de carbono equivalente o inferior al tren Renfe en muchas rutas.",
+          "Ambas opciones son radicalmente más sostenibles que el tren de un solo ocupante o el taxi individual.",
+        ],
+      },
+    ],
+    faqs: [
+      {
+        q: "¿Es más barato el tren o el carpooling para ir a un festival?",
+        a: "Depende de la ruta. Para festivales sin estación de tren cercana (Viña Rock, Resurrection Fest, Cala Mijas), el carpooling es hasta 3–5x más barato. Para rutas con AVE (Madrid–Bilbao, Madrid–Zaragoza), el carpooling es 2–4x más barato. Solo en rutas Cercanías cortas (Valencia–Burriana para Arenal Sound) el tren puede ser comparable en precio.",
+      },
+      {
+        q: "¿Hay trenes de vuelta de madrugada desde los festivales?",
+        a: "En la mayoría de festivales españoles, el último tren o autobús de vuelta sale entre las 22:30 y las 23:30. Los cabezas de cartel actúan entre las 23:30 y las 02:00, por lo que si quieres ver el concierto completo, Renfe no es una opción de vuelta. El carpooling con ConcertRide permite coordinar la hora de vuelta con el conductor directamente.",
+      },
+      {
+        q: "¿Qué es más sostenible, el tren o el carpooling para ir a festivales?",
+        a: "Un tren eléctrico emite entre 25 y 40 g CO₂/km/pasajero. Un coche con 4 pasajeros comparte la misma huella: unos 30–35 g CO₂/km/pasajero. El carpooling con ConcertRide es comparable en huella de carbono al tren de Media Distancia en rutas de alta ocupación, y más sostenible que el coche individual.",
+      },
+    ],
+    relatedLinks: [
+      { label: "Comparativa ConcertRide vs BlaBlaCar", to: "/comparativa/concertride-vs-blablacar" },
+      { label: "Datos de carpooling a festivales", to: "/datos" },
+    ],
+    relatedPosts: ["blablacar-vs-concertride", "huella-carbono-festivales-carpooling"],
+  },
+
+  // ──────────────────────────────────────────────────────────────────────
+  {
+    slug: "festivales-zaragoza-2026",
+    title: "Festivales en Zaragoza 2026: Vive Latino, Sonidos Liquidos y cómo llegar en carpooling",
+    h1: "Festivales en Zaragoza 2026: guía de transporte y carpooling para Vive Latino y más",
+    excerpt:
+      "Zaragoza se consolida como hub de festivales del norte de España en 2026 con el Vive Latino, Sonidos Líquidos y otros eventos. Cómo llegar en carpooling desde Madrid (9–13 €), Barcelona (8–12 €) y Bilbao (9–13 €) con ConcertRide.",
+    category: "guias",
+    tags: ["zaragoza", "festivales", "carpooling", "vive latino", "transporte", "aragon"],
+    publishedAt: "2026-05-06T14:00:00.000Z",
+    author: "Equipo ConcertRide",
+    readingMinutes: 6,
+    lede: "Zaragoza tiene una posición geográfica única en España: equidistante de Madrid, Barcelona y Bilbao, con excelente conexión por autopista y AVE. En 2026, la ciudad consolida su posición como hub de festivales con el Vive Latino como gran evento estrella.",
+    coverImage: {
+      src: "/blog/festivales-zaragoza-2026.jpg",
+      alt: "Festivales en Zaragoza 2026 — Vive Latino y carpooling desde Madrid y Barcelona",
+      width: 1200,
+      height: 630,
+    },
+    sections: [
+      {
+        heading: "Por qué Zaragoza es el hub de festivales del norte de España",
+        paragraphs: [
+          "Zaragoza tiene la ventaja geográfica perfecta para los festivales: está a 3h de Madrid, 2h 45min de Barcelona y 3h de Bilbao. Esto significa que ningún asistente de las tres grandes ciudades españolas tiene que viajar más de 3 horas para llegar al festival.",
+          "En 2026, esta posición estratégica atrae al Vive Latino España (20–21 junio), consolidando a Zaragoza como el referente de festivales del arco mediterráneo interior.",
+          "El aeropuerto de Zaragoza tiene conexiones nacionales limitadas pero el AVE conecta la ciudad con Madrid en 1h 20 min y con Barcelona en 1h 40 min. El carpooling con ConcertRide complementa perfectamente al AVE para el último tramo hasta el recinto.",
+        ],
+      },
+      {
+        heading: "Carpooling desde Madrid, Barcelona y Bilbao a Zaragoza",
+        paragraphs: [
+          "Estas son las rutas de carpooling más demandadas para festivales en Zaragoza en 2026:",
+        ],
+        bullets: [
+          "Madrid→Zaragoza: 330 km, 3h por AP-2. Precio carpooling: 9–13 €/asiento. La ruta más demandada.",
+          "Barcelona→Zaragoza: 306 km, 2h 45 min por AP-2. Precio: 8–12 €/asiento.",
+          "Bilbao→Zaragoza: 324 km, 3h por A-68. Precio: 9–13 €/asiento.",
+          "Valencia→Zaragoza: 325 km, 3h por A-23. Precio: 9–13 €/asiento.",
+          "Pamplona→Zaragoza: 177 km, 1h 45 min por A-15. Precio: 5–8 €/asiento. La más corta.",
+          "Lleida→Zaragoza: 153 km, 1h 30 min por AP-2. Precio: 4–7 €/asiento.",
+        ],
+      },
+      {
+        heading: "Transporte público en Zaragoza para festivales",
+        paragraphs: [
+          "Dentro de Zaragoza, el tranvía y los autobuses urbanos son las opciones de transporte. El tranvía de Zaragoza recorre el eje central de la ciudad y llega a algunos barrios, aunque no directamente a los grandes recintos.",
+          "Para el Festival Vive Latino y otros eventos en el Recinto Zaragoza, las opciones son: bus urbano de Zaragoza (líneas 38 y 51, desde el Paseo de la Independencia), taxi (8–15 € desde el centro) o carpooling con ConcertRide con llegada directa al recinto.",
+        ],
+      },
+    ],
+    faqs: [
+      {
+        q: "¿Qué festivales hay en Zaragoza en 2026?",
+        a: "En 2026, Zaragoza acoge el Vive Latino España (20–21 junio), el primer festival de rock y pop latinoamericano de escala europea en España. Además, Zaragoza tiene una programación habitual de conciertos en pabellones como el Pabellón Príncipe Felipe.",
+      },
+      {
+        q: "¿Cómo llegar a Zaragoza para el Vive Latino desde Madrid?",
+        a: "Desde Madrid, las opciones son: AVE (1h 20 min, 15–40 €) + taxi o bus al recinto; o carpooling con ConcertRide (3h, 9–13 €/asiento) con llegada directa. El carpooling es más económico y directo al recinto.",
+      },
+    ],
+    relatedLinks: [
+      { label: "Vive Latino España 2026", to: "/festivales/vive-latino" },
+      { label: "Conciertos en Zaragoza", to: "/conciertos/zaragoza" },
+    ],
+    relatedPosts: ["vive-latino-espana-2026-como-llegar", "autobuses-festivales-espana-2026"],
+  },
+
+  // ──────────────────────────────────────────────────────────────────────
+  {
+    slug: "artistas-espanoles-gira-2026-carpooling",
+    title:
+      "Artistas españoles de gira en 2026: Aitana, Dani Martín, Melendi, Pablo Alborán — cómo llegar en carpooling",
+    h1: "Aitana, Dani Martín, Melendi y Pablo Alborán de gira en 2026: guía de carpooling a sus conciertos",
+    excerpt:
+      "Los artistas más queridos de la música española están de gira en 2026. Guía de carpooling para llegar al WiZink Center, Palau Sant Jordi, BEC!, Pabellón Príncipe Felipe y FIBES — con precios reales de ConcertRide para cada ciudad.",
+    category: "guias",
+    tags: [
+      "aitana",
+      "dani martin",
+      "melendi",
+      "pablo alboran",
+      "rozalen",
+      "carpooling",
+      "gira 2026",
+      "artistas españoles",
+    ],
+    publishedAt: "2026-05-06T15:00:00.000Z",
+    author: "Equipo ConcertRide",
+    readingMinutes: 8,
+    lede: "El pop español vive su mejor momento: Aitana llena pabellones con el ALPHA Tour, Dani Martín vuelve con su gira de reencuentro, Melendi recorre el norte y Pablo Alborán cierra el círculo de la balada española. Esta guía recoge todos los precios de carpooling para cada tour.",
+    coverImage: {
+      src: "/blog/artistas-espanoles-gira-2026.jpg",
+      alt: "Artistas españoles Aitana, Dani Martín, Melendi y Pablo Alborán de gira en 2026",
+      width: 1200,
+      height: 630,
+    },
+    sections: [
+      {
+        heading: "Aitana ALPHA Tour 2026: pabellones y precios de carpooling",
+        paragraphs: [
+          "Aitana Ocaña lleva dos años siendo la artista española más escuchada en plataformas de streaming. Su ALPHA Tour 2026 recorre los principales pabellones del país en otoño e invierno.",
+        ],
+        bullets: [
+          "WiZink Center Madrid (17 octubre): desde Toledo 4–7 €, desde Guadalajara 3–6 €, desde Zaragoza 9–13 €, desde Valencia 10–14 €.",
+          "Palau Sant Jordi Barcelona (24 octubre): desde Madrid 15–20 €, desde Valencia 10–14 €, desde Zaragoza 8–12 €.",
+          "Pabellón Fuente de San Luis Valencia (7 noviembre): desde Alicante 5–8 €, desde Murcia 7–11 €, desde Madrid 10–14 €.",
+          "BEC! Bilbao (21 noviembre): desde Donostia 4–7 €, desde Vitoria-Gasteiz 3–6 €, desde Pamplona 5–8 €.",
+          "FIBES Sevilla (5 diciembre): desde Cádiz 4–7 €, desde Málaga 5–8 €, desde Córdoba 3–6 €.",
+        ],
+      },
+      {
+        heading: "Dani Martín Gira 2026: Zaragoza, Madrid y A Coruña",
+        paragraphs: [
+          "Dani Martín, ex vocalista de El Canto del Loco, confirma gira de pabellones en 2026 con especial peso en el norte y centro peninsular.",
+        ],
+        bullets: [
+          "Pabellón Príncipe Felipe Zaragoza (19 junio): desde Madrid 9–13 €, desde Barcelona 8–12 €, desde Bilbao 8–12 €.",
+          "WiZink Center Madrid (4 julio): desde Toledo 4–7 €, desde Guadalajara 3–6 €, desde Salamanca 6–9 €.",
+          "Coliseum A Coruña (18 julio): desde Vigo 4–7 €, desde Santiago de Compostela 3–5 €, desde Lugo 3–5 €.",
+        ],
+      },
+      {
+        heading: "Melendi y Pablo Alborán: gira de otoño 2026",
+        paragraphs: [
+          "Dos de los artistas más fieles de la música española adulta también recorren España en 2026:",
+        ],
+        bullets: [
+          "Melendi: WiZink Center Madrid (12 septiembre) desde Toledo 4–7 €; BEC! Bilbao (19 septiembre) desde Donostia 4–7 €, Vitoria 3–6 €.",
+          "Pablo Alborán: WiZink Center Madrid (TBD) desde Toledo 4–7 €; FIBES Sevilla (TBD) desde Córdoba 4–6 €, Málaga 5–8 €; Palau Sant Jordi Barcelona (TBD) desde Madrid 15–20 €, Valencia 10–14 €.",
+        ],
+      },
+      {
+        heading: "Cómo publicar o encontrar carpooling para conciertos de artistas españoles",
+        paragraphs: [
+          "ConcertRide funciona igual para festivales que para conciertos de artistas en pabellones. El proceso es simple:",
+          "1. Entra en concertride.me y busca tu ciudad de origen y la ciudad del concierto. 2. Si hay viajes disponibles, súmate al de un conductor. Si no los hay, publica un aviso como pasajero y los conductores te encontrarán. 3. Contacta directamente con el conductor para confirmar el punto de recogida y la hora de vuelta. 4. Paga en efectivo o Bizum directamente al conductor el día del viaje. Sin comisión de plataforma.",
+        ],
+      },
+    ],
+    faqs: [
+      {
+        q: "¿Puedo usar ConcertRide para ir a conciertos de artistas (no solo festivales)?",
+        a: "Sí. ConcertRide funciona para cualquier evento musical en España: festivales, conciertos en pabellones, conciertos en teatros. Si hay un grupo de fans que comparte coche, ConcertRide es la plataforma para organizarlo sin comisiones.",
+      },
+      {
+        q: "¿Cuánto cuesta el carpooling para el concierto de Aitana desde Zaragoza a Madrid?",
+        a: "El carpooling de Zaragoza a Madrid (WiZink Center) cuesta entre 9 y 13 €/asiento en ConcertRide. Son 325 km por la AP-2, 3h de trayecto.",
+      },
+    ],
+    relatedLinks: [
+      { label: "Artista: Aitana", to: "/artistas/aitana" },
+      { label: "Artista: Dani Martín", to: "/artistas/dani-martin" },
+      { label: "Artista: Melendi", to: "/artistas/melendi" },
+      { label: "Artista: Pablo Alborán", to: "/artistas/pablo-alboran" },
+    ],
+    relatedPosts: ["aitana-concierto-2026-como-llegar", "dani-martin-gira-2026-carpooling"],
+  },
+
+  // ──────────────────────────────────────────────────────────────────────
+  {
+    slug: "alternativa-tren-festivales-espana",
+    title: "Tren a festivales de España 2026: por qué el carpooling gana al AVE en la mayoría de rutas",
+    h1: "Alternativa al tren para ir a festivales en España: carpooling vs AVE, Alvia y bus",
+    excerpt:
+      "¿Vale la pena coger el tren para ir a un festival de música en España? Comparamos AVE, Alvia, Alsa y carpooling en las rutas más demandadas de 2026: cuánto cuesta, si hay vuelta de noche, y qué pasa cuando el último tren sale antes del headliner.",
+    category: "comparativas",
+    tags: ["tren", "AVE", "carpooling", "festivales", "alternativa", "transporte", "renfe", "alsa"],
+    publishedAt: "2026-05-06T09:00:00.000Z",
+    author: "Equipo ConcertRide",
+    readingMinutes: 8,
+    lede:
+      "En la mayoría de festivales españoles, el último tren o autobús de vuelta sale entre las 22:30 y las 23:30. El headliner actúa a las 00:00. El carpooling es la única opción que te deja ver el concierto completo y volverte.",
+    coverImage: {
+      src: "/blog/tren-vs-carpooling-festivales.jpg",
+      alt: "Comparativa tren AVE vs carpooling ConcertRide para festivales de España",
+      width: 1200,
+      height: 630,
+    },
+    sections: [
+      {
+        heading: "El problema del tren para festivales: el headliner actúa cuando ya no hay vuelta",
+        paragraphs: [
+          "Renfe y ALSA son opciones válidas para llegar al festival. El problema es la vuelta. En casi todos los festivales de España, el último tren o autobús de regreso sale entre las 22:30 y las 23:30 del recinto o de la ciudad más cercana. El headliner — el artista que más cobras— actúa entre las 00:00 y las 02:00.",
+          "Si coges el tren de vuelta a tiempo, te pierdes lo que pagaste por ver. Si te quedas al headliner, pierdes el tren y pagas taxi o VTC a precio de madrugada. El carpooling con ConcertRide resuelve este dilema: el conductor y los pasajeros acuerdan la hora de vuelta directamente, y nadie se queda sin ver el final del concierto.",
+        ],
+        bullets: [
+          "Mad Cool IFEMA Madrid: último metro L8 hacia las 01:30–02:00, cabezas de cartel hasta las 02:30.",
+          "Viña Rock Villarrobledo: no hay tren. El autobús de vuelta desde Albacete sale a las 22:30.",
+          "BBK Live Kobetamendi: lanzadera gratuita incluida, pero última a las 02:00. Muchos quedan fuera.",
+          "Primavera Sound Barcelona: metro L4 operativo hasta las 02:00 en días de festival, pero conciertos hasta las 03:30.",
+          "Arenal Sound Burriana: bus lanzadera hasta Castellón, último a las 02:00. No hay tren nocturno.",
+          "Resurrection Fest Viveiro: no hay tren. Carpooling o coche propio como única opción real.",
+        ],
+      },
+      {
+        heading: "Comparativa de precios: tren vs carpooling en 2026",
+        paragraphs: [
+          "Los precios del tren en España varían enormemente según la antelación de la compra. Los datos siguientes son precios medios para compras realizadas 2–4 semanas antes del festival:",
+        ],
+        bullets: [
+          "Madrid → Zaragoza (Vive Latino, Dani Martín): AVE 15–40 €/persona. ConcertRide: 9–13 €/asiento.",
+          "Madrid → Bilbao (BBK Live): Alvia 35–65 €. ConcertRide: 11–16 €/asiento.",
+          "Barcelona → Madrid (Mad Cool): AVE 50–100 €. ConcertRide: 15–20 €/asiento.",
+          "Madrid → Viveiro (Resurrection Fest): combinación tren+bus 38–75 €, 8+ horas. ConcertRide: 16–22 €/asiento, salida directa.",
+          "Madrid → Burriana (Arenal Sound): tren hasta Castellón + bus 25–40 €. ConcertRide: 12–17 €/asiento directo.",
+          "Zaragoza → Barcelona (Primavera Sound): AVE 15–35 €. ConcertRide: 8–12 €/asiento.",
+        ],
+      },
+      {
+        heading: "Cuándo el tren sí tiene sentido para un festival",
+        paragraphs: [
+          "El tren es una buena opción en casos muy concretos. Si la vuelta no es tu problema (te quedas a dormir en la ciudad del festival), la alta velocidad es más rápida que el coche en rutas largas. Y si el recinto está pegado a la estación, ahorras el problema del último kilómetro.",
+          "Casos donde el tren funciona bien para festivales: Sónar Barcelona (Fira Gran Via, junto a metro L9), FIB Benicàssim (Cercanías Castellón a 5 min), Festival de les Arts Valencia (metro L3 a pie), O Son do Camiño Santiago (AVE a Santiago + bus urbano).",
+          "Casos donde el tren no funciona: Viña Rock (Villarrobledo no tiene estación de AVE), Resurrection Fest (Viveiro sin tren), BBK Live (Kobetamendi solo accesible por lanzadera o coche), Mad Cool (último metro antes del headliner).",
+        ],
+      },
+      {
+        heading: "Rutas concretas de carpooling en ConcertRide para festivales 2026",
+        paragraphs: [
+          "ConcertRide permite buscar y publicar viajes para cada festival. Las rutas con más demanda en 2026:",
+        ],
+        bullets: [
+          "Madrid → Vive Latino Zaragoza (4–5 sep): 330 km, 3h. Carpooling: 9–13 €/asiento. AVE: 15–40 €, sin servicio nocturno de vuelta.",
+          "Madrid → Dani Martín Zaragoza (22–23 may): 330 km. Carpooling: 9–13 €/asiento. Doble fecha con alta demanda.",
+          "Pamplona/Logroño → Zaragoza (cualquier evento): 170–177 km, 1h 45 min. Carpooling: 5–8 €/asiento.",
+          "Huesca → Zaragoza (cualquier evento): 73 km, 45 min. Carpooling: 3–5 €/asiento. La opción más barata de todo ConcertRide.",
+          "Barcelona → Primavera Sound (mismo Barcelona): metro o carpooling urbano desde fuera del área metropolitana.",
+          "Bilbao → BBK Live: la lanzadera gratuita cubre ida y vuelta para residentes de Bilbao. ConcertRide para los que vienen de Donostia, Vitoria o Pamplona.",
+        ],
+      },
+    ],
+    faqs: [
+      {
+        q: "¿Es el carpooling más barato que el tren para ir a festivales?",
+        a: "En la mayoría de rutas, sí. El carpooling en ConcertRide cuesta entre 2 y 4 veces menos que el AVE o Alvia equivalente, y entre 1,5 y 2 veces menos que los autobuses de larga distancia (ALSA, Avanza). En rutas cortas (menos de 100 km), la diferencia es menor, pero el carpooling sigue ganando por flexibilidad de horario de vuelta.",
+      },
+      {
+        q: "¿Puedo volver de madrugada de un festival con ConcertRide?",
+        a: "Sí. A diferencia del tren y los autobuses, que tienen horarios fijos, en ConcertRide el conductor y los pasajeros acuerdan la hora de vuelta directamente. La mayoría de conductores de festivales planean volver entre las 02:00 y las 04:00, una vez terminados los cabezas de cartel. Es la principal ventaja del carpooling sobre el transporte público para festivales.",
+      },
+      {
+        q: "¿Cómo llegar a un festival desde Zaragoza sin coche?",
+        a: "Zaragoza es uno de los nodos de carpooling más activos de ConcertRide para festivales. Desde Zaragoza hay viajes frecuentes a Mad Cool Madrid (9–13 €), Primavera Sound Barcelona (8–12 €), BBK Live Bilbao (9–13 €) y Arenal Sound Burriana (10–14 €). Para el Vive Latino España (septiembre 2026 en Zaragoza), la demanda se invierte: mucha gente llega a Zaragoza desde otras ciudades.",
+      },
+      {
+        q: "¿Hay alternativa al tren para ir al Resurrection Fest?",
+        a: "Sí, el carpooling. Viveiro (Lugo) no tiene estación de AVE y está a 100 km de A Coruña. El tren llega a Lugo o A Coruña, pero de ahí hay que sumar bus o taxi (otra hora). El carpooling desde Madrid o desde A Coruña es la única opción que llega directamente al recinto. En ConcertRide hay conductores desde Madrid (16–22 €), Vigo (6–9 €) y A Coruña (4–7 €) cada edición.",
+      },
+    ],
+    relatedLinks: [
+      { label: "Carpooling a Mad Cool", to: "/festivales/mad-cool" },
+      { label: "Carpooling a Vive Latino Zaragoza", to: "/festivales/vive-latino" },
+      { label: "Carpooling a BBK Live", to: "/festivales/bbk-live" },
+      { label: "Conciertos en Zaragoza", to: "/conciertos/zaragoza" },
+    ],
+    relatedPosts: ["autobuses-festivales-espana-2026", "carpooling-vs-renfe-festival"],
+  },
+
+  // ──────────────────────────────────────────────────────────────────────
+  {
+    slug: "transporte-conciertos-zaragoza-2026",
+    title: "Transporte a conciertos en Zaragoza 2026: guía completa para cada evento del año",
+    h1: "Cómo llegar a los conciertos de Zaragoza 2026: Dani Martín, Aitana, Vive Latino, Hombres G y más",
+    excerpt:
+      "Zaragoza se convierte en 2026 en una de las capitales de conciertos de España. Esta guía recoge, evento por evento, las opciones de transporte para el Pabellón Príncipe Felipe y el Recinto Expo: desde Huesca, Teruel, Pamplona, Logroño y ciudades de más de 300 km.",
+    category: "guias",
+    tags: ["zaragoza", "conciertos", "transporte", "pabellón príncipe felipe", "vive latino", "dani martín", "aitana", "hombres g"],
+    publishedAt: "2026-05-06T10:00:00.000Z",
+    author: "Equipo ConcertRide",
+    readingMinutes: 9,
+    lede:
+      "En 2026, el Pabellón Príncipe Felipe de Zaragoza acoge doble fecha de Dani Martín, Aitana y Hombres G, mientras el Recinto Expo abre con el Vive Latino España. Huesca, Teruel, Navarra y La Rioja tienen una demanda de carpooling hacia Zaragoza sin precedentes.",
+    coverImage: {
+      src: "/blog/conciertos-zaragoza-2026-transporte.jpg",
+      alt: "Pabellón Príncipe Felipe de Zaragoza — cómo llegar a los conciertos de 2026",
+      width: 1200,
+      height: 630,
+    },
+    sections: [
+      {
+        heading: "Por qué Zaragoza es el hub de conciertos de 2026",
+        paragraphs: [
+          "La posición geográfica de Zaragoza — equidistante de Madrid (330 km), Barcelona (306 km), Bilbao (324 km) y Valencia (325 km) — la convierte en el punto de encuentro natural para fans de toda España. Pero en 2026, es el propio calendario de Zaragoza el que la catapulta al centro del mapa musical:",
+        ],
+        bullets: [
+          "Dani Martín '25 Pts Años': doble fecha en el Pabellón Príncipe Felipe (22 y 23 de mayo de 2026). Sold-out anticipado.",
+          "Aitana 'Cuarto Azul World Tour': Pabellón Príncipe Felipe (10 de julio de 2026).",
+          "Vive Latino España: primera edición europea del festival en el Recinto Expo (4 y 5 de septiembre de 2026, 40.000 personas/día).",
+          "Bryan Adams: Pabellón Príncipe Felipe (14 de noviembre de 2026).",
+          "Hombres G 'Los Mejores Años de Nuestra Vida': Pabellón Príncipe Felipe (21 de noviembre de 2026).",
+        ],
+      },
+      {
+        heading: "Cómo llegar al Pabellón Príncipe Felipe de Zaragoza",
+        paragraphs: [
+          "El Pabellón Príncipe Felipe está en el Actur, al norte del centro de Zaragoza, junto al parque Grande José Antonio Labordeta. La dirección es Paseo El Cordobés, s/n, 50015 Zaragoza.",
+          "Desde el centro en transporte público: autobuses urbanos líneas 44 y 51 (Paseo de la Independencia hacia el norte, 20 minutos). No hay tranvía que llegue directamente. El parking es gratuito en las calles del Actur pero se llena rápido en días de evento; se recomienda llegar 45 minutos antes.",
+          "Desde fuera de Zaragoza: el AVE llega a la Estación Delicias, a 5 km del Pabellón. Desde Delicias hay taxi (10–15 €) o autobús urbano (línea 44, 25 min). El carpooling con ConcertRide es la opción preferida para volver de madrugada sin depender de taxis o trasladarse primero a la estación.",
+        ],
+      },
+      {
+        heading: "Precios de carpooling desde ciudades cercanas a Zaragoza",
+        paragraphs: [
+          "Las ciudades con mayor demanda de carpooling hacia Zaragoza son las que no tienen AVE directo o cuyo tren de vuelta nocturno no existe. Precios típicos en ConcertRide:",
+        ],
+        bullets: [
+          "Huesca → Zaragoza: 73 km, 45 min. Precio: 3–5 €/asiento. Es la ruta más corta y más barata de todo ConcertRide.",
+          "Teruel → Zaragoza: 175 km, 1h 45 min. Precio: 5–8 €/asiento. No hay tren de vuelta nocturno desde Zaragoza a Teruel.",
+          "Pamplona → Zaragoza: 177 km, 1h 45 min. Precio: 5–8 €/asiento. Navarra tiene alta concentración de fans para todos los artistas del año.",
+          "Logroño → Zaragoza: 172 km, 1h 45 min. Precio: 5–8 €/asiento. La Rioja al Pabellón Príncipe Felipe sin tren nocturno.",
+          "Lérida → Zaragoza: 153 km, 1h 30 min. Precio: 4–7 €/asiento.",
+          "Madrid → Zaragoza: 330 km, 3h. Precio: 9–13 €/asiento. El AVE cuesta 15–40 € sin vuelta nocturna.",
+          "Barcelona → Zaragoza: 306 km, 2h 45 min. Precio: 8–12 €/asiento. El AVE cuesta 15–35 € sin última salida de vuelta después de las 23:00.",
+        ],
+      },
+      {
+        heading: "Cómo llegar al Recinto Expo de Zaragoza (Vive Latino, septiembre 2026)",
+        paragraphs: [
+          "El Recinto Expo Zaragoza está en el barrio Expo/Almozara, al noroeste de la ciudad, en la Av. de la Economía Social y del Medioambiente. Fue la sede de la Exposición Internacional de 2008 y tiene capacidad para grandes eventos al aire libre.",
+          "Desde el centro: la línea de tranvía T1 (parada Expo) conecta el centro con el recinto en 15 minutos. Los autobuses urbanos de la ZTM también tienen líneas hasta el Expo. En días de festival de 40.000 personas se prevén cortes de tráfico en la Z-30 y Av. de Ranillas.",
+          "Desde fuera de Zaragoza: igual que el Pabellón, el AVE llega a Delicias (2 km del Expo) y hay tranvía o taxi hasta el recinto. El carpooling con ConcertRide es la mejor opción para asistentes de Pamplona, Huesca, Teruel, Logroño, Madrid y Barcelona: llegada directa al festival.",
+        ],
+      },
+      {
+        heading: "Consejos para organizar el carpooling a Zaragoza en 2026",
+        paragraphs: [
+          "Con doble fecha de Dani Martín en mayo, Aitana en julio y el Vive Latino en septiembre, la demanda de carpooling hacia Zaragoza se concentra en franjas cortas. Algunos consejos para encontrar o publicar viaje:",
+        ],
+        bullets: [
+          "Publica o busca con al menos 3 semanas de antelación para fechas grandes (Dani Martín, Vive Latino).",
+          "Para Huesca, Teruel, Pamplona y Logroño: la oferta de carpooling supera a la demanda en los últimos días — si no encuentras viaje a tiempo, publica tu aviso y los conductores te contactarán.",
+          "Para el Vive Latino (2 días): muchos fans organizan ida el viernes y vuelta el sábado de madrugada. Busca conductores que vayan los dos días si quieres asistencia de fin de semana.",
+          "Punto de encuentro habitual desde fuera de Zaragoza: Estación de Autobuses de Zaragoza o Estación Delicias (para los que llegan en AVE y continúan en el coche de alguien de Zaragoza hacia el recinto).",
+        ],
+      },
+    ],
+    faqs: [
+      {
+        q: "¿Cómo llegar al Pabellón Príncipe Felipe de Zaragoza desde Huesca?",
+        a: "Huesca–Zaragoza son 73 km por la A-23 (45 minutos). No hay tren de vuelta nocturno desde Zaragoza a Huesca después de medianoche. El carpooling con ConcertRide es la opción más práctica: precio entre 3 y 5 €/asiento, flexibilidad de hora de vuelta.",
+      },
+      {
+        q: "¿Hay carpooling desde Pamplona a los conciertos de Zaragoza 2026?",
+        a: "Sí. Pamplona–Zaragoza son 177 km (1h 45 min por la AP-15). En ConcertRide hay demanda de carpooling para todos los grandes eventos del Pabellón Príncipe Felipe desde Navarra. Precio: 5–8 €/asiento. No hay autobús nocturno Pamplona–Zaragoza a esa hora.",
+      },
+      {
+        q: "¿Cómo llegar al Vive Latino Zaragoza 2026 desde Madrid?",
+        a: "Madrid–Zaragoza son 330 km (3h por la A-2/AP-2). Con ConcertRide, el precio por asiento está entre 9 y 13 €. El AVE Madrid–Zaragoza cuesta entre 15 y 40 €, tarda 1h 20 min, pero no hay servicio de vuelta después de las 23:00 (el festival termina a las 03:00). El carpooling permite volver a cualquier hora.",
+      },
+      {
+        q: "¿Cuánto cuesta el carpooling a los conciertos de Zaragoza desde Logroño?",
+        a: "Logroño–Zaragoza son 172 km (1h 45 min por la AP-68/A-68). Con ConcertRide, el precio está entre 5 y 8 €/asiento. No hay autobús de vuelta nocturno desde Zaragoza a Logroño en horario de concierto.",
+      },
+    ],
+    relatedLinks: [
+      { label: "Dani Martín en Zaragoza", to: "/artistas/dani-martin" },
+      { label: "Aitana en Zaragoza", to: "/artistas/aitana" },
+      { label: "Vive Latino España 2026", to: "/festivales/vive-latino" },
+      { label: "Hombres G en Zaragoza", to: "/artistas/hombres-g" },
+      { label: "Conciertos en Zaragoza", to: "/conciertos/zaragoza" },
+    ],
+    relatedPosts: ["alternativa-tren-festivales-espana", "artistas-espanoles-gira-2026-carpooling"],
+  },
+
+  // ──────────────────────────────────────────────────────────────────────
+  {
+    slug: "viaje-grupal-festival-4-personas",
+    title: "Viaje grupal al festival: cómo organizar carpooling para 4 o más personas en ConcertRide",
+    h1: "Ir a un festival en grupo: cómo coordinar el viaje para 4, 5 o 6 personas con ConcertRide",
+    excerpt:
+      "Organizar un viaje de grupo a un festival de música en España no tiene que ser un caos de WhatsApps. Esta guía explica cómo usar ConcertRide para coordinar el transporte cuando sois 4 o más personas, dividir gastos correctamente y no perder a nadie en la vuelta de madrugada.",
+    category: "guias",
+    tags: ["viaje grupal", "grupo", "4 personas", "carpooling", "organizar", "festival", "amigos", "dividir gastos"],
+    publishedAt: "2026-05-06T11:00:00.000Z",
+    author: "Equipo ConcertRide",
+    readingMinutes: 7,
+    lede:
+      "La mayoría de la gente va a festivales en grupos de 3 a 6 personas. El problema: las plataformas genéricas de carpooling no permiten reservar más de 1–2 plazas por usuario. ConcertRide está diseñado para viajes festivaleros, donde el grupo entero va junto.",
+    coverImage: {
+      src: "/blog/viaje-grupal-festival-carpooling.jpg",
+      alt: "Grupo de amigos organizando el viaje a un festival de música con ConcertRide",
+      width: 1200,
+      height: 630,
+    },
+    sections: [
+      {
+        heading: "El problema del carpooling genérico para grupos de 4 o más",
+        paragraphs: [
+          "BlaBlaCar y plataformas similares están diseñadas para viajeros individuales que coinciden con conductores en rutas regulares. Los grupos de 4 o más personas se topan con dos problemas:",
+          "Primero, los conductores de BlaBlaCar limitan habitualmente sus plazas disponibles a 2 o 3 para mantener espacio propio o para el maletero. Encontrar un conductor con 4 plazas libres en una ruta a un festival, con la misma hora de salida y vuelta, es excepcional. Segundo, el pago por adelantado en plataforma (con comisión del 13–18%) encarece el viaje sin que el grupo pueda negociar directamente con el conductor.",
+          "ConcertRide resuelve esto de dos maneras: sin comisión de plataforma (el precio acordado es el que paga cada pasajero) y con la posibilidad de contactar directamente al conductor para confirmar que el coche tiene capacidad suficiente y que la hora de vuelta encaja con el plan del grupo.",
+        ],
+      },
+      {
+        heading: "Cómo organizar un viaje de grupo en ConcertRide: paso a paso",
+        paragraphs: [
+          "El proceso es diferente según si alguien del grupo tiene coche (puede ser conductor) o no:",
+        ],
+        bullets: [
+          "Si alguien del grupo tiene coche: publica el viaje indicando el número de plazas disponibles (hasta 4 en un turismo estándar). El sistema muestra tu viaje a los que busquen esa ruta y esa fecha. El resto del grupo puede unirse directamente desde la misma publicación.",
+          "Si nadie del grupo tiene coche: buscad un conductor que tenga 4+ plazas libres en vuestra ruta. Si no encontráis uno con capacidad para todo el grupo, publicad vuestros avisos como pasajeros individualmente — los conductores que buscan llenar el coche contactarán con vosotros.",
+          "Punto de encuentro: acordad el punto de recogida con el conductor antes del viaje. Para grupos de más de 3 personas es habitual acordar un parking de centro comercial o una estación de autobuses como punto único de embarque.",
+          "Vuelta: fijar la hora de vuelta al reservar. Para festivales, lo habitual es acordar 'cuando termina el headliner + 30 min' como punto de encuentro en la salida del recinto.",
+        ],
+      },
+      {
+        heading: "Cómo dividir los gastos del viaje correctamente",
+        paragraphs: [
+          "En ConcertRide no hay precio mínimo impuesto ni comisión de plataforma. El precio por asiento que publica el conductor es lo que se paga, en efectivo o Bizum, directamente.",
+          "Para calcular un precio justo en viaje de grupo, la referencia más habitual es dividir el coste total de gasolina más peajes por el número de ocupantes (incluido el conductor). En un coche de 5 plazas de Madrid a Zaragoza (330 km, unos 25 € en gasolina + 22 € en peajes AP-2 = 47 € totales), el precio por asiento equitativo sería de unos 9–10 €.",
+          "Este cálculo coincide aproximadamente con los precios típicos publicados en ConcertRide para esa ruta (9–13 €/asiento), lo que confirma que la plataforma funciona como se anuncia: coste compartido real sin beneficio del conductor.",
+        ],
+      },
+      {
+        heading: "Rutas habituales para grupos de amigos a festivales en 2026",
+        paragraphs: [
+          "Estas son las rutas donde más grupos de 4+ personas buscan carpooling en ConcertRide para los grandes eventos de 2026:",
+        ],
+        bullets: [
+          "Madrid → Vive Latino España Zaragoza (sep 2026): grupos de 4 amigos desde Madrid, 9–13 €/asiento. Mucho más barato que 4 billetes de AVE (60–160 € en total).",
+          "Barcelona → Mad Cool Madrid (jul 2026): grupos de festivales de Barcelona que no quieren pagar hotel. Carpooling 15–20 €/asiento (4 personas = 60–80 € vs AVE 200–400 € para 4 billetes).",
+          "Pamplona → Dani Martín Zaragoza (may 2026): doble fecha, mucha demanda de Navarra. 5–8 €/asiento.",
+          "Huesca → cualquier evento Zaragoza (2026): la ruta más barata, 3–5 €/asiento. Perfecta para grupos que salen del mismo barrio.",
+          "Sevilla → Arenal Sound Burriana (ago 2026): viaje largo (700 km), grupos de 4–5 personas comparten el coche y el hotel en Burriana o Castellón.",
+          "Bilbao → Vive Latino Zaragoza (sep 2026): 324 km, 3h. Carpooling 9–13 €/asiento.",
+        ],
+      },
+    ],
+    faqs: [
+      {
+        q: "¿Puedo reservar 4 plazas a la vez en ConcertRide?",
+        a: "Sí. En ConcertRide puedes contactar directamente al conductor y acordar que lleva a todo tu grupo si el coche tiene plazas suficientes. El conductor publica el número de plazas disponibles en su viaje. Si veis un conductor con 4 plazas libres en vuestra ruta, podéis acordar que lleva a los 4 directamente.",
+      },
+      {
+        q: "¿Cómo se paga el viaje en grupo con ConcertRide?",
+        a: "Cada pasajero paga directamente al conductor en efectivo o Bizum el día del viaje. No hay pago anticipado por plataforma ni comisión. Si sois 4 personas que se conocen, lo habitual es que uno pague y divida después entre el grupo vía Bizum.",
+      },
+      {
+        q: "¿Qué pasa si alguien del grupo no puede venir en el último momento?",
+        a: "Al no haber pago anticipado en ConcertRide, una cancelación de última hora no implica pérdida económica para el pasajero. Sí es un inconveniente para el conductor (pierde un asiento). Por eso se recomienda avisar con la máxima antelación posible y, si se puede, encontrar un sustituto en el grupo.",
+      },
+      {
+        q: "¿Hay carpooling para grupos de más de 4 personas (furgoneta, minibús)?",
+        a: "ConcertRide está diseñado principalmente para turismos de hasta 5 plazas (conductor + 4 pasajeros). Para grupos de 6 o más, lo habitual es organizar dos coches coordinados (publicar dos viajes con la misma ruta y hora) o buscar conductores con vehículos de 7 plazas (monovolumen, SUV grande) que también publican en la plataforma.",
+      },
+    ],
+    relatedLinks: [
+      { label: "Carpooling a Vive Latino Zaragoza", to: "/festivales/vive-latino" },
+      { label: "Carpooling a Mad Cool", to: "/festivales/mad-cool" },
+      { label: "Carpooling a Arenal Sound", to: "/festivales/arenal-sound" },
+      { label: "Conciertos en Zaragoza", to: "/conciertos/zaragoza" },
+    ],
+    relatedPosts: ["alternativa-tren-festivales-espana", "transporte-conciertos-zaragoza-2026"],
+  },
+
+  // ── Wave 4: content gaps May 2026 ──────────────────────────────────────────
+
+  {
+    slug: "festival-de-les-arts-2026-como-llegar",
+    title: "Festival de les Arts 2026 Valencia: cómo llegar en Metro, bus y carpooling",
+    h1: "Festival de les Arts 2026: transporte y carpooling desde toda España",
+    excerpt:
+      "Festival de les Arts 2026 (28–31 mayo, Ciudad de las Artes y las Ciencias, Valencia). Metro L3/L5/L7 parada Alameda. Carpooling desde Alicante (5–8 €), Madrid (10–14 €), Barcelona (10–14 €). Sin comisión.",
+    category: "guias",
+    tags: ["festival de les arts", "valencia", "carpooling", "metro", "transporte"],
+    publishedAt: "2026-05-07T09:00:00.000Z",
+    author: "Equipo ConcertRide",
+    readingMinutes: 5,
+    lede:
+      "El Festival de les Arts es el gran festival de electrónica y pop de Valencia, celebrado en uno de los recintos más fotogénicos de Europa: la Ciudad de las Artes y las Ciencias. Llegar es fácil en metro. Volver de madrugada, si no tienes coche compartido, no tanto.",
+    sections: [
+      {
+        heading: "Cómo llegar al Festival de les Arts en metro y bus",
+        paragraphs: [
+          "El Festival de les Arts 2026 se celebra del 28 al 31 de mayo en la Ciudad de las Artes y las Ciencias de Valencia. El acceso en transporte público es excelente: las líneas de metro L3, L5 y L7 tienen parada en Alameda, a 10 minutos andando del recinto. El autobús EMT también conecta el centro con la zona del festival.",
+          "El metro de Valencia opera hasta aproximadamente la 1:00 AM los fines de semana. Si el festival termina después de medianoche — lo habitual — la vuelta en metro es posible para quienes tengan hotel cerca. Para los que vienen de fuera de Valencia, el carpooling es la opción.",
+        ],
+      },
+      {
+        heading: "Carpooling al Festival de les Arts desde toda España",
+        paragraphs: [
+          "ConcertRide tiene rutas activas al Festival de les Arts desde las principales ciudades españolas:",
+        ],
+        bullets: [
+          "Alicante → Valencia Ciudad de las Artes: 166 km, 1h 40 min — 5–8 €/asiento.",
+          "Castellón → Valencia: 75 km, 50 min — 3–5 €/asiento.",
+          "Madrid → Valencia: 355 km, 3h 30 min — 10–14 €/asiento.",
+          "Barcelona → Valencia: 349 km, 3h 30 min — 10–14 €/asiento.",
+          "Murcia → Valencia: 248 km, 2h 30 min — 7–11 €/asiento.",
+          "Zaragoza → Valencia: 315 km, 3h — 9–13 €/asiento.",
+          "Sevilla → Valencia: 650 km, 6h — 18–25 €/asiento.",
+        ],
+      },
+      {
+        heading: "Festival de les Arts 2026: cartel, fechas y recinto",
+        paragraphs: [
+          "El festival se celebra en el Hemisfèric y el Palau de les Arts Reina Sofía, con capacidad para 20.000 personas por sesión. La programación combina artistas de electrónica internacional con pop alternativo y artistas españoles emergentes.",
+          "El acceso al recinto es por la Avenida del Profesor López Piñero. El parking privado de la Ciudad de las Artes (8–12 €/día) tiene plazas limitadas. La recomendación oficial del festival es llegar en metro para evitar colapsos de tráfico.",
+        ],
+      },
+    ],
+    faqs: [
+      {
+        q: "¿Cómo llegar al Festival de les Arts en metro?",
+        a: "El Festival de les Arts se celebra en la Ciudad de las Artes y las Ciencias de Valencia. Metro: líneas L3, L5 y L7, parada Alameda (10 min andando al recinto). El metro opera hasta la 1:00 AM los fines de semana. URL: concertride.me/festivales/festival-de-les-arts",
+      },
+      {
+        q: "¿Cuánto cuesta el carpooling al Festival de les Arts desde Alicante?",
+        a: "El carpooling de Alicante al Festival de les Arts Valencia cuesta entre 5 y 8 €/asiento con ConcertRide (0% comisión). La distancia es de 166 km y el tiempo de conducción es de 1 hora 40 minutos por la AP-7. URL: concertride.me/rutas/alicante-festival-de-les-arts",
+      },
+      {
+        q: "¿Hay parking en el Festival de les Arts Valencia?",
+        a: "Sí, el parking privado de la Ciudad de las Artes y las Ciencias tiene plazas a 8–12 €/día. El aforo es limitado y se recomienda el metro (parada Alameda). Para la vuelta de madrugada, el carpooling ConcertRide es la alternativa más práctica.",
+      },
+    ],
+    relatedLinks: [
+      { label: "Carpooling al Festival de les Arts", to: "/festivales/festival-de-les-arts" },
+      { label: "Alicante → Festival de les Arts", to: "/rutas/alicante-festival-de-les-arts" },
+      { label: "Madrid → Festival de les Arts", to: "/rutas/madrid-festival-de-les-arts" },
+      { label: "Conciertos en Valencia", to: "/conciertos/valencia" },
+    ],
+    relatedPosts: ["arenal-sound-2026-guia-transporte", "zevra-festival-2026-transporte"],
+  },
+
+  {
+    slug: "sabrina-carpenter-espana-2026-carpooling",
+    title: "Sabrina Carpenter en España 2026: carpooling al concierto desde todas las ciudades",
+    h1: "Sabrina Carpenter concierto España 2026: cómo llegar en carpooling",
+    excerpt:
+      "Sabrina Carpenter confirma fechas en España en 2026. Carpooling desde Barcelona (15–20 €), Zaragoza (9–13 €), Valencia (10–14 €). Sin comisión, conductores verificados. La opción más barata para llegar al Short n' Sweet Tour.",
+    category: "guias",
+    tags: ["sabrina carpenter", "madrid", "barcelona", "carpooling", "pop"],
+    publishedAt: "2026-05-07T10:00:00.000Z",
+    author: "Equipo ConcertRide",
+    readingMinutes: 4,
+    lede:
+      "Sabrina Carpenter agotó las entradas de su Short n' Sweet Tour en horas. Si tienes entrada pero no tienes cómo llegar, el carpooling con ConcertRide es la opción más económica y cómoda — especialmente para la vuelta de madrugada.",
+    sections: [
+      {
+        heading: "Sabrina Carpenter en España: recintos y fechas 2026",
+        paragraphs: [
+          "Sabrina Carpenter es la artista estadounidense de pop que en 2024 se convirtió en el fenómeno del año con 'Espresso' y 'Please Please Please'. Su Short n' Sweet Tour llega a España con fechas en Madrid y Barcelona, en recintos grandes que exigen planificación de transporte.",
+          "Los recintos confirmados son el WiZink Center de Madrid (18.000 plazas, metro L2 Ventas) y el Palau Sant Jordi de Barcelona (17.000 plazas, metro L2/L3 Paral·lel + funicular). Ambos son accesibles en metro para residentes en la ciudad, pero para asistentes de otras ciudades el carpooling es la única opción con vuelta flexible de madrugada.",
+        ],
+      },
+      {
+        heading: "Carpooling a Sabrina Carpenter desde todas las ciudades",
+        paragraphs: [],
+        bullets: [
+          "Valencia → Madrid (WiZink): 355 km, 3h 30 min — 10–14 €/asiento.",
+          "Barcelona → Madrid (WiZink): 620 km, 5h 30 min — 15–20 €/asiento.",
+          "Zaragoza → Madrid (WiZink): 325 km, 3h — 9–13 €/asiento.",
+          "Sevilla → Madrid (WiZink): 525 km, 4h 30 min — 14–20 €/asiento.",
+          "Madrid → Barcelona (Palau Sant Jordi): 620 km, 5h 30 min — 15–20 €/asiento.",
+          "Valencia → Barcelona (Palau Sant Jordi): 355 km, 3h 30 min — 10–14 €/asiento.",
+          "Zaragoza → Barcelona (Palau Sant Jordi): 306 km, 2h 45 min — 8–12 €/asiento.",
+        ],
+      },
+      {
+        heading: "Por qué el carpooling es la mejor opción para ir a Sabrina Carpenter",
+        paragraphs: [
+          "El tren AVE es la alternativa más cara y rígida: Madrid–Barcelona ida desde 45–80 € y el último tren de vuelta sale a las 21:00–22:00, imposible si el concierto termina después de las 23:30. El carpooling ConcertRide ajusta la hora de vuelta al final del show.",
+          "Con ConcertRide no hay comisión — el 100% del precio del asiento va al conductor. Los conductores verifican su carnet de conducir. El precio se acuerda antes del viaje y se paga en efectivo o Bizum el día del concierto.",
+        ],
+      },
+    ],
+    faqs: [
+      {
+        q: "¿Cuánto cuesta el carpooling al concierto de Sabrina Carpenter desde Valencia?",
+        a: "El carpooling de Valencia al concierto de Sabrina Carpenter en Madrid cuesta entre 10 y 14 €/asiento con ConcertRide (0% comisión). La distancia es de 355 km y el tiempo de conducción es de 3h 30 min por la A-3. URL: concertride.me/artistas/sabrina-carpenter",
+      },
+      {
+        q: "¿Cómo llegar al WiZink Center para el concierto de Sabrina Carpenter?",
+        a: "WiZink Center, Madrid: metro L2 Ventas (entrada principal) o L5 El Barco (5 min andando). Carpooling desde Zaragoza (9–13 €), Valencia (10–14 €), Barcelona (15–20 €). URL: concertride.me/recintos/wizink-center",
+      },
+    ],
+    relatedLinks: [
+      { label: "Artista: Sabrina Carpenter", to: "/artistas/sabrina-carpenter" },
+      { label: "Conciertos en Madrid", to: "/conciertos/madrid" },
+      { label: "Conciertos en Barcelona", to: "/conciertos/barcelona" },
+    ],
+    relatedPosts: ["aitana-concierto-2026-como-llegar", "coldplay-madrid-2026-carpooling"],
+  },
+
+  {
+    slug: "mad-cool-2026-carpooling-desde-sevilla-cadiz",
+    title: "Mad Cool 2026 desde Sevilla y Cádiz: carpooling, AVE o autobús — ¿qué compensa?",
+    h1: "Mad Cool 2026 desde Andalucía: carpooling vs AVE vs bus desde Sevilla, Cádiz y Málaga",
+    excerpt:
+      "Mad Cool 2026 (IFEMA Madrid, 9–11 julio) desde Sevilla: AVE ida 45–75 €, vuelta imposible de madrugada. Carpooling ConcertRide desde Sevilla (10–14 €), Cádiz (12–17 €), Málaga (14–20 €). Sin comisión. La comparativa honesta.",
+    category: "comparativas",
+    tags: ["mad cool", "sevilla", "andalucia", "carpooling", "ave", "comparativa"],
+    publishedAt: "2026-05-07T11:00:00.000Z",
+    author: "Equipo ConcertRide",
+    readingMinutes: 6,
+    lede:
+      "Ir a Mad Cool desde Andalucía es un viaje de más de 500 km. El AVE es rápido pero caro y no tiene vuelta de madrugada. El autobús es barato pero tarda 6–8 horas. El carpooling combina precio y flexibilidad de vuelta. Esta es la comparativa real.",
+    sections: [
+      {
+        heading: "Opciones de transporte desde Sevilla a Mad Cool",
+        paragraphs: [
+          "Mad Cool 2026 se celebra del 9 al 11 de julio en IFEMA Feria de Madrid (Metro L8 Feria de Madrid). Desde Sevilla hay tres opciones reales:",
+        ],
+        bullets: [
+          "AVE Sevilla–Madrid (Puerta de Atocha): 2h 30 min, 35–75 € ida según antelación. El problema: el último AVE de vuelta de Madrid a Sevilla sale ~21:30 y el primero del día siguiente sale ~6:00. Mad Cool termina después de las 2:00 AM. No hay vuelta en AVE el mismo día.",
+          "Bus Sevilla–Madrid (ALSA/FlixBus): 6h, 10–25 €. Llega a Estación Sur. Sin servicio nocturno desde Madrid después de las 23:30.",
+          "Carpooling ConcertRide Sevilla–IFEMA Madrid: 530 km, ~4h 30 min, 10–14 €/asiento. Vuelta coordinada con el festival, sin hora fija. 0% comisión.",
+        ],
+      },
+      {
+        heading: "Desde Cádiz y Málaga: distancias y precios",
+        paragraphs: [],
+        bullets: [
+          "Cádiz → IFEMA Madrid: 650 km, 5h 30 min — carpooling 12–17 €/asiento. AVE (con transbordo en Sevilla): 3h 30 min, 50–90 €.",
+          "Málaga → IFEMA Madrid: 545 km, 4h 45 min — carpooling 14–20 €/asiento. AVE (directo): 2h 30 min, 40–75 €.",
+          "Granada → IFEMA Madrid: 435 km, 4h 10 min — carpooling 12–17 €/asiento. Alaris (sin AVE directo): 4h+.",
+          "Córdoba → IFEMA Madrid: 400 km, 3h 30 min — carpooling 11–16 €/asiento. AVE: 1h 45 min, 25–55 €.",
+        ],
+      },
+      {
+        heading: "La clave: la vuelta de madrugada desde Mad Cool",
+        paragraphs: [
+          "Mad Cool termina cuando termina el último acto, habitualmente entre las 2:00 y las 3:00 AM. En ese momento en Madrid hay metro (hasta ~2:30 AM), pero no hay tren nocturno a Sevilla, Cádiz, Málaga o Granada. Las opciones son: hotel en Madrid (60–150 € la noche en julio), taxi/VTC a Atocha (25–40 €) para coger el primer AVE a las 6:00, o carpooling de vuelta coordinado con asistentes andaluces.",
+          "En ConcertRide, muchos conductores andaluces publican el viaje de vuelta con hora estimada post-festival (3:00–4:00 AM). El precio por asiento cubre los gastos de combustible y peajes para una ruta de 500+ km. Es la opción más económica si no quieres pagar hotel.",
+        ],
+      },
+    ],
+    faqs: [
+      {
+        q: "¿Cuánto cuesta ir a Mad Cool desde Sevilla en carpooling?",
+        a: "El carpooling de Sevilla a Mad Cool (IFEMA Madrid) cuesta entre 10 y 14 €/asiento con ConcertRide (0% comisión). La distancia es de 530 km y el tiempo de conducción es de 4h 30 min por la A-4. URL: concertride.me/rutas/sevilla-mad-cool",
+      },
+      {
+        q: "¿Hay AVE nocturno de vuelta de Madrid a Sevilla después de Mad Cool?",
+        a: "No. El último AVE Madrid–Sevilla del día sale ~21:30, antes de que termine Mad Cool. No hay tren nocturno de vuelta. La única opción económica para volver de madrugada es el carpooling ConcertRide.",
+      },
+      {
+        q: "¿Merece la pena ir a Mad Cool desde Sevilla?",
+        a: "Sí, si organizas bien el transporte. El carpooling ida y vuelta desde Sevilla cuesta 20–28 € total. Combinado con el coste de la entrada (150–300 €/día), el transporte representa un porcentaje pequeño del presupuesto total del festival.",
+      },
+    ],
+    relatedLinks: [
+      { label: "Sevilla → Mad Cool (ruta)", to: "/rutas/sevilla-mad-cool" },
+      { label: "Carpooling a Mad Cool", to: "/festivales/mad-cool" },
+      { label: "Conciertos en Sevilla", to: "/conciertos/sevilla" },
+      { label: "Málaga → Mad Cool (ruta)", to: "/rutas/malaga-mad-cool" },
+    ],
+    relatedPosts: ["carpooling-mad-cool-desde-barcelona-2026", "alternativa-tren-festivales-espana"],
+  },
+
+  {
+    slug: "medusa-festival-2026-guia-carpooling",
+    title: "Medusa Festival 2026 Cullera: guía de transporte, lanzadera y carpooling",
+    h1: "Medusa Festival 2026 Cullera: cómo llegar en lanzadera, bus y carpooling",
+    excerpt:
+      "Medusa Festival 2026 (12–16 agosto, Playa de Cullera, Valencia). Lanzadera oficial desde Valencia incluida en la entrada. Carpooling desde Valencia (3–5 €), Alicante (5–8 €), Madrid (15–20 €), Barcelona (12–17 €). Sin comisión.",
+    category: "guias",
+    tags: ["medusa festival", "cullera", "valencia", "carpooling", "lanzadera", "edm"],
+    publishedAt: "2026-05-07T12:00:00.000Z",
+    author: "Equipo ConcertRide",
+    readingMinutes: 6,
+    lede:
+      "Medusa Festival es uno de los festivales de música electrónica más grandes de Europa — 300.000 personas en 5 días en la playa de Cullera. El transporte es parte del reto: sin coche o carpooling, la vuelta de madrugada en la playa es complicada.",
+    sections: [
+      {
+        heading: "Lanzadera oficial de Medusa Festival desde Valencia",
+        paragraphs: [
+          "Medusa Festival incluye lanzadera oficial desde Valencia ciudad en el precio de la entrada. Las paradas de salida son la Estación del Norte y el parking de la Ciudad de las Artes y las Ciencias. La lanzadera cubre trayectos de entrada y salida durante los días del festival, pero tiene horarios fijos que no siempre coinciden con el final de los espectáculos nocturnos.",
+          "Para la vuelta de madrugada (especialmente si el DJ set de cierre termina a las 6:00 AM), el carpooling ConcertRide es la única opción que permite volver cuando quieras sin depender de un horario de bus.",
+        ],
+      },
+      {
+        heading: "Carpooling a Medusa Festival desde toda España",
+        paragraphs: [
+          "Rutas activas en ConcertRide para Medusa Festival 2026:",
+        ],
+        bullets: [
+          "Valencia → Playa de Cullera: 45 km, 40 min — 3–5 €/asiento.",
+          "Alicante → Cullera: 90 km, 1h — 5–8 €/asiento.",
+          "Castellón → Cullera: 110 km, 1h 10 min — 4–7 €/asiento.",
+          "Murcia → Cullera: 175 km, 1h 45 min — 5–8 €/asiento.",
+          "Madrid → Cullera: 390 km, 3h 30 min — 15–20 €/asiento.",
+          "Barcelona → Cullera: 310 km, 3h — 12–17 €/asiento.",
+          "Zaragoza → Cullera: 345 km, 3h 15 min — 10–15 €/asiento.",
+          "Sevilla → Cullera: 660 km, 6h — 18–26 €/asiento.",
+        ],
+      },
+      {
+        heading: "Medusa Festival: acampada, recinto y logística",
+        paragraphs: [
+          "Medusa tiene zona de camping en el recinto (La Muntanyeta de Cullera) con acceso directo a los escenarios. Si vas en coche propio o carpooling, el parking de camping cuesta aproximadamente 20–30 € por todo el festival. Es la opción preferida por los asistentes que vienen de fuera de la Comunitat Valenciana.",
+          "El festival tiene 5 escenarios simultáneos con programación de house, techno, trance y reggaeton. Los artistas principales actúan de medianoche a las 7–8 AM. La logística de transporte de vuelta es una de las preguntas más frecuentes en los grupos de fans del festival.",
+        ],
+      },
+    ],
+    faqs: [
+      {
+        q: "¿Hay lanzadera gratuita al Medusa Festival desde Valencia?",
+        a: "Sí, Medusa Festival incluye lanzadera oficial desde Valencia en el precio de la entrada. Las paradas de salida son la Estación del Norte y la Ciudad de las Artes. El servicio opera con horarios fijos durante los días del festival. Para la vuelta de madrugada, el carpooling ConcertRide (3–5 €/asiento desde Valencia) ofrece más flexibilidad horaria. URL: concertride.me/festivales/medusa-festival",
+      },
+      {
+        q: "¿Cuánto cuesta el carpooling al Medusa Festival desde Madrid?",
+        a: "El carpooling de Madrid al Medusa Festival (Playa de Cullera, Valencia) cuesta entre 15 y 20 €/asiento con ConcertRide (0% comisión). La distancia es de 390 km y el tiempo de conducción es de 3h 30 min. URL: concertride.me/rutas/madrid-medusa-festival",
+      },
+      {
+        q: "¿Se puede ir al Medusa Festival sin coche propio desde Barcelona?",
+        a: "Sí. Hay autobuses FlixBus y ALSA Barcelona–Valencia (2h 30 min–3h, 8–20 €) + lanzadera oficial al recinto. Alternativa más práctica: carpooling ConcertRide de Barcelona a Cullera (310 km, 3h, 12–17 €/asiento) con llegada directa al camping.",
+      },
+    ],
+    relatedLinks: [
+      { label: "Carpooling a Medusa Festival", to: "/festivales/medusa-festival" },
+      { label: "Madrid → Medusa Festival", to: "/rutas/madrid-medusa-festival" },
+      { label: "Barcelona → Medusa Festival", to: "/rutas/barcelona-medusa-festival" },
+      { label: "Conciertos en Valencia", to: "/conciertos/valencia" },
+    ],
+    relatedPosts: ["arenal-sound-2026-guia-transporte", "festivales-espana-verano-2026"],
+  },
+
+  {
+    slug: "festivales-andalucia-2026-carpooling",
+    title: "Festivales en Andalucía 2026: Interestelar, Cala Mijas e Icónica Fest — transporte y carpooling",
+    h1: "Festivales de Andalucía 2026: guía de transporte y carpooling por festival",
+    excerpt:
+      "Los grandes festivales de Andalucía en 2026: Interestelar Sevilla (40.000 asistentes, La Cartuja), Cala Mijas Fest (Cortijo Torres, Málaga), Icónica Sevilla Fest (Plaza España). Carpooling sin comisión entre ciudades andaluzas desde 3 €/asiento.",
+    category: "guias",
+    tags: ["andalucía", "sevilla", "málaga", "festivales", "interestelar", "carpooling"],
+    publishedAt: "2026-05-07T13:00:00.000Z",
+    author: "Equipo ConcertRide",
+    readingMinutes: 7,
+    lede:
+      "Andalucía tiene tres grandes festivales de verano en 2026 con características muy distintas: uno en un estadio urbano, uno en un cortijo de la Costa del Sol y uno en un espacio monumental. El transporte es diferente en cada caso — pero en los tres el carpooling es la opción más flexible para la vuelta.",
+    sections: [
+      {
+        heading: "Interestelar Sevilla: La Cartuja y el carpooling interandaluz",
+        paragraphs: [
+          "Interestelar Sevilla se celebra en el Estadio de La Cartuja (57.000 plazas) con una programación de pop y urban. El estadio está a 3 km del centro de Sevilla, accesible en metro C1 hasta Expo/Estadio Olímpico y en bus C1/C2. Parking disponible (~10–15 €/día) pero colapsado.",
+          "El carpooling interandaluz para Interestelar tiene mucha demanda: asistentes de Huelva (4–7 €/asiento, 90 km), Cádiz (5–8 €, 130 km), Córdoba (5–8 €, 140 km) y Málaga (6–9 €, 220 km) que quieren ir y volver el mismo día.",
+        ],
+      },
+      {
+        heading: "Cala Mijas Fest: el festival sin shuttle oficial",
+        paragraphs: [
+          "Cala Mijas Fest 2026 (2–4 octubre) en el Cortijo de Torres, Mijas (Málaga). El Cortijo está a 25 km del centro de Málaga, sin transporte público directo y sin shuttle oficial del festival. Las opciones son: taxi desde Málaga centro (25–40 €), coche propio o carpooling ConcertRide.",
+          "El carpooling es la opción dominante para ir y volver de Cala Mijas: desde Málaga (3–6 €/asiento, 25 km), desde Marbella (3–5 €, 20 km), desde Fuengirola (3–5 €, 10 km), desde Sevilla (7–11 €, 215 km), desde Granada (5–8 €, 125 km) y desde Madrid (14–20 €, 560 km).",
+        ],
+      },
+      {
+        heading: "Icónica Sevilla Fest: música en la Plaza de España",
+        paragraphs: [
+          "Icónica Fest tiene lugar en la Plaza de España de Sevilla, uno de los espacios más emblemáticos de la ciudad con aforo para 20.000 personas. Acceso en metro C4 hasta Prado de San Sebastián (5 min andando) o en autobús. Al estar en el centro de Sevilla, el carpooling tiene más sentido para asistentes de otras ciudades que para residentes en la capital andaluza.",
+        ],
+        bullets: [
+          "Cádiz → Sevilla (Icónica): 130 km, 1h 30 min — 5–8 €/asiento.",
+          "Huelva → Sevilla: 90 km, 55 min — 4–7 €/asiento.",
+          "Málaga → Sevilla: 220 km, 2h — 6–9 €/asiento.",
+          "Granada → Sevilla: 260 km, 2h 30 min — 7–11 €/asiento.",
+          "Córdoba → Sevilla: 140 km, 1h 30 min — 5–8 €/asiento.",
+        ],
+      },
+    ],
+    faqs: [
+      {
+        q: "¿Hay transporte público al Cala Mijas Festival desde Málaga?",
+        a: "No hay transporte público directo ni shuttle oficial al Cala Mijas Festival. El Cortijo de Torres está a 25 km del centro de Málaga. Las opciones son taxi (25–40 €), coche propio o carpooling ConcertRide (3–6 €/asiento desde Málaga, 0% comisión). URL: concertride.me/festivales/cala-mijas",
+      },
+      {
+        q: "¿Cómo llegar al estadio de La Cartuja para el Interestelar Sevilla?",
+        a: "Estadio de La Cartuja, Sevilla: metro C1 hasta parada Expo/Estadio Olímpico, autobús C1/C2 desde Puerta Jerez y Reyes Católicos, o carpooling ConcertRide desde Málaga (6–9 €), Cádiz (5–8 €), Córdoba (5–8 €). URL: concertride.me/recintos/estadio-la-cartuja",
+      },
+    ],
+    relatedLinks: [
+      { label: "Carpooling a Cala Mijas Festival", to: "/festivales/cala-mijas" },
+      { label: "Conciertos en Sevilla", to: "/conciertos/sevilla" },
+      { label: "Conciertos en Málaga", to: "/conciertos/malaga" },
+      { label: "Granada → Cala Mijas", to: "/rutas/granada-cala-mijas" },
+    ],
+    relatedPosts: ["carpooling-andalucia-festivales", "huella-carbono-festivales-carpooling"],
+  },
+);
+
 // Refresh derived exports
 export const BLOG_POSTS_BY_SLUG: Record<string, BlogPost> = Object.fromEntries(
   BLOG_POSTS.map((p) => [p.slug, p]),

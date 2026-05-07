@@ -6,7 +6,7 @@
   xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9
     http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
   <!-- Sitemap generado por generate-sitemaps.mjs -->
-  <!-- Tipo: festivales | Actualizado: 2026-05-06 | 16 URLs -->
+  <!-- Tipo: festivales | Actualizado: 2026-05-06 | 18 URLs -->
 
   <url>
     <loc>https://concertride.me/festivales/mad-cool</loc>
@@ -166,6 +166,26 @@
     <image:image>
       <image:loc>https://concertride.me/og/cruilla.png</image:loc>
       <image:title>Carpooling a cruilla — ConcertRide</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://concertride.me/festivales/vive-latino</loc>
+    <lastmod>2026-05-06</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+    <image:image>
+      <image:loc>https://concertride.me/og/vive-latino.png</image:loc>
+      <image:title>Vive Latino España 2026 Zaragoza — ConcertRide</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://concertride.me/festivales/festival-de-les-arts</loc>
+    <lastmod>2026-05-06</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+    <image:image>
+      <image:loc>https://concertride.me/og/festival-de-les-arts.png</image:loc>
+      <image:title>Festival de les Arts Valencia — ConcertRide</image:title>
     </image:image>
   </url>
 </urlset>

@@ -2402,7 +2402,7 @@ function festivalBody(slug: string, f: FestivalData, base: string): string {
     organizer: { "@type": "Organization", name: f.name, url: `${base}/festivales/${slug}` },
     offers: {
       "@type": "Offer",
-      price: parseFloat(f.priceFrom),
+      price: parseFloat(f.priceFrom) || 4,
       priceCurrency: "EUR",
       availability: "https://schema.org/InStock",
       validFrom: f.startDate,
@@ -2932,11 +2932,11 @@ function routeBody(slug: string, r: RouteData, base: string): string {
     subjectOf: { "@type": "MusicEvent", "@id": `${base}/festivales/${festivalSlug}#event` },
     offers: {
       "@type": "Offer",
-      price: parseFloat(r.priceFrom),
+      price: parseFloat(r.priceFrom) || 4,
       priceSpecification: {
         "@type": "PriceSpecification",
-        price: parseFloat(r.priceFrom),
-        maxPrice: parseFloat(r.priceTo),
+        price: parseFloat(r.priceFrom) || 4,
+        maxPrice: parseFloat(r.priceTo) || 8,
         priceCurrency: "EUR",
       },
       priceCurrency: "EUR",
@@ -2975,7 +2975,7 @@ function routeBody(slug: string, r: RouteData, base: string): string {
         organizer: { "@type": "Organization", name: festivalForRoute.name, url: `${base}/festivales/${festivalSlug}` },
         offers: {
           "@type": "Offer",
-          price: parseFloat(r.priceFrom),
+          price: parseFloat(r.priceFrom) || 4,
           priceCurrency: "EUR",
           availability: "https://schema.org/InStock",
           validFrom: festivalForRoute.startDate,

@@ -672,6 +672,534 @@ export const ARTIST_LANDINGS: ArtistLanding[] = [
     ],
     relatedFestivals: [],
   },
+
+  // ── Aitana ─────────────────────────────────────────────────────────────────
+  {
+    slug: "aitana",
+    name: "Aitana",
+    genre: ["pop", "indie-pop"],
+    wikidata: "Q30685048",
+    blurb:
+      "Aitana Ocaña es la artista española más escuchada en 2024–2026, con más de 15 millones de oyentes mensuales en Spotify. Su gira 'Cuarto Azul World Tour' 2026 incluye una fecha en el Pabellón Príncipe Felipe de Zaragoza el 10 de julio, y recorre los principales pabellones de España hasta diciembre. La base de fans de Aitana —activa en redes y propensa a organizar viajes compartidos— genera una altísima demanda de carpooling en ConcertRide. Con ConcertRide, los fans desde Toledo llegan al WiZink Center de Madrid por 4–7 €/asiento, sin comisión.",
+    upcomingConcerts: [
+      {
+        city: "Zaragoza",
+        citySlug: "zaragoza",
+        venue: "Pabellón Príncipe Felipe",
+        date: "2026-07-10",
+        concertRideRange: "4–7 €/asiento",
+        originCities: [
+          { city: "Huesca", range: "3–5 €" },
+          { city: "Pamplona", range: "5–8 €" },
+          { city: "Logroño", range: "5–8 €" },
+        ],
+      },
+      {
+        city: "Madrid",
+        citySlug: "madrid",
+        venue: "WiZink Center",
+        date: "2026-10-17",
+        concertRideRange: "4–7 €/asiento",
+        originCities: [
+          { city: "Toledo", range: "4–7 €" },
+          { city: "Zaragoza", range: "9–13 €" },
+          { city: "Valencia", range: "10–14 €" },
+        ],
+      },
+      {
+        city: "Barcelona",
+        citySlug: "barcelona",
+        venue: "Palau Sant Jordi",
+        date: "2026-10-24",
+        concertRideRange: "4–7 €/asiento",
+        originCities: [
+          { city: "Madrid", range: "15–20 €" },
+          { city: "Valencia", range: "10–14 €" },
+          { city: "Zaragoza", range: "8–12 €" },
+        ],
+      },
+      {
+        city: "Valencia",
+        citySlug: "valencia",
+        venue: "Pabellón Fuente de San Luis",
+        date: "2026-11-07",
+        concertRideRange: "4–7 €/asiento",
+        originCities: [
+          { city: "Alicante", range: "5–8 €" },
+          { city: "Madrid", range: "10–14 €" },
+          { city: "Murcia", range: "6–9 €" },
+        ],
+      },
+      {
+        city: "Bilbao",
+        citySlug: "bilbao",
+        venue: "BEC!",
+        date: "2026-11-21",
+        concertRideRange: "4–7 €/asiento",
+        originCities: [
+          { city: "Donostia", range: "4–7 €" },
+          { city: "Vitoria-Gasteiz", range: "3–6 €" },
+          { city: "Pamplona", range: "5–8 €" },
+        ],
+      },
+      {
+        city: "Sevilla",
+        citySlug: "sevilla",
+        venue: "FIBES",
+        date: "2026-12-05",
+        concertRideRange: "4–7 €/asiento",
+        originCities: [
+          { city: "Cádiz", range: "4–7 €" },
+          { city: "Málaga", range: "5–8 €" },
+          { city: "Córdoba", range: "3–6 €" },
+        ],
+      },
+    ],
+    relatedFestivals: ["mad-cool", "vive-latino"],
+  },
+
+  // ── Dani Martín ────────────────────────────────────────────────────────────
+  {
+    slug: "dani-martin",
+    name: "Dani Martín",
+    genre: ["pop", "rock", "indie"],
+    wikidata: "Q5221879",
+    blurb:
+      "Dani Martín, ex vocalista de El Canto del Loco, es uno de los artistas de pop-rock español más queridos de su generación. Su gira '25 Pts Años' celebra 25 años de carrera con doble fecha en el Pabellón Príncipe Felipe de Zaragoza (22 y 23 de mayo de 2026), ambas prácticamente agotadas en pocas horas. La demanda de carpooling desde Huesca, Teruel, Navarra y La Rioja hacia Zaragoza es la más alta registrada en ConcertRide para un artista español. Con ConcertRide, los fans desde Pamplona llegan a Zaragoza por 5–8 €/asiento, sin comisión.",
+    upcomingConcerts: [
+      {
+        city: "Zaragoza",
+        citySlug: "zaragoza",
+        venue: "Pabellón Príncipe Felipe",
+        date: "2026-05-22",
+        concertRideRange: "4–7 €/asiento",
+        originCities: [
+          { city: "Madrid", range: "9–13 €" },
+          { city: "Barcelona", range: "8–12 €" },
+          { city: "Pamplona", range: "5–8 €" },
+        ],
+      },
+      {
+        city: "Zaragoza",
+        citySlug: "zaragoza",
+        venue: "Pabellón Príncipe Felipe",
+        date: "2026-05-23",
+        concertRideRange: "4–7 €/asiento",
+        originCities: [
+          { city: "Huesca", range: "3–5 €" },
+          { city: "Teruel", range: "5–8 €" },
+          { city: "Logroño", range: "5–8 €" },
+        ],
+      },
+      {
+        city: "Madrid",
+        citySlug: "madrid",
+        venue: "WiZink Center",
+        date: "2026-07-04",
+        concertRideRange: "4–7 €/asiento",
+        originCities: [
+          { city: "Toledo", range: "4–7 €" },
+          { city: "Guadalajara", range: "3–6 €" },
+          { city: "Segovia", range: "4–7 €" },
+        ],
+      },
+      {
+        city: "A Coruña",
+        citySlug: "a-coruna",
+        venue: "Coliseum A Coruña",
+        date: "2026-07-18",
+        concertRideRange: "4–7 €/asiento",
+        originCities: [
+          { city: "Vigo", range: "4–7 €" },
+          { city: "Santiago de Compostela", range: "3–5 €" },
+          { city: "Lugo", range: "3–5 €" },
+        ],
+      },
+    ],
+    relatedFestivals: ["vive-latino"],
+  },
+
+  // ── Melendi ────────────────────────────────────────────────────────────────
+  {
+    slug: "melendi",
+    name: "Melendi",
+    genre: ["pop", "rumba", "folk"],
+    wikidata: "Q4317174",
+    blurb:
+      "Ramón Melendi Espina es el artista asturiano de pop y rumba que lleva más de dos décadas encabezando festivales y pabellones en toda España. Su gira de verano 2026 incluye fechas en los principales recintos del norte y sur. Con ConcertRide, los fans de Gijón o Oviedo se desplazan a los conciertos en Bilbao o Madrid desde 4–8 €/asiento.",
+    upcomingConcerts: [
+      {
+        city: "Madrid",
+        citySlug: "madrid",
+        venue: "WiZink Center",
+        date: "2026-09-12",
+        concertRideRange: "4–7 €/asiento",
+        originCities: [
+          { city: "Toledo", range: "4–7 €" },
+          { city: "Valladolid", range: "6–9 €" },
+          { city: "Salamanca", range: "6–9 €" },
+        ],
+      },
+      {
+        city: "Bilbao",
+        citySlug: "bilbao",
+        venue: "BEC!",
+        date: "2026-09-19",
+        concertRideRange: "4–7 €/asiento",
+        originCities: [
+          { city: "Donostia", range: "4–7 €" },
+          { city: "Vitoria-Gasteiz", range: "3–6 €" },
+          { city: "Santander", range: "4–7 €" },
+        ],
+      },
+    ],
+    relatedFestivals: ["bbk-live", "sonorama-ribera"],
+  },
+
+  // ── Pablo Alborán ──────────────────────────────────────────────────────────
+  {
+    slug: "pablo-alboran",
+    name: "Pablo Alborán",
+    genre: ["pop", "latin-pop", "balada"],
+    wikidata: "Q1359695",
+    blurb:
+      "Pablo Alborán es el cantautor malagueño de pop romántico más vendido de España, con más de 25 millones de discos vendidos en todo el mundo. Su público fiel, de 25 a 50 años, genera una demanda estable de carpooling en ConcertRide para sus conciertos en teatros y pabellones. Con ConcertRide, los fans desde Córdoba llegan a Sevilla por 4–6 €/asiento, sin comisión.",
+    upcomingConcerts: [
+      {
+        city: "Madrid",
+        citySlug: "madrid",
+        venue: "WiZink Center",
+        date: "TBD",
+        concertRideRange: "4–7 €/asiento",
+        originCities: [
+          { city: "Toledo", range: "4–7 €" },
+          { city: "Guadalajara", range: "3–6 €" },
+          { city: "Valladolid", range: "7–11 €" },
+        ],
+      },
+      {
+        city: "Sevilla",
+        citySlug: "sevilla",
+        venue: "FIBES",
+        date: "TBD",
+        concertRideRange: "4–7 €/asiento",
+        originCities: [
+          { city: "Cádiz", range: "4–7 €" },
+          { city: "Málaga", range: "5–8 €" },
+          { city: "Córdoba", range: "4–6 €" },
+        ],
+      },
+      {
+        city: "Barcelona",
+        citySlug: "barcelona",
+        venue: "Palau Sant Jordi",
+        date: "TBD",
+        concertRideRange: "4–7 €/asiento",
+        originCities: [
+          { city: "Madrid", range: "15–20 €" },
+          { city: "Valencia", range: "10–14 €" },
+          { city: "Zaragoza", range: "8–12 €" },
+        ],
+      },
+    ],
+    relatedFestivals: ["tomavistas"],
+  },
+
+  // ── Hombres G ──────────────────────────────────────────────────────────────
+  {
+    slug: "hombres-g",
+    name: "Hombres G",
+    genre: ["pop", "rock", "new wave"],
+    wikidata: "Q1625524",
+    blurb:
+      "Hombres G es la banda de pop-rock madrileña más icónica de los años 80, liderada por David Summers, que sigue llenando recintos de toda España con su gira 'Los Mejores Años de Nuestra Vida'. Su concierto en el Pabellón Príncipe Felipe de Zaragoza el 21 de noviembre de 2026 agota entradas entre el público de 35 a 55 años de Aragón, Navarra y La Rioja. Con ConcertRide, los fans desde Pamplona llegan a Zaragoza por 5–8 €/asiento, sin comisión.",
+    upcomingConcerts: [
+      {
+        city: "Zaragoza",
+        citySlug: "zaragoza",
+        venue: "Pabellón Príncipe Felipe",
+        date: "2026-11-21",
+        concertRideRange: "4–7 €/asiento",
+        originCities: [
+          { city: "Pamplona", range: "5–8 €" },
+          { city: "Logroño", range: "5–8 €" },
+          { city: "Huesca", range: "3–5 €" },
+        ],
+      },
+      {
+        city: "Madrid",
+        citySlug: "madrid",
+        venue: "WiZink Center",
+        date: "TBD",
+        concertRideRange: "4–7 €/asiento",
+        originCities: [
+          { city: "Toledo", range: "4–7 €" },
+          { city: "Guadalajara", range: "3–6 €" },
+          { city: "Valladolid", range: "6–9 €" },
+        ],
+      },
+    ],
+    relatedFestivals: [],
+  },
+
+  // ── Bryan Adams ────────────────────────────────────────────────────────────
+  {
+    slug: "bryan-adams",
+    name: "Bryan Adams",
+    genre: ["rock", "pop-rock"],
+    wikidata: "Q193878",
+    blurb:
+      "Bryan Adams es el cantante y guitarrista canadiense de rock cuyas canciones como 'Summer of '69' y '(Everything I Do) I Do It for You' llevan más de tres décadas en el imaginario colectivo. Su gira europea de noviembre de 2026 incluye fechas en Madrid y Zaragoza, atrayendo a un público de 40 a 60 años con alta sensibilidad a la comodidad del transporte. Con ConcertRide, los fans desde Bilbao llegan a Zaragoza por 8–12 €/asiento, sin comisión.",
+    upcomingConcerts: [
+      {
+        city: "Zaragoza",
+        citySlug: "zaragoza",
+        venue: "Pabellón Príncipe Felipe",
+        date: "2026-11-14",
+        concertRideRange: "4–7 €/asiento",
+        originCities: [
+          { city: "Bilbao", range: "8–12 €" },
+          { city: "Pamplona", range: "5–8 €" },
+          { city: "Barcelona", range: "8–12 €" },
+        ],
+      },
+      {
+        city: "Madrid",
+        citySlug: "madrid",
+        venue: "Palacio de los Deportes WiZink",
+        date: "2026-11-18",
+        concertRideRange: "4–7 €/asiento",
+        originCities: [
+          { city: "Toledo", range: "4–7 €" },
+          { city: "Valencia", range: "10–14 €" },
+          { city: "Zaragoza", range: "9–13 €" },
+        ],
+      },
+    ],
+    relatedFestivals: [],
+  },
+
+  // ── Sabrina Carpenter ────────────────────────────────────────────────────────
+  {
+    slug: "sabrina-carpenter",
+    name: "Sabrina Carpenter",
+    genre: ["pop"],
+    wikidata: "Q18635952",
+    blurb:
+      "Sabrina Carpenter es la cantante y compositora estadounidense que en 2024 se convirtió en el mayor fenómeno pop del año con 'Espresso' y 'Please Please Please', alcanzando el número 1 en todo el mundo. Su Short n' Sweet Tour agotó entradas en horas en España. Con ConcertRide, los fans desde Zaragoza llegan al WiZink Center Madrid por 9–13 €/asiento, sin comisión.",
+    upcomingConcerts: [
+      {
+        city: "Madrid",
+        citySlug: "madrid",
+        venue: "WiZink Center",
+        date: "TBD",
+        concertRideRange: "4–7 €/asiento",
+        originCities: [
+          { city: "Valencia", range: "10–14 €" },
+          { city: "Zaragoza", range: "9–13 €" },
+          { city: "Sevilla", range: "14–20 €" },
+        ],
+      },
+      {
+        city: "Barcelona",
+        citySlug: "barcelona",
+        venue: "Palau Sant Jordi",
+        date: "TBD",
+        concertRideRange: "4–7 €/asiento",
+        originCities: [
+          { city: "Madrid", range: "15–20 €" },
+          { city: "Valencia", range: "10–14 €" },
+          { city: "Zaragoza", range: "8–12 €" },
+        ],
+      },
+    ],
+    relatedFestivals: ["primavera-sound"],
+  },
+
+  // ── Lana Del Rey ─────────────────────────────────────────────────────────────
+  {
+    slug: "lana-del-rey",
+    name: "Lana Del Rey",
+    genre: ["dream pop", "indie pop", "baroque pop"],
+    wikidata: "Q11658",
+    blurb:
+      "Lana Del Rey es la cantautora estadounidense que con álbumes como 'Born to Die' y 'Norman Fucking Rockwell!' ha redefinido el dream pop alternativo. Ha actuado en el Primavera Sound de Barcelona en múltiples ediciones y sus fans españoles organizan carpooling desde toda la península para sus conciertos. Con ConcertRide, los fans desde Valencia llegan al Primavera Sound por 10–14 €/asiento, sin comisión.",
+    upcomingConcerts: [
+      {
+        city: "Barcelona",
+        citySlug: "barcelona",
+        venue: "Parc del Fòrum / Palau Sant Jordi",
+        date: "TBD",
+        concertRideRange: "4–7 €/asiento",
+        originCities: [
+          { city: "Madrid", range: "15–20 €" },
+          { city: "Valencia", range: "10–14 €" },
+          { city: "Zaragoza", range: "8–12 €" },
+        ],
+      },
+      {
+        city: "Madrid",
+        citySlug: "madrid",
+        venue: "WiZink Center",
+        date: "TBD",
+        concertRideRange: "4–7 €/asiento",
+        originCities: [
+          { city: "Valencia", range: "10–14 €" },
+          { city: "Sevilla", range: "14–20 €" },
+          { city: "Zaragoza", range: "9–13 €" },
+        ],
+      },
+    ],
+    relatedFestivals: ["primavera-sound", "mad-cool"],
+  },
+
+  // ── C. Tangana ─────────────────────────────────────────────────────────────
+  {
+    slug: "c-tangana",
+    name: "C. Tangana",
+    genre: ["urban", "flamenco pop", "latin"],
+    wikidata: "Q21080716",
+    blurb:
+      "C. Tangana (Antón Álvarez Alfaro) es el artista madrileño que con 'El Madrileño' fusionó urban, flamenco y bossa nova en el álbum español más influyente de la década. Sus conciertos en estadios y festivales generan una de las mayores demandas de carpooling nacional entre artistas españoles. Con ConcertRide, los fans desde Valencia llegan a Madrid por 10–14 €/asiento, sin comisión.",
+    upcomingConcerts: [
+      {
+        city: "Madrid",
+        citySlug: "madrid",
+        venue: "WiZink Center",
+        date: "TBD",
+        concertRideRange: "4–7 €/asiento",
+        originCities: [
+          { city: "Valencia", range: "10–14 €" },
+          { city: "Sevilla", range: "14–20 €" },
+          { city: "Bilbao", range: "11–16 €" },
+        ],
+      },
+      {
+        city: "Barcelona",
+        citySlug: "barcelona",
+        venue: "Palau Sant Jordi",
+        date: "TBD",
+        concertRideRange: "4–7 €/asiento",
+        originCities: [
+          { city: "Madrid", range: "15–20 €" },
+          { city: "Valencia", range: "10–14 €" },
+          { city: "Zaragoza", range: "8–12 €" },
+        ],
+      },
+    ],
+    relatedFestivals: ["primavera-sound", "mad-cool", "sonar"],
+  },
+
+  // ── Joaquín Sabina ──────────────────────────────────────────────────────────
+  {
+    slug: "joaquin-sabina",
+    name: "Joaquín Sabina",
+    genre: ["cantautor", "rock", "pop"],
+    wikidata: "Q181218",
+    blurb:
+      "Joaquín Sabina es el cantautor ubetense con más de cuatro décadas de carrera y uno de los artistas españoles con mayor capacidad de convocatoria, llenando estadios en Madrid y Barcelona con sus giras. Sus fans, de amplio rango de edad, organizan carpooling desde toda España para sus conciertos. Con ConcertRide, los fans desde Jaén llegan al Estadio Bernabéu por 12–17 €/asiento, sin comisión.",
+    upcomingConcerts: [
+      {
+        city: "Madrid",
+        citySlug: "madrid",
+        venue: "Estadio Bernabéu / WiZink Center",
+        date: "TBD",
+        concertRideRange: "4–7 €/asiento",
+        originCities: [
+          { city: "Sevilla", range: "14–20 €" },
+          { city: "Valencia", range: "10–14 €" },
+          { city: "Zaragoza", range: "9–13 €" },
+        ],
+      },
+      {
+        city: "Barcelona",
+        citySlug: "barcelona",
+        venue: "Palau Sant Jordi",
+        date: "TBD",
+        concertRideRange: "4–7 €/asiento",
+        originCities: [
+          { city: "Madrid", range: "15–20 €" },
+          { city: "Valencia", range: "10–14 €" },
+          { city: "Bilbao", range: "12–17 €" },
+        ],
+      },
+    ],
+    relatedFestivals: ["sonorama-ribera"],
+  },
+
+  // ── Travis Scott ────────────────────────────────────────────────────────────
+  {
+    slug: "travis-scott",
+    name: "Travis Scott",
+    genre: ["hip-hop", "trap", "psychedelic trap"],
+    wikidata: "Q13643874",
+    blurb:
+      "Travis Scott es el productor y rapero de Houston (Texas) cuyas actuaciones en vivo — conocidas como Rodeos — son experiencias multimedia que combinan concierto, show de luces y puesta en escena única. En España ha actuado en el Primavera Sound y en el Mad Cool Festival, generando alta demanda de carpooling. Con ConcertRide, los fans desde Valencia llegan al Primavera Sound por 10–14 €/asiento, sin comisión.",
+    upcomingConcerts: [
+      {
+        city: "Barcelona",
+        citySlug: "barcelona",
+        venue: "Parc del Fòrum",
+        date: "TBD",
+        concertRideRange: "4–7 €/asiento",
+        originCities: [
+          { city: "Madrid", range: "15–20 €" },
+          { city: "Valencia", range: "10–14 €" },
+          { city: "Zaragoza", range: "8–12 €" },
+        ],
+      },
+      {
+        city: "Madrid",
+        citySlug: "madrid",
+        venue: "IFEMA / WiZink Center",
+        date: "TBD",
+        concertRideRange: "4–7 €/asiento",
+        originCities: [
+          { city: "Valencia", range: "10–14 €" },
+          { city: "Zaragoza", range: "9–13 €" },
+          { city: "Bilbao", range: "11–16 €" },
+        ],
+      },
+    ],
+    relatedFestivals: ["primavera-sound", "mad-cool"],
+  },
+
+  // ── Rozalén ────────────────────────────────────────────────────────────────
+  {
+    slug: "rozalen",
+    name: "Rozalén",
+    genre: ["folk", "pop", "cantautor"],
+    wikidata: "Q20713726",
+    blurb:
+      "María Rozalén Ortuño es la cantautora albaceteña de folk y pop que se ha convertido en una de las voces más premiadas de la música española contemporánea, ganadora de múltiples Premios Ondas. Sus conciertos agotan entradas en teatros y festivales al aire libre de todo el país. Con ConcertRide, los fans de Albacete llegan a Madrid por 6–9 €/asiento, sin comisión.",
+    upcomingConcerts: [
+      {
+        city: "Madrid",
+        citySlug: "madrid",
+        venue: "WiZink Center",
+        date: "TBD",
+        concertRideRange: "4–7 €/asiento",
+        originCities: [
+          { city: "Albacete", range: "6–9 €" },
+          { city: "Toledo", range: "4–7 €" },
+          { city: "Cuenca", range: "5–8 €" },
+        ],
+      },
+      {
+        city: "Valencia",
+        citySlug: "valencia",
+        venue: "Sala La Rambleta",
+        date: "TBD",
+        concertRideRange: "4–7 €/asiento",
+        originCities: [
+          { city: "Alicante", range: "5–8 €" },
+          { city: "Albacete", range: "5–8 €" },
+          { city: "Murcia", range: "6–9 €" },
+        ],
+      },
+    ],
+    relatedFestivals: ["primavera-sound", "sonorama-ribera"],
+  },
 ];
 
 export const ARTIST_LANDINGS_BY_SLUG: Record<string, ArtistLanding> = Object.fromEntries(

@@ -78,6 +78,16 @@ export const FESTIVAL_SEO_OVERRIDES: Record<string, { title: string; description
     description: `FIB ${YEAR}, Benicàssim (Castellón). Tren Cercanías Castellón–Benicàssim (5 min). Carpooling desde Valencia (4–7€), Madrid (10–14€), Barcelona (8–12€). Sin comisión.`,
     keywords: `fib ${YEAR}, fib benicassim ${YEAR}, fib benicàssim como llegar, fib festival tren, autobús fib, fib carpooling, festival internacional benicassim, fib transporte, como ir fib`,
   },
+  "vive-latino": {
+    title: `Vive Latino España ${YEAR} Zaragoza (4–5 sep) — Carpooling desde Madrid (9€) | ConcertRide`,
+    description: `Vive Latino España ${YEAR}, Recinto Expo Zaragoza (4–5 sep). 40.000 personas/día. Carpooling desde Madrid (9–13€, 3h), Barcelona (8–12€, 2h 45min), Pamplona (5–8€), Huesca (3–5€). Primera edición europea. Sin comisión.`,
+    keywords: `vive latino españa ${YEAR}, vive latino zaragoza ${YEAR}, vive latino zaragoza septiembre, vive latino como llegar, carpooling vive latino, vive latino transporte, como ir al vive latino zaragoza, vive latino carpooling madrid, vive latino carpooling barcelona, vive latino recinto expo, vive latino zaragoza expo`,
+  },
+  "festival-de-les-arts": {
+    title: `Festival de les Arts ${YEAR} Valencia — Carpooling desde Alicante (5€) | ConcertRide`,
+    description: `Festival de les Arts ${YEAR}, Ciudad de las Artes y las Ciencias Valencia (28–31 may). Carpooling desde Alicante (5–8€), Castellón (3–5€), Madrid (10–14€), Murcia (7–11€). Metro L3/L5/L7 (parada Alameda). Sin comisión.`,
+    keywords: `festival de les arts ${YEAR}, festival les arts valencia ${YEAR}, festival les arts como llegar, carpooling festival les arts, les arts transporte, como ir festival les arts, festival les arts carpooling alicante, festival les arts carpooling madrid`,
+  },
   "sonar": {
     title: `Sónar ${YEAR} Barcelona — Carpooling y Metro L1 | ConcertRide`,
     description: `Sónar ${YEAR}, Fira Montjuïc Barcelona. Metro L1 Espanya. Carpooling desde Madrid (14–22€), Valencia (10–14€), Zaragoza (8–12€). Electrónica. Sin comisión.`,
@@ -126,9 +136,9 @@ export const CITY_SEO_IMPROVEMENTS: Record<string, { title: string; description:
     keywords: `conciertos Plaza de Toros Alicante ${YEAR}, conciertos plaza toros alicante, conciertos alicante ${YEAR}, conciertos en Alicante, próximos conciertos Alicante, carpooling Alicante festivales, viaje compartido Alicante Low Festival`,
   },
   zaragoza: {
-    title: `Conciertos Zaragoza ${YEAR}: Príncipe Felipe + Carpooling a Mad Cool, Primavera | ConcertRide`,
-    description: `Conciertos en Zaragoza ${YEAR}: Pabellón Príncipe Felipe, Sala López. Carpooling a Mad Cool (12€), Primavera Sound (14€), Arenal Sound (10€) sin comisión desde Zaragoza.`,
-    keywords: `conciertos Zaragoza ${YEAR}, conciertos en Zaragoza, próximos conciertos Zaragoza, Pabellón Príncipe Felipe, carpooling Zaragoza festivales, viajes Mad Cool desde Zaragoza`,
+    title: `Conciertos Zaragoza ${YEAR}: Dani Martín, Aitana, Hombres G, Vive Latino + Carpooling | ConcertRide`,
+    description: `Conciertos en Zaragoza ${YEAR}: Dani Martín (22–23 may), Aitana (10 jul), Vive Latino España (4–5 sep), Bryan Adams (14 nov), Hombres G (21 nov). Carpooling sin comisión desde Madrid (9€), Barcelona (8€), Pamplona (5€), Huesca (3€).`,
+    keywords: `conciertos Zaragoza ${YEAR}, conciertos en Zaragoza, próximos conciertos Zaragoza, Pabellón Príncipe Felipe, Dani Martín Zaragoza, Aitana Zaragoza, Vive Latino Zaragoza, Hombres G Zaragoza, Bryan Adams Zaragoza, carpooling Zaragoza festivales, viajes Mad Cool desde Zaragoza, conciertos Zaragoza verano`,
   },
   murcia: {
     title: `Conciertos Murcia ${YEAR}: SOS 4.8 + Carpooling a Medusa, Arenal Sound | ConcertRide`,
@@ -414,6 +424,67 @@ export const ARTIST_SEO_OVERRIDES: Record<string, { title: string; description: 
     description: `Beyoncé en España ${YEAR} — estadios de Madrid y Barcelona. Carpooling desde Valencia (10–14€), Sevilla (12–17€), Barcelona (15–20€). Renaissance Tour. 0% comisión, conductores verificados con carnet.`,
     keywords: `carpooling beyonce españa, beyonce madrid como llegar, beyonce concierto ${YEAR} transporte, viaje compartido beyonce, renaissance tour madrid carpooling, como ir al concierto beyonce`,
   },
+  // ── Artistas Españoles ──────────────────────────────────────────────────────
+  "aitana": {
+    title: `Aitana concierto ${YEAR}: carpooling al WiZink Center, Palau Sant Jordi y BEC! | ConcertRide`,
+    description: `Aitana ALPHA Tour ${YEAR} — WiZink Center Madrid (oct), Palau Sant Jordi Barcelona (oct), BEC! Bilbao (nov), FIBES Sevilla (dic). Carpooling desde Toledo (4–7€), Zaragoza (9–13€), Valencia (10–14€). 0% comisión.`,
+    keywords: `carpooling aitana ${YEAR}, concierto aitana madrid ${YEAR}, aitana wizink center como llegar, aitana alpha tour ${YEAR}, aitana carpooling, como llegar concierto aitana, aitana palau sant jordi carpooling, aitana bec bilbao transporte, viaje compartido aitana`,
+  },
+  "dani-martin": {
+    title: `Dani Martín '25 Pts Años' Zaragoza ${YEAR}: doble fecha 22–23 mayo — carpooling desde 4€ | ConcertRide`,
+    description: `Dani Martín gira '25 Pts Años' ${YEAR}: DOBLE FECHA Pabellón Príncipe Felipe Zaragoza (22 y 23 may). Entradas agotadas. Carpooling desde Madrid (9–13€), Pamplona (5–8€), Huesca (3–5€), Logroño (5–8€). 0% comisión.`,
+    keywords: `carpooling dani martin ${YEAR}, concierto dani martin zaragoza ${YEAR}, dani martin 22 mayo zaragoza, dani martin 23 mayo zaragoza, dani martin zaragoza entradas, dani martin 25 años gira, viaje compartido dani martin zaragoza, como llegar concierto dani martin zaragoza, dani martin principe felipe zaragoza, el canto del loco ${YEAR}`,
+  },
+  "hombres-g": {
+    title: `Hombres G Zaragoza ${YEAR}: carpooling al concierto 21 nov Príncipe Felipe | ConcertRide`,
+    description: `Hombres G 'Los Mejores Años de Nuestra Vida' — Pabellón Príncipe Felipe Zaragoza (21 nov ${YEAR}). Carpooling desde Pamplona (5–8€), Logroño (5–8€), Huesca (3–5€), Madrid (9–13€). 0% comisión, conductores verificados.`,
+    keywords: `carpooling hombres g ${YEAR}, concierto hombres g zaragoza ${YEAR}, hombres g zaragoza noviembre, hombres g david summers ${YEAR}, hombres g los mejores años, como llegar concierto hombres g zaragoza, viaje compartido hombres g, hombres g principe felipe zaragoza, hombres g carpooling pamplona`,
+  },
+  "bryan-adams": {
+    title: `Bryan Adams España ${YEAR}: carpooling Zaragoza (14 nov) y Madrid (18 nov) | ConcertRide`,
+    description: `Bryan Adams gira europea ${YEAR} — Pabellón Príncipe Felipe Zaragoza (14 nov), WiZink Center Madrid (18 nov). Carpooling desde Bilbao (8–12€), Pamplona (5–8€), Barcelona (8–12€), Toledo (4–7€). 0% comisión.`,
+    keywords: `carpooling bryan adams españa ${YEAR}, concierto bryan adams zaragoza, bryan adams madrid ${YEAR}, bryan adams zaragoza noviembre, como llegar concierto bryan adams, viaje compartido bryan adams, bryan adams principe felipe zaragoza, bryan adams wizink madrid carpooling, summer of 69 concierto ${YEAR}`,
+  },
+  "melendi": {
+    title: `Melendi concierto España ${YEAR}: carpooling al WiZink Center y BEC! | ConcertRide`,
+    description: `Melendi Gira ${YEAR} — WiZink Center Madrid (sept), BEC! Bilbao (sept). Carpooling desde Toledo (4–7€), Donostia (4–7€), Vitoria (3–6€). 0% comisión, conductores verificados.`,
+    keywords: `carpooling melendi ${YEAR}, melendi concierto madrid ${YEAR}, melendi wizink center como llegar, melendi bec bilbao carpooling, como ir concierto melendi, viaje compartido melendi, melendi gira ${YEAR}`,
+  },
+  "pablo-alboran": {
+    title: `Pablo Alborán concierto España ${YEAR}: carpooling desde 4€ | ConcertRide`,
+    description: `Pablo Alborán en España ${YEAR} — WiZink Center Madrid, FIBES Sevilla, Palau Sant Jordi Barcelona. Carpooling desde Toledo (4–7€), Córdoba (4–6€), Málaga (5–8€), Valencia (10–14€). 0% comisión.`,
+    keywords: `carpooling pablo alboran ${YEAR}, pablo alboran madrid como llegar, pablo alboran wizink center carpooling, pablo alboran ${YEAR} transporte, viaje compartido pablo alboran, como ir concierto pablo alboran, pablo alboran sevilla fibes carpooling`,
+  },
+  "rozalen": {
+    title: `Rozalén concierto España ${YEAR}: carpooling desde 4€ | ConcertRide`,
+    description: `Rozalén en España ${YEAR} — WiZink Center Madrid, Valencia. Carpooling desde Albacete (6–9€), Toledo (4–7€), Cuenca (5–8€), Alicante (5–8€). 0% comisión, conductores verificados.`,
+    keywords: `carpooling rozalen ${YEAR}, rozalen concierto madrid ${YEAR}, rozalen wizink center como llegar, rozalen ${YEAR} transporte, viaje compartido rozalen, como ir concierto rozalen`,
+  },
+  "sabrina-carpenter": {
+    title: `Sabrina Carpenter concierto España ${YEAR}: carpooling desde 4€ | ConcertRide`,
+    description: `Sabrina Carpenter Short n' Sweet Tour España ${YEAR} — WiZink Center Madrid y Palau Sant Jordi Barcelona. Carpooling desde Zaragoza (9–13€), Valencia (10–14€), Barcelona (15–20€). 0% comisión, conductores verificados.`,
+    keywords: `carpooling sabrina carpenter españa, sabrina carpenter madrid como llegar, sabrina carpenter wizink center carpooling, sabrina carpenter ${YEAR} transporte, viaje compartido sabrina carpenter, como ir al concierto sabrina carpenter, sabrina carpenter short n sweet tour madrid`,
+  },
+  "lana-del-rey": {
+    title: `Lana Del Rey concierto España ${YEAR}: carpooling desde 4€ | ConcertRide`,
+    description: `Lana Del Rey en España ${YEAR} — Parc del Fòrum Barcelona y WiZink Center Madrid. Carpooling desde Madrid (15–20€), Valencia (10–14€), Zaragoza (8–12€). 0% comisión, conductores verificados.`,
+    keywords: `carpooling lana del rey españa, lana del rey barcelona como llegar, lana del rey primavera sound carpooling, lana del rey ${YEAR} transporte, viaje compartido lana del rey, como ir concierto lana del rey`,
+  },
+  "c-tangana": {
+    title: `C. Tangana concierto España ${YEAR}: carpooling desde 4€ | ConcertRide`,
+    description: `C. Tangana El Madrileño — WiZink Center Madrid y Palau Sant Jordi Barcelona. Carpooling desde Valencia (10–14€), Sevilla (14–20€), Bilbao (11–16€). 0% comisión, conductores verificados.`,
+    keywords: `carpooling c tangana españa, c tangana madrid como llegar, c tangana wizink center carpooling, c tangana ${YEAR} transporte, viaje compartido c tangana, como ir concierto c tangana, el madrileño tour carpooling`,
+  },
+  "joaquin-sabina": {
+    title: `Joaquín Sabina concierto España ${YEAR}: carpooling desde 4€ | ConcertRide`,
+    description: `Joaquín Sabina en España ${YEAR} — Estadio Bernabéu Madrid y Palau Sant Jordi Barcelona. Carpooling desde Sevilla (14–20€), Valencia (10–14€), Zaragoza (9–13€). 0% comisión, conductores verificados.`,
+    keywords: `carpooling joaquin sabina españa, joaquin sabina madrid como llegar, sabina concierto ${YEAR} transporte, viaje compartido joaquin sabina, como ir concierto sabina, sabina bernabeu carpooling`,
+  },
+  "travis-scott": {
+    title: `Travis Scott concierto España ${YEAR}: carpooling desde 4€ | ConcertRide`,
+    description: `Travis Scott Rodeo Tour España ${YEAR} — Parc del Fòrum Barcelona y IFEMA Madrid. Carpooling desde Madrid (15–20€), Valencia (10–14€), Zaragoza (8–12€). 0% comisión, conductores verificados.`,
+    keywords: `carpooling travis scott españa, travis scott barcelona como llegar, travis scott mad cool carpooling, travis scott ${YEAR} transporte, viaje compartido travis scott, como ir concierto travis scott`,
+  },
 };
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -574,7 +645,7 @@ export const ROUTE_SEO_IMPROVEMENTS: Record<string, { title: string; keywords?: 
   // ── Mad Cool (más ciudades) ─────────────────────────────────────────────────
   "sevilla-mad-cool": {
     title: `Carpooling Sevilla → Mad Cool Madrid ${YEAR}: Desde 10€ | 530 km | ConcertRide`,
-    keywords: `carpooling sevilla mad cool, viaje compartido sevilla madrid mad cool, como ir mad cool desde sevilla`,
+    keywords: `carpooling sevilla mad cool, viaje compartido sevilla madrid mad cool, como ir mad cool desde sevilla, mad cool desde sevilla transporte, carpooling andalucia mad cool`,
   },
   "bilbao-mad-cool": {
     title: `Carpooling Bilbao → Mad Cool Madrid ${YEAR}: Desde 11€ | 395 km | ConcertRide`,
@@ -654,5 +725,78 @@ export const ROUTE_SEO_IMPROVEMENTS: Record<string, { title: string; keywords?: 
   "donostia-resurrection-fest": {
     title: `Carpooling Donostia → Resurrection Fest ${YEAR}: Desde 10€ | 430 km | ConcertRide`,
     keywords: `carpooling donostia resurrection fest, viaje compartido san sebastian viveiro resurrection fest`,
+  },
+  // ── Vive Latino Zaragoza ─────────────────────────────────────────────────────
+  "madrid-vive-latino": {
+    title: `Carpooling Madrid → Vive Latino Zaragoza ${YEAR}: Desde 9€ | 330 km | ConcertRide`,
+    keywords: `carpooling madrid vive latino zaragoza, viaje compartido madrid zaragoza vive latino, como ir vive latino desde madrid, transporte vive latino madrid ${YEAR}`,
+  },
+  "barcelona-vive-latino": {
+    title: `Carpooling Barcelona → Vive Latino Zaragoza ${YEAR}: Desde 8€ | 306 km | ConcertRide`,
+    keywords: `carpooling barcelona vive latino zaragoza, viaje compartido barcelona zaragoza vive latino, como ir vive latino desde barcelona`,
+  },
+  "valencia-vive-latino": {
+    title: `Carpooling Valencia → Vive Latino Zaragoza ${YEAR}: Desde 9€ | 325 km | ConcertRide`,
+    keywords: `carpooling valencia vive latino zaragoza, viaje compartido valencia zaragoza vive latino, como ir vive latino desde valencia`,
+  },
+  "bilbao-vive-latino": {
+    title: `Carpooling Bilbao → Vive Latino Zaragoza ${YEAR}: Desde 9€ | 324 km | ConcertRide`,
+    keywords: `carpooling bilbao vive latino zaragoza, viaje compartido bilbao zaragoza vive latino, como ir vive latino desde bilbao`,
+  },
+  "pamplona-vive-latino": {
+    title: `Carpooling Pamplona → Vive Latino Zaragoza ${YEAR}: Desde 5€ | 177 km | ConcertRide`,
+    keywords: `carpooling pamplona vive latino zaragoza, viaje compartido pamplona zaragoza vive latino, vive latino desde pamplona`,
+  },
+  // ── Festival de les Arts Valencia ────────────────────────────────────────────
+  "madrid-festival-de-les-arts": {
+    title: `Carpooling Madrid → Festival de les Arts Valencia ${YEAR}: Desde 10€ | 355 km | ConcertRide`,
+    keywords: `carpooling madrid festival les arts valencia, viaje compartido madrid valencia festival les arts, como ir festival les arts desde madrid`,
+  },
+  "alicante-festival-de-les-arts": {
+    title: `Carpooling Alicante → Festival de les Arts Valencia ${YEAR}: Desde 5€ | 166 km | ConcertRide`,
+    keywords: `carpooling alicante festival les arts, viaje compartido alicante valencia festival les arts, como ir festival les arts desde alicante`,
+  },
+  "barcelona-festival-de-les-arts": {
+    title: `Carpooling Barcelona → Festival de les Arts Valencia ${YEAR}: Desde 10€ | 349 km | ConcertRide`,
+    keywords: `carpooling barcelona festival les arts valencia, viaje compartido barcelona valencia festival les arts, festival les arts desde barcelona`,
+  },
+  "murcia-festival-de-les-arts": {
+    title: `Carpooling Murcia → Festival de les Arts Valencia ${YEAR}: Desde 7€ | 248 km | ConcertRide`,
+    keywords: `carpooling murcia festival les arts, viaje compartido murcia valencia festival les arts, festival les arts desde murcia`,
+  },
+  // ── Mad Cool desde Andalucía ──────────────────────────────────────────────────
+  "malaga-mad-cool": {
+    title: `Carpooling Málaga → Mad Cool Madrid ${YEAR}: Desde 14€ | 545 km | ConcertRide`,
+    keywords: `carpooling malaga mad cool, viaje compartido malaga madrid mad cool, como ir mad cool desde malaga, mad cool desde malaga, carpooling andalucia mad cool`,
+  },
+  "cadiz-mad-cool": {
+    title: `Carpooling Cádiz → Mad Cool Madrid ${YEAR}: Desde 12€ | 650 km | ConcertRide`,
+    keywords: `carpooling cadiz mad cool, viaje compartido cadiz madrid mad cool, como ir mad cool desde cadiz, mad cool cadiz transporte`,
+  },
+  "granada-mad-cool": {
+    title: `Carpooling Granada → Mad Cool Madrid ${YEAR}: Desde 12€ | 435 km | ConcertRide`,
+    keywords: `carpooling granada mad cool, viaje compartido granada madrid mad cool, como ir mad cool desde granada, mad cool granada carpooling`,
+  },
+  // ── Medusa Festival desde más ciudades ───────────────────────────────────────
+  "alicante-medusa-festival": {
+    title: `Carpooling Alicante → Medusa Festival Cullera ${YEAR}: Desde 5€ | 90 km | ConcertRide`,
+    keywords: `carpooling alicante medusa festival, viaje compartido alicante cullera medusa, como ir medusa festival desde alicante, medusa festival desde alicante`,
+  },
+  "murcia-medusa-festival": {
+    title: `Carpooling Murcia → Medusa Festival Cullera ${YEAR}: Desde 5€ | 175 km | ConcertRide`,
+    keywords: `carpooling murcia medusa festival, viaje compartido murcia cullera medusa, como ir medusa festival desde murcia`,
+  },
+  "zaragoza-medusa-festival": {
+    title: `Carpooling Zaragoza → Medusa Festival Cullera ${YEAR}: Desde 10€ | 345 km | ConcertRide`,
+    keywords: `carpooling zaragoza medusa festival, viaje compartido zaragoza cullera medusa, como ir medusa festival desde zaragoza`,
+  },
+  // ── Cala Mijas desde más ciudades ──────────────────────────────────────────
+  "cadiz-cala-mijas": {
+    title: `Carpooling Cádiz → Cala Mijas Festival ${YEAR}: Desde 8€ | 235 km | ConcertRide`,
+    keywords: `carpooling cadiz cala mijas, viaje compartido cadiz mijas festival, como ir cala mijas desde cadiz`,
+  },
+  "cordoba-cala-mijas": {
+    title: `Carpooling Córdoba → Cala Mijas Festival ${YEAR}: Desde 6€ | 175 km | ConcertRide`,
+    keywords: `carpooling cordoba cala mijas, viaje compartido cordoba cala mijas festival, cala mijas desde cordoba`,
   },
 };
