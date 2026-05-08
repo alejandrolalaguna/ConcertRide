@@ -215,14 +215,15 @@ export function Footer() {
             </p>
           </div>
           <p className="font-mono text-[10px] text-cr-text-muted flex flex-wrap gap-x-2 gap-y-1">
-            <span>Datos:</span>
+            <span>Datos de conciertos:</span>
             <a
-              href="https://developer.ticketmaster.com"
+              href="https://www.ticketmaster.es"
               target="_blank"
               rel="noopener noreferrer"
               className="hover:text-cr-primary transition-colors"
+              title="Datos de eventos proporcionados por Ticketmaster via Discovery API v2"
             >
-              Ticketmaster
+              Ticketmaster®
             </a>
             <span>·</span>
             <span>Mapas:</span>

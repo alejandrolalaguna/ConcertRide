@@ -177,7 +177,58 @@ export default function PrivacidadPage() {
           </section>
 
           <section className="space-y-3">
-            <h2 className="font-display text-xl uppercase text-cr-primary">4. Tus derechos</h2>
+            <h2 className="font-display text-xl uppercase text-cr-primary">4. Fuentes de datos de eventos (Ticketmaster)</h2>
+            <p>
+              La información sobre conciertos y eventos que aparece en ConcertRide (nombre, fecha, recinto,
+              precio orientativo e imagen del evento) puede proceder de la{" "}
+              <a
+                href="https://developer.ticketmaster.com/products-and-docs/apis/discovery-api/v2/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-cr-primary underline underline-offset-2"
+              >
+                Ticketmaster Discovery API v2
+              </a>
+              . Esta API proporciona datos públicos de eventos facilitados por los propios promotores y
+              organizadores a Ticketmaster.
+            </p>
+            <ul className="space-y-2 pl-4 list-disc text-cr-text-muted">
+              <li>
+                <strong className="text-cr-text">Datos que se obtienen de Ticketmaster:</strong>{" "}
+                nombre del artista/evento, fecha, recinto, ciudad, precio mínimo/máximo, género musical,
+                imagen del evento y URL de compra de entradas. Estos datos no contienen información
+                personal de usuarios.
+              </li>
+              <li>
+                <strong className="text-cr-text">Almacenamiento:</strong>{" "}
+                Los datos de eventos se conservan en nuestra base de datos durante el tiempo necesario
+                para prestar el servicio (hasta dos meses después de la fecha del evento). No utilizamos
+                Ticketmaster como servicio de almacenamiento de imágenes independiente; las imágenes
+                se referencian desde su CDN original.
+              </li>
+              <li>
+                <strong className="text-cr-text">Política de privacidad de Ticketmaster:</strong>{" "}
+                Si compras entradas a través del enlace de Ticketmaster que aparece en ConcertRide,
+                pasas a estar sujeto a la política de privacidad de Ticketmaster:{" "}
+                <a
+                  href="https://www.ticketmaster.es/h/privacy.html"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-cr-primary underline underline-offset-2"
+                >
+                  ticketmaster.es/h/privacy.html
+                </a>
+                . ConcertRide no recibe ni procesa datos de pago.
+              </li>
+            </ul>
+            <p className="text-cr-text-muted text-xs">
+              Ticketmaster® es una marca registrada de Ticketmaster LLC. ConcertRide ES no está
+              afiliada ni patrocinada por Ticketmaster LLC.
+            </p>
+          </section>
+
+          <section className="space-y-3">
+            <h2 className="font-display text-xl uppercase text-cr-primary">5. Tus derechos</h2>
             <p>
               Puedes ejercer en cualquier momento los siguientes derechos. La supresión de la cuenta
               está disponible directamente en <em>Mi perfil → Eliminar cuenta</em>. Para el resto
@@ -219,7 +270,7 @@ export default function PrivacidadPage() {
           </section>
 
           <section className="space-y-3">
-            <h2 className="font-display text-xl uppercase text-cr-primary">5. Seguridad</h2>
+            <h2 className="font-display text-xl uppercase text-cr-primary">6. Seguridad</h2>
             <p>
               Las contraseñas se almacenan como hash PBKDF2-SHA256 (100 000 iteraciones, sal
               aleatoria de 16 bytes) y nunca en texto plano. Las sesiones se gestionan mediante
@@ -233,7 +284,7 @@ export default function PrivacidadPage() {
           </section>
 
           <section className="space-y-3">
-            <h2 className="font-display text-xl uppercase text-cr-primary">6. Cambios en esta política</h2>
+            <h2 className="font-display text-xl uppercase text-cr-primary">7. Cambios en esta política</h2>
             <p>
               Podemos actualizar esta política para adaptarla a cambios normativos o del servicio.
               Cuando los cambios sean significativos, te lo notificaremos por correo electrónico o

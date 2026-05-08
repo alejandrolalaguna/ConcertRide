@@ -17,7 +17,7 @@ export default function AvisoLegalPage() {
             Legal
           </p>
           <h1 className="font-display text-4xl uppercase">Aviso legal</h1>
-          <p className="font-mono text-xs text-cr-text-muted">Última actualización: abril de 2026</p>
+          <p className="font-mono text-xs text-cr-text-muted">Última actualización: mayo de 2026</p>
         </header>
 
         <div className="space-y-10 font-sans text-sm text-cr-text leading-relaxed">
@@ -81,7 +81,9 @@ export default function AvisoLegalPage() {
                   Ticketmaster Discovery API v2
                 </a>
                 , utilizada de conformidad con sus términos de uso para desarrolladores. Cuando procede,
-                la ficha del concierto incluye el enlace oficial a Ticketmaster para la compra.
+                la ficha del concierto incluye el enlace oficial de compra de entradas en Ticketmaster.
+                Las imágenes de los eventos proceden igualmente de esta API y son propiedad de Ticketmaster
+                o de sus licenciatarios. ConcertRide no aloja dichas imágenes en sus propios servidores.
               </li>
             </ul>
             <p>
@@ -118,7 +120,83 @@ export default function AvisoLegalPage() {
           </section>
 
           <section className="space-y-3">
-            <h2 className="font-display text-xl uppercase text-cr-primary">4. Exclusión de responsabilidad</h2>
+            <h2 className="font-display text-xl uppercase text-cr-primary">4. Uso de la API de Ticketmaster</h2>
+            <p>
+              ConcertRide ES utiliza la{" "}
+              <a
+                href="https://developer.ticketmaster.com/products-and-docs/apis/discovery-api/v2/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-cr-primary underline underline-offset-2"
+              >
+                Ticketmaster Discovery API v2
+              </a>{" "}
+              para mostrar información pública de eventos musicales en España. El uso de esta API está
+              sujeto a los{" "}
+              <a
+                href="https://developer.ticketmaster.com/support/terms-of-use/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-cr-primary underline underline-offset-2"
+              >
+                términos de uso para desarrolladores de Ticketmaster
+              </a>
+              , que ConcertRide cumple íntegramente.
+            </p>
+            <p className="text-cr-text-muted">
+              En concreto, ConcertRide:
+            </p>
+            <ul className="space-y-2 pl-4 list-disc text-cr-text-muted">
+              <li>
+                <strong className="text-cr-text">Incluye el enlace de compra de entradas en Ticketmaster</strong>{" "}
+                en cada ficha de concierto obtenida a través de su API, para que el usuario pueda
+                adquirir entradas directamente en{" "}
+                <a
+                  href="https://www.ticketmaster.es"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-cr-primary underline underline-offset-2"
+                >
+                  ticketmaster.es
+                </a>
+                .
+              </li>
+              <li>
+                <strong className="text-cr-text">No vende entradas ni compite con Ticketmaster.</strong>{" "}
+                ConcertRide es exclusivamente una plataforma de organización de viajes compartidos
+                (carpooling) para llegar a los eventos. La compra de entradas siempre se realiza
+                directamente en Ticketmaster u otros canales oficiales del organizador.
+              </li>
+              <li>
+                <strong className="text-cr-text">Muestra imágenes de eventos</strong> obtenidas de
+                la API de Ticketmaster, que son propiedad de Ticketmaster LLC o de sus licenciatarios.
+                Dichas imágenes se emplean exclusivamente para identificar el evento en el contexto
+                de la organización de viajes, y no como recurso gráfico independiente ni con fines
+                publicitarios propios.
+              </li>
+              <li>
+                <strong className="text-cr-text">Atribuye los datos</strong> a Ticketmaster® en el
+                pie de página del sitio y en este aviso legal.
+              </li>
+              <li>
+                <strong className="text-cr-text">No almacena los datos indefinidamente.</strong>{" "}
+                Los registros de eventos sin viajes asociados se eliminan automáticamente una vez
+                transcurridos dos meses desde la fecha del evento.
+              </li>
+              <li>
+                <strong className="text-cr-text">No replica la experiencia de Ticketmaster.</strong>{" "}
+                ConcertRide no permite la búsqueda, filtrado ni compra de entradas. La función de
+                búsqueda de ConcertRide opera exclusivamente sobre los viajes disponibles.
+              </li>
+            </ul>
+            <p>
+              Ticketmaster® es una marca registrada de Ticketmaster LLC. ConcertRide ES no está
+              afiliada, patrocinada ni avalada por Ticketmaster LLC.
+            </p>
+          </section>
+
+          <section className="space-y-3">
+            <h2 className="font-display text-xl uppercase text-cr-primary">6. Exclusión de responsabilidad</h2>
             <p>
               ConcertRide ES no garantiza la exactitud, integridad o actualidad de la información
               sobre conciertos procedente de terceros. El titular no se responsabiliza de los daños
@@ -132,7 +210,7 @@ export default function AvisoLegalPage() {
           </section>
 
           <section className="space-y-3">
-            <h2 className="font-display text-xl uppercase text-cr-primary">5. Legislación aplicable y jurisdicción</h2>
+            <h2 className="font-display text-xl uppercase text-cr-primary">7. Legislación aplicable y jurisdicción</h2>
             <p>
               Las presentes condiciones se rigen por la legislación española. Para la resolución de
               cualquier controversia derivada del uso de este sitio web, las partes se someten a los
@@ -142,7 +220,7 @@ export default function AvisoLegalPage() {
           </section>
 
           <section className="space-y-3">
-            <h2 className="font-display text-xl uppercase text-cr-primary">6. Contacto</h2>
+            <h2 className="font-display text-xl uppercase text-cr-primary">8. Contacto</h2>
             <p>
               Para cualquier consulta relacionada con este aviso legal, puede contactar con nosotros
               en:{" "}

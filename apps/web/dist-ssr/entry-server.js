@@ -2339,15 +2339,16 @@ function Footer() {
         ] })
       ] }),
       /* @__PURE__ */ jsxs("p", { className: "font-mono text-[10px] text-cr-text-muted flex flex-wrap gap-x-2 gap-y-1", children: [
-        /* @__PURE__ */ jsx("span", { children: "Datos:" }),
+        /* @__PURE__ */ jsx("span", { children: "Datos de conciertos:" }),
         /* @__PURE__ */ jsx(
           "a",
           {
-            href: "https://developer.ticketmaster.com",
+            href: "https://www.ticketmaster.es",
             target: "_blank",
             rel: "noopener noreferrer",
             className: "hover:text-cr-primary transition-colors",
-            children: "Ticketmaster"
+            title: "Datos de eventos proporcionados por Ticketmaster via Discovery API v2",
+            children: "Ticketmaster®"
           }
         ),
         /* @__PURE__ */ jsx("span", { children: "·" }),
@@ -13877,7 +13878,8 @@ function ConcertDetailPage() {
               src: cfImage(concert.image_url, { width: 1200, height: 630, quality: 75 }),
               srcSet: `${cfImage(concert.image_url, { width: 800, height: 420, quality: 75 })} 800w, ${cfImage(concert.image_url, { width: 1200, height: 630, quality: 75 })} 1200w`,
               sizes: "100vw",
-              alt: `${concert.artist} en ${((_e = concert.venue) == null ? void 0 : _e.name) ?? ((_f = concert.venue) == null ? void 0 : _f.city) ?? ""}`,
+              alt: `${concert.artist} en ${((_e = concert.venue) == null ? void 0 : _e.name) ?? ((_f = concert.venue) == null ? void 0 : _f.city) ?? ""}${concert.ticketmaster_url ? " — imagen © Ticketmaster" : ""}`,
+              title: concert.ticketmaster_url ? "Imagen del evento © Ticketmaster®" : void 0,
               fetchPriority: "high",
               loading: "eager",
               width: 1200,
@@ -14036,10 +14038,11 @@ function ConcertDetailPage() {
                         href: concert.ticketmaster_url,
                         target: "_blank",
                         rel: "noopener noreferrer",
+                        title: "Comprar entradas en Ticketmaster® (abre en nueva pestaña)",
                         className: "inline-flex items-center gap-2 font-sans text-xs font-semibold uppercase tracking-[0.1em] border border-cr-border text-cr-text-muted hover:border-cr-primary hover:text-cr-primary px-3 py-1.5 transition-colors",
                         children: [
                           /* @__PURE__ */ jsx("span", { "aria-hidden": "true", className: "text-[10px] font-mono text-cr-text-dim", children: "TM" }),
-                          "Ticketmaster →"
+                          "Entradas en Ticketmaster® →"
                         ]
                       }
                     )
@@ -38920,7 +38923,7 @@ function AvisoLegalPage() {
     /* @__PURE__ */ jsxs("header", { className: "mb-10 border-b border-cr-border pb-8 space-y-2", children: [
       /* @__PURE__ */ jsx("p", { className: "font-sans text-[11px] font-semibold uppercase tracking-[0.16em] text-cr-primary", children: "Legal" }),
       /* @__PURE__ */ jsx("h1", { className: "font-display text-4xl uppercase", children: "Aviso legal" }),
-      /* @__PURE__ */ jsx("p", { className: "font-mono text-xs text-cr-text-muted", children: "Última actualización: abril de 2026" })
+      /* @__PURE__ */ jsx("p", { className: "font-mono text-xs text-cr-text-muted", children: "Última actualización: mayo de 2026" })
     ] }),
     /* @__PURE__ */ jsxs("div", { className: "space-y-10 font-sans text-sm text-cr-text leading-relaxed", children: [
       /* @__PURE__ */ jsxs("section", { className: "space-y-3", children: [
@@ -38967,7 +38970,7 @@ function AvisoLegalPage() {
                 children: "Ticketmaster Discovery API v2"
               }
             ),
-            ", utilizada de conformidad con sus términos de uso para desarrolladores. Cuando procede, la ficha del concierto incluye el enlace oficial a Ticketmaster para la compra."
+            ", utilizada de conformidad con sus términos de uso para desarrolladores. Cuando procede, la ficha del concierto incluye el enlace oficial de compra de entradas en Ticketmaster. Las imágenes de los eventos proceden igualmente de esta API y son propiedad de Ticketmaster o de sus licenciatarios. ConcertRide no aloja dichas imágenes en sus propios servidores."
           ] })
         ] }),
         /* @__PURE__ */ jsx("p", { children: "Los nombres de festivales y eventos musicales (Mad Cool, Primavera Sound, Sónar, FIB, BBK Live, Resurrection Fest, Viña Rock, Arenal Sound y otros) se utilizan exclusivamente con carácter descriptivo para identificar el destino de los viajes compartidos. ConcertRide ES no está afiliada, no está patrocinada ni representa a ninguno de estos festivales ni a sus organizadores. El uso de dichos nombres constituye un uso nominativo protegido por el derecho de referencia. Todos los derechos sobre los nombres, marcas y logotipos de los festivales pertenecen a sus respectivos titulares." }),
@@ -39001,16 +39004,91 @@ function AvisoLegalPage() {
         ] })
       ] }),
       /* @__PURE__ */ jsxs("section", { className: "space-y-3", children: [
-        /* @__PURE__ */ jsx("h2", { className: "font-display text-xl uppercase text-cr-primary", children: "4. Exclusión de responsabilidad" }),
+        /* @__PURE__ */ jsx("h2", { className: "font-display text-xl uppercase text-cr-primary", children: "4. Uso de la API de Ticketmaster" }),
+        /* @__PURE__ */ jsxs("p", { children: [
+          "ConcertRide ES utiliza la",
+          " ",
+          /* @__PURE__ */ jsx(
+            "a",
+            {
+              href: "https://developer.ticketmaster.com/products-and-docs/apis/discovery-api/v2/",
+              target: "_blank",
+              rel: "noopener noreferrer",
+              className: "text-cr-primary underline underline-offset-2",
+              children: "Ticketmaster Discovery API v2"
+            }
+          ),
+          " ",
+          "para mostrar información pública de eventos musicales en España. El uso de esta API está sujeto a los",
+          " ",
+          /* @__PURE__ */ jsx(
+            "a",
+            {
+              href: "https://developer.ticketmaster.com/support/terms-of-use/",
+              target: "_blank",
+              rel: "noopener noreferrer",
+              className: "text-cr-primary underline underline-offset-2",
+              children: "términos de uso para desarrolladores de Ticketmaster"
+            }
+          ),
+          ", que ConcertRide cumple íntegramente."
+        ] }),
+        /* @__PURE__ */ jsx("p", { className: "text-cr-text-muted", children: "En concreto, ConcertRide:" }),
+        /* @__PURE__ */ jsxs("ul", { className: "space-y-2 pl-4 list-disc text-cr-text-muted", children: [
+          /* @__PURE__ */ jsxs("li", { children: [
+            /* @__PURE__ */ jsx("strong", { className: "text-cr-text", children: "Incluye el enlace de compra de entradas en Ticketmaster" }),
+            " ",
+            "en cada ficha de concierto obtenida a través de su API, para que el usuario pueda adquirir entradas directamente en",
+            " ",
+            /* @__PURE__ */ jsx(
+              "a",
+              {
+                href: "https://www.ticketmaster.es",
+                target: "_blank",
+                rel: "noopener noreferrer",
+                className: "text-cr-primary underline underline-offset-2",
+                children: "ticketmaster.es"
+              }
+            ),
+            "."
+          ] }),
+          /* @__PURE__ */ jsxs("li", { children: [
+            /* @__PURE__ */ jsx("strong", { className: "text-cr-text", children: "No vende entradas ni compite con Ticketmaster." }),
+            " ",
+            "ConcertRide es exclusivamente una plataforma de organización de viajes compartidos (carpooling) para llegar a los eventos. La compra de entradas siempre se realiza directamente en Ticketmaster u otros canales oficiales del organizador."
+          ] }),
+          /* @__PURE__ */ jsxs("li", { children: [
+            /* @__PURE__ */ jsx("strong", { className: "text-cr-text", children: "Muestra imágenes de eventos" }),
+            " obtenidas de la API de Ticketmaster, que son propiedad de Ticketmaster LLC o de sus licenciatarios. Dichas imágenes se emplean exclusivamente para identificar el evento en el contexto de la organización de viajes, y no como recurso gráfico independiente ni con fines publicitarios propios."
+          ] }),
+          /* @__PURE__ */ jsxs("li", { children: [
+            /* @__PURE__ */ jsx("strong", { className: "text-cr-text", children: "Atribuye los datos" }),
+            " a Ticketmaster® en el pie de página del sitio y en este aviso legal."
+          ] }),
+          /* @__PURE__ */ jsxs("li", { children: [
+            /* @__PURE__ */ jsx("strong", { className: "text-cr-text", children: "No almacena los datos indefinidamente." }),
+            " ",
+            "Los registros de eventos sin viajes asociados se eliminan automáticamente una vez transcurridos dos meses desde la fecha del evento."
+          ] }),
+          /* @__PURE__ */ jsxs("li", { children: [
+            /* @__PURE__ */ jsx("strong", { className: "text-cr-text", children: "No replica la experiencia de Ticketmaster." }),
+            " ",
+            "ConcertRide no permite la búsqueda, filtrado ni compra de entradas. La función de búsqueda de ConcertRide opera exclusivamente sobre los viajes disponibles."
+          ] })
+        ] }),
+        /* @__PURE__ */ jsx("p", { children: "Ticketmaster® es una marca registrada de Ticketmaster LLC. ConcertRide ES no está afiliada, patrocinada ni avalada por Ticketmaster LLC." })
+      ] }),
+      /* @__PURE__ */ jsxs("section", { className: "space-y-3", children: [
+        /* @__PURE__ */ jsx("h2", { className: "font-display text-xl uppercase text-cr-primary", children: "6. Exclusión de responsabilidad" }),
         /* @__PURE__ */ jsx("p", { children: "ConcertRide ES no garantiza la exactitud, integridad o actualidad de la información sobre conciertos procedente de terceros. El titular no se responsabiliza de los daños derivados del uso de la plataforma, de la información publicada por los usuarios ni del resultado de los viajes acordados entre particulares." }),
         /* @__PURE__ */ jsx("p", { children: "El titular se reserva el derecho a modificar, suspender o interrumpir el servicio en cualquier momento sin previo aviso." })
       ] }),
       /* @__PURE__ */ jsxs("section", { className: "space-y-3", children: [
-        /* @__PURE__ */ jsx("h2", { className: "font-display text-xl uppercase text-cr-primary", children: "5. Legislación aplicable y jurisdicción" }),
+        /* @__PURE__ */ jsx("h2", { className: "font-display text-xl uppercase text-cr-primary", children: "7. Legislación aplicable y jurisdicción" }),
         /* @__PURE__ */ jsx("p", { children: "Las presentes condiciones se rigen por la legislación española. Para la resolución de cualquier controversia derivada del uso de este sitio web, las partes se someten a los juzgados y tribunales del domicilio del titular, salvo que la normativa de consumo aplicable disponga otro fuero." })
       ] }),
       /* @__PURE__ */ jsxs("section", { className: "space-y-3", children: [
-        /* @__PURE__ */ jsx("h2", { className: "font-display text-xl uppercase text-cr-primary", children: "6. Contacto" }),
+        /* @__PURE__ */ jsx("h2", { className: "font-display text-xl uppercase text-cr-primary", children: "8. Contacto" }),
         /* @__PURE__ */ jsxs("p", { children: [
           "Para cualquier consulta relacionada con este aviso legal, puede contactar con nosotros en:",
           " ",
@@ -39170,7 +39248,55 @@ function PrivacidadPage() {
         /* @__PURE__ */ jsx("p", { children: "La información de perfil público del conductor (nombre, ciudad, valoración, modelo de coche, reseñas) es visible para otros usuarios registrados en la plataforma." })
       ] }),
       /* @__PURE__ */ jsxs("section", { className: "space-y-3", children: [
-        /* @__PURE__ */ jsx("h2", { className: "font-display text-xl uppercase text-cr-primary", children: "4. Tus derechos" }),
+        /* @__PURE__ */ jsx("h2", { className: "font-display text-xl uppercase text-cr-primary", children: "4. Fuentes de datos de eventos (Ticketmaster)" }),
+        /* @__PURE__ */ jsxs("p", { children: [
+          "La información sobre conciertos y eventos que aparece en ConcertRide (nombre, fecha, recinto, precio orientativo e imagen del evento) puede proceder de la",
+          " ",
+          /* @__PURE__ */ jsx(
+            "a",
+            {
+              href: "https://developer.ticketmaster.com/products-and-docs/apis/discovery-api/v2/",
+              target: "_blank",
+              rel: "noopener noreferrer",
+              className: "text-cr-primary underline underline-offset-2",
+              children: "Ticketmaster Discovery API v2"
+            }
+          ),
+          ". Esta API proporciona datos públicos de eventos facilitados por los propios promotores y organizadores a Ticketmaster."
+        ] }),
+        /* @__PURE__ */ jsxs("ul", { className: "space-y-2 pl-4 list-disc text-cr-text-muted", children: [
+          /* @__PURE__ */ jsxs("li", { children: [
+            /* @__PURE__ */ jsx("strong", { className: "text-cr-text", children: "Datos que se obtienen de Ticketmaster:" }),
+            " ",
+            "nombre del artista/evento, fecha, recinto, ciudad, precio mínimo/máximo, género musical, imagen del evento y URL de compra de entradas. Estos datos no contienen información personal de usuarios."
+          ] }),
+          /* @__PURE__ */ jsxs("li", { children: [
+            /* @__PURE__ */ jsx("strong", { className: "text-cr-text", children: "Almacenamiento:" }),
+            " ",
+            "Los datos de eventos se conservan en nuestra base de datos durante el tiempo necesario para prestar el servicio (hasta dos meses después de la fecha del evento). No utilizamos Ticketmaster como servicio de almacenamiento de imágenes independiente; las imágenes se referencian desde su CDN original."
+          ] }),
+          /* @__PURE__ */ jsxs("li", { children: [
+            /* @__PURE__ */ jsx("strong", { className: "text-cr-text", children: "Política de privacidad de Ticketmaster:" }),
+            " ",
+            "Si compras entradas a través del enlace de Ticketmaster que aparece en ConcertRide, pasas a estar sujeto a la política de privacidad de Ticketmaster:",
+            " ",
+            /* @__PURE__ */ jsx(
+              "a",
+              {
+                href: "https://www.ticketmaster.es/h/privacy.html",
+                target: "_blank",
+                rel: "noopener noreferrer",
+                className: "text-cr-primary underline underline-offset-2",
+                children: "ticketmaster.es/h/privacy.html"
+              }
+            ),
+            ". ConcertRide no recibe ni procesa datos de pago."
+          ] })
+        ] }),
+        /* @__PURE__ */ jsx("p", { className: "text-cr-text-muted text-xs", children: "Ticketmaster® es una marca registrada de Ticketmaster LLC. ConcertRide ES no está afiliada ni patrocinada por Ticketmaster LLC." })
+      ] }),
+      /* @__PURE__ */ jsxs("section", { className: "space-y-3", children: [
+        /* @__PURE__ */ jsx("h2", { className: "font-display text-xl uppercase text-cr-primary", children: "5. Tus derechos" }),
         /* @__PURE__ */ jsxs("p", { children: [
           "Puedes ejercer en cualquier momento los siguientes derechos. La supresión de la cuenta está disponible directamente en ",
           /* @__PURE__ */ jsx("em", { children: "Mi perfil → Eliminar cuenta" }),
@@ -39235,12 +39361,12 @@ function PrivacidadPage() {
         ] })
       ] }),
       /* @__PURE__ */ jsxs("section", { className: "space-y-3", children: [
-        /* @__PURE__ */ jsx("h2", { className: "font-display text-xl uppercase text-cr-primary", children: "5. Seguridad" }),
+        /* @__PURE__ */ jsx("h2", { className: "font-display text-xl uppercase text-cr-primary", children: "6. Seguridad" }),
         /* @__PURE__ */ jsx("p", { children: "Las contraseñas se almacenan como hash PBKDF2-SHA256 (100 000 iteraciones, sal aleatoria de 16 bytes) y nunca en texto plano. Las sesiones se gestionan mediante tokens JWT firmados con HS256, transmitidos exclusivamente en cookies HTTP-only con atributo Secure en producción." }),
         /* @__PURE__ */ jsx("p", { children: "El acceso a la base de datos está restringido mediante autenticación por token. La comunicación entre cliente y servidor se realiza siempre sobre HTTPS." })
       ] }),
       /* @__PURE__ */ jsxs("section", { className: "space-y-3", children: [
-        /* @__PURE__ */ jsx("h2", { className: "font-display text-xl uppercase text-cr-primary", children: "6. Cambios en esta política" }),
+        /* @__PURE__ */ jsx("h2", { className: "font-display text-xl uppercase text-cr-primary", children: "7. Cambios en esta política" }),
         /* @__PURE__ */ jsx("p", { children: "Podemos actualizar esta política para adaptarla a cambios normativos o del servicio. Cuando los cambios sean significativos, te lo notificaremos por correo electrónico o mediante un aviso destacado en la plataforma." })
       ] })
     ] }),

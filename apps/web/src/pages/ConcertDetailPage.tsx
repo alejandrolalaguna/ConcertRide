@@ -227,7 +227,8 @@ export default function ConcertDetailPage() {
             src={cfImage(concert.image_url, { width: 1200, height: 630, quality: 75 })}
             srcSet={`${cfImage(concert.image_url, { width: 800, height: 420, quality: 75 })} 800w, ${cfImage(concert.image_url, { width: 1200, height: 630, quality: 75 })} 1200w`}
             sizes="100vw"
-            alt={`${concert.artist} en ${concert.venue?.name ?? concert.venue?.city ?? ""}`}
+            alt={`${concert.artist} en ${concert.venue?.name ?? concert.venue?.city ?? ""}${concert.ticketmaster_url ? " — imagen © Ticketmaster" : ""}`}
+            title={concert.ticketmaster_url ? "Imagen del evento © Ticketmaster®" : undefined}
             fetchPriority="high"
             loading="eager"
             width={1200}
@@ -367,10 +368,11 @@ export default function ConcertDetailPage() {
                       href={concert.ticketmaster_url}
                       target="_blank"
                       rel="noopener noreferrer"
+                      title="Comprar entradas en Ticketmaster® (abre en nueva pestaña)"
                       className="inline-flex items-center gap-2 font-sans text-xs font-semibold uppercase tracking-[0.1em] border border-cr-border text-cr-text-muted hover:border-cr-primary hover:text-cr-primary px-3 py-1.5 transition-colors"
                     >
                       <span aria-hidden="true" className="text-[10px] font-mono text-cr-text-dim">TM</span>
-                      Ticketmaster →
+                      Entradas en Ticketmaster® →
                     </a>
                   )}
                 </div>
