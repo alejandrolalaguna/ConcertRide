@@ -12,12 +12,8 @@ import { runCountdownReminders } from "../lib/countdown-reminders";
 const INGEST_CRON = "0 3 * * 1";
 // Lunes 4am UTC — refresco precio gasolina MITECO
 const FUEL_CRON = "0 4 * * 1";
-// Cada hora (minuto 5) — recordatorios de viaje 24h antes
-const REMINDERS_CRON = "5 * * * *";
-// Cada hora (minuto 15) — recordatorios de confirmación pago 1h antes
-const PAYMENT_REMINDERS_CRON = "15 * * * *";
-// Cada hora (minuto 25) — countdown 24h antes para usuarios con anticipation
-const COUNTDOWN_CRON = "25 * * * *";
+// Cada hora (minuto 0) — recordatorios de viaje, pago y countdown
+const HOURLY_CRON = "0 * * * *";
 
 // Fetch from today to 1 year ahead
 function yearWindow(): { fromDate: string; toDate: string } {
@@ -49,35 +45,19 @@ export async function dispatchScheduled(
     return;
   }
 
-  if (event.cron === REMINDERS_CRON) {
+  if (event.cron === HOURLY_CRON) {
     ctx.waitUntil(
       (async () => {
         const store = await getStore(env);
-        const sent = await runRideReminders(env, store);
-        if (sent > 0) console.log(`[cron] reminders sent for ${sent} ride(s)`);
-      })().catch((err) => console.error("reminders cron failed:", err)),
-    );
-    return;
-  }
-
-  if (event.cron === PAYMENT_REMINDERS_CRON) {
-    ctx.waitUntil(
-      (async () => {
-        const store = await getStore(env);
-        const sent = await runPaymentReminders(env, store);
-        if (sent > 0) console.log(`[cron] payment reminders sent for ${sent} ride(s)`);
-      })().catch((err) => console.error("payment-reminders cron failed:", err)),
-    );
-    return;
-  }
-
-  if (event.cron === COUNTDOWN_CRON) {
-    ctx.waitUntil(
-      (async () => {
-        const store = await getStore(env);
-        const sent = await runCountdownReminders(env, store);
-        if (sent > 0) console.log(`[cron] countdown reminders sent for ${sent} anticipation(s)`);
-      })().catch((err) => console.error("countdown-reminders cron failed:", err)),
+        const [ride, payment, countdown] = await Promise.all([
+          runRideReminders(env, store).catch((err) => { console.error("reminders cron failed:", err); return 0; }),
+          runPaymentReminders(env, store).catch((err) => { console.error("payment-reminders cron failed:", err); return 0; }),
+          runCountdownReminders(env, store).catch((err) => { console.error("countdown-reminders cron failed:", err); return 0; }),
+        ]);
+        if (ride > 0) console.log(`[cron] ride reminders sent: ${ride}`);
+        if (payment > 0) console.log(`[cron] payment reminders sent: ${payment}`);
+        if (countdown > 0) console.log(`[cron] countdown reminders sent: ${countdown}`);
+      })(),
     );
     return;
   }
