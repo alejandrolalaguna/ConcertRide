@@ -4,16 +4,10 @@ import { runIngestion } from "./dedup";
 import { ticketmaster } from "./sources/ticketmaster";
 import { fetchFuelPrices } from "../lib/fuel";
 import { KV_KEY } from "../routes/fuel";
-import { runRideReminders } from "../lib/reminders";
-import { runPaymentReminders } from "../lib/payment-reminders";
-import { runCountdownReminders } from "../lib/countdown-reminders";
-
 // Lunes 3am UTC — ingesta Ticketmaster + limpieza de conciertos pasados
 const INGEST_CRON = "0 3 * * 1";
 // Lunes 4am UTC — refresco precio gasolina MITECO
 const FUEL_CRON = "0 4 * * 1";
-// Cada hora (minuto 0) — recordatorios de viaje, pago y countdown
-const HOURLY_CRON = "0 * * * *";
 
 // Fetch from today to 1 year ahead
 function yearWindow(): { fromDate: string; toDate: string } {
@@ -41,23 +35,6 @@ export async function dispatchScheduled(
         .then((prices) => env.CACHE.put(KV_KEY, JSON.stringify(prices), { expirationTtl: 8 * 24 * 3600 }))
         .then(() => console.log("fuel prices updated"))
         .catch((err) => console.error("fuel price refresh failed:", err)),
-    );
-    return;
-  }
-
-  if (event.cron === HOURLY_CRON) {
-    ctx.waitUntil(
-      (async () => {
-        const store = await getStore(env);
-        const [ride, payment, countdown] = await Promise.all([
-          runRideReminders(env, store).catch((err) => { console.error("reminders cron failed:", err); return 0; }),
-          runPaymentReminders(env, store).catch((err) => { console.error("payment-reminders cron failed:", err); return 0; }),
-          runCountdownReminders(env, store).catch((err) => { console.error("countdown-reminders cron failed:", err); return 0; }),
-        ]);
-        if (ride > 0) console.log(`[cron] ride reminders sent: ${ride}`);
-        if (payment > 0) console.log(`[cron] payment reminders sent: ${payment}`);
-        if (countdown > 0) console.log(`[cron] countdown reminders sent: ${countdown}`);
-      })(),
     );
     return;
   }
