@@ -5,7 +5,7 @@
 // Usage:
 //   npx tsx apps/api/scripts/cleanup-db.ts
 //   # or with explicit email:
-//   KEEP_EMAIL=alejandrolalaguna@gmail.com npx tsx apps/api/scripts/cleanup-db.ts
+//   KEEP_EMAIL=help@concertride.me npx tsx apps/api/scripts/cleanup-db.ts
 
 import { config as loadEnv } from "dotenv";
 import { createClient } from "@libsql/client";
@@ -22,7 +22,7 @@ if (!url) {
   process.exit(1);
 }
 
-const KEEP_EMAIL = process.env.KEEP_EMAIL ?? "alejandrolalaguna@gmail.com";
+const KEEP_EMAIL = process.env.KEEP_EMAIL ?? "help@concertride.me";
 
 const client = createClient({
   url,

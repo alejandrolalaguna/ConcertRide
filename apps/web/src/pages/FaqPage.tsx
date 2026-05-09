@@ -194,10 +194,10 @@ export default function FaqPage() {
             Todo lo que necesitas saber sobre carpooling para conciertos en España. Si no
             encuentras tu pregunta, escríbenos a{" "}
             <a
-              href="mailto:alejandrolalaguna@gmail.com"
+              href="mailto:help@concertride.me"
               className="text-cr-primary underline underline-offset-2"
             >
-              alejandrolalaguna@gmail.com
+              help@concertride.me
             </a>
             .
           </p>

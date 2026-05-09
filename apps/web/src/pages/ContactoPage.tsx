@@ -24,11 +24,11 @@ export default function ContactoPage() {
             mainEntity: {
               "@type": "Organization",
               name: "ConcertRide",
-              email: "alejandrolalaguna@gmail.com",
+              email: "help@concertride.me",
               contactPoint: {
                 "@type": "ContactPoint",
                 contactType: "customer support",
-                email: "alejandrolalaguna@gmail.com",
+                email: "help@concertride.me",
                 areaServed: "ES",
                 availableLanguage: ["es"],
               },
@@ -72,10 +72,10 @@ export default function ContactoPage() {
               Dudas, incidencias con viajes, partnerships, prensa.
             </p>
             <a
-              href="mailto:alejandrolalaguna@gmail.com"
+              href="mailto:help@concertride.me"
               className="inline-block font-mono text-cr-primary underline underline-offset-2 break-all"
             >
-              alejandrolalaguna@gmail.com
+              help@concertride.me
             </a>
           </article>
 

@@ -31,7 +31,7 @@ test.describe("/admin/reports access control", () => {
 
   test("alejandro@ logs in and accesses /admin/reports", async ({ page }) => {
     await page.goto("/login");
-    await page.getByPlaceholder("tu@email.com").fill("alejandrolalaguna@gmail.com");
+    await page.getByPlaceholder("tu@email.com").fill("help@concertride.me");
     await page.getByPlaceholder("••••••••").fill("qwer1234");
     await page.getByRole("button", { name: /^Entrar$/i }).click();
 

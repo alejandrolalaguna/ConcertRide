@@ -234,10 +234,10 @@ export default function PrivacidadPage() {
               está disponible directamente en <em>Mi perfil → Eliminar cuenta</em>. Para el resto
               puedes escribirnos a{" "}
               <a
-                href="mailto:alejandrolalaguna@gmail.com"
+                href="mailto:help@concertride.me"
                 className="font-mono text-cr-primary underline underline-offset-2"
               >
-                alejandrolalaguna@gmail.com
+                help@concertride.me
               </a>
               , indicando el derecho que deseas ejercitar y acreditando tu identidad:
             </p>

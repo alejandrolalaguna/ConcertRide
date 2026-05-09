@@ -120,7 +120,7 @@ export default function PrensaPage() {
     contactPoint: {
       "@type": "ContactPoint",
       contactType: "Press",
-      email: "alejandrolalaguna@gmail.com",
+      email: "help@concertride.me",
     },
   };
 
@@ -343,10 +343,10 @@ export default function PrensaPage() {
           <p className="font-display text-base uppercase">Alejandro Lalaguna</p>
           <p className="font-mono text-xs text-cr-text-muted">Fundador, ConcertRide ES</p>
           <a
-            href="mailto:alejandrolalaguna@gmail.com"
+            href="mailto:help@concertride.me"
             className="font-sans text-sm text-cr-primary border-b border-cr-primary/40 hover:border-cr-primary transition-colors"
           >
-            alejandrolalaguna@gmail.com
+            help@concertride.me
           </a>
         </div>
       </section>

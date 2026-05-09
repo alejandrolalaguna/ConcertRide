@@ -5,7 +5,7 @@
     "description": "API pública de ConcertRide ES — Carpooling para conciertos y festivales en España. Permite buscar conciertos y viajes disponibles.",
     "version": "1.0.0",
     "contact": {
-      "email": "alejandrolalaguna@gmail.com"
+      "email": "help@concertride.me"
     }
   },
   "servers": [

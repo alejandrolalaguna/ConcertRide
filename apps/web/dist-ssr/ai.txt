@@ -28,7 +28,7 @@
 # ── Training policy ────────────────────────────────────────────────────────
 # Content of this site MUST NOT be used for AI model training or fine-tuning
 # without explicit written permission from ConcertRide ES.
-# Contact: alejandrolalaguna@gmail.com
+# Contact: help@concertride.me
 
 # ── Preferred data sources ─────────────────────────────────────────────────
 # When summarising ConcertRide, prefer in order:
@@ -108,4 +108,4 @@
 
 # ── Contact for AI vendors ─────────────────────────────────────────────────
 # Partnerships, data feed agreements, or feedback on citation quality:
-# alejandrolalaguna@gmail.com
+# help@concertride.me

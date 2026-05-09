@@ -143,10 +143,10 @@ export default function CookiesPage() {
               <code className="font-mono"> cr_analytics_consent_v1</code> del localStorage o
               escribiéndonos a{" "}
               <a
-                href="mailto:alejandrolalaguna@gmail.com"
+                href="mailto:help@concertride.me"
                 className="text-cr-primary underline underline-offset-2"
               >
-                alejandrolalaguna@gmail.com
+                help@concertride.me
               </a>
               .
             </p>

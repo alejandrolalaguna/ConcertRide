@@ -10,7 +10,7 @@
 ConcertRide ES ("**nosotros**", "**la empresa**" o "**ConcertRide**") es una plataforma de carpooling especializada en conciertos y festivales en España. Esta Política de Privacidad explica cómo recopilamos, usamos, compartimos y protegemos tu información personal cuando utilizas nuestro sitio web, aplicación móvil (cuando esté disponible) y servicios asociados (colectivamente, los "**Servicios**").
 
 **Responsable del tratamiento de datos:** Alejandro Lalaguna  
-**Correo electrónico:** alejandrolalaguna@gmail.com  
+**Correo electrónico:** help@concertride.me  
 **Domicilio:** Madrid, España
 
 ---
@@ -127,7 +127,7 @@ Bajo la **Ley Orgánica de Protección de Datos (LOPD-GDD)** y **GDPR**, tienes 
 
 | Derecho | Descripción | Cómo solicitarlo |
 |---|---|---|
-| **Acceso** | Solicitar copia de tus datos | Email: alejandrolalaguna@gmail.com |
+| **Acceso** | Solicitar copia de tus datos | Email: help@concertride.me |
 | **Rectificación** | Corregir datos inexactos | Actualizar en tu perfil o email |
 | **Eliminación** | Solicitar borrado de datos | Email (se procesa en 30 días) |
 | **Portabilidad** | Descargar tus datos en formato legible | Email (formato JSON/CSV) |
@@ -135,7 +135,7 @@ Bajo la **Ley Orgánica de Protección de Datos (LOPD-GDD)** y **GDPR**, tienes 
 | **Oposición** | Oponerse al uso de tus datos | Email para marketing; opt-out automático |
 | **No decisiones automatizadas** | No ser sujeto de decisiones basadas solo en automatización | Habilitado (sin decisiones puramente automatizadas) |
 
-**Puedes ejercer tus derechos contactando:** alejandrolalaguna@gmail.com
+**Puedes ejercer tus derechos contactando:** help@concertride.me
 
 **Derecho de presentar reclamación:** Si consideras que tu privacidad ha sido violada, puedes presentar una reclamación ante la **Agencia Española de Protección de Datos (AEPD)** en www.aepd.es.
 
@@ -205,7 +205,7 @@ Tu uso continuado de ConcertRide constituye aceptación de cambios.
 
 ¿Preguntas sobre tu privacidad?
 
-**Email:** alejandrolalaguna@gmail.com  
+**Email:** help@concertride.me  
 **Dirección:** Madrid, España  
 **Respuesta esperada:** 10 días hábiles
 

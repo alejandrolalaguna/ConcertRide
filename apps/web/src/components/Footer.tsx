@@ -16,10 +16,10 @@ export function Footer() {
           <p className="font-mono text-xs text-cr-text-muted">
             ¿Dudas o incidencias?{" "}
             <a
-              href="mailto:alejandrolalaguna@gmail.com"
+              href="mailto:help@concertride.me"
               className="text-cr-primary hover:text-cr-primary/80 underline underline-offset-2"
             >
-              alejandrolalaguna@gmail.com
+              help@concertride.me
             </a>
           </p>
         </div>
@@ -207,10 +207,10 @@ export function Footer() {
             <p className="font-mono text-[10px] text-cr-text-muted mt-1">
               GDPR/Datos:{" "}
               <a
-                href="mailto:alejandrolalaguna@gmail.com?subject=SOLICITUD%20GDPR"
+                href="mailto:help@concertride.me?subject=SOLICITUD%20GDPR"
                 className="hover:text-cr-primary transition-colors underline underline-offset-2"
               >
-                alejandrolalaguna@gmail.com
+                help@concertride.me
               </a>
             </p>
           </div>

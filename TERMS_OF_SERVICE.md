@@ -217,7 +217,7 @@ Para publicar un viaje como conductor, debes:
 
 Si hay disputa sobre pago:
 1. Intenta resolver directamente con la otra parte
-2. Si no se resuelve, contacta: alejandrolalaguna@gmail.com
+2. Si no se resuelve, contacta: help@concertride.me
 3. ConcertRide mediará (no es árbitro vinculante)
 4. Para disputas no resueltas, ley española aplicable
 
@@ -389,7 +389,7 @@ Conductores son responsables de:
 
 ¿Preguntas sobre estos Términos?
 
-**Email:** alejandrolalaguna@gmail.com  
+**Email:** help@concertride.me  
 **Dirección:** Madrid, España  
 **Respuesta esperada:** 10 días hábiles
 

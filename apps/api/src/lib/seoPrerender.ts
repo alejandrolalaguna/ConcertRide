@@ -71,7 +71,7 @@ function buildStaticRoutes(base: string): Record<string, { title: string; descri
           contactPoint: {
             "@type": "ContactPoint",
             contactType: "customer support",
-            email: "alejandrolalaguna@gmail.com",
+            email: "help@concertride.me",
             availableLanguage: "Spanish",
           },
         });
@@ -864,7 +864,7 @@ function buildStaticRoutes(base: string): Record<string, { title: string; descri
         });
         return `<script type="application/ld+json">${contactPageJsonLd}</script>
 <script type="application/ld+json">${breadcrumbJsonLd}</script>
-<p>¿Tienes alguna pregunta o sugerencia? Escríbenos a <a href="mailto:alejandrolalaguna@gmail.com">alejandrolalaguna@gmail.com</a> y te responderemos lo antes posible.</p>
+<p>¿Tienes alguna pregunta o sugerencia? Escríbenos a <a href="mailto:help@concertride.me">help@concertride.me</a> y te responderemos lo antes posible.</p>
 <p>Para soporte de usuarios: usa el chat en la plataforma o escríbenos por email.</p>
 <p>Para medios y prensa: <a href="${base}/prensa">Sala de prensa →</a></p>`;
       })(),
@@ -993,7 +993,7 @@ ${posts.map((p) => `  <li><a href="${base}/blog/${p.slug}">${p.title}</a></li>`)
   <li>Pago en efectivo o Bizum (sin tarjeta obligatoria)</li>
   <li>Conductores verificados con carnet de conducir</li>
 </ul>
-<p>Contacto para medios: <a href="mailto:alejandrolalaguna@gmail.com">alejandrolalaguna@gmail.com</a></p>`;
+<p>Contacto para medios: <a href="mailto:help@concertride.me">help@concertride.me</a></p>`;
       })(),
     },
     "/aviso-legal": {

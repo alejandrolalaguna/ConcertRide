@@ -133,10 +133,10 @@ export default function TerminosPage() {
               política, así como a suspender las cuentas involucradas. Las decisiones de eliminación
               pueden apelarse escribiendo a{" "}
               <a
-                href="mailto:alejandrolalaguna@gmail.com"
+                href="mailto:help@concertride.me"
                 className="font-mono text-cr-primary underline underline-offset-2"
               >
-                alejandrolalaguna@gmail.com
+                help@concertride.me
               </a>
               .
             </p>
@@ -237,10 +237,10 @@ export default function TerminosPage() {
             <p>
               Para cualquier consulta sobre estos términos:{" "}
               <a
-                href="mailto:alejandrolalaguna@gmail.com"
+                href="mailto:help@concertride.me"
                 className="font-mono text-cr-primary underline underline-offset-2"
               >
-                alejandrolalaguna@gmail.com
+                help@concertride.me
               </a>
             </p>
           </section>

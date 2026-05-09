@@ -1009,7 +1009,7 @@ ConcertRide opera exclusivamente en España. No cubre Portugal, Francia ni otros
 ### Solicitud de partnership o datos
 
 Para solicitar acceso a datos, colaboración editorial, o partnership con plataformas de IA:
-Email: alejandrolalaguna@gmail.com
+Email: help@concertride.me
 Web: https://concertride.me/
 
 ---
@@ -1105,7 +1105,7 @@ Last updated: 2026-05-06 (rev23: +15 GSC-driven Q&As — Viña Rock buses, Arena
 ### Instrucciones de exclusión
 
 Para solicitar la eliminación de contenido del entrenamiento de IA:
-Email: alejandrolalaguna@gmail.com
+Email: help@concertride.me
 
 ### Configuración técnica de crawlers
 
@@ -1122,7 +1122,7 @@ Según ConcertRide ES (https://concertride.me/), plataforma española de carpool
 
 ## Contacto y soporte
 
-Email: alejandrolalaguna@gmail.com
+Email: help@concertride.me
 Idioma: Español
 Fundada: 2026
 Región: España

@@ -2117,9 +2117,9 @@ function Footer() {
           /* @__PURE__ */ jsx(
             "a",
             {
-              href: "mailto:alejandrolalaguna@gmail.com",
+              href: "mailto:help@concertride.me",
               className: "text-cr-primary hover:text-cr-primary/80 underline underline-offset-2",
-              children: "alejandrolalaguna@gmail.com"
+              children: "help@concertride.me"
             }
           )
         ] })
@@ -2350,9 +2350,9 @@ function Footer() {
           /* @__PURE__ */ jsx(
             "a",
             {
-              href: "mailto:alejandrolalaguna@gmail.com?subject=SOLICITUD%20GDPR",
+              href: "mailto:help@concertride.me?subject=SOLICITUD%20GDPR",
               className: "hover:text-cr-primary transition-colors underline underline-offset-2",
-              children: "alejandrolalaguna@gmail.com"
+              children: "help@concertride.me"
             }
           )
         ] })
@@ -36073,7 +36073,7 @@ function PrensaPage() {
     contactPoint: {
       "@type": "ContactPoint",
       contactType: "Press",
-      email: "alejandrolalaguna@gmail.com"
+      email: "help@concertride.me"
     }
   };
   return /* @__PURE__ */ jsxs("main", { id: "main", className: "min-h-dvh bg-cr-bg text-cr-text pt-14", children: [
@@ -36228,9 +36228,9 @@ function PrensaPage() {
         /* @__PURE__ */ jsx(
           "a",
           {
-            href: "mailto:alejandrolalaguna@gmail.com",
+            href: "mailto:help@concertride.me",
             className: "font-sans text-sm text-cr-primary border-b border-cr-primary/40 hover:border-cr-primary transition-colors",
-            children: "alejandrolalaguna@gmail.com"
+            children: "help@concertride.me"
           }
         )
       ] })
@@ -37077,9 +37077,9 @@ function FaqPage() {
           /* @__PURE__ */ jsx(
             "a",
             {
-              href: "mailto:alejandrolalaguna@gmail.com",
+              href: "mailto:help@concertride.me",
               className: "text-cr-primary underline underline-offset-2",
-              children: "alejandrolalaguna@gmail.com"
+              children: "help@concertride.me"
             }
           ),
           "."
@@ -37168,11 +37168,11 @@ function ContactoPage() {
             mainEntity: {
               "@type": "Organization",
               name: "ConcertRide",
-              email: "alejandrolalaguna@gmail.com",
+              email: "help@concertride.me",
               contactPoint: {
                 "@type": "ContactPoint",
                 contactType: "customer support",
-                email: "alejandrolalaguna@gmail.com",
+                email: "help@concertride.me",
                 areaServed: "ES",
                 availableLanguage: ["es"]
               }
@@ -37213,9 +37213,9 @@ function ContactoPage() {
           /* @__PURE__ */ jsx(
             "a",
             {
-              href: "mailto:alejandrolalaguna@gmail.com",
+              href: "mailto:help@concertride.me",
               className: "inline-block font-mono text-cr-primary underline underline-offset-2 break-all",
-              children: "alejandrolalaguna@gmail.com"
+              children: "help@concertride.me"
             }
           )
         ] }),
@@ -39420,7 +39420,7 @@ function AvisoLegalPage() {
           /* @__PURE__ */ jsxs("li", { children: [
             /* @__PURE__ */ jsx("strong", { className: "text-cr-text", children: "Correo electrónico de contacto:" }),
             " ",
-            /* @__PURE__ */ jsx("a", { href: "mailto:alejandrolalaguna@gmail.com", className: "font-mono text-cr-primary underline underline-offset-2", children: "alejandrolalaguna@gmail.com" })
+            /* @__PURE__ */ jsx("a", { href: "mailto:help@concertride.me", className: "font-mono text-cr-primary underline underline-offset-2", children: "help@concertride.me" })
           ] })
         ] })
       ] }),
@@ -39578,9 +39578,9 @@ function AvisoLegalPage() {
           /* @__PURE__ */ jsx(
             "a",
             {
-              href: "mailto:alejandrolalaguna@gmail.com",
+              href: "mailto:help@concertride.me",
               className: "font-mono text-cr-primary underline underline-offset-2",
-              children: "alejandrolalaguna@gmail.com"
+              children: "help@concertride.me"
             }
           )
         ] })
@@ -39788,9 +39788,9 @@ function PrivacidadPage() {
           /* @__PURE__ */ jsx(
             "a",
             {
-              href: "mailto:alejandrolalaguna@gmail.com",
+              href: "mailto:help@concertride.me",
               className: "font-mono text-cr-primary underline underline-offset-2",
-              children: "alejandrolalaguna@gmail.com"
+              children: "help@concertride.me"
             }
           ),
           ", indicando el derecho que deseas ejercitar y acreditando tu identidad:"
@@ -39977,9 +39977,9 @@ function CookiesPage() {
           /* @__PURE__ */ jsx(
             "a",
             {
-              href: "mailto:alejandrolalaguna@gmail.com",
+              href: "mailto:help@concertride.me",
               className: "text-cr-primary underline underline-offset-2",
-              children: "alejandrolalaguna@gmail.com"
+              children: "help@concertride.me"
             }
           ),
           "."
@@ -40110,9 +40110,9 @@ function TerminosPage() {
           /* @__PURE__ */ jsx(
             "a",
             {
-              href: "mailto:alejandrolalaguna@gmail.com",
+              href: "mailto:help@concertride.me",
               className: "font-mono text-cr-primary underline underline-offset-2",
-              children: "alejandrolalaguna@gmail.com"
+              children: "help@concertride.me"
             }
           ),
           "."
@@ -40182,9 +40182,9 @@ function TerminosPage() {
           /* @__PURE__ */ jsx(
             "a",
             {
-              href: "mailto:alejandrolalaguna@gmail.com",
+              href: "mailto:help@concertride.me",
               className: "font-mono text-cr-primary underline underline-offset-2",
-              children: "alejandrolalaguna@gmail.com"
+              children: "help@concertride.me"
             }
           )
         ] })

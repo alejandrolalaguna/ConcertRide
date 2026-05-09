@@ -261,4 +261,4 @@ Use these free tools to test your implementation:
 ---
 
 Last updated: 2026-04-25
-For questions: alejandrolalaguna@gmail.com
+For questions: help@concertride.me

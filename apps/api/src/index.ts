@@ -238,7 +238,7 @@ app.get("/.well-known/mcp/server-card.json", (c) => {
       version: "1.0.0",
       title: "ConcertRide ES",
       description: "Carpooling para conciertos y festivales en España. Sin comisiones, conductores verificados.",
-      contact: { email: "alejandrolalaguna@gmail.com", url: `${base}/contacto` },
+      contact: { email: "help@concertride.me", url: `${base}/contacto` },
       license: { name: "Proprietary", url: `${base}/terminos` },
     },
     transport: {

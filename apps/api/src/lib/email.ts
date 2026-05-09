@@ -18,7 +18,7 @@ export interface SendResult {
 // Sender address. The local-part `no-reply@` is fine; the domain must be a
 // verified Resend sending domain. Update when you switch sending domains.
 const FROM_ADDRESS = "ConcertRide <no-reply@concertride.me>";
-const REPLY_TO = "alejandrolalaguna@gmail.com";
+const REPLY_TO = "help@concertride.me";
 
 // ── Low-level send ────────────────────────────────────────────────────────
 export async function sendEmail(

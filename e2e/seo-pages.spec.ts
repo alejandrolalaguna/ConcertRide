@@ -36,7 +36,7 @@ test.describe("Contacto page", () => {
     await expect(page.getByRole("heading", { level: 1 })).toContainText(/Contacto/i);
     await expectJsonLdWithType(page, "ContactPage");
     await expect(
-      page.getByRole("link", { name: /alejandrolalaguna@gmail.com/i }).first(),
+      page.getByRole("link", { name: /help@concertride.me/i }).first(),
     ).toHaveAttribute("href", /^mailto:/);
   });
 });

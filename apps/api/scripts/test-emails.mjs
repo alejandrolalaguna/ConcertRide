@@ -1,4 +1,4 @@
-// Sends one test email per template to alejandrolalaguna@gmail.com using Resend.
+// Sends one test email per template to help@concertride.me using Resend.
 // Usage: RESEND_API_KEY=re_xxx node scripts/test-emails.mjs
 // Or:    node scripts/test-emails.mjs  (reads from ../.env.local or root .env)
 
@@ -23,8 +23,8 @@ if (!RESEND_API_KEY) {
 }
 
 const FROM = "ConcertRide <no-reply@concertride.me>";
-const REPLY_TO = "alejandrolalaguna@gmail.com";
-const TO = "alejandrolalaguna@gmail.com";
+const REPLY_TO = "help@concertride.me";
+const TO = "help@concertride.me";
 const BASE = "https://concertride.me";
 
 // ── Template helpers (mirrors email.ts) ─────────────────────────────────────

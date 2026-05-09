@@ -32,8 +32,8 @@ export default function AvisoLegalPage() {
             <ul className="space-y-1 pl-4 list-disc text-cr-text-muted">
               <li><strong className="text-cr-text">Titular:</strong> Alejandro Lalaguna</li>
               <li><strong className="text-cr-text">Correo electrónico de contacto:</strong>{" "}
-                <a href="mailto:alejandrolalaguna@gmail.com" className="font-mono text-cr-primary underline underline-offset-2">
-                  alejandrolalaguna@gmail.com
+                <a href="mailto:help@concertride.me" className="font-mono text-cr-primary underline underline-offset-2">
+                  help@concertride.me
                 </a>
               </li>
             </ul>
@@ -225,10 +225,10 @@ export default function AvisoLegalPage() {
               Para cualquier consulta relacionada con este aviso legal, puede contactar con nosotros
               en:{" "}
               <a
-                href="mailto:alejandrolalaguna@gmail.com"
+                href="mailto:help@concertride.me"
                 className="font-mono text-cr-primary underline underline-offset-2"
               >
-                alejandrolalaguna@gmail.com
+                help@concertride.me
               </a>
             </p>
           </section>

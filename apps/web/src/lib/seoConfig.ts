@@ -12,7 +12,7 @@ export const SEO_CONFIG = {
     language: "es-ES",
     defaultLocale: "es-ES",
     author: "Alejandro Lalaguna",
-    contactEmail: "alejandrolalaguna@gmail.com",
+    contactEmail: "help@concertride.me",
   },
 
   // Primary keywords for SEO optimization

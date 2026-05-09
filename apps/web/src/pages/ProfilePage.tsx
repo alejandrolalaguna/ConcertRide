@@ -619,7 +619,7 @@ export default function ProfilePage() {
                   Lo revisaremos en 24–48 h y te avisamos por email.
                 </p>
                 <a
-                  href={`mailto:alejandrolalaguna@gmail.com?subject=${encodeURIComponent("Estado verificación carnet — " + user.name)}&body=${encodeURIComponent("Hola,\n\nQuería preguntar por el estado de la verificación de mi carnet de conducir.\n\nMi usuario: " + user.email + "\nID de revisión: " + licenseReview.id + "\n\nGracias.")}`}
+                  href={`mailto:help@concertride.me?subject=${encodeURIComponent("Estado verificación carnet — " + user.name)}&body=${encodeURIComponent("Hola,\n\nQuería preguntar por el estado de la verificación de mi carnet de conducir.\n\nMi usuario: " + user.email + "\nID de revisión: " + licenseReview.id + "\n\nGracias.")}`}
                   className="inline-flex items-center gap-1.5 font-sans text-xs text-cr-text-muted hover:text-cr-primary underline underline-offset-2 transition-colors"
                 >
                   Preguntar por el estado →
@@ -650,7 +650,7 @@ export default function ProfilePage() {
                     Enviar nuevo documento
                   </button>
                   <a
-                    href={`mailto:alejandrolalaguna@gmail.com?subject=${encodeURIComponent("Revisión rechazo carnet — " + user.name)}&body=${encodeURIComponent("Hola,\n\nMi verificación fue rechazada y me gustaría entender el motivo o enviar un documento nuevo.\n\nMi usuario: " + user.email + "\nID de revisión: " + licenseReview.id + "\n\nGracias.")}`}
+                    href={`mailto:help@concertride.me?subject=${encodeURIComponent("Revisión rechazo carnet — " + user.name)}&body=${encodeURIComponent("Hola,\n\nMi verificación fue rechazada y me gustaría entender el motivo o enviar un documento nuevo.\n\nMi usuario: " + user.email + "\nID de revisión: " + licenseReview.id + "\n\nGracias.")}`}
                     className="inline-flex items-center gap-1.5 font-sans text-xs text-cr-text-muted hover:text-cr-primary underline underline-offset-2 transition-colors"
                   >
                     Preguntar al equipo →
