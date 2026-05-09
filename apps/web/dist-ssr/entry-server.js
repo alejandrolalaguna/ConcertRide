@@ -723,11 +723,22 @@ const createLucideIcon = (iconName, iconNode) => {
  * This source code is licensed under the ISC license.
  * See the LICENSE file in the root directory of this source tree.
  */
-const __iconNode$U = [
+const __iconNode$V = [
   ["path", { d: "m12 19-7-7 7-7", key: "1l729n" }],
   ["path", { d: "M19 12H5", key: "x3x0zl" }]
 ];
-const ArrowLeft = createLucideIcon("arrow-left", __iconNode$U);
+const ArrowLeft = createLucideIcon("arrow-left", __iconNode$V);
+/**
+ * @license lucide-react v1.8.0 - ISC
+ *
+ * This source code is licensed under the ISC license.
+ * See the LICENSE file in the root directory of this source tree.
+ */
+const __iconNode$U = [
+  ["path", { d: "M5 12h14", key: "1ays0h" }],
+  ["path", { d: "m12 5 7 7-7 7", key: "xquz4c" }]
+];
+const ArrowRight = createLucideIcon("arrow-right", __iconNode$U);
 /**
  * @license lucide-react v1.8.0 - ISC
  *
@@ -735,17 +746,6 @@ const ArrowLeft = createLucideIcon("arrow-left", __iconNode$U);
  * See the LICENSE file in the root directory of this source tree.
  */
 const __iconNode$T = [
-  ["path", { d: "M5 12h14", key: "1ays0h" }],
-  ["path", { d: "m12 5 7 7-7 7", key: "xquz4c" }]
-];
-const ArrowRight = createLucideIcon("arrow-right", __iconNode$T);
-/**
- * @license lucide-react v1.8.0 - ISC
- *
- * This source code is licensed under the ISC license.
- * See the LICENSE file in the root directory of this source tree.
- */
-const __iconNode$S = [
   ["path", { d: "M10.268 21a2 2 0 0 0 3.464 0", key: "vwvbt9" }],
   ["path", { d: "M22 8c0-2.3-.8-4.3-2-6", key: "5bb3ad" }],
   [
@@ -757,14 +757,14 @@ const __iconNode$S = [
   ],
   ["path", { d: "M4 2C2.8 3.7 2 5.7 2 8", key: "tap9e0" }]
 ];
-const BellRing = createLucideIcon("bell-ring", __iconNode$S);
+const BellRing = createLucideIcon("bell-ring", __iconNode$T);
 /**
  * @license lucide-react v1.8.0 - ISC
  *
  * This source code is licensed under the ISC license.
  * See the LICENSE file in the root directory of this source tree.
  */
-const __iconNode$R = [
+const __iconNode$S = [
   ["path", { d: "M10.268 21a2 2 0 0 0 3.464 0", key: "vwvbt9" }],
   [
     "path",
@@ -774,14 +774,14 @@ const __iconNode$R = [
     }
   ]
 ];
-const Bell = createLucideIcon("bell", __iconNode$R);
+const Bell = createLucideIcon("bell", __iconNode$S);
 /**
  * @license lucide-react v1.8.0 - ISC
  *
  * This source code is licensed under the ISC license.
  * See the LICENSE file in the root directory of this source tree.
  */
-const __iconNode$Q = [
+const __iconNode$R = [
   ["path", { d: "M12 7v14", key: "1akyts" }],
   [
     "path",
@@ -791,14 +791,14 @@ const __iconNode$Q = [
     }
   ]
 ];
-const BookOpen = createLucideIcon("book-open", __iconNode$Q);
+const BookOpen = createLucideIcon("book-open", __iconNode$R);
 /**
  * @license lucide-react v1.8.0 - ISC
  *
  * This source code is licensed under the ISC license.
  * See the LICENSE file in the root directory of this source tree.
  */
-const __iconNode$P = [
+const __iconNode$Q = [
   ["path", { d: "M8 6v6", key: "18i7km" }],
   ["path", { d: "M15 6v6", key: "1sg6z9" }],
   ["path", { d: "M2 12h19.6", key: "de5uta" }],
@@ -813,7 +813,20 @@ const __iconNode$P = [
   ["path", { d: "M9 18h5", key: "lrx6i" }],
   ["circle", { cx: "16", cy: "18", r: "2", key: "1v4tcr" }]
 ];
-const Bus = createLucideIcon("bus", __iconNode$P);
+const Bus = createLucideIcon("bus", __iconNode$Q);
+/**
+ * @license lucide-react v1.8.0 - ISC
+ *
+ * This source code is licensed under the ISC license.
+ * See the LICENSE file in the root directory of this source tree.
+ */
+const __iconNode$P = [
+  ["path", { d: "M8 2v4", key: "1cmpym" }],
+  ["path", { d: "M16 2v4", key: "4m81vk" }],
+  ["rect", { width: "18", height: "18", x: "3", y: "4", rx: "2", key: "1hopcy" }],
+  ["path", { d: "M3 10h18", key: "8toen8" }]
+];
+const Calendar = createLucideIcon("calendar", __iconNode$P);
 /**
  * @license lucide-react v1.8.0 - ISC
  *
@@ -821,19 +834,6 @@ const Bus = createLucideIcon("bus", __iconNode$P);
  * See the LICENSE file in the root directory of this source tree.
  */
 const __iconNode$O = [
-  ["path", { d: "M8 2v4", key: "1cmpym" }],
-  ["path", { d: "M16 2v4", key: "4m81vk" }],
-  ["rect", { width: "18", height: "18", x: "3", y: "4", rx: "2", key: "1hopcy" }],
-  ["path", { d: "M3 10h18", key: "8toen8" }]
-];
-const Calendar = createLucideIcon("calendar", __iconNode$O);
-/**
- * @license lucide-react v1.8.0 - ISC
- *
- * This source code is licensed under the ISC license.
- * See the LICENSE file in the root directory of this source tree.
- */
-const __iconNode$N = [
   ["path", { d: "M10 2h4", key: "n1abiw" }],
   [
     "path",
@@ -845,14 +845,14 @@ const __iconNode$N = [
   ["path", { d: "M5 18v2", key: "ppbyun" }],
   ["path", { d: "M19 18v2", key: "gy7782" }]
 ];
-const CarTaxiFront = createLucideIcon("car-taxi-front", __iconNode$N);
+const CarTaxiFront = createLucideIcon("car-taxi-front", __iconNode$O);
 /**
  * @license lucide-react v1.8.0 - ISC
  *
  * This source code is licensed under the ISC license.
  * See the LICENSE file in the root directory of this source tree.
  */
-const __iconNode$M = [
+const __iconNode$N = [
   [
     "path",
     {
@@ -864,39 +864,50 @@ const __iconNode$M = [
   ["path", { d: "M9 17h6", key: "r8uit2" }],
   ["circle", { cx: "17", cy: "17", r: "2", key: "axvx0g" }]
 ];
-const Car = createLucideIcon("car", __iconNode$M);
+const Car = createLucideIcon("car", __iconNode$N);
 /**
  * @license lucide-react v1.8.0 - ISC
  *
  * This source code is licensed under the ISC license.
  * See the LICENSE file in the root directory of this source tree.
  */
-const __iconNode$L = [["path", { d: "M20 6 9 17l-5-5", key: "1gmf2c" }]];
-const Check = createLucideIcon("check", __iconNode$L);
+const __iconNode$M = [["path", { d: "M20 6 9 17l-5-5", key: "1gmf2c" }]];
+const Check = createLucideIcon("check", __iconNode$M);
 /**
  * @license lucide-react v1.8.0 - ISC
  *
  * This source code is licensed under the ISC license.
  * See the LICENSE file in the root directory of this source tree.
  */
-const __iconNode$K = [["path", { d: "m6 9 6 6 6-6", key: "qrunsl" }]];
-const ChevronDown = createLucideIcon("chevron-down", __iconNode$K);
+const __iconNode$L = [["path", { d: "m6 9 6 6 6-6", key: "qrunsl" }]];
+const ChevronDown = createLucideIcon("chevron-down", __iconNode$L);
 /**
  * @license lucide-react v1.8.0 - ISC
  *
  * This source code is licensed under the ISC license.
  * See the LICENSE file in the root directory of this source tree.
  */
-const __iconNode$J = [["path", { d: "m15 18-6-6 6-6", key: "1wnfg3" }]];
-const ChevronLeft = createLucideIcon("chevron-left", __iconNode$J);
+const __iconNode$K = [["path", { d: "m15 18-6-6 6-6", key: "1wnfg3" }]];
+const ChevronLeft = createLucideIcon("chevron-left", __iconNode$K);
 /**
  * @license lucide-react v1.8.0 - ISC
  *
  * This source code is licensed under the ISC license.
  * See the LICENSE file in the root directory of this source tree.
  */
-const __iconNode$I = [["path", { d: "m9 18 6-6-6-6", key: "mthhwq" }]];
-const ChevronRight = createLucideIcon("chevron-right", __iconNode$I);
+const __iconNode$J = [["path", { d: "m9 18 6-6-6-6", key: "mthhwq" }]];
+const ChevronRight = createLucideIcon("chevron-right", __iconNode$J);
+/**
+ * @license lucide-react v1.8.0 - ISC
+ *
+ * This source code is licensed under the ISC license.
+ * See the LICENSE file in the root directory of this source tree.
+ */
+const __iconNode$I = [
+  ["circle", { cx: "12", cy: "12", r: "10", key: "1mglay" }],
+  ["path", { d: "M12 6v6l4 2", key: "mmk7yg" }]
+];
+const Clock = createLucideIcon("clock", __iconNode$I);
 /**
  * @license lucide-react v1.8.0 - ISC
  *
@@ -904,10 +915,10 @@ const ChevronRight = createLucideIcon("chevron-right", __iconNode$I);
  * See the LICENSE file in the root directory of this source tree.
  */
 const __iconNode$H = [
-  ["circle", { cx: "12", cy: "12", r: "10", key: "1mglay" }],
-  ["path", { d: "M12 6v6l4 2", key: "mmk7yg" }]
+  ["rect", { width: "14", height: "14", x: "8", y: "8", rx: "2", ry: "2", key: "17jyea" }],
+  ["path", { d: "M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2", key: "zix9uf" }]
 ];
-const Clock = createLucideIcon("clock", __iconNode$H);
+const Copy = createLucideIcon("copy", __iconNode$H);
 /**
  * @license lucide-react v1.8.0 - ISC
  *
@@ -915,10 +926,10 @@ const Clock = createLucideIcon("clock", __iconNode$H);
  * See the LICENSE file in the root directory of this source tree.
  */
 const __iconNode$G = [
-  ["rect", { width: "14", height: "14", x: "8", y: "8", rx: "2", ry: "2", key: "17jyea" }],
-  ["path", { d: "M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2", key: "zix9uf" }]
+  ["rect", { width: "20", height: "14", x: "2", y: "5", rx: "2", key: "ynyp8z" }],
+  ["line", { x1: "2", x2: "22", y1: "10", y2: "10", key: "1b3vmo" }]
 ];
-const Copy = createLucideIcon("copy", __iconNode$G);
+const CreditCard = createLucideIcon("credit-card", __iconNode$G);
 /**
  * @license lucide-react v1.8.0 - ISC
  *
@@ -926,10 +937,10 @@ const Copy = createLucideIcon("copy", __iconNode$G);
  * See the LICENSE file in the root directory of this source tree.
  */
 const __iconNode$F = [
-  ["rect", { width: "20", height: "14", x: "2", y: "5", rx: "2", key: "ynyp8z" }],
-  ["line", { x1: "2", x2: "22", y1: "10", y2: "10", key: "1b3vmo" }]
+  ["line", { x1: "12", x2: "12", y1: "2", y2: "22", key: "7eqyqh" }],
+  ["path", { d: "M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6", key: "1b0p4s" }]
 ];
-const CreditCard = createLucideIcon("credit-card", __iconNode$F);
+const DollarSign = createLucideIcon("dollar-sign", __iconNode$F);
 /**
  * @license lucide-react v1.8.0 - ISC
  *
@@ -937,10 +948,11 @@ const CreditCard = createLucideIcon("credit-card", __iconNode$F);
  * See the LICENSE file in the root directory of this source tree.
  */
 const __iconNode$E = [
-  ["line", { x1: "12", x2: "12", y1: "2", y2: "22", key: "7eqyqh" }],
-  ["path", { d: "M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6", key: "1b0p4s" }]
+  ["path", { d: "M12 15V3", key: "m9g1x1" }],
+  ["path", { d: "M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4", key: "ih7n3h" }],
+  ["path", { d: "m7 10 5 5 5-5", key: "brsn70" }]
 ];
-const DollarSign = createLucideIcon("dollar-sign", __iconNode$E);
+const Download = createLucideIcon("download", __iconNode$E);
 /**
  * @license lucide-react v1.8.0 - ISC
  *
@@ -948,18 +960,6 @@ const DollarSign = createLucideIcon("dollar-sign", __iconNode$E);
  * See the LICENSE file in the root directory of this source tree.
  */
 const __iconNode$D = [
-  ["path", { d: "M12 15V3", key: "m9g1x1" }],
-  ["path", { d: "M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4", key: "ih7n3h" }],
-  ["path", { d: "m7 10 5 5 5-5", key: "brsn70" }]
-];
-const Download = createLucideIcon("download", __iconNode$D);
-/**
- * @license lucide-react v1.8.0 - ISC
- *
- * This source code is licensed under the ISC license.
- * See the LICENSE file in the root directory of this source tree.
- */
-const __iconNode$C = [
   ["path", { d: "M4 10h12", key: "1y6xl8" }],
   ["path", { d: "M4 14h9", key: "1loblj" }],
   [
@@ -970,7 +970,19 @@ const __iconNode$C = [
     }
   ]
 ];
-const Euro = createLucideIcon("euro", __iconNode$C);
+const Euro = createLucideIcon("euro", __iconNode$D);
+/**
+ * @license lucide-react v1.8.0 - ISC
+ *
+ * This source code is licensed under the ISC license.
+ * See the LICENSE file in the root directory of this source tree.
+ */
+const __iconNode$C = [
+  ["path", { d: "M15 3h6v6", key: "1q9fwt" }],
+  ["path", { d: "M10 14 21 3", key: "gplh6r" }],
+  ["path", { d: "M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6", key: "a6xqqp" }]
+];
+const ExternalLink = createLucideIcon("external-link", __iconNode$C);
 /**
  * @license lucide-react v1.8.0 - ISC
  *
@@ -978,11 +990,15 @@ const Euro = createLucideIcon("euro", __iconNode$C);
  * See the LICENSE file in the root directory of this source tree.
  */
 const __iconNode$B = [
-  ["path", { d: "M15 3h6v6", key: "1q9fwt" }],
-  ["path", { d: "M10 14 21 3", key: "gplh6r" }],
-  ["path", { d: "M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6", key: "a6xqqp" }]
+  [
+    "path",
+    { d: "M14 13h2a2 2 0 0 1 2 2v2a2 2 0 0 0 4 0v-6.998a2 2 0 0 0-.59-1.42L18 5", key: "1wtuz0" }
+  ],
+  ["path", { d: "M14 21V5a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v16", key: "e09ifn" }],
+  ["path", { d: "M2 21h13", key: "1x0fut" }],
+  ["path", { d: "M3 9h11", key: "1p7c0w" }]
 ];
-const ExternalLink = createLucideIcon("external-link", __iconNode$B);
+const Fuel = createLucideIcon("fuel", __iconNode$B);
 /**
  * @license lucide-react v1.8.0 - ISC
  *
@@ -992,13 +1008,13 @@ const ExternalLink = createLucideIcon("external-link", __iconNode$B);
 const __iconNode$A = [
   [
     "path",
-    { d: "M14 13h2a2 2 0 0 1 2 2v2a2 2 0 0 0 4 0v-6.998a2 2 0 0 0-.59-1.42L18 5", key: "1wtuz0" }
-  ],
-  ["path", { d: "M14 21V5a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v16", key: "e09ifn" }],
-  ["path", { d: "M2 21h13", key: "1x0fut" }],
-  ["path", { d: "M3 9h11", key: "1p7c0w" }]
+    {
+      d: "M2 9.5a5.5 5.5 0 0 1 9.591-3.676.56.56 0 0 0 .818 0A5.49 5.49 0 0 1 22 9.5c0 2.29-1.5 4-3 5.5l-5.492 5.313a2 2 0 0 1-3 .019L5 15c-1.5-1.5-3-3.2-3-5.5",
+      key: "mvr1a0"
+    }
+  ]
 ];
-const Fuel = createLucideIcon("fuel", __iconNode$A);
+const Heart = createLucideIcon("heart", __iconNode$A);
 /**
  * @license lucide-react v1.8.0 - ISC
  *
@@ -1009,12 +1025,13 @@ const __iconNode$z = [
   [
     "path",
     {
-      d: "M2 9.5a5.5 5.5 0 0 1 9.591-3.676.56.56 0 0 0 .818 0A5.49 5.49 0 0 1 22 9.5c0 2.29-1.5 4-3 5.5l-5.492 5.313a2 2 0 0 1-3 .019L5 15c-1.5-1.5-3-3.2-3-5.5",
-      key: "mvr1a0"
+      d: "M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10Z",
+      key: "nnexq3"
     }
-  ]
+  ],
+  ["path", { d: "M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12", key: "mt58a7" }]
 ];
-const Heart = createLucideIcon("heart", __iconNode$z);
+const Leaf = createLucideIcon("leaf", __iconNode$z);
 /**
  * @license lucide-react v1.8.0 - ISC
  *
@@ -1022,43 +1039,26 @@ const Heart = createLucideIcon("heart", __iconNode$z);
  * See the LICENSE file in the root directory of this source tree.
  */
 const __iconNode$y = [
-  [
-    "path",
-    {
-      d: "M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10Z",
-      key: "nnexq3"
-    }
-  ],
-  ["path", { d: "M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12", key: "mt58a7" }]
-];
-const Leaf = createLucideIcon("leaf", __iconNode$y);
-/**
- * @license lucide-react v1.8.0 - ISC
- *
- * This source code is licensed under the ISC license.
- * See the LICENSE file in the root directory of this source tree.
- */
-const __iconNode$x = [
   ["path", { d: "M9 17H7A5 5 0 0 1 7 7h2", key: "8i5ue5" }],
   ["path", { d: "M15 7h2a5 5 0 1 1 0 10h-2", key: "1b9ql8" }],
   ["line", { x1: "8", x2: "16", y1: "12", y2: "12", key: "1jonct" }]
 ];
-const Link2 = createLucideIcon("link-2", __iconNode$x);
+const Link2 = createLucideIcon("link-2", __iconNode$y);
 /**
  * @license lucide-react v1.8.0 - ISC
  *
  * This source code is licensed under the ISC license.
  * See the LICENSE file in the root directory of this source tree.
  */
-const __iconNode$w = [["path", { d: "M21 12a9 9 0 1 1-6.219-8.56", key: "13zald" }]];
-const LoaderCircle = createLucideIcon("loader-circle", __iconNode$w);
+const __iconNode$x = [["path", { d: "M21 12a9 9 0 1 1-6.219-8.56", key: "13zald" }]];
+const LoaderCircle = createLucideIcon("loader-circle", __iconNode$x);
 /**
  * @license lucide-react v1.8.0 - ISC
  *
  * This source code is licensed under the ISC license.
  * See the LICENSE file in the root directory of this source tree.
  */
-const __iconNode$v = [
+const __iconNode$w = [
   ["line", { x1: "2", x2: "5", y1: "12", y2: "12", key: "bvdh0s" }],
   ["line", { x1: "19", x2: "22", y1: "12", y2: "12", key: "1tbv5k" }],
   ["line", { x1: "12", x2: "12", y1: "2", y2: "5", key: "11lu5j" }],
@@ -1066,7 +1066,19 @@ const __iconNode$v = [
   ["circle", { cx: "12", cy: "12", r: "7", key: "fim9np" }],
   ["circle", { cx: "12", cy: "12", r: "3", key: "1v7zrd" }]
 ];
-const LocateFixed = createLucideIcon("locate-fixed", __iconNode$v);
+const LocateFixed = createLucideIcon("locate-fixed", __iconNode$w);
+/**
+ * @license lucide-react v1.8.0 - ISC
+ *
+ * This source code is licensed under the ISC license.
+ * See the LICENSE file in the root directory of this source tree.
+ */
+const __iconNode$v = [
+  ["path", { d: "m16 17 5-5-5-5", key: "1bji2h" }],
+  ["path", { d: "M21 12H9", key: "dn1m92" }],
+  ["path", { d: "M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4", key: "1uf3rs" }]
+];
+const LogOut = createLucideIcon("log-out", __iconNode$v);
 /**
  * @license lucide-react v1.8.0 - ISC
  *
@@ -1074,11 +1086,10 @@ const LocateFixed = createLucideIcon("locate-fixed", __iconNode$v);
  * See the LICENSE file in the root directory of this source tree.
  */
 const __iconNode$u = [
-  ["path", { d: "m16 17 5-5-5-5", key: "1bji2h" }],
-  ["path", { d: "M21 12H9", key: "dn1m92" }],
-  ["path", { d: "M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4", key: "1uf3rs" }]
+  ["path", { d: "m22 7-8.991 5.727a2 2 0 0 1-2.009 0L2 7", key: "132q7q" }],
+  ["rect", { x: "2", y: "4", width: "20", height: "16", rx: "2", key: "izxlao" }]
 ];
-const LogOut = createLucideIcon("log-out", __iconNode$u);
+const Mail = createLucideIcon("mail", __iconNode$u);
 /**
  * @license lucide-react v1.8.0 - ISC
  *
@@ -1086,10 +1097,16 @@ const LogOut = createLucideIcon("log-out", __iconNode$u);
  * See the LICENSE file in the root directory of this source tree.
  */
 const __iconNode$t = [
-  ["path", { d: "m22 7-8.991 5.727a2 2 0 0 1-2.009 0L2 7", key: "132q7q" }],
-  ["rect", { x: "2", y: "4", width: "20", height: "16", rx: "2", key: "izxlao" }]
+  [
+    "path",
+    {
+      d: "M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0",
+      key: "1r0f0z"
+    }
+  ],
+  ["circle", { cx: "12", cy: "10", r: "3", key: "ilqhr7" }]
 ];
-const Mail = createLucideIcon("mail", __iconNode$t);
+const MapPin = createLucideIcon("map-pin", __iconNode$t);
 /**
  * @license lucide-react v1.8.0 - ISC
  *
@@ -1100,13 +1117,14 @@ const __iconNode$s = [
   [
     "path",
     {
-      d: "M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0",
-      key: "1r0f0z"
+      d: "M2.992 16.342a2 2 0 0 1 .094 1.167l-1.065 3.29a1 1 0 0 0 1.236 1.168l3.413-.998a2 2 0 0 1 1.099.092 10 10 0 1 0-4.777-4.719",
+      key: "1sd12s"
     }
   ],
-  ["circle", { cx: "12", cy: "10", r: "3", key: "ilqhr7" }]
+  ["path", { d: "M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3", key: "1u773s" }],
+  ["path", { d: "M12 17h.01", key: "p32p05" }]
 ];
-const MapPin = createLucideIcon("map-pin", __iconNode$s);
+const MessageCircleQuestionMark = createLucideIcon("message-circle-question-mark", __iconNode$s);
 /**
  * @license lucide-react v1.8.0 - ISC
  *
@@ -1117,14 +1135,12 @@ const __iconNode$r = [
   [
     "path",
     {
-      d: "M2.992 16.342a2 2 0 0 1 .094 1.167l-1.065 3.29a1 1 0 0 0 1.236 1.168l3.413-.998a2 2 0 0 1 1.099.092 10 10 0 1 0-4.777-4.719",
-      key: "1sd12s"
+      d: "M22 17a2 2 0 0 1-2 2H6.828a2 2 0 0 0-1.414.586l-2.202 2.202A.71.71 0 0 1 2 21.286V5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2z",
+      key: "18887p"
     }
-  ],
-  ["path", { d: "M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3", key: "1u773s" }],
-  ["path", { d: "M12 17h.01", key: "p32p05" }]
+  ]
 ];
-const MessageCircleQuestionMark = createLucideIcon("message-circle-question-mark", __iconNode$r);
+const MessageSquare = createLucideIcon("message-square", __iconNode$r);
 /**
  * @license lucide-react v1.8.0 - ISC
  *
@@ -1132,15 +1148,10 @@ const MessageCircleQuestionMark = createLucideIcon("message-circle-question-mark
  * See the LICENSE file in the root directory of this source tree.
  */
 const __iconNode$q = [
-  [
-    "path",
-    {
-      d: "M22 17a2 2 0 0 1-2 2H6.828a2 2 0 0 0-1.414.586l-2.202 2.202A.71.71 0 0 1 2 21.286V5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2z",
-      key: "18887p"
-    }
-  ]
+  ["circle", { cx: "8", cy: "18", r: "4", key: "1fc0mg" }],
+  ["path", { d: "M12 18V2l7 4", key: "g04rme" }]
 ];
-const MessageSquare = createLucideIcon("message-square", __iconNode$q);
+const Music2 = createLucideIcon("music-2", __iconNode$q);
 /**
  * @license lucide-react v1.8.0 - ISC
  *
@@ -1148,10 +1159,11 @@ const MessageSquare = createLucideIcon("message-square", __iconNode$q);
  * See the LICENSE file in the root directory of this source tree.
  */
 const __iconNode$p = [
-  ["circle", { cx: "8", cy: "18", r: "4", key: "1fc0mg" }],
-  ["path", { d: "M12 18V2l7 4", key: "g04rme" }]
+  ["path", { d: "M9 18V5l12-2v13", key: "1jmyc2" }],
+  ["circle", { cx: "6", cy: "18", r: "3", key: "fqmcym" }],
+  ["circle", { cx: "18", cy: "16", r: "3", key: "1hluhg" }]
 ];
-const Music2 = createLucideIcon("music-2", __iconNode$p);
+const Music = createLucideIcon("music", __iconNode$p);
 /**
  * @license lucide-react v1.8.0 - ISC
  *
@@ -1159,11 +1171,9 @@ const Music2 = createLucideIcon("music-2", __iconNode$p);
  * See the LICENSE file in the root directory of this source tree.
  */
 const __iconNode$o = [
-  ["path", { d: "M9 18V5l12-2v13", key: "1jmyc2" }],
-  ["circle", { cx: "6", cy: "18", r: "3", key: "fqmcym" }],
-  ["circle", { cx: "18", cy: "16", r: "3", key: "1hluhg" }]
+  ["polygon", { points: "3 11 22 2 13 21 11 13 3 11", key: "1ltx0t" }]
 ];
-const Music = createLucideIcon("music", __iconNode$o);
+const Navigation = createLucideIcon("navigation", __iconNode$o);
 /**
  * @license lucide-react v1.8.0 - ISC
  *
@@ -1171,16 +1181,6 @@ const Music = createLucideIcon("music", __iconNode$o);
  * See the LICENSE file in the root directory of this source tree.
  */
 const __iconNode$n = [
-  ["polygon", { points: "3 11 22 2 13 21 11 13 3 11", key: "1ltx0t" }]
-];
-const Navigation = createLucideIcon("navigation", __iconNode$n);
-/**
- * @license lucide-react v1.8.0 - ISC
- *
- * This source code is licensed under the ISC license.
- * See the LICENSE file in the root directory of this source tree.
- */
-const __iconNode$m = [
   [
     "path",
     {
@@ -1192,14 +1192,14 @@ const __iconNode$m = [
   ["polyline", { points: "3.29 7 12 12 20.71 7", key: "ousv84" }],
   ["path", { d: "m7.5 4.27 9 5.15", key: "1c824w" }]
 ];
-const Package = createLucideIcon("package", __iconNode$m);
+const Package = createLucideIcon("package", __iconNode$n);
 /**
  * @license lucide-react v1.8.0 - ISC
  *
  * This source code is licensed under the ISC license.
  * See the LICENSE file in the root directory of this source tree.
  */
-const __iconNode$l = [
+const __iconNode$m = [
   [
     "path",
     {
@@ -1208,14 +1208,14 @@ const __iconNode$l = [
     }
   ]
 ];
-const Paperclip = createLucideIcon("paperclip", __iconNode$l);
+const Paperclip = createLucideIcon("paperclip", __iconNode$m);
 /**
  * @license lucide-react v1.8.0 - ISC
  *
  * This source code is licensed under the ISC license.
  * See the LICENSE file in the root directory of this source tree.
  */
-const __iconNode$k = [
+const __iconNode$l = [
   ["path", { d: "M13 21h8", key: "1jsn5i" }],
   [
     "path",
@@ -1225,7 +1225,19 @@ const __iconNode$k = [
     }
   ]
 ];
-const PenLine = createLucideIcon("pen-line", __iconNode$k);
+const PenLine = createLucideIcon("pen-line", __iconNode$l);
+/**
+ * @license lucide-react v1.8.0 - ISC
+ *
+ * This source code is licensed under the ISC license.
+ * See the LICENSE file in the root directory of this source tree.
+ */
+const __iconNode$k = [
+  ["circle", { cx: "6", cy: "19", r: "3", key: "1kj8tv" }],
+  ["path", { d: "M9 19h8.5a3.5 3.5 0 0 0 0-7h-11a3.5 3.5 0 0 1 0-7H15", key: "1d8sl" }],
+  ["circle", { cx: "18", cy: "5", r: "3", key: "gq8acd" }]
+];
+const Route = createLucideIcon("route", __iconNode$k);
 /**
  * @license lucide-react v1.8.0 - ISC
  *
@@ -1233,11 +1245,16 @@ const PenLine = createLucideIcon("pen-line", __iconNode$k);
  * See the LICENSE file in the root directory of this source tree.
  */
 const __iconNode$j = [
-  ["circle", { cx: "6", cy: "19", r: "3", key: "1kj8tv" }],
-  ["path", { d: "M9 19h8.5a3.5 3.5 0 0 0 0-7h-11a3.5 3.5 0 0 1 0-7H15", key: "1d8sl" }],
-  ["circle", { cx: "18", cy: "5", r: "3", key: "gq8acd" }]
+  [
+    "path",
+    {
+      d: "M14.536 21.686a.5.5 0 0 0 .937-.024l6.5-19a.496.496 0 0 0-.635-.635l-19 6.5a.5.5 0 0 0-.024.937l7.93 3.18a2 2 0 0 1 1.112 1.11z",
+      key: "1ffxy3"
+    }
+  ],
+  ["path", { d: "m21.854 2.147-10.94 10.939", key: "12cjpa" }]
 ];
-const Route = createLucideIcon("route", __iconNode$j);
+const Send = createLucideIcon("send", __iconNode$j);
 /**
  * @license lucide-react v1.8.0 - ISC
  *
@@ -1248,13 +1265,13 @@ const __iconNode$i = [
   [
     "path",
     {
-      d: "M14.536 21.686a.5.5 0 0 0 .937-.024l6.5-19a.496.496 0 0 0-.635-.635l-19 6.5a.5.5 0 0 0-.024.937l7.93 3.18a2 2 0 0 1 1.112 1.11z",
-      key: "1ffxy3"
+      d: "M9.671 4.136a2.34 2.34 0 0 1 4.659 0 2.34 2.34 0 0 0 3.319 1.915 2.34 2.34 0 0 1 2.33 4.033 2.34 2.34 0 0 0 0 3.831 2.34 2.34 0 0 1-2.33 4.033 2.34 2.34 0 0 0-3.319 1.915 2.34 2.34 0 0 1-4.659 0 2.34 2.34 0 0 0-3.32-1.915 2.34 2.34 0 0 1-2.33-4.033 2.34 2.34 0 0 0 0-3.831A2.34 2.34 0 0 1 6.35 6.051a2.34 2.34 0 0 0 3.319-1.915",
+      key: "1i5ecw"
     }
   ],
-  ["path", { d: "m21.854 2.147-10.94 10.939", key: "12cjpa" }]
+  ["circle", { cx: "12", cy: "12", r: "3", key: "1v7zrd" }]
 ];
-const Send = createLucideIcon("send", __iconNode$i);
+const Settings = createLucideIcon("settings", __iconNode$i);
 /**
  * @license lucide-react v1.8.0 - ISC
  *
@@ -1262,16 +1279,13 @@ const Send = createLucideIcon("send", __iconNode$i);
  * See the LICENSE file in the root directory of this source tree.
  */
 const __iconNode$h = [
-  [
-    "path",
-    {
-      d: "M9.671 4.136a2.34 2.34 0 0 1 4.659 0 2.34 2.34 0 0 0 3.319 1.915 2.34 2.34 0 0 1 2.33 4.033 2.34 2.34 0 0 0 0 3.831 2.34 2.34 0 0 1-2.33 4.033 2.34 2.34 0 0 0-3.319 1.915 2.34 2.34 0 0 1-4.659 0 2.34 2.34 0 0 0-3.32-1.915 2.34 2.34 0 0 1-2.33-4.033 2.34 2.34 0 0 0 0-3.831A2.34 2.34 0 0 1 6.35 6.051a2.34 2.34 0 0 0 3.319-1.915",
-      key: "1i5ecw"
-    }
-  ],
-  ["circle", { cx: "12", cy: "12", r: "3", key: "1v7zrd" }]
+  ["circle", { cx: "18", cy: "5", r: "3", key: "gq8acd" }],
+  ["circle", { cx: "6", cy: "12", r: "3", key: "w7nqdw" }],
+  ["circle", { cx: "18", cy: "19", r: "3", key: "1xt0gg" }],
+  ["line", { x1: "8.59", x2: "15.42", y1: "13.51", y2: "17.49", key: "47mynk" }],
+  ["line", { x1: "15.41", x2: "8.59", y1: "6.51", y2: "10.49", key: "1n3mei" }]
 ];
-const Settings = createLucideIcon("settings", __iconNode$h);
+const Share2 = createLucideIcon("share-2", __iconNode$h);
 /**
  * @license lucide-react v1.8.0 - ISC
  *
@@ -1279,13 +1293,17 @@ const Settings = createLucideIcon("settings", __iconNode$h);
  * See the LICENSE file in the root directory of this source tree.
  */
 const __iconNode$g = [
-  ["circle", { cx: "18", cy: "5", r: "3", key: "gq8acd" }],
-  ["circle", { cx: "6", cy: "12", r: "3", key: "w7nqdw" }],
-  ["circle", { cx: "18", cy: "19", r: "3", key: "1xt0gg" }],
-  ["line", { x1: "8.59", x2: "15.42", y1: "13.51", y2: "17.49", key: "47mynk" }],
-  ["line", { x1: "15.41", x2: "8.59", y1: "6.51", y2: "10.49", key: "1n3mei" }]
+  [
+    "path",
+    {
+      d: "M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z",
+      key: "oel41y"
+    }
+  ],
+  ["path", { d: "M12 8v4", key: "1got3b" }],
+  ["path", { d: "M12 16h.01", key: "1drbdi" }]
 ];
-const Share2 = createLucideIcon("share-2", __iconNode$g);
+const ShieldAlert = createLucideIcon("shield-alert", __iconNode$g);
 /**
  * @license lucide-react v1.8.0 - ISC
  *
@@ -1300,10 +1318,9 @@ const __iconNode$f = [
       key: "oel41y"
     }
   ],
-  ["path", { d: "M12 8v4", key: "1got3b" }],
-  ["path", { d: "M12 16h.01", key: "1drbdi" }]
+  ["path", { d: "m9 12 2 2 4-4", key: "dzmm74" }]
 ];
-const ShieldAlert = createLucideIcon("shield-alert", __iconNode$f);
+const ShieldCheck = createLucideIcon("shield-check", __iconNode$f);
 /**
  * @license lucide-react v1.8.0 - ISC
  *
@@ -1311,16 +1328,13 @@ const ShieldAlert = createLucideIcon("shield-alert", __iconNode$f);
  * See the LICENSE file in the root directory of this source tree.
  */
 const __iconNode$e = [
-  [
-    "path",
-    {
-      d: "M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z",
-      key: "oel41y"
-    }
-  ],
-  ["path", { d: "m9 12 2 2 4-4", key: "dzmm74" }]
+  ["path", { d: "M2 20h.01", key: "4haj6o" }],
+  ["path", { d: "M7 20v-4", key: "j294jx" }],
+  ["path", { d: "M12 20v-8", key: "i3yub9" }],
+  ["path", { d: "M17 20V8", key: "1tkaf5" }],
+  ["path", { d: "M22 4v16", key: "sih9yq" }]
 ];
-const ShieldCheck = createLucideIcon("shield-check", __iconNode$e);
+const Signal = createLucideIcon("signal", __iconNode$e);
 /**
  * @license lucide-react v1.8.0 - ISC
  *
@@ -1328,20 +1342,6 @@ const ShieldCheck = createLucideIcon("shield-check", __iconNode$e);
  * See the LICENSE file in the root directory of this source tree.
  */
 const __iconNode$d = [
-  ["path", { d: "M2 20h.01", key: "4haj6o" }],
-  ["path", { d: "M7 20v-4", key: "j294jx" }],
-  ["path", { d: "M12 20v-8", key: "i3yub9" }],
-  ["path", { d: "M17 20V8", key: "1tkaf5" }],
-  ["path", { d: "M22 4v16", key: "sih9yq" }]
-];
-const Signal = createLucideIcon("signal", __iconNode$d);
-/**
- * @license lucide-react v1.8.0 - ISC
- *
- * This source code is licensed under the ISC license.
- * See the LICENSE file in the root directory of this source tree.
- */
-const __iconNode$c = [
   ["path", { d: "M10 5H3", key: "1qgfaw" }],
   ["path", { d: "M12 19H3", key: "yhmn1j" }],
   ["path", { d: "M14 3v4", key: "1sua03" }],
@@ -1352,14 +1352,14 @@ const __iconNode$c = [
   ["path", { d: "M8 10v4", key: "tgpxqk" }],
   ["path", { d: "M8 12H3", key: "a7s4jb" }]
 ];
-const SlidersHorizontal = createLucideIcon("sliders-horizontal", __iconNode$c);
+const SlidersHorizontal = createLucideIcon("sliders-horizontal", __iconNode$d);
 /**
  * @license lucide-react v1.8.0 - ISC
  *
  * This source code is licensed under the ISC license.
  * See the LICENSE file in the root directory of this source tree.
  */
-const __iconNode$b = [
+const __iconNode$c = [
   [
     "path",
     {
@@ -1371,7 +1371,21 @@ const __iconNode$b = [
   ["path", { d: "M22 4h-4", key: "gwowj6" }],
   ["circle", { cx: "4", cy: "20", r: "2", key: "6kqj1y" }]
 ];
-const Sparkles = createLucideIcon("sparkles", __iconNode$b);
+const Sparkles = createLucideIcon("sparkles", __iconNode$c);
+/**
+ * @license lucide-react v1.8.0 - ISC
+ *
+ * This source code is licensed under the ISC license.
+ * See the LICENSE file in the root directory of this source tree.
+ */
+const __iconNode$b = [
+  [
+    "path",
+    { d: "M21 10.656V19a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h12.344", key: "2acyp4" }
+  ],
+  ["path", { d: "m9 11 3 3L22 4", key: "1pflzl" }]
+];
+const SquareCheckBig = createLucideIcon("square-check-big", __iconNode$b);
 /**
  * @license lucide-react v1.8.0 - ISC
  *
@@ -1379,13 +1393,10 @@ const Sparkles = createLucideIcon("sparkles", __iconNode$b);
  * See the LICENSE file in the root directory of this source tree.
  */
 const __iconNode$a = [
-  [
-    "path",
-    { d: "M21 10.656V19a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h12.344", key: "2acyp4" }
-  ],
-  ["path", { d: "m9 11 3 3L22 4", key: "1pflzl" }]
+  ["rect", { width: "18", height: "18", x: "3", y: "3", rx: "2", key: "afitv7" }],
+  ["path", { d: "M9 17V7h4a3 3 0 0 1 0 6H9", key: "1dfk2c" }]
 ];
-const SquareCheckBig = createLucideIcon("square-check-big", __iconNode$a);
+const SquareParking = createLucideIcon("square-parking", __iconNode$a);
 /**
  * @license lucide-react v1.8.0 - ISC
  *
@@ -1393,10 +1404,9 @@ const SquareCheckBig = createLucideIcon("square-check-big", __iconNode$a);
  * See the LICENSE file in the root directory of this source tree.
  */
 const __iconNode$9 = [
-  ["rect", { width: "18", height: "18", x: "3", y: "3", rx: "2", key: "afitv7" }],
-  ["path", { d: "M9 17V7h4a3 3 0 0 1 0 6H9", key: "1dfk2c" }]
+  ["rect", { width: "18", height: "18", x: "3", y: "3", rx: "2", key: "afitv7" }]
 ];
-const SquareParking = createLucideIcon("square-parking", __iconNode$9);
+const Square = createLucideIcon("square", __iconNode$9);
 /**
  * @license lucide-react v1.8.0 - ISC
  *
@@ -1404,9 +1414,15 @@ const SquareParking = createLucideIcon("square-parking", __iconNode$9);
  * See the LICENSE file in the root directory of this source tree.
  */
 const __iconNode$8 = [
-  ["rect", { width: "18", height: "18", x: "3", y: "3", rx: "2", key: "afitv7" }]
+  [
+    "path",
+    {
+      d: "M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.122 2.122 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.122 2.122 0 0 0 1.597-1.16z",
+      key: "r04s7s"
+    }
+  ]
 ];
-const Square = createLucideIcon("square", __iconNode$8);
+const Star = createLucideIcon("star", __iconNode$8);
 /**
  * @license lucide-react v1.8.0 - ISC
  *
@@ -1417,12 +1433,13 @@ const __iconNode$7 = [
   [
     "path",
     {
-      d: "M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.122 2.122 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.122 2.122 0 0 0 1.597-1.16z",
-      key: "r04s7s"
+      d: "M2 9a3 3 0 0 1 0 6v2a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-2a3 3 0 0 1 0-6V7a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2Z",
+      key: "qn84l0"
     }
-  ]
+  ],
+  ["path", { d: "m9 12 2 2 4-4", key: "dzmm74" }]
 ];
-const Star = createLucideIcon("star", __iconNode$7);
+const TicketCheck = createLucideIcon("ticket-check", __iconNode$7);
 /**
  * @license lucide-react v1.8.0 - ISC
  *
@@ -1430,23 +1447,6 @@ const Star = createLucideIcon("star", __iconNode$7);
  * See the LICENSE file in the root directory of this source tree.
  */
 const __iconNode$6 = [
-  [
-    "path",
-    {
-      d: "M2 9a3 3 0 0 1 0 6v2a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-2a3 3 0 0 1 0-6V7a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2Z",
-      key: "qn84l0"
-    }
-  ],
-  ["path", { d: "m9 12 2 2 4-4", key: "dzmm74" }]
-];
-const TicketCheck = createLucideIcon("ticket-check", __iconNode$6);
-/**
- * @license lucide-react v1.8.0 - ISC
- *
- * This source code is licensed under the ISC license.
- * See the LICENSE file in the root directory of this source tree.
- */
-const __iconNode$5 = [
   ["rect", { width: "16", height: "16", x: "4", y: "3", rx: "2", key: "1wxw4b" }],
   ["path", { d: "M4 11h16", key: "mpoxn0" }],
   ["path", { d: "M12 3v8", key: "1h2ygw" }],
@@ -1455,7 +1455,18 @@ const __iconNode$5 = [
   ["path", { d: "M8 15h.01", key: "a7atzg" }],
   ["path", { d: "M16 15h.01", key: "rnfrdf" }]
 ];
-const TramFront = createLucideIcon("tram-front", __iconNode$5);
+const TramFront = createLucideIcon("tram-front", __iconNode$6);
+/**
+ * @license lucide-react v1.8.0 - ISC
+ *
+ * This source code is licensed under the ISC license.
+ * See the LICENSE file in the root directory of this source tree.
+ */
+const __iconNode$5 = [
+  ["path", { d: "M16 7h6v6", key: "box55l" }],
+  ["path", { d: "m22 7-8.5 8.5-5-5L2 17", key: "1t1m79" }]
+];
+const TrendingUp = createLucideIcon("trending-up", __iconNode$5);
 /**
  * @license lucide-react v1.8.0 - ISC
  *
@@ -1525,7 +1536,7 @@ const __iconNode = [
   ]
 ];
 const Zap = createLucideIcon("zap", __iconNode);
-const BASE = "http://127.0.0.1:8787";
+const BASE = "";
 class ApiError extends Error {
   constructor(message, status, path, body) {
     super(message);
@@ -11997,340 +12008,159 @@ const TRUST_POINTS = [
   "Conductores con carnet verificado",
   "Sin comisiones de plataforma"
 ];
+const SECTOR_STATS = [
+  {
+    icon: Users,
+    figure: "+25M",
+    label: "asistentes a festivales en España en 2024",
+    source: "APM 2024",
+    sourceUrl: "https://www.apmusicales.com/"
+  },
+  {
+    icon: TrendingUp,
+    figure: "1.000+",
+    label: "festivales celebrados en España en 2024",
+    source: "APM 2024",
+    sourceUrl: "https://www.apmusicales.com/"
+  },
+  {
+    icon: Leaf,
+    figure: "80%",
+    label: "de la huella de carbono de un festival viene del transporte de asistentes",
+    source: "Julie's Bicycle",
+    sourceUrl: "https://juliesbicycle.com/"
+  }
+];
+const FAQ_ITEMS = [
+  {
+    question: "¿Es gratis usar ConcertRide?",
+    answer: "Sí. ConcertRide no cobra comisión ni al conductor ni al pasajero. El precio lo fija el conductor para cubrir gasolina y peajes; el pago se hace directamente en efectivo o Bizum."
+  },
+  {
+    question: "¿Cómo se verifican los conductores?",
+    answer: "Cada conductor sube una foto del carnet de conducir y verifica su identidad con DNI. El equipo de ConcertRide revisa manualmente cada perfil antes de activarlo."
+  },
+  {
+    question: "¿Qué pasa si el conductor cancela el viaje?",
+    answer: "Recibes una notificación inmediata y puedes buscar otro viaje disponible. Como el pago es presencial (efectivo o Bizum) no hay cargos automáticos que gestionar."
+  },
+  {
+    question: "¿Puedo publicar un viaje si voy en coche al festival?",
+    answer: "Sí. Publicas tu ruta, fecha, hora de salida y el precio por asiento. Los pasajeros te solicitan plaza y tú decides aceptar. Cubre gasolina y peajes sin perder dinero."
+  },
+  {
+    question: "¿ConcertRide cubre toda España?",
+    answer: "Sí. La plataforma opera en todo el territorio español. Las rutas más activas conectan Madrid, Barcelona, Valencia, Bilbao, Sevilla y Zaragoza con los festivales más grandes del año."
+  }
+];
 function TrustSection() {
-  return /* @__PURE__ */ jsx(
+  const faqSchema = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: FAQ_ITEMS.map(({ question, answer }) => ({
+      "@type": "Question",
+      name: question,
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: answer
+      }
+    }))
+  };
+  return /* @__PURE__ */ jsxs(
     "section",
     {
       "aria-labelledby": "trust-title",
       className: "py-20 md:py-28 px-6 border-t border-cr-border",
-      children: /* @__PURE__ */ jsxs("div", { className: "max-w-6xl mx-auto space-y-12 md:space-y-16", children: [
-        /* @__PURE__ */ jsxs("header", { className: "space-y-3 max-w-2xl", children: [
-          /* @__PURE__ */ jsx("p", { className: "font-sans text-[11px] font-semibold uppercase tracking-[0.16em] text-cr-primary", children: "Social proof" }),
-          /* @__PURE__ */ jsxs("h2", { id: "trust-title", className: "font-display text-3xl md:text-5xl uppercase leading-[0.95]", children: [
-            "Gente de verdad.",
-            /* @__PURE__ */ jsx("br", {}),
-            "Viajes de verdad."
-          ] })
-        ] }),
-        /* @__PURE__ */ jsxs("div", { className: "border border-dashed border-cr-border p-10 md:p-16 flex flex-col items-center gap-4 text-center", children: [
-          /* @__PURE__ */ jsx(MessageSquare, { size: 28, className: "text-cr-text-dim", "aria-hidden": "true" }),
-          /* @__PURE__ */ jsx("p", { className: "font-sans text-sm text-cr-text-muted max-w-sm leading-relaxed", children: "Sé el primero en compartir tu experiencia. Las valoraciones de usuarios reales aparecerán aquí." }),
-          /* @__PURE__ */ jsx(
-            "a",
-            {
-              href: "/concerts",
-              className: "font-sans text-xs font-semibold uppercase tracking-[0.12em] text-cr-primary border border-cr-primary/40 px-4 py-2 hover:bg-cr-primary hover:text-black transition-colors",
-              children: "Buscar viaje →"
-            }
-          )
-        ] }),
-        /* @__PURE__ */ jsx("ul", { className: "flex flex-wrap items-center gap-x-8 gap-y-3 border-t border-dashed border-cr-border pt-8", children: TRUST_POINTS.map((point2) => /* @__PURE__ */ jsxs(
-          "li",
-          {
-            className: "flex items-center gap-2 font-sans text-xs text-cr-text-muted",
-            children: [
-              /* @__PURE__ */ jsx("span", { className: "inline-flex items-center justify-center w-4 h-4 rounded-full bg-cr-primary/15 text-cr-primary", children: /* @__PURE__ */ jsx(Check, { size: 10, strokeWidth: 3, "aria-hidden": "true" }) }),
-              point2
-            ]
-          },
-          point2
-        )) })
-      ] })
-    }
-  );
-}
-const TESTIMONIALS = [
-  {
-    quote: "Fui a Viña Rock desde Madrid por 8 € en el asiento trasero de un Golf. El conductor sabía hasta el parking VIP donde dejan entrar sin cola. BlaBlaCar nunca me habría dado eso.",
-    name: "Laura M.",
-    city: "Madrid",
-    concert: "Viña Rock 2025",
-    date: "2025-05-01",
-    rating: 5
-  },
-  {
-    quote: "Tres años seguidos al BBK Live en Bilbao y siempre en taxis carísimos. Este año encontré un conductor de Vitoria que pasaba por mi puerta: 5 € ida y vuelta incluida. No me lo podía creer.",
-    name: "Iñigo E.",
-    city: "Vitoria-Gasteiz",
-    concert: "BBK Live 2025",
-    date: "2025-07-10",
-    rating: 5
-  },
-  {
-    quote: "Somos seis amigas que íbamos cada año al Arenal Sound en autobús oficial. Con ConcertRide organizamos un viaje desde Valencia por 4 € cada una y el conductor nos esperó a la hora que acordamos. Sin estrés.",
-    name: "Marta G.",
-    city: "Valencia",
-    concert: "Arenal Sound 2025",
-    date: "2025-08-06",
-    rating: 5
-  },
-  {
-    quote: "Resurrection Fest está en Viveiro, en el fin del mundo. El transporte público no llega de noche y un taxi desde A Coruña son 90 €. Encontré a dos metaleros que volvían por 7 € y llegué a casa a las 5 de la mañana sin dramas.",
-    name: "Rubén A.",
-    city: "A Coruña",
-    concert: "Resurrection Fest 2025",
-    date: "2025-07-04",
-    rating: 5
-  },
-  {
-    quote: "Publiqué mi viaje a Primavera Sound desde Zaragoza y en 20 minutos tenía tres pasajeros. Cubrí gasolina, peajes y me sobró para la cena. La app es muy sencilla, nada de comisiones raras.",
-    name: "Carlos B.",
-    city: "Zaragoza",
-    concert: "Primavera Sound 2025",
-    date: "2025-06-05",
-    rating: 5
-  },
-  {
-    quote: "Vine al Mad Cool desde Barcelona con una conductora que resultó ser fan de los mismos grupos. Llegamos dos horas antes y nos dio tiempo a comer en Ifema sin las prisas del metro. Por 17 € la mejor opción del año.",
-    name: "Neus P.",
-    city: "Barcelona",
-    concert: "Mad Cool 2025",
-    date: "2025-07-11",
-    rating: 5
-  },
-  {
-    quote: "Cala Mijas no tiene lanzadera y los taxis desde Málaga son un abuso. Encontré a un conductor de Benalmádena por 4 €. Me dejó en la entrada y quedamos para la vuelta. Todo sin aplicaciones de terceros ni comisión.",
-    name: "Sara T.",
-    city: "Málaga",
-    concert: "Cala Mijas 2025",
-    date: "2025-10-18",
-    rating: 4
-  },
-  {
-    quote: "O Son do Camiño es de los mejores festivales que he pisado y Monte do Gozo está fatal de transporte por la noche. El viaje en ConcertRide desde A Coruña por 5 € fue lo mejor del fin de semana después del concierto.",
-    name: "Anxo F.",
-    city: "A Coruña",
-    concert: "O Son do Camiño 2025",
-    date: "2025-06-21",
-    rating: 5
-  }
-];
-const TESTIMONIALS_AGGREGATE = {
-  ratingValue: "4.9",
-  reviewCount: TESTIMONIALS.length,
-  bestRating: "5",
-  worstRating: "4"
-};
-function generateBreadcrumbSchema(breadcrumbs, siteUrl) {
-  return {
-    "@context": "https://schema.org",
-    "@type": "BreadcrumbList",
-    itemListElement: breadcrumbs.map((crumb, idx) => ({
-      "@type": "ListItem",
-      position: idx + 1,
-      name: crumb.name,
-      item: crumb.url.startsWith("http") ? crumb.url : `${siteUrl}${crumb.url}`
-    }))
-  };
-}
-function generateFAQSchema(faqs) {
-  return {
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    mainEntity: faqs.map((faq) => ({
-      "@type": "Question",
-      name: faq.q,
-      acceptedAnswer: {
-        "@type": "Answer",
-        text: faq.a
-      }
-    }))
-  };
-}
-function generateServiceSchema({
-  originCity,
-  festivalShortName,
-  festivalName,
-  routeSlug,
-  priceMin,
-  priceMax,
-  siteUrl
-}) {
-  return {
-    "@context": "https://schema.org",
-    "@type": "Service",
-    "@id": `${siteUrl}/rutas/${routeSlug}#service`,
-    name: `Carpooling ${originCity} → ${festivalShortName}`,
-    description: `Servicio de coche compartido de ${originCity} a ${festivalName}. Sin comisión (0%). Conductores verificados. Pago en efectivo o Bizum.`,
-    serviceType: "Carpooling",
-    url: `${siteUrl}/rutas/${routeSlug}`,
-    provider: {
-      "@type": "Organization",
-      "@id": `${siteUrl}/#organization`,
-      name: "ConcertRide ES"
-    },
-    areaServed: {
-      "@type": "Country",
-      name: "España",
-      sameAs: "https://www.wikidata.org/wiki/Q29"
-    },
-    offers: {
-      "@type": "Offer",
-      name: `Asiento carpooling ${originCity} → ${festivalShortName}`,
-      price: priceMin,
-      priceSpecification: {
-        "@type": "PriceSpecification",
-        minPrice: priceMin,
-        maxPrice: priceMax,
-        priceCurrency: "EUR",
-        unitText: "por asiento"
-      },
-      priceCurrency: "EUR",
-      availability: "https://schema.org/InStock",
-      url: `${siteUrl}/rutas/${routeSlug}`
-    }
-  };
-}
-function generateServiceReviewSchema({
-  siteUrl,
-  aggregate,
-  reviews
-}) {
-  return {
-    "@context": "https://schema.org",
-    "@type": "Service",
-    "@id": `${siteUrl}/#service`,
-    name: "ConcertRide — Carpooling para conciertos y festivales",
-    aggregateRating: {
-      "@type": "AggregateRating",
-      ratingValue: aggregate.ratingValue,
-      reviewCount: aggregate.reviewCount,
-      bestRating: aggregate.bestRating,
-      worstRating: aggregate.worstRating
-    },
-    review: reviews.map((r) => ({
-      "@type": "Review",
-      reviewRating: {
-        "@type": "Rating",
-        ratingValue: String(r.rating),
-        bestRating: "5",
-        worstRating: "1"
-      },
-      author: {
-        "@type": "Person",
-        name: r.name
-      },
-      datePublished: r.date,
-      reviewBody: r.quote,
-      name: `Experiencia ConcertRide — ${r.concert}`
-    }))
-  };
-}
-function TestimonialCard({
-  testimonial,
-  index
-}) {
-  const t = testimonial;
-  return /* @__PURE__ */ jsxs(
-    motion.figure,
-    {
-      initial: { opacity: 0, y: 30 },
-      whileInView: { opacity: 1, y: 0 },
-      viewport: { once: true, amount: 0.3 },
-      transition: { duration: 0.4, delay: index * 0.08, ease: [0.25, 0.46, 0.45, 0.94] },
-      className: "relative bg-cr-surface border border-cr-border p-6 space-y-5 h-full flex flex-col",
       children: [
         /* @__PURE__ */ jsx(
-          "span",
+          "script",
           {
-            "aria-hidden": "true",
-            className: "absolute -top-4 left-6 font-display text-7xl leading-none text-cr-primary/40",
-            children: "“"
+            type: "application/ld+json",
+            dangerouslySetInnerHTML: { __html: JSON.stringify(faqSchema) }
           }
         ),
-        /* @__PURE__ */ jsxs(
-          "span",
-          {
-            "aria-hidden": "true",
-            className: "absolute top-3 right-3 font-sans text-[10px] font-semibold uppercase tracking-[0.16em] text-cr-text-dim",
-            children: [
-              "#",
-              String(index + 1).padStart(2, "0")
-            ]
-          }
-        ),
-        /* @__PURE__ */ jsx("blockquote", { className: "font-sans text-sm text-cr-text leading-relaxed pt-4", children: t.quote }),
-        /* @__PURE__ */ jsxs("p", { className: "font-mono text-[11px] text-cr-text-muted mt-auto", children: [
-          "Viaje a ",
-          /* @__PURE__ */ jsx("span", { className: "text-cr-primary", children: t.concert })
-        ] }),
-        /* @__PURE__ */ jsxs("figcaption", { className: "flex items-center justify-between pt-4 border-t border-dashed border-cr-border", children: [
-          /* @__PURE__ */ jsxs("div", { className: "flex items-center gap-3", children: [
-            /* @__PURE__ */ jsx(
+        /* @__PURE__ */ jsxs("div", { className: "max-w-6xl mx-auto space-y-16", children: [
+          /* @__PURE__ */ jsxs("div", { className: "space-y-8", children: [
+            /* @__PURE__ */ jsxs("header", { className: "space-y-3 max-w-2xl", children: [
+              /* @__PURE__ */ jsx("p", { className: "font-sans text-[11px] font-semibold uppercase tracking-[0.16em] text-cr-primary", children: "El sector en cifras" }),
+              /* @__PURE__ */ jsxs(
+                "h2",
+                {
+                  id: "trust-title",
+                  className: "font-display text-3xl md:text-5xl uppercase leading-[0.95]",
+                  children: [
+                    "España lidera",
+                    /* @__PURE__ */ jsx("br", {}),
+                    "el turismo festivalero."
+                  ]
+                }
+              ),
+              /* @__PURE__ */ jsx("p", { className: "font-sans text-sm text-cr-text-muted leading-relaxed max-w-xl", children: "El mercado de música en vivo en España es uno de los cinco con mayor crecimiento en Europa. El reto está en llegar sin gastar el doble del ticket en transporte." })
+            ] }),
+            /* @__PURE__ */ jsx("dl", { className: "grid sm:grid-cols-3 gap-px bg-cr-border", children: SECTOR_STATS.map(({ icon: Icon2, figure, label, source, sourceUrl }) => /* @__PURE__ */ jsxs(
               "div",
               {
-                "aria-hidden": "true",
-                className: "w-9 h-9 rounded-full bg-cr-surface-2 border border-cr-border grid place-items-center font-mono text-[11px] text-cr-text",
-                children: initials(t.name)
-              }
-            ),
-            /* @__PURE__ */ jsxs("div", { className: "leading-tight", children: [
-              /* @__PURE__ */ jsx("p", { className: "text-xs text-cr-text", children: t.name }),
-              /* @__PURE__ */ jsx("p", { className: "font-mono text-[10px] text-cr-text-muted", children: t.city })
-            ] })
+                className: "bg-cr-bg p-8 space-y-3 flex flex-col justify-between",
+                children: [
+                  /* @__PURE__ */ jsxs("div", { className: "space-y-2", children: [
+                    /* @__PURE__ */ jsx(Icon2, { size: 18, className: "text-cr-primary", "aria-hidden": "true" }),
+                    /* @__PURE__ */ jsx("dt", { className: "font-display text-4xl md:text-5xl text-cr-text leading-none", children: figure }),
+                    /* @__PURE__ */ jsx("dd", { className: "font-sans text-sm text-cr-text-muted leading-relaxed", children: label })
+                  ] }),
+                  /* @__PURE__ */ jsxs(
+                    "a",
+                    {
+                      href: sourceUrl,
+                      target: "_blank",
+                      rel: "noopener noreferrer",
+                      className: "font-mono text-[10px] text-cr-text-dim hover:text-cr-primary transition-colors",
+                      children: [
+                        "Fuente: ",
+                        source,
+                        " ↗"
+                      ]
+                    }
+                  )
+                ]
+              },
+              figure
+            )) })
           ] }),
-          /* @__PURE__ */ jsx("div", { className: "text-right leading-tight", children: /* @__PURE__ */ jsx("span", { className: "font-mono text-[10px] text-cr-primary border border-cr-primary/30 px-2 py-0.5", children: "Verificado" }) })
+          /* @__PURE__ */ jsxs("div", { className: "space-y-6", children: [
+            /* @__PURE__ */ jsxs("header", { className: "space-y-2", children: [
+              /* @__PURE__ */ jsx("p", { className: "font-sans text-[11px] font-semibold uppercase tracking-[0.16em] text-cr-primary", children: "Preguntas frecuentes" }),
+              /* @__PURE__ */ jsx("h3", { className: "font-display text-2xl md:text-3xl uppercase leading-tight", children: "Todo lo que necesitas saber antes de reservar" })
+            ] }),
+            /* @__PURE__ */ jsx("div", { className: "divide-y divide-cr-border border border-cr-border", children: FAQ_ITEMS.map(({ question, answer }) => /* @__PURE__ */ jsxs("details", { className: "group", children: [
+              /* @__PURE__ */ jsxs("summary", { className: "flex items-center justify-between gap-4 px-6 py-4 cursor-pointer list-none select-none hover:bg-white/[0.02] transition-colors", children: [
+                /* @__PURE__ */ jsx("span", { className: "font-sans text-sm font-medium text-cr-text leading-snug", children: question }),
+                /* @__PURE__ */ jsx(
+                  "span",
+                  {
+                    className: "flex-shrink-0 w-5 h-5 border border-cr-border flex items-center justify-center text-cr-text-dim group-open:rotate-45 transition-transform duration-200",
+                    "aria-hidden": "true",
+                    children: "+"
+                  }
+                )
+              ] }),
+              /* @__PURE__ */ jsx("p", { className: "px-6 pb-5 pt-1 font-sans text-sm text-cr-text-muted leading-relaxed", children: answer })
+            ] }, question)) })
+          ] }),
+          /* @__PURE__ */ jsx("ul", { className: "flex flex-wrap items-center gap-x-8 gap-y-3 border-t border-dashed border-cr-border pt-8", children: TRUST_POINTS.map((point2) => /* @__PURE__ */ jsxs(
+            "li",
+            {
+              className: "flex items-center gap-2 font-sans text-xs text-cr-text-muted",
+              children: [
+                /* @__PURE__ */ jsx("span", { className: "inline-flex items-center justify-center w-4 h-4 rounded-full bg-cr-primary/15 text-cr-primary", children: /* @__PURE__ */ jsx(Check, { size: 10, strokeWidth: 3, "aria-hidden": "true" }) }),
+                point2
+              ]
+            },
+            point2
+          )) })
         ] })
       ]
     }
   );
-}
-function TestimonialsSection() {
-  const reviewSchema = generateServiceReviewSchema({
-    siteUrl: SITE_URL,
-    aggregate: TESTIMONIALS_AGGREGATE,
-    reviews: TESTIMONIALS
-  });
-  return /* @__PURE__ */ jsxs("section", { "aria-labelledby": "testimonials-title", className: "border-t border-cr-border", children: [
-    /* @__PURE__ */ jsx(
-      "script",
-      {
-        type: "application/ld+json",
-        dangerouslySetInnerHTML: { __html: JSON.stringify(reviewSchema) }
-      }
-    ),
-    /* @__PURE__ */ jsxs("div", { className: "max-w-6xl mx-auto px-6 py-16 md:py-24 space-y-10", children: [
-      /* @__PURE__ */ jsxs("header", { className: "space-y-3", children: [
-        /* @__PURE__ */ jsx("p", { className: "font-sans text-[11px] font-semibold uppercase tracking-[0.16em] text-cr-primary", children: "Comunidad" }),
-        /* @__PURE__ */ jsxs(
-          "h2",
-          {
-            id: "testimonials-title",
-            className: "font-display text-3xl md:text-5xl uppercase leading-[0.95]",
-            children: [
-              "Lo que dicen",
-              /* @__PURE__ */ jsx("br", {}),
-              "los usuarios."
-            ]
-          }
-        ),
-        /* @__PURE__ */ jsxs("p", { className: "font-sans text-sm text-cr-text-muted", children: [
-          /* @__PURE__ */ jsxs("span", { className: "text-cr-primary font-semibold", children: [
-            TESTIMONIALS_AGGREGATE.ratingValue,
-            " / 5"
-          ] }),
-          " ",
-          "— valoración media de",
-          " ",
-          /* @__PURE__ */ jsx("span", { className: "text-cr-primary font-semibold", children: TESTIMONIALS_AGGREGATE.reviewCount }),
-          " ",
-          "usuarios verificados"
-        ] })
-      ] }),
-      /* @__PURE__ */ jsx("div", { className: "grid sm:grid-cols-2 lg:grid-cols-3 gap-5", children: TESTIMONIALS.map((t, i) => /* @__PURE__ */ jsx(TestimonialCard, { testimonial: t, index: i }, i)) }),
-      /* @__PURE__ */ jsxs("div", { className: "pt-2 flex flex-col sm:flex-row items-start sm:items-center gap-4", children: [
-        /* @__PURE__ */ jsx(
-          "a",
-          {
-            href: "/concerts",
-            className: "font-sans text-xs font-semibold uppercase tracking-[0.12em] text-cr-primary border border-cr-primary/40 px-5 py-2.5 hover:bg-cr-primary hover:text-black transition-colors",
-            children: "Buscar mi viaje →"
-          }
-        ),
-        /* @__PURE__ */ jsx("p", { className: "font-mono text-[10px] text-cr-text-dim", children: "Sin comisión · Conductores verificados · Pago en efectivo o Bizum" })
-      ] })
-    ] })
-  ] });
 }
 function FinalCTA() {
   return /* @__PURE__ */ jsxs(
@@ -12551,32 +12381,105 @@ function LandingPage() {
     /* @__PURE__ */ jsx(AdhocRidesSection, {}),
     mapConcerts.length > 0 && /* @__PURE__ */ jsx(MapSection, { concerts: mapConcerts, rides: mapRides }),
     /* @__PURE__ */ jsx(TrustSection, {}),
-    /* @__PURE__ */ jsx("section", { className: "border-t border-cr-border bg-cr-bg", children: /* @__PURE__ */ jsxs("div", { className: "max-w-6xl mx-auto px-6 py-12 md:py-16 grid md:grid-cols-3 gap-6", children: [
-      /* @__PURE__ */ jsxs("blockquote", { className: "space-y-3", children: [
-        /* @__PURE__ */ jsx("p", { className: "font-sans text-sm text-cr-text-muted italic leading-relaxed", children: '"El transporte de los asistentes supone el 80 % de la huella de carbono de un festival. El carpooling es la acción individual más efectiva para reducirla."' }),
-        /* @__PURE__ */ jsxs("footer", { className: "font-mono text-[10px] text-cr-text-dim", children: [
-          "—",
-          " ",
-          /* @__PURE__ */ jsx("a", { href: "https://juliesbicycle.com/", target: "_blank", rel: "noopener noreferrer", className: "hover:text-cr-primary", children: "Julie's Bicycle Green Events Guide" })
+    /* @__PURE__ */ jsx("section", { className: "border-t border-cr-border bg-cr-bg", children: /* @__PURE__ */ jsxs("div", { className: "max-w-6xl mx-auto px-6 py-12 md:py-16 space-y-6", children: [
+      /* @__PURE__ */ jsx("p", { className: "font-sans text-[11px] font-semibold uppercase tracking-[0.16em] text-cr-primary", children: "Fuentes y contexto" }),
+      /* @__PURE__ */ jsxs("div", { className: "grid sm:grid-cols-2 lg:grid-cols-3 gap-6", children: [
+        /* @__PURE__ */ jsxs("blockquote", { className: "space-y-3 border-l-2 border-cr-primary/30 pl-4", children: [
+          /* @__PURE__ */ jsx("p", { className: "font-sans text-sm text-cr-text-muted italic leading-relaxed", children: '"El transporte de los asistentes supone el 80 % de la huella de carbono de un festival. El carpooling es la acción individual más efectiva para reducirla."' }),
+          /* @__PURE__ */ jsxs("footer", { className: "font-mono text-[10px] text-cr-text-dim", children: [
+            "—",
+            " ",
+            /* @__PURE__ */ jsx("a", { href: "https://juliesbicycle.com/", target: "_blank", rel: "noopener noreferrer", className: "hover:text-cr-primary", children: "Julie's Bicycle Green Events Guide" })
+          ] })
+        ] }),
+        /* @__PURE__ */ jsxs("blockquote", { className: "space-y-3 border-l-2 border-cr-primary/30 pl-4", children: [
+          /* @__PURE__ */ jsx("p", { className: "font-sans text-sm text-cr-text-muted italic leading-relaxed", children: '"España celebró más de 1.000 festivales con más de 25 millones de asistentes en 2024 y una facturación que superó los 600 millones de euros."' }),
+          /* @__PURE__ */ jsxs("footer", { className: "font-mono text-[10px] text-cr-text-dim", children: [
+            "—",
+            " ",
+            /* @__PURE__ */ jsx("a", { href: "https://www.apmusicales.com/", target: "_blank", rel: "noopener noreferrer", className: "hover:text-cr-primary", children: "Asociación de Promotores Musicales (APM)" }),
+            ", Informe 2024"
+          ] })
+        ] }),
+        /* @__PURE__ */ jsxs("blockquote", { className: "space-y-3 border-l-2 border-cr-primary/30 pl-4", children: [
+          /* @__PURE__ */ jsx("p", { className: "font-sans text-sm text-cr-text-muted italic leading-relaxed", children: '"España figura entre los cinco mercados de música en vivo con mayor crecimiento de Europa en 2023–2024."' }),
+          /* @__PURE__ */ jsxs("footer", { className: "font-mono text-[10px] text-cr-text-dim", children: [
+            "—",
+            " ",
+            /* @__PURE__ */ jsx("a", { href: "https://www.pollstar.com/", target: "_blank", rel: "noopener noreferrer", className: "hover:text-cr-primary", children: "Pollstar" }),
+            ", ranking europeo de música en directo"
+          ] })
+        ] }),
+        /* @__PURE__ */ jsxs("blockquote", { className: "space-y-3 border-l-2 border-cr-primary/30 pl-4", children: [
+          /* @__PURE__ */ jsx("p", { className: "font-sans text-sm text-cr-text-muted italic leading-relaxed", children: '"El coche compartido puede reducir las emisiones de CO₂ por kilómetro y pasajero entre un 50 % y un 75 % frente al vehículo privado con un solo ocupante."' }),
+          /* @__PURE__ */ jsxs("footer", { className: "font-mono text-[10px] text-cr-text-dim", children: [
+            "—",
+            " ",
+            /* @__PURE__ */ jsx("a", { href: "https://www.eea.europa.eu/", target: "_blank", rel: "noopener noreferrer", className: "hover:text-cr-primary", children: "European Environment Agency (EEA)" }),
+            ", Transport and Environment Report"
+          ] })
+        ] }),
+        /* @__PURE__ */ jsxs("blockquote", { className: "space-y-3 border-l-2 border-cr-primary/30 pl-4", children: [
+          /* @__PURE__ */ jsx("p", { className: "font-sans text-sm text-cr-text-muted italic leading-relaxed", children: '"El Tribunal Supremo de España estableció en 2017 que el carpooling sin ánimo de lucro es legal: el conductor solo puede recuperar los gastos del viaje."' }),
+          /* @__PURE__ */ jsxs("footer", { className: "font-mono text-[10px] text-cr-text-dim", children: [
+            "—",
+            " ",
+            /* @__PURE__ */ jsx("a", { href: "https://www.poderjudicial.es/", target: "_blank", rel: "noopener noreferrer", className: "hover:text-cr-primary", children: "Tribunal Supremo de España" }),
+            ", Sentencia 2017 (STS 3145/2017)"
+          ] })
         ] })
+      ] })
+    ] }) }),
+    /* @__PURE__ */ jsx("section", { "aria-labelledby": "comparativa-title", className: "border-t border-cr-border bg-cr-bg", children: /* @__PURE__ */ jsxs("div", { className: "max-w-6xl mx-auto px-6 py-12 md:py-16 space-y-6", children: [
+      /* @__PURE__ */ jsxs("header", { className: "space-y-2", children: [
+        /* @__PURE__ */ jsx("p", { className: "font-sans text-[11px] font-semibold uppercase tracking-[0.16em] text-cr-primary", children: "Comparativa" }),
+        /* @__PURE__ */ jsx("h2", { id: "comparativa-title", className: "font-display text-2xl md:text-3xl uppercase leading-tight", children: "¿Cuánto cuesta llegar a un festival en España?" }),
+        /* @__PURE__ */ jsx("p", { className: "font-sans text-sm text-cr-text-muted", children: "Precios orientativos para trayectos de 150–300 km (ej. Madrid → festival)." })
       ] }),
-      /* @__PURE__ */ jsxs("blockquote", { className: "space-y-3", children: [
-        /* @__PURE__ */ jsx("p", { className: "font-sans text-sm text-cr-text-muted italic leading-relaxed", children: '"España celebró más de 1.000 festivales con más de 25 millones de asistentes en 2024 y una facturación que superó los 600 millones de euros."' }),
-        /* @__PURE__ */ jsxs("footer", { className: "font-mono text-[10px] text-cr-text-dim", children: [
-          "—",
-          " ",
-          /* @__PURE__ */ jsx("a", { href: "https://www.apmusicales.com/", target: "_blank", rel: "noopener noreferrer", className: "hover:text-cr-primary", children: "Asociación de Promotores Musicales (APM)" }),
-          ", Informe 2024"
+      /* @__PURE__ */ jsx("div", { className: "overflow-x-auto", children: /* @__PURE__ */ jsxs("table", { className: "w-full text-sm font-sans border-collapse", children: [
+        /* @__PURE__ */ jsx("thead", { children: /* @__PURE__ */ jsxs("tr", { className: "border-b border-cr-border", children: [
+          /* @__PURE__ */ jsx("th", { className: "text-left py-3 pr-6 font-semibold text-cr-text text-xs uppercase tracking-[0.1em]", children: "Opción" }),
+          /* @__PURE__ */ jsx("th", { className: "text-right py-3 px-4 font-semibold text-cr-text text-xs uppercase tracking-[0.1em]", children: "Precio/persona" }),
+          /* @__PURE__ */ jsx("th", { className: "text-right py-3 px-4 font-semibold text-cr-text text-xs uppercase tracking-[0.1em]", children: "Comisión" }),
+          /* @__PURE__ */ jsx("th", { className: "text-left py-3 pl-4 font-semibold text-cr-text text-xs uppercase tracking-[0.1em]", children: "Vuelta de madrugada" })
+        ] }) }),
+        /* @__PURE__ */ jsxs("tbody", { className: "divide-y divide-cr-border", children: [
+          /* @__PURE__ */ jsxs("tr", { className: "bg-cr-primary/5", children: [
+            /* @__PURE__ */ jsx("td", { className: "py-3 pr-6 font-semibold text-cr-primary", children: "ConcertRide" }),
+            /* @__PURE__ */ jsx("td", { className: "py-3 px-4 text-right text-cr-text", children: "5 – 20 €" }),
+            /* @__PURE__ */ jsx("td", { className: "py-3 px-4 text-right text-cr-primary font-semibold", children: "0 %" }),
+            /* @__PURE__ */ jsx("td", { className: "py-3 pl-4 text-cr-text-muted", children: "Sí, pactada con el conductor" })
+          ] }),
+          /* @__PURE__ */ jsxs("tr", { children: [
+            /* @__PURE__ */ jsx("td", { className: "py-3 pr-6 text-cr-text", children: "BlaBlaCar" }),
+            /* @__PURE__ */ jsx("td", { className: "py-3 px-4 text-right text-cr-text", children: "8 – 25 €" }),
+            /* @__PURE__ */ jsx("td", { className: "py-3 px-4 text-right text-cr-text-muted", children: "13–18 %" }),
+            /* @__PURE__ */ jsx("td", { className: "py-3 pl-4 text-cr-text-muted", children: "Limitada (horarios fijos)" })
+          ] }),
+          /* @__PURE__ */ jsxs("tr", { children: [
+            /* @__PURE__ */ jsx("td", { className: "py-3 pr-6 text-cr-text", children: "Bus oficial festival" }),
+            /* @__PURE__ */ jsx("td", { className: "py-3 px-4 text-right text-cr-text", children: "10 – 35 €" }),
+            /* @__PURE__ */ jsx("td", { className: "py-3 px-4 text-right text-cr-text-muted", children: "Incluida" }),
+            /* @__PURE__ */ jsx("td", { className: "py-3 pl-4 text-cr-text-muted", children: "Solo última lanzadera" })
+          ] }),
+          /* @__PURE__ */ jsxs("tr", { children: [
+            /* @__PURE__ */ jsx("td", { className: "py-3 pr-6 text-cr-text", children: "Tren + bus" }),
+            /* @__PURE__ */ jsx("td", { className: "py-3 px-4 text-right text-cr-text", children: "15 – 50 €" }),
+            /* @__PURE__ */ jsx("td", { className: "py-3 px-4 text-right text-cr-text-muted", children: "—" }),
+            /* @__PURE__ */ jsx("td", { className: "py-3 pl-4 text-cr-text-muted", children: "No (último tren nocturno)" })
+          ] }),
+          /* @__PURE__ */ jsxs("tr", { children: [
+            /* @__PURE__ */ jsx("td", { className: "py-3 pr-6 text-cr-text", children: "Taxi / VTC" }),
+            /* @__PURE__ */ jsx("td", { className: "py-3 px-4 text-right text-cr-text", children: "40 – 120 €" }),
+            /* @__PURE__ */ jsx("td", { className: "py-3 px-4 text-right text-cr-text-muted", children: "Incluida" }),
+            /* @__PURE__ */ jsx("td", { className: "py-3 pl-4 text-cr-text-muted", children: "Sí, pero precio elevado" })
+          ] })
         ] })
-      ] }),
-      /* @__PURE__ */ jsxs("blockquote", { className: "space-y-3", children: [
-        /* @__PURE__ */ jsx("p", { className: "font-sans text-sm text-cr-text-muted italic leading-relaxed", children: '"España figura entre los cinco mercados de música en vivo con mayor crecimiento de Europa en 2023–2024."' }),
-        /* @__PURE__ */ jsxs("footer", { className: "font-mono text-[10px] text-cr-text-dim", children: [
-          "—",
-          " ",
-          /* @__PURE__ */ jsx("a", { href: "https://www.pollstar.com/", target: "_blank", rel: "noopener noreferrer", className: "hover:text-cr-primary", children: "Pollstar" }),
-          ", ranking europeo de música en directo"
-        ] })
+      ] }) }),
+      /* @__PURE__ */ jsxs("p", { className: "font-mono text-[10px] text-cr-text-dim", children: [
+        "Precios estimados para rutas de 150–300 km (p. ej. Madrid–Albacete, Madrid–Valencia).",
+        " ",
+        /* @__PURE__ */ jsx("a", { href: "/comparativa/concertride-vs-blablacar", className: "hover:text-cr-primary underline underline-offset-2", children: "Ver comparativa detallada →" })
       ] })
     ] }) }),
     /* @__PURE__ */ jsx("section", { className: "border-t border-cr-border bg-cr-bg", children: /* @__PURE__ */ jsxs("div", { className: "max-w-6xl mx-auto px-6 py-12 md:py-16 space-y-10", children: [
@@ -12717,7 +12620,6 @@ function LandingPage() {
         )
       ] })
     ] }) }),
-    /* @__PURE__ */ jsx(TestimonialsSection, {}),
     /* @__PURE__ */ jsx(FinalCTA, {})
   ] });
 }
@@ -31759,7 +31661,7 @@ function CostComparator({ originCities, festivalName, festivalCity }) {
     ) })
   ] });
 }
-const API_BASE = "http://127.0.0.1:8787";
+const API_BASE = "";
 function DemandSignalWidget({ festivalSlug, festivalName, originCities, defaultCity }) {
   const [selectedCity, setSelectedCity] = useState(defaultCity ?? originCities[0] ?? "");
   const [email, setEmail] = useState("");
@@ -35015,6 +34917,76 @@ function BlogPostPage() {
       ) })
     ] })
   ] });
+}
+function generateBreadcrumbSchema(breadcrumbs, siteUrl) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: breadcrumbs.map((crumb, idx) => ({
+      "@type": "ListItem",
+      position: idx + 1,
+      name: crumb.name,
+      item: crumb.url.startsWith("http") ? crumb.url : `${siteUrl}${crumb.url}`
+    }))
+  };
+}
+function generateFAQSchema(faqs) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: faqs.map((faq) => ({
+      "@type": "Question",
+      name: faq.q,
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: faq.a
+      }
+    }))
+  };
+}
+function generateServiceSchema({
+  originCity,
+  festivalShortName,
+  festivalName,
+  routeSlug,
+  priceMin,
+  priceMax,
+  siteUrl
+}) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    "@id": `${siteUrl}/rutas/${routeSlug}#service`,
+    name: `Carpooling ${originCity} → ${festivalShortName}`,
+    description: `Servicio de coche compartido de ${originCity} a ${festivalName}. Sin comisión (0%). Conductores verificados. Pago en efectivo o Bizum.`,
+    serviceType: "Carpooling",
+    url: `${siteUrl}/rutas/${routeSlug}`,
+    provider: {
+      "@type": "Organization",
+      "@id": `${siteUrl}/#organization`,
+      name: "ConcertRide ES"
+    },
+    areaServed: {
+      "@type": "Country",
+      name: "España",
+      sameAs: "https://www.wikidata.org/wiki/Q29"
+    },
+    offers: {
+      "@type": "Offer",
+      name: `Asiento carpooling ${originCity} → ${festivalShortName}`,
+      price: priceMin,
+      priceSpecification: {
+        "@type": "PriceSpecification",
+        minPrice: priceMin,
+        maxPrice: priceMax,
+        priceCurrency: "EUR",
+        unitText: "por asiento"
+      },
+      priceCurrency: "EUR",
+      availability: "https://schema.org/InStock",
+      url: `${siteUrl}/rutas/${routeSlug}`
+    }
+  };
 }
 function RouteLandingPage() {
   var _a2;

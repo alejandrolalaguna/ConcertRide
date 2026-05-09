@@ -13,7 +13,6 @@ import { HowItWorks } from "@/components/HowItWorks";
 import { AdhocRidesSection } from "@/components/landing/AdhocRidesSection";
 import { MapSection } from "@/components/landing/MapSection";
 import { TrustSection } from "@/components/landing/TrustSection";
-import { TestimonialsSection } from "@/components/landing/TestimonialsSection";
 import { FinalCTA } from "@/components/landing/FinalCTA";
 import { PastConcertsSection } from "@/components/landing/PastConcertsSection";
 
@@ -174,45 +173,144 @@ export default function LandingPage() {
 
       {/* Industry authority quotes — Princeton GEO Method 3 (Quotation Addition) */}
       <section className="border-t border-cr-border bg-cr-bg">
-        <div className="max-w-6xl mx-auto px-6 py-12 md:py-16 grid md:grid-cols-3 gap-6">
-          <blockquote className="space-y-3">
-            <p className="font-sans text-sm text-cr-text-muted italic leading-relaxed">
-              "El transporte de los asistentes supone el 80 % de la huella de carbono de un festival.
-              El carpooling es la acción individual más efectiva para reducirla."
+        <div className="max-w-6xl mx-auto px-6 py-12 md:py-16 space-y-6">
+          <p className="font-sans text-[11px] font-semibold uppercase tracking-[0.16em] text-cr-primary">
+            Fuentes y contexto
+          </p>
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            <blockquote className="space-y-3 border-l-2 border-cr-primary/30 pl-4">
+              <p className="font-sans text-sm text-cr-text-muted italic leading-relaxed">
+                "El transporte de los asistentes supone el 80&nbsp;% de la huella de carbono de un festival.
+                El carpooling es la acción individual más efectiva para reducirla."
+              </p>
+              <footer className="font-mono text-[10px] text-cr-text-dim">
+                —{" "}
+                <a href="https://juliesbicycle.com/" target="_blank" rel="noopener noreferrer" className="hover:text-cr-primary">
+                  Julie's Bicycle Green Events Guide
+                </a>
+              </footer>
+            </blockquote>
+            <blockquote className="space-y-3 border-l-2 border-cr-primary/30 pl-4">
+              <p className="font-sans text-sm text-cr-text-muted italic leading-relaxed">
+                "España celebró más de 1.000 festivales con más de 25 millones de asistentes en 2024
+                y una facturación que superó los 600 millones de euros."
+              </p>
+              <footer className="font-mono text-[10px] text-cr-text-dim">
+                —{" "}
+                <a href="https://www.apmusicales.com/" target="_blank" rel="noopener noreferrer" className="hover:text-cr-primary">
+                  Asociación de Promotores Musicales (APM)
+                </a>
+                , Informe 2024
+              </footer>
+            </blockquote>
+            <blockquote className="space-y-3 border-l-2 border-cr-primary/30 pl-4">
+              <p className="font-sans text-sm text-cr-text-muted italic leading-relaxed">
+                "España figura entre los cinco mercados de música en vivo con mayor crecimiento
+                de Europa en 2023–2024."
+              </p>
+              <footer className="font-mono text-[10px] text-cr-text-dim">
+                —{" "}
+                <a href="https://www.pollstar.com/" target="_blank" rel="noopener noreferrer" className="hover:text-cr-primary">
+                  Pollstar
+                </a>
+                , ranking europeo de música en directo
+              </footer>
+            </blockquote>
+            <blockquote className="space-y-3 border-l-2 border-cr-primary/30 pl-4">
+              <p className="font-sans text-sm text-cr-text-muted italic leading-relaxed">
+                "El coche compartido puede reducir las emisiones de CO₂ por kilómetro y pasajero
+                entre un 50&nbsp;% y un 75&nbsp;% frente al vehículo privado con un solo ocupante."
+              </p>
+              <footer className="font-mono text-[10px] text-cr-text-dim">
+                —{" "}
+                <a href="https://www.eea.europa.eu/" target="_blank" rel="noopener noreferrer" className="hover:text-cr-primary">
+                  European Environment Agency (EEA)
+                </a>
+                , Transport and Environment Report
+              </footer>
+            </blockquote>
+            <blockquote className="space-y-3 border-l-2 border-cr-primary/30 pl-4">
+              <p className="font-sans text-sm text-cr-text-muted italic leading-relaxed">
+                "El Tribunal Supremo de España estableció en 2017 que el carpooling sin ánimo
+                de lucro es legal: el conductor solo puede recuperar los gastos del viaje."
+              </p>
+              <footer className="font-mono text-[10px] text-cr-text-dim">
+                —{" "}
+                <a href="https://www.poderjudicial.es/" target="_blank" rel="noopener noreferrer" className="hover:text-cr-primary">
+                  Tribunal Supremo de España
+                </a>
+                , Sentencia 2017 (STS 3145/2017)
+              </footer>
+            </blockquote>
+          </div>
+        </div>
+      </section>
+
+      {/* ── Tabla comparativa de transporte — GEO citable ── */}
+      <section aria-labelledby="comparativa-title" className="border-t border-cr-border bg-cr-bg">
+        <div className="max-w-6xl mx-auto px-6 py-12 md:py-16 space-y-6">
+          <header className="space-y-2">
+            <p className="font-sans text-[11px] font-semibold uppercase tracking-[0.16em] text-cr-primary">
+              Comparativa
             </p>
-            <footer className="font-mono text-[10px] text-cr-text-dim">
-              —{" "}
-              <a href="https://juliesbicycle.com/" target="_blank" rel="noopener noreferrer" className="hover:text-cr-primary">
-                Julie's Bicycle Green Events Guide
-              </a>
-            </footer>
-          </blockquote>
-          <blockquote className="space-y-3">
-            <p className="font-sans text-sm text-cr-text-muted italic leading-relaxed">
-              "España celebró más de 1.000 festivales con más de 25 millones de asistentes en 2024
-              y una facturación que superó los 600 millones de euros."
+            <h2 id="comparativa-title" className="font-display text-2xl md:text-3xl uppercase leading-tight">
+              ¿Cuánto cuesta llegar a un festival en España?
+            </h2>
+            <p className="font-sans text-sm text-cr-text-muted">
+              Precios orientativos para trayectos de 150–300&nbsp;km (ej. Madrid → festival).
             </p>
-            <footer className="font-mono text-[10px] text-cr-text-dim">
-              —{" "}
-              <a href="https://www.apmusicales.com/" target="_blank" rel="noopener noreferrer" className="hover:text-cr-primary">
-                Asociación de Promotores Musicales (APM)
-              </a>
-              , Informe 2024
-            </footer>
-          </blockquote>
-          <blockquote className="space-y-3">
-            <p className="font-sans text-sm text-cr-text-muted italic leading-relaxed">
-              "España figura entre los cinco mercados de música en vivo con mayor crecimiento
-              de Europa en 2023–2024."
-            </p>
-            <footer className="font-mono text-[10px] text-cr-text-dim">
-              —{" "}
-              <a href="https://www.pollstar.com/" target="_blank" rel="noopener noreferrer" className="hover:text-cr-primary">
-                Pollstar
-              </a>
-              , ranking europeo de música en directo
-            </footer>
-          </blockquote>
+          </header>
+
+          <div className="overflow-x-auto">
+            <table className="w-full text-sm font-sans border-collapse">
+              <thead>
+                <tr className="border-b border-cr-border">
+                  <th className="text-left py-3 pr-6 font-semibold text-cr-text text-xs uppercase tracking-[0.1em]">Opción</th>
+                  <th className="text-right py-3 px-4 font-semibold text-cr-text text-xs uppercase tracking-[0.1em]">Precio/persona</th>
+                  <th className="text-right py-3 px-4 font-semibold text-cr-text text-xs uppercase tracking-[0.1em]">Comisión</th>
+                  <th className="text-left py-3 pl-4 font-semibold text-cr-text text-xs uppercase tracking-[0.1em]">Vuelta de madrugada</th>
+                </tr>
+              </thead>
+              <tbody className="divide-y divide-cr-border">
+                <tr className="bg-cr-primary/5">
+                  <td className="py-3 pr-6 font-semibold text-cr-primary">ConcertRide</td>
+                  <td className="py-3 px-4 text-right text-cr-text">5 – 20&nbsp;€</td>
+                  <td className="py-3 px-4 text-right text-cr-primary font-semibold">0&nbsp;%</td>
+                  <td className="py-3 pl-4 text-cr-text-muted">Sí, pactada con el conductor</td>
+                </tr>
+                <tr>
+                  <td className="py-3 pr-6 text-cr-text">BlaBlaCar</td>
+                  <td className="py-3 px-4 text-right text-cr-text">8 – 25&nbsp;€</td>
+                  <td className="py-3 px-4 text-right text-cr-text-muted">13–18&nbsp;%</td>
+                  <td className="py-3 pl-4 text-cr-text-muted">Limitada (horarios fijos)</td>
+                </tr>
+                <tr>
+                  <td className="py-3 pr-6 text-cr-text">Bus oficial festival</td>
+                  <td className="py-3 px-4 text-right text-cr-text">10 – 35&nbsp;€</td>
+                  <td className="py-3 px-4 text-right text-cr-text-muted">Incluida</td>
+                  <td className="py-3 pl-4 text-cr-text-muted">Solo última lanzadera</td>
+                </tr>
+                <tr>
+                  <td className="py-3 pr-6 text-cr-text">Tren + bus</td>
+                  <td className="py-3 px-4 text-right text-cr-text">15 – 50&nbsp;€</td>
+                  <td className="py-3 px-4 text-right text-cr-text-muted">—</td>
+                  <td className="py-3 pl-4 text-cr-text-muted">No (último tren nocturno)</td>
+                </tr>
+                <tr>
+                  <td className="py-3 pr-6 text-cr-text">Taxi / VTC</td>
+                  <td className="py-3 px-4 text-right text-cr-text">40 – 120&nbsp;€</td>
+                  <td className="py-3 px-4 text-right text-cr-text-muted">Incluida</td>
+                  <td className="py-3 pl-4 text-cr-text-muted">Sí, pero precio elevado</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <p className="font-mono text-[10px] text-cr-text-dim">
+            Precios estimados para rutas de 150–300&nbsp;km (p. ej. Madrid–Albacete, Madrid–Valencia).{" "}
+            <a href="/comparativa/concertride-vs-blablacar" className="hover:text-cr-primary underline underline-offset-2">
+              Ver comparativa detallada →
+            </a>
+          </p>
         </div>
       </section>
 
@@ -366,7 +464,6 @@ export default function LandingPage() {
         </div>
       </section>
 
-      <TestimonialsSection />
       <FinalCTA />
     </main>
   );
