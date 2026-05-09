@@ -18,6 +18,8 @@ import { getSiteUrl } from "./siteUrl";
 import { ARTIST_LANDINGS } from "../../../web/src/lib/artistLandings";
 import { VENUE_LANDINGS } from "../../../web/src/lib/venueLandings";
 import { REGION_LANDINGS } from "../../../web/src/lib/regionLandings";
+import { GENRE_LANDINGS } from "../../../web/src/lib/genreLandings";
+import { CALENDAR_LANDINGS } from "../../../web/src/lib/calendarLandings";
 
 const SITE_NAME = "ConcertRide";
 
@@ -3745,6 +3747,148 @@ ${f.faqs.slice(0, 4).map((faq) => `  <dt>${esc(faq.q)}</dt>\n  <dd>${esc(faq.a)}
     };
   }
 
+  // /festivales-genero/:slug (genre landing pages)
+  const genreMatch = pathname.match(/^\/festivales-genero\/([^/]+)\/?$/);
+  if (genreMatch) {
+    const slug = genreMatch[1] ?? "";
+    const genre = GENRE_LANDINGS.find((g) => g.slug === slug);
+    if (!genre) return null;
+    const year = new Date().getFullYear();
+    const festivalNames = genre.festivalSlugs
+      .map((s) => FESTIVALS[s]?.shortName ?? s)
+      .filter(Boolean)
+      .slice(0, 6);
+    const genreBreadcrumb = JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      itemListElement: [
+        { "@type": "ListItem", position: 1, name: "Inicio", item: `${base}/` },
+        { "@type": "ListItem", position: 2, name: "Festivales", item: `${base}/festivales` },
+        { "@type": "ListItem", position: 3, name: genre.nameFull, item: `${base}/festivales-genero/${slug}` },
+      ],
+    });
+    const genreFaqJsonLd = JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      inLanguage: "es-ES",
+      mainEntity: genre.faqs.slice(0, 4).map((faq) => ({
+        "@type": "Question",
+        name: faq.q,
+        acceptedAnswer: { "@type": "Answer", text: faq.a },
+      })),
+    });
+    const genreCollectionJsonLd = JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "CollectionPage",
+      name: genre.nameFull,
+      description: genre.blurb,
+      url: `${base}/festivales-genero/${slug}`,
+      inLanguage: "es-ES",
+      mainEntity: {
+        "@type": "ItemList",
+        name: `Festivales de ${genre.name} en España ${year}`,
+        itemListElement: festivalNames.map((name, i) => ({
+          "@type": "ListItem",
+          position: i + 1,
+          name,
+        })),
+      },
+    });
+    return {
+      title: `${genre.nameFull} ${year}: festivales y carpooling | ConcertRide`,
+      description: `${genre.blurb} Carpooling sin comisión desde cualquier ciudad española con ConcertRide.`,
+      canonical: `${base}/festivales-genero/${slug}`,
+      h1: `${genre.nameFull} ${year}`,
+      body: `<script type="application/ld+json">${genreBreadcrumb}</script>
+<script type="application/ld+json">${genreFaqJsonLd}</script>
+<script type="application/ld+json">${genreCollectionJsonLd}</script>
+<nav aria-label="Breadcrumb"><a href="${base}/">Inicio</a> / <a href="${base}/festivales">Festivales</a> / <span>${esc(genre.nameFull)}</span></nav>
+<p class="speakable">${esc(genre.blurb)}</p>
+<h2>Festivales de ${esc(genre.name)} en España ${year}: lista completa</h2>
+<ul>
+${genre.festivalSlugs.map((s) => {
+  const f = FESTIVALS[s];
+  if (!f) return "";
+  return `  <li><a href="${base}/festivales/${s}"><strong>${esc(f.shortName)}</strong></a> — ${esc(f.city)}, ${esc(f.dates)}. Carpooling desde ${esc(f.priceFrom)} €.</li>`;
+}).filter(Boolean).join("\n")}
+</ul>
+<h2>Carpooling a festivales de ${esc(genre.name)}</h2>
+<p>ConcertRide conecta conductores y pasajeros que van a los mismos festivales de ${esc(genre.name)} en España. Sin comisión, conductores verificados, pago en efectivo o Bizum el día del viaje.</p>
+<p><a href="${base}/festivales">Ver todos los festivales →</a></p>
+<p><a href="${base}/concerts">Buscar viajes disponibles →</a></p>`,
+    };
+  }
+
+  // /calendario-festivales/:slug (calendar landing pages)
+  const calendarMatch = pathname.match(/^\/calendario-festivales\/([^/]+)\/?$/);
+  if (calendarMatch) {
+    const slug = calendarMatch[1] ?? "";
+    const cal = CALENDAR_LANDINGS.find((c) => c.slug === slug);
+    if (!cal) return null;
+    const festivalNames = cal.festivalSlugs
+      .map((s) => FESTIVALS[s]?.shortName ?? s)
+      .filter(Boolean);
+    const calBreadcrumb = JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      itemListElement: [
+        { "@type": "ListItem", position: 1, name: "Inicio", item: `${base}/` },
+        { "@type": "ListItem", position: 2, name: "Festivales", item: `${base}/festivales` },
+        { "@type": "ListItem", position: 3, name: `Festivales ${cal.month} ${cal.year}`, item: `${base}/calendario-festivales/${slug}` },
+      ],
+    });
+    const calFaqJsonLd = JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      inLanguage: "es-ES",
+      mainEntity: cal.faqs.slice(0, 4).map((faq) => ({
+        "@type": "Question",
+        name: faq.q,
+        acceptedAnswer: { "@type": "Answer", text: faq.a },
+      })),
+    });
+    const calCollectionJsonLd = JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "CollectionPage",
+      name: `Festivales de música en España en ${cal.month} ${cal.year}`,
+      description: cal.blurb,
+      url: `${base}/calendario-festivales/${slug}`,
+      inLanguage: "es-ES",
+      mainEntity: {
+        "@type": "ItemList",
+        name: `Festivales ${cal.month} ${cal.year}`,
+        itemListElement: festivalNames.map((name, i) => ({
+          "@type": "ListItem",
+          position: i + 1,
+          name,
+        })),
+      },
+    });
+    return {
+      title: `Festivales de música en España en ${cal.month} ${cal.year}: agenda y carpooling | ConcertRide`,
+      description: `${cal.blurb} Carpooling sin comisión a ${festivalNames.slice(0, 3).join(", ")} y más con ConcertRide.`,
+      canonical: `${base}/calendario-festivales/${slug}`,
+      h1: `Festivales de música en España en ${cal.month} ${cal.year}`,
+      body: `<script type="application/ld+json">${calBreadcrumb}</script>
+<script type="application/ld+json">${calFaqJsonLd}</script>
+<script type="application/ld+json">${calCollectionJsonLd}</script>
+<nav aria-label="Breadcrumb"><a href="${base}/">Inicio</a> / <a href="${base}/festivales">Festivales</a> / <span>Festivales ${esc(cal.month)} ${cal.year}</span></nav>
+<p class="speakable">${esc(cal.blurb)}</p>
+<h2>Festivales en España en ${esc(cal.month)} ${cal.year}: lista completa</h2>
+<ul>
+${cal.festivalSlugs.map((s) => {
+  const f = FESTIVALS[s];
+  if (!f) return "";
+  return `  <li><a href="${base}/festivales/${s}"><strong>${esc(f.shortName)}</strong></a> — ${esc(f.city)}, ${esc(f.dates)}. Carpooling desde ${esc(f.priceFrom)} €.</li>`;
+}).filter(Boolean).join("\n")}
+</ul>
+<h2>Cómo ir a festivales en ${esc(cal.month)} con ConcertRide</h2>
+<p>${esc(cal.searchIntent)} ConcertRide conecta conductores y pasajeros que van al mismo festival en España. Sin comisión de plataforma, conductores verificados, pago directo el día del viaje.</p>
+<p><a href="${base}/festivales">Ver todos los festivales →</a></p>
+<p><a href="${base}/concerts">Buscar viajes disponibles →</a></p>`,
+    };
+  }
+
   return null;
 }
 
@@ -3999,10 +4143,15 @@ export async function seoPrerender(c: Context<HonoEnv>, next: Next): Promise<Res
       /^\/festivales\/[^/]+\/?$/.test(pathname) ||
       /^\/festivales\/[^/]+\/guia\/?$/.test(pathname) ||
       /^\/conciertos\/[^/]+\/?$/.test(pathname) ||
+      /^\/conciertos\/[^/]+\/\d{4}\/?$/.test(pathname) ||
       /^\/blog\/[^/]+\/?$/.test(pathname) ||
       /^\/rutas\/[^/]+\/?$/.test(pathname) ||
+      /^\/artistas\/[^/]+\/?$/.test(pathname) ||
+      /^\/recintos\/[^/]+\/?$/.test(pathname) ||
       /^\/festivales-en\/[^/]+\/?$/.test(pathname) ||
-      /^\/como-llegar\/[^/]+\/?$/.test(pathname);
+      /^\/como-llegar\/[^/]+\/?$/.test(pathname) ||
+      /^\/festivales-genero\/[^/]+\/?$/.test(pathname) ||
+      /^\/calendario-festivales\/[^/]+\/?$/.test(pathname);
     if (isDynamicPattern) {
       const base = getSiteUrl(c.env);
       return new Response(

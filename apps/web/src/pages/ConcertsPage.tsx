@@ -221,7 +221,7 @@ export default function ConcertsPage() {
               "@type": "ListItem",
               position: i + 1,
               url: `${SITE_URL}/concerts/${c.id}`,
-              name: `${c.artist} — ${c.venue?.name ?? ""}`,
+              name: `${c.artist} · ${c.venue?.name ?? ""}`,
             })),
           }),
         }}

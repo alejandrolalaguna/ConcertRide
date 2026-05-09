@@ -71,7 +71,7 @@ export default function DatosPage() {
   const url = `${SITE_URL}/datos`;
 
   useSeoMeta({
-    title: `Índice de Carpooling a Festivales España ${YEAR} — Datos y precios | ConcertRide`,
+    title: `Índice de Carpooling a Festivales España ${YEAR} · Datos y precios | ConcertRide`,
     description: `Dataset público con precios de carpooling a 16 festivales desde 17 ciudades españolas. ${YEAR}: Madrid→Mad Cool 3–6€, Madrid→Viña Rock 8–12€, Madrid→BBK Live 15–22€. Metodología DGT. Sin comisión.`,
     canonical: url,
     keywords: `carpooling festivales precios, indice carpooling España, datos carpooling festival, precio asiento festival, coste viaje festival España`,

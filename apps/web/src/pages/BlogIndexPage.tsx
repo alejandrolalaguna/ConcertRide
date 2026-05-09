@@ -12,7 +12,7 @@ export default function BlogIndexPage() {
   const [searchInput, setSearchInput] = useState(searchQuery);
 
   useSeoMeta({
-    title: "Blog ConcertRide — Carpooling y festivales España 2026",
+    title: "Blog ConcertRide · Carpooling y festivales España 2026",
     description:
       "Guías y comparativas de transporte para festivales en España 2026. Carpooling vs taxi, autobuses, huella de carbono. Viaja mejor y gasta menos.",
     canonical: `${SITE_URL}/blog`,
@@ -44,7 +44,7 @@ export default function BlogIndexPage() {
     "@type": "Blog",
     "@id": `${SITE_URL}/blog#blog`,
     url: `${SITE_URL}/blog`,
-    name: "Blog ConcertRide — Carpooling, festivales y sostenibilidad",
+    name: "Blog ConcertRide · Carpooling, festivales y sostenibilidad",
     description: "Comparativas, guías de transporte y sostenibilidad para asistentes a festivales en España.",
     inLanguage: "es-ES",
     datePublished: "2026-04-10",
@@ -77,7 +77,7 @@ export default function BlogIndexPage() {
   const jsonLdItemList = {
     "@context": "https://schema.org",
     "@type": "ItemList",
-    name: "Blog ConcertRide — Guías de transporte para festivales",
+    name: "Blog ConcertRide · Guías de transporte para festivales",
     url: `${SITE_URL}/blog`,
     numberOfItems: BLOG_POSTS.length,
     itemListElement: BLOG_POSTS.map((p, i) => ({

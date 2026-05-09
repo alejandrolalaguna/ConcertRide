@@ -18,13 +18,13 @@ import { PastConcertsSection } from "@/components/landing/PastConcertsSection";
 
 export default function LandingPage() {
   useSeoMeta({
-    title: "ConcertRide — Carpooling para conciertos y festivales en España",
+    title: "ConcertRide · Carpooling para conciertos y festivales en España",
     description:
       "Carpooling para conciertos y festivales en España: Mad Cool, Primavera Sound, Sónar, BBK Live, Arenal Sound, Viña Rock, Resurrection Fest. Alternativa a los autobuses oficiales y de larga distancia. Sin comisión, conductores verificados.",
     canonical: `${SITE_URL}/`,
     keywords: "carpooling conciertos España, viajes compartidos festivales, autobuses festivales españa, bus festivales 2026, transporte a conciertos, coche compartido música, ride-sharing festivales, conciertos en madrid, conciertos en barcelona, conciertos en sevilla, conciertos en bilbao 2026, conciertos en donostia 2026, conciertos en zaragoza, viña rock buses, arenal sound como llegar, bbk santander, mad cool carpooling, primavera sound viaje compartido, deja tu coche en casa festival, carpooling sin comisiones, volver festival madrugada, ir al festival sin coche",
     ogType: "website",
-    ogImageAlt: "ConcertRide: carpooling sin comisión a conciertos y festivales en España — Mad Cool, Primavera Sound, BBK Live",
+    ogImageAlt: "ConcertRide: carpooling sin comisión a conciertos y festivales en España · Mad Cool, Primavera Sound, BBK Live",
   });
 
   const [concerts, setConcerts] = useState<Concert[] | null>(null);
@@ -90,7 +90,7 @@ export default function LandingPage() {
             "@context": "https://schema.org",
             "@type": "Service",
             "@id": `${SITE_URL}/#service`,
-            name: "ConcertRide — Carpooling para conciertos y festivales",
+            name: "ConcertRide · Carpooling para conciertos y festivales",
             description: "Plataforma española de carpooling exclusiva para conciertos y festivales de música. Conecta conductores y pasajeros que van al mismo evento. 0 % de comisión, conductores verificados, pago en efectivo o Bizum.",
             serviceType: "Carpooling",
             provider: { "@id": `${SITE_URL}/#organization` },
@@ -127,7 +127,7 @@ export default function LandingPage() {
                 "@type": "ListItem",
                 position: i + 1,
                 url: `${SITE_URL}/concerts/${c.id}`,
-                name: `${c.artist} — ${c.venue.name}, ${c.venue.city}`,
+                name: `${c.artist} · ${c.venue.name}, ${c.venue.city}`,
               })),
             }),
           }}

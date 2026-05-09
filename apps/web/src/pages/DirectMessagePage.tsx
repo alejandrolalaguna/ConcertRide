@@ -41,7 +41,7 @@ export default function DirectMessagePage() {
   const mountedRef = useRef(true);
 
   useSeoMeta({
-    title: otherUser ? `Mensaje privado a ${otherUser.name} — ConcertRide` : "Mensaje privado — ConcertRide",
+    title: otherUser ? `Mensaje privado a ${otherUser.name} · ConcertRide` : "Mensaje privado · ConcertRide",
     description: "Conversación privada entre usuarios de ConcertRide.",
     noindex: true,
   });

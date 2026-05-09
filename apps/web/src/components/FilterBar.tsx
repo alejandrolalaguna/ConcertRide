@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { LocateFixed } from "lucide-react";
+import { LocateFixed, SlidersHorizontal, X } from "lucide-react";
 import type { Vibe } from "@concertride/types";
 
 export interface FilterState {
@@ -63,24 +63,34 @@ export function FilterBar({ value, onChange, cities, sticky = true }: Props) {
   }
 
   const fieldCls =
-    "bg-cr-surface border-2 border-cr-border focus:border-cr-primary outline-none px-3 py-2.5 font-sans text-sm text-cr-text placeholder:text-cr-text-dim transition-colors [color-scheme:dark]";
+    "bg-cr-surface-2 border border-cr-border-mid focus:border-cr-primary/60 focus:shadow-[0_0_0_2px_rgb(212_247_0/0.06)] outline-none px-3 py-2 font-sans text-sm text-cr-text placeholder:text-cr-text-dim transition-[border-color,box-shadow] [color-scheme:dark]";
 
   const hasActiveFilters =
-    value.origin_city || value.max_price || value.vibe || value.round_trip !== "any" || value.no_smoking || value.near_lat !== null;
+    value.origin_city ||
+    value.max_price ||
+    value.vibe ||
+    value.round_trip !== "any" ||
+    value.no_smoking ||
+    value.near_lat !== null;
 
   return (
     <div
       className={
         sticky
-          ? "sticky top-0 z-30 bg-cr-bg/95 backdrop-blur supports-[backdrop-filter]:bg-cr-bg/80"
+          ? "sticky top-14 z-30 bg-cr-bg/90 backdrop-blur-md"
           : ""
       }
     >
       <form
         role="search"
         aria-label="Filtrar viajes"
-        className="flex flex-wrap gap-2 px-4 md:px-6 py-3 border-b border-cr-border"
+        className="flex flex-wrap items-center gap-2 px-4 md:px-6 py-3 border-b border-cr-border"
       >
+        {/* Filter icon */}
+        <span className="flex-shrink-0 text-cr-text-dim">
+          <SlidersHorizontal size={13} />
+        </span>
+
         <label className="flex-1 min-w-[140px]">
           <span className="sr-only">Ciudad de origen</span>
           <select
@@ -98,7 +108,7 @@ export function FilterBar({ value, onChange, cities, sticky = true }: Props) {
           </select>
         </label>
 
-        <label className="w-[120px]">
+        <label className="w-[110px]">
           <span className="sr-only">Precio máximo</span>
           <input
             type="number"
@@ -112,7 +122,7 @@ export function FilterBar({ value, onChange, cities, sticky = true }: Props) {
           />
         </label>
 
-        <label className="w-[120px]">
+        <label className="w-[110px]">
           <span className="sr-only">Vibe</span>
           <select
             value={value.vibe}
@@ -120,9 +130,9 @@ export function FilterBar({ value, onChange, cities, sticky = true }: Props) {
             className={`${fieldCls} w-full`}
           >
             <option value="">Vibe</option>
-            <option value="party">Party</option>
-            <option value="mixed">Mixed</option>
-            <option value="chill">Chill</option>
+            <option value="party">🔥 Party</option>
+            <option value="mixed">⚡ Mixed</option>
+            <option value="chill">🌙 Chill</option>
           </select>
         </label>
 
@@ -143,29 +153,33 @@ export function FilterBar({ value, onChange, cities, sticky = true }: Props) {
           type="button"
           onClick={() => set("no_smoking", !value.no_smoking)}
           title={value.no_smoking ? "Quitar filtro no fumadores" : "Solo viajes sin fumadores"}
-          className={`flex items-center gap-1.5 px-3 py-2.5 border-2 font-sans text-xs font-semibold uppercase tracking-[0.1em] transition-colors ${
+          className={`flex items-center gap-1.5 px-3 py-2 border font-mono text-[11px] font-semibold uppercase tracking-[0.1em] transition-[border-color,background,color] ${
             value.no_smoking
-              ? "border-cr-primary bg-cr-primary/[0.08] text-cr-primary"
-              : "border-cr-border text-cr-text-muted hover:border-cr-primary hover:text-cr-primary"
+              ? "border-cr-primary bg-cr-primary/[0.07] text-cr-primary"
+              : "border-cr-border-mid text-cr-text-muted hover:border-cr-primary/50 hover:text-cr-primary"
           }`}
         >
           🚭 No fumar
         </button>
 
-        <div className="flex items-center gap-1">
+        <div className="flex items-center gap-1.5">
           <button
             type="button"
             onClick={toggleNearMe}
             disabled={locating}
-            title={value.near_lat !== null ? "Desactivar filtro por ubicación" : "Buscar salidas cerca de mí"}
-            className={`flex items-center gap-1.5 px-3 py-2.5 border-2 font-sans text-xs font-semibold uppercase tracking-[0.1em] transition-colors disabled:opacity-40 ${
+            title={
               value.near_lat !== null
-                ? "border-cr-primary bg-cr-primary/[0.08] text-cr-primary"
-                : "border-cr-border text-cr-text-muted hover:border-cr-primary hover:text-cr-primary"
+                ? "Desactivar filtro por ubicación"
+                : "Buscar salidas cerca de mí"
+            }
+            className={`flex items-center gap-1.5 px-3 py-2 border font-mono text-[11px] font-semibold uppercase tracking-[0.1em] transition-[border-color,background,color] disabled:opacity-40 ${
+              value.near_lat !== null
+                ? "border-cr-primary bg-cr-primary/[0.07] text-cr-primary"
+                : "border-cr-border-mid text-cr-text-muted hover:border-cr-primary/50 hover:text-cr-primary"
             }`}
           >
-            <LocateFixed size={13} aria-hidden="true" />
-            {locating ? "…" : value.near_lat !== null ? "Cerca de mí" : "Cerca de mí"}
+            <LocateFixed size={12} aria-hidden="true" />
+            {locating ? "Buscando…" : "Cerca de mí"}
           </button>
 
           {value.near_lat !== null && (
@@ -173,7 +187,7 @@ export function FilterBar({ value, onChange, cities, sticky = true }: Props) {
               value={value.radius_km}
               onChange={(e) => set("radius_km", Number(e.target.value))}
               aria-label="Radio de búsqueda"
-              className="bg-cr-surface border-2 border-cr-primary outline-none px-2 py-2.5 font-mono text-xs text-cr-primary [color-scheme:dark]"
+              className="bg-cr-surface-2 border border-cr-primary/50 outline-none px-2 py-2 font-mono text-[11px] text-cr-primary [color-scheme:dark]"
             >
               <option value={10}>10 km</option>
               <option value={30}>30 km</option>
@@ -191,9 +205,13 @@ export function FilterBar({ value, onChange, cities, sticky = true }: Props) {
         {hasActiveFilters && (
           <button
             type="button"
-            onClick={() => { onChange(EMPTY_FILTERS); setLocError(""); }}
-            className="font-sans text-xs uppercase tracking-[0.12em] text-cr-text-muted hover:text-cr-primary px-3 py-2.5 border-2 border-transparent hover:border-cr-border transition-colors"
+            onClick={() => {
+              onChange(EMPTY_FILTERS);
+              setLocError("");
+            }}
+            className="flex items-center gap-1.5 font-mono text-[11px] uppercase tracking-[0.1em] text-cr-text-dim hover:text-cr-primary px-2 py-2 transition-colors"
           >
+            <X size={11} />
             Limpiar
           </button>
         )}

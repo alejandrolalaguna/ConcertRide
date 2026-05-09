@@ -41,7 +41,7 @@ export default function FestivalGuidePage() {
     description: `Guía completa para ${festival.name} ${festYear}. Qué llevar al festival, logística del recinto, acampada, transporte y consejos de veteranos. ${festival.venue}, ${festival.city}.`,
     canonical: `${SITE_URL}/festivales/${slug}/guia`,
     keywords: `guia ${festival.shortName}, que llevar ${festival.shortName}, ${festival.shortName} lista, como prepararse ${festival.shortName}, ${festival.shortName} acampada, ${festival.shortName} consejos, lista que llevar festival`,
-    ogImageAlt: `Guía completa ${festival.shortName} ${festYear}: qué llevar, transporte y carpooling — ConcertRide`,
+    ogImageAlt: `Guía completa ${festival.shortName} ${festYear}: qué llevar, transporte y carpooling · ConcertRide`,
     geoLat: festival.lat,
     geoLng: festival.lng,
     geoPlacename: `${festival.city}, España`,

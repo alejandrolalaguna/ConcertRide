@@ -3,9 +3,13 @@ import { Link, useNavigate, useParams } from "react-router-dom";
 import { useSeoMeta } from "@/lib/useSeoMeta";
 import { SITE_URL } from "@/lib/siteUrl";
 import { motion } from "motion/react";
-import { ArrowLeft, Calendar, Link2, MapPin, Music2, Star, Users } from "lucide-react";
+import { ArrowLeft, ArrowRight, Calendar, Link2, MapPin, Music2, Star, Users } from "lucide-react";
 import { concertShareUrl } from "@/lib/utm";
 import { cfImage } from "@/lib/imageUrl";
+import { VENUE_LANDINGS } from "@/lib/venueLandings";
+import { FESTIVAL_LANDINGS } from "@/lib/festivalLandings";
+import { EventTransportHub, generateTransportHubSchema } from "@/components/EventTransportHub";
+import type { TransportMode } from "@/components/EventTransportHub";
 
 function haversineKm(lat1: number, lng1: number, lat2: number, lng2: number): number {
   const R = 6371;
@@ -17,6 +21,8 @@ function haversineKm(lat1: number, lng1: number, lat2: number, lng2: number): nu
   return R * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
 }
 import type { Concert, DemandSignal, Ride, Vibe } from "@concertride/types";
+// Re-exported as alias for helper component typing
+type ConcertEntity = Concert;
 import { api, ApiError } from "@/lib/api";
 import { useSession } from "@/lib/session";
 import { formatDate, formatTime } from "@/lib/format";
@@ -49,7 +55,7 @@ export default function ConcertDetailPage() {
   useSeoMeta({
     title: concert
       ? `${concert.artist} en ${concert.venue.city} ${new Date(concert.date).getFullYear()} — Carpooling | ConcertRide`
-      : "Concierto — ConcertRide",
+      : "Concierto · ConcertRide",
     description: concert
       ? `Carpooling para ver a ${concert.artist} en ${concert.venue.name}, ${concert.venue.city}. Sin comisión, conductores verificados. Divide el coste con otros fans y llega sin taxi.`
       : "Encuentra un viaje compartido para ir al concierto en España.",
@@ -161,49 +167,76 @@ export default function ConcertDetailPage() {
         />
       )}
       {jsonLdWebPage && <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdWebPage) }} />}
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify({
-            "@context": "https://schema.org",
-            "@type": "FAQPage",
-            mainEntity: [
-              {
-                "@type": "Question",
-                name: "¿Cómo reservo un viaje compartido a este concierto?",
-                acceptedAnswer: {
-                  "@type": "Answer",
-                  text: "Busca viajes disponibles en esta página, elige el que mejor te encaje por precio y ciudad de origen, y contacta al conductor. El pago se hace en efectivo o Bizum el día del viaje.",
+      {concert && (
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "FAQPage",
+              inLanguage: "es-ES",
+              mainEntity: [
+                {
+                  "@type": "Question",
+                  name: `¿Cómo llegar a ${concert.venue.name} en ${concert.venue.city}?`,
+                  acceptedAnswer: {
+                    "@type": "Answer",
+                    text: `${concert.venue.name} está en ${concert.venue.city}${concert.venue.address ? ` (${concert.venue.address})` : ""}. Las opciones de transporte incluyen transporte público (metro, bus), taxi/VTC y carpooling con ConcertRide desde toda España. El carpooling es la opción más flexible para quienes vienen de otra ciudad.`,
+                  },
                 },
-              },
-              {
-                "@type": "Question",
-                name: "¿Cuánto cuesta el carpooling a un concierto?",
-                acceptedAnswer: {
-                  "@type": "Answer",
-                  text: "Los conductores en ConcertRide fijan un precio para cubrir combustible y peajes, típicamente entre 3 y 20 € por asiento según la distancia. ConcertRide no cobra comisión.",
+                {
+                  "@type": "Question",
+                  name: `¿Cómo reservo un viaje compartido a ${concert.artist} en ${concert.venue.city}?`,
+                  acceptedAnswer: {
+                    "@type": "Answer",
+                    text: "Busca viajes disponibles en esta página, elige el que mejor te encaje por precio y ciudad de origen, y contacta al conductor. El pago se hace en efectivo o Bizum el día del viaje.",
+                  },
                 },
-              },
-              {
-                "@type": "Question",
-                name: "¿Son seguros los conductores?",
-                acceptedAnswer: {
-                  "@type": "Answer",
-                  text: "Sí. Todos los conductores verifican su carnet de conducir antes de publicar viajes. Puedes ver valoraciones y reseñas de viajes anteriores en el perfil de cada conductor.",
+                {
+                  "@type": "Question",
+                  name: `¿Cuánto cuesta el carpooling a ${concert.artist}?`,
+                  acceptedAnswer: {
+                    "@type": "Answer",
+                    text: `Los conductores en ConcertRide fijan un precio para cubrir combustible y peajes: típicamente 3–8 € desde ciudades cercanas y 10–20 € desde ciudades a más de 200 km. ConcertRide no cobra comisión — el 100 % va al conductor. Pago en efectivo o Bizum el día del viaje.`,
+                  },
                 },
-              },
-              {
-                "@type": "Question",
-                name: "¿Puedo volver con el mismo conductor después del concierto?",
-                acceptedAnswer: {
-                  "@type": "Answer",
-                  text: "Sí, si el conductor publica también el viaje de vuelta. Puedes consultarlo en el chat directo con el conductor al reservar el viaje de ida.",
+                {
+                  "@type": "Question",
+                  name: "¿Son seguros los conductores en ConcertRide?",
+                  acceptedAnswer: {
+                    "@type": "Answer",
+                    text: "Sí. Todos los conductores verifican su carnet de conducir antes de publicar viajes. Puedes ver valoraciones y reseñas de viajes anteriores en el perfil de cada conductor.",
+                  },
                 },
-              },
-            ],
-          }),
-        }}
-      />
+                {
+                  "@type": "Question",
+                  name: "¿Puedo volver con el mismo conductor después del concierto?",
+                  acceptedAnswer: {
+                    "@type": "Answer",
+                    text: "Sí, si el conductor publica también el viaje de vuelta. Puedes consultarlo en el chat directo con el conductor al reservar el viaje de ida.",
+                  },
+                },
+                {
+                  "@type": "Question",
+                  name: `¿Hay parking en ${concert.venue.name}?`,
+                  acceptedAnswer: {
+                    "@type": "Answer",
+                    text: `La disponibilidad de parking varía según el recinto. Consulta la web oficial de ${concert.venue.name} o de la promotora. El carpooling con ConcertRide evita el coste y el estrés del parking: el conductor se encarga del vehículo y el coste se divide entre todos los pasajeros.`,
+                  },
+                },
+                {
+                  "@type": "Question",
+                  name: `¿Cuál es la opción más barata para ir a ${concert.artist} en ${concert.venue.city}?`,
+                  acceptedAnswer: {
+                    "@type": "Answer",
+                    text: `El carpooling con ConcertRide suele ser la opción más económica para trayectos de más de 50 km: entre 3 y 20 € por asiento sin comisión. El transporte público (metro/bus) es más barato para distancias cortas dentro de la ciudad. El taxi/VTC puede costar 3–5 veces más, especialmente de madrugada.`,
+                  },
+                },
+              ],
+            }),
+          }}
+        />
+      )}
 
       <section
         className="relative overflow-hidden border-b border-cr-border min-h-[280px] md:min-h-[360px]"
@@ -544,6 +577,9 @@ export default function ConcertDetailPage() {
         </section>
       )}
 
+      {/* ── Transport Hub: how to get there ── */}
+      {concert && <ConcertTransportSection concert={concert} />}
+
       {concert && !isPast && (
         <section className="max-w-6xl mx-auto px-6 pb-16">
           <EmbedSnippet concertId={concert.id} />
@@ -553,10 +589,276 @@ export default function ConcertDetailPage() {
   );
 }
 
+/**
+ * ConcertTransportSection — renders transport hub + related context for a concert.
+ * Uses venue data from VENUE_LANDINGS when available; generates generic content otherwise.
+ */
+function ConcertTransportSection({ concert }: { concert: ConcertEntity }) {
+  if (!concert) return null;
+
+  const venueLanding = VENUE_LANDINGS.find(
+    (v) =>
+      v.name.toLowerCase().includes(concert.venue.name?.toLowerCase() ?? "") ||
+      v.city.toLowerCase() === concert.venue.city?.toLowerCase(),
+  );
+
+  // Build transport modes from venue data or generic defaults
+  const transportModes: TransportMode[] = [];
+
+  if (venueLanding?.transport.metro) {
+    transportModes.push({
+      type: "local",
+      title: `Metro / transporte urbano`,
+      summary: `${venueLanding.transport.metro}. La opción más rápida para residentes en ${concert.venue.city}.`,
+      notes: "El metro se colapsa en la salida de conciertos nocturnos. Colas de 20–40 min habituales.",
+    });
+  }
+  if (venueLanding?.transport.bus) {
+    transportModes.push({
+      type: "bus",
+      title: "Bus urbano",
+      summary: venueLanding.transport.bus,
+    });
+  }
+
+  // Carpooling is always present and recommended
+  const originCities = venueLanding?.originCities ?? [];
+  const firstOrigin = originCities[0];
+  transportModes.push({
+    type: "carpooling",
+    title: "Carpooling ConcertRide · sin comisión",
+    summary: `Viaje compartido con conductor verificado desde tu ciudad. ${firstOrigin ? `Desde ${firstOrigin.city}: ${firstOrigin.km} km · ${firstOrigin.drivingTime} · ${firstOrigin.concertRideRange}.` : "El 100 % del precio va al conductor — sin comisión de plataforma."}`,
+    price: firstOrigin?.concertRideRange ?? "desde 3 €/asiento",
+    notes: "Vuelta coordenada con el conductor a la hora real de fin del concierto. Pago en efectivo o Bizum.",
+    recommended: true,
+  });
+
+  transportModes.push({
+    type: "car",
+    title: "Coche propio · parking",
+    summary: venueLanding?.transport.parking
+      ? venueLanding.transport.parking
+      : `Consulta parking disponibles cerca de ${concert.venue.name} en la web del recinto.`,
+    notes: "En días de concierto los aparcamientos cercanos suelen llenarse. Llega con 45–60 min de antelación.",
+  });
+
+  // Related festivals in the same city
+  const relatedFestivals = FESTIVAL_LANDINGS.filter(
+    (f) => f.city.toLowerCase() === concert.venue.city?.toLowerCase(),
+  ).slice(0, 3);
+
+  // Generate JSON-LD for transport hub
+  const transportSchemas = generateTransportHubSchema({
+    eventName: concert.artist,
+    city: concert.venue.city ?? "",
+    venue: concert.venue.name ?? concert.venue.city ?? "",
+    siteUrl: SITE_URL,
+    transportModes,
+    nearbyAirports: [],
+    accommodationZones: [],
+  });
+
+  const year = new Date(concert.date).getFullYear();
+
+  return (
+    <>
+      {transportSchemas.map((schema, i) => (
+        <script
+          key={`transport-schema-${i}`}
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
+        />
+      ))}
+
+      {/* ── Transport Hub ── */}
+      <section
+        className="max-w-6xl mx-auto px-6 pb-16 border-t border-cr-border pt-12"
+        aria-labelledby="concert-transport-heading"
+      >
+        <h2
+          id="concert-transport-heading"
+          className="font-display text-2xl md:text-3xl uppercase mb-6"
+        >
+          Cómo llegar a {concert.artist} en {concert.venue.name ?? concert.venue.city}: transporte y carpooling
+        </h2>
+        <p className="font-sans text-sm text-cr-text-muted mb-8 max-w-2xl leading-relaxed speakable">
+          {concert.artist} actúa en <strong className="text-cr-text">{concert.venue.name}</strong>,{" "}
+          {concert.venue.city}
+          {concert.venue.address ? ` (${concert.venue.address})` : ""}.
+          {" "}A continuación, las opciones de transporte para llegar al concierto.
+        </p>
+
+        <EventTransportHub
+          eventName={concert.artist}
+          eventShortName={concert.artist}
+          city={concert.venue.city ?? ""}
+          venue={concert.venue.name ?? ""}
+          date={concert.date}
+          transportModes={transportModes}
+          concertId={concert.id}
+          showPublishCTA={true}
+        />
+
+        {/* Origin cities from venue data */}
+        {originCities.length > 0 && (
+          <div className="mt-10 space-y-4">
+            <h3 className="font-display text-xl uppercase">
+              Precio del carpooling a {concert.venue.name} por ciudad de origen
+            </h3>
+            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-3 font-sans text-sm">
+              {originCities.map((oc) => (
+                <article key={oc.city} className="border border-cr-border p-4 space-y-2 hover:border-cr-primary/40 transition-colors">
+                  <div className="flex items-center justify-between">
+                    <span className="font-display text-sm uppercase">{oc.city}</span>
+                    <span className="font-mono text-xs text-cr-primary font-semibold">{oc.concertRideRange}</span>
+                  </div>
+                  <div className="flex gap-3 font-mono text-[11px] text-cr-text-muted">
+                    <span>{oc.km} km</span>
+                    <span>·</span>
+                    <span>{oc.drivingTime}</span>
+                  </div>
+                </article>
+              ))}
+            </div>
+          </div>
+        )}
+      </section>
+
+      {/* ── Why ConcertRide for this concert ── */}
+      <section className="max-w-6xl mx-auto px-6 pb-16 border-t border-cr-border pt-12 space-y-6">
+        <h2 className="font-display text-2xl md:text-3xl uppercase">
+          Por qué ir a {concert.artist} en carpooling con ConcertRide
+        </h2>
+        <div className="grid md:grid-cols-3 gap-4 font-sans text-sm text-cr-text-muted">
+          <article className="space-y-2">
+            <h3 className="font-display text-sm uppercase text-cr-primary">0 % comisión</h3>
+            <p>El 100 % del precio va al conductor. Sin intermediarios. Pago en efectivo o Bizum el día del viaje.</p>
+          </article>
+          <article className="space-y-2">
+            <h3 className="font-display text-sm uppercase text-cr-primary">Conductores verificados</h3>
+            <p>Todos verifican su carnet de conducir antes de publicar. Lee sus valoraciones de viajes anteriores.</p>
+          </article>
+          <article className="space-y-2">
+            <h3 className="font-display text-sm uppercase text-cr-primary">Vuelta coordinada</h3>
+            <p>No dependes del último metro. El conductor se adapta al horario real del concierto.</p>
+          </article>
+        </div>
+      </section>
+
+      {/* ── Transport comparison table ── */}
+      <section className="max-w-6xl mx-auto px-6 pb-16 border-t border-cr-border pt-12 space-y-5">
+        <h2 className="font-display text-2xl uppercase">
+          Comparativa: cómo ir a {concert.artist} en {concert.venue.city}
+        </h2>
+        <div className="overflow-x-auto">
+          <table className="w-full font-sans text-xs border-collapse">
+            <thead>
+              <tr className="border-b border-cr-border text-left">
+                <th className="py-2 pr-4 font-semibold text-cr-text">Opción</th>
+                <th className="py-2 pr-4 font-semibold text-cr-text">Precio</th>
+                <th className="py-2 pr-4 font-semibold text-cr-text">Comisión</th>
+                <th className="py-2 pr-4 font-semibold text-cr-text">Vuelta nocturna</th>
+                <th className="py-2 font-semibold text-cr-text">Reserva</th>
+              </tr>
+            </thead>
+            <tbody className="text-cr-text-muted">
+              <tr className="border-b border-cr-border/50">
+                <td className="py-2 pr-4 font-semibold text-cr-primary">ConcertRide carpooling</td>
+                <td className="py-2 pr-4">{firstOrigin?.concertRideRange ?? "desde 3 €"}/asiento</td>
+                <td className="py-2 pr-4 font-semibold text-cr-primary">0 %</td>
+                <td className="py-2 pr-4">Sí (coordenada con el conductor)</td>
+                <td className="py-2">Instantánea</td>
+              </tr>
+              <tr className="border-b border-cr-border/50">
+                <td className="py-2 pr-4">Taxi / VTC (Uber, Cabify)</td>
+                <td className="py-2 pr-4">30–90 € (precio nocturno)</td>
+                <td className="py-2 pr-4">—</td>
+                <td className="py-2 pr-4">Sí (precio ×2–3 de madrugada)</td>
+                <td className="py-2">App</td>
+              </tr>
+              <tr className="border-b border-cr-border/50">
+                <td className="py-2 pr-4">BlaBlaCar</td>
+                <td className="py-2 pr-4">{firstOrigin?.concertRideRange ?? "precio similar"} + 12–18 %</td>
+                <td className="py-2 pr-4">12–18 %</td>
+                <td className="py-2 pr-4">Depende del conductor</td>
+                <td className="py-2">Con aprobación</td>
+              </tr>
+              <tr>
+                <td className="py-2 pr-4">Metro / bus público</td>
+                <td className="py-2 pr-4">1,5–4 € (dentro de {concert.venue.city})</td>
+                <td className="py-2 pr-4">—</td>
+                <td className="py-2 pr-4">No (último ~1:30 en la mayoría de ciudades)</td>
+                <td className="py-2">Tarjeta de transporte</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      {/* ── Related festivals in same city ── */}
+      {relatedFestivals.length > 0 && (
+        <section className="max-w-6xl mx-auto px-6 pb-16 border-t border-cr-border pt-12 space-y-5">
+          <h2 className="font-display text-2xl uppercase">
+            Otros festivales en {concert.venue.city} {year}
+          </h2>
+          <p className="font-sans text-sm text-cr-text-muted max-w-xl">
+            Si disfrutas de la música en vivo en {concert.venue.city}, estos festivales pueden interesarte.
+          </p>
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 font-sans text-sm">
+            {relatedFestivals.map((f) => (
+              <Link
+                key={f.slug}
+                to={`/festivales/${f.slug}`}
+                className="border border-cr-border p-4 space-y-2 hover:border-cr-primary/40 transition-colors"
+              >
+                <h3 className="font-display text-sm uppercase">{f.shortName}</h3>
+                <p className="font-mono text-[11px] text-cr-text-muted">{f.typicalDates}</p>
+                <p className="text-xs text-cr-text-muted leading-relaxed line-clamp-2">{f.blurb.slice(0, 100)}…</p>
+                <span className="inline-flex items-center gap-1 font-sans text-xs text-cr-primary">
+                  Ver carpooling <ArrowRight size={10} />
+                </span>
+              </Link>
+            ))}
+          </div>
+        </section>
+      )}
+
+      {/* ── Social proof / network effect ── */}
+      <section className="max-w-6xl mx-auto px-6 pb-16 border-t border-cr-border pt-12 space-y-5">
+        <h2 className="font-display text-2xl uppercase">
+          Viaja a {concert.artist} con otros fans
+        </h2>
+        <div className="grid sm:grid-cols-3 gap-4 font-sans text-sm">
+          <div className="border border-dashed border-cr-border p-5 space-y-2 text-center">
+            <p className="font-mono text-2xl font-bold text-cr-primary">0 %</p>
+            <p className="font-sans text-xs text-cr-text-muted">Comisión de plataforma</p>
+          </div>
+          <div className="border border-dashed border-cr-border p-5 space-y-2 text-center">
+            <p className="font-mono text-2xl font-bold text-cr-primary">100 %</p>
+            <p className="font-sans text-xs text-cr-text-muted">Del precio al conductor</p>
+          </div>
+          <div className="border border-dashed border-cr-border p-5 space-y-2 text-center">
+            <p className="font-mono text-2xl font-bold text-cr-primary">✓</p>
+            <p className="font-sans text-xs text-cr-text-muted">Conductores con carnet verificado</p>
+          </div>
+        </div>
+        <blockquote className="border-l-2 border-cr-primary pl-5 space-y-1 mt-4">
+          <p className="font-sans text-sm text-cr-text-muted italic">
+            "El 80 % de la huella de carbono de un concierto proviene del transporte de los asistentes. El carpooling es la acción más efectiva para reducirla."
+          </p>
+          <footer className="font-mono text-[10px] text-cr-text-dim">
+            — <a href="https://juliesbicycle.com/" target="_blank" rel="noopener noreferrer" className="hover:text-cr-primary">Julie's Bicycle</a>
+          </footer>
+        </blockquote>
+      </section>
+    </>
+  );
+}
+
 function EmbedSnippet({ concertId }: { concertId: string }) {
   const [copied, setCopied] = useState(false);
   const [open, setOpen] = useState(false);
-  const snippet = `<iframe\n  src="${SITE_URL}/widget/concert/${concertId}"\n  width="100%"\n  height="320"\n  frameborder="0"\n  style="border-radius:4px;"\n  title="Viajes compartidos — ConcertRide"\n></iframe>`;
+  const snippet = `<iframe\n  src="${SITE_URL}/widget/concert/${concertId}"\n  width="100%"\n  height="320"\n  frameborder="0"\n  style="border-radius:4px;"\n  title="Viajes compartidos · ConcertRide"\n></iframe>`;
 
   if (!open) {
     return (

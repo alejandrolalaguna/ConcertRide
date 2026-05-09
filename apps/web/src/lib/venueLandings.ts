@@ -139,7 +139,7 @@ export const VENUE_LANDINGS: VenueLanding[] = [
 
   {
     slug: "ifema-madrid",
-    name: "IFEMA Madrid — Recintos de festival",
+    name: "IFEMA Madrid · Recintos de festival",
     shortName: "IFEMA Madrid",
     city: "Madrid",
     citySlug: "madrid",

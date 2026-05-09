@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { MapPin, Paperclip, Send, X } from "lucide-react";
+import { MapPin, Paperclip, Send, X, ImageIcon } from "lucide-react";
 import type { Message, MessageKind } from "@concertride/types";
 import { api } from "@/lib/api";
 import { initials } from "@/lib/format";
@@ -12,7 +12,7 @@ interface Props {
   onSend: (body: string, kind?: MessageKind, attachment_url?: string) => Promise<void>;
 }
 
-// ── helpers ──────────────────────────────────────────────────────────────────
+// ── helpers ───────────────────────────────────────────────────────────────────
 
 function formatTime(iso: string): string {
   return new Date(iso).toLocaleTimeString("es-ES", { hour: "2-digit", minute: "2-digit" });
@@ -38,7 +38,7 @@ function LinkPreview({ url }: { url: string }) {
       href={url}
       target="_blank"
       rel="noopener noreferrer"
-      className="mt-1.5 flex items-center gap-2 border border-cr-border bg-cr-bg px-2 py-1.5 text-[10px] text-cr-primary hover:bg-cr-surface transition-colors"
+      className="mt-1.5 flex items-center gap-2 border border-cr-border bg-cr-bg/60 px-2.5 py-1.5 text-[10px] text-cr-primary hover:border-cr-primary/40 hover:bg-cr-surface transition-colors"
     >
       <span className="font-mono truncate">{display}</span>
       <span className="flex-shrink-0 text-cr-text-dim">↗</span>
@@ -46,10 +46,26 @@ function LinkPreview({ url }: { url: string }) {
   );
 }
 
-// ── message bubbles ───────────────────────────────────────────────────────────
+// ── Avatar ────────────────────────────────────────────────────────────────────
+
+function Avatar({ name, isOwn }: { name: string; isOwn: boolean }) {
+  return (
+    <div
+      aria-hidden="true"
+      className={`w-8 h-8 flex-shrink-0 flex items-center justify-center font-display font-black text-[11px] ${
+        isOwn
+          ? "bg-cr-primary text-black"
+          : "bg-cr-surface-3 border border-cr-border-mid text-cr-primary"
+      }`}
+    >
+      {initials(name)}
+    </div>
+  );
+}
+
+// ── Message bubbles ───────────────────────────────────────────────────────────
 
 function LocationBubble({ body, isOwn }: { body: string; isOwn: boolean }) {
-  // body is "lat,lng" e.g. "40.4168,-3.7038"
   const [lat, lng] = body.split(",").map(Number);
   const valid = !isNaN(lat!) && !isNaN(lng!);
   const mapsUrl = valid ? `https://maps.google.com/?q=${lat},${lng}` : "#";
@@ -59,17 +75,17 @@ function LocationBubble({ body, isOwn }: { body: string; isOwn: boolean }) {
       href={mapsUrl}
       target="_blank"
       rel="noopener noreferrer"
-      className={`flex items-center gap-2 px-3 py-2 text-xs leading-snug border ${
+      className={`flex items-center gap-2 px-3.5 py-2.5 text-xs leading-snug border transition-colors ${
         isOwn
-          ? "bg-cr-primary text-black border-black hover:bg-yellow-300"
-          : "bg-cr-surface border-cr-border text-cr-text hover:bg-cr-surface-2"
-      } transition-colors`}
+          ? "bg-cr-primary text-black border-cr-primary-dim hover:bg-yellow-300"
+          : "bg-cr-surface-2 border-cr-border text-cr-text hover:border-cr-border-mid"
+      }`}
     >
-      <MapPin size={13} className="flex-shrink-0" />
+      <MapPin size={12} className="flex-shrink-0" />
       <span className="font-mono">
-        {valid ? `${lat!.toFixed(5)}, ${lng!.toFixed(5)}` : body}
+        {valid ? `${lat!.toFixed(4)}, ${lng!.toFixed(4)}` : body}
       </span>
-      <span className="text-[10px] opacity-60">Ver mapa ↗</span>
+      <span className="text-[10px] opacity-60 ml-1">Ver mapa ↗</span>
     </a>
   );
 }
@@ -81,7 +97,7 @@ function PhotoBubble({ url, isOwn }: { url: string; isOwn: boolean }) {
       <button
         type="button"
         onClick={() => setOpen(true)}
-        className={`block overflow-hidden border-2 ${isOwn ? "border-cr-primary" : "border-cr-border"}`}
+        className={`block overflow-hidden border-2 transition-opacity hover:opacity-90 ${isOwn ? "border-cr-primary" : "border-cr-border-mid"}`}
         aria-label="Ver foto en tamaño completo"
       >
         <img
@@ -93,16 +109,16 @@ function PhotoBubble({ url, isOwn }: { url: string; isOwn: boolean }) {
       </button>
       {open && (
         <div
-          className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 p-4"
+          className="fixed inset-0 z-50 flex items-center justify-center bg-black/90 p-4 backdrop-blur-sm"
           onClick={() => setOpen(false)}
         >
           <button
             type="button"
-            className="absolute top-4 right-4 text-white"
+            className="absolute top-5 right-5 w-10 h-10 bg-cr-surface border border-cr-border-mid text-cr-text-muted hover:text-cr-text flex items-center justify-center transition-colors"
             onClick={() => setOpen(false)}
             aria-label="Cerrar"
           >
-            <X size={24} />
+            <X size={18} />
           </button>
           <img
             src={url}
@@ -119,9 +135,13 @@ function PhotoBubble({ url, isOwn }: { url: string; isOwn: boolean }) {
 function TextBubble({ body, isOwn }: { body: string; isOwn: boolean }) {
   const urls = detectUrls(body);
   return (
-    <div className={`px-3 py-2 text-xs leading-snug break-words ${
-      isOwn ? "bg-cr-primary text-black" : "bg-cr-surface border border-cr-border text-cr-text"
-    }`}>
+    <div
+      className={`px-3.5 py-2.5 text-sm leading-snug break-words font-sans ${
+        isOwn
+          ? "bg-cr-primary text-black"
+          : "bg-cr-surface-2 border border-cr-border text-cr-text"
+      }`}
+    >
       <p>{body}</p>
       {urls.map((u) => (
         <LinkPreview key={u} url={u} />
@@ -130,13 +150,13 @@ function TextBubble({ body, isOwn }: { body: string; isOwn: boolean }) {
   );
 }
 
-// ── input area ────────────────────────────────────────────────────────────────
+// ── Pending attachment preview ────────────────────────────────────────────────
 
 type PendingAttach =
   | { kind: "photo"; file: File; previewUrl: string }
   | { kind: "location"; lat: number; lng: number };
 
-// ── main component ────────────────────────────────────────────────────────────
+// ── Main component ────────────────────────────────────────────────────────────
 
 export function ChatPanel({ messages, loading, forbidden, currentUserId, onSend }: Props) {
   const [draft, setDraft] = useState("");
@@ -215,8 +235,11 @@ export function ChatPanel({ messages, loading, forbidden, currentUserId, onSend 
 
   if (forbidden) {
     return (
-      <div className="border border-dashed border-cr-border p-6 text-center">
-        <p className="font-mono text-xs text-cr-text-dim">
+      <div className="border border-cr-border bg-cr-surface-2 p-8 text-center">
+        <div className="w-12 h-12 bg-cr-surface-3 border border-cr-border-mid flex items-center justify-center mx-auto mb-4">
+          <span className="text-cr-text-dim text-xl">🔒</span>
+        </div>
+        <p className="font-sans text-sm text-cr-text-muted leading-relaxed">
           Solo los viajeros confirmados pueden ver este chat.
         </p>
       </div>
@@ -226,27 +249,55 @@ export function ChatPanel({ messages, loading, forbidden, currentUserId, onSend 
   const canSend = !sending && (!!draft.trim() || !!pending);
 
   return (
-    <div className="flex flex-col border border-cr-border bg-cr-surface">
+    <div className="flex flex-col border border-cr-border bg-cr-surface overflow-hidden">
+      {/* Chat header */}
+      <div className="flex items-center gap-2.5 px-4 py-3 border-b border-cr-border bg-cr-surface-2">
+        <span className="cr-live-dot" />
+        <span className="font-mono text-[11px] text-cr-text-muted uppercase tracking-[0.14em]">
+          Chat del viaje
+        </span>
+        <span className="ml-auto font-mono text-[10px] text-cr-text-dim">
+          {messages.length} mensajes
+        </span>
+      </div>
+
       {/* Message list */}
-      <div className="flex-1 max-h-80 overflow-y-auto p-4 space-y-3 bg-cr-bg font-mono text-xs">
-        {loading && <p className="text-cr-text-dim animate-pulse">Cargando mensajes…</p>}
+      <div className="flex-1 max-h-80 overflow-y-auto p-4 space-y-4 bg-cr-bg">
+        {loading && (
+          <div className="flex items-center gap-2 text-cr-text-dim font-mono text-xs animate-pulse py-4 justify-center">
+            <span className="w-1 h-1 bg-cr-text-dim rounded-full animate-bounce [animation-delay:0ms]" />
+            <span className="w-1 h-1 bg-cr-text-dim rounded-full animate-bounce [animation-delay:150ms]" />
+            <span className="w-1 h-1 bg-cr-text-dim rounded-full animate-bounce [animation-delay:300ms]" />
+          </div>
+        )}
         {!loading && messages.length === 0 && (
-          <p className="text-cr-text-dim">Nadie ha escrito todavía. Sé el primero.</p>
+          <div className="flex flex-col items-center justify-center py-8 gap-3 text-center">
+            <span className="text-2xl">💬</span>
+            <p className="font-sans text-sm text-cr-text-muted">
+              Nadie ha escrito todavía.
+            </p>
+            <p className="font-mono text-[11px] text-cr-text-dim">
+              Sé el primero en decir hola.
+            </p>
+          </div>
         )}
         {messages.map((msg) => {
           const isOwn = msg.user_id === currentUserId;
           return (
-            <div key={msg.id} className={`flex gap-2 ${isOwn ? "flex-row-reverse" : ""}`}>
+            <div key={msg.id} className={`flex gap-2.5 ${isOwn ? "flex-row-reverse" : ""}`}>
+              <Avatar name={msg.user.name} isOwn={isOwn} />
               <div
-                aria-hidden="true"
-                className="w-7 h-7 flex-shrink-0 bg-cr-surface-2 border border-cr-border flex items-center justify-center text-[10px] text-cr-primary font-display"
+                className={`max-w-[75%] space-y-1 flex flex-col ${
+                  isOwn ? "items-end" : "items-start"
+                }`}
               >
-                {initials(msg.user.name)}
-              </div>
-              <div className={`max-w-[75%] space-y-0.5 ${isOwn ? "items-end" : "items-start"} flex flex-col`}>
                 <div className={`flex items-baseline gap-2 ${isOwn ? "flex-row-reverse" : ""}`}>
-                  <span className="text-[10px] text-cr-text-muted">{isOwn ? "Tú" : msg.user.name}</span>
-                  <span className="text-[10px] text-cr-text-dim">{formatTime(msg.created_at)}</span>
+                  <span className="font-sans text-[11px] font-semibold text-cr-text-muted">
+                    {isOwn ? "Tú" : msg.user.name}
+                  </span>
+                  <span className="font-mono text-[10px] text-cr-text-dim">
+                    {formatTime(msg.created_at)}
+                  </span>
                 </div>
                 {msg.kind === "location" ? (
                   <LocationBubble body={msg.body} isOwn={isOwn} />
@@ -254,9 +305,7 @@ export function ChatPanel({ messages, loading, forbidden, currentUserId, onSend 
                   <div className="space-y-1">
                     <PhotoBubble url={msg.attachment_url} isOwn={isOwn} />
                     {msg.body && msg.body !== "📷 Foto" && (
-                      <p className={`px-3 py-1 text-xs ${isOwn ? "bg-cr-primary text-black" : "bg-cr-surface border border-cr-border text-cr-text"}`}>
-                        {msg.body}
-                      </p>
+                      <TextBubble body={msg.body} isOwn={isOwn} />
                     )}
                   </div>
                 ) : (
@@ -271,12 +320,16 @@ export function ChatPanel({ messages, loading, forbidden, currentUserId, onSend 
 
       {/* Pending attachment preview */}
       {pending && (
-        <div className="flex items-center gap-2 border-t border-cr-border bg-cr-surface-2 px-3 py-2">
+        <div className="flex items-center gap-3 border-t border-cr-border bg-cr-surface-2 px-4 py-2.5">
           {pending.kind === "photo" && (
-            <img src={pending.previewUrl} alt="preview" className="h-10 w-10 object-cover border border-cr-border" />
+            <img
+              src={pending.previewUrl}
+              alt="preview"
+              className="h-10 w-10 object-cover border border-cr-border-mid"
+            />
           )}
           {pending.kind === "location" && (
-            <div className="flex items-center gap-1.5 font-mono text-[10px] text-cr-primary">
+            <div className="flex items-center gap-1.5 font-mono text-[11px] text-cr-primary">
               <MapPin size={12} />
               <span>{pending.lat.toFixed(4)}, {pending.lng.toFixed(4)}</span>
             </div>
@@ -293,8 +346,10 @@ export function ChatPanel({ messages, loading, forbidden, currentUserId, onSend 
       )}
 
       {/* Input area */}
-      <form onSubmit={handleSend} className="flex items-center gap-2 border-t border-cr-border p-3">
-        {/* Hidden file input */}
+      <form
+        onSubmit={handleSend}
+        className="flex items-center gap-2 border-t border-cr-border px-3 py-2.5 bg-cr-surface"
+      >
         <input
           ref={fileRef}
           type="file"
@@ -310,9 +365,12 @@ export function ChatPanel({ messages, loading, forbidden, currentUserId, onSend 
           disabled={sending || locating}
           title="Compartir ubicación"
           aria-label="Compartir ubicación"
-          className="flex-shrink-0 flex items-center justify-center w-8 h-8 border border-cr-border text-cr-text-muted hover:border-cr-primary hover:text-cr-primary transition-colors disabled:opacity-40 disabled:pointer-events-none"
+          className="flex-shrink-0 w-8 h-8 flex items-center justify-center border border-cr-border text-cr-text-muted hover:border-cr-primary hover:text-cr-primary transition-colors disabled:opacity-30 disabled:pointer-events-none"
         >
-          <MapPin size={13} className={locating ? "animate-pulse text-cr-primary" : ""} />
+          <MapPin
+            size={13}
+            className={locating ? "animate-pulse text-cr-primary" : ""}
+          />
         </button>
 
         {/* Photo button */}
@@ -322,32 +380,38 @@ export function ChatPanel({ messages, loading, forbidden, currentUserId, onSend 
           disabled={sending}
           title="Adjuntar foto"
           aria-label="Adjuntar foto"
-          className="flex-shrink-0 flex items-center justify-center w-8 h-8 border border-cr-border text-cr-text-muted hover:border-cr-primary hover:text-cr-primary transition-colors disabled:opacity-40 disabled:pointer-events-none"
+          className="flex-shrink-0 w-8 h-8 flex items-center justify-center border border-cr-border text-cr-text-muted hover:border-cr-primary hover:text-cr-primary transition-colors disabled:opacity-30 disabled:pointer-events-none"
         >
-          <Paperclip size={13} />
+          <ImageIcon size={13} />
         </button>
 
         <input
           type="text"
           value={draft}
           onChange={(e) => setDraft(e.target.value.slice(0, 280))}
-          placeholder={pending?.kind === "location" ? "Añade un comentario (opcional)…" : pending?.kind === "photo" ? "Describe la foto (opcional)…" : "Escribe un mensaje…"}
+          placeholder={
+            pending?.kind === "location"
+              ? "Añade un comentario…"
+              : pending?.kind === "photo"
+              ? "Describe la foto…"
+              : "Escribe un mensaje…"
+          }
           disabled={sending}
-          className="flex-1 bg-cr-bg border border-cr-border px-3 py-2 font-mono text-xs text-cr-text placeholder:text-cr-text-dim focus:outline-none focus:border-cr-primary transition-colors"
+          className="flex-1 bg-cr-surface-2 border border-cr-border px-3 py-2 font-sans text-sm text-cr-text placeholder:text-cr-text-dim focus:outline-none focus:border-cr-primary/60 focus:shadow-[0_0_0_2px_rgb(212_247_0/0.06)] transition-[border-color,box-shadow]"
         />
 
         <button
           type="submit"
           disabled={!canSend}
           aria-label="Enviar mensaje"
-          className="flex items-center justify-center w-9 h-9 bg-cr-primary text-black border-2 border-black shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] hover:shadow-none hover:translate-x-[2px] hover:translate-y-[2px] transition-all duration-100 disabled:opacity-40 disabled:pointer-events-none"
+          className="flex-shrink-0 flex items-center justify-center w-9 h-9 bg-cr-primary text-black hover:bg-cr-primary-dim shadow-[2px_2px_0px_0px_rgba(0,0,0,0.8)] hover:shadow-none hover:translate-x-[2px] hover:translate-y-[2px] transition-all duration-100 disabled:opacity-30 disabled:pointer-events-none"
         >
-          <Send size={14} />
+          <Send size={14} strokeWidth={2.5} />
         </button>
       </form>
 
       {sendError && (
-        <p className="font-mono text-[10px] text-cr-secondary px-3 pb-2">{sendError}</p>
+        <p className="font-mono text-[10px] text-cr-secondary px-4 pb-2">{sendError}</p>
       )}
     </div>
   );

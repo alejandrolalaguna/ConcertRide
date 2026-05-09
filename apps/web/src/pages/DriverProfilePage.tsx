@@ -25,7 +25,7 @@ export default function DriverProfilePage() {
   useSeoMeta({
     title: driver
       ? `${driver.name} — Conductor en ConcertRide`
-      : "Perfil de conductor — ConcertRide",
+      : "Perfil de conductor · ConcertRide",
     description: driver
       ? `${driver.name} ha hecho ${driver.rides_given} viajes en ConcertRide. Valoración: ${driver.rating.toFixed(1)}/5.`
       : "Conductor en ConcertRide.",

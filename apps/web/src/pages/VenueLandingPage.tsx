@@ -37,8 +37,8 @@ export default function VenueLandingPage() {
       : `${SITE_URL}/concerts`,
     ogImage: venueOgImage,
     ogImageAlt: venue
-      ? `Cómo llegar a ${venue.name} en ${venue.city}: carpooling y transporte — ConcertRide`
-      : "Recintos de conciertos en España — ConcertRide",
+      ? `Cómo llegar a ${venue.name} en ${venue.city}: carpooling y transporte · ConcertRide`
+      : "Recintos de conciertos en España · ConcertRide",
     ogType: "website",
     keywords: venue
       ? venueOverride?.keywords ?? [
@@ -233,6 +233,11 @@ export default function VenueLandingPage() {
       name: `Carpooling desde ${oc.city}`,
       value: `${oc.km} km · ${oc.drivingTime} · ${oc.concertRideRange}`,
     })),
+    speakable: {
+      "@type": "SpeakableSpecification",
+      cssSelector: ["h1", ".venue-transport", ".festival-list", ".faq-section", ".speakable", "article p:first-of-type"],
+    },
+    additionalType: ["MusicVenue", "EventVenue"],
   };
 
   const jsonLdBreadcrumb = {
@@ -259,7 +264,7 @@ export default function VenueLandingPage() {
   const jsonLdLocalBusiness = {
     "@context": "https://schema.org",
     "@type": "LocalBusiness",
-    name: `Carpooling a ${venue.name} — ConcertRide`,
+    name: `Carpooling a ${venue.name} · ConcertRide`,
     url: `${SITE_URL}/recintos/${venue.slug}`,
     description: `Carpooling sin comisión para llegar a ${venue.name} desde ${venue.originCities.length} ciudades. Desde ${topPrice} €/asiento.`,
     areaServed: {
@@ -278,7 +283,7 @@ export default function VenueLandingPage() {
     "@type": "WebPage",
     "@id": `${SITE_URL}/recintos/${venue.slug}#webpage`,
     url: `${SITE_URL}/recintos/${venue.slug}`,
-    name: `Cómo llegar a ${venue.name} — transporte y carpooling | ConcertRide`,
+    name: `Cómo llegar a ${venue.name} · transporte y carpooling | ConcertRide`,
     description: `Guía de transporte para ${venue.name} (${venue.city}, ${venue.region}). Metro, bus, parking y carpooling desde ${venue.originCities.length} ciudades. Desde ${topPrice} €/asiento sin comisión.`,
     inLanguage: "es-ES",
     isPartOf: { "@id": `${SITE_URL}/#website` },

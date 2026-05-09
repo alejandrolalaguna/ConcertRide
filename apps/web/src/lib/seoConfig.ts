@@ -188,17 +188,17 @@ export const SEO_CONFIG = {
   // Page-specific defaults
   pages: {
     home: {
-      title: "ConcertRide — Carpooling conciertos y festivales España",
+      title: "ConcertRide · Carpooling conciertos y festivales España",
       description: "Carpooling para conciertos y festivales en España. Sin comisión, conductores verificados. Publica un viaje o busca uno en 2 minutos. Pago en efectivo o Bizum.",
       keywords: "carpooling conciertos españa, viaje compartido festivales, coche compartido concierto, carpooling festivales 2026, sin comisión",
     },
     concerts: {
-      title: "Conciertos España 2026 — Carpooling disponible | ConcertRide",
+      title: "Conciertos España 2026 · Carpooling disponible | ConcertRide",
       description: "Busca conciertos y festivales en España 2026. Encuentra carpooling para ir a los eventos que te interesan: pop, rock, indie, electrónica y más. Sin comisión.",
       keywords: "conciertos españa 2026, próximos conciertos españa, carpooling conciertos, viaje compartido concierto, festivales 2026 españa",
     },
     publish: {
-      title: "Publicar viaje a concierto o festival — ConcertRide",
+      title: "Publicar viaje a concierto o festival · ConcertRide",
       description: "Publica tu viaje a un concierto o festival. Busca pasajeros y divide gastos. Sin comisiones, el 100 % va a ti. Pago en efectivo o Bizum el día del viaje.",
       keywords: "publicar viaje carpooling, ofrecer plaza coche concierto, conductor carpooling festival, cómo publicar carpooling concierto",
     },

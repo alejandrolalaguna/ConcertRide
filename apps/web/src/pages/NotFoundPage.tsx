@@ -30,7 +30,7 @@ const TOP_ROUTES = [
 
 export default function NotFoundPage() {
   useSeoMeta({
-    title: "404 — Página no encontrada | ConcertRide",
+    title: "404 · Página no encontrada | ConcertRide",
     description: "Esta URL no existe en ConcertRide. Explora conciertos, festivales y rutas de carpooling disponibles.",
     canonical: `${SITE_URL}/404`,
     noindex: true,

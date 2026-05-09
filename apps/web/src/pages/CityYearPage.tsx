@@ -234,7 +234,7 @@ export default function CityYearPage() {
             "@context": "https://schema.org",
             "@type": "LocalBusiness",
             "@id": `${SITE_URL}/conciertos/${landing.slug}/${y}#localbusiness`,
-            name: `ConcertRide — Carpooling para conciertos en ${landing.display} ${y}`,
+            name: `ConcertRide · Carpooling para conciertos en ${landing.display} ${y}`,
             description: `Carpooling para conciertos y festivales en ${landing.display} en ${y}. Sin comisión, conductores verificados.`,
             url: `${SITE_URL}/conciertos/${landing.slug}/${y}`,
             logo: `${SITE_URL}/favicon.svg`,

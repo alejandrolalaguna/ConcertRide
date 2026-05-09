@@ -76,7 +76,7 @@ export default function GenreLandingPage() {
   const year = 2026;
 
   useSeoMeta({
-    title: `${genre.nameFull} ${year} — transporte y carpooling sin comisión | ConcertRide`,
+    title: `${genre.nameFull} ${year} · transporte y carpooling sin comisión | ConcertRide`,
     description: `${genre.nameFull} ${year}: ${festivals.slice(0, 4).map((f) => f.shortName).join(", ")} y más. Carpooling desde ${priceRows[0]?.range ?? "3 €/asiento"}. Conductores verificados, 0% comisión.`,
     canonical: `${SITE_URL}/festivales-genero/${genre.slug}`,
     keywords: [
@@ -108,7 +108,7 @@ export default function GenreLandingPage() {
   const jsonLdCollectionPage = {
     "@context": "https://schema.org",
     "@type": "CollectionPage",
-    name: `${genre.nameFull} ${year} — carpooling sin comisión`,
+    name: `${genre.nameFull} ${year} · carpooling sin comisión`,
     url: `${SITE_URL}/festivales-genero/${genre.slug}`,
     description: genre.blurb,
     inLanguage: "es-ES",

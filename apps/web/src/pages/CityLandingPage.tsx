@@ -169,8 +169,8 @@ export default function CityLandingPage() {
       ? cityOverride?.keywords ?? `conciertos en ${landing.display} ${year}, conciertos ${landing.display} ${nextYear}, agenda musical ${landing.display} ${year}, próximos conciertos ${landing.display}, conciertos música ${landing.display}, como ir a conciertos ${landing.display}, festivales ${landing.display}, carpooling ${landing.display} ${year}, coche compartido concierto ${landing.display}, cómo ir al concierto ${landing.display}, carpooling concierto ${landing.display}, viaje compartido ${landing.display} ${year}`
       : undefined,
     ogImageAlt: landing
-      ? `Conciertos y carpooling en ${landing.display} ${year} — ConcertRide`
-      : "Conciertos por ciudad en España — ConcertRide",
+      ? `Conciertos y carpooling en ${landing.display} ${year} · ConcertRide`
+      : "Conciertos por ciudad en España · ConcertRide",
     geoRegion: landing ? (REGION_ISO[landing.region] ?? undefined) : undefined,
     geoPlacename: landing ? `${landing.display}, España` : undefined,
     geoLat: landing?.lat,
@@ -387,7 +387,7 @@ export default function CityLandingPage() {
                 "@type": "ListItem",
                 position: i + 1,
                 url: `${SITE_URL}/concerts/${c.id}`,
-                name: `${c.artist} — ${c.venue.name}`,
+                name: `${c.artist} · ${c.venue.name}`,
               })),
             },
           }),
@@ -434,7 +434,7 @@ export default function CityLandingPage() {
             "@context": "https://schema.org",
             "@type": "LocalBusiness",
             "@id": `${SITE_URL}/conciertos/${landing.slug}#localbusiness`,
-            name: `ConcertRide — Carpooling para conciertos en ${landing.display}`,
+            name: `ConcertRide · Carpooling para conciertos en ${landing.display}`,
             description: landing.blurb,
             url: `${SITE_URL}/conciertos/${landing.slug}`,
             logo: `${SITE_URL}/favicon.svg`,
@@ -534,6 +534,57 @@ export default function CityLandingPage() {
                 position: 4,
                 name: "Paga y vuelve",
                 text: `Paga al conductor en efectivo o Bizum el día del viaje. Valora tu experiencia. Busca un viaje de vuelta a ${landing.display} para el día siguiente si lo necesitas.`,
+              },
+            ],
+          }),
+        }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "Dataset",
+            name: `Comparativa de transporte a conciertos en ${landing.display} ${year}`,
+            description: `Precios, comisiones y disponibilidad nocturna de las opciones de transporte para llegar a conciertos y festivales en ${landing.display}. Datos orientativos ${year}.`,
+            url: `${SITE_URL}/conciertos/${landing.slug}`,
+            inLanguage: "es-ES",
+            license: "https://creativecommons.org/licenses/by/4.0/",
+            creator: { "@type": "Organization", "@id": `${SITE_URL}/#organization` },
+            keywords: `transporte conciertos ${landing.display}, carpooling ${landing.display}, BlaBlaCar vs ConcertRide, taxi concierto ${landing.display}`,
+            variableMeasured: [
+              { "@type": "PropertyValue", name: "Opción de transporte", value: "ConcertRide carpooling" },
+              { "@type": "PropertyValue", name: "Precio orientativo", value: "3–35 €/asiento" },
+              { "@type": "PropertyValue", name: "Comisión de plataforma", value: "0 %" },
+              { "@type": "PropertyValue", name: "Vuelta de madrugada", value: "Sí, coordinada" },
+              { "@type": "PropertyValue", name: "Reserva anticipada", value: "Recomendada" },
+            ],
+            distribution: [
+              {
+                "@type": "DataDownload",
+                name: "ConcertRide carpooling",
+                contentUrl: `${SITE_URL}/conciertos/${landing.slug}`,
+                description: `Precio: 3–35 €/asiento · Comisión: 0 % · Vuelta madrugada: Sí, coordinada · Reserva: Recomendada`,
+              },
+              {
+                "@type": "DataDownload",
+                name: "BlaBlaCar",
+                description: `Precio: Similar a ConcertRide · Comisión: 12–18 % · Vuelta madrugada: Variable · Reserva: Recomendada`,
+              },
+              {
+                "@type": "DataDownload",
+                name: "Taxi / VTC",
+                description: `Precio: 30–80 €/trayecto · Comisión: — · Vuelta madrugada: Sí (sobrecargo nocturno) · Reserva: No necesaria`,
+              },
+              {
+                "@type": "DataDownload",
+                name: "Autobús interurbano",
+                description: `Precio: 5–20 € · Comisión: — · Vuelta madrugada: No (último ~23h) · Reserva: Recomendada`,
+              },
+              {
+                "@type": "DataDownload",
+                name: "Tren / AVE",
+                description: `Precio: 10–60 € · Comisión: — · Vuelta madrugada: No (último ~01h) · Reserva: Obligatoria`,
               },
             ],
           }),
@@ -719,54 +770,142 @@ export default function CityLandingPage() {
         </div>
       </section>
 
-      {/* Festival hub for this city — internal linking to festival pages */}
+      {/* Festival hub for this city — rich cards for SEO + UX */}
       {(() => {
         const cityFestivals = FESTIVAL_LANDINGS.filter((f) => f.citySlug === landing.slug);
-        if (cityFestivals.length === 0) return null;
+        const nearbyFestivals = FESTIVAL_LANDINGS.filter(
+          (f) => f.citySlug !== landing.slug && f.originCities.some((oc) => oc.city === landing.display || oc.city === landing.city),
+        ).slice(0, 3);
+
+        if (cityFestivals.length === 0 && nearbyFestivals.length === 0) return null;
         return (
-          <section className="max-w-6xl mx-auto px-6 pb-12 border-t border-cr-border pt-10">
-            <h2 className="font-display text-lg uppercase text-cr-text-muted mb-4">
-              Festivales en {landing.display} {year}: carpooling disponible
-            </h2>
-            <ul className="flex flex-wrap gap-2">
-              {cityFestivals.map((f) => (
-                <li key={f.slug}>
-                  <Link
-                    to={`/festivales/${f.slug}`}
-                    className="inline-flex items-center gap-1.5 font-sans text-xs text-cr-text-muted hover:text-cr-primary border border-cr-border hover:border-cr-primary px-3 py-1.5 transition-colors"
-                  >
-                    Cómo ir a {f.shortName} →
-                  </Link>
-                </li>
-              ))}
-            </ul>
+          <section className="max-w-6xl mx-auto px-6 pb-16 border-t border-cr-border pt-12 space-y-8">
+            {cityFestivals.length > 0 && (
+              <div className="space-y-4">
+                <h2 className="font-display text-xl md:text-2xl uppercase">
+                  Festivales en {landing.display} {year}: guías de transporte y carpooling
+                </h2>
+                <p className="font-sans text-sm text-cr-text-muted max-w-2xl">
+                  Festivales que se celebran en {landing.display} este año. Haz clic para ver opciones de carpooling, bus y tren desde toda España.
+                </p>
+                <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                  {cityFestivals.map((f) => (
+                    <Link
+                      key={f.slug}
+                      to={`/festivales/${f.slug}`}
+                      className="border border-cr-border p-5 space-y-3 hover:border-cr-primary/40 transition-colors"
+                    >
+                      <div>
+                        <h3 className="font-display text-base uppercase">{f.shortName}</h3>
+                        <p className="font-mono text-[11px] text-cr-text-muted">{f.typicalDates}</p>
+                      </div>
+                      <p className="font-sans text-xs text-cr-text-muted leading-relaxed line-clamp-2">
+                        {f.blurb.slice(0, 120)}…
+                      </p>
+                      <div className="flex items-center justify-between">
+                        <span className="font-mono text-[11px] text-cr-primary">
+                          Desde {f.originCities[0]?.concertRideRange ?? "3 €"}/asiento
+                        </span>
+                        <span className="inline-flex items-center gap-1 font-sans text-xs text-cr-primary">
+                          Ver guía <ArrowRight size={10} />
+                        </span>
+                      </div>
+                    </Link>
+                  ))}
+                </div>
+              </div>
+            )}
+
+            {nearbyFestivals.length > 0 && (
+              <div className="space-y-4">
+                <h2 className="font-display text-xl uppercase">
+                  Festivales cercanos: carpooling desde {landing.display}
+                </h2>
+                <p className="font-sans text-sm text-cr-text-muted max-w-2xl">
+                  Festivales a los que ir desde {landing.display}. Conductores de {landing.display} ya publican viajes.
+                </p>
+                <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                  {nearbyFestivals.map((f) => {
+                    const fromHere = f.originCities.find(
+                      (oc) => oc.city === landing.display || oc.city === landing.city,
+                    );
+                    return (
+                      <Link
+                        key={f.slug}
+                        to={`/festivales/${f.slug}`}
+                        className="border border-cr-border p-5 space-y-3 hover:border-cr-primary/40 transition-colors"
+                      >
+                        <div>
+                          <h3 className="font-display text-base uppercase">{f.shortName}</h3>
+                          <p className="font-mono text-[11px] text-cr-text-muted">{f.city} · {f.typicalDates}</p>
+                        </div>
+                        {fromHere && (
+                          <div className="flex gap-3 font-mono text-[11px] text-cr-text-muted">
+                            <span>{fromHere.km} km</span>
+                            <span>·</span>
+                            <span>{fromHere.drivingTime}</span>
+                            <span>·</span>
+                            <span className="text-cr-primary">{fromHere.concertRideRange}</span>
+                          </div>
+                        )}
+                        <span className="inline-flex items-center gap-1 font-sans text-xs text-cr-primary">
+                          Carpooling desde {landing.display} <ArrowRight size={10} />
+                        </span>
+                      </Link>
+                    );
+                  })}
+                </div>
+              </div>
+            )}
           </section>
         );
       })()}
 
-      {/* Carpooling routes from this city → festivals — high-intent SEO internal links */}
+      {/* Carpooling routes from this city → festivals — rich cards for high-intent SEO */}
       {(() => {
         const routesFromCity = ROUTE_LANDINGS.filter(
           (r) => r.originCitySlug === landing.slug,
         );
         if (routesFromCity.length === 0) return null;
         return (
-          <section className="max-w-6xl mx-auto px-6 pb-12 border-t border-cr-border pt-10">
-            <h2 className="font-display text-lg uppercase text-cr-text-muted mb-4">
+          <section className="max-w-6xl mx-auto px-6 pb-16 border-t border-cr-border pt-12 space-y-5">
+            <h2 className="font-display text-xl md:text-2xl uppercase">
               Rutas de carpooling desde {landing.display} a festivales {year}
             </h2>
-            <ul className="flex flex-wrap gap-2">
-              {routesFromCity.map((r) => (
-                <li key={r.slug}>
-                  <Link
-                    to={`/rutas/${r.slug}`}
-                    className="inline-flex items-center gap-1.5 font-sans text-xs text-cr-text-muted hover:text-cr-primary border border-cr-border hover:border-cr-primary px-3 py-1.5 transition-colors"
-                  >
-                    {landing.display} → {r.festival.shortName}
-                  </Link>
-                </li>
+            <p className="font-sans text-sm text-cr-text-muted max-w-2xl">
+              Viajes compartidos publicados por conductores de {landing.display} hacia los principales festivales de España.
+            </p>
+            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+              {routesFromCity.slice(0, 9).map((r) => (
+                <Link
+                  key={r.slug}
+                  to={`/rutas/${r.slug}`}
+                  className="border border-cr-border p-4 space-y-2 hover:border-cr-primary/40 transition-colors"
+                >
+                  <div className="flex items-start justify-between gap-2">
+                    <h3 className="font-display text-sm uppercase leading-tight">
+                      {landing.display} → {r.festival.shortName}
+                    </h3>
+                    <span className="font-mono text-[11px] text-cr-primary shrink-0">
+                      {r.originData?.concertRideRange ?? "desde 5 €"}
+                    </span>
+                  </div>
+                  <div className="flex gap-3 font-mono text-[11px] text-cr-text-muted">
+                    {r.originData?.km && <span>{r.originData.km} km</span>}
+                    {r.originData?.km && <span>·</span>}
+                    {r.originData?.drivingTime && <span>{r.originData.drivingTime}</span>}
+                  </div>
+                  <span className="inline-flex items-center gap-1 font-sans text-xs text-cr-primary">
+                    Ver ruta <ArrowRight size={10} />
+                  </span>
+                </Link>
               ))}
-            </ul>
+            </div>
+            {routesFromCity.length > 9 && (
+              <p className="font-mono text-[11px] text-cr-text-dim">
+                +{routesFromCity.length - 9} rutas más disponibles. <Link to="/rutas" className="text-cr-primary hover:underline">Ver todas las rutas →</Link>
+              </p>
+            )}
           </section>
         );
       })()}

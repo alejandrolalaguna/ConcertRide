@@ -83,7 +83,7 @@ export default function RegionLandingPage() {
 
   // ── SEO meta ──────────────────────────────────────────────────────────────
   useSeoMeta({
-    title: `Festivales en ${region.displayName} ${year} — transporte y carpooling | ConcertRide`,
+    title: `Festivales en ${region.displayName} ${year} · transporte y carpooling | ConcertRide`,
     description: `Festivales en ${region.name} ${year}: ${festivalsData.map((f) => f.shortName).join(", ")}. Carpooling desde ${nearbyCity} desde ${priceRows[0]?.range ?? "3 €/asiento"}. Sin comisión, conductores verificados.`,
     canonical: `${SITE_URL}/festivales-en/${region.slug}`,
     keywords: [
@@ -155,7 +155,7 @@ export default function RegionLandingPage() {
   const jsonLdCollectionPage = {
     "@context": "https://schema.org",
     "@type": "CollectionPage",
-    name: `Festivales en ${region.displayName} ${year} — carpooling sin comisión`,
+    name: `Festivales en ${region.displayName} ${year} · carpooling sin comisión`,
     url: `${SITE_URL}/festivales-en/${region.slug}`,
     description: region.blurb,
     inLanguage: "es-ES",

@@ -4,7 +4,7 @@ import { SITE_URL } from "@/lib/siteUrl";
 
 export default function AvisoLegalPage() {
   useSeoMeta({
-    title: "Aviso legal — Condiciones de uso | ConcertRide",
+    title: "Aviso legal · Condiciones de uso | ConcertRide",
     description: "Aviso legal de ConcertRide: datos del titular, actividad, propiedad intelectual y condiciones de uso de la plataforma de carpooling para conciertos en España.",
     canonical: `${SITE_URL}/aviso-legal`,
   });

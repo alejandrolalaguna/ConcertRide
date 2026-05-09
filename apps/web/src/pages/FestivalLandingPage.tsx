@@ -19,11 +19,14 @@ import { CostComparator } from "@/components/CostComparator";
 import { DemandSignalWidget } from "@/components/DemandSignalWidget";
 import { PickupMap } from "@/components/PickupMap";
 import { REGION_LANDINGS } from "@/lib/regionLandings";
+import { EventTransportHub, generateTransportHubSchema } from "@/components/EventTransportHub";
+import type { TransportMode, NearbyAirport, AccommodationZone, ArrivalTip } from "@/components/EventTransportHub";
 
 const FESTIVAL_DEFAULT_OG = `${SITE_URL}/og-fallback.png`;
 import { trackFestivalView } from "@/lib/seoEvents";
 import { FestivalAlertWidget } from "@/components/FestivalAlertWidget";
 import { AutoLinksForFestival } from "@/lib/autoLinking";
+import { BLOG_POSTS } from "@/lib/blogPosts";
 
 const FESTIVAL_WIKIDATA: Record<string, string> = {
   "mad-cool": "https://www.wikidata.org/wiki/Q22808739",
@@ -79,8 +82,8 @@ export default function FestivalLandingPage() {
       : `${SITE_URL}/concerts`,
     ogImage: festivalOgImage,
     ogImageAlt: festival
-      ? `Carpooling a ${festival.shortName} ${festYear} en ${festival.city} — ConcertRide`
-      : "Carpooling a festivales de música en España — ConcertRide",
+      ? `Carpooling a ${festival.shortName} ${festYear} en ${festival.city} · ConcertRide`
+      : "Carpooling a festivales de música en España · ConcertRide",
     ogType: "music.event",
     keywords: festival
       ? [
@@ -558,6 +561,53 @@ export default function FestivalLandingPage() {
         },
       }) }} />
 
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({
+        "@context": "https://schema.org",
+        "@type": "Dataset",
+        name: `Comparativa de transporte a ${festival.name} ${festYear}`,
+        description: `Precios orientativos, tiempos y comisiones de las opciones de transporte para llegar a ${festival.name} en ${festival.venue}, ${festival.city}. Datos ${festYear}.`,
+        url: `${SITE_URL}/festivales/${festival.slug}`,
+        inLanguage: "es-ES",
+        license: "https://creativecommons.org/licenses/by/4.0/",
+        creator: { "@type": "Organization", "@id": `${SITE_URL}/#organization` },
+        keywords: `transporte ${festival.shortName}, carpooling ${festival.shortName}, bus ${festival.shortName}, tren ${festival.shortName}, BlaBlaCar vs ConcertRide ${festival.shortName}`,
+        variableMeasured: [
+          { "@type": "PropertyValue", name: "Opción de transporte", value: "ConcertRide carpooling" },
+          { "@type": "PropertyValue", name: "Precio desde", value: festival.originCities[0]?.concertRideRange ?? "3–20 €/asiento" },
+          { "@type": "PropertyValue", name: "Comisión de plataforma", value: "0 %" },
+          { "@type": "PropertyValue", name: "Ciudades de origen documentadas", value: String(festival.originCities.length) },
+          { "@type": "PropertyValue", name: "Vuelta de madrugada", value: "Sí, coordinada con el conductor" },
+        ],
+        distribution: [
+          {
+            "@type": "DataDownload",
+            name: "ConcertRide carpooling",
+            contentUrl: `${SITE_URL}/festivales/${festival.slug}`,
+            description: `Precio: ${festival.originCities[0]?.concertRideRange ?? "desde 3 €"}/asiento · Comisión: 0 % · Origen: ${festival.originCities.length} ciudades · Vuelta madrugada: Sí (coordinada)`,
+          },
+          {
+            "@type": "DataDownload",
+            name: "Autobús / lanzadera oficial",
+            description: `Precio: 5–20 € si disponible · Comisión: — · Vuelta madrugada: No (último servicio diurno) · Solo en festivales con lanzadera oficial`,
+          },
+          {
+            "@type": "DataDownload",
+            name: "Tren / AVE",
+            description: `Precio: 10–60 € hasta la ciudad · Comisión: — · Vuelta madrugada: No (último ~01h) · Requiere lanzadera adicional hasta el recinto`,
+          },
+          {
+            "@type": "DataDownload",
+            name: "Taxi / VTC (Uber, Cabify)",
+            description: `Precio: 35–120 € ida desde ciudad más cercana (nocturno) · Comisión: — · Vuelta madrugada: Sí (precio ×2–3 en horario festival)`,
+          },
+          {
+            "@type": "DataDownload",
+            name: "BlaBlaCar",
+            description: `Precio: Similar a ConcertRide + 12–18 % comisión · Comisión: 12–18 % · Vuelta madrugada: Depende del conductor`,
+          },
+        ],
+      }) }} />
+
       {/* ── Hero ── */}
       <div className="max-w-6xl mx-auto px-6 pt-10 pb-6 space-y-4">
         <nav aria-label="Breadcrumb" className="font-mono text-[11px] text-cr-text-muted flex items-center gap-2 flex-wrap">
@@ -918,6 +968,85 @@ export default function FestivalLandingPage() {
         <FestivalAlertWidget festivalSlug={festival.slug} festivalName={festival.shortName} />
       </section>
 
+      {/* ── Nearby airports + accommodation (rich travel hub content) ── */}
+      {((festival.nearby_airports && festival.nearby_airports.length > 0) ||
+        (festival.accommodation_zones && festival.accommodation_zones.length > 0) ||
+        (festival.arrival_tips && festival.arrival_tips.length > 0)) && (
+        <section className="max-w-6xl mx-auto px-6 pb-16 border-t border-cr-border pt-12">
+          {/* JSON-LD for transport hub schemas */}
+          {generateTransportHubSchema({
+            eventName: festival.name,
+            city: festival.city,
+            venue: festival.venue,
+            siteUrl: SITE_URL,
+            nearbyAirports: festival.nearby_airports ?? [],
+            accommodationZones: festival.accommodation_zones ?? [],
+          }).map((schema, i) => (
+            <script
+              key={`festival-transport-schema-${i}`}
+              type="application/ld+json"
+              dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
+            />
+          ))}
+          <EventTransportHub
+            eventName={festival.name}
+            eventShortName={festival.shortName}
+            city={festival.city}
+            venue={festival.venue}
+            date={festival.startDate}
+            parking={festival.guide ? {
+              available: festival.guide.logistics.parking_available,
+              price: festival.guide.logistics.parking_price,
+              notes: undefined,
+            } : undefined}
+            camping={festival.guide ? {
+              available: festival.guide.logistics.camping_available,
+              notes: festival.guide.logistics.camping_notes,
+            } : undefined}
+            nearbyAirports={(festival.nearby_airports ?? []) as NearbyAirport[]}
+            accommodationZones={(festival.accommodation_zones ?? []) as AccommodationZone[]}
+            arrivalTips={(festival.arrival_tips ?? []) as ArrivalTip[]}
+            festivalSlug={festival.slug}
+            showPublishCTA={false}
+          />
+        </section>
+      )}
+
+      {/* ── Genres + attendance + arrival patterns ── */}
+      {(festival.genres || festival.arrival_patterns) && (
+        <section className="max-w-6xl mx-auto px-6 pb-12 border-t border-cr-border pt-12 space-y-5">
+          <h2 className="font-display text-xl uppercase">
+            {festival.shortName} {festYear}: perfil del festival y asistentes
+          </h2>
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 font-sans text-sm">
+            {festival.genres && festival.genres.length > 0 && (
+              <article className="border border-cr-border p-4 space-y-2">
+                <h3 className="font-display text-sm uppercase">Géneros musicales</h3>
+                <div className="flex flex-wrap gap-1.5">
+                  {festival.genres.map((g) => (
+                    <span key={g} className="font-mono text-[11px] text-cr-primary border border-cr-primary/40 px-2 py-0.5 uppercase">
+                      {g}
+                    </span>
+                  ))}
+                </div>
+              </article>
+            )}
+            {festival.expected_attendance && (
+              <article className="border border-cr-border p-4 space-y-2">
+                <h3 className="font-display text-sm uppercase">Asistencia esperada</h3>
+                <p className="font-mono text-lg font-bold text-cr-primary">{festival.expected_attendance}</p>
+              </article>
+            )}
+            {festival.arrival_patterns && (
+              <article className="border border-cr-border p-4 space-y-2">
+                <h3 className="font-display text-sm uppercase">Patrones de llegada</h3>
+                <p className="text-xs text-cr-text-muted leading-relaxed">{festival.arrival_patterns}</p>
+              </article>
+            )}
+          </div>
+        </section>
+      )}
+
       {/* ── Por qué ConcertRide para este festival ── */}
       <section className="max-w-6xl mx-auto px-6 pb-16 border-t border-cr-border pt-12 space-y-6">
         <h2 className="font-display text-2xl md:text-3xl uppercase">
@@ -1185,6 +1314,34 @@ export default function FestivalLandingPage() {
         );
       })()}
 
+      {/* ── Blog posts relacionados ── */}
+      {festival.relatedBlogs && festival.relatedBlogs.length > 0 && (() => {
+        const blogPosts = festival.relatedBlogs!
+          .map((slug) => BLOG_POSTS.find((p) => p.slug === slug))
+          .filter((p): p is NonNullable<typeof p> => p !== undefined);
+        if (blogPosts.length === 0) return null;
+        return (
+          <section className="max-w-6xl mx-auto px-6 pb-12 border-t border-cr-border pt-10">
+            <h2 className="font-display text-lg uppercase text-cr-text-muted mb-4">
+              Guías y artículos
+            </h2>
+            <ul className="flex flex-col gap-2">
+              {blogPosts.map((post) => (
+                <li key={post.slug}>
+                  <Link
+                    to={`/blog/${post.slug}`}
+                    className="inline-flex items-center gap-2 font-sans text-xs text-cr-text hover:text-cr-primary transition-colors"
+                  >
+                    <ArrowRight size={10} className="text-cr-primary flex-shrink-0" />
+                    {post.title}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </section>
+        );
+      })()}
+
       {/* ── Recinto del festival ── */}
       {(() => {
         const festVenue = VENUE_LANDINGS.find((v) => v.relatedFestivals.includes(festival.slug));
@@ -1222,6 +1379,59 @@ export default function FestivalLandingPage() {
           </section>
         );
       })()}
+
+      {/* ── People going / social proof / network effects ── */}
+      <section className="max-w-6xl mx-auto px-6 pb-16 border-t border-cr-border pt-12 space-y-6">
+        <h2 className="font-display text-2xl md:text-3xl uppercase">
+          Viaja a {festival.shortName} {festYear} con otros fans
+        </h2>
+        <p className="font-sans text-sm text-cr-text-muted max-w-2xl">
+          ConcertRide conecta a asistentes de {festival.name} que quieren compartir el viaje desde toda España. Sin comisión. Sin apps de taxi. Solo fans que se organizan.
+        </p>
+
+        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 font-sans text-sm">
+          <div className="border border-cr-primary/30 p-5 space-y-1 text-center">
+            <p className="font-mono text-2xl font-bold text-cr-primary">0 %</p>
+            <p className="text-xs text-cr-text-muted">Comisión de plataforma</p>
+          </div>
+          <div className="border border-cr-border p-5 space-y-1 text-center">
+            <p className="font-mono text-2xl font-bold text-cr-text">{festival.originCities.length}</p>
+            <p className="text-xs text-cr-text-muted">Ciudades de origen documentadas</p>
+          </div>
+          <div className="border border-cr-border p-5 space-y-1 text-center">
+            <p className="font-mono text-2xl font-bold text-cr-text">✓</p>
+            <p className="text-xs text-cr-text-muted">Conductores con carnet verificado</p>
+          </div>
+          <div className="border border-cr-border p-5 space-y-1 text-center">
+            <p className="font-mono text-2xl font-bold text-cr-text">{festival.originCities[0]?.concertRideRange?.split("–")[0]?.trim() ?? "3"}€</p>
+            <p className="text-xs text-cr-text-muted">Precio mínimo por asiento</p>
+          </div>
+        </div>
+
+        {/* Popular departure cities with CTA */}
+        <div className="space-y-3">
+          <h3 className="font-display text-base uppercase text-cr-text-muted">
+            Ciudades de salida más populares para {festival.shortName}
+          </h3>
+          <div className="flex flex-wrap gap-2">
+            {festival.originCities.slice(0, 8).map((oc) => (
+              <Link
+                key={oc.city}
+                to={`/concerts?city=${encodeURIComponent(festival.city)}`}
+                className="inline-flex items-center gap-1.5 font-sans text-xs text-cr-text-muted hover:text-cr-primary border border-cr-border hover:border-cr-primary px-3 py-1.5 transition-colors"
+              >
+                <MapPin size={10} /> {oc.city} · {oc.concertRideRange}
+              </Link>
+            ))}
+          </div>
+          <p className="font-sans text-xs text-cr-text-dim">
+            ¿Tu ciudad no aparece? Publica un viaje y sé el primero en coordinarlo desde allí.{" "}
+            <Link to="/publish" className="text-cr-primary hover:underline">
+              Publicar viaje →
+            </Link>
+          </p>
+        </div>
+      </section>
 
       {/* ── Related festivals ── */}
       {relatedFestivals.length > 0 && (

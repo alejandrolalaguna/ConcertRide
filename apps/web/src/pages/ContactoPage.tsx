@@ -5,7 +5,7 @@ import { SITE_URL } from "@/lib/siteUrl";
 
 export default function ContactoPage() {
   useSeoMeta({
-    title: "Contacto — ConcertRide | Carpooling para conciertos",
+    title: "Contacto · ConcertRide | Carpooling para conciertos",
     description:
       "Contacta con el equipo de ConcertRide. Atendemos consultas sobre viajes compartidos a conciertos, reportes de abuso, dudas legales y partnerships con festivales.",
     canonical: `${SITE_URL}/contacto`,
@@ -19,7 +19,7 @@ export default function ContactoPage() {
           __html: JSON.stringify({
             "@context": "https://schema.org",
             "@type": "ContactPage",
-            name: "Contacto — ConcertRide",
+            name: "Contacto · ConcertRide",
             url: `${SITE_URL}/contacto`,
             mainEntity: {
               "@type": "Organization",

@@ -81,6 +81,7 @@ export interface FestivalLanding {
   originCities: OriginCity[];
   faqs: FestivalFaq[];
   relatedFestivals: string[];
+  relatedBlogs?: string[];  // blog post slugs linking to this festival
   transport_options?: TransportOption[];
   official_shuttle?: {
     available: boolean;
@@ -91,6 +92,32 @@ export interface FestivalLanding {
   };
   guide?: FestivalGuide;
   common_pickup_points?: PickupPoint[];
+  /** Nearby airports with transfer info */
+  nearby_airports?: Array<{
+    name: string;
+    iata: string;
+    distanceKm: number;
+    transferTime: string;
+    transferOptions: string;
+  }>;
+  /** Recommended accommodation zones */
+  accommodation_zones?: Array<{
+    area: string;
+    distanceKm: number;
+    priceRange: string;
+    notes?: string;
+  }>;
+  /** Practical arrival tips (ordered) */
+  arrival_tips?: Array<{
+    title: string;
+    body: string;
+  }>;
+  /** Expected attendance patterns */
+  arrival_patterns?: string;
+  /** Music genres */
+  genres?: string[];
+  /** Expected attendance per day */
+  expected_attendance?: string;
 }
 
 export const FESTIVAL_LANDINGS: FestivalLanding[] = [
@@ -176,6 +203,7 @@ export const FESTIVAL_LANDINGS: FestivalLanding[] = [
       },
     ],
     relatedFestivals: ["tomavistas", "sonorama-ribera", "primavera-sound"],
+    relatedBlogs: ["mad-cool-2026-guia-completa-transporte", "autobuses-festivales-espana-2026", "como-volver-concierto-madrugada-espana-2026"],
     transport_options: [
       { type: 'train', provider: 'Metro Madrid L8', origin: 'Madrid centro → IFEMA', price_from: 2, price_to: 3, frequency: 'Cada 5 min (ampliado en festival)', schedule: 'Hasta 2:30 en noches de festival', notes: 'Parada "Feria de Madrid". Desde Sol ~25 min. Se colapsa en salidas (1:00–2:30).' },
       { type: 'bus', provider: 'Bus nocturno N1 / N6', origin: 'Madrid centro', price_from: 2, notes: 'No llegan directamente a IFEMA. Dejan en Avenida de América / Canillejas.' },
@@ -219,6 +247,52 @@ export const FESTIVAL_LANDINGS: FestivalLanding[] = [
       network_coverage: "Cobertura Movistar, Orange y Vodafone reforzada por acuerdo con Mad Cool. El área está preparada para 80.000 usuarios simultáneos.",
       emergency_number: "112",
     },
+    genres: ["rock", "indie", "alternativo", "pop"],
+    expected_attendance: "80.000 personas/día",
+    arrival_patterns: "La mayoría de asistentes de fuera de Madrid llegan en coche compartido o AVE el mismo día por la tarde. Los de Barcelona suelen hacer el viaje de ida y vuelta en el día o alojarse 2–3 noches.",
+    nearby_airports: [
+      {
+        name: "Aeropuerto de Madrid-Barajas",
+        iata: "MAD",
+        distanceKm: 12,
+        transferTime: "25 min",
+        transferOptions: "Metro L8 desde T4 / T4S hasta Nuevos Ministerios (directo). Bus Exprés Aeropuerto desde T1/T2/T3 hasta Atocha. Taxi ~25–35 €.",
+      },
+    ],
+    accommodation_zones: [
+      {
+        area: "Madrid Centro (Sol, Gran Vía, Chueca)",
+        distanceKm: 15,
+        priceRange: "80–180 €/noche",
+        notes: "Metro L8 directo a IFEMA desde Nuevos Ministerios. La zona más animada para antes y después del festival.",
+      },
+      {
+        area: "Barrio de Hortaleza / Canillejas",
+        distanceKm: 3,
+        priceRange: "50–100 €/noche",
+        notes: "Más cerca de IFEMA. Acceso en coche mucho más fácil; a 10–15 min a pie del recinto.",
+      },
+      {
+        area: "Aeropuerto (Barajas)",
+        distanceKm: 5,
+        priceRange: "70–140 €/noche",
+        notes: "Ideal si llegas o salgas en avión. Shuttle gratuito de hotel al aeropuerto en muchos establecimientos.",
+      },
+    ],
+    arrival_tips: [
+      {
+        title: "Toma el metro L8 antes de las 18:00",
+        body: "La frecuencia del metro L8 es de cada 5 minutos, pero a la salida (1:00–2:30) las colas en el andén pueden superar los 30 minutos. Si coordinastes carpooling de vuelta, queda con el conductor fuera del recinto antes de salir.",
+      },
+      {
+        title: "Llega 45 min antes del artista que más te interese",
+        body: "IFEMA es un recinto de 4 escenarios separados. Los traslados entre escenarios pueden tardar 15–20 minutos caminando. Planifica los desplazamientos con antelación.",
+      },
+      {
+        title: "El parking se llena desde las 16:00",
+        body: "Los parking de IFEMA (P1–P6) abren a las 14:00 y se llenan rápido los tres días. Si vienes en coche propio, llega antes de las 16:00 o aparca en el intercambiador de Avenida de América (L9) y toma la L8.",
+      },
+    ],
   },
 
   {
@@ -292,6 +366,60 @@ export const FESTIVAL_LANDINGS: FestivalLanding[] = [
       },
     ],
     relatedFestivals: ["sonar", "cruilla"],
+    relatedBlogs: ["primavera-sound-2026-guia-transporte-barcelona", "autobuses-festivales-espana-2026", "carpooling-vs-taxi-festival-espana"],
+    genres: ["indie", "alternativo", "pop", "rock", "electrónica", "experimental"],
+    expected_attendance: "60.000 personas/día",
+    arrival_patterns: "Los fans madrileños suelen organizar viaje de 4–5 días y alojarse en Barcelona. La mayoría llega el jueves, regresa el domingo o lunes. Los de Valencia o Zaragoza hacen trayectos de ida y vuelta.",
+    nearby_airports: [
+      {
+        name: "Aeropuerto de Barcelona-El Prat",
+        iata: "BCN",
+        distanceKm: 17,
+        transferTime: "40 min",
+        transferOptions: "Metro L9 Sud hasta Zona Universitaria + L5 hasta Poblesec (cerca del Fòrum) — o taxi desde el aeropuerto (~30 €). Aerobus hasta Pl. Catalunya (30 min) + metro L4 Besòs Mar.",
+      },
+      {
+        name: "Aeropuerto de Girona-Costa Brava",
+        iata: "GRO",
+        distanceKm: 100,
+        transferTime: "1h 15 min",
+        transferOptions: "Bus Sagalés directa hasta Estació del Nord Barcelona. Desde allí metro o taxi al Fòrum.",
+      },
+    ],
+    accommodation_zones: [
+      {
+        area: "El Poblenou / Rambla del Prim",
+        distanceKm: 1,
+        priceRange: "100–250 €/noche",
+        notes: "A 10 minutos a pie del Parc del Fòrum. Se agota semanas antes del festival — reserva con mucha antelación.",
+      },
+      {
+        area: "Barcelona Eixample / Gràcia",
+        distanceKm: 8,
+        priceRange: "90–200 €/noche",
+        notes: "Excelente conexión con metro L4 (Besòs Mar directo al Fòrum). Más ambiente urbano, más opciones de restaurantes.",
+      },
+      {
+        area: "Badalona / Sant Adrià de Besòs",
+        distanceKm: 4,
+        priceRange: "60–120 €/noche",
+        notes: "Más económico que el centro de Barcelona. A 15–20 min a pie del Fòrum o 2 paradas de metro.",
+      },
+    ],
+    arrival_tips: [
+      {
+        title: "El metro L4 (Besòs Mar) es la opción más directa",
+        body: "Desde Passeig de Gràcia son 4 paradas hasta Besòs Mar (10 min), a 8 minutos a pie del Fòrum. TMB amplía el servicio hasta las 3:00–4:00 en noches de festival.",
+      },
+      {
+        title: "Evita el aparcamiento del Fòrum · está lleno antes de las 16:00",
+        body: "Si vienes en coche desde otra ciudad, aparca en la zona de Badalona o Sant Adrià y camina 15–20 minutos. O mejor aún, coordina el carpooling: el conductor puede dejar a los pasajeros en la puerta y aparcar lejos.",
+      },
+      {
+        title: "Los fans internacionales llenan los hostales en 24h",
+        body: "Primavera Sound atrae asistentes de más de 80 países. Reserva alojamiento en cuanto salga el cartel (suele ser en diciembre–enero). Si llegas tarde, Hospitalet de Llobregat y Badalona tienen buenas opciones.",
+      },
+    ],
   },
 
   {
@@ -359,11 +487,12 @@ export const FESTIVAL_LANDINGS: FestivalLanding[] = [
       },
     ],
     relatedFestivals: ["primavera-sound", "cruilla"],
+    relatedBlogs: ["sonar-2026-guia-transporte-barcelona", "autobuses-festivales-espana-2026"],
   },
 
   {
     slug: "fib",
-    name: "FIB — Festival Internacional de Benicàssim",
+    name: "FIB · Festival Internacional de Benicàssim",
     shortName: "FIB",
     city: "Benicàssim",
     citySlug: "valencia",
@@ -526,6 +655,7 @@ export const FESTIVAL_LANDINGS: FestivalLanding[] = [
       },
     ],
     relatedFestivals: ["resurrection-fest", "sonorama-ribera"],
+    relatedBlogs: ["bbk-live-bilbao-2026-guia-transporte", "autobuses-festivales-espana-2026", "como-volver-concierto-madrugada-espana-2026"],
     transport_options: [
       { type: 'shuttle', provider: 'Lanzadera gratuita BBK Live', origin: 'Bilbao — Plaza Moyúa', price_from: 0, frequency: 'Continua durante el festival', schedule: '17:00–06:00', notes: 'Incluida en el precio de la entrada. Sube y baja cada 15 min.' },
       { type: 'bus', provider: 'Bilbobus / Bizkaibus', origin: 'Bilbao centro', price_from: 2, price_to: 3, notes: 'Líneas urbanas hasta zona Kobetamendi. Revisar mapa de Bilbobus.' },
@@ -542,28 +672,28 @@ export const FESTIVAL_LANDINGS: FestivalLanding[] = [
     },
     common_pickup_points: [
       {
-        name: "Bilbao — Plaza Moyúa",
+        name: "Bilbao · Plaza Moyúa",
         lat: 43.2641, lng: -2.9348,
         address: "Plaza Moyúa, 48009 Bilbao",
         transport_access: "Metro L1 y L2 Moyua. Lanzadera gratuita oficial BBK Live.",
         notes: "PUNTO OFICIAL de la lanzadera gratuita incluida con la entrada BBK Live.",
       },
       {
-        name: "Bilbao — Termibus (Estación de Autobuses)",
+        name: "Bilbao · Termibus (Estación de Autobuses)",
         lat: 43.2579, lng: -2.9440,
         address: "Gurtubay Kalea, 1, 48014 Bilbao",
         transport_access: "Metro L2 San Mamés. Autobuses interurbanos desde toda Euskadi.",
         notes: "Punto de llegada para carpoolings de Donostia, Vitoria y Santander.",
       },
       {
-        name: "Donostia — Estación de Autobuses (Punto de Salida)",
+        name: "Donostia · Estación de Autobuses (Punto de Salida)",
         lat: 43.3128, lng: -1.9770,
         address: "Pl. Pío XII, s/n, 20010 Donostia",
         transport_access: "Bus urbano múltiples líneas. A 10 min del centro.",
         notes: "100 km de Bilbao. Carpoolings Donostia → BBK Live desde 4€. Ruta ~1h.",
       },
       {
-        name: "Kobetamendi — Recinto BBK Live",
+        name: "Kobetamendi · Recinto BBK Live",
         lat: 43.2495, lng: -2.9427,
         address: "Monte Kobetamendi, Bilbao",
         transport_access: "Destino final. Lanzadera desde Plaza Moyúa cada 15 min.",
@@ -641,6 +771,7 @@ export const FESTIVAL_LANDINGS: FestivalLanding[] = [
       },
     ],
     relatedFestivals: ["o-son-do-camino", "sonorama-ribera"],
+    relatedBlogs: ["como-llegar-resurrection-fest-2026", "autobuses-festivales-espana-2026"],
   },
 
   {
@@ -739,6 +870,7 @@ export const FESTIVAL_LANDINGS: FestivalLanding[] = [
       },
     ],
     relatedFestivals: ["fib", "medusa-festival", "low-festival"],
+    relatedBlogs: ["arenal-sound-2026-transporte-burriana", "autobuses-festivales-espana-2026", "carpooling-vs-taxi-festival-espana"],
     transport_options: [
       { type: 'shuttle', provider: 'Autobús oficial Arenal Sound', origin: 'Castellón de la Plana', price_from: 5, price_to: 8, frequency: 'Días de festival', schedule: '15:00–07:00', notes: 'Salida desde Estación de Autobuses de Castellón' },
       { type: 'bus', provider: 'Herca/Avanzabus', origin: 'Valencia', price_from: 8, price_to: 12, frequency: 'Varias salidas', notes: 'Valencia → Castellón → Burriana. Revisar horarios en temporada de festival.' },
@@ -788,28 +920,28 @@ export const FESTIVAL_LANDINGS: FestivalLanding[] = [
     },
     common_pickup_points: [
       {
-        name: "Castellón — Estación de Autobuses",
+        name: "Castellón · Estación de Autobuses",
         lat: 39.9843, lng: -0.0355,
         address: "Carrer del Pintor Oliet, 2, 12003 Castellón de la Plana",
         transport_access: "Autobús urbano L1, L4, L9. Punto de salida de la lanzadera oficial Arenal Sound.",
         notes: "Lanzadera oficial sale desde aquí. Carpoolings de Valencia también suelen pasar.",
       },
       {
-        name: "Valencia — Estación del Norte",
+        name: "Valencia · Estación del Norte",
         lat: 39.4652, lng: -0.3774,
         address: "Carrer de Xàtiva, 24, 46007 Valencia",
         transport_access: "Metro L3, L5 Xàtiva. Cercanías C4 hacia Castellón.",
         notes: "Punto de salida más popular para carpoolings Valencia → Arenal Sound. 65 km al recinto.",
       },
       {
-        name: "Valencia — Colón (Metro)",
+        name: "Valencia · Colón (Metro)",
         lat: 39.4701, lng: -0.3774,
         address: "Carrer de Jorge Juan, 19, 46004 Valencia",
         transport_access: "Metro L3, L5 Colón. Centro de Valencia.",
         notes: "Alternativa a Estación del Norte para conductores que salen del centro.",
       },
       {
-        name: "Burriana — Recinto Arenal Sound",
+        name: "Burriana · Recinto Arenal Sound",
         lat: 39.8872, lng: -0.0845,
         address: "Playa Arenal, Burriana, Castellón",
         transport_access: "Destino final en la playa. Parking de pago disponible.",
@@ -888,6 +1020,7 @@ export const FESTIVAL_LANDINGS: FestivalLanding[] = [
       },
     ],
     relatedFestivals: ["arenal-sound", "fib", "low-festival"],
+    relatedBlogs: ["guia-transporte-vina-rock-2026", "autobuses-festivales-espana-2026", "blablacar-vs-concertride"],
   },
 
   {
@@ -978,6 +1111,7 @@ export const FESTIVAL_LANDINGS: FestivalLanding[] = [
       },
     ],
     relatedFestivals: ["mad-cool", "sonorama-ribera"],
+    relatedBlogs: ["sonorama-ribera-2026-aranda-de-duero-guia", "autobuses-festivales-espana-2026"],
     transport_options: [
       { type: 'shuttle', provider: 'Autobús oficial Viña Rock', origin: 'Albacete', price_from: 8, price_to: 12, frequency: 'Días de festival', schedule: '14:00–06:00', notes: 'Plazas limitadas — comprar antes de que se agoten' },
       { type: 'bus', provider: 'ALSA', origin: 'Madrid', price_from: 14, price_to: 20, frequency: 'Varias salidas diarias', booking_url: 'https://www.alsa.es' },
@@ -1025,28 +1159,28 @@ export const FESTIVAL_LANDINGS: FestivalLanding[] = [
     },
     common_pickup_points: [
       {
-        name: "Albacete — Estación de Autobuses",
+        name: "Albacete · Estación de Autobuses",
         lat: 38.9946, lng: -1.8584,
         address: "Calle Marqués de Villores, 1, 02001 Albacete",
         transport_access: "Bus urbano L1, L3, L10. Punto de encuentro habitual para carpoolings de Madrid y Valencia.",
         notes: "40 km del recinto. Muchos conductores salen desde aquí a las 14:00–15:00.",
       },
       {
-        name: "Albacete — Estación de Tren",
+        name: "Albacete · Estación de Tren",
         lat: 38.9962, lng: -1.8585,
         address: "Pl. de la Estación, s/n, 02001 Albacete",
         transport_access: "Renfe AVE y MD desde Madrid (2h). A 5 min a pie de la estación de autobuses.",
         notes: "Punto de recogida muy popular para quienes llegan en AVE desde Madrid.",
       },
       {
-        name: "Madrid — Estación de Atocha (Carpooling)",
+        name: "Madrid · Estación de Atocha (Carpooling)",
         lat: 40.4065, lng: -3.6897,
         address: "Glorieta del Emperador Carlos V, 28045 Madrid",
         transport_access: "Metro L1 Atocha Renfe, múltiples líneas de bus.",
         notes: "Punto de salida preferido para carpoolings Madrid → Viña Rock. Coordinar por WhatsApp con el conductor.",
       },
       {
-        name: "Villarrobledo — Entrada al Recinto La Pulgosa",
+        name: "Villarrobledo · Entrada al Recinto La Pulgosa",
         lat: 39.2625, lng: -2.5974,
         address: "La Pulgosa, Villarrobledo, Albacete",
         transport_access: "Destino final. Parking gratuito disponible a 500 m.",
@@ -1121,6 +1255,7 @@ export const FESTIVAL_LANDINGS: FestivalLanding[] = [
       },
     ],
     relatedFestivals: ["resurrection-fest"],
+    relatedBlogs: ["medusa-festival-2026-cullera-transporte", "autobuses-festivales-espana-2026"],
   },
 
   {
@@ -1208,6 +1343,7 @@ export const FESTIVAL_LANDINGS: FestivalLanding[] = [
       },
     ],
     relatedFestivals: ["sonar", "primavera-sound"],
+    relatedBlogs: ["festivales-galicia-2026-transporte", "autobuses-festivales-espana-2026"],
   },
 
   {
@@ -1389,14 +1525,14 @@ export const FESTIVAL_LANDINGS: FestivalLanding[] = [
     },
     common_pickup_points: [
       {
-        name: 'Valencia — Estació del Nord',
+        name: 'Valencia · Estació del Nord',
         lat: 39.4652, lng: -0.3774,
         address: 'Carrer de Xàtiva, 24, 46007 Valencia',
         transport_access: 'Metro L3, L5 Xàtiva. Cercanías C4.',
         notes: 'Punto de salida habitual para carpoolings Madrid/Alicante → Zevra.',
       },
       {
-        name: 'La Marina de València — Moll de la Duana',
+        name: 'La Marina de València · Moll de la Duana',
         lat: 39.457, lng: -0.336,
         address: 'Moll de la Duana, 46024 Valencia',
         transport_access: 'Metro L4 Marítim-Serreria (5 min a pie). Bus EMT 19 y 95.',

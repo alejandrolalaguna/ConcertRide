@@ -1,6 +1,14 @@
-import { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { Heart, LogOut, MessageSquare, Settings, TicketCheck, User as UserIcon } from "lucide-react";
+import {
+  Heart,
+  LogOut,
+  MessageSquare,
+  Settings,
+  TicketCheck,
+  User as UserIcon,
+  ChevronDown,
+} from "lucide-react";
 import { useSession } from "@/lib/session";
 import { initials } from "@/lib/format";
 
@@ -20,9 +28,6 @@ export function TopNav() {
 
   if (loading) return null;
 
-  // Avoid nested ?next= chains: if user is already on an auth page,
-  // forward the original next (or "/") instead of wrapping the auth URL.
-  // Otherwise GSC sees /login?next=/login?next=/login?next=/X infinitely nested.
   const rawNext = location.pathname + location.search;
   const isOnAuthPage =
     location.pathname === "/login" ||
@@ -33,11 +38,9 @@ export function TopNav() {
   if (!isOnAuthPage) {
     safeNext = rawNext;
   } else {
-    // We're on an auth page — extract the existing next= from search params.
     try {
       const sp = new URLSearchParams(location.search);
       const existing = sp.get("next");
-      // Only forward if it's a relative path that doesn't itself point to auth.
       if (
         existing &&
         existing.startsWith("/") &&
@@ -55,36 +58,25 @@ export function TopNav() {
   return (
     <nav
       ref={ref}
-      className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-4 md:px-6 h-14 bg-cr-bg/90 backdrop-blur border-b border-cr-border font-sans text-xs"
+      className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-4 md:px-6 h-14 bg-cr-bg/85 backdrop-blur-md border-b border-cr-border font-sans text-xs"
     >
+      {/* Wordmark */}
       <Link
         to="/"
-        className="font-display text-sm uppercase tracking-[0.08em] hover:text-cr-primary transition-colors"
+        className="font-display text-[13px] uppercase tracking-[0.06em] hover:opacity-90 transition-opacity"
       >
         Concert<span className="text-cr-primary">Ride</span>
       </Link>
 
-      {/* Centre nav links — hidden on small screens */}
-      <div className="hidden md:flex items-center gap-6 absolute left-1/2 -translate-x-1/2">
-        <Link
-          to="/concerts"
-          className="font-sans text-[11px] font-semibold uppercase tracking-[0.12em] text-cr-text-muted hover:text-cr-primary transition-colors"
-        >
-          Conciertos
-        </Link>
-        <Link
-          to="/festivales"
-          className="font-sans text-[11px] font-semibold uppercase tracking-[0.12em] text-cr-text-muted hover:text-cr-primary transition-colors"
-        >
-          Festivales
-        </Link>
-        <Link
-          to="/blog"
-          className="font-sans text-[11px] font-semibold uppercase tracking-[0.12em] text-cr-text-muted hover:text-cr-primary transition-colors"
-        >
-          Blog
-        </Link>
+      {/* Centre nav links */}
+      <div className="hidden md:flex items-center gap-1 absolute left-1/2 -translate-x-1/2">
+        <NavLink to="/concerts">Conciertos</NavLink>
+        <NavLink to="/festivales">Festivales</NavLink>
+        <NavLink to="/rutas">Rutas</NavLink>
+        <NavLink to="/blog">Blog</NavLink>
       </div>
+
+      {/* Right side */}
       {user ? (
         <div className="relative">
           <button
@@ -92,81 +84,71 @@ export function TopNav() {
             onClick={() => setOpen((v) => !v)}
             aria-haspopup="menu"
             aria-expanded={open}
-            className="inline-flex items-center gap-2 bg-cr-surface/85 backdrop-blur border border-cr-border hover:border-cr-primary text-cr-text hover:text-cr-primary pl-2 pr-3 py-1.5 transition-colors"
+            className="inline-flex items-center gap-2 h-9 bg-cr-surface-2 border border-cr-border hover:border-cr-primary/50 text-cr-text hover:text-cr-primary pl-1.5 pr-2.5 transition-[border-color,color] duration-150"
           >
+            {/* Avatar */}
             <span
               aria-hidden="true"
-              className="w-6 h-6 rounded-full bg-cr-primary text-black font-mono text-[10px] flex items-center justify-center"
+              className="w-6 h-6 bg-cr-primary text-black font-display font-black text-[10px] flex items-center justify-center flex-shrink-0"
             >
               {initials(user.name)}
             </span>
-            <span className="font-semibold uppercase tracking-[0.12em] hidden sm:inline">
+            <span className="font-semibold uppercase tracking-[0.1em] text-[11px] hidden sm:inline">
               {user.name.split(" ")[0]}
             </span>
+            <ChevronDown
+              size={11}
+              className={`text-cr-text-muted transition-transform duration-150 ${open ? "rotate-180" : ""}`}
+            />
           </button>
 
           {open && (
             <div
               role="menu"
-              className="absolute right-0 mt-2 min-w-[200px] bg-cr-surface border border-cr-border divide-y divide-cr-border shadow-[0_0_24px_rgb(0_0_0_/_0.6)]"
+              className="absolute right-0 mt-2 min-w-[220px] bg-cr-surface border border-cr-border shadow-[var(--shadow-float)] overflow-hidden"
             >
-              <div className="px-4 py-3 space-y-0.5">
+              {/* User info header */}
+              <div className="px-4 py-3.5 bg-cr-surface-2 border-b border-cr-border">
                 <p className="font-mono text-[11px] text-cr-text truncate">{user.email}</p>
-                <p className="font-sans text-[10px] uppercase tracking-[0.12em] text-cr-text-muted">
-                  {user.rides_given} viajes · ★ {user.rating.toFixed(1)}
+                <p className="font-mono text-[10px] text-cr-text-muted mt-0.5 flex items-center gap-1.5">
+                  <span className="text-cr-primary">★ {user.rating.toFixed(1)}</span>
+                  <span className="text-cr-text-dim">·</span>
+                  <span>{user.rides_given} viajes</span>
                 </p>
               </div>
-              <Link
-                to="/publish"
-                onClick={() => setOpen(false)}
-                role="menuitem"
-                className="flex items-center gap-2 px-4 py-2.5 hover:bg-cr-surface-2 hover:text-cr-primary"
-              >
-                <UserIcon size={12} aria-hidden="true" /> Publicar un viaje
-              </Link>
-              <Link
-                to="/mis-viajes"
-                onClick={() => setOpen(false)}
-                role="menuitem"
-                className="flex items-center gap-2 px-4 py-2.5 hover:bg-cr-surface-2 hover:text-cr-primary"
-              >
-                <TicketCheck size={12} aria-hidden="true" /> Mis viajes
-              </Link>
-              <Link
-                to="/mensajes"
-                onClick={() => setOpen(false)}
-                role="menuitem"
-                className="flex items-center gap-2 px-4 py-2.5 hover:bg-cr-surface-2 hover:text-cr-primary"
-              >
-                <MessageSquare size={12} aria-hidden="true" /> Mensajes
-              </Link>
-              <Link
-                to="/favoritos"
-                onClick={() => setOpen(false)}
-                role="menuitem"
-                className="flex items-center gap-2 px-4 py-2.5 hover:bg-cr-surface-2 hover:text-cr-primary"
-              >
-                <Heart size={12} aria-hidden="true" /> Favoritos
-              </Link>
-              <Link
-                to="/profile"
-                onClick={() => setOpen(false)}
-                role="menuitem"
-                className="flex items-center gap-2 px-4 py-2.5 hover:bg-cr-surface-2 hover:text-cr-primary"
-              >
-                <Settings size={12} aria-hidden="true" /> Mi perfil
-              </Link>
-              <button
-                type="button"
-                role="menuitem"
-                onClick={async () => {
-                  setOpen(false);
-                  await logout();
-                }}
-                className="w-full flex items-center gap-2 px-4 py-2.5 text-left hover:bg-cr-surface-2 hover:text-cr-secondary"
-              >
-                <LogOut size={12} aria-hidden="true" /> Cerrar sesión
-              </button>
+
+              <div className="py-1">
+                <MenuLink to="/publish" icon={<UserIcon size={12} />} onClick={() => setOpen(false)}>
+                  Publicar un viaje
+                </MenuLink>
+                <MenuLink to="/mis-viajes" icon={<TicketCheck size={12} />} onClick={() => setOpen(false)}>
+                  Mis viajes
+                </MenuLink>
+                <MenuLink to="/mensajes" icon={<MessageSquare size={12} />} onClick={() => setOpen(false)}>
+                  Mensajes
+                </MenuLink>
+                <MenuLink to="/favoritos" icon={<Heart size={12} />} onClick={() => setOpen(false)}>
+                  Favoritos
+                </MenuLink>
+                <MenuLink to="/profile" icon={<Settings size={12} />} onClick={() => setOpen(false)}>
+                  Mi perfil
+                </MenuLink>
+              </div>
+
+              <div className="border-t border-cr-border py-1">
+                <button
+                  type="button"
+                  role="menuitem"
+                  onClick={async () => {
+                    setOpen(false);
+                    await logout();
+                  }}
+                  className="w-full flex items-center gap-2.5 px-4 py-2.5 text-left text-[12px] font-sans font-medium text-cr-text-muted hover:bg-cr-secondary/[0.06] hover:text-cr-secondary transition-colors"
+                >
+                  <LogOut size={12} aria-hidden="true" />
+                  Cerrar sesión
+                </button>
+              </div>
             </div>
           )}
         </div>
@@ -174,11 +156,56 @@ export function TopNav() {
         <Link
           to={`/login${next !== "%2F" ? `?next=${next}` : ""}`}
           rel="nofollow"
-          className="inline-flex items-center gap-1.5 bg-cr-surface/85 backdrop-blur border border-cr-border hover:border-cr-primary text-cr-text hover:text-cr-primary px-3 py-1.5 font-semibold uppercase tracking-[0.12em] transition-colors"
+          className="inline-flex items-center gap-1.5 h-9 bg-cr-surface-2 border border-cr-border hover:border-cr-primary/50 hover:text-cr-primary text-cr-text px-3.5 font-semibold uppercase tracking-[0.12em] text-[11px] transition-[border-color,color] duration-150"
         >
           Entrar
         </Link>
       )}
     </nav>
+  );
+}
+
+// ── Sub-components ────────────────────────────────────────────────────────────
+
+function NavLink({ to, children }: { to: string; children: React.ReactNode }) {
+  const location = useLocation();
+  const isActive = location.pathname.startsWith(to);
+
+  return (
+    <Link
+      to={to}
+      className={`relative px-3 py-1.5 font-sans text-[11px] font-semibold uppercase tracking-[0.12em] transition-colors duration-150 ${
+        isActive ? "text-cr-primary" : "text-cr-text-muted hover:text-cr-text"
+      }`}
+    >
+      {children}
+      {isActive && (
+        <span className="absolute bottom-0 left-1/2 -translate-x-1/2 w-4 h-px bg-cr-primary" />
+      )}
+    </Link>
+  );
+}
+
+function MenuLink({
+  to,
+  icon,
+  children,
+  onClick,
+}: {
+  to: string;
+  icon: React.ReactNode;
+  children: React.ReactNode;
+  onClick: () => void;
+}) {
+  return (
+    <Link
+      to={to}
+      onClick={onClick}
+      role="menuitem"
+      className="flex items-center gap-2.5 px-4 py-2.5 text-[12px] font-sans font-medium text-cr-text-muted hover:bg-cr-surface-2 hover:text-cr-primary transition-colors duration-100"
+    >
+      <span className="text-cr-text-dim">{icon}</span>
+      {children}
+    </Link>
   );
 }

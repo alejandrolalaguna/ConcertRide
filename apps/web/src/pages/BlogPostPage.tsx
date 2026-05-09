@@ -93,7 +93,7 @@ export default function BlogPostPage() {
       : undefined,
     ogType: "article",
     ogImageAlt: post?.coverImage?.alt
-      ?? (post ? `${post.title} — guía de transporte y carpooling — ConcertRide` : "Blog de transporte y carpooling para conciertos — ConcertRide"),
+      ?? (post ? `${post.title} — guía de transporte y carpooling · ConcertRide` : "Blog de transporte y carpooling para conciertos · ConcertRide"),
     articleAuthor: post?.author,
     articlePublishedTime: post?.publishedAt,
     articleModifiedTime: post?.updatedAt ?? post?.publishedAt,
@@ -192,7 +192,7 @@ export default function BlogPostPage() {
         },
     speakable: {
       "@type": "SpeakableSpecification",
-      cssSelector: ["h1", ".speakable", "article p:first-of-type"],
+      cssSelector: ["h1", ".speakable", "article p:first-of-type", "h2", ".transport-info", "table", ".faq-section dt"],
     },
     isPartOf: { "@id": `${SITE_URL}/#website` },
     about: (post.tags ?? []).length > 0

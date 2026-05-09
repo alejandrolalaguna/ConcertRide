@@ -321,7 +321,7 @@ export function generateServiceReviewSchema({
     "@context": "https://schema.org",
     "@type": "Service",
     "@id": `${siteUrl}/#service`,
-    name: "ConcertRide — Carpooling para conciertos y festivales",
+    name: "ConcertRide · Carpooling para conciertos y festivales",
     aggregateRating: {
       "@type": "AggregateRating",
       ratingValue: aggregate.ratingValue,
@@ -343,7 +343,7 @@ export function generateServiceReviewSchema({
       },
       datePublished: r.date,
       reviewBody: r.quote,
-      name: `Experiencia ConcertRide — ${r.concert}`,
+      name: `Experiencia ConcertRide · ${r.concert}`,
     })),
   };
 }

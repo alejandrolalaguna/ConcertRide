@@ -14,7 +14,7 @@ export default function CalendarLandingPage() {
   const festivals = getCalendarFestivals(cal) as FestivalLanding[];
 
   useSeoMeta({
-    title: `Festivales de música ${cal.month} ${cal.year} en España — carpooling sin comisión | ConcertRide`,
+    title: `Festivales de música ${cal.month} ${cal.year} en España · carpooling sin comisión | ConcertRide`,
     description: `¿Qué festivales hay en ${cal.month.toLowerCase()} ${cal.year} en España? ${festivals.slice(0, 3).map((f) => f.shortName).join(", ")} y más. Carpooling sin comisión con ConcertRide.`,
     canonical: `${SITE_URL}/calendario-festivales/${cal.slug}`,
     keywords: [

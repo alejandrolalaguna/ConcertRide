@@ -82,7 +82,7 @@ export default function MessagesPage() {
   const [error, setError] = useState(false);
 
   useSeoMeta({
-    title: "Mensajes — ConcertRide",
+    title: "Mensajes · ConcertRide",
     description: "Tus conversaciones privadas, chats de viajes y chats de conciertos en ConcertRide.",
     noindex: true,
   });

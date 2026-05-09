@@ -37,8 +37,8 @@ export default function RouteLandingPage() {
       : "Carpooling a festivales en España.",
     canonical: landing ? `${SITE_URL}/rutas/${landing.slug}` : `${SITE_URL}/concerts`,
     ogImageAlt: landing
-      ? `Carpooling ${landing.originCity} a ${landing.festival.shortName} ${routeYear} — ConcertRide`
-      : "Carpooling a festivales de música en España — ConcertRide",
+      ? `Carpooling ${landing.originCity} a ${landing.festival.shortName} ${routeYear} · ConcertRide`
+      : "Carpooling a festivales de música en España · ConcertRide",
     keywords: landing
       ? routeOverride?.keywords ?? [
           `carpooling ${landing.originCity} ${landing.festival.shortName}`,
@@ -418,6 +418,50 @@ export default function RouteLandingPage() {
     subjectOf: { "@type": "TouristTrip", "@id": `${SITE_URL}/rutas/${landing.slug}#trip` },
   };
 
+  // Dataset schema for the transport comparison table — lets AI systems extract
+  // "ConcertRide: 0% commission" and competitor prices as machine-readable facts.
+  const jsonLdTransportDataset = {
+    "@context": "https://schema.org",
+    "@type": "Dataset",
+    name: `Comparativa de transporte ${originCity} → ${festival.shortName} ${routeYear}`,
+    description: `Precios, tiempos y comisiones de las principales opciones de transporte de ${originCity} a ${festival.name} en ${festival.city}. Datos orientativos ${routeYear}.`,
+    url: `${SITE_URL}/rutas/${landing.slug}`,
+    inLanguage: "es-ES",
+    license: "https://creativecommons.org/licenses/by/4.0/",
+    creator: { "@type": "Organization", "@id": `${SITE_URL}/#organization` },
+    keywords: `carpooling ${originCity} ${festival.shortName}, transporte ${festival.shortName}, precio bus ${festival.shortName}, taxi ${festival.shortName}, BlaBlaCar vs ConcertRide`,
+    variableMeasured: [
+      { "@type": "PropertyValue", name: "Opción de transporte", value: "ConcertRide carpooling" },
+      { "@type": "PropertyValue", name: "Precio por asiento", value: `${originData.concertRideRange}` },
+      { "@type": "PropertyValue", name: "Tiempo de trayecto", value: originData.drivingTime },
+      { "@type": "PropertyValue", name: "Comisión de plataforma", value: "0 %" },
+      { "@type": "PropertyValue", name: "Vuelta de madrugada", value: "Sí, coordinada" },
+    ],
+    distribution: [
+      {
+        "@type": "DataDownload",
+        name: "ConcertRide carpooling",
+        contentUrl: `${SITE_URL}/rutas/${landing.slug}`,
+        description: `Precio: ${originData.concertRideRange}/asiento · Tiempo: ${originData.drivingTime} · Comisión: 0 % · Vuelta madrugada: Sí (coordinada)`,
+      },
+      {
+        "@type": "DataDownload",
+        name: "Taxi / VTC (Uber, Cabify)",
+        description: `Precio: 35–80 € ida (nocturno) · Tiempo: ${originData.drivingTime} · Comisión: — · Vuelta madrugada: Sí (precio ×2–3)`,
+      },
+      {
+        "@type": "DataDownload",
+        name: "BlaBlaCar",
+        description: `Precio: ${originData.concertRideRange} + 12–18 % comisión · Tiempo: ${originData.drivingTime} · Comisión: 12–18 % · Vuelta madrugada: Depende`,
+      },
+      {
+        "@type": "DataDownload",
+        name: "Autobús / tren",
+        description: `Precio: 3–15 € (si disponible) · Tiempo: Variable · Comisión: — · Vuelta madrugada: No (último ~1:30)`,
+      },
+    ],
+  };
+
   const futureConcerts = (concerts ?? []).filter(
     (c) => new Date(c.date).getTime() > Date.now(),
   );
@@ -431,6 +475,7 @@ export default function RouteLandingPage() {
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdWebPage) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdService) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdHowToTravel) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdTransportDataset) }} />
       {jsonLdVariants.map((variant, index) => (
         <script key={`route-json-variant-${index}`} type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(variant) }} />
       ))}

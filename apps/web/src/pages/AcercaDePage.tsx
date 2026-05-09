@@ -5,7 +5,7 @@ import { ExternalLink } from "lucide-react";
 
 export default function AcercaDePage() {
   useSeoMeta({
-    title: "Acerca de ConcertRide — Carpooling para conciertos en España | ConcertRide",
+    title: "Acerca de ConcertRide · Carpooling para conciertos en España | ConcertRide",
     description:
       "Qué es ConcertRide, quién lo hace y por qué existe: la plataforma española de carpooling para conciertos y festivales. Gratuita, sin comisiones, conductores verificados.",
     canonical: `${SITE_URL}/acerca-de`,
@@ -158,7 +158,7 @@ export default function AcercaDePage() {
           __html: JSON.stringify({
             "@context": "https://schema.org",
             "@type": "Dataset",
-            name: "ConcertRide España — Estadísticas y datos de carpooling a festivales 2026",
+            name: "ConcertRide España · Estadísticas y datos de carpooling a festivales 2026",
             description: "Datos propios de ConcertRide sobre carpooling a festivales de música en España: festivales cubiertos, rutas disponibles, precios por asiento, cobertura geográfica y métricas de sostenibilidad.",
             url: `${SITE_URL}/acerca-de`,
             creator: {

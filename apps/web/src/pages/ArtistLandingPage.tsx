@@ -25,14 +25,14 @@ export default function ArtistLandingPage() {
   useSeoMeta({
     title: artist
       ? artistOverride?.title ?? `${artist.name} concierto España 2026: carpooling desde ${minPrice}€ sin comisión | ConcertRide`
-      : "Artistas — ConcertRide",
+      : "Artistas · ConcertRide",
     description: artist
       ? artistOverride?.description ?? `Conciertos de ${artist.name} en España 2026${venueCities ? ` — ${venueCities}` : ""}. Carpooling desde ${minPrice} €/asiento, 0 % de comisión, conductores verificados. Cómo llegar al concierto de ${artist.name} con ConcertRide.`
       : "Carpooling para conciertos de artistas en España con ConcertRide.",
     canonical: artist ? `${SITE_URL}/artistas/${artist.slug}` : undefined,
     ogImageAlt: artist
-      ? `Conciertos de ${artist.name} en España 2026: carpooling desde ${minPrice}€ sin comisión — ConcertRide`
-      : "Artistas en concierto en España — ConcertRide",
+      ? `Conciertos de ${artist.name} en España 2026: carpooling desde ${minPrice}€ sin comisión · ConcertRide`
+      : "Artistas en concierto en España · ConcertRide",
     ogType: hasUpcoming ? "music.event" : "website",
     keywords: artist
       ? artistOverride?.keywords ?? [
@@ -73,6 +73,10 @@ export default function ArtistLandingPage() {
       : {}),
     genre: artist.genre,
     knowsAbout: ["Conciertos en España", "Música", ...artist.genre],
+    speakable: {
+      "@type": "SpeakableSpecification",
+      cssSelector: ["h1", ".artist-summary", ".concert-list", ".faq-section", ".speakable", "article p:first-of-type"],
+    },
   };
 
   const jsonLdFaqs = {

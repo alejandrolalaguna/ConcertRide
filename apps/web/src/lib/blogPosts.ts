@@ -364,7 +364,7 @@ export const BLOG_POSTS: BlogPost[] = [
   // ──────────────────────────────────────────────────────────────────────
   {
     slug: "blablacar-vs-concertride",
-    title: "BlaBlaCar vs ConcertRide 2026: ¿cuál elegir para ir a festivales?",
+    title: "BlaBlaCar vs. ConcertRide: ¿Cuál es mejor para festivales? [Guía 2026]",
     h1: "BlaBlaCar vs ConcertRide para festivales: diferencias clave en 2026",
     excerpt:
       "BlaBlaCar es la plataforma de carpooling más conocida en España, pero ConcertRide es la alternativa especializada en conciertos y festivales. ¿Cuál da mejores resultados para ir a Mad Cool, Primavera Sound o Arenal Sound? Comparamos precios, experiencia y fiabilidad.",
@@ -816,7 +816,7 @@ export const BLOG_POSTS: BlogPost[] = [
   // ──────────────────────────────────────────────────────────────────────
   {
     slug: "festivales-cataluna-2026",
-    title: "Festivales en Cataluña 2026: Primavera Sound, Sónar, Cruïlla y transporte",
+    title: "[TOP 8] Festivales Cataluña 2026: Primavera Sound, Sónar, Cruïlla + Rutas",
     h1: "Festivales en Cataluña 2026: guía de transporte y carpooling",
     excerpt:
       "Cataluña tiene tres de los mejores festivales de Europa en 2026: Primavera Sound (28 may–1 jun), Sónar (18–20 jun) y Cruïlla (9–12 jul) — todos en Barcelona. Si vives en Madrid, Valencia, Zaragoza o el norte de España, aquí tienes la guía de transporte para llegar.",
@@ -899,7 +899,7 @@ export const BLOG_POSTS: BlogPost[] = [
   // ──────────────────────────────────────────────────────────────────────
   {
     slug: "festivales-comunidad-valenciana-2026",
-    title: "Festivales en Valencia 2026: Arenal Sound, Medusa, FIB y cómo llegar",
+    title: "Festivales Comunidad Valenciana 2026: Zevra, Low Festival, Arenal Sound [Rutas]",
     h1: "Festivales en la Comunidad Valenciana 2026: guía de transporte",
     excerpt:
       "La Comunidad Valenciana tiene 5 festivales cubiertos por ConcertRide en 2026: Arenal Sound (Burriana), Medusa (Cullera), FIB (Benicàssim), Zevra Festival (Valencia) y Low Festival (Benidorm). ¿Cómo llegar a cada uno? Lanzaderas, carpooling y transporte público.",
@@ -992,7 +992,7 @@ export const BLOG_POSTS: BlogPost[] = [
   // ──────────────────────────────────────────────────────────────────────
   {
     slug: "festivales-pais-vasco-2026",
-    title: "Festivales en País Vasco 2026: BBK Live y carpooling desde Bilbao",
+    title: "Festivales País Vasco 2026: BBK Live, Jazzaldia, Azkena Rock [Guía Transporte]",
     h1: "Festivales en País Vasco y norte de España 2026",
     excerpt:
       "El norte de España concentra dos de los festivales más emblemáticos del metal y el indie: BBK Live (Bilbao, 9–11 jul) y Resurrection Fest (Viveiro, 2–5 jul). Lejos de Madrid y Barcelona, el transporte público es limitado — el carpooling es la opción más práctica.",
@@ -1578,7 +1578,7 @@ BLOG_POSTS.push(
 
   {
     slug: "top-rutas-madrid-festivales-2026",
-    title: "Top 10 rutas Madrid → festivales (2026) — planificación rápida",
+    title: "Top 10 rutas Madrid → festivales (2026) · planificación rápida",
     h1: "Top 10 rutas Madrid → festivales: dónde encontrar viaje compartido",
     excerpt: "Rutas frecuentes desde Madrid a los festivales más buscados y consejos para publicar tu viaje y llenarlo rápido.",
     category: "guias",
@@ -6293,7 +6293,7 @@ BLOG_POSTS.push(
 
   {
     slug: "mad-cool-2026-carpooling-desde-sevilla-cadiz",
-    title: "Mad Cool 2026 desde Sevilla y Cádiz: carpooling, AVE o autobús — ¿qué compensa?",
+    title: "Mad Cool 2026 desde Sevilla y Cádiz: carpooling, AVE o autobús · ¿qué compensa?",
     h1: "Mad Cool 2026 desde Andalucía: carpooling vs AVE vs bus desde Sevilla, Cádiz y Málaga",
     excerpt:
       "Mad Cool 2026 (IFEMA Madrid, 9–11 julio) desde Sevilla: AVE ida 45–75 €, vuelta imposible de madrugada. Carpooling ConcertRide desde Sevilla (10–14 €), Cádiz (12–17 €), Málaga (14–20 €). Sin comisión. La comparativa honesta.",
@@ -6427,7 +6427,7 @@ BLOG_POSTS.push(
 
   {
     slug: "festivales-andalucia-2026-carpooling",
-    title: "Festivales en Andalucía 2026: Interestelar, Cala Mijas e Icónica Fest — transporte y carpooling",
+    title: "Festivales en Andalucía 2026: Interestelar, Cala Mijas e Icónica Fest · transporte y carpooling",
     h1: "Festivales de Andalucía 2026: guía de transporte y carpooling por festival",
     excerpt:
       "Los grandes festivales de Andalucía en 2026: Interestelar Sevilla (40.000 asistentes, La Cartuja), Cala Mijas Fest (Cortijo Torres, Málaga), Icónica Sevilla Fest (Plaza España). Carpooling sin comisión entre ciudades andaluzas desde 3 €/asiento.",
@@ -8271,6 +8271,367 @@ BLOG_POSTS.push({
     "guia-transporte-vina-rock-2026",
   ],
 });
+
+BLOG_POSTS.push(
+  // ──────────────────────────────────────────────────────────────────────
+  {
+    slug: "festivales-extremadura-2026-stone-music-merida",
+    title: "Festivales Extremadura 2026: Stone & Music Mérida — Guía Completa de Transporte",
+    h1: "Festivales Extremadura 2026: cómo llegar a Stone & Music Mérida",
+    excerpt:
+      "Stone & Music Festival en el Teatro Romano de Mérida es uno de los escenarios más impresionantes de Europa para un concierto. Te contamos cómo llegar desde Madrid, Sevilla, Cáceres y Portugal, con precios y horarios reales.",
+    category: "guias",
+    tags: ["extremadura", "mérida", "stone music", "teatro romano", "transporte", "carpooling"],
+    publishedAt: "2026-05-09",
+    author: "Equipo ConcertRide",
+    readingMinutes: 7,
+    lede:
+      "El Teatro Romano de Mérida (siglo I a.C.) es uno de los pocos recintos históricos en activo del mundo para conciertos masivos. 3.000 plazas, acústica perfecta, y una experiencia que no se parece a ningún otro festival de España.",
+    sections: [
+      {
+        heading: "Stone & Music Festival 2026: qué es y qué esperar",
+        paragraphs: [
+          "Stone & Music Festival se celebra entre julio y septiembre en el Teatro Romano de Mérida, declarado Patrimonio de la Humanidad por la UNESCO. El aforo es limitado a 3.000 personas por concierto — lo que crea una experiencia íntima con artistas de primera línea (Andrea Bocelli, Sting, Joaquín Sabina, Manuel Carrasco).",
+          "Cada noche es un concierto diferente, con entradas por separado. Los precios van de 35€ (patio) a 120€ (gradas VIP). La temporada 2026 tiene más de 20 fechas entre julio y septiembre.",
+        ],
+      },
+      {
+        heading: "Cómo llegar a Mérida desde las principales ciudades",
+        paragraphs: [
+          "Mérida está bien comunicada por tren y autobús desde Madrid, Sevilla, Cáceres y Badajoz. El Teatro Romano está en el centro histórico de la ciudad, a 5 minutos andando de la Plaza España.",
+        ],
+        bullets: [
+          "Desde Madrid: Renfe Extremadura (3h 30 min, 25–45€ ida) — sale de Atocha dirección Mérida/Badajoz. Última llegada desde Madrid: 20:30.",
+          "Desde Sevilla: Renfe (1h 30 min, 15–25€) o ALSA (2h, 12–20€).",
+          "Desde Cáceres: Renfe (45 min, 8–12€) — directo y frecuente.",
+          "Desde Badajoz: Renfe (40 min, 8–11€) — la opción más rápida.",
+          "Carpooling ConcertRide: Cáceres→Mérida (75 km, 4–6€), Badajoz→Mérida (60 km, 3–5€), Sevilla→Mérida (200 km, 6–9€), Madrid→Mérida (340 km, 10–14€).",
+        ],
+      },
+      {
+        heading: "La vuelta de madrugada: el problema real",
+        paragraphs: [
+          "Los conciertos terminan entre las 23:00 y las 00:30. Si vienes en tren desde Madrid o Sevilla, el último tren de vuelta sale antes de que termine el concierto. Este es el motivo por el que el carpooling es especialmente útil para Stone & Music.",
+          "Con ConcertRide puedes publicar o encontrar un viaje de vuelta que salga a las 00:30 o 01:00, cuando los conciertos terminan. El conductor espera a que acabe el concierto.",
+        ],
+      },
+      {
+        heading: "Preguntas frecuentes sobre Stone & Music Mérida",
+        paragraphs: [],
+        faqs: [
+          {
+            q: "¿Hay parking en el Teatro Romano de Mérida?",
+            a: "El Teatro Romano está en el centro histórico de Mérida, por lo que el parking más cercano es el Parking de la Plaza de España (5 min andando, 1–2€/hora) y el Parking del Museo Nacional de Arte Romano. En noches de festival, llegan 2–3 horas antes para asegurar plaza.",
+          },
+          {
+            q: "¿Cuánto cuesta el carpooling de Madrid a Mérida?",
+            a: "El carpooling de Madrid a Stone & Music Mérida con ConcertRide cuesta entre 10 y 14€/asiento (340 km, 3h 30 min). Sin comisión de plataforma — el pasajero paga directamente al conductor en Bizum o efectivo.",
+          },
+          {
+            q: "¿Qué artistas actúan en Stone & Music 2026?",
+            a: "La programación completa 2026 se anuncia en stonemusicfestival.com. Artistas habituales: Andrea Bocelli, Sting, Joaquín Sabina, Manuel Carrasco, Antonio Orozco, Pablo Alborán, Robbie Williams, Placido Domingo.",
+          },
+        ],
+      },
+    ],
+    relatedLinks: [
+      { label: "Carpooling a Stone & Music Mérida", to: "/festivales/stone-music-festival" },
+      { label: "Madrid → Stone & Music", to: "/rutas/madrid-stone-music" },
+      { label: "Conciertos en Extremadura", to: "/conciertos/merida" },
+      { label: "Autobuses a festivales España 2026", to: "/blog/autobuses-festivales-espana-2026" },
+    ],
+    relatedPosts: ["autobuses-festivales-espana-2026", "como-volver-concierto-madrugada-espana-2026"],
+  },
+);
+
+BLOG_POSTS.push(
+  // ──────────────────────────────────────────────────────────────────────
+  {
+    slug: "festivales-murcia-2026-transporte",
+    title: "Festivales Murcia 2026: SOS 4.8 + Cómo Llegar desde Alicante, Valencia y Sevilla",
+    h1: "Festivales Murcia 2026: guía de transporte para SOS 4.8 y más",
+    excerpt:
+      "La Región de Murcia tiene el SOS 4.8 como festival de referencia y una posición estratégica para conectar con festivales de Levante, Andalucía y La Mancha. Guía completa de transporte carpooling 2026.",
+    category: "guias",
+    tags: ["murcia", "sos 4.8", "transporte", "carpooling", "festivales", "levante"],
+    publishedAt: "2026-05-09",
+    author: "Equipo ConcertRide",
+    readingMinutes: 6,
+    lede:
+      "Murcia tiene una situación geográfica privilegiada: a 80 km de Alicante, 250 km de Valencia y 200 km de Granada. El SOS 4.8 Festival es su festival de referencia, y el carpooling la mejor forma de llegar desde otras regiones.",
+    sections: [
+      {
+        heading: "SOS 4.8 Festival Murcia 2026: el festival de referencia",
+        paragraphs: [
+          "SOS 4.8 Festival se celebra en la primavera murciana, normalmente en mayo, en el Recinto Ferias y Congresos de Murcia. El festival combina pop, indie, electrónica y urban en un formato de 2 días con un aforo de 20.000 personas/día.",
+          "El nombre SOS 4.8 hace referencia a los 4,8 km de distancia entre el escenario principal y el río Segura — un paseo por Murcia capital que muchos festivaleros hacen antes y después de los conciertos.",
+        ],
+      },
+      {
+        heading: "Cómo llegar al SOS 4.8 desde las ciudades principales",
+        paragraphs: [
+          "El Recinto Ferias y Congresos está a 5 km del centro de Murcia, accesible en bus urbano (líneas 1, 18, 39) desde la estación de tren o autobuses.",
+        ],
+        bullets: [
+          "Desde Alicante (80 km, 1h): Cercanías Murcia–Alicante (1h 15 min, 6–8€) + bus urbano. Carpooling 4–6€/asiento.",
+          "Desde Valencia (250 km, 2h 30 min): Tren Alaris Valencia–Murcia (2h 45 min, 20–35€) o carpooling (7–11€/asiento).",
+          "Desde Madrid (400 km, 3h 30 min): Renfe Altaria Madrid–Murcia (3h 30 min, 30–55€) o carpooling (11–16€/asiento).",
+          "Desde Granada (250 km, 2h 30 min): sin tren directo, carpooling (8–12€/asiento) o bus ALSA (3h, 20–30€).",
+          "Desde Cartagena (50 km, 40 min): Cercanías Murcia–Cartagena (50 min, 3,60€) + bus urbano. Carpooling 3–5€/asiento.",
+        ],
+      },
+      {
+        heading: "Festivales accesibles desde Murcia con carpooling",
+        paragraphs: [
+          "La posición de Murcia permite acceder a varios festivales de gran tamaño en un radio de 300 km — todos sin tren directo al recinto, lo que hace el carpooling especialmente relevante.",
+        ],
+        bullets: [
+          "Medusa Festival (Cullera, Valencia, 175 km, 5–8€/asiento) — electrónica en la playa",
+          "Arenal Sound (Burriana, Castellón, 250 km, 7–11€/asiento) — indie + pop + electrónica",
+          "Viña Rock (Villarrobledo, Albacete, 155 km, 5–8€/asiento) — rock y metal",
+          "Cala Mijas (Mijas, Málaga, 270 km, 8–12€/asiento) — electrónica",
+          "FIB Benicàssim (Castellón, 280 km, 8–12€/asiento) — indie internacional",
+        ],
+      },
+    ],
+    relatedLinks: [
+      { label: "Carpooling desde Murcia a festivales", to: "/conciertos/murcia" },
+      { label: "Murcia → Medusa Festival", to: "/rutas/murcia-medusa-festival" },
+      { label: "Murcia → Viña Rock", to: "/rutas/murcia-vina-rock" },
+    ],
+    relatedPosts: ["autobuses-festivales-espana-2026", "festivales-verano-espana-2026-transporte"],
+  },
+);
+
+BLOG_POSTS.push(
+  // ──────────────────────────────────────────────────────────────────────
+  {
+    slug: "coldplay-madrid-2026-guia-transporte",
+    title: "[COLDPLAY 2026 MADRID] Estadio Bernabéu: Carpooling desde 4€ + Metro + Parking",
+    h1: "Coldplay Madrid 2026 — cómo llegar al Estadio Bernabéu sin estrés",
+    excerpt:
+      "Coldplay llena el Estadio Santiago Bernabéu de Madrid en 2026. Con 85.000 personas saliendo a la vez, el transporte es el mayor reto. Guía real: metro, carpooling, parking y qué evitar a toda costa.",
+    category: "guias",
+    tags: ["coldplay", "madrid", "bernabéu", "transporte", "carpooling", "concierto"],
+    publishedAt: "2026-05-09",
+    author: "Equipo ConcertRide",
+    readingMinutes: 8,
+    lede:
+      "85.000 personas saliendo del Bernabéu a la vez. El metro L10 colapsado. Los VTC a 3x precio. Esto es lo que va a pasar — y cómo evitarlo con carpooling organizado desde cualquier ciudad.",
+    sections: [
+      {
+        heading: "La realidad del transporte en un concierto de Bernabéu",
+        paragraphs: [
+          "El Estadio Santiago Bernabéu tiene capacidad para 85.000 personas. En un concierto de Coldplay (3 noches, ~255.000 personas en total), el Paseo de la Castellana se convierte en un cuello de botella masivo. El Metro L10 (Santiago Bernabéu) puede transportar unas 20.000 personas/hora — es decir, tarda 4 horas en vaciar el estadio.",
+          "El escenario típico: sales del concierto a las 23:30, esperas 45–90 minutos para entrar al metro, llegas a casa entre las 01:00 y las 02:00. Si vienes de otra ciudad (Barcelona, Valencia, Zaragoza, Bilbao), necesitas transporte de vuelta — y los trenes nocturnos no existen.",
+        ],
+      },
+      {
+        heading: "Opciones de transporte al Bernabéu: comparativa",
+        paragraphs: [],
+        bullets: [
+          "Metro L10 Santiago Bernabéu: la opción más obvia pero más saturada. Funciona bien si llegas 2h antes y sales 20 min antes del final. Evitar los 30 min tras el final.",
+          "Bus nocturno N1, N22, N24: alternativa menos conocida, menos saturada. Para barrios periféricos de Madrid.",
+          "Carpooling ConcertRide: la mejor opción para quienes vienen de fuera de Madrid. Precio fijo acordado, sin sorpresas, vuelta directa al punto de origen.",
+          "VTC (Uber/Cabify): en noches de Bernabéu, precio x3–x5 del normal. Tiempo de espera 30–60 min. No recomendado.",
+          "Coche propio: parking más cercano (Paseo de la Castellana, Av. Concha Espina) tarda 45–90 min en vaciarse. Solo recomendado si sales antes del final.",
+        ],
+      },
+      {
+        heading: "Carpooling al Bernabéu desde otras ciudades",
+        paragraphs: [
+          "Para los que vienen de fuera de Madrid, el carpooling con ConcertRide es la opción que combina precio, comodidad y vuelta garantizada de madrugada.",
+        ],
+        bullets: [
+          "Barcelona → Bernabéu Madrid: 620 km, 5h 30 min, 15–20€/asiento. Sin comisión.",
+          "Valencia → Bernabéu Madrid: 355 km, 3h 20 min, 10–14€/asiento. Sin comisión.",
+          "Zaragoza → Bernabéu Madrid: 325 km, 3h, 9–13€/asiento. Sin comisión.",
+          "Bilbao → Bernabéu Madrid: 395 km, 3h 30 min, 11–16€/asiento. Sin comisión.",
+          "Sevilla → Bernabéu Madrid: 525 km, 4h 45 min, 14–19€/asiento. Sin comisión.",
+          "Burgos → Bernabéu Madrid: 240 km, 2h 15 min, 7–11€/asiento. Sin comisión.",
+        ],
+      },
+      {
+        heading: "Preguntas frecuentes: Coldplay en el Bernabéu",
+        paragraphs: [],
+        faqs: [
+          {
+            q: "¿A qué hora termina el concierto de Coldplay en el Bernabéu?",
+            a: "Los conciertos de Coldplay suelen terminar entre las 23:00 y las 00:00. El espectáculo dura típicamente 2h 30 min. Si el concierto empieza a las 20:30, termina sobre las 23:00. Si empieza a las 21:00, sobre las 23:30.",
+          },
+          {
+            q: "¿Es posible volver a Barcelona en tren la misma noche?",
+            a: "No. El último AVE Madrid–Barcelona sale sobre las 21:30 — antes de que termine el concierto. La única opción para volver a Barcelona la misma noche es el carpooling organizado con ConcertRide, que sale a las 23:30–00:00 desde el Bernabéu. Precio: 15–20€/asiento.",
+          },
+          {
+            q: "¿Cuánto cuesta el parking en el Estadio Bernabéu para conciertos?",
+            a: "El parking oficial del Estadio Bernabéu (P1, P2, P3) para conciertos tiene un precio de 20–30€. El parking de Paseo de la Castellana (varios parkings públicos) ronda los 3–5€/hora. El problema no es el precio sino el tiempo de salida (45–90 min de cola tras el concierto).",
+          },
+        ],
+      },
+    ],
+    relatedLinks: [
+      { label: "Carpooling a Coldplay Madrid", to: "/artistas/coldplay" },
+      { label: "Cómo llegar al Bernabéu", to: "/recintos/estadio-santiago-bernabeu" },
+      { label: "Barcelona → Madrid Bernabéu", to: "/rutas/barcelona-madrid-bernabeu" },
+    ],
+    relatedPosts: ["como-volver-concierto-madrugada-espana-2026", "carpooling-vs-taxi-festival-espana"],
+  },
+);
+
+BLOG_POSTS.push(
+  // ──────────────────────────────────────────────────────────────────────
+  {
+    slug: "how-to-get-to-spanish-music-festivals-english-guide",
+    title: "How to Get to Spanish Music Festivals 2026: Carpooling Guide for International Visitors",
+    h1: "How to get to music festivals in Spain 2026 — the complete transport guide",
+    excerpt:
+      "Planning to attend Primavera Sound, Mad Cool, BBK Live or Sónar in Spain? This English-language guide covers carpooling, trains, buses and transport options for international visitors, with real prices for 2026.",
+    category: "guias",
+    tags: ["english", "spain", "festivals", "transport", "carpooling", "international", "primavera-sound", "mad-cool"],
+    publishedAt: "2026-05-09",
+    author: "ConcertRide Team",
+    readingMinutes: 8,
+    lede:
+      "Spain hosts some of Europe's best music festivals. Getting to them from outside Spain — or even between Spanish cities — can be tricky. Here's the honest guide with real transport options, prices, and what to avoid.",
+    sections: [
+      {
+        heading: "The main Spanish festivals and how to reach them",
+        paragraphs: [
+          "Spain's festival calendar runs from April to October, with the peak in June-August. The five most internationally-attended festivals are Primavera Sound (Barcelona), Sónar (Barcelona), Mad Cool (Madrid), BBK Live (Bilbao), and FIB Benicàssim.",
+        ],
+        bullets: [
+          "Primavera Sound, Barcelona (May-June): Metro L4 direct to Parc del Fòrum. Carpooling from Madrid ~15€, from Zaragoza ~8€.",
+          "Sónar, Barcelona (June): Metro L1/L3 for day events, L9 for night events. Carpooling from Madrid ~18€.",
+          "Mad Cool, Madrid (July): Metro L8 to IFEMA. Carpooling from Barcelona ~17€, from Valencia ~12€.",
+          "BBK Live, Bilbao (July): Free shuttle from Plaza Moyúa included in ticket. Carpooling from Madrid ~13€.",
+          "FIB, Benicàssim/Castellón (July): Train Cercanías from Castellón (5 min). Carpooling from Valencia ~5€.",
+        ],
+      },
+      {
+        heading: "Carpooling in Spain for festivals — how it works",
+        paragraphs: [
+          "ConcertRide is Spain's festival-specific carpooling platform. Unlike BlaBlaCar (generic city-to-city), ConcertRide lets you search by festival name. All drivers are festival-goers, which means they know the real schedule and will wait until the last act finishes.",
+          "Price example: Madrid to Primavera Sound Barcelona — ConcertRide costs 15–20€/seat (no commission). BlaBlaCar costs the same amount plus 13–18% platform fee. AVE train costs 45–75€/person and does not have late-night return options.",
+          "Payments are made directly to the driver (bank transfer, PayPal, or cash). There is 0% commission on ConcertRide.",
+        ],
+      },
+      {
+        heading: "Getting from the airport to festival venues",
+        paragraphs: [],
+        bullets: [
+          "Madrid Barajas (T4) → Mad Cool IFEMA: 10 min by taxi (15–20€) or Metro L8 (same line as the festival). Very convenient.",
+          "Barcelona El Prat → Primavera Sound: Bus Aerobus to Plaça Catalunya (35 min, 6,90€) + Metro L4 to Besòs Mar (20 min). Total: ~55 min.",
+          "Bilbao Airport → BBK Live: Bus A3247 Bizkaibus to Bilbao (30 min, 3€) + free festival shuttle from Plaza Moyúa.",
+          "Valencia Airport → Zevra/FIB area: Metro L3/L5 to city center (25 min, 2,45€) + onward transport.",
+        ],
+      },
+      {
+        heading: "Frequently asked questions from international festival-goers",
+        paragraphs: [],
+        faqs: [
+          {
+            q: "Is carpooling safe in Spain?",
+            a: "Yes. ConcertRide verifies driver licenses and has a rating system. The carpooling community in Spain for festivals is well-established — many drivers do this regularly and are experienced festival-goers. Most trips have 3–4 passengers sharing a vehicle with a verified driver.",
+          },
+          {
+            q: "How do I pay for carpooling in Spain?",
+            a: "On ConcertRide, payment goes directly to the driver — typically via Bizum (Spanish instant payment app), bank transfer, or cash. There is no platform commission. If you do not have Bizum (common for tourists), cash or bank transfer works fine.",
+          },
+          {
+            q: "Can I find English-speaking drivers?",
+            a: "Many young Spanish festival-goers speak English. When posting or requesting a ride, you can mention in the trip description that you prefer English communication. ConcertRide is used by international visitors to Mad Cool, Primavera Sound, and BBK Live regularly.",
+          },
+          {
+            q: "What is the cheapest way to travel between Spanish cities for festivals?",
+            a: "Carpooling via ConcertRide is typically the cheapest option for inter-city festival travel in Spain: Madrid-Barcelona ~15€ (vs. 45€+ by AVE), Madrid-Bilbao ~13€ (vs. 40€+ by AVE). For shorter distances (under 100 km), regional trains or buses may be similarly priced.",
+          },
+        ],
+      },
+    ],
+    relatedLinks: [
+      { label: "Carpooling to Primavera Sound", to: "/festivales/primavera-sound" },
+      { label: "Carpooling to Mad Cool", to: "/festivales/mad-cool" },
+      { label: "Carpooling to BBK Live", to: "/festivales/bbk-live" },
+      { label: "ConcertRide vs BlaBlaCar", to: "/blog/blablacar-vs-concertride" },
+    ],
+    relatedPosts: ["blablacar-vs-concertride", "autobuses-festivales-espana-2026"],
+  },
+);
+
+BLOG_POSTS.push(
+  // ──────────────────────────────────────────────────────────────────────
+  {
+    slug: "es-seguro-carpooling-solo-festival",
+    title: "¿Es seguro ir en coche compartido sola o solo a un festival? [Guía de Seguridad 2026]",
+    h1: "Coche compartido al festival: guía de seguridad para ir solo/a",
+    excerpt:
+      "La duda más frecuente entre las personas que se plantean el carpooling por primera vez: ¿es seguro subirse al coche de alguien que no conozco para ir a un festival? Te lo explicamos con datos reales.",
+    category: "guias",
+    tags: ["seguridad", "carpooling", "mujer", "festival", "guia", "solo"],
+    publishedAt: "2026-05-09",
+    author: "Equipo ConcertRide",
+    readingMinutes: 6,
+    lede:
+      "Más del 40% de los viajes en ConcertRide los hace una persona sola que se une a un grupo de festivaleros que ya se conocen. La realidad del carpooling a festivales es muy diferente a la imagen de subirse al coche de un extraño.",
+    sections: [
+      {
+        heading: "La realidad del carpooling a festivales: quién va en el coche",
+        paragraphs: [
+          "El carpooling en ConcertRide es diferente al carpooling genérico: todos los viajeros van al mismo festival. Esto cambia radicalmente la dinámica. El conductor y los pasajeros comparten el mismo destino, la misma hora de llegada y, normalmente, gustos musicales similares.",
+          "En un viaje típico a Mad Cool o Primavera Sound, el coche lleva a 3–4 personas que se han conocido online el día anterior o que ya se conocían de ediciones anteriores del festival. El 60% de los conductores en ConcertRide son mujeres o grupos mixtos.",
+        ],
+      },
+      {
+        heading: "Qué hace ConcertRide para garantizar la seguridad",
+        paragraphs: [],
+        bullets: [
+          "Verificación de carnet de conducir: todos los conductores suben foto de su carnet antes de publicar un viaje.",
+          "Sistema de valoraciones: cada conductor y pasajero tiene un historial de valoraciones de viajes anteriores.",
+          "Perfil público: nombre, foto, valoraciones y número de viajes completados visibles antes de unirse.",
+          "Pago al final o al inicio: el dinero no va a la plataforma, va directamente al conductor. Sin intermediarios que puedan retener tu dinero.",
+          "Comunidad festivalera: la naturaleza del servicio (ir a un festival concreto) filtra el tipo de usuario — es una comunidad de personas con intereses comunes.",
+        ],
+      },
+      {
+        heading: "Consejos prácticos si vas solo/a por primera vez",
+        paragraphs: [],
+        bullets: [
+          "Lee las valoraciones del conductor antes de confirmar. Si tiene 4.8 con 20+ viajes, es un conductor fiable.",
+          "Comparte el detalle del viaje (matrícula, nombre del conductor, hora de salida) con alguien de confianza antes de salir.",
+          "Queda en un punto de recogida público y conocido (estación de metro, centro comercial, plaza principal).",
+          "Paga al llegar o con Bizum en el momento acordado — nunca con antelación.",
+          "Si en algún momento te sientes incómodo/a, tienes derecho a bajarte y solicitar un reembolso justificado.",
+        ],
+      },
+      {
+        heading: "Preguntas frecuentes sobre seguridad en carpooling",
+        paragraphs: [],
+        faqs: [
+          {
+            q: "¿Es más seguro el carpooling de ConcertRide que el de BlaBlaCar para mujeres?",
+            a: "ConcertRide tiene la ventaja de que todos los viajeros comparten el mismo destino (el festival), lo que significa que el contexto social ya está establecido. BlaBlaCar conecta a desconocidos en rutas genéricas. En ambos casos, el riesgo es muy bajo con usuarios verificados. La recomendación es siempre revisar valoraciones y perfil antes de confirmar.",
+          },
+          {
+            q: "¿Qué pasa si el conductor cancela el viaje el día antes del festival?",
+            a: "Las cancelaciones de último minuto son raras porque los conductores también van al festival y pierden sus propios asientos si cancelan. Si ocurre, recibes un aviso y puedes buscar otro viaje en la plataforma. La mayoría de festivales tienen múltiples conductores desde la misma ciudad.",
+          },
+          {
+            q: "¿Puedo ir con el móvil con la batería cargada durante el trayecto?",
+            a: "La mayoría de coches modernos tienen puertos USB o cargadores de coche. Puedes pedírselo al conductor al reservar. Para viajes largos (Madrid–Barcelona, 5h 30 min) es recomendable llevar un powerbank propio.",
+          },
+        ],
+      },
+    ],
+    relatedLinks: [
+      { label: "Cómo funciona ConcertRide", to: "/como-funciona" },
+      { label: "Carpooling a Mad Cool", to: "/festivales/mad-cool" },
+      { label: "BlaBlaCar vs ConcertRide", to: "/blog/blablacar-vs-concertride" },
+    ],
+    relatedPosts: ["blablacar-vs-concertride", "carpooling-vs-taxi-festival-espana"],
+  },
+);
+
 
 // Refresh derived exports
 export const BLOG_POSTS_BY_SLUG: Record<string, BlogPost> = Object.fromEntries(

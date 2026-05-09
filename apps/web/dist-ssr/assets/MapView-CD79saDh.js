@@ -153,7 +153,7 @@ function MapView({ concerts, rides }) {
             {
               position: [c.venue.lat, c.venue.lng],
               icon: concertIcon,
-              title: `${c.artist} — ${c.venue.city}`,
+              title: `${c.artist} · ${c.venue.city}`,
               eventHandlers: { click: () => openConcert(c) }
             },
             c.id
