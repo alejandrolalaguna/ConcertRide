@@ -270,6 +270,18 @@ export interface StoreAdapter {
     userId: string,
   ): Promise<boolean>;
 
+  // --- direct messages (1:1 private) ---
+  listDirectMessages(userId: string, otherUserId: string): Promise<import("@concertride/types").DirectMessage[]>;
+  createDirectMessage(
+    sender: User,
+    recipientId: string,
+    body: string,
+    opts?: { kind?: import("@concertride/types").MessageKind; attachment_url?: string },
+  ): Promise<import("@concertride/types").DirectMessage>;
+  // Returns a summary of all conversations the user has participated in:
+  // DMs, ride chats, and concert chats ordered by most-recent message.
+  listConversations(userId: string): Promise<import("@concertride/types").ConversationPreview[]>;
+
   // --- reviews ---
   createReview(
     ride: Ride,

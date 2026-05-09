@@ -537,5 +537,35 @@ export const festivalAlerts = sqliteTable(
   }),
 );
 
+// Private 1-to-1 messages between two registered users.
+// The "conversation" key is the sorted pair (min_id, max_id) so queries are symmetric.
+export const directMessages = sqliteTable(
+  "direct_messages",
+  {
+    id: text("id").primaryKey(),
+    sender_id: text("sender_id")
+      .notNull()
+      .references(() => users.id),
+    recipient_id: text("recipient_id")
+      .notNull()
+      .references(() => users.id),
+    kind: text("kind").notNull().default("text"),
+    body: text("body").notNull(),
+    attachment_url: text("attachment_url"),
+    created_at: text("created_at").notNull().default(sql`CURRENT_TIMESTAMP`),
+  },
+  (t) => ({
+    senderIdx: index("dm_sender_idx").on(t.sender_id),
+    recipientIdx: index("dm_recipient_idx").on(t.recipient_id),
+    createdIdx: index("dm_created_idx").on(t.created_at),
+  }),
+);
+
+export const directMessagesRelations = relations(directMessages, ({ one }) => ({
+  sender: one(users, { fields: [directMessages.sender_id], references: [users.id], relationName: "dm_sender" }),
+  recipient: one(users, { fields: [directMessages.recipient_id], references: [users.id], relationName: "dm_recipient" }),
+}));
+
 export type FestivalAlertRow = typeof festivalAlerts.$inferSelect;
 export type FestivalDemandRow = typeof festivalDemand.$inferSelect;
+export type DirectMessageRow = typeof directMessages.$inferSelect;

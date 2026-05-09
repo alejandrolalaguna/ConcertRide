@@ -230,6 +230,44 @@ export interface MessagesResponse {
   messages: Message[];
 }
 
+export interface DirectMessage {
+  id: string;
+  sender_id: string;
+  recipient_id: string;
+  sender: User;
+  recipient: User;
+  kind: MessageKind;
+  body: string;
+  attachment_url: string | null;
+  created_at: string;
+}
+
+export interface DirectMessagesResponse {
+  messages: DirectMessage[];
+}
+
+// One entry per conversation (DM, ride chat, or concert chat) for the inbox view.
+export type ConversationKind = "dm" | "ride" | "concert";
+
+export interface ConversationPreview {
+  kind: ConversationKind;
+  // For DMs: the other user. For ride/concert: null.
+  other_user: User | null;
+  // For ride chats: the ride summary. For concert/dm: null.
+  ride_id: string | null;
+  ride_label: string | null;
+  // For concert chats: the concert summary. For ride/dm: null.
+  concert_id: string | null;
+  concert_label: string | null;
+  last_message_body: string;
+  last_message_at: string;
+  unread_count: number;
+}
+
+export interface ConversationsResponse {
+  conversations: ConversationPreview[];
+}
+
 export type FavoriteKind = "concert" | "artist" | "city";
 
 export interface Favorite {

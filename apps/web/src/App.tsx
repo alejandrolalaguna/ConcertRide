@@ -48,6 +48,8 @@ const RutasIndexPage = lazy(() => import("./pages/RutasIndexPage"));
 const PrensaPage = lazy(() => import("./pages/PrensaPage"));
 const DatosPage = lazy(() => import("./pages/DatosPage"));
 const VerifyEmailPage = lazy(() => import("./pages/VerifyEmailPage"));
+const MessagesPage = lazy(() => import("./pages/MessagesPage"));
+const DirectMessagePage = lazy(() => import("./pages/DirectMessagePage"));
 const NotFoundPage = lazy(() => import("./pages/NotFoundPage"));
 const DevShowcase = lazy(() => import("./pages/DevShowcase"));
 const ConcertWidgetPage = lazy(() => import("./pages/ConcertWidgetPage"));
@@ -114,6 +116,8 @@ export default function App() {
             <Route path="/verify-email" element={<VerifyEmailPage />} />
             <Route path="/favoritos" element={<FavoritesPage />} />
             <Route path="/mis-viajes" element={<MyRidesPage />} />
+            <Route path="/mensajes" element={<MessagesPage />} />
+            <Route path="/mensajes/:userId" element={<DirectMessagePage />} />
             <Route path="/admin/reports" element={<AdminReportsPage />} />
             <Route path="/profile" element={<ProfilePage />} />
             <Route path="/drivers/:id" element={<DriverProfilePage />} />

@@ -4,11 +4,14 @@ import type {
   Concert,
   ConcertsQuery,
   ConcertsResponse,
+  ConversationsResponse,
   CreateConcertInput,
   CreateReviewRequest,
   CreateRideRequest,
   CreateReportRequest,
   DemandSignal,
+  DirectMessage,
+  DirectMessagesResponse,
   Favorite,
   FavoriteKind,
   FavoritesResponse,
@@ -303,6 +306,18 @@ export const api = {
       fd.append("photo", file);
       return request<{ url: string }>("/api/messages/upload", { method: "POST", body: fd });
     },
+    listDM: (userId: string) =>
+      request<DirectMessagesResponse>(`/api/messages/dm/${encodeURIComponent(userId)}`),
+    postDM: (
+      userId: string,
+      payload: { body: string; kind?: import("@concertride/types").MessageKind; attachment_url?: string },
+    ) =>
+      request<DirectMessage>(`/api/messages/dm/${encodeURIComponent(userId)}`, {
+        method: "POST",
+        body: JSON.stringify(payload),
+      }),
+    listConversations: () =>
+      request<ConversationsResponse>("/api/messages/conversations"),
   },
   reviews: {
     list: (rideId: string) =>

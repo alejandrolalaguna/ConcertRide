@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { Heart, LogOut, Settings, TicketCheck, User as UserIcon } from "lucide-react";
+import { Heart, LogOut, MessageSquare, Settings, TicketCheck, User as UserIcon } from "lucide-react";
 import { useSession } from "@/lib/session";
 import { initials } from "@/lib/format";
 
@@ -131,6 +131,14 @@ export function TopNav() {
                 className="flex items-center gap-2 px-4 py-2.5 hover:bg-cr-surface-2 hover:text-cr-primary"
               >
                 <TicketCheck size={12} aria-hidden="true" /> Mis viajes
+              </Link>
+              <Link
+                to="/mensajes"
+                onClick={() => setOpen(false)}
+                role="menuitem"
+                className="flex items-center gap-2 px-4 py-2.5 hover:bg-cr-surface-2 hover:text-cr-primary"
+              >
+                <MessageSquare size={12} aria-hidden="true" /> Mensajes
               </Link>
               <Link
                 to="/favoritos"

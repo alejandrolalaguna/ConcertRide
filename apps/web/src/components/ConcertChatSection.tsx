@@ -98,7 +98,9 @@ export function ConcertChatSection({ concertId, artist }: Props) {
         <h2 id="concert-chat-title" className="font-display text-sm uppercase tracking-wide text-cr-text-muted">
           Chat del concierto
         </h2>
-        <span className="font-mono text-[10px] text-cr-text-dim uppercase">Abierto a todos los fans</span>
+        <span className="inline-flex items-center gap-1.5 font-mono text-[10px] uppercase tracking-wide text-emerald-400 border border-emerald-400/30 bg-emerald-400/10 px-2 py-0.5">
+          <span aria-hidden="true">◉</span> Chat público · usuarios registrados
+        </span>
       </header>
 
       {!user ? (

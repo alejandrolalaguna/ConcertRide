@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import { motion } from "motion/react";
-import { ArrowLeft, ShieldCheck, Star } from "lucide-react";
+import { ArrowLeft, MessageSquare, ShieldCheck, Star } from "lucide-react";
 import type { Review, Ride, User } from "@concertride/types";
 import { api } from "@/lib/api";
 import { useSeoMeta } from "@/lib/useSeoMeta";
@@ -197,7 +197,13 @@ export default function DriverProfilePage() {
               )}
             </div>
             {currentUser && currentUser.id !== driver.id && (
-              <div className="pt-2">
+              <div className="pt-2 flex items-center gap-3 flex-wrap">
+                <Link
+                  to={`/mensajes/${driver.id}`}
+                  className="inline-flex items-center gap-1.5 font-sans text-xs font-semibold uppercase tracking-[0.12em] border border-cr-border text-cr-text-muted hover:border-cr-primary hover:text-cr-primary px-3 py-1.5 transition-colors"
+                >
+                  <MessageSquare size={11} aria-hidden="true" /> Enviar mensaje
+                </Link>
                 <ReportButton targetUserId={driver.id} variant="inline" />
               </div>
             )}

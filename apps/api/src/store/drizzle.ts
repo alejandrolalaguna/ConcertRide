@@ -11,13 +11,16 @@ import type {
   AdminAuditAction,
   AdminAuditLogEntry,
   Concert,
+  ConversationPreview,
   CreateConcertInput,
   CreateReviewRequest,
   CreateRideRequest,
   DemandSignal,
+  DirectMessage,
   Favorite,
   FavoriteKind,
   Message,
+  MessageKind,
   Report,
   ReportReason,
   RequestStatus,
@@ -1489,6 +1492,180 @@ export class DrizzleStore implements StoreAdapter {
       ),
     });
     return !!driverRide;
+  }
+
+  async listDirectMessages(userId: string, otherUserId: string): Promise<DirectMessage[]> {
+    const rows = await this.db.query.directMessages.findMany({
+      where: or(
+        and(eq(schema.directMessages.sender_id, userId), eq(schema.directMessages.recipient_id, otherUserId)),
+        and(eq(schema.directMessages.sender_id, otherUserId), eq(schema.directMessages.recipient_id, userId)),
+      ),
+      with: { sender: true, recipient: true },
+      orderBy: (m, { asc }) => [asc(m.created_at)],
+    });
+    return rows
+      .filter((r) => r.sender && r.recipient)
+      .map((r) => ({
+        id: r.id,
+        sender_id: r.sender_id,
+        recipient_id: r.recipient_id,
+        sender: hydratePublicUser(r.sender!),
+        recipient: hydratePublicUser(r.recipient!),
+        kind: (r.kind as MessageKind) ?? "text",
+        body: r.body,
+        attachment_url: r.attachment_url ?? null,
+        created_at: r.created_at,
+      }));
+  }
+
+  async createDirectMessage(
+    sender: User,
+    recipientId: string,
+    body: string,
+    opts?: { kind?: MessageKind; attachment_url?: string },
+  ): Promise<DirectMessage> {
+    const recipient = await this.getUser(recipientId);
+    if (!recipient) throw new Error("recipient_not_found");
+
+    const id = `dm_${crypto.randomUUID().slice(0, 10)}`;
+    const now = new Date().toISOString();
+    const kind = opts?.kind ?? "text";
+    const attachment_url = opts?.attachment_url ?? null;
+
+    await this.db.insert(schema.directMessages).values({
+      id,
+      sender_id: sender.id,
+      recipient_id: recipientId,
+      kind,
+      body,
+      attachment_url,
+      created_at: now,
+    });
+
+    return { id, sender_id: sender.id, recipient_id: recipientId, sender, recipient, kind, body, attachment_url, created_at: now };
+  }
+
+  async listConversations(userId: string): Promise<ConversationPreview[]> {
+    const results: ConversationPreview[] = [];
+
+    // 1. DM conversations — get all DMs involving this user, group by other user
+    const allDMs = await this.db
+      .select()
+      .from(schema.directMessages)
+      .where(
+        or(
+          eq(schema.directMessages.sender_id, userId),
+          eq(schema.directMessages.recipient_id, userId),
+        ),
+      )
+      .orderBy(desc(schema.directMessages.created_at));
+
+    // Group by other user, keep only the latest message per conversation
+    const dmByOther = new Map<string, typeof allDMs[0]>();
+    for (const msg of allDMs) {
+      const otherId = msg.sender_id === userId ? msg.recipient_id : msg.sender_id;
+      if (!dmByOther.has(otherId)) dmByOther.set(otherId, msg);
+    }
+    for (const [otherId, msg] of dmByOther) {
+      const otherUser = await this.getUser(otherId);
+      if (!otherUser) continue;
+      results.push({
+        kind: "dm",
+        other_user: hydratePublicUser(otherUser as Parameters<typeof hydratePublicUser>[0]),
+        ride_id: null,
+        ride_label: null,
+        concert_id: null,
+        concert_label: null,
+        last_message_body: msg.body,
+        last_message_at: msg.created_at,
+        unread_count: 0,
+      });
+    }
+
+    // 2. Ride chat conversations — rides where user is driver or confirmed passenger
+    const driverRides = await this.db.query.rides.findMany({
+      where: eq(schema.rides.driver_id, userId),
+      with: { concert: true },
+    });
+    const confirmedReqs = await this.db.query.rideRequests.findMany({
+      where: and(
+        eq(schema.rideRequests.passenger_id, userId),
+        eq(schema.rideRequests.status, "confirmed"),
+      ),
+      with: { ride: { with: { concert: true } } },
+    });
+
+    const rideSet = new Map<string, { ride: typeof driverRides[0]; concert: NonNullable<typeof driverRides[0]["concert"]> }>();
+    for (const r of driverRides) {
+      if (r.concert) rideSet.set(r.id, { ride: r, concert: r.concert });
+    }
+    for (const req of confirmedReqs) {
+      if (req.ride && req.ride.concert && !rideSet.has(req.ride.id)) {
+        rideSet.set(req.ride.id, { ride: req.ride as typeof driverRides[0], concert: req.ride.concert });
+      }
+    }
+
+    for (const { ride, concert } of rideSet.values()) {
+      const msgs = await this.db
+        .select()
+        .from(schema.messages)
+        .where(eq(schema.messages.ride_id, ride.id))
+        .orderBy(desc(schema.messages.created_at))
+        .limit(1);
+      if (msgs.length === 0) continue;
+      const last = msgs[0]!;
+      results.push({
+        kind: "ride",
+        other_user: null,
+        ride_id: ride.id,
+        ride_label: `${concert.artist} · ${new Date(ride.departure_time).toLocaleDateString("es-ES")}`,
+        concert_id: concert.id,
+        concert_label: concert.artist,
+        last_message_body: last.body,
+        last_message_at: last.created_at,
+        unread_count: 0,
+      });
+    }
+
+    // 3. Concert chat conversations — concerts where user has posted a message
+    const concertMsgRows = await this.db
+      .selectDistinct({ concert_id: schema.messages.concert_id })
+      .from(schema.messages)
+      .where(
+        and(
+          eq(schema.messages.user_id, userId),
+          sql`${schema.messages.concert_id} IS NOT NULL`,
+        ),
+      );
+
+    for (const { concert_id } of concertMsgRows) {
+      if (!concert_id) continue;
+      const concert = await this.getConcert(concert_id);
+      if (!concert) continue;
+      const msgs = await this.db
+        .select()
+        .from(schema.messages)
+        .where(eq(schema.messages.concert_id, concert_id))
+        .orderBy(desc(schema.messages.created_at))
+        .limit(1);
+      if (msgs.length === 0) continue;
+      const last = msgs[0]!;
+      results.push({
+        kind: "concert",
+        other_user: null,
+        ride_id: null,
+        ride_label: null,
+        concert_id: concert.id,
+        concert_label: concert.artist,
+        last_message_body: last.body,
+        last_message_at: last.created_at,
+        unread_count: 0,
+      });
+    }
+
+    // Sort all conversations by most recent message
+    results.sort((a, b) => b.last_message_at.localeCompare(a.last_message_at));
+    return results;
   }
 
   async createReview(

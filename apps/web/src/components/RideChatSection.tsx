@@ -115,19 +115,38 @@ export function RideChatSection({ ride, currentUser }: Props) {
     setConcertMessages((prev) => [...prev, msg]);
   }
 
+  const tabs = [
+    {
+      id: "ride" as Tab,
+      label: "Tu viaje",
+      badge: "Privado · solo miembros del viaje",
+      badgeColor: "text-amber-400 border-amber-400/30 bg-amber-400/10",
+      dot: "◉",
+    },
+    {
+      id: "concert" as Tab,
+      label: "Chat del concierto",
+      badge: "Público · usuarios registrados",
+      badgeColor: "text-emerald-400 border-emerald-400/30 bg-emerald-400/10",
+      dot: "◉",
+    },
+  ] as const;
+
+  const activeTab = tabs.find((t) => t.id === tab)!;
+
   return (
     <section aria-labelledby="chat-title" className="space-y-4">
-      <h2 id="chat-title" className="font-display text-sm uppercase tracking-wide text-cr-text-muted">
-        Chat
-      </h2>
+      <div className="flex items-baseline justify-between gap-3">
+        <h2 id="chat-title" className="font-display text-sm uppercase tracking-wide text-cr-text-muted">
+          Chat
+        </h2>
+        <span className={`inline-flex items-center gap-1.5 font-mono text-[10px] uppercase tracking-wide border px-2 py-0.5 ${activeTab.badgeColor}`}>
+          <span aria-hidden="true">{activeTab.dot}</span> {activeTab.badge}
+        </span>
+      </div>
 
       <div className="flex gap-0 border-b border-cr-border">
-        {(
-          [
-            { id: "ride" as Tab, label: "Tu viaje" },
-            { id: "concert" as Tab, label: "Chat del concierto" },
-          ] as const
-        ).map(({ id, label }) => (
+        {tabs.map(({ id, label }) => (
           <button
             key={id}
             type="button"

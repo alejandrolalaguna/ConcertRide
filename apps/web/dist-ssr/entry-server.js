@@ -1707,7 +1707,13 @@ const api = {
       const fd = new FormData();
       fd.append("photo", file);
       return request("/api/messages/upload", { method: "POST", body: fd });
-    }
+    },
+    listDM: (userId) => request(`/api/messages/dm/${encodeURIComponent(userId)}`),
+    postDM: (userId, payload) => request(`/api/messages/dm/${encodeURIComponent(userId)}`, {
+      method: "POST",
+      body: JSON.stringify(payload)
+    }),
+    listConversations: () => request("/api/messages/conversations")
   },
   reviews: {
     list: (rideId) => request(`/api/rides/${encodeURIComponent(rideId)}/reviews`),
@@ -2021,6 +2027,19 @@ function TopNav() {
                     children: [
                       /* @__PURE__ */ jsx(TicketCheck, { size: 12, "aria-hidden": "true" }),
                       " Mis viajes"
+                    ]
+                  }
+                ),
+                /* @__PURE__ */ jsxs(
+                  Link,
+                  {
+                    to: "/mensajes",
+                    onClick: () => setOpen(false),
+                    role: "menuitem",
+                    className: "flex items-center gap-2 px-4 py-2.5 hover:bg-cr-surface-2 hover:text-cr-primary",
+                    children: [
+                      /* @__PURE__ */ jsx(MessageSquare, { size: 12, "aria-hidden": "true" }),
+                      " Mensajes"
                     ]
                   }
                 ),
@@ -13671,7 +13690,10 @@ function ConcertChatSection({ concertId, artist }) {
   return /* @__PURE__ */ jsxs("section", { "aria-labelledby": "concert-chat-title", className: "space-y-4", children: [
     /* @__PURE__ */ jsxs("header", { className: "flex items-baseline justify-between gap-3", children: [
       /* @__PURE__ */ jsx("h2", { id: "concert-chat-title", className: "font-display text-sm uppercase tracking-wide text-cr-text-muted", children: "Chat del concierto" }),
-      /* @__PURE__ */ jsx("span", { className: "font-mono text-[10px] text-cr-text-dim uppercase", children: "Abierto a todos los fans" })
+      /* @__PURE__ */ jsxs("span", { className: "inline-flex items-center gap-1.5 font-mono text-[10px] uppercase tracking-wide text-emerald-400 border border-emerald-400/30 bg-emerald-400/10 px-2 py-0.5", children: [
+        /* @__PURE__ */ jsx("span", { "aria-hidden": "true", children: "◉" }),
+        " Chat público · usuarios registrados"
+      ] })
     ] }),
     !user ? /* @__PURE__ */ jsxs("div", { className: "border border-dashed border-cr-border p-6 text-center space-y-3", children: [
       /* @__PURE__ */ jsxs("p", { className: "font-sans text-sm text-cr-text-muted", children: [

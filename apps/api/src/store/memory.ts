@@ -3,13 +3,16 @@
 
 import type {
   Concert,
+  ConversationPreview,
   CreateConcertInput,
   CreateReviewRequest,
   CreateRideRequest,
   DemandSignal,
+  DirectMessage,
   Favorite,
   FavoriteKind,
   Message,
+  MessageKind,
   Report,
   ReportReason,
   RequestStatus,
@@ -125,6 +128,7 @@ export class MemoryStore implements StoreAdapter {
   private rides: Ride[] = [...RIDES];
   private requests: RideRequest[] = [];
   private messages: Message[] = [];
+  private directMessages: DirectMessage[] = [];
   private demandSignals: DemandRow[] = [];
   private reviews: Review[] = [];
   private staging: StagingRow[] = [];
@@ -874,6 +878,121 @@ export class MemoryStore implements StoreAdapter {
     return this.requests.some(
       (r) => concertRideIds.has(r.ride_id) && r.passenger_id === userId && r.status === "confirmed",
     );
+  }
+
+  async listDirectMessages(userId: string, otherUserId: string): Promise<DirectMessage[]> {
+    return this.directMessages
+      .filter(
+        (m) =>
+          (m.sender_id === userId && m.recipient_id === otherUserId) ||
+          (m.sender_id === otherUserId && m.recipient_id === userId),
+      )
+      .sort((a, b) => a.created_at.localeCompare(b.created_at));
+  }
+
+  async createDirectMessage(
+    sender: User,
+    recipientId: string,
+    body: string,
+    opts?: { kind?: MessageKind; attachment_url?: string },
+  ): Promise<DirectMessage> {
+    const recipient = this.users.find((u) => u.id === recipientId);
+    if (!recipient) throw new Error("recipient_not_found");
+    const dm: DirectMessage = {
+      id: `dm_${crypto.randomUUID().slice(0, 10)}`,
+      sender_id: sender.id,
+      recipient_id: recipientId,
+      sender,
+      recipient,
+      kind: opts?.kind ?? "text",
+      body,
+      attachment_url: opts?.attachment_url ?? null,
+      created_at: new Date().toISOString(),
+    };
+    this.directMessages = [...this.directMessages, dm];
+    return dm;
+  }
+
+  async listConversations(userId: string): Promise<ConversationPreview[]> {
+    const results: ConversationPreview[] = [];
+
+    // DMs
+    const dmByOther = new Map<string, DirectMessage>();
+    for (const msg of [...this.directMessages].sort((a, b) => b.created_at.localeCompare(a.created_at))) {
+      const otherId = msg.sender_id === userId ? msg.recipient_id : msg.sender_id;
+      if (
+        (msg.sender_id === userId || msg.recipient_id === userId) &&
+        !dmByOther.has(otherId)
+      ) {
+        dmByOther.set(otherId, msg);
+      }
+    }
+    for (const [otherId, msg] of dmByOther) {
+      const other = this.users.find((u) => u.id === otherId);
+      if (!other) continue;
+      results.push({
+        kind: "dm",
+        other_user: other,
+        ride_id: null,
+        ride_label: null,
+        concert_id: null,
+        concert_label: null,
+        last_message_body: msg.body,
+        last_message_at: msg.created_at,
+        unread_count: 0,
+      });
+    }
+
+    // Ride chats
+    const myRideIds = new Set<string>();
+    this.rides.filter((r) => r.driver_id === userId).forEach((r) => myRideIds.add(r.id));
+    this.requests.filter((r) => r.passenger_id === userId && r.status === "confirmed").forEach((r) => myRideIds.add(r.ride_id));
+    for (const rideId of myRideIds) {
+      const ride = this.rides.find((r) => r.id === rideId);
+      if (!ride) continue;
+      const lastMsg = [...this.messages]
+        .filter((m) => m.ride_id === rideId)
+        .sort((a, b) => b.created_at.localeCompare(a.created_at))[0];
+      if (!lastMsg) continue;
+      const concert = this.concerts.find((c) => c.id === ride.concert_id);
+      results.push({
+        kind: "ride",
+        other_user: null,
+        ride_id: ride.id,
+        ride_label: concert ? `${concert.artist} · ${new Date(ride.departure_time).toLocaleDateString("es-ES")}` : ride.id,
+        concert_id: ride.concert_id,
+        concert_label: concert?.artist ?? null,
+        last_message_body: lastMsg.body,
+        last_message_at: lastMsg.created_at,
+        unread_count: 0,
+      });
+    }
+
+    // Concert chats
+    const myConcertIds = new Set(
+      this.messages.filter((m) => m.user_id === userId && m.concert_id).map((m) => m.concert_id!),
+    );
+    for (const concertId of myConcertIds) {
+      const concert = this.concerts.find((c) => c.id === concertId);
+      if (!concert) continue;
+      const lastMsg = [...this.messages]
+        .filter((m) => m.concert_id === concertId)
+        .sort((a, b) => b.created_at.localeCompare(a.created_at))[0];
+      if (!lastMsg) continue;
+      results.push({
+        kind: "concert",
+        other_user: null,
+        ride_id: null,
+        ride_label: null,
+        concert_id: concert.id,
+        concert_label: concert.artist,
+        last_message_body: lastMsg.body,
+        last_message_at: lastMsg.created_at,
+        unread_count: 0,
+      });
+    }
+
+    return results.sort((a, b) => b.last_message_at.localeCompare(a.last_message_at));
   }
 
   async createReview(

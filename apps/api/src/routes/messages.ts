@@ -1,4 +1,5 @@
 import { Hono } from "hono";
+import type { MessageKind } from "@concertride/types";
 import type { HonoEnv } from "../types";
 import { requireUser } from "../lib/identity";
 
@@ -55,6 +56,61 @@ route.get("/media/:id", async (c) => {
       "Cache-Control": "public, max-age=2592000, immutable",
     },
   });
+});
+
+// GET /api/messages/conversations — all conversations the current user has participated in
+route.get("/conversations", async (c) => {
+  const userOrResp = await requireUser(c);
+  if (userOrResp instanceof Response) return userOrResp;
+
+  const conversations = await c.var.store.listConversations(userOrResp.id);
+  return c.json({ conversations });
+});
+
+// GET /api/messages/dm/:userId — list DM thread between current user and :userId
+route.get("/dm/:userId", async (c) => {
+  const userOrResp = await requireUser(c);
+  if (userOrResp instanceof Response) return userOrResp;
+
+  const otherUserId = c.req.param("userId");
+  if (otherUserId === userOrResp.id) {
+    return c.json({ error: "bad_request", message: "Cannot message yourself" }, 400);
+  }
+
+  const messages = await c.var.store.listDirectMessages(userOrResp.id, otherUserId);
+  return c.json({ messages });
+});
+
+// POST /api/messages/dm/:userId — send a DM to :userId
+route.post("/dm/:userId", async (c) => {
+  const userOrResp = await requireUser(c);
+  if (userOrResp instanceof Response) return userOrResp;
+
+  const recipientId = c.req.param("userId");
+  if (recipientId === userOrResp.id) {
+    return c.json({ error: "bad_request", message: "Cannot message yourself" }, 400);
+  }
+
+  const body = await c.req.json<{ body: string; kind?: MessageKind; attachment_url?: string }>().catch(() => null);
+  if (!body?.body?.trim()) {
+    return c.json({ error: "bad_request", message: "body is required" }, 400);
+  }
+  if (body.body.length > 280) {
+    return c.json({ error: "bad_request", message: "body exceeds 280 characters" }, 400);
+  }
+
+  try {
+    const msg = await c.var.store.createDirectMessage(userOrResp, recipientId, body.body.trim(), {
+      kind: body.kind,
+      attachment_url: body.attachment_url,
+    });
+    return c.json(msg, 201);
+  } catch (err) {
+    if (err instanceof Error && err.message === "recipient_not_found") {
+      return c.json({ error: "not_found", message: "User not found" }, 404);
+    }
+    throw err;
+  }
 });
 
 export default route;
