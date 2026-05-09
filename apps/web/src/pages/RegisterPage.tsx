@@ -102,14 +102,32 @@ export default function RegisterPage() {
           transition={{ duration: 0.4 }}
           className="space-y-3"
         >
-          <p className="font-sans text-[11px] font-semibold uppercase tracking-[0.16em] text-cr-primary">
-            Nueva cuenta
-          </p>
+          {/* Early adopter badge */}
+          <div className="inline-flex items-center gap-2 bg-cr-primary/10 border border-cr-primary/30 px-3 py-1.5">
+            <span className="font-mono text-[10px] font-semibold uppercase tracking-[0.16em] text-cr-primary">
+              🎟 Acceso early adopter — gratis para siempre
+            </span>
+          </div>
           <h1 className="font-display text-4xl md:text-5xl uppercase leading-[0.95]">
             Únete a
             <br />
             <span className="text-cr-primary">ConcertRide.</span>
           </h1>
+          <p className="font-sans text-sm text-cr-text-muted">
+            Carpooling a festivales y conciertos en España. Sin comisión. Sin intermediarios.
+          </p>
+          <ul className="space-y-1">
+            {[
+              "✓ Viajes a Viña Rock, Arenal Sound, Mad Cool, BBK Live y más",
+              "✓ 0 % comisión — pagas directamente al conductor",
+              "✓ Conductores verificados con carnet",
+              "✓ Vuelta de madrugada coordinada con el festival",
+            ].map((item) => (
+              <li key={item} className="font-sans text-xs text-cr-text-muted">
+                {item}
+              </li>
+            ))}
+          </ul>
         </motion.header>
 
         <form onSubmit={submit} className="space-y-4">

@@ -99,7 +99,7 @@ export default function LandingPage() {
             availableChannel: {
               "@type": "ServiceChannel",
               serviceUrl: SITE_URL,
-              availableLanguage: { "@type": "Language", name: "Spanish" },
+              availableLanguage: ["Spanish", "es"],
             },
             offers: {
               "@type": "Offer",

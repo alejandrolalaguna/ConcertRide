@@ -29,9 +29,9 @@ export const FESTIVAL_SEO_OVERRIDES: Record<string, { title: string; description
     keywords: `viña rock ${YEAR}, viña rock buses, autobuses viñarock, autobus viña rock, bus viñarock, buses viñarock, bus viña rock, buses viña rock, como llegar viña rock, viña rock como llegar, transporte viña rock, viaje compartido viña rock, viña rock desde madrid, viña rock autobús, viñarock buses, viña rock localización, viña rock horarios, viña rock transporte, viña rock guia oficial, lanzadera viña rock, viña rock 2026 entradas`,
   },
   "arenal-sound": {
-    title: `Arenal Sound ${YEAR} [Guía Transporte]: Bus, tren y carpooling 3€ | ConcertRide`,
-    description: `Arenal Sound ${YEAR} (29 jul–2 ago, Playa Burriana Castellón): bus lanzadera Castellón→Burriana (5–8€, 20 min) y tren Cercanías C6 Valencia–Castellón (45 min, 3,90€). Carpooling sin comisión desde Valencia (3–6€), Castellón (3–5€), Madrid (12–17€), Barcelona (8–12€), Alicante (4–7€). Vuelta de madrugada coordinada.`,
-    keywords: `arenal sound ${YEAR}, autobus castellon burriana arenal sound, autobuses castellon burriana arenal sound, bus burriana arenal sound, arenal sound como llegar, como ir al arenal sound, arenal sound localización, arenal sound tren, tren arenal sound, arenal sound bus, arenal sound autobuses, bus arenal sound, buses arenal sound, arenal sound carpooling, viaje compartido burriana arenal sound, arenal sound desde madrid, arenal sound guia transporte, arenal sound horarios, arenal sound entradas`,
+    title: `Arenal Sound ${YEAR} [29 Jul–2 Ago Burriana]: Bus Lanzadera + Carpooling 3€ | ConcertRide`,
+    description: `Arenal Sound ${YEAR} (29 jul–2 ago, Playa Burriana Castellón, 250.000 asistentes): bus lanzadera oficial Castellón→Burriana (5–8€, 20 min, frecuencia 30 min) y tren Cercanías C6 Valencia–Castellón (45 min, 3,90€). Carpooling sin comisión desde Valencia (3–6€), Castellón (3–5€), Madrid (12–17€), Barcelona (8–12€), Alicante (4–7€), Zaragoza (8–12€). Vuelta de madrugada coordinada. 0% intermediarios.`,
+    keywords: `arenal sound ${YEAR}, autobus castellon burriana arenal sound, autobuses castellon burriana arenal sound, bus burriana arenal sound, arenal sound como llegar, como ir al arenal sound, arenal sound localización, arenal sound tren, tren arenal sound, arenal sound bus, arenal sound autobuses, bus arenal sound, buses arenal sound, arenal sound carpooling, viaje compartido burriana arenal sound, arenal sound desde madrid, arenal sound guia transporte, arenal sound horarios, arenal sound entradas, arenal sound 2026 cartel, arenal sound desde alicante, arenal sound autobuses castellon`,
   },
   "mad-cool": {
     title: `Mad Cool ${YEAR} Madrid [9–11 jul IFEMA]: Metro L8 + Carpooling 4€ | ConcertRide`,
@@ -89,9 +89,9 @@ export const FESTIVAL_SEO_OVERRIDES: Record<string, { title: string; description
     keywords: `festival de les arts ${YEAR}, festival les arts valencia ${YEAR}, festival les arts como llegar, carpooling festival les arts, les arts transporte, como ir festival les arts, festival les arts carpooling alicante, festival les arts carpooling madrid, festival les arts entradas, festival les arts cartel ${YEAR}, ciudad artes y ciencias festival`,
   },
   "sonar": {
-    title: `Sónar ${YEAR} Barcelona [Guía Transporte]: Metro L1 + carpooling 8€ | ConcertRide`,
-    description: `Sónar ${YEAR} (18–20 jun, Fira Montjuïc + Fira Gran Via Barcelona): Metro L1 Espanya (Sónar de Día) y L9 Fira (Sónar de Noche). Carpooling desde Madrid (14–22€), Valencia (10–14€), Zaragoza (8–12€), Bilbao (16–22€). El festival de electrónica más prestigioso de Europa. Sin comisión.`,
-    keywords: `sonar ${YEAR}, sonar barcelona ${YEAR}, sonar como llegar, sonar barcelona metro, sonar festival transporte, sonar carpooling, como llegar sonar, sonar fira montjuic, sonar de dia, sonar de noche, sonar entradas, sonar fechas, festival electronica barcelona`,
+    title: `Sónar ${YEAR} Barcelona [18–20 Jun, Fira Montjuïc]: Metro + Carpooling 8€ | ConcertRide`,
+    description: `Sónar ${YEAR} (18–20 jun, Fira Montjuïc + Fira Gran Via Barcelona): Metro L1 Espanya (Sónar de Día, 12:00–22:00) y L9 Fira Gran Via (Sónar de Noche, 22:00–08:00). Carpooling sin comisión desde Madrid (14–22€), Valencia (10–14€), Zaragoza (8–12€), Bilbao (16–22€), Sevilla (17–25€). El festival de electrónica más prestigioso de Europa. Vuelta nocturna coordinada.`,
+    keywords: `sonar ${YEAR}, sonar barcelona ${YEAR}, sonar como llegar, sonar barcelona metro, sonar festival transporte, sonar carpooling, como llegar sonar, sonar fira montjuic, sonar de dia, sonar de noche, sonar entradas, sonar fechas, festival electronica barcelona, sonar fira gran via, sonar 2026 cartel, sonar desde madrid, sonar desde valencia`,
   },
   "sonorama-ribera": {
     title: `Sonorama Ribera ${YEAR} [Aranda de Duero]: Bus + carpooling desde 3€ | ConcertRide`,
@@ -166,14 +166,14 @@ export const FESTIVAL_SEO_OVERRIDES: Record<string, { title: string; description
 
 export const CITY_SEO_IMPROVEMENTS: Record<string, { title: string; description: string; keywords?: string }> = {
   sevilla: {
-    title: `Conciertos en Sevilla ${YEAR}–${NEXT_YEAR} [Agenda + Carpooling 4€] | ConcertRide`,
-    description: `Agenda completa de conciertos en Sevilla ${YEAR}–${NEXT_YEAR}: Estadio La Cartuja (57.000 plazas, giras de estadio), FIBES (9.500), Interestelar Sevilla (Charco de la Pava, mayo), Icónica Sevilla Fest (Plaza España). Carpooling sin comisión desde Cádiz (4€), Huelva (4€), Córdoba (5€), Málaga (7€), Madrid (14€). Pago Bizum o efectivo.`,
-    keywords: `conciertos en Sevilla ${YEAR}, conciertos Sevilla ${NEXT_YEAR}, próximos conciertos Sevilla, conciertos musica sevilla, La Cartuja Sevilla conciertos, FIBES Sevilla conciertos, Interestelar Sevilla, carpooling Sevilla festivales, viaje compartido Sevilla concierto, conciertos sevilla agenda, conciertos sevilla 2026, agenda conciertos sevilla`,
+    title: `Conciertos en Sevilla ${YEAR} [La Cartuja, FIBES, Icónica + Carpooling 4€] | ConcertRide`,
+    description: `Agenda conciertos Sevilla ${YEAR}: Estadio La Cartuja (57.000 plazas — Manuel Carrasco, Guns N' Roses), FIBES (9.500 — conciertos cubiertos), Icónica Fest Plaza España (mayo–jun), Interestelar Charco de la Pava. Carpooling sin comisión desde Cádiz (4€), Huelva (4€), Córdoba (5€), Málaga (7€), Madrid (14€), Granada (8€). Pago Bizum, vuelta de madrugada coordinada.`,
+    keywords: `conciertos en Sevilla ${YEAR}, conciertos Sevilla ${NEXT_YEAR}, próximos conciertos Sevilla, conciertos musica sevilla, La Cartuja Sevilla conciertos, FIBES Sevilla conciertos, Interestelar Sevilla, Icónica Sevilla Fest, carpooling Sevilla festivales, viaje compartido Sevilla concierto, conciertos sevilla agenda, conciertos sevilla 2026, agenda conciertos sevilla, concierto sevilla, musica sevilla, conciertos sevilla verano, estadio la cartuja conciertos sevilla, conciertos sevilla mayo junio, conciertos sevilla octubre`,
   },
   donostia: {
-    title: `Conciertos en Donostia ${YEAR} [Jazzaldia + Kursaal + Carpooling 4€] | ConcertRide`,
-    description: `Conciertos en Donostia–San Sebastián ${YEAR}: Heineken Jazzaldia (22–26 jul, 61.ª edición, Plaza Trinidad y Kursaal), Donostia Arena, Auditorio Kursaal, Teatro Victoria Eugenia. Carpooling sin comisión a BBK Live Bilbao (100 km, 4–7€), Azkena Rock Vitoria (100 km, 4–7€), Pamplona (90 km, 4–7€). Pago Bizum o efectivo.`,
-    keywords: `conciertos Donostia ${YEAR}, conciertos San Sebastián, Jazzaldia ${YEAR}, conciertos en donostia, como llegar concierto donostia, carpooling Jazzaldia, conciertos donostia 2026, donostia arena conciertos, kursaal conciertos, victoria eugenia donostia, heineken jazzaldia entradas, agenda conciertos donostia`,
+    title: `Conciertos en Donostia ${YEAR} [Jazzaldia 22–26 Jul + Carpooling 4€] | ConcertRide`,
+    description: `Conciertos en Donostia–San Sebastián ${YEAR}: Heineken Jazzaldia (22–26 jul, 61.ª edición, Plaza Trinidad y Kursaal, entrada gratuita parcial), Donostia Arena (9.000 plazas), Auditorio Kursaal, Teatro Victoria Eugenia. Carpooling sin comisión a BBK Live Bilbao (100 km, 4–7€), Pamplona (90 km, 4–7€), Vitoria (100 km, 4–7€). Pago Bizum.`,
+    keywords: `conciertos Donostia ${YEAR}, conciertos San Sebastián, Jazzaldia ${YEAR}, conciertos en donostia, como llegar concierto donostia, carpooling Jazzaldia, conciertos donostia 2026, donostia arena conciertos, kursaal conciertos, victoria eugenia donostia, heineken jazzaldia entradas, agenda conciertos donostia, conciertos san sebastian 2026, jazzaldia san sebastian, conciertos donostia verano`,
   },
   alicante: {
     title: `Conciertos en Alicante ${YEAR} [Plaza Toros + Festivales + Carpooling 3€] | ConcertRide`,
@@ -181,14 +181,14 @@ export const CITY_SEO_IMPROVEMENTS: Record<string, { title: string; description:
     keywords: `conciertos Plaza de Toros Alicante ${YEAR}, conciertos plaza toros alicante, conciertos alicante ${YEAR}, conciertos en Alicante, próximos conciertos Alicante, carpooling Alicante festivales, viaje compartido Alicante Low Festival, alicante festium, agenda conciertos alicante, conciertos alicante 2026, conciertos alicante verano`,
   },
   zaragoza: {
-    title: `Conciertos en Zaragoza ${YEAR} [Dani Martín, Aitana, Vive Latino + Carpooling] | ConcertRide`,
-    description: `Agenda conciertos en Zaragoza ${YEAR}: Dani Martín DOBLE FECHA 22–23 may, Aitana 10 jul, Vive Latino España 4–5 sep (Recinto Expo), Bryan Adams 14 nov, Hombres G 21 nov. Pabellón Príncipe Felipe, Sala López, Recinto Expo. Carpooling sin comisión desde Madrid (9€), Barcelona (8€), Pamplona (5€), Huesca (3€), Valencia (9€).`,
-    keywords: `conciertos Zaragoza ${YEAR}, conciertos en Zaragoza, próximos conciertos Zaragoza, Pabellón Príncipe Felipe, Dani Martín Zaragoza, Aitana Zaragoza, Vive Latino Zaragoza, Hombres G Zaragoza, Bryan Adams Zaragoza, carpooling Zaragoza festivales, viajes Mad Cool desde Zaragoza, conciertos Zaragoza verano, agenda conciertos zaragoza, conciertos zaragoza septiembre, recinto expo zaragoza`,
+    title: `Conciertos en Zaragoza ${YEAR} [Dani Martín, Vive Latino, Bryan Adams + Carpooling] | ConcertRide`,
+    description: `Agenda conciertos Zaragoza ${YEAR}: Dani Martín DOBLE FECHA 22–23 may (Príncipe Felipe), Aitana 10 jul, Vive Latino España 4–5 sep (Recinto Expo, 40.000/día), Bryan Adams 14 nov, Hombres G 21 nov. Carpooling sin comisión desde Madrid (9€, 3h AVE o 3,5h coche), Barcelona (8€, 2h 45min), Pamplona (5€), Valencia (9€), Bilbao (9€). Pago Bizum.`,
+    keywords: `conciertos Zaragoza ${YEAR}, conciertos en Zaragoza, próximos conciertos Zaragoza, Pabellón Príncipe Felipe, Dani Martín Zaragoza, Aitana Zaragoza, Vive Latino Zaragoza, Hombres G Zaragoza, Bryan Adams Zaragoza, carpooling Zaragoza festivales, viajes Mad Cool desde Zaragoza, conciertos Zaragoza verano, agenda conciertos zaragoza, conciertos zaragoza septiembre, recinto expo zaragoza, conciertos zaragoza 2026, conciertos zaragoza 2027, agenda musical zaragoza`,
   },
   murcia: {
-    title: `Conciertos en Murcia ${YEAR} [SOS 4.8 + Carpooling a 4 festivales] | ConcertRide`,
-    description: `Conciertos en Murcia ${YEAR}: Auditorio Víctor Villegas (3.000 plazas), Plaza de Toros de Murcia, Sala REM, SOS 4.8 Festival. Carpooling sin comisión a Medusa Festival Cullera (175 km, 5–8€), Arenal Sound Burriana (250 km, 7–11€), Viña Rock Villarrobledo (155 km, 5–8€), Granada Sound (270 km, 8–12€). Pago directo Bizum.`,
-    keywords: `conciertos Murcia ${YEAR}, conciertos en Murcia, SOS 4.8 Murcia, carpooling Murcia festivales, viaje compartido Murcia concierto, conciertos murcia 2026, conciertos murcia agenda, victor villegas murcia, murcia festivales transporte`,
+    title: `Conciertos en Murcia ${YEAR} [SOS 4.8, Víctor Villegas + Carpooling 4€] | ConcertRide`,
+    description: `Agenda conciertos Murcia ${YEAR}: SOS 4.8 Festival (Murcia capital, primavera), Auditorio Víctor Villegas (3.000 plazas), Plaza de Toros Murcia, Teatro Romea. Carpooling sin comisión a Medusa Festival Cullera (175 km, 5–8€), Arenal Sound Burriana (250 km, 7–11€), Viña Rock Villarrobledo (155 km, 5–8€), Cala Mijas Málaga (270 km, 8–12€). Pago Bizum, vuelta coordinada.`,
+    keywords: `conciertos Murcia ${YEAR}, conciertos en Murcia, SOS 4.8 Murcia, conciertos murcia 2026, conciertos murcia 2027, próximos conciertos murcia, carpooling Murcia festivales, viaje compartido Murcia concierto, conciertos murcia agenda, victor villegas murcia, murcia festivales transporte, murcia musica, sos 4.8 festival murcia, conciertos murcia verano`,
   },
   malaga: {
     title: `Conciertos en Málaga ${YEAR} [Cala Mijas + Marenostrum + Carpooling 3€] | ConcertRide`,
@@ -449,9 +449,9 @@ export const CITY_SEO_IMPROVEMENTS: Record<string, { title: string; description:
 
 export const HOW_TO_GET_THERE_SEO: Record<string, { title: string; description: string; keywords?: string }> = {
   "arenal-sound": {
-    title: `Cómo llegar a Arenal Sound ${YEAR}: Bus, tren y carpooling | ConcertRide`,
-    description: `Guía completa Arenal Sound ${YEAR} Burriana (Castellón): bus lanzadera desde Castellón, tren Cercanías C6 Valencia–Castellón (45 min). Carpooling desde Valencia (3–6€), Madrid (12–17€). Sin comisión.`,
-    keywords: `como llegar arenal sound ${YEAR}, arenal sound transporte, autobus castellon burriana arenal sound, tren arenal sound, arenal sound bus, arenal sound localización`,
+    title: `Cómo llegar a Arenal Sound ${YEAR} [Buses Castellón, Tren y Carpooling] | ConcertRide`,
+    description: `Guía completa Arenal Sound ${YEAR} Burriana (Castellón): bus lanzadera oficial Castellón→Burriana (5–8€, cada 30 min desde 16:00), tren Cercanías C6 Valencia–Castellón (45 min, 3,90€ + bus local). Carpooling sin comisión desde Valencia (3–6€), Castellón (3–5€), Alicante (4–7€), Madrid (12–17€), Barcelona (8–12€). Vuelta de madrugada coordinada.`,
+    keywords: `como llegar arenal sound ${YEAR}, arenal sound transporte, autobus castellon burriana arenal sound, tren arenal sound, arenal sound bus, arenal sound localización, como ir al arenal sound, arenal sound autobuses, buses arenal sound castellon, arenal sound desde valencia, arenal sound desde madrid, arenal sound shuttle, arenal sound como llegar desde castellon`,
   },
   "bbk-live": {
     title: `Cómo llegar a BBK Live ${YEAR}: Lanzadera, autobús, carpooling | ConcertRide`,
@@ -587,14 +587,14 @@ export const VENUE_SEO_OVERRIDES: Record<string, { title: string; description: s
     keywords: `como llegar wizink center, wizink center metro, wizink center cómo llegar, mapa wizink center, wizink center transporte, como ir wizink center, carpooling wizink center madrid, conciertos wizink center, wizink center parking, wizink center metro goya, wizink center entradas, wizink center direccion, wizink center madrid agenda`,
   },
   "palacio-vistalegre": {
-    title: `Cómo llegar a Vistalegre Madrid: metro, mapa y carpooling | ConcertRide`,
-    description: `Palacio Vistalegre, Madrid (15.000 plazas). Metro L5 Oporto (5 min a pie) / L3 Legazpi. Bus 60, 79, 116. Carpooling desde Barcelona (15€), Valencia (10€). Sin comisión.`,
-    keywords: `vista alegre como llegar, vista alegre madrid como llegar, mapa palacio vistalegre, palacio vistalegre cómo llegar, vistalegre metro, carpooling vistalegre madrid, conciertos vistalegre`,
+    title: `Palacio Vistalegre Madrid [Cómo Llegar]: Metro L5 Oporto + Carpooling | ConcertRide`,
+    description: `Palacio Vistalegre Madrid (15.000 plazas, Avda. de los Poblados). Metro L5 parada Oporto (5 min a pie) o L3 Legazpi (10 min). Bus 60, 79, 116. Sin parking propio — aparca en calles adyacentes (gratuito). Carpooling sin comisión desde Barcelona (15–20€), Valencia (10–14€), Bilbao (11–16€), Zaragoza (9–13€). Vuelta nocturna coordinada.`,
+    keywords: `vista alegre como llegar, vista alegre madrid como llegar, mapa palacio vistalegre, palacio vistalegre cómo llegar, vistalegre metro, carpooling vistalegre madrid, conciertos vistalegre, palacio vistalegre metro oporto, como ir palacio vistalegre, vistalegre madrid metro parada, palacio vistalegre transporte, parking palacio vistalegre, palacio vistalegre direccion`,
   },
   "ifema-madrid": {
-    title: `Cómo llegar a IFEMA Madrid: metro, bus y carpooling | ConcertRide`,
-    description: `IFEMA Madrid — Feria de Madrid (Metro L8 El Parque, 10 min). Carpooling a Mad Cool desde Barcelona (15€), Valencia (10€), Zaragoza (9€). Sin comisión. Guía transporte.`,
-    keywords: `como llegar ifema, ifema como llegar, ifema metro, ifema mad cool transporte, carpooling ifema madrid, como ir ifema mad cool, mad cool como llegar ifema`,
+    title: `IFEMA Madrid [Cómo Llegar]: Metro L8 + Carpooling Mad Cool desde 9€ | ConcertRide`,
+    description: `IFEMA Madrid — Feria de Madrid (Avda. del Parque). Metro L8 parada El Parque (10 min desde Nuevos Ministerios). Bus 101, 104, 122. Parking gratuito P1/P2 (limitado, llega 1h antes). Carpooling a Mad Cool sin comisión desde Barcelona (15–20€), Valencia (10–14€), Zaragoza (9–13€), Bilbao (11–16€), Sevilla (14–20€). Vuelta nocturna coordinada.`,
+    keywords: `como llegar ifema, ifema como llegar, ifema metro, ifema mad cool transporte, carpooling ifema madrid, como ir ifema mad cool, mad cool como llegar ifema, ifema metro l8, ifema feria madrid metro, como ir a ifema madrid, ifema transporte publico, mad cool ifema carpooling, ifema madrid aparcamiento`,
   },
   "kobetamendi": {
     title: `Kobetamendi Bilbao: cómo llegar al BBK Live, lanzadera y carpooling | ConcertRide`,
@@ -666,9 +666,9 @@ export const ARTIST_SEO_OVERRIDES: Record<string, { title: string; description: 
     keywords: `carpooling taylor swift españa, taylor swift madrid como llegar, taylor swift concierto ${YEAR} transporte, viaje compartido taylor swift, taylor swift bernabeu carpooling, como ir al concierto taylor swift sin tren, eras tour madrid carpooling`,
   },
   rosalia: {
-    title: `Rosalía concierto España ${YEAR}: carpooling desde 4€ | ConcertRide`,
-    description: `Rosalía en España ${YEAR} — WiZink Center Madrid y Palau Sant Jordi Barcelona. Carpooling desde Valencia (10–14€), Sevilla (12–17€), Zaragoza (9–13€). 0% comisión, pago en Bizum o efectivo.`,
-    keywords: `carpooling rosalia españa, rosalia concierto madrid carpooling, rosalia wizink center como llegar, rosalia ${YEAR} transporte, viaje compartido rosalia, como ir concierto rosalia, rosalia palau sant jordi carpooling`,
+    title: `Rosalía España ${YEAR} [Motomami World Tour]: Carpooling WiZink + Palau desde 4€`,
+    description: `Rosalía en España ${YEAR} — WiZink Center Madrid y Palau Sant Jordi Barcelona. Carpooling sin comisión desde Valencia (10–14€), Sevilla (12–17€), Zaragoza (9–13€), Bilbao (11–16€). La artista española más global — carpooling directo al recinto. 0% comisión, pago Bizum.`,
+    keywords: `carpooling rosalia españa, rosalia concierto madrid carpooling, rosalia wizink center como llegar, rosalia ${YEAR} transporte, viaje compartido rosalia, como ir concierto rosalia, rosalia palau sant jordi carpooling, rosalia españa ${YEAR}, rosalia concierto barcelona, rosalia motomami tour, rosalia gira ${YEAR}`,
   },
   "bad-bunny": {
     title: `Bad Bunny concierto España ${YEAR}: carpooling desde 4€ | ConcertRide`,
@@ -696,24 +696,24 @@ export const ARTIST_SEO_OVERRIDES: Record<string, { title: string; description: 
     keywords: `carpooling harry styles españa, harry styles madrid como llegar, harry styles wizink center carpooling, harry styles ${YEAR} transporte, viaje compartido harry styles, como ir al concierto harry styles, harry styles palau sant jordi transporte`,
   },
   "karol-g": {
-    title: `Karol G concierto España ${YEAR}: carpooling desde 4€ | ConcertRide`,
-    description: `Karol G en España ${YEAR} — WiZink Center Madrid y Palau Sant Jordi Barcelona. Carpooling desde Zaragoza (9–13€), Valencia (10–14€), Sevilla (12–17€). Mañana Será Bonito Tour. 0% comisión, sin colas de metro.`,
-    keywords: `carpooling karol g españa, karol g madrid como llegar, karol g wizink center carpooling, karol g ${YEAR} transporte, viaje compartido karol g, como ir al concierto karol g, karol g palau sant jordi transporte, manana sera bonito tour madrid`,
+    title: `Karol G España ${YEAR} [Palau Sant Jordi + WiZink]: Carpooling desde 4€ sin comisión`,
+    description: `Karol G en España ${YEAR} — Palau Sant Jordi Barcelona y WiZink Center Madrid. Carpooling sin comisión desde Zaragoza (9–13€), Valencia (10–14€), Sevilla (12–17€). Conductores verificados, vuelta de madrugada coordinada. Pago Bizum o efectivo.`,
+    keywords: `karol g palau sant jordi, karol g wizink center como llegar, karol g españa ${YEAR}, carpooling karol g, karol g madrid como llegar, karol g ${YEAR} transporte, viaje compartido karol g, como ir al concierto karol g, karol g concierto españa`,
   },
   "dua-lipa": {
-    title: `Dua Lipa concierto España ${YEAR}: carpooling desde 4€ | ConcertRide`,
-    description: `Dua Lipa en España ${YEAR} — WiZink Center Madrid y Palau Sant Jordi Barcelona. Carpooling desde Valencia (10–14€), Sevilla (12–17€), Zaragoza (9–13€). 0% comisión, conductores verificados.`,
-    keywords: `carpooling dua lipa españa, dua lipa madrid como llegar, dua lipa wizink center carpooling, dua lipa ${YEAR} transporte, viaje compartido dua lipa, como ir al concierto dua lipa`,
+    title: `Dua Lipa España ${YEAR} [Radical Optimism Tour]: Carpooling WiZink + Palau desde 4€`,
+    description: `Dua Lipa Radical Optimism Tour España ${YEAR} — WiZink Center Madrid y Palau Sant Jordi Barcelona. Carpooling sin comisión desde Valencia (10–14€), Sevilla (12–17€), Zaragoza (9–13€), Bilbao (11–16€). Conductores verificados, vuelta de madrugada coordinada. 0% comisión, pago Bizum.`,
+    keywords: `carpooling dua lipa españa, dua lipa madrid como llegar, dua lipa wizink center carpooling, dua lipa ${YEAR} transporte, viaje compartido dua lipa, como ir al concierto dua lipa, dua lipa concierto españa ${YEAR}, dua lipa radical optimism tour, dua lipa barcelona ${YEAR}, dua lipa palau sant jordi, dua lipa spain ${YEAR}`,
   },
   "billie-eilish": {
-    title: `Billie Eilish concierto España ${YEAR}: carpooling desde 4€ | ConcertRide`,
-    description: `Billie Eilish en España ${YEAR} — WiZink Center Madrid y Palau Sant Jordi Barcelona. Carpooling desde Valencia (10–14€), Zaragoza (9–13€), Bilbao (11–16€). Hit Me Hard and Soft Tour. 0% comisión.`,
-    keywords: `carpooling billie eilish españa, billie eilish madrid como llegar, billie eilish wizink center carpooling, billie eilish ${YEAR} transporte, viaje compartido billie eilish, como ir al concierto billie eilish`,
+    title: `Billie Eilish España ${YEAR} [Hit Me Hard Tour]: Carpooling WiZink + Palau Sant Jordi desde 4€`,
+    description: `Billie Eilish Hit Me Hard and Soft Tour España ${YEAR} — WiZink Center Madrid y Palau Sant Jordi Barcelona. Carpooling sin comisión desde Valencia (10–14€), Zaragoza (9–13€), Bilbao (11–16€). Conductores verificados, vuelta de madrugada coordinada. 0% comisión, pago Bizum.`,
+    keywords: `billie eilish en españa ${YEAR}, billie eilish madrid ${YEAR}, billie eilish wizink center como llegar, billie eilish palau sant jordi carpooling, billie eilish hit me hard tour, carpooling billie eilish, viaje compartido billie eilish, como ir concierto billie eilish, billie eilish concierto españa ${YEAR}, cuando viene billie eilish a españa, billie eilish spain ${YEAR}`,
   },
   "beyonce": {
-    title: `Beyoncé concierto España ${YEAR}: carpooling desde 4€ | ConcertRide`,
-    description: `Beyoncé en España ${YEAR} — estadios de Madrid y Barcelona. Carpooling desde Valencia (10–14€), Sevilla (12–17€), Barcelona (15–20€). Renaissance Tour. 0% comisión, conductores verificados con carnet.`,
-    keywords: `carpooling beyonce españa, beyonce madrid como llegar, beyonce concierto ${YEAR} transporte, viaje compartido beyonce, renaissance tour madrid carpooling, como ir al concierto beyonce`,
+    title: `Beyoncé concierto España ${YEAR} [Cowboy Carter Tour]: Carpooling estadio desde 4€`,
+    description: `Beyoncé Cowboy Carter Tour España ${YEAR} — estadios de Madrid y Barcelona. Carpooling sin comisión desde Valencia (10–14€), Sevilla (12–17€), Barcelona (15–20€). Conductores verificados con carnet, vuelta de madrugada coordinada. 0% comisión.`,
+    keywords: `carpooling beyonce españa, beyonce madrid como llegar, beyonce concierto ${YEAR} transporte, viaje compartido beyonce, cowboy carter tour madrid carpooling, como ir al concierto beyonce, beyonce españa ${YEAR}, beyonce conciertos ${YEAR}`,
   },
   // ── Artistas Españoles ──────────────────────────────────────────────────────
   "aitana": {
@@ -752,9 +752,9 @@ export const ARTIST_SEO_OVERRIDES: Record<string, { title: string; description: 
     keywords: `carpooling rozalen ${YEAR}, rozalen concierto madrid ${YEAR}, rozalen wizink center como llegar, rozalen ${YEAR} transporte, viaje compartido rozalen, como ir concierto rozalen`,
   },
   "sabrina-carpenter": {
-    title: `Sabrina Carpenter concierto España ${YEAR}: carpooling desde 4€ | ConcertRide`,
-    description: `Sabrina Carpenter Short n' Sweet Tour España ${YEAR} — WiZink Center Madrid y Palau Sant Jordi Barcelona. Carpooling desde Zaragoza (9–13€), Valencia (10–14€), Barcelona (15–20€). 0% comisión, conductores verificados.`,
-    keywords: `carpooling sabrina carpenter españa, sabrina carpenter madrid como llegar, sabrina carpenter wizink center carpooling, sabrina carpenter ${YEAR} transporte, viaje compartido sabrina carpenter, como ir al concierto sabrina carpenter, sabrina carpenter short n sweet tour madrid`,
+    title: `Sabrina Carpenter España ${YEAR} [Short n' Sweet Tour]: Carpooling WiZink desde 4€`,
+    description: `Sabrina Carpenter Short n' Sweet Tour España ${YEAR} — WiZink Center Madrid y Palau Sant Jordi Barcelona. Carpooling sin comisión desde Zaragoza (9–13€), Valencia (10–14€), Sevilla (12–17€). Conductores verificados, vuelta de madrugada coordinada. 0% comisión.`,
+    keywords: `sabrina carpenter españa, sabrina carpenter madrid como llegar, sabrina carpenter ${YEAR}, sabrina carpenter wizink center carpooling, sabrina carpenter short n sweet tour, carpooling sabrina carpenter, viaje compartido sabrina carpenter, sabrina carpenter concierto madrid, sabrina carpenter spain ${YEAR}, sabrina carpenter barcelona ${YEAR}`,
   },
   "lana-del-rey": {
     title: `Lana Del Rey concierto España ${YEAR}: carpooling desde 4€ | ConcertRide`,
@@ -782,14 +782,14 @@ export const ARTIST_SEO_OVERRIDES: Record<string, { title: string; description: 
     keywords: `olivia rodrigo españa ${YEAR}, olivia rodrigo madrid como llegar, olivia rodrigo barcelona carpooling, olivia rodrigo guts tour madrid, olivia rodrigo wizink center, olivia rodrigo palau sant jordi, carpooling olivia rodrigo, viaje compartido olivia rodrigo, como ir concierto olivia rodrigo, olivia rodrigo entradas transporte, olivia rodrigo tour ${YEAR}`,
   },
   "post-malone": {
-    title: `Post Malone España ${YEAR}: carpooling al concierto desde 4€ | ConcertRide`,
-    description: `Post Malone en España ${YEAR} — Parc del Fòrum Barcelona y Mad Cool Madrid. Carpooling desde Valencia (10–14€), Zaragoza (8–12€), Bilbao (11–16€). 0% comisión, pago directo, vuelta nocturna coordinada con asistentes del mismo concierto.`,
-    keywords: `post malone españa ${YEAR}, post malone madrid como llegar, post malone barcelona carpooling, post malone mad cool, post malone primavera sound, carpooling post malone, viaje compartido post malone, como ir concierto post malone, post malone tour ${YEAR}, post malone festival españa`,
+    title: `Post Malone España ${YEAR} [Mad Cool + Palau Sant Jordi]: Carpooling desde 4€`,
+    description: `Post Malone en España ${YEAR} — Mad Cool Madrid y Parc del Fòrum Barcelona. Carpooling sin comisión desde Valencia (10–14€), Zaragoza (8–12€), Sevilla (14–20€). Conductores verificados, vuelta nocturna coordinada. Pago Bizum o efectivo.`,
+    keywords: `post malone madrid, post malone españa ${YEAR}, post malone madrid como llegar, post malone barcelona carpooling, post malone mad cool, carpooling post malone, viaje compartido post malone, como ir concierto post malone, post malone concierto españa`,
   },
   drake: {
-    title: `Drake concierto España ${YEAR}: carpooling desde 4€, 0% comisión | ConcertRide`,
-    description: `Drake en España ${YEAR} — Palau Sant Jordi Barcelona y Estadio Metropolitano Madrid. Carpooling sin comisión desde Valencia (10–14€), Zaragoza (8–12€), Sevilla (14–20€). Pago Bizum o efectivo, conductores verificados.`,
-    keywords: `drake españa ${YEAR}, drake madrid como llegar, drake barcelona carpooling, drake concierto españa, carpooling drake, viaje compartido drake, como ir concierto drake, drake tour ${YEAR}, drake metropolitano madrid, drake palau sant jordi`,
+    title: `Drake España ${YEAR} [Metropolitano Madrid + Palau Sant Jordi]: Carpooling desde 4€`,
+    description: `Drake en España ${YEAR} — Estadio Metropolitano Madrid y Palau Sant Jordi Barcelona. Carpooling sin comisión desde Valencia (10–14€), Zaragoza (8–12€), Sevilla (14–20€). Conductores verificados, vuelta de madrugada coordinada. 0% comisión.`,
+    keywords: `drake madrid, drake españa ${YEAR}, drake madrid como llegar, drake barcelona carpooling, drake concierto españa, carpooling drake, viaje compartido drake, como ir concierto drake, drake spain ${YEAR}, drake metropolitano madrid, drake palau sant jordi`,
   },
   metallica: {
     title: `Metallica España ${YEAR}: carpooling al M72 World Tour desde 4€ | ConcertRide`,
@@ -817,9 +817,9 @@ export const ARTIST_SEO_OVERRIDES: Record<string, { title: string; description: 
     keywords: `bruce springsteen españa ${YEAR}, bruce springsteen madrid carpooling, bruce springsteen barcelona como llegar, springsteen tour españa, the boss concierto españa, carpooling bruce springsteen, viaje compartido bruce springsteen, e street band españa, como ir concierto springsteen`,
   },
   "doja-cat": {
-    title: `Doja Cat España ${YEAR}: carpooling al concierto desde 4€ | ConcertRide`,
-    description: `Doja Cat en España ${YEAR} — Palau Sant Jordi Barcelona y WiZink Center Madrid. Carpooling sin comisión desde Valencia (10–14€), Zaragoza (8–12€), Sevilla (14–20€). 0% comisión, pago Bizum o efectivo, conductores verificados.`,
-    keywords: `doja cat españa ${YEAR}, doja cat madrid como llegar, doja cat barcelona carpooling, doja cat scarlet tour, carpooling doja cat, viaje compartido doja cat, como ir concierto doja cat, doja cat wizink center, doja cat palau sant jordi`,
+    title: `Doja Cat España ${YEAR} [Scarlet Tour Palau Sant Jordi + WiZink]: Carpooling desde 4€`,
+    description: `Doja Cat Scarlet Tour España ${YEAR} — Palau Sant Jordi Barcelona y WiZink Center Madrid. Carpooling sin comisión desde Valencia (10–14€), Zaragoza (8–12€), Sevilla (14–20€), Bilbao (11–16€). 0% comisión, pago Bizum o efectivo, conductores verificados, vuelta coordinada.`,
+    keywords: `doja cat españa ${YEAR}, doja cat madrid como llegar, doja cat barcelona carpooling, doja cat scarlet tour, carpooling doja cat, viaje compartido doja cat, como ir concierto doja cat, doja cat wizink center, doja cat palau sant jordi, doja cat concierto españa, doja cat madrid ${YEAR}`,
   },
   "vetusta-morla": {
     title: `Vetusta Morla concierto España ${YEAR}: carpooling desde 4€ | ConcertRide`,

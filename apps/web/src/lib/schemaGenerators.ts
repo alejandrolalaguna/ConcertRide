@@ -228,10 +228,7 @@ export function generateWebSiteSchema(siteUrl: string) {
     inLanguage: "es-ES",
     potentialAction: {
       "@type": "SearchAction",
-      target: {
-        "@type": "EntryPoint",
-        urlTemplate: `${siteUrl}/concerts?q={search_term_string}`,
-      },
+      target: `${siteUrl}/concerts?q={search_term_string}`,
       "query-input": "required name=search_term_string",
     },
   };

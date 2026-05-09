@@ -7897,6 +7897,379 @@ BLOG_POSTS.push({
     "estadisticas-festivales-espana-2026-datos",
     "estudio-co2-festivales-carpooling-2026",
   ],
+},
+// ──────────────────────────────────────────────────────────────────────
+{
+  slug: "autobuses-vina-rock-2026",
+  title: "Autobuses Viña Rock 2026 [Guía Completa]: Bus oficial, buses desde Madrid, horarios y alternativas",
+  h1: "Autobuses a Viña Rock 2026: bus lanzadera, buses desde Madrid y carpooling",
+  excerpt:
+    "Guía definitiva de autobuses a Viña Rock 2026: bus lanzadera oficial Albacete–Villarrobledo, autobuses privados desde Madrid (35–55 €), tren AVE + bus y carpooling con ConcertRide desde 6 €/asiento. Horarios reales, precios y cómo volver de madrugada.",
+  category: "guias",
+  tags: ["autobuses viña rock", "bus viña rock", "buses viñarock", "autobus viña rock", "como llegar viña rock", "viña rock transporte", "viña rock 2026"],
+  publishedAt: "2026-05-09T08:00:00.000Z",
+  author: "Equipo ConcertRide",
+  readingMinutes: 7,
+  lede:
+    "Cada año miles de personas buscan «autobuses Viña Rock», «bus viñarock» o «autobus viña rock desde Madrid» y reciben información confusa. Esta guía desglosa las opciones reales para 2026: qué bus existe, qué es oficial, qué es privado y por qué el carpooling es la opción dominante para volver de madrugada.",
+  sections: [
+    {
+      heading: "¿Hay autobús oficial a Viña Rock 2026?",
+      paragraphs: [
+        "Sí, pero solo desde Albacete. El festival organiza una lanzadera oficial Albacete–Villarrobledo (La Pulgosa) los días del festival. Sale desde la estación de autobuses de Albacete en franjas de tarde y noche. Coste aproximado: 5–10 € ida y vuelta. Duración: 40 minutos.",
+        "Esta lanzadera NO sale desde Madrid, Barcelona, Valencia ni ninguna otra ciudad. Solo cubre los 50 km entre Albacete capital y el recinto. Si vienes de fuera de Albacete, primero tienes que llegar a Albacete y luego coger la lanzadera.",
+        "Las plazas de la lanzadera oficial se agotan los días de mayor afluencia (viernes y sábado). El último servicio de vuelta suele salir entre las 5:00 y las 6:00 am.",
+      ],
+    },
+    {
+      heading: "Autobuses privados a Viña Rock desde Madrid: lo que debes saber",
+      paragraphs: [
+        "Cuando buscas «autobuses Viña Rock Madrid» o «bus viñarock desde Madrid», los resultados son de operadores privados no oficiales. Funcionan así:",
+      ],
+      bullets: [
+        "Salidas desde Méndez Álvaro, Nuevos Ministerios o Atocha en Madrid.",
+        "Precio orientativo: 35–55 € por persona, ida y vuelta.",
+        "Vuelta a hora fija: normalmente a las 5:00 o 6:00 am del último día. Sin flexibilidad — si el cabeza de cartel termina más tarde, esperarás o te quedas.",
+        "No te dejan en el camping: el bus para en la entrada principal del recinto.",
+        "Disponibilidad limitada: solo operan si hay suficiente demanda.",
+      ],
+    },
+    {
+      heading: "Autobús ALSA Madrid–Albacete: ¿sirve para ir a Viña Rock?",
+      paragraphs: [
+        "El bus ALSA Madrid–Albacete opera varias frecuencias diarias (2h 30 min, 12–20 €). El problema: llega a la estación de autobuses de Albacete, no al festival. Desde allí necesitas:",
+      ],
+      bullets: [
+        "Bus lanzadera oficial del festival Albacete–Villarrobledo: 5–10 €, 40 min. Plazas limitadas.",
+        "Taxi desde Albacete a La Pulgosa: 25–35 €. Opción disponible a cualquier hora.",
+        "Carpooling ConcertRide desde Albacete: 3–5 €/asiento, 35 min.",
+      ],
+    },
+    {
+      heading: "Tren AVE Madrid–Albacete + bus a Viña Rock",
+      paragraphs: [
+        "El AVE Madrid Atocha–Albacete Los Llanos cubre el trayecto en 1h 30 min (15–45 € según antelación). Es la opción más rápida para la ida. El problema está en la vuelta de madrugada: el último AVE Albacete–Madrid sale antes de las 22:00. Para volver del festival a las 4:00–6:00 am desde La Pulgosa necesitas taxi a Albacete (25–35 €) y luego esperar al primer tren matutino o ir en carpooling. En la práctica, la mayoría que viene de Madrid en tren vuelve en carpooling.",
+      ],
+    },
+    {
+      heading: "Carpooling a Viña Rock con ConcertRide: precios y ciudades de origen",
+      paragraphs: [
+        "El coche compartido con ConcertRide es la opción más usada para Viña Rock, especialmente para la vuelta de madrugada. Los conductores son asistentes al festival que comparten gastos. Sin comisión: el 100 % del precio va al conductor.",
+      ],
+      bullets: [
+        "Desde Madrid: 6–9 €/asiento · 150 km · 1h 45 min",
+        "Desde Valencia: 6–9 €/asiento · 170 km · 1h 50 min",
+        "Desde Alicante: 5–8 €/asiento · 165 km · 1h 40 min",
+        "Desde Albacete: 3–5 €/asiento · 50 km · 35 min",
+        "Desde Cuenca: 4–6 €/asiento · 90 km · 1h 10 min",
+        "Desde Murcia: 6–9 €/asiento · 155 km · 1h 35 min",
+      ],
+    },
+    {
+      heading: "Comparativa: bus oficial vs. autobús privado vs. carpooling a Viña Rock",
+      paragraphs: ["Para elegir la mejor opción según tu ciudad y prioridades:"],
+      bullets: [
+        "Bus lanzadera oficial (Albacete → recinto): 5–10 € · solo desde Albacete · plazas limitadas · horario fijo",
+        "Autobús privado no oficial (desde Madrid): 35–55 € · vuelta a hora fija · puede cancelarse",
+        "ALSA Madrid–Albacete + lanzadera: 20–30 € total · imposible volver de madrugada en transporte público",
+        "Carpooling ConcertRide (desde Madrid): 6–9 €/asiento · llegada al recinto · vuelta coordinada · horario flexible",
+      ],
+    },
+    {
+      heading: "Cómo volver de Viña Rock de madrugada",
+      paragraphs: [
+        "El último cabeza de cartel termina entre las 4:00 y las 6:00 am. Las opciones reales de vuelta son:",
+      ],
+      bullets: [
+        "Carpooling ConcertRide: el conductor espera a que termine el festival. Vuelta directa a tu ciudad sin hora fija.",
+        "Bus lanzadera oficial (solo Albacete): último servicio a las 5:00–6:00 am.",
+        "Autobús privado no oficial: vuelta a hora fija, sin margen si el festival se alarga.",
+        "Quedarse en el camping: Viña Rock tiene zona de camping — la opción sin estrés de transporte nocturno.",
+      ],
+    },
+  ],
+  faqs: [
+    {
+      q: "¿Hay autobús directo a Viña Rock desde Madrid?",
+      a: "No existe autobús oficial directo del festival Madrid–Viña Rock. Hay operadores privados no oficiales desde Méndez Álvaro y Nuevos Ministerios por 35–55 €. La lanzadera oficial solo opera entre Albacete ciudad y el recinto (5–10 €, 40 min). El carpooling con ConcertRide (6–9 €/asiento desde Madrid, sin comisión) es la alternativa más flexible y económica.",
+    },
+    {
+      q: "¿Cuánto cuesta el bus a Viña Rock?",
+      a: "La lanzadera oficial Albacete–Villarrobledo: 5–10 € ida y vuelta. Los autobuses privados no oficiales desde Madrid: 35–55 € ida y vuelta. El carpooling con ConcertRide desde Madrid: 6–9 €/asiento sin comisión.",
+    },
+    {
+      q: "¿Dónde salen los autobuses a Viña Rock desde Madrid?",
+      a: "Los operadores privados de bus a Viña Rock suelen salir de Méndez Álvaro y Nuevos Ministerios. Para el carpooling con ConcertRide, el punto de encuentro lo acuerdan directamente conductor y pasajero (habitual en Méndez Álvaro, Nuevos Ministerios o domicilio).",
+    },
+    {
+      q: "¿A qué hora vuelven los autobuses de Viña Rock?",
+      a: "La lanzadera oficial opera hasta las 5:00–6:00 am. Los autobuses privados no oficiales tienen vuelta fija (5:00–6:00 am). El carpooling con ConcertRide no tiene hora fija — el conductor espera a que termine el festival y coordina la vuelta con los pasajeros.",
+    },
+    {
+      q: "¿Se puede ir a Viña Rock en tren?",
+      a: "Parcialmente. El AVE Madrid–Albacete (1h 30 min, 15–45 €) llega a Albacete, donde hay que coger lanzadera (5–10 €) o taxi (25–35 €) al recinto. La vuelta de madrugada en tren es imposible: el último AVE Albacete–Madrid sale antes de las 22:00.",
+    },
+  ],
+  relatedLinks: [
+    { label: "Cómo llegar a Viña Rock 2026", to: "/como-llegar/vina-rock" },
+    { label: "Guía completa Viña Rock 2026", to: "/festivales/vina-rock" },
+    { label: "Carpooling Madrid → Viña Rock", to: "/rutas/madrid-vina-rock" },
+    { label: "Carpooling Valencia → Viña Rock", to: "/rutas/valencia-vina-rock" },
+    { label: "Carpooling Alicante → Viña Rock", to: "/rutas/alicante-vina-rock" },
+    { label: "Autobuses a festivales España 2026", to: "/blog/autobuses-festivales-espana-2026" },
+    { label: "Guía transporte Viña Rock 2026", to: "/blog/guia-transporte-vina-rock-2026" },
+    { label: "Cómo volver de un festival de madrugada", to: "/blog/como-volver-festival-madrugada" },
+  ],
+  relatedPosts: [
+    "guia-transporte-vina-rock-2026",
+    "autobuses-festivales-espana-2026",
+    "como-volver-festival-madrugada",
+  ],
+});
+
+BLOG_POSTS.push({
+  slug: "conciertos-sevilla-2026-guia-completa",
+  title: "Conciertos en Sevilla 2026: Agenda Completa, Recintos y Carpooling desde 4€",
+  h1: "Conciertos en Sevilla 2026",
+  excerpt:
+    "Guía completa de los conciertos y festivales en Sevilla 2026: Estadio La Cartuja, FIBES, Icónica Sevilla Fest y cómo llegar en carpooling desde Cádiz, Huelva, Córdoba, Málaga y Madrid desde 4€ sin comisión.",
+  category: "guias",
+  tags: ["sevilla", "conciertos", "la cartuja", "fibes", "icónica fest", "carpooling andalucía", "2026"],
+  publishedAt: "2026-05-09",
+  author: "ConcertRide",
+  readingMinutes: 8,
+  lede:
+    "Sevilla es uno de los destinos musicales más activos de España en 2026: estadios, festivales urbanos y conciertos cubiertos. Te contamos cómo llegar a cada recinto y cómo compartir coche sin pagar comisión.",
+  coverImage: { src: "/images/blog/sevilla-estadio-cartuja.jpg", alt: "Estadio La Cartuja Sevilla concierto" },
+  sections: [
+    {
+      heading: "La agenda de conciertos en Sevilla 2026: los recintos principales",
+      paragraphs: [
+        "Sevilla concentra cuatro tipologías de recinto que hacen de ella un polo musical único en el sur de España. El Estadio Olímpico de La Cartuja (57.000 plazas) recibe las grandes giras de estadio: Manuel Carrasco, Guns N' Roses y otros artistas de alcance europeo programan Sevilla como parada obligatoria de sus giras por la capacidad y el clima de la ciudad.",
+        "El auditorio FIBES (9.500 plazas, cubierto) programa una agenda paralela con artistas de menor aforo y géneros más diversos. La Plaza de España de Sevilla se convierte en junio en el escenario del Icónica Sevilla Fest, el festival urbano más fotogénico de Andalucía. Y el Charco de la Pava (Triana) acoge el festival Interestelar, de electrónica y pop.",
+      ],
+      bullets: [
+        "Estadio La Cartuja — giras de estadio (Manuel Carrasco, Guns N' Roses, Metallica, Ed Sheeran)",
+        "FIBES Sevilla — conciertos cubiertos medianos (9.500 plazas, aire acondicionado)",
+        "Plaza de España — Icónica Sevilla Fest (mayo–jun, conciertos sentados de gran espectáculo)",
+        "Interestelar Sevilla (Charco de la Pava, Triana) — electrónica y pop",
+        "Auditorio Rocío Jurado — teatro y espectáculos clásicos",
+      ],
+    },
+    {
+      heading: "Cómo llegar al Estadio La Cartuja Sevilla en transporte público",
+      paragraphs: [
+        "El Estadio Olímpico La Cartuja no tiene metro. La opción más directa en transporte público es el tranvía T1 desde el centro (parada Estadio Olímpico, 15 min desde Prado de San Sebastián). También circulan los autobuses C1 y C2 desde la estación de Santa Justa. El parking del estadio tiene unas 3.000 plazas a 8–12 € pero se llena con antelación.",
+        "Para los que vienen de fuera de Sevilla, el problema real es el transporte nocturno de vuelta. Los conciertos en La Cartuja terminan entre la 1:00 y las 2:30 de la madrugada. A esa hora el tranvía ya no circula y los autobuses nocturnos (lineas N) tienen frecuencia reducida. Es aquí donde el carpooling con ConcertRide marca la diferencia: el coche sale cuando tú decides, coordinas directamente con el conductor.",
+      ],
+      bullets: [
+        "Tranvía T1: Prado de San Sebastián → Estadio Olímpico (15 min, 1,40 €, último a las 00:15)",
+        "Bus C1/C2 desde Santa Justa: 25 min, 1,40 € (último a las 23:30)",
+        "Parking estadio: 8–12 €/noche, llega con 1h de antelación",
+        "Carpooling ConcertRide: vuelta de madrugada sin esperas, precio pactado con el conductor",
+      ],
+    },
+    {
+      heading: "Cómo llegar al FIBES y a Icónica Sevilla Fest",
+      paragraphs: [
+        "El FIBES (recinto ferial de Sevilla) se llega en metro línea 1, parada Olivar de Quintos, a 10 minutos a pie. También hay aparcamiento propio con 2.000 plazas. El Metro de Sevilla corre hasta la 1:30 de la madrugada los viernes y sábados.",
+        "La Plaza de España (sede de Icónica Fest) está en el corazón de Sevilla: autobús C1, C2, líneas 03 y 06 desde cualquier punto del centro. Si viajas desde fuera de Sevilla, lo más cómodo es llegar en AVE a Santa Justa y continuar en bus o taxi. El carpooling tiene menos lógica dentro de Sevilla capital, pero es muy útil para los que vienen desde Cádiz, Huelva, Jerez o el Aljarafe.",
+      ],
+    },
+    {
+      heading: "Carpooling a conciertos en Sevilla: precios por ciudad",
+      paragraphs: [
+        "ConcertRide conecta conductores y pasajeros para conciertos y festivales en Sevilla sin cobrar comisión. El pago es directo entre conductor y pasajero, vía Bizum o efectivo. Estos son los precios habituales publicados por conductores de la plataforma:",
+      ],
+      bullets: [
+        "Desde Cádiz (125 km, 1h 30 min): 4–6 €/asiento",
+        "Desde Huelva (90 km, 1h 10 min): 4–6 €/asiento",
+        "Desde Jerez de la Frontera (90 km, 1h): 4–6 €/asiento",
+        "Desde Córdoba (145 km, 1h 30 min): 5–7 €/asiento",
+        "Desde Málaga (210 km, 2h 15 min): 7–10 €/asiento",
+        "Desde Granada (255 km, 2h 30 min): 8–12 €/asiento",
+        "Desde Madrid (535 km, 5h): 14–20 €/asiento",
+        "Desde Barcelona (1.000 km, 9h): 20–28 €/asiento",
+      ],
+    },
+    {
+      heading: "Los conciertos más esperados en Sevilla 2026",
+      paragraphs: [
+        "La agenda de Sevilla 2026 incluye artistas de primer nivel tanto en La Cartuja como en FIBES e Icónica Fest. Manuel Carrasco tiene a Sevilla como parada especial de su gira — el cantor de Isla Cristina tiene una conexión especial con su tierra. Las giras de estadio internacionales también marcan fechas en La Cartuja por su capacidad para albergar más de 50.000 personas.",
+        "Para estar al día de los próximos conciertos en Sevilla, consulta la agenda en ConcertRide: publicamos los viajes compartidos en cuanto se anuncian nuevas fechas, y puedes activar una alerta para recibir notificación cuando haya carpooling disponible desde tu ciudad.",
+      ],
+    },
+    {
+      heading: "¿Merece la pena el carpooling vs. el AVE a Sevilla para un concierto?",
+      paragraphs: [
+        "El AVE Madrid–Sevilla cuesta 40–90 € ida en media o punta, y el último tren de vuelta sale a las 22:00–23:00 (según el día). Si el concierto en La Cartuja acaba a la 1:30, te quedas sin opción de volver esa noche en AVE. El carpooling con ConcertRide te permite organizarte con alguien que también tenga coche y quiera volver a Madrid después del concierto — compartes gastos de gasolina y peaje, normalmente 14–20 € en total.",
+        "Para ciudades andaluzas sin AVE (Cádiz, Huelva, Jerez, los pueblos del Aljarafe sevillano), el carpooling es directamente la única alternativa real: no hay tren nocturno de vuelta desde Sevilla en esa dirección.",
+      ],
+    },
+  ],
+  faqs: [
+    {
+      q: "¿Cómo llegar al Estadio La Cartuja de Sevilla en transporte público?",
+      a: "La opción más directa es el tranvía T1 desde el centro (parada Estadio Olímpico, 15 min desde Prado de San Sebastián, 1,40 €). También los autobuses C1 y C2 desde la estación de Santa Justa. El tranvía cesa a las 00:15, así que para volver de madrugada necesitas taxi, VTC o carpooling.",
+    },
+    {
+      q: "¿Hay carpooling desde Cádiz a los conciertos de Sevilla?",
+      a: "Sí. En ConcertRide encontrarás conductores que salen desde Cádiz, Jerez, Puerto de Santa María y otros puntos de la provincia para conciertos en La Cartuja y FIBES. El precio habitual es 4–6 €/asiento (ida o vuelta). Sin comisión de plataforma, pago directo en Bizum.",
+    },
+    {
+      q: "¿Qué festivales hay en Sevilla en 2026?",
+      a: "En 2026 Sevilla tiene el Icónica Sevilla Fest (Plaza de España, mayo–jun), el festival Interestelar (Charco de la Pava, electrónica), y conciertos de estadio en La Cartuja. Además, desde Sevilla hay buenas conexiones carpooling hacia festivales próximos como Cala Mijas Festival (Málaga, 210 km) y Gibraltar Calling.",
+    },
+    {
+      q: "¿Cuánto tarda el tranvía de Sevilla al estadio La Cartuja?",
+      a: "El tranvía T1 cubre el trayecto Prado de San Sebastián → parada Estadio Olímpico en unos 15 minutos. El billete sencillo cuesta 1,40 €. Recuerda que el tranvía no opera de madrugada: el último servicio sale a las 00:15 (viernes y sábados hasta la 1:00).",
+    },
+    {
+      q: "¿Merece la pena coger el AVE para un concierto en Sevilla desde Madrid?",
+      a: "Depende del horario. El AVE cuesta 40–90 € ida. El mayor problema es la vuelta: el último AVE Sevilla–Madrid suele salir a las 22:00–23:00, antes de que acabe el concierto en La Cartuja. La alternativa es el carpooling con ConcertRide (14–20 €/asiento desde Madrid, sin hora fija de vuelta).",
+    },
+  ],
+  relatedLinks: [
+    { label: "Cómo llegar al Estadio La Cartuja Sevilla", to: "/recintos/estadio-la-cartuja" },
+    { label: "Conciertos en Sevilla 2026–2027", to: "/conciertos/sevilla" },
+    { label: "Carpooling Cádiz → Sevilla conciertos", to: "/rutas/cadiz-la-cartuja" },
+    { label: "Carpooling Madrid → Sevilla La Cartuja", to: "/rutas/madrid-la-cartuja" },
+    { label: "Guía Cala Mijas Festival", to: "/festivales/cala-mijas" },
+    { label: "Autobuses a festivales España 2026", to: "/blog/autobuses-festivales-espana-2026" },
+  ],
+  relatedPosts: [
+    "guia-transporte-festivales-andalucia-2026",
+    "autobuses-festivales-espana-2026",
+    "como-volver-festival-madrugada",
+  ],
+});
+
+BLOG_POSTS.push({
+  slug: "como-llegar-arenal-sound-2026",
+  title: "Cómo llegar al Arenal Sound 2026: Buses Castellón, Tren Valencia y Carpooling desde 3€",
+  h1: "Cómo llegar al Arenal Sound 2026",
+  excerpt:
+    "Guía completa de transporte para el Arenal Sound 2026 en Burriana (Castellón): bus lanzadera oficial desde Castellón, tren Cercanías C6 desde Valencia y carpooling sin comisión desde Madrid, Barcelona, Alicante y toda España desde 3€/asiento.",
+  category: "guias",
+  tags: ["arenal sound", "burriana", "castellón", "como llegar", "bus", "tren", "carpooling", "2026"],
+  publishedAt: "2026-05-09",
+  author: "ConcertRide",
+  readingMinutes: 7,
+  lede:
+    "El Arenal Sound se celebra en la Playa de Burriana (Castellón), 5 km al sur de la ciudad. Sin metro, sin aparcamiento fácil — pero con autobuses lanzadera, tren de Cercanías y carpooling que lo hacen accesible desde toda España.",
+  coverImage: { src: "/images/blog/arenal-sound-burriana-playa.jpg", alt: "Arenal Sound Playa Burriana Castellón cómo llegar" },
+  sections: [
+    {
+      heading: "Dónde está el Arenal Sound: Playa de Burriana, Castellón",
+      paragraphs: [
+        "El Arenal Sound se celebra en la Playa de Burriana, un barrio playero de Castellón de la Plana situado a 5 km del centro de la ciudad. La playa no tiene conexión de metro ni línea de autobús regular frecuente fuera del festival, lo que hace que el transporte organizado sea fundamental para los 250.000 asistentes que reúne en 5 días.",
+        "Las fechas de 2026 son del 29 de julio al 2 de agosto. El recinto abre cada día a partir de las 18:00 y los headliners actúan entre las 00:00 y las 05:30. Esto significa que el transporte de regreso ocurre en plena madrugada.",
+      ],
+    },
+    {
+      heading: "Bus lanzadera oficial: Castellón → Playa de Burriana",
+      paragraphs: [
+        "El Ayuntamiento de Castellón y la organización del festival habilitan un servicio de bus lanzadera oficial entre el centro de Castellón (Estación de Bus y Paseo Ribalta) y el recinto de la Playa de Burriana. Es la opción más cómoda para quienes llegan a Castellón en tren desde Valencia.",
+        "El bus lanzadera funciona con ida y vuelta. La vuelta opera hasta las 6:00 am aproximadamente, con frecuencia cada 15–30 minutos durante las horas punta de salida del festival. El precio habitual es de 5–8 € el trayecto (o 8–14 € ida y vuelta).",
+      ],
+      bullets: [
+        "Punto de salida: Estación de Autobuses de Castellón + Paseo Ribalta",
+        "Frecuencia ida (desde Castellón): cada 30 min de 16:00 a 22:00",
+        "Frecuencia vuelta (desde festival): cada 15 min de 01:00 a 06:00",
+        "Precio estimado: 5–8 € trayecto / 8–14 € ida y vuelta",
+        "Consejo: compra el bono anticipado en la web del festival — suelen agotarse",
+      ],
+    },
+    {
+      heading: "Tren Cercanías C6 Valencia–Castellón: la opción económica",
+      paragraphs: [
+        "El tren de Cercanías Renfe C6 conecta Valencia Nord con Castellón en 45 minutos y cuesta 3,90 €. Con el Abono Mensual o el Bono 10 Viajes, el precio baja significativamente. Desde Castellón, combinas con el bus lanzadera oficial al recinto (5–8 €) o con el servicio de carpooling.",
+        "El problema es la vuelta de madrugada: el último tren Castellón–Valencia sale sobre las 23:00–23:30. Si quieres ver al headliner (que empieza a las 01:00), no puedes volver en tren esa noche. La solución más habitual es quedarse a dormir en Castellón (hostales económicos, 25–50 €/noche) o usar carpooling de madrugada.",
+      ],
+      bullets: [
+        "Línea: C6 Valencia Nord → Castellón (45 min, 3,90 €)",
+        "Frecuencia: cada 30 min de 06:00 a 23:00",
+        "Último tren de vuelta Castellón → Valencia: ≈ 23:00–23:30",
+        "Complemento: bus lanzadera Castellón → festival (5–8 €)",
+        "Alternativa madrugada: carpooling ConcertRide (sin hora fija de salida)",
+      ],
+    },
+    {
+      heading: "Carpooling ConcertRide: desde toda España sin comisión",
+      paragraphs: [
+        "El carpooling con ConcertRide es la opción más versátil para el Arenal Sound: sales desde tu ciudad directamente, llegas al recinto, y la vuelta se coordina cuando termina el festival — sin pagar taxi de madrugada ni quedarte a esperar el primer tren de la mañana.",
+        "La plataforma conecta conductores y pasajeros sin cobrar comisión. El pago es directo entre conductor y pasajero (Bizum o efectivo). Estos son los precios medios publicados por conductores en ConcertRide:",
+      ],
+      bullets: [
+        "Desde Valencia (70 km, 50 min): 3–6 €/asiento",
+        "Desde Castellón (5 km, 15 min): 3–5 €/asiento",
+        "Desde Alicante (175 km, 1h 45 min): 4–7 €/asiento",
+        "Desde Tarragona (130 km, 1h 30 min): 4–7 €/asiento",
+        "Desde Barcelona (240 km, 2h 30 min): 8–12 €/asiento",
+        "Desde Madrid (440 km, 4h 15 min): 12–17 €/asiento",
+        "Desde Murcia (250 km, 2h 30 min): 7–11 €/asiento",
+        "Desde Zaragoza (300 km, 2h 45 min): 8–12 €/asiento",
+        "Desde Bilbao (520 km, 5h): 13–18 €/asiento",
+      ],
+    },
+    {
+      heading: "Autobuses privados no oficiales al Arenal Sound desde Madrid y Barcelona",
+      paragraphs: [
+        "Existen operadores de autobús privado que ofrecen viajes directos al Arenal Sound desde Madrid y Barcelona, con precio de 40–70 € ida y vuelta. Estos autobuses salen de puntos concretos (Madrid: Méndez Álvaro; Barcelona: Sants o Pl. Espanya) y tienen vuelta a hora fija (generalmente a las 5:00–6:00 am del último día de festival o del día indicado).",
+        "El inconveniente: el precio dobla o triplica el carpooling, los horarios son fijos y si quieres quedarte más días necesitas buscar billete de vuelta alternativo. Para grupos de 3–4 personas, el carpooling ConcertRide compartiendo gastos resulta igual de cómodo y mucho más barato.",
+      ],
+    },
+    {
+      heading: "Cómo volver del Arenal Sound de madrugada",
+      paragraphs: [
+        "El headliner del Arenal Sound termina entre las 05:00 y las 06:00. Las opciones reales de vuelta son: quedarse a dormir en Burriana o Castellón (zona de acampada del festival o alojamiento reservado previamente), el bus lanzadera oficial (hasta las 06:00), o el carpooling coordinado con el conductor de ConcertRide.",
+        "La opción del taxi de madrugada desde Burriana es cara y escasa: hay pocos taxis en la zona y los VTC tienen tarifas nocturnas elevadas (Burriana–Valencia puede costar 60–90 € en taxi en hora punta del festival).",
+      ],
+      bullets: [
+        "Bus lanzadera oficial: último servicio ≈ 06:00 am desde el recinto",
+        "Carpooling ConcertRide: sin hora fija, coordinación directa con el conductor",
+        "Taxi/VTC: 60–90 € hasta Valencia de madrugada (precio dinámico en pico)",
+        "Acampada: el festival tiene zona de camping — opción sin estrés de transporte",
+        "Tren: primer servicio Castellón–Valencia ≈ 06:00–07:00 (muy concurrido)",
+      ],
+    },
+  ],
+  faqs: [
+    {
+      q: "¿Hay bus lanzadera al Arenal Sound desde Castellón?",
+      a: "Sí. La organización del festival habilita un bus lanzadera oficial desde la Estación de Autobuses de Castellón y Paseo Ribalta hasta el recinto de Playa Burriana. El precio estimado es 5–8 € el trayecto (8–14 € ida y vuelta). Opera desde las 16:00 y la vuelta funciona hasta las 06:00 am aproximadamente.",
+    },
+    {
+      q: "¿Cómo llegar al Arenal Sound desde Valencia?",
+      a: "Dos opciones combinables: tren Cercanías C6 Valencia–Castellón (45 min, 3,90 €) + bus lanzadera Castellón–Burriana (5–8 €). Total: ≈ 9–12 € ida. O carpooling con ConcertRide directo desde Valencia al festival (3–6 €/asiento, sin transbordo).",
+    },
+    {
+      q: "¿Hay carpooling al Arenal Sound desde Madrid?",
+      a: "Sí. En ConcertRide encontrarás conductores que salen desde Madrid hacia el Arenal Sound. El precio habitual es 12–17 €/asiento (440 km, 4h 15 min). Sin comisión de plataforma, pago directo en Bizum o efectivo. La vuelta se coordina al terminar el festival.",
+    },
+    {
+      q: "¿Cómo volver del Arenal Sound de madrugada?",
+      a: "Las opciones son: bus lanzadera oficial (hasta las 06:00 am desde el recinto), carpooling con ConcertRide (sin hora fija, vuelta coordinada con el conductor), o quedarse en el área de acampada del festival. El tren Cercanías no opera de madrugada (primer servicio ≈ 06:00 am).",
+    },
+    {
+      q: "¿Cuánto cuesta el bus al Arenal Sound?",
+      a: "El bus lanzadera oficial desde Castellón cuesta 5–8 € el trayecto. Los autobuses privados no oficiales desde Madrid o Barcelona cuestan 40–70 € ida y vuelta. El carpooling con ConcertRide es la opción más económica: 3–6 €/asiento desde Valencia o Alicante, 12–17 €/asiento desde Madrid.",
+    },
+  ],
+  relatedLinks: [
+    { label: "Guía Arenal Sound 2026", to: "/festivales/arenal-sound" },
+    { label: "Cómo llegar al Arenal Sound 2026", to: "/como-llegar/arenal-sound" },
+    { label: "Carpooling Valencia → Arenal Sound", to: "/rutas/valencia-arenal-sound" },
+    { label: "Carpooling Madrid → Arenal Sound", to: "/rutas/madrid-arenal-sound" },
+    { label: "Carpooling Alicante → Arenal Sound", to: "/rutas/alicante-arenal-sound" },
+    { label: "Autobuses a festivales España 2026", to: "/blog/autobuses-festivales-espana-2026" },
+    { label: "Cómo volver de un festival de madrugada", to: "/blog/como-volver-festival-madrugada" },
+  ],
+  relatedPosts: [
+    "autobuses-vina-rock-2026",
+    "autobuses-festivales-espana-2026",
+    "guia-transporte-vina-rock-2026",
+  ],
 });
 
 // Refresh derived exports

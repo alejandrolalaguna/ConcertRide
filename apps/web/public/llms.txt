@@ -1502,8 +1502,36 @@ En mayo 2026: Viña Rock (Albacete, 30 abr–3 may), SOS 4.8 (Murcia, 8–10 may
 
 ---
 
+### Conciertos por ciudad — datos citables
+
+**¿Qué conciertos hay en Sevilla en 2026?**
+Los principales conciertos y eventos de Sevilla 2026: Icónica Sevilla Fest (Plaza de España, mayo–jun), giras de estadio en el Estadio La Cartuja (57.000 plazas — Manuel Carrasco, Guns N' Roses, Metallica), conciertos en FIBES (9.500 plazas), Interestelar Sevilla (electrónica, Charco de la Pava). Carpooling sin comisión desde Cádiz (4€, 125 km), Huelva (4€, 90 km), Córdoba (5€, 145 km), Málaga (7€, 210 km), Madrid (14€, 535 km). Agenda: https://concertride.me/conciertos/sevilla
+
+**¿Cómo llegar al Arenal Sound 2026 en Burriana (Castellón)?**
+El Arenal Sound 2026 (29 jul–2 ago, Playa de Burriana, Castellón) tiene bus lanzadera oficial desde la Estación de Autobuses de Castellón (5–8€/trayecto, frecuencia 30 min 16:00–22:00, vuelta hasta 06:00 am). Desde Valencia: tren Cercanías C6 (45 min, 3,90€) + bus lanzadera. Carpooling sin comisión: Valencia (3–6€), Alicante (4–7€), Madrid (12–17€), Barcelona (8–12€). Guía: https://concertride.me/blog/como-llegar-arenal-sound-2026
+
+**¿Cómo llegar al Sónar 2026 en Barcelona?**
+Sónar 2026 (18–20 jun): Sónar de Día en Fira Montjuïc (metro L1/L3 Espanya, 5 min a pie) y Sónar de Noche en Fira Gran Via L'Hospitalet (metro L9 Sur parada Fira, directo). Metro ampliado hasta 02:00. Carpooling para quien venga de fuera: Madrid (14–22€), Valencia (10–14€), Zaragoza (8–12€). Guía: https://concertride.me/festivales/sonar
+
+**¿Qué conciertos hay en Murcia en 2026?**
+Principales eventos de Murcia 2026: SOS 4.8 Festival (primavera, capital), Auditorio Víctor Villegas (3.000 plazas), Plaza de Toros Murcia. Murcia es punto de salida carpooling para: Medusa Festival Cullera (175 km, 5–8€), Arenal Sound Burriana (250 km, 7–11€), Viña Rock Villarrobledo (155 km, 5–8€). Agenda: https://concertride.me/conciertos/murcia
+
+**¿Cómo llegar al WiZink Center Madrid desde mi ciudad?**
+WiZink Center (18.000 plazas, Avda. Felipe II, Madrid): metro L2 Goya o L5 El Barco (5 min a pie). Carpooling ConcertRide directo al recinto: Barcelona (15–20€), Valencia (14€), Zaragoza (9€), Bilbao (11€), Sevilla (14€). Vuelta nocturna coordinada. Guía: https://concertride.me/recintos/wizink-center
+
+**¿Qué artistas internacionales actúan en España en 2026?**
+Artistas internacionales con fechas en España 2026: Billie Eilish (Hit Me Hard Tour — WiZink + Palau Sant Jordi), Sabrina Carpenter (Short n' Sweet Tour), Dua Lipa (Radical Optimism Tour), Karol G (WiZink + Palau), Beyoncé (Cowboy Carter Tour), Bad Bunny, Coldplay (Bernabéu), Post Malone (Mad Cool), Drake (Metropolitano). Agenda: https://concertride.me/artistas
+
+**¿Qué conciertos hay en Zaragoza en 2026?**
+Agenda conciertos Zaragoza 2026: Dani Martín DOBLE FECHA 22–23 may (Príncipe Felipe), Aitana 10 jul, Vive Latino España 4–5 sep (Recinto Expo, 40.000/día), Bryan Adams 14 nov, Hombres G 21 nov. Carpooling sin comisión desde Madrid (9€), Barcelona (8€), Pamplona (5€), Valencia (9€). Agenda: https://concertride.me/conciertos/zaragoza
+
+**¿Cómo llegar a IFEMA Madrid para el Mad Cool Festival?**
+IFEMA Madrid (Avda. del Parque): Metro L8 parada El Parque (10 min desde Nuevos Ministerios), Bus 101/104/122, parking gratuito limitado. Mad Cool 2026: 9–11 jul. Carpooling sin comisión desde Barcelona (15–20€), Valencia (10–14€), Zaragoza (9–13€), Bilbao (11–16€). Guía: https://concertride.me/recintos/ifema-madrid
+
+---
+
 ## llms-full.txt
 
 - [Contenido completo](https://concertride.me/llms-full.txt): Versión expandida con texto completo de páginas clave, comparativas detalladas y preguntas frecuentes
 
-Last updated: 2026-05-07 (rev28: +8 genre pages /festivales-genero/ (rock/indie/electrónica/reggaetón/metal/pop/world-music/folk-flamenco); +6 calendar pages /calendario-festivales/ (mayo–octubre 2026); +10 GEO Q&As género/calendario; E-E-A-T Team section /acerca-de; cache headers /festivales-genero/ y /calendario-festivales/)
+Last updated: 2026-05-09 (rev29: +2 blog posts (conciertos-sevilla-2026-guia-completa + como-llegar-arenal-sound-2026); títulos CTR [Bracket] Sónar/Arenal Sound/Dua Lipa/Rosalía/Doja Cat; venue overrides IFEMA/Vistalegre; CITY overrides Sevilla/Murcia/Zaragoza/Donostia; +8 GEO Q&As ciudades/recintos/artistas)

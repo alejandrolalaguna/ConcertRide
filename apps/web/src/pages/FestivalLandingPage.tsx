@@ -587,6 +587,22 @@ export default function FestivalLandingPage() {
           Carpooling a {festival.name} desde {festival.originCities[0]?.concertRideRange ?? "3 €"}/asiento, sin comisión. Se celebra en {festival.venue}, {festival.city} ({festival.typicalDates}). Conductores verificados con carnet.
         </p>
 
+        {/* ── Hero CTAs — máximo impacto en el fold ── */}
+        <div className="flex flex-wrap gap-3 pt-1">
+          <Link
+            to={`/concerts?city=${encodeURIComponent(festival.city)}`}
+            className="inline-flex items-center gap-2 bg-cr-primary text-black font-sans text-sm font-bold uppercase tracking-[0.12em] px-5 py-3 hover:bg-cr-primary/90 transition-colors"
+          >
+            Buscar viajes a {festival.shortName} <ArrowRight size={14} />
+          </Link>
+          <Link
+            to="/publish"
+            className="inline-flex items-center gap-2 border-2 border-cr-primary text-cr-primary font-sans text-sm font-bold uppercase tracking-[0.12em] px-5 py-3 hover:bg-cr-primary hover:text-black transition-colors"
+          >
+            Publicar viaje →
+          </Link>
+        </div>
+
         <p className="font-sans text-sm md:text-base text-cr-text-muted max-w-2xl leading-relaxed speakable">
           {festival.blurb}
         </p>
@@ -1261,6 +1277,24 @@ export default function FestivalLandingPage() {
           .
         </p>
       </section>
+
+      {/* ── Sticky bottom CTA — mobile only ── */}
+      <div className="md:hidden fixed bottom-0 left-0 right-0 z-40 bg-cr-bg/95 backdrop-blur-sm border-t border-cr-border px-4 py-3 flex gap-2">
+        <Link
+          to={`/concerts?city=${encodeURIComponent(festival.city)}`}
+          className="flex-1 flex items-center justify-center gap-1.5 bg-cr-primary text-black font-sans text-xs font-bold uppercase tracking-[0.1em] py-3"
+        >
+          Buscar viajes a {festival.shortName} <ArrowRight size={12} />
+        </Link>
+        <Link
+          to="/publish"
+          className="flex items-center justify-center gap-1.5 border-2 border-cr-primary text-cr-primary font-sans text-xs font-bold uppercase tracking-[0.1em] px-3 py-3"
+        >
+          Publicar
+        </Link>
+      </div>
+      {/* Spacer for sticky bar on mobile */}
+      <div className="md:hidden h-16" />
     </main>
   );
 }

@@ -12455,7 +12455,7 @@ function LandingPage() {
             availableChannel: {
               "@type": "ServiceChannel",
               serviceUrl: SITE_URL,
-              availableLanguage: { "@type": "Language", name: "Spanish" }
+              availableLanguage: ["Spanish", "es"]
             },
             offers: {
               "@type": "Offer",
@@ -17572,9 +17572,9 @@ const FESTIVAL_SEO_OVERRIDES = {
     keywords: `viña rock ${YEAR$2}, viña rock buses, autobuses viñarock, autobus viña rock, bus viñarock, buses viñarock, bus viña rock, buses viña rock, como llegar viña rock, viña rock como llegar, transporte viña rock, viaje compartido viña rock, viña rock desde madrid, viña rock autobús, viñarock buses, viña rock localización, viña rock horarios, viña rock transporte, viña rock guia oficial, lanzadera viña rock, viña rock 2026 entradas`
   },
   "arenal-sound": {
-    title: `Arenal Sound ${YEAR$2} [Guía Transporte]: Bus, tren y carpooling 3€ | ConcertRide`,
-    description: `Arenal Sound ${YEAR$2} (29 jul–2 ago, Playa Burriana Castellón): bus lanzadera Castellón→Burriana (5–8€, 20 min) y tren Cercanías C6 Valencia–Castellón (45 min, 3,90€). Carpooling sin comisión desde Valencia (3–6€), Castellón (3–5€), Madrid (12–17€), Barcelona (8–12€), Alicante (4–7€). Vuelta de madrugada coordinada.`,
-    keywords: `arenal sound ${YEAR$2}, autobus castellon burriana arenal sound, autobuses castellon burriana arenal sound, bus burriana arenal sound, arenal sound como llegar, como ir al arenal sound, arenal sound localización, arenal sound tren, tren arenal sound, arenal sound bus, arenal sound autobuses, bus arenal sound, buses arenal sound, arenal sound carpooling, viaje compartido burriana arenal sound, arenal sound desde madrid, arenal sound guia transporte, arenal sound horarios, arenal sound entradas`
+    title: `Arenal Sound ${YEAR$2} [29 Jul–2 Ago Burriana]: Bus Lanzadera + Carpooling 3€ | ConcertRide`,
+    description: `Arenal Sound ${YEAR$2} (29 jul–2 ago, Playa Burriana Castellón, 250.000 asistentes): bus lanzadera oficial Castellón→Burriana (5–8€, 20 min, frecuencia 30 min) y tren Cercanías C6 Valencia–Castellón (45 min, 3,90€). Carpooling sin comisión desde Valencia (3–6€), Castellón (3–5€), Madrid (12–17€), Barcelona (8–12€), Alicante (4–7€), Zaragoza (8–12€). Vuelta de madrugada coordinada. 0% intermediarios.`,
+    keywords: `arenal sound ${YEAR$2}, autobus castellon burriana arenal sound, autobuses castellon burriana arenal sound, bus burriana arenal sound, arenal sound como llegar, como ir al arenal sound, arenal sound localización, arenal sound tren, tren arenal sound, arenal sound bus, arenal sound autobuses, bus arenal sound, buses arenal sound, arenal sound carpooling, viaje compartido burriana arenal sound, arenal sound desde madrid, arenal sound guia transporte, arenal sound horarios, arenal sound entradas, arenal sound 2026 cartel, arenal sound desde alicante, arenal sound autobuses castellon`
   },
   "mad-cool": {
     title: `Mad Cool ${YEAR$2} Madrid [9–11 jul IFEMA]: Metro L8 + Carpooling 4€ | ConcertRide`,
@@ -17632,9 +17632,9 @@ const FESTIVAL_SEO_OVERRIDES = {
     keywords: `festival de les arts ${YEAR$2}, festival les arts valencia ${YEAR$2}, festival les arts como llegar, carpooling festival les arts, les arts transporte, como ir festival les arts, festival les arts carpooling alicante, festival les arts carpooling madrid, festival les arts entradas, festival les arts cartel ${YEAR$2}, ciudad artes y ciencias festival`
   },
   "sonar": {
-    title: `Sónar ${YEAR$2} Barcelona [Guía Transporte]: Metro L1 + carpooling 8€ | ConcertRide`,
-    description: `Sónar ${YEAR$2} (18–20 jun, Fira Montjuïc + Fira Gran Via Barcelona): Metro L1 Espanya (Sónar de Día) y L9 Fira (Sónar de Noche). Carpooling desde Madrid (14–22€), Valencia (10–14€), Zaragoza (8–12€), Bilbao (16–22€). El festival de electrónica más prestigioso de Europa. Sin comisión.`,
-    keywords: `sonar ${YEAR$2}, sonar barcelona ${YEAR$2}, sonar como llegar, sonar barcelona metro, sonar festival transporte, sonar carpooling, como llegar sonar, sonar fira montjuic, sonar de dia, sonar de noche, sonar entradas, sonar fechas, festival electronica barcelona`
+    title: `Sónar ${YEAR$2} Barcelona [18–20 Jun, Fira Montjuïc]: Metro + Carpooling 8€ | ConcertRide`,
+    description: `Sónar ${YEAR$2} (18–20 jun, Fira Montjuïc + Fira Gran Via Barcelona): Metro L1 Espanya (Sónar de Día, 12:00–22:00) y L9 Fira Gran Via (Sónar de Noche, 22:00–08:00). Carpooling sin comisión desde Madrid (14–22€), Valencia (10–14€), Zaragoza (8–12€), Bilbao (16–22€), Sevilla (17–25€). El festival de electrónica más prestigioso de Europa. Vuelta nocturna coordinada.`,
+    keywords: `sonar ${YEAR$2}, sonar barcelona ${YEAR$2}, sonar como llegar, sonar barcelona metro, sonar festival transporte, sonar carpooling, como llegar sonar, sonar fira montjuic, sonar de dia, sonar de noche, sonar entradas, sonar fechas, festival electronica barcelona, sonar fira gran via, sonar 2026 cartel, sonar desde madrid, sonar desde valencia`
   },
   "sonorama-ribera": {
     title: `Sonorama Ribera ${YEAR$2} [Aranda de Duero]: Bus + carpooling desde 3€ | ConcertRide`,
@@ -17704,14 +17704,14 @@ const FESTIVAL_SEO_OVERRIDES = {
 };
 const CITY_SEO_IMPROVEMENTS = {
   sevilla: {
-    title: `Conciertos en Sevilla ${YEAR$2}–${NEXT_YEAR} [Agenda + Carpooling 4€] | ConcertRide`,
-    description: `Agenda completa de conciertos en Sevilla ${YEAR$2}–${NEXT_YEAR}: Estadio La Cartuja (57.000 plazas, giras de estadio), FIBES (9.500), Interestelar Sevilla (Charco de la Pava, mayo), Icónica Sevilla Fest (Plaza España). Carpooling sin comisión desde Cádiz (4€), Huelva (4€), Córdoba (5€), Málaga (7€), Madrid (14€). Pago Bizum o efectivo.`,
-    keywords: `conciertos en Sevilla ${YEAR$2}, conciertos Sevilla ${NEXT_YEAR}, próximos conciertos Sevilla, conciertos musica sevilla, La Cartuja Sevilla conciertos, FIBES Sevilla conciertos, Interestelar Sevilla, carpooling Sevilla festivales, viaje compartido Sevilla concierto, conciertos sevilla agenda, conciertos sevilla 2026, agenda conciertos sevilla`
+    title: `Conciertos en Sevilla ${YEAR$2} [La Cartuja, FIBES, Icónica + Carpooling 4€] | ConcertRide`,
+    description: `Agenda conciertos Sevilla ${YEAR$2}: Estadio La Cartuja (57.000 plazas — Manuel Carrasco, Guns N' Roses), FIBES (9.500 — conciertos cubiertos), Icónica Fest Plaza España (mayo–jun), Interestelar Charco de la Pava. Carpooling sin comisión desde Cádiz (4€), Huelva (4€), Córdoba (5€), Málaga (7€), Madrid (14€), Granada (8€). Pago Bizum, vuelta de madrugada coordinada.`,
+    keywords: `conciertos en Sevilla ${YEAR$2}, conciertos Sevilla ${NEXT_YEAR}, próximos conciertos Sevilla, conciertos musica sevilla, La Cartuja Sevilla conciertos, FIBES Sevilla conciertos, Interestelar Sevilla, Icónica Sevilla Fest, carpooling Sevilla festivales, viaje compartido Sevilla concierto, conciertos sevilla agenda, conciertos sevilla 2026, agenda conciertos sevilla, concierto sevilla, musica sevilla, conciertos sevilla verano, estadio la cartuja conciertos sevilla, conciertos sevilla mayo junio, conciertos sevilla octubre`
   },
   donostia: {
-    title: `Conciertos en Donostia ${YEAR$2} [Jazzaldia + Kursaal + Carpooling 4€] | ConcertRide`,
-    description: `Conciertos en Donostia–San Sebastián ${YEAR$2}: Heineken Jazzaldia (22–26 jul, 61.ª edición, Plaza Trinidad y Kursaal), Donostia Arena, Auditorio Kursaal, Teatro Victoria Eugenia. Carpooling sin comisión a BBK Live Bilbao (100 km, 4–7€), Azkena Rock Vitoria (100 km, 4–7€), Pamplona (90 km, 4–7€). Pago Bizum o efectivo.`,
-    keywords: `conciertos Donostia ${YEAR$2}, conciertos San Sebastián, Jazzaldia ${YEAR$2}, conciertos en donostia, como llegar concierto donostia, carpooling Jazzaldia, conciertos donostia 2026, donostia arena conciertos, kursaal conciertos, victoria eugenia donostia, heineken jazzaldia entradas, agenda conciertos donostia`
+    title: `Conciertos en Donostia ${YEAR$2} [Jazzaldia 22–26 Jul + Carpooling 4€] | ConcertRide`,
+    description: `Conciertos en Donostia–San Sebastián ${YEAR$2}: Heineken Jazzaldia (22–26 jul, 61.ª edición, Plaza Trinidad y Kursaal, entrada gratuita parcial), Donostia Arena (9.000 plazas), Auditorio Kursaal, Teatro Victoria Eugenia. Carpooling sin comisión a BBK Live Bilbao (100 km, 4–7€), Pamplona (90 km, 4–7€), Vitoria (100 km, 4–7€). Pago Bizum.`,
+    keywords: `conciertos Donostia ${YEAR$2}, conciertos San Sebastián, Jazzaldia ${YEAR$2}, conciertos en donostia, como llegar concierto donostia, carpooling Jazzaldia, conciertos donostia 2026, donostia arena conciertos, kursaal conciertos, victoria eugenia donostia, heineken jazzaldia entradas, agenda conciertos donostia, conciertos san sebastian 2026, jazzaldia san sebastian, conciertos donostia verano`
   },
   alicante: {
     title: `Conciertos en Alicante ${YEAR$2} [Plaza Toros + Festivales + Carpooling 3€] | ConcertRide`,
@@ -17719,14 +17719,14 @@ const CITY_SEO_IMPROVEMENTS = {
     keywords: `conciertos Plaza de Toros Alicante ${YEAR$2}, conciertos plaza toros alicante, conciertos alicante ${YEAR$2}, conciertos en Alicante, próximos conciertos Alicante, carpooling Alicante festivales, viaje compartido Alicante Low Festival, alicante festium, agenda conciertos alicante, conciertos alicante 2026, conciertos alicante verano`
   },
   zaragoza: {
-    title: `Conciertos en Zaragoza ${YEAR$2} [Dani Martín, Aitana, Vive Latino + Carpooling] | ConcertRide`,
-    description: `Agenda conciertos en Zaragoza ${YEAR$2}: Dani Martín DOBLE FECHA 22–23 may, Aitana 10 jul, Vive Latino España 4–5 sep (Recinto Expo), Bryan Adams 14 nov, Hombres G 21 nov. Pabellón Príncipe Felipe, Sala López, Recinto Expo. Carpooling sin comisión desde Madrid (9€), Barcelona (8€), Pamplona (5€), Huesca (3€), Valencia (9€).`,
-    keywords: `conciertos Zaragoza ${YEAR$2}, conciertos en Zaragoza, próximos conciertos Zaragoza, Pabellón Príncipe Felipe, Dani Martín Zaragoza, Aitana Zaragoza, Vive Latino Zaragoza, Hombres G Zaragoza, Bryan Adams Zaragoza, carpooling Zaragoza festivales, viajes Mad Cool desde Zaragoza, conciertos Zaragoza verano, agenda conciertos zaragoza, conciertos zaragoza septiembre, recinto expo zaragoza`
+    title: `Conciertos en Zaragoza ${YEAR$2} [Dani Martín, Vive Latino, Bryan Adams + Carpooling] | ConcertRide`,
+    description: `Agenda conciertos Zaragoza ${YEAR$2}: Dani Martín DOBLE FECHA 22–23 may (Príncipe Felipe), Aitana 10 jul, Vive Latino España 4–5 sep (Recinto Expo, 40.000/día), Bryan Adams 14 nov, Hombres G 21 nov. Carpooling sin comisión desde Madrid (9€, 3h AVE o 3,5h coche), Barcelona (8€, 2h 45min), Pamplona (5€), Valencia (9€), Bilbao (9€). Pago Bizum.`,
+    keywords: `conciertos Zaragoza ${YEAR$2}, conciertos en Zaragoza, próximos conciertos Zaragoza, Pabellón Príncipe Felipe, Dani Martín Zaragoza, Aitana Zaragoza, Vive Latino Zaragoza, Hombres G Zaragoza, Bryan Adams Zaragoza, carpooling Zaragoza festivales, viajes Mad Cool desde Zaragoza, conciertos Zaragoza verano, agenda conciertos zaragoza, conciertos zaragoza septiembre, recinto expo zaragoza, conciertos zaragoza 2026, conciertos zaragoza 2027, agenda musical zaragoza`
   },
   murcia: {
-    title: `Conciertos en Murcia ${YEAR$2} [SOS 4.8 + Carpooling a 4 festivales] | ConcertRide`,
-    description: `Conciertos en Murcia ${YEAR$2}: Auditorio Víctor Villegas (3.000 plazas), Plaza de Toros de Murcia, Sala REM, SOS 4.8 Festival. Carpooling sin comisión a Medusa Festival Cullera (175 km, 5–8€), Arenal Sound Burriana (250 km, 7–11€), Viña Rock Villarrobledo (155 km, 5–8€), Granada Sound (270 km, 8–12€). Pago directo Bizum.`,
-    keywords: `conciertos Murcia ${YEAR$2}, conciertos en Murcia, SOS 4.8 Murcia, carpooling Murcia festivales, viaje compartido Murcia concierto, conciertos murcia 2026, conciertos murcia agenda, victor villegas murcia, murcia festivales transporte`
+    title: `Conciertos en Murcia ${YEAR$2} [SOS 4.8, Víctor Villegas + Carpooling 4€] | ConcertRide`,
+    description: `Agenda conciertos Murcia ${YEAR$2}: SOS 4.8 Festival (Murcia capital, primavera), Auditorio Víctor Villegas (3.000 plazas), Plaza de Toros Murcia, Teatro Romea. Carpooling sin comisión a Medusa Festival Cullera (175 km, 5–8€), Arenal Sound Burriana (250 km, 7–11€), Viña Rock Villarrobledo (155 km, 5–8€), Cala Mijas Málaga (270 km, 8–12€). Pago Bizum, vuelta coordinada.`,
+    keywords: `conciertos Murcia ${YEAR$2}, conciertos en Murcia, SOS 4.8 Murcia, conciertos murcia 2026, conciertos murcia 2027, próximos conciertos murcia, carpooling Murcia festivales, viaje compartido Murcia concierto, conciertos murcia agenda, victor villegas murcia, murcia festivales transporte, murcia musica, sos 4.8 festival murcia, conciertos murcia verano`
   },
   malaga: {
     title: `Conciertos en Málaga ${YEAR$2} [Cala Mijas + Marenostrum + Carpooling 3€] | ConcertRide`,
@@ -17982,9 +17982,9 @@ const CITY_SEO_IMPROVEMENTS = {
 };
 const HOW_TO_GET_THERE_SEO = {
   "arenal-sound": {
-    title: `Cómo llegar a Arenal Sound ${YEAR$2}: Bus, tren y carpooling | ConcertRide`,
-    description: `Guía completa Arenal Sound ${YEAR$2} Burriana (Castellón): bus lanzadera desde Castellón, tren Cercanías C6 Valencia–Castellón (45 min). Carpooling desde Valencia (3–6€), Madrid (12–17€). Sin comisión.`,
-    keywords: `como llegar arenal sound ${YEAR$2}, arenal sound transporte, autobus castellon burriana arenal sound, tren arenal sound, arenal sound bus, arenal sound localización`
+    title: `Cómo llegar a Arenal Sound ${YEAR$2} [Buses Castellón, Tren y Carpooling] | ConcertRide`,
+    description: `Guía completa Arenal Sound ${YEAR$2} Burriana (Castellón): bus lanzadera oficial Castellón→Burriana (5–8€, cada 30 min desde 16:00), tren Cercanías C6 Valencia–Castellón (45 min, 3,90€ + bus local). Carpooling sin comisión desde Valencia (3–6€), Castellón (3–5€), Alicante (4–7€), Madrid (12–17€), Barcelona (8–12€). Vuelta de madrugada coordinada.`,
+    keywords: `como llegar arenal sound ${YEAR$2}, arenal sound transporte, autobus castellon burriana arenal sound, tren arenal sound, arenal sound bus, arenal sound localización, como ir al arenal sound, arenal sound autobuses, buses arenal sound castellon, arenal sound desde valencia, arenal sound desde madrid, arenal sound shuttle, arenal sound como llegar desde castellon`
   },
   "bbk-live": {
     title: `Cómo llegar a BBK Live ${YEAR$2}: Lanzadera, autobús, carpooling | ConcertRide`,
@@ -18114,14 +18114,14 @@ const VENUE_SEO_OVERRIDES = {
     keywords: `como llegar wizink center, wizink center metro, wizink center cómo llegar, mapa wizink center, wizink center transporte, como ir wizink center, carpooling wizink center madrid, conciertos wizink center, wizink center parking, wizink center metro goya, wizink center entradas, wizink center direccion, wizink center madrid agenda`
   },
   "palacio-vistalegre": {
-    title: `Cómo llegar a Vistalegre Madrid: metro, mapa y carpooling | ConcertRide`,
-    description: `Palacio Vistalegre, Madrid (15.000 plazas). Metro L5 Oporto (5 min a pie) / L3 Legazpi. Bus 60, 79, 116. Carpooling desde Barcelona (15€), Valencia (10€). Sin comisión.`,
-    keywords: `vista alegre como llegar, vista alegre madrid como llegar, mapa palacio vistalegre, palacio vistalegre cómo llegar, vistalegre metro, carpooling vistalegre madrid, conciertos vistalegre`
+    title: `Palacio Vistalegre Madrid [Cómo Llegar]: Metro L5 Oporto + Carpooling | ConcertRide`,
+    description: `Palacio Vistalegre Madrid (15.000 plazas, Avda. de los Poblados). Metro L5 parada Oporto (5 min a pie) o L3 Legazpi (10 min). Bus 60, 79, 116. Sin parking propio — aparca en calles adyacentes (gratuito). Carpooling sin comisión desde Barcelona (15–20€), Valencia (10–14€), Bilbao (11–16€), Zaragoza (9–13€). Vuelta nocturna coordinada.`,
+    keywords: `vista alegre como llegar, vista alegre madrid como llegar, mapa palacio vistalegre, palacio vistalegre cómo llegar, vistalegre metro, carpooling vistalegre madrid, conciertos vistalegre, palacio vistalegre metro oporto, como ir palacio vistalegre, vistalegre madrid metro parada, palacio vistalegre transporte, parking palacio vistalegre, palacio vistalegre direccion`
   },
   "ifema-madrid": {
-    title: `Cómo llegar a IFEMA Madrid: metro, bus y carpooling | ConcertRide`,
-    description: `IFEMA Madrid — Feria de Madrid (Metro L8 El Parque, 10 min). Carpooling a Mad Cool desde Barcelona (15€), Valencia (10€), Zaragoza (9€). Sin comisión. Guía transporte.`,
-    keywords: `como llegar ifema, ifema como llegar, ifema metro, ifema mad cool transporte, carpooling ifema madrid, como ir ifema mad cool, mad cool como llegar ifema`
+    title: `IFEMA Madrid [Cómo Llegar]: Metro L8 + Carpooling Mad Cool desde 9€ | ConcertRide`,
+    description: `IFEMA Madrid — Feria de Madrid (Avda. del Parque). Metro L8 parada El Parque (10 min desde Nuevos Ministerios). Bus 101, 104, 122. Parking gratuito P1/P2 (limitado, llega 1h antes). Carpooling a Mad Cool sin comisión desde Barcelona (15–20€), Valencia (10–14€), Zaragoza (9–13€), Bilbao (11–16€), Sevilla (14–20€). Vuelta nocturna coordinada.`,
+    keywords: `como llegar ifema, ifema como llegar, ifema metro, ifema mad cool transporte, carpooling ifema madrid, como ir ifema mad cool, mad cool como llegar ifema, ifema metro l8, ifema feria madrid metro, como ir a ifema madrid, ifema transporte publico, mad cool ifema carpooling, ifema madrid aparcamiento`
   },
   "kobetamendi": {
     title: `Kobetamendi Bilbao: cómo llegar al BBK Live, lanzadera y carpooling | ConcertRide`,
@@ -18186,9 +18186,9 @@ const ARTIST_SEO_OVERRIDES = {
     keywords: `carpooling taylor swift españa, taylor swift madrid como llegar, taylor swift concierto ${YEAR$2} transporte, viaje compartido taylor swift, taylor swift bernabeu carpooling, como ir al concierto taylor swift sin tren, eras tour madrid carpooling`
   },
   rosalia: {
-    title: `Rosalía concierto España ${YEAR$2}: carpooling desde 4€ | ConcertRide`,
-    description: `Rosalía en España ${YEAR$2} — WiZink Center Madrid y Palau Sant Jordi Barcelona. Carpooling desde Valencia (10–14€), Sevilla (12–17€), Zaragoza (9–13€). 0% comisión, pago en Bizum o efectivo.`,
-    keywords: `carpooling rosalia españa, rosalia concierto madrid carpooling, rosalia wizink center como llegar, rosalia ${YEAR$2} transporte, viaje compartido rosalia, como ir concierto rosalia, rosalia palau sant jordi carpooling`
+    title: `Rosalía España ${YEAR$2} [Motomami World Tour]: Carpooling WiZink + Palau desde 4€`,
+    description: `Rosalía en España ${YEAR$2} — WiZink Center Madrid y Palau Sant Jordi Barcelona. Carpooling sin comisión desde Valencia (10–14€), Sevilla (12–17€), Zaragoza (9–13€), Bilbao (11–16€). La artista española más global — carpooling directo al recinto. 0% comisión, pago Bizum.`,
+    keywords: `carpooling rosalia españa, rosalia concierto madrid carpooling, rosalia wizink center como llegar, rosalia ${YEAR$2} transporte, viaje compartido rosalia, como ir concierto rosalia, rosalia palau sant jordi carpooling, rosalia españa ${YEAR$2}, rosalia concierto barcelona, rosalia motomami tour, rosalia gira ${YEAR$2}`
   },
   "bad-bunny": {
     title: `Bad Bunny concierto España ${YEAR$2}: carpooling desde 4€ | ConcertRide`,
@@ -18216,24 +18216,24 @@ const ARTIST_SEO_OVERRIDES = {
     keywords: `carpooling harry styles españa, harry styles madrid como llegar, harry styles wizink center carpooling, harry styles ${YEAR$2} transporte, viaje compartido harry styles, como ir al concierto harry styles, harry styles palau sant jordi transporte`
   },
   "karol-g": {
-    title: `Karol G concierto España ${YEAR$2}: carpooling desde 4€ | ConcertRide`,
-    description: `Karol G en España ${YEAR$2} — WiZink Center Madrid y Palau Sant Jordi Barcelona. Carpooling desde Zaragoza (9–13€), Valencia (10–14€), Sevilla (12–17€). Mañana Será Bonito Tour. 0% comisión, sin colas de metro.`,
-    keywords: `carpooling karol g españa, karol g madrid como llegar, karol g wizink center carpooling, karol g ${YEAR$2} transporte, viaje compartido karol g, como ir al concierto karol g, karol g palau sant jordi transporte, manana sera bonito tour madrid`
+    title: `Karol G España ${YEAR$2} [Palau Sant Jordi + WiZink]: Carpooling desde 4€ sin comisión`,
+    description: `Karol G en España ${YEAR$2} — Palau Sant Jordi Barcelona y WiZink Center Madrid. Carpooling sin comisión desde Zaragoza (9–13€), Valencia (10–14€), Sevilla (12–17€). Conductores verificados, vuelta de madrugada coordinada. Pago Bizum o efectivo.`,
+    keywords: `karol g palau sant jordi, karol g wizink center como llegar, karol g españa ${YEAR$2}, carpooling karol g, karol g madrid como llegar, karol g ${YEAR$2} transporte, viaje compartido karol g, como ir al concierto karol g, karol g concierto españa`
   },
   "dua-lipa": {
-    title: `Dua Lipa concierto España ${YEAR$2}: carpooling desde 4€ | ConcertRide`,
-    description: `Dua Lipa en España ${YEAR$2} — WiZink Center Madrid y Palau Sant Jordi Barcelona. Carpooling desde Valencia (10–14€), Sevilla (12–17€), Zaragoza (9–13€). 0% comisión, conductores verificados.`,
-    keywords: `carpooling dua lipa españa, dua lipa madrid como llegar, dua lipa wizink center carpooling, dua lipa ${YEAR$2} transporte, viaje compartido dua lipa, como ir al concierto dua lipa`
+    title: `Dua Lipa España ${YEAR$2} [Radical Optimism Tour]: Carpooling WiZink + Palau desde 4€`,
+    description: `Dua Lipa Radical Optimism Tour España ${YEAR$2} — WiZink Center Madrid y Palau Sant Jordi Barcelona. Carpooling sin comisión desde Valencia (10–14€), Sevilla (12–17€), Zaragoza (9–13€), Bilbao (11–16€). Conductores verificados, vuelta de madrugada coordinada. 0% comisión, pago Bizum.`,
+    keywords: `carpooling dua lipa españa, dua lipa madrid como llegar, dua lipa wizink center carpooling, dua lipa ${YEAR$2} transporte, viaje compartido dua lipa, como ir al concierto dua lipa, dua lipa concierto españa ${YEAR$2}, dua lipa radical optimism tour, dua lipa barcelona ${YEAR$2}, dua lipa palau sant jordi, dua lipa spain ${YEAR$2}`
   },
   "billie-eilish": {
-    title: `Billie Eilish concierto España ${YEAR$2}: carpooling desde 4€ | ConcertRide`,
-    description: `Billie Eilish en España ${YEAR$2} — WiZink Center Madrid y Palau Sant Jordi Barcelona. Carpooling desde Valencia (10–14€), Zaragoza (9–13€), Bilbao (11–16€). Hit Me Hard and Soft Tour. 0% comisión.`,
-    keywords: `carpooling billie eilish españa, billie eilish madrid como llegar, billie eilish wizink center carpooling, billie eilish ${YEAR$2} transporte, viaje compartido billie eilish, como ir al concierto billie eilish`
+    title: `Billie Eilish España ${YEAR$2} [Hit Me Hard Tour]: Carpooling WiZink + Palau Sant Jordi desde 4€`,
+    description: `Billie Eilish Hit Me Hard and Soft Tour España ${YEAR$2} — WiZink Center Madrid y Palau Sant Jordi Barcelona. Carpooling sin comisión desde Valencia (10–14€), Zaragoza (9–13€), Bilbao (11–16€). Conductores verificados, vuelta de madrugada coordinada. 0% comisión, pago Bizum.`,
+    keywords: `billie eilish en españa ${YEAR$2}, billie eilish madrid ${YEAR$2}, billie eilish wizink center como llegar, billie eilish palau sant jordi carpooling, billie eilish hit me hard tour, carpooling billie eilish, viaje compartido billie eilish, como ir concierto billie eilish, billie eilish concierto españa ${YEAR$2}, cuando viene billie eilish a españa, billie eilish spain ${YEAR$2}`
   },
   "beyonce": {
-    title: `Beyoncé concierto España ${YEAR$2}: carpooling desde 4€ | ConcertRide`,
-    description: `Beyoncé en España ${YEAR$2} — estadios de Madrid y Barcelona. Carpooling desde Valencia (10–14€), Sevilla (12–17€), Barcelona (15–20€). Renaissance Tour. 0% comisión, conductores verificados con carnet.`,
-    keywords: `carpooling beyonce españa, beyonce madrid como llegar, beyonce concierto ${YEAR$2} transporte, viaje compartido beyonce, renaissance tour madrid carpooling, como ir al concierto beyonce`
+    title: `Beyoncé concierto España ${YEAR$2} [Cowboy Carter Tour]: Carpooling estadio desde 4€`,
+    description: `Beyoncé Cowboy Carter Tour España ${YEAR$2} — estadios de Madrid y Barcelona. Carpooling sin comisión desde Valencia (10–14€), Sevilla (12–17€), Barcelona (15–20€). Conductores verificados con carnet, vuelta de madrugada coordinada. 0% comisión.`,
+    keywords: `carpooling beyonce españa, beyonce madrid como llegar, beyonce concierto ${YEAR$2} transporte, viaje compartido beyonce, cowboy carter tour madrid carpooling, como ir al concierto beyonce, beyonce españa ${YEAR$2}, beyonce conciertos ${YEAR$2}`
   },
   // ── Artistas Españoles ──────────────────────────────────────────────────────
   "aitana": {
@@ -18272,9 +18272,9 @@ const ARTIST_SEO_OVERRIDES = {
     keywords: `carpooling rozalen ${YEAR$2}, rozalen concierto madrid ${YEAR$2}, rozalen wizink center como llegar, rozalen ${YEAR$2} transporte, viaje compartido rozalen, como ir concierto rozalen`
   },
   "sabrina-carpenter": {
-    title: `Sabrina Carpenter concierto España ${YEAR$2}: carpooling desde 4€ | ConcertRide`,
-    description: `Sabrina Carpenter Short n' Sweet Tour España ${YEAR$2} — WiZink Center Madrid y Palau Sant Jordi Barcelona. Carpooling desde Zaragoza (9–13€), Valencia (10–14€), Barcelona (15–20€). 0% comisión, conductores verificados.`,
-    keywords: `carpooling sabrina carpenter españa, sabrina carpenter madrid como llegar, sabrina carpenter wizink center carpooling, sabrina carpenter ${YEAR$2} transporte, viaje compartido sabrina carpenter, como ir al concierto sabrina carpenter, sabrina carpenter short n sweet tour madrid`
+    title: `Sabrina Carpenter España ${YEAR$2} [Short n' Sweet Tour]: Carpooling WiZink desde 4€`,
+    description: `Sabrina Carpenter Short n' Sweet Tour España ${YEAR$2} — WiZink Center Madrid y Palau Sant Jordi Barcelona. Carpooling sin comisión desde Zaragoza (9–13€), Valencia (10–14€), Sevilla (12–17€). Conductores verificados, vuelta de madrugada coordinada. 0% comisión.`,
+    keywords: `sabrina carpenter españa, sabrina carpenter madrid como llegar, sabrina carpenter ${YEAR$2}, sabrina carpenter wizink center carpooling, sabrina carpenter short n sweet tour, carpooling sabrina carpenter, viaje compartido sabrina carpenter, sabrina carpenter concierto madrid, sabrina carpenter spain ${YEAR$2}, sabrina carpenter barcelona ${YEAR$2}`
   },
   "lana-del-rey": {
     title: `Lana Del Rey concierto España ${YEAR$2}: carpooling desde 4€ | ConcertRide`,
@@ -18302,14 +18302,14 @@ const ARTIST_SEO_OVERRIDES = {
     keywords: `olivia rodrigo españa ${YEAR$2}, olivia rodrigo madrid como llegar, olivia rodrigo barcelona carpooling, olivia rodrigo guts tour madrid, olivia rodrigo wizink center, olivia rodrigo palau sant jordi, carpooling olivia rodrigo, viaje compartido olivia rodrigo, como ir concierto olivia rodrigo, olivia rodrigo entradas transporte, olivia rodrigo tour ${YEAR$2}`
   },
   "post-malone": {
-    title: `Post Malone España ${YEAR$2}: carpooling al concierto desde 4€ | ConcertRide`,
-    description: `Post Malone en España ${YEAR$2} — Parc del Fòrum Barcelona y Mad Cool Madrid. Carpooling desde Valencia (10–14€), Zaragoza (8–12€), Bilbao (11–16€). 0% comisión, pago directo, vuelta nocturna coordinada con asistentes del mismo concierto.`,
-    keywords: `post malone españa ${YEAR$2}, post malone madrid como llegar, post malone barcelona carpooling, post malone mad cool, post malone primavera sound, carpooling post malone, viaje compartido post malone, como ir concierto post malone, post malone tour ${YEAR$2}, post malone festival españa`
+    title: `Post Malone España ${YEAR$2} [Mad Cool + Palau Sant Jordi]: Carpooling desde 4€`,
+    description: `Post Malone en España ${YEAR$2} — Mad Cool Madrid y Parc del Fòrum Barcelona. Carpooling sin comisión desde Valencia (10–14€), Zaragoza (8–12€), Sevilla (14–20€). Conductores verificados, vuelta nocturna coordinada. Pago Bizum o efectivo.`,
+    keywords: `post malone madrid, post malone españa ${YEAR$2}, post malone madrid como llegar, post malone barcelona carpooling, post malone mad cool, carpooling post malone, viaje compartido post malone, como ir concierto post malone, post malone concierto españa`
   },
   drake: {
-    title: `Drake concierto España ${YEAR$2}: carpooling desde 4€, 0% comisión | ConcertRide`,
-    description: `Drake en España ${YEAR$2} — Palau Sant Jordi Barcelona y Estadio Metropolitano Madrid. Carpooling sin comisión desde Valencia (10–14€), Zaragoza (8–12€), Sevilla (14–20€). Pago Bizum o efectivo, conductores verificados.`,
-    keywords: `drake españa ${YEAR$2}, drake madrid como llegar, drake barcelona carpooling, drake concierto españa, carpooling drake, viaje compartido drake, como ir concierto drake, drake tour ${YEAR$2}, drake metropolitano madrid, drake palau sant jordi`
+    title: `Drake España ${YEAR$2} [Metropolitano Madrid + Palau Sant Jordi]: Carpooling desde 4€`,
+    description: `Drake en España ${YEAR$2} — Estadio Metropolitano Madrid y Palau Sant Jordi Barcelona. Carpooling sin comisión desde Valencia (10–14€), Zaragoza (8–12€), Sevilla (14–20€). Conductores verificados, vuelta de madrugada coordinada. 0% comisión.`,
+    keywords: `drake madrid, drake españa ${YEAR$2}, drake madrid como llegar, drake barcelona carpooling, drake concierto españa, carpooling drake, viaje compartido drake, como ir concierto drake, drake spain ${YEAR$2}, drake metropolitano madrid, drake palau sant jordi`
   },
   metallica: {
     title: `Metallica España ${YEAR$2}: carpooling al M72 World Tour desde 4€ | ConcertRide`,
@@ -18337,9 +18337,9 @@ const ARTIST_SEO_OVERRIDES = {
     keywords: `bruce springsteen españa ${YEAR$2}, bruce springsteen madrid carpooling, bruce springsteen barcelona como llegar, springsteen tour españa, the boss concierto españa, carpooling bruce springsteen, viaje compartido bruce springsteen, e street band españa, como ir concierto springsteen`
   },
   "doja-cat": {
-    title: `Doja Cat España ${YEAR$2}: carpooling al concierto desde 4€ | ConcertRide`,
-    description: `Doja Cat en España ${YEAR$2} — Palau Sant Jordi Barcelona y WiZink Center Madrid. Carpooling sin comisión desde Valencia (10–14€), Zaragoza (8–12€), Sevilla (14–20€). 0% comisión, pago Bizum o efectivo, conductores verificados.`,
-    keywords: `doja cat españa ${YEAR$2}, doja cat madrid como llegar, doja cat barcelona carpooling, doja cat scarlet tour, carpooling doja cat, viaje compartido doja cat, como ir concierto doja cat, doja cat wizink center, doja cat palau sant jordi`
+    title: `Doja Cat España ${YEAR$2} [Scarlet Tour Palau Sant Jordi + WiZink]: Carpooling desde 4€`,
+    description: `Doja Cat Scarlet Tour España ${YEAR$2} — Palau Sant Jordi Barcelona y WiZink Center Madrid. Carpooling sin comisión desde Valencia (10–14€), Zaragoza (8–12€), Sevilla (14–20€), Bilbao (11–16€). 0% comisión, pago Bizum o efectivo, conductores verificados, vuelta coordinada.`,
+    keywords: `doja cat españa ${YEAR$2}, doja cat madrid como llegar, doja cat barcelona carpooling, doja cat scarlet tour, carpooling doja cat, viaje compartido doja cat, como ir concierto doja cat, doja cat wizink center, doja cat palau sant jordi, doja cat concierto españa, doja cat madrid ${YEAR$2}`
   },
   "vetusta-morla": {
     title: `Vetusta Morla concierto España ${YEAR$2}: carpooling desde 4€ | ConcertRide`,
@@ -29513,118 +29513,485 @@ BLOG_POSTS.push({
     "estadisticas-festivales-espana-2026-datos"
   ]
 });
+BLOG_POSTS.push(
+  {
+    slug: "tendencias-musica-en-vivo-espana-2027",
+    title: "Tendencias 2027 en música en vivo en España: predicciones del sector festivalero",
+    h1: "Tendencias 2027 en música en vivo España — Predicciones del sector festivalero y conciertos",
+    excerpt: "Análisis de las tendencias que marcarán la música en vivo en España en 2027: el auge del reggaetón en festivales mainstream, recintos cubiertos como Roig Arena, sostenibilidad obligatoria, IA en organización de festivales, y reformulación de las giras de estadio post-pandemia.",
+    category: "novedades",
+    tags: [
+      "tendencias 2027",
+      "industria musical",
+      "futuro",
+      "predicciones",
+      "festivales 2027"
+    ],
+    publishedAt: "2026-05-07T23:30:00.000Z",
+    updatedAt: "2026-05-07",
+    author: "Equipo ConcertRide",
+    readingMinutes: 8,
+    lede: "El sector de la música en vivo española va a vivir cambios estructurales en 2027: nuevos recintos (Roig Arena), expansión del reggaetón a festivales mainstream, sostenibilidad obligatoria, e IA aplicada a logística festivalera. Este análisis recoge las 7 tendencias clave del sector para el próximo año.",
+    sections: [
+      {
+        heading: "Tendencia 1 — El reggaetón conquista festivales mainstream",
+        paragraphs: [
+          "Hasta 2024, el reggaetón en España se concentraba en Reggaeton Beach Festival Salou, Vive Latino España y conciertos individuales. En 2027 se consolidará la presencia de cabezas urbanos en festivales tradicionalmente indie/pop: Mad Cool, Primavera Sound, Cruïlla y Cala Mijas ya han programado a Bizarrap, Quevedo, Bad Bunny, J Balvin en años recientes. La tendencia se acelera por demanda del público joven (18–28 años) que mezcla géneros sin fronteras."
+        ]
+      },
+      {
+        heading: "Tendencia 2 — Roig Arena Valencia abre el mercado del Levante",
+        paragraphs: [
+          "El Roig Arena Valencia (apertura 2026, 20.000 plazas) será el primer pabellón cubierto de su tamaño en la Comunidad Valenciana. En 2027 tendrá su primer año completo de programación con 30–40 conciertos previstos. Su impacto: artistas internacionales (Eras Tour-style) que antes solo paraban en Madrid y Barcelona empezarán a incluir Valencia en giras españolas. Esto reduce el viaje del asistente valenciano y abre nuevas rutas de carpooling."
+        ]
+      },
+      {
+        heading: "Tendencia 3 — Sostenibilidad obligatoria",
+        paragraphs: [
+          "La normativa europea Green Deal aplica a festivales mayores de 5.000 personas/día desde 2025. En 2027 se endurecerá: festivales mainstream deberán publicar su huella de CO₂ certificada, eliminar plásticos de un solo uso (vasos, platos, cubiertos), y demostrar al menos 30% energía renovable en el recinto. Algunos festivales ya cumplen (Primavera Sound 100% renovable, Sonorama 0 plásticos), pero la mayoría tendrá que adaptarse.",
+          "El carpooling como vector de reducción CO₂ verá impulso institucional: la APM (Asociación de Promotores Musicales) ha lanzado el programa 'Festival Verde 2027' que premia con etiqueta a festivales que promueven activamente carpooling entre asistentes (>20% del público)."
+        ]
+      },
+      {
+        heading: "Tendencia 4 — IA en organización festivalera",
+        paragraphs: [
+          "Aplicaciones de inteligencia artificial en festivales 2027:"
+        ],
+        bullets: [
+          "Asistentes virtuales con conocimiento del recinto y horarios (chatbots tipo ChatGPT en apps oficiales)",
+          "Reconocimiento facial en accesos (ya en pruebas en Mad Cool 2025)",
+          "Predicción de aforos en zonas (mapas de calor en tiempo real para evitar avalanchas)",
+          "Recomendación personalizada de conciertos según historial del usuario",
+          "Optimización de carpooling con matching automático conductor–pasajero según horarios reales del cabeza de cartel"
+        ]
+      },
+      {
+        heading: "Tendencia 5 — Microfestivales temáticos en alza",
+        paragraphs: [
+          "Frente a los mega-festivales de 50.000+ asistentes, en 2027 crecen los microfestivales boutique de 1.000–5.000 personas con identidad temática fuerte: Tío Pepe Jerez (1.800 plazas, vino), Stone & Music Mérida (3.000, teatro romano), Cortijo Sound Almería (2.500, flamenco fusion). El público busca experiencias más íntimas y especializadas. Los precios suelen ser más altos (60–150€) pero la calidad y proximidad con el artista es mayor."
+        ]
+      },
+      {
+        heading: "Tendencia 6 — Estadios de fútbol como nuevos venues",
+        paragraphs: [
+          "Tras la reforma del Bernabéu (2024–2025) y la consolidación del Cívitas Metropolitano, otros estadios españoles se postulan para mega-conciertos en 2027:"
+        ],
+        bullets: [
+          "Estadi Olímpic Lluís Companys Barcelona — ya consolidado",
+          "Mestalla Valencia — primer concierto de mega-estadio confirmado para 2027",
+          "Estadio La Cartuja Sevilla — ya recibe Interestelar; en 2027 sumará giras internacionales",
+          "Estadio La Romareda Zaragoza — proyecto de remodelación 2027 con capacidad mejorada para conciertos",
+          "Estadio San Mamés Bilbao — primeros conciertos exploratorios desde 2025"
+        ]
+      },
+      {
+        heading: "Tendencia 7 — Carpooling 35% del transporte festivalero",
+        paragraphs: [
+          "Datos APM 2025: el 18% de asistentes a festivales españoles usa carpooling. Predicción 2027: 35%. Razones:"
+        ],
+        bullets: [
+          "AVE de larga distancia satura horarios y precios suben (+15% año tras año)",
+          "Concienciación ambiental: el 40% de asistentes de 18–28 años considera la huella CO₂ al elegir transporte",
+          "Plataformas especializadas como ConcertRide (0% comisión) reducen el coste por asistente",
+          "La vuelta nocturna sigue sin tener alternativa de transporte público — el carpooling es la opción real",
+          "Festivales rurales (Aranda, Lanuza, Viveiro, Cullera) sin transporte público forzosamente requieren coche"
+        ]
+      }
+    ],
+    faqs: [
+      {
+        q: "¿Cuándo abre Roig Arena Valencia?",
+        a: "Roig Arena Valencia abre en 2026 como sede del Valencia Basket Club. El primer año completo de programación de conciertos será 2027, con 30–40 conciertos previstos de cabezas internacionales y nacionales. Capacidad 20.000 personas, comparable al WiZink Center Madrid. URL: concertride.me/recintos/roig-arena"
+      },
+      {
+        q: "¿Qué festivales españoles son 100% sostenibles?",
+        a: "Festivales con prácticas sostenibles certificadas en 2026: Primavera Sound (100% energía renovable), Sonorama Ribera (cero plásticos de un solo uso), BBK Live (lanzadera oficial gratuita), FIB Benicàssim (alianza con Renfe Cercanías). En 2027 la normativa europea Green Deal exigirá a todos los festivales >5.000 personas/día publicar huella CO₂ certificada. URL: concertride.me/blog/estudio-co2-festivales-carpooling-2026"
+      },
+      {
+        q: "¿Crece el reggaetón en festivales españoles?",
+        a: "Sí. El reggaetón ha pasado de festivales especializados (Reggaeton Beach Festival Salou, Vive Latino España) a festivales mainstream tradicionalmente indie/pop. Bizarrap, Quevedo, Bad Bunny, J Balvin han actuado en Mad Cool, Primavera Sound, Cruïlla y Cala Mijas en años recientes. La tendencia se acelera en 2027 por demanda del público 18–28 años."
+      },
+      {
+        q: "¿Cómo afectará la IA a los festivales 2027?",
+        a: "La IA llegará a 5 áreas en festivales 2027: (1) chatbots con conocimiento del recinto y horarios, (2) reconocimiento facial en accesos, (3) predicción de aforos en tiempo real, (4) recomendación personalizada de conciertos según historial, (5) matching automático conductor-pasajero en plataformas de carpooling como ConcertRide."
+      }
+    ],
+    relatedLinks: [
+      { label: "Festivales España 2027 preview", to: "/blog/festivales-espana-2027-preview" },
+      { label: "Estudio CO₂ festivales", to: "/blog/estudio-co2-festivales-carpooling-2026" },
+      { label: "Estadísticas festivales 2026", to: "/blog/estadisticas-festivales-espana-2026-datos" },
+      { label: "Roig Arena Valencia", to: "/recintos/roig-arena" }
+    ],
+    relatedPosts: [
+      "festivales-espana-2027-preview",
+      "estadisticas-festivales-espana-2026-datos",
+      "estudio-co2-festivales-carpooling-2026"
+    ]
+  },
+  // ──────────────────────────────────────────────────────────────────────
+  {
+    slug: "autobuses-vina-rock-2026",
+    title: "Autobuses Viña Rock 2026 [Guía Completa]: Bus oficial, buses desde Madrid, horarios y alternativas",
+    h1: "Autobuses a Viña Rock 2026: bus lanzadera, buses desde Madrid y carpooling",
+    excerpt: "Guía definitiva de autobuses a Viña Rock 2026: bus lanzadera oficial Albacete–Villarrobledo, autobuses privados desde Madrid (35–55 €), tren AVE + bus y carpooling con ConcertRide desde 6 €/asiento. Horarios reales, precios y cómo volver de madrugada.",
+    category: "guias",
+    tags: ["autobuses viña rock", "bus viña rock", "buses viñarock", "autobus viña rock", "como llegar viña rock", "viña rock transporte", "viña rock 2026"],
+    publishedAt: "2026-05-09T08:00:00.000Z",
+    author: "Equipo ConcertRide",
+    readingMinutes: 7,
+    lede: "Cada año miles de personas buscan «autobuses Viña Rock», «bus viñarock» o «autobus viña rock desde Madrid» y reciben información confusa. Esta guía desglosa las opciones reales para 2026: qué bus existe, qué es oficial, qué es privado y por qué el carpooling es la opción dominante para volver de madrugada.",
+    sections: [
+      {
+        heading: "¿Hay autobús oficial a Viña Rock 2026?",
+        paragraphs: [
+          "Sí, pero solo desde Albacete. El festival organiza una lanzadera oficial Albacete–Villarrobledo (La Pulgosa) los días del festival. Sale desde la estación de autobuses de Albacete en franjas de tarde y noche. Coste aproximado: 5–10 € ida y vuelta. Duración: 40 minutos.",
+          "Esta lanzadera NO sale desde Madrid, Barcelona, Valencia ni ninguna otra ciudad. Solo cubre los 50 km entre Albacete capital y el recinto. Si vienes de fuera de Albacete, primero tienes que llegar a Albacete y luego coger la lanzadera.",
+          "Las plazas de la lanzadera oficial se agotan los días de mayor afluencia (viernes y sábado). El último servicio de vuelta suele salir entre las 5:00 y las 6:00 am."
+        ]
+      },
+      {
+        heading: "Autobuses privados a Viña Rock desde Madrid: lo que debes saber",
+        paragraphs: [
+          "Cuando buscas «autobuses Viña Rock Madrid» o «bus viñarock desde Madrid», los resultados son de operadores privados no oficiales. Funcionan así:"
+        ],
+        bullets: [
+          "Salidas desde Méndez Álvaro, Nuevos Ministerios o Atocha en Madrid.",
+          "Precio orientativo: 35–55 € por persona, ida y vuelta.",
+          "Vuelta a hora fija: normalmente a las 5:00 o 6:00 am del último día. Sin flexibilidad — si el cabeza de cartel termina más tarde, esperarás o te quedas.",
+          "No te dejan en el camping: el bus para en la entrada principal del recinto.",
+          "Disponibilidad limitada: solo operan si hay suficiente demanda."
+        ]
+      },
+      {
+        heading: "Autobús ALSA Madrid–Albacete: ¿sirve para ir a Viña Rock?",
+        paragraphs: [
+          "El bus ALSA Madrid–Albacete opera varias frecuencias diarias (2h 30 min, 12–20 €). El problema: llega a la estación de autobuses de Albacete, no al festival. Desde allí necesitas:"
+        ],
+        bullets: [
+          "Bus lanzadera oficial del festival Albacete–Villarrobledo: 5–10 €, 40 min. Plazas limitadas.",
+          "Taxi desde Albacete a La Pulgosa: 25–35 €. Opción disponible a cualquier hora.",
+          "Carpooling ConcertRide desde Albacete: 3–5 €/asiento, 35 min."
+        ]
+      },
+      {
+        heading: "Tren AVE Madrid–Albacete + bus a Viña Rock",
+        paragraphs: [
+          "El AVE Madrid Atocha–Albacete Los Llanos cubre el trayecto en 1h 30 min (15–45 € según antelación). Es la opción más rápida para la ida. El problema está en la vuelta de madrugada: el último AVE Albacete–Madrid sale antes de las 22:00. Para volver del festival a las 4:00–6:00 am desde La Pulgosa necesitas taxi a Albacete (25–35 €) y luego esperar al primer tren matutino o ir en carpooling. En la práctica, la mayoría que viene de Madrid en tren vuelve en carpooling."
+        ]
+      },
+      {
+        heading: "Carpooling a Viña Rock con ConcertRide: precios y ciudades de origen",
+        paragraphs: [
+          "El coche compartido con ConcertRide es la opción más usada para Viña Rock, especialmente para la vuelta de madrugada. Los conductores son asistentes al festival que comparten gastos. Sin comisión: el 100 % del precio va al conductor."
+        ],
+        bullets: [
+          "Desde Madrid: 6–9 €/asiento · 150 km · 1h 45 min",
+          "Desde Valencia: 6–9 €/asiento · 170 km · 1h 50 min",
+          "Desde Alicante: 5–8 €/asiento · 165 km · 1h 40 min",
+          "Desde Albacete: 3–5 €/asiento · 50 km · 35 min",
+          "Desde Cuenca: 4–6 €/asiento · 90 km · 1h 10 min",
+          "Desde Murcia: 6–9 €/asiento · 155 km · 1h 35 min"
+        ]
+      },
+      {
+        heading: "Comparativa: bus oficial vs. autobús privado vs. carpooling a Viña Rock",
+        paragraphs: ["Para elegir la mejor opción según tu ciudad y prioridades:"],
+        bullets: [
+          "Bus lanzadera oficial (Albacete → recinto): 5–10 € · solo desde Albacete · plazas limitadas · horario fijo",
+          "Autobús privado no oficial (desde Madrid): 35–55 € · vuelta a hora fija · puede cancelarse",
+          "ALSA Madrid–Albacete + lanzadera: 20–30 € total · imposible volver de madrugada en transporte público",
+          "Carpooling ConcertRide (desde Madrid): 6–9 €/asiento · llegada al recinto · vuelta coordinada · horario flexible"
+        ]
+      },
+      {
+        heading: "Cómo volver de Viña Rock de madrugada",
+        paragraphs: [
+          "El último cabeza de cartel termina entre las 4:00 y las 6:00 am. Las opciones reales de vuelta son:"
+        ],
+        bullets: [
+          "Carpooling ConcertRide: el conductor espera a que termine el festival. Vuelta directa a tu ciudad sin hora fija.",
+          "Bus lanzadera oficial (solo Albacete): último servicio a las 5:00–6:00 am.",
+          "Autobús privado no oficial: vuelta a hora fija, sin margen si el festival se alarga.",
+          "Quedarse en el camping: Viña Rock tiene zona de camping — la opción sin estrés de transporte nocturno."
+        ]
+      }
+    ],
+    faqs: [
+      {
+        q: "¿Hay autobús directo a Viña Rock desde Madrid?",
+        a: "No existe autobús oficial directo del festival Madrid–Viña Rock. Hay operadores privados no oficiales desde Méndez Álvaro y Nuevos Ministerios por 35–55 €. La lanzadera oficial solo opera entre Albacete ciudad y el recinto (5–10 €, 40 min). El carpooling con ConcertRide (6–9 €/asiento desde Madrid, sin comisión) es la alternativa más flexible y económica."
+      },
+      {
+        q: "¿Cuánto cuesta el bus a Viña Rock?",
+        a: "La lanzadera oficial Albacete–Villarrobledo: 5–10 € ida y vuelta. Los autobuses privados no oficiales desde Madrid: 35–55 € ida y vuelta. El carpooling con ConcertRide desde Madrid: 6–9 €/asiento sin comisión."
+      },
+      {
+        q: "¿Dónde salen los autobuses a Viña Rock desde Madrid?",
+        a: "Los operadores privados de bus a Viña Rock suelen salir de Méndez Álvaro y Nuevos Ministerios. Para el carpooling con ConcertRide, el punto de encuentro lo acuerdan directamente conductor y pasajero (habitual en Méndez Álvaro, Nuevos Ministerios o domicilio)."
+      },
+      {
+        q: "¿A qué hora vuelven los autobuses de Viña Rock?",
+        a: "La lanzadera oficial opera hasta las 5:00–6:00 am. Los autobuses privados no oficiales tienen vuelta fija (5:00–6:00 am). El carpooling con ConcertRide no tiene hora fija — el conductor espera a que termine el festival y coordina la vuelta con los pasajeros."
+      },
+      {
+        q: "¿Se puede ir a Viña Rock en tren?",
+        a: "Parcialmente. El AVE Madrid–Albacete (1h 30 min, 15–45 €) llega a Albacete, donde hay que coger lanzadera (5–10 €) o taxi (25–35 €) al recinto. La vuelta de madrugada en tren es imposible: el último AVE Albacete–Madrid sale antes de las 22:00."
+      }
+    ],
+    relatedLinks: [
+      { label: "Cómo llegar a Viña Rock 2026", to: "/como-llegar/vina-rock" },
+      { label: "Guía completa Viña Rock 2026", to: "/festivales/vina-rock" },
+      { label: "Carpooling Madrid → Viña Rock", to: "/rutas/madrid-vina-rock" },
+      { label: "Carpooling Valencia → Viña Rock", to: "/rutas/valencia-vina-rock" },
+      { label: "Carpooling Alicante → Viña Rock", to: "/rutas/alicante-vina-rock" },
+      { label: "Autobuses a festivales España 2026", to: "/blog/autobuses-festivales-espana-2026" },
+      { label: "Guía transporte Viña Rock 2026", to: "/blog/guia-transporte-vina-rock-2026" },
+      { label: "Cómo volver de un festival de madrugada", to: "/blog/como-volver-festival-madrugada" }
+    ],
+    relatedPosts: [
+      "guia-transporte-vina-rock-2026",
+      "autobuses-festivales-espana-2026",
+      "como-volver-festival-madrugada"
+    ]
+  }
+);
 BLOG_POSTS.push({
-  slug: "tendencias-musica-en-vivo-espana-2027",
-  title: "Tendencias 2027 en música en vivo en España: predicciones del sector festivalero",
-  h1: "Tendencias 2027 en música en vivo España — Predicciones del sector festivalero y conciertos",
-  excerpt: "Análisis de las tendencias que marcarán la música en vivo en España en 2027: el auge del reggaetón en festivales mainstream, recintos cubiertos como Roig Arena, sostenibilidad obligatoria, IA en organización de festivales, y reformulación de las giras de estadio post-pandemia.",
-  category: "novedades",
-  tags: [
-    "tendencias 2027",
-    "industria musical",
-    "futuro",
-    "predicciones",
-    "festivales 2027"
-  ],
-  publishedAt: "2026-05-07T23:30:00.000Z",
-  updatedAt: "2026-05-07",
-  author: "Equipo ConcertRide",
+  slug: "conciertos-sevilla-2026-guia-completa",
+  title: "Conciertos en Sevilla 2026: Agenda Completa, Recintos y Carpooling desde 4€",
+  h1: "Conciertos en Sevilla 2026",
+  excerpt: "Guía completa de los conciertos y festivales en Sevilla 2026: Estadio La Cartuja, FIBES, Icónica Sevilla Fest y cómo llegar en carpooling desde Cádiz, Huelva, Córdoba, Málaga y Madrid desde 4€ sin comisión.",
+  category: "guias",
+  tags: ["sevilla", "conciertos", "la cartuja", "fibes", "icónica fest", "carpooling andalucía", "2026"],
+  publishedAt: "2026-05-09",
+  author: "ConcertRide",
   readingMinutes: 8,
-  lede: "El sector de la música en vivo española va a vivir cambios estructurales en 2027: nuevos recintos (Roig Arena), expansión del reggaetón a festivales mainstream, sostenibilidad obligatoria, e IA aplicada a logística festivalera. Este análisis recoge las 7 tendencias clave del sector para el próximo año.",
+  lede: "Sevilla es uno de los destinos musicales más activos de España en 2026: estadios, festivales urbanos y conciertos cubiertos. Te contamos cómo llegar a cada recinto y cómo compartir coche sin pagar comisión.",
+  coverImage: { src: "/images/blog/sevilla-estadio-cartuja.jpg", alt: "Estadio La Cartuja Sevilla concierto" },
   sections: [
     {
-      heading: "Tendencia 1 — El reggaetón conquista festivales mainstream",
+      heading: "La agenda de conciertos en Sevilla 2026: los recintos principales",
       paragraphs: [
-        "Hasta 2024, el reggaetón en España se concentraba en Reggaeton Beach Festival Salou, Vive Latino España y conciertos individuales. En 2027 se consolidará la presencia de cabezas urbanos en festivales tradicionalmente indie/pop: Mad Cool, Primavera Sound, Cruïlla y Cala Mijas ya han programado a Bizarrap, Quevedo, Bad Bunny, J Balvin en años recientes. La tendencia se acelera por demanda del público joven (18–28 años) que mezcla géneros sin fronteras."
-      ]
-    },
-    {
-      heading: "Tendencia 2 — Roig Arena Valencia abre el mercado del Levante",
-      paragraphs: [
-        "El Roig Arena Valencia (apertura 2026, 20.000 plazas) será el primer pabellón cubierto de su tamaño en la Comunidad Valenciana. En 2027 tendrá su primer año completo de programación con 30–40 conciertos previstos. Su impacto: artistas internacionales (Eras Tour-style) que antes solo paraban en Madrid y Barcelona empezarán a incluir Valencia en giras españolas. Esto reduce el viaje del asistente valenciano y abre nuevas rutas de carpooling."
-      ]
-    },
-    {
-      heading: "Tendencia 3 — Sostenibilidad obligatoria",
-      paragraphs: [
-        "La normativa europea Green Deal aplica a festivales mayores de 5.000 personas/día desde 2025. En 2027 se endurecerá: festivales mainstream deberán publicar su huella de CO₂ certificada, eliminar plásticos de un solo uso (vasos, platos, cubiertos), y demostrar al menos 30% energía renovable en el recinto. Algunos festivales ya cumplen (Primavera Sound 100% renovable, Sonorama 0 plásticos), pero la mayoría tendrá que adaptarse.",
-        "El carpooling como vector de reducción CO₂ verá impulso institucional: la APM (Asociación de Promotores Musicales) ha lanzado el programa 'Festival Verde 2027' que premia con etiqueta a festivales que promueven activamente carpooling entre asistentes (>20% del público)."
-      ]
-    },
-    {
-      heading: "Tendencia 4 — IA en organización festivalera",
-      paragraphs: [
-        "Aplicaciones de inteligencia artificial en festivales 2027:"
+        "Sevilla concentra cuatro tipologías de recinto que hacen de ella un polo musical único en el sur de España. El Estadio Olímpico de La Cartuja (57.000 plazas) recibe las grandes giras de estadio: Manuel Carrasco, Guns N' Roses y otros artistas de alcance europeo programan Sevilla como parada obligatoria de sus giras por la capacidad y el clima de la ciudad.",
+        "El auditorio FIBES (9.500 plazas, cubierto) programa una agenda paralela con artistas de menor aforo y géneros más diversos. La Plaza de España de Sevilla se convierte en junio en el escenario del Icónica Sevilla Fest, el festival urbano más fotogénico de Andalucía. Y el Charco de la Pava (Triana) acoge el festival Interestelar, de electrónica y pop."
       ],
       bullets: [
-        "Asistentes virtuales con conocimiento del recinto y horarios (chatbots tipo ChatGPT en apps oficiales)",
-        "Reconocimiento facial en accesos (ya en pruebas en Mad Cool 2025)",
-        "Predicción de aforos en zonas (mapas de calor en tiempo real para evitar avalanchas)",
-        "Recomendación personalizada de conciertos según historial del usuario",
-        "Optimización de carpooling con matching automático conductor–pasajero según horarios reales del cabeza de cartel"
+        "Estadio La Cartuja — giras de estadio (Manuel Carrasco, Guns N' Roses, Metallica, Ed Sheeran)",
+        "FIBES Sevilla — conciertos cubiertos medianos (9.500 plazas, aire acondicionado)",
+        "Plaza de España — Icónica Sevilla Fest (mayo–jun, conciertos sentados de gran espectáculo)",
+        "Interestelar Sevilla (Charco de la Pava, Triana) — electrónica y pop",
+        "Auditorio Rocío Jurado — teatro y espectáculos clásicos"
       ]
     },
     {
-      heading: "Tendencia 5 — Microfestivales temáticos en alza",
+      heading: "Cómo llegar al Estadio La Cartuja Sevilla en transporte público",
       paragraphs: [
-        "Frente a los mega-festivales de 50.000+ asistentes, en 2027 crecen los microfestivales boutique de 1.000–5.000 personas con identidad temática fuerte: Tío Pepe Jerez (1.800 plazas, vino), Stone & Music Mérida (3.000, teatro romano), Cortijo Sound Almería (2.500, flamenco fusion). El público busca experiencias más íntimas y especializadas. Los precios suelen ser más altos (60–150€) pero la calidad y proximidad con el artista es mayor."
-      ]
-    },
-    {
-      heading: "Tendencia 6 — Estadios de fútbol como nuevos venues",
-      paragraphs: [
-        "Tras la reforma del Bernabéu (2024–2025) y la consolidación del Cívitas Metropolitano, otros estadios españoles se postulan para mega-conciertos en 2027:"
+        "El Estadio Olímpico La Cartuja no tiene metro. La opción más directa en transporte público es el tranvía T1 desde el centro (parada Estadio Olímpico, 15 min desde Prado de San Sebastián). También circulan los autobuses C1 y C2 desde la estación de Santa Justa. El parking del estadio tiene unas 3.000 plazas a 8–12 € pero se llena con antelación.",
+        "Para los que vienen de fuera de Sevilla, el problema real es el transporte nocturno de vuelta. Los conciertos en La Cartuja terminan entre la 1:00 y las 2:30 de la madrugada. A esa hora el tranvía ya no circula y los autobuses nocturnos (lineas N) tienen frecuencia reducida. Es aquí donde el carpooling con ConcertRide marca la diferencia: el coche sale cuando tú decides, coordinas directamente con el conductor."
       ],
       bullets: [
-        "Estadi Olímpic Lluís Companys Barcelona — ya consolidado",
-        "Mestalla Valencia — primer concierto de mega-estadio confirmado para 2027",
-        "Estadio La Cartuja Sevilla — ya recibe Interestelar; en 2027 sumará giras internacionales",
-        "Estadio La Romareda Zaragoza — proyecto de remodelación 2027 con capacidad mejorada para conciertos",
-        "Estadio San Mamés Bilbao — primeros conciertos exploratorios desde 2025"
+        "Tranvía T1: Prado de San Sebastián → Estadio Olímpico (15 min, 1,40 €, último a las 00:15)",
+        "Bus C1/C2 desde Santa Justa: 25 min, 1,40 € (último a las 23:30)",
+        "Parking estadio: 8–12 €/noche, llega con 1h de antelación",
+        "Carpooling ConcertRide: vuelta de madrugada sin esperas, precio pactado con el conductor"
       ]
     },
     {
-      heading: "Tendencia 7 — Carpooling 35% del transporte festivalero",
+      heading: "Cómo llegar al FIBES y a Icónica Sevilla Fest",
       paragraphs: [
-        "Datos APM 2025: el 18% de asistentes a festivales españoles usa carpooling. Predicción 2027: 35%. Razones:"
+        "El FIBES (recinto ferial de Sevilla) se llega en metro línea 1, parada Olivar de Quintos, a 10 minutos a pie. También hay aparcamiento propio con 2.000 plazas. El Metro de Sevilla corre hasta la 1:30 de la madrugada los viernes y sábados.",
+        "La Plaza de España (sede de Icónica Fest) está en el corazón de Sevilla: autobús C1, C2, líneas 03 y 06 desde cualquier punto del centro. Si viajas desde fuera de Sevilla, lo más cómodo es llegar en AVE a Santa Justa y continuar en bus o taxi. El carpooling tiene menos lógica dentro de Sevilla capital, pero es muy útil para los que vienen desde Cádiz, Huelva, Jerez o el Aljarafe."
+      ]
+    },
+    {
+      heading: "Carpooling a conciertos en Sevilla: precios por ciudad",
+      paragraphs: [
+        "ConcertRide conecta conductores y pasajeros para conciertos y festivales en Sevilla sin cobrar comisión. El pago es directo entre conductor y pasajero, vía Bizum o efectivo. Estos son los precios habituales publicados por conductores de la plataforma:"
       ],
       bullets: [
-        "AVE de larga distancia satura horarios y precios suben (+15% año tras año)",
-        "Concienciación ambiental: el 40% de asistentes de 18–28 años considera la huella CO₂ al elegir transporte",
-        "Plataformas especializadas como ConcertRide (0% comisión) reducen el coste por asistente",
-        "La vuelta nocturna sigue sin tener alternativa de transporte público — el carpooling es la opción real",
-        "Festivales rurales (Aranda, Lanuza, Viveiro, Cullera) sin transporte público forzosamente requieren coche"
+        "Desde Cádiz (125 km, 1h 30 min): 4–6 €/asiento",
+        "Desde Huelva (90 km, 1h 10 min): 4–6 €/asiento",
+        "Desde Jerez de la Frontera (90 km, 1h): 4–6 €/asiento",
+        "Desde Córdoba (145 km, 1h 30 min): 5–7 €/asiento",
+        "Desde Málaga (210 km, 2h 15 min): 7–10 €/asiento",
+        "Desde Granada (255 km, 2h 30 min): 8–12 €/asiento",
+        "Desde Madrid (535 km, 5h): 14–20 €/asiento",
+        "Desde Barcelona (1.000 km, 9h): 20–28 €/asiento"
+      ]
+    },
+    {
+      heading: "Los conciertos más esperados en Sevilla 2026",
+      paragraphs: [
+        "La agenda de Sevilla 2026 incluye artistas de primer nivel tanto en La Cartuja como en FIBES e Icónica Fest. Manuel Carrasco tiene a Sevilla como parada especial de su gira — el cantor de Isla Cristina tiene una conexión especial con su tierra. Las giras de estadio internacionales también marcan fechas en La Cartuja por su capacidad para albergar más de 50.000 personas.",
+        "Para estar al día de los próximos conciertos en Sevilla, consulta la agenda en ConcertRide: publicamos los viajes compartidos en cuanto se anuncian nuevas fechas, y puedes activar una alerta para recibir notificación cuando haya carpooling disponible desde tu ciudad."
+      ]
+    },
+    {
+      heading: "¿Merece la pena el carpooling vs. el AVE a Sevilla para un concierto?",
+      paragraphs: [
+        "El AVE Madrid–Sevilla cuesta 40–90 € ida en media o punta, y el último tren de vuelta sale a las 22:00–23:00 (según el día). Si el concierto en La Cartuja acaba a la 1:30, te quedas sin opción de volver esa noche en AVE. El carpooling con ConcertRide te permite organizarte con alguien que también tenga coche y quiera volver a Madrid después del concierto — compartes gastos de gasolina y peaje, normalmente 14–20 € en total.",
+        "Para ciudades andaluzas sin AVE (Cádiz, Huelva, Jerez, los pueblos del Aljarafe sevillano), el carpooling es directamente la única alternativa real: no hay tren nocturno de vuelta desde Sevilla en esa dirección."
       ]
     }
   ],
   faqs: [
     {
-      q: "¿Cuándo abre Roig Arena Valencia?",
-      a: "Roig Arena Valencia abre en 2026 como sede del Valencia Basket Club. El primer año completo de programación de conciertos será 2027, con 30–40 conciertos previstos de cabezas internacionales y nacionales. Capacidad 20.000 personas, comparable al WiZink Center Madrid. URL: concertride.me/recintos/roig-arena"
+      q: "¿Cómo llegar al Estadio La Cartuja de Sevilla en transporte público?",
+      a: "La opción más directa es el tranvía T1 desde el centro (parada Estadio Olímpico, 15 min desde Prado de San Sebastián, 1,40 €). También los autobuses C1 y C2 desde la estación de Santa Justa. El tranvía cesa a las 00:15, así que para volver de madrugada necesitas taxi, VTC o carpooling."
     },
     {
-      q: "¿Qué festivales españoles son 100% sostenibles?",
-      a: "Festivales con prácticas sostenibles certificadas en 2026: Primavera Sound (100% energía renovable), Sonorama Ribera (cero plásticos de un solo uso), BBK Live (lanzadera oficial gratuita), FIB Benicàssim (alianza con Renfe Cercanías). En 2027 la normativa europea Green Deal exigirá a todos los festivales >5.000 personas/día publicar huella CO₂ certificada. URL: concertride.me/blog/estudio-co2-festivales-carpooling-2026"
+      q: "¿Hay carpooling desde Cádiz a los conciertos de Sevilla?",
+      a: "Sí. En ConcertRide encontrarás conductores que salen desde Cádiz, Jerez, Puerto de Santa María y otros puntos de la provincia para conciertos en La Cartuja y FIBES. El precio habitual es 4–6 €/asiento (ida o vuelta). Sin comisión de plataforma, pago directo en Bizum."
     },
     {
-      q: "¿Crece el reggaetón en festivales españoles?",
-      a: "Sí. El reggaetón ha pasado de festivales especializados (Reggaeton Beach Festival Salou, Vive Latino España) a festivales mainstream tradicionalmente indie/pop. Bizarrap, Quevedo, Bad Bunny, J Balvin han actuado en Mad Cool, Primavera Sound, Cruïlla y Cala Mijas en años recientes. La tendencia se acelera en 2027 por demanda del público 18–28 años."
+      q: "¿Qué festivales hay en Sevilla en 2026?",
+      a: "En 2026 Sevilla tiene el Icónica Sevilla Fest (Plaza de España, mayo–jun), el festival Interestelar (Charco de la Pava, electrónica), y conciertos de estadio en La Cartuja. Además, desde Sevilla hay buenas conexiones carpooling hacia festivales próximos como Cala Mijas Festival (Málaga, 210 km) y Gibraltar Calling."
     },
     {
-      q: "¿Cómo afectará la IA a los festivales 2027?",
-      a: "La IA llegará a 5 áreas en festivales 2027: (1) chatbots con conocimiento del recinto y horarios, (2) reconocimiento facial en accesos, (3) predicción de aforos en tiempo real, (4) recomendación personalizada de conciertos según historial, (5) matching automático conductor-pasajero en plataformas de carpooling como ConcertRide."
+      q: "¿Cuánto tarda el tranvía de Sevilla al estadio La Cartuja?",
+      a: "El tranvía T1 cubre el trayecto Prado de San Sebastián → parada Estadio Olímpico en unos 15 minutos. El billete sencillo cuesta 1,40 €. Recuerda que el tranvía no opera de madrugada: el último servicio sale a las 00:15 (viernes y sábados hasta la 1:00)."
+    },
+    {
+      q: "¿Merece la pena coger el AVE para un concierto en Sevilla desde Madrid?",
+      a: "Depende del horario. El AVE cuesta 40–90 € ida. El mayor problema es la vuelta: el último AVE Sevilla–Madrid suele salir a las 22:00–23:00, antes de que acabe el concierto en La Cartuja. La alternativa es el carpooling con ConcertRide (14–20 €/asiento desde Madrid, sin hora fija de vuelta)."
     }
   ],
   relatedLinks: [
-    { label: "Festivales España 2027 preview", to: "/blog/festivales-espana-2027-preview" },
-    { label: "Estudio CO₂ festivales", to: "/blog/estudio-co2-festivales-carpooling-2026" },
-    { label: "Estadísticas festivales 2026", to: "/blog/estadisticas-festivales-espana-2026-datos" },
-    { label: "Roig Arena Valencia", to: "/recintos/roig-arena" }
+    { label: "Cómo llegar al Estadio La Cartuja Sevilla", to: "/recintos/estadio-la-cartuja" },
+    { label: "Conciertos en Sevilla 2026–2027", to: "/conciertos/sevilla" },
+    { label: "Carpooling Cádiz → Sevilla conciertos", to: "/rutas/cadiz-la-cartuja" },
+    { label: "Carpooling Madrid → Sevilla La Cartuja", to: "/rutas/madrid-la-cartuja" },
+    { label: "Guía Cala Mijas Festival", to: "/festivales/cala-mijas" },
+    { label: "Autobuses a festivales España 2026", to: "/blog/autobuses-festivales-espana-2026" }
   ],
   relatedPosts: [
-    "festivales-espana-2027-preview",
-    "estadisticas-festivales-espana-2026-datos",
-    "estudio-co2-festivales-carpooling-2026"
+    "guia-transporte-festivales-andalucia-2026",
+    "autobuses-festivales-espana-2026",
+    "como-volver-festival-madrugada"
+  ]
+});
+BLOG_POSTS.push({
+  slug: "como-llegar-arenal-sound-2026",
+  title: "Cómo llegar al Arenal Sound 2026: Buses Castellón, Tren Valencia y Carpooling desde 3€",
+  h1: "Cómo llegar al Arenal Sound 2026",
+  excerpt: "Guía completa de transporte para el Arenal Sound 2026 en Burriana (Castellón): bus lanzadera oficial desde Castellón, tren Cercanías C6 desde Valencia y carpooling sin comisión desde Madrid, Barcelona, Alicante y toda España desde 3€/asiento.",
+  category: "guias",
+  tags: ["arenal sound", "burriana", "castellón", "como llegar", "bus", "tren", "carpooling", "2026"],
+  publishedAt: "2026-05-09",
+  author: "ConcertRide",
+  readingMinutes: 7,
+  lede: "El Arenal Sound se celebra en la Playa de Burriana (Castellón), 5 km al sur de la ciudad. Sin metro, sin aparcamiento fácil — pero con autobuses lanzadera, tren de Cercanías y carpooling que lo hacen accesible desde toda España.",
+  coverImage: { src: "/images/blog/arenal-sound-burriana-playa.jpg", alt: "Arenal Sound Playa Burriana Castellón cómo llegar" },
+  sections: [
+    {
+      heading: "Dónde está el Arenal Sound: Playa de Burriana, Castellón",
+      paragraphs: [
+        "El Arenal Sound se celebra en la Playa de Burriana, un barrio playero de Castellón de la Plana situado a 5 km del centro de la ciudad. La playa no tiene conexión de metro ni línea de autobús regular frecuente fuera del festival, lo que hace que el transporte organizado sea fundamental para los 250.000 asistentes que reúne en 5 días.",
+        "Las fechas de 2026 son del 29 de julio al 2 de agosto. El recinto abre cada día a partir de las 18:00 y los headliners actúan entre las 00:00 y las 05:30. Esto significa que el transporte de regreso ocurre en plena madrugada."
+      ]
+    },
+    {
+      heading: "Bus lanzadera oficial: Castellón → Playa de Burriana",
+      paragraphs: [
+        "El Ayuntamiento de Castellón y la organización del festival habilitan un servicio de bus lanzadera oficial entre el centro de Castellón (Estación de Bus y Paseo Ribalta) y el recinto de la Playa de Burriana. Es la opción más cómoda para quienes llegan a Castellón en tren desde Valencia.",
+        "El bus lanzadera funciona con ida y vuelta. La vuelta opera hasta las 6:00 am aproximadamente, con frecuencia cada 15–30 minutos durante las horas punta de salida del festival. El precio habitual es de 5–8 € el trayecto (o 8–14 € ida y vuelta)."
+      ],
+      bullets: [
+        "Punto de salida: Estación de Autobuses de Castellón + Paseo Ribalta",
+        "Frecuencia ida (desde Castellón): cada 30 min de 16:00 a 22:00",
+        "Frecuencia vuelta (desde festival): cada 15 min de 01:00 a 06:00",
+        "Precio estimado: 5–8 € trayecto / 8–14 € ida y vuelta",
+        "Consejo: compra el bono anticipado en la web del festival — suelen agotarse"
+      ]
+    },
+    {
+      heading: "Tren Cercanías C6 Valencia–Castellón: la opción económica",
+      paragraphs: [
+        "El tren de Cercanías Renfe C6 conecta Valencia Nord con Castellón en 45 minutos y cuesta 3,90 €. Con el Abono Mensual o el Bono 10 Viajes, el precio baja significativamente. Desde Castellón, combinas con el bus lanzadera oficial al recinto (5–8 €) o con el servicio de carpooling.",
+        "El problema es la vuelta de madrugada: el último tren Castellón–Valencia sale sobre las 23:00–23:30. Si quieres ver al headliner (que empieza a las 01:00), no puedes volver en tren esa noche. La solución más habitual es quedarse a dormir en Castellón (hostales económicos, 25–50 €/noche) o usar carpooling de madrugada."
+      ],
+      bullets: [
+        "Línea: C6 Valencia Nord → Castellón (45 min, 3,90 €)",
+        "Frecuencia: cada 30 min de 06:00 a 23:00",
+        "Último tren de vuelta Castellón → Valencia: ≈ 23:00–23:30",
+        "Complemento: bus lanzadera Castellón → festival (5–8 €)",
+        "Alternativa madrugada: carpooling ConcertRide (sin hora fija de salida)"
+      ]
+    },
+    {
+      heading: "Carpooling ConcertRide: desde toda España sin comisión",
+      paragraphs: [
+        "El carpooling con ConcertRide es la opción más versátil para el Arenal Sound: sales desde tu ciudad directamente, llegas al recinto, y la vuelta se coordina cuando termina el festival — sin pagar taxi de madrugada ni quedarte a esperar el primer tren de la mañana.",
+        "La plataforma conecta conductores y pasajeros sin cobrar comisión. El pago es directo entre conductor y pasajero (Bizum o efectivo). Estos son los precios medios publicados por conductores en ConcertRide:"
+      ],
+      bullets: [
+        "Desde Valencia (70 km, 50 min): 3–6 €/asiento",
+        "Desde Castellón (5 km, 15 min): 3–5 €/asiento",
+        "Desde Alicante (175 km, 1h 45 min): 4–7 €/asiento",
+        "Desde Tarragona (130 km, 1h 30 min): 4–7 €/asiento",
+        "Desde Barcelona (240 km, 2h 30 min): 8–12 €/asiento",
+        "Desde Madrid (440 km, 4h 15 min): 12–17 €/asiento",
+        "Desde Murcia (250 km, 2h 30 min): 7–11 €/asiento",
+        "Desde Zaragoza (300 km, 2h 45 min): 8–12 €/asiento",
+        "Desde Bilbao (520 km, 5h): 13–18 €/asiento"
+      ]
+    },
+    {
+      heading: "Autobuses privados no oficiales al Arenal Sound desde Madrid y Barcelona",
+      paragraphs: [
+        "Existen operadores de autobús privado que ofrecen viajes directos al Arenal Sound desde Madrid y Barcelona, con precio de 40–70 € ida y vuelta. Estos autobuses salen de puntos concretos (Madrid: Méndez Álvaro; Barcelona: Sants o Pl. Espanya) y tienen vuelta a hora fija (generalmente a las 5:00–6:00 am del último día de festival o del día indicado).",
+        "El inconveniente: el precio dobla o triplica el carpooling, los horarios son fijos y si quieres quedarte más días necesitas buscar billete de vuelta alternativo. Para grupos de 3–4 personas, el carpooling ConcertRide compartiendo gastos resulta igual de cómodo y mucho más barato."
+      ]
+    },
+    {
+      heading: "Cómo volver del Arenal Sound de madrugada",
+      paragraphs: [
+        "El headliner del Arenal Sound termina entre las 05:00 y las 06:00. Las opciones reales de vuelta son: quedarse a dormir en Burriana o Castellón (zona de acampada del festival o alojamiento reservado previamente), el bus lanzadera oficial (hasta las 06:00), o el carpooling coordinado con el conductor de ConcertRide.",
+        "La opción del taxi de madrugada desde Burriana es cara y escasa: hay pocos taxis en la zona y los VTC tienen tarifas nocturnas elevadas (Burriana–Valencia puede costar 60–90 € en taxi en hora punta del festival)."
+      ],
+      bullets: [
+        "Bus lanzadera oficial: último servicio ≈ 06:00 am desde el recinto",
+        "Carpooling ConcertRide: sin hora fija, coordinación directa con el conductor",
+        "Taxi/VTC: 60–90 € hasta Valencia de madrugada (precio dinámico en pico)",
+        "Acampada: el festival tiene zona de camping — opción sin estrés de transporte",
+        "Tren: primer servicio Castellón–Valencia ≈ 06:00–07:00 (muy concurrido)"
+      ]
+    }
+  ],
+  faqs: [
+    {
+      q: "¿Hay bus lanzadera al Arenal Sound desde Castellón?",
+      a: "Sí. La organización del festival habilita un bus lanzadera oficial desde la Estación de Autobuses de Castellón y Paseo Ribalta hasta el recinto de Playa Burriana. El precio estimado es 5–8 € el trayecto (8–14 € ida y vuelta). Opera desde las 16:00 y la vuelta funciona hasta las 06:00 am aproximadamente."
+    },
+    {
+      q: "¿Cómo llegar al Arenal Sound desde Valencia?",
+      a: "Dos opciones combinables: tren Cercanías C6 Valencia–Castellón (45 min, 3,90 €) + bus lanzadera Castellón–Burriana (5–8 €). Total: ≈ 9–12 € ida. O carpooling con ConcertRide directo desde Valencia al festival (3–6 €/asiento, sin transbordo)."
+    },
+    {
+      q: "¿Hay carpooling al Arenal Sound desde Madrid?",
+      a: "Sí. En ConcertRide encontrarás conductores que salen desde Madrid hacia el Arenal Sound. El precio habitual es 12–17 €/asiento (440 km, 4h 15 min). Sin comisión de plataforma, pago directo en Bizum o efectivo. La vuelta se coordina al terminar el festival."
+    },
+    {
+      q: "¿Cómo volver del Arenal Sound de madrugada?",
+      a: "Las opciones son: bus lanzadera oficial (hasta las 06:00 am desde el recinto), carpooling con ConcertRide (sin hora fija, vuelta coordinada con el conductor), o quedarse en el área de acampada del festival. El tren Cercanías no opera de madrugada (primer servicio ≈ 06:00 am)."
+    },
+    {
+      q: "¿Cuánto cuesta el bus al Arenal Sound?",
+      a: "El bus lanzadera oficial desde Castellón cuesta 5–8 € el trayecto. Los autobuses privados no oficiales desde Madrid o Barcelona cuestan 40–70 € ida y vuelta. El carpooling con ConcertRide es la opción más económica: 3–6 €/asiento desde Valencia o Alicante, 12–17 €/asiento desde Madrid."
+    }
+  ],
+  relatedLinks: [
+    { label: "Guía Arenal Sound 2026", to: "/festivales/arenal-sound" },
+    { label: "Cómo llegar al Arenal Sound 2026", to: "/como-llegar/arenal-sound" },
+    { label: "Carpooling Valencia → Arenal Sound", to: "/rutas/valencia-arenal-sound" },
+    { label: "Carpooling Madrid → Arenal Sound", to: "/rutas/madrid-arenal-sound" },
+    { label: "Carpooling Alicante → Arenal Sound", to: "/rutas/alicante-arenal-sound" },
+    { label: "Autobuses a festivales España 2026", to: "/blog/autobuses-festivales-espana-2026" },
+    { label: "Cómo volver de un festival de madrugada", to: "/blog/como-volver-festival-madrugada" }
+  ],
+  relatedPosts: [
+    "autobuses-vina-rock-2026",
+    "autobuses-festivales-espana-2026",
+    "guia-transporte-vina-rock-2026"
   ]
 });
 const BLOG_POSTS_BY_SLUG = Object.fromEntries(
@@ -32429,6 +32796,29 @@ function FestivalLandingPage() {
         festival.typicalDates,
         "). Conductores verificados con carnet."
       ] }),
+      /* @__PURE__ */ jsxs("div", { className: "flex flex-wrap gap-3 pt-1", children: [
+        /* @__PURE__ */ jsxs(
+          Link,
+          {
+            to: `/concerts?city=${encodeURIComponent(festival.city)}`,
+            className: "inline-flex items-center gap-2 bg-cr-primary text-black font-sans text-sm font-bold uppercase tracking-[0.12em] px-5 py-3 hover:bg-cr-primary/90 transition-colors",
+            children: [
+              "Buscar viajes a ",
+              festival.shortName,
+              " ",
+              /* @__PURE__ */ jsx(ArrowRight, { size: 14 })
+            ]
+          }
+        ),
+        /* @__PURE__ */ jsx(
+          Link,
+          {
+            to: "/publish",
+            className: "inline-flex items-center gap-2 border-2 border-cr-primary text-cr-primary font-sans text-sm font-bold uppercase tracking-[0.12em] px-5 py-3 hover:bg-cr-primary hover:text-black transition-colors",
+            children: "Publicar viaje →"
+          }
+        )
+      ] }),
       /* @__PURE__ */ jsx("p", { className: "font-sans text-sm md:text-base text-cr-text-muted max-w-2xl leading-relaxed speakable", children: festival.blurb }),
       /* @__PURE__ */ jsxs("p", { className: "font-sans text-xs text-cr-text-dim max-w-2xl leading-relaxed", children: [
         "También buscado como: ",
@@ -33206,7 +33596,31 @@ function FestivalLandingPage() {
       " ",
       /* @__PURE__ */ jsx(Link, { to: "/aviso-legal", className: "underline underline-offset-2 hover:text-cr-primary transition-colors", children: "Aviso legal" }),
       "."
-    ] }) })
+    ] }) }),
+    /* @__PURE__ */ jsxs("div", { className: "md:hidden fixed bottom-0 left-0 right-0 z-40 bg-cr-bg/95 backdrop-blur-sm border-t border-cr-border px-4 py-3 flex gap-2", children: [
+      /* @__PURE__ */ jsxs(
+        Link,
+        {
+          to: `/concerts?city=${encodeURIComponent(festival.city)}`,
+          className: "flex-1 flex items-center justify-center gap-1.5 bg-cr-primary text-black font-sans text-xs font-bold uppercase tracking-[0.1em] py-3",
+          children: [
+            "Buscar viajes a ",
+            festival.shortName,
+            " ",
+            /* @__PURE__ */ jsx(ArrowRight, { size: 12 })
+          ]
+        }
+      ),
+      /* @__PURE__ */ jsx(
+        Link,
+        {
+          to: "/publish",
+          className: "flex items-center justify-center gap-1.5 border-2 border-cr-primary text-cr-primary font-sans text-xs font-bold uppercase tracking-[0.1em] px-3 py-3",
+          children: "Publicar"
+        }
+      )
+    ] }),
+    /* @__PURE__ */ jsx("div", { className: "md:hidden h-16" })
   ] });
 }
 const FEATURED_SLUGS = ["mad-cool", "primavera-sound", "sonar", "fib", "bbk-live", "arenal-sound"];
@@ -38062,6 +38476,29 @@ function VenueLandingPage() {
         (topOrigin == null ? void 0 : topOrigin.concertRideRange) ?? `${topPrice} €`,
         "/asiento, sin comisión, conductores verificados con carnet."
       ] }),
+      /* @__PURE__ */ jsxs("div", { className: "flex flex-wrap gap-3 pt-1", children: [
+        /* @__PURE__ */ jsxs(
+          Link,
+          {
+            to: `/concerts?city=${encodeURIComponent(venue.city)}`,
+            className: "inline-flex items-center gap-2 bg-cr-primary text-black font-sans text-sm font-bold uppercase tracking-[0.12em] px-5 py-3 hover:bg-cr-primary/90 transition-colors",
+            children: [
+              "Ver carpooling a ",
+              venue.shortName,
+              " ",
+              /* @__PURE__ */ jsx(ArrowRight, { size: 14 })
+            ]
+          }
+        ),
+        /* @__PURE__ */ jsx(
+          Link,
+          {
+            to: "/publish",
+            className: "inline-flex items-center gap-2 border-2 border-cr-primary text-cr-primary font-sans text-sm font-bold uppercase tracking-[0.12em] px-5 py-3 hover:bg-cr-primary hover:text-black transition-colors",
+            children: "Publicar viaje →"
+          }
+        )
+      ] }),
       /* @__PURE__ */ jsx("p", { className: "font-sans text-sm md:text-base text-cr-text-muted max-w-2xl leading-relaxed speakable", children: venue.blurb }),
       /* @__PURE__ */ jsxs("p", { className: "font-sans text-xs text-cr-text-dim max-w-2xl leading-relaxed", children: [
         "También buscado como:",
@@ -38456,7 +38893,31 @@ function VenueLandingPage() {
         }
       ),
       "."
-    ] }) })
+    ] }) }),
+    /* @__PURE__ */ jsxs("div", { className: "md:hidden fixed bottom-0 left-0 right-0 z-40 bg-cr-bg/95 backdrop-blur-sm border-t border-cr-border px-4 py-3 flex gap-2", children: [
+      /* @__PURE__ */ jsxs(
+        Link,
+        {
+          to: `/concerts?city=${encodeURIComponent(venue.city)}`,
+          className: "flex-1 flex items-center justify-center gap-1.5 bg-cr-primary text-black font-sans text-xs font-bold uppercase tracking-[0.1em] py-3",
+          children: [
+            "Carpooling a ",
+            venue.shortName,
+            " ",
+            /* @__PURE__ */ jsx(ArrowRight, { size: 12 })
+          ]
+        }
+      ),
+      /* @__PURE__ */ jsx(
+        Link,
+        {
+          to: "/publish",
+          className: "flex items-center justify-center gap-1.5 border-2 border-cr-primary text-cr-primary font-sans text-xs font-bold uppercase tracking-[0.1em] px-3 py-3",
+          children: "Publicar"
+        }
+      )
+    ] }),
+    /* @__PURE__ */ jsx("div", { className: "md:hidden h-16" })
   ] });
 }
 const REGION_PRICE_TABLE = {
