@@ -1,25 +1,41 @@
 import type {
+  ActivityFeedQuery,
+  ActivityFeedResponse,
+  AddPlaylistTrackRequest,
   AdminAuditLogEntry,
   AdminStats,
+  AnticipationStatus,
+  AnticipationSummary,
   Concert,
   ConcertsQuery,
   ConcertsResponse,
   ConversationsResponse,
   CreateConcertInput,
+  CreateFestivalQnaRequest,
   CreateReviewRequest,
   CreateRideRequest,
   CreateReportRequest,
+  CreateSquadRequest,
+  CreateTripMemoryRequest,
+  CrewListResponse,
+  CrewMember,
+  DemandPrediction,
   DemandSignal,
   DirectMessage,
   DirectMessagesResponse,
+  DriverBadge,
+  EventAnticipation,
   Favorite,
   FavoriteKind,
   FavoritesResponse,
+  FestivalQna,
   HealthResponse,
+  JoinSquadRequest,
   LicenseReview,
   Report,
   Message,
   MessagesResponse,
+  PlaylistTrack,
   RequestSeatRequest,
   RequestStatus,
   Review,
@@ -29,6 +45,11 @@ import type {
   RideRequest,
   RidesQuery,
   RidesResponse,
+  FestivalHistoryEntry,
+  Squad,
+  SquadRole,
+  TravelStats,
+  TripMemory,
   UpdateProfileInput,
   User,
   VenuesResponse,
@@ -406,6 +427,105 @@ export const api = {
         method: "POST",
         body: JSON.stringify({ email, festival_slug }),
       }),
+  },
+  crew: {
+    list: () => request<CrewListResponse>("/api/crew"),
+    invite: (user_id: string, ride_id?: string) =>
+      request<CrewMember>("/api/crew/invite", {
+        method: "POST",
+        body: JSON.stringify({ user_id, ride_id }),
+      }),
+    accept: (user_id: string) =>
+      request<CrewMember>(`/api/crew/${encodeURIComponent(user_id)}/accept`, { method: "POST" }),
+    remove: (user_id: string) =>
+      request<{ ok: true }>(`/api/crew/${encodeURIComponent(user_id)}`, { method: "DELETE" }),
+    attending: (concert_id: string) =>
+      request<{ crew: CrewMember[] }>(`/api/crew/attending/${encodeURIComponent(concert_id)}`),
+  },
+  activity: {
+    list: (q: ActivityFeedQuery = {}) => request<ActivityFeedResponse>(`/api/activity${query(q)}`),
+  },
+  anticipations: {
+    summary: (concert_id: string) =>
+      request<AnticipationSummary>(`/api/anticipations/concert/${encodeURIComponent(concert_id)}`),
+    set: (concert_id: string, status: AnticipationStatus) =>
+      request<EventAnticipation>(`/api/anticipations/concert/${encodeURIComponent(concert_id)}`, {
+        method: "POST",
+        body: JSON.stringify({ status }),
+      }),
+    clear: (concert_id: string) =>
+      request<{ ok: true }>(`/api/anticipations/concert/${encodeURIComponent(concert_id)}`, {
+        method: "DELETE",
+      }),
+    mine: () =>
+      request<{ items: Array<{ concert: Concert; status: AnticipationStatus }> }>(
+        "/api/anticipations/mine",
+      ),
+  },
+  memories: {
+    create: (input: CreateTripMemoryRequest) =>
+      request<TripMemory>("/api/memories", {
+        method: "POST",
+        body: JSON.stringify(input),
+      }),
+    get: (id: string) => request<TripMemory>(`/api/memories/${encodeURIComponent(id)}`),
+    share: (id: string) =>
+      request<{ ok: true }>(`/api/memories/${encodeURIComponent(id)}/share`, { method: "POST" }),
+    forConcert: (concert_id: string) =>
+      request<{ memories: TripMemory[] }>(`/api/memories/concert/${encodeURIComponent(concert_id)}`),
+    mine: () => request<{ memories: TripMemory[] }>("/api/memories/user/mine"),
+  },
+  festivalQnas: {
+    list: (slug: string) =>
+      request<{ items: FestivalQna[] }>(`/api/festival-qnas/${encodeURIComponent(slug)}`),
+    create: (input: CreateFestivalQnaRequest) =>
+      request<FestivalQna>("/api/festival-qnas", {
+        method: "POST",
+        body: JSON.stringify(input),
+      }),
+    upvote: (id: string) =>
+      request<FestivalQna>(`/api/festival-qnas/${encodeURIComponent(id)}/upvote`, { method: "POST" }),
+    approve: (id: string) =>
+      request<FestivalQna>(`/api/festival-qnas/${encodeURIComponent(id)}/approve`, { method: "POST" }),
+  },
+  squads: {
+    mine: () => request<{ items: Squad[] }>("/api/squads/mine"),
+    forConcert: (concert_id: string) =>
+      request<{ items: Squad[] }>(`/api/squads/concert/${encodeURIComponent(concert_id)}`),
+    byInvite: (code: string) => request<Squad>(`/api/squads/invite/${encodeURIComponent(code)}`),
+    get: (id: string) => request<Squad>(`/api/squads/${encodeURIComponent(id)}`),
+    create: (input: CreateSquadRequest) =>
+      request<Squad>("/api/squads", { method: "POST", body: JSON.stringify(input) }),
+    join: (input: JoinSquadRequest) =>
+      request<Squad>("/api/squads/join", { method: "POST", body: JSON.stringify(input) }),
+    leave: (id: string) =>
+      request<{ ok: true }>(`/api/squads/${encodeURIComponent(id)}/me`, { method: "DELETE" }),
+    updateRole: (id: string, role: SquadRole, ride_id?: string | null) =>
+      request<Squad>(`/api/squads/${encodeURIComponent(id)}/me`, {
+        method: "PATCH",
+        body: JSON.stringify({ role, ride_id }),
+      }),
+  },
+  playlists: {
+    forRide: (ride_id: string) =>
+      request<{ tracks: PlaylistTrack[] }>(`/api/playlists/ride/${encodeURIComponent(ride_id)}`),
+    forSquad: (squad_id: string) =>
+      request<{ tracks: PlaylistTrack[] }>(`/api/playlists/squad/${encodeURIComponent(squad_id)}`),
+    add: (input: AddPlaylistTrackRequest) =>
+      request<PlaylistTrack>("/api/playlists", { method: "POST", body: JSON.stringify(input) }),
+    remove: (id: string) =>
+      request<{ ok: true }>(`/api/playlists/${encodeURIComponent(id)}`, { method: "DELETE" }),
+  },
+  badges: {
+    forUser: (user_id: string) =>
+      request<{ badges: DriverBadge[] }>(`/api/users/${encodeURIComponent(user_id.replace(/^u_/, ""))}/badges`),
+  },
+  stats: {
+    me: (year?: number) => request<TravelStats>(`/api/stats/me${year ? `?year=${year}` : ""}`),
+    festivalHistory: () =>
+      request<{ items: FestivalHistoryEntry[] }>("/api/stats/me/festival-history"),
+    demand: (limit = 8) =>
+      request<{ items: DemandPrediction[] }>(`/api/stats/demand?limit=${limit}`),
   },
 };
 

@@ -5,6 +5,7 @@ import type { MessagesResponse, RequestStatus, ReviewsResponse, RidesResponse } 
 import type { HonoEnv } from "../types";
 import { requireUser, requireVerifiedEmail } from "../lib/identity";
 import { notifyUser } from "../lib/notify";
+import { pushCrewCoordinationPrompt } from "../lib/crew-coordination";
 import { getSiteUrl } from "../lib/siteUrl";
 import {
   sendDemandMatchEmail,
@@ -160,8 +161,33 @@ route.post("/", async (c) => {
 
   const ride = await c.var.store.createRide(userOrResp, concert, parsed.data);
 
+  // Activity feed signal — surfaces in homepage live activity + concert page.
+  void c.var.store.recordActivity({
+    actor: userOrResp,
+    kind: "ride_published",
+    target_id: ride.id,
+    concert_id: ride.concert_id,
+    city: ride.origin_city.toLowerCase(),
+    label: `${userOrResp.name} publicó un viaje desde ${ride.origin_city} a ${concert.artist}`,
+    metadata: {
+      ride_id: ride.id,
+      origin_city: ride.origin_city,
+      destination_city: concert.venue?.city ?? null,
+      vibe: ride.vibe,
+      price_per_seat: ride.price_per_seat,
+      seats_total: ride.seats_total,
+    },
+  });
+
   // Notificar demanda de festival si aplica (fire-and-forget)
   c.var.store.notifyFestivalDemand(ride.concert_id, ride.origin_city).catch(() => {});
+
+  // Crew-coordination push: members of the driver's crew who already said
+  // "voy" to this concert get a high-signal nudge. Fire-and-forget — the
+  // ride creation response should not wait on push delivery.
+  c.executionCtx.waitUntil(
+    pushCrewCoordinationPrompt(c.env, c.var.store, userOrResp, ride, concert).catch(() => {}),
+  );
 
   // Notify users who signalled interest in this concert — push AND email
   c.executionCtx.waitUntil(
@@ -268,6 +294,15 @@ route.post("/:id/book", async (c) => {
 
   // Auto-confirm immediately
   const confirmed = await c.var.store.updateRequestStatus(result.request.id, "confirmed");
+  void c.var.store.recordActivity({
+    actor: userOrResp,
+    kind: "ride_booked",
+    target_id: ride.id,
+    concert_id: ride.concert_id,
+    city: ride.origin_city.toLowerCase(),
+    label: `${userOrResp.name} reservó ${parsed.data.seats} plaza${parsed.data.seats === 1 ? "" : "s"} a ${ride.concert.artist}`,
+    metadata: { ride_id: ride.id, seats: parsed.data.seats },
+  });
   // Notify driver of the instant booking — email is the main channel since
   // many drivers won't have push subscriptions.
   c.executionCtx.waitUntil(
@@ -362,6 +397,20 @@ route.patch("/:id/request/:rid", async (c) => {
         ]);
       })(),
     );
+  }
+
+  // Driver-confirmed booking → emit social ride_booked event under the
+  // passenger's name so the feed reads correctly.
+  if (updated && isDriver && parsed.data.status === "confirmed" && existing.passenger) {
+    void c.var.store.recordActivity({
+      actor: existing.passenger,
+      kind: "ride_booked",
+      target_id: ride.id,
+      concert_id: ride.concert_id,
+      city: ride.origin_city.toLowerCase(),
+      label: `${existing.passenger.name} se sumó al viaje a ${ride.concert.artist}`,
+      metadata: { ride_id: ride.id, seats: existing.seats },
+    });
   }
 
   // Notify passenger of decision — push + email
@@ -648,6 +697,17 @@ route.post("/:id/complete", async (c) => {
   const role: "driver" | "passenger" = isDriver ? "driver" : "passenger";
   const updated = await c.var.store.confirmRideComplete(ride.id, role);
   if (!updated) return c.json({ error: "update_failed" }, 500);
+  if (updated.status === "completed") {
+    void c.var.store.recordActivity({
+      actor: userOrResp,
+      kind: "ride_completed",
+      target_id: ride.id,
+      concert_id: ride.concert_id,
+      city: ride.origin_city.toLowerCase(),
+      label: `Viaje completado a ${ride.concert.artist}`,
+      metadata: { ride_id: ride.id, vibe: ride.vibe },
+    });
+  }
   return c.json(updated);
 });
 

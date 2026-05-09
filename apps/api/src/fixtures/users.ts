@@ -1,6 +1,17 @@
 import type { User } from "@concertride/types";
 
-const NULL_SAFETY = { phone_verified_at: null, banned_at: null, ban_reason: null, identity_verified: false } as const;
+const NULL_SAFETY = {
+  phone_verified_at: null,
+  banned_at: null,
+  ban_reason: null,
+  identity_verified: false,
+  bio: null,
+  music_genres: null,
+  top_artists: null,
+  spotify_id: null,
+  handle: null,
+  crew_count: 0,
+} as const;
 
 export const USERS: User[] = [
   {

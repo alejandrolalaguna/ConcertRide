@@ -13,6 +13,7 @@ import { ROUTE_LANDINGS_BY_SLUG } from "@/lib/routeLandings";
 import { ROUTE_SEO_IMPROVEMENTS } from "@/lib/seoOverrides";
 import { FestivalAlertWidget } from "@/components/FestivalAlertWidget";
 import { DemandSignalWidget } from "@/components/DemandSignalWidget";
+import { FactDensityCallout } from "@/components/FactDensityCallout";
 import { AutoLinksForFestival, AutoLinksForRoute } from "@/lib/autoLinking";
 import { trackRouteSearch } from "@/lib/seoEvents";
 
@@ -36,6 +37,9 @@ export default function RouteLandingPage() {
       ? `Viaje compartido de ${landing.originCity} a ${landing.festival.shortName} ${routeYear}. ${landing.originData.km} km, ${landing.originData.drivingTime}. Precio desde ${landing.originData.concertRideRange}. Sin comisión de plataforma. Conductores verificados.`
       : "Carpooling a festivales en España.",
     canonical: landing ? `${SITE_URL}/rutas/${landing.slug}` : `${SITE_URL}/concerts`,
+    // Route-specific OG card rendered by the Worker on demand.
+    // Edge-cached 7d; falls through to the global default when no landing.
+    ogImage: landing ? `${SITE_URL}/api/og/route/${landing.slug}.svg` : undefined,
     ogImageAlt: landing
       ? `Carpooling ${landing.originCity} a ${landing.festival.shortName} ${routeYear} · ConcertRide`
       : "Carpooling a festivales de música en España · ConcertRide",
@@ -624,6 +628,14 @@ export default function RouteLandingPage() {
 
       {/* ── Transport comparison table — citable for "X vs Y" queries ── */}
       <section className="max-w-6xl mx-auto px-6 pb-16 border-t border-cr-border pt-12 space-y-6">
+        <FactDensityCallout
+          heading={`Datos clave · ${originCity} → ${festival.shortName}`}
+          facts={[
+            { label: "Carpooling", value: `${originData.concertRideRange}`, detail: "0 % comisión" },
+            { label: "Distancia", value: `${originData.km} km`, detail: originData.drivingTime },
+            { label: "Ahorro vs taxi", value: "~75 %", detail: "Para >80 km nocturno" },
+          ]}
+        />
         <h2 className="font-display text-2xl md:text-3xl uppercase">
           Comparativa de transporte {originCity} → {festival.shortName} {routeYear}: precio, tiempo y comisión
         </h2>

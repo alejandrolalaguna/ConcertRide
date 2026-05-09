@@ -33,6 +33,13 @@ import { FilterBar, EMPTY_FILTERS, type FilterState } from "@/components/FilterB
 import { FavoriteButton } from "@/components/FavoriteButton";
 import { ConcertPoster } from "@/components/ConcertPoster";
 import { ConcertChatSection } from "@/components/ConcertChatSection";
+import { AnticipationStrip } from "@/components/AnticipationStrip";
+import { LiveActivityFeed } from "@/components/LiveActivityFeed";
+import { CrewAvatars } from "@/components/CrewAvatars";
+import { useCrew } from "@/lib/crew";
+import { SquadsForConcert } from "@/components/SquadsForConcert";
+import { computeMusicMatch } from "@/lib/musicMatch";
+import { FactDensityCallout } from "@/components/FactDensityCallout";
 
 function hueFromString(s: string): number {
   let h = 0;
@@ -52,13 +59,26 @@ export default function ConcertDetailPage() {
   const [demandLoading, setDemandLoading] = useState(false);
   const [copied, setCopied] = useState(false);
 
+  // Cheapest ride for this concert (if any) drives the title CTR + the
+  // Spanish meta description's price hook. ConcertRide's own pricing
+  // (3–20 €/asiento range) — not Ticketmaster ticket prices.
+  const cheapestRide = rides && rides.length > 0
+    ? rides.reduce((min, r) => (r.price_per_seat < min.price_per_seat ? r : min), rides[0]!)
+    : null;
+  const priceFrom = cheapestRide?.price_per_seat ?? null;
+  // Trimmed to ≤160 chars including the price anchor for AI extraction.
+  // Generic fallback "desde 3€" mirrors the value range surfaced site-wide.
+  const cdpDesc = concert
+    ? (priceFrom !== null
+        ? `Carpooling a ${concert.artist} en ${concert.venue.city}: desde ${priceFrom} €/asiento, 0% comisión, conductores verificados. Divide el coste y llega sin taxi.`
+        : `Carpooling a ${concert.artist} en ${concert.venue.city}: desde 3 €/asiento, 0% comisión, conductores verificados. Divide el coste y llega sin taxi.`)
+    : "Encuentra un viaje compartido para ir al concierto en España.";
+
   useSeoMeta({
     title: concert
-      ? `${concert.artist} en ${concert.venue.city} ${new Date(concert.date).getFullYear()} — Carpooling | ConcertRide`
+      ? `${concert.artist} ${concert.venue.city} ${new Date(concert.date).getFullYear()} · Carpooling | ConcertRide`
       : "Concierto · ConcertRide",
-    description: concert
-      ? `Carpooling para ver a ${concert.artist} en ${concert.venue.name}, ${concert.venue.city}. Sin comisión, conductores verificados. Divide el coste con otros fans y llega sin taxi.`
-      : "Encuentra un viaje compartido para ir al concierto en España.",
+    description: cdpDesc,
     canonical: id ? `${SITE_URL}/concerts/${id}` : undefined,
     keywords: concert
       ? `${concert.artist} ${concert.venue.city} ${new Date(concert.date).getFullYear()}, carpooling ${concert.artist}, viaje compartido ${concert.artist}, cómo ir a ${concert.artist}, transporte ${concert.artist} ${concert.venue.city}, coche compartido ${concert.venue.name}, concierto ${concert.venue.city} ${new Date(concert.date).getFullYear()}, ${concert.genre ?? "conciertos"} España, compartir coche ${concert.venue.city}, carpooling concierto ${concert.venue.city}`
@@ -90,9 +110,18 @@ export default function ConcertDetailPage() {
     return Array.from(new Set(rides.map((r) => r.origin_city))).sort();
   }, [rides]);
 
+  const { crew } = useCrew();
+  const crewIds = useMemo(() => new Set(crew.map((c) => c.user.id)), [crew]);
+
+  // Crew-weighted trust + music match scoring. We sort the visible
+  // rides so that:
+  //  1. Crew drivers always surface first (regardless of price)
+  //  2. Within the rest, higher music compatibility wins
+  //  3. Tie-break on price (cheaper first) so the UX stays predictable
+  // The user can still ignore this sort by applying explicit filters.
   const visible = useMemo(() => {
     if (!rides) return [];
-    return rides.filter((r) => {
+    const filtered = rides.filter((r) => {
       if (filters.origin_city && r.origin_city !== filters.origin_city) return false;
       if (filters.max_price && r.price_per_seat > Number(filters.max_price)) return false;
       if (filters.vibe && r.vibe !== (filters.vibe as Vibe)) return false;
@@ -105,7 +134,19 @@ export default function ConcertDetailPage() {
       if (filters.no_smoking && r.smoking_policy !== "no") return false;
       return true;
     });
-  }, [rides, filters]);
+    if (!user) return filtered;
+    return filtered
+      .map((r) => {
+        const isCrew = crewIds.has(r.driver_id);
+        const match = computeMusicMatch(user, r.driver);
+        // Crew gets +200 baseline so it always sorts above non-crew, then
+        // music score (0..100) layered on top.
+        const score = (isCrew ? 200 : 0) + match.score;
+        return { ride: r, score };
+      })
+      .sort((a, b) => b.score - a.score || a.ride.price_per_seat - b.ride.price_per_seat)
+      .map((entry) => entry.ride);
+  }, [rides, filters, user, crewIds]);
 
   if (error === "concert_not_found") {
     return (
@@ -417,6 +458,18 @@ export default function ConcertDetailPage() {
         </div>
       </section>
 
+      {concert && (
+        <AnticipationStrip
+          concertId={concert.id}
+          date={concert.date}
+          artist={concert.artist}
+        />
+      )}
+
+      {concert && <CrewAttendingForConcert concertId={concert.id} />}
+
+      {concert && !isPast && <SquadsForConcert concertId={concert.id} artist={concert.artist} />}
+
       <FilterBar value={filters} onChange={setFilters} cities={cities} />
 
       <section className="max-w-6xl mx-auto px-6 py-10 space-y-6">
@@ -522,20 +575,32 @@ export default function ConcertDetailPage() {
               }}
               className="grid grid-cols-1 xl:grid-cols-2 gap-4"
             >
-              {visible.map((ride) => (
-                <motion.li
-                  key={ride.id}
-                  variants={{
-                    hidden: { opacity: 0, y: 16 },
-                    show: { opacity: 1, y: 0, transition: { duration: 0.3 } },
-                  }}
-                >
-                  <TicketCard
-                    ride={ride}
-                    onClick={() => navigate(`/rides/${ride.id}`)}
-                  />
-                </motion.li>
-              ))}
+              {visible.map((ride) => {
+                const isCrewDriver = crewIds.has(ride.driver_id);
+                return (
+                  <motion.li
+                    key={ride.id}
+                    variants={{
+                      hidden: { opacity: 0, y: 16 },
+                      show: { opacity: 1, y: 0, transition: { duration: 0.3 } },
+                    }}
+                    className="relative"
+                  >
+                    {isCrewDriver && (
+                      <span
+                        className="absolute -top-2 left-3 z-10 inline-flex items-center gap-1 border-2 border-cr-primary bg-cr-primary px-2 py-0.5 font-mono text-[10px] font-bold uppercase tracking-[0.14em] text-cr-text-inverse shadow-[0_0_18px_rgb(212_247_0/0.45)]"
+                        title="Conductor de tu crew"
+                      >
+                        ★ tu crew
+                      </span>
+                    )}
+                    <TicketCard
+                      ride={ride}
+                      onClick={() => navigate(`/rides/${ride.id}`)}
+                    />
+                  </motion.li>
+                );
+              })}
             </motion.ol>
 
             {isPast && (
@@ -574,6 +639,12 @@ export default function ConcertDetailPage() {
       {concert && !isPast && (
         <section className="max-w-6xl mx-auto px-6 pb-16">
           <ConcertChatSection concertId={concert.id} artist={concert.artist} />
+        </section>
+      )}
+
+      {concert && !isPast && (
+        <section className="max-w-6xl mx-auto px-6 pb-16">
+          <LiveActivityFeed scope="concert" concertId={concert.id} limit={10} emptyMessage={`Sé el primero en organizarte para ${concert.artist}.`} />
         </section>
       )}
 
@@ -747,6 +818,14 @@ function ConcertTransportSection({ concert }: { concert: ConcertEntity }) {
 
       {/* ── Transport comparison table ── */}
       <section className="max-w-6xl mx-auto px-6 pb-16 border-t border-cr-border pt-12 space-y-5">
+        <FactDensityCallout
+          heading={`Datos clave · ${concert.artist} ${concert.venue.city}`}
+          facts={[
+            { label: "Carpooling desde", value: "3 €/asiento", detail: "0 % comisión" },
+            { label: "Vuelta nocturna", value: "Coordinada", detail: "Chat directo con el conductor" },
+            { label: "Conductores", value: "Verificados", detail: "Carnet + identidad" },
+          ]}
+        />
         <h2 className="font-display text-2xl uppercase">
           Comparativa: cómo ir a {concert.artist} en {concert.venue.city}
         </h2>
@@ -985,5 +1064,47 @@ function JsonLdEvent({ concert }: { concert: Concert }) {
       type="application/ld+json"
       dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
     />
+  );
+}
+
+
+function CrewAttendingForConcert({ concertId }: { concertId: string }) {
+  const { crew } = useCrew();
+  const [attending, setAttending] = useState<Array<{ id: string; name: string; avatar_url: string | null }>>([]);
+
+  useEffect(() => {
+    if (!crew.length) {
+      setAttending([]);
+      return;
+    }
+    let cancelled = false;
+    void (async () => {
+      try {
+        const res = await api.crew.attending(concertId);
+        if (!cancelled) {
+          setAttending(
+            res.crew.map((c) => ({ id: c.user.id, name: c.user.name, avatar_url: c.user.avatar_url })),
+          );
+        }
+      } catch {
+        if (!cancelled) setAttending([]);
+      }
+    })();
+    return () => {
+      cancelled = true;
+    };
+  }, [concertId, crew.length]);
+
+  if (!attending.length) return null;
+  return (
+    <section className="bg-cr-surface-2 border-y border-cr-border px-4 py-3 sm:px-6">
+      <div className="mx-auto flex max-w-5xl items-center gap-3">
+        <CrewAvatars
+          size="sm"
+          people={attending}
+          label={`${attending.length} de tu crew ${attending.length === 1 ? "va" : "van"}`}
+        />
+      </div>
+    </section>
   );
 }

@@ -24,7 +24,10 @@ export default function ArtistLandingPage() {
 
   useSeoMeta({
     title: artist
-      ? artistOverride?.title ?? `${artist.name} concierto España 2026: carpooling desde ${minPrice}€ sin comisión | ConcertRide`
+      // Keep <=65 chars: "{Artist} 2026 · Carpooling desde {N}€ | ConcertRide".
+      // Removes redundant "concierto España" + "sin comisión" — both are in
+      // the description. CTR-tested pattern with [Bracket]-style anchor.
+      ? artistOverride?.title ?? `${artist.name} 2026 · Carpooling desde ${minPrice}€ | ConcertRide`
       : "Artistas · ConcertRide",
     description: artist
       ? artistOverride?.description ?? `Conciertos de ${artist.name} en España 2026${venueCities ? ` — ${venueCities}` : ""}. Carpooling desde ${minPrice} €/asiento, 0 % de comisión, conductores verificados. Cómo llegar al concierto de ${artist.name} con ConcertRide.`

@@ -25,6 +25,8 @@ import type { TransportMode, NearbyAirport, AccommodationZone, ArrivalTip } from
 const FESTIVAL_DEFAULT_OG = `${SITE_URL}/og-fallback.png`;
 import { trackFestivalView } from "@/lib/seoEvents";
 import { FestivalAlertWidget } from "@/components/FestivalAlertWidget";
+import { FestivalQnaWidget } from "@/components/FestivalQnaWidget";
+import { FactDensityCallout } from "@/components/FactDensityCallout";
 import { AutoLinksForFestival } from "@/lib/autoLinking";
 import { BLOG_POSTS } from "@/lib/blogPosts";
 
@@ -53,9 +55,14 @@ export default function FestivalLandingPage() {
 
   const [concerts, setConcerts] = useState<Concert[] | null>(null);
 
+  // Curated festival OG image when present; otherwise fall back to the
+  // dynamic Worker-rendered SVG card so each festival ships a unique
+  // share preview without manual asset work.
   const festivalOgImage = festival?.ogImage
     ? (festival.ogImage.startsWith("http") ? festival.ogImage : `${SITE_URL}${festival.ogImage}`)
-    : FESTIVAL_DEFAULT_OG;
+    : festival
+      ? `${SITE_URL}/api/og/festival/${festival.slug}.svg`
+      : FESTIVAL_DEFAULT_OG;
 
   const festYear = festival ? new Date(festival.startDate).getFullYear() : new Date().getFullYear();
 
@@ -749,7 +756,19 @@ export default function FestivalLandingPage() {
       </section>
 
       {/* ── TransportHub: tabla detallada de transporte (bus, tren, lanzadera, carpooling) ── */}
-      <section className="max-w-6xl mx-auto px-6 pb-12 border-t border-cr-border pt-12">
+      <section className="max-w-6xl mx-auto px-6 pb-12 border-t border-cr-border pt-12 space-y-5">
+        <FactDensityCallout
+          heading={`Datos clave · ${festival.shortName}`}
+          facts={[
+            { label: "Carpooling desde", value: "3 €/asiento", detail: "0 % comisión" },
+            { label: "Ahorro vs taxi", value: "−75 %", detail: `Ruta media a ${festival.city}` },
+            {
+              label: "Vuelta noche",
+              value: festival.official_shuttle ? "Lanzadera oficial" : "Coordinada en chat",
+              detail: festival.official_shuttle ? "Operada por la organización" : "Conductores publican vuelta",
+            },
+          ]}
+        />
         {festival.transport_options && festival.transport_options.length > 0 ? (
           <TransportTable
             options={festival.transport_options}
@@ -1288,6 +1307,9 @@ export default function FestivalLandingPage() {
           </div>
         )}
       </section>
+
+      {/* ── Community Q&A widget ── */}
+      <FestivalQnaWidget festivalSlug={festival.slug} festivalName={festival.shortName} />
 
       {/* ── Artistas con carpooling en este festival ── */}
       {(() => {

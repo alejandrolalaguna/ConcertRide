@@ -8,11 +8,15 @@ import { useSeoMeta } from "@/lib/useSeoMeta";
 import { SITE_URL } from "@/lib/siteUrl";
 import { VibeBadge } from "@/components/VibeBadge";
 import { PulsingDot } from "@/components/LoadingStates";
+import { DriverBadgeStack } from "@/components/DriverBadgeStack";
+import { MusicIdentityCard } from "@/components/MusicIdentityCard";
+import { MemoryArchive } from "@/components/MemoryArchive";
+import type { DriverBadge } from "@concertride/types";
 import { driverPath, initials, formatDate, formatDay } from "@/lib/format";
 import { ReportButton } from "@/components/ReportButton";
 import { useSession } from "@/lib/session";
 
-type PublicUser = Omit<User, "email">;
+type PublicUser = Omit<User, "email"> & { badges?: DriverBadge[] };
 
 export default function DriverProfilePage() {
   const { user: currentUser } = useSession();
@@ -227,6 +231,30 @@ export default function DriverProfilePage() {
             <dd className="font-mono text-2xl text-cr-text">{reviews.length}</dd>
           </div>
         </dl>
+
+        {driver.badges && driver.badges.length > 0 && (
+          <section className="space-y-3">
+            <h2 className="font-sans text-[11px] font-semibold uppercase tracking-[0.16em] text-cr-primary border-b border-cr-border pb-2">
+              Insignias
+            </h2>
+            <DriverBadgeStack badges={driver.badges} layout="full" />
+          </section>
+        )}
+
+        {(driver.bio || (driver.music_genres && driver.music_genres.length > 0) || (driver.top_artists && driver.top_artists.length > 0)) && (
+          <section className="space-y-3">
+            <MusicIdentityCard
+              user={{
+                name: driver.name,
+                bio: driver.bio,
+                music_genres: driver.music_genres,
+                top_artists: driver.top_artists,
+              }}
+              sharedGenres={currentUser?.music_genres ?? []}
+              sharedArtists={currentUser?.top_artists ?? []}
+            />
+          </section>
+        )}
 
         {/* Upcoming rides */}
         {upcomingRides.length > 0 && (

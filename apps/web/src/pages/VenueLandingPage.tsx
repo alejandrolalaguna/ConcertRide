@@ -27,7 +27,10 @@ export default function VenueLandingPage() {
 
   useSeoMeta({
     title: venue
-      ? venueOverride?.title ?? `Cómo llegar a ${venue.name} — transporte y carpooling | ConcertRide`
+      // Use shortName to keep <=65 chars even for venues with long official
+      // names (e.g. "Estadio Santiago Bernabéu" → "Bernabéu"). The full
+      // venue.name still appears in the H1 + OG image alt + JSON-LD.
+      ? venueOverride?.title ?? `${venue.shortName} (${venue.city}) · Carpooling y transporte | ConcertRide`
       : "Recintos de conciertos en España | ConcertRide",
     description: venue
       ? venueOverride?.description ?? `${venue.name} (${venue.city}): ${venue.transport.metro ? `Metro ${venue.transport.metro}.` : ""} ${venue.transport.bus ? `Bus: ${venue.transport.bus}.` : ""} Carpooling desde ${topOrigin?.city ?? "tu ciudad"} desde ${topPrice} €/asiento sin comisión. ${venue.blurb.slice(0, 120)}…`

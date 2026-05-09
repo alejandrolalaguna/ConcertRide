@@ -26,6 +26,10 @@ const updateProfileSchema = z.object({
   has_license: z.boolean().nullable().optional(),
   car_model: z.string().max(80).nullable().optional(),
   car_color: z.string().max(40).nullable().optional(),
+  bio: z.string().max(200).nullable().optional(),
+  music_genres: z.array(z.string().min(1).max(40)).max(8).nullable().optional(),
+  top_artists: z.array(z.string().min(1).max(80)).max(10).nullable().optional(),
+  handle: z.string().min(1).max(24).regex(/^[a-z0-9_]+$/i).nullable().optional(),
 });
 
 const registerSchema = z.object({
@@ -165,6 +169,14 @@ route.patch("/profile", async (c) => {
 
   const updated = await c.var.store.updateUser(userOrResp.id, parsed.data);
   if (!updated) return c.json({ error: "not_found" }, 404);
+  if (parsed.data.music_genres !== undefined || parsed.data.top_artists !== undefined) {
+    void c.var.store.recordActivity({
+      actor: updated,
+      kind: "music_updated",
+      label: `${updated.name} actualizó su identidad musical`,
+      visibility: "crew",
+    });
+  }
   return c.json({ ok: true, user: updated });
 });
 

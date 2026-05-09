@@ -44,6 +44,9 @@ import { DriverInbox } from "@/components/DriverInbox";
 import { DriverRideActions } from "@/components/DriverRideActions";
 import { RideChatSection } from "@/components/RideChatSection";
 import { RideReviewsSection } from "@/components/RideReviewsSection";
+import { useCrew } from "@/lib/crew";
+import { CrewAvatars } from "@/components/CrewAvatars";
+import { PlaylistPanel } from "@/components/PlaylistPanel";
 
 const RideRouteMap = lazy(() => import("@/components/RideRouteMap"));
 
@@ -913,17 +916,27 @@ export default function RideDetailPage() {
         ) : null}
 
         {isCompleted && (
-          <div className="border border-cr-primary/40 bg-cr-primary/[0.06] p-5 flex items-center gap-3">
-            <CheckCheck size={18} className="text-cr-primary shrink-0" aria-hidden="true" />
-            <div>
-              <p className="font-sans text-[11px] font-semibold uppercase tracking-[0.12em] text-cr-primary">
-                Viaje completado
-              </p>
-              <p className="font-sans text-xs text-cr-text-muted mt-0.5">
-                ¡Gracias por viajar con ConcertRide! Puedes dejar una valoración abajo.
-              </p>
+          <>
+            <div className="border border-cr-primary/40 bg-cr-primary/[0.06] p-5 flex items-center gap-3">
+              <CheckCheck size={18} className="text-cr-primary shrink-0" aria-hidden="true" />
+              <div>
+                <p className="font-sans text-[11px] font-semibold uppercase tracking-[0.12em] text-cr-primary">
+                  Viaje completado
+                </p>
+                <p className="font-sans text-xs text-cr-text-muted mt-0.5">
+                  ¡Gracias por viajar con ConcertRide! Puedes dejar una valoración abajo.
+                </p>
+              </div>
             </div>
-          </div>
+            {user && (
+              <PostTripCrewCta
+                rideId={ride.id}
+                viewerId={user.id}
+                driver={ride.driver}
+                passengers={confirmedPassengers}
+              />
+            )}
+          </>
         )}
 
         {canConfirmComplete && (
@@ -965,10 +978,67 @@ export default function RideDetailPage() {
           </section>
         )}
 
+        <PlaylistPanel scope={{ ride_id: ride.id }} heading="Playlist del viaje" />
+
         {user && <RideChatSection ride={ride} currentUser={user} />}
 
         <RideReviewsSection ride={ride} currentUser={user ?? null} />
       </div>
     </main>
+  );
+}
+
+interface PostTripPerson {
+  id: string;
+  name: string;
+  avatar_url?: string | null;
+}
+
+function PostTripCrewCta({
+  rideId,
+  viewerId,
+  driver,
+  passengers,
+}: {
+  rideId: string;
+  viewerId: string;
+  driver: PostTripPerson;
+  passengers: PostTripPerson[];
+}) {
+  const { isCrew, isPendingWith, invite } = useCrew();
+  const candidates = [driver, ...passengers].filter((p) => p.id !== viewerId);
+  const addable = candidates
+    .filter((p) => !isCrew(p.id) && !isPendingWith(p.id))
+    .map((p) => ({ id: p.id, name: p.name, avatar_url: p.avatar_url ?? null }));
+  if (!addable.length) return null;
+  return (
+    <section
+      aria-label="Añadir compañeros a tu crew"
+      className="border-2 border-cr-primary bg-gradient-to-br from-cr-primary/10 via-cr-bg to-cr-bg p-5"
+    >
+      <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+        <div className="flex items-start gap-3">
+          <CrewAvatars people={addable} size="sm" />
+          <div>
+            <p className="font-display text-base uppercase">Súmalos a tu crew</p>
+            <p className="font-mono text-[10px] uppercase tracking-[0.14em] text-cr-text-muted">
+              Recibirás avisos cuando organicen su próximo viaje.
+            </p>
+          </div>
+        </div>
+        <div className="flex flex-wrap gap-2">
+          {addable.map((p) => (
+            <button
+              key={p.id}
+              type="button"
+              onClick={() => void invite(p.id, { ride_id: rideId })}
+              className="border-2 border-cr-primary px-3 py-1.5 font-mono text-[10px] font-bold uppercase tracking-[0.14em] text-cr-primary hover:bg-cr-primary hover:text-cr-text-inverse"
+            >
+              + {p.name.split(" ")[0] ?? p.name}
+            </button>
+          ))}
+        </div>
+      </div>
+    </section>
   );
 }

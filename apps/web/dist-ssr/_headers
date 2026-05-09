@@ -104,3 +104,38 @@
 /admin
   Cache-Control: no-store
   X-Robots-Tag: noindex, nofollow
+
+# Phase 1+2+3 social surfaces — personal/dynamic, never indexable.
+# /memorias/:id is intentionally excluded from this block: public memories
+# may be indexed when visibility="public" (handled in MemoryDetailPage useSeoMeta).
+/crew
+  Cache-Control: no-store
+  X-Robots-Tag: noindex, nofollow
+
+/feed
+  Cache-Control: public, max-age=60
+  X-Robots-Tag: noindex, nofollow
+
+/memorias
+  Cache-Control: no-store
+  X-Robots-Tag: noindex, nofollow
+
+/squads/new
+  Cache-Control: no-store
+  X-Robots-Tag: noindex, nofollow
+
+/squads/join/*
+  Cache-Control: no-store
+  X-Robots-Tag: noindex, nofollow
+
+/squads/*
+  Cache-Control: no-store
+  X-Robots-Tag: noindex, nofollow
+
+/mensajes
+  Cache-Control: no-store
+  X-Robots-Tag: noindex, nofollow
+
+/mensajes/*
+  Cache-Control: no-store
+  X-Robots-Tag: noindex, nofollow

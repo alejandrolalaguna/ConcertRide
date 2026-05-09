@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import { driverPath, initials } from "@/lib/format";
 import type { User } from "@concertride/types";
+import { MusicMatchBadge } from "./MusicMatchBadge";
 
 interface Props {
   driver: User;
@@ -49,9 +50,12 @@ export function DriverProfileMini({ driver, rideCount = 0 }: Props) {
           )}
         </div>
       </div>
-      <p className="text-[10px] text-cr-text-muted mt-2 group-hover:text-cr-text transition-colors">
-        Ver perfil →
-      </p>
+      <div className="mt-2 flex items-center justify-between gap-2">
+        <MusicMatchBadge other={driver} size="sm" />
+        <p className="text-[10px] text-cr-text-muted group-hover:text-cr-text transition-colors">
+          Ver perfil →
+        </p>
+      </div>
     </Link>
   );
 }

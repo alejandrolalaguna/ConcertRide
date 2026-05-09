@@ -96,6 +96,12 @@ export default function DevShowcase() {
     deleted_at: null,
     banned_at: null,
     ban_reason: null,
+    bio: null,
+    music_genres: null,
+    top_artists: null,
+    spotify_id: null,
+    handle: null,
+    crew_count: 0,
     created_at: "2025-06-14T10:00:00.000Z",
   };
 

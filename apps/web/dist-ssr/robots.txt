@@ -29,6 +29,14 @@ Disallow: /admin
 Disallow: /widget/
 Disallow: /rides/
 Disallow: /drivers/
+# Phase 1+2+3 social surfaces — personal/dynamic, never indexable.
+# /memorias/:id is intentionally NOT blocked: public memories with
+# visibility="public" remain indexable as social-proof landing pages.
+Disallow: /crew
+Disallow: /feed
+Disallow: /memorias$
+Disallow: /squads
+Disallow: /mensajes
 
 Sitemap: https://concertride.me/sitemap.xml
 Sitemap: https://concertride.me/api/sitemap-concerts.xml

@@ -1,12 +1,15 @@
 import React, { useEffect, useRef, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import {
+  Activity,
+  Camera,
   Heart,
   LogOut,
   MessageSquare,
   Settings,
   TicketCheck,
   User as UserIcon,
+  Users,
   ChevronDown,
 } from "lucide-react";
 import { useSession } from "@/lib/session";
@@ -73,7 +76,7 @@ export function TopNav() {
         <NavLink to="/concerts">Conciertos</NavLink>
         <NavLink to="/festivales">Festivales</NavLink>
         <NavLink to="/rutas">Rutas</NavLink>
-        {/* <NavLink to="/blog">Blog</NavLink> */}
+        <NavLink to="/feed">Live</NavLink>
       </div>
 
       {/* Right side */}
@@ -123,6 +126,15 @@ export function TopNav() {
                 </MenuLink>
                 <MenuLink to="/mis-viajes" icon={<TicketCheck size={12} />} onClick={() => setOpen(false)}>
                   Mis viajes
+                </MenuLink>
+                <MenuLink to="/crew" icon={<Users size={12} />} onClick={() => setOpen(false)}>
+                  Mi crew
+                </MenuLink>
+                <MenuLink to="/feed" icon={<Activity size={12} />} onClick={() => setOpen(false)}>
+                  En directo
+                </MenuLink>
+                <MenuLink to="/memorias" icon={<Camera size={12} />} onClick={() => setOpen(false)}>
+                  Mis recuerdos
                 </MenuLink>
                 <MenuLink to="/mensajes" icon={<MessageSquare size={12} />} onClick={() => setOpen(false)}>
                   Mensajes

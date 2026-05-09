@@ -19,6 +19,15 @@ import favorites from "./routes/favorites";
 import reports from "./routes/reports";
 import admin from "./routes/admin";
 import alerts from "./routes/alerts";
+import crews from "./routes/crews";
+import activity from "./routes/activity";
+import anticipations from "./routes/anticipations";
+import memories from "./routes/memories";
+import festivalQnas from "./routes/festival-qnas";
+import squads from "./routes/squads";
+import playlists from "./routes/playlists";
+import stats from "./routes/stats";
+import og from "./routes/og";
 import { rateLimit } from "./lib/ratelimit";
 import { htmlToMarkdown, estimateTokens } from "./lib/markdown";
 import { seoPrerender } from "./lib/seoPrerender";
@@ -452,6 +461,15 @@ app.route("/api/favorites", favorites);
 app.route("/api/reports", reports);
 app.route("/api/admin", admin);
 app.route("/api/alerts", alerts);
+app.route("/api/crew", crews);
+app.route("/api/activity", activity);
+app.route("/api/anticipations", anticipations);
+app.route("/api/memories", memories);
+app.route("/api/festival-qnas", festivalQnas);
+app.route("/api/squads", squads);
+app.route("/api/playlists", playlists);
+app.route("/api/stats", stats);
+app.route("/api/og", og);
 
 // Social / AI crawlers get a thin OG-enriched HTML shell for festival pages
 // so WhatsApp, Twitter, LinkedIn and AI scrapers see correct title/description/image

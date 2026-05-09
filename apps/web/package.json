@@ -5,10 +5,11 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "tsc --noEmit && vite build && npm run build:ssr && npm run prerender && npm run gen:llms-routes && npm run validate:schema",
+    "build": "tsc --noEmit && vite build && npm run build:ssr && npm run prerender && npm run gen:llms-routes && npm run validate:schema && npm run audit:meta",
     "build:ssr": "node scripts/build-ssr.mjs",
     "prerender": "node scripts/prerender.mjs",
     "validate:schema": "node scripts/validate-schema.mjs",
+    "audit:meta": "node scripts/audit-meta.mjs",
     "preview": "vite preview",
     "type-check": "tsc --noEmit",
     "favicons": "node scripts/gen-favicons.mjs",

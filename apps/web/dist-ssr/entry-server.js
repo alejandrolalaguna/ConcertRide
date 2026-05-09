@@ -188,7 +188,7 @@ const ABSOLUTE_URL_REGEX$1 = /^(?:[a-z][a-z0-9+.-]*:|\/\/)/i;
 const Link = /* @__PURE__ */ React.forwardRef(function LinkWithRef(_ref7, ref) {
   let {
     onClick,
-    relative,
+    relative: relative2,
     reloadDocument,
     replace,
     state,
@@ -220,14 +220,14 @@ const Link = /* @__PURE__ */ React.forwardRef(function LinkWithRef(_ref7, ref) {
     }
   }
   let href = useHref(to, {
-    relative
+    relative: relative2
   });
   let internalOnClick = useLinkClickHandler(to, {
     replace,
     state,
     target,
     preventScrollReset,
-    relative,
+    relative: relative2,
     viewTransition
   });
   function handleClick(event) {
@@ -321,13 +321,13 @@ const Form = /* @__PURE__ */ React.forwardRef((_ref9, forwardedRef) => {
     method = defaultMethod,
     action,
     onSubmit,
-    relative,
+    relative: relative2,
     preventScrollReset,
     viewTransition
   } = _ref9, props = _objectWithoutPropertiesLoose(_ref9, _excluded3);
   let submit = useSubmit();
   let formAction = useFormAction(action, {
-    relative
+    relative: relative2
   });
   let formMethod = method.toLowerCase() === "get" ? "get" : "post";
   let submitHandler = (event) => {
@@ -342,7 +342,7 @@ const Form = /* @__PURE__ */ React.forwardRef((_ref9, forwardedRef) => {
       navigate,
       replace,
       state,
-      relative,
+      relative: relative2,
       preventScrollReset,
       viewTransition
     });
@@ -386,13 +386,13 @@ function useLinkClickHandler(to, _temp) {
     replace: replaceProp,
     state,
     preventScrollReset,
-    relative,
+    relative: relative2,
     viewTransition
   } = _temp === void 0 ? {} : _temp;
   let navigate = useNavigate();
   let location = useLocation();
   let path = useResolvedPath(to, {
-    relative
+    relative: relative2
   });
   return React.useCallback((event) => {
     if (shouldProcessLinkClick(event, target)) {
@@ -402,11 +402,11 @@ function useLinkClickHandler(to, _temp) {
         replace,
         state,
         preventScrollReset,
-        relative,
+        relative: relative2,
         viewTransition
       });
     }
-  }, [location, navigate, path, replaceProp, state, target, to, preventScrollReset, relative, viewTransition]);
+  }, [location, navigate, path, replaceProp, state, target, to, preventScrollReset, relative2, viewTransition]);
 }
 function useSearchParams(defaultInit) {
   process.env.NODE_ENV !== "production" ? UNSAFE_warning(typeof URLSearchParams !== "undefined", "You cannot use the `useSearchParams` hook in a browser that does not support the URLSearchParams API. If you need to support Internet Explorer 11, we recommend you load a polyfill such as https://github.com/ungap/url-search-params.") : void 0;
@@ -482,7 +482,7 @@ function useSubmit() {
 }
 function useFormAction(action, _temp2) {
   let {
-    relative
+    relative: relative2
   } = _temp2 === void 0 ? {} : _temp2;
   let {
     basename
@@ -491,7 +491,7 @@ function useFormAction(action, _temp2) {
   !routeContext ? process.env.NODE_ENV !== "production" ? UNSAFE_invariant(false, "useFormAction must be used inside a RouteContext") : UNSAFE_invariant(false) : void 0;
   let [match] = routeContext.matches.slice(-1);
   let path = _extends({}, useResolvedPath(action ? action : ".", {
-    relative
+    relative: relative2
   }));
   let location = useLocation();
   if (action == null) {
@@ -723,11 +723,38 @@ const createLucideIcon = (iconName, iconNode) => {
  * This source code is licensed under the ISC license.
  * See the LICENSE file in the root directory of this source tree.
  */
-const __iconNode$V = [
+const __iconNode$X = [
+  [
+    "path",
+    {
+      d: "M22 12h-2.48a2 2 0 0 0-1.93 1.46l-2.35 8.36a.25.25 0 0 1-.48 0L9.24 2.18a.25.25 0 0 0-.48 0l-2.35 8.36A2 2 0 0 1 4.49 12H2",
+      key: "169zse"
+    }
+  ]
+];
+const Activity = createLucideIcon("activity", __iconNode$X);
+/**
+ * @license lucide-react v1.8.0 - ISC
+ *
+ * This source code is licensed under the ISC license.
+ * See the LICENSE file in the root directory of this source tree.
+ */
+const __iconNode$W = [
   ["path", { d: "m12 19-7-7 7-7", key: "1l729n" }],
   ["path", { d: "M19 12H5", key: "x3x0zl" }]
 ];
-const ArrowLeft = createLucideIcon("arrow-left", __iconNode$V);
+const ArrowLeft = createLucideIcon("arrow-left", __iconNode$W);
+/**
+ * @license lucide-react v1.8.0 - ISC
+ *
+ * This source code is licensed under the ISC license.
+ * See the LICENSE file in the root directory of this source tree.
+ */
+const __iconNode$V = [
+  ["path", { d: "M5 12h14", key: "1ays0h" }],
+  ["path", { d: "m12 5 7 7-7 7", key: "xquz4c" }]
+];
+const ArrowRight = createLucideIcon("arrow-right", __iconNode$V);
 /**
  * @license lucide-react v1.8.0 - ISC
  *
@@ -735,17 +762,6 @@ const ArrowLeft = createLucideIcon("arrow-left", __iconNode$V);
  * See the LICENSE file in the root directory of this source tree.
  */
 const __iconNode$U = [
-  ["path", { d: "M5 12h14", key: "1ays0h" }],
-  ["path", { d: "m12 5 7 7-7 7", key: "xquz4c" }]
-];
-const ArrowRight = createLucideIcon("arrow-right", __iconNode$U);
-/**
- * @license lucide-react v1.8.0 - ISC
- *
- * This source code is licensed under the ISC license.
- * See the LICENSE file in the root directory of this source tree.
- */
-const __iconNode$T = [
   ["path", { d: "M10.268 21a2 2 0 0 0 3.464 0", key: "vwvbt9" }],
   ["path", { d: "M22 8c0-2.3-.8-4.3-2-6", key: "5bb3ad" }],
   [
@@ -757,14 +773,14 @@ const __iconNode$T = [
   ],
   ["path", { d: "M4 2C2.8 3.7 2 5.7 2 8", key: "tap9e0" }]
 ];
-const BellRing = createLucideIcon("bell-ring", __iconNode$T);
+const BellRing = createLucideIcon("bell-ring", __iconNode$U);
 /**
  * @license lucide-react v1.8.0 - ISC
  *
  * This source code is licensed under the ISC license.
  * See the LICENSE file in the root directory of this source tree.
  */
-const __iconNode$S = [
+const __iconNode$T = [
   ["path", { d: "M10.268 21a2 2 0 0 0 3.464 0", key: "vwvbt9" }],
   [
     "path",
@@ -774,14 +790,14 @@ const __iconNode$S = [
     }
   ]
 ];
-const Bell = createLucideIcon("bell", __iconNode$S);
+const Bell = createLucideIcon("bell", __iconNode$T);
 /**
  * @license lucide-react v1.8.0 - ISC
  *
  * This source code is licensed under the ISC license.
  * See the LICENSE file in the root directory of this source tree.
  */
-const __iconNode$R = [
+const __iconNode$S = [
   ["path", { d: "M12 7v14", key: "1akyts" }],
   [
     "path",
@@ -791,14 +807,14 @@ const __iconNode$R = [
     }
   ]
 ];
-const BookOpen = createLucideIcon("book-open", __iconNode$R);
+const BookOpen = createLucideIcon("book-open", __iconNode$S);
 /**
  * @license lucide-react v1.8.0 - ISC
  *
  * This source code is licensed under the ISC license.
  * See the LICENSE file in the root directory of this source tree.
  */
-const __iconNode$Q = [
+const __iconNode$R = [
   ["path", { d: "M8 6v6", key: "18i7km" }],
   ["path", { d: "M15 6v6", key: "1sg6z9" }],
   ["path", { d: "M2 12h19.6", key: "de5uta" }],
@@ -813,7 +829,20 @@ const __iconNode$Q = [
   ["path", { d: "M9 18h5", key: "lrx6i" }],
   ["circle", { cx: "16", cy: "18", r: "2", key: "1v4tcr" }]
 ];
-const Bus = createLucideIcon("bus", __iconNode$Q);
+const Bus = createLucideIcon("bus", __iconNode$R);
+/**
+ * @license lucide-react v1.8.0 - ISC
+ *
+ * This source code is licensed under the ISC license.
+ * See the LICENSE file in the root directory of this source tree.
+ */
+const __iconNode$Q = [
+  ["path", { d: "M8 2v4", key: "1cmpym" }],
+  ["path", { d: "M16 2v4", key: "4m81vk" }],
+  ["rect", { width: "18", height: "18", x: "3", y: "4", rx: "2", key: "1hopcy" }],
+  ["path", { d: "M3 10h18", key: "8toen8" }]
+];
+const Calendar = createLucideIcon("calendar", __iconNode$Q);
 /**
  * @license lucide-react v1.8.0 - ISC
  *
@@ -821,12 +850,16 @@ const Bus = createLucideIcon("bus", __iconNode$Q);
  * See the LICENSE file in the root directory of this source tree.
  */
 const __iconNode$P = [
-  ["path", { d: "M8 2v4", key: "1cmpym" }],
-  ["path", { d: "M16 2v4", key: "4m81vk" }],
-  ["rect", { width: "18", height: "18", x: "3", y: "4", rx: "2", key: "1hopcy" }],
-  ["path", { d: "M3 10h18", key: "8toen8" }]
+  [
+    "path",
+    {
+      d: "M13.997 4a2 2 0 0 1 1.76 1.05l.486.9A2 2 0 0 0 18.003 7H20a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V9a2 2 0 0 1 2-2h1.997a2 2 0 0 0 1.759-1.048l.489-.904A2 2 0 0 1 10.004 4z",
+      key: "18u6gg"
+    }
+  ],
+  ["circle", { cx: "12", cy: "13", r: "3", key: "1vg3eu" }]
 ];
-const Calendar = createLucideIcon("calendar", __iconNode$P);
+const Camera = createLucideIcon("camera", __iconNode$P);
 /**
  * @license lucide-react v1.8.0 - ISC
  *
@@ -1796,6 +1829,78 @@ const api = {
       method: "POST",
       body: JSON.stringify({ email, festival_slug })
     })
+  },
+  crew: {
+    list: () => request("/api/crew"),
+    invite: (user_id, ride_id) => request("/api/crew/invite", {
+      method: "POST",
+      body: JSON.stringify({ user_id, ride_id })
+    }),
+    accept: (user_id) => request(`/api/crew/${encodeURIComponent(user_id)}/accept`, { method: "POST" }),
+    remove: (user_id) => request(`/api/crew/${encodeURIComponent(user_id)}`, { method: "DELETE" }),
+    attending: (concert_id) => request(`/api/crew/attending/${encodeURIComponent(concert_id)}`)
+  },
+  activity: {
+    list: (q = {}) => request(`/api/activity${query(q)}`)
+  },
+  anticipations: {
+    summary: (concert_id) => request(`/api/anticipations/concert/${encodeURIComponent(concert_id)}`),
+    set: (concert_id, status) => request(`/api/anticipations/concert/${encodeURIComponent(concert_id)}`, {
+      method: "POST",
+      body: JSON.stringify({ status })
+    }),
+    clear: (concert_id) => request(`/api/anticipations/concert/${encodeURIComponent(concert_id)}`, {
+      method: "DELETE"
+    }),
+    mine: () => request(
+      "/api/anticipations/mine"
+    )
+  },
+  memories: {
+    create: (input) => request("/api/memories", {
+      method: "POST",
+      body: JSON.stringify(input)
+    }),
+    get: (id2) => request(`/api/memories/${encodeURIComponent(id2)}`),
+    share: (id2) => request(`/api/memories/${encodeURIComponent(id2)}/share`, { method: "POST" }),
+    forConcert: (concert_id) => request(`/api/memories/concert/${encodeURIComponent(concert_id)}`),
+    mine: () => request("/api/memories/user/mine")
+  },
+  festivalQnas: {
+    list: (slug) => request(`/api/festival-qnas/${encodeURIComponent(slug)}`),
+    create: (input) => request("/api/festival-qnas", {
+      method: "POST",
+      body: JSON.stringify(input)
+    }),
+    upvote: (id2) => request(`/api/festival-qnas/${encodeURIComponent(id2)}/upvote`, { method: "POST" }),
+    approve: (id2) => request(`/api/festival-qnas/${encodeURIComponent(id2)}/approve`, { method: "POST" })
+  },
+  squads: {
+    mine: () => request("/api/squads/mine"),
+    forConcert: (concert_id) => request(`/api/squads/concert/${encodeURIComponent(concert_id)}`),
+    byInvite: (code) => request(`/api/squads/invite/${encodeURIComponent(code)}`),
+    get: (id2) => request(`/api/squads/${encodeURIComponent(id2)}`),
+    create: (input) => request("/api/squads", { method: "POST", body: JSON.stringify(input) }),
+    join: (input) => request("/api/squads/join", { method: "POST", body: JSON.stringify(input) }),
+    leave: (id2) => request(`/api/squads/${encodeURIComponent(id2)}/me`, { method: "DELETE" }),
+    updateRole: (id2, role, ride_id) => request(`/api/squads/${encodeURIComponent(id2)}/me`, {
+      method: "PATCH",
+      body: JSON.stringify({ role, ride_id })
+    })
+  },
+  playlists: {
+    forRide: (ride_id) => request(`/api/playlists/ride/${encodeURIComponent(ride_id)}`),
+    forSquad: (squad_id) => request(`/api/playlists/squad/${encodeURIComponent(squad_id)}`),
+    add: (input) => request("/api/playlists", { method: "POST", body: JSON.stringify(input) }),
+    remove: (id2) => request(`/api/playlists/${encodeURIComponent(id2)}`, { method: "DELETE" })
+  },
+  badges: {
+    forUser: (user_id) => request(`/api/users/${encodeURIComponent(user_id.replace(/^u_/, ""))}/badges`)
+  },
+  stats: {
+    me: (year) => request(`/api/stats/me${year ? `?year=${year}` : ""}`),
+    festivalHistory: () => request("/api/stats/me/festival-history"),
+    demand: (limit = 8) => request(`/api/stats/demand?limit=${limit}`)
   }
 };
 const ANALYTICS_CONSENT_KEY = "cr_analytics_consent_v1";
@@ -1904,7 +2009,7 @@ const DAY_FMT = new Intl.DateTimeFormat("es-ES", {
 const formatDate = (iso) => DATE_FMT.format(new Date(iso));
 const formatTime$1 = (iso) => TIME_FMT.format(new Date(iso));
 const formatDay = (iso) => DAY_FMT.format(new Date(iso));
-function initials(name) {
+function initials$2(name) {
   return name.split(/\s+/).filter(Boolean).slice(0, 2).map((part) => {
     var _a2;
     return ((_a2 = part[0]) == null ? void 0 : _a2.toUpperCase()) ?? "";
@@ -1961,7 +2066,7 @@ function TopNav() {
           /* @__PURE__ */ jsx(NavLink, { to: "/concerts", children: "Conciertos" }),
           /* @__PURE__ */ jsx(NavLink, { to: "/festivales", children: "Festivales" }),
           /* @__PURE__ */ jsx(NavLink, { to: "/rutas", children: "Rutas" }),
-          /* @__PURE__ */ jsx(NavLink, { to: "/blog", children: "Blog" })
+          /* @__PURE__ */ jsx(NavLink, { to: "/feed", children: "Live" })
         ] }),
         user ? /* @__PURE__ */ jsxs("div", { className: "relative", children: [
           /* @__PURE__ */ jsxs(
@@ -1978,7 +2083,7 @@ function TopNav() {
                   {
                     "aria-hidden": "true",
                     className: "w-6 h-6 bg-cr-primary text-black font-display font-black text-[10px] flex items-center justify-center flex-shrink-0",
-                    children: initials(user.name)
+                    children: initials$2(user.name)
                   }
                 ),
                 /* @__PURE__ */ jsx("span", { className: "font-semibold uppercase tracking-[0.1em] text-[11px] hidden sm:inline", children: user.name.split(" ")[0] }),
@@ -2015,6 +2120,9 @@ function TopNav() {
                 /* @__PURE__ */ jsxs("div", { className: "py-1", children: [
                   /* @__PURE__ */ jsx(MenuLink, { to: "/publish", icon: /* @__PURE__ */ jsx(User, { size: 12 }), onClick: () => setOpen(false), children: "Publicar un viaje" }),
                   /* @__PURE__ */ jsx(MenuLink, { to: "/mis-viajes", icon: /* @__PURE__ */ jsx(TicketCheck, { size: 12 }), onClick: () => setOpen(false), children: "Mis viajes" }),
+                  /* @__PURE__ */ jsx(MenuLink, { to: "/crew", icon: /* @__PURE__ */ jsx(Users, { size: 12 }), onClick: () => setOpen(false), children: "Mi crew" }),
+                  /* @__PURE__ */ jsx(MenuLink, { to: "/feed", icon: /* @__PURE__ */ jsx(Activity, { size: 12 }), onClick: () => setOpen(false), children: "En directo" }),
+                  /* @__PURE__ */ jsx(MenuLink, { to: "/memorias", icon: /* @__PURE__ */ jsx(Camera, { size: 12 }), onClick: () => setOpen(false), children: "Mis recuerdos" }),
                   /* @__PURE__ */ jsx(MenuLink, { to: "/mensajes", icon: /* @__PURE__ */ jsx(MessageSquare, { size: 12 }), onClick: () => setOpen(false), children: "Mensajes" }),
                   /* @__PURE__ */ jsx(MenuLink, { to: "/favoritos", icon: /* @__PURE__ */ jsx(Heart, { size: 12 }), onClick: () => setOpen(false), children: "Favoritos" }),
                   /* @__PURE__ */ jsx(MenuLink, { to: "/profile", icon: /* @__PURE__ */ jsx(Settings, { size: 12 }), onClick: () => setOpen(false), children: "Mi perfil" })
@@ -2465,6 +2573,114 @@ function FavoritesProvider({ children }) {
 function useFavorites() {
   const ctx = useContext(FavoritesContext);
   if (!ctx) throw new Error("useFavorites must be used inside <FavoritesProvider>");
+  return ctx;
+}
+const CrewContext = createContext(null);
+function CrewProvider({ children }) {
+  const { user } = useSession();
+  const [crew, setCrew] = useState([]);
+  const [pendingIncoming, setPendingIncoming] = useState([]);
+  const [pendingOutgoing, setPendingOutgoing] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const refresh = useCallback(async () => {
+    if (!user) {
+      setCrew([]);
+      setPendingIncoming([]);
+      setPendingOutgoing([]);
+      return;
+    }
+    setLoading(true);
+    try {
+      const res = await api.crew.list();
+      setCrew(res.crew);
+      setPendingIncoming(res.pending_incoming);
+      setPendingOutgoing(res.pending_outgoing);
+    } catch {
+    } finally {
+      setLoading(false);
+    }
+  }, [user]);
+  useEffect(() => {
+    void refresh();
+  }, [refresh]);
+  const crewIndex = useMemo(() => new Set(crew.map((c) => c.user.id)), [crew]);
+  const incomingIndex = useMemo(
+    () => new Set(pendingIncoming.map((c) => c.user.id)),
+    [pendingIncoming]
+  );
+  const outgoingIndex = useMemo(
+    () => new Set(pendingOutgoing.map((c) => c.user.id)),
+    [pendingOutgoing]
+  );
+  const isCrew = useCallback((userId) => crewIndex.has(userId), [crewIndex]);
+  const isPendingWith = useCallback(
+    (userId) => {
+      if (incomingIndex.has(userId)) return "incoming";
+      if (outgoingIndex.has(userId)) return "outgoing";
+      return null;
+    },
+    [incomingIndex, outgoingIndex]
+  );
+  const invite = useCallback(
+    async (userId, opts) => {
+      if (!user || userId === user.id) return null;
+      try {
+        const member = await api.crew.invite(userId, opts == null ? void 0 : opts.ride_id);
+        track("crew_invite_sent", { target: userId });
+        if (member.status === "accepted") {
+          setCrew((prev) => [member, ...prev.filter((c) => c.user.id !== userId)]);
+        } else {
+          setPendingOutgoing((prev) => [member, ...prev.filter((c) => c.user.id !== userId)]);
+        }
+        return member;
+      } catch {
+        return null;
+      }
+    },
+    [user]
+  );
+  const accept = useCallback(
+    async (userId) => {
+      try {
+        const member = await api.crew.accept(userId);
+        track("crew_invite_accepted", { target: userId });
+        setPendingIncoming((prev) => prev.filter((c) => c.user.id !== userId));
+        setCrew((prev) => [member, ...prev.filter((c) => c.user.id !== userId)]);
+        return member;
+      } catch {
+        return null;
+      }
+    },
+    []
+  );
+  const remove = useCallback(async (userId) => {
+    try {
+      await api.crew.remove(userId);
+      track("crew_removed", { target: userId });
+      setCrew((prev) => prev.filter((c) => c.user.id !== userId));
+      setPendingIncoming((prev) => prev.filter((c) => c.user.id !== userId));
+      setPendingOutgoing((prev) => prev.filter((c) => c.user.id !== userId));
+    } catch {
+    }
+  }, []);
+  const value = {
+    crew,
+    pendingIncoming,
+    pendingOutgoing,
+    total: crew.length,
+    loading,
+    isCrew,
+    isPendingWith,
+    invite,
+    accept,
+    remove,
+    refresh
+  };
+  return /* @__PURE__ */ jsx(CrewContext.Provider, { value, children });
+}
+function useCrew() {
+  const ctx = useContext(CrewContext);
+  if (!ctx) throw new Error("useCrew must be used inside <CrewProvider>");
   return ctx;
 }
 const __vite_import_meta_env__ = {};
@@ -6964,13 +7180,13 @@ function calcBoxDelta(delta, source, target, origin) {
   calcAxisDelta(delta.x, source.x, target.x, origin ? origin.originX : void 0);
   calcAxisDelta(delta.y, source.y, target.y, origin ? origin.originY : void 0);
 }
-function calcRelativeAxis(target, relative, parent) {
-  target.min = parent.min + relative.min;
-  target.max = target.min + calcLength(relative);
+function calcRelativeAxis(target, relative2, parent) {
+  target.min = parent.min + relative2.min;
+  target.max = target.min + calcLength(relative2);
 }
-function calcRelativeBox(target, relative, parent) {
-  calcRelativeAxis(target.x, relative.x, parent.x);
-  calcRelativeAxis(target.y, relative.y, parent.y);
+function calcRelativeBox(target, relative2, parent) {
+  calcRelativeAxis(target.x, relative2.x, parent.x);
+  calcRelativeAxis(target.y, relative2.y, parent.y);
 }
 function calcRelativeAxisPosition(target, layout2, parent) {
   target.min = layout2.min - parent.min;
@@ -11327,8 +11543,8 @@ function useInView(options = { amount: 0.2 }) {
   return { ref, inView };
 }
 const STATS$1 = [
-  { label: "festivales en el catálogo 2026", target: 16, suffix: "" },
-  { label: "ciudades cubiertas en España", target: 20, suffix: "+" },
+  { label: "festivales en el catálogo 2026", target: 33, suffix: "" },
+  { label: "ciudades cubiertas en España", target: 50, suffix: "+" },
   { label: "ahorro estimado vs taxi", target: 60, suffix: "%" }
 ];
 function Counter({ stat, enabled }) {
@@ -11713,7 +11929,7 @@ function TicketCard({ ride, onClick }) {
               {
                 "aria-hidden": "true",
                 className: "w-9 h-9 flex-shrink-0 bg-cr-surface-3 border border-cr-border-mid flex items-center justify-center font-display text-xs font-black text-cr-primary",
-                children: initials(driver.name)
+                children: initials$2(driver.name)
               }
             ),
             /* @__PURE__ */ jsxs("div", { className: "leading-tight min-w-0", children: [
@@ -12175,6 +12391,380 @@ function TrustSection() {
     }
   );
 }
+const KIND_VERB = {
+  ride_published: { emoji: "🚗", copy: "publicó un viaje" },
+  ride_booked: { emoji: "🎟️", copy: "reservó plaza" },
+  ride_completed: { emoji: "🏁", copy: "completó un viaje" },
+  interest_added: { emoji: "🔥", copy: "se apuntó" },
+  favorite_added: { emoji: "💚", copy: "marcó favorito" },
+  crew_invited: { emoji: "🤝", copy: "invitó a su crew" },
+  crew_accepted: { emoji: "👯", copy: "se unió a una crew" },
+  music_updated: { emoji: "🎶", copy: "actualizó su música" },
+  trip_memory_shared: { emoji: "📸", copy: "compartió un recuerdo" }
+};
+function relative(ts) {
+  const t = new Date(ts).getTime();
+  if (!Number.isFinite(t)) return "";
+  const diff = Date.now() - t;
+  const mins = Math.floor(diff / 6e4);
+  if (mins < 1) return "ahora";
+  if (mins < 60) return `hace ${mins} min`;
+  const hours = Math.floor(mins / 60);
+  if (hours < 24) return `hace ${hours} h`;
+  const days = Math.floor(hours / 24);
+  return `hace ${days} d`;
+}
+function initials$1(name) {
+  return name.trim().split(/\s+/).map((p) => p[0] ?? "").join("").slice(0, 2).toUpperCase() || "C";
+}
+function LiveActivityFeed({
+  scope = "all",
+  city,
+  concertId,
+  limit = 12,
+  showPulse = true,
+  emptyMessage = "Las primeras conversaciones empiezan aquí.",
+  layout: layout2 = "card"
+}) {
+  const [events, setEvents] = useState([]);
+  const [loading, setLoading] = useState(true);
+  useEffect(() => {
+    let cancelled = false;
+    void (async () => {
+      try {
+        const res = await api.activity.list({ scope, city, concert_id: concertId, limit });
+        if (!cancelled) setEvents(res.events);
+      } catch {
+        if (!cancelled) setEvents([]);
+      } finally {
+        if (!cancelled) setLoading(false);
+      }
+    })();
+    const id2 = setInterval(() => {
+      void (async () => {
+        try {
+          const res = await api.activity.list({ scope, city, concert_id: concertId, limit });
+          if (!cancelled) setEvents(res.events);
+        } catch {
+        }
+      })();
+    }, 6e4);
+    return () => {
+      cancelled = true;
+      clearInterval(id2);
+    };
+  }, [scope, city, concertId, limit]);
+  const wrapperClass = layout2 === "card" ? "border-2 border-cr-border bg-cr-surface-2" : "border-t border-cr-border";
+  return /* @__PURE__ */ jsxs("section", { "aria-label": "Actividad en vivo", className: wrapperClass, children: [
+    /* @__PURE__ */ jsxs("header", { className: "flex items-center justify-between border-b border-cr-border px-4 py-3 sm:px-5", children: [
+      /* @__PURE__ */ jsxs("div", { className: "flex items-center gap-2", children: [
+        showPulse && /* @__PURE__ */ jsxs("span", { className: "relative flex h-2 w-2", "aria-hidden": true, children: [
+          /* @__PURE__ */ jsx("span", { className: "absolute inline-flex h-full w-full animate-ping rounded-full bg-cr-primary opacity-70" }),
+          /* @__PURE__ */ jsx("span", { className: "relative inline-flex h-2 w-2 rounded-full bg-cr-primary" })
+        ] }),
+        /* @__PURE__ */ jsxs("h2", { className: "font-mono text-[11px] font-bold uppercase tracking-[0.18em] text-cr-text", children: [
+          "En directo · ",
+          scope === "city" && city ? city : scope === "concert" ? "este evento" : "ConcertRide"
+        ] })
+      ] }),
+      /* @__PURE__ */ jsx(
+        Link,
+        {
+          to: "/feed",
+          className: "font-mono text-[10px] uppercase tracking-[0.16em] text-cr-text-muted hover:text-cr-primary",
+          children: "ver todo →"
+        }
+      )
+    ] }),
+    loading ? /* @__PURE__ */ jsx("ul", { className: "divide-y divide-cr-border", children: Array.from({ length: 4 }).map((_, i) => /* @__PURE__ */ jsxs("li", { className: "flex animate-pulse items-center gap-3 px-4 py-3 sm:px-5", children: [
+      /* @__PURE__ */ jsx("span", { className: "h-8 w-8 rounded-full bg-cr-surface-3" }),
+      /* @__PURE__ */ jsx("span", { className: "h-3 flex-1 rounded bg-cr-surface-3" })
+    ] }, i)) }) : events.length === 0 ? /* @__PURE__ */ jsxs("div", { className: "px-4 py-8 text-center", children: [
+      /* @__PURE__ */ jsx("p", { className: "font-display text-base text-cr-text", children: emptyMessage }),
+      /* @__PURE__ */ jsx("p", { className: "mt-1 text-xs text-cr-text-muted", children: 'Publica un viaje o di "voy" en un evento.' })
+    ] }) : /* @__PURE__ */ jsx("ul", { className: "divide-y divide-cr-border", children: events.map((ev) => {
+      const meta = KIND_VERB[ev.kind] ?? { emoji: "✨", copy: "hizo algo" };
+      return /* @__PURE__ */ jsxs("li", { className: "group flex items-center gap-3 px-4 py-3 sm:px-5", children: [
+        ev.actor_avatar ? /* @__PURE__ */ jsx(
+          "img",
+          {
+            src: ev.actor_avatar,
+            alt: "",
+            className: "h-8 w-8 rounded-full object-cover ring-1 ring-cr-border",
+            loading: "lazy"
+          }
+        ) : /* @__PURE__ */ jsx(
+          "span",
+          {
+            className: "inline-flex h-8 w-8 items-center justify-center rounded-full bg-cr-primary text-[11px] font-bold uppercase text-cr-text-inverse",
+            "aria-hidden": true,
+            children: initials$1(ev.actor_name)
+          }
+        ),
+        /* @__PURE__ */ jsxs("div", { className: "min-w-0 flex-1", children: [
+          /* @__PURE__ */ jsxs("p", { className: "truncate text-sm text-cr-text", children: [
+            /* @__PURE__ */ jsx("span", { className: "font-bold", children: ev.actor_name }),
+            " ",
+            /* @__PURE__ */ jsx("span", { className: "text-cr-text-muted", children: meta.copy }),
+            ev.label && ev.label !== `${ev.actor_name} ${meta.copy}` ? /* @__PURE__ */ jsxs("span", { className: "text-cr-text-muted", children: [
+              " · ",
+              ev.label.replace(`${ev.actor_name} `, "")
+            ] }) : null
+          ] }),
+          /* @__PURE__ */ jsxs("p", { className: "font-mono text-[10px] uppercase tracking-[0.12em] text-cr-text-dim", children: [
+            meta.emoji,
+            " ",
+            relative(ev.created_at),
+            ev.city ? ` · ${ev.city}` : ""
+          ] })
+        ] }),
+        ev.concert_id && /* @__PURE__ */ jsx(
+          Link,
+          {
+            to: `/concerts/${ev.concert_id}`,
+            className: "hidden font-mono text-[10px] uppercase tracking-[0.14em] text-cr-text-muted hover:text-cr-primary sm:inline",
+            children: "ver →"
+          }
+        )
+      ] }, ev.id);
+    }) })
+  ] });
+}
+function diffParts(target) {
+  const t = new Date(target).getTime();
+  if (!Number.isFinite(t)) return null;
+  const ms = t - Date.now();
+  if (ms <= 0) return null;
+  const days = Math.floor(ms / 864e5);
+  const hours = Math.floor(ms % 864e5 / 36e5);
+  const minutes = Math.floor(ms % 36e5 / 6e4);
+  return { days, hours, minutes };
+}
+const SIZES$1 = {
+  sm: "text-xs px-2 py-1",
+  md: "text-sm px-3 py-1.5",
+  lg: "text-base px-4 py-2"
+};
+function CountdownBadge({ target, prefix, size = "md", className }) {
+  const [parts, setParts] = useState(() => diffParts(target));
+  useEffect(() => {
+    setParts(diffParts(target));
+    const id2 = setInterval(() => setParts(diffParts(target)), 6e4);
+    return () => clearInterval(id2);
+  }, [target]);
+  if (!parts) return null;
+  const isClose = parts.days <= 1;
+  const intensity = parts.days <= 3 ? "border-cr-secondary bg-cr-secondary/10 text-cr-secondary" : "border-cr-primary-dim bg-cr-primary/10 text-cr-primary";
+  return /* @__PURE__ */ jsxs(
+    "span",
+    {
+      className: `inline-flex items-center gap-1 border-2 font-mono font-bold uppercase tracking-[0.1em] ${intensity} ${SIZES$1[size]} ${className ?? ""}`,
+      children: [
+        isClose && /* @__PURE__ */ jsxs("span", { className: "relative flex h-2 w-2", "aria-hidden": true, children: [
+          /* @__PURE__ */ jsx("span", { className: "absolute inline-flex h-full w-full animate-ping rounded-full bg-cr-secondary opacity-70" }),
+          /* @__PURE__ */ jsx("span", { className: "relative inline-flex h-2 w-2 rounded-full bg-cr-secondary" })
+        ] }),
+        prefix ? /* @__PURE__ */ jsx("span", { className: "opacity-80", children: prefix }) : null,
+        /* @__PURE__ */ jsx("span", { children: parts.days > 0 ? `${parts.days}d ${parts.hours}h` : parts.hours > 0 ? `${parts.hours}h ${parts.minutes}m` : `${parts.minutes}m` })
+      ]
+    }
+  );
+}
+function IntelligencePrompts() {
+  const { user } = useSession();
+  const { favorites } = useFavorites();
+  const { crew } = useCrew();
+  const [upcoming, setUpcoming] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [crewByConcert, setCrewByConcert] = useState({});
+  useEffect(() => {
+    let cancelled = false;
+    void (async () => {
+      try {
+        const oneYearOut = new Date(Date.now() + 365 * 24 * 3600 * 1e3).toISOString();
+        const res = await api.concerts.list({
+          date_from: (/* @__PURE__ */ new Date()).toISOString(),
+          date_to: oneYearOut,
+          limit: 80
+        });
+        if (!cancelled) setUpcoming(res.concerts);
+      } catch {
+        if (!cancelled) setUpcoming([]);
+      } finally {
+        if (!cancelled) setLoading(false);
+      }
+    })();
+    return () => {
+      cancelled = true;
+    };
+  }, []);
+  useEffect(() => {
+    if (!user || crew.length === 0 || upcoming.length === 0) {
+      setCrewByConcert({});
+      return;
+    }
+    let cancelled = false;
+    const sample = upcoming.slice(0, 24);
+    void (async () => {
+      const out = {};
+      await Promise.all(
+        sample.map(async (c) => {
+          try {
+            const r = await api.crew.attending(c.id);
+            if (r.crew.length > 0) out[c.id] = r.crew.length;
+          } catch {
+          }
+        })
+      );
+      if (!cancelled) setCrewByConcert(out);
+    })();
+    return () => {
+      cancelled = true;
+    };
+  }, [upcoming, crew.length, user == null ? void 0 : user.id]);
+  const prompts = useMemo(() => {
+    var _a2, _b;
+    if (!user || upcoming.length === 0) return [];
+    const seen = /* @__PURE__ */ new Set();
+    const out = [];
+    const fbArtist = new Set(
+      favorites.filter((f) => f.kind === "artist").map((f) => f.label.toLowerCase())
+    );
+    for (const c of upcoming) {
+      if (out.length >= 6) break;
+      if (seen.has(c.id)) continue;
+      if (fbArtist.has(c.artist.toLowerCase())) {
+        seen.add(c.id);
+        out.push({ kind: "favourite_artist", concert: c, reason: `Sigues a ${c.artist}` });
+      }
+    }
+    for (const [concertId, count] of Object.entries(crewByConcert)) {
+      if (out.length >= 8) break;
+      if (seen.has(concertId)) continue;
+      const c = upcoming.find((x) => x.id === concertId);
+      if (!c) continue;
+      seen.add(concertId);
+      out.push({
+        kind: "crew_going",
+        concert: c,
+        reason: `${count} de tu crew ${count === 1 ? "va" : "van"}`
+      });
+    }
+    if (user.home_city) {
+      const home = user.home_city.toLowerCase();
+      for (const c of upcoming) {
+        if (out.length >= 10) break;
+        if (seen.has(c.id)) continue;
+        if (((_b = (_a2 = c.venue) == null ? void 0 : _a2.city) == null ? void 0 : _b.toLowerCase()) === home) {
+          seen.add(c.id);
+          out.push({ kind: "home_city", concert: c, reason: `En ${user.home_city}` });
+        }
+      }
+    }
+    return out;
+  }, [user, upcoming, favorites, crewByConcert]);
+  if (loading || !user || prompts.length === 0) return null;
+  return /* @__PURE__ */ jsxs(
+    "section",
+    {
+      "aria-label": "Recomendaciones inteligentes",
+      className: "border-2 border-cr-primary/40 bg-gradient-to-br from-cr-bg via-cr-surface-2 to-cr-bg p-5",
+      children: [
+        /* @__PURE__ */ jsx("header", { className: "flex items-baseline justify-between gap-3", children: /* @__PURE__ */ jsxs("div", { children: [
+          /* @__PURE__ */ jsx("p", { className: "font-mono text-[10px] uppercase tracking-[0.18em] text-cr-primary", children: "Para ti" }),
+          /* @__PURE__ */ jsx("h2", { className: "mt-1 font-display text-2xl uppercase", children: "Próximos eventos que te encajan" })
+        ] }) }),
+        /* @__PURE__ */ jsx("ul", { className: "mt-4 grid gap-3 sm:grid-cols-2 lg:grid-cols-3", children: prompts.slice(0, 6).map(({ concert, reason, kind }) => /* @__PURE__ */ jsx("li", { children: /* @__PURE__ */ jsxs(
+          Link,
+          {
+            to: `/concerts/${concert.id}`,
+            className: "block border-2 border-cr-border bg-cr-surface-2 p-3 transition hover:border-cr-primary",
+            children: [
+              /* @__PURE__ */ jsxs("div", { className: "flex items-center gap-2", children: [
+                /* @__PURE__ */ jsx("span", { "aria-hidden": true, className: "text-base", children: kind === "favourite_artist" ? "💚" : kind === "crew_going" ? "👯" : "📍" }),
+                /* @__PURE__ */ jsx("span", { className: "font-mono text-[10px] uppercase tracking-[0.14em] text-cr-text-muted", children: reason })
+              ] }),
+              /* @__PURE__ */ jsx("p", { className: "mt-2 font-display text-base uppercase leading-tight", children: concert.artist }),
+              /* @__PURE__ */ jsx("p", { className: "font-mono text-[10px] uppercase tracking-[0.1em] text-cr-text-muted", children: concert.venue.city }),
+              /* @__PURE__ */ jsx("div", { className: "mt-2", children: /* @__PURE__ */ jsx(CountdownBadge, { target: concert.date, size: "sm" }) })
+            ]
+          }
+        ) }, concert.id)) })
+      ]
+    }
+  );
+}
+function DemandSignalsBoard({ limit = 6, layout: layout2 = "card" }) {
+  const [items, setItems] = useState(null);
+  useEffect(() => {
+    let cancelled = false;
+    void (async () => {
+      try {
+        const res = await api.stats.demand(limit);
+        if (!cancelled) setItems(res.items);
+      } catch {
+        if (!cancelled) setItems([]);
+      }
+    })();
+    return () => {
+      cancelled = true;
+    };
+  }, [limit]);
+  if (!items || items.length === 0) return null;
+  const wrapperClass = layout2 === "card" ? "border-2 border-cr-secondary/50 bg-gradient-to-br from-cr-bg via-cr-surface-2 to-cr-bg" : "border-y border-cr-border";
+  return /* @__PURE__ */ jsxs(
+    "section",
+    {
+      "aria-label": "Conciertos con demanda alta sin coches",
+      className: wrapperClass,
+      children: [
+        /* @__PURE__ */ jsxs("header", { className: "flex items-baseline justify-between gap-3 border-b border-cr-border px-5 py-3", children: [
+          /* @__PURE__ */ jsxs("div", { children: [
+            /* @__PURE__ */ jsx("p", { className: "font-mono text-[10px] uppercase tracking-[0.18em] text-cr-secondary", children: "🔥 Demanda alta · pocos coches" }),
+            /* @__PURE__ */ jsx("h2", { className: "mt-1 font-display text-xl uppercase", children: "Publica un viaje y se llena" })
+          ] }),
+          /* @__PURE__ */ jsx(
+            Link,
+            {
+              to: "/publish",
+              className: "border-2 border-cr-secondary bg-cr-secondary px-3 py-1.5 font-mono text-[10px] font-bold uppercase tracking-[0.14em] text-white",
+              children: "+ Publicar"
+            }
+          )
+        ] }),
+        /* @__PURE__ */ jsx("ul", { className: "grid gap-3 px-5 py-4 sm:grid-cols-2 lg:grid-cols-3", children: items.map((p) => /* @__PURE__ */ jsx("li", { children: /* @__PURE__ */ jsxs(
+          Link,
+          {
+            to: `/concerts/${p.concert.id}`,
+            className: "block border-2 border-cr-border bg-cr-bg p-3 transition hover:border-cr-secondary",
+            children: [
+              /* @__PURE__ */ jsxs("div", { className: "flex items-start justify-between gap-2", children: [
+                /* @__PURE__ */ jsx("p", { className: "font-display text-base uppercase leading-tight", children: p.concert.artist }),
+                /* @__PURE__ */ jsx(
+                  "span",
+                  {
+                    title: `Urgencia ${p.urgency}/100`,
+                    className: `flex-shrink-0 border-2 px-1.5 py-0.5 font-mono text-[9px] font-bold uppercase tracking-[0.14em] ${p.urgency >= 70 ? "border-cr-secondary bg-cr-secondary text-white" : p.urgency >= 40 ? "border-cr-secondary text-cr-secondary" : "border-cr-border text-cr-text-muted"}`,
+                    children: p.urgency >= 70 ? "URGENTE" : p.urgency >= 40 ? "ALTA" : "MEDIA"
+                  }
+                )
+              ] }),
+              /* @__PURE__ */ jsx("p", { className: "font-mono text-[10px] uppercase tracking-[0.1em] text-cr-text-muted", children: p.concert.venue.city }),
+              /* @__PURE__ */ jsxs("div", { className: "mt-2 flex items-center gap-2 text-xs", children: [
+                /* @__PURE__ */ jsx("span", { className: "font-display text-cr-primary", children: p.going_count }),
+                /* @__PURE__ */ jsx("span", { className: "font-mono text-[10px] uppercase tracking-[0.12em] text-cr-text-muted", children: "van" }),
+                /* @__PURE__ */ jsx("span", { className: "text-cr-text-dim", children: "·" }),
+                /* @__PURE__ */ jsx("span", { className: "font-display text-cr-text", children: p.active_rides }),
+                /* @__PURE__ */ jsx("span", { className: "font-mono text-[10px] uppercase tracking-[0.12em] text-cr-text-muted", children: p.active_rides === 1 ? "coche" : "coches" })
+              ] }),
+              /* @__PURE__ */ jsx("div", { className: "mt-2", children: /* @__PURE__ */ jsx(CountdownBadge, { target: p.concert.date, size: "sm" }) })
+            ]
+          }
+        ) }, p.concert.id)) })
+      ]
+    }
+  );
+}
 function FinalCTA() {
   return /* @__PURE__ */ jsxs(
     "section",
@@ -12259,7 +12849,8 @@ function CornerAccents() {
 function LandingPage() {
   useSeoMeta({
     title: "ConcertRide · Carpooling para conciertos y festivales en España",
-    description: "Carpooling para conciertos y festivales en España: Mad Cool, Primavera Sound, Sónar, BBK Live, Arenal Sound, Viña Rock, Resurrection Fest. Alternativa a los autobuses oficiales y de larga distancia. Sin comisión, conductores verificados.",
+    // ≤160 chars, price + commission + flagship festivals up front for AI extraction.
+    description: "Carpooling a conciertos y festivales en España desde 3 €/asiento, 0 % comisión. Mad Cool, Primavera Sound, Sónar, BBK Live. Conductores verificados.",
     canonical: `${SITE_URL}/`,
     keywords: "carpooling conciertos España, viajes compartidos festivales, autobuses festivales españa, bus festivales 2026, transporte a conciertos, coche compartido música, ride-sharing festivales, conciertos en madrid, conciertos en barcelona, conciertos en sevilla, conciertos en bilbao 2026, conciertos en donostia 2026, conciertos en zaragoza, viña rock buses, arenal sound como llegar, bbk santander, mad cool carpooling, primavera sound viaje compartido, deja tu coche en casa festival, carpooling sin comisiones, volver festival madrugada, ir al festival sin coche",
     ogType: "website",
@@ -12389,6 +12980,9 @@ function LandingPage() {
     ),
     /* @__PURE__ */ jsx(Hero, {}),
     /* @__PURE__ */ jsx(StatsBar, {}),
+    /* @__PURE__ */ jsx("section", { className: "mx-auto max-w-5xl px-4 py-8 sm:px-6", children: /* @__PURE__ */ jsx(IntelligencePrompts, {}) }),
+    /* @__PURE__ */ jsx("section", { className: "mx-auto max-w-5xl px-4 pb-8 sm:px-6", children: /* @__PURE__ */ jsx(DemandSignalsBoard, { limit: 6 }) }),
+    /* @__PURE__ */ jsx("section", { className: "mx-auto max-w-3xl px-4 pb-8 sm:px-6", children: /* @__PURE__ */ jsx(LiveActivityFeed, { limit: 8, layout: "card", emptyMessage: "Aún silencio. Sé el primero en publicar un viaje." }) }),
     activeConcerts.length > 0 && /* @__PURE__ */ jsx(HorizontalCarousel, { concerts: activeConcerts }),
     /* @__PURE__ */ jsx(HowItWorks, {}),
     /* @__PURE__ */ jsx(AdhocRidesSection, {}),
@@ -12464,7 +13058,7 @@ function LandingPage() {
             /* @__PURE__ */ jsx("td", { className: "py-3 pl-4 text-cr-text-muted", children: "Sí, pactada con el conductor" })
           ] }),
           /* @__PURE__ */ jsxs("tr", { children: [
-            /* @__PURE__ */ jsx("td", { className: "py-3 pr-6 text-cr-text", children: "BlaBlaCar" }),
+            /* @__PURE__ */ jsx("td", { className: "py-3 pr-6 text-cr-text", children: "Otras plataformas" }),
             /* @__PURE__ */ jsx("td", { className: "py-3 px-4 text-right text-cr-text", children: "8 – 25 €" }),
             /* @__PURE__ */ jsx("td", { className: "py-3 px-4 text-right text-cr-text-muted", children: "13–18 %" }),
             /* @__PURE__ */ jsx("td", { className: "py-3 pl-4 text-cr-text-muted", children: "Limitada (horarios fijos)" })
@@ -12489,11 +13083,7 @@ function LandingPage() {
           ] })
         ] })
       ] }) }),
-      /* @__PURE__ */ jsxs("p", { className: "font-mono text-[10px] text-cr-text-dim", children: [
-        "Precios estimados para rutas de 150–300 km (p. ej. Madrid–Albacete, Madrid–Valencia).",
-        " ",
-        /* @__PURE__ */ jsx("a", { href: "/comparativa/concertride-vs-blablacar", className: "hover:text-cr-primary underline underline-offset-2", children: "Ver comparativa detallada →" })
-      ] })
+      /* @__PURE__ */ jsx("p", { className: "font-mono text-[10px] text-cr-text-dim", children: "Precios estimados para rutas de 150–300 km (p. ej. Madrid–Albacete, Madrid–Valencia)." })
     ] }) }),
     /* @__PURE__ */ jsx("section", { className: "border-t border-cr-border bg-cr-bg", children: /* @__PURE__ */ jsxs("div", { className: "max-w-6xl mx-auto px-6 py-12 md:py-16 space-y-10", children: [
       /* @__PURE__ */ jsxs("div", { className: "space-y-2", children: [
@@ -12574,22 +13164,6 @@ function LandingPage() {
               /* @__PURE__ */ jsx("p", { className: "font-mono text-[10px] uppercase tracking-[0.14em] text-cr-primary", children: "Guía" }),
               /* @__PURE__ */ jsx("h3", { className: "font-display text-base uppercase leading-tight group-hover:text-cr-primary transition-colors", children: "Qué es el carpooling para conciertos" }),
               /* @__PURE__ */ jsx("p", { className: "font-sans text-xs text-cr-text-muted leading-relaxed", children: "Respuesta directa, pasos numerados y comparación con taxi y autobús para entenderlo en un minuto." }),
-              /* @__PURE__ */ jsxs("span", { className: "inline-flex items-center gap-1 font-sans text-xs text-cr-primary", children: [
-                "Leer ",
-                /* @__PURE__ */ jsx(ArrowRight, { size: 11 })
-              ] })
-            ]
-          }
-        ),
-        /* @__PURE__ */ jsxs(
-          Link,
-          {
-            to: "/comparativa/concertride-vs-blablacar",
-            className: "border border-cr-border p-5 hover:border-cr-primary/50 transition-colors group space-y-3",
-            children: [
-              /* @__PURE__ */ jsx("p", { className: "font-mono text-[10px] uppercase tracking-[0.14em] text-cr-primary", children: "Comparativa" }),
-              /* @__PURE__ */ jsx("h3", { className: "font-display text-base uppercase leading-tight group-hover:text-cr-primary transition-colors", children: "ConcertRide vs BlaBlaCar" }),
-              /* @__PURE__ */ jsx("p", { className: "font-sans text-xs text-cr-text-muted leading-relaxed", children: "Comisión, especialización, pago y vuelta de madrugada: por qué ConcertRide encaja mejor en festivales." }),
               /* @__PURE__ */ jsxs("span", { className: "inline-flex items-center gap-1 font-sans text-xs text-cr-primary", children: [
                 "Leer ",
                 /* @__PURE__ */ jsx(ArrowRight, { size: 11 })
@@ -12718,7 +13292,7 @@ function ConcertsPage() {
       "cómo ir al concierto en coche compartido",
       filters.genre ? `conciertos ${filters.genre} España` : "festivales música España",
       "carpooling sin comisión España",
-      "BlaBlaCar conciertos alternativa",
+      "carpooling conciertos alternativa",
       `conciertos ${(/* @__PURE__ */ new Date()).getFullYear()} ${(/* @__PURE__ */ new Date()).getFullYear() + 1}`
     ].filter(Boolean).join(", ")
   });
@@ -13405,7 +13979,7 @@ const VENUE_LANDINGS = [
       },
       {
         q: "¿Cuánto cuesta ir a La Cartuja desde Málaga en carpooling?",
-        a: "Málaga–Sevilla son 210 km por la A-92 (2h 10 min). Con ConcertRide el precio habitual por asiento es de 7–11 €, frente a los 15–30 € del AVE Málaga–Sevilla (con trasbordos) o los 40–60 € de un BlaBlaCar con comisión incluida. El carpooling es la opción más usada para esta ruta en noches de concierto."
+        a: "Málaga–Sevilla son 210 km por la A-92 (2h 10 min). Con ConcertRide el precio habitual por asiento es de 7–11 €, frente a los 15–30 € del AVE Málaga–Sevilla (con trasbordos) o los 40–60 € de otras plataformas de carpooling con comisión incluida. El carpooling es la opción más usada para esta ruta en noches de concierto."
       },
       {
         q: "¿El Estadio de La Cartuja tiene conexión de metro?",
@@ -14799,7 +15373,7 @@ const FESTIVAL_LANDINGS = [
       }
     ],
     relatedFestivals: ["arenal-sound", "fib", "low-festival"],
-    relatedBlogs: ["guia-transporte-vina-rock-2026", "autobuses-festivales-espana-2026", "blablacar-vs-concertride"]
+    relatedBlogs: ["guia-transporte-vina-rock-2026", "autobuses-festivales-espana-2026", "como-volver-festival-madrugada"]
   },
   {
     slug: "vina-rock",
@@ -17012,7 +17586,7 @@ function Avatar({ name, isOwn }) {
     {
       "aria-hidden": "true",
       className: `w-8 h-8 flex-shrink-0 flex items-center justify-center font-display font-black text-[11px] ${isOwn ? "bg-cr-primary text-black" : "bg-cr-surface-3 border border-cr-border-mid text-cr-primary"}`,
-      children: initials(name)
+      children: initials$2(name)
     }
   );
 }
@@ -17423,6 +17997,358 @@ function ConcertChatSection({ concertId, artist }) {
     )
   ] });
 }
+const SIZES = {
+  xs: { box: "h-6 w-6", ring: "ring-1", text: "text-[10px]" },
+  sm: { box: "h-7 w-7", ring: "ring-2", text: "text-[11px]" },
+  md: { box: "h-9 w-9", ring: "ring-2", text: "text-xs" },
+  lg: { box: "h-12 w-12", ring: "ring-2", text: "text-sm" }
+};
+function initials(name) {
+  var _a2, _b;
+  const parts = name.trim().split(/\s+/);
+  return (((_a2 = parts[0]) == null ? void 0 : _a2[0]) ?? "C") + (((_b = parts[1]) == null ? void 0 : _b[0]) ?? "");
+}
+function CrewAvatars({ crew, people, max = 4, size = "md", label, clickable = false, className }) {
+  const personList = people ?? (crew ?? []).map((c) => ({
+    id: c.user.id,
+    name: c.user.name,
+    avatar_url: c.user.avatar_url
+  }));
+  if (!personList.length) return null;
+  const visible = personList.slice(0, max);
+  const overflow = personList.length - visible.length;
+  const sz = SIZES[size];
+  return /* @__PURE__ */ jsxs("div", { className: `flex items-center gap-3 ${className ?? ""}`, children: [
+    /* @__PURE__ */ jsxs("div", { className: "flex -space-x-2", children: [
+      visible.map((user) => {
+        const content = user.avatar_url ? /* @__PURE__ */ jsx(
+          "img",
+          {
+            src: user.avatar_url,
+            alt: "",
+            className: `${sz.box} rounded-full object-cover ${sz.ring} ring-cr-bg`,
+            loading: "lazy"
+          }
+        ) : /* @__PURE__ */ jsx(
+          "span",
+          {
+            className: `${sz.box} ${sz.text} ring-cr-bg ${sz.ring} inline-flex items-center justify-center rounded-full bg-cr-primary font-bold uppercase text-cr-text-inverse`,
+            "aria-hidden": true,
+            children: initials(user.name)
+          }
+        );
+        if (clickable) {
+          return /* @__PURE__ */ jsx(
+            Link,
+            {
+              to: `/drivers/${user.id}`,
+              title: user.name,
+              className: "hover:translate-y-[-2px] transition-transform",
+              children: content
+            },
+            user.id
+          );
+        }
+        return /* @__PURE__ */ jsx("span", { title: user.name, children: content }, user.id);
+      }),
+      overflow > 0 && /* @__PURE__ */ jsxs(
+        "span",
+        {
+          className: `${sz.box} ${sz.text} ring-cr-bg ${sz.ring} inline-flex items-center justify-center rounded-full bg-cr-surface-3 font-bold text-cr-text-muted`,
+          children: [
+            "+",
+            overflow
+          ]
+        }
+      )
+    ] }),
+    label && /* @__PURE__ */ jsx("span", { className: "font-mono text-[11px] uppercase tracking-[0.12em] text-cr-text-muted", children: label })
+  ] });
+}
+function timeUntil(target) {
+  const t = new Date(target).getTime();
+  if (!Number.isFinite(t)) return null;
+  const now2 = Date.now();
+  if (t <= now2) return null;
+  const diff = t - now2;
+  const days = Math.floor(diff / (24 * 3600 * 1e3));
+  const hours = Math.floor((diff - days * 24 * 3600 * 1e3) / (3600 * 1e3));
+  return { days, hours };
+}
+function AnticipationStrip({ concertId, date, artist }) {
+  const { user } = useSession();
+  const [summary, setSummary] = useState(null);
+  const [submitting, setSubmitting] = useState(false);
+  const countdown = timeUntil(date);
+  useEffect(() => {
+    let cancelled = false;
+    void (async () => {
+      try {
+        const res = await api.anticipations.summary(concertId);
+        if (!cancelled) setSummary(res);
+      } catch {
+      }
+    })();
+    return () => {
+      cancelled = true;
+    };
+  }, [concertId]);
+  const total = ((summary == null ? void 0 : summary.going_count) ?? 0) + ((summary == null ? void 0 : summary.maybe_count) ?? 0);
+  const userStatus = (summary == null ? void 0 : summary.user_status) ?? null;
+  const crewAttending = (summary == null ? void 0 : summary.crew_attending) ?? [];
+  async function setStatus(status) {
+    if (!user) {
+      window.location.href = `/login?next=/concerts/${encodeURIComponent(concertId)}`;
+      return;
+    }
+    setSubmitting(true);
+    const prev = summary;
+    const optimistic = summary ? {
+      ...summary,
+      user_status: status,
+      going_count: summary.going_count + (status === "going" ? 1 : 0) - (summary.user_status === "going" ? 1 : 0),
+      maybe_count: summary.maybe_count + (status === "maybe" ? 1 : 0) - (summary.user_status === "maybe" ? 1 : 0)
+    } : { going_count: status === "going" ? 1 : 0, maybe_count: status === "maybe" ? 1 : 0, user_status: status, preview: [], crew_attending: [] };
+    setSummary(optimistic);
+    try {
+      await api.anticipations.set(concertId, status);
+      track("anticipation_set", { concert_id: concertId, status });
+      const fresh = await api.anticipations.summary(concertId);
+      setSummary(fresh);
+    } catch {
+      setSummary(prev);
+    } finally {
+      setSubmitting(false);
+    }
+  }
+  async function clearStatus() {
+    if (!user) return;
+    setSubmitting(true);
+    const prev = summary;
+    if (summary) {
+      setSummary({
+        ...summary,
+        user_status: null,
+        going_count: summary.going_count - (summary.user_status === "going" ? 1 : 0),
+        maybe_count: summary.maybe_count - (summary.user_status === "maybe" ? 1 : 0)
+      });
+    }
+    try {
+      await api.anticipations.clear(concertId);
+      track("anticipation_cleared", { concert_id: concertId });
+    } catch {
+      setSummary(prev);
+    } finally {
+      setSubmitting(false);
+    }
+  }
+  return /* @__PURE__ */ jsxs(
+    "section",
+    {
+      "aria-label": "Asistencia",
+      className: "border-y border-cr-border bg-gradient-to-r from-cr-bg via-cr-surface-2 to-cr-bg px-4 py-4 sm:px-6",
+      children: [
+        /* @__PURE__ */ jsxs("div", { className: "mx-auto flex max-w-5xl flex-col gap-3 sm:flex-row sm:items-center sm:justify-between", children: [
+          /* @__PURE__ */ jsxs("div", { className: "flex items-baseline gap-3", children: [
+            countdown ? /* @__PURE__ */ jsxs("p", { className: "font-display text-2xl tracking-tight text-cr-text", children: [
+              /* @__PURE__ */ jsx("span", { className: "text-cr-primary", children: countdown.days }),
+              /* @__PURE__ */ jsxs("span", { className: "ml-1 text-sm font-mono uppercase tracking-[0.12em] text-cr-text-muted", children: [
+                "días",
+                countdown.days === 0 && countdown.hours > 0 ? ` · ${countdown.hours}h` : ""
+              ] })
+            ] }) : /* @__PURE__ */ jsx("p", { className: "font-display text-lg text-cr-text-muted", children: "Evento pasado" }),
+            /* @__PURE__ */ jsxs("p", { className: "font-mono text-[11px] uppercase tracking-[0.14em] text-cr-text-muted", children: [
+              (summary == null ? void 0 : summary.going_count) ?? 0,
+              " van · ",
+              (summary == null ? void 0 : summary.maybe_count) ?? 0,
+              " interesados"
+            ] })
+          ] }),
+          /* @__PURE__ */ jsxs("div", { className: "flex flex-wrap items-center gap-2", children: [
+            crewAttending.length > 0 && /* @__PURE__ */ jsx(
+              CrewAvatars,
+              {
+                size: "sm",
+                people: crewAttending,
+                label: `${crewAttending.length} de tu crew`
+              }
+            ),
+            countdown && /* @__PURE__ */ jsxs("div", { className: "flex items-center gap-2", children: [
+              /* @__PURE__ */ jsx(
+                "button",
+                {
+                  type: "button",
+                  disabled: submitting,
+                  onClick: () => userStatus === "going" ? clearStatus() : setStatus("going"),
+                  className: `inline-flex h-9 items-center gap-1 px-4 font-mono text-[11px] font-bold uppercase tracking-[0.14em] transition ${userStatus === "going" ? "border-2 border-cr-primary bg-cr-primary text-cr-text-inverse shadow-[0_0_18px_rgb(212_247_0/0.35)]" : "border-2 border-cr-border bg-cr-surface-2 text-cr-text hover:border-cr-primary"}`,
+                  children: userStatus === "going" ? "✓ Voy" : "Voy"
+                }
+              ),
+              /* @__PURE__ */ jsx(
+                "button",
+                {
+                  type: "button",
+                  disabled: submitting,
+                  onClick: () => userStatus === "maybe" ? clearStatus() : setStatus("maybe"),
+                  className: `inline-flex h-9 items-center gap-1 px-4 font-mono text-[11px] font-bold uppercase tracking-[0.14em] transition ${userStatus === "maybe" ? "border-2 border-cr-secondary bg-cr-secondary text-white" : "border-2 border-cr-border bg-cr-surface-2 text-cr-text hover:border-cr-secondary"}`,
+                  children: userStatus === "maybe" ? "✓ Quizá" : "Quizá"
+                }
+              )
+            ] })
+          ] })
+        ] }),
+        artist && total >= 5 && /* @__PURE__ */ jsxs("p", { className: "mx-auto mt-2 max-w-5xl text-xs text-cr-text-muted", children: [
+          total,
+          " personas se están organizando para ",
+          artist,
+          "."
+        ] })
+      ]
+    }
+  );
+}
+function SquadCard({ squad, href, className }) {
+  const target = href ?? `/squads/${squad.id}`;
+  const seatsAvailable = squad.rides.reduce((sum, r) => sum + r.seats_left, 0);
+  const tags = squad.vibe_tags.slice(0, 4);
+  return /* @__PURE__ */ jsxs(
+    Link,
+    {
+      to: target,
+      className: `block border-2 border-cr-border bg-cr-surface-2 p-4 transition hover:border-cr-primary hover:bg-cr-surface ${className ?? ""}`,
+      children: [
+        /* @__PURE__ */ jsxs("div", { className: "flex items-start justify-between gap-3", children: [
+          /* @__PURE__ */ jsxs("div", { children: [
+            /* @__PURE__ */ jsxs("p", { className: "font-mono text-[10px] uppercase tracking-[0.16em] text-cr-text-muted", children: [
+              "squad · ",
+              squad.visibility === "public" ? "abierto" : "privado"
+            ] }),
+            /* @__PURE__ */ jsx("h3", { className: "mt-1 font-display text-xl uppercase leading-tight", children: squad.name })
+          ] }),
+          /* @__PURE__ */ jsx("span", { className: "rounded-full border border-cr-primary px-2 py-0.5 font-mono text-[10px] font-bold uppercase tracking-[0.14em] text-cr-primary", children: squad.members.length })
+        ] }),
+        /* @__PURE__ */ jsxs("p", { className: "mt-2 font-mono text-[11px] uppercase tracking-[0.1em] text-cr-text-muted", children: [
+          "🎤 ",
+          squad.concert.artist
+        ] }),
+        /* @__PURE__ */ jsx("div", { className: "mt-3", children: /* @__PURE__ */ jsx(
+          CrewAvatars,
+          {
+            size: "sm",
+            people: squad.members.slice(0, 5).map((m) => ({
+              id: m.user.id,
+              name: m.user.name,
+              avatar_url: m.user.avatar_url
+            })),
+            label: squad.rides.length > 0 ? `${squad.rides.length} ${squad.rides.length === 1 ? "coche" : "coches"} · ${seatsAvailable} plaza${seatsAvailable === 1 ? "" : "s"}` : `${squad.members.length} ${squad.members.length === 1 ? "persona" : "personas"}`
+          }
+        ) }),
+        tags.length > 0 && /* @__PURE__ */ jsx("ul", { className: "mt-3 flex flex-wrap gap-1.5", children: tags.map((t) => /* @__PURE__ */ jsx(
+          "li",
+          {
+            className: "border border-cr-border-mid px-1.5 py-0.5 font-mono text-[10px] uppercase tracking-[0.1em] text-cr-text-muted",
+            children: t
+          },
+          t
+        )) })
+      ]
+    }
+  );
+}
+function SquadsForConcert({ concertId, artist }) {
+  const { user } = useSession();
+  const [squads, setSquads] = useState(null);
+  useEffect(() => {
+    let cancelled = false;
+    void (async () => {
+      try {
+        const res = await api.squads.forConcert(concertId);
+        if (!cancelled) setSquads(res.items);
+      } catch {
+        if (!cancelled) setSquads([]);
+      }
+    })();
+    return () => {
+      cancelled = true;
+    };
+  }, [concertId]);
+  if (squads === null) return null;
+  return /* @__PURE__ */ jsx(
+    "section",
+    {
+      "aria-label": "Squads de este evento",
+      className: "border-y border-cr-border bg-cr-surface-2/40",
+      children: /* @__PURE__ */ jsxs("div", { className: "mx-auto max-w-5xl px-4 py-5 sm:px-6", children: [
+        /* @__PURE__ */ jsxs("div", { className: "flex items-baseline justify-between gap-3", children: [
+          /* @__PURE__ */ jsxs("div", { children: [
+            /* @__PURE__ */ jsxs("p", { className: "font-mono text-[10px] uppercase tracking-[0.18em] text-cr-text-muted", children: [
+              "Squads · ",
+              artist
+            ] }),
+            /* @__PURE__ */ jsx("h2", { className: "mt-1 font-display text-xl uppercase", children: squads.length > 0 ? "Grupos organizándose" : "Crea el primer squad" })
+          ] }),
+          /* @__PURE__ */ jsx(
+            Link,
+            {
+              to: user ? `/squads/new?concert=${encodeURIComponent(concertId)}` : `/login?next=/squads/new?concert=${encodeURIComponent(concertId)}`,
+              className: "border-2 border-cr-primary px-3 py-1.5 font-mono text-[10px] font-bold uppercase tracking-[0.14em] text-cr-primary hover:bg-cr-primary hover:text-cr-text-inverse",
+              children: "+ Crear squad"
+            }
+          )
+        ] }),
+        squads.length > 0 ? /* @__PURE__ */ jsx("ul", { className: "mt-4 grid gap-3 sm:grid-cols-2 lg:grid-cols-3", children: squads.map((s) => /* @__PURE__ */ jsx("li", { children: /* @__PURE__ */ jsx(SquadCard, { squad: s, href: `/squads/join/${s.invite_code}` }) }, s.id)) }) : /* @__PURE__ */ jsx("p", { className: "mt-3 max-w-prose text-sm text-cr-text-muted", children: "Un squad junta varios coches para el mismo evento. Coordinas pickup, playlist, y los recoges a todos." })
+      ] })
+    }
+  );
+}
+function computeMusicMatch(viewer, other) {
+  if (!viewer) return { score: 0, shared_genres: [], shared_artists: [] };
+  const viewerGenres = norm(viewer.music_genres);
+  const otherGenres = norm(other.music_genres);
+  const viewerArtists = norm(viewer.top_artists);
+  const otherArtists = norm(other.top_artists);
+  const sharedGenres = intersection(viewerGenres, otherGenres);
+  const sharedArtists = intersection(viewerArtists, otherArtists);
+  const artistPts = Math.min(60, sharedArtists.size * 12);
+  const genrePts = Math.min(30, sharedGenres.size * 6);
+  const enrichedBonus = viewerArtists.size + viewerGenres.size > 0 && otherArtists.size + otherGenres.size > 0 ? 10 : 0;
+  const score = artistPts + genrePts + enrichedBonus;
+  return {
+    score,
+    shared_genres: Array.from(sharedGenres),
+    shared_artists: Array.from(sharedArtists)
+  };
+}
+function norm(list) {
+  if (!list) return /* @__PURE__ */ new Set();
+  return new Set(list.map((s) => s.trim().toLowerCase()).filter(Boolean));
+}
+function intersection(a, b) {
+  const out = /* @__PURE__ */ new Set();
+  for (const x of a) if (b.has(x)) out.add(x);
+  return out;
+}
+function FactDensityCallout({ facts, heading = "Datos clave", className }) {
+  if (!facts.length) return null;
+  return /* @__PURE__ */ jsxs(
+    "aside",
+    {
+      "aria-label": heading,
+      className: `border-2 border-cr-primary/40 bg-gradient-to-br from-cr-primary/5 via-cr-bg to-cr-bg p-4 ${className ?? ""}`,
+      children: [
+        /* @__PURE__ */ jsxs("p", { className: "font-mono text-[10px] uppercase tracking-[0.18em] text-cr-primary", children: [
+          "⚡ ",
+          heading
+        ] }),
+        /* @__PURE__ */ jsx("dl", { className: "mt-3 grid grid-cols-1 gap-3 sm:grid-cols-3", children: facts.map((f) => /* @__PURE__ */ jsxs("div", { "data-cite": `${f.label}:${f.value}`, className: "border-l-2 border-cr-primary/40 pl-3", children: [
+          /* @__PURE__ */ jsx("dt", { className: "font-mono text-[10px] uppercase tracking-[0.14em] text-cr-text-muted", children: f.label }),
+          /* @__PURE__ */ jsx("dd", { className: "mt-0.5 font-display text-xl uppercase leading-tight text-cr-text", children: f.value }),
+          f.detail && /* @__PURE__ */ jsx("p", { className: "mt-0.5 font-mono text-[10px] uppercase tracking-[0.1em] text-cr-text-dim", children: f.detail })
+        ] }, f.label)) })
+      ]
+    }
+  );
+}
 function haversineKm(lat1, lng1, lat2, lng2) {
   const R = 6371;
   const dLat = (lat2 - lat1) * Math.PI / 180;
@@ -17447,9 +18373,12 @@ function ConcertDetailPage() {
   const [demand, setDemand] = useState(null);
   const [demandLoading, setDemandLoading] = useState(false);
   const [copied, setCopied] = useState(false);
+  const cheapestRide = rides && rides.length > 0 ? rides.reduce((min, r) => r.price_per_seat < min.price_per_seat ? r : min, rides[0]) : null;
+  const priceFrom = (cheapestRide == null ? void 0 : cheapestRide.price_per_seat) ?? null;
+  const cdpDesc = concert ? priceFrom !== null ? `Carpooling a ${concert.artist} en ${concert.venue.city}: desde ${priceFrom} €/asiento, 0% comisión, conductores verificados. Divide el coste y llega sin taxi.` : `Carpooling a ${concert.artist} en ${concert.venue.city}: desde 3 €/asiento, 0% comisión, conductores verificados. Divide el coste y llega sin taxi.` : "Encuentra un viaje compartido para ir al concierto en España.";
   useSeoMeta({
-    title: concert ? `${concert.artist} en ${concert.venue.city} ${new Date(concert.date).getFullYear()} — Carpooling | ConcertRide` : "Concierto · ConcertRide",
-    description: concert ? `Carpooling para ver a ${concert.artist} en ${concert.venue.name}, ${concert.venue.city}. Sin comisión, conductores verificados. Divide el coste con otros fans y llega sin taxi.` : "Encuentra un viaje compartido para ir al concierto en España.",
+    title: concert ? `${concert.artist} ${concert.venue.city} ${new Date(concert.date).getFullYear()} · Carpooling | ConcertRide` : "Concierto · ConcertRide",
+    description: cdpDesc,
     canonical: id2 ? `${SITE_URL}/concerts/${id2}` : void 0,
     keywords: concert ? `${concert.artist} ${concert.venue.city} ${new Date(concert.date).getFullYear()}, carpooling ${concert.artist}, viaje compartido ${concert.artist}, cómo ir a ${concert.artist}, transporte ${concert.artist} ${concert.venue.city}, coche compartido ${concert.venue.name}, concierto ${concert.venue.city} ${new Date(concert.date).getFullYear()}, ${concert.genre ?? "conciertos"} España, compartir coche ${concert.venue.city}, carpooling concierto ${concert.venue.city}` : void 0,
     ogImage: (concert == null ? void 0 : concert.image_url) ?? void 0,
@@ -17474,9 +18403,11 @@ function ConcertDetailPage() {
     if (!rides) return [];
     return Array.from(new Set(rides.map((r) => r.origin_city))).sort();
   }, [rides]);
+  const { crew } = useCrew();
+  const crewIds = useMemo(() => new Set(crew.map((c) => c.user.id)), [crew]);
   const visible = useMemo(() => {
     if (!rides) return [];
-    return rides.filter((r) => {
+    const filtered = rides.filter((r) => {
       if (filters.origin_city && r.origin_city !== filters.origin_city) return false;
       if (filters.max_price && r.price_per_seat > Number(filters.max_price)) return false;
       if (filters.vibe && r.vibe !== filters.vibe) return false;
@@ -17489,7 +18420,14 @@ function ConcertDetailPage() {
       if (filters.no_smoking && r.smoking_policy !== "no") return false;
       return true;
     });
-  }, [rides, filters]);
+    if (!user) return filtered;
+    return filtered.map((r) => {
+      const isCrew = crewIds.has(r.driver_id);
+      const match = computeMusicMatch(user, r.driver);
+      const score = (isCrew ? 200 : 0) + match.score;
+      return { ride: r, score };
+    }).sort((a, b) => b.score - a.score || a.ride.price_per_seat - b.ride.price_per_seat).map((entry) => entry.ride);
+  }, [rides, filters, user, crewIds]);
   if (error === "concert_not_found") {
     return /* @__PURE__ */ jsx("main", { className: "min-h-dvh flex items-center justify-center px-6 bg-cr-bg", children: /* @__PURE__ */ jsxs("div", { className: "text-center space-y-4 max-w-md", children: [
       /* @__PURE__ */ jsx("p", { className: "font-sans text-[11px] font-semibold uppercase tracking-[0.16em] text-cr-secondary", children: "404" }),
@@ -17803,6 +18741,16 @@ function ConcertDetailPage() {
         ]
       }
     ),
+    concert && /* @__PURE__ */ jsx(
+      AnticipationStrip,
+      {
+        concertId: concert.id,
+        date: concert.date,
+        artist: concert.artist
+      }
+    ),
+    concert && /* @__PURE__ */ jsx(CrewAttendingForConcert, { concertId: concert.id }),
+    concert && !isPast && /* @__PURE__ */ jsx(SquadsForConcert, { concertId: concert.id, artist: concert.artist }),
     /* @__PURE__ */ jsx(FilterBar, { value: filters, onChange: setFilters, cities }),
     /* @__PURE__ */ jsxs("section", { className: "max-w-6xl mx-auto px-6 py-10 space-y-6", children: [
       demand !== null && !isPast && /* @__PURE__ */ jsxs("div", { className: "flex items-center justify-between gap-4 border border-dashed border-cr-border p-4", children: [
@@ -17876,23 +18824,37 @@ function ConcertDetailPage() {
               show: { transition: { staggerChildren: 0.06, delayChildren: 0.05 } }
             },
             className: "grid grid-cols-1 xl:grid-cols-2 gap-4",
-            children: visible.map((ride) => /* @__PURE__ */ jsx(
-              motion.li,
-              {
-                variants: {
-                  hidden: { opacity: 0, y: 16 },
-                  show: { opacity: 1, y: 0, transition: { duration: 0.3 } }
+            children: visible.map((ride) => {
+              const isCrewDriver = crewIds.has(ride.driver_id);
+              return /* @__PURE__ */ jsxs(
+                motion.li,
+                {
+                  variants: {
+                    hidden: { opacity: 0, y: 16 },
+                    show: { opacity: 1, y: 0, transition: { duration: 0.3 } }
+                  },
+                  className: "relative",
+                  children: [
+                    isCrewDriver && /* @__PURE__ */ jsx(
+                      "span",
+                      {
+                        className: "absolute -top-2 left-3 z-10 inline-flex items-center gap-1 border-2 border-cr-primary bg-cr-primary px-2 py-0.5 font-mono text-[10px] font-bold uppercase tracking-[0.14em] text-cr-text-inverse shadow-[0_0_18px_rgb(212_247_0/0.45)]",
+                        title: "Conductor de tu crew",
+                        children: "★ tu crew"
+                      }
+                    ),
+                    /* @__PURE__ */ jsx(
+                      TicketCard,
+                      {
+                        ride,
+                        onClick: () => navigate(`/rides/${ride.id}`)
+                      }
+                    )
+                  ]
                 },
-                children: /* @__PURE__ */ jsx(
-                  TicketCard,
-                  {
-                    ride,
-                    onClick: () => navigate(`/rides/${ride.id}`)
-                  }
-                )
-              },
-              ride.id
-            ))
+                ride.id
+              );
+            })
           }
         ),
         isPast && /* @__PURE__ */ jsxs("div", { className: "border border-cr-primary/30 bg-cr-primary/[0.04] p-6 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4", children: [
@@ -17926,6 +18888,7 @@ function ConcertDetailPage() {
       ] })
     ] }),
     concert && !isPast && /* @__PURE__ */ jsx("section", { className: "max-w-6xl mx-auto px-6 pb-16", children: /* @__PURE__ */ jsx(ConcertChatSection, { concertId: concert.id, artist: concert.artist }) }),
+    concert && !isPast && /* @__PURE__ */ jsx("section", { className: "max-w-6xl mx-auto px-6 pb-16", children: /* @__PURE__ */ jsx(LiveActivityFeed, { scope: "concert", concertId: concert.id, limit: 10, emptyMessage: `Sé el primero en organizarte para ${concert.artist}.` }) }),
     concert && /* @__PURE__ */ jsx(ConcertTransportSection, { concert }),
     concert && !isPast && /* @__PURE__ */ jsx("section", { className: "max-w-6xl mx-auto px-6 pb-16", children: /* @__PURE__ */ jsx(EmbedSnippet, { concertId: concert.id }) })
   ] });
@@ -18086,6 +19049,17 @@ function ConcertTransportSection({ concert }) {
       ] })
     ] }),
     /* @__PURE__ */ jsxs("section", { className: "max-w-6xl mx-auto px-6 pb-16 border-t border-cr-border pt-12 space-y-5", children: [
+      /* @__PURE__ */ jsx(
+        FactDensityCallout,
+        {
+          heading: `Datos clave · ${concert.artist} ${concert.venue.city}`,
+          facts: [
+            { label: "Carpooling desde", value: "3 €/asiento", detail: "0 % comisión" },
+            { label: "Vuelta nocturna", value: "Coordinada", detail: "Chat directo con el conductor" },
+            { label: "Conductores", value: "Verificados", detail: "Carnet + identidad" }
+          ]
+        }
+      ),
       /* @__PURE__ */ jsxs("h2", { className: "font-display text-2xl uppercase", children: [
         "Comparativa: cómo ir a ",
         concert.artist,
@@ -18119,7 +19093,7 @@ function ConcertTransportSection({ concert }) {
             /* @__PURE__ */ jsx("td", { className: "py-2", children: "App" })
           ] }),
           /* @__PURE__ */ jsxs("tr", { className: "border-b border-cr-border/50", children: [
-            /* @__PURE__ */ jsx("td", { className: "py-2 pr-4", children: "BlaBlaCar" }),
+            /* @__PURE__ */ jsx("td", { className: "py-2 pr-4", children: "Otras plataformas de carpooling" }),
             /* @__PURE__ */ jsxs("td", { className: "py-2 pr-4", children: [
               (firstOrigin == null ? void 0 : firstOrigin.concertRideRange) ?? "precio similar",
               " + 12–18 %"
@@ -18331,6 +19305,41 @@ function JsonLdEvent({ concert }) {
       dangerouslySetInnerHTML: { __html: JSON.stringify(jsonLd) }
     }
   );
+}
+function CrewAttendingForConcert({ concertId }) {
+  const { crew } = useCrew();
+  const [attending, setAttending] = useState([]);
+  useEffect(() => {
+    if (!crew.length) {
+      setAttending([]);
+      return;
+    }
+    let cancelled = false;
+    void (async () => {
+      try {
+        const res = await api.crew.attending(concertId);
+        if (!cancelled) {
+          setAttending(
+            res.crew.map((c) => ({ id: c.user.id, name: c.user.name, avatar_url: c.user.avatar_url }))
+          );
+        }
+      } catch {
+        if (!cancelled) setAttending([]);
+      }
+    })();
+    return () => {
+      cancelled = true;
+    };
+  }, [concertId, crew.length]);
+  if (!attending.length) return null;
+  return /* @__PURE__ */ jsx("section", { className: "bg-cr-surface-2 border-y border-cr-border px-4 py-3 sm:px-6", children: /* @__PURE__ */ jsx("div", { className: "mx-auto flex max-w-5xl items-center gap-3", children: /* @__PURE__ */ jsx(
+    CrewAvatars,
+    {
+      size: "sm",
+      people: attending,
+      label: `${attending.length} de tu crew ${attending.length === 1 ? "va" : "van"}`
+    }
+  ) }) });
 }
 const REGION_ISO = {
   "Comunidad de Madrid": "ES-MD",
@@ -23078,7 +24087,7 @@ const BLOG_POSTS = [
     ],
     relatedPosts: ["como-volver-festival-madrugada", "huella-carbono-festivales-carpooling"],
     coverImage: {
-      src: "/og/blog/autobuses-festivales-espana-2026.png",
+      src: "/og/home.png",
       alt: "Autobuses a festivales de España 2026: Viña Rock, Arenal Sound, BBK Live, Mad Cool — guía de transporte ConcertRide",
       width: 1200,
       height: 630
@@ -23163,7 +24172,7 @@ const BLOG_POSTS = [
     ],
     relatedPosts: ["huella-carbono-festivales-carpooling"],
     coverImage: {
-      src: "/og/blog/como-volver-festival-madrugada.png",
+      src: "/og/home.png",
       alt: "Cómo volver de un festival de madrugada: transporte nocturno, carpooling y alternativas al taxi — ConcertRide",
       width: 1200,
       height: 630
@@ -23245,7 +24254,7 @@ const BLOG_POSTS = [
     ],
     relatedPosts: ["como-volver-festival-madrugada"],
     coverImage: {
-      src: "/og/blog/huella-carbono-festivales-carpooling.png",
+      src: "/og/home.png",
       alt: "Huella de carbono en festivales de música: carpooling vs coche individual vs avión — ConcertRide",
       width: 1200,
       height: 630
@@ -23333,7 +24342,7 @@ const BLOG_POSTS = [
     ],
     relatedPosts: ["autobuses-festivales-espana-2026", "como-volver-festival-madrugada", "carpooling-vs-taxi-festival-espana"],
     coverImage: {
-      src: "/og/blog/blablacar-vs-concertride.png",
+      src: "/og/home.png",
       alt: "BlaBlaCar vs ConcertRide para festivales en España: comisiones, diferencias y cuál elegir — ConcertRide",
       width: 1200,
       height: 630
@@ -23467,7 +24476,7 @@ const BLOG_POSTS = [
     ],
     relatedPosts: ["como-volver-festival-madrugada", "autobuses-festivales-espana-2026", "coldplay-madrid-barcelona-2026-como-llegar"],
     coverImage: {
-      src: "/og/blog/que-llevar-al-festival.png",
+      src: "/og/home.png",
       alt: "Qué llevar a un festival de música 2026: lista de equipaje, carpooling y consejos — ConcertRide",
       width: 1200,
       height: 630
@@ -23572,7 +24581,7 @@ const BLOG_POSTS = [
     ],
     relatedPosts: ["autobuses-festivales-espana-2026"],
     coverImage: {
-      src: "/og/blog/coldplay-madrid-barcelona-2026-como-llegar.png",
+      src: "/og/home.png",
       alt: "Coldplay Madrid y Barcelona 2026: cómo llegar al concierto en carpooling, metro y bus — ConcertRide",
       width: 1200,
       height: 630
@@ -26779,7 +27788,7 @@ BLOG_POSTS.push(
     ],
     relatedPosts: ["festivales-musica-espana-2026", "festivales-verano-espana-2026-transporte"],
     coverImage: {
-      src: "/og/blog/alternativa-blablacar-festivales-espana.png",
+      src: "/og/home.png",
       alt: "Alternativa a BlaBlaCar para festivales en España: ConcertRide sin comisión — guía comparativa 2026",
       width: 1200,
       height: 630
@@ -27152,7 +28161,7 @@ BLOG_POSTS.push(
     ],
     relatedPosts: ["blablacar-vs-concertride", "alternativa-blablacar-festivales-espana"],
     coverImage: {
-      src: "/og/blog/es-seguro-carpooling-festivales.png",
+      src: "/og/home.png",
       alt: "¿Es seguro el carpooling para ir a festivales de música en España? Conductores verificados ConcertRide — 2026",
       width: 1200,
       height: 630
@@ -27356,7 +28365,7 @@ BLOG_POSTS.push(
     ],
     relatedPosts: ["faq-para-nuevos-usuarios-concertride", "es-seguro-carpooling-festivales"],
     coverImage: {
-      src: "/og/blog/carpooling-gratuito-festivales-sin-comision.png",
+      src: "/og/home.png",
       alt: "Carpooling gratuito a festivales en España sin comisión: ConcertRide 0% vs BlaBlaCar 15% — 2026",
       width: 1200,
       height: 630
@@ -27478,7 +28487,7 @@ BLOG_POSTS.push(
     ],
     relatedPosts: ["preguntas-frecuentes-carpooling-festivales-espana", "transporte-nocturno-vuelta-festival"],
     coverImage: {
-      src: "/og/blog/que-llevar-a-un-festival-de-musica.png",
+      src: "/og/home.png",
       alt: "Qué llevar a un festival de música 2026: lista completa de equipaje, ropa y carpooling — ConcertRide",
       width: 1200,
       height: 630
@@ -28097,7 +29106,7 @@ BLOG_POSTS.push(
     readingMinutes: 7,
     lede: "El ALPHA Tour de Aitana en 2026 recorre los principales pabellones de España: WiZink Center en Madrid, Palau Sant Jordi en Barcelona, BEC! en Bilbao. Aquí tienes los precios de carpooling reales, el transporte público disponible y los trucos para no quedarte sin vuelta de madrugada.",
     coverImage: {
-      src: "/blog/aitana-alpha-tour-2026.jpg",
+      src: "/og/home.png",
       alt: "Concierto de Aitana en el WiZink Center Madrid 2026",
       width: 1200,
       height: 630
@@ -28187,7 +29196,7 @@ BLOG_POSTS.push(
     readingMinutes: 6,
     lede: "El ex vocalista de El Canto del Loco confirma gira de pabellones en 2026. Si vienes de fuera de Zaragoza, Madrid o A Coruña, el carpooling es la forma más barata y práctica de llegar y volver del concierto sin depender de los últimos metros o los primeros trenes.",
     coverImage: {
-      src: "/blog/dani-martin-gira-2026.jpg",
+      src: "/og/home.png",
       alt: "Concierto de Dani Martín gira 2026 en Zaragoza y Madrid",
       width: 1200,
       height: 630
@@ -28258,7 +29267,7 @@ BLOG_POSTS.push(
     readingMinutes: 7,
     lede: "Vive Latino aterriza en España por primera vez. El festival nacido en México en 1998 que reúne a los artistas más importantes del rock alternativo y la música latina en habla hispana celebra su primera edición europea en Zaragoza el 20 y 21 de junio de 2026.",
     coverImage: {
-      src: "/blog/vive-latino-zaragoza-2026.jpg",
+      src: "/og/home.png",
       alt: "Festival Vive Latino España 2026 en Zaragoza",
       width: 1200,
       height: 630
@@ -28343,7 +29352,7 @@ BLOG_POSTS.push(
     readingMinutes: 8,
     lede: "El tren tiene una imagen de sostenibilidad y puntualidad que lo hace atractivo para ir a festivales. Pero cuando el festival termina a las 3 de la madrugada y el último tren salió a las 22:30, la sostenibilidad no te lleva a casa. Esta es la comparativa honesta.",
     coverImage: {
-      src: "/blog/carpooling-vs-renfe-festivales.jpg",
+      src: "/og/home.png",
       alt: "Comparativa carpooling vs tren Renfe para festivales de música en España",
       width: 1200,
       height: 630
@@ -28427,7 +29436,7 @@ BLOG_POSTS.push(
     readingMinutes: 6,
     lede: "Zaragoza tiene una posición geográfica única en España: equidistante de Madrid, Barcelona y Bilbao, con excelente conexión por autopista y AVE. En 2026, la ciudad consolida su posición como hub de festivales con el Vive Latino como gran evento estrella.",
     coverImage: {
-      src: "/blog/festivales-zaragoza-2026.jpg",
+      src: "/og/home.png",
       alt: "Festivales en Zaragoza 2026 — Vive Latino y carpooling desde Madrid y Barcelona",
       width: 1200,
       height: 630
@@ -28501,7 +29510,7 @@ BLOG_POSTS.push(
     readingMinutes: 8,
     lede: "El pop español vive su mejor momento: Aitana llena pabellones con el ALPHA Tour, Dani Martín vuelve con su gira de reencuentro, Melendi recorre el norte y Pablo Alborán cierra el círculo de la balada española. Esta guía recoge todos los precios de carpooling para cada tour.",
     coverImage: {
-      src: "/blog/artistas-espanoles-gira-2026.jpg",
+      src: "/og/home.png",
       alt: "Artistas españoles Aitana, Dani Martín, Melendi y Pablo Alborán de gira en 2026",
       width: 1200,
       height: 630
@@ -28580,7 +29589,7 @@ BLOG_POSTS.push(
     readingMinutes: 8,
     lede: "En la mayoría de festivales españoles, el último tren o autobús de vuelta sale entre las 22:30 y las 23:30. El headliner actúa a las 00:00. El carpooling es la única opción que te deja ver el concierto completo y volverte.",
     coverImage: {
-      src: "/blog/tren-vs-carpooling-festivales.jpg",
+      src: "/og/home.png",
       alt: "Comparativa tren AVE vs carpooling ConcertRide para festivales de España",
       width: 1200,
       height: 630
@@ -28677,7 +29686,7 @@ BLOG_POSTS.push(
     readingMinutes: 9,
     lede: "En 2026, el Pabellón Príncipe Felipe de Zaragoza acoge doble fecha de Dani Martín, Aitana y Hombres G, mientras el Recinto Expo abre con el Vive Latino España. Huesca, Teruel, Navarra y La Rioja tienen una demanda de carpooling hacia Zaragoza sin precedentes.",
     coverImage: {
-      src: "/blog/conciertos-zaragoza-2026-transporte.jpg",
+      src: "/og/home.png",
       alt: "Pabellón Príncipe Felipe de Zaragoza — cómo llegar a los conciertos de 2026",
       width: 1200,
       height: 630
@@ -28780,7 +29789,7 @@ BLOG_POSTS.push(
     readingMinutes: 7,
     lede: "La mayoría de la gente va a festivales en grupos de 3 a 6 personas. El problema: las plataformas genéricas de carpooling no permiten reservar más de 1–2 plazas por usuario. ConcertRide está diseñado para viajes festivaleros, donde el grupo entero va junto.",
     coverImage: {
-      src: "/blog/viaje-grupal-festival-carpooling.jpg",
+      src: "/og/home.png",
       alt: "Grupo de amigos organizando el viaje a un festival de música con ConcertRide",
       width: 1200,
       height: 630
@@ -30667,7 +31676,7 @@ BLOG_POSTS.push({
   author: "ConcertRide",
   readingMinutes: 8,
   lede: "Sevilla es uno de los destinos musicales más activos de España en 2026: estadios, festivales urbanos y conciertos cubiertos. Te contamos cómo llegar a cada recinto y cómo compartir coche sin pagar comisión.",
-  coverImage: { src: "/images/blog/sevilla-estadio-cartuja.jpg", alt: "Estadio La Cartuja Sevilla concierto" },
+  coverImage: { src: "/og/home.png", alt: "Estadio La Cartuja Sevilla concierto — ConcertRide carpooling" },
   sections: [
     {
       heading: "La agenda de conciertos en Sevilla 2026: los recintos principales",
@@ -30781,7 +31790,7 @@ BLOG_POSTS.push({
   author: "ConcertRide",
   readingMinutes: 7,
   lede: "El Arenal Sound se celebra en la Playa de Burriana (Castellón), 5 km al sur de la ciudad. Sin metro, sin aparcamiento fácil — pero con autobuses lanzadera, tren de Cercanías y carpooling que lo hacen accesible desde toda España.",
-  coverImage: { src: "/images/blog/arenal-sound-burriana-playa.jpg", alt: "Arenal Sound Playa Burriana Castellón cómo llegar" },
+  coverImage: { src: "/og/arenal-sound.png", alt: "Arenal Sound Playa Burriana Castellón cómo llegar — ConcertRide carpooling" },
   sections: [
     {
       heading: "Dónde está el Arenal Sound: Playa de Burriana, Castellón",
@@ -31435,7 +32444,7 @@ function AutoLinksForBlog({ slug }) {
   const routeLinks = (post.relatedLinks ?? []).filter(
     (l) => l.to.startsWith("/rutas/")
   );
-  const showComparativa = post.category === "comparativas" && slug !== "blablacar-vs-concertride";
+  const showComparativa = false;
   return /* @__PURE__ */ jsx("aside", { className: "mt-8", children: /* @__PURE__ */ jsxs("div", { className: "bg-gray-900 p-4 rounded-lg space-y-3", children: [
     /* @__PURE__ */ jsx("h3", { className: "font-bold", children: "Artículos y páginas relacionadas" }),
     /* @__PURE__ */ jsxs("ul", { className: "space-y-2 text-sm", children: [
@@ -31448,7 +32457,7 @@ function AutoLinksForBlog({ slug }) {
         /* @__PURE__ */ jsx("li", { className: "mt-2 font-semibold text-cr-text-muted", children: "Rutas de carpooling" }),
         routeLinks.map((l) => /* @__PURE__ */ jsx("li", { children: /* @__PURE__ */ jsx(Link, { to: l.to, className: "hover:underline", children: l.label }) }, l.to))
       ] }),
-      showComparativa && /* @__PURE__ */ jsx("li", { className: "mt-2", children: /* @__PURE__ */ jsx(Link, { to: "/blog/blablacar-vs-concertride", className: "text-cr-primary hover:underline", children: "BlaBlaCar vs ConcertRide — comparativa completa" }) })
+      showComparativa
     ] })
   ] }) });
 }
@@ -31582,7 +32591,7 @@ function CityLandingPage() {
   const cityOverride = landing ? CITY_SEO_IMPROVEMENTS[landing.slug] || CITY_META_OVERRIDES[landing.slug] : void 0;
   useSeoMeta({
     title: landing ? (cityOverride == null ? void 0 : cityOverride.title) ?? `Conciertos en ${landing.display} ${year}: carpooling | ConcertRide` : "Conciertos por ciudad",
-    description: landing ? (cityOverride == null ? void 0 : cityOverride.description) ?? `Conciertos y festivales en ${landing.display} ${year}: ${landing.venues.slice(0, 2).join(", ")} y más. Carpooling sin comisión desde 3 €/asiento. Conductores verificados.` : "Explora conciertos por ciudad en España.",
+    description: landing ? (cityOverride == null ? void 0 : cityOverride.description) ?? `Carpooling a conciertos en ${landing.display} ${year} desde 3 €/asiento, 0% comisión. Próximos eventos en ${landing.venues.slice(0, 2).join(", ")} y más. Conductores verificados.` : "Explora conciertos por ciudad en España.",
     canonical: landing ? `${SITE_URL}/conciertos/${landing.slug}` : `${SITE_URL}/concerts`,
     keywords: landing ? (cityOverride == null ? void 0 : cityOverride.keywords) ?? `conciertos en ${landing.display} ${year}, conciertos ${landing.display} ${nextYear}, agenda musical ${landing.display} ${year}, próximos conciertos ${landing.display}, conciertos música ${landing.display}, como ir a conciertos ${landing.display}, festivales ${landing.display}, carpooling ${landing.display} ${year}, coche compartido concierto ${landing.display}, cómo ir al concierto ${landing.display}, carpooling concierto ${landing.display}, viaje compartido ${landing.display} ${year}` : void 0,
     ogImageAlt: landing ? `Conciertos y carpooling en ${landing.display} ${year} · ConcertRide` : "Conciertos por ciudad en España · ConcertRide",
@@ -31633,7 +32642,7 @@ function CityLandingPage() {
       },
       {
         q: `¿Es seguro el coche compartido para ir a conciertos en ${landing.display}?`,
-        a: `Sí. En ConcertRide todos los conductores verifican su carnet de conducir antes de publicar un viaje. Puedes ver el perfil completo del conductor, sus valoraciones de otros pasajeros y comunicarte por chat antes del viaje. El pago siempre es en persona el día del evento — nunca adelantas dinero online. El modelo de gastos compartidos sin comisión está reconocido como legal en España por el Tribunal Supremo (caso BlaBlaCar, 2017).`
+        a: `Sí. En ConcertRide todos los conductores verifican su carnet de conducir antes de publicar un viaje. Puedes ver el perfil completo del conductor, sus valoraciones de otros pasajeros y comunicarte por chat antes del viaje. El pago siempre es en persona el día del evento — nunca adelantas dinero online. El modelo de gastos compartidos sin comisión está reconocido como legal en España por el Tribunal Supremo desde 2017.`
       }
     ];
   }, [landing, year, nextYear]);
@@ -31644,6 +32653,41 @@ function CityLandingPage() {
     const topVenues = landing.venues.slice(0, 5);
     const originCoords = { lat: landing.lat, lng: landing.lng };
     return [
+      // CollectionPage = the canonical "this URL is a curated list of concerts
+      // in a city" hint to crawlers. Pairs with the BreadcrumbList already
+      // emitted by the layout. Required for the audit gap closed.
+      {
+        "@context": "https://schema.org",
+        "@type": "CollectionPage",
+        "@id": `${SITE_URL}/conciertos/${landing.slug}#page`,
+        url: `${SITE_URL}/conciertos/${landing.slug}`,
+        name: `Conciertos y festivales en ${landing.display} ${year}`,
+        description: `Agenda de conciertos en ${landing.display} con carpooling sin comisión.`,
+        inLanguage: "es-ES",
+        about: {
+          "@type": "Place",
+          name: landing.display,
+          containedInPlace: { "@type": "Country", name: "España" }
+        }
+      },
+      // LocalBusiness gives ConcertRide a local entity anchor per city —
+      // even though we're a digital service, the social-coordination layer
+      // is genuinely place-bound and Google now rewards local entity hints
+      // for "carpooling [city]" SERPs.
+      {
+        "@context": "https://schema.org",
+        "@type": "LocalBusiness",
+        "@id": `${SITE_URL}/conciertos/${landing.slug}#localbusiness`,
+        name: `ConcertRide · ${landing.display}`,
+        url: `${SITE_URL}/conciertos/${landing.slug}`,
+        areaServed: {
+          "@type": "City",
+          name: landing.display,
+          address: { "@type": "PostalAddress", addressLocality: landing.display, addressCountry: "ES" }
+        },
+        geo: { "@type": "GeoCoordinates", latitude: landing.lat, longitude: landing.lng },
+        priceRange: "€3-€20"
+      },
       {
         "@context": "https://schema.org",
         "@type": "ItemList",
@@ -31972,7 +33016,7 @@ function CityLandingPage() {
             inLanguage: "es-ES",
             license: "https://creativecommons.org/licenses/by/4.0/",
             creator: { "@type": "Organization", "@id": `${SITE_URL}/#organization` },
-            keywords: `transporte conciertos ${landing.display}, carpooling ${landing.display}, BlaBlaCar vs ConcertRide, taxi concierto ${landing.display}`,
+            keywords: `transporte conciertos ${landing.display}, carpooling ${landing.display}, alternativa carpooling, taxi concierto ${landing.display}`,
             variableMeasured: [
               { "@type": "PropertyValue", name: "Opción de transporte", value: "ConcertRide carpooling" },
               { "@type": "PropertyValue", name: "Precio orientativo", value: "3–35 €/asiento" },
@@ -31989,7 +33033,7 @@ function CityLandingPage() {
               },
               {
                 "@type": "DataDownload",
-                name: "BlaBlaCar",
+                name: "Otras plataformas de carpooling",
                 description: `Precio: Similar a ConcertRide · Comisión: 12–18 % · Vuelta madrugada: Variable · Reserva: Recomendada`
               },
               {
@@ -32076,6 +33120,17 @@ function CityLandingPage() {
       ] }) : /* @__PURE__ */ jsx("div", { className: "grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5", children: futureConcerts.map((c) => /* @__PURE__ */ jsx(Link, { to: `/concerts/${c.id}`, className: "block", children: /* @__PURE__ */ jsx(ConcertCard, { concert: c }) }, c.id)) })
     ] }),
     /* @__PURE__ */ jsxs("section", { className: "max-w-6xl mx-auto px-6 pb-12 border-t border-cr-border pt-12 space-y-6", children: [
+      /* @__PURE__ */ jsx(
+        FactDensityCallout,
+        {
+          heading: `Datos clave · ${landing.display} ${year}`,
+          facts: [
+            { label: "Carpooling desde", value: "3 €/asiento", detail: "0 % comisión" },
+            { label: "Próximos eventos", value: `${landing.venues.length} recintos`, detail: landing.venues.slice(0, 2).join(" · ") },
+            { label: "Cobertura", value: "Toda España", detail: "Vuelta nocturna coordinada" }
+          ]
+        }
+      ),
       /* @__PURE__ */ jsxs("h2", { className: "font-display text-xl md:text-2xl uppercase", children: [
         "Transporte para conciertos en ",
         landing.display,
@@ -32105,7 +33160,7 @@ function CityLandingPage() {
             /* @__PURE__ */ jsx("td", { className: "py-2", children: "Recomendada" })
           ] }),
           /* @__PURE__ */ jsxs("tr", { children: [
-            /* @__PURE__ */ jsx("td", { className: "py-2 pr-4", children: "BlaBlaCar" }),
+            /* @__PURE__ */ jsx("td", { className: "py-2 pr-4", children: "Otras plataformas de carpooling" }),
             /* @__PURE__ */ jsx("td", { className: "py-2 pr-4", children: "Precio similar" }),
             /* @__PURE__ */ jsx("td", { className: "py-2 pr-4 text-yellow-400", children: "12–18 %" }),
             /* @__PURE__ */ jsx("td", { className: "py-2 pr-4", children: "Variable" }),
@@ -33714,6 +34769,185 @@ function FestivalAlertWidget({ festivalSlug, festivalName }) {
     ] })
   ] });
 }
+function FestivalQnaWidget({ festivalSlug, festivalName }) {
+  const { user } = useSession();
+  const [items, setItems] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [showForm, setShowForm] = useState(false);
+  const [question, setQuestion] = useState("");
+  const [answer, setAnswer] = useState("");
+  const [submitting, setSubmitting] = useState(false);
+  const [submitMessage, setSubmitMessage] = useState(null);
+  useEffect(() => {
+    let cancelled = false;
+    void (async () => {
+      try {
+        const res = await api.festivalQnas.list(festivalSlug);
+        if (!cancelled) setItems(res.items);
+      } catch {
+        if (!cancelled) setItems([]);
+      } finally {
+        if (!cancelled) setLoading(false);
+      }
+    })();
+    return () => {
+      cancelled = true;
+    };
+  }, [festivalSlug]);
+  async function handleSubmit(e) {
+    e.preventDefault();
+    if (!user) {
+      window.location.href = `/login?next=${encodeURIComponent(`/festivales/${festivalSlug}`)}`;
+      return;
+    }
+    setSubmitting(true);
+    setSubmitMessage(null);
+    try {
+      await api.festivalQnas.create({
+        festival_slug: festivalSlug,
+        question: question.trim(),
+        answer: answer.trim()
+      });
+      track("festival_qna_submitted", { festival_slug: festivalSlug });
+      setSubmitMessage("✓ Enviado. Lo revisamos antes de publicarlo.");
+      setQuestion("");
+      setAnswer("");
+      setShowForm(false);
+    } catch (err) {
+      if (err instanceof ApiError) {
+        setSubmitMessage(
+          err.status === 429 ? "Demasiados envíos. Espera un poco." : err.status === 400 && /no_links_allowed/.test(String(err.message)) ? "No se permiten enlaces en las preguntas." : "Error al enviar. Inténtalo de nuevo."
+        );
+      } else {
+        setSubmitMessage("Error al enviar. Inténtalo de nuevo.");
+      }
+    } finally {
+      setSubmitting(false);
+    }
+  }
+  async function upvote(id2) {
+    try {
+      const updated = await api.festivalQnas.upvote(id2);
+      setItems((prev) => prev.map((q) => q.id === id2 ? updated : q));
+      track("festival_qna_upvoted", { id: id2 });
+    } catch {
+    }
+  }
+  return /* @__PURE__ */ jsxs(
+    "section",
+    {
+      "aria-label": "Preguntas y consejos de la comunidad",
+      className: "border-y border-cr-border bg-cr-surface-2",
+      children: [
+        /* @__PURE__ */ jsx("header", { className: "border-b border-cr-border px-4 py-4 sm:px-6", children: /* @__PURE__ */ jsxs("div", { className: "mx-auto flex max-w-5xl flex-col gap-2 sm:flex-row sm:items-baseline sm:justify-between", children: [
+          /* @__PURE__ */ jsxs("div", { children: [
+            /* @__PURE__ */ jsxs("p", { className: "font-mono text-[10px] uppercase tracking-[0.18em] text-cr-text-muted", children: [
+              "Comunidad · ",
+              festivalName
+            ] }),
+            /* @__PURE__ */ jsx("h2", { className: "mt-1 font-display text-2xl uppercase", children: "Consejos de quienes ya fueron" })
+          ] }),
+          /* @__PURE__ */ jsx(
+            "button",
+            {
+              type: "button",
+              onClick: () => setShowForm((v) => !v),
+              className: "self-start border-2 border-cr-primary px-3 py-1.5 font-mono text-[10px] font-bold uppercase tracking-[0.14em] text-cr-primary hover:bg-cr-primary hover:text-cr-text-inverse",
+              children: showForm ? "Cancelar" : "+ Compartir consejo"
+            }
+          )
+        ] }) }),
+        showForm && /* @__PURE__ */ jsx("form", { onSubmit: handleSubmit, className: "border-b border-cr-border bg-cr-bg/40 px-4 py-4 sm:px-6", children: /* @__PURE__ */ jsxs("div", { className: "mx-auto flex max-w-3xl flex-col gap-3", children: [
+          /* @__PURE__ */ jsxs("label", { className: "block", children: [
+            /* @__PURE__ */ jsx("span", { className: "font-mono text-[11px] font-semibold uppercase tracking-[0.14em] text-cr-text-muted", children: "Pregunta o tema" }),
+            /* @__PURE__ */ jsx(
+              "input",
+              {
+                type: "text",
+                value: question,
+                onChange: (e) => setQuestion(e.target.value.slice(0, 200)),
+                required: true,
+                minLength: 8,
+                maxLength: 200,
+                placeholder: "¿Cuándo conviene salir desde Madrid?",
+                className: "mt-1 w-full bg-cr-surface border-2 border-cr-border focus:border-cr-primary outline-none px-3 py-2 font-sans text-sm text-cr-text"
+              }
+            )
+          ] }),
+          /* @__PURE__ */ jsxs("label", { className: "block", children: [
+            /* @__PURE__ */ jsx("span", { className: "font-mono text-[11px] font-semibold uppercase tracking-[0.14em] text-cr-text-muted", children: "Tu respuesta / consejo" }),
+            /* @__PURE__ */ jsx(
+              "textarea",
+              {
+                value: answer,
+                onChange: (e) => setAnswer(e.target.value.slice(0, 1e3)),
+                required: true,
+                rows: 4,
+                minLength: 8,
+                maxLength: 1e3,
+                placeholder: "Salir antes de las 14h evita el atasco en la A-3 los viernes…",
+                className: "mt-1 w-full bg-cr-surface border-2 border-cr-border focus:border-cr-primary outline-none px-3 py-2 font-sans text-sm text-cr-text"
+              }
+            ),
+            /* @__PURE__ */ jsxs("span", { className: "mt-1 block font-mono text-[10px] uppercase tracking-[0.12em] text-cr-text-dim", children: [
+              answer.length,
+              "/1000 · sin enlaces"
+            ] })
+          ] }),
+          /* @__PURE__ */ jsxs("div", { className: "flex items-center gap-3", children: [
+            /* @__PURE__ */ jsx(
+              "button",
+              {
+                type: "submit",
+                disabled: submitting || answer.length < 8,
+                className: "border-2 border-cr-primary bg-cr-primary px-4 py-2 font-mono text-[11px] font-bold uppercase tracking-[0.14em] text-cr-text-inverse disabled:opacity-40",
+                children: submitting ? "Enviando…" : "Enviar para revisión"
+              }
+            ),
+            submitMessage && /* @__PURE__ */ jsx("p", { className: "text-xs text-cr-text-muted", children: submitMessage })
+          ] })
+        ] }) }),
+        /* @__PURE__ */ jsxs("div", { className: "mx-auto max-w-5xl px-4 py-6 sm:px-6", children: [
+          loading ? /* @__PURE__ */ jsx("p", { className: "font-mono text-xs text-cr-text-muted", children: "Cargando…" }) : items.length === 0 ? /* @__PURE__ */ jsxs("div", { className: "border-2 border-dashed border-cr-border bg-cr-bg/40 p-6 text-center", children: [
+            /* @__PURE__ */ jsx("p", { className: "font-display text-lg uppercase", children: "Aún sin consejos" }),
+            /* @__PURE__ */ jsxs("p", { className: "mt-1 text-xs text-cr-text-muted", children: [
+              "Sé el primero en contar tu experiencia llegando a ",
+              festivalName,
+              ".",
+              submitMessage && submitMessage.startsWith("✓") ? ` ${submitMessage}` : ""
+            ] })
+          ] }) : /* @__PURE__ */ jsx("ul", { className: "grid gap-4 md:grid-cols-2", children: items.map((q) => /* @__PURE__ */ jsxs("li", { className: "border border-cr-border bg-cr-bg/40 p-4", children: [
+            /* @__PURE__ */ jsx("p", { className: "font-display text-base uppercase leading-snug", children: q.question }),
+            /* @__PURE__ */ jsx("p", { className: "mt-2 text-sm text-cr-text-muted", children: q.answer }),
+            /* @__PURE__ */ jsxs("div", { className: "mt-3 flex items-center justify-between gap-3", children: [
+              /* @__PURE__ */ jsxs("span", { className: "font-mono text-[10px] uppercase tracking-[0.14em] text-cr-text-dim", children: [
+                "@",
+                q.user_name
+              ] }),
+              /* @__PURE__ */ jsxs(
+                "button",
+                {
+                  type: "button",
+                  onClick: () => upvote(q.id),
+                  className: "font-mono text-[10px] uppercase tracking-[0.14em] text-cr-text-muted hover:text-cr-primary",
+                  children: [
+                    "▲ ",
+                    q.upvotes
+                  ]
+                }
+              )
+            ] })
+          ] }, q.id)) }),
+          items.length > 0 && /* @__PURE__ */ jsxs("p", { className: "mt-4 text-center text-xs text-cr-text-dim", children: [
+            "Las respuestas se moderan antes de publicarse para evitar spam.",
+            " ",
+            /* @__PURE__ */ jsx(Link, { to: "/contacto", className: "underline hover:text-cr-primary", children: "Reportar contenido" })
+          ] })
+        ] })
+      ]
+    }
+  );
+}
 const FESTIVAL_DEFAULT_OG = `${SITE_URL}/og-fallback.png`;
 const FESTIVAL_WIKIDATA = {
   "mad-cool": "https://www.wikidata.org/wiki/Q22808739",
@@ -33738,7 +34972,7 @@ function FestivalLandingPage() {
   const { festival: slug } = useParams();
   const festival = slug ? FESTIVAL_LANDINGS_BY_SLUG[slug] : void 0;
   const [concerts, setConcerts] = useState(null);
-  const festivalOgImage = (festival == null ? void 0 : festival.ogImage) ? festival.ogImage.startsWith("http") ? festival.ogImage : `${SITE_URL}${festival.ogImage}` : FESTIVAL_DEFAULT_OG;
+  const festivalOgImage = (festival == null ? void 0 : festival.ogImage) ? festival.ogImage.startsWith("http") ? festival.ogImage : `${SITE_URL}${festival.ogImage}` : festival ? `${SITE_URL}/api/og/festival/${festival.slug}.svg` : FESTIVAL_DEFAULT_OG;
   const festYear = festival ? new Date(festival.startDate).getFullYear() : (/* @__PURE__ */ new Date()).getFullYear();
   const FESTIVAL_META_OVERRIDES = Object.fromEntries(
     Object.entries(FESTIVAL_SEO_OVERRIDES).map(([slug2, override]) => [
@@ -34178,7 +35412,7 @@ function FestivalLandingPage() {
       inLanguage: "es-ES",
       license: "https://creativecommons.org/licenses/by/4.0/",
       creator: { "@type": "Organization", "@id": `${SITE_URL}/#organization` },
-      keywords: `transporte ${festival.shortName}, carpooling ${festival.shortName}, bus ${festival.shortName}, tren ${festival.shortName}, BlaBlaCar vs ConcertRide ${festival.shortName}`,
+      keywords: `transporte ${festival.shortName}, carpooling ${festival.shortName}, bus ${festival.shortName}, tren ${festival.shortName}, alternativa carpooling ${festival.shortName}`,
       variableMeasured: [
         { "@type": "PropertyValue", name: "Opción de transporte", value: "ConcertRide carpooling" },
         { "@type": "PropertyValue", name: "Precio desde", value: ((_j = festival.originCities[0]) == null ? void 0 : _j.concertRideRange) ?? "3–20 €/asiento" },
@@ -34210,7 +35444,7 @@ function FestivalLandingPage() {
         },
         {
           "@type": "DataDownload",
-          name: "BlaBlaCar",
+          name: "Otras plataformas de carpooling",
           description: `Precio: Similar a ConcertRide + 12–18 % comisión · Comisión: 12–18 % · Vuelta madrugada: Depende del conductor`
         }
       ]
@@ -34425,67 +35659,84 @@ function FestivalLandingPage() {
         "? Tienes los detalles concretos por ciudad de origen más abajo."
       ] })
     ] }),
-    /* @__PURE__ */ jsx("section", { className: "max-w-6xl mx-auto px-6 pb-12 border-t border-cr-border pt-12", children: festival.transport_options && festival.transport_options.length > 0 ? /* @__PURE__ */ jsx(
-      TransportTable,
-      {
-        options: festival.transport_options,
-        officialShuttle: festival.official_shuttle,
-        festivalName: festival.shortName
-      }
-    ) : (
-      /* Fallback genérico para festivales sin datos curados */
-      /* @__PURE__ */ jsxs("div", { className: "space-y-5", children: [
-        /* @__PURE__ */ jsxs("h2", { className: "font-display text-2xl md:text-3xl uppercase", children: [
-          "Autobuses a ",
-          festival.shortName,
-          " ",
-          festYear,
-          ": bus oficial, lanzadera y transporte alternativo"
-        ] }),
-        /* @__PURE__ */ jsxs("p", { className: "font-sans text-sm text-cr-text-muted max-w-3xl leading-relaxed", children: [
-          "Resumen de las opciones de bus, autobús, lanzadera oficial y tren para llegar a",
-          " ",
-          /* @__PURE__ */ jsx("strong", { className: "text-cr-text", children: festival.name }),
-          " en ",
-          festival.venue,
-          " (",
-          festival.city,
-          "). Cuando no hay servicio público en horario de festival, la alternativa más usada es el coche compartido (carpooling) con ConcertRide."
-        ] }),
-        /* @__PURE__ */ jsxs("ul", { className: "font-sans text-xs text-cr-text-muted space-y-1 max-w-3xl", children: [
-          /* @__PURE__ */ jsxs("li", { children: [
-            /* @__PURE__ */ jsxs("strong", { className: "text-cr-text", children: [
-              "Desde ",
-              (_p = festival.originCities[0]) == null ? void 0 : _p.city,
-              ":"
-            ] }),
+    /* @__PURE__ */ jsxs("section", { className: "max-w-6xl mx-auto px-6 pb-12 border-t border-cr-border pt-12 space-y-5", children: [
+      /* @__PURE__ */ jsx(
+        FactDensityCallout,
+        {
+          heading: `Datos clave · ${festival.shortName}`,
+          facts: [
+            { label: "Carpooling desde", value: "3 €/asiento", detail: "0 % comisión" },
+            { label: "Ahorro vs taxi", value: "−75 %", detail: `Ruta media a ${festival.city}` },
+            {
+              label: "Vuelta noche",
+              value: festival.official_shuttle ? "Lanzadera oficial" : "Coordinada en chat",
+              detail: festival.official_shuttle ? "Operada por la organización" : "Conductores publican vuelta"
+            }
+          ]
+        }
+      ),
+      festival.transport_options && festival.transport_options.length > 0 ? /* @__PURE__ */ jsx(
+        TransportTable,
+        {
+          options: festival.transport_options,
+          officialShuttle: festival.official_shuttle,
+          festivalName: festival.shortName
+        }
+      ) : (
+        /* Fallback genérico para festivales sin datos curados */
+        /* @__PURE__ */ jsxs("div", { className: "space-y-5", children: [
+          /* @__PURE__ */ jsxs("h2", { className: "font-display text-2xl md:text-3xl uppercase", children: [
+            "Autobuses a ",
+            festival.shortName,
             " ",
-            (_q = festival.originCities[0]) == null ? void 0 : _q.km,
-            " km · ",
-            (_r = festival.originCities[0]) == null ? void 0 : _r.drivingTime,
-            " ·",
-            " ",
-            "carpooling desde ",
-            ((_s = festival.originCities[0]) == null ? void 0 : _s.concertRideRange) ?? "3 €",
-            "."
+            festYear,
+            ": bus oficial, lanzadera y transporte alternativo"
           ] }),
-          festival.originCities.slice(1, 4).map((oc) => /* @__PURE__ */ jsxs("li", { children: [
-            /* @__PURE__ */ jsxs("strong", { className: "text-cr-text", children: [
-              "Desde ",
-              oc.city,
-              ":"
-            ] }),
+          /* @__PURE__ */ jsxs("p", { className: "font-sans text-sm text-cr-text-muted max-w-3xl leading-relaxed", children: [
+            "Resumen de las opciones de bus, autobús, lanzadera oficial y tren para llegar a",
             " ",
-            oc.km,
-            " km · ",
-            oc.drivingTime,
-            " · carpooling desde ",
-            oc.concertRideRange,
-            "."
-          ] }, oc.city))
+            /* @__PURE__ */ jsx("strong", { className: "text-cr-text", children: festival.name }),
+            " en ",
+            festival.venue,
+            " (",
+            festival.city,
+            "). Cuando no hay servicio público en horario de festival, la alternativa más usada es el coche compartido (carpooling) con ConcertRide."
+          ] }),
+          /* @__PURE__ */ jsxs("ul", { className: "font-sans text-xs text-cr-text-muted space-y-1 max-w-3xl", children: [
+            /* @__PURE__ */ jsxs("li", { children: [
+              /* @__PURE__ */ jsxs("strong", { className: "text-cr-text", children: [
+                "Desde ",
+                (_p = festival.originCities[0]) == null ? void 0 : _p.city,
+                ":"
+              ] }),
+              " ",
+              (_q = festival.originCities[0]) == null ? void 0 : _q.km,
+              " km · ",
+              (_r = festival.originCities[0]) == null ? void 0 : _r.drivingTime,
+              " ·",
+              " ",
+              "carpooling desde ",
+              ((_s = festival.originCities[0]) == null ? void 0 : _s.concertRideRange) ?? "3 €",
+              "."
+            ] }),
+            festival.originCities.slice(1, 4).map((oc) => /* @__PURE__ */ jsxs("li", { children: [
+              /* @__PURE__ */ jsxs("strong", { className: "text-cr-text", children: [
+                "Desde ",
+                oc.city,
+                ":"
+              ] }),
+              " ",
+              oc.km,
+              " km · ",
+              oc.drivingTime,
+              " · carpooling desde ",
+              oc.concertRideRange,
+              "."
+            ] }, oc.city))
+          ] })
         ] })
-      ] })
-    ) }),
+      )
+    ] }),
     /* @__PURE__ */ jsxs("section", { className: "max-w-6xl mx-auto px-6 pb-16 border-t border-cr-border pt-12", children: [
       /* @__PURE__ */ jsxs("h2", { className: "font-display text-2xl md:text-3xl uppercase mb-2", children: [
         "Precio del carpooling a ",
@@ -34879,7 +36130,7 @@ function FestivalLandingPage() {
             /* @__PURE__ */ jsx("td", { className: "py-2", children: "App" })
           ] }),
           /* @__PURE__ */ jsxs("tr", { className: "border-b border-cr-border/50", children: [
-            /* @__PURE__ */ jsx("td", { className: "py-2 pr-4", children: "BlaBlaCar" }),
+            /* @__PURE__ */ jsx("td", { className: "py-2 pr-4", children: "Otras plataformas de carpooling" }),
             /* @__PURE__ */ jsxs("td", { className: "py-2 pr-4", children: [
               ((_w = festival.originCities[0]) == null ? void 0 : _w.concertRideRange) ?? "precio similar",
               " + 12–18 %"
@@ -34897,7 +36148,7 @@ function FestivalLandingPage() {
           ] })
         ] })
       ] }) }),
-      /* @__PURE__ */ jsx("p", { className: "font-mono text-[10px] text-cr-text-dim", children: "Datos de ConcertRide, estimaciones de VTC nocturno y tarifas EMT/Renfe 2026. BlaBlaCar comisión media actualizada a mayo 2026." })
+      /* @__PURE__ */ jsx("p", { className: "font-mono text-[10px] text-cr-text-dim", children: "Datos de ConcertRide, estimaciones de VTC nocturno y tarifas EMT/Renfe 2026. Comisión media de plataformas de carpooling generalistas actualizada a mayo 2026." })
     ] }),
     /* @__PURE__ */ jsxs("section", { className: "max-w-6xl mx-auto px-6 pb-16 border-t border-cr-border pt-12 space-y-8", children: [
       /* @__PURE__ */ jsxs("h2", { className: "font-display text-2xl md:text-3xl uppercase", children: [
@@ -34989,11 +36240,11 @@ function FestivalLandingPage() {
         ] }),
         /* @__PURE__ */ jsxs("article", { className: "border border-cr-border p-5 space-y-2", children: [
           /* @__PURE__ */ jsxs("h3", { className: "font-display text-sm uppercase text-cr-primary", children: [
-            "BlaBlaCar vs ConcertRide para ",
+            "Alternativas de carpooling para ",
             festival.shortName
           ] }),
           /* @__PURE__ */ jsxs("p", { className: "text-cr-text-muted text-xs leading-relaxed", children: [
-            "BlaBlaCar cobra 12–18 % de comisión y la vuelta de madrugada depende del conductor. ConcertRide es 0 % de comisión, especializado en festivales: los conductores publican viajes de ida y vuelta coordinados con el fin del show. Para festivales como ",
+            "Otras plataformas de carpooling cobran 12–18 % de comisión y la vuelta de madrugada depende del conductor. ConcertRide es 0 % de comisión, especializado en festivales: los conductores publican viajes de ida y vuelta coordinados con el fin del show. Para festivales como ",
             festival.shortName,
             ", ConcertRide es la opción event-first."
           ] })
@@ -35022,6 +36273,7 @@ function FestivalLandingPage() {
         ] }, i))
       ] })
     ] }),
+    /* @__PURE__ */ jsx(FestivalQnaWidget, { festivalSlug: festival.slug, festivalName: festival.shortName }),
     (() => {
       const festArtists = ARTIST_LANDINGS.filter((a) => a.relatedFestivals.includes(festival.slug));
       if (festArtists.length === 0) return null;
@@ -35295,10 +36547,10 @@ function FestivalesPage() {
       },
       {
         "@type": "Question",
-        name: "¿Es ConcertRide mejor que BlaBlaCar para ir a festivales?",
+        name: "¿Por qué usar ConcertRide para ir a festivales?",
         acceptedAnswer: {
           "@type": "Answer",
-          text: `Para festivales, ConcertRide tiene tres ventajas sobre BlaBlaCar: (1) 0 % de comisión — BlaBlaCar cobra 12–18 % al pasajero; (2) cada viaje está vinculado a un evento concreto, con hora de vuelta alineada al fin del show; (3) los conductores van al mismo festival, no a paradas genéricas de carretera. Además, ConcertRide no retiene el pago: se paga en efectivo o Bizum directamente al conductor el día del viaje.`
+          text: `Para festivales, ConcertRide tiene tres ventajas frente a las plataformas de carpooling generalistas: (1) 0 % de comisión — otras plataformas cobran 12–18 % al pasajero; (2) cada viaje está vinculado a un evento concreto, con hora de vuelta alineada al fin del show; (3) los conductores van al mismo festival, no a paradas genéricas de carretera. Además, ConcertRide no retiene el pago: se paga en efectivo o Bizum directamente al conductor el día del viaje.`
         }
       },
       {
@@ -35582,7 +36834,7 @@ function GuiaTransporteFestivalesPage() {
     },
     mainEntityOfPage: `${SITE_URL}/guia-transporte-festivales`,
     articleSection: "Guía de viaje",
-    keywords: "transporte festivales, carpooling festivales España, autobús festival, cómo ir al festival, carpooling sin comisión, BlaBlaCar alternativa",
+    keywords: "transporte festivales, carpooling festivales España, autobús festival, cómo ir al festival, carpooling sin comisión, alternativa carpooling generalista",
     about: {
       "@type": "Thing",
       name: "Transporte para festivales de música en España"
@@ -35590,7 +36842,6 @@ function GuiaTransporteFestivalesPage() {
     mentions: [
       { "@type": "Organization", "name": "Julie's Bicycle", "url": "https://juliesbicycle.com/", "sameAs": "https://www.wikidata.org/wiki/Q6303945" },
       { "@type": "Organization", "name": "Asociación de Promotores Musicales", "url": "https://www.apmusicales.com/" },
-      { "@type": "Organization", "name": "BlaBlaCar", "url": "https://www.blablacar.es/", "sameAs": "https://www.wikidata.org/wiki/Q2115189" },
       { "@type": "Organization", "name": "Agencia Europea de Medio Ambiente", "url": "https://www.eea.europa.eu/", "sameAs": "https://www.wikidata.org/wiki/Q188509" }
     ],
     speakable: {
@@ -35661,42 +36912,42 @@ function GuiaTransporteFestivalesPage() {
       }
     ]
   };
-  const jsonLdCarpoolingVsBlablacar = {
+  const jsonLdCarpoolingComparison = {
     "@context": "https://schema.org",
     "@type": "ItemList",
-    name: "ConcertRide vs BlaBlaCar para festivales de música en España",
-    description: "Comparativa entre ConcertRide (0% comisión, especializado en conciertos) y BlaBlaCar (12–18% comisión, plataforma generalista) para carpooling a festivales en España.",
-    url: `${SITE_URL}/blog/blablacar-vs-concertride`,
+    name: "ConcertRide frente a otras plataformas de carpooling para festivales en España",
+    description: "Comparativa entre ConcertRide (0% comisión, especializado en conciertos) y otras plataformas de carpooling generalistas (12–18% comisión) para llegar a festivales en España.",
+    url: `${SITE_URL}/guia-transporte-festivales`,
     itemListElement: [
       {
         "@type": "ListItem",
         position: 1,
         name: "Comisión de plataforma",
-        description: "ConcertRide: 0%. BlaBlaCar: 12–18% del precio del asiento (cobrado al pasajero)."
+        description: "ConcertRide: 0%. Otras plataformas de carpooling: 12–18% del precio del asiento (cobrado al pasajero)."
       },
       {
         "@type": "ListItem",
         position: 2,
         name: "Búsqueda por festival o evento",
-        description: "ConcertRide: Sí, cada viaje está vinculado a un concierto o festival concreto. BlaBlaCar: No, solo permite buscar por origen–destino genérico."
+        description: "ConcertRide: cada viaje está vinculado a un concierto o festival concreto. Otras plataformas: solo permiten buscar por origen–destino genérico."
       },
       {
         "@type": "ListItem",
         position: 3,
         name: "Hora de vuelta",
-        description: "ConcertRide: Flexible, pactada con el conductor (quien también va al festival). BlaBlaCar: Horario fijo preestablecido."
+        description: "ConcertRide: flexible, pactada con el conductor (quien también va al festival). Otras plataformas: horario fijo preestablecido."
       },
       {
         "@type": "ListItem",
         position: 4,
         name: "Forma de pago",
-        description: "ConcertRide: Efectivo o Bizum en persona el día del viaje. BlaBlaCar: Tarjeta bancaria gestionada por la plataforma."
+        description: "ConcertRide: efectivo o Bizum en persona el día del viaje. Otras plataformas: tarjeta bancaria gestionada por la plataforma."
       },
       {
         "@type": "ListItem",
         position: 5,
         name: "Verificación del conductor",
-        description: "ConcertRide: Carnet de conducir obligatorio antes de publicar. BlaBlaCar: Verificación opcional."
+        description: "ConcertRide: carnet de conducir obligatorio antes de publicar. Otras plataformas: verificación opcional."
       }
     ]
   };
@@ -35706,7 +36957,7 @@ function GuiaTransporteFestivalesPage() {
     /* @__PURE__ */ jsx("script", { type: "application/ld+json", dangerouslySetInnerHTML: { __html: JSON.stringify(jsonLdFaq) } }),
     /* @__PURE__ */ jsx("script", { type: "application/ld+json", dangerouslySetInnerHTML: { __html: JSON.stringify(jsonLdTable) } }),
     /* @__PURE__ */ jsx("script", { type: "application/ld+json", dangerouslySetInnerHTML: { __html: JSON.stringify(jsonLdComparison) } }),
-    /* @__PURE__ */ jsx("script", { type: "application/ld+json", dangerouslySetInnerHTML: { __html: JSON.stringify(jsonLdCarpoolingVsBlablacar) } }),
+    /* @__PURE__ */ jsx("script", { type: "application/ld+json", dangerouslySetInnerHTML: { __html: JSON.stringify(jsonLdCarpoolingComparison) } }),
     /* @__PURE__ */ jsxs("div", { className: "max-w-4xl mx-auto px-6 pt-10 pb-6 space-y-4 border-b border-cr-border", children: [
       /* @__PURE__ */ jsxs("nav", { "aria-label": "Breadcrumb", className: "font-mono text-[11px] text-cr-text-muted flex items-center gap-2", children: [
         /* @__PURE__ */ jsx(Link, { to: "/", className: "hover:text-cr-primary", children: "Inicio" }),
@@ -35881,13 +37132,13 @@ function GuiaTransporteFestivalesPage() {
       /* @__PURE__ */ jsx("p", { className: "font-sans text-sm text-cr-text-muted leading-relaxed max-w-2xl", children: "ConcertRide no es solo más barato que el taxi — es la forma más sostenible de llegar a un festival si ya vas a ir en coche. Sin aplicación de empresa, sin flotas de vehículos adicionales: aprovecha los asientos vacíos de coches que ya iban a hacer el trayecto." })
     ] }),
     /* @__PURE__ */ jsxs("section", { className: "max-w-4xl mx-auto px-6 pb-16 border-t border-cr-border pt-12 space-y-6", children: [
-      /* @__PURE__ */ jsx("h2", { className: "font-display text-3xl md:text-4xl uppercase", children: "ConcertRide vs BlaBlaCar para festivales" }),
-      /* @__PURE__ */ jsx("p", { className: "font-sans text-sm text-cr-text-muted leading-relaxed max-w-2xl speakable", children: "BlaBlaCar es la plataforma de carpooling genérica más usada en España. ConcertRide está especializado en conciertos y festivales. La diferencia principal: comisión 0% vs 12–18%, búsqueda por evento vs por ruta, y hora de vuelta alineada con el festival." }),
+      /* @__PURE__ */ jsx("h2", { className: "font-display text-3xl md:text-4xl uppercase", children: "ConcertRide frente a otras plataformas de carpooling" }),
+      /* @__PURE__ */ jsx("p", { className: "font-sans text-sm text-cr-text-muted leading-relaxed max-w-2xl speakable", children: "Las plataformas de carpooling generalistas son útiles para rutas entre ciudades, pero ConcertRide está especializado en conciertos y festivales. La diferencia principal: comisión 0% vs 12–18%, búsqueda por evento vs por ruta, y hora de vuelta alineada con el festival." }),
       /* @__PURE__ */ jsx("div", { className: "overflow-x-auto", children: /* @__PURE__ */ jsxs("table", { className: "w-full font-sans text-sm text-cr-text-muted border-collapse", children: [
         /* @__PURE__ */ jsx("thead", { children: /* @__PURE__ */ jsxs("tr", { className: "border-b border-cr-border", children: [
           /* @__PURE__ */ jsx("th", { className: "text-left py-3 pr-4 font-display text-xs uppercase text-cr-text", children: "Característica" }),
           /* @__PURE__ */ jsx("th", { className: "text-left py-3 pr-4 font-display text-xs uppercase text-cr-primary", children: "ConcertRide" }),
-          /* @__PURE__ */ jsx("th", { className: "text-left py-3 font-display text-xs uppercase text-cr-text-muted", children: "BlaBlaCar" })
+          /* @__PURE__ */ jsx("th", { className: "text-left py-3 font-display text-xs uppercase text-cr-text-muted", children: "Otras plataformas" })
         ] }) }),
         /* @__PURE__ */ jsx("tbody", { className: "divide-y divide-cr-border", children: [
           ["Comisión de plataforma", "0%", "12–18%"],
@@ -35903,11 +37154,7 @@ function GuiaTransporteFestivalesPage() {
           /* @__PURE__ */ jsx("td", { className: "py-3 text-cr-text-dim", children: bbc })
         ] }, feat)) })
       ] }) }),
-      /* @__PURE__ */ jsxs("p", { className: "font-mono text-[11px] text-cr-text-dim", children: [
-        "Fuente: tarifas publicadas en concertride.me y blablacar.es en mayo 2026.",
-        " ",
-        /* @__PURE__ */ jsx(Link, { to: "/blog/blablacar-vs-concertride", className: "hover:text-cr-primary underline underline-offset-2", children: "Comparativa completa →" })
-      ] })
+      /* @__PURE__ */ jsx("p", { className: "font-mono text-[11px] text-cr-text-dim", children: "Fuente: tarifas publicadas por ConcertRide y comisiones medias del sector en mayo 2026." })
     ] }),
     /* @__PURE__ */ jsxs("section", { className: "max-w-4xl mx-auto px-6 pb-16 border-t border-cr-border pt-12 space-y-6", children: [
       /* @__PURE__ */ jsx("h2", { className: "font-display text-3xl md:text-4xl uppercase", children: "Cómo llegar a cada festival" }),
@@ -35988,7 +37235,7 @@ function BlogIndexPage() {
     title: "Blog ConcertRide · Carpooling y festivales España 2026",
     description: "Guías y comparativas de transporte para festivales en España 2026. Carpooling vs taxi, autobuses, huella de carbono. Viaja mejor y gasta menos.",
     canonical: `${SITE_URL}/blog`,
-    keywords: "blog carpooling festivales 2026, guía transporte festivales españa 2026, autobuses festivales 2026, como ir a un festival sin coche, cómo volver de un festival de madrugada, alternativa blablacar festivales, carpooling sin comisión festivales, transporte concierto españa 2026, huella carbono festival carpooling, coche compartido festival verano 2026, festivales música españa 2026, que llevar al festival verano, vuelta madrugada festival carpooling, taxi festival precio alternativa, sostenibilidad festivales españa"
+    keywords: "blog carpooling festivales 2026, guía transporte festivales españa 2026, autobuses festivales 2026, como ir a un festival sin coche, cómo volver de un festival de madrugada, alternativa carpooling festivales, carpooling sin comisión festivales, transporte concierto españa 2026, huella carbono festival carpooling, coche compartido festival verano 2026, festivales música españa 2026, que llevar al festival verano, vuelta madrugada festival carpooling, taxi festival precio alternativa, sostenibilidad festivales españa"
   });
   const sorted = useMemo(() => {
     let filtered = [...BLOG_POSTS];
@@ -36372,7 +37619,6 @@ function BlogPostPage() {
     "Arenal Sound": "https://www.wikidata.org/wiki/Q4791029",
     "Viña Rock": "https://www.wikidata.org/wiki/Q2311477",
     "Resurrection Fest": "https://www.wikidata.org/wiki/Q7316296",
-    "BlaBlaCar": "https://www.wikidata.org/wiki/Q2115189",
     "Sonorama": "https://www.wikidata.org/wiki/Q1305386",
     "FIB": "https://www.wikidata.org/wiki/Q630302",
     "Medusa": "https://www.wikidata.org/wiki/Q60882827"
@@ -36678,6 +37924,9 @@ function RouteLandingPage() {
     title: landing ? (routeOverride == null ? void 0 : routeOverride.title) ?? `Carpooling ${landing.originCity} → ${landing.festival.shortName} ${routeYear}: desde ${priceFrom}€/asiento | ConcertRide` : "Ruta de carpooling",
     description: landing ? `Viaje compartido de ${landing.originCity} a ${landing.festival.shortName} ${routeYear}. ${landing.originData.km} km, ${landing.originData.drivingTime}. Precio desde ${landing.originData.concertRideRange}. Sin comisión de plataforma. Conductores verificados.` : "Carpooling a festivales en España.",
     canonical: landing ? `${SITE_URL}/rutas/${landing.slug}` : `${SITE_URL}/concerts`,
+    // Route-specific OG card rendered by the Worker on demand.
+    // Edge-cached 7d; falls through to the global default when no landing.
+    ogImage: landing ? `${SITE_URL}/api/og/route/${landing.slug}.svg` : void 0,
     ogImageAlt: landing ? `Carpooling ${landing.originCity} a ${landing.festival.shortName} ${routeYear} · ConcertRide` : "Carpooling a festivales de música en España · ConcertRide",
     keywords: landing ? (routeOverride == null ? void 0 : routeOverride.keywords) ?? [
       `carpooling ${landing.originCity} ${landing.festival.shortName}`,
@@ -36713,7 +37962,7 @@ function RouteLandingPage() {
   const routeFaqs = [
     {
       q: `¿Cuánto cuesta el carpooling de ${originCity} a ${festival.shortName}?`,
-      a: `El precio por asiento de ${originCity} a ${festival.shortName} con ConcertRide está entre ${originData.concertRideRange}. El conductor fija el precio para cubrir combustible y peajes del trayecto de ${originData.km} km. Sin comisión de plataforma: lo que ves es exactamente lo que pagas. El pago se hace en efectivo o Bizum directamente al conductor el día del viaje. BlaBlaCar cobra un 12–18 % adicional sobre el precio del asiento; en ConcertRide ese porcentaje es 0 %.`
+      a: `El precio por asiento de ${originCity} a ${festival.shortName} con ConcertRide está entre ${originData.concertRideRange}. El conductor fija el precio para cubrir combustible y peajes del trayecto de ${originData.km} km. Sin comisión de plataforma: lo que ves es exactamente lo que pagas. El pago se hace en efectivo o Bizum directamente al conductor el día del viaje. Otras plataformas de carpooling generalistas cobran un 12–18 % adicional sobre el precio del asiento; en ConcertRide ese porcentaje es 0 %.`
     },
     {
       q: `¿Cuánto se tarda en coche de ${originCity} a ${festival.shortName}?`,
@@ -37033,7 +38282,7 @@ function RouteLandingPage() {
     inLanguage: "es-ES",
     license: "https://creativecommons.org/licenses/by/4.0/",
     creator: { "@type": "Organization", "@id": `${SITE_URL}/#organization` },
-    keywords: `carpooling ${originCity} ${festival.shortName}, transporte ${festival.shortName}, precio bus ${festival.shortName}, taxi ${festival.shortName}, BlaBlaCar vs ConcertRide`,
+    keywords: `carpooling ${originCity} ${festival.shortName}, transporte ${festival.shortName}, precio bus ${festival.shortName}, taxi ${festival.shortName}, alternativa carpooling festivales`,
     variableMeasured: [
       { "@type": "PropertyValue", name: "Opción de transporte", value: "ConcertRide carpooling" },
       { "@type": "PropertyValue", name: "Precio por asiento", value: `${originData.concertRideRange}` },
@@ -37055,7 +38304,7 @@ function RouteLandingPage() {
       },
       {
         "@type": "DataDownload",
-        name: "BlaBlaCar",
+        name: "Otras plataformas de carpooling",
         description: `Precio: ${originData.concertRideRange} + 12–18 % comisión · Tiempo: ${originData.drivingTime} · Comisión: 12–18 % · Vuelta madrugada: Depende`
       },
       {
@@ -37293,6 +38542,17 @@ function RouteLandingPage() {
       }
     ) }),
     /* @__PURE__ */ jsxs("section", { className: "max-w-6xl mx-auto px-6 pb-16 border-t border-cr-border pt-12 space-y-6", children: [
+      /* @__PURE__ */ jsx(
+        FactDensityCallout,
+        {
+          heading: `Datos clave · ${originCity} → ${festival.shortName}`,
+          facts: [
+            { label: "Carpooling", value: `${originData.concertRideRange}`, detail: "0 % comisión" },
+            { label: "Distancia", value: `${originData.km} km`, detail: originData.drivingTime },
+            { label: "Ahorro vs taxi", value: "~75 %", detail: "Para >80 km nocturno" }
+          ]
+        }
+      ),
       /* @__PURE__ */ jsxs("h2", { className: "font-display text-2xl md:text-3xl uppercase", children: [
         "Comparativa de transporte ",
         originCity,
@@ -37329,7 +38589,7 @@ function RouteLandingPage() {
             /* @__PURE__ */ jsx("td", { className: "py-2", children: "Sí (precio ×2–3)" })
           ] }),
           /* @__PURE__ */ jsxs("tr", { className: "border-b border-cr-border/50", children: [
-            /* @__PURE__ */ jsx("td", { className: "py-2 pr-4", children: "BlaBlaCar" }),
+            /* @__PURE__ */ jsx("td", { className: "py-2 pr-4", children: "Otras plataformas de carpooling" }),
             /* @__PURE__ */ jsxs("td", { className: "py-2 pr-4", children: [
               originData.concertRideRange,
               " + 12–18 %"
@@ -38507,7 +39767,7 @@ function HowItWorksPage() {
             children: "Publicar mi viaje"
           }
         ),
-        /* @__PURE__ */ jsx("p", { className: "font-sans text-sm text-cr-text-muted leading-relaxed speakable", children: "A diferencia de BlaBlaCar, que cobra una comisión de entre el 12 y el 18 % sobre el precio del asiento, ConcertRide no cobra ninguna comisión: el 100 % del precio que paga el pasajero va al conductor. Tampoco hay intermediación en el pago — se paga en efectivo o Bizum el día del viaje." })
+        /* @__PURE__ */ jsx("p", { className: "font-sans text-sm text-cr-text-muted leading-relaxed speakable", children: "A diferencia de otras plataformas de carpooling, que cobran una comisión de entre el 12 y el 18 % sobre el precio del asiento, ConcertRide no cobra ninguna comisión: el 100 % del precio que paga el pasajero va al conductor. Tampoco hay intermediación en el pago — se paga en efectivo o Bizum el día del viaje." })
       ] }),
       /* @__PURE__ */ jsxs("section", { "aria-labelledby": "trust-title", className: "space-y-6 border-t border-cr-border pt-16", children: [
         /* @__PURE__ */ jsxs("div", { className: "flex items-center gap-3", children: [
@@ -39082,10 +40342,10 @@ function AcercaDePage() {
               },
               {
                 "@type": "Question",
-                name: "¿Es ConcertRide lo mismo que BlaBlaCar?",
+                name: "¿Es ConcertRide lo mismo que otras plataformas de carpooling?",
                 acceptedAnswer: {
                   "@type": "Answer",
-                  text: "No. BlaBlaCar es una plataforma de carpooling generalista que cobra 12–18% de comisión al pasajero y gestiona el pago por tarjeta. ConcertRide está especializada en conciertos y festivales (búsqueda por evento, no por ruta genérica), cobra 0% de comisión y el pago es directo en persona. Ambas plataformas operan bajo el modelo legal de gastos compartidos."
+                  text: "No. Las plataformas de carpooling generalistas suelen cobrar comisión al pasajero (12–18%) y gestionan el pago por tarjeta. ConcertRide está especializada en conciertos y festivales (búsqueda por evento, no por ruta genérica), cobra 0% de comisión y el pago es directo en persona. Todas operan bajo el modelo legal de gastos compartidos."
                 }
               },
               {
@@ -39093,7 +40353,7 @@ function AcercaDePage() {
                 name: "¿Es legal el carpooling de ConcertRide en España?",
                 acceptedAnswer: {
                   "@type": "Answer",
-                  text: "Sí. El carpooling entre particulares para compartir gastos de desplazamiento es legal en España. El Tribunal Supremo confirmó en 2017 (caso BlaBlaCar) que este modelo no requiere licencia VTC ni de transporte, siempre que el precio cubra solo combustible y peajes (sin lucro para el conductor). ConcertRide opera bajo este modelo de gastos compartidos conforme a la DGT."
+                  text: "Sí. El carpooling entre particulares para compartir gastos de desplazamiento es legal en España. El Tribunal Supremo confirmó en 2017 que este modelo no requiere licencia VTC ni de transporte, siempre que el precio cubra solo combustible y peajes (sin lucro para el conductor). ConcertRide opera bajo este modelo de gastos compartidos conforme a la DGT."
                 }
               },
               {
@@ -39355,7 +40615,7 @@ function ArtistLandingPage() {
   const minPrice = ((_b = (_a2 = artist == null ? void 0 : artist.upcomingConcerts[0]) == null ? void 0 : _a2.originCities[0]) == null ? void 0 : _b.range.split("–")[0]) ?? "9";
   const artistOverride = artist ? ARTIST_SEO_OVERRIDES[artist.slug] : void 0;
   useSeoMeta({
-    title: artist ? (artistOverride == null ? void 0 : artistOverride.title) ?? `${artist.name} concierto España 2026: carpooling desde ${minPrice}€ sin comisión | ConcertRide` : "Artistas · ConcertRide",
+    title: artist ? (artistOverride == null ? void 0 : artistOverride.title) ?? `${artist.name} 2026 · Carpooling desde ${minPrice}€ | ConcertRide` : "Artistas · ConcertRide",
     description: artist ? (artistOverride == null ? void 0 : artistOverride.description) ?? `Conciertos de ${artist.name} en España 2026${venueCities ? ` — ${venueCities}` : ""}. Carpooling desde ${minPrice} €/asiento, 0 % de comisión, conductores verificados. Cómo llegar al concierto de ${artist.name} con ConcertRide.` : "Carpooling para conciertos de artistas en España con ConcertRide.",
     canonical: artist ? `${SITE_URL}/artistas/${artist.slug}` : void 0,
     ogImageAlt: artist ? `Conciertos de ${artist.name} en España 2026: carpooling desde ${minPrice}€ sin comisión · ConcertRide` : "Artistas en concierto en España · ConcertRide",
@@ -39696,7 +40956,7 @@ function ArtistLandingPage() {
             /* @__PURE__ */ jsx("td", { className: "py-2", children: "Baja" })
           ] }),
           /* @__PURE__ */ jsxs("tr", { children: [
-            /* @__PURE__ */ jsx("td", { className: "py-2 pr-4", children: "BlaBlaCar" }),
+            /* @__PURE__ */ jsx("td", { className: "py-2 pr-4", children: "Otras plataformas de carpooling" }),
             /* @__PURE__ */ jsxs("td", { className: "py-2 pr-4", children: [
               minPrice,
               "–20 € + 12–18 %"
@@ -39707,7 +40967,7 @@ function ArtistLandingPage() {
           ] })
         ] })
       ] }) }),
-      /* @__PURE__ */ jsx("p", { className: "font-mono text-[10px] text-cr-text-dim", children: "Estimaciones basadas en tarifas de ConcertRide, EMT, Renfe y VTC (mayo 2026). BlaBlaCar comisión media actualizada a 2026." })
+      /* @__PURE__ */ jsx("p", { className: "font-mono text-[10px] text-cr-text-dim", children: "Estimaciones basadas en tarifas de ConcertRide, EMT, Renfe y VTC (mayo 2026). Comisión media de plataformas de carpooling generalistas actualizada a 2026." })
     ] }),
     /* @__PURE__ */ jsxs("section", { className: "max-w-6xl mx-auto px-6 pb-16 border-t border-cr-border pt-12 space-y-6", children: [
       /* @__PURE__ */ jsxs("h2", { className: "font-display text-2xl md:text-3xl uppercase", children: [
@@ -39891,7 +41151,7 @@ function VenueLandingPage() {
   const topPrice = ((_a2 = topOrigin == null ? void 0 : topOrigin.concertRideRange.split("–")[0]) == null ? void 0 : _a2.replace(/[^0-9]/g, "")) ?? "9";
   const venueOverride = venue ? VENUE_SEO_OVERRIDES[venue.slug] : void 0;
   useSeoMeta({
-    title: venue ? (venueOverride == null ? void 0 : venueOverride.title) ?? `Cómo llegar a ${venue.name} — transporte y carpooling | ConcertRide` : "Recintos de conciertos en España | ConcertRide",
+    title: venue ? (venueOverride == null ? void 0 : venueOverride.title) ?? `${venue.shortName} (${venue.city}) · Carpooling y transporte | ConcertRide` : "Recintos de conciertos en España | ConcertRide",
     description: venue ? (venueOverride == null ? void 0 : venueOverride.description) ?? `${venue.name} (${venue.city}): ${venue.transport.metro ? `Metro ${venue.transport.metro}.` : ""} ${venue.transport.bus ? `Bus: ${venue.transport.bus}.` : ""} Carpooling desde ${(topOrigin == null ? void 0 : topOrigin.city) ?? "tu ciudad"} desde ${topPrice} €/asiento sin comisión. ${venue.blurb.slice(0, 120)}…` : "Guías de transporte para los principales recintos de conciertos de España. Cómo llegar, opciones de bus, metro y carpooling.",
     canonical: venue ? `${SITE_URL}/recintos/${venue.slug}` : `${SITE_URL}/concerts`,
     ogImage: venueOgImage,
@@ -40011,10 +41271,10 @@ function VenueLandingPage() {
       {
         "@context": "https://schema.org",
         "@type": "ItemList",
-        name: `ConcertRide vs BlaBlaCar para ${venue.shortName}`,
+        name: `Opciones de carpooling para ${venue.shortName}`,
         itemListElement: [
           { "@type": "ListItem", position: 1, name: "ConcertRide: 0% comisión, conductores verificados, festival-first" },
-          { "@type": "ListItem", position: 2, name: "BlaBlaCar: 15–18% comisión sobre el precio del viaje" },
+          { "@type": "ListItem", position: 2, name: "Otras plataformas de carpooling: 15–18% comisión sobre el precio del viaje" },
           { "@type": "ListItem", position: 3, name: "Taxi / VTC: 40–90€ en horario nocturno de concierto" },
           { "@type": "ListItem", position: 4, name: "Transporte público: último servicio antes de fin del evento" }
         ]
@@ -40392,7 +41652,7 @@ function VenueLandingPage() {
       /* @__PURE__ */ jsxs("h2", { className: "font-display text-2xl md:text-3xl uppercase", children: [
         "Comparativa de transporte a ",
         venue.shortName,
-        ": carpooling vs. taxi vs. metro vs. BlaBlaCar"
+        ": carpooling vs. taxi vs. metro vs. otras plataformas"
       ] }),
       /* @__PURE__ */ jsxs("p", { className: "font-sans text-sm text-cr-text-muted max-w-2xl", children: [
         "Precios, comisiones y disponibilidad nocturna para llegar a ",
@@ -40432,7 +41692,7 @@ function VenueLandingPage() {
             /* @__PURE__ */ jsx("td", { className: "py-2", children: "App" })
           ] }),
           /* @__PURE__ */ jsxs("tr", { className: "border-b border-cr-border/50", children: [
-            /* @__PURE__ */ jsx("td", { className: "py-2 pr-4", children: "BlaBlaCar" }),
+            /* @__PURE__ */ jsx("td", { className: "py-2 pr-4", children: "Otras plataformas de carpooling" }),
             /* @__PURE__ */ jsxs("td", { className: "py-2 pr-4", children: [
               (topOrigin == null ? void 0 : topOrigin.concertRideRange) ?? "precio similar",
               " + 12–18 %"
@@ -40450,13 +41710,13 @@ function VenueLandingPage() {
           ] })
         ] })
       ] }) }),
-      /* @__PURE__ */ jsx("p", { className: "font-mono text-[10px] text-cr-text-dim", children: "Datos de ConcertRide, estimaciones de VTC nocturno y tarifas EMT/TMB/Renfe 2026. BlaBlaCar comisión media actualizada a mayo 2026." })
+      /* @__PURE__ */ jsx("p", { className: "font-mono text-[10px] text-cr-text-dim", children: "Datos de ConcertRide, estimaciones de VTC nocturno y tarifas EMT/TMB/Renfe 2026. Comisión media de plataformas de carpooling generalistas actualizada a mayo 2026." })
     ] }),
     /* @__PURE__ */ jsxs("section", { className: "max-w-6xl mx-auto px-6 pb-16 border-t border-cr-border pt-12 space-y-6", children: [
       /* @__PURE__ */ jsxs("h2", { className: "font-display text-2xl md:text-3xl uppercase", children: [
         "Por qué ir a ",
         venue.shortName,
-        " con ConcertRide y no con BlaBlaCar o taxi"
+        " con ConcertRide y no con otras plataformas o taxi"
       ] }),
       /* @__PURE__ */ jsxs("div", { className: "grid md:grid-cols-3 gap-4 font-sans text-sm text-cr-text-muted leading-relaxed", children: [
         /* @__PURE__ */ jsxs("article", { className: "space-y-2", children: [
@@ -42032,7 +43292,6 @@ function NotFoundPage() {
             /* @__PURE__ */ jsx("ul", { className: "space-y-1.5", children: [
               { to: "/guia-transporte-festivales", label: "Guía de transporte a festivales" },
               { to: "/blog/autobuses-festivales-espana-2026", label: "Autobuses a festivales 2026" },
-              { to: "/blog/blablacar-vs-concertride", label: "BlaBlaCar vs ConcertRide" },
               { to: "/blog/como-volver-festival-madrugada", label: "Cómo volver de madrugada" },
               { to: "/blog/festivales-musica-espana-2026", label: "Festivales de España 2026" },
               { to: "/como-funciona", label: "Cómo funciona ConcertRide" }
@@ -43193,17 +44452,6 @@ function ComparativaTaxi() {
           /* @__PURE__ */ jsxs(
             Link,
             {
-              to: "/comparativa/concertride-vs-blablacar",
-              className: "inline-flex items-center gap-2 font-sans text-xs font-semibold uppercase tracking-[0.12em] border-2 border-cr-border text-cr-text-muted px-4 py-2 hover:border-cr-primary hover:text-cr-primary transition-colors",
-              children: [
-                "ConcertRide vs BlaBlaCar ",
-                /* @__PURE__ */ jsx(ArrowRight, { size: 12 })
-              ]
-            }
-          ),
-          /* @__PURE__ */ jsxs(
-            Link,
-            {
               to: "/como-funciona-carpooling",
               className: "inline-flex items-center gap-2 font-sans text-xs font-semibold uppercase tracking-[0.12em] border-2 border-cr-border text-cr-text-muted px-4 py-2 hover:border-cr-primary hover:text-cr-primary transition-colors",
               children: [
@@ -44304,7 +45552,7 @@ function ServerApp() {
 function render(url) {
   globalThis.__concertrideSsrSeo = null;
   const html = renderToString(
-    /* @__PURE__ */ jsx(StaticRouter, { location: url, children: /* @__PURE__ */ jsx(SessionProvider, { children: /* @__PURE__ */ jsx(FavoritesProvider, { children: /* @__PURE__ */ jsx(ServerApp, {}) }) }) })
+    /* @__PURE__ */ jsx(StaticRouter, { location: url, children: /* @__PURE__ */ jsx(SessionProvider, { children: /* @__PURE__ */ jsx(FavoritesProvider, { children: /* @__PURE__ */ jsx(CrewProvider, { children: /* @__PURE__ */ jsx(ServerApp, {}) }) }) }) })
   );
   const seo = globalThis.__concertrideSsrSeo ?? null;
   return { html, seo };

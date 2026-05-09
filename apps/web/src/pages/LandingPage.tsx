@@ -13,14 +13,18 @@ import { HowItWorks } from "@/components/HowItWorks";
 import { AdhocRidesSection } from "@/components/landing/AdhocRidesSection";
 import { MapSection } from "@/components/landing/MapSection";
 import { TrustSection } from "@/components/landing/TrustSection";
+import { LiveActivityFeed } from "@/components/LiveActivityFeed";
+import { IntelligencePrompts } from "@/components/IntelligencePrompts";
+import { DemandSignalsBoard } from "@/components/DemandSignalsBoard";
 import { FinalCTA } from "@/components/landing/FinalCTA";
 import { PastConcertsSection } from "@/components/landing/PastConcertsSection";
 
 export default function LandingPage() {
   useSeoMeta({
     title: "ConcertRide · Carpooling para conciertos y festivales en España",
+    // ≤160 chars, price + commission + flagship festivals up front for AI extraction.
     description:
-      "Carpooling para conciertos y festivales en España: Mad Cool, Primavera Sound, Sónar, BBK Live, Arenal Sound, Viña Rock, Resurrection Fest. Alternativa a los autobuses oficiales y de larga distancia. Sin comisión, conductores verificados.",
+      "Carpooling a conciertos y festivales en España desde 3 €/asiento, 0 % comisión. Mad Cool, Primavera Sound, Sónar, BBK Live. Conductores verificados.",
     canonical: `${SITE_URL}/`,
     keywords: "carpooling conciertos España, viajes compartidos festivales, autobuses festivales españa, bus festivales 2026, transporte a conciertos, coche compartido música, ride-sharing festivales, conciertos en madrid, conciertos en barcelona, conciertos en sevilla, conciertos en bilbao 2026, conciertos en donostia 2026, conciertos en zaragoza, viña rock buses, arenal sound como llegar, bbk santander, mad cool carpooling, primavera sound viaje compartido, deja tu coche en casa festival, carpooling sin comisiones, volver festival madrugada, ir al festival sin coche",
     ogType: "website",
@@ -165,6 +169,15 @@ export default function LandingPage() {
       />
       <Hero />
       <StatsBar />
+      <section className="mx-auto max-w-5xl px-4 py-8 sm:px-6">
+        <IntelligencePrompts />
+      </section>
+      <section className="mx-auto max-w-5xl px-4 pb-8 sm:px-6">
+        <DemandSignalsBoard limit={6} />
+      </section>
+      <section className="mx-auto max-w-3xl px-4 pb-8 sm:px-6">
+        <LiveActivityFeed limit={8} layout="card" emptyMessage="Aún silencio. Sé el primero en publicar un viaje." />
+      </section>
       {activeConcerts.length > 0 && <HorizontalCarousel concerts={activeConcerts} />}
       <HowItWorks />
       <AdhocRidesSection />

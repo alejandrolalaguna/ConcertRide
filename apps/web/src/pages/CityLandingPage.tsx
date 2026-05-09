@@ -5,6 +5,7 @@ import type { Concert } from "@concertride/types";
 import { api } from "@/lib/api";
 import { ConcertCard } from "@/components/ConcertCard";
 import { LoadingSpinner } from "@/components/ui";
+import { FactDensityCallout } from "@/components/FactDensityCallout";
 import { useSeoMeta } from "@/lib/useSeoMeta";
 import { SITE_URL } from "@/lib/siteUrl";
 import { REGION_ISO } from "@/lib/seoConfig";
@@ -160,7 +161,10 @@ export default function CityLandingPage() {
       ? cityOverride?.title ?? `Conciertos en ${landing.display} ${year}: carpooling | ConcertRide`
       : "Conciertos por ciudad",
     description: landing
-      ? cityOverride?.description ?? `Conciertos y festivales en ${landing.display} ${year}: ${landing.venues.slice(0, 2).join(", ")} y más. Carpooling sin comisión desde 3 €/asiento. Conductores verificados.`
+      // Front-load price + city in first 50 words for AI extraction. The
+      // overrides above for top cities can stay verbose; the generic
+      // fallback is the AI-optimised baseline for every other city.
+      ? cityOverride?.description ?? `Carpooling a conciertos en ${landing.display} ${year} desde 3 €/asiento, 0% comisión. Próximos eventos en ${landing.venues.slice(0, 2).join(", ")} y más. Conductores verificados.`
       : "Explora conciertos por ciudad en España.",
     canonical: landing
       ? `${SITE_URL}/conciertos/${landing.slug}`
@@ -240,6 +244,41 @@ export default function CityLandingPage() {
     const originCoords = { lat: landing.lat, lng: landing.lng };
 
     return [
+      // CollectionPage = the canonical "this URL is a curated list of concerts
+      // in a city" hint to crawlers. Pairs with the BreadcrumbList already
+      // emitted by the layout. Required for the audit gap closed.
+      {
+        "@context": "https://schema.org",
+        "@type": "CollectionPage",
+        "@id": `${SITE_URL}/conciertos/${landing.slug}#page`,
+        url: `${SITE_URL}/conciertos/${landing.slug}`,
+        name: `Conciertos y festivales en ${landing.display} ${year}`,
+        description: `Agenda de conciertos en ${landing.display} con carpooling sin comisión.`,
+        inLanguage: "es-ES",
+        about: {
+          "@type": "Place",
+          name: landing.display,
+          containedInPlace: { "@type": "Country", name: "España" },
+        },
+      },
+      // LocalBusiness gives ConcertRide a local entity anchor per city —
+      // even though we're a digital service, the social-coordination layer
+      // is genuinely place-bound and Google now rewards local entity hints
+      // for "carpooling [city]" SERPs.
+      {
+        "@context": "https://schema.org",
+        "@type": "LocalBusiness",
+        "@id": `${SITE_URL}/conciertos/${landing.slug}#localbusiness`,
+        name: `ConcertRide · ${landing.display}`,
+        url: `${SITE_URL}/conciertos/${landing.slug}`,
+        areaServed: {
+          "@type": "City",
+          name: landing.display,
+          address: { "@type": "PostalAddress", addressLocality: landing.display, addressCountry: "ES" },
+        },
+        geo: { "@type": "GeoCoordinates", latitude: landing.lat, longitude: landing.lng },
+        priceRange: "€3-€20",
+      },
       {
         "@context": "https://schema.org",
         "@type": "ItemList",
@@ -662,6 +701,14 @@ export default function CityLandingPage() {
       </section>
 
       <section className="max-w-6xl mx-auto px-6 pb-12 border-t border-cr-border pt-12 space-y-6">
+        <FactDensityCallout
+          heading={`Datos clave · ${landing.display} ${year}`}
+          facts={[
+            { label: "Carpooling desde", value: "3 €/asiento", detail: "0 % comisión" },
+            { label: "Próximos eventos", value: `${landing.venues.length} recintos`, detail: landing.venues.slice(0, 2).join(" · ") },
+            { label: "Cobertura", value: "Toda España", detail: "Vuelta nocturna coordinada" },
+          ]}
+        />
         <h2 className="font-display text-xl md:text-2xl uppercase">
           Transporte para conciertos en {landing.display}: carpooling, bus, tren y taxi
         </h2>

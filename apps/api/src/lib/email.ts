@@ -474,6 +474,45 @@ export function sendRideReminderEmail(
   return sendEmail(env, { to: email, subject, html });
 }
 
+// ── Countdown reminder (→ user with anticipation, 24h before concert) ────
+// Different from sendRideReminderEmail: this targets users who said "I'm
+// going" but may not have a ride booked yet. We push them to find one.
+export function sendCountdownReminderEmail(
+  env: Env,
+  email: string,
+  args: {
+    name: string;
+    artist: string;
+    venueCity: string;
+    dateLocal: string;
+    concertUrl: string;
+    crewGoing: number;
+  },
+): Promise<SendResult> {
+  const subject = `Mañana: ${args.artist} en ${args.venueCity} 🎶`;
+  const crewLine = args.crewGoing > 0
+    ? `<p style="color:#DBFF00;margin:0 0 24px 0;line-height:1.7;font-size:15px;font-weight:600;">${args.crewGoing} de tu crew ${args.crewGoing === 1 ? "va" : "van"} también.</p>`
+    : "";
+  const html = shell(
+    env,
+    subject,
+    `Mañana: ${args.artist} en ${args.venueCity} — ${args.dateLocal}`,
+    `
+    <h1 style="font-family:Georgia,serif;font-size:28px;line-height:1.15;margin:0 0 12px 0;">Mañana toca. 🔥</h1>
+    <p style="color:#ccc;margin:0 0 16px 0;line-height:1.7;font-size:15px;">Hola, ${escapeHtml(args.name)}. Dijiste que vas a <strong style="color:#DBFF00;">${escapeHtml(args.artist)}</strong> en ${escapeHtml(args.venueCity)}.</p>
+    ${crewLine}
+    ${infoTable([
+      ["Evento", args.artist],
+      ["Ciudad", args.venueCity],
+      ["Cuándo", args.dateLocal],
+    ])}
+    ${alertBox("¿Aún no tienes cómo llegar? Encuentra un viaje compartido o publica el tuyo y comparte coste.", "info")}
+    <p style="margin:24px 0 8px 0;">${cta(args.concertUrl, "Ver viajes disponibles")}</p>
+    `,
+  );
+  return sendEmail(env, { to: email, subject, html });
+}
+
 // ── Ride payment reminder (→ driver + passengers, 1h before) ──────────────
 export function sendPaymentReminderEmail(
   env: Env,

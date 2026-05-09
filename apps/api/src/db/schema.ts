@@ -53,11 +53,29 @@ export const users = sqliteTable(
     ban_reason: text("ban_reason"),
     // Set when user verifies their phone number via OTP.
     phone_verified_at: text("phone_verified_at"),
+    // --- Music identity (Phase 1B) ---
+    // Free-form short bio shown on the public profile + crew cards. Max 200 chars.
+    bio: text("bio"),
+    // Pipe-separated list of favourite music genres (e.g. "indie|rock|electronica").
+    // Used for crew compatibility, route ranking, "your scene" feed sections.
+    music_genres: text("music_genres"),
+    // Pipe-separated list of favourite artists in display casing (e.g. "Rosalía|C. Tangana").
+    // The `favorites` table is the canonical store for follows; this is a denormalised
+    // top-N for fast rendering on profile cards and ride cards.
+    top_artists: text("top_artists"),
+    // Spotify user id (linked via OAuth). Null until the user connects.
+    spotify_id: text("spotify_id"),
+    // ConcertRide handle for sharing profiles ("@aitor"). Optional, lowercased, unique.
+    handle: text("handle"),
+    // Counter of crews this user belongs to (denormalised for fast list rendering).
+    crew_count: integer("crew_count").notNull().default(0),
     created_at: text("created_at").notNull().default(sql`CURRENT_TIMESTAMP`),
   },
   (t) => ({
     emailIdx: uniqueIndex("users_email_idx").on(t.email),
     referralCodeIdx: uniqueIndex("users_referral_code_idx").on(t.referral_code),
+    handleIdx: uniqueIndex("users_handle_idx").on(t.handle),
+    spotifyIdx: uniqueIndex("users_spotify_idx").on(t.spotify_id),
   }),
 );
 
@@ -569,3 +587,308 @@ export const directMessagesRelations = relations(directMessages, ({ one }) => ({
 export type FestivalAlertRow = typeof festivalAlerts.$inferSelect;
 export type FestivalDemandRow = typeof festivalDemand.$inferSelect;
 export type DirectMessageRow = typeof directMessages.$inferSelect;
+
+// =====================================================================
+// SOCIAL DENSITY LAYER (Phase 1)
+//
+// These tables turn one-off rides into persistent relationships. The
+// north-star metric they support is "returning social coordination" —
+// repeat users coordinating across multiple events.
+// =====================================================================
+
+// Symmetric "crew" relationship between two users. Stored as a single row
+// with the smaller user_id in `a_id` so lookups are O(1) regardless of
+// which side queries. `status` allows pending invites without a separate
+// inbox table.
+export const crewConnections = sqliteTable(
+  "crew_connections",
+  {
+    id: text("id").primaryKey(),
+    // Always the lexicographically smaller user_id; enforced in store layer.
+    a_id: text("a_id").notNull().references(() => users.id),
+    b_id: text("b_id").notNull().references(() => users.id),
+    // Who initiated the connection — used to render "X invited you" copy.
+    requested_by: text("requested_by").notNull().references(() => users.id),
+    status: text("status", { enum: ["pending", "accepted", "blocked"] })
+      .notNull()
+      .default("pending"),
+    // The ride that introduced these two users, if any. Powers
+    // "you rode together to Mad Cool" provenance copy on the crew card.
+    origin_ride_id: text("origin_ride_id").references(() => rides.id),
+    origin_concert_id: text("origin_concert_id").references(() => concerts.id),
+    created_at: text("created_at").notNull().default(sql`CURRENT_TIMESTAMP`),
+    accepted_at: text("accepted_at"),
+  },
+  (t) => ({
+    pairIdx: uniqueIndex("crew_pair_idx").on(t.a_id, t.b_id),
+    aIdx: index("crew_a_idx").on(t.a_id),
+    bIdx: index("crew_b_idx").on(t.b_id),
+    statusIdx: index("crew_status_idx").on(t.status),
+  }),
+);
+
+// Append-only feed of social actions across the platform. Source of truth
+// for the homepage "live activity" feed, the per-event activity strip,
+// and crew notifications. We avoid storing sensitive bodies here — only
+// references (actor + target ids) so feed queries stay cheap.
+export const activityEvents = sqliteTable(
+  "activity_events",
+  {
+    id: text("id").primaryKey(),
+    actor_id: text("actor_id").notNull().references(() => users.id),
+    kind: text("kind", {
+      enum: [
+        // Marketplace
+        "ride_published",
+        "ride_booked",
+        "ride_completed",
+        // Anticipation
+        "interest_added",
+        "favorite_added",
+        // Social
+        "crew_invited",
+        "crew_accepted",
+        "music_updated",
+        "trip_memory_shared",
+      ],
+    }).notNull(),
+    // Loose pointer — meaning depends on `kind`.
+    // ride_*: ride id; interest/favorite: concert id; crew_*: target user id.
+    target_id: text("target_id"),
+    // Concert id when applicable, hoisted out for the per-event feed query.
+    concert_id: text("concert_id").references(() => concerts.id),
+    // City scope for the city activity feed (origin_city for rides, home_city for crew, etc.).
+    city: text("city"),
+    // Snapshot fields used by the renderer so we don't re-join on every read.
+    // Kept short: actor display name, target label, optional metadata JSON.
+    actor_name: text("actor_name").notNull(),
+    actor_avatar: text("actor_avatar"),
+    label: text("label").notNull().default(""),
+    metadata: text("metadata"),
+    visibility: text("visibility", { enum: ["public", "crew", "private"] })
+      .notNull()
+      .default("public"),
+    created_at: text("created_at").notNull().default(sql`CURRENT_TIMESTAMP`),
+  },
+  (t) => ({
+    actorIdx: index("activity_actor_idx").on(t.actor_id),
+    concertIdx: index("activity_concert_idx").on(t.concert_id),
+    cityIdx: index("activity_city_idx").on(t.city),
+    kindIdx: index("activity_kind_idx").on(t.kind),
+    createdIdx: index("activity_created_idx").on(t.created_at),
+  }),
+);
+
+// Persistent record of "I'm going" / "save the date" intent linked to a
+// concert. Differs from `demandSignals` (anonymous interest) and
+// `favorites` (artist/city follows) in that it expresses *attendance*
+// intent and powers countdown widgets ("3 days until Mad Cool, your crew
+// of 5 is going").
+export const eventAnticipations = sqliteTable(
+  "event_anticipations",
+  {
+    id: text("id").primaryKey(),
+    user_id: text("user_id").notNull().references(() => users.id),
+    concert_id: text("concert_id").notNull().references(() => concerts.id),
+    // "going"  — confirmed attendance
+    // "maybe"  — soft interest
+    status: text("status", { enum: ["going", "maybe"] })
+      .notNull()
+      .default("going"),
+    // Optional ride this anticipation is bound to. Auto-set when a passenger
+    // books a seat or a driver publishes a ride.
+    ride_id: text("ride_id").references(() => rides.id),
+    notify_before_hours: integer("notify_before_hours").notNull().default(24),
+    last_notified_at: text("last_notified_at"),
+    created_at: text("created_at").notNull().default(sql`CURRENT_TIMESTAMP`),
+  },
+  (t) => ({
+    userIdx: index("anticipation_user_idx").on(t.user_id),
+    concertIdx: index("anticipation_concert_idx").on(t.concert_id),
+    uniquePair: uniqueIndex("anticipation_unique_idx").on(t.user_id, t.concert_id),
+  }),
+);
+
+// Post-trip artefact. Generated from a completed ride and made shareable
+// as a "vibe card". Owned by the driver but visible to riders so they
+// can repost it. The image_kv_key references a renderable card stored
+// in the CACHE KV namespace.
+export const tripMemories = sqliteTable(
+  "trip_memories",
+  {
+    id: text("id").primaryKey(),
+    ride_id: text("ride_id").notNull().references(() => rides.id),
+    concert_id: text("concert_id").notNull().references(() => concerts.id),
+    created_by: text("created_by").notNull().references(() => users.id),
+    title: text("title").notNull(),
+    caption: text("caption"),
+    // JSON: { vibe, distance_km, crew_ids, playlist_url, hero_color }
+    payload_json: text("payload_json").notNull().default("{}"),
+    // Pre-rendered share image for OG/Twitter cards. Optional — the page
+    // can also render dynamically.
+    image_kv_key: text("image_kv_key"),
+    visibility: text("visibility", { enum: ["public", "crew", "private"] })
+      .notNull()
+      .default("public"),
+    share_count: integer("share_count").notNull().default(0),
+    created_at: text("created_at").notNull().default(sql`CURRENT_TIMESTAMP`),
+  },
+  (t) => ({
+    rideIdx: uniqueIndex("trip_memories_ride_idx").on(t.ride_id),
+    concertIdx: index("trip_memories_concert_idx").on(t.concert_id),
+    createdByIdx: index("trip_memories_creator_idx").on(t.created_by),
+  }),
+);
+
+export const crewConnectionsRelations = relations(crewConnections, ({ one }) => ({
+  user_a: one(users, { fields: [crewConnections.a_id], references: [users.id], relationName: "crew_a" }),
+  user_b: one(users, { fields: [crewConnections.b_id], references: [users.id], relationName: "crew_b" }),
+  requester: one(users, { fields: [crewConnections.requested_by], references: [users.id], relationName: "crew_requester" }),
+  origin_ride: one(rides, { fields: [crewConnections.origin_ride_id], references: [rides.id] }),
+  origin_concert: one(concerts, { fields: [crewConnections.origin_concert_id], references: [concerts.id] }),
+}));
+
+export const activityEventsRelations = relations(activityEvents, ({ one }) => ({
+  actor: one(users, { fields: [activityEvents.actor_id], references: [users.id] }),
+  concert: one(concerts, { fields: [activityEvents.concert_id], references: [concerts.id] }),
+}));
+
+export const eventAnticipationsRelations = relations(eventAnticipations, ({ one }) => ({
+  user: one(users, { fields: [eventAnticipations.user_id], references: [users.id] }),
+  concert: one(concerts, { fields: [eventAnticipations.concert_id], references: [concerts.id] }),
+  ride: one(rides, { fields: [eventAnticipations.ride_id], references: [rides.id] }),
+}));
+
+export const tripMemoriesRelations = relations(tripMemories, ({ one }) => ({
+  ride: one(rides, { fields: [tripMemories.ride_id], references: [rides.id] }),
+  concert: one(concerts, { fields: [tripMemories.concert_id], references: [concerts.id] }),
+  creator: one(users, { fields: [tripMemories.created_by], references: [users.id] }),
+}));
+
+export type CrewConnectionRow = typeof crewConnections.$inferSelect;
+export type ActivityEventRow = typeof activityEvents.$inferSelect;
+export type EventAnticipationRow = typeof eventAnticipations.$inferSelect;
+export type TripMemoryRow = typeof tripMemories.$inferSelect;
+
+// =====================================================================
+// CULTURAL PLATFORM LAYER (Phase 2)
+// =====================================================================
+
+// Community-submitted Q&A scoped to a festival slug. Moderated: only
+// rows with `approved_at IS NOT NULL` ever surface in the FAQPage schema
+// or the public list endpoint.
+export const festivalQnas = sqliteTable(
+  "festival_qnas",
+  {
+    id: text("id").primaryKey(),
+    festival_slug: text("festival_slug").notNull(),
+    user_id: text("user_id").notNull().references(() => users.id),
+    question: text("question").notNull(),
+    answer: text("answer").notNull(),
+    upvotes: integer("upvotes").notNull().default(0),
+    approved_at: text("approved_at"),
+    created_at: text("created_at").notNull().default(sql`CURRENT_TIMESTAMP`),
+  },
+  (t) => ({
+    slugIdx: index("festival_qnas_slug_idx").on(t.festival_slug),
+    approvedIdx: index("festival_qnas_approved_idx").on(t.festival_slug, t.approved_at),
+  }),
+);
+
+// Squad: a multi-car coordination group around a single concert. Members
+// can be drivers (each with their own ride) or passengers riding any of
+// those rides. Replaces fragmented WhatsApp coordination.
+export const squads = sqliteTable(
+  "squads",
+  {
+    id: text("id").primaryKey(),
+    concert_id: text("concert_id").notNull().references(() => concerts.id),
+    owner_id: text("owner_id").notNull().references(() => users.id),
+    name: text("name").notNull(),
+    // Pipe-separated tags for vibe/genre matching across squads.
+    vibe_tags: text("vibe_tags"),
+    // Public squads accept anyone with the invite link; private requires owner approval.
+    visibility: text("visibility", { enum: ["public", "private"] }).notNull().default("private"),
+    invite_code: text("invite_code").notNull(),
+    created_at: text("created_at").notNull().default(sql`CURRENT_TIMESTAMP`),
+  },
+  (t) => ({
+    concertIdx: index("squads_concert_idx").on(t.concert_id),
+    ownerIdx: index("squads_owner_idx").on(t.owner_id),
+    inviteIdx: uniqueIndex("squads_invite_idx").on(t.invite_code),
+  }),
+);
+
+// Membership in a squad. A user may be linked to a specific ride within
+// the squad (their seat/car) or floating ("looking for car").
+export const squadMembers = sqliteTable(
+  "squad_members",
+  {
+    id: text("id").primaryKey(),
+    squad_id: text("squad_id").notNull().references(() => squads.id),
+    user_id: text("user_id").notNull().references(() => users.id),
+    role: text("role", { enum: ["owner", "driver", "passenger", "looking"] })
+      .notNull()
+      .default("passenger"),
+    ride_id: text("ride_id").references(() => rides.id),
+    joined_at: text("joined_at").notNull().default(sql`CURRENT_TIMESTAMP`),
+    left_at: text("left_at"),
+  },
+  (t) => ({
+    squadIdx: index("squad_members_squad_idx").on(t.squad_id),
+    userIdx: index("squad_members_user_idx").on(t.user_id),
+    uniqueMember: uniqueIndex("squad_members_unique_idx").on(t.squad_id, t.user_id),
+  }),
+);
+
+// Collaborative playlist tracks for a ride or squad. Spotify-friendly
+// schema: we store track URI/name/artist/added_by so the renderer can
+// stream from any provider.
+export const playlistTracks = sqliteTable(
+  "playlist_tracks",
+  {
+    id: text("id").primaryKey(),
+    // Exactly one of ride_id / squad_id must be set.
+    ride_id: text("ride_id").references(() => rides.id),
+    squad_id: text("squad_id").references(() => squads.id),
+    added_by: text("added_by").notNull().references(() => users.id),
+    track_uri: text("track_uri"),
+    track_name: text("track_name").notNull(),
+    artist_name: text("artist_name").notNull(),
+    album_image_url: text("album_image_url"),
+    duration_ms: integer("duration_ms"),
+    position: integer("position").notNull().default(0),
+    created_at: text("created_at").notNull().default(sql`CURRENT_TIMESTAMP`),
+  },
+  (t) => ({
+    rideIdx: index("playlist_tracks_ride_idx").on(t.ride_id),
+    squadIdx: index("playlist_tracks_squad_idx").on(t.squad_id),
+  }),
+);
+
+export const festivalQnasRelations = relations(festivalQnas, ({ one }) => ({
+  user: one(users, { fields: [festivalQnas.user_id], references: [users.id] }),
+}));
+
+export const squadsRelations = relations(squads, ({ one, many }) => ({
+  concert: one(concerts, { fields: [squads.concert_id], references: [concerts.id] }),
+  owner: one(users, { fields: [squads.owner_id], references: [users.id] }),
+  members: many(squadMembers),
+}));
+
+export const squadMembersRelations = relations(squadMembers, ({ one }) => ({
+  squad: one(squads, { fields: [squadMembers.squad_id], references: [squads.id] }),
+  user: one(users, { fields: [squadMembers.user_id], references: [users.id] }),
+  ride: one(rides, { fields: [squadMembers.ride_id], references: [rides.id] }),
+}));
+
+export const playlistTracksRelations = relations(playlistTracks, ({ one }) => ({
+  ride: one(rides, { fields: [playlistTracks.ride_id], references: [rides.id] }),
+  squad: one(squads, { fields: [playlistTracks.squad_id], references: [squads.id] }),
+  adder: one(users, { fields: [playlistTracks.added_by], references: [users.id] }),
+}));
+
+export type FestivalQnaRow = typeof festivalQnas.$inferSelect;
+export type SquadRow = typeof squads.$inferSelect;
+export type SquadMemberRow = typeof squadMembers.$inferSelect;
+export type PlaylistTrackRow = typeof playlistTracks.$inferSelect;

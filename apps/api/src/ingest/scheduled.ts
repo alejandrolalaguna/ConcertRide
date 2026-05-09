@@ -6,6 +6,7 @@ import { fetchFuelPrices } from "../lib/fuel";
 import { KV_KEY } from "../routes/fuel";
 import { runRideReminders } from "../lib/reminders";
 import { runPaymentReminders } from "../lib/payment-reminders";
+import { runCountdownReminders } from "../lib/countdown-reminders";
 
 // Lunes 3am UTC — ingesta Ticketmaster + limpieza de conciertos pasados
 const INGEST_CRON = "0 3 * * 1";
@@ -15,6 +16,8 @@ const FUEL_CRON = "0 4 * * 1";
 const REMINDERS_CRON = "5 * * * *";
 // Cada hora (minuto 15) — recordatorios de confirmación pago 1h antes
 const PAYMENT_REMINDERS_CRON = "15 * * * *";
+// Cada hora (minuto 25) — countdown 24h antes para usuarios con anticipation
+const COUNTDOWN_CRON = "25 * * * *";
 
 // Fetch from today to 1 year ahead
 function yearWindow(): { fromDate: string; toDate: string } {
@@ -64,6 +67,17 @@ export async function dispatchScheduled(
         const sent = await runPaymentReminders(env, store);
         if (sent > 0) console.log(`[cron] payment reminders sent for ${sent} ride(s)`);
       })().catch((err) => console.error("payment-reminders cron failed:", err)),
+    );
+    return;
+  }
+
+  if (event.cron === COUNTDOWN_CRON) {
+    ctx.waitUntil(
+      (async () => {
+        const store = await getStore(env);
+        const sent = await runCountdownReminders(env, store);
+        if (sent > 0) console.log(`[cron] countdown reminders sent for ${sent} anticipation(s)`);
+      })().catch((err) => console.error("countdown-reminders cron failed:", err)),
     );
     return;
   }

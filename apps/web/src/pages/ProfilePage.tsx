@@ -76,6 +76,9 @@ export default function ProfilePage() {
   const [hasLicense, setHasLicense] = useState<Tristate>("");
   const [carModel, setCarModel] = useState("");
   const [carColor, setCarColor] = useState("");
+  const [bio, setBio] = useState("");
+  const [musicGenresInput, setMusicGenresInput] = useState("");
+  const [topArtistsInput, setTopArtistsInput] = useState("");
 
   const [submitting, setSubmitting] = useState(false);
   const [saved, setSaved] = useState(false);
@@ -119,6 +122,9 @@ export default function ProfilePage() {
     setHasLicense(toTristate(user.has_license));
     setCarModel(user.car_model ?? "");
     setCarColor(user.car_color ?? "");
+    setBio(user.bio ?? "");
+    setMusicGenresInput((user.music_genres ?? []).join(", "));
+    setTopArtistsInput((user.top_artists ?? []).join(", "));
   }, [user]);
 
   useEffect(() => {
@@ -166,6 +172,14 @@ export default function ProfilePage() {
     setError(null);
     setSaved(false);
     try {
+      const splitTags = (raw: string, max: number): string[] | null => {
+        const parts = raw
+          .split(/[,|\n]/)
+          .map((p) => p.trim())
+          .filter(Boolean)
+          .slice(0, max);
+        return parts.length ? parts : null;
+      };
       await api.auth.updateProfile({
         name: name.trim() || undefined,
         phone: phone.trim() || null,
@@ -174,6 +188,9 @@ export default function ProfilePage() {
         has_license: fromTristate(hasLicense),
         car_model: carModel.trim() || null,
         car_color: carColor.trim() || null,
+        bio: bio.trim() || null,
+        music_genres: splitTags(musicGenresInput, 8),
+        top_artists: splitTags(topArtistsInput, 10),
       });
       await refresh();
       setSaved(true);
@@ -365,6 +382,50 @@ export default function ProfilePage() {
             </dl>
           </section>
         )}
+
+        <section className="space-y-3">
+          <h2 className="font-sans text-[11px] font-semibold uppercase tracking-[0.16em] text-cr-primary border-b border-cr-border pb-2">
+            Tu archivo
+          </h2>
+          <div className="grid gap-3 sm:grid-cols-3">
+            <Link
+              to="/memorias"
+              className="block border-2 border-cr-border bg-cr-surface-2 p-4 hover:border-cr-primary"
+            >
+              <p className="font-mono text-[10px] uppercase tracking-[0.16em] text-cr-text-muted">
+                recap personal
+              </p>
+              <p className="mt-1 font-display text-base uppercase">Mis recuerdos</p>
+              <p className="mt-1 text-xs text-cr-text-muted">
+                Vibe cards y stats por año.
+              </p>
+            </Link>
+            <Link
+              to="/crew"
+              className="block border-2 border-cr-border bg-cr-surface-2 p-4 hover:border-cr-primary"
+            >
+              <p className="font-mono text-[10px] uppercase tracking-[0.16em] text-cr-text-muted">
+                tu gente
+              </p>
+              <p className="mt-1 font-display text-base uppercase">Mi crew</p>
+              <p className="mt-1 text-xs text-cr-text-muted">
+                {user.crew_count > 0 ? `${user.crew_count} ${user.crew_count === 1 ? "persona" : "personas"}` : "Aún sin crew"}
+              </p>
+            </Link>
+            <Link
+              to="/feed"
+              className="block border-2 border-cr-border bg-cr-surface-2 p-4 hover:border-cr-primary"
+            >
+              <p className="font-mono text-[10px] uppercase tracking-[0.16em] text-cr-text-muted">
+                en directo
+              </p>
+              <p className="mt-1 font-display text-base uppercase">Activity feed</p>
+              <p className="mt-1 text-xs text-cr-text-muted">
+                Quién organiza viajes ahora.
+              </p>
+            </Link>
+          </div>
+        </section>
 
         {/* Reviews received */}
         {(reviewsLoading || reviews.length > 0) && (
@@ -568,6 +629,57 @@ export default function ProfilePage() {
                   <option key={c.name} value={c.name}>{c.name}</option>
                 ))}
               </select>
+            </label>
+          </section>
+
+          {/* Identidad musical */}
+          <section className="space-y-4">
+            <div className="border-b border-cr-border pb-2">
+              <h2 className="font-sans text-[11px] font-semibold uppercase tracking-[0.16em] text-cr-primary">
+                Identidad musical
+              </h2>
+              <p className="mt-1 text-xs text-cr-text-muted">
+                Te ayuda a encontrar gente con tus mismos gustos. Aparece en tu perfil público y en cards de viajes.
+              </p>
+            </div>
+            <label className="block">
+              <span className="font-sans text-[11px] font-semibold uppercase tracking-[0.16em] text-cr-text-muted">
+                Bio (máx 200)
+              </span>
+              <textarea
+                value={bio}
+                onChange={(e) => setBio(e.target.value.slice(0, 200))}
+                rows={2}
+                placeholder="Festivalera reincidente. Indie, post-punk, alguna electrónica."
+                className="mt-1 w-full bg-cr-surface border-2 border-cr-border focus:border-cr-primary outline-none px-3 py-2 font-sans text-sm text-cr-text"
+              />
+              <span className="mt-1 block font-mono text-[10px] uppercase tracking-[0.12em] text-cr-text-dim">
+                {bio.length}/200
+              </span>
+            </label>
+            <label className="block">
+              <span className="font-sans text-[11px] font-semibold uppercase tracking-[0.16em] text-cr-text-muted">
+                Géneros (separados por coma, máx 8)
+              </span>
+              <input
+                type="text"
+                value={musicGenresInput}
+                onChange={(e) => setMusicGenresInput(e.target.value)}
+                placeholder="indie, electronica, post-punk, hip hop"
+                className="mt-1 w-full bg-cr-surface border-2 border-cr-border focus:border-cr-primary outline-none px-3 py-2 font-sans text-sm text-cr-text"
+              />
+            </label>
+            <label className="block">
+              <span className="font-sans text-[11px] font-semibold uppercase tracking-[0.16em] text-cr-text-muted">
+                Top artistas (separados por coma, máx 10)
+              </span>
+              <input
+                type="text"
+                value={topArtistsInput}
+                onChange={(e) => setTopArtistsInput(e.target.value)}
+                placeholder="Rosalía, C. Tangana, Vetusta Morla"
+                className="mt-1 w-full bg-cr-surface border-2 border-cr-border focus:border-cr-primary outline-none px-3 py-2 font-sans text-sm text-cr-text"
+              />
             </label>
           </section>
 

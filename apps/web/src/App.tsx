@@ -9,6 +9,13 @@ import { LoadingSpinner } from "./components/ui";
 
 const LandingPage = lazy(() => import("./pages/LandingPage"));
 const FavoritesPage = lazy(() => import("./pages/FavoritesPage"));
+const CrewPage = lazy(() => import("./pages/CrewPage"));
+const FeedPage = lazy(() => import("./pages/FeedPage"));
+const SquadDetailPage = lazy(() => import("./pages/SquadDetailPage"));
+const SquadJoinPage = lazy(() => import("./pages/SquadJoinPage"));
+const SquadCreatePage = lazy(() => import("./pages/SquadCreatePage"));
+const MemoriasPage = lazy(() => import("./pages/MemoriasPage"));
+const MemoryDetailPage = lazy(() => import("./pages/MemoryDetailPage"));
 const MyRidesPage = lazy(() => import("./pages/MyRidesPage"));
 const AdminReportsPage = lazy(() => import("./pages/AdminReportsPage"));
 const ForgotPasswordPage = lazy(() => import("./pages/ForgotPasswordPage"));
@@ -115,6 +122,13 @@ export default function App() {
             <Route path="/reset-password" element={<ResetPasswordPage />} />
             <Route path="/verify-email" element={<VerifyEmailPage />} />
             <Route path="/favoritos" element={<FavoritesPage />} />
+            <Route path="/crew" element={<CrewPage />} />
+            <Route path="/feed" element={<FeedPage />} />
+            <Route path="/squads/new" element={<SquadCreatePage />} />
+            <Route path="/squads/join/:code" element={<SquadJoinPage />} />
+            <Route path="/squads/:id" element={<SquadDetailPage />} />
+            <Route path="/memorias" element={<MemoriasPage />} />
+            <Route path="/memorias/:id" element={<MemoryDetailPage />} />
             <Route path="/mis-viajes" element={<MyRidesPage />} />
             <Route path="/mensajes" element={<MessagesPage />} />
             <Route path="/mensajes/:userId" element={<DirectMessagePage />} />

@@ -43,6 +43,14 @@ route.post("/", async (c) => {
   const { kind, target_id, label } = parsed.data;
   const normalisedId = normaliseTargetId(kind, target_id);
   const fav = await c.var.store.addFavorite(userOrResp.id, kind, normalisedId, label.trim());
+  void c.var.store.recordActivity({
+    actor: userOrResp,
+    kind: "favorite_added",
+    target_id: normalisedId,
+    concert_id: kind === "concert" ? normalisedId : null,
+    city: kind === "city" ? normalisedId : userOrResp.home_city?.toLowerCase() ?? null,
+    label: `${userOrResp.name} sigue ${kind === "artist" ? "a" : kind === "city" ? "" : ""} ${label.trim()}`,
+  });
   return c.json(fav, 201);
 });
 

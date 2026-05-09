@@ -27,6 +27,36 @@ const client = createClient({
 
 const MIGRATIONS_DIR = new URL("../drizzle/", import.meta.url).pathname.replace(/^\//, "");
 
+function splitSqlStatements(sql: string): string[] {
+  const out: string[] = [];
+  let buf = "";
+  let inSingle = false;
+  let inDouble = false;
+  let inBacktick = false;
+  let i = 0;
+  while (i < sql.length) {
+    const ch = sql[i];
+    const next = sql[i + 1];
+    if (!inSingle && !inDouble && !inBacktick && ch === "-" && next === "-") {
+      while (i < sql.length && sql[i] !== "\n") i++;
+      continue;
+    }
+    if (!inDouble && !inBacktick && ch === "'") inSingle = !inSingle;
+    else if (!inSingle && !inBacktick && ch === '"') inDouble = !inDouble;
+    else if (!inSingle && !inDouble && ch === "`") inBacktick = !inBacktick;
+    if (ch === ";" && !inSingle && !inDouble && !inBacktick) {
+      out.push(buf);
+      buf = "";
+      i++;
+      continue;
+    }
+    buf += ch;
+    i++;
+  }
+  if (buf.trim()) out.push(buf);
+  return out;
+}
+
 async function main() {
   await client.execute(
     `CREATE TABLE IF NOT EXISTS _migrations (name TEXT PRIMARY KEY, applied_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP)`,
@@ -46,8 +76,11 @@ async function main() {
       continue;
     }
     const sql = readFileSync(join(MIGRATIONS_DIR, file), "utf8");
-    const statements = sql
-      .split("--> statement-breakpoint")
+    const statements = (
+      sql.includes("--> statement-breakpoint")
+        ? sql.split("--> statement-breakpoint")
+        : splitSqlStatements(sql)
+    )
       .map((s) => s.trim())
       .filter(Boolean);
 

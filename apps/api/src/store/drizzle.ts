@@ -8,25 +8,44 @@ import { createClient } from "@libsql/client/web";
 import { and, asc, avg, count, desc, eq, gte, inArray, isNull, like, lte, lt, notInArray, or, sql } from "drizzle-orm";
 import { drizzle } from "drizzle-orm/libsql";
 import type {
+  ActivityEvent,
+  ActivityFeedQuery,
+  ActivityFeedResponse,
+  ActivityKind,
+  AddPlaylistTrackRequest,
   AdminAuditAction,
   AdminAuditLogEntry,
+  AnticipationStatus,
+  AnticipationSummary,
   Concert,
   ConversationPreview,
   CreateConcertInput,
+  CreateFestivalQnaRequest,
   CreateReviewRequest,
   CreateRideRequest,
+  CreateSquadRequest,
+  CreateTripMemoryRequest,
+  CrewListResponse,
+  CrewMember,
   DemandSignal,
   DirectMessage,
+  EventAnticipation,
   Favorite,
   FavoriteKind,
+  FestivalQna,
+  JoinSquadRequest,
   Message,
   MessageKind,
+  PlaylistTrack,
   Report,
   ReportReason,
   RequestStatus,
   Review,
   Ride,
   RideRequest,
+  Squad,
+  SquadRole,
+  TripMemory,
   UpdateProfileInput,
   User,
   Venue,
@@ -113,6 +132,15 @@ function makeReferralCode(): string {
   return crypto.randomUUID().replace(/-/g, "").slice(0, 8).toUpperCase();
 }
 
+function splitPipe(value: string | null | undefined): string[] | null {
+  if (!value) return null;
+  const parts = value
+    .split("|")
+    .map((p) => p.trim())
+    .filter(Boolean);
+  return parts.length ? parts : null;
+}
+
 // Minimal user shape for embedding in public responses (messages, rides, reviews).
 // Never include phone, home_city, referral_code, or internal timestamps.
 function hydratePublicUser(row: UserRow): User {
@@ -141,6 +169,12 @@ function hydratePublicUser(row: UserRow): User {
     deleted_at: null,
     banned_at: null,
     ban_reason: null,
+    bio: row.bio ?? null,
+    music_genres: splitPipe(row.music_genres),
+    top_artists: splitPipe(row.top_artists),
+    spotify_id: null,
+    handle: row.handle ?? null,
+    crew_count: row.crew_count ?? 0,
     created_at: row.created_at,
   };
 }
@@ -171,6 +205,12 @@ function hydrateUser(row: UserRow): User {
     deleted_at: row.deleted_at ?? null,
     banned_at: row.banned_at ?? null,
     ban_reason: row.ban_reason ?? null,
+    bio: row.bio ?? null,
+    music_genres: splitPipe(row.music_genres),
+    top_artists: splitPipe(row.top_artists),
+    spotify_id: row.spotify_id ?? null,
+    handle: row.handle ?? null,
+    crew_count: row.crew_count ?? 0,
     created_at: row.created_at,
   };
 }
@@ -346,6 +386,17 @@ export class DrizzleStore implements StoreAdapter {
     if (input.has_license !== undefined) patch.has_license = input.has_license;
     if (input.car_model !== undefined) patch.car_model = input.car_model;
     if (input.car_color !== undefined) patch.car_color = input.car_color;
+    if (input.bio !== undefined) patch.bio = input.bio === null ? null : input.bio.slice(0, 200);
+    if (input.music_genres !== undefined) {
+      patch.music_genres = input.music_genres ? input.music_genres.join("|") : null;
+    }
+    if (input.top_artists !== undefined) {
+      patch.top_artists = input.top_artists ? input.top_artists.slice(0, 10).join("|") : null;
+    }
+    if (input.handle !== undefined) {
+      const next = input.handle?.toLowerCase().replace(/[^a-z0-9_]/g, "").slice(0, 24) || null;
+      patch.handle = next;
+    }
     if (Object.keys(patch).length === 0) return this.getUser(id);
     await this.db.update(schema.users).set(patch).where(eq(schema.users.id, id));
     return this.getUser(id);
@@ -2322,6 +2373,815 @@ export class DrizzleStore implements StoreAdapter {
       .limit(10);
     return rows;
   }
+
+  // ============================================================
+  // SOCIAL DENSITY (Phase 1)
+  // ============================================================
+
+  private hydrateCrewMember(row: schema.CrewConnectionRow, otherUser: User, viewerId: string, ridesTogether = 0, originConcertLabel: string | null = null): CrewMember {
+    return {
+      user: otherUser,
+      status: row.status,
+      initiated_by_me: row.requested_by === viewerId,
+      origin_ride_id: row.origin_ride_id,
+      origin_concert_id: row.origin_concert_id,
+      origin_concert_label: originConcertLabel,
+      shared_genres: otherUser.music_genres ?? [],
+      shared_artists: [],
+      rides_together: ridesTogether,
+      connected_at: row.accepted_at ?? row.created_at,
+    };
+  }
+
+  async listCrewForUser(userId: string): Promise<CrewListResponse> {
+    const rows = await this.db
+      .select()
+      .from(schema.crewConnections)
+      .where(or(eq(schema.crewConnections.a_id, userId), eq(schema.crewConnections.b_id, userId)));
+    if (!rows.length) {
+      return { crew: [], pending_incoming: [], pending_outgoing: [], total: 0 };
+    }
+    const otherIds = Array.from(new Set(rows.map((r) => (r.a_id === userId ? r.b_id : r.a_id))));
+    const userRows = await this.db
+      .select()
+      .from(schema.users)
+      .where(inArray(schema.users.id, otherIds));
+    const userMap = new Map(userRows.map((u) => [u.id, hydratePublicUser(u)]));
+    const accepted: CrewMember[] = [];
+    const incoming: CrewMember[] = [];
+    const outgoing: CrewMember[] = [];
+    for (const row of rows) {
+      const otherId = row.a_id === userId ? row.b_id : row.a_id;
+      const other = userMap.get(otherId);
+      if (!other) continue;
+      const member = this.hydrateCrewMember(row, other, userId);
+      if (row.status === "accepted") accepted.push(member);
+      else if (row.status === "pending") {
+        if (row.requested_by === userId) outgoing.push(member);
+        else incoming.push(member);
+      }
+    }
+    return { crew: accepted, pending_incoming: incoming, pending_outgoing: outgoing, total: accepted.length };
+  }
+
+  async inviteToCrew(viewer: User, otherUserId: string, opts?: { ride_id?: string }): Promise<CrewMember | null> {
+    if (viewer.id === otherUserId) return null;
+    const [a, b] = viewer.id < otherUserId ? [viewer.id, otherUserId] : [otherUserId, viewer.id];
+    const otherRow = await this.db.query.users.findFirst({ where: eq(schema.users.id, otherUserId) });
+    if (!otherRow) return null;
+    const existing = await this.db.query.crewConnections.findFirst({
+      where: and(eq(schema.crewConnections.a_id, a), eq(schema.crewConnections.b_id, b)),
+    });
+    if (existing) return this.hydrateCrewMember(existing, hydratePublicUser(otherRow), viewer.id);
+    let originConcertId: string | null = null;
+    if (opts?.ride_id) {
+      const ride = await this.db.query.rides.findFirst({ where: eq(schema.rides.id, opts.ride_id) });
+      if (ride) originConcertId = ride.concert_id;
+    }
+    const row: schema.CrewConnectionRow = {
+      id: `cr_${crypto.randomUUID().slice(0, 10)}`,
+      a_id: a,
+      b_id: b,
+      requested_by: viewer.id,
+      status: "pending",
+      origin_ride_id: opts?.ride_id ?? null,
+      origin_concert_id: originConcertId,
+      created_at: new Date().toISOString(),
+      accepted_at: null,
+    };
+    await this.db.insert(schema.crewConnections).values(row);
+    return this.hydrateCrewMember(row, hydratePublicUser(otherRow), viewer.id);
+  }
+
+  async acceptCrewInvite(viewerId: string, otherUserId: string): Promise<CrewMember | null> {
+    const [a, b] = viewerId < otherUserId ? [viewerId, otherUserId] : [otherUserId, viewerId];
+    const existing = await this.db.query.crewConnections.findFirst({
+      where: and(eq(schema.crewConnections.a_id, a), eq(schema.crewConnections.b_id, b)),
+    });
+    if (!existing || existing.status !== "pending" || existing.requested_by === viewerId) return null;
+    const now = new Date().toISOString();
+    await this.db
+      .update(schema.crewConnections)
+      .set({ status: "accepted", accepted_at: now })
+      .where(eq(schema.crewConnections.id, existing.id));
+    await this.db
+      .update(schema.users)
+      .set({ crew_count: sql`crew_count + 1` })
+      .where(inArray(schema.users.id, [a, b]));
+    const otherRow = await this.db.query.users.findFirst({ where: eq(schema.users.id, otherUserId) });
+    if (!otherRow) return null;
+    return this.hydrateCrewMember({ ...existing, status: "accepted", accepted_at: now }, hydratePublicUser(otherRow), viewerId);
+  }
+
+  async removeCrewConnection(viewerId: string, otherUserId: string): Promise<void> {
+    const [a, b] = viewerId < otherUserId ? [viewerId, otherUserId] : [otherUserId, viewerId];
+    const existing = await this.db.query.crewConnections.findFirst({
+      where: and(eq(schema.crewConnections.a_id, a), eq(schema.crewConnections.b_id, b)),
+    });
+    if (!existing) return;
+    await this.db.delete(schema.crewConnections).where(eq(schema.crewConnections.id, existing.id));
+    if (existing.status === "accepted") {
+      await this.db
+        .update(schema.users)
+        .set({ crew_count: sql`max(0, crew_count - 1)` })
+        .where(inArray(schema.users.id, [a, b]));
+    }
+  }
+
+  async listCrewAttendingConcert(viewerId: string, concertId: string): Promise<CrewMember[]> {
+    const { crew } = await this.listCrewForUser(viewerId);
+    if (!crew.length) return [];
+    const crewIds = crew.map((c) => c.user.id);
+    const ant = await this.db
+      .select({ user_id: schema.eventAnticipations.user_id })
+      .from(schema.eventAnticipations)
+      .where(and(eq(schema.eventAnticipations.concert_id, concertId), inArray(schema.eventAnticipations.user_id, crewIds)));
+    const drivers = await this.db
+      .select({ driver_id: schema.rides.driver_id })
+      .from(schema.rides)
+      .where(and(eq(schema.rides.concert_id, concertId), inArray(schema.rides.driver_id, crewIds)));
+    const requests = await this.db
+      .select({ passenger_id: schema.rideRequests.passenger_id })
+      .from(schema.rideRequests)
+      .innerJoin(schema.rides, eq(schema.rideRequests.ride_id, schema.rides.id))
+      .where(and(eq(schema.rides.concert_id, concertId), inArray(schema.rideRequests.passenger_id, crewIds), eq(schema.rideRequests.status, "confirmed")));
+    const attendingIds = new Set<string>();
+    for (const r of ant) attendingIds.add(r.user_id);
+    for (const r of drivers) attendingIds.add(r.driver_id);
+    for (const r of requests) attendingIds.add(r.passenger_id);
+    return crew.filter((c) => attendingIds.has(c.user.id));
+  }
+
+  async recordActivity(input: {
+    actor: User;
+    kind: ActivityKind;
+    target_id?: string | null;
+    concert_id?: string | null;
+    city?: string | null;
+    label?: string;
+    metadata?: Record<string, unknown> | null;
+    visibility?: "public" | "crew" | "private";
+  }): Promise<ActivityEvent> {
+    const row: schema.ActivityEventRow = {
+      id: `ae_${crypto.randomUUID().slice(0, 10)}`,
+      actor_id: input.actor.id,
+      kind: input.kind,
+      target_id: input.target_id ?? null,
+      concert_id: input.concert_id ?? null,
+      city: input.city ?? null,
+      actor_name: input.actor.name,
+      actor_avatar: input.actor.avatar_url,
+      label: input.label ?? "",
+      metadata: input.metadata ? JSON.stringify(input.metadata) : null,
+      visibility: input.visibility ?? "public",
+      created_at: new Date().toISOString(),
+    };
+    await this.db.insert(schema.activityEvents).values(row);
+    return {
+      id: row.id,
+      actor_id: row.actor_id,
+      actor_name: row.actor_name,
+      actor_avatar: row.actor_avatar,
+      kind: row.kind as ActivityKind,
+      target_id: row.target_id,
+      concert_id: row.concert_id,
+      concert_name: null,
+      city: row.city,
+      label: row.label,
+      metadata: input.metadata ?? null,
+      created_at: row.created_at,
+    };
+  }
+
+  async listActivity(viewer: User | null, query: ActivityFeedQuery): Promise<ActivityFeedResponse> {
+    const limit = Math.min(query.limit ?? 30, 100);
+    const conditions: ReturnType<typeof eq>[] = [];
+    if (query.scope === "self" && viewer) {
+      conditions.push(eq(schema.activityEvents.actor_id, viewer.id));
+    } else if (query.scope === "crew" && viewer) {
+      const { crew } = await this.listCrewForUser(viewer.id);
+      const ids = crew.map((c) => c.user.id);
+      if (!ids.length) return { events: [], has_more: false };
+      conditions.push(inArray(schema.activityEvents.actor_id, ids));
+    } else {
+      conditions.push(eq(schema.activityEvents.visibility, "public" as const));
+      if (query.scope === "city" && query.city) {
+        conditions.push(eq(schema.activityEvents.city, query.city.toLowerCase()));
+      }
+      if (query.scope === "concert" && query.concert_id) {
+        conditions.push(eq(schema.activityEvents.concert_id, query.concert_id));
+      }
+    }
+    if (query.before) {
+      conditions.push(lt(schema.activityEvents.created_at, query.before));
+    }
+    const rows = await this.db
+      .select()
+      .from(schema.activityEvents)
+      .where(and(...conditions))
+      .orderBy(desc(schema.activityEvents.created_at))
+      .limit(limit + 1);
+    const hasMore = rows.length > limit;
+    const events: ActivityEvent[] = rows.slice(0, limit).map((r) => ({
+      id: r.id,
+      actor_id: r.actor_id,
+      actor_name: r.actor_name,
+      actor_avatar: r.actor_avatar,
+      kind: r.kind as ActivityKind,
+      target_id: r.target_id,
+      concert_id: r.concert_id,
+      concert_name: null,
+      city: r.city,
+      label: r.label,
+      metadata: r.metadata ? safeJson(r.metadata) : null,
+      created_at: r.created_at,
+    }));
+    return { events, has_more: hasMore };
+  }
+
+  async setAnticipation(userId: string, concertId: string, status: AnticipationStatus): Promise<EventAnticipation> {
+    const existing = await this.db.query.eventAnticipations.findFirst({
+      where: and(eq(schema.eventAnticipations.user_id, userId), eq(schema.eventAnticipations.concert_id, concertId)),
+    });
+    if (existing) {
+      await this.db
+        .update(schema.eventAnticipations)
+        .set({ status })
+        .where(eq(schema.eventAnticipations.id, existing.id));
+      return { ...existing, status };
+    }
+    const row: schema.EventAnticipationRow = {
+      id: `ea_${crypto.randomUUID().slice(0, 10)}`,
+      user_id: userId,
+      concert_id: concertId,
+      status,
+      ride_id: null,
+      notify_before_hours: 24,
+      last_notified_at: null,
+      created_at: new Date().toISOString(),
+    };
+    await this.db.insert(schema.eventAnticipations).values(row);
+    return row;
+  }
+
+  async removeAnticipation(userId: string, concertId: string): Promise<void> {
+    await this.db
+      .delete(schema.eventAnticipations)
+      .where(and(eq(schema.eventAnticipations.user_id, userId), eq(schema.eventAnticipations.concert_id, concertId)));
+  }
+
+  async getAnticipationSummary(concertId: string, viewerId: string | null): Promise<AnticipationSummary> {
+    const rows = await this.db
+      .select()
+      .from(schema.eventAnticipations)
+      .where(eq(schema.eventAnticipations.concert_id, concertId));
+    const going = rows.filter((r) => r.status === "going");
+    const maybe = rows.filter((r) => r.status === "maybe");
+    const previewIds = going.slice(0, 8).map((r) => r.user_id);
+    const previewUsers = previewIds.length
+      ? await this.db.select().from(schema.users).where(inArray(schema.users.id, previewIds))
+      : [];
+    let crewAttending: AnticipationSummary["crew_attending"] = [];
+    let userStatus: AnticipationStatus | null = null;
+    if (viewerId) {
+      const own = rows.find((r) => r.user_id === viewerId);
+      if (own) userStatus = own.status;
+      const { crew } = await this.listCrewForUser(viewerId);
+      const crewIds = new Set(crew.map((c) => c.user.id));
+      crewAttending = previewUsers
+        .filter((u) => crewIds.has(u.id))
+        .map((u) => ({ id: u.id, name: u.name, avatar_url: u.avatar_url }));
+    }
+    return {
+      going_count: going.length,
+      maybe_count: maybe.length,
+      user_status: userStatus,
+      preview: previewUsers.map((u) => ({ id: u.id, name: u.name, avatar_url: u.avatar_url })),
+      crew_attending: crewAttending,
+    };
+  }
+
+  async listAnticipatedConcerts(userId: string): Promise<Array<{ concert: Concert; status: AnticipationStatus }>> {
+    const rows = await this.db
+      .select()
+      .from(schema.eventAnticipations)
+      .where(eq(schema.eventAnticipations.user_id, userId));
+    if (!rows.length) return [];
+    const concertIds = rows.map((r) => r.concert_id);
+    const concertRows = await this.db.query.concerts.findMany({
+      where: inArray(schema.concerts.id, concertIds),
+      with: { venue: true },
+    });
+    const map = new Map(concertRows.map((c) => [c.id, hydrateConcert(c as ConcertWith)]));
+    return rows
+      .map((r) => {
+        const concert = map.get(r.concert_id);
+        if (!concert) return null;
+        return { concert, status: r.status };
+      })
+      .filter((r): r is { concert: Concert; status: AnticipationStatus } => r !== null)
+      .sort((a, b) => a.concert.date.localeCompare(b.concert.date));
+  }
+
+  async createTripMemory(creator: User, input: CreateTripMemoryRequest): Promise<TripMemory | { error: string }> {
+    const ride = await this.db.query.rides.findFirst({
+      where: eq(schema.rides.id, input.ride_id),
+      with: { concert: { with: { venue: true } } },
+    });
+    if (!ride || !ride.concert) return { error: "ride_not_found" };
+    if (ride.driver_id !== creator.id) return { error: "only_driver_can_publish" };
+    if (ride.status !== "completed") return { error: "ride_not_completed" };
+    const existing = await this.db.query.tripMemories.findFirst({
+      where: eq(schema.tripMemories.ride_id, input.ride_id),
+    });
+    if (existing) return this.hydrateTripMemory(existing, creator, ride.concert as ConcertWith);
+    const row: schema.TripMemoryRow = {
+      id: `tm_${crypto.randomUUID().slice(0, 10)}`,
+      ride_id: input.ride_id,
+      concert_id: ride.concert_id,
+      created_by: creator.id,
+      title: input.title?.slice(0, 80) || `${ride.origin_city} → ${ride.concert.artist}`,
+      caption: input.caption?.slice(0, 280) ?? null,
+      payload_json: JSON.stringify({
+        vibe: ride.vibe,
+        origin_city: ride.origin_city,
+        destination_city: ride.concert.venue?.city ?? "",
+        playlist_url: ride.playlist_url,
+        hero_color: vibeHeroColor(ride.vibe),
+      }),
+      image_kv_key: null,
+      visibility: input.visibility ?? "public",
+      share_count: 0,
+      created_at: new Date().toISOString(),
+    };
+    await this.db.insert(schema.tripMemories).values(row);
+    return this.hydrateTripMemory(row, creator, ride.concert as ConcertWith);
+  }
+
+  private hydrateTripMemory(row: schema.TripMemoryRow, creator: User, concert: ConcertWith): TripMemory {
+    const payload = safeJson(row.payload_json) ?? {};
+    const p = payload as Record<string, unknown>;
+    return {
+      id: row.id,
+      ride_id: row.ride_id,
+      concert_id: row.concert_id,
+      concert_name: concert.name,
+      concert_artist: concert.artist,
+      created_by: row.created_by,
+      creator_name: creator.name,
+      creator_avatar: creator.avatar_url,
+      title: row.title,
+      caption: row.caption,
+      vibe: (p.vibe as Ride["vibe"]) ?? "mixed",
+      origin_city: typeof p.origin_city === "string" ? p.origin_city : "",
+      destination_city: typeof p.destination_city === "string" ? p.destination_city : "",
+      distance_km: typeof p.distance_km === "number" ? p.distance_km : null,
+      crew: Array.isArray(p.crew) ? (p.crew as TripMemory["crew"]) : [],
+      playlist_url: typeof p.playlist_url === "string" ? p.playlist_url : null,
+      hero_color: typeof p.hero_color === "string" ? p.hero_color : null,
+      share_image_url: `/api/memories/${row.id}/share-image.svg`,
+      visibility: row.visibility,
+      share_count: row.share_count,
+      created_at: row.created_at,
+    };
+  }
+
+  async getTripMemory(id: string): Promise<TripMemory | null> {
+    const row = await this.db.query.tripMemories.findFirst({ where: eq(schema.tripMemories.id, id) });
+    if (!row) return null;
+    const concert = await this.db.query.concerts.findFirst({
+      where: eq(schema.concerts.id, row.concert_id),
+      with: { venue: true },
+    });
+    if (!concert) return null;
+    const creator = await this.getUser(row.created_by);
+    if (!creator) return null;
+    return this.hydrateTripMemory(row, creator, concert as ConcertWith);
+  }
+
+  async listTripMemoriesForUser(userId: string): Promise<TripMemory[]> {
+    const rows = await this.db
+      .select()
+      .from(schema.tripMemories)
+      .where(eq(schema.tripMemories.created_by, userId))
+      .orderBy(desc(schema.tripMemories.created_at));
+    if (!rows.length) return [];
+    const concertIds = Array.from(new Set(rows.map((r) => r.concert_id)));
+    const concerts = await this.db.query.concerts.findMany({
+      where: inArray(schema.concerts.id, concertIds),
+      with: { venue: true },
+    });
+    const concertMap = new Map(concerts.map((c) => [c.id, c as ConcertWith]));
+    const creator = await this.getUser(userId);
+    if (!creator) return [];
+    return rows
+      .map((r) => {
+        const c = concertMap.get(r.concert_id);
+        if (!c) return null;
+        return this.hydrateTripMemory(r, creator, c);
+      })
+      .filter((m): m is TripMemory => m !== null);
+  }
+
+  async listTripMemoriesForConcert(concertId: string, limit = 12): Promise<TripMemory[]> {
+    const rows = await this.db
+      .select()
+      .from(schema.tripMemories)
+      .where(and(eq(schema.tripMemories.concert_id, concertId), eq(schema.tripMemories.visibility, "public" as const)))
+      .orderBy(desc(schema.tripMemories.created_at))
+      .limit(limit);
+    if (!rows.length) return [];
+    const concert = await this.db.query.concerts.findFirst({
+      where: eq(schema.concerts.id, concertId),
+      with: { venue: true },
+    });
+    if (!concert) return [];
+    const creatorIds = Array.from(new Set(rows.map((r) => r.created_by)));
+    const creators = await this.db.select().from(schema.users).where(inArray(schema.users.id, creatorIds));
+    const creatorMap = new Map(creators.map((c) => [c.id, hydratePublicUser(c)]));
+    return rows
+      .map((r) => {
+        const c = creatorMap.get(r.created_by);
+        if (!c) return null;
+        return this.hydrateTripMemory(r, c, concert as ConcertWith);
+      })
+      .filter((m): m is TripMemory => m !== null);
+  }
+
+  async incrementTripMemoryShare(id: string): Promise<void> {
+    await this.db
+      .update(schema.tripMemories)
+      .set({ share_count: sql`share_count + 1` })
+      .where(eq(schema.tripMemories.id, id));
+  }
+
+  // ============================================================
+  // PHASE 1E — countdown reminders
+  // ============================================================
+
+  async listAnticipationsForCountdown(
+    fromISO: string,
+    toISO: string,
+  ): Promise<Array<EventAnticipation & { concert: Concert; user: User }>> {
+    const rows = await this.db
+      .select()
+      .from(schema.eventAnticipations)
+      .innerJoin(schema.concerts, eq(schema.eventAnticipations.concert_id, schema.concerts.id))
+      .where(
+        and(
+          isNull(schema.eventAnticipations.last_notified_at),
+          gte(schema.concerts.date, fromISO),
+          lte(schema.concerts.date, toISO),
+        ),
+      );
+    if (!rows.length) return [];
+    const userIds = Array.from(new Set(rows.map((r) => r.event_anticipations.user_id)));
+    const userRows = await this.db.select().from(schema.users).where(inArray(schema.users.id, userIds));
+    const userMap = new Map(userRows.map((u) => [u.id, hydrateUser(u)]));
+    const venueIds = Array.from(new Set(rows.map((r) => r.concerts.venue_id)));
+    const venueRows = await this.db.select().from(schema.venues).where(inArray(schema.venues.id, venueIds));
+    const venueMap = new Map(venueRows.map((v) => [v.id, hydrateVenue(v)]));
+    const out: Array<EventAnticipation & { concert: Concert; user: User }> = [];
+    for (const r of rows) {
+      const user = userMap.get(r.event_anticipations.user_id);
+      const venue = venueMap.get(r.concerts.venue_id);
+      if (!user || !venue) continue;
+      const concert = hydrateConcert({ ...r.concerts, venue } as ConcertWith);
+      out.push({ ...r.event_anticipations, concert, user });
+    }
+    return out;
+  }
+
+  async markAnticipationNotified(id: string): Promise<void> {
+    await this.db
+      .update(schema.eventAnticipations)
+      .set({ last_notified_at: new Date().toISOString() })
+      .where(eq(schema.eventAnticipations.id, id));
+  }
+
+  // ============================================================
+  // PHASE 2.6 — Festival Q&A
+  // ============================================================
+
+  private async hydrateFestivalQna(row: schema.FestivalQnaRow): Promise<FestivalQna> {
+    const u = await this.db.query.users.findFirst({ where: eq(schema.users.id, row.user_id) });
+    return {
+      id: row.id,
+      festival_slug: row.festival_slug,
+      user_id: row.user_id,
+      user_name: u?.name ?? "Anónimo",
+      user_avatar: u?.avatar_url ?? null,
+      question: row.question,
+      answer: row.answer,
+      upvotes: row.upvotes,
+      approved: !!row.approved_at,
+      approved_at: row.approved_at,
+      created_at: row.created_at,
+    };
+  }
+
+  async listFestivalQnas(festivalSlug: string, opts?: { onlyApproved?: boolean; limit?: number }): Promise<FestivalQna[]> {
+    const conditions = [eq(schema.festivalQnas.festival_slug, festivalSlug)];
+    if (opts?.onlyApproved) {
+      conditions.push(sql`${schema.festivalQnas.approved_at} is not null`);
+    }
+    const rows = await this.db
+      .select()
+      .from(schema.festivalQnas)
+      .where(and(...conditions))
+      .orderBy(desc(schema.festivalQnas.upvotes), desc(schema.festivalQnas.created_at))
+      .limit(opts?.limit ?? 50);
+    return Promise.all(rows.map((r) => this.hydrateFestivalQna(r)));
+  }
+
+  async createFestivalQna(user: User, input: CreateFestivalQnaRequest): Promise<FestivalQna> {
+    const row: schema.FestivalQnaRow = {
+      id: `fq_${crypto.randomUUID().slice(0, 10)}`,
+      festival_slug: input.festival_slug,
+      user_id: user.id,
+      question: input.question.slice(0, 200),
+      answer: input.answer.slice(0, 1000),
+      upvotes: 0,
+      approved_at: null,
+      created_at: new Date().toISOString(),
+    };
+    await this.db.insert(schema.festivalQnas).values(row);
+    return this.hydrateFestivalQna(row);
+  }
+
+  async approveFestivalQna(id: string): Promise<FestivalQna | null> {
+    await this.db
+      .update(schema.festivalQnas)
+      .set({ approved_at: new Date().toISOString() })
+      .where(eq(schema.festivalQnas.id, id));
+    const row = await this.db.query.festivalQnas.findFirst({ where: eq(schema.festivalQnas.id, id) });
+    return row ? this.hydrateFestivalQna(row) : null;
+  }
+
+  async upvoteFestivalQna(id: string): Promise<FestivalQna | null> {
+    await this.db
+      .update(schema.festivalQnas)
+      .set({ upvotes: sql`upvotes + 1` })
+      .where(eq(schema.festivalQnas.id, id));
+    const row = await this.db.query.festivalQnas.findFirst({ where: eq(schema.festivalQnas.id, id) });
+    return row ? this.hydrateFestivalQna(row) : null;
+  }
+
+  // ============================================================
+  // PHASE 2.7 — Squads
+  // ============================================================
+
+  private async hydrateSquad(row: schema.SquadRow): Promise<Squad | null> {
+    const concert = await this.db.query.concerts.findFirst({
+      where: eq(schema.concerts.id, row.concert_id),
+      with: { venue: true },
+    });
+    if (!concert) return null;
+    const owner = await this.db.query.users.findFirst({ where: eq(schema.users.id, row.owner_id) });
+    if (!owner) return null;
+    const memberRows = await this.db
+      .select()
+      .from(schema.squadMembers)
+      .where(and(eq(schema.squadMembers.squad_id, row.id), isNull(schema.squadMembers.left_at)));
+    const memberIds = memberRows.map((m) => m.user_id);
+    const memberUsers = memberIds.length
+      ? await this.db.select().from(schema.users).where(inArray(schema.users.id, memberIds))
+      : [];
+    const userMap = new Map(memberUsers.map((u) => [u.id, hydratePublicUser(u)]));
+    const members: Squad["members"] = [];
+    for (const m of memberRows) {
+      const user = userMap.get(m.user_id);
+      if (!user) continue;
+      members.push({ user, role: m.role, ride_id: m.ride_id, joined_at: m.joined_at });
+    }
+    const rideIds = Array.from(new Set(memberRows.map((m) => m.ride_id).filter((r): r is string => !!r)));
+    const rideRows = rideIds.length
+      ? await this.db.query.rides.findMany({
+          where: inArray(schema.rides.id, rideIds),
+          with: { driver: true, concert: { with: { venue: true } } },
+        })
+      : [];
+    const rides = rideRows
+      .map((r) => {
+        if (!r.driver || !r.concert) return null;
+        return hydrateRide(r as RideWith);
+      })
+      .filter((r): r is Ride => !!r);
+    return {
+      id: row.id,
+      concert: hydrateConcert(concert as ConcertWith),
+      owner: hydrateUser(owner),
+      name: row.name,
+      vibe_tags: row.vibe_tags ? row.vibe_tags.split("|").filter(Boolean) : [],
+      visibility: row.visibility,
+      invite_code: row.invite_code,
+      invite_url: `/squads/join/${row.invite_code}`,
+      members,
+      rides,
+      created_at: row.created_at,
+    };
+  }
+
+  async createSquad(owner: User, input: CreateSquadRequest): Promise<Squad> {
+    const id = `sq_${crypto.randomUUID().slice(0, 10)}`;
+    const inviteCode = crypto.randomUUID().replace(/-/g, "").slice(0, 10);
+    const row: schema.SquadRow = {
+      id,
+      concert_id: input.concert_id,
+      owner_id: owner.id,
+      name: input.name.slice(0, 80),
+      vibe_tags: input.vibe_tags?.length ? input.vibe_tags.join("|") : null,
+      visibility: input.visibility ?? "private",
+      invite_code: inviteCode,
+      created_at: new Date().toISOString(),
+    };
+    await this.db.insert(schema.squads).values(row);
+    await this.db.insert(schema.squadMembers).values({
+      id: `sm_${crypto.randomUUID().slice(0, 10)}`,
+      squad_id: id,
+      user_id: owner.id,
+      role: "owner",
+      ride_id: null,
+      joined_at: row.created_at,
+      left_at: null,
+    });
+    const sq = await this.hydrateSquad(row);
+    return sq!;
+  }
+
+  async getSquad(id: string): Promise<Squad | null> {
+    const row = await this.db.query.squads.findFirst({ where: eq(schema.squads.id, id) });
+    return row ? this.hydrateSquad(row) : null;
+  }
+
+  async getSquadByInvite(inviteCode: string): Promise<Squad | null> {
+    const row = await this.db.query.squads.findFirst({ where: eq(schema.squads.invite_code, inviteCode) });
+    return row ? this.hydrateSquad(row) : null;
+  }
+
+  async listSquadsForUser(userId: string): Promise<Squad[]> {
+    const memberRows = await this.db
+      .select()
+      .from(schema.squadMembers)
+      .where(and(eq(schema.squadMembers.user_id, userId), isNull(schema.squadMembers.left_at)));
+    if (!memberRows.length) return [];
+    const squadIds = Array.from(new Set(memberRows.map((m) => m.squad_id)));
+    const rows = await this.db.select().from(schema.squads).where(inArray(schema.squads.id, squadIds));
+    const out: Squad[] = [];
+    for (const r of rows) {
+      const sq = await this.hydrateSquad(r);
+      if (sq) out.push(sq);
+    }
+    return out;
+  }
+
+  async listSquadsForConcert(concertId: string, opts?: { onlyPublic?: boolean }): Promise<Squad[]> {
+    const conditions = [eq(schema.squads.concert_id, concertId)];
+    if (opts?.onlyPublic) conditions.push(eq(schema.squads.visibility, "public" as const));
+    const rows = await this.db.select().from(schema.squads).where(and(...conditions));
+    const out: Squad[] = [];
+    for (const r of rows) {
+      const sq = await this.hydrateSquad(r);
+      if (sq) out.push(sq);
+    }
+    return out;
+  }
+
+  async joinSquad(user: User, input: JoinSquadRequest): Promise<Squad | { error: string }> {
+    const row = await this.db.query.squads.findFirst({ where: eq(schema.squads.invite_code, input.invite_code) });
+    if (!row) return { error: "squad_not_found" };
+    const existing = await this.db.query.squadMembers.findFirst({
+      where: and(eq(schema.squadMembers.squad_id, row.id), eq(schema.squadMembers.user_id, user.id)),
+    });
+    if (existing) {
+      const patch: Partial<schema.SquadMemberRow> = {};
+      if (existing.left_at) {
+        patch.left_at = null;
+        patch.joined_at = new Date().toISOString();
+      }
+      if (input.ride_id !== undefined) patch.ride_id = input.ride_id ?? null;
+      if (input.role) patch.role = input.role;
+      if (Object.keys(patch).length) {
+        await this.db.update(schema.squadMembers).set(patch).where(eq(schema.squadMembers.id, existing.id));
+      }
+    } else {
+      await this.db.insert(schema.squadMembers).values({
+        id: `sm_${crypto.randomUUID().slice(0, 10)}`,
+        squad_id: row.id,
+        user_id: user.id,
+        role: input.role ?? "passenger",
+        ride_id: input.ride_id ?? null,
+        joined_at: new Date().toISOString(),
+        left_at: null,
+      });
+    }
+    const sq = await this.hydrateSquad(row);
+    return sq!;
+  }
+
+  async leaveSquad(squadId: string, userId: string): Promise<void> {
+    await this.db
+      .update(schema.squadMembers)
+      .set({ left_at: new Date().toISOString() })
+      .where(and(eq(schema.squadMembers.squad_id, squadId), eq(schema.squadMembers.user_id, userId)));
+  }
+
+  async updateSquadMemberRole(squadId: string, userId: string, role: SquadRole, rideId?: string | null): Promise<void> {
+    const patch: Partial<schema.SquadMemberRow> = { role };
+    if (rideId !== undefined) patch.ride_id = rideId;
+    await this.db
+      .update(schema.squadMembers)
+      .set(patch)
+      .where(
+        and(
+          eq(schema.squadMembers.squad_id, squadId),
+          eq(schema.squadMembers.user_id, userId),
+          isNull(schema.squadMembers.left_at),
+        ),
+      );
+  }
+
+  // ============================================================
+  // PHASE 2.9 — Playlist tracks
+  // ============================================================
+
+  private async hydratePlaylistTrack(row: schema.PlaylistTrackRow): Promise<PlaylistTrack> {
+    const adder = await this.db.query.users.findFirst({ where: eq(schema.users.id, row.added_by) });
+    return {
+      id: row.id,
+      ride_id: row.ride_id,
+      squad_id: row.squad_id,
+      added_by: row.added_by,
+      added_by_name: adder?.name ?? "Anónimo",
+      track_uri: row.track_uri,
+      track_name: row.track_name,
+      artist_name: row.artist_name,
+      album_image_url: row.album_image_url,
+      duration_ms: row.duration_ms,
+      position: row.position,
+      created_at: row.created_at,
+    };
+  }
+
+  async listPlaylistTracks(scope: { ride_id: string } | { squad_id: string }): Promise<PlaylistTrack[]> {
+    const cond = "ride_id" in scope
+      ? eq(schema.playlistTracks.ride_id, scope.ride_id)
+      : eq(schema.playlistTracks.squad_id, scope.squad_id);
+    const rows = await this.db
+      .select()
+      .from(schema.playlistTracks)
+      .where(cond)
+      .orderBy(asc(schema.playlistTracks.position), asc(schema.playlistTracks.created_at));
+    return Promise.all(rows.map((r) => this.hydratePlaylistTrack(r)));
+  }
+
+  async addPlaylistTrack(user: User, input: AddPlaylistTrackRequest): Promise<PlaylistTrack | { error: string }> {
+    if (!input.ride_id && !input.squad_id) return { error: "scope_required" };
+    if (input.ride_id && input.squad_id) return { error: "single_scope" };
+    const cond = input.ride_id
+      ? eq(schema.playlistTracks.ride_id, input.ride_id)
+      : eq(schema.playlistTracks.squad_id, input.squad_id!);
+    const siblingCount = await this.db
+      .select({ count: sql<number>`count(*)` })
+      .from(schema.playlistTracks)
+      .where(cond);
+    const row: schema.PlaylistTrackRow = {
+      id: `pt_${crypto.randomUUID().slice(0, 10)}`,
+      ride_id: input.ride_id ?? null,
+      squad_id: input.squad_id ?? null,
+      added_by: user.id,
+      track_uri: input.track_uri ?? null,
+      track_name: input.track_name.slice(0, 200),
+      artist_name: input.artist_name.slice(0, 200),
+      album_image_url: input.album_image_url ?? null,
+      duration_ms: input.duration_ms ?? null,
+      position: siblingCount[0]?.count ?? 0,
+      created_at: new Date().toISOString(),
+    };
+    await this.db.insert(schema.playlistTracks).values(row);
+    return this.hydratePlaylistTrack(row);
+  }
+
+  async removePlaylistTrack(trackId: string, userId: string): Promise<void> {
+    await this.db
+      .delete(schema.playlistTracks)
+      .where(and(eq(schema.playlistTracks.id, trackId), eq(schema.playlistTracks.added_by, userId)));
+  }
+}
+
+function safeJson(value: string | null): Record<string, unknown> | null {
+  if (!value) return null;
+  try {
+    return JSON.parse(value) as Record<string, unknown>;
+  } catch {
+    return null;
+  }
+}
+
+function vibeHeroColor(vibe: Ride["vibe"]): string {
+  if (vibe === "party") return "#ff4f00";
+  if (vibe === "chill") return "#9b59f7";
+  return "#dbff00";
 }
 
 export function createDrizzleStore(env: Env): StoreAdapter {

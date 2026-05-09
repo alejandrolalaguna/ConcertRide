@@ -1,22 +1,42 @@
 import type {
+  ActivityEvent,
+  ActivityFeedQuery,
+  ActivityFeedResponse,
+  ActivityKind,
+  AddPlaylistTrackRequest,
   AdminAuditAction,
   AdminAuditLogEntry,
+  AnticipationStatus,
+  AnticipationSummary,
   Concert,
   CreateConcertInput,
+  CreateFestivalQnaRequest,
   CreateRideRequest,
   CreateReviewRequest,
+  CreateSquadRequest,
+  CreateTripMemoryRequest,
+  CrewListResponse,
+  CrewMember,
   DemandSignal,
+  EventAnticipation,
   Favorite,
   FavoriteKind,
+  FestivalQna,
   IdentityReview,
+  JoinSquadRequest,
   LicenseReview,
   Message,
+  PlaylistTrack,
   Report,
   ReportReason,
   RequestStatus,
   Review,
   Ride,
   RideRequest,
+  Squad,
+  SquadRole,
+  TripMemory,
+  TripMemoryVisibility,
   UpdateProfileInput,
   User,
   Venue,
@@ -372,4 +392,96 @@ export interface StoreAdapter {
   // Mark pending demand signals as notified for a festival × origin city.
   // Returns the number of signals notified.
   notifyFestivalDemand(festival_slug: string, origin_city: string): Promise<number>;
+
+  // ============================================================
+  // SOCIAL DENSITY DOMAIN (Phase 1) — crews, activity, anticipation, memories
+  // ============================================================
+
+  // --- crew connections ---
+  // List the viewer's crew. Includes accepted, plus pending invites split
+  // between incoming (viewer must accept) and outgoing (viewer is waiting).
+  listCrewForUser(userId: string): Promise<CrewListResponse>;
+  // Invite another user to the crew. If `ride_id` is supplied, that ride
+  // is recorded as the provenance ("you rode together"). Idempotent: if
+  // the connection already exists in any state, returns the existing one.
+  inviteToCrew(viewer: User, otherUserId: string, opts?: { ride_id?: string }): Promise<CrewMember | null>;
+  // Accept a pending invite. Only the recipient (not the requester) can call.
+  acceptCrewInvite(viewerId: string, otherUserId: string): Promise<CrewMember | null>;
+  // Cancel an outgoing invite or remove an accepted connection.
+  removeCrewConnection(viewerId: string, otherUserId: string): Promise<void>;
+  // For a given concert, return the viewer's crew members who have a ride
+  // (as driver or confirmed passenger) or an anticipation row pointing at it.
+  // Powers the "X from your crew is going" widget.
+  listCrewAttendingConcert(viewerId: string, concertId: string): Promise<CrewMember[]>;
+
+  // --- activity events ---
+  // Append a new activity event. Snapshot fields (actor_name, actor_avatar,
+  // label) are persisted so reads don't need to join.
+  recordActivity(input: {
+    actor: User;
+    kind: ActivityKind;
+    target_id?: string | null;
+    concert_id?: string | null;
+    city?: string | null;
+    label?: string;
+    metadata?: Record<string, unknown> | null;
+    visibility?: "public" | "crew" | "private";
+  }): Promise<ActivityEvent>;
+  // Read the feed scoped by city / concert / crew / self.
+  listActivity(viewer: User | null, query: ActivityFeedQuery): Promise<ActivityFeedResponse>;
+
+  // --- event anticipations ("going" / "maybe") ---
+  setAnticipation(userId: string, concertId: string, status: AnticipationStatus): Promise<EventAnticipation>;
+  removeAnticipation(userId: string, concertId: string): Promise<void>;
+  // Aggregated counts + crew preview for a concert.
+  getAnticipationSummary(concertId: string, viewerId: string | null): Promise<AnticipationSummary>;
+  // List concerts the viewer is going / maybe to, ordered by date asc.
+  listAnticipatedConcerts(userId: string): Promise<Array<{ concert: Concert; status: AnticipationStatus }>>;
+
+  // --- trip memories (post-trip vibe cards) ---
+  createTripMemory(creator: User, input: CreateTripMemoryRequest): Promise<TripMemory | { error: string }>;
+  getTripMemory(id: string): Promise<TripMemory | null>;
+  listTripMemoriesForUser(userId: string): Promise<TripMemory[]>;
+  listTripMemoriesForConcert(concertId: string, limit?: number): Promise<TripMemory[]>;
+  incrementTripMemoryShare(id: string): Promise<void>;
+
+  // ============================================================
+  // PHASE 1E — countdown reminder cron
+  // ============================================================
+
+  listAnticipationsForCountdown(
+    fromISO: string,
+    toISO: string,
+  ): Promise<Array<EventAnticipation & { concert: Concert; user: User }>>;
+  markAnticipationNotified(id: string): Promise<void>;
+
+  // ============================================================
+  // PHASE 2.6 — Festival Hubs UGC (Q&A)
+  // ============================================================
+
+  listFestivalQnas(festivalSlug: string, opts?: { onlyApproved?: boolean; limit?: number }): Promise<FestivalQna[]>;
+  createFestivalQna(user: User, input: CreateFestivalQnaRequest): Promise<FestivalQna>;
+  approveFestivalQna(id: string): Promise<FestivalQna | null>;
+  upvoteFestivalQna(id: string): Promise<FestivalQna | null>;
+
+  // ============================================================
+  // PHASE 2.7 — Squad rides (multi-car groups)
+  // ============================================================
+
+  createSquad(owner: User, input: CreateSquadRequest): Promise<Squad>;
+  getSquad(id: string): Promise<Squad | null>;
+  getSquadByInvite(inviteCode: string): Promise<Squad | null>;
+  listSquadsForUser(userId: string): Promise<Squad[]>;
+  listSquadsForConcert(concertId: string, opts?: { onlyPublic?: boolean }): Promise<Squad[]>;
+  joinSquad(user: User, input: JoinSquadRequest): Promise<Squad | { error: string }>;
+  leaveSquad(squadId: string, userId: string): Promise<void>;
+  updateSquadMemberRole(squadId: string, userId: string, role: SquadRole, rideId?: string | null): Promise<void>;
+
+  // ============================================================
+  // PHASE 2.9 — Playlist mode (collaborative tracks)
+  // ============================================================
+
+  listPlaylistTracks(scope: { ride_id: string } | { squad_id: string }): Promise<PlaylistTrack[]>;
+  addPlaylistTrack(user: User, input: AddPlaylistTrackRequest): Promise<PlaylistTrack | { error: string }>;
+  removePlaylistTrack(trackId: string, userId: string): Promise<void>;
 }

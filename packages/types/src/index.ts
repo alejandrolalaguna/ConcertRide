@@ -60,6 +60,12 @@ export interface User {
   deleted_at: string | null;
   banned_at: string | null;
   ban_reason: string | null;
+  bio: string | null;
+  music_genres: string[] | null;
+  top_artists: string[] | null;
+  spotify_id: string | null;
+  handle: string | null;
+  crew_count: number;
   created_at: string;
 }
 
@@ -142,6 +148,10 @@ export interface UpdateProfileInput {
   has_license?: boolean | null;
   car_model?: string | null;
   car_color?: string | null;
+  bio?: string | null;
+  music_genres?: string[] | null;
+  top_artists?: string[] | null;
+  handle?: string | null;
 }
 
 export interface Ride {
@@ -415,4 +425,302 @@ export interface ErrorResponse {
   error: string;
   message?: string;
   path?: string;
+}
+
+// =====================================================================
+// Social density types — Phase 1 (crews / activity / anticipation / memories)
+// =====================================================================
+
+export type CrewStatus = "pending" | "accepted" | "blocked";
+
+export interface CrewMember {
+  user: User;
+  status: CrewStatus;
+  // True when the current viewer initiated the connection.
+  initiated_by_me: boolean;
+  origin_ride_id: string | null;
+  origin_concert_id: string | null;
+  origin_concert_label: string | null;
+  shared_genres: string[];
+  shared_artists: string[];
+  // Number of completed rides between viewer and this user.
+  rides_together: number;
+  connected_at: string;
+}
+
+export interface CrewListResponse {
+  crew: CrewMember[];
+  pending_incoming: CrewMember[];
+  pending_outgoing: CrewMember[];
+  total: number;
+}
+
+export interface CrewInviteRequest {
+  // The other user's id.
+  user_id: string;
+  // Optional ride that introduced you. Used to render provenance.
+  ride_id?: string;
+}
+
+export type ActivityKind =
+  | "ride_published"
+  | "ride_booked"
+  | "ride_completed"
+  | "interest_added"
+  | "favorite_added"
+  | "crew_invited"
+  | "crew_accepted"
+  | "music_updated"
+  | "trip_memory_shared";
+
+export interface ActivityEvent {
+  id: string;
+  actor_id: string;
+  actor_name: string;
+  actor_avatar: string | null;
+  kind: ActivityKind;
+  target_id: string | null;
+  concert_id: string | null;
+  concert_name: string | null;
+  city: string | null;
+  label: string;
+  metadata: Record<string, unknown> | null;
+  created_at: string;
+}
+
+export type ActivityScope = "all" | "city" | "concert" | "crew" | "self";
+
+export interface ActivityFeedQuery {
+  scope?: ActivityScope;
+  city?: string;
+  concert_id?: string;
+  limit?: number;
+  before?: string;
+}
+
+export interface ActivityFeedResponse {
+  events: ActivityEvent[];
+  has_more: boolean;
+}
+
+export type AnticipationStatus = "going" | "maybe";
+
+export interface EventAnticipation {
+  id: string;
+  user_id: string;
+  concert_id: string;
+  status: AnticipationStatus;
+  ride_id: string | null;
+  notify_before_hours: number;
+  created_at: string;
+}
+
+export interface AnticipationSummary {
+  going_count: number;
+  maybe_count: number;
+  user_status: AnticipationStatus | null;
+  // Up to 8 representative attendees for avatar stack.
+  preview: Array<{ id: string; name: string; avatar_url: string | null }>;
+  // Subset of preview that are in the viewer's crew.
+  crew_attending: Array<{ id: string; name: string; avatar_url: string | null }>;
+}
+
+export type TripMemoryVisibility = "public" | "crew" | "private";
+
+export interface TripMemory {
+  id: string;
+  ride_id: string;
+  concert_id: string;
+  concert_name: string;
+  concert_artist: string;
+  created_by: string;
+  creator_name: string;
+  creator_avatar: string | null;
+  title: string;
+  caption: string | null;
+  vibe: Vibe;
+  origin_city: string;
+  destination_city: string;
+  distance_km: number | null;
+  crew: Array<{ id: string; name: string; avatar_url: string | null }>;
+  playlist_url: string | null;
+  hero_color: string | null;
+  share_image_url: string | null;
+  visibility: TripMemoryVisibility;
+  share_count: number;
+  created_at: string;
+}
+
+export interface CreateTripMemoryRequest {
+  ride_id: string;
+  title?: string;
+  caption?: string;
+  visibility?: TripMemoryVisibility;
+}
+
+// =====================================================================
+// Cultural platform — Phase 2 (festival Q&A / squads / playlists / badges)
+// =====================================================================
+
+export interface FestivalQna {
+  id: string;
+  festival_slug: string;
+  user_id: string;
+  user_name: string;
+  user_avatar: string | null;
+  question: string;
+  answer: string;
+  upvotes: number;
+  approved: boolean;
+  approved_at: string | null;
+  created_at: string;
+}
+
+export interface CreateFestivalQnaRequest {
+  festival_slug: string;
+  question: string;
+  answer: string;
+}
+
+export type SquadVisibility = "public" | "private";
+export type SquadRole = "owner" | "driver" | "passenger" | "looking";
+
+export interface SquadMember {
+  user: User;
+  role: SquadRole;
+  ride_id: string | null;
+  joined_at: string;
+}
+
+export interface Squad {
+  id: string;
+  concert: Concert;
+  owner: User;
+  name: string;
+  vibe_tags: string[];
+  visibility: SquadVisibility;
+  invite_code: string;
+  invite_url: string;
+  members: SquadMember[];
+  rides: Ride[];
+  created_at: string;
+}
+
+export interface CreateSquadRequest {
+  concert_id: string;
+  name: string;
+  vibe_tags?: string[];
+  visibility?: SquadVisibility;
+}
+
+export interface JoinSquadRequest {
+  invite_code: string;
+  ride_id?: string;
+  role?: SquadRole;
+}
+
+export interface PlaylistTrack {
+  id: string;
+  ride_id: string | null;
+  squad_id: string | null;
+  added_by: string;
+  added_by_name: string;
+  track_uri: string | null;
+  track_name: string;
+  artist_name: string;
+  album_image_url: string | null;
+  duration_ms: number | null;
+  position: number;
+  created_at: string;
+}
+
+export interface AddPlaylistTrackRequest {
+  ride_id?: string;
+  squad_id?: string;
+  track_uri?: string;
+  track_name: string;
+  artist_name: string;
+  album_image_url?: string;
+  duration_ms?: number;
+}
+
+// Computed badges — derived from rides_given, rating, license_verified.
+// Not persisted; the API returns them when hydrating a public profile.
+export type DriverBadgeId =
+  | "verified_driver"      // license + identity verified
+  | "veteran"              // 25+ completed rides
+  | "vibe_curator"         // average rating ≥ 4.8 with 10+ ratings
+  | "festival_regular"     // 5+ rides to festivals in last 12 months
+  | "early_bird"           // joined ConcertRide before 2026-01-01
+  | "playlist_master";     // contributed 10+ tracks across squads
+
+export interface DriverBadge {
+  id: DriverBadgeId;
+  label: string;
+  description: string;
+  // Optional metric backing the badge (e.g., "32 viajes" for veteran).
+  metric?: string;
+}
+
+// Music compatibility between two users — used in ride listings.
+export interface MusicCompatibility {
+  // 0..100. >= 70 highlighted, >= 90 "ALTA AFINIDAD".
+  score: number;
+  shared_genres: string[];
+  shared_artists: string[];
+}
+
+// =====================================================================
+// Phase 3.10 — Travel stats (Spotify-Wrapped style)
+// =====================================================================
+
+export interface TravelStats {
+  // Year covered. 0 means "all time".
+  year: number;
+  rides_as_driver: number;
+  rides_as_passenger: number;
+  total_km: number;
+  unique_artists: string[];
+  unique_cities: string[];
+  unique_festivals: string[];
+  // CO2 saved estimate in kg. Computed assuming 4 passengers per car
+  // saving 3 individual car trips at ~120 g/km.
+  co2_saved_kg: number;
+  // Vibe distribution (counts per vibe).
+  vibe_distribution: Record<Vibe, number>;
+  // Top crew members ordered by rides_together desc.
+  top_crew: Array<{ user_id: string; name: string; avatar_url: string | null; rides_together: number }>;
+  // Most-played artist (from concerts the user attended).
+  top_artist: string | null;
+}
+
+export interface FestivalHistoryEntry {
+  // Festival slug (matches festivalLandings.ts).
+  slug: string;
+  // Display name.
+  name: string;
+  // First time the user attended (ISO date).
+  first_attended: string;
+  // Most recent attendance.
+  last_attended: string;
+  // Number of times attended (distinct concerts).
+  times_attended: number;
+  // Trip memories shared from this festival.
+  memories: TripMemory[];
+}
+
+// =====================================================================
+// Phase 3.11 — Ride demand predictions
+// =====================================================================
+
+export interface DemandPrediction {
+  concert: Concert;
+  // Number of users with a "going" anticipation.
+  going_count: number;
+  // Number of currently-active rides to this concert.
+  active_rides: number;
+  // Heuristic 0..100. Higher = more urgent need for new rides.
+  urgency: number;
+  // Cities with the most demand but no ride yet.
+  underserved_cities: string[];
 }
