@@ -78,10 +78,10 @@ export default function FestivalesPage() {
       },
       {
         "@type": "Question",
-        name: "¿Es ConcertRide mejor que BlaBlaCar para ir a festivales?",
+        name: "¿Por qué usar ConcertRide para ir a festivales?",
         acceptedAnswer: {
           "@type": "Answer",
-          text: `Para festivales, ConcertRide tiene tres ventajas sobre BlaBlaCar: (1) 0 % de comisión — BlaBlaCar cobra 12–18 % al pasajero; (2) cada viaje está vinculado a un evento concreto, con hora de vuelta alineada al fin del show; (3) los conductores van al mismo festival, no a paradas genéricas de carretera. Además, ConcertRide no retiene el pago: se paga en efectivo o Bizum directamente al conductor el día del viaje.`,
+          text: `Para festivales, ConcertRide tiene tres ventajas frente a las plataformas de carpooling generalistas: (1) 0 % de comisión — otras plataformas cobran 12–18 % al pasajero; (2) cada viaje está vinculado a un evento concreto, con hora de vuelta alineada al fin del show; (3) los conductores van al mismo festival, no a paradas genéricas de carretera. Además, ConcertRide no retiene el pago: se paga en efectivo o Bizum directamente al conductor el día del viaje.`,
         },
       },
       {

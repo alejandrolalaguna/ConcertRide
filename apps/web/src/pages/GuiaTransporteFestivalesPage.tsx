@@ -72,7 +72,7 @@ export default function GuiaTransporteFestivalesPage() {
     },
     mainEntityOfPage: `${SITE_URL}/guia-transporte-festivales`,
     articleSection: "Guía de viaje",
-    keywords: "transporte festivales, carpooling festivales España, autobús festival, cómo ir al festival, carpooling sin comisión, BlaBlaCar alternativa",
+    keywords: "transporte festivales, carpooling festivales España, autobús festival, cómo ir al festival, carpooling sin comisión, alternativa carpooling generalista",
     about: {
       "@type": "Thing",
       name: "Transporte para festivales de música en España",
@@ -80,7 +80,6 @@ export default function GuiaTransporteFestivalesPage() {
     mentions: [
       { "@type": "Organization", "name": "Julie's Bicycle", "url": "https://juliesbicycle.com/", "sameAs": "https://www.wikidata.org/wiki/Q6303945" },
       { "@type": "Organization", "name": "Asociación de Promotores Musicales", "url": "https://www.apmusicales.com/" },
-      { "@type": "Organization", "name": "BlaBlaCar", "url": "https://www.blablacar.es/", "sameAs": "https://www.wikidata.org/wiki/Q2115189" },
       { "@type": "Organization", "name": "Agencia Europea de Medio Ambiente", "url": "https://www.eea.europa.eu/", "sameAs": "https://www.wikidata.org/wiki/Q188509" },
     ],
     speakable: {
@@ -156,42 +155,42 @@ export default function GuiaTransporteFestivalesPage() {
     ],
   };
 
-  const jsonLdCarpoolingVsBlablacar = {
+  const jsonLdCarpoolingComparison = {
     "@context": "https://schema.org",
     "@type": "ItemList",
-    name: "ConcertRide vs BlaBlaCar para festivales de música en España",
-    description: "Comparativa entre ConcertRide (0% comisión, especializado en conciertos) y BlaBlaCar (12–18% comisión, plataforma generalista) para carpooling a festivales en España.",
-    url: `${SITE_URL}/blog/blablacar-vs-concertride`,
+    name: "ConcertRide frente a otras plataformas de carpooling para festivales en España",
+    description: "Comparativa entre ConcertRide (0% comisión, especializado en conciertos) y otras plataformas de carpooling generalistas (12–18% comisión) para llegar a festivales en España.",
+    url: `${SITE_URL}/guia-transporte-festivales`,
     itemListElement: [
       {
         "@type": "ListItem",
         position: 1,
         name: "Comisión de plataforma",
-        description: "ConcertRide: 0%. BlaBlaCar: 12–18% del precio del asiento (cobrado al pasajero).",
+        description: "ConcertRide: 0%. Otras plataformas de carpooling: 12–18% del precio del asiento (cobrado al pasajero).",
       },
       {
         "@type": "ListItem",
         position: 2,
         name: "Búsqueda por festival o evento",
-        description: "ConcertRide: Sí, cada viaje está vinculado a un concierto o festival concreto. BlaBlaCar: No, solo permite buscar por origen–destino genérico.",
+        description: "ConcertRide: cada viaje está vinculado a un concierto o festival concreto. Otras plataformas: solo permiten buscar por origen–destino genérico.",
       },
       {
         "@type": "ListItem",
         position: 3,
         name: "Hora de vuelta",
-        description: "ConcertRide: Flexible, pactada con el conductor (quien también va al festival). BlaBlaCar: Horario fijo preestablecido.",
+        description: "ConcertRide: flexible, pactada con el conductor (quien también va al festival). Otras plataformas: horario fijo preestablecido.",
       },
       {
         "@type": "ListItem",
         position: 4,
         name: "Forma de pago",
-        description: "ConcertRide: Efectivo o Bizum en persona el día del viaje. BlaBlaCar: Tarjeta bancaria gestionada por la plataforma.",
+        description: "ConcertRide: efectivo o Bizum en persona el día del viaje. Otras plataformas: tarjeta bancaria gestionada por la plataforma.",
       },
       {
         "@type": "ListItem",
         position: 5,
         name: "Verificación del conductor",
-        description: "ConcertRide: Carnet de conducir obligatorio antes de publicar. BlaBlaCar: Verificación opcional.",
+        description: "ConcertRide: carnet de conducir obligatorio antes de publicar. Otras plataformas: verificación opcional.",
       },
     ],
   };
@@ -203,7 +202,7 @@ export default function GuiaTransporteFestivalesPage() {
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdFaq) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdTable) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdComparison) }} />
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdCarpoolingVsBlablacar) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdCarpoolingComparison) }} />
 
       {/* ── Hero ── */}
       <div className="max-w-4xl mx-auto px-6 pt-10 pb-6 space-y-4 border-b border-cr-border">
@@ -417,13 +416,13 @@ export default function GuiaTransporteFestivalesPage() {
         </p>
       </section>
 
-      {/* ── ConcertRide vs BlaBlaCar ── */}
+      {/* ── ConcertRide vs otras plataformas de carpooling ── */}
       <section className="max-w-4xl mx-auto px-6 pb-16 border-t border-cr-border pt-12 space-y-6">
         <h2 className="font-display text-3xl md:text-4xl uppercase">
-          ConcertRide vs BlaBlaCar para festivales
+          ConcertRide frente a otras plataformas de carpooling
         </h2>
         <p className="font-sans text-sm text-cr-text-muted leading-relaxed max-w-2xl speakable">
-          BlaBlaCar es la plataforma de carpooling genérica más usada en España. ConcertRide está especializado en conciertos y festivales. La diferencia principal: comisión 0% vs 12–18%, búsqueda por evento vs por ruta, y hora de vuelta alineada con el festival.
+          Las plataformas de carpooling generalistas son útiles para rutas entre ciudades, pero ConcertRide está especializado en conciertos y festivales. La diferencia principal: comisión 0% vs 12–18%, búsqueda por evento vs por ruta, y hora de vuelta alineada con el festival.
         </p>
         <div className="overflow-x-auto">
           <table className="w-full font-sans text-sm text-cr-text-muted border-collapse">
@@ -431,7 +430,7 @@ export default function GuiaTransporteFestivalesPage() {
               <tr className="border-b border-cr-border">
                 <th className="text-left py-3 pr-4 font-display text-xs uppercase text-cr-text">Característica</th>
                 <th className="text-left py-3 pr-4 font-display text-xs uppercase text-cr-primary">ConcertRide</th>
-                <th className="text-left py-3 font-display text-xs uppercase text-cr-text-muted">BlaBlaCar</th>
+                <th className="text-left py-3 font-display text-xs uppercase text-cr-text-muted">Otras plataformas</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-cr-border">
@@ -454,10 +453,7 @@ export default function GuiaTransporteFestivalesPage() {
           </table>
         </div>
         <p className="font-mono text-[11px] text-cr-text-dim">
-          Fuente: tarifas publicadas en concertride.me y blablacar.es en mayo 2026.{" "}
-          <Link to="/blog/blablacar-vs-concertride" className="hover:text-cr-primary underline underline-offset-2">
-            Comparativa completa →
-          </Link>
+          Fuente: tarifas publicadas por ConcertRide y comisiones medias del sector en mayo 2026.
         </p>
       </section>
 

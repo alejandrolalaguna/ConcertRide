@@ -279,7 +279,7 @@ export default function LandingPage() {
                   <td className="py-3 pl-4 text-cr-text-muted">Sí, pactada con el conductor</td>
                 </tr>
                 <tr>
-                  <td className="py-3 pr-6 text-cr-text">BlaBlaCar</td>
+                  <td className="py-3 pr-6 text-cr-text">Otras plataformas</td>
                   <td className="py-3 px-4 text-right text-cr-text">8 – 25&nbsp;€</td>
                   <td className="py-3 px-4 text-right text-cr-text-muted">13–18&nbsp;%</td>
                   <td className="py-3 pl-4 text-cr-text-muted">Limitada (horarios fijos)</td>
@@ -306,10 +306,7 @@ export default function LandingPage() {
             </table>
           </div>
           <p className="font-mono text-[10px] text-cr-text-dim">
-            Precios estimados para rutas de 150–300&nbsp;km (p. ej. Madrid–Albacete, Madrid–Valencia).{" "}
-            <a href="/comparativa/concertride-vs-blablacar" className="hover:text-cr-primary underline underline-offset-2">
-              Ver comparativa detallada →
-            </a>
+            Precios estimados para rutas de 150–300&nbsp;km (p. ej. Madrid–Albacete, Madrid–Valencia).
           </p>
         </div>
       </section>
@@ -410,7 +407,7 @@ export default function LandingPage() {
               </span>
             </Link>
 
-            <Link
+            {/* <Link
               to="/comparativa/concertride-vs-blablacar"
               className="border border-cr-border p-5 hover:border-cr-primary/50 transition-colors group space-y-3"
             >
@@ -424,7 +421,7 @@ export default function LandingPage() {
               <span className="inline-flex items-center gap-1 font-sans text-xs text-cr-primary">
                 Leer <ArrowRight size={11} />
               </span>
-            </Link>
+            </Link> */}
 
             <Link
               to="/comparativa/carpooling-vs-taxi-festival"

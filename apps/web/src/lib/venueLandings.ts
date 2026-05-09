@@ -386,7 +386,7 @@ export const VENUE_LANDINGS: VenueLanding[] = [
       },
       {
         q: "¿Cuánto cuesta ir a La Cartuja desde Málaga en carpooling?",
-        a: "Málaga–Sevilla son 210 km por la A-92 (2h 10 min). Con ConcertRide el precio habitual por asiento es de 7–11 €, frente a los 15–30 € del AVE Málaga–Sevilla (con trasbordos) o los 40–60 € de un BlaBlaCar con comisión incluida. El carpooling es la opción más usada para esta ruta en noches de concierto.",
+        a: "Málaga–Sevilla son 210 km por la A-92 (2h 10 min). Con ConcertRide el precio habitual por asiento es de 7–11 €, frente a los 15–30 € del AVE Málaga–Sevilla (con trasbordos) o los 40–60 € de otras plataformas de carpooling con comisión incluida. El carpooling es la opción más usada para esta ruta en noches de concierto.",
       },
       {
         q: "¿El Estadio de La Cartuja tiene conexión de metro?",

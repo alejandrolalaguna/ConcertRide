@@ -115,7 +115,7 @@ export default function ConcertsPage() {
       "cómo ir al concierto en coche compartido",
       filters.genre ? `conciertos ${filters.genre} España` : "festivales música España",
       "carpooling sin comisión España",
-      "BlaBlaCar conciertos alternativa",
+      "carpooling conciertos alternativa",
       `conciertos ${new Date().getFullYear()} ${new Date().getFullYear() + 1}`,
     ].filter(Boolean).join(", "),
   });

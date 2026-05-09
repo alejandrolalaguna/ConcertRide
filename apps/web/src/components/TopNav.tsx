@@ -73,7 +73,7 @@ export function TopNav() {
         <NavLink to="/concerts">Conciertos</NavLink>
         <NavLink to="/festivales">Festivales</NavLink>
         <NavLink to="/rutas">Rutas</NavLink>
-        <NavLink to="/blog">Blog</NavLink>
+        {/* <NavLink to="/blog">Blog</NavLink> */}
       </div>
 
       {/* Right side */}

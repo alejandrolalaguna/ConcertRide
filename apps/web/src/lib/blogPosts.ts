@@ -182,7 +182,7 @@ export const BLOG_POSTS: BlogPost[] = [
     ],
     relatedPosts: ["como-volver-festival-madrugada", "huella-carbono-festivales-carpooling"],
     coverImage: {
-      src: "/og/blog/autobuses-festivales-espana-2026.png",
+      src: "/og/home.png",
       alt: "Autobuses a festivales de España 2026: Viña Rock, Arenal Sound, BBK Live, Mad Cool — guía de transporte ConcertRide",
       width: 1200,
       height: 630,
@@ -270,7 +270,7 @@ export const BLOG_POSTS: BlogPost[] = [
     ],
     relatedPosts: ["huella-carbono-festivales-carpooling"],
     coverImage: {
-      src: "/og/blog/como-volver-festival-madrugada.png",
+      src: "/og/home.png",
       alt: "Cómo volver de un festival de madrugada: transporte nocturno, carpooling y alternativas al taxi — ConcertRide",
       width: 1200,
       height: 630,
@@ -355,7 +355,7 @@ export const BLOG_POSTS: BlogPost[] = [
     ],
     relatedPosts: ["como-volver-festival-madrugada"],
     coverImage: {
-      src: "/og/blog/huella-carbono-festivales-carpooling.png",
+      src: "/og/home.png",
       alt: "Huella de carbono en festivales de música: carpooling vs coche individual vs avión — ConcertRide",
       width: 1200,
       height: 630,
@@ -445,7 +445,7 @@ export const BLOG_POSTS: BlogPost[] = [
     ],
     relatedPosts: ["autobuses-festivales-espana-2026", "como-volver-festival-madrugada", "carpooling-vs-taxi-festival-espana"],
     coverImage: {
-      src: "/og/blog/blablacar-vs-concertride.png",
+      src: "/og/home.png",
       alt: "BlaBlaCar vs ConcertRide para festivales en España: comisiones, diferencias y cuál elegir — ConcertRide",
       width: 1200,
       height: 630,
@@ -582,7 +582,7 @@ export const BLOG_POSTS: BlogPost[] = [
     ],
     relatedPosts: ["como-volver-festival-madrugada", "autobuses-festivales-espana-2026", "coldplay-madrid-barcelona-2026-como-llegar"],
     coverImage: {
-      src: "/og/blog/que-llevar-al-festival.png",
+      src: "/og/home.png",
       alt: "Qué llevar a un festival de música 2026: lista de equipaje, carpooling y consejos — ConcertRide",
       width: 1200,
       height: 630,
@@ -690,7 +690,7 @@ export const BLOG_POSTS: BlogPost[] = [
     ],
     relatedPosts: ["autobuses-festivales-espana-2026"],
     coverImage: {
-      src: "/og/blog/coldplay-madrid-barcelona-2026-como-llegar.png",
+      src: "/og/home.png",
       alt: "Coldplay Madrid y Barcelona 2026: cómo llegar al concierto en carpooling, metro y bus — ConcertRide",
       width: 1200,
       height: 630,
@@ -4018,7 +4018,7 @@ BLOG_POSTS.push(
     ],
     relatedPosts: ["festivales-musica-espana-2026", "festivales-verano-espana-2026-transporte"],
     coverImage: {
-      src: "/og/blog/alternativa-blablacar-festivales-espana.png",
+      src: "/og/home.png",
       alt: "Alternativa a BlaBlaCar para festivales en España: ConcertRide sin comisión — guía comparativa 2026",
       width: 1200,
       height: 630,
@@ -4403,7 +4403,7 @@ BLOG_POSTS.push(
     ],
     relatedPosts: ["blablacar-vs-concertride", "alternativa-blablacar-festivales-espana"],
     coverImage: {
-      src: "/og/blog/es-seguro-carpooling-festivales.png",
+      src: "/og/home.png",
       alt: "¿Es seguro el carpooling para ir a festivales de música en España? Conductores verificados ConcertRide — 2026",
       width: 1200,
       height: 630,
@@ -4613,7 +4613,7 @@ BLOG_POSTS.push(
     ],
     relatedPosts: ["faq-para-nuevos-usuarios-concertride", "es-seguro-carpooling-festivales"],
     coverImage: {
-      src: "/og/blog/carpooling-gratuito-festivales-sin-comision.png",
+      src: "/og/home.png",
       alt: "Carpooling gratuito a festivales en España sin comisión: ConcertRide 0% vs BlaBlaCar 15% — 2026",
       width: 1200,
       height: 630,
@@ -4738,7 +4738,7 @@ BLOG_POSTS.push(
     ],
     relatedPosts: ["preguntas-frecuentes-carpooling-festivales-espana", "transporte-nocturno-vuelta-festival"],
     coverImage: {
-      src: "/og/blog/que-llevar-a-un-festival-de-musica.png",
+      src: "/og/home.png",
       alt: "Qué llevar a un festival de música 2026: lista completa de equipaje, ropa y carpooling — ConcertRide",
       width: 1200,
       height: 630,
@@ -5383,7 +5383,7 @@ BLOG_POSTS.push(
     readingMinutes: 7,
     lede: "El ALPHA Tour de Aitana en 2026 recorre los principales pabellones de España: WiZink Center en Madrid, Palau Sant Jordi en Barcelona, BEC! en Bilbao. Aquí tienes los precios de carpooling reales, el transporte público disponible y los trucos para no quedarte sin vuelta de madrugada.",
     coverImage: {
-      src: "/blog/aitana-alpha-tour-2026.jpg",
+      src: "/og/home.png",
       alt: "Concierto de Aitana en el WiZink Center Madrid 2026",
       width: 1200,
       height: 630,
@@ -5475,7 +5475,7 @@ BLOG_POSTS.push(
     readingMinutes: 6,
     lede: "El ex vocalista de El Canto del Loco confirma gira de pabellones en 2026. Si vienes de fuera de Zaragoza, Madrid o A Coruña, el carpooling es la forma más barata y práctica de llegar y volver del concierto sin depender de los últimos metros o los primeros trenes.",
     coverImage: {
-      src: "/blog/dani-martin-gira-2026.jpg",
+      src: "/og/home.png",
       alt: "Concierto de Dani Martín gira 2026 en Zaragoza y Madrid",
       width: 1200,
       height: 630,
@@ -5548,7 +5548,7 @@ BLOG_POSTS.push(
     readingMinutes: 7,
     lede: "Vive Latino aterriza en España por primera vez. El festival nacido en México en 1998 que reúne a los artistas más importantes del rock alternativo y la música latina en habla hispana celebra su primera edición europea en Zaragoza el 20 y 21 de junio de 2026.",
     coverImage: {
-      src: "/blog/vive-latino-zaragoza-2026.jpg",
+      src: "/og/home.png",
       alt: "Festival Vive Latino España 2026 en Zaragoza",
       width: 1200,
       height: 630,
@@ -5635,7 +5635,7 @@ BLOG_POSTS.push(
     readingMinutes: 8,
     lede: "El tren tiene una imagen de sostenibilidad y puntualidad que lo hace atractivo para ir a festivales. Pero cuando el festival termina a las 3 de la madrugada y el último tren salió a las 22:30, la sostenibilidad no te lleva a casa. Esta es la comparativa honesta.",
     coverImage: {
-      src: "/blog/carpooling-vs-renfe-festivales.jpg",
+      src: "/og/home.png",
       alt: "Comparativa carpooling vs tren Renfe para festivales de música en España",
       width: 1200,
       height: 630,
@@ -5721,7 +5721,7 @@ BLOG_POSTS.push(
     readingMinutes: 6,
     lede: "Zaragoza tiene una posición geográfica única en España: equidistante de Madrid, Barcelona y Bilbao, con excelente conexión por autopista y AVE. En 2026, la ciudad consolida su posición como hub de festivales con el Vive Latino como gran evento estrella.",
     coverImage: {
-      src: "/blog/festivales-zaragoza-2026.jpg",
+      src: "/og/home.png",
       alt: "Festivales en Zaragoza 2026 — Vive Latino y carpooling desde Madrid y Barcelona",
       width: 1200,
       height: 630,
@@ -5798,7 +5798,7 @@ BLOG_POSTS.push(
     readingMinutes: 8,
     lede: "El pop español vive su mejor momento: Aitana llena pabellones con el ALPHA Tour, Dani Martín vuelve con su gira de reencuentro, Melendi recorre el norte y Pablo Alborán cierra el círculo de la balada española. Esta guía recoge todos los precios de carpooling para cada tour.",
     coverImage: {
-      src: "/blog/artistas-espanoles-gira-2026.jpg",
+      src: "/og/home.png",
       alt: "Artistas españoles Aitana, Dani Martín, Melendi y Pablo Alborán de gira en 2026",
       width: 1200,
       height: 630,
@@ -5880,7 +5880,7 @@ BLOG_POSTS.push(
     lede:
       "En la mayoría de festivales españoles, el último tren o autobús de vuelta sale entre las 22:30 y las 23:30. El headliner actúa a las 00:00. El carpooling es la única opción que te deja ver el concierto completo y volverte.",
     coverImage: {
-      src: "/blog/tren-vs-carpooling-festivales.jpg",
+      src: "/og/home.png",
       alt: "Comparativa tren AVE vs carpooling ConcertRide para festivales de España",
       width: 1200,
       height: 630,
@@ -5980,7 +5980,7 @@ BLOG_POSTS.push(
     lede:
       "En 2026, el Pabellón Príncipe Felipe de Zaragoza acoge doble fecha de Dani Martín, Aitana y Hombres G, mientras el Recinto Expo abre con el Vive Latino España. Huesca, Teruel, Navarra y La Rioja tienen una demanda de carpooling hacia Zaragoza sin precedentes.",
     coverImage: {
-      src: "/blog/conciertos-zaragoza-2026-transporte.jpg",
+      src: "/og/home.png",
       alt: "Pabellón Príncipe Felipe de Zaragoza — cómo llegar a los conciertos de 2026",
       width: 1200,
       height: 630,
@@ -6086,7 +6086,7 @@ BLOG_POSTS.push(
     lede:
       "La mayoría de la gente va a festivales en grupos de 3 a 6 personas. El problema: las plataformas genéricas de carpooling no permiten reservar más de 1–2 plazas por usuario. ConcertRide está diseñado para viajes festivaleros, donde el grupo entero va junto.",
     coverImage: {
-      src: "/blog/viaje-grupal-festival-carpooling.jpg",
+      src: "/og/home.png",
       alt: "Grupo de amigos organizando el viaje a un festival de música con ConcertRide",
       width: 1200,
       height: 630,
@@ -8040,7 +8040,7 @@ BLOG_POSTS.push({
   readingMinutes: 8,
   lede:
     "Sevilla es uno de los destinos musicales más activos de España en 2026: estadios, festivales urbanos y conciertos cubiertos. Te contamos cómo llegar a cada recinto y cómo compartir coche sin pagar comisión.",
-  coverImage: { src: "/images/blog/sevilla-estadio-cartuja.jpg", alt: "Estadio La Cartuja Sevilla concierto" },
+  coverImage: { src: "/og/home.png", alt: "Estadio La Cartuja Sevilla concierto — ConcertRide carpooling" },
   sections: [
     {
       heading: "La agenda de conciertos en Sevilla 2026: los recintos principales",
@@ -8157,7 +8157,7 @@ BLOG_POSTS.push({
   readingMinutes: 7,
   lede:
     "El Arenal Sound se celebra en la Playa de Burriana (Castellón), 5 km al sur de la ciudad. Sin metro, sin aparcamiento fácil — pero con autobuses lanzadera, tren de Cercanías y carpooling que lo hacen accesible desde toda España.",
-  coverImage: { src: "/images/blog/arenal-sound-burriana-playa.jpg", alt: "Arenal Sound Playa Burriana Castellón cómo llegar" },
+  coverImage: { src: "/og/arenal-sound.png", alt: "Arenal Sound Playa Burriana Castellón cómo llegar — ConcertRide carpooling" },
   sections: [
     {
       heading: "Dónde está el Arenal Sound: Playa de Burriana, Castellón",

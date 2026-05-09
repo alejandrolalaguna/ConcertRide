@@ -65,8 +65,8 @@ export const SEO_CONFIG = {
       "festival sostenible transporte compartido",
       "reducir emisiones festival música",
       // Competitor displacement
-      "alternativa blablacar festivales",
-      "blablacar festival música",
+      "alternativa carpooling festivales",
+      "carpooling festival música",
       "carpooling sin comisión festivales",
       // Pricing intents
       "precio carpooling festival españa",

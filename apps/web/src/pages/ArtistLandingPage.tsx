@@ -384,7 +384,7 @@ export default function ArtistLandingPage() {
                 <td className="py-2">Baja</td>
               </tr>
               <tr>
-                <td className="py-2 pr-4">BlaBlaCar</td>
+                <td className="py-2 pr-4">Otras plataformas de carpooling</td>
                 <td className="py-2 pr-4">{minPrice}–20 € + 12–18 %</td>
                 <td className="py-2 pr-4">12–18 %</td>
                 <td className="py-2 pr-4">Depende del conductor</td>
@@ -395,7 +395,7 @@ export default function ArtistLandingPage() {
         </div>
         <p className="font-mono text-[10px] text-cr-text-dim">
           Estimaciones basadas en tarifas de ConcertRide, EMT, Renfe y VTC (mayo 2026).
-          BlaBlaCar comisión media actualizada a 2026.
+          Comisión media de plataformas de carpooling generalistas actualizada a 2026.
         </p>
       </section>
 

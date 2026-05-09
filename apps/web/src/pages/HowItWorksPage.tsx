@@ -282,7 +282,7 @@ export default function HowItWorksPage() {
           </Link>
 
           <p className="font-sans text-sm text-cr-text-muted leading-relaxed speakable">
-            A diferencia de BlaBlaCar, que cobra una comisión de entre el 12 y el 18&nbsp;% sobre el precio del asiento, ConcertRide no cobra ninguna comisión: el 100&nbsp;% del precio que paga el pasajero va al conductor. Tampoco hay intermediación en el pago — se paga en efectivo o Bizum el día del viaje.
+            A diferencia de otras plataformas de carpooling, que cobran una comisión de entre el 12 y el 18&nbsp;% sobre el precio del asiento, ConcertRide no cobra ninguna comisión: el 100&nbsp;% del precio que paga el pasajero va al conductor. Tampoco hay intermediación en el pago — se paga en efectivo o Bizum el día del viaje.
           </p>
         </section>
 

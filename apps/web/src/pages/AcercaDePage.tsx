@@ -125,10 +125,10 @@ export default function AcercaDePage() {
               },
               {
                 "@type": "Question",
-                name: "¿Es ConcertRide lo mismo que BlaBlaCar?",
+                name: "¿Es ConcertRide lo mismo que otras plataformas de carpooling?",
                 acceptedAnswer: {
                   "@type": "Answer",
-                  text: "No. BlaBlaCar es una plataforma de carpooling generalista que cobra 12–18% de comisión al pasajero y gestiona el pago por tarjeta. ConcertRide está especializada en conciertos y festivales (búsqueda por evento, no por ruta genérica), cobra 0% de comisión y el pago es directo en persona. Ambas plataformas operan bajo el modelo legal de gastos compartidos.",
+                  text: "No. Las plataformas de carpooling generalistas suelen cobrar comisión al pasajero (12–18%) y gestionan el pago por tarjeta. ConcertRide está especializada en conciertos y festivales (búsqueda por evento, no por ruta genérica), cobra 0% de comisión y el pago es directo en persona. Todas operan bajo el modelo legal de gastos compartidos.",
                 },
               },
               {
@@ -136,7 +136,7 @@ export default function AcercaDePage() {
                 name: "¿Es legal el carpooling de ConcertRide en España?",
                 acceptedAnswer: {
                   "@type": "Answer",
-                  text: "Sí. El carpooling entre particulares para compartir gastos de desplazamiento es legal en España. El Tribunal Supremo confirmó en 2017 (caso BlaBlaCar) que este modelo no requiere licencia VTC ni de transporte, siempre que el precio cubra solo combustible y peajes (sin lucro para el conductor). ConcertRide opera bajo este modelo de gastos compartidos conforme a la DGT.",
+                  text: "Sí. El carpooling entre particulares para compartir gastos de desplazamiento es legal en España. El Tribunal Supremo confirmó en 2017 que este modelo no requiere licencia VTC ni de transporte, siempre que el precio cubra solo combustible y peajes (sin lucro para el conductor). ConcertRide opera bajo este modelo de gastos compartidos conforme a la DGT.",
                 },
               },
               {

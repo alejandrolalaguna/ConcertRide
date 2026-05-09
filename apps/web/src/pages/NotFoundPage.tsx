@@ -157,7 +157,6 @@ export default function NotFoundPage() {
               {[
                 { to: "/guia-transporte-festivales", label: "Guía de transporte a festivales" },
                 { to: "/blog/autobuses-festivales-espana-2026", label: "Autobuses a festivales 2026" },
-                { to: "/blog/blablacar-vs-concertride", label: "BlaBlaCar vs ConcertRide" },
                 { to: "/blog/como-volver-festival-madrugada", label: "Cómo volver de madrugada" },
                 { to: "/blog/festivales-musica-espana-2026", label: "Festivales de España 2026" },
                 { to: "/como-funciona", label: "Cómo funciona ConcertRide" },

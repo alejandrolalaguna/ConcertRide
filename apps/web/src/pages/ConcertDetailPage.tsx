@@ -777,7 +777,7 @@ function ConcertTransportSection({ concert }: { concert: ConcertEntity }) {
                 <td className="py-2">App</td>
               </tr>
               <tr className="border-b border-cr-border/50">
-                <td className="py-2 pr-4">BlaBlaCar</td>
+                <td className="py-2 pr-4">Otras plataformas de carpooling</td>
                 <td className="py-2 pr-4">{firstOrigin?.concertRideRange ?? "precio similar"} + 12–18 %</td>
                 <td className="py-2 pr-4">12–18 %</td>
                 <td className="py-2 pr-4">Depende del conductor</td>

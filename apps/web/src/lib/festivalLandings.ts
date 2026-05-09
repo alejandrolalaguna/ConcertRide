@@ -1020,7 +1020,7 @@ export const FESTIVAL_LANDINGS: FestivalLanding[] = [
       },
     ],
     relatedFestivals: ["arenal-sound", "fib", "low-festival"],
-    relatedBlogs: ["guia-transporte-vina-rock-2026", "autobuses-festivales-espana-2026", "blablacar-vs-concertride"],
+    relatedBlogs: ["guia-transporte-vina-rock-2026", "autobuses-festivales-espana-2026", "como-volver-festival-madrugada"],
   },
 
   {

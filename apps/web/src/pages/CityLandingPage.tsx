@@ -226,7 +226,7 @@ export default function CityLandingPage() {
       },
       {
         q: `¿Es seguro el coche compartido para ir a conciertos en ${landing.display}?`,
-        a: `Sí. En ConcertRide todos los conductores verifican su carnet de conducir antes de publicar un viaje. Puedes ver el perfil completo del conductor, sus valoraciones de otros pasajeros y comunicarte por chat antes del viaje. El pago siempre es en persona el día del evento — nunca adelantas dinero online. El modelo de gastos compartidos sin comisión está reconocido como legal en España por el Tribunal Supremo (caso BlaBlaCar, 2017).`,
+        a: `Sí. En ConcertRide todos los conductores verifican su carnet de conducir antes de publicar un viaje. Puedes ver el perfil completo del conductor, sus valoraciones de otros pasajeros y comunicarte por chat antes del viaje. El pago siempre es en persona el día del evento — nunca adelantas dinero online. El modelo de gastos compartidos sin comisión está reconocido como legal en España por el Tribunal Supremo desde 2017.`,
       },
     ];
   }, [landing, year, nextYear]);
@@ -551,7 +551,7 @@ export default function CityLandingPage() {
             inLanguage: "es-ES",
             license: "https://creativecommons.org/licenses/by/4.0/",
             creator: { "@type": "Organization", "@id": `${SITE_URL}/#organization` },
-            keywords: `transporte conciertos ${landing.display}, carpooling ${landing.display}, BlaBlaCar vs ConcertRide, taxi concierto ${landing.display}`,
+            keywords: `transporte conciertos ${landing.display}, carpooling ${landing.display}, alternativa carpooling, taxi concierto ${landing.display}`,
             variableMeasured: [
               { "@type": "PropertyValue", name: "Opción de transporte", value: "ConcertRide carpooling" },
               { "@type": "PropertyValue", name: "Precio orientativo", value: "3–35 €/asiento" },
@@ -568,7 +568,7 @@ export default function CityLandingPage() {
               },
               {
                 "@type": "DataDownload",
-                name: "BlaBlaCar",
+                name: "Otras plataformas de carpooling",
                 description: `Precio: Similar a ConcertRide · Comisión: 12–18 % · Vuelta madrugada: Variable · Reserva: Recomendada`,
               },
               {
@@ -688,7 +688,7 @@ export default function CityLandingPage() {
                 <td className="py-2">Recomendada</td>
               </tr>
               <tr>
-                <td className="py-2 pr-4">BlaBlaCar</td>
+                <td className="py-2 pr-4">Otras plataformas de carpooling</td>
                 <td className="py-2 pr-4">Precio similar</td>
                 <td className="py-2 pr-4 text-yellow-400">12–18 %</td>
                 <td className="py-2 pr-4">Variable</td>

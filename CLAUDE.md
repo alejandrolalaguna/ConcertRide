@@ -2,6 +2,17 @@
 
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
+## Brand Restrictions — NEVER violate
+
+**PROHIBIDO mencionar a "BlaBlaCar" en cualquier contenido visible del producto.**
+
+- No introducir el nombre "BlaBlaCar" (ni variantes: `BlaBla Car`, `bla bla car`, `blablacar`) en JSX visible, copy de páginas, textos de blog posts nuevos, FAQ, schemas JSON-LD, OpenGraph, meta keywords/description, ni en ARIA labels.
+- No crear nuevas comparativas directas con BlaBlaCar (páginas, secciones, tablas, blog posts).
+- No reactivar la ruta `/comparativa/concertride-vs-blablacar` ni su componente `ComparativaBlaBlaCar.tsx` — están deshabilitados a propósito.
+- No reactivar la entrada de blog `blablacar-vs-concertride` en links visibles, navegación, listados, ni `relatedBlogs`.
+- Cuando haga falta referirse a la competencia genérica de carpooling, usar siempre **"otras plataformas de carpooling"** o **"plataformas de carpooling generalistas"**.
+- Si el usuario pide explícitamente una comparativa con BlaBlaCar, recordarle esta restricción y proponer una redacción genérica antes de proceder.
+
 ## Commands
 
 ### Development

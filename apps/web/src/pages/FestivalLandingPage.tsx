@@ -570,7 +570,7 @@ export default function FestivalLandingPage() {
         inLanguage: "es-ES",
         license: "https://creativecommons.org/licenses/by/4.0/",
         creator: { "@type": "Organization", "@id": `${SITE_URL}/#organization` },
-        keywords: `transporte ${festival.shortName}, carpooling ${festival.shortName}, bus ${festival.shortName}, tren ${festival.shortName}, BlaBlaCar vs ConcertRide ${festival.shortName}`,
+        keywords: `transporte ${festival.shortName}, carpooling ${festival.shortName}, bus ${festival.shortName}, tren ${festival.shortName}, alternativa carpooling ${festival.shortName}`,
         variableMeasured: [
           { "@type": "PropertyValue", name: "Opción de transporte", value: "ConcertRide carpooling" },
           { "@type": "PropertyValue", name: "Precio desde", value: festival.originCities[0]?.concertRideRange ?? "3–20 €/asiento" },
@@ -602,7 +602,7 @@ export default function FestivalLandingPage() {
           },
           {
             "@type": "DataDownload",
-            name: "BlaBlaCar",
+            name: "Otras plataformas de carpooling",
             description: `Precio: Similar a ConcertRide + 12–18 % comisión · Comisión: 12–18 % · Vuelta madrugada: Depende del conductor`,
           },
         ],
@@ -1167,7 +1167,7 @@ export default function FestivalLandingPage() {
                 <td className="py-2">App</td>
               </tr>
               <tr className="border-b border-cr-border/50">
-                <td className="py-2 pr-4">BlaBlaCar</td>
+                <td className="py-2 pr-4">Otras plataformas de carpooling</td>
                 <td className="py-2 pr-4">{festival.originCities[0]?.concertRideRange ?? "precio similar"} + 12–18 %</td>
                 <td className="py-2 pr-4">12–18 %</td>
                 <td className="py-2 pr-4">Depende del conductor</td>
@@ -1184,7 +1184,7 @@ export default function FestivalLandingPage() {
           </table>
         </div>
         <p className="font-mono text-[10px] text-cr-text-dim">
-          Datos de ConcertRide, estimaciones de VTC nocturno y tarifas EMT/Renfe 2026. BlaBlaCar comisión media actualizada a mayo 2026.
+          Datos de ConcertRide, estimaciones de VTC nocturno y tarifas EMT/Renfe 2026. Comisión media de plataformas de carpooling generalistas actualizada a mayo 2026.
         </p>
       </section>
 
@@ -1242,13 +1242,13 @@ export default function FestivalLandingPage() {
               Sin coche propio, las opciones son: (1) carpooling ConcertRide ({festival.originCities[0]?.concertRideRange ?? "desde 3 €"}, conductores verificados); (2) autobús/tren hasta {festival.city} + lanzadera al recinto (disponibilidad limitada); (3) taxi/VTC al recinto (precio elevado). El carpooling es la combinación óptima de precio y flexibilidad de horario.
             </p>
           </article>
-          {/* subconsulta 6: BlaBlaCar vs ConcertRide */}
+          {/* subconsulta 6: alternativas de carpooling */}
           <article className="border border-cr-border p-5 space-y-2">
             <h3 className="font-display text-sm uppercase text-cr-primary">
-              BlaBlaCar vs ConcertRide para {festival.shortName}
+              Alternativas de carpooling para {festival.shortName}
             </h3>
             <p className="text-cr-text-muted text-xs leading-relaxed">
-              BlaBlaCar cobra 12–18 % de comisión y la vuelta de madrugada depende del conductor. ConcertRide es 0 % de comisión, especializado en festivales: los conductores publican viajes de ida y vuelta coordinados con el fin del show. Para festivales como {festival.shortName}, ConcertRide es la opción event-first.
+              Otras plataformas de carpooling cobran 12–18 % de comisión y la vuelta de madrugada depende del conductor. ConcertRide es 0 % de comisión, especializado en festivales: los conductores publican viajes de ida y vuelta coordinados con el fin del show. Para festivales como {festival.shortName}, ConcertRide es la opción event-first.
             </p>
           </article>
         </div>

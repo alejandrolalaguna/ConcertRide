@@ -30,7 +30,7 @@ const HowItWorksPage = lazy(() => import("./pages/HowItWorksPage"));
 const ComoFuncionaCarpoolingPage = lazy(() => import("./pages/ComoFuncionaCarpoolingPage"));
 const ContactoPage = lazy(() => import("./pages/ContactoPage"));
 const AcercaDePage = lazy(() => import("./pages/AcercaDePage"));
-const ComparativaBlaBlaCar = lazy(() => import("./pages/ComparativaBlaBlaCar"));
+// const ComparativaBlaBlaCar = lazy(() => import("./pages/ComparativaBlaBlaCar"));
 const ComparativaTaxi = lazy(() => import("./pages/ComparativaTaxi"));
 const CityLandingPage = lazy(() => import("./pages/CityLandingPage"));
 const CityYearPage = lazy(() => import("./pages/CityYearPage"));
@@ -128,7 +128,7 @@ export default function App() {
             <Route path="/faq" element={<FaqPage />} />
             <Route path="/como-funciona" element={<HowItWorksPage />} />
             <Route path="/como-funciona-carpooling" element={<ComoFuncionaCarpoolingPage />} />
-            <Route path="/comparativa/concertride-vs-blablacar" element={<ComparativaBlaBlaCar />} />
+            {/* <Route path="/comparativa/concertride-vs-blablacar" element={<ComparativaBlaBlaCar />} /> */}
             <Route path="/comparativa/carpooling-vs-taxi-festival" element={<ComparativaTaxi />} />
             <Route path="/contacto" element={<ContactoPage />} />
             <Route path="/acerca-de" element={<AcercaDePage />} />

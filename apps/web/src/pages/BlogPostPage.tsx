@@ -143,7 +143,6 @@ export default function BlogPostPage() {
     "Arenal Sound": "https://www.wikidata.org/wiki/Q4791029",
     "Viña Rock": "https://www.wikidata.org/wiki/Q2311477",
     "Resurrection Fest": "https://www.wikidata.org/wiki/Q7316296",
-    "BlaBlaCar": "https://www.wikidata.org/wiki/Q2115189",
     "Sonorama": "https://www.wikidata.org/wiki/Q1305386",
     "FIB": "https://www.wikidata.org/wiki/Q630302",
     "Medusa": "https://www.wikidata.org/wiki/Q60882827",

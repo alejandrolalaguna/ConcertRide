@@ -273,9 +273,7 @@ export function AutoLinksForBlog({ slug }: { slug: string }) {
   const routeLinks = (post.relatedLinks ?? []).filter((l) =>
     l.to.startsWith("/rutas/")
   );
-  const showComparativa =
-    post.category === "comparativas" &&
-    slug !== "blablacar-vs-concertride";
+  const showComparativa = false;
 
   return (
     <aside className="mt-8">
@@ -309,13 +307,7 @@ export function AutoLinksForBlog({ slug }: { slug: string }) {
               ))}
             </>
           )}
-          {showComparativa && (
-            <li className="mt-2">
-              <Link to="/blog/blablacar-vs-concertride" className="text-cr-primary hover:underline">
-                BlaBlaCar vs ConcertRide — comparativa completa
-              </Link>
-            </li>
-          )}
+          {showComparativa && null}
         </ul>
       </div>
     </aside>

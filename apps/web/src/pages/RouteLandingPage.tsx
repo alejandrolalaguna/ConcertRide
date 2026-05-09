@@ -83,7 +83,7 @@ export default function RouteLandingPage() {
   const routeFaqs = [
     {
       q: `¿Cuánto cuesta el carpooling de ${originCity} a ${festival.shortName}?`,
-      a: `El precio por asiento de ${originCity} a ${festival.shortName} con ConcertRide está entre ${originData.concertRideRange}. El conductor fija el precio para cubrir combustible y peajes del trayecto de ${originData.km} km. Sin comisión de plataforma: lo que ves es exactamente lo que pagas. El pago se hace en efectivo o Bizum directamente al conductor el día del viaje. BlaBlaCar cobra un 12–18 % adicional sobre el precio del asiento; en ConcertRide ese porcentaje es 0 %.`,
+      a: `El precio por asiento de ${originCity} a ${festival.shortName} con ConcertRide está entre ${originData.concertRideRange}. El conductor fija el precio para cubrir combustible y peajes del trayecto de ${originData.km} km. Sin comisión de plataforma: lo que ves es exactamente lo que pagas. El pago se hace en efectivo o Bizum directamente al conductor el día del viaje. Otras plataformas de carpooling generalistas cobran un 12–18 % adicional sobre el precio del asiento; en ConcertRide ese porcentaje es 0 %.`,
     },
     {
       q: `¿Cuánto se tarda en coche de ${originCity} a ${festival.shortName}?`,
@@ -429,7 +429,7 @@ export default function RouteLandingPage() {
     inLanguage: "es-ES",
     license: "https://creativecommons.org/licenses/by/4.0/",
     creator: { "@type": "Organization", "@id": `${SITE_URL}/#organization` },
-    keywords: `carpooling ${originCity} ${festival.shortName}, transporte ${festival.shortName}, precio bus ${festival.shortName}, taxi ${festival.shortName}, BlaBlaCar vs ConcertRide`,
+    keywords: `carpooling ${originCity} ${festival.shortName}, transporte ${festival.shortName}, precio bus ${festival.shortName}, taxi ${festival.shortName}, alternativa carpooling festivales`,
     variableMeasured: [
       { "@type": "PropertyValue", name: "Opción de transporte", value: "ConcertRide carpooling" },
       { "@type": "PropertyValue", name: "Precio por asiento", value: `${originData.concertRideRange}` },
@@ -451,7 +451,7 @@ export default function RouteLandingPage() {
       },
       {
         "@type": "DataDownload",
-        name: "BlaBlaCar",
+        name: "Otras plataformas de carpooling",
         description: `Precio: ${originData.concertRideRange} + 12–18 % comisión · Tiempo: ${originData.drivingTime} · Comisión: 12–18 % · Vuelta madrugada: Depende`,
       },
       {
@@ -654,7 +654,7 @@ export default function RouteLandingPage() {
                 <td className="py-2">Sí (precio ×2–3)</td>
               </tr>
               <tr className="border-b border-cr-border/50">
-                <td className="py-2 pr-4">BlaBlaCar</td>
+                <td className="py-2 pr-4">Otras plataformas de carpooling</td>
                 <td className="py-2 pr-4">{originData.concertRideRange} + 12–18 %</td>
                 <td className="py-2 pr-4">{originData.drivingTime}</td>
                 <td className="py-2 pr-4">12–18 %</td>

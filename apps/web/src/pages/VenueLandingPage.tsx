@@ -159,10 +159,10 @@ export default function VenueLandingPage() {
       {
         "@context": "https://schema.org",
         "@type": "ItemList",
-        name: `ConcertRide vs BlaBlaCar para ${venue.shortName}`,
+        name: `Opciones de carpooling para ${venue.shortName}`,
         itemListElement: [
           { "@type": "ListItem", position: 1, name: "ConcertRide: 0% comisión, conductores verificados, festival-first" },
-          { "@type": "ListItem", position: 2, name: "BlaBlaCar: 15–18% comisión sobre el precio del viaje" },
+          { "@type": "ListItem", position: 2, name: "Otras plataformas de carpooling: 15–18% comisión sobre el precio del viaje" },
           { "@type": "ListItem", position: 3, name: "Taxi / VTC: 40–90€ en horario nocturno de concierto" },
           { "@type": "ListItem", position: 4, name: "Transporte público: último servicio antes de fin del evento" },
         ],
@@ -544,7 +544,7 @@ export default function VenueLandingPage() {
       {/* ── Transport comparison table ── */}
       <section className="max-w-6xl mx-auto px-6 pb-16 border-t border-cr-border pt-12 space-y-6">
         <h2 className="font-display text-2xl md:text-3xl uppercase">
-          Comparativa de transporte a {venue.shortName}: carpooling vs. taxi vs. metro vs. BlaBlaCar
+          Comparativa de transporte a {venue.shortName}: carpooling vs. taxi vs. metro vs. otras plataformas
         </h2>
         <p className="font-sans text-sm text-cr-text-muted max-w-2xl">
           Precios, comisiones y disponibilidad nocturna para llegar a {venue.name} desde{" "}
@@ -579,7 +579,7 @@ export default function VenueLandingPage() {
                 <td className="py-2">App</td>
               </tr>
               <tr className="border-b border-cr-border/50">
-                <td className="py-2 pr-4">BlaBlaCar</td>
+                <td className="py-2 pr-4">Otras plataformas de carpooling</td>
                 <td className="py-2 pr-4">
                   {topOrigin?.concertRideRange ?? "precio similar"} + 12–18 %
                 </td>
@@ -599,14 +599,14 @@ export default function VenueLandingPage() {
         </div>
         <p className="font-mono text-[10px] text-cr-text-dim">
           Datos de ConcertRide, estimaciones de VTC nocturno y tarifas EMT/TMB/Renfe 2026.
-          BlaBlaCar comisión media actualizada a mayo 2026.
+          Comisión media de plataformas de carpooling generalistas actualizada a mayo 2026.
         </p>
       </section>
 
       {/* ── Por qué ConcertRide ── */}
       <section className="max-w-6xl mx-auto px-6 pb-16 border-t border-cr-border pt-12 space-y-6">
         <h2 className="font-display text-2xl md:text-3xl uppercase">
-          Por qué ir a {venue.shortName} con ConcertRide y no con BlaBlaCar o taxi
+          Por qué ir a {venue.shortName} con ConcertRide y no con otras plataformas o taxi
         </h2>
         <div className="grid md:grid-cols-3 gap-4 font-sans text-sm text-cr-text-muted leading-relaxed">
           <article className="space-y-2">

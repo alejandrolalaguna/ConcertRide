@@ -151,12 +151,12 @@ export default function ComparativaTaxi() {
             >
               Buscar viaje <ArrowRight size={12} />
             </Link>
-            <Link
+            {/* <Link
               to="/comparativa/concertride-vs-blablacar"
               className="inline-flex items-center gap-2 font-sans text-xs font-semibold uppercase tracking-[0.12em] border-2 border-cr-border text-cr-text-muted px-4 py-2 hover:border-cr-primary hover:text-cr-primary transition-colors"
             >
               ConcertRide vs BlaBlaCar <ArrowRight size={12} />
-            </Link>
+            </Link> */}
             <Link
               to="/como-funciona-carpooling"
               className="inline-flex items-center gap-2 font-sans text-xs font-semibold uppercase tracking-[0.12em] border-2 border-cr-border text-cr-text-muted px-4 py-2 hover:border-cr-primary hover:text-cr-primary transition-colors"
