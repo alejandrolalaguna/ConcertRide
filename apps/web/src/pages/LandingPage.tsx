@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useState } from "react";
 import { Link } from "react-router-dom";
-import { ArrowRight, ShieldCheck, Banknote, MapPinned, Clock } from "lucide-react";
+import { ArrowRight, Banknote, Clock, MapPinned, ShieldCheck } from "lucide-react";
+import { motion } from "motion/react";
 import type { Concert, Ride } from "@concertride/types";
 import { api } from "@/lib/api";
 import { useSeoMeta } from "@/lib/useSeoMeta";
@@ -17,36 +18,111 @@ import { LiveActivityFeed } from "@/components/LiveActivityFeed";
 import { IntelligencePrompts } from "@/components/IntelligencePrompts";
 import { DemandSignalsBoard } from "@/components/DemandSignalsBoard";
 import { FinalCTA } from "@/components/landing/FinalCTA";
-import { PastConcertsSection } from "@/components/landing/PastConcertsSection";
 import { TestimonialsSection } from "@/components/landing/TestimonialsSection";
 import { FestivalMarquee } from "@/components/landing/FestivalMarquee";
+import { DriverCTA } from "@/components/landing/DriverCTA";
+import { RegistrationNudge } from "@/components/landing/RegistrationNudge";
 
 const WHY_CONCERTRIDE = [
   {
     icon: Banknote,
-    title: "0% comisión, siempre",
-    body: "El precio lo fija el conductor para cubrir gastos reales de gasolina y peajes. ConcertRide no cobra nada por conectaros. El ahorro vs otras plataformas es de 13–18€ por viaje.",
+    title: "Rutas a conciertos reales",
+    body: "Viajes organizados hacia festivales y conciertos verificados. Sin destinos genéricos.",
     highlight: "Ahorra 13–18€ por viaje",
   },
   {
-    icon: MapPinned,
-    title: "Especialistas en festivales",
-    body: "No somos una app de trayectos genérica. Cada viaje en ConcertRide va a un concierto o festival concreto. Eso significa conductores que van al mismo evento, mismo horario, misma energía.",
-    highlight: "+30 festivales cubiertos",
-  },
-  {
     icon: ShieldCheck,
-    title: "Conductores verificados",
-    body: "Cada conductor sube DNI y carnet de conducir. El equipo verifica manualmente cada perfil. Ves historial de viajes, valoraciones y foto antes de confirmar.",
+    title: "Perfiles verificados",
+    body: "Conductores y pasajeros con valoraciones reales. Viaja con quien confías.",
     highlight: "100% verificados",
   },
   {
+    icon: MapPinned,
+    title: "Reserva instantánea",
+    body: "Encuentra asiento en segundos. Sin negociaciones ni mensajes infinitos.",
+    highlight: "+30 festivales cubiertos",
+  },
+  {
     icon: Clock,
-    title: "Vuelta de madrugada incluida",
-    body: "El último metro sale a la 1:30. El festival acaba a las 3:00. Con ConcertRide pactás la vuelta con el conductor desde el principio. Sin sorpresas, sin quedarte tirado.",
-    highlight: "Vuelta pactada de antemano",
+    title: "Vibe del viaje",
+    body: "Elige el ambiente: playlist compartida, charla o silencio. Tú mandas.",
+    highlight: "Vuelta pactada",
+  },
+  {
+    icon: Banknote,
+    title: "Comunidad de fans",
+    body: "Conecta con gente que va al mismo evento. Comparte música, no solo gasolina.",
+    highlight: "+2k fans",
+  },
+  {
+    icon: ShieldCheck,
+    title: "Impacto real",
+    body: "Menos coches, menos CO₂. Cada viaje compartido reduce la huella del evento.",
+    highlight: "80% menos CO₂",
   },
 ] as const;
+
+const FAQ_ITEMS_LANDING = [
+  {
+    question: "¿Es seguro viajar con desconocidos?",
+    answer:
+      "Todos los usuarios tienen perfil verificado con valoraciones reales de viajes anteriores. Puedes ver el historial del conductor antes de reservar. Además, cada viaje queda registrado en la plataforma.",
+  },
+  {
+    question: "¿Cómo se paga el viaje?",
+    answer:
+      "El precio lo fija el conductor para cubrir gasolina y peajes — ConcertRide no cobra comisiones. El pago se acuerda directamente entre conductor y pasajero (efectivo o Bizum). Sin intermediarios, sin sorpresas.",
+  },
+  {
+    question: "¿Qué pasa si el concierto se cancela?",
+    answer:
+      "Si el evento se cancela, el viaje se cancela automáticamente y ambas partes son notificadas. La gestión del dinero (si ya se había acordado) queda entre conductor y pasajero.",
+  },
+  {
+    question: "¿Puedo publicar un viaje si nunca he usado la app?",
+    answer:
+      "Sí. Regístrate gratis, verifica tu perfil y publica tu viaje en menos de 2 minutos. Sin procesos complicados ni documentación adicional para empezar.",
+  },
+];
+
+function FAQAccordion({ items }: { items: typeof FAQ_ITEMS_LANDING }) {
+  const [open, setOpen] = useState<number | null>(null);
+  return (
+    <div className="divide-y divide-white/[0.06] border border-white/[0.06]">
+      {items.map((item, i) => (
+        <div key={item.question}>
+          <button
+            onClick={() => setOpen(open === i ? null : i)}
+            aria-expanded={open === i}
+            className="w-full flex items-center justify-between gap-4 px-6 py-5 text-left hover:bg-white/[0.02] transition-colors"
+          >
+            <span className="font-display text-base lg:text-lg uppercase tracking-tight text-white/80">
+              {item.question}
+            </span>
+            <span
+              className={`flex-shrink-0 w-8 h-8 border flex items-center justify-center font-mono text-sm transition-colors duration-200 ${
+                open === i
+                  ? "border-[#dbff00] text-[#dbff00]"
+                  : "border-white/10 text-white/40"
+              }`}
+              aria-hidden="true"
+            >
+              {open === i ? "−" : "+"}
+            </span>
+          </button>
+          <div
+            className="overflow-hidden transition-all duration-300 ease-in-out"
+            style={{ maxHeight: open === i ? "300px" : "0" }}
+          >
+            <p className="px-6 pb-5 pt-1 font-sans text-sm text-white/40 font-light leading-relaxed">
+              {item.answer}
+            </p>
+          </div>
+        </div>
+      ))}
+    </div>
+  );
+}
 
 export default function LandingPage() {
   useSeoMeta({
@@ -74,9 +150,6 @@ export default function LandingPage() {
       });
   }, []);
 
-  // Solo los 10 conciertos futuros más próximos. Hard date check — the server's
-  // `date_from` uses lexicographic comparison which can leak same-day concerts
-  // whose UTC instant has already passed when mixed with `+02:00` timezones.
   const activeConcerts = useMemo(() => {
     const nowMs = Date.now();
     const futuros = (concerts ?? [])
@@ -88,7 +161,6 @@ export default function LandingPage() {
     return futuros.slice(0, 10);
   }, [concerts]);
 
-  // Mapa: conciertos próximos (90 días) + viajes activos con plazas para esos conciertos
   const NINETY_DAYS_MS = 90 * 24 * 60 * 60 * 1000;
   const mapConcerts = useMemo(() => {
     const nowMs = Date.now();
@@ -111,10 +183,7 @@ export default function LandingPage() {
 
   return (
     <main id="main" className="bg-cr-bg text-cr-text">
-      {/* Landing-level JSON-LD graph. The homepage already emits the site-wide
-          Organization/WebSite in index.html; here we define the /#service entity
-          (referenced by CollectionPage/Blog about fields across the site) and
-          add an ItemList of upcoming concerts for LLMs + rich results crawlers. */}
+      {/* JSON-LD schemas */}
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
@@ -291,9 +360,20 @@ export default function LandingPage() {
           }),
         }}
       />
+
+      {/* 1. HERO */}
       <Hero />
+
+      {/* 2. Festival marquee ticker */}
       <FestivalMarquee />
+
+      {/* 3. Stats bar */}
       <StatsBar />
+
+      {/* 4. Concert carousel — bastante arriba, justo tras los stats */}
+      {activeConcerts.length > 0 && <HorizontalCarousel concerts={activeConcerts} />}
+
+      {/* 5. Intelligence prompts + demand signals — SEO/GEO */}
       <section className="mx-auto max-w-5xl px-4 py-8 sm:px-6">
         <IntelligencePrompts />
       </section>
@@ -303,70 +383,253 @@ export default function LandingPage() {
       <section className="mx-auto max-w-3xl px-4 pb-8 sm:px-6">
         <LiveActivityFeed limit={8} layout="card" emptyMessage="Aún silencio. Sé el primero en publicar un viaje." />
       </section>
-      {activeConcerts.length > 0 && <HorizontalCarousel concerts={activeConcerts} />}
-      <HowItWorks />
-      <AdhocRidesSection />
-      {mapConcerts.length > 0 && <MapSection concerts={mapConcerts} rides={mapRides} />}
-      {/* ── Por qué ConcertRide — diferenciadores clave ── */}
-      <section aria-labelledby="why-title" className="border-t border-cr-border bg-cr-bg">
-        <div className="max-w-6xl mx-auto px-6 py-16 md:py-24 space-y-10">
-          <header className="space-y-3 max-w-2xl">
-            <p className="font-sans text-[11px] font-semibold uppercase tracking-[0.16em] text-cr-primary">
-              Por qué ConcertRide
-            </p>
-            <h2
-              id="why-title"
-              className="font-display text-3xl md:text-5xl uppercase leading-[0.95]"
-            >
-              Diseñado para<br />festivales, no para<br />trayectos genéricos.
-            </h2>
-            <p className="font-sans text-sm text-cr-text-muted leading-relaxed max-w-xl">
-              Las plataformas de carpooling generalistas cobran comisiones del 13–18% y no entienden que un festival acaba a las 3:00. ConcertRide sí.
-            </p>
-          </header>
 
-          <div className="grid sm:grid-cols-2 gap-px bg-cr-border">
-            {WHY_CONCERTRIDE.map(({ icon: Icon, title, body, highlight }) => (
-              <div key={title} className="bg-cr-bg p-8 space-y-4 group hover:bg-cr-surface transition-colors">
-                <div className="flex items-start justify-between gap-4">
-                  <div className="w-10 h-10 border border-cr-primary/30 flex items-center justify-center text-cr-primary">
+      {/* Premium scan-line divider */}
+      <div aria-hidden="true" className="cr-scan-divider" />
+
+      {/* 6. Por qué ConcertRide */}
+      <section aria-labelledby="why-title" className="relative py-24 lg:py-32 px-6 overflow-hidden bg-[#080808]" id="conciertos">
+        {/* Crowd silhouette bg */}
+        <img
+          aria-hidden="true"
+          src="https://images.unsplash.com/photo-1506157786151-b8491531f063?w=1400&q=50&auto=format&fit=crop"
+          alt=""
+          className="absolute inset-0 w-full h-full object-cover object-top opacity-[0.07] pointer-events-none"
+        />
+        {/* Orange glow top-right */}
+        <div
+          aria-hidden="true"
+          className="absolute top-0 right-0 w-[700px] h-[500px] pointer-events-none"
+          style={{ background: "radial-gradient(ellipse at 100% 0%, rgba(255,79,0,0.09) 0%, transparent 60%)" }}
+        />
+        {/* Lime glow bottom-left */}
+        <div
+          aria-hidden="true"
+          className="absolute bottom-0 left-0 w-[600px] h-[400px] pointer-events-none"
+          style={{ background: "radial-gradient(ellipse at 0% 100%, rgba(219,255,0,0.06) 0%, transparent 55%)" }}
+        />
+        <div className="relative max-w-6xl mx-auto space-y-14">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 mb-20 items-center">
+            {/* Left — copy */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+            >
+              <p className="font-mono text-xs tracking-[0.3em] text-[#ff4f00] uppercase">
+                Por qué ConcertRide
+              </p>
+              <h2
+                id="why-title"
+                className="font-display text-4xl lg:text-6xl uppercase tracking-tight mt-4 leading-[0.88]"
+              >
+                No es solo
+                <br />
+                <span className="text-[#dbff00]">un viaje.</span>
+              </h2>
+              <motion.div
+                initial={{ scaleX: 0 }}
+                whileInView={{ scaleX: 1 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.8, delay: 0.3 }}
+                className="origin-left h-[2px] bg-[#dbff00] w-16 my-8"
+                aria-hidden="true"
+              />
+              <p className="text-white/40 font-light leading-relaxed max-w-md text-base font-sans">
+                ConcertRide no es otra plataforma de carpooling generalista. Está diseñada específicamente
+                para la comunidad de música en vivo.
+              </p>
+            </motion.div>
+
+            {/* Right — night car ride photo */}
+            <motion.div
+              initial={{ opacity: 0, x: 30 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.7, delay: 0.15, ease: [0.16, 1, 0.3, 1] }}
+              className="relative h-72 lg:h-[480px] overflow-hidden group"
+            >
+              <motion.img
+                src="https://images.unsplash.com/photo-1449965408869-eaa3f722e40d?w=900&q=80&fit=crop"
+                alt="Viaje nocturno a un concierto con luces de ciudad"
+                className="w-full h-full object-cover"
+                loading="lazy"
+                whileHover={{ scale: 1.04 }}
+                transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+              />
+              {/* Selective edge overlays — not full cover */}
+              <div className="absolute inset-0 bg-gradient-to-t from-[#080808]/90 via-transparent to-[#080808]/20" />
+              <div className="absolute inset-0 bg-gradient-to-r from-[#080808]/60 via-transparent to-transparent" />
+              {/* Lime tint on hover */}
+              <div
+                aria-hidden="true"
+                className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none"
+                style={{ background: "linear-gradient(to top, rgba(219,255,0,0.06), transparent 50%)" }}
+              />
+              {/* Bottom lime hairline */}
+              <div className="absolute bottom-0 left-0 right-0 h-[2px] bg-gradient-to-r from-[#dbff00]/60 to-transparent" aria-hidden="true" />
+              {/* Corner bracket */}
+              <div aria-hidden="true" className="absolute top-4 right-4 w-8 h-8">
+                <span className="absolute top-0 right-0 w-6 h-px bg-[#dbff00]/40" />
+                <span className="absolute top-0 right-0 w-px h-6 bg-[#dbff00]/40" />
+              </div>
+              {/* Caption */}
+              <div className="absolute bottom-4 left-4 space-y-1">
+                <p className="font-mono text-[9px] tracking-[0.18em] text-white/35 uppercase">
+                  La madrugada empieza aquí
+                </p>
+                <div className="flex items-center gap-1.5">
+                  <span className="w-1 h-1 rounded-full bg-[#dbff00]/40" aria-hidden="true" />
+                  <span className="font-mono text-[8px] text-white/20 uppercase tracking-[0.1em]">+30 festivales cubiertos</span>
+                </div>
+              </div>
+            </motion.div>
+          </div>
+
+          {/* 6-card feature grid */}
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-px bg-white/[0.05]">
+            {WHY_CONCERTRIDE.map(({ icon: Icon, title, body, highlight }, i) => (
+              <motion.div
+                key={title}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, amount: 0.2 }}
+                transition={{ duration: 0.5, delay: i * 0.09, ease: [0.16, 1, 0.3, 1] }}
+                whileHover={{ y: -3, transition: { duration: 0.2 } }}
+                className="relative bg-[#080808] p-8 flex flex-col gap-5 hover:bg-[#0d0d0d] transition-colors duration-200 group overflow-hidden"
+              >
+                {/* Hover glow */}
+                <div
+                  aria-hidden="true"
+                  className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"
+                  style={{ background: "radial-gradient(ellipse at 0% 0%, rgba(219,255,0,0.04) 0%, transparent 60%)" }}
+                />
+                {/* Hover top accent */}
+                <div
+                  aria-hidden="true"
+                  className="absolute top-0 left-0 right-0 h-[1px] opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"
+                  style={{ background: "linear-gradient(to right, #dbff00, transparent)" }}
+                />
+                <div className="flex items-start justify-between gap-4 relative">
+                  <div className="w-10 h-10 border border-[#dbff00]/30 flex items-center justify-center text-[#dbff00] group-hover:border-[#dbff00]/60 group-hover:scale-110 transition-all duration-300">
                     <Icon size={18} aria-hidden="true" />
                   </div>
-                  <span className="font-mono text-[10px] font-semibold text-cr-primary border border-cr-primary/20 bg-cr-primary/6 px-2 py-1 uppercase tracking-[0.1em]">
+                  <span className="font-mono text-[9px] font-semibold text-[#dbff00] border border-[#dbff00]/20 bg-[#dbff00]/5 px-2 py-1 uppercase tracking-[0.1em]">
                     {highlight}
                   </span>
                 </div>
-                <h3 className="font-display text-lg md:text-xl uppercase leading-tight text-cr-text">
+                <h3 className="font-display text-lg uppercase leading-tight text-white relative group-hover:text-[#f5f5f5] transition-colors">
                   {title}
                 </h3>
-                <p className="font-sans text-sm text-cr-text-muted leading-relaxed">
+                <p className="font-sans text-sm text-white/40 leading-relaxed font-light relative group-hover:text-white/55 transition-colors">
                   {body}
                 </p>
-              </div>
+              </motion.div>
             ))}
           </div>
 
           <div className="flex flex-col sm:flex-row gap-3 pt-2">
             <Link
-              to="/concerts"
-              className="inline-flex items-center justify-center bg-cr-primary text-black font-sans font-semibold uppercase tracking-[0.12em] text-sm border-2 border-black px-6 py-4 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] hover:translate-x-[2px] hover:translate-y-[2px] active:shadow-none transition-all duration-100"
+              to="/register"
+              className="cr-btn-shine inline-flex items-center justify-center gap-2 bg-[#dbff00] text-black font-sans font-semibold uppercase tracking-[0.12em] text-sm px-8 py-4 hover:bg-[#c8ec00] transition-colors duration-150 group"
             >
-              Buscar viaje a mi festival <ArrowRight size={14} className="ml-2" />
+              Unirme gratis
+              <ArrowRight size={14} className="transition-transform duration-150 group-hover:translate-x-1" aria-hidden="true" />
             </Link>
             <Link
-              to="/como-funciona-carpooling"
-              className="inline-flex items-center justify-center bg-transparent text-cr-text font-sans font-semibold uppercase tracking-[0.12em] text-sm border-2 border-cr-border hover:border-cr-primary hover:text-cr-primary px-6 py-4 transition-colors duration-150"
+              to="/concerts"
+              className="inline-flex items-center justify-center font-sans font-semibold uppercase tracking-[0.12em] text-sm border border-white/20 text-white/70 px-8 py-4 hover:border-white/40 hover:text-white transition-colors duration-150"
             >
-              Cómo funciona el carpooling
+              Ver viajes disponibles →
             </Link>
           </div>
         </div>
       </section>
 
-      <TrustSection />
+      {/* 7. Cómo funciona */}
+      <HowItWorks />
+
+      {/* 8. Mapa viajes activos — refuerza el paso 1 "elige el concierto" */}
+      {mapConcerts.length > 0 && <MapSection concerts={mapConcerts} rides={mapRides} />}
+
+      {/* 9. Adhoc rides */}
+      <AdhocRidesSection />
+
+      {/* Premium scan-line divider */}
+      <div aria-hidden="true" className="cr-scan-divider" />
+
+      {/* 10. Testimonios — grid 4 col */}
       <TestimonialsSection />
 
-      {/* Industry authority quotes — Princeton GEO Method 3 (Quotation Addition) */}
+      {/* 10b. Registration nudge — urgency strip */}
+      <RegistrationNudge />
+
+      {/* 11. Para conductores */}
+      <DriverCTA />
+
+      {/* 12. FAQ con accordion premium */}
+      <section className="relative py-24 lg:py-32 px-6 overflow-hidden bg-[#080808]">
+        {/* Background — crowd silhouette */}
+        <img
+          aria-hidden="true"
+          src="https://images.unsplash.com/photo-1514525253161-7a46d19cd819?w=1400&q=40&auto=format&fit=crop"
+          alt=""
+          className="absolute inset-0 w-full h-full object-cover object-center opacity-[0.06] pointer-events-none"
+        />
+        {/* Lime atmospheric glow top-center */}
+        <div
+          aria-hidden="true"
+          className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[350px] pointer-events-none"
+          style={{ background: "radial-gradient(ellipse at 50% 0%, rgba(219,255,0,0.07) 0%, transparent 60%)" }}
+        />
+        {/* Orange glow bottom-right */}
+        <div
+          aria-hidden="true"
+          className="absolute bottom-0 right-0 w-[500px] h-[300px] pointer-events-none"
+          style={{ background: "radial-gradient(ellipse at 100% 100%, rgba(255,79,0,0.05) 0%, transparent 60%)" }}
+        />
+        <div className="max-w-6xl mx-auto">
+          <div className="grid lg:grid-cols-2 gap-12 lg:gap-20">
+            {/* Left */}
+            <div className="space-y-6">
+              <div className="space-y-4">
+                <p className="font-mono text-xs tracking-[0.3em] uppercase text-[#ff4f00]">
+                  Preguntas frecuentes
+                </p>
+                <h2 className="font-display text-4xl lg:text-5xl uppercase tracking-tight leading-[0.88]">
+                  Sin
+                  <br />
+                  <span className="text-[#dbff00]">letra pequeña.</span>
+                </h2>
+                <div className="h-[2px] bg-[#dbff00] w-16" aria-hidden="true" />
+              </div>
+              <p className="font-sans text-sm text-white/40 font-light leading-relaxed">
+                ¿Tienes más dudas?{" "}
+                <a href="mailto:hola@concertride.me" className="text-[#dbff00] hover:underline">
+                  Escríbenos a hola@concertride.me
+                </a>
+              </p>
+              <div className="hidden lg:block">
+                <Link
+                  to="/como-funciona-carpooling"
+                  className="inline-flex items-center gap-2 font-mono text-xs text-white/30 uppercase tracking-[0.15em] hover:text-white/60 transition-colors"
+                >
+                  Ver guía completa <ArrowRight size={11} aria-hidden="true" />
+                </Link>
+              </div>
+            </div>
+
+            {/* Right — accordion */}
+            <FAQAccordion items={FAQ_ITEMS_LANDING} />
+          </div>
+        </div>
+      </section>
+
+      {/* 12. Trust section — sector stats + full FAQ + badges */}
+      <TrustSection />
+
+      {/* 13. Industry authority quotes */}
       <section className="border-t border-cr-border bg-cr-bg">
         <div className="max-w-6xl mx-auto px-6 py-12 md:py-16 space-y-6">
           <p className="font-sans text-[11px] font-semibold uppercase tracking-[0.16em] text-cr-primary">
@@ -441,9 +704,21 @@ export default function LandingPage() {
         </div>
       </section>
 
-      {/* ── Tabla comparativa de transporte — GEO citable ── */}
-      <section aria-labelledby="comparativa-title" className="border-t border-cr-border bg-cr-bg">
-        <div className="max-w-6xl mx-auto px-6 py-12 md:py-16 space-y-6">
+      {/* 14. Tabla comparativa */}
+      <section aria-labelledby="comparativa-title" className="relative border-t border-white/[0.06] bg-[#080808] overflow-hidden">
+        {/* Road at night — very subtle */}
+        <img
+          aria-hidden="true"
+          src="https://images.unsplash.com/photo-1504208434309-cb69f4fe52b0?w=1400&q=40&auto=format&fit=crop"
+          alt=""
+          className="absolute inset-0 w-full h-full object-cover object-center opacity-[0.05] pointer-events-none"
+        />
+        <div
+          aria-hidden="true"
+          className="absolute inset-0 pointer-events-none"
+          style={{ background: "radial-gradient(ellipse at 50% 100%, rgba(219,255,0,0.04) 0%, transparent 60%)" }}
+        />
+        <div className="relative max-w-6xl mx-auto px-6 py-12 md:py-16 space-y-6">
           <header className="space-y-2">
             <p className="font-sans text-[11px] font-semibold uppercase tracking-[0.16em] text-cr-primary">
               Comparativa
@@ -506,9 +781,21 @@ export default function LandingPage() {
         </div>
       </section>
 
-      {/* ── Content hub — internal linking para SEO ── */}
-      <section className="border-t border-cr-border bg-cr-bg">
-        <div className="max-w-6xl mx-auto px-6 py-12 md:py-16 space-y-10">
+      {/* 15. Content hub — internal linking */}
+      <section className="relative border-t border-white/[0.06] bg-[#0a0a0a] overflow-hidden">
+        {/* Festival lights bg — barely visible */}
+        <img
+          aria-hidden="true"
+          src="https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=1400&q=40&auto=format&fit=crop"
+          alt=""
+          className="absolute inset-0 w-full h-full object-cover object-center opacity-[0.04] pointer-events-none"
+        />
+        <div
+          aria-hidden="true"
+          className="absolute top-0 right-0 w-[500px] h-[300px] pointer-events-none"
+          style={{ background: "radial-gradient(ellipse at 100% 0%, rgba(255,79,0,0.05) 0%, transparent 60%)" }}
+        />
+        <div className="relative max-w-6xl mx-auto px-6 py-12 md:py-16 space-y-10">
           <div className="space-y-2">
             <p className="font-sans text-[11px] font-semibold uppercase tracking-[0.16em] text-cr-primary">
               Guías y recursos
@@ -519,150 +806,65 @@ export default function LandingPage() {
           </div>
 
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
-            {/* Guía transporte */}
-            <Link
-              to="/guia-transporte-festivales"
-              className="border border-cr-border p-5 hover:border-cr-primary/50 transition-colors group space-y-3"
-            >
+            <Link to="/guia-transporte-festivales" className="border border-cr-border p-5 hover:border-cr-primary/50 transition-colors group space-y-3">
               <p className="font-mono text-[10px] uppercase tracking-[0.14em] text-cr-primary">Guía</p>
-              <h3 className="font-display text-base uppercase leading-tight group-hover:text-cr-primary transition-colors">
-                Guía de transporte para festivales
-              </h3>
-              <p className="font-sans text-xs text-cr-text-muted leading-relaxed">
-                Carpooling, lanzaderas, tren o taxi: cuándo usar cada opción y cómo ahorrar en el trayecto.
-              </p>
-              <span className="inline-flex items-center gap-1 font-sans text-xs text-cr-primary">
-                Leer <ArrowRight size={11} />
-              </span>
+              <h3 className="font-display text-base uppercase leading-tight group-hover:text-cr-primary transition-colors">Guía de transporte para festivales</h3>
+              <p className="font-sans text-xs text-cr-text-muted leading-relaxed">Carpooling, lanzaderas, tren o taxi: cuándo usar cada opción y cómo ahorrar en el trayecto.</p>
+              <span className="inline-flex items-center gap-1 font-sans text-xs text-cr-primary">Leer <ArrowRight size={11} /></span>
             </Link>
-
-            {/* Vuelta madrugada */}
-            <Link
-              to="/blog/como-volver-festival-madrugada"
-              className="border border-cr-border p-5 hover:border-cr-primary/50 transition-colors group space-y-3"
-            >
+            <Link to="/blog/como-volver-festival-madrugada" className="border border-cr-border p-5 hover:border-cr-primary/50 transition-colors group space-y-3">
               <p className="font-mono text-[10px] uppercase tracking-[0.14em] text-cr-primary">Guía</p>
-              <h3 className="font-display text-base uppercase leading-tight group-hover:text-cr-primary transition-colors">
-                Cómo volver de un festival de madrugada
-              </h3>
-              <p className="font-sans text-xs text-cr-text-muted leading-relaxed">
-                El último metro sale a la 1:30 y el festival acaba a las 2:30. Opciones reales sin pagar 90&nbsp;€ de taxi.
-              </p>
-              <span className="inline-flex items-center gap-1 font-sans text-xs text-cr-primary">
-                Leer <ArrowRight size={11} />
-              </span>
+              <h3 className="font-display text-base uppercase leading-tight group-hover:text-cr-primary transition-colors">Cómo volver de un festival de madrugada</h3>
+              <p className="font-sans text-xs text-cr-text-muted leading-relaxed">El último metro sale a la 1:30 y el festival acaba a las 2:30. Opciones reales sin pagar 90&nbsp;€ de taxi.</p>
+              <span className="inline-flex items-center gap-1 font-sans text-xs text-cr-primary">Leer <ArrowRight size={11} /></span>
             </Link>
-
-            {/* Rutas top */}
-            <Link
-              to="/rutas/madrid-mad-cool"
-              className="border border-cr-border p-5 hover:border-cr-primary/50 transition-colors group space-y-3"
-            >
+            <Link to="/rutas/madrid-mad-cool" className="border border-cr-border p-5 hover:border-cr-primary/50 transition-colors group space-y-3">
               <p className="font-mono text-[10px] uppercase tracking-[0.14em] text-cr-primary">Ruta</p>
-              <h3 className="font-display text-base uppercase leading-tight group-hover:text-cr-primary transition-colors">
-                Carpooling Madrid → Mad Cool
-              </h3>
-              <p className="font-sans text-xs text-cr-text-muted leading-relaxed">
-                Precios, tiempo de conducción y horarios de vuelta para la ruta más popular a Mad Cool 2026.
-              </p>
-              <span className="inline-flex items-center gap-1 font-sans text-xs text-cr-primary">
-                Ver ruta <ArrowRight size={11} />
-              </span>
+              <h3 className="font-display text-base uppercase leading-tight group-hover:text-cr-primary transition-colors">Carpooling Madrid → Mad Cool</h3>
+              <p className="font-sans text-xs text-cr-text-muted leading-relaxed">Precios, tiempo de conducción y horarios de vuelta para la ruta más popular a Mad Cool 2026.</p>
+              <span className="inline-flex items-center gap-1 font-sans text-xs text-cr-primary">Ver ruta <ArrowRight size={11} /></span>
             </Link>
-
-            <Link
-              to="/rutas/madrid-primavera-sound"
-              className="border border-cr-border p-5 hover:border-cr-primary/50 transition-colors group space-y-3"
-            >
+            <Link to="/rutas/madrid-primavera-sound" className="border border-cr-border p-5 hover:border-cr-primary/50 transition-colors group space-y-3">
               <p className="font-mono text-[10px] uppercase tracking-[0.14em] text-cr-primary">Ruta</p>
-              <h3 className="font-display text-base uppercase leading-tight group-hover:text-cr-primary transition-colors">
-                Carpooling Madrid → Primavera Sound
-              </h3>
-              <p className="font-sans text-xs text-cr-text-muted leading-relaxed">
-                Madrid–Barcelona en coche compartido: 620 km, ~5 h 30 min, desde 14&nbsp;€/asiento.
-              </p>
-              <span className="inline-flex items-center gap-1 font-sans text-xs text-cr-primary">
-                Ver ruta <ArrowRight size={11} />
-              </span>
+              <h3 className="font-display text-base uppercase leading-tight group-hover:text-cr-primary transition-colors">Carpooling Madrid → Primavera Sound</h3>
+              <p className="font-sans text-xs text-cr-text-muted leading-relaxed">Madrid–Barcelona en coche compartido: 620 km, ~5 h 30 min, desde 14&nbsp;€/asiento.</p>
+              <span className="inline-flex items-center gap-1 font-sans text-xs text-cr-primary">Ver ruta <ArrowRight size={11} /></span>
             </Link>
-
-            <Link
-              to="/como-funciona-carpooling"
-              className="border border-cr-border p-5 hover:border-cr-primary/50 transition-colors group space-y-3"
-            >
+            <Link to="/como-funciona-carpooling" className="border border-cr-border p-5 hover:border-cr-primary/50 transition-colors group space-y-3">
               <p className="font-mono text-[10px] uppercase tracking-[0.14em] text-cr-primary">Guía</p>
-              <h3 className="font-display text-base uppercase leading-tight group-hover:text-cr-primary transition-colors">
-                Qué es el carpooling para conciertos
-              </h3>
-              <p className="font-sans text-xs text-cr-text-muted leading-relaxed">
-                Respuesta directa, pasos numerados y comparación con taxi y autobús para entenderlo en un minuto.
-              </p>
-              <span className="inline-flex items-center gap-1 font-sans text-xs text-cr-primary">
-                Leer <ArrowRight size={11} />
-              </span>
+              <h3 className="font-display text-base uppercase leading-tight group-hover:text-cr-primary transition-colors">Qué es el carpooling para conciertos</h3>
+              <p className="font-sans text-xs text-cr-text-muted leading-relaxed">Respuesta directa, pasos numerados y comparación con taxi y autobús para entenderlo en un minuto.</p>
+              <span className="inline-flex items-center gap-1 font-sans text-xs text-cr-primary">Leer <ArrowRight size={11} /></span>
             </Link>
-
-            {/* <Link
-              to="/comparativa/concertride-vs-blablacar"
-              className="border border-cr-border p-5 hover:border-cr-primary/50 transition-colors group space-y-3"
-            >
+            <Link to="/comparativa/carpooling-vs-taxi-festival" className="border border-cr-border p-5 hover:border-cr-primary/50 transition-colors group space-y-3">
               <p className="font-mono text-[10px] uppercase tracking-[0.14em] text-cr-primary">Comparativa</p>
-              <h3 className="font-display text-base uppercase leading-tight group-hover:text-cr-primary transition-colors">
-                ConcertRide vs BlaBlaCar
-              </h3>
-              <p className="font-sans text-xs text-cr-text-muted leading-relaxed">
-                Comisión, especialización, pago y vuelta de madrugada: por qué ConcertRide encaja mejor en festivales.
-              </p>
-              <span className="inline-flex items-center gap-1 font-sans text-xs text-cr-primary">
-                Leer <ArrowRight size={11} />
-              </span>
-            </Link> */}
-
-            <Link
-              to="/comparativa/carpooling-vs-taxi-festival"
-              className="border border-cr-border p-5 hover:border-cr-primary/50 transition-colors group space-y-3"
-            >
-              <p className="font-mono text-[10px] uppercase tracking-[0.14em] text-cr-primary">Comparativa</p>
-              <h3 className="font-display text-base uppercase leading-tight group-hover:text-cr-primary transition-colors">
-                Carpooling vs taxi en festivales
-              </h3>
-              <p className="font-sans text-xs text-cr-text-muted leading-relaxed">
-                Un taxi de ida y vuelta supera los 50&nbsp;€. El carpooling sale entre 3 y 20&nbsp;€ por asiento según distancia.
-              </p>
-              <span className="inline-flex items-center gap-1 font-sans text-xs text-cr-primary">
-                Leer <ArrowRight size={11} />
-              </span>
+              <h3 className="font-display text-base uppercase leading-tight group-hover:text-cr-primary transition-colors">Carpooling vs taxi en festivales</h3>
+              <p className="font-sans text-xs text-cr-text-muted leading-relaxed">Un taxi de ida y vuelta supera los 50&nbsp;€. El carpooling sale entre 3 y 20&nbsp;€ por asiento según distancia.</p>
+              <span className="inline-flex items-center gap-1 font-sans text-xs text-cr-primary">Leer <ArrowRight size={11} /></span>
             </Link>
-
-            {/* Blog index */}
-            <Link
-              to="/blog"
-              className="border border-cr-border p-5 hover:border-cr-primary/50 transition-colors group space-y-3 flex flex-col justify-between"
-            >
+            <Link to="/blog" className="border border-cr-border p-5 hover:border-cr-primary/50 transition-colors group space-y-3 flex flex-col justify-between">
               <div className="space-y-3">
                 <p className="font-mono text-[10px] uppercase tracking-[0.14em] text-cr-primary">Blog</p>
-                <h3 className="font-display text-base uppercase leading-tight group-hover:text-cr-primary transition-colors">
-                  Más artículos y guías
-                </h3>
-                <p className="font-sans text-xs text-cr-text-muted leading-relaxed">
-                  Comparativas, datos de sostenibilidad y todo lo que necesitas para ir a un festival en España.
-                </p>
+                <h3 className="font-display text-base uppercase leading-tight group-hover:text-cr-primary transition-colors">Más artículos y guías</h3>
+                <p className="font-sans text-xs text-cr-text-muted leading-relaxed">Comparativas, datos de sostenibilidad y todo lo que necesitas para ir a un festival en España.</p>
               </div>
-              <span className="inline-flex items-center gap-1 font-sans text-xs text-cr-primary mt-3">
-                Ver blog <ArrowRight size={11} />
-              </span>
+              <span className="inline-flex items-center gap-1 font-sans text-xs text-cr-primary mt-3">Ver blog <ArrowRight size={11} /></span>
             </Link>
           </div>
         </div>
       </section>
 
+      {/* Premium scan-line divider */}
+      <div aria-hidden="true" className="cr-scan-divider" />
+
+      {/* 16. Final CTA — crowd photo + lime bloom */}
       <FinalCTA />
 
-      {/* Sticky mobile CTA — only visible on mobile, fades in after 2s */}
-      <div className="fixed bottom-0 left-0 right-0 z-40 sm:hidden bg-cr-bg/95 backdrop-blur border-t border-cr-border p-3 safe-area-inset-bottom">
+      {/* 17. Sticky mobile CTA */}
+      <div className="fixed bottom-0 left-0 right-0 z-40 sm:hidden bg-[#080808]/95 backdrop-blur border-t border-white/[0.06] p-3">
         <a
           href="/concerts"
-          className="block w-full text-center bg-cr-primary text-black font-sans font-semibold uppercase tracking-[0.12em] text-sm border-2 border-black py-3 shadow-[3px_3px_0px_0px_rgba(0,0,0,1)] hover:shadow-[1px_1px_0px_0px_rgba(0,0,0,1)] hover:translate-x-[2px] hover:translate-y-[2px] active:shadow-none transition-all duration-100"
+          className="block w-full text-center bg-[#dbff00] text-black font-sans font-semibold uppercase tracking-[0.12em] text-sm py-3 hover:bg-[#c8ec00] transition-colors"
         >
           Ver viajes hoy
         </a>

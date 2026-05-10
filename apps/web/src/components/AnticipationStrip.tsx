@@ -108,23 +108,30 @@ export function AnticipationStrip({ concertId, date, artist }: Props) {
   return (
     <section
       aria-label="Asistencia"
-      className="border-y border-cr-border bg-gradient-to-r from-cr-bg via-cr-surface-2 to-cr-bg px-4 py-4 sm:px-6"
+      className="border-y border-cr-border bg-gradient-to-r from-cr-bg via-cr-surface-2 to-cr-bg px-5 py-5 sm:px-8"
     >
-      <div className="mx-auto flex max-w-5xl flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-        <div className="flex items-baseline gap-3">
+      <div className="mx-auto flex max-w-5xl flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+        <div className="flex items-center gap-5">
           {countdown ? (
-            <p className="font-display text-2xl tracking-tight text-cr-text">
+            <p className="font-display text-2xl tracking-tight text-cr-text leading-none">
               <span className="text-cr-primary">{countdown.days}</span>
               <span className="ml-1 text-sm font-mono uppercase tracking-[0.12em] text-cr-text-muted">
                 días{countdown.days === 0 && countdown.hours > 0 ? ` · ${countdown.hours}h` : ""}
               </span>
             </p>
           ) : (
-            <p className="font-display text-lg text-cr-text-muted">Evento pasado</p>
+            <p className="font-display text-lg text-cr-text-muted leading-none">Evento pasado</p>
           )}
-          <p className="font-mono text-[11px] uppercase tracking-[0.14em] text-cr-text-muted">
-            {summary?.going_count ?? 0} van · {summary?.maybe_count ?? 0} interesados
-          </p>
+          {/* Vertical separator */}
+          <span aria-hidden="true" className="hidden sm:block w-px h-6 bg-cr-border flex-shrink-0" />
+          <div className="flex items-center gap-4">
+            <p className="font-mono text-[11px] uppercase tracking-[0.14em] text-cr-text-muted">
+              <span className="text-cr-text font-semibold">{summary?.going_count ?? 0}</span>{" "}van
+            </p>
+            <p className="font-mono text-[11px] uppercase tracking-[0.14em] text-cr-text-muted">
+              <span className="text-cr-text font-semibold">{summary?.maybe_count ?? 0}</span>{" "}interesados
+            </p>
+          </div>
         </div>
 
         <div className="flex flex-wrap items-center gap-2">

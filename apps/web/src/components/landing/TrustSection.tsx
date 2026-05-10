@@ -117,21 +117,39 @@ export function TrustSection() {
   return (
     <section
       aria-labelledby="trust-title"
-      className="py-20 md:py-28 px-6 border-t border-cr-border"
+      className="relative py-20 md:py-28 px-6 border-t border-white/[0.06] overflow-hidden"
+      style={{ backgroundColor: "#0a0a0a" }}
     >
+      {/* Subtle background image */}
+      <img
+        aria-hidden="true"
+        src="https://images.unsplash.com/photo-1501281668745-f7f57925c3b4?w=1400&q=50&auto=format&fit=crop"
+        alt=""
+        className="absolute inset-0 w-full h-full object-cover object-center opacity-[0.04] pointer-events-none"
+      />
+      <div
+        aria-hidden="true"
+        className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-[400px] pointer-events-none"
+        style={{ background: "radial-gradient(ellipse at 50% 0%, rgba(219,255,0,0.05) 0%, transparent 60%)" }}
+      />
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
       />
 
-      <div className="max-w-6xl mx-auto space-y-16">
+      <div className="relative max-w-6xl mx-auto space-y-16">
 
         {/* ── Platform metrics — números de ConcertRide ── */}
-        <div className="grid grid-cols-2 sm:grid-cols-4 gap-px bg-cr-border">
+        <div className="grid grid-cols-2 sm:grid-cols-4 gap-px bg-white/[0.04]">
           {PLATFORM_STATS.map(({ icon: Icon, value, label, sublabel }) => (
-            <div key={label} className="bg-cr-bg px-6 py-7 flex flex-col gap-2">
+            <div key={label} className="bg-[#0a0a0a] px-6 py-8 flex flex-col gap-3 group hover:bg-[#0f0f0f] transition-colors duration-200">
               <Icon size={16} className="text-cr-primary" aria-hidden="true" />
-              <p className="font-display text-3xl md:text-4xl text-cr-primary leading-none">{value}</p>
+              <p
+                className="font-display text-3xl md:text-5xl text-cr-primary leading-none"
+                style={{ textShadow: "0 0 24px rgba(219,255,0,0.3)" }}
+              >
+                {value}
+              </p>
               <p className="font-sans text-sm font-semibold text-cr-text leading-tight">{label}</p>
               <p className="font-mono text-[10px] text-cr-text-dim uppercase tracking-[0.14em]">{sublabel}</p>
             </div>
@@ -156,15 +174,24 @@ export function TrustSection() {
             </p>
           </header>
 
-          <dl className="grid sm:grid-cols-3 gap-px bg-cr-border">
+          <dl className="grid sm:grid-cols-3 gap-px bg-white/[0.04]">
             {SECTOR_STATS.map(({ icon: Icon, figure, label, source, sourceUrl }) => (
               <div
                 key={figure}
-                className="bg-cr-bg p-8 space-y-3 flex flex-col justify-between"
+                className="bg-[#0a0a0a] p-8 space-y-3 flex flex-col justify-between group hover:bg-[#0f0f0f] transition-colors duration-200 relative overflow-hidden"
               >
-                <div className="space-y-2">
+                {/* Subtle hover glow */}
+                <div
+                  aria-hidden="true"
+                  className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"
+                  style={{ background: "radial-gradient(ellipse at 0% 0%, rgba(219,255,0,0.04) 0%, transparent 60%)" }}
+                />
+                <div className="space-y-2 relative">
                   <Icon size={18} className="text-cr-primary" aria-hidden="true" />
-                  <dt className="font-display text-4xl md:text-5xl text-cr-text leading-none">
+                  <dt
+                    className="font-display text-4xl md:text-5xl text-cr-text leading-none"
+                    style={{ textShadow: "0 0 40px rgba(219,255,0,0.15)" }}
+                  >
                     {figure}
                   </dt>
                   <dd className="font-sans text-sm text-cr-text-muted leading-relaxed">
@@ -175,7 +202,7 @@ export function TrustSection() {
                   href={sourceUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="font-mono text-[10px] text-cr-text-dim hover:text-cr-primary transition-colors"
+                  className="font-mono text-[10px] text-cr-text-dim hover:text-cr-primary transition-colors relative"
                 >
                   Fuente: {source} ↗
                 </a>

@@ -244,6 +244,16 @@ export function Footer() {
             >
               CARTO
             </a>
+            <span>·</span>
+            <span>Fotografías:</span>
+            <a
+              href="https://unsplash.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hover:text-cr-primary transition-colors"
+            >
+              Unsplash
+            </a>
           </p>
         </div>
       </div>

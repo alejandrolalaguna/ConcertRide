@@ -335,41 +335,6 @@ export const ARTIST_LANDINGS: ArtistLanding[] = [
     relatedFestivals: [],
   },
   {
-    slug: "dua-lipa",
-    name: "Dua Lipa",
-    genre: ["pop"],
-    wikidata: "Q39358028",
-    blurb:
-      "Dua Lipa es una artista británico-albanesa de pop que se consolidó como una de las artistas más escuchadas del mundo con 'Future Nostalgia' (2020). En España, ha actuado en el Primavera Sound de Barcelona y ha dado conciertos en solitario en Madrid y Barcelona dentro de su gira 'Future Nostalgia Tour'. Con ConcertRide, los fans desde Madrid llegan al Primavera Sound por 15–20 €/asiento, sin comisión de plataforma.",
-    upcomingConcerts: [
-      {
-        city: "Madrid",
-        citySlug: "madrid",
-        venue: "WiZink Center",
-        date: "TBD",
-        concertRideRange: "4–7 €/asiento",
-        originCities: [
-          { city: "Valencia", range: "10–14 €" },
-          { city: "Sevilla", range: "12–17 €" },
-          { city: "Zaragoza", range: "9–13 €" },
-        ],
-      },
-      {
-        city: "Barcelona",
-        citySlug: "barcelona",
-        venue: "Palau Sant Jordi",
-        date: "TBD",
-        concertRideRange: "4–7 €/asiento",
-        originCities: [
-          { city: "Madrid", range: "15–20 €" },
-          { city: "Valencia", range: "10–14 €" },
-          { city: "Zaragoza", range: "8–12 €" },
-        ],
-      },
-    ],
-    relatedFestivals: ["primavera-sound"],
-  },
-  {
     slug: "harry-styles",
     name: "Harry Styles",
     genre: ["pop", "rock"],
@@ -463,41 +428,6 @@ export const ARTIST_LANDINGS: ArtistLanding[] = [
         city: "Barcelona",
         citySlug: "barcelona",
         venue: "Estadi Olímpic",
-        date: "TBD",
-        concertRideRange: "4–7 €/asiento",
-        originCities: [
-          { city: "Madrid", range: "15–20 €" },
-          { city: "Valencia", range: "10–14 €" },
-          { city: "Zaragoza", range: "8–12 €" },
-        ],
-      },
-    ],
-    relatedFestivals: [],
-  },
-  {
-    slug: "sabrina-carpenter",
-    name: "Sabrina Carpenter",
-    genre: ["pop"],
-    wikidata: "Q62080416",
-    blurb:
-      "Sabrina Carpenter es una cantante y actriz estadounidense que irrumpió en la escena pop global con el éxito 'Espresso' (2024), uno de los sencillos más virales del año. En España, su gira 'Short n' Sweet Tour' incluyó fechas en el WiZink Center de Madrid y el Palau Sant Jordi de Barcelona. Con ConcertRide, los fans desde Zaragoza llegan al WiZink Center por 9–13 €/asiento, sin comisión de plataforma.",
-    upcomingConcerts: [
-      {
-        city: "Madrid",
-        citySlug: "madrid",
-        venue: "WiZink Center",
-        date: "TBD",
-        concertRideRange: "4–7 €/asiento",
-        originCities: [
-          { city: "Zaragoza", range: "9–13 €" },
-          { city: "Valencia", range: "10–14 €" },
-          { city: "Bilbao", range: "11–16 €" },
-        ],
-      },
-      {
-        city: "Barcelona",
-        citySlug: "barcelona",
-        venue: "Palau Sant Jordi",
         date: "TBD",
         concertRideRange: "4–7 €/asiento",
         originCities: [
@@ -979,43 +909,6 @@ export const ARTIST_LANDINGS: ArtistLanding[] = [
     relatedFestivals: [],
   },
 
-  // ── Sabrina Carpenter ────────────────────────────────────────────────────────
-  {
-    slug: "sabrina-carpenter",
-    name: "Sabrina Carpenter",
-    genre: ["pop"],
-    wikidata: "Q18635952",
-    blurb:
-      "Sabrina Carpenter es la cantante y compositora estadounidense que en 2024 se convirtió en el mayor fenómeno pop del año con 'Espresso' y 'Please Please Please', alcanzando el número 1 en todo el mundo. Su Short n' Sweet Tour agotó entradas en horas en España. Con ConcertRide, los fans desde Zaragoza llegan al WiZink Center Madrid por 9–13 €/asiento, sin comisión.",
-    upcomingConcerts: [
-      {
-        city: "Madrid",
-        citySlug: "madrid",
-        venue: "WiZink Center",
-        date: "TBD",
-        concertRideRange: "4–7 €/asiento",
-        originCities: [
-          { city: "Valencia", range: "10–14 €" },
-          { city: "Zaragoza", range: "9–13 €" },
-          { city: "Sevilla", range: "14–20 €" },
-        ],
-      },
-      {
-        city: "Barcelona",
-        citySlug: "barcelona",
-        venue: "Palau Sant Jordi",
-        date: "TBD",
-        concertRideRange: "4–7 €/asiento",
-        originCities: [
-          { city: "Madrid", range: "15–20 €" },
-          { city: "Valencia", range: "10–14 €" },
-          { city: "Zaragoza", range: "8–12 €" },
-        ],
-      },
-    ],
-    relatedFestivals: ["primavera-sound"],
-  },
-
   // ── Lana Del Rey ─────────────────────────────────────────────────────────────
   {
     slug: "lana-del-rey",
@@ -1125,43 +1018,6 @@ export const ARTIST_LANDINGS: ArtistLanding[] = [
       },
     ],
     relatedFestivals: ["sonorama-ribera"],
-  },
-
-  // ── Travis Scott ────────────────────────────────────────────────────────────
-  {
-    slug: "travis-scott",
-    name: "Travis Scott",
-    genre: ["hip-hop", "trap", "psychedelic trap"],
-    wikidata: "Q13643874",
-    blurb:
-      "Travis Scott es el productor y rapero de Houston (Texas) cuyas actuaciones en vivo — conocidas como Rodeos — son experiencias multimedia que combinan concierto, show de luces y puesta en escena única. En España ha actuado en el Primavera Sound y en el Mad Cool Festival, generando alta demanda de carpooling. Con ConcertRide, los fans desde Valencia llegan al Primavera Sound por 10–14 €/asiento, sin comisión.",
-    upcomingConcerts: [
-      {
-        city: "Barcelona",
-        citySlug: "barcelona",
-        venue: "Parc del Fòrum",
-        date: "TBD",
-        concertRideRange: "4–7 €/asiento",
-        originCities: [
-          { city: "Madrid", range: "15–20 €" },
-          { city: "Valencia", range: "10–14 €" },
-          { city: "Zaragoza", range: "8–12 €" },
-        ],
-      },
-      {
-        city: "Madrid",
-        citySlug: "madrid",
-        venue: "IFEMA / WiZink Center",
-        date: "TBD",
-        concertRideRange: "4–7 €/asiento",
-        originCities: [
-          { city: "Valencia", range: "10–14 €" },
-          { city: "Zaragoza", range: "9–13 €" },
-          { city: "Bilbao", range: "11–16 €" },
-        ],
-      },
-    ],
-    relatedFestivals: ["primavera-sound", "mad-cool"],
   },
 
   // ── Rozalén ────────────────────────────────────────────────────────────────
@@ -1859,6 +1715,84 @@ export const ARTIST_LANDINGS: ArtistLanding[] = [
       { city: "Salou", citySlug: "tarragona", venue: "Reggaeton Beach Festival", date: "TBD", concertRideRange: "3 €/asiento", originCities: [{ city: "Tarragona", range: "3 €" }, { city: "Reus", range: "3 €" }, { city: "Barcelona", range: "5–8 €" }] },
     ],
     relatedFestivals: ["reggaeton-beach-festival"],
+  },
+  {
+    slug: "ac-dc",
+    name: "AC/DC",
+    genre: ["hard rock", "heavy metal"],
+    wikidata: "Q11199",
+    blurb:
+      "AC/DC es la banda australiana de hard rock considerada una de las más vendidas de todos los tiempos, con más de 200 millones de discos vendidos. Su 'Power Up Tour' les llevó al Estadio de La Cartuja en Sevilla (2024), con servicios de lanzadera especiales de TUSSAM (líneas C1 y C2) para los asistentes. Con ConcertRide, los fans desde Málaga llegan a La Cartuja por 5–8 €/asiento, 0% de comisión.",
+    upcomingConcerts: [
+      { city: "Sevilla", citySlug: "sevilla", venue: "Estadio La Cartuja", date: "TBD", concertRideRange: "5–8 €/asiento", originCities: [{ city: "Málaga", range: "5–8 €" }, { city: "Granada", range: "6–9 €" }, { city: "Huelva", range: "4–7 €" }] },
+      { city: "Madrid", citySlug: "madrid", venue: "Estadio Bernabéu", date: "TBD", concertRideRange: "4–7 €/asiento", originCities: [{ city: "Valencia", range: "10–14 €" }, { city: "Barcelona", range: "15–20 €" }, { city: "Bilbao", range: "11–16 €" }] },
+    ],
+    relatedFestivals: [],
+  },
+  {
+    slug: "travis-scott",
+    name: "Travis Scott",
+    genre: ["hip-hop", "trap", "rap"],
+    wikidata: "Q15680928",
+    blurb:
+      "Travis Scott (Jacques Webster II) es el rapero y productor texano conocido por sus espectaculares shows en vivo y su álbum 'Astroworld' (2018). En España ha actuado en el WiZink Center de Madrid ante miles de fans del trap americano, con las rutas de carpooling hacia Madrid entre las más reservadas en ConcertRide. Con ConcertRide, los fans desde Valencia llegan al WiZink Center por 10–14 €/asiento, sin comisión.",
+    upcomingConcerts: [
+      { city: "Madrid", citySlug: "madrid", venue: "WiZink Center", date: "TBD", concertRideRange: "4–7 €/asiento", originCities: [{ city: "Valencia", range: "10–14 €" }, { city: "Zaragoza", range: "9–13 €" }, { city: "Bilbao", range: "11–16 €" }] },
+      { city: "Barcelona", citySlug: "barcelona", venue: "Palau Sant Jordi", date: "TBD", concertRideRange: "4–7 €/asiento", originCities: [{ city: "Madrid", range: "15–20 €" }, { city: "Valencia", range: "10–14 €" }, { city: "Zaragoza", range: "8–12 €" }] },
+    ],
+    relatedFestivals: ["mad-cool"],
+  },
+  {
+    slug: "shakira",
+    name: "Shakira",
+    genre: ["pop", "latino", "dance"],
+    wikidata: "Q3465",
+    blurb:
+      "Shakira (Shakira Isabel Mebarak Ripoll) es la artista colombiana más exitosa de todos los tiempos, con más de 80 millones de álbumes vendidos y dos premios Grammy. Su residencia europea 'Las Mujeres Ya No Lloran World Tour' incluye fechas en Madrid y Barcelona, con algunas de las mayores demandas de carpooling registradas en ConcertRide. Con ConcertRide, los fans desde Sevilla llegan al Estadio Metropolitano por 12–17 €/asiento, sin comisión.",
+    upcomingConcerts: [
+      { city: "Madrid", citySlug: "madrid", venue: "Estadio Civitas Metropolitano", date: "TBD", concertRideRange: "4–7 €/asiento", originCities: [{ city: "Valencia", range: "10–14 €" }, { city: "Sevilla", range: "12–17 €" }, { city: "Bilbao", range: "11–16 €" }] },
+      { city: "Barcelona", citySlug: "barcelona", venue: "Estadi Olímpic", date: "TBD", concertRideRange: "4–7 €/asiento", originCities: [{ city: "Madrid", range: "15–20 €" }, { city: "Valencia", range: "10–14 €" }, { city: "Zaragoza", range: "8–12 €" }] },
+    ],
+    relatedFestivals: [],
+  },
+  {
+    slug: "bad-gyal",
+    name: "Bad Gyal",
+    genre: ["reggaeton", "dancehall", "urbano"],
+    wikidata: "Q29485085",
+    blurb:
+      "Bad Gyal (Alba Farelo Guillén) es la artista barcelonesa que ha llevado el dancehall jamaicano y el reggaetón al mainstream europeo, con éxitos como 'Fiebre' y 'Zorra'. Su gira 2026 incluye Palau Sant Jordi de Barcelona y WiZink Center de Madrid entre los recintos principales, consolidándola como una de las artistas urbanas con mayor demanda de carpooling en ConcertRide. Con ConcertRide, los fans desde Madrid llegan al Palau Sant Jordi por 15–20 €/asiento, sin comisión.",
+    upcomingConcerts: [
+      { city: "Barcelona", citySlug: "barcelona", venue: "Palau Sant Jordi", date: "TBD", concertRideRange: "4–7 €/asiento", originCities: [{ city: "Madrid", range: "15–20 €" }, { city: "Valencia", range: "10–14 €" }, { city: "Zaragoza", range: "8–12 €" }] },
+      { city: "Madrid", citySlug: "madrid", venue: "WiZink Center", date: "TBD", concertRideRange: "4–7 €/asiento", originCities: [{ city: "Valencia", range: "10–14 €" }, { city: "Sevilla", range: "12–17 €" }, { city: "Zaragoza", range: "9–13 €" }] },
+    ],
+    relatedFestivals: ["primavera-sound", "cruilla"],
+  },
+  {
+    slug: "dua-lipa",
+    name: "Dua Lipa",
+    genre: ["pop", "dance"],
+    wikidata: "Q26884561",
+    blurb:
+      "Dua Lipa es la artista pop albanesa-británica con más de 45 millones de discos vendidos en todo el mundo, conocida por sus éxitos 'Levitating', 'Don't Start Now' y 'Dance the Night'. En España, su gira 'Radical Optimism Tour' incluyó el Movistar Arena de Madrid, con transporte organizado disponible desde múltiples ciudades. Con ConcertRide, los fans desde Valencia llegan a Madrid por 10–14 €/asiento, sin comisión.",
+    upcomingConcerts: [
+      { city: "Madrid", citySlug: "madrid", venue: "Movistar Arena", date: "TBD", concertRideRange: "4–7 €/asiento", originCities: [{ city: "Valencia", range: "10–14 €" }, { city: "Zaragoza", range: "9–13 €" }, { city: "Sevilla", range: "12–17 €" }] },
+      { city: "Barcelona", citySlug: "barcelona", venue: "Palau Sant Jordi", date: "TBD", concertRideRange: "4–7 €/asiento", originCities: [{ city: "Madrid", range: "15–20 €" }, { city: "Valencia", range: "10–14 €" }, { city: "Zaragoza", range: "8–12 €" }] },
+    ],
+    relatedFestivals: ["primavera-sound"],
+  },
+  {
+    slug: "sabrina-carpenter",
+    name: "Sabrina Carpenter",
+    genre: ["pop"],
+    wikidata: "Q18925477",
+    blurb:
+      "Sabrina Carpenter es la cantante y actriz estadounidense que en 2024 se convirtió en fenómeno global con su álbum 'Short n' Sweet' y los sencillos 'Espresso' y 'Please Please Please'. En España, actuó en el Primavera Sound de Barcelona en el Parc del Fòrum, convirtiéndose en una de las actuaciones más buscadas del festival. Con ConcertRide, los fans desde Madrid llegan al Primavera Sound por 15–20 €/asiento, sin comisión.",
+    upcomingConcerts: [
+      { city: "Barcelona", citySlug: "barcelona", venue: "Parc del Fòrum / Primavera Sound", date: "TBD", concertRideRange: "4–7 €/asiento", originCities: [{ city: "Madrid", range: "15–20 €" }, { city: "Valencia", range: "10–14 €" }, { city: "Zaragoza", range: "8–12 €" }] },
+      { city: "Madrid", citySlug: "madrid", venue: "WiZink Center", date: "TBD", concertRideRange: "4–7 €/asiento", originCities: [{ city: "Valencia", range: "10–14 €" }, { city: "Zaragoza", range: "9–13 €" }, { city: "Bilbao", range: "11–16 €" }] },
+    ],
+    relatedFestivals: ["primavera-sound"],
   },
 ];
 

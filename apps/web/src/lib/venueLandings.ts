@@ -899,6 +899,112 @@ export const VENUE_LANDINGS: VenueLanding[] = [
     ],
     relatedFestivals: ["vive-latino"],
   },
+
+  // ── ZARAGOZA ─────────────────────────────────────────────────────────────────
+
+  {
+    slug: "espacio-expo-zaragoza",
+    name: "Espacio Expo Zaragoza",
+    shortName: "Espacio Expo",
+    city: "Zaragoza",
+    citySlug: "zaragoza",
+    region: "Aragón",
+    address: "Av. de Ranillas, s/n, 50018 Zaragoza",
+    lat: 41.6608,
+    lng: -0.9302,
+    capacity: "30.000 personas",
+    venueType: "Recinto al aire libre",
+    transport: {
+      metro: "Tranvía L1 (parada Expo, acceso directo al recinto)",
+      bus: "Líneas Ci1, Ci2 · bus urbano 24",
+      parking: "Parking gratuito zona Expo — amplias explanadas junto al recinto",
+    },
+    blurb:
+      "El Espacio Expo Zaragoza es el recinto de grandes festivales y conciertos al aire libre de la capital aragonesa, con capacidad para 30.000 personas en el meandro de Ranillas. El acceso en tranvía L1 desde el centro de Zaragoza dura 12 minutos y el parking del entorno es gratuito. Zaragoza actúa como nodo estratégico equidistante entre Madrid (325 km), Barcelona (300 km) y Bilbao (320 km), lo que convierte el carpooling con ConcertRide en la opción más popular entre asistentes de las tres capitales.",
+    originCities: [
+      { city: "Madrid", km: 325, drivingTime: "3h", concertRideRange: "9–13 €/asiento" },
+      { city: "Barcelona", km: 300, drivingTime: "2h 45 min", concertRideRange: "8–12 €/asiento" },
+      { city: "Bilbao", km: 320, drivingTime: "3h", concertRideRange: "9–13 €/asiento" },
+      { city: "Valencia", km: 310, drivingTime: "2h 50 min", concertRideRange: "8–12 €/asiento" },
+      { city: "Pamplona", km: 175, drivingTime: "1h 45 min", concertRideRange: "5–9 €/asiento" },
+    ],
+    faqs: [
+      {
+        q: "¿Cómo llegar al Espacio Expo Zaragoza desde Madrid en carpooling?",
+        a: "Madrid–Zaragoza son 325 km por la A-2 (3 horas sin tráfico). Con ConcertRide el precio por asiento es de 9–13 €, frente a los 25–50 € del AVE Madrid–Zaragoza. El conductor habitualmente sale 3–4 horas antes del concierto y coordina la vuelta según el horario de fin del evento. Es la ruta más demandada en ConcertRide para el Espacio Expo.",
+      },
+      {
+        q: "¿Cómo ir al Espacio Expo en transporte público desde el centro de Zaragoza?",
+        a: "El tranvía L1 de Zaragoza tiene parada 'Expo' a 5 minutos a pie del recinto. El trayecto desde la Plaza del Pilar dura unos 12 minutos. También puedes tomar los buses circulares Ci1 y Ci2 con paradas próximas. El tranvía opera hasta las 23:00 (ampliado en noches de evento) y los buses nocturnos tienen servicio limitado después de la medianoche.",
+      },
+      {
+        q: "¿Hay parking gratuito en el Espacio Expo?",
+        a: "Sí. El entorno del recinto dispone de amplias explanadas de aparcamiento gratuito junto al meandro de Ranillas, con acceso directo por la Av. de Ranillas. En eventos masivos se habilitan zonas adicionales. El parking es la opción preferida para asistentes de localidades próximas como Huesca, Logroño, Tudela o Calatayud.",
+      },
+      {
+        q: "¿Cuánto cuesta el carpooling desde Barcelona al Espacio Expo?",
+        a: "Barcelona–Zaragoza son 300 km por la AP-2 (2h 45 min). Con ConcertRide el precio por asiento es de 8–12 €, frente a los 20–40 € del AVE Barcelona–Zaragoza. Zaragoza–Barcelona es una de las rutas con más viajes disponibles en la plataforma durante los grandes festivales del Espacio Expo.",
+      },
+      {
+        q: "¿Qué festivales y conciertos se celebran en el Espacio Expo Zaragoza?",
+        a: "El Espacio Expo acoge el Vive Latino Festival (Recinto Expo, edición española, septiembre), conciertos multitudinarios de verano (Dani Martín, Aitana, Vetusta Morla) y eventos al aire libre de grandes promotoras. Con 30.000 personas de aforo, es el mayor escenario al aire libre de Aragón. La programación se anuncia en zaragozaentradas.es.",
+      },
+    ],
+    relatedFestivals: ["vive-latino"],
+  },
+
+  // ── BARCELONA (variante slug SEO) ────────────────────────────────────────────
+
+  {
+    slug: "parc-del-forum-barcelona",
+    name: "Parc del Fòrum (Barcelona)",
+    shortName: "Parc del Fòrum",
+    city: "Barcelona",
+    citySlug: "barcelona",
+    region: "Cataluña",
+    address: "Rambla del Prim, 2, 08019 Barcelona",
+    lat: 41.4066,
+    lng: 2.2218,
+    capacity: "60.000 personas",
+    venueType: "Parque / Recinto al aire libre",
+    transport: {
+      metro: "L4 Besòs Mar (10 min a pie hasta el recinto)",
+      bus: "H14, H16, bus 7 · Tramvía T4 (parada Fòrum)",
+      parking: "Parking Fòrum: 25–35 €/día, máx. 500 plazas — prácticamente inaccesible en festival",
+    },
+    blurb:
+      "El Parc del Fòrum es el recinto de Primavera Sound y Cruïlla en Barcelona, situado en el extremo del Paseo Marítimo junto a la desembocadura del Besòs, con capacidad para 60.000 personas. El metro L4 (Besòs Mar) está a 10 minutos a pie y TMB amplía el servicio hasta las 3–4 de la madrugada durante los festivales. El parking es casi inexistente (máx. 500 plazas, 25–35 €). Para asistentes de Madrid (620 km, 15–20 € CR), Valencia (355 km, 10–14 € CR) y Zaragoza (306 km, 8–12 € CR), el carpooling con ConcertRide es la alternativa más económica.",
+    originCities: [
+      { city: "Madrid", km: 620, drivingTime: "5h 30 min", concertRideRange: "15–20 €/asiento" },
+      { city: "Valencia", km: 355, drivingTime: "3h 15 min", concertRideRange: "10–14 €/asiento" },
+      { city: "Zaragoza", km: 306, drivingTime: "2h 45 min", concertRideRange: "8–12 €/asiento" },
+      { city: "Bilbao", km: 615, drivingTime: "5h", concertRideRange: "15–20 €/asiento" },
+      { city: "Tarragona", km: 100, drivingTime: "1h", concertRideRange: "4–7 €/asiento" },
+    ],
+    faqs: [
+      {
+        q: "¿Cómo llegar al Parc del Fòrum en metro para Primavera Sound o Cruïlla?",
+        a: "Toma la línea 4 (amarilla) hasta Besòs Mar, la última parada de línea. La salida da al paseo marítimo y el recinto queda a 10 minutos a pie. En noches de Primavera Sound y Cruïlla, TMB refuerza el servicio L4 hasta las 3:00–4:00. El tramvía T4 (parada Fòrum) llega hasta las 23:00 con alta frecuencia.",
+      },
+      {
+        q: "¿Hay parking en el Parc del Fòrum?",
+        a: "El Parc del Fòrum tiene parking (acceso por Rambla del Prim) con un máximo de 500 plazas y precios de 25–35 €/día en festival. Se llena antes de la apertura de puertas. La recomendación oficial de la organización de Primavera Sound y Cruïlla es llegar en transporte público (Metro L4 o tramvía T4) o en carpooling con ConcertRide.",
+      },
+      {
+        q: "¿Cuánto cuesta el carpooling desde Madrid al Parc del Fòrum?",
+        a: "Madrid–Barcelona son 620 km por la A-2 (5h 30 min). Con ConcertRide el precio por asiento es de 15–20 €, frente a los 50–100 € del AVE Atocha–Sants. Es habitual que asistentes de Madrid organicen el viaje redondo para el fin de semana de Primavera Sound y se alojen en Barcelona.",
+      },
+      {
+        q: "¿Cómo volver del Parc del Fòrum de madrugada durante Primavera Sound?",
+        a: "Durante el festival el metro L4 amplía su servicio hasta las 3:00–4:00. Fuera de ese refuerzo (o en noches de Cruïlla más cortas), los buses nocturnos N6 pasan cerca. Los VTC y taxis se saturan en los últimos turnos, con esperas de 30–50 minutos. Si viniste en carpooling con ConcertRide, el conductor coordina la vuelta contigo según el horario real del bolo.",
+      },
+      {
+        q: "¿Cómo llegar al Parc del Fòrum desde Valencia?",
+        a: "Valencia–Barcelona son 355 km por la AP-7 (3h 15 min). Con ConcertRide el precio por asiento es de 10–14 €, frente a los 20–40 € del Euromed Valencia–Sants + Metro. La ruta Valencia–Barcelona es una de las más frecuentes en ConcertRide durante Primavera Sound (junio) y Cruïlla (julio). El punto de recogida habitual es la zona de Bailèn o el aparcamiento de Gran Via con L4.",
+      },
+    ],
+    relatedFestivals: ["primavera-sound", "cruilla"],
+  },
 ];
 
 /** Lookup map by slug for O(1) access in route components */

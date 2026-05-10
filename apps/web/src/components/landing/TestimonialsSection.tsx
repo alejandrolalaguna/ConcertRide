@@ -1,98 +1,106 @@
-import { useState, useEffect } from "react";
-import { motion, AnimatePresence } from "motion/react";
-import { Star } from "lucide-react";
+import { motion } from "motion/react";
+import { Quote } from "lucide-react";
 
 interface Testimonial {
   id: string;
   quote: string;
   author: string;
-  location: string;
+  route: string;
   festival: string;
   rating: number;
   initial: string;
   savings: string;
+  avatarColor: string;
 }
 
 const TESTIMONIALS: Testimonial[] = [
   {
     id: "1",
-    quote: "Ahorré 40€ yendo al Sónar desde Madrid. El conductor puso la playlist perfecta y llegamos antes de que abriera el recinto. El taxi de vuelta habría sido 60€ más.",
-    author: "Sara M.",
-    location: "Madrid",
-    festival: "Sónar 2025",
+    quote: "Encontré viaje en 5 minutos. Llegamos cantando todo el camino. Ya no concibo ir a un festival de otra forma.",
+    author: "Lucía M.",
+    route: "Madrid → Benicàssim",
+    festival: "FIB 2025",
     rating: 5,
-    initial: "S",
+    initial: "L",
     savings: "Ahorro: ~100€",
+    avatarColor: "#dbff00",
   },
   {
     id: "2",
-    quote: "Fuimos 4 al Arenal Sound desde Valencia: 22€ por persona ida y vuelta. Sin comisiones, sin líos. La vuelta de madrugada fue lo mejor del festival.",
-    author: "Dani R.",
-    location: "Valencia",
-    festival: "Arenal Sound 2025",
+    quote: "Como conductor, recuperé la gasolina y conocí gente increíble. La app va directa al grano, sin comisiones.",
+    author: "Carlos R.",
+    route: "Sevilla → Granada",
+    festival: "Alhambra Sound",
     rating: 5,
-    initial: "D",
-    savings: "Ahorro: ~50€/persona",
+    initial: "C",
+    savings: "Coste conductor: 0€",
+    avatarColor: "#ff4f00",
   },
   {
     id: "3",
-    quote: "Publiqué mi coche a Mad Cool desde Bilbao y cubrí gasolina y peajes entre los 3 pasajeros. El viaje me salió gratis y encima hice 3 amigos.",
-    author: "Irene S.",
-    location: "Bilbao",
-    festival: "Mad Cool 2025",
+    quote: "Nos ahorramos el parking, el estrés y la vuelta de madrugada. La playlist del conductor era un 10.",
+    author: "Marina P.",
+    route: "Barcelona → Benicàssim",
+    festival: "FIB 2025",
     rating: 5,
-    initial: "I",
-    savings: "Coste conductor: 0€",
+    initial: "M",
+    savings: "Ahorro: ~50€/persona",
+    avatarColor: "#dbff00",
   },
   {
     id: "4",
-    quote: "Primera vez en Primavera Sound viniendo de Zaragoza. En ConcertRide encontré un viaje por 28€. El AVE costaba 80€ solo de ida. Sin duda la mejor opción.",
-    author: "Jorge B.",
-    location: "Zaragoza",
-    festival: "Primavera Sound 2025",
-    rating: 4.9,
+    quote: "Tres viajes compartidos esta temporada. Dinero ahorrado, amigos nuevos, cero atascos de aparcamiento.",
+    author: "Jorge S.",
+    route: "Bilbao → Arganda del Rey",
+    festival: "Viña Rock 2025",
+    rating: 5,
     initial: "J",
-    savings: "Ahorro vs AVE: ~100€",
+    savings: "Ahorro total: 180€",
+    avatarColor: "#ff4f00",
   },
   {
     id: "5",
-    quote: "El conductor del viaje a BBK tenía la misma playlist que yo. Llegamos amigos. 18€ por asiento desde Vitoria. Esto no pasa en el AVE.",
+    quote: "Primera vez en Primavera Sound desde Zaragoza. 28€ por asiento vs 80€ el AVE solo de ida. Sin duda.",
+    author: "Ana C.",
+    route: "Zaragoza → Barcelona",
+    festival: "Primavera Sound",
+    rating: 4.9,
+    initial: "A",
+    savings: "Ahorro vs AVE: ~100€",
+    avatarColor: "#dbff00",
+  },
+  {
+    id: "6",
+    quote: "El conductor del viaje a BBK tenía la misma playlist que yo. Llegamos amigos. Esto no pasa en el AVE.",
     author: "Paula G.",
-    location: "Vitoria",
+    route: "Vitoria → Bilbao",
     festival: "BBK Live 2025",
     rating: 5,
     initial: "P",
     savings: "Precio: 18€",
-  },
-  {
-    id: "6",
-    quote: "Resurrection Fest desde A Coruña. En tren eran 4 transbordos y 55€. En ConcertRide, 2 horas de coche con gente del mismo rollo por 20€. No hay color.",
-    author: "Marcos L.",
-    location: "A Coruña",
-    festival: "Resurrection Fest 2025",
-    rating: 5,
-    initial: "M",
-    savings: "Ahorro vs tren: 35€",
+    avatarColor: "#ff4f00",
   },
   {
     id: "7",
-    quote: "Conducí a 3 personas a Viña Rock desde Madrid. Cubrí peajes (26€) y gasolina (18€) — salí gratis y con la gasolina llena para volver.",
-    author: "Rubén A.",
-    location: "Madrid",
-    festival: "Viña Rock 2025",
+    quote: "Resurrection Fest desde A Coruña. En tren eran 4 transbordos y 55€. En ConcertRide: 2h con gente del mismo rollo por 20€.",
+    author: "Marcos L.",
+    route: "A Coruña → Viveiro",
+    festival: "Resurrection Fest",
     rating: 5,
-    initial: "R",
-    savings: "Coste conductor: 0€",
+    initial: "M",
+    savings: "Ahorro vs tren: 35€",
+    avatarColor: "#dbff00",
   },
   {
     id: "8",
-    quote: "Tres festivales este verano con ConcertRide. Total ahorrado vs taxi: 180€. Con ese dinero me compré otra entrada de Mad Cool.",
-    author: "Ana C.",
-    location: "Sevilla",
-    festival: "Mad Cool + Sónar + BBK 2025",
+    quote: "Publiqué mi coche a Mad Cool desde Bilbao. Cubrí peajes y gasolina — el viaje me salió gratis y encima hice 3 amigos.",
+    author: "Rubén A.",
+    route: "Bilbao → Madrid",
+    festival: "Mad Cool 2025",
     rating: 5,
-    initial: "A",
-    savings: "Ahorro total: 180€",
+    initial: "R",
+    savings: "Coste conductor: 0€",
+    avatarColor: "#ff4f00",
   },
 ];
 
@@ -100,113 +108,148 @@ function Stars({ rating }: { rating: number }) {
   return (
     <span className="flex gap-0.5" aria-label={`${rating} de 5 estrellas`}>
       {[1, 2, 3, 4, 5].map((n) => (
-        <Star
+        <span
           key={n}
-          size={11}
-          className={n <= Math.round(rating) ? "fill-cr-primary text-cr-primary" : "text-cr-border fill-cr-border"}
+          className={`text-[12px] transition-colors ${n <= Math.round(rating) ? "text-[#dbff00]" : "text-white/10"}`}
           aria-hidden="true"
-        />
+        >
+          ★
+        </span>
       ))}
     </span>
   );
 }
 
 export function TestimonialsSection() {
-  const [idx, setIdx] = useState(0);
-  const [autoplay, setAutoplay] = useState(true);
-
-  useEffect(() => {
-    if (!autoplay) return;
-    const id = setInterval(() => setIdx((i) => (i + 1) % TESTIMONIALS.length), 6000);
-    return () => clearInterval(id);
-  }, [autoplay]);
-
-  const prev = () => {
-    setAutoplay(false);
-    setIdx((i) => (i - 1 + TESTIMONIALS.length) % TESTIMONIALS.length);
-  };
-  const next = () => {
-    setAutoplay(false);
-    setIdx((i) => (i + 1) % TESTIMONIALS.length);
-  };
-
-  const t = TESTIMONIALS[idx]!;
-
   return (
-    <section aria-labelledby="testimonials-title" className="border-t border-cr-border py-16 md:py-24 px-6">
-      <div className="max-w-4xl mx-auto space-y-10">
-        <header className="space-y-2">
-          <p className="font-sans text-[11px] font-semibold uppercase tracking-[0.16em] text-cr-primary">
-            Testimonios
-          </p>
-          <h2 id="testimonials-title" className="font-display text-2xl md:text-4xl uppercase leading-tight">
-            Lo dicen quienes ya viajaron.
-          </h2>
-        </header>
+    <section
+      aria-labelledby="testimonials-title"
+      className="relative py-24 lg:py-32 px-6 overflow-hidden"
+      style={{ backgroundColor: "#080808" }}
+      id="testimonials"
+    >
+      {/* Subtle concert bg */}
+      <img
+        aria-hidden="true"
+        src="https://images.unsplash.com/photo-1492684223066-81342ee5ff30?w=1400&q=40&auto=format&fit=crop"
+        alt=""
+        className="absolute inset-0 w-full h-full object-cover object-center opacity-[0.04] pointer-events-none"
+      />
+      {/* Orange bloom top-right */}
+      <div
+        aria-hidden="true"
+        className="absolute top-0 right-0 w-[700px] h-[400px] pointer-events-none"
+        style={{ background: "radial-gradient(ellipse at 100% 0%, rgba(255,79,0,0.06) 0%, transparent 55%)" }}
+      />
+      {/* Lime bloom bottom-left */}
+      <div
+        aria-hidden="true"
+        className="absolute bottom-0 left-0 w-[600px] h-[300px] pointer-events-none"
+        style={{ background: "radial-gradient(ellipse at 0% 100%, rgba(219,255,0,0.05) 0%, transparent 55%)" }}
+      />
 
-        <div className="relative min-h-[200px] flex items-center">
-          <AnimatePresence mode="wait">
-            <motion.figure
-              key={t.id}
-              initial={{ opacity: 0, x: 20 }}
-              animate={{ opacity: 1, x: 0 }}
-              exit={{ opacity: 0, x: -20 }}
-              transition={{ duration: 0.35, ease: "easeOut" }}
-              className="w-full space-y-5"
+      <div className="relative max-w-6xl mx-auto space-y-14">
+        {/* Header */}
+        <motion.div
+          initial={{ opacity: 0, y: 24 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.5 }}
+          transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+          className="flex flex-col md:flex-row md:items-end md:justify-between gap-6"
+        >
+          <div className="space-y-4">
+            <p className="font-mono text-xs tracking-[0.3em] uppercase text-[#ff4f00]">
+              Comunidad real
+            </p>
+            <h2
+              id="testimonials-title"
+              className="font-display text-4xl lg:text-6xl uppercase tracking-tight leading-[0.88]"
             >
-              <div className="flex items-start justify-between gap-4">
+              Fans que ya
+              <br />
+              <span className="text-white/25">viajan juntos.</span>
+            </h2>
+          </div>
+          {/* Live count badge */}
+          <div className="hidden md:flex items-center gap-3 mb-2">
+            <span className="w-1.5 h-1.5 rounded-full bg-[#dbff00] animate-pulse flex-shrink-0" aria-hidden="true" />
+            <span className="font-mono text-[10px] text-white/30 uppercase tracking-[0.15em]">
+              +2.000 fans en la comunidad
+            </span>
+          </div>
+        </motion.div>
+
+        {/* 4-column masonry-feel grid */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-px bg-white/[0.05]">
+          {TESTIMONIALS.map((t, i) => (
+            <motion.article
+              key={t.id}
+              initial={{ opacity: 0, y: 24 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.15 }}
+              transition={{ duration: 0.5, delay: i * 0.07, ease: [0.16, 1, 0.3, 1] }}
+              whileHover={{ y: -4, transition: { duration: 0.2 } }}
+              className="relative bg-[#080808] p-7 flex flex-col gap-5 group cursor-default overflow-hidden"
+            >
+              {/* Hover glow */}
+              <div
+                aria-hidden="true"
+                className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-400 pointer-events-none"
+                style={{ background: `radial-gradient(ellipse at 0% 0%, ${t.avatarColor === "#dbff00" ? "rgba(219,255,0,0.04)" : "rgba(255,79,0,0.04)"} 0%, transparent 60%)` }}
+              />
+              {/* Thin top accent line */}
+              <div
+                aria-hidden="true"
+                className="absolute top-0 left-0 right-0 h-[2px] opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                style={{ background: `linear-gradient(to right, ${t.avatarColor}, transparent)` }}
+              />
+
+              {/* Stars + savings */}
+              <div className="flex items-center justify-between gap-2 relative">
                 <Stars rating={t.rating} />
-                <span className="flex-shrink-0 font-mono text-[11px] font-semibold text-cr-primary border border-cr-primary/30 bg-cr-primary/8 px-2 py-0.5 leading-tight">
+                <span
+                  className="font-mono text-[9px] border px-1.5 py-0.5 uppercase tracking-[0.08em] flex-shrink-0"
+                  style={{ color: t.avatarColor, borderColor: `${t.avatarColor}30`, backgroundColor: `${t.avatarColor}08` }}
+                >
                   {t.savings}
                 </span>
               </div>
-              <blockquote>
-                <p className="font-display text-xl md:text-2xl uppercase leading-snug text-cr-text">
-                  "{t.quote}"
+
+              {/* Quote icon + text */}
+              <blockquote className="flex-1 relative space-y-2">
+                <Quote
+                  size={16}
+                  className="opacity-20 -mt-1"
+                  style={{ color: t.avatarColor }}
+                  aria-hidden="true"
+                />
+                <p className="font-sans text-sm text-white/60 font-light leading-relaxed group-hover:text-white/75 transition-colors duration-200">
+                  {t.quote}
                 </p>
               </blockquote>
-              <figcaption className="flex items-center gap-3">
-                <span
-                  className="w-8 h-8 rounded-full bg-cr-primary flex items-center justify-center font-display font-black text-black text-sm"
+
+              {/* Author */}
+              <figcaption className="flex items-center gap-3 pt-3 border-t border-white/[0.06] relative">
+                <div
+                  className="w-9 h-9 flex-shrink-0 flex items-center justify-center font-display font-black text-black text-xs transition-transform duration-200 group-hover:scale-110"
+                  style={{ backgroundColor: t.avatarColor }}
                   aria-hidden="true"
                 >
                   {t.initial}
-                </span>
-                <span className="font-sans text-sm text-cr-text-muted">
-                  <strong className="text-cr-text font-semibold">{t.author}</strong>
-                  {" · "}{t.location}
-                  {" · "}<span className="text-cr-primary">{t.festival}</span>
+                </div>
+                <div className="min-w-0">
+                  <p className="font-sans text-sm font-semibold text-white truncate">{t.author}</p>
+                  <p className="font-mono text-[9px] text-white/30 uppercase tracking-[0.08em] truncate flex items-center gap-1">
+                    🚗 <span>{t.route}</span>
+                  </p>
+                </div>
+                {/* Festival badge */}
+                <span className="ml-auto flex-shrink-0 font-mono text-[8px] text-white/20 uppercase tracking-[0.06em] text-right leading-tight">
+                  {t.festival}
                 </span>
               </figcaption>
-            </motion.figure>
-          </AnimatePresence>
-        </div>
-
-        <div className="flex items-center gap-4">
-          <button
-            onClick={prev}
-            aria-label="Testimonio anterior"
-            className="w-9 h-9 border border-cr-border flex items-center justify-center text-cr-text-muted hover:border-cr-primary hover:text-cr-primary transition-colors text-lg font-mono"
-          >
-            ←
-          </button>
-          <div className="flex gap-1.5">
-            {TESTIMONIALS.map((_, i) => (
-              <button
-                key={i}
-                onClick={() => { setAutoplay(false); setIdx(i); }}
-                aria-label={`Testimonio ${i + 1}`}
-                className={`w-1.5 h-1.5 rounded-full transition-colors ${i === idx ? "bg-cr-primary" : "bg-cr-border"}`}
-              />
-            ))}
-          </div>
-          <button
-            onClick={next}
-            aria-label="Testimonio siguiente"
-            className="w-9 h-9 border border-cr-border flex items-center justify-center text-cr-text-muted hover:border-cr-primary hover:text-cr-primary transition-colors text-lg font-mono"
-          >
-            →
-          </button>
+            </motion.article>
+          ))}
         </div>
       </div>
     </section>

@@ -165,13 +165,22 @@ export function TopNav() {
           )}
         </div>
       ) : (
-        <Link
-          to={`/login${next !== "%2F" ? `?next=${next}` : ""}`}
-          rel="nofollow"
-          className="inline-flex items-center gap-1.5 h-9 bg-cr-surface-2 border border-cr-border hover:border-cr-primary/50 hover:text-cr-primary text-cr-text px-3.5 font-semibold uppercase tracking-[0.12em] text-[11px] transition-[border-color,color] duration-150"
-        >
-          Entrar
-        </Link>
+        <div className="flex items-center gap-2">
+          <Link
+            to={`/register${next !== "%2F" ? `?next=${next}` : ""}`}
+            rel="nofollow"
+            className="hidden sm:inline-flex items-center gap-1.5 h-9 bg-[#dbff00] text-[#080808] px-3.5 font-semibold uppercase tracking-[0.12em] text-[11px] hover:bg-[#c8ec00] transition-colors duration-150"
+          >
+            Registro gratis
+          </Link>
+          <Link
+            to={`/login${next !== "%2F" ? `?next=${next}` : ""}`}
+            rel="nofollow"
+            className="inline-flex items-center gap-1.5 h-9 bg-cr-surface-2 border border-cr-border hover:border-cr-primary/50 hover:text-cr-primary text-cr-text px-3.5 font-semibold uppercase tracking-[0.12em] text-[11px] transition-[border-color,color] duration-150"
+          >
+            Entrar
+          </Link>
+        </div>
       )}
     </nav>
   );
