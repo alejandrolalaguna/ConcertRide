@@ -106,10 +106,12 @@ export default function LandingPage() {
             },
             offers: {
               "@type": "Offer",
-              price: "0",
+              price: 0,
               priceCurrency: "EUR",
               priceSpecification: {
                 "@type": "PriceSpecification",
+                price: 0,
+                priceCurrency: "EUR",
                 description: "Sin comisión de plataforma — el precio lo fija el conductor para cubrir combustible y peajes",
               },
               seller: { "@id": `${SITE_URL}/#organization` },

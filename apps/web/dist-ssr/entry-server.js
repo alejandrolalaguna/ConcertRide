@@ -12912,10 +12912,12 @@ function LandingPage() {
             },
             offers: {
               "@type": "Offer",
-              price: "0",
+              price: 0,
               priceCurrency: "EUR",
               priceSpecification: {
                 "@type": "PriceSpecification",
+                price: 0,
+                priceCurrency: "EUR",
                 description: "Sin comisión de plataforma — el precio lo fija el conductor para cubrir combustible y peajes"
               },
               seller: { "@id": `${SITE_URL}/#organization` }
@@ -33029,26 +33031,35 @@ function CityLandingPage() {
                 "@type": "DataDownload",
                 name: "ConcertRide carpooling",
                 contentUrl: `${SITE_URL}/conciertos/${landing.slug}`,
+                encodingFormat: "text/html",
                 description: `Precio: 3–35 €/asiento · Comisión: 0 % · Vuelta madrugada: Sí, coordinada · Reserva: Recomendada`
               },
               {
                 "@type": "DataDownload",
                 name: "Otras plataformas de carpooling",
+                contentUrl: `${SITE_URL}/conciertos/${landing.slug}`,
+                encodingFormat: "text/html",
                 description: `Precio: Similar a ConcertRide · Comisión: 12–18 % · Vuelta madrugada: Variable · Reserva: Recomendada`
               },
               {
                 "@type": "DataDownload",
                 name: "Taxi / VTC",
+                contentUrl: `${SITE_URL}/conciertos/${landing.slug}`,
+                encodingFormat: "text/html",
                 description: `Precio: 30–80 €/trayecto · Comisión: — · Vuelta madrugada: Sí (sobrecargo nocturno) · Reserva: No necesaria`
               },
               {
                 "@type": "DataDownload",
                 name: "Autobús interurbano",
+                contentUrl: `${SITE_URL}/conciertos/${landing.slug}`,
+                encodingFormat: "text/html",
                 description: `Precio: 5–20 € · Comisión: — · Vuelta madrugada: No (último ~23h) · Reserva: Recomendada`
               },
               {
                 "@type": "DataDownload",
                 name: "Tren / AVE",
+                contentUrl: `${SITE_URL}/conciertos/${landing.slug}`,
+                encodingFormat: "text/html",
                 description: `Precio: 10–60 € · Comisión: — · Vuelta madrugada: No (último ~01h) · Reserva: Obligatoria`
               }
             ]
@@ -35425,26 +35436,35 @@ function FestivalLandingPage() {
           "@type": "DataDownload",
           name: "ConcertRide carpooling",
           contentUrl: `${SITE_URL}/festivales/${festival.slug}`,
+          encodingFormat: "text/html",
           description: `Precio: ${((_k = festival.originCities[0]) == null ? void 0 : _k.concertRideRange) ?? "desde 3 €"}/asiento · Comisión: 0 % · Origen: ${festival.originCities.length} ciudades · Vuelta madrugada: Sí (coordinada)`
         },
         {
           "@type": "DataDownload",
           name: "Autobús / lanzadera oficial",
+          contentUrl: `${SITE_URL}/festivales/${festival.slug}`,
+          encodingFormat: "text/html",
           description: `Precio: 5–20 € si disponible · Comisión: — · Vuelta madrugada: No (último servicio diurno) · Solo en festivales con lanzadera oficial`
         },
         {
           "@type": "DataDownload",
           name: "Tren / AVE",
+          contentUrl: `${SITE_URL}/festivales/${festival.slug}`,
+          encodingFormat: "text/html",
           description: `Precio: 10–60 € hasta la ciudad · Comisión: — · Vuelta madrugada: No (último ~01h) · Requiere lanzadera adicional hasta el recinto`
         },
         {
           "@type": "DataDownload",
           name: "Taxi / VTC (Uber, Cabify)",
+          contentUrl: `${SITE_URL}/festivales/${festival.slug}`,
+          encodingFormat: "text/html",
           description: `Precio: 35–120 € ida desde ciudad más cercana (nocturno) · Comisión: — · Vuelta madrugada: Sí (precio ×2–3 en horario festival)`
         },
         {
           "@type": "DataDownload",
           name: "Otras plataformas de carpooling",
+          contentUrl: `${SITE_URL}/festivales/${festival.slug}`,
+          encodingFormat: "text/html",
           description: `Precio: Similar a ConcertRide + 12–18 % comisión · Comisión: 12–18 % · Vuelta madrugada: Depende del conductor`
         }
       ]
@@ -38035,7 +38055,25 @@ function RouteLandingPage() {
       }
     ],
     provider: { "@type": "Organization", "@id": `${SITE_URL}/#organization` },
-    subjectOf: { "@type": "MusicEvent", "@id": `${SITE_URL}/festivales/${festival.slug}#event` },
+    subjectOf: {
+      "@type": "MusicEvent",
+      "@id": `${SITE_URL}/festivales/${festival.slug}#event`,
+      name: festival.name,
+      startDate: festival.startDate,
+      endDate: festival.endDate,
+      location: {
+        "@type": "Place",
+        name: festival.venue,
+        address: {
+          "@type": "PostalAddress",
+          streetAddress: festival.venueAddress,
+          addressLocality: festival.city,
+          addressRegion: festival.region,
+          addressCountry: "ES"
+        },
+        geo: { "@type": "GeoCoordinates", latitude: festival.lat, longitude: festival.lng }
+      }
+    },
     offers: {
       "@type": "Offer",
       price: priceMin,
@@ -38295,21 +38333,28 @@ function RouteLandingPage() {
         "@type": "DataDownload",
         name: "ConcertRide carpooling",
         contentUrl: `${SITE_URL}/rutas/${landing.slug}`,
+        encodingFormat: "text/html",
         description: `Precio: ${originData.concertRideRange}/asiento · Tiempo: ${originData.drivingTime} · Comisión: 0 % · Vuelta madrugada: Sí (coordinada)`
       },
       {
         "@type": "DataDownload",
         name: "Taxi / VTC (Uber, Cabify)",
+        contentUrl: `${SITE_URL}/rutas/${landing.slug}`,
+        encodingFormat: "text/html",
         description: `Precio: 35–80 € ida (nocturno) · Tiempo: ${originData.drivingTime} · Comisión: — · Vuelta madrugada: Sí (precio ×2–3)`
       },
       {
         "@type": "DataDownload",
         name: "Otras plataformas de carpooling",
+        contentUrl: `${SITE_URL}/rutas/${landing.slug}`,
+        encodingFormat: "text/html",
         description: `Precio: ${originData.concertRideRange} + 12–18 % comisión · Tiempo: ${originData.drivingTime} · Comisión: 12–18 % · Vuelta madrugada: Depende`
       },
       {
         "@type": "DataDownload",
         name: "Autobús / tren",
+        contentUrl: `${SITE_URL}/rutas/${landing.slug}`,
+        encodingFormat: "text/html",
         description: `Precio: 3–15 € (si disponible) · Tiempo: Variable · Comisión: — · Vuelta madrugada: No (último ~1:30)`
       }
     ]
