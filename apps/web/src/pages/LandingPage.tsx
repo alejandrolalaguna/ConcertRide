@@ -14,9 +14,6 @@ import { HowItWorks } from "@/components/HowItWorks";
 import { AdhocRidesSection } from "@/components/landing/AdhocRidesSection";
 import { MapSection } from "@/components/landing/MapSection";
 import { TrustSection } from "@/components/landing/TrustSection";
-import { LiveActivityFeed } from "@/components/LiveActivityFeed";
-import { IntelligencePrompts } from "@/components/IntelligencePrompts";
-import { DemandSignalsBoard } from "@/components/DemandSignalsBoard";
 import { FinalCTA } from "@/components/landing/FinalCTA";
 import { TestimonialsSection } from "@/components/landing/TestimonialsSection";
 import { FestivalMarquee } from "@/components/landing/FestivalMarquee";
@@ -372,17 +369,6 @@ export default function LandingPage() {
 
       {/* 4. Concert carousel — bastante arriba, justo tras los stats */}
       {activeConcerts.length > 0 && <HorizontalCarousel concerts={activeConcerts} />}
-
-      {/* 5. Intelligence prompts + demand signals — SEO/GEO */}
-      <section className="mx-auto max-w-5xl px-4 py-8 sm:px-6">
-        <IntelligencePrompts />
-      </section>
-      <section className="mx-auto max-w-5xl px-4 pb-8 sm:px-6">
-        <DemandSignalsBoard limit={6} />
-      </section>
-      <section className="mx-auto max-w-3xl px-4 pb-8 sm:px-6">
-        <LiveActivityFeed limit={8} layout="card" emptyMessage="Aún silencio. Sé el primero en publicar un viaje." />
-      </section>
 
       {/* Premium scan-line divider */}
       <div aria-hidden="true" className="cr-scan-divider" />
