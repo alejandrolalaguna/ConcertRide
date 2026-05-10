@@ -483,6 +483,26 @@ export default function FestivalLandingPage() {
       ],
     });
 
+    // v10a: AggregateOffer — machine-readable price range for AI/Google extraction
+    const allPrices = festival.originCities
+      .map((oc) => (oc.concertRideRange ?? "").match(/\d+/g)?.map(Number))
+      .flat()
+      .filter((n): n is number => typeof n === "number" && !isNaN(n));
+    if (allPrices.length > 0) {
+      variants.push({
+        "@context": "https://schema.org",
+        "@type": "AggregateOffer",
+        name: `Carpooling a ${festival.name} — precios por asiento`,
+        priceCurrency: "EUR",
+        lowPrice: Math.min(...allPrices),
+        highPrice: Math.max(...allPrices),
+        offerCount: festival.originCities.length,
+        description: `Viajes compartidos a ${festival.name} desde ${festival.originCities.length} ciudades. 0% comisión de plataforma.`,
+        url: `${SITE_URL}/festivales/${festival.slug}`,
+        seller: { "@type": "Organization", name: "ConcertRide", url: SITE_URL },
+      });
+    }
+
     // v10: Quick links to related festival pages
     variants.push({
       "@context": "https://schema.org",

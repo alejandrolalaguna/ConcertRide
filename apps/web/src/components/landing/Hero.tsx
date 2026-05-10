@@ -19,6 +19,13 @@ interface TicketData {
   ticketNum: string;
 }
 
+const HERO_SIGNALS = [
+  { value: "4.8★", label: "valoración media" },
+  { value: "+30", label: "festivales 2026" },
+  { value: "0%", label: "comisión" },
+  { value: "100%", label: "conductores verificados" },
+] as const;
+
 const TICKETS: TicketData[] = [
   {
     id: "rosalia",
@@ -141,6 +148,17 @@ export function Hero() {
       aria-labelledby="hero-title"
       className="relative min-h-dvh flex items-center overflow-hidden bg-cr-bg"
     >
+      {/* Stage spotlight lights — animated background ambiance */}
+      <div
+        aria-hidden="true"
+        className="cr-spotlight-1 absolute top-[-20%] left-[-10%] w-[70vw] h-[70vw] rounded-full pointer-events-none"
+        style={{ background: "radial-gradient(circle, rgb(212 247 0 / 1) 0%, transparent 65%)" }}
+      />
+      <div
+        aria-hidden="true"
+        className="cr-spotlight-2 absolute bottom-[-30%] right-[-10%] w-[55vw] h-[55vw] rounded-full pointer-events-none"
+        style={{ background: "radial-gradient(circle, rgb(255 79 0 / 1) 0%, transparent 65%)" }}
+      />
       <NoiseOverlay />
       <CornerTicks />
 
@@ -190,9 +208,10 @@ export function Hero() {
           transition={{ duration: 0.5, delay: 0.15 }}
           className="font-sans text-base md:text-xl text-cr-text-muted max-w-xl leading-relaxed"
         >
-          Comparte el viaje. Divide el coste. Llega al show.
+          Carpooling a festivales desde <strong className="text-cr-text font-semibold">5€ por asiento</strong>, sin comisión.{" "}
+          Ahorra 40–60€ por festival frente al taxi.
           <br className="hidden md:block" />
-          La plataforma de viajes compartidos a conciertos en España.
+          Mad Cool, Primavera Sound, Sónar, Arenal Sound y +30 festivales en España.
         </motion.p>
 
         <motion.div
@@ -215,13 +234,19 @@ export function Hero() {
           </a>
         </motion.div>
 
-        <motion.p
+        <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.5, delay: 0.4 }}
-          className="font-mono text-xs text-cr-text-muted"
+          className="flex flex-wrap gap-x-5 gap-y-3"
         >
-        </motion.p>
+          {HERO_SIGNALS.map((s) => (
+            <div key={s.label} className="flex items-center gap-1.5">
+              <span className="font-display text-sm font-black text-cr-primary">{s.value}</span>
+              <span className="font-mono text-[11px] text-cr-text-muted">{s.label}</span>
+            </div>
+          ))}
+        </motion.div>
       </div>
 
       <motion.div

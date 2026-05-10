@@ -15,6 +15,7 @@ import { ROUTE_LANDINGS } from "@/lib/routeLandings";
 import { CITY_SEO_IMPROVEMENTS } from "@/lib/seoOverrides";
 import { trackCityView } from "@/lib/seoEvents";
 import { AutoLinksForCity } from "@/lib/autoLinking";
+import { BLOG_POSTS } from "@/lib/blogPosts";
 
 const CITY_WIKIDATA: Record<string, string> = {
   "Madrid": "https://www.wikidata.org/wiki/Q2807",
@@ -982,6 +983,40 @@ export default function CityLandingPage() {
           </dl>
         </section>
       )}
+
+      {/* Related blog posts — surface transport guides for this city */}
+      {(() => {
+        const cityName = landing.display.toLowerCase();
+        const relatedPosts = BLOG_POSTS.filter((p) =>
+          p.tags?.some((t: string) => t.toLowerCase().includes(cityName)) ||
+          p.title.toLowerCase().includes(cityName) ||
+          p.slug.includes(landing.slug)
+        ).slice(0, 3);
+        if (relatedPosts.length === 0) return null;
+        return (
+          <section className="max-w-6xl mx-auto px-6 pb-16 border-t border-cr-border pt-12 space-y-5">
+            <h2 className="font-display text-xl md:text-2xl uppercase">
+              Guías de transporte desde {landing.display}
+            </h2>
+            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+              {relatedPosts.map((post) => (
+                <Link
+                  key={post.slug}
+                  to={`/blog/${post.slug}`}
+                  className="border border-cr-border p-4 space-y-2 hover:border-cr-primary/40 transition-colors"
+                >
+                  <p className="font-mono text-[10px] uppercase tracking-[0.14em] text-cr-primary">Guía</p>
+                  <h3 className="font-display text-sm uppercase leading-tight">{post.title}</h3>
+                  <p className="font-sans text-xs text-cr-text-muted line-clamp-2">{post.excerpt}</p>
+                  <span className="inline-flex items-center gap-1 font-sans text-xs text-cr-primary">
+                    Leer <ArrowRight size={10} />
+                  </span>
+                </Link>
+              ))}
+            </div>
+          </section>
+        );
+      })()}
 
       {/* Internal link hub to other city landings — helps SEO crawl + user nav */}
       <section className="max-w-6xl mx-auto px-6 pb-24 border-t border-cr-border pt-10">

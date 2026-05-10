@@ -1,4 +1,11 @@
-import { Check, TrendingUp, Leaf, Users } from "lucide-react";
+import { Check, TrendingUp, Leaf, Users, MapPin, Music2, Zap, ShieldCheck } from "lucide-react";
+
+const PLATFORM_STATS = [
+  { icon: MapPin, value: "+30", label: "Festivales cubiertos", sublabel: "temporada 2026" },
+  { icon: Music2, value: "0%", label: "Comisión de plataforma", sublabel: "precio justo garantizado" },
+  { icon: ShieldCheck, value: "100%", label: "Conductores verificados", sublabel: "DNI + carnet de conducir" },
+  { icon: Zap, value: "<2 min", label: "Para publicar un viaje", sublabel: "sin complicaciones" },
+] as const;
 
 const TRUST_POINTS = [
   "Perfil verificado con DNI",
@@ -37,6 +44,11 @@ const FAQ_ITEMS = [
       "Sí. ConcertRide no cobra comisión ni al conductor ni al pasajero. El precio lo fija el conductor para cubrir gasolina y peajes; el pago se hace directamente en efectivo o Bizum.",
   },
   {
+    question: "¿Cuánto cuesta un viaje en ConcertRide?",
+    answer:
+      "El precio lo fija el conductor según la distancia y el coste de gasolina. En rutas cortas (50–100 km) ronda los 5–12 €/asiento. En rutas largas (300–600 km) puede llegar a 15–30 €. ConcertRide no añade comisión, así que el precio es siempre más bajo que en otras plataformas.",
+  },
+  {
     question: "¿Cómo se verifican los conductores?",
     answer:
       "Cada conductor sube una foto del carnet de conducir y verifica su identidad con DNI. El equipo de ConcertRide revisa manualmente cada perfil antes de activarlo.",
@@ -55,6 +67,36 @@ const FAQ_ITEMS = [
     question: "¿ConcertRide cubre toda España?",
     answer:
       "Sí. La plataforma opera en todo el territorio español. Las rutas más activas conectan Madrid, Barcelona, Valencia, Bilbao, Sevilla y Zaragoza con los festivales más grandes del año.",
+  },
+  {
+    question: "¿Puedo viajar con mis amigos en el mismo coche?",
+    answer:
+      "Sí, puedes solicitar varias plazas en un mismo viaje si el conductor tiene asientos disponibles. Coordínate con tu grupo antes de solicitar para ir todos juntos.",
+  },
+  {
+    question: "¿Qué documentos necesito para registrarme?",
+    answer:
+      "Solo necesitas un email y, si vas a conducir, una foto del carnet de conducir y DNI para la verificación. Los pasajeros solo necesitan crear una cuenta gratuita.",
+  },
+  {
+    question: "¿Cómo se hace el pago?",
+    answer:
+      "El pago se realiza directamente al conductor el día del viaje, en efectivo o por Bizum. ConcertRide no gestiona cobros ni retiene dinero — sin comisiones, sin sorpresas.",
+  },
+  {
+    question: "¿Es seguro viajar en ConcertRide?",
+    answer:
+      "Todos los conductores están verificados con DNI y carnet de conducir. Los perfiles incluyen foto, valoraciones de otros usuarios y un historial de viajes. Además, puedes comunicarte directamente con el conductor antes de confirmar.",
+  },
+  {
+    question: "¿Puedo cancelar mi reserva?",
+    answer:
+      "Sí, puedes cancelar desde tu perfil. Al ser el pago presencial, no hay cargos automáticos. Avisa al conductor con la mayor antelación posible para que pueda buscar otro pasajero.",
+  },
+  {
+    question: "¿Qué ocurre si llego tarde al punto de recogida?",
+    answer:
+      "Coordínate con el conductor por el chat de la plataforma. En ConcertRide los conductores suelen tener margen de 5–10 minutos, pero recuerda que también tienen festival que no quieren perderse.",
   },
 ];
 
@@ -83,6 +125,19 @@ export function TrustSection() {
       />
 
       <div className="max-w-6xl mx-auto space-y-16">
+
+        {/* ── Platform metrics — números de ConcertRide ── */}
+        <div className="grid grid-cols-2 sm:grid-cols-4 gap-px bg-cr-border">
+          {PLATFORM_STATS.map(({ icon: Icon, value, label, sublabel }) => (
+            <div key={label} className="bg-cr-bg px-6 py-7 flex flex-col gap-2">
+              <Icon size={16} className="text-cr-primary" aria-hidden="true" />
+              <p className="font-display text-3xl md:text-4xl text-cr-primary leading-none">{value}</p>
+              <p className="font-sans text-sm font-semibold text-cr-text leading-tight">{label}</p>
+              <p className="font-mono text-[10px] text-cr-text-dim uppercase tracking-[0.14em]">{sublabel}</p>
+            </div>
+          ))}
+        </div>
+
         {/* ── Sector stats ── */}
         <div className="space-y-8">
           <header className="space-y-3 max-w-2xl">

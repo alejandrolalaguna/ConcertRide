@@ -203,7 +203,7 @@ export const FESTIVAL_LANDINGS: FestivalLanding[] = [
       },
     ],
     relatedFestivals: ["tomavistas", "sonorama-ribera", "primavera-sound"],
-    relatedBlogs: ["mad-cool-2026-guia-completa-transporte", "autobuses-festivales-espana-2026", "como-volver-concierto-madrugada-espana-2026"],
+    relatedBlogs: ["mad-cool-2026-guia-completa-transporte", "como-llegar-mad-cool-desde-barcelona-2026", "como-ir-mad-cool-desde-valencia-2026", "autobuses-festivales-espana-2026", "como-volver-concierto-madrugada-espana-2026"],
     transport_options: [
       { type: 'train', provider: 'Metro Madrid L8', origin: 'Madrid centro → IFEMA', price_from: 2, price_to: 3, frequency: 'Cada 5 min (ampliado en festival)', schedule: 'Hasta 2:30 en noches de festival', notes: 'Parada "Feria de Madrid". Desde Sol ~25 min. Se colapsa en salidas (1:00–2:30).' },
       { type: 'bus', provider: 'Bus nocturno N1 / N6', origin: 'Madrid centro', price_from: 2, notes: 'No llegan directamente a IFEMA. Dejan en Avenida de América / Canillejas.' },
@@ -366,7 +366,7 @@ export const FESTIVAL_LANDINGS: FestivalLanding[] = [
       },
     ],
     relatedFestivals: ["sonar", "cruilla"],
-    relatedBlogs: ["primavera-sound-2026-guia-transporte-barcelona", "autobuses-festivales-espana-2026", "carpooling-vs-taxi-festival-espana"],
+    relatedBlogs: ["primavera-sound-2026-guia-transporte-barcelona", "como-ir-primavera-sound-barcelona-2026", "autobuses-festivales-espana-2026", "carpooling-vs-taxi-festival-espana"],
     genres: ["indie", "alternativo", "pop", "rock", "electrónica", "experimental"],
     expected_attendance: "60.000 personas/día",
     arrival_patterns: "Los fans madrileños suelen organizar viaje de 4–5 días y alojarse en Barcelona. La mayoría llega el jueves, regresa el domingo o lunes. Los de Valencia o Zaragoza hacen trayectos de ida y vuelta.",
@@ -487,7 +487,7 @@ export const FESTIVAL_LANDINGS: FestivalLanding[] = [
       },
     ],
     relatedFestivals: ["primavera-sound", "cruilla"],
-    relatedBlogs: ["sonar-2026-guia-transporte-barcelona", "autobuses-festivales-espana-2026"],
+    relatedBlogs: ["sonar-2026-guia-transporte-barcelona", "como-ir-sonar-barcelona-2026", "autobuses-festivales-espana-2026"],
   },
 
   {
@@ -870,7 +870,7 @@ export const FESTIVAL_LANDINGS: FestivalLanding[] = [
       },
     ],
     relatedFestivals: ["fib", "medusa-festival", "low-festival"],
-    relatedBlogs: ["arenal-sound-2026-transporte-burriana", "autobuses-festivales-espana-2026", "carpooling-vs-taxi-festival-espana"],
+    relatedBlogs: ["arenal-sound-2026-transporte-burriana", "transporte-arenal-sound-burriana-2026", "autobuses-festivales-espana-2026", "carpooling-vs-taxi-festival-espana"],
     transport_options: [
       { type: 'shuttle', provider: 'Autobús oficial Arenal Sound', origin: 'Castellón de la Plana', price_from: 5, price_to: 8, frequency: 'Días de festival', schedule: '15:00–07:00', notes: 'Salida desde Estación de Autobuses de Castellón' },
       { type: 'bus', provider: 'Herca/Avanzabus', origin: 'Valencia', price_from: 8, price_to: 12, frequency: 'Varias salidas', notes: 'Valencia → Castellón → Burriana. Revisar horarios en temporada de festival.' },

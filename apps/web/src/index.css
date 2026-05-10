@@ -418,4 +418,42 @@
     font-weight: 700;
     border-radius: 0;
   }
+
+  /* Infinite marquee ticker — left & right directions */
+  @keyframes cr-marquee-left {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+  }
+  @keyframes cr-marquee-right {
+    0% { transform: translateX(-50%); }
+    100% { transform: translateX(0); }
+  }
+
+  /* Animated stage spotlight in hero background */
+  @keyframes cr-spotlight-drift {
+    0%   { transform: translate(-10%, -10%) scale(1); opacity: 0.07; }
+    33%  { transform: translate(10%, -5%) scale(1.2); opacity: 0.11; }
+    66%  { transform: translate(-5%, 10%) scale(0.9); opacity: 0.08; }
+    100% { transform: translate(-10%, -10%) scale(1); opacity: 0.07; }
+  }
+  @keyframes cr-spotlight-drift-2 {
+    0%   { transform: translate(15%, 5%) scale(1.1); opacity: 0.06; }
+    50%  { transform: translate(-15%, -8%) scale(0.85); opacity: 0.1; }
+    100% { transform: translate(15%, 5%) scale(1.1); opacity: 0.06; }
+  }
+  .cr-spotlight-1 {
+    animation: cr-spotlight-drift 12s ease-in-out infinite;
+  }
+  .cr-spotlight-2 {
+    animation: cr-spotlight-drift-2 18s ease-in-out infinite;
+  }
+
+  /* Glow ring pulse for FinalCTA */
+  @keyframes cr-ring-pulse {
+    0%, 100% { opacity: 0.08; transform: scale(1); }
+    50% { opacity: 0.18; transform: scale(1.06); }
+  }
+  .cr-ring-pulse {
+    animation: cr-ring-pulse 4s ease-in-out infinite;
+  }
 }

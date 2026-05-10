@@ -8,9 +8,10 @@ interface Stat {
 }
 
 const STATS: Stat[] = [
-  { label: "festivales en el catálogo 2026", target: 33, suffix: "" },
-  { label: "ciudades cubiertas en España", target: 50, suffix: "+" },
-  { label: "ahorro estimado vs taxi", target: 60, suffix: "%" },
+  { label: "festivales en el catálogo 2026", target: 33, suffix: "+" },
+  { label: "ciudades cubiertas en España", target: 72, suffix: "+" },
+  { label: "ahorro estimado vs taxi y bus", target: 60, suffix: "%" },
+  { label: "comisión de plataforma", target: 0, prefix: "", suffix: "%" },
 ];
 
 function Counter({ stat, enabled }: { stat: Stat; enabled: boolean }) {
@@ -34,12 +35,17 @@ export function StatsBar() {
   return (
     <section
       ref={ref}
-      aria-label="Estadísticas"
+      aria-label="Estadísticas de ConcertRide"
       className="border-y border-cr-border bg-cr-surface py-12 md:py-16"
     >
-      <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-10 md:gap-6 px-6">
-        {STATS.map((s) => (
-          <Counter key={s.label} stat={s} enabled={inView} />
+      <div className="max-w-6xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-px bg-cr-border px-0">
+        {STATS.map((s, i) => (
+          <div
+            key={s.label}
+            className={`bg-cr-surface px-6 py-8 ${i === STATS.length - 1 ? "border-l-2 border-cr-primary" : ""}`}
+          >
+            <Counter stat={s} enabled={inView} />
+          </div>
         ))}
       </div>
     </section>

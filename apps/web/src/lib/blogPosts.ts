@@ -1060,7 +1060,7 @@ export const BLOG_POSTS: BlogPost[] = [
       { label: "Carpooling al BBK Live Bilbao", to: "/festivales/bbk-live" },
       { label: "Carpooling a Resurrection Fest", to: "/festivales/resurrection-fest" },
     ],
-    relatedPosts: ["festivales-verano-espana-2026-transporte", "autobuses-festivales-espana-2026"],
+    relatedPosts: ["festivales-verano-espana-2026-transporte", "autobuses-festivales-espana-2026", "carpooling-vs-autobus-festival", "como-ahorrar-transporte-festivales-5-estrategias"],
   },
 
   // ──────────────────────────────────────────────────────────────────────
@@ -4936,7 +4936,7 @@ BLOG_POSTS.push(
       { label: "BBK Live 2026 — carpooling", to: "/festivales/bbk-live" },
       { label: "Conciertos en Madrid", to: "/conciertos/madrid" },
     ],
-    relatedPosts: ["festivales-espana-verano-2026", "preguntas-frecuentes-carpooling-festivales-espana"],
+    relatedPosts: ["festivales-espana-verano-2026", "preguntas-frecuentes-carpooling-festivales-espana", "como-ir-primavera-sound-barcelona-2026", "como-llegar-mad-cool-desde-barcelona-2026", "como-ahorrar-transporte-festivales-5-estrategias"],
   },
 
   // ──────────────────────────────────────────────────────────────────────
@@ -8024,6 +8024,8 @@ BLOG_POSTS.push({
     "guia-transporte-vina-rock-2026",
     "autobuses-festivales-espana-2026",
     "como-volver-festival-madrugada",
+    "carpooling-vs-autobus-festival",
+    "como-ahorrar-transporte-festivales-5-estrategias",
   ],
 });
 
@@ -8629,6 +8631,843 @@ BLOG_POSTS.push(
       { label: "BlaBlaCar vs ConcertRide", to: "/blog/blablacar-vs-concertride" },
     ],
     relatedPosts: ["blablacar-vs-concertride", "carpooling-vs-taxi-festival-espana"],
+  },
+);
+
+BLOG_POSTS.push(
+  // ──────────────────────────────────────────────────────────────────────
+  {
+    slug: "como-ir-primavera-sound-barcelona-2026",
+    title: "Cómo ir a Primavera Sound Barcelona 2026 sin coche [Guía completa]: carpooling, tren, autobús",
+    h1: "Cómo ir a Primavera Sound Barcelona 2026 sin coche: carpooling, tren y autobús",
+    excerpt:
+      "Primavera Sound 2026 en el Parc del Fòrum de Barcelona. Guía completa de transporte: metro, carpooling desde Madrid/Valencia/Zaragoza, trenes, precios reales y trucos para evitar colas de madrugada.",
+    category: "guias",
+    tags: ["primavera-sound", "barcelona", "transporte", "carpooling", "tren", "metro", "festival", "2026"],
+    publishedAt: "2026-05-10",
+    author: "Equipo ConcertRide",
+    readingMinutes: 9,
+    lede:
+      "El Parc del Fòrum recibe más de 200.000 festivaleros en los días de Primavera Sound. El metro L4 llega a 200 metros del recinto pero colapsa de madrugada. Si vienes de fuera de Barcelona, el carpooling es la única opción que te garantiza la vuelta cuando acabe el último concierto.",
+    sections: [
+      {
+        heading: "Transporte público en Barcelona para Primavera Sound 2026",
+        paragraphs: [
+          "El Parc del Fòrum está perfectamente conectado con el transporte metropolitano de Barcelona. La estación de metro más cercana es Besòs Mar (línea L4, naranja), a unos 200 metros de la entrada principal del festival. La TMB amplía el servicio de metro hasta las 3:00 los días de Primavera Sound, aunque a partir de la 1:30 las colas de acceso al metro pueden superar los 30–45 minutos.",
+          "El autobús nocturno (Nitbus) N6 y N8 conectan el Fòrum con el centro de Barcelona y funcionan durante toda la noche, ofreciendo una alternativa al metro saturado. El billete sencillo de metro/bus en Barcelona cuesta 2,55 € (T-Casual: 11,35 € los 10 viajes).",
+          "Desde el aeropuerto del Prat, la mejor opción es el metro L9 Sud hasta Zona Universitaria (35 min, 5,15 €) y trasbordo a L4 dirección Besòs Mar. El total es de unos 55–65 minutos puerta a recinto.",
+        ],
+        bullets: [
+          "Metro L4 Besòs Mar: 200 m del recinto. Servicio ampliado hasta las 3:00 en noches de festival.",
+          "Autobús Nitbus N6/N8: alternativa nocturna al metro, menos saturada. Sale cada 20–30 min.",
+          "Bicicleta (Bicing): el carril bici del litoral llega directamente al Fòrum. Opción sostenible para residentes en Barcelona.",
+          "VTC (Uber/Cabify): precio x2–x3 después de medianoche en días de festival. Tiempo de espera 20–45 min.",
+        ],
+      },
+      {
+        heading: "Cómo llegar a Primavera Sound desde Madrid: tren, bus y carpooling",
+        paragraphs: [
+          "Para los festivaleros de Madrid, Primavera Sound es el festival más lejano del año: 620 km que separan la capital de Barcelona. Las opciones son tres: AVE, bus de larga distancia y carpooling.",
+          "El AVE Madrid–Barcelona (Atocha–Sants) sale cada hora aproximadamente y el trayecto dura 2h 30 min. El precio oscila entre 39 € (Promo) y 120 € (tarifa libre) ida. El problema: el último tren de vuelta Madrid sale de Barcelona Sants a las 21:30, lo que obliga a salir del festival antes del cabeza de cartel o a quedarse a dormir en Barcelona.",
+          "El autobús ALSA Madrid–Barcelona cuesta 20–35 € y tarda 7–8 horas. Hay salidas nocturnas que llegan a primera hora de la mañana — útil para el día después del festival.",
+          "El carpooling con ConcertRide desde Madrid cuesta entre 15 y 20 € por asiento, con 0% de comisión de plataforma. El conductor y los pasajeros van todos al festival, así que la hora de salida de vuelta se coordina con el final real del espectáculo — no con un horario de tren fijo.",
+        ],
+        bullets: [
+          "AVE Madrid→Barcelona: 39–120 €, 2h 30 min. No hay vuelta nocturna tras el festival.",
+          "Bus ALSA Madrid→Barcelona: 20–35 €, 7–8h. Útil para llegada madrugadora al primer día.",
+          "Carpooling ConcertRide Madrid→Primavera Sound: 15–20 €/asiento, 0% comisión, vuelta coordinada.",
+        ],
+      },
+      {
+        heading: "Carpooling desde Valencia, Zaragoza y Bilbao a Primavera Sound",
+        paragraphs: [
+          "Barcelona es una ciudad a la que se puede llegar desde varios puntos de España en 1,5–3,5 horas. Desde Valencia, el trayecto en coche son 350 km (3h 20 min). Desde Zaragoza, 300 km (2h 45 min). Desde Bilbao, 610 km (5h 30 min).",
+          "Con ConcertRide, el precio típico por asiento es de 8–12 € desde Valencia, 7–10 € desde Zaragoza y 16–21 € desde Bilbao. Comparado con el AVE Valencia–Barcelona (24–60 €, sin vuelta nocturna) o el tren Zaragoza–Barcelona (14–40 €), el carpooling es competitivo en precio y mucho más flexible en horarios de vuelta.",
+        ],
+        bullets: [
+          "Valencia → Primavera Sound: 350 km, 3h 20 min. Carpooling: 8–12 €. AVE: 24–60 €.",
+          "Zaragoza → Primavera Sound: 300 km, 2h 45 min. Carpooling: 7–10 €. Tren: 14–40 €.",
+          "Bilbao → Primavera Sound: 610 km, 5h 30 min. Carpooling: 16–21 €. AVE vía Madrid: 60–120 €.",
+          "Tarragona → Primavera Sound: 95 km, 1h. Carpooling: 4–6 €. Tren: 8–20 €.",
+          "Girona → Primavera Sound: 100 km, 1h 10 min. Carpooling: 4–7 €. Tren: 10–25 €.",
+        ],
+      },
+      {
+        heading: "Comparativa de transporte a Primavera Sound 2026",
+        paragraphs: [
+          "Esta tabla resume los costes reales de transporte para las rutas más frecuentes hacia Primavera Sound Barcelona 2026:",
+        ],
+        bullets: [
+          "Madrid → Barcelona | AVE: 39–120 € | Carpooling ConcertRide: 15–20 € | Ahorro: hasta 100 €",
+          "Valencia → Barcelona | Tren: 24–60 € | Carpooling ConcertRide: 8–12 € | Ahorro: hasta 48 €",
+          "Zaragoza → Barcelona | Tren: 14–40 € | Carpooling ConcertRide: 7–10 € | Ahorro: hasta 30 €",
+          "Bilbao → Barcelona | AVE vía Madrid: 60–120 € | Carpooling ConcertRide: 16–21 € | Ahorro: hasta 99 €",
+          "Sevilla → Barcelona | AVE: 80–150 € | Carpooling ConcertRide: 20–28 € | Ahorro: hasta 122 €",
+        ],
+      },
+      {
+        heading: "Consejos prácticos para Primavera Sound 2026",
+        paragraphs: [],
+        bullets: [
+          "Reserva el carpooling con mínimo 1–2 semanas de antelación: los viajes a Primavera Sound desde Madrid se llenan antes que los de ningún otro festival.",
+          "Si vas en AVE, compra billetes de vuelta con fecha flexible o en días distintos — no confíes en poder coger el último tren si quieres ver el cabeza de cartel.",
+          "Para el camping: el carpooling es la única opción práctica para llevar equipaje de camping desde otra ciudad. El AVE y el bus cobran suplemento por equipaje voluminoso.",
+          "Punto de encuentro habitual para carpooling desde Madrid: Atocha (exterior ADIF), Nuevos Ministerios y Méndez Álvaro. Desde Valencia: Estació del Nord y Joaquín Sorolla.",
+          "El metro L4 a Besòs Mar es más rápido de madrugada si sales antes de las 2:00 — después la cola puede ser mayor que en un concierto del escenario principal.",
+        ],
+      },
+      {
+        heading: "Preguntas frecuentes sobre transporte a Primavera Sound",
+        paragraphs: [],
+        faqs: [
+          {
+            q: "¿Hay autobús directo de Madrid a Primavera Sound Barcelona?",
+            a: "No existe un autobús oficial del festival. Los autobuses ALSA Madrid–Barcelona llegan a la estación de autobuses de Sants, a 8 km del Parc del Fòrum. Desde allí hay que coger el metro L3 (Sants Estació) hasta Passeig de Gràcia y trasbordo a L4. El carpooling con ConcertRide llega directamente al punto de entrada del festival.",
+          },
+          {
+            q: "¿Cuánto cuesta el metro a Primavera Sound en Barcelona?",
+            a: "El billete sencillo de metro en Barcelona cuesta 2,55 €. La T-Casual (10 viajes) son 11,35 €, lo que sale a 1,14 €/viaje y es válida para todos los transportes integrados de la TMB. No hay billete especial para el festival.",
+          },
+          {
+            q: "¿Puedo volver de Primavera Sound en AVE la misma noche?",
+            a: "Depende del día y de la hora. El último AVE Barcelona–Madrid sale de Sants aproximadamente a las 21:30. Si el cabeza de cartel actúa a las 22:00, es imposible coger ese tren. La opción para volver la misma noche desde fuera de Barcelona es el carpooling organizado con ConcertRide.",
+          },
+          {
+            q: "¿Hay parking en el Parc del Fòrum para Primavera Sound?",
+            a: "Hay parking público en el Fòrum (Parc del Fòrum Parking), con capacidad limitada. La tarifa ronda los 3–4 €/hora. Se llena a primera hora del día. Si vas en coche desde Barcelona, la opción más inteligente es aparcar en una estación de metro de la periferia y llegar en metro.",
+          },
+        ],
+      },
+    ],
+    relatedLinks: [
+      { label: "Carpooling a Primavera Sound", to: "/festivales/primavera-sound" },
+      { label: "Rutas desde Madrid a Barcelona", to: "/rutas/madrid-barcelona" },
+      { label: "Cómo llegar a Primavera Sound", to: "/como-llegar/primavera-sound" },
+      { label: "Guía de transporte para festivales", to: "/guia-transporte-festivales" },
+    ],
+    relatedPosts: [
+      "primavera-sound-2026-como-llegar",
+      "carpooling-primavera-sound-desde-zaragoza-2026",
+      "como-ir-sonar-barcelona-2026",
+      "autobuses-festivales-espana-2026",
+    ],
+  },
+);
+
+BLOG_POSTS.push(
+  // ──────────────────────────────────────────────────────────────────────
+  {
+    slug: "como-llegar-mad-cool-desde-barcelona-2026",
+    title: "Cómo llegar a Mad Cool Madrid desde Barcelona 2026 [Carpooling barato]: guía completa",
+    h1: "Cómo llegar a Mad Cool Madrid desde Barcelona 2026: carpooling barato",
+    excerpt:
+      "Mad Cool 2026 en IFEMA Madrid. Guía de transporte desde Barcelona: AVE vs carpooling, precios reales, punto de encuentro en Barcelona, vuelta de madrugada y todo lo que necesitas saber.",
+    category: "guias",
+    tags: ["mad-cool", "madrid", "barcelona", "carpooling", "transporte", "ifema", "festival", "2026"],
+    publishedAt: "2026-05-10",
+    author: "Equipo ConcertRide",
+    readingMinutes: 7,
+    lede:
+      "De Barcelona a Madrid en el peor momento posible: julio, Mad Cool, 40 °C en la capital. El AVE cuesta hasta 120 € y el último tren de vuelta sale antes del final del festival. El carpooling con ConcertRide cuesta 15–20 € y espera a que acabe el último show.",
+    sections: [
+      {
+        heading: "Mad Cool 2026: el festival que vacía Madrid de festivaleros barceloneses",
+        paragraphs: [
+          "Mad Cool Festival tiene lugar en IFEMA Madrid, el recinto ferial situado junto al Aeropuerto de Barajas. La línea de metro L8 conecta directamente Nuevos Ministerios con la estación de Feria de Madrid, puerta de IFEMA, en unos 20 minutos. El metro amplía su servicio hasta las 2:00–2:30 en noches de festival.",
+          "Para los residentes en Barcelona, Mad Cool es el festival interurbano más demandado del verano. La distancia Barcelona–Madrid es de 620 km (2h 30 min en AVE, 6h en bus, 5h 30 min en coche). El reto principal: la vuelta. El último AVE Barcelona–Madrid sale de Sants antes de que termine el festival.",
+        ],
+      },
+      {
+        heading: "AVE Barcelona → Madrid para Mad Cool: precio y horarios reales",
+        paragraphs: [
+          "El AVE Barcelona Sants–Madrid Atocha opera con frecuencia cada 30–60 minutos durante el día. El precio varía entre 39 € (tarifa Promo con antelación) y 120 € (tarifa libre en fecha punta de julio). La duración del trayecto es de 2h 30 min.",
+          "El problema para los festivaleros es la vuelta: el último AVE Madrid Atocha→Barcelona sale aproximadamente a las 21:30, antes de que empiece el cabeza de cartel en Mad Cool. Esto obliga a una de estas dos opciones: quedarse a dormir en Madrid (coste: 60–150 € la noche de hotel en temporada alta) o volver con el primer AVE del día siguiente (salida ~6:30).",
+          "En total, la opción AVE de ida y vuelta para Mad Cool desde Barcelona puede costar entre 80 y 240 € por persona, sin contar alojamiento.",
+        ],
+      },
+      {
+        heading: "Carpooling de Barcelona a Mad Cool con ConcertRide",
+        paragraphs: [
+          "El carpooling de Barcelona a Mad Cool con ConcertRide resuelve el problema de la vuelta nocturna: el conductor también va al festival y organiza la salida de regreso con el grupo de pasajeros después del último bolo.",
+          "Precio típico: 15–20 € por asiento (ida) y otros 15–20 € en la vuelta, con 0% de comisión de plataforma. Total: 30–40 € ida y vuelta, frente a los 80–240 € del AVE con hotel incluido.",
+          "El punto de encuentro en Barcelona suele ser la Estació de Sants (exterior) o la Plaça de les Glòries. El viaje de 5h 30 min se cubre de noche (salida 22:00–23:00 del festival, llegada a Barcelona a las 4:00–5:00). Muchos conductores hacen paradas en Zaragoza.",
+        ],
+        bullets: [
+          "Barcelona Sants → Mad Cool IFEMA: 620 km, 5h 30 min. Carpooling: 15–20 €/asiento.",
+          "Zaragoza → Mad Cool IFEMA: 325 km, 3h. Carpooling: 9–13 €/asiento.",
+          "Tarragona → Mad Cool IFEMA: 555 km, 5h. Carpooling: 14–18 €/asiento.",
+          "Girona → Mad Cool IFEMA: 715 km, 6h 15 min. Carpooling: 17–22 €/asiento.",
+          "Lleida → Mad Cool IFEMA: 465 km, 4h 15 min. Carpooling: 12–16 €/asiento.",
+        ],
+      },
+      {
+        heading: "Cómo llegar a IFEMA desde el centro de Madrid",
+        paragraphs: [
+          "Una vez en Madrid, llegar a IFEMA es sencillo. La línea de metro L8 (Nuevos Ministerios → Feria de Madrid) tiene frecuencias de 3–6 minutos y el trayecto dura 20 minutos. El precio es el billete estándar (2,50 € con suplemento aeropuerto desde la T1/T2/T3 o 1,50 € desde el centro sin suplemento).",
+          "Alternativas: el autobús EMT línea 827 conecta la estación de Canillejas con IFEMA. Los taxis desde el centro de Madrid (Sol, Gran Vía) rondan los 20–25 €.",
+        ],
+        bullets: [
+          "Metro L8 Nuevos Ministerios → Feria de Madrid: 20 min, 1,50–2,50 €. Directo al recinto.",
+          "Bus EMT 827 Canillejas → IFEMA: 15 min desde la estación de Canillejas (Metro L5/L7).",
+          "Taxi centro Madrid → IFEMA: 20–25 €. En noche de festival puede superar los 35 €.",
+          "IFEMA tiene parking propio (~25 €), pero la salida en coche tarda 45–90 min tras el cierre.",
+        ],
+      },
+      {
+        heading: "Preguntas frecuentes: Mad Cool desde Barcelona",
+        paragraphs: [],
+        faqs: [
+          {
+            q: "¿Cuánto cuesta el AVE de Barcelona a Madrid para Mad Cool?",
+            a: "El AVE Barcelona Sants–Madrid Atocha en julio (temporada alta) cuesta entre 39 € (Promo con mucha antelación) y 120 € por trayecto. En días de Mad Cool, las tarifas Promo se agotan rápido. Un viaje de ida y vuelta en AVE puede superar los 200 €. El carpooling con ConcertRide cuesta 30–40 € ida y vuelta.",
+          },
+          {
+            q: "¿Puedo volver a Barcelona en tren la noche de Mad Cool?",
+            a: "No. El último AVE Madrid Atocha→Barcelona sale aproximadamente a las 21:30. Mad Cool acaba entre las 00:00 y las 02:00. La opción para volver a Barcelona la misma noche es el carpooling organizado con ConcertRide, con salida tras el último bolo.",
+          },
+          {
+            q: "¿Hay vuelos directos Barcelona–Madrid para Mad Cool?",
+            a: "Existen vuelos Barcelona–Madrid (El Prat–Barajas) con Vueling y Iberia desde 30 € ida, pero el aeropuerto de Barajas cierra a las 00:30 para vuelos domésticos. Tampoco hay vuelos nocturnos de vuelta el día del festival. El carpooling sigue siendo la única opción con vuelta nocturna.",
+          },
+        ],
+      },
+    ],
+    relatedLinks: [
+      { label: "Carpooling a Mad Cool", to: "/festivales/mad-cool" },
+      { label: "Rutas desde Barcelona a Madrid", to: "/rutas/barcelona-madrid" },
+      { label: "Cómo llegar a Mad Cool", to: "/como-llegar/mad-cool" },
+      { label: "Guía completa Mad Cool 2026", to: "/festivales/mad-cool" },
+    ],
+    relatedPosts: [
+      "mad-cool-2026-guia-completa",
+      "carpooling-mad-cool-desde-barcelona-2026",
+      "como-ir-mad-cool-desde-valencia-2026",
+      "autobuses-festivales-espana-2026",
+    ],
+  },
+);
+
+BLOG_POSTS.push(
+  // ──────────────────────────────────────────────────────────────────────
+  {
+    slug: "como-ir-sonar-barcelona-2026",
+    title: "Cómo ir a Sónar Barcelona 2026: transporte desde Madrid, Valencia y toda España",
+    h1: "Cómo ir a Sónar Barcelona 2026: transporte desde Madrid y Valencia",
+    excerpt:
+      "Sónar 2026 en el recinto Gran Via de L'Hospitalet. Guía de transporte desde Madrid, Valencia, Zaragoza y toda España: metro, carpooling, precios reales y cómo volver de Sónar de Noche.",
+    category: "guias",
+    tags: ["sonar", "barcelona", "hospitalet", "carpooling", "transporte", "madrid", "valencia", "festival", "2026"],
+    publishedAt: "2026-05-10",
+    author: "Equipo ConcertRide",
+    readingMinutes: 7,
+    lede:
+      "Sónar de Día y Sónar de Noche son dos bestias distintas en términos de transporte. El metro llega a Fira Gran Via durante el día — pero Sónar de Noche acaba a las 6:00 am y el metro ya ha cerrado. Guía completa para no quedarte tirado en L'Hospitalet.",
+    sections: [
+      {
+        heading: "Sónar de Día vs Sónar de Noche: dos situaciones de transporte completamente distintas",
+        paragraphs: [
+          "Sónar se celebra en dos ubicaciones: Sónar de Día en el recinto Gran Via de Fira de Barcelona (L'Hospitalet de Llobregat) y Sónar de Noche en el mismo recinto. La gran diferencia es el horario: Sónar de Día termina a las 22:00 y el metro L9 Sud (Fira) está operativo. Sónar de Noche termina a las 6:00 am — y el metro cierra a las 00:00.",
+          "Para Sónar de Noche, las opciones de vuelta son: taxi/VTC (x3 precio nocturno), bus nocturno N12/N62 hasta el centro de Barcelona, o carpooling organizado con salida programada para las 5:30–6:00 am. Es el festival de Barcelona donde el carpooling tiene más valor añadido.",
+        ],
+        bullets: [
+          "Sónar de Día: Metro L9 Sud estación Fira. Servicio hasta las 22:00–23:00.",
+          "Sónar de Noche: Metro cerrado desde medianoche. Bus Nitbus N12/N62 o taxi/VTC.",
+          "Sónar de Noche → carpooling: la opción más coordinada para volver a Madrid/Valencia sin estrés.",
+        ],
+      },
+      {
+        heading: "Cómo llegar a Sónar desde Madrid",
+        paragraphs: [
+          "La distancia Madrid–Barcelona/L'Hospitalet es de 620 km. Las opciones desde Madrid para Sónar son las mismas que para cualquier festival en Barcelona, pero con una diferencia importante: la vuelta de Sónar de Noche es a las 6:00 am, lo que hace totalmente inútil el AVE de vuelta (primer servicio ~6:30 desde Sants).",
+          "El carpooling con ConcertRide desde Madrid es la opción más utilizada por los festivaleros que quieren vivir Sónar de Noche completo y volver a Madrid al día siguiente. Precio: 15–20 €/asiento (ida). El conductor espera al grupo hasta el final de la sesión de noche y regresa hacia Madrid a las 6:00–7:00 am, llegando a la capital sobre las 12:00–13:00.",
+        ],
+        bullets: [
+          "Carpooling Madrid → Sónar: 15–20 €/asiento, 0% comisión. Salida y vuelta coordinada.",
+          "AVE Madrid → Barcelona Sants: 39–120 €, 2h 30 min. Sin opción de vuelta nocturna.",
+          "Bus ALSA nocturno: 20–35 €, 7–8h. Útil para llegada matinal al primer día de festival.",
+        ],
+      },
+      {
+        heading: "Transporte a Sónar desde Valencia y Zaragoza",
+        paragraphs: [
+          "Desde Valencia, la distancia a L'Hospitalet (Sónar) es de 360 km (3h 30 min en coche). El tren Euromed o AVE Valencia–Barcelona cuesta entre 24 y 65 €, con el mismo problema de vuelta nocturna inexistente. El carpooling con ConcertRide desde Valencia cuesta 8–13 €/asiento.",
+          "Desde Zaragoza, la distancia es de 310 km (2h 50 min). El tren Zaragoza–Barcelona cuesta 14–40 €. El carpooling: 7–11 €/asiento.",
+        ],
+        bullets: [
+          "Valencia → Sónar Barcelona: 360 km. Carpooling: 8–13 €. Tren: 24–65 €.",
+          "Zaragoza → Sónar Barcelona: 310 km. Carpooling: 7–11 €. Tren: 14–40 €.",
+          "Bilbao → Sónar Barcelona: 620 km. Carpooling: 16–21 €. AVE vía Madrid: 60–120 €.",
+          "Sevilla → Sónar Barcelona: 1.000 km. Carpooling: 22–30 €. No hay AVE directo.",
+        ],
+      },
+      {
+        heading: "Cómo moverse entre Sónar de Día y Sónar de Noche",
+        paragraphs: [
+          "En 2026, Sónar de Día y Sónar de Noche comparten el mismo recinto Gran Via de Fira de Barcelona. Si tienes entrada para ambos, puedes quedarte en el recinto o salir y volver. La opción de salir implica coger el metro (L9 Sud, estación Fira) hasta el centro de Barcelona, cenar, y volver en taxi o carpooling local antes de las 23:00.",
+          "Para los que vienen de fuera de Barcelona (Madrid, Valencia, Zaragoza), la estrategia más habitual es contratar alojamiento en el área de L'Hospitalet o Barcelona durante los días de Sónar, combinando el carpooling de ida con el transporte local durante el festival.",
+        ],
+      },
+      {
+        heading: "Preguntas frecuentes sobre transporte a Sónar 2026",
+        paragraphs: [],
+        faqs: [
+          {
+            q: "¿Qué metro lleva a Sónar de Noche en Barcelona?",
+            a: "La línea de metro L9 Sud (estación Fira o Europa/Fira) llega directamente al recinto Gran Via de Fira de Barcelona. Sin embargo, el metro cierra a las 00:00 (madrugada). Sónar de Noche termina a las 6:00 am, por lo que el metro no sirve para la vuelta. Las alternativas son taxi/VTC, bus Nitbus o carpooling organizado.",
+          },
+          {
+            q: "¿Hay lanzadera oficial de Sónar en Barcelona?",
+            a: "No existe una lanzadera oficial del festival. El metro L9 Sud cubre el transporte durante el día. Para Sónar de Noche, el festival ofrece información de taxi y VTC en su web oficial, pero no opera transporte propio.",
+          },
+          {
+            q: "¿Cuánto cuesta un taxi de Sónar de Noche al centro de Barcelona?",
+            a: "Un taxi de la Fira Gran Via al centro de Barcelona (Plaza Cataluña, Paseo de Gracia) cuesta entre 20 y 30 € de noche. En los horarios de cierre de Sónar (6:00 am), la disponibilidad de taxis es alta (cambio de turno de conductores matutino) pero el precio puede subir por tarifa nocturna.",
+          },
+          {
+            q: "¿Puedo llegar a Sónar en coche desde Madrid el mismo día?",
+            a: "Sí. El viaje Madrid–L'Hospitalet en coche son 5h 30 min. Saliendo de Madrid a las 6:00 am, llegas al recinto a las 11:30 am, a tiempo para Sónar de Día. Con carpooling desde Madrid, el coste es 15–20 €/asiento. El AVE sale cada hora y el trayecto dura 2h 30 min más el trayecto hasta el recinto.",
+          },
+        ],
+      },
+    ],
+    relatedLinks: [
+      { label: "Carpooling a Sónar Barcelona", to: "/festivales/sonar" },
+      { label: "Cómo llegar a Sónar", to: "/como-llegar/sonar" },
+      { label: "Guía transporte Barcelona festivales", to: "/blog/guia-transporte-conciertos-barcelona-2026" },
+    ],
+    relatedPosts: [
+      "sonar-barcelona-2026-carpooling",
+      "guia-transporte-conciertos-barcelona-2026",
+      "como-ir-primavera-sound-barcelona-2026",
+      "autobuses-festivales-espana-2026",
+    ],
+  },
+);
+
+BLOG_POSTS.push(
+  // ──────────────────────────────────────────────────────────────────────
+  {
+    slug: "transporte-arenal-sound-burriana-2026",
+    title: "Transporte Arenal Sound Burriana 2026: carpooling desde la costa y el interior",
+    h1: "Transporte Arenal Sound Burriana 2026: guía de carpooling desde toda España",
+    excerpt:
+      "Arenal Sound 2026 en la playa de Burriana (Castellón). Guía completa: cómo llegar en carpooling desde Valencia, Madrid, Barcelona, Alicante y toda la costa. Precios reales, punto de encuentro y vuelta de madrugada.",
+    category: "guias",
+    tags: ["arenal-sound", "burriana", "castellon", "carpooling", "transporte", "valencia", "festival", "2026", "playa"],
+    publishedAt: "2026-05-10",
+    author: "Equipo ConcertRide",
+    readingMinutes: 8,
+    lede:
+      "El Arenal Sound se celebra en la playa de Burriana, a 10 km de Castellón y 65 km de Valencia. El tren no llega al recinto, el bus lanzadera se llena, y los taxis de madrugada son una lotería. El carpooling desde tu ciudad es la única opción que te lleva de puerta a puerta con equipo de camping.",
+    sections: [
+      {
+        heading: "Cómo llegar al Arenal Sound: transporte público vs carpooling",
+        paragraphs: [
+          "El recinto del Arenal Sound está en la playa de Burriana, a 2 km del centro del municipio de Burriana y a 10 km de Castellón de la Plana. El transporte público más cercano llega hasta Castellón — el resto del trayecto requiere bus lanzadera o taxi adicional.",
+          "El tren Cercanías Renfe C6 conecta Valencia (Estació del Nord o Joaquín Sorolla) con Castellón de la Plana en 45–60 minutos (4–8 €). El bus lanzadera del festival cubre los 10 km entre Castellón y el recinto con paradas en el centro y la estación de autobuses. El problema: el lanzadera tiene plazas limitadas y no opera a partir de la 1:00, haciendo imposible la vuelta de madrugada en transporte público.",
+        ],
+        bullets: [
+          "Tren Cercanías Valencia → Castellón: 45–60 min, 4–8 €. No llega al recinto.",
+          "Bus lanzadera Castellón → Arenal Sound: 20 min, plazas limitadas. Corte ~1:00 am.",
+          "Tren ALSA Barcelona → Castellón: 2h 30 min, 15–25 €. No llega al recinto.",
+          "Carpooling ConcertRide → Arenal Sound (Burriana): llegada directa al recinto, con equipo de camping.",
+        ],
+      },
+      {
+        heading: "Carpooling a Arenal Sound desde Valencia y la costa mediterránea",
+        paragraphs: [
+          "Valencia es la ciudad más cercana al Arenal Sound (65 km, 50 min en coche). Con ConcertRide, el precio por asiento desde Valencia oscila entre 3 y 6 €, lo que hace que sea la ruta con el ratio precio-comodidad más alto del festival.",
+          "Desde la costa mediterránea (Alicante, Benidorm, Peñíscola, Salou, Tarragona), el festival atrae a festivaleros que vienen de fin de semana de playa combinado con Arenal Sound. Los precios de carpooling desde estos puntos varían:",
+        ],
+        bullets: [
+          "Valencia → Arenal Sound: 65 km, 50 min. Carpooling: 3–6 €/asiento.",
+          "Alicante → Arenal Sound: 170 km, 1h 45 min. Carpooling: 5–8 €/asiento.",
+          "Tarragona → Arenal Sound: 145 km, 1h 30 min. Carpooling: 5–8 €/asiento.",
+          "Barcelona → Arenal Sound: 280 km, 2h 40 min. Carpooling: 8–12 €/asiento.",
+          "Peñíscola → Arenal Sound: 35 km, 30 min. Carpooling: 2–4 €/asiento.",
+          "Murcia → Arenal Sound: 250 km, 2h 30 min. Carpooling: 7–11 €/asiento.",
+        ],
+      },
+      {
+        heading: "Carpooling desde Madrid y el interior a Arenal Sound",
+        paragraphs: [
+          "Desde Madrid, la distancia al Arenal Sound es de 430 km (4h de carretera). Las opciones de transporte público desde la capital son complejas: tren AVE hasta Valencia (1h 30 min, 20–60 €) más lanzadera o Cercanías hasta Castellón más bus del festival. En total: 3h de desplazamiento y hasta 70–90 € ida.",
+          "El carpooling con ConcertRide desde Madrid cuesta 12–17 €/asiento y el conductor y los pasajeros llegan directamente al recinto en 4 horas, evitando transbordos. Para la vuelta de madrugada (2:00–4:00 am), es la única opción que funciona desde la capital.",
+        ],
+        bullets: [
+          "Madrid → Arenal Sound: 430 km, 4h. Carpooling: 12–17 €. Tren+bus: 60–90 €.",
+          "Zaragoza → Arenal Sound: 360 km, 3h 30 min. Carpooling: 10–14 €.",
+          "Cuenca → Arenal Sound: 300 km, 3h. Carpooling: 8–12 €.",
+          "Teruel → Arenal Sound: 190 km, 1h 50 min. Carpooling: 5–8 €.",
+          "Albacete → Arenal Sound: 240 km, 2h 20 min. Carpooling: 6–10 €.",
+        ],
+      },
+      {
+        heading: "Camping Arenal Sound: cómo llegar con todo el equipo",
+        paragraphs: [
+          "Arenal Sound tiene zona de camping junto al recinto. Los que vienen con tienda, saco y mochila de varios días no pueden ir en tren (suplemento de equipaje, espacio limitado) ni en bus lanzadera (prohíben objetos voluminosos). El carpooling es la opción natural: el maletero del coche admite el equipo de camping completo.",
+          "Consejo práctico: cuando reserves el viaje en ConcertRide, menciona en el campo de descripción que llevas equipo de camping, para que el conductor confirme que tiene espacio en el maletero.",
+        ],
+        bullets: [
+          "Indica el equipo de camping al conductor al reservar el viaje.",
+          "Un maletero estándar admite 2–3 mochilas grandes + tiendas de campaña ligeras.",
+          "Si el grupo es de 4 personas con camping, considera reservar el coche completo en ConcertRide.",
+          "El parking del festival (~10 €/día) está disponible si vas en coche propio.",
+        ],
+      },
+      {
+        heading: "Preguntas frecuentes: transporte Arenal Sound 2026",
+        paragraphs: [],
+        faqs: [
+          {
+            q: "¿Hay bus de Valencia a Arenal Sound?",
+            a: "Sí. El tren Cercanías C6 Valencia–Castellón llega a la estación de Castellón (10 km del recinto) en 45–60 minutos. Desde allí opera un bus lanzadera del festival. El problema es que el lanzadera cierra a las 1:00 am — la vuelta de madrugada en transporte público es imposible. El carpooling con ConcertRide desde Valencia (3–6 €) lleva directamente al recinto y vuelve a cualquier hora.",
+          },
+          {
+            q: "¿Hay que pagar para entrar en coche al Arenal Sound?",
+            a: "El festival tiene zona de parking externo con un precio aproximado de 8–12 €/día. El acceso al recinto de camping con coche requiere pase de camping vehicle con cargo adicional. Muchos carpoolers dejan el coche en el parking externo y entran al festival a pie.",
+          },
+          {
+            q: "¿Cuánto cuesta el carpooling de Barcelona al Arenal Sound?",
+            a: "El carpooling desde Barcelona al Arenal Sound (Burriana) cuesta entre 8 y 12 € por asiento con ConcertRide, sin comisión de plataforma. El trayecto es de 280 km y dura aproximadamente 2h 40 min. El tren desde Barcelona hasta Castellón (ALSA o Renfe) cuesta 15–25 €, y requiere bus lanzadera adicional.",
+          },
+        ],
+      },
+    ],
+    relatedLinks: [
+      { label: "Carpooling a Arenal Sound", to: "/festivales/arenal-sound" },
+      { label: "Cómo llegar a Arenal Sound", to: "/como-llegar/arenal-sound" },
+      { label: "Rutas Valencia → Castellón", to: "/rutas/valencia-burriana" },
+    ],
+    relatedPosts: [
+      "arenal-sound-2026-transporte",
+      "carpooling-arenal-sound-desde-valencia-2026",
+      "autobuses-festivales-espana-2026",
+      "como-ir-sonar-barcelona-2026",
+    ],
+  },
+);
+
+BLOG_POSTS.push(
+  // ──────────────────────────────────────────────────────────────────────
+  {
+    slug: "como-ir-mad-cool-desde-valencia-2026",
+    title: "Cómo ir a Mad Cool desde Valencia 2026: guía de transporte compartido",
+    h1: "Cómo ir a Mad Cool desde Valencia 2026: carpooling y transporte compartido",
+    excerpt:
+      "Mad Cool 2026 en IFEMA Madrid. Guía de transporte desde Valencia: carpooling directo, AVE, bus y cómo volver de madrugada desde el festival. Precios reales desde 10 €.",
+    category: "guias",
+    tags: ["mad-cool", "madrid", "valencia", "carpooling", "transporte", "ifema", "festival", "2026"],
+    publishedAt: "2026-05-10",
+    author: "Equipo ConcertRide",
+    readingMinutes: 6,
+    lede:
+      "Valencia y Madrid están a 355 km. El AVE Valencia–Madrid cuesta 25–80 € y el último tren de vuelta sale antes de que termine el concierto. El carpooling con ConcertRide desde Valencia a Mad Cool cuesta 10–14 € y vuelve cuando acaba el último show.",
+    sections: [
+      {
+        heading: "La ruta Valencia–Madrid para Mad Cool: distancia y opciones",
+        paragraphs: [
+          "Mad Cool Festival se celebra en IFEMA Madrid, junto al aeropuerto de Barajas, accesible en metro L8 desde el centro de Madrid. Desde Valencia, la distancia hasta IFEMA es de 355 km por la AP-36/A-3.",
+          "Las opciones de transporte desde Valencia a Mad Cool son: AVE (Euromed/AVE Valencia–Madrid Atocha), bus de larga distancia (ALSA Valencia–Madrid) y carpooling con ConcertRide. Ninguna de las opciones de transporte público tiene vuelta nocturna desde Mad Cool.",
+        ],
+      },
+      {
+        heading: "AVE y Euromed Valencia → Madrid para Mad Cool",
+        paragraphs: [
+          "El AVE Valencia Joaquín Sorolla–Madrid Atocha tarda entre 1h 40 min y 2h 05 min según el servicio (AVE directo o con parada en Cuenca). El precio varía: 25 € (Promo anticipada) hasta 80 € (tarifa libre en julio). La operadora es Renfe.",
+          "El problema para Mad Cool: el último AVE Madrid Atocha → Valencia sale aproximadamente a las 22:00. Si el festival termina a las 1:00–2:00 am, es imposible volver en tren la misma noche. La alternativa sería el bus nocturno de ALSA (Madrid–Valencia, 4h 30 min, 15–30 €) con salidas a las 00:30–02:00 desde la estación de Madrid.",
+        ],
+        bullets: [
+          "AVE Valencia → Madrid: 1h 40 min–2h 05 min, 25–80 €. Sin vuelta nocturna.",
+          "Bus ALSA Valencia → Madrid: 4h 30 min, 15–30 €. Hay servicios nocturnos.",
+          "Carpooling ConcertRide: 3h 20 min, 10–14 €. Vuelta coordinada con el festival.",
+        ],
+      },
+      {
+        heading: "Carpooling de Valencia a Mad Cool: rutas, precios y puntos de encuentro",
+        paragraphs: [
+          "El carpooling con ConcertRide desde Valencia a Mad Cool es la opción más usada por festivaleros valencianos. El precio por asiento es de 10–14 € (ida), con 0% de comisión de plataforma. La duración del trayecto es de 3h 20 min.",
+          "Los puntos de encuentro más habituales en Valencia son: Estació del Nord (centro), Joaquín Sorolla y el Palau de Congressos en la zona de FIRA Valencia. Algunos conductores hacen parada en Requena o en el área de servicio de Buñol.",
+        ],
+        bullets: [
+          "Valencia Estació del Nord → Mad Cool IFEMA: 355 km, 3h 20 min. Carpooling: 10–14 €.",
+          "Castellón → Mad Cool IFEMA: 430 km, 4h. Carpooling: 12–16 €.",
+          "Alicante → Mad Cool IFEMA: 425 km, 4h 05 min. Carpooling: 12–16 €.",
+          "Benidorm → Mad Cool IFEMA: 450 km, 4h 20 min. Carpooling: 13–17 €.",
+          "Murcia → Mad Cool IFEMA: 400 km, 3h 45 min. Carpooling: 11–15 €.",
+        ],
+      },
+      {
+        heading: "Vuelta de madrugada desde Mad Cool a Valencia",
+        paragraphs: [
+          "La vuelta de Mad Cool a Valencia de madrugada es el mayor reto logístico del viaje. El festival termina entre la 1:00 y las 2:30 am. A esa hora, el metro L8 aún puede estar operativo (depende de la noche), pero los trenes a Valencia no salen hasta las 6:30–7:00 am.",
+          "Las opciones de vuelta nocturna Valencia–Madrid son: carpooling con salida post-festival (3h 20 min, llegada a Valencia a las 4:30–5:30 am), bus nocturno ALSA (salida ~00:30 desde Madrid, llegada 5:00 am a Valencia) o quedarse a dormir en Madrid y volver al día siguiente.",
+          "El carpooling de regreso es la opción preferida por los festivaleros: el conductor también ha ido al festival, así que sale cuando termina el último concierto. Sin prisas, sin perder el cabeza de cartel.",
+        ],
+      },
+      {
+        heading: "Preguntas frecuentes: Mad Cool desde Valencia",
+        paragraphs: [],
+        faqs: [
+          {
+            q: "¿Cuánto tarda el AVE de Valencia a Madrid para Mad Cool?",
+            a: "El AVE Valencia Joaquín Sorolla–Madrid Atocha tarda entre 1h 40 min y 2h 05 min. El precio varía según antelación y servicio: desde 25 € (Promo) hasta 80 € (tarifa libre en temporada alta de julio). No existe vuelta en AVE la noche del festival (último servicio ~22:00).",
+          },
+          {
+            q: "¿Hay bus nocturno de Madrid a Valencia la noche de Mad Cool?",
+            a: "Sí. ALSA opera servicios nocturnos Madrid–Valencia con salidas aproximadas a las 00:30 y las 02:00 desde la estación de autobuses de Madrid (Méndez Álvaro). El precio ronda los 15–30 €. El trayecto dura 4h 30 min, llegando a Valencia a las 5:00–6:30 am. Es una opción válida si puedes salir a esa hora del festival.",
+          },
+          {
+            q: "¿Es mejor el AVE o el carpooling para ir a Mad Cool desde Valencia?",
+            a: "Depende de tu prioridad. Si solo vas de día y puedes volver antes de las 22:00, el AVE (con Promo anticipada: 25 €) es cómodo y rápido. Si quieres ver el cabeza de cartel y volver la misma noche, el carpooling con ConcertRide (10–14 €/asiento) es la única opción: el conductor coordina la vuelta con el final del festival.",
+          },
+        ],
+      },
+    ],
+    relatedLinks: [
+      { label: "Carpooling a Mad Cool", to: "/festivales/mad-cool" },
+      { label: "Rutas Valencia → Madrid", to: "/rutas/valencia-madrid" },
+      { label: "Guía completa Mad Cool 2026", to: "/blog/mad-cool-2026-guia-completa" },
+    ],
+    relatedPosts: [
+      "mad-cool-2026-guia-completa",
+      "carpooling-mad-cool-desde-barcelona-2026",
+      "como-llegar-mad-cool-desde-barcelona-2026",
+      "autobuses-festivales-espana-2026",
+    ],
+  },
+);
+
+BLOG_POSTS.push(
+  // ──────────────────────────────────────────────────────────────────────
+  {
+    slug: "carpooling-vs-autobus-festival",
+    title: "Carpooling vs Autobús: cuándo sale más barato el coche compartido en festivales [2026]",
+    h1: "Carpooling vs Autobús a festivales: comparativa real de costes 2026",
+    excerpt:
+      "¿Cuándo sale más barato el carpooling que el autobús para ir a un festival? Comparamos precio, horarios, flexibilidad y vuelta de madrugada para los 10 festivales más importantes de España en 2026.",
+    category: "comparativas",
+    tags: ["carpooling", "autobús", "comparativa", "transporte", "festivales", "precio", "2026"],
+    publishedAt: "2026-05-10",
+    author: "Equipo ConcertRide",
+    readingMinutes: 8,
+    lede:
+      "\"¿Hay bus a este festival?\" es la primera pregunta de cualquier festivalero sin coche. \"¿Sale más barato el coche compartido?\" es la segunda. La respuesta depende de tres variables: distancia, hora de vuelta y cantidad de equipaje. Aquí tienes la comparativa honesta.",
+    sections: [
+      {
+        heading: "Autobús oficial vs autobús privado vs carpooling: no son lo mismo",
+        paragraphs: [
+          "Antes de comparar precios hay que distinguir tres categorías de transporte que a menudo se confunden en buscadores y redes sociales:",
+          "El autobús oficial del festival es el que organiza la propia promotora. Suele ser una lanzadera entre el centro de la ciudad más cercana y el recinto. En algunos festivales es gratuita (BBK Live, incluida en la entrada). En otros cuesta 5–15 € adicionales. No siempre opera de madrugada.",
+          "El autobús privado (no oficial) lo operan agencias de viaje o empresas de transporte que organizan viajes específicos al festival. Suelen salir desde Madrid, Barcelona o grandes capitales, con precio 35–55 € y vuelta a hora fija.",
+          "El carpooling es un conductor particular que va al festival y ofrece asientos libres en su coche. En ConcertRide, el precio es establecido por el conductor, cubriendo únicamente el coste de combustible, con 0% de comisión de plataforma.",
+        ],
+      },
+      {
+        heading: "Comparativa de precios: bus vs carpooling en los 10 festivales más importantes",
+        paragraphs: [
+          "Tabla comparativa de los costes reales de bus (oficial/privado) frente a carpooling (ConcertRide, 0% comisión) desde las ciudades de origen más frecuentes:",
+        ],
+        bullets: [
+          "Madrid → Viña Rock (Albacete) | Bus privado: 35–55 € | Carpooling ConcertRide: 6–9 € | Ahorro: 26–46 €",
+          "Madrid → Arenal Sound (Burriana) | Bus privado: 40–55 € | Carpooling ConcertRide: 12–17 € | Ahorro: 23–43 €",
+          "Madrid → BBK Live (Bilbao) | Bus privado: 45–60 € | Carpooling ConcertRide: 11–16 € | Ahorro: 29–49 €",
+          "Barcelona → Mad Cool (Madrid) | Bus privado: 45–60 € | Carpooling ConcertRide: 15–20 € | Ahorro: 25–45 €",
+          "Madrid → Resurrection Fest (Viveiro) | Bus privado: 50–70 € | Carpooling ConcertRide: 16–22 € | Ahorro: 28–54 €",
+          "Valencia → FIB (Benicàssim) | Bus lanzadera: 6–10 € | Carpooling ConcertRide: 4–7 € | Ahorro: 0–6 €",
+          "Bilbao → Sonorama (Aranda de Duero) | Bus privado: 35–50 € | Carpooling ConcertRide: 10–14 € | Ahorro: 21–40 €",
+          "Madrid → Primavera Sound (Barcelona) | Bus privado: 40–55 € | Carpooling ConcertRide: 15–20 € | Ahorro: 20–40 €",
+        ],
+      },
+      {
+        heading: "Cuándo el autobús gana al carpooling",
+        paragraphs: [
+          "El bus oficial o la lanzadera gana al carpooling en tres situaciones concretas:",
+        ],
+        bullets: [
+          "Cuando la lanzadera es gratuita o muy barata y opera de madrugada (BBK Live: incluida en la entrada, lanzadera hasta las 3:00 am desde Bilbao centro).",
+          "Cuando el recinto está en el área metropolitana con metro nocturno y el festivalero vive en la ciudad del festival (Sónar de Día, Cruïlla, Zevra en Valencia).",
+          "Cuando el festivalero va solo y no quiere socializarse con otros viajeros — aunque en ConcertRide el 40% de los pasajeros van solos y la valoración de la experiencia es muy alta.",
+        ],
+      },
+      {
+        heading: "Cuándo el carpooling gana al autobús",
+        paragraphs: [
+          "El carpooling es claramente mejor que el bus en estas situaciones:",
+        ],
+        bullets: [
+          "Vienes de otra provincia y el bus privado cuesta 35–60 € con vuelta a hora fija. El carpooling cuesta 10–20 € y vuelve cuando acaba el festival.",
+          "Llevas equipo de camping: tienda, saco, mochila grande. El bus privado cobra suplemento por equipaje o directamente no admite bultos voluminosos.",
+          "Quieres ver el cabeza de cartel completo. El bus privado suele tener vuelta fija a las 5:00–6:00 am; si el bolo acaba a las 2:30, pierdes el final. Con carpooling, el conductor espera.",
+          "El festival está en zona rural sin transporte nocturno (Viña Rock, Resurrection Fest, Sonorama): el bus llega hasta la ciudad más cercana, hay que sumar taxi o lanzadera.",
+          "Vas en grupo de 3–4 personas: el carpooling de coche completo sale aún más barato (precio por asiento × 4 plazas).",
+        ],
+      },
+      {
+        heading: "¿Cómo calcula el precio un carpooler en ConcertRide?",
+        paragraphs: [
+          "El precio de un viaje en ConcertRide lo fija el conductor siguiendo una estimación del coste de combustible dividido entre los pasajeros. La fórmula orientativa es: (distancia en km × 0,06 €/km) ÷ número de asientos. Esto da un precio de referencia de 6 € por cada 100 km por asiento.",
+          "ConcertRide no cobra comisión de plataforma (0%), lo que significa que el precio que ves es el precio que pagas. Las plataformas de carpooling generalistas cobran entre un 13% y un 18% de comisión sobre el precio del viaje, que repercute directamente en el precio por asiento.",
+        ],
+        bullets: [
+          "ConcertRide: 0% comisión. Precio = coste combustible ÷ pasajeros.",
+          "Plataformas generalistas de carpooling: 13–18% comisión. Precio incluye fee de plataforma.",
+          "Bus privado no oficial: precio fijo, sin flexibilidad de horario de vuelta.",
+          "Bus oficial del festival (lanzadera): precio fijo, horario limitado, solo desde hubs urbanos.",
+        ],
+      },
+      {
+        heading: "Preguntas frecuentes: carpooling vs autobús a festivales",
+        paragraphs: [],
+        faqs: [
+          {
+            q: "¿Es más barato el carpooling o el autobús privado para ir a un festival?",
+            a: "El carpooling con ConcertRide es entre 2 y 5 veces más barato que el autobús privado no oficial para la mayoría de festivales españoles. Por ejemplo, Madrid → Viña Rock: bus privado 35–55 €, carpooling ConcertRide 6–9 €. La diferencia es especialmente grande en distancias largas (Madrid–Galicia, Barcelona–Andalucía).",
+          },
+          {
+            q: "¿El autobús oficial del festival incluye la vuelta?",
+            a: "Depende del festival. La lanzadera oficial del BBK Live (Bilbao centro → Kobetamendi) está incluida en la entrada y opera en ambos sentidos durante todo el festival. La lanzadera del Medusa Festival (Valencia → Cullera) requiere billete de ida y vuelta por separado. La mayoría de festivales sin lanzadera oficial operan buses privados con vuelta incluida en el precio.",
+          },
+          {
+            q: "¿Puedo llevar equipo de camping en el carpooling?",
+            a: "Sí. Esta es una de las ventajas clave del carpooling frente al autobús. El maletero de un coche estándar admite 2–3 mochilas grandes más tiendas de campaña ligeras. Al reservar el viaje en ConcertRide, menciona en el comentario que llevas equipo de camping para confirmar el espacio disponible.",
+          },
+          {
+            q: "¿Qué pasa si el bus privado tiene vuelta a las 6:00 am y el festival acaba a las 3:00 am?",
+            a: "Tienes que quedarte esperando en el recinto (o en las inmediaciones) durante 3 horas antes de que salga el bus. Esta es una de las quejas más frecuentes con los autobuses privados a festivales. Con carpooling, la salida se coordina con el grupo: se puede volver a las 3:00 am o esperar hasta las 6:00 am según el consenso del grupo.",
+          },
+        ],
+      },
+    ],
+    relatedLinks: [
+      { label: "Comparativa transporte festivales", to: "/guia-transporte-festivales" },
+      { label: "Cómo calcular precio por asiento", to: "/blog/calcula-precio-por-asiento-2026" },
+      { label: "Autobuses a festivales 2026", to: "/blog/autobuses-festivales-espana-2026" },
+    ],
+    relatedPosts: [
+      "autobuses-festivales-espana-2026",
+      "carpooling-vs-taxi-festival-espana",
+      "carpooling-vs-ave-costes-reales-2026",
+      "como-ahorrar-transporte-festivales-5-estrategias",
+      "como-ir-primavera-sound-barcelona-2026",
+    ],
+  },
+);
+
+BLOG_POSTS.push(
+  // ──────────────────────────────────────────────────────────────────────
+  {
+    slug: "festivales-musica-2027-planifica-transporte",
+    title: "Festivales de música 2027: planifica tu transporte ahora y ahorra hasta un 60%",
+    h1: "Festivales de música 2027: planifica el transporte ahora y evita el estrés",
+    excerpt:
+      "Los festivales de música 2027 en España ya están tomando forma. Guía para planificar el transporte con antelación: carpooling, trenes, precios anticipados y por qué reservar en enero sale entre 30% y 60% más barato.",
+    category: "novedades",
+    tags: ["festivales", "2027", "transporte", "planificacion", "carpooling", "españa", "antelacion"],
+    publishedAt: "2026-05-10",
+    author: "Equipo ConcertRide",
+    readingMinutes: 7,
+    lede:
+      "¿Estás leyendo esto en mayo de 2026 y ya piensas en el verano de 2027? Bien hecho. Planificar el transporte a festivales con 12 meses de antelación puede suponer un ahorro de entre el 30% y el 60% en billetes de tren y carpooling. Aquí tienes el calendario estratégico.",
+    sections: [
+      {
+        heading: "Por qué planificar el transporte a festivales de 2027 desde ahora",
+        paragraphs: [
+          "Los festivales de música en España siguen un patrón predecible: los grandes eventos (Primavera Sound, Mad Cool, BBK Live, Arenal Sound, Viña Rock, Resurrection Fest, Sónar) se celebran cada año en las mismas fechas aproximadas y en los mismos recintos. Los carteles se anuncian entre noviembre y febrero.",
+          "El transporte es donde más dinero se ahorra o se pierde dependiendo de cuándo se reserve. El AVE tiene tarifas Promo con descuentos de hasta el 70% si se compran con 3–6 meses de antelación. Las plazas de carpooling en ConcertRide se publican cuando el conductor confirma que va al festival — generalmente 4–8 semanas antes.",
+          "La ventaja de planificar en 2026 para festivales de 2027: en cuanto se anuncien los carteles, serás el primero en publicar o reservar un viaje. Los conductores que publican primero consiguen los mejores grupos de viaje; los pasajeros que reservan antes tienen más opciones.",
+        ],
+      },
+      {
+        heading: "Calendario de festivales previstos para 2027",
+        paragraphs: [
+          "Basándonos en el histórico de fechas de los festivales españoles más importantes, este es el calendario provisional para 2027:",
+        ],
+        bullets: [
+          "Viña Rock 2027: última semana de abril o primera de mayo (Villarrobledo, Albacete). Habitual: fin de semana del 1 de mayo.",
+          "Primavera Sound 2027: última semana de mayo o primera de junio (Barcelona, Parc del Fòrum).",
+          "Sónar 2027: segunda semana de junio (Barcelona, Fira Gran Via).",
+          "Resurrection Fest 2027: última semana de junio (Viveiro, Lugo).",
+          "Mad Cool 2027: segunda o tercera semana de julio (Madrid, IFEMA).",
+          "BBK Live 2027: segunda semana de julio (Bilbao, Kobetamendi).",
+          "Arenal Sound 2027: primera semana de agosto (Burriana, Castellón).",
+          "Medusa Festival 2027: primera semana de agosto (Cullera, Valencia).",
+          "Sonorama Ribera 2027: segunda semana de agosto (Aranda de Duero, Burgos).",
+          "FIB Benicàssim 2027: segunda o tercera semana de julio (Benicàssim, Castellón).",
+        ],
+      },
+      {
+        heading: "Estrategia de transporte por antelación: cuándo actuar",
+        paragraphs: [
+          "El secreto del ahorro en transporte a festivales está en actuar en el momento correcto, no el más cómodo. Aquí el calendario estratégico recomendado:",
+        ],
+        bullets: [
+          "Octubre–noviembre 2026: compra los abonos de temporada en Renfe (tarjetas 10/25/50 viajes). Ahorro en trenes: 20–40%.",
+          "Noviembre–diciembre 2026: reserva habitaciones de hotel en ciudades hub (Madrid, Barcelona, Bilbao) para las fechas provisionales. Los precios de verano suben un 60–100% en días de festival.",
+          "Enero–febrero 2027: en cuanto se anuncien los carteles definitivos, publica tu viaje en ConcertRide (si eres conductor) o crea una alerta de viaje (si eres pasajero). Las mejores plazas se llenan primero.",
+          "Febrero–marzo 2027: compra los billetes de AVE en tarifa Promo cuando estén disponibles para las fechas del festival. Promo AVE Madrid–Barcelona: desde 25 €.",
+          "1–2 semanas antes del festival: confirma los detalles del viaje con el conductor/pasajeros. Revisa los puntos de encuentro y horarios.",
+        ],
+      },
+      {
+        heading: "Tendencias de transporte para festivales 2027",
+        paragraphs: [
+          "El sector del transporte a festivales en España está evolucionando hacia un modelo más sostenible y coordinado. Estas son las tendencias que marcarán 2027:",
+          "El carpooling entre festivaleros sigue creciendo: la proporción de asistentes a festivales que llegan en coche compartido ha pasado del 18% en 2022 al 31% en 2025, según datos del propio sector. Para 2027, la estimación es superar el 35%.",
+          "Los festivales están incorporando puntos de encuentro oficiales para carpooling en sus webs y aplicaciones. Mad Cool, Primavera Sound y BBK Live ya tienen secciones de transporte compartido en su comunicación.",
+          "El tren de alta velocidad está ampliando cobertura: la llegada del AVE a Extremadura (Badajoz), el Corredor Mediterráneo y la mejora de la conexión Bilbao–Madrid facilitarán el transporte en tren para festivales que hoy solo son accesibles en coche.",
+        ],
+      },
+      {
+        heading: "Preguntas frecuentes: planificación de transporte para festivales 2027",
+        paragraphs: [],
+        faqs: [
+          {
+            q: "¿Cuándo se anuncian las fechas de los festivales de 2027?",
+            a: "Los festivales españoles más importantes suelen anunciar sus fechas y primeros cabezas de cartel entre octubre y enero del año del evento. Primavera Sound, Mad Cool y BBK Live suelen anunciar sus fechas en otoño (octubre–noviembre 2026 para el festival 2027). Viña Rock y Resurrection Fest lo hacen en diciembre–enero.",
+          },
+          {
+            q: "¿Puedo reservar carpooling para un festival de 2027 ya?",
+            a: "En ConcertRide puedes crear una alerta de viaje en este momento para cualquier festival de 2027. Cuando un conductor publique un viaje hacia ese festival, recibirás una notificación. Los conductores suelen publicar sus viajes entre 4 y 8 semanas antes del festival.",
+          },
+          {
+            q: "¿Compensa reservar el AVE con 12 meses de antelación para festivales?",
+            a: "Las tarifas Promo de Renfe para AVE se ponen a la venta generalmente con 60–90 días de antelación, no 12 meses. Lo que sí puedes hacer con 12 meses de antelación es preparar el presupuesto, activar alertas de precio en Renfe y Trainline, y tener preparadas las fechas para comprar en cuanto salgan las Promo.",
+          },
+        ],
+      },
+    ],
+    relatedLinks: [
+      { label: "Festivales de verano 2026", to: "/blog/festivales-verano-espana-2026-transporte" },
+      { label: "Festivales España 2027", to: "/blog/festivales-espana-2027-preview" },
+      { label: "Cómo publicar un viaje", to: "/publish" },
+    ],
+    relatedPosts: [
+      "festivales-espana-2027-preview",
+      "festivales-verano-espana-2026-transporte",
+      "como-organizar-temporada-festivales-2026",
+      "calendario-festivales-espana-2026-completo",
+    ],
+  },
+);
+
+BLOG_POSTS.push(
+  // ──────────────────────────────────────────────────────────────────────
+  {
+    slug: "como-ahorrar-transporte-festivales-5-estrategias",
+    title: "Cómo ahorrar en transporte a festivales: 5 estrategias para 2026 [Guía práctica]",
+    h1: "Cómo ahorrar en transporte a festivales 2026: 5 estrategias reales",
+    excerpt:
+      "5 estrategias probadas para reducir el coste de transporte a festivales de música en España: carpooling 0% comisión, tarifas Promo AVE, combinar tren+carpooling, viajar en grupo y reservar con antelación.",
+    category: "guias",
+    tags: ["ahorro", "transporte", "festivales", "carpooling", "estrategias", "precio", "guia", "2026"],
+    publishedAt: "2026-05-10",
+    author: "Equipo ConcertRide",
+    readingMinutes: 7,
+    lede:
+      "El transporte puede ser entre el 15% y el 40% del presupuesto total de un festival, dependiendo de la distancia y las decisiones que tomes. Con las estrategias correctas, puedes reducir ese gasto a la mitad — sin sacrificar comodidad ni horario de vuelta.",
+    sections: [
+      {
+        heading: "Estrategia 1: carpooling con 0% de comisión",
+        paragraphs: [
+          "La primera y más impactante estrategia de ahorro en transporte a festivales es elegir una plataforma de carpooling sin comisión de plataforma. Las plataformas de carpooling generalistas cobran entre el 13% y el 18% sobre el precio del viaje como tarifa de servicio. En un viaje de 15 €, eso supone entre 2 y 2,70 € adicionales por trayecto, por persona.",
+          "ConcertRide cobra 0% de comisión. El precio que ves es el precio que pagas. El conductor fija el precio cubriendo únicamente los costes de combustible divididos entre los pasajeros. En un viaje Madrid–Barcelona de 15 € con una plataforma generalista, pagas 17,25–17,70 €. En ConcertRide, pagas exactamente 15 €.",
+          "Aplicado a un festival con ida y vuelta: el ahorro es de 4–6 € por persona. Si tu grupo son 3 personas, el ahorro total es de 12–18 €. El suficiente para pagarse una ronda en el festival.",
+        ],
+        bullets: [
+          "Plataformas generalistas: 13–18% comisión de plataforma.",
+          "ConcertRide: 0% comisión. Precio = coste combustible ÷ plazas.",
+          "Ahorro en ida+vuelta Madrid–Barcelona: 4–6 € por persona.",
+          "Ahorro para grupo de 4 personas en ida+vuelta: 16–24 €.",
+        ],
+      },
+      {
+        heading: "Estrategia 2: reservar el AVE en tarifa Promo",
+        paragraphs: [
+          "Si prefieres el tren para llegar al festival y el carpooling solo para la vuelta nocturna, la tarifa Promo de Renfe puede reducir el coste del AVE entre un 50% y un 70%. Las tarifas Promo tienen el inconveniente de no ser reembolsables ni canjeables — pero para una fecha de festival confirmada, es un riesgo aceptable.",
+          "Ejemplo práctico: Madrid–Barcelona en AVE, tarifa libre en julio: 89–120 €. Tarifa Promo con 60 días de antelación: 25–39 €. Si combinas la Promo de ida con el carpooling de vuelta nocturna (15–20 €), el coste total es de 40–60 € frente a los 160–240 € de AVE ida y vuelta sin Promo.",
+        ],
+        bullets: [
+          "Activa alertas de precio en Renfe.es y Trainline para tus rutas.",
+          "Las Promo se publican con 60–90 días de antelación. Configura un recordatorio.",
+          "Combina: AVE Promo de ida (barato, rápido) + carpooling nocturno de vuelta (flexible, coordinado).",
+          "La Promo no es reembolsable — solo úsala si la fecha del festival está 100% confirmada.",
+        ],
+      },
+      {
+        heading: "Estrategia 3: organizar el coche completo",
+        paragraphs: [
+          "Si eres conductor y vas a un festival, publicar el viaje con los 3–4 asientos libres en ConcertRide convierte el coste del combustible en prácticamente cero. Un viaje Madrid–Viña Rock (Albacete) cuesta unos 35 € en gasolina ida y vuelta. Con 3 pasajeros a 9 € cada uno, el conductor recupera los 27 € de combustible y el gasto neto es de 8 €.",
+          "Si eres pasajero y conoces a 3–4 personas que van al mismo festival desde tu ciudad, organiza el coche completo: un coche con conductor + 3 pasajeros desde Madrid a Viña Rock saldría a 9 € por persona (ida), frente a los 35–55 € de bus privado. Ahorro total del grupo: 100–180 €.",
+        ],
+        bullets: [
+          "Conductor: publica el viaje en ConcertRide y recupera el coste del combustible.",
+          "Pasajeros: 4 personas en el mismo coche = 4× el ahorro frente al bus privado.",
+          "Madrid–Viña Rock con 4 personas en carpooling: ~9 €/persona. Bus privado: 35–55 €/persona.",
+          "Ahorro del grupo (4 personas, ida+vuelta): 130–230 € frente al bus privado.",
+        ],
+      },
+      {
+        heading: "Estrategia 4: aprovechar el transporte público local",
+        paragraphs: [
+          "Para los festivales en grandes ciudades con buena cobertura de metro nocturno (Sónar, Cruïlla, Mad Cool con metro L8, Zevra en Valencia), el transporte público local es imbatible en precio: 1,50–2,55 € el billete sencillo frente a los 5–20 € del carpooling.",
+          "La estrategia óptima es combinar las dos opciones: llega al festival en metro/tren/bus (barato), y si el festival termina después del cierre del metro, organiza el carpooling solo para la vuelta. Muchos conductores en ConcertRide publican viajes de solo vuelta para festivales en ciudades con buen transporte de día.",
+        ],
+        bullets: [
+          "Usa el metro/bus para llegar si el festival está en zona urbana bien conectada.",
+          "Reserva el carpooling solo para la vuelta nocturna si el metro cierra antes del final.",
+          "Billete de metro en Madrid/Barcelona: 1,50–2,55 €. Carpooling vuelta: 5–15 €.",
+          "Combinación óptima: metro (ida) + carpooling (vuelta). Coste total: 7–18 €.",
+        ],
+      },
+      {
+        heading: "Estrategia 5: reservar con la máxima antelación posible",
+        paragraphs: [
+          "El precio del carpooling es relativamente estable (depende del combustible, no de la demanda), pero la disponibilidad sí varía: los viajes con mejor relación precio-calidad (conductor con 4.9 de valoración, horario cómodo, punto de encuentro conveniente) se reservan primero.",
+          "Para el AVE y los buses de larga distancia, la antelación sí afecta al precio: reservar con 60–90 días de antelación puede reducir el coste hasta un 70% en AVE y un 30–40% en buses ALSA.",
+          "El mejor momento para reservar el transporte a un festival: en cuanto se confirme que vas y tengas las entradas. Para festivales de verano (julio–agosto), eso suele ser entre enero y abril.",
+        ],
+        bullets: [
+          "AVE: reserva con 60–90 días de antelación para tarifas Promo (descuento 50–70%).",
+          "Bus ALSA: reserva con 30–60 días para los precios más bajos (descuento 30–40%).",
+          "Carpooling ConcertRide: publica o reserva en cuanto confirmes asistencia. Las mejores plazas se llenan.",
+          "Para festivales de verano: el período óptimo de reserva es entre enero y abril.",
+        ],
+      },
+      {
+        heading: "Preguntas frecuentes: cómo ahorrar en transporte a festivales",
+        paragraphs: [],
+        faqs: [
+          {
+            q: "¿Cuál es la opción de transporte más barata para ir a un festival?",
+            a: "Depende de la distancia y el festival. Para festivales a menos de 200 km, el carpooling con ConcertRide (0% comisión) suele ser la opción más barata: 3–10 € por asiento. Para festivales a más de 400 km, el AVE en tarifa Promo puede ser competitivo. En general, el carpooling de coche completo (4 personas) es siempre la opción más económica por persona.",
+          },
+          {
+            q: "¿Cuánto ahorra el coche compartido frente al taxi o VTC a un festival?",
+            a: "El ahorro es enorme. Un taxi de Madrid al festival de Viña Rock (Albacete, 250 km) costaría 200–250 €. El mismo trayecto en carpooling con ConcertRide cuesta 6–9 € por persona (con 4 personas en el coche: 24–36 € en total). El ahorro es de más del 85%.",
+          },
+          {
+            q: "¿Es fiable el carpooling para no perderte el inicio del festival?",
+            a: "Sí, con una condición: reserva el viaje de ida con la antelación suficiente (mínimo 1–2 semanas) y confirma el horario de salida con el conductor. Los conductores en ConcertRide van al festival, así que tienen tanto interés como tú en llegar a tiempo. La tasa de cancelación de última hora en ConcertRide es baja porque conductor y pasajeros comparten el mismo evento.",
+          },
+          {
+            q: "¿Compensa pagar por un bus privado si tiene vuelta incluida?",
+            a: "Depende del precio. Si el bus privado (ida+vuelta) cuesta 35–55 € y el carpooling (ida+vuelta) con ConcertRide cuesta 15–30 €, el bus solo compensa si: tienes miedo de que el conductor cancele, prefieres no socializar con desconocidos o el bus incluye servicios adicionales (bebidas, música). En precio puro, el carpooling casi siempre gana.",
+          },
+        ],
+      },
+    ],
+    relatedLinks: [
+      { label: "Calcula el precio por asiento", to: "/blog/calcula-precio-por-asiento-2026" },
+      { label: "Carpooling vs Autobús a festivales", to: "/blog/carpooling-vs-autobus-festival" },
+      { label: "Guía de transporte para festivales", to: "/guia-transporte-festivales" },
+    ],
+    relatedPosts: [
+      "carpooling-vs-autobus-festival",
+      "carpooling-vs-taxi-festival-espana",
+      "carpooling-vs-ave-costes-reales-2026",
+      "calcula-precio-por-asiento-2026",
+    ],
   },
 );
 

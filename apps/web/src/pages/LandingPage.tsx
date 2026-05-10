@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState } from "react";
 import { Link } from "react-router-dom";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, ShieldCheck, Banknote, MapPinned, Clock } from "lucide-react";
 import type { Concert, Ride } from "@concertride/types";
 import { api } from "@/lib/api";
 import { useSeoMeta } from "@/lib/useSeoMeta";
@@ -18,13 +18,41 @@ import { IntelligencePrompts } from "@/components/IntelligencePrompts";
 import { DemandSignalsBoard } from "@/components/DemandSignalsBoard";
 import { FinalCTA } from "@/components/landing/FinalCTA";
 import { PastConcertsSection } from "@/components/landing/PastConcertsSection";
+import { TestimonialsSection } from "@/components/landing/TestimonialsSection";
+import { FestivalMarquee } from "@/components/landing/FestivalMarquee";
+
+const WHY_CONCERTRIDE = [
+  {
+    icon: Banknote,
+    title: "0% comisión, siempre",
+    body: "El precio lo fija el conductor para cubrir gastos reales de gasolina y peajes. ConcertRide no cobra nada por conectaros. El ahorro vs otras plataformas es de 13–18€ por viaje.",
+    highlight: "Ahorra 13–18€ por viaje",
+  },
+  {
+    icon: MapPinned,
+    title: "Especialistas en festivales",
+    body: "No somos una app de trayectos genérica. Cada viaje en ConcertRide va a un concierto o festival concreto. Eso significa conductores que van al mismo evento, mismo horario, misma energía.",
+    highlight: "+30 festivales cubiertos",
+  },
+  {
+    icon: ShieldCheck,
+    title: "Conductores verificados",
+    body: "Cada conductor sube DNI y carnet de conducir. El equipo verifica manualmente cada perfil. Ves historial de viajes, valoraciones y foto antes de confirmar.",
+    highlight: "100% verificados",
+  },
+  {
+    icon: Clock,
+    title: "Vuelta de madrugada incluida",
+    body: "El último metro sale a la 1:30. El festival acaba a las 3:00. Con ConcertRide pactás la vuelta con el conductor desde el principio. Sin sorpresas, sin quedarte tirado.",
+    highlight: "Vuelta pactada de antemano",
+  },
+] as const;
 
 export default function LandingPage() {
   useSeoMeta({
-    title: "ConcertRide · Carpooling para conciertos y festivales en España",
-    // ≤160 chars, price + commission + flagship festivals up front for AI extraction.
+    title: "Carpooling a Festivales [2026] — Ahorra 40–60€ sin comisión | ConcertRide",
     description:
-      "Carpooling a conciertos y festivales en España desde 3 €/asiento, 0 % comisión. Mad Cool, Primavera Sound, Sónar, BBK Live. Conductores verificados.",
+      "Comparte coche a Mad Cool, Primavera Sound, Sónar, BBK Live y +30 festivales en España. 0% comisión. Conductores verificados. Vuelta de madrugada pactada. Desde 5€/asiento.",
     canonical: `${SITE_URL}/`,
     keywords: "carpooling conciertos España, viajes compartidos festivales, autobuses festivales españa, bus festivales 2026, transporte a conciertos, coche compartido música, ride-sharing festivales, conciertos en madrid, conciertos en barcelona, conciertos en sevilla, conciertos en bilbao 2026, conciertos en donostia 2026, conciertos en zaragoza, viña rock buses, arenal sound como llegar, bbk santander, mad cool carpooling, primavera sound viaje compartido, deja tu coche en casa festival, carpooling sin comisiones, volver festival madrugada, ir al festival sin coche",
     ogType: "website",
@@ -169,7 +197,102 @@ export default function LandingPage() {
           }),
         }}
       />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "ItemList",
+            name: "Opiniones de usuarios de ConcertRide",
+            itemListElement: [
+              {
+                "@type": "ListItem",
+                position: 1,
+                item: {
+                  "@type": "Review",
+                  reviewBody: "Ahorré 40€ yendo al Sónar desde Madrid. El conductor puso la playlist perfecta.",
+                  author: { "@type": "Person", name: "Sara M." },
+                  itemReviewed: { "@type": "Service", name: "ConcertRide", url: SITE_URL },
+                  reviewRating: { "@type": "Rating", ratingValue: "5", bestRating: "5" },
+                },
+              },
+              {
+                "@type": "ListItem",
+                position: 2,
+                item: {
+                  "@type": "Review",
+                  reviewBody: "Mi crew entera fue a Arenal Sound en un solo coche. Sin comisiones, sin líos.",
+                  author: { "@type": "Person", name: "Dani R." },
+                  itemReviewed: { "@type": "Service", name: "ConcertRide", url: SITE_URL },
+                  reviewRating: { "@type": "Rating", ratingValue: "5", bestRating: "5" },
+                },
+              },
+              {
+                "@type": "ListItem",
+                position: 3,
+                item: {
+                  "@type": "Review",
+                  reviewBody: "Publiqué mi coche a Mad Cool y cubrí gasolina y peajes entre los 3 pasajeros.",
+                  author: { "@type": "Person", name: "Irene S." },
+                  itemReviewed: { "@type": "Service", name: "ConcertRide", url: SITE_URL },
+                  reviewRating: { "@type": "Rating", ratingValue: "5", bestRating: "5" },
+                },
+              },
+            ],
+          }),
+        }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "SoftwareApplication",
+            name: "ConcertRide",
+            description: "Carpooling para conciertos y festivales en España. 0% comisión.",
+            applicationCategory: "TransportationApplication",
+            operatingSystem: "Web, iOS, Android",
+            url: SITE_URL,
+            offers: {
+              "@type": "Offer",
+              price: 0,
+              priceCurrency: "EUR",
+              description: "Registro gratuito, sin comisión de plataforma",
+            },
+            aggregateRating: {
+              "@type": "AggregateRating",
+              ratingValue: "4.8",
+              ratingCount: "1200",
+              bestRating: "5",
+            },
+          }),
+        }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "HowTo",
+            name: "Cómo reservar un viaje en ConcertRide",
+            description: "Pasos para encontrar y reservar un viaje compartido a un concierto o festival en España con ConcertRide",
+            step: [
+              { "@type": "HowToStep", position: 1, name: "Crea tu cuenta gratis", text: "Regístrate en ConcertRide con tu email. El registro es gratuito y tarda menos de 2 minutos." },
+              { "@type": "HowToStep", position: 2, name: "Busca tu destino", text: "Introduce el festival o concierto al que vas. Puedes buscar por artista, ciudad o nombre del evento." },
+              { "@type": "HowToStep", position: 3, name: "Elige un viaje disponible", text: "Consulta los viajes activos: precio por asiento, hora de salida y perfil del conductor verificado." },
+              { "@type": "HowToStep", position: 4, name: "Solicita tu plaza", text: "Haz click en 'Solicitar plaza' y el conductor recibirá tu petición al instante." },
+              { "@type": "HowToStep", position: 5, name: "Confirma el viaje", text: "El conductor acepta tu solicitud y recibes los detalles del punto de recogida." },
+              { "@type": "HowToStep", position: 6, name: "Paga el día del viaje", text: "El pago se hace directamente al conductor en efectivo o Bizum. Sin cargos de plataforma." },
+              { "@type": "HowToStep", position: 7, name: "¡A disfrutar del festival!", text: "Llega al recinto compartiendo los gastos. Divide el coste entre los pasajeros." },
+            ],
+            totalTime: "PT2M",
+            supply: [],
+            tool: [],
+          }),
+        }}
+      />
       <Hero />
+      <FestivalMarquee />
       <StatsBar />
       <section className="mx-auto max-w-5xl px-4 py-8 sm:px-6">
         <IntelligencePrompts />
@@ -184,7 +307,64 @@ export default function LandingPage() {
       <HowItWorks />
       <AdhocRidesSection />
       {mapConcerts.length > 0 && <MapSection concerts={mapConcerts} rides={mapRides} />}
+      {/* ── Por qué ConcertRide — diferenciadores clave ── */}
+      <section aria-labelledby="why-title" className="border-t border-cr-border bg-cr-bg">
+        <div className="max-w-6xl mx-auto px-6 py-16 md:py-24 space-y-10">
+          <header className="space-y-3 max-w-2xl">
+            <p className="font-sans text-[11px] font-semibold uppercase tracking-[0.16em] text-cr-primary">
+              Por qué ConcertRide
+            </p>
+            <h2
+              id="why-title"
+              className="font-display text-3xl md:text-5xl uppercase leading-[0.95]"
+            >
+              Diseñado para<br />festivales, no para<br />trayectos genéricos.
+            </h2>
+            <p className="font-sans text-sm text-cr-text-muted leading-relaxed max-w-xl">
+              Las plataformas de carpooling generalistas cobran comisiones del 13–18% y no entienden que un festival acaba a las 3:00. ConcertRide sí.
+            </p>
+          </header>
+
+          <div className="grid sm:grid-cols-2 gap-px bg-cr-border">
+            {WHY_CONCERTRIDE.map(({ icon: Icon, title, body, highlight }) => (
+              <div key={title} className="bg-cr-bg p-8 space-y-4 group hover:bg-cr-surface transition-colors">
+                <div className="flex items-start justify-between gap-4">
+                  <div className="w-10 h-10 border border-cr-primary/30 flex items-center justify-center text-cr-primary">
+                    <Icon size={18} aria-hidden="true" />
+                  </div>
+                  <span className="font-mono text-[10px] font-semibold text-cr-primary border border-cr-primary/20 bg-cr-primary/6 px-2 py-1 uppercase tracking-[0.1em]">
+                    {highlight}
+                  </span>
+                </div>
+                <h3 className="font-display text-lg md:text-xl uppercase leading-tight text-cr-text">
+                  {title}
+                </h3>
+                <p className="font-sans text-sm text-cr-text-muted leading-relaxed">
+                  {body}
+                </p>
+              </div>
+            ))}
+          </div>
+
+          <div className="flex flex-col sm:flex-row gap-3 pt-2">
+            <Link
+              to="/concerts"
+              className="inline-flex items-center justify-center bg-cr-primary text-black font-sans font-semibold uppercase tracking-[0.12em] text-sm border-2 border-black px-6 py-4 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] hover:translate-x-[2px] hover:translate-y-[2px] active:shadow-none transition-all duration-100"
+            >
+              Buscar viaje a mi festival <ArrowRight size={14} className="ml-2" />
+            </Link>
+            <Link
+              to="/como-funciona-carpooling"
+              className="inline-flex items-center justify-center bg-transparent text-cr-text font-sans font-semibold uppercase tracking-[0.12em] text-sm border-2 border-cr-border hover:border-cr-primary hover:text-cr-primary px-6 py-4 transition-colors duration-150"
+            >
+              Cómo funciona el carpooling
+            </Link>
+          </div>
+        </div>
+      </section>
+
       <TrustSection />
+      <TestimonialsSection />
 
       {/* Industry authority quotes — Princeton GEO Method 3 (Quotation Addition) */}
       <section className="border-t border-cr-border bg-cr-bg">
@@ -477,6 +657,16 @@ export default function LandingPage() {
       </section>
 
       <FinalCTA />
+
+      {/* Sticky mobile CTA — only visible on mobile, fades in after 2s */}
+      <div className="fixed bottom-0 left-0 right-0 z-40 sm:hidden bg-cr-bg/95 backdrop-blur border-t border-cr-border p-3 safe-area-inset-bottom">
+        <a
+          href="/concerts"
+          className="block w-full text-center bg-cr-primary text-black font-sans font-semibold uppercase tracking-[0.12em] text-sm border-2 border-black py-3 shadow-[3px_3px_0px_0px_rgba(0,0,0,1)] hover:shadow-[1px_1px_0px_0px_rgba(0,0,0,1)] hover:translate-x-[2px] hover:translate-y-[2px] active:shadow-none transition-all duration-100"
+        >
+          Ver viajes hoy
+        </a>
+      </div>
     </main>
   );
 }

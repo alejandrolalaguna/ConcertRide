@@ -11,6 +11,7 @@ import { REGION_ISO } from "@/lib/seoConfig";
 import { generateServiceSchema } from "@/lib/schemaGenerators";
 import { ROUTE_LANDINGS_BY_SLUG } from "@/lib/routeLandings";
 import { ROUTE_SEO_IMPROVEMENTS } from "@/lib/seoOverrides";
+import { BLOG_POSTS } from "@/lib/blogPosts";
 import { FestivalAlertWidget } from "@/components/FestivalAlertWidget";
 import { DemandSignalWidget } from "@/components/DemandSignalWidget";
 import { FactDensityCallout } from "@/components/FactDensityCallout";
@@ -726,6 +727,41 @@ export default function RouteLandingPage() {
           ))}
         </dl>
       </section>
+
+      {/* ── Related blog posts ── */}
+      {(() => {
+        const festSlug = festival.slug;
+        const relatedPosts = BLOG_POSTS.filter((p) =>
+          p.relatedPosts?.includes(festSlug) ||
+          p.tags?.some((t: string) => t === festSlug || t === festival.shortName.toLowerCase()) ||
+          p.slug.includes(festSlug) ||
+          p.title.toLowerCase().includes(festival.shortName.toLowerCase())
+        ).slice(0, 3);
+        if (relatedPosts.length === 0) return null;
+        return (
+          <section className="max-w-6xl mx-auto px-6 pb-16 border-t border-cr-border pt-12 space-y-5">
+            <h2 className="font-display text-xl uppercase">
+              Guías de transporte a {festival.shortName}
+            </h2>
+            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+              {relatedPosts.map((post) => (
+                <Link
+                  key={post.slug}
+                  to={`/blog/${post.slug}`}
+                  className="border border-cr-border p-4 space-y-2 hover:border-cr-primary/40 transition-colors"
+                >
+                  <p className="font-mono text-[10px] uppercase tracking-[0.14em] text-cr-primary">Guía</p>
+                  <h3 className="font-display text-sm uppercase leading-tight">{post.title}</h3>
+                  <p className="font-sans text-xs text-cr-text-muted line-clamp-2">{post.excerpt}</p>
+                  <span className="inline-flex items-center gap-1 font-sans text-xs text-cr-primary">
+                    Leer <ArrowRight size={10} />
+                  </span>
+                </Link>
+              ))}
+            </div>
+          </section>
+        );
+      })()}
 
       {/* ── Links internos ── */}
       <section className="max-w-6xl mx-auto px-6 pb-24 border-t border-cr-border pt-10 space-y-4">

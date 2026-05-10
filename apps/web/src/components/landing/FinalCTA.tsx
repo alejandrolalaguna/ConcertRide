@@ -6,6 +6,22 @@ export function FinalCTA() {
       aria-labelledby="final-cta"
       className="relative min-h-dvh flex items-center justify-center overflow-hidden bg-cr-bg"
     >
+      {/* Pulsing glow ring behind the headline */}
+      <div
+        aria-hidden="true"
+        className="cr-ring-pulse absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full pointer-events-none border border-cr-primary"
+      />
+      <div
+        aria-hidden="true"
+        className="cr-ring-pulse absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[400px] h-[400px] rounded-full pointer-events-none border border-cr-primary"
+        style={{ animationDelay: "1.5s" }}
+      />
+      {/* Stage light from top center */}
+      <div
+        aria-hidden="true"
+        className="absolute top-[-20%] left-1/2 -translate-x-1/2 w-[80vw] h-[60vw] pointer-events-none"
+        style={{ background: "radial-gradient(ellipse 60% 50% at 50% 0%, rgb(212 247 0 / 0.1) 0%, transparent 70%)" }}
+      />
       <CornerAccents />
 
       <div className="relative text-center px-6 max-w-4xl mx-auto space-y-10">
