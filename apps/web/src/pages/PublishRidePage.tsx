@@ -304,13 +304,13 @@ export default function PublishRidePage() {
           <div className="flex flex-col sm:flex-row gap-3 justify-center">
             <Link
               to={`/rides/${created.id}`}
-              className="inline-flex items-center justify-center bg-cr-primary text-black font-sans font-semibold uppercase tracking-[0.12em] text-sm border-2 border-black px-6 py-3 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] hover:translate-x-[2px] hover:translate-y-[2px] transition-all duration-100"
+              className="cr-btn-shine inline-flex items-center justify-center bg-cr-primary text-black font-sans font-semibold uppercase tracking-[0.14em] text-sm px-6 py-4 hover:bg-[#c8ec00] transition-colors duration-150"
             >
-              Ver mi viaje
+              Ver mi viaje →
             </Link>
             <Link
               to="/"
-              className="inline-flex items-center justify-center bg-transparent text-cr-text font-sans font-semibold uppercase tracking-[0.12em] text-sm border-2 border-cr-border hover:border-cr-primary hover:text-cr-primary px-6 py-3 transition-colors duration-150"
+              className="inline-flex items-center justify-center bg-transparent text-cr-text-muted font-sans font-semibold uppercase tracking-[0.12em] text-sm border border-white/[0.1] hover:border-cr-primary hover:text-cr-primary px-6 py-4 transition-all duration-150"
             >
               Volver al inicio
             </Link>
@@ -323,26 +323,31 @@ export default function PublishRidePage() {
   return (
     <main id="main" className="min-h-dvh bg-cr-bg text-cr-text">
       <div className="max-w-3xl mx-auto px-6 py-10 md:py-16 space-y-10">
-        <header className="space-y-4">
+        <motion.header
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+          className="space-y-5"
+        >
           <button
             type="button"
             onClick={() => navigate(-1)}
-            className="inline-flex items-center gap-2 font-sans text-xs font-semibold uppercase tracking-[0.12em] text-cr-text-muted hover:text-cr-primary transition-colors"
+            className="inline-flex items-center gap-1.5 font-mono text-[10px] font-semibold uppercase tracking-[0.18em] text-white/30 hover:text-cr-primary transition-colors"
           >
-            <ArrowLeft size={14} /> Volver
+            <ArrowLeft size={12} aria-hidden="true" /> Volver
           </button>
-          <div className="space-y-2">
-            <p className="font-sans text-[11px] font-semibold uppercase tracking-[0.16em] text-cr-primary">
+          <div className="space-y-3">
+            <p className="font-mono text-[10px] font-semibold uppercase tracking-[0.16em] text-cr-primary">
               Publicar un viaje
             </p>
-            <h1 className="font-display uppercase text-3xl md:text-5xl leading-[0.95]">
+            <h1 className="font-display uppercase text-3xl md:text-5xl leading-[0.92] tracking-tight">
               Abre tu coche.
               <br />
-              Divide el coste.
+              <span className="text-cr-primary">Divide el coste.</span>
             </h1>
           </div>
           <Stepper step={step} />
-        </header>
+        </motion.header>
 
         {user && !user.license_verified && (
           <section className="border-2 border-cr-secondary bg-cr-secondary/5 p-5 md:p-6 space-y-3">

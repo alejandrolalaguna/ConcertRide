@@ -11451,6 +11451,677 @@ BLOG_POSTS.push({
   ],
 });
 
+BLOG_POSTS.push({
+  slug: "conductor-designado-festival-espana",
+  title: "Conductor Designado en un Festival [Guía 2026]: Cómo Organizarlo y Ahorrar en el Viaje",
+  h1: "El conductor designado en festivales: cómo organizarlo y qué ventajas tiene",
+  excerpt:
+    "¿Quién conduce de vuelta del festival a las 3 AM? El concepto de conductor designado puede combinarse con el carpooling para que nadie del grupo pague de más. Esta guía explica cómo organizar el conductor designado en festivales de España, quién asume el rol y cómo ConcertRide facilita la coordinación.",
+  category: "guias",
+  tags: ["conductor designado", "festival", "carpooling", "alcohol", "seguridad", "vuelta festival", "grupo"],
+  publishedAt: "2026-05-11T09:00:00.000Z",
+  author: "Equipo ConcertRide",
+  readingMinutes: 6,
+  lede:
+    "El conductor designado salva vidas. Pero en la práctica, en un festival de 4 días, no siempre hay alguien que quiera abstenerse. El carpooling es la alternativa real: el conductor ya viene al festival a disfrutar, y la vuelta está planificada de antemano.",
+  sections: [
+    {
+      heading: "Qué es el conductor designado y por qué importa en festivales",
+      paragraphs: [
+        "El conductor designado es la persona del grupo que no consume alcohol y asume la responsabilidad de conducir de vuelta. En festivales multidía, este concepto cobra una importancia especial: el alcohol y el cansancio acumulado en varios días de festival forman una combinación especialmente peligrosa al volante.",
+        "Las estadísticas son claras: el 40% de los accidentes de tráfico en España en verano están relacionados con el consumo de alcohol. En un festival de 4–5 días, el cansancio físico acumulado agrava considerablemente este riesgo. Por eso, organizar bien la vuelta es tan importante como organizar la ida.",
+      ],
+    },
+    {
+      heading: "El problema real del conductor designado en festivales de varios días",
+      paragraphs: [
+        "En un festival de un día, el concepto es sencillo: alguien no bebe y conduce. Pero en un festival de 4–5 días como Arenal Sound, Resurrection Fest o Sonorama, el problema se complica. El conductor designado no solo renuncia al alcohol la noche de vuelta, sino potencialmente durante todo el festival si hay traslados diarios entre recinto y alojamiento.",
+        "El carpooling con ConcertRide resuelve esto de raíz: hay un conductor por trayecto que publica su viaje con antelación. No forma parte del grupo que consume. No es tu amigo que 'se sacrifica' — es alguien que también va al festival, tiene coche, y decide salir a una hora acordada. El problema del conductor designado deja de existir para el grupo.",
+      ],
+    },
+    {
+      heading: "Cómo funciona el modelo ConcertRide como alternativa al conductor designado",
+      paragraphs: [
+        "El conductor de ConcertRide es una persona que también va al festival. Planifica irse a una hora determinada — por ejemplo, a la 1:30 AM después del segundo headliner — y publica ese viaje para que otros pasajeros de su ciudad se unan. No renuncia a disfrutar del festival: simplemente decide a qué hora se va y lo comunica con antelación.",
+        "Los pasajeros reservan su plaza sabiendo exactamente a qué hora salen. El precio solo cubre gasolina y peaje: entre 4 y 20€ según la distancia. Sin comisiones de plataforma de terceros. Sin surge pricing de madrugada.",
+      ],
+    },
+    {
+      heading: "Ventajas económicas del modelo carpooling vs taxi de vuelta",
+      paragraphs: [
+        "Comparemos los costes reales de volver de un festival de madrugada. Un taxi de vuelta de festival entre las 2:00 y las 4:00 AM, especialmente en zonas con poca oferta, puede costar entre 60€ y 150€ con surge pricing. Un autobús organizado tiene vuelta a hora fija (normalmente 23:30 o 0:00, antes del último concierto) y cuesta 35–55€.",
+        "Con ConcertRide, el coste es de 4–20€ según distancia, a la hora que el conductor haya anunciado. Sin sorpresas de precio.",
+      ],
+      bullets: [
+        "Mad Cool (IFEMA, Madrid): taxi zona 2:00h ~35–55€ | carpooling ConcertRide ~4–8€ (distancias cortas en Madrid)",
+        "BBK Live (Kobetamendi, Bilbao): taxi a Bilbao ciudad 20–35€ | carpooling destinos lejanos ~11–16€",
+        "Arenal Sound (Burriana): taxi a Valencia ~60–90€ | carpooling ~8–12€",
+        "Sonorama (Aranda de Duero): taxi a Madrid ~120–180€ | carpooling ~7–11€",
+        "Resurrection Fest (Viveiro): taxi a ciudades gallegas ~80–120€ | carpooling ~8–15€",
+      ],
+    },
+    {
+      heading: "Cómo organizar la vuelta de festival en grupo sin conductor designado",
+      paragraphs: [
+        "La clave es organizar la vuelta antes de llegar al festival, no a las 4 AM desde el recinto cuando todo el mundo está cansado y con el móvil sin batería.",
+        "Pasos recomendados: (1) Cada subgrupo del festival busca un conductor de su ciudad en ConcertRide. (2) Se acuerda la hora de vuelta antes del festival — idealmente la misma noche o la mañana del último día. (3) El conductor publica el viaje con la hora de regreso acordada. (4) Los pasajeros reservan sus plazas con antelación. La vuelta está organizada antes de que empiece el festival.",
+      ],
+    },
+  ],
+  faqs: [
+    {
+      q: "¿Puede el conductor de ConcertRide beber alcohol en el festival?",
+      a: "No. El conductor es quien conduce de vuelta, por lo que debe estar en condiciones de conducir. La mayoría de conductores de ConcertRide que publican vueltas nocturnas son personas que prefieren salir a una hora razonable (1:00–3:00h) y no consumen alcohol durante el festival, o limitan el consumo. Si un conductor no puede conducir, debe cancelar el viaje o encontrar un sustituto.",
+    },
+    {
+      q: "¿Cómo encuentro un conductor para volver del festival a las 4 AM?",
+      a: "En ConcertRide puedes buscar viajes de vuelta publicados con hora de salida post-festival (2:00–4:00h). También puedes publicar una solicitud de viaje indicando tu ciudad de destino y la hora de vuelta deseada, para que conductores te encuentren a ti. La clave es organizar la vuelta antes de llegar al festival, no a las 4 AM desde el recinto.",
+    },
+  ],
+  relatedLinks: [
+    { label: "Cómo volver de festival a las 4AM", to: "/blog/como-volver-festival-4am-transporte-nocturno" },
+    { label: "Cómo organizar un grupo en carpooling para un festival", to: "/blog/como-organizar-grupo-carpooling-festival" },
+    { label: "Carpooling a Mad Cool", to: "/festivales/mad-cool" },
+  ],
+  relatedPosts: [
+    "como-volver-festival-4am-transporte-nocturno",
+    "como-organizar-grupo-carpooling-festival",
+    "presupuesto-festival-musica-espana-2026",
+  ],
+});
+
+BLOG_POSTS.push({
+  slug: "parking-festivales-espana-2026",
+  title: "Parking en Festivales de España 2026 [Precios Reales]: ¿Cuánto Cuesta Aparcar?",
+  h1: "Precios reales del parking en festivales de España 2026: por qué el carpooling lo evita",
+  excerpt:
+    "¿Cuánto cuesta aparcar en Mad Cool? ¿Hay parking en Primavera Sound? ¿Qué pasa con el parking del BBK Live en Kobetamendi? Esta guía recoge los precios reales de aparcamiento en los principales festivales de España 2026 — y por qué el carpooling lo hace innecesario.",
+  category: "guias",
+  tags: ["parking", "aparcamiento", "festival", "precios", "carpooling", "mad cool", "primavera sound", "bbk live"],
+  publishedAt: "2026-05-11T10:00:00.000Z",
+  author: "Equipo ConcertRide",
+  readingMinutes: 5,
+  lede:
+    "El parking en festivales puede costarte entre 5€ y 35€ al día. En algunos como BBK Live prácticamente no existe plazas. En otros como Primavera Sound es un caos de 30 minutos de espera. Aquí tienes los datos reales.",
+  sections: [
+    {
+      heading: "Tabla de precios de parking por festival 2026",
+      paragraphs: [
+        "Recogemos los datos de parking de los principales festivales de España para 2026. Los precios son orientativos y pueden variar según la zona y la antelación de la reserva:",
+      ],
+      bullets: [
+        "Mad Cool (IFEMA, Madrid): sí, 12–18€/día | Metro L8 como alternativa recomendada",
+        "Primavera Sound (Parc del Fòrum, Barcelona): limitado, 25–35€/día | parkings P1-P5 del Fòrum, se agotan rápido",
+        "FIB (Benicàssim, Castellón): sí, 5–10€/día | bien organizado en zona festival",
+        "BBK Live (Kobetamendi, Bilbao): NO hay parking en el cerro | parking en Bilbao ciudad ~12€ + lanzadera gratuita incluida en entrada",
+        "Arenal Sound (Burriana): sí, 5–8€/día | zona camping, bien accesible",
+        "Sonorama (Aranda de Duero): limitado, 8–12€/día en polígono industrial",
+        "Resurrection Fest (Viveiro): limitado, 5–8€/día | tráfico denso jueves-lunes",
+        "Viña Rock (Villarrobledo): sí, 5–8€/día | espacio amplio",
+        "Medusa Festival (Cullera): sí, 5–8€/día | playa Cullera, accesible",
+        "Download Madrid (IFEMA): sí, 12–18€/día | mismo recinto que Mad Cool",
+      ],
+    },
+    {
+      heading: "Los festivales con peor parking de España (y cómo llegar)",
+      paragraphs: [
+        "BBK Live es el caso más extremo: el cerro de Kobetamendi donde se celebra el festival no tiene parking propio. La organización ofrece una lanzadera gratuita desde Bilbao ciudad (incluida en el precio de la entrada) desde varios puntos de la ciudad. Para quienes vienen de fuera de Bilbao, el carpooling con ConcertRide es la opción más práctica.",
+        "Resurrection Fest tiene plazas limitadas en Viveiro — una localidad pequeña que recibe durante 4 días decenas de miles de metaleros. El jueves de inicio y el lunes de cierre son los días de mayor colapso de tráfico. Lo recomendable es llegar el miércoles o salir el domingo temprano.",
+        "Primavera Sound tiene los parkings del Parc del Fòrum (P1-P5) pero se llenan en los primeros 30 minutos de apertura cada día. Para residentes en Barcelona, el metro L4 (parada Besòs Mar) es imbatible.",
+      ],
+    },
+    {
+      heading: "Por qué el carpooling elimina el problema del parking",
+      paragraphs: [
+        "Si vas en carpooling a un festival, no necesitas aparcar. El conductor deja el coche en su ciudad de origen o en un parking habitual — no de festival. Los pasajeros llegan directamente al recinto sin preocuparse por plazas, colas ni precios de parking.",
+        "El ahorro es directo: 5–35€/día de parking multiplicado por los días del festival. En un festival de 4 días como Resurrection Fest o Arenal Sound, el parking puede costar entre 20€ y 140€ adicionales a la entrada. Con carpooling, ese coste es cero para el pasajero.",
+      ],
+    },
+    {
+      heading: "Trampas del parking en festivales que nadie te cuenta",
+      paragraphs: [
+        "El parking 'oficial' de festival frecuentemente está a 1–2 km del recinto, con un shuttle de 20 minutos de espera que no está incluido en el precio. El parking 'cercano' que encuentras en Google Maps puede no estar operativo durante el festival o tener precios triplicados.",
+        "El precio varía por día: en Mad Cool, el jueves de apertura suele ser más caro que los días siguientes. Las colas de salida el último día pueden ser de 45–90 minutos. Todo esto desaparece si vas en carpooling: llegas y te vas con el conductor, sin gestionar el coche.",
+      ],
+    },
+  ],
+  faqs: [
+    {
+      q: "¿Hay parking en el BBK Live de Bilbao?",
+      a: "No hay parking propio en el cerro de Kobetamendi donde se celebra el BBK Live. La organización ofrece una lanzadera gratuita desde Bilbao ciudad (incluida en el precio de la entrada) como transporte oficial. Para quienes vienen de fuera de Bilbao, el carpooling con ConcertRide es la opción más práctica: llega directo al punto de lanzadera o al recinto sin preocuparte del coche.",
+    },
+    {
+      q: "¿Cuánto cuesta aparcar en el Festival Primavera Sound?",
+      a: "El Parc del Fòrum de Barcelona tiene parkings públicos (P1-P5 del Fòrum) a 25–35€/día aproximadamente durante el festival. Las plazas se agotan rápido. Para asistentes de Barcelona ciudad, el metro L4 (parada Besòs Mar) es la mejor opción. Para los que vienen de fuera, el carpooling con ConcertRide llega directamente al recinto por 8–20€/asiento según ciudad origen.",
+    },
+  ],
+  relatedLinks: [
+    { label: "Carpooling a BBK Live Bilbao", to: "/festivales/bbk-live" },
+    { label: "Carpooling a Primavera Sound", to: "/festivales/primavera-sound" },
+    { label: "Carpooling a Mad Cool", to: "/festivales/mad-cool" },
+    { label: "Carpooling vs tren vs autobús a festivales", to: "/blog/carpooling-vs-tren-vs-autobus-festival-espana" },
+  ],
+  relatedPosts: [
+    "carpooling-vs-tren-vs-autobus-festival-espana",
+    "presupuesto-festival-musica-espana-2026",
+    "como-volver-festival-4am-transporte-nocturno",
+  ],
+});
+
+BLOG_POSTS.push({
+  slug: "como-encontrar-companero-viaje-festival",
+  title: "Cómo Encontrar Compañero de Viaje para un Festival [2026]: La Guía Definitiva",
+  h1: "Cómo encontrar compañero de viaje para ir a un festival de música",
+  excerpt:
+    "¿Tienes entrada para el festival pero no tienes con quién ir en coche? ¿O tienes coche pero te sobran plazas? Esta guía explica cómo encontrar compañero de viaje para un festival de música en España — desde plataformas especializadas hasta grupos de redes sociales.",
+  category: "guias",
+  tags: ["compañero de viaje", "festival", "carpooling", "buscar conductor", "buscar pasajero", "grupo"],
+  publishedAt: "2026-05-11T11:00:00.000Z",
+  author: "Equipo ConcertRide",
+  readingMinutes: 5,
+  lede:
+    "Más de 400.000 personas buscan compañero de viaje para festivales de verano en España cada año. La mayoría acaban en grupos de Facebook dispersos o foros sin moderación. ConcertRide centraliza todo esto — todos los usuarios van al mismo festival.",
+  sections: [
+    {
+      heading: "Cómo funciona ConcertRide para encontrar compañero de viaje",
+      paragraphs: [
+        "ConcertRide está diseñado específicamente para festivales de música, no para viajes genéricos. Eso significa que cuando buscas un viaje, ya sabes que todos los conductores y pasajeros van al mismo evento que tú.",
+        "El flujo es sencillo: busca tu festival, ve los viajes publicados desde tu ciudad, contacta al conductor y reserva tu plaza. O si eres conductor, publica tu viaje y espera a que los pasajeros te encuentren. Todos los perfiles incluyen valoraciones de viajes anteriores para que puedas decidir con quién viajar.",
+      ],
+    },
+    {
+      heading: "Grupos de Facebook y redes sociales: las limitaciones",
+      paragraphs: [
+        "Muchos asistentes a festivales buscan compañero en grupos de Facebook específicos por evento (ej. 'Viajes Mad Cool 2026', 'Resurrection Fest Carpooling'). Estos grupos tienen mucho volumen durante las semanas previas al festival.",
+        "La limitación principal es la falta de estructura: sin verificación de identidad, sin sistema de valoraciones, los mensajes se pierden en el feed, es difícil coordinar precio y horario, y no hay ninguna gestión del pago. Son útiles como complemento, pero no como sistema principal.",
+      ],
+    },
+    {
+      heading: "Cuándo publicar o buscar el viaje (timing crítico)",
+      paragraphs: [
+        "El timing es fundamental para encontrar viaje. Para festivales grandes como Mad Cool, BBK Live o Primavera Sound, lo ideal es publicar o buscar el viaje entre 3 y 6 semanas antes del festival. Para festivales medianos, 2–3 semanas suele ser suficiente.",
+        "Para ciudades de origen lejanas (más de 300 km), cuanto antes mejor: los conductores que hacen trayectos largos suelen publicar sus viajes con mucha antelación porque necesitan llenar el coche para que el viaje sea económico. Los viajes de vuelta también hay que organizarlos antes de llegar al festival.",
+      ],
+    },
+    {
+      heading: "Consejos para viajar con personas que no conoces",
+      paragraphs: [
+        "Viajar con desconocidos en carpooling es la práctica habitual en ConcertRide, y la gran mayoría de experiencias son positivas. Algunos consejos para que el viaje salga bien:",
+      ],
+      bullets: [
+        "Perfil público con foto real y valoraciones de viajes anteriores",
+        "Comunicarse antes del viaje por el chat de la app o WhatsApp para confirmar detalles",
+        "Acordar un punto de recogida concreto (no 'en algún sitio del barrio')",
+        "Llevar efectivo o tener Bizum configurado para el pago",
+        "Confirmar la vuelta la mañana del último día del festival",
+      ],
+    },
+    {
+      heading: "Qué hacer si no encuentras viaje en ConcertRide",
+      paragraphs: [
+        "Si no hay viajes publicados desde tu ciudad, tienes varias opciones. La primera es publicar tú mismo una solicitud de viaje como pasajero: los conductores que tengan plazas libres y que aún no hayan publicado su viaje pueden contactarte.",
+        "Como alternativas adicionales: busca en grupos de Facebook del festival específico, pregunta en el subreddit del festival en Reddit, o publica en la app con suficiente antelación para que conductores te vean. Para festivales populares, la probabilidad de encontrar viaje aumenta mucho si publicas la solicitud con 3+ semanas de antelación.",
+      ],
+    },
+  ],
+  faqs: [
+    {
+      q: "¿Cómo encuentro alguien que vaya al mismo festival desde mi ciudad?",
+      a: "En ConcertRide buscas directamente por festival — no por ruta. Ves todos los conductores que van a ese festival desde cualquier ciudad, filtrando por tu ciudad de origen. Es la diferencia clave respecto a otras plataformas de carpooling generalistas: no necesitas saber la dirección exacta del recinto para buscar tu viaje.",
+    },
+    {
+      q: "¿Es seguro viajar con desconocidos al festival?",
+      a: "Sí, con las precauciones básicas. En ConcertRide, los conductores tienen carnet verificado y perfil público con valoraciones. Antes de confirmar, intercambia mensajes con el conductor para conocer el punto de recogida, hora de salida y hora de vuelta. El pago es en efectivo o Bizum el día del viaje — sin prepago.",
+    },
+  ],
+  relatedLinks: [
+    { label: "Cómo funciona el carpooling para festivales", to: "/como-funciona-carpooling" },
+    { label: "Cómo organizar un grupo en carpooling para un festival", to: "/blog/como-organizar-grupo-carpooling-festival" },
+    { label: "¿Es seguro el carpooling a festivales?", to: "/blog/es-seguro-carpooling-festivales" },
+  ],
+  relatedPosts: [
+    "como-organizar-grupo-carpooling-festival",
+    "es-seguro-carpooling-festivales-espana",
+    "como-volver-festival-4am-transporte-nocturno",
+  ],
+});
+
+BLOG_POSTS.push({
+  slug: "festivales-camping-espana-2026-transporte-carpooling",
+  title: "Festivales con Camping en España 2026 [Guía]: Cómo Llegar con Todo el Equipo",
+  h1: "Festivales con camping en España 2026: cómo llegar con tienda y equipo sin morir en el intento",
+  excerpt:
+    "Ir a un festival de camping con tienda, saco de dormir y mochila completa no es lo mismo que ir solo con entradas. Esta guía explica qué festivales de España tienen camping en 2026, cómo llegar con todo el equipo, y por qué el carpooling es la única opción práctica para los que no tienen coche propio.",
+  category: "guias",
+  tags: ["camping", "festival", "carpooling", "equipaje", "tienda", "mochila", "arenal sound", "resurrection fest", "medusa"],
+  publishedAt: "2026-05-11T12:00:00.000Z",
+  author: "Equipo ConcertRide",
+  readingMinutes: 6,
+  lede:
+    "El camping oficial de Arenal Sound tiene 50.000 personas. El de Resurrection Fest, miles de metaleros con equipo para 4 días. El autobús tiene límite de equipaje. El tren también. El carpooling no.",
+  sections: [
+    {
+      heading: "Festivales de España 2026 con camping oficial",
+      paragraphs: [
+        "Estos son los principales festivales de España 2026 que incluyen zona de camping oficial:",
+      ],
+      bullets: [
+        "Arenal Sound (Burriana, jul 29–ago 2): camping 5 noches incluido en el abono",
+        "Medusa Festival (Cullera, ago 12–16): camping en la playa de Cullera",
+        "Resurrection Fest (Viveiro, jun 25–28): camping en Viveiro, precio separado del abono",
+        "FIB Benicàssim (jul 16–19): camping oficial adyacente al recinto",
+        "Rototom Sunsplash (Benicàssim, ago 14–22): camping 8 noches",
+        "Sonorama Ribera (Aranda de Duero, ago 6–9): zona camping con servicios",
+        "Viña Rock (Villarrobledo, abr/may): camping masivo La Pulgosa",
+        "Download Madrid (IFEMA, junio): camping en recinto IFEMA",
+        "Dreambeach (Villaricos, jul 8–12): camping en playa de Villaricos",
+      ],
+    },
+    {
+      heading: "El problema del transporte cuando llevas equipo de camping",
+      paragraphs: [
+        "Una mochila de festival de camping completa pesa entre 15 y 25 kilos. Tienda (2–5 kg), saco de dormir (1–2 kg), esterilla o colchoneta, mochila de ropa para 5 días (10–15 kg), silla plegable, nevera portátil. El autobús oficial de la mayoría de festivales limita a 1 mochila de 10 kg. En el AVE, el exceso de equipaje puede ser problemático. En taxi, el espacio no está garantizado y el precio a madrugada supera los 60–90€.",
+        "Con el carpooling de ConcertRide, el maletero tiene capacidad para tienda más mochila por pasajero — siempre que se acuerde con el conductor antes de reservar. Es la única opción de transporte compartido que no tiene límite de equipaje estricto.",
+      ],
+    },
+    {
+      heading: "Festivales de camping accesibles en carpooling desde tu ciudad",
+      paragraphs: [
+        "Las distancias y precios estimados de carpooling desde las principales ciudades de España:",
+      ],
+      bullets: [
+        "Desde Madrid → Arenal Sound (Burriana, 3h 45min): 12–17€/asiento",
+        "Desde Madrid → Sonorama (Aranda, 1h 45min): 7–11€/asiento",
+        "Desde Madrid → Resurrection Fest (Viveiro, 8h): 18–24€/asiento",
+        "Desde Madrid → Viña Rock (Villarrobledo, 2h 15min): 8–12€/asiento",
+        "Desde Barcelona → FIB (Benicàssim, 3h): 10–14€/asiento",
+        "Desde Barcelona → Rototom (Benicàssim, 2h 50min): 10–14€/asiento",
+        "Desde Valencia → Arenal Sound (Burriana, 45min): 3–6€/asiento",
+        "Desde Valencia → Medusa (Cullera, 45min): 3–5€/asiento",
+        "Desde Valencia → FIB (Benicàssim, 1h 30min): 5–8€/asiento",
+      ],
+    },
+    {
+      heading: "Consejos para organizar el carpooling de camping con equipaje",
+      paragraphs: [
+        "Para que el viaje con todo el equipo salga bien, hay que planificarlo con antelación. Lo más importante es avisar al conductor del volumen de equipaje antes de confirmar la reserva — un mensaje directo en la app con 'llevo tienda 2 plazas + mochila grande 70L' es suficiente para que el conductor sepa si tiene espacio.",
+        "Para grupos de 4 o más personas con equipo de camping completo, valorar dividir el grupo en 2 coches de 2–3 personas cada uno. El maletero de un turismo medio tiene unos 350–400 litros de capacidad, suficiente para 2–3 mochilas grandes más una tienda mediana.",
+      ],
+      bullets: [
+        "Avisar al conductor del equipaje antes de reservar (tienda, mochila, nevera)",
+        "Acordar si se puede llevar nevera portátil (algunos conductores prefieren no)",
+        "Tienda de campaña en maletero, mochilas en los pies si es necesario",
+        "Para grupos 4+ con camping completo: considera 2 coches de 2–3 personas",
+      ],
+    },
+    {
+      heading: "Lista de equipamiento esencial para festival de camping en España",
+      paragraphs: [
+        "Si es tu primer festival de camping, esta lista te ayuda a no olvidar nada — y a calibrar el volumen de equipaje para tu carpooling:",
+      ],
+      bullets: [
+        "Tienda de campaña (2–3 plazas para tener espacio suficiente)",
+        "Saco de dormir adaptado a la temperatura mínima del destino",
+        "Esterilla o colchoneta inflable",
+        "Linterna frontal (imprescindible en camping)",
+        "Protección solar 50+ (especialmente en Cullera, Benicàssim, Valencia en agosto)",
+        "Repelente de mosquitos (esencial en Cullera, Benicàssim, zonas de litoral levantino en verano)",
+        "Cargador portátil para móvil (al menos 20.000 mAh para 5 días)",
+        "Ropa de recambio para todos los días (calcular transpiraciones de verano)",
+      ],
+    },
+  ],
+  faqs: [
+    {
+      q: "¿Puedo llevar tienda de campaña en un coche de ConcertRide?",
+      a: "Sí, si lo acuerdas con el conductor antes de reservar. La mayoría de conductores de ConcertRide que van a festivales de camping tienen espacio en el maletero para tienda pequeña-mediana (hasta 3x3 m) más una mochila grande. Para tiendas XL o grupos de 4+ personas con todo el equipo, mejor reservar en 2 coches o avisar con antelación para que el conductor pueda planificar el espacio.",
+    },
+    {
+      q: "¿Qué festival de camping es más fácil de llegar en carpooling desde Madrid?",
+      a: "Desde Madrid, los festivales de camping más accesibles en carpooling son: Sonorama Ribera en Aranda de Duero (1h 45 min, 7–11 €/asiento), Viña Rock en Villarrobledo (2h 15 min, 8–12 €) y Arenal Sound en Burriana (3h 45 min, 12–17 €). Para Resurrection Fest (8h, 18–24 €), muchos fans hacen el viaje en coche propio o carpooling y aprovechan para hacer parada en Galicia.",
+    },
+  ],
+  relatedLinks: [
+    { label: "Carpooling a Arenal Sound", to: "/festivales/arenal-sound" },
+    { label: "Carpooling a Resurrection Fest", to: "/festivales/resurrection-fest" },
+    { label: "Carpooling a Medusa Festival", to: "/festivales/medusa-festival" },
+    { label: "Carpooling a Rototom Sunsplash", to: "/festivales/rototom-sunsplash" },
+    { label: "Cómo organizar un grupo en carpooling para un festival", to: "/blog/como-organizar-grupo-carpooling-festival" },
+  ],
+  relatedPosts: [
+    "como-organizar-grupo-carpooling-festival",
+    "presupuesto-festival-musica-espana-2026",
+    "carpooling-vs-tren-vs-autobus-festival-espana",
+  ],
+});
+
+BLOG_POSTS.push({
+  slug: "hub-festivales-verano-2026-transporte",
+  title: "Festivales de Verano 2026 en España [Guía Completa]: Cómo Llegar a Cada Uno",
+  h1: "Todos los festivales de verano 2026 en España: fechas, ciudades y cómo llegar a cada uno",
+  excerpt:
+    "El verano de 2026 tiene más de 30 festivales de música en España entre junio y agosto. Esta guía recoge los más importantes con sus fechas, ciudad, y cómo llegar a cada uno en carpooling, tren o autobús — para que planifiques tus viajes antes de que se agoten los sitios.",
+  category: "guias",
+  tags: ["verano 2026", "festivales", "transporte", "junio", "julio", "agosto", "guía completa", "agenda"],
+  publishedAt: "2026-05-11T13:00:00.000Z",
+  author: "Equipo ConcertRide",
+  readingMinutes: 10,
+  lede:
+    "Primavera Sound acaba el 7 de junio. Resurrection Fest empieza el 25. BBK Live el 9 de julio. Mad Cool también el 9. Sonorama en agosto. Arenal Sound en julio. Hay una semana en que se solapan 4 festivales a la vez. Planifica el transporte antes de planificar el cartel.",
+  sections: [
+    {
+      heading: "Festivales de junio 2026 — transporte y precios",
+      paragraphs: [
+        "El verano festivalero arranca en junio con algunos de los eventos más importantes del año:",
+      ],
+      bullets: [
+        "Primavera Sound (28 may–1 jun, Parc del Fòrum, Barcelona): metro L4 parada Besòs Mar | carpooling desde Madrid 15–20€",
+        "Sónar (18–20 jun, L'Hospitalet, Barcelona): metro L9 parada Fira | carpooling desde Madrid 14–19€",
+        "Resurrection Fest (25–28 jun, Viveiro, Galicia): carpooling imprescindible desde Galicia 4–10€, desde Madrid 18–24€",
+        "Download Madrid (5–7 jun, IFEMA, Madrid): metro L8 Nuevos Ministerios | carpooling local 4–8€",
+      ],
+    },
+    {
+      heading: "Festivales de julio 2026 — transporte y precios",
+      paragraphs: [
+        "Julio es el mes con más concentración de festivales simultáneos — especialmente el fin de semana del 9–11 de julio:",
+      ],
+      bullets: [
+        "BBK Live (9–11 jul, Kobetamendi, Bilbao): lanzadera gratuita desde Bilbao ciudad + carpooling 4–22€ según ciudad origen",
+        "Mad Cool (9–11 jul, IFEMA, Madrid): metro L8 | carpooling local 4–8€",
+        "Cruïlla (9–12 jul, Parc del Fòrum, Barcelona): metro L4 | carpooling desde Madrid 14–19€",
+        "FIB (16–19 jul, Benicàssim, Castellón): Cercanías Valencia-Castellón + lanzadera o carpooling desde Valencia 5–8€, desde Madrid 14–19€",
+        "Dreambeach (8–12 jul, Villaricos, Almería): carpooling desde Almería 4–8€, desde Madrid 19–25€",
+        "Aquasella (10–12 jul, Arriondas, Asturias): carpooling desde Oviedo 4–7€, desde Madrid 14–19€",
+      ],
+    },
+    {
+      heading: "Festivales de agosto 2026 — transporte y precios",
+      paragraphs: [
+        "Agosto mantiene el ritmo con festivales en todas las regiones costeras e interiores de España:",
+      ],
+      bullets: [
+        "Arenal Sound (29 jul–2 ago, Burriana, Castellón): Sounder Bus o carpooling 3–17€ según ciudad",
+        "Sonorama Ribera (6–9 ago, Aranda de Duero, Burgos): bus diurno o carpooling 4–18€",
+        "Medusa Festival (12–16 ago, Cullera, Valencia): autobús AVSA o carpooling 3–16€",
+        "Rototom Sunsplash (14–22 ago, Benicàssim): Cercanías + lanzadera o carpooling 5–19€",
+      ],
+    },
+    {
+      heading: "La semana más intensa del verano: 9–11 de julio 2026",
+      paragraphs: [
+        "BBK Live, Mad Cool y Cruïlla se solapan exactamente los mismos días: 9–11 de julio. La demanda de carpooling esa semana es máxima en todo el territorio nacional. Para todos estos festivales, reservar el viaje con mínimo 4 semanas de antelación es imprescindible.",
+        "Para quienes quieren combinar festivales (ej. BBK Live 9–11 jul + Aquasella 10–12 jul en Asturias), hay conductores que hacen el circuito completo del norte de España. Busca en ConcertRide con suficiente antelación.",
+      ],
+    },
+    {
+      heading: "Cómo planificar el transporte para 2–3 festivales en un verano",
+      paragraphs: [
+        "La clave es reservar los viajes al mismo tiempo que las entradas. Una vez tienes tu abono de Resurrection Fest (junio) y de Sonorama (agosto), busca el transporte para ambos en ConcertRide — no esperes a la semana del festival.",
+        "Para festivales seguidos en la misma región (ej. FIB 16–19 jul + Rototom 14–22 ago, ambos en Benicàssim), algunos conductores hacen viajes de ida y quedan en la zona para cubrir ambos eventos. La comunidad de usuarios de ConcertRide crece cada verano.",
+      ],
+    },
+  ],
+  faqs: [
+    {
+      q: "¿Cuál es el festival de verano 2026 más fácil de llegar desde Madrid?",
+      a: "El más fácil desde Madrid es Mad Cool (IFEMA, metro L8 desde Nuevos Ministerios, 25 min, 2€) o el Download Festival Madrid (mismo recinto IFEMA). Para festivales fuera de Madrid, el más accesible en transporte público es el FIB Benicàssim (AVE + cercanías). El carpooling con ConcertRide es la opción más económica para la mayoría: Sonorama (7–11€), BBK Live (18–22€), Arenal Sound (12–17€).",
+    },
+    {
+      q: "¿Qué festivales de verano 2026 tienen camping en España?",
+      a: "Los festivales de verano 2026 con camping oficial en España son: Arenal Sound (Burriana), Medusa Festival (Cullera), Resurrection Fest (Viveiro), FIB (Benicàssim), Rototom Sunsplash (Benicàssim), Sonorama Ribera (Aranda), Dreambeach (Villaricos), Aquasella (Arriondas) y Download Madrid (IFEMA). Para todos ellos, el carpooling con ConcertRide permite llevar equipo de camping completo.",
+    },
+  ],
+  relatedLinks: [
+    { label: "Carpooling a BBK Live Bilbao", to: "/festivales/bbk-live" },
+    { label: "Carpooling a Mad Cool", to: "/festivales/mad-cool" },
+    { label: "Carpooling a Arenal Sound", to: "/festivales/arenal-sound" },
+    { label: "Carpooling a Resurrection Fest", to: "/festivales/resurrection-fest" },
+    { label: "Carpooling a Primavera Sound", to: "/festivales/primavera-sound" },
+    { label: "Carpooling a DCode Festival Madrid", to: "/festivales/dcode-festival" },
+    { label: "Carpooling a Creamfields Andalucía", to: "/festivales/creamfields-andalucia" },
+    { label: "Festivales con camping en España 2026", to: "/blog/festivales-camping-espana-2026-transporte-carpooling" },
+  ],
+  relatedPosts: [
+    "festivales-camping-espana-2026-transporte-carpooling",
+    "presupuesto-festival-musica-espana-2026",
+    "carpooling-vs-tren-vs-autobus-festival-espana",
+    "rototom-sunsplash-2026-transporte-carpooling",
+  ],
+});
+
+BLOG_POSTS.push({
+  slug: "carpooling-festival-ultima-hora",
+  coverImage: { src: "/og/festival-carpooling.png", alt: "Carpooling de última hora a festival — ConcertRide" },
+  title: "Carpooling a Festival de Última Hora [Guía 2026]: Qué Hacer si No Tienes Transporte",
+  h1: "Carpooling a un festival de última hora: guía para cuando no tienes transporte organizado",
+  excerpt:
+    "Tienes la entrada al festival pero no tienes transporte organizado y faltan 3 días. O peor: es el día del festival y sigues sin viaje. Esta guía explica paso a paso qué hacer para encontrar carpooling de última hora a un festival de música en España.",
+  category: "guias",
+  tags: ["última hora", "carpooling urgente", "festival", "buscar viaje", "mismo día", "transporte"],
+  publishedAt: "2026-05-11T14:00:00.000Z",
+  author: "Equipo ConcertRide",
+  readingMinutes: 5,
+  lede:
+    "El 35% de los asistentes a festivales organiza el transporte en los 4 días previos al evento. Si estás leyendo esto la semana del festival, no estás solo — y hay solución.",
+  sections: [
+    {
+      heading: "Cómo buscar viaje en ConcertRide de última hora",
+      paragraphs: [
+        "La primera opción siempre es ConcertRide: accede, busca el festival, filtra por tu ciudad de origen. Incluso 24–48 horas antes del festival hay conductores que publican sus viajes o que aún tienen plazas libres.",
+        "Para festivales grandes como Mad Cool, Arenal Sound o BBK Live, los viajes se publican hasta el mismo día de inicio. El volumen de usuarios garantiza que hay opciones incluso en los últimos días. Para festivales pequeños en zonas remotas, la disponibilidad de última hora es más limitada.",
+      ],
+    },
+    {
+      heading: "Publicar una solicitud de viaje como pasajero",
+      paragraphs: [
+        "Si no encuentras viaje activo, publica tú una solicitud de viaje como pasajero. Ejemplo: 'Busco plaza Madrid → BBK Live, jueves 9 julio, 1 persona + mochila pequeña'. Los conductores que tengan plazas libres y que aún no hayan publicado su viaje pueden contactarte directamente.",
+        "Esta función inversa del sistema normal es especialmente útil para rutas poco habituales o cuando la oferta de conductores es escasa. Cuanto más específico seas en la solicitud (ciudad, hora preferida, número de maletas), más fácil es que un conductor te encuentre.",
+      ],
+    },
+    {
+      heading: "Grupos de Facebook y Telegram como backup de última hora",
+      paragraphs: [
+        "Grupos de Facebook como 'Mad Cool 2026 Carpooling' o 'Resurrection Fest Compartir Coche' tienen actividad intensa hasta el mismo día del festival. Son menos seguros que ConcertRide (sin verificación de identidad ni sistema de valoraciones), pero funcionan como complemento si no hay opciones en la plataforma.",
+        "Algunos festivales tienen también grupos de Telegram oficiales o de fans donde se coordina el transporte de última hora. Busca en Telegram con el nombre del festival + carpooling.",
+      ],
+    },
+    {
+      heading: "Alternativas si no hay carpooling disponible el mismo día",
+      paragraphs: [
+        "Si ya es el mismo día del festival y no encuentras carpooling, estas son las opciones por orden de coste-practicidad:",
+      ],
+      bullets: [
+        "Autobús ALSA o FlixBus hasta la ciudad más cercana + taxi al recinto (puede ser costoso en días festivos)",
+        "Autobús privado organizado por el festival — si quedan plazas de última hora (algunos tienen listas de espera)",
+        "Tren + lanzadera oficial del festival (si existe para ese evento)",
+        "Taxi compartido con otros asistentes que encuentres en grupos de redes sociales del festival",
+      ],
+    },
+    {
+      heading: "Cómo evitar este problema el próximo festival",
+      paragraphs: [
+        "La mejor estrategia es reservar el viaje al mismo tiempo que la entrada. En cuanto tienes tu abono o entrada, abre ConcertRide y busca viajes para ese festival — o publica tu solicitud si no encuentras nada todavía.",
+        "Otras acciones preventivas: unirte a grupos de carpooling del festival específico nada más comprar la entrada, publicar tu viaje (si eres conductor) con 3–4 semanas de antelación, y organizar los viajes de vuelta antes de llegar al festival.",
+      ],
+    },
+  ],
+  faqs: [
+    {
+      q: "¿Hay carpooling disponible el mismo día del festival?",
+      a: "Sí, aunque con menos opciones. En ConcertRide hay conductores que publican sus viajes incluso el día anterior o el mismo día del festival. Para festivales grandes (Mad Cool, BBK Live, Arenal Sound), la probabilidad de encontrar viaje de último momento es mayor por el volumen de usuarios. Para festivales pequeños en zonas remotas (Resurrection Fest, Aquasella), la disponibilidad de última hora es muy limitada.",
+    },
+    {
+      q: "¿Qué hago si no encuentro carpooling para la vuelta del festival?",
+      a: "Opciones de vuelta de emergencia: (1) Busca en ConcertRide conductores que vuelven a tu ciudad — a veces publican el viaje de vuelta después del último concierto. (2) Agrupa con otros asistentes en redes sociales para compartir taxi. (3) Busca hostales o camping en la ciudad del festival para no tener que volver esa noche. (4) Para la próxima vez: organiza la vuelta antes de llegar al festival.",
+    },
+  ],
+  relatedLinks: [
+    { label: "Cómo funciona el carpooling para festivales", to: "/como-funciona-carpooling" },
+    { label: "Cómo encontrar compañero de viaje para un festival", to: "/blog/como-encontrar-companero-viaje-festival" },
+    { label: "Cómo volver de festival a las 4AM", to: "/blog/como-volver-festival-4am-transporte-nocturno" },
+  ],
+  relatedPosts: [
+    "como-encontrar-companero-viaje-festival",
+    "como-volver-festival-4am-transporte-nocturno",
+    "como-organizar-grupo-carpooling-festival",
+  ],
+});
+
+BLOG_POSTS.push({
+  slug: "festivales-espana-economicos-presupuesto-total-2026",
+  coverImage: { src: "/og/festival-carpooling.png", alt: "Festivales baratos España 2026 presupuesto total — ConcertRide" },
+  title: "Festivales Baratos España 2026 [Presupuesto Total]: Entrada + Transporte + Camping",
+  h1: "Los festivales más baratos de España 2026: presupuesto total real con transporte y camping",
+  excerpt:
+    "¿Cuál es el festival más barato de España en 2026 si lo calculas todo — entrada, transporte, camping y comida? Esta guía hace los cálculos reales de coste total por festival para que elijas el que más encaja con tu presupuesto.",
+  category: "guias",
+  tags: ["festivales baratos", "presupuesto", "economico", "coste total", "entrada", "camping", "transporte", "verano 2026"],
+  publishedAt: "2026-05-11T15:00:00.000Z",
+  author: "Equipo ConcertRide",
+  readingMinutes: 7,
+  lede:
+    "Un abono de Arenal Sound cuesta 130€. Pero si sumas transporte desde Madrid (40€ autobús + vuelta), camping (incluido), y comida (5 días × 30€), el coste real es 320€. Con carpooling, el mismo festival sale por 270€. Aquí están los números reales.",
+  sections: [
+    {
+      heading: "Metodología: cómo calculamos el coste total",
+      paragraphs: [
+        "Para comparar festivales de forma justa, usamos una fórmula común: entrada/abono + transporte ida-vuelta (desde Madrid como referencia) + camping si aplica + comida estimada (25–35€/día promedio festival).",
+        "No incluimos alojamiento extra (para festivales con camping incluido) ni consumiciones de bar, por ser demasiado variables según el consumo de cada persona. El transporte de referencia es siempre el carpooling con ConcertRide — el más económico disponible.",
+      ],
+    },
+    {
+      heading: "Top 5 festivales más económicos de España 2026 (coste total)",
+      paragraphs: [
+        "Estos son los cinco festivales con menor coste total estimado para un asistente desde Madrid:",
+      ],
+      bullets: [
+        "Aquasella (Arriondas): abono ~60€ + carpooling desde Oviedo 8–14€ RT + camping ~15€ + comida 3 días ~75€ = total estimado 158–164€",
+        "Sonorama Ribera (Aranda de Duero): abono ~85€ + carpooling Madrid 14–22€ RT + camping ~15€ + comida 4 días ~100€ = total estimado 214–222€",
+        "Resurrection Fest (Viveiro): abono ~100€ + carpooling Madrid 36–48€ RT + camping ~20€ + comida 4 días ~100€ = total estimado 256–268€",
+        "FIB (Benicàssim): abono ~120€ + carpooling Valencia 10–16€ RT + camping ~20€ + comida 4 días ~100€ = total estimado 250–256€",
+        "Arenal Sound (Burriana): abono ~130€ (incluye camping) + carpooling Valencia 6–12€ RT + comida 5 días ~125€ = total estimado 261–267€",
+      ],
+    },
+    {
+      heading: "Cómo el transporte cambia el ranking según tu ciudad",
+      paragraphs: [
+        "El mismo festival puede ser barato o caro dependiendo de dónde vengas. Sonorama desde Valladolid (40 km, ~3€ de carpooling) es el festival más barato de España para un vallisoletano — el total no llega a 210€. Resurrection Fest desde Viveiro (puedes ir andando al recinto si te alojas en el pueblo) puede costar menos de 200€ para un viveirense.",
+        "La clave es calcular siempre desde tu ciudad real, no desde Madrid. Usa ConcertRide para ver los precios reales de carpooling desde tu ciudad de origen a cada festival.",
+      ],
+    },
+    {
+      heading: "El mayor error del presupuesto de festival: olvidar el transporte de vuelta",
+      paragraphs: [
+        "Muchos festivaleros calculan el carpooling de ida (12€) pero olvidan que la vuelta tiene el mismo coste. En festivales de 4–5 días, el transporte ida+vuelta suma entre 15€ y 50€ según la distancia. Con autobús organizado, suele ser 35–55€ ya incluido el RT.",
+        "Otro error frecuente: el parking de festival. Si decides ir en coche propio, añade entre 20€ y 140€ de parking según los días del festival (5–35€/día). Con carpooling, el parking es cero.",
+      ],
+    },
+    {
+      heading: "Festivales gratuitos y de bajo coste en España 2026",
+      paragraphs: [
+        "Si el presupuesto es muy ajustado, existen opciones de acceso gratuito o muy bajo coste: las Noches del Botánico en Madrid tienen entradas individuales desde 30–50€ por concierto (sin abono multidía). Algunos ayuntamientos organizan festivales de verano municipales gratuitos o con entradas simbólicas de 5–15€.",
+        "La diferencia clave con los festivales de camping es que estos eventos gratuitos o de bajo coste suelen ser de 1 día, en entorno urbano, sin camping y sin la experiencia inmersiva de varios días. Son perfectos para probar la experiencia de festival antes de comprometerse con un abono de 5 días.",
+      ],
+    },
+  ],
+  faqs: [
+    {
+      q: "¿Cuál es el festival más barato de España en 2026?",
+      a: "Midiendo el coste total (entrada + transporte + camping + comida), el Aquasella Festival en Arriondas (Asturias) es el más económico: abono ~60€, carpooling desde Oviedo ~8–14€ RT, camping ~15€, comida 3 días ~75€ = total estimado 158–164€. Sonorama Ribera es el más económico para quienes vienen de Madrid o Castilla (total ~215–235€). El Arenal Sound, aunque el abono es más caro, incluye el camping, lo que lo hace muy competitivo para 5 días.",
+    },
+    {
+      q: "¿Cómo puedo reducir el coste de ir a un festival de verano?",
+      a: "Las tres formas más efectivas de reducir el coste: (1) Usa carpooling con ConcertRide en lugar de autobús organizado (ahorro 15–40€ RT por persona), (2) Elige festivales con camping incluido en el abono (Arenal Sound, FIB) para no pagar alojamiento adicional, (3) Organiza el grupo para que el conductor cubra los gastos de combustible con los pasajeros — un conductor de 4 personas puede hacer el viaje prácticamente gratis.",
+    },
+  ],
+  relatedLinks: [
+    { label: "Presupuesto festival de música España 2026", to: "/blog/presupuesto-festival-musica-espana-2026" },
+    { label: "Carpooling vs tren vs autobús a festivales", to: "/blog/carpooling-vs-tren-vs-autobus-festival-espana" },
+    { label: "Carpooling a Arenal Sound", to: "/festivales/arenal-sound" },
+    { label: "Carpooling a Sonorama Ribera", to: "/festivales/sonorama-ribera" },
+  ],
+  relatedPosts: [
+    "presupuesto-festival-musica-espana-2026",
+    "festivales-camping-espana-2026-transporte-carpooling",
+    "carpooling-vs-tren-vs-autobus-festival-espana",
+  ],
+});
+
+BLOG_POSTS.push({
+  slug: "rototom-sunsplash-2026-transporte-carpooling",
+  coverImage: { src: "/og/rototom-sunsplash.png", alt: "Rototom Sunsplash Benicàssim transporte carpooling — ConcertRide" },
+  title: "Rototom Sunsplash 2026 [Guía Transporte]: Cómo Llegar a Benicàssim en Carpooling",
+  h1: "Rototom Sunsplash 2026: cómo llegar a Benicàssim y transporte desde Valencia, Madrid y Barcelona",
+  excerpt:
+    "El Rototom Sunsplash 2026 se celebra en Benicàssim del 14 al 22 de agosto. Esta guía de transporte explica cómo llegar desde Valencia (8–12€ en carpooling), Madrid (14–19€), Barcelona y Alicante — con datos de Cercanías, lanzadera oficial y opciones de vuelta nocturna.",
+  category: "guias",
+  tags: ["rototom sunsplash", "benicassim", "carpooling", "transporte", "reggae", "castellon", "valencia", "2026"],
+  publishedAt: "2026-05-11T16:00:00.000Z",
+  author: "Equipo ConcertRide",
+  readingMinutes: 6,
+  lede:
+    "El Rototom reúne a 250.000 personas en 8 días en Benicàssim. La mayoría llegan en coche, carpooling o autobús desde Valencia. Aquí están todas las opciones de transporte, con precios reales.",
+  sections: [
+    {
+      heading: "Cómo llegar al Rototom Sunsplash desde Valencia",
+      paragraphs: [
+        "Valencia es la ciudad de origen más habitual para los asistentes al Rototom Sunsplash. La distancia es de 45 km (40 min por la AP-7). Las opciones de transporte público son: Cercanías Renfe Valencia-Castellón (45 min, 4–6€) + Fiberbus o lanzadera desde Castellón ciudad (3–5€, 20 min). Total transporte público: aproximadamente 8–11€.",
+        "Con ConcertRide, el carpooling desde Valencia sale por 8–12€ por asiento con llegada directa al recinto, sin transbordos ni esperas de lanzadera. La ventaja principal del carpooling es la flexibilidad de horario de vuelta: el conductor y los pasajeros acuerdan la hora antes del festival.",
+      ],
+    },
+    {
+      heading: "Cómo llegar al Rototom desde Madrid",
+      paragraphs: [
+        "Desde Madrid, Benicàssim está a 440 km (4h 20 min por la A-3 y AP-7). Las opciones en transporte público implican combinaciones: AVE Madrid-Valencia (20–70€ según antelación) + Cercanías + lanzadera, con un coste total de 30–85€. Autobús directo Alsa o FlixBus Madrid-Castellón (4h 30 min, 20–30€) + lanzadera.",
+        "Con ConcertRide carpooling desde Madrid, el precio es de 14–19€ por asiento con llegada directa al recinto. Los viajes del carpooling para el Rototom desde Madrid se publican normalmente con 3–4 semanas de antelación al festival.",
+      ],
+    },
+    {
+      heading: "Cómo llegar al Rototom desde Barcelona y Alicante",
+      paragraphs: [
+        "Desde Barcelona, la distancia es de 290 km (2h 50 min). El carpooling con ConcertRide sale por 10–14€ por asiento. En transporte público: AVE Barcelona-Valencia + Cercanías + lanzadera, con coste total de 30–60€.",
+        "Desde Alicante: 140 km (1h 30 min), carpooling 5–8€. Desde Zaragoza: 310 km (3h), carpooling 10–14€. Benicàssim está bien posicionado geográficamente para asistentes del arco mediterráneo.",
+      ],
+    },
+    {
+      heading: "Lanzadera oficial del Rototom desde Castellón",
+      paragraphs: [
+        "El Fiberbus opera lanzaderas frecuentes desde Castellón ciudad (Estación de Autobuses y Estación de Renfe) al recinto durante todos los días del festival. El precio es aproximadamente 3–5€ por trayecto. El servicio opera hasta las 8:00h de la madrugada aproximadamente, cubriendo la vuelta nocturna de los conciertos de cierre.",
+        "Para quienes llegan en tren desde Valencia o Barcelona hasta Castellón, la lanzadera Fiberbus es la conexión final al recinto. Es la opción más económica si ya tienes el trayecto largo pagado en transporte público.",
+      ],
+    },
+    {
+      heading: "La vuelta nocturna: la ventaja del carpooling en el Rototom",
+      paragraphs: [
+        "El Rototom acaba entre las 3:00 y las 5:00 AM en los escenarios principales. El último Cercanías Castellón-Valencia sale aproximadamente a las 23:30. Esto significa que si quieres ver el cierre del festival, el tren no es una opción para la vuelta esa noche.",
+        "Con el carpooling de ConcertRide, el conductor y los pasajeros acuerdan la hora de salida antes del festival — típicamente a la 1:00, 2:00 o 3:00 AM. El precio es el mismo que se acordó al reservar, sin surge pricing de madrugada.",
+      ],
+    },
+  ],
+  faqs: [
+    {
+      q: "¿Es el mismo recinto el Rototom Sunsplash que el FIB Benicàssim?",
+      a: "El Rototom Sunsplash y el FIB Benicàssim están en Benicàssim (Castellón) y comparten infraestructuras de transporte (Cercanías, lanzadera Fiberbus), pero los recintos son diferentes y se celebran en fechas distintas (FIB: julio; Rototom: agosto). Ambos festivales son accesibles desde Castellón ciudad en lanzadera o desde Valencia en Cercanías más lanzadera.",
+    },
+    {
+      q: "¿Cuántos días dura el Rototom y cómo organizo el transporte?",
+      a: "El Rototom Sunsplash 2026 dura 8 días (14–22 de agosto). La mayoría de asistentes compran abono completo y se alojan en el camping del festival. En ConcertRide, la opción más habitual es el carpooling de ida (jueves 13 o viernes 14 de agosto) y vuelta (domingo 23). Para quienes van solo el fin de semana, los viajes de ida viernes noche y vuelta domingo tienen alta demanda.",
+    },
+  ],
+  relatedLinks: [
+    { label: "Carpooling a Rototom Sunsplash", to: "/festivales/rototom-sunsplash" },
+    { label: "Carpooling a FIB Benicàssim", to: "/festivales/fib" },
+    { label: "Carpooling a Medusa Festival", to: "/festivales/medusa-festival" },
+    { label: "Conciertos en Castellón", to: "/conciertos/castellon" },
+  ],
+  relatedPosts: [
+    "festivales-camping-espana-2026-transporte-carpooling",
+    "hub-festivales-verano-2026-transporte",
+    "como-volver-festival-4am-transporte-nocturno",
+  ],
+});
+
 // Refresh derived exports
 export const BLOG_POSTS_BY_SLUG: Record<string, BlogPost> = Object.fromEntries(
   BLOG_POSTS.map((p) => [p.slug, p]),

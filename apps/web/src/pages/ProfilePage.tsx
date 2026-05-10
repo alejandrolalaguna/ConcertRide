@@ -38,7 +38,7 @@ function TristateToggle({
 }) {
   return (
     <div className="space-y-2">
-      <span className="font-sans text-[11px] font-semibold uppercase tracking-[0.12em] text-cr-text-muted">
+      <span className="font-mono text-[10px] font-semibold uppercase tracking-[0.14em] text-white/40">
         {label}
       </span>
       <div className="flex gap-2">
@@ -203,62 +203,95 @@ export default function ProfilePage() {
   }
 
   return (
-    <main id="main" className="min-h-dvh bg-cr-bg text-cr-text pt-14">
-      <div className="max-w-2xl mx-auto px-6 py-12 space-y-10">
+    <main id="main" className="relative min-h-dvh bg-cr-bg text-cr-text pt-14 overflow-hidden">
+      {/* Atmospheric background */}
+      <div
+        aria-hidden="true"
+        className="absolute top-0 left-0 w-full h-[300px] pointer-events-none"
+        style={{ background: "radial-gradient(ellipse 60% 40% at 30% 0%, rgba(219,255,0,0.04) 0%, transparent 70%)" }}
+      />
+
+      <div className="relative max-w-2xl mx-auto px-6 py-12 space-y-10">
         <motion.header
-          initial={{ opacity: 0, y: 16 }}
+          initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.4 }}
+          transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
           className="flex items-center gap-5"
         >
-          <div className="w-16 h-16 rounded-full bg-cr-primary text-black font-display text-2xl flex items-center justify-center">
-            {initials(user.name)}
+          {/* Avatar — sharp corners, lime ring on hover */}
+          <div className="relative group/avatar flex-shrink-0">
+            <div className="w-16 h-16 bg-cr-primary text-black font-display text-2xl font-black flex items-center justify-center transition-shadow duration-200 group-hover/avatar:shadow-[0_0_24px_rgb(219_255_0/0.3)]">
+              {initials(user.name)}
+            </div>
+            {user.verified && (
+              <span className="absolute -bottom-1 -right-1 w-5 h-5 bg-cr-primary flex items-center justify-center" aria-label="Verificado">
+                <ShieldCheck size={10} strokeWidth={2.5} className="text-black" />
+              </span>
+            )}
           </div>
           <div>
-            <p className="font-sans text-[11px] font-semibold uppercase tracking-[0.16em] text-cr-primary">
+            <p className="font-mono text-[10px] font-semibold uppercase tracking-[0.16em] text-cr-primary mb-1">
               Mi perfil
             </p>
-            <h1 className="font-display text-3xl uppercase leading-tight">{user.name}</h1>
-            <p className="font-mono text-xs text-cr-text-muted">{user.email}</p>
+            <h1 className="font-display text-3xl md:text-4xl uppercase leading-[0.92] tracking-tight">{user.name}</h1>
+            <p className="font-mono text-xs text-white/35 mt-1">{user.email}</p>
           </div>
         </motion.header>
 
-        <dl className="flex gap-6 font-mono text-xs text-cr-text-muted border-t border-cr-border pt-6">
-          <div>
-            <dt className="font-sans text-[10px] font-semibold uppercase tracking-[0.12em] mb-0.5">Viajes dados</dt>
-            <dd className="text-cr-text text-base">{user.rides_given}</dd>
-          </div>
-          <div>
-            <dt className="font-sans text-[10px] font-semibold uppercase tracking-[0.12em] mb-0.5">Valoración</dt>
-            <dd className="text-cr-primary text-base flex items-center gap-1">
-              <Star size={13} className="fill-cr-primary stroke-cr-primary" />
-              {user.rating.toFixed(1)}
-              {user.rating_count > 0 && (
-                <span className="text-cr-text-muted text-[11px]">({user.rating_count})</span>
-              )}
-            </dd>
-          </div>
-        </dl>
+        {/* Stats row */}
+        <motion.dl
+          initial={{ opacity: 0, y: 12 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.4, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
+          className="flex gap-0 border border-white/[0.06] bg-white/[0.02]"
+        >
+          {[
+            { label: "Viajes dados", value: user.rides_given, color: "text-cr-text" },
+            {
+              label: "Valoración",
+              value: user.rating.toFixed(1),
+              suffix: user.rating_count > 0 ? ` (${user.rating_count})` : "",
+              color: "text-cr-primary",
+              star: true,
+            },
+            { label: "Confirmados", value: confirmedTrips, color: "text-cr-text" },
+          ].map((stat, i) => (
+            <div key={stat.label} className={`flex-1 px-5 py-4 ${i > 0 ? "border-l border-white/[0.06]" : ""}`}>
+              <dt className="font-mono text-[9px] font-semibold uppercase tracking-[0.14em] text-white/30 mb-1">{stat.label}</dt>
+              <dd className={`font-mono text-xl font-bold flex items-center gap-1 ${stat.color}`}>
+                {stat.star && <Star size={13} className="fill-cr-primary stroke-cr-primary" aria-hidden="true" />}
+                {stat.value}
+                {stat.suffix && <span className="text-white/30 text-[11px] font-normal">{stat.suffix}</span>}
+              </dd>
+            </div>
+          ))}
+        </motion.dl>
 
         {/* Driver earnings panel — only shown if user has license or has published rides */}
         {(user.has_license || myRides.length > 0) && (
-          <section className="space-y-4 border border-cr-border p-5">
-            <header className="flex items-center gap-2">
+          <motion.section
+            initial={{ opacity: 0, y: 16 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.4, delay: 0.15 }}
+            className="space-y-4 border border-white/[0.08] bg-white/[0.02] p-5 relative overflow-hidden"
+          >
+            <div aria-hidden="true" className="absolute top-0 right-0 w-[200px] h-[100px] pointer-events-none" style={{ background: "radial-gradient(ellipse at 100% 0%, rgba(219,255,0,0.04) 0%, transparent 70%)" }} />
+            <header className="flex items-center gap-2 relative">
               <TrendingUp size={14} className="text-cr-primary" aria-hidden="true" />
-              <h2 className="font-sans text-[11px] font-semibold uppercase tracking-[0.16em] text-cr-primary">
+              <h2 className="font-mono text-[10px] font-bold uppercase tracking-[0.16em] text-cr-primary">
                 Panel de conductor
               </h2>
             </header>
-            <dl className="grid grid-cols-3 gap-4">
-              <div>
-                <dt className="font-sans text-[10px] font-semibold uppercase tracking-[0.12em] text-cr-text-muted mb-1">
+            <dl className="grid grid-cols-3 gap-0 border border-white/[0.06]">
+              <div className="px-4 py-3">
+                <dt className="font-mono text-[9px] font-semibold uppercase tracking-[0.14em] text-white/30 mb-1">
                   Viajes dados
                 </dt>
                 <dd className="font-mono text-xl text-cr-text">{user.rides_given}</dd>
               </div>
-              <div>
-                <dt className="font-sans text-[10px] font-semibold uppercase tracking-[0.12em] text-cr-text-muted mb-1">
-                  Ganancias estimadas
+              <div className="px-4 py-3 border-l border-white/[0.06]">
+                <dt className="font-mono text-[9px] font-semibold uppercase tracking-[0.14em] text-white/30 mb-1">
+                  Ganancias est.
                 </dt>
                 <dd className="font-mono text-xl text-cr-primary">
                   €{myRides
@@ -267,8 +300,8 @@ export default function ProfilePage() {
                     .toFixed(0)}
                 </dd>
               </div>
-              <div>
-                <dt className="font-sans text-[10px] font-semibold uppercase tracking-[0.12em] text-cr-text-muted mb-1">
+              <div className="px-4 py-3 border-l border-white/[0.06]">
+                <dt className="font-mono text-[9px] font-semibold uppercase tracking-[0.14em] text-white/30 mb-1">
                   Plazas vendidas
                 </dt>
                 <dd className="font-mono text-xl text-cr-text">
@@ -347,32 +380,32 @@ export default function ProfilePage() {
                 </p>
               </div>
             )}
-          </section>
+          </motion.section>
         )}
 
         {/* Tu impacto */}
         {(user.rides_given > 0 || confirmedTrips > 0) && (
-          <section className="space-y-4 border border-cr-border p-5">
+          <section className="space-y-4 border border-white/[0.06] bg-white/[0.02] p-5">
             <header className="flex items-center gap-2">
-              <span className="font-sans text-[11px] font-semibold uppercase tracking-[0.16em] text-cr-primary">
+              <span className="font-mono text-[10px] font-bold uppercase tracking-[0.16em] text-cr-primary">
                 Tu impacto
               </span>
             </header>
-            <dl className="grid grid-cols-3 gap-4">
-              <div>
-                <dt className="font-sans text-[10px] font-semibold uppercase tracking-[0.12em] text-cr-text-muted mb-1">
-                  Viajes como conductor
+            <dl className="grid grid-cols-3 gap-0 border border-white/[0.06]">
+              <div className="px-4 py-3">
+                <dt className="font-mono text-[9px] font-semibold uppercase tracking-[0.14em] text-white/30 mb-1">
+                  Como conductor
                 </dt>
                 <dd className="font-mono text-xl text-cr-text">{user.rides_given}</dd>
               </div>
-              <div>
-                <dt className="font-sans text-[10px] font-semibold uppercase tracking-[0.12em] text-cr-text-muted mb-1">
-                  Viajes como pasajero
+              <div className="px-4 py-3 border-l border-white/[0.06]">
+                <dt className="font-mono text-[9px] font-semibold uppercase tracking-[0.14em] text-white/30 mb-1">
+                  Como pasajero
                 </dt>
                 <dd className="font-mono text-xl text-cr-text">{confirmedTrips}</dd>
               </div>
-              <div>
-                <dt className="font-sans text-[10px] font-semibold uppercase tracking-[0.12em] text-cr-text-muted mb-1">
+              <div className="px-4 py-3 border-l border-white/[0.06]">
+                <dt className="font-mono text-[9px] font-semibold uppercase tracking-[0.14em] text-white/30 mb-1">
                   CO₂ ahorrado est.
                 </dt>
                 <dd className="font-mono text-xl text-cr-primary">
@@ -384,43 +417,43 @@ export default function ProfilePage() {
         )}
 
         <section className="space-y-3">
-          <h2 className="font-sans text-[11px] font-semibold uppercase tracking-[0.16em] text-cr-primary border-b border-cr-border pb-2">
+          <h2 className="font-mono text-[10px] font-bold uppercase tracking-[0.16em] text-cr-primary border-b border-white/[0.06] pb-3">
             Tu archivo
           </h2>
           <div className="grid gap-3 sm:grid-cols-3">
             <Link
               to="/memorias"
-              className="block border-2 border-cr-border bg-cr-surface-2 p-4 hover:border-cr-primary"
+              className="group block border border-white/[0.08] bg-white/[0.02] p-4 hover:border-cr-primary/50 hover:bg-cr-primary/[0.03] transition-all duration-200"
             >
-              <p className="font-mono text-[10px] uppercase tracking-[0.16em] text-cr-text-muted">
+              <p className="font-mono text-[9px] uppercase tracking-[0.16em] text-white/30 group-hover:text-cr-primary/60 transition-colors">
                 recap personal
               </p>
-              <p className="mt-1 font-display text-base uppercase">Mis recuerdos</p>
-              <p className="mt-1 text-xs text-cr-text-muted">
+              <p className="mt-1.5 font-display text-base uppercase group-hover:text-white transition-colors">Mis recuerdos</p>
+              <p className="mt-1 text-xs text-white/35">
                 Vibe cards y stats por año.
               </p>
             </Link>
             <Link
               to="/crew"
-              className="block border-2 border-cr-border bg-cr-surface-2 p-4 hover:border-cr-primary"
+              className="group block border border-white/[0.08] bg-white/[0.02] p-4 hover:border-cr-primary/50 hover:bg-cr-primary/[0.03] transition-all duration-200"
             >
-              <p className="font-mono text-[10px] uppercase tracking-[0.16em] text-cr-text-muted">
+              <p className="font-mono text-[9px] uppercase tracking-[0.16em] text-white/30 group-hover:text-cr-primary/60 transition-colors">
                 tu gente
               </p>
-              <p className="mt-1 font-display text-base uppercase">Mi crew</p>
-              <p className="mt-1 text-xs text-cr-text-muted">
+              <p className="mt-1.5 font-display text-base uppercase group-hover:text-white transition-colors">Mi crew</p>
+              <p className="mt-1 text-xs text-white/35">
                 {user.crew_count > 0 ? `${user.crew_count} ${user.crew_count === 1 ? "persona" : "personas"}` : "Aún sin crew"}
               </p>
             </Link>
             <Link
               to="/feed"
-              className="block border-2 border-cr-border bg-cr-surface-2 p-4 hover:border-cr-primary"
+              className="group block border border-white/[0.08] bg-white/[0.02] p-4 hover:border-cr-primary/50 hover:bg-cr-primary/[0.03] transition-all duration-200"
             >
-              <p className="font-mono text-[10px] uppercase tracking-[0.16em] text-cr-text-muted">
+              <p className="font-mono text-[9px] uppercase tracking-[0.16em] text-white/30 group-hover:text-cr-primary/60 transition-colors">
                 en directo
               </p>
-              <p className="mt-1 font-display text-base uppercase">Activity feed</p>
-              <p className="mt-1 text-xs text-cr-text-muted">
+              <p className="mt-1.5 font-display text-base uppercase group-hover:text-white transition-colors">Activity feed</p>
+              <p className="mt-1 text-xs text-white/35">
                 Quién organiza viajes ahora.
               </p>
             </Link>
@@ -430,7 +463,7 @@ export default function ProfilePage() {
         {/* Reviews received */}
         {(reviewsLoading || reviews.length > 0) && (
           <section className="space-y-3">
-            <h2 className="font-sans text-[11px] font-semibold uppercase tracking-[0.16em] text-cr-primary border-b border-cr-border pb-2">
+            <h2 className="font-mono text-[10px] font-bold uppercase tracking-[0.16em] text-cr-primary border-b border-white/[0.06] pb-3">
               Valoraciones recibidas
             </h2>
             {reviewsLoading ? (
@@ -510,11 +543,11 @@ export default function ProfilePage() {
 
           {/* Cuenta */}
           <section className="space-y-4">
-            <h2 className="font-sans text-[11px] font-semibold uppercase tracking-[0.16em] text-cr-primary border-b border-cr-border pb-2">
+            <h2 className="font-mono text-[10px] font-bold uppercase tracking-[0.16em] text-cr-primary border-b border-white/[0.06] pb-3">
               Cuenta
             </h2>
-            <label className="block space-y-2">
-              <span className="font-sans text-[11px] font-semibold uppercase tracking-[0.12em] text-cr-text-muted">
+            <label className="block space-y-1.5">
+              <span className="font-mono text-[10px] font-semibold uppercase tracking-[0.14em] text-white/40">
                 Nombre
               </span>
               <input
@@ -522,12 +555,12 @@ export default function ProfilePage() {
                 required
                 value={name}
                 onChange={(e) => setName(e.target.value)}
-                className="w-full bg-cr-surface border-2 border-cr-border focus:border-cr-primary outline-none px-3 py-3 font-sans text-sm text-cr-text transition-colors"
+                className="w-full bg-white/[0.04] border border-white/[0.1] focus:border-cr-primary focus:shadow-[0_0_12px_rgb(219_255_0/0.1)] outline-none px-4 py-3 font-sans text-sm text-cr-text transition-all duration-150"
               />
             </label>
             <div className="space-y-2">
               <div className="flex items-center gap-2">
-                <span className="font-sans text-[11px] font-semibold uppercase tracking-[0.12em] text-cr-text-muted">
+                <span className="font-mono text-[10px] font-semibold uppercase tracking-[0.14em] text-white/40">
                   Teléfono
                 </span>
                 {user.phone_verified_at ? (
@@ -543,7 +576,7 @@ export default function ProfilePage() {
                   value={phone}
                   onChange={(e) => setPhone(e.target.value)}
                   placeholder="+34 600 000 000"
-                  className="flex-1 bg-cr-surface border-2 border-cr-border focus:border-cr-primary outline-none px-3 py-3 font-mono text-sm text-cr-text placeholder:text-cr-text-dim transition-colors"
+                  className="flex-1 bg-white/[0.04] border border-white/[0.1] focus:border-cr-primary focus:shadow-[0_0_12px_rgb(219_255_0/0.1)] outline-none px-4 py-3 font-mono text-sm text-cr-text placeholder:text-white/20 transition-all duration-150"
                 />
                 {!user.phone_verified_at && phone.trim().length >= 6 && !otpSent && (
                   <button
@@ -612,17 +645,17 @@ export default function ProfilePage() {
 
           {/* Ubicación */}
           <section className="space-y-4">
-            <h2 className="font-sans text-[11px] font-semibold uppercase tracking-[0.16em] text-cr-primary border-b border-cr-border pb-2">
+            <h2 className="font-mono text-[10px] font-bold uppercase tracking-[0.16em] text-cr-primary border-b border-white/[0.06] pb-3">
               Ubicación
             </h2>
             <label className="block space-y-2">
-              <span className="font-sans text-[11px] font-semibold uppercase tracking-[0.12em] text-cr-text-muted">
+              <span className="font-mono text-[10px] font-semibold uppercase tracking-[0.14em] text-white/40">
                 Ciudad habitual — se autocompleta como origen al publicar viajes
               </span>
               <select
                 value={homeCity}
                 onChange={(e) => setHomeCity(e.target.value)}
-                className="w-full bg-cr-surface border-2 border-cr-border focus:border-cr-primary outline-none px-3 py-3 font-sans text-sm text-cr-text transition-colors [color-scheme:dark]"
+                className="w-full bg-white/[0.04] border border-white/[0.1] focus:border-cr-primary focus:shadow-[0_0_12px_rgb(219_255_0/0.1)] outline-none px-4 py-3 font-sans text-sm text-cr-text transition-all duration-150 [color-scheme:dark]"
               >
                 <option value="">Sin especificar</option>
                 {SPANISH_CITIES.map((c) => (
@@ -651,7 +684,7 @@ export default function ProfilePage() {
                 onChange={(e) => setBio(e.target.value.slice(0, 200))}
                 rows={2}
                 placeholder="Festivalera reincidente. Indie, post-punk, alguna electrónica."
-                className="mt-1 w-full bg-cr-surface border-2 border-cr-border focus:border-cr-primary outline-none px-3 py-2 font-sans text-sm text-cr-text"
+                className="mt-1 w-full bg-white/[0.04] border border-white/[0.1] focus:border-cr-primary outline-none px-4 py-2.5 font-sans text-sm text-cr-text transition-all duration-150"
               />
               <span className="mt-1 block font-mono text-[10px] uppercase tracking-[0.12em] text-cr-text-dim">
                 {bio.length}/200
@@ -666,7 +699,7 @@ export default function ProfilePage() {
                 value={musicGenresInput}
                 onChange={(e) => setMusicGenresInput(e.target.value)}
                 placeholder="indie, electronica, post-punk, hip hop"
-                className="mt-1 w-full bg-cr-surface border-2 border-cr-border focus:border-cr-primary outline-none px-3 py-2 font-sans text-sm text-cr-text"
+                className="mt-1 w-full bg-white/[0.04] border border-white/[0.1] focus:border-cr-primary outline-none px-4 py-2.5 font-sans text-sm text-cr-text transition-all duration-150"
               />
             </label>
             <label className="block">
@@ -678,14 +711,14 @@ export default function ProfilePage() {
                 value={topArtistsInput}
                 onChange={(e) => setTopArtistsInput(e.target.value)}
                 placeholder="Rosalía, C. Tangana, Vetusta Morla"
-                className="mt-1 w-full bg-cr-surface border-2 border-cr-border focus:border-cr-primary outline-none px-3 py-2 font-sans text-sm text-cr-text"
+                className="mt-1 w-full bg-white/[0.04] border border-white/[0.1] focus:border-cr-primary outline-none px-4 py-2.5 font-sans text-sm text-cr-text transition-all duration-150"
               />
             </label>
           </section>
 
           {/* Sobre ti */}
           <section className="space-y-4">
-            <h2 className="font-sans text-[11px] font-semibold uppercase tracking-[0.16em] text-cr-primary border-b border-cr-border pb-2">
+            <h2 className="font-mono text-[10px] font-bold uppercase tracking-[0.16em] text-cr-primary border-b border-white/[0.06] pb-3">
               Preferencias de viaje
             </h2>
             <TristateToggle
@@ -1059,7 +1092,7 @@ export default function ProfilePage() {
 
           {/* Coche */}
           <section className="space-y-4">
-            <h2 className="font-sans text-[11px] font-semibold uppercase tracking-[0.16em] text-cr-primary border-b border-cr-border pb-2">
+            <h2 className="font-mono text-[10px] font-bold uppercase tracking-[0.16em] text-cr-primary border-b border-white/[0.06] pb-3">
               Tu vehículo
             </h2>
             <div className="bg-cr-surface border border-dashed border-cr-border px-4 py-3 flex items-start gap-3">
@@ -1075,7 +1108,7 @@ export default function ProfilePage() {
             </div>
             <div className="grid grid-cols-2 gap-4">
               <label className="block space-y-2">
-                <span className="font-sans text-[11px] font-semibold uppercase tracking-[0.12em] text-cr-text-muted">
+                <span className="font-mono text-[10px] font-semibold uppercase tracking-[0.14em] text-white/40">
                   Modelo
                 </span>
                 <input
@@ -1083,11 +1116,11 @@ export default function ProfilePage() {
                   value={carModel}
                   onChange={(e) => setCarModel(e.target.value)}
                   placeholder="SEAT León, Renault Clio…"
-                  className="w-full bg-cr-surface border-2 border-cr-border focus:border-cr-primary outline-none px-3 py-3 font-sans text-sm text-cr-text placeholder:text-cr-text-dim transition-colors"
+                  className="w-full bg-white/[0.04] border border-white/[0.1] focus:border-cr-primary focus:shadow-[0_0_12px_rgb(219_255_0/0.1)] outline-none px-4 py-3 font-sans text-sm text-cr-text placeholder:text-white/20 transition-all duration-150"
                 />
               </label>
               <label className="block space-y-2">
-                <span className="font-sans text-[11px] font-semibold uppercase tracking-[0.12em] text-cr-text-muted">
+                <span className="font-mono text-[10px] font-semibold uppercase tracking-[0.14em] text-white/40">
                   Color
                 </span>
                 <input
@@ -1095,7 +1128,7 @@ export default function ProfilePage() {
                   value={carColor}
                   onChange={(e) => setCarColor(e.target.value)}
                   placeholder="Negro, Blanco…"
-                  className="w-full bg-cr-surface border-2 border-cr-border focus:border-cr-primary outline-none px-3 py-3 font-sans text-sm text-cr-text placeholder:text-cr-text-dim transition-colors"
+                  className="w-full bg-white/[0.04] border border-white/[0.1] focus:border-cr-primary focus:shadow-[0_0_12px_rgb(219_255_0/0.1)] outline-none px-4 py-3 font-sans text-sm text-cr-text placeholder:text-white/20 transition-all duration-150"
                 />
               </label>
             </div>
@@ -1114,13 +1147,17 @@ export default function ProfilePage() {
           <button
             type="submit"
             disabled={submitting}
-            className="w-full bg-cr-primary text-black font-sans font-semibold uppercase tracking-[0.12em] text-sm border-2 border-black px-6 py-3 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] hover:translate-x-[2px] hover:translate-y-[2px] active:shadow-none active:translate-x-[4px] active:translate-y-[4px] transition-all duration-100 disabled:opacity-50 disabled:pointer-events-none"
+            className={`cr-btn-shine w-full font-sans font-semibold uppercase tracking-[0.14em] text-sm px-6 py-4 transition-all duration-150 disabled:opacity-40 disabled:pointer-events-none ${
+              saved
+                ? "bg-cr-primary/20 text-cr-primary border border-cr-primary/40"
+                : "bg-cr-primary text-black hover:bg-[#c8ec00]"
+            }`}
           >
             {submitting ? "Guardando…" : saved ? (
               <span className="inline-flex items-center justify-center gap-2">
-                <Check size={14} /> Guardado
+                <Check size={14} aria-hidden="true" /> Guardado
               </span>
-            ) : "Guardar cambios"}
+            ) : "Guardar cambios →"}
           </button>
         </form>
 

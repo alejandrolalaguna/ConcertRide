@@ -1794,6 +1794,88 @@ export const ARTIST_LANDINGS: ArtistLanding[] = [
     ],
     relatedFestivals: ["primavera-sound"],
   },
+  {
+    slug: "morat",
+    name: "Morat",
+    genre: ["pop", "indie pop", "colombiano"],
+    wikidata: "Q22046920",
+    blurb:
+      "Morat es la banda de pop indie colombiana formada en Bogotá en 2010, conocida por éxitos como 'Cómo te atreves', 'Cuando nadie ve' y 'No se va'. Su gira española de otoño 2026 incluye fechas en el Movistar Arena de Madrid (octubre), Palau Sant Jordi de Barcelona y otros recintos, con una de las mayores demandas de carpooling de artistas latinoamericanos en ConcertRide. Con ConcertRide, los fans desde Valencia llegan al Movistar Arena por 10–14 €/asiento, sin comisión.",
+    upcomingConcerts: [
+      {
+        city: "Madrid",
+        citySlug: "madrid",
+        venue: "Movistar Arena",
+        date: "2026-10-15",
+        concertRideRange: "4–7 €/asiento",
+        originCities: [
+          { city: "Valencia", range: "10–14 €" },
+          { city: "Zaragoza", range: "9–13 €" },
+          { city: "Sevilla", range: "14–19 €" },
+        ],
+      },
+      {
+        city: "Barcelona",
+        citySlug: "barcelona",
+        venue: "Palau Sant Jordi",
+        date: "2026-10-22",
+        concertRideRange: "4–7 €/asiento",
+        originCities: [
+          { city: "Madrid", range: "15–20 €" },
+          { city: "Valencia", range: "10–14 €" },
+          { city: "Zaragoza", range: "8–12 €" },
+        ],
+      },
+      {
+        city: "Valencia",
+        citySlug: "valencia",
+        venue: "Pabellón Fuente de San Luis",
+        date: "2026-10-29",
+        concertRideRange: "4–7 €/asiento",
+        originCities: [
+          { city: "Alicante", range: "5–8 €" },
+          { city: "Madrid", range: "10–14 €" },
+          { city: "Murcia", range: "6–9 €" },
+        ],
+      },
+    ],
+    relatedFestivals: [],
+  },
+  {
+    slug: "nicki-nicole",
+    name: "Nicki Nicole",
+    genre: ["urbano", "trap", "reggaetón", "argentina"],
+    wikidata: "Q76396041",
+    blurb:
+      "Nicki Nicole (Nicol Denise Cucco) es la artista argentina de trap y urbano que a los 19 años conquistó el mercado hispanohablante con 'Wapo Traketero' y colaboraciones con Peso Pluma, Bizarrap y Bad Bunny. Sus conciertos en España agotan entradas en el WiZink Center de Madrid y el Palau Sant Jordi de Barcelona, con asistentes procedentes de toda la Península. Con ConcertRide, los fans desde Zaragoza llegan al Movistar Arena por 9–13 €/asiento, sin comisión.",
+    upcomingConcerts: [
+      {
+        city: "Madrid",
+        citySlug: "madrid",
+        venue: "Movistar Arena",
+        date: "TBD",
+        concertRideRange: "4–7 €/asiento",
+        originCities: [
+          { city: "Zaragoza", range: "9–13 €" },
+          { city: "Valencia", range: "10–14 €" },
+          { city: "Bilbao", range: "11–16 €" },
+        ],
+      },
+      {
+        city: "Barcelona",
+        citySlug: "barcelona",
+        venue: "Palau Sant Jordi",
+        date: "TBD",
+        concertRideRange: "4–7 €/asiento",
+        originCities: [
+          { city: "Madrid", range: "15–20 €" },
+          { city: "Valencia", range: "10–14 €" },
+          { city: "Zaragoza", range: "8–12 €" },
+        ],
+      },
+    ],
+    relatedFestivals: ["primavera-sound"],
+  },
 ];
 
 export const ARTIST_LANDINGS_BY_SLUG: Record<string, ArtistLanding> = Object.fromEntries(

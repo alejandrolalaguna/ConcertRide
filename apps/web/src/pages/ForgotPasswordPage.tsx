@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { motion } from "motion/react";
-import { ArrowLeft } from "lucide-react";
+import { ArrowLeft, Mail } from "lucide-react";
 import { api } from "@/lib/api";
 import { useSeoMeta } from "@/lib/useSeoMeta";
 import { SITE_URL } from "@/lib/siteUrl";
@@ -25,8 +25,7 @@ export default function ForgotPasswordPage() {
     try {
       await api.auth.forgotPassword(email.trim());
     } catch {
-      // Fall through — the endpoint always returns 200 on valid input,
-      // so anything else is a transport issue we can silently ignore here.
+      // Endpoint always returns 200 — silently ignore transport errors
     } finally {
       setSubmitting(false);
       setSent(true);
@@ -34,70 +33,109 @@ export default function ForgotPasswordPage() {
   }
 
   return (
-    <main id="main" className="min-h-dvh bg-cr-bg text-cr-text flex items-center justify-center px-6">
-      <div className="w-full max-w-md space-y-8">
+    <main
+      id="main"
+      className="relative min-h-dvh bg-cr-bg text-cr-text flex items-start justify-center overflow-hidden"
+    >
+      {/* Background atmosphere */}
+      <div
+        aria-hidden="true"
+        className="absolute inset-0 pointer-events-none"
+        style={{ background: "radial-gradient(ellipse 70% 40% at 50% 0%, rgba(219,255,0,0.05) 0%, transparent 60%)" }}
+      />
+
+      <div className="relative w-full max-w-md px-6 pt-24 pb-16 md:pt-28 md:pb-20">
+
+        {/* Back link */}
         <Link
           to="/login"
-          className="inline-flex items-center gap-2 font-sans text-xs font-semibold uppercase tracking-[0.12em] text-cr-text-muted hover:text-cr-primary transition-colors"
+          className="inline-flex items-center gap-1.5 font-mono text-[10px] font-semibold uppercase tracking-[0.18em] text-white/30 hover:text-cr-primary transition-colors mb-10"
         >
-          <ArrowLeft size={14} /> Volver al login
+          <ArrowLeft size={12} aria-hidden="true" /> Volver al login
         </Link>
 
         <motion.header
-          initial={{ opacity: 0, y: 16 }}
+          initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.4 }}
-          className="space-y-3"
+          transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+          className="mb-10 space-y-4"
         >
-          <p className="font-sans text-[11px] font-semibold uppercase tracking-[0.16em] text-cr-primary">
+          <p className="font-mono text-[10px] font-semibold uppercase tracking-[0.16em] text-cr-primary">
             Recuperar acceso
           </p>
-          <h1 className="font-display text-4xl md:text-5xl uppercase leading-[0.95]">
+          <h1 className="font-display text-4xl md:text-5xl uppercase leading-[0.92] tracking-tight">
             ¿Olvidaste tu
             <br />
             <span className="text-cr-primary">contraseña?</span>
           </h1>
-          <p className="font-sans text-sm text-cr-text-muted">
+          <p className="font-sans text-sm text-white/40 leading-relaxed">
             Te enviaremos un enlace para crear una nueva. Caduca en 30 minutos.
           </p>
         </motion.header>
 
-        {sent ? (
-          <div className="border-2 border-cr-primary bg-cr-surface p-5 space-y-2">
-            <p className="font-display text-sm uppercase tracking-wide text-cr-primary">
-              Revisa tu email
-            </p>
-            <p className="font-sans text-sm text-cr-text-muted">
-              Si tu cuenta existe, te hemos enviado un enlace a <span className="text-cr-text">{email}</span>. Mira también el spam.
-            </p>
-          </div>
-        ) : (
-          <form onSubmit={submit} className="space-y-4">
-            <label className="block space-y-2">
-              <span className="font-sans text-[11px] font-semibold uppercase tracking-[0.12em] text-cr-text-muted">
-                Email
-              </span>
-              <input
-                type="email"
-                required
-                autoFocus
-                autoComplete="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                placeholder="tu@email.com"
-                className="w-full bg-cr-surface border-2 border-cr-border focus:border-cr-primary outline-none px-3 py-3 font-mono text-sm text-cr-text placeholder:text-cr-text-dim transition-colors"
-              />
-            </label>
+        {/* Lime divider */}
+        <div
+          aria-hidden="true"
+          className="mb-8 h-px"
+          style={{ background: "linear-gradient(to right, rgba(219,255,0,0.3), transparent)" }}
+        />
 
-            <button
-              type="submit"
-              disabled={submitting || !email.trim()}
-              className="w-full bg-cr-primary text-black font-sans font-semibold uppercase tracking-[0.12em] text-sm border-2 border-black px-6 py-3 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] hover:translate-x-[2px] hover:translate-y-[2px] active:shadow-none active:translate-x-[4px] active:translate-y-[4px] transition-all duration-100 disabled:opacity-50 disabled:pointer-events-none"
-            >
-              {submitting ? "Enviando…" : "Enviar enlace"}
-            </button>
-          </form>
-        )}
+        <motion.div
+          initial={{ opacity: 0, y: 16 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
+        >
+          {sent ? (
+            <div className="border border-cr-primary/30 bg-cr-primary/[0.06] p-5 space-y-3">
+              <div className="flex items-center gap-3">
+                <div className="w-8 h-8 bg-cr-primary/15 flex items-center justify-center flex-shrink-0">
+                  <Mail size={14} className="text-cr-primary" aria-hidden="true" />
+                </div>
+                <p className="font-mono text-[10px] font-semibold uppercase tracking-[0.14em] text-cr-primary">
+                  Revisa tu email
+                </p>
+              </div>
+              <p className="font-sans text-sm text-white/50 leading-relaxed">
+                Si tu cuenta existe, te hemos enviado un enlace a{" "}
+                <span className="text-white/80">{email}</span>. Mira también el spam.
+              </p>
+              <Link
+                to="/login"
+                className="inline-flex items-center gap-1.5 font-mono text-[10px] font-semibold uppercase tracking-[0.14em] text-cr-primary hover:text-white transition-colors"
+              >
+                <ArrowLeft size={10} aria-hidden="true" /> Volver al login
+              </Link>
+            </div>
+          ) : (
+            <form onSubmit={submit} className="space-y-5">
+              <label className="block space-y-1.5">
+                <span className="font-mono text-[10px] font-semibold uppercase tracking-[0.14em] text-white/40">
+                  Email
+                </span>
+                <input
+                  type="email"
+                  required
+                  autoFocus
+                  autoComplete="email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  placeholder="tu@email.com"
+                  className="w-full bg-white/[0.04] border border-white/[0.1] focus:border-cr-primary focus:shadow-[0_0_12px_rgb(219_255_0/0.15)] outline-none px-4 py-3 font-mono text-sm text-cr-text placeholder:text-white/20 transition-all duration-150"
+                />
+              </label>
+
+              <div className="pt-1">
+                <button
+                  type="submit"
+                  disabled={submitting || !email.trim()}
+                  className="cr-btn-shine w-full bg-cr-primary text-black font-sans font-semibold uppercase tracking-[0.14em] text-sm px-6 py-4 hover:bg-[#c8ec00] transition-colors duration-150 disabled:opacity-40 disabled:pointer-events-none"
+                >
+                  {submitting ? "Enviando…" : "Enviar enlace →"}
+                </button>
+              </div>
+            </form>
+          )}
+        </motion.div>
       </div>
     </main>
   );

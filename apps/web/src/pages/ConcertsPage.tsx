@@ -1,8 +1,9 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { Link, useSearchParams } from "react-router-dom";
+import { AnimatePresence, motion } from "motion/react";
 import { useSeoMeta } from "@/lib/useSeoMeta";
 import { SITE_URL } from "@/lib/siteUrl";
-import { SlidersHorizontal, Sparkles, X, Clock, Zap, ChevronLeft, ChevronRight } from "lucide-react";
+import { SlidersHorizontal, Sparkles, X, Clock, Zap, ChevronLeft, ChevronRight, Search } from "lucide-react";
 import type { Concert } from "@concertride/types";
 import { api } from "@/lib/api";
 import { ConcertCard } from "@/components/ConcertCard";
@@ -263,172 +264,195 @@ export default function ConcertsPage() {
       />
       {/* Header */}
       <div className="max-w-6xl mx-auto px-6 pt-10 pb-6 space-y-4">
-        <nav aria-label="Breadcrumb" className="font-mono text-[11px] text-cr-text-muted flex items-center gap-2">
-          <Link to="/" className="hover:text-cr-primary">Inicio</Link>
+        <motion.nav
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.4 }}
+          aria-label="Breadcrumb"
+          className="font-mono text-[11px] text-cr-text-muted flex items-center gap-2"
+        >
+          <Link to="/" className="hover:text-cr-primary transition-colors">Inicio</Link>
           <span aria-hidden="true">/</span>
           <span className="text-cr-text-muted">Conciertos</span>
-        </nav>
-        <p className="font-sans text-[11px] font-semibold uppercase tracking-[0.16em] text-cr-primary">
-          Explorar
-        </p>
-        <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4">
-          <div>
-            <h1 className="font-display text-4xl md:text-6xl uppercase leading-[0.92]">
-              Todos los
-              <br />
-              conciertos.
-            </h1>
-            <p className="font-sans text-sm text-cr-text-muted max-w-2xl leading-relaxed speakable mt-3">
-              ConcertRide es la plataforma española de carpooling exclusiva para conciertos y festivales. Busca viajes compartidos a más de 50 festivales y miles de conciertos en España — sin comisión, sin taxi, con conductores verificados.
-            </p>
-          </div>
-          <div className="flex items-center gap-2">
-            <button
-              onClick={() => setFilter("festival", !filters.festival)}
-              aria-pressed={filters.festival}
-              className={`inline-flex items-center gap-2 px-4 py-2 border font-sans text-xs font-semibold uppercase tracking-[0.1em] transition-colors ${
-                filters.festival
-                  ? "border-cr-secondary text-cr-secondary bg-cr-secondary/10"
-                  : "border-cr-border text-cr-text-muted hover:border-cr-secondary hover:text-cr-secondary"
-              }`}
-            >
-              <Sparkles size={13} />
-              Solo festivales
-            </button>
-            <button
-              onClick={() => setShowFilters((v) => !v)}
-              className={`inline-flex items-center gap-2 px-4 py-2 border font-sans text-xs font-semibold uppercase tracking-[0.1em] transition-colors ${
-                hasActiveFilters(filters) || showFilters
-                  ? "border-cr-primary text-cr-primary bg-cr-primary/5"
-                  : "border-cr-border text-cr-text-muted hover:border-cr-primary hover:text-cr-primary"
-              }`}
-            >
-              <SlidersHorizontal size={13} />
-              Filtrar
-              {hasActiveFilters(filters) && (
-                <span className="bg-cr-primary text-black w-4 h-4 flex items-center justify-center text-[9px] font-bold">
-                  {Object.values(filters).filter(Boolean).length}
-                </span>
-              )}
-            </button>
-          </div>
-        </div>
+        </motion.nav>
 
-        {/* Artist search — sent as API param */}
-        <input
-          type="search"
-          placeholder="Buscar artista o festival…"
-          value={filters.artist}
-          onChange={(e) => setFilter("artist", e.target.value)}
-          className="w-full bg-cr-surface border border-cr-border px-4 py-3 font-mono text-sm text-cr-text placeholder:text-cr-text-dim focus:outline-none focus:border-cr-primary transition-colors"
-        />
-
-        {/* Filter panel */}
-        {showFilters && (
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-3 p-4 border border-cr-border bg-cr-surface">
-            <div className="space-y-1.5">
-              <label className="font-sans text-[10px] font-semibold uppercase tracking-[0.12em] text-cr-text-muted">
-                Ciudad
-              </label>
-              <select
-                value={filters.city}
-                onChange={(e) => setFilter("city", e.target.value)}
-                className="w-full bg-cr-surface-2 border border-cr-border px-3 py-2 font-mono text-xs text-cr-text focus:outline-none focus:border-cr-primary [color-scheme:dark]"
-              >
-                <option value="">Todas</option>
-                {facets.cities.map((c) => (
-                  <option key={c} value={c}>
-                    {c}
-                  </option>
-                ))}
-              </select>
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+        >
+          <p className="font-mono text-[10px] font-semibold uppercase tracking-[0.16em] text-cr-primary mb-3">
+            Explorar
+          </p>
+          <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4">
+            <div>
+              <h1 className="font-display text-4xl md:text-6xl uppercase leading-[0.92] tracking-tight">
+                Todos los
+                <br />
+                conciertos.
+              </h1>
+              <p className="font-sans text-sm text-cr-text-muted max-w-2xl leading-relaxed speakable mt-3">
+                La plataforma española de carpooling exclusiva para conciertos y festivales. Sin comisión, sin taxi, conductores verificados.
+              </p>
             </div>
-
-            <div className="space-y-1.5">
-              <label className="font-sans text-[10px] font-semibold uppercase tracking-[0.12em] text-cr-text-muted">
-                Género
-              </label>
-              <select
-                value={filters.genre}
-                onChange={(e) => setFilter("genre", e.target.value)}
-                disabled={facets.genres.length === 0}
-                className="w-full bg-cr-surface-2 border border-cr-border px-3 py-2 font-mono text-xs text-cr-text focus:outline-none focus:border-cr-primary [color-scheme:dark] disabled:opacity-50"
-              >
-                <option value="">Todos</option>
-                {facets.genres.map((g) => (
-                  <option key={g} value={g}>
-                    {g}
-                  </option>
-                ))}
-              </select>
-            </div>
-
-            <div className="space-y-1.5">
-              <label className="font-sans text-[10px] font-semibold uppercase tracking-[0.12em] text-cr-text-muted">
-                Desde
-              </label>
-              <input
-                type="date"
-                value={filters.dateFrom}
-                onChange={(e) => setFilter("dateFrom", e.target.value)}
-                className="w-full bg-cr-surface-2 border border-cr-border px-3 py-2 font-mono text-xs text-cr-text focus:outline-none focus:border-cr-primary [color-scheme:dark]"
-              />
-            </div>
-
-            <div className="space-y-1.5">
-              <label className="font-sans text-[10px] font-semibold uppercase tracking-[0.12em] text-cr-text-muted">
-                Hasta
-              </label>
-              <input
-                type="date"
-                value={filters.dateTo}
-                onChange={(e) => setFilter("dateTo", e.target.value)}
-                className="w-full bg-cr-surface-2 border border-cr-border px-3 py-2 font-mono text-xs text-cr-text focus:outline-none focus:border-cr-primary [color-scheme:dark]"
-              />
-            </div>
-
-            {hasActiveFilters(filters) && (
+            <div className="flex items-center gap-2 flex-shrink-0">
               <button
-                onClick={() => { setFilters(EMPTY_FILTERS); setPage(1); }}
-                className="col-span-2 md:col-span-4 inline-flex items-center gap-1.5 font-sans text-xs font-semibold uppercase tracking-[0.1em] text-cr-text-muted hover:text-cr-primary transition-colors"
+                onClick={() => setFilter("festival", !filters.festival)}
+                aria-pressed={filters.festival}
+                className={`inline-flex items-center gap-2 h-9 px-4 border font-mono text-[11px] font-bold uppercase tracking-[0.1em] transition-colors ${
+                  filters.festival
+                    ? "border-cr-secondary text-cr-secondary bg-cr-secondary/10"
+                    : "border-cr-border text-cr-text-muted hover:border-cr-secondary hover:text-cr-secondary"
+                }`}
               >
-                <X size={12} />
-                Limpiar filtros
+                <Sparkles size={12} />
+                Festivales
               </button>
-            )}
+              <button
+                onClick={() => setShowFilters((v) => !v)}
+                className={`inline-flex items-center gap-2 h-9 px-4 border font-mono text-[11px] font-bold uppercase tracking-[0.1em] transition-colors ${
+                  hasActiveFilters(filters) || showFilters
+                    ? "border-cr-primary text-cr-primary bg-cr-primary/5"
+                    : "border-cr-border text-cr-text-muted hover:border-cr-primary hover:text-cr-primary"
+                }`}
+              >
+                <SlidersHorizontal size={12} />
+                Filtrar
+                {hasActiveFilters(filters) && (
+                  <span className="bg-cr-primary text-black w-4 h-4 flex items-center justify-center text-[9px] font-bold">
+                    {Object.values(filters).filter(Boolean).length}
+                  </span>
+                )}
+              </button>
+            </div>
           </div>
-        )}
+        </motion.div>
+
+        {/* Artist search */}
+        <motion.div
+          initial={{ opacity: 0, y: 12 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.4, delay: 0.1 }}
+          className="relative"
+        >
+          <Search size={15} className="absolute left-4 top-1/2 -translate-y-1/2 text-white/25 pointer-events-none" aria-hidden="true" />
+          <input
+            type="search"
+            placeholder="Buscar artista o festival…"
+            value={filters.artist}
+            onChange={(e) => setFilter("artist", e.target.value)}
+            className="w-full bg-white/[0.03] border border-white/[0.08] pl-10 pr-4 py-3 font-mono text-sm text-cr-text placeholder:text-white/20 focus:outline-none focus:border-cr-primary focus:shadow-[0_0_12px_rgb(219_255_0/0.1)] transition-all duration-150"
+          />
+        </motion.div>
+
+        {/* Filter panel — animated */}
+        <AnimatePresence>
+          {showFilters && (
+            <motion.div
+              initial={{ opacity: 0, height: 0 }}
+              animate={{ opacity: 1, height: "auto" }}
+              exit={{ opacity: 0, height: 0 }}
+              transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
+              className="overflow-hidden"
+            >
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-3 p-4 border border-white/[0.08] bg-white/[0.02]">
+                <div className="space-y-1.5">
+                  <label className="font-mono text-[10px] font-semibold uppercase tracking-[0.12em] text-white/35">
+                    Ciudad
+                  </label>
+                  <select
+                    value={filters.city}
+                    onChange={(e) => setFilter("city", e.target.value)}
+                    className="w-full bg-white/[0.04] border border-white/[0.1] px-3 py-2 font-mono text-xs text-cr-text focus:outline-none focus:border-cr-primary [color-scheme:dark] transition-colors"
+                  >
+                    <option value="">Todas</option>
+                    {facets.cities.map((c) => (
+                      <option key={c} value={c}>{c}</option>
+                    ))}
+                  </select>
+                </div>
+
+                <div className="space-y-1.5">
+                  <label className="font-mono text-[10px] font-semibold uppercase tracking-[0.12em] text-white/35">
+                    Género
+                  </label>
+                  <select
+                    value={filters.genre}
+                    onChange={(e) => setFilter("genre", e.target.value)}
+                    disabled={facets.genres.length === 0}
+                    className="w-full bg-white/[0.04] border border-white/[0.1] px-3 py-2 font-mono text-xs text-cr-text focus:outline-none focus:border-cr-primary [color-scheme:dark] disabled:opacity-50 transition-colors"
+                  >
+                    <option value="">Todos</option>
+                    {facets.genres.map((g) => (
+                      <option key={g} value={g}>{g}</option>
+                    ))}
+                  </select>
+                </div>
+
+                <div className="space-y-1.5">
+                  <label className="font-mono text-[10px] font-semibold uppercase tracking-[0.12em] text-white/35">
+                    Desde
+                  </label>
+                  <input
+                    type="date"
+                    value={filters.dateFrom}
+                    onChange={(e) => setFilter("dateFrom", e.target.value)}
+                    className="w-full bg-white/[0.04] border border-white/[0.1] px-3 py-2 font-mono text-xs text-cr-text focus:outline-none focus:border-cr-primary [color-scheme:dark] transition-colors"
+                  />
+                </div>
+
+                <div className="space-y-1.5">
+                  <label className="font-mono text-[10px] font-semibold uppercase tracking-[0.12em] text-white/35">
+                    Hasta
+                  </label>
+                  <input
+                    type="date"
+                    value={filters.dateTo}
+                    onChange={(e) => setFilter("dateTo", e.target.value)}
+                    className="w-full bg-white/[0.04] border border-white/[0.1] px-3 py-2 font-mono text-xs text-cr-text focus:outline-none focus:border-cr-primary [color-scheme:dark] transition-colors"
+                  />
+                </div>
+
+                {hasActiveFilters(filters) && (
+                  <button
+                    onClick={() => { setFilters(EMPTY_FILTERS); setPage(1); }}
+                    className="col-span-2 md:col-span-4 inline-flex items-center gap-1.5 font-mono text-[10px] font-semibold uppercase tracking-[0.1em] text-white/30 hover:text-cr-primary transition-colors"
+                  >
+                    <X size={11} />
+                    Limpiar filtros
+                  </button>
+                )}
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
 
         {/* Tabs */}
-        <div className="flex gap-0 border-b border-cr-border">
-          <button
-            onClick={() => setTab("active")}
-            className={`inline-flex items-center gap-1.5 px-4 py-2.5 font-sans text-xs font-semibold uppercase tracking-[0.12em] border-b-2 -mb-px transition-colors ${
-              tab === "active"
-                ? "border-cr-primary text-cr-primary"
-                : "border-transparent text-cr-text-muted hover:text-cr-text"
-            }`}
-          >
-            <Zap size={12} />
-            Próximos
-            {!loading && tab === "active" && total > 0 && (
-              <span className="font-mono text-[10px] text-cr-text-dim">({total})</span>
-            )}
-          </button>
-          <button
-            onClick={() => setTab("past")}
-            className={`inline-flex items-center gap-1.5 px-4 py-2.5 font-sans text-xs font-semibold uppercase tracking-[0.12em] border-b-2 -mb-px transition-colors ${
-              tab === "past"
-                ? "border-cr-primary text-cr-primary"
-                : "border-transparent text-cr-text-muted hover:text-cr-text"
-            }`}
-          >
-            <Clock size={12} />
-            Pasados
-            {!loading && tab === "past" && total > 0 && (
-              <span className="font-mono text-[10px] text-cr-text-dim">({total})</span>
-            )}
-          </button>
+        <div className="relative flex gap-0 border-b border-cr-border">
+          {["active", "past"].map((t) => (
+            <button
+              key={t}
+              onClick={() => setTab(t as Tab)}
+              className={`relative inline-flex items-center gap-1.5 px-4 py-2.5 font-mono text-[11px] font-bold uppercase tracking-[0.12em] transition-colors ${
+                tab === t
+                  ? "text-cr-primary"
+                  : "text-cr-text-muted hover:text-cr-text"
+              }`}
+            >
+              {t === "active" ? <Zap size={11} /> : <Clock size={11} />}
+              {t === "active" ? "Próximos" : "Pasados"}
+              {!loading && tab === t && total > 0 && (
+                <span className="font-mono text-[10px] text-cr-text-dim">({total})</span>
+              )}
+              {tab === t && (
+                <motion.span
+                  layoutId="tab-underline"
+                  className="absolute bottom-0 left-0 right-0 h-[2px] bg-cr-primary"
+                  transition={{ type: "spring", stiffness: 500, damping: 35 }}
+                />
+              )}
+            </button>
+          ))}
         </div>
       </div>
 
@@ -452,13 +476,29 @@ export default function ConcertsPage() {
           </div>
         ) : (
           <>
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+            <motion.div
+              className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5"
+              initial="hidden"
+              animate="visible"
+              variants={{
+                hidden: {},
+                visible: { transition: { staggerChildren: 0.05 } },
+              }}
+            >
               {pageConcerts.map((c) => (
-                <Link key={c.id} to={`/concerts/${c.id}`} className="block">
-                  <ConcertCard concert={c} />
-                </Link>
+                <motion.div
+                  key={c.id}
+                  variants={{
+                    hidden: { opacity: 0, y: 16 },
+                    visible: { opacity: 1, y: 0, transition: { duration: 0.4, ease: [0.16, 1, 0.3, 1] } },
+                  }}
+                >
+                  <Link to={`/concerts/${c.id}`} className="block">
+                    <ConcertCard concert={c} />
+                  </Link>
+                </motion.div>
               ))}
-            </div>
+            </motion.div>
 
             {/* Pagination */}
             {totalPages > 1 && (

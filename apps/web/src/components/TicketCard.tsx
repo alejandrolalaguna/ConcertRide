@@ -28,18 +28,18 @@ export function TicketCard({ ride, onClick }: Props) {
 
   return (
     <motion.article
-      whileHover={{ y: -4, transition: { duration: 0.18, ease: [0.25, 0.46, 0.45, 0.94] } }}
+      whileHover={{ y: -6, transition: { duration: 0.2, ease: [0.25, 0.46, 0.45, 0.94] } }}
       aria-label={label}
       onClick={onClick}
-      className="group relative flex overflow-hidden bg-cr-surface border border-cr-border hover:border-cr-primary/30 transition-[border-color,box-shadow] duration-200 hover:shadow-[0_16px_48px_rgb(0_0_0/0.6),0_0_0_1px_rgb(212_247_0/0.06)] cursor-pointer"
+      className="group relative flex overflow-hidden bg-cr-surface border border-cr-border hover:border-cr-primary/40 transition-[border-color,box-shadow] duration-200 hover:shadow-[0_20px_60px_rgb(0_0_0/0.7),0_0_0_1px_rgb(219_255_0/0.08),0_0_30px_rgb(219_255_0/0.04)] cursor-pointer"
     >
       {/* Left accent bar — color-coded by vibe */}
       <div
-        className={`w-1 flex-shrink-0 ${
+        className={`w-1 flex-shrink-0 transition-all duration-300 ${
           ride.vibe === "party"
-            ? "bg-cr-secondary"
+            ? "bg-cr-secondary group-hover:shadow-[2px_0_8px_rgb(255_79_0/0.4)]"
             : ride.vibe === "mixed"
-            ? "bg-cr-primary"
+            ? "bg-cr-primary group-hover:shadow-[2px_0_8px_rgb(219_255_0/0.4)]"
             : "bg-cr-border-mid"
         }`}
       />
@@ -55,7 +55,7 @@ export function TicketCard({ ride, onClick }: Props) {
 
         {/* Artist + venue */}
         <div className="space-y-1">
-          <h3 className="font-display text-xl uppercase leading-tight tracking-tight truncate">
+          <h3 className="font-display text-xl uppercase leading-tight tracking-tight truncate group-hover:text-white transition-colors duration-200">
             {concert.artist}
           </h3>
           <p className="font-sans text-sm text-cr-text-muted truncate">
@@ -70,7 +70,7 @@ export function TicketCard({ ride, onClick }: Props) {
         <div className="flex items-center gap-3 pt-1">
           <div
             aria-hidden="true"
-            className="w-9 h-9 flex-shrink-0 bg-cr-surface-3 border border-cr-border-mid flex items-center justify-center font-display text-xs font-black text-cr-primary"
+            className="w-9 h-9 flex-shrink-0 bg-cr-surface-3 border border-cr-border-mid flex items-center justify-center font-display text-xs font-black text-cr-primary group-hover:border-cr-primary/30 transition-colors duration-200"
           >
             {initials(driver.name)}
           </div>
@@ -140,8 +140,12 @@ export function TicketCard({ ride, onClick }: Props) {
 
       {/* Right stub — price + seats */}
       <div className="w-[130px] flex-shrink-0 p-5 flex flex-col justify-between gap-4 relative overflow-hidden">
-        {/* Subtle ambient glow on hover */}
-        <div className="absolute inset-0 bg-gradient-to-br from-cr-primary/0 to-cr-primary/0 group-hover:from-cr-primary/[0.03] transition-all duration-300" />
+        {/* Ambient glow on hover — stronger than before */}
+        <div
+          aria-hidden="true"
+          className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-400 pointer-events-none"
+          style={{ background: "radial-gradient(ellipse at 50% 0%, rgba(219,255,0,0.07) 0%, transparent 70%)" }}
+        />
 
         {/* Price */}
         <div className="relative">

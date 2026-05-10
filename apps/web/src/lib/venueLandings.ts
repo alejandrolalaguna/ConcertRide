@@ -1005,6 +1005,375 @@ export const VENUE_LANDINGS: VenueLanding[] = [
     ],
     relatedFestivals: ["primavera-sound", "cruilla"],
   },
+
+  // ── MOVISTAR ARENA (MADRID) ──────────────────────────────────────────────────
+
+  {
+    slug: "movistar-arena",
+    name: "Movistar Arena",
+    shortName: "Movistar Arena",
+    city: "Madrid",
+    citySlug: "madrid",
+    region: "Comunidad de Madrid",
+    address: "Av. Felipe II s/n, 28009 Madrid",
+    lat: 40.4321,
+    lng: -3.6613,
+    capacity: "16.291–20.000 personas",
+    venueType: "Arena",
+    transport: {
+      metro: "L5 Ventas (5 min a pie) · L2 Goya (10 min a pie)",
+      bus: "Líneas 21, 53, 63, 106 (parada Ventas) · Búho nocturno N6, N11",
+    },
+    blurb:
+      "El Movistar Arena (antiguo WiZink Center) es el mayor recinto de espectáculos cubierto de Madrid, con capacidad para hasta 20.000 personas. Inaugurado en 1999 como Palacio de los Deportes, fue completamente renovado en 2015 y rebautizado como Movistar Arena en 2024 tras el nuevo acuerdo de patrocinio. Alberga las giras más importantes de artistas nacionales e internacionales: desde C. Tangana y Morat hasta Dua Lipa, Shakira o Rammstein. Con ConcertRide, los fans desde Valencia llegan al Movistar Arena por 10–14 €/asiento, desde Zaragoza por 9–13 €, sin comisión.",
+    originCities: [
+      { city: "Valencia", km: 355, drivingTime: "3h 20 min", concertRideRange: "10–14 €/asiento" },
+      { city: "Zaragoza", km: 325, drivingTime: "3h", concertRideRange: "9–13 €/asiento" },
+      { city: "Barcelona", km: 620, drivingTime: "5h 30 min", concertRideRange: "15–20 €/asiento" },
+      { city: "Sevilla", km: 535, drivingTime: "5h", concertRideRange: "14–19 €/asiento" },
+    ],
+    faqs: [
+      {
+        q: "¿Cómo llegar al Movistar Arena en metro?",
+        a: "El Movistar Arena está junto al estadio de Las Ventas. La parada más cercana es Ventas (Línea 5, 5 minutos a pie) o Goya (Línea 2, 10 minutos a pie). El metro de Madrid opera hasta las 1:30–2:00h los fines de semana, sin servicio de madrugada para la vuelta de conciertos tardíos.",
+      },
+      {
+        q: "¿Tiene parking el Movistar Arena?",
+        a: "Sí. Hay parkings públicos en los alrededores: Parking Sánchez Bustillo (~500 m), Parking Las Ventas y zona de aparcamiento regulado ORA en las calles próximas (~1,50 €/hora). Para conciertos multitudinarios se recomienda llegar en transporte público o carpooling.",
+      },
+      {
+        q: "¿Cómo ir al Movistar Arena desde Valencia?",
+        a: "Desde Valencia al Movistar Arena son aproximadamente 355 km (3h 20 min por la A-3). El AVE Valencia-Madrid cuesta 20–80 € más transporte interno. Con ConcertRide, el carpooling sale por 10–14 €/asiento con llegada directa a Las Ventas. Sin comisión.",
+      },
+      {
+        q: "¿Cuándo se llama Movistar Arena y cuándo WiZink Center?",
+        a: "El recinto se llamó WiZink Center de 2016 a 2024, y anteriormente Palacio de los Deportes de Madrid (1999–2015). Desde 2024 se llama Movistar Arena por el nuevo acuerdo de patrocinio con Movistar+. Es el mismo edificio en la misma dirección.",
+      },
+      {
+        q: "¿A qué hora terminan los conciertos en el Movistar Arena?",
+        a: "Los conciertos en el Movistar Arena suelen terminar entre las 22:30 y las 23:30. El metro (L5 Ventas) tiene último servicio hacia las 1:30h los fines de semana. Para grupos que vienen de otras provincias, el carpooling con ConcertRide se organiza con hora de vuelta acordada antes del evento.",
+      },
+    ],
+    relatedFestivals: [],
+  },
+
+  // ── BIZKAIA ARENA / BEC (BARAKALDO) ─────────────────────────────────────────
+
+  {
+    slug: "bizkaia-arena-bec",
+    name: "Bizkaia Arena – BEC",
+    shortName: "Bizkaia Arena",
+    city: "Barakaldo",
+    citySlug: "bilbao",
+    region: "País Vasco",
+    address: "Ronda de Azkue, 1, 48902 Barakaldo, Bizkaia",
+    lat: 43.2965,
+    lng: -2.9956,
+    capacity: "26.000 personas",
+    venueType: "Arena",
+    transport: {
+      metro: "L2 Ansio (5 min a pie) — servicio frecuente desde Bilbao y San Sebastián",
+      bus: "Bizkaibus A3247 desde Bilbao Termibus",
+    },
+    blurb:
+      "La Bizkaia Arena, integrada en el Bilbao Exhibition Centre (BEC), es el mayor pabellón cubierto de España, con capacidad para 26.000 personas. Ubicada en Barakaldo, en el área metropolitana de Bilbao, es accesible en metro (Línea 2, parada Ansio, directa). Alberga las giras más grandes que visitan el norte de España: Dua Lipa, Shakira, Rammstein, AC/DC, Beyoncé. Con ConcertRide, los fans desde Pamplona llegan a Bizkaia Arena por 5–8 €/asiento, desde Donostia por 4–7 €, sin comisión.",
+    originCities: [
+      { city: "Madrid", km: 395, drivingTime: "4h", concertRideRange: "11–16 €/asiento" },
+      { city: "Pamplona", km: 90, drivingTime: "1h", concertRideRange: "5–8 €/asiento" },
+      { city: "Donostia", km: 105, drivingTime: "1h 10 min", concertRideRange: "4–7 €/asiento" },
+      { city: "Vitoria", km: 65, drivingTime: "45 min", concertRideRange: "3–6 €/asiento" },
+    ],
+    faqs: [
+      {
+        q: "¿Cómo llegar a Bizkaia Arena desde Bilbao en metro?",
+        a: "El metro de Bilbao (Línea 2, Metro Bilbao) conecta el centro de Bilbao con Barakaldo directamente. La parada Ansio está a 5 minutos a pie de la Bizkaia Arena. Frecuencia de 5–10 minutos en hora punta. El último metro de madrugada sale hacia las 23:30 entre semana y 2:30 los fines de semana.",
+      },
+      {
+        q: "¿Cómo ir a Bizkaia Arena desde San Sebastián?",
+        a: "Donostia-San Sebastián está a 105 km de Barakaldo (1h 10 min por la AP-8). El metro Euskotren conecta San Sebastián con Bilbao (1h 15 min, 4–6 €) + metro L2 hasta Ansio. Con ConcertRide, el carpooling desde Donostia sale por 4–7 €/asiento con llegada directa al BEC.",
+      },
+      {
+        q: "¿Cómo llegar a Bizkaia Arena desde Madrid?",
+        a: "Madrid está a 395 km de la Bizkaia Arena (4h en coche por la A-1). Con ConcertRide, el carpooling sale por 11–16 €/asiento sin comisión. El AVE Madrid-Bilbao Abando cuesta 40–90 € + metro L2 hasta Ansio (~45 min más).",
+      },
+      {
+        q: "¿Tiene parking Bizkaia Arena?",
+        a: "Sí. El BEC tiene parking propio con 4.000 plazas (precio 3–5 €/h, máximo 21 €/día para eventos). Se llena rápido — se recomienda llegar con 90+ minutos de antelación o usar el metro L2 desde Bilbao.",
+      },
+      {
+        q: "¿Es lo mismo Bizkaia Arena y BEC Bilbao?",
+        a: "El BEC (Bilbao Exhibition Centre) es el complejo ferial de Barakaldo donde se integra la Bizkaia Arena. La Bizkaia Arena es el pabellón polivalente de 26.000 personas dentro del BEC para conciertos y eventos. A veces se usa indistintamente 'BEC Bilbao', 'Bizkaia Arena' o 'BEC Barakaldo' para referirse al mismo recinto.",
+      },
+    ],
+    relatedFestivals: ["bbk-live", "bbk-music-legends"],
+  },
+
+  // ── ESTADIO DE MESTALLA (VALENCIA) ──────────────────────────────────────────
+
+  {
+    slug: "estadio-mestalla-valencia",
+    name: "Estadio de Mestalla",
+    shortName: "Mestalla",
+    city: "Valencia",
+    citySlug: "valencia",
+    region: "Comunitat Valenciana",
+    address: "Av. de Suècia s/n, 46010 Valencia",
+    lat: 39.4745,
+    lng: -0.3583,
+    capacity: "55.000 personas",
+    venueType: "Estadio",
+    transport: {
+      metro: "L5 y L7 Aragón (10 min a pie del estadio)",
+      bus: "EMT Valencia líneas 10, 10A, 79 (parada Mestalla)",
+    },
+    blurb:
+      "El Estadio de Mestalla es el campo del Valencia CF y uno de los recintos más grandes de España para conciertos de macro-giras, con capacidad para hasta 55.000 personas. Ha albergado conciertos históricos de artistas como Ed Sheeran, Coldplay, U2, Bruce Springsteen y Taylor Swift. Está a 15 minutos del centro de Valencia, con acceso en metro (Líneas 5 y 7, parada Aragón). Con ConcertRide, los fans desde Alicante llegan al Mestalla por 5–8 €/asiento, desde Madrid por 10–14 €, sin comisión.",
+    originCities: [
+      { city: "Alicante", km: 175, drivingTime: "1h 45 min", concertRideRange: "5–8 €/asiento" },
+      { city: "Madrid", km: 355, drivingTime: "3h 20 min", concertRideRange: "10–14 €/asiento" },
+      { city: "Barcelona", km: 355, drivingTime: "3h 15 min", concertRideRange: "10–14 €/asiento" },
+      { city: "Zaragoza", km: 310, drivingTime: "2h 50 min", concertRideRange: "8–12 €/asiento" },
+    ],
+    faqs: [
+      {
+        q: "¿Cómo llegar al Estadio de Mestalla en metro?",
+        a: "El metro de Valencia (Metrovalencia) tiene parada Aragón en las Líneas 5 (Marítim–Torrent Avinguda) y 7 (Marítim–Aeroport). Desde la parada Aragón hay unos 10 minutos a pie hasta la puerta principal de Mestalla. El metro opera hasta las 00:00–00:30 los días de semana y hasta las 1:00 los fines de semana.",
+      },
+      {
+        q: "¿Cómo ir a Mestalla desde Alicante?",
+        a: "Alicante está a 175 km de Valencia (1h 45 min por la AP-7). El tren Cercanías Alicante-Valencia (1h 45 min, 8–15 €) llega a Valencia Nord y desde ahí metro L5 hasta Aragón. Con ConcertRide, el carpooling desde Alicante sale por 5–8 €/asiento con llegada directa al estadio. Sin comisión.",
+      },
+      {
+        q: "¿Cómo ir a Mestalla desde Madrid?",
+        a: "Madrid está a 355 km de Mestalla (3h 20 min por la A-3). El AVE Madrid-Valencia cuesta 20–80 €. Con ConcertRide, el carpooling sale por 10–14 €/asiento. La ventaja del carpooling para macro-conciertos: salida a la hora que quieras y vuelta sin depender del último tren (AVE Madrid-Valencia, último ~22:30).",
+      },
+      {
+        q: "¿Tiene parking el Estadio de Mestalla?",
+        a: "Hay parkings privados en los alrededores del estadio (Parking Mestalla, Interparking Aragón) a ~2–4 €/h. En días de macro-concierto, el aparcamiento se complica en un radio de 500 m — se recomienda aparcar en zonas más alejadas o usar el metro (parada Aragón, Línea 5/7).",
+      },
+      {
+        q: "¿Qué conciertos se hacen en el Estadio de Mestalla?",
+        a: "Mestalla acoge habitualmente las macro-giras que pasan por Valencia: Coldplay, Ed Sheeran, U2, Taylor Swift, Bruce Springsteen, Rolling Stones. Para giras de menor aforo en Valencia, el recinto habitual es el Pavelló de la Fuente de San Luis o el Roig Arena.",
+      },
+    ],
+    relatedFestivals: [],
+  },
+
+  // ── LA ROMAREDA (ZARAGOZA) ────────────────────────────────────────────────────
+
+  {
+    slug: "estadio-la-romareda",
+    name: "Estadio de La Romareda",
+    shortName: "La Romareda",
+    city: "Zaragoza",
+    citySlug: "zaragoza",
+    region: "Aragón",
+    address: "Av. de Isabel la Católica, 4, 50009 Zaragoza",
+    lat: 41.6560,
+    lng: -0.9054,
+    capacity: "34.500 personas",
+    venueType: "Estadio",
+    transport: {
+      metro: "Tranvía línea 1 — parada Romareda (frente al estadio)",
+      bus: "Líneas 23, 30, 38 y 44 de Avanza Zaragoza",
+      parking: "Parking Romareda (sótano del estadio, 8–15 € evento) · Aparcamientos en Av. de Goya",
+    },
+    blurb:
+      "El Estadio de La Romareda es el estadio municipal de Zaragoza, con capacidad para 34.500 personas tras su última reforma. Acoge los grandes conciertos de estadio que visitan Zaragoza: Coldplay, Metallica, Rolling Stones, Bruce Springsteen. Está en el barrio homónimo, con acceso directo en tranvía (línea 1, parada Romareda). Para fans que vienen de Madrid, Barcelona, Valencia o Bilbao, ConcertRide ofrece carpooling directo con llegada a pie del estadio.",
+    originCities: [
+      { city: "Madrid", km: 325, drivingTime: "2h 45 min", concertRideRange: "9–13 €/asiento" },
+      { city: "Barcelona", km: 306, drivingTime: "2h 45 min", concertRideRange: "8–12 €/asiento" },
+      { city: "Valencia", km: 330, drivingTime: "3h", concertRideRange: "9–13 €/asiento" },
+      { city: "Bilbao", km: 325, drivingTime: "3h", concertRideRange: "9–13 €/asiento" },
+      { city: "Pamplona", km: 175, drivingTime: "1h 45 min", concertRideRange: "5–8 €/asiento" },
+      { city: "Logroño", km: 180, drivingTime: "1h 45 min", concertRideRange: "5–8 €/asiento" },
+      { city: "Huesca", km: 72, drivingTime: "50 min", concertRideRange: "3–5 €/asiento" },
+      { city: "Teruel", km: 170, drivingTime: "1h 45 min", concertRideRange: "5–8 €/asiento" },
+    ],
+    faqs: [
+      {
+        q: "¿Cómo llegar al estadio de La Romareda?",
+        a: "El Estadio de La Romareda está en el barrio Romareda de Zaragoza. El acceso más cómodo es el tranvía línea 1 (parada Romareda, frente al estadio). En autobús: líneas 23, 30, 38 y 44. Parking propio disponible en días de evento (8–15 €). Para fans de Madrid, Barcelona o Valencia, ConcertRide ofrece carpooling directo hasta Zaragoza por 8–13 €/asiento.",
+      },
+      {
+        q: "¿Qué conciertos se celebran en La Romareda de Zaragoza?",
+        a: "La Romareda acoge los grandes tours de estadio que pasan por Zaragoza: Coldplay, Metallica, Rolling Stones, Bruce Springsteen, U2, AC/DC. Para eventos de menor aforo en Zaragoza, el recinto habitual es el Pabellón Príncipe Felipe (11.000 plazas) o el Espacio Expo (30.000 al aire libre).",
+      },
+      {
+        q: "¿Cómo ir a La Romareda desde Madrid?",
+        a: "Madrid–Zaragoza son 325 km (2h 45 min por la A-2). El AVE cuesta 15–55 € y tarda 1h 15 min, llegando a la estación Delicias (a 3 km del estadio, bus o taxi). Con ConcertRide, el carpooling sale por 9–13 €/asiento con llegada directa al estadio. Para grupos de 3–4 personas, el carpooling es más económico que cualquier otra opción.",
+      },
+      {
+        q: "¿Hay parking en La Romareda?",
+        a: "Sí. La Romareda tiene parking propio bajo el estadio con tarifa de 8–15 € en días de evento. También hay aparcamiento en las calles de Av. de Goya y entorno del parque Romareda. En eventos masivos se llenan pronto — se recomienda el tranvía desde el centro (10 min) o el carpooling con recogida en zona de aparcamiento.",
+      },
+      {
+        q: "¿Cómo ir a La Romareda desde Barcelona?",
+        a: "Barcelona–Zaragoza son 306 km (2h 45 min por la AP-2). El AVE cuesta 12–45 € y llega a la estación Delicias. Con ConcertRide, el carpooling desde Barcelona sale por 8–12 €/asiento. Los fans barceloneses suelen organizar viaje de ida y vuelta el mismo día para conciertos en La Romareda.",
+      },
+    ],
+    relatedFestivals: ["dcode-festival"],
+  },
+
+  // ── ESTADIO DE GRAN CANARIA (LAS PALMAS) ──────────────────────────────────────
+
+  {
+    slug: "estadio-gran-canaria",
+    name: "Estadio de Gran Canaria",
+    shortName: "Estadio Gran Canaria",
+    city: "Las Palmas de Gran Canaria",
+    citySlug: "las-palmas-de-gran-canaria",
+    region: "Canarias",
+    address: "Av. Julio Luengo, s/n, 35019 Las Palmas de Gran Canaria",
+    lat: 28.0997,
+    lng: -15.4583,
+    capacity: "32.000 personas",
+    venueType: "Estadio",
+    transport: {
+      bus: "Guagua (autobús Global) líneas 12, 13, 25 — parada Estadio Gran Canaria (15 min desde el centro)",
+      parking: "Parking municipal Estadio Gran Canaria (6–12 € evento) · Zona aparcamiento rotatorio en Av. Julio Luengo",
+    },
+    blurb:
+      "El Estadio de Gran Canaria es el mayor recinto de conciertos de las Islas Canarias, con capacidad para 32.000 personas. Situado en el barrio de La Minilla (Las Palmas), acoge giras de artistas que incluyen España en su tour y grandes eventos insulares como el Granca Live Fest. Desde el sur de la isla (Maspalomas, Playa del Inglés), los residentes locales usan ConcertRide para el trayecto de 55 km hasta el estadio (3–6 €/asiento).",
+    originCities: [
+      { city: "Maspalomas", km: 55, drivingTime: "45 min", concertRideRange: "3–6 €/asiento" },
+      { city: "Playa del Inglés", km: 50, drivingTime: "40 min", concertRideRange: "3–5 €/asiento" },
+      { city: "Puerto Rico de Gran Canaria", km: 65, drivingTime: "55 min", concertRideRange: "4–7 €/asiento" },
+      { city: "Telde", km: 20, drivingTime: "20 min", concertRideRange: "3–4 €/asiento" },
+      { city: "Ingenio", km: 30, drivingTime: "25 min", concertRideRange: "3–5 €/asiento" },
+    ],
+    faqs: [
+      {
+        q: "¿Cómo llegar al Estadio de Gran Canaria?",
+        a: "El Estadio de Gran Canaria está en el barrio de La Minilla (Las Palmas). Acceso en guagua (bus Global): líneas 12, 13 y 25, parada Estadio Gran Canaria (15 min desde el centro de Las Palmas). Parking propio disponible. Desde el aeropuerto de Gran Canaria (LPA, 20 km), guagua Global línea 66 hasta el centro y transbordo, o taxi directo (20–25 €).",
+      },
+      {
+        q: "¿Cómo ir al Estadio Gran Canaria desde el sur de la isla?",
+        a: "Desde Maspalomas y Playa del Inglés, el Estadio Gran Canaria está a 50–55 km (40–45 min por la GC-1). La guagua Global línea 30 conecta el sur con Las Palmas (1h 15 min, 4€). Con ConcertRide, el carpooling entre residentes canarios sale por 3–6 €/asiento, con vuelta de madrugada acordada con el conductor.",
+      },
+      {
+        q: "¿Qué conciertos hay en el Estadio Gran Canaria?",
+        a: "El Estadio Gran Canaria acoge grandes giras que incluyen las Islas Canarias: Alejandro Sanz, Melendi, Pablo López, Dani Martín, Rozalén, Dua Lipa, y artistas latinoamericanos. También es sede del Granca Live Fest (julio). Para eventos en Las Palmas, consultar la agenda en concertride.me/concerts.",
+      },
+      {
+        q: "¿Hay parking en el Estadio Gran Canaria?",
+        a: "Sí. El Estadio Gran Canaria tiene parking municipal propio con tarifa de 6–12 € en días de evento. También hay aparcamiento en la Avenida Julio Luengo. Para asistentes del sur de la isla, la opción más cómoda es el carpooling con ConcertRide para evitar el tráfico y el parking.",
+      },
+    ],
+    relatedFestivals: ["granca-live-fest"],
+  },
+
+  // ── ESTADIO LA ROSALEDA (MÁLAGA) ─────────────────────────────────────────────
+
+  {
+    slug: "estadio-la-rosaleda",
+    name: "Estadio La Rosaleda",
+    shortName: "La Rosaleda",
+    city: "Málaga",
+    citySlug: "malaga",
+    region: "Andalucía",
+    address: "Av. de Cánovas del Castillo, 5, 29012 Málaga",
+    lat: 36.7231,
+    lng: -4.4408,
+    capacity: "30.044 personas",
+    venueType: "Estadio",
+    transport: {
+      metro: "Metro de Málaga línea 2 — parada Guadalmedina (5 min a pie)",
+      bus: "EMT Málaga: líneas 11, 14, 36 — parada Estadio",
+      parking: "Parking Salamanca (300 m, 10–15 € evento) · Aparcamiento Av. Cánovas del Castillo",
+    },
+    blurb:
+      "El Estadio La Rosaleda es el principal estadio de Málaga capital, con capacidad para 30.044 personas. Además de los partidos del Málaga CF, acoge las grandes giras de artistas internacionales y nacionales que pasan por la Costa del Sol. Tiene acceso en metro (L2, parada Guadalmedina). Para fans de Sevilla (200 km), Granada (130 km) o Madrid (535 km), ConcertRide organiza carpooling directo al estadio.",
+    originCities: [
+      { city: "Sevilla", km: 200, drivingTime: "2h", concertRideRange: "6–10 €/asiento" },
+      { city: "Granada", km: 130, drivingTime: "1h 30 min", concertRideRange: "4–7 €/asiento" },
+      { city: "Córdoba", km: 185, drivingTime: "2h", concertRideRange: "5–9 €/asiento" },
+      { city: "Madrid", km: 535, drivingTime: "4h 30 min", concertRideRange: "13–18 €/asiento" },
+      { city: "Valencia", km: 640, drivingTime: "5h 30 min", concertRideRange: "16–22 €/asiento" },
+      { city: "Almería", km: 210, drivingTime: "2h", concertRideRange: "6–10 €/asiento" },
+      { city: "Alicante", km: 390, drivingTime: "3h 30 min", concertRideRange: "10–15 €/asiento" },
+      { city: "Jaén", km: 190, drivingTime: "2h", concertRideRange: "5–9 €/asiento" },
+    ],
+    faqs: [
+      {
+        q: "¿Cómo llegar al Estadio La Rosaleda de Málaga?",
+        a: "El Estadio La Rosaleda está en el centro de Málaga, junto al río Guadalmedina. Acceso en metro: línea 2, parada Guadalmedina (5 min a pie). También autobuses EMT líneas 11, 14 y 36. Desde el aeropuerto de Málaga (AGP), el metro L2 llega directamente a Guadalmedina (25 min, 1,80 €). Parking en Av. Cánovas del Castillo.",
+      },
+      {
+        q: "¿Qué conciertos hay en La Rosaleda de Málaga?",
+        a: "La Rosaleda acoge las grandes giras que incluyen Málaga: Coldplay, Metallica, Guns N' Roses, C. Tangana, Alejandro Sanz, Melendi, Rozalén, Dani Martín. Para conciertos de menor aforo en Málaga, el recinto habitual es el Palacio de los Deportes José María Martín Carpena (11.000 plazas).",
+      },
+      {
+        q: "¿Cómo ir a La Rosaleda desde Sevilla?",
+        a: "Sevilla–Málaga son 200 km (2 horas por la A-92 o A-45). ConcertRide ofrece carpooling por 6–10 €/asiento. El AVE Sevilla–Málaga cuesta 15–40 € y tarda 1h 55 min con llegada a Málaga María Zambrano (10 min en metro hasta Guadalmedina). El carpooling es más cómodo para grupos de 3–4.",
+      },
+      {
+        q: "¿Cómo ir a La Rosaleda desde Granada?",
+        a: "Granada–Málaga son 130 km (1h 30 min por la A-44/A-45). ConcertRide ofrece carpooling por 4–7 €/asiento. El tren Granada–Málaga no existe directamente — hay que hacer transbordo en Antequera (1h 45 min total, ~15 €). El carpooling es claramente la opción más rápida y económica.",
+      },
+      {
+        q: "¿Hay parking en La Rosaleda?",
+        a: "El estadio tiene zona de aparcamiento limitada en Av. Cánovas del Castillo. El parking Salamanca (300 m, 10–15 € evento) es el más cercano. Para conciertos masivos se recomienda metro L2 o dejar el coche en el parking de María Zambrano (1h gratuita con validación) y tomar el metro hasta Guadalmedina (2 min).",
+      },
+    ],
+    relatedFestivals: ["marenostrum-festival"],
+  },
+
+  // ── RCDE STADIUM (CORNELLÀ, BARCELONA) ───────────────────────────────────────
+
+  {
+    slug: "rcde-stadium",
+    name: "RCDE Stadium",
+    shortName: "RCDE Stadium",
+    city: "Cornellà de Llobregat",
+    citySlug: "barcelona",
+    region: "Cataluña",
+    address: "Av. del Baix Llobregat, s/n, 08940 Cornellà de Llobregat",
+    lat: 41.3451,
+    lng: 2.0748,
+    capacity: "40.500 personas",
+    venueType: "Estadio",
+    transport: {
+      metro: "Metro L5 — parada Cornellà Centre (10 min a pie) · FGC L8/L9 — Cornellà Riera",
+      bus: "TMB líneas 79, L63 · Bus nocturno N18",
+      parking: "Parking propio estadio (10–15 € evento) · Parking Sant Ildefons",
+    },
+    blurb:
+      "El RCDE Stadium (estadio del RCD Espanyol) en Cornellà de Llobregat es el segundo estadio de fútbol de la ciudad de Barcelona y uno de los principales recintos de conciertos de gran formato en el área metropolitana. Con 40.500 plazas, acoge giras que Coldplay, U2 o Taylor Swift también llevan al Estadi Olímpic o al Palau Sant Jordi. Está muy bien comunicado por metro (L5) y FGC. ConcertRide cubre carpooling desde Madrid (15–20 €), Zaragoza (8–12 €), Valencia (10–14 €) y otras ciudades.",
+    originCities: [
+      { city: "Madrid", km: 615, drivingTime: "5h 30 min", concertRideRange: "15–20 €/asiento" },
+      { city: "Zaragoza", km: 306, drivingTime: "2h 45 min", concertRideRange: "8–12 €/asiento" },
+      { city: "Valencia", km: 355, drivingTime: "3h 15 min", concertRideRange: "10–14 €/asiento" },
+      { city: "Tarragona", km: 90, drivingTime: "1h", concertRideRange: "4–7 €/asiento" },
+      { city: "Lleida", km: 170, drivingTime: "1h 45 min", concertRideRange: "5–8 €/asiento" },
+      { city: "Girona", km: 100, drivingTime: "1h 10 min", concertRideRange: "4–7 €/asiento" },
+      { city: "Pamplona", km: 415, drivingTime: "3h 45 min", concertRideRange: "12–17 €/asiento" },
+      { city: "Bilbao", km: 615, drivingTime: "5h", concertRideRange: "15–20 €/asiento" },
+    ],
+    faqs: [
+      {
+        q: "¿Cómo llegar al RCDE Stadium en transporte público?",
+        a: "El RCDE Stadium está en Cornellà de Llobregat. Acceso más cómodo: Metro L5 (parada Cornellà Centre, 10 min a pie) o FGC línea L8/L9 (parada Cornellà Riera). Desde el centro de Barcelona (Plaza España), el metro L5 tarda 12 minutos. El bus nocturno N18 cubre la vuelta de madrugada. Para fans de fuera de Barcelona, ConcertRide deja directamente en las inmediaciones del estadio.",
+      },
+      {
+        q: "¿Qué conciertos hay en el RCDE Stadium?",
+        a: "El RCDE Stadium acoge grandes giras de estadio en Barcelona cuando no están disponibles el Estadi Olímpic o el Spotify Camp Nou: Coldplay, U2, Taylor Swift, Metallica, AC/DC, Rolling Stones, Guns N' Roses. Comparte el rol de segundo estadio de conciertos de Barcelona con el Estadi Olímpic Lluís Companys.",
+      },
+      {
+        q: "¿Cómo ir al RCDE Stadium desde Madrid?",
+        a: "Madrid–Cornellà de Llobregat son 615 km (5h 30 min por la AP-2). El AVE Madrid–Barcelona Sants cuesta 30–100 € + metro L5 hasta Cornellà (15 min). Con ConcertRide, el carpooling sale por 15–20 €/asiento con llegada directa al estadio. Para grupos, el carpooling es significativamente más barato.",
+      },
+      {
+        q: "¿Cómo ir al RCDE Stadium desde Zaragoza?",
+        a: "Zaragoza–Cornellà de Llobregat son 306 km (2h 45 min por la AP-2). ConcertRide ofrece carpooling por 8–12 €/asiento. Es una de las rutas más populares para fans zaragozanos que asisten a conciertos en el área de Barcelona.",
+      },
+      {
+        q: "¿Hay parking en el RCDE Stadium?",
+        a: "Sí. El RCDE Stadium tiene parking propio con tarifa de 10–15 € en días de evento. También disponible el parking de Sant Ildefons (500 m). Para grandes conciertos, se recomienda el metro L5 o FGC para evitar la congestión de salida.",
+      },
+    ],
+    relatedFestivals: ["primavera-sound", "cruilla"],
+  },
 ];
 
 /** Lookup map by slug for O(1) access in route components */

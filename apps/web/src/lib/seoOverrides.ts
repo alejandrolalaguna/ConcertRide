@@ -158,6 +158,31 @@ export const FESTIVAL_SEO_OVERRIDES: Record<string, { title: string; description
     description: `Tío Pepe Festival ${YEAR} (25 jun–31 ago, Bodegas González Byass Jerez). Festival íntimo (1.800 plazas) en patio entre barricas históricas del vino de Jerez. Robbie Williams, Pet Shop Boys, Sting, Anastacia, Pablo Alborán, Joaquín Sabina. Entrada incluye copa de Tío Pepe. Carpooling sin comisión desde Cádiz (35 km, 3–5€), Sevilla (95 km, 4–7€), Algeciras (130 km, 5–7€), Madrid (655 km, 16–22€).`,
     keywords: `tio pepe festival ${YEAR}, tio pepe jerez festival, bodegas gonzalez byass conciertos, festival jerez ${YEAR}, festival jerez de la frontera, tio pepe entradas, robbie williams jerez, pet shop boys jerez, sting jerez, festival cadiz ${YEAR}, jerez festival verano`,
   },
+  "rototom-sunsplash": {
+    title: `Rototom Sunsplash ${YEAR} Benicàssim [14–22 ago]: Reggae + Carpooling 5€ | ConcertRide`,
+    description: `Rototom Sunsplash ${YEAR} (14–22 ago, Benicàssim Castellón, 250.000 asistentes en 8 días): festival de reggae más grande de Europa. Fiberbus lanzadera desde Castellón ciudad (3–5€, 20 min). Carpooling sin comisión desde Valencia (8–12€), Madrid (14–19€), Barcelona (10–14€), Alicante (5–8€). Vuelta de madrugada coordinada. Sin comisión.`,
+    keywords: `rototom sunsplash ${YEAR}, rototom benicassim ${YEAR}, rototom como llegar, rototom carpooling, transporte rototom, rototom desde valencia, rototom desde madrid, rototom desde barcelona, rototom lanzadera, rototom fiberbus, rototom entradas, rototom cartel ${YEAR}, festival reggae benicassim, festival reggae españa ${YEAR}, rototom sunsplash benicassim`,
+  },
+  "dreambeach-festival": {
+    title: `Dreambeach ${YEAR} Villaricos Almería [8–12 jul]: EDM + Carpooling 5€ sin comisión | ConcertRide`,
+    description: `Dreambeach Festival ${YEAR} (8–12 jul, playa Villaricos Almería, 100.000 asistentes, 5 días): festival de electrónica frente al Mediterráneo. SIN transporte público al recinto. Carpooling sin comisión desde Almería (5–8€), Murcia (8–12€), Cartagena (9–13€), Granada (10–15€), Madrid (20–28€). Vuelta de madrugada coordinada — única opción viable.`,
+    keywords: `dreambeach ${YEAR}, dreambeach festival ${YEAR}, dreambeach villaricos, dreambeach almeria, dreambeach como llegar, dreambeach carpooling, dreambeach transporte, dreambeach desde almeria, dreambeach desde murcia, dreambeach desde granada, dreambeach entradas, dreambeach cartel, festival electronica almeria, festival playa almeria ${YEAR}`,
+  },
+  "aquasella-festival": {
+    title: `Aquasella ${YEAR} Arriondas Asturias [10–12 jul]: Electrónica + Parque Acuático + Carpooling 4€ | ConcertRide`,
+    description: `Aquasella Festival ${YEAR} (10–12 jul, Parque del Sella Arriondas Asturias, 30.000 asistentes): festival de electrónica y reggae con rafting y actividades acuáticas. Sin transporte público. Carpooling sin comisión desde Oviedo (4–6€), Gijón (4–6€), Avilés (5–7€), Santander (8–12€), Bilbao (10–14€). Vuelta de madrugada coordinada.`,
+    keywords: `aquasella ${YEAR}, aquasella festival ${YEAR}, aquasella arriondas, aquasella asturias, aquasella como llegar, aquasella carpooling, aquasella transporte, aquasella desde oviedo, aquasella desde gijon, aquasella desde bilbao, aquasella entradas, aquasella cartel, festival electronica asturias, festival parque acuatico asturias`,
+  },
+  "dcode-festival": {
+    title: `DCode Festival ${YEAR} Madrid [12–13 sep Ciudad Universitaria]: Urban + Carpooling 9€ | ConcertRide`,
+    description: `DCode Festival ${YEAR} (12–13 sep, Estadio Complutense Ciudad Universitaria Madrid, 45.000/día): festival urban, trap, reggaetón y pop de otoño. Metro L6 Ciudad Universitaria (10 min a pie). Carpooling sin comisión desde Valencia (9–14€), Zaragoza (9–13€), Barcelona (15–20€), Bilbao (11–16€), Sevilla (13–18€). Sin comisión.`,
+    keywords: `dcode festival ${YEAR}, dcode madrid ${YEAR}, dcode como llegar, dcode carpooling, dcode transporte, dcode ciudad universitaria, dcode metro, dcode entradas, dcode cartel ${YEAR}, dcode festival septiembre, festival urban madrid, festival trap madrid ${YEAR}, dcode desde valencia, dcode desde barcelona`,
+  },
+  "creamfields-andalucia": {
+    title: `Creamfields Andalucía ${YEAR} Jerez [5–7 jun]: Techno + House + Carpooling 3€ | ConcertRide`,
+    description: `Creamfields Andalucía ${YEAR} (5–7 jun, Recinto González Hontoria Jerez de la Frontera, 40.000/día): festival de electrónica, techno y trance del sur de España. Carpooling sin comisión desde Cádiz (3–5€), Sevilla (4–7€), Málaga (5–9€), Granada (8–12€), Madrid (15–21€). Tren Renfe Sevilla–Jerez (35 min, 6–10€). Sin comisión.`,
+    keywords: `creamfields andalucia ${YEAR}, creamfields jerez ${YEAR}, creamfields como llegar, creamfields carpooling, creamfields andalucia transporte, creamfields jerez de la frontera, creamfields desde sevilla, creamfields desde cadiz, creamfields desde malaga, creamfields entradas, creamfields cartel, festival electronica jerez, festival techno andalucia ${YEAR}, creamfields gonzalez hontoria`,
+  },
 };
 
 // ─────────────────────────────────────────────────────────────────────────────
