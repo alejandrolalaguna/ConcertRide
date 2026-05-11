@@ -49,7 +49,20 @@ const app = new Hono<HonoEnv>();
 app.use("*", logger());
 app.use("*", prettyJSON());
 
-// ─── Trailing-slash normalisation (runs first, before SEO/routes) ───────────
+// ─── HTTP → HTTPS redirect (runs first, before anything else) ───────────────
+// Cloudflare Workers can receive HTTP requests when accessed via custom domain
+// without "Always Use HTTPS" enabled in the dashboard. A 301 here ensures
+// Googlebot sees the canonical HTTPS version and doesn't record duplicates.
+app.use("*", async (c, next) => {
+  const url = new URL(c.req.url);
+  if (c.req.method === "GET" && url.protocol === "http:") {
+    url.protocol = "https:";
+    return c.redirect(url.toString(), 301);
+  }
+  return next();
+});
+
+// ─── Trailing-slash normalisation ───────────────────────────────────────────
 // Redirects /path/ → /path for all GET requests (except bare "/").
 // Prevents GSC "page with redirect" exclusions from trailing-slash variants.
 app.use("*", async (c, next) => {

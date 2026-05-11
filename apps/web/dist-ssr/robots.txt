@@ -13,13 +13,9 @@ Allow: /api/sitemap-index.xml
 Disallow: /api/
 Disallow: /_
 Disallow: /login
-Disallow: /login?
 Disallow: /register
-Disallow: /register?
 Disallow: /forgot-password
-Disallow: /forgot-password?
 Disallow: /reset-password
-Disallow: /reset-password?
 Disallow: /verify-email
 Disallow: /profile
 Disallow: /mis-viajes

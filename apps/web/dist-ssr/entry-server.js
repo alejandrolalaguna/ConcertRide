@@ -12879,380 +12879,6 @@ function TrustSection() {
     }
   );
 }
-const KIND_VERB = {
-  ride_published: { emoji: "🚗", copy: "publicó un viaje" },
-  ride_booked: { emoji: "🎟️", copy: "reservó plaza" },
-  ride_completed: { emoji: "🏁", copy: "completó un viaje" },
-  interest_added: { emoji: "🔥", copy: "se apuntó" },
-  favorite_added: { emoji: "💚", copy: "marcó favorito" },
-  crew_invited: { emoji: "🤝", copy: "invitó a su crew" },
-  crew_accepted: { emoji: "👯", copy: "se unió a una crew" },
-  music_updated: { emoji: "🎶", copy: "actualizó su música" },
-  trip_memory_shared: { emoji: "📸", copy: "compartió un recuerdo" }
-};
-function relative(ts) {
-  const t = new Date(ts).getTime();
-  if (!Number.isFinite(t)) return "";
-  const diff = Date.now() - t;
-  const mins = Math.floor(diff / 6e4);
-  if (mins < 1) return "ahora";
-  if (mins < 60) return `hace ${mins} min`;
-  const hours = Math.floor(mins / 60);
-  if (hours < 24) return `hace ${hours} h`;
-  const days = Math.floor(hours / 24);
-  return `hace ${days} d`;
-}
-function initials$1(name) {
-  return name.trim().split(/\s+/).map((p) => p[0] ?? "").join("").slice(0, 2).toUpperCase() || "C";
-}
-function LiveActivityFeed({
-  scope = "all",
-  city,
-  concertId,
-  limit = 12,
-  showPulse = true,
-  emptyMessage = "Las primeras conversaciones empiezan aquí.",
-  layout: layout2 = "card"
-}) {
-  const [events, setEvents] = useState([]);
-  const [loading, setLoading] = useState(true);
-  useEffect(() => {
-    let cancelled = false;
-    void (async () => {
-      try {
-        const res = await api.activity.list({ scope, city, concert_id: concertId, limit });
-        if (!cancelled) setEvents(res.events);
-      } catch {
-        if (!cancelled) setEvents([]);
-      } finally {
-        if (!cancelled) setLoading(false);
-      }
-    })();
-    const id2 = setInterval(() => {
-      void (async () => {
-        try {
-          const res = await api.activity.list({ scope, city, concert_id: concertId, limit });
-          if (!cancelled) setEvents(res.events);
-        } catch {
-        }
-      })();
-    }, 6e4);
-    return () => {
-      cancelled = true;
-      clearInterval(id2);
-    };
-  }, [scope, city, concertId, limit]);
-  const wrapperClass = layout2 === "card" ? "border-2 border-cr-border bg-cr-surface-2" : "border-t border-cr-border";
-  return /* @__PURE__ */ jsxs("section", { "aria-label": "Actividad en vivo", className: wrapperClass, children: [
-    /* @__PURE__ */ jsxs("header", { className: "flex items-center justify-between border-b border-cr-border px-4 py-3 sm:px-5", children: [
-      /* @__PURE__ */ jsxs("div", { className: "flex items-center gap-2", children: [
-        showPulse && /* @__PURE__ */ jsxs("span", { className: "relative flex h-2 w-2", "aria-hidden": true, children: [
-          /* @__PURE__ */ jsx("span", { className: "absolute inline-flex h-full w-full animate-ping rounded-full bg-cr-primary opacity-70" }),
-          /* @__PURE__ */ jsx("span", { className: "relative inline-flex h-2 w-2 rounded-full bg-cr-primary" })
-        ] }),
-        /* @__PURE__ */ jsxs("h2", { className: "font-mono text-[11px] font-bold uppercase tracking-[0.18em] text-cr-text", children: [
-          "En directo · ",
-          scope === "city" && city ? city : scope === "concert" ? "este evento" : "ConcertRide"
-        ] })
-      ] }),
-      /* @__PURE__ */ jsx(
-        Link,
-        {
-          to: "/feed",
-          className: "font-mono text-[10px] uppercase tracking-[0.16em] text-cr-text-muted hover:text-cr-primary",
-          children: "ver todo →"
-        }
-      )
-    ] }),
-    loading ? /* @__PURE__ */ jsx("ul", { className: "divide-y divide-cr-border", children: Array.from({ length: 4 }).map((_, i) => /* @__PURE__ */ jsxs("li", { className: "flex animate-pulse items-center gap-3 px-4 py-3 sm:px-5", children: [
-      /* @__PURE__ */ jsx("span", { className: "h-8 w-8 rounded-full bg-cr-surface-3" }),
-      /* @__PURE__ */ jsx("span", { className: "h-3 flex-1 rounded bg-cr-surface-3" })
-    ] }, i)) }) : events.length === 0 ? /* @__PURE__ */ jsxs("div", { className: "px-4 py-8 text-center", children: [
-      /* @__PURE__ */ jsx("p", { className: "font-display text-base text-cr-text", children: emptyMessage }),
-      /* @__PURE__ */ jsx("p", { className: "mt-1 text-xs text-cr-text-muted", children: 'Publica un viaje o di "voy" en un evento.' })
-    ] }) : /* @__PURE__ */ jsx("ul", { className: "divide-y divide-cr-border", children: events.map((ev) => {
-      const meta = KIND_VERB[ev.kind] ?? { emoji: "✨", copy: "hizo algo" };
-      return /* @__PURE__ */ jsxs("li", { className: "group flex items-center gap-3 px-4 py-3 sm:px-5", children: [
-        ev.actor_avatar ? /* @__PURE__ */ jsx(
-          "img",
-          {
-            src: ev.actor_avatar,
-            alt: "",
-            className: "h-8 w-8 rounded-full object-cover ring-1 ring-cr-border",
-            loading: "lazy"
-          }
-        ) : /* @__PURE__ */ jsx(
-          "span",
-          {
-            className: "inline-flex h-8 w-8 items-center justify-center rounded-full bg-cr-primary text-[11px] font-bold uppercase text-cr-text-inverse",
-            "aria-hidden": true,
-            children: initials$1(ev.actor_name)
-          }
-        ),
-        /* @__PURE__ */ jsxs("div", { className: "min-w-0 flex-1", children: [
-          /* @__PURE__ */ jsxs("p", { className: "truncate text-sm text-cr-text", children: [
-            /* @__PURE__ */ jsx("span", { className: "font-bold", children: ev.actor_name }),
-            " ",
-            /* @__PURE__ */ jsx("span", { className: "text-cr-text-muted", children: meta.copy }),
-            ev.label && ev.label !== `${ev.actor_name} ${meta.copy}` ? /* @__PURE__ */ jsxs("span", { className: "text-cr-text-muted", children: [
-              " · ",
-              ev.label.replace(`${ev.actor_name} `, "")
-            ] }) : null
-          ] }),
-          /* @__PURE__ */ jsxs("p", { className: "font-mono text-[10px] uppercase tracking-[0.12em] text-cr-text-dim", children: [
-            meta.emoji,
-            " ",
-            relative(ev.created_at),
-            ev.city ? ` · ${ev.city}` : ""
-          ] })
-        ] }),
-        ev.concert_id && /* @__PURE__ */ jsx(
-          Link,
-          {
-            to: `/concerts/${ev.concert_id}`,
-            className: "hidden font-mono text-[10px] uppercase tracking-[0.14em] text-cr-text-muted hover:text-cr-primary sm:inline",
-            children: "ver →"
-          }
-        )
-      ] }, ev.id);
-    }) })
-  ] });
-}
-function diffParts(target) {
-  const t = new Date(target).getTime();
-  if (!Number.isFinite(t)) return null;
-  const ms = t - Date.now();
-  if (ms <= 0) return null;
-  const days = Math.floor(ms / 864e5);
-  const hours = Math.floor(ms % 864e5 / 36e5);
-  const minutes = Math.floor(ms % 36e5 / 6e4);
-  return { days, hours, minutes };
-}
-const SIZES$1 = {
-  sm: "text-xs px-2 py-1",
-  md: "text-sm px-3 py-1.5",
-  lg: "text-base px-4 py-2"
-};
-function CountdownBadge({ target, prefix, size = "md", className }) {
-  const [parts, setParts] = useState(() => diffParts(target));
-  useEffect(() => {
-    setParts(diffParts(target));
-    const id2 = setInterval(() => setParts(diffParts(target)), 6e4);
-    return () => clearInterval(id2);
-  }, [target]);
-  if (!parts) return null;
-  const isClose = parts.days <= 1;
-  const intensity = parts.days <= 3 ? "border-cr-secondary bg-cr-secondary/10 text-cr-secondary" : "border-cr-primary-dim bg-cr-primary/10 text-cr-primary";
-  return /* @__PURE__ */ jsxs(
-    "span",
-    {
-      className: `inline-flex items-center gap-1 border-2 font-mono font-bold uppercase tracking-[0.1em] ${intensity} ${SIZES$1[size]} ${className ?? ""}`,
-      children: [
-        isClose && /* @__PURE__ */ jsxs("span", { className: "relative flex h-2 w-2", "aria-hidden": true, children: [
-          /* @__PURE__ */ jsx("span", { className: "absolute inline-flex h-full w-full animate-ping rounded-full bg-cr-secondary opacity-70" }),
-          /* @__PURE__ */ jsx("span", { className: "relative inline-flex h-2 w-2 rounded-full bg-cr-secondary" })
-        ] }),
-        prefix ? /* @__PURE__ */ jsx("span", { className: "opacity-80", children: prefix }) : null,
-        /* @__PURE__ */ jsx("span", { children: parts.days > 0 ? `${parts.days}d ${parts.hours}h` : parts.hours > 0 ? `${parts.hours}h ${parts.minutes}m` : `${parts.minutes}m` })
-      ]
-    }
-  );
-}
-function IntelligencePrompts() {
-  const { user } = useSession();
-  const { favorites } = useFavorites();
-  const { crew } = useCrew();
-  const [upcoming, setUpcoming] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [crewByConcert, setCrewByConcert] = useState({});
-  useEffect(() => {
-    let cancelled = false;
-    void (async () => {
-      try {
-        const oneYearOut = new Date(Date.now() + 365 * 24 * 3600 * 1e3).toISOString();
-        const res = await api.concerts.list({
-          date_from: (/* @__PURE__ */ new Date()).toISOString(),
-          date_to: oneYearOut,
-          limit: 80
-        });
-        if (!cancelled) setUpcoming(res.concerts);
-      } catch {
-        if (!cancelled) setUpcoming([]);
-      } finally {
-        if (!cancelled) setLoading(false);
-      }
-    })();
-    return () => {
-      cancelled = true;
-    };
-  }, []);
-  useEffect(() => {
-    if (!user || crew.length === 0 || upcoming.length === 0) {
-      setCrewByConcert({});
-      return;
-    }
-    let cancelled = false;
-    const sample = upcoming.slice(0, 24);
-    void (async () => {
-      const out = {};
-      await Promise.all(
-        sample.map(async (c) => {
-          try {
-            const r = await api.crew.attending(c.id);
-            if (r.crew.length > 0) out[c.id] = r.crew.length;
-          } catch {
-          }
-        })
-      );
-      if (!cancelled) setCrewByConcert(out);
-    })();
-    return () => {
-      cancelled = true;
-    };
-  }, [upcoming, crew.length, user == null ? void 0 : user.id]);
-  const prompts = useMemo(() => {
-    var _a2, _b;
-    if (!user || upcoming.length === 0) return [];
-    const seen = /* @__PURE__ */ new Set();
-    const out = [];
-    const fbArtist = new Set(
-      favorites.filter((f) => f.kind === "artist").map((f) => f.label.toLowerCase())
-    );
-    for (const c of upcoming) {
-      if (out.length >= 6) break;
-      if (seen.has(c.id)) continue;
-      if (fbArtist.has(c.artist.toLowerCase())) {
-        seen.add(c.id);
-        out.push({ kind: "favourite_artist", concert: c, reason: `Sigues a ${c.artist}` });
-      }
-    }
-    for (const [concertId, count] of Object.entries(crewByConcert)) {
-      if (out.length >= 8) break;
-      if (seen.has(concertId)) continue;
-      const c = upcoming.find((x) => x.id === concertId);
-      if (!c) continue;
-      seen.add(concertId);
-      out.push({
-        kind: "crew_going",
-        concert: c,
-        reason: `${count} de tu crew ${count === 1 ? "va" : "van"}`
-      });
-    }
-    if (user.home_city) {
-      const home = user.home_city.toLowerCase();
-      for (const c of upcoming) {
-        if (out.length >= 10) break;
-        if (seen.has(c.id)) continue;
-        if (((_b = (_a2 = c.venue) == null ? void 0 : _a2.city) == null ? void 0 : _b.toLowerCase()) === home) {
-          seen.add(c.id);
-          out.push({ kind: "home_city", concert: c, reason: `En ${user.home_city}` });
-        }
-      }
-    }
-    return out;
-  }, [user, upcoming, favorites, crewByConcert]);
-  if (loading || !user || prompts.length === 0) return null;
-  return /* @__PURE__ */ jsxs(
-    "section",
-    {
-      "aria-label": "Recomendaciones inteligentes",
-      className: "border-2 border-cr-primary/40 bg-gradient-to-br from-cr-bg via-cr-surface-2 to-cr-bg p-5",
-      children: [
-        /* @__PURE__ */ jsx("header", { className: "flex items-baseline justify-between gap-3", children: /* @__PURE__ */ jsxs("div", { children: [
-          /* @__PURE__ */ jsx("p", { className: "font-mono text-[10px] uppercase tracking-[0.18em] text-cr-primary", children: "Para ti" }),
-          /* @__PURE__ */ jsx("h2", { className: "mt-1 font-display text-2xl uppercase", children: "Próximos eventos que te encajan" })
-        ] }) }),
-        /* @__PURE__ */ jsx("ul", { className: "mt-4 grid gap-3 sm:grid-cols-2 lg:grid-cols-3", children: prompts.slice(0, 6).map(({ concert, reason, kind }) => /* @__PURE__ */ jsx("li", { children: /* @__PURE__ */ jsxs(
-          Link,
-          {
-            to: `/concerts/${concert.id}`,
-            className: "block border-2 border-cr-border bg-cr-surface-2 p-3 transition hover:border-cr-primary",
-            children: [
-              /* @__PURE__ */ jsxs("div", { className: "flex items-center gap-2", children: [
-                /* @__PURE__ */ jsx("span", { "aria-hidden": true, className: "text-base", children: kind === "favourite_artist" ? "💚" : kind === "crew_going" ? "👯" : "📍" }),
-                /* @__PURE__ */ jsx("span", { className: "font-mono text-[10px] uppercase tracking-[0.14em] text-cr-text-muted", children: reason })
-              ] }),
-              /* @__PURE__ */ jsx("p", { className: "mt-2 font-display text-base uppercase leading-tight", children: concert.artist }),
-              /* @__PURE__ */ jsx("p", { className: "font-mono text-[10px] uppercase tracking-[0.1em] text-cr-text-muted", children: concert.venue.city }),
-              /* @__PURE__ */ jsx("div", { className: "mt-2", children: /* @__PURE__ */ jsx(CountdownBadge, { target: concert.date, size: "sm" }) })
-            ]
-          }
-        ) }, concert.id)) })
-      ]
-    }
-  );
-}
-function DemandSignalsBoard({ limit = 6, layout: layout2 = "card" }) {
-  const [items, setItems] = useState(null);
-  useEffect(() => {
-    let cancelled = false;
-    void (async () => {
-      try {
-        const res = await api.stats.demand(limit);
-        if (!cancelled) setItems(res.items);
-      } catch {
-        if (!cancelled) setItems([]);
-      }
-    })();
-    return () => {
-      cancelled = true;
-    };
-  }, [limit]);
-  if (!items || items.length === 0) return null;
-  const wrapperClass = layout2 === "card" ? "border-2 border-cr-secondary/50 bg-gradient-to-br from-cr-bg via-cr-surface-2 to-cr-bg" : "border-y border-cr-border";
-  return /* @__PURE__ */ jsxs(
-    "section",
-    {
-      "aria-label": "Conciertos con demanda alta sin coches",
-      className: wrapperClass,
-      children: [
-        /* @__PURE__ */ jsxs("header", { className: "flex items-baseline justify-between gap-3 border-b border-cr-border px-5 py-3", children: [
-          /* @__PURE__ */ jsxs("div", { children: [
-            /* @__PURE__ */ jsx("p", { className: "font-mono text-[10px] uppercase tracking-[0.18em] text-cr-secondary", children: "🔥 Demanda alta · pocos coches" }),
-            /* @__PURE__ */ jsx("h2", { className: "mt-1 font-display text-xl uppercase", children: "Publica un viaje y se llena" })
-          ] }),
-          /* @__PURE__ */ jsx(
-            Link,
-            {
-              to: "/publish",
-              className: "border-2 border-cr-secondary bg-cr-secondary px-3 py-1.5 font-mono text-[10px] font-bold uppercase tracking-[0.14em] text-white",
-              children: "+ Publicar"
-            }
-          )
-        ] }),
-        /* @__PURE__ */ jsx("ul", { className: "grid gap-3 px-5 py-4 sm:grid-cols-2 lg:grid-cols-3", children: items.map((p) => /* @__PURE__ */ jsx("li", { children: /* @__PURE__ */ jsxs(
-          Link,
-          {
-            to: `/concerts/${p.concert.id}`,
-            className: "block border-2 border-cr-border bg-cr-bg p-3 transition hover:border-cr-secondary",
-            children: [
-              /* @__PURE__ */ jsxs("div", { className: "flex items-start justify-between gap-2", children: [
-                /* @__PURE__ */ jsx("p", { className: "font-display text-base uppercase leading-tight", children: p.concert.artist }),
-                /* @__PURE__ */ jsx(
-                  "span",
-                  {
-                    title: `Urgencia ${p.urgency}/100`,
-                    className: `flex-shrink-0 border-2 px-1.5 py-0.5 font-mono text-[9px] font-bold uppercase tracking-[0.14em] ${p.urgency >= 70 ? "border-cr-secondary bg-cr-secondary text-white" : p.urgency >= 40 ? "border-cr-secondary text-cr-secondary" : "border-cr-border text-cr-text-muted"}`,
-                    children: p.urgency >= 70 ? "URGENTE" : p.urgency >= 40 ? "ALTA" : "MEDIA"
-                  }
-                )
-              ] }),
-              /* @__PURE__ */ jsx("p", { className: "font-mono text-[10px] uppercase tracking-[0.1em] text-cr-text-muted", children: p.concert.venue.city }),
-              /* @__PURE__ */ jsxs("div", { className: "mt-2 flex items-center gap-2 text-xs", children: [
-                /* @__PURE__ */ jsx("span", { className: "font-display text-cr-primary", children: p.going_count }),
-                /* @__PURE__ */ jsx("span", { className: "font-mono text-[10px] uppercase tracking-[0.12em] text-cr-text-muted", children: "van" }),
-                /* @__PURE__ */ jsx("span", { className: "text-cr-text-dim", children: "·" }),
-                /* @__PURE__ */ jsx("span", { className: "font-display text-cr-text", children: p.active_rides }),
-                /* @__PURE__ */ jsx("span", { className: "font-mono text-[10px] uppercase tracking-[0.12em] text-cr-text-muted", children: p.active_rides === 1 ? "coche" : "coches" })
-              ] }),
-              /* @__PURE__ */ jsx("div", { className: "mt-2", children: /* @__PURE__ */ jsx(CountdownBadge, { target: p.concert.date, size: "sm" }) })
-            ]
-          }
-        ) }, p.concert.id)) })
-      ]
-    }
-  );
-}
 const TRUST_BADGES = [
   "Sin tarjeta de crédito",
   "100% gratuito",
@@ -14374,9 +14000,6 @@ function LandingPage() {
     /* @__PURE__ */ jsx(FestivalMarquee, {}),
     /* @__PURE__ */ jsx(StatsBar, {}),
     activeConcerts.length > 0 && /* @__PURE__ */ jsx(HorizontalCarousel, { concerts: activeConcerts }),
-    /* @__PURE__ */ jsx("section", { className: "mx-auto max-w-5xl px-4 py-8 sm:px-6", children: /* @__PURE__ */ jsx(IntelligencePrompts, {}) }),
-    /* @__PURE__ */ jsx("section", { className: "mx-auto max-w-5xl px-4 pb-8 sm:px-6", children: /* @__PURE__ */ jsx(DemandSignalsBoard, { limit: 6 }) }),
-    /* @__PURE__ */ jsx("section", { className: "mx-auto max-w-3xl px-4 pb-8 sm:px-6", children: /* @__PURE__ */ jsx(LiveActivityFeed, { limit: 8, layout: "card", emptyMessage: "Aún silencio. Sé el primero en publicar un viaje." }) }),
     /* @__PURE__ */ jsx("div", { "aria-hidden": "true", className: "cr-scan-divider" }),
     /* @__PURE__ */ jsxs("section", { "aria-labelledby": "why-title", className: "relative py-24 lg:py-32 px-6 overflow-hidden bg-[#080808]", id: "conciertos", children: [
       /* @__PURE__ */ jsx(
@@ -20863,7 +20486,7 @@ const SIZES = {
   md: { box: "h-9 w-9", ring: "ring-2", text: "text-xs" },
   lg: { box: "h-12 w-12", ring: "ring-2", text: "text-sm" }
 };
-function initials(name) {
+function initials$1(name) {
   var _a2, _b;
   const parts = name.trim().split(/\s+/);
   return (((_a2 = parts[0]) == null ? void 0 : _a2[0]) ?? "C") + (((_b = parts[1]) == null ? void 0 : _b[0]) ?? "");
@@ -20894,7 +20517,7 @@ function CrewAvatars({ crew, people, max = 4, size = "md", label, clickable = fa
           {
             className: `${sz.box} ${sz.text} ring-cr-bg ${sz.ring} inline-flex items-center justify-center rounded-full bg-cr-primary font-bold uppercase text-cr-text-inverse`,
             "aria-hidden": true,
-            children: initials(user.name)
+            children: initials$1(user.name)
           }
         );
         if (clickable) {
@@ -21073,6 +20696,145 @@ function AnticipationStrip({ concertId, date, artist }) {
       ]
     }
   );
+}
+const KIND_VERB = {
+  ride_published: { emoji: "🚗", copy: "publicó un viaje" },
+  ride_booked: { emoji: "🎟️", copy: "reservó plaza" },
+  ride_completed: { emoji: "🏁", copy: "completó un viaje" },
+  interest_added: { emoji: "🔥", copy: "se apuntó" },
+  favorite_added: { emoji: "💚", copy: "marcó favorito" },
+  crew_invited: { emoji: "🤝", copy: "invitó a su crew" },
+  crew_accepted: { emoji: "👯", copy: "se unió a una crew" },
+  music_updated: { emoji: "🎶", copy: "actualizó su música" },
+  trip_memory_shared: { emoji: "📸", copy: "compartió un recuerdo" }
+};
+function relative(ts) {
+  const t = new Date(ts).getTime();
+  if (!Number.isFinite(t)) return "";
+  const diff = Date.now() - t;
+  const mins = Math.floor(diff / 6e4);
+  if (mins < 1) return "ahora";
+  if (mins < 60) return `hace ${mins} min`;
+  const hours = Math.floor(mins / 60);
+  if (hours < 24) return `hace ${hours} h`;
+  const days = Math.floor(hours / 24);
+  return `hace ${days} d`;
+}
+function initials(name) {
+  return name.trim().split(/\s+/).map((p) => p[0] ?? "").join("").slice(0, 2).toUpperCase() || "C";
+}
+function LiveActivityFeed({
+  scope = "all",
+  city,
+  concertId,
+  limit = 12,
+  showPulse = true,
+  emptyMessage = "Las primeras conversaciones empiezan aquí.",
+  layout: layout2 = "card"
+}) {
+  const [events, setEvents] = useState([]);
+  const [loading, setLoading] = useState(true);
+  useEffect(() => {
+    let cancelled = false;
+    void (async () => {
+      try {
+        const res = await api.activity.list({ scope, city, concert_id: concertId, limit });
+        if (!cancelled) setEvents(res.events);
+      } catch {
+        if (!cancelled) setEvents([]);
+      } finally {
+        if (!cancelled) setLoading(false);
+      }
+    })();
+    const id2 = setInterval(() => {
+      void (async () => {
+        try {
+          const res = await api.activity.list({ scope, city, concert_id: concertId, limit });
+          if (!cancelled) setEvents(res.events);
+        } catch {
+        }
+      })();
+    }, 6e4);
+    return () => {
+      cancelled = true;
+      clearInterval(id2);
+    };
+  }, [scope, city, concertId, limit]);
+  const wrapperClass = layout2 === "card" ? "border-2 border-cr-border bg-cr-surface-2" : "border-t border-cr-border";
+  return /* @__PURE__ */ jsxs("section", { "aria-label": "Actividad en vivo", className: wrapperClass, children: [
+    /* @__PURE__ */ jsxs("header", { className: "flex items-center justify-between border-b border-cr-border px-4 py-3 sm:px-5", children: [
+      /* @__PURE__ */ jsxs("div", { className: "flex items-center gap-2", children: [
+        showPulse && /* @__PURE__ */ jsxs("span", { className: "relative flex h-2 w-2", "aria-hidden": true, children: [
+          /* @__PURE__ */ jsx("span", { className: "absolute inline-flex h-full w-full animate-ping rounded-full bg-cr-primary opacity-70" }),
+          /* @__PURE__ */ jsx("span", { className: "relative inline-flex h-2 w-2 rounded-full bg-cr-primary" })
+        ] }),
+        /* @__PURE__ */ jsxs("h2", { className: "font-mono text-[11px] font-bold uppercase tracking-[0.18em] text-cr-text", children: [
+          "En directo · ",
+          scope === "city" && city ? city : scope === "concert" ? "este evento" : "ConcertRide"
+        ] })
+      ] }),
+      /* @__PURE__ */ jsx(
+        Link,
+        {
+          to: "/feed",
+          className: "font-mono text-[10px] uppercase tracking-[0.16em] text-cr-text-muted hover:text-cr-primary",
+          children: "ver todo →"
+        }
+      )
+    ] }),
+    loading ? /* @__PURE__ */ jsx("ul", { className: "divide-y divide-cr-border", children: Array.from({ length: 4 }).map((_, i) => /* @__PURE__ */ jsxs("li", { className: "flex animate-pulse items-center gap-3 px-4 py-3 sm:px-5", children: [
+      /* @__PURE__ */ jsx("span", { className: "h-8 w-8 rounded-full bg-cr-surface-3" }),
+      /* @__PURE__ */ jsx("span", { className: "h-3 flex-1 rounded bg-cr-surface-3" })
+    ] }, i)) }) : events.length === 0 ? /* @__PURE__ */ jsxs("div", { className: "px-4 py-8 text-center", children: [
+      /* @__PURE__ */ jsx("p", { className: "font-display text-base text-cr-text", children: emptyMessage }),
+      /* @__PURE__ */ jsx("p", { className: "mt-1 text-xs text-cr-text-muted", children: 'Publica un viaje o di "voy" en un evento.' })
+    ] }) : /* @__PURE__ */ jsx("ul", { className: "divide-y divide-cr-border", children: events.map((ev) => {
+      const meta = KIND_VERB[ev.kind] ?? { emoji: "✨", copy: "hizo algo" };
+      return /* @__PURE__ */ jsxs("li", { className: "group flex items-center gap-3 px-4 py-3 sm:px-5", children: [
+        ev.actor_avatar ? /* @__PURE__ */ jsx(
+          "img",
+          {
+            src: ev.actor_avatar,
+            alt: "",
+            className: "h-8 w-8 rounded-full object-cover ring-1 ring-cr-border",
+            loading: "lazy"
+          }
+        ) : /* @__PURE__ */ jsx(
+          "span",
+          {
+            className: "inline-flex h-8 w-8 items-center justify-center rounded-full bg-cr-primary text-[11px] font-bold uppercase text-cr-text-inverse",
+            "aria-hidden": true,
+            children: initials(ev.actor_name)
+          }
+        ),
+        /* @__PURE__ */ jsxs("div", { className: "min-w-0 flex-1", children: [
+          /* @__PURE__ */ jsxs("p", { className: "truncate text-sm text-cr-text", children: [
+            /* @__PURE__ */ jsx("span", { className: "font-bold", children: ev.actor_name }),
+            " ",
+            /* @__PURE__ */ jsx("span", { className: "text-cr-text-muted", children: meta.copy }),
+            ev.label && ev.label !== `${ev.actor_name} ${meta.copy}` ? /* @__PURE__ */ jsxs("span", { className: "text-cr-text-muted", children: [
+              " · ",
+              ev.label.replace(`${ev.actor_name} `, "")
+            ] }) : null
+          ] }),
+          /* @__PURE__ */ jsxs("p", { className: "font-mono text-[10px] uppercase tracking-[0.12em] text-cr-text-dim", children: [
+            meta.emoji,
+            " ",
+            relative(ev.created_at),
+            ev.city ? ` · ${ev.city}` : ""
+          ] })
+        ] }),
+        ev.concert_id && /* @__PURE__ */ jsx(
+          Link,
+          {
+            to: `/concerts/${ev.concert_id}`,
+            className: "hidden font-mono text-[10px] uppercase tracking-[0.14em] text-cr-text-muted hover:text-cr-primary sm:inline",
+            children: "ver →"
+          }
+        )
+      ] }, ev.id);
+    }) })
+  ] });
 }
 function SquadCard({ squad, href, className }) {
   const target = href ?? `/squads/${squad.id}`;
@@ -23219,7 +22981,7 @@ const CITY_SEO_IMPROVEMENTS = {
   murcia: {
     title: `Conciertos en Murcia ${YEAR$2} [SOS 4.8, Víctor Villegas + Carpooling 4€] | ConcertRide`,
     description: `Agenda conciertos Murcia ${YEAR$2}: SOS 4.8 Festival (Murcia capital, primavera), Auditorio Víctor Villegas (3.000 plazas), Plaza de Toros Murcia, Teatro Romea. Carpooling sin comisión a Medusa Festival Cullera (175 km, 5–8€), Arenal Sound Burriana (250 km, 7–11€), Viña Rock Villarrobledo (155 km, 5–8€), Cala Mijas Málaga (270 km, 8–12€). Pago Bizum, vuelta coordinada.`,
-    keywords: `conciertos Murcia ${YEAR$2}, conciertos en Murcia, SOS 4.8 Murcia, conciertos murcia 2026, conciertos murcia 2027, próximos conciertos murcia, carpooling Murcia festivales, viaje compartido Murcia concierto, conciertos murcia agenda, victor villegas murcia, murcia festivales transporte, murcia musica, sos 4.8 festival murcia, conciertos murcia verano`
+    keywords: `conciertos Murcia ${YEAR$2}, conciertos en Murcia, SOS 4.8 Murcia, conciertos murcia 2026, conciertos murcia 2027, próximos conciertos murcia, carpooling Murcia festivales, viaje compartido Murcia concierto, conciertos murcia agenda, victor villegas murcia, murcia festivales transporte, murcia música, sos 4.8 festival murcia, conciertos murcia verano`
   },
   malaga: {
     title: `Conciertos en Málaga ${YEAR$2} [Cala Mijas + Marenostrum + Carpooling 3€] | ConcertRide`,
@@ -23639,7 +23401,7 @@ const VENUE_SEO_OVERRIDES = {
   "ifema-madrid": {
     title: `IFEMA Madrid [Cómo Llegar]: Metro L8 + Carpooling Mad Cool desde 9€ | ConcertRide`,
     description: `IFEMA Madrid — Feria de Madrid (Avda. del Parque). Metro L8 parada El Parque (10 min desde Nuevos Ministerios). Bus 101, 104, 122. Parking gratuito P1/P2 (limitado, llega 1h antes). Carpooling a Mad Cool sin comisión desde Barcelona (15–20€), Valencia (10–14€), Zaragoza (9–13€), Bilbao (11–16€), Sevilla (14–20€). Vuelta nocturna coordinada.`,
-    keywords: `como llegar ifema, ifema como llegar, ifema metro, ifema mad cool transporte, carpooling ifema madrid, como ir ifema mad cool, mad cool como llegar ifema, ifema metro l8, ifema feria madrid metro, como ir a ifema madrid, ifema transporte publico, mad cool ifema carpooling, ifema madrid aparcamiento`
+    keywords: `como llegar ifema, ifema como llegar, ifema metro, ifema mad cool transporte, carpooling ifema madrid, como ir ifema mad cool, mad cool como llegar ifema, ifema metro l8, ifema feria madrid metro, como ir a ifema madrid, ifema transporte público, mad cool ifema carpooling, ifema madrid aparcamiento`
   },
   "kobetamendi": {
     title: `Kobetamendi Bilbao: cómo llegar al BBK Live, lanzadera y carpooling | ConcertRide`,
@@ -29992,7 +29754,7 @@ BLOG_POSTS.push(
     h1: "Festivales gratuitos y de entrada libre en España 2026",
     excerpt: "Veranos de la Villa, La Mar de Músicas, Noches del Botánico, San Isidro... España tiene decenas de festivales y ciclos de conciertos gratuitos en verano. Esta guía recoge los más destacados de Madrid, Barcelona, Valencia y Sevilla.",
     category: "guias",
-    tags: ["festivales gratuitos", "entrada libre", "conciertos gratuitos", "musica gratis"],
+    tags: ["festivales gratuitos", "entrada libre", "conciertos gratuitos", "música gratis"],
     publishedAt: "2026-05-04T17:20:00.000Z",
     author: "Equipo ConcertRide",
     readingMinutes: 7,
@@ -32167,7 +31929,7 @@ BLOG_POSTS.push(
     h1: "Vive Latino España 2026 Zaragoza: cómo llegar en carpooling desde Madrid, Barcelona y Valencia",
     excerpt: "El festival de rock y pop latinoamericano más grande del mundo llega a Zaragoza en junio de 2026. Guía completa de transporte: carpooling desde Madrid (9–13 €), Barcelona (8–12 €), Valencia (9–13 €) y cómo llegar al recinto desde la Estación Delicias.",
     category: "guias",
-    tags: ["vive latino", "festival", "zaragoza", "carpooling", "transporte", "latina", "musica latina"],
+    tags: ["vive latino", "festival", "zaragoza", "carpooling", "transporte", "latina", "música latina"],
     publishedAt: "2026-05-06T12:00:00.000Z",
     author: "Equipo ConcertRide",
     readingMinutes: 7,
@@ -33200,7 +32962,7 @@ BLOG_POSTS.push({
     "sonorama",
     "jazzaldia",
     "womad",
-    "festivales espana 2026",
+    "festivales españa 2026",
     "festivales sin entrada"
   ],
   publishedAt: "2026-05-07T17:00:00.000Z",
@@ -33300,7 +33062,7 @@ BLOG_POSTS.push({
     "vitoria jazz",
     "getxo jazz",
     "festivales jazz",
-    "festivales espana 2026"
+    "festivales españa 2026"
   ],
   publishedAt: "2026-05-07T18:00:00.000Z",
   author: "Equipo ConcertRide",
@@ -33500,7 +33262,7 @@ BLOG_POSTS.push({
     "calendario festivales",
     "festivales 2026",
     "calendario 2026",
-    "festivales espana",
+    "festivales españa",
     "agenda festivales",
     "guía festivales"
   ],

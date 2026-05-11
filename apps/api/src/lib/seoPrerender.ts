@@ -3992,9 +3992,19 @@ async function resolveConcertPage(id: string, base: string, store: HonoEnv["Vari
     const venueCity = concert.venue?.city?.trim() || null;
     const startDate = concert.date?.trim() || null;
 
-    // Google requires name, startDate, and location — skip JSON-LD if any are missing
-    // to avoid GSC "missing field" critical errors.
-    if (!artist || !startDate || !venueName || !venueCity) return null;
+    // Google requires name, startDate, and location for rich results.
+    // If any are missing we still return a minimal page with the correct canonical
+    // so Google doesn't canonicalize the URL to the homepage SPA shell.
+    if (!artist || !startDate || !venueName || !venueCity) {
+      const fallbackCanonical = `${base}/concerts/${id}`;
+      return {
+        title: `Concierto · ConcertRide`,
+        description: "Encuentra un viaje compartido para ir al concierto en España. Sin comisión, conductores verificados.",
+        canonical: fallbackCanonical,
+        h1: "Carpooling para este concierto",
+        body: `<p>Encuentra o publica un viaje compartido para este concierto. Sin comisión.</p><p><a href="${base}/concerts">Ver todos los conciertos →</a></p>`,
+      };
+    }
 
     const dateStr = new Date(startDate).toLocaleDateString("es-ES", {
       day: "numeric",
@@ -4151,7 +4161,8 @@ export async function seoPrerender(c: Context<HonoEnv>, next: Next): Promise<Res
       /^\/festivales-en\/[^/]+\/?$/.test(pathname) ||
       /^\/como-llegar\/[^/]+\/?$/.test(pathname) ||
       /^\/festivales-genero\/[^/]+\/?$/.test(pathname) ||
-      /^\/calendario-festivales\/[^/]+\/?$/.test(pathname);
+      /^\/calendario-festivales\/[^/]+\/?$/.test(pathname) ||
+      /^\/concerts\/[^/]+\/?$/.test(pathname);
     if (isDynamicPattern) {
       const base = getSiteUrl(c.env);
       return new Response(
