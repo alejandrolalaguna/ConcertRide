@@ -959,6 +959,33 @@ ${posts.map((p) => `  <li><a href="${base}/blog/${p.slug}">${p.title}</a></li>`)
 </ul>`;
       })(),
     },
+    "/recintos": {
+      title: `Recintos de conciertos en España 2026: cómo llegar con carpooling | ConcertRide`,
+      description: "Guías de transporte para los principales recintos de conciertos en España: WiZink Center, Palau Sant Jordi, IFEMA, Kobetamendi, Estadi Olímpic y más. Carpooling desde 3€/asiento.",
+      canonical: `${base}/recintos`,
+      h1: "Recintos de conciertos en España — Cómo llegar",
+      body: (() => {
+        const collectionJsonLd = JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "CollectionPage",
+          "@id": `${base}/recintos#webpage`,
+          url: `${base}/recintos`,
+          name: "Recintos de conciertos en España 2026 — cómo llegar | ConcertRide",
+          description: "Directorio de recintos de conciertos en España con guías de transporte y carpooling. WiZink Center (Madrid, 18.000 plazas), Palau Sant Jordi (Barcelona, 17.000), IFEMA (Madrid, 80.000), Kobetamendi (Bilbao, 30.000) y más.",
+          inLanguage: "es-ES",
+          numberOfItems: VENUE_LANDINGS.length,
+          isPartOf: { "@id": `${base}/#website` },
+        });
+        const venueLinks = VENUE_LANDINGS.slice(0, 20).map(
+          (v) => `<li><a href="${base}/recintos/${v.slug}">${v.name} — cómo llegar con carpooling</a></li>`
+        ).join("\n");
+        return `<script type="application/ld+json">${collectionJsonLd}</script>
+<p>Directorio de los principales recintos de conciertos y festivales en España con guías de transporte. Para cada recinto encontrarás cómo llegar en transporte público, dónde aparcar y cómo organizar carpooling con ConcertRide desde tu ciudad.</p>
+<ul>
+${venueLinks}
+</ul>`;
+      })(),
+    },
     "/prensa": {
       title: `Prensa — ${SITE_NAME}`,
       description: "Sala de prensa de ConcertRide. Contacto para medios, notas de prensa y recursos gráficos.",

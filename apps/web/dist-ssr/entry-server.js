@@ -13910,7 +13910,7 @@ function LandingPage() {
                   "@type": "Review",
                   reviewBody: "Ahorré 40€ yendo al Sónar desde Madrid. El conductor puso la playlist perfecta.",
                   author: { "@type": "Person", name: "Sara M." },
-                  itemReviewed: { "@type": "Service", name: "ConcertRide", url: SITE_URL },
+                  itemReviewed: { "@type": "SoftwareApplication", name: "ConcertRide", url: SITE_URL, applicationCategory: "TravelApplication" },
                   reviewRating: { "@type": "Rating", ratingValue: "5", bestRating: "5" }
                 }
               },
@@ -13921,7 +13921,7 @@ function LandingPage() {
                   "@type": "Review",
                   reviewBody: "Mi crew entera fue a Arenal Sound en un solo coche. Sin comisiones, sin líos.",
                   author: { "@type": "Person", name: "Dani R." },
-                  itemReviewed: { "@type": "Service", name: "ConcertRide", url: SITE_URL },
+                  itemReviewed: { "@type": "SoftwareApplication", name: "ConcertRide", url: SITE_URL, applicationCategory: "TravelApplication" },
                   reviewRating: { "@type": "Rating", ratingValue: "5", bestRating: "5" }
                 }
               },
@@ -13932,7 +13932,7 @@ function LandingPage() {
                   "@type": "Review",
                   reviewBody: "Publiqué mi coche a Mad Cool y cubrí gasolina y peajes entre los 3 pasajeros.",
                   author: { "@type": "Person", name: "Irene S." },
-                  itemReviewed: { "@type": "Service", name: "ConcertRide", url: SITE_URL },
+                  itemReviewed: { "@type": "SoftwareApplication", name: "ConcertRide", url: SITE_URL, applicationCategory: "TravelApplication" },
                   reviewRating: { "@type": "Rating", ratingValue: "5", bestRating: "5" }
                 }
               }

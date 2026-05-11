@@ -183,6 +183,17 @@ Run `/tm-compliance audit` at any time to verify. The full audit skill is at `.c
 | Hardcoded TM image URLs in blog posts / seoOverrides | ❌ No |
 | Reproducing TM API raw JSON in any public-facing page | ❌ No |
 
+## GSC Issue Knowledge Base — Mandatory Rule
+
+**Whenever a GSC (Google Search Console) problem is diagnosed and fixed, add the new case to `.claude/skills/gsc-indexing/SKILL.md`** before closing the task:
+- Add to the relevant section (e.g. §4 "Página alternativa", §7 "Duplicada", §5 "Rastreada sin indexar", etc.)
+- Include: root cause, verification command, fix snippet, and the general rule extracted
+- Update the CHECKLIST and PRIORITIES TABLE if applicable
+
+This keeps the skill as the single source of truth for all GSC patterns seen in production.
+
+---
+
 ### Checklist before touching these files
 
 Apply the 6 rules above mentally before saving changes to any of these:

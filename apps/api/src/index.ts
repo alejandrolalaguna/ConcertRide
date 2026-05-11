@@ -159,6 +159,7 @@ app.get("/cookies", seoPrerender);
 app.get("/terminos", seoPrerender);
 app.get("/concerts/:id", seoPrerender);
 app.get("/artistas/:slug", seoPrerender);
+app.get("/recintos", seoPrerender);
 app.get("/recintos/:slug", seoPrerender);
 app.get("/como-llegar/:festival", seoPrerender);
 app.get("/festivales/:slug/guia", seoPrerender);

@@ -617,6 +617,7 @@ export const FESTIVAL_LANDINGS: FestivalLanding[] = [
     ogImage: "/og/bbk-live.png",
     originCities: [
       { city: "Bilbao", km: 5, drivingTime: "15 min", concertRideRange: "3–5 €/asiento" },
+      { city: "Centro de Bilbao", km: 4, drivingTime: "12 min", concertRideRange: "3–5 €/asiento" },
       { city: "Donostia", km: 100, drivingTime: "1h", concertRideRange: "4–7 €/asiento" },
       { city: "Vitoria-Gasteiz", km: 65, drivingTime: "45 min", concertRideRange: "3–6 €/asiento" },
       { city: "Pamplona", km: 155, drivingTime: "1h 30 min", concertRideRange: "5–8 €/asiento" },
@@ -1471,6 +1472,7 @@ export const FESTIVAL_LANDINGS: FestivalLanding[] = [
     ogImage: "/og/zevra-festival.png",
     originCities: [
       { city: "Valencia", km: 10, drivingTime: "15 min", concertRideRange: "3–5 €/asiento" },
+      { city: "Valencia Centro", km: 5, drivingTime: "10 min", concertRideRange: "3–5 €/asiento" },
       { city: "Madrid", km: 355, drivingTime: "3h 20 min", concertRideRange: "10–14 €/asiento" },
       { city: "Alicante", km: 175, drivingTime: "1h 45 min", concertRideRange: "5–8 €/asiento" },
       { city: "Murcia", km: 210, drivingTime: "2h", concertRideRange: "7–10 €/asiento" },
@@ -1660,6 +1662,7 @@ export const FESTIVAL_LANDINGS: FestivalLanding[] = [
     ogImage: "/og/tomavistas.png",
     originCities: [
       { city: "Madrid", km: 15, drivingTime: "25 min", concertRideRange: "4–7 €/asiento" },
+      { city: "Centro de Madrid", km: 8, drivingTime: "20 min", concertRideRange: "3–6 €/asiento" },
       { city: "Toledo", km: 75, drivingTime: "55 min", concertRideRange: "4–7 €/asiento" },
       { city: "Guadalajara", km: 60, drivingTime: "50 min", concertRideRange: "3–6 €/asiento" },
       { city: "Valencia", km: 355, drivingTime: "3h 20 min", concertRideRange: "10–14 €/asiento" },
