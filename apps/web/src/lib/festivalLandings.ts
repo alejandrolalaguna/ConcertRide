@@ -195,11 +195,11 @@ export const FESTIVAL_LANDINGS: FestivalLanding[] = [
       },
       {
         q: "¿Es seguro ir a Mad Cool en coche compartido?",
-        a: "Sí. Todos los conductores de ConcertRide verifican su carnet de conducir antes de publicar el primer viaje. Puedes ver el perfil del conductor, sus valoraciones de pasajeros anteriores y contactarle por chat antes de confirmar. El pago es en efectivo o Bizum el día del viaje — sin datos bancarios compartidos en la plataforma. ConcertRide opera bajo la legislación española de carpooling de gastos compartidos (Sentencia del Tribunal Supremo 2017).",
+        a: "Sí. Los conductores de ConcertRide a Mad Cool 2026 (IFEMA, 9–11 julio) verifican carnet de conducir antes de publicar. Puedes ver perfil, valoraciones y chat antes de confirmar la plaza. El pago es en efectivo o Bizum (4–7 € desde Madrid, 15–20 € desde Barcelona) el día del viaje — sin adelantos ni datos bancarios.",
       },
       {
-        q: "¿Qué pasa si el conductor cancela el viaje a Mad Cool?",
-        a: "Si el conductor cancela, recibirás un aviso por la plataforma y podrás buscar otro viaje disponible. Al pagar en efectivo o Bizum el día del viaje (no antes), no hay riesgo económico en caso de cancelación anticipada. Se recomienda confirmar el punto de encuentro con el conductor la tarde anterior y tener su número de teléfono por si hay imprevistos de tráfico.",
+        q: "¿Cuánto cuesta el carpooling a Mad Cool 2026 desde Madrid?",
+        a: "El carpooling a Mad Cool 2026 desde Madrid centro cuesta entre 4 y 7 € por asiento en ConcertRide. Son 15 km hasta IFEMA Madrid (25 min en coche). Como referencia: el metro L8 cuesta 2–3 € pero se colapsa en la salida (30 min de cola sobre las 1:00–2:30); un taxi nocturno desde IFEMA al centro ronda los 25–35 €.",
       },
     ],
     relatedFestivals: ["tomavistas", "sonorama-ribera", "primavera-sound"],
@@ -357,12 +357,12 @@ export const FESTIVAL_LANDINGS: FestivalLanding[] = [
         a: "Primavera Sound 2026 está previsto para el 28 de mayo al 1 de junio en el Parc del Fòrum de Barcelona. Busca viajes en concertride.me para esas fechas.",
       },
       {
-        q: "¿Es seguro ir a Primavera Sound en coche compartido?",
-        a: "Sí. ConcertRide verifica el carnet de conducir de todos los conductores antes de que puedan publicar viajes. Puedes ver las valoraciones de viajes anteriores, el historial del conductor y contactarle por chat antes de confirmar la plaza. El pago en efectivo o Bizum el día del viaje elimina cualquier riesgo económico de cancelación anticipada.",
+        q: "¿Cuánto cuesta el carpooling a Primavera Sound 2026 desde Madrid?",
+        a: "El carpooling Madrid–Primavera Sound cuesta entre 15 y 20 € por asiento en ConcertRide para la edición 2026 (28 may–1 jun). Son 620 km hasta el Parc del Fòrum (5h 30 min por la AP-2/A-2). Comparado con AVE (50–100 € sin transporte al recinto) o vuelo (60–130 € + Aerobús/metro), es la opción puerta a puerta más económica.",
       },
       {
-        q: "¿Puedo reservar ida y vuelta al Primavera Sound?",
-        a: "Sí. Muchos conductores en ConcertRide publican viajes de ida y vuelta al Primavera Sound. Puedes buscar por separado 'Madrid–Barcelona' para la ida y 'Barcelona–Madrid' para la vuelta, o coordinarlo directamente con el conductor por chat para acordar día y hora de regreso según el cartel que más te interese.",
+        q: "¿Dónde está el Primavera Sound y cómo se llega al recinto?",
+        a: "El Primavera Sound se celebra en el Parc del Fòrum (Rambla del Prim, 2-4, 08019 Barcelona), en el barrio del Besòs, a 8 km del centro de Barcelona. Coordenadas: 41.4066 N, 2.2218 E. Acceso en metro L4 parada Besòs Mar (10 min a pie del recinto) o tranvía T4. Desde el aeropuerto BCN-El Prat son 17 km (40 min en transporte público).",
       },
       {
         q: "¿A qué hora termina Primavera Sound?",
@@ -486,12 +486,12 @@ export const FESTIVAL_LANDINGS: FestivalLanding[] = [
         a: "La Fira Gran Via dispone de parking propio (P1 y P2, unos 20–25 €/día), pero los accesos por la Gran Via de les Corts Catalanes y la Autopista A-2 se colapsan en las llegadas (a partir de las 22:00). La organización recomienda el transporte público (L9 Sur) para los residentes en Barcelona. Para conductores que vienen de fuera, lo más práctico es aparcar en zona azul de L'Hospitalet y tomar el metro hasta la parada Fira, o llegar directamente con ConcertRide.",
       },
       {
-        q: "¿Cuándo es Sónar 2026?",
-        a: "Sónar 2026 está previsto para el 18, 19 y 20 de junio en Barcelona (Fira Montjuïc y Fira Gran Via de L'Hospitalet). Busca viajes en concertride.me.",
+        q: "¿Cuándo es Sónar 2026 y dónde está el recinto?",
+        a: "Sónar 2026 se celebra el 18, 19 y 20 de junio en Barcelona en dos sedes simultáneas: Sónar by Day en Fira Montjuïc (metro L3 Espanya) y Sónar by Night en Fira Gran Via, L'Hospitalet de Llobregat (metro L9 Sur, parada Fira). Aforo total: 120.000 personas en la edición completa. Coordenadas Sónar by Night: 41.3561 N, 2.1302 E.",
       },
       {
-        q: "¿Es seguro el carpooling al Sónar?",
-        a: "Sí. ConcertRide verifica el carnet de conducir de todos los conductores. Puedes ver el perfil, las valoraciones y contactarle por chat antes de confirmar. El pago es en efectivo o Bizum el día del viaje — sin adelantos ni datos bancarios.",
+        q: "¿A qué hora termina Sónar by Night y cómo volver al centro de Barcelona?",
+        a: "Sónar by Night termina entre las 6:00 y las 8:00 de la mañana en Fira Gran Via. Para entonces el metro L9 Sur (parada Fira) ya opera con frecuencia normal, con trayecto de 25 min hasta plaza Catalunya. La alternativa es taxi/VTC (15–25 € hasta el centro) o coordinar la vuelta a Madrid (15–20 €), Valencia (10–14 €) o Zaragoza (8–12 €) con el conductor de ConcertRide.",
       },
     ],
     relatedFestivals: ["primavera-sound", "cruilla"],
@@ -572,12 +572,12 @@ export const FESTIVAL_LANDINGS: FestivalLanding[] = [
         a: "Sí, el FIB tiene zona de camping incluida con la entrada general. Muchos asistentes llegan en coche compartido y se instalan en el camping los 4 días del festival. ConcertRide permite organizar tanto la ida como la vuelta al final del festival.",
       },
       {
-        q: "¿Cuándo es el FIB 2026?",
-        a: "El Festival Internacional de Benicàssim 2026 está previsto para el 16, 17, 18 y 19 de julio. Busca viajes disponibles en concertride.me con destino Benicàssim.",
+        q: "¿Cuándo es el FIB 2026 y dónde se celebra?",
+        a: "El Festival Internacional de Benicàssim 2026 se celebra del 16 al 19 de julio (4 días) en el Recinto Auditorio del Parque de Benicàssim (Av. de Ferrandis Salvador, s/n, 12560 Benicàssim, Castellón). Aforo: 45.000 personas/día. Está a 15 km de Castellón de la Plana, 70 km de Valencia (AP-7 salida 47) y 300 km de Barcelona.",
       },
       {
-        q: "¿Es seguro el carpooling al FIB?",
-        a: "Sí. ConcertRide verifica el carnet de conducir de todos los conductores antes de publicar. El pago es en efectivo o Bizum directamente al conductor el día del viaje. Sin adelantos ni datos bancarios en la plataforma.",
+        q: "¿Cuánto cuesta el carpooling al FIB desde Valencia o Castellón?",
+        a: "El carpooling al FIB 2026 desde Valencia (70 km, 50 min por la AP-7) cuesta entre 3 y 6 € por asiento en ConcertRide; desde Castellón de la Plana (15 km, 20 min) entre 3 y 5 €. Compara: el tren Renfe Cercanías C6 Valencia–Castellón cuesta 4–6 € pero suma 30 min más en taxi/lanzadera desde la estación de Castellón al recinto.",
       },
     ],
     relatedFestivals: ["arenal-sound", "medusa-festival", "low-festival"],
@@ -660,16 +660,16 @@ export const FESTIVAL_LANDINGS: FestivalLanding[] = [
         a: "Burgos está a 155 km de Bilbao (1h 30 min por la A-1). Con ConcertRide, el precio por asiento desde Burgos está entre 5 y 8 €. No hay tren directo Burgos–Bilbao con frecuencias adecuadas para el festival.",
       },
       {
-        q: "¿Cuándo es el BBK Live 2026?",
-        a: "Bilbao BBK Live 2026 está previsto para el 9, 10 y 11 de julio. Busca viajes en concertride.me con destino Bilbao.",
+        q: "¿Cuándo es el BBK Live 2026 y dónde está Kobetamendi?",
+        a: "Bilbao BBK Live 2026 se celebra el 9, 10 y 11 de julio en el Parque de Kobetamendi (Barrio Landabaso, 48015 Bilbao), monte a 4 km del centro de Bilbao. Aforo: 30.000 personas/día. El recinto NO es accesible en coche propio (carretera estrecha, parking casi inexistente): el transporte oficial es la lanzadera gratuita desde Plaza Moyúa cada 15 minutos, incluida con la entrada.",
       },
       {
         q: "BBK Live desde Santander: opciones de bus, tren y coche",
         a: "El binomio BBK Santander es uno de los más buscados del festival. Santander–Bilbao son 100 km (1h por la A-8). Resumen de opciones: 1) Bus de larga distancia (ALSA, FlixBus): 6–15 €, 1h 30 min, llega a Termibús Bilbao (5 km del recinto) y requiere shuttle u taxi adicional, sin frecuencias de madrugada. 2) Tren Renfe Media Distancia: 8–15 €, 2h–2h 30 min, último servicio antes de las 22:00 — imposible para volver del festival. 3) Coche propio: 100 km, parking limitado en Kobetamendi (recomendado aparcar en Bilbao centro y subir en lanzadera oficial). 4) Coche compartido (ConcertRide): 4–7 € por asiento, llegada directa al centro de Bilbao para tomar el shuttle al monte, vuelta flexible a cualquier hora. Es la única opción práctica para volver a Santander tras los conciertos de madrugada.",
       },
       {
-        q: "¿Es seguro el carpooling al BBK Live?",
-        a: "Sí. ConcertRide verifica el carnet de conducir de todos los conductores. El pago es en efectivo o Bizum el día del viaje — sin adelantos ni datos bancarios. Puedes ver el perfil y las valoraciones del conductor antes de confirmar la reserva.",
+        q: "¿Hay lanzadera oficial al BBK Live y es gratis?",
+        a: "Sí. BBK Live opera una lanzadera oficial GRATUITA incluida en el precio de la entrada, con salida desde Plaza Moyúa (metro L1/L2 Moyua) y Termibus, frecuencia continua de 15 minutos en horario de 17:00 a 6:00. Es la única forma práctica de subir a Kobetamendi: el coche propio está fuertemente desaconsejado por la organización debido al acceso limitado del monte.",
       },
     ],
     relatedFestivals: ["resurrection-fest", "sonorama-ribera"],
@@ -776,16 +776,16 @@ export const FESTIVAL_LANDINGS: FestivalLanding[] = [
         a: "Bilbao–Viveiro son 375 km (4 horas por la A-8 y la N-634). Con ConcertRide, el precio por asiento está entre 10 y 15 €. No existe tren directo ni autobús de larga distancia cómodo para este trayecto.",
       },
       {
-        q: "¿Cuándo es Resurrection Fest 2026?",
-        a: "La edición 2026 de Resurrection Fest está prevista para el 25, 26, 27 y 28 de junio en A Gañidoira, Viveiro (Lugo). Busca viajes en concertride.me.",
+        q: "¿Cuándo es Resurrection Fest 2026 y dónde está Viveiro?",
+        a: "Resurrection Fest 2026 se celebra del 25 al 28 de junio (4 días) en el recinto A Gañidoira, Viveiro (Lugo), Galicia. Aforo: 30.000 personas/día. Coordenadas: 43.666 N, -7.599 W. Viveiro está en la Costa Lucense, sin AVE ni aeropuerto propio: los aeropuertos más cercanos son Santiago de Compostela (185 km, 2h) y Asturias (195 km, 2h).",
       },
       {
         q: "Viajes a Resurrection Fest 2026: cómo organizarlos en grupo",
         a: "Resurrection Fest es probablemente el festival español más dependiente del coche compartido por su ubicación (Viveiro, Lugo, sin AVE ni aeropuerto cercano). La mayoría de fans organizan viajes a Resurrection Fest en grupos de 3–4 personas saliendo desde A Coruña (100 km, 4–7 €/asiento), Vigo (200 km, 6–9 €), Santiago (185 km, 6–9 €), Oviedo (195 km, 6–9 €), Bilbao (375 km, 10–15 €) o Madrid (600 km, 16–22 €). El servicio ALSA opera autobuses Madrid–A Coruña–Viveiro pero con 2–3 frecuencias al día y sin servicio nocturno; en la práctica todos los asistentes vuelven en coche. Publica o reserva un viaje compartido en concertride.me/festivales/resurrection-fest.",
       },
       {
-        q: "¿Es seguro el carpooling al Resurrection Fest?",
-        a: "Sí. ConcertRide verifica el carnet de conducir de todos los conductores. El pago es en efectivo o Bizum el día del viaje. Dado que Viveiro carece de transporte público nocturno, muchos fans del Resurrection Fest llevan años usando carpooling de forma habitual — es la opción de vuelta más normalizada de este festival.",
+        q: "¿Cuánto cuesta el carpooling al Resurrection Fest desde Galicia?",
+        a: "El carpooling al Resurrection Fest 2026 en ConcertRide cuesta desde A Coruña (100 km, 1h 15 min) 4–7 €/asiento, desde Santiago de Compostela (185 km, 2h) 6–9 €, desde Vigo (200 km, 2h 15 min) 6–9 € y desde Lugo (55 km, 45 min) 3–5 €. Es la opción más usada por los fans gallegos: ALSA solo opera 2–3 buses/día sin servicio nocturno.",
       },
       {
         q: "¿Hay tren de vuelta de Resurrection Fest de madrugada?",
@@ -883,16 +883,16 @@ export const FESTIVAL_LANDINGS: FestivalLanding[] = [
         a: "Alicante–Burriana son 115 km (1h 15 min por la A-7). Con ConcertRide, el precio por asiento desde Alicante está entre 4 y 7 €. No existe transporte público directo Alicante–Burriana en horarios de festival. El tren Alicante–Castellón (Euromed, 1h 15 min) más lanzadera o taxi al recinto es una opción para la ida, pero no cubre la vuelta de madrugada.",
       },
       {
-        q: "¿Cuándo es Arenal Sound 2026?",
-        a: "Arenal Sound 2026 está previsto del 29 de julio al 2 de agosto en la playa de Burriana (Castellón). Busca viajes en concertride.me.",
+        q: "¿Cuándo es Arenal Sound 2026 y dónde está Burriana?",
+        a: "Arenal Sound 2026 se celebra del 29 de julio al 2 de agosto (5 días) en la Playa de Burriana, Castellón. Aforo: 40.000 personas/día. Coordenadas: 39.881 N, -0.078 W. Burriana está a 10 km de Castellón de la Plana, 65 km de Valencia (45 min por AP-7) y 305 km de Barcelona (2h 50 min). Acceso: AP-7 salida Burriana o N-340.",
       },
       {
         q: "Resumen transporte Arenal Sound 2026: bus, tren, autobús y coche",
         a: "Resumen rápido de las opciones para llegar al Arenal Sound 2026 en Burriana: 1) Bus / autobús lanzadera del festival desde la estación de autobuses de Castellón de la Plana (10 km, 20 min, plazas limitadas, no opera de madrugada). 2) Tren: Cercanías Renfe C6 Valencia–Castellón (45–60 min) hasta Castellón de la Plana, sin tren directo a la playa, requiere taxi o lanzadera adicional. 3) Autobuses de larga distancia desde Madrid (15–25 €), Barcelona (15–30 €) o Valencia (3–8 €) llegan a Castellón ciudad pero no al recinto. 4) Coche compartido por ConcertRide: precios desde 2 € (Burriana), 3 € (Castellón), 3–6 € (Valencia), 8–12 € (Barcelona) o 12–17 € (Madrid), llegada directa al recinto y vuelta flexible.",
       },
       {
-        q: "¿Es seguro el carpooling al Arenal Sound?",
-        a: "Sí. ConcertRide verifica el carnet de conducir de todos los conductores antes de publicar viajes. El pago es en efectivo o Bizum el día del viaje — sin adelantos. Puedes ver el perfil y las valoraciones del conductor antes de confirmar tu plaza.",
+        q: "¿A qué hora abre y cierra el recinto del Arenal Sound?",
+        a: "Las puertas del recinto del Arenal Sound 2026 abren a las 12:00 con última entrada sobre las 23:00. Los conciertos principales del paseo marítimo de Burriana terminan entre las 5:00 y las 6:00 de la madrugada. El parking del recinto cuesta 15–20 €/día y se recomienda llegar antes de las 19:00 para encontrar plaza. La zona de camping (incluida en el abono camping) está a 500 m del recinto con acceso 24h.",
       },
     ],
     relatedFestivals: ["fib", "medusa-festival", "low-festival"],
@@ -1037,12 +1037,12 @@ export const FESTIVAL_LANDINGS: FestivalLanding[] = [
         a: "Madrid–Cullera son unos 385 km (3h 30 min por la A-3). Por ConcertRide, el precio por asiento está entre 10 y 14 €. Un taxi desde Valencia al recinto cuesta entre 40 y 60 €.",
       },
       {
-        q: "¿Cuándo es Medusa Festival 2026?",
-        a: "Medusa Festival 2026 está previsto para el 12 al 16 de agosto en la playa de Cullera (Valencia). Busca viajes en concertride.me.",
+        q: "¿Cuándo es Medusa Festival 2026 y dónde está Cullera?",
+        a: "Medusa Festival 2026 se celebra del 12 al 16 de agosto (5 días) en la Playa Marenys de Rafalcaid, Cullera (Valencia). Aforo: 60.000 personas/día — el mayor festival de electrónica de España. Coordenadas: 39.156 N, -0.246 W. Cullera está 45 km al sur de Valencia (40 min por la V-31 y la CV-500) y 100 km al norte de Alicante (1h por la AP-7).",
       },
       {
-        q: "¿Es seguro el carpooling al Medusa Festival?",
-        a: "Sí. ConcertRide verifica el carnet de conducir de todos los conductores. El pago es en efectivo o Bizum el día del viaje. Sin adelantos ni datos bancarios en la plataforma. Puedes ver el perfil y las valoraciones del conductor antes de confirmar.",
+        q: "¿Cuánto cuesta el carpooling al Medusa Festival desde Valencia, Alicante o Madrid?",
+        a: "El carpooling al Medusa Festival 2026 en ConcertRide cuesta desde Valencia (45 km, 40 min) 3–5 €/asiento, desde Alicante (100 km, 1h) 4–7 €, desde Madrid (385 km, 3h 30 min por A-3) 10–14 € y desde Barcelona (375 km, 3h 30 min por AP-7) 10–14 €. Es la única opción puerta a puerta con equipo de camping: el shuttle oficial desde Valencia tiene plazas limitadas y no opera fuera de las franjas de llegada/regreso.",
       },
     ],
     relatedFestivals: ["arenal-sound", "fib", "low-festival"],
@@ -1101,11 +1101,11 @@ export const FESTIVAL_LANDINGS: FestivalLanding[] = [
       },
       {
         q: "¿Cómo ir a Viña Rock desde Alicante?",
-        a: "Alicante–Villarrobledo son 165 km (1h 35 min por la A-31 hasta Albacete y luego la N-322). Con ConcertRide, el precio por asiento desde Alicante está entre 5 y 8 €. No existe autobús de línea regular que llegue al recinto en horarios de festival desde Alicante.",
+        a: "Alicante–Villarrobledo son 165 km (1h 35 min por la A-31 hasta Albacete, luego N-322 hacia Villarrobledo). Con ConcertRide, el precio por asiento desde Alicante está entre 5 y 8 €. No existe autobús de línea regular Alicante–Villarrobledo en horarios de festival. La alternativa en transporte público sería tren MD Alicante–Albacete (1h 20 min, 12–20 €) más lanzadera oficial Albacete–La Pulgosa (40 min, 8–12 € si está disponible) — total unas 3h y 25–35 €. El coche compartido es más rápido y económico.",
       },
       {
         q: "¿Hay camping en Viña Rock?",
-        a: "Sí, Viña Rock tiene una amplia zona de camping incluida con la entrada. La mayoría de asistentes llegan el jueves por la noche y se quedan hasta el domingo. ConcertRide permite organizar la ida el miércoles-jueves y la vuelta el domingo.",
+        a: "Sí. Viña Rock cuenta con una de las zonas de camping más grandes de los festivales españoles (capacidad para más de 30.000 acampados), incluida con el abono. Hay zonas Premium con duchas, parking de caravanas y servicio de furgonetas (camper). La mayoría de los asistentes llegan el miércoles tarde o jueves por la mañana y se quedan hasta el domingo. ConcertRide permite organizar ida miércoles-jueves y vuelta domingo coordinando solo dos viajes para los 4 días del puente de mayo.",
       },
       {
         q: "¿Cuánto cuesta ir a Viña Rock desde Valencia?",
@@ -1341,11 +1341,11 @@ export const FESTIVAL_LANDINGS: FestivalLanding[] = [
       },
       {
         q: "¿Cómo llegar a Cala Mijas desde Córdoba?",
-        a: "Córdoba–Cortijo de Torres son 190 km (2 horas por la A-45). Con ConcertRide, el precio por asiento desde Córdoba es de 6 a 9 €. El tren Córdoba–Málaga (AVE, 1h) es una buena opción para llegar a Málaga ciudad, pero desde allí hay que añadir taxi o carpooling hasta el recinto.",
+        a: "Córdoba–Cortijo de Torres (Málaga) son 190 km (2 horas por la A-45). Con ConcertRide, el precio por asiento desde Córdoba es de 6 a 9 €. El AVE Córdoba–Málaga tarda solo 50 minutos y cuesta 25–55 €, pero llega a María Zambrano (Málaga centro), a 5 km del recinto del Cortijo de Torres — desde allí hay que añadir taxi (12–18 €) o autobús urbano EMT (línea 16, 1,40 €, 25 min). El último AVE de vuelta sale antes de las 22:00, lo que descarta esta opción para una jornada completa de festival. El carpooling deja directamente en el recinto y permite vuelta a cualquier hora.",
       },
       {
         q: "¿Cómo llegar a Cala Mijas desde Sevilla?",
-        a: "Sevilla está a 200 km de Málaga (2 horas). Con ConcertRide, el precio por asiento desde Sevilla es de 6 a 9 €. El tren Sevilla–Málaga tarda 2h pero el último regresa pronto y no llega al recinto directamente.",
+        a: "Sevilla–Cortijo de Torres (Málaga) son 200 km (2 horas por la A-92). Con ConcertRide, el precio por asiento desde Sevilla es de 6 a 9 €, con recogida habitual en Sevilla centro o Plaza de Armas. El tren Avant Sevilla–Málaga tarda 2h y cuesta 30–60 €, pero el último regresa de Málaga sobre las 21:30 (no compatible con los horarios del festival, que cierra a las 4:00–5:00). Además, hay que añadir taxi (25–40 €) o autobús desde Málaga María Zambrano hasta el recinto. El carpooling es la única opción que combina llegada directa al Cortijo y vuelta nocturna a Sevilla.",
       },
       {
         q: "¿Cuándo es Cala Mijas Fest 2026?",
@@ -1429,15 +1429,15 @@ export const FESTIVAL_LANDINGS: FestivalLanding[] = [
       },
       {
         q: "¿Cómo ir a Sonorama desde Zaragoza?",
-        a: "Zaragoza–Aranda de Duero son 290 km (2h 30 min por la A-2 y la A-1). Con ConcertRide, el precio por asiento desde Zaragoza está entre 8 y 12 €. No existe autobús directo Zaragoza–Aranda, por lo que el coche compartido es la única opción práctica para los asistentes aragoneses.",
+        a: "Zaragoza–Aranda de Duero son 290 km (2h 30 min por la A-2 hasta Soria y luego la N-122 dirección Burgos, o por la A-2 + A-11 vía Valladolid en 3h). Con ConcertRide, el precio por asiento desde Zaragoza está entre 8 y 12 €. No existe autobús directo Zaragoza–Aranda ni conexión ferroviaria (la estación más cercana, Aranda-Montecillo, lleva cerrada al tráfico de pasajeros desde 2011). El coche compartido es la única opción práctica para los asistentes aragoneses.",
       },
       {
         q: "¿Cuándo es Sonorama Ribera 2026?",
         a: "Sonorama Ribera 2026 está previsto del 6 al 9 de agosto en Aranda de Duero (Burgos). Busca viajes en concertride.me.",
       },
       {
-        q: "¿Hay camping en Sonorama?",
-        a: "Sí, Sonorama tiene zona de camping próxima al estadio. Muchos fans de Madrid o Bilbao llegan el jueves y se quedan hasta el domingo. ConcertRide permite organizar la ida y la vuelta con asiento garantizado.",
+        q: "¿Hay camping en Sonorama Ribera?",
+        a: "Sí. Sonorama dispone de zona de camping oficial habilitada por el Ayuntamiento de Aranda de Duero (Campo de fútbol municipal y campos anexos, junto al estadio El Montecillo), incluida en el abono. La capacidad es limitada — los abonos con camping suelen agotarse antes de las entradas de día. Adicionalmente, muchos asistentes alquilan apartamento o casa rural en Aranda y pueblos de la Ribera del Duero (Roa, Peñafiel, Burgos). Para esos casos, ConcertRide permite organizar viaje conjunto del grupo desde Madrid (5–8 €), Bilbao (6–9 €) o Valladolid (4–7 €).",
       },
       {
         q: "¿Cómo llegar a Sonorama desde Bilbao?",
@@ -1620,15 +1620,15 @@ export const FESTIVAL_LANDINGS: FestivalLanding[] = [
       },
       {
         q: "¿Cómo ir a Low Festival desde Madrid?",
-        a: "Madrid–Benidorm son 440 km (4 horas por la A-3 y la A-70). Con ConcertRide, el precio por asiento desde Madrid está entre 12 y 17 €. El autobús de larga distancia Madrid–Benidorm (ALSA) tarda entre 5 y 6h y cuesta entre 20 y 35 €, pero no cubre horarios de madrugada.",
+        a: "Madrid–Benidorm son 440 km (4 horas por la A-3 hasta Valencia y luego la AP-7 / A-70). Con ConcertRide, el precio por asiento desde Madrid está entre 12 y 17 €, con recogida habitual en Atocha o Méndez Álvaro. El autobús de larga distancia Madrid–Benidorm (ALSA, vía Albacete y Alicante) tarda 5–6 h y cuesta 20–35 €, pero no cubre horarios de madrugada. No hay tren directo: Renfe AVE Madrid–Alicante (2h 25 min, 30–80 €) más TRAM L1 Alicante–Benidorm (1h 20 min, 6 €) suma 4h y 35–85 €, pero el último TRAM sale antes de la 1:00 y no permite cubrir los conciertos hasta el cierre.",
       },
       {
         q: "¿Cómo ir a Low Festival desde Barcelona?",
         a: "Barcelona–Benidorm son 500 km (4h 30 min por la AP-7 y la A-70). Con ConcertRide, el precio por asiento desde Barcelona está entre 13 y 18 €. El tren Barcelona–Alicante + TRAM hasta Benidorm es una alternativa viable para el viaje de ida, pero la vuelta de madrugada es imposible en transporte público.",
       },
       {
-        q: "¿Hay transporte desde Valencia a Low Festival?",
-        a: "Valencia–Benidorm son 150 km (1h 30 min por la AP-7). Con ConcertRide, el viaje cuesta entre 5 y 8 € por asiento. El autobús Valencia–Benidorm existe pero no cubre horarios de festival.",
+        q: "¿Hay transporte público desde Valencia a Low Festival?",
+        a: "Valencia–Benidorm son 150 km (1h 30 min por la AP-7). Las opciones de transporte público son: 1) Tren Renfe Euromed Valencia–Alicante (1h 45 min, 20–35 €) + TRAM L1 Alicante–Benidorm (1h 20 min, 6 €), pero el último TRAM cierra antes de la 1:00 y el viaje completo supera las 3h. 2) Autobús ALSA / Avanzabus Valencia–Benidorm (2h, 10–18 €, varias salidas diarias) — no opera de madrugada. 3) Coche compartido con ConcertRide (5–8 €/asiento, llegada directa al paseo marítimo, vuelta a la hora que pactes con el conductor) es la opción más usada por los valencianos.",
       },
       {
         q: "¿Cuándo es Low Festival 2026?",
@@ -1683,27 +1683,27 @@ export const FESTIVAL_LANDINGS: FestivalLanding[] = [
     faqs: [
       {
         q: "¿Cómo ir a Tomavistas desde el centro de Madrid?",
-        a: "El acceso es el mismo que Mad Cool: metro línea 8 (dirección Aeropuerto T4) hasta la estación Feria de Madrid (25 minutos desde Sol). A la salida (madrugada), el metro cierra sobre la 1:30 y el carpooling es la opción más cómoda para volver. ConcertRide conecta asistentes del mismo barrio o ciudad desde 4 €.",
+        a: "Tomavistas se celebra en los Jardines del Buen Retiro (Paseo de la Argentina). Acceso en metro: línea L2 parada Retiro (5 min a pie desde la entrada norte) o L9 parada Ibiza (8 min). Desde Sol son 15–20 minutos en metro. Con ConcertRide, los asistentes que se organizan en grupo desde barrios de Madrid (4–7 €/asiento) coordinan ida y vuelta sin depender del último metro (≈1:30).",
       },
       {
         q: "¿Hay transporte público nocturno de vuelta de Tomavistas?",
-        a: "El metro línea 8 tiene la última salida desde Feria de Madrid alrededor de la 1:30 (con posibles ampliaciones en noches de festival). Los autobuses nocturnos N1 y N6 cubren la Avenida de América pero no paran en IFEMA directamente. Taxi y VTC desde IFEMA al centro cuestan entre 15 y 25 € en horario normal y hasta 50 € en hora punta. ConcertRide permite organizar el regreso con asistentes de la misma zona por 4–7 €.",
+        a: "El metro de Madrid cierra a la 1:30, justo cuando termina la última actuación. Los autobuses nocturnos (búhos) N9 y N15 paran cerca del Retiro por Cibeles y Goya, con frecuencia cada 30 min. Taxi/VTC desde el Retiro al centro cuesta 8–15 € y a barrios periféricos 15–25 €. Para vuelta a Toledo (75 km), Guadalajara (60 km) o Segovia (90 km), ConcertRide es la opción más práctica: 3–7 €/asiento, sin horario rígido.",
       },
       {
         q: "¿Hay lanzadera oficial o shuttle de Tomavistas?",
-        a: "Tomavistas no opera lanzaderas propias desde el centro de Madrid. La Metro Línea 8 es el único transporte oficial directo. Los asistentes de otras ciudades tienen como mejor opción ConcertRide para coordinar el viaje completo.",
+        a: "Tomavistas no opera lanzaderas propias. El acceso oficial es por metro L2 (parada Retiro) o L9 (Ibiza), líneas 9, 15, 19, 20, 51 de autobús EMT, y la línea 14 que pasa por Menéndez Pelayo. Los asistentes de otras provincias (Toledo, Guadalajara, Valencia, Segovia) coordinan el viaje completo con ConcertRide, evitando combinaciones AVE + metro.",
       },
       {
-        q: "¿Hay parking en IFEMA durante Tomavistas?",
-        a: "IFEMA dispone de varias zonas de parking (12–18 €/día), pero los accesos por la R-2 y la M-14 pueden congestionarse en las llegadas. Muchos conductores de fuera de Madrid prefieren aparcar en el intercambiador de Avenida de América y tomar la línea 8. Con ConcertRide, llegas directamente sin preocuparte del parking.",
+        q: "¿Hay parking cerca del Retiro durante Tomavistas?",
+        a: "El Retiro no tiene parking propio. Las opciones son los parkings de pago en superficie y subterráneos del entorno: Plaza de Cibeles (3 €/h), Plaza de Independencia (Puerta de Alcalá, 3 €/h), Pl. de las Cortes (2,80 €/h) o Conde de Casal (2,50 €/h). Una jornada completa cuesta entre 25 y 40 €. Para asistentes de fuera de Madrid, llegar con ConcertRide ahorra el coste del parking y la búsqueda en el centro saturado.",
       },
       {
         q: "¿Cómo ir a Tomavistas desde Valencia?",
-        a: "Valencia–Madrid son 355 km (3h 20 min por la A-3). Con ConcertRide, el precio por asiento desde Valencia es de 10 a 14 €. El AVE tarda 1h 35 min pero cuesta entre 25 y 60 € y no llega a IFEMA; hay que añadir metro L8 (25 min) desde Atocha.",
+        a: "Valencia–Madrid (Retiro) son 355 km (3h 20 min por la A-3). Con ConcertRide, el precio por asiento desde Valencia es de 10 a 14 €. El AVE Valencia–Atocha tarda 1h 35 min y cuesta 25–60 €, más metro L1 hasta Sol y L2 a Retiro (15 min). El carpooling deja directamente cerca del Retiro y permite volver a la hora que prefieras.",
       },
       {
         q: "¿Cuándo es Tomavistas 2026?",
-        a: "Tomavistas Festival 2026 está previsto para el 15, 16 y 17 de mayo en IFEMA, Madrid. Busca viajes en concertride.me.",
+        a: "Tomavistas Festival 2026 está previsto para el 15, 16 y 17 de mayo en los Jardines del Buen Retiro (Paseo de la Argentina, s/n, 28009 Madrid). El festival arranca habitualmente sobre las 17:00 y termina en torno a la 1:00. Busca viajes en concertride.me/festivales/tomavistas.",
       },
       {
         q: "¿Es seguro el carpooling a Tomavistas?",
@@ -1764,11 +1764,11 @@ export const FESTIVAL_LANDINGS: FestivalLanding[] = [
       },
       {
         q: "¿Hay shuttle oficial de Cruïlla?",
-        a: "Cruïlla no opera un shuttle oficial de larga distancia desde otras ciudades. Los asistentes que vienen de fuera de Cataluña utilizan principalmente el AVE o el coche compartido. ConcertRide es la alternativa más flexible para quienes prefieren llegar directamente al Fòrum desde su ciudad de origen.",
+        a: "Cruïlla no opera shuttle oficial desde otras ciudades. El acceso principal al recinto es el metro L4 (parada Besòs Mar, 10 min a pie) y los buses nocturnos N6, N7 y N11 de TMB hasta la Rambla del Prim. En el interior del recinto, el festival utiliza un sistema de microbuses gratuitos entre escenarios para facilitar el movimiento del aforo. Los asistentes que vienen de Madrid, Valencia, Zaragoza o el resto de Cataluña combinan AVE/Avant + metro L4, o coche compartido con ConcertRide para llegar directamente al recinto sin transbordos.",
       },
       {
         q: "¿Cuánto cuesta ir a Cruïlla desde Valencia?",
-        a: "Valencia–Barcelona (Parc del Fòrum) son 355 km (3h 15 min por la AP-7). Con ConcertRide, el precio por asiento desde Valencia está entre 10 y 14 €. El tren AVE Valencia–Barcelona cuesta entre 20 y 60 € y tarda 3h, pero hay que añadir metro hasta el Fòrum desde Sants (35 min). El carpooling permite llegar directamente con todo el equipaje.",
+        a: "Valencia–Barcelona (Parc del Fòrum) son 355 km (3h 15 min por la AP-7). Con ConcertRide, el precio por asiento desde Valencia está entre 10 y 14 €, con recogida en Estació del Nord, Av. de Burjassot o cualquier barrio acordado. El tren AVE/Euromed Valencia–Barcelona Sants cuesta 20–60 €, tarda 3h y exige añadir metro L4 hasta Besòs Mar (35 min, 2,55 €) — más de 4h totales y mucho más caro. El último AVE de vuelta a Valencia sale sobre las 20:00, incompatible con los horarios del Cruïlla (cierre 3:00–4:00). El carpooling permite llegar directamente con todo el equipaje y volver cuando lo pacte el grupo.",
       },
       {
         q: "¿En qué fechas es Cruïlla 2026?",
@@ -3087,7 +3087,15 @@ export const FESTIVAL_LANDINGS: FestivalLanding[] = [
       },
       {
         q: "¿Es el mismo recinto que el FIB Benicàssim?",
-        a: "El Rototom Sunsplash y el FIB comparten el entorno de Benicàssim, aunque el recinto específico y la distribución pueden variar. Ambos festivales aprovechan las infraestructuras de transporte de la zona: Cercanías Renfe y lanzaderas desde Castellón ciudad.",
+        a: "El Rototom Sunsplash y el FIB se celebran ambos en el entorno festivalero de Benicàssim, junto a la playa, aunque la distribución de escenarios y zonas de camping varía entre eventos. Para el viajero la logística es similar: Cercanías Valencia–Castellón (45 min, 4–6 €) o Barcelona–Castellón (3h, 18–35 €), más lanzadera oficial desde la estación de Castellón al recinto (3–5 €).",
+      },
+      {
+        q: "¿Cómo llegar al Rototom Sunsplash desde Madrid?",
+        a: "Madrid–Benicàssim son 440 km (4h 20 min por la A-3 y la AP-7). Con ConcertRide, el carpooling desde Madrid sale por 14–19 €/asiento, con llegada directa al recinto y vuelta flexible. El AVE Madrid–Castellón cuesta 25–60 € y tarda 2h 30 min, pero requiere lanzadera adicional (3–5 €) desde la estación de Castellón hasta Benicàssim. Las 8 jornadas del Rototom hacen que muchos asistentes acampen y solo necesiten un viaje de ida y otro de vuelta.",
+      },
+      {
+        q: "¿Cuándo es el Rototom Sunsplash 2026?",
+        a: "El Rototom Sunsplash 2026 se celebra del 14 al 22 de agosto en Benicàssim (Castellón), con 8 jornadas consecutivas de reggae, dancehall, dub, ska y roots. Es el festival de reggae más largo de Europa, con cabezas de cartel internacionales y un perfil de público familiar. Busca carpooling en concertride.me/festivales/rototom-sunsplash desde Valencia (8–12 €), Madrid (14–19 €) o Barcelona (10–14 €).",
       },
     ],
     relatedFestivals: ["fib", "medusa-festival", "arenal-sound"],
@@ -3350,6 +3358,14 @@ export const FESTIVAL_LANDINGS: FestivalLanding[] = [
       {
         q: "¿Es el DCode Festival solo para jóvenes?",
         a: "El DCode tiene un público principalmente de 18–35 años, con géneros urbanos, pop y electrónica como ejes. Es uno de los festivales de urban music más importantes de España con 45.000 asistentes/día. No hay restricción de edad, aunque el ambiente es de público joven.",
+      },
+      {
+        q: "¿Cómo ir a DCode Festival desde Valencia o Barcelona?",
+        a: "Desde Valencia son 355 km por la A-3 (3 horas), con ConcertRide el precio por asiento está entre 9 y 14 €. Desde Barcelona son 615 km por la A-2 (5h 30 min), con ConcertRide entre 15 y 20 €/asiento. El AVE Valencia–Madrid (1h 35 min, 25–60 €) y Barcelona–Madrid (2h 30 min, 50–100 €) llega a Atocha o Chamartín; desde allí, metro L6 hasta Ciudad Universitaria (15 min, 1,50 €). El carpooling es más económico y deja cerca del recinto.",
+      },
+      {
+        q: "¿Hay transporte nocturno de vuelta del DCode Festival?",
+        a: "El metro L6 cierra a la 1:30. El DCode termina sobre la 1:00–3:00 según noche, así que muchos asistentes quedan sin metro al salir. Autobuses nocturnos (búhos) N20 y N22 conectan Moncloa con el centro y la periferia hasta las 5:30. Taxi y VTC desde Ciudad Universitaria al centro: 12–20 €. Para vuelta a Valencia, Barcelona, Zaragoza u otras ciudades, ConcertRide es la única opción flexible — el último AVE sale antes de las 22:00.",
       },
     ],
     relatedFestivals: ["mad-cool", "sonar"],

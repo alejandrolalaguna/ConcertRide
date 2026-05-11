@@ -1,6 +1,6 @@
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { AnimatePresence, motion, useScroll, useTransform } from "motion/react";
-import { ArrowRight, ChevronDown } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 
 interface TicketData {
   id: string;
@@ -19,14 +19,26 @@ interface TicketData {
   ticketNum: string;
 }
 
-const ROTATING_WORDS = ["conciertos.", "festivales.", "experiencias.", "momentos."];
+// Next major festival, hardcoded for above-the-fold targeting.
+// Update when a new festival becomes "the closest" — keep slug + dates + min price in sync with festivalLandings.ts.
+const NEXT_FESTIVAL = {
+  name: "Primavera Sound",
+  fullName: "Primavera Sound 2026",
+  slug: "primavera-sound",
+  startDate: "2026-05-28",
+  endDate: "2026-06-01",
+  shortDates: "28 may–1 jun",
+  minPrice: 4, // €/asiento — Tarragona→Barcelona (la ruta corta más barata)
+  // Madrid es la ruta más buscada
+  topRoute: { from: "Madrid", priceRange: "15–20 €" },
+} as const;
 
 const LIVE_ACTIVITY = [
-  "María desde Córdoba · reservó asiento → Sevilla (Bad Bunny) · hace 2 min",
-  "Carlos desde Valencia · publicó viaje → FIB Benicàssim · hace 5 min",
-  "Lucía desde Bilbao · se unió a ConcertRide · hace 7 min",
-  "Rafa desde Málaga · reservó asiento → Madrid (Primavera Sound) · hace 11 min",
-  "Ana desde Zaragoza · publicó viaje → Mad Cool Madrid · hace 15 min",
+  "Rafa desde Madrid · reservó asiento → Barcelona (Primavera Sound) · hace 2 min",
+  "María desde Valencia · publicó viaje → Primavera Sound · hace 5 min",
+  "Lucía desde Zaragoza · se unió a ConcertRide · hace 7 min",
+  "Carlos desde Valencia · publicó viaje → FIB Benicàssim · hace 11 min",
+  "Ana desde Bilbao · publicó viaje → Mad Cool Madrid · hace 15 min",
 ];
 
 const TICKETS: TicketData[] = [
@@ -132,8 +144,16 @@ export function Hero() {
   const reducedMotion = usePrefersReducedMotion();
 
   const [ticketIdx, setTicketIdx] = useState(0);
-  const [wordIdx, setWordIdx] = useState(0);
   const [activityIdx, setActivityIdx] = useState(0);
+
+  // Countdown to next festival — recalculated client-side so it stays fresh.
+  // Server-render shows whatever is current at build time; client hydrates with live value.
+  const daysToNextFestival = useMemo(() => {
+    const target = new Date(`${NEXT_FESTIVAL.startDate}T00:00:00`).getTime();
+    const now = Date.now();
+    const diff = target - now;
+    return Math.max(0, Math.ceil(diff / (24 * 60 * 60 * 1000)));
+  }, []);
 
   useEffect(() => {
     if (reducedMotion) return;
@@ -141,14 +161,6 @@ export function Hero() {
       setTicketIdx((i) => (i + 1) % TICKETS.length);
     }, 6000);
     return () => clearInterval(ticketTimer);
-  }, [reducedMotion]);
-
-  useEffect(() => {
-    if (reducedMotion) return;
-    const wordTimer = setInterval(() => {
-      setWordIdx((i) => (i + 1) % ROTATING_WORDS.length);
-    }, 2800);
-    return () => clearInterval(wordTimer);
   }, [reducedMotion]);
 
   useEffect(() => {
@@ -223,45 +235,36 @@ export function Hero() {
       {/* Hero content */}
       <div className="relative w-full max-w-6xl mx-auto px-6 md:px-10 py-24 md:py-32 space-y-8">
 
-        {/* Live event badge */}
+        {/* Urgency badge — countdown to next festival */}
         <motion.div
           initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.4, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
-          className="inline-flex items-center gap-2 border border-[#dbff00]/20 bg-[#dbff00]/[0.06] px-3 py-1.5"
+          className="inline-flex items-center gap-2 border border-[#ff4f00]/30 bg-[#ff4f00]/[0.08] px-3 py-1.5"
         >
-          <span className="w-1.5 h-1.5 rounded-full bg-[#dbff00] animate-pulse flex-shrink-0" />
-          <span className="font-mono text-[10px] tracking-[0.2em] uppercase text-[#dbff00]">
-            Mad Cool · 9–12 Jul · Quedan plazas
+          <span className="w-1.5 h-1.5 rounded-full bg-[#ff4f00] animate-pulse flex-shrink-0" />
+          <span className="font-mono text-[10px] tracking-[0.2em] uppercase text-[#ff4f00]">
+            {NEXT_FESTIVAL.name} · {NEXT_FESTIVAL.shortDates}
+            {daysToNextFestival > 0 && daysToNextFestival <= 60
+              ? ` · faltan ${daysToNextFestival} ${daysToNextFestival === 1 ? "día" : "días"}`
+              : " · plazas limitadas"}
           </span>
         </motion.div>
 
-        {/* H1 with rotating word */}
+        {/* H1 — festival + price above the fold */}
         <motion.h1
           id="hero-title"
           initial={{ opacity: 0, y: 40 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
-          className="font-display uppercase leading-[0.88] tracking-tight text-[clamp(3.2rem,9vw,8rem)]"
+          className="font-display uppercase leading-[0.88] tracking-tight text-[clamp(2.6rem,7.5vw,6.5rem)] max-w-5xl"
         >
-          <span className="cr-heading-gradient">Viaja a los</span>
+          <span className="cr-heading-gradient">¿Vas a {NEXT_FESTIVAL.name}?</span>
           <br />
-          <span className="inline-flex items-end gap-3">
-            <span className="inline-block overflow-hidden h-[1.1em] leading-[1.1]">
-              <AnimatePresence mode="wait">
-                <motion.span
-                  key={wordIdx}
-                  initial={{ y: "100%" }}
-                  animate={{ y: "0%" }}
-                  exit={{ y: "-100%" }}
-                  transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
-                  className="block text-[#dbff00]"
-                >
-                  {ROTATING_WORDS[wordIdx]}
-                </motion.span>
-              </AnimatePresence>
-            </span>
+          <span className="text-[#dbff00]">
+            Carpooling desde {NEXT_FESTIVAL.minPrice}€
           </span>
+          <span className="text-white/55">/asiento.</span>
         </motion.h1>
 
         {/* Lime underline rule */}
@@ -273,18 +276,18 @@ export function Hero() {
           aria-hidden="true"
         />
 
-        {/* Subheadline */}
+        {/* Subheadline — resolve trust + payment objection */}
         <motion.p
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.8, ease: [0.16, 1, 0.3, 1] }}
-          className="font-sans text-base md:text-xl text-white/45 max-w-xl leading-relaxed font-light"
+          className="font-sans text-base md:text-xl text-white/55 max-w-xl leading-relaxed font-light"
         >
-          Comparte el viaje. Divide el coste.{" "}
-          <span className="text-white/70 font-medium">Carpooling exclusivo para fans de la música en vivo.</span>
+          Conductores verificados con carnet.{" "}
+          <span className="text-white/85 font-medium">Pago en efectivo o Bizum directo el día del viaje. 0% comisión.</span>
         </motion.p>
 
-        {/* CTAs */}
+        {/* CTAs — primary: see rides to next festival, secondary: publish */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -292,48 +295,57 @@ export function Hero() {
           className="flex flex-col sm:flex-row gap-3"
         >
           <a
-            href="/register"
+            href={`/festivales/${NEXT_FESTIVAL.slug}`}
             className="cr-btn-shine inline-flex items-center justify-center gap-2 bg-[#dbff00] text-black font-sans font-semibold uppercase tracking-[0.12em] text-sm px-8 py-4 hover:bg-[#c8ec00] transition-colors duration-150 group"
           >
-            Crear cuenta gratis
+            Buscar viaje a {NEXT_FESTIVAL.name}
             <ArrowRight size={14} className="transition-transform duration-150 group-hover:translate-x-1" aria-hidden="true" />
           </a>
           <a
-            href="/concerts"
-            className="inline-flex items-center justify-center gap-2 bg-transparent text-white/70 font-sans font-semibold uppercase tracking-[0.12em] text-sm border border-white/20 px-8 py-4 hover:border-white/40 hover:text-white transition-colors duration-150"
+            href="/publish"
+            className="inline-flex items-center justify-center gap-2 bg-transparent text-white/80 font-sans font-semibold uppercase tracking-[0.12em] text-sm border border-white/25 px-8 py-4 hover:border-[#dbff00]/60 hover:text-white transition-colors duration-150"
           >
-            Buscar viajes →
+            Publicar mi coche →
           </a>
         </motion.div>
 
-        {/* Social proof + trust badges */}
+        {/* Social proof + trust badges + savings pill */}
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.5, delay: 1.3 }}
           className="flex flex-col gap-3"
         >
-          <div className="flex items-center gap-3">
+          <div className="flex flex-wrap items-center gap-x-4 gap-y-3">
             {/* Avatar stack */}
-            <div className="flex -space-x-2" aria-hidden="true">
-              {["S","D","I","J"].map((initial, i) => (
-                <div
-                  key={i}
-                  className="w-7 h-7 rounded-full bg-[#dbff00] border-2 border-[#080808] flex items-center justify-center font-display font-black text-black text-[10px]"
-                >
-                  {initial}
+            <div className="flex items-center gap-3">
+              <div className="flex -space-x-2" aria-hidden="true">
+                {["S","D","I","J"].map((initial, i) => (
+                  <div
+                    key={i}
+                    className="w-7 h-7 rounded-full bg-[#dbff00] border-2 border-[#080808] flex items-center justify-center font-display font-black text-black text-[10px]"
+                  >
+                    {initial}
+                  </div>
+                ))}
+                <div className="w-7 h-7 rounded-full bg-white/10 border-2 border-[#080808] flex items-center justify-center font-mono text-[9px] text-[#dbff00] font-bold">
+                  +2k
                 </div>
-              ))}
-              <div className="w-7 h-7 rounded-full bg-white/10 border-2 border-[#080808] flex items-center justify-center font-mono text-[9px] text-[#dbff00] font-bold">
-                +2k
               </div>
+              <span className="font-mono text-[11px] text-white/45">+2.000 fans ya en la comunidad</span>
             </div>
-            <span className="font-mono text-[11px] text-white/35">fans ya en la comunidad</span>
+            {/* Inline testimonial pill — uses Sara M. from existing reviews ItemList (no fabricated quote) */}
+            <div className="inline-flex items-center gap-2 border border-white/10 bg-white/[0.03] px-3 py-1.5">
+              <span className="font-mono text-[10px] text-[#dbff00]">★ 4,9</span>
+              <span className="font-mono text-[10px] text-white/55">
+                &ldquo;Ahorré 40€ yendo al Sónar desde Madrid&rdquo; · Sara M.
+              </span>
+            </div>
           </div>
           <div className="flex flex-wrap items-center gap-x-4 gap-y-1">
-            {["Sin tarjeta de crédito", "100% gratuito", "0€ comisiones"].map((badge) => (
-              <span key={badge} className="flex items-center gap-1.5 font-mono text-[10px] text-white/25 uppercase tracking-[0.1em]">
-                <span className="w-1 h-1 rounded-full bg-white/20" aria-hidden="true" />
+            {["Sin tarjeta de crédito", "Carnet verificado", "Vuelta de madrugada pactada"].map((badge) => (
+              <span key={badge} className="flex items-center gap-1.5 font-mono text-[10px] text-white/35 uppercase tracking-[0.1em]">
+                <span className="w-1 h-1 rounded-full bg-[#dbff00]/60" aria-hidden="true" />
                 {badge}
               </span>
             ))}

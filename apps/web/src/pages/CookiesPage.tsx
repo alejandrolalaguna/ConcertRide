@@ -11,6 +11,20 @@ export default function CookiesPage() {
 
   return (
     <main id="main" className="min-h-dvh bg-cr-bg text-cr-text pt-14">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "BreadcrumbList",
+            itemListElement: [
+              { "@type": "ListItem", position: 1, name: "Inicio", item: `${SITE_URL}/` },
+              { "@type": "ListItem", position: 2, name: "Legal", item: `${SITE_URL}/aviso-legal` },
+              { "@type": "ListItem", position: 3, name: "Política de cookies", item: `${SITE_URL}/cookies` },
+            ],
+          }),
+        }}
+      />
       <div className="max-w-3xl mx-auto px-6 py-12">
         <header className="mb-10 border-b border-cr-border pb-8 space-y-2">
           <p className="font-sans text-[11px] font-semibold uppercase tracking-[0.16em] text-cr-primary">

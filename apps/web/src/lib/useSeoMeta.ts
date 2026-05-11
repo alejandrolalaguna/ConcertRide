@@ -83,8 +83,19 @@ export interface ResolvedSeo {
   breadcrumb?: BreadcrumbItem[];
 }
 
+// Google SERP truncates titles at ~580px (~65 chars). The brand suffix
+// " — ConcertRide ES" is 17 chars, so we only append it when:
+//   1. The title doesn't already mention "ConcertRide" (avoid duplication), AND
+//   2. The combined length stays at or below TITLE_MAX (65) — otherwise the
+//      brand would get truncated in SERP anyway, hurting CTR more than helping.
+// Titles 49+ chars are typically curated overrides that already pack the
+// keyword+CTA — they don't need (and can't fit) the brand badge.
+const TITLE_MAX_WITH_BRAND = 48; // 48 + 17 (" — ConcertRide ES") = 65 exactly
 function resolve(meta: SeoMeta): ResolvedSeo {
-  const fullTitle = meta.title.includes("ConcertRide") ? meta.title : `${meta.title} — ${SITE_NAME}`;
+  const fullTitle =
+    meta.title.includes("ConcertRide") || meta.title.length > TITLE_MAX_WITH_BRAND
+      ? meta.title
+      : `${meta.title} — ${SITE_NAME}`;
   return {
     title: meta.title,
     fullTitle,

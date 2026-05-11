@@ -644,7 +644,7 @@ Metro L2 hasta Retiro o L9 hasta Ibiza (ambas a 10 min andando del recinto). Sin
 Last updated: 2026-05-04 (rev22: added 16 festival sections with transport data)
 ---
 
-## Tabla completa de rutas (263 rutas)
+## Tabla completa de rutas (266 rutas)
 
 Precio calculado como coste de combustible + peajes dividido entre los ocupantes, sin comisión de plataforma. Precios en EUR por asiento.
 
@@ -671,6 +671,7 @@ Precio calculado como coste de combustible + peajes dividido entre los ocupantes
 | Barcelona → BBK Live | BBK Live | Bilbao | 615 | 5h | 15–20 €/asiento | https://concertride.me/rutas/barcelona-bbk-live |
 | Bilbao → BBK Live | BBK Live | Bilbao | 5 | 15 min | 3–5 €/asiento | https://concertride.me/rutas/bilbao-bbk-live |
 | Burgos → BBK Live | BBK Live | Bilbao | 155 | 1h 30 min | 5–8 €/asiento | https://concertride.me/rutas/burgos-bbk-live |
+| Centro de Bilbao → BBK Live | BBK Live | Bilbao | 4 | 12 min | 3–5 €/asiento | https://concertride.me/rutas/centro-de-bilbao-bbk-live |
 | Donostia → BBK Live | BBK Live | Bilbao | 100 | 1h | 4–7 €/asiento | https://concertride.me/rutas/donostia-bbk-live |
 | Girona → BBK Live | BBK Live | Bilbao | 720 | 6h 15 min | 18–25 €/asiento | https://concertride.me/rutas/girona-bbk-live |
 | Logroño → BBK Live | BBK Live | Bilbao | 115 | 1h | 4–7 €/asiento | https://concertride.me/rutas/logrono-bbk-live |
@@ -868,6 +869,7 @@ Precio calculado como coste de combustible + peajes dividido entre los ocupantes
 | Barcelona → Tomavistas | Tomavistas | Madrid | 620 | 5h 30 min | 15–20 €/asiento | https://concertride.me/rutas/barcelona-tomavistas |
 | Bilbao → Tomavistas | Tomavistas | Madrid | 395 | 3h 30 min | 11–16 €/asiento | https://concertride.me/rutas/bilbao-tomavistas |
 | Burgos → Tomavistas | Tomavistas | Madrid | 240 | 2h 15 min | 7–11 €/asiento | https://concertride.me/rutas/burgos-tomavistas |
+| Centro de Madrid → Tomavistas | Tomavistas | Madrid | 8 | 20 min | 3–6 €/asiento | https://concertride.me/rutas/centro-de-madrid-tomavistas |
 | Guadalajara → Tomavistas | Tomavistas | Madrid | 60 | 50 min | 3–6 €/asiento | https://concertride.me/rutas/guadalajara-tomavistas |
 | Madrid → Tomavistas | Tomavistas | Madrid | 15 | 25 min | 4–7 €/asiento | https://concertride.me/rutas/madrid-tomavistas |
 | Murcia → Tomavistas | Tomavistas | Madrid | 480 | 4h 30 min | 13–18 €/asiento | https://concertride.me/rutas/murcia-tomavistas |
@@ -911,5 +913,6 @@ Precio calculado como coste de combustible + peajes dividido entre los ocupantes
 | Sevilla → Zevra | Zevra | Valencia | 600 | 5h 15 min | 15–21 €/asiento | https://concertride.me/rutas/sevilla-zevra-festival |
 | Tarragona → Zevra | Zevra | Valencia | 260 | 2h 30 min | 8–12 €/asiento | https://concertride.me/rutas/tarragona-zevra-festival |
 | Valencia → Zevra | Zevra | Valencia | 10 | 15 min | 3–5 €/asiento | https://concertride.me/rutas/valencia-zevra-festival |
+| Valencia Centro → Zevra | Zevra | Valencia | 5 | 10 min | 3–5 €/asiento | https://concertride.me/rutas/valencia-centro-zevra-festival |
 | Vitoria-Gasteiz → Zevra | Zevra | Valencia | 575 | 5h | 15–20 €/asiento | https://concertride.me/rutas/vitoria-gasteiz-zevra-festival |
 | Zaragoza → Zevra | Zevra | Valencia | 315 | 3h | 9–13 €/asiento | https://concertride.me/rutas/zaragoza-zevra-festival |

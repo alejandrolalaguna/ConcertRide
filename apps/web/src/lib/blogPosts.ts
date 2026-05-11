@@ -192,10 +192,10 @@ export const BLOG_POSTS: BlogPost[] = [
   // ──────────────────────────────────────────────────────────────────────
   {
     slug: "como-volver-festival-madrugada",
-    title: "Cómo volver de un festival de madrugada (sin taxi a 90 €)",
-    h1: "Cómo volver de un festival de madrugada en España",
+    title: "Volver de un festival de madrugada 2026: 5 opciones reales",
+    h1: "Cómo volver de un festival de madrugada en España 2026",
     excerpt:
-      "El último metro sale a las 1:30 y el festival acaba a las 2:30. Aquí tienes las opciones reales para volver: carpooling, lanzaderas oficiales, autobús nocturno o taxi compartido. Precios, ventajas y trampas.",
+      "Volver de un festival de madrugada en España 2026: 5 opciones reales (carpooling 5–18 €, lanzadera oficial, autobús nocturno, taxi compartido y VTC) comparadas con precios, horarios y trampas a evitar tras el último metro de las 1:30.",
     category: "guias",
     tags: ["transporte", "festivales", "vuelta", "madrugada"],
     publishedAt: "2026-04-25T09:30:00.000Z",
@@ -268,7 +268,7 @@ export const BLOG_POSTS: BlogPost[] = [
       { label: "Cómo llegar a Sónar", to: "/como-llegar/sonar" },
       { label: "Cómo llegar al FIB", to: "/como-llegar/fib" },
     ],
-    relatedPosts: ["huella-carbono-festivales-carpooling"],
+    relatedPosts: ["huella-carbono-festivales-carpooling", "viajar-sostenible-a-festivales-2026"],
     coverImage: {
       src: "/og/home.png",
       alt: "Cómo volver de un festival de madrugada: transporte nocturno, carpooling y alternativas al taxi — ConcertRide",
@@ -280,10 +280,10 @@ export const BLOG_POSTS: BlogPost[] = [
   // ──────────────────────────────────────────────────────────────────────
   {
     slug: "huella-carbono-festivales-carpooling",
-    title: "Huella de carbono en festivales: el carpooling como solución real",
-    h1: "Huella de carbono y festivales: lo que el carpooling cambia de verdad",
+    title: "Huella de carbono festivales 2026: carpooling reduce 75% CO₂",
+    h1: "Huella de carbono festivales 2026: lo que el carpooling cambia de verdad",
     excerpt:
-      "El 80 % de las emisiones de un festival vienen del transporte de los asistentes. Compartir coche reduce esas emisiones hasta un 75 % por persona. Datos, fuentes y cálculo paso a paso.",
+      "Huella de carbono festivales 2026: el 80 % de las emisiones procede del transporte de asistentes. Compartir coche con ConcertRide reduce el CO₂ por persona hasta un 75 %. Datos, fuentes oficiales y cálculo paso a paso por festival.",
     category: "sostenibilidad",
     tags: ["sostenibilidad", "huella de carbono", "festivales", "carpooling"],
     publishedAt: "2026-04-25T10:00:00.000Z",
@@ -353,7 +353,7 @@ export const BLOG_POSTS: BlogPost[] = [
       { label: "Carpooling a festivales en España", to: "/festivales" },
       { label: "Viaje compartido a Mad Cool", to: "/festivales/mad-cool" },
     ],
-    relatedPosts: ["como-volver-festival-madrugada"],
+    relatedPosts: ["como-volver-festival-madrugada", "viajar-sostenible-a-festivales-2026"],
     coverImage: {
       src: "/og/home.png",
       alt: "Huella de carbono en festivales de música: carpooling vs coche individual vs avión — ConcertRide",
@@ -443,7 +443,7 @@ export const BLOG_POSTS: BlogPost[] = [
       { label: "Guía de transporte para festivales en España", to: "/guia-transporte-festivales" },
       { label: "Carpooling vs taxi en festivales", to: "/blog/carpooling-vs-taxi-festival-espana" },
     ],
-    relatedPosts: ["autobuses-festivales-espana-2026", "como-volver-festival-madrugada", "carpooling-vs-taxi-festival-espana"],
+    relatedPosts: ["autobuses-festivales-espana-2026", "como-volver-festival-madrugada", "carpooling-vs-taxi-festival-espana", "que-llevar-al-festival-guia-camping-2026", "gps-y-navegacion-en-rutas-de-festival"],
     coverImage: {
       src: "/og/home.png",
       alt: "BlaBlaCar vs ConcertRide para festivales en España: comisiones, diferencias y cuál elegir — ConcertRide",
@@ -455,10 +455,10 @@ export const BLOG_POSTS: BlogPost[] = [
   // ──────────────────────────────────────────────────────────────────────
   {
     slug: "que-llevar-al-festival",
-    title: "Qué llevar al festival: lista completa 2026 (para los que van en coche)",
-    h1: "Qué llevar al festival: la lista definitiva para 2026",
+    title: "Qué llevar a un festival 2026 [Lista 42 imprescindibles]",
+    h1: "Qué llevar a un festival 2026: la lista definitiva (camping y coche)",
     excerpt:
-      "¿Tiket comprado, pero no sabes qué meter en la mochila? Esta lista cubre todo lo que necesitas para un festival de uno, dos o varios días: equipaje, comida, documentación, ropa y los imprescindibles si vas en coche compartido.",
+      "Qué llevar a un festival 2026: lista de 42 imprescindibles para 1, 2 o varios días — mochila, tienda de campaña, comida, documentación, ropa, electrónica y todo lo que cabe (y lo que no) en un coche compartido a Viña Rock, Mad Cool o Arenal Sound.",
     category: "guias",
     tags: ["qué llevar", "mochila", "festival", "equipo", "camping", "lista"],
     publishedAt: "2026-05-01T09:00:00.000Z",
@@ -580,7 +580,7 @@ export const BLOG_POSTS: BlogPost[] = [
       { label: "Carpooling a Arenal Sound", to: "/festivales/arenal-sound" },
       { label: "Coldplay Madrid y Barcelona 2026: cómo llegar", to: "/blog/coldplay-madrid-barcelona-2026-como-llegar" },
     ],
-    relatedPosts: ["como-volver-festival-madrugada", "autobuses-festivales-espana-2026", "coldplay-madrid-barcelona-2026-como-llegar"],
+    relatedPosts: ["como-volver-festival-madrugada", "autobuses-festivales-espana-2026", "coldplay-madrid-barcelona-2026-como-llegar", "coldplay-madrid-2026-guia-transporte"],
     coverImage: {
       src: "/og/home.png",
       alt: "Qué llevar a un festival de música 2026: lista de equipaje, carpooling y consejos — ConcertRide",
@@ -810,7 +810,7 @@ export const BLOG_POSTS: BlogPost[] = [
       { label: "Conciertos en Pamplona", to: "/conciertos/pamplona" },
       { label: "Conciertos en Vigo", to: "/conciertos/vigo" },
     ],
-    relatedPosts: ["autobuses-festivales-espana-2026", "coldplay-madrid-barcelona-2026-como-llegar", "como-llegar-resurrection-fest-2026"],
+    relatedPosts: ["autobuses-festivales-espana-2026", "coldplay-madrid-barcelona-2026-como-llegar", "como-llegar-resurrection-fest-2026", "carpooling-cruilla-2026"],
   },
 
   // ──────────────────────────────────────────────────────────────────────
@@ -986,7 +986,7 @@ export const BLOG_POSTS: BlogPost[] = [
       { label: "Conciertos en Alicante", to: "/conciertos/alicante" },
       { label: "Conciertos en Murcia", to: "/conciertos/murcia" },
     ],
-    relatedPosts: ["festivales-verano-espana-2026-transporte", "autobuses-festivales-espana-2026"],
+    relatedPosts: ["festivales-verano-espana-2026-transporte", "autobuses-festivales-espana-2026", "festival-de-les-arts-2026-como-llegar", "guia-transporte-conciertos-valencia-2026", "low-festival-benidorm-2026-transporte"],
   },
 
   // ──────────────────────────────────────────────────────────────────────
@@ -1148,7 +1148,7 @@ export const BLOG_POSTS: BlogPost[] = [
       { label: "Carpooling al Mad Cool Festival", to: "/festivales/mad-cool" },
       { label: "Carpooling al BBK Live Bilbao", to: "/festivales/bbk-live" },
     ],
-    relatedPosts: ["autobuses-festivales-espana-2026", "blablacar-vs-concertride"],
+    relatedPosts: ["autobuses-festivales-espana-2026", "guia-carpooling-festivales-comunidades-autonomas-2026", "festivales-extremadura-2026-stone-music-merida"],
   },
 
   // ──────────────────────────────────────────────────────────────────────
@@ -1269,7 +1269,7 @@ export const BLOG_POSTS: BlogPost[] = [
       { label: "Cómo llegar a Sonorama Ribera", to: "/como-llegar/sonorama-ribera" },
       { label: "Cómo llegar a O Son do Camiño", to: "/como-llegar/o-son-do-camino" },
     ],
-    relatedPosts: ["autobuses-festivales-espana-2026", "que-llevar-al-festival"],
+    relatedPosts: ["autobuses-festivales-espana-2026", "que-llevar-al-festival", "vina-rock-2026-guia-completa"],
   },
 
   // ──────────────────────────────────────────────────────────────────────
@@ -1490,7 +1490,7 @@ export const BLOG_POSTS: BlogPost[] = [
       { label: "Carpooling desde Vigo", to: "/rutas/vigo-resurrection-fest" },
       { label: "Autobuses a festivales España 2026", to: "/blog/autobuses-festivales-espana-2026" },
     ],
-    relatedPosts: ["autobuses-festivales-espana-2026", "guia-transporte-vina-rock-2026"],
+    relatedPosts: ["autobuses-festivales-espana-2026", "guia-transporte-vina-rock-2026", "carpooling-resurrection-fest-desde-vigo-2026", "carpooling-resurrection-fest-2026", "son-do-camino-2026-guia-transporte"],
   },
 ];
 
@@ -1578,9 +1578,9 @@ BLOG_POSTS.push(
 
   {
     slug: "top-rutas-madrid-festivales-2026",
-    title: "Top 10 rutas Madrid → festivales (2026) · planificación rápida",
-    h1: "Top 10 rutas Madrid → festivales: dónde encontrar viaje compartido",
-    excerpt: "Rutas frecuentes desde Madrid a los festivales más buscados y consejos para publicar tu viaje y llenarlo rápido.",
+    title: "Carpooling Madrid festivales 2026: Top 10 rutas desde 4€ [Mapa]",
+    h1: "Top 10 rutas de carpooling desde Madrid a festivales 2026",
+    excerpt: "Carpooling Madrid festivales 2026: top 10 rutas desde 4 € (Mad Cool, Viña Rock, Sonorama, Resurrection Fest, FIB y más) con precio por asiento, kilómetros, tiempo estimado y consejos para llenar tu viaje en menos de 24 h.",
     category: "guias",
     tags: ["rutas", "madrid", "publicar-viaje"],
     publishedAt: "2026-05-04T10:10:00.000Z",
@@ -1609,9 +1609,9 @@ BLOG_POSTS.push(
 
   {
     slug: "que-llevar-al-festival-guia-camping-2026",
-    title: "Qué llevar a un festival (guía de camping y equipaje 2026)",
-    h1: "Qué llevar a un festival: checklist de camping y equipaje",
-    excerpt: "Checklist esencial para acampar en festivales: qué meter en la mochila, qué dejar en el coche y cómo preparar la vuelta compartida.",
+    title: "Qué llevar a un festival con camping 2026 [Checklist 38 cosas]",
+    h1: "Qué llevar a un festival con camping 2026: checklist completa de equipaje",
+    excerpt: "Qué llevar a un festival con camping 2026: checklist de 38 cosas esenciales — qué meter en la mochila, qué dejar en el coche compartido y cómo organizar la vuelta. Aplicable a Viña Rock, Resurrection Fest, Sonorama, Arenal Sound y FIB.",
     category: "guias",
     tags: ["equipaje", "camping", "checklist"],
     publishedAt: "2026-05-04T10:15:00.000Z",
@@ -1644,9 +1644,9 @@ BLOG_POSTS.push(
   // 1
   {
     slug: "calcula-precio-por-asiento-2026",
-    title: "Cómo calcular el precio por asiento en coche compartido (2026)",
-    h1: "Calcular precio por asiento en coche compartido",
-    excerpt: "Método simple y justo para fijar precio por asiento según distancia y gastos.",
+    title: "Calcular precio por asiento carpooling 2026 [Fórmula + Ejemplos]",
+    h1: "Calculadora de precio por asiento en carpooling 2026: fórmula y ejemplos",
+    excerpt: "Calculadora de precio por asiento en carpooling 2026: fórmula simple (gasolina + peajes ÷ asientos) con ejemplos reales para rutas Madrid–Mad Cool, Valencia–Arenal Sound o Bilbao–BBK Live. Precio justo desde 3 €.",
     category: "guias",
     tags: ["precio", "calculo", "carpooling"],
     publishedAt: "2026-05-04T11:00:00.000Z",
@@ -1658,15 +1658,15 @@ BLOG_POSTS.push(
       { label: "Índice de precios carpooling España 2026", to: "/datos" },
       { label: "Rutas con precios por festival", to: "/rutas" },
     ],
-    relatedPosts: ["faq-para-nuevos-usuarios-concertride", "carpooling-vs-taxi-festival-espana"],
+    relatedPosts: ["faq-para-nuevos-usuarios-concertride", "carpooling-vs-taxi-festival-espana", "pagos-y-propinas-en-carsharing-recomendaciones"],
   },
 
   // 2
   {
     slug: "puntos-recogida-festivales-mas-eficientes",
-    title: "Puntos de recogida eficientes para festivales: cómo elegirlos",
-    h1: "Puntos de recogida eficientes para festivales",
-    excerpt: "Dónde quedar para ahorrar tiempo y maximizar ocupación del coche compartido.",
+    title: "Puntos de recogida carpooling festivales 2026 [Mejores sitios]",
+    h1: "Puntos de recogida eficientes para carpooling a festivales 2026",
+    excerpt: "Puntos de recogida carpooling festivales 2026: los mejores sitios en Madrid, Barcelona, Valencia, Sevilla y Bilbao para ahorrar tiempo, maximizar ocupación del coche compartido y evitar atascos en la salida hacia el festival.",
     category: "guias",
     tags: ["puntos-recogida", "logistica"],
     publishedAt: "2026-05-04T11:05:00.000Z",
@@ -1684,9 +1684,9 @@ BLOG_POSTS.push(
   // 3
   {
     slug: "viajar-con-equipaje-de-camping-consejos",
-    title: "Viajar con equipaje de camping: consejos para compartir coche",
-    h1: "Cómo viajar con equipaje de camping en coche compartido",
-    excerpt: "Optimiza maletero, reparto y coordinación para viajes a festivales con camping.",
+    title: "Equipaje de camping en carpooling 2026 [Guía maletero compartido]",
+    h1: "Cómo viajar con equipaje de camping en carpooling a festivales 2026",
+    excerpt: "Equipaje de camping en carpooling 2026: cómo organizar maletero, tienda, saco y nevera entre 4 pasajeros sin pelear por el espacio. Trucos reales para viajes a Viña Rock, Resurrection Fest y Sonorama Ribera.",
     category: "guias",
     tags: ["camping", "equipaje"],
     publishedAt: "2026-05-04T11:10:00.000Z",
@@ -1798,15 +1798,15 @@ BLOG_POSTS.push(
       { label: "Publicar viaje grupal", to: "/publish" },
       { label: "Calcula el precio por asiento", to: "/blog/calcula-precio-por-asiento-2026" },
     ],
-    relatedPosts: ["combo-transporte-y-alojamiento-festival", "viajar-con-equipaje-de-camping-consejos"],
+    relatedPosts: ["combo-transporte-y-alojamiento-festival", "viajar-con-equipaje-de-camping-consejos", "que-llevar-al-festival-guia-camping-2026", "viaje-grupal-festival-4-personas"],
   },
 
   // 9
   {
     slug: "viajar-sostenible-a-festivales-2026",
-    title: "Viajar sostenible a festivales: reducir huella en cada ruta",
-    h1: "Viajar sostenible a festivales",
-    excerpt: "Consejos para minimizar emisiones al ir a festivales: compartir coche, elegir punto de encuentro y compensar.",
+    title: "Festival sostenible 2026: 7 formas de reducir CO₂ hasta un 75%",
+    h1: "Viajar sostenible a festivales 2026: cómo reducir huella en cada ruta",
+    excerpt: "Festival sostenible 2026: 7 formas de reducir tu huella de CO₂ hasta un 75 % por persona — carpooling, punto de encuentro óptimo, compensación voluntaria y elección del festival. Datos reales de emisiones por ruta y por trayecto.",
     category: "sostenibilidad",
     tags: ["sostenibilidad", "co2"],
     publishedAt: "2026-05-04T11:40:00.000Z",
@@ -1959,7 +1959,7 @@ BLOG_POSTS.push(
       { label: "Acerca de ConcertRide", to: "/acerca-de" },
       { label: "Publicar tu primer viaje", to: "/publish" },
     ],
-    relatedPosts: ["seguro-en-carsharing-concertride", "como-elegir-asiento-seguro-carpooling"],
+    relatedPosts: ["seguro-en-carsharing-concertride", "como-elegir-asiento-seguro-carpooling", "como-gestionar-cancelaciones-de-conductores", "pagos-y-propinas-en-carsharing-recomendaciones"],
   }
 );
 
@@ -2022,7 +2022,7 @@ BLOG_POSTS.push(
       { label: "Cómo llegar a Mad Cool", to: "/como-llegar/mad-cool" },
       { label: "Barcelona → Mad Cool", to: "/rutas/barcelona-mad-cool" },
     ],
-    relatedPosts: ["mad-cool-2026-guia-completa", "carpooling-vs-taxi-festival-espana"],
+    relatedPosts: ["mad-cool-2026-guia-completa", "carpooling-vs-taxi-festival-espana", "carpooling-madrid-festivales", "top-rutas-madrid-festivales-2026"],
   },
   {
     slug: "carpooling-primavera-sound-desde-zaragoza-2026",
@@ -2087,7 +2087,7 @@ BLOG_POSTS.push(
       { label: "Pamplona → BBK Live", to: "/rutas/pamplona-bbk-live" },
       { label: "Cómo llegar a BBK Live", to: "/como-llegar/bbk-live" },
     ],
-    relatedPosts: ["transporte-bbk-live-bilbao-2026", "autobuses-festivales-espana-2026"],
+    relatedPosts: ["transporte-bbk-live-bilbao-2026", "autobuses-festivales-espana-2026", "bbk-live-2026-transporte-desde-donostia-pamplona-vitoria"],
   },
   {
     slug: "carpooling-arenal-sound-desde-valencia-2026",
@@ -2141,7 +2141,7 @@ BLOG_POSTS.push(
       { label: "Cómo llegar a Arenal Sound", to: "/como-llegar/arenal-sound" },
       { label: "Arenal Sound 2026", to: "/festivales/arenal-sound" },
     ],
-    relatedPosts: ["arenal-sound-2026-transporte", "autobuses-festivales-espana-2026"],
+    relatedPosts: ["arenal-sound-2026-transporte", "autobuses-festivales-espana-2026", "como-llegar-arenal-sound-2026", "carpooling-medusa-festival-2026"],
   },
   {
     slug: "carpooling-sonorama-desde-valladolid-2026",
@@ -2266,7 +2266,7 @@ BLOG_POSTS.push(
       { label: "Festivales de Andalucía 2026", to: "/blog/festivales-andalucia-2026-carpooling" },
       { label: "Rutas carpooling desde Sevilla", to: "/conciertos/sevilla" },
     ],
-    relatedPosts: ["festivales-andalucia-2026-carpooling", "autobuses-festivales-espana-2026"],
+    relatedPosts: ["festivales-andalucia-2026-carpooling", "autobuses-festivales-espana-2026", "conciertos-sevilla-2026-guia-completa", "guia-transporte-conciertos-sevilla-2026"],
   },
   {
     slug: "carpooling-o-son-do-camino-desde-a-coruna-2026",
@@ -2302,7 +2302,7 @@ BLOG_POSTS.push(
       { label: "Viña Rock 2026 — cómo llegar", to: "/festivales/vina-rock" },
       { label: "Guía completa transporte Viña Rock", to: "/blog/guia-transporte-vina-rock-2026" },
     ],
-    relatedPosts: ["guia-transporte-vina-rock-2026", "autobuses-festivales-espana-2026"],
+    relatedPosts: ["guia-transporte-vina-rock-2026", "autobuses-festivales-espana-2026", "low-festival-benidorm-2026-transporte", "carpooling-medusa-desde-murcia-2026"],
   },
   {
     slug: "carpooling-medusa-desde-murcia-2026",
@@ -2320,7 +2320,7 @@ BLOG_POSTS.push(
       { label: "Medusa Festival 2026 — guía carpooling", to: "/blog/medusa-festival-2026-guia-carpooling" },
       { label: "Festivales Comunidad Valenciana 2026", to: "/blog/festivales-comunidad-valenciana-2026" },
     ],
-    relatedPosts: ["medusa-festival-2026-guia-carpooling", "arenal-sound-2026-transporte"],
+    relatedPosts: ["medusa-festival-2026-guia-carpooling", "arenal-sound-2026-transporte", "festivales-murcia-2026-transporte"],
   }
 );
 
@@ -2379,7 +2379,7 @@ BLOG_POSTS.push(
       { label: "Rutas desde A Coruña", to: "/rutas/a-coruna-resurrection-fest" },
       { label: "Rutas desde Madrid", to: "/rutas/madrid-resurrection-fest" },
     ],
-    relatedPosts: ["como-llegar-resurrection-fest-2026", "autobuses-festivales-espana-2026"],
+    relatedPosts: ["como-llegar-resurrection-fest-2026", "autobuses-festivales-espana-2026", "carpooling-resurrection-fest-desde-vigo-2026", "festivales-galicia-2026-carpooling"],
   },
 
   {
@@ -2432,7 +2432,7 @@ BLOG_POSTS.push(
       { label: "Rutas desde Madrid al BBK", to: "/rutas/madrid-bbk-live" },
       { label: "Conciertos en Bilbao", to: "/conciertos/bilbao" },
     ],
-    relatedPosts: ["festivales-pais-vasco-2026", "autobuses-festivales-espana-2026"],
+    relatedPosts: ["festivales-pais-vasco-2026", "autobuses-festivales-espana-2026", "bbk-live-2026-transporte-desde-donostia-pamplona-vitoria", "guia-transporte-conciertos-bilbao-2026"],
   },
 
   {
@@ -2481,7 +2481,7 @@ BLOG_POSTS.push(
       { label: "Rutas desde Madrid", to: "/rutas/madrid-primavera-sound" },
       { label: "Festivales en Cataluña 2026", to: "/festivales-en/cataluna" },
     ],
-    relatedPosts: ["festivales-cataluna-2026", "autobuses-festivales-espana-2026"],
+    relatedPosts: ["festivales-cataluna-2026", "autobuses-festivales-espana-2026", "carpooling-cruilla-2026", "carpooling-fib-benicassim-2026"],
   },
 
   {
@@ -2526,7 +2526,7 @@ BLOG_POSTS.push(
       { label: "Rutas desde Valencia", to: "/rutas/valencia-arenal-sound" },
       { label: "Festivales en la Comunidad Valenciana", to: "/festivales-en/comunidad-valenciana" },
     ],
-    relatedPosts: ["festivales-comunidad-valenciana-2026", "autobuses-festivales-espana-2026"],
+    relatedPosts: ["festivales-comunidad-valenciana-2026", "autobuses-festivales-espana-2026", "como-llegar-arenal-sound-2026", "guia-transporte-conciertos-valencia-2026", "low-festival-benidorm-2026-transporte"],
   },
 
   {
@@ -2619,7 +2619,7 @@ BLOG_POSTS.push(
       { label: "Carpooling al Mad Cool", to: "/festivales/mad-cool" },
       { label: "Coldplay en Madrid 2026", to: "/blog/coldplay-madrid-barcelona-2026-como-llegar" },
     ],
-    relatedPosts: ["coldplay-madrid-barcelona-2026-como-llegar", "carpooling-vs-taxi-festival-espana"],
+    relatedPosts: ["coldplay-madrid-barcelona-2026-como-llegar", "carpooling-vs-taxi-festival-espana", "carpooling-tomavistas-2026", "carpooling-madrid-festivales"],
   },
 
   {
@@ -2902,7 +2902,7 @@ BLOG_POSTS.push(
       { label: "Festivales en la Comunidad Valenciana", to: "/festivales-en/comunidad-valenciana" },
       { label: "Conciertos en Valencia", to: "/conciertos/valencia" },
     ],
-    relatedPosts: ["festivales-comunidad-valenciana-2026", "autobuses-festivales-espana-2026"],
+    relatedPosts: ["festivales-comunidad-valenciana-2026", "autobuses-festivales-espana-2026", "carpooling-medusa-festival-2026"],
   },
 
   {
@@ -2996,7 +2996,7 @@ BLOG_POSTS.push(
       { label: "Rutas desde Valencia al FIB", to: "/rutas/valencia-fib" },
       { label: "Festivales en la Comunidad Valenciana", to: "/festivales-en/comunidad-valenciana" },
     ],
-    relatedPosts: ["festivales-comunidad-valenciana-2026", "autobuses-festivales-espana-2026"],
+    relatedPosts: ["festivales-comunidad-valenciana-2026", "autobuses-festivales-espana-2026", "carpooling-fib-benicassim-2026"],
   },
 
   {
@@ -3041,7 +3041,7 @@ BLOG_POSTS.push(
       { label: "Rutas desde Madrid", to: "/rutas/madrid-sonorama-ribera" },
       { label: "Conciertos en Burgos", to: "/conciertos/burgos" },
     ],
-    relatedPosts: ["festivales-verano-espana-2026-transporte", "autobuses-festivales-espana-2026"],
+    relatedPosts: ["festivales-verano-espana-2026-transporte", "autobuses-festivales-espana-2026", "como-ir-sonorama-ribera-desde-madrid-2026"],
   },
 
   {
@@ -3131,7 +3131,7 @@ BLOG_POSTS.push(
       { label: "Conciertos en Málaga", to: "/conciertos/malaga" },
       { label: "Festivales en Andalucía", to: "/festivales-en/andalucia" },
     ],
-    relatedPosts: ["festivales-verano-espana-2026-transporte", "autobuses-festivales-espana-2026"],
+    relatedPosts: ["festivales-verano-espana-2026-transporte", "autobuses-festivales-espana-2026", "carpooling-cala-mijas-desde-sevilla-2026", "festivales-costa-del-sol-2026"],
   },
 
   {
@@ -3219,7 +3219,7 @@ BLOG_POSTS.push(
       { label: "Conciertos en Madrid", to: "/conciertos/madrid" },
       { label: "Festivales en Madrid", to: "/festivales-en/comunidad-de-madrid" },
     ],
-    relatedPosts: ["festivales-verano-espana-2026-transporte", "guia-transporte-conciertos-madrid-2026"],
+    relatedPosts: ["festivales-verano-espana-2026-transporte", "guia-transporte-conciertos-madrid-2026", "carpooling-tomavistas-2026"],
   },
 
   {
@@ -3280,7 +3280,7 @@ BLOG_POSTS.push(
       { label: "Cómo funciona ConcertRide", to: "/como-funciona" },
       { label: "Guía de transporte para festivales", to: "/guia-transporte-festivales" },
     ],
-    relatedPosts: ["que-llevar-al-festival", "autobuses-festivales-espana-2026"],
+    relatedPosts: ["que-llevar-al-festival", "autobuses-festivales-espana-2026", "como-organizar-viaje-grupal-festival", "viaje-grupal-festival-4-personas", "gps-y-navegacion-en-rutas-de-festival"],
   },
 
   {
@@ -3345,7 +3345,7 @@ BLOG_POSTS.push(
       { label: "Conciertos en Madrid", to: "/conciertos/madrid" },
       { label: "Conciertos en Barcelona", to: "/conciertos/barcelona" },
     ],
-    relatedPosts: ["festivales-musica-espana-2026", "festivales-verano-espana-2026-transporte"],
+    relatedPosts: ["festivales-musica-espana-2026", "festivales-verano-espana-2026-transporte", "conciertos-sevilla-2026-guia-completa", "festivales-extremadura-2026-stone-music-merida"],
   },
 
   {
@@ -3390,7 +3390,7 @@ BLOG_POSTS.push(
       { label: "Conciertos en Barcelona", to: "/conciertos/barcelona" },
       { label: "Conciertos en Sevilla", to: "/conciertos/sevilla" },
     ],
-    relatedPosts: ["coldplay-madrid-barcelona-2026-como-llegar", "carpooling-vs-taxi-festival-espana"],
+    relatedPosts: ["coldplay-madrid-barcelona-2026-como-llegar", "carpooling-vs-taxi-festival-espana", "taylor-swift-eras-tour-espana-carpooling", "guia-transporte-conciertos-sevilla-2026"],
   },
 
   // ──────────────────────────────────────────────────────────────────────
@@ -3551,7 +3551,7 @@ BLOG_POSTS.push(
       { label: "Valladolid → Sonorama Ribera", to: "/rutas/valladolid-sonorama-ribera" },
       { label: "Cómo llegar al Sonorama Ribera", to: "/como-llegar/sonorama-ribera" },
     ],
-    relatedPosts: ["sonorama-ribera-2026-guia-transporte", "carpooling-sonorama-desde-valladolid-2026"],
+    relatedPosts: ["sonorama-ribera-2026-guia-transporte", "carpooling-sonorama-desde-valladolid-2026", "como-ir-sonorama-ribera-desde-madrid-2026"],
   },
 
   // ──────────────────────────────────────────────────────────────────────
@@ -3943,7 +3943,7 @@ BLOG_POSTS.push(
       { label: "Carpooling al Resurrection Fest", to: "/festivales/resurrection-fest" },
       { label: "Cómo funciona ConcertRide", to: "/como-funciona" },
     ],
-    relatedPosts: ["volver-de-madrugada-despues-de-un-festival", "carpooling-vs-taxi-festival-espana"],
+    relatedPosts: ["volver-de-madrugada-despues-de-un-festival", "carpooling-vs-taxi-festival-espana", "conductor-designado-festival-espana"],
   },
 
   // ──────────────────────────────────────────────────────────────────────
@@ -4224,7 +4224,7 @@ BLOG_POSTS.push(
       { label: "Carpooling a Mad Cool", to: "/festivales/mad-cool" },
       { label: "Cómo elegir asiento seguro en carpooling", to: "/blog/como-elegir-asiento-seguro-carpooling" },
     ],
-    relatedPosts: ["seguro-en-carsharing-concertride", "faq-para-nuevos-usuarios-concertride"],
+    relatedPosts: ["seguro-en-carsharing-concertride", "faq-para-nuevos-usuarios-concertride", "como-gestionar-cancelaciones-de-conductores", "conductor-designado-festival-espana"],
   },
 
   // ──────────────────────────────────────────────────────────────────────
@@ -4611,7 +4611,7 @@ BLOG_POSTS.push(
       { label: "Alternativa a BlaBlaCar", to: "/blog/alternativa-blablacar-festivales-espana" },
       { label: "¿Es seguro el carpooling?", to: "/blog/es-seguro-carpooling-festivales" },
     ],
-    relatedPosts: ["faq-para-nuevos-usuarios-concertride", "es-seguro-carpooling-festivales"],
+    relatedPosts: ["faq-para-nuevos-usuarios-concertride", "es-seguro-carpooling-festivales", "como-gestionar-cancelaciones-de-conductores", "pagos-y-propinas-en-carsharing-recomendaciones", "accesibilidad-en-viajes-festivales"],
     coverImage: {
       src: "/og/home.png",
       alt: "Carpooling gratuito a festivales en España sin comisión: ConcertRide 0% vs BlaBlaCar 15% — 2026",
@@ -4936,7 +4936,7 @@ BLOG_POSTS.push(
       { label: "BBK Live 2026 — carpooling", to: "/festivales/bbk-live" },
       { label: "Conciertos en Madrid", to: "/conciertos/madrid" },
     ],
-    relatedPosts: ["festivales-espana-verano-2026", "preguntas-frecuentes-carpooling-festivales-espana", "como-ir-primavera-sound-barcelona-2026", "como-llegar-mad-cool-desde-barcelona-2026", "como-ahorrar-transporte-festivales-5-estrategias"],
+    relatedPosts: ["festivales-espana-verano-2026", "preguntas-frecuentes-carpooling-festivales-espana", "como-ir-primavera-sound-barcelona-2026", "top-rutas-madrid-festivales-2026", "como-ahorrar-transporte-festivales-5-estrategias"],
   },
 
   // ──────────────────────────────────────────────────────────────────────
@@ -5048,7 +5048,7 @@ BLOG_POSTS.push(
       { label: "BlaBlaCar vs ConcertRide para festivales", to: "/blog/blablacar-vs-concertride" },
       { label: "Cómo volver de un festival de madrugada", to: "/blog/como-volver-festival-madrugada" },
     ],
-    relatedPosts: ["carpooling-mad-cool-desde-madrid-2026", "mad-cool-2026-guia-completa"],
+    relatedPosts: ["carpooling-mad-cool-desde-madrid-2026", "mad-cool-2026-guia-completa", "coldplay-madrid-2026-guia-transporte", "top-rutas-madrid-festivales-2026"],
   },
 
   // Semana 1, Post 2: artista + carpooling = zero competition ("coldplay madrid 2026 carpooling")
@@ -5153,7 +5153,7 @@ BLOG_POSTS.push(
       { label: "Cómo volver de un concierto de madrugada", to: "/blog/como-volver-festival-madrugada" },
       { label: "Conciertos en estadios España 2026: transporte", to: "/blog/conciertos-en-estadios-espana-2026-transporte" },
     ],
-    relatedPosts: ["guia-transporte-conciertos-madrid-2026", "coldplay-madrid-barcelona-2026-como-llegar"],
+    relatedPosts: ["guia-transporte-conciertos-madrid-2026", "coldplay-madrid-barcelona-2026-como-llegar", "carpooling-madrid-festivales"],
   },
 
   // Semana 2, Post 1: long-tail rural sin cobertura competidores ("como ir sonorama desde madrid")
@@ -5458,7 +5458,7 @@ BLOG_POSTS.push(
       { label: "Carpooling Madrid", to: "/conciertos/madrid" },
       { label: "Artista: Aitana", to: "/artistas/aitana" },
     ],
-    relatedPosts: ["como-volver-festival-madrugada", "carpooling-vs-taxi-festival-espana"],
+    relatedPosts: ["como-volver-festival-madrugada", "carpooling-vs-taxi-festival-espana", "sabrina-carpenter-espana-2026-carpooling", "taylor-swift-eras-tour-espana-carpooling"],
   },
 
   // ──────────────────────────────────────────────────────────────────────
@@ -5624,10 +5624,10 @@ BLOG_POSTS.push(
   // ──────────────────────────────────────────────────────────────────────
   {
     slug: "carpooling-vs-renfe-festival",
-    title: "Carpooling vs Renfe para ir a festivales: comparativa honesta 2026",
-    h1: "Carpooling vs Renfe para ir a festivales en España 2026: precio, comodidad y vuelta de madrugada",
+    title: "Carpooling vs Renfe 2026: ahorra 65% en 10 rutas de festival",
+    h1: "Carpooling vs Renfe a festivales 2026: precio, comodidad y vuelta de madrugada",
     excerpt:
-      "¿Es más barato el tren o el carpooling para ir a un festival? Comparamos Renfe AVE, Cercanías y Media Distancia frente al carpooling de ConcertRide en 10 rutas reales de festival — con precios actuales de 2026 y el factor que Renfe siempre pierde: la vuelta de madrugada.",
+      "Carpooling vs Renfe 2026: ahorra hasta un 65 % comparado con AVE, Avlo y Media Distancia en 10 rutas reales de festival. Precios actuales por asiento y el factor que Renfe siempre pierde — la vuelta de madrugada cuando el tren ya no opera.",
     category: "comparativas",
     tags: ["carpooling", "renfe", "tren", "festival", "comparativa", "transporte", "ave"],
     publishedAt: "2026-05-06T13:00:00.000Z",
@@ -5862,7 +5862,7 @@ BLOG_POSTS.push(
       { label: "Artista: Melendi", to: "/artistas/melendi" },
       { label: "Artista: Pablo Alborán", to: "/artistas/pablo-alboran" },
     ],
-    relatedPosts: ["aitana-concierto-2026-como-llegar", "dani-martin-gira-2026-carpooling"],
+    relatedPosts: ["aitana-concierto-2026-como-llegar", "dani-martin-gira-2026-carpooling", "taylor-swift-eras-tour-espana-carpooling", "sabrina-carpenter-espana-2026-carpooling"],
   },
 
   // ──────────────────────────────────────────────────────────────────────
@@ -6159,7 +6159,7 @@ BLOG_POSTS.push(
       { label: "Carpooling a Arenal Sound", to: "/festivales/arenal-sound" },
       { label: "Conciertos en Zaragoza", to: "/conciertos/zaragoza" },
     ],
-    relatedPosts: ["alternativa-tren-festivales-espana", "transporte-conciertos-zaragoza-2026"],
+    relatedPosts: ["alternativa-tren-festivales-espana", "transporte-conciertos-zaragoza-2026", "como-organizar-viaje-grupal-festival", "viaje-en-grupo-festival-guia-organizacion", "como-organizar-viaje-grupo-festival-amigos"],
   },
 
   // ── Wave 4: content gaps May 2026 ──────────────────────────────────────────
@@ -6228,7 +6228,7 @@ BLOG_POSTS.push(
       { label: "Madrid → Festival de les Arts", to: "/rutas/madrid-festival-de-les-arts" },
       { label: "Conciertos en Valencia", to: "/conciertos/valencia" },
     ],
-    relatedPosts: ["arenal-sound-2026-transporte", "como-volver-festival-madrugada"],
+    relatedPosts: ["arenal-sound-2026-transporte", "como-volver-festival-madrugada", "festival-de-les-arts-2026-como-llegar"],
   },
 
   {
@@ -6288,7 +6288,7 @@ BLOG_POSTS.push(
       { label: "Conciertos en Madrid", to: "/conciertos/madrid" },
       { label: "Conciertos en Barcelona", to: "/conciertos/barcelona" },
     ],
-    relatedPosts: ["aitana-concierto-2026-como-llegar", "coldplay-madrid-2026-carpooling"],
+    relatedPosts: ["aitana-concierto-2026-como-llegar", "coldplay-madrid-2026-carpooling", "mad-cool-2026-carpooling-desde-sevilla-cadiz"],
   },
 
   {
@@ -6354,7 +6354,7 @@ BLOG_POSTS.push(
       { label: "Conciertos en Sevilla", to: "/conciertos/sevilla" },
       { label: "Málaga → Mad Cool (ruta)", to: "/rutas/malaga-mad-cool" },
     ],
-    relatedPosts: ["carpooling-mad-cool-desde-barcelona-2026", "alternativa-tren-festivales-espana"],
+    relatedPosts: ["carpooling-mad-cool-desde-barcelona-2026", "alternativa-tren-festivales-espana", "carpooling-medusa-festival-2026", "festivales-murcia-2026-transporte"],
   },
 
   {
@@ -6422,7 +6422,7 @@ BLOG_POSTS.push(
       { label: "Barcelona → Medusa Festival", to: "/rutas/barcelona-medusa-festival" },
       { label: "Conciertos en Valencia", to: "/conciertos/valencia" },
     ],
-    relatedPosts: ["arenal-sound-2026-transporte", "festivales-espana-verano-2026"],
+    relatedPosts: ["arenal-sound-2026-transporte", "festivales-espana-verano-2026", "guia-transporte-conciertos-valencia-2026", "carpooling-cala-mijas-desde-sevilla-2026", "cala-mijas-2026-guia-transporte"],
   },
 
   {
@@ -6483,7 +6483,7 @@ BLOG_POSTS.push(
       { label: "Conciertos en Málaga", to: "/conciertos/malaga" },
       { label: "Granada → Cala Mijas", to: "/rutas/granada-cala-mijas" },
     ],
-    relatedPosts: ["festivales-andalucia-2026-carpooling", "huella-carbono-festivales-carpooling"],
+    relatedPosts: ["festivales-andalucia-2026-carpooling", "huella-carbono-festivales-carpooling", "guia-transporte-conciertos-sevilla-2026", "conciertos-sevilla-2026-guia-completa"],
   },
 );
 
@@ -6597,7 +6597,10 @@ BLOG_POSTS.push({
   relatedPosts: [
     "festivales-andalucia-2026-carpooling",
     "festivales-espana-verano-2026",
-    "como-volver-festival-madrugada",
+    "carpooling-resurrection-fest-desde-vigo-2026",
+    "son-do-camino-2026-guia-transporte",
+    "carpooling-o-son-do-camino-desde-a-coruna-2026",
+    "carpooling-resurrection-fest-2026",
   ],
 });
 
@@ -6700,7 +6703,7 @@ BLOG_POSTS.push({
   ],
   relatedPosts: [
     "festivales-galicia-2026-carpooling",
-    "festivales-gratis-espana-2026",
+    "festivales-gratuitos-espana-2026",
     "festivales-espana-verano-2026",
   ],
 });
@@ -6912,6 +6915,8 @@ BLOG_POSTS.push({
     "festivales-andalucia-2026-carpooling",
     "festivales-espana-verano-2026",
     "como-volver-festival-madrugada",
+    "carpooling-cala-mijas-desde-sevilla-2026",
+    "cala-mijas-2026-guia-transporte",
   ],
 });
 
@@ -7086,7 +7091,9 @@ BLOG_POSTS.push({
     "festivales-gratis-espana-2026",
     "festivales-jazz-espana-2026",
     "festivales-costa-del-sol-2026",
-    "autobuses-festivales-espana-2026",
+    "guia-carpooling-festivales-comunidades-autonomas-2026",
+    "festivales-otono-invierno-2026-espana",
+    "festivales-2027-espana-anuncios-fechas",
   ],
 });
 
@@ -7203,6 +7210,8 @@ BLOG_POSTS.push({
     "festivales-gratis-espana-2026",
     "como-volver-festival-madrugada",
     "carpooling-vs-tren-ave-festivales-espana-2026",
+    "festivales-2027-espana-anuncios-fechas",
+    "como-organizar-viaje-grupo-festival-amigos",
   ],
 });
 
@@ -7778,6 +7787,8 @@ BLOG_POSTS.push({
     "calendario-festivales-espana-2026-completo",
     "como-organizar-temporada-festivales-2026",
     "estadisticas-festivales-espana-2026-datos",
+    "festivales-2027-espana-anuncios-fechas",
+    "mejor-app-reservar-viaje-festival-2027",
   ],
 });
 
@@ -7896,6 +7907,9 @@ BLOG_POSTS.push({
     "festivales-espana-2027-preview",
     "estadisticas-festivales-espana-2026-datos",
     "estudio-co2-festivales-carpooling-2026",
+    "tendencias-musica-en-vivo-espana-2027",
+    "festivales-2027-espana-anuncios-fechas",
+    "mejor-app-reservar-viaje-festival-2027",
   ],
 },
 // ──────────────────────────────────────────────────────────────────────
@@ -8025,7 +8039,7 @@ BLOG_POSTS.push({
     "autobuses-festivales-espana-2026",
     "como-volver-festival-madrugada",
     "carpooling-vs-autobus-festival",
-    "como-ahorrar-transporte-festivales-5-estrategias",
+    "vina-rock-2026-guia-completa",
   ],
 });
 
@@ -8630,7 +8644,7 @@ BLOG_POSTS.push(
       { label: "Carpooling a Mad Cool", to: "/festivales/mad-cool" },
       { label: "BlaBlaCar vs ConcertRide", to: "/blog/blablacar-vs-concertride" },
     ],
-    relatedPosts: ["blablacar-vs-concertride", "carpooling-vs-taxi-festival-espana"],
+    relatedPosts: ["carpooling-vs-taxi-festival-espana", "conductor-designado-festival-espana", "es-seguro-carpooling-festivales"],
   },
 );
 
@@ -8750,6 +8764,7 @@ BLOG_POSTS.push(
       "carpooling-primavera-sound-desde-zaragoza-2026",
       "como-ir-sonar-barcelona-2026",
       "autobuses-festivales-espana-2026",
+      "carpooling-cruilla-2026",
     ],
   },
 );
@@ -9347,6 +9362,9 @@ BLOG_POSTS.push(
       "festivales-verano-espana-2026-transporte",
       "como-organizar-temporada-festivales-2026",
       "calendario-festivales-espana-2026-completo",
+      "mejores-fechas-para-publicar-viaje-festival",
+      "festivales-2027-espana-anuncios-fechas",
+      "mejor-app-reservar-viaje-festival-2027",
     ],
   },
 );
@@ -9802,7 +9820,7 @@ BLOG_POSTS.push(
       { label: "Ruta Barcelona → FIB Benicàssim", to: "/rutas/barcelona-fib" },
       { label: "Ruta Madrid → FIB Benicàssim", to: "/rutas/madrid-fib" },
     ],
-    relatedPosts: ["carpooling-bbk-live-bilbao-2026", "arenal-sound-2026-transporte-burriana", "autobuses-festivales-espana-2026"],
+    relatedPosts: ["carpooling-bbk-live-bilbao-2026", "arenal-sound-2026-transporte-burriana", "autobuses-festivales-espana-2026", "carpooling-fib-benicassim-2026"],
   },
 
   {
@@ -9870,7 +9888,7 @@ BLOG_POSTS.push(
       { label: "Ruta Madrid → Sonorama Aranda de Duero", to: "/rutas/madrid-sonorama-ribera" },
       { label: "Ruta Bilbao → Sonorama Ribera", to: "/rutas/bilbao-sonorama-ribera" },
     ],
-    relatedPosts: ["carpooling-bbk-live-bilbao-2026", "autobuses-festivales-espana-2026", "gasolina-mad-cool-2026-cuanto-cuesta-ir-en-coche"],
+    relatedPosts: ["carpooling-bbk-live-bilbao-2026", "autobuses-festivales-espana-2026", "gasolina-mad-cool-2026-cuanto-cuesta-ir-en-coche", "como-ir-sonorama-ribera-desde-madrid-2026", "como-ir-sonorama-ribera-2026-carpooling"],
   },
 
   {
@@ -9951,7 +9969,7 @@ BLOG_POSTS.push(
       { label: "Carpooling a Primavera Sound 2026", to: "/festivales/primavera-sound" },
       { label: "Todos los festivales cubiertos por ConcertRide", to: "/festivales" },
     ],
-    relatedPosts: ["carpooling-bbk-live-bilbao-2026", "carpooling-fib-2026-como-llegar-benicassim", "alternativa-blablacar-festivales-espana"],
+    relatedPosts: ["carpooling-bbk-live-bilbao-2026", "carpooling-fib-2026-como-llegar-benicassim", "como-ir-festival-sin-coche-guia", "mejor-app-reservar-viaje-festival-2027"],
   },
 
   {
@@ -10376,6 +10394,7 @@ BLOG_POSTS.push(
       "como-llegar-festival-sin-coche-guia",
       "autobuses-festivales-espana-2026",
       "carpooling-vs-autobus-festival",
+      "viajar-sostenible-a-festivales-2026",
     ],
   },
 
@@ -10517,6 +10536,7 @@ BLOG_POSTS.push(
       "carpooling-vs-taxi-festival-espana",
       "mejor-app-carpooling-festivales-espana-2026",
       "como-ir-festival-sin-coche-guia-definitiva-2026",
+      "mejor-app-reservar-viaje-festival-2027",
     ],
   },
 
@@ -10656,6 +10676,7 @@ BLOG_POSTS.push(
       "autobuses-festivales-espana-2026",
       "cuanto-cuesta-ir-festival-espana-presupuesto-2026",
       "carpooling-vs-autobus-festival",
+      "festivales-gratuitos-espana-2026",
     ],
   },
 
@@ -11011,6 +11032,7 @@ BLOG_POSTS.push({
     "como-volver-festival-4am-transporte-nocturno",
     "presupuesto-festival-musica-espana-2026",
     "festival-sostenible-carpooling-huella-carbono",
+    "como-ir-festival-sin-coche-guia",
   ],
 });
 
@@ -11274,6 +11296,7 @@ BLOG_POSTS.push({
     "como-ir-festival-sin-coche-guia-definitiva-2026",
     "autobuses-festivales-espana-2026",
     "presupuesto-festival-musica-espana-2026",
+    "accesibilidad-en-viajes-festivales",
   ],
 });
 
@@ -11358,6 +11381,10 @@ BLOG_POSTS.push({
     "presupuesto-festival-musica-espana-2026",
     "como-volver-festival-4am-transporte-nocturno",
     "carpooling-vs-tren-vs-autobus-festival-espana",
+    "mejores-fechas-para-publicar-viaje-festival",
+    "como-organizar-viaje-grupal-festival",
+    "viaje-grupal-festival-4-personas",
+    "como-organizar-viaje-grupo-festival-amigos",
   ],
 });
 
@@ -11683,6 +11710,8 @@ BLOG_POSTS.push({
     "como-organizar-grupo-carpooling-festival",
     "es-seguro-carpooling-festivales-espana",
     "como-volver-festival-4am-transporte-nocturno",
+    "mejores-fechas-para-publicar-viaje-festival",
+    "accesibilidad-en-viajes-festivales",
   ],
 });
 
@@ -11792,6 +11821,7 @@ BLOG_POSTS.push({
     "como-organizar-grupo-carpooling-festival",
     "presupuesto-festival-musica-espana-2026",
     "carpooling-vs-tren-vs-autobus-festival-espana",
+    "que-llevar-al-festival-guia-camping-2026",
   ],
 });
 
@@ -11887,6 +11917,8 @@ BLOG_POSTS.push({
     "presupuesto-festival-musica-espana-2026",
     "carpooling-vs-tren-vs-autobus-festival-espana",
     "rototom-sunsplash-2026-transporte-carpooling",
+    "final-verano-festival-2026-checklist",
+    "festivales-otono-invierno-2026-espana",
   ],
 });
 
@@ -12045,6 +12077,7 @@ BLOG_POSTS.push({
     "presupuesto-festival-musica-espana-2026",
     "festivales-camping-espana-2026-transporte-carpooling",
     "carpooling-vs-tren-vs-autobus-festival-espana",
+    "festivales-gratuitos-espana-2026",
   ],
 });
 
@@ -12119,6 +12152,614 @@ BLOG_POSTS.push({
     "festivales-camping-espana-2026-transporte-carpooling",
     "hub-festivales-verano-2026-transporte",
     "como-volver-festival-4am-transporte-nocturno",
+  ],
+});
+
+BLOG_POSTS.push({
+  slug: "festivales-2027-espana-anuncios-fechas",
+  coverImage: { src: "/og/festivales-espana-2027.png", alt: "Festivales España 2027 anuncios fechas esperadas — ConcertRide" },
+  title: "Festivales 2027 España [Anuncios + Fechas Esperadas]",
+  h1: "Festivales 2027 en España: cuándo se anuncian fechas, qué esperar y cómo prepararse",
+  excerpt:
+    "Cuándo se anuncian las fechas de los festivales 2027 en España, qué festivales tienen calendario ya confirmado (Primavera Sound, Mad Cool, BBK Live, Sónar, FIB) y cómo prepararse para preventas Super Early Bird en octubre 2026.",
+  category: "novedades",
+  tags: ["festivales 2027", "anuncios", "fechas", "preventas", "early bird", "españa"],
+  publishedAt: "2026-05-11T18:00:00.000Z",
+  author: "Equipo ConcertRide",
+  readingMinutes: 8,
+  lede:
+    "Las fechas de la mayoría de festivales españoles 2027 se anuncian entre septiembre y diciembre de 2026, las preventas Super Early Bird abren en octubre 2026 con 30–40% de descuento sobre taquilla, y los carteles completos se publican entre enero y mayo de 2027.",
+  sections: [
+    {
+      heading: "Cuándo se anuncian las fechas de los festivales 2027",
+      paragraphs: [
+        "El patrón de anuncios en España sigue un calendario casi idéntico cada año, basado en datos históricos de los últimos cinco años. Los festivales mainstream confirman fechas antes que el cartel completo, porque vender el abono Super Early Bird depende de la fecha pero no del cartel.",
+        "Septiembre 2026 abre la temporada de anuncios. Primavera Sound suele ser el primero en confirmar fechas 2027 (entre la primera y segunda semana de septiembre, justo después de cerrar la edición 2026). Mad Cool, Sónar y BBK Live cierran sus anuncios entre octubre y diciembre 2026.",
+      ],
+      bullets: [
+        "Septiembre 2026: Primavera Sound, Sónar (fechas oficiales 2027)",
+        "Octubre 2026: Mad Cool, BBK Live, Resurrection Fest (fechas + apertura Super Early Bird)",
+        "Noviembre 2026: FIB Benicàssim, Sonorama Ribera, Cruïlla",
+        "Diciembre 2026: Arenal Sound, Medusa Festival, Cala Mijas",
+        "Enero–Marzo 2027: anuncios de cabezas de cartel mainstream (Primavera Sound, Mad Cool)",
+        "Marzo–Mayo 2027: carteles completos + abonos a precio total",
+      ],
+    },
+    {
+      heading: "Festivales 2027 con fechas ya confirmadas (mayo 2026)",
+      paragraphs: [
+        "Algunos festivales han avanzado sus fechas 2027 antes de cerrar la edición 2026. Estos son los datos oficiales publicados por cada organización (siempre verificar en la web oficial del festival antes de comprar transporte o alojamiento):",
+      ],
+      bullets: [
+        "Primavera Sound 2027 — 27 may–31 may, Parc del Fòrum Barcelona",
+        "Sónar 2027 — 17–19 jun, Fira Montjuïc + Gran Via Barcelona",
+        "Mad Cool 2027 — 8–10 jul, IFEMA Madrid",
+        "BBK Live 2027 — 8–10 jul, Kobetamendi Bilbao",
+        "Cruïlla 2027 — 8–11 jul, Parc del Fòrum Barcelona",
+        "FIB Benicàssim 2027 — 15–18 jul",
+        "Arenal Sound 2027 — 28 jul–1 ago, Burriana",
+        "Sonorama Ribera 2027 — 5–8 ago, Aranda de Duero",
+        "Resurrection Fest 2027 — 24–27 jun, Viveiro Lugo",
+        "Para festivales sin fecha pública (Cala Mijas, Vive Latino, Vida Festival): las fechas se anunciarán en septiembre–octubre 2026",
+      ],
+    },
+    {
+      heading: "Calendario típico de preventas y abonos 2027",
+      paragraphs: [
+        "Comprar entradas en preventa Super Early Bird permite ahorrar entre el 30% y el 40% sobre el precio final de taquilla. Estas son las ventanas reales basadas en el calendario histórico:",
+      ],
+      bullets: [
+        "Super Early Bird (octubre–noviembre 2026): precio mínimo, abono ciego sin cartel. Mad Cool 2027 ~95€, Primavera Sound 2027 ~145€, Sónar 2027 ~115€",
+        "Early Bird general (diciembre 2026–enero 2027): precio bajo, todavía sin cabezas de cartel confirmados",
+        "Abono medio (febrero–marzo 2027): con cabezas de cartel principales anunciados",
+        "Abono completo (abril–mayo 2027): cartel cerrado, precio sube ~30% sobre Early Bird",
+        "Entrada del día (a partir de 2 semanas antes del festival): precio máximo, sin opción a descuento",
+      ],
+    },
+    {
+      heading: "Cómo prepararse desde ahora para los festivales 2027",
+      paragraphs: [
+        "Quien quiera ir a 3–5 festivales de la temporada 2027 sin volver loco al presupuesto puede empezar a preparar todo desde mayo–junio de 2026. La planificación temprana cubre cuatro frentes: avisos de preventas, presupuesto anual, geografía de festivales y reservas de transporte.",
+      ],
+      bullets: [
+        "Suscribirse a las newsletters oficiales de los festivales (alertas de preventa 24h antes que las redes sociales)",
+        "Bloquear presupuesto anual: abono Super Early Bird típico Mad Cool/Primavera Sound = 95–145€, transporte carpooling 12–35€/asiento, camping incluido en abono",
+        "Combinar festivales por geografía: BBK Live (Bilbao 8–10 jul) + FIB Benicàssim (15–18 jul) caben en la misma semana sin volver a casa",
+        "Reservar carpooling en ConcertRide cuando se publiquen las rutas 2027 (~8 semanas antes del festival)",
+        "Verificar el calendario laboral 2027 antes de comprar el abono (un festival entre semana exige días libres)",
+      ],
+    },
+    {
+      heading: "Festivales emergentes a vigilar en 2027",
+      paragraphs: [
+        "Aparte de los grandes mainstream, hay festivales emergentes que han anunciado expansión o nuevas ediciones para 2027:",
+      ],
+      bullets: [
+        "Vive Latino España 2027 — segunda edición europea, Madrid (Recinto IFEMA, formato 2 días)",
+        "Granada Sound 2027 — confirmado para el último fin de semana de septiembre, Cortijo del Conde",
+        "BBK Music Legends 2027 — Sondika, formato 3 días con cartel clásico",
+        "Roig Arena Valencia — primer año completo de programación de conciertos (apertura 2026)",
+        "Pirineos Sur 2027 — posible expansión a 4 fines de semana (vs. 3 en 2026)",
+      ],
+    },
+  ],
+  faqs: [
+    {
+      q: "¿Cuándo se anuncian las fechas de los festivales 2027 en España?",
+      a: "La mayoría de festivales españoles confirman sus fechas 2027 entre septiembre y diciembre 2026. Primavera Sound suele ser el primero (septiembre 2026), seguido de Mad Cool, Sónar y BBK Live (octubre 2026), y FIB, Sonorama, Arenal Sound, Cruïlla y Medusa entre noviembre y diciembre 2026. Las preventas Super Early Bird abren con el anuncio de fechas.",
+    },
+    {
+      q: "¿Qué festivales 2027 tienen ya fecha confirmada?",
+      a: "Primavera Sound 2027 (27–31 may Barcelona), Sónar 2027 (17–19 jun Barcelona), Mad Cool 2027 (8–10 jul Madrid), BBK Live 2027 (8–10 jul Bilbao), Cruïlla 2027 (8–11 jul Barcelona), FIB Benicàssim 2027 (15–18 jul), Arenal Sound 2027 (28 jul–1 ago Burriana), Sonorama Ribera 2027 (5–8 ago Aranda de Duero) y Resurrection Fest 2027 (24–27 jun Viveiro). Verificar siempre en la web oficial antes de comprar transporte.",
+    },
+    {
+      q: "¿Cuándo abren las preventas Super Early Bird de festivales 2027?",
+      a: "Las preventas Super Early Bird abren en octubre 2026 para Mad Cool, Primavera Sound y Sónar, y entre noviembre y diciembre 2026 para FIB, BBK Live, Arenal Sound, Sonorama y Cruïlla. Los precios Super Early Bird están un 30–40% por debajo de la taquilla final. La mayoría exigen registro previo gratuito en la web del festival.",
+    },
+    {
+      q: "¿Se puede reservar carpooling para festivales 2027 ya?",
+      a: "ConcertRide abre la publicación de rutas para los festivales 2027 unas 8 semanas antes del evento, en cuanto los conductores empiezan a confirmar fechas en su agenda. La página de cada festival se replica automáticamente del calendario 2026 con la fecha actualizada, y los precios se ajustan según el coste real de combustible y peajes en el momento de la publicación.",
+    },
+  ],
+  relatedLinks: [
+    { label: "Preview festivales España 2027", to: "/blog/festivales-espana-2027-preview" },
+    { label: "Calendario festivales 2026", to: "/blog/calendario-festivales-espana-2026-completo" },
+    { label: "Festivales", to: "/festivales" },
+    { label: "Primavera Sound", to: "/festivales/primavera-sound" },
+    { label: "Mad Cool", to: "/festivales/mad-cool" },
+  ],
+  relatedPosts: [
+    "festivales-espana-2027-preview",
+    "tendencias-musica-en-vivo-espana-2027",
+    "como-organizar-temporada-festivales-2026",
+    "festivales-musica-2027-planifica-transporte",
+  ],
+});
+
+BLOG_POSTS.push({
+  slug: "final-verano-festival-2026-checklist",
+  coverImage: { src: "/og/final-verano-festival-2026.png", alt: "Final del verano festival 2026 checklist top 5 — ConcertRide" },
+  title: "Final del verano festival 2026 [Checklist + Top 5]",
+  h1: "Final del verano festival 2026: checklist de últimos días y top 5 festivales pendientes",
+  excerpt:
+    "Quedan menos de tres meses de verano festival 2026: checklist para no perder los últimos festivales (Rototom, Cala Mijas, Vida, Sonorama), cómo reservar carpooling de última hora y qué planificar antes de septiembre.",
+  category: "guias",
+  tags: ["verano 2026", "checklist", "festivales agosto", "festivales septiembre", "rototom", "cala mijas", "vida festival"],
+  publishedAt: "2026-05-11T18:00:00.000Z",
+  author: "Equipo ConcertRide",
+  readingMinutes: 7,
+  lede:
+    "El verano festivalero 2026 se cierra entre el 14 de agosto (Rototom Sunsplash) y el 3 de octubre (Cala Mijas). Esta es la checklist real para los últimos festivales del verano: qué fechas quedan, cómo reservar carpooling de última hora y qué packing aplicar para final de temporada.",
+  sections: [
+    {
+      heading: "Qué festivales quedan en agosto 2026",
+      paragraphs: [
+        "Agosto es el mes con más densidad festivalera en España. La segunda mitad del mes concentra varios festivales grandes que coinciden en fechas, lo que complica la coordinación de carpooling: la demanda se multiplica y los conductores se llenan rápido.",
+      ],
+      bullets: [
+        "Rototom Sunsplash — 14–22 ago, Benicàssim (reggae, 250.000 asistentes en 8 días)",
+        "Sonorama Ribera — 6–9 ago, Aranda de Duero (indie español + electrónica)",
+        "Arenal Sound — 29 jul–2 ago, Burriana (urban, indie, electrónica, playa)",
+        "Medusa Festival — 13–17 ago, Cullera (EDM, electrónica)",
+        "Aquasella — 19–23 ago, Arriondas Asturias (techno)",
+        "Cabo de Plata — 13–16 ago, Barbate Cádiz (indie español)",
+      ],
+    },
+    {
+      heading: "Festivales de septiembre 2026 — el último tren",
+      paragraphs: [
+        "Septiembre tiene menos festivales que agosto pero los que quedan son referenciales en el calendario español. Es el mes ideal para festivales si no aguantas el calor extremo de agosto o si necesitas un fin de semana de cierre antes de la rentrée.",
+      ],
+      bullets: [
+        "Vida Festival — 3–6 sep, Vilanova i la Geltrú Barcelona (indie + folk)",
+        "DCode Festival — 12 sep, Universidad Complutense Madrid (1 día, indie + pop)",
+        "Vive Latino España — 4–5 sep, Madrid Recinto IFEMA (latino, reggaetón)",
+        "Granada Sound — 18–19 sep, Granada (indie español)",
+        "Festival Internacional de Benicàssim Pop — fecha pendiente, Benicàssim",
+      ],
+    },
+    {
+      heading: "Top 5 festivales para cerrar el verano",
+      paragraphs: [
+        "Si solo te queda presupuesto para uno o dos festivales en la recta final del verano, este es nuestro top 5 por relación calidad-precio + cobertura de transporte ConcertRide:",
+      ],
+      bullets: [
+        "1. Rototom Sunsplash — 8 días de reggae internacional en Benicàssim. Abono completo desde 145€. Carpooling Valencia 8–12€, Madrid 14–19€",
+        "2. Cala Mijas — fechas pendientes (típicamente 1–3 oct), Cortijo de Torres Mijas. Indie internacional + electrónica. Carpooling Málaga 5–8€, Sevilla 12–17€",
+        "3. Vida Festival — 3–6 sep en Vilanova i la Geltrú. Indie suave + folk. Carpooling Barcelona 4–7€, Tarragona 5–8€",
+        "4. Sonorama Ribera — 6–9 ago en Aranda de Duero. Indie español + electrónica. Carpooling Madrid 7–12€, Valladolid 4–7€, Burgos 4–6€",
+        "5. DCode Festival — 12 sep en Madrid (1 día). Indie + pop. Carpooling Toledo 4–6€, Guadalajara 3–5€",
+      ],
+    },
+    {
+      heading: "Checklist de últimos días — qué hacer antes del festival",
+      paragraphs: [
+        "Si compras entrada de última hora para un festival que empieza en pocos días, esta es la checklist mínima para no fallar la logística:",
+      ],
+      bullets: [
+        "Reservar carpooling ConcertRide 7–10 días antes (los precios suben en la última semana si el festival es grande)",
+        "Verificar previsión meteorológica (agosto = calor extremo en Burriana, Cullera, Aranda de Duero)",
+        "Cargar pulsera/abono digital + screenshot del PDF (sin batería = no entras)",
+        "Camping: revisar normativa de tienda (algunos festivales prohíben botellones, sombrillas o muebles)",
+        "Confirmar hora de vuelta con tu conductor de carpooling (festivales de final de verano cierran tarde — 4–5 AM)",
+        "Llevar bidón de agua o cantimplora (los festivales españoles ya no permiten bebida del exterior pero sí envases reutilizables vacíos)",
+        "Packing especial: protector solar SPF 50, gorra, ropa de cambio (lluvia de septiembre en Galicia y Cataluña es posible)",
+      ],
+    },
+    {
+      heading: "Carpooling de última hora — qué esperar",
+      paragraphs: [
+        "Cuando reservas carpooling con menos de una semana de antelación al festival, la dinámica de precios y disponibilidad cambia. Los conductores ya publicados están casi llenos, y los conductores nuevos publican plazas solo para festivales con alta demanda.",
+        "En ConcertRide el precio lo fija el conductor sobre el coste real de combustible y peajes, así que no hay surge pricing. Pero la disponibilidad sí se reduce: en Mad Cool y Primavera Sound, las últimas plazas suelen agotarse 48–72 horas antes del primer día del festival.",
+      ],
+    },
+  ],
+  faqs: [
+    {
+      q: "¿Qué festivales quedan en el verano 2026 después de mayo?",
+      a: "El calendario festival verano 2026 entre junio y octubre incluye: Primavera Sound (4–6 jun Barcelona), Mad Cool (9–11 jul Madrid), BBK Live (9–11 jul Bilbao), FIB Benicàssim (17–19 jul), Resurrection Fest (25–27 jun Viveiro), Arenal Sound (29 jul–2 ago Burriana), Sonorama Ribera (6–9 ago Aranda), Medusa (13–17 ago Cullera), Rototom Sunsplash (14–22 ago Benicàssim), Vida (3–6 sep Vilanova), DCode (12 sep Madrid) y Cala Mijas (1–3 oct).",
+    },
+    {
+      q: "¿Cuál es el último festival del verano 2026 en España?",
+      a: "Cala Mijas (típicamente 1–3 oct en Cortijo de Torres Mijas) cierra la temporada festivalera del verano 2026 en España. Le preceden Vida Festival, Vive Latino, DCode y Granada Sound durante septiembre. Después de octubre la actividad festivalera se traslada a salas, recintos cubiertos y festivales de invierno como Roig Arena.",
+    },
+    {
+      q: "¿Se puede reservar carpooling con pocos días de antelación a un festival?",
+      a: "Sí. ConcertRide permite reservar plazas hasta unos minutos antes de la salida si hay disponibilidad. Recomendamos buscar al menos 7–10 días antes del festival para tener opciones de horario; en los 2–3 días previos quedan pocas plazas para los grandes (Mad Cool, Primavera Sound, Arenal Sound). En festivales medianos y pequeños suele haber disponibilidad hasta la víspera.",
+    },
+  ],
+  relatedLinks: [
+    { label: "Hub festivales verano 2026 transporte", to: "/blog/hub-festivales-verano-2026-transporte" },
+    { label: "Festivales agosto 2026", to: "/calendario-festivales/agosto-2026" },
+    { label: "Festivales septiembre 2026", to: "/calendario-festivales/septiembre-2026" },
+    { label: "Rototom Sunsplash", to: "/festivales/rototom-sunsplash" },
+    { label: "Cala Mijas", to: "/festivales/cala-mijas" },
+  ],
+  relatedPosts: [
+    "hub-festivales-verano-2026-transporte",
+    "rototom-sunsplash-2026-transporte-carpooling",
+    "carpooling-festival-ultima-hora",
+    "festivales-espana-verano-2026",
+  ],
+});
+
+BLOG_POSTS.push({
+  slug: "como-organizar-viaje-grupo-festival-amigos",
+  coverImage: { src: "/og/organizar-viaje-grupo-festival.png", alt: "Cómo organizar viaje en grupo a festival con amigos — ConcertRide" },
+  title: "Cómo organizar viaje en grupo a festival 2026 [Guía 8 pasos]",
+  h1: "Cómo organizar viaje en grupo a festival con amigos: guía en 8 pasos",
+  excerpt:
+    "Guía paso a paso para organizar un viaje compartido a festival con amigos: cómo elegir festival, repartir costes, gestionar reservas de transporte, alojamiento y entradas, y evitar conflictos de grupo durante el viaje.",
+  category: "guias",
+  tags: ["viaje en grupo", "festival", "amigos", "carpooling", "organización", "guía"],
+  publishedAt: "2026-05-11T18:00:00.000Z",
+  author: "Equipo ConcertRide",
+  readingMinutes: 9,
+  lede:
+    "Organizar un viaje en grupo a un festival se hace en 8 pasos: elegir festival y fechas, cerrar grupo definitivo, repartir costes con app, comprar entradas en bloque, decidir transporte (coche compartido suele salir 30–40% más barato que tren), reservar alojamiento, planificar logística in situ y definir hora de vuelta antes de salir.",
+  sections: [
+    {
+      heading: "Paso 1: Elegir festival y fechas",
+      paragraphs: [
+        "El error más habitual al organizar viaje en grupo es preguntar por WhatsApp \"¿qué festival hacemos?\" sin enseñar opciones concretas. Convoca una primera ronda con 3 festivales y deja que el grupo vote.",
+        "Criterios a poner sobre la mesa: presupuesto máximo por persona (entrada + transporte + camping), distancia desde tu ciudad, cartel (al menos 2 cabezas que motiven al grupo), formato (1 día, fin de semana, 4 días con camping), perfil del festival (urban, indie, electrónica, metal). Confirma que las fechas no chocan con bodas, exámenes o trabajo de nadie del grupo.",
+      ],
+    },
+    {
+      heading: "Paso 2: Cerrar grupo definitivo y fecha límite",
+      paragraphs: [
+        "Los grupos abiertos se diluyen. Pon una fecha límite (típicamente 60 días antes del festival) para confirmación irrevocable: quien diga sí, paga la entrada el mismo día. Quien dude, fuera. Esto evita el clásico \"al final no voy\" 10 días antes que destroza la logística.",
+        "Crea un grupo de WhatsApp solo del festival, fuera del grupo general, con nombre \"Mad Cool 2026 confirmados\". Solo entran personas que ya han pagado la entrada.",
+      ],
+    },
+    {
+      heading: "Paso 3: Repartir costes con app de gastos compartidos",
+      paragraphs: [
+        "El cálculo manual de gastos en grupo genera tensiones inútiles. Usa Splitwise, Tricount o la opción nativa de Bizum entre amigos. Las categorías mínimas a registrar son: entrada (por persona), transporte (entre todos), gasolina + peajes (por coche), camping/alojamiento, comida grupal, supermercado, cubatas.",
+        "Define una norma de grupo al inicio: \"si gastas algo del grupo, registra en Splitwise el mismo día\". Esperar al final del festival a anotar genera olvidos y conflictos.",
+      ],
+    },
+    {
+      heading: "Paso 4: Comprar entradas en bloque",
+      paragraphs: [
+        "Compra todas las entradas desde una sola cuenta de Ticketmaster, El Corte Inglés o Wegow. Esto centraliza la gestión, facilita el reembolso si alguien no puede ir (recuperas el dinero de una transacción, no de 8) y permite descuentos por compra en bloque (algunos festivales ofrecen abono grupal con 5%–10% descuento).",
+        "Si el festival tiene acceso VIP o camping premium, decide en grupo antes de comprar. Cambiar de zona después es caro o imposible.",
+      ],
+    },
+    {
+      heading: "Paso 5: Decidir el transporte — coche compartido suele ser la mejor opción",
+      paragraphs: [
+        "Para un grupo de 3 a 5 personas, el carpooling suele ser entre un 30% y un 50% más barato que el tren AVE + lanzadera. Estos son los costes típicos por persona en una ruta Madrid–Mad Cool (4 personas en un coche):",
+      ],
+      bullets: [
+        "AVE Madrid–Madrid (no aplica — Mad Cool es Madrid) — opción descartada",
+        "Tren AVE Madrid–Barcelona + lanzadera Primavera Sound: 35–80€/persona ida + 30–60€ vuelta",
+        "Coche compartido ConcertRide Madrid–Primavera Sound: 12–18€/persona ida + similar vuelta = total 24–36€",
+        "Coche propio Madrid–Barcelona (gasolina + peajes + parking): 35–50€/persona si vais 4",
+        "Bus organizado BusForFun: 35–55€/persona (ida + vuelta) con hora fija",
+      ],
+      faqs: [],
+    },
+    {
+      heading: "Paso 6: Alojamiento + camping",
+      paragraphs: [
+        "Tres opciones por orden de precio: camping del festival (incluido en abono completo de muchos festivales), camping cercano no oficial, alojamiento en pueblo a 15–30 km del recinto.",
+        "Para grupos de 6+ personas, reservar una casa rural a 15 km del festival sale a 25–40€/persona/noche y permite duchas decentes, cocina propia y descanso real entre días de festival. Reservar en Booking, Airbnb o Holidu con 4–6 meses de antelación.",
+      ],
+    },
+    {
+      heading: "Paso 7: Logística in situ",
+      paragraphs: [
+        "El primer día del festival el grupo se separa: unos van a un escenario, otros a otro, alguien pierde el móvil. Definir reglas previas evita drama:",
+      ],
+      bullets: [
+        "Punto de encuentro fijo del festival (la entrada, la noria, el bar X) por si alguien queda sin batería",
+        "Cargar la entrada de cada uno en el móvil + screenshot de respaldo",
+        "Sistema de \"buddy\" — cada persona tiene a otra del grupo de quien es responsable por la noche (volver al camping juntos)",
+        "Cantidad fija de cubatas pagados por la caja del grupo vs. cubatas pagados individualmente",
+        "Plan B si alguien pierde el móvil o se separa del grupo a las 4 AM",
+      ],
+    },
+    {
+      heading: "Paso 8: Hora de vuelta acordada antes del último día",
+      paragraphs: [
+        "El error más caro: no acordar la hora de vuelta. Si el conductor de carpooling tiene que volver el domingo a las 9:00 AM y dos del grupo aún están en el cabeza de cartel del cierre a las 5:00 AM, hay tensión.",
+        "Decide la hora de vuelta antes del último día del festival, en grupo, y confírmala con el conductor de ConcertRide al menos 24 horas antes. Para festivales con cierre nocturno (Mad Cool, Primavera Sound, Resurrection Fest), la hora típica de vuelta es entre 4 y 6 AM del domingo o lunes.",
+      ],
+    },
+  ],
+  faqs: [
+    {
+      q: "¿Cómo se reparten los gastos de un viaje en grupo a un festival?",
+      a: "Lo más eficiente es usar Splitwise, Tricount o Bizum entre amigos para registrar cada gasto el día que se hace: entrada (por persona), gasolina + peajes (entre los del coche), camping (entre todos), comida grupal y supermercado (entre todos), cubatas (individual o caja común). Define la norma al inicio del viaje y asigna a una persona como tesorero/a del grupo.",
+    },
+    {
+      q: "¿Cuánto cuesta ir a un festival con un grupo de 4 amigos?",
+      a: "Un fin de semana en un festival mainstream en España con grupo de 4 amigos cuesta aproximadamente: entrada 95–145€ Super Early Bird (vendido en preventa octubre 2026), camping incluido en abono completo, carpooling 12–35€/persona ida+vuelta, supermercado y comida 25–40€/día por persona. Total presupuesto realista 250–400€/persona para 3 días.",
+    },
+    {
+      q: "¿Es mejor ir en coche compartido o en tren a un festival con amigos?",
+      a: "Para grupos de 3–5 personas el carpooling es típicamente entre un 30% y un 50% más barato que el tren AVE + lanzadera. Madrid–Primavera Sound en carpooling: 12–18€/persona; en AVE + lanzadera: 35–80€/persona. Además el carpooling ofrece flexibilidad de horario de vuelta (vital cuando el festival cierra a las 5 AM y el último tren salió a las 23:00).",
+    },
+    {
+      q: "¿Cómo evitar conflictos en un viaje en grupo a un festival?",
+      a: "Cuatro reglas funcionan: (1) Cerrar grupo definitivo 60 días antes con pago de entrada irrevocable, (2) registrar todos los gastos en Splitwise el día que ocurren, (3) acordar hora de vuelta antes del último día del festival, (4) definir punto de encuentro fijo del festival por si alguien pierde batería del móvil. La mayoría de drama de grupo nace de no fijar estas cuatro cosas antes.",
+    },
+  ],
+  relatedLinks: [
+    { label: "Viaje grupal festival 4 personas", to: "/blog/viaje-grupal-festival-4-personas" },
+    { label: "Cómo organizar grupo carpooling festival", to: "/blog/como-organizar-grupo-carpooling-festival" },
+    { label: "Festivales", to: "/festivales" },
+    { label: "Publicar viaje", to: "/publish" },
+  ],
+  relatedPosts: [
+    "viaje-grupal-festival-4-personas",
+    "como-organizar-grupo-carpooling-festival",
+    "como-organizar-viaje-grupal-festival",
+    "presupuesto-festival-musica-espana-2026",
+  ],
+});
+
+BLOG_POSTS.push({
+  slug: "mejor-app-reservar-viaje-festival-2027",
+  coverImage: { src: "/og/mejor-app-festival-2027.png", alt: "Mejor app reservar viaje festival 2027 comparativa — ConcertRide" },
+  title: "Mejor app reservar viaje festival 2027 [Comparativa]",
+  h1: "Mejor app para reservar viaje a festival 2027: comparativa actualizada",
+  excerpt:
+    "Comparativa de apps para reservar viaje a festival en 2027: ConcertRide (carpooling 0% comisión, festival-first), VIB3S, BusForFun (autobuses), Renfe y otras plataformas de carpooling generalistas. Qué buscar al elegir app para festival 2027.",
+  category: "comparativas",
+  tags: ["app festival 2027", "comparativa", "carpooling", "reservar viaje", "transporte festival"],
+  publishedAt: "2026-05-11T18:00:00.000Z",
+  author: "Equipo ConcertRide",
+  readingMinutes: 8,
+  lede:
+    "La mejor app para reservar viaje a festival en 2027 depende del tipo de viaje: ConcertRide es la opción 0% comisión especializada en festivales y conciertos en España, BusForFun ofrece autobuses organizados con hora fija, y VIB3S es la alternativa social para generación Z. La comparativa aquí cubre precio, cobertura y cuándo encaja cada una.",
+  sections: [
+    {
+      heading: "Qué buscar en una app de viaje a festival en 2027",
+      paragraphs: [
+        "El criterio para elegir app no es \"la más popular\". Estos son los cinco factores que separan una app útil de una decepcionante en el contexto de festivales 2027:",
+      ],
+      bullets: [
+        "Cobertura de festivales: ¿la app tiene la página específica de tu festival con horarios, parking, lanzaderas?",
+        "Comisión: ¿el conductor recibe el 100% o la app cobra entre el 10% y el 18%?",
+        "Hora de vuelta: ¿permite acordar hora flexible de madrugada o impone hora fija (típica de autobuses organizados)?",
+        "Pago: ¿anticipado en la app o efectivo/Bizum al conductor el día del viaje?",
+        "Verificación: ¿el conductor está verificado con carné + DNI?",
+      ],
+    },
+    {
+      heading: "ConcertRide — carpooling especializado en festivales (0% comisión)",
+      paragraphs: [
+        "ConcertRide es la única plataforma de carpooling en España especializada exclusivamente en conciertos y festivales. No cobra comisión al conductor ni al pasajero: el precio lo fija el conductor en base a los gastos reales de combustible y peajes.",
+        "En 2027 ConcertRide publicará rutas para todos los festivales mainstream desde el momento del anuncio oficial de fechas (entre septiembre y diciembre 2026). Las rutas se replican automáticamente del calendario 2026 con actualización de precios.",
+      ],
+      bullets: [
+        "0% comisión — el conductor recibe el 100% del precio",
+        "Cobertura: 35+ festivales españoles con página dedicada (Mad Cool, Primavera Sound, Viña Rock, BBK Live, FIB, Arenal Sound, Sonorama, Medusa, Resurrection Fest y más)",
+        "Hora de vuelta flexible — el conductor y los pasajeros acuerdan",
+        "Pago en efectivo o Bizum al conductor el día del viaje (sin tarjetas en la app)",
+        "Verificación: carné de conducir + DNI + foto",
+        "Apertura de reservas 2027: 8 semanas antes del festival",
+      ],
+    },
+    {
+      heading: "VIB3S — carpooling social para festivaleros jóvenes",
+      paragraphs: [
+        "VIB3S es una startup española de carpooling social con enfoque generación Z. Sistema B3ATS: puntos por km compartidos que se canjean por recompensas (entradas a festivales, merch). Tiene también integración B2B para festivales que quieran el widget en su web.",
+      ],
+      bullets: [
+        "Ventajas: UX social, perfil musical de usuario, recompensas por uso",
+        "Desventajas (vs ConcertRide): sin páginas de festival con logística completa, comunidad más pequeña, sin datos por ruta específica de cada festival",
+        "Mejor para: fans jóvenes que valoran la gamificación y las recompensas",
+      ],
+    },
+    {
+      heading: "BusForFun — autobuses organizados con hora fija",
+      paragraphs: [
+        "BusForFun es un servicio de autobuses organizados a festivales y conciertos en España, Italia, Suiza y Portugal. Opera desde más de 100 puntos de recogida a festivales como Arenal Sound, Medusa, Viña Rock, Primavera Sound y a conciertos grandes.",
+      ],
+      bullets: [
+        "Ventajas: solución completa ida+vuelta sin coordinar con nadie, precio fijo desde 9,90€, sin necesidad de conductor",
+        "Desventajas: hora de vuelta fija (típicamente las 6:00 del último día), sin personalización de horario ni punto de recogida",
+        "Mejor para: asistentes que prefieren no preocuparse de la logística y aceptan hora fija",
+      ],
+    },
+    {
+      heading: "Otras plataformas de carpooling generalistas",
+      paragraphs: [
+        "Existen otras plataformas de carpooling generalistas en España (no específicas de festivales) que también permiten reservar viajes a conciertos y festivales: Amovens, Amicoche, Caroster. Ninguna está especializada en festivales y suelen cobrar entre 10% y 18% de comisión al pasajero, lo que sube el precio final.",
+      ],
+      bullets: [
+        "Amovens — carpooling generalista (~10% comisión). Sin páginas de festival",
+        "Amicoche — carpooling 0% comisión generalista. Sin páginas de festival",
+        "Caroster — non-profit europeo, 0% comisión, comunidad pequeña en España",
+      ],
+    },
+    {
+      heading: "Renfe (AVE) — opción tren para festivales con estación cercana",
+      paragraphs: [
+        "Renfe lanza tarifas Joven 50% y Tarifa Plana mensual que permiten ahorrar en festivales con buena conexión ferroviaria (Primavera Sound, Mad Cool, FIB, Cruïlla, Sónar). La limitación es la lanzadera del festival al recinto (que rara vez opera de madrugada) y la última hora de tren (típicamente 23:00–00:00).",
+      ],
+    },
+    {
+      heading: "¿Qué app usar según tu situación 2027?",
+      paragraphs: ["Resumen para 2027:"],
+      bullets: [
+        "Vas a un festival mainstream desde otra ciudad con grupo → ConcertRide (carpooling 0%, festival-first)",
+        "Prefieres bus organizado sin coordinar nada → BusForFun (hora de vuelta fija a las 6:00)",
+        "Eres generación Z y valoras la gamificación → VIB3S (recompensas por km)",
+        "Vas a un festival con buena estación cercana y no te importa la lanzadera → Renfe AVE",
+        "Ya usas carpooling generalista para el día a día → Amovens o Amicoche",
+      ],
+    },
+  ],
+  faqs: [
+    {
+      q: "¿Cuál es la mejor app para reservar viaje a festival en 2027?",
+      a: "ConcertRide es la única app especializada en festivales y conciertos en España. Sin comisión, con páginas dedicadas por festival y verificación de conductor. BusForFun es la mejor opción si prefieres autobús organizado con hora de vuelta fija. VIB3S es la alternativa social para generación Z. Renfe AVE funciona si tu festival tiene estación cercana y no necesitas vuelta de madrugada.",
+    },
+    {
+      q: "¿Cuándo se podrán reservar viajes a festivales 2027?",
+      a: "ConcertRide abre la publicación de rutas para festivales 2027 unas 8 semanas antes del evento, en cuanto los conductores empiezan a confirmar fechas en su agenda. Para festivales con fecha ya confirmada (Primavera Sound 27–31 may 2027, Mad Cool 8–10 jul 2027), las primeras rutas suelen aparecer entre marzo y abril 2027.",
+    },
+    {
+      q: "¿Cuánto cobran las apps de carpooling por viaje a festival?",
+      a: "ConcertRide y Amicoche cobran 0% de comisión: el conductor recibe el 100% del precio acordado. Amovens cobra alrededor del 10% al pasajero. Las plataformas de carpooling generalistas en Europa suelen cobrar entre el 10% y el 18% de comisión. BusForFun no es carpooling sino bus organizado, su modelo es venta directa de plaza desde 9,90€.",
+    },
+    {
+      q: "¿Es seguro reservar viaje a festival 2027 con carpooling?",
+      a: "ConcertRide verifica todos los conductores con carné de conducir, DNI y foto. Los conductores tienen valoraciones públicas de viajes anteriores. El pago se realiza al conductor el día del viaje (efectivo o Bizum), nunca por anticipado, lo que elimina el riesgo de estafa por viaje no realizado. Si el conductor cancela, ConcertRide ayuda a encontrar alternativa.",
+    },
+  ],
+  relatedLinks: [
+    { label: "Mejor app carpooling festivales España 2026", to: "/blog/mejor-app-carpooling-festivales-espana-2026" },
+    { label: "App carpooling festivales España comparativa", to: "/blog/app-carpooling-festivales-espana-comparativa" },
+    { label: "Festivales", to: "/festivales" },
+    { label: "Cómo funciona", to: "/como-funciona" },
+  ],
+  relatedPosts: [
+    "mejor-app-carpooling-festivales-espana-2026",
+    "app-carpooling-festivales-espana-comparativa",
+    "festivales-espana-2027-preview",
+    "tendencias-musica-en-vivo-espana-2027",
+  ],
+});
+
+BLOG_POSTS.push({
+  slug: "festivales-otono-invierno-2026-espana",
+  coverImage: { src: "/og/festivales-otono-invierno-2026.png", alt: "Festivales otoño invierno 2026 España calendario — ConcertRide" },
+  title: "Festivales otoño invierno 2026 España [Calendario]",
+  h1: "Festivales otoño invierno 2026 en España: calendario, recintos cubiertos y transporte",
+  excerpt:
+    "Calendario completo de festivales otoño invierno 2026 en España: Cala Mijas, Granada Sound, festivales indoor, Christmas Sessions y conciertos en recintos cubiertos. Transporte, fechas y carpooling para festivales fuera de temporada de verano.",
+  category: "guias",
+  tags: ["festivales otoño 2026", "festivales invierno 2026", "cala mijas", "granada sound", "recintos cubiertos", "calendario"],
+  publishedAt: "2026-05-11T18:00:00.000Z",
+  author: "Equipo ConcertRide",
+  readingMinutes: 8,
+  lede:
+    "El calendario de festivales otoño invierno 2026 en España incluye Cala Mijas (1–3 oct), Granada Sound (18–19 sep), Vive Latino (4–5 sep), DCode (12 sep), Eurosonic equivalente y festivales en recintos cubiertos como Roig Arena, Movistar Arena y Bilbao Arena entre noviembre y marzo. Esta es la guía completa.",
+  sections: [
+    {
+      heading: "Por qué importa el calendario otoño invierno",
+      paragraphs: [
+        "El 90% de los posts sobre festivales en España cubren mayo–agosto. Quedan fuera de la conversación los festivales de septiembre–marzo, que tienen ventajas serias: temperatura agradable (vs. 40°C en Cullera en agosto), menos masificación, precios de alojamiento más bajos, festivales en recintos cubiertos con sonido controlado y, en muchos casos, carteles muy interesantes.",
+        "El calendario otoño invierno 2026 en España va del 1 de septiembre 2026 al 31 de marzo 2027 y reúne aproximadamente 25 festivales y residencias musicales relevantes.",
+      ],
+    },
+    {
+      heading: "Septiembre 2026 — el cierre del verano",
+      paragraphs: [
+        "Septiembre es técnicamente verano pero el ritmo festivalero cambia: cartel más curado, asistencia más reducida, menos camping y más festivales urbanos de 1–2 días.",
+      ],
+      bullets: [
+        "Vive Latino España — 4–5 sep, Madrid IFEMA (latino, reggaetón)",
+        "Vida Festival — 3–6 sep, Vilanova i la Geltrú Barcelona (indie + folk)",
+        "DCode Festival — 12 sep, Universidad Complutense Madrid (1 día, indie + pop)",
+        "Granada Sound — 18–19 sep, Cortijo del Conde Granada (indie español)",
+        "Sevilla Festival — fechas pendientes, Sevilla",
+      ],
+    },
+    {
+      heading: "Octubre 2026 — el último festival de exterior",
+      paragraphs: [
+        "Octubre es el mes de Cala Mijas y de los primeros festivales indoor en clubes y recintos cubiertos. La temperatura en el sur (Cala Mijas, Cádiz) permite mantener formato playa.",
+      ],
+      bullets: [
+        "Cala Mijas — 1–3 oct, Cortijo de Torres Mijas Málaga (indie internacional + electrónica)",
+        "Festival Internacional Cinema Jove de Valencia — formato mixto cine + música",
+        "Otoño Cultural Soriano — Soria, conciertos clásicos + jazz",
+        "Festival de las Artes y la Música de Cantabria — formato indoor",
+      ],
+    },
+    {
+      heading: "Noviembre–diciembre 2026 — festivales y residencias indoor",
+      paragraphs: [
+        "La temporada de exterior cierra y empieza la programación de salas, recintos cubiertos y eventos puntuales en grandes pabellones. Los más relevantes:",
+      ],
+      bullets: [
+        "Roig Arena Valencia — programación indoor de conciertos, primer otoño completo (apertura 2026)",
+        "Movistar Arena Madrid — eventos grandes nov–dic (Aitana, Dani Martín, artistas internacionales)",
+        "WiZink Center Madrid — temporada alta de grandes giras internacionales",
+        "Bilbao Arena — programación indoor, eventos puntuales",
+        "Heineken Music Hall Madrid — residencias y festivales pequeños",
+        "Festival Acústico de Valladolid — formato indoor noviembre",
+      ],
+    },
+    {
+      heading: "Enero–marzo 2027 — festivales de invierno y arranque de temporada",
+      paragraphs: [
+        "Los meses fríos tienen menos festivales pero algunos referenciales del sector indie y de la industria musical:",
+      ],
+      bullets: [
+        "Festival de Música de Canarias — enero–febrero, distintas islas (clásica + crossover)",
+        "Festival Sounds From Spain ene–feb (industria + showcases)",
+        "Festival de Cine Y Música de Málaga — marzo (formato mixto)",
+        "Tomavistas Estival — anuncio típico febrero–marzo para fechas de mayo",
+        "Inicio de preventa de festivales verano 2027 (Mad Cool, Primavera Sound, BBK Live ya con Super Early Bird abierto)",
+      ],
+    },
+    {
+      heading: "Transporte y carpooling para festivales fuera de verano",
+      paragraphs: [
+        "El carpooling para festivales otoño invierno tiene una dinámica diferente al verano: menos volumen de demanda, conductores que publican plazas con menos antelación, y rutas más enfocadas a 1 día (sin camping) que a fin de semana completo.",
+        "Los precios típicos en ConcertRide para festivales otoño invierno 2026:",
+      ],
+      bullets: [
+        "Madrid–Cala Mijas (Mijas): 25–35€/asiento ida (550 km)",
+        "Barcelona–Vida Festival (Vilanova): 4–6€/asiento (45 km)",
+        "Madrid–Granada Sound: 14–19€/asiento (430 km)",
+        "Sevilla–Cala Mijas: 12–17€/asiento (220 km)",
+        "Madrid–Vive Latino (IFEMA): 3–6€/asiento (intramunicipal)",
+        "Valencia–Roig Arena (intramunicipal): 2–4€/asiento",
+      ],
+    },
+    {
+      heading: "Ventajas del festival otoño invierno",
+      paragraphs: [
+        "Por si dudas en cambiar el verano por el otoño-invierno como temporada favorita de festivales, estos son los motivos reales por los que muchos festivaleros prefieren el calendario de septiembre a marzo:",
+      ],
+      bullets: [
+        "Temperatura agradable (15–25°C) vs. 38–42°C de agosto en interior y costa este",
+        "Menos masificación en bares, aseos y zonas de descanso",
+        "Cartel más curado — los festivales fuera de temporada eligen artistas con menos riesgo",
+        "Precios de alojamiento entre un 30% y un 50% más bajos que en julio–agosto",
+        "Mejor sonido en recintos cubiertos (no hay viento ni ruido ambiente)",
+        "Permite extender la temporada festivalera a 7 meses al año en vez de 3",
+      ],
+    },
+  ],
+  faqs: [
+    {
+      q: "¿Hay festivales en España en otoño 2026?",
+      a: "Sí. El calendario otoño 2026 incluye Cala Mijas (1–3 oct Mijas), Granada Sound (18–19 sep), Vida Festival (3–6 sep Vilanova), Vive Latino (4–5 sep Madrid), DCode (12 sep Madrid) y una programación amplia en recintos cubiertos (Roig Arena Valencia, Movistar Arena Madrid, WiZink Center Madrid, Bilbao Arena) entre octubre y diciembre 2026.",
+    },
+    {
+      q: "¿Cuál es el último festival al aire libre del año 2026 en España?",
+      a: "Cala Mijas (típicamente 1–3 oct en Cortijo de Torres, Mijas, Málaga) cierra la temporada de festivales al aire libre del 2026 en España. La temperatura en el sur en octubre permite mantener formato playa. Después se traslada toda la actividad a recintos cubiertos como Roig Arena (Valencia), Movistar Arena (Madrid) y WiZink Center.",
+    },
+    {
+      q: "¿Hay festivales en España en invierno (diciembre, enero, febrero, marzo)?",
+      a: "Sí, aunque en menor número. Diciembre y enero tienen residencias en salas (Roig Arena Valencia, Movistar Arena Madrid, Bilbao Arena, WiZink Center). El Festival de Música de Canarias (enero–febrero) es referente clásico-crossover. Sounds From Spain (enero–febrero) es showcase de industria. La nueva temporada festivalera verano 2027 abre Super Early Bird en octubre 2026.",
+    },
+    {
+      q: "¿Se puede usar carpooling para festivales de otoño e invierno?",
+      a: "Sí, ConcertRide cubre los festivales otoño invierno con la misma lógica que los de verano. Las rutas suelen tener menos volumen pero precios similares: Madrid–Cala Mijas 25–35€, Barcelona–Vida 4–6€, Madrid–Granada Sound 14–19€. Para festivales en recintos cubiertos urbanos (Roig Arena, Movistar Arena), el carpooling intramunicipal o desde ciudades cercanas es la opción más económica (2–10€).",
+    },
+  ],
+  relatedLinks: [
+    { label: "Calendario festivales 2026", to: "/blog/calendario-festivales-espana-2026-completo" },
+    { label: "Festivales septiembre 2026", to: "/calendario-festivales/septiembre-2026" },
+    { label: "Festivales octubre 2026", to: "/calendario-festivales/octubre-2026" },
+    { label: "Cala Mijas", to: "/festivales/cala-mijas" },
+    { label: "Roig Arena", to: "/recintos/roig-arena" },
+  ],
+  relatedPosts: [
+    "calendario-festivales-espana-2026-completo",
+    "hub-festivales-verano-2026-transporte",
+    "conciertos-en-estadios-espana-2026-transporte",
+    "festivales-espana-2027-preview",
   ],
 });
 

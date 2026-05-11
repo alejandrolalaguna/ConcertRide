@@ -5,6 +5,7 @@ import { ARTIST_LANDINGS_BY_SLUG } from "@/lib/artistLandings";
 import { FESTIVAL_LANDINGS_BY_SLUG } from "@/lib/festivalLandings";
 import { AutoLinksForArtist } from "@/lib/autoLinking";
 import { ARTIST_SEO_OVERRIDES } from "@/lib/seoOverrides";
+import { SpeakableAnswerBlock } from "@/components/SpeakableAnswerBlock";
 
 export default function ArtistLandingPage() {
   const { slug } = useParams<{ slug: string }>();
@@ -246,6 +247,21 @@ export default function ArtistLandingPage() {
         <h1 className="font-display text-4xl md:text-6xl uppercase leading-[0.92]">
           {artist.name.toUpperCase()} EN ESPAÑA 2026
         </h1>
+
+        {/* Speakable answer block — answer-first for AI Overviews + voice */}
+        <SpeakableAnswerBlock
+          schemaId={`speakable-artist-${artist.slug}`}
+          pageUrl={`${SITE_URL}/artistas/${artist.slug}`}
+          question={`¿Dónde toca ${artist.name} en España 2026?`}
+          answer={
+            hasUpcoming
+              ? `${artist.name} toca en España 2026 en ${artist.upcomingConcerts.length} ${artist.upcomingConcerts.length === 1 ? "fecha" : "fechas"}: ${artist.upcomingConcerts
+                  .slice(0, 3)
+                  .map((c) => `${c.city} (${c.venue})`)
+                  .join(", ")}. ConcertRide ofrece carpooling a estos conciertos desde ${minPrice} €/asiento desde múltiples ciudades. Pagas en efectivo o Bizum directo al conductor, sin comisión de plataforma.`
+              : `${artist.name} es un artista de ${artist.genre.join(", ")} con próximos conciertos a confirmar en España 2026. ConcertRide ofrece carpooling a sus shows en los principales recintos del país desde ${minPrice} €/asiento. Sin comisión: pago directo al conductor en efectivo o Bizum.`
+          }
+        />
 
         {/* Price signal — reinforces title keyword and helps CTR match */}
         <p className="font-mono text-xs font-semibold uppercase tracking-[0.14em] text-cr-text-muted">

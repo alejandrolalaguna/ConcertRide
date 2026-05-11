@@ -1,12 +1,60 @@
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { Link, Navigate, useSearchParams } from "react-router-dom";
 import { motion } from "motion/react";
-import { ArrowLeft, Check, Eye, EyeOff } from "lucide-react";
+import { ArrowLeft, Check, Eye, EyeOff, ShieldCheck } from "lucide-react";
 import { api, ApiError } from "@/lib/api";
 import { useSession } from "@/lib/session";
 import { SPANISH_CITIES } from "@/lib/constants";
 import { useSeoMeta } from "@/lib/useSeoMeta";
 import { SITE_URL } from "@/lib/siteUrl";
+
+// Next major festival used in the header headline. Kept in sync with hero/landing.
+const NEXT_FESTIVAL = {
+  name: "Primavera Sound",
+  // Festival start date (ISO yyyy-mm-dd) — used to compute the live countdown shown in the H1.
+  date: "2026-05-28",
+};
+
+function daysUntil(iso: string): number {
+  const target = new Date(`${iso}T00:00:00`).getTime();
+  const today = new Date();
+  today.setHours(0, 0, 0, 0);
+  const diff = target - today.getTime();
+  return Math.max(0, Math.ceil(diff / 86_400_000));
+}
+
+const TRUST_BULLETS: { title: string; detail: string }[] = [
+  {
+    title: "Gratis · sin tarjeta de crédito",
+    detail: "Crea tu cuenta sin datos bancarios. Solo email y contraseña.",
+  },
+  {
+    title: "Verificamos el carnet de conducir",
+    detail: "Cada conductor debe subir su carnet antes de publicar el primer viaje.",
+  },
+  {
+    title: "Pago en efectivo o Bizum directo",
+    detail: "Pagas al conductor el día del viaje. Sin adelantos en la plataforma.",
+  },
+  {
+    title: "0% comisión — ConcertRide no toca tu dinero",
+    detail: "El precio que ves es el que paga el pasajero al conductor. Sin sorpresas.",
+  },
+  {
+    title: "Cancelación sin coste antes del viaje",
+    detail: "Como el pago es el día del viaje, cancelar antes no tiene coste económico.",
+  },
+];
+
+// Verbatim from apps/web/src/components/landing/TestimonialsSection.tsx (id "1").
+const REGISTER_TESTIMONIAL = {
+  quote:
+    "Encontré viaje en 5 minutos. Llegamos cantando todo el camino. Ya no concibo ir a un festival de otra forma.",
+  author: "Lucía M.",
+  route: "Madrid → Benicàssim",
+  festival: "FIB 2025",
+  savings: "~100€",
+};
 
 export default function RegisterPage() {
   const { user, loading, refresh } = useSession();
@@ -34,6 +82,9 @@ export default function RegisterPage() {
   const [smoker, setSmoker] = useState<"yes" | "no" | "">("");
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
+
+  // Countdown for the H1 — computed once per render, no effect needed.
+  const daysToFestival = useMemo(() => daysUntil(NEXT_FESTIVAL.date), []);
 
   useSeoMeta({
     title: "Crear cuenta gratis",
@@ -129,31 +180,43 @@ export default function RegisterPage() {
           </div>
 
           <h1 className="font-display text-4xl md:text-5xl uppercase leading-[0.92] tracking-tight">
-            Únete a
+            Únete gratis.
             <br />
-            <span className="text-cr-primary">ConcertRide.</span>
+            <span className="text-cr-primary">{NEXT_FESTIVAL.name}</span>
+            {daysToFestival > 0 && (
+              <>
+                {" "}
+                <span className="text-white/80">en {daysToFestival} días.</span>
+              </>
+            )}
           </h1>
 
           <p className="font-sans text-sm text-white/45 leading-relaxed">
             Carpooling a festivales y conciertos en España. Sin comisión. Sin intermediarios.
           </p>
 
-          {/* Value props */}
-          <ul className="space-y-2 pt-1">
-            {[
-              "Viajes a Viña Rock, Arenal Sound, Mad Cool, BBK Live y más",
-              "0 % comisión — pagas directamente al conductor",
-              "Conductores verificados con carnet",
-              "Vuelta de madrugada coordinada con el festival",
-            ].map((item) => (
-              <li key={item} className="flex items-start gap-2.5">
-                <span className="mt-0.5 w-4 h-4 flex-shrink-0 flex items-center justify-center rounded-full bg-cr-primary/15 text-cr-primary">
-                  <Check size={9} strokeWidth={3} aria-hidden="true" />
-                </span>
-                <span className="font-sans text-xs text-white/40 leading-relaxed">{item}</span>
-              </li>
-            ))}
-          </ul>
+          {/* Trust signals — proof-driven, fact-dense, no vague promises */}
+          <div className="pt-2 border border-white/[0.08] bg-white/[0.02] p-5 space-y-3">
+            <div className="flex items-center gap-2">
+              <ShieldCheck size={14} strokeWidth={1.5} className="text-cr-primary" aria-hidden="true" />
+              <p className="font-mono text-[10px] font-semibold uppercase tracking-[0.18em] text-white/55">
+                Por qué confiar en ConcertRide
+              </p>
+            </div>
+            <ul className="space-y-2.5">
+              {TRUST_BULLETS.map((b) => (
+                <li key={b.title} className="flex items-start gap-2.5">
+                  <span className="mt-0.5 w-4 h-4 flex-shrink-0 flex items-center justify-center rounded-full bg-cr-primary/15 text-cr-primary">
+                    <Check size={9} strokeWidth={3} aria-hidden="true" />
+                  </span>
+                  <span className="font-sans text-xs leading-relaxed">
+                    <span className="text-white/80 font-semibold">{b.title}</span>
+                    <span className="text-white/40"> — {b.detail}</span>
+                  </span>
+                </li>
+              ))}
+            </ul>
+          </div>
         </motion.header>
 
         {/* Divider */}
@@ -350,7 +413,7 @@ export default function RegisterPage() {
           )}
 
           {/* Submit */}
-          <div className="pt-2">
+          <div className="pt-2 space-y-2">
             <button
               type="submit"
               disabled={submitting || !name.trim() || !email.trim() || password.length < 8 || !tosAccepted || !ageConfirmed}
@@ -358,6 +421,10 @@ export default function RegisterPage() {
             >
               {submitting ? "Creando cuenta…" : "Crear cuenta gratis →"}
             </button>
+            <p className="font-sans text-[11px] text-white/40 text-center leading-relaxed">
+              <Check size={10} strokeWidth={3} className="inline-block text-cr-primary mr-1 -mt-0.5" aria-hidden="true" />
+              Sin compromiso. Ver viajes antes de publicar tu primero.
+            </p>
           </div>
 
           <p className="font-sans text-sm text-white/30 text-center pt-1">
@@ -370,6 +437,33 @@ export default function RegisterPage() {
             </Link>
           </p>
         </motion.form>
+
+        {/* Social proof — one verbatim testimonial reused from TestimonialsSection */}
+        <motion.figure
+          initial={{ opacity: 0, y: 12 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 0.25, ease: [0.16, 1, 0.3, 1] }}
+          className="mt-10 border-l-2 border-cr-primary/40 pl-5 py-2 space-y-2"
+        >
+          <div
+            className="flex gap-0.5"
+            aria-label="Valoración 5 de 5 estrellas"
+          >
+            {[1, 2, 3, 4, 5].map((n) => (
+              <span key={n} className="text-[12px] text-cr-primary" aria-hidden="true">
+                ★
+              </span>
+            ))}
+          </div>
+          <blockquote className="font-sans text-sm text-white/65 leading-relaxed italic">
+            “{REGISTER_TESTIMONIAL.quote}”
+          </blockquote>
+          <figcaption className="font-mono text-[10px] uppercase tracking-[0.12em] text-white/35">
+            — {REGISTER_TESTIMONIAL.author} · {REGISTER_TESTIMONIAL.route}
+            {" · "}
+            <span className="text-cr-primary">ahorró {REGISTER_TESTIMONIAL.savings}</span>
+          </figcaption>
+        </motion.figure>
       </div>
     </main>
   );

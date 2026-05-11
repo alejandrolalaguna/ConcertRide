@@ -15,6 +15,7 @@ import { BLOG_POSTS } from "@/lib/blogPosts";
 import { FestivalAlertWidget } from "@/components/FestivalAlertWidget";
 import { DemandSignalWidget } from "@/components/DemandSignalWidget";
 import { FactDensityCallout } from "@/components/FactDensityCallout";
+import { SpeakableAnswerBlock } from "@/components/SpeakableAnswerBlock";
 import { AutoLinksForFestival, AutoLinksForRoute } from "@/lib/autoLinking";
 import { trackRouteSearch } from "@/lib/seoEvents";
 
@@ -527,6 +528,13 @@ export default function RouteLandingPage() {
         <h1 className="font-display text-4xl md:text-6xl uppercase leading-[0.92]">
           {originCity}<br />→ {festival.shortName}.
         </h1>
+
+        <SpeakableAnswerBlock
+          schemaId={`speakable-route-${landing.slug}`}
+          pageUrl={`${SITE_URL}/rutas/${landing.slug}`}
+          question={`¿Cómo ir a ${festival.shortName} desde ${originCity} en ${routeYear}?`}
+          answer={`Para ir a ${festival.name} ${routeYear} desde ${originCity}, el carpooling de ConcertRide cuesta ${originData.concertRideRange}/asiento. La distancia es de ${originData.km} km y el tiempo estimado de conducción ${originData.drivingTime}. El destino es ${festival.venue} en ${festival.city}. Pagas en efectivo o Bizum directo al conductor el día del viaje, sin comisión de plataforma. La vuelta de madrugada se coordina con el conductor.`}
+        />
 
         <p className="font-sans text-sm md:text-base text-cr-text-muted max-w-2xl leading-relaxed speakable route-summary">
           ConcertRide ofrece carpooling de {originCity} a {festival.name} ({festival.city}) por {originData.concertRideRange}/asiento. Distancia: {originData.km} km · {originData.drivingTime}. Sin comisión — el 100&nbsp;% del precio va al conductor.

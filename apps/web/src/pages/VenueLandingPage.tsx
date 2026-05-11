@@ -9,6 +9,7 @@ import { FESTIVAL_LANDINGS, FESTIVAL_LANDINGS_BY_SLUG } from "@/lib/festivalLand
 import { ROUTE_LANDINGS } from "@/lib/routeLandings";
 import { AutoLinksForVenue } from "@/lib/autoLinking";
 import { VENUE_SEO_OVERRIDES } from "@/lib/seoOverrides";
+import { SpeakableAnswerBlock } from "@/components/SpeakableAnswerBlock";
 
 const VENUE_DEFAULT_OG = `${SITE_URL}/og-fallback.png`;
 
@@ -358,6 +359,37 @@ export default function VenueLandingPage() {
             <span className="text-cr-primary"> {venue.city}</span>
           )}.
         </h1>
+
+        {/* Speakable answer block — answer-first for AI Overviews + voice */}
+        <SpeakableAnswerBlock
+          schemaId={`speakable-venue-${venue.slug}`}
+          pageUrl={`${SITE_URL}/recintos/${venue.slug}`}
+          question={`¿Cómo llegar a ${venue.name} en ${venue.city}?`}
+          answer={[
+            `${venue.name} está en ${venue.address} (${venue.city}).`,
+            `Aforo: ${venue.capacity}.`,
+            [
+              venue.transport.metro && `Metro ${venue.transport.metro}`,
+              venue.transport.bus && `bus ${venue.transport.bus}`,
+              venue.transport.tren && `tren ${venue.transport.tren}`,
+            ]
+              .filter(Boolean)
+              .join("; ") &&
+              `Transporte: ${[
+                venue.transport.metro && `metro ${venue.transport.metro}`,
+                venue.transport.bus && `bus ${venue.transport.bus}`,
+                venue.transport.tren && `tren ${venue.transport.tren}`,
+              ]
+                .filter(Boolean)
+                .join("; ")}.`,
+            `ConcertRide ofrece carpooling al recinto desde ${topPrice} €/asiento desde ${venue.originCities
+              .slice(0, 3)
+              .map((oc) => oc.city)
+              .join(", ")} y otras ciudades. Pago directo al conductor sin comisión.`,
+          ]
+            .filter(Boolean)
+            .join(" ")}
+        />
 
         {/* Price + 0% commission signal — reinforces title keyword */}
         <p className="font-mono text-xs font-semibold uppercase tracking-[0.14em] text-cr-text-muted">

@@ -1876,6 +1876,359 @@ export const ARTIST_LANDINGS: ArtistLanding[] = [
     ],
     relatedFestivals: ["primavera-sound"],
   },
+  // ── Wave 4 (2026-05-11): 8 nuevas landings de artistas ─────────────────────
+  {
+    slug: "imagine-dragons",
+    name: "Imagine Dragons",
+    genre: ["rock", "pop rock", "electronic rock"],
+    wikidata: "Q1006345",
+    blurb:
+      "Imagine Dragons es la banda estadounidense de rock alternativo formada en Las Vegas, conocida por éxitos globales como 'Radioactive', 'Believer', 'Thunder' y 'Demons'. Con más de 75 millones de discos vendidos, su gira 'Loom World Tour' los lleva a estadios de toda Europa. En España actúan en el Estadio Cívitas Metropolitano de Madrid y el Estadi Olímpic de Barcelona. Con ConcertRide, los fans desde Valencia llegan al Metropolitano por 10–14 €/asiento, sin comisión.",
+    upcomingConcerts: [
+      {
+        city: "Madrid",
+        citySlug: "madrid",
+        venue: "Estadio Cívitas Metropolitano",
+        date: "TBD",
+        concertRideRange: "4–7 €/asiento",
+        originCities: [
+          { city: "Valencia", range: "10–14 €" },
+          { city: "Zaragoza", range: "9–13 €" },
+          { city: "Bilbao", range: "11–16 €" },
+        ],
+      },
+      {
+        city: "Barcelona",
+        citySlug: "barcelona",
+        venue: "Estadi Olímpic Lluís Companys",
+        date: "TBD",
+        concertRideRange: "4–7 €/asiento",
+        originCities: [
+          { city: "Madrid", range: "15–20 €" },
+          { city: "Valencia", range: "10–14 €" },
+          { city: "Tarragona", range: "5–8 €" },
+        ],
+      },
+    ],
+    relatedFestivals: ["mad-cool"],
+  },
+  {
+    slug: "iron-maiden",
+    name: "Iron Maiden",
+    genre: ["heavy metal", "hard rock"],
+    wikidata: "Q105410",
+    blurb:
+      "Iron Maiden es la banda británica de heavy metal formada en Londres en 1975, considerada uno de los grupos más influyentes en la historia del metal con más de 130 millones de discos vendidos. Su gira 'Run For Your Lives World Tour 2026' celebra el 50 aniversario de la banda con paradas en el Estadio Cívitas Metropolitano de Madrid y el Estadi Olímpic de Barcelona, junto a una fecha en el Resurrection Fest de Viveiro. Con ConcertRide, los metaleros desde Bilbao llegan al Metropolitano por 11–16 €/asiento, sin comisión.",
+    upcomingConcerts: [
+      {
+        city: "Madrid",
+        citySlug: "madrid",
+        venue: "Estadio Cívitas Metropolitano",
+        date: "TBD",
+        concertRideRange: "4–7 €/asiento",
+        originCities: [
+          { city: "Valencia", range: "10–14 €" },
+          { city: "Bilbao", range: "11–16 €" },
+          { city: "Zaragoza", range: "9–13 €" },
+        ],
+      },
+      {
+        city: "Barcelona",
+        citySlug: "barcelona",
+        venue: "Estadi Olímpic Lluís Companys",
+        date: "TBD",
+        concertRideRange: "4–7 €/asiento",
+        originCities: [
+          { city: "Madrid", range: "15–20 €" },
+          { city: "Valencia", range: "10–14 €" },
+          { city: "Zaragoza", range: "8–12 €" },
+        ],
+      },
+      {
+        city: "Viveiro",
+        citySlug: "lugo",
+        venue: "Resurrection Fest (CEIP A Pedreira)",
+        date: "TBD",
+        concertRideRange: "5–8 €/asiento",
+        originCities: [
+          { city: "A Coruña", range: "6–9 €" },
+          { city: "Lugo", range: "4–6 €" },
+          { city: "Santiago de Compostela", range: "7–10 €" },
+        ],
+      },
+    ],
+    relatedFestivals: ["resurrection-fest"],
+  },
+  {
+    slug: "india-martinez",
+    name: "India Martínez",
+    genre: ["flamenco", "pop", "balada", "español"],
+    wikidata: "Q5915498",
+    blurb:
+      "India Martínez es la cantante cordobesa de flamenco-pop que despuntó con 'Vencer al Amor' tras ser finalista de Veo Veo. Discos como 'Camino la Buena Vida' y 'Palmeras' la han consolidado como una de las voces más reconocibles del flamenco-pop andaluz contemporáneo. Su gira 2026 incluye Cap Roig Festival, Stone & Music Mérida, FIBES Sevilla y Starlite Marbella. Con ConcertRide, los fans desde Granada llegan a Marbella por 5–8 €/asiento, sin comisión.",
+    upcomingConcerts: [
+      {
+        city: "Sevilla",
+        citySlug: "sevilla",
+        venue: "FIBES (Palacio de Congresos)",
+        date: "TBD",
+        concertRideRange: "4–7 €/asiento",
+        originCities: [
+          { city: "Córdoba", range: "4–6 €" },
+          { city: "Cádiz", range: "5–8 €" },
+          { city: "Málaga", range: "7–10 €" },
+        ],
+      },
+      {
+        city: "Mérida",
+        citySlug: "merida",
+        venue: "Teatro Romano de Mérida (Stone & Music)",
+        date: "TBD",
+        concertRideRange: "3–5 €/asiento",
+        originCities: [
+          { city: "Cáceres", range: "4–6 €" },
+          { city: "Badajoz", range: "3–5 €" },
+          { city: "Sevilla", range: "6–9 €" },
+        ],
+      },
+      {
+        city: "Marbella",
+        citySlug: "malaga",
+        venue: "Starlite Cantera Marbella",
+        date: "TBD",
+        concertRideRange: "3–5 €/asiento",
+        originCities: [
+          { city: "Málaga", range: "3–5 €" },
+          { city: "Granada", range: "5–8 €" },
+          { city: "Sevilla", range: "7–11 €" },
+        ],
+      },
+    ],
+    relatedFestivals: ["stone-music-festival", "starlite-festival"],
+  },
+  {
+    slug: "raphael",
+    name: "Raphael",
+    genre: ["balada", "copla", "español"],
+    wikidata: "Q444864",
+    blurb:
+      "Raphael (Miguel Rafael Martos Sánchez) es el cantante linarense considerado una leyenda viva de la canción melódica española, con más de 60 años de carrera y 50 millones de discos vendidos. Conocido por éxitos como 'Mi gran noche', 'Yo soy aquel' y 'Como yo te amo', su gira aniversario 2026 incluye WiZink Center Madrid, Palau Sant Jordi Barcelona y Stone & Music Mérida. Con ConcertRide, los fans desde Valencia llegan al WiZink por 10–14 €/asiento, sin comisión.",
+    upcomingConcerts: [
+      {
+        city: "Madrid",
+        citySlug: "madrid",
+        venue: "WiZink Center",
+        date: "TBD",
+        concertRideRange: "4–7 €/asiento",
+        originCities: [
+          { city: "Valencia", range: "10–14 €" },
+          { city: "Toledo", range: "4–7 €" },
+          { city: "Zaragoza", range: "9–13 €" },
+        ],
+      },
+      {
+        city: "Barcelona",
+        citySlug: "barcelona",
+        venue: "Palau Sant Jordi",
+        date: "TBD",
+        concertRideRange: "4–7 €/asiento",
+        originCities: [
+          { city: "Madrid", range: "15–20 €" },
+          { city: "Valencia", range: "10–14 €" },
+          { city: "Tarragona", range: "5–8 €" },
+        ],
+      },
+      {
+        city: "Mérida",
+        citySlug: "merida",
+        venue: "Teatro Romano de Mérida (Stone & Music)",
+        date: "TBD",
+        concertRideRange: "3–5 €/asiento",
+        originCities: [
+          { city: "Cáceres", range: "4–6 €" },
+          { city: "Badajoz", range: "3–5 €" },
+          { city: "Sevilla", range: "6–9 €" },
+        ],
+      },
+    ],
+    relatedFestivals: ["stone-music-festival"],
+  },
+  {
+    slug: "pignoise",
+    name: "Pignoise",
+    genre: ["pop punk", "pop rock", "español"],
+    wikidata: "Q1820385",
+    blurb:
+      "Pignoise es la banda madrileña de pop-punk formada por Álvaro Benito (ex-jugador del Real Madrid) tras su retirada del fútbol, con éxitos como 'Nada que perder', 'Te entiendo' y 'Tres palabras'. Tras una pausa de varios años, su regreso en 2025–2026 incluye paradas en WiZink Center Madrid, Sala Razzmatazz Barcelona, Sonorama Ribera y SOS 4.8. Con ConcertRide, los fans desde Toledo llegan al WiZink por 4–7 €/asiento, sin comisión.",
+    upcomingConcerts: [
+      {
+        city: "Madrid",
+        citySlug: "madrid",
+        venue: "WiZink Center",
+        date: "TBD",
+        concertRideRange: "4–7 €/asiento",
+        originCities: [
+          { city: "Toledo", range: "4–7 €" },
+          { city: "Valencia", range: "10–14 €" },
+          { city: "Zaragoza", range: "9–13 €" },
+        ],
+      },
+      {
+        city: "Barcelona",
+        citySlug: "barcelona",
+        venue: "Sala Razzmatazz",
+        date: "TBD",
+        concertRideRange: "4–7 €/asiento",
+        originCities: [
+          { city: "Madrid", range: "15–20 €" },
+          { city: "Valencia", range: "10–14 €" },
+          { city: "Tarragona", range: "5–8 €" },
+        ],
+      },
+      {
+        city: "Aranda de Duero",
+        citySlug: "burgos",
+        venue: "Sonorama Ribera",
+        date: "TBD",
+        concertRideRange: "5–9 €/asiento",
+        originCities: [
+          { city: "Madrid", range: "8–12 €" },
+          { city: "Valladolid", range: "4–6 €" },
+          { city: "Burgos", range: "3–5 €" },
+        ],
+      },
+    ],
+    relatedFestivals: ["sonorama-ribera", "sos-48"],
+  },
+  {
+    slug: "amaia",
+    name: "Amaia",
+    genre: ["indie pop", "pop", "español"],
+    wikidata: "Q49612568",
+    blurb:
+      "Amaia Romero es la cantante navarra ganadora de Operación Triunfo 2017 que tras representar a España en Eurovisión 2018 ha forjado una carrera indie pop con álbumes como 'Pero no pasa nada' y 'Cuando no sé quién soy'. Su gira 2026 incluye WiZink Center Madrid, Sala Apolo Barcelona, Mad Cool, Sonorama Ribera y Primavera Sound. Con ConcertRide, los fans desde Pamplona llegan al WiZink por 5–8 €/asiento, sin comisión.",
+    upcomingConcerts: [
+      {
+        city: "Madrid",
+        citySlug: "madrid",
+        venue: "WiZink Center",
+        date: "TBD",
+        concertRideRange: "4–7 €/asiento",
+        originCities: [
+          { city: "Pamplona", range: "5–8 €" },
+          { city: "Zaragoza", range: "9–13 €" },
+          { city: "Valencia", range: "10–14 €" },
+        ],
+      },
+      {
+        city: "Barcelona",
+        citySlug: "barcelona",
+        venue: "Sala Apolo / Razzmatazz",
+        date: "TBD",
+        concertRideRange: "4–7 €/asiento",
+        originCities: [
+          { city: "Madrid", range: "15–20 €" },
+          { city: "Valencia", range: "10–14 €" },
+          { city: "Tarragona", range: "5–8 €" },
+        ],
+      },
+      {
+        city: "Pamplona",
+        citySlug: "pamplona",
+        venue: "Baluarte (Palacio de Congresos)",
+        date: "TBD",
+        concertRideRange: "3–5 €/asiento",
+        originCities: [
+          { city: "Donostia", range: "4–6 €" },
+          { city: "Zaragoza", range: "5–8 €" },
+          { city: "Logroño", range: "3–5 €" },
+        ],
+      },
+    ],
+    relatedFestivals: ["mad-cool", "sonorama-ribera", "primavera-sound"],
+  },
+  {
+    slug: "nathy-peluso",
+    name: "Nathy Peluso",
+    genre: ["urbano", "soul", "jazz", "rap"],
+    wikidata: "Q56245068",
+    blurb:
+      "Natalia Beatriz Dera Peluso es la artista argentina afincada en España conocida por mezclar soul, jazz, hip-hop y reggaeton con una voz potente y un imaginario visual único. Ganadora del Latin Grammy a Mejor Nuevo Artista 2020, su gira 'GRASA Tour' incluye WiZink Center Madrid, Palau Sant Jordi Barcelona y festivales como Mad Cool y Primavera Sound. Con ConcertRide, los fans desde Valencia llegan al WiZink por 10–14 €/asiento, sin comisión.",
+    upcomingConcerts: [
+      {
+        city: "Madrid",
+        citySlug: "madrid",
+        venue: "WiZink Center",
+        date: "TBD",
+        concertRideRange: "4–7 €/asiento",
+        originCities: [
+          { city: "Valencia", range: "10–14 €" },
+          { city: "Zaragoza", range: "9–13 €" },
+          { city: "Sevilla", range: "14–20 €" },
+        ],
+      },
+      {
+        city: "Barcelona",
+        citySlug: "barcelona",
+        venue: "Palau Sant Jordi",
+        date: "TBD",
+        concertRideRange: "4–7 €/asiento",
+        originCities: [
+          { city: "Madrid", range: "15–20 €" },
+          { city: "Valencia", range: "10–14 €" },
+          { city: "Tarragona", range: "5–8 €" },
+        ],
+      },
+    ],
+    relatedFestivals: ["mad-cool", "primavera-sound", "cruilla"],
+  },
+  {
+    slug: "rels-b",
+    name: "Rels B",
+    genre: ["rap", "trap", "urbano", "español"],
+    wikidata: "Q56245301",
+    blurb:
+      "Rels B (Daniel Heredia Vidal) es el rapero mallorquín que se ha convertido en uno de los artistas urbanos españoles con más streams de la plataforma, con éxitos como 'A Mí', 'La Luna y Yo' y 'Cómo dormiste?'. Su gira 'AFTERPARTY Tour 2026' incluye Movistar Arena Madrid, Palau Sant Jordi Barcelona, Mallorca Live y Reggaeton Beach Festival Salou. Con ConcertRide, los fans desde Valencia llegan al Movistar Arena por 10–14 €/asiento, sin comisión.",
+    upcomingConcerts: [
+      {
+        city: "Madrid",
+        citySlug: "madrid",
+        venue: "Movistar Arena",
+        date: "TBD",
+        concertRideRange: "4–7 €/asiento",
+        originCities: [
+          { city: "Valencia", range: "10–14 €" },
+          { city: "Zaragoza", range: "9–13 €" },
+          { city: "Sevilla", range: "14–20 €" },
+        ],
+      },
+      {
+        city: "Barcelona",
+        citySlug: "barcelona",
+        venue: "Palau Sant Jordi",
+        date: "TBD",
+        concertRideRange: "4–7 €/asiento",
+        originCities: [
+          { city: "Madrid", range: "15–20 €" },
+          { city: "Valencia", range: "10–14 €" },
+          { city: "Tarragona", range: "5–8 €" },
+        ],
+      },
+      {
+        city: "Salou",
+        citySlug: "tarragona",
+        venue: "Reggaeton Beach Festival",
+        date: "TBD",
+        concertRideRange: "3 €/asiento",
+        originCities: [
+          { city: "Tarragona", range: "3 €" },
+          { city: "Reus", range: "3 €" },
+          { city: "Barcelona", range: "5–8 €" },
+        ],
+      },
+    ],
+    relatedFestivals: ["reggaeton-beach-festival", "mallorca-live-festival"],
+  },
 ];
 
 export const ARTIST_LANDINGS_BY_SLUG: Record<string, ArtistLanding> = Object.fromEntries(

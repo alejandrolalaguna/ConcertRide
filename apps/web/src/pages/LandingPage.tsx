@@ -7,6 +7,8 @@ import { api } from "@/lib/api";
 import { useSeoMeta } from "@/lib/useSeoMeta";
 import { SITE_URL } from "@/lib/siteUrl";
 import { concertStatus } from "@/components/ConcertCard";
+import { generateServiceReviewSchema } from "@/lib/schemaGenerators";
+import { TESTIMONIAL_REVIEWS, TESTIMONIALS_AGGREGATE } from "@/lib/testimonials";
 import { Hero } from "@/components/landing/Hero";
 import { StatsBar } from "@/components/StatsBar";
 import { HorizontalCarousel } from "@/components/landing/HorizontalCarousel";
@@ -263,49 +265,17 @@ export default function LandingPage() {
           }),
         }}
       />
+      {/* Service entity with AggregateRating + individual Reviews — derived from real testimonials (lib/testimonials.ts). */}
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
-          __html: JSON.stringify({
-            "@context": "https://schema.org",
-            "@type": "ItemList",
-            name: "Opiniones de usuarios de ConcertRide",
-            itemListElement: [
-              {
-                "@type": "ListItem",
-                position: 1,
-                item: {
-                  "@type": "Review",
-                  reviewBody: "Ahorré 40€ yendo al Sónar desde Madrid. El conductor puso la playlist perfecta.",
-                  author: { "@type": "Person", name: "Sara M." },
-                  itemReviewed: { "@type": "SoftwareApplication", name: "ConcertRide", url: SITE_URL, applicationCategory: "TravelApplication" },
-                  reviewRating: { "@type": "Rating", ratingValue: "5", bestRating: "5" },
-                },
-              },
-              {
-                "@type": "ListItem",
-                position: 2,
-                item: {
-                  "@type": "Review",
-                  reviewBody: "Mi crew entera fue a Arenal Sound en un solo coche. Sin comisiones, sin líos.",
-                  author: { "@type": "Person", name: "Dani R." },
-                  itemReviewed: { "@type": "SoftwareApplication", name: "ConcertRide", url: SITE_URL, applicationCategory: "TravelApplication" },
-                  reviewRating: { "@type": "Rating", ratingValue: "5", bestRating: "5" },
-                },
-              },
-              {
-                "@type": "ListItem",
-                position: 3,
-                item: {
-                  "@type": "Review",
-                  reviewBody: "Publiqué mi coche a Mad Cool y cubrí gasolina y peajes entre los 3 pasajeros.",
-                  author: { "@type": "Person", name: "Irene S." },
-                  itemReviewed: { "@type": "SoftwareApplication", name: "ConcertRide", url: SITE_URL, applicationCategory: "TravelApplication" },
-                  reviewRating: { "@type": "Rating", ratingValue: "5", bestRating: "5" },
-                },
-              },
-            ],
-          }),
+          __html: JSON.stringify(
+            generateServiceReviewSchema({
+              siteUrl: SITE_URL,
+              aggregate: TESTIMONIALS_AGGREGATE,
+              reviews: TESTIMONIAL_REVIEWS,
+            }),
+          ),
         }}
       />
       <script
@@ -327,9 +297,10 @@ export default function LandingPage() {
             },
             aggregateRating: {
               "@type": "AggregateRating",
-              ratingValue: "4.8",
-              ratingCount: "1200",
-              bestRating: "5",
+              ratingValue: TESTIMONIALS_AGGREGATE.ratingValue,
+              reviewCount: TESTIMONIALS_AGGREGATE.reviewCount,
+              bestRating: TESTIMONIALS_AGGREGATE.bestRating,
+              worstRating: TESTIMONIALS_AGGREGATE.worstRating,
             },
           }),
         }}
@@ -846,13 +817,13 @@ export default function LandingPage() {
       {/* 16. Final CTA — crowd photo + lime bloom */}
       <FinalCTA />
 
-      {/* 17. Sticky mobile CTA */}
+      {/* 17. Sticky mobile CTA — links to next festival landing (Primavera Sound 28 may–1 jun) */}
       <div className="fixed bottom-0 left-0 right-0 z-40 sm:hidden bg-[#080808]/95 backdrop-blur border-t border-white/[0.06] p-3">
         <a
-          href="/concerts"
+          href="/festivales/primavera-sound"
           className="block w-full text-center bg-[#dbff00] text-black font-sans font-semibold uppercase tracking-[0.12em] text-sm py-3 hover:bg-[#c8ec00] transition-colors"
         >
-          Ver viajes hoy
+          Ver viajes a Primavera Sound desde 4€ →
         </a>
       </div>
     </main>

@@ -16,8 +16,9 @@ import { FESTIVAL_LANDINGS } from "@/lib/festivalLandings";
 import { CITY_LANDINGS } from "@/lib/cityLandings";
 import { useSeoMeta } from "@/lib/useSeoMeta";
 import { SITE_URL } from "@/lib/siteUrl";
-import { generateBreadcrumbSchema, generateFAQSchema } from "@/lib/schemaGenerators";
+import { generateBreadcrumbSchema, generateFAQSchema, generateHowToSchema, type HowToStep } from "@/lib/schemaGenerators";
 import { HOW_TO_GET_THERE_SEO } from "@/lib/seoOverrides";
+import { SpeakableAnswerBlock } from "@/components/SpeakableAnswerBlock";
 import { MapPin, Bus, Clock, DollarSign, Users, ArrowRight } from "lucide-react";
 
 const YEAR = new Date().getFullYear();
@@ -92,6 +93,44 @@ export default function HowToGetTherePage() {
   const festName = festival.shortName;
   const firstCity = mainCities[0];
   const firstCitySlug = firstCity?.slug ?? "";
+
+  // Minimum carpooling price across estimated origin cities (for voice/AI answer).
+  const minCarpoolPrice = useMemo(() => {
+    const prices = Object.values(estimatedPrices);
+    return prices.length > 0 ? Math.min(...prices) : 5;
+  }, [estimatedPrices]);
+
+  // Main transit option: prefer official shuttle, otherwise first non-carpooling transport.
+  const speakableTransit = useMemo<{ primary: string; alt: string }>(() => {
+    const fest = festival as unknown as {
+      official_shuttle?: { available?: boolean; notes?: string };
+      transport_options?: Array<{ type?: string; provider?: string; origin?: string; price_from?: number; price_to?: number; notes?: string }>;
+    };
+    const shuttle = fest.official_shuttle;
+    const opts = fest.transport_options ?? [];
+    const nonCarpool = opts.find((o) => o.type && o.type !== "carpooling");
+
+    let primary = "";
+    if (shuttle?.available && shuttle.notes) {
+      primary = `lanzadera oficial (${shuttle.notes.replace(/\.$/, "")})`;
+    } else if (nonCarpool) {
+      const range =
+        nonCarpool.price_from != null && nonCarpool.price_to != null
+          ? `${nonCarpool.price_from}–${nonCarpool.price_to}€`
+          : "";
+      primary = `${nonCarpool.provider ?? nonCarpool.type} desde ${nonCarpool.origin ?? festival.city}${range ? ` (${range})` : ""}`;
+    } else {
+      primary = `transporte público hasta ${festival.city}`;
+    }
+
+    const alt = firstCity
+      ? `carpooling directo desde ${firstCity.display} (${estimatedDistances[firstCitySlug] ?? 0} km, ${estimatedPrices[firstCitySlug] ?? minCarpoolPrice}–${(estimatedPrices[firstCitySlug] ?? minCarpoolPrice) + 3}€/asiento)`
+      : `coche compartido desde tu ciudad`;
+
+    return { primary, alt };
+  }, [festival, firstCity, firstCitySlug, estimatedDistances, estimatedPrices, minCarpoolPrice]);
+
+  const speakableAnswer = `Se llega a ${festival.name} ${YEAR} (${festival.venue}, ${festival.city}) por: (1) Carpooling ConcertRide desde ${minCarpoolPrice}€/asiento con conductores verificados, sin comisión de plataforma. (2) ${speakableTransit.primary}. (3) ${speakableTransit.alt}. Pago directo al conductor en efectivo o Bizum, vuelta de madrugada coordinada con otros asistentes.`;
   const seoOverride = HOW_TO_GET_THERE_SEO[festival.slug];
   const seoTitle = seoOverride?.title ?? `Cómo llegar a ${festName} ${YEAR}: Bus, Carpooling y Tren | ConcertRide`;
   const seoDescription = seoOverride?.description ?? `Guía completa: cómo llegar a ${festName} ${YEAR} (${festival.venue}, ${festival.city}). Carpooling desde ${estimatedPrices[firstCitySlug] ?? 5}€/asiento. Bus, tren y coche compartido. Sin comisión.`;
@@ -136,6 +175,122 @@ export default function HowToGetTherePage() {
     { name: "Cómo llegar", url: `/como-llegar/${festival.slug}` },
   ];
 
+  // ---------- HowTo schema steps (dynamic, real data) ----------
+  const howToSteps = useMemo<HowToStep[]>(() => {
+    const fest = festival as unknown as {
+      official_shuttle?: { available?: boolean; price_from?: number; price_to?: number; notes?: string; url?: string };
+      transport_options?: Array<{
+        type?: string;
+        provider?: string;
+        origin?: string;
+        price_from?: number;
+        price_to?: number;
+        frequency?: string;
+        schedule?: string;
+        notes?: string;
+      }>;
+    };
+    const shuttle = fest.official_shuttle;
+    const opts = fest.transport_options ?? [];
+    const train = opts.find((o) => o.type === "train");
+    const bus = opts.find((o) => o.type === "bus");
+    const cityForFestival = firstCity?.display ?? festival.city;
+
+    const steps: HowToStep[] = [];
+
+    // Step 1: Compara opciones de transporte
+    const optionParts: string[] = [
+      `carpooling ConcertRide desde ${minCarpoolPrice}€/asiento`,
+    ];
+    if (bus) {
+      const range = bus.price_from != null && bus.price_to != null ? `${bus.price_from}–${bus.price_to}€` : "precio variable";
+      optionParts.push(`${bus.provider ?? "autobús"} (${range})`);
+    }
+    if (train) {
+      const range = train.price_from != null && train.price_to != null ? `${train.price_from}–${train.price_to}€` : "precio variable";
+      optionParts.push(`${train.provider ?? "tren"} (${range})`);
+    }
+    if (shuttle?.available) {
+      const range = shuttle.price_from != null && shuttle.price_to != null ? `${shuttle.price_from}–${shuttle.price_to}€` : "consulta web oficial";
+      optionParts.push(`lanzadera oficial (${range})`);
+    }
+    steps.push({
+      name: `Compara opciones de transporte a ${festName}`,
+      text: `Las principales formas de llegar a ${festival.name} (${festival.venue}, ${festival.city}) son: ${optionParts.join("; ")}. El carpooling suele ser la opción más económica y flexible para horarios nocturnos.`,
+      url: `${SITE_URL}/como-llegar/${festival.slug}`,
+    });
+
+    // Step 2: Reserva o contacta
+    steps.push({
+      name: `Reserva tu plaza en ConcertRide`,
+      text: `Regístrate gratis en ConcertRide y filtra viajes a ${festName} ${YEAR}. Reserva una plaza con conductor verificado (DNI + antecedentes). Sin comisión: el 100% del precio va al conductor. Pago en efectivo o Bizum al subir al coche.`,
+      url: `${SITE_URL}/festivales/${festival.slug}`,
+    });
+
+    // Step 3: Punto de encuentro y salida desde ciudad de origen
+    if (firstCity) {
+      const dist = estimatedDistances[firstCitySlug] ?? 0;
+      const time = estimatedTimes[firstCitySlug] ?? 1;
+      steps.push({
+        name: `Sal desde ${cityForFestival} hacia ${festival.city}`,
+        text: `Confirma el punto de encuentro con el conductor (típicamente una estación o aparcamiento céntrico). La ruta ${cityForFestival} → ${festival.city} son ~${dist} km y ~${time} h de conducción. Sale 1–2 h antes del horario en que quieras llegar al recinto.`,
+        url: firstCity ? `${SITE_URL}/rutas/${firstCity.slug}-${festival.slug}` : undefined,
+      });
+    } else {
+      steps.push({
+        name: `Acude al punto de encuentro`,
+        text: `Confirma el punto de encuentro con el conductor por chat dentro de ConcertRide. Lleva DNI y el código de reserva. Compartir ubicación en tiempo real desde la app.`,
+      });
+    }
+
+    // Step 4: Alternativa pública si aplica
+    if (shuttle?.available && shuttle.notes) {
+      steps.push({
+        name: `Alternativa: lanzadera oficial`,
+        text: `${festival.name} opera lanzadera oficial: ${shuttle.notes.replace(/\.$/, "")}. Compra el ticket en la web oficial del festival. Horarios limitados, suele agotarse en festivales grandes.`,
+        url: shuttle.url,
+      });
+    } else if (train) {
+      steps.push({
+        name: `Alternativa: ${train.provider ?? "tren"}`,
+        text: `${train.provider ?? "Tren"} ${train.origin ? `(${train.origin})` : ""}. ${train.frequency ?? ""} ${train.schedule ?? ""} ${train.notes ?? ""}`.trim(),
+      });
+    } else if (bus) {
+      steps.push({
+        name: `Alternativa: ${bus.provider ?? "autobús"}`,
+        text: `${bus.provider ?? "Autobús"} ${bus.origin ? `desde ${bus.origin}` : ""}. ${bus.frequency ?? ""} ${bus.schedule ?? ""} ${bus.notes ?? ""}`.trim(),
+      });
+    }
+
+    // Step 5: Llegada al recinto
+    steps.push({
+      name: `Llega al recinto: ${festival.venue}`,
+      text: `Llegada a ${festival.venue} (${festival.city}). Pide al conductor parar en la zona de drop-off del festival. Coordina la vuelta con el mismo grupo de viaje: las salidas de madrugada (1:00–3:00) suelen colapsar el transporte público.`,
+      url: `${SITE_URL}/festivales/${festival.slug}`,
+    });
+
+    return steps;
+  }, [festival, firstCity, firstCitySlug, estimatedDistances, estimatedTimes, minCarpoolPrice, festName]);
+
+  // Approximate total drive time from the nearest origin city (or 2 h fallback).
+  const totalTimeIso = useMemo(() => {
+    const h = estimatedTimes[firstCitySlug] ?? 2;
+    return `PT${h}H`;
+  }, [estimatedTimes, firstCitySlug]);
+
+  const howToSchema = useMemo(
+    () =>
+      generateHowToSchema({
+        name: `Cómo llegar a ${festName} ${YEAR}`,
+        description: `Guía paso a paso para llegar a ${festival.name} (${festival.venue}, ${festival.city}) ${YEAR}: carpooling desde ${minCarpoolPrice}€/asiento, transporte público y alternativas oficiales.`,
+        totalTime: totalTimeIso,
+        estimatedCost: { currency: "EUR", value: String(minCarpoolPrice) },
+        steps: howToSteps,
+        pageUrl: `${SITE_URL}/como-llegar/${festival.slug}`,
+      }),
+    [festName, festival, minCarpoolPrice, totalTimeIso, howToSteps],
+  );
+
   return (
     <main id="main" className="min-h-screen bg-black text-white">
       {/* JSON-LD for breadcrumbs */}
@@ -150,6 +305,12 @@ export default function HowToGetTherePage() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(generateFAQSchema(faqs)) }}
       />
 
+      {/* JSON-LD for HowTo — eligible for Google "step-by-step" rich result. */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(howToSchema) }}
+      />
+
       {/* Hero */}
       <section className="bg-gradient-to-b from-cr-primary/20 to-black py-12 px-4">
         <div className="max-w-4xl mx-auto">
@@ -159,6 +320,14 @@ export default function HowToGetTherePage() {
           <p className="text-xl text-gray-300 leading-relaxed">
             Guía completa: distancias, horarios, transporte público, autobús y carpooling económico sin comisión.
           </p>
+
+          {/* Speakable answer block — optimizes for AI Overviews + voice assistants. */}
+          <SpeakableAnswerBlock
+            schemaId={`speakable-howto-${festival.slug}`}
+            pageUrl={`${SITE_URL}/como-llegar/${festival.slug}`}
+            question={`¿Cómo se llega a ${festival.name} ${YEAR}?`}
+            answer={speakableAnswer}
+          />
         </div>
       </section>
 

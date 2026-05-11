@@ -6,6 +6,7 @@ import { api } from "@/lib/api";
 import { ConcertCard } from "@/components/ConcertCard";
 import { LoadingSpinner } from "@/components/ui";
 import { FactDensityCallout } from "@/components/FactDensityCallout";
+import { SpeakableAnswerBlock } from "@/components/SpeakableAnswerBlock";
 import { useSeoMeta } from "@/lib/useSeoMeta";
 import { SITE_URL } from "@/lib/siteUrl";
 import { REGION_ISO } from "@/lib/seoConfig";
@@ -658,6 +659,37 @@ export default function CityLandingPage() {
         <h1 className="font-display text-4xl md:text-6xl uppercase leading-[0.92]">
           Conciertos en {landing.display} {year}.
         </h1>
+
+        {(() => {
+          const cityFestivalsForSpeakable = FESTIVAL_LANDINGS.filter((f) => f.citySlug === landing.slug);
+          const nearbyFestivalsForSpeakable = FESTIVAL_LANDINGS.filter(
+            (f) => f.citySlug !== landing.slug && f.originCities.some((oc) => oc.city === landing.display || oc.city === landing.city),
+          );
+          const festivalsForAnswer = (cityFestivalsForSpeakable.length > 0 ? cityFestivalsForSpeakable : nearbyFestivalsForSpeakable).slice(0, 3);
+          const festivalNames = festivalsForAnswer.map((f) => f.shortName).join(", ");
+          const venuesForAnswer = landing.venues.slice(0, 3).join(", ");
+          const priceCandidates = ROUTE_LANDINGS
+            .filter((r) => r.originCitySlug === landing.slug)
+            .map((r) => Number(r.originData.concertRideRange.match(/(\d+)/)?.[1] ?? ""))
+            .filter((n) => Number.isFinite(n) && n > 0);
+          const minPrice = priceCandidates.length > 0 ? Math.min(...priceCandidates) : 3;
+          const answerParts = [
+            `En ${landing.display} ${year} hay conciertos y festivales programados`,
+            venuesForAnswer ? ` en recintos como ${venuesForAnswer}.` : ".",
+            ` ConcertRide ofrece carpooling desde ${minPrice} €/asiento`,
+            festivalNames ? ` a festivales próximos como ${festivalNames}.` : " a festivales por toda España.",
+            ` El pago se hace directo al conductor en efectivo o Bizum, sin comisión de plataforma. Conductores verificados con carnet de conducir y vuelta de madrugada coordinada.`,
+          ];
+          return (
+            <SpeakableAnswerBlock
+              schemaId={`speakable-city-${landing.slug}`}
+              pageUrl={`${SITE_URL}/conciertos/${landing.slug}`}
+              question={`¿Qué conciertos y festivales hay en ${landing.display} ${year}?`}
+              answer={answerParts.join("")}
+            />
+          );
+        })()}
+
         <p className="font-sans text-sm md:text-base text-cr-text-muted max-w-2xl leading-relaxed speakable">
           {landing.blurb}
         </p>

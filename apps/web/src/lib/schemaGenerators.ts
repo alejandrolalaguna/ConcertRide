@@ -214,6 +214,39 @@ export function generateSpeakableSchema(cssSelectors: string[] = ["h1", ".speaka
 }
 
 /**
+ * Standalone WebPage + SpeakableSpecification schema for a single answer-first
+ * block (used by <SpeakableAnswerBlock />). Targets one specific DOM region
+ * via a CSS id selector, which gives AI engines a tight quotable region rather
+ * than the whole page.
+ */
+export function generateSpeakableAnswerSchema({
+  pageUrl,
+  schemaId,
+  name,
+  description,
+}: {
+  pageUrl: string;
+  schemaId: string;
+  name: string;
+  description: string;
+}) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    "@id": `${pageUrl}#${schemaId}`,
+    url: pageUrl,
+    name,
+    description,
+    inLanguage: "es-ES",
+    mainEntityOfPage: { "@id": pageUrl },
+    speakable: {
+      "@type": "SpeakableSpecification",
+      cssSelector: [`#${schemaId} .speakable`, `#${schemaId} h2`],
+    },
+  };
+}
+
+/**
  * WebSite + SearchAction schema for the home page.
  * Enables Google Sitelinks Search Box and signals the site's search endpoint.
  */
@@ -344,6 +377,57 @@ export function generateServiceReviewSchema({
       datePublished: r.date,
       reviewBody: r.quote,
       name: `Experiencia ConcertRide · ${r.concert}`,
+    })),
+  };
+}
+
+/**
+ * HowTo schema for /como-llegar/[slug] pages.
+ *
+ * Eligible for Google's "step-by-step" rich result in SERPs. Each step is a
+ * HowToStep with a position, name, and text. We construct steps dynamically
+ * from the FestivalLanding data (no inventions): transport mix, origin
+ * cities, official shuttle, distance/price estimates.
+ *
+ * Keep steps short and instructive so AI engines can quote them verbatim.
+ */
+export interface HowToStep {
+  name: string;       // e.g. "Salir desde Madrid centro"
+  text: string;       // detailed instruction
+  url?: string;       // optional URL (destination, route page, etc.)
+}
+
+export function generateHowToSchema(opts: {
+  name: string;             // e.g. "Cómo llegar a Mad Cool 2026"
+  description: string;      // one-line summary
+  totalTime?: string;       // ISO 8601 duration, e.g. "PT2H30M"
+  estimatedCost?: { currency: string; value: string };  // e.g. €5
+  steps: HowToStep[];
+  pageUrl: string;
+}) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "HowTo",
+    name: opts.name,
+    description: opts.description,
+    inLanguage: "es-ES",
+    mainEntityOfPage: { "@id": opts.pageUrl },
+    ...(opts.totalTime ? { totalTime: opts.totalTime } : {}),
+    ...(opts.estimatedCost
+      ? {
+          estimatedCost: {
+            "@type": "MonetaryAmount",
+            currency: opts.estimatedCost.currency,
+            value: opts.estimatedCost.value,
+          },
+        }
+      : {}),
+    step: opts.steps.map((s, i) => ({
+      "@type": "HowToStep",
+      position: i + 1,
+      name: s.name,
+      text: s.text,
+      ...(s.url ? { url: s.url } : {}),
     })),
   };
 }

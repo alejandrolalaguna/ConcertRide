@@ -27,6 +27,7 @@ import { trackFestivalView } from "@/lib/seoEvents";
 import { FestivalAlertWidget } from "@/components/FestivalAlertWidget";
 import { FestivalQnaWidget } from "@/components/FestivalQnaWidget";
 import { FactDensityCallout } from "@/components/FactDensityCallout";
+import { SpeakableAnswerBlock } from "@/components/SpeakableAnswerBlock";
 import { AutoLinksForFestival } from "@/lib/autoLinking";
 import { BLOG_POSTS } from "@/lib/blogPosts";
 
@@ -146,6 +147,22 @@ export default function FestivalLandingPage() {
   const futureConcerts = (concerts ?? []).filter(
     (c) => new Date(c.date).getTime() > Date.now(),
   );
+
+  // Compute minimum price (€) across all origin cities so we can surface it
+  // in the primary CTA, sticky mobile bar, etc. Falls back to 3 € if empty.
+  const priceFromMin: number = (() => {
+    const nums = festival.originCities
+      .map((oc) => (oc.concertRideRange || "").match(/\d+/g))
+      .flat()
+      .map((n) => Number(n))
+      .filter((n) => Number.isFinite(n) && n > 0);
+    return nums.length ? Math.min(...nums) : 3;
+  })();
+
+  // Encoded slug for prefill on /publish (preselect destination festival)
+  const publishHref = `/publish?festival=${encodeURIComponent(festival.slug)}`;
+  // Primary "buscar" destination — city-scoped concert list with carpooling
+  const searchHref = `/concerts?city=${encodeURIComponent(festival.city)}`;
 
   const relatedFestivals = FESTIVAL_LANDINGS.filter((f) =>
     festival.relatedFestivals.includes(f.slug),
@@ -669,25 +686,38 @@ export default function FestivalLandingPage() {
           <span className="text-cr-primary">desde {festival.originCities[0]?.concertRideRange ?? "3 €"}/asiento</span>
         </h1>
 
+        {/* ── Answer-first block · SpeakableSpecification target for AI Overviews / voice assistants ── */}
+        <SpeakableAnswerBlock
+          schemaId={`speakable-festival-${festival.slug}`}
+          pageUrl={`${SITE_URL}/festivales/${festival.slug}`}
+          question={`¿Cómo llegar a ${festival.name} ${festYear}?`}
+          answer={`Para llegar a ${festival.name} ${festYear} en ${festival.venue} (${festival.city}), ConcertRide ofrece carpooling desde ${(festival.originCities[0]?.concertRideRange ?? "3 €/asiento").split("–").at(0)?.replace(/[^0-9]/g, "") || "3"}€/asiento con conductores verificados desde ${festival.originCities.length} ciudades españolas. ${festival.official_shuttle?.available ? `También hay lanzadera oficial${festival.official_shuttle.price_from ? ` desde ${festival.official_shuttle.price_from}€` : ""}.` : `No hay lanzadera oficial al recinto.`} Pagas en efectivo o Bizum el día del viaje, sin comisión de plataforma.`}
+        />
+
         <p className="font-sans text-sm font-semibold text-cr-text max-w-2xl speakable festival-summary">
           Carpooling a {festival.name} desde {festival.originCities[0]?.concertRideRange ?? "3 €"}/asiento, sin comisión. Se celebra en {festival.venue}, {festival.city} ({festival.typicalDates}). Conductores verificados con carnet.
         </p>
 
-        {/* ── Hero CTAs — máximo impacto en el fold ── */}
+        {/* ── Hero CTAs — máximo impacto en el fold, precio en el CTA principal ── */}
         <div className="flex flex-wrap gap-3 pt-1">
           <Link
-            to={`/concerts?city=${encodeURIComponent(festival.city)}`}
-            className="inline-flex items-center gap-2 bg-cr-primary text-black font-sans text-sm font-bold uppercase tracking-[0.12em] px-5 py-3 hover:bg-cr-primary/90 transition-colors"
+            to={searchHref}
+            aria-label={`Buscar plaza en viaje a ${festival.shortName} ${festYear} desde ${priceFromMin} euros por asiento`}
+            className="inline-flex items-center gap-2 bg-cr-primary text-black font-sans text-sm font-bold uppercase tracking-[0.12em] px-5 py-3 shadow-[0_4px_0_0_#ff4f00] hover:bg-cr-primary/90 hover:translate-y-[1px] hover:shadow-[0_3px_0_0_#ff4f00] transition-all"
           >
-            Buscar viajes a {festival.shortName} <ArrowRight size={14} />
+            Buscar plaza · desde {priceFromMin}€ <ArrowRight size={14} />
           </Link>
           <Link
-            to="/publish"
+            to={publishHref}
+            aria-label={`Publicar mi coche a ${festival.shortName} ${festYear}`}
             className="inline-flex items-center gap-2 border-2 border-cr-primary text-cr-primary font-sans text-sm font-bold uppercase tracking-[0.12em] px-5 py-3 hover:bg-cr-primary hover:text-black transition-colors"
           >
-            Publicar viaje →
+            Publicar mi coche →
           </Link>
         </div>
+        <p className="font-mono text-[11px] text-cr-text-dim">
+          Sin comisión · Pago en efectivo o Bizum · Conductores verificados
+        </p>
 
         <p className="font-sans text-sm md:text-base text-cr-text-muted max-w-2xl leading-relaxed speakable">
           {festival.blurb}
@@ -986,19 +1016,35 @@ export default function FestivalLandingPage() {
         {concerts === null ? (
           <LoadingSpinner text={`Cargando viajes a ${festival.shortName}…`} />
         ) : futureConcerts.length === 0 ? (
-          <div className="border border-dashed border-cr-border p-10 text-center space-y-3">
-            <p className="font-display text-xl uppercase text-cr-text-muted">
-              Aún no hay viajes publicados
+          <div className="relative border-2 border-dashed border-cr-primary/40 bg-cr-primary/[0.04] p-10 text-center space-y-4 overflow-hidden">
+            <span className="absolute top-3 right-3 font-mono text-[10px] uppercase tracking-[0.16em] text-cr-primary border border-cr-primary/40 px-2 py-0.5">
+              Sé el primero
+            </span>
+            <p className="font-display text-2xl md:text-3xl uppercase text-cr-text leading-tight">
+              Sé el primero en publicar viaje a {festival.shortName}
             </p>
-            <p className="font-sans text-sm text-cr-text-muted">
-              Sé el primero en publicar un viaje a {festival.shortName}.
+            <p className="font-sans text-sm text-cr-text-muted max-w-md mx-auto">
+              Llena tu coche y comparte el coste. Sin comisión: el 100 % va al conductor.
+              Tus pasajeros ya están esperando viajes a {festival.city}.
             </p>
-            <Link
-              to="/publish"
-              className="inline-block font-sans text-xs font-semibold uppercase tracking-[0.12em] border-2 border-cr-primary text-cr-primary px-4 py-2 hover:bg-cr-primary hover:text-black transition-colors"
-            >
-              Publicar viaje →
-            </Link>
+            <div className="flex flex-wrap gap-3 justify-center pt-1">
+              <Link
+                to={publishHref}
+                aria-label={`Publicar viaje a ${festival.shortName} ${festYear}`}
+                className="inline-flex items-center gap-2 bg-cr-primary text-black font-sans text-sm font-bold uppercase tracking-[0.12em] px-5 py-3 hover:bg-cr-primary/90 transition-colors"
+              >
+                Publicar viaje <ArrowRight size={14} />
+              </Link>
+              <Link
+                to={searchHref}
+                className="inline-flex items-center gap-2 border-2 border-cr-border text-cr-text-muted font-sans text-xs font-semibold uppercase tracking-[0.12em] px-4 py-3 hover:border-cr-primary hover:text-cr-primary transition-colors"
+              >
+                Ver otros conciertos en {festival.city}
+              </Link>
+            </div>
+            <p className="font-mono text-[10px] text-cr-text-dim pt-2">
+              Tiempo medio para publicar: 90 segundos · Sin tarjeta · Pago en efectivo o Bizum
+            </p>
           </div>
         ) : (
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
@@ -1524,6 +1570,32 @@ export default function FestivalLandingPage() {
         </ul>
       </section>
 
+      {/* ── ¿Tienes coche? — driver-side CTA siempre visible (incluye prerender) ── */}
+      <section className="max-w-6xl mx-auto px-6 pb-16 border-t border-cr-border pt-12">
+        <div className="border-2 border-cr-primary/40 bg-gradient-to-br from-cr-primary/[0.06] to-transparent p-6 md:p-8 flex flex-col md:flex-row md:items-center gap-5 md:gap-8">
+          <div className="flex-1 space-y-2">
+            <p className="font-mono text-[10px] uppercase tracking-[0.16em] text-cr-primary">
+              ¿Tienes coche?
+            </p>
+            <h2 className="font-display text-2xl md:text-3xl uppercase leading-tight">
+              Publica tu viaje a {festival.shortName} y llena el coche
+            </h2>
+            <p className="font-sans text-sm text-cr-text-muted max-w-xl leading-relaxed">
+              Comparte el coste de la gasolina y los peajes con otros asistentes a {festival.name}.
+              Sin comisión de plataforma: el 100 % de lo que pagan los pasajeros va al conductor.
+              Pago en efectivo o Bizum directamente entre vosotros.
+            </p>
+          </div>
+          <Link
+            to={publishHref}
+            aria-label={`Publicar viaje a ${festival.shortName} ${festYear}`}
+            className="inline-flex items-center justify-center gap-2 bg-cr-primary text-black font-sans text-sm font-bold uppercase tracking-[0.12em] px-6 py-3 hover:bg-cr-primary/90 transition-colors whitespace-nowrap"
+          >
+            Publicar mi coche <ArrowRight size={14} />
+          </Link>
+        </div>
+      </section>
+
       {/* ── Legal disclaimer ── */}
       <section className="max-w-6xl mx-auto px-6 pb-10 border-t border-cr-border pt-8">
         <p className="font-mono text-[11px] text-cr-text-dim leading-relaxed">
@@ -1539,23 +1611,30 @@ export default function FestivalLandingPage() {
         </p>
       </section>
 
-      {/* ── Sticky bottom CTA — mobile only ── */}
-      <div className="md:hidden fixed bottom-0 left-0 right-0 z-40 bg-cr-bg/95 backdrop-blur-sm border-t border-cr-border px-4 py-3 flex gap-2">
+      {/* ── Sticky bottom CTA — mobile only, festival-specific con precio ── */}
+      <div className="md:hidden fixed bottom-0 left-0 right-0 z-40 bg-cr-bg/95 backdrop-blur-sm border-t border-cr-border px-3 py-3 flex gap-2">
         <Link
-          to={`/concerts?city=${encodeURIComponent(festival.city)}`}
-          className="flex-1 flex items-center justify-center gap-1.5 bg-cr-primary text-black font-sans text-xs font-bold uppercase tracking-[0.1em] py-3"
+          to={searchHref}
+          aria-label={`Buscar plaza a ${festival.shortName} ${festYear} desde ${priceFromMin} euros`}
+          className="flex-1 flex flex-col items-center justify-center gap-0 bg-cr-primary text-black font-sans text-[11px] font-bold uppercase tracking-[0.08em] py-2 leading-tight"
         >
-          Buscar viajes a {festival.shortName} <ArrowRight size={12} />
+          <span className="flex items-center gap-1">
+            Buscar plaza a {festival.shortName} <ArrowRight size={11} />
+          </span>
+          <span className="font-mono text-[10px] font-semibold normal-case tracking-normal opacity-80">
+            desde {priceFromMin}€/asiento
+          </span>
         </Link>
         <Link
-          to="/publish"
-          className="flex items-center justify-center gap-1.5 border-2 border-cr-primary text-cr-primary font-sans text-xs font-bold uppercase tracking-[0.1em] px-3 py-3"
+          to={publishHref}
+          aria-label={`Publicar viaje a ${festival.shortName}`}
+          className="flex items-center justify-center gap-1.5 border-2 border-cr-primary text-cr-primary font-sans text-[11px] font-bold uppercase tracking-[0.08em] px-3 py-3"
         >
           Publicar
         </Link>
       </div>
       {/* Spacer for sticky bar on mobile */}
-      <div className="md:hidden h-16" />
+      <div className="md:hidden h-20" />
     </main>
   );
 }

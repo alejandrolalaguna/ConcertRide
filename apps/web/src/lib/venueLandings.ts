@@ -1374,6 +1374,767 @@ export const VENUE_LANDINGS: VenueLanding[] = [
     ],
     relatedFestivals: ["primavera-sound", "cruilla"],
   },
+
+  // ── SALA LA RIVIERA (MADRID) ─────────────────────────────────────────────────
+
+  {
+    slug: "la-riviera",
+    name: "Sala La Riviera",
+    shortName: "La Riviera",
+    city: "Madrid",
+    citySlug: "madrid",
+    region: "Comunidad de Madrid",
+    address: "Paseo Bajo de la Virgen del Puerto, s/n, 28005 Madrid",
+    lat: 40.4117,
+    lng: -3.7245,
+    capacity: "2.500 personas",
+    venueType: "Sala de conciertos",
+    transport: {
+      metro: "L6/L10/R Príncipe Pío (8 min a pie)",
+      bus: "Líneas 41, 46, 75, 138",
+      parking: "Parking Príncipe Pío (3–5 €/h) · zona azul limitada",
+    },
+    blurb:
+      "Sala La Riviera es una histórica sala de conciertos junto al Madrid Río y al Palacio Real, con capacidad para unas 2.500 personas en configuración de concierto. Acoge giras de rock, indie, electrónica y pop nacional/internacional, además de eventos especiales al aire libre. La parada más cercana es Príncipe Pío (L6/L10/Cercanías), a 8 min andando por el Paseo Bajo de la Virgen del Puerto. Para asistentes de fuera de Madrid, el carpooling con ConcertRide es la opción más usada al ser una sala céntrica con parking limitado.",
+    originCities: [
+      { city: "Toledo", km: 75, drivingTime: "55 min", concertRideRange: "4–6 €/asiento" },
+      { city: "Getafe", km: 18, drivingTime: "25 min", concertRideRange: "3–5 €/asiento" },
+      { city: "Valencia", km: 357, drivingTime: "3h 20 min", concertRideRange: "10–14 €/asiento" },
+      { city: "Zaragoza", km: 325, drivingTime: "3h", concertRideRange: "9–13 €/asiento" },
+      { city: "Barcelona", km: 620, drivingTime: "5h 30 min", concertRideRange: "15–20 €/asiento" },
+    ],
+    faqs: [
+      {
+        q: "¿Cómo llegar a La Riviera en metro?",
+        a: "La parada más cercana es Príncipe Pío (líneas 6 y 10 de metro, además de Cercanías Renfe), a unos 8 minutos andando por el Paseo Bajo de la Virgen del Puerto. Desde Sol son 12 minutos en metro (Sol → Ópera → Príncipe Pío con transbordo). También paran los autobuses 41, 46, 75 y 138 cerca del recinto.",
+      },
+      {
+        q: "¿Hay parking cerca de La Riviera?",
+        a: "El parking más práctico es el de la estación de Príncipe Pío (3–5 €/hora). Hay también zona azul limitada en el Paseo de la Virgen del Puerto, pero se llena con rapidez en noches de concierto. Si vienes de fuera de Madrid, el carpooling con ConcertRide te ahorra el problema del parking.",
+      },
+      {
+        q: "¿Cómo volver de La Riviera de madrugada?",
+        a: "El metro cierra a la 1:30 (fines de semana hasta las 2:00). Para vueltas posteriores: bus nocturno N16/N18 desde la cercana Glorieta San Vicente, taxi/VTC a Sol (8–12 €) o carpooling con ConcertRide coordinado de antemano, que se ajusta al horario real del concierto.",
+      },
+      {
+        q: "¿Qué tipo de conciertos hay en La Riviera?",
+        a: "La Riviera acoge giras de rock, indie, electrónica, pop nacional e internacional y eventos puntuales al aire libre. Es una sala de aforo medio (2.500 personas) muy demandada por bandas en formato sala (no estadio). Consulta la agenda oficial en salariviera.com.",
+      },
+      {
+        q: "¿Cuánto cuesta el carpooling de Valencia a La Riviera?",
+        a: "Valencia–Madrid son 357 km por la A-3 (3h 20 min). Con ConcertRide el precio medio por asiento es de 10–14 €, frente a 30–60 € del AVE o 90–130 € del taxi. El conductor fija el precio para cubrir combustible y peajes según la tarifa MITECO. Sin comisión, pago directo Bizum o efectivo.",
+      },
+    ],
+    relatedFestivals: ["mad-cool", "tomavistas"],
+  },
+
+  // ── SALA APOLO (BARCELONA) ───────────────────────────────────────────────────
+
+  {
+    slug: "sala-apolo",
+    name: "Sala Apolo",
+    shortName: "Apolo",
+    city: "Barcelona",
+    citySlug: "barcelona",
+    region: "Cataluña",
+    address: "Carrer Nou de la Rambla, 113, 08004 Barcelona",
+    lat: 41.3727,
+    lng: 2.1668,
+    capacity: "1.800 personas",
+    venueType: "Sala de conciertos",
+    transport: {
+      metro: "L3 Paral·lel (2 min a pie)",
+      bus: "Líneas 21, 121, V11 · Bus nocturno N0, N6",
+      parking: "Sin parking propio — parking BSM Paral·lel (3 €/h)",
+    },
+    blurb:
+      "Sala Apolo es una de las salas de conciertos más emblemáticas de Barcelona, ubicada en el barrio de Poble-sec junto a la Avenida del Paral·lel. Con un aforo aproximado de 1.800 personas en formato concierto, programa rock, indie, electrónica (los míticos Nasty Mondays/Crappy Tuesdays) y giras internacionales en sala. Acceso directo en metro L3 (Paral·lel, 2 min a pie). Para asistentes de fuera de Barcelona, el carpooling con ConcertRide es la alternativa habitual al AVE.",
+    originCities: [
+      { city: "Tarragona", km: 100, drivingTime: "1h 10 min", concertRideRange: "4–7 €/asiento" },
+      { city: "Girona", km: 100, drivingTime: "1h 10 min", concertRideRange: "4–7 €/asiento" },
+      { city: "Lleida", km: 165, drivingTime: "1h 45 min", concertRideRange: "5–8 €/asiento" },
+      { city: "Valencia", km: 355, drivingTime: "3h 15 min", concertRideRange: "10–14 €/asiento" },
+      { city: "Zaragoza", km: 305, drivingTime: "2h 45 min", concertRideRange: "8–12 €/asiento" },
+      { city: "Madrid", km: 620, drivingTime: "5h 30 min", concertRideRange: "15–20 €/asiento" },
+    ],
+    faqs: [
+      {
+        q: "¿Cómo llegar a Sala Apolo en metro?",
+        a: "La parada más cercana es Paral·lel (L3 verde y L2 lila), a 2 minutos andando. Desde Plaça Catalunya son 8 minutos en metro (L3 directo). También paran los autobuses 21, 121 y V11 muy cerca del recinto. El bus nocturno N0 y N6 cubren la vuelta de madrugada hacia Plaça Catalunya.",
+      },
+      {
+        q: "¿Cómo volver de Sala Apolo de madrugada?",
+        a: "El metro de Barcelona cierra a las 2:00 los viernes y opera 24h los sábados (madrugada del sábado al domingo). Para conciertos entre semana, los buses nocturnos N0 y N6 cubren la vuelta a Plaça Catalunya. Taxi/VTC al centro: 8–12 €. Para asistentes de fuera de Barcelona, el carpooling con ConcertRide se coordina con el horario real del fin de concierto.",
+      },
+      {
+        q: "¿Hay parking cerca de Sala Apolo?",
+        a: "Sala Apolo no tiene parking propio. El más práctico es el BSM Paral·lel (3 €/h aproximadamente) o aparcamientos privados de Avinguda del Paral·lel. En noches de concierto se saturan rápido. Si vienes de fuera de Barcelona, el carpooling con ConcertRide es la opción más cómoda.",
+      },
+      {
+        q: "¿Qué eventos icónicos tiene Apolo?",
+        a: "Apolo es famosa por sus sesiones Nasty Mondays y Crappy Tuesdays (clubbing nocturno), además de programar giras internacionales de indie/rock/electrónica y festivales internos (Apolo Festival, Caprices Festival). Consulta agenda en sala-apolo.com.",
+      },
+      {
+        q: "¿Cuánto cuesta el carpooling de Madrid a Sala Apolo?",
+        a: "Madrid–Barcelona son 620 km por la AP-2/A-2 (5h 30 min). Con ConcertRide el precio medio por asiento es de 15–20 €, frente a 30–100 € del AVE o 120–180 € de un coche de alquiler. Sin comisión, pago directo Bizum o efectivo, vuelta nocturna coordinada con el conductor.",
+      },
+    ],
+    relatedFestivals: ["primavera-sound", "sonar"],
+  },
+
+  // ── RAZZMATAZZ (BARCELONA) ───────────────────────────────────────────────────
+
+  {
+    slug: "razzmatazz",
+    name: "Razzmatazz",
+    shortName: "Razzmatazz",
+    city: "Barcelona",
+    citySlug: "barcelona",
+    region: "Cataluña",
+    address: "Carrer dels Almogàvers, 122, 08018 Barcelona",
+    lat: 41.3979,
+    lng: 2.1937,
+    capacity: "2.500 personas (5 salas)",
+    venueType: "Sala de conciertos",
+    transport: {
+      metro: "L1 Marina o Glòries (8–10 min a pie) · L4 Bogatell (10 min)",
+      bus: "Líneas 6, 7, 92, V21 · Bus nocturno N7, N8",
+      parking: "Parking SABA Bolívia (3–4 €/h) · BSM Marina",
+    },
+    blurb:
+      "Razzmatazz es la sala de conciertos más grande de Barcelona en formato no-arena, situada en el Poblenou con cinco salas independientes (Razz 1 a Razz 5) y un aforo total de unas 2.500 personas en noches de concierto. Programa rock, indie, electrónica internacional y discoteca nocturna fin de semana. Las paradas más cercanas son Marina (L1) y Bogatell (L4), a 8–10 minutos andando. Carpooling con ConcertRide desde Madrid, Valencia, Zaragoza y Tarragona.",
+    originCities: [
+      { city: "Tarragona", km: 100, drivingTime: "1h 10 min", concertRideRange: "4–7 €/asiento" },
+      { city: "Girona", km: 100, drivingTime: "1h 10 min", concertRideRange: "4–7 €/asiento" },
+      { city: "Lleida", km: 165, drivingTime: "1h 45 min", concertRideRange: "5–8 €/asiento" },
+      { city: "Valencia", km: 355, drivingTime: "3h 15 min", concertRideRange: "10–14 €/asiento" },
+      { city: "Zaragoza", km: 305, drivingTime: "2h 45 min", concertRideRange: "8–12 €/asiento" },
+      { city: "Madrid", km: 620, drivingTime: "5h 30 min", concertRideRange: "15–20 €/asiento" },
+    ],
+    faqs: [
+      {
+        q: "¿Cómo llegar a Razzmatazz en metro?",
+        a: "Las paradas más cercanas son Marina (L1 roja, 8 min a pie) y Glòries (L1, 10 min). La línea L4 (amarilla) en Bogatell también deja a 10 min. Desde Plaça Catalunya son 12 minutos en metro hasta Marina. Los autobuses 6, 7, 92 y V21 paran cerca del recinto.",
+      },
+      {
+        q: "¿Hay parking cerca de Razzmatazz?",
+        a: "Hay parkings privados en la zona: SABA Bolívia y BSM Marina (3–4 €/h). Es zona azul y verde, complicada en horario diurno y muy saturada en noches de concierto. Para asistentes de fuera de Barcelona el carpooling con ConcertRide deja en el Paseo Marítimo a 8 min del recinto.",
+      },
+      {
+        q: "¿Cómo volver de Razzmatazz de madrugada?",
+        a: "El metro de Barcelona opera 24 horas las noches de sábado a domingo. Viernes hasta las 2:00. Para otras noches: bus nocturno N7 y N8 cubren la vuelta a Plaça Catalunya. Taxi/VTC al centro: 10–15 €. Carpooling con ConcertRide se ajusta al horario real del fin de concierto.",
+      },
+      {
+        q: "¿Cuántas salas tiene Razzmatazz?",
+        a: "Razzmatazz tiene 5 salas independientes (Razz 1, Razz 2, Lolita, Pop Bar y Loft), cada una con programación propia: Razz 1 (aforo 1.300, indie/rock), Razz 2 (electrónica), Lolita (rock alternativo), Pop Bar (pop) y Loft (techno). El aforo total en noches de fin de semana ronda las 2.500 personas.",
+      },
+      {
+        q: "¿Cuánto cuesta el carpooling de Valencia a Razzmatazz?",
+        a: "Valencia–Barcelona son 355 km por la AP-7 (3h 15 min). Con ConcertRide el precio medio por asiento es de 10–14 €, frente a 30–60 € del Euromed o 90–130 € del taxi. Sin comisión, pago directo Bizum o efectivo.",
+      },
+    ],
+    relatedFestivals: ["primavera-sound", "sonar", "cruilla"],
+  },
+
+  // ── SANT JORDI CLUB (BARCELONA) ──────────────────────────────────────────────
+
+  {
+    slug: "sant-jordi-club",
+    name: "Sant Jordi Club",
+    shortName: "Sant Jordi Club",
+    city: "Barcelona",
+    citySlug: "barcelona",
+    region: "Cataluña",
+    address: "Passeig Olímpic, 5–7, 08038 Barcelona",
+    lat: 41.3651,
+    lng: 2.1551,
+    capacity: "4.500 personas",
+    venueType: "Sala de conciertos",
+    transport: {
+      metro: "L1/L3 Espanya + escaleras mecánicas Montjuïc (15 min)",
+      bus: "Líneas 13, 23, 150 (Montjuïc)",
+      parking: "Parking Anella Olímpica (4 €/h)",
+    },
+    blurb:
+      "El Sant Jordi Club es la sala anexa al Palau Sant Jordi en Montjuïc, con capacidad para unas 4.500 personas en configuración de concierto. Comparte ubicación con el Palau Sant Jordi pero acoge giras de aforo medio (artistas que no llenan los 17.000 del Palau). Acceso vía metro L1/L3 Plaça Espanya + escaleras mecánicas hasta la Anella Olímpica (15 min). El bus 150 sube directamente. Carpooling con ConcertRide para asistentes de Madrid, Valencia, Tarragona y Zaragoza.",
+    originCities: [
+      { city: "Tarragona", km: 100, drivingTime: "1h 10 min", concertRideRange: "4–7 €/asiento" },
+      { city: "Lleida", km: 165, drivingTime: "1h 45 min", concertRideRange: "5–8 €/asiento" },
+      { city: "Girona", km: 100, drivingTime: "1h 10 min", concertRideRange: "4–7 €/asiento" },
+      { city: "Valencia", km: 355, drivingTime: "3h 15 min", concertRideRange: "10–14 €/asiento" },
+      { city: "Zaragoza", km: 305, drivingTime: "2h 45 min", concertRideRange: "8–12 €/asiento" },
+      { city: "Madrid", km: 620, drivingTime: "5h 30 min", concertRideRange: "15–20 €/asiento" },
+    ],
+    faqs: [
+      {
+        q: "¿Es lo mismo el Sant Jordi Club que el Palau Sant Jordi?",
+        a: "No, son recintos contiguos pero distintos. El Palau Sant Jordi tiene aforo 17.000 (grandes giras como Rosalía, Karol G, Bad Bunny). El Sant Jordi Club, anexo al Palau, tiene capacidad para 4.500 personas y acoge giras de aforo medio (artistas en sala grande, no estadio). Comparten la dirección y el acceso a Montjuïc.",
+      },
+      {
+        q: "¿Cómo llegar al Sant Jordi Club en transporte público?",
+        a: "Metro L1 (roja) o L3 (verde) hasta Plaça Espanya, después escaleras mecánicas de Montjuïc (15 min subiendo) o bus 150 directo a la Anella Olímpica. El funicular de Montjuïc desde Paral·lel (L2/L3) también es una opción.",
+      },
+      {
+        q: "¿Hay parking en el Sant Jordi Club?",
+        a: "Sí. El Parking de la Anella Olímpica está al lado del Sant Jordi Club, con tarifa de 4 €/hora aproximadamente. En noches de concierto se llena rápido. Si vienes de fuera de Barcelona, el carpooling con ConcertRide te ahorra el aparcamiento.",
+      },
+      {
+        q: "¿Cómo volver del Sant Jordi Club de madrugada?",
+        a: "El metro de Barcelona cierra a las 2:00 los viernes y opera 24h los sábados (madrugada del sábado al domingo). Bus nocturno N0 baja desde Montjuïc hacia Plaça Catalunya. Taxi/VTC al centro: 10–15 €. ConcertRide se coordina con el horario real del fin de concierto.",
+      },
+      {
+        q: "¿Cuánto cuesta el carpooling de Madrid al Sant Jordi Club?",
+        a: "Madrid–Barcelona son 620 km por la AP-2/A-2 (5h 30 min). Con ConcertRide el precio por asiento es de 15–20 €, frente a 30–100 € del AVE. Sin comisión, vuelta nocturna coordinada.",
+      },
+    ],
+    relatedFestivals: ["primavera-sound", "cruilla"],
+  },
+
+  // ── SALA BIKINI (BARCELONA) ──────────────────────────────────────────────────
+
+  {
+    slug: "sala-bikini",
+    name: "Sala Bikini",
+    shortName: "Bikini",
+    city: "Barcelona",
+    citySlug: "barcelona",
+    region: "Cataluña",
+    address: "Av. Diagonal, 547, 08029 Barcelona",
+    lat: 41.3897,
+    lng: 2.1357,
+    capacity: "1.500 personas",
+    venueType: "Sala de conciertos",
+    transport: {
+      metro: "L3 Maria Cristina o Les Corts (5–7 min a pie)",
+      bus: "Líneas 6, 7, 33, 34, 54, 59, 66, 67, 78, H6, H8",
+      parking: "Parking L'Illa Diagonal (3 €/h, mismo edificio)",
+    },
+    blurb:
+      "Sala Bikini es una histórica sala de conciertos de Barcelona ubicada en el centro comercial L'Illa Diagonal, con capacidad para unas 1.500 personas. Activa desde los años 50 (en su ubicación actual desde 1995), programa rock, indie, pop y jazz internacional y nacional. La parada más cercana es Maria Cristina (L3, 5 min a pie). El parking del propio L'Illa Diagonal es la opción más práctica. Carpooling con ConcertRide para asistentes de fuera de Barcelona.",
+    originCities: [
+      { city: "Tarragona", km: 100, drivingTime: "1h 10 min", concertRideRange: "4–7 €/asiento" },
+      { city: "Girona", km: 100, drivingTime: "1h 10 min", concertRideRange: "4–7 €/asiento" },
+      { city: "Lleida", km: 165, drivingTime: "1h 45 min", concertRideRange: "5–8 €/asiento" },
+      { city: "Valencia", km: 355, drivingTime: "3h 15 min", concertRideRange: "10–14 €/asiento" },
+      { city: "Zaragoza", km: 305, drivingTime: "2h 45 min", concertRideRange: "8–12 €/asiento" },
+      { city: "Madrid", km: 620, drivingTime: "5h 30 min", concertRideRange: "15–20 €/asiento" },
+    ],
+    faqs: [
+      {
+        q: "¿Cómo llegar a Sala Bikini en metro?",
+        a: "Las paradas más cercanas son Maria Cristina (L3 verde, 5 min a pie) y Les Corts (L3, 7 min). Desde Plaça Catalunya son 10 minutos en metro. La sala está dentro del centro comercial L'Illa Diagonal, en Avinguda Diagonal 547. Numerosos autobuses de Diagonal paran muy cerca.",
+      },
+      {
+        q: "¿Hay parking en Sala Bikini?",
+        a: "Sí. El parking de L'Illa Diagonal (3 €/hora) es el mismo edificio donde está Bikini, lo que lo hace muy cómodo. En noches de concierto puede saturarse pero el aforo del centro comercial absorbe bien la demanda. Si vienes de fuera de Barcelona, ConcertRide te ahorra el parking.",
+      },
+      {
+        q: "¿Cómo volver de Sala Bikini de madrugada?",
+        a: "El metro L3 cierra a las 2:00 los viernes y opera 24h los sábados. Bus nocturno N3 cubre la vuelta a Plaça Catalunya por Diagonal. Taxi/VTC al centro: 8–12 €. El carpooling con ConcertRide se coordina con el horario real del concierto.",
+      },
+      {
+        q: "¿Qué tipo de conciertos hay en Bikini?",
+        a: "Sala Bikini programa rock, indie, pop, jazz, soul y giras internacionales en formato sala mediana (1.500 personas). Es habitual ver artistas que en gira posterior llenan recintos de 4.000+ personas. Consulta agenda oficial en bikinibcn.com.",
+      },
+      {
+        q: "¿Cuánto cuesta el carpooling de Madrid a Sala Bikini?",
+        a: "Madrid–Barcelona son 620 km por la AP-2/A-2 (5h 30 min). Con ConcertRide el precio por asiento es de 15–20 €. Sin comisión, vuelta nocturna coordinada.",
+      },
+    ],
+    relatedFestivals: ["primavera-sound", "cruilla"],
+  },
+
+  // ── PLAZA DE TOROS DE LAS VENTAS (MADRID) ────────────────────────────────────
+
+  {
+    slug: "plaza-toros-las-ventas",
+    name: "Plaza de Toros de Las Ventas",
+    shortName: "Las Ventas",
+    city: "Madrid",
+    citySlug: "madrid",
+    region: "Comunidad de Madrid",
+    address: "Calle de Alcalá, 237, 28028 Madrid",
+    lat: 40.4322,
+    lng: -3.6634,
+    capacity: "23.798 personas (configuración concierto)",
+    venueType: "Plaza de toros / arena al aire libre",
+    transport: {
+      metro: "L2 Ventas (acceso directo) · L5 Ventas",
+      bus: "Líneas 12, 21, 38, 53, 74, 110, 146",
+      parking: "Sin parking propio — Parking Forum (Av. Felipe II) 6–10€",
+    },
+    blurb:
+      "La Plaza de Toros de Las Ventas (Madrid) es el principal coso taurino de España y, en verano, uno de los recintos al aire libre más usados para conciertos de gran formato en la capital. Con un aforo de unos 23.000 espectadores en configuración de concierto, ha acogido a Bruce Springsteen, Bob Dylan y giras nacionales. Acceso directo en metro L2 y L5 (parada Ventas). Sin parking propio — los aparcamientos cercanos (Forum, Las Ventas) cuestan 6–10 €. Carpooling con ConcertRide desde Valencia, Zaragoza, Barcelona y Sevilla.",
+    originCities: [
+      { city: "Toledo", km: 75, drivingTime: "55 min", concertRideRange: "4–7 €/asiento" },
+      { city: "Valencia", km: 358, drivingTime: "3h 20 min", concertRideRange: "10–14 €/asiento" },
+      { city: "Zaragoza", km: 325, drivingTime: "3h", concertRideRange: "9–13 €/asiento" },
+      { city: "Sevilla", km: 530, drivingTime: "5h", concertRideRange: "13–18 €/asiento" },
+      { city: "Barcelona", km: 620, drivingTime: "5h 30 min", concertRideRange: "15–20 €/asiento" },
+      { city: "Bilbao", km: 395, drivingTime: "4h", concertRideRange: "10–15 €/asiento" },
+    ],
+    faqs: [
+      {
+        q: "¿Cómo llegar a Las Ventas en metro?",
+        a: "Acceso directo en metro: línea 2 (verde) y línea 5 (verde claro), parada Ventas. La salida del metro está prácticamente frente a la Puerta Grande de la plaza. Desde Sol son 10 minutos por la L2 directo. Los autobuses 21 y 146 también dejan a pocos metros.",
+      },
+      {
+        q: "¿Hay parking cerca de Las Ventas?",
+        a: "La plaza no dispone de parking propio. Los más cercanos son el Parking Forum (Av. Felipe II, 8) y el Parking Las Ventas (Alcalá 237), con tarifas de 6–10 €/día. En noches de concierto se saturan rápido. Si vienes de fuera de Madrid, el carpooling con ConcertRide evita el problema del parking.",
+      },
+      {
+        q: "¿Hay conciertos en Las Ventas?",
+        a: "Sí. Aunque su función principal es taurina, Las Ventas acoge conciertos al aire libre durante los meses de verano (mayo–septiembre), especialmente en formato grandes giras (Bruce Springsteen, Bob Dylan, Joaquín Sabina, Manuel Carrasco) con aforo de 20.000+ asistentes.",
+      },
+      {
+        q: "¿Cómo volver de Las Ventas de madrugada?",
+        a: "El metro cierra a la 1:30 (fines de semana hasta las 2:00). Para vueltas más tarde: bus nocturno N5 (Ventas–Sol), N7 o N8, taxi/VTC al centro (8–12 €). El carpooling con ConcertRide se coordina con el horario real del fin de concierto.",
+      },
+      {
+        q: "¿Cuánto cuesta el carpooling de Barcelona a Las Ventas?",
+        a: "Barcelona–Madrid son 620 km por la AP-2/A-2 (5h 30 min). Con ConcertRide el precio por asiento es de 15–20 €, frente a 30–100 € del AVE. Sin comisión, vuelta nocturna coordinada.",
+      },
+    ],
+    relatedFestivals: ["mad-cool", "tomavistas"],
+  },
+
+  // ── AUDITORIO ROCÍO JURADO (SEVILLA) ─────────────────────────────────────────
+
+  {
+    slug: "auditorio-rocio-jurado",
+    name: "Auditorio Rocío Jurado",
+    shortName: "Auditorio Rocío Jurado",
+    city: "Sevilla",
+    citySlug: "sevilla",
+    region: "Andalucía",
+    address: "Camino de los Descubrimientos, s/n, Isla de la Cartuja, 41092 Sevilla",
+    lat: 37.4078,
+    lng: -6.0073,
+    capacity: "12.000 personas",
+    venueType: "Auditorio al aire libre",
+    transport: {
+      metro: "Sin metro directo — autobús C1/C2 desde centro",
+      bus: "Tussam C1, C2 (circulares) hasta Estadio La Cartuja · 5/B",
+      parking: "Parking gratuito anexo (limitado, llegar pronto)",
+    },
+    blurb:
+      "El Auditorio Rocío Jurado (Sevilla) es un auditorio al aire libre situado en la Isla de la Cartuja, con capacidad para unas 12.000 personas. Acoge la programación estival de grandes conciertos en Sevilla (Icónica Fest, Cultura Inquieta y giras nacionales/internacionales). Sin acceso directo en metro: el autobús circular C1/C2 de Tussam conecta desde el centro hasta el Estadio La Cartuja y de ahí a pie son 5 min al auditorio. Carpooling con ConcertRide desde Huelva, Cádiz, Málaga y Córdoba.",
+    originCities: [
+      { city: "Huelva", km: 95, drivingTime: "1h 10 min", concertRideRange: "4–6 €/asiento" },
+      { city: "Cádiz", km: 125, drivingTime: "1h 20 min", concertRideRange: "5–7 €/asiento" },
+      { city: "Córdoba", km: 140, drivingTime: "1h 30 min", concertRideRange: "5–8 €/asiento" },
+      { city: "Málaga", km: 210, drivingTime: "2h 10 min", concertRideRange: "7–10 €/asiento" },
+      { city: "Granada", km: 250, drivingTime: "2h 30 min", concertRideRange: "8–11 €/asiento" },
+      { city: "Madrid", km: 530, drivingTime: "5h", concertRideRange: "13–18 €/asiento" },
+    ],
+    faqs: [
+      {
+        q: "¿Cómo llegar al Auditorio Rocío Jurado en transporte público?",
+        a: "Desde el centro de Sevilla, los autobuses circulares C1 y C2 de Tussam llegan al Estadio La Cartuja y de ahí son 5 minutos a pie al auditorio. Las líneas 5 y B también acercan a la Isla de la Cartuja. El metro de Sevilla no llega directamente al recinto.",
+      },
+      {
+        q: "¿Hay parking en el Auditorio Rocío Jurado?",
+        a: "Sí, dispone de parking gratuito anexo con plazas limitadas. En conciertos masivos se recomienda llegar con 1 hora de antelación para asegurar plaza. Si vienes de fuera de Sevilla, el carpooling con ConcertRide te deja en la puerta.",
+      },
+      {
+        q: "¿Qué conciertos se programan en el Auditorio Rocío Jurado?",
+        a: "El Auditorio Rocío Jurado acoge la programación estival sevillana: ciclo Icónica Fest, Cultura Inquieta Sevilla y giras de artistas nacionales (Sabina, Pablo Alborán, Vetusta Morla, Estopa) e internacionales en formato al aire libre. Temporada: mayo–septiembre.",
+      },
+      {
+        q: "¿Es lo mismo que el Estadio de La Cartuja?",
+        a: "No, son recintos distintos aunque vecinos. El Estadio Olímpico de La Cartuja tiene 57.000 plazas y acoge fútbol y mega-conciertos. El Auditorio Rocío Jurado es un auditorio al aire libre de 12.000 plazas, especializado en conciertos de aforo medio. Comparten la zona de aparcamiento.",
+      },
+      {
+        q: "¿Cuánto cuesta el carpooling de Madrid al Auditorio Rocío Jurado?",
+        a: "Madrid–Sevilla son 530 km por la A-4 (5h). Con ConcertRide el precio por asiento es de 13–18 €, frente a 40–80 € del AVE o 120–180 € de un taxi. Sin comisión, vuelta nocturna coordinada con el horario real del concierto.",
+      },
+    ],
+    relatedFestivals: ["iconica-fest"],
+  },
+
+  // ── SALA BUT (MADRID) ────────────────────────────────────────────────────────
+
+  {
+    slug: "sala-but",
+    name: "Sala But",
+    shortName: "But",
+    city: "Madrid",
+    citySlug: "madrid",
+    region: "Comunidad de Madrid",
+    address: "Calle Barceló, 11, 28004 Madrid",
+    lat: 40.4257,
+    lng: -3.6987,
+    capacity: "1.500 personas",
+    venueType: "Sala de conciertos",
+    transport: {
+      metro: "L10 Alonso Martínez (5 min) · L4 Tribunal (8 min)",
+      bus: "Líneas 3, 21, 37, 40 · Bus nocturno N20, N24, N26",
+      parking: "Sin parking propio — Parking Tribunal/Bilbao (3–5 €/h)",
+    },
+    blurb:
+      "Sala But (antigua sala Mondo, anteriormente Pachá y Teatro Barceló) es una de las salas de conciertos más céntricas de Madrid, ubicada en la calle Barceló (barrio Justicia/Malasaña). Con capacidad para 1.500 personas en formato concierto, programa rock, indie, pop urbano y electrónica internacional. Acceso fácil en metro L10 Alonso Martínez (5 min a pie) o L4 Tribunal (8 min). Sin parking propio. Carpooling con ConcertRide desde Toledo, Valencia, Zaragoza y Barcelona.",
+    originCities: [
+      { city: "Toledo", km: 72, drivingTime: "50 min", concertRideRange: "4–6 €/asiento" },
+      { city: "Getafe", km: 17, drivingTime: "25 min", concertRideRange: "3–5 €/asiento" },
+      { city: "Valencia", km: 355, drivingTime: "3h 20 min", concertRideRange: "10–14 €/asiento" },
+      { city: "Zaragoza", km: 325, drivingTime: "3h", concertRideRange: "9–13 €/asiento" },
+      { city: "Barcelona", km: 620, drivingTime: "5h 30 min", concertRideRange: "15–20 €/asiento" },
+      { city: "Bilbao", km: 395, drivingTime: "4h", concertRideRange: "10–15 €/asiento" },
+    ],
+    faqs: [
+      {
+        q: "¿Cómo llegar a Sala But en metro?",
+        a: "La parada más cercana es Alonso Martínez (línea 4, 5 y 10), a 5 minutos a pie por la calle Barceló. Tribunal (L1/L10) está a 8 minutos. Desde Sol son 7 minutos en metro (Sol → Tribunal por L1 directo). Numerosos autobuses (3, 21, 37, 40) paran cerca.",
+      },
+      {
+        q: "¿Hay parking cerca de Sala But?",
+        a: "Sala But no tiene parking propio. Los aparcamientos más cercanos son el Parking Tribunal (Mejía Lequerica) y el Parking Bilbao (Plaza de Bilbao), con tarifas de 3–5 €/hora. Es zona azul de pago hasta las 21:00. Si vienes de fuera de Madrid, el carpooling con ConcertRide te ahorra el problema del parking en pleno centro.",
+      },
+      {
+        q: "¿Cómo volver de Sala But de madrugada?",
+        a: "Estás en pleno centro, lo que facilita la vuelta. El metro cierra a la 1:30 (sábados hasta las 2:00). Para más tarde: buses nocturnos N20, N24 y N26 desde Cibeles y Plaza de España. Taxi/VTC al centro: 5–8 €. ConcertRide coordina la vuelta para asistentes de fuera de Madrid.",
+      },
+      {
+        q: "¿Qué tipo de conciertos hay en Sala But?",
+        a: "Sala But (antes Mondo, antes Pachá Madrid) programa giras internacionales de rock, indie, pop urbano y electrónica. Aforo medio (1.500 personas) para artistas en formato sala. Algunas noches funciona también como club de electrónica. Consulta la agenda en salabut.com.",
+      },
+      {
+        q: "¿Cuánto cuesta el carpooling de Valencia a Sala But?",
+        a: "Valencia–Madrid son 355 km por la A-3 (3h 20 min). Con ConcertRide el precio por asiento es de 10–14 €, frente a 30–60 € del AVE. Sin comisión, pago Bizum o efectivo, vuelta nocturna coordinada.",
+      },
+    ],
+    relatedFestivals: ["mad-cool", "tomavistas"],
+  },
+
+  // ── PLAZA DE TOROS DE VALENCIA ───────────────────────────────────────────────
+
+  {
+    slug: "plaza-toros-valencia",
+    name: "Plaza de Toros de Valencia",
+    shortName: "Plaza de Toros Valencia",
+    city: "Valencia",
+    citySlug: "valencia",
+    region: "Comunidad Valenciana",
+    address: "Calle Xàtiva, 28, 46004 Valencia",
+    lat: 39.4664,
+    lng: -0.3766,
+    capacity: "10.500 personas",
+    venueType: "Plaza de toros (conciertos verano)",
+    transport: {
+      metro: "Metro L3/L5 Xàtiva (junto al recinto, 0 m)",
+      bus: "EMT 13, 40, 89, 92 · paradas en Xàtiva y Renfe Norte",
+      tren: "Renfe Estación del Norte (junto al recinto, 50 m)",
+      parking: "Sin parking propio — parking Plaza del Ayuntamiento (3–4 €/h)",
+    },
+    blurb:
+      "La Plaza de Toros de Valencia es un recinto de aforo medio (10.500 personas) en pleno centro de la ciudad, junto a la Estación del Norte. Acoge la programación estival de conciertos al aire libre (Festivales Latinos Valencia, conciertos verano, formato Concert Music Festival) entre junio y septiembre. Acceso directo en metro L3/L5 Xàtiva (a pie de recinto) y Renfe Estación del Norte. Sin parking propio — usa parking Plaza del Ayuntamiento. Carpooling con ConcertRide desde Madrid, Barcelona, Alicante, Castellón y Murcia.",
+    originCities: [
+      { city: "Castellón", km: 75, drivingTime: "50 min", concertRideRange: "3–5 €/asiento" },
+      { city: "Alicante", km: 165, drivingTime: "1h 40 min", concertRideRange: "5–8 €/asiento" },
+      { city: "Murcia", km: 240, drivingTime: "2h 20 min", concertRideRange: "7–11 €/asiento" },
+      { city: "Madrid", km: 358, drivingTime: "3h 20 min", concertRideRange: "10–14 €/asiento" },
+      { city: "Barcelona", km: 350, drivingTime: "3h 20 min", concertRideRange: "10–14 €/asiento" },
+      { city: "Zaragoza", km: 310, drivingTime: "3h", concertRideRange: "9–13 €/asiento" },
+    ],
+    faqs: [
+      {
+        q: "¿Cómo llegar a la Plaza de Toros de Valencia en transporte público?",
+        a: "La parada de metro L3/L5 Xàtiva está literalmente junto al recinto (0 m). La Estación del Norte de Renfe está a 50 m. Los autobuses EMT 13, 40, 89 y 92 también tienen parada cercana. Desde Pl. del Ayuntamiento son 7 min andando.",
+      },
+      {
+        q: "¿Hay parking en la Plaza de Toros de Valencia?",
+        a: "El recinto no dispone de parking propio. Los más cercanos son el Parking Plaza del Ayuntamiento y el Parking Bailén (3–4 €/h), pero se llenan en conciertos. Es zona azul de pago hasta las 21:00. Si vienes de fuera, el carpooling con ConcertRide te ahorra el problema de aparcar en pleno centro de Valencia.",
+      },
+      {
+        q: "¿Qué conciertos hay en la Plaza de Toros de Valencia?",
+        a: "Programación estival al aire libre: Festivales Latinos Valencia, ciclos de conciertos de verano (junio–septiembre), giras de artistas nacionales (Manuel Carrasco, Estopa, Pablo Alborán) y latinos (Maluma, Reik, Carlos Vives). Consulta la agenda en plazatorosvalencia.com.",
+      },
+      {
+        q: "¿Cuánto cuesta el carpooling de Madrid a la Plaza de Toros de Valencia?",
+        a: "Madrid–Valencia son 358 km por la A-3 (3h 20 min). Con ConcertRide el precio por asiento oscila entre 10 y 14 €, frente a 30–60 € del AVE o 90–130 € del taxi. Sin comisión, pago Bizum o efectivo, vuelta nocturna coordinada con el horario real del concierto.",
+      },
+      {
+        q: "¿Cómo volver de la Plaza de Toros de Valencia de madrugada?",
+        a: "Estás en el centro: metro L3/L5 hasta la 1:00 (sábados hasta las 2:30), Renfe Cercanías hasta la medianoche, bus nocturno EMT N1/N9. Para vuelta a otra ciudad, ConcertRide coordina la salida con el final del concierto.",
+      },
+    ],
+    relatedFestivals: ["festival-de-les-arts"],
+  },
+
+  // ── ESTADIO SAN MAMÉS (BILBAO) ───────────────────────────────────────────────
+
+  {
+    slug: "estadio-san-mames",
+    name: "Estadio San Mamés",
+    shortName: "San Mamés",
+    city: "Bilbao",
+    citySlug: "bilbao",
+    region: "País Vasco",
+    address: "Rafael Moreno Pitxitxi Kalea, s/n, 48013 Bilbao",
+    lat: 43.2641,
+    lng: -2.9494,
+    capacity: "53.289 personas",
+    venueType: "Estadio (sede del Athletic Club)",
+    transport: {
+      metro: "Metro L1/L2 San Mamés (acceso directo, 0 m)",
+      bus: "Bilbobus A2, A3, A8, 18, 28, 38, 48, 58, 71",
+      tren: "Renfe Cercanías C-1 / FEVE Olabeaga (10 min andando)",
+      parking: "Parking propio P1 (uso limitado en conciertos) + zonas ORA cercanas",
+    },
+    blurb:
+      "El Estadio San Mamés (La Catedral del Athletic Club) es uno de los grandes recintos de conciertos de mega-aforo en el norte de España, con capacidad para 53.289 personas. Acoge giras internacionales (Bruce Springsteen, Bad Bunny, mega-tours) y conciertos benéficos. Acceso directo en Metro L1/L2 San Mamés (parada a pie de estadio) y Bilbobus A2/A3/A8. Cercanías Renfe C-1 (Olabeaga, 10 min andando). Carpooling con ConcertRide desde Donostia, Vitoria, Santander, Logroño, Madrid y Pamplona.",
+    originCities: [
+      { city: "Vitoria", km: 65, drivingTime: "50 min", concertRideRange: "3–5 €/asiento" },
+      { city: "Donostia", km: 100, drivingTime: "1h 10 min", concertRideRange: "4–6 €/asiento" },
+      { city: "Santander", km: 105, drivingTime: "1h 15 min", concertRideRange: "4–7 €/asiento" },
+      { city: "Logroño", km: 145, drivingTime: "1h 35 min", concertRideRange: "5–8 €/asiento" },
+      { city: "Pamplona", km: 160, drivingTime: "1h 45 min", concertRideRange: "5–8 €/asiento" },
+      { city: "Madrid", km: 395, drivingTime: "4h", concertRideRange: "11–16 €/asiento" },
+    ],
+    faqs: [
+      {
+        q: "¿Cómo llegar al Estadio San Mamés en metro?",
+        a: "La parada de Metro Bilbao L1/L2 San Mamés tiene acceso directo al estadio (0 m). Es la mejor opción: 10 min desde Casco Viejo y 5 min desde Abando-Indalecio Prieto. Frecuencia 4–6 min en horas pico. El metro funciona hasta la 23:00 entre semana y hasta las 2:00 los fines de semana.",
+      },
+      {
+        q: "¿Hay parking en San Mamés para conciertos?",
+        a: "El parking P1 del estadio tiene aforo limitado y suele restringirse a abonados/VIP en conciertos. Las opciones son aparcamientos OLA cercanos (Pichichi, Indautxu) o el aparcamiento Pío Baroja. En conciertos masivos, recomendamos llegar 2 h antes o venir en carpooling con ConcertRide para evitar el problema.",
+      },
+      {
+        q: "¿Qué conciertos hay en San Mamés?",
+        a: "San Mamés acoge giras internacionales de mega-estadio: Bruce Springsteen (gira E Street Band), Bad Bunny, conciertos benéficos y festivales puntuales. Consulta la agenda oficial en athletic-club.eus / sanmames.eus.",
+      },
+      {
+        q: "¿Cómo volver de San Mamés de madrugada?",
+        a: "Metro L1/L2 hasta las 23:00 entre semana o hasta las 2:00 fines de semana. Bilbobus nocturnos (Gautxoris) desde Plaza Moyúa cubren el resto. Si vienes de fuera de Bilbao, ConcertRide coordina la vuelta con el horario real del concierto.",
+      },
+      {
+        q: "¿Cuánto cuesta el carpooling de Madrid a San Mamés?",
+        a: "Madrid–Bilbao son 395 km por la A-1 (4h). Con ConcertRide el precio por asiento es de 11–16 €, frente a 40–80 € del AVE o 25–35 € del bus de línea. Sin comisión, pago Bizum o efectivo, vuelta nocturna coordinada.",
+      },
+    ],
+    relatedFestivals: ["bbk-live", "bbk-music-legends"],
+  },
+
+  // ── COLISEUM A CORUÑA ────────────────────────────────────────────────────────
+
+  {
+    slug: "coliseum-a-coruna",
+    name: "Coliseum da Coruña",
+    shortName: "Coliseum A Coruña",
+    city: "A Coruña",
+    citySlug: "a-coruna",
+    region: "Galicia",
+    address: "Rúa Francisco Pérez Carballo, 2, 15008 A Coruña",
+    lat: 43.3673,
+    lng: -8.4039,
+    capacity: "11.000 personas",
+    venueType: "Pabellón multiusos",
+    transport: {
+      metro: "Sin metro — A Coruña no dispone de red de metro",
+      bus: "Bus urbano líneas 12, 14 · paradas en Ronda de Outeiro",
+      tren: "Renfe A Coruña San Cristóbal (15 min en bus / 5 min en taxi)",
+      parking: "Parking propio gratuito (800 plazas)",
+    },
+    blurb:
+      "El Coliseum da Coruña es el principal pabellón multiusos de Galicia, con capacidad para 11.000 personas y parking propio gratuito de 800 plazas. Acoge conciertos de aforo medio-grande (Manuel Carrasco, Estopa, Sebastián Yatra, Sabina, Sabina, eventos deportivos del Deportivo de A Coruña). Sin metro en la ciudad: el acceso es en bus urbano líneas 12 y 14 (Ronda de Outeiro). Carpooling con ConcertRide desde Santiago, Lugo, Vigo, Pontevedra y Ourense.",
+    originCities: [
+      { city: "Santiago", km: 70, drivingTime: "50 min", concertRideRange: "3–5 €/asiento" },
+      { city: "Lugo", km: 100, drivingTime: "1h 10 min", concertRideRange: "4–6 €/asiento" },
+      { city: "Pontevedra", km: 130, drivingTime: "1h 25 min", concertRideRange: "4–7 €/asiento" },
+      { city: "Vigo", km: 160, drivingTime: "1h 40 min", concertRideRange: "5–8 €/asiento" },
+      { city: "Ourense", km: 200, drivingTime: "2h", concertRideRange: "6–9 €/asiento" },
+      { city: "Madrid", km: 600, drivingTime: "5h 45 min", concertRideRange: "16–22 €/asiento" },
+    ],
+    faqs: [
+      {
+        q: "¿Cómo llegar al Coliseum da Coruña en transporte público?",
+        a: "Las líneas 12 y 14 del bus urbano de A Coruña tienen paradas en Ronda de Outeiro, junto al recinto. Desde la estación de Renfe San Cristóbal son 15 min en bus o 5 min en taxi (6–8 €). El Coliseum no tiene metro porque A Coruña no dispone de red metropolitana.",
+      },
+      {
+        q: "¿Hay parking en el Coliseum da Coruña?",
+        a: "Sí, el recinto cuenta con parking propio gratuito de 800 plazas. Es una de las grandes ventajas frente a otros pabellones urbanos. Para conciertos grandes (10.000+ asistentes) llega con 1 h de antelación: las plazas más cercanas se llenan.",
+      },
+      {
+        q: "¿Qué conciertos se programan en el Coliseum da Coruña?",
+        a: "El Coliseum acoge giras nacionales (Manuel Carrasco, Estopa, Sabina, Pablo Alborán, Sebastián Yatra), internacionales en formato pabellón, eventos deportivos del Deportivo de A Coruña y eventos corporativos. Consulta la agenda en coliseumcoruna.com.",
+      },
+      {
+        q: "¿Cómo volver del Coliseum da Coruña de madrugada?",
+        a: "Las líneas 12 y 14 del bus urbano funcionan hasta las 23:00–00:00. Para vuelta posterior, taxi al centro 7–10 € o bus nocturno NA línea desde la Ronda de Outeiro. ConcertRide coordina la vuelta a otras ciudades gallegas con el horario real del concierto.",
+      },
+      {
+        q: "¿Cuánto cuesta el carpooling de Santiago al Coliseum da Coruña?",
+        a: "Santiago–A Coruña son 70 km por la AP-9 (50 min). Con ConcertRide el precio por asiento es de 3–5 €, frente a 12–18 € del bus Monbus o 7–11 € de tren Renfe. Sin comisión, pago Bizum o efectivo, vuelta nocturna coordinada.",
+      },
+    ],
+    relatedFestivals: ["o-son-do-camino", "atlantic-fest"],
+  },
+
+  // ── AUDITORIO DE CASTRELOS (VIGO) ────────────────────────────────────────────
+
+  {
+    slug: "auditorio-castrelos",
+    name: "Auditorio de Castrelos",
+    shortName: "Castrelos",
+    city: "Vigo",
+    citySlug: "vigo",
+    region: "Galicia",
+    address: "Parque de Castrelos, s/n, 36213 Vigo",
+    lat: 42.2168,
+    lng: -8.7409,
+    capacity: "20.000 personas (al aire libre, verano)",
+    venueType: "Auditorio al aire libre",
+    transport: {
+      metro: "Sin metro — Vigo no dispone de red de metro",
+      bus: "Vitrasa líneas 11, C9A, R3 · lanzaderas especiales en conciertos grandes",
+      tren: "Renfe Vigo Urzáiz (20 min en bus, 3,5 km)",
+      parking: "Parking del Parque de Castrelos (gratuito, limitado) · zonas adyacentes",
+    },
+    blurb:
+      "El Auditorio de Castrelos es un anfiteatro al aire libre en el Parque de Castrelos de Vigo, con capacidad para hasta 20.000 personas en su configuración de conciertos. Es el principal escenario de la programación estival viguesa: ciclo Castrelos Verano, conciertos gratuitos del Concello de Vigo y eventos como O Marisquiño. Acceso en autobús Vitrasa líneas 11, C9A y R3, con lanzaderas especiales en conciertos masivos. Carpooling con ConcertRide desde Pontevedra, Santiago, A Coruña, Ourense y Porto.",
+    originCities: [
+      { city: "Pontevedra", km: 30, drivingTime: "30 min", concertRideRange: "3–4 €/asiento" },
+      { city: "Santiago", km: 90, drivingTime: "1h", concertRideRange: "4–6 €/asiento" },
+      { city: "Ourense", km: 110, drivingTime: "1h 15 min", concertRideRange: "4–7 €/asiento" },
+      { city: "A Coruña", km: 160, drivingTime: "1h 40 min", concertRideRange: "5–8 €/asiento" },
+      { city: "Porto (PT)", km: 150, drivingTime: "1h 35 min", concertRideRange: "5–8 €/asiento" },
+      { city: "Madrid", km: 600, drivingTime: "5h 45 min", concertRideRange: "16–22 €/asiento" },
+    ],
+    faqs: [
+      {
+        q: "¿Cómo llegar al Auditorio de Castrelos en transporte público?",
+        a: "Las líneas Vitrasa 11, C9A y R3 tienen parada junto al Parque de Castrelos. Desde el centro de Vigo (Plaza Compostela) son unos 15 min en bus. En conciertos masivos (10.000+ asistentes) se habilitan lanzaderas especiales desde la estación de Urzáiz y la estación de autobuses.",
+      },
+      {
+        q: "¿Hay parking en el Auditorio de Castrelos?",
+        a: "El Parque de Castrelos dispone de aparcamientos gratuitos en sus accesos, pero su aforo es limitado y se llena en conciertos grandes. Las zonas adyacentes (Pizarro, Avenida de Castrelos) son de aparcamiento libre. Llega con 1–2 h de antelación o ven en carpooling con ConcertRide para evitar el problema.",
+      },
+      {
+        q: "¿Qué conciertos hay en el Auditorio de Castrelos?",
+        a: "Programación estival (junio–septiembre): ciclo Castrelos Verano (conciertos gratuitos del Concello de Vigo con artistas nacionales e internacionales), O Marisquiño (festival urbano), conciertos benéficos. Aforo de hasta 20.000 personas en formato al aire libre. Agenda en concello-vigo.org.",
+      },
+      {
+        q: "¿Cuándo es la temporada del Auditorio de Castrelos?",
+        a: "El Auditorio de Castrelos opera al aire libre, por lo que su temporada principal es de junio a septiembre. Fuera de esa franja, los conciertos en Vigo se trasladan al IFEVI o a salas cubiertas.",
+      },
+      {
+        q: "¿Cuánto cuesta el carpooling de Pontevedra al Auditorio de Castrelos?",
+        a: "Pontevedra–Vigo son 30 km por la AP-9 (30 min). Con ConcertRide el precio por asiento es de 3–4 €, frente a 4,30 € del bus o 6 € del tren. Sin comisión, pago Bizum o efectivo, vuelta nocturna coordinada.",
+      },
+    ],
+    relatedFestivals: ["o-son-do-camino", "portamerica", "atlantic-fest"],
+  },
+
+  // ── MARENOSTRUM FUENGIROLA (RECINTO) ────────────────────────────────────────
+
+  {
+    slug: "marenostrum-fuengirola",
+    name: "Marenostrum Fuengirola",
+    shortName: "Marenostrum",
+    city: "Fuengirola",
+    citySlug: "malaga",
+    region: "Andalucía",
+    address: "Avenida del Doctor Gálvez Ginachero, s/n, 29640 Fuengirola, Málaga",
+    lat: 36.5391,
+    lng: -4.6253,
+    capacity: "14.000 personas",
+    venueType: "Recinto al aire libre (al lado del mar)",
+    transport: {
+      metro: "Sin metro directo — Cercanías Renfe C-1 hasta Fuengirola",
+      bus: "Avanza M-110 / M-220 desde Málaga · bus urbano Fuengirola línea 1",
+      tren: "Renfe Cercanías C-1 Málaga–Fuengirola (45 min desde María Zambrano)",
+      parking: "Sin parking propio — aparcamientos públicos Fuengirola Sur (2–4 €/día)",
+    },
+    blurb:
+      "El recinto Marenostrum Fuengirola es uno de los principales escenarios al aire libre de la Costa del Sol, con capacidad para 14.000 personas y vistas al mar Mediterráneo. Acoge el ciclo Marenostrum Fuengirola Castle Park (verano, 25+ artistas internacionales: Sting, Rod Stewart, Pet Shop Boys, etc.). Acceso óptimo en Renfe Cercanías C-1 desde Málaga (45 min, 4,15 €) o Avanza M-110/M-220. Sin parking propio. Carpooling con ConcertRide desde Málaga, Granada, Sevilla, Córdoba y Almería.",
+    originCities: [
+      { city: "Málaga", km: 30, drivingTime: "30 min", concertRideRange: "3–4 €/asiento" },
+      { city: "Granada", km: 145, drivingTime: "1h 35 min", concertRideRange: "5–8 €/asiento" },
+      { city: "Córdoba", km: 175, drivingTime: "1h 50 min", concertRideRange: "6–9 €/asiento" },
+      { city: "Sevilla", km: 230, drivingTime: "2h 25 min", concertRideRange: "7–11 €/asiento" },
+      { city: "Almería", km: 230, drivingTime: "2h 25 min", concertRideRange: "7–11 €/asiento" },
+      { city: "Madrid", km: 565, drivingTime: "5h 25 min", concertRideRange: "15–20 €/asiento" },
+    ],
+    faqs: [
+      {
+        q: "¿Cómo llegar a Marenostrum Fuengirola en transporte público?",
+        a: "La opción más rápida es la línea de Renfe Cercanías C-1 Málaga–Fuengirola (45 min desde María Zambrano, 4,15 €, frecuencia 30 min). Desde la estación Fuengirola al recinto son 15 min andando o 5 min en taxi. Desde el aeropuerto AGP, Cercanías C-1 directa en 30 min.",
+      },
+      {
+        q: "¿Hay parking en Marenostrum Fuengirola?",
+        a: "El recinto no dispone de parking propio. Los aparcamientos públicos más cercanos son Fuengirola Sur y Plaza Solbella (2–4 €/día). En conciertos masivos se llenan rápido — recomendamos llegar 2 h antes o venir en carpooling con ConcertRide desde Málaga o Granada.",
+      },
+      {
+        q: "¿Qué conciertos hay en Marenostrum Fuengirola?",
+        a: "El ciclo Marenostrum Fuengirola Castle Park programa 25+ conciertos internacionales cada verano (junio–septiembre): Sting, Rod Stewart, Pet Shop Boys, Tom Jones, Anastacia, Manuel Carrasco, David Bisbal y muchos más. Aforo de 14.000 personas. Agenda en marenostrumfuengirola.com.",
+      },
+      {
+        q: "¿Cómo volver de Marenostrum Fuengirola de madrugada?",
+        a: "Renfe Cercanías C-1 hacia Málaga funciona hasta las 23:30. Para conciertos que terminan más tarde: taxi a Málaga (40–60 €) o vuelta coordinada con ConcertRide (Málaga 3–4 €, Granada 5–8 €). Avanza M-110 a Málaga centro hasta las 00:00.",
+      },
+      {
+        q: "¿Cuánto cuesta el carpooling de Málaga a Marenostrum Fuengirola?",
+        a: "Málaga–Fuengirola son 30 km por la A-7 (30 min). Con ConcertRide el precio por asiento es de 3–4 €, frente a 4,15 € del Cercanías o 6 € del bus Avanza. Sin comisión, pago Bizum o efectivo, vuelta nocturna coordinada.",
+      },
+    ],
+    relatedFestivals: ["marenostrum-fuengirola", "cala-mijas", "starlite-marbella"],
+  },
+
+  // ── PLAZA DE TOROS DE ZARAGOZA (LA MISERICORDIA) ─────────────────────────────
+
+  {
+    slug: "plaza-toros-zaragoza",
+    name: "Plaza de Toros de Zaragoza (La Misericordia)",
+    shortName: "Plaza Toros Zaragoza",
+    city: "Zaragoza",
+    citySlug: "zaragoza",
+    region: "Aragón",
+    address: "Avenida Pablo Gargallo, 11, 50003 Zaragoza",
+    lat: 41.6593,
+    lng: -0.8932,
+    capacity: "10.700 personas",
+    venueType: "Plaza de toros (conciertos verano)",
+    transport: {
+      metro: "Sin metro — Zaragoza no dispone de red de metro",
+      bus: "Tuzsa líneas 22, 33, Ci1, Ci2 · paradas en Av. Pablo Gargallo",
+      tren: "Renfe Zaragoza-Delicias (20 min andando, 1,5 km)",
+      parking: "Sin parking propio — Parking Plaza Toros / Parking Salduba (2–3 €/h)",
+    },
+    blurb:
+      "La Plaza de Toros de La Misericordia es el principal recinto de aforo medio para conciertos al aire libre en Zaragoza, con capacidad para 10.700 personas. Acoge la programación estival (Vive Latino Zaragoza en otros recintos del Expo, conciertos verano municipales, ciclos privados). A 1,5 km de la estación Renfe Zaragoza-Delicias y bien conectada por Tuzsa (22, 33, Ci1, Ci2). Sin parking propio. Carpooling con ConcertRide desde Madrid, Barcelona, Bilbao, Valencia y Logroño.",
+    originCities: [
+      { city: "Logroño", km: 175, drivingTime: "1h 45 min", concertRideRange: "5–8 €/asiento" },
+      { city: "Pamplona", km: 175, drivingTime: "1h 45 min", concertRideRange: "5–8 €/asiento" },
+      { city: "Valencia", km: 310, drivingTime: "3h", concertRideRange: "9–13 €/asiento" },
+      { city: "Madrid", km: 325, drivingTime: "3h", concertRideRange: "9–13 €/asiento" },
+      { city: "Barcelona", km: 310, drivingTime: "3h 5 min", concertRideRange: "9–13 €/asiento" },
+      { city: "Bilbao", km: 320, drivingTime: "3h 10 min", concertRideRange: "9–13 €/asiento" },
+    ],
+    faqs: [
+      {
+        q: "¿Cómo llegar a la Plaza de Toros de Zaragoza en transporte público?",
+        a: "Las líneas de bus Tuzsa 22, 33, Ci1 y Ci2 tienen parada en Avenida Pablo Gargallo, junto al recinto. Desde la estación Renfe Zaragoza-Delicias son 20 min andando o 5 min en bus línea 34. Desde Plaza España, 15 min a pie. Zaragoza no tiene metro, pero sí tranvía L1 (parada Plaza Toros, 5 min andando).",
+      },
+      {
+        q: "¿Hay parking en la Plaza de Toros de Zaragoza?",
+        a: "El recinto no dispone de parking propio. Los más cercanos son el Parking Plaza Toros y el Parking Salduba (2–3 €/h). En conciertos masivos se llenan rápido — llega con 1 h de antelación o ven en carpooling con ConcertRide para evitar el problema.",
+      },
+      {
+        q: "¿Qué conciertos hay en la Plaza de Toros de Zaragoza?",
+        a: "Programación estival al aire libre (junio–septiembre): conciertos del Ayuntamiento de Zaragoza, ciclos privados, giras de artistas nacionales (Estopa, Manuel Carrasco, Sabina, Hombres G) e internacionales en formato medio aforo. Aforo de 10.700 personas. Agenda en torozaragoza.com.",
+      },
+      {
+        q: "¿Cómo volver de la Plaza de Toros de Zaragoza de madrugada?",
+        a: "Tranvía L1 hasta la 00:00 (sábados hasta la 01:30) y buses nocturnos N1/N6 desde el centro. Taxi al centro 6–9 €. Si vienes de fuera, ConcertRide coordina la vuelta a Madrid, Barcelona, Bilbao o Valencia con el horario real del concierto.",
+      },
+      {
+        q: "¿Cuánto cuesta el carpooling de Madrid a la Plaza de Toros de Zaragoza?",
+        a: "Madrid–Zaragoza son 325 km por la A-2 (3h). Con ConcertRide el precio por asiento es de 9–13 €, frente a 25–60 € del AVE o 20–30 € del bus Avanza. Sin comisión, pago Bizum o efectivo, vuelta nocturna coordinada.",
+      },
+    ],
+    relatedFestivals: ["vive-latino"],
+  },
 ];
 
 /** Lookup map by slug for O(1) access in route components */
