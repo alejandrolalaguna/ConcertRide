@@ -228,6 +228,110 @@ export const FESTIVAL_SEO_OVERRIDES: Record<string, { title: string; description
     description: `Granca Live Fest ${YEAR} (2–4 jul, Estadio de Gran Canaria Las Palmas, 35.000/día): festival principal de Canarias junto al Atlántico. Vuelo Madrid/Barcelona/Sevilla–Las Palmas (2h 30min, 60–150€). Guagua Global líneas 12/13/25 al estadio desde centro. Carpooling sin comisión en isla: Telde (3€, 15 km), Arucas (3–4€), Maspalomas/Playa del Inglés (3–5€, 55 km), Santa Lucía (3–5€). Vuelta nocturna coordinada.`,
     keywords: `granca live fest ${YEAR}, granca live ${YEAR}, granca live las palmas, granca live como llegar, granca live carpooling, granca live estadio gran canaria, granca live desde maspalomas, granca live desde aeropuerto, granca live entradas, granca live cartel ${YEAR}, festival canarias ${YEAR}, festival las palmas gran canaria, festival gran canaria julio`,
   },
+  // ── Wave 37: Catalunya interior + costes (10 festivales) ─────────────────
+  "sonar-plus": {
+    title: `Sónar+D ${YEAR} [Jun, BCN]: Carpooling Madrid 10€ | ConcertRide`,
+    description: `Sónar+D ${YEAR}: conferencia y festival de música electrónica y tecnología en Barcelona (Jun). Carpooling sin comisión Madrid 10€, Valencia 6€, Zaragoza 5€. Pago Bizum directo.`,
+    keywords: `sonar plus ${YEAR}, sonar+d barcelona, sonar festival transporte, como llegar sonar barcelona, carpooling sonar`,
+  },
+  "festival-de-musica-de-tarragona": {
+    title: `Tarragona Fest ${YEAR} [Jul, Romano]: Carpooling 4€ | ConcertRide`,
+    description: `Festival de Música de Tarragona ${YEAR}: pop y rock junto al Anfiteatro Romano patrimonio UNESCO. Carpooling sin comisión Barcelona 4€, Madrid 9€, Zaragoza 5€. Bizum directo.`,
+    keywords: `festival musica tarragona ${YEAR}, tarragona fest carpooling, como llegar festival tarragona, conciertos tarragona ${YEAR}`,
+  },
+  "festival-de-musica-de-lleida": {
+    title: `Lleida Fest ${YEAR} [Jul, Poniente]: Carpooling 4€ | ConcertRide`,
+    description: `Festival de Música de Lleida ${YEAR}: pop e indie en la capital de Poniente catalán. Carpooling sin comisión Barcelona 4€, Madrid 8€, Zaragoza 3€. Pago Bizum directo.`,
+    keywords: `festival musica lleida ${YEAR}, lleida fest carpooling, como llegar festival lleida, conciertos lleida ${YEAR}`,
+  },
+  "festival-de-musica-de-girona": {
+    title: `Girona Fest ${YEAR} [Jul, Medieval]: Carpooling 3€ | ConcertRide`,
+    description: `Festival de Música de Girona ${YEAR}: pop y rock en la ciudad medieval del río Onyar. Carpooling sin comisión Barcelona 3€, Madrid 10€, Valencia 8€. Pago Bizum directo.`,
+    keywords: `festival musica girona ${YEAR}, girona fest carpooling, como llegar festival girona, conciertos girona ${YEAR}`,
+  },
+  "festival-de-musica-de-manresa": {
+    title: `Manresa Fest ${YEAR} [Jul, Bages]: Carpooling 3€ | ConcertRide`,
+    description: `Festival de Música de Manresa ${YEAR}: pop e indie en la capital del Bages catalán. Carpooling sin comisión Barcelona 3€, Madrid 8€, Zaragoza 5€. Pago Bizum directo.`,
+    keywords: `festival musica manresa ${YEAR}, manresa fest carpooling, como llegar festival manresa, conciertos manresa ${YEAR}`,
+  },
+  "festival-de-musica-de-reus": {
+    title: `Reus Fest ${YEAR} [Jul, Vermut]: Carpooling 4€ | ConcertRide`,
+    description: `Festival de Música de Reus ${YEAR}: pop y rock en la capital del Camp de Tarragona. Carpooling sin comisión Barcelona 4€, Madrid 9€, Valencia 6€. Pago Bizum directo.`,
+    keywords: `festival musica reus ${YEAR}, reus fest carpooling, como llegar festival reus, conciertos reus ${YEAR}`,
+  },
+  "festival-de-musica-de-vic": {
+    title: `Vic Fest ${YEAR} [Jul, Osona]: Carpooling 3€ | ConcertRide`,
+    description: `Festival de Música de Vic ${YEAR}: pop e indie en la capital de Osona, en el prepirineo catalán. Carpooling sin comisión Barcelona 3€, Girona 3€, Madrid 9€. Bizum directo.`,
+    keywords: `festival musica vic ${YEAR}, vic fest carpooling, como llegar festival vic, conciertos vic osona ${YEAR}`,
+  },
+  "festival-de-musica-de-figueres": {
+    title: `Figueres Fest ${YEAR} [Jul, Dalí]: Carpooling 4€ | ConcertRide`,
+    description: `Festival de Música de Figueres ${YEAR}: pop y rock en la ciudad de Dalí y el Alt Empordà. Carpooling sin comisión Barcelona 4€, Girona 3€, Madrid 11€. Pago Bizum directo.`,
+    keywords: `festival musica figueres ${YEAR}, figueres fest carpooling, como llegar festival figueres, conciertos figueres ${YEAR}`,
+  },
+  "festival-de-musica-de-mataro": {
+    title: `Mataró Fest ${YEAR} [Jul, Maresme]: Carpooling 3€ | ConcertRide`,
+    description: `Festival de Música de Mataró ${YEAR}: pop y rock en la capital del Maresme. Carpooling sin comisión Barcelona 3€, Madrid 10€, Valencia 7€. Pago Bizum directo.`,
+    keywords: `festival musica mataro ${YEAR}, mataro fest carpooling, como llegar festival mataro, conciertos mataro ${YEAR}`,
+  },
+  "festival-de-musica-de-sabadell": {
+    title: `Sabadell Fest ${YEAR} [Jul, Vallès]: Carpooling 3€ | ConcertRide`,
+    description: `Festival de Música de Sabadell ${YEAR}: pop e indie en la capital del Vallès Occidental. Carpooling sin comisión Barcelona 3€, Zaragoza 5€, Madrid 9€. Pago Bizum directo.`,
+    keywords: `festival musica sabadell ${YEAR}, sabadell fest carpooling, como llegar festival sabadell, conciertos sabadell ${YEAR}`,
+  },
+
+  // ── Wave 38: Levante–Murcia + Madrid metro (10 festivales) ───────────────
+  "festival-de-musica-de-alicante": {
+    title: `Alicante Fest ${YEAR} [Jul, Costa Blanca]: Carpooling 3€ | ConcertRide`,
+    description: `Festival de Música de Alicante ${YEAR}: pop y rock bajo el Castillo de Santa Bárbara. Carpooling sin comisión Murcia 3€, Madrid 7€, Barcelona 9€. Pago Bizum directo.`,
+    keywords: `festival musica alicante ${YEAR}, alicante fest carpooling, como llegar festival alicante, conciertos alicante ${YEAR}`,
+  },
+  "festival-de-musica-de-elche": {
+    title: `Elche Fest ${YEAR} [Jul, Palmeral]: Carpooling 3€ | ConcertRide`,
+    description: `Festival de Música de Elche ${YEAR}: pop y rock en la ciudad palmeral UNESCO. Carpooling sin comisión Alicante 3€, Murcia 3€, Madrid 7€. Pago Bizum directo.`,
+    keywords: `festival musica elche ${YEAR}, elche fest carpooling, como llegar festival elche, conciertos elche ${YEAR}`,
+  },
+  "festival-de-musica-de-murcia-pop": {
+    title: `Murcia Pop ${YEAR} [Jul, Huerta]: Carpooling 3€ | ConcertRide`,
+    description: `Festival Pop de Murcia ${YEAR}: los artistas de pop más actuales en el Auditorio Regional. Carpooling sin comisión Alicante 3€, Cartagena 3€, Madrid 7€. Pago Bizum directo.`,
+    keywords: `murcia pop ${YEAR}, festival pop murcia, murcia pop carpooling, como llegar murcia pop, conciertos murcia ${YEAR}`,
+  },
+  "festival-de-musica-de-cartagena": {
+    title: `Cartagena Fest ${YEAR} [Jul, Romano]: Carpooling 3€ | ConcertRide`,
+    description: `Festival de Música de Cartagena ${YEAR}: rock e indie junto al Teatro Romano del siglo I d.C. Carpooling sin comisión Murcia 3€, Alicante 3€, Madrid 8€. Pago Bizum directo.`,
+    keywords: `festival musica cartagena ${YEAR}, cartagena fest carpooling, como llegar festival cartagena, conciertos cartagena ${YEAR}`,
+  },
+  "festival-de-musica-de-lorca": {
+    title: `Lorca Fest ${YEAR} [Jul, Bordados]: Carpooling 3€ | ConcertRide`,
+    description: `Festival de Música de Lorca ${YEAR}: pop y rock en la ciudad de los bordados y el Castillo del Sol. Carpooling sin comisión Murcia 3€, Granada 4€, Madrid 8€. Bizum directo.`,
+    keywords: `festival musica lorca ${YEAR}, lorca fest carpooling, como llegar festival lorca, conciertos lorca ${YEAR}`,
+  },
+  "festival-de-jazz-de-toledo": {
+    title: `Jazz Toledo ${YEAR} [Jul, Imperial]: Carpooling 3€ | ConcertRide`,
+    description: `Festival de Jazz de Toledo ${YEAR}: jazz en la ciudad imperial de tres culturas. Carpooling sin comisión Madrid 3€, Guadalajara 3€, Cuenca 3€. Pago Bizum directo.`,
+    keywords: `festival jazz toledo ${YEAR}, jazz toledo carpooling, como llegar festival jazz toledo, conciertos toledo ${YEAR}`,
+  },
+  "festival-complutense": {
+    title: `Festival Complutense ${YEAR} [Jul, Cervantes]: Carpooling 3€ | ConcertRide`,
+    description: `Festival Complutense ${YEAR}: música en la ciudad de Cervantes, Alcalá de Henares. Carpooling sin comisión Madrid 3€, Guadalajara 3€, Segovia 3€. Pago Bizum directo.`,
+    keywords: `festival complutense ${YEAR}, festival alcala henares carpooling, como llegar festival complutense, conciertos alcala henares ${YEAR}`,
+  },
+  "festival-de-musica-de-leganes": {
+    title: `Leganés Fest ${YEAR} [Jul, Sur Madrid]: Carpooling 3€ | ConcertRide`,
+    description: `Festival de Música de Leganés ${YEAR}: rock en el sur metropolitano de Madrid. Carpooling sin comisión Madrid 3€, Toledo 3€, Guadalajara 3€. Pago Bizum directo.`,
+    keywords: `festival musica leganes ${YEAR}, leganes fest carpooling, como llegar festival leganes, conciertos leganes ${YEAR}`,
+  },
+  "festival-de-musica-de-mostoles": {
+    title: `Móstoles Fest ${YEAR} [Ago, Suroeste]: Carpooling 3€ | ConcertRide`,
+    description: `Festival de Música de Móstoles ${YEAR}: pop e indie en la segunda ciudad de la Comunidad de Madrid. Carpooling sin comisión Madrid 3€, Toledo 3€, Ávila 3€. Pago Bizum directo.`,
+    keywords: `festival musica mostoles ${YEAR}, mostoles fest carpooling, como llegar festival mostoles, conciertos mostoles ${YEAR}`,
+  },
+  "festival-de-musica-de-alcorcon": {
+    title: `Alcorcón Fest ${YEAR} [Ago, Suroeste]: Carpooling 3€ | ConcertRide`,
+    description: `Festival de Música de Alcorcón ${YEAR}: pop y rock en el suroeste del área metropolitana de Madrid. Carpooling sin comisión Madrid 3€, Toledo 3€, Segovia 3€. Pago Bizum directo.`,
+    keywords: `festival musica alcorcon ${YEAR}, alcorcon fest carpooling, como llegar festival alcorcon, conciertos alcorcon ${YEAR}`,
+  },
+
 };
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -892,6 +996,110 @@ export const VENUE_SEO_OVERRIDES: Record<string, { title: string; description: s
     description: `Plaza de Toros de La Misericordia Zaragoza (Av. Pablo Gargallo 11, 10.700 plazas). Sin metro (Zaragoza no tiene). Tranvía L1 parada Plaza Toros (5 min). Tuzsa 22/33/Ci1/Ci2. Renfe Delicias a 20 min andando. Parking Salduba 2–3€/h. Carpooling sin comisión desde Logroño (5–8€), Pamplona (5–8€), Madrid (9–13€), Barcelona (9–13€), Bilbao (9–13€).`,
     keywords: `como llegar plaza toros zaragoza, plaza toros zaragoza tranvia, conciertos plaza toros zaragoza, la misericordia zaragoza conciertos, carpooling plaza toros zaragoza, plaza toros zaragoza pablo gargallo, vive latino zaragoza transporte, plaza toros zaragoza aparcamiento`,
   },
+
+  // ── Wave 36: 10 nuevos festivales (Alicante/Murcia/Toledo/Madrid Metro) ──────
+  "festival-de-musica-de-alicante": {
+    title: `Alicante Fest ${YEAR} [Jul, Costa Blanca]: Carpooling 3€`,
+    description: `Festival de Música de Alicante ${YEAR}: pop y rock mediterráneo en el centro histórico. Carpooling sin comisión Valencia 6€, Murcia 3€, Elche 3€. 0% comisión. Bizum.`,
+    keywords: `festival musica alicante ${YEAR}, alicante fest carpooling, festival alicante verano, como llegar festival alicante, conciertos alicante ${YEAR}, festival costa blanca musica`,
+  },
+  "festival-de-musica-de-elche": {
+    title: `Elche Fest ${YEAR} [Palmeral UNESCO, Ago]: Carpooling 3€`,
+    description: `Festival de Música de Elche ${YEAR}: pop, rock y electrónica en el Palmeral Patrimonio UNESCO. Carpooling sin comisión Alicante 3€, Murcia 3€, Valencia 5€. Bizum.`,
+    keywords: `festival musica elche ${YEAR}, elche fest carpooling, festival elche palmeral, como llegar festival elche, conciertos elche ${YEAR}, festival alicante provincia`,
+  },
+  "festival-de-musica-de-murcia-pop": {
+    title: `Murcia Pop Fest ${YEAR} [Jul, Víctor Villegas]: Carpooling 3€`,
+    description: `Festival Pop de Murcia ${YEAR}: pop nacional en el Auditorio Víctor Villegas. Carpooling sin comisión Alicante 3€, Cartagena 3€, Valencia 8€. 0% comisión. Bizum.`,
+    keywords: `festival pop murcia ${YEAR}, murcia pop fest carpooling, festival murcia verano, como llegar festival murcia, conciertos murcia ${YEAR}, festival region murcia pop`,
+  },
+  "festival-de-musica-de-cartagena": {
+    title: `Cartagena Fest ${YEAR} [Teatro Romano, Ago]: Carpooling 3€`,
+    description: `Festival de Música de Cartagena ${YEAR}: pop y rock en el Teatro Romano. Carpooling sin comisión Murcia 3€, Alicante 4€, Valencia 9€. 0% comisión. Pago Bizum directo.`,
+    keywords: `festival musica cartagena ${YEAR}, cartagena fest carpooling, festival cartagena teatro romano, como llegar festival cartagena, conciertos cartagena ${YEAR}, festival costa calida`,
+  },
+  "festival-de-musica-de-lorca": {
+    title: `Lorca Fest ${YEAR} [Castillo, Jul Murcia]: Carpooling 3€`,
+    description: `Festival de Música de Lorca ${YEAR}: pop y rock en el Castillo de Lorca (Murcia). Carpooling sin comisión Murcia 3€, Alicante 5€, Granada 6€. 0% comisión. Bizum.`,
+    keywords: `festival musica lorca ${YEAR}, lorca fest carpooling, festival lorca castillo, como llegar festival lorca, conciertos lorca ${YEAR}, festival interior murcia`,
+  },
+  "festival-de-jazz-de-toledo": {
+    title: `Jazz Toledo ${YEAR} [Jul, Patrimonio UNESCO]: Carpooling 4€`,
+    description: `Festival de Jazz de Toledo ${YEAR}: jazz en el Teatro de Rojas y claustros medievales (Patrimonio UNESCO). Carpooling sin comisión Madrid 4€, Guadalajara 4€. Bizum.`,
+    keywords: `festival jazz toledo ${YEAR}, jazz toledo carpooling, festival jazz castilla la mancha, como llegar festival jazz toledo, conciertos toledo ${YEAR}, toledo festival verano`,
+  },
+  "festival-complutense": {
+    title: `Complutense Fest ${YEAR} [Jun, Alcalá UNESCO]: Carpooling 3€`,
+    description: `Festival Complutense ${YEAR}: música clásica y barroca en el Paraninfo Universitario de Alcalá de Henares (UNESCO). Carpooling sin comisión Madrid 3€. Bizum.`,
+    keywords: `festival complutense ${YEAR}, festival clasico alcala henares, festival barroco madrid, como llegar festival alcala, conciertos alcala de henares ${YEAR}, festival universidad alcala`,
+  },
+  "festival-de-musica-de-leganes": {
+    title: `LegaRock ${YEAR} [Jul-Ago, Sur Madrid]: Carpooling desde 3€`,
+    description: `LegaRock Festival ${YEAR}: rock, indie y punk en Leganés (Madrid Metro). Carpooling sin comisión Toledo 4€, Guadalajara 4€, Segovia 5€. 0% comisión. Pago Bizum.`,
+    keywords: `legarock ${YEAR}, festival rock leganes, festival indie sur madrid, como llegar legarock, conciertos leganes ${YEAR}, festival madrid metro rock, legarock festival carpooling`,
+  },
+  "festival-de-musica-de-mostoles": {
+    title: `Móstoles Fest ${YEAR} [Jul, Metro Madrid]: Carpooling 4€`,
+    description: `Festival de Música de Móstoles ${YEAR}: pop y rock en el Parque de Las Comunidades. Carpooling sin comisión Toledo 4€, Ávila 5€, Segovia 5€. 0% comisión. Bizum.`,
+    keywords: `festival musica mostoles ${YEAR}, mostoles fest carpooling, festival pop mostoles, como llegar festival mostoles, conciertos mostoles ${YEAR}, festival sur madrid pop`,
+  },
+  "festival-de-musica-de-alcorcon": {
+    title: `Alcorcón Fest ${YEAR} [Ago, Urban-Pop Metro]: Carpooling 4€`,
+    description: `Festival de Música de Alcorcón ${YEAR}: urban, pop y reggaeton en el corredor oeste de Madrid. Carpooling sin comisión Ávila 5€, Toledo 4€, Segovia 4€. Bizum.`,
+    keywords: `festival musica alcorcon ${YEAR}, alcorcon fest carpooling, festival urbano alcorcon, como llegar festival alcorcon, conciertos alcorcon ${YEAR}, festival madrid oeste pop`,
+  },
+
+  // ── Wave 36 pending: Andalucía Norte / Extremadura / Asturias / Cantabria / Vitoria Folk ──
+  "festival-de-musica-de-jaen-pop": {
+    title: `Jaén Pop Fest ${YEAR} [Jul, Olivar]: Carpooling desde 4€`,
+    description: `Festival Pop de Jaén ${YEAR}: pop y rock en la capital del aceite de oliva. Carpooling sin comisión Granada 4€, Córdoba 5€, Sevilla 8€, Madrid 15€. Bizum.`,
+    keywords: `festival pop jaen ${YEAR}, jaen pop fest carpooling, festival musica jaen, como llegar festival jaen, conciertos jaen ${YEAR}, festival andalucia pop jaen`,
+  },
+  "festival-de-musica-de-cordoba-rocks": {
+    title: `Córdoba Rocks ${YEAR} [Mezquita, Verano]: Carpooling 4€`,
+    description: `Festival Rock de Córdoba ${YEAR}: rock y pop junto a la Mezquita-Catedral (Patrimonio UNESCO). Carpooling sin comisión Sevilla 5€, Jaén 4€, Granada 5€. Bizum.`,
+    keywords: `festival rock cordoba ${YEAR}, cordoba rocks carpooling, festival musica cordoba, como llegar festival cordoba, conciertos cordoba ${YEAR}, festival andalucia rock mezquita`,
+  },
+  "festival-de-musica-de-huelva-pop": {
+    title: `Huelva Pop Fest ${YEAR} [Verano, Atlántico]: Carpooling 4€`,
+    description: `Festival Pop de Huelva ${YEAR}: pop y rock en la ciudad de Colón y el Atlántico. Carpooling sin comisión Sevilla 4€, Faro 5€, Cádiz 6€. 0% comisión. Bizum.`,
+    keywords: `festival pop huelva ${YEAR}, huelva pop fest carpooling, festival musica huelva, como llegar festival huelva, conciertos huelva ${YEAR}, festival andalucia atlantico`,
+  },
+  "festival-de-musica-de-badajoz": {
+    title: `Badajoz Fest ${YEAR} [Verano, Extremadura]: Carpooling 4€`,
+    description: `Festival de Música de Badajoz ${YEAR}: pop y rock en la capital extremeña. Carpooling sin comisión Mérida 3€, Sevilla 5€, Madrid 10€. 0% comisión. Bizum.`,
+    keywords: `festival musica badajoz ${YEAR}, badajoz fest carpooling, festival extremadura badajoz, como llegar festival badajoz, conciertos badajoz ${YEAR}, festival frontera portugal`,
+  },
+  "festival-de-musica-de-merida": {
+    title: `Mérida Fest ${YEAR} [Teatro Romano, Ago]: Carpooling 3€`,
+    description: `Festival de Música de Mérida ${YEAR}: pop y rock junto al Teatro Romano (UNESCO). Carpooling sin comisión Badajoz 3€, Cáceres 4€, Sevilla 4€. 0% comisión. Bizum.`,
+    keywords: `festival musica merida ${YEAR}, merida fest carpooling, festival teatro romano merida, como llegar festival merida, conciertos merida ${YEAR}, festival extremadura musica`,
+  },
+  "festival-de-musica-de-plasencia": {
+    title: `Plasencia Fest ${YEAR} [Jun, Extremadura Norte]: Carpooling 4€`,
+    description: `Festival de Música de Plasencia ${YEAR}: pop y rock en la ciudad amurallada extremeña. Carpooling sin comisión Cáceres 4€, Salamanca 5€, Madrid 12€. Bizum.`,
+    keywords: `festival musica plasencia ${YEAR}, plasencia fest carpooling, festival extremadura norte, como llegar festival plasencia, conciertos plasencia ${YEAR}, festival caceres provincia`,
+  },
+  "festival-de-musica-de-gijon": {
+    title: `Gijón Fest ${YEAR} [Verano, Costa Asturiana]: Carpooling 4€`,
+    description: `Festival de Música de Gijón ${YEAR}: pop, rock e indie en el Cantábrico asturiano. Carpooling sin comisión Oviedo 4€, Santander 5€, Bilbao 7€. 0% comisión. Bizum.`,
+    keywords: `festival musica gijon ${YEAR}, gijon fest carpooling, festival asturias gijon, como llegar festival gijon, conciertos gijon ${YEAR}, festival costa asturiana verano`,
+  },
+  "festival-de-musica-de-oviedo": {
+    title: `Oviedo Fest ${YEAR} [Verano, Asturias Capital]: Carpooling 4€`,
+    description: `Festival de Música de Oviedo ${YEAR}: pop y rock en la capital asturiana. Carpooling sin comisión Gijón 4€, Santander 5€, Bilbao 7€, Madrid 13€. 0% comisión. Bizum.`,
+    keywords: `festival musica oviedo ${YEAR}, oviedo fest carpooling, festival asturias oviedo, como llegar festival oviedo, conciertos oviedo ${YEAR}, festival norte españa capital oviedo`,
+  },
+  "festival-de-santander-jazz": {
+    title: `Santander Jazz ${YEAR} [Verano, Cantábrico]: Carpooling 4€`,
+    description: `Festival de Jazz de Santander ${YEAR}: jazz en la capital cántabra a orillas del Cantábrico. Carpooling sin comisión Bilbao 4€, Oviedo 5€, Madrid 11€. 0% comisión. Bizum.`,
+    keywords: `festival jazz santander ${YEAR}, santander jazz carpooling, festival jazz cantabria, como llegar festival jazz santander, conciertos santander ${YEAR}, festival norte españa jazz cantabria`,
+  },
+  "festival-de-folk-de-vitoria": {
+    title: `Folk Vitoria ${YEAR} [Verano, País Vasco]: Carpooling 3€`,
+    description: `Festival de Folk de Vitoria-Gasteiz ${YEAR}: folk internacional y world music en la capital vasca. Carpooling sin comisión Bilbao 3€, Donostia 4€, Pamplona 4€. Bizum.`,
+    keywords: `festival folk vitoria ${YEAR}, vitoria folk fest carpooling, festival folk pais vasco, como llegar festival folk vitoria, conciertos vitoria ${YEAR}, festival vitoria gasteiz folk`,
+  },
 };
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -1268,6 +1476,58 @@ export const ARTIST_SEO_OVERRIDES: Record<string, { title: string; description: 
     title: `Rels B ${YEAR} [AFTERPARTY Tour Movistar+Palau]: Carpooling 4€`,
     description: `Rels B AFTERPARTY Tour ${YEAR} — Movistar Arena Madrid, Palau Sant Jordi Barcelona, Mallorca Live Festival y Reggaeton Beach Festival Salou. Carpooling sin comisión desde Valencia (10–14€), Tarragona (3€ a Salou), Reus (3€), Sevilla (14–20€). 0% comisión, conductores verificados.`,
     keywords: `rels b ${YEAR}, rels b concierto españa ${YEAR}, rels b madrid movistar arena, rels b palau sant jordi barcelona, rels b mallorca live, rels b reggaeton beach festival, rels b afterparty tour, daniel heredia rels b, carpooling rels b, viaje compartido rels b, a mi rels b, la luna y yo rels b, como dormiste rels b, rap mallorca rels b`,
+  },
+
+  // ── Wave 36: Catalan scene + Fuel Fandango ───────────────────────────────
+  "fuel-fandango": {
+    title: `Fuel Fandango ${YEAR} [Flamenco-Electro, Sónar]: Carpooling 4€`,
+    description: `Fuel Fandango ${YEAR} — Sónar BCN, FIB, Primavera Sound. Dúo granadino flamenco-electrónico. Carpooling Sevilla 12€, Valencia 10€, Madrid 15€. 0% comisión. Bizum.`,
+    keywords: `fuel fandango ${YEAR}, fuel fandango concierto españa, fuel fandango sonar barcelona, fuel fandango fib, fuel fandango primavera sound, fuel fandango flamenco electronico, carpooling fuel fandango, como ir concierto fuel fandango`,
+  },
+  "los-piratas": {
+    title: `Los Piratas ${YEAR} [Indie Rock, La Riviera]: Carpooling 4€`,
+    description: `Los Piratas ${YEAR} — La Riviera Madrid, Sonorama Ribera. Indie rock asturiano pionero, Omega. Carpooling Oviedo 7€, Gijón 7€, Valladolid 5€. 0% comisión. Bizum.`,
+    keywords: `los piratas ${YEAR}, los piratas concierto españa, los piratas madrid la riviera, los piratas sonorama, los piratas omega album, los piratas indie rock asturiano, carpooling los piratas, como ir concierto los piratas`,
+  },
+  standstill: {
+    title: `Standstill ${YEAR} [Punk-Rock BCN, Primavera Sound]: 4€`,
+    description: `Standstill ${YEAR} — Primavera Sound BCN, Razzmatazz. Punk-rock/hardcore barcelonés. Carpooling Valencia 10€, Zaragoza 9€, Madrid 15€. 0% comisión. Bizum.`,
+    keywords: `standstill ${YEAR}, standstill concierto españa, standstill primavera sound barcelona, standstill razzmatazz, standstill hardcore punk rock catalan, carpooling standstill, como ir concierto standstill barcelona`,
+  },
+  "els-amics-de-les-arts": {
+    title: `Els Amics de les Arts ${YEAR} [Cruïlla + FIB]: Carpooling 3€`,
+    description: `Els Amics de les Arts ${YEAR} — Cruïlla BCN, FIB Benicàssim. Indie pop catalán, Ja Som a la Tardor. Carpooling Girona 3€, Tarragona 3€, Valencia 7€. Sin comisión.`,
+    keywords: `els amics de les arts ${YEAR}, els amics de les arts concierto, els amics de les arts cruilla barcelona, els amics de les arts fib, els amics de les arts indie catalan, carpooling els amics de les arts, com anar concert els amics les arts`,
+  },
+  manel: {
+    title: `Manel ${YEAR} [Primavera Sound + FIB]: Carpooling 3€`,
+    description: `Manel ${YEAR} — Primavera Sound BCN, FIB Benicàssim, Cruïlla. Indie folk pop catalán. Carpooling Girona 3€, Lleida 5€, Valencia 8€. 0% comisión. Bizum.`,
+    keywords: `manel ${YEAR}, manel concierto españa, manel primavera sound barcelona, manel fib benicassim, manel cruilla, manel indie folk catalan, manel els millors professors europeus, carpooling manel, como ir concierto manel barcelona`,
+  },
+  mishima: {
+    title: `Mishima ${YEAR} [Primavera Sound BCN + Apolo]: Carpooling 3€`,
+    description: `Mishima ${YEAR} — Primavera Sound BCN, Sala Apolo, FIB. Indie rock catalán, L'Edat d'Or. Carpooling Girona 3€, Tarragona 3€, Valencia 8€. 0% comisión. Bizum.`,
+    keywords: `mishima ${YEAR}, mishima concierto españa, mishima primavera sound barcelona, mishima sala apolo, mishima indie rock catalan, mishima l edat d or, carpooling mishima, como ir concierto mishima barcelona`,
+  },
+  "sopa-de-cabra": {
+    title: `Sopa de Cabra ${YEAR} [Canet Rock + Gira]: Carpooling 3€`,
+    description: `Sopa de Cabra ${YEAR} — Canet Rock, Palau Sant Jordi BCN. Rock catalán de Girona, El meu avi. Carpooling Girona 3€, Tarragona 3€, Lleida 5€. 0% comisión. Bizum.`,
+    keywords: `sopa de cabra ${YEAR}, sopa de cabra concierto españa, sopa de cabra canet rock, sopa de cabra palau sant jordi, sopa de cabra rock catalan girona, sopa de cabra el meu avi, carpooling sopa de cabra, como ir concierto sopa de cabra`,
+  },
+  "the-tyets": {
+    title: `The Tyets ${YEAR} [Primavera Sound BCN]: Carpooling 3€`,
+    description: `The Tyets ${YEAR} — Primavera Sound BCN, Cruïlla. Pop urbano catalán viral, Castellers. Carpooling Girona 3€, Tarragona 3€, Valencia 8€. 0% comisión. Bizum.`,
+    keywords: `the tyets ${YEAR}, the tyets concierto españa, the tyets primavera sound barcelona, the tyets cruilla, the tyets pop urbano catalan, the tyets castellers, carpooling the tyets, como ir concierto the tyets barcelona`,
+  },
+  "oques-grasses": {
+    title: `Oques Grasses ${YEAR} [Rototom + Cruïlla]: Carpooling 3€`,
+    description: `Oques Grasses ${YEAR} — Rototom Sunsplash, Cruïlla BCN, FIB. Reggae-ska catalán de Granollers. Carpooling Girona 3€, Tarragona 3€, Valencia 7€. 0% comisión. Bizum.`,
+    keywords: `oques grasses ${YEAR}, oques grasses concierto españa, oques grasses rototom sunsplash, oques grasses cruilla barcelona, oques grasses fib, oques grasses reggae ska catalan, carpooling oques grasses, como ir concierto oques grasses`,
+  },
+  txarango: {
+    title: `Txarango ${YEAR} [Cruïlla + Folk Catalans]: Carpooling 3€`,
+    description: `Txarango ${YEAR} — Cruïlla BCN, Mercat de Música Viva, Canet Rock. Folk-rumba-ska catalán, Som la Gent. Carpooling Girona 3€, Lleida 5€, Tarragona 3€. Sin comisión.`,
+    keywords: `txarango ${YEAR}, txarango concierto españa, txarango cruilla barcelona, txarango mercat musica viva, txarango canet rock, txarango folk catalan rumba, txarango som la gent, carpooling txarango, como ir concierto txarango`,
   },
 };
 
@@ -2550,4 +2810,480 @@ export const ROUTE_SEO_IMPROVEMENTS: Record<string, { title: string; description
     description: `Carpooling Sevilla → Creamfields Andalucía ${YEAR}: 95 km, 1h por A-4 al Recinto González Hontoria Jerez, desde 5€/asiento sin comisión. Más barato que Renfe+taxi al recinto.`,
     keywords: `carpooling sevilla creamfields andalucia, viaje compartido sevilla jerez creamfields, creamfields desde sevilla, como ir creamfields festival desde sevilla`,
   },
+
+
+  // ── Wave 36 routes: rutas por ciudad para los 10 nuevos festivales ──────
+  // Jaén Pop routes
+  "madrid-festival-de-musica-de-jaen-pop": {
+    title: `Carpooling Madrid → Festival Jaén Pop ${YEAR} [Desde 9€] | ConcertRide`,
+    description: `Madrid → Festival de Música de Jaén Pop ${YEAR}: carpooling sin comisión desde 9€/asiento. 385 km por A-4, 3h30. 0% comisión. Pago Bizum.`,
+    keywords: `carpooling madrid festival jaen pop, viaje compartido madrid jaen concierto, como llegar festival jaen desde madrid, transporte madrid jaen festival ${YEAR}`,
+  },
+  "granada-festival-de-musica-de-jaen-pop": {
+    title: `Carpooling Granada → Festival Jaén Pop ${YEAR} [Desde 5€] | ConcertRide`,
+    description: `Granada → Festival de Música de Jaén Pop ${YEAR}: carpooling sin comisión desde 5€/asiento. 95 km por A-316, 1h. 0% comisión. Pago Bizum directo.`,
+    keywords: `carpooling granada festival jaen pop, viaje compartido granada jaen festival, como ir festival jaen pop desde granada, transporte granada jaen ${YEAR}`,
+  },
+  "cordoba-festival-de-musica-de-jaen-pop": {
+    title: `Carpooling Córdoba → Festival Jaén Pop ${YEAR} [Desde 4€] | ConcertRide`,
+    description: `Córdoba → Festival de Música de Jaén Pop ${YEAR}: carpooling sin comisión desde 4€/asiento. 105 km por A-45, 1h10. 0% comisión. Pago Bizum.`,
+    keywords: `carpooling cordoba festival jaen pop, viaje compartido cordoba jaen festival, como llegar festival jaen pop desde cordoba, transporte cordoba jaen ${YEAR}`,
+  },
+
+  // Córdoba Rocks routes
+  "madrid-festival-de-musica-de-cordoba-rocks": {
+    title: `Carpooling Madrid → Córdoba Rocks ${YEAR} [Desde 9€] | ConcertRide`,
+    description: `Madrid → Festival Córdoba Rocks ${YEAR}: carpooling sin comisión desde 9€/asiento. 400 km por A-4, 3h30. 0% comisión. Pago Bizum directo.`,
+    keywords: `carpooling madrid cordoba rocks, viaje compartido madrid cordoba festival, como llegar cordoba rocks desde madrid, transporte madrid cordoba festival ${YEAR}`,
+  },
+  "sevilla-festival-de-musica-de-cordoba-rocks": {
+    title: `Carpooling Sevilla → Córdoba Rocks ${YEAR} [Desde 4€] | ConcertRide`,
+    description: `Sevilla → Festival Córdoba Rocks ${YEAR}: carpooling sin comisión desde 4€/asiento. 140 km por A-4, 1h30. 0% comisión. Pago Bizum directo.`,
+    keywords: `carpooling sevilla cordoba rocks, viaje compartido sevilla cordoba festival, como ir cordoba rocks desde sevilla, transporte sevilla cordoba ${YEAR}`,
+  },
+  "malaga-festival-de-musica-de-cordoba-rocks": {
+    title: `Carpooling Málaga → Córdoba Rocks ${YEAR} [Desde 5€] | ConcertRide`,
+    description: `Málaga → Festival Córdoba Rocks ${YEAR}: carpooling sin comisión desde 5€/asiento. 170 km por A-45, 1h45. 0% comisión. Pago Bizum directo.`,
+    keywords: `carpooling malaga cordoba rocks, viaje compartido malaga cordoba festival, como llegar cordoba rocks desde malaga, transporte malaga cordoba ${YEAR}`,
+  },
+
+  // Huelva Pop routes
+  "madrid-festival-de-musica-de-huelva-pop": {
+    title: `Carpooling Madrid → Festival Huelva Pop ${YEAR} [Desde 11€] | ConcertRide`,
+    description: `Madrid → Festival de Música de Huelva Pop ${YEAR}: carpooling sin comisión desde 11€/asiento. 640 km por A-4+A-49, 5h30. 0% comisión. Pago Bizum.`,
+    keywords: `carpooling madrid festival huelva pop, viaje compartido madrid huelva concierto, como llegar festival huelva desde madrid, transporte madrid huelva festival ${YEAR}`,
+  },
+  "sevilla-festival-de-musica-de-huelva-pop": {
+    title: `Carpooling Sevilla → Festival Huelva Pop ${YEAR} [Desde 4€] | ConcertRide`,
+    description: `Sevilla → Festival de Música de Huelva Pop ${YEAR}: carpooling sin comisión desde 4€/asiento. 94 km por A-49, 1h. 0% comisión. Pago Bizum directo.`,
+    keywords: `carpooling sevilla festival huelva pop, viaje compartido sevilla huelva festival, como ir festival huelva pop desde sevilla, transporte sevilla huelva ${YEAR}`,
+  },
+  "cadiz-festival-de-musica-de-huelva-pop": {
+    title: `Carpooling Cádiz → Festival Huelva Pop ${YEAR} [Desde 5€] | ConcertRide`,
+    description: `Cádiz → Festival de Música de Huelva Pop ${YEAR}: carpooling sin comisión desde 5€/asiento. 200 km por A-48+A-49, 2h. 0% comisión. Pago Bizum directo.`,
+    keywords: `carpooling cadiz festival huelva pop, viaje compartido cadiz huelva festival, como llegar festival huelva pop desde cadiz, transporte cadiz huelva ${YEAR}`,
+  },
+
+  // Badajoz routes
+  "madrid-festival-de-musica-de-badajoz": {
+    title: `Carpooling Madrid → Festival Badajoz ${YEAR} [Desde 8€] | ConcertRide`,
+    description: `Madrid → Festival de Música de Badajoz ${YEAR}: carpooling sin comisión desde 8€/asiento. 400 km por A-5, 3h30. 0% comisión. Pago Bizum directo.`,
+    keywords: `carpooling madrid festival badajoz, viaje compartido madrid badajoz concierto, como llegar festival badajoz desde madrid, transporte madrid badajoz festival ${YEAR}`,
+  },
+  "sevilla-festival-de-musica-de-badajoz": {
+    title: `Carpooling Sevilla → Festival Badajoz ${YEAR} [Desde 5€] | ConcertRide`,
+    description: `Sevilla → Festival de Música de Badajoz ${YEAR}: carpooling sin comisión desde 5€/asiento. 220 km por A-66, 2h. 0% comisión. Pago Bizum directo.`,
+    keywords: `carpooling sevilla festival badajoz, viaje compartido sevilla badajoz festival, como ir festival badajoz desde sevilla, transporte sevilla badajoz ${YEAR}`,
+  },
+  "caceres-festival-de-musica-de-badajoz": {
+    title: `Carpooling Cáceres → Festival Badajoz ${YEAR} [Desde 4€] | ConcertRide`,
+    description: `Cáceres → Festival de Música de Badajoz ${YEAR}: carpooling sin comisión desde 4€/asiento. 90 km por A-66, 1h. 0% comisión. Pago Bizum directo.`,
+    keywords: `carpooling caceres festival badajoz, viaje compartido caceres badajoz festival, como llegar festival badajoz desde caceres, transporte caceres badajoz ${YEAR}`,
+  },
+
+  // Mérida routes
+  "madrid-festival-de-musica-de-merida": {
+    title: `Carpooling Madrid → Festival Mérida ${YEAR} [Desde 7€] | ConcertRide`,
+    description: `Madrid → Festival de Música de Mérida ${YEAR}: carpooling sin comisión desde 7€/asiento. 350 km por A-5, 3h. 0% comisión. Pago Bizum directo.`,
+    keywords: `carpooling madrid festival merida, viaje compartido madrid merida concierto, como llegar festival merida desde madrid, transporte madrid merida festival ${YEAR}`,
+  },
+  "sevilla-festival-de-musica-de-merida": {
+    title: `Carpooling Sevilla → Festival Mérida ${YEAR} [Desde 5€] | ConcertRide`,
+    description: `Sevilla → Festival de Música de Mérida ${YEAR}: carpooling sin comisión desde 5€/asiento. 190 km por A-66, 1h45. 0% comisión. Pago Bizum directo.`,
+    keywords: `carpooling sevilla festival merida, viaje compartido sevilla merida festival, como ir festival merida desde sevilla, transporte sevilla merida ${YEAR}`,
+  },
+  "badajoz-festival-de-musica-de-merida": {
+    title: `Carpooling Badajoz → Festival Mérida ${YEAR} [Desde 3€] | ConcertRide`,
+    description: `Badajoz → Festival de Música de Mérida ${YEAR}: carpooling sin comisión desde 3€/asiento. 62 km por A-5, 40 min. 0% comisión. Pago Bizum directo.`,
+    keywords: `carpooling badajoz festival merida, viaje compartido badajoz merida festival, como llegar festival merida desde badajoz, transporte badajoz merida ${YEAR}`,
+  },
+
+  // Plasencia routes
+  "madrid-festival-de-musica-de-plasencia": {
+    title: `Carpooling Madrid → Festival Plasencia ${YEAR} [Desde 7€] | ConcertRide`,
+    description: `Madrid → Festival de Música de Plasencia ${YEAR}: carpooling sin comisión desde 7€/asiento. 300 km por A-5, 2h30. 0% comisión. Pago Bizum directo.`,
+    keywords: `carpooling madrid festival plasencia, viaje compartido madrid plasencia concierto, como llegar festival plasencia desde madrid, transporte madrid plasencia festival ${YEAR}`,
+  },
+  "salamanca-festival-de-musica-de-plasencia": {
+    title: `Carpooling Salamanca → Festival Plasencia ${YEAR} [Desde 4€] | ConcertRide`,
+    description: `Salamanca → Festival de Música de Plasencia ${YEAR}: carpooling sin comisión desde 4€/asiento. 140 km por A-66, 1h20. 0% comisión. Pago Bizum directo.`,
+    keywords: `carpooling salamanca festival plasencia, viaje compartido salamanca plasencia festival, como ir festival plasencia desde salamanca, transporte salamanca plasencia ${YEAR}`,
+  },
+  "caceres-festival-de-musica-de-plasencia": {
+    title: `Carpooling Cáceres → Festival Plasencia ${YEAR} [Desde 3€] | ConcertRide`,
+    description: `Cáceres → Festival de Música de Plasencia ${YEAR}: carpooling sin comisión desde 3€/asiento. 84 km por A-66, 55 min. 0% comisión. Pago Bizum directo.`,
+    keywords: `carpooling caceres festival plasencia, viaje compartido caceres plasencia festival, como llegar festival plasencia desde caceres, transporte caceres plasencia ${YEAR}`,
+  },
+
+  // Gijón routes
+  "madrid-festival-de-musica-de-gijon": {
+    title: `Carpooling Madrid → Festival Gijón ${YEAR} [Desde 9€] | ConcertRide`,
+    description: `Madrid → Festival de Música de Gijón ${YEAR}: carpooling sin comisión desde 9€/asiento. 450 km por A-1+AP-66, 4h. 0% comisión. Pago Bizum directo.`,
+    keywords: `carpooling madrid festival gijon, viaje compartido madrid gijon concierto, como llegar festival gijon desde madrid, transporte madrid gijon festival ${YEAR}`,
+  },
+  "oviedo-festival-de-musica-de-gijon": {
+    title: `Carpooling Oviedo → Festival Gijón ${YEAR} [Desde 3€] | ConcertRide`,
+    description: `Oviedo → Festival de Música de Gijón ${YEAR}: carpooling sin comisión desde 3€/asiento. 30 km por A-66, 25 min. 0% comisión. Pago Bizum directo.`,
+    keywords: `carpooling oviedo festival gijon, viaje compartido oviedo gijon festival, como ir festival gijon desde oviedo, transporte oviedo gijon ${YEAR}`,
+  },
+  "santander-festival-de-musica-de-gijon": {
+    title: `Carpooling Santander → Festival Gijón ${YEAR} [Desde 5€] | ConcertRide`,
+    description: `Santander → Festival de Música de Gijón ${YEAR}: carpooling sin comisión desde 5€/asiento. 185 km por A-8, 1h50. 0% comisión. Pago Bizum directo.`,
+    keywords: `carpooling santander festival gijon, viaje compartido santander gijon festival, como llegar festival gijon desde santander, transporte santander gijon ${YEAR}`,
+  },
+
+  // Oviedo routes
+  "madrid-festival-de-musica-de-oviedo": {
+    title: `Carpooling Madrid → Festival Oviedo ${YEAR} [Desde 9€] | ConcertRide`,
+    description: `Madrid → Festival de Música de Oviedo ${YEAR}: carpooling sin comisión desde 9€/asiento. 440 km por A-1+AP-66, 4h. 0% comisión. Pago Bizum directo.`,
+    keywords: `carpooling madrid festival oviedo, viaje compartido madrid oviedo concierto, como llegar festival oviedo desde madrid, transporte madrid oviedo festival ${YEAR}`,
+  },
+  "bilbao-festival-de-musica-de-oviedo": {
+    title: `Carpooling Bilbao → Festival Oviedo ${YEAR} [Desde 6€] | ConcertRide`,
+    description: `Bilbao → Festival de Música de Oviedo ${YEAR}: carpooling sin comisión desde 6€/asiento. 300 km por A-8, 2h45. 0% comisión. Pago Bizum directo.`,
+    keywords: `carpooling bilbao festival oviedo, viaje compartido bilbao oviedo festival, como ir festival oviedo desde bilbao, transporte bilbao oviedo ${YEAR}`,
+  },
+  "gijon-festival-de-musica-de-oviedo": {
+    title: `Carpooling Gijón → Festival Oviedo ${YEAR} [Desde 3€] | ConcertRide`,
+    description: `Gijón → Festival de Música de Oviedo ${YEAR}: carpooling sin comisión desde 3€/asiento. 30 km por A-66, 25 min. 0% comisión. Pago Bizum directo.`,
+    keywords: `carpooling gijon festival oviedo, viaje compartido gijon oviedo festival, como llegar festival oviedo desde gijon, transporte gijon oviedo ${YEAR}`,
+  },
+
+  // Santander Jazz routes
+  "madrid-festival-de-santander-jazz": {
+    title: `Carpooling Madrid → Jazz Santander ${YEAR} [Desde 9€] | ConcertRide`,
+    description: `Madrid → Festival de Jazz de Santander ${YEAR}: carpooling sin comisión desde 9€/asiento. 395 km por A-1, 3h30. 0% comisión. Pago Bizum directo.`,
+    keywords: `carpooling madrid festival santander jazz, viaje compartido madrid santander jazz, como llegar festival jazz santander desde madrid, transporte madrid santander ${YEAR}`,
+  },
+  "bilbao-festival-de-santander-jazz": {
+    title: `Carpooling Bilbao → Jazz Santander ${YEAR} [Desde 4€] | ConcertRide`,
+    description: `Bilbao → Festival de Jazz de Santander ${YEAR}: carpooling sin comisión desde 4€/asiento. 110 km por A-8, 1h10. 0% comisión. Pago Bizum directo.`,
+    keywords: `carpooling bilbao festival santander jazz, viaje compartido bilbao santander jazz, como ir jazz santander desde bilbao, transporte bilbao santander ${YEAR}`,
+  },
+  "burgos-festival-de-santander-jazz": {
+    title: `Carpooling Burgos → Jazz Santander ${YEAR} [Desde 4€] | ConcertRide`,
+    description: `Burgos → Festival de Jazz de Santander ${YEAR}: carpooling sin comisión desde 4€/asiento. 155 km por A-1, 1h30. 0% comisión. Pago Bizum directo.`,
+    keywords: `carpooling burgos festival santander jazz, viaje compartido burgos santander jazz, como llegar jazz santander desde burgos, transporte burgos santander ${YEAR}`,
+  },
+
+  // Folk Vitoria-Gasteiz routes
+  "madrid-festival-de-folk-de-vitoria": {
+    title: `Carpooling Madrid → Folk Vitoria ${YEAR} [Desde 9€] | ConcertRide`,
+    description: `Madrid → Festival de Folk de Vitoria-Gasteiz ${YEAR}: carpooling sin comisión desde 9€/asiento. 365 km por A-1, 3h15. 0% comisión. Pago Bizum directo.`,
+    keywords: `carpooling madrid festival folk vitoria, viaje compartido madrid vitoria folk, como llegar festival folk vitoria desde madrid, transporte madrid vitoria-gasteiz ${YEAR}`,
+  },
+  "bilbao-festival-de-folk-de-vitoria": {
+    title: `Carpooling Bilbao → Folk Vitoria ${YEAR} [Desde 3€] | ConcertRide`,
+    description: `Bilbao → Festival de Folk de Vitoria-Gasteiz ${YEAR}: carpooling sin comisión desde 3€/asiento. 65 km por A-68, 45 min. 0% comisión. Pago Bizum directo.`,
+    keywords: `carpooling bilbao festival folk vitoria, viaje compartido bilbao vitoria gasteiz folk, como ir festival folk vitoria desde bilbao, transporte bilbao vitoria ${YEAR}`,
+  },
+  "pamplona-festival-de-folk-de-vitoria": {
+    title: `Carpooling Pamplona → Folk Vitoria ${YEAR} [Desde 4€] | ConcertRide`,
+    description: `Pamplona → Festival de Folk de Vitoria-Gasteiz ${YEAR}: carpooling sin comisión desde 4€/asiento. 90 km por A-12+AP-1, 55 min. 0% comisión. Pago Bizum directo.`,
+    keywords: `carpooling pamplona festival folk vitoria, viaje compartido pamplona vitoria folk, como llegar festival folk vitoria desde pamplona, transporte pamplona vitoria-gasteiz ${YEAR}`,
+  },
+  // ── Wave 37: Catalunya interior + costes (10 festivals × 3 routes = 30 routes) ─
+  "madrid-sonar-plus": {
+    title: `Coche Madrid→Sónar+ ${YEAR} [Desde 10€] — ConcertRide`,
+    description: `Madrid → Sónar+ Barcelona: 620 km por AP-2, 5 h 30 min, desde 10 €/asiento sin comisión. La vanguardia electrónica y digital del Sónar al alcance desde Madrid.`,
+    keywords: `carpooling madrid sonar plus, viaje compartido madrid sonar barcelona`,
+  },
+  "valencia-sonar-plus": {
+    title: `Viaje Valencia→Sónar+ ${YEAR} [Desde 6€] — ConcertRide`,
+    description: `Valencia → Sónar+ Barcelona: 360 km por AP-7, 3 h 30 min, desde 6 €/asiento sin comisión. El festival de electrónica más innovador de Europa desde Valencia.`,
+    keywords: `carpooling valencia sonar plus, viaje compartido valencia sonar barcelona`,
+  },
+  "zaragoza-sonar-plus": {
+    title: `Carpooling Zaragoza→Sónar+ ${YEAR} [Desde 5€] — ConcertRide`,
+    description: `Zaragoza → Sónar+ Barcelona: 300 km por AP-2, 2 h 45 min, desde 5 €/asiento sin comisión. Aragón al festival de electrónica más esperado del verano.`,
+    keywords: `carpooling zaragoza sonar plus, viaje compartido zaragoza sonar barcelona`,
+  },
+  "madrid-festival-de-musica-de-tarragona": {
+    title: `Viaje Madrid→Festival Tarragona ${YEAR} [Desde 9€] — ConcertRide`,
+    description: `Madrid → Festival de Música de Tarragona: 555 km por AP-2, 5 h, desde 9 €/asiento sin comisión. Pop y rock junto al Anfiteatro Romano de Tarragona.`,
+    keywords: `carpooling madrid festival tarragona, viaje compartido madrid tarragona festival`,
+  },
+  "barcelona-festival-de-musica-de-tarragona": {
+    title: `Coche Barcelona→Festival Tarragona ${YEAR} [Desde 4€] — ConcertRide`,
+    description: `Barcelona → Festival Tarragona: 100 km por AP-7, 1 h, desde 4 €/asiento sin comisión. El festival más cercano a Barcelona con escenario romano único.`,
+    keywords: `carpooling barcelona festival tarragona, viaje compartido barcelona tarragona festival`,
+  },
+  "zaragoza-festival-de-musica-de-tarragona": {
+    title: `Viaje Zaragoza→Festival Tarragona ${YEAR} [Desde 5€] — ConcertRide`,
+    description: `Zaragoza → Festival Tarragona: 250 km por A-2+AP-7, 2 h 20 min, desde 5 €/asiento sin comisión. Aragón al festival mediterráneo de Tarragona.`,
+    keywords: `carpooling zaragoza festival tarragona, viaje compartido zaragoza tarragona festival`,
+  },
+  "madrid-festival-de-musica-de-lleida": {
+    title: `Coche Madrid→Festival Lleida ${YEAR} [Desde 8€] — ConcertRide`,
+    description: `Madrid → Festival de Música de Lleida: 470 km por A-2+AP-2, 4 h 15 min, desde 8 €/asiento sin comisión. El festival de la capital de Poniente catalán.`,
+    keywords: `carpooling madrid festival lleida, viaje compartido madrid lleida festival musica`,
+  },
+  "barcelona-festival-de-musica-de-lleida": {
+    title: `Viaje Barcelona→Festival Lleida ${YEAR} [Desde 4€] — ConcertRide`,
+    description: `Barcelona → Festival Lleida: 170 km por A-2, 1 h 30 min, desde 4 €/asiento sin comisión. El festival más auténtico del interior catalán desde Barcelona.`,
+    keywords: `carpooling barcelona festival lleida, viaje compartido barcelona lleida festival`,
+  },
+  "zaragoza-festival-de-musica-de-lleida": {
+    title: `Carpooling Zaragoza→Festival Lleida ${YEAR} [Desde 3€] — ConcertRide`,
+    description: `Zaragoza → Festival Lleida: 150 km por A-2, 1 h 30 min, desde 3 €/asiento sin comisión. Vecinos de Aragón y Cataluña comparten ruta al festival de Lleida.`,
+    keywords: `carpooling zaragoza festival lleida, viaje compartido zaragoza lleida festival`,
+  },
+  "madrid-festival-de-musica-de-girona": {
+    title: `Viaje Madrid→Festival Girona ${YEAR} [Desde 10€] — ConcertRide`,
+    description: `Madrid → Festival de Música de Girona: 740 km por AP-2+AP-7, 6 h 30 min, desde 10 €/asiento sin comisión. El festival de la ciudad medieval del río Onyar.`,
+    keywords: `carpooling madrid festival girona, viaje compartido madrid girona festival`,
+  },
+  "barcelona-festival-de-musica-de-girona": {
+    title: `Coche Barcelona→Festival Girona ${YEAR} [Desde 3€] — ConcertRide`,
+    description: `Barcelona → Festival Girona: 100 km por AP-7, 1 h, desde 3 €/asiento sin comisión. El festival más fácil de alcanzar desde Barcelona.`,
+    keywords: `carpooling barcelona festival girona, viaje compartido barcelona girona festival`,
+  },
+  "valencia-festival-de-musica-de-girona": {
+    title: `Viaje Valencia→Festival Girona ${YEAR} [Desde 8€] — ConcertRide`,
+    description: `Valencia → Festival Girona: 500 km por AP-7, 4 h 30 min, desde 8 €/asiento sin comisión. Levante al festival de la ciudad medieval de Cataluña.`,
+    keywords: `carpooling valencia festival girona, viaje compartido valencia girona festival`,
+  },
+  "madrid-festival-de-musica-de-manresa": {
+    title: `Coche Madrid→Festival Manresa ${YEAR} [Desde 8€] — ConcertRide`,
+    description: `Madrid → Festival de Música de Manresa: 520 km por AP-2, 4 h 40 min, desde 8 €/asiento sin comisión. El festival del corazón del Bages, junto al río Cardener.`,
+    keywords: `carpooling madrid festival manresa, viaje compartido madrid manresa festival`,
+  },
+  "barcelona-festival-de-musica-de-manresa": {
+    title: `Viaje Barcelona→Festival Manresa ${YEAR} [Desde 3€] — ConcertRide`,
+    description: `Barcelona → Festival Manresa: 70 km por C-16, 1 h, desde 3 €/asiento sin comisión. El festival del Bages a solo 1 hora de la Sagrada Familia.`,
+    keywords: `carpooling barcelona festival manresa, viaje compartido barcelona manresa festival`,
+  },
+  "zaragoza-festival-de-musica-de-manresa": {
+    title: `Carpooling Zaragoza→Festival Manresa ${YEAR} [Desde 5€] — ConcertRide`,
+    description: `Zaragoza → Festival Manresa: 250 km por A-2+C-16, 2 h 30 min, desde 5 €/asiento sin comisión. Festival de interior catalán desde Aragón.`,
+    keywords: `carpooling zaragoza festival manresa, viaje compartido zaragoza manresa festival`,
+  },
+  "madrid-festival-de-musica-de-reus": {
+    title: `Viaje Madrid→Festival Reus ${YEAR} [Desde 9€] — ConcertRide`,
+    description: `Madrid → Festival de Música de Reus: 560 km por AP-2+AP-7, 5 h, desde 9 €/asiento sin comisión. El festival de la ciudad del vermut catalán.`,
+    keywords: `carpooling madrid festival reus, viaje compartido madrid reus festival`,
+  },
+  "barcelona-festival-de-musica-de-reus": {
+    title: `Coche Barcelona→Festival Reus ${YEAR} [Desde 4€] — ConcertRide`,
+    description: `Barcelona → Festival Reus: 110 km por AP-7, 1 h 10 min, desde 4 €/asiento sin comisión. El festival de la capital del Camp de Tarragona.`,
+    keywords: `carpooling barcelona festival reus, viaje compartido barcelona reus festival`,
+  },
+  "valencia-festival-de-musica-de-reus": {
+    title: `Viaje Valencia→Festival Reus ${YEAR} [Desde 6€] — ConcertRide`,
+    description: `Valencia → Festival Reus: 260 km por AP-7, 2 h 30 min, desde 6 €/asiento sin comisión. El festival mediterráneo más próximo desde Levante.`,
+    keywords: `carpooling valencia festival reus, viaje compartido valencia reus tarragona festival`,
+  },
+  "madrid-festival-de-musica-de-vic": {
+    title: `Coche Madrid→Festival Vic ${YEAR} [Desde 9€] — ConcertRide`,
+    description: `Madrid → Festival de Música de Vic: 590 km por AP-2+C-17, 5 h 15 min, desde 9 €/asiento sin comisión. El festival de la capital de Osona, en el prepirineo catalán.`,
+    keywords: `carpooling madrid festival vic, viaje compartido madrid vic osona festival`,
+  },
+  "barcelona-festival-de-musica-de-vic": {
+    title: `Viaje Barcelona→Festival Vic ${YEAR} [Desde 3€] — ConcertRide`,
+    description: `Barcelona → Festival Vic: 65 km por C-17, 55 min, desde 3 €/asiento sin comisión. El festival del prepirineo catalán más cercano a Barcelona.`,
+    keywords: `carpooling barcelona festival vic, viaje compartido barcelona vic osona festival`,
+  },
+  "girona-festival-de-musica-de-vic": {
+    title: `Carpooling Girona→Festival Vic ${YEAR} [Desde 3€] — ConcertRide`,
+    description: `Girona → Festival Vic: 60 km por C-25, 50 min, desde 3 €/asiento sin comisión. El festival de Osona a un paso de las Comarcas Gironines.`,
+    keywords: `carpooling girona festival vic, viaje compartido girona vic festival`,
+  },
+  "madrid-festival-de-musica-de-figueres": {
+    title: `Viaje Madrid→Festival Figueres ${YEAR} [Desde 11€] — ConcertRide`,
+    description: `Madrid → Festival de Música de Figueres: 780 km por AP-2+AP-7, 6 h 45 min, desde 11 €/asiento sin comisión. El festival de la ciudad de Dalí y el Empordà.`,
+    keywords: `carpooling madrid festival figueres, viaje compartido madrid figueres festival`,
+  },
+  "barcelona-festival-de-musica-de-figueres": {
+    title: `Coche Barcelona→Festival Figueres ${YEAR} [Desde 4€] — ConcertRide`,
+    description: `Barcelona → Festival Figueres: 140 km por AP-7, 1 h 20 min, desde 4 €/asiento sin comisión. El festival de la ciudad de Dalí desde la costa.`,
+    keywords: `carpooling barcelona festival figueres, viaje compartido barcelona figueres festival`,
+  },
+  "girona-festival-de-musica-de-figueres": {
+    title: `Viaje Girona→Festival Figueres ${YEAR} [Desde 3€] — ConcertRide`,
+    description: `Girona → Festival Figueres: 40 km por AP-7, 35 min, desde 3 €/asiento sin comisión. El vecino del Empordà a menos de media hora de la capital provincial.`,
+    keywords: `carpooling girona festival figueres, viaje compartido girona figueres festival`,
+  },
+  "madrid-festival-de-musica-de-mataro": {
+    title: `Coche Madrid→Festival Mataró ${YEAR} [Desde 10€] — ConcertRide`,
+    description: `Madrid → Festival de Música de Mataró: 650 km por AP-2+AP-7, 5 h 45 min, desde 10 €/asiento sin comisión. El festival del Maresme, con el Mediterráneo al fondo.`,
+    keywords: `carpooling madrid festival mataro, viaje compartido madrid mataro maresme festival`,
+  },
+  "barcelona-festival-de-musica-de-mataro": {
+    title: `Viaje Barcelona→Festival Mataró ${YEAR} [Desde 3€] — ConcertRide`,
+    description: `Barcelona → Festival Mataró: 30 km por C-32, 30 min, desde 3 €/asiento sin comisión. El festival de playa más cercano a Barcelona.`,
+    keywords: `carpooling barcelona festival mataro, viaje compartido barcelona mataro festival`,
+  },
+  "valencia-festival-de-musica-de-mataro": {
+    title: `Carpooling Valencia→Festival Mataró ${YEAR} [Desde 7€] — ConcertRide`,
+    description: `Valencia → Festival Mataró: 400 km por AP-7, 3 h 40 min, desde 7 €/asiento sin comisión. Levante al festival mediterráneo del Maresme.`,
+    keywords: `carpooling valencia festival mataro, viaje compartido valencia mataro festival`,
+  },
+  "madrid-festival-de-musica-de-sabadell": {
+    title: `Viaje Madrid→Festival Sabadell ${YEAR} [Desde 9€] — ConcertRide`,
+    description: `Madrid → Festival de Música de Sabadell: 600 km por AP-2, 5 h 20 min, desde 9 €/asiento sin comisión. El festival de la capital del Vallès Occidental.`,
+    keywords: `carpooling madrid festival sabadell, viaje compartido madrid sabadell festival`,
+  },
+  "barcelona-festival-de-musica-de-sabadell": {
+    title: `Coche Barcelona→Festival Sabadell ${YEAR} [Desde 3€] — ConcertRide`,
+    description: `Barcelona → Festival Sabadell: 25 km por C-58, 30 min, desde 3 €/asiento sin comisión. El festival del Vallès Occidental a un paso de Barcelona.`,
+    keywords: `carpooling barcelona festival sabadell, viaje compartido barcelona sabadell festival`,
+  },
+  "zaragoza-festival-de-musica-de-sabadell": {
+    title: `Viaje Zaragoza→Festival Sabadell ${YEAR} [Desde 5€] — ConcertRide`,
+    description: `Zaragoza → Festival Sabadell: 310 km por A-2, 2 h 50 min, desde 5 €/asiento sin comisión. El festival del Vallès Occidental desde Aragón.`,
+    keywords: `carpooling zaragoza festival sabadell, viaje compartido zaragoza sabadell festival`,
+  },
+
+  // ── Wave 38: Levante–Murcia + Madrid metro (10 festivals × 3 routes = 30 routes) ─
+  "madrid-festival-de-musica-de-alicante": {
+    title: `Viaje Madrid→Festival Alicante ${YEAR} [Desde 7€] — ConcertRide`,
+    description: `Madrid → Festival de Música de Alicante: 420 km por A-31, 3 h 40 min, desde 7 €/asiento sin comisión. El festival de la Costa Blanca bajo el Castillo de Santa Bárbara.`,
+    keywords: `carpooling madrid festival alicante, viaje compartido madrid alicante festival`,
+  },
+  "barcelona-festival-de-musica-de-alicante": {
+    title: `Coche Barcelona→Festival Alicante ${YEAR} [Desde 9€] — ConcertRide`,
+    description: `Barcelona → Festival Alicante: 530 km por AP-7, 4 h 40 min, desde 9 €/asiento sin comisión. El festival mediterráneo de Alicante desde la Ciudad Condal.`,
+    keywords: `carpooling barcelona festival alicante, viaje compartido barcelona alicante festival`,
+  },
+  "murcia-festival-de-musica-de-alicante": {
+    title: `Carpooling Murcia→Festival Alicante ${YEAR} [Desde 3€] — ConcertRide`,
+    description: `Murcia → Festival Alicante: 80 km por A-7, 50 min, desde 3 €/asiento sin comisión. El festival de la Costa Blanca a un paso de la Región de Murcia.`,
+    keywords: `carpooling murcia festival alicante, viaje compartido murcia alicante festival`,
+  },
+  "madrid-festival-de-musica-de-elche": {
+    title: `Viaje Madrid→Festival Elche ${YEAR} [Desde 7€] — ConcertRide`,
+    description: `Madrid → Festival de Música de Elche: 410 km por A-31, 3 h 40 min, desde 7 €/asiento sin comisión. El festival de la ciudad palmeral UNESCO.`,
+    keywords: `carpooling madrid festival elche, viaje compartido madrid elche festival, palmeral elche`,
+  },
+  "alicante-festival-de-musica-de-elche": {
+    title: `Coche Alicante→Festival Elche ${YEAR} [Desde 3€] — ConcertRide`,
+    description: `Alicante → Festival Elche: 25 km por AP-7, 20 min, desde 3 €/asiento sin comisión. El festival de la ciudad palmeral patrimonio de la Humanidad.`,
+    keywords: `carpooling alicante festival elche, viaje compartido alicante elche festival`,
+  },
+  "murcia-festival-de-musica-de-elche": {
+    title: `Viaje Murcia→Festival Elche ${YEAR} [Desde 3€] — ConcertRide`,
+    description: `Murcia → Festival Elche: 70 km por A-7, 50 min, desde 3 €/asiento sin comisión. El festival de la ciudad palmeral desde la Región de Murcia.`,
+    keywords: `carpooling murcia festival elche, viaje compartido murcia elche festival`,
+  },
+  "madrid-festival-de-musica-de-murcia-pop": {
+    title: `Coche Madrid→Murcia Pop ${YEAR} [Desde 7€] — ConcertRide`,
+    description: `Madrid → Festival Pop de Murcia: 400 km por A-30, 3 h 30 min, desde 7 €/asiento sin comisión. El pop más actual en la ciudad de la huerta murciana.`,
+    keywords: `carpooling madrid murcia pop, viaje compartido madrid murcia festival pop`,
+  },
+  "alicante-festival-de-musica-de-murcia-pop": {
+    title: `Viaje Alicante→Murcia Pop ${YEAR} [Desde 3€] — ConcertRide`,
+    description: `Alicante → Murcia Pop: 85 km por A-7, 55 min, desde 3 €/asiento sin comisión. El festival pop de Murcia a menos de 1 hora desde la Costa Blanca.`,
+    keywords: `carpooling alicante murcia pop, viaje compartido alicante murcia festival pop`,
+  },
+  "valencia-festival-de-musica-de-murcia-pop": {
+    title: `Coche Valencia→Murcia Pop ${YEAR} [Desde 5€] — ConcertRide`,
+    description: `Valencia → Murcia Pop: 250 km por A-7, 2 h 20 min, desde 5 €/asiento sin comisión. El festival pop más destacado del Sureste desde Valencia.`,
+    keywords: `carpooling valencia murcia pop, viaje compartido valencia murcia festival pop`,
+  },
+  "madrid-festival-de-musica-de-cartagena": {
+    title: `Viaje Madrid→Festival Cartagena ${YEAR} [Desde 8€] — ConcertRide`,
+    description: `Madrid → Festival de Música de Cartagena: 450 km por A-30, 4 h, desde 8 €/asiento sin comisión. El festival de la ciudad del Mar Menor y el teatro romano.`,
+    keywords: `carpooling madrid festival cartagena, viaje compartido madrid cartagena murcia festival`,
+  },
+  "alicante-festival-de-musica-de-cartagena": {
+    title: `Coche Alicante→Festival Cartagena ${YEAR} [Desde 3€] — ConcertRide`,
+    description: `Alicante → Festival Cartagena: 90 km por A-7, 1 h, desde 3 €/asiento sin comisión. El festival de la ciudad portuaria levantina.`,
+    keywords: `carpooling alicante festival cartagena, viaje compartido alicante cartagena festival`,
+  },
+  "murcia-festival-de-musica-de-cartagena": {
+    title: `Viaje Murcia→Festival Cartagena ${YEAR} [Desde 3€] — ConcertRide`,
+    description: `Murcia → Festival Cartagena: 55 km por A-30, 45 min, desde 3 €/asiento sin comisión. El festival de la ciudad portuaria a un paso de la capital regional.`,
+    keywords: `carpooling murcia festival cartagena, viaje compartido murcia cartagena festival`,
+  },
+  "madrid-festival-de-musica-de-lorca": {
+    title: `Coche Madrid→Festival Lorca ${YEAR} [Desde 8€] — ConcertRide`,
+    description: `Madrid → Festival de Música de Lorca: 430 km por A-30, 3 h 50 min, desde 8 €/asiento sin comisión. El festival de la ciudad de los bordados y el Castillo del Sol.`,
+    keywords: `carpooling madrid festival lorca, viaje compartido madrid lorca murcia festival`,
+  },
+  "murcia-festival-de-musica-de-lorca": {
+    title: `Viaje Murcia→Festival Lorca ${YEAR} [Desde 3€] — ConcertRide`,
+    description: `Murcia → Festival Lorca: 65 km por A-7, 50 min, desde 3 €/asiento sin comisión. El festival de la Lorca artesanal a un paso de la capital murciana.`,
+    keywords: `carpooling murcia festival lorca, viaje compartido murcia lorca festival`,
+  },
+  "granada-festival-de-musica-de-lorca": {
+    title: `Carpooling Granada→Festival Lorca ${YEAR} [Desde 4€] — ConcertRide`,
+    description: `Granada → Festival Lorca: 130 km por A-92, 1 h 20 min, desde 4 €/asiento sin comisión. El festival del Sureste desde la capital de la Alhambra.`,
+    keywords: `carpooling granada festival lorca, viaje compartido granada lorca festival`,
+  },
+  "madrid-festival-de-jazz-de-toledo": {
+    title: `Viaje Madrid→Jazz Toledo ${YEAR} [Desde 3€] — ConcertRide`,
+    description: `Madrid → Festival de Jazz de Toledo: 70 km por A-42, 50 min, desde 3 €/asiento sin comisión. Jazz en la ciudad imperial de tres culturas.`,
+    keywords: `carpooling madrid jazz toledo, viaje compartido madrid toledo festival jazz`,
+  },
+  "guadalajara-festival-de-jazz-de-toledo": {
+    title: `Coche Guadalajara→Jazz Toledo ${YEAR} [Desde 3€] — ConcertRide`,
+    description: `Guadalajara → Festival de Jazz de Toledo: 90 km por A-2+A-42, 1 h, desde 3 €/asiento sin comisión. Jazz en la ciudad imperial desde la Alcarria.`,
+    keywords: `carpooling guadalajara jazz toledo, viaje compartido guadalajara toledo festival jazz`,
+  },
+  "cuenca-festival-de-jazz-de-toledo": {
+    title: `Viaje Cuenca→Jazz Toledo ${YEAR} [Desde 3€] — ConcertRide`,
+    description: `Cuenca → Festival de Jazz de Toledo: 150 km por A-40+A-42, 1 h 30 min, desde 3 €/asiento sin comisión. De las Casas Colgadas al jazz en la ciudad imperial.`,
+    keywords: `carpooling cuenca jazz toledo, viaje compartido cuenca toledo festival jazz`,
+  },
+  "madrid-festival-complutense": {
+    title: `Coche Madrid→Festival Complutense ${YEAR} [Desde 3€] — ConcertRide`,
+    description: `Madrid → Festival Complutense (Alcalá de Henares): 35 km por A-2, 35 min, desde 3 €/asiento sin comisión. El festival universitario de la ciudad de Cervantes.`,
+    keywords: `carpooling madrid festival complutense, viaje compartido madrid alcala henares festival`,
+  },
+  "guadalajara-festival-complutense": {
+    title: `Viaje Guadalajara→Festival Complutense ${YEAR} [Desde 3€] — ConcertRide`,
+    description: `Guadalajara → Festival Complutense Alcalá: 55 km por A-2, 50 min, desde 3 €/asiento sin comisión. El festival universitario más histórico del Corredor del Henares.`,
+    keywords: `carpooling guadalajara festival complutense, viaje compartido guadalajara alcala festival`,
+  },
+  "segovia-festival-complutense": {
+    title: `Coche Segovia→Festival Complutense ${YEAR} [Desde 3€] — ConcertRide`,
+    description: `Segovia → Festival Complutense Alcalá: 110 km por A-1+A-2, 1 h 10 min, desde 3 €/asiento sin comisión. Del Acueducto romano al festival universitario del Henares.`,
+    keywords: `carpooling segovia festival complutense, viaje compartido segovia alcala festival`,
+  },
+  "madrid-festival-de-musica-de-leganes": {
+    title: `Coche Madrid→Leganés Fest ${YEAR} [Desde 3€] — ConcertRide`,
+    description: `Madrid → Festival de Música de Leganés: 15 km por M-45, 20 min, desde 3 €/asiento sin comisión. El festival de rock del sur metropolitano de Madrid.`,
+    keywords: `carpooling madrid festival leganes, viaje compartido madrid leganes festival`,
+  },
+  "toledo-festival-de-musica-de-leganes": {
+    title: `Viaje Toledo→Festival Leganés ${YEAR} [Desde 3€] — ConcertRide`,
+    description: `Toledo → Festival de Música de Leganés: 70 km por A-42, 55 min, desde 3 €/asiento sin comisión. El festival del sur de Madrid desde la ciudad imperial.`,
+    keywords: `carpooling toledo festival leganes, viaje compartido toledo leganes festival`,
+  },
+  "guadalajara-festival-de-musica-de-leganes": {
+    title: `Coche Guadalajara→Festival Leganés ${YEAR} [Desde 3€] — ConcertRide`,
+    description: `Guadalajara → Festival de Música de Leganés: 70 km por A-2+M-45, 55 min, desde 3 €/asiento sin comisión. El festival del sur metropolitano de Madrid desde la Alcarria.`,
+    keywords: `carpooling guadalajara festival leganes, viaje compartido guadalajara leganes festival`,
+  },
+  "madrid-festival-de-musica-de-mostoles": {
+    title: `Viaje Madrid→Festival Móstoles ${YEAR} [Desde 3€] — ConcertRide`,
+    description: `Madrid → Festival de Música de Móstoles: 20 km por A-5, 25 min, desde 3 €/asiento sin comisión. El festival de la segunda ciudad más grande de la Comunidad de Madrid.`,
+    keywords: `carpooling madrid festival mostoles, viaje compartido madrid mostoles festival`,
+  },
+  "toledo-festival-de-musica-de-mostoles": {
+    title: `Coche Toledo→Festival Móstoles ${YEAR} [Desde 3€] — ConcertRide`,
+    description: `Toledo → Festival de Música de Móstoles: 65 km por A-42+A-5, 55 min, desde 3 €/asiento sin comisión. El festival del suroeste de Madrid desde la ciudad imperial.`,
+    keywords: `carpooling toledo festival mostoles, viaje compartido toledo mostoles festival`,
+  },
+  "avila-festival-de-musica-de-mostoles": {
+    title: `Viaje Ávila→Festival Móstoles ${YEAR} [Desde 3€] — ConcertRide`,
+    description: `Ávila → Festival de Música de Móstoles: 110 km por A-5, 1 h 10 min, desde 3 €/asiento sin comisión. La ciudad de Santa Teresa al festival del suroeste madrileño.`,
+    keywords: `carpooling avila festival mostoles, viaje compartido avila mostoles festival`,
+  },
+  "madrid-festival-de-musica-de-alcorcon": {
+    title: `Coche Madrid→Festival Alcorcón ${YEAR} [Desde 3€] — ConcertRide`,
+    description: `Madrid → Festival de Música de Alcorcón: 15 km por M-506, 20 min, desde 3 €/asiento sin comisión. El festival del sur de Madrid a 20 minutos del centro.`,
+    keywords: `carpooling madrid festival alcorcon, viaje compartido madrid alcorcon festival`,
+  },
+  "toledo-festival-de-musica-de-alcorcon": {
+    title: `Viaje Toledo→Festival Alcorcón ${YEAR} [Desde 3€] — ConcertRide`,
+    description: `Toledo → Festival de Música de Alcorcón: 65 km por A-42, 55 min, desde 3 €/asiento sin comisión. El festival del suroeste madrileño desde la ciudad imperial.`,
+    keywords: `carpooling toledo festival alcorcon, viaje compartido toledo alcorcon festival`,
+  },
+  "segovia-festival-de-musica-de-alcorcon": {
+    title: `Coche Segovia→Festival Alcorcón ${YEAR} [Desde 3€] — ConcertRide`,
+    description: `Segovia → Festival de Música de Alcorcón: 95 km por A-6+M-506, 1 h, desde 3 €/asiento sin comisión. Del Acueducto al festival del suroeste de Madrid.`,
+    keywords: `carpooling segovia festival alcorcon, viaje compartido segovia alcorcon festival`,
+  },
+
 };

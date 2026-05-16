@@ -12763,6 +12763,820 @@ BLOG_POSTS.push({
   ],
 });
 
+
+BLOG_POSTS.push(
+  {
+    slug: "pablo-alboran-india-martinez-espana-2026",
+    title: "Pablo Alborán e India Martínez: conciertos 2026",
+    h1: "Pablo Alborán e India Martínez: cómo ir en carpooling a sus conciertos 2026",
+    excerpt: "Los dos grandes del pop romántico español regresan con sus giras 2026. Cómo ir en carpooling al WiZink, FIBES y Palacio de los Deportes.",
+    lede: "Pablo Alborán e India Martínez son dos de los artistas de pop español con mayor arraigo popular. Aquí tienes las rutas de carpooling para sus conciertos en los grandes recintos de España.",
+    category: "guias",
+    tags: ["pablo-alboran", "india-martinez", "pop-espanol", "giras-2026"],
+    publishedAt: "2026-05-16T10:00:00.000Z",
+    author: "Equipo ConcertRide",
+    readingMinutes: 5,
+    sections: [
+      {
+        heading: "Pablo Alborán gira 2026: recintos y carpooling",
+        paragraphs: [
+          "Pablo Alborán es el artista de pop romántico más internacional de España. Su gira 2026 recorre los grandes recintos cubiertos: WiZink Center (Madrid, 20.000 asientos), Palau Sant Jordi (Barcelona), Pabellón Príncipe Felipe (Zaragoza) y Bilbao Arena. ConcertRide tiene carpooling para todos estos recintos.",
+          "Desde Valencia al WiZink Center: 360 km por A-3, 3h15, desde 8€/asiento. Desde Sevilla al WiZink: 530 km por A-4, 4h30, desde 11€. Pago directo al conductor por Bizum. 0% de comisión.",
+        ],
+      },
+      {
+        heading: "India Martínez gira 2026: FIBES Sevilla y Madrid",
+        paragraphs: [
+          "India Martínez (Córdoba, 1985) es la voz del flamenco-pop contemporáneo. Sus conciertos en 2026 llenan el FIBES Sevilla, el WiZink Center de Madrid y el Palau de les Arts en Valencia. Para los fans de Córdoba, el FIBES está a solo 140 km (carpooling desde 4€).",
+          "El carpooling es especialmente popular para India Martínez: sus fans vienen de toda Andalucía. Málaga al FIBES: 215 km, desde 5€. Huelva al FIBES: 95 km, desde 4€. Granada al FIBES: 250 km, desde 6€. Todos los precios sin comisión.",
+        ],
+        bullets: [
+          "Madrid: usa metro L1 (Príncipe Pío) o L5 (Campo de las Naciones)",
+          "Valencia al WiZink: 360 km, 3h15, desde 8€/asiento en ConcertRide",
+          "Córdoba al FIBES Sevilla: 140 km, 1h30, desde 4€/asiento",
+          "Málaga al FIBES Sevilla: 215 km, 2h, desde 5€/asiento",
+          "Bilbao al WiZink: 395 km, 3h30, desde 9€/asiento",
+        ],
+      },
+    ],
+    faqs: [
+      {
+        q: "¿Cuándo actúa Pablo Alborán en Madrid 2026?",
+        a: "Pablo Alborán tiene fechas en el WiZink Center de Madrid en su gira 2026. Consulta la web oficial para fechas exactas. ConcertRide publica viajes desde Barcelona, Valencia, Sevilla y Bilbao hacia Madrid cuando se anuncian las fechas.",
+      },
+      {
+        q: "¿Cómo ir al concierto de India Martínez en Sevilla?",
+        a: "India Martínez actúa habitualmente en el FIBES (Palacio de Exposiciones y Congresos de Sevilla). Desde Córdoba: carpooling en ConcertRide, 140 km, desde 4€. Desde Málaga: 215 km, desde 5€. Desde Madrid: 530 km, desde 11€. El FIBES tiene parking propio.",
+      },
+    ],
+    relatedLinks: [
+      { label: "Carpooling a conciertos en Madrid", to: "/conciertos/madrid" },
+      { label: "Carpooling a conciertos en Sevilla", to: "/conciertos/sevilla" },
+      { label: "Guía festivales pop España 2026", to: "/blog/hub-festivales-verano-2026-transporte" },
+    ],
+    relatedPosts: ["hub-festivales-verano-2026-transporte", "conciertos-estadios-espana-2026-guia", "carpooling-distancia-corta-conciertos"],
+    coverImage: { src: "/og/home.png", alt: "Pablo Alborán e India Martínez conciertos 2026 — carpooling sin comisión con ConcertRide", width: 1200, height: 630 },
+  },
+);
+
+BLOG_POSTS.push(
+  {
+    slug: "guia-festivales-cataluna-interior-2026",
+    title: "Festivales en Cataluña interior 2026: guía",
+    h1: "Festivales de música en Cataluña interior 2026: Vic, Manresa, Reus, Lleida",
+    excerpt: "Más allá de Barcelona: los mejores festivales de Vic, Manresa, Reus, Lleida y Sabadell. Carpooling dentro de Cataluña desde 3€.",
+    lede: "La escena musical catalana va mucho más allá de Barcelona y el litoral. El interior de Cataluña tiene festivales únicos accesibles en carpooling desde 3€/asiento.",
+    category: "guias",
+    tags: ["cataluna", "festivales-interior", "vic", "manresa", "lleida", "reus"],
+    publishedAt: "2026-05-16T10:00:00.000Z",
+    author: "Equipo ConcertRide",
+    readingMinutes: 5,
+    sections: [
+      {
+        heading: "La escena musical del interior catalán",
+        paragraphs: [
+          "Cataluña tiene una escena musical vibrante más allá del litoral barcelonés. Ciudades como Vic, Manresa, Reus, Lleida y Sabadell cuentan con festivales propios de gran calidad. El carpooling dentro de Cataluña es especialmente eficiente: distancias cortas, muchos asistentes de la misma área metropolitana.",
+          "Vic (Osona) acoge el Festival de Músiques del Món, un referente de la world music catalana. Manresa tiene el Festival MúsicArt. Reus es la sede del TarragonàRock. En Lleida destaca el Lleida Música en Viu. Sabadell alberga el OAK Fest. ConcertRide tiene carpooling para todos.",
+        ],
+      },
+      {
+        heading: "Rutas de carpooling dentro de Cataluña",
+        paragraphs: [
+          "La ventaja de los festivales del interior catalán es que están bien conectados por autopistas internas. Desde Barcelona puedes llegar a la mayoría en menos de 1h30.",
+        ],
+        bullets: [
+          "Barcelona al Vic: 70 km por C-17, 1h, desde 3€/asiento",
+          "Barcelona a Manresa: 75 km por A-2, 55 min, desde 3€/asiento",
+          "Barcelona a Reus: 110 km por AP-7, 1h10, desde 4€/asiento",
+          "Barcelona a Lleida: 170 km por A-2, 1h40, desde 5€/asiento",
+          "Barcelona a Sabadell: 30 km, 35 min, desde 3€",
+          "Tarragona a Reus: 15 km, 20 min, desde 3€",
+          "Zaragoza a Lleida: 150 km por A-2, 1h30, desde 5€",
+        ],
+      },
+    ],
+    faqs: [
+      {
+        q: "¿Qué festivales de música hay en Cataluña interior en 2026?",
+        a: "En el interior de Cataluña destacan: Festival de Músiques del Món (Vic), MúsicArt (Manresa), TarragonàRock (Reus), Lleida Música en Viu y OAK Fest (Sabadell). ConcertRide tiene carpooling desde Barcelona y otras ciudades catalanas para todos ellos.",
+      },
+      {
+        q: "¿Cómo ir a festivales de Cataluña interior en carpooling?",
+        a: "ConcertRide es la opción más económica para los festivales del interior catalán. Desde Barcelona, la mayoría de festivales están entre 30 y 170 km. Los precios oscilan entre 3€ y 5€/asiento. Puedes buscar o publicar viajes en ConcertRide indicando el nombre del festival.",
+      },
+    ],
+    relatedLinks: [
+      { label: "Carpooling en Barcelona", to: "/conciertos/barcelona" },
+      { label: "Guía festivales verano 2026", to: "/blog/hub-festivales-verano-2026-transporte" },
+    ],
+    relatedPosts: ["hub-festivales-verano-2026-transporte", "pablo-alboran-india-martinez-espana-2026", "carpooling-distancia-corta-conciertos"],
+    coverImage: { src: "/og/home.png", alt: "Festivales en Cataluña interior 2026: Vic, Manresa, Reus, Lleida — carpooling desde Barcelona ConcertRide", width: 1200, height: 630 },
+  },
+);
+
+BLOG_POSTS.push(
+  {
+    slug: "conciertos-estadios-espana-2026-guia",
+    title: "Conciertos en estadios España 2026: guía viajes",
+    h1: "Cómo ir en carpooling a conciertos de estadio en España 2026",
+    excerpt: "Bernabéu, Metropolitano, Camp Nou, Estadi Olímpic, Cívitas: cómo llegar a los grandes estadios en carpooling. Zonas de recogida, metro y aparcamiento.",
+    lede: "Los conciertos de estadio generan el caos de transporte más severo del año. El carpooling de ConcertRide resuelve el triángulo imposible: precio, horario y comodidad.",
+    category: "guias",
+    tags: ["estadios", "bernabeu", "metropolitano", "camp-nou", "carpooling-estadio", "conciertos-2026"],
+    publishedAt: "2026-05-16T10:00:00.000Z",
+    author: "Equipo ConcertRide",
+    readingMinutes: 6,
+    sections: [
+      {
+        heading: "Por qué el carpooling es la mejor opción para conciertos de estadio",
+        paragraphs: [
+          "Los conciertos en estadios de 60.000-80.000 personas generan un colapso de transporte sin precedentes. El metro se satura, los parkings se llenan 3h antes, y los VTC cuestan 5-8x el precio normal post-concierto. El carpooling de ConcertRide sortea estos problemas: sales cuando tú quieres, con la persona que has elegido.",
+          "La clave es acordar un punto de encuentro alejado del recinto (a 1-2 km) para evitar el caos de salida. En el Bernabéu, el punto habitual de ConcertRide es el parking de La Moraleja. En el Metropolitano, el parking del Corredor del Henares.",
+        ],
+      },
+      {
+        heading: "Estadio Santiago Bernabéu (Madrid): carpooling y transporte",
+        paragraphs: [
+          "El Bernabéu (76.000 aforo) acoge los conciertos más grandes de España. Metro: L10 (Santiago Bernabéu). Carpooling desde Barcelona: 620 km, 5h30, desde 13€. Desde Valencia: 360 km, 3h, desde 8€. Desde Sevilla: 530 km, 4h30, desde 11€.",
+        ],
+        bullets: [
+          "Barcelona al Bernabéu: 620 km, 5h30, desde 13€/asiento",
+          "Valencia al Bernabéu: 360 km, 3h, desde 8€/asiento",
+          "Sevilla al Bernabéu: 530 km, 4h30, desde 11€/asiento",
+          "Bilbao al Bernabéu: 395 km, 3h30, desde 9€/asiento",
+          "Zaragoza al Bernabéu: 320 km, 3h, desde 8€/asiento",
+        ],
+      },
+      {
+        heading: "Metropolitano, Camp Nou y Estadi Olímpic",
+        paragraphs: [
+          "El Metropolitano (Atlético de Madrid, 68.000) es el estadio más moderno de España para conciertos. Metro: L7 (Estadio Olímpico). El Camp Nou de Barcelona (99.000) vuelve a acoger conciertos tras su reforma en 2026. Metro: L3 (Palau Reial) o L9/L10 (Zona Universitaria).",
+        ],
+      },
+    ],
+    faqs: [
+      {
+        q: "¿Cómo llegar al Bernabéu en carpooling desde otras ciudades?",
+        a: "ConcertRide tiene viajes al Bernabéu desde Barcelona (13€), Valencia (8€), Sevilla (11€), Bilbao (9€) y Zaragoza (8€). El punto de encuentro habitual es el parking de Mirasierra (línea metro L9) o la Castellana. Reserva con 2-3 semanas de antelación para conciertos masivos.",
+      },
+      {
+        q: "¿Cuándo reservar carpooling para un concierto de estadio?",
+        a: "Para conciertos en estadio (Bernabéu, Metropolitano, Camp Nou), reserva con 3-4 semanas de antelación. Los viajes aparecen en ConcertRide cuando el conductor compra su entrada. Para artistas muy populares, la demanda es altísima — reserva en cuanto salga el viaje.",
+      },
+    ],
+    relatedLinks: [
+      { label: "Carpooling a conciertos en Madrid", to: "/conciertos/madrid" },
+      { label: "Carpooling a conciertos en Barcelona", to: "/conciertos/barcelona" },
+      { label: "Recinto Bernabéu conciertos", to: "/recintos/estadio-bernabeu" },
+    ],
+    relatedPosts: ["pablo-alboran-india-martinez-espana-2026", "carpooling-distancia-corta-conciertos", "hub-festivales-verano-2026-transporte"],
+    coverImage: { src: "/og/home.png", alt: "Conciertos en estadios España 2026: Bernabéu, Metropolitano, Camp Nou — carpooling ConcertRide", width: 1200, height: 630 },
+  },
+);
+
+BLOG_POSTS.push(
+  {
+    slug: "festival-sonar-2026-guia-completa",
+    title: "Sónar 2026: guía completa [Carpooling + Metro]",
+    h1: "Sónar 2026: guía de transporte completa — carpooling y metro",
+    excerpt: "Sónar by Day en Fira Montjuïc y Sónar by Night en Fira Gran Via. Todas las opciones de transporte. Carpooling desde Madrid, Valencia y Zaragoza.",
+    lede: "El Sónar es el festival de música electrónica y arte digital más importante del mundo hispanohablante. Aquí tienes la guía de transporte completa para 2026.",
+    category: "guias",
+    tags: ["sonar", "barcelona", "electronica", "fira-montjuic", "carpooling-sonar-2026"],
+    publishedAt: "2026-05-16T10:00:00.000Z",
+    author: "Equipo ConcertRide",
+    readingMinutes: 5,
+    sections: [
+      {
+        heading: "Sónar 2026: dos recintos, dos experiencias",
+        paragraphs: [
+          "El Sónar tiene dos sedes: Sónar by Day en Fira Barcelona (Montjuïc) y Sónar by Night en Fira Gran Via (L'Hospitalet). El festival dura 3 días, típicamente el tercer fin de semana de junio.",
+          "Acceso por transporte público: Sónar by Day (Montjuïc) → Metro L1 (Plaça Espanya) + shuttle. Sónar by Night (L'Hospitalet) → Metro L1 (Fira + Can Tries) y L9/L10 (Europa - Fira). Ambos recintos tienen acceso directo desde la red de metro de Barcelona.",
+        ],
+      },
+      {
+        heading: "Carpooling al Sónar desde otras ciudades",
+        paragraphs: [
+          "El Sónar atrae a fans de toda España y Europa. ConcertRide tiene carpooling desde las principales ciudades españolas. La ruta más popular es Madrid al Sónar (620 km, 5h30, desde 13€/asiento).",
+        ],
+        bullets: [
+          "Madrid al Sónar Barcelona: 620 km, 5h30, desde 13€/asiento",
+          "Valencia al Sónar: 350 km, 3h30, desde 9€/asiento",
+          "Zaragoza al Sónar: 300 km, 2h45, desde 8€/asiento",
+          "Bilbao al Sónar: 615 km, 5h30, desde 13€/asiento",
+          "Sevilla al Sónar: 1.000 km, 9h — mejor combinar con AVE para tramo largo",
+        ],
+      },
+    ],
+    faqs: [
+      {
+        q: "¿Cuándo es el Sónar 2026?",
+        a: "El Sónar se celebra habitualmente el tercer fin de semana de junio (días 18-20 aproximadamente). Confirma las fechas en sonar.es. ConcertRide publica viajes para el Sónar en cuanto se anuncian las fechas oficiales.",
+      },
+      {
+        q: "¿Dónde es el Sónar by Night 2026?",
+        a: "El Sónar by Night se celebra en Fira Gran Via (L'Hospitalet de Llobregat), accesible por metro L1 y L9/L10. El carpooling de ConcertRide desde Madrid o Valencia te deja en el centro de Barcelona, desde donde puedes tomar el metro.",
+      },
+    ],
+    relatedLinks: [
+      { label: "Carpooling al Sónar Barcelona", to: "/festivales/sonar" },
+      { label: "Carpooling desde Madrid a Barcelona", to: "/rutas/madrid-barcelona" },
+      { label: "Festivales electrónica España 2026", to: "/festivales-genero/electronica" },
+    ],
+    relatedPosts: ["guia-festivales-cataluna-interior-2026", "hub-festivales-verano-2026-transporte", "conciertos-estadios-espana-2026-guia"],
+    coverImage: { src: "/og/home.png", alt: "Sónar 2026 Barcelona guía completa: carpooling desde Madrid y Valencia más metro L1/L9 — ConcertRide", width: 1200, height: 630 },
+  },
+);
+
+BLOG_POSTS.push(
+  {
+    slug: "extremoduro-los-planetas-rock-espanol",
+    title: "Extremoduro y Los Planetas: rock español 2026",
+    h1: "Extremoduro y Los Planetas: carpooling para el rock underground español",
+    excerpt: "Dos leyendas del rock español de culto. La cultura carpooling que rodea sus conciertos: puntos de encuentro, comunidad de fans en ruta y viajes desde toda España.",
+    lede: "Extremoduro y Los Planetas tienen comunidades de fans de las más activas del carpooling en España. Aquí tienes las rutas y puntos de encuentro para sus conciertos.",
+    category: "guias",
+    tags: ["extremoduro", "los-planetas", "rock-espanol", "indie", "rock-culto"],
+    publishedAt: "2026-05-16T10:00:00.000Z",
+    author: "Equipo ConcertRide",
+    readingMinutes: 5,
+    sections: [
+      {
+        heading: "Extremoduro: el rock más visceral del underground español",
+        paragraphs: [
+          "Extremoduro (Plasencia, Extremadura, 1987) es uno de los grupos más influyentes del rock español, liderado por Robe Iniesta. Sus conciertos son una experiencia catártica para miles de fans. Cualquier fecha especial mueve fans desde Madrid, Sevilla, Barcelona y el País Vasco.",
+          "La cultura carpooling en Extremoduro es de las más arraigadas del rock español. ConcertRide ofrece viajes para todos sus conciertos desde 3€/asiento.",
+        ],
+      },
+      {
+        heading: "Los Planetas: el indie underground de Granada",
+        paragraphs: [
+          "Los Planetas (Granada, 1993) son el grupo de indie rock alternativo más influyente de España, con una discografía canónica. Sus fans viajan desde toda España para verles.",
+          "Granada es el punto de partida natural. Desde Madrid: 430 km, 3h30, desde 9€/asiento. Desde Sevilla: 260 km, 2h30, desde 6€. Para conciertos en Madrid o Barcelona, ConcertRide tiene salidas desde Granada desde 9€.",
+        ],
+      },
+    ],
+    faqs: [
+      {
+        q: "¿Tienen gira en 2026 Extremoduro o Los Planetas?",
+        a: "Consulta las webs oficiales para confirmación de fechas 2026. ConcertRide publica viajes para todos los conciertos confirmados en cuanto se anuncian. Activa las alertas en ConcertRide para recibir notificación cuando aparezcan viajes disponibles.",
+      },
+      {
+        q: "¿Cómo ir a un concierto de Extremoduro en carpooling?",
+        a: "Busca o publica en ConcertRide con el nombre del concierto y la ciudad de destino. Los fans de Extremoduro forman comunidades de viaje muy activas. Desde Madrid o Barcelona suele haber varios coches disponibles. Precio desde 3€/asiento en rutas cortas, hasta 15€ para rutas largas.",
+      },
+    ],
+    relatedLinks: [
+      { label: "Carpooling desde Granada", to: "/conciertos/granada" },
+      { label: "Festivales de rock España 2026", to: "/festivales-genero/rock" },
+      { label: "Carpooling a conciertos en Madrid", to: "/conciertos/madrid" },
+    ],
+    relatedPosts: ["guia-festivales-interior-espana-2026", "conciertos-estadios-espana-2026-guia", "hub-festivales-verano-2026-transporte"],
+    coverImage: { src: "/og/home.png", alt: "Extremoduro y Los Planetas conciertos 2026 — carpooling underground rock español ConcertRide", width: 1200, height: 630 },
+  },
+);
+
+BLOG_POSTS.push(
+  {
+    slug: "guia-festivales-interior-espana-2026",
+    title: "Festivales en el interior de España 2026",
+    h1: "Festivales de música en el interior de España 2026: guía de road trip",
+    excerpt: "Sonorama, Sonorias, Festival Artes Toledo, La Mancha Fest, Zamora. Los mejores festivales lejos de la costa: guía de road trip festival-goers.",
+    lede: "Los festivales del interior español son la alternativa más auténtica a los megafestivales de costa. Menos masificados, más baratos y con carpooling accesible desde las grandes ciudades.",
+    category: "guias",
+    tags: ["festivales-interior", "sonorama", "sonorias", "toledo", "zamora", "castilla", "road-trip"],
+    publishedAt: "2026-05-16T10:00:00.000Z",
+    author: "Equipo ConcertRide",
+    readingMinutes: 6,
+    sections: [
+      {
+        heading: "El interior de España: la próxima frontera de los festivales",
+        paragraphs: [
+          "Mientras la costa española concentra los megafestivales (Arenal Sound, Medusa, Cruïlla), el interior esconde joyas musicales únicas. Aranda de Duero (Burgos) con el Sonorama Ribera, Cuenca con el Sonorias, Toledo con el Festival Artes, Zamora y La Mancha con sus propias propuestas. Son festivales con más personalidad, menos masificados y carpooling más accesible.",
+          "El road trip al interior tiene una lógica propia: la planicie castellana, los viñedos de la Ribera del Duero o las Hoces del Júcar en Cuenca hacen que el viaje sea parte del festival.",
+        ],
+      },
+      {
+        heading: "Los 5 festivales imprescindibles del interior",
+        paragraphs: [
+          "1. Sonorama Ribera (Aranda de Duero, agosto): desde Madrid 160 km, 1h45, desde 5€. 2. Sonorias (Cuenca, julio): desde Madrid 160 km, 1h45, desde 5€. 3. Festival Internacional Artes Toledo (julio): desde Madrid 70 km, 50 min, desde 3€. 4. La Mancha Fest (Ciudad Real, agosto): desde Madrid 200 km, 2h, desde 5€. 5. Zamora Rock (Zamora, junio): desde Madrid 250 km, 2h30, desde 6€.",
+        ],
+        bullets: [
+          "Sonorama Ribera (Aranda de Duero): desde Madrid 5€, Valladolid 4€, Zaragoza 6€",
+          "Sonorias (Cuenca): desde Madrid 5€, Valencia 5€, Albacete 3€",
+          "Festival Toledo: desde Madrid 3€ — muy bien comunicada",
+          "La Mancha Fest (Ciudad Real): desde Madrid 5€, Albacete 4€, Toledo 4€",
+          "Zamora Rock: desde Madrid 6€, Valladolid 3€, Salamanca 3€",
+        ],
+      },
+    ],
+    faqs: [
+      {
+        q: "¿Qué festivales de música hay en el interior de España en 2026?",
+        a: "Los más destacados: Sonorama Ribera (Aranda de Duero, agosto), Sonorias (Cuenca, julio), Festival Artes Toledo (julio), Zamora Rock (junio), La Mancha Fest (Ciudad Real, agosto). ConcertRide tiene carpooling para todos ellos desde Madrid, Valladolid y otras ciudades castellanas.",
+      },
+      {
+        q: "¿Por qué ir a festivales del interior en lugar de los de costa?",
+        a: "Los festivales del interior tienen ventajas claras: menos masificación, entradas más baratas (30-60€ vs 80-120€ en los grandes de costa), ambientes más íntimos, y carpooling más económico. El Sonorama tiene una atmósfera única en la Ribera del Duero.",
+      },
+    ],
+    relatedLinks: [
+      { label: "Carpooling al Sonorama Ribera", to: "/festivales/sonorama-ribera" },
+      { label: "Festivales en Castilla y León", to: "/blog/guia-festivales-castilla-leon-2026" },
+      { label: "Festivales Castilla La Mancha", to: "/conciertos/toledo" },
+    ],
+    relatedPosts: ["guia-festivales-castilla-leon-2026", "extremoduro-los-planetas-rock-espanol", "carpooling-distancia-corta-conciertos"],
+    coverImage: { src: "/og/home.png", alt: "Festivales en el interior de España 2026: Sonorama, Sonorias Cuenca, Toledo, Zamora Rock — carpooling ConcertRide", width: 1200, height: 630 },
+  },
+);
+
+BLOG_POSTS.push(
+  {
+    slug: "carpooling-distancia-corta-conciertos",
+    title: "Carpooling de corta distancia a conciertos",
+    h1: "Carpooling a conciertos en rutas cortas: Guadalajara, Alcalá, Toledo a Madrid",
+    excerpt: "¿Merece la pena el carpooling para rutas cortas de menos de 100 km? Guadalajara→Madrid, Getafe→Madrid, Alcalá→Madrid. Parking, precio y libertad.",
+    lede: "Para muchos fans de provincias cercanas, el carpooling de ConcertRide a 3€/asiento es la única opción real de ir y volver de un concierto con libertad total de horario.",
+    category: "guias",
+    tags: ["carpooling-corta-distancia", "madrid-area", "conciertos-sala", "parkings", "rutas-cortas"],
+    publishedAt: "2026-05-16T10:00:00.000Z",
+    author: "Equipo ConcertRide",
+    readingMinutes: 4,
+    sections: [
+      {
+        heading: "¿Por qué hacer carpooling en rutas cortas (menos de 100 km)?",
+        paragraphs: [
+          "El carpooling de corta distancia resuelve tres problemas: (1) el aparcamiento en Madrid centro cuesta 15-25€/noche, (2) no puedes beber alcohol si conduces, (3) el tren de vuelta a Guadalajara a las 2 AM no existe.",
+          "El precio mínimo en ConcertRide para rutas cortas es 3€/asiento. Para muchos fans de provincias del área metropolitana de Madrid, ConcertRide a 3-5€/asiento es la única opción real de volver tranquilo a casa después del concierto.",
+        ],
+      },
+      {
+        heading: "Las rutas cortas más populares del área de Madrid",
+        paragraphs: [
+          "El área metropolitana de Madrid tiene ciudades-dormitorio a 40-80 km que generan carpooling constante hacia conciertos en el WiZink, la Sala La Riviera y el Mad Cool.",
+        ],
+        bullets: [
+          "Guadalajara a Madrid: 60 km, 50 min por A-2, desde 3€/asiento",
+          "Alcalá de Henares a Madrid: 35 km, 35 min por A-2, desde 3€/asiento",
+          "Toledo a Madrid: 70 km, 50 min por A-42, desde 3€/asiento",
+          "Segovia a Madrid: 90 km, 1h por AP-61, desde 3€/asiento",
+          "Cuenca a Madrid: 165 km, 1h40 por A-40, desde 5€/asiento",
+          "Ávila a Madrid: 115 km, 1h10 por A-6, desde 4€/asiento",
+        ],
+      },
+    ],
+    faqs: [
+      {
+        q: "¿Merece la pena el carpooling desde Guadalajara a Madrid para un concierto?",
+        a: "Sí. Desde Guadalajara a Madrid (60 km): el aparcamiento en Madrid centro cuesta 15-25€. El tren de vuelta no existe a las 2 AM. El carpooling en ConcertRide cuesta 3€/asiento más vuelta cuando tú quieras. Es la opción más económica y flexible.",
+      },
+      {
+        q: "¿Cuál es el precio mínimo de carpooling en ConcertRide para rutas cortas?",
+        a: "El precio mínimo en ConcertRide es 3€/asiento para cualquier ruta. Para rutas de menos de 80 km, los conductores suelen cobrar 3€/asiento para cubrir solo gasolina y peaje. 0% de comisión para ConcertRide.",
+      },
+    ],
+    relatedLinks: [
+      { label: "Carpooling a conciertos en Madrid", to: "/conciertos/madrid" },
+      { label: "Publicar un viaje en ConcertRide", to: "/publicar" },
+      { label: "Rutas desde Guadalajara a Madrid", to: "/rutas/guadalajara-madrid" },
+    ],
+    relatedPosts: ["pablo-alboran-india-martinez-espana-2026", "conciertos-estadios-espana-2026-guia", "guia-festivales-interior-espana-2026"],
+    coverImage: { src: "/og/home.png", alt: "Carpooling de corta distancia a conciertos en Madrid: Guadalajara, Alcalá, Toledo — ConcertRide desde 3€", width: 1200, height: 630 },
+  },
+);
+
+BLOG_POSTS.push(
+  {
+    slug: "guia-festivales-murcia-sureste-2026",
+    title: "Guía de Festivales de Murcia y el Sureste de España 2026: Carpooling desde 3€",
+    h1: "Festivales de Murcia, Cartagena, Lorca, Elche y Alicante 2026: cómo llegar en carpooling",
+    excerpt: "Todos los festivales de música de Murcia, Cartagena, Lorca y Alicante en 2026. Cómo llegar en carpooling sin comisión desde Madrid, Valencia o Barcelona.",
+    lede: "El sureste de España concentra en verano una oferta festivalera propia con festivales en Murcia, Cartagena, Lorca, Elche y Alicante. ConcertRide los conecta todos desde 3€/asiento.",
+    category: "guias",
+    tags: ["festivales-murcia", "carpooling-sureste", "murcia-pop", "festival-cartagena", "festival-lorca", "festival-alicante"],
+    publishedAt: "2026-05-16T10:00:00.000Z",
+    author: "Equipo ConcertRide",
+    readingMinutes: 8,
+    sections: [
+      {
+        heading: "El sureste, el nuevo polo festivalero del verano español",
+        paragraphs: [
+          "La Región de Murcia y la provincia de Alicante han consolidado una oferta festivalera propia. La combinación de buen tiempo garantizado, costes de producción razonables y una posición geográfica que atrae asistentes de Madrid, Valencia, Andalucía e incluso del norte de África, ha convertido al sureste en uno de los destinos más activos del circuito festivalero nacional en julio y agosto.",
+          "En 2026, el calendario incluye festivales en Murcia capital (Murcia Pop), Cartagena, Lorca, Elche y Alicante, todos accesibles en carpooling desde las principales ciudades españolas a través de ConcertRide.",
+        ],
+      },
+      {
+        heading: "Murcia Pop 2026 y Festival de Cartagena: el corazón musical del sureste",
+        paragraphs: [
+          "Murcia Pop 2026 se celebra en el Auditorio Regional de Murcia en julio. Carpooling desde Madrid: desde 7€/asiento (400 km por A-30, 3h 30min). Desde Valencia: desde 5€/asiento (250 km, 2h 20min). Desde Alicante: desde 3€/asiento (85 km, 55 min). 0% comisión en ConcertRide.",
+          "El Festival de Música de Cartagena aprovecha el Teatro Romano del siglo I d.C. como telón de fondo para actuaciones de rock e indie. Carpooling desde Murcia: desde 3€/asiento (55 km, 45 min). Desde Alicante: desde 3€/asiento (90 km, 1 hora). Desde Madrid: desde 8€/asiento (450 km, 4 horas).",
+        ],
+      },
+      {
+        heading: "Festivales en Lorca, Elche y Alicante: la Costa Blanca festivalera",
+        paragraphs: [
+          "El Festival de Música de Lorca se celebra en el centro histórico, con el Castillo del Sol iluminado al fondo. Carpooling desde Murcia: desde 3€/asiento (65 km, 50 min). Desde Granada: desde 4€/asiento (130 km, 1h 20min).",
+          "El Festival de Música de Elche aprovecha el palmeral UNESCO, mientras que el Festival de Alicante se celebra bajo el Castillo de Santa Bárbara. Carpooling Alicante–Elche: desde 3€/asiento (25 km, 20 min). Desde Madrid a Alicante: desde 7€/asiento (420 km, 3h 40min). 0% comisión en ConcertRide.",
+        ],
+        bullets: [
+          "Murcia Pop: desde Madrid 7€, Valencia 5€, Alicante 3€",
+          "Festival Cartagena: desde Murcia 3€, Alicante 3€, Madrid 8€",
+          "Festival Lorca: desde Murcia 3€, Granada 4€, Madrid 8€",
+          "Festival Elche: desde Alicante 3€, Murcia 3€, Madrid 7€",
+          "Festival Alicante: desde Murcia 3€, Madrid 7€, Barcelona 9€",
+        ],
+      },
+    ],
+    faqs: [
+      { q: "¿Cuánto cuesta el carpooling de Madrid a Murcia Pop?", a: "El carpooling de Madrid a Murcia Pop en ConcertRide cuesta desde 7€/asiento. Son 400 km por la A-30, unas 3h 30min. Sin comisión, pago directo al conductor en Bizum." },
+      { q: "¿Hay festivales en Cartagena en 2026?", a: "Sí. El Festival de Música de Cartagena se celebra en julio 2026, con el Teatro Romano como escenario. Carpooling desde Murcia desde 3€/asiento (55 km, 45 min)." },
+    ],
+    relatedLinks: [
+      { label: "Festival de Cartagena", url: "/festivales/festival-de-musica-de-cartagena" },
+      { label: "Festival de Alicante", url: "/festivales/festival-de-musica-de-alicante" },
+      { label: "Carpooling Madrid → Murcia Pop", url: "/rutas/madrid-festival-de-musica-de-murcia-pop" },
+    ],
+    relatedPosts: ["guia-festivales-galicia-noroeste-2026", "guia-festivales-madrid-2026-completa", "festival-de-sonar-2026-electronica"],
+    coverImage: { src: "https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?w=1200&h=630&fit=crop", alt: "Festival de música en el sureste de España — ConcertRide", width: 1200, height: 630 },
+  }
+);
+
+BLOG_POSTS.push(
+  {
+    slug: "how-to-get-to-primavera-sound-2026",
+    title: "How to Get to Primavera Sound 2026 in Barcelona: Carpooling, Train & Tips",
+    h1: "Getting to Primavera Sound 2026: carpooling from Madrid, Valencia and Zaragoza",
+    excerpt: "Complete guide to getting to Primavera Sound Festival 2026 in Barcelona from Madrid, Valencia, Zaragoza and other Spanish cities. Carpooling from 10€, no commission.",
+    lede: "Primavera Sound is one of Europe's best music festivals. Here's how to get there from anywhere in Spain using ConcertRide carpooling — cheaper than the train, more social than driving alone.",
+    category: "guias",
+    tags: ["primavera-sound", "barcelona-festival", "carpooling-barcelona", "how-to-primavera-sound"],
+    publishedAt: "2026-05-16T10:00:00.000Z",
+    author: "ConcertRide Team",
+    readingMinutes: 7,
+    sections: [
+      {
+        heading: "Primavera Sound 2026: venue and dates",
+        paragraphs: [
+          "Primavera Sound 2026 takes place at Parc del Fòrum in Barcelona at the end of May (typically late May to early June). The venue is located in the Sant Adrià de Besòs district, easily accessible by Barcelona metro (L4, Besòs Mar station). The festival typically runs Thursday to Saturday, with hundreds of artists across 15+ stages.",
+        ],
+      },
+      {
+        heading: "Carpooling to Primavera Sound: prices by city",
+        paragraphs: [
+          "ConcertRide offers carpooling to Primavera Sound from all major Spanish cities at 0% commission. Typical prices: Madrid (620 km, 5h 30min): from 10–15€/seat. Valencia (360 km, 3h 30min): from 6–9€/seat. Zaragoza (300 km, 2h 45min): from 5–8€/seat. You pay the driver directly in cash or Bizum.",
+          "Compare this to the AVE high-speed train from Madrid to Barcelona: 40–100€ one-way depending on booking time. Carpooling saves 30–90€ per person and you arrive right at the festival with your luggage, no metro needed.",
+        ],
+        bullets: [
+          "Madrid → Barcelona: from 10€/seat (620 km, 5h 30min)",
+          "Valencia → Barcelona: from 6€/seat (360 km, 3h 30min)",
+          "Zaragoza → Barcelona: from 5€/seat (300 km, 2h 45min)",
+          "Bilbao → Barcelona: from 10€/seat (615 km, 5h)",
+          "Seville → Barcelona: from 16€/seat (1,050 km, 9h)",
+        ],
+      },
+      {
+        heading: "Tips for international attendees at Primavera Sound",
+        paragraphs: [
+          "International attendees should note: ConcertRide is in Spanish but drivers generally understand basic English requests. Send a message with your pickup point, number of seats, and preferred language. Bizum requires a Spanish bank account — international attendees pay in cash.",
+          "Book accommodation in Poblenou or Sant Martí districts for easy festival access. The last metro runs around 12:30–1 AM; late-night concertgoers should arrange a pickup or use the Nitbus (night bus) N6 from Barceloneta.",
+        ],
+      },
+    ],
+    faqs: [
+      { q: "How much does carpooling from Madrid to Primavera Sound cost?", a: "Carpooling from Madrid to Primavera Sound in Barcelona costs from 10–15€/seat on ConcertRide. That's 620 km, about 5h 30min by car via AP-2. No commission — you pay the driver directly." },
+      { q: "How do I get from Barcelona airport to Primavera Sound?", a: "From Barcelona El Prat Airport, take the Aerobús to Plaça Catalunya (35 min, 6.75€), then metro L4 to Besòs Mar (25 min). Total: about 1 hour, 10€. Taxis cost 40–55€ from the airport to Parc del Fòrum." },
+    ],
+    relatedLinks: [
+      { label: "Carpooling Madrid → Primavera Sound", url: "/rutas/madrid-primavera-sound" },
+      { label: "Primavera Sound Festival", url: "/festivales/primavera-sound" },
+      { label: "How ConcertRide Works", url: "/como-funciona" },
+    ],
+    relatedPosts: ["festival-de-sonar-2026-electronica", "guia-festivales-madrid-2026-completa", "guia-festivales-cataluna-interior-2026"],
+    coverImage: { src: "https://images.unsplash.com/photo-1506157786151-b8491531f063?w=1200&h=630&fit=crop", alt: "How to get to Primavera Sound Festival Barcelona — ConcertRide", width: 1200, height: 630 },
+  }
+);
+
+BLOG_POSTS.push(
+  {
+    slug: "guia-festivales-galicia-noroeste-2026",
+    title: "Guía de Festivales de Galicia 2026: Vigo, Pontevedra, Ferrol, Betanzos, Tui y Lalín",
+    h1: "Festivales de música de Galicia 2026: carpooling sin comisión para todo el noroeste",
+    excerpt: "Todos los festivales de música de Galicia en 2026. Vigo, Pontevedra, Ferrol, Lalín, Tui y Betanzos. Carpooling sin comisión desde 3€.",
+    lede: "Galicia tiene más festivales que Resurrection Fest. En 2026, la comunidad autónoma ofrece música en Vigo, Pontevedra, Ferrol, Betanzos, Lalín, Tui y Monforte de Lemos — todos conectados por ConcertRide.",
+    category: "guias",
+    tags: ["festivales-galicia", "festival-vigo", "festival-pontevedra", "festival-ferrol", "festival-betanzos", "festival-tui"],
+    publishedAt: "2026-05-16T10:00:00.000Z",
+    author: "Equipo ConcertRide",
+    readingMinutes: 9,
+    sections: [
+      {
+        heading: "Galicia, destino festivalero en el verano de 2026",
+        paragraphs: [
+          "Galicia ha consolidado en los últimos años una oferta festivalera que va más allá del Resurrection Fest de Viveiro. En 2026, la comunidad autónoma ofrece festivales en Vigo, Pontevedra, Ferrol, Betanzos, Lalín, Tui y Monforte de Lemos, cubriendo todas las comarcas gallegas.",
+          "La red de carpooling de ConcertRide conecta estos festivales con el resto de España desde 3€/asiento. Para los festivales de interior (Lalín, Monforte), donde no hay conexiones ferroviarias frecuentes, el carpooling es prácticamente la única opción eficiente.",
+        ],
+      },
+      {
+        heading: "Festival de Vigo y Festival de Pontevedra: las capitales",
+        paragraphs: [
+          "El Festival de Música de Vigo es el más grande de la comunidad, con un recinto en el corazón de la ciudad olívica. Carpooling desde A Coruña: desde 6€/asiento (155 km, 1h 40min). Desde Santiago: desde 4€/asiento (80 km, 55min). Desde Madrid: desde 10€/asiento (620 km, 5h 30min).",
+          "El Festival de Música de Pontevedra se celebra en la Alameda de la ciudad peatonal por excelencia. Carpooling desde Vigo: desde 3€/asiento (30 km, 30 min). Cercanías Renfe conecta Vigo con Pontevedra en 25 minutos.",
+        ],
+      },
+      {
+        heading: "Ferrol, Betanzos, Tui y Lalín: la Galicia menos conocida",
+        paragraphs: [
+          "El Festival de Ferrol (Praza de Armas) y el Festival de Betanzos (paseo fluvial del Mandeo) representan la Galicia marinera y medieval. Ambos accesibles desde A Coruña: Ferrol en 40 km (40 min), Betanzos en 25 km (25 min). Cercanías Renfe C-1 conecta A Coruña con ambas ciudades.",
+          "El Festival de Tui se celebra en la ciudad fronteriza del Miño, frente a Valença do Minho (Portugal). Accesible desde Portugal a pie por el Puente Internacional. Desde Vigo: 30 km, 30 min. El Festival de Lalín, en el corazón geográfico de Galicia, es el festival de interior más auténtico. Sin tren directo — el carpooling desde Santiago (50 km, 45 min) es la mejor opción.",
+        ],
+        bullets: [
+          "Festival Vigo: desde A Coruña 6€, Santiago 4€, Madrid 10€",
+          "Festival Pontevedra: desde Vigo 3€, Santiago 4€, Madrid 10€",
+          "Festival Ferrol: desde A Coruña 3€, Santiago 5€",
+          "Festival Betanzos: desde A Coruña 3€, Ferrol 3€",
+          "Festival Tui: desde Vigo 3€, Pontevedra 4€",
+          "Festival Lalín: desde Santiago 3€, Vigo 4€",
+        ],
+      },
+    ],
+    faqs: [
+      { q: "¿Cuánto cuesta el carpooling de Madrid al Festival de Vigo?", a: "El carpooling de Madrid al Festival de Música de Vigo en ConcertRide cuesta desde 10€/asiento. Son 620 km, unas 5h 30min. Sin comisión, pago directo al conductor." },
+      { q: "¿Cómo ir al Festival de Tui desde Portugal?", a: "Tui está junto al Puente Internacional sobre el río Miño, frente a Valença do Minho. Desde Valença se puede acceder a pie. Desde Porto son 120 km por la A-3, 1h 20min." },
+    ],
+    relatedLinks: [
+      { label: "Festival de Vigo", url: "/festivales/festival-de-musica-de-vigo" },
+      { label: "Festival de Pontevedra", url: "/festivales/festival-de-musica-de-pontevedra" },
+      { label: "Carpooling a Galicia", url: "/conciertos/vigo" },
+    ],
+    relatedPosts: ["resurreccion-fest-2026-viveiro", "guia-festivales-murcia-sureste-2026", "guia-festivales-madrid-2026-completa"],
+    coverImage: { src: "https://images.unsplash.com/photo-1559827260-dc66d52bef19?w=1200&h=630&fit=crop", alt: "Festivales de música en Galicia — ConcertRide", width: 1200, height: 630 },
+  }
+);
+
+BLOG_POSTS.push(
+  {
+    slug: "festival-de-sonar-2026-electronica",
+    title: "Sónar 2026 en Barcelona: La Guía Definitiva del Festival de Electrónica",
+    h1: "Cómo ir al Sónar 2026 en Barcelona: carpooling desde Madrid desde 10€",
+    excerpt: "Todo sobre Sónar y Sónar+D 2026 en Barcelona: fechas, recintos, artistas y cómo llegar en carpooling desde Madrid desde 10€. El festival de electrónica más importante de Europa.",
+    lede: "Sónar 2026 es el festival de música avanzada y cultura digital más reconocido de Europa. Aquí te explicamos cómo llegar desde cualquier ciudad española en carpooling sin comisión.",
+    category: "guias",
+    tags: ["sonar-2026", "sonar-barcelona", "festival-electronica-barcelona", "sonar-plus", "carpooling-sonar"],
+    publishedAt: "2026-05-16T10:00:00.000Z",
+    author: "Equipo ConcertRide",
+    readingMinutes: 8,
+    sections: [
+      {
+        heading: "Sónar 2026: el festival de música avanzada de Barcelona",
+        paragraphs: [
+          "El Festival Sónar se celebra cada año en junio en Barcelona, dividido entre dos recintos: Sónar de Día (Fira Montjuïc) y Sónar de Noche (Gran Via). Es el festival de música electrónica y cultura digital más reconocido de Europa, con más de 150.000 asistentes de 90 países en sus tres días.",
+          "Sónar+D, el congreso de tecnología y creatividad paralelo al festival, añade conferencias, workshops y exposiciones que convierten la semana del Sónar en un evento único. En 2026 incluye talleres de producción musical con IA y conferencias sobre el futuro de la industria discográfica.",
+        ],
+      },
+      {
+        heading: "Carpooling al Sónar desde Madrid, Valencia y Zaragoza",
+        paragraphs: [
+          "ConcertRide organiza carpooling al Sónar desde todas las grandes ciudades españolas a 0% comisión. Precios en 2026: Madrid → Barcelona (620 km, 5h 30min): desde 10–15€/asiento. Valencia → Barcelona (360 km, 3h 30min): desde 6–9€/asiento. Zaragoza → Barcelona (300 km, 2h 45min): desde 5–8€/asiento.",
+          "Pago Bizum o en efectivo directamente al conductor. Sin intermediarios, sin comisiones. El carpooling es la opción más económica y social para llegar al Sónar desde el resto de España.",
+        ],
+        bullets: [
+          "Madrid → Sónar: desde 10€/asiento (620 km, AP-2, 5h 30min)",
+          "Valencia → Sónar: desde 6€/asiento (360 km, AP-7, 3h 30min)",
+          "Zaragoza → Sónar: desde 5€/asiento (300 km, AP-2, 2h 45min)",
+          "Bilbao → Sónar: desde 10€/asiento (615 km, AP-68+AP-2, 5h)",
+          "Sevilla → Sónar: desde 16€/asiento (1.050 km, A-4+AP-7, 9h)",
+        ],
+      },
+      {
+        heading: "Sónar de Día vs Sónar de Noche: los dos recintos",
+        paragraphs: [
+          "Sónar de Día se celebra en Fira Montjuïc (metro L1+L3, Espanya). El ambiente es más experimental y diurno, con stages principales cubiertos. Sónar de Noche se celebra en Gran Via (metro L1, Europa/Fira, L'Hospitalet), más electrónico y nocturno, con DJs internacionales hasta el amanecer.",
+          "Los pases de día y noche son independientes. Los abonos de 3 días incluyen ambos recintos. Para el traslado entre recintos, la organización dispone de buses internos del festival (incluidos en el abono) y el metro L1.",
+        ],
+      },
+    ],
+    faqs: [
+      { q: "¿Cuánto cuesta el carpooling de Madrid al Sónar 2026?", a: "El carpooling de Madrid al Sónar en Barcelona cuesta desde 10€/asiento en ConcertRide. Son 620 km por la AP-2, unas 5h 30min. Sin comisión, pago Bizum directo." },
+      { q: "¿Qué diferencia hay entre Sónar de Día y Sónar de Noche?", a: "Sónar de Día (Fira Montjuïc) es más experimental y diurno. Sónar de Noche (Gran Via, L'Hospitalet) es más electrónico y nocturno, con DJs internacionales hasta el amanecer. Los abonos de 3 días incluyen ambos." },
+    ],
+    relatedLinks: [
+      { label: "Carpooling Madrid → Sónar", url: "/rutas/madrid-sonar-plus" },
+      { label: "Carpooling Valencia → Sónar", url: "/rutas/valencia-sonar-plus" },
+      { label: "Festival Sónar", url: "/festivales/sonar" },
+    ],
+    relatedPosts: ["how-to-get-to-primavera-sound-2026", "guia-festivales-cataluna-interior-2026", "guia-festivales-madrid-2026-completa"],
+    coverImage: { src: "https://images.unsplash.com/photo-1470229722913-7c0e2dbbafd3?w=1200&h=630&fit=crop", alt: "Festival Sónar Barcelona electrónica — ConcertRide", width: 1200, height: 630 },
+  }
+);
+
+BLOG_POSTS.push(
+  {
+    slug: "carpooling-pareja-festival-romantico",
+    title: "Carpooling en Pareja para Festivales: La Guía Completa 2026",
+    h1: "Cómo ir a un festival en pareja en carpooling: reservar dos plazas en ConcertRide",
+    excerpt: "Cómo organizar el viaje a un festival en pareja usando ConcertRide: reservar dos plazas, coordinar con el conductor y aprovechar al máximo el viaje compartido.",
+    lede: "Ir a un festival en pareja en carpooling es más fácil de lo que parece. Aquí te explicamos cómo reservar dos plazas, cómo publicar vuestro propio viaje como conductores y qué festivales son más populares entre parejas.",
+    category: "consejos",
+    tags: ["carpooling-pareja", "festival-pareja", "reservar-dos-plazas", "como-funciona-concertride"],
+    publishedAt: "2026-05-16T10:00:00.000Z",
+    author: "Equipo ConcertRide",
+    readingMinutes: 6,
+    sections: [
+      {
+        heading: "Reservar dos plazas en el mismo coche",
+        paragraphs: [
+          "En ConcertRide puedes reservar varias plazas en el mismo viaje indicando el número de asientos al hacer la solicitud. Simplemente selecciona 2 plazas cuando contactes con el conductor y menciona en el mensaje que sois pareja. La mayoría de conductores aceptan parejas sin problema: los coches estándar tienen 3–4 plazas disponibles además del conductor.",
+          "Si queréis asientos contiguos (y no que uno vaya delante y otro detrás), especificadlo en el mensaje al conductor. La mayoría os acomodarán si lo pedís con antelación. Evitad los viajes con solo 1 plaza disponible.",
+        ],
+      },
+      {
+        heading: "Alternativa: publicar vuestro propio viaje como conductores",
+        paragraphs: [
+          "Si uno de los dos tiene carnet de conducir, la opción más económica es publicar el viaje en ConcertRide como conductores y ofrecer las plazas restantes a otros asistentes al festival. En un coche de 5 plazas, con vosotros dos, quedan 3 plazas para pasajeros. Si cada pasajero paga 10€ por un viaje de 300 km, la pareja recupera 30€ del coste del combustible.",
+          "Esta opción es especialmente popular para parejas que van a festivales de varios días como FIB, Arenal Sound o Sónar. Publicad el viaje al menos 5 días antes para encontrar pasajeros interesados.",
+        ],
+        bullets: [
+          "Reserva 2 plazas indicándolo al contactar con el conductor",
+          "Pide asientos contiguos en el mensaje al conductor",
+          "Publica vuestro propio viaje si uno tiene carnet de conducir",
+          "Indicad el equipaje de camping si vais a un festival con acampada",
+          "Acordad la hora de regreso antes de salir",
+        ],
+      },
+    ],
+    faqs: [
+      { q: "¿Puedo reservar dos plazas en el mismo viaje de ConcertRide?", a: "Sí. Al contactar con el conductor, indica que necesitáis 2 plazas. Si el viaje tiene 2+ plazas disponibles, el conductor puede reservaros ambas." },
+      { q: "¿Qué pasa si no hay viajes con dos plazas disponibles?", a: "Si no encuentras viajes con dos plazas libres, publica una solicitud de viaje indicando que sois dos personas. Los conductores pueden ofreceros un viaje a medida." },
+    ],
+    relatedLinks: [
+      { label: "Publicar un viaje como conductor", url: "/publicar" },
+      { label: "Cómo funciona ConcertRide", url: "/como-funciona" },
+    ],
+    relatedPosts: ["carpooling-madrugada-fin-festival", "guia-festivales-madrid-2026-completa", "festival-de-sonar-2026-electronica"],
+    coverImage: { src: "https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?w=1200&h=630&fit=crop", alt: "Pareja en carpooling a un festival de música — ConcertRide", width: 1200, height: 630 },
+  }
+);
+
+BLOG_POSTS.push(
+  {
+    slug: "conciertos-teatros-auditorios-espana-2026",
+    title: "Conciertos en Teatros y Auditorios de España 2026: Carpooling desde 3€",
+    h1: "ConcertRide para conciertos en sala: teatros, auditorios y pabellones de toda España",
+    excerpt: "ConcertRide no es solo para festivales: también organiza carpooling para conciertos en teatros, auditorios y salas de todo España. Desde el Auditorio Nacional hasta el Gran Teatre del Liceu.",
+    lede: "Muchos fans no saben que ConcertRide funciona para cualquier concierto, no solo festivales. Si tu artista favorito actúa en un teatro o auditorio a 100 km de tu casa, el carpooling es la solución más económica.",
+    category: "guias",
+    tags: ["conciertos-sala", "auditorio-nacional", "carpooling-teatro", "carpooling-auditorio", "conciertos-espana-2026"],
+    publishedAt: "2026-05-16T10:00:00.000Z",
+    author: "Equipo ConcertRide",
+    readingMinutes: 7,
+    sections: [
+      {
+        heading: "ConcertRide para conciertos en recintos cubiertos",
+        paragraphs: [
+          "ConcertRide no está limitado a festivales al aire libre. Muchos usuarios organizan carpooling para conciertos en teatros, auditorios, salas de conciertos y recintos cubiertos de todo España. Si hay un concierto en el Auditorio Nacional de Madrid, el Gran Teatre del Liceu de Barcelona, el Palau de la Música de Valencia o el Euskalduna de Bilbao, puedes publicar o buscar un viaje compartido.",
+        ],
+      },
+      {
+        heading: "Madrid, Barcelona, Bilbao y Valencia: los auditorios más solicitados",
+        paragraphs: [
+          "Madrid concentra los auditorios más grandes de España. Para conciertos en el WiZink Center, los asistentes de Guadalajara, Toledo, Segovia, Ávila y Cuenca usan ConcertRide desde 3€/asiento. Para Barcelona, el carpooling desde Tarragona, Lleida, Girona y Reus es habitual desde 3€/asiento.",
+          "El Euskalduna (Bilbao), el Palau de les Arts (Valencia), el Teatro de la Maestranza (Sevilla) y el Auditorio de Zaragoza son los principales destinos regionales de carpooling para conciertos en sala.",
+        ],
+        bullets: [
+          "WiZink Center Madrid: desde Guadalajara 3€, Toledo 3€, Segovia 3€",
+          "Gran Teatre del Liceu BCN: desde Tarragona 4€, Lleida 4€, Girona 3€",
+          "Euskalduna Bilbao: desde Vitoria 4€, San Sebastián 5€, Pamplona 5€",
+          "Palau de les Arts Valencia: desde Alicante 4€, Murcia 5€, Castellón 3€",
+        ],
+      },
+      {
+        heading: "Cómo publicar un viaje para un concierto en sala",
+        paragraphs: [
+          "Publicar un viaje en ConcertRide para un concierto en teatro o auditorio es igual que para un festival: selecciona el concierto, indica la fecha y hora, añade tu punto de salida y el precio por plaza. Para conciertos de un solo día, los conductores suelen ofrecer el viaje de ida y vuelta el mismo día.",
+          "Asegúrate de indicar la hora de regreso prevista (generalmente 1–2 horas después del fin del concierto) para que los pasajeros puedan coordinarse.",
+        ],
+      },
+    ],
+    faqs: [
+      { q: "¿Funciona ConcertRide para conciertos en sala, no solo festivales?", a: "Sí. ConcertRide funciona para cualquier concierto o evento musical: festivales, estadios, teatros, auditorios y salas de conciertos. Busca el concierto por ciudad y fecha, o publica tu viaje indicando el destino." },
+      { q: "¿Hay carpooling para conciertos de entre semana?", a: "Sí. ConcertRide tiene viajes para conciertos entre semana, aunque la oferta es menor. Publica tu viaje con al menos 3–4 días de antelación para encontrar compañeros de ruta." },
+    ],
+    relatedLinks: [
+      { label: "Cómo funciona ConcertRide", url: "/como-funciona" },
+      { label: "Publicar un viaje", url: "/publicar" },
+      { label: "Conciertos en Madrid", url: "/conciertos/madrid" },
+    ],
+    relatedPosts: ["carpooling-madrugada-fin-festival", "carpooling-pareja-festival-romantico", "guia-festivales-madrid-2026-completa"],
+    coverImage: { src: "https://images.unsplash.com/photo-1514525253161-7a46d19cd819?w=1200&h=630&fit=crop", alt: "Conciertos en teatros y auditorios de España — ConcertRide", width: 1200, height: 630 },
+  }
+);
+
+BLOG_POSTS.push(
+  {
+    slug: "guia-festivales-madrid-2026-completa",
+    title: "Guía Completa de Festivales de Madrid 2026: Mad Cool, GetaFest, Vibra Mahou y más",
+    h1: "Festivales de Madrid 2026: Mad Cool, Vibra Mahou, GetaFest y los festivales del área metropolitana",
+    excerpt: "Todos los festivales de música de la Comunidad de Madrid en 2026. Mad Cool en IFEMA, Vibra Mahou en el Metropolitano, GetaFest en Getafe y los festivales del sur metropolitano. Carpooling desde 3€.",
+    lede: "Madrid es la comunidad con más festivales por metro cuadrado del verano español. De IFEMA al sur metropolitano, hay música para todos los gustos — y ConcertRide los conecta desde 3€/asiento.",
+    category: "guias",
+    tags: ["festivales-madrid-2026", "mad-cool-2026", "vibra-mahou-2026", "getafest-2026", "carpooling-madrid"],
+    publishedAt: "2026-05-16T10:00:00.000Z",
+    author: "Equipo ConcertRide",
+    readingMinutes: 10,
+    sections: [
+      {
+        heading: "Mad Cool 2026: el festival más grande de Madrid",
+        paragraphs: [
+          "Mad Cool Festival se celebra en julio en IFEMA-Madrid (Av. del Partenón 5), el recinto de exposiciones al norte de Barajas. Es el festival de mayor capacidad de Madrid, con carteles que incluyen los artistas internacionales más relevantes. Metro L8 (Barajas) accesible desde el centro.",
+          "Carpooling desde Guadalajara: desde 3€/asiento (55 km, 45 min). Desde Toledo: desde 3€/asiento (70 km, 55 min). Desde Segovia: desde 3€/asiento (90 km, 1 hora). Desde Ávila: desde 3€/asiento (110 km, 1h 15min). 0% comisión en ConcertRide.",
+        ],
+      },
+      {
+        heading: "Vibra Mahou, GetaFest y los festivales del área metropolitana",
+        paragraphs: [
+          "Vibra Mahou se celebra en el Estadio Metropolitano (Metro L7) en mayo-junio. GetaFest en Getafe en agosto, accesible en Metro Metrosur (L12). Los festivales del sur metropolitano: Leganés Fest (julio, M-45), Móstoles Fest (agosto, A-5) y Alcorcón Fest (agosto, M-506), todos a 15–20 km del centro.",
+          "Festival Complutense en Alcalá de Henares (julio): 35 km por A-2, cercanías Renfe en 45–55 min. Carpooling desde Madrid: desde 3€/asiento. Desde Guadalajara: desde 3€/asiento.",
+        ],
+        bullets: [
+          "Mad Cool (IFEMA, julio): desde Toledo 3€, Guadalajara 3€, Segovia 3€",
+          "Vibra Mahou (Metropolitano, may-jun): metro L7, carpooling desde Guadalajara 3€",
+          "GetaFest (Getafe, ago): metro L12, desde Toledo 3€",
+          "Leganés Fest (jul): desde Toledo 3€, Madrid centro 3€",
+          "Móstoles Fest (ago): desde Toledo 3€, Ávila 3€",
+          "Alcorcón Fest (ago): desde Toledo 3€, Segovia 3€",
+          "Festival Complutense (Alcalá, jul): desde Guadalajara 3€, Madrid 3€",
+        ],
+      },
+    ],
+    faqs: [
+      { q: "¿Cuáles son los festivales de música más grandes de Madrid en 2026?", a: "Los festivales más grandes son: Mad Cool (IFEMA, julio), Vibra Mahou (Estadio Metropolitano, mayo-junio) y GetaFest (Getafe, agosto). Además: Leganés Fest, Móstoles Fest, Alcorcón Fest y Festival Complutense." },
+      { q: "¿Hay carpooling entre los festivales del sur de Madrid?", a: "Sí. Para los festivales del sur (Leganés, Móstoles, Alcorcón, Getafe), ConcertRide organiza carpooling desde el centro de Madrid desde 3€/asiento y desde Toledo, Guadalajara o Segovia desde 3–5€/asiento." },
+    ],
+    relatedLinks: [
+      { label: "Festival Complutense", url: "/festivales/festival-complutense" },
+      { label: "Festival de Leganés", url: "/festivales/festival-de-musica-de-leganes" },
+      { label: "GetaFest", url: "/festivales/getafest" },
+      { label: "Mad Cool Festival", url: "/festivales/mad-cool" },
+    ],
+    relatedPosts: ["guia-festivales-murcia-sureste-2026", "carpooling-pareja-festival-romantico", "festival-de-sonar-2026-electronica"],
+    coverImage: { src: "https://images.unsplash.com/photo-1540039155733-5bb30b53aa14?w=1200&h=630&fit=crop", alt: "Festivales de música en Madrid 2026 — ConcertRide", width: 1200, height: 630 },
+  }
+);
+
+BLOG_POSTS.push(
+  {
+    slug: "carpooling-madrugada-fin-festival",
+    title: "Carpooling de Madrugada: Cómo Volver a Casa Después del Festival",
+    h1: "Cómo organizar el carpooling de vuelta después de un festival o concierto nocturno",
+    excerpt: "Guía práctica para organizar el viaje de vuelta después de un festival o concierto de madrugada en ConcertRide. Consejos para conductores y pasajeros.",
+    lede: "El viaje de vuelta del festival es siempre el más difícil. Los transportes públicos han terminado, los taxis son caros y conducir de madrugada implica riesgos. El carpooling de madrugada en ConcertRide es la mejor solución.",
+    category: "consejos",
+    tags: ["carpooling-madrugada", "vuelta-festival", "concierto-nocturno", "carpooling-fin-festival"],
+    publishedAt: "2026-05-16T10:00:00.000Z",
+    author: "Equipo ConcertRide",
+    readingMinutes: 6,
+    sections: [
+      {
+        heading: "Cómo publicar un viaje de vuelta de madrugada",
+        paragraphs: [
+          "Si eres conductor, publica el viaje de regreso en ConcertRide con al menos 24 horas de antelación. Indica claramente: la hora de salida prevista (por ejemplo, 'salida aproximada a las 2:00–2:30 AM'), el punto de encuentro exacto (puerta norte, sur, parking P3), y el tiempo máximo de espera. Los pasajeros valorarán la claridad.",
+        ],
+      },
+      {
+        heading: "Seguridad en el viaje de vuelta nocturno",
+        paragraphs: [
+          "La seguridad en el viaje de vuelta es prioritaria. Reglas básicas: no conduzcas si has consumido alcohol, aunque sea en pequeña cantidad. Si estás cansado, propón una parada de 20 minutos en un área de servicio. Comparte la ruta con un familiar antes de salir. Mantén el teléfono cargado y activa el manos libres.",
+          "Para pasajeros: busca los viajes de regreso con al menos 2 días de antelación. Si no hay viajes disponibles, publica una solicitud indicando tu destino y la hora de regreso prevista.",
+        ],
+        bullets: [
+          "Publica el viaje de regreso con 24h de antelación",
+          "Indica hora de salida, punto de encuentro y tiempo de espera",
+          "No conduzcas si has consumido alcohol",
+          "Propón parada en área de servicio si hay cansancio",
+          "Comparte la ruta con un familiar",
+          "Mantén el teléfono cargado",
+        ],
+      },
+      {
+        heading: "Alternativas cuando no hay carpooling disponible",
+        paragraphs: [
+          "Si no encuentras carpooling de vuelta: taxi compartido con otros asistentes (caro pero rápido), autobús nocturno de la organización (algunos festivales lo ofrecen), acampada en el recinto si la distancia es grande, o alojamiento en la ciudad más cercana y regreso a la mañana siguiente.",
+        ],
+      },
+    ],
+    faqs: [
+      { q: "¿Es seguro el carpooling de madrugada en ConcertRide?", a: "ConcertRide verifica la identidad y el permiso de conducir de todos los conductores. El sistema de valoraciones permite ver el historial. Si un conductor tiene 4.5+ estrellas con múltiples valoraciones, la probabilidad de un viaje seguro es muy alta." },
+      { q: "¿Qué hago si el conductor no aparece en la hora acordada?", a: "Contacta con el conductor directamente. Si no responde en 15 minutos, busca alternativas. Puntúa negativamente a los conductores que no aparecen para proteger a futuros usuarios." },
+    ],
+    relatedLinks: [
+      { label: "Cómo funciona ConcertRide", url: "/como-funciona" },
+      { label: "Publicar un viaje de vuelta", url: "/publicar" },
+    ],
+    relatedPosts: ["carpooling-pareja-festival-romantico", "conciertos-teatros-auditorios-espana-2026", "guia-festivales-madrid-2026-completa"],
+    coverImage: { src: "https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=1200&h=630&fit=crop", alt: "Carpooling de madrugada vuelta casa festival — ConcertRide", width: 1200, height: 630 },
+  }
+);
+
 // Refresh derived exports
 export const BLOG_POSTS_BY_SLUG: Record<string, BlogPost> = Object.fromEntries(
   BLOG_POSTS.map((p) => [p.slug, p]),
