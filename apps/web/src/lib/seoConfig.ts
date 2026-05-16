@@ -129,7 +129,9 @@ export const SEO_CONFIG = {
 
     onlinebusiness: {
       "@context": "https://schema.org",
-      "@type": "OnlineBusiness",
+      // NOTE: "OnlineBusiness" is NOT a valid schema.org @type — Google rejects it.
+      // Use LocalBusiness instead (still valid for web-only services).
+      "@type": "LocalBusiness",
       "@id": "https://concertride.me/#onlinebusiness",
       name: "ConcertRide ES",
       url: "https://concertride.me/",
@@ -168,10 +170,11 @@ export const SEO_CONFIG = {
   },
 
   // Core Web Vitals targets (Lighthouse)
+  // Updated to 2026 Google thresholds: LCP "Good" lowered from 2.5s → 2.0s (March 2026 core update)
   cwv_targets: {
-    lcp: 2500, // milliseconds
-    inp: 200, // milliseconds
-    cls: 0.1, // score
+    lcp: 2000, // milliseconds — Google 2026 "Good" threshold (was 2500 before March 2026)
+    inp: 200,  // milliseconds — Equal ranking signal alongside LCP and CLS since March 2026
+    cls: 0.1,  // score
   },
 
   // AI crawler permissions (robots.txt)

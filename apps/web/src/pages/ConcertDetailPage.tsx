@@ -1,9 +1,9 @@
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { useSeoMeta } from "@/lib/useSeoMeta";
 import { SITE_URL } from "@/lib/siteUrl";
-import { motion } from "motion/react";
-import { ArrowLeft, ArrowRight, Calendar, Link2, MapPin, Music2, Star, Users } from "lucide-react";
+import { AnimatePresence, motion } from "motion/react";
+import { ArrowLeft, ArrowRight, Calendar, Link2, MapPin, Music2, Star, Users, X } from "lucide-react";
 import { concertShareUrl } from "@/lib/utm";
 import { cfImage } from "@/lib/imageUrl";
 import { VENUE_LANDINGS } from "@/lib/venueLandings";
@@ -656,6 +656,16 @@ export default function ConcertDetailPage() {
           <EmbedSnippet concertId={concert.id} />
         </section>
       )}
+
+      {/* Sticky post-view nudge for anonymous users — shown after 8s scroll engagement */}
+      {!user && concert && !isPast && (
+        <AnonNudgeBanner
+          artistName={concert.artist}
+          city={concert.venue.city}
+          concertId={concert.id}
+          ridesCount={rides?.length ?? 0}
+        />
+      )}
     </main>
   );
 }
@@ -985,6 +995,104 @@ function EmbedSnippet({ concertId }: { concertId: string }) {
         {copied ? "¡Copiado!" : "Copiar snippet"}
       </button>
     </div>
+  );
+}
+
+/**
+ * AnonNudgeBanner — sticky bottom banner shown to non-logged-in users after they've
+ * spent time on a concert detail page. Non-intrusive: appears after 8 s, has a dismiss
+ * button, and stores the dismissed state in sessionStorage so it doesn't re-appear
+ * on the same page view.
+ */
+function AnonNudgeBanner({
+  artistName,
+  city,
+  concertId,
+  ridesCount,
+}: {
+  artistName: string;
+  city: string;
+  concertId: string;
+  ridesCount: number;
+}) {
+  const [visible, setVisible] = useState(false);
+  const [dismissed, setDismissed] = useState(false);
+  const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  useEffect(() => {
+    // Don't show if already dismissed in this session for this concert
+    const key = `nudge_dismissed_${concertId}`;
+    if (sessionStorage.getItem(key)) return;
+
+    // Appear after 8 seconds of page visit (engagement signal)
+    timerRef.current = setTimeout(() => setVisible(true), 8000);
+    return () => {
+      if (timerRef.current) clearTimeout(timerRef.current);
+    };
+  }, [concertId]);
+
+  function dismiss() {
+    setDismissed(true);
+    sessionStorage.setItem(`nudge_dismissed_${concertId}`, "1");
+  }
+
+  const ridesLabel = ridesCount > 0
+    ? `${ridesCount} viaje${ridesCount === 1 ? "" : "s"} disponible${ridesCount === 1 ? "" : "s"}`
+    : "Sé el primero en publicar";
+
+  return (
+    <AnimatePresence>
+      {visible && !dismissed && (
+        <motion.div
+          initial={{ y: "100%", opacity: 0 }}
+          animate={{ y: 0, opacity: 1 }}
+          exit={{ y: "100%", opacity: 0 }}
+          transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
+          role="complementary"
+          aria-label="Notificación: encuentra viaje a este concierto"
+          className="fixed bottom-0 left-0 right-0 z-50 p-3 md:p-4"
+          style={{ pointerEvents: "none" }}
+        >
+          <div
+            className="relative max-w-xl mx-auto flex items-center gap-4 bg-[#111] border border-cr-primary/40 shadow-[0_0_40px_rgba(219,255,0,0.15)] px-5 py-4"
+            style={{ pointerEvents: "auto" }}
+          >
+            {/* Lime left accent */}
+            <div className="absolute left-0 top-0 bottom-0 w-[3px] bg-cr-primary" aria-hidden="true" />
+
+            {/* Content */}
+            <div className="flex-1 min-w-0 space-y-0.5">
+              <p className="font-display text-sm uppercase leading-tight truncate">
+                ¿Quieres ir a{" "}
+                <span className="text-cr-primary">{artistName}</span>{" "}
+                en {city}?
+              </p>
+              <p className="font-mono text-[10px] text-white/45">
+                {ridesLabel} · Registro gratis en 30 segundos
+              </p>
+            </div>
+
+            {/* CTA */}
+            <Link
+              to={`/register?next=${encodeURIComponent(`/concerts/${concertId}`)}`}
+              className="flex-shrink-0 cr-btn-shine inline-flex items-center gap-1.5 bg-cr-primary text-black font-sans font-semibold uppercase tracking-[0.1em] text-xs px-4 py-2.5 hover:bg-[#c8ec00] transition-colors duration-150 whitespace-nowrap"
+            >
+              Encontrar viaje gratis
+            </Link>
+
+            {/* Dismiss */}
+            <button
+              type="button"
+              onClick={dismiss}
+              aria-label="Cerrar notificación"
+              className="flex-shrink-0 p-1 text-white/30 hover:text-white/70 transition-colors"
+            >
+              <X size={14} />
+            </button>
+          </div>
+        </motion.div>
+      )}
+    </AnimatePresence>
   );
 }
 

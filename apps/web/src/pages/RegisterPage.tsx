@@ -1,7 +1,7 @@
 import { useMemo, useState } from "react";
 import { Link, Navigate, useSearchParams } from "react-router-dom";
-import { motion } from "motion/react";
-import { ArrowLeft, Check, Eye, EyeOff, ShieldCheck } from "lucide-react";
+import { motion, AnimatePresence } from "motion/react";
+import { ArrowLeft, Check, ChevronDown, Eye, EyeOff, ShieldCheck } from "lucide-react";
 import { api, ApiError } from "@/lib/api";
 import { useSession } from "@/lib/session";
 import { SPANISH_CITIES } from "@/lib/constants";
@@ -82,6 +82,9 @@ export default function RegisterPage() {
   const [smoker, setSmoker] = useState<"yes" | "no" | "">("");
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  // Progressive disclosure — optional profile fields hidden by default to reduce form friction.
+  // Users complete the core 3-field form first; expanding is available after.
+  const [showOptional, setShowOptional] = useState(false);
 
   // Countdown for the H1 — computed once per render, no effect needed.
   const daysToFestival = useMemo(() => daysUntil(NEXT_FESTIVAL.date), []);
@@ -295,70 +298,97 @@ export default function RegisterPage() {
             </div>
           </label>
 
-          {/* Optional profile section */}
-          <div className="pt-2 space-y-5">
-            <p className="font-mono text-[10px] font-semibold uppercase tracking-[0.18em] text-white/20">
-              Perfil — opcional
-            </p>
-
-            {/* City */}
-            <label className="block space-y-1.5">
-              <span className="font-mono text-[10px] font-semibold uppercase tracking-[0.14em] text-white/40">
-                Ciudad habitual
+          {/* Progressive disclosure — optional profile fields */}
+          <div className="pt-1">
+            <button
+              type="button"
+              onClick={() => setShowOptional((v) => !v)}
+              className="w-full flex items-center justify-between gap-2 py-2.5 group"
+              aria-expanded={showOptional}
+            >
+              <span className="font-mono text-[10px] font-semibold uppercase tracking-[0.18em] text-white/25 group-hover:text-white/45 transition-colors">
+                Perfil opcional — mejora los resultados de matching
               </span>
-              <select
-                value={homeCity}
-                onChange={(e) => setHomeCity(e.target.value)}
-                className="w-full bg-white/[0.04] border border-white/[0.1] focus:border-cr-primary outline-none px-4 py-3 font-sans text-sm text-cr-text transition-colors duration-150 [color-scheme:dark]"
-              >
-                <option value="">Sin especificar</option>
-                {SPANISH_CITIES.map((c) => (
-                  <option key={c.name} value={c.name}>{c.name}</option>
-                ))}
-              </select>
-            </label>
-
-            {/* Phone */}
-            <label className="block space-y-1.5">
-              <span className="font-mono text-[10px] font-semibold uppercase tracking-[0.14em] text-white/40">
-                Teléfono
-              </span>
-              <input
-                type="tel"
-                autoComplete="tel"
-                value={phone}
-                onChange={(e) => setPhone(e.target.value)}
-                placeholder="+34 600 000 000"
-                className="w-full bg-white/[0.04] border border-white/[0.1] focus:border-cr-primary outline-none px-4 py-3 font-mono text-sm text-cr-text placeholder:text-white/20 transition-colors duration-150"
+              <ChevronDown
+                size={14}
+                aria-hidden="true"
+                className={`text-white/25 group-hover:text-white/45 transition-all duration-200 ${showOptional ? "rotate-180" : "rotate-0"}`}
               />
-            </label>
+            </button>
 
-            {/* Smoker toggle */}
-            <div className="space-y-1.5">
-              <span className="font-mono text-[10px] font-semibold uppercase tracking-[0.14em] text-white/40">
-                ¿Fumas?
-              </span>
-              <div className="flex gap-2">
-                {(["", "no", "yes"] as const).map((val) => {
-                  const label = val === "" ? "Prefiero no decir" : val === "no" ? "No fumo" : "Sí fumo";
-                  const active = smoker === val;
-                  return (
-                    <button
-                      key={val}
-                      type="button"
-                      onClick={() => setSmoker(val)}
-                      className={`flex-1 py-2.5 font-mono text-[10px] font-semibold uppercase tracking-[0.1em] border transition-colors duration-150 ${
-                        active
-                          ? "border-cr-primary text-cr-primary bg-cr-primary/[0.08]"
-                          : "border-white/[0.1] text-white/30 hover:border-white/25 hover:text-white/50"
-                      }`}
-                    >
-                      {label}
-                    </button>
-                  );
-                })}
-              </div>
-            </div>
+            <AnimatePresence initial={false}>
+              {showOptional && (
+                <motion.div
+                  key="optional-fields"
+                  initial={{ height: 0, opacity: 0 }}
+                  animate={{ height: "auto", opacity: 1 }}
+                  exit={{ height: 0, opacity: 0 }}
+                  transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
+                  className="overflow-hidden"
+                >
+                  <div className="pt-4 space-y-5 pb-1">
+                    {/* City */}
+                    <label className="block space-y-1.5">
+                      <span className="font-mono text-[10px] font-semibold uppercase tracking-[0.14em] text-white/40">
+                        Ciudad habitual
+                      </span>
+                      <select
+                        value={homeCity}
+                        onChange={(e) => setHomeCity(e.target.value)}
+                        className="w-full bg-white/[0.04] border border-white/[0.1] focus:border-cr-primary outline-none px-4 py-3 font-sans text-sm text-cr-text transition-colors duration-150 [color-scheme:dark]"
+                      >
+                        <option value="">Sin especificar</option>
+                        {SPANISH_CITIES.map((c) => (
+                          <option key={c.name} value={c.name}>{c.name}</option>
+                        ))}
+                      </select>
+                    </label>
+
+                    {/* Phone */}
+                    <label className="block space-y-1.5">
+                      <span className="font-mono text-[10px] font-semibold uppercase tracking-[0.14em] text-white/40">
+                        Teléfono
+                      </span>
+                      <input
+                        type="tel"
+                        autoComplete="tel"
+                        value={phone}
+                        onChange={(e) => setPhone(e.target.value)}
+                        placeholder="+34 600 000 000"
+                        className="w-full bg-white/[0.04] border border-white/[0.1] focus:border-cr-primary outline-none px-4 py-3 font-mono text-sm text-cr-text placeholder:text-white/20 transition-colors duration-150"
+                      />
+                    </label>
+
+                    {/* Smoker toggle */}
+                    <div className="space-y-1.5">
+                      <span className="font-mono text-[10px] font-semibold uppercase tracking-[0.14em] text-white/40">
+                        ¿Fumas?
+                      </span>
+                      <div className="flex gap-2">
+                        {(["", "no", "yes"] as const).map((val) => {
+                          const label = val === "" ? "Prefiero no decir" : val === "no" ? "No fumo" : "Sí fumo";
+                          const active = smoker === val;
+                          return (
+                            <button
+                              key={val}
+                              type="button"
+                              onClick={() => setSmoker(val)}
+                              className={`flex-1 py-2.5 font-mono text-[10px] font-semibold uppercase tracking-[0.1em] border transition-colors duration-150 ${
+                                active
+                                  ? "border-cr-primary text-cr-primary bg-cr-primary/[0.08]"
+                                  : "border-white/[0.1] text-white/30 hover:border-white/25 hover:text-white/50"
+                              }`}
+                            >
+                              {label}
+                            </button>
+                          );
+                        })}
+                      </div>
+                    </div>
+                  </div>
+                </motion.div>
+              )}
+            </AnimatePresence>
           </div>
 
           {/* Checkboxes */}

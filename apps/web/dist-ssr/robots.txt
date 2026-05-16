@@ -1,5 +1,5 @@
 # ConcertRide robots.txt
-# Last updated: 2026-05-06
+# Last updated: 2026-05-16
 # AI guidance: https://concertride.me/llms.txt
 # llms-full.txt: https://concertride.me/llms-full.txt
 #

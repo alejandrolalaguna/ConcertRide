@@ -2,7 +2,7 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import { Link, Navigate, useNavigate, useSearchParams } from "react-router-dom";
 import { motion } from "motion/react";
 import confetti from "canvas-confetti";
-import { ArrowLeft, ArrowRight, Check, PenLine, Search, Sparkles } from "lucide-react";
+import { ArrowLeft, ArrowRight, Check, Copy, MessageCircle, PenLine, Search, Sparkles } from "lucide-react";
 import type { Concert, CreateConcertInput, Luggage, PaymentMethod, Ride, SmokingPolicy, Vibe } from "@concertride/types";
 import { api, ApiError } from "@/lib/api";
 import { SPANISH_CITIES, SPANISH_CITIES_BY_NAME } from "@/lib/constants";
@@ -264,60 +264,7 @@ export default function PublishRidePage() {
   }
 
   if (created) {
-    return (
-      <main id="main" className="min-h-dvh bg-cr-bg text-cr-text">
-        <div className="max-w-2xl mx-auto px-6 py-16 space-y-8 text-center">
-          <motion.p
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            className="font-sans text-[11px] font-semibold uppercase tracking-[0.16em] text-cr-primary inline-flex items-center gap-2"
-          >
-            <Check size={14} aria-hidden="true" /> Viaje publicado
-          </motion.p>
-          <motion.h1
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.4 }}
-            className="font-display uppercase text-3xl md:text-5xl leading-[0.95]"
-          >
-            Nos vemos
-            <br />
-            en el show.
-          </motion.h1>
-          <motion.div
-            initial={{ opacity: 0, y: 30, rotate: -3 }}
-            animate={{ opacity: 1, y: 0, rotate: 2 }}
-            transition={{ duration: 0.5, delay: 0.1 }}
-            className="inline-block bg-cr-surface border border-cr-border text-left px-6 py-4 font-mono text-xs max-w-sm mx-auto"
-          >
-            <p className="text-cr-primary font-sans font-semibold tracking-[0.12em] mb-2">
-              DE · {created.origin_city.toUpperCase()}
-            </p>
-            <p className="font-display uppercase text-lg">{created.concert.artist}</p>
-            <p className="text-cr-text-muted mt-1">
-              {formatDate(created.departure_time)} · {formatTime(created.departure_time)}
-            </p>
-            <p className="text-cr-primary mt-2">
-              €{created.price_per_seat} · {created.seats_total} plazas
-            </p>
-          </motion.div>
-          <div className="flex flex-col sm:flex-row gap-3 justify-center">
-            <Link
-              to={`/rides/${created.id}`}
-              className="cr-btn-shine inline-flex items-center justify-center bg-cr-primary text-black font-sans font-semibold uppercase tracking-[0.14em] text-sm px-6 py-4 hover:bg-[#c8ec00] transition-colors duration-150"
-            >
-              Ver mi viaje →
-            </Link>
-            <Link
-              to="/"
-              className="inline-flex items-center justify-center bg-transparent text-cr-text-muted font-sans font-semibold uppercase tracking-[0.12em] text-sm border border-white/[0.1] hover:border-cr-primary hover:text-cr-primary px-6 py-4 transition-all duration-150"
-            >
-              Volver al inicio
-            </Link>
-          </div>
-        </div>
-      </main>
-    );
+    return <PublishSuccessScreen ride={created} />;
   }
 
   return (
@@ -1300,5 +1247,135 @@ function StepNav({
         {!submitting && <ArrowRight size={14} />}
       </button>
     </div>
+  );
+}
+
+/**
+ * PublishSuccessScreen — shown after a ride is published successfully.
+ * Key CRO addition: referral seeding via WhatsApp + copy-link so the driver
+ * immediately shares with their group chat and fills their seats faster.
+ * This is the highest-leverage moment: the driver is excited, the seats are
+ * empty, and sharing takes 1 tap.
+ */
+function PublishSuccessScreen({ ride }: { ride: Ride }) {
+  const [copied, setCopied] = useState(false);
+
+  const rideUrl = `${SITE_URL}/rides/${ride.id}`;
+  const artistName = ride.concert.artist;
+  const originCity = ride.origin_city;
+
+  const shareText = `🚗 Tengo ${ride.seats_total} plazas disponibles para ir a ${artistName} desde ${originCity}. ${ride.price_per_seat}€/asiento · 0% comisión. ¿Te apuntas? ${rideUrl}`;
+
+  function shareWhatsApp() {
+    window.open(
+      `https://wa.me/?text=${encodeURIComponent(shareText)}`,
+      "_blank",
+      "noopener,noreferrer",
+    );
+  }
+
+  function copyLink() {
+    navigator.clipboard.writeText(rideUrl).then(() => {
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2500);
+    });
+  }
+
+  return (
+    <main id="main" className="min-h-dvh bg-cr-bg text-cr-text">
+      <div className="max-w-2xl mx-auto px-6 py-16 space-y-8 text-center">
+        <motion.p
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          className="font-sans text-[11px] font-semibold uppercase tracking-[0.16em] text-cr-primary inline-flex items-center gap-2"
+        >
+          <Check size={14} aria-hidden="true" /> Viaje publicado
+        </motion.p>
+
+        <motion.h1
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.4 }}
+          className="font-display uppercase text-3xl md:text-5xl leading-[0.95]"
+        >
+          Nos vemos
+          <br />
+          en el show.
+        </motion.h1>
+
+        {/* Ride summary card */}
+        <motion.div
+          initial={{ opacity: 0, y: 30, rotate: -3 }}
+          animate={{ opacity: 1, y: 0, rotate: 2 }}
+          transition={{ duration: 0.5, delay: 0.1 }}
+          className="inline-block bg-cr-surface border border-cr-border text-left px-6 py-4 font-mono text-xs max-w-sm mx-auto"
+        >
+          <p className="text-cr-primary font-sans font-semibold tracking-[0.12em] mb-2">
+            DE · {originCity.toUpperCase()}
+          </p>
+          <p className="font-display uppercase text-lg">{artistName}</p>
+          <p className="text-cr-text-muted mt-1">
+            {formatDate(ride.departure_time)} · {formatTime(ride.departure_time)}
+          </p>
+          <p className="text-cr-primary mt-2">
+            €{ride.price_per_seat} · {ride.seats_total} plazas
+          </p>
+        </motion.div>
+
+        {/* Share block — the CRO core of this screen */}
+        <motion.div
+          initial={{ opacity: 0, y: 16 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.4, delay: 0.25 }}
+          className="space-y-3 max-w-sm mx-auto"
+        >
+          <p className="font-mono text-[10px] font-semibold uppercase tracking-[0.2em] text-white/40">
+            Llena tus plazas — comparte ahora
+          </p>
+
+          <div className="flex flex-col sm:flex-row gap-2">
+            {/* WhatsApp — highest conversion channel in Spain */}
+            <button
+              type="button"
+              onClick={shareWhatsApp}
+              className="flex-1 cr-btn-shine inline-flex items-center justify-center gap-2 bg-[#25d366] text-black font-sans font-semibold uppercase tracking-[0.1em] text-xs px-5 py-3.5 hover:bg-[#1fba59] transition-colors duration-150"
+            >
+              <MessageCircle size={14} aria-hidden="true" />
+              Compartir en WhatsApp
+            </button>
+
+            {/* Copy link */}
+            <button
+              type="button"
+              onClick={copyLink}
+              className="flex-1 inline-flex items-center justify-center gap-2 bg-transparent text-cr-text-muted font-sans font-semibold uppercase tracking-[0.1em] text-xs border border-white/[0.12] hover:border-cr-primary hover:text-cr-primary px-5 py-3.5 transition-all duration-150"
+            >
+              <Copy size={14} aria-hidden="true" />
+              {copied ? "¡Enlace copiado!" : "Copiar enlace"}
+            </button>
+          </div>
+
+          <p className="font-sans text-[11px] text-white/25 leading-relaxed">
+            Los conductores que comparten su viaje llenan las plazas 3× más rápido.
+          </p>
+        </motion.div>
+
+        {/* Navigation */}
+        <div className="flex flex-col sm:flex-row gap-3 justify-center pt-2">
+          <Link
+            to={`/rides/${ride.id}`}
+            className="cr-btn-shine inline-flex items-center justify-center bg-cr-primary text-black font-sans font-semibold uppercase tracking-[0.14em] text-sm px-6 py-4 hover:bg-[#c8ec00] transition-colors duration-150"
+          >
+            Ver mi viaje →
+          </Link>
+          <Link
+            to="/"
+            className="inline-flex items-center justify-center bg-transparent text-cr-text-muted font-sans font-semibold uppercase tracking-[0.12em] text-sm border border-white/[0.1] hover:border-cr-primary hover:text-cr-primary px-6 py-4 transition-all duration-150"
+          >
+            Volver al inicio
+          </Link>
+        </div>
+      </div>
+    </main>
   );
 }

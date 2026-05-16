@@ -135,7 +135,7 @@ function buildStaticRoutes(base: string): Record<string, { title: string; descri
           url: `${base}/`,
           name: "ConcertRide — Carpooling para conciertos en España",
           inLanguage: "es-ES",
-          dateModified: "2026-05-03",
+          dateModified: "2026-05-16",
           speakable: { "@type": "SpeakableSpecification", cssSelector: ["h1", ".speakable", "p:first-of-type"] },
           isPartOf: { "@type": "WebSite", "@id": `${base}/#website`, name: "ConcertRide", url: base },
           about: { "@type": "Organization", "@id": `${base}/#organization` },
@@ -155,7 +155,7 @@ function buildStaticRoutes(base: string): Record<string, { title: string; descri
 </ol>
 <h2>Festivales con viajes compartidos disponibles</h2>
 <ul>
-  <li><a href="${base}/festivales/mad-cool">Carpooling al Mad Cool Festival Madrid — 9–11 jul 2026, IFEMA</a></li>
+  <li><a href="${base}/festivales/mad-cool">Carpooling al Mad Cool Festival Madrid — 8–10 jul 2026, Iberdrola Music</a></li>
   <li><a href="${base}/festivales/primavera-sound">Carpooling al Primavera Sound Barcelona — 28 may–1 jun 2026</a></li>
   <li><a href="${base}/festivales/sonar">Carpooling al Sónar Barcelona — 18–20 jun 2026</a></li>
   <li><a href="${base}/festivales/fib">Carpooling al FIB Benicàssim — 16–19 jul 2026</a></li>
@@ -250,12 +250,12 @@ function buildStaticRoutes(base: string): Record<string, { title: string; descri
           "@id": `${base}/festivales#webpage`,
           url: `${base}/festivales`,
           name: "Carpooling festivales música España 2026 | ConcertRide",
-          description: "Directorio de 16 festivales de música en España 2026 con carpooling disponible. Mad Cool (IFEMA Madrid, 9–11 jul), Primavera Sound (Parc del Fòrum Barcelona, 28 may–1 jun), Sónar (Fira de Barcelona, 18–20 jun), BBK Live (Kobetamendi Bilbao, 9–11 jul), Arenal Sound (Burriana, 29 jul–2 ago), Viña Rock (Villarrobledo, 30 abr–3 may) y más. Precios desde 3 €/asiento sin comisión.",
+          description: "Directorio de 16 festivales de música en España 2026 con carpooling disponible. Mad Cool (Iberdrola Music Madrid, 8–10 jul), Primavera Sound (Parc del Fòrum Barcelona, 3–7 jun), Sónar (Fira Gran Via Barcelona, 18–20 jun), BBK Live (Kobetamendi Bilbao, 9–11 jul), Arenal Sound (Burriana, 30 jul–2 ago), Viña Rock (Villarrobledo, 30 abr–3 may) y más. Precios desde 3 €/asiento sin comisión.",
           inLanguage: "es-ES",
           numberOfItems: 16,
           keywords: "festivales España 2026, carpooling festivales, Mad Cool carpooling, Primavera Sound viaje compartido, Sónar transporte, BBK Live Bilbao, Arenal Sound Burriana, Viña Rock Villarrobledo",
           datePublished: "2026-04-10",
-          dateModified: "2026-05-03",
+          dateModified: "2026-05-16",
           isPartOf: { "@id": `${base}/#website` },
           about: { "@id": `${base}/#service` },
           speakable: { "@type": "SpeakableSpecification", cssSelector: ["h1", ".speakable"] },
@@ -304,7 +304,7 @@ function buildStaticRoutes(base: string): Record<string, { title: string; descri
           "@type": "ItemList",
           name: "Festivales de música en España 2026 con carpooling",
           itemListElement: [
-            { "@type": "ListItem", position: 1, name: "Mad Cool Festival — Madrid — 9–11 jul 2026", url: `${base}/festivales/mad-cool` },
+            { "@type": "ListItem", position: 1, name: "Mad Cool Festival — Madrid — 8–10 jul 2026", url: `${base}/festivales/mad-cool` },
             { "@type": "ListItem", position: 2, name: "Primavera Sound — Barcelona — 28 may–1 jun 2026", url: `${base}/festivales/primavera-sound` },
             { "@type": "ListItem", position: 3, name: "Sónar — Barcelona — 18–20 jun 2026", url: `${base}/festivales/sonar` },
             { "@type": "ListItem", position: 4, name: "FIB Benicàssim — 16–19 jul 2026", url: `${base}/festivales/fib` },
@@ -362,7 +362,7 @@ function buildStaticRoutes(base: string): Record<string, { title: string; descri
   <li><a href="${base}/festivales/resurrection-fest">Resurrection Fest — Viveiro — 25–28 jun 2026</a></li>
   <li><a href="${base}/festivales/o-son-do-camino">O Son do Camiño — Santiago — 18–20 jun 2026</a></li>
   <li><a href="${base}/festivales/low-festival">Low Festival — Benidorm — 24–26 jul 2026</a></li>
-  <li><a href="${base}/festivales/mad-cool">Mad Cool Festival — Madrid — 9–11 jul 2026</a></li>
+  <li><a href="${base}/festivales/mad-cool">Mad Cool Festival — Madrid — 8–10 jul 2026</a></li>
   <li><a href="${base}/festivales/bbk-live">BBK Live — Bilbao — 9–11 jul 2026</a></li>
   <li><a href="${base}/festivales/cruilla">Cruïlla — Barcelona — 9–12 jul 2026</a></li>
   <li><a href="${base}/festivales/fib">FIB Benicàssim — 16–19 jul 2026</a></li>
@@ -400,7 +400,7 @@ function buildStaticRoutes(base: string): Record<string, { title: string; descri
           },
           publisher: { "@type": "Organization", name: "ConcertRide", "@id": `${base}/#organization`, logo: { "@type": "ImageObject", url: `${base}/favicon.svg`, width: 512, height: 512 } },
           datePublished: "2026-04-24",
-          dateModified: "2026-05-03",
+          dateModified: "2026-05-16",
           url: `${base}/guia-transporte-festivales`,
           inLanguage: "es-ES",
           mainEntityOfPage: { "@type": "WebPage", "@id": `${base}/guia-transporte-festivales` },
@@ -429,8 +429,8 @@ function buildStaticRoutes(base: string): Record<string, { title: string; descri
           mainEntity: [
             { "@type": "Question", name: "¿Cuál es la mejor forma de ir a un festival en España?", acceptedAnswer: { "@type": "Answer", text: "Para la mayoría de festivales en España, el carpooling es la mejor opción: es 3–5 veces más barato que un taxi (3–20 € vs 40–90 €), más flexible que el autobús organizado (sin horario fijo de vuelta) y llega directamente al recinto cuando el transporte público no llega. ConcertRide ofrece carpooling sin comisión a 16 festivales desde 17 ciudades." } },
             { "@type": "Question", name: "¿Hay autobuses nocturnos a los festivales en España?", acceptedAnswer: { "@type": "Answer", text: "Los autobuses nocturnos (búho en Madrid, nitbus en Barcelona) no llegan a los recintos de festival. El metro de Madrid cierra a las 1:30, el de Barcelona a las 2:00. Para la vuelta de madrugada, el carpooling con ConcertRide es la opción más práctica: acuerdas la hora de salida directamente con el conductor." } },
-            { "@type": "Question", name: "¿Cuánto cuesta el carpooling a un festival vs taxi?", acceptedAnswer: { "@type": "Answer", text: "Carpooling ConcertRide: 3–20 €/asiento según distancia. Taxi nocturno de festival: 40–90 € por trayecto (precio x2–x3 por alta demanda). El carpooling desde Madrid al Mad Cool (IFEMA) cuesta 4–8 €. El taxi equivalente cuesta 25–45 €." } },
-            { "@type": "Question", name: "¿Qué festivales tienen lanzadera oficial en 2026?", acceptedAnswer: { "@type": "Answer", text: "Los festivales con lanzadera oficial en 2026 son: BBK Live (gratuita desde Plaza Moyúa, Bilbao), Viña Rock (desde Albacete), FIB (desde Castellón), Arenal Sound (desde Castellón). Mad Cool no tiene lanzadera oficial — usa Metro L8. Primavera Sound, Sónar y Cruïlla son accesibles en Metro L4." } },
+            { "@type": "Question", name: "¿Cuánto cuesta el carpooling a un festival vs taxi?", acceptedAnswer: { "@type": "Answer", text: "Carpooling ConcertRide: 3–20 €/asiento según distancia. Taxi nocturno de festival: 40–90 € por trayecto (precio x2–x3 por alta demanda). El carpooling desde Madrid al Mad Cool (Iberdrola Music, Villaverde) cuesta 4–8 €. El taxi equivalente cuesta 25–45 €." } },
+            { "@type": "Question", name: "¿Qué festivales tienen lanzadera oficial en 2026?", acceptedAnswer: { "@type": "Answer", text: "Los festivales con lanzadera oficial en 2026 son: BBK Live (gratuita desde Plaza Moyúa, Bilbao), Viña Rock (desde Albacete), FIB (desde Castellón), Arenal Sound (desde Castellón). Mad Cool se celebra en Iberdrola Music (Villaverde, Madrid) accesible en Metro L3. Primavera Sound, Sónar y Cruïlla son accesibles en Metro L4." } },
           ],
         });
         const guideBreadcrumbJsonLd = JSON.stringify({
@@ -528,7 +528,7 @@ function buildStaticRoutes(base: string): Record<string, { title: string; descri
           url: `${base}/como-funciona`,
           name: "Cómo funciona ConcertRide — Carpooling para conciertos",
           inLanguage: "es-ES",
-          dateModified: "2026-05-03",
+          dateModified: "2026-05-16",
           speakable: { "@type": "SpeakableSpecification", cssSelector: ["h1", "h2", ".speakable", "p:first-of-type"] },
           isPartOf: { "@type": "WebSite", "@id": `${base}/#website`, name: "ConcertRide", url: base },
         });
@@ -667,7 +667,7 @@ function buildStaticRoutes(base: string): Record<string, { title: string; descri
           { q: "¿Cómo volver del festival de madrugada?", a: "Los festivales acaban entre la 1:00 y las 4:00 de la madrugada, cuando el metro ya cerró y los taxis cuestan 60–100 €. Con ConcertRide, publicas o buscas viaje de vuelta con antelación: acuerda la hora de salida con el conductor y te recoge en el punto pactado." },
           { q: "¿Hay autobuses organizados a los festivales y cómo se comparan con ConcertRide?", a: "Existen autobuses organizados a algunos festivales, pero solo desde ciudades concretas, con horarios fijos, y suelen agotarse semanas antes. ConcertRide sale desde tu calle, a la hora que acordáis, y cuesta entre 3 y 20 € según la distancia." },
           { q: "¿ConcertRide es más sostenible que ir en coche solo?", a: "Sí. Según el Julie's Bicycle Practical Guide to Green Events, el 80 % de la huella de carbono de un festival proviene del transporte. Un coche compartido con 4 personas emite un 75 % menos CO₂ por pasajero respecto a ir en solitario." },
-          { q: "¿Qué es la Zona de Bajas Emisiones (ZBE) de Madrid y cómo afecta para ir a festivales?", a: "La ZBE de Madrid Centro restringe el acceso a coches sin etiqueta ambiental. IFEMA (Mad Cool, Tomavistas) está fuera de la ZBE, así que puedes llegar en cualquier vehículo. Muchos fans prefieren ConcertRide para evitar el parking saturado de IFEMA (12–18 €/día)." },
+          { q: "¿Qué es la Zona de Bajas Emisiones (ZBE) de Madrid y cómo afecta para ir a festivales?", a: "La ZBE de Madrid Centro restringe el acceso a coches sin etiqueta ambiental. Iberdrola Music (Mad Cool) está en Villaverde, fuera de la ZBE, así que puedes llegar en cualquier vehículo. Muchos fans prefieren ConcertRide para evitar el parking del recinto (10–15 €/día)." },
           { q: "¿Puedo ir al festival en grupo con una furgoneta compartida?", a: "Sí. Muchos conductores publican viajes en furgoneta de 7–9 plazas. Es la opción más económica para grupos: dividir la gasolina entre 7 personas sale a 3–8 € por persona incluso desde 300 km." },
           { q: "¿Puedo ganar dinero llevando gente a conciertos y festivales?", a: "No es para ganar dinero, sino para no perderlo. Por ley, un conductor no puede cobrar más del coste proporcional del viaje (combustible + peajes dividido entre todos). En la práctica, los pasajeros cubren la gasolina convirtiendo el viaje de 40 € en gasolina en un viaje gratis." },
           { q: "¿Qué hago si no encuentro ningún viaje a mi concierto?", a: "Activa el botón 'Me interesa un viaje' en la ficha del concierto. El sistema muestra tu demanda a posibles conductores con el contador 'X personas buscan viaje' y te notifica por email y push en cuanto alguien publique un viaje desde tu ciudad." },
@@ -690,7 +690,7 @@ function buildStaticRoutes(base: string): Record<string, { title: string; descri
           url: `${base}/faq`,
           name: "Preguntas frecuentes sobre carpooling a conciertos y festivales — ConcertRide",
           inLanguage: "es-ES",
-          dateModified: "2026-05-03",
+          dateModified: "2026-05-16",
           speakable: { "@type": "SpeakableSpecification", cssSelector: ["h1", "dt", "dd"] },
           isPartOf: { "@type": "WebSite", "@id": `${base}/#website`, name: "ConcertRide", url: base },
         });
@@ -743,7 +743,7 @@ function buildStaticRoutes(base: string): Record<string, { title: string; descri
           inLanguage: "es-ES",
           isPartOf: { "@type": "WebSite", "@id": `${base}/#website` },
           about: { "@type": "Organization", "@id": `${base}/#organization` },
-          dateModified: "2026-05-03",
+          dateModified: "2026-05-16",
           speakable: { "@type": "SpeakableSpecification", cssSelector: ["h1", ".speakable", "p:first-of-type"] },
         });
         const orgDetailJsonLd = JSON.stringify({
@@ -1161,7 +1161,7 @@ ${venueLinks}
           description: "96+ rutas de viaje compartido a festivales de música en España. Sin comisión, conductores verificados.",
           inLanguage: "es-ES",
           datePublished: "2026-04-10",
-          dateModified: "2026-05-03",
+          dateModified: "2026-05-16",
           isPartOf: { "@id": `${base}/#website` },
           about: { "@id": `${base}/#service` },
           speakable: { "@type": "SpeakableSpecification", cssSelector: ["h1", ".speakable"] },
@@ -1170,7 +1170,7 @@ ${venueLinks}
           "@context": "https://schema.org",
           "@type": "FAQPage",
           mainEntity: [
-            { "@type": "Question", name: "¿Cuánto cuesta el carpooling a un festival desde Madrid?", acceptedAnswer: { "@type": "Answer", text: "Depende de la distancia: Madrid → Mad Cool (IFEMA) cuesta 4–8 €/asiento (25 min). Madrid → Primavera Sound o Sónar (Barcelona) cuesta 14–22 €/asiento (5 h 30 min). Madrid → BBK Live (Bilbao) cuesta 18–28 €/asiento (4 h). Madrid → Resurrection Fest (Viveiro) cuesta 30–55 €/asiento (7 h 30 min). Todos los precios incluyen vuelta si el conductor la ofrece." } },
+            { "@type": "Question", name: "¿Cuánto cuesta el carpooling a un festival desde Madrid?", acceptedAnswer: { "@type": "Answer", text: "Depende de la distancia: Madrid → Mad Cool (Iberdrola Music, Villaverde) cuesta 4–8 €/asiento (20 min). Madrid → Primavera Sound o Sónar (Barcelona) cuesta 14–22 €/asiento (5 h 30 min). Madrid → BBK Live (Bilbao) cuesta 18–28 €/asiento (4 h). Madrid → Resurrection Fest (Viveiro) cuesta 30–55 €/asiento (7 h 30 min). Todos los precios incluyen vuelta si el conductor la ofrece." } },
             { "@type": "Question", name: "¿Hay carpooling a festivales desde Barcelona?", acceptedAnswer: { "@type": "Answer", text: "Sí. Desde Barcelona hay rutas a Primavera Sound (local, 4–8 €), Sónar (local, 4–8 €), FIB Benicàssim (2 h, 8–14 €), Arenal Sound (3 h, 10–16 €), Mad Cool Madrid (5 h 30 min, 14–22 €) y BBK Live Bilbao (5 h, 14–22 €). ConcertRide cubre más de 20 rutas desde Barcelona." } },
             { "@type": "Question", name: "¿Puedo reservar la vuelta del festival por la noche?", acceptedAnswer: { "@type": "Answer", text: "Sí. La mayoría de conductores en ConcertRide ofrecen la vuelta incluida y acuerdan la hora de salida con los pasajeros. Es la forma más usada para volver de madrugada cuando el transporte público ya cerró. Coordina la hora de regreso al publicar o reservar el viaje." } },
           ],
@@ -1242,27 +1242,27 @@ const FESTIVALS: Record<string, FestivalData> = {
     name: "Mad Cool Festival",
     shortName: "Mad Cool",
     city: "Madrid",
-    venue: "IFEMA Madrid",
-    venueAddress: "Av. del Partenón, 5, 28042 Madrid",
-    dates: "9–11 julio 2026",
-    startDate: "2026-07-09",
-    endDate: "2026-07-11",
+    venue: "Iberdrola Music",
+    venueAddress: "Camino de Vinateros, s/n, 28041 Madrid (Villaverde)",
+    dates: "8–10 julio 2026",
+    startDate: "2026-07-08",
+    endDate: "2026-07-10",
     priceFrom: "4",
-    blurb: "Mad Cool es el festival de rock e indie alternativo más grande de Madrid, celebrado en IFEMA desde 2016. Convoca a 80.000 asistentes diarios. El recinto queda a 15 km del centro pero el transporte nocturno es limitado: el metro cierra a la 1:30 y los taxis cuestan 60–90 €. ConcertRide es la alternativa preferida de quienes vienen desde otras provincias.",
+    blurb: "Mad Cool es el festival de rock e indie alternativo más grande de Madrid, celebrado desde 2024 en Iberdrola Music (Villaverde). Convoca a más de 70.000 asistentes diarios. El recinto está a 10 km del centro: Metro L3 parada Villaverde Alto o carpooling con ConcertRide. ConcertRide es la alternativa preferida de quienes vienen desde otras provincias.",
     originCities: [
-      { city: "Madrid", km: 15, drivingTime: "25 min", range: "4–7 €/asiento" },
-      { city: "Toledo", km: 75, drivingTime: "55 min", range: "4–7 €/asiento" },
-      { city: "Guadalajara", km: 60, drivingTime: "50 min", range: "3–6 €/asiento" },
-      { city: "Segovia", km: 90, drivingTime: "1h 10 min", range: "4–7 €/asiento" },
-      { city: "Valencia", km: 355, drivingTime: "3h 20 min", range: "10–14 €/asiento" },
-      { city: "Zaragoza", km: 325, drivingTime: "3h", range: "9–13 €/asiento" },
-      { city: "Barcelona", km: 620, drivingTime: "5h 30 min", range: "15–20 €/asiento" },
+      { city: "Madrid", km: 12, drivingTime: "20 min", range: "4–7 €/asiento" },
+      { city: "Toledo", km: 80, drivingTime: "55 min", range: "4–7 €/asiento" },
+      { city: "Guadalajara", km: 65, drivingTime: "55 min", range: "3–6 €/asiento" },
+      { city: "Segovia", km: 95, drivingTime: "1h 15 min", range: "4–7 €/asiento" },
+      { city: "Valencia", km: 350, drivingTime: "3h 15 min", range: "10–14 €/asiento" },
+      { city: "Zaragoza", km: 320, drivingTime: "3h", range: "9–13 €/asiento" },
+      { city: "Barcelona", km: 615, drivingTime: "5h 30 min", range: "15–20 €/asiento" },
     ],
     faqs: [
       { q: "¿Cuánto cuesta compartir coche al Mad Cool?", a: "Los precios los fijan los conductores, normalmente entre 4 y 7 € desde Madrid centro, y hasta 20 € desde Barcelona o Bilbao." },
-      { q: "¿Cómo llegar a Mad Cool desde el centro de Madrid?", a: "En metro (línea 8 hasta 'Feria de Madrid', ~25 min) o en coche compartido con ConcertRide (4–7 € desde Madrid centro). El metro se satura a la salida; el carpooling te evita las colas." },
-      { q: "¿Hay transporte nocturno de vuelta de Mad Cool?", a: "El metro cierra sobre la 1:30 (se amplía en noches de festival hasta las 2:00–2:30). Los taxis cuestan 60–90 €. Con ConcertRide puedes reservar la vuelta desde 4–7 € desde Madrid." },
-      { q: "¿Cuándo se celebra Mad Cool 2026?", a: "La edición 2026 de Mad Cool Festival está prevista para el 9, 10 y 11 de julio en IFEMA Madrid." },
+      { q: "¿Cómo llegar a Mad Cool desde el centro de Madrid?", a: "En metro (línea 3 hasta 'Villaverde Alto', ~20 min) o en coche compartido con ConcertRide (4–7 € desde Madrid centro). El metro se satura a la salida; el carpooling te evita las colas." },
+      { q: "¿Hay transporte nocturno de vuelta de Mad Cool?", a: "El metro cierra sobre la 1:30 (se amplía en noches de festival). Los taxis cuestan 60–90 €. Con ConcertRide puedes reservar la vuelta desde 4–7 € desde Madrid." },
+      { q: "¿Cuándo se celebra Mad Cool 2026?", a: "La edición 2026 de Mad Cool Festival está prevista para el 8, 9 y 10 de julio en Iberdrola Music, Villaverde (Madrid)." },
     ],
   },
   "primavera-sound": {
@@ -1660,7 +1660,7 @@ interface CityData {
 }
 
 const CITIES: Record<string, CityData> = {
-  madrid: { name: "Madrid", region: "Comunidad de Madrid", blurb: "Madrid concentra la mayor parte de la actividad de conciertos y festivales de España. WiZink Center, Palacio Vistalegre, Caja Mágica e IFEMA (sede de Mad Cool) acogen cada año giras internacionales y festivales de referencia.", venues: ["WiZink Center", "Palacio Vistalegre", "Caja Mágica", "IFEMA (Mad Cool Festival)"], lat: 40.4168, lng: -3.7038 },
+  madrid: { name: "Madrid", region: "Comunidad de Madrid", blurb: "Madrid concentra la mayor parte de la actividad de conciertos y festivales de España. WiZink Center, Palacio Vistalegre, Caja Mágica e Iberdrola Music (sede de Mad Cool desde 2024) acogen cada año giras internacionales y festivales de referencia.", venues: ["WiZink Center", "Palacio Vistalegre", "Caja Mágica", "Iberdrola Music (Mad Cool Festival)"], lat: 40.4168, lng: -3.7038 },
   barcelona: { name: "Barcelona", region: "Cataluña", blurb: "Barcelona es la capital europea de los festivales de música electrónica e indie. Palau Sant Jordi, Parc del Fòrum (Primavera Sound, Cruïlla) y Fira Montjuïc (Sónar) son los tres epicentros.", venues: ["Palau Sant Jordi", "Parc del Fòrum (Primavera Sound / Cruïlla)", "Fira Montjuïc (Sónar)"], lat: 41.3851, lng: 2.1734 },
   valencia: { name: "Valencia", region: "Comunidad Valenciana", blurb: "Valencia ciudad acoge Zevra Festival y conciertos urbanos frecuentes. Su provincia concentra Arenal Sound en Burriana, Medusa en Cullera y FIB en Benicàssim.", venues: ["Zevra Festival (La Marina)", "Arenal Sound (Burriana)", "Medusa Festival (Cullera)"], lat: 39.4699, lng: -0.3763 },
   sevilla: { name: "Sevilla", region: "Andalucía", blurb: "Próximos conciertos en Sevilla 2026: los recintos principales son Estadio La Cartuja (giras de estadio, 60.000 plazas), FIBES Sevilla (9.500 plazas), Palacio de los Deportes San Pablo (7.000 plazas) y Cartuja Center CITE. El festival Interestelar Sevilla se celebra cada mayo en el Charco de la Pava (40.000 personas) y el Icónica Sevilla Fest en la Plaza de España. La música en Sevilla incluye también conciertos de cantautor e indie en el Teatro de la Maestranza y el Teatro Lope de Vega. Sevilla es punto de origen para festivales andaluces: Cala Mijas en Málaga (200 km) y Andalucía Big. ConcertRide conecta a asistentes de Sevilla con conductores de toda España.", venues: ["Estadio La Cartuja", "FIBES Sevilla", "Palacio de los Deportes San Pablo", "Interestelar Sevilla (Charco de la Pava)", "Icónica Sevilla Fest"], lat: 37.3891, lng: -5.9845 },
@@ -1757,8 +1757,8 @@ const BLOG_POSTS: Record<string, BlogData> = {
         ],
       },
       {
-        heading: "Mad Cool 2026 (IFEMA, Madrid) — metro y carpooling",
-        paragraphs: ["Mad Cool no opera buses oficiales propios. La opción de transporte público directo es la línea 8 del Metro de Madrid (estación Feria de Madrid), que amplía servicio hasta las 2:00–2:30 en noches de festival. Los lanzaderas privadas que aparecen en redes sociales son iniciativas no oficiales. El carpooling con ConcertRide desde Toledo (4–7 €), Guadalajara (3–6 €), Segovia (4–7 €), Valencia (10–14 €), Zaragoza (9–13 €) o Barcelona (15–20 €) es la opción más utilizada por asistentes de fuera de Madrid."],
+        heading: "Mad Cool 2026 (Iberdrola Music, Villaverde) — metro y carpooling",
+        paragraphs: ["Mad Cool 2026 se celebra en Iberdrola Music (Villaverde, Madrid), accesible por Metro L3 (parada Villaverde Alto), que amplía servicio hasta las 2:00–2:30 en noches de festival. Mad Cool no opera buses oficiales propios; las lanzaderas privadas que aparecen en redes sociales son iniciativas no oficiales. El carpooling con ConcertRide desde Toledo (4–7 €), Guadalajara (3–6 €), Segovia (4–7 €), Valencia (10–14 €), Zaragoza (9–13 €) o Barcelona (15–20 €) es la opción más utilizada por asistentes de fuera de Madrid."],
       },
       {
         heading: "Resurrection Fest 2026 (Viveiro, Lugo) — el caso extremo",
@@ -2108,7 +2108,7 @@ const BLOG_POSTS: Record<string, BlogData> = {
         heading: "Julio 2026: el pico de la temporada",
         paragraphs: ["Julio es el mes con mayor concentración de grandes festivales:"],
         bullets: [
-          "Mad Cool Festival 2026 — 9–11 julio — Madrid (IFEMA). 80.000 asistentes diarios. Metro L8 Feria de Madrid (con ampliación de horario). Carpooling desde Toledo (4–7 €), Barcelona (15–20 €), Valencia (10–14 €).",
+          "Mad Cool Festival 2026 — 8–10 julio — Madrid (Iberdrola Music, Villaverde). Metro L3 Villaverde Alto (con ampliación de horario). Carpooling desde Toledo (4–7 €), Barcelona (15–20 €), Valencia (10–14 €).",
           "BBK Live 2026 — 9–11 julio — Bilbao (Kobetamendi). Lanzadera oficial desde Plaza Moyúa (incluida en entrada). Carpooling desde Madrid (12–16 €), Donostia (4–7 €), Pamplona (5–8 €).",
           "FIB Benicàssim 2026 — 16–19 julio — Benicàssim (Castellón). Cercanías Renfe Castellón–Benicàssim (5 min) + lanzadera al recinto. Carpooling desde Valencia (4–6 €), Madrid (10–14 €).",
           "Low Festival 2026 — 24–26 julio — Benidorm. TRAM L1 Alicante–Benidorm hasta medianoche. Carpooling desde Alicante (3–5 €), Valencia (5–8 €).",
@@ -2139,7 +2139,7 @@ const BLOG_POSTS: Record<string, BlogData> = {
     ],
     faqs: [
       { q: "¿Cuándo es el Primavera Sound 2026?", a: "Primavera Sound 2026 se celebra del 28 de mayo al 1 de junio en el Parc del Fòrum de Barcelona." },
-      { q: "¿Cuándo es el Mad Cool 2026?", a: "Mad Cool Festival 2026 está previsto para el 9, 10 y 11 de julio en IFEMA Madrid. El acceso es por metro línea 8 (estación Feria de Madrid) o carpooling." },
+      { q: "¿Cuándo es el Mad Cool 2026?", a: "Mad Cool Festival 2026 está previsto para el 8, 9 y 10 de julio en Iberdrola Music, Villaverde (Madrid). El acceso es por metro línea 3 (estación Villaverde Alto) o carpooling." },
       { q: "¿Cuál es el festival de música más grande de España?", a: "Mad Cool Festival y Primavera Sound son los festivales más grandes de España en aforo, con 70.000–80.000 asistentes diarios. BBK Live, FIB y Arenal Sound siguen con 50.000–60.000." },
       { q: "¿Cómo llegar a los festivales de España sin coche propio?", a: "Las opciones varían por festival. Para recintos dentro de ciudades (Sónar, Cruïlla, Low Festival) el metro o TRAM llega al recinto. Para los que están fuera de la ciudad (Viña Rock, Resurrection Fest, Sonorama, Cala Mijas) el coche compartido con ConcertRide es la opción más flexible y económica (3–22 € según distancia)." },
       { q: "¿Hay festivales de música en España en otoño?", a: "Sí. Cala Mijas (octubre, Málaga) es el más destacado del calendario de otoño de 2026. Se celebra del 2 al 4 de octubre en Mijas, Málaga." },
@@ -2169,7 +2169,7 @@ const BLOG_POSTS: Record<string, BlogData> = {
         ],
         bullets: [
           "Madrid → Primavera Sound (Barcelona, 620 km): AVE 45–75€/persona | Carpooling ConcertRide 15–20€/asiento",
-          "Madrid → Mad Cool (IFEMA, 15 km): Metro 2€ | Carpooling desde fuera Madrid 4–13€/asiento",
+          "Madrid → Mad Cool (Iberdrola Music Villaverde, 12 km): Metro L3 2€ | Carpooling desde fuera Madrid 4–13€/asiento",
           "Madrid → Viña Rock (Villarrobledo, 200 km): No hay tren directo | Carpooling 6–9€/asiento",
           "Madrid → BBK Live (Bilbao, 395 km): AVE–Alvia 35–60€ | Carpooling 11–16€/asiento",
           "Barcelona → Arenal Sound (Burriana, 300 km): Tren Cercanías + taxi 25–35€ | Carpooling 8–12€/asiento",
@@ -2249,7 +2249,7 @@ const BLOG_POSTS: Record<string, BlogData> = {
       {
         heading: "Madrid: hub de carpooling nacional con 4 festivales propios",
         paragraphs: [
-          "Madrid es el mayor punto de origen y destino de carpooling de festival en España. Mad Cool (IFEMA), Tomavistas (Retiro) y otros atraen viajeros de toda España: Barcelona (620 km, 15–20€), Zaragoza (325 km, 9–13€), Sevilla (550 km, 14–20€).",
+          "Madrid es el mayor punto de origen y destino de carpooling de festival en España. Mad Cool (Iberdrola Music, Villaverde) y Download Festival (Caja Mágica) atraen viajeros de toda España: Barcelona (620 km, 15–20€), Zaragoza (325 km, 9–13€), Sevilla (550 km, 14–20€).",
           "Madrid también es el mayor origen de viajes salientes: Viña Rock (200 km, 6–9€), BBK Live (395 km, 11–16€), Sonorama (155 km, 5–8€). Las rutas desde Madrid concentran el 35% del volumen total de viajes de festival en ConcertRide.",
         ],
       },
@@ -2334,7 +2334,7 @@ const FESTIVAL_TRANSPORT_SUMMARY: Record<string, string> = {
   "vina-rock": `<p><strong>Autobuses Viña Rock (Viñarock) 2026 — opciones de transporte al recinto de La Pulgosa:</strong></p><table><thead><tr><th>Opción</th><th>Origen</th><th>Precio</th><th>Duración</th><th>Vuelta madrugada</th></tr></thead><tbody><tr><td><strong>Bus lanzadera oficial</strong></td><td>Albacete (estación autobuses)</td><td>Incluida / precio oficial</td><td>50 km · 40 min</td><td>No (horario fijo)</td></tr><tr><td><strong>Autobuses privados Madrid</strong></td><td>Méndez Álvaro / Nuevos Ministerios</td><td>35–55 €</td><td>190 km · 2h</td><td>No (horario fijo)</td></tr><tr><td><strong>Carpooling ConcertRide</strong></td><td>Madrid, Valencia, Alicante, Murcia, Cuenca</td><td>4–9 €/asiento</td><td>Según origen</td><td>Sí (coordinada)</td></tr><tr><td>Taxi / VTC</td><td>Albacete, ciudades cercanas</td><td>60–120 € coche completo</td><td>Según origen</td><td>Sí (precio x2–3)</td></tr></tbody></table><p><em>El Parque La Pulgosa (recinto de Viña Rock) no está comunicado por transporte público regular. Los autobuses de Viña Rock son la única alternativa al coche. Más del 80 % de los asistentes llegan en coche particular o coche compartido.</em></p>`,
   "arenal-sound": `<p><strong>Transporte a Arenal Sound 2026 — resumen:</strong> No hay tren ni metro al recinto de la playa. Las opciones reales son: (1) <strong>Bus lanzadera oficial</strong> desde la estación de autobuses de Castellón de la Plana (10 km, 20 min, plazas limitadas, no opera de madrugada); (2) <strong>Autobús + lanzadera</strong> desde Valencia: Cercanías C6 Valencia–Castellón (45–60 min) más lanzadera al recinto; (3) <strong>Carpooling ConcertRide</strong> desde Valencia (3–6 €), Castellón (3–5 €), Madrid (12–17 €), Barcelona (8–12 €) o Alicante (4–7 €), llegada directa a la playa.</p>`,
   "bbk-live": `<p><strong>Transporte a BBK Live 2026 — resumen:</strong> BBK Live es el único festival grande de España con <strong>lanzadera oficial gratuita</strong> desde el centro de Bilbao (Plaza Moyúa, salidas cada 15–20 min). El recinto Kobetamendi no es accesible en coche propio durante el festival. Para quienes vienen de fuera de Bilbao: carpooling ConcertRide desde Madrid (11–16 €), Santander (4–7 €), Vitoria (4–6 €), Pamplona (5–8 €) o Donostia (5–8 €).</p>`,
-  "mad-cool": `<p><strong>Transporte a Mad Cool 2026 — resumen:</strong> El recinto IFEMA está a 15 km del centro de Madrid. Las opciones son: (1) <strong>Metro L8</strong> hasta parada "Feria de Madrid" (ampliado hasta las 2:30 AM); (2) <strong>Taxi / VTC</strong> desde Madrid centro (60–90 €, precio x2–3 a la salida); (3) <strong>Carpooling ConcertRide</strong> desde Madrid (4–7 €), Valencia (10–14 €), Zaragoza (9–13 €) o Barcelona (15–20 €). No existe lanzadera oficial.</p>`,
+  "mad-cool": `<p><strong>Transporte a Mad Cool 2026 — resumen:</strong> El recinto Iberdrola Music está en Villaverde, a 12 km del centro de Madrid. Las opciones son: (1) <strong>Metro L3</strong> hasta parada "Villaverde Alto" (ampliado hasta las 2:30 AM en noches de festival); (2) <strong>Taxi / VTC</strong> desde Madrid centro (40–70 €, precio x2–3 a la salida); (3) <strong>Carpooling ConcertRide</strong> desde Madrid (4–7 €), Valencia (10–14 €), Zaragoza (9–13 €) o Barcelona (15–20 €). No existe lanzadera oficial.</p>`,
   "o-son-do-camino": `<p><strong>Transporte a O Son do Camiño 2026 — resumen:</strong> El Monte do Gozo está a 5 km de Santiago de Compostela. Opciones: (1) <strong>Lanzadera oficial</strong> desde el centro de Santiago (Rúa do Franco, cada 15–20 min); (2) <strong>Carpooling ConcertRide</strong> desde A Coruña (3–6 €), Vigo (4–7 €), Pontevedra (3–5 €) u Oviedo (9–13 €).</p>`,
   "cala-mijas": `<p><strong>Transporte a Cala Mijas Fest 2026 — resumen:</strong> El recinto es Cortijo de Torres en Málaga capital (no en La Cala de Mijas pueblo). No hay shuttle oficial ni transporte público nocturno al Cortijo de Torres. Opciones: (1) <strong>Taxi / VTC</strong> desde Málaga centro (25–40 €); (2) <strong>Carpooling ConcertRide</strong> desde Málaga (3–5 €), Marbella (3–6 €), Fuengirola (3–5 €), Sevilla (6–9 €) o Granada (5–8 €).</p>`,
   "zevra-festival": `<p><strong>Transporte a Zevra Festival 2026 — resumen:</strong> La Marina de València está a 5 km del centro histórico. Opciones: (1) <strong>Metro L4</strong> hasta Marítim-Serreria o Neptú (ampliado hasta las 1:00–2:00 AM); (2) <strong>Carpooling ConcertRide</strong> desde Madrid (10–14 €), Alicante (5–8 €), Barcelona (10–14 €) o Murcia (7–10 €). Horarios típicos: apertura 18:30, cabezas de cartel 23:00–01:00, cierre 1:30–3:00.</p>`,
@@ -2478,7 +2478,7 @@ function festivalBody(slug: string, f: FestivalData, base: string): string {
     url: `${base}/festivales/${slug}`,
     name: `Carpooling a ${f.name} ${new Date(f.startDate).getFullYear()} — desde ${f.priceFrom} € · sin comisión | ConcertRide`,
     inLanguage: "es-ES",
-    dateModified: "2026-05-03",
+    dateModified: "2026-05-16",
     speakable: { "@type": "SpeakableSpecification", cssSelector: ["h1", ".speakable", ".festival-summary", "p:first-of-type"] },
     isPartOf: { "@type": "WebSite", "@id": `${base}/#website`, name: "ConcertRide", url: base },
     about: { "@type": "MusicEvent", "@id": `${base}/festivales/${slug}#event` },
@@ -2536,8 +2536,8 @@ function cityBody(slug: string, c: CityData, base: string): string {
 
   const CITY_FAQ_OVERRIDES: Record<string, { q: string; a: string }[]> = {
     madrid: [
-      { q: "¿Qué conciertos hay en Madrid en 2026?", a: `Los principales recintos de conciertos en Madrid en 2026 son: WiZink Center (18.000 plazas), Palacio Vistalegre (15.000), Caja Mágica (50.000), IFEMA Feria de Madrid (hasta 80.000 — sede del Mad Cool Festival 9–11 jul) y Coca-Cola Music Experience. ConcertRide cubre carpooling a todos estos recintos desde otras ciudades.` },
-      { q: "¿Cómo llegar al WiZink Center o a IFEMA en coche compartido?", a: "El WiZink Center está bien comunicado en metro (L4 Diego de León). Para IFEMA (Mad Cool Festival), el metro L8 llega a 'Feria de Madrid' en 25 minutos desde Sol, pero cierra a la 1:30. ConcertRide conecta a asistentes desde Barcelona, Valencia, Zaragoza y otras ciudades con conductores que van al mismo concierto en Madrid." },
+      { q: "¿Qué conciertos hay en Madrid en 2026?", a: `Los principales recintos de conciertos en Madrid en 2026 son: WiZink Center (18.000 plazas), Palacio Vistalegre (15.000), Caja Mágica (50.000), Iberdrola Music (hasta 80.000 — sede del Mad Cool Festival 8–10 jul) y Coca-Cola Music Experience. ConcertRide cubre carpooling a todos estos recintos desde otras ciudades.` },
+      { q: "¿Cómo llegar al WiZink Center o a Iberdrola Music en coche compartido?", a: "El WiZink Center está bien comunicado en metro (L4 Diego de León). Para Iberdrola Music (Mad Cool Festival), el metro L3 llega a 'Villaverde Alto' en 20 minutos desde Sol, pero cierra a la 1:30. ConcertRide conecta a asistentes desde Barcelona, Valencia, Zaragoza y otras ciudades con conductores que van al mismo concierto en Madrid." },
       { q: "¿Cuánto cuesta el carpooling a Madrid para un concierto?", a: "Desde Barcelona: 14–22 €/asiento (620 km, 5h 30 min). Desde Valencia: 10–14 € (355 km, 3h 20 min). Desde Zaragoza: 9–13 € (325 km, 3h). Desde Sevilla: 12–18 € (530 km, 5h). Sin comisión de plataforma — el precio va íntegro al conductor." },
       { q: "¿Es seguro el carpooling para ir a conciertos en Madrid?", a: "Sí. En ConcertRide todos los conductores verifican su carnet de conducir antes de publicar viajes. Puedes ver el perfil, las valoraciones y comunicarte por chat antes del evento. El pago es en persona — nunca adelantas dinero." },
     ],
@@ -2624,7 +2624,7 @@ function cityBody(slug: string, c: CityData, base: string): string {
     valladolid: [
       { q: "¿Qué festivales hay cerca de Valladolid en 2026?", a: "El festival más próximo a Valladolid es Sonorama Ribera (Aranda de Duero, 100 km, 6–9 ago). Mad Cool (Madrid, 200 km) y BBK Live (Bilbao, 280 km) también son destinos habituales para el carpooling desde Valladolid. La Plaza de Toros y el Pabellón Pisuerga acogen conciertos nacionales." },
       { q: "¿Cuánto cuesta el carpooling de Valladolid al Sonorama Ribera?", a: "Sonorama Ribera (Aranda de Duero) está a 100 km de Valladolid (1h). Con ConcertRide el precio es 8–12 €/asiento. Es el festival más accesible para los vallisoletanos — más barato que el bus." },
-      { q: "¿Cómo ir desde Valladolid a Madrid en coche compartido para conciertos?", a: "Madrid está a 200 km de Valladolid (1h 45 min por la A-62). Con ConcertRide: 6–10 €/asiento para conciertos en WiZink Center, Vistalegre, IFEMA (Mad Cool) o Caja Mágica." },
+      { q: "¿Cómo ir desde Valladolid a Madrid en coche compartido para conciertos?", a: "Madrid está a 200 km de Valladolid (1h 45 min por la A-62). Con ConcertRide: 6–10 €/asiento para conciertos en WiZink Center, Vistalegre, Iberdrola Music (Mad Cool) o Caja Mágica." },
       { q: "¿Es seguro el carpooling desde Valladolid?", a: "Sí. ConcertRide verifica el carnet de conducir de todos los conductores. El pago es en efectivo o Bizum el día del viaje." },
     ],
     granada: [
@@ -2756,7 +2756,7 @@ function cityBody(slug: string, c: CityData, base: string): string {
     url: `${base}/conciertos/${slug}`,
     name: `Conciertos en ${c.name} 2026–2027 — Carpooling sin comisión | ConcertRide`,
     inLanguage: "es-ES",
-    dateModified: "2026-05-03",
+    dateModified: "2026-05-16",
     speakable: { "@type": "SpeakableSpecification", cssSelector: ["h1", ".speakable", "p:first-of-type"] },
     isPartOf: { "@type": "WebSite", "@id": `${base}/#website`, name: "ConcertRide", url: base },
     about: { "@type": "LocalBusiness", "@id": `${base}/conciertos/${slug}#localbusiness` },
@@ -3032,7 +3032,7 @@ function routeBody(slug: string, r: RouteData, base: string): string {
     url: `${base}/rutas/${slug}`,
     name: `Carpooling ${r.originCity} → ${r.festivalShortName} — desde ${r.priceFrom} € · ${r.drivingTime} | ConcertRide`,
     inLanguage: "es-ES",
-    dateModified: "2026-05-03",
+    dateModified: "2026-05-16",
     speakable: { "@type": "SpeakableSpecification", cssSelector: ["h1", ".route-summary", ".speakable", "p:first-of-type"] },
     isPartOf: { "@type": "WebSite", "@id": `${base}/#website`, name: "ConcertRide", url: base },
   });
@@ -3439,8 +3439,8 @@ function resolvePageData(pathname: string, base: string): PageData | null {
         description: `Próximos conciertos en Zaragoza ${year}: Pabellón Príncipe Felipe, Sala López, Pirineos Sur. Carpooling a Mad Cool (9–13 €), Primavera Sound (8–12 €), Arenal Sound (8–12 €). Sin comisión.`,
       },
       madrid: {
-        title: `Conciertos en Madrid ${year}–${nextYear}: WiZink, IFEMA y carpooling | ConcertRide`,
-        description: `Próximos conciertos en Madrid ${year}: WiZink Center, Vistalegre, IFEMA (Mad Cool 9–11 jul), Caja Mágica. Carpooling sin comisión desde toda España. Desde 4 €/asiento, conductores verificados.`,
+        title: `Conciertos en Madrid ${year}–${nextYear}: WiZink, Mad Cool y carpooling | ConcertRide`,
+        description: `Próximos conciertos en Madrid ${year}: WiZink Center, Vistalegre, Iberdrola Music (Mad Cool 8–10 jul), Caja Mágica. Carpooling sin comisión desde toda España. Desde 4 €/asiento, conductores verificados.`,
       },
       barcelona: {
         title: `Conciertos en Barcelona ${year}: Primavera Sound, Sónar, Cruïlla | ConcertRide`,
@@ -3590,7 +3590,7 @@ function resolvePageData(pathname: string, base: string): PageData | null {
       author: { "@type": "Organization", name: "ConcertRide", "@id": `${base}/#organization` },
       publisher: { "@type": "Organization", name: "ConcertRide", "@id": `${base}/#organization`, logo: { "@type": "ImageObject", url: `${base}/favicon.svg`, width: 512, height: 512 } },
       datePublished: "2026-04-10",
-      dateModified: "2026-05-03",
+      dateModified: "2026-05-16",
       url: `${base}/festivales/${slug}/guia`,
       inLanguage: "es-ES",
       mainEntityOfPage: { "@type": "WebPage", "@id": `${base}/festivales/${slug}/guia` },
@@ -3660,7 +3660,7 @@ ${f.originCities.map((o) => `  <li><strong>${esc(o.city)}</strong> — ${o.km} k
       url: `${base}/festivales-en/${slug}`,
       name: `Festivales en ${region.name} ${year}: carpooling y transporte | ConcertRide`,
       inLanguage: "es-ES",
-      dateModified: "2026-05-03",
+      dateModified: "2026-05-16",
       about: {
         "@type": "AdministrativeArea",
         name: region.name,
@@ -3734,7 +3734,7 @@ ${region.faqs.map((faq) => `  <dt>${esc(faq.q)}</dt>\n  <dd>${esc(faq.a)}</dd>`)
       author: { "@type": "Organization", name: "ConcertRide", "@id": `${base}/#organization` },
       publisher: { "@type": "Organization", name: "ConcertRide", "@id": `${base}/#organization`, logo: { "@type": "ImageObject", url: `${base}/favicon.svg`, width: 512, height: 512 } },
       datePublished: "2026-04-10",
-      dateModified: "2026-05-03",
+      dateModified: "2026-05-16",
       url: `${base}/como-llegar/${slug}`,
       inLanguage: "es-ES",
       mainEntityOfPage: { "@type": "WebPage", "@id": `${base}/como-llegar/${slug}` },

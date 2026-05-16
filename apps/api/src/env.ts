@@ -26,6 +26,9 @@ export interface Env {
   GSC_VERIFICATION_TOKEN?: string;
   BING_VERIFICATION_TOKEN?: string;
   YANDEX_VERIFICATION_TOKEN?: string;
+  // Optional IndexNow key for notifying Bing/Yandex of new/updated URLs.
+  // Generate at https://www.bing.com/indexnow and set via wrangler secret.
+  INDEXNOW_KEY?: string;
   ASSETS: Fetcher;
   CACHE: KVNamespace;
 }

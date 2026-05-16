@@ -1,4 +1,5 @@
-import { Calendar, Car, Music } from "lucide-react";
+import { Calendar, Car, Music, ArrowRight } from "lucide-react";
+import { Link } from "react-router-dom";
 import { motion } from "motion/react";
 
 const STEPS = [
@@ -167,6 +168,66 @@ export function HowItWorks() {
             );
           })}
         </ol>
+
+        {/* Driver acquisition banner — shown below the steps to capture drivers.
+            The #1 bottleneck for a two-sided marketplace is supply (drivers).
+            This block targets people who just learned how the platform works. */}
+        <motion.div
+          initial={{ opacity: 0, y: 24 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.4 }}
+          transition={{ duration: 0.55, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
+          className="mt-10 relative overflow-hidden border border-[#ff4f00]/30 bg-[#ff4f00]/[0.04]"
+        >
+          {/* Decorative orange bloom */}
+          <div
+            aria-hidden="true"
+            className="absolute right-0 top-0 w-64 h-full pointer-events-none"
+            style={{ background: "radial-gradient(ellipse at 100% 50%, rgba(255,79,0,0.12) 0%, transparent 70%)" }}
+          />
+
+          <div className="relative flex flex-col md:flex-row items-start md:items-center justify-between gap-6 px-8 py-8 md:py-7">
+            {/* Copy */}
+            <div className="space-y-2">
+              <p className="font-mono text-[10px] font-semibold uppercase tracking-[0.22em] text-[#ff4f00]">
+                ¿Tienes coche?
+              </p>
+              <h3 className="font-display text-2xl md:text-3xl uppercase leading-tight">
+                Publica tu viaje.{" "}
+                <span className="text-[#dbff00]">Recupera la gasolina.</span>
+              </h3>
+              <p className="font-sans text-sm text-white/45 leading-relaxed max-w-md">
+                Fija el precio por asiento para cubrir combustible y peajes —
+                sin comisión de plataforma. En 2 minutos tienes el viaje publicado.
+              </p>
+            </div>
+
+            {/* Stats + CTA cluster */}
+            <div className="flex flex-col gap-4 flex-shrink-0 w-full md:w-auto">
+              {/* Mini stats — social proof for drivers */}
+              <div className="flex gap-5">
+                {[
+                  { value: "0 %", label: "comisión" },
+                  { value: "2 min", label: "para publicar" },
+                  { value: "100 %", label: "para ti" },
+                ].map((s) => (
+                  <div key={s.label} className="text-center">
+                    <p className="font-display text-lg uppercase text-[#dbff00] leading-none">{s.value}</p>
+                    <p className="font-mono text-[10px] text-white/35 uppercase tracking-[0.1em] mt-0.5">{s.label}</p>
+                  </div>
+                ))}
+              </div>
+
+              <Link
+                to="/register?ref=hiw-driver"
+                className="cr-btn-shine inline-flex items-center justify-center gap-2 bg-[#ff4f00] text-white font-sans font-semibold uppercase tracking-[0.12em] text-sm px-7 py-3.5 hover:bg-[#e54500] transition-colors duration-150 group"
+              >
+                Publicar mi primer viaje
+                <ArrowRight size={14} className="transition-transform duration-150 group-hover:translate-x-1" aria-hidden="true" />
+              </Link>
+            </div>
+          </div>
+        </motion.div>
       </div>
     </section>
   );

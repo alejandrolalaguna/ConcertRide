@@ -43,7 +43,8 @@ const STATIC_ROUTES = [
   "/blog",
   "/rutas",
   "/como-funciona-carpooling",
-  "/comparativa/concertride-vs-blablacar",
+  // NOTE: /comparativa/concertride-vs-blablacar is intentionally EXCLUDED
+  // (route disabled in App.tsx per brand policy — see CLAUDE.md)
   "/comparativa/carpooling-vs-taxi-festival",
   "/prensa",
   "/datos",

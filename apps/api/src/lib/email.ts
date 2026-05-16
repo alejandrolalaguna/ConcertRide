@@ -474,6 +474,49 @@ export function sendRideReminderEmail(
   return sendEmail(env, { to: email, subject, html });
 }
 
+// ── Pre-concert 2h reminder (driver + passengers before departure) ─────────
+export function sendPreConcertReminderEmail(
+  env: Env,
+  email: string,
+  args: {
+    name: string;
+    role: "driver" | "passenger";
+    artist: string;
+    departureLocal: string;
+    meetingPoint: string;
+    passengerCount: number;
+    rideUrl: string;
+  },
+): Promise<SendResult> {
+  const isDriver = args.role === "driver";
+  const subject = `En 2 horas: ${args.artist} · salida desde ${args.meetingPoint}`;
+
+  const detail = isDriver
+    ? `Tienes ${args.passengerCount} pasajero${args.passengerCount === 1 ? "" : "s"} confirmado${args.passengerCount === 1 ? "" : "s"}. Contacta con ellos para afinar el punto de encuentro.`
+    : `Tu conductor te recoge en ${escapeHtml(args.meetingPoint)} a las ${args.departureLocal}. ¡Prepárate!`;
+
+  const html = shell(
+    env,
+    subject,
+    `Salida en 2h — ${args.departureLocal}`,
+    `
+    <h1 style="font-family:Georgia,serif;font-size:28px;line-height:1.15;margin:0 0 12px 0;">¡En 2 horas! 🚗🎶</h1>
+    <p style="color:#ccc;margin:0 0 24px 0;line-height:1.7;font-size:15px;">Hola, ${escapeHtml(args.name)}. Tu viaje a <strong style="color:#DBFF00;">${escapeHtml(args.artist)}</strong> sale en 2 horas.</p>
+
+    ${infoTable([
+      ["Concierto", args.artist],
+      ["Punto de encuentro", args.meetingPoint],
+      ["Hora de salida", args.departureLocal],
+      ["Tu rol", isDriver ? "Conductor" : "Pasajero"],
+    ])}
+
+    ${alertBox(detail, "info")}
+    <p style="margin:0 0 8px 0;">${cta(args.rideUrl, "Ver el viaje")}</p>
+    `,
+  );
+  return sendEmail(env, { to: email, subject, html });
+}
+
 // ── Countdown reminder (→ user with anticipation, 24h before concert) ────
 // Different from sendRideReminderEmail: this targets users who said "I'm
 // going" but may not have a ride booked yet. We push them to find one.

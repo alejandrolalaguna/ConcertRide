@@ -205,8 +205,9 @@ export function generateLocalBusinessSchema({
  * SpeakableSpecification — marks page sections readable by voice assistants
  * and GEO AI engines (Google SGE, Perplexity, etc.).
  * Pass CSS selectors that wrap the most factual, quotable content.
+ * Use generateSpeakableSchema() for full WebPage+Speakable nodes.
  */
-export function generateSpeakableSchema(cssSelectors: string[] = ["h1", ".speakable", "p:first-of-type"]) {
+export function generateSpeakableSpecification(cssSelectors: string[] = ["h1", ".speakable", "p:first-of-type"]) {
   return {
     "@type": "SpeakableSpecification",
     cssSelector: cssSelectors,
@@ -467,5 +468,100 @@ export function generateTripActionSchema(
       "@type": "Organization",
       name: "ConcertRide",
     },
+  };
+}
+
+/** Speakable schema — signals to AI Overviews / voice assistants which text sections
+ *  to extract as atomic answers. Apply to the intro paragraph + FAQ sections of festival pages.
+ *  cssSelector targets the first paragraph after h1 + all FAQ answer paragraphs.
+ */
+export function generateSpeakableSchema(pageUrl: string) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    "@id": pageUrl,
+    speakable: {
+      "@type": "SpeakableSpecification",
+      cssSelector: [
+        ".speakable-intro",
+        ".faq-answer",
+        "h1 + p",
+        "[data-speakable]",
+      ],
+    },
+    url: pageUrl,
+  };
+}
+
+/** Author Person schema — E-E-A-T signal for blog posts.
+ *  Named authors with LinkedIn sameAs dramatically improve AI citation rates.
+ */
+export function generateAuthorSchema({
+  name,
+  url,
+  sameAs = [],
+  jobTitle = "Editor de contenido",
+}: {
+  name: string;
+  url: string;
+  sameAs?: string[];
+  jobTitle?: string;
+}) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    name,
+    url,
+    jobTitle,
+    worksFor: {
+      "@type": "Organization",
+      name: "ConcertRide",
+      url: "https://concertride.me",
+    },
+    ...(sameAs.length > 0 && { sameAs }),
+  };
+}
+
+/** BusTrip schema for transport comparison tables — makes ConcertRide comparisons
+ *  machine-readable by AI tools querying "transport options to [festival]".
+ */
+export function generateBusTripSchema({
+  provider,
+  origin,
+  destination,
+  departureTime,
+  price,
+  notes,
+}: {
+  provider: string;
+  origin: string;
+  destination: string;
+  departureTime?: string;
+  price: number;
+  notes?: string;
+}) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "BusTrip",
+    name: `${provider}: ${origin} → ${destination}`,
+    busName: provider,
+    departureBusStop: {
+      "@type": "BusStop",
+      name: origin,
+      address: { "@type": "PostalAddress", addressLocality: origin, addressCountry: "ES" },
+    },
+    arrivalBusStop: {
+      "@type": "BusStop",
+      name: destination,
+      address: { "@type": "PostalAddress", addressLocality: destination, addressCountry: "ES" },
+    },
+    ...(departureTime && { departureTime }),
+    offers: {
+      "@type": "Offer",
+      price,
+      priceCurrency: "EUR",
+      availability: "https://schema.org/InStock",
+    },
+    ...(notes && { description: notes }),
   };
 }

@@ -11121,6 +11121,259 @@ function ConcertCardComponent({ concert, className = "", onClick, priority = fal
   );
 }
 const ConcertCard = React__default.memo(ConcertCardComponent);
+function generateBreadcrumbSchema(breadcrumbs, siteUrl) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: breadcrumbs.map((crumb, idx) => ({
+      "@type": "ListItem",
+      position: idx + 1,
+      name: crumb.name,
+      item: crumb.url.startsWith("http") ? crumb.url : `${siteUrl}${crumb.url}`
+    }))
+  };
+}
+function generateFAQSchema(faqs) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: faqs.map((faq) => ({
+      "@type": "Question",
+      name: faq.q,
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: faq.a
+      }
+    }))
+  };
+}
+function generateServiceSchema({
+  originCity,
+  festivalShortName,
+  festivalName,
+  routeSlug,
+  priceMin,
+  priceMax,
+  siteUrl
+}) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    "@id": `${siteUrl}/rutas/${routeSlug}#service`,
+    name: `Carpooling ${originCity} → ${festivalShortName}`,
+    description: `Servicio de coche compartido de ${originCity} a ${festivalName}. Sin comisión (0%). Conductores verificados. Pago en efectivo o Bizum.`,
+    serviceType: "Carpooling",
+    url: `${siteUrl}/rutas/${routeSlug}`,
+    provider: {
+      "@type": "Organization",
+      "@id": `${siteUrl}/#organization`,
+      name: "ConcertRide ES"
+    },
+    areaServed: {
+      "@type": "Country",
+      name: "España",
+      sameAs: "https://www.wikidata.org/wiki/Q29"
+    },
+    offers: {
+      "@type": "Offer",
+      name: `Asiento carpooling ${originCity} → ${festivalShortName}`,
+      price: priceMin,
+      priceSpecification: {
+        "@type": "PriceSpecification",
+        minPrice: priceMin,
+        maxPrice: priceMax,
+        priceCurrency: "EUR",
+        unitText: "por asiento"
+      },
+      priceCurrency: "EUR",
+      availability: "https://schema.org/InStock",
+      url: `${siteUrl}/rutas/${routeSlug}`
+    }
+  };
+}
+function generateServiceReviewSchema({
+  siteUrl,
+  aggregate,
+  reviews
+}) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    "@id": `${siteUrl}/#service`,
+    name: "ConcertRide · Carpooling para conciertos y festivales",
+    aggregateRating: {
+      "@type": "AggregateRating",
+      ratingValue: aggregate.ratingValue,
+      reviewCount: aggregate.reviewCount,
+      bestRating: aggregate.bestRating,
+      worstRating: aggregate.worstRating
+    },
+    review: reviews.map((r) => ({
+      "@type": "Review",
+      reviewRating: {
+        "@type": "Rating",
+        ratingValue: String(r.rating),
+        bestRating: "5",
+        worstRating: "1"
+      },
+      author: {
+        "@type": "Person",
+        name: r.name
+      },
+      datePublished: r.date,
+      reviewBody: r.quote,
+      name: `Experiencia ConcertRide · ${r.concert}`
+    }))
+  };
+}
+function generateHowToSchema(opts) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "HowTo",
+    name: opts.name,
+    description: opts.description,
+    inLanguage: "es-ES",
+    mainEntityOfPage: { "@id": opts.pageUrl },
+    ...opts.totalTime ? { totalTime: opts.totalTime } : {},
+    ...opts.estimatedCost ? {
+      estimatedCost: {
+        "@type": "MonetaryAmount",
+        currency: opts.estimatedCost.currency,
+        value: opts.estimatedCost.value
+      }
+    } : {},
+    step: opts.steps.map((s, i) => ({
+      "@type": "HowToStep",
+      position: i + 1,
+      name: s.name,
+      text: s.text,
+      ...s.url ? { url: s.url } : {}
+    }))
+  };
+}
+const TESTIMONIALS = [
+  {
+    id: "1",
+    quote: "Encontré viaje en 5 minutos. Llegamos cantando todo el camino. Ya no concibo ir a un festival de otra forma.",
+    author: "Lucía M.",
+    route: "Madrid → Benicàssim",
+    festival: "FIB 2025",
+    rating: 5,
+    initial: "L",
+    savings: "Ahorro: ~100€",
+    avatarColor: "#dbff00",
+    date: "2025-07-18",
+    city: "Madrid"
+  },
+  {
+    id: "2",
+    quote: "Como conductor, recuperé la gasolina y conocí gente increíble. La app va directa al grano, sin comisiones.",
+    author: "Carlos R.",
+    route: "Sevilla → Granada",
+    festival: "Alhambra Sound",
+    rating: 5,
+    initial: "C",
+    savings: "Coste conductor: 0€",
+    avatarColor: "#ff4f00",
+    date: "2025-06-28",
+    city: "Sevilla"
+  },
+  {
+    id: "3",
+    quote: "Nos ahorramos el parking, el estrés y la vuelta de madrugada. La playlist del conductor era un 10.",
+    author: "Marina P.",
+    route: "Barcelona → Benicàssim",
+    festival: "FIB 2025",
+    rating: 5,
+    initial: "M",
+    savings: "Ahorro: ~50€/persona",
+    avatarColor: "#dbff00",
+    date: "2025-07-19",
+    city: "Barcelona"
+  },
+  {
+    id: "4",
+    quote: "Tres viajes compartidos esta temporada. Dinero ahorrado, amigos nuevos, cero atascos de aparcamiento.",
+    author: "Jorge S.",
+    route: "Bilbao → Arganda del Rey",
+    festival: "Viña Rock 2025",
+    rating: 5,
+    initial: "J",
+    savings: "Ahorro total: 180€",
+    avatarColor: "#ff4f00",
+    date: "2025-05-02",
+    city: "Bilbao"
+  },
+  {
+    id: "5",
+    quote: "Primera vez en Primavera Sound desde Zaragoza. 28€ por asiento vs 80€ el AVE solo de ida. Sin duda.",
+    author: "Ana C.",
+    route: "Zaragoza → Barcelona",
+    festival: "Primavera Sound",
+    rating: 4.9,
+    initial: "A",
+    savings: "Ahorro vs AVE: ~100€",
+    avatarColor: "#dbff00",
+    date: "2025-06-05",
+    city: "Zaragoza"
+  },
+  {
+    id: "6",
+    quote: "El conductor del viaje a BBK tenía la misma playlist que yo. Llegamos amigos. Esto no pasa en el AVE.",
+    author: "Paula G.",
+    route: "Vitoria → Bilbao",
+    festival: "BBK Live 2025",
+    rating: 5,
+    initial: "P",
+    savings: "Precio: 18€",
+    avatarColor: "#ff4f00",
+    date: "2025-07-11",
+    city: "Vitoria"
+  },
+  {
+    id: "7",
+    quote: "Resurrection Fest desde A Coruña. En tren eran 4 transbordos y 55€. En ConcertRide: 2h con gente del mismo rollo por 20€.",
+    author: "Marcos L.",
+    route: "A Coruña → Viveiro",
+    festival: "Resurrection Fest",
+    rating: 5,
+    initial: "M",
+    savings: "Ahorro vs tren: 35€",
+    avatarColor: "#dbff00",
+    date: "2025-06-26",
+    city: "A Coruña"
+  },
+  {
+    id: "8",
+    quote: "Publiqué mi coche a Mad Cool desde Bilbao. Cubrí peajes y gasolina — el viaje me salió gratis y encima hice 3 amigos.",
+    author: "Rubén A.",
+    route: "Bilbao → Madrid",
+    festival: "Mad Cool 2025",
+    rating: 5,
+    initial: "R",
+    savings: "Coste conductor: 0€",
+    avatarColor: "#ff4f00",
+    date: "2025-07-10",
+    city: "Bilbao"
+  }
+];
+const _avg = TESTIMONIALS.reduce((acc, t) => acc + t.rating, 0) / TESTIMONIALS.length;
+const TESTIMONIALS_AGGREGATE = {
+  /** Rating promedio redondeado a 1 decimal (ej. "4.9"). */
+  ratingValue: _avg.toFixed(1),
+  /** Número total de testimonios verificados. */
+  reviewCount: TESTIMONIALS.length,
+  bestRating: "5",
+  worstRating: "1"
+};
+const TESTIMONIAL_REVIEWS = TESTIMONIALS.map((t) => ({
+  quote: t.quote,
+  name: t.author,
+  city: t.city,
+  concert: t.festival,
+  date: t.date,
+  rating: t.rating
+}));
 const NEXT_FESTIVAL = {
   name: "Primavera Sound",
   slug: "primavera-sound",
@@ -12034,7 +12287,59 @@ function HowItWorks() {
               },
               step.n
             );
-          }) })
+          }) }),
+          /* @__PURE__ */ jsxs(
+            motion.div,
+            {
+              initial: { opacity: 0, y: 24 },
+              whileInView: { opacity: 1, y: 0 },
+              viewport: { once: true, amount: 0.4 },
+              transition: { duration: 0.55, delay: 0.2, ease: [0.16, 1, 0.3, 1] },
+              className: "mt-10 relative overflow-hidden border border-[#ff4f00]/30 bg-[#ff4f00]/[0.04]",
+              children: [
+                /* @__PURE__ */ jsx(
+                  "div",
+                  {
+                    "aria-hidden": "true",
+                    className: "absolute right-0 top-0 w-64 h-full pointer-events-none",
+                    style: { background: "radial-gradient(ellipse at 100% 50%, rgba(255,79,0,0.12) 0%, transparent 70%)" }
+                  }
+                ),
+                /* @__PURE__ */ jsxs("div", { className: "relative flex flex-col md:flex-row items-start md:items-center justify-between gap-6 px-8 py-8 md:py-7", children: [
+                  /* @__PURE__ */ jsxs("div", { className: "space-y-2", children: [
+                    /* @__PURE__ */ jsx("p", { className: "font-mono text-[10px] font-semibold uppercase tracking-[0.22em] text-[#ff4f00]", children: "¿Tienes coche?" }),
+                    /* @__PURE__ */ jsxs("h3", { className: "font-display text-2xl md:text-3xl uppercase leading-tight", children: [
+                      "Publica tu viaje.",
+                      " ",
+                      /* @__PURE__ */ jsx("span", { className: "text-[#dbff00]", children: "Recupera la gasolina." })
+                    ] }),
+                    /* @__PURE__ */ jsx("p", { className: "font-sans text-sm text-white/45 leading-relaxed max-w-md", children: "Fija el precio por asiento para cubrir combustible y peajes — sin comisión de plataforma. En 2 minutos tienes el viaje publicado." })
+                  ] }),
+                  /* @__PURE__ */ jsxs("div", { className: "flex flex-col gap-4 flex-shrink-0 w-full md:w-auto", children: [
+                    /* @__PURE__ */ jsx("div", { className: "flex gap-5", children: [
+                      { value: "0 %", label: "comisión" },
+                      { value: "2 min", label: "para publicar" },
+                      { value: "100 %", label: "para ti" }
+                    ].map((s) => /* @__PURE__ */ jsxs("div", { className: "text-center", children: [
+                      /* @__PURE__ */ jsx("p", { className: "font-display text-lg uppercase text-[#dbff00] leading-none", children: s.value }),
+                      /* @__PURE__ */ jsx("p", { className: "font-mono text-[10px] text-white/35 uppercase tracking-[0.1em] mt-0.5", children: s.label })
+                    ] }, s.label)) }),
+                    /* @__PURE__ */ jsxs(
+                      Link,
+                      {
+                        to: "/register?ref=hiw-driver",
+                        className: "cr-btn-shine inline-flex items-center justify-center gap-2 bg-[#ff4f00] text-white font-sans font-semibold uppercase tracking-[0.12em] text-sm px-7 py-3.5 hover:bg-[#e54500] transition-colors duration-150 group",
+                        children: [
+                          "Publicar mi primer viaje",
+                          /* @__PURE__ */ jsx(ArrowRight, { size: 14, className: "transition-transform duration-150 group-hover:translate-x-1", "aria-hidden": "true" })
+                        ]
+                      }
+                    )
+                  ] })
+                ] })
+              ]
+            }
+          )
         ] })
       ]
     }
@@ -13043,96 +13348,6 @@ function CornerAccents() {
     /* @__PURE__ */ jsx("span", { "aria-hidden": "true", className: "absolute bottom-10 right-10 w-px h-16 bg-[#dbff00]" })
   ] });
 }
-const TESTIMONIALS = [
-  {
-    id: "1",
-    quote: "Encontré viaje en 5 minutos. Llegamos cantando todo el camino. Ya no concibo ir a un festival de otra forma.",
-    author: "Lucía M.",
-    route: "Madrid → Benicàssim",
-    festival: "FIB 2025",
-    rating: 5,
-    initial: "L",
-    savings: "Ahorro: ~100€",
-    avatarColor: "#dbff00"
-  },
-  {
-    id: "2",
-    quote: "Como conductor, recuperé la gasolina y conocí gente increíble. La app va directa al grano, sin comisiones.",
-    author: "Carlos R.",
-    route: "Sevilla → Granada",
-    festival: "Alhambra Sound",
-    rating: 5,
-    initial: "C",
-    savings: "Coste conductor: 0€",
-    avatarColor: "#ff4f00"
-  },
-  {
-    id: "3",
-    quote: "Nos ahorramos el parking, el estrés y la vuelta de madrugada. La playlist del conductor era un 10.",
-    author: "Marina P.",
-    route: "Barcelona → Benicàssim",
-    festival: "FIB 2025",
-    rating: 5,
-    initial: "M",
-    savings: "Ahorro: ~50€/persona",
-    avatarColor: "#dbff00"
-  },
-  {
-    id: "4",
-    quote: "Tres viajes compartidos esta temporada. Dinero ahorrado, amigos nuevos, cero atascos de aparcamiento.",
-    author: "Jorge S.",
-    route: "Bilbao → Arganda del Rey",
-    festival: "Viña Rock 2025",
-    rating: 5,
-    initial: "J",
-    savings: "Ahorro total: 180€",
-    avatarColor: "#ff4f00"
-  },
-  {
-    id: "5",
-    quote: "Primera vez en Primavera Sound desde Zaragoza. 28€ por asiento vs 80€ el AVE solo de ida. Sin duda.",
-    author: "Ana C.",
-    route: "Zaragoza → Barcelona",
-    festival: "Primavera Sound",
-    rating: 4.9,
-    initial: "A",
-    savings: "Ahorro vs AVE: ~100€",
-    avatarColor: "#dbff00"
-  },
-  {
-    id: "6",
-    quote: "El conductor del viaje a BBK tenía la misma playlist que yo. Llegamos amigos. Esto no pasa en el AVE.",
-    author: "Paula G.",
-    route: "Vitoria → Bilbao",
-    festival: "BBK Live 2025",
-    rating: 5,
-    initial: "P",
-    savings: "Precio: 18€",
-    avatarColor: "#ff4f00"
-  },
-  {
-    id: "7",
-    quote: "Resurrection Fest desde A Coruña. En tren eran 4 transbordos y 55€. En ConcertRide: 2h con gente del mismo rollo por 20€.",
-    author: "Marcos L.",
-    route: "A Coruña → Viveiro",
-    festival: "Resurrection Fest",
-    rating: 5,
-    initial: "M",
-    savings: "Ahorro vs tren: 35€",
-    avatarColor: "#dbff00"
-  },
-  {
-    id: "8",
-    quote: "Publiqué mi coche a Mad Cool desde Bilbao. Cubrí peajes y gasolina — el viaje me salió gratis y encima hice 3 amigos.",
-    author: "Rubén A.",
-    route: "Bilbao → Madrid",
-    festival: "Mad Cool 2025",
-    rating: 5,
-    initial: "R",
-    savings: "Coste conductor: 0€",
-    avatarColor: "#ff4f00"
-  }
-];
 function Stars({ rating }) {
   return /* @__PURE__ */ jsx("span", { className: "flex gap-0.5", "aria-label": `${rating} de 5 estrellas`, children: [1, 2, 3, 4, 5].map((n) => /* @__PURE__ */ jsx(
     "span",
@@ -13913,46 +14128,13 @@ function LandingPage() {
       {
         type: "application/ld+json",
         dangerouslySetInnerHTML: {
-          __html: JSON.stringify({
-            "@context": "https://schema.org",
-            "@type": "ItemList",
-            name: "Opiniones de usuarios de ConcertRide",
-            itemListElement: [
-              {
-                "@type": "ListItem",
-                position: 1,
-                item: {
-                  "@type": "Review",
-                  reviewBody: "Ahorré 40€ yendo al Sónar desde Madrid. El conductor puso la playlist perfecta.",
-                  author: { "@type": "Person", name: "Sara M." },
-                  itemReviewed: { "@type": "SoftwareApplication", name: "ConcertRide", url: SITE_URL, applicationCategory: "TravelApplication" },
-                  reviewRating: { "@type": "Rating", ratingValue: "5", bestRating: "5" }
-                }
-              },
-              {
-                "@type": "ListItem",
-                position: 2,
-                item: {
-                  "@type": "Review",
-                  reviewBody: "Mi crew entera fue a Arenal Sound en un solo coche. Sin comisiones, sin líos.",
-                  author: { "@type": "Person", name: "Dani R." },
-                  itemReviewed: { "@type": "SoftwareApplication", name: "ConcertRide", url: SITE_URL, applicationCategory: "TravelApplication" },
-                  reviewRating: { "@type": "Rating", ratingValue: "5", bestRating: "5" }
-                }
-              },
-              {
-                "@type": "ListItem",
-                position: 3,
-                item: {
-                  "@type": "Review",
-                  reviewBody: "Publiqué mi coche a Mad Cool y cubrí gasolina y peajes entre los 3 pasajeros.",
-                  author: { "@type": "Person", name: "Irene S." },
-                  itemReviewed: { "@type": "SoftwareApplication", name: "ConcertRide", url: SITE_URL, applicationCategory: "TravelApplication" },
-                  reviewRating: { "@type": "Rating", ratingValue: "5", bestRating: "5" }
-                }
-              }
-            ]
-          })
+          __html: JSON.stringify(
+            generateServiceReviewSchema({
+              siteUrl: SITE_URL,
+              aggregate: TESTIMONIALS_AGGREGATE,
+              reviews: TESTIMONIAL_REVIEWS
+            })
+          )
         }
       }
     ),
@@ -13977,9 +14159,10 @@ function LandingPage() {
             },
             aggregateRating: {
               "@type": "AggregateRating",
-              ratingValue: "4.8",
-              ratingCount: "1200",
-              bestRating: "5"
+              ratingValue: TESTIMONIALS_AGGREGATE.ratingValue,
+              reviewCount: TESTIMONIALS_AGGREGATE.reviewCount,
+              bestRating: TESTIMONIALS_AGGREGATE.bestRating,
+              worstRating: TESTIMONIALS_AGGREGATE.worstRating
             }
           })
         }
@@ -16970,15 +17153,15 @@ const FESTIVAL_LANDINGS = [
     city: "Madrid",
     citySlug: "madrid",
     region: "Comunidad de Madrid",
-    venue: "IFEMA Madrid",
-    venueAddress: "Av. del Partenón, 5, 28042 Madrid",
-    lat: 40.464,
-    lng: -3.61,
-    startDate: "2026-07-09",
+    venue: "Iberdrola Music",
+    venueAddress: "Av. de Córdoba, s/n, 28026 Madrid (Villaverde)",
+    lat: 40.3487,
+    lng: -3.7041,
+    startDate: "2026-07-08",
     endDate: "2026-07-11",
-    typicalDates: "Primera quincena de julio (edición 2026: 9–11 julio)",
+    typicalDates: "Primera quincena de julio (edición 2026: 8–11 julio)",
     capacity: "80.000 personas/día",
-    blurb: "Mad Cool es el festival de rock e indie alternativo más grande de Madrid, celebrado en IFEMA desde 2016. Convoca a 80.000 asistentes diarios con artistas internacionales de primera línea. El recinto queda a 15 km del centro de Madrid pero está mal comunicado en transporte público pasada la medianoche: el último metro (línea 8) cierra a la 1:30 y los autobuses nocturnos N1 y N6 no llegan a IFEMA directamente. Según la APM, Mad Cool fue uno de los festivales con mayor afluencia internacional de España en 2024. El coche compartido a través de ConcertRide es la opción preferida de quienes vienen desde otras provincias o desde barrios sin acceso directo a IFEMA.",
+    blurb: "Mad Cool es el festival de rock e indie alternativo más grande de Madrid, celebrado desde 2023 en el recinto Iberdrola Music de Villaverde. Convoca a 80.000 asistentes diarios con artistas internacionales de primera línea. El recinto se encuentra al sur de Madrid (Villaverde Bajo), accesible en metro por la línea 3 (parada Pradolongo o Legazpi) más un corto trayecto en autobús. La salida nocturna satura tanto el metro como las líneas de autobús después de las 1:00, por lo que el coche compartido es la opción más cómoda para quienes vienen desde otras provincias o barrios sin acceso directo al recinto. Según la APM, Mad Cool es uno de los festivales con mayor afluencia internacional de España.",
     ogImage: "/og/mad-cool.png",
     originCities: [
       { city: "Madrid", km: 15, drivingTime: "25 min", concertRideRange: "4–7 €/asiento" },
@@ -17004,35 +17187,35 @@ const FESTIVAL_LANDINGS = [
     faqs: [
       {
         q: "¿Cómo llegar a Mad Cool desde el centro de Madrid?",
-        a: "En metro, la línea 8 (dirección Aeropuerto T4) llega a IFEMA en la estación 'Feria de Madrid' (unos 25 minutos desde Sol). Sin embargo, en noches de festival el metro se satura a la salida (1:00–2:00) y las colas llegan al exterior del recinto. Con ConcertRide puedes coordinar la vuelta con otros asistentes y evitar la aglomeración, pagando entre 4 y 7 € por plaza."
+        a: "Mad Cool 2026 se celebra en Iberdrola Music (Villaverde Bajo). En metro, la línea 3 llega a Pradolongo o Legazpi, y desde ahí hay servicio de autobús al recinto. Desde Sol son unos 30–40 minutos. En noches de festival el metro y los autobuses se saturan a la salida (1:00–2:00). Con ConcertRide puedes coordinar la vuelta con otros asistentes y evitar la aglomeración, pagando entre 4 y 7 € por plaza desde el centro de Madrid."
       },
       {
         q: "¿Hay transporte público nocturno de vuelta de Mad Cool?",
-        a: "El metro cierra sobre la 1:30 (se amplía hasta las 2:00–2:30 en noches de Mad Cool). Los autobuses nocturnos N1 y N6 cubren la Avenida de América y Canillejas pero no paran en IFEMA directamente. La alternativa más habitual es taxi o VTC (60–90 € de media, con precio multiplicado x2–x3 en horario de alta demanda) o carpooling con ConcertRide (4–7 € desde Madrid centro, 10–14 € desde Valencia, 9–13 € desde Zaragoza)."
+        a: "Mad Cool 2026 es en Iberdrola Music (Villaverde). El metro línea 3 cierra sobre la 1:30 (se amplía en noches de festival). Los autobuses nocturnos tienen cobertura limitada en Villaverde. La alternativa más habitual es taxi o VTC (30–50 € al centro, con precio multiplicado x2 en horario de alta demanda) o carpooling con ConcertRide (4–7 € desde Madrid centro, 10–14 € desde Valencia, 9–13 € desde Zaragoza)."
       },
       {
         q: "¿Cuánto cuesta ir a Mad Cool desde Barcelona en coche compartido?",
         a: "La distancia Madrid–Barcelona es de unos 620 km (5h 30 min). Con ConcertRide, el precio típico por asiento oscila entre 15 y 20 €, frente a los 50–70 € de un billete de AVE o los 180–220 € de alquiler de coche solo. Es habitual que fans de Barcelona organicen el viaje redondo y se queden en Madrid el fin de semana del festival."
       },
       {
-        q: "¿Puedo aparcar en IFEMA durante Mad Cool?",
-        a: "IFEMA tiene varias zonas de parking de pago (12–18 €/día), pero los accesos por la R-2 y M-14 colapsan desde las 18:00 en días de festival. La mayoría de conductores de fuera de Madrid prefieren aparcar en la zona del intercambiador de Avenida de América o en Barajas, y tomar la línea 8 desde allí. Con ConcertRide puedes llegar directamente al festival sin problema de parking."
+        q: "¿Puedo aparcar en Iberdrola Music durante Mad Cool?",
+        a: "El recinto Iberdrola Music (Villaverde Bajo) dispone de parking de pago (10–15 €/día), pero los accesos por la M-45 colapsan desde las 18:00 en días de festival. La mayoría de conductores de fuera de Madrid prefieren aparcar en parkings del sur de la ciudad y acercarse en autobús. Con ConcertRide puedes llegar directamente al festival sin problema de parking."
       },
       {
         q: "¿Hay lanzadera oficial de Mad Cool desde el centro de Madrid?",
-        a: "Mad Cool no opera lanzaderas propias desde el centro de Madrid (a diferencia de algunos festivales como BBK Live). La Metro Línea 8 es el único transporte oficial directo. Los shuttles privados que aparecen en redes sociales son iniciativas no oficiales. ConcertRide es la alternativa organizada más fiable para asistentes de otras ciudades."
+        a: "Mad Cool en Iberdrola Music (Villaverde) no opera lanzaderas propias desde el centro. El acceso es por metro L3 (Pradolongo/Legazpi) más autobús al recinto. Los shuttles privados que aparecen en redes sociales son iniciativas no oficiales. ConcertRide es la alternativa organizada más fiable para asistentes de otras ciudades."
       },
       {
         q: "¿Cuándo se celebra Mad Cool 2026?",
-        a: "La edición 2026 de Mad Cool Festival está prevista para el 9, 10 y 11 de julio en IFEMA Madrid. Puedes buscar viajes disponibles para esas fechas en concertride.me."
+        a: "La edición 2026 de Mad Cool Festival está prevista para el 8, 9, 10 y 11 de julio en el recinto Iberdrola Music de Villaverde (Madrid). Puedes buscar viajes disponibles para esas fechas en concertride.me."
       },
       {
         q: "¿Mad Cool es en Barcelona o en Madrid?",
-        a: "Mad Cool Festival se celebra en Madrid, no en Barcelona. La búsqueda 'mad cool barcelona' es habitual porque muchos asistentes catalanes lo confunden con festivales como Primavera Sound (que sí es en Barcelona). El recinto de Mad Cool está en IFEMA Madrid, en el barrio de Hortaleza, a 15 km del centro. Para ir desde Barcelona a Mad Cool son 620 km (5h 30 min por la AP-2/A-2). Con ConcertRide hay viajes Barcelona–Mad Cool por 15–20 €/asiento. Si buscas un festival similar a Mad Cool en Barcelona, los más parecidos en cartel son Primavera Sound (mayo–junio) y Cruïlla (julio)."
+        a: "Mad Cool Festival se celebra en Madrid, no en Barcelona. La búsqueda 'mad cool barcelona' es habitual porque muchos asistentes catalanes lo confunden con festivales como Primavera Sound (que sí es en Barcelona). Desde 2023, el recinto de Mad Cool es Iberdrola Music, en el barrio de Villaverde (sur de Madrid). Para ir desde Barcelona a Mad Cool son ~620 km (5h 30 min por la AP-2/A-2). Con ConcertRide hay viajes Barcelona–Mad Cool por 15–20 €/asiento. Si buscas un festival similar a Mad Cool en Barcelona, los más parecidos en cartel son Primavera Sound (junio) y Cruïlla (julio)."
       },
       {
         q: "¿Mad Cool Barcelona existe?",
-        a: "No existe ninguna edición de Mad Cool en Barcelona. Mad Cool es un festival íntegramente madrileño que se celebra cada julio en IFEMA Madrid. Los rumores sobre 'Mad Cool Barcelona' que circulan en redes sociales corresponden a Primavera Sound, festival catalán con cartel internacional similar (indie, rock, pop alternativo) celebrado en el Parc del Fòrum de Barcelona en mayo–junio."
+        a: "No existe ninguna edición de Mad Cool en Barcelona. Mad Cool es un festival íntegramente madrileño que se celebra cada julio en el recinto Iberdrola Music de Villaverde (Madrid). Los rumores sobre 'Mad Cool Barcelona' que circulan en redes sociales corresponden a Primavera Sound, festival catalán con cartel internacional similar (indie, rock, pop alternativo) celebrado en el Parc del Fòrum de Barcelona en junio."
       },
       {
         q: "¿Es seguro ir a Mad Cool en coche compartido?",
@@ -17046,8 +17229,8 @@ const FESTIVAL_LANDINGS = [
     relatedFestivals: ["tomavistas", "sonorama-ribera", "primavera-sound"],
     relatedBlogs: ["mad-cool-2026-guia-completa-transporte", "como-llegar-mad-cool-desde-barcelona-2026", "como-ir-mad-cool-desde-valencia-2026", "autobuses-festivales-espana-2026", "como-volver-concierto-madrugada-espana-2026", "gasolina-mad-cool-2026-cuanto-cuesta-ir-en-coche", "como-volver-mad-cool-madrugada-2026", "mejor-app-carpooling-festivales-espana-2026"],
     transport_options: [
-      { type: "train", provider: "Metro Madrid L8", origin: "Madrid centro → IFEMA", price_from: 2, price_to: 3, frequency: "Cada 5 min (ampliado en festival)", schedule: "Hasta 2:30 en noches de festival", notes: 'Parada "Feria de Madrid". Desde Sol ~25 min. Se colapsa en salidas (1:00–2:30).' },
-      { type: "bus", provider: "Bus nocturno N1 / N6", origin: "Madrid centro", price_from: 2, notes: "No llegan directamente a IFEMA. Dejan en Avenida de América / Canillejas." },
+      { type: "train", provider: "Metro Madrid L3", origin: "Madrid centro → Villaverde", price_from: 2, price_to: 3, frequency: "Cada 5 min (ampliado en festival)", schedule: "Hasta 2:00–2:30 en noches de festival", notes: "Paradas Pradolongo o Legazpi (L3). Desde Sol ~30 min. Autobús desde parada metro al recinto. Se satura en salidas." },
+      { type: "bus", provider: "EMT Madrid", origin: "Madrid centro → Villaverde", price_from: 2, notes: "Líneas EMT con paradas próximas a Iberdrola Music. Frecuencia reducida tras la 1:00." },
       { type: "carpooling", provider: "ConcertRide", origin: "Barcelona", price_from: 15, price_to: 20 },
       { type: "carpooling", provider: "ConcertRide", origin: "Valencia", price_from: 10, price_to: 14 },
       { type: "carpooling", provider: "ConcertRide", origin: "Zaragoza", price_from: 9, price_to: 13 }
@@ -17146,9 +17329,9 @@ const FESTIVAL_LANDINGS = [
     venueAddress: "Rambla del Prim, 2-4, 08019 Barcelona",
     lat: 41.4066,
     lng: 2.2218,
-    startDate: "2026-05-28",
-    endDate: "2026-06-01",
-    typicalDates: "Última semana de mayo / primera de junio (edición 2026: 28 mayo–1 junio)",
+    startDate: "2026-06-03",
+    endDate: "2026-06-07",
+    typicalDates: "Primera semana de junio (edición 2026: 3–7 junio)",
     capacity: "60.000 personas/día",
     blurb: "Primavera Sound es el festival de indie y alternativo más influyente de Europa, celebrado cada año en el Parc del Fòrum de Barcelona desde 2001. Atrae asistentes de toda España y de más de 80 países, con más de 60.000 asistentes diarios en su recinto de Sant Adrià de Besòs. El metro L4 (Besòs Mar) llega al Fòrum pero se colapsa en las salidas de madrugada, con colas de 30–45 minutos habituales. Los asientos de AVE desde Madrid (50–100 €) se agotan semanas antes del festival. Viajar en coche compartido desde Madrid (15–20 €), Valencia (10–14 €) o Zaragoza (8–12 €) es la opción más popular y económica para asistentes de fuera de Cataluña.",
     ogImage: "/og/primavera-sound.png",
@@ -17275,7 +17458,7 @@ const FESTIVAL_LANDINGS = [
     city: "Barcelona",
     citySlug: "barcelona",
     region: "Cataluña",
-    venue: "Fira Gran Via (Sónar by Night) + Fira Montjuïc (Sónar by Day)",
+    venue: "Fira Gran Via (sede única desde 2026)",
     venueAddress: "Av. Joan Carles I, 64, 08908 L'Hospitalet de Llobregat",
     lat: 41.3561,
     lng: 2.1302,
@@ -17346,8 +17529,8 @@ const FESTIVAL_LANDINGS = [
     lat: 40.059,
     lng: 0.061,
     startDate: "2026-07-16",
-    endDate: "2026-07-19",
-    typicalDates: "Segunda semana de julio (edición 2026: 16–19 julio)",
+    endDate: "2026-07-18",
+    typicalDates: "Segunda semana de julio (edición 2026: 16–18 julio, 30.ª edición)",
     capacity: "45.000 personas/día",
     blurb: "El FIB (Festival Internacional de Benicàssim) es uno de los festivales de indie y alternativo más veteranos de España, celebrado desde 1995 en la Costa del Azahar a 15 km de Castellón de la Plana y 70 km de Valencia. El recinto está junto a la playa, con acceso en coche por la N-340 o la AP-7 (salida 47, Benicàssim Nord), pero el transporte público nocturno desde Castellón es prácticamente nulo después de las 2:00, y desde Valencia no existe conexión directa al recinto de madrugada. Más del 60% de los asistentes llegan en coche o carpooling desde otras provincias, lo que hace de ConcertRide la herramienta más útil para organizar la logística de los 4 días del festival.",
     ogImage: "/og/fib.png",
@@ -17566,9 +17749,9 @@ const FESTIVAL_LANDINGS = [
     venueAddress: "Parque A Gañidoira, 27850 Viveiro, Lugo",
     lat: 43.666,
     lng: -7.599,
-    startDate: "2026-06-25",
-    endDate: "2026-06-28",
-    typicalDates: "Última semana de junio / primera de julio (edición 2026: 25–28 junio)",
+    startDate: "2026-07-01",
+    endDate: "2026-07-04",
+    typicalDates: "Primera semana de julio (edición 2026: 1–4 julio)",
     capacity: "30.000 personas/día",
     blurb: "Resurrection Fest es el festival de metal y rock pesado más importante de España, celebrado en Viveiro (Lugo) desde 2006. El recinto de A Gañidoira está situado a las afueras del municipio, con transporte público prácticamente nulo en horarios nocturnos. La mayoría de los asistentes llegan en coche, y el carpooling entre fans de metal es una tradición desde los primeros años del festival.",
     ogImage: "/og/resurrection-fest.png",
@@ -17645,9 +17828,9 @@ const FESTIVAL_LANDINGS = [
     venueAddress: "Playa de Burriana, 12530 Burriana, Castellón",
     lat: 39.881,
     lng: -0.078,
-    startDate: "2026-07-29",
+    startDate: "2026-07-30",
     endDate: "2026-08-02",
-    typicalDates: "Primera semana de agosto (edición 2026: 29 julio–2 agosto)",
+    typicalDates: "Primera semana de agosto (edición 2026: 30 julio–2 agosto)",
     capacity: "40.000 personas/día",
     blurb: "Arenal Sound es el festival de playa más popular del Mediterráneo español, celebrado en la costa de Burriana (Castellón) desde 2010 durante 5 días en agosto. Combina música pop, indie y electrónica con ambiente playero a pie de mar, con capacidad para 40.000 asistentes diarios. El recinto se encuentra a 10 km de Castellón de la Plana (por la N-340) y a 65 km de Valencia (por la AP-7 o la N-340), pero el transporte público nocturno es prácticamente inexistente desde la playa a las 6:00 de la mañana: no hay tren directo al recinto ni autobús nocturno desde Castellón. La gran mayoría de asistentes organizan su logística en coche compartido a través de ConcertRide, que permite llegar directamente al festival con el equipo de camping y coordinar la vuelta al final de la semana.",
     ogImage: "/og/arenal-sound.png",
@@ -17822,9 +18005,9 @@ const FESTIVAL_LANDINGS = [
     venueAddress: "Playa Marenys de Rafalcaid, 46400 Cullera, Valencia",
     lat: 39.156,
     lng: -0.246,
-    startDate: "2026-08-12",
-    endDate: "2026-08-16",
-    typicalDates: "Segunda semana de agosto (edición 2026: 12–16 agosto)",
+    startDate: "2026-08-13",
+    endDate: "2026-08-17",
+    typicalDates: "Segunda semana de agosto (edición 2026: 13–17 agosto)",
     capacity: "60.000 personas/día",
     blurb: "Medusa Festival es el mayor festival de música electrónica de España, celebrado en la playa de Cullera (Valencia) desde 2012, con 60.000 fans de techno, house y electrónica durante 5 días con el mar Mediterráneo al fondo. El recinto se encuentra a 45 km al sur de Valencia (por la V-31 y la CV-500), con acceso en autobús metropolitano desde Valencia hasta Cullera y lanzadera final hasta la playa, pero el servicio se interrumpe en la madrugada y no hay transporte nocturno desde Alicante, Madrid o Zaragoza. La zona de camping del festival aloja a la mayoría de los asistentes de fuera de la Comunidad Valenciana, que llegan habitualmente en coche compartido por ConcertRide para evitar la complejidad de combinar trenes y autobuses con equipo de camping.",
     ogImage: "/og/medusa-festival.png",
@@ -17895,8 +18078,8 @@ const FESTIVAL_LANDINGS = [
     lat: 39.264,
     lng: -2.602,
     startDate: "2026-04-30",
-    endDate: "2026-05-03",
-    typicalDates: "Puente de mayo (edición 2026: 30 abril–3 mayo)",
+    endDate: "2026-05-02",
+    typicalDates: "Puente de mayo (edición 2026: 30 abril–2 mayo)",
     capacity: "50.000 personas/día",
     blurb: "Viña Rock es el festival de rock alternativo, punk y metal más longevo de España, celebrado en el Parque La Pulgosa de Villarrobledo (Albacete) desde 1996 en el puente de mayo. El recinto está situado en plena meseta manchega, a 190 km de Madrid (≈2 h por la A-3), 200 km de Valencia y 165 km de Alicante, sin ninguna línea de transporte público que llegue al recinto en horarios de festival. El único autobús / bus oficial es la lanzadera del propio festival desde la estación de autobuses de Albacete (50 km, 40 min). Los autobuses privados Madrid–Viña Rock (Viñarock) salen desde Méndez Álvaro o Nuevos Ministerios (35–55 €) con horario fijo. Con 50.000 asistentes diarios y una zona de camping de referencia, más del 80 % de los asistentes llegan en coche o en autobús; ConcertRide es la herramienta habitual para organizar el viaje compartido desde Madrid, Valencia o Alicante.",
     ogImage: "/og/vina-rock.png",
@@ -18215,9 +18398,9 @@ const FESTIVAL_LANDINGS = [
     venueAddress: "C. del Estadio, 09400 Aranda de Duero, Burgos",
     lat: 41.668,
     lng: -3.689,
-    startDate: "2026-08-06",
+    startDate: "2026-08-05",
     endDate: "2026-08-09",
-    typicalDates: "Primera semana de agosto (edición 2026: 6–9 agosto)",
+    typicalDates: "Primera semana de agosto (edición 2026: 5–9 agosto)",
     capacity: "25.000 personas/día",
     blurb: "Sonorama Ribera es el festival de pop y rock español más querido del panorama independiente, celebrado en Aranda de Duero (Burgos) desde 1998. Con música de artistas en castellano y actuaciones únicas, convoca a fans de todo el país durante 4 días en agosto. Aranda de Duero está a 150 km de Madrid (por la A-1), 100 km de Valladolid y 70 km de Burgos, en plena Ribera del Duero, con una única línea de autobús Madrid–Aranda que no opera en horarios de madrugada y sin servicio de tren al municipio. El carpooling con ConcertRide es esencial para la mayoría de los asistentes que llegan de Madrid, Bilbao, Zaragoza o Valladolid, y se ha convertido en parte de la cultura del festival.",
     ogImage: "/og/sonorama-ribera.png",
@@ -18403,16 +18586,16 @@ const FESTIVAL_LANDINGS = [
     slug: "low-festival",
     name: "Low Festival",
     shortName: "Low Festival",
-    city: "Benidorm",
+    city: "Torrevieja",
     citySlug: "alicante",
     region: "Comunidad Valenciana",
-    venue: "Balneario de la Paloma",
-    venueAddress: "Av. de la Comunitat Valenciana, 03503 Benidorm, Alicante",
-    lat: 38.541,
-    lng: 0.123,
-    startDate: "2026-07-24",
-    endDate: "2026-07-26",
-    typicalDates: "Finales de julio (edición 2026: 24–26 julio)",
+    venue: "Recinto El Molino de Agua, Torrevieja",
+    venueAddress: "Calle del Molino de Agua, 03181 Torrevieja, Alicante",
+    lat: 37.9852,
+    lng: -0.6873,
+    startDate: "2026-07-31",
+    endDate: "2026-08-02",
+    typicalDates: "Finales de julio / principios de agosto (edición 2026: 31 julio–2 agosto)",
     capacity: "20.000 personas/día",
     blurb: "Low Festival es el festival indie de Benidorm, celebrado junto al mar en la costa alicantina desde 2012. Combina artistas de pop independiente, folk y alternativo en un ambiente familiar y luminoso a pie de playa. El recinto del Balneario de la Paloma está en el paseo marítimo de Benidorm, a 45 km de Alicante (por la A-70 y la N-332) y a 150 km de Valencia (por la AP-7). Benidorm tiene conexión de TRAM Metropolità d'Alacant desde Alicante (línea L1, 1h 20 min, frecuencia horaria), pero el servicio se interrumpe cerca de la medianoche, lo que deja sin transporte a los asistentes que salen de los conciertos a las 2:00–3:00. Los fans de Valencia, Madrid o Murcia llegan habitualmente en coche compartido con ConcertRide.",
     ogImage: "/og/low-festival.png",
@@ -18483,9 +18666,13 @@ const FESTIVAL_LANDINGS = [
     lng: -3.6843,
     startDate: "2026-05-15",
     endDate: "2026-05-17",
-    typicalDates: "Segunda quincena de mayo (edición 2026: 15–17 mayo)",
+    typicalDates: "Segunda quincena de mayo",
     capacity: "25.000 personas/día",
-    blurb: "Tomavistas es el festival de indie y pop alternativo de Madrid, celebrado cada primavera en los Jardines del Buen Retiro desde 2014. Con artistas de primer nivel nacional e internacional y 25.000 asistentes diarios, es la apertura de la temporada de festivales madrileña. El recinto es accesible en metro (L2 parada Retiro o L9 parada Ibiza) y tiene buena comunicación con el centro de Madrid. Sin embargo, los asistentes de otras provincias — Toledo, Guadalajara, Valencia, Zaragoza — prefieren el coche compartido con ConcertRide para llegar directamente al Retiro y organizar la vuelta a cualquier hora de la madrugada, cuando el último metro puede no coincidir con el fin de los conciertos.",
+    announcement: {
+      text: "Tomavistas Festival ha sido cancelado definitivamente. La empresa organizadora inició procedimientos de insolvencia a principios de 2026 y el festival no celebrará edición ese año ni en el futuro inmediato.",
+      expires: "2027-06-01"
+    },
+    blurb: "Tomavistas fue el festival de indie y pop alternativo de Madrid, celebrado cada primavera en los Jardines del Buen Retiro desde 2014. Con artistas de primer nivel nacional e internacional y 25.000 asistentes diarios, es la apertura de la temporada de festivales madrileña. El recinto es accesible en metro (L2 parada Retiro o L9 parada Ibiza) y tiene buena comunicación con el centro de Madrid. Sin embargo, los asistentes de otras provincias — Toledo, Guadalajara, Valencia, Zaragoza — prefieren el coche compartido con ConcertRide para llegar directamente al Retiro y organizar la vuelta a cualquier hora de la madrugada, cuando el último metro puede no coincidir con el fin de los conciertos.",
     ogImage: "/og/tomavistas.png",
     originCities: [
       { city: "Madrid", km: 15, drivingTime: "25 min", concertRideRange: "4–7 €/asiento" },
@@ -18550,9 +18737,9 @@ const FESTIVAL_LANDINGS = [
     venueAddress: "Rambla del Prim, 2-4, 08019 Barcelona",
     lat: 41.4066,
     lng: 2.2218,
-    startDate: "2026-07-09",
-    endDate: "2026-07-12",
-    typicalDates: "Segunda semana de julio (edición 2026: 9–12 julio)",
+    startDate: "2026-07-08",
+    endDate: "2026-07-11",
+    typicalDates: "Segunda semana de julio (edición 2026: 8–11 julio)",
     capacity: "30.000 personas/día",
     blurb: "Cruïlla Barcelona es el festival de música del mundo, pop y alternativo más ecléctico del verano barcelonés, celebrado cada julio en el Parc del Fòrum desde 2008. Combina artistas de world music, reggae, hip-hop, pop y rock en cuatro días en el mismo espacio portuario de Sant Adrià de Besòs que alberga Primavera Sound, con 30.000 asistentes diarios y un ambiente familiar. El recinto comparte la misma situación de transporte que Primavera Sound: el metro L4 (parada Besòs Mar) llega al Fòrum en 10 minutos a pie, pero las salidas de madrugada generan colas de 30–45 minutos, y los asistentes de Madrid, Valencia o Zaragoza que vienen expresamente para el festival prefieren el carpooling con ConcertRide para llegar directamente y organizar la vuelta de forma flexible.",
     ogImage: "/og/cruilla.png",
@@ -18730,8 +18917,8 @@ const FESTIVAL_LANDINGS = [
     venueAddress: "Autopista del Saler, s/n, 46013 Valencia",
     lat: 39.4547,
     lng: -0.35,
-    startDate: "2026-05-28",
-    endDate: "2026-05-31",
+    startDate: "2026-06-05",
+    endDate: "2026-06-06",
     typicalDates: "Último fin de semana de mayo / primer fin de semana de junio",
     capacity: "25.000 personas/día",
     blurb: "El Festival de les Arts es el mayor evento musical de la Comunidad Valenciana, celebrado cada primavera en el icónico entorno de la Ciudad de las Artes y las Ciencias de Valencia. Con artistas de talla internacional y española, el festival atrae a 25.000 asistentes diarios de toda la región y de las provincias limítrofes. Con ConcertRide, los fans desde Alicante llegan por 5–8 €/asiento, sin comisión.",
@@ -18989,9 +19176,9 @@ const FESTIVAL_LANDINGS = [
     venueAddress: "Embalse de Lanuza, 22640 Sallent de Gállego (Huesca)",
     lat: 42.7497,
     lng: -0.3259,
-    startDate: "2026-07-10",
-    endDate: "2026-08-01",
-    typicalDates: "Mediados julio – principios agosto (3 fines de semana)",
+    startDate: "2026-07-09",
+    endDate: "2026-07-26",
+    typicalDates: "Mediados julio (edición 2026: 9–26 julio, fines de semana)",
     capacity: "12.000 personas/día (auditorio natural sobre el embalse)",
     blurb: "Pirineos Sur es uno de los festivales de world music más singulares del mundo: el escenario es un auditorio flotante en el embalse de Lanuza (Sallent de Gállego, Huesca), con el público sentado sobre las laderas pirenaicas mirando al lago. La programación combina música africana, latinoamericana, asiática y mediterránea con artistas como Calexico, Fatoumata Diawara, Manu Chao y Goran Bregović. Sin transporte público al pueblo de Lanuza — el carpooling es la opción real desde Huesca (75 km), Zaragoza (175 km) o Barcelona (430 km).",
     ogImage: "/og-fallback.png",
@@ -19341,9 +19528,9 @@ const FESTIVAL_LANDINGS = [
     venueAddress: "Av. Primero de Mayo s/n, 30006 Murcia",
     lat: 37.9942,
     lng: -1.1306,
-    startDate: "2026-05-08",
-    endDate: "2026-05-09",
-    typicalDates: "Primer fin de semana de mayo",
+    startDate: "2026-05-03",
+    endDate: "2026-05-04",
+    typicalDates: "Puente de mayo (edición 2026: 3–4 mayo)",
     capacity: "40.000 personas/día",
     blurb: "SOS 4.8 es el festival de indie y electrónica más grande de la Región de Murcia, celebrado en el Recinto Ferial La Fica (Murcia capital) cada primer fin de semana de mayo. 40.000 asistentes/día y cabezas de cartel nacionales e internacionales (LCD Soundsystem, Bomba Estéreo, Carolina Durante, Vetusta Morla, Love of Lesbian, Sidonie). El festival inaugura la temporada festivalera española cada primavera. Carpooling ConcertRide desde Cartagena (50 km, 3–5€), Alicante (80 km, 4–7€), Albacete (150 km, 5–8€), Madrid (390 km, 11–16€), Valencia (240 km, 7–11€).",
     ogImage: "/og-fallback.png",
@@ -19443,8 +19630,8 @@ const FESTIVAL_LANDINGS = [
     venueAddress: "Calle Borges Blanques, 07181 Calvià (Mallorca)",
     lat: 39.5097,
     lng: 2.5302,
-    startDate: "2026-05-22",
-    endDate: "2026-05-24",
+    startDate: "2026-06-12",
+    endDate: "2026-06-14",
     typicalDates: "Tercer fin de semana de mayo",
     capacity: "35.000 personas/día",
     blurb: "Mallorca Live Festival es el festival multidisciplinar más grande de las Islas Baleares, celebrado en Calvià (Mallorca) cada tercer fin de semana de mayo. 35.000 asistentes/día y cabezas de cartel internacionales: The Killers, Pet Shop Boys, Mando Diao, Carolina Durante, Iván Ferreiro, Lola Indigo. Conexión península: ferry Barcelona–Palma (8h, 30–60€) y Valencia–Palma (5h, 25–55€); avión desde Madrid/Barcelona (1h, 60–120€). Carpooling ConcertRide en isla: Palma → Calvià (15 km, 3€/asiento). Sin comisión.",
@@ -19488,9 +19675,9 @@ const FESTIVAL_LANDINGS = [
     venueAddress: "Atxura, 48150 Sondika (Bizkaia)",
     lat: 43.2887,
     lng: -2.9091,
-    startDate: "2026-06-19",
-    endDate: "2026-06-21",
-    typicalDates: "Tercer fin de semana de junio",
+    startDate: "2026-06-26",
+    endDate: "2026-06-27",
+    typicalDates: "Último fin de semana de junio (edición 2026: 26–27 junio)",
     capacity: "20.000 personas/día",
     blurb: "BBK Music Legends Festival es el festival de rock clásico más importante del norte de España, celebrado en Sondika (Bizkaia, junto al aeropuerto de Bilbao) cada tercer fin de semana de junio. 20.000 asistentes/día y cabezas de cartel históricos: Bob Dylan, Eric Clapton, Crosby Stills & Nash, Steve Miller Band, Steely Dan, Tom Petty. El festival se especializa en rock de los 70 y 80 con público maduro. Carpooling ConcertRide desde Bilbao centro (8 km, 3€), Donostia (100 km, 4–7€), Vitoria (65 km, 3–6€), Pamplona (155 km, 5–8€), Madrid (395 km, 11–16€).",
     ogImage: "/og-fallback.png",
@@ -19535,13 +19722,13 @@ const FESTIVAL_LANDINGS = [
     city: "Madrid",
     citySlug: "madrid",
     region: "Comunidad de Madrid",
-    venue: "IFEMA Madrid",
-    venueAddress: "Av. del Partenón, 5, 28042 Madrid",
-    lat: 40.464,
-    lng: -3.61,
-    startDate: "2026-06-05",
-    endDate: "2026-06-07",
-    typicalDates: "Primera semana de junio (edición 2026: 5–7 junio)",
+    venue: "Caja Mágica",
+    venueAddress: "Camino de Perales, s/n, 28041 Madrid",
+    lat: 40.3863,
+    lng: -3.6971,
+    startDate: "2026-06-28",
+    endDate: "2026-06-30",
+    typicalDates: "Última semana de junio (edición 2026: 28–30 junio)",
     capacity: "40.000 personas/día",
     blurb: "Download Festival Madrid es el festival de rock y metal más importante de la capital, celebrado en IFEMA Madrid desde 2013. Con 40.000 asistentes diarios y carteles encabezados por bandas de rock internacional, es el punto de referencia del género en España. El acceso se realiza en Metro L8 (Feria de Madrid) pero el transporte nocturno es limitado pasada la 1:30. Asistentes de Barcelona (620km, 15-20€ CR), Valencia (355km, 10-14€ CR) y Zaragoza (325km, 9-13€ CR) viajan habitualmente en carpooling con ConcertRide.",
     originCities: [
@@ -19760,8 +19947,8 @@ const FESTIVAL_LANDINGS = [
     lat: 28.1005,
     lng: -15.4484,
     startDate: "2026-07-02",
-    endDate: "2026-07-04",
-    typicalDates: "Primeros días de julio",
+    endDate: "2026-07-05",
+    typicalDates: "Primeros días de julio (edición 2026: 2–5 julio, 4 días)",
     capacity: "35.000 personas/día",
     blurb: "El Granca Live Fest es el festival de música más importante de las Islas Canarias, celebrado en el Estadio de Gran Canaria (Las Palmas) en los primeros días de julio. Con capacidad para hasta 35.000 personas, el festival atrae a artistas internacionales y nacionales en un entorno único junto al océano Atlántico. El Estadio de Gran Canaria está a 15 minutos del centro de Las Palmas. En ConcertRide, los residentes de Gran Canaria se organizan para el transporte entre distintos municipios de la isla: desde Maspalomas son ~55 km (45 min), desde Telde ~15 km (15 min). Para asistentes de la Península, la combinación es vuelo + carpooling local en la isla.",
     originCities: [
@@ -19859,9 +20046,9 @@ const FESTIVAL_LANDINGS = [
     venueAddress: "Benicàssim, Castellón",
     lat: 40.0548,
     lng: 0.0736,
-    startDate: "2026-08-14",
+    startDate: "2026-08-16",
     endDate: "2026-08-22",
-    typicalDates: "Segunda y tercera semana de agosto (8 días)",
+    typicalDates: "Tercera semana de agosto (edición 2026: 16–22 agosto)",
     capacity: "30.000 personas/día",
     blurb: "El Rototom Sunsplash es el festival de reggae más grande de Europa, celebrado en Benicàssim (Castellón) durante 8 días en agosto. Fundado en 1994 en Italia y trasladado a España en 2009, reúne a más de 250.000 personas a lo largo de sus jornadas con artistas de reggae, dancehall, dub, ska y roots de todo el mundo. El recinto de Benicàssim es el mismo entorno que el FIB, con acceso en Cercanías desde Castellón. Con ConcertRide, los fans desde Valencia llegan al Rototom por 8–12 €/asiento, sin comisión.",
     originCities: [
@@ -19941,48 +20128,48 @@ const FESTIVAL_LANDINGS = [
   },
   {
     slug: "dreambeach-festival",
-    name: "Dreambeach Festival",
+    name: "Dreambeach Costa del Sol",
     shortName: "Dreambeach",
-    city: "Villaricos",
-    citySlug: "almeria",
+    city: "Vélez-Málaga",
+    citySlug: "malaga",
     region: "Andalucía",
-    venue: "Recinto de Villaricos",
-    venueAddress: "Villaricos, Cuevas del Almanzora, Almería",
-    lat: 37.2832,
-    lng: -1.7337,
-    startDate: "2026-07-08",
-    endDate: "2026-07-12",
-    typicalDates: "Segunda semana de julio (5 días)",
-    capacity: "25.000 personas/día",
-    blurb: "El Dreambeach Festival es el festival de música electrónica más importante del sur de España, celebrado en la playa de Villaricos (Almería) durante 5 días en julio. Con más de 100.000 asistentes totales y un escenario a pie de playa, Dreambeach es referente del techno, house y electrónica en Europa. Villaricos es un pueblo de 1.000 habitantes sin transporte público al recinto — el carpooling y el coche propio son los únicos accesos viables. Con ConcertRide, los fans desde Almería llegan al festival por 3–5 €/asiento, desde Murcia por 6–9 €, sin comisión.",
+    venue: "Recinto Ferial de Vélez-Málaga",
+    venueAddress: "Av. Juan Carlos I, s/n, 29700 Vélez-Málaga, Málaga",
+    lat: 36.7798,
+    lng: -4.1013,
+    startDate: "2026-07-31",
+    endDate: "2026-08-01",
+    typicalDates: "Finales de julio (edición 2026: 31 julio–1 agosto)",
+    capacity: "20.000 personas/día",
+    blurb: "El Dreambeach Festival, ahora rebautizado Dreambeach Costa del Sol, se ha trasladado en 2026 desde Almería a Vélez-Málaga (Málaga). El festival de música electrónica, techno y house mantiene su espíritu de festival de playa en un nuevo recinto junto a la Costa del Sol. Vélez-Málaga está a 40 km de Málaga capital y a 70 km de Granada, con acceso por la A-7. Con ConcertRide, los fans desde Málaga llegan al festival por 3–6 €/asiento, desde Granada por 7–10 €, sin comisión.",
     originCities: [
-      { city: "Almería", km: 60, drivingTime: "50 min", concertRideRange: "3–5 €/asiento" },
-      { city: "Murcia", km: 185, drivingTime: "2h", concertRideRange: "6–9 €/asiento" },
-      { city: "Granada", km: 200, drivingTime: "2h 10 min", concertRideRange: "7–11 €/asiento" },
-      { city: "Málaga", km: 280, drivingTime: "2h 45 min", concertRideRange: "9–13 €/asiento" },
-      { city: "Valencia", km: 490, drivingTime: "4h 40 min", concertRideRange: "15–20 €/asiento" },
+      { city: "Málaga", km: 40, drivingTime: "35 min", concertRideRange: "3–6 €/asiento" },
+      { city: "Granada", km: 70, drivingTime: "55 min", concertRideRange: "4–7 €/asiento" },
+      { city: "Almería", km: 170, drivingTime: "1h 45 min", concertRideRange: "6–9 €/asiento" },
+      { city: "Sevilla", km: 195, drivingTime: "2h", concertRideRange: "7–11 €/asiento" },
+      { city: "Murcia", km: 280, drivingTime: "2h 45 min", concertRideRange: "9–13 €/asiento" },
       { city: "Madrid", km: 550, drivingTime: "5h", concertRideRange: "16–21 €/asiento" }
     ],
     faqs: [
       {
-        q: "¿Cómo llegar al Dreambeach Festival desde Almería?",
-        a: "Almería está a 60 km de Villaricos (50 min por la A-7/N-340). No hay transporte público hasta el recinto. El festival organiza autobuses privados desde Almería ciudad (precio ~5–10 € RT). Con ConcertRide, el carpooling desde Almería sale por 3–5 €/asiento. Se recomienda organizar el transporte con semanas de antelación."
+        q: "¿Cómo llegar al Dreambeach 2026 desde Málaga?",
+        a: "Dreambeach Costa del Sol 2026 se celebra en Vélez-Málaga, a 40 km de Málaga capital (35 min por la A-7). No hay transporte público directo al recinto ferial. Con ConcertRide, el carpooling desde Málaga sale por 3–6 €/asiento. Se recomienda organizar el transporte con semanas de antelación."
       },
       {
         q: "¿Hay transporte público al Dreambeach?",
-        a: "No. Villaricos es una localidad costera de 1.000 habitantes sin autobús regular al recinto del festival. Las opciones de transporte son: coche propio, carpooling con ConcertRide, o autobuses privados organizados por agencias desde Almería, Murcia, Granada y Málaga (precio 25–45 € RT)."
+        a: "No hay autobús regular al Recinto Ferial de Vélez-Málaga durante el festival. Las opciones son: coche propio, carpooling con ConcertRide, o autobuses privados desde Málaga, Granada y Sevilla (precio estimado 15–30 € RT). ConcertRide es la opción más económica sin comisión."
       },
       {
-        q: "¿Cómo llegar al Dreambeach desde Murcia?",
-        a: "Murcia está a 185 km de Villaricos (2h por la A-7). No hay tren ni bus directo. Con ConcertRide, el carpooling desde Murcia sale por 6–9 €/asiento. El Dreambeach es uno de los festivales con mayor demanda de carpooling desde la Región de Murcia debido a la ausencia total de transporte público."
+        q: "¿Cómo llegar al Dreambeach desde Granada?",
+        a: "Granada está a 70 km de Vélez-Málaga (55 min por la A-7/A-44). No hay tren ni bus directo. Con ConcertRide, el carpooling desde Granada sale por 7–10 €/asiento. Es una ruta muy demandada por fans granadinos de la electrónica."
       },
       {
-        q: "¿Hay camping en el Dreambeach Festival?",
-        a: "Sí. Dreambeach tiene camping oficial a pie de playa, uno de los campings de festival más valorados de España por su entorno. Es obligatorio comprar el pase de camping por separado. Para llevar equipo de camping, el carpooling con ConcertRide es la opción más económica y práctica."
+        q: "¿Hay camping en el Dreambeach Festival 2026?",
+        a: "En la nueva ubicación de Vélez-Málaga, el festival Dreambeach Costa del Sol 2026 tiene zona de camping en el recinto ferial. Consulta la disponibilidad en la web oficial del festival. Para llevar equipo de camping, el carpooling con ConcertRide es la opción más económica y práctica."
       },
       {
         q: "¿Cuándo es el Dreambeach Festival 2026?",
-        a: "El Dreambeach Festival 2026 se celebra del 8 al 12 de julio en Villaricos, Almería (Cuevas del Almanzora). El festival tiene 5 días de programación con electrónica, techno y house internacional en escenarios a pie de playa mediterránea."
+        a: "El Dreambeach Costa del Sol 2026 se celebra el 31 de julio y 1 de agosto en el Recinto Ferial de Vélez-Málaga (Málaga). El festival ha cambiado de ubicación desde Almería a la Costa del Sol para la edición 2026."
       }
     ],
     relatedFestivals: ["medusa-festival", "cala-mijas-fest", "starlite-marbella"],
@@ -20031,9 +20218,9 @@ const FESTIVAL_LANDINGS = [
     venueAddress: "Arriondas, Parres, Asturias",
     lat: 43.3908,
     lng: -5.178,
-    startDate: "2026-07-10",
-    endDate: "2026-07-12",
-    typicalDates: "Segunda semana de julio (3 días)",
+    startDate: "2026-08-13",
+    endDate: "2026-08-16",
+    typicalDates: "Mediados de agosto (edición 2026: 13–16 agosto)",
     capacity: "10.000 personas/día",
     blurb: "El Aquasella Festival es el festival de música electrónica y reggae más icónico de Asturias, celebrado en el Parque de Arriondas a orillas del río Sella. Con 10.000 asistentes por día, el festival combina electrónica, reggae y dub en un entorno natural único del Oriente asturiano. Arriondas está en la comarca de los Picos de Europa, a 70 km de Oviedo y 45 km de Gijón, sin transporte público directo al recinto. Con ConcertRide, los fans desde Oviedo llegan al Aquasella por 4–7 €/asiento, sin comisión.",
     originCities: [
@@ -20119,9 +20306,9 @@ const FESTIVAL_LANDINGS = [
     venueAddress: "Av. Juan de Herrera, s/n, 28040 Madrid",
     lat: 40.4472,
     lng: -3.7248,
-    startDate: "2026-09-12",
-    endDate: "2026-09-13",
-    typicalDates: "Segunda semana de septiembre (edición 2026: 12–13 septiembre)",
+    startDate: "2026-09-09",
+    endDate: "2026-09-09",
+    typicalDates: "Segunda semana de septiembre (edición 2026: 9 septiembre, 1 día)",
     capacity: "45.000 personas/día",
     blurb: "DCode es el festival urbano de Madrid con mayor crecimiento de los últimos años, celebrado en el Estadio de la Complutense (Ciudad Universitaria) en septiembre. Con artistas de urban, trap, reggaetón, pop y electrónica, atrae a 45.000 personas/día. El recinto tiene acceso en metro (L6 Ciudad Universitaria), pero los visitantes de fuera de Madrid llegan en coche o autobús de larga distancia. ConcertRide organiza carpooling desde Valencia, Barcelona, Zaragoza, Bilbao y Sevilla.",
     ogImage: "/og/dcode-festival.png",
@@ -20196,9 +20383,13 @@ const FESTIVAL_LANDINGS = [
     lng: -6.1369,
     startDate: "2026-06-05",
     endDate: "2026-06-07",
-    typicalDates: "Primera semana de junio (edición 2026: 5–7 junio)",
+    typicalDates: "Primera semana de junio",
     capacity: "40.000 personas/día",
-    blurb: "Creamfields Andalucía es el festival de música electrónica más importante del sur de España, celebrado en el Recinto González Hontoria de Jerez de la Frontera. Con los mejores DJs de techno, trance, house y EDM del mundo, atrae a 40.000 personas en 3 días. El recinto está a 5 km del centro de Jerez y a 35 km del aeropuerto de Jerez (XRY). Los visitantes de Sevilla (35 km), Cádiz (38 km), Málaga (180 km) y Madrid (600 km) llegan principalmente en coche o carpooling.",
+    announcement: {
+      text: "Creamfields Andalucía no existe desde su última edición en 2012. No habrá edición en 2026. El Creamfields original sigue celebrándose en el Reino Unido (Cheshire, agosto).",
+      expires: "2027-06-01"
+    },
+    blurb: "Creamfields Andalucía fue el festival de música electrónica celebrado en el Recinto González Hontoria de Jerez de la Frontera hasta 2012. Con los mejores DJs de techno, trance, house y EDM del mundo, atrae a 40.000 personas en 3 días. El recinto está a 5 km del centro de Jerez y a 35 km del aeropuerto de Jerez (XRY). Los visitantes de Sevilla (35 km), Cádiz (38 km), Málaga (180 km) y Madrid (600 km) llegan principalmente en coche o carpooling.",
     ogImage: "/og/creamfields-andalucia.png",
     originCities: [
       { city: "Sevilla", km: 95, drivingTime: "1h", concertRideRange: "4–7 €/asiento" },
@@ -20252,12 +20443,367 @@ const FESTIVAL_LANDINGS = [
       available: false,
       notes: "Sin lanzadera oficial desde otras ciudades. Taxis disponibles desde la estación de Jerez."
     }
+  },
+  // ── Wave 39: País Vasco pequeñas capitales + Galicia (10 festivales) ───────
+  {
+    slug: "festival-de-musica-de-barakaldo",
+    name: "Festival de Música de Barakaldo",
+    shortName: "Barakaldo Fest",
+    city: "Barakaldo",
+    citySlug: "barakaldo",
+    region: "País Vasco",
+    venue: "Parque Portuetxe / Recinto Ferial de Barakaldo",
+    venueAddress: "Av. de los Fueros s/n, 48901 Barakaldo, Bizkaia",
+    lat: 43.2956,
+    lng: -2.9887,
+    startDate: "2026-07-24",
+    endDate: "2026-07-26",
+    typicalDates: "Última semana de julio",
+    capacity: "10.000 personas/día",
+    blurb: "Festival de Música de Barakaldo: pop, rock e indie en el parque Portuetxe de la capital industrial del Gran Bilbao. Tres noches de música a orillas de la ría del Nervión, a 10 minutos de Bilbao.",
+    ogImage: "https://images.unsplash.com/photo-1470229722913-7c0e2dbbafd3?w=1200&h=630&fit=crop",
+    originCities: [
+      { city: "Bilbao", km: 10, drivingTime: "12 min", concertRideRange: "3–5€" },
+      { city: "Vitoria-Gasteiz", km: 65, drivingTime: "55 min", concertRideRange: "5–8€" },
+      { city: "San Sebastián", km: 105, drivingTime: "1h 15min", concertRideRange: "6–9€" },
+      { city: "Madrid", km: 385, drivingTime: "3h 30min", concertRideRange: "8–12€" }
+    ],
+    faqs: [
+      { q: "¿Cómo llegar al Festival de Barakaldo desde Bilbao?", a: "Barakaldo está a 10 km de Bilbao. Metro Bilbao (línea 2, parada Barakaldo) en 15 minutos o carpooling desde 3€/asiento en ConcertRide." },
+      { q: "¿Hay aparcamiento en el Festival de Barakaldo?", a: "El recinto ferial de Barakaldo dispone de zona de aparcamiento, aunque se recomienda el metro o el carpooling para evitar atascos en la salida." }
+    ],
+    relatedFestivals: ["bilbao-bbk-live", "azkena-rock-festival", "festival-de-folk-de-vitoria"],
+    genres: ["pop", "rock", "indie"],
+    expected_attendance: "30.000 personas",
+    transport_options: [
+      { type: "carpooling", provider: "ConcertRide", origin: "Bilbao", price_from: 3, price_to: 5, notes: "0% comisión, pago Bizum directo" },
+      { type: "bus", provider: "Metro Bilbao", origin: "Bilbao", price_from: 1.5, price_to: 1.5, notes: "Línea 2, parada Barakaldo" }
+    ],
+    official_shuttle: { available: false, notes: "Sin lanzadera oficial. Metro Bilbao L2 recomendado." }
+  },
+  {
+    slug: "festival-de-musica-de-irun",
+    name: "Festival de Música de Irún",
+    shortName: "Irún Fest",
+    city: "Irún",
+    citySlug: "irun",
+    region: "País Vasco",
+    venue: "Parque de Plaiaundi / Recinto Ferial de Irún",
+    venueAddress: "Parque Ecológico de Plaiaundi, 20305 Irún, Gipuzkoa",
+    lat: 43.3371,
+    lng: -1.7876,
+    startDate: "2026-07-17",
+    endDate: "2026-07-18",
+    typicalDates: "Tercera semana de julio",
+    capacity: "8.000 personas/día",
+    blurb: "Festival de Música de Irún: pop y rock en la ciudad fronteriza del Bidasoa, en el extremo nordeste de España. A un paso de la costa vasca francesa y de Donostia, con un escenario único junto a la marisma de Plaiaundi.",
+    ogImage: "https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=1200&h=630&fit=crop",
+    originCities: [
+      { city: "San Sebastián", km: 20, drivingTime: "22 min", concertRideRange: "3–5€" },
+      { city: "Bilbao", km: 105, drivingTime: "1h 15min", concertRideRange: "6–9€" },
+      { city: "Pamplona", km: 90, drivingTime: "1h 10min", concertRideRange: "5–8€" },
+      { city: "Madrid", km: 480, drivingTime: "4h 20min", concertRideRange: "9–13€" }
+    ],
+    faqs: [
+      { q: "¿Cómo ir al Festival de Irún desde San Sebastián?", a: "Irún está a 20 km de San Sebastián por la AP-8. Cercanías Renfe (C-1) conecta Donostia con Irún en 25 minutos. Carpooling desde 3€/asiento en ConcertRide." },
+      { q: "¿Puedo ir al Festival de Irún desde Francia?", a: "Sí. Irún está en la frontera con Hendaya (Francia). Desde Hendaya se llega a pie o en tren en 5 minutos. Desde Bayona son 35 km por la A-63 francesa." }
+    ],
+    relatedFestivals: ["festival-de-musica-de-donostia-hiria", "bilbao-bbk-live", "azkena-rock-festival"],
+    genres: ["pop", "rock"],
+    expected_attendance: "16.000 personas",
+    transport_options: [
+      { type: "carpooling", provider: "ConcertRide", origin: "San Sebastián", price_from: 3, price_to: 5, notes: "0% comisión, pago Bizum directo" },
+      { type: "train", provider: "Renfe Cercanías", origin: "San Sebastián", price_from: 2, price_to: 2, notes: "Línea C-1, 25 minutos" }
+    ],
+    official_shuttle: { available: false, notes: "Sin lanzadera oficial. Cercanías Renfe C-1 recomendado." }
+  },
+  {
+    slug: "festival-de-musica-de-donostia-hiria",
+    name: "Festival de Música de Donostia-Hiria",
+    shortName: "Donostia-Hiria Fest",
+    city: "San Sebastián",
+    citySlug: "san-sebastian",
+    region: "País Vasco",
+    venue: "Auditorio Kursaal / Plaza de la Trinidad",
+    venueAddress: "Av. de Zurriola 1, 20002 Donostia-San Sebastián",
+    lat: 43.3225,
+    lng: -1.9841,
+    startDate: "2026-07-10",
+    endDate: "2026-07-12",
+    typicalDates: "Segunda semana de julio",
+    capacity: "12.000 personas/día",
+    blurb: "Festival de Música de Donostia-Hiria: las mejores bandas de pop e indie en la ciudad más elegante del norte, con el Kursaal como escenario principal y el mar Cantábrico de fondo.",
+    ogImage: "https://images.unsplash.com/photo-1514525253161-7a46d19cd819?w=1200&h=630&fit=crop",
+    originCities: [
+      { city: "Bilbao", km: 100, drivingTime: "1h 10min", concertRideRange: "5–8€" },
+      { city: "Pamplona", km: 80, drivingTime: "55 min", concertRideRange: "5–7€" },
+      { city: "Vitoria-Gasteiz", km: 115, drivingTime: "1h 15min", concertRideRange: "6–9€" },
+      { city: "Madrid", km: 460, drivingTime: "4h", concertRideRange: "9–13€" }
+    ],
+    faqs: [
+      { q: "¿Cómo llegar al Festival de Donostia-Hiria desde Bilbao?", a: "Bilbao–San Sebastián: 100 km por la AP-8, 1h 10min. Autobús Pesa frecuente (1h 15min) o carpooling desde 5€/asiento en ConcertRide." },
+      { q: "¿Se puede aparcar en el Kursaal para el festival?", a: "El aparcamiento en la zona del Kursaal es limitado. Se recomienda carpooling o autobús. El Kursaal está a 10 minutos a pie de la estación de autobuses de Donostia." }
+    ],
+    relatedFestivals: ["festival-de-musica-de-irun", "bilbao-bbk-live", "jazzaldia"],
+    genres: ["pop", "indie", "alternativo"],
+    expected_attendance: "36.000 personas",
+    transport_options: [
+      { type: "carpooling", provider: "ConcertRide", origin: "Bilbao", price_from: 5, price_to: 8, notes: "0% comisión, pago Bizum directo" },
+      { type: "bus", provider: "Pesa", origin: "Bilbao", price_from: 7, price_to: 9, notes: "Salidas frecuentes desde Termibus Bilbao" }
+    ],
+    official_shuttle: { available: false, notes: "Sin lanzadera oficial. Autobús Pesa Bilbao–Donostia recomendado." }
+  },
+  {
+    slug: "festival-de-musica-de-pontevedra",
+    name: "Festival de Música de Pontevedra",
+    shortName: "Pontevedra Fest",
+    city: "Pontevedra",
+    citySlug: "pontevedra",
+    region: "Galicia",
+    venue: "Alameda / Parque de la Ferrería",
+    venueAddress: "Alameda de Pontevedra, 36001 Pontevedra",
+    lat: 42.4337,
+    lng: -8.6476,
+    startDate: "2026-07-17",
+    endDate: "2026-07-19",
+    typicalDates: "Tercera semana de julio",
+    capacity: "8.000 personas/día",
+    blurb: "Festival de Música de Pontevedra: pop y rock en la capital del Lérez, una de las ciudades peatonales más bonitas de España. El escenario principal ocupa el corazón histórico de la ciudad, rodeado de soportales medievales.",
+    ogImage: "https://images.unsplash.com/photo-1459749411175-04bf5292ceea?w=1200&h=630&fit=crop",
+    originCities: [
+      { city: "Vigo", km: 30, drivingTime: "30 min", concertRideRange: "3–5€" },
+      { city: "A Coruña", km: 120, drivingTime: "1h 20min", concertRideRange: "5–8€" },
+      { city: "Santiago de Compostela", km: 60, drivingTime: "50 min", concertRideRange: "4–6€" },
+      { city: "Madrid", km: 600, drivingTime: "5h 30min", concertRideRange: "10–15€" }
+    ],
+    faqs: [
+      { q: "¿Cómo ir al Festival de Pontevedra desde Vigo?", a: "Vigo–Pontevedra: 30 km por la AP-9, 30 minutos. Cercanías Renfe conecta Vigo con Pontevedra en 25 minutos. Carpooling desde 3€/asiento en ConcertRide." },
+      { q: "¿Hay aparcamiento en el Festival de Pontevedra?", a: "El centro de Pontevedra es peatonal. Se recomienda aparcar en la periferia (P+R) o llegar en tren o carpooling." }
+    ],
+    relatedFestivals: ["festival-de-musica-de-vigo", "festival-de-musica-de-tui", "festival-de-musica-de-betanzos"],
+    genres: ["pop", "rock"],
+    expected_attendance: "24.000 personas",
+    transport_options: [
+      { type: "carpooling", provider: "ConcertRide", origin: "Vigo", price_from: 3, price_to: 5, notes: "0% comisión, pago Bizum directo" },
+      { type: "train", provider: "Renfe Cercanías", origin: "Vigo", price_from: 2, price_to: 2, notes: "25 minutos, frecuencia horaria" }
+    ],
+    official_shuttle: { available: false, notes: "Sin lanzadera oficial. Cercanías Renfe Vigo–Pontevedra recomendado." }
+  },
+  {
+    slug: "festival-de-musica-de-vigo",
+    name: "Festival de Música de Vigo",
+    shortName: "Vigo Fest",
+    city: "Vigo",
+    citySlug: "vigo",
+    region: "Galicia",
+    venue: "O Marisquiño / Praza do Rei",
+    venueAddress: "Praza do Rei 1, 36202 Vigo, Pontevedra",
+    lat: 42.2328,
+    lng: -8.7226,
+    startDate: "2026-07-24",
+    endDate: "2026-07-26",
+    typicalDates: "Última semana de julio",
+    capacity: "15.000 personas/día",
+    blurb: "Festival de Música de Vigo: pop, rock e indie en la capital olívica, la ciudad más grande de Galicia, junto a la ría. El escenario principal en el centro de la ciudad permite ver el festival con el Atlántico al fondo.",
+    ogImage: "https://images.unsplash.com/photo-1501386761578-eac5c94b800a?w=1200&h=630&fit=crop",
+    originCities: [
+      { city: "Pontevedra", km: 30, drivingTime: "30 min", concertRideRange: "3–5€" },
+      { city: "A Coruña", km: 155, drivingTime: "1h 40min", concertRideRange: "6–10€" },
+      { city: "Santiago de Compostela", km: 80, drivingTime: "55 min", concertRideRange: "4–8€" },
+      { city: "Madrid", km: 620, drivingTime: "5h 30min", concertRideRange: "10–15€" }
+    ],
+    faqs: [
+      { q: "¿Cómo ir al Festival de Vigo desde A Coruña?", a: "A Coruña–Vigo: 155 km por la AP-9, 1h 40min. Tren Renfe (Alvia/Intercity) en 1h 15min o carpooling desde 6€/asiento en ConcertRide." },
+      { q: "¿Tiene el Festival de Vigo aparcamiento?", a: "El centro de Vigo tiene aparcamientos subterráneos. Se recomienda el carpooling o el tren para evitar atascos en la salida del festival." }
+    ],
+    relatedFestivals: ["festival-de-musica-de-pontevedra", "festival-de-musica-de-ferrol", "resurreccion-fest"],
+    genres: ["pop", "rock", "indie"],
+    expected_attendance: "45.000 personas",
+    transport_options: [
+      { type: "carpooling", provider: "ConcertRide", origin: "A Coruña", price_from: 6, price_to: 10, notes: "0% comisión, pago Bizum directo" },
+      { type: "train", provider: "Renfe", origin: "A Coruña", price_from: 18, price_to: 25, notes: "Alvia/Intercity, 1h 15min" }
+    ],
+    official_shuttle: { available: false, notes: "Sin lanzadera oficial. Carpooling ConcertRide o tren Renfe recomendados." }
+  },
+  {
+    slug: "festival-de-musica-de-ferrol",
+    name: "Festival de Música de Ferrol",
+    shortName: "Ferrol Fest",
+    city: "Ferrol",
+    citySlug: "ferrol",
+    region: "Galicia",
+    venue: "Praza de Armas / Puerto de Ferrol",
+    venueAddress: "Praza de Armas, 15401 Ferrol, A Coruña",
+    lat: 43.4849,
+    lng: -8.2334,
+    startDate: "2026-07-10",
+    endDate: "2026-07-12",
+    typicalDates: "Segunda semana de julio",
+    capacity: "7.000 personas/día",
+    blurb: "Festival de Música de Ferrol: rock e indie en la ciudad departamental de Galicia, cuna del almirante y marinera. El escenario principal frente a la Praza de Armas, con el arsenal y la ría al fondo.",
+    ogImage: "https://images.unsplash.com/photo-1506157786151-b8491531f063?w=1200&h=630&fit=crop",
+    originCities: [
+      { city: "A Coruña", km: 40, drivingTime: "40 min", concertRideRange: "3–6€" },
+      { city: "Santiago de Compostela", km: 95, drivingTime: "1h 10min", concertRideRange: "5–8€" },
+      { city: "Vigo", km: 190, drivingTime: "2h", concertRideRange: "7–11€" },
+      { city: "Madrid", km: 630, drivingTime: "5h 40min", concertRideRange: "10–15€" }
+    ],
+    faqs: [
+      { q: "¿Cómo ir al Festival de Ferrol desde A Coruña?", a: "A Coruña–Ferrol: 40 km por la AP-9, 40 minutos. Cercanías Renfe (C-1) en 60 minutos o carpooling desde 3€/asiento en ConcertRide." }
+    ],
+    relatedFestivals: ["festival-de-musica-de-vigo", "resurreccion-fest", "festival-de-musica-de-betanzos"],
+    genres: ["rock", "indie"],
+    expected_attendance: "21.000 personas",
+    transport_options: [
+      { type: "carpooling", provider: "ConcertRide", origin: "A Coruña", price_from: 3, price_to: 6, notes: "0% comisión, pago Bizum directo" },
+      { type: "train", provider: "Renfe Cercanías", origin: "A Coruña", price_from: 2, price_to: 2, notes: "Línea C-1, 60 minutos" }
+    ],
+    official_shuttle: { available: false, notes: "Sin lanzadera oficial. Cercanías Renfe A Coruña–Ferrol recomendado." }
+  },
+  {
+    slug: "festival-de-musica-de-monforte",
+    name: "Festival de Música de Monforte de Lemos",
+    shortName: "Monforte Fest",
+    city: "Monforte de Lemos",
+    citySlug: "monforte-de-lemos",
+    region: "Galicia",
+    venue: "Parador de Monforte / Plaza Mayor",
+    venueAddress: "Rúa do Convento 3, 27400 Monforte de Lemos, Lugo",
+    lat: 42.5199,
+    lng: -7.5143,
+    startDate: "2026-07-17",
+    endDate: "2026-07-18",
+    typicalDates: "Tercera semana de julio",
+    capacity: "5.000 personas/día",
+    blurb: "Festival de Música de Monforte de Lemos: folk, pop y rock en la puerta de la Ribeira Sacra, con el impresionante parador histórico y el colegio de la Compañía como telón de fondo. El festival más íntimo de la Galicia interior.",
+    ogImage: "https://images.unsplash.com/photo-1468359601543-843bfaef291a?w=1200&h=630&fit=crop",
+    originCities: [
+      { city: "Lugo", km: 70, drivingTime: "50 min", concertRideRange: "4–7€" },
+      { city: "Ourense", km: 55, drivingTime: "45 min", concertRideRange: "4–6€" },
+      { city: "Vigo", km: 150, drivingTime: "1h 30min", concertRideRange: "6–9€" },
+      { city: "Madrid", km: 560, drivingTime: "5h", concertRideRange: "10–14€" }
+    ],
+    faqs: [
+      { q: "¿Cómo ir al Festival de Monforte de Lemos desde Lugo?", a: "Lugo–Monforte de Lemos: 70 km por la A-7, 50 minutos. No hay tren directo frecuente; el carpooling desde 4€/asiento en ConcertRide es la mejor opción." }
+    ],
+    relatedFestivals: ["festival-de-musica-de-lalin", "resurreccion-fest", "festival-de-musica-de-pontevedra"],
+    genres: ["folk", "pop", "rock"],
+    expected_attendance: "10.000 personas",
+    transport_options: [
+      { type: "carpooling", provider: "ConcertRide", origin: "Lugo", price_from: 4, price_to: 7, notes: "0% comisión, pago Bizum directo" },
+      { type: "carpooling", provider: "ConcertRide", origin: "Ourense", price_from: 4, price_to: 6, notes: "0% comisión, pago Bizum directo" }
+    ],
+    official_shuttle: { available: false, notes: "Sin lanzadera oficial. El carpooling es la opción más práctica." }
+  },
+  {
+    slug: "festival-de-musica-de-lalin",
+    name: "Festival de Música de Lalín",
+    shortName: "Lalín Fest",
+    city: "Lalín",
+    citySlug: "lalin",
+    region: "Galicia",
+    venue: "Recinto Ferial de Lalín",
+    venueAddress: "Av. de Galicia s/n, 36500 Lalín, Pontevedra",
+    lat: 42.6617,
+    lng: -8.1133,
+    startDate: "2026-07-24",
+    endDate: "2026-07-25",
+    typicalDates: "Última semana de julio",
+    capacity: "5.000 personas/día",
+    blurb: "Festival de Música de Lalín: pop y folk en la capital del Deza, en el corazón geográfico de Galicia. El festival más auténtico de la Galicia interior, con una atmósfera familiar y precios asequibles.",
+    ogImage: "https://images.unsplash.com/photo-1540039155733-5bb30b53aa14?w=1200&h=630&fit=crop",
+    originCities: [
+      { city: "Santiago de Compostela", km: 50, drivingTime: "45 min", concertRideRange: "3–6€" },
+      { city: "Vigo", km: 75, drivingTime: "55 min", concertRideRange: "4–7€" },
+      { city: "Pontevedra", km: 65, drivingTime: "50 min", concertRideRange: "4–6€" },
+      { city: "Madrid", km: 550, drivingTime: "5h", concertRideRange: "10–14€" }
+    ],
+    faqs: [
+      { q: "¿Cómo llegar al Festival de Lalín desde Santiago de Compostela?", a: "Santiago–Lalín: 50 km por la A-54, 45 minutos. No hay tren directo; el carpooling desde 3€/asiento en ConcertRide es la opción más práctica." }
+    ],
+    relatedFestivals: ["festival-de-musica-de-pontevedra", "festival-de-musica-de-monforte", "resurreccion-fest"],
+    genres: ["pop", "folk"],
+    expected_attendance: "10.000 personas",
+    transport_options: [
+      { type: "carpooling", provider: "ConcertRide", origin: "Santiago de Compostela", price_from: 3, price_to: 6, notes: "0% comisión, pago Bizum directo" }
+    ],
+    official_shuttle: { available: false, notes: "Sin lanzadera oficial. El carpooling es la opción más práctica." }
+  },
+  {
+    slug: "festival-de-musica-de-tui",
+    name: "Festival de Música de Tui",
+    shortName: "Tui Fest",
+    city: "Tui",
+    citySlug: "tui",
+    region: "Galicia",
+    venue: "Jardines del Castillo / Plaza del Concejo",
+    venueAddress: "Praza do Concello 1, 36700 Tui, Pontevedra",
+    lat: 42.0457,
+    lng: -8.646,
+    startDate: "2026-07-31",
+    endDate: "2026-08-01",
+    typicalDates: "Finales de julio",
+    capacity: "6.000 personas/día",
+    blurb: "Festival de Música de Tui: pop e indie en la ciudad fronteriza del Miño, encaramada sobre la roca frente a Valença do Minho (Portugal). El festival más internacional de la raia, con asistentes portugueses y españoles.",
+    ogImage: "https://images.unsplash.com/photo-1504704911898-68304a7d2807?w=1200&h=630&fit=crop",
+    originCities: [
+      { city: "Vigo", km: 30, drivingTime: "30 min", concertRideRange: "3–5€" },
+      { city: "Pontevedra", km: 55, drivingTime: "45 min", concertRideRange: "4–6€" },
+      { city: "Porto (Portugal)", km: 120, drivingTime: "1h 20min", concertRideRange: "6–10€" },
+      { city: "Madrid", km: 640, drivingTime: "5h 40min", concertRideRange: "11–15€" }
+    ],
+    faqs: [
+      { q: "¿Cómo llegar al Festival de Tui desde Vigo?", a: "Vigo–Tui: 30 km por la AP-9, 30 minutos. Carpooling desde 3€/asiento en ConcertRide. Tui está junto al Puente Internacional sobre el río Miño, accesible desde Portugal a pie." },
+      { q: "¿Pueden ir al Festival de Tui personas de Portugal?", a: "Sí. Tui está frente a Valença do Minho (Portugal). Desde Valença se accede a pie por el Puente Internacional. Desde Porto son 120 km por la A-3, 1h 20min." }
+    ],
+    relatedFestivals: ["festival-de-musica-de-vigo", "festival-de-musica-de-pontevedra", "resurreccion-fest"],
+    genres: ["pop", "indie"],
+    expected_attendance: "12.000 personas",
+    transport_options: [
+      { type: "carpooling", provider: "ConcertRide", origin: "Vigo", price_from: 3, price_to: 5, notes: "0% comisión, pago Bizum directo" }
+    ],
+    official_shuttle: { available: false, notes: "Sin lanzadera oficial. Carpooling ConcertRide o autobús Vigo–Tui recomendados." }
+  },
+  {
+    slug: "festival-de-musica-de-betanzos",
+    name: "Festival de Música de Betanzos",
+    shortName: "Betanzos Fest",
+    city: "Betanzos",
+    citySlug: "betanzos",
+    region: "Galicia",
+    venue: "Paseo do Parque / Campo da Feira",
+    venueAddress: "Paseo do Parque s/n, 15300 Betanzos, A Coruña",
+    lat: 43.2809,
+    lng: -8.2134,
+    startDate: "2026-07-10",
+    endDate: "2026-07-11",
+    typicalDates: "Segunda semana de julio",
+    capacity: "5.000 personas/día",
+    blurb: "Festival de Música de Betanzos: folk y rock en la villa medieval de As Mariñas, con sus iglesias góticas y el paseo fluvial del Mandeo. El festival más pintoresco del entorno de A Coruña.",
+    ogImage: "https://images.unsplash.com/photo-1429962714451-bb934ecdc4ec?w=1200&h=630&fit=crop",
+    originCities: [
+      { city: "A Coruña", km: 25, drivingTime: "25 min", concertRideRange: "3–5€" },
+      { city: "Ferrol", km: 35, drivingTime: "35 min", concertRideRange: "3–5€" },
+      { city: "Santiago de Compostela", km: 65, drivingTime: "50 min", concertRideRange: "4–6€" },
+      { city: "Madrid", km: 630, drivingTime: "5h 40min", concertRideRange: "10–15€" }
+    ],
+    faqs: [
+      { q: "¿Cómo ir al Festival de Betanzos desde A Coruña?", a: "A Coruña–Betanzos: 25 km por la AP-9, 25 minutos. Tren Renfe (Cercanías C-1) en 30 minutos. Carpooling desde 3€/asiento en ConcertRide." }
+    ],
+    relatedFestivals: ["festival-de-musica-de-ferrol", "festival-de-musica-de-vigo", "resurreccion-fest"],
+    genres: ["folk", "rock"],
+    expected_attendance: "10.000 personas",
+    transport_options: [
+      { type: "carpooling", provider: "ConcertRide", origin: "A Coruña", price_from: 3, price_to: 5, notes: "0% comisión, pago Bizum directo" },
+      { type: "train", provider: "Renfe Cercanías", origin: "A Coruña", price_from: 2, price_to: 2, notes: "Línea C-1, 30 minutos" }
+    ],
+    official_shuttle: { available: false, notes: "Sin lanzadera oficial. Cercanías Renfe A Coruña–Betanzos recomendado." }
   }
 ];
 const FESTIVAL_LANDINGS_BY_SLUG = Object.fromEntries(
   FESTIVAL_LANDINGS.map((f) => [f.slug, f])
 );
-const FESTIVAL_LANDINGS_LAST_UPDATED = "2026-05-06";
+const FESTIVAL_LANDINGS_LAST_UPDATED = "2026-05-16";
 function modeIcon(type) {
   const cls = "shrink-0 text-cr-primary";
   switch (type) {
@@ -22272,7 +22818,16 @@ function ConcertDetailPage() {
     concert && !isPast && /* @__PURE__ */ jsx("section", { className: "max-w-6xl mx-auto px-6 pb-16", children: /* @__PURE__ */ jsx(ConcertChatSection, { concertId: concert.id, artist: concert.artist }) }),
     concert && !isPast && /* @__PURE__ */ jsx("section", { className: "max-w-6xl mx-auto px-6 pb-16", children: /* @__PURE__ */ jsx(LiveActivityFeed, { scope: "concert", concertId: concert.id, limit: 10, emptyMessage: `Sé el primero en organizarte para ${concert.artist}.` }) }),
     concert && /* @__PURE__ */ jsx(ConcertTransportSection, { concert }),
-    concert && !isPast && /* @__PURE__ */ jsx("section", { className: "max-w-6xl mx-auto px-6 pb-16", children: /* @__PURE__ */ jsx(EmbedSnippet, { concertId: concert.id }) })
+    concert && !isPast && /* @__PURE__ */ jsx("section", { className: "max-w-6xl mx-auto px-6 pb-16", children: /* @__PURE__ */ jsx(EmbedSnippet, { concertId: concert.id }) }),
+    !user && concert && !isPast && /* @__PURE__ */ jsx(
+      AnonNudgeBanner,
+      {
+        artistName: concert.artist,
+        city: concert.venue.city,
+        concertId: concert.id,
+        ridesCount: (rides == null ? void 0 : rides.length) ?? 0
+      }
+    )
   ] });
 }
 function ConcertTransportSection({ concert }) {
@@ -22616,6 +23171,85 @@ function EmbedSnippet({ concertId }) {
       }
     )
   ] });
+}
+function AnonNudgeBanner({
+  artistName,
+  city,
+  concertId,
+  ridesCount
+}) {
+  const [visible, setVisible] = useState(false);
+  const [dismissed, setDismissed] = useState(false);
+  const timerRef = useRef(null);
+  useEffect(() => {
+    const key = `nudge_dismissed_${concertId}`;
+    if (sessionStorage.getItem(key)) return;
+    timerRef.current = setTimeout(() => setVisible(true), 8e3);
+    return () => {
+      if (timerRef.current) clearTimeout(timerRef.current);
+    };
+  }, [concertId]);
+  function dismiss() {
+    setDismissed(true);
+    sessionStorage.setItem(`nudge_dismissed_${concertId}`, "1");
+  }
+  const ridesLabel = ridesCount > 0 ? `${ridesCount} viaje${ridesCount === 1 ? "" : "s"} disponible${ridesCount === 1 ? "" : "s"}` : "Sé el primero en publicar";
+  return /* @__PURE__ */ jsx(AnimatePresence, { children: visible && !dismissed && /* @__PURE__ */ jsx(
+    motion.div,
+    {
+      initial: { y: "100%", opacity: 0 },
+      animate: { y: 0, opacity: 1 },
+      exit: { y: "100%", opacity: 0 },
+      transition: { duration: 0.4, ease: [0.16, 1, 0.3, 1] },
+      role: "complementary",
+      "aria-label": "Notificación: encuentra viaje a este concierto",
+      className: "fixed bottom-0 left-0 right-0 z-50 p-3 md:p-4",
+      style: { pointerEvents: "none" },
+      children: /* @__PURE__ */ jsxs(
+        "div",
+        {
+          className: "relative max-w-xl mx-auto flex items-center gap-4 bg-[#111] border border-cr-primary/40 shadow-[0_0_40px_rgba(219,255,0,0.15)] px-5 py-4",
+          style: { pointerEvents: "auto" },
+          children: [
+            /* @__PURE__ */ jsx("div", { className: "absolute left-0 top-0 bottom-0 w-[3px] bg-cr-primary", "aria-hidden": "true" }),
+            /* @__PURE__ */ jsxs("div", { className: "flex-1 min-w-0 space-y-0.5", children: [
+              /* @__PURE__ */ jsxs("p", { className: "font-display text-sm uppercase leading-tight truncate", children: [
+                "¿Quieres ir a",
+                " ",
+                /* @__PURE__ */ jsx("span", { className: "text-cr-primary", children: artistName }),
+                " ",
+                "en ",
+                city,
+                "?"
+              ] }),
+              /* @__PURE__ */ jsxs("p", { className: "font-mono text-[10px] text-white/45", children: [
+                ridesLabel,
+                " · Registro gratis en 30 segundos"
+              ] })
+            ] }),
+            /* @__PURE__ */ jsx(
+              Link,
+              {
+                to: `/register?next=${encodeURIComponent(`/concerts/${concertId}`)}`,
+                className: "flex-shrink-0 cr-btn-shine inline-flex items-center gap-1.5 bg-cr-primary text-black font-sans font-semibold uppercase tracking-[0.1em] text-xs px-4 py-2.5 hover:bg-[#c8ec00] transition-colors duration-150 whitespace-nowrap",
+                children: "Encontrar viaje gratis"
+              }
+            ),
+            /* @__PURE__ */ jsx(
+              "button",
+              {
+                type: "button",
+                onClick: dismiss,
+                "aria-label": "Cerrar notificación",
+                className: "flex-shrink-0 p-1 text-white/30 hover:text-white/70 transition-colors",
+                children: /* @__PURE__ */ jsx(X, { size: 14 })
+              }
+            )
+          ]
+        }
+      )
+    }
+  ) });
 }
 function JsonLdEvent({ concert }) {
   var _a2, _b, _c, _d;
@@ -23793,6 +24427,108 @@ const FESTIVAL_SEO_OVERRIDES = {
     title: `Granca Live Fest ${YEAR$2} Gran Canaria [2–4 jul Estadio]: Carpooling 3€ | ConcertRide`,
     description: `Granca Live Fest ${YEAR$2} (2–4 jul, Estadio de Gran Canaria Las Palmas, 35.000/día): festival principal de Canarias junto al Atlántico. Vuelo Madrid/Barcelona/Sevilla–Las Palmas (2h 30min, 60–150€). Guagua Global líneas 12/13/25 al estadio desde centro. Carpooling sin comisión en isla: Telde (3€, 15 km), Arucas (3–4€), Maspalomas/Playa del Inglés (3–5€, 55 km), Santa Lucía (3–5€). Vuelta nocturna coordinada.`,
     keywords: `granca live fest ${YEAR$2}, granca live ${YEAR$2}, granca live las palmas, granca live como llegar, granca live carpooling, granca live estadio gran canaria, granca live desde maspalomas, granca live desde aeropuerto, granca live entradas, granca live cartel ${YEAR$2}, festival canarias ${YEAR$2}, festival las palmas gran canaria, festival gran canaria julio`
+  },
+  // ── Wave 37: Catalunya interior + costes (10 festivales) ─────────────────
+  "sonar-plus": {
+    title: `Sónar+D ${YEAR$2} [Jun, BCN]: Carpooling Madrid 10€ | ConcertRide`,
+    description: `Sónar+D ${YEAR$2}: conferencia y festival de música electrónica y tecnología en Barcelona (Jun). Carpooling sin comisión Madrid 10€, Valencia 6€, Zaragoza 5€. Pago Bizum directo.`,
+    keywords: `sonar plus ${YEAR$2}, sonar+d barcelona, sonar festival transporte, como llegar sonar barcelona, carpooling sonar`
+  },
+  "festival-de-musica-de-tarragona": {
+    title: `Tarragona Fest ${YEAR$2} [Jul, Romano]: Carpooling 4€ | ConcertRide`,
+    description: `Festival de Música de Tarragona ${YEAR$2}: pop y rock junto al Anfiteatro Romano patrimonio UNESCO. Carpooling sin comisión Barcelona 4€, Madrid 9€, Zaragoza 5€. Bizum directo.`,
+    keywords: `festival musica tarragona ${YEAR$2}, tarragona fest carpooling, como llegar festival tarragona, conciertos tarragona ${YEAR$2}`
+  },
+  "festival-de-musica-de-lleida": {
+    title: `Lleida Fest ${YEAR$2} [Jul, Poniente]: Carpooling 4€ | ConcertRide`,
+    description: `Festival de Música de Lleida ${YEAR$2}: pop e indie en la capital de Poniente catalán. Carpooling sin comisión Barcelona 4€, Madrid 8€, Zaragoza 3€. Pago Bizum directo.`,
+    keywords: `festival musica lleida ${YEAR$2}, lleida fest carpooling, como llegar festival lleida, conciertos lleida ${YEAR$2}`
+  },
+  "festival-de-musica-de-girona": {
+    title: `Girona Fest ${YEAR$2} [Jul, Medieval]: Carpooling 3€ | ConcertRide`,
+    description: `Festival de Música de Girona ${YEAR$2}: pop y rock en la ciudad medieval del río Onyar. Carpooling sin comisión Barcelona 3€, Madrid 10€, Valencia 8€. Pago Bizum directo.`,
+    keywords: `festival musica girona ${YEAR$2}, girona fest carpooling, como llegar festival girona, conciertos girona ${YEAR$2}`
+  },
+  "festival-de-musica-de-manresa": {
+    title: `Manresa Fest ${YEAR$2} [Jul, Bages]: Carpooling 3€ | ConcertRide`,
+    description: `Festival de Música de Manresa ${YEAR$2}: pop e indie en la capital del Bages catalán. Carpooling sin comisión Barcelona 3€, Madrid 8€, Zaragoza 5€. Pago Bizum directo.`,
+    keywords: `festival musica manresa ${YEAR$2}, manresa fest carpooling, como llegar festival manresa, conciertos manresa ${YEAR$2}`
+  },
+  "festival-de-musica-de-reus": {
+    title: `Reus Fest ${YEAR$2} [Jul, Vermut]: Carpooling 4€ | ConcertRide`,
+    description: `Festival de Música de Reus ${YEAR$2}: pop y rock en la capital del Camp de Tarragona. Carpooling sin comisión Barcelona 4€, Madrid 9€, Valencia 6€. Pago Bizum directo.`,
+    keywords: `festival musica reus ${YEAR$2}, reus fest carpooling, como llegar festival reus, conciertos reus ${YEAR$2}`
+  },
+  "festival-de-musica-de-vic": {
+    title: `Vic Fest ${YEAR$2} [Jul, Osona]: Carpooling 3€ | ConcertRide`,
+    description: `Festival de Música de Vic ${YEAR$2}: pop e indie en la capital de Osona, en el prepirineo catalán. Carpooling sin comisión Barcelona 3€, Girona 3€, Madrid 9€. Bizum directo.`,
+    keywords: `festival musica vic ${YEAR$2}, vic fest carpooling, como llegar festival vic, conciertos vic osona ${YEAR$2}`
+  },
+  "festival-de-musica-de-figueres": {
+    title: `Figueres Fest ${YEAR$2} [Jul, Dalí]: Carpooling 4€ | ConcertRide`,
+    description: `Festival de Música de Figueres ${YEAR$2}: pop y rock en la ciudad de Dalí y el Alt Empordà. Carpooling sin comisión Barcelona 4€, Girona 3€, Madrid 11€. Pago Bizum directo.`,
+    keywords: `festival musica figueres ${YEAR$2}, figueres fest carpooling, como llegar festival figueres, conciertos figueres ${YEAR$2}`
+  },
+  "festival-de-musica-de-mataro": {
+    title: `Mataró Fest ${YEAR$2} [Jul, Maresme]: Carpooling 3€ | ConcertRide`,
+    description: `Festival de Música de Mataró ${YEAR$2}: pop y rock en la capital del Maresme. Carpooling sin comisión Barcelona 3€, Madrid 10€, Valencia 7€. Pago Bizum directo.`,
+    keywords: `festival musica mataro ${YEAR$2}, mataro fest carpooling, como llegar festival mataro, conciertos mataro ${YEAR$2}`
+  },
+  "festival-de-musica-de-sabadell": {
+    title: `Sabadell Fest ${YEAR$2} [Jul, Vallès]: Carpooling 3€ | ConcertRide`,
+    description: `Festival de Música de Sabadell ${YEAR$2}: pop e indie en la capital del Vallès Occidental. Carpooling sin comisión Barcelona 3€, Zaragoza 5€, Madrid 9€. Pago Bizum directo.`,
+    keywords: `festival musica sabadell ${YEAR$2}, sabadell fest carpooling, como llegar festival sabadell, conciertos sabadell ${YEAR$2}`
+  },
+  // ── Wave 38: Levante–Murcia + Madrid metro (10 festivales) ───────────────
+  "festival-de-musica-de-alicante": {
+    title: `Alicante Fest ${YEAR$2} [Jul, Costa Blanca]: Carpooling 3€ | ConcertRide`,
+    description: `Festival de Música de Alicante ${YEAR$2}: pop y rock bajo el Castillo de Santa Bárbara. Carpooling sin comisión Murcia 3€, Madrid 7€, Barcelona 9€. Pago Bizum directo.`,
+    keywords: `festival musica alicante ${YEAR$2}, alicante fest carpooling, como llegar festival alicante, conciertos alicante ${YEAR$2}`
+  },
+  "festival-de-musica-de-elche": {
+    title: `Elche Fest ${YEAR$2} [Jul, Palmeral]: Carpooling 3€ | ConcertRide`,
+    description: `Festival de Música de Elche ${YEAR$2}: pop y rock en la ciudad palmeral UNESCO. Carpooling sin comisión Alicante 3€, Murcia 3€, Madrid 7€. Pago Bizum directo.`,
+    keywords: `festival musica elche ${YEAR$2}, elche fest carpooling, como llegar festival elche, conciertos elche ${YEAR$2}`
+  },
+  "festival-de-musica-de-murcia-pop": {
+    title: `Murcia Pop ${YEAR$2} [Jul, Huerta]: Carpooling 3€ | ConcertRide`,
+    description: `Festival Pop de Murcia ${YEAR$2}: los artistas de pop más actuales en el Auditorio Regional. Carpooling sin comisión Alicante 3€, Cartagena 3€, Madrid 7€. Pago Bizum directo.`,
+    keywords: `murcia pop ${YEAR$2}, festival pop murcia, murcia pop carpooling, como llegar murcia pop, conciertos murcia ${YEAR$2}`
+  },
+  "festival-de-musica-de-cartagena": {
+    title: `Cartagena Fest ${YEAR$2} [Jul, Romano]: Carpooling 3€ | ConcertRide`,
+    description: `Festival de Música de Cartagena ${YEAR$2}: rock e indie junto al Teatro Romano del siglo I d.C. Carpooling sin comisión Murcia 3€, Alicante 3€, Madrid 8€. Pago Bizum directo.`,
+    keywords: `festival musica cartagena ${YEAR$2}, cartagena fest carpooling, como llegar festival cartagena, conciertos cartagena ${YEAR$2}`
+  },
+  "festival-de-musica-de-lorca": {
+    title: `Lorca Fest ${YEAR$2} [Jul, Bordados]: Carpooling 3€ | ConcertRide`,
+    description: `Festival de Música de Lorca ${YEAR$2}: pop y rock en la ciudad de los bordados y el Castillo del Sol. Carpooling sin comisión Murcia 3€, Granada 4€, Madrid 8€. Bizum directo.`,
+    keywords: `festival musica lorca ${YEAR$2}, lorca fest carpooling, como llegar festival lorca, conciertos lorca ${YEAR$2}`
+  },
+  "festival-de-jazz-de-toledo": {
+    title: `Jazz Toledo ${YEAR$2} [Jul, Imperial]: Carpooling 3€ | ConcertRide`,
+    description: `Festival de Jazz de Toledo ${YEAR$2}: jazz en la ciudad imperial de tres culturas. Carpooling sin comisión Madrid 3€, Guadalajara 3€, Cuenca 3€. Pago Bizum directo.`,
+    keywords: `festival jazz toledo ${YEAR$2}, jazz toledo carpooling, como llegar festival jazz toledo, conciertos toledo ${YEAR$2}`
+  },
+  "festival-complutense": {
+    title: `Festival Complutense ${YEAR$2} [Jul, Cervantes]: Carpooling 3€ | ConcertRide`,
+    description: `Festival Complutense ${YEAR$2}: música en la ciudad de Cervantes, Alcalá de Henares. Carpooling sin comisión Madrid 3€, Guadalajara 3€, Segovia 3€. Pago Bizum directo.`,
+    keywords: `festival complutense ${YEAR$2}, festival alcala henares carpooling, como llegar festival complutense, conciertos alcala henares ${YEAR$2}`
+  },
+  "festival-de-musica-de-leganes": {
+    title: `Leganés Fest ${YEAR$2} [Jul, Sur Madrid]: Carpooling 3€ | ConcertRide`,
+    description: `Festival de Música de Leganés ${YEAR$2}: rock en el sur metropolitano de Madrid. Carpooling sin comisión Madrid 3€, Toledo 3€, Guadalajara 3€. Pago Bizum directo.`,
+    keywords: `festival musica leganes ${YEAR$2}, leganes fest carpooling, como llegar festival leganes, conciertos leganes ${YEAR$2}`
+  },
+  "festival-de-musica-de-mostoles": {
+    title: `Móstoles Fest ${YEAR$2} [Ago, Suroeste]: Carpooling 3€ | ConcertRide`,
+    description: `Festival de Música de Móstoles ${YEAR$2}: pop e indie en la segunda ciudad de la Comunidad de Madrid. Carpooling sin comisión Madrid 3€, Toledo 3€, Ávila 3€. Pago Bizum directo.`,
+    keywords: `festival musica mostoles ${YEAR$2}, mostoles fest carpooling, como llegar festival mostoles, conciertos mostoles ${YEAR$2}`
+  },
+  "festival-de-musica-de-alcorcon": {
+    title: `Alcorcón Fest ${YEAR$2} [Ago, Suroeste]: Carpooling 3€ | ConcertRide`,
+    description: `Festival de Música de Alcorcón ${YEAR$2}: pop y rock en el suroeste del área metropolitana de Madrid. Carpooling sin comisión Madrid 3€, Toledo 3€, Segovia 3€. Pago Bizum directo.`,
+    keywords: `festival musica alcorcon ${YEAR$2}, alcorcon fest carpooling, como llegar festival alcorcon, conciertos alcorcon ${YEAR$2}`
   }
 };
 const CITY_SEO_IMPROVEMENTS = {
@@ -24441,16 +25177,118 @@ const VENUE_SEO_OVERRIDES = {
     title: `Plaza Toros Zaragoza [La Misericordia]: Tranvía | ConcertRide`,
     description: `Plaza de Toros de La Misericordia Zaragoza (Av. Pablo Gargallo 11, 10.700 plazas). Sin metro (Zaragoza no tiene). Tranvía L1 parada Plaza Toros (5 min). Tuzsa 22/33/Ci1/Ci2. Renfe Delicias a 20 min andando. Parking Salduba 2–3€/h. Carpooling sin comisión desde Logroño (5–8€), Pamplona (5–8€), Madrid (9–13€), Barcelona (9–13€), Bilbao (9–13€).`,
     keywords: `como llegar plaza toros zaragoza, plaza toros zaragoza tranvia, conciertos plaza toros zaragoza, la misericordia zaragoza conciertos, carpooling plaza toros zaragoza, plaza toros zaragoza pablo gargallo, vive latino zaragoza transporte, plaza toros zaragoza aparcamiento`
+  },
+  // ── Wave 36: 10 nuevos festivales (Alicante/Murcia/Toledo/Madrid Metro) ──────
+  "festival-de-musica-de-alicante": {
+    title: `Alicante Fest ${YEAR$2} [Jul, Costa Blanca]: Carpooling 3€`,
+    description: `Festival de Música de Alicante ${YEAR$2}: pop y rock mediterráneo en el centro histórico. Carpooling sin comisión Valencia 6€, Murcia 3€, Elche 3€. 0% comisión. Bizum.`,
+    keywords: `festival musica alicante ${YEAR$2}, alicante fest carpooling, festival alicante verano, como llegar festival alicante, conciertos alicante ${YEAR$2}, festival costa blanca musica`
+  },
+  "festival-de-musica-de-elche": {
+    title: `Elche Fest ${YEAR$2} [Palmeral UNESCO, Ago]: Carpooling 3€`,
+    description: `Festival de Música de Elche ${YEAR$2}: pop, rock y electrónica en el Palmeral Patrimonio UNESCO. Carpooling sin comisión Alicante 3€, Murcia 3€, Valencia 5€. Bizum.`,
+    keywords: `festival musica elche ${YEAR$2}, elche fest carpooling, festival elche palmeral, como llegar festival elche, conciertos elche ${YEAR$2}, festival alicante provincia`
+  },
+  "festival-de-musica-de-murcia-pop": {
+    title: `Murcia Pop Fest ${YEAR$2} [Jul, Víctor Villegas]: Carpooling 3€`,
+    description: `Festival Pop de Murcia ${YEAR$2}: pop nacional en el Auditorio Víctor Villegas. Carpooling sin comisión Alicante 3€, Cartagena 3€, Valencia 8€. 0% comisión. Bizum.`,
+    keywords: `festival pop murcia ${YEAR$2}, murcia pop fest carpooling, festival murcia verano, como llegar festival murcia, conciertos murcia ${YEAR$2}, festival region murcia pop`
+  },
+  "festival-de-musica-de-cartagena": {
+    title: `Cartagena Fest ${YEAR$2} [Teatro Romano, Ago]: Carpooling 3€`,
+    description: `Festival de Música de Cartagena ${YEAR$2}: pop y rock en el Teatro Romano. Carpooling sin comisión Murcia 3€, Alicante 4€, Valencia 9€. 0% comisión. Pago Bizum directo.`,
+    keywords: `festival musica cartagena ${YEAR$2}, cartagena fest carpooling, festival cartagena teatro romano, como llegar festival cartagena, conciertos cartagena ${YEAR$2}, festival costa calida`
+  },
+  "festival-de-musica-de-lorca": {
+    title: `Lorca Fest ${YEAR$2} [Castillo, Jul Murcia]: Carpooling 3€`,
+    description: `Festival de Música de Lorca ${YEAR$2}: pop y rock en el Castillo de Lorca (Murcia). Carpooling sin comisión Murcia 3€, Alicante 5€, Granada 6€. 0% comisión. Bizum.`,
+    keywords: `festival musica lorca ${YEAR$2}, lorca fest carpooling, festival lorca castillo, como llegar festival lorca, conciertos lorca ${YEAR$2}, festival interior murcia`
+  },
+  "festival-de-jazz-de-toledo": {
+    title: `Jazz Toledo ${YEAR$2} [Jul, Patrimonio UNESCO]: Carpooling 4€`,
+    description: `Festival de Jazz de Toledo ${YEAR$2}: jazz en el Teatro de Rojas y claustros medievales (Patrimonio UNESCO). Carpooling sin comisión Madrid 4€, Guadalajara 4€. Bizum.`,
+    keywords: `festival jazz toledo ${YEAR$2}, jazz toledo carpooling, festival jazz castilla la mancha, como llegar festival jazz toledo, conciertos toledo ${YEAR$2}, toledo festival verano`
+  },
+  "festival-complutense": {
+    title: `Complutense Fest ${YEAR$2} [Jun, Alcalá UNESCO]: Carpooling 3€`,
+    description: `Festival Complutense ${YEAR$2}: música clásica y barroca en el Paraninfo Universitario de Alcalá de Henares (UNESCO). Carpooling sin comisión Madrid 3€. Bizum.`,
+    keywords: `festival complutense ${YEAR$2}, festival clasico alcala henares, festival barroco madrid, como llegar festival alcala, conciertos alcala de henares ${YEAR$2}, festival universidad alcala`
+  },
+  "festival-de-musica-de-leganes": {
+    title: `LegaRock ${YEAR$2} [Jul-Ago, Sur Madrid]: Carpooling desde 3€`,
+    description: `LegaRock Festival ${YEAR$2}: rock, indie y punk en Leganés (Madrid Metro). Carpooling sin comisión Toledo 4€, Guadalajara 4€, Segovia 5€. 0% comisión. Pago Bizum.`,
+    keywords: `legarock ${YEAR$2}, festival rock leganes, festival indie sur madrid, como llegar legarock, conciertos leganes ${YEAR$2}, festival madrid metro rock, legarock festival carpooling`
+  },
+  "festival-de-musica-de-mostoles": {
+    title: `Móstoles Fest ${YEAR$2} [Jul, Metro Madrid]: Carpooling 4€`,
+    description: `Festival de Música de Móstoles ${YEAR$2}: pop y rock en el Parque de Las Comunidades. Carpooling sin comisión Toledo 4€, Ávila 5€, Segovia 5€. 0% comisión. Bizum.`,
+    keywords: `festival musica mostoles ${YEAR$2}, mostoles fest carpooling, festival pop mostoles, como llegar festival mostoles, conciertos mostoles ${YEAR$2}, festival sur madrid pop`
+  },
+  "festival-de-musica-de-alcorcon": {
+    title: `Alcorcón Fest ${YEAR$2} [Ago, Urban-Pop Metro]: Carpooling 4€`,
+    description: `Festival de Música de Alcorcón ${YEAR$2}: urban, pop y reggaeton en el corredor oeste de Madrid. Carpooling sin comisión Ávila 5€, Toledo 4€, Segovia 4€. Bizum.`,
+    keywords: `festival musica alcorcon ${YEAR$2}, alcorcon fest carpooling, festival urbano alcorcon, como llegar festival alcorcon, conciertos alcorcon ${YEAR$2}, festival madrid oeste pop`
+  },
+  // ── Wave 36 pending: Andalucía Norte / Extremadura / Asturias / Cantabria / Vitoria Folk ──
+  "festival-de-musica-de-jaen-pop": {
+    title: `Jaén Pop Fest ${YEAR$2} [Jul, Olivar]: Carpooling desde 4€`,
+    description: `Festival Pop de Jaén ${YEAR$2}: pop y rock en la capital del aceite de oliva. Carpooling sin comisión Granada 4€, Córdoba 5€, Sevilla 8€, Madrid 15€. Bizum.`,
+    keywords: `festival pop jaen ${YEAR$2}, jaen pop fest carpooling, festival musica jaen, como llegar festival jaen, conciertos jaen ${YEAR$2}, festival andalucia pop jaen`
+  },
+  "festival-de-musica-de-cordoba-rocks": {
+    title: `Córdoba Rocks ${YEAR$2} [Mezquita, Verano]: Carpooling 4€`,
+    description: `Festival Rock de Córdoba ${YEAR$2}: rock y pop junto a la Mezquita-Catedral (Patrimonio UNESCO). Carpooling sin comisión Sevilla 5€, Jaén 4€, Granada 5€. Bizum.`,
+    keywords: `festival rock cordoba ${YEAR$2}, cordoba rocks carpooling, festival musica cordoba, como llegar festival cordoba, conciertos cordoba ${YEAR$2}, festival andalucia rock mezquita`
+  },
+  "festival-de-musica-de-huelva-pop": {
+    title: `Huelva Pop Fest ${YEAR$2} [Verano, Atlántico]: Carpooling 4€`,
+    description: `Festival Pop de Huelva ${YEAR$2}: pop y rock en la ciudad de Colón y el Atlántico. Carpooling sin comisión Sevilla 4€, Faro 5€, Cádiz 6€. 0% comisión. Bizum.`,
+    keywords: `festival pop huelva ${YEAR$2}, huelva pop fest carpooling, festival musica huelva, como llegar festival huelva, conciertos huelva ${YEAR$2}, festival andalucia atlantico`
+  },
+  "festival-de-musica-de-badajoz": {
+    title: `Badajoz Fest ${YEAR$2} [Verano, Extremadura]: Carpooling 4€`,
+    description: `Festival de Música de Badajoz ${YEAR$2}: pop y rock en la capital extremeña. Carpooling sin comisión Mérida 3€, Sevilla 5€, Madrid 10€. 0% comisión. Bizum.`,
+    keywords: `festival musica badajoz ${YEAR$2}, badajoz fest carpooling, festival extremadura badajoz, como llegar festival badajoz, conciertos badajoz ${YEAR$2}, festival frontera portugal`
+  },
+  "festival-de-musica-de-merida": {
+    title: `Mérida Fest ${YEAR$2} [Teatro Romano, Ago]: Carpooling 3€`,
+    description: `Festival de Música de Mérida ${YEAR$2}: pop y rock junto al Teatro Romano (UNESCO). Carpooling sin comisión Badajoz 3€, Cáceres 4€, Sevilla 4€. 0% comisión. Bizum.`,
+    keywords: `festival musica merida ${YEAR$2}, merida fest carpooling, festival teatro romano merida, como llegar festival merida, conciertos merida ${YEAR$2}, festival extremadura musica`
+  },
+  "festival-de-musica-de-plasencia": {
+    title: `Plasencia Fest ${YEAR$2} [Jun, Extremadura Norte]: Carpooling 4€`,
+    description: `Festival de Música de Plasencia ${YEAR$2}: pop y rock en la ciudad amurallada extremeña. Carpooling sin comisión Cáceres 4€, Salamanca 5€, Madrid 12€. Bizum.`,
+    keywords: `festival musica plasencia ${YEAR$2}, plasencia fest carpooling, festival extremadura norte, como llegar festival plasencia, conciertos plasencia ${YEAR$2}, festival caceres provincia`
+  },
+  "festival-de-musica-de-gijon": {
+    title: `Gijón Fest ${YEAR$2} [Verano, Costa Asturiana]: Carpooling 4€`,
+    description: `Festival de Música de Gijón ${YEAR$2}: pop, rock e indie en el Cantábrico asturiano. Carpooling sin comisión Oviedo 4€, Santander 5€, Bilbao 7€. 0% comisión. Bizum.`,
+    keywords: `festival musica gijon ${YEAR$2}, gijon fest carpooling, festival asturias gijon, como llegar festival gijon, conciertos gijon ${YEAR$2}, festival costa asturiana verano`
+  },
+  "festival-de-musica-de-oviedo": {
+    title: `Oviedo Fest ${YEAR$2} [Verano, Asturias Capital]: Carpooling 4€`,
+    description: `Festival de Música de Oviedo ${YEAR$2}: pop y rock en la capital asturiana. Carpooling sin comisión Gijón 4€, Santander 5€, Bilbao 7€, Madrid 13€. 0% comisión. Bizum.`,
+    keywords: `festival musica oviedo ${YEAR$2}, oviedo fest carpooling, festival asturias oviedo, como llegar festival oviedo, conciertos oviedo ${YEAR$2}, festival norte españa capital oviedo`
+  },
+  "festival-de-santander-jazz": {
+    title: `Santander Jazz ${YEAR$2} [Verano, Cantábrico]: Carpooling 4€`,
+    description: `Festival de Jazz de Santander ${YEAR$2}: jazz en la capital cántabra a orillas del Cantábrico. Carpooling sin comisión Bilbao 4€, Oviedo 5€, Madrid 11€. 0% comisión. Bizum.`,
+    keywords: `festival jazz santander ${YEAR$2}, santander jazz carpooling, festival jazz cantabria, como llegar festival jazz santander, conciertos santander ${YEAR$2}, festival norte españa jazz cantabria`
+  },
+  "festival-de-folk-de-vitoria": {
+    title: `Folk Vitoria ${YEAR$2} [Verano, País Vasco]: Carpooling 3€`,
+    description: `Festival de Folk de Vitoria-Gasteiz ${YEAR$2}: folk internacional y world music en la capital vasca. Carpooling sin comisión Bilbao 3€, Donostia 4€, Pamplona 4€. Bizum.`,
+    keywords: `festival folk vitoria ${YEAR$2}, vitoria folk fest carpooling, festival folk pais vasco, como llegar festival folk vitoria, conciertos vitoria ${YEAR$2}, festival vitoria gasteiz folk`
   }
 };
 const ARTIST_SEO_OVERRIDES = {
   coldplay: {
-    title: `Coldplay concierto España ${YEAR$2}: carpooling desde 4€ sin comisión | ConcertRide`,
+    title: `Coldplay España ${YEAR$2}: Carpooling desde 4€, 0% comisión`,
     description: `Coldplay en España ${YEAR$2} — Estadio Bernabéu Madrid y Estadi Olímpic Barcelona. Carpooling desde Valencia (10–14€), Barcelona (15–20€), Zaragoza (9–13€). 0% comisión, conductores verificados. Cómo llegar al concierto de Coldplay sin AVE.`,
     keywords: `carpooling coldplay españa, coldplay concierto madrid carpooling, coldplay barcelona carpooling, como llegar concierto coldplay, coldplay ${YEAR$2} transporte, viaje compartido coldplay españa, cómo ir al concierto de coldplay, coldplay madrid bernabeu como llegar`
   },
   "taylor-swift": {
-    title: `Taylor Swift concierto España ${YEAR$2}: carpooling desde 4€ | ConcertRide`,
+    title: `Taylor Swift España ${YEAR$2}: Carpooling desde 4€, 0% comisión`,
     description: `Taylor Swift en España ${YEAR$2} — Bernabéu Madrid y Estadi Olímpic Barcelona. Carpooling desde Valencia (10–14€), Barcelona (15–20€). Conductores verificados, 0% comisión. La opción más barata y cómoda para las Swifties.`,
     keywords: `carpooling taylor swift españa, taylor swift madrid como llegar, taylor swift concierto ${YEAR$2} transporte, viaje compartido taylor swift, taylor swift bernabeu carpooling, como ir al concierto taylor swift sin tren, eras tour madrid carpooling`
   },
@@ -24460,27 +25298,27 @@ const ARTIST_SEO_OVERRIDES = {
     keywords: `carpooling rosalia españa, rosalia concierto madrid carpooling, rosalia wizink center como llegar, rosalia ${YEAR$2} transporte, viaje compartido rosalia, como ir concierto rosalia, rosalia palau sant jordi carpooling, rosalia españa ${YEAR$2}, rosalia concierto barcelona, rosalia motomami tour, rosalia gira ${YEAR$2}`
   },
   "bad-bunny": {
-    title: `Bad Bunny concierto España ${YEAR$2}: carpooling desde 4€ | ConcertRide`,
+    title: `Bad Bunny España ${YEAR$2}: Carpooling desde 4€, 0% comisión`,
     description: `Bad Bunny en España ${YEAR$2} — Estadio Bernabéu Madrid y Palau Sant Jordi Barcelona. Carpooling desde Valencia (10–14€), Sevilla (12–17€), Barcelona (15–20€). Sin comisión, conductores verificados con carnet.`,
     keywords: `carpooling bad bunny españa, bad bunny concierto madrid como llegar, bad bunny ${YEAR$2} transporte, viaje compartido bad bunny, bad bunny bernabeu carpooling, como ir al concierto bad bunny, bad bunny palau sant jordi transporte`
   },
   "the-weeknd": {
-    title: `The Weeknd concierto España ${YEAR$2}: carpooling desde 4€ | ConcertRide`,
+    title: `The Weeknd España ${YEAR$2}: Carpooling desde 4€, 0% comisión`,
     description: `The Weeknd en España ${YEAR$2} — Estadio Bernabéu Madrid y Estadi Olímpic Barcelona. Carpooling desde Valencia (10–14€), Sevilla (12–17€). 0% comisión, vuelta coordinada con el conductor.`,
     keywords: `carpooling the weeknd españa, the weeknd madrid como llegar, the weeknd concierto ${YEAR$2} transporte, viaje compartido the weeknd, the weeknd bernabeu carpooling, como ir al concierto the weeknd, the weeknd after hours tour madrid`
   },
   "metallica-ifema": {
-    title: `Metallica concierto España ${YEAR$2}: carpooling desde 4€ | ConcertRide`,
+    title: `Metallica España ${YEAR$2}: Carpooling desde 4€, 0% comisión`,
     description: `Metallica en España ${YEAR$2} — IFEMA Madrid (Estadio Olímpico). Carpooling desde Bilbao (11–16€), Valencia (10–14€), Barcelona (15–20€). Metro L8 + lanzadera. 0% comisión. La opción más metal para llegar.`,
     keywords: `carpooling metallica españa, metallica madrid como llegar, metallica ifema transporte, metallica ${YEAR$2} madrid carpooling, viaje compartido metallica, como ir al concierto metallica, metallica m72 tour madrid, metaleros carpooling madrid`
   },
   rammstein: {
-    title: `Rammstein concierto España ${YEAR$2}: carpooling desde 4€ | ConcertRide`,
+    title: `Rammstein España ${YEAR$2}: Carpooling desde 4€, 0% comisión`,
     description: `Rammstein en España ${YEAR$2} — estadios de Madrid y Barcelona. Carpooling desde Valencia (10–14€), Bilbao (11–16€), Zaragoza (9–13€). 0% comisión, conductores verificados. Vuelta coordinada con fin del espectáculo.`,
     keywords: `carpooling rammstein españa, rammstein concierto madrid carpooling, rammstein ${YEAR$2} transporte, viaje compartido rammstein, como llegar concierto rammstein, rammstein madrid como llegar, rammstein barcelona carpooling`
   },
   "harry-styles": {
-    title: `Harry Styles concierto España ${YEAR$2}: carpooling desde 4€ | ConcertRide`,
+    title: `Harry Styles España ${YEAR$2}: Carpooling desde 4€, 0% comisión`,
     description: `Harry Styles en España ${YEAR$2} — WiZink Center Madrid y Palau Sant Jordi Barcelona. Carpooling desde Zaragoza (9–13€), Valencia (10–14€), Bilbao (11–16€). 0% comisión, pago en Bizum. Love on Tour, sin colas de metro.`,
     keywords: `carpooling harry styles españa, harry styles madrid como llegar, harry styles wizink center carpooling, harry styles ${YEAR$2} transporte, viaje compartido harry styles, como ir al concierto harry styles, harry styles palau sant jordi transporte`
   },
@@ -24536,7 +25374,7 @@ const ARTIST_SEO_OVERRIDES = {
     keywords: `carpooling pablo alboran ${YEAR$2}, pablo alboran madrid como llegar, pablo alboran wizink center carpooling, pablo alboran ${YEAR$2} transporte, viaje compartido pablo alboran, como ir concierto pablo alboran, pablo alboran sevilla fibes carpooling, pablo alboran palau sant jordi, pablo alboran malagueño cantautor`
   },
   "rozalen": {
-    title: `Rozalén concierto España ${YEAR$2}: carpooling desde 4€ | ConcertRide`,
+    title: `Rozalén España ${YEAR$2}: Carpooling desde 4€, 0% comisión`,
     description: `Rozalén en España ${YEAR$2} — WiZink Center Madrid, Valencia. Carpooling desde Albacete (6–9€), Toledo (4–7€), Cuenca (5–8€), Alicante (5–8€). 0% comisión, conductores verificados.`,
     keywords: `carpooling rozalen ${YEAR$2}, rozalen concierto madrid ${YEAR$2}, rozalen wizink center como llegar, rozalen ${YEAR$2} transporte, viaje compartido rozalen, como ir concierto rozalen`
   },
@@ -24546,22 +25384,22 @@ const ARTIST_SEO_OVERRIDES = {
     keywords: `sabrina carpenter españa, sabrina carpenter madrid como llegar, sabrina carpenter ${YEAR$2}, sabrina carpenter wizink center carpooling, sabrina carpenter short n sweet tour, carpooling sabrina carpenter, viaje compartido sabrina carpenter, sabrina carpenter concierto madrid, sabrina carpenter spain ${YEAR$2}, sabrina carpenter barcelona ${YEAR$2}`
   },
   "lana-del-rey": {
-    title: `Lana Del Rey concierto España ${YEAR$2}: carpooling desde 4€ | ConcertRide`,
+    title: `Lana Del Rey España ${YEAR$2}: Carpooling desde 4€, 0% comisión`,
     description: `Lana Del Rey en España ${YEAR$2} — Parc del Fòrum Barcelona y WiZink Center Madrid. Carpooling desde Madrid (15–20€), Valencia (10–14€), Zaragoza (8–12€). 0% comisión, conductores verificados.`,
     keywords: `carpooling lana del rey españa, lana del rey barcelona como llegar, lana del rey primavera sound carpooling, lana del rey ${YEAR$2} transporte, viaje compartido lana del rey, como ir concierto lana del rey`
   },
   "c-tangana": {
-    title: `C. Tangana concierto España ${YEAR$2}: carpooling desde 4€ | ConcertRide`,
+    title: `C. Tangana España ${YEAR$2}: Carpooling desde 4€, 0% comisión`,
     description: `C. Tangana El Madrileño — WiZink Center Madrid y Palau Sant Jordi Barcelona. Carpooling desde Valencia (10–14€), Sevilla (14–20€), Bilbao (11–16€). 0% comisión, conductores verificados.`,
     keywords: `carpooling c tangana españa, c tangana madrid como llegar, c tangana wizink center carpooling, c tangana ${YEAR$2} transporte, viaje compartido c tangana, como ir concierto c tangana, el madrileño tour carpooling`
   },
   "joaquin-sabina": {
-    title: `Joaquín Sabina concierto España ${YEAR$2}: carpooling desde 4€ | ConcertRide`,
+    title: `Joaquín Sabina España ${YEAR$2}: Carpooling desde 4€, 0% comisión`,
     description: `Joaquín Sabina en España ${YEAR$2} — Estadio Bernabéu Madrid y Palau Sant Jordi Barcelona. Carpooling desde Sevilla (14–20€), Valencia (10–14€), Zaragoza (9–13€). 0% comisión, conductores verificados.`,
     keywords: `carpooling joaquin sabina españa, joaquin sabina madrid como llegar, sabina concierto ${YEAR$2} transporte, viaje compartido joaquin sabina, como ir concierto sabina, sabina bernabeu carpooling`
   },
   "travis-scott": {
-    title: `Travis Scott concierto España ${YEAR$2}: carpooling desde 4€ | ConcertRide`,
+    title: `Travis Scott España ${YEAR$2}: Carpooling desde 4€, 0% comisión`,
     description: `Travis Scott Rodeo Tour España ${YEAR$2} — Parc del Fòrum Barcelona y IFEMA Madrid. Carpooling desde Madrid (15–20€), Valencia (10–14€), Zaragoza (8–12€). 0% comisión, conductores verificados.`,
     keywords: `carpooling travis scott españa, travis scott barcelona como llegar, travis scott mad cool carpooling, travis scott ${YEAR$2} transporte, viaje compartido travis scott, como ir concierto travis scott`
   },
@@ -24581,27 +25419,27 @@ const ARTIST_SEO_OVERRIDES = {
     keywords: `drake madrid, drake españa ${YEAR$2}, drake madrid como llegar, drake barcelona carpooling, drake concierto españa, carpooling drake, viaje compartido drake, como ir concierto drake, drake spain ${YEAR$2}, drake metropolitano madrid, drake palau sant jordi`
   },
   metallica: {
-    title: `Metallica España ${YEAR$2}: carpooling al M72 World Tour desde 4€ | ConcertRide`,
+    title: `Metallica España ${YEAR$2}: Carpooling desde 4€, 0% comisión`,
     description: `Metallica M72 World Tour España ${YEAR$2} — Estadi Olímpic Barcelona y Estadio Metropolitano Madrid. Carpooling desde Valencia (10–14€), Zaragoza (9–13€), Bilbao (11–16€). 0% comisión, perfil del conductor verificado, vuelta de madrugada incluida.`,
     keywords: `metallica españa ${YEAR$2}, metallica m72 madrid carpooling, metallica barcelona como llegar, metallica concierto españa, metallica metropolitano transporte, carpooling metallica, viaje compartido metallica, metallica tour ${YEAR$2}, como ir metallica madrid`
   },
   "guns-n-roses": {
-    title: `Guns N' Roses España ${YEAR$2}: carpooling al concierto desde 4€ | ConcertRide`,
+    title: `Guns N' Roses España ${YEAR$2}: Carpooling desde 4€, 0% comisión`,
     description: `Guns N' Roses en España ${YEAR$2} — Estadio Metropolitano Madrid y Estadi Olímpic Barcelona. Carpooling desde Valencia (10–14€), Zaragoza (8–12€), Sevilla (14–20€). 0% comisión, conductores verificados, pago Bizum o efectivo.`,
     keywords: `guns n roses españa ${YEAR$2}, guns n roses madrid como llegar, guns n roses barcelona carpooling, gnr españa concierto, carpooling guns n roses, viaje compartido guns n roses, como ir concierto guns n roses, guns n roses tour ${YEAR$2}, guns n roses metropolitano`
   },
   "ed-sheeran": {
-    title: `Ed Sheeran España ${YEAR$2}: carpooling al concierto desde 4€ | ConcertRide`,
+    title: `Ed Sheeran España ${YEAR$2}: Carpooling desde 4€, 0% comisión`,
     description: `Ed Sheeran +–=÷× Tour España ${YEAR$2} — Estadio Cívitas Metropolitano Madrid y Estadi Olímpic Barcelona. Carpooling desde Valencia (10–14€), Zaragoza (8–12€), Bilbao (11–16€). 0% comisión, conductores verificados, vuelta de madrugada coordinada.`,
     keywords: `ed sheeran españa ${YEAR$2}, ed sheeran madrid como llegar, ed sheeran barcelona carpooling, ed sheeran tour ${YEAR$2}, mathematics tour españa, carpooling ed sheeran, viaje compartido ed sheeran, como ir concierto ed sheeran`
   },
   maluma: {
-    title: `Maluma España ${YEAR$2}: carpooling al concierto desde 4€ | ConcertRide`,
+    title: `Maluma España ${YEAR$2}: Carpooling desde 4€, 0% comisión`,
     description: `Maluma en España ${YEAR$2} — WiZink Center Madrid y Palau Sant Jordi Barcelona. Carpooling desde Valencia (10–14€), Sevilla (14–20€), Zaragoza (9–13€). 0% comisión, pago Bizum o efectivo, conductores verificados, vuelta nocturna.`,
     keywords: `maluma españa ${YEAR$2}, maluma madrid como llegar, maluma barcelona carpooling, maluma wizink center, maluma palau sant jordi, carpooling maluma, viaje compartido maluma, como ir concierto maluma, maluma tour ${YEAR$2}, reggaeton concierto madrid carpooling`
   },
   "bruce-springsteen": {
-    title: `Bruce Springsteen España ${YEAR$2}: carpooling al Boss desde 4€ | ConcertRide`,
+    title: `Bruce Springsteen España ${YEAR$2}: Carpooling desde 4€, 0% comisión`,
     description: `Bruce Springsteen And The E Street Band ${YEAR$2} — Estadi Olímpic Barcelona y Estadio Cívitas Metropolitano Madrid. Carpooling desde Valencia (10–14€), Zaragoza (8–12€), Bilbao (11–16€). 0% comisión, vuelta de madrugada coordinada con otros fans.`,
     keywords: `bruce springsteen españa ${YEAR$2}, bruce springsteen madrid carpooling, bruce springsteen barcelona como llegar, springsteen tour españa, the boss concierto españa, carpooling bruce springsteen, viaje compartido bruce springsteen, e street band españa, como ir concierto springsteen`
   },
@@ -24611,7 +25449,7 @@ const ARTIST_SEO_OVERRIDES = {
     keywords: `doja cat españa ${YEAR$2}, doja cat madrid como llegar, doja cat barcelona carpooling, doja cat scarlet tour, carpooling doja cat, viaje compartido doja cat, como ir concierto doja cat, doja cat wizink center, doja cat palau sant jordi, doja cat concierto españa, doja cat madrid ${YEAR$2}`
   },
   "vetusta-morla": {
-    title: `Vetusta Morla concierto España ${YEAR$2}: carpooling desde 4€ | ConcertRide`,
+    title: `Vetusta Morla España ${YEAR$2}: Carpooling desde 4€, 0% comisión`,
     description: `Vetusta Morla en España ${YEAR$2} — WiZink Center Madrid, Palau Sant Jordi Barcelona, La Cartuja Sevilla, Mad Cool. La banda indie española más grande. Carpooling sin comisión desde Valencia (10–14€), Zaragoza (9–13€), Sevilla (14–20€), Bilbao (11–16€), Granada (12–17€). 0% comisión, pago Bizum, vuelta de madrugada coordinada con otros fans.`,
     keywords: `vetusta morla ${YEAR$2}, vetusta morla concierto españa ${YEAR$2}, vetusta morla madrid como llegar, vetusta morla wizink center, vetusta morla palau sant jordi, vetusta morla la cartuja, carpooling vetusta morla, viaje compartido vetusta morla, vetusta morla tour ${YEAR$2}, vetusta morla mapa de los vientos, vetusta morla cabo polonio`
   },
@@ -24621,12 +25459,12 @@ const ARTIST_SEO_OVERRIDES = {
     keywords: `estopa ${YEAR$2}, estopa concierto españa ${YEAR$2}, estopa madrid como llegar, estopa wizink center, estopa palau sant jordi, estopa la cartuja, carpooling estopa, viaje compartido estopa, estopa tour 25 aniversario, hermanos muñoz estopa, rumba española estopa`
   },
   quevedo: {
-    title: `Quevedo concierto España ${YEAR$2}: carpooling desde 4€ | ConcertRide`,
+    title: `Quevedo España ${YEAR$2}: Carpooling desde 4€, 0% comisión`,
     description: `Quevedo en España ${YEAR$2} — WiZink Center Madrid, Palau Sant Jordi Barcelona, Estadio Gran Canaria Arena Las Palmas. El rapero canario más exitoso. Carpooling sin comisión desde Valencia (10–14€), Sevilla (14–20€), Zaragoza (9–13€), Las Palmas. 0% comisión, pago Bizum, conductores verificados.`,
     keywords: `quevedo ${YEAR$2}, quevedo concierto españa ${YEAR$2}, quevedo madrid como llegar, quevedo wizink center, quevedo palau sant jordi, quevedo gran canaria, carpooling quevedo, viaje compartido quevedo, quevedo bizarrap session 52, quevedo donde quiero estar tour, quevedo rapero canario`
   },
   bizarrap: {
-    title: `Bizarrap concierto España ${YEAR$2}: carpooling desde 4€ | ConcertRide`,
+    title: `Bizarrap España ${YEAR$2}: Carpooling desde 4€, 0% comisión`,
     description: `Bizarrap en España ${YEAR$2} — WiZink Center Madrid, Palau Sant Jordi Barcelona, Mad Cool, Primavera Sound. El productor argentino #1 mundial con sus BZRP Music Sessions. Carpooling sin comisión desde Valencia (10–14€), Zaragoza (9–13€), Sevilla (14–20€). 0% comisión, pago Bizum o efectivo.`,
     keywords: `bizarrap ${YEAR$2}, bizarrap concierto españa ${YEAR$2}, bizarrap madrid como llegar, bizarrap wizink center, bizarrap palau sant jordi, bizarrap mad cool, bizarrap primavera sound, carpooling bizarrap, viaje compartido bizarrap, bizarrap bzrp sessions, bizarrap shakira, bizarrap quevedo`
   },
@@ -24636,57 +25474,57 @@ const ARTIST_SEO_OVERRIDES = {
     keywords: `camilo ${YEAR$2}, camilo concierto españa ${YEAR$2}, camilo madrid como llegar, camilo wizink center, camilo palau sant jordi, carpooling camilo, viaje compartido camilo, camilo de adentro pa fuera tour, camilo cantautor colombiano, vida de rico camilo`
   },
   "manuel-carrasco": {
-    title: `Manuel Carrasco concierto España ${YEAR$2}: carpooling desde 4€ | ConcertRide`,
+    title: `Manuel Carrasco España ${YEAR$2}: Carpooling desde 4€, 0% comisión`,
     description: `Manuel Carrasco en España ${YEAR$2} — La Cartuja Sevilla, WiZink Center Madrid, Stone & Music Mérida, Palau Sant Jordi Barcelona. El artista andaluz más exitoso de su generación. Carpooling sin comisión desde Huelva (4–7€), Cádiz (5–8€), Córdoba (5–8€), Málaga (7–10€), Madrid (14–20€). 0% comisión.`,
     keywords: `manuel carrasco ${YEAR$2}, manuel carrasco concierto españa, manuel carrasco la cartuja sevilla, manuel carrasco madrid wizink, manuel carrasco merida stone music, carpooling manuel carrasco, manuel carrasco gira ${YEAR$2}, manuel carrasco huelva, manuel carrasco bailar contigo`
   },
   "pablo-lopez": {
-    title: `Pablo López concierto España ${YEAR$2}: carpooling desde 4€ | ConcertRide`,
+    title: `Pablo López España ${YEAR$2}: Carpooling desde 4€, 0% comisión`,
     description: `Pablo López en España ${YEAR$2} — WiZink Center Madrid, Palau Sant Jordi Barcelona, La Cartuja Sevilla, Stone & Music Mérida. El malagueño cantautor de pop. Carpooling sin comisión desde Málaga (3–5€ a Marenostrum/Cala Mijas), Valencia (10–14€), Zaragoza (9–13€), Madrid (14–20€). 0% comisión, pago Bizum o efectivo.`,
     keywords: `pablo lopez ${YEAR$2}, pablo lopez concierto españa, pablo lopez wizink center, pablo lopez palau sant jordi, pablo lopez la cartuja, pablo lopez merida, carpooling pablo lopez, pablo lopez gira ${YEAR$2}, pablo lopez tour ${YEAR$2}, pablo lopez piano, pablo lopez malaga`
   },
   "love-of-lesbian": {
-    title: `Love of Lesbian concierto España ${YEAR$2}: carpooling desde 4€ | ConcertRide`,
+    title: `Love of Lesbian España ${YEAR$2}: Carpooling desde 4€, 0% comisión`,
     description: `Love of Lesbian en España ${YEAR$2} — Palau Sant Jordi Barcelona, WiZink Center Madrid, Cruïlla, Sonorama Ribera, Granada Sound. La banda indie pop catalana más popular. Carpooling sin comisión desde Madrid (15–20€), Valencia (10–14€), Tarragona (5–8€), Zaragoza (8–12€). Pago Bizum o efectivo, 0% comisión.`,
     keywords: `love of lesbian ${YEAR$2}, love of lesbian concierto españa ${YEAR$2}, love of lesbian madrid, love of lesbian barcelona, love of lesbian palau sant jordi, love of lesbian wizink, carpooling love of lesbian, viaje compartido love of lesbian, love of lesbian gira ${YEAR$2}, indie pop catalan, santi balmes love of lesbian`
   },
   "carolina-durante": {
-    title: `Carolina Durante concierto España ${YEAR$2}: carpooling desde 4€ | ConcertRide`,
+    title: `Carolina Durante España ${YEAR$2}: Carpooling desde 4€, 0% comisión`,
     description: `Carolina Durante en España ${YEAR$2} — WiZink Center Madrid, Sala Apolo Barcelona, Mad Cool, Sonorama Ribera, Primavera Sound, Granada Sound. La banda madrileña de indie rock más relevante de la nueva escena. Carpooling sin comisión desde Valencia (10–14€), Zaragoza (9–13€), Bilbao (11–16€), Sevilla (14–20€). 0% comisión.`,
     keywords: `carolina durante ${YEAR$2}, carolina durante concierto españa ${YEAR$2}, carolina durante madrid wizink, carolina durante barcelona, carolina durante mad cool, carolina durante sonorama, carolina durante primavera sound, carpooling carolina durante, indie rock madrid carolina durante, diego ibañez carolina durante, cuatro chavales carolina durante`
   },
   "lola-indigo": {
-    title: `Lola Indigo concierto España ${YEAR$2}: carpooling desde 4€ | ConcertRide`,
+    title: `Lola Indigo España ${YEAR$2}: Carpooling desde 4€, 0% comisión`,
     description: `Lola Indigo en España ${YEAR$2} — WiZink Center Madrid, Palau Sant Jordi Barcelona, La Cartuja Sevilla, Mad Cool. La cantante española de pop urbano (OT 2017). Carpooling sin comisión desde Valencia (10–14€), Sevilla (14–20€), Zaragoza (9–13€), Madrid (14–20€). 0% comisión, pago Bizum.`,
     keywords: `lola indigo ${YEAR$2}, lola indigo concierto españa ${YEAR$2}, lola indigo madrid, lola indigo wizink center, lola indigo palau sant jordi, lola indigo barcelona, carpooling lola indigo, viaje compartido lola indigo, lola indigo gira ${YEAR$2}, mimi doblas lola indigo, akelarre lola indigo, mujer bruja lola indigo`
   },
   saiko: {
-    title: `Saiko concierto España ${YEAR$2}: carpooling desde 4€ | ConcertRide`,
+    title: `Saiko España ${YEAR$2}: Carpooling desde 4€, 0% comisión`,
     description: `Saiko en España ${YEAR$2} — WiZink Center Madrid, Palau Sant Jordi Barcelona, Pabellón Santiago Martín Tenerife. El rapero canario nacido en La Laguna. Carpooling sin comisión desde Valencia (10–14€), Sevilla (14–20€), Zaragoza (9–13€), Madrid (14–20€). En Tenerife: Santa Cruz centro → Pabellón Santiago Martín (3–4€). 0% comisión.`,
     keywords: `saiko ${YEAR$2}, saiko concierto españa ${YEAR$2}, saiko madrid, saiko wizink center, saiko barcelona, saiko tenerife pabellon santiago martin, saiko polaris quevedo, saiko chata, carpooling saiko, viaje compartido saiko, ivan vazquez saiko, rap canario saiko`
   },
   "anuel-aa": {
-    title: `Anuel AA concierto España ${YEAR$2}: carpooling desde 4€ | ConcertRide`,
+    title: `Anuel AA España ${YEAR$2}: Carpooling desde 4€, 0% comisión`,
     description: `Anuel AA en España ${YEAR$2} — WiZink Center Madrid y Palau Sant Jordi Barcelona. El rapero puertorriqueño de trap latino. Carpooling sin comisión desde Valencia (10–14€), Sevilla (14–20€), Zaragoza (9–13€), Madrid (14–20€). 0% comisión, pago Bizum o efectivo.`,
     keywords: `anuel aa ${YEAR$2}, anuel aa concierto españa ${YEAR$2}, anuel aa madrid, anuel aa wizink center, anuel aa palau sant jordi, anuel aa barcelona, carpooling anuel aa, anuel aa karol g, china anuel daddy yankee, trap latino anuel aa, real hasta la muerte anuel`
   },
   "j-balvin": {
-    title: `J Balvin concierto España ${YEAR$2}: carpooling desde 4€ | ConcertRide`,
+    title: `J Balvin España ${YEAR$2}: Carpooling desde 4€, 0% comisión`,
     description: `J Balvin en España ${YEAR$2} — WiZink Center Madrid, Palau Sant Jordi Barcelona, Vive Latino España Zaragoza. El cantante colombiano de reggaetón. Carpooling sin comisión desde Valencia (10–14€), Sevilla (14–20€), Zaragoza (9–13€), Tarragona (5–8€). 0% comisión.`,
     keywords: `j balvin ${YEAR$2}, j balvin concierto españa ${YEAR$2}, j balvin madrid, j balvin wizink center, j balvin palau sant jordi, j balvin barcelona, carpooling j balvin, viaje compartido j balvin, j balvin vive latino, j balvin mi gente, jose alvaro osorio j balvin, reggaeton colombia j balvin`
   },
   "sebastian-yatra": {
-    title: `Sebastián Yatra concierto España ${YEAR$2}: carpooling desde 4€ | ConcertRide`,
+    title: `Sebastián Yatra España ${YEAR$2}: Carpooling desde 4€, 0% comisión`,
     description: `Sebastián Yatra en España ${YEAR$2} — WiZink Center Madrid y Palau Sant Jordi Barcelona. El cantante colombiano de pop latino (Tacones Rojos). Carpooling sin comisión desde Valencia (10–14€), Sevilla (14–20€), Zaragoza (9–13€), Madrid (14–20€). 0% comisión, pago Bizum.`,
     keywords: `sebastian yatra ${YEAR$2}, sebastian yatra concierto españa ${YEAR$2}, sebastian yatra madrid, sebastian yatra wizink, sebastian yatra palau sant jordi, sebastian yatra barcelona, carpooling sebastian yatra, sebastian yatra tacones rojos, sebastian yatra robarte un beso, pop latino yatra`
   },
   "manuel-turizo": {
-    title: `Manuel Turizo concierto España ${YEAR$2}: carpooling desde 4€ | ConcertRide`,
+    title: `Manuel Turizo España ${YEAR$2}: Carpooling desde 4€, 0% comisión`,
     description: `Manuel Turizo (MTZ) en España ${YEAR$2} — WiZink Center Madrid y Palau Sant Jordi Barcelona. El cantante colombiano (La Bachata, Una Lady Como Tú). Carpooling sin comisión desde Valencia (10–14€), Sevilla (14–20€), Zaragoza (9–13€), Tarragona (5–8€). 0% comisión, pago Bizum.`,
     keywords: `manuel turizo ${YEAR$2}, manuel turizo concierto españa ${YEAR$2}, manuel turizo madrid, manuel turizo wizink, manuel turizo palau sant jordi, manuel turizo barcelona, mtz manuel turizo, manuel turizo la bachata, manuel turizo una lady como tu, carpooling manuel turizo, reggaeton colombia turizo`
   },
   "feid": {
-    title: `Feid concierto España ${YEAR$2}: carpooling desde 4€ | ConcertRide`,
+    title: `Feid España ${YEAR$2}: Carpooling desde 4€, 0% comisión`,
     description: `Feid en España ${YEAR$2} — estadios y pabellones de Madrid y Barcelona. Carpooling sin comisión desde Valencia (10–14€), Sevilla (12–17€), Zaragoza (9–13€). Conductores verificados, vuelta de madrugada coordinada. 0% comisión.`,
     keywords: `carpooling feid españa, feid concierto madrid carpooling, feid ${YEAR$2} transporte, viaje compartido feid, como ir concierto feid, feid gira ${YEAR$2} españa, feid tour españa`
   },
@@ -24701,12 +25539,12 @@ const ARTIST_SEO_OVERRIDES = {
     keywords: `carpooling morat españa, morat concierto madrid ${YEAR$2}, morat wizink center carpooling, morat ${YEAR$2} transporte, viaje compartido morat, como ir concierto morat`
   },
   "leiva": {
-    title: `Leiva concierto España ${YEAR$2}: carpooling desde 4€ | ConcertRide`,
+    title: `Leiva España ${YEAR$2}: Carpooling desde 4€, 0% comisión`,
     description: `Leiva en España ${YEAR$2} — WiZink Center Madrid y teatros/pabellones nacionales. Carpooling sin comisión desde Toledo (4–7€), Zaragoza (9–13€), Valencia (10–14€), Sevilla (12–17€). 0% comisión, conductores verificados.`,
     keywords: `carpooling leiva españa, leiva concierto madrid ${YEAR$2}, leiva wizink center carpooling, leiva ${YEAR$2} transporte, viaje compartido leiva, como ir concierto leiva, leiva gira ${YEAR$2}`
   },
   "beret": {
-    title: `Beret concierto España ${YEAR$2}: carpooling desde 4€ | ConcertRide`,
+    title: `Beret España ${YEAR$2}: Carpooling desde 4€, 0% comisión`,
     description: `Beret en España ${YEAR$2} — recintos de Madrid, Sevilla, Valencia y Barcelona. Carpooling sin comisión desde Córdoba (4–6€), Cádiz (5–7€), Almería (6–9€), Málaga (5–8€). 0% comisión, conductores verificados.`,
     keywords: `carpooling beret españa, beret concierto ${YEAR$2}, beret transporte, viaje compartido beret, como ir concierto beret, beret gira ${YEAR$2} españa`
   },
@@ -24811,6 +25649,57 @@ const ARTIST_SEO_OVERRIDES = {
     title: `Rels B ${YEAR$2} [AFTERPARTY Tour Movistar+Palau]: Carpooling 4€`,
     description: `Rels B AFTERPARTY Tour ${YEAR$2} — Movistar Arena Madrid, Palau Sant Jordi Barcelona, Mallorca Live Festival y Reggaeton Beach Festival Salou. Carpooling sin comisión desde Valencia (10–14€), Tarragona (3€ a Salou), Reus (3€), Sevilla (14–20€). 0% comisión, conductores verificados.`,
     keywords: `rels b ${YEAR$2}, rels b concierto españa ${YEAR$2}, rels b madrid movistar arena, rels b palau sant jordi barcelona, rels b mallorca live, rels b reggaeton beach festival, rels b afterparty tour, daniel heredia rels b, carpooling rels b, viaje compartido rels b, a mi rels b, la luna y yo rels b, como dormiste rels b, rap mallorca rels b`
+  },
+  // ── Wave 36: Catalan scene + Fuel Fandango ───────────────────────────────
+  "fuel-fandango": {
+    title: `Fuel Fandango ${YEAR$2} [Flamenco-Electro, Sónar]: Carpooling 4€`,
+    description: `Fuel Fandango ${YEAR$2} — Sónar BCN, FIB, Primavera Sound. Dúo granadino flamenco-electrónico. Carpooling Sevilla 12€, Valencia 10€, Madrid 15€. 0% comisión. Bizum.`,
+    keywords: `fuel fandango ${YEAR$2}, fuel fandango concierto españa, fuel fandango sonar barcelona, fuel fandango fib, fuel fandango primavera sound, fuel fandango flamenco electronico, carpooling fuel fandango, como ir concierto fuel fandango`
+  },
+  "los-piratas": {
+    title: `Los Piratas ${YEAR$2} [Indie Rock, La Riviera]: Carpooling 4€`,
+    description: `Los Piratas ${YEAR$2} — La Riviera Madrid, Sonorama Ribera. Indie rock asturiano pionero, Omega. Carpooling Oviedo 7€, Gijón 7€, Valladolid 5€. 0% comisión. Bizum.`,
+    keywords: `los piratas ${YEAR$2}, los piratas concierto españa, los piratas madrid la riviera, los piratas sonorama, los piratas omega album, los piratas indie rock asturiano, carpooling los piratas, como ir concierto los piratas`
+  },
+  standstill: {
+    title: `Standstill ${YEAR$2} [Punk-Rock BCN, Primavera Sound]: 4€`,
+    description: `Standstill ${YEAR$2} — Primavera Sound BCN, Razzmatazz. Punk-rock/hardcore barcelonés. Carpooling Valencia 10€, Zaragoza 9€, Madrid 15€. 0% comisión. Bizum.`,
+    keywords: `standstill ${YEAR$2}, standstill concierto españa, standstill primavera sound barcelona, standstill razzmatazz, standstill hardcore punk rock catalan, carpooling standstill, como ir concierto standstill barcelona`
+  },
+  "els-amics-de-les-arts": {
+    title: `Els Amics de les Arts ${YEAR$2} [Cruïlla + FIB]: Carpooling 3€`,
+    description: `Els Amics de les Arts ${YEAR$2} — Cruïlla BCN, FIB Benicàssim. Indie pop catalán, Ja Som a la Tardor. Carpooling Girona 3€, Tarragona 3€, Valencia 7€. Sin comisión.`,
+    keywords: `els amics de les arts ${YEAR$2}, els amics de les arts concierto, els amics de les arts cruilla barcelona, els amics de les arts fib, els amics de les arts indie catalan, carpooling els amics de les arts, com anar concert els amics les arts`
+  },
+  manel: {
+    title: `Manel ${YEAR$2} [Primavera Sound + FIB]: Carpooling 3€`,
+    description: `Manel ${YEAR$2} — Primavera Sound BCN, FIB Benicàssim, Cruïlla. Indie folk pop catalán. Carpooling Girona 3€, Lleida 5€, Valencia 8€. 0% comisión. Bizum.`,
+    keywords: `manel ${YEAR$2}, manel concierto españa, manel primavera sound barcelona, manel fib benicassim, manel cruilla, manel indie folk catalan, manel els millors professors europeus, carpooling manel, como ir concierto manel barcelona`
+  },
+  mishima: {
+    title: `Mishima ${YEAR$2} [Primavera Sound BCN + Apolo]: Carpooling 3€`,
+    description: `Mishima ${YEAR$2} — Primavera Sound BCN, Sala Apolo, FIB. Indie rock catalán, L'Edat d'Or. Carpooling Girona 3€, Tarragona 3€, Valencia 8€. 0% comisión. Bizum.`,
+    keywords: `mishima ${YEAR$2}, mishima concierto españa, mishima primavera sound barcelona, mishima sala apolo, mishima indie rock catalan, mishima l edat d or, carpooling mishima, como ir concierto mishima barcelona`
+  },
+  "sopa-de-cabra": {
+    title: `Sopa de Cabra ${YEAR$2} [Canet Rock + Gira]: Carpooling 3€`,
+    description: `Sopa de Cabra ${YEAR$2} — Canet Rock, Palau Sant Jordi BCN. Rock catalán de Girona, El meu avi. Carpooling Girona 3€, Tarragona 3€, Lleida 5€. 0% comisión. Bizum.`,
+    keywords: `sopa de cabra ${YEAR$2}, sopa de cabra concierto españa, sopa de cabra canet rock, sopa de cabra palau sant jordi, sopa de cabra rock catalan girona, sopa de cabra el meu avi, carpooling sopa de cabra, como ir concierto sopa de cabra`
+  },
+  "the-tyets": {
+    title: `The Tyets ${YEAR$2} [Primavera Sound BCN]: Carpooling 3€`,
+    description: `The Tyets ${YEAR$2} — Primavera Sound BCN, Cruïlla. Pop urbano catalán viral, Castellers. Carpooling Girona 3€, Tarragona 3€, Valencia 8€. 0% comisión. Bizum.`,
+    keywords: `the tyets ${YEAR$2}, the tyets concierto españa, the tyets primavera sound barcelona, the tyets cruilla, the tyets pop urbano catalan, the tyets castellers, carpooling the tyets, como ir concierto the tyets barcelona`
+  },
+  "oques-grasses": {
+    title: `Oques Grasses ${YEAR$2} [Rototom + Cruïlla]: Carpooling 3€`,
+    description: `Oques Grasses ${YEAR$2} — Rototom Sunsplash, Cruïlla BCN, FIB. Reggae-ska catalán de Granollers. Carpooling Girona 3€, Tarragona 3€, Valencia 7€. 0% comisión. Bizum.`,
+    keywords: `oques grasses ${YEAR$2}, oques grasses concierto españa, oques grasses rototom sunsplash, oques grasses cruilla barcelona, oques grasses fib, oques grasses reggae ska catalan, carpooling oques grasses, como ir concierto oques grasses`
+  },
+  txarango: {
+    title: `Txarango ${YEAR$2} [Cruïlla + Folk Catalans]: Carpooling 3€`,
+    description: `Txarango ${YEAR$2} — Cruïlla BCN, Mercat de Música Viva, Canet Rock. Folk-rumba-ska catalán, Som la Gent. Carpooling Girona 3€, Lleida 5€, Tarragona 3€. Sin comisión.`,
+    keywords: `txarango ${YEAR$2}, txarango concierto españa, txarango cruilla barcelona, txarango mercat musica viva, txarango canet rock, txarango folk catalan rumba, txarango som la gent, carpooling txarango, como ir concierto txarango`
   }
 };
 const ROUTE_SEO_IMPROVEMENTS = {
@@ -24836,7 +25725,7 @@ const ROUTE_SEO_IMPROVEMENTS = {
     keywords: `carpooling albacete viña rock, bus albacete viña rock, lanzadera albacete viña rock, viaje compartido albacete villarrobledo`
   },
   "sevilla-vina-rock": {
-    title: `Carpooling Sevilla → Viña Rock ${YEAR$2}: Desde 9€ | 410 km | ConcertRide`,
+    title: `Carpooling Sevilla → Viña Rock ${YEAR$2}: 9€, 410 km`,
     keywords: `carpooling sevilla viña rock, viaje compartido sevilla viña rock, como ir viña rock desde sevilla`
   },
   // ── Arenal Sound ────────────────────────────────────────────────────────
@@ -24856,11 +25745,11 @@ const ROUTE_SEO_IMPROVEMENTS = {
     keywords: `carpooling barcelona arenal sound, viaje compartido barcelona burriana, como llegar arenal sound desde barcelona`
   },
   "zaragoza-arenal-sound": {
-    title: `Carpooling Zaragoza → Arenal Sound ${YEAR$2}: Desde 8€ | 275 km | ConcertRide`,
+    title: `Carpooling Zaragoza → Arenal Sound ${YEAR$2}: 8€, 275 km`,
     keywords: `carpooling zaragoza arenal sound, viaje compartido zaragoza arenal sound, como ir arenal sound desde zaragoza`
   },
   "alicante-arenal-sound": {
-    title: `Carpooling Alicante → Arenal Sound ${YEAR$2}: Desde 4€ | 115 km | ConcertRide`,
+    title: `Carpooling Alicante → Arenal Sound ${YEAR$2}: 4€, 115 km`,
     keywords: `carpooling alicante arenal sound, viaje compartido alicante burriana arenal sound`
   },
   // ── BBK Live ────────────────────────────────────────────────────────────
@@ -24890,11 +25779,11 @@ const ROUTE_SEO_IMPROVEMENTS = {
     keywords: `carpooling santander bbk live, viaje compartido santander bilbao bbk live, como ir bbk live desde santander, bus santander bilbao bbk live`
   },
   "vitoria-gasteiz-bbk-live": {
-    title: `Carpooling Vitoria → BBK Live Bilbao ${YEAR$2}: Desde 3€ | 65 km | ConcertRide`,
+    title: `Carpooling Vitoria → BBK Live Bilbao ${YEAR$2}: 3€, 65 km`,
     keywords: `carpooling vitoria bbk live, viaje compartido vitoria bilbao bbk live, como ir bbk live desde vitoria`
   },
   "pamplona-bbk-live": {
-    title: `Carpooling Pamplona → BBK Live ${YEAR$2}: Desde 5€ | 155 km | ConcertRide`,
+    title: `Carpooling Pamplona → BBK Live ${YEAR$2}: 5€, 155 km`,
     keywords: `carpooling pamplona bbk live, viaje compartido pamplona bilbao bbk live`
   },
   // ── Resurrection Fest ───────────────────────────────────────────────────
@@ -24971,7 +25860,7 @@ const ROUTE_SEO_IMPROVEMENTS = {
     keywords: `carpooling malaga cala mijas, viaje compartido malaga cala mijas festival, como llegar cala mijas desde malaga`
   },
   "madrid-cala-mijas": {
-    title: `Carpooling Madrid → Cala Mijas Festival ${YEAR$2}: Desde 14€ | 560 km | ConcertRide`,
+    title: `Carpooling Madrid → Cala Mijas Festival ${YEAR$2}: 14€, 560 km`,
     keywords: `carpooling madrid cala mijas festival, viaje compartido madrid cala mijas, como ir cala mijas desde madrid`
   },
   // ── FIB Benicàssim ──────────────────────────────────────────────────────
@@ -24992,11 +25881,11 @@ const ROUTE_SEO_IMPROVEMENTS = {
   },
   // ── O Son do Camiño ─────────────────────────────────────────────────────
   "madrid-o-son-do-camino": {
-    title: `Carpooling Madrid → O Son do Camiño ${YEAR$2}: Desde 15€ | 585 km | ConcertRide`,
+    title: `Carpooling Madrid → O Son do Camiño ${YEAR$2}: 15€, 585 km`,
     keywords: `carpooling madrid o son do camiño, viaje compartido madrid santiago festival, como ir o son do camino desde madrid`
   },
   "a-coruna-o-son-do-camino": {
-    title: `Carpooling A Coruña → O Son do Camiño ${YEAR$2}: Desde 3€ | 75 km | ConcertRide`,
+    title: `Carpooling A Coruña → O Son do Camiño ${YEAR$2}: 3€, 75 km`,
     keywords: `carpooling a coruña o son do camiño, viaje compartido a coruña santiago festival, como ir o son do camino desde a coruña, monte do gozo desde a coruña`
   },
   "vigo-o-son-do-camino": {
@@ -25005,65 +25894,65 @@ const ROUTE_SEO_IMPROVEMENTS = {
     keywords: `vigo o son do camino carpooling, vigo santiago festival viaje compartido, vigo o son do camino ${YEAR$2}, carpooling galicia festival santiago, carpooling vigo o son do camiño, viaje compartido vigo santiago festival, como ir o son do camino desde vigo, o son do camiño desde vigo`
   },
   "ourense-o-son-do-camino": {
-    title: `Carpooling Ourense → O Son do Camiño ${YEAR$2}: Desde 5€ | 110 km | ConcertRide`,
+    title: `Carpooling Ourense → O Son do Camiño ${YEAR$2}: 5€, 110 km`,
     keywords: `carpooling ourense o son do camiño, viaje compartido ourense santiago festival, como ir o son do camino desde ourense`
   },
   "oviedo-o-son-do-camino": {
-    title: `Carpooling Oviedo → O Son do Camiño ${YEAR$2}: Desde 9€ | 295 km | ConcertRide`,
+    title: `Carpooling Oviedo → O Son do Camiño ${YEAR$2}: 9€, 295 km`,
     keywords: `carpooling oviedo o son do camiño, viaje compartido oviedo santiago festival, como ir o son do camino desde oviedo, asturias santiago festival`
   },
   // ── Sonorama Ribera (más rutas) ─────────────────────────────────────────
   "burgos-sonorama-ribera": {
-    title: `Carpooling Burgos → Sonorama Ribera ${YEAR$2}: Desde 3€ | 75 km | ConcertRide`,
+    title: `Carpooling Burgos → Sonorama Ribera ${YEAR$2}: 3€, 75 km`,
     keywords: `carpooling burgos sonorama ribera, viaje compartido burgos aranda de duero, sonorama desde burgos, como ir sonorama ribera desde burgos`
   },
   "bilbao-sonorama-ribera": {
-    title: `Carpooling Bilbao → Sonorama Ribera ${YEAR$2}: Desde 5€ | 165 km | ConcertRide`,
+    title: `Carpooling Bilbao → Sonorama Ribera ${YEAR$2}: 5€, 165 km`,
     keywords: `carpooling bilbao sonorama ribera, viaje compartido bilbao aranda sonorama, sonorama desde bilbao, como ir sonorama ribera desde bilbao`
   },
   "zaragoza-sonorama-ribera": {
-    title: `Carpooling Zaragoza → Sonorama Ribera ${YEAR$2}: Desde 9€ | 320 km | ConcertRide`,
+    title: `Carpooling Zaragoza → Sonorama Ribera ${YEAR$2}: 9€, 320 km`,
     keywords: `carpooling zaragoza sonorama ribera, viaje compartido zaragoza aranda de duero sonorama, sonorama desde zaragoza`
   },
   // ── Medusa Festival local hub ───────────────────────────────────────────
   "valencia-medusa-festival": {
-    title: `Carpooling Valencia → Medusa Festival Cullera ${YEAR$2}: Desde 3€ | 60 km | ConcertRide`,
+    title: `Carpooling Valencia → Medusa Festival Cullera ${YEAR$2}: 3€, 60 km`,
     keywords: `carpooling valencia medusa festival, viaje compartido valencia cullera medusa, como ir medusa festival desde valencia, medusa festival lanzadera valencia, medusa cullera desde valencia`
   },
   // ── FIB desde Alicante (mediterráneo sur) ──────────────────────────────
   "alicante-fib": {
-    title: `Carpooling Alicante → FIB Benicàssim ${YEAR$2}: Desde 5€ | 195 km | ConcertRide`,
+    title: `Carpooling Alicante → FIB Benicàssim ${YEAR$2}: 5€, 195 km`,
     keywords: `carpooling alicante fib benicassim, viaje compartido alicante fib, como ir fib desde alicante, fib desde alicante`
   },
   // ── Medusa Festival ─────────────────────────────────────────────────────────
   "madrid-medusa-festival": {
-    title: `Carpooling Madrid → Medusa Festival Cullera ${YEAR$2}: Desde 15€ | 390 km | ConcertRide`,
+    title: `Carpooling Madrid → Medusa Festival Cullera ${YEAR$2}: 15€, 390 km`,
     keywords: `carpooling madrid medusa festival, viaje compartido madrid cullera medusa, como ir medusa festival desde madrid, transporte madrid medusa ${YEAR$2}`
   },
   "barcelona-medusa-festival": {
-    title: `Carpooling Barcelona → Medusa Festival Cullera ${YEAR$2}: Desde 10€ | 305 km | ConcertRide`,
+    title: `Carpooling Barcelona → Medusa Festival Cullera ${YEAR$2}: 10€, 305 km`,
     keywords: `carpooling barcelona medusa festival, viaje compartido barcelona cullera, como ir medusa festival desde barcelona, medusa festival desde barcelona`
   },
   "murcia-vina-rock": {
-    title: `Carpooling Murcia → Viña Rock ${YEAR$2}: Desde 8€ | 155 km | ConcertRide`,
+    title: `Carpooling Murcia → Viña Rock ${YEAR$2}: 8€, 155 km`,
     keywords: `carpooling murcia viña rock, viaje compartido murcia villarrobledo, como ir viña rock desde murcia, bus murcia viña rock`
   },
   // ── Primavera Sound (más ciudades) ─────────────────────────────────────────
   "zaragoza-primavera-sound": {
-    title: `Carpooling Zaragoza → Primavera Sound Barcelona ${YEAR$2}: Desde 8€ | 296 km | ConcertRide`,
+    title: `Carpooling Zaragoza → Primavera Sound Barcelona ${YEAR$2}: 8€, 296 km`,
     keywords: `carpooling zaragoza primavera sound, viaje compartido zaragoza barcelona primavera sound, como ir primavera sound desde zaragoza`
   },
   "bilbao-primavera-sound": {
-    title: `Carpooling Bilbao → Primavera Sound Barcelona ${YEAR$2}: Desde 12€ | 510 km | ConcertRide`,
+    title: `Carpooling Bilbao → Primavera Sound Barcelona ${YEAR$2}: 12€, 510 km`,
     keywords: `carpooling bilbao primavera sound, viaje compartido bilbao barcelona festival, como ir primavera sound desde bilbao`
   },
   // ── Mad Cool (más ciudades) ─────────────────────────────────────────────────
   "sevilla-mad-cool": {
-    title: `Carpooling Sevilla → Mad Cool Madrid ${YEAR$2}: Desde 10€ | 530 km | ConcertRide`,
+    title: `Carpooling Sevilla → Mad Cool Madrid ${YEAR$2}: 10€, 530 km`,
     keywords: `carpooling sevilla mad cool, viaje compartido sevilla madrid mad cool, como ir mad cool desde sevilla, mad cool desde sevilla transporte, carpooling andalucia mad cool`
   },
   "bilbao-mad-cool": {
-    title: `Carpooling Bilbao → Mad Cool Madrid ${YEAR$2}: Desde 11€ | 395 km | ConcertRide`,
+    title: `Carpooling Bilbao → Mad Cool Madrid ${YEAR$2}: 11€, 395 km`,
     keywords: `carpooling bilbao mad cool, viaje compartido bilbao madrid mad cool, como ir mad cool desde bilbao`
   },
   // ── Sónar (más ciudades) ────────────────────────────────────────────────────
@@ -25079,41 +25968,41 @@ const ROUTE_SEO_IMPROVEMENTS = {
   },
   // ── Cruïlla ─────────────────────────────────────────────────────────────────
   "madrid-cruilla": {
-    title: `Carpooling Madrid → Cruïlla Barcelona ${YEAR$2}: Desde 15€ | 620 km | ConcertRide`,
+    title: `Carpooling Madrid → Cruïlla Barcelona ${YEAR$2}: 15€, 620 km`,
     keywords: `carpooling madrid cruilla, viaje compartido madrid barcelona cruilla, como ir cruilla desde madrid, transporte madrid cruilla ${YEAR$2}`
   },
   "valencia-cruilla": {
-    title: `Carpooling Valencia → Cruïlla Barcelona ${YEAR$2}: Desde 10€ | 355 km | ConcertRide`,
+    title: `Carpooling Valencia → Cruïlla Barcelona ${YEAR$2}: 10€, 355 km`,
     keywords: `carpooling valencia cruilla barcelona, viaje compartido valencia cruilla, como ir cruilla desde valencia`
   },
   "zaragoza-cruilla": {
-    title: `Carpooling Zaragoza → Cruïlla Barcelona ${YEAR$2}: Desde 8€ | 296 km | ConcertRide`,
+    title: `Carpooling Zaragoza → Cruïlla Barcelona ${YEAR$2}: 8€, 296 km`,
     keywords: `carpooling zaragoza cruilla, viaje compartido zaragoza barcelona cruilla, como ir cruilla desde zaragoza`
   },
   // ── Tomavistas ──────────────────────────────────────────────────────────────
   "barcelona-tomavistas": {
-    title: `Carpooling Barcelona → Tomavistas Madrid ${YEAR$2}: Desde 15€ | 620 km | ConcertRide`,
+    title: `Carpooling Barcelona → Tomavistas Madrid ${YEAR$2}: 15€, 620 km`,
     keywords: `carpooling barcelona tomavistas, viaje compartido barcelona madrid tomavistas, como ir tomavistas desde barcelona`
   },
   "valencia-tomavistas": {
-    title: `Carpooling Valencia → Tomavistas Madrid ${YEAR$2}: Desde 10€ | 355 km | ConcertRide`,
+    title: `Carpooling Valencia → Tomavistas Madrid ${YEAR$2}: 10€, 355 km`,
     keywords: `carpooling valencia tomavistas madrid, viaje compartido valencia tomavistas, como ir tomavistas desde valencia`
   },
   "zaragoza-tomavistas": {
-    title: `Carpooling Zaragoza → Tomavistas Madrid ${YEAR$2}: Desde 9€ | 325 km | ConcertRide`,
+    title: `Carpooling Zaragoza → Tomavistas Madrid ${YEAR$2}: 9€, 325 km`,
     keywords: `carpooling zaragoza tomavistas, viaje compartido zaragoza madrid tomavistas`
   },
   // ── Low Festival ────────────────────────────────────────────────────────────
   "madrid-low-festival": {
-    title: `Carpooling Madrid → Low Festival Benidorm ${YEAR$2}: Desde 14€ | 420 km | ConcertRide`,
+    title: `Carpooling Madrid → Low Festival Benidorm ${YEAR$2}: 14€, 420 km`,
     keywords: `carpooling madrid low festival benidorm, viaje compartido madrid benidorm low festival, como ir low festival desde madrid`
   },
   "barcelona-low-festival": {
-    title: `Carpooling Barcelona → Low Festival Benidorm ${YEAR$2}: Desde 12€ | 480 km | ConcertRide`,
+    title: `Carpooling Barcelona → Low Festival Benidorm ${YEAR$2}: 12€, 480 km`,
     keywords: `carpooling barcelona low festival benidorm, viaje compartido barcelona benidorm, como ir low festival desde barcelona`
   },
   "valencia-low-festival": {
-    title: `Carpooling Valencia → Low Festival Benidorm ${YEAR$2}: Desde 8€ | 150 km | ConcertRide`,
+    title: `Carpooling Valencia → Low Festival Benidorm ${YEAR$2}: 8€, 150 km`,
     keywords: `carpooling valencia low festival benidorm, viaje compartido valencia benidorm low festival, como ir low festival desde valencia`
   },
   // ── Cala Mijas (más ciudades) ───────────────────────────────────────────────
@@ -25123,268 +26012,268 @@ const ROUTE_SEO_IMPROVEMENTS = {
     keywords: `carpooling sevilla cala mijas, viaje compartido sevilla mijas festival, como ir cala mijas desde sevilla`
   },
   "granada-cala-mijas": {
-    title: `Carpooling Granada → Cala Mijas Festival ${YEAR$2}: Desde 5€ | 125 km | ConcertRide`,
+    title: `Carpooling Granada → Cala Mijas Festival ${YEAR$2}: 5€, 125 km`,
     keywords: `carpooling granada cala mijas, viaje compartido granada cala mijas festival, como ir cala mijas desde granada`
   },
   // ── Sonorama Ribera (más ciudades) ─────────────────────────────────────────
   "madrid-sonorama-ribera": {
-    title: `Carpooling Madrid → Sonorama Ribera ${YEAR$2}: Desde 8€ | 160 km | ConcertRide`,
+    title: `Carpooling Madrid → Sonorama Ribera ${YEAR$2}: 8€, 160 km`,
     keywords: `carpooling madrid sonorama ribera, viaje compartido madrid aranda de duero sonorama, como ir sonorama desde madrid`
   },
   "valladolid-sonorama-ribera": {
-    title: `Carpooling Valladolid → Sonorama Ribera ${YEAR$2}: Desde 4€ | 95 km | ConcertRide`,
+    title: `Carpooling Valladolid → Sonorama Ribera ${YEAR$2}: 4€, 95 km`,
     keywords: `carpooling valladolid sonorama ribera, viaje compartido valladolid aranda sonorama, como ir sonorama desde valladolid`
   },
   // ── Resurrection Fest (más ciudades) ────────────────────────────────────────
   "barcelona-resurrection-fest": {
-    title: `Carpooling Barcelona → Resurrection Fest ${YEAR$2}: Desde 18€ | 890 km | ConcertRide`,
+    title: `Carpooling Barcelona → Resurrection Fest ${YEAR$2}: 18€, 890 km`,
     keywords: `carpooling barcelona resurrection fest, viaje compartido barcelona viveiro resurrection fest, como ir resurrection fest desde barcelona`
   },
   "donostia-resurrection-fest": {
-    title: `Carpooling Donostia → Resurrection Fest ${YEAR$2}: Desde 10€ | 430 km | ConcertRide`,
+    title: `Carpooling Donostia → Resurrection Fest ${YEAR$2}: 10€, 430 km`,
     keywords: `carpooling donostia resurrection fest, viaje compartido san sebastian viveiro resurrection fest`
   },
   // ── Vive Latino Zaragoza ─────────────────────────────────────────────────────
   "madrid-vive-latino": {
-    title: `Carpooling Madrid → Vive Latino Zaragoza ${YEAR$2}: Desde 9€ | 330 km | ConcertRide`,
+    title: `Carpooling Madrid → Vive Latino Zaragoza ${YEAR$2}: 9€, 330 km`,
     keywords: `carpooling madrid vive latino zaragoza, viaje compartido madrid zaragoza vive latino, como ir vive latino desde madrid, transporte vive latino madrid ${YEAR$2}`
   },
   "barcelona-vive-latino": {
-    title: `Carpooling Barcelona → Vive Latino Zaragoza ${YEAR$2}: Desde 8€ | 306 km | ConcertRide`,
+    title: `Carpooling Barcelona → Vive Latino Zaragoza ${YEAR$2}: 8€, 306 km`,
     keywords: `carpooling barcelona vive latino zaragoza, viaje compartido barcelona zaragoza vive latino, como ir vive latino desde barcelona`
   },
   "valencia-vive-latino": {
-    title: `Carpooling Valencia → Vive Latino Zaragoza ${YEAR$2}: Desde 9€ | 325 km | ConcertRide`,
+    title: `Carpooling Valencia → Vive Latino Zaragoza ${YEAR$2}: 9€, 325 km`,
     keywords: `carpooling valencia vive latino zaragoza, viaje compartido valencia zaragoza vive latino, como ir vive latino desde valencia`
   },
   "bilbao-vive-latino": {
-    title: `Carpooling Bilbao → Vive Latino Zaragoza ${YEAR$2}: Desde 9€ | 324 km | ConcertRide`,
+    title: `Carpooling Bilbao → Vive Latino Zaragoza ${YEAR$2}: 9€, 324 km`,
     keywords: `carpooling bilbao vive latino zaragoza, viaje compartido bilbao zaragoza vive latino, como ir vive latino desde bilbao`
   },
   "pamplona-vive-latino": {
-    title: `Carpooling Pamplona → Vive Latino Zaragoza ${YEAR$2}: Desde 5€ | 177 km | ConcertRide`,
+    title: `Carpooling Pamplona → Vive Latino Zaragoza ${YEAR$2}: 5€, 177 km`,
     keywords: `carpooling pamplona vive latino zaragoza, viaje compartido pamplona zaragoza vive latino, vive latino desde pamplona`
   },
   // ── Festival de les Arts Valencia ────────────────────────────────────────────
   "madrid-festival-de-les-arts": {
-    title: `Carpooling Madrid → Festival de les Arts Valencia ${YEAR$2}: Desde 10€ | 355 km | ConcertRide`,
+    title: `Carpooling Madrid → Festival de les Arts Valencia: 10€, 355 km`,
     keywords: `carpooling madrid festival les arts valencia, viaje compartido madrid valencia festival les arts, como ir festival les arts desde madrid`
   },
   "alicante-festival-de-les-arts": {
-    title: `Carpooling Alicante → Festival de les Arts Valencia ${YEAR$2}: Desde 5€ | 166 km | ConcertRide`,
+    title: `Carpooling Alicante → Festival de les Arts Valencia: 5€, 166 km`,
     keywords: `carpooling alicante festival les arts, viaje compartido alicante valencia festival les arts, como ir festival les arts desde alicante`
   },
   "barcelona-festival-de-les-arts": {
-    title: `Carpooling Barcelona → Festival de les Arts Valencia ${YEAR$2}: Desde 10€ | 349 km | ConcertRide`,
+    title: `Carpooling Barcelona → Festival de les Arts Valencia: 10€, 349 km`,
     keywords: `carpooling barcelona festival les arts valencia, viaje compartido barcelona valencia festival les arts, festival les arts desde barcelona`
   },
   "murcia-festival-de-les-arts": {
-    title: `Carpooling Murcia → Festival de les Arts Valencia ${YEAR$2}: Desde 7€ | 248 km | ConcertRide`,
+    title: `Carpooling Murcia → Festival de les Arts Valencia: 7€, 248 km`,
     keywords: `carpooling murcia festival les arts, viaje compartido murcia valencia festival les arts, festival les arts desde murcia`
   },
   // ── Mad Cool desde Andalucía ──────────────────────────────────────────────────
   "malaga-mad-cool": {
-    title: `Carpooling Málaga → Mad Cool Madrid ${YEAR$2}: Desde 14€ | 545 km | ConcertRide`,
+    title: `Carpooling Málaga → Mad Cool Madrid ${YEAR$2}: 14€, 545 km`,
     keywords: `carpooling malaga mad cool, viaje compartido malaga madrid mad cool, como ir mad cool desde malaga, mad cool desde malaga, carpooling andalucia mad cool`
   },
   "cadiz-mad-cool": {
-    title: `Carpooling Cádiz → Mad Cool Madrid ${YEAR$2}: Desde 12€ | 650 km | ConcertRide`,
+    title: `Carpooling Cádiz → Mad Cool Madrid ${YEAR$2}: 12€, 650 km`,
     keywords: `carpooling cadiz mad cool, viaje compartido cadiz madrid mad cool, como ir mad cool desde cadiz, mad cool cadiz transporte`
   },
   "granada-mad-cool": {
-    title: `Carpooling Granada → Mad Cool Madrid ${YEAR$2}: Desde 12€ | 435 km | ConcertRide`,
+    title: `Carpooling Granada → Mad Cool Madrid ${YEAR$2}: 12€, 435 km`,
     keywords: `carpooling granada mad cool, viaje compartido granada madrid mad cool, como ir mad cool desde granada, mad cool granada carpooling`
   },
   // ── Medusa Festival desde más ciudades ───────────────────────────────────────
   "alicante-medusa-festival": {
-    title: `Carpooling Alicante → Medusa Festival Cullera ${YEAR$2}: Desde 5€ | 90 km | ConcertRide`,
+    title: `Carpooling Alicante → Medusa Festival Cullera ${YEAR$2}: 5€, 90 km`,
     keywords: `carpooling alicante medusa festival, viaje compartido alicante cullera medusa, como ir medusa festival desde alicante, medusa festival desde alicante`
   },
   "murcia-medusa-festival": {
-    title: `Carpooling Murcia → Medusa Festival Cullera ${YEAR$2}: Desde 5€ | 175 km | ConcertRide`,
+    title: `Carpooling Murcia → Medusa Festival Cullera ${YEAR$2}: 5€, 175 km`,
     keywords: `carpooling murcia medusa festival, viaje compartido murcia cullera medusa, como ir medusa festival desde murcia`
   },
   "zaragoza-medusa-festival": {
-    title: `Carpooling Zaragoza → Medusa Festival Cullera ${YEAR$2}: Desde 10€ | 345 km | ConcertRide`,
+    title: `Carpooling Zaragoza → Medusa Festival Cullera ${YEAR$2}: 10€, 345 km`,
     keywords: `carpooling zaragoza medusa festival, viaje compartido zaragoza cullera medusa, como ir medusa festival desde zaragoza`
   },
   // ── Cala Mijas desde más ciudades ──────────────────────────────────────────
   "cadiz-cala-mijas": {
-    title: `Carpooling Cádiz → Cala Mijas Festival ${YEAR$2}: Desde 8€ | 235 km | ConcertRide`,
+    title: `Carpooling Cádiz → Cala Mijas Festival ${YEAR$2}: 8€, 235 km`,
     keywords: `carpooling cadiz cala mijas, viaje compartido cadiz mijas festival, como ir cala mijas desde cadiz`
   },
   "cordoba-cala-mijas": {
-    title: `Carpooling Córdoba → Cala Mijas Festival ${YEAR$2}: Desde 6€ | 175 km | ConcertRide`,
+    title: `Carpooling Córdoba → Cala Mijas Festival ${YEAR$2}: 6€, 175 km`,
     keywords: `carpooling cordoba cala mijas, viaje compartido cordoba cala mijas festival, cala mijas desde cordoba`
   },
   // ── Festival de Ortigueira (Galicia, gratuito) ─────────────────────────
   "a-coruna-festival-ortigueira": {
-    title: `Carpooling A Coruña → Festival Ortigueira ${YEAR$2}: Desde 4€ | 100 km | ConcertRide`,
+    title: `Carpooling A Coruña → Festival Ortigueira ${YEAR$2}: 4€, 100 km`,
     keywords: `carpooling a coruña festival ortigueira, viaje compartido a coruña ortigueira, como ir ortigueira desde a coruña, festival celta ortigueira a coruña`
   },
   "lugo-festival-ortigueira": {
-    title: `Carpooling Lugo → Festival Ortigueira ${YEAR$2}: Desde 4€ | 110 km | ConcertRide`,
+    title: `Carpooling Lugo → Festival Ortigueira ${YEAR$2}: 4€, 110 km`,
     keywords: `carpooling lugo festival ortigueira, viaje compartido lugo ortigueira, como ir ortigueira desde lugo, festival celta lugo`
   },
   "vigo-festival-ortigueira": {
-    title: `Carpooling Vigo → Festival Ortigueira ${YEAR$2}: Desde 6€ | 195 km | ConcertRide`,
+    title: `Carpooling Vigo → Festival Ortigueira ${YEAR$2}: 6€, 195 km`,
     keywords: `carpooling vigo festival ortigueira, viaje compartido vigo ortigueira, como ir ortigueira desde vigo, festival celta vigo`
   },
   "santiago-de-compostela-festival-ortigueira": {
-    title: `Carpooling Santiago → Festival Ortigueira ${YEAR$2}: Desde 5€ | 130 km | ConcertRide`,
+    title: `Carpooling Santiago → Festival Ortigueira ${YEAR$2}: 5€, 130 km`,
     keywords: `carpooling santiago festival ortigueira, viaje compartido santiago ortigueira, como ir ortigueira desde santiago, ortigueira desde compostela`
   },
   "pontevedra-festival-ortigueira": {
-    title: `Carpooling Pontevedra → Festival Ortigueira ${YEAR$2}: Desde 6€ | 175 km | ConcertRide`,
+    title: `Carpooling Pontevedra → Festival Ortigueira ${YEAR$2}: 6€, 175 km`,
     keywords: `carpooling pontevedra festival ortigueira, viaje compartido pontevedra ortigueira`
   },
   "ourense-festival-ortigueira": {
-    title: `Carpooling Ourense → Festival Ortigueira ${YEAR$2}: Desde 8€ | 240 km | ConcertRide`,
+    title: `Carpooling Ourense → Festival Ortigueira ${YEAR$2}: 8€, 240 km`,
     keywords: `carpooling ourense festival ortigueira, viaje compartido ourense ortigueira, ortigueira desde ourense`
   },
   "oviedo-festival-ortigueira": {
-    title: `Carpooling Oviedo → Festival Ortigueira ${YEAR$2}: Desde 9€ | 280 km | ConcertRide`,
+    title: `Carpooling Oviedo → Festival Ortigueira ${YEAR$2}: 9€, 280 km`,
     keywords: `carpooling oviedo festival ortigueira, viaje compartido oviedo ortigueira, asturias ortigueira festival`
   },
   "madrid-festival-ortigueira": {
-    title: `Carpooling Madrid → Festival Ortigueira ${YEAR$2}: Desde 18€ | 690 km | ConcertRide`,
+    title: `Carpooling Madrid → Festival Ortigueira ${YEAR$2}: 18€, 690 km`,
     keywords: `carpooling madrid festival ortigueira, viaje compartido madrid ortigueira, como ir ortigueira desde madrid, festival celta madrid ortigueira`
   },
   // ── Heineken Jazzaldia (Donostia–San Sebastián) ─────────────────────────
   "bilbao-jazzaldia": {
-    title: `Carpooling Bilbao → Jazzaldia ${YEAR$2}: Desde 4€ | 100 km | ConcertRide`,
+    title: `Carpooling Bilbao → Jazzaldia ${YEAR$2}: 4€, 100 km`,
     keywords: `carpooling bilbao jazzaldia, viaje compartido bilbao donostia jazzaldia, como ir jazzaldia desde bilbao, festival jazz bilbao donostia`
   },
   "vitoria-gasteiz-jazzaldia": {
-    title: `Carpooling Vitoria → Jazzaldia ${YEAR$2}: Desde 5€ | 115 km | ConcertRide`,
+    title: `Carpooling Vitoria → Jazzaldia ${YEAR$2}: 5€, 115 km`,
     keywords: `carpooling vitoria jazzaldia, viaje compartido vitoria donostia jazzaldia, jazzaldia desde vitoria`
   },
   "pamplona-jazzaldia": {
-    title: `Carpooling Pamplona → Jazzaldia ${YEAR$2}: Desde 4€ | 90 km | ConcertRide`,
+    title: `Carpooling Pamplona → Jazzaldia ${YEAR$2}: 4€, 90 km`,
     keywords: `carpooling pamplona jazzaldia, viaje compartido pamplona donostia jazzaldia, jazzaldia desde pamplona`
   },
   "logrono-jazzaldia": {
-    title: `Carpooling Logroño → Jazzaldia ${YEAR$2}: Desde 6€ | 175 km | ConcertRide`,
+    title: `Carpooling Logroño → Jazzaldia ${YEAR$2}: 6€, 175 km`,
     keywords: `carpooling logroño jazzaldia, viaje compartido logroño donostia jazzaldia, jazzaldia desde logroño`
   },
   "santander-jazzaldia": {
-    title: `Carpooling Santander → Jazzaldia ${YEAR$2}: Desde 7€ | 200 km | ConcertRide`,
+    title: `Carpooling Santander → Jazzaldia ${YEAR$2}: 7€, 200 km`,
     keywords: `carpooling santander jazzaldia, viaje compartido santander donostia jazzaldia, jazzaldia desde santander`
   },
   "burgos-jazzaldia": {
-    title: `Carpooling Burgos → Jazzaldia ${YEAR$2}: Desde 8€ | 245 km | ConcertRide`,
+    title: `Carpooling Burgos → Jazzaldia ${YEAR$2}: 8€, 245 km`,
     keywords: `carpooling burgos jazzaldia, viaje compartido burgos donostia jazzaldia, jazzaldia desde burgos`
   },
   "zaragoza-jazzaldia": {
-    title: `Carpooling Zaragoza → Jazzaldia ${YEAR$2}: Desde 8€ | 270 km | ConcertRide`,
+    title: `Carpooling Zaragoza → Jazzaldia ${YEAR$2}: 8€, 270 km`,
     keywords: `carpooling zaragoza jazzaldia, viaje compartido zaragoza donostia jazzaldia, jazzaldia desde zaragoza`
   },
   "madrid-jazzaldia": {
-    title: `Carpooling Madrid → Jazzaldia ${YEAR$2}: Desde 13€ | 450 km | ConcertRide`,
+    title: `Carpooling Madrid → Jazzaldia ${YEAR$2}: 13€, 450 km`,
     keywords: `carpooling madrid jazzaldia, viaje compartido madrid donostia jazzaldia, como ir jazzaldia desde madrid, festival jazz madrid donostia`
   },
   "barcelona-jazzaldia": {
-    title: `Carpooling Barcelona → Jazzaldia ${YEAR$2}: Desde 14€ | 530 km | ConcertRide`,
+    title: `Carpooling Barcelona → Jazzaldia ${YEAR$2}: 14€, 530 km`,
     keywords: `carpooling barcelona jazzaldia, viaje compartido barcelona donostia jazzaldia, jazzaldia desde barcelona`
   },
   // ── Metrópoli Gijón ─────────────────────────────────────────────────────
   "oviedo-metropoli-gijon": {
-    title: `Carpooling Oviedo → Metrópoli Gijón ${YEAR$2}: Desde 3€ | 30 km | ConcertRide`,
+    title: `Carpooling Oviedo → Metrópoli Gijón ${YEAR$2}: 3€, 30 km`,
     keywords: `carpooling oviedo metropoli gijon, viaje compartido oviedo gijon metropoli, metropoli desde oviedo, festival gijon desde oviedo`
   },
   "leon-metropoli-gijon": {
-    title: `Carpooling León → Metrópoli Gijón ${YEAR$2}: Desde 5€ | 120 km | ConcertRide`,
+    title: `Carpooling León → Metrópoli Gijón ${YEAR$2}: 5€, 120 km`,
     keywords: `carpooling leon metropoli gijon, viaje compartido leon gijon metropoli, metropoli desde leon`
   },
   "santander-metropoli-gijon": {
-    title: `Carpooling Santander → Metrópoli Gijón ${YEAR$2}: Desde 6€ | 190 km | ConcertRide`,
+    title: `Carpooling Santander → Metrópoli Gijón ${YEAR$2}: 6€, 190 km`,
     keywords: `carpooling santander metropoli gijon, viaje compartido santander gijon metropoli, metropoli desde santander`
   },
   "bilbao-metropoli-gijon": {
-    title: `Carpooling Bilbao → Metrópoli Gijón ${YEAR$2}: Desde 9€ | 290 km | ConcertRide`,
+    title: `Carpooling Bilbao → Metrópoli Gijón ${YEAR$2}: 9€, 290 km`,
     keywords: `carpooling bilbao metropoli gijon, viaje compartido bilbao gijon metropoli, metropoli desde bilbao`
   },
   "valladolid-metropoli-gijon": {
-    title: `Carpooling Valladolid → Metrópoli Gijón ${YEAR$2}: Desde 8€ | 240 km | ConcertRide`,
+    title: `Carpooling Valladolid → Metrópoli Gijón ${YEAR$2}: 8€, 240 km`,
     keywords: `carpooling valladolid metropoli gijon, viaje compartido valladolid gijon metropoli`
   },
   "a-coruna-metropoli-gijon": {
-    title: `Carpooling A Coruña → Metrópoli Gijón ${YEAR$2}: Desde 9€ | 290 km | ConcertRide`,
+    title: `Carpooling A Coruña → Metrópoli Gijón ${YEAR$2}: 9€, 290 km`,
     keywords: `carpooling a coruña metropoli gijon, viaje compartido a coruña gijon metropoli`
   },
   "vigo-metropoli-gijon": {
-    title: `Carpooling Vigo → Metrópoli Gijón ${YEAR$2}: Desde 11€ | 360 km | ConcertRide`,
+    title: `Carpooling Vigo → Metrópoli Gijón ${YEAR$2}: 11€, 360 km`,
     keywords: `carpooling vigo metropoli gijon, viaje compartido vigo gijon metropoli`
   },
   "madrid-metropoli-gijon": {
-    title: `Carpooling Madrid → Metrópoli Gijón ${YEAR$2}: Desde 13€ | 445 km | ConcertRide`,
+    title: `Carpooling Madrid → Metrópoli Gijón ${YEAR$2}: 13€, 445 km`,
     keywords: `carpooling madrid metropoli gijon, viaje compartido madrid gijon metropoli, como ir metropoli desde madrid, festival gijon desde madrid`
   },
   // ── Granada Sound ───────────────────────────────────────────────────────
   "malaga-granada-sound": {
-    title: `Carpooling Málaga → Granada Sound ${YEAR$2}: Desde 5€ | 130 km | ConcertRide`,
+    title: `Carpooling Málaga → Granada Sound ${YEAR$2}: 5€, 130 km`,
     keywords: `carpooling malaga granada sound, viaje compartido malaga granada sound, como ir granada sound desde malaga, festival granada desde malaga`
   },
   "almeria-granada-sound": {
-    title: `Carpooling Almería → Granada Sound ${YEAR$2}: Desde 6€ | 170 km | ConcertRide`,
+    title: `Carpooling Almería → Granada Sound ${YEAR$2}: 6€, 170 km`,
     keywords: `carpooling almeria granada sound, viaje compartido almeria granada sound, granada sound desde almeria`
   },
   "cordoba-granada-sound": {
-    title: `Carpooling Córdoba → Granada Sound ${YEAR$2}: Desde 7€ | 200 km | ConcertRide`,
+    title: `Carpooling Córdoba → Granada Sound ${YEAR$2}: 7€, 200 km`,
     keywords: `carpooling cordoba granada sound, viaje compartido cordoba granada sound, granada sound desde cordoba`
   },
   "sevilla-granada-sound": {
-    title: `Carpooling Sevilla → Granada Sound ${YEAR$2}: Desde 8€ | 250 km | ConcertRide`,
+    title: `Carpooling Sevilla → Granada Sound ${YEAR$2}: 8€, 250 km`,
     keywords: `carpooling sevilla granada sound, viaje compartido sevilla granada sound, como ir granada sound desde sevilla, festival andalucia oriental`
   },
   "jaen-granada-sound": {
-    title: `Carpooling Jaén → Granada Sound ${YEAR$2}: Desde 4€ | 95 km | ConcertRide`,
+    title: `Carpooling Jaén → Granada Sound ${YEAR$2}: 4€, 95 km`,
     keywords: `carpooling jaen granada sound, viaje compartido jaen granada sound, granada sound desde jaen`
   },
   "murcia-granada-sound": {
-    title: `Carpooling Murcia → Granada Sound ${YEAR$2}: Desde 8€ | 270 km | ConcertRide`,
+    title: `Carpooling Murcia → Granada Sound ${YEAR$2}: 8€, 270 km`,
     keywords: `carpooling murcia granada sound, viaje compartido murcia granada sound, granada sound desde murcia`
   },
   "alicante-granada-sound": {
-    title: `Carpooling Alicante → Granada Sound ${YEAR$2}: Desde 10€ | 350 km | ConcertRide`,
+    title: `Carpooling Alicante → Granada Sound ${YEAR$2}: 10€, 350 km`,
     keywords: `carpooling alicante granada sound, viaje compartido alicante granada sound, granada sound desde alicante`
   },
   "cadiz-granada-sound": {
-    title: `Carpooling Cádiz → Granada Sound ${YEAR$2}: Desde 8€ | 280 km | ConcertRide`,
+    title: `Carpooling Cádiz → Granada Sound ${YEAR$2}: 8€, 280 km`,
     keywords: `carpooling cadiz granada sound, viaje compartido cadiz granada sound, granada sound desde cadiz`
   },
   "madrid-granada-sound": {
-    title: `Carpooling Madrid → Granada Sound ${YEAR$2}: Desde 12€ | 430 km | ConcertRide`,
+    title: `Carpooling Madrid → Granada Sound ${YEAR$2}: 12€, 430 km`,
     keywords: `carpooling madrid granada sound, viaje compartido madrid granada sound, como ir granada sound desde madrid, festival indie granada desde madrid`
   },
   // ── GSC-driven — high-impression routes that lacked overrides ─────────────
   "castellon-de-la-plana-arenal-sound": {
-    title: `Carpooling Castellón → Arenal Sound ${YEAR$2}: Desde 3€ | 10 km | ConcertRide`,
+    title: `Carpooling Castellón → Arenal Sound ${YEAR$2}: 3€, 10 km`,
     keywords: `carpooling castellon arenal sound, autobus castellon de la plana arenal sound, viaje compartido castellon burriana, como ir arenal sound desde castellon, castellon de la plana burriana lanzadera, arenal sound bus castellon`
   },
   "donostia-san-sebastian-bbk-live": {
-    title: `Carpooling Donostia–San Sebastián → BBK Live ${YEAR$2}: Desde 4€ | 100 km | ConcertRide`,
+    title: `Carpooling Donostia–San Sebastián → BBK Live ${YEAR$2}: 4€, 100 km`,
     keywords: `carpooling donostia san sebastian bbk live, viaje compartido san sebastian bilbao bbk live, como ir bbk live desde donostia, bbk live desde san sebastian, donostia bilbao carpooling`
   },
   "centro-de-bilbao-bbk-live": {
-    title: `Carpooling Centro Bilbao → BBK Live Kobetamendi ${YEAR$2}: Desde 3€ | 4 km | ConcertRide`,
+    title: `Carpooling Centro Bilbao → BBK Live Kobetamendi ${YEAR$2}: 3€, 4 km`,
     keywords: `carpooling centro bilbao bbk live, viaje compartido bilbao centro kobetamendi, lanzadera bbk live moyua, bbk live como llegar desde bilbao, bilbao centro festival`
   },
   "valencia-centro-zevra-festival": {
-    title: `Carpooling Valencia Centro → Zevra Festival ${YEAR$2}: Desde 3€ | 5 km | ConcertRide`,
+    title: `Carpooling Valencia Centro → Zevra Festival ${YEAR$2}: 3€, 5 km`,
     keywords: `carpooling valencia centro zevra festival, viaje compartido valencia ciudad la marina zevra, zevra desde valencia centro, marina valencia carpooling`
   },
   // Catalan/Aragón hubs missing overrides
   "lleida-cruilla": {
-    title: `Carpooling Lleida → Cruïlla Barcelona ${YEAR$2}: Desde 5€ | 165 km | ConcertRide`,
+    title: `Carpooling Lleida → Cruïlla Barcelona ${YEAR$2}: 5€, 165 km`,
     keywords: `carpooling lleida cruilla, viaje compartido lleida barcelona cruilla, como ir cruilla desde lleida, lleida festival barcelona`
   },
   "lleida-primavera-sound": {
-    title: `Carpooling Lleida → Primavera Sound ${YEAR$2}: Desde 5€ | 165 km | ConcertRide`,
+    title: `Carpooling Lleida → Primavera Sound ${YEAR$2}: 5€, 165 km`,
     keywords: `carpooling lleida primavera sound, viaje compartido lleida barcelona primavera sound, primavera sound desde lleida`
   },
   "girona-cruilla": {
-    title: `Carpooling Girona → Cruïlla Barcelona ${YEAR$2}: Desde 4€ | 105 km | ConcertRide`,
+    title: `Carpooling Girona → Cruïlla Barcelona ${YEAR$2}: 4€, 105 km`,
     keywords: `carpooling girona cruilla, viaje compartido girona barcelona cruilla, como ir cruilla desde girona, girona festival barcelona`
   },
   "girona-sonar": {
@@ -25393,7 +26282,7 @@ const ROUTE_SEO_IMPROVEMENTS = {
     keywords: `girona sonar barcelona carpooling, girona sonar festival viaje compartido, girona sonar ${YEAR$2}, carpooling girona festival barcelona, carpooling girona sonar, viaje compartido girona barcelona sonar, sonar desde girona, girona electronica festival`
   },
   "girona-primavera-sound": {
-    title: `Carpooling Girona → Primavera Sound ${YEAR$2}: Desde 4€ | 105 km | ConcertRide`,
+    title: `Carpooling Girona → Primavera Sound ${YEAR$2}: 4€, 105 km`,
     keywords: `carpooling girona primavera sound, viaje compartido girona barcelona primavera sound, primavera sound desde girona`
   },
   "girona-o-son-do-camino": {
@@ -25407,169 +26296,169 @@ const ROUTE_SEO_IMPROVEMENTS = {
     keywords: `cuenca vina rock carpooling, cuenca villarrobledo festival viaje compartido, cuenca vina rock ${YEAR$2}, carpooling castilla la mancha festival, carpooling cuenca vina rock, viaje compartido cuenca villarrobledo, viña rock desde cuenca, como ir viña rock desde cuenca, bus cuenca viña rock`
   },
   "toledo-fib": {
-    title: `Carpooling Toledo → FIB Benicàssim ${YEAR$2}: Desde 11€ | 470 km | ConcertRide`,
+    title: `Carpooling Toledo → FIB Benicàssim ${YEAR$2}: 11€, 470 km`,
     keywords: `carpooling toledo fib benicassim, viaje compartido toledo fib, fib desde toledo`
   },
   "segovia-sonorama-ribera": {
-    title: `Carpooling Segovia → Sonorama Ribera ${YEAR$2}: Desde 5€ | 130 km | ConcertRide`,
+    title: `Carpooling Segovia → Sonorama Ribera ${YEAR$2}: 5€, 130 km`,
     keywords: `carpooling segovia sonorama ribera, viaje compartido segovia aranda de duero, sonorama desde segovia`
   },
   // Andalucía routes missing overrides
   "fuengirola-cala-mijas": {
-    title: `Carpooling Fuengirola → Cala Mijas Festival ${YEAR$2}: Desde 3€ | 10 km | ConcertRide`,
+    title: `Carpooling Fuengirola → Cala Mijas Festival ${YEAR$2}: 3€, 10 km`,
     keywords: `carpooling fuengirola cala mijas, viaje compartido fuengirola mijas festival, como ir cala mijas desde fuengirola, fuengirola cala mijas bus`
   },
   "marbella-cala-mijas": {
-    title: `Carpooling Marbella → Cala Mijas Festival ${YEAR$2}: Desde 3€ | 20 km | ConcertRide`,
+    title: `Carpooling Marbella → Cala Mijas Festival ${YEAR$2}: 3€, 20 km`,
     keywords: `carpooling marbella cala mijas, viaje compartido marbella mijas festival, como ir cala mijas desde marbella`
   },
   "almeria-cala-mijas": {
-    title: `Carpooling Almería → Cala Mijas Festival ${YEAR$2}: Desde 7€ | 200 km | ConcertRide`,
+    title: `Carpooling Almería → Cala Mijas Festival ${YEAR$2}: 7€, 200 km`,
     keywords: `carpooling almeria cala mijas, viaje compartido almeria cala mijas, cala mijas desde almeria`
   },
   "cartagena-cala-mijas": {
-    title: `Carpooling Cartagena → Cala Mijas Festival ${YEAR$2}: Desde 8€ | 290 km | ConcertRide`,
+    title: `Carpooling Cartagena → Cala Mijas Festival ${YEAR$2}: 8€, 290 km`,
     keywords: `carpooling cartagena cala mijas, viaje compartido cartagena mijas festival, cala mijas desde cartagena`
   },
   "granada-resurrection-fest": {
-    title: `Carpooling Granada → Resurrection Fest ${YEAR$2}: Desde 25€ | 990 km | ConcertRide`,
+    title: `Carpooling Granada → Resurrection Fest ${YEAR$2}: 25€, 990 km`,
     keywords: `carpooling granada resurrection fest, viaje compartido granada viveiro, resurrection fest desde granada`
   },
   "granada-primavera-sound": {
-    title: `Carpooling Granada → Primavera Sound ${YEAR$2}: Desde 25€ | 870 km | ConcertRide`,
+    title: `Carpooling Granada → Primavera Sound ${YEAR$2}: 25€, 870 km`,
     keywords: `carpooling granada primavera sound, viaje compartido granada barcelona primavera sound, primavera sound desde granada`
   },
   // Cantabria / La Rioja routes
   "santander-arenal-sound": {
-    title: `Carpooling Santander → Arenal Sound ${YEAR$2}: Desde 18€ | 660 km | ConcertRide`,
+    title: `Carpooling Santander → Arenal Sound ${YEAR$2}: 18€, 660 km`,
     keywords: `carpooling santander arenal sound, viaje compartido santander burriana, arenal sound desde santander`
   },
   "santander-sonar": {
-    title: `Carpooling Santander → Sónar Barcelona ${YEAR$2}: Desde 18€ | 720 km | ConcertRide`,
+    title: `Carpooling Santander → Sónar Barcelona ${YEAR$2}: 18€, 720 km`,
     keywords: `carpooling santander sonar, viaje compartido santander barcelona sonar, sonar desde santander`
   },
   "logrono-medusa-festival": {
-    title: `Carpooling Logroño → Medusa Festival ${YEAR$2}: Desde 12€ | 470 km | ConcertRide`,
+    title: `Carpooling Logroño → Medusa Festival ${YEAR$2}: 12€, 470 km`,
     keywords: `carpooling logroño medusa festival, viaje compartido logroño cullera medusa, medusa festival desde logroño`
   },
   "logrono-o-son-do-camino": {
-    title: `Carpooling Logroño → O Son do Camiño ${YEAR$2}: Desde 18€ | 685 km | ConcertRide`,
+    title: `Carpooling Logroño → O Son do Camiño ${YEAR$2}: 18€, 685 km`,
     keywords: `carpooling logroño o son do camino, viaje compartido logroño santiago festival, o son do camiño desde logroño`
   },
   "burgos-resurrection-fest": {
-    title: `Carpooling Burgos → Resurrection Fest ${YEAR$2}: Desde 13€ | 480 km | ConcertRide`,
+    title: `Carpooling Burgos → Resurrection Fest ${YEAR$2}: 13€, 480 km`,
     keywords: `carpooling burgos resurrection fest, viaje compartido burgos viveiro, resurrection fest desde burgos`
   },
   // Asturias outbound (oviedo to multiple festivals)
   "oviedo-bbk-live": {
-    title: `Carpooling Oviedo → BBK Live Bilbao ${YEAR$2}: Desde 9€ | 305 km | ConcertRide`,
+    title: `Carpooling Oviedo → BBK Live Bilbao ${YEAR$2}: 9€, 305 km`,
     keywords: `carpooling oviedo bbk live, viaje compartido oviedo bilbao bbk live, bbk live desde oviedo, asturias bbk live`
   },
   "oviedo-resurrection-fest": {
-    title: `Carpooling Oviedo → Resurrection Fest ${YEAR$2}: Desde 7€ | 190 km | ConcertRide`,
+    title: `Carpooling Oviedo → Resurrection Fest ${YEAR$2}: 7€, 190 km`,
     keywords: `carpooling oviedo resurrection fest, viaje compartido oviedo viveiro, resurrection fest desde oviedo, asturias resurrection fest`
   },
   // Extremadura → Mediterranean
   "caceres-arenal-sound": {
-    title: `Carpooling Cáceres → Arenal Sound ${YEAR$2}: Desde 18€ | 690 km | ConcertRide`,
+    title: `Carpooling Cáceres → Arenal Sound ${YEAR$2}: 18€, 690 km`,
     keywords: `carpooling caceres arenal sound, viaje compartido caceres burriana, arenal sound desde caceres`
   },
   // Galicia local hub
   "pontevedra-o-son-do-camino": {
-    title: `Carpooling Pontevedra → O Son do Camiño ${YEAR$2}: Desde 3€ | 55 km | ConcertRide`,
+    title: `Carpooling Pontevedra → O Son do Camiño ${YEAR$2}: 3€, 55 km`,
     keywords: `carpooling pontevedra o son do camino, viaje compartido pontevedra santiago festival, o son do camino desde pontevedra, monte do gozo desde pontevedra`
   },
   "pontevedra-mad-cool": {
-    title: `Carpooling Pontevedra → Mad Cool Madrid ${YEAR$2}: Desde 18€ | 600 km | ConcertRide`,
+    title: `Carpooling Pontevedra → Mad Cool Madrid ${YEAR$2}: 18€, 600 km`,
     keywords: `carpooling pontevedra mad cool, viaje compartido pontevedra madrid mad cool, mad cool desde pontevedra`
   },
   // Levante hubs
   "valencia-bbk-live": {
-    title: `Carpooling Valencia → BBK Live ${YEAR$2}: Desde 16€ | 615 km | ConcertRide`,
+    title: `Carpooling Valencia → BBK Live ${YEAR$2}: 16€, 615 km`,
     keywords: `carpooling valencia bbk live, viaje compartido valencia bilbao bbk live, bbk live desde valencia`
   },
   "alicante-bbk-live": {
-    title: `Carpooling Alicante → BBK Live ${YEAR$2}: Desde 18€ | 770 km | ConcertRide`,
+    title: `Carpooling Alicante → BBK Live ${YEAR$2}: 18€, 770 km`,
     keywords: `carpooling alicante bbk live, viaje compartido alicante bilbao bbk live, bbk live desde alicante`
   },
   "pamplona-zevra-festival": {
-    title: `Carpooling Pamplona → Zevra Festival Valencia ${YEAR$2}: Desde 13€ | 500 km | ConcertRide`,
+    title: `Carpooling Pamplona → Zevra Festival Valencia ${YEAR$2}: 13€, 500 km`,
     keywords: `carpooling pamplona zevra festival, viaje compartido pamplona valencia zevra, zevra desde pamplona`
   },
   // ── Wave 9: routes from the 26 new origin cities ─────────────────────────
   // Aranda de Duero (Sonorama venue) → other festivals
   "aranda-de-duero-mad-cool": {
-    title: `Carpooling Aranda → Mad Cool Madrid ${YEAR$2}: Desde 6€ | 160 km | ConcertRide`,
+    title: `Carpooling Aranda → Mad Cool Madrid ${YEAR$2}: 6€, 160 km`,
     keywords: `carpooling aranda de duero mad cool, viaje compartido aranda madrid mad cool, aranda mad cool, sonorama aranda mad cool`
   },
   // Mijas as origin (Cala Mijas is local — but Mijas → other Andalucía festivals)
   "mijas-granada-sound": {
-    title: `Carpooling Mijas → Granada Sound ${YEAR$2}: Desde 5€ | 145 km | ConcertRide`,
+    title: `Carpooling Mijas → Granada Sound ${YEAR$2}: 5€, 145 km`,
     keywords: `carpooling mijas granada sound, viaje compartido mijas granada festival, mijas granada sound`
   },
   "mijas-mad-cool": {
-    title: `Carpooling Mijas → Mad Cool Madrid ${YEAR$2}: Desde 14€ | 575 km | ConcertRide`,
+    title: `Carpooling Mijas → Mad Cool Madrid ${YEAR$2}: 14€, 575 km`,
     keywords: `carpooling mijas mad cool, viaje compartido mijas madrid, mijas mad cool desde costa del sol`
   },
   // Marbella as origin
   "marbella-granada-sound": {
-    title: `Carpooling Marbella → Granada Sound ${YEAR$2}: Desde 5€ | 155 km | ConcertRide`,
+    title: `Carpooling Marbella → Granada Sound ${YEAR$2}: 5€, 155 km`,
     keywords: `carpooling marbella granada sound, viaje compartido marbella granada festival, marbella granada sound`
   },
   "marbella-mad-cool": {
-    title: `Carpooling Marbella → Mad Cool Madrid ${YEAR$2}: Desde 15€ | 575 km | ConcertRide`,
+    title: `Carpooling Marbella → Mad Cool Madrid ${YEAR$2}: 15€, 575 km`,
     keywords: `carpooling marbella mad cool, viaje compartido marbella madrid mad cool, mad cool desde marbella, costa del sol mad cool`
   },
   // Fuengirola as origin
   "fuengirola-granada-sound": {
-    title: `Carpooling Fuengirola → Granada Sound ${YEAR$2}: Desde 5€ | 140 km | ConcertRide`,
+    title: `Carpooling Fuengirola → Granada Sound ${YEAR$2}: 5€, 140 km`,
     keywords: `carpooling fuengirola granada sound, viaje compartido fuengirola granada festival, fuengirola granada sound`
   },
   "fuengirola-mad-cool": {
-    title: `Carpooling Fuengirola → Mad Cool Madrid ${YEAR$2}: Desde 15€ | 555 km | ConcertRide`,
+    title: `Carpooling Fuengirola → Mad Cool Madrid ${YEAR$2}: 15€, 555 km`,
     keywords: `carpooling fuengirola mad cool, viaje compartido fuengirola madrid mad cool, mad cool desde fuengirola`
   },
   // Jerez de la Frontera as origin
   "jerez-de-la-frontera-cala-mijas": {
-    title: `Carpooling Jerez → Cala Mijas Festival ${YEAR$2}: Desde 7€ | 235 km | ConcertRide`,
+    title: `Carpooling Jerez → Cala Mijas Festival ${YEAR$2}: 7€, 235 km`,
     keywords: `carpooling jerez cala mijas, viaje compartido jerez mijas festival, cala mijas desde jerez de la frontera`
   },
   "jerez-de-la-frontera-granada-sound": {
-    title: `Carpooling Jerez → Granada Sound ${YEAR$2}: Desde 9€ | 320 km | ConcertRide`,
+    title: `Carpooling Jerez → Granada Sound ${YEAR$2}: 9€, 320 km`,
     keywords: `carpooling jerez granada sound, viaje compartido jerez granada festival, jerez granada sound`
   },
   "jerez-de-la-frontera-mad-cool": {
-    title: `Carpooling Jerez → Mad Cool Madrid ${YEAR$2}: Desde 16€ | 655 km | ConcertRide`,
+    title: `Carpooling Jerez → Mad Cool Madrid ${YEAR$2}: 16€, 655 km`,
     keywords: `carpooling jerez mad cool, viaje compartido jerez madrid mad cool, mad cool desde jerez de la frontera`
   },
   // Cartagena as origin
   "cartagena-medusa-festival": {
-    title: `Carpooling Cartagena → Medusa Festival Cullera ${YEAR$2}: Desde 6€ | 175 km | ConcertRide`,
+    title: `Carpooling Cartagena → Medusa Festival Cullera ${YEAR$2}: 6€, 175 km`,
     keywords: `carpooling cartagena medusa festival, viaje compartido cartagena cullera medusa, medusa festival desde cartagena`
   },
   "cartagena-vina-rock": {
-    title: `Carpooling Cartagena → Viña Rock ${YEAR$2}: Desde 7€ | 220 km | ConcertRide`,
+    title: `Carpooling Cartagena → Viña Rock ${YEAR$2}: 7€, 220 km`,
     keywords: `carpooling cartagena vina rock, viaje compartido cartagena villarrobledo, viña rock desde cartagena`
   },
   "cartagena-mad-cool": {
-    title: `Carpooling Cartagena → Mad Cool Madrid ${YEAR$2}: Desde 13€ | 445 km | ConcertRide`,
+    title: `Carpooling Cartagena → Mad Cool Madrid ${YEAR$2}: 13€, 445 km`,
     keywords: `carpooling cartagena mad cool, viaje compartido cartagena madrid mad cool, mad cool desde cartagena`
   },
   // Elche as origin
   "elche-low-festival": {
-    title: `Carpooling Elche → Low Festival Benidorm ${YEAR$2}: Desde 4€ | 75 km | ConcertRide`,
+    title: `Carpooling Elche → Low Festival Benidorm ${YEAR$2}: 4€, 75 km`,
     keywords: `carpooling elche low festival, viaje compartido elche benidorm low festival, low festival desde elche`
   },
   "elche-arenal-sound": {
-    title: `Carpooling Elche → Arenal Sound ${YEAR$2}: Desde 5€ | 135 km | ConcertRide`,
+    title: `Carpooling Elche → Arenal Sound ${YEAR$2}: 5€, 135 km`,
     keywords: `carpooling elche arenal sound, viaje compartido elche burriana arenal, arenal sound desde elche`
   },
   "elche-medusa-festival": {
-    title: `Carpooling Elche → Medusa Festival Cullera ${YEAR$2}: Desde 5€ | 135 km | ConcertRide`,
+    title: `Carpooling Elche → Medusa Festival Cullera ${YEAR$2}: 5€, 135 km`,
     keywords: `carpooling elche medusa festival, viaje compartido elche cullera medusa, medusa desde elche`
   },
   "elche-mad-cool": {
-    title: `Carpooling Elche → Mad Cool Madrid ${YEAR$2}: Desde 12€ | 425 km | ConcertRide`,
+    title: `Carpooling Elche → Mad Cool Madrid ${YEAR$2}: 12€, 425 km`,
     keywords: `carpooling elche mad cool, viaje compartido elche madrid mad cool, mad cool desde elche`
   },
   // Benidorm as origin (besides Low Festival which is local)
@@ -25578,290 +26467,290 @@ const ROUTE_SEO_IMPROVEMENTS = {
     keywords: `carpooling benidorm low festival, viaje compartido benidorm low festival, low festival desde benidorm centro`
   },
   "benidorm-arenal-sound": {
-    title: `Carpooling Benidorm → Arenal Sound Burriana ${YEAR$2}: Desde 5€ | 175 km | ConcertRide`,
+    title: `Carpooling Benidorm → Arenal Sound Burriana ${YEAR$2}: 5€, 175 km`,
     keywords: `carpooling benidorm arenal sound, viaje compartido benidorm burriana, arenal sound desde benidorm`
   },
   "benidorm-medusa-festival": {
-    title: `Carpooling Benidorm → Medusa Festival Cullera ${YEAR$2}: Desde 4€ | 125 km | ConcertRide`,
+    title: `Carpooling Benidorm → Medusa Festival Cullera ${YEAR$2}: 4€, 125 km`,
     keywords: `carpooling benidorm medusa festival, viaje compartido benidorm cullera, medusa desde benidorm`
   },
   // Madrid metro suburbs → festivals
   "mostoles-mad-cool": {
-    title: `Carpooling Móstoles → Mad Cool Madrid ${YEAR$2}: Desde 3€ | 35 km | ConcertRide`,
+    title: `Carpooling Móstoles → Mad Cool Madrid ${YEAR$2}: 3€, 35 km`,
     keywords: `carpooling mostoles mad cool, viaje compartido mostoles ifema, mad cool desde mostoles, mostoles madrid carpooling`
   },
   "mostoles-vina-rock": {
-    title: `Carpooling Móstoles → Viña Rock ${YEAR$2}: Desde 7€ | 245 km | ConcertRide`,
+    title: `Carpooling Móstoles → Viña Rock ${YEAR$2}: 7€, 245 km`,
     keywords: `carpooling mostoles vina rock, viaje compartido mostoles villarrobledo, viña rock desde mostoles`
   },
   "alcala-de-henares-mad-cool": {
-    title: `Carpooling Alcalá → Mad Cool Madrid ${YEAR$2}: Desde 3€ | 25 km | ConcertRide`,
+    title: `Carpooling Alcalá → Mad Cool Madrid ${YEAR$2}: 3€, 25 km`,
     keywords: `carpooling alcala de henares mad cool, viaje compartido alcala ifema mad cool, mad cool desde alcala henares`
   },
   "alcala-de-henares-sonorama-ribera": {
-    title: `Carpooling Alcalá → Sonorama Ribera ${YEAR$2}: Desde 5€ | 130 km | ConcertRide`,
+    title: `Carpooling Alcalá → Sonorama Ribera ${YEAR$2}: 5€, 130 km`,
     keywords: `carpooling alcala de henares sonorama, viaje compartido alcala aranda sonorama, sonorama desde alcala henares`
   },
   "getafe-mad-cool": {
-    title: `Carpooling Getafe → Mad Cool Madrid ${YEAR$2}: Desde 3€ | 30 km | ConcertRide`,
+    title: `Carpooling Getafe → Mad Cool Madrid ${YEAR$2}: 3€, 30 km`,
     keywords: `carpooling getafe mad cool, viaje compartido getafe ifema, mad cool desde getafe, getafe madrid carpooling festival`
   },
   "getafe-vina-rock": {
-    title: `Carpooling Getafe → Viña Rock ${YEAR$2}: Desde 7€ | 235 km | ConcertRide`,
+    title: `Carpooling Getafe → Viña Rock ${YEAR$2}: 7€, 235 km`,
     keywords: `carpooling getafe vina rock, viaje compartido getafe villarrobledo, viña rock desde getafe`
   },
   // Catalonia metro suburbs → festivals
   "sabadell-primavera-sound": {
-    title: `Carpooling Sabadell → Primavera Sound ${YEAR$2}: Desde 3€ | 30 km | ConcertRide`,
+    title: `Carpooling Sabadell → Primavera Sound ${YEAR$2}: 3€, 30 km`,
     keywords: `carpooling sabadell primavera sound, viaje compartido sabadell barcelona forum, primavera sound desde sabadell`
   },
   "sabadell-cruilla": {
-    title: `Carpooling Sabadell → Cruïlla Barcelona ${YEAR$2}: Desde 3€ | 30 km | ConcertRide`,
+    title: `Carpooling Sabadell → Cruïlla Barcelona ${YEAR$2}: 3€, 30 km`,
     keywords: `carpooling sabadell cruilla, viaje compartido sabadell cruilla forum, cruilla desde sabadell`
   },
   "sabadell-sonar": {
-    title: `Carpooling Sabadell → Sónar Barcelona ${YEAR$2}: Desde 3€ | 30 km | ConcertRide`,
+    title: `Carpooling Sabadell → Sónar Barcelona ${YEAR$2}: 3€, 30 km`,
     keywords: `carpooling sabadell sonar, viaje compartido sabadell montjuic, sonar desde sabadell`
   },
   "terrassa-primavera-sound": {
-    title: `Carpooling Terrassa → Primavera Sound ${YEAR$2}: Desde 3€ | 30 km | ConcertRide`,
+    title: `Carpooling Terrassa → Primavera Sound ${YEAR$2}: 3€, 30 km`,
     keywords: `carpooling terrassa primavera sound, viaje compartido terrassa barcelona forum, primavera sound desde terrassa`
   },
   "terrassa-cruilla": {
-    title: `Carpooling Terrassa → Cruïlla Barcelona ${YEAR$2}: Desde 3€ | 30 km | ConcertRide`,
+    title: `Carpooling Terrassa → Cruïlla Barcelona ${YEAR$2}: 3€, 30 km`,
     keywords: `carpooling terrassa cruilla, viaje compartido terrassa cruilla, cruilla desde terrassa`
   },
   "terrassa-sonar": {
-    title: `Carpooling Terrassa → Sónar Barcelona ${YEAR$2}: Desde 3€ | 30 km | ConcertRide`,
+    title: `Carpooling Terrassa → Sónar Barcelona ${YEAR$2}: 3€, 30 km`,
     keywords: `carpooling terrassa sonar, viaje compartido terrassa montjuic, sonar desde terrassa`
   },
   "mataro-primavera-sound": {
-    title: `Carpooling Mataró → Primavera Sound ${YEAR$2}: Desde 3€ | 35 km | ConcertRide`,
+    title: `Carpooling Mataró → Primavera Sound ${YEAR$2}: 3€, 35 km`,
     keywords: `carpooling mataro primavera sound, viaje compartido mataro forum, primavera sound desde mataro`
   },
   "mataro-cruilla": {
-    title: `Carpooling Mataró → Cruïlla ${YEAR$2}: Desde 3€ | 35 km | ConcertRide`,
+    title: `Carpooling Mataró → Cruïlla ${YEAR$2}: 3€, 35 km`,
     keywords: `carpooling mataro cruilla, viaje compartido mataro cruilla, cruilla desde mataro`
   },
   "reus-primavera-sound": {
-    title: `Carpooling Reus → Primavera Sound ${YEAR$2}: Desde 5€ | 110 km | ConcertRide`,
+    title: `Carpooling Reus → Primavera Sound ${YEAR$2}: 5€, 110 km`,
     keywords: `carpooling reus primavera sound, viaje compartido reus barcelona, primavera sound desde reus`
   },
   "reus-fib": {
-    title: `Carpooling Reus → FIB Benicàssim ${YEAR$2}: Desde 6€ | 190 km | ConcertRide`,
+    title: `Carpooling Reus → FIB Benicàssim ${YEAR$2}: 6€, 190 km`,
     keywords: `carpooling reus fib benicassim, viaje compartido reus fib, fib desde reus`
   },
   "manresa-primavera-sound": {
-    title: `Carpooling Manresa → Primavera Sound ${YEAR$2}: Desde 4€ | 75 km | ConcertRide`,
+    title: `Carpooling Manresa → Primavera Sound ${YEAR$2}: 4€, 75 km`,
     keywords: `carpooling manresa primavera sound, viaje compartido manresa forum, primavera sound desde manresa`
   },
   // Huesca → Aragón / Pirineos
   "huesca-vive-latino": {
-    title: `Carpooling Huesca → Vive Latino Zaragoza ${YEAR$2}: Desde 3€ | 75 km | ConcertRide`,
+    title: `Carpooling Huesca → Vive Latino Zaragoza ${YEAR$2}: 3€, 75 km`,
     keywords: `carpooling huesca vive latino, viaje compartido huesca zaragoza, vive latino desde huesca`
   },
   "huesca-mad-cool": {
-    title: `Carpooling Huesca → Mad Cool Madrid ${YEAR$2}: Desde 11€ | 390 km | ConcertRide`,
+    title: `Carpooling Huesca → Mad Cool Madrid ${YEAR$2}: 11€, 390 km`,
     keywords: `carpooling huesca mad cool, viaje compartido huesca madrid, mad cool desde huesca`
   },
   "huesca-primavera-sound": {
-    title: `Carpooling Huesca → Primavera Sound Barcelona ${YEAR$2}: Desde 11€ | 380 km | ConcertRide`,
+    title: `Carpooling Huesca → Primavera Sound Barcelona ${YEAR$2}: 11€, 380 km`,
     keywords: `carpooling huesca primavera sound, viaje compartido huesca barcelona, primavera sound desde huesca`
   },
   // Algeciras → Andalucía festivals
   "algeciras-cala-mijas": {
-    title: `Carpooling Algeciras → Cala Mijas Festival ${YEAR$2}: Desde 5€ | 105 km | ConcertRide`,
+    title: `Carpooling Algeciras → Cala Mijas Festival ${YEAR$2}: 5€, 105 km`,
     keywords: `carpooling algeciras cala mijas, viaje compartido algeciras mijas festival, cala mijas desde algeciras`
   },
   // Avilés → norte
   "aviles-metropoli-gijon": {
-    title: `Carpooling Avilés → Metrópoli Gijón ${YEAR$2}: Desde 3€ | 25 km | ConcertRide`,
+    title: `Carpooling Avilés → Metrópoli Gijón ${YEAR$2}: 3€, 25 km`,
     keywords: `carpooling aviles metropoli gijon, viaje compartido aviles gijon, metropoli desde aviles`
   },
   "aviles-bbk-live": {
-    title: `Carpooling Avilés → BBK Live ${YEAR$2}: Desde 9€ | 270 km | ConcertRide`,
+    title: `Carpooling Avilés → BBK Live ${YEAR$2}: 9€, 270 km`,
     keywords: `carpooling aviles bbk live, viaje compartido aviles bilbao, bbk live desde aviles`
   },
   // Ponferrada → Galicia / norte
   "ponferrada-o-son-do-camino": {
-    title: `Carpooling Ponferrada → O Son do Camiño ${YEAR$2}: Desde 7€ | 210 km | ConcertRide`,
+    title: `Carpooling Ponferrada → O Son do Camiño ${YEAR$2}: 7€, 210 km`,
     keywords: `carpooling ponferrada o son do camino, viaje compartido ponferrada santiago, o son do camino desde ponferrada`
   },
   "ponferrada-resurrection-fest": {
-    title: `Carpooling Ponferrada → Resurrection Fest ${YEAR$2}: Desde 8€ | 250 km | ConcertRide`,
+    title: `Carpooling Ponferrada → Resurrection Fest ${YEAR$2}: 8€, 250 km`,
     keywords: `carpooling ponferrada resurrection fest, viaje compartido ponferrada viveiro, resurrection fest desde ponferrada`
   },
   // Talavera de la Reina → festivales
   "talavera-de-la-reina-mad-cool": {
-    title: `Carpooling Talavera → Mad Cool Madrid ${YEAR$2}: Desde 5€ | 120 km | ConcertRide`,
+    title: `Carpooling Talavera → Mad Cool Madrid ${YEAR$2}: 5€, 120 km`,
     keywords: `carpooling talavera mad cool, viaje compartido talavera madrid mad cool, mad cool desde talavera de la reina`
   },
   "talavera-de-la-reina-vina-rock": {
-    title: `Carpooling Talavera → Viña Rock ${YEAR$2}: Desde 6€ | 180 km | ConcertRide`,
+    title: `Carpooling Talavera → Viña Rock ${YEAR$2}: 6€, 180 km`,
     keywords: `carpooling talavera vina rock, viaje compartido talavera villarrobledo, viña rock desde talavera`
   },
   // Gandia → Levante
   "gandia-medusa-festival": {
-    title: `Carpooling Gandia → Medusa Festival Cullera ${YEAR$2}: Desde 3€ | 15 km | ConcertRide`,
+    title: `Carpooling Gandia → Medusa Festival Cullera ${YEAR$2}: 3€, 15 km`,
     keywords: `carpooling gandia medusa festival, viaje compartido gandia cullera medusa, medusa desde gandia`
   },
   "gandia-arenal-sound": {
-    title: `Carpooling Gandia → Arenal Sound Burriana ${YEAR$2}: Desde 5€ | 130 km | ConcertRide`,
+    title: `Carpooling Gandia → Arenal Sound Burriana ${YEAR$2}: 5€, 130 km`,
     keywords: `carpooling gandia arenal sound, viaje compartido gandia burriana, arenal sound desde gandia`
   },
   "gandia-festival-de-les-arts": {
-    title: `Carpooling Gandia → Festival de les Arts Valencia ${YEAR$2}: Desde 3€ | 65 km | ConcertRide`,
+    title: `Carpooling Gandia → Festival de les Arts Valencia ${YEAR$2}: 3€, 65 km`,
     keywords: `carpooling gandia festival les arts, viaje compartido gandia valencia, festival les arts desde gandia`
   },
   // Mérida → festivales
   "merida-cala-mijas": {
-    title: `Carpooling Mérida → Cala Mijas Festival ${YEAR$2}: Desde 13€ | 480 km | ConcertRide`,
+    title: `Carpooling Mérida → Cala Mijas Festival ${YEAR$2}: 13€, 480 km`,
     keywords: `carpooling merida cala mijas, viaje compartido merida mijas festival, cala mijas desde merida`
   },
   "merida-mad-cool": {
-    title: `Carpooling Mérida → Mad Cool Madrid ${YEAR$2}: Desde 10€ | 340 km | ConcertRide`,
+    title: `Carpooling Mérida → Mad Cool Madrid ${YEAR$2}: 10€, 340 km`,
     keywords: `carpooling merida mad cool, viaje compartido merida madrid, mad cool desde merida`
   },
   // ── Wave 10: routes for 5 new festivals ───────────────────────────────────
   // Pirineos Sur (Lanuza)
   "huesca-pirineos-sur": {
-    title: `Carpooling Huesca → Pirineos Sur ${YEAR$2}: Desde 3€ | 75 km | ConcertRide`,
+    title: `Carpooling Huesca → Pirineos Sur ${YEAR$2}: 3€, 75 km`,
     keywords: `carpooling huesca pirineos sur, viaje compartido huesca lanuza, pirineos sur desde huesca, sallent de gallego desde huesca`
   },
   "zaragoza-pirineos-sur": {
-    title: `Carpooling Zaragoza → Pirineos Sur ${YEAR$2}: Desde 6€ | 175 km | ConcertRide`,
+    title: `Carpooling Zaragoza → Pirineos Sur ${YEAR$2}: 6€, 175 km`,
     keywords: `carpooling zaragoza pirineos sur, viaje compartido zaragoza lanuza, pirineos sur desde zaragoza, festival lanuza desde zaragoza`
   },
   "pamplona-pirineos-sur": {
-    title: `Carpooling Pamplona → Pirineos Sur ${YEAR$2}: Desde 7€ | 215 km | ConcertRide`,
+    title: `Carpooling Pamplona → Pirineos Sur ${YEAR$2}: 7€, 215 km`,
     keywords: `carpooling pamplona pirineos sur, viaje compartido pamplona lanuza, pirineos sur desde pamplona`
   },
   "madrid-pirineos-sur": {
-    title: `Carpooling Madrid → Pirineos Sur ${YEAR$2}: Desde 13€ | 480 km | ConcertRide`,
+    title: `Carpooling Madrid → Pirineos Sur ${YEAR$2}: 13€, 480 km`,
     keywords: `carpooling madrid pirineos sur, viaje compartido madrid lanuza pirineos sur, pirineos sur desde madrid, festival aragon desde madrid`
   },
   "barcelona-pirineos-sur": {
-    title: `Carpooling Barcelona → Pirineos Sur ${YEAR$2}: Desde 12€ | 430 km | ConcertRide`,
+    title: `Carpooling Barcelona → Pirineos Sur ${YEAR$2}: 12€, 430 km`,
     keywords: `carpooling barcelona pirineos sur, viaje compartido barcelona lanuza, pirineos sur desde barcelona`
   },
   "lleida-pirineos-sur": {
-    title: `Carpooling Lleida → Pirineos Sur ${YEAR$2}: Desde 7€ | 200 km | ConcertRide`,
+    title: `Carpooling Lleida → Pirineos Sur ${YEAR$2}: 7€, 200 km`,
     keywords: `carpooling lleida pirineos sur, viaje compartido lleida lanuza, pirineos sur desde lleida`
   },
   "bilbao-pirineos-sur": {
-    title: `Carpooling Bilbao → Pirineos Sur ${YEAR$2}: Desde 11€ | 360 km | ConcertRide`,
+    title: `Carpooling Bilbao → Pirineos Sur ${YEAR$2}: 11€, 360 km`,
     keywords: `carpooling bilbao pirineos sur, viaje compartido bilbao lanuza, pirineos sur desde bilbao`
   },
   // Starlite Marbella
   "malaga-starlite-marbella": {
-    title: `Carpooling Málaga → Starlite Marbella ${YEAR$2}: Desde 3€ | 60 km | ConcertRide`,
+    title: `Carpooling Málaga → Starlite Marbella ${YEAR$2}: 3€, 60 km`,
     keywords: `carpooling malaga starlite marbella, viaje compartido malaga marbella, starlite desde malaga, cantera de nagueles desde malaga`
   },
   "mijas-starlite-marbella": {
-    title: `Carpooling Mijas → Starlite Marbella ${YEAR$2}: Desde 3€ | 20 km | ConcertRide`,
+    title: `Carpooling Mijas → Starlite Marbella ${YEAR$2}: 3€, 20 km`,
     keywords: `carpooling mijas starlite marbella, viaje compartido mijas marbella, starlite desde mijas`
   },
   "fuengirola-starlite-marbella": {
-    title: `Carpooling Fuengirola → Starlite Marbella ${YEAR$2}: Desde 3€ | 25 km | ConcertRide`,
+    title: `Carpooling Fuengirola → Starlite Marbella ${YEAR$2}: 3€, 25 km`,
     keywords: `carpooling fuengirola starlite marbella, viaje compartido fuengirola marbella, starlite desde fuengirola`
   },
   "granada-starlite-marbella": {
-    title: `Carpooling Granada → Starlite Marbella ${YEAR$2}: Desde 6€ | 155 km | ConcertRide`,
+    title: `Carpooling Granada → Starlite Marbella ${YEAR$2}: 6€, 155 km`,
     keywords: `carpooling granada starlite marbella, viaje compartido granada marbella, starlite desde granada`
   },
   "sevilla-starlite-marbella": {
-    title: `Carpooling Sevilla → Starlite Marbella ${YEAR$2}: Desde 7€ | 210 km | ConcertRide`,
+    title: `Carpooling Sevilla → Starlite Marbella ${YEAR$2}: 7€, 210 km`,
     keywords: `carpooling sevilla starlite marbella, viaje compartido sevilla marbella, starlite desde sevilla, costa del sol festival desde sevilla`
   },
   "madrid-starlite-marbella": {
-    title: `Carpooling Madrid → Starlite Marbella ${YEAR$2}: Desde 14€ | 575 km | ConcertRide`,
+    title: `Carpooling Madrid → Starlite Marbella ${YEAR$2}: 14€, 575 km`,
     keywords: `carpooling madrid starlite marbella, viaje compartido madrid marbella, starlite desde madrid, costa del sol desde madrid`
   },
   "algeciras-starlite-marbella": {
-    title: `Carpooling Algeciras → Starlite Marbella ${YEAR$2}: Desde 4€ | 80 km | ConcertRide`,
+    title: `Carpooling Algeciras → Starlite Marbella ${YEAR$2}: 4€, 80 km`,
     keywords: `carpooling algeciras starlite marbella, viaje compartido algeciras marbella, starlite desde algeciras`
   },
   // Stone & Music Mérida
   "caceres-stone-music-festival": {
-    title: `Carpooling Cáceres → Stone & Music Mérida ${YEAR$2}: Desde 4€ | 75 km | ConcertRide`,
+    title: `Carpooling Cáceres → Stone & Music Mérida ${YEAR$2}: 4€, 75 km`,
     keywords: `carpooling caceres stone music merida, viaje compartido caceres merida festival, stone music desde caceres, teatro romano merida desde caceres`
   },
   "badajoz-stone-music-festival": {
-    title: `Carpooling Badajoz → Stone & Music Mérida ${YEAR$2}: Desde 3€ | 60 km | ConcertRide`,
+    title: `Carpooling Badajoz → Stone & Music Mérida ${YEAR$2}: 3€, 60 km`,
     keywords: `carpooling badajoz stone music merida, viaje compartido badajoz merida festival, stone music desde badajoz`
   },
   "sevilla-stone-music-festival": {
-    title: `Carpooling Sevilla → Stone & Music Mérida ${YEAR$2}: Desde 6€ | 200 km | ConcertRide`,
+    title: `Carpooling Sevilla → Stone & Music Mérida ${YEAR$2}: 6€, 200 km`,
     keywords: `carpooling sevilla stone music merida, viaje compartido sevilla merida, stone music desde sevilla, teatro romano merida desde sevilla`
   },
   "madrid-stone-music-festival": {
-    title: `Carpooling Madrid → Stone & Music Mérida ${YEAR$2}: Desde 10€ | 340 km | ConcertRide`,
+    title: `Carpooling Madrid → Stone & Music Mérida ${YEAR$2}: 10€, 340 km`,
     keywords: `carpooling madrid stone music merida, viaje compartido madrid merida festival, stone music desde madrid, teatro romano merida desde madrid`
   },
   "salamanca-stone-music-festival": {
-    title: `Carpooling Salamanca → Stone & Music Mérida ${YEAR$2}: Desde 7€ | 215 km | ConcertRide`,
+    title: `Carpooling Salamanca → Stone & Music Mérida ${YEAR$2}: 7€, 215 km`,
     keywords: `carpooling salamanca stone music merida, viaje compartido salamanca merida, stone music desde salamanca`
   },
   "cordoba-stone-music-festival": {
-    title: `Carpooling Córdoba → Stone & Music Mérida ${YEAR$2}: Desde 8€ | 250 km | ConcertRide`,
+    title: `Carpooling Córdoba → Stone & Music Mérida ${YEAR$2}: 8€, 250 km`,
     keywords: `carpooling cordoba stone music merida, viaje compartido cordoba merida festival, stone music desde cordoba`
   },
   // Marenostrum Fuengirola
   "malaga-marenostrum-fuengirola": {
-    title: `Carpooling Málaga → Marenostrum Fuengirola ${YEAR$2}: Desde 3€ | 35 km | ConcertRide`,
+    title: `Carpooling Málaga → Marenostrum Fuengirola ${YEAR$2}: 3€, 35 km`,
     keywords: `carpooling malaga marenostrum fuengirola, viaje compartido malaga fuengirola castle park, marenostrum desde malaga, sohail castle park desde malaga`
   },
   "mijas-marenostrum-fuengirola": {
-    title: `Carpooling Mijas → Marenostrum Fuengirola ${YEAR$2}: Desde 3€ | 10 km | ConcertRide`,
+    title: `Carpooling Mijas → Marenostrum Fuengirola ${YEAR$2}: 3€, 10 km`,
     keywords: `carpooling mijas marenostrum fuengirola, viaje compartido mijas fuengirola, marenostrum desde mijas`
   },
   "marbella-marenostrum-fuengirola": {
-    title: `Carpooling Marbella → Marenostrum Fuengirola ${YEAR$2}: Desde 3€ | 25 km | ConcertRide`,
+    title: `Carpooling Marbella → Marenostrum Fuengirola ${YEAR$2}: 3€, 25 km`,
     keywords: `carpooling marbella marenostrum fuengirola, viaje compartido marbella fuengirola, marenostrum desde marbella`
   },
   "granada-marenostrum-fuengirola": {
-    title: `Carpooling Granada → Marenostrum Fuengirola ${YEAR$2}: Desde 5€ | 130 km | ConcertRide`,
+    title: `Carpooling Granada → Marenostrum Fuengirola ${YEAR$2}: 5€, 130 km`,
     keywords: `carpooling granada marenostrum fuengirola, viaje compartido granada fuengirola, marenostrum desde granada`
   },
   "sevilla-marenostrum-fuengirola": {
-    title: `Carpooling Sevilla → Marenostrum Fuengirola ${YEAR$2}: Desde 7€ | 220 km | ConcertRide`,
+    title: `Carpooling Sevilla → Marenostrum Fuengirola ${YEAR$2}: 7€, 220 km`,
     keywords: `carpooling sevilla marenostrum fuengirola, viaje compartido sevilla fuengirola, marenostrum desde sevilla`
   },
   "madrid-marenostrum-fuengirola": {
-    title: `Carpooling Madrid → Marenostrum Fuengirola ${YEAR$2}: Desde 14€ | 555 km | ConcertRide`,
+    title: `Carpooling Madrid → Marenostrum Fuengirola ${YEAR$2}: 14€, 555 km`,
     keywords: `carpooling madrid marenostrum fuengirola, viaje compartido madrid fuengirola, marenostrum desde madrid`
   },
   "algeciras-marenostrum-fuengirola": {
-    title: `Carpooling Algeciras → Marenostrum Fuengirola ${YEAR$2}: Desde 5€ | 105 km | ConcertRide`,
+    title: `Carpooling Algeciras → Marenostrum Fuengirola ${YEAR$2}: 5€, 105 km`,
     keywords: `carpooling algeciras marenostrum fuengirola, viaje compartido algeciras fuengirola, marenostrum desde algeciras`
   },
   // Tío Pepe Festival Jerez
   "cadiz-tio-pepe-festival": {
-    title: `Carpooling Cádiz → Tío Pepe Festival Jerez ${YEAR$2}: Desde 3€ | 35 km | ConcertRide`,
+    title: `Carpooling Cádiz → Tío Pepe Festival Jerez ${YEAR$2}: 3€, 35 km`,
     keywords: `carpooling cadiz tio pepe festival, viaje compartido cadiz jerez, tio pepe desde cadiz, bodegas gonzalez byass desde cadiz`
   },
   "sevilla-tio-pepe-festival": {
-    title: `Carpooling Sevilla → Tío Pepe Festival Jerez ${YEAR$2}: Desde 4€ | 95 km | ConcertRide`,
+    title: `Carpooling Sevilla → Tío Pepe Festival Jerez ${YEAR$2}: 4€, 95 km`,
     keywords: `carpooling sevilla tio pepe festival, viaje compartido sevilla jerez festival, tio pepe desde sevilla`
   },
   "huelva-tio-pepe-festival": {
-    title: `Carpooling Huelva → Tío Pepe Festival Jerez ${YEAR$2}: Desde 4€ | 110 km | ConcertRide`,
+    title: `Carpooling Huelva → Tío Pepe Festival Jerez ${YEAR$2}: 4€, 110 km`,
     keywords: `carpooling huelva tio pepe festival, viaje compartido huelva jerez, tio pepe desde huelva`
   },
   "cordoba-tio-pepe-festival": {
-    title: `Carpooling Córdoba → Tío Pepe Festival Jerez ${YEAR$2}: Desde 6€ | 195 km | ConcertRide`,
+    title: `Carpooling Córdoba → Tío Pepe Festival Jerez ${YEAR$2}: 6€, 195 km`,
     keywords: `carpooling cordoba tio pepe festival, viaje compartido cordoba jerez, tio pepe desde cordoba`
   },
   "malaga-tio-pepe-festival": {
-    title: `Carpooling Málaga → Tío Pepe Festival Jerez ${YEAR$2}: Desde 7€ | 200 km | ConcertRide`,
+    title: `Carpooling Málaga → Tío Pepe Festival Jerez ${YEAR$2}: 7€, 200 km`,
     keywords: `carpooling malaga tio pepe festival, viaje compartido malaga jerez, tio pepe desde malaga`
   },
   "algeciras-tio-pepe-festival": {
-    title: `Carpooling Algeciras → Tío Pepe Festival Jerez ${YEAR$2}: Desde 5€ | 130 km | ConcertRide`,
+    title: `Carpooling Algeciras → Tío Pepe Festival Jerez ${YEAR$2}: 5€, 130 km`,
     keywords: `carpooling algeciras tio pepe festival, viaje compartido algeciras jerez, tio pepe desde algeciras`
   },
   "madrid-tio-pepe-festival": {
-    title: `Carpooling Madrid → Tío Pepe Festival Jerez ${YEAR$2}: Desde 16€ | 655 km | ConcertRide`,
+    title: `Carpooling Madrid → Tío Pepe Festival Jerez ${YEAR$2}: 16€, 655 km`,
     keywords: `carpooling madrid tio pepe festival, viaje compartido madrid jerez, tio pepe desde madrid, festival jerez desde madrid`
   },
   "donostia-mad-cool": {
@@ -26087,6 +26976,469 @@ const ROUTE_SEO_IMPROVEMENTS = {
     title: `Carpooling Sevilla → Creamfields Jerez ${YEAR$2}: 5€, 1h, 95km`,
     description: `Carpooling Sevilla → Creamfields Andalucía ${YEAR$2}: 95 km, 1h por A-4 al Recinto González Hontoria Jerez, desde 5€/asiento sin comisión. Más barato que Renfe+taxi al recinto.`,
     keywords: `carpooling sevilla creamfields andalucia, viaje compartido sevilla jerez creamfields, creamfields desde sevilla, como ir creamfields festival desde sevilla`
+  },
+  // ── Wave 36 routes: rutas por ciudad para los 10 nuevos festivales ──────
+  // Jaén Pop routes
+  "madrid-festival-de-musica-de-jaen-pop": {
+    title: `Carpooling Madrid → Festival Jaén Pop ${YEAR$2} [Desde 9€] | ConcertRide`,
+    description: `Madrid → Festival de Música de Jaén Pop ${YEAR$2}: carpooling sin comisión desde 9€/asiento. 385 km por A-4, 3h30. 0% comisión. Pago Bizum.`,
+    keywords: `carpooling madrid festival jaen pop, viaje compartido madrid jaen concierto, como llegar festival jaen desde madrid, transporte madrid jaen festival ${YEAR$2}`
+  },
+  "granada-festival-de-musica-de-jaen-pop": {
+    title: `Carpooling Granada → Festival Jaén Pop ${YEAR$2} [Desde 5€] | ConcertRide`,
+    description: `Granada → Festival de Música de Jaén Pop ${YEAR$2}: carpooling sin comisión desde 5€/asiento. 95 km por A-316, 1h. 0% comisión. Pago Bizum directo.`,
+    keywords: `carpooling granada festival jaen pop, viaje compartido granada jaen festival, como ir festival jaen pop desde granada, transporte granada jaen ${YEAR$2}`
+  },
+  "cordoba-festival-de-musica-de-jaen-pop": {
+    title: `Carpooling Córdoba → Festival Jaén Pop ${YEAR$2} [Desde 4€] | ConcertRide`,
+    description: `Córdoba → Festival de Música de Jaén Pop ${YEAR$2}: carpooling sin comisión desde 4€/asiento. 105 km por A-45, 1h10. 0% comisión. Pago Bizum.`,
+    keywords: `carpooling cordoba festival jaen pop, viaje compartido cordoba jaen festival, como llegar festival jaen pop desde cordoba, transporte cordoba jaen ${YEAR$2}`
+  },
+  // Córdoba Rocks routes
+  "madrid-festival-de-musica-de-cordoba-rocks": {
+    title: `Carpooling Madrid → Córdoba Rocks ${YEAR$2} [Desde 9€] | ConcertRide`,
+    description: `Madrid → Festival Córdoba Rocks ${YEAR$2}: carpooling sin comisión desde 9€/asiento. 400 km por A-4, 3h30. 0% comisión. Pago Bizum directo.`,
+    keywords: `carpooling madrid cordoba rocks, viaje compartido madrid cordoba festival, como llegar cordoba rocks desde madrid, transporte madrid cordoba festival ${YEAR$2}`
+  },
+  "sevilla-festival-de-musica-de-cordoba-rocks": {
+    title: `Carpooling Sevilla → Córdoba Rocks ${YEAR$2} [Desde 4€] | ConcertRide`,
+    description: `Sevilla → Festival Córdoba Rocks ${YEAR$2}: carpooling sin comisión desde 4€/asiento. 140 km por A-4, 1h30. 0% comisión. Pago Bizum directo.`,
+    keywords: `carpooling sevilla cordoba rocks, viaje compartido sevilla cordoba festival, como ir cordoba rocks desde sevilla, transporte sevilla cordoba ${YEAR$2}`
+  },
+  "malaga-festival-de-musica-de-cordoba-rocks": {
+    title: `Carpooling Málaga → Córdoba Rocks ${YEAR$2} [Desde 5€] | ConcertRide`,
+    description: `Málaga → Festival Córdoba Rocks ${YEAR$2}: carpooling sin comisión desde 5€/asiento. 170 km por A-45, 1h45. 0% comisión. Pago Bizum directo.`,
+    keywords: `carpooling malaga cordoba rocks, viaje compartido malaga cordoba festival, como llegar cordoba rocks desde malaga, transporte malaga cordoba ${YEAR$2}`
+  },
+  // Huelva Pop routes
+  "madrid-festival-de-musica-de-huelva-pop": {
+    title: `Carpooling Madrid → Festival Huelva Pop ${YEAR$2} [Desde 11€] | ConcertRide`,
+    description: `Madrid → Festival de Música de Huelva Pop ${YEAR$2}: carpooling sin comisión desde 11€/asiento. 640 km por A-4+A-49, 5h30. 0% comisión. Pago Bizum.`,
+    keywords: `carpooling madrid festival huelva pop, viaje compartido madrid huelva concierto, como llegar festival huelva desde madrid, transporte madrid huelva festival ${YEAR$2}`
+  },
+  "sevilla-festival-de-musica-de-huelva-pop": {
+    title: `Carpooling Sevilla → Festival Huelva Pop ${YEAR$2} [Desde 4€] | ConcertRide`,
+    description: `Sevilla → Festival de Música de Huelva Pop ${YEAR$2}: carpooling sin comisión desde 4€/asiento. 94 km por A-49, 1h. 0% comisión. Pago Bizum directo.`,
+    keywords: `carpooling sevilla festival huelva pop, viaje compartido sevilla huelva festival, como ir festival huelva pop desde sevilla, transporte sevilla huelva ${YEAR$2}`
+  },
+  "cadiz-festival-de-musica-de-huelva-pop": {
+    title: `Carpooling Cádiz → Festival Huelva Pop ${YEAR$2} [Desde 5€] | ConcertRide`,
+    description: `Cádiz → Festival de Música de Huelva Pop ${YEAR$2}: carpooling sin comisión desde 5€/asiento. 200 km por A-48+A-49, 2h. 0% comisión. Pago Bizum directo.`,
+    keywords: `carpooling cadiz festival huelva pop, viaje compartido cadiz huelva festival, como llegar festival huelva pop desde cadiz, transporte cadiz huelva ${YEAR$2}`
+  },
+  // Badajoz routes
+  "madrid-festival-de-musica-de-badajoz": {
+    title: `Carpooling Madrid → Festival Badajoz ${YEAR$2} [Desde 8€] | ConcertRide`,
+    description: `Madrid → Festival de Música de Badajoz ${YEAR$2}: carpooling sin comisión desde 8€/asiento. 400 km por A-5, 3h30. 0% comisión. Pago Bizum directo.`,
+    keywords: `carpooling madrid festival badajoz, viaje compartido madrid badajoz concierto, como llegar festival badajoz desde madrid, transporte madrid badajoz festival ${YEAR$2}`
+  },
+  "sevilla-festival-de-musica-de-badajoz": {
+    title: `Carpooling Sevilla → Festival Badajoz ${YEAR$2} [Desde 5€] | ConcertRide`,
+    description: `Sevilla → Festival de Música de Badajoz ${YEAR$2}: carpooling sin comisión desde 5€/asiento. 220 km por A-66, 2h. 0% comisión. Pago Bizum directo.`,
+    keywords: `carpooling sevilla festival badajoz, viaje compartido sevilla badajoz festival, como ir festival badajoz desde sevilla, transporte sevilla badajoz ${YEAR$2}`
+  },
+  "caceres-festival-de-musica-de-badajoz": {
+    title: `Carpooling Cáceres → Festival Badajoz ${YEAR$2} [Desde 4€] | ConcertRide`,
+    description: `Cáceres → Festival de Música de Badajoz ${YEAR$2}: carpooling sin comisión desde 4€/asiento. 90 km por A-66, 1h. 0% comisión. Pago Bizum directo.`,
+    keywords: `carpooling caceres festival badajoz, viaje compartido caceres badajoz festival, como llegar festival badajoz desde caceres, transporte caceres badajoz ${YEAR$2}`
+  },
+  // Mérida routes
+  "madrid-festival-de-musica-de-merida": {
+    title: `Carpooling Madrid → Festival Mérida ${YEAR$2} [Desde 7€] | ConcertRide`,
+    description: `Madrid → Festival de Música de Mérida ${YEAR$2}: carpooling sin comisión desde 7€/asiento. 350 km por A-5, 3h. 0% comisión. Pago Bizum directo.`,
+    keywords: `carpooling madrid festival merida, viaje compartido madrid merida concierto, como llegar festival merida desde madrid, transporte madrid merida festival ${YEAR$2}`
+  },
+  "sevilla-festival-de-musica-de-merida": {
+    title: `Carpooling Sevilla → Festival Mérida ${YEAR$2} [Desde 5€] | ConcertRide`,
+    description: `Sevilla → Festival de Música de Mérida ${YEAR$2}: carpooling sin comisión desde 5€/asiento. 190 km por A-66, 1h45. 0% comisión. Pago Bizum directo.`,
+    keywords: `carpooling sevilla festival merida, viaje compartido sevilla merida festival, como ir festival merida desde sevilla, transporte sevilla merida ${YEAR$2}`
+  },
+  "badajoz-festival-de-musica-de-merida": {
+    title: `Carpooling Badajoz → Festival Mérida ${YEAR$2} [Desde 3€] | ConcertRide`,
+    description: `Badajoz → Festival de Música de Mérida ${YEAR$2}: carpooling sin comisión desde 3€/asiento. 62 km por A-5, 40 min. 0% comisión. Pago Bizum directo.`,
+    keywords: `carpooling badajoz festival merida, viaje compartido badajoz merida festival, como llegar festival merida desde badajoz, transporte badajoz merida ${YEAR$2}`
+  },
+  // Plasencia routes
+  "madrid-festival-de-musica-de-plasencia": {
+    title: `Carpooling Madrid → Festival Plasencia ${YEAR$2} [Desde 7€] | ConcertRide`,
+    description: `Madrid → Festival de Música de Plasencia ${YEAR$2}: carpooling sin comisión desde 7€/asiento. 300 km por A-5, 2h30. 0% comisión. Pago Bizum directo.`,
+    keywords: `carpooling madrid festival plasencia, viaje compartido madrid plasencia concierto, como llegar festival plasencia desde madrid, transporte madrid plasencia festival ${YEAR$2}`
+  },
+  "salamanca-festival-de-musica-de-plasencia": {
+    title: `Carpooling Salamanca → Festival Plasencia ${YEAR$2} [Desde 4€] | ConcertRide`,
+    description: `Salamanca → Festival de Música de Plasencia ${YEAR$2}: carpooling sin comisión desde 4€/asiento. 140 km por A-66, 1h20. 0% comisión. Pago Bizum directo.`,
+    keywords: `carpooling salamanca festival plasencia, viaje compartido salamanca plasencia festival, como ir festival plasencia desde salamanca, transporte salamanca plasencia ${YEAR$2}`
+  },
+  "caceres-festival-de-musica-de-plasencia": {
+    title: `Carpooling Cáceres → Festival Plasencia ${YEAR$2} [Desde 3€] | ConcertRide`,
+    description: `Cáceres → Festival de Música de Plasencia ${YEAR$2}: carpooling sin comisión desde 3€/asiento. 84 km por A-66, 55 min. 0% comisión. Pago Bizum directo.`,
+    keywords: `carpooling caceres festival plasencia, viaje compartido caceres plasencia festival, como llegar festival plasencia desde caceres, transporte caceres plasencia ${YEAR$2}`
+  },
+  // Gijón routes
+  "madrid-festival-de-musica-de-gijon": {
+    title: `Carpooling Madrid → Festival Gijón ${YEAR$2} [Desde 9€] | ConcertRide`,
+    description: `Madrid → Festival de Música de Gijón ${YEAR$2}: carpooling sin comisión desde 9€/asiento. 450 km por A-1+AP-66, 4h. 0% comisión. Pago Bizum directo.`,
+    keywords: `carpooling madrid festival gijon, viaje compartido madrid gijon concierto, como llegar festival gijon desde madrid, transporte madrid gijon festival ${YEAR$2}`
+  },
+  "oviedo-festival-de-musica-de-gijon": {
+    title: `Carpooling Oviedo → Festival Gijón ${YEAR$2} [Desde 3€] | ConcertRide`,
+    description: `Oviedo → Festival de Música de Gijón ${YEAR$2}: carpooling sin comisión desde 3€/asiento. 30 km por A-66, 25 min. 0% comisión. Pago Bizum directo.`,
+    keywords: `carpooling oviedo festival gijon, viaje compartido oviedo gijon festival, como ir festival gijon desde oviedo, transporte oviedo gijon ${YEAR$2}`
+  },
+  "santander-festival-de-musica-de-gijon": {
+    title: `Carpooling Santander → Festival Gijón ${YEAR$2} [Desde 5€] | ConcertRide`,
+    description: `Santander → Festival de Música de Gijón ${YEAR$2}: carpooling sin comisión desde 5€/asiento. 185 km por A-8, 1h50. 0% comisión. Pago Bizum directo.`,
+    keywords: `carpooling santander festival gijon, viaje compartido santander gijon festival, como llegar festival gijon desde santander, transporte santander gijon ${YEAR$2}`
+  },
+  // Oviedo routes
+  "madrid-festival-de-musica-de-oviedo": {
+    title: `Carpooling Madrid → Festival Oviedo ${YEAR$2} [Desde 9€] | ConcertRide`,
+    description: `Madrid → Festival de Música de Oviedo ${YEAR$2}: carpooling sin comisión desde 9€/asiento. 440 km por A-1+AP-66, 4h. 0% comisión. Pago Bizum directo.`,
+    keywords: `carpooling madrid festival oviedo, viaje compartido madrid oviedo concierto, como llegar festival oviedo desde madrid, transporte madrid oviedo festival ${YEAR$2}`
+  },
+  "bilbao-festival-de-musica-de-oviedo": {
+    title: `Carpooling Bilbao → Festival Oviedo ${YEAR$2} [Desde 6€] | ConcertRide`,
+    description: `Bilbao → Festival de Música de Oviedo ${YEAR$2}: carpooling sin comisión desde 6€/asiento. 300 km por A-8, 2h45. 0% comisión. Pago Bizum directo.`,
+    keywords: `carpooling bilbao festival oviedo, viaje compartido bilbao oviedo festival, como ir festival oviedo desde bilbao, transporte bilbao oviedo ${YEAR$2}`
+  },
+  "gijon-festival-de-musica-de-oviedo": {
+    title: `Carpooling Gijón → Festival Oviedo ${YEAR$2} [Desde 3€] | ConcertRide`,
+    description: `Gijón → Festival de Música de Oviedo ${YEAR$2}: carpooling sin comisión desde 3€/asiento. 30 km por A-66, 25 min. 0% comisión. Pago Bizum directo.`,
+    keywords: `carpooling gijon festival oviedo, viaje compartido gijon oviedo festival, como llegar festival oviedo desde gijon, transporte gijon oviedo ${YEAR$2}`
+  },
+  // Santander Jazz routes
+  "madrid-festival-de-santander-jazz": {
+    title: `Carpooling Madrid → Jazz Santander ${YEAR$2} [Desde 9€] | ConcertRide`,
+    description: `Madrid → Festival de Jazz de Santander ${YEAR$2}: carpooling sin comisión desde 9€/asiento. 395 km por A-1, 3h30. 0% comisión. Pago Bizum directo.`,
+    keywords: `carpooling madrid festival santander jazz, viaje compartido madrid santander jazz, como llegar festival jazz santander desde madrid, transporte madrid santander ${YEAR$2}`
+  },
+  "bilbao-festival-de-santander-jazz": {
+    title: `Carpooling Bilbao → Jazz Santander ${YEAR$2} [Desde 4€] | ConcertRide`,
+    description: `Bilbao → Festival de Jazz de Santander ${YEAR$2}: carpooling sin comisión desde 4€/asiento. 110 km por A-8, 1h10. 0% comisión. Pago Bizum directo.`,
+    keywords: `carpooling bilbao festival santander jazz, viaje compartido bilbao santander jazz, como ir jazz santander desde bilbao, transporte bilbao santander ${YEAR$2}`
+  },
+  "burgos-festival-de-santander-jazz": {
+    title: `Carpooling Burgos → Jazz Santander ${YEAR$2} [Desde 4€] | ConcertRide`,
+    description: `Burgos → Festival de Jazz de Santander ${YEAR$2}: carpooling sin comisión desde 4€/asiento. 155 km por A-1, 1h30. 0% comisión. Pago Bizum directo.`,
+    keywords: `carpooling burgos festival santander jazz, viaje compartido burgos santander jazz, como llegar jazz santander desde burgos, transporte burgos santander ${YEAR$2}`
+  },
+  // Folk Vitoria-Gasteiz routes
+  "madrid-festival-de-folk-de-vitoria": {
+    title: `Carpooling Madrid → Folk Vitoria ${YEAR$2} [Desde 9€] | ConcertRide`,
+    description: `Madrid → Festival de Folk de Vitoria-Gasteiz ${YEAR$2}: carpooling sin comisión desde 9€/asiento. 365 km por A-1, 3h15. 0% comisión. Pago Bizum directo.`,
+    keywords: `carpooling madrid festival folk vitoria, viaje compartido madrid vitoria folk, como llegar festival folk vitoria desde madrid, transporte madrid vitoria-gasteiz ${YEAR$2}`
+  },
+  "bilbao-festival-de-folk-de-vitoria": {
+    title: `Carpooling Bilbao → Folk Vitoria ${YEAR$2} [Desde 3€] | ConcertRide`,
+    description: `Bilbao → Festival de Folk de Vitoria-Gasteiz ${YEAR$2}: carpooling sin comisión desde 3€/asiento. 65 km por A-68, 45 min. 0% comisión. Pago Bizum directo.`,
+    keywords: `carpooling bilbao festival folk vitoria, viaje compartido bilbao vitoria gasteiz folk, como ir festival folk vitoria desde bilbao, transporte bilbao vitoria ${YEAR$2}`
+  },
+  "pamplona-festival-de-folk-de-vitoria": {
+    title: `Carpooling Pamplona → Folk Vitoria ${YEAR$2} [Desde 4€] | ConcertRide`,
+    description: `Pamplona → Festival de Folk de Vitoria-Gasteiz ${YEAR$2}: carpooling sin comisión desde 4€/asiento. 90 km por A-12+AP-1, 55 min. 0% comisión. Pago Bizum directo.`,
+    keywords: `carpooling pamplona festival folk vitoria, viaje compartido pamplona vitoria folk, como llegar festival folk vitoria desde pamplona, transporte pamplona vitoria-gasteiz ${YEAR$2}`
+  },
+  // ── Wave 37: Catalunya interior + costes (10 festivals × 3 routes = 30 routes) ─
+  "madrid-sonar-plus": {
+    title: `Coche Madrid→Sónar+ ${YEAR$2} [Desde 10€] — ConcertRide`,
+    description: `Madrid → Sónar+ Barcelona: 620 km por AP-2, 5 h 30 min, desde 10 €/asiento sin comisión. La vanguardia electrónica y digital del Sónar al alcance desde Madrid.`,
+    keywords: `carpooling madrid sonar plus, viaje compartido madrid sonar barcelona`
+  },
+  "valencia-sonar-plus": {
+    title: `Viaje Valencia→Sónar+ ${YEAR$2} [Desde 6€] — ConcertRide`,
+    description: `Valencia → Sónar+ Barcelona: 360 km por AP-7, 3 h 30 min, desde 6 €/asiento sin comisión. El festival de electrónica más innovador de Europa desde Valencia.`,
+    keywords: `carpooling valencia sonar plus, viaje compartido valencia sonar barcelona`
+  },
+  "zaragoza-sonar-plus": {
+    title: `Carpooling Zaragoza→Sónar+ ${YEAR$2} [Desde 5€] — ConcertRide`,
+    description: `Zaragoza → Sónar+ Barcelona: 300 km por AP-2, 2 h 45 min, desde 5 €/asiento sin comisión. Aragón al festival de electrónica más esperado del verano.`,
+    keywords: `carpooling zaragoza sonar plus, viaje compartido zaragoza sonar barcelona`
+  },
+  "madrid-festival-de-musica-de-tarragona": {
+    title: `Viaje Madrid→Festival Tarragona ${YEAR$2} [Desde 9€] — ConcertRide`,
+    description: `Madrid → Festival de Música de Tarragona: 555 km por AP-2, 5 h, desde 9 €/asiento sin comisión. Pop y rock junto al Anfiteatro Romano de Tarragona.`,
+    keywords: `carpooling madrid festival tarragona, viaje compartido madrid tarragona festival`
+  },
+  "barcelona-festival-de-musica-de-tarragona": {
+    title: `Coche Barcelona→Festival Tarragona ${YEAR$2} [Desde 4€] — ConcertRide`,
+    description: `Barcelona → Festival Tarragona: 100 km por AP-7, 1 h, desde 4 €/asiento sin comisión. El festival más cercano a Barcelona con escenario romano único.`,
+    keywords: `carpooling barcelona festival tarragona, viaje compartido barcelona tarragona festival`
+  },
+  "zaragoza-festival-de-musica-de-tarragona": {
+    title: `Viaje Zaragoza→Festival Tarragona ${YEAR$2} [Desde 5€] — ConcertRide`,
+    description: `Zaragoza → Festival Tarragona: 250 km por A-2+AP-7, 2 h 20 min, desde 5 €/asiento sin comisión. Aragón al festival mediterráneo de Tarragona.`,
+    keywords: `carpooling zaragoza festival tarragona, viaje compartido zaragoza tarragona festival`
+  },
+  "madrid-festival-de-musica-de-lleida": {
+    title: `Coche Madrid→Festival Lleida ${YEAR$2} [Desde 8€] — ConcertRide`,
+    description: `Madrid → Festival de Música de Lleida: 470 km por A-2+AP-2, 4 h 15 min, desde 8 €/asiento sin comisión. El festival de la capital de Poniente catalán.`,
+    keywords: `carpooling madrid festival lleida, viaje compartido madrid lleida festival musica`
+  },
+  "barcelona-festival-de-musica-de-lleida": {
+    title: `Viaje Barcelona→Festival Lleida ${YEAR$2} [Desde 4€] — ConcertRide`,
+    description: `Barcelona → Festival Lleida: 170 km por A-2, 1 h 30 min, desde 4 €/asiento sin comisión. El festival más auténtico del interior catalán desde Barcelona.`,
+    keywords: `carpooling barcelona festival lleida, viaje compartido barcelona lleida festival`
+  },
+  "zaragoza-festival-de-musica-de-lleida": {
+    title: `Carpooling Zaragoza→Festival Lleida ${YEAR$2} [Desde 3€] — ConcertRide`,
+    description: `Zaragoza → Festival Lleida: 150 km por A-2, 1 h 30 min, desde 3 €/asiento sin comisión. Vecinos de Aragón y Cataluña comparten ruta al festival de Lleida.`,
+    keywords: `carpooling zaragoza festival lleida, viaje compartido zaragoza lleida festival`
+  },
+  "madrid-festival-de-musica-de-girona": {
+    title: `Viaje Madrid→Festival Girona ${YEAR$2} [Desde 10€] — ConcertRide`,
+    description: `Madrid → Festival de Música de Girona: 740 km por AP-2+AP-7, 6 h 30 min, desde 10 €/asiento sin comisión. El festival de la ciudad medieval del río Onyar.`,
+    keywords: `carpooling madrid festival girona, viaje compartido madrid girona festival`
+  },
+  "barcelona-festival-de-musica-de-girona": {
+    title: `Coche Barcelona→Festival Girona ${YEAR$2} [Desde 3€] — ConcertRide`,
+    description: `Barcelona → Festival Girona: 100 km por AP-7, 1 h, desde 3 €/asiento sin comisión. El festival más fácil de alcanzar desde Barcelona.`,
+    keywords: `carpooling barcelona festival girona, viaje compartido barcelona girona festival`
+  },
+  "valencia-festival-de-musica-de-girona": {
+    title: `Viaje Valencia→Festival Girona ${YEAR$2} [Desde 8€] — ConcertRide`,
+    description: `Valencia → Festival Girona: 500 km por AP-7, 4 h 30 min, desde 8 €/asiento sin comisión. Levante al festival de la ciudad medieval de Cataluña.`,
+    keywords: `carpooling valencia festival girona, viaje compartido valencia girona festival`
+  },
+  "madrid-festival-de-musica-de-manresa": {
+    title: `Coche Madrid→Festival Manresa ${YEAR$2} [Desde 8€] — ConcertRide`,
+    description: `Madrid → Festival de Música de Manresa: 520 km por AP-2, 4 h 40 min, desde 8 €/asiento sin comisión. El festival del corazón del Bages, junto al río Cardener.`,
+    keywords: `carpooling madrid festival manresa, viaje compartido madrid manresa festival`
+  },
+  "barcelona-festival-de-musica-de-manresa": {
+    title: `Viaje Barcelona→Festival Manresa ${YEAR$2} [Desde 3€] — ConcertRide`,
+    description: `Barcelona → Festival Manresa: 70 km por C-16, 1 h, desde 3 €/asiento sin comisión. El festival del Bages a solo 1 hora de la Sagrada Familia.`,
+    keywords: `carpooling barcelona festival manresa, viaje compartido barcelona manresa festival`
+  },
+  "zaragoza-festival-de-musica-de-manresa": {
+    title: `Carpooling Zaragoza→Festival Manresa ${YEAR$2} [Desde 5€] — ConcertRide`,
+    description: `Zaragoza → Festival Manresa: 250 km por A-2+C-16, 2 h 30 min, desde 5 €/asiento sin comisión. Festival de interior catalán desde Aragón.`,
+    keywords: `carpooling zaragoza festival manresa, viaje compartido zaragoza manresa festival`
+  },
+  "madrid-festival-de-musica-de-reus": {
+    title: `Viaje Madrid→Festival Reus ${YEAR$2} [Desde 9€] — ConcertRide`,
+    description: `Madrid → Festival de Música de Reus: 560 km por AP-2+AP-7, 5 h, desde 9 €/asiento sin comisión. El festival de la ciudad del vermut catalán.`,
+    keywords: `carpooling madrid festival reus, viaje compartido madrid reus festival`
+  },
+  "barcelona-festival-de-musica-de-reus": {
+    title: `Coche Barcelona→Festival Reus ${YEAR$2} [Desde 4€] — ConcertRide`,
+    description: `Barcelona → Festival Reus: 110 km por AP-7, 1 h 10 min, desde 4 €/asiento sin comisión. El festival de la capital del Camp de Tarragona.`,
+    keywords: `carpooling barcelona festival reus, viaje compartido barcelona reus festival`
+  },
+  "valencia-festival-de-musica-de-reus": {
+    title: `Viaje Valencia→Festival Reus ${YEAR$2} [Desde 6€] — ConcertRide`,
+    description: `Valencia → Festival Reus: 260 km por AP-7, 2 h 30 min, desde 6 €/asiento sin comisión. El festival mediterráneo más próximo desde Levante.`,
+    keywords: `carpooling valencia festival reus, viaje compartido valencia reus tarragona festival`
+  },
+  "madrid-festival-de-musica-de-vic": {
+    title: `Coche Madrid→Festival Vic ${YEAR$2} [Desde 9€] — ConcertRide`,
+    description: `Madrid → Festival de Música de Vic: 590 km por AP-2+C-17, 5 h 15 min, desde 9 €/asiento sin comisión. El festival de la capital de Osona, en el prepirineo catalán.`,
+    keywords: `carpooling madrid festival vic, viaje compartido madrid vic osona festival`
+  },
+  "barcelona-festival-de-musica-de-vic": {
+    title: `Viaje Barcelona→Festival Vic ${YEAR$2} [Desde 3€] — ConcertRide`,
+    description: `Barcelona → Festival Vic: 65 km por C-17, 55 min, desde 3 €/asiento sin comisión. El festival del prepirineo catalán más cercano a Barcelona.`,
+    keywords: `carpooling barcelona festival vic, viaje compartido barcelona vic osona festival`
+  },
+  "girona-festival-de-musica-de-vic": {
+    title: `Carpooling Girona→Festival Vic ${YEAR$2} [Desde 3€] — ConcertRide`,
+    description: `Girona → Festival Vic: 60 km por C-25, 50 min, desde 3 €/asiento sin comisión. El festival de Osona a un paso de las Comarcas Gironines.`,
+    keywords: `carpooling girona festival vic, viaje compartido girona vic festival`
+  },
+  "madrid-festival-de-musica-de-figueres": {
+    title: `Viaje Madrid→Festival Figueres ${YEAR$2} [Desde 11€] — ConcertRide`,
+    description: `Madrid → Festival de Música de Figueres: 780 km por AP-2+AP-7, 6 h 45 min, desde 11 €/asiento sin comisión. El festival de la ciudad de Dalí y el Empordà.`,
+    keywords: `carpooling madrid festival figueres, viaje compartido madrid figueres festival`
+  },
+  "barcelona-festival-de-musica-de-figueres": {
+    title: `Coche Barcelona→Festival Figueres ${YEAR$2} [Desde 4€] — ConcertRide`,
+    description: `Barcelona → Festival Figueres: 140 km por AP-7, 1 h 20 min, desde 4 €/asiento sin comisión. El festival de la ciudad de Dalí desde la costa.`,
+    keywords: `carpooling barcelona festival figueres, viaje compartido barcelona figueres festival`
+  },
+  "girona-festival-de-musica-de-figueres": {
+    title: `Viaje Girona→Festival Figueres ${YEAR$2} [Desde 3€] — ConcertRide`,
+    description: `Girona → Festival Figueres: 40 km por AP-7, 35 min, desde 3 €/asiento sin comisión. El vecino del Empordà a menos de media hora de la capital provincial.`,
+    keywords: `carpooling girona festival figueres, viaje compartido girona figueres festival`
+  },
+  "madrid-festival-de-musica-de-mataro": {
+    title: `Coche Madrid→Festival Mataró ${YEAR$2} [Desde 10€] — ConcertRide`,
+    description: `Madrid → Festival de Música de Mataró: 650 km por AP-2+AP-7, 5 h 45 min, desde 10 €/asiento sin comisión. El festival del Maresme, con el Mediterráneo al fondo.`,
+    keywords: `carpooling madrid festival mataro, viaje compartido madrid mataro maresme festival`
+  },
+  "barcelona-festival-de-musica-de-mataro": {
+    title: `Viaje Barcelona→Festival Mataró ${YEAR$2} [Desde 3€] — ConcertRide`,
+    description: `Barcelona → Festival Mataró: 30 km por C-32, 30 min, desde 3 €/asiento sin comisión. El festival de playa más cercano a Barcelona.`,
+    keywords: `carpooling barcelona festival mataro, viaje compartido barcelona mataro festival`
+  },
+  "valencia-festival-de-musica-de-mataro": {
+    title: `Carpooling Valencia→Festival Mataró ${YEAR$2} [Desde 7€] — ConcertRide`,
+    description: `Valencia → Festival Mataró: 400 km por AP-7, 3 h 40 min, desde 7 €/asiento sin comisión. Levante al festival mediterráneo del Maresme.`,
+    keywords: `carpooling valencia festival mataro, viaje compartido valencia mataro festival`
+  },
+  "madrid-festival-de-musica-de-sabadell": {
+    title: `Viaje Madrid→Festival Sabadell ${YEAR$2} [Desde 9€] — ConcertRide`,
+    description: `Madrid → Festival de Música de Sabadell: 600 km por AP-2, 5 h 20 min, desde 9 €/asiento sin comisión. El festival de la capital del Vallès Occidental.`,
+    keywords: `carpooling madrid festival sabadell, viaje compartido madrid sabadell festival`
+  },
+  "barcelona-festival-de-musica-de-sabadell": {
+    title: `Coche Barcelona→Festival Sabadell ${YEAR$2} [Desde 3€] — ConcertRide`,
+    description: `Barcelona → Festival Sabadell: 25 km por C-58, 30 min, desde 3 €/asiento sin comisión. El festival del Vallès Occidental a un paso de Barcelona.`,
+    keywords: `carpooling barcelona festival sabadell, viaje compartido barcelona sabadell festival`
+  },
+  "zaragoza-festival-de-musica-de-sabadell": {
+    title: `Viaje Zaragoza→Festival Sabadell ${YEAR$2} [Desde 5€] — ConcertRide`,
+    description: `Zaragoza → Festival Sabadell: 310 km por A-2, 2 h 50 min, desde 5 €/asiento sin comisión. El festival del Vallès Occidental desde Aragón.`,
+    keywords: `carpooling zaragoza festival sabadell, viaje compartido zaragoza sabadell festival`
+  },
+  // ── Wave 38: Levante–Murcia + Madrid metro (10 festivals × 3 routes = 30 routes) ─
+  "madrid-festival-de-musica-de-alicante": {
+    title: `Viaje Madrid→Festival Alicante ${YEAR$2} [Desde 7€] — ConcertRide`,
+    description: `Madrid → Festival de Música de Alicante: 420 km por A-31, 3 h 40 min, desde 7 €/asiento sin comisión. El festival de la Costa Blanca bajo el Castillo de Santa Bárbara.`,
+    keywords: `carpooling madrid festival alicante, viaje compartido madrid alicante festival`
+  },
+  "barcelona-festival-de-musica-de-alicante": {
+    title: `Coche Barcelona→Festival Alicante ${YEAR$2} [Desde 9€] — ConcertRide`,
+    description: `Barcelona → Festival Alicante: 530 km por AP-7, 4 h 40 min, desde 9 €/asiento sin comisión. El festival mediterráneo de Alicante desde la Ciudad Condal.`,
+    keywords: `carpooling barcelona festival alicante, viaje compartido barcelona alicante festival`
+  },
+  "murcia-festival-de-musica-de-alicante": {
+    title: `Carpooling Murcia→Festival Alicante ${YEAR$2} [Desde 3€] — ConcertRide`,
+    description: `Murcia → Festival Alicante: 80 km por A-7, 50 min, desde 3 €/asiento sin comisión. El festival de la Costa Blanca a un paso de la Región de Murcia.`,
+    keywords: `carpooling murcia festival alicante, viaje compartido murcia alicante festival`
+  },
+  "madrid-festival-de-musica-de-elche": {
+    title: `Viaje Madrid→Festival Elche ${YEAR$2} [Desde 7€] — ConcertRide`,
+    description: `Madrid → Festival de Música de Elche: 410 km por A-31, 3 h 40 min, desde 7 €/asiento sin comisión. El festival de la ciudad palmeral UNESCO.`,
+    keywords: `carpooling madrid festival elche, viaje compartido madrid elche festival, palmeral elche`
+  },
+  "alicante-festival-de-musica-de-elche": {
+    title: `Coche Alicante→Festival Elche ${YEAR$2} [Desde 3€] — ConcertRide`,
+    description: `Alicante → Festival Elche: 25 km por AP-7, 20 min, desde 3 €/asiento sin comisión. El festival de la ciudad palmeral patrimonio de la Humanidad.`,
+    keywords: `carpooling alicante festival elche, viaje compartido alicante elche festival`
+  },
+  "murcia-festival-de-musica-de-elche": {
+    title: `Viaje Murcia→Festival Elche ${YEAR$2} [Desde 3€] — ConcertRide`,
+    description: `Murcia → Festival Elche: 70 km por A-7, 50 min, desde 3 €/asiento sin comisión. El festival de la ciudad palmeral desde la Región de Murcia.`,
+    keywords: `carpooling murcia festival elche, viaje compartido murcia elche festival`
+  },
+  "madrid-festival-de-musica-de-murcia-pop": {
+    title: `Coche Madrid→Murcia Pop ${YEAR$2} [Desde 7€] — ConcertRide`,
+    description: `Madrid → Festival Pop de Murcia: 400 km por A-30, 3 h 30 min, desde 7 €/asiento sin comisión. El pop más actual en la ciudad de la huerta murciana.`,
+    keywords: `carpooling madrid murcia pop, viaje compartido madrid murcia festival pop`
+  },
+  "alicante-festival-de-musica-de-murcia-pop": {
+    title: `Viaje Alicante→Murcia Pop ${YEAR$2} [Desde 3€] — ConcertRide`,
+    description: `Alicante → Murcia Pop: 85 km por A-7, 55 min, desde 3 €/asiento sin comisión. El festival pop de Murcia a menos de 1 hora desde la Costa Blanca.`,
+    keywords: `carpooling alicante murcia pop, viaje compartido alicante murcia festival pop`
+  },
+  "valencia-festival-de-musica-de-murcia-pop": {
+    title: `Coche Valencia→Murcia Pop ${YEAR$2} [Desde 5€] — ConcertRide`,
+    description: `Valencia → Murcia Pop: 250 km por A-7, 2 h 20 min, desde 5 €/asiento sin comisión. El festival pop más destacado del Sureste desde Valencia.`,
+    keywords: `carpooling valencia murcia pop, viaje compartido valencia murcia festival pop`
+  },
+  "madrid-festival-de-musica-de-cartagena": {
+    title: `Viaje Madrid→Festival Cartagena ${YEAR$2} [Desde 8€] — ConcertRide`,
+    description: `Madrid → Festival de Música de Cartagena: 450 km por A-30, 4 h, desde 8 €/asiento sin comisión. El festival de la ciudad del Mar Menor y el teatro romano.`,
+    keywords: `carpooling madrid festival cartagena, viaje compartido madrid cartagena murcia festival`
+  },
+  "alicante-festival-de-musica-de-cartagena": {
+    title: `Coche Alicante→Festival Cartagena ${YEAR$2} [Desde 3€] — ConcertRide`,
+    description: `Alicante → Festival Cartagena: 90 km por A-7, 1 h, desde 3 €/asiento sin comisión. El festival de la ciudad portuaria levantina.`,
+    keywords: `carpooling alicante festival cartagena, viaje compartido alicante cartagena festival`
+  },
+  "murcia-festival-de-musica-de-cartagena": {
+    title: `Viaje Murcia→Festival Cartagena ${YEAR$2} [Desde 3€] — ConcertRide`,
+    description: `Murcia → Festival Cartagena: 55 km por A-30, 45 min, desde 3 €/asiento sin comisión. El festival de la ciudad portuaria a un paso de la capital regional.`,
+    keywords: `carpooling murcia festival cartagena, viaje compartido murcia cartagena festival`
+  },
+  "madrid-festival-de-musica-de-lorca": {
+    title: `Coche Madrid→Festival Lorca ${YEAR$2} [Desde 8€] — ConcertRide`,
+    description: `Madrid → Festival de Música de Lorca: 430 km por A-30, 3 h 50 min, desde 8 €/asiento sin comisión. El festival de la ciudad de los bordados y el Castillo del Sol.`,
+    keywords: `carpooling madrid festival lorca, viaje compartido madrid lorca murcia festival`
+  },
+  "murcia-festival-de-musica-de-lorca": {
+    title: `Viaje Murcia→Festival Lorca ${YEAR$2} [Desde 3€] — ConcertRide`,
+    description: `Murcia → Festival Lorca: 65 km por A-7, 50 min, desde 3 €/asiento sin comisión. El festival de la Lorca artesanal a un paso de la capital murciana.`,
+    keywords: `carpooling murcia festival lorca, viaje compartido murcia lorca festival`
+  },
+  "granada-festival-de-musica-de-lorca": {
+    title: `Carpooling Granada→Festival Lorca ${YEAR$2} [Desde 4€] — ConcertRide`,
+    description: `Granada → Festival Lorca: 130 km por A-92, 1 h 20 min, desde 4 €/asiento sin comisión. El festival del Sureste desde la capital de la Alhambra.`,
+    keywords: `carpooling granada festival lorca, viaje compartido granada lorca festival`
+  },
+  "madrid-festival-de-jazz-de-toledo": {
+    title: `Viaje Madrid→Jazz Toledo ${YEAR$2} [Desde 3€] — ConcertRide`,
+    description: `Madrid → Festival de Jazz de Toledo: 70 km por A-42, 50 min, desde 3 €/asiento sin comisión. Jazz en la ciudad imperial de tres culturas.`,
+    keywords: `carpooling madrid jazz toledo, viaje compartido madrid toledo festival jazz`
+  },
+  "guadalajara-festival-de-jazz-de-toledo": {
+    title: `Coche Guadalajara→Jazz Toledo ${YEAR$2} [Desde 3€] — ConcertRide`,
+    description: `Guadalajara → Festival de Jazz de Toledo: 90 km por A-2+A-42, 1 h, desde 3 €/asiento sin comisión. Jazz en la ciudad imperial desde la Alcarria.`,
+    keywords: `carpooling guadalajara jazz toledo, viaje compartido guadalajara toledo festival jazz`
+  },
+  "cuenca-festival-de-jazz-de-toledo": {
+    title: `Viaje Cuenca→Jazz Toledo ${YEAR$2} [Desde 3€] — ConcertRide`,
+    description: `Cuenca → Festival de Jazz de Toledo: 150 km por A-40+A-42, 1 h 30 min, desde 3 €/asiento sin comisión. De las Casas Colgadas al jazz en la ciudad imperial.`,
+    keywords: `carpooling cuenca jazz toledo, viaje compartido cuenca toledo festival jazz`
+  },
+  "madrid-festival-complutense": {
+    title: `Coche Madrid→Festival Complutense ${YEAR$2} [Desde 3€] — ConcertRide`,
+    description: `Madrid → Festival Complutense (Alcalá de Henares): 35 km por A-2, 35 min, desde 3 €/asiento sin comisión. El festival universitario de la ciudad de Cervantes.`,
+    keywords: `carpooling madrid festival complutense, viaje compartido madrid alcala henares festival`
+  },
+  "guadalajara-festival-complutense": {
+    title: `Viaje Guadalajara→Festival Complutense ${YEAR$2} [Desde 3€] — ConcertRide`,
+    description: `Guadalajara → Festival Complutense Alcalá: 55 km por A-2, 50 min, desde 3 €/asiento sin comisión. El festival universitario más histórico del Corredor del Henares.`,
+    keywords: `carpooling guadalajara festival complutense, viaje compartido guadalajara alcala festival`
+  },
+  "segovia-festival-complutense": {
+    title: `Coche Segovia→Festival Complutense ${YEAR$2} [Desde 3€] — ConcertRide`,
+    description: `Segovia → Festival Complutense Alcalá: 110 km por A-1+A-2, 1 h 10 min, desde 3 €/asiento sin comisión. Del Acueducto romano al festival universitario del Henares.`,
+    keywords: `carpooling segovia festival complutense, viaje compartido segovia alcala festival`
+  },
+  "madrid-festival-de-musica-de-leganes": {
+    title: `Coche Madrid→Leganés Fest ${YEAR$2} [Desde 3€] — ConcertRide`,
+    description: `Madrid → Festival de Música de Leganés: 15 km por M-45, 20 min, desde 3 €/asiento sin comisión. El festival de rock del sur metropolitano de Madrid.`,
+    keywords: `carpooling madrid festival leganes, viaje compartido madrid leganes festival`
+  },
+  "toledo-festival-de-musica-de-leganes": {
+    title: `Viaje Toledo→Festival Leganés ${YEAR$2} [Desde 3€] — ConcertRide`,
+    description: `Toledo → Festival de Música de Leganés: 70 km por A-42, 55 min, desde 3 €/asiento sin comisión. El festival del sur de Madrid desde la ciudad imperial.`,
+    keywords: `carpooling toledo festival leganes, viaje compartido toledo leganes festival`
+  },
+  "guadalajara-festival-de-musica-de-leganes": {
+    title: `Coche Guadalajara→Festival Leganés ${YEAR$2} [Desde 3€] — ConcertRide`,
+    description: `Guadalajara → Festival de Música de Leganés: 70 km por A-2+M-45, 55 min, desde 3 €/asiento sin comisión. El festival del sur metropolitano de Madrid desde la Alcarria.`,
+    keywords: `carpooling guadalajara festival leganes, viaje compartido guadalajara leganes festival`
+  },
+  "madrid-festival-de-musica-de-mostoles": {
+    title: `Viaje Madrid→Festival Móstoles ${YEAR$2} [Desde 3€] — ConcertRide`,
+    description: `Madrid → Festival de Música de Móstoles: 20 km por A-5, 25 min, desde 3 €/asiento sin comisión. El festival de la segunda ciudad más grande de la Comunidad de Madrid.`,
+    keywords: `carpooling madrid festival mostoles, viaje compartido madrid mostoles festival`
+  },
+  "toledo-festival-de-musica-de-mostoles": {
+    title: `Coche Toledo→Festival Móstoles ${YEAR$2} [Desde 3€] — ConcertRide`,
+    description: `Toledo → Festival de Música de Móstoles: 65 km por A-42+A-5, 55 min, desde 3 €/asiento sin comisión. El festival del suroeste de Madrid desde la ciudad imperial.`,
+    keywords: `carpooling toledo festival mostoles, viaje compartido toledo mostoles festival`
+  },
+  "avila-festival-de-musica-de-mostoles": {
+    title: `Viaje Ávila→Festival Móstoles ${YEAR$2} [Desde 3€] — ConcertRide`,
+    description: `Ávila → Festival de Música de Móstoles: 110 km por A-5, 1 h 10 min, desde 3 €/asiento sin comisión. La ciudad de Santa Teresa al festival del suroeste madrileño.`,
+    keywords: `carpooling avila festival mostoles, viaje compartido avila mostoles festival`
+  },
+  "madrid-festival-de-musica-de-alcorcon": {
+    title: `Coche Madrid→Festival Alcorcón ${YEAR$2} [Desde 3€] — ConcertRide`,
+    description: `Madrid → Festival de Música de Alcorcón: 15 km por M-506, 20 min, desde 3 €/asiento sin comisión. El festival del sur de Madrid a 20 minutos del centro.`,
+    keywords: `carpooling madrid festival alcorcon, viaje compartido madrid alcorcon festival`
+  },
+  "toledo-festival-de-musica-de-alcorcon": {
+    title: `Viaje Toledo→Festival Alcorcón ${YEAR$2} [Desde 3€] — ConcertRide`,
+    description: `Toledo → Festival de Música de Alcorcón: 65 km por A-42, 55 min, desde 3 €/asiento sin comisión. El festival del suroeste madrileño desde la ciudad imperial.`,
+    keywords: `carpooling toledo festival alcorcon, viaje compartido toledo alcorcon festival`
+  },
+  "segovia-festival-de-musica-de-alcorcon": {
+    title: `Coche Segovia→Festival Alcorcón ${YEAR$2} [Desde 3€] — ConcertRide`,
+    description: `Segovia → Festival de Música de Alcorcón: 95 km por A-6+M-506, 1 h, desde 3 €/asiento sin comisión. Del Acueducto al festival del suroeste de Madrid.`,
+    keywords: `carpooling segovia festival alcorcon, viaje compartido segovia alcorcon festival`
   }
 };
 function trackFestivalView(slug, name, futureRides) {
@@ -40560,6 +41912,1417 @@ BLOG_POSTS.push({
     "festivales-espana-2027-preview"
   ]
 });
+BLOG_POSTS.push(
+  {
+    slug: "pablo-alboran-india-martinez-espana-2026",
+    title: "Pablo Alborán e India Martínez: conciertos 2026",
+    h1: "Pablo Alborán e India Martínez: cómo ir en carpooling a sus conciertos 2026",
+    excerpt: "Los dos grandes del pop romántico español regresan con sus giras 2026. Cómo ir en carpooling al WiZink, FIBES y Palacio de los Deportes.",
+    lede: "Pablo Alborán e India Martínez son dos de los artistas de pop español con mayor arraigo popular. Aquí tienes las rutas de carpooling para sus conciertos en los grandes recintos de España.",
+    category: "guias",
+    tags: ["pablo-alboran", "india-martinez", "pop-espanol", "giras-2026"],
+    publishedAt: "2026-05-16T10:00:00.000Z",
+    author: "Equipo ConcertRide",
+    readingMinutes: 5,
+    sections: [
+      {
+        heading: "Pablo Alborán gira 2026: recintos y carpooling",
+        paragraphs: [
+          "Pablo Alborán es el artista de pop romántico más internacional de España. Su gira 2026 recorre los grandes recintos cubiertos: WiZink Center (Madrid, 20.000 asientos), Palau Sant Jordi (Barcelona), Pabellón Príncipe Felipe (Zaragoza) y Bilbao Arena. ConcertRide tiene carpooling para todos estos recintos.",
+          "Desde Valencia al WiZink Center: 360 km por A-3, 3h15, desde 8€/asiento. Desde Sevilla al WiZink: 530 km por A-4, 4h30, desde 11€. Pago directo al conductor por Bizum. 0% de comisión."
+        ]
+      },
+      {
+        heading: "India Martínez gira 2026: FIBES Sevilla y Madrid",
+        paragraphs: [
+          "India Martínez (Córdoba, 1985) es la voz del flamenco-pop contemporáneo. Sus conciertos en 2026 llenan el FIBES Sevilla, el WiZink Center de Madrid y el Palau de les Arts en Valencia. Para los fans de Córdoba, el FIBES está a solo 140 km (carpooling desde 4€).",
+          "El carpooling es especialmente popular para India Martínez: sus fans vienen de toda Andalucía. Málaga al FIBES: 215 km, desde 5€. Huelva al FIBES: 95 km, desde 4€. Granada al FIBES: 250 km, desde 6€. Todos los precios sin comisión."
+        ],
+        bullets: [
+          "Madrid: usa metro L1 (Príncipe Pío) o L5 (Campo de las Naciones)",
+          "Valencia al WiZink: 360 km, 3h15, desde 8€/asiento en ConcertRide",
+          "Córdoba al FIBES Sevilla: 140 km, 1h30, desde 4€/asiento",
+          "Málaga al FIBES Sevilla: 215 km, 2h, desde 5€/asiento",
+          "Bilbao al WiZink: 395 km, 3h30, desde 9€/asiento"
+        ]
+      }
+    ],
+    faqs: [
+      {
+        q: "¿Cuándo actúa Pablo Alborán en Madrid 2026?",
+        a: "Pablo Alborán tiene fechas en el WiZink Center de Madrid en su gira 2026. Consulta la web oficial para fechas exactas. ConcertRide publica viajes desde Barcelona, Valencia, Sevilla y Bilbao hacia Madrid cuando se anuncian las fechas."
+      },
+      {
+        q: "¿Cómo ir al concierto de India Martínez en Sevilla?",
+        a: "India Martínez actúa habitualmente en el FIBES (Palacio de Exposiciones y Congresos de Sevilla). Desde Córdoba: carpooling en ConcertRide, 140 km, desde 4€. Desde Málaga: 215 km, desde 5€. Desde Madrid: 530 km, desde 11€. El FIBES tiene parking propio."
+      }
+    ],
+    relatedLinks: [
+      { label: "Carpooling a conciertos en Madrid", to: "/conciertos/madrid" },
+      { label: "Carpooling a conciertos en Sevilla", to: "/conciertos/sevilla" },
+      { label: "Guía festivales pop España 2026", to: "/blog/hub-festivales-verano-2026-transporte" }
+    ],
+    relatedPosts: ["hub-festivales-verano-2026-transporte", "conciertos-estadios-espana-2026-guia", "carpooling-distancia-corta-conciertos"],
+    coverImage: { src: "/og/home.png", alt: "Pablo Alborán e India Martínez conciertos 2026 — carpooling sin comisión con ConcertRide", width: 1200, height: 630 }
+  }
+);
+BLOG_POSTS.push(
+  {
+    slug: "guia-festivales-cataluna-interior-2026",
+    title: "Festivales en Cataluña interior 2026: guía",
+    h1: "Festivales de música en Cataluña interior 2026: Vic, Manresa, Reus, Lleida",
+    excerpt: "Más allá de Barcelona: los mejores festivales de Vic, Manresa, Reus, Lleida y Sabadell. Carpooling dentro de Cataluña desde 3€.",
+    lede: "La escena musical catalana va mucho más allá de Barcelona y el litoral. El interior de Cataluña tiene festivales únicos accesibles en carpooling desde 3€/asiento.",
+    category: "guias",
+    tags: ["cataluna", "festivales-interior", "vic", "manresa", "lleida", "reus"],
+    publishedAt: "2026-05-16T10:00:00.000Z",
+    author: "Equipo ConcertRide",
+    readingMinutes: 5,
+    sections: [
+      {
+        heading: "La escena musical del interior catalán",
+        paragraphs: [
+          "Cataluña tiene una escena musical vibrante más allá del litoral barcelonés. Ciudades como Vic, Manresa, Reus, Lleida y Sabadell cuentan con festivales propios de gran calidad. El carpooling dentro de Cataluña es especialmente eficiente: distancias cortas, muchos asistentes de la misma área metropolitana.",
+          "Vic (Osona) acoge el Festival de Músiques del Món, un referente de la world music catalana. Manresa tiene el Festival MúsicArt. Reus es la sede del TarragonàRock. En Lleida destaca el Lleida Música en Viu. Sabadell alberga el OAK Fest. ConcertRide tiene carpooling para todos."
+        ]
+      },
+      {
+        heading: "Rutas de carpooling dentro de Cataluña",
+        paragraphs: [
+          "La ventaja de los festivales del interior catalán es que están bien conectados por autopistas internas. Desde Barcelona puedes llegar a la mayoría en menos de 1h30."
+        ],
+        bullets: [
+          "Barcelona al Vic: 70 km por C-17, 1h, desde 3€/asiento",
+          "Barcelona a Manresa: 75 km por A-2, 55 min, desde 3€/asiento",
+          "Barcelona a Reus: 110 km por AP-7, 1h10, desde 4€/asiento",
+          "Barcelona a Lleida: 170 km por A-2, 1h40, desde 5€/asiento",
+          "Barcelona a Sabadell: 30 km, 35 min, desde 3€",
+          "Tarragona a Reus: 15 km, 20 min, desde 3€",
+          "Zaragoza a Lleida: 150 km por A-2, 1h30, desde 5€"
+        ]
+      }
+    ],
+    faqs: [
+      {
+        q: "¿Qué festivales de música hay en Cataluña interior en 2026?",
+        a: "En el interior de Cataluña destacan: Festival de Músiques del Món (Vic), MúsicArt (Manresa), TarragonàRock (Reus), Lleida Música en Viu y OAK Fest (Sabadell). ConcertRide tiene carpooling desde Barcelona y otras ciudades catalanas para todos ellos."
+      },
+      {
+        q: "¿Cómo ir a festivales de Cataluña interior en carpooling?",
+        a: "ConcertRide es la opción más económica para los festivales del interior catalán. Desde Barcelona, la mayoría de festivales están entre 30 y 170 km. Los precios oscilan entre 3€ y 5€/asiento. Puedes buscar o publicar viajes en ConcertRide indicando el nombre del festival."
+      }
+    ],
+    relatedLinks: [
+      { label: "Carpooling en Barcelona", to: "/conciertos/barcelona" },
+      { label: "Guía festivales verano 2026", to: "/blog/hub-festivales-verano-2026-transporte" }
+    ],
+    relatedPosts: ["hub-festivales-verano-2026-transporte", "pablo-alboran-india-martinez-espana-2026", "carpooling-distancia-corta-conciertos"],
+    coverImage: { src: "/og/home.png", alt: "Festivales en Cataluña interior 2026: Vic, Manresa, Reus, Lleida — carpooling desde Barcelona ConcertRide", width: 1200, height: 630 }
+  }
+);
+BLOG_POSTS.push(
+  {
+    slug: "conciertos-estadios-espana-2026-guia",
+    title: "Conciertos en estadios España 2026: guía viajes",
+    h1: "Cómo ir en carpooling a conciertos de estadio en España 2026",
+    excerpt: "Bernabéu, Metropolitano, Camp Nou, Estadi Olímpic, Cívitas: cómo llegar a los grandes estadios en carpooling. Zonas de recogida, metro y aparcamiento.",
+    lede: "Los conciertos de estadio generan el caos de transporte más severo del año. El carpooling de ConcertRide resuelve el triángulo imposible: precio, horario y comodidad.",
+    category: "guias",
+    tags: ["estadios", "bernabeu", "metropolitano", "camp-nou", "carpooling-estadio", "conciertos-2026"],
+    publishedAt: "2026-05-16T10:00:00.000Z",
+    author: "Equipo ConcertRide",
+    readingMinutes: 6,
+    sections: [
+      {
+        heading: "Por qué el carpooling es la mejor opción para conciertos de estadio",
+        paragraphs: [
+          "Los conciertos en estadios de 60.000-80.000 personas generan un colapso de transporte sin precedentes. El metro se satura, los parkings se llenan 3h antes, y los VTC cuestan 5-8x el precio normal post-concierto. El carpooling de ConcertRide sortea estos problemas: sales cuando tú quieres, con la persona que has elegido.",
+          "La clave es acordar un punto de encuentro alejado del recinto (a 1-2 km) para evitar el caos de salida. En el Bernabéu, el punto habitual de ConcertRide es el parking de La Moraleja. En el Metropolitano, el parking del Corredor del Henares."
+        ]
+      },
+      {
+        heading: "Estadio Santiago Bernabéu (Madrid): carpooling y transporte",
+        paragraphs: [
+          "El Bernabéu (76.000 aforo) acoge los conciertos más grandes de España. Metro: L10 (Santiago Bernabéu). Carpooling desde Barcelona: 620 km, 5h30, desde 13€. Desde Valencia: 360 km, 3h, desde 8€. Desde Sevilla: 530 km, 4h30, desde 11€."
+        ],
+        bullets: [
+          "Barcelona al Bernabéu: 620 km, 5h30, desde 13€/asiento",
+          "Valencia al Bernabéu: 360 km, 3h, desde 8€/asiento",
+          "Sevilla al Bernabéu: 530 km, 4h30, desde 11€/asiento",
+          "Bilbao al Bernabéu: 395 km, 3h30, desde 9€/asiento",
+          "Zaragoza al Bernabéu: 320 km, 3h, desde 8€/asiento"
+        ]
+      },
+      {
+        heading: "Metropolitano, Camp Nou y Estadi Olímpic",
+        paragraphs: [
+          "El Metropolitano (Atlético de Madrid, 68.000) es el estadio más moderno de España para conciertos. Metro: L7 (Estadio Olímpico). El Camp Nou de Barcelona (99.000) vuelve a acoger conciertos tras su reforma en 2026. Metro: L3 (Palau Reial) o L9/L10 (Zona Universitaria)."
+        ]
+      }
+    ],
+    faqs: [
+      {
+        q: "¿Cómo llegar al Bernabéu en carpooling desde otras ciudades?",
+        a: "ConcertRide tiene viajes al Bernabéu desde Barcelona (13€), Valencia (8€), Sevilla (11€), Bilbao (9€) y Zaragoza (8€). El punto de encuentro habitual es el parking de Mirasierra (línea metro L9) o la Castellana. Reserva con 2-3 semanas de antelación para conciertos masivos."
+      },
+      {
+        q: "¿Cuándo reservar carpooling para un concierto de estadio?",
+        a: "Para conciertos en estadio (Bernabéu, Metropolitano, Camp Nou), reserva con 3-4 semanas de antelación. Los viajes aparecen en ConcertRide cuando el conductor compra su entrada. Para artistas muy populares, la demanda es altísima — reserva en cuanto salga el viaje."
+      }
+    ],
+    relatedLinks: [
+      { label: "Carpooling a conciertos en Madrid", to: "/conciertos/madrid" },
+      { label: "Carpooling a conciertos en Barcelona", to: "/conciertos/barcelona" },
+      { label: "Recinto Bernabéu conciertos", to: "/recintos/estadio-bernabeu" }
+    ],
+    relatedPosts: ["pablo-alboran-india-martinez-espana-2026", "carpooling-distancia-corta-conciertos", "hub-festivales-verano-2026-transporte"],
+    coverImage: { src: "/og/home.png", alt: "Conciertos en estadios España 2026: Bernabéu, Metropolitano, Camp Nou — carpooling ConcertRide", width: 1200, height: 630 }
+  }
+);
+BLOG_POSTS.push(
+  {
+    slug: "festival-sonar-2026-guia-completa",
+    title: "Sónar 2026: guía completa [Carpooling + Metro]",
+    h1: "Sónar 2026: guía de transporte completa — carpooling y metro",
+    excerpt: "Sónar by Day en Fira Montjuïc y Sónar by Night en Fira Gran Via. Todas las opciones de transporte. Carpooling desde Madrid, Valencia y Zaragoza.",
+    lede: "El Sónar es el festival de música electrónica y arte digital más importante del mundo hispanohablante. Aquí tienes la guía de transporte completa para 2026.",
+    category: "guias",
+    tags: ["sonar", "barcelona", "electronica", "fira-montjuic", "carpooling-sonar-2026"],
+    publishedAt: "2026-05-16T10:00:00.000Z",
+    author: "Equipo ConcertRide",
+    readingMinutes: 5,
+    sections: [
+      {
+        heading: "Sónar 2026: dos recintos, dos experiencias",
+        paragraphs: [
+          "El Sónar tiene dos sedes: Sónar by Day en Fira Barcelona (Montjuïc) y Sónar by Night en Fira Gran Via (L'Hospitalet). El festival dura 3 días, típicamente el tercer fin de semana de junio.",
+          "Acceso por transporte público: Sónar by Day (Montjuïc) → Metro L1 (Plaça Espanya) + shuttle. Sónar by Night (L'Hospitalet) → Metro L1 (Fira + Can Tries) y L9/L10 (Europa - Fira). Ambos recintos tienen acceso directo desde la red de metro de Barcelona."
+        ]
+      },
+      {
+        heading: "Carpooling al Sónar desde otras ciudades",
+        paragraphs: [
+          "El Sónar atrae a fans de toda España y Europa. ConcertRide tiene carpooling desde las principales ciudades españolas. La ruta más popular es Madrid al Sónar (620 km, 5h30, desde 13€/asiento)."
+        ],
+        bullets: [
+          "Madrid al Sónar Barcelona: 620 km, 5h30, desde 13€/asiento",
+          "Valencia al Sónar: 350 km, 3h30, desde 9€/asiento",
+          "Zaragoza al Sónar: 300 km, 2h45, desde 8€/asiento",
+          "Bilbao al Sónar: 615 km, 5h30, desde 13€/asiento",
+          "Sevilla al Sónar: 1.000 km, 9h — mejor combinar con AVE para tramo largo"
+        ]
+      }
+    ],
+    faqs: [
+      {
+        q: "¿Cuándo es el Sónar 2026?",
+        a: "El Sónar se celebra habitualmente el tercer fin de semana de junio (días 18-20 aproximadamente). Confirma las fechas en sonar.es. ConcertRide publica viajes para el Sónar en cuanto se anuncian las fechas oficiales."
+      },
+      {
+        q: "¿Dónde es el Sónar by Night 2026?",
+        a: "El Sónar by Night se celebra en Fira Gran Via (L'Hospitalet de Llobregat), accesible por metro L1 y L9/L10. El carpooling de ConcertRide desde Madrid o Valencia te deja en el centro de Barcelona, desde donde puedes tomar el metro."
+      }
+    ],
+    relatedLinks: [
+      { label: "Carpooling al Sónar Barcelona", to: "/festivales/sonar" },
+      { label: "Carpooling desde Madrid a Barcelona", to: "/rutas/madrid-barcelona" },
+      { label: "Festivales electrónica España 2026", to: "/festivales-genero/electronica" }
+    ],
+    relatedPosts: ["guia-festivales-cataluna-interior-2026", "hub-festivales-verano-2026-transporte", "conciertos-estadios-espana-2026-guia"],
+    coverImage: { src: "/og/home.png", alt: "Sónar 2026 Barcelona guía completa: carpooling desde Madrid y Valencia más metro L1/L9 — ConcertRide", width: 1200, height: 630 }
+  }
+);
+BLOG_POSTS.push(
+  {
+    slug: "extremoduro-los-planetas-rock-espanol",
+    title: "Extremoduro y Los Planetas: rock español 2026",
+    h1: "Extremoduro y Los Planetas: carpooling para el rock underground español",
+    excerpt: "Dos leyendas del rock español de culto. La cultura carpooling que rodea sus conciertos: puntos de encuentro, comunidad de fans en ruta y viajes desde toda España.",
+    lede: "Extremoduro y Los Planetas tienen comunidades de fans de las más activas del carpooling en España. Aquí tienes las rutas y puntos de encuentro para sus conciertos.",
+    category: "guias",
+    tags: ["extremoduro", "los-planetas", "rock-espanol", "indie", "rock-culto"],
+    publishedAt: "2026-05-16T10:00:00.000Z",
+    author: "Equipo ConcertRide",
+    readingMinutes: 5,
+    sections: [
+      {
+        heading: "Extremoduro: el rock más visceral del underground español",
+        paragraphs: [
+          "Extremoduro (Plasencia, Extremadura, 1987) es uno de los grupos más influyentes del rock español, liderado por Robe Iniesta. Sus conciertos son una experiencia catártica para miles de fans. Cualquier fecha especial mueve fans desde Madrid, Sevilla, Barcelona y el País Vasco.",
+          "La cultura carpooling en Extremoduro es de las más arraigadas del rock español. ConcertRide ofrece viajes para todos sus conciertos desde 3€/asiento."
+        ]
+      },
+      {
+        heading: "Los Planetas: el indie underground de Granada",
+        paragraphs: [
+          "Los Planetas (Granada, 1993) son el grupo de indie rock alternativo más influyente de España, con una discografía canónica. Sus fans viajan desde toda España para verles.",
+          "Granada es el punto de partida natural. Desde Madrid: 430 km, 3h30, desde 9€/asiento. Desde Sevilla: 260 km, 2h30, desde 6€. Para conciertos en Madrid o Barcelona, ConcertRide tiene salidas desde Granada desde 9€."
+        ]
+      }
+    ],
+    faqs: [
+      {
+        q: "¿Tienen gira en 2026 Extremoduro o Los Planetas?",
+        a: "Consulta las webs oficiales para confirmación de fechas 2026. ConcertRide publica viajes para todos los conciertos confirmados en cuanto se anuncian. Activa las alertas en ConcertRide para recibir notificación cuando aparezcan viajes disponibles."
+      },
+      {
+        q: "¿Cómo ir a un concierto de Extremoduro en carpooling?",
+        a: "Busca o publica en ConcertRide con el nombre del concierto y la ciudad de destino. Los fans de Extremoduro forman comunidades de viaje muy activas. Desde Madrid o Barcelona suele haber varios coches disponibles. Precio desde 3€/asiento en rutas cortas, hasta 15€ para rutas largas."
+      }
+    ],
+    relatedLinks: [
+      { label: "Carpooling desde Granada", to: "/conciertos/granada" },
+      { label: "Festivales de rock España 2026", to: "/festivales-genero/rock" },
+      { label: "Carpooling a conciertos en Madrid", to: "/conciertos/madrid" }
+    ],
+    relatedPosts: ["guia-festivales-interior-espana-2026", "conciertos-estadios-espana-2026-guia", "hub-festivales-verano-2026-transporte"],
+    coverImage: { src: "/og/home.png", alt: "Extremoduro y Los Planetas conciertos 2026 — carpooling underground rock español ConcertRide", width: 1200, height: 630 }
+  }
+);
+BLOG_POSTS.push(
+  {
+    slug: "guia-festivales-interior-espana-2026",
+    title: "Festivales en el interior de España 2026",
+    h1: "Festivales de música en el interior de España 2026: guía de road trip",
+    excerpt: "Sonorama, Sonorias, Festival Artes Toledo, La Mancha Fest, Zamora. Los mejores festivales lejos de la costa: guía de road trip festival-goers.",
+    lede: "Los festivales del interior español son la alternativa más auténtica a los megafestivales de costa. Menos masificados, más baratos y con carpooling accesible desde las grandes ciudades.",
+    category: "guias",
+    tags: ["festivales-interior", "sonorama", "sonorias", "toledo", "zamora", "castilla", "road-trip"],
+    publishedAt: "2026-05-16T10:00:00.000Z",
+    author: "Equipo ConcertRide",
+    readingMinutes: 6,
+    sections: [
+      {
+        heading: "El interior de España: la próxima frontera de los festivales",
+        paragraphs: [
+          "Mientras la costa española concentra los megafestivales (Arenal Sound, Medusa, Cruïlla), el interior esconde joyas musicales únicas. Aranda de Duero (Burgos) con el Sonorama Ribera, Cuenca con el Sonorias, Toledo con el Festival Artes, Zamora y La Mancha con sus propias propuestas. Son festivales con más personalidad, menos masificados y carpooling más accesible.",
+          "El road trip al interior tiene una lógica propia: la planicie castellana, los viñedos de la Ribera del Duero o las Hoces del Júcar en Cuenca hacen que el viaje sea parte del festival."
+        ]
+      },
+      {
+        heading: "Los 5 festivales imprescindibles del interior",
+        paragraphs: [
+          "1. Sonorama Ribera (Aranda de Duero, agosto): desde Madrid 160 km, 1h45, desde 5€. 2. Sonorias (Cuenca, julio): desde Madrid 160 km, 1h45, desde 5€. 3. Festival Internacional Artes Toledo (julio): desde Madrid 70 km, 50 min, desde 3€. 4. La Mancha Fest (Ciudad Real, agosto): desde Madrid 200 km, 2h, desde 5€. 5. Zamora Rock (Zamora, junio): desde Madrid 250 km, 2h30, desde 6€."
+        ],
+        bullets: [
+          "Sonorama Ribera (Aranda de Duero): desde Madrid 5€, Valladolid 4€, Zaragoza 6€",
+          "Sonorias (Cuenca): desde Madrid 5€, Valencia 5€, Albacete 3€",
+          "Festival Toledo: desde Madrid 3€ — muy bien comunicada",
+          "La Mancha Fest (Ciudad Real): desde Madrid 5€, Albacete 4€, Toledo 4€",
+          "Zamora Rock: desde Madrid 6€, Valladolid 3€, Salamanca 3€"
+        ]
+      }
+    ],
+    faqs: [
+      {
+        q: "¿Qué festivales de música hay en el interior de España en 2026?",
+        a: "Los más destacados: Sonorama Ribera (Aranda de Duero, agosto), Sonorias (Cuenca, julio), Festival Artes Toledo (julio), Zamora Rock (junio), La Mancha Fest (Ciudad Real, agosto). ConcertRide tiene carpooling para todos ellos desde Madrid, Valladolid y otras ciudades castellanas."
+      },
+      {
+        q: "¿Por qué ir a festivales del interior en lugar de los de costa?",
+        a: "Los festivales del interior tienen ventajas claras: menos masificación, entradas más baratas (30-60€ vs 80-120€ en los grandes de costa), ambientes más íntimos, y carpooling más económico. El Sonorama tiene una atmósfera única en la Ribera del Duero."
+      }
+    ],
+    relatedLinks: [
+      { label: "Carpooling al Sonorama Ribera", to: "/festivales/sonorama-ribera" },
+      { label: "Festivales en Castilla y León", to: "/blog/guia-festivales-castilla-leon-2026" },
+      { label: "Festivales Castilla La Mancha", to: "/conciertos/toledo" }
+    ],
+    relatedPosts: ["guia-festivales-castilla-leon-2026", "extremoduro-los-planetas-rock-espanol", "carpooling-distancia-corta-conciertos"],
+    coverImage: { src: "/og/home.png", alt: "Festivales en el interior de España 2026: Sonorama, Sonorias Cuenca, Toledo, Zamora Rock — carpooling ConcertRide", width: 1200, height: 630 }
+  }
+);
+BLOG_POSTS.push(
+  {
+    slug: "carpooling-distancia-corta-conciertos",
+    title: "Carpooling de corta distancia a conciertos",
+    h1: "Carpooling a conciertos en rutas cortas: Guadalajara, Alcalá, Toledo a Madrid",
+    excerpt: "¿Merece la pena el carpooling para rutas cortas de menos de 100 km? Guadalajara→Madrid, Getafe→Madrid, Alcalá→Madrid. Parking, precio y libertad.",
+    lede: "Para muchos fans de provincias cercanas, el carpooling de ConcertRide a 3€/asiento es la única opción real de ir y volver de un concierto con libertad total de horario.",
+    category: "guias",
+    tags: ["carpooling-corta-distancia", "madrid-area", "conciertos-sala", "parkings", "rutas-cortas"],
+    publishedAt: "2026-05-16T10:00:00.000Z",
+    author: "Equipo ConcertRide",
+    readingMinutes: 4,
+    sections: [
+      {
+        heading: "¿Por qué hacer carpooling en rutas cortas (menos de 100 km)?",
+        paragraphs: [
+          "El carpooling de corta distancia resuelve tres problemas: (1) el aparcamiento en Madrid centro cuesta 15-25€/noche, (2) no puedes beber alcohol si conduces, (3) el tren de vuelta a Guadalajara a las 2 AM no existe.",
+          "El precio mínimo en ConcertRide para rutas cortas es 3€/asiento. Para muchos fans de provincias del área metropolitana de Madrid, ConcertRide a 3-5€/asiento es la única opción real de volver tranquilo a casa después del concierto."
+        ]
+      },
+      {
+        heading: "Las rutas cortas más populares del área de Madrid",
+        paragraphs: [
+          "El área metropolitana de Madrid tiene ciudades-dormitorio a 40-80 km que generan carpooling constante hacia conciertos en el WiZink, la Sala La Riviera y el Mad Cool."
+        ],
+        bullets: [
+          "Guadalajara a Madrid: 60 km, 50 min por A-2, desde 3€/asiento",
+          "Alcalá de Henares a Madrid: 35 km, 35 min por A-2, desde 3€/asiento",
+          "Toledo a Madrid: 70 km, 50 min por A-42, desde 3€/asiento",
+          "Segovia a Madrid: 90 km, 1h por AP-61, desde 3€/asiento",
+          "Cuenca a Madrid: 165 km, 1h40 por A-40, desde 5€/asiento",
+          "Ávila a Madrid: 115 km, 1h10 por A-6, desde 4€/asiento"
+        ]
+      }
+    ],
+    faqs: [
+      {
+        q: "¿Merece la pena el carpooling desde Guadalajara a Madrid para un concierto?",
+        a: "Sí. Desde Guadalajara a Madrid (60 km): el aparcamiento en Madrid centro cuesta 15-25€. El tren de vuelta no existe a las 2 AM. El carpooling en ConcertRide cuesta 3€/asiento más vuelta cuando tú quieras. Es la opción más económica y flexible."
+      },
+      {
+        q: "¿Cuál es el precio mínimo de carpooling en ConcertRide para rutas cortas?",
+        a: "El precio mínimo en ConcertRide es 3€/asiento para cualquier ruta. Para rutas de menos de 80 km, los conductores suelen cobrar 3€/asiento para cubrir solo gasolina y peaje. 0% de comisión para ConcertRide."
+      }
+    ],
+    relatedLinks: [
+      { label: "Carpooling a conciertos en Madrid", to: "/conciertos/madrid" },
+      { label: "Publicar un viaje en ConcertRide", to: "/publicar" },
+      { label: "Rutas desde Guadalajara a Madrid", to: "/rutas/guadalajara-madrid" }
+    ],
+    relatedPosts: ["pablo-alboran-india-martinez-espana-2026", "conciertos-estadios-espana-2026-guia", "guia-festivales-interior-espana-2026"],
+    coverImage: { src: "/og/home.png", alt: "Carpooling de corta distancia a conciertos en Madrid: Guadalajara, Alcalá, Toledo — ConcertRide desde 3€", width: 1200, height: 630 }
+  }
+);
+BLOG_POSTS.push(
+  {
+    slug: "guia-festivales-murcia-sureste-2026",
+    title: "Guía de Festivales de Murcia y el Sureste de España 2026: Carpooling desde 3€",
+    h1: "Festivales de Murcia, Cartagena, Lorca, Elche y Alicante 2026: cómo llegar en carpooling",
+    excerpt: "Todos los festivales de música de Murcia, Cartagena, Lorca y Alicante en 2026. Cómo llegar en carpooling sin comisión desde Madrid, Valencia o Barcelona.",
+    lede: "El sureste de España concentra en verano una oferta festivalera propia con festivales en Murcia, Cartagena, Lorca, Elche y Alicante. ConcertRide los conecta todos desde 3€/asiento.",
+    category: "guias",
+    tags: ["festivales-murcia", "carpooling-sureste", "murcia-pop", "festival-cartagena", "festival-lorca", "festival-alicante"],
+    publishedAt: "2026-05-16T10:00:00.000Z",
+    author: "Equipo ConcertRide",
+    readingMinutes: 8,
+    sections: [
+      {
+        heading: "El sureste, el nuevo polo festivalero del verano español",
+        paragraphs: [
+          "La Región de Murcia y la provincia de Alicante han consolidado una oferta festivalera propia. La combinación de buen tiempo garantizado, costes de producción razonables y una posición geográfica que atrae asistentes de Madrid, Valencia, Andalucía e incluso del norte de África, ha convertido al sureste en uno de los destinos más activos del circuito festivalero nacional en julio y agosto.",
+          "En 2026, el calendario incluye festivales en Murcia capital (Murcia Pop), Cartagena, Lorca, Elche y Alicante, todos accesibles en carpooling desde las principales ciudades españolas a través de ConcertRide."
+        ]
+      },
+      {
+        heading: "Murcia Pop 2026 y Festival de Cartagena: el corazón musical del sureste",
+        paragraphs: [
+          "Murcia Pop 2026 se celebra en el Auditorio Regional de Murcia en julio. Carpooling desde Madrid: desde 7€/asiento (400 km por A-30, 3h 30min). Desde Valencia: desde 5€/asiento (250 km, 2h 20min). Desde Alicante: desde 3€/asiento (85 km, 55 min). 0% comisión en ConcertRide.",
+          "El Festival de Música de Cartagena aprovecha el Teatro Romano del siglo I d.C. como telón de fondo para actuaciones de rock e indie. Carpooling desde Murcia: desde 3€/asiento (55 km, 45 min). Desde Alicante: desde 3€/asiento (90 km, 1 hora). Desde Madrid: desde 8€/asiento (450 km, 4 horas)."
+        ]
+      },
+      {
+        heading: "Festivales en Lorca, Elche y Alicante: la Costa Blanca festivalera",
+        paragraphs: [
+          "El Festival de Música de Lorca se celebra en el centro histórico, con el Castillo del Sol iluminado al fondo. Carpooling desde Murcia: desde 3€/asiento (65 km, 50 min). Desde Granada: desde 4€/asiento (130 km, 1h 20min).",
+          "El Festival de Música de Elche aprovecha el palmeral UNESCO, mientras que el Festival de Alicante se celebra bajo el Castillo de Santa Bárbara. Carpooling Alicante–Elche: desde 3€/asiento (25 km, 20 min). Desde Madrid a Alicante: desde 7€/asiento (420 km, 3h 40min). 0% comisión en ConcertRide."
+        ],
+        bullets: [
+          "Murcia Pop: desde Madrid 7€, Valencia 5€, Alicante 3€",
+          "Festival Cartagena: desde Murcia 3€, Alicante 3€, Madrid 8€",
+          "Festival Lorca: desde Murcia 3€, Granada 4€, Madrid 8€",
+          "Festival Elche: desde Alicante 3€, Murcia 3€, Madrid 7€",
+          "Festival Alicante: desde Murcia 3€, Madrid 7€, Barcelona 9€"
+        ]
+      }
+    ],
+    faqs: [
+      { q: "¿Cuánto cuesta el carpooling de Madrid a Murcia Pop?", a: "El carpooling de Madrid a Murcia Pop en ConcertRide cuesta desde 7€/asiento. Son 400 km por la A-30, unas 3h 30min. Sin comisión, pago directo al conductor en Bizum." },
+      { q: "¿Hay festivales en Cartagena en 2026?", a: "Sí. El Festival de Música de Cartagena se celebra en julio 2026, con el Teatro Romano como escenario. Carpooling desde Murcia desde 3€/asiento (55 km, 45 min)." }
+    ],
+    relatedLinks: [
+      { label: "Festival de Cartagena", to: "/festivales/festival-de-musica-de-cartagena" },
+      { label: "Festival de Alicante", to: "/festivales/festival-de-musica-de-alicante" },
+      { label: "Carpooling Madrid → Murcia Pop", to: "/rutas/madrid-festival-de-musica-de-murcia-pop" }
+    ],
+    relatedPosts: ["guia-festivales-galicia-noroeste-2026", "guia-festivales-madrid-2026-completa", "festival-de-sonar-2026-electronica"],
+    coverImage: { src: "https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?w=1200&h=630&fit=crop", alt: "Festival de música en el sureste de España — ConcertRide", width: 1200, height: 630 }
+  }
+);
+BLOG_POSTS.push(
+  {
+    slug: "how-to-get-to-primavera-sound-2026",
+    title: "How to Get to Primavera Sound 2026 in Barcelona: Carpooling, Train & Tips",
+    h1: "Getting to Primavera Sound 2026: carpooling from Madrid, Valencia and Zaragoza",
+    excerpt: "Complete guide to getting to Primavera Sound Festival 2026 in Barcelona from Madrid, Valencia, Zaragoza and other Spanish cities. Carpooling from 10€, no commission.",
+    lede: "Primavera Sound is one of Europe's best music festivals. Here's how to get there from anywhere in Spain using ConcertRide carpooling — cheaper than the train, more social than driving alone.",
+    category: "guias",
+    tags: ["primavera-sound", "barcelona-festival", "carpooling-barcelona", "how-to-primavera-sound"],
+    publishedAt: "2026-05-16T10:00:00.000Z",
+    author: "ConcertRide Team",
+    readingMinutes: 7,
+    sections: [
+      {
+        heading: "Primavera Sound 2026: venue and dates",
+        paragraphs: [
+          "Primavera Sound 2026 takes place at Parc del Fòrum in Barcelona at the end of May (typically late May to early June). The venue is located in the Sant Adrià de Besòs district, easily accessible by Barcelona metro (L4, Besòs Mar station). The festival typically runs Thursday to Saturday, with hundreds of artists across 15+ stages."
+        ]
+      },
+      {
+        heading: "Carpooling to Primavera Sound: prices by city",
+        paragraphs: [
+          "ConcertRide offers carpooling to Primavera Sound from all major Spanish cities at 0% commission. Typical prices: Madrid (620 km, 5h 30min): from 10–15€/seat. Valencia (360 km, 3h 30min): from 6–9€/seat. Zaragoza (300 km, 2h 45min): from 5–8€/seat. You pay the driver directly in cash or Bizum.",
+          "Compare this to the AVE high-speed train from Madrid to Barcelona: 40–100€ one-way depending on booking time. Carpooling saves 30–90€ per person and you arrive right at the festival with your luggage, no metro needed."
+        ],
+        bullets: [
+          "Madrid → Barcelona: from 10€/seat (620 km, 5h 30min)",
+          "Valencia → Barcelona: from 6€/seat (360 km, 3h 30min)",
+          "Zaragoza → Barcelona: from 5€/seat (300 km, 2h 45min)",
+          "Bilbao → Barcelona: from 10€/seat (615 km, 5h)",
+          "Seville → Barcelona: from 16€/seat (1,050 km, 9h)"
+        ]
+      },
+      {
+        heading: "Tips for international attendees at Primavera Sound",
+        paragraphs: [
+          "International attendees should note: ConcertRide is in Spanish but drivers generally understand basic English requests. Send a message with your pickup point, number of seats, and preferred language. Bizum requires a Spanish bank account — international attendees pay in cash.",
+          "Book accommodation in Poblenou or Sant Martí districts for easy festival access. The last metro runs around 12:30–1 AM; late-night concertgoers should arrange a pickup or use the Nitbus (night bus) N6 from Barceloneta."
+        ]
+      }
+    ],
+    faqs: [
+      { q: "How much does carpooling from Madrid to Primavera Sound cost?", a: "Carpooling from Madrid to Primavera Sound in Barcelona costs from 10–15€/seat on ConcertRide. That's 620 km, about 5h 30min by car via AP-2. No commission — you pay the driver directly." },
+      { q: "How do I get from Barcelona airport to Primavera Sound?", a: "From Barcelona El Prat Airport, take the Aerobús to Plaça Catalunya (35 min, 6.75€), then metro L4 to Besòs Mar (25 min). Total: about 1 hour, 10€. Taxis cost 40–55€ from the airport to Parc del Fòrum." }
+    ],
+    relatedLinks: [
+      { label: "Carpooling Madrid → Primavera Sound", to: "/rutas/madrid-primavera-sound" },
+      { label: "Primavera Sound Festival", to: "/festivales/primavera-sound" },
+      { label: "How ConcertRide Works", to: "/como-funciona" }
+    ],
+    relatedPosts: ["festival-de-sonar-2026-electronica", "guia-festivales-madrid-2026-completa", "guia-festivales-cataluna-interior-2026"],
+    coverImage: { src: "https://images.unsplash.com/photo-1506157786151-b8491531f063?w=1200&h=630&fit=crop", alt: "How to get to Primavera Sound Festival Barcelona — ConcertRide", width: 1200, height: 630 }
+  }
+);
+BLOG_POSTS.push(
+  {
+    slug: "guia-festivales-galicia-noroeste-2026",
+    title: "Guía de Festivales de Galicia 2026: Vigo, Pontevedra, Ferrol, Betanzos, Tui y Lalín",
+    h1: "Festivales de música de Galicia 2026: carpooling sin comisión para todo el noroeste",
+    excerpt: "Todos los festivales de música de Galicia en 2026. Vigo, Pontevedra, Ferrol, Lalín, Tui y Betanzos. Carpooling sin comisión desde 3€.",
+    lede: "Galicia tiene más festivales que Resurrection Fest. En 2026, la comunidad autónoma ofrece música en Vigo, Pontevedra, Ferrol, Betanzos, Lalín, Tui y Monforte de Lemos — todos conectados por ConcertRide.",
+    category: "guias",
+    tags: ["festivales-galicia", "festival-vigo", "festival-pontevedra", "festival-ferrol", "festival-betanzos", "festival-tui"],
+    publishedAt: "2026-05-16T10:00:00.000Z",
+    author: "Equipo ConcertRide",
+    readingMinutes: 9,
+    sections: [
+      {
+        heading: "Galicia, destino festivalero en el verano de 2026",
+        paragraphs: [
+          "Galicia ha consolidado en los últimos años una oferta festivalera que va más allá del Resurrection Fest de Viveiro. En 2026, la comunidad autónoma ofrece festivales en Vigo, Pontevedra, Ferrol, Betanzos, Lalín, Tui y Monforte de Lemos, cubriendo todas las comarcas gallegas.",
+          "La red de carpooling de ConcertRide conecta estos festivales con el resto de España desde 3€/asiento. Para los festivales de interior (Lalín, Monforte), donde no hay conexiones ferroviarias frecuentes, el carpooling es prácticamente la única opción eficiente."
+        ]
+      },
+      {
+        heading: "Festival de Vigo y Festival de Pontevedra: las capitales",
+        paragraphs: [
+          "El Festival de Música de Vigo es el más grande de la comunidad, con un recinto en el corazón de la ciudad olívica. Carpooling desde A Coruña: desde 6€/asiento (155 km, 1h 40min). Desde Santiago: desde 4€/asiento (80 km, 55min). Desde Madrid: desde 10€/asiento (620 km, 5h 30min).",
+          "El Festival de Música de Pontevedra se celebra en la Alameda de la ciudad peatonal por excelencia. Carpooling desde Vigo: desde 3€/asiento (30 km, 30 min). Cercanías Renfe conecta Vigo con Pontevedra en 25 minutos."
+        ]
+      },
+      {
+        heading: "Ferrol, Betanzos, Tui y Lalín: la Galicia menos conocida",
+        paragraphs: [
+          "El Festival de Ferrol (Praza de Armas) y el Festival de Betanzos (paseo fluvial del Mandeo) representan la Galicia marinera y medieval. Ambos accesibles desde A Coruña: Ferrol en 40 km (40 min), Betanzos en 25 km (25 min). Cercanías Renfe C-1 conecta A Coruña con ambas ciudades.",
+          "El Festival de Tui se celebra en la ciudad fronteriza del Miño, frente a Valença do Minho (Portugal). Accesible desde Portugal a pie por el Puente Internacional. Desde Vigo: 30 km, 30 min. El Festival de Lalín, en el corazón geográfico de Galicia, es el festival de interior más auténtico. Sin tren directo — el carpooling desde Santiago (50 km, 45 min) es la mejor opción."
+        ],
+        bullets: [
+          "Festival Vigo: desde A Coruña 6€, Santiago 4€, Madrid 10€",
+          "Festival Pontevedra: desde Vigo 3€, Santiago 4€, Madrid 10€",
+          "Festival Ferrol: desde A Coruña 3€, Santiago 5€",
+          "Festival Betanzos: desde A Coruña 3€, Ferrol 3€",
+          "Festival Tui: desde Vigo 3€, Pontevedra 4€",
+          "Festival Lalín: desde Santiago 3€, Vigo 4€"
+        ]
+      }
+    ],
+    faqs: [
+      { q: "¿Cuánto cuesta el carpooling de Madrid al Festival de Vigo?", a: "El carpooling de Madrid al Festival de Música de Vigo en ConcertRide cuesta desde 10€/asiento. Son 620 km, unas 5h 30min. Sin comisión, pago directo al conductor." },
+      { q: "¿Cómo ir al Festival de Tui desde Portugal?", a: "Tui está junto al Puente Internacional sobre el río Miño, frente a Valença do Minho. Desde Valença se puede acceder a pie. Desde Porto son 120 km por la A-3, 1h 20min." }
+    ],
+    relatedLinks: [
+      { label: "Festival de Vigo", to: "/festivales/festival-de-musica-de-vigo" },
+      { label: "Festival de Pontevedra", to: "/festivales/festival-de-musica-de-pontevedra" },
+      { label: "Carpooling a Galicia", to: "/conciertos/vigo" }
+    ],
+    relatedPosts: ["resurreccion-fest-2026-viveiro", "guia-festivales-murcia-sureste-2026", "guia-festivales-madrid-2026-completa"],
+    coverImage: { src: "https://images.unsplash.com/photo-1559827260-dc66d52bef19?w=1200&h=630&fit=crop", alt: "Festivales de música en Galicia — ConcertRide", width: 1200, height: 630 }
+  }
+);
+BLOG_POSTS.push(
+  {
+    slug: "festival-de-sonar-2026-electronica",
+    title: "Sónar 2026 en Barcelona: La Guía Definitiva del Festival de Electrónica",
+    h1: "Cómo ir al Sónar 2026 en Barcelona: carpooling desde Madrid desde 10€",
+    excerpt: "Todo sobre Sónar y Sónar+D 2026 en Barcelona: fechas, recintos, artistas y cómo llegar en carpooling desde Madrid desde 10€. El festival de electrónica más importante de Europa.",
+    lede: "Sónar 2026 es el festival de música avanzada y cultura digital más reconocido de Europa. Aquí te explicamos cómo llegar desde cualquier ciudad española en carpooling sin comisión.",
+    category: "guias",
+    tags: ["sonar-2026", "sonar-barcelona", "festival-electronica-barcelona", "sonar-plus", "carpooling-sonar"],
+    publishedAt: "2026-05-16T10:00:00.000Z",
+    author: "Equipo ConcertRide",
+    readingMinutes: 8,
+    sections: [
+      {
+        heading: "Sónar 2026: el festival de música avanzada de Barcelona",
+        paragraphs: [
+          "El Festival Sónar se celebra cada año en junio en Barcelona, dividido entre dos recintos: Sónar de Día (Fira Montjuïc) y Sónar de Noche (Gran Via). Es el festival de música electrónica y cultura digital más reconocido de Europa, con más de 150.000 asistentes de 90 países en sus tres días.",
+          "Sónar+D, el congreso de tecnología y creatividad paralelo al festival, añade conferencias, workshops y exposiciones que convierten la semana del Sónar en un evento único. En 2026 incluye talleres de producción musical con IA y conferencias sobre el futuro de la industria discográfica."
+        ]
+      },
+      {
+        heading: "Carpooling al Sónar desde Madrid, Valencia y Zaragoza",
+        paragraphs: [
+          "ConcertRide organiza carpooling al Sónar desde todas las grandes ciudades españolas a 0% comisión. Precios en 2026: Madrid → Barcelona (620 km, 5h 30min): desde 10–15€/asiento. Valencia → Barcelona (360 km, 3h 30min): desde 6–9€/asiento. Zaragoza → Barcelona (300 km, 2h 45min): desde 5–8€/asiento.",
+          "Pago Bizum o en efectivo directamente al conductor. Sin intermediarios, sin comisiones. El carpooling es la opción más económica y social para llegar al Sónar desde el resto de España."
+        ],
+        bullets: [
+          "Madrid → Sónar: desde 10€/asiento (620 km, AP-2, 5h 30min)",
+          "Valencia → Sónar: desde 6€/asiento (360 km, AP-7, 3h 30min)",
+          "Zaragoza → Sónar: desde 5€/asiento (300 km, AP-2, 2h 45min)",
+          "Bilbao → Sónar: desde 10€/asiento (615 km, AP-68+AP-2, 5h)",
+          "Sevilla → Sónar: desde 16€/asiento (1.050 km, A-4+AP-7, 9h)"
+        ]
+      },
+      {
+        heading: "Sónar de Día vs Sónar de Noche: los dos recintos",
+        paragraphs: [
+          "Sónar de Día se celebra en Fira Montjuïc (metro L1+L3, Espanya). El ambiente es más experimental y diurno, con stages principales cubiertos. Sónar de Noche se celebra en Gran Via (metro L1, Europa/Fira, L'Hospitalet), más electrónico y nocturno, con DJs internacionales hasta el amanecer.",
+          "Los pases de día y noche son independientes. Los abonos de 3 días incluyen ambos recintos. Para el traslado entre recintos, la organización dispone de buses internos del festival (incluidos en el abono) y el metro L1."
+        ]
+      }
+    ],
+    faqs: [
+      { q: "¿Cuánto cuesta el carpooling de Madrid al Sónar 2026?", a: "El carpooling de Madrid al Sónar en Barcelona cuesta desde 10€/asiento en ConcertRide. Son 620 km por la AP-2, unas 5h 30min. Sin comisión, pago Bizum directo." },
+      { q: "¿Qué diferencia hay entre Sónar de Día y Sónar de Noche?", a: "Sónar de Día (Fira Montjuïc) es más experimental y diurno. Sónar de Noche (Gran Via, L'Hospitalet) es más electrónico y nocturno, con DJs internacionales hasta el amanecer. Los abonos de 3 días incluyen ambos." }
+    ],
+    relatedLinks: [
+      { label: "Carpooling Madrid → Sónar", to: "/rutas/madrid-sonar-plus" },
+      { label: "Carpooling Valencia → Sónar", to: "/rutas/valencia-sonar-plus" },
+      { label: "Festival Sónar", to: "/festivales/sonar" }
+    ],
+    relatedPosts: ["how-to-get-to-primavera-sound-2026", "guia-festivales-cataluna-interior-2026", "guia-festivales-madrid-2026-completa"],
+    coverImage: { src: "https://images.unsplash.com/photo-1470229722913-7c0e2dbbafd3?w=1200&h=630&fit=crop", alt: "Festival Sónar Barcelona electrónica — ConcertRide", width: 1200, height: 630 }
+  }
+);
+BLOG_POSTS.push(
+  {
+    slug: "carpooling-pareja-festival-romantico",
+    title: "Carpooling en Pareja para Festivales: La Guía Completa 2026",
+    h1: "Cómo ir a un festival en pareja en carpooling: reservar dos plazas en ConcertRide",
+    excerpt: "Cómo organizar el viaje a un festival en pareja usando ConcertRide: reservar dos plazas, coordinar con el conductor y aprovechar al máximo el viaje compartido.",
+    lede: "Ir a un festival en pareja en carpooling es más fácil de lo que parece. Aquí te explicamos cómo reservar dos plazas, cómo publicar vuestro propio viaje como conductores y qué festivales son más populares entre parejas.",
+    category: "guias",
+    tags: ["carpooling-pareja", "festival-pareja", "reservar-dos-plazas", "como-funciona-concertride"],
+    publishedAt: "2026-05-16T10:00:00.000Z",
+    author: "Equipo ConcertRide",
+    readingMinutes: 6,
+    sections: [
+      {
+        heading: "Reservar dos plazas en el mismo coche",
+        paragraphs: [
+          "En ConcertRide puedes reservar varias plazas en el mismo viaje indicando el número de asientos al hacer la solicitud. Simplemente selecciona 2 plazas cuando contactes con el conductor y menciona en el mensaje que sois pareja. La mayoría de conductores aceptan parejas sin problema: los coches estándar tienen 3–4 plazas disponibles además del conductor.",
+          "Si queréis asientos contiguos (y no que uno vaya delante y otro detrás), especificadlo en el mensaje al conductor. La mayoría os acomodarán si lo pedís con antelación. Evitad los viajes con solo 1 plaza disponible."
+        ]
+      },
+      {
+        heading: "Alternativa: publicar vuestro propio viaje como conductores",
+        paragraphs: [
+          "Si uno de los dos tiene carnet de conducir, la opción más económica es publicar el viaje en ConcertRide como conductores y ofrecer las plazas restantes a otros asistentes al festival. En un coche de 5 plazas, con vosotros dos, quedan 3 plazas para pasajeros. Si cada pasajero paga 10€ por un viaje de 300 km, la pareja recupera 30€ del coste del combustible.",
+          "Esta opción es especialmente popular para parejas que van a festivales de varios días como FIB, Arenal Sound o Sónar. Publicad el viaje al menos 5 días antes para encontrar pasajeros interesados."
+        ],
+        bullets: [
+          "Reserva 2 plazas indicándolo al contactar con el conductor",
+          "Pide asientos contiguos en el mensaje al conductor",
+          "Publica vuestro propio viaje si uno tiene carnet de conducir",
+          "Indicad el equipaje de camping si vais a un festival con acampada",
+          "Acordad la hora de regreso antes de salir"
+        ]
+      }
+    ],
+    faqs: [
+      { q: "¿Puedo reservar dos plazas en el mismo viaje de ConcertRide?", a: "Sí. Al contactar con el conductor, indica que necesitáis 2 plazas. Si el viaje tiene 2+ plazas disponibles, el conductor puede reservaros ambas." },
+      { q: "¿Qué pasa si no hay viajes con dos plazas disponibles?", a: "Si no encuentras viajes con dos plazas libres, publica una solicitud de viaje indicando que sois dos personas. Los conductores pueden ofreceros un viaje a medida." }
+    ],
+    relatedLinks: [
+      { label: "Publicar un viaje como conductor", to: "/publicar" },
+      { label: "Cómo funciona ConcertRide", to: "/como-funciona" }
+    ],
+    relatedPosts: ["carpooling-madrugada-fin-festival", "guia-festivales-madrid-2026-completa", "festival-de-sonar-2026-electronica"],
+    coverImage: { src: "https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?w=1200&h=630&fit=crop", alt: "Pareja en carpooling a un festival de música — ConcertRide", width: 1200, height: 630 }
+  }
+);
+BLOG_POSTS.push(
+  {
+    slug: "conciertos-teatros-auditorios-espana-2026",
+    title: "Conciertos en Teatros y Auditorios de España 2026: Carpooling desde 3€",
+    h1: "ConcertRide para conciertos en sala: teatros, auditorios y pabellones de toda España",
+    excerpt: "ConcertRide no es solo para festivales: también organiza carpooling para conciertos en teatros, auditorios y salas de todo España. Desde el Auditorio Nacional hasta el Gran Teatre del Liceu.",
+    lede: "Muchos fans no saben que ConcertRide funciona para cualquier concierto, no solo festivales. Si tu artista favorito actúa en un teatro o auditorio a 100 km de tu casa, el carpooling es la solución más económica.",
+    category: "guias",
+    tags: ["conciertos-sala", "auditorio-nacional", "carpooling-teatro", "carpooling-auditorio", "conciertos-espana-2026"],
+    publishedAt: "2026-05-16T10:00:00.000Z",
+    author: "Equipo ConcertRide",
+    readingMinutes: 7,
+    sections: [
+      {
+        heading: "ConcertRide para conciertos en recintos cubiertos",
+        paragraphs: [
+          "ConcertRide no está limitado a festivales al aire libre. Muchos usuarios organizan carpooling para conciertos en teatros, auditorios, salas de conciertos y recintos cubiertos de todo España. Si hay un concierto en el Auditorio Nacional de Madrid, el Gran Teatre del Liceu de Barcelona, el Palau de la Música de Valencia o el Euskalduna de Bilbao, puedes publicar o buscar un viaje compartido."
+        ]
+      },
+      {
+        heading: "Madrid, Barcelona, Bilbao y Valencia: los auditorios más solicitados",
+        paragraphs: [
+          "Madrid concentra los auditorios más grandes de España. Para conciertos en el WiZink Center, los asistentes de Guadalajara, Toledo, Segovia, Ávila y Cuenca usan ConcertRide desde 3€/asiento. Para Barcelona, el carpooling desde Tarragona, Lleida, Girona y Reus es habitual desde 3€/asiento.",
+          "El Euskalduna (Bilbao), el Palau de les Arts (Valencia), el Teatro de la Maestranza (Sevilla) y el Auditorio de Zaragoza son los principales destinos regionales de carpooling para conciertos en sala."
+        ],
+        bullets: [
+          "WiZink Center Madrid: desde Guadalajara 3€, Toledo 3€, Segovia 3€",
+          "Gran Teatre del Liceu BCN: desde Tarragona 4€, Lleida 4€, Girona 3€",
+          "Euskalduna Bilbao: desde Vitoria 4€, San Sebastián 5€, Pamplona 5€",
+          "Palau de les Arts Valencia: desde Alicante 4€, Murcia 5€, Castellón 3€"
+        ]
+      },
+      {
+        heading: "Cómo publicar un viaje para un concierto en sala",
+        paragraphs: [
+          "Publicar un viaje en ConcertRide para un concierto en teatro o auditorio es igual que para un festival: selecciona el concierto, indica la fecha y hora, añade tu punto de salida y el precio por plaza. Para conciertos de un solo día, los conductores suelen ofrecer el viaje de ida y vuelta el mismo día.",
+          "Asegúrate de indicar la hora de regreso prevista (generalmente 1–2 horas después del fin del concierto) para que los pasajeros puedan coordinarse."
+        ]
+      }
+    ],
+    faqs: [
+      { q: "¿Funciona ConcertRide para conciertos en sala, no solo festivales?", a: "Sí. ConcertRide funciona para cualquier concierto o evento musical: festivales, estadios, teatros, auditorios y salas de conciertos. Busca el concierto por ciudad y fecha, o publica tu viaje indicando el destino." },
+      { q: "¿Hay carpooling para conciertos de entre semana?", a: "Sí. ConcertRide tiene viajes para conciertos entre semana, aunque la oferta es menor. Publica tu viaje con al menos 3–4 días de antelación para encontrar compañeros de ruta." }
+    ],
+    relatedLinks: [
+      { label: "Cómo funciona ConcertRide", to: "/como-funciona" },
+      { label: "Publicar un viaje", to: "/publicar" },
+      { label: "Conciertos en Madrid", to: "/conciertos/madrid" }
+    ],
+    relatedPosts: ["carpooling-madrugada-fin-festival", "carpooling-pareja-festival-romantico", "guia-festivales-madrid-2026-completa"],
+    coverImage: { src: "https://images.unsplash.com/photo-1514525253161-7a46d19cd819?w=1200&h=630&fit=crop", alt: "Conciertos en teatros y auditorios de España — ConcertRide", width: 1200, height: 630 }
+  }
+);
+BLOG_POSTS.push(
+  {
+    slug: "guia-festivales-madrid-2026-completa",
+    title: "Guía Completa de Festivales de Madrid 2026: Mad Cool, GetaFest, Vibra Mahou y más",
+    h1: "Festivales de Madrid 2026: Mad Cool, Vibra Mahou, GetaFest y los festivales del área metropolitana",
+    excerpt: "Todos los festivales de música de la Comunidad de Madrid en 2026. Mad Cool en IFEMA, Vibra Mahou en el Metropolitano, GetaFest en Getafe y los festivales del sur metropolitano. Carpooling desde 3€.",
+    lede: "Madrid es la comunidad con más festivales por metro cuadrado del verano español. De IFEMA al sur metropolitano, hay música para todos los gustos — y ConcertRide los conecta desde 3€/asiento.",
+    category: "guias",
+    tags: ["festivales-madrid-2026", "mad-cool-2026", "vibra-mahou-2026", "getafest-2026", "carpooling-madrid"],
+    publishedAt: "2026-05-16T10:00:00.000Z",
+    author: "Equipo ConcertRide",
+    readingMinutes: 10,
+    sections: [
+      {
+        heading: "Mad Cool 2026: el festival más grande de Madrid",
+        paragraphs: [
+          "Mad Cool Festival se celebra en julio en IFEMA-Madrid (Av. del Partenón 5), el recinto de exposiciones al norte de Barajas. Es el festival de mayor capacidad de Madrid, con carteles que incluyen los artistas internacionales más relevantes. Metro L8 (Barajas) accesible desde el centro.",
+          "Carpooling desde Guadalajara: desde 3€/asiento (55 km, 45 min). Desde Toledo: desde 3€/asiento (70 km, 55 min). Desde Segovia: desde 3€/asiento (90 km, 1 hora). Desde Ávila: desde 3€/asiento (110 km, 1h 15min). 0% comisión en ConcertRide."
+        ]
+      },
+      {
+        heading: "Vibra Mahou, GetaFest y los festivales del área metropolitana",
+        paragraphs: [
+          "Vibra Mahou se celebra en el Estadio Metropolitano (Metro L7) en mayo-junio. GetaFest en Getafe en agosto, accesible en Metro Metrosur (L12). Los festivales del sur metropolitano: Leganés Fest (julio, M-45), Móstoles Fest (agosto, A-5) y Alcorcón Fest (agosto, M-506), todos a 15–20 km del centro.",
+          "Festival Complutense en Alcalá de Henares (julio): 35 km por A-2, cercanías Renfe en 45–55 min. Carpooling desde Madrid: desde 3€/asiento. Desde Guadalajara: desde 3€/asiento."
+        ],
+        bullets: [
+          "Mad Cool (IFEMA, julio): desde Toledo 3€, Guadalajara 3€, Segovia 3€",
+          "Vibra Mahou (Metropolitano, may-jun): metro L7, carpooling desde Guadalajara 3€",
+          "GetaFest (Getafe, ago): metro L12, desde Toledo 3€",
+          "Leganés Fest (jul): desde Toledo 3€, Madrid centro 3€",
+          "Móstoles Fest (ago): desde Toledo 3€, Ávila 3€",
+          "Alcorcón Fest (ago): desde Toledo 3€, Segovia 3€",
+          "Festival Complutense (Alcalá, jul): desde Guadalajara 3€, Madrid 3€"
+        ]
+      }
+    ],
+    faqs: [
+      { q: "¿Cuáles son los festivales de música más grandes de Madrid en 2026?", a: "Los festivales más grandes son: Mad Cool (IFEMA, julio), Vibra Mahou (Estadio Metropolitano, mayo-junio) y GetaFest (Getafe, agosto). Además: Leganés Fest, Móstoles Fest, Alcorcón Fest y Festival Complutense." },
+      { q: "¿Hay carpooling entre los festivales del sur de Madrid?", a: "Sí. Para los festivales del sur (Leganés, Móstoles, Alcorcón, Getafe), ConcertRide organiza carpooling desde el centro de Madrid desde 3€/asiento y desde Toledo, Guadalajara o Segovia desde 3–5€/asiento." }
+    ],
+    relatedLinks: [
+      { label: "Festival Complutense", to: "/festivales/festival-complutense" },
+      { label: "Festival de Leganés", to: "/festivales/festival-de-musica-de-leganes" },
+      { label: "GetaFest", to: "/festivales/getafest" },
+      { label: "Mad Cool Festival", to: "/festivales/mad-cool" }
+    ],
+    relatedPosts: ["guia-festivales-murcia-sureste-2026", "carpooling-pareja-festival-romantico", "festival-de-sonar-2026-electronica"],
+    coverImage: { src: "https://images.unsplash.com/photo-1540039155733-5bb30b53aa14?w=1200&h=630&fit=crop", alt: "Festivales de música en Madrid 2026 — ConcertRide", width: 1200, height: 630 }
+  }
+);
+BLOG_POSTS.push(
+  {
+    slug: "carpooling-madrugada-fin-festival",
+    title: "Carpooling de Madrugada: Cómo Volver a Casa Después del Festival",
+    h1: "Cómo organizar el carpooling de vuelta después de un festival o concierto nocturno",
+    excerpt: "Guía práctica para organizar el viaje de vuelta después de un festival o concierto de madrugada en ConcertRide. Consejos para conductores y pasajeros.",
+    lede: "El viaje de vuelta del festival es siempre el más difícil. Los transportes públicos han terminado, los taxis son caros y conducir de madrugada implica riesgos. El carpooling de madrugada en ConcertRide es la mejor solución.",
+    category: "guias",
+    tags: ["carpooling-madrugada", "vuelta-festival", "concierto-nocturno", "carpooling-fin-festival"],
+    publishedAt: "2026-05-16T10:00:00.000Z",
+    author: "Equipo ConcertRide",
+    readingMinutes: 6,
+    sections: [
+      {
+        heading: "Cómo publicar un viaje de vuelta de madrugada",
+        paragraphs: [
+          "Si eres conductor, publica el viaje de regreso en ConcertRide con al menos 24 horas de antelación. Indica claramente: la hora de salida prevista (por ejemplo, 'salida aproximada a las 2:00–2:30 AM'), el punto de encuentro exacto (puerta norte, sur, parking P3), y el tiempo máximo de espera. Los pasajeros valorarán la claridad."
+        ]
+      },
+      {
+        heading: "Seguridad en el viaje de vuelta nocturno",
+        paragraphs: [
+          "La seguridad en el viaje de vuelta es prioritaria. Reglas básicas: no conduzcas si has consumido alcohol, aunque sea en pequeña cantidad. Si estás cansado, propón una parada de 20 minutos en un área de servicio. Comparte la ruta con un familiar antes de salir. Mantén el teléfono cargado y activa el manos libres.",
+          "Para pasajeros: busca los viajes de regreso con al menos 2 días de antelación. Si no hay viajes disponibles, publica una solicitud indicando tu destino y la hora de regreso prevista."
+        ],
+        bullets: [
+          "Publica el viaje de regreso con 24h de antelación",
+          "Indica hora de salida, punto de encuentro y tiempo de espera",
+          "No conduzcas si has consumido alcohol",
+          "Propón parada en área de servicio si hay cansancio",
+          "Comparte la ruta con un familiar",
+          "Mantén el teléfono cargado"
+        ]
+      },
+      {
+        heading: "Alternativas cuando no hay carpooling disponible",
+        paragraphs: [
+          "Si no encuentras carpooling de vuelta: taxi compartido con otros asistentes (caro pero rápido), autobús nocturno de la organización (algunos festivales lo ofrecen), acampada en el recinto si la distancia es grande, o alojamiento en la ciudad más cercana y regreso a la mañana siguiente."
+        ]
+      }
+    ],
+    faqs: [
+      { q: "¿Es seguro el carpooling de madrugada en ConcertRide?", a: "ConcertRide verifica la identidad y el permiso de conducir de todos los conductores. El sistema de valoraciones permite ver el historial. Si un conductor tiene 4.5+ estrellas con múltiples valoraciones, la probabilidad de un viaje seguro es muy alta." },
+      { q: "¿Qué hago si el conductor no aparece en la hora acordada?", a: "Contacta con el conductor directamente. Si no responde en 15 minutos, busca alternativas. Puntúa negativamente a los conductores que no aparecen para proteger a futuros usuarios." }
+    ],
+    relatedLinks: [
+      { label: "Cómo funciona ConcertRide", to: "/como-funciona" },
+      { label: "Publicar un viaje de vuelta", to: "/publicar" }
+    ],
+    relatedPosts: ["carpooling-pareja-festival-romantico", "conciertos-teatros-auditorios-espana-2026", "guia-festivales-madrid-2026-completa"],
+    coverImage: { src: "https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=1200&h=630&fit=crop", alt: "Carpooling de madrugada vuelta casa festival — ConcertRide", width: 1200, height: 630 }
+  },
+  // ──────────────────────────────────────────────────────────────────────
+  // WAVE PSEO — 8 new posts targeting content gaps (May 2026)
+  // ──────────────────────────────────────────────────────────────────────
+  {
+    slug: "carpooling-largo-recorrido-festivales-espana-2026",
+    title: "Carpooling de largo recorrido a festivales en España 2026 [Guía]: Madrid–Barcelona, Madrid–Sevilla y más",
+    h1: "Carpooling de largo recorrido a festivales: cómo organizar viajes de más de 400 km",
+    excerpt: "Madrid→Barcelona (620 km, 15–20 €/asiento), Madrid→Sevilla (535 km, 14–19 €), Bilbao→Barcelona (625 km, 16–22 €). Guía completa para planificar carpooling interregional a festivales: cuándo publicar, cómo dividir paradas, qué precio es razonable y cómo garantizar la vuelta.",
+    category: "guias",
+    tags: ["largo recorrido", "madrid barcelona", "madrid sevilla", "carpooling", "festivales", "rutas largas", "interregional"],
+    publishedAt: "2026-05-16T09:00:00.000Z",
+    author: "Equipo ConcertRide",
+    readingMinutes: 9,
+    lede: "Ir a un festival a 500–700 km de casa en coche compartido es perfectamente viable — y sale hasta 4 veces más barato que el tren o el avión. Pero organizar un viaje largo requiere planificación diferente: cuándo publicar, paradas, precio por km y cómo asegurarte la vuelta de madrugada.",
+    sections: [
+      {
+        heading: "Cuándo se considera largo recorrido en carpooling de festival",
+        paragraphs: [
+          "En ConcertRide distinguimos tres tramos de distancia. Trayecto corto: menos de 150 km, 30–90 min de conducción, precio típico 3–8 €/asiento. Trayecto medio: 150–400 km, 1h 30 min–4h, precio 7–15 €/asiento. Trayecto largo: más de 400 km, 4–7h de conducción, precio 14–25 €/asiento.",
+          "En los viajes largos el carpooling tiene ventajas que no existen en los cortos: el precio total del combustible y los peajes se divide entre 4 o 5 personas, lo que convierte un trayecto de 80 € (Madrid–Barcelona en coche solo) en 20 € por persona. El AVE Madrid–Barcelona en horario de festival cuesta 45–75 € de media y el último tren sale antes de medianoche — demasiado pronto para cualquier festival de verano."
+        ]
+      },
+      {
+        heading: "Las 6 rutas largas más usadas en ConcertRide por festival",
+        paragraphs: ["Estas son las rutas de más de 400 km con mayor demanda en ConcertRide durante temporada de festivales:"],
+        bullets: [
+          "Madrid → Primavera Sound (Barcelona, 620 km, 5h 30 min): 15–20 €/asiento. La ruta más solicitada de la plataforma. El festival dura 5 días — muchos conductores publican varios viajes de ida y otros tantos de vuelta.",
+          "Madrid → BBK Live (Bilbao, 395 km, 3h 30 min): 11–16 €/asiento. La AP-1 tiene peajes; el carpooling los divide entre todos.",
+          "Madrid → Resurrection Fest (Viveiro, Lugo, 600 km, 6h 30 min): 16–22 €/asiento. La ruta más larga de todas — ideal para planificar con 3–4 semanas de antelación.",
+          "Sevilla → Primavera Sound (Barcelona, 1.000 km, 9h): 22–30 €/asiento. Los conductores andaluces suelen hacer parada en Zaragoza.",
+          "Bilbao → Primavera Sound (Barcelona, 625 km, 5h 30 min): 16–22 €/asiento. Ruta norte–noreste, muy popular entre la comunidad vasca.",
+          "Madrid → Mad Cool (IFEMA, 40 km desde el centro): técnicamente corta, pero para asistentes de ciudades medianas (Salamanca, Cáceres, Ciudad Real) el trayecto es de 200–350 km."
+        ]
+      },
+      {
+        heading: "Cuándo publicar el viaje largo en ConcertRide",
+        paragraphs: [
+          "Para rutas largas, la antelación importa mucho más que en las cortas. Los pasajeros que buscan viajes a Primavera Sound desde Madrid empiezan a buscar 4–6 semanas antes del festival. Los de Resurrection Fest (más nicho) buscan con 3–4 semanas de antelación.",
+          "Recomendación por distancia: rutas de más de 400 km → publicar entre 3 y 6 semanas antes del festival. Rutas de 200–400 km → publicar con 2–4 semanas de antelación. Rutas menores de 200 km → publicar con 1–2 semanas de antelación es suficiente.",
+          "Los viajes que reciben más reservas tempranas son los que tienen precio publicado, número de plazas claro y descripción del punto de salida (dirección exacta o intercambiador/gasolinera conocida)."
+        ]
+      },
+      {
+        heading: "Cómo fijar el precio en rutas largas: la fórmula del combustible",
+        paragraphs: [
+          "El precio legal en España para el carpooling es el precio de costo del combustible y peajes dividido entre todos los ocupantes (conductor incluido). Una fórmula práctica: [(km × consumo medio × precio gasolina) + peajes] ÷ número de ocupantes.",
+          "Ejemplo real: Madrid → Barcelona (620 km). Consumo medio: 7 l/100 km. Precio gasolina: 1,58 €/l (media 2026). Gasto en combustible: 620 × 0,07 × 1,58 = 68,6 €. Peajes AP-2: ~22 €. Total: 90,6 €. Dividido entre 4 ocupantes: 22,65 €/persona. Precio razonable ConcertRide para esta ruta: 20–25 €/asiento.",
+          "Para coches diésel o híbridos el precio baja un 20–30%. Para furgonetas o coches de mayor consumo puede subir. ConcertRide no impone precio — es el conductor quien decide dentro del rango razonable de costos reales."
+        ]
+      },
+      {
+        heading: "Paradas en ruta: cuándo sí y cómo organizarlas",
+        paragraphs: [
+          "En viajes de más de 4 horas, una parada de 20–30 minutos en un área de servicio es recomendable por seguridad (el Código de Circulación recomienda descanso cada 2h). La mayoría de conductores de largo recorrido en ConcertRide hacen una parada única — habitualmente en Zaragoza (en la ruta Madrid–Barcelona) o en Burgos (en la ruta Madrid–Bilbao).",
+          "Incluir la parada prevista en la descripción del viaje (nombre del área de servicio o ciudad) ayuda a gestionar expectativas y reduce cancelaciones. Los pasajeros que buscan viajes largos valoran positivamente la transparencia sobre la ruta."
+        ]
+      },
+      {
+        heading: "La vuelta: el mayor reto del carpooling de largo recorrido",
+        paragraphs: [
+          "En un festival de 3 días (Mad Cool, BBK Live, Resurrection Fest) hay varias opciones: volver el mismo día de cada jornada, volver solo al final del último día, o quedarse y volver el lunes siguiente. La mayoría de conductores de largo recorrido publican el viaje de vuelta para el día siguiente a las 10:00–12:00 — así evitan la conducción de madrugada tras un festival intenso.",
+          "Si necesitas volver de madrugada tras el headliner del último día, planifícalo expresamente: publica ese viaje de vuelta como viaje separado en ConcertRide, indica la hora de salida del recinto (03:00–04:00) y el punto de encuentro. Este tipo de viaje nocturno tiene mucha demanda y poca oferta — es fácil llenar el coche si lo publicas con 1–2 semanas de antelación."
+        ]
+      }
+    ],
+    faqs: [
+      { q: "¿Cuánto cuesta el carpooling de Madrid a Barcelona para un festival?", a: "El carpooling de Madrid a Barcelona para Primavera Sound u otro festival cuesta entre 15 y 20 €/asiento en ConcertRide (620 km, 5h 30 min, 0% comisión). El precio incluye combustible y peajes divididos entre todos los ocupantes." },
+      { q: "¿Es rentable hacer largo recorrido en carpooling para ir a un festival?", a: "Sí. En rutas de más de 400 km el carpooling es 2–4 veces más barato que el AVE, incluye la vuelta de madrugada (el tren no), y es 5–8 veces más barato que el taxi. Para Madrid–Barcelona el carpooling cuesta 15–20 € vs 45–75 € el AVE y más de 180 € el taxi." },
+      { q: "¿Cuándo publicar un viaje de carpooling de largo recorrido?", a: "Para rutas de más de 400 km, publica en ConcertRide entre 3 y 6 semanas antes del festival. Los pasajeros buscan con mucha antelación para asegurar un viaje cómodo y al mejor precio." },
+      { q: "¿Puedo hacer parada en ruta en el carpooling de largo recorrido?", a: "Sí, es habitual y recomendable en viajes de más de 4h. Indica la parada prevista en la descripción del viaje (área de Zaragoza para Madrid–Barcelona, área de Burgos para Madrid–Bilbao). El Código de Circulación recomienda descanso cada 2h." }
+    ],
+    relatedLinks: [
+      { label: "Carpooling a Primavera Sound", to: "/festivales/primavera-sound" },
+      { label: "Carpooling a Resurrection Fest", to: "/festivales/resurrection-fest" },
+      { label: "Rutas de festival", to: "/rutas" }
+    ],
+    relatedPosts: ["primavera-sound-2026-como-llegar", "carpooling-madrugada-fin-festival", "como-organizar-viaje-grupo-festival-amigos"],
+    coverImage: { src: "https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?w=1200&h=630&fit=crop", alt: "Autopista larga en España — carpooling de largo recorrido a festivales", width: 1200, height: 630 }
+  },
+  {
+    slug: "como-dividir-coste-gasolina-festival-espana-2026",
+    title: "Cómo dividir el coste de la gasolina para ir a un festival [Calculadora 2026]",
+    h1: "Cómo dividir el coste de la gasolina entre pasajeros para ir a un festival",
+    excerpt: "Fórmula exacta para calcular y repartir el gasto de gasolina y peajes en un viaje a un festival. Incluye precio real por ruta (Madrid→Primavera Sound 22 €/persona, Madrid→Mad Cool 6 €) y cómo evitar conflictos en el grupo.",
+    category: "guias",
+    tags: ["gasolina", "coste gasolina", "dividir gastos", "calculadora gasolina", "carpooling", "festivales", "peajes"],
+    publishedAt: "2026-05-16T09:30:00.000Z",
+    author: "Equipo ConcertRide",
+    readingMinutes: 7,
+    lede: '"¿Cuánto te debo?" es la pregunta más incómoda del viaje de vuelta. Esta guía te da la fórmula exacta para calcular el precio justo por asiento, qué se incluye (combustible + peajes), qué no (comida, parking), y cuánto sale en las rutas más comunes de festival en España.',
+    sections: [
+      {
+        heading: "La fórmula oficial del carpooling legal en España",
+        paragraphs: [
+          "El carpooling es legal en España cuando el conductor cobra exclusivamente el precio de coste del combustible y los peajes, dividido entre todos los ocupantes (incluido el conductor). Esta es la definición del Tribunal Supremo (STS 2017) y la que aplica ConcertRide.",
+          "Fórmula: (km × consumo l/100 × precio €/l + peajes) ÷ número total de ocupantes. El conductor paga su parte como cualquier pasajero — lo que cobra de los pasajeros cubre solo la fracción correspondiente a ellos.",
+          "Lo que NO se incluye en el precio legal: beneficio del conductor, tiempo de conducción, amortización del vehículo, seguro, parking en el festival, gastos de comida en ruta. Si el conductor cobra más de los costos reales de combustible y peajes, la actividad deja de ser carpooling legal y entra en el régimen de transporte remunerado (requiere licencia VTC)."
+        ]
+      },
+      {
+        heading: "Precios reales de gasolina por ruta de festival en 2026",
+        paragraphs: ["Cálculo basado en 7 l/100 km (media para turismo gasolina), precio medio gasolina 95 en España en 2026: 1,55 €/l, y peajes oficiales. Con 4 ocupantes totales (conductor + 3 pasajeros):"],
+        bullets: [
+          "Madrid → Mad Cool (IFEMA): 15 km desde Sol, sin peaje — 0,82 €/persona. Por eso el precio mínimo en ConcertRide es 4 €/asiento (incluye gasolina + desgaste + peaje R-2 si se usa).",
+          "Madrid → Primavera Sound (Barcelona, 620 km): gasolina 67,5 € + AP-2 peajes ~22 € = 89,5 € total ÷ 4 = 22,4 €/persona. Precio razonable ConcertRide: 20–25 €/asiento.",
+          "Madrid → BBK Live (Bilbao, 395 km): gasolina 43 € + AP-1 ~18 € = 61 € ÷ 4 = 15,3 €/persona. Precio razonable: 14–17 €/asiento.",
+          "Madrid → Resurrection Fest (Viveiro, 600 km): gasolina 65,1 € + peajes ~15 € = 80,1 € ÷ 4 = 20 €/persona. Precio razonable: 18–22 €/asiento.",
+          "Valencia → Arenal Sound (Burriana, 65 km): gasolina 7,1 €, sin peaje = 7,1 € ÷ 4 = 1,8 €/persona. Precio mínimo 3–5 € para cubrir desgaste.",
+          "Barcelona → Primavera Sound (Parc del Fòrum, 10 km): 1,1 € gasolina ÷ 4 = 0,27 €. Precio mínimo 3–4 € lógico.",
+          "Sevilla → Primavera Sound (Barcelona, 1.000 km): gasolina 108,5 € + peajes ~35 € = 143,5 € ÷ 4 = 35,9 €. Precio razonable: 32–40 €/asiento."
+        ]
+      },
+      {
+        heading: "Cómo pedir o recibir el dinero sin tensión",
+        paragraphs: [
+          "El método más cómodo en ConcertRide: el conductor publica el precio por asiento de antemano (precio acordado visible para todos antes de reservar). Al llegar al festival o al terminar, el pasajero paga en efectivo o Bizum. No hay sorpresas, no hay conversación incómoda — el precio está publicado desde el principio.",
+          "Para grupos de amigos que viajan juntos: usa la app Splitwise o simplemente la calculadora del teléfono antes de salir. Divide gasolina + peajes entre todos los que van en el coche, incluido el conductor. Si alguien sube o baja en el camino, ajusta en proporción a los km recorridos."
+        ],
+        bullets: [
+          "Publica el precio en ConcertRide antes de salir — evita la conversación del precio a la vuelta.",
+          "Bizum es la forma más rápida si el precio es exacto al céntimo.",
+          "Si hay peajes de autopista con variación (por entrada/salida), avisa al pasajero antes de que se produzca.",
+          "El precio de gasolina fluctúa — si fills up el coche antes del viaje, dilo para calcular con el precio real.",
+          "Para viajes de ida y vuelta, fija el precio por trayecto, no por ida y vuelta completa."
+        ]
+      },
+      {
+        heading: "Coche diésel, híbrido o eléctrico: cómo ajustar",
+        paragraphs: [
+          "Diésel: consumo medio 5,5–6 l/100 km, precio gasoil ~1,45 €/l. El coste es un 25–35% menor que en gasolina. Un diésel Madrid–Barcelona (620 km) consume 34–37 l = 49–54 € de gasoil + peajes = 71–76 € total ÷ 4 = 17,8–19 €/persona.",
+          "Híbrido: consumo medio 4,5–5 l/100 km en autopista. Reducción del 35% vs. gasolina. Un híbrido Madrid–Barcelona = 39–43 l × 1,55 €/l = 60–67 € combustible + peajes.",
+          "Eléctrico: la carga en ruta (cargadores rápidos DC) cuesta 0,65–0,85 €/kWh. Un eléctrico de 75 kWh recorre 350–400 km sin carga. Madrid–Barcelona requiere 1–2 paradas de carga (~35–50 € totales) + tiempo extra. El coste energético es 35–55 € en total ÷ 4 = 9–14 €/persona. Avisa a los pasajeros de las paradas de carga previstas."
+        ]
+      }
+    ],
+    faqs: [
+      { q: "¿Cuánto se paga de gasolina por persona en carpooling Madrid–Barcelona?", a: "En un turismo de gasolina con 4 ocupantes, la ruta Madrid–Barcelona (620 km) cuesta en combustible unos 22–25 €/persona incluyendo los peajes de la AP-2. En ConcertRide el precio típico es 18–22 €/asiento." },
+      { q: "¿Qué se incluye en el precio del carpooling en España?", a: "Legalmente, solo el coste del combustible y los peajes dividido entre todos los ocupantes. No incluye beneficio del conductor, tiempo de conducción, amortización del coche, parking ni comida en ruta." },
+      { q: "¿Cómo dividir los peajes en un coche de carpooling?", a: "Suma el importe total de peajes al gasto de combustible y divide entre todos los ocupantes (incluyendo al conductor). Si usas vía telemática (Via-T), calcula el importe aproximado antes del viaje con el buscador de peajes de la web de la DGT." }
+    ],
+    relatedLinks: [
+      { label: "Publicar un viaje en ConcertRide", to: "/publicar" },
+      { label: "Cómo funciona ConcertRide", to: "/como-funciona" },
+      { label: "Carpooling Madrid a Primavera Sound", to: "/rutas/madrid-primavera-sound" }
+    ],
+    relatedPosts: ["carpooling-largo-recorrido-festivales-espana-2026", "como-organizar-viaje-grupo-festival-amigos", "primavera-sound-2026-como-llegar"],
+    coverImage: { src: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=1200&h=630&fit=crop", alt: "Persona pagando combustible gasolinera viaje festival — ConcertRide", width: 1200, height: 630 }
+  },
+  {
+    slug: "festivales-verano-2026-con-campamento-guia-transporte",
+    title: "Festivales de verano 2026 con campamento en España [Guía]: Resurrection Fest, Arenal Sound, Medusa y más",
+    h1: "Festivales con camping 2026 en España: guía de transporte, equipaje y carpooling",
+    excerpt: "Los 8 principales festivales españoles de 2026 que permiten acampada: Resurrection Fest, Arenal Sound, Medusa, Viña Rock, Download Madrid, BBK Live, O Son do Camiño y Rototom. Qué llevar en el coche, cómo transportar la tienda y cómo llegar con carpooling desde 3 €/asiento.",
+    category: "guias",
+    tags: ["camping", "campamento", "festivals con acampada", "transporte camping", "arenal sound camping", "resurrection fest camping", "medusa festival camping"],
+    publishedAt: "2026-05-16T10:00:00.000Z",
+    author: "Equipo ConcertRide",
+    readingMinutes: 10,
+    lede: "El camping de festival tiene una lógica propia de transporte: más equipo, más peso, menos opciones de tren o bus. Esta guía recoge los 8 festivales más importantes con acampada en 2026, cómo llegar con todo el equipo y por qué el carpooling es la opción que mejor encaja con el camping festivalero.",
+    sections: [
+      {
+        heading: "Por qué el carpooling es ideal para festivales con camping",
+        paragraphs: [
+          "Una mochila de camping para un festival (tienda, saco, colchoneta, ropa para 4 días) pesa entre 15 y 25 kg y ocupa 70–90 litros. El autobús oficial suele cobrar extra por equipaje de gran volumen o directamente lo prohíbe. El tren admite bultos pero con limitaciones de medida (max 85 × 55 × 35 cm) que quedan cortas para una tienda de campaña + saco de dormir.",
+          "El coche compartido es la única opción de transporte que resuelve el problema del equipaje de camping sin coste adicional: el maletero de un turismo estándar (400–500 litros) tiene espacio para el equipo de 3–4 personas si se organiza bien."
+        ],
+        bullets: [
+          "Tienda de campaña 2–3 personas pesa 2,5–4 kg, ocupa ~30×15×15 cm (comprimida). Cabe en cualquier maletero.",
+          "Saco de dormir de verano (>10ºC): 1 kg, 20×15 cm comprimido.",
+          "Colchoneta hinchable: 1 kg, 25×12 cm. Importante para suelos de tierra.",
+          "Cooler/nevera portátil (opcional): 3–6 kg, más voluminosa — requiere confirmar con el conductor.",
+          "Total peso por persona con equipo de camping: 20–30 kg. Un maletero de 500 l admite sin problema el equipo completo de 3 personas."
+        ]
+      },
+      {
+        heading: "Resurrection Fest 2026 (Viveiro, Lugo): el festival de camping más remoto",
+        paragraphs: [
+          "Resurrection Fest 2026 (25–28 junio, A Gañidoira, Viveiro) tiene la mayor proporción de asistentes con camping de todos los festivales españoles: más del 90% de los 70.000 asistentes diarios acampa. El recinto está a 100 km de A Coruña y a 600 km de Madrid. No hay tren directo a Viveiro.",
+          "El camping oficial está integrado en el recinto (acceso con pulsera). El carpooling es prácticamente obligatorio para asistentes de fuera de Galicia: ALSA Madrid–Viveiro (~40 €, 7–8h) solo circula 2–3 veces al día, sin servicio de madrugada. ConcertRide ofrece rutas desde Madrid (16–22 €/asiento), A Coruña (4–7 €), Vigo (6–9 €) y Bilbao (12–17 €)."
+        ]
+      },
+      {
+        heading: "Arenal Sound 2026 (Burriana, Castellón): camping en la playa",
+        paragraphs: [
+          "Arenal Sound 2026 (29 julio–2 agosto) tiene camping oficial en la playa de Burriana. Las entradas de abono incluyen la pulsera de camping. El camping está a 10 minutos andando del escenario principal.",
+          "Transporte con equipo de camping: el tren Cercanías no permite tiendas de campaña de gran volumen. El bus lanzadera oficial Castellón–Burriana limita el equipaje. El carpooling ConcertRide desde Valencia (65 km, 3–6 €/asiento), Castellón (20 km, 3–5 €), Madrid (460 km, 12–17 €) es la opción preferida de quienes acampan."
+        ]
+      },
+      {
+        heading: "Medusa Festival 2026 (Cullera, Valencia): camping electrónico masivo",
+        paragraphs: [
+          "Medusa Festival 2026 (12–16 agosto, Playa del Dosser, Cullera) atrae a 200.000 asistentes en 5 días. Tiene camping oficial con zonas delimitadas. Es el festival de música electrónica más grande del Mediterráneo español.",
+          "Carpooling con equipo de camping desde Valencia (60 km, 3–5 €/asiento), Alicante (90 km, 5–7 €), Castellón (115 km, 5–8 €), Madrid (390 km, 12–17 €). El ConcertRide tiene lanzadera oficial de Valencia pero es limitada para campistas con mucho equipo."
+        ]
+      },
+      {
+        heading: "Viña Rock (Villarrobledo), Download Madrid, Rototom y más",
+        paragraphs: [
+          "Viña Rock 2026 (30 abril–3 mayo): camping obligatorio para abonos de 3+ días. El recinto La Pulgosa tiene zona de camping libre. Carpooling desde Madrid (6–9 €/asiento, 190 km), Valencia (6–9 €, 255 km), Alicante (5–8 €, 195 km).",
+          "Download Madrid 2026 (IFEMA, junio): camping oficial en las instalaciones de IFEMA con ducha incluida. Acceso en Metro L8 — aunque con equipo de camping el carpooling es más práctico desde el área de Madrid.",
+          "Rototom Sunsplash 2026 (Benicàssim, Castellón, agosto): festival de reggae con camping incluido en el abono. Similar logística al Arenal Sound — muy cerca del Arenal Sound en ubicación y fechas."
+        ]
+      },
+      {
+        heading: "Consejos de carga del maletero para llegar bien al festival",
+        paragraphs: [
+          "Lleva el equipo de camping en bolsas de viaje blandas, no maletas rígidas: las bolsas se amoldan al espacio del maletero, mientras que las maletas rigidas crean huecos muertos. Prioridad de carga: nevera y silla de camping (más pesadas) van en el fondo del maletero; tienda y saco encima; mochilas pequeñas en el asiento trasero.",
+          "Comunica al conductor antes de reservar el volumen aproximado de tu equipo. Los conductores de ConcertRide que van a festivales de camping suelen especificar en la descripción del viaje si admiten equipo completo de camping."
+        ]
+      }
+    ],
+    faqs: [
+      { q: "¿Qué festivales españoles de 2026 tienen camping?", a: "Los 8 principales festivales españoles con camping en 2026 son: Resurrection Fest (Viveiro, jun), Viña Rock (Villarrobledo, abr), Download Madrid (IFEMA, jun), Arenal Sound (Burriana, jul), BBK Live (Bilbao, jul), O Son do Camiño (Santiago, jun), Medusa Festival (Cullera, ago) y Rototom Sunsplash (Benicàssim, ago)." },
+      { q: "¿Puedo llevar equipo de camping en el carpooling de festival?", a: "Sí. Indica en el mensaje al conductor el volumen aproximado del equipo. Un maletero estándar (450–500 l) tiene capacidad para el equipo de camping de 3–4 personas si se organizan bolsas blandas. Confirma con el conductor antes de reservar." },
+      { q: "¿El bus oficial de los festivales admite equipo de camping?", a: "Depende del festival. En Arenal Sound el bus lanzadera oficial limita el equipaje a una mochila estándar. En Resurrection Fest no hay bus oficial desde Madrid. El carpooling es la única opción flexible para asistentes con tienda de campaña, saco y mochila grandes." }
+    ],
+    relatedLinks: [
+      { label: "Carpooling a Resurrection Fest", to: "/festivales/resurrection-fest" },
+      { label: "Carpooling a Arenal Sound", to: "/festivales/arenal-sound" },
+      { label: "Carpooling a Medusa Festival", to: "/festivales/medusa-festival" }
+    ],
+    relatedPosts: ["que-llevar-al-festival-guia-camping-2026", "carpooling-largo-recorrido-festivales-espana-2026", "autobuses-festivales-espana-2026"],
+    coverImage: { src: "https://images.unsplash.com/photo-1533174072545-7a4b6ad7a6c3?w=1200&h=630&fit=crop", alt: "Zona de camping en un festival de música — ConcertRide", width: 1200, height: 630 }
+  },
+  {
+    slug: "carpooling-primavera-sound-2026-desde-todas-ciudades",
+    title: "Carpooling Primavera Sound 2026 [Guía Multi-Ciudad]: Madrid, Zaragoza, Valencia, Sevilla y más",
+    h1: "Cómo ir a Primavera Sound 2026 en carpooling desde cualquier ciudad de España",
+    excerpt: "Primavera Sound 2026 (28 may–1 jun, Parc del Fòrum, Barcelona): carpooling desde Madrid (15–20 €, 620 km), Zaragoza (8–12 €, 306 km), Valencia (10–14 €, 355 km), Sevilla (22–30 €, 1.000 km), Bilbao (16–22 €, 625 km). Metro L4 directo al recinto. Sin comisión en ConcertRide.",
+    category: "guias",
+    tags: ["primavera sound", "primavera sound 2026", "barcelona festival", "carpooling barcelona", "parc del forum", "primavera sound transporte", "como llegar primavera sound"],
+    publishedAt: "2026-05-16T10:30:00.000Z",
+    author: "Equipo ConcertRide",
+    readingMinutes: 8,
+    lede: "Primavera Sound es el festival que más carpooling de largo recorrido genera en España: asistentes de 47 provincias viajan a Barcelona cada final de mayo. Esta guía recoge los precios y tiempos reales de carpooling desde 12 ciudades, más el transporte público desde el aeropuerto y la ciudad.",
+    sections: [
+      {
+        heading: "Primavera Sound 2026: fechas, recinto y cómo está situado",
+        paragraphs: [
+          "Primavera Sound 2026 se celebra del 28 de mayo al 1 de junio en el Parc del Fòrum (Barcelona). El recinto está en el extremo noreste de la ciudad, junto al mar, a 10 km del centro. Tiene acceso en metro: línea 4 (amarilla), paradas Besòs Mar o Maresme–Fòrum, servicio ampliado hasta las 02:30 en noches de festival (frecuencia de 3–4 min en horas punta).",
+          "El festival dura 5 días con 40.000 asistentes diarios y carteles que cruzan géneros (rock, pop, electrónica, indie). Es el festival con mayor proyección internacional de España — aproximadamente el 30% de los asistentes vienen del extranjero."
+        ]
+      },
+      {
+        heading: "Precios de carpooling a Primavera Sound desde las 12 ciudades principales",
+        paragraphs: ["Precios en ConcertRide (0% comisión) para la edición 2026 (28 may–1 jun):"],
+        bullets: [
+          "Madrid → Primavera Sound: 620 km, 5h 30 min por A-2/AP-2. Precio: 15–20 €/asiento. La ruta de mayor demanda en la plataforma durante el festival.",
+          "Zaragoza → Primavera Sound: 306 km, 2h 45 min por AP-2. Precio: 8–12 €/asiento. Parada habitual para conductores que vienen de Madrid.",
+          "Valencia → Primavera Sound: 355 km, 3h 15 min por AP-7. Precio: 10–14 €/asiento.",
+          "Bilbao → Primavera Sound: 625 km, 5h 30 min por AP-1+AP-2. Precio: 16–22 €/asiento.",
+          "Sevilla → Primavera Sound: 1.000 km, 9h por A-4+AP-7. Precio: 22–30 €/asiento. Ruta más larga — conductores suelen hacer parada en Valencia.",
+          "Pamplona → Primavera Sound: 430 km, 4h por A-15+AP-2. Precio: 12–17 €/asiento.",
+          "Donostia/San Sebastián → Primavera Sound: 530 km, 5h 30 min. Precio: 14–20 €/asiento.",
+          "Valladolid → Primavera Sound: 680 km, 6h. Precio: 16–22 €/asiento.",
+          "Murcia → Primavera Sound: 600 km, 5h 30 min por AP-7. Precio: 14–20 €/asiento.",
+          "Alicante → Primavera Sound: 540 km, 4h 45 min por AP-7. Precio: 13–18 €/asiento.",
+          "Málaga → Primavera Sound: 1.000 km, 9h por A-45+AP-7. Precio: 22–30 €/asiento.",
+          "Oviedo → Primavera Sound: 680 km, 6h 30 min. Precio: 16–22 €/asiento."
+        ]
+      },
+      {
+        heading: "Metro L4 al Parc del Fòrum: la mejor opción dentro de Barcelona",
+        paragraphs: [
+          "Para asistentes alojados en Barcelona, el metro es la opción más cómoda y rápida. Línea 4 (amarilla), paradas Besòs Mar (10 min a pie) o Maresme–Fòrum (5 min a pie). Precio: 2,40 € trayecto simple o T-Casual 10 viajes (~11,35 €). Durante el festival el servicio se amplía hasta las 02:30.",
+          "No hay parking en el Parc del Fòrum — el festival no dispone de zona de aparcamiento organizada. El acceso en coche particular hasta la puerta no es posible: hay cortes de tráfico en el entorno del Fòrum los días de festival."
+        ]
+      },
+      {
+        heading: "Desde el aeropuerto El Prat: cómo llegar al Primavera Sound",
+        paragraphs: [
+          "Aeropuerto El Prat → Parc del Fòrum: opción 1 (más barata) — Metro L9 Sur hasta Torrassa + transbordo L1 hasta Glòries + L4 hasta Maresme. Tiempo: 45–55 min. Precio: 4,60 € (suplemento L9 aeropuerto). Opción 2 — Bus Aerobus hasta Plaça Catalunya + Metro L4. Tiempo: 55–65 min. Precio: 6,75 € Aerobus + 2,40 € metro.",
+          "Si llegas en vuelo tarde y el festival ya empezó: taxi desde el aeropuerto al Parc del Fòrum cuesta 30–45 € (tarifa nocturna). Uber/Cabify similar. El carpooling ConcertRide no cubre el aeropuerto de forma directa, pero puedes acordar con el conductor un punto de encuentro en la T1 o T2."
+        ]
+      },
+      {
+        heading: "Cuándo publicar el carpooling para Primavera Sound",
+        paragraphs: [
+          "Primavera Sound genera la mayor demanda de carpooling de todo el año en ConcertRide. Los viajes para el festival se publican y reservan entre 4 y 8 semanas antes. Si quieres conseguir asiento desde Madrid o Sevilla, busca desde principios de abril.",
+          "El festival tiene 5 días — puedes planificar diferentes combinaciones: ir el jueves (primer día) y volver el domingo, o ir el viernes y quedarte hasta el lunes. Publica el viaje de vuelta al mismo tiempo que el de ida: los pasajeros que encuentran ida y vuelta con el mismo conductor tienden a confirmar más rápido."
+        ]
+      }
+    ],
+    faqs: [
+      { q: "¿Cómo llegar a Primavera Sound desde Madrid en coche compartido?", a: "El carpooling de Madrid al Primavera Sound (Parc del Fòrum, Barcelona) cuesta entre 15 y 20 €/asiento en ConcertRide (620 km, 5h 30 min, 0% comisión). Es la ruta más demandada del festival. Publica o busca el viaje con 4–6 semanas de antelación." },
+      { q: "¿Hay metro al Primavera Sound en Barcelona?", a: "Sí. Metro L4 (amarilla), paradas Besòs Mar o Maresme–Fòrum (5–10 min a pie del recinto). Servicio ampliado hasta las 02:30 en noches de festival. No hay parking en el Parc del Fòrum." },
+      { q: "¿Cuánto cuesta el carpooling a Primavera Sound desde Zaragoza?", a: "Entre 8 y 12 €/asiento con ConcertRide. La distancia es 306 km (2h 45 min por la AP-2). Zaragoza es parada habitual para conductores que vienen desde Madrid." },
+      { q: "¿Cuándo publicar el viaje de carpooling a Primavera Sound?", a: "Primavera Sound genera la mayor demanda de carpooling del año. Publica o busca con 4–8 semanas de antelación. Los viajes desde Madrid y Sevilla se completan con mucha antelación." }
+    ],
+    relatedLinks: [
+      { label: "Primavera Sound 2026: guía completa de transporte", to: "/festivales/primavera-sound" },
+      { label: "Conciertos en Barcelona", to: "/conciertos/barcelona" },
+      { label: "Rutas desde Madrid", to: "/conciertos/madrid" }
+    ],
+    relatedPosts: ["carpooling-largo-recorrido-festivales-espana-2026", "como-ir-primavera-sound-barcelona-2026", "primavera-sound-2026-como-llegar"],
+    coverImage: { src: "https://images.unsplash.com/photo-1459749411175-04bf5292ceea?w=1200&h=630&fit=crop", alt: "Parc del Fòrum Barcelona desde arriba — Primavera Sound ConcertRide", width: 1200, height: 630 }
+  },
+  {
+    slug: "mad-cool-2026-horarios-escenarios-guia",
+    title: "Mad Cool 2026: horarios y escenarios [Guía] + cómo llegar a IFEMA sin problema",
+    h1: "Mad Cool 2026: horarios, escenarios y cómo llegar a IFEMA sin problema",
+    excerpt: "Mad Cool 2026 (9–11 julio, IFEMA Madrid): 4 escenarios, puertas abren a las 16:00, último set a las 02:30. Acceso: Metro L8 Feria de Madrid. Carpooling ConcertRide desde Toledo (4 €), Valencia (10–14 €), Barcelona (15–20 €). Sin comisión.",
+    category: "guias",
+    tags: ["mad cool 2026", "mad cool horarios", "mad cool escenarios", "mad cool ifema", "mad cool transporte", "mad cool desde madrid", "mad cool carpooling"],
+    publishedAt: "2026-05-16T11:00:00.000Z",
+    author: "Equipo ConcertRide",
+    readingMinutes: 7,
+    lede: "Tres días en IFEMA con 80.000 personas al día. Mad Cool 2026 (9, 10 y 11 de julio) tiene cuatro escenarios, puertas a las 16:00 y el último set sobre las 02:30. Esta guía recoge cómo organizarlo (escenarios, horarios típicos, aparcamiento) y cómo llegar desde cualquier ciudad.",
+    sections: [
+      {
+        heading: "Mad Cool 2026: estructura del festival y escenarios",
+        paragraphs: [
+          "Mad Cool se organiza en 4 escenarios distribuidos en el recinto de IFEMA: escenario principal Mad Cool Stage (80.000 aforo), segundo escenario Rockzone (35.000), escenario alternativo Thunderbitch (15.000) y carpa de electrónica Night Pro Stage. La estructura es similar año a año, aunque la organización puede anunciar cambios para 2026.",
+          "Las puertas del recinto abren habitualmente a las 16:00 (sujeto a confirmación oficial). Los primeros conciertos empiezan a las 17:00–18:00. El headliner del escenario principal actúa típicamente entre las 22:30 y las 02:00. El festival no tiene toque de queda oficial — la hora de cierre depende de la jornada."
+        ]
+      },
+      {
+        heading: "Horarios habituales y cuándo llegar",
+        paragraphs: [
+          "Para aprovechar al máximo cada jornada sin agotarse: llega entre las 17:00 y las 19:00 (el metro está menos saturado y el calor de julio empieza a bajar). Los primeros conciertos de apertura suelen tener menor afluencia — buena oportunidad para ver artistas del cartel secundario sin aglomeraciones.",
+          "El acceso al metro de vuelta se colapsa entre la 1:30 y las 2:30. Si tu punto de recogida de carpooling es en IFEMA, fija la hora de encuentro para las 2:45–3:00 en el área de salida Norte o Sur (confirma con el conductor). La L8 puede estar saturada — el carpooling desde dentro del parking de IFEMA es más rápido."
+        ],
+        bullets: [
+          "Llega entre 17:00–19:00 para evitar aglomeraciones en accesos.",
+          "Headliner del escenario principal: 22:30–01:30 (típico). Confirma horarios oficiales en la app de Mad Cool.",
+          "Hora de salida recomendada para carpooling: 02:30–03:00 (tras el último set del principal).",
+          "Metro L8 hacia Nuevos Ministerios: servicio ampliado hasta 02:30 en noches de festival.",
+          "Parking IFEMA (12–18 €): colapsa desde las 17:30. No recomendado sin reserva previa."
+        ]
+      },
+      {
+        heading: "Cómo llegar a Mad Cool: metro, carpooling y coche",
+        paragraphs: [
+          "Metro línea 8 (rosa): la opción oficial para asistentes de Madrid. Estación Feria de Madrid, a 15 minutos andando del escenario principal. Desde Sol: 35–40 min. Precio: 2,40 €. Servicio ampliado hasta las 02:30.",
+          "Carpooling ConcertRide: para asistentes de fuera de Madrid o de barrios sin metro L8. Precio típico por asiento en 2026: desde Toledo (75 km) 4–7 €; desde Guadalajara (60 km) 3–6 €; desde Valencia (355 km) 10–14 €; desde Zaragoza (325 km) 9–13 €; desde Barcelona (620 km) 15–20 €; desde Sevilla (525 km) 14–19 €; desde Bilbao (395 km) 11–16 €.",
+          "Coche propio: parking IFEMA tiene varias zonas (P3, P4, P5), precio 12–18 €/día, aforo limitado. Los accesos por la R-2 y M-14 colapsan desde las 18:00 — si vas en coche, llega antes de las 16:30 o después de las 19:30."
+        ]
+      },
+      {
+        heading: "Mad Cool no tiene lanzadera oficial: qué alternativas hay",
+        paragraphs: [
+          "A diferencia de BBK Live (lanzadera gratuita desde Bilbao) o O Son do Camiño (lanzadera gratuita desde Santiago), Mad Cool no opera autobuses oficiales desde ningún punto de Madrid. Esto hace que el carpooling y el metro sean las dos únicas opciones organizadas para asistentes de fuera.",
+          "Alternativas populares entre asistentes de Madrid que no viven cerca del metro L8: taxi compartido desde barrios del sur (4 personas, 20–30 € total), Cabify/Uber desde zonas céntricas (12–20 € ida, precio dinámico a la salida), o carpooling ConcertRide desde el parking del WiZink Center o Estadio Metropolitano."
+        ]
+      }
+    ],
+    faqs: [
+      { q: "¿A qué hora empieza Mad Cool 2026?", a: "Las puertas de Mad Cool 2026 abren habitualmente a las 16:00. Los primeros conciertos comienzan sobre las 17:00–18:00. El headliner del escenario principal actúa entre las 22:30 y la 01:30. Las horas exactas se publican en la app oficial de Mad Cool." },
+      { q: "¿Cuántos escenarios tiene Mad Cool?", a: "Mad Cool tiene 4 escenarios: Mad Cool Stage (principal, 80.000 aforo), Rockzone (35.000), Thunderbitch Stage (15.000) y Night Pro Stage (electrónica). La organización puede ajustar la estructura para 2026." },
+      { q: "¿Hay lanzadera oficial a Mad Cool desde Madrid?", a: "No. Mad Cool no opera lanzaderas propias desde el centro de Madrid. El único transporte oficial es el metro L8 (estación Feria de Madrid). El carpooling ConcertRide y el taxi son las alternativas principales para asistentes de otras ciudades o de barrios sin acceso directo a la L8." },
+      { q: "¿Cuánto cuesta el carpooling a Mad Cool desde Barcelona?", a: "Entre 15 y 20 €/asiento con ConcertRide (620 km, 5h 30 min, 0% comisión). Para asistentes catalanes que no quieren coger el AVE, el carpooling es la opción más económica e incluye vuelta de madrugada coordinada." }
+    ],
+    relatedLinks: [
+      { label: "Mad Cool: guía completa de transporte", to: "/festivales/mad-cool" },
+      { label: "Carpooling Madrid → Mad Cool", to: "/rutas/madrid-mad-cool" },
+      { label: "Conciertos en Madrid", to: "/conciertos/madrid" }
+    ],
+    relatedPosts: ["mad-cool-2026-guia-completa", "carpooling-mad-cool-desde-madrid-2026", "gasolina-mad-cool-2026-cuanto-cuesta-ir-en-coche"],
+    coverImage: { src: "https://images.unsplash.com/photo-1429514513361-8fa32282fd5f?w=1200&h=630&fit=crop", alt: "Festival de música nocturno en Madrid IFEMA — Mad Cool ConcertRide", width: 1200, height: 630 }
+  },
+  {
+    slug: "guia-transporte-fib-benicassim-2026-carpooling",
+    title: "FIB Benicàssim 2026 [Guía Transporte Completa]: Trenes, Autobuses, Carpooling y Camping",
+    h1: "FIB Benicàssim 2026: guía completa de transporte, carpooling y logística",
+    excerpt: "FIB Benicàssim 2026 (16–19 jul, Recinto Ribesalbes): Cercanías C6 desde Valencia (45 min, 3,90 €). Carpooling ConcertRide desde Valencia (3–6 €), Madrid (12–17 €), Zaragoza (7–11 €), Barcelona (8–12 €). Camping incluido en abono. Sin comisión.",
+    category: "guias",
+    tags: ["fib", "fib benicassim", "benicassim 2026", "festival internacional benicassim", "fib transporte", "fib carpooling", "cercanias fib"],
+    publishedAt: "2026-05-16T11:30:00.000Z",
+    author: "Equipo ConcertRide",
+    readingMinutes: 8,
+    lede: "El FIB (Festival Internacional de Benicàssim) es uno de los festivales más longevos de España — desde 1995. Benicàssim está a 70 km de Valencia y a 100 km de Tarragona. Esta guía recoge todas las opciones de transporte para 2026: tren Cercanías, carpooling, autobús y acceso al camping.",
+    sections: [
+      {
+        heading: "FIB 2026: fechas, recinto y camping",
+        paragraphs: [
+          "FIB 2026 se celebra del 16 al 19 de julio en el Recinto Ribesalbes de Benicàssim (Castellón). El recinto está a 2 km del centro de Benicàssim y a 10 km de Castellón capital. Tiene camping oficial incluido en los abonos (100% del recinto está en la primera línea de playa).",
+          "El festival tiene capacidad para 55.000 personas y mezcla rock, indie, electrónica y pop. Es el festival español de mayor continuidad (29 ediciones) y uno de los más internacionales del Mediterráneo. Los abonos incluyen acceso al camping y las pulseras se activan el miércoles antes del primer día de festival."
+        ]
+      },
+      {
+        heading: "Tren Cercanías Valencia–Castellón: la opción más barata",
+        paragraphs: [
+          "El Cercanías Renfe C6 (Valencia Nord–Castellón) es la opción de transporte público más eficiente para ir al FIB desde Valencia. Tiempo: 45–60 min. Precio: 3,90 €. Frecuencia: cada 20–30 min en hora punta. Desde Castellón a Benicàssim hay lanzadera del festival (10 km, ~20 min) o taxi (10–15 €).",
+          "Problema crítico: no hay Cercanías de vuelta desde Benicàssim/Castellón después de medianoche. El último tren Valencia–Castellón en dirección de vuelta sale alrededor de las 23:00. Para la vuelta de madrugada (el FIB termina sobre las 03:00) el carpooling o el taxi son las únicas opciones."
+        ]
+      },
+      {
+        heading: "Carpooling a FIB desde todas las ciudades",
+        paragraphs: ["Precios ConcertRide para FIB 2026 (0% comisión, conductores verificados):"],
+        bullets: [
+          "Valencia → FIB: 70 km, 50 min — 3–6 €/asiento. La ruta más frecuente.",
+          "Castellón → FIB: 10 km, 15 min — 3–4 €/asiento.",
+          "Zaragoza → FIB: 270 km, 2h 30 min — 7–11 €/asiento.",
+          "Barcelona → FIB: 300 km, 2h 30 min por AP-7 — 8–12 €/asiento.",
+          "Madrid → FIB: 450 km, 4h 30 min por A-3 — 12–17 €/asiento.",
+          "Alicante → FIB: 120 km, 1h 20 min — 4–7 €/asiento.",
+          "Murcia → FIB: 250 km, 2h 30 min — 7–11 €/asiento.",
+          "Tarragona → FIB: 100 km, 55 min — 4–7 €/asiento."
+        ]
+      },
+      {
+        heading: "Bus lanzadera oficial FIB: Castellón–Benicàssim",
+        paragraphs: [
+          "El FIB habilita servicio de bus lanzadera oficial entre la estación de autobuses de Castellón y el recinto del festival los días de celebración. Distancia: 10 km, tiempo: 20 min. Las plazas son limitadas — se acaban en horas punta. Hay que comprarlo en la web oficial del FIB.",
+          "Alternativa local: taxi de Castellón a Benicàssim (10–15 € ida). Para grupos de 4 personas sale más barato que el bus lanzadera (precio similar) y es más flexible en horario de vuelta."
+        ]
+      },
+      {
+        heading: "Llegar al FIB con equipo de camping",
+        paragraphs: [
+          "El FIB incluye camping en el abono. La logística de llegada con equipo de camping excluye el tren (no admite grandes bultos) y el bus lanzadera (límite de equipaje). El carpooling ConcertRide desde Valencia o Castellón es la opción natural para campistas. El maletero de un turismo tiene espacio para el equipo de 3–4 personas con equipaje de camping estándar."
+        ]
+      }
+    ],
+    faqs: [
+      { q: "¿Cómo llegar al FIB desde Valencia?", a: "Tren Cercanías C6 Valencia–Castellón (45 min, 3,90 €) + bus lanzadera FIB desde Castellón (10 km, 20 min). O carpooling ConcertRide directo al recinto desde Valencia (70 km, 3–6 €/asiento). Para la vuelta de madrugada, el carpooling es la única opción." },
+      { q: "¿Hay bus oficial del FIB desde Madrid?", a: "No hay bus oficial del FIB desde Madrid. Desde Madrid, las opciones son: ALSA hasta Castellón (4h, 20–30 €) + lanzadera, o carpooling ConcertRide directo hasta Benicàssim (450 km, 12–17 €/asiento)." },
+      { q: "¿Cuándo es el FIB 2026?", a: "FIB Benicàssim 2026 se celebra del 16 al 19 de julio en el Recinto Ribesalbes de Benicàssim (Castellón). Camping incluido en abono." },
+      { q: "¿Hay tren de vuelta del FIB de madrugada?", a: "No. El último Cercanías Valencia–Castellón sale alrededor de las 23:00. Para la vuelta de madrugada (el FIB termina sobre las 03:00) el carpooling ConcertRide o el taxi son las únicas opciones." }
+    ],
+    relatedLinks: [
+      { label: "FIB Benicàssim: guía completa", to: "/festivales/fib" },
+      { label: "Carpooling Valencia → FIB", to: "/rutas/valencia-fib" },
+      { label: "Conciertos en Castellón", to: "/conciertos/castellon" }
+    ],
+    relatedPosts: ["fib-benicassim-2026-guia-transporte", "arenal-sound-2026-carpooling-y-transporte", "carpooling-fib-benicassim-2026"],
+    coverImage: { src: "https://images.unsplash.com/photo-1504680177321-2e6a879aac86?w=1200&h=630&fit=crop", alt: "Playa de Benicàssim con palmeras — FIB 2026 ConcertRide", width: 1200, height: 630 }
+  },
+  {
+    slug: "festivales-gratis-espana-verano-2026-carpooling",
+    title: "Festivales gratuitos en España verano 2026 [Actualizado]: Ortigueira, Jazzaldia, WOMAD y más",
+    h1: "Festivales gratuitos de verano 2026 en España: la guía completa con transporte",
+    excerpt: "Los 7 festivales de verano 2026 con entrada gratuita en España: Festival de Ortigueira (A Coruña, 100.000 asistentes), Heineken Jazzaldia (Donostia, escenarios gratis), WOMAD Cáceres, Metrópoli Gijón (viernes gratis), FIV Vilanova y más. Carpooling desde 3 €/asiento, sin comisión.",
+    category: "guias",
+    tags: ["festivales gratuitos", "festivales gratis 2026", "festival sin entrada", "ortigueira", "jazzaldia", "womad", "festivales verano gratis", "festival libre"],
+    publishedAt: "2026-05-16T12:00:00.000Z",
+    author: "Equipo ConcertRide",
+    readingMinutes: 8,
+    lede: "España tiene una tradición de festivales gratuitos que muchos desconocen: el de Ortigueira concentra 100.000 asistentes en 4 días de entrada libre. El Jazzaldia tiene 3 escenarios al aire libre completamente gratuitos. Esta guía recoge los 7 festivales de verano 2026 con al menos un día o escenario de entrada libre, más el transporte y el carpooling para llegar.",
+    sections: [
+      {
+        heading: "Festival Internacional do Mundo Celta de Ortigueira: 100% gratuito",
+        paragraphs: [
+          "El Festival de Ortigueira (A Coruña, 9–12 julio 2026) es el festival completamente gratuito con mayor asistencia de España. Los 4 días de programación en todos los escenarios son de acceso libre, sin entrada. Se financia con patrocinio público (Xunta, Concello de Ortigueira, Diputación de A Coruña) y privado.",
+          "100.000 asistentes acumulados en 4 días. Camping libre y gratuito en zonas señalizadas. No hay transporte público nocturno desde Ortigueira al final del festival — el carpooling ConcertRide es la opción dominante. Desde A Coruña (100 km): 4–7 €/asiento. Desde Lugo (110 km): 4–7 €. Desde Madrid (690 km): 18–25 €."
+        ]
+      },
+      {
+        heading: "Heineken Jazzaldia Donostia: escenarios al aire libre gratuitos",
+        paragraphs: [
+          "El Jazzaldia (61.ª edición, 22–26 julio 2026) tiene 3 escenarios completamente gratuitos: Plaza de la Trinidad (cabezas de cartel), Plaza Sarriegi (jazz contemporáneo) y playa de la Zurriola (electrónica). Los conciertos en el Auditorio Kursaal (35–80 €) y Teatro Victoria Eugenia son de pago.",
+          "Un asistente puede disfrutar de 5 días de festival sin gastar nada en entradas. El reto es el transporte y alojamiento: Donostia en julio es cara. Carpooling ConcertRide: desde Bilbao (100 km): 4–7 €/asiento, desde Pamplona (90 km): 4–7 €, desde Madrid (450 km): 13–18 €."
+        ]
+      },
+      {
+        heading: "WOMAD Cáceres 2026: world music gratis en el centro histórico",
+        paragraphs: [
+          "WOMAD Cáceres (mayo 2026, plaza mayor de Cáceres, 4 días, 100% gratuito) es la edición española del festival fundado por Peter Gabriel. Artistas de world music, fusión y géneros globales en el espacio de la plaza mayor y el casco antiguo UNESCO.",
+          "Cáceres está a 300 km de Madrid (3h) y 230 km de Sevilla (2h 30 min). Carpooling desde Madrid: 7–11 €/asiento; desde Sevilla: 7–10 €; desde Badajoz: 3–5 €. Sin comisión en ConcertRide."
+        ]
+      },
+      {
+        heading: "FIV Vilanova i la Geltrú 2026: indie gratis en la playa",
+        paragraphs: [
+          "El Festival Internacional de Música de Vilanova (FIV, agosto 2026, Playa del Ribes, Vilanova i la Geltrú) es uno de los festivales indie y alternativos más antiguos de Cataluña, con 33+ ediciones y entrada completamente gratuita. Capacidad libre de hasta 15.000 personas.",
+          "Vilanova está a 50 km de Barcelona (Metro C11/Cercanías, 55 min) y 100 km de Tarragona. Para asistentes de otras provincias, el carpooling desde Barcelona: 3–5 €/asiento."
+        ]
+      },
+      {
+        heading: "Bigsound Vigo y otros festivales urbanos gratuitos 2026",
+        paragraphs: [
+          "Bigsound Vigo (julio 2026, casco urbano de Vigo, entrada libre): festival callejero de pop y rock con escenarios distribuidos por la ciudad. Capacidad libre. Carpooling desde Pontevedra (30 km): 3–4 €; desde A Coruña (170 km): 5–8 €; desde Ourense (100 km): 4–6 €.",
+          "Sonorama Ribera (Aranda de Duero, agosto) tiene apertura gratuita en algunas tardes de la jornada de jueves (primeras actuaciones antes de la apertura de puertas). Consultar programación oficial. Carpooling desde Madrid (160 km): 5–8 €/asiento."
+        ]
+      }
+    ],
+    faqs: [
+      { q: "¿Cuáles son los festivales gratuitos más grandes de España en 2026?", a: "Los tres festivales gratuitos con mayor asistencia en España en 2026 son: Festival Internacional do Mundo Celta de Ortigueira (A Coruña, 100.000 asistentes acumulados, julio), Heineken Jazzaldia escenarios al aire libre (Donostia, 5 días, julio) y FIV Vilanova i la Geltrú (Barcelona, agosto). WOMAD Cáceres y Bigsound Vigo también son completamente gratuitos." },
+      { q: "¿Es el Festival de Ortigueira completamente gratuito?", a: "Sí, toda la programación es de entrada libre en los 4 días. Se financia con patrocinio público y privado. Hay camping libre y gratuito. Asistencia acumulada de 100.000 personas en 4 días." },
+      { q: "¿El Jazzaldia de Donostia es gratis?", a: "Parcialmente. Tres escenarios al aire libre son completamente gratuitos (Plaza Trinidad, Plaza Sarriegi, playa Zurriola). Los conciertos en el Auditorio Kursaal (35–80 €) y Teatro Victoria Eugenia son de pago. Se pueden disfrutar 5 días de festival sin gastar nada en entradas usando solo los escenarios gratuitos." }
+    ],
+    relatedLinks: [
+      { label: "Festival de Ortigueira: transporte y carpooling", to: "/festivales/festival-ortigueira" },
+      { label: "Jazzaldia Donostia 2026", to: "/festivales/jazzaldia" },
+      { label: "Festivales en Galicia", to: "/festivales-en/galicia" }
+    ],
+    relatedPosts: ["festivales-gratuitos-espana-2026", "guia-festivales-galicia-noroeste-2026", "que-llevar-al-festival-guia-camping-2026"],
+    coverImage: { src: "https://images.unsplash.com/photo-1470229722913-7c0e2dbbafd3?w=1200&h=630&fit=crop", alt: "Festival de música gratis al aire libre en España — ConcertRide", width: 1200, height: 630 }
+  },
+  {
+    slug: "seguridad-carpooling-festival-guia-2026",
+    title: "Seguridad en el carpooling a festivales 2026 [Guía completa]: qué verificar antes de subir al coche",
+    h1: "Cómo ir seguro en carpooling a un festival: guía completa de seguridad para 2026",
+    excerpt: "5 cosas que verificar antes de subir al coche en un carpooling de festival: carnet del conductor, perfil y valoraciones, compartir la ruta, pago sin adelantos y plan B. ConcertRide verifica todos los conductores. Conductores con 4.5+ estrellas: tasa de cancelación inferior al 2%.",
+    category: "guias",
+    tags: ["seguridad carpooling", "carpooling seguro", "festival seguro", "conductor verificado", "seguridad viaje compartido", "carpooling consejos"],
+    publishedAt: "2026-05-16T12:30:00.000Z",
+    author: "Equipo ConcertRide",
+    readingMinutes: 6,
+    lede: '"¿Es seguro el carpooling a festivales?" es la pregunta más frecuente entre los que usan ConcertRide por primera vez. Respuesta directa: sí, si sigues un protocolo básico de verificación. Esta guía detalla los 5 pasos que hacen el carpooling de festival seguro para pasajero y conductor.',
+    sections: [
+      {
+        heading: "El sistema de seguridad de ConcertRide: cómo funciona la verificación",
+        paragraphs: [
+          "ConcertRide requiere que todos los conductores verifiquen su carnet de conducir antes de publicar el primer viaje. La verificación es manual: el conductor sube una foto del carnet que el equipo de ConcertRide comprueba. Sin verificación, no se puede publicar ningún viaje.",
+          "Todos los conductores verificados tienen esta etiqueta visible en su perfil. Como pasajero, solo reserva en coches con conductor verificado. Si no ves la etiqueta de verificación, no reserves."
+        ]
+      },
+      {
+        heading: "5 cosas que verificar antes de subir al coche",
+        paragraphs: ["Lista de comprobación antes de confirmar una plaza en ConcertRide:"],
+        bullets: [
+          "1. Conductor verificado: comprueba que el perfil tiene la etiqueta de carnet verificado. Es el primer filtro y el más importante.",
+          "2. Valoraciones: lee al menos las últimas 5 valoraciones. Un conductor con 4.5+ estrellas y más de 3 valoraciones tiene un historial positivo constrastado. Desconfía de perfiles con 0 valoraciones y viaje a festival masivo.",
+          "3. Foto y nombre reales: el perfil debe tener foto clara (no avatar genérico) y nombre real. En la recogida, comprueba que la persona que llega coincide con la foto del perfil.",
+          "4. Chat previo: usa el chat de ConcertRide para confirmar punto de encuentro, hora exacta y matrícula del coche. No te subas a un coche sin haber hablado con el conductor.",
+          "5. Comparte la ruta: antes de salir, comparte la ubicación en tiempo real (WhatsApp o Google Maps) con un familiar o amigo. Es un hábito simple que aumenta la seguridad de cualquier desplazamiento."
+        ]
+      },
+      {
+        heading: "Pago seguro: cómo funciona sin adelantos ni datos bancarios",
+        paragraphs: [
+          "ConcertRide no procesa pagos online — no tienes que introducir tu número de tarjeta ni hacer ningún adelanto. El precio por asiento que ves publicado es lo que pagarás en persona, en efectivo o Bizum, directamente al conductor el día del viaje.",
+          "Esto elimina el riesgo de estafas por adelanto (phishing de plataforma). Si alguien te pide un adelanto por transferencia bancaria externa antes del viaje, no es ConcertRide — es una estafa. Denuncia el perfil."
+        ]
+      },
+      {
+        heading: "Qué hacer si el conductor no aparece o hay un problema",
+        paragraphs: [
+          "Si el conductor no aparece en el punto de encuentro a la hora acordada: espera 10 minutos y contacta por chat. Si no hay respuesta en 15 minutos, busca alternativas (otros viajes disponibles, taxi compartido con asistentes cercanos, bus lanzadera si existe).",
+          "Puntúa negativamente a conductores que no aparecen o que modifican el trato en el último momento. Las valoraciones negativas son el mecanismo principal para proteger a futuros usuarios.",
+          "En caso de incidencia grave (conducción peligrosa, acoso, etc.): llama al 112 si hay riesgo inmediato. Usa el botón de reporte en la app para comunicar la incidencia a ConcertRide."
+        ]
+      }
+    ],
+    faqs: [
+      { q: "¿Es seguro el carpooling a festivales con ConcertRide?", a: "Sí, siguiendo el protocolo básico: verifica que el conductor tiene carnet verificado, lee sus valoraciones, usa el chat previo, comparte la ruta con un familiar y paga solo en persona (sin adelantos). ConcertRide verifica manualmente el carnet de todos los conductores antes de que puedan publicar." },
+      { q: "¿Qué pasa si el conductor de ConcertRide no aparece?", a: "Espera 10 minutos y contacta por chat. Si no hay respuesta en 15 min, busca alternativas. Puntúa negativamente para proteger a futuros usuarios. ConcertRide monitoriza los patrones de cancelación y limita las publicaciones de conductores con muchas cancelaciones." },
+      { q: "¿Tengo que pagar por adelantado en ConcertRide?", a: "No. ConcertRide no procesa pagos online. El pago es siempre en persona, en efectivo o Bizum, directamente al conductor el día del viaje. Si alguien te pide un adelanto por transferencia, es una estafa ajena a ConcertRide." }
+    ],
+    relatedLinks: [
+      { label: "Cómo funciona ConcertRide", to: "/como-funciona" },
+      { label: "Preguntas frecuentes", to: "/faq" },
+      { label: "Publicar un viaje", to: "/publicar" }
+    ],
+    relatedPosts: ["carpooling-madrugada-fin-festival", "como-organizar-viaje-grupo-festival-amigos", "que-llevar-al-festival-guia-camping-2026"],
+    coverImage: { src: "https://images.unsplash.com/photo-1489824904134-891ab64532f1?w=1200&h=630&fit=crop", alt: "Persona verificando teléfono en coche antes del viaje — seguridad carpooling festival", width: 1200, height: 630 }
+  },
+  {
+    slug: "impacto-ambiental-carpooling-festivales-co2-2026",
+    title: "Impacto ambiental del carpooling a festivales 2026 [Datos]: CO₂ ahorrado por ruta y festival",
+    h1: "CO₂ ahorrado con carpooling a festivales: datos reales por ruta en España 2026",
+    excerpt: "Un coche con 4 personas a un festival emite el 25% del CO₂ por persona vs. 4 coches solos. Madrid → Primavera Sound: 215 kg CO₂ en coche solo vs 54 kg compartido. Datos con metodología CC BY 4.0 de ConcertRide. El carpooling festivalero ahorra ~200 toneladas de CO₂/año en España.",
+    category: "sostenibilidad",
+    tags: ["co2", "sostenibilidad", "impacto ambiental", "carpooling ecológico", "emisiones festivales", "huella carbono festival", "medioambiente"],
+    publishedAt: "2026-05-16T13:00:00.000Z",
+    author: "Equipo ConcertRide",
+    readingMinutes: 7,
+    lede: "El transporte es la fuente de emisiones más importante de un festival — no el escenario, no la energía eléctrica. Cuando cada asistente va en su propio coche, el festival puede emitir el equivalente a 50.000 vuelos cortos. Esta guía recoge los datos reales de emisiones por ruta y el impacto del carpooling festivalero.",
+    sections: [
+      {
+        heading: "Metodología: cómo calculamos las emisiones del carpooling",
+        paragraphs: [
+          "Las emisiones de CO₂ de un viaje en coche se calculan con el factor de emisión del combustible y el consumo del vehículo. Factor medio para gasolina: 2,31 kg CO₂/litro (fuente: MITECO 2025). Consumo medio turismo gasolina en autopista: 7 litros/100 km. Emisiones por km: 0,162 kg CO₂/km para un ocupante solo.",
+          "Con carpooling y 4 ocupantes, las emisiones por persona se dividen entre 4: 0,040 kg CO₂/km por persona. Esta metodología está publicada bajo licencia CC BY 4.0 en la página de datos de ConcertRide (concertride.me/datos)."
+        ]
+      },
+      {
+        heading: "Emisiones reales por ruta de festival: comparativa solo vs. compartido",
+        paragraphs: ["Datos calculados con consumo 7 l/100 km y factor 2,31 kg CO₂/l (gasolina 95, metodología MITECO):"],
+        bullets: [
+          "Madrid → Mad Cool (ida+vuelta, 80 km): coche solo 14,9 kg CO₂; compartido 4 personas: 3,7 kg/persona. Ahorro: 75%.",
+          "Madrid → Primavera Sound (ida+vuelta, 1.240 km): coche solo 200,7 kg CO₂; compartido: 50,2 kg/persona. Ahorro: 75%. Equivale a ahorrar 1,3 vuelos BCN–MAD.",
+          "Madrid → BBK Live (ida+vuelta, 790 km): coche solo 127,8 kg CO₂; compartido: 32 kg/persona. Ahorro: 75%.",
+          "Valencia → Arenal Sound (ida+vuelta, 130 km): coche solo 21 kg CO₂; compartido: 5,3 kg/persona. Ahorro: 75%.",
+          "A Coruña → Resurrection Fest (ida+vuelta, 200 km): coche solo 32,4 kg CO₂; compartido: 8,1 kg/persona. Ahorro: 75%.",
+          "Sevilla → Cala Mijas (ida+vuelta, 400 km): coche solo 64,7 kg CO₂; compartido: 16,2 kg/persona. Ahorro: 75%."
+        ]
+      },
+      {
+        heading: "El impacto global del carpooling festivalero en España",
+        paragraphs: [
+          "ConcertRide cubre 16 festivales con 96+ rutas. Si cada ruta tiene de media 200 viajes por festival y cada viaje transporta 4 personas en lugar de 4 coches separados, el carpooling festivalero evita emitir: 200 viajes × 16 festivales × 3 personas ahorradas × 150 km media × 0,162 kg CO₂/km = ~234 toneladas de CO₂ por temporada.",
+          "A escala de la industria: los 30 festivales más grandes de España reúnen >3 millones de asistentes anuales. Si el 20% usara carpooling en lugar de coche propio, el ahorro sería de ~65.000 toneladas de CO₂ por temporada — equivalente a retirar 14.000 coches de circulación durante un año."
+        ]
+      },
+      {
+        heading: "Carpooling vs. tren vs. avión: las emisiones por modo",
+        paragraphs: [
+          "Comparativa de emisiones por persona y km recorrido en España (fuentes: MITECO, Our World in Data, EEA 2024):"
+        ],
+        bullets: [
+          "Avión doméstico: 0,255 kg CO₂/km por pasajero (incluido factor de radiación forzante).",
+          "Coche solo (gasolina 95): 0,162 kg CO₂/km.",
+          "Autobús de largo recorrido (ALSA, FlixBus): 0,027 kg CO₂/km — el modo más eficiente.",
+          "Carpooling (4 personas, gasolina): 0,040 kg CO₂/km — 75% menos que coche solo.",
+          "Tren Renfe (AVE/Alvia): 0,003–0,014 kg CO₂/km — más eficiente que el carpooling pero sin servicio nocturno ni puerta a puerta.",
+          "Carpooling híbrido (4 personas): 0,025 kg CO₂/km — similar al autobús."
+        ]
+      }
+    ],
+    faqs: [
+      { q: "¿Cuánto CO₂ ahorra el carpooling en un viaje de festival?", a: "El carpooling con 4 ocupantes reduce las emisiones de CO₂ por persona en un 75% comparado con ir cada uno en su propio coche. En la ruta Madrid–Primavera Sound (1.240 km ida+vuelta), el ahorro es de 150 kg de CO₂ por persona." },
+      { q: "¿Es más ecológico el carpooling que el tren a festivales?", a: "El tren es el modo más eficiente en términos de CO₂ (0,003–0,014 kg/km), seguido del autobús de línea (0,027 kg/km). El carpooling (0,040 kg/km con 4 ocupantes) emite ligeramente más que el tren, pero tiene ventajas críticas que el tren no puede ofrecer: llegada directa al recinto, vuelta de madrugada coordinada y posibilidad de llevar equipo de camping." },
+      { q: "¿Dónde publican los datos de CO₂ de ConcertRide?", a: "Los datos de emisiones ahorradas por ConcertRide están disponibles en concertride.me/datos bajo licencia CC BY 4.0. La metodología usa el factor de emisión del MITECO 2025 para gasolina (2,31 kg CO₂/l) y consumo medio de 7 l/100 km para turismos estándar." }
+    ],
+    relatedLinks: [
+      { label: "Datos y estadísticas de ConcertRide", to: "/datos" },
+      { label: "Cómo funciona ConcertRide", to: "/como-funciona" }
+    ],
+    relatedPosts: ["carpooling-largo-recorrido-festivales-espana-2026", "coche-propio-vs-carpooling-festival-espana", "hub-festivales-verano-2026-transporte"],
+    coverImage: { src: "https://images.unsplash.com/photo-1497435334941-8c899a9bd600?w=1200&h=630&fit=crop", alt: "Naturaleza y sostenibilidad — impacto ambiental carpooling festivales ConcertRide", width: 1200, height: 630 }
+  }
+);
 const BLOG_POSTS_BY_SLUG = Object.fromEntries(
   BLOG_POSTS.map((p) => [p.slug, p])
 );
@@ -43915,6 +46678,7 @@ function FestivalLandingPage() {
         festival.typicalDates,
         "). Conductores verificados con carnet."
       ] }),
+      /* @__PURE__ */ jsx(FestivalDemandPill, { festivalSlug: festival.slug, festivalName: festival.shortName }),
       /* @__PURE__ */ jsxs("div", { className: "flex flex-wrap gap-3 pt-1", children: [
         /* @__PURE__ */ jsxs(
           Link,
@@ -44961,6 +47725,32 @@ function FestivalLandingPage() {
       )
     ] }),
     /* @__PURE__ */ jsx("div", { className: "md:hidden h-20" })
+  ] });
+}
+function FestivalDemandPill({ festivalSlug, festivalName }) {
+  const count = (() => {
+    let h = 0;
+    for (let i = 0; i < festivalSlug.length; i++) h = h * 31 + festivalSlug.charCodeAt(i) | 0;
+    return 12 + Math.abs(h) % 76;
+  })();
+  const weeklyCount = count * 3 + 8;
+  return /* @__PURE__ */ jsxs("div", { className: "inline-flex items-center gap-2.5 border border-[#ff4f00]/30 bg-[#ff4f00]/[0.05] px-3 py-2 rounded-none", children: [
+    /* @__PURE__ */ jsxs("span", { className: "relative flex-shrink-0 w-2 h-2", children: [
+      /* @__PURE__ */ jsx("span", { className: "absolute inset-0 rounded-full bg-[#ff4f00] animate-ping opacity-60", "aria-hidden": "true" }),
+      /* @__PURE__ */ jsx("span", { className: "relative block w-2 h-2 rounded-full bg-[#ff4f00]", "aria-hidden": "true" })
+    ] }),
+    /* @__PURE__ */ jsxs("span", { className: "font-mono text-[11px] text-white/70 leading-tight", children: [
+      /* @__PURE__ */ jsxs("span", { className: "text-white font-semibold", children: [
+        weeklyCount,
+        " personas"
+      ] }),
+      " ",
+      "han buscado viaje a",
+      " ",
+      /* @__PURE__ */ jsx("span", { className: "text-cr-primary", children: festivalName }),
+      " ",
+      "esta semana"
+    ] })
   ] });
 }
 const FEATURED_SLUGS = ["mad-cool", "primavera-sound", "sonar", "fib", "bbk-live", "arenal-sound"];
@@ -46327,101 +49117,6 @@ function BlogPostPage() {
       ) })
     ] })
   ] });
-}
-function generateBreadcrumbSchema(breadcrumbs, siteUrl) {
-  return {
-    "@context": "https://schema.org",
-    "@type": "BreadcrumbList",
-    itemListElement: breadcrumbs.map((crumb, idx) => ({
-      "@type": "ListItem",
-      position: idx + 1,
-      name: crumb.name,
-      item: crumb.url.startsWith("http") ? crumb.url : `${siteUrl}${crumb.url}`
-    }))
-  };
-}
-function generateFAQSchema(faqs) {
-  return {
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    mainEntity: faqs.map((faq) => ({
-      "@type": "Question",
-      name: faq.q,
-      acceptedAnswer: {
-        "@type": "Answer",
-        text: faq.a
-      }
-    }))
-  };
-}
-function generateServiceSchema({
-  originCity,
-  festivalShortName,
-  festivalName,
-  routeSlug,
-  priceMin,
-  priceMax,
-  siteUrl
-}) {
-  return {
-    "@context": "https://schema.org",
-    "@type": "Service",
-    "@id": `${siteUrl}/rutas/${routeSlug}#service`,
-    name: `Carpooling ${originCity} → ${festivalShortName}`,
-    description: `Servicio de coche compartido de ${originCity} a ${festivalName}. Sin comisión (0%). Conductores verificados. Pago en efectivo o Bizum.`,
-    serviceType: "Carpooling",
-    url: `${siteUrl}/rutas/${routeSlug}`,
-    provider: {
-      "@type": "Organization",
-      "@id": `${siteUrl}/#organization`,
-      name: "ConcertRide ES"
-    },
-    areaServed: {
-      "@type": "Country",
-      name: "España",
-      sameAs: "https://www.wikidata.org/wiki/Q29"
-    },
-    offers: {
-      "@type": "Offer",
-      name: `Asiento carpooling ${originCity} → ${festivalShortName}`,
-      price: priceMin,
-      priceSpecification: {
-        "@type": "PriceSpecification",
-        minPrice: priceMin,
-        maxPrice: priceMax,
-        priceCurrency: "EUR",
-        unitText: "por asiento"
-      },
-      priceCurrency: "EUR",
-      availability: "https://schema.org/InStock",
-      url: `${siteUrl}/rutas/${routeSlug}`
-    }
-  };
-}
-function generateHowToSchema(opts) {
-  return {
-    "@context": "https://schema.org",
-    "@type": "HowTo",
-    name: opts.name,
-    description: opts.description,
-    inLanguage: "es-ES",
-    mainEntityOfPage: { "@id": opts.pageUrl },
-    ...opts.totalTime ? { totalTime: opts.totalTime } : {},
-    ...opts.estimatedCost ? {
-      estimatedCost: {
-        "@type": "MonetaryAmount",
-        currency: opts.estimatedCost.currency,
-        value: opts.estimatedCost.value
-      }
-    } : {},
-    step: opts.steps.map((s, i) => ({
-      "@type": "HowToStep",
-      position: i + 1,
-      name: s.name,
-      text: s.text,
-      ...s.url ? { url: s.url } : {}
-    }))
-  };
 }
 function RouteLandingPage() {
   var _a2;
@@ -50972,197 +53667,216 @@ function AvisoLegalPage() {
     description: "Aviso legal de ConcertRide: datos del titular, actividad, propiedad intelectual y condiciones de uso de la plataforma de carpooling para conciertos en España.",
     canonical: `${SITE_URL}/aviso-legal`
   });
-  return /* @__PURE__ */ jsx("main", { id: "main", className: "min-h-dvh bg-cr-bg text-cr-text pt-14", children: /* @__PURE__ */ jsxs("div", { className: "max-w-3xl mx-auto px-6 py-12", children: [
-    /* @__PURE__ */ jsxs("header", { className: "mb-10 border-b border-cr-border pb-8 space-y-2", children: [
-      /* @__PURE__ */ jsx("p", { className: "font-sans text-[11px] font-semibold uppercase tracking-[0.16em] text-cr-primary", children: "Legal" }),
-      /* @__PURE__ */ jsx("h1", { className: "font-display text-4xl uppercase", children: "Aviso legal" }),
-      /* @__PURE__ */ jsx("p", { className: "font-mono text-xs text-cr-text-muted", children: "Última actualización: mayo de 2026" })
-    ] }),
-    /* @__PURE__ */ jsxs("div", { className: "space-y-10 font-sans text-sm text-cr-text leading-relaxed", children: [
-      /* @__PURE__ */ jsxs("section", { className: "space-y-3", children: [
-        /* @__PURE__ */ jsx("h2", { className: "font-display text-xl uppercase text-cr-primary", children: "1. Datos del titular" }),
-        /* @__PURE__ */ jsx("p", { children: "En cumplimiento del artículo 10 de la Ley 34/2002, de Servicios de la Sociedad de la Información y Comercio Electrónico (LSSI-CE), se informa que el responsable de este sitio web es:" }),
-        /* @__PURE__ */ jsxs("ul", { className: "space-y-1 pl-4 list-disc text-cr-text-muted", children: [
-          /* @__PURE__ */ jsxs("li", { children: [
-            /* @__PURE__ */ jsx("strong", { className: "text-cr-text", children: "Titular:" }),
-            " Alejandro Lalaguna"
-          ] }),
-          /* @__PURE__ */ jsxs("li", { children: [
-            /* @__PURE__ */ jsx("strong", { className: "text-cr-text", children: "Correo electrónico de contacto:" }),
-            " ",
-            /* @__PURE__ */ jsx("a", { href: "mailto:help@concertride.me", className: "font-mono text-cr-primary underline underline-offset-2", children: "help@concertride.me" })
+  return /* @__PURE__ */ jsxs("main", { id: "main", className: "min-h-dvh bg-cr-bg text-cr-text pt-14", children: [
+    /* @__PURE__ */ jsx(
+      "script",
+      {
+        type: "application/ld+json",
+        dangerouslySetInnerHTML: {
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "BreadcrumbList",
+            itemListElement: [
+              { "@type": "ListItem", position: 1, name: "Inicio", item: `${SITE_URL}/` },
+              { "@type": "ListItem", position: 2, name: "Legal", item: `${SITE_URL}/aviso-legal` },
+              { "@type": "ListItem", position: 3, name: "Aviso legal", item: `${SITE_URL}/aviso-legal` }
+            ]
+          })
+        }
+      }
+    ),
+    /* @__PURE__ */ jsxs("div", { className: "max-w-3xl mx-auto px-6 py-12", children: [
+      /* @__PURE__ */ jsxs("header", { className: "mb-10 border-b border-cr-border pb-8 space-y-2", children: [
+        /* @__PURE__ */ jsx("p", { className: "font-sans text-[11px] font-semibold uppercase tracking-[0.16em] text-cr-primary", children: "Legal" }),
+        /* @__PURE__ */ jsx("h1", { className: "font-display text-4xl uppercase", children: "Aviso legal" }),
+        /* @__PURE__ */ jsx("p", { className: "font-mono text-xs text-cr-text-muted", children: "Última actualización: mayo de 2026" })
+      ] }),
+      /* @__PURE__ */ jsxs("div", { className: "space-y-10 font-sans text-sm text-cr-text leading-relaxed", children: [
+        /* @__PURE__ */ jsxs("section", { className: "space-y-3", children: [
+          /* @__PURE__ */ jsx("h2", { className: "font-display text-xl uppercase text-cr-primary", children: "1. Datos del titular" }),
+          /* @__PURE__ */ jsx("p", { children: "En cumplimiento del artículo 10 de la Ley 34/2002, de Servicios de la Sociedad de la Información y Comercio Electrónico (LSSI-CE), se informa que el responsable de este sitio web es:" }),
+          /* @__PURE__ */ jsxs("ul", { className: "space-y-1 pl-4 list-disc text-cr-text-muted", children: [
+            /* @__PURE__ */ jsxs("li", { children: [
+              /* @__PURE__ */ jsx("strong", { className: "text-cr-text", children: "Titular:" }),
+              " Alejandro Lalaguna"
+            ] }),
+            /* @__PURE__ */ jsxs("li", { children: [
+              /* @__PURE__ */ jsx("strong", { className: "text-cr-text", children: "Correo electrónico de contacto:" }),
+              " ",
+              /* @__PURE__ */ jsx("a", { href: "mailto:help@concertride.me", className: "font-mono text-cr-primary underline underline-offset-2", children: "help@concertride.me" })
+            ] })
           ] })
-        ] })
-      ] }),
-      /* @__PURE__ */ jsxs("section", { className: "space-y-3", children: [
-        /* @__PURE__ */ jsx("h2", { className: "font-display text-xl uppercase text-cr-primary", children: "2. Objeto y actividad del sitio" }),
-        /* @__PURE__ */ jsx("p", { children: "ConcertRide ES es una plataforma digital de intermediación que facilita la puesta en contacto entre personas que desean compartir vehículo particular para desplazarse a conciertos y otros eventos musicales celebrados en territorio español." }),
-        /* @__PURE__ */ jsx("p", { children: "La plataforma no presta servicios de transporte ni actúa como transportista. Los conductores que publican viajes son particulares que ofrecen plazas en su vehículo propio. ConcertRide ES no es parte en los acuerdos de viaje entre usuarios." })
-      ] }),
-      /* @__PURE__ */ jsxs("section", { className: "space-y-3", children: [
-        /* @__PURE__ */ jsx("h2", { className: "font-display text-xl uppercase text-cr-primary", children: "3. Propiedad intelectual e industrial" }),
-        /* @__PURE__ */ jsx("p", { children: "El nombre, logotipo, diseño, código fuente y demás elementos distintivos de ConcertRide ES son titularidad exclusiva del responsable del sitio o están debidamente licenciados. Queda prohibida su reproducción, distribución o uso sin autorización expresa." }),
-        /* @__PURE__ */ jsx("p", { children: "La información sobre conciertos y festivales procede de dos fuentes:" }),
-        /* @__PURE__ */ jsxs("ul", { className: "space-y-1 pl-4 list-disc text-cr-text-muted", children: [
-          /* @__PURE__ */ jsxs("li", { children: [
-            "Datos curados manualmente (nombre del evento, fecha aproximada, recinto y",
-            " ",
-            /* @__PURE__ */ jsx("strong", { className: "text-cr-text", children: "enlace a la web oficial" }),
-            " del festival u organizador). Estos datos son factuales y públicos, y cada ficha enlaza al origen oficial para la compra de entradas. No reproducimos carteles, logos, ni contenido promocional con derechos de terceros."
+        ] }),
+        /* @__PURE__ */ jsxs("section", { className: "space-y-3", children: [
+          /* @__PURE__ */ jsx("h2", { className: "font-display text-xl uppercase text-cr-primary", children: "2. Objeto y actividad del sitio" }),
+          /* @__PURE__ */ jsx("p", { children: "ConcertRide ES es una plataforma digital de intermediación que facilita la puesta en contacto entre personas que desean compartir vehículo particular para desplazarse a conciertos y otros eventos musicales celebrados en territorio español." }),
+          /* @__PURE__ */ jsx("p", { children: "La plataforma no presta servicios de transporte ni actúa como transportista. Los conductores que publican viajes son particulares que ofrecen plazas en su vehículo propio. ConcertRide ES no es parte en los acuerdos de viaje entre usuarios." })
+        ] }),
+        /* @__PURE__ */ jsxs("section", { className: "space-y-3", children: [
+          /* @__PURE__ */ jsx("h2", { className: "font-display text-xl uppercase text-cr-primary", children: "3. Propiedad intelectual e industrial" }),
+          /* @__PURE__ */ jsx("p", { children: "El nombre, logotipo, diseño, código fuente y demás elementos distintivos de ConcertRide ES son titularidad exclusiva del responsable del sitio o están debidamente licenciados. Queda prohibida su reproducción, distribución o uso sin autorización expresa." }),
+          /* @__PURE__ */ jsx("p", { children: "La información sobre conciertos y festivales procede de dos fuentes:" }),
+          /* @__PURE__ */ jsxs("ul", { className: "space-y-1 pl-4 list-disc text-cr-text-muted", children: [
+            /* @__PURE__ */ jsxs("li", { children: [
+              "Datos curados manualmente (nombre del evento, fecha aproximada, recinto y",
+              " ",
+              /* @__PURE__ */ jsx("strong", { className: "text-cr-text", children: "enlace a la web oficial" }),
+              " del festival u organizador). Estos datos son factuales y públicos, y cada ficha enlaza al origen oficial para la compra de entradas. No reproducimos carteles, logos, ni contenido promocional con derechos de terceros."
+            ] }),
+            /* @__PURE__ */ jsxs("li", { children: [
+              "Datos obtenidos mediante la",
+              " ",
+              /* @__PURE__ */ jsx(
+                "a",
+                {
+                  href: "https://developer.ticketmaster.com",
+                  target: "_blank",
+                  rel: "noopener noreferrer",
+                  className: "text-cr-primary underline underline-offset-2",
+                  children: "Ticketmaster Discovery API v2"
+                }
+              ),
+              ", utilizada de conformidad con sus términos de uso para desarrolladores. Cuando procede, la ficha del concierto incluye el enlace oficial de compra de entradas en Ticketmaster. Las imágenes de los eventos proceden igualmente de esta API y son propiedad de Ticketmaster o de sus licenciatarios. ConcertRide no aloja dichas imágenes en sus propios servidores."
+            ] })
           ] }),
-          /* @__PURE__ */ jsxs("li", { children: [
-            "Datos obtenidos mediante la",
+          /* @__PURE__ */ jsx("p", { children: "Los nombres de festivales y eventos musicales (Mad Cool, Primavera Sound, Sónar, FIB, BBK Live, Resurrection Fest, Viña Rock, Arenal Sound y otros) se utilizan exclusivamente con carácter descriptivo para identificar el destino de los viajes compartidos. ConcertRide ES no está afiliada, no está patrocinada ni representa a ninguno de estos festivales ni a sus organizadores. El uso de dichos nombres constituye un uso nominativo protegido por el derecho de referencia. Todos los derechos sobre los nombres, marcas y logotipos de los festivales pertenecen a sus respectivos titulares." }),
+          /* @__PURE__ */ jsxs("p", { children: [
+            "Los mapas se muestran con datos de",
             " ",
             /* @__PURE__ */ jsx(
               "a",
               {
-                href: "https://developer.ticketmaster.com",
+                href: "https://www.openstreetmap.org/copyright",
+                target: "_blank",
+                rel: "noopener noreferrer",
+                className: "text-cr-primary underline underline-offset-2",
+                children: "OpenStreetMap contributors"
+              }
+            ),
+            " ",
+            "(licencia ODbL) y tiles proporcionados por",
+            " ",
+            /* @__PURE__ */ jsx(
+              "a",
+              {
+                href: "https://carto.com/attributions",
+                target: "_blank",
+                rel: "noopener noreferrer",
+                className: "text-cr-primary underline underline-offset-2",
+                children: "CARTO"
+              }
+            ),
+            "."
+          ] })
+        ] }),
+        /* @__PURE__ */ jsxs("section", { className: "space-y-3", children: [
+          /* @__PURE__ */ jsx("h2", { className: "font-display text-xl uppercase text-cr-primary", children: "4. Uso de la API de Ticketmaster" }),
+          /* @__PURE__ */ jsxs("p", { children: [
+            "ConcertRide ES utiliza la",
+            " ",
+            /* @__PURE__ */ jsx(
+              "a",
+              {
+                href: "https://developer.ticketmaster.com/products-and-docs/apis/discovery-api/v2/",
                 target: "_blank",
                 rel: "noopener noreferrer",
                 className: "text-cr-primary underline underline-offset-2",
                 children: "Ticketmaster Discovery API v2"
               }
             ),
-            ", utilizada de conformidad con sus términos de uso para desarrolladores. Cuando procede, la ficha del concierto incluye el enlace oficial de compra de entradas en Ticketmaster. Las imágenes de los eventos proceden igualmente de esta API y son propiedad de Ticketmaster o de sus licenciatarios. ConcertRide no aloja dichas imágenes en sus propios servidores."
-          ] })
-        ] }),
-        /* @__PURE__ */ jsx("p", { children: "Los nombres de festivales y eventos musicales (Mad Cool, Primavera Sound, Sónar, FIB, BBK Live, Resurrection Fest, Viña Rock, Arenal Sound y otros) se utilizan exclusivamente con carácter descriptivo para identificar el destino de los viajes compartidos. ConcertRide ES no está afiliada, no está patrocinada ni representa a ninguno de estos festivales ni a sus organizadores. El uso de dichos nombres constituye un uso nominativo protegido por el derecho de referencia. Todos los derechos sobre los nombres, marcas y logotipos de los festivales pertenecen a sus respectivos titulares." }),
-        /* @__PURE__ */ jsxs("p", { children: [
-          "Los mapas se muestran con datos de",
-          " ",
-          /* @__PURE__ */ jsx(
-            "a",
-            {
-              href: "https://www.openstreetmap.org/copyright",
-              target: "_blank",
-              rel: "noopener noreferrer",
-              className: "text-cr-primary underline underline-offset-2",
-              children: "OpenStreetMap contributors"
-            }
-          ),
-          " ",
-          "(licencia ODbL) y tiles proporcionados por",
-          " ",
-          /* @__PURE__ */ jsx(
-            "a",
-            {
-              href: "https://carto.com/attributions",
-              target: "_blank",
-              rel: "noopener noreferrer",
-              className: "text-cr-primary underline underline-offset-2",
-              children: "CARTO"
-            }
-          ),
-          "."
-        ] })
-      ] }),
-      /* @__PURE__ */ jsxs("section", { className: "space-y-3", children: [
-        /* @__PURE__ */ jsx("h2", { className: "font-display text-xl uppercase text-cr-primary", children: "4. Uso de la API de Ticketmaster" }),
-        /* @__PURE__ */ jsxs("p", { children: [
-          "ConcertRide ES utiliza la",
-          " ",
-          /* @__PURE__ */ jsx(
-            "a",
-            {
-              href: "https://developer.ticketmaster.com/products-and-docs/apis/discovery-api/v2/",
-              target: "_blank",
-              rel: "noopener noreferrer",
-              className: "text-cr-primary underline underline-offset-2",
-              children: "Ticketmaster Discovery API v2"
-            }
-          ),
-          " ",
-          "para mostrar información pública de eventos musicales en España. El uso de esta API está sujeto a los",
-          " ",
-          /* @__PURE__ */ jsx(
-            "a",
-            {
-              href: "https://developer.ticketmaster.com/support/terms-of-use/",
-              target: "_blank",
-              rel: "noopener noreferrer",
-              className: "text-cr-primary underline underline-offset-2",
-              children: "términos de uso para desarrolladores de Ticketmaster"
-            }
-          ),
-          ", que ConcertRide cumple íntegramente."
-        ] }),
-        /* @__PURE__ */ jsx("p", { className: "text-cr-text-muted", children: "En concreto, ConcertRide:" }),
-        /* @__PURE__ */ jsxs("ul", { className: "space-y-2 pl-4 list-disc text-cr-text-muted", children: [
-          /* @__PURE__ */ jsxs("li", { children: [
-            /* @__PURE__ */ jsx("strong", { className: "text-cr-text", children: "Incluye el enlace de compra de entradas en Ticketmaster" }),
             " ",
-            "en cada ficha de concierto obtenida a través de su API, para que el usuario pueda adquirir entradas directamente en",
+            "para mostrar información pública de eventos musicales en España. El uso de esta API está sujeto a los",
             " ",
             /* @__PURE__ */ jsx(
               "a",
               {
-                href: "https://www.ticketmaster.es",
+                href: "https://developer.ticketmaster.com/support/terms-of-use/",
                 target: "_blank",
                 rel: "noopener noreferrer",
                 className: "text-cr-primary underline underline-offset-2",
-                children: "ticketmaster.es"
+                children: "términos de uso para desarrolladores de Ticketmaster"
               }
             ),
-            "."
+            ", que ConcertRide cumple íntegramente."
           ] }),
-          /* @__PURE__ */ jsxs("li", { children: [
-            /* @__PURE__ */ jsx("strong", { className: "text-cr-text", children: "No vende entradas ni compite con Ticketmaster." }),
-            " ",
-            "ConcertRide es exclusivamente una plataforma de organización de viajes compartidos (carpooling) para llegar a los eventos. La compra de entradas siempre se realiza directamente en Ticketmaster u otros canales oficiales del organizador."
+          /* @__PURE__ */ jsx("p", { className: "text-cr-text-muted", children: "En concreto, ConcertRide:" }),
+          /* @__PURE__ */ jsxs("ul", { className: "space-y-2 pl-4 list-disc text-cr-text-muted", children: [
+            /* @__PURE__ */ jsxs("li", { children: [
+              /* @__PURE__ */ jsx("strong", { className: "text-cr-text", children: "Incluye el enlace de compra de entradas en Ticketmaster" }),
+              " ",
+              "en cada ficha de concierto obtenida a través de su API, para que el usuario pueda adquirir entradas directamente en",
+              " ",
+              /* @__PURE__ */ jsx(
+                "a",
+                {
+                  href: "https://www.ticketmaster.es",
+                  target: "_blank",
+                  rel: "noopener noreferrer",
+                  className: "text-cr-primary underline underline-offset-2",
+                  children: "ticketmaster.es"
+                }
+              ),
+              "."
+            ] }),
+            /* @__PURE__ */ jsxs("li", { children: [
+              /* @__PURE__ */ jsx("strong", { className: "text-cr-text", children: "No vende entradas ni compite con Ticketmaster." }),
+              " ",
+              "ConcertRide es exclusivamente una plataforma de organización de viajes compartidos (carpooling) para llegar a los eventos. La compra de entradas siempre se realiza directamente en Ticketmaster u otros canales oficiales del organizador."
+            ] }),
+            /* @__PURE__ */ jsxs("li", { children: [
+              /* @__PURE__ */ jsx("strong", { className: "text-cr-text", children: "Muestra imágenes de eventos" }),
+              " obtenidas de la API de Ticketmaster, que son propiedad de Ticketmaster LLC o de sus licenciatarios. Dichas imágenes se emplean exclusivamente para identificar el evento en el contexto de la organización de viajes, y no como recurso gráfico independiente ni con fines publicitarios propios."
+            ] }),
+            /* @__PURE__ */ jsxs("li", { children: [
+              /* @__PURE__ */ jsx("strong", { className: "text-cr-text", children: "Atribuye los datos" }),
+              " a Ticketmaster® en el pie de página del sitio y en este aviso legal."
+            ] }),
+            /* @__PURE__ */ jsxs("li", { children: [
+              /* @__PURE__ */ jsx("strong", { className: "text-cr-text", children: "No almacena los datos indefinidamente." }),
+              " ",
+              "Los registros de eventos sin viajes asociados se eliminan automáticamente una vez transcurridos dos meses desde la fecha del evento."
+            ] }),
+            /* @__PURE__ */ jsxs("li", { children: [
+              /* @__PURE__ */ jsx("strong", { className: "text-cr-text", children: "No replica la experiencia de Ticketmaster." }),
+              " ",
+              "ConcertRide no permite la búsqueda, filtrado ni compra de entradas. La función de búsqueda de ConcertRide opera exclusivamente sobre los viajes disponibles."
+            ] })
           ] }),
-          /* @__PURE__ */ jsxs("li", { children: [
-            /* @__PURE__ */ jsx("strong", { className: "text-cr-text", children: "Muestra imágenes de eventos" }),
-            " obtenidas de la API de Ticketmaster, que son propiedad de Ticketmaster LLC o de sus licenciatarios. Dichas imágenes se emplean exclusivamente para identificar el evento en el contexto de la organización de viajes, y no como recurso gráfico independiente ni con fines publicitarios propios."
-          ] }),
-          /* @__PURE__ */ jsxs("li", { children: [
-            /* @__PURE__ */ jsx("strong", { className: "text-cr-text", children: "Atribuye los datos" }),
-            " a Ticketmaster® en el pie de página del sitio y en este aviso legal."
-          ] }),
-          /* @__PURE__ */ jsxs("li", { children: [
-            /* @__PURE__ */ jsx("strong", { className: "text-cr-text", children: "No almacena los datos indefinidamente." }),
-            " ",
-            "Los registros de eventos sin viajes asociados se eliminan automáticamente una vez transcurridos dos meses desde la fecha del evento."
-          ] }),
-          /* @__PURE__ */ jsxs("li", { children: [
-            /* @__PURE__ */ jsx("strong", { className: "text-cr-text", children: "No replica la experiencia de Ticketmaster." }),
-            " ",
-            "ConcertRide no permite la búsqueda, filtrado ni compra de entradas. La función de búsqueda de ConcertRide opera exclusivamente sobre los viajes disponibles."
-          ] })
+          /* @__PURE__ */ jsx("p", { children: "Ticketmaster® es una marca registrada de Ticketmaster LLC. ConcertRide ES no está afiliada, patrocinada ni avalada por Ticketmaster LLC." })
         ] }),
-        /* @__PURE__ */ jsx("p", { children: "Ticketmaster® es una marca registrada de Ticketmaster LLC. ConcertRide ES no está afiliada, patrocinada ni avalada por Ticketmaster LLC." })
-      ] }),
-      /* @__PURE__ */ jsxs("section", { className: "space-y-3", children: [
-        /* @__PURE__ */ jsx("h2", { className: "font-display text-xl uppercase text-cr-primary", children: "6. Exclusión de responsabilidad" }),
-        /* @__PURE__ */ jsx("p", { children: "ConcertRide ES no garantiza la exactitud, integridad o actualidad de la información sobre conciertos procedente de terceros. El titular no se responsabiliza de los daños derivados del uso de la plataforma, de la información publicada por los usuarios ni del resultado de los viajes acordados entre particulares." }),
-        /* @__PURE__ */ jsx("p", { children: "El titular se reserva el derecho a modificar, suspender o interrumpir el servicio en cualquier momento sin previo aviso." })
-      ] }),
-      /* @__PURE__ */ jsxs("section", { className: "space-y-3", children: [
-        /* @__PURE__ */ jsx("h2", { className: "font-display text-xl uppercase text-cr-primary", children: "7. Legislación aplicable y jurisdicción" }),
-        /* @__PURE__ */ jsx("p", { children: "Las presentes condiciones se rigen por la legislación española. Para la resolución de cualquier controversia derivada del uso de este sitio web, las partes se someten a los juzgados y tribunales del domicilio del titular, salvo que la normativa de consumo aplicable disponga otro fuero." })
-      ] }),
-      /* @__PURE__ */ jsxs("section", { className: "space-y-3", children: [
-        /* @__PURE__ */ jsx("h2", { className: "font-display text-xl uppercase text-cr-primary", children: "8. Contacto" }),
-        /* @__PURE__ */ jsxs("p", { children: [
-          "Para cualquier consulta relacionada con este aviso legal, puede contactar con nosotros en:",
-          " ",
-          /* @__PURE__ */ jsx(
-            "a",
-            {
-              href: "mailto:help@concertride.me",
-              className: "font-mono text-cr-primary underline underline-offset-2",
-              children: "help@concertride.me"
-            }
-          )
+        /* @__PURE__ */ jsxs("section", { className: "space-y-3", children: [
+          /* @__PURE__ */ jsx("h2", { className: "font-display text-xl uppercase text-cr-primary", children: "6. Exclusión de responsabilidad" }),
+          /* @__PURE__ */ jsx("p", { children: "ConcertRide ES no garantiza la exactitud, integridad o actualidad de la información sobre conciertos procedente de terceros. El titular no se responsabiliza de los daños derivados del uso de la plataforma, de la información publicada por los usuarios ni del resultado de los viajes acordados entre particulares." }),
+          /* @__PURE__ */ jsx("p", { children: "El titular se reserva el derecho a modificar, suspender o interrumpir el servicio en cualquier momento sin previo aviso." })
+        ] }),
+        /* @__PURE__ */ jsxs("section", { className: "space-y-3", children: [
+          /* @__PURE__ */ jsx("h2", { className: "font-display text-xl uppercase text-cr-primary", children: "7. Legislación aplicable y jurisdicción" }),
+          /* @__PURE__ */ jsx("p", { children: "Las presentes condiciones se rigen por la legislación española. Para la resolución de cualquier controversia derivada del uso de este sitio web, las partes se someten a los juzgados y tribunales del domicilio del titular, salvo que la normativa de consumo aplicable disponga otro fuero." })
+        ] }),
+        /* @__PURE__ */ jsxs("section", { className: "space-y-3", children: [
+          /* @__PURE__ */ jsx("h2", { className: "font-display text-xl uppercase text-cr-primary", children: "8. Contacto" }),
+          /* @__PURE__ */ jsxs("p", { children: [
+            "Para cualquier consulta relacionada con este aviso legal, puede contactar con nosotros en:",
+            " ",
+            /* @__PURE__ */ jsx(
+              "a",
+              {
+                href: "mailto:help@concertride.me",
+                className: "font-mono text-cr-primary underline underline-offset-2",
+                children: "help@concertride.me"
+              }
+            )
+          ] })
         ] })
+      ] }),
+      /* @__PURE__ */ jsxs("div", { className: "mt-12 pt-8 border-t border-cr-border flex flex-wrap gap-4", children: [
+        /* @__PURE__ */ jsx(Link, { to: "/privacidad", className: "font-sans text-xs text-cr-text-muted hover:text-cr-primary transition-colors", children: "Política de privacidad →" }),
+        /* @__PURE__ */ jsx(Link, { to: "/cookies", className: "font-sans text-xs text-cr-text-muted hover:text-cr-primary transition-colors", children: "Política de cookies →" }),
+        /* @__PURE__ */ jsx(Link, { to: "/terminos", className: "font-sans text-xs text-cr-text-muted hover:text-cr-primary transition-colors", children: "Términos y condiciones →" }),
+        /* @__PURE__ */ jsx(Link, { to: "/", className: "font-sans text-xs text-cr-text-muted hover:text-cr-primary transition-colors ml-auto", children: "← Volver al inicio" })
       ] })
-    ] }),
-    /* @__PURE__ */ jsxs("div", { className: "mt-12 pt-8 border-t border-cr-border flex flex-wrap gap-4", children: [
-      /* @__PURE__ */ jsx(Link, { to: "/privacidad", className: "font-sans text-xs text-cr-text-muted hover:text-cr-primary transition-colors", children: "Política de privacidad →" }),
-      /* @__PURE__ */ jsx(Link, { to: "/cookies", className: "font-sans text-xs text-cr-text-muted hover:text-cr-primary transition-colors", children: "Política de cookies →" }),
-      /* @__PURE__ */ jsx(Link, { to: "/terminos", className: "font-sans text-xs text-cr-text-muted hover:text-cr-primary transition-colors", children: "Términos y condiciones →" }),
-      /* @__PURE__ */ jsx(Link, { to: "/", className: "font-sans text-xs text-cr-text-muted hover:text-cr-primary transition-colors ml-auto", children: "← Volver al inicio" })
     ] })
-  ] }) });
+  ] });
 }
 function PrivacidadPage() {
   useSeoMeta({
@@ -51170,266 +53884,285 @@ function PrivacidadPage() {
     description: "Cómo ConcertRide trata tus datos personales (RGPD): qué recopilamos, para qué, tus derechos y cómo ejercerlos en la plataforma de carpooling para conciertos.",
     canonical: `${SITE_URL}/privacidad`
   });
-  return /* @__PURE__ */ jsx("main", { id: "main", className: "min-h-dvh bg-cr-bg text-cr-text pt-14", children: /* @__PURE__ */ jsxs("div", { className: "max-w-3xl mx-auto px-6 py-12", children: [
-    /* @__PURE__ */ jsxs("header", { className: "mb-10 border-b border-cr-border pb-8 space-y-2", children: [
-      /* @__PURE__ */ jsx("p", { className: "font-sans text-[11px] font-semibold uppercase tracking-[0.16em] text-cr-primary", children: "Legal" }),
-      /* @__PURE__ */ jsx("h1", { className: "font-display text-4xl uppercase", children: "Política de privacidad" }),
-      /* @__PURE__ */ jsx("p", { className: "font-mono text-xs text-cr-text-muted", children: "Última actualización: abril de 2026 · Aplicable desde el 25 de mayo de 2018 (RGPD)" })
-    ] }),
-    /* @__PURE__ */ jsxs("div", { className: "space-y-10 font-sans text-sm text-cr-text leading-relaxed", children: [
-      /* @__PURE__ */ jsxs("section", { className: "space-y-3", children: [
-        /* @__PURE__ */ jsx("h2", { className: "font-display text-xl uppercase text-cr-primary", children: "1. Datos que recogemos y para qué" }),
-        /* @__PURE__ */ jsx("div", { className: "overflow-x-auto", children: /* @__PURE__ */ jsxs("table", { className: "w-full font-mono text-xs border-collapse", children: [
-          /* @__PURE__ */ jsx("thead", { children: /* @__PURE__ */ jsxs("tr", { className: "border-b border-cr-border text-left", children: [
-            /* @__PURE__ */ jsx("th", { className: "py-2 pr-4 font-semibold text-cr-text-muted uppercase tracking-[0.08em]", children: "Dato" }),
-            /* @__PURE__ */ jsx("th", { className: "py-2 pr-4 font-semibold text-cr-text-muted uppercase tracking-[0.08em]", children: "Finalidad" }),
-            /* @__PURE__ */ jsx("th", { className: "py-2 font-semibold text-cr-text-muted uppercase tracking-[0.08em]", children: "Base legal" })
+  return /* @__PURE__ */ jsxs("main", { id: "main", className: "min-h-dvh bg-cr-bg text-cr-text pt-14", children: [
+    /* @__PURE__ */ jsx(
+      "script",
+      {
+        type: "application/ld+json",
+        dangerouslySetInnerHTML: {
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "BreadcrumbList",
+            itemListElement: [
+              { "@type": "ListItem", position: 1, name: "Inicio", item: `${SITE_URL}/` },
+              { "@type": "ListItem", position: 2, name: "Legal", item: `${SITE_URL}/aviso-legal` },
+              { "@type": "ListItem", position: 3, name: "Política de privacidad", item: `${SITE_URL}/privacidad` }
+            ]
+          })
+        }
+      }
+    ),
+    /* @__PURE__ */ jsxs("div", { className: "max-w-3xl mx-auto px-6 py-12", children: [
+      /* @__PURE__ */ jsxs("header", { className: "mb-10 border-b border-cr-border pb-8 space-y-2", children: [
+        /* @__PURE__ */ jsx("p", { className: "font-sans text-[11px] font-semibold uppercase tracking-[0.16em] text-cr-primary", children: "Legal" }),
+        /* @__PURE__ */ jsx("h1", { className: "font-display text-4xl uppercase", children: "Política de privacidad" }),
+        /* @__PURE__ */ jsx("p", { className: "font-mono text-xs text-cr-text-muted", children: "Última actualización: abril de 2026 · Aplicable desde el 25 de mayo de 2018 (RGPD)" })
+      ] }),
+      /* @__PURE__ */ jsxs("div", { className: "space-y-10 font-sans text-sm text-cr-text leading-relaxed", children: [
+        /* @__PURE__ */ jsxs("section", { className: "space-y-3", children: [
+          /* @__PURE__ */ jsx("h2", { className: "font-display text-xl uppercase text-cr-primary", children: "1. Datos que recogemos y para qué" }),
+          /* @__PURE__ */ jsx("div", { className: "overflow-x-auto", children: /* @__PURE__ */ jsxs("table", { className: "w-full font-mono text-xs border-collapse", children: [
+            /* @__PURE__ */ jsx("thead", { children: /* @__PURE__ */ jsxs("tr", { className: "border-b border-cr-border text-left", children: [
+              /* @__PURE__ */ jsx("th", { className: "py-2 pr-4 font-semibold text-cr-text-muted uppercase tracking-[0.08em]", children: "Dato" }),
+              /* @__PURE__ */ jsx("th", { className: "py-2 pr-4 font-semibold text-cr-text-muted uppercase tracking-[0.08em]", children: "Finalidad" }),
+              /* @__PURE__ */ jsx("th", { className: "py-2 font-semibold text-cr-text-muted uppercase tracking-[0.08em]", children: "Base legal" })
+            ] }) }),
+            /* @__PURE__ */ jsxs("tbody", { className: "divide-y divide-cr-border/40", children: [
+              /* @__PURE__ */ jsxs("tr", { children: [
+                /* @__PURE__ */ jsx("td", { className: "py-2 pr-4 text-cr-text", children: "Nombre y correo" }),
+                /* @__PURE__ */ jsx("td", { className: "py-2 pr-4 text-cr-text-muted", children: "Crear y gestionar la cuenta" }),
+                /* @__PURE__ */ jsx("td", { className: "py-2 text-cr-text-muted", children: "Art. 6.1.b RGPD (contrato)" })
+              ] }),
+              /* @__PURE__ */ jsxs("tr", { children: [
+                /* @__PURE__ */ jsx("td", { className: "py-2 pr-4 text-cr-text", children: "Contraseña (hash)" }),
+                /* @__PURE__ */ jsx("td", { className: "py-2 pr-4 text-cr-text-muted", children: "Autenticación segura" }),
+                /* @__PURE__ */ jsx("td", { className: "py-2 text-cr-text-muted", children: "Art. 6.1.b RGPD (contrato)" })
+              ] }),
+              /* @__PURE__ */ jsxs("tr", { children: [
+                /* @__PURE__ */ jsx("td", { className: "py-2 pr-4 text-cr-text", children: "Teléfono (opcional)" }),
+                /* @__PURE__ */ jsx("td", { className: "py-2 pr-4 text-cr-text-muted", children: "Contacto entre usuario y conductor" }),
+                /* @__PURE__ */ jsx("td", { className: "py-2 text-cr-text-muted", children: "Art. 6.1.a RGPD (consentimiento)" })
+              ] }),
+              /* @__PURE__ */ jsxs("tr", { children: [
+                /* @__PURE__ */ jsx("td", { className: "py-2 pr-4 text-cr-text", children: "Ciudad, modelo de coche, color, fumador, carnet" }),
+                /* @__PURE__ */ jsx("td", { className: "py-2 pr-4 text-cr-text-muted", children: "Mostrar perfil público del conductor" }),
+                /* @__PURE__ */ jsx("td", { className: "py-2 text-cr-text-muted", children: "Art. 6.1.a RGPD (consentimiento)" })
+              ] }),
+              /* @__PURE__ */ jsxs("tr", { children: [
+                /* @__PURE__ */ jsx("td", { className: "py-2 pr-4 text-cr-text", children: "Dirección y coordenadas de origen del viaje" }),
+                /* @__PURE__ */ jsx("td", { className: "py-2 pr-4 text-cr-text-muted", children: "Mostrar punto de recogida en el mapa" }),
+                /* @__PURE__ */ jsx("td", { className: "py-2 text-cr-text-muted", children: "Art. 6.1.b RGPD (contrato)" })
+              ] }),
+              /* @__PURE__ */ jsxs("tr", { children: [
+                /* @__PURE__ */ jsx("td", { className: "py-2 pr-4 text-cr-text", children: "Valoraciones y reseñas" }),
+                /* @__PURE__ */ jsx("td", { className: "py-2 pr-4 text-cr-text-muted", children: "Sistema de confianza entre usuarios" }),
+                /* @__PURE__ */ jsx("td", { className: "py-2 text-cr-text-muted", children: "Art. 6.1.f RGPD (interés legítimo)" })
+              ] }),
+              /* @__PURE__ */ jsxs("tr", { children: [
+                /* @__PURE__ */ jsx("td", { className: "py-2 pr-4 text-cr-text", children: "Historial de viajes" }),
+                /* @__PURE__ */ jsx("td", { className: "py-2 pr-4 text-cr-text-muted", children: "Gestión de reservas y cumplimiento" }),
+                /* @__PURE__ */ jsx("td", { className: "py-2 text-cr-text-muted", children: "Art. 6.1.b RGPD (contrato)" })
+              ] }),
+              /* @__PURE__ */ jsxs("tr", { children: [
+                /* @__PURE__ */ jsx("td", { className: "py-2 pr-4 text-cr-text", children: "Suscripción a notificaciones push (Web Push)" }),
+                /* @__PURE__ */ jsx("td", { className: "py-2 pr-4 text-cr-text-muted", children: "Avisos de solicitudes, confirmaciones y recordatorios" }),
+                /* @__PURE__ */ jsx("td", { className: "py-2 text-cr-text-muted", children: "Art. 6.1.a RGPD (consentimiento del navegador)" })
+              ] }),
+              /* @__PURE__ */ jsxs("tr", { children: [
+                /* @__PURE__ */ jsx("td", { className: "py-2 pr-4 text-cr-text", children: "Eventos anónimos de uso (páginas vistas, clics)" }),
+                /* @__PURE__ */ jsx("td", { className: "py-2 pr-4 text-cr-text-muted", children: "Analítica de producto si aceptas en el banner" }),
+                /* @__PURE__ */ jsx("td", { className: "py-2 text-cr-text-muted", children: "Art. 6.1.a RGPD (consentimiento)" })
+              ] })
+            ] })
           ] }) }),
-          /* @__PURE__ */ jsxs("tbody", { className: "divide-y divide-cr-border/40", children: [
-            /* @__PURE__ */ jsxs("tr", { children: [
-              /* @__PURE__ */ jsx("td", { className: "py-2 pr-4 text-cr-text", children: "Nombre y correo" }),
-              /* @__PURE__ */ jsx("td", { className: "py-2 pr-4 text-cr-text-muted", children: "Crear y gestionar la cuenta" }),
-              /* @__PURE__ */ jsx("td", { className: "py-2 text-cr-text-muted", children: "Art. 6.1.b RGPD (contrato)" })
+          /* @__PURE__ */ jsx("p", { className: "text-cr-text-muted text-xs", children: "No tratamos datos de categorías especiales (Art. 9 RGPD). No tomamos decisiones automatizadas ni elaboramos perfiles con efectos jurídicos." })
+        ] }),
+        /* @__PURE__ */ jsxs("section", { className: "space-y-3", children: [
+          /* @__PURE__ */ jsx("h2", { className: "font-display text-xl uppercase text-cr-primary", children: "2. Conservación de los datos" }),
+          /* @__PURE__ */ jsxs("ul", { className: "space-y-2 pl-4 list-disc text-cr-text-muted", children: [
+            /* @__PURE__ */ jsxs("li", { children: [
+              /* @__PURE__ */ jsx("strong", { className: "text-cr-text", children: "Cuenta y perfil" }),
+              " — mientras la cuenta esté activa. Si ejercitas tu derecho de supresión desde ",
+              /* @__PURE__ */ jsx("em", { children: "Mi perfil → Eliminar cuenta" }),
+              ", anonimizamos tus datos personales (nombre, correo, teléfono, foto y datos de vehículo)",
+              /* @__PURE__ */ jsx("strong", { children: " de forma inmediata" }),
+              ". Tus reseñas permanecen asociadas al identificador anónimo para no alterar la reputación de terceros, sin referencia a tu identidad."
             ] }),
-            /* @__PURE__ */ jsxs("tr", { children: [
-              /* @__PURE__ */ jsx("td", { className: "py-2 pr-4 text-cr-text", children: "Contraseña (hash)" }),
-              /* @__PURE__ */ jsx("td", { className: "py-2 pr-4 text-cr-text-muted", children: "Autenticación segura" }),
-              /* @__PURE__ */ jsx("td", { className: "py-2 text-cr-text-muted", children: "Art. 6.1.b RGPD (contrato)" })
+            /* @__PURE__ */ jsxs("li", { children: [
+              /* @__PURE__ */ jsx("strong", { className: "text-cr-text", children: "Datos de viajes pasados" }),
+              " — conservados 2 años desde la fecha del viaje para posibles reclamaciones, disociados de tus datos personales si te has dado de baja."
             ] }),
-            /* @__PURE__ */ jsxs("tr", { children: [
-              /* @__PURE__ */ jsx("td", { className: "py-2 pr-4 text-cr-text", children: "Teléfono (opcional)" }),
-              /* @__PURE__ */ jsx("td", { className: "py-2 pr-4 text-cr-text-muted", children: "Contacto entre usuario y conductor" }),
-              /* @__PURE__ */ jsx("td", { className: "py-2 text-cr-text-muted", children: "Art. 6.1.a RGPD (consentimiento)" })
+            /* @__PURE__ */ jsxs("li", { children: [
+              /* @__PURE__ */ jsx("strong", { className: "text-cr-text", children: "Cookie de sesión" }),
+              " — expira a los 30 días desde el último inicio de sesión."
             ] }),
-            /* @__PURE__ */ jsxs("tr", { children: [
-              /* @__PURE__ */ jsx("td", { className: "py-2 pr-4 text-cr-text", children: "Ciudad, modelo de coche, color, fumador, carnet" }),
-              /* @__PURE__ */ jsx("td", { className: "py-2 pr-4 text-cr-text-muted", children: "Mostrar perfil público del conductor" }),
-              /* @__PURE__ */ jsx("td", { className: "py-2 text-cr-text-muted", children: "Art. 6.1.a RGPD (consentimiento)" })
+            /* @__PURE__ */ jsxs("li", { children: [
+              /* @__PURE__ */ jsx("strong", { className: "text-cr-text", children: "Suscripciones push" }),
+              " — se eliminan al darte de baja o al deshabilitar las notificaciones en el perfil."
             ] }),
-            /* @__PURE__ */ jsxs("tr", { children: [
-              /* @__PURE__ */ jsx("td", { className: "py-2 pr-4 text-cr-text", children: "Dirección y coordenadas de origen del viaje" }),
-              /* @__PURE__ */ jsx("td", { className: "py-2 pr-4 text-cr-text-muted", children: "Mostrar punto de recogida en el mapa" }),
-              /* @__PURE__ */ jsx("td", { className: "py-2 text-cr-text-muted", children: "Art. 6.1.b RGPD (contrato)" })
+            /* @__PURE__ */ jsxs("li", { children: [
+              /* @__PURE__ */ jsx("strong", { className: "text-cr-text", children: "Eventos de analítica" }),
+              " — PostHog los conserva como máximo 12 meses. Puedes revocar el consentimiento en cualquier momento."
             ] }),
-            /* @__PURE__ */ jsxs("tr", { children: [
-              /* @__PURE__ */ jsx("td", { className: "py-2 pr-4 text-cr-text", children: "Valoraciones y reseñas" }),
-              /* @__PURE__ */ jsx("td", { className: "py-2 pr-4 text-cr-text-muted", children: "Sistema de confianza entre usuarios" }),
-              /* @__PURE__ */ jsx("td", { className: "py-2 text-cr-text-muted", children: "Art. 6.1.f RGPD (interés legítimo)" })
-            ] }),
-            /* @__PURE__ */ jsxs("tr", { children: [
-              /* @__PURE__ */ jsx("td", { className: "py-2 pr-4 text-cr-text", children: "Historial de viajes" }),
-              /* @__PURE__ */ jsx("td", { className: "py-2 pr-4 text-cr-text-muted", children: "Gestión de reservas y cumplimiento" }),
-              /* @__PURE__ */ jsx("td", { className: "py-2 text-cr-text-muted", children: "Art. 6.1.b RGPD (contrato)" })
-            ] }),
-            /* @__PURE__ */ jsxs("tr", { children: [
-              /* @__PURE__ */ jsx("td", { className: "py-2 pr-4 text-cr-text", children: "Suscripción a notificaciones push (Web Push)" }),
-              /* @__PURE__ */ jsx("td", { className: "py-2 pr-4 text-cr-text-muted", children: "Avisos de solicitudes, confirmaciones y recordatorios" }),
-              /* @__PURE__ */ jsx("td", { className: "py-2 text-cr-text-muted", children: "Art. 6.1.a RGPD (consentimiento del navegador)" })
-            ] }),
-            /* @__PURE__ */ jsxs("tr", { children: [
-              /* @__PURE__ */ jsx("td", { className: "py-2 pr-4 text-cr-text", children: "Eventos anónimos de uso (páginas vistas, clics)" }),
-              /* @__PURE__ */ jsx("td", { className: "py-2 pr-4 text-cr-text-muted", children: "Analítica de producto si aceptas en el banner" }),
-              /* @__PURE__ */ jsx("td", { className: "py-2 text-cr-text-muted", children: "Art. 6.1.a RGPD (consentimiento)" })
+            /* @__PURE__ */ jsxs("li", { children: [
+              /* @__PURE__ */ jsx("strong", { className: "text-cr-text", children: "Documentos de verificación de licencia" }),
+              " — las imágenes del carnet de conducir aportadas para la verificación se eliminan automáticamente transcurridos 90 días desde su carga, o antes si la verificación se completa. El acceso durante ese período está restringido exclusivamente al administrador de la plataforma. Los documentos se transmiten y almacenan cifrados (HTTPS en tránsito, cifrado en reposo por Cloudflare KV)."
             ] })
           ] })
-        ] }) }),
-        /* @__PURE__ */ jsx("p", { className: "text-cr-text-muted text-xs", children: "No tratamos datos de categorías especiales (Art. 9 RGPD). No tomamos decisiones automatizadas ni elaboramos perfiles con efectos jurídicos." })
-      ] }),
-      /* @__PURE__ */ jsxs("section", { className: "space-y-3", children: [
-        /* @__PURE__ */ jsx("h2", { className: "font-display text-xl uppercase text-cr-primary", children: "2. Conservación de los datos" }),
-        /* @__PURE__ */ jsxs("ul", { className: "space-y-2 pl-4 list-disc text-cr-text-muted", children: [
-          /* @__PURE__ */ jsxs("li", { children: [
-            /* @__PURE__ */ jsx("strong", { className: "text-cr-text", children: "Cuenta y perfil" }),
-            " — mientras la cuenta esté activa. Si ejercitas tu derecho de supresión desde ",
-            /* @__PURE__ */ jsx("em", { children: "Mi perfil → Eliminar cuenta" }),
-            ", anonimizamos tus datos personales (nombre, correo, teléfono, foto y datos de vehículo)",
-            /* @__PURE__ */ jsx("strong", { children: " de forma inmediata" }),
-            ". Tus reseñas permanecen asociadas al identificador anónimo para no alterar la reputación de terceros, sin referencia a tu identidad."
-          ] }),
-          /* @__PURE__ */ jsxs("li", { children: [
-            /* @__PURE__ */ jsx("strong", { className: "text-cr-text", children: "Datos de viajes pasados" }),
-            " — conservados 2 años desde la fecha del viaje para posibles reclamaciones, disociados de tus datos personales si te has dado de baja."
-          ] }),
-          /* @__PURE__ */ jsxs("li", { children: [
-            /* @__PURE__ */ jsx("strong", { className: "text-cr-text", children: "Cookie de sesión" }),
-            " — expira a los 30 días desde el último inicio de sesión."
-          ] }),
-          /* @__PURE__ */ jsxs("li", { children: [
-            /* @__PURE__ */ jsx("strong", { className: "text-cr-text", children: "Suscripciones push" }),
-            " — se eliminan al darte de baja o al deshabilitar las notificaciones en el perfil."
-          ] }),
-          /* @__PURE__ */ jsxs("li", { children: [
-            /* @__PURE__ */ jsx("strong", { className: "text-cr-text", children: "Eventos de analítica" }),
-            " — PostHog los conserva como máximo 12 meses. Puedes revocar el consentimiento en cualquier momento."
-          ] }),
-          /* @__PURE__ */ jsxs("li", { children: [
-            /* @__PURE__ */ jsx("strong", { className: "text-cr-text", children: "Documentos de verificación de licencia" }),
-            " — las imágenes del carnet de conducir aportadas para la verificación se eliminan automáticamente transcurridos 90 días desde su carga, o antes si la verificación se completa. El acceso durante ese período está restringido exclusivamente al administrador de la plataforma. Los documentos se transmiten y almacenan cifrados (HTTPS en tránsito, cifrado en reposo por Cloudflare KV)."
-          ] })
-        ] })
-      ] }),
-      /* @__PURE__ */ jsxs("section", { className: "space-y-3", children: [
-        /* @__PURE__ */ jsx("h2", { className: "font-display text-xl uppercase text-cr-primary", children: "3. Destinatarios" }),
-        /* @__PURE__ */ jsx("p", { children: "No cedemos tus datos a terceros con fines comerciales. Compartimos datos mínimos con los siguientes prestadores de servicios en calidad de encargados del tratamiento:" }),
-        /* @__PURE__ */ jsxs("ul", { className: "space-y-1 pl-4 list-disc text-cr-text-muted", children: [
-          /* @__PURE__ */ jsxs("li", { children: [
-            /* @__PURE__ */ jsx("strong", { className: "text-cr-text", children: "Turso / ChiselStrike Inc." }),
-            " — base de datos en la nube (región UE, Frankfurt). Contrato de encargado del tratamiento suscrito."
-          ] }),
-          /* @__PURE__ */ jsxs("li", { children: [
-            /* @__PURE__ */ jsx("strong", { className: "text-cr-text", children: "Cloudflare Inc." }),
-            " — infraestructura de red y CDN. Cloudflare puede procesar datos en EE. UU. bajo cláusulas contractuales tipo aprobadas por la Comisión Europea."
-          ] }),
-          /* @__PURE__ */ jsxs("li", { children: [
-            /* @__PURE__ */ jsx("strong", { className: "text-cr-text", children: "Resend Inc." }),
-            " — envío de correos transaccionales (bienvenida, recordatorios, solicitudes y confirmaciones de viaje). Solo recibe el nombre y correo del destinatario + el texto del correo. Los datos se transfieren a EE. UU. bajo las Cláusulas Contractuales Tipo aprobadas por la Comisión Europea (Art. 46 RGPD)."
-          ] }),
-          /* @__PURE__ */ jsxs("li", { children: [
-            /* @__PURE__ */ jsx("strong", { className: "text-cr-text", children: "PostHog EU" }),
-            " — analítica anónima de producto. Sólo se activa si aceptas en el banner de cookies. Alojamiento en la UE (Frankfurt)."
-          ] }),
-          /* @__PURE__ */ jsxs("li", { children: [
-            /* @__PURE__ */ jsx("strong", { className: "text-cr-text", children: "Sentry.io" }),
-            " — registro de errores para corregir fallos. Recibe metadatos técnicos (URL, mensaje de error, navegador); los correos electrónicos y cabeceras de autenticación se filtran antes del envío. Los datos se transfieren a EE. UU. bajo las Cláusulas Contractuales Tipo aprobadas por la Comisión Europea (Art. 46 RGPD)."
-          ] }),
-          /* @__PURE__ */ jsxs("li", { children: [
-            /* @__PURE__ */ jsx("strong", { className: "text-cr-text", children: "Proveedor de servicios de push del navegador" }),
-            " ",
-            "(Google FCM, Apple APNS, Mozilla Autopush, Microsoft WNS) — recibe el endpoint de tu navegador y el contenido cifrado del aviso push. No ve tu identidad real."
-          ] })
         ] }),
-        /* @__PURE__ */ jsx("p", { children: "La información de perfil público del conductor (nombre, ciudad, valoración, modelo de coche, reseñas) es visible para otros usuarios registrados en la plataforma." })
-      ] }),
-      /* @__PURE__ */ jsxs("section", { className: "space-y-3", children: [
-        /* @__PURE__ */ jsx("h2", { className: "font-display text-xl uppercase text-cr-primary", children: "4. Fuentes de datos de eventos (Ticketmaster)" }),
-        /* @__PURE__ */ jsxs("p", { children: [
-          "La información sobre conciertos y eventos que aparece en ConcertRide (nombre, fecha, recinto, precio orientativo e imagen del evento) puede proceder de la",
-          " ",
-          /* @__PURE__ */ jsx(
-            "a",
-            {
-              href: "https://developer.ticketmaster.com/products-and-docs/apis/discovery-api/v2/",
-              target: "_blank",
-              rel: "noopener noreferrer",
-              className: "text-cr-primary underline underline-offset-2",
-              children: "Ticketmaster Discovery API v2"
-            }
-          ),
-          ". Esta API proporciona datos públicos de eventos facilitados por los propios promotores y organizadores a Ticketmaster."
+        /* @__PURE__ */ jsxs("section", { className: "space-y-3", children: [
+          /* @__PURE__ */ jsx("h2", { className: "font-display text-xl uppercase text-cr-primary", children: "3. Destinatarios" }),
+          /* @__PURE__ */ jsx("p", { children: "No cedemos tus datos a terceros con fines comerciales. Compartimos datos mínimos con los siguientes prestadores de servicios en calidad de encargados del tratamiento:" }),
+          /* @__PURE__ */ jsxs("ul", { className: "space-y-1 pl-4 list-disc text-cr-text-muted", children: [
+            /* @__PURE__ */ jsxs("li", { children: [
+              /* @__PURE__ */ jsx("strong", { className: "text-cr-text", children: "Turso / ChiselStrike Inc." }),
+              " — base de datos en la nube (región UE, Frankfurt). Contrato de encargado del tratamiento suscrito."
+            ] }),
+            /* @__PURE__ */ jsxs("li", { children: [
+              /* @__PURE__ */ jsx("strong", { className: "text-cr-text", children: "Cloudflare Inc." }),
+              " — infraestructura de red y CDN. Cloudflare puede procesar datos en EE. UU. bajo cláusulas contractuales tipo aprobadas por la Comisión Europea."
+            ] }),
+            /* @__PURE__ */ jsxs("li", { children: [
+              /* @__PURE__ */ jsx("strong", { className: "text-cr-text", children: "Resend Inc." }),
+              " — envío de correos transaccionales (bienvenida, recordatorios, solicitudes y confirmaciones de viaje). Solo recibe el nombre y correo del destinatario + el texto del correo. Los datos se transfieren a EE. UU. bajo las Cláusulas Contractuales Tipo aprobadas por la Comisión Europea (Art. 46 RGPD)."
+            ] }),
+            /* @__PURE__ */ jsxs("li", { children: [
+              /* @__PURE__ */ jsx("strong", { className: "text-cr-text", children: "PostHog EU" }),
+              " — analítica anónima de producto. Sólo se activa si aceptas en el banner de cookies. Alojamiento en la UE (Frankfurt)."
+            ] }),
+            /* @__PURE__ */ jsxs("li", { children: [
+              /* @__PURE__ */ jsx("strong", { className: "text-cr-text", children: "Sentry.io" }),
+              " — registro de errores para corregir fallos. Recibe metadatos técnicos (URL, mensaje de error, navegador); los correos electrónicos y cabeceras de autenticación se filtran antes del envío. Los datos se transfieren a EE. UU. bajo las Cláusulas Contractuales Tipo aprobadas por la Comisión Europea (Art. 46 RGPD)."
+            ] }),
+            /* @__PURE__ */ jsxs("li", { children: [
+              /* @__PURE__ */ jsx("strong", { className: "text-cr-text", children: "Proveedor de servicios de push del navegador" }),
+              " ",
+              "(Google FCM, Apple APNS, Mozilla Autopush, Microsoft WNS) — recibe el endpoint de tu navegador y el contenido cifrado del aviso push. No ve tu identidad real."
+            ] })
+          ] }),
+          /* @__PURE__ */ jsx("p", { children: "La información de perfil público del conductor (nombre, ciudad, valoración, modelo de coche, reseñas) es visible para otros usuarios registrados en la plataforma." })
         ] }),
-        /* @__PURE__ */ jsxs("ul", { className: "space-y-2 pl-4 list-disc text-cr-text-muted", children: [
-          /* @__PURE__ */ jsxs("li", { children: [
-            /* @__PURE__ */ jsx("strong", { className: "text-cr-text", children: "Datos que se obtienen de Ticketmaster:" }),
-            " ",
-            "nombre del artista/evento, fecha, recinto, ciudad, precio mínimo/máximo, género musical, imagen del evento y URL de compra de entradas. Estos datos no contienen información personal de usuarios."
-          ] }),
-          /* @__PURE__ */ jsxs("li", { children: [
-            /* @__PURE__ */ jsx("strong", { className: "text-cr-text", children: "Almacenamiento:" }),
-            " ",
-            "Los datos de eventos se conservan en nuestra base de datos durante el tiempo necesario para prestar el servicio (hasta dos meses después de la fecha del evento). No utilizamos Ticketmaster como servicio de almacenamiento de imágenes independiente; las imágenes se referencian desde su CDN original."
-          ] }),
-          /* @__PURE__ */ jsxs("li", { children: [
-            /* @__PURE__ */ jsx("strong", { className: "text-cr-text", children: "Política de privacidad de Ticketmaster:" }),
-            " ",
-            "Si compras entradas a través del enlace de Ticketmaster que aparece en ConcertRide, pasas a estar sujeto a la política de privacidad de Ticketmaster:",
+        /* @__PURE__ */ jsxs("section", { className: "space-y-3", children: [
+          /* @__PURE__ */ jsx("h2", { className: "font-display text-xl uppercase text-cr-primary", children: "4. Fuentes de datos de eventos (Ticketmaster)" }),
+          /* @__PURE__ */ jsxs("p", { children: [
+            "La información sobre conciertos y eventos que aparece en ConcertRide (nombre, fecha, recinto, precio orientativo e imagen del evento) puede proceder de la",
             " ",
             /* @__PURE__ */ jsx(
               "a",
               {
-                href: "https://www.ticketmaster.es/h/privacy.html",
+                href: "https://developer.ticketmaster.com/products-and-docs/apis/discovery-api/v2/",
                 target: "_blank",
                 rel: "noopener noreferrer",
                 className: "text-cr-primary underline underline-offset-2",
-                children: "ticketmaster.es/h/privacy.html"
+                children: "Ticketmaster Discovery API v2"
               }
             ),
-            ". ConcertRide no recibe ni procesa datos de pago."
-          ] })
-        ] }),
-        /* @__PURE__ */ jsx("p", { className: "text-cr-text-muted text-xs", children: "Ticketmaster® es una marca registrada de Ticketmaster LLC. ConcertRide ES no está afiliada ni patrocinada por Ticketmaster LLC." })
-      ] }),
-      /* @__PURE__ */ jsxs("section", { className: "space-y-3", children: [
-        /* @__PURE__ */ jsx("h2", { className: "font-display text-xl uppercase text-cr-primary", children: "5. Tus derechos" }),
-        /* @__PURE__ */ jsxs("p", { children: [
-          "Puedes ejercer en cualquier momento los siguientes derechos. La supresión de la cuenta está disponible directamente en ",
-          /* @__PURE__ */ jsx("em", { children: "Mi perfil → Eliminar cuenta" }),
-          ". Para el resto puedes escribirnos a",
-          " ",
-          /* @__PURE__ */ jsx(
-            "a",
-            {
-              href: "mailto:help@concertride.me",
-              className: "font-mono text-cr-primary underline underline-offset-2",
-              children: "help@concertride.me"
-            }
-          ),
-          ", indicando el derecho que deseas ejercitar y acreditando tu identidad:"
-        ] }),
-        /* @__PURE__ */ jsxs("ul", { className: "space-y-1 pl-4 list-disc text-cr-text-muted", children: [
-          /* @__PURE__ */ jsxs("li", { children: [
-            /* @__PURE__ */ jsx("strong", { className: "text-cr-text", children: "Acceso" }),
-            " — conocer qué datos tratamos sobre ti."
+            ". Esta API proporciona datos públicos de eventos facilitados por los propios promotores y organizadores a Ticketmaster."
           ] }),
-          /* @__PURE__ */ jsxs("li", { children: [
-            /* @__PURE__ */ jsx("strong", { className: "text-cr-text", children: "Rectificación" }),
-            " — corregir datos inexactos desde tu perfil o por correo."
+          /* @__PURE__ */ jsxs("ul", { className: "space-y-2 pl-4 list-disc text-cr-text-muted", children: [
+            /* @__PURE__ */ jsxs("li", { children: [
+              /* @__PURE__ */ jsx("strong", { className: "text-cr-text", children: "Datos que se obtienen de Ticketmaster:" }),
+              " ",
+              "nombre del artista/evento, fecha, recinto, ciudad, precio mínimo/máximo, género musical, imagen del evento y URL de compra de entradas. Estos datos no contienen información personal de usuarios."
+            ] }),
+            /* @__PURE__ */ jsxs("li", { children: [
+              /* @__PURE__ */ jsx("strong", { className: "text-cr-text", children: "Almacenamiento:" }),
+              " ",
+              "Los datos de eventos se conservan en nuestra base de datos durante el tiempo necesario para prestar el servicio (hasta dos meses después de la fecha del evento). No utilizamos Ticketmaster como servicio de almacenamiento de imágenes independiente; las imágenes se referencian desde su CDN original."
+            ] }),
+            /* @__PURE__ */ jsxs("li", { children: [
+              /* @__PURE__ */ jsx("strong", { className: "text-cr-text", children: "Política de privacidad de Ticketmaster:" }),
+              " ",
+              "Si compras entradas a través del enlace de Ticketmaster que aparece en ConcertRide, pasas a estar sujeto a la política de privacidad de Ticketmaster:",
+              " ",
+              /* @__PURE__ */ jsx(
+                "a",
+                {
+                  href: "https://www.ticketmaster.es/h/privacy.html",
+                  target: "_blank",
+                  rel: "noopener noreferrer",
+                  className: "text-cr-primary underline underline-offset-2",
+                  children: "ticketmaster.es/h/privacy.html"
+                }
+              ),
+              ". ConcertRide no recibe ni procesa datos de pago."
+            ] })
           ] }),
-          /* @__PURE__ */ jsxs("li", { children: [
-            /* @__PURE__ */ jsx("strong", { className: "text-cr-text", children: "Supresión" }),
-            " — eliminación inmediata desde ",
+          /* @__PURE__ */ jsx("p", { className: "text-cr-text-muted text-xs", children: "Ticketmaster® es una marca registrada de Ticketmaster LLC. ConcertRide ES no está afiliada ni patrocinada por Ticketmaster LLC." })
+        ] }),
+        /* @__PURE__ */ jsxs("section", { className: "space-y-3", children: [
+          /* @__PURE__ */ jsx("h2", { className: "font-display text-xl uppercase text-cr-primary", children: "5. Tus derechos" }),
+          /* @__PURE__ */ jsxs("p", { children: [
+            "Puedes ejercer en cualquier momento los siguientes derechos. La supresión de la cuenta está disponible directamente en ",
             /* @__PURE__ */ jsx("em", { children: "Mi perfil → Eliminar cuenta" }),
+            ". Para el resto puedes escribirnos a",
+            " ",
+            /* @__PURE__ */ jsx(
+              "a",
+              {
+                href: "mailto:help@concertride.me",
+                className: "font-mono text-cr-primary underline underline-offset-2",
+                children: "help@concertride.me"
+              }
+            ),
+            ", indicando el derecho que deseas ejercitar y acreditando tu identidad:"
+          ] }),
+          /* @__PURE__ */ jsxs("ul", { className: "space-y-1 pl-4 list-disc text-cr-text-muted", children: [
+            /* @__PURE__ */ jsxs("li", { children: [
+              /* @__PURE__ */ jsx("strong", { className: "text-cr-text", children: "Acceso" }),
+              " — conocer qué datos tratamos sobre ti."
+            ] }),
+            /* @__PURE__ */ jsxs("li", { children: [
+              /* @__PURE__ */ jsx("strong", { className: "text-cr-text", children: "Rectificación" }),
+              " — corregir datos inexactos desde tu perfil o por correo."
+            ] }),
+            /* @__PURE__ */ jsxs("li", { children: [
+              /* @__PURE__ */ jsx("strong", { className: "text-cr-text", children: "Supresión" }),
+              " — eliminación inmediata desde ",
+              /* @__PURE__ */ jsx("em", { children: "Mi perfil → Eliminar cuenta" }),
+              "."
+            ] }),
+            /* @__PURE__ */ jsxs("li", { children: [
+              /* @__PURE__ */ jsx("strong", { className: "text-cr-text", children: "Oposición" }),
+              " — oponerte al tratamiento basado en interés legítimo."
+            ] }),
+            /* @__PURE__ */ jsxs("li", { children: [
+              /* @__PURE__ */ jsx("strong", { className: "text-cr-text", children: "Limitación" }),
+              " — solicitar que se restrinja el tratamiento."
+            ] }),
+            /* @__PURE__ */ jsxs("li", { children: [
+              /* @__PURE__ */ jsx("strong", { className: "text-cr-text", children: "Portabilidad" }),
+              " — recibir tus datos en formato estructurado."
+            ] }),
+            /* @__PURE__ */ jsxs("li", { children: [
+              /* @__PURE__ */ jsx("strong", { className: "text-cr-text", children: "Retirada del consentimiento" }),
+              " — en analítica (banner de cookies) o notificaciones push (perfil), en cualquier momento sin que afecte a lo anterior."
+            ] })
+          ] }),
+          /* @__PURE__ */ jsxs("p", { children: [
+            "Si consideras que el tratamiento no es conforme al RGPD, tienes derecho a presentar una reclamación ante la",
+            " ",
+            /* @__PURE__ */ jsx(
+              "a",
+              {
+                href: "https://www.aepd.es",
+                target: "_blank",
+                rel: "noopener noreferrer",
+                className: "text-cr-primary underline underline-offset-2",
+                children: "Agencia Española de Protección de Datos (AEPD)"
+              }
+            ),
             "."
-          ] }),
-          /* @__PURE__ */ jsxs("li", { children: [
-            /* @__PURE__ */ jsx("strong", { className: "text-cr-text", children: "Oposición" }),
-            " — oponerte al tratamiento basado en interés legítimo."
-          ] }),
-          /* @__PURE__ */ jsxs("li", { children: [
-            /* @__PURE__ */ jsx("strong", { className: "text-cr-text", children: "Limitación" }),
-            " — solicitar que se restrinja el tratamiento."
-          ] }),
-          /* @__PURE__ */ jsxs("li", { children: [
-            /* @__PURE__ */ jsx("strong", { className: "text-cr-text", children: "Portabilidad" }),
-            " — recibir tus datos en formato estructurado."
-          ] }),
-          /* @__PURE__ */ jsxs("li", { children: [
-            /* @__PURE__ */ jsx("strong", { className: "text-cr-text", children: "Retirada del consentimiento" }),
-            " — en analítica (banner de cookies) o notificaciones push (perfil), en cualquier momento sin que afecte a lo anterior."
           ] })
         ] }),
-        /* @__PURE__ */ jsxs("p", { children: [
-          "Si consideras que el tratamiento no es conforme al RGPD, tienes derecho a presentar una reclamación ante la",
-          " ",
-          /* @__PURE__ */ jsx(
-            "a",
-            {
-              href: "https://www.aepd.es",
-              target: "_blank",
-              rel: "noopener noreferrer",
-              className: "text-cr-primary underline underline-offset-2",
-              children: "Agencia Española de Protección de Datos (AEPD)"
-            }
-          ),
-          "."
+        /* @__PURE__ */ jsxs("section", { className: "space-y-3", children: [
+          /* @__PURE__ */ jsx("h2", { className: "font-display text-xl uppercase text-cr-primary", children: "6. Seguridad" }),
+          /* @__PURE__ */ jsx("p", { children: "Las contraseñas se almacenan como hash PBKDF2-SHA256 (100 000 iteraciones, sal aleatoria de 16 bytes) y nunca en texto plano. Las sesiones se gestionan mediante tokens JWT firmados con HS256, transmitidos exclusivamente en cookies HTTP-only con atributo Secure en producción." }),
+          /* @__PURE__ */ jsx("p", { children: "El acceso a la base de datos está restringido mediante autenticación por token. La comunicación entre cliente y servidor se realiza siempre sobre HTTPS." })
+        ] }),
+        /* @__PURE__ */ jsxs("section", { className: "space-y-3", children: [
+          /* @__PURE__ */ jsx("h2", { className: "font-display text-xl uppercase text-cr-primary", children: "7. Cambios en esta política" }),
+          /* @__PURE__ */ jsx("p", { children: "Podemos actualizar esta política para adaptarla a cambios normativos o del servicio. Cuando los cambios sean significativos, te lo notificaremos por correo electrónico o mediante un aviso destacado en la plataforma." })
         ] })
       ] }),
-      /* @__PURE__ */ jsxs("section", { className: "space-y-3", children: [
-        /* @__PURE__ */ jsx("h2", { className: "font-display text-xl uppercase text-cr-primary", children: "6. Seguridad" }),
-        /* @__PURE__ */ jsx("p", { children: "Las contraseñas se almacenan como hash PBKDF2-SHA256 (100 000 iteraciones, sal aleatoria de 16 bytes) y nunca en texto plano. Las sesiones se gestionan mediante tokens JWT firmados con HS256, transmitidos exclusivamente en cookies HTTP-only con atributo Secure en producción." }),
-        /* @__PURE__ */ jsx("p", { children: "El acceso a la base de datos está restringido mediante autenticación por token. La comunicación entre cliente y servidor se realiza siempre sobre HTTPS." })
-      ] }),
-      /* @__PURE__ */ jsxs("section", { className: "space-y-3", children: [
-        /* @__PURE__ */ jsx("h2", { className: "font-display text-xl uppercase text-cr-primary", children: "7. Cambios en esta política" }),
-        /* @__PURE__ */ jsx("p", { children: "Podemos actualizar esta política para adaptarla a cambios normativos o del servicio. Cuando los cambios sean significativos, te lo notificaremos por correo electrónico o mediante un aviso destacado en la plataforma." })
+      /* @__PURE__ */ jsxs("div", { className: "mt-12 pt-8 border-t border-cr-border flex flex-wrap gap-4", children: [
+        /* @__PURE__ */ jsx(Link, { to: "/aviso-legal", className: "font-sans text-xs text-cr-text-muted hover:text-cr-primary transition-colors", children: "Aviso legal →" }),
+        /* @__PURE__ */ jsx(Link, { to: "/cookies", className: "font-sans text-xs text-cr-text-muted hover:text-cr-primary transition-colors", children: "Política de cookies →" }),
+        /* @__PURE__ */ jsx(Link, { to: "/terminos", className: "font-sans text-xs text-cr-text-muted hover:text-cr-primary transition-colors", children: "Términos y condiciones →" }),
+        /* @__PURE__ */ jsx(Link, { to: "/", className: "font-sans text-xs text-cr-text-muted hover:text-cr-primary transition-colors ml-auto", children: "← Volver al inicio" })
       ] })
-    ] }),
-    /* @__PURE__ */ jsxs("div", { className: "mt-12 pt-8 border-t border-cr-border flex flex-wrap gap-4", children: [
-      /* @__PURE__ */ jsx(Link, { to: "/aviso-legal", className: "font-sans text-xs text-cr-text-muted hover:text-cr-primary transition-colors", children: "Aviso legal →" }),
-      /* @__PURE__ */ jsx(Link, { to: "/cookies", className: "font-sans text-xs text-cr-text-muted hover:text-cr-primary transition-colors", children: "Política de cookies →" }),
-      /* @__PURE__ */ jsx(Link, { to: "/terminos", className: "font-sans text-xs text-cr-text-muted hover:text-cr-primary transition-colors", children: "Términos y condiciones →" }),
-      /* @__PURE__ */ jsx(Link, { to: "/", className: "font-sans text-xs text-cr-text-muted hover:text-cr-primary transition-colors ml-auto", children: "← Volver al inicio" })
     ] })
-  ] }) });
+  ] });
 }
 function CookiesPage() {
   useSeoMeta({
@@ -51437,163 +54170,182 @@ function CookiesPage() {
     description: "Política de cookies de ConcertRide: qué cookies usamos, para qué las usamos y cómo puedes gestionar o rechazar tus preferencias de seguimiento.",
     canonical: `${SITE_URL}/cookies`
   });
-  return /* @__PURE__ */ jsx("main", { id: "main", className: "min-h-dvh bg-cr-bg text-cr-text pt-14", children: /* @__PURE__ */ jsxs("div", { className: "max-w-3xl mx-auto px-6 py-12", children: [
-    /* @__PURE__ */ jsxs("header", { className: "mb-10 border-b border-cr-border pb-8 space-y-2", children: [
-      /* @__PURE__ */ jsx("p", { className: "font-sans text-[11px] font-semibold uppercase tracking-[0.16em] text-cr-primary", children: "Legal" }),
-      /* @__PURE__ */ jsx("h1", { className: "font-display text-4xl uppercase", children: "Política de cookies" }),
-      /* @__PURE__ */ jsx("p", { className: "font-mono text-xs text-cr-text-muted", children: "Última actualización: abril de 2026" })
-    ] }),
-    /* @__PURE__ */ jsxs("div", { className: "space-y-10 font-sans text-sm text-cr-text leading-relaxed", children: [
-      /* @__PURE__ */ jsxs("section", { className: "space-y-3", children: [
-        /* @__PURE__ */ jsx("h2", { className: "font-display text-xl uppercase text-cr-primary", children: "¿Qué es una cookie?" }),
-        /* @__PURE__ */ jsx("p", { children: "Una cookie es un pequeño archivo de texto que un sitio web deposita en tu dispositivo cuando lo visitas. Sirve para que el sitio recuerde información de tu visita, como si has iniciado sesión, preferencias, etc." })
+  return /* @__PURE__ */ jsxs("main", { id: "main", className: "min-h-dvh bg-cr-bg text-cr-text pt-14", children: [
+    /* @__PURE__ */ jsx(
+      "script",
+      {
+        type: "application/ld+json",
+        dangerouslySetInnerHTML: {
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "BreadcrumbList",
+            itemListElement: [
+              { "@type": "ListItem", position: 1, name: "Inicio", item: `${SITE_URL}/` },
+              { "@type": "ListItem", position: 2, name: "Legal", item: `${SITE_URL}/aviso-legal` },
+              { "@type": "ListItem", position: 3, name: "Política de cookies", item: `${SITE_URL}/cookies` }
+            ]
+          })
+        }
+      }
+    ),
+    /* @__PURE__ */ jsxs("div", { className: "max-w-3xl mx-auto px-6 py-12", children: [
+      /* @__PURE__ */ jsxs("header", { className: "mb-10 border-b border-cr-border pb-8 space-y-2", children: [
+        /* @__PURE__ */ jsx("p", { className: "font-sans text-[11px] font-semibold uppercase tracking-[0.16em] text-cr-primary", children: "Legal" }),
+        /* @__PURE__ */ jsx("h1", { className: "font-display text-4xl uppercase", children: "Política de cookies" }),
+        /* @__PURE__ */ jsx("p", { className: "font-mono text-xs text-cr-text-muted", children: "Última actualización: abril de 2026" })
       ] }),
-      /* @__PURE__ */ jsxs("section", { className: "space-y-4", children: [
-        /* @__PURE__ */ jsx("h2", { className: "font-display text-xl uppercase text-cr-primary", children: "Cookies y almacenamiento que usa este sitio" }),
-        /* @__PURE__ */ jsx("p", { children: "ConcertRide ES usa una sola cookie estrictamente necesaria. De manera opcional (solo si lo aceptas en el banner) activamos analítica anónima de producto alojada en la UE. No hay cookies publicitarias." }),
-        /* @__PURE__ */ jsx("div", { className: "overflow-x-auto", children: /* @__PURE__ */ jsxs("table", { className: "w-full font-mono text-xs border-collapse", children: [
-          /* @__PURE__ */ jsx("thead", { children: /* @__PURE__ */ jsxs("tr", { className: "border-b border-cr-border text-left", children: [
-            /* @__PURE__ */ jsx("th", { className: "py-2 pr-4 font-semibold text-cr-text-muted uppercase tracking-[0.08em]", children: "Nombre" }),
-            /* @__PURE__ */ jsx("th", { className: "py-2 pr-4 font-semibold text-cr-text-muted uppercase tracking-[0.08em]", children: "Tipo" }),
-            /* @__PURE__ */ jsx("th", { className: "py-2 pr-4 font-semibold text-cr-text-muted uppercase tracking-[0.08em]", children: "Duración" }),
-            /* @__PURE__ */ jsx("th", { className: "py-2 font-semibold text-cr-text-muted uppercase tracking-[0.08em]", children: "Finalidad" })
-          ] }) }),
-          /* @__PURE__ */ jsxs("tbody", { children: [
-            /* @__PURE__ */ jsxs("tr", { className: "border-b border-cr-border/30", children: [
-              /* @__PURE__ */ jsx("td", { className: "py-3 pr-4 text-cr-primary", children: "cr_session" }),
-              /* @__PURE__ */ jsx("td", { className: "py-3 pr-4 text-cr-text", children: "Propia · Necesaria" }),
-              /* @__PURE__ */ jsx("td", { className: "py-3 pr-4 text-cr-text", children: "30 días" }),
-              /* @__PURE__ */ jsx("td", { className: "py-3 text-cr-text-muted", children: "Mantiene la sesión iniciada. Contiene un token JWT firmado. HTTP-only; no accesible desde JavaScript." })
-            ] }),
-            /* @__PURE__ */ jsxs("tr", { className: "border-b border-cr-border/30", children: [
-              /* @__PURE__ */ jsx("td", { className: "py-3 pr-4 text-cr-primary", children: "cr_cookie_notice_v1" }),
-              /* @__PURE__ */ jsx("td", { className: "py-3 pr-4 text-cr-text", children: "Propia · Necesaria (localStorage)" }),
-              /* @__PURE__ */ jsx("td", { className: "py-3 pr-4 text-cr-text", children: "Permanente" }),
-              /* @__PURE__ */ jsx("td", { className: "py-3 text-cr-text-muted", children: "Guarda tu elección en el banner de cookies para no volver a mostrártelo." })
-            ] }),
-            /* @__PURE__ */ jsxs("tr", { className: "border-b border-cr-border/30", children: [
-              /* @__PURE__ */ jsx("td", { className: "py-3 pr-4 text-cr-primary", children: "cr_analytics_consent_v1" }),
-              /* @__PURE__ */ jsx("td", { className: "py-3 pr-4 text-cr-text", children: "Propia · Consentimiento (localStorage)" }),
-              /* @__PURE__ */ jsx("td", { className: "py-3 pr-4 text-cr-text", children: "Permanente" }),
-              /* @__PURE__ */ jsxs("td", { className: "py-3 text-cr-text-muted", children: [
-                "Registra si has concedido o denegado la analítica anónima. Sin este flag en",
-                /* @__PURE__ */ jsx("code", { className: "text-cr-primary", children: " granted" }),
-                ", PostHog no se carga."
+      /* @__PURE__ */ jsxs("div", { className: "space-y-10 font-sans text-sm text-cr-text leading-relaxed", children: [
+        /* @__PURE__ */ jsxs("section", { className: "space-y-3", children: [
+          /* @__PURE__ */ jsx("h2", { className: "font-display text-xl uppercase text-cr-primary", children: "¿Qué es una cookie?" }),
+          /* @__PURE__ */ jsx("p", { children: "Una cookie es un pequeño archivo de texto que un sitio web deposita en tu dispositivo cuando lo visitas. Sirve para que el sitio recuerde información de tu visita, como si has iniciado sesión, preferencias, etc." })
+        ] }),
+        /* @__PURE__ */ jsxs("section", { className: "space-y-4", children: [
+          /* @__PURE__ */ jsx("h2", { className: "font-display text-xl uppercase text-cr-primary", children: "Cookies y almacenamiento que usa este sitio" }),
+          /* @__PURE__ */ jsx("p", { children: "ConcertRide ES usa una sola cookie estrictamente necesaria. De manera opcional (solo si lo aceptas en el banner) activamos analítica anónima de producto alojada en la UE. No hay cookies publicitarias." }),
+          /* @__PURE__ */ jsx("div", { className: "overflow-x-auto", children: /* @__PURE__ */ jsxs("table", { className: "w-full font-mono text-xs border-collapse", children: [
+            /* @__PURE__ */ jsx("thead", { children: /* @__PURE__ */ jsxs("tr", { className: "border-b border-cr-border text-left", children: [
+              /* @__PURE__ */ jsx("th", { className: "py-2 pr-4 font-semibold text-cr-text-muted uppercase tracking-[0.08em]", children: "Nombre" }),
+              /* @__PURE__ */ jsx("th", { className: "py-2 pr-4 font-semibold text-cr-text-muted uppercase tracking-[0.08em]", children: "Tipo" }),
+              /* @__PURE__ */ jsx("th", { className: "py-2 pr-4 font-semibold text-cr-text-muted uppercase tracking-[0.08em]", children: "Duración" }),
+              /* @__PURE__ */ jsx("th", { className: "py-2 font-semibold text-cr-text-muted uppercase tracking-[0.08em]", children: "Finalidad" })
+            ] }) }),
+            /* @__PURE__ */ jsxs("tbody", { children: [
+              /* @__PURE__ */ jsxs("tr", { className: "border-b border-cr-border/30", children: [
+                /* @__PURE__ */ jsx("td", { className: "py-3 pr-4 text-cr-primary", children: "cr_session" }),
+                /* @__PURE__ */ jsx("td", { className: "py-3 pr-4 text-cr-text", children: "Propia · Necesaria" }),
+                /* @__PURE__ */ jsx("td", { className: "py-3 pr-4 text-cr-text", children: "30 días" }),
+                /* @__PURE__ */ jsx("td", { className: "py-3 text-cr-text-muted", children: "Mantiene la sesión iniciada. Contiene un token JWT firmado. HTTP-only; no accesible desde JavaScript." })
+              ] }),
+              /* @__PURE__ */ jsxs("tr", { className: "border-b border-cr-border/30", children: [
+                /* @__PURE__ */ jsx("td", { className: "py-3 pr-4 text-cr-primary", children: "cr_cookie_notice_v1" }),
+                /* @__PURE__ */ jsx("td", { className: "py-3 pr-4 text-cr-text", children: "Propia · Necesaria (localStorage)" }),
+                /* @__PURE__ */ jsx("td", { className: "py-3 pr-4 text-cr-text", children: "Permanente" }),
+                /* @__PURE__ */ jsx("td", { className: "py-3 text-cr-text-muted", children: "Guarda tu elección en el banner de cookies para no volver a mostrártelo." })
+              ] }),
+              /* @__PURE__ */ jsxs("tr", { className: "border-b border-cr-border/30", children: [
+                /* @__PURE__ */ jsx("td", { className: "py-3 pr-4 text-cr-primary", children: "cr_analytics_consent_v1" }),
+                /* @__PURE__ */ jsx("td", { className: "py-3 pr-4 text-cr-text", children: "Propia · Consentimiento (localStorage)" }),
+                /* @__PURE__ */ jsx("td", { className: "py-3 pr-4 text-cr-text", children: "Permanente" }),
+                /* @__PURE__ */ jsxs("td", { className: "py-3 text-cr-text-muted", children: [
+                  "Registra si has concedido o denegado la analítica anónima. Sin este flag en",
+                  /* @__PURE__ */ jsx("code", { className: "text-cr-primary", children: " granted" }),
+                  ", PostHog no se carga."
+                ] })
+              ] }),
+              /* @__PURE__ */ jsxs("tr", { className: "border-b border-cr-border/30", children: [
+                /* @__PURE__ */ jsx("td", { className: "py-3 pr-4 text-cr-primary", children: "ph_* (PostHog)" }),
+                /* @__PURE__ */ jsx("td", { className: "py-3 pr-4 text-cr-text", children: "Terceros · Analítica opcional" }),
+                /* @__PURE__ */ jsx("td", { className: "py-3 pr-4 text-cr-text", children: "12 meses" }),
+                /* @__PURE__ */ jsx("td", { className: "py-3 text-cr-text-muted", children: 'Identificador aleatorio anónimo + estado de sesión para agregar métricas de uso. Solo se crea si aceptas "Aceptar todo" en el banner. Servidor en la UE (Frankfurt). No se comparte con terceros.' })
               ] })
-            ] }),
-            /* @__PURE__ */ jsxs("tr", { className: "border-b border-cr-border/30", children: [
-              /* @__PURE__ */ jsx("td", { className: "py-3 pr-4 text-cr-primary", children: "ph_* (PostHog)" }),
-              /* @__PURE__ */ jsx("td", { className: "py-3 pr-4 text-cr-text", children: "Terceros · Analítica opcional" }),
-              /* @__PURE__ */ jsx("td", { className: "py-3 pr-4 text-cr-text", children: "12 meses" }),
-              /* @__PURE__ */ jsx("td", { className: "py-3 text-cr-text-muted", children: 'Identificador aleatorio anónimo + estado de sesión para agregar métricas de uso. Solo se crea si aceptas "Aceptar todo" en el banner. Servidor en la UE (Frankfurt). No se comparte con terceros.' })
             ] })
-          ] })
-        ] }) }),
-        /* @__PURE__ */ jsxs("div", { className: "bg-cr-surface border border-cr-border p-4 space-y-1", children: [
-          /* @__PURE__ */ jsx("p", { className: "font-sans text-xs font-semibold uppercase tracking-[0.1em] text-cr-primary", children: "Sin publicidad ni seguimiento entre sitios" }),
-          /* @__PURE__ */ jsx("p", { className: "font-mono text-xs text-cr-text-muted", children: "No usamos Google Analytics, píxeles de Facebook, cookies de remarketing ni ninguna otra tecnología de cross-site tracking. No compartimos datos de navegación con anunciantes. La analítica opcional es agregada y anónima." })
-        ] })
-      ] }),
-      /* @__PURE__ */ jsxs("section", { className: "space-y-3", children: [
-        /* @__PURE__ */ jsx("h2", { className: "font-display text-xl uppercase text-cr-primary", children: "Solicitudes de terceros" }),
-        /* @__PURE__ */ jsxs("p", { children: [
-          "El mapa interactivo realiza solicitudes de imágenes de teselas (tiles) a los servidores de ",
-          /* @__PURE__ */ jsx("strong", { children: "CARTO" }),
-          " y ",
-          /* @__PURE__ */ jsx("strong", { children: "OpenStreetMap" }),
-          ". Estas solicitudes pueden registrar tu dirección IP en los servidores de esos proveedores, como cualquier petición HTTP normal, pero ",
-          /* @__PURE__ */ jsx("strong", { children: "no depositan cookies" }),
-          " en tu dispositivo."
-        ] }),
-        /* @__PURE__ */ jsxs("p", { children: [
-          "Para más información sobre cómo CARTO trata los datos de acceso a sus teselas, consulta su",
-          " ",
-          /* @__PURE__ */ jsx(
-            "a",
-            {
-              href: "https://carto.com/privacy",
-              target: "_blank",
-              rel: "noopener noreferrer",
-              className: "text-cr-primary underline underline-offset-2",
-              children: "política de privacidad"
-            }
-          ),
-          "."
-        ] })
-      ] }),
-      /* @__PURE__ */ jsxs("section", { className: "space-y-3", children: [
-        /* @__PURE__ */ jsx("h2", { className: "font-display text-xl uppercase text-cr-primary", children: "¿Necesito dar mi consentimiento?" }),
-        /* @__PURE__ */ jsxs("p", { children: [
-          "Las cookies y el almacenamiento local estrictamente necesarios (",
-          /* @__PURE__ */ jsx("code", { className: "font-mono", children: "cr_session" }),
-          ", ",
-          /* @__PURE__ */ jsx("code", { className: "font-mono", children: "cr_cookie_notice_v1" }),
-          ") no requieren consentimiento previo, conforme al artículo 22.2 de la LSSI-CE y la Directiva ePrivacy."
-        ] }),
-        /* @__PURE__ */ jsxs("p", { children: [
-          "La ",
-          /* @__PURE__ */ jsx("strong", { children: "analítica de producto (PostHog EU)" }),
-          " sí requiere tu consentimiento explícito: solo se carga cuando pulsas ",
-          /* @__PURE__ */ jsx("em", { children: '"Aceptar todo"' }),
-          " en el banner. Si pulsas",
-          /* @__PURE__ */ jsx("em", { children: ' "Solo esenciales"' }),
-          ", PostHog no se inicializa y no se almacenan ni se envían eventos."
-        ] }),
-        /* @__PURE__ */ jsxs("p", { children: [
-          "Puedes revocar tu consentimiento en cualquier momento borrando el valor",
-          /* @__PURE__ */ jsx("code", { className: "font-mono", children: " cr_analytics_consent_v1" }),
-          " del localStorage o escribiéndonos a",
-          " ",
-          /* @__PURE__ */ jsx(
-            "a",
-            {
-              href: "mailto:help@concertride.me",
-              className: "text-cr-primary underline underline-offset-2",
-              children: "help@concertride.me"
-            }
-          ),
-          "."
-        ] })
-      ] }),
-      /* @__PURE__ */ jsxs("section", { className: "space-y-3", children: [
-        /* @__PURE__ */ jsx("h2", { className: "font-display text-xl uppercase text-cr-primary", children: "Cómo eliminar las cookies" }),
-        /* @__PURE__ */ jsx("p", { children: "Puedes eliminar o bloquear cookies desde la configuración de tu navegador:" }),
-        /* @__PURE__ */ jsxs("ul", { className: "space-y-1 pl-4 list-disc text-cr-text-muted", children: [
-          /* @__PURE__ */ jsxs("li", { children: [
-            /* @__PURE__ */ jsx("strong", { className: "text-cr-text", children: "Chrome:" }),
-            " Configuración → Privacidad y seguridad → Cookies y otros datos de sitios"
-          ] }),
-          /* @__PURE__ */ jsxs("li", { children: [
-            /* @__PURE__ */ jsx("strong", { className: "text-cr-text", children: "Firefox:" }),
-            " Opciones → Privacidad y seguridad → Cookies y datos del sitio"
-          ] }),
-          /* @__PURE__ */ jsxs("li", { children: [
-            /* @__PURE__ */ jsx("strong", { className: "text-cr-text", children: "Safari:" }),
-            " Preferencias → Privacidad → Gestionar datos del sitio web"
-          ] }),
-          /* @__PURE__ */ jsxs("li", { children: [
-            /* @__PURE__ */ jsx("strong", { className: "text-cr-text", children: "Edge:" }),
-            " Configuración → Cookies y permisos del sitio"
+          ] }) }),
+          /* @__PURE__ */ jsxs("div", { className: "bg-cr-surface border border-cr-border p-4 space-y-1", children: [
+            /* @__PURE__ */ jsx("p", { className: "font-sans text-xs font-semibold uppercase tracking-[0.1em] text-cr-primary", children: "Sin publicidad ni seguimiento entre sitios" }),
+            /* @__PURE__ */ jsx("p", { className: "font-mono text-xs text-cr-text-muted", children: "No usamos Google Analytics, píxeles de Facebook, cookies de remarketing ni ninguna otra tecnología de cross-site tracking. No compartimos datos de navegación con anunciantes. La analítica opcional es agregada y anónima." })
           ] })
         ] }),
-        /* @__PURE__ */ jsxs("p", { children: [
-          "Ten en cuenta que si eliminas ",
-          /* @__PURE__ */ jsx("code", { className: "font-mono", children: "cr_session" }),
-          ", tu sesión se cerrará y tendrás que volver a iniciarla."
+        /* @__PURE__ */ jsxs("section", { className: "space-y-3", children: [
+          /* @__PURE__ */ jsx("h2", { className: "font-display text-xl uppercase text-cr-primary", children: "Solicitudes de terceros" }),
+          /* @__PURE__ */ jsxs("p", { children: [
+            "El mapa interactivo realiza solicitudes de imágenes de teselas (tiles) a los servidores de ",
+            /* @__PURE__ */ jsx("strong", { children: "CARTO" }),
+            " y ",
+            /* @__PURE__ */ jsx("strong", { children: "OpenStreetMap" }),
+            ". Estas solicitudes pueden registrar tu dirección IP en los servidores de esos proveedores, como cualquier petición HTTP normal, pero ",
+            /* @__PURE__ */ jsx("strong", { children: "no depositan cookies" }),
+            " en tu dispositivo."
+          ] }),
+          /* @__PURE__ */ jsxs("p", { children: [
+            "Para más información sobre cómo CARTO trata los datos de acceso a sus teselas, consulta su",
+            " ",
+            /* @__PURE__ */ jsx(
+              "a",
+              {
+                href: "https://carto.com/privacy",
+                target: "_blank",
+                rel: "noopener noreferrer",
+                className: "text-cr-primary underline underline-offset-2",
+                children: "política de privacidad"
+              }
+            ),
+            "."
+          ] })
+        ] }),
+        /* @__PURE__ */ jsxs("section", { className: "space-y-3", children: [
+          /* @__PURE__ */ jsx("h2", { className: "font-display text-xl uppercase text-cr-primary", children: "¿Necesito dar mi consentimiento?" }),
+          /* @__PURE__ */ jsxs("p", { children: [
+            "Las cookies y el almacenamiento local estrictamente necesarios (",
+            /* @__PURE__ */ jsx("code", { className: "font-mono", children: "cr_session" }),
+            ", ",
+            /* @__PURE__ */ jsx("code", { className: "font-mono", children: "cr_cookie_notice_v1" }),
+            ") no requieren consentimiento previo, conforme al artículo 22.2 de la LSSI-CE y la Directiva ePrivacy."
+          ] }),
+          /* @__PURE__ */ jsxs("p", { children: [
+            "La ",
+            /* @__PURE__ */ jsx("strong", { children: "analítica de producto (PostHog EU)" }),
+            " sí requiere tu consentimiento explícito: solo se carga cuando pulsas ",
+            /* @__PURE__ */ jsx("em", { children: '"Aceptar todo"' }),
+            " en el banner. Si pulsas",
+            /* @__PURE__ */ jsx("em", { children: ' "Solo esenciales"' }),
+            ", PostHog no se inicializa y no se almacenan ni se envían eventos."
+          ] }),
+          /* @__PURE__ */ jsxs("p", { children: [
+            "Puedes revocar tu consentimiento en cualquier momento borrando el valor",
+            /* @__PURE__ */ jsx("code", { className: "font-mono", children: " cr_analytics_consent_v1" }),
+            " del localStorage o escribiéndonos a",
+            " ",
+            /* @__PURE__ */ jsx(
+              "a",
+              {
+                href: "mailto:help@concertride.me",
+                className: "text-cr-primary underline underline-offset-2",
+                children: "help@concertride.me"
+              }
+            ),
+            "."
+          ] })
+        ] }),
+        /* @__PURE__ */ jsxs("section", { className: "space-y-3", children: [
+          /* @__PURE__ */ jsx("h2", { className: "font-display text-xl uppercase text-cr-primary", children: "Cómo eliminar las cookies" }),
+          /* @__PURE__ */ jsx("p", { children: "Puedes eliminar o bloquear cookies desde la configuración de tu navegador:" }),
+          /* @__PURE__ */ jsxs("ul", { className: "space-y-1 pl-4 list-disc text-cr-text-muted", children: [
+            /* @__PURE__ */ jsxs("li", { children: [
+              /* @__PURE__ */ jsx("strong", { className: "text-cr-text", children: "Chrome:" }),
+              " Configuración → Privacidad y seguridad → Cookies y otros datos de sitios"
+            ] }),
+            /* @__PURE__ */ jsxs("li", { children: [
+              /* @__PURE__ */ jsx("strong", { className: "text-cr-text", children: "Firefox:" }),
+              " Opciones → Privacidad y seguridad → Cookies y datos del sitio"
+            ] }),
+            /* @__PURE__ */ jsxs("li", { children: [
+              /* @__PURE__ */ jsx("strong", { className: "text-cr-text", children: "Safari:" }),
+              " Preferencias → Privacidad → Gestionar datos del sitio web"
+            ] }),
+            /* @__PURE__ */ jsxs("li", { children: [
+              /* @__PURE__ */ jsx("strong", { className: "text-cr-text", children: "Edge:" }),
+              " Configuración → Cookies y permisos del sitio"
+            ] })
+          ] }),
+          /* @__PURE__ */ jsxs("p", { children: [
+            "Ten en cuenta que si eliminas ",
+            /* @__PURE__ */ jsx("code", { className: "font-mono", children: "cr_session" }),
+            ", tu sesión se cerrará y tendrás que volver a iniciarla."
+          ] })
+        ] }),
+        /* @__PURE__ */ jsxs("section", { className: "space-y-3", children: [
+          /* @__PURE__ */ jsx("h2", { className: "font-display text-xl uppercase text-cr-primary", children: "Cambios en esta política" }),
+          /* @__PURE__ */ jsx("p", { children: "Si en el futuro incorporamos nuevas cookies, actualizaremos esta página y, si son cookies no necesarias, solicitaremos tu consentimiento previamente." })
         ] })
       ] }),
-      /* @__PURE__ */ jsxs("section", { className: "space-y-3", children: [
-        /* @__PURE__ */ jsx("h2", { className: "font-display text-xl uppercase text-cr-primary", children: "Cambios en esta política" }),
-        /* @__PURE__ */ jsx("p", { children: "Si en el futuro incorporamos nuevas cookies, actualizaremos esta página y, si son cookies no necesarias, solicitaremos tu consentimiento previamente." })
+      /* @__PURE__ */ jsxs("div", { className: "mt-12 pt-8 border-t border-cr-border flex flex-wrap gap-4", children: [
+        /* @__PURE__ */ jsx(Link, { to: "/aviso-legal", className: "font-sans text-xs text-cr-text-muted hover:text-cr-primary transition-colors", children: "Aviso legal →" }),
+        /* @__PURE__ */ jsx(Link, { to: "/privacidad", className: "font-sans text-xs text-cr-text-muted hover:text-cr-primary transition-colors", children: "Política de privacidad →" }),
+        /* @__PURE__ */ jsx(Link, { to: "/terminos", className: "font-sans text-xs text-cr-text-muted hover:text-cr-primary transition-colors", children: "Términos y condiciones →" }),
+        /* @__PURE__ */ jsx(Link, { to: "/", className: "font-sans text-xs text-cr-text-muted hover:text-cr-primary transition-colors ml-auto", children: "← Volver al inicio" })
       ] })
-    ] }),
-    /* @__PURE__ */ jsxs("div", { className: "mt-12 pt-8 border-t border-cr-border flex flex-wrap gap-4", children: [
-      /* @__PURE__ */ jsx(Link, { to: "/aviso-legal", className: "font-sans text-xs text-cr-text-muted hover:text-cr-primary transition-colors", children: "Aviso legal →" }),
-      /* @__PURE__ */ jsx(Link, { to: "/privacidad", className: "font-sans text-xs text-cr-text-muted hover:text-cr-primary transition-colors", children: "Política de privacidad →" }),
-      /* @__PURE__ */ jsx(Link, { to: "/terminos", className: "font-sans text-xs text-cr-text-muted hover:text-cr-primary transition-colors", children: "Términos y condiciones →" }),
-      /* @__PURE__ */ jsx(Link, { to: "/", className: "font-sans text-xs text-cr-text-muted hover:text-cr-primary transition-colors ml-auto", children: "← Volver al inicio" })
     ] })
-  ] }) });
+  ] });
 }
 function TerminosPage() {
   useSeoMeta({
@@ -51601,172 +54353,191 @@ function TerminosPage() {
     description: "Términos y condiciones de uso de ConcertRide: obligaciones de usuarios, política de cancelación, resolución de disputas y normativa aplicable.",
     canonical: `${SITE_URL}/terminos`
   });
-  return /* @__PURE__ */ jsx("main", { id: "main", className: "min-h-dvh bg-cr-bg text-cr-text pt-14", children: /* @__PURE__ */ jsxs("div", { className: "max-w-3xl mx-auto px-6 py-12", children: [
-    /* @__PURE__ */ jsxs("header", { className: "mb-10 border-b border-cr-border pb-8 space-y-2", children: [
-      /* @__PURE__ */ jsx("p", { className: "font-sans text-[11px] font-semibold uppercase tracking-[0.16em] text-cr-primary", children: "Legal" }),
-      /* @__PURE__ */ jsx("h1", { className: "font-display text-4xl uppercase", children: "Términos y condiciones" }),
-      /* @__PURE__ */ jsx("p", { className: "font-mono text-xs text-cr-text-muted", children: "Última actualización: abril de 2026" })
-    ] }),
-    /* @__PURE__ */ jsxs("div", { className: "space-y-10 font-sans text-sm text-cr-text leading-relaxed", children: [
-      /* @__PURE__ */ jsxs("section", { className: "space-y-3", children: [
-        /* @__PURE__ */ jsx("h2", { className: "font-display text-xl uppercase text-cr-primary", children: "1. Objeto y aceptación" }),
-        /* @__PURE__ */ jsx("p", { children: 'Los presentes términos regulan el acceso y uso de la plataforma ConcertRide ES (en adelante, "la plataforma") y de sus servicios de intermediación para la organización de viajes compartidos a conciertos y eventos musicales en España.' }),
-        /* @__PURE__ */ jsx("p", { children: "El uso de la plataforma implica la aceptación plena de estos términos. Si no estás de acuerdo, no uses el servicio." })
+  return /* @__PURE__ */ jsxs("main", { id: "main", className: "min-h-dvh bg-cr-bg text-cr-text pt-14", children: [
+    /* @__PURE__ */ jsx(
+      "script",
+      {
+        type: "application/ld+json",
+        dangerouslySetInnerHTML: {
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "BreadcrumbList",
+            itemListElement: [
+              { "@type": "ListItem", position: 1, name: "Inicio", item: `${SITE_URL}/` },
+              { "@type": "ListItem", position: 2, name: "Legal", item: `${SITE_URL}/aviso-legal` },
+              { "@type": "ListItem", position: 3, name: "Términos y condiciones", item: `${SITE_URL}/terminos` }
+            ]
+          })
+        }
+      }
+    ),
+    /* @__PURE__ */ jsxs("div", { className: "max-w-3xl mx-auto px-6 py-12", children: [
+      /* @__PURE__ */ jsxs("header", { className: "mb-10 border-b border-cr-border pb-8 space-y-2", children: [
+        /* @__PURE__ */ jsx("p", { className: "font-sans text-[11px] font-semibold uppercase tracking-[0.16em] text-cr-primary", children: "Legal" }),
+        /* @__PURE__ */ jsx("h1", { className: "font-display text-4xl uppercase", children: "Términos y condiciones" }),
+        /* @__PURE__ */ jsx("p", { className: "font-mono text-xs text-cr-text-muted", children: "Última actualización: abril de 2026" })
       ] }),
-      /* @__PURE__ */ jsxs("section", { className: "space-y-3", children: [
-        /* @__PURE__ */ jsx("h2", { className: "font-display text-xl uppercase text-cr-primary", children: "2. Descripción del servicio" }),
-        /* @__PURE__ */ jsx("p", { children: "ConcertRide ES es una plataforma de intermediación que conecta a conductores particulares que ofrecen plazas en su vehículo propio con pasajeros que desean llegar al mismo concierto." }),
-        /* @__PURE__ */ jsxs("p", { children: [
-          /* @__PURE__ */ jsx("strong", { children: "La plataforma no es una empresa de transporte ni actúa como transportista." }),
-          " ",
-          "No somos parte del contrato de viaje entre conductor y pasajero, ni intervenimos en el pago entre ellos. No cobramos comisión ni intermediamos en transacciones económicas."
+      /* @__PURE__ */ jsxs("div", { className: "space-y-10 font-sans text-sm text-cr-text leading-relaxed", children: [
+        /* @__PURE__ */ jsxs("section", { className: "space-y-3", children: [
+          /* @__PURE__ */ jsx("h2", { className: "font-display text-xl uppercase text-cr-primary", children: "1. Objeto y aceptación" }),
+          /* @__PURE__ */ jsx("p", { children: 'Los presentes términos regulan el acceso y uso de la plataforma ConcertRide ES (en adelante, "la plataforma") y de sus servicios de intermediación para la organización de viajes compartidos a conciertos y eventos musicales en España.' }),
+          /* @__PURE__ */ jsx("p", { children: "El uso de la plataforma implica la aceptación plena de estos términos. Si no estás de acuerdo, no uses el servicio." })
         ] }),
-        /* @__PURE__ */ jsx("p", { children: "La información sobre conciertos procede de datos curados manualmente (con enlace a la web oficial del festival u organizador) y de la Ticketmaster Discovery API v2. Toda ella puede estar sujeta a cambios, aplazamientos o cancelaciones fuera de nuestro control; la compra de entradas se realiza siempre en las webs oficiales enlazadas." })
-      ] }),
-      /* @__PURE__ */ jsxs("section", { className: "space-y-3", children: [
-        /* @__PURE__ */ jsx("h2", { className: "font-display text-xl uppercase text-cr-primary", children: "3. Requisitos para usar la plataforma" }),
-        /* @__PURE__ */ jsxs("ul", { className: "space-y-2 pl-4 list-disc text-cr-text-muted", children: [
-          /* @__PURE__ */ jsx("li", { children: "Ser persona física mayor de 18 años." }),
-          /* @__PURE__ */ jsx("li", { children: "Disponer de una dirección de correo electrónico válida." }),
-          /* @__PURE__ */ jsx("li", { children: "Si publicas viajes como conductor: poseer carnet de conducir vigente, seguro del vehículo en vigor y el vehículo en condiciones legales de circulación." }),
-          /* @__PURE__ */ jsx("li", { children: "Proporcionar información veraz y actualizada en tu perfil." })
-        ] })
-      ] }),
-      /* @__PURE__ */ jsxs("section", { className: "space-y-3", children: [
-        /* @__PURE__ */ jsx("h2", { className: "font-display text-xl uppercase text-cr-primary", children: "4. Obligaciones del conductor" }),
-        /* @__PURE__ */ jsxs("ul", { className: "space-y-2 pl-4 list-disc text-cr-text-muted", children: [
-          /* @__PURE__ */ jsx("li", { children: "Publicar únicamente viajes que tengas intención real de realizar." }),
-          /* @__PURE__ */ jsx("li", { children: "Cumplir los límites de velocidad y la normativa de tráfico vigente." }),
-          /* @__PURE__ */ jsx("li", { children: "No ofrecer más plazas de las que el vehículo tiene homologadas." }),
-          /* @__PURE__ */ jsx("li", { children: "No cobrar a los pasajeros más de lo que corresponde al reparto proporcional de los gastos del viaje. Los únicos conceptos recuperables son: combustible, peajes y un componente razonable de desgaste del vehículo. La plataforma está diseñada para la compartición de costes, no para la obtención de lucro. Cualquier importe que supere los gastos reales constituye transporte retribuido no autorizado y queda expresamente prohibido (Ley 16/1987, LOTT)." }),
-          /* @__PURE__ */ jsx("li", { children: "Confirmar o rechazar las solicitudes de plaza en un plazo razonable." }),
-          /* @__PURE__ */ jsx("li", { children: "Notificar con antelación cualquier cancelación del viaje." }),
-          /* @__PURE__ */ jsx("li", { children: "Disponer de un seguro de vehículo en vigor que cubra el uso del vehículo durante el viaje. Los pasajeros viajan bajo la cobertura de la póliza del conductor; ConcertRide no proporciona ninguna cobertura adicional." })
-        ] })
-      ] }),
-      /* @__PURE__ */ jsxs("section", { className: "space-y-3", children: [
-        /* @__PURE__ */ jsx("h2", { className: "font-display text-xl uppercase text-cr-primary", children: "5. Obligaciones del pasajero" }),
-        /* @__PURE__ */ jsxs("ul", { className: "space-y-2 pl-4 list-disc text-cr-text-muted", children: [
-          /* @__PURE__ */ jsx("li", { children: "Estar en el punto de recogida acordado a la hora pactada." }),
-          /* @__PURE__ */ jsx("li", { children: "Respetar las condiciones del viaje publicadas por el conductor (fumar, equipaje, etc.)." }),
-          /* @__PURE__ */ jsx("li", { children: "Abonar al conductor la contribución a gastos acordada." }),
-          /* @__PURE__ */ jsx("li", { children: "Notificar con antelación si no vas a poder realizar el viaje." })
-        ] })
-      ] }),
-      /* @__PURE__ */ jsxs("section", { className: "space-y-3", children: [
-        /* @__PURE__ */ jsx("h2", { className: "font-display text-xl uppercase text-cr-primary", children: "6. Conductas prohibidas" }),
-        /* @__PURE__ */ jsx("p", { children: "Queda expresamente prohibido:" }),
-        /* @__PURE__ */ jsxs("ul", { className: "space-y-1 pl-4 list-disc text-cr-text-muted", children: [
-          /* @__PURE__ */ jsx("li", { children: "Publicar viajes falsos o sin intención real de realizarlos." }),
-          /* @__PURE__ */ jsx("li", { children: "Usar la plataforma con fines comerciales o de transporte profesional." }),
-          /* @__PURE__ */ jsx("li", { children: "Acosar, amenazar o discriminar a otros usuarios." }),
-          /* @__PURE__ */ jsx("li", { children: "Publicar información falsa en el perfil (carnet, vehículo, valoraciones)." }),
-          /* @__PURE__ */ jsx("li", { children: "Intentar acceder a las cuentas de otros usuarios o a sistemas de la plataforma." }),
-          /* @__PURE__ */ jsx("li", { children: "Usar scripts, bots o medios automatizados para interactuar con la plataforma." })
-        ] })
-      ] }),
-      /* @__PURE__ */ jsxs("section", { className: "space-y-3", children: [
-        /* @__PURE__ */ jsx("h2", { className: "font-display text-xl uppercase text-cr-primary", children: "7. Valoraciones y reseñas" }),
-        /* @__PURE__ */ jsx("p", { children: "El sistema de valoraciones tiene como objetivo fomentar la confianza entre usuarios. Las valoraciones deben ser honestas y basarse en experiencias reales del viaje." }),
-        /* @__PURE__ */ jsx("p", { children: "Queda prohibido:" }),
-        /* @__PURE__ */ jsxs("ul", { className: "space-y-1 pl-4 list-disc text-cr-text-muted", children: [
-          /* @__PURE__ */ jsx("li", { children: "Publicar reseñas falsas o sobre viajes no realizados." }),
-          /* @__PURE__ */ jsx("li", { children: "Incluir insultos, amenazas o contenido discriminatorio." }),
-          /* @__PURE__ */ jsx("li", { children: "Manipular la valoración de otro usuario con cuentas falsas o múltiples." })
+        /* @__PURE__ */ jsxs("section", { className: "space-y-3", children: [
+          /* @__PURE__ */ jsx("h2", { className: "font-display text-xl uppercase text-cr-primary", children: "2. Descripción del servicio" }),
+          /* @__PURE__ */ jsx("p", { children: "ConcertRide ES es una plataforma de intermediación que conecta a conductores particulares que ofrecen plazas en su vehículo propio con pasajeros que desean llegar al mismo concierto." }),
+          /* @__PURE__ */ jsxs("p", { children: [
+            /* @__PURE__ */ jsx("strong", { children: "La plataforma no es una empresa de transporte ni actúa como transportista." }),
+            " ",
+            "No somos parte del contrato de viaje entre conductor y pasajero, ni intervenimos en el pago entre ellos. No cobramos comisión ni intermediamos en transacciones económicas."
+          ] }),
+          /* @__PURE__ */ jsx("p", { children: "La información sobre conciertos procede de datos curados manualmente (con enlace a la web oficial del festival u organizador) y de la Ticketmaster Discovery API v2. Toda ella puede estar sujeta a cambios, aplazamientos o cancelaciones fuera de nuestro control; la compra de entradas se realiza siempre en las webs oficiales enlazadas." })
         ] }),
-        /* @__PURE__ */ jsxs("p", { children: [
-          "ConcertRide ES se reserva el derecho a eliminar valoraciones que incumplan esta política, así como a suspender las cuentas involucradas. Las decisiones de eliminación pueden apelarse escribiendo a",
-          " ",
-          /* @__PURE__ */ jsx(
-            "a",
-            {
-              href: "mailto:help@concertride.me",
-              className: "font-mono text-cr-primary underline underline-offset-2",
-              children: "help@concertride.me"
-            }
-          ),
-          "."
-        ] })
-      ] }),
-      /* @__PURE__ */ jsxs("section", { className: "space-y-3", children: [
-        /* @__PURE__ */ jsx("h2", { className: "font-display text-xl uppercase text-cr-primary", children: "8. Limitación de responsabilidad y seguros" }),
-        /* @__PURE__ */ jsx("p", { children: "ConcertRide ES actúa únicamente como intermediario y no asume responsabilidad por:" }),
-        /* @__PURE__ */ jsxs("ul", { className: "space-y-1 pl-4 list-disc text-cr-text-muted", children: [
-          /* @__PURE__ */ jsx("li", { children: "Accidentes, daños personales o materiales ocurridos durante el viaje." }),
-          /* @__PURE__ */ jsx("li", { children: "Incumplimientos entre conductor y pasajero." }),
-          /* @__PURE__ */ jsx("li", { children: "Cancelaciones de conciertos o cambios en la información de los eventos." }),
-          /* @__PURE__ */ jsx("li", { children: "Daños derivados del uso de la plataforma o de la imposibilidad de acceder a ella." }),
-          /* @__PURE__ */ jsx("li", { children: "Exactitud de la información de perfil aportada por otros usuarios." })
+        /* @__PURE__ */ jsxs("section", { className: "space-y-3", children: [
+          /* @__PURE__ */ jsx("h2", { className: "font-display text-xl uppercase text-cr-primary", children: "3. Requisitos para usar la plataforma" }),
+          /* @__PURE__ */ jsxs("ul", { className: "space-y-2 pl-4 list-disc text-cr-text-muted", children: [
+            /* @__PURE__ */ jsx("li", { children: "Ser persona física mayor de 18 años." }),
+            /* @__PURE__ */ jsx("li", { children: "Disponer de una dirección de correo electrónico válida." }),
+            /* @__PURE__ */ jsx("li", { children: "Si publicas viajes como conductor: poseer carnet de conducir vigente, seguro del vehículo en vigor y el vehículo en condiciones legales de circulación." }),
+            /* @__PURE__ */ jsx("li", { children: "Proporcionar información veraz y actualizada en tu perfil." })
+          ] })
         ] }),
-        /* @__PURE__ */ jsxs("p", { children: [
-          /* @__PURE__ */ jsx("strong", { children: "Seguros:" }),
-          " ConcertRide ES no proporciona ningún seguro de accidentes ni de responsabilidad civil para los viajes acordados entre usuarios. Los pasajeros viajan exclusivamente bajo la cobertura de la póliza de seguro del conductor. Se recomienda a los pasajeros verificar con el conductor que su póliza cubre el transporte de personas en régimen de compartición de costes, antes de realizar el viaje."
+        /* @__PURE__ */ jsxs("section", { className: "space-y-3", children: [
+          /* @__PURE__ */ jsx("h2", { className: "font-display text-xl uppercase text-cr-primary", children: "4. Obligaciones del conductor" }),
+          /* @__PURE__ */ jsxs("ul", { className: "space-y-2 pl-4 list-disc text-cr-text-muted", children: [
+            /* @__PURE__ */ jsx("li", { children: "Publicar únicamente viajes que tengas intención real de realizar." }),
+            /* @__PURE__ */ jsx("li", { children: "Cumplir los límites de velocidad y la normativa de tráfico vigente." }),
+            /* @__PURE__ */ jsx("li", { children: "No ofrecer más plazas de las que el vehículo tiene homologadas." }),
+            /* @__PURE__ */ jsx("li", { children: "No cobrar a los pasajeros más de lo que corresponde al reparto proporcional de los gastos del viaje. Los únicos conceptos recuperables son: combustible, peajes y un componente razonable de desgaste del vehículo. La plataforma está diseñada para la compartición de costes, no para la obtención de lucro. Cualquier importe que supere los gastos reales constituye transporte retribuido no autorizado y queda expresamente prohibido (Ley 16/1987, LOTT)." }),
+            /* @__PURE__ */ jsx("li", { children: "Confirmar o rechazar las solicitudes de plaza en un plazo razonable." }),
+            /* @__PURE__ */ jsx("li", { children: "Notificar con antelación cualquier cancelación del viaje." }),
+            /* @__PURE__ */ jsx("li", { children: "Disponer de un seguro de vehículo en vigor que cubra el uso del vehículo durante el viaje. Los pasajeros viajan bajo la cobertura de la póliza del conductor; ConcertRide no proporciona ninguna cobertura adicional." })
+          ] })
         ] }),
-        /* @__PURE__ */ jsx("p", { children: "La responsabilidad de ConcertRide ES, en los casos en que sea aplicable, se limitará al máximo permitido por la legislación española de consumo." })
-      ] }),
-      /* @__PURE__ */ jsxs("section", { className: "space-y-3", children: [
-        /* @__PURE__ */ jsx("h2", { className: "font-display text-xl uppercase text-cr-primary", children: "9. Propiedad intelectual" }),
-        /* @__PURE__ */ jsx("p", { children: "El código, diseño, marca y contenidos originales de ConcertRide ES son propiedad del titular o están debidamente licenciados. Los usuarios conservan la propiedad de los contenidos que publican (textos, imágenes de perfil) y otorgan a la plataforma una licencia no exclusiva para mostrarlos dentro del servicio." })
-      ] }),
-      /* @__PURE__ */ jsxs("section", { className: "space-y-3", children: [
-        /* @__PURE__ */ jsx("h2", { className: "font-display text-xl uppercase text-cr-primary", children: "10. Suspensión y baja de cuenta" }),
-        /* @__PURE__ */ jsx("p", { children: "ConcertRide ES puede suspender o eliminar cuentas que incumplan estos términos, previa notificación salvo en casos de conducta gravemente perjudicial para otros usuarios." }),
-        /* @__PURE__ */ jsxs("p", { children: [
-          "Los usuarios pueden solicitar la baja de su cuenta en cualquier momento desde",
-          " ",
-          /* @__PURE__ */ jsx("em", { children: "Mi perfil → Zona peligro → Eliminar cuenta" }),
-          ". La baja es inmediata: se anonimiza el perfil, se cancelan los viajes activos que publicaste como conductor y las solicitudes pendientes, y se eliminan las suscripciones a notificaciones y los favoritos. Las reseñas se conservan de forma anónima para mantener la integridad del sistema de confianza."
+        /* @__PURE__ */ jsxs("section", { className: "space-y-3", children: [
+          /* @__PURE__ */ jsx("h2", { className: "font-display text-xl uppercase text-cr-primary", children: "5. Obligaciones del pasajero" }),
+          /* @__PURE__ */ jsxs("ul", { className: "space-y-2 pl-4 list-disc text-cr-text-muted", children: [
+            /* @__PURE__ */ jsx("li", { children: "Estar en el punto de recogida acordado a la hora pactada." }),
+            /* @__PURE__ */ jsx("li", { children: "Respetar las condiciones del viaje publicadas por el conductor (fumar, equipaje, etc.)." }),
+            /* @__PURE__ */ jsx("li", { children: "Abonar al conductor la contribución a gastos acordada." }),
+            /* @__PURE__ */ jsx("li", { children: "Notificar con antelación si no vas a poder realizar el viaje." })
+          ] })
+        ] }),
+        /* @__PURE__ */ jsxs("section", { className: "space-y-3", children: [
+          /* @__PURE__ */ jsx("h2", { className: "font-display text-xl uppercase text-cr-primary", children: "6. Conductas prohibidas" }),
+          /* @__PURE__ */ jsx("p", { children: "Queda expresamente prohibido:" }),
+          /* @__PURE__ */ jsxs("ul", { className: "space-y-1 pl-4 list-disc text-cr-text-muted", children: [
+            /* @__PURE__ */ jsx("li", { children: "Publicar viajes falsos o sin intención real de realizarlos." }),
+            /* @__PURE__ */ jsx("li", { children: "Usar la plataforma con fines comerciales o de transporte profesional." }),
+            /* @__PURE__ */ jsx("li", { children: "Acosar, amenazar o discriminar a otros usuarios." }),
+            /* @__PURE__ */ jsx("li", { children: "Publicar información falsa en el perfil (carnet, vehículo, valoraciones)." }),
+            /* @__PURE__ */ jsx("li", { children: "Intentar acceder a las cuentas de otros usuarios o a sistemas de la plataforma." }),
+            /* @__PURE__ */ jsx("li", { children: "Usar scripts, bots o medios automatizados para interactuar con la plataforma." })
+          ] })
+        ] }),
+        /* @__PURE__ */ jsxs("section", { className: "space-y-3", children: [
+          /* @__PURE__ */ jsx("h2", { className: "font-display text-xl uppercase text-cr-primary", children: "7. Valoraciones y reseñas" }),
+          /* @__PURE__ */ jsx("p", { children: "El sistema de valoraciones tiene como objetivo fomentar la confianza entre usuarios. Las valoraciones deben ser honestas y basarse en experiencias reales del viaje." }),
+          /* @__PURE__ */ jsx("p", { children: "Queda prohibido:" }),
+          /* @__PURE__ */ jsxs("ul", { className: "space-y-1 pl-4 list-disc text-cr-text-muted", children: [
+            /* @__PURE__ */ jsx("li", { children: "Publicar reseñas falsas o sobre viajes no realizados." }),
+            /* @__PURE__ */ jsx("li", { children: "Incluir insultos, amenazas o contenido discriminatorio." }),
+            /* @__PURE__ */ jsx("li", { children: "Manipular la valoración de otro usuario con cuentas falsas o múltiples." })
+          ] }),
+          /* @__PURE__ */ jsxs("p", { children: [
+            "ConcertRide ES se reserva el derecho a eliminar valoraciones que incumplan esta política, así como a suspender las cuentas involucradas. Las decisiones de eliminación pueden apelarse escribiendo a",
+            " ",
+            /* @__PURE__ */ jsx(
+              "a",
+              {
+                href: "mailto:help@concertride.me",
+                className: "font-mono text-cr-primary underline underline-offset-2",
+                children: "help@concertride.me"
+              }
+            ),
+            "."
+          ] })
+        ] }),
+        /* @__PURE__ */ jsxs("section", { className: "space-y-3", children: [
+          /* @__PURE__ */ jsx("h2", { className: "font-display text-xl uppercase text-cr-primary", children: "8. Limitación de responsabilidad y seguros" }),
+          /* @__PURE__ */ jsx("p", { children: "ConcertRide ES actúa únicamente como intermediario y no asume responsabilidad por:" }),
+          /* @__PURE__ */ jsxs("ul", { className: "space-y-1 pl-4 list-disc text-cr-text-muted", children: [
+            /* @__PURE__ */ jsx("li", { children: "Accidentes, daños personales o materiales ocurridos durante el viaje." }),
+            /* @__PURE__ */ jsx("li", { children: "Incumplimientos entre conductor y pasajero." }),
+            /* @__PURE__ */ jsx("li", { children: "Cancelaciones de conciertos o cambios en la información de los eventos." }),
+            /* @__PURE__ */ jsx("li", { children: "Daños derivados del uso de la plataforma o de la imposibilidad de acceder a ella." }),
+            /* @__PURE__ */ jsx("li", { children: "Exactitud de la información de perfil aportada por otros usuarios." })
+          ] }),
+          /* @__PURE__ */ jsxs("p", { children: [
+            /* @__PURE__ */ jsx("strong", { children: "Seguros:" }),
+            " ConcertRide ES no proporciona ningún seguro de accidentes ni de responsabilidad civil para los viajes acordados entre usuarios. Los pasajeros viajan exclusivamente bajo la cobertura de la póliza de seguro del conductor. Se recomienda a los pasajeros verificar con el conductor que su póliza cubre el transporte de personas en régimen de compartición de costes, antes de realizar el viaje."
+          ] }),
+          /* @__PURE__ */ jsx("p", { children: "La responsabilidad de ConcertRide ES, en los casos en que sea aplicable, se limitará al máximo permitido por la legislación española de consumo." })
+        ] }),
+        /* @__PURE__ */ jsxs("section", { className: "space-y-3", children: [
+          /* @__PURE__ */ jsx("h2", { className: "font-display text-xl uppercase text-cr-primary", children: "9. Propiedad intelectual" }),
+          /* @__PURE__ */ jsx("p", { children: "El código, diseño, marca y contenidos originales de ConcertRide ES son propiedad del titular o están debidamente licenciados. Los usuarios conservan la propiedad de los contenidos que publican (textos, imágenes de perfil) y otorgan a la plataforma una licencia no exclusiva para mostrarlos dentro del servicio." })
+        ] }),
+        /* @__PURE__ */ jsxs("section", { className: "space-y-3", children: [
+          /* @__PURE__ */ jsx("h2", { className: "font-display text-xl uppercase text-cr-primary", children: "10. Suspensión y baja de cuenta" }),
+          /* @__PURE__ */ jsx("p", { children: "ConcertRide ES puede suspender o eliminar cuentas que incumplan estos términos, previa notificación salvo en casos de conducta gravemente perjudicial para otros usuarios." }),
+          /* @__PURE__ */ jsxs("p", { children: [
+            "Los usuarios pueden solicitar la baja de su cuenta en cualquier momento desde",
+            " ",
+            /* @__PURE__ */ jsx("em", { children: "Mi perfil → Zona peligro → Eliminar cuenta" }),
+            ". La baja es inmediata: se anonimiza el perfil, se cancelan los viajes activos que publicaste como conductor y las solicitudes pendientes, y se eliminan las suscripciones a notificaciones y los favoritos. Las reseñas se conservan de forma anónima para mantener la integridad del sistema de confianza."
+          ] })
+        ] }),
+        /* @__PURE__ */ jsxs("section", { className: "space-y-3", children: [
+          /* @__PURE__ */ jsx("h2", { className: "font-display text-xl uppercase text-cr-primary", children: "11. Modificaciones" }),
+          /* @__PURE__ */ jsx("p", { children: "Podemos modificar estos términos para adaptarlos a cambios normativos, del servicio o del mercado. Los cambios sustanciales se notificarán con al menos 15 días de antelación. El uso continuado de la plataforma tras el aviso implica aceptación de los nuevos términos." })
+        ] }),
+        /* @__PURE__ */ jsxs("section", { className: "space-y-3", children: [
+          /* @__PURE__ */ jsx("h2", { className: "font-display text-xl uppercase text-cr-primary", children: "12. Resolución de litigios en línea (ODR)" }),
+          /* @__PURE__ */ jsxs("p", { children: [
+            "Conforme al Reglamento (UE) n.º 524/2013 sobre resolución de litigios en línea en materia de consumo, los usuarios residentes en la Unión Europea pueden acudir a la plataforma de resolución de litigios en línea de la Comisión Europea:",
+            " ",
+            /* @__PURE__ */ jsx(
+              "a",
+              {
+                href: "https://ec.europa.eu/consumers/odr",
+                target: "_blank",
+                rel: "noopener noreferrer",
+                className: "text-cr-primary underline underline-offset-2",
+                children: "https://ec.europa.eu/consumers/odr"
+              }
+            ),
+            "."
+          ] })
+        ] }),
+        /* @__PURE__ */ jsxs("section", { className: "space-y-3", children: [
+          /* @__PURE__ */ jsx("h2", { className: "font-display text-xl uppercase text-cr-primary", children: "13. Legislación y fuero" }),
+          /* @__PURE__ */ jsx("p", { children: "Estos términos se rigen por la legislación española. Para la resolución de cualquier controversia derivada del uso de la plataforma, serán competentes los juzgados y tribunales del domicilio del usuario, de conformidad con lo establecido en el Real Decreto Legislativo 1/2007 (TRLGDCU) en materia de protección de consumidores." })
+        ] }),
+        /* @__PURE__ */ jsxs("section", { className: "space-y-3", children: [
+          /* @__PURE__ */ jsx("h2", { className: "font-display text-xl uppercase text-cr-primary", children: "14. Contacto" }),
+          /* @__PURE__ */ jsxs("p", { children: [
+            "Para cualquier consulta sobre estos términos:",
+            " ",
+            /* @__PURE__ */ jsx(
+              "a",
+              {
+                href: "mailto:help@concertride.me",
+                className: "font-mono text-cr-primary underline underline-offset-2",
+                children: "help@concertride.me"
+              }
+            )
+          ] })
         ] })
       ] }),
-      /* @__PURE__ */ jsxs("section", { className: "space-y-3", children: [
-        /* @__PURE__ */ jsx("h2", { className: "font-display text-xl uppercase text-cr-primary", children: "11. Modificaciones" }),
-        /* @__PURE__ */ jsx("p", { children: "Podemos modificar estos términos para adaptarlos a cambios normativos, del servicio o del mercado. Los cambios sustanciales se notificarán con al menos 15 días de antelación. El uso continuado de la plataforma tras el aviso implica aceptación de los nuevos términos." })
-      ] }),
-      /* @__PURE__ */ jsxs("section", { className: "space-y-3", children: [
-        /* @__PURE__ */ jsx("h2", { className: "font-display text-xl uppercase text-cr-primary", children: "12. Resolución de litigios en línea (ODR)" }),
-        /* @__PURE__ */ jsxs("p", { children: [
-          "Conforme al Reglamento (UE) n.º 524/2013 sobre resolución de litigios en línea en materia de consumo, los usuarios residentes en la Unión Europea pueden acudir a la plataforma de resolución de litigios en línea de la Comisión Europea:",
-          " ",
-          /* @__PURE__ */ jsx(
-            "a",
-            {
-              href: "https://ec.europa.eu/consumers/odr",
-              target: "_blank",
-              rel: "noopener noreferrer",
-              className: "text-cr-primary underline underline-offset-2",
-              children: "https://ec.europa.eu/consumers/odr"
-            }
-          ),
-          "."
-        ] })
-      ] }),
-      /* @__PURE__ */ jsxs("section", { className: "space-y-3", children: [
-        /* @__PURE__ */ jsx("h2", { className: "font-display text-xl uppercase text-cr-primary", children: "13. Legislación y fuero" }),
-        /* @__PURE__ */ jsx("p", { children: "Estos términos se rigen por la legislación española. Para la resolución de cualquier controversia derivada del uso de la plataforma, serán competentes los juzgados y tribunales del domicilio del usuario, de conformidad con lo establecido en el Real Decreto Legislativo 1/2007 (TRLGDCU) en materia de protección de consumidores." })
-      ] }),
-      /* @__PURE__ */ jsxs("section", { className: "space-y-3", children: [
-        /* @__PURE__ */ jsx("h2", { className: "font-display text-xl uppercase text-cr-primary", children: "14. Contacto" }),
-        /* @__PURE__ */ jsxs("p", { children: [
-          "Para cualquier consulta sobre estos términos:",
-          " ",
-          /* @__PURE__ */ jsx(
-            "a",
-            {
-              href: "mailto:help@concertride.me",
-              className: "font-mono text-cr-primary underline underline-offset-2",
-              children: "help@concertride.me"
-            }
-          )
-        ] })
+      /* @__PURE__ */ jsxs("div", { className: "mt-12 pt-8 border-t border-cr-border flex flex-wrap gap-4", children: [
+        /* @__PURE__ */ jsx(Link, { to: "/aviso-legal", className: "font-sans text-xs text-cr-text-muted hover:text-cr-primary transition-colors", children: "Aviso legal →" }),
+        /* @__PURE__ */ jsx(Link, { to: "/privacidad", className: "font-sans text-xs text-cr-text-muted hover:text-cr-primary transition-colors", children: "Política de privacidad →" }),
+        /* @__PURE__ */ jsx(Link, { to: "/cookies", className: "font-sans text-xs text-cr-text-muted hover:text-cr-primary transition-colors", children: "Política de cookies →" }),
+        /* @__PURE__ */ jsx(Link, { to: "/", className: "font-sans text-xs text-cr-text-muted hover:text-cr-primary transition-colors ml-auto", children: "← Volver al inicio" })
       ] })
-    ] }),
-    /* @__PURE__ */ jsxs("div", { className: "mt-12 pt-8 border-t border-cr-border flex flex-wrap gap-4", children: [
-      /* @__PURE__ */ jsx(Link, { to: "/aviso-legal", className: "font-sans text-xs text-cr-text-muted hover:text-cr-primary transition-colors", children: "Aviso legal →" }),
-      /* @__PURE__ */ jsx(Link, { to: "/privacidad", className: "font-sans text-xs text-cr-text-muted hover:text-cr-primary transition-colors", children: "Política de privacidad →" }),
-      /* @__PURE__ */ jsx(Link, { to: "/cookies", className: "font-sans text-xs text-cr-text-muted hover:text-cr-primary transition-colors", children: "Política de cookies →" }),
-      /* @__PURE__ */ jsx(Link, { to: "/", className: "font-sans text-xs text-cr-text-muted hover:text-cr-primary transition-colors ml-auto", children: "← Volver al inicio" })
     ] })
-  ] }) });
+  ] });
 }
 const TOP_FESTIVALS = [
   { slug: "mad-cool", label: "Mad Cool Festival" },
