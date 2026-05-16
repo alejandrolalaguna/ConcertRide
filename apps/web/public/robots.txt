@@ -28,9 +28,11 @@ Disallow: /drivers/
 # Phase 1+2+3 social surfaces — personal/dynamic, never indexable.
 # /memorias/:id is intentionally NOT blocked: public memories with
 # visibility="public" remain indexable as social-proof landing pages.
+# NOTE: /memorias (index) has noindex in MemoriasPage.tsx — no Disallow needed here.
+# robots.txt does NOT support $ regex anchors — Disallow: /memorias$ would be
+# treated as a literal path and block nothing useful.
 Disallow: /crew
 Disallow: /feed
-Disallow: /memorias$
 Disallow: /squads
 Disallow: /mensajes
 

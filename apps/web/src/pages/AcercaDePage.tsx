@@ -260,7 +260,7 @@ export default function AcercaDePage() {
               <dt className="font-semibold text-cr-primary mb-1">Sin publicidad invasiva, sin trackers.</dt>
               <dd>
                 Una cookie estrictamente necesaria (sesión) y una analítica anónima opcional
-                alojada en Europa (PostHog EU), solo si la aceptas. No hay Google Analytics, ni
+                anónima alojada en Europa (PostHog EU), solo si la aceptas. No hay Google Analytics, ni
                 píxeles de Facebook, ni trackers cruzados.
               </dd>
             </div>

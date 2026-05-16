@@ -2067,9 +2067,9 @@ export const FESTIVAL_LANDINGS: FestivalLanding[] = [
     venueAddress: "Av. Doctor Fleming, 938, 33203 Gijón",
     lat: 43.5365,
     lng: -5.6612,
-    startDate: "2026-07-03",
+    startDate: "2026-06-26",
     endDate: "2026-07-05",
-    typicalDates: "Primera semana de julio",
+    typicalDates: "Últimos días de junio – primera semana de julio",
     capacity: "30.000 personas/día",
     blurb:
       "Metrópoli Gijón es el principal festival de música, ocio digital y cultura pop de Asturias. Celebrado en el Recinto Ferial Luis Adaro de Gijón cada primera semana de julio, combina conciertos pop/rock/indie de cabecera nacional con áreas de gaming, cómic y series. La capacidad es de 30.000 personas/día. ConcertRide cubre rutas desde Oviedo (30 km), Santander (190 km), León (120 km), Madrid (445 km) y Bilbao (290 km), sin comisión.",
@@ -2119,12 +2119,12 @@ export const FESTIVAL_LANDINGS: FestivalLanding[] = [
     venueAddress: "Cortijo del Conde, Carretera de la Sierra, 18008 Granada",
     lat: 37.1597,
     lng: -3.5810,
-    startDate: "2026-09-25",
-    endDate: "2026-09-26",
-    typicalDates: "Último fin de semana de septiembre",
+    startDate: "2026-09-11",
+    endDate: "2026-09-12",
+    typicalDates: "Segundo fin de semana de septiembre",
     capacity: "25.000 personas/día",
     blurb:
-      "Granada Sound es el festival de pop, rock e indie de referencia en Andalucía oriental, celebrado en el Cortijo del Conde a 5 km del centro de Granada. Cada último fin de semana de septiembre congrega a 25.000 asistentes/día con cabezas de cartel nacionales e internacionales. ConcertRide opera carpooling desde Málaga (130 km), Sevilla (250 km), Córdoba (200 km), Almería (170 km), Madrid (430 km) y Murcia (270 km), sin comisión.",
+      "Granada Sound es el festival de pop, rock e indie de referencia en Andalucía oriental, celebrado en el Cortijo del Conde a 5 km del centro de Granada. El segundo fin de semana de septiembre congrega a 25.000 asistentes/día con cabezas de cartel nacionales e internacionales. ConcertRide opera carpooling desde Málaga (130 km), Sevilla (250 km), Córdoba (200 km), Almería (170 km), Madrid (430 km) y Murcia (270 km), sin comisión.",
     ogImage: "/og-fallback.png",
     originCities: [
       { city: "Málaga", km: 130, drivingTime: "1h 30 min", concertRideRange: "5–8 €/asiento" },
@@ -2223,7 +2223,7 @@ export const FESTIVAL_LANDINGS: FestivalLanding[] = [
     venueAddress: "Cantera de Nagüeles, Carretera A-7176, 29600 Marbella (Málaga)",
     lat: 36.5144,
     lng: -4.8930,
-    startDate: "2026-06-13",
+    startDate: "2026-06-19",
     endDate: "2026-08-31",
     typicalDates: "Mediados junio – finales agosto (más de 60 fechas)",
     capacity: "7.500 plazas/concierto",
@@ -2275,9 +2275,9 @@ export const FESTIVAL_LANDINGS: FestivalLanding[] = [
     venueAddress: "Plaza Margarita Xirgu s/n, 06800 Mérida (Badajoz)",
     lat: 38.9148,
     lng: -6.3392,
-    startDate: "2026-07-10",
-    endDate: "2026-09-15",
-    typicalDates: "Julio – mediados septiembre",
+    startDate: "2026-06-05",
+    endDate: "2026-06-27",
+    typicalDates: "Junio",
     capacity: "3.000 plazas (gradas romanas + parterre)",
     blurb:
       "Stone & Music Festival se celebra en el Teatro Romano de Mérida (siglo I a.C., patrimonio mundial UNESCO) — uno de los pocos espacios romanos del mundo en activo para conciertos. Cabezas de cartel internacionales y españoles (Andrea Bocelli, Sting, Joaquín Sabina, Antonio Orozco, Manuel Carrasco) en formato gradas romanas con capacidad 3.000 personas. La acústica natural del teatro es la principal atracción. Carpooling ConcertRide al Teatro Romano desde Cáceres (75 km, 4–6€), Badajoz (60 km, 3–5€), Sevilla (200 km, 6–9€), Madrid (340 km, 10–14€).",
@@ -2298,7 +2298,7 @@ export const FESTIVAL_LANDINGS: FestivalLanding[] = [
       },
       {
         q: "¿Cuándo es Stone & Music Festival Mérida 2026?",
-        a: "Stone & Music Festival 2026 se celebra entre julio y mediados de septiembre, con conciertos repartidos en distintas noches del calendario veraniego. Cada noche tiene un cabeza de cartel distinto — de Andrea Bocelli a Joaquín Sabina pasando por Antonio Orozco o Manuel Carrasco. Programación completa en stonemusicfestival.com en abril–mayo.",
+        a: "Stone & Music Festival 2026 se celebra en junio (del 5 al 27 de junio aproximadamente), con conciertos repartidos en distintas noches del mes. Cada noche tiene un cabeza de cartel distinto — de Andrea Bocelli a Joaquín Sabina pasando por Antonio Orozco o Manuel Carrasco. Programación completa en stonemusicfestival.com.",
       },
       {
         q: "¿Qué capacidad tiene el Teatro Romano de Mérida?",
@@ -2326,9 +2326,9 @@ export const FESTIVAL_LANDINGS: FestivalLanding[] = [
     venueAddress: "Castillo de Sohail, Av. del Sohail, 29640 Fuengirola (Málaga)",
     lat: 36.5390,
     lng: -4.6298,
-    startDate: "2026-06-15",
-    endDate: "2026-08-20",
-    typicalDates: "Mediados junio – mediados agosto",
+    startDate: "2026-04-24",
+    endDate: "2026-09-12",
+    typicalDates: "Finales abril – mediados septiembre",
     capacity: "15.000 plazas/concierto",
     blurb:
       "Marenostrum Fuengirola Festival se celebra en el Sohail Castle Park, un anfiteatro al aire libre junto al castillo árabe de Sohail (siglo X) en plena Costa del Sol. Cabezas de cartel internacionales (50 Cent, Bryan Adams, Iggy Pop, Robbie Williams, Tom Jones, Sheryl Crow) en formato butaca numerada con capacidad 15.000 personas. Conectado con Málaga ciudad por Cercanías Renfe C-1 Málaga–Fuengirola (35 min, 3,90€). Carpooling ConcertRide desde Málaga (35 km, 3–5€), Mijas (10 km, 3–4€), Marbella (25 km, 3–5€), Granada (130 km, 5–8€).",
@@ -2350,7 +2350,7 @@ export const FESTIVAL_LANDINGS: FestivalLanding[] = [
       },
       {
         q: "¿Cuándo es Marenostrum Fuengirola 2026?",
-        a: "Marenostrum Fuengirola 2026 se celebra entre el 15 de junio y el 20 de agosto, con conciertos repartidos en noches del calendario veraniego. Programación 2025 incluyó 50 Cent, Bryan Adams y Sheryl Crow — la programación 2026 se anuncia en febrero–marzo en marenostrumfuengirola.com.",
+        a: "Marenostrum Fuengirola 2026 se celebra entre finales de abril (24 abr) y mediados de septiembre (12 sep), con conciertos repartidos en noches del calendario primavera–verano. Programación 2025 incluyó 50 Cent, Bryan Adams y Sheryl Crow — la programación 2026 se anuncia en febrero–marzo en marenostrumfuengirola.com.",
       },
       {
         q: "¿Cuánto cuestan las entradas Marenostrum Fuengirola?",
@@ -2378,9 +2378,9 @@ export const FESTIVAL_LANDINGS: FestivalLanding[] = [
     venueAddress: "C/ Manuel María González 12, 11403 Jerez de la Frontera (Cádiz)",
     lat: 36.6859,
     lng: -6.1364,
-    startDate: "2026-06-25",
+    startDate: "2026-07-04",
     endDate: "2026-08-31",
-    typicalDates: "Finales junio – finales agosto",
+    typicalDates: "Principios julio – finales agosto",
     capacity: "1.800 plazas/concierto",
     blurb:
       "Tío Pepe Festival se celebra en las Bodegas González Byass de Jerez de la Frontera, en un escenario único entre barricas históricas del vino de Jerez. Cabezas de cartel internacionales (Pet Shop Boys, Robbie Williams, Sting, Anastacia, Pablo Alborán, Joaquín Sabina) en formato íntimo con capacidad limitada a 1.800 personas. Cada entrada incluye copa de Tío Pepe. Sin transporte nocturno desde el recinto — carpooling ConcertRide desde Cádiz (35 km, 3–5€), El Puerto de Santa María (15 km, 3–4€), Sevilla (95 km, 4–7€), Cádiz capital, Algeciras (130 km, 5–7€).",
@@ -2677,16 +2677,16 @@ export const FESTIVAL_LANDINGS: FestivalLanding[] = [
     city: "Bilbao",
     citySlug: "bilbao",
     region: "País Vasco",
-    venue: "Sondika (Recinto Atxura, Bilbao)",
-    venueAddress: "Atxura, 48150 Sondika (Bizkaia)",
-    lat: 43.2887,
-    lng: -2.9091,
+    venue: "Bilbao Arena, Miribilla",
+    venueAddress: "C/ Buenos Aires, 48003 Bilbao (Bizkaia)",
+    lat: 43.2569,
+    lng: -2.9199,
     startDate: "2026-06-26",
     endDate: "2026-06-27",
     typicalDates: "Último fin de semana de junio (edición 2026: 26–27 junio)",
     capacity: "20.000 personas/día",
     blurb:
-      "BBK Music Legends Festival es el festival de rock clásico más importante del norte de España, celebrado en Sondika (Bizkaia, junto al aeropuerto de Bilbao) cada tercer fin de semana de junio. 20.000 asistentes/día y cabezas de cartel históricos: Bob Dylan, Eric Clapton, Crosby Stills & Nash, Steve Miller Band, Steely Dan, Tom Petty. El festival se especializa en rock de los 70 y 80 con público maduro. Carpooling ConcertRide desde Bilbao centro (8 km, 3€), Donostia (100 km, 4–7€), Vitoria (65 km, 3–6€), Pamplona (155 km, 5–8€), Madrid (395 km, 11–16€).",
+      "BBK Music Legends Festival es el festival de rock clásico más importante del norte de España, celebrado en el Bilbao Arena (Miribilla) cada último fin de semana de junio. 20.000 asistentes/día y cabezas de cartel históricos: Bob Dylan, Eric Clapton, Crosby Stills & Nash, Steve Miller Band, Steely Dan, Tom Petty. El festival se especializa en rock de los 70 y 80 con público maduro. Carpooling ConcertRide desde Bilbao centro (3 km, 3€), Donostia (100 km, 4–7€), Vitoria (65 km, 3–6€), Pamplona (155 km, 5–8€), Madrid (395 km, 11–16€).",
     ogImage: "/og-fallback.png",
     originCities: [
       { city: "Bilbao centro", km: 8, drivingTime: "0h 15 min", concertRideRange: "3 €/asiento" },
@@ -2701,23 +2701,23 @@ export const FESTIVAL_LANDINGS: FestivalLanding[] = [
     faqs: [
       {
         q: "¿Cuándo es BBK Music Legends 2026?",
-        a: "BBK Music Legends 2026 se celebra del 19 al 21 de junio en el Recinto Atxura de Sondika (Bizkaia), a 8 km del centro de Bilbao y junto al aeropuerto. La programación se anuncia entre enero y marzo en bbkmusiclegends.com. Cabezas de cartel históricos: Bob Dylan, Eric Clapton, Tom Petty, Steve Miller Band, Crosby Stills & Nash.",
+        a: "BBK Music Legends 2026 se celebra el 26 y 27 de junio en el Bilbao Arena (Miribilla), en el corazón de Bilbao. La programación se anuncia entre enero y marzo en bbkmusiclegends.com. Cabezas de cartel históricos: Bob Dylan, Eric Clapton, Tom Petty, Steve Miller Band, Crosby Stills & Nash.",
       },
       {
-        q: "¿Cómo llegar a BBK Music Legends Sondika?",
-        a: "Sondika está a 8 km del centro de Bilbao. La organización fleta lanzadera oficial gratuita desde el centro de Bilbao (Plaza Moyúa, Termibus, Abando) durante los 3 días. Bus público Bizkaibus A3247 también conecta Bilbao–Sondika. Carpooling ConcertRide directo al recinto: Bilbao 3€/asiento, Donostia 4–7€, Vitoria 3–6€, Madrid 11–16€. Sin comisión.",
+        q: "¿Cómo llegar a BBK Music Legends en Bilbao Arena?",
+        a: "El Bilbao Arena está en el barrio de Miribilla (C/ Buenos Aires), a 10 min en taxi o 25 min andando desde Abando. Metro línea 2 (Bilbao, parada Rekalde) a 15 min a pie. La organización fleta lanzadera oficial desde el centro durante los días del festival. Carpooling ConcertRide directo al Bilbao Arena: ciudad 3€/asiento, Donostia 4–7€, Vitoria 3–6€, Madrid 11–16€. Sin comisión.",
       },
       {
         q: "¿En qué se diferencia BBK Music Legends de BBK Live?",
-        a: "BBK Live es el festival masivo de pop/rock/indie en Kobetamendi (julio, 30.000 personas/día). BBK Music Legends es un festival más pequeño y especializado en rock clásico, en Sondika (junio, 20.000/día) con cabezas de cartel históricos como Bob Dylan o Eric Clapton. BBK Live atrae público de 18–35 años; BBK Music Legends público de 35–65 años. Ambos los financia BBK (Bilbao Bizkaia Kutxa).",
+        a: "BBK Live es el festival masivo de pop/rock/indie en Kobetamendi (julio, 30.000 personas/día). BBK Music Legends es un festival más recogido y especializado en rock clásico, en el Bilbao Arena (junio, 20.000/día) con cabezas de cartel históricos como Bob Dylan o Eric Clapton. BBK Live atrae público de 18–35 años; BBK Music Legends público de 35–65 años. Ambos los financia BBK (Bilbao Bizkaia Kutxa).",
       },
       {
         q: "¿Qué artistas han tocado en BBK Music Legends?",
         a: "Lista histórica de cabezas de cartel: Bob Dylan, Eric Clapton, Crosby Stills & Nash, Steve Miller Band, Tom Petty, Steely Dan, Jethro Tull, John Fogerty, Doobie Brothers, Allman Brothers, Lynyrd Skynyrd, Van Morrison. El festival es referente del rock americano clásico de los 70 en España.",
       },
       {
-        q: "¿Hay parking en BBK Music Legends?",
-        a: "El Recinto Atxura tiene parking propio gratuito con capacidad 3.000 plazas. Se llena 1–2 horas antes del cabeza de cartel. Alternativa: parking gratuito en las calles adyacentes de Sondika o lanzadera oficial gratuita desde Bilbao centro. Para evitar el tráfico de salida (1–2h tras el último concierto), el carpooling ConcertRide es la opción más eficiente.",
+        q: "¿Hay parking en el Bilbao Arena para BBK Music Legends?",
+        a: "El Bilbao Arena dispone de parking adyacente en el barrio de Miribilla. Se llena rápido — mejor llegar 1h antes del cabeza de cartel. Alternativa: parking en zonas azul/verde del barrio o metro línea 2 (Rekalde). Para evitar el tráfico de salida tras el último concierto, el carpooling ConcertRide es la opción más eficiente.",
       },
     ],
     relatedFestivals: ["bbk-live"],
@@ -2738,7 +2738,7 @@ export const FESTIVAL_LANDINGS: FestivalLanding[] = [
     typicalDates: "Última semana de junio (edición 2026: 28–30 junio)",
     capacity: "40.000 personas/día",
     blurb:
-      "Download Festival Madrid es el festival de rock y metal más importante de la capital, celebrado en IFEMA Madrid desde 2013. Con 40.000 asistentes diarios y carteles encabezados por bandas de rock internacional, es el punto de referencia del género en España. El acceso se realiza en Metro L8 (Feria de Madrid) pero el transporte nocturno es limitado pasada la 1:30. Asistentes de Barcelona (620km, 15-20€ CR), Valencia (355km, 10-14€ CR) y Zaragoza (325km, 9-13€ CR) viajan habitualmente en carpooling con ConcertRide.",
+      "Download Festival Madrid es el festival de rock y metal más importante de la capital, celebrado en la Caja Mágica (Madrid) desde 2013. Con 40.000 asistentes diarios y carteles encabezados por bandas de rock internacional, es el punto de referencia del género en España. El acceso se realiza en Metro L12 (San Fermín – Orcasur) o en coche compartido. Asistentes de Barcelona (620km, 15-20€ CR), Valencia (355km, 10-14€ CR) y Zaragoza (325km, 9-13€ CR) viajan habitualmente en carpooling con ConcertRide.",
     originCities: [
       { city: "Madrid", km: 15, drivingTime: "25 min", concertRideRange: "4–7 €/asiento" },
       { city: "Toledo", km: 75, drivingTime: "55 min", concertRideRange: "4–7 €/asiento" },
