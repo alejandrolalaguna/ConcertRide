@@ -194,6 +194,28 @@ This keeps the skill as the single source of truth for all GSC patterns seen in 
 
 ---
 
+## blogPosts.ts — Type Constraints
+
+When adding entries to `BLOG_POSTS` in `apps/web/src/lib/blogPosts.ts`, enforce these types:
+
+**`relatedLinks` items:** use `to:` (not `url:`).
+```ts
+// CORRECT
+{ label: "Cómo funciona", to: "/como-funciona" }
+// WRONG — TS2353
+{ label: "Cómo funciona", url: "/como-funciona" }
+```
+
+**`category` field:** only these four values are valid:
+- `"comparativas"`
+- `"guias"`
+- `"sostenibilidad"`
+- `"novedades"`
+
+`"consejos"` is **not** a valid category — use `"guias"` instead.
+
+---
+
 ### Checklist before touching these files
 
 Apply the 6 rules above mentally before saving changes to any of these:
