@@ -6,10 +6,13 @@ import { FESTIVAL_LANDINGS_BY_SLUG } from "@/lib/festivalLandings";
 import { AutoLinksForArtist } from "@/lib/autoLinking";
 import { ARTIST_SEO_OVERRIDES } from "@/lib/seoOverrides";
 import { SpeakableAnswerBlock } from "@/components/SpeakableAnswerBlock";
+import { StickyRegBar } from "@/components/StickyRegBar";
+import { useSession } from "@/lib/session";
 
 export default function ArtistLandingPage() {
   const { slug } = useParams<{ slug: string }>();
   const artist = slug ? ARTIST_LANDINGS_BY_SLUG[slug] : undefined;
+  const { user } = useSession();
 
   const hasUpcoming = (artist?.upcomingConcerts.length ?? 0) > 0;
 
@@ -360,6 +363,39 @@ export default function ArtistLandingPage() {
         </section>
       )}
 
+      {/* ── Anon CTA — visible only to non-logged-in users, after concert list ── */}
+      {!user && hasUpcoming && (
+        <section
+          className="max-w-6xl mx-auto px-6 pb-8"
+          aria-label={`Buscar carpooling al concierto de ${artist.name}`}
+        >
+          <div className="bg-[#dbff00] text-black p-5 md:p-6 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+            <div className="space-y-1">
+              <p className="font-display text-lg uppercase leading-tight">
+                ¿Vas al concierto de {artist.name}?
+              </p>
+              <p className="font-sans text-sm leading-snug">
+                Busca carpooling gratis · 0% comisión · conductores verificados
+              </p>
+            </div>
+            <div className="flex flex-wrap gap-2 shrink-0">
+              <Link
+                to="/concerts"
+                className="inline-flex items-center justify-center bg-black text-[#dbff00] font-sans font-semibold uppercase tracking-[0.12em] text-xs border-2 border-black px-5 py-2.5 shadow-[3px_3px_0px_0px_rgba(255,255,0,0.4)] hover:shadow-[1px_1px_0px_0px_rgba(255,255,0,0.4)] hover:translate-x-[2px] hover:translate-y-[2px] transition-all duration-100 whitespace-nowrap"
+              >
+                Buscar viaje →
+              </Link>
+              <Link
+                to="/register"
+                className="inline-flex items-center justify-center font-sans font-semibold uppercase tracking-[0.12em] text-xs border-2 border-black text-black px-5 py-2.5 hover:bg-black/10 transition-colors whitespace-nowrap"
+              >
+                Crear cuenta gratis
+              </Link>
+            </div>
+          </div>
+        </section>
+      )}
+
       {/* ── Cómo llegar: comparativa de transporte ── */}
       <section className="max-w-6xl mx-auto px-6 pb-16 border-t border-cr-border pt-12 space-y-6">
         <h2 className="font-display text-2xl md:text-3xl uppercase">
@@ -604,6 +640,8 @@ export default function ArtistLandingPage() {
           .
         </p>
       </section>
+
+      <StickyRegBar />
     </main>
   );
 }

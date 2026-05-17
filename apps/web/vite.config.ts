@@ -46,6 +46,9 @@ export default defineConfig({
         swSrc: "src/sw.ts",
         swDest: "dist/sw.js",
         globPatterns: ["**/*.{js,css,html,ico,png,svg,webp,woff,woff2}"],
+        // Large programmatic pages (rutas/index.html, etc.) exceed the default 2 MiB limit.
+        // Raised to 8 MiB so the service worker precache manifest includes them.
+        maximumFileSizeToCacheInBytes: 8 * 1024 * 1024,
       },
     }),
   ].filter(Boolean),

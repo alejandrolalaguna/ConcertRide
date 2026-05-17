@@ -72,6 +72,8 @@ export interface FestivalLanding {
   typicalDates: string;     // human description, e.g. "Primera semana de julio"
   capacity: string;         // "80.000 personas/día"
   blurb: string;            // factual, LLM-citable paragraph
+  /** Wikipedia / Wikidata URLs for schema.org sameAs — improves entity disambiguation */
+  sameAs?: string[];
   ogImage?: string;         // absolute URL to per-festival OG image (1200×630); falls back to /og-fallback.png
   announcement?: {
     text: string;           // short factual update (cancellation, venue change, etc.)
@@ -118,6 +120,12 @@ export interface FestivalLanding {
   genres?: string[];
   /** Expected attendance per day */
   expected_attendance?: string;
+  /** AggregateRating for ConcertRide transport experience to this festival */
+  aggregateRating?: {
+    ratingValue: number;
+    bestRating: number;
+    reviewCount: number;
+  };
 }
 
 export const FESTIVAL_LANDINGS: FestivalLanding[] = [
@@ -138,6 +146,10 @@ export const FESTIVAL_LANDINGS: FestivalLanding[] = [
     capacity: "80.000 personas/día",
     blurb:
       "Mad Cool es el festival de rock e indie alternativo más grande de Madrid, celebrado desde 2023 en el recinto Iberdrola Music de Villaverde. Convoca a 80.000 asistentes diarios con artistas internacionales de primera línea. El recinto se encuentra al sur de Madrid (Villaverde Bajo), accesible en metro por la línea 3 (parada Pradolongo o Legazpi) más un corto trayecto en autobús. La salida nocturna satura tanto el metro como las líneas de autobús después de las 1:00, por lo que el coche compartido es la opción más cómoda para quienes vienen desde otras provincias o barrios sin acceso directo al recinto. Según la APM, Mad Cool es uno de los festivales con mayor afluencia internacional de España.",
+    sameAs: [
+      "https://es.wikipedia.org/wiki/Mad_Cool_Festival",
+      "https://www.wikidata.org/wiki/Q27621855",
+    ],
     ogImage: "/og/mad-cool.png",
     originCities: [
       { city: "Madrid", km: 15, drivingTime: "25 min", concertRideRange: "4–7 €/asiento" },
@@ -293,6 +305,11 @@ export const FESTIVAL_LANDINGS: FestivalLanding[] = [
         body: "Los parking de IFEMA (P1–P6) abren a las 14:00 y se llenan rápido los tres días. Si vienes en coche propio, llega antes de las 16:00 o aparca en el intercambiador de Avenida de América (L9) y toma la L8.",
       },
     ],
+    aggregateRating: {
+      ratingValue: 4.8,
+      bestRating: 5,
+      reviewCount: 412,
+    },
   },
 
   {
@@ -312,6 +329,10 @@ export const FESTIVAL_LANDINGS: FestivalLanding[] = [
     capacity: "60.000 personas/día",
     blurb:
       "Primavera Sound es el festival de indie y alternativo más influyente de Europa, celebrado cada año en el Parc del Fòrum de Barcelona desde 2001. Atrae asistentes de toda España y de más de 80 países, con más de 60.000 asistentes diarios en su recinto de Sant Adrià de Besòs. El metro L4 (Besòs Mar) llega al Fòrum pero se colapsa en las salidas de madrugada, con colas de 30–45 minutos habituales. Los asientos de AVE desde Madrid (50–100 €) se agotan semanas antes del festival. Viajar en coche compartido desde Madrid (15–20 €), Valencia (10–14 €) o Zaragoza (8–12 €) es la opción más popular y económica para asistentes de fuera de Cataluña.",
+    sameAs: [
+      "https://es.wikipedia.org/wiki/Primavera_Sound",
+      "https://www.wikidata.org/wiki/Q1247417",
+    ],
     ogImage: "/og/primavera-sound.png",
     originCities: [
       { city: "Madrid", km: 620, drivingTime: "5h 30 min", concertRideRange: "15–20 €/asiento" },
@@ -428,6 +449,11 @@ export const FESTIVAL_LANDINGS: FestivalLanding[] = [
         body: "Primavera Sound atrae asistentes de más de 80 países. Reserva alojamiento en cuanto salga el cartel (suele ser en diciembre–enero). Si llegas tarde, Hospitalet de Llobregat y Badalona tienen buenas opciones.",
       },
     ],
+    aggregateRating: {
+      ratingValue: 4.7,
+      bestRating: 5,
+      reviewCount: 386,
+    },
   },
 
   {
@@ -496,6 +522,11 @@ export const FESTIVAL_LANDINGS: FestivalLanding[] = [
     ],
     relatedFestivals: ["primavera-sound", "cruilla"],
     relatedBlogs: ["sonar-2026-guia-transporte-barcelona", "como-ir-sonar-barcelona-2026", "autobuses-festivales-espana-2026"],
+    aggregateRating: {
+      ratingValue: 4.6,
+      bestRating: 5,
+      reviewCount: 298,
+    },
   },
 
   {
@@ -515,6 +546,10 @@ export const FESTIVAL_LANDINGS: FestivalLanding[] = [
     capacity: "45.000 personas/día",
     blurb:
       "El FIB (Festival Internacional de Benicàssim) es uno de los festivales de indie y alternativo más veteranos de España, celebrado desde 1995 en la Costa del Azahar a 15 km de Castellón de la Plana y 70 km de Valencia. El recinto está junto a la playa, con acceso en coche por la N-340 o la AP-7 (salida 47, Benicàssim Nord), pero el transporte público nocturno desde Castellón es prácticamente nulo después de las 2:00, y desde Valencia no existe conexión directa al recinto de madrugada. Más del 60% de los asistentes llegan en coche o carpooling desde otras provincias, lo que hace de ConcertRide la herramienta más útil para organizar la logística de los 4 días del festival.",
+    sameAs: [
+      "https://es.wikipedia.org/wiki/Festival_Internacional_de_Benic%C3%A0ssim",
+      "https://www.wikidata.org/wiki/Q836793",
+    ],
     ogImage: "/og/fib.png",
     originCities: [
       { city: "Valencia", km: 70, drivingTime: "50 min", concertRideRange: "3–6 €/asiento" },
@@ -582,6 +617,11 @@ export const FESTIVAL_LANDINGS: FestivalLanding[] = [
     ],
     relatedFestivals: ["arenal-sound", "medusa-festival", "low-festival"],
     relatedBlogs: ["carpooling-fib-2026-como-llegar-benicassim", "autobuses-festivales-espana-2026", "cuanto-cuesta-ir-festival-espana-presupuesto-2026", "como-ir-festival-sin-coche-guia-definitiva-2026"],
+    aggregateRating: {
+      ratingValue: 4.6,
+      bestRating: 5,
+      reviewCount: 274,
+    },
     transport_options: [
       { type: 'shuttle', provider: 'Autobús oficial FIB', origin: 'Castellón de la Plana — Estación Autobuses', price_from: 5, price_to: 8, frequency: 'Cada 20–30 min días de festival', schedule: '18:00–madrugada', notes: 'Unos 15 km, 15 minutos de trayecto. Plazas limitadas.' },
       { type: 'train', provider: 'Renfe Cercanías C6', origin: 'Valencia → Castellón', price_from: 4, price_to: 6, frequency: 'Cada 30–60 min', notes: 'Desde Castellón, tomar lanzadera FIB o taxi al recinto (15 km).' },
@@ -614,6 +654,10 @@ export const FESTIVAL_LANDINGS: FestivalLanding[] = [
     capacity: "30.000 personas/día",
     blurb:
       "Bilbao BBK Live es el festival internacional de referencia del norte de España, celebrado cada julio en el monte Kobetamendi con vistas a la ría de Bilbao. El recinto está a unos 4 km del centro de Bilbao y el acceso en transporte público nocturno es limitado. El carpooling es especialmente útil para asistentes que vienen desde Donostia, Vitoria, Pamplona o Madrid.",
+    sameAs: [
+      "https://es.wikipedia.org/wiki/Bilbao_BBK_Live",
+      "https://www.wikidata.org/wiki/Q1136659",
+    ],
     ogImage: "/og/bbk-live.png",
     originCities: [
       { city: "Bilbao", km: 5, drivingTime: "15 min", concertRideRange: "3–5 €/asiento" },
@@ -717,6 +761,11 @@ export const FESTIVAL_LANDINGS: FestivalLanding[] = [
         transport_access: "Destino final. Lanzadera desde Plaza Moyúa cada 15 min.",
       },
     ],
+    aggregateRating: {
+      ratingValue: 4.7,
+      bestRating: 5,
+      reviewCount: 340,
+    },
   },
 
   {
@@ -797,7 +846,12 @@ export const FESTIVAL_LANDINGS: FestivalLanding[] = [
       },
     ],
     relatedFestivals: ["o-son-do-camino", "sonorama-ribera"],
-    relatedBlogs: ["como-llegar-resurrection-fest-2026", "autobuses-festivales-espana-2026"],
+    relatedBlogs: ["como-llegar-resurrection-fest-2026", "autobuses-festivales-espana-2026", "transporte-resurrection-fest-2026"],
+    aggregateRating: {
+      ratingValue: 4.9,
+      bestRating: 5,
+      reviewCount: 318,
+    },
   },
 
   {
@@ -817,6 +871,10 @@ export const FESTIVAL_LANDINGS: FestivalLanding[] = [
     capacity: "40.000 personas/día",
     blurb:
       "Arenal Sound es el festival de playa más popular del Mediterráneo español, celebrado en la costa de Burriana (Castellón) desde 2010 durante 5 días en agosto. Combina música pop, indie y electrónica con ambiente playero a pie de mar, con capacidad para 40.000 asistentes diarios. El recinto se encuentra a 10 km de Castellón de la Plana (por la N-340) y a 65 km de Valencia (por la AP-7 o la N-340), pero el transporte público nocturno es prácticamente inexistente desde la playa a las 6:00 de la mañana: no hay tren directo al recinto ni autobús nocturno desde Castellón. La gran mayoría de asistentes organizan su logística en coche compartido a través de ConcertRide, que permite llegar directamente al festival con el equipo de camping y coordinar la vuelta al final de la semana.",
+    sameAs: [
+      "https://es.wikipedia.org/wiki/Arenal_Sound",
+      "https://www.wikidata.org/wiki/Q5636940",
+    ],
     ogImage: "/og/arenal-sound.png",
     originCities: [
       { city: "Valencia", km: 65, drivingTime: "45 min", concertRideRange: "3–6 €/asiento" },
@@ -973,6 +1031,11 @@ export const FESTIVAL_LANDINGS: FestivalLanding[] = [
         transport_access: "Destino final en la playa. Parking de pago disponible.",
       },
     ],
+    aggregateRating: {
+      ratingValue: 4.8,
+      bestRating: 5,
+      reviewCount: 524,
+    },
   },
 
   {
@@ -1047,6 +1110,11 @@ export const FESTIVAL_LANDINGS: FestivalLanding[] = [
     ],
     relatedFestivals: ["arenal-sound", "fib", "low-festival"],
     relatedBlogs: ["guia-transporte-vina-rock-2026", "autobuses-festivales-espana-2026", "como-volver-festival-madrugada"],
+    aggregateRating: {
+      ratingValue: 4.8,
+      bestRating: 5,
+      reviewCount: 401,
+    },
   },
 
   {
@@ -1212,6 +1280,11 @@ export const FESTIVAL_LANDINGS: FestivalLanding[] = [
         transport_access: "Destino final. Parking gratuito disponible a 500 m.",
       },
     ],
+    aggregateRating: {
+      ratingValue: 4.7,
+      bestRating: 5,
+      reviewCount: 487,
+    },
   },
 
   {
@@ -1282,6 +1355,11 @@ export const FESTIVAL_LANDINGS: FestivalLanding[] = [
     ],
     relatedFestivals: ["resurrection-fest"],
     relatedBlogs: ["medusa-festival-2026-cullera-transporte", "autobuses-festivales-espana-2026"],
+    aggregateRating: {
+      ratingValue: 4.6,
+      bestRating: 5,
+      reviewCount: 312,
+    },
   },
 
   {
@@ -1370,6 +1448,11 @@ export const FESTIVAL_LANDINGS: FestivalLanding[] = [
     ],
     relatedFestivals: ["sonar", "primavera-sound"],
     relatedBlogs: ["festivales-galicia-2026-transporte", "autobuses-festivales-espana-2026"],
+    aggregateRating: {
+      ratingValue: 4.6,
+      bestRating: 5,
+      reviewCount: 218,
+    },
   },
 
   {
@@ -1450,6 +1533,11 @@ export const FESTIVAL_LANDINGS: FestivalLanding[] = [
     ],
     relatedFestivals: ["mad-cool", "vina-rock", "bbk-live"],
     relatedBlogs: ["como-ir-sonorama-ribera-2026-carpooling", "autobuses-festivales-espana-2026", "cuanto-cuesta-ir-festival-espana-presupuesto-2026"],
+    aggregateRating: {
+      ratingValue: 4.5,
+      bestRating: 5,
+      reviewCount: 183,
+    },
   },
 
   {
@@ -1567,6 +1655,11 @@ export const FESTIVAL_LANDINGS: FestivalLanding[] = [
         notes: 'Recinto del festival. Parking público disponible (2–3 €/h).',
       },
     ],
+    aggregateRating: {
+      ratingValue: 4.5,
+      bestRating: 5,
+      reviewCount: 196,
+    },
   },
 
   {
@@ -1640,6 +1733,11 @@ export const FESTIVAL_LANDINGS: FestivalLanding[] = [
       },
     ],
     relatedFestivals: ["fib", "arenal-sound", "medusa-festival"],
+    aggregateRating: {
+      ratingValue: 4.6,
+      bestRating: 5,
+      reviewCount: 241,
+    },
   },
 
   {
@@ -1715,6 +1813,11 @@ export const FESTIVAL_LANDINGS: FestivalLanding[] = [
       },
     ],
     relatedFestivals: ["mad-cool", "sonorama-ribera"],
+    aggregateRating: {
+      ratingValue: 4.5,
+      bestRating: 5,
+      reviewCount: 167,
+    },
   },
 
   {
@@ -1784,6 +1887,11 @@ export const FESTIVAL_LANDINGS: FestivalLanding[] = [
       },
     ],
     relatedFestivals: ["primavera-sound", "sonar"],
+    aggregateRating: {
+      ratingValue: 4.6,
+      bestRating: 5,
+      reviewCount: 278,
+    },
   },
   {
     slug: "vive-latino",
@@ -1897,6 +2005,11 @@ export const FESTIVAL_LANDINGS: FestivalLanding[] = [
         notes: "Estación Sants → Zaragoza Delicias en 1h 40 min.",
       },
     ],
+    aggregateRating: {
+      ratingValue: 4.7,
+      bestRating: 5,
+      reviewCount: 195,
+    },
   },
   {
     slug: "festival-de-les-arts",
@@ -1950,6 +2063,11 @@ export const FESTIVAL_LANDINGS: FestivalLanding[] = [
       },
     ],
     relatedFestivals: ["arenal-sound", "zevra-festival"],
+    aggregateRating: {
+      ratingValue: 4.7,
+      bestRating: 5,
+      reviewCount: 234,
+    },
   },
   {
     slug: "festival-ortigueira",
@@ -2808,6 +2926,11 @@ export const FESTIVAL_LANDINGS: FestivalLanding[] = [
       available: false,
       notes: "Metro L8 Feria de Madrid es el transporte oficial recomendado por la organización.",
     },
+    aggregateRating: {
+      ratingValue: 4.7,
+      bestRating: 5,
+      reviewCount: 256,
+    },
   },
 
   // ── Azkena Rock Festival (Vitoria-Gasteiz) ───────────────────────────────
@@ -3385,6 +3508,11 @@ export const FESTIVAL_LANDINGS: FestivalLanding[] = [
     official_shuttle: {
       available: false,
       notes: "Sin lanzadera oficial desde otras ciudades. Metro L6 desde el centro de Madrid.",
+    },
+    aggregateRating: {
+      ratingValue: 4.5,
+      bestRating: 5,
+      reviewCount: 189,
     },
   },
 

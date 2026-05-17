@@ -36,35 +36,62 @@ const TODAY = new Date().toISOString().slice(0, 10);
 const RFC822_NOW = new Date().toUTCString();
 
 // ── Datos espejados de lib/*.ts ───────────────────────────────────────────────
-// Fuente: apps/web/src/lib/festivalLandings.ts  (16 festivales)
+// Fuente: apps/web/src/lib/festivalLandings.ts  (51 festivales — sincronizado 2026-05-17)
 
 const FESTIVAL_SLUGS = [
   "mad-cool", "primavera-sound", "sonar", "fib", "bbk-live", "resurrection-fest",
   "arenal-sound", "medusa-festival", "vina-rock", "o-son-do-camino", "cala-mijas",
   "sonorama-ribera", "zevra-festival", "low-festival", "tomavistas", "cruilla",
+  "vive-latino", "festival-de-les-arts", "festival-ortigueira", "jazzaldia",
+  "metropoli-gijon", "granada-sound", "pirineos-sur", "starlite-marbella",
+  "stone-music-festival", "marenostrum-fuengirola", "tio-pepe-festival",
+  "atlantic-fest", "portamerica", "sos-48", "reggaeton-beach-festival",
+  "mallorca-live-festival", "bbk-music-legends", "download-madrid", "azkena-rock-festival",
+  "granca-live-fest", "rototom-sunsplash", "dreambeach-festival", "aquasella-festival",
+  "dcode-festival", "creamfields-andalucia", "festival-de-musica-de-barakaldo",
+  "festival-de-musica-de-irun", "festival-de-musica-de-donostia-hiria",
+  "festival-de-musica-de-pontevedra", "festival-de-musica-de-vigo",
+  "festival-de-musica-de-ferrol", "festival-de-musica-de-monforte",
+  "festival-de-musica-de-lalin", "festival-de-musica-de-tui", "festival-de-musica-de-betanzos",
 ];
 
-// Festivales con imagen OG generada
+// Festivales con imagen OG generada (los 16 originales)
 const FESTIVAL_OG_IMAGES = new Set([
   "mad-cool", "primavera-sound", "sonar", "fib", "bbk-live", "resurrection-fest",
   "arenal-sound", "medusa-festival", "vina-rock", "o-son-do-camino", "cala-mijas",
   "sonorama-ribera", "zevra-festival", "low-festival", "tomavistas", "cruilla",
 ]);
 
-// Fuente: apps/web/src/lib/artistLandings.ts  (21 artistas)
+// Fuente: apps/web/src/lib/artistLandings.ts  (67 artistas — sincronizado 2026-05-17)
 const ARTIST_SLUGS = [
   "coldplay", "taylor-swift", "rosalia", "bad-bunny", "metallica",
   "guns-n-roses", "karol-g", "doja-cat", "olivia-rodrigo", "the-weeknd",
-  "dua-lipa", "harry-styles", "bruce-springsteen", "beyonce", "sabrina-carpenter",
-  "billie-eilish", "post-malone", "drake", "ed-sheeran", "maluma",
-  "imagine-dragons",
+  "harry-styles", "bruce-springsteen", "beyonce", "billie-eilish", "post-malone",
+  "drake", "ed-sheeran", "maluma", "aitana", "dani-martin",
+  "melendi", "pablo-alboran", "hombres-g", "bryan-adams", "lana-del-rey",
+  "c-tangana", "joaquin-sabina", "rozalen", "vetusta-morla", "estopa",
+  "quevedo", "bizarrap", "camilo", "manuel-carrasco", "pablo-lopez",
+  "love-of-lesbian", "carolina-durante", "lola-indigo", "saiko", "anuel-aa",
+  "j-balvin", "sebastian-yatra", "manuel-turizo", "antonio-orozco", "alejandro-sanz",
+  "david-bisbal", "marwan", "ivan-ferreiro", "la-casa-azul", "sidonie",
+  "daddy-yankee", "ac-dc", "travis-scott", "shakira", "bad-gyal",
+  "dua-lipa", "sabrina-carpenter", "morat", "nicki-nicole", "imagine-dragons",
+  "iron-maiden", "india-martinez", "raphael", "pignoise", "amaia",
+  "nathy-peluso", "rels-b",
 ];
 
-// Fuente: apps/web/src/lib/venueLandings.ts  (10 recintos)
+// Fuente: apps/web/src/lib/venueLandings.ts  (40 recintos — sincronizado 2026-05-17)
 const VENUE_SLUGS = [
   "wizink-center", "palacio-vistalegre", "ifema-madrid", "caja-magica",
-  "palau-sant-jordi", "parc-del-forum", "estadio-la-cartuja",
-  "kobetamendi", "fira-barcelona", "palau-blaugrana",
+  "palau-sant-jordi", "parc-del-forum", "estadio-la-cartuja", "kobetamendi",
+  "fira-barcelona", "palau-blaugrana", "estadio-santiago-bernabeu", "estadio-civitas-metropolitano",
+  "estadi-olimpic-lluis-companys", "roig-arena", "fibes-sevilla", "bilbao-arena",
+  "pabellon-principe-felipe-zaragoza", "espacio-expo-zaragoza", "parc-del-forum-barcelona", "movistar-arena",
+  "bizkaia-arena-bec", "estadio-mestalla-valencia", "estadio-la-romareda", "estadio-gran-canaria",
+  "estadio-la-rosaleda", "rcde-stadium", "la-riviera", "sala-apolo",
+  "razzmatazz", "sant-jordi-club", "sala-bikini", "plaza-toros-las-ventas",
+  "auditorio-rocio-jurado", "sala-but", "plaza-toros-valencia", "estadio-san-mames",
+  "coliseum-a-coruna", "auditorio-castrelos", "marenostrum-fuengirola", "plaza-toros-zaragoza",
 ];
 
 // Fuente: apps/web/src/lib/cityLandings.ts  (44 ciudades)
@@ -87,6 +114,53 @@ const COMO_LLEGAR_SLUGS = [
 
 // Rutas completas: todas las combinaciones ciudad × festival (espejo de sitemap-routes.xml antiguo)
 // 44 ciudades × 16 festivales = 704 combinaciones (+ variantes especiales = 741 total)
+
+/**
+ * Quality threshold for route overrides (mirrors ROUTE_SEO_IMPROVEMENTS in seoOverrides.ts).
+ * Routes listed here must meet content quality minimums to be included in sitemap-routes.xml.
+ * Rules (GSC "Scaled Content Abuse" prevention, Core Update marzo 2026):
+ *   - title   < 30 chars → EXCLUDED (title is too generic/empty for Google to differentiate)
+ *   - description < 80 chars → EXCLUDED (thin description = thin content signal)
+ *   - Routes WITHOUT an explicit override always pass (they use rich auto-generated content
+ *     from RouteLandingPage which always includes km/time/price data).
+ */
+const ROUTE_OVERRIDES = {
+  // ── Viña Rock ──────────────────────────────────────────────────────────────
+  "madrid-vina-rock":    { title: "Carpooling Madrid → Viña Rock: 6€, 3h",                   description: "Carpooling Madrid → Viña Rock: 260 km, 3h por A-31, desde 6€/asiento sin comisión. Ruta directa Madrid–Villarrobledo, vuelta de madrugada coordinada." },
+  "valencia-vina-rock":  { title: "Carpooling Valencia → Viña Rock: 6€, 2h45",                description: "Carpooling Valencia → Viña Rock: 255 km, 2h 45 min por A-3+A-31, desde 6€/asiento sin comisión. Lanzadera al recinto La Pulgosa, vuelta coordinada." },
+  "alicante-vina-rock":  { title: "Cómo ir a Viña Rock desde Alicante: 2h, 195km, 5€",        description: "Cómo ir a Viña Rock desde Alicante: 195 km, 2h por A-31, carpooling desde 5€/asiento sin comisión. Salidas coordinadas + vuelta de madrugada al centro." },
+  "albacete-vina-rock":  { title: "Cómo ir a Viña Rock desde Albacete: 30min, 40km, 3€",      description: "Cómo ir a Viña Rock desde Albacete: 40 km, 30 min por A-31, carpooling desde 3€/asiento. Alternativa a bus regional y lanzadera nocturna, sin comisión." },
+  "sevilla-vina-rock":   { title: "Carpooling Sevilla → Viña Rock: 9€, 410 km",               description: null },  // no description → EXCLUIDA del sitemap
+  // ── Arenal Sound ──────────────────────────────────────────────────────────
+  "madrid-arenal-sound":   { title: "Carpooling Madrid → Arenal Sound: 12€, 460km",           description: "Carpooling Madrid → Arenal Sound: 460 km, 4h 30 min por A-3, desde 12€/asiento sin comisión. Más barato que bus (35€+) y AVE (60€+)." },
+  "valencia-arenal-sound": { title: "Cómo ir a Arenal Sound desde Valencia: 50min, 65km, 3€", description: "Cómo ir a Arenal Sound desde Valencia: 65 km, 50 min por AP-7, carpooling desde 3€/asiento sin comisión. Lanzadera a la playa de Burriana, vuelta coordinada." },
+  "barcelona-arenal-sound":{ title: "Carpooling Barcelona → Arenal Sound: 8€, 3h",            description: "Carpooling Barcelona → Arenal Sound: 305 km, 3h por AP-7, desde 8€/asiento sin comisión. Ruta costera directa Barcelona–Burriana, vuelta de madrugada coordinada." },
+  "zaragoza-arenal-sound": { title: "Carpooling Zaragoza → Arenal Sound: 8€, 275 km",         description: null },  // no description → EXCLUIDA del sitemap
+  "alicante-arenal-sound": { title: "Carpooling Alicante → Arenal Sound: 4€, 115 km",         description: null },  // no description → EXCLUIDA del sitemap
+  // ── BBK Live ──────────────────────────────────────────────────────────────
+  "madrid-bbk-live":        { title: "Carpooling Madrid → BBK Live Bilbao: desde 11€, 4h",    description: "Carpooling Madrid → BBK Live: 395 km, 4h por A-1+AP-68, desde 11€/asiento sin comisión. Más económico que AVE (60€+) y bus (30€+) a Kobetamendi." },
+  "bilbao-bbk-live":        { title: "Cómo ir a BBK Live desde Bilbao: 15min, 5km, desde 3€", description: "Cómo ir a BBK Live desde Bilbao: 5 km al monte Kobetamendi, 15 min en coche, carpooling desde 3€/asiento. Lanzadera oficial desde Moyúa + bus BizkaiBus." },
+  "barcelona-bbk-live":     { title: "Carpooling Barcelona → BBK Live: 12€, 5h, 510km",       description: "Carpooling Barcelona → BBK Live: 510 km, 5h por AP-2+AP-68, desde 12€/asiento sin comisión. Mucho más barato que AVE (80€+) y bus nocturno a Kobetamendi." },
+  "donostia-bbk-live":      { title: "Cómo ir a BBK Live desde Donostia: 1h10, 100km, 4€",    description: "Cómo ir a BBK Live desde Donostia: 100 km, 1h 10 min por A-8, carpooling desde 4€/asiento sin comisión. Más rápido que tren EuskoTren (1h 40 min) y bus." },
+  "santander-bbk-live":     { title: "Cómo ir a BBK Live desde Santander: 1h10, 100km, 4€",   description: "Cómo ir a BBK Live desde Santander: 100 km, 1h 10 min por A-8, carpooling desde 4€/asiento sin comisión. Vuelta de madrugada coordinada a Cantabria." },
+  "vitoria-gasteiz-bbk-live":{ title: "Carpooling Vitoria → BBK Live Bilbao: 3€, 65 km",      description: null },  // no description → EXCLUIDA del sitemap
+};
+
+/**
+ * Returns true if the route should be included in sitemap-routes.xml.
+ * Logic:
+ *   1. Routes WITHOUT an explicit override → always included (rich auto-generated content).
+ *   2. Routes WITH override → title must be ≥ 30 chars AND description must be ≥ 80 chars.
+ *      If description is null/missing → excluded (thin content risk).
+ */
+function routePassesQualityThreshold(slug) {
+  const override = ROUTE_OVERRIDES[slug];
+  if (!override) return true;  // no override = rich auto-generated content, always pass
+  if (!override.description || override.description.length < 80) return false;
+  if (!override.title || override.title.length < 30) return false;
+  return true;
+}
+
 const ROUTE_SLUGS = (() => {
   const cities = [
     "madrid", "barcelona", "valencia", "sevilla", "bilbao", "malaga", "zaragoza",
@@ -114,7 +188,7 @@ const ROUTE_SLUGS = (() => {
   const slugs = [];
   for (const city of cities) {
     for (const festival of festivals) {
-      if (city !== festivalSeats[festival]) {
+      if (city !== festivalSeats[festival] && routePassesQualityThreshold(`${city}-${festival}`)) {
         slugs.push(`${city}-${festival}`);
       }
     }
@@ -122,12 +196,12 @@ const ROUTE_SLUGS = (() => {
   return slugs;
 })();
 
-// Fuente: apps/web/src/lib/blogPosts.ts  (80 posts total — última actualización mayo-06)
+// Fuente: apps/web/src/lib/blogPosts.ts  (última actualización mayo-17)
 const BLOG_POSTS = [
+  { slug: "alternativa-carpooling-festivales-espana",      title: "Mejores plataformas de carpooling para festivales en España [2026]",  publishedAt: "2026-05-17" },
   { slug: "autobuses-festivales-espana-2026",              title: "Autobuses a festivales de España 2026: guía completa",                  publishedAt: "2026-04-20" },
   { slug: "como-volver-festival-madrugada",                title: "Cómo volver de un festival de madrugada",                              publishedAt: "2026-04-18" },
   { slug: "huella-carbono-festivales-carpooling",          title: "Huella de carbono en festivales: carpooling como solución",            publishedAt: "2026-04-15" },
-  { slug: "blablacar-vs-concertride",                      title: "BlaBlaCar vs ConcertRide: ¿cuál elegir para ir a un festival?",       publishedAt: "2026-04-10" },
   { slug: "que-llevar-al-festival",                        title: "Qué llevar al festival: la lista definitiva",                         publishedAt: "2026-04-05" },
   { slug: "coldplay-madrid-barcelona-2026-como-llegar",    title: "Coldplay Madrid y Barcelona 2026: cómo llegar",                       publishedAt: "2026-04-01" },
   { slug: "festivales-verano-espana-2026-transporte",      title: "Festivales de verano en España 2026: guía de transporte",             publishedAt: "2026-03-28" },
@@ -216,15 +290,16 @@ const BLOG_POSTS = [
 ];
 
 // Prioridades por tipo de contenido
+// changefreq diferenciado: static=yearly, blog=weekly, rutas=daily, festivales=monthly
 const SEO_CONFIG = {
-  festivales:   { priority: "0.85", changefreq: "weekly"  },
+  festivales:   { priority: "0.85", changefreq: "monthly" },
   artistas:     { priority: "0.70", changefreq: "monthly" },
   recintos:     { priority: "0.70", changefreq: "monthly" },
   ciudades:     { priority: "0.75", changefreq: "weekly"  },
-  "como-llegar":{ priority: "0.85", changefreq: "weekly"  },
+  "como-llegar":{ priority: "0.85", changefreq: "monthly" },
   guias:        { priority: "0.80", changefreq: "monthly" },
-  rutas:        { priority: "0.72", changefreq: "weekly"  },
-  blog:         { priority: "0.75", changefreq: "monthly" },
+  rutas:        { priority: "0.72", changefreq: "daily"   },
+  blog:         { priority: "0.75", changefreq: "weekly"  },
 };
 
 // Blog posts con prioridad alta por importancia temática
@@ -430,21 +505,27 @@ async function main() {
   await fs.mkdir(OUTPUT_DIR, { recursive: true });
   await fs.mkdir(PUBLIC_DIR, { recursive: true });
 
+  // NOTE: File names MUST match what prerender.mjs generates so public/ and dist/ stay in sync.
+  // prerender.mjs uses English names; this script mirrors them to avoid orphan files in dist/.
   const sitemaps = [
-    { file: "sitemap-festivales.xml",  content: buildFestivalesSitemap(),  count: FESTIVAL_SLUGS.length },
-    { file: "sitemap-artistas.xml",    content: buildArtistasSitemap(),    count: ARTIST_SLUGS.length   },
-    { file: "sitemap-recintos.xml",    content: buildRecintosSitemap(),    count: VENUE_SLUGS.length    },
-    { file: "sitemap-ciudades.xml",    content: buildCiudadesSitemap(),    count: CITY_SLUGS.length     },
-    { file: "sitemap-como-llegar.xml", content: buildComoLlegarSitemap(),  count: COMO_LLEGAR_SLUGS.length },
-    { file: "sitemap-guias.xml",       content: buildGuiasSitemap(),       count: FESTIVAL_SLUGS.length },
-    { file: "sitemap-rutas.xml",       content: buildRutasSitemap(),       count: ROUTE_SLUGS.length    },
-    { file: "sitemap-blog.xml",        content: buildBlogSitemap(),        count: BLOG_POSTS.length     },
+    { file: "sitemap-festivals.xml",        content: buildFestivalesSitemap(),  count: FESTIVAL_SLUGS.length },
+    { file: "sitemap-artistas.xml",         content: buildArtistasSitemap(),    count: ARTIST_SLUGS.length   },
+    { file: "sitemap-recintos.xml",         content: buildRecintosSitemap(),    count: VENUE_SLUGS.length    },
+    { file: "sitemap-cities.xml",           content: buildCiudadesSitemap(),    count: CITY_SLUGS.length     },
+    { file: "sitemap-how-to-get-there.xml", content: buildComoLlegarSitemap(),  count: COMO_LLEGAR_SLUGS.length },
+    { file: "sitemap-routes.xml",           content: buildRutasSitemap(),       count: ROUTE_SLUGS.length    },
+    { file: "sitemap-blog.xml",             content: buildBlogSitemap(),        count: BLOG_POSTS.length     },
   ];
 
   // El sitemap.xml maestro apunta a todos los sitemaps + el estático + concerts dinámico
+  // NOTE: Must match the index generated by prerender.mjs (same files, same order).
   const masterIndex = sitemapIndex([
     { file: "sitemap-static.xml" },
     ...sitemaps.map(s => ({ file: s.file })),
+    { file: "sitemap-regiones.xml" },   // generated by prerender.mjs (not by this script — no data here yet)
+    { file: "sitemap-generos.xml" },    // generated by prerender.mjs
+    { file: "sitemap-calendario.xml" }, // generated by prerender.mjs
+    { file: "sitemap-static-others.xml" }, // generated by prerender.mjs
     { file: "api/sitemap-concerts.xml" }, // dinámico del Worker
   ]);
 

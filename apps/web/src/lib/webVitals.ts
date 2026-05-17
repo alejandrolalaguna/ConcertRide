@@ -13,7 +13,7 @@ type VitalName = "LCP" | "CLS" | "INP" | "FCP" | "TTFB";
 function rating(name: VitalName, value: number): "good" | "needs-improvement" | "poor" {
   // Thresholds per https://web.dev/vitals/
   switch (name) {
-    case "LCP": return value <= 2500 ? "good" : value <= 4000 ? "needs-improvement" : "poor";
+    case "LCP": return value <= 2000 ? "good" : value <= 4000 ? "needs-improvement" : "poor";
     case "CLS": return value <= 0.1 ? "good" : value <= 0.25 ? "needs-improvement" : "poor";
     case "INP": return value <= 200 ? "good" : value <= 500 ? "needs-improvement" : "poor";
     case "FCP": return value <= 1800 ? "good" : value <= 3000 ? "needs-improvement" : "poor";

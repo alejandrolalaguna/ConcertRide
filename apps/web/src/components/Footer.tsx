@@ -28,7 +28,7 @@ export function Footer() {
           <p className="font-sans text-[10px] font-semibold uppercase tracking-[0.16em] text-cr-text-muted mb-4">
             Plataforma
           </p>
-          <nav className="flex flex-col gap-2">
+          <nav aria-label="Navegación principal" className="flex flex-col gap-2">
             <Link
               to="/concerts"
               className="font-sans text-xs text-cr-text-muted hover:text-cr-primary transition-colors"
@@ -109,7 +109,7 @@ export function Footer() {
           <p className="font-sans text-[10px] font-semibold uppercase tracking-[0.16em] text-cr-text-muted mb-4">
             Festivales
           </p>
-          <nav className="flex flex-col gap-2">
+          <nav aria-label="Festivales" className="flex flex-col gap-2">
             <Link
               to="/festivales/mad-cool"
               className="font-sans text-xs text-cr-text-muted hover:text-cr-primary transition-colors"
@@ -165,7 +165,7 @@ export function Footer() {
           <p className="font-sans text-[10px] font-semibold uppercase tracking-[0.16em] text-cr-text-muted mb-4">
             Legal
           </p>
-          <nav className="flex flex-col gap-2">
+          <nav aria-label="Legal y privacidad" className="flex flex-col gap-2">
             <Link
               to="/privacidad"
               className="font-sans text-xs text-cr-text-muted hover:text-cr-primary transition-colors"

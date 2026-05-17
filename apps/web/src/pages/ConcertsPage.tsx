@@ -201,7 +201,7 @@ export default function ConcertsPage() {
   const totalPages = Math.ceil(total / PAGE_SIZE);
 
   return (
-    <div className="min-h-screen bg-cr-bg text-cr-text pt-16">
+    <main id="main" className="min-h-screen bg-cr-bg text-cr-text pt-16">
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: WEBPAGE_CONCERTS_JSON_LD }} />
       <script
         type="application/ld+json"
@@ -299,17 +299,21 @@ export default function ConcertsPage() {
               <button
                 onClick={() => setFilter("festival", !filters.festival)}
                 aria-pressed={filters.festival}
+                aria-label={filters.festival ? "Mostrar todos los conciertos (quitar filtro festivales)" : "Filtrar solo festivales"}
                 className={`inline-flex items-center gap-2 h-9 px-4 border font-mono text-[11px] font-bold uppercase tracking-[0.1em] transition-colors ${
                   filters.festival
                     ? "border-cr-secondary text-cr-secondary bg-cr-secondary/10"
                     : "border-cr-border text-cr-text-muted hover:border-cr-secondary hover:text-cr-secondary"
                 }`}
               >
-                <Sparkles size={12} />
+                <Sparkles size={12} aria-hidden="true" />
                 Festivales
               </button>
               <button
                 onClick={() => setShowFilters((v) => !v)}
+                aria-expanded={showFilters}
+                aria-controls="concerts-filters"
+                aria-label={hasActiveFilters(filters) ? `Filtros activos (${Object.values(filters).filter(Boolean).length}). Abrir panel de filtros` : "Abrir panel de filtros"}
                 className={`inline-flex items-center gap-2 h-9 px-4 border font-mono text-[11px] font-bold uppercase tracking-[0.1em] transition-colors ${
                   hasActiveFilters(filters) || showFilters
                     ? "border-cr-primary text-cr-primary bg-cr-primary/5"
@@ -335,8 +339,10 @@ export default function ConcertsPage() {
           transition={{ duration: 0.4, delay: 0.1 }}
           className="relative"
         >
+          <label htmlFor="concerts-search" className="sr-only">Buscar artista o festival</label>
           <Search size={15} className="absolute left-4 top-1/2 -translate-y-1/2 text-white/25 pointer-events-none" aria-hidden="true" />
           <input
+            id="concerts-search"
             type="search"
             placeholder="Buscar artista o festival…"
             value={filters.artist}
@@ -349,18 +355,22 @@ export default function ConcertsPage() {
         <AnimatePresence>
           {showFilters && (
             <motion.div
+              id="concerts-filters"
               initial={{ opacity: 0, height: 0 }}
               animate={{ opacity: 1, height: "auto" }}
               exit={{ opacity: 0, height: 0 }}
               transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
               className="overflow-hidden"
             >
-              <div className="grid grid-cols-2 md:grid-cols-4 gap-3 p-4 border border-white/[0.08] bg-white/[0.02]">
+              <fieldset className="grid grid-cols-2 md:grid-cols-4 gap-3 p-4 border border-white/[0.08] bg-white/[0.02]">
+                <legend className="sr-only">Filtros de búsqueda de conciertos</legend>
+
                 <div className="space-y-1.5">
-                  <label className="font-mono text-[10px] font-semibold uppercase tracking-[0.12em] text-white/35">
+                  <label htmlFor="filter-city" className="font-mono text-[10px] font-semibold uppercase tracking-[0.12em] text-white/35">
                     Ciudad
                   </label>
                   <select
+                    id="filter-city"
                     value={filters.city}
                     onChange={(e) => setFilter("city", e.target.value)}
                     className="w-full bg-white/[0.04] border border-white/[0.1] px-3 py-2 font-mono text-xs text-cr-text focus:outline-none focus:border-cr-primary [color-scheme:dark] transition-colors"
@@ -373,10 +383,11 @@ export default function ConcertsPage() {
                 </div>
 
                 <div className="space-y-1.5">
-                  <label className="font-mono text-[10px] font-semibold uppercase tracking-[0.12em] text-white/35">
+                  <label htmlFor="filter-genre" className="font-mono text-[10px] font-semibold uppercase tracking-[0.12em] text-white/35">
                     Género
                   </label>
                   <select
+                    id="filter-genre"
                     value={filters.genre}
                     onChange={(e) => setFilter("genre", e.target.value)}
                     disabled={facets.genres.length === 0}
@@ -390,10 +401,11 @@ export default function ConcertsPage() {
                 </div>
 
                 <div className="space-y-1.5">
-                  <label className="font-mono text-[10px] font-semibold uppercase tracking-[0.12em] text-white/35">
+                  <label htmlFor="filter-date-from" className="font-mono text-[10px] font-semibold uppercase tracking-[0.12em] text-white/35">
                     Desde
                   </label>
                   <input
+                    id="filter-date-from"
                     type="date"
                     value={filters.dateFrom}
                     onChange={(e) => setFilter("dateFrom", e.target.value)}
@@ -402,10 +414,11 @@ export default function ConcertsPage() {
                 </div>
 
                 <div className="space-y-1.5">
-                  <label className="font-mono text-[10px] font-semibold uppercase tracking-[0.12em] text-white/35">
+                  <label htmlFor="filter-date-to" className="font-mono text-[10px] font-semibold uppercase tracking-[0.12em] text-white/35">
                     Hasta
                   </label>
                   <input
+                    id="filter-date-to"
                     type="date"
                     value={filters.dateTo}
                     onChange={(e) => setFilter("dateTo", e.target.value)}
@@ -416,22 +429,25 @@ export default function ConcertsPage() {
                 {hasActiveFilters(filters) && (
                   <button
                     onClick={() => { setFilters(EMPTY_FILTERS); setPage(1); }}
+                    aria-label="Limpiar todos los filtros activos"
                     className="col-span-2 md:col-span-4 inline-flex items-center gap-1.5 font-mono text-[10px] font-semibold uppercase tracking-[0.1em] text-white/30 hover:text-cr-primary transition-colors"
                   >
-                    <X size={11} />
+                    <X size={11} aria-hidden="true" />
                     Limpiar filtros
                   </button>
                 )}
-              </div>
+              </fieldset>
             </motion.div>
           )}
         </AnimatePresence>
 
         {/* Tabs */}
-        <div className="relative flex gap-0 border-b border-cr-border">
+        <div role="tablist" aria-label="Ver conciertos por fecha" className="relative flex gap-0 border-b border-cr-border">
           {["active", "past"].map((t) => (
             <button
               key={t}
+              role="tab"
+              aria-selected={tab === t}
               onClick={() => setTab(t as Tab)}
               className={`relative inline-flex items-center gap-1.5 px-4 py-2.5 font-mono text-[11px] font-bold uppercase tracking-[0.12em] transition-colors ${
                 tab === t
@@ -439,16 +455,17 @@ export default function ConcertsPage() {
                   : "text-cr-text-muted hover:text-cr-text"
               }`}
             >
-              {t === "active" ? <Zap size={11} /> : <Clock size={11} />}
+              {t === "active" ? <Zap size={11} aria-hidden="true" /> : <Clock size={11} aria-hidden="true" />}
               {t === "active" ? "Próximos" : "Pasados"}
               {!loading && tab === t && total > 0 && (
-                <span className="font-mono text-[10px] text-cr-text-dim">({total})</span>
+                <span className="font-mono text-[10px] text-cr-text-dim" aria-label={`${total} conciertos`}>({total})</span>
               )}
               {tab === t && (
                 <motion.span
                   layoutId="tab-underline"
                   className="absolute bottom-0 left-0 right-0 h-[2px] bg-cr-primary"
                   transition={{ type: "spring", stiffness: 500, damping: 35 }}
+                  aria-hidden="true"
                 />
               )}
             </button>
@@ -459,24 +476,30 @@ export default function ConcertsPage() {
       {/* Grid */}
       <div ref={gridRef} className="max-w-6xl mx-auto px-6 pb-24">
         {loading ? (
-          <LoadingSpinner text="Cargando conciertos…" />
+          <div aria-live="polite" aria-atomic="true" aria-busy="true">
+            <LoadingSpinner text="Cargando conciertos…" />
+          </div>
         ) : loadError ? (
-          <div className="py-24 text-center">
+          <div className="py-24 text-center" role="alert">
             <p className="font-display text-2xl uppercase text-cr-text-muted mb-2">Error al cargar</p>
             <p className="font-sans text-sm text-cr-text-dim">No se pudieron cargar los conciertos. Inténtalo de nuevo.</p>
           </div>
         ) : pageConcerts.length === 0 ? (
-          <div className="py-24 text-center">
+          <div className="py-24 text-center" role="status" aria-live="polite" aria-atomic="true">
             <p className="font-display text-2xl uppercase text-cr-text-muted mb-2">
               Sin resultados
             </p>
             <p className="font-sans text-sm text-cr-text-dim">
-              Prueba a cambiar los filtros.
+              No hemos encontrado conciertos con esos filtros. Prueba a cambiar la ciudad, el artista o el género.
             </p>
           </div>
         ) : (
           <>
-            <motion.div
+            <motion.ul
+              role="list"
+              aria-label={`${total} conciertos encontrados`}
+              aria-live="polite"
+              aria-atomic="false"
               className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5"
               initial="hidden"
               animate="visible"
@@ -486,7 +509,7 @@ export default function ConcertsPage() {
               }}
             >
               {pageConcerts.map((c) => (
-                <motion.div
+                <motion.li
                   key={c.id}
                   variants={{
                     hidden: { opacity: 0, y: 16 },
@@ -496,9 +519,9 @@ export default function ConcertsPage() {
                   <Link to={`/concerts/${c.id}`} className="block">
                     <ConcertCard concert={c} />
                   </Link>
-                </motion.div>
+                </motion.li>
               ))}
-            </motion.div>
+            </motion.ul>
 
             {/* Pagination */}
             {totalPages > 1 && (
@@ -531,6 +554,6 @@ export default function ConcertsPage() {
           </>
         )}
       </div>
-    </div>
+    </main>
   );
 }

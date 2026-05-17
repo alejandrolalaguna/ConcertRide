@@ -10,6 +10,7 @@ import { ROUTE_LANDINGS } from "@/lib/routeLandings";
 import { AutoLinksForVenue } from "@/lib/autoLinking";
 import { VENUE_SEO_OVERRIDES } from "@/lib/seoOverrides";
 import { SpeakableAnswerBlock } from "@/components/SpeakableAnswerBlock";
+import { StickyRegBar } from "@/components/StickyRegBar";
 
 const VENUE_DEFAULT_OG = `${SITE_URL}/og-fallback.png`;
 
@@ -815,6 +816,8 @@ export default function VenueLandingPage() {
       </div>
       {/* Spacer for sticky bar on mobile */}
       <div className="md:hidden h-16" />
+
+      <StickyRegBar />
     </main>
   );
 }

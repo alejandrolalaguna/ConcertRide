@@ -652,6 +652,20 @@ export default function RideDetailPage() {
             <p className="font-sans text-sm text-cr-text-muted">
               Tarda menos de 1 minuto. Volverás a esta página tras entrar o registrarte.
             </p>
+
+            {/* Social proof: testimonial + savings badge */}
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-3 py-2">
+              <blockquote className="font-sans text-xs italic text-cr-text-muted border-l-2 border-cr-primary pl-3 text-left max-w-xs">
+                "María de Valencia: 'Llegué a Primavera Sound por 8€ desde casa'"
+              </blockquote>
+              <div
+                className="inline-flex items-center gap-1.5 font-sans text-xs font-semibold uppercase tracking-[0.1em] bg-[#dbff00]/10 border border-[#dbff00]/40 text-[#dbff00] px-3 py-1.5 whitespace-nowrap"
+                aria-label="Ahorra hasta 15€ comparado con el taxi"
+              >
+                <span aria-hidden="true">💚</span> Ahorra hasta 15€ vs taxi
+              </div>
+            </div>
+
             <div className="flex flex-wrap gap-3 justify-center">
               <Link
                 to={`/login?next=${encodeURIComponent(`/rides/${ride.id}`)}`}

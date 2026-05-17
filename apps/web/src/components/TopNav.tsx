@@ -61,11 +61,13 @@ export function TopNav() {
   return (
     <nav
       ref={ref}
+      aria-label="Navegación principal"
       className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-4 md:px-6 h-14 bg-cr-bg/85 backdrop-blur-md border-b border-cr-border font-sans text-xs"
     >
       {/* Wordmark */}
       <Link
         to="/"
+        aria-label="ConcertRide — inicio"
         className="font-display text-[13px] uppercase tracking-[0.06em] hover:opacity-90 transition-opacity"
       >
         Concert<span className="text-cr-primary">Ride</span>
@@ -87,6 +89,8 @@ export function TopNav() {
             onClick={() => setOpen((v) => !v)}
             aria-haspopup="menu"
             aria-expanded={open}
+            aria-controls="user-menu"
+            aria-label={`Menú de usuario: ${user.name}`}
             className="inline-flex items-center gap-2 h-9 bg-cr-surface-2 border border-cr-border hover:border-cr-primary/50 text-cr-text hover:text-cr-primary pl-1.5 pr-2.5 transition-[border-color,color] duration-150"
           >
             {/* Avatar */}
@@ -107,6 +111,7 @@ export function TopNav() {
 
           {open && (
             <div
+              id="user-menu"
               role="menu"
               className="absolute right-0 mt-2 min-w-[220px] bg-cr-surface border border-cr-border shadow-[var(--shadow-float)] overflow-hidden"
             >
@@ -195,6 +200,7 @@ function NavLink({ to, children }: { to: string; children: React.ReactNode }) {
   return (
     <Link
       to={to}
+      aria-current={isActive ? "page" : undefined}
       className={`relative px-3 py-1.5 font-sans text-[11px] font-semibold uppercase tracking-[0.12em] transition-colors duration-150 ${
         isActive ? "text-cr-primary" : "text-cr-text-muted hover:text-cr-text"
       }`}
@@ -225,7 +231,7 @@ function MenuLink({
       role="menuitem"
       className="flex items-center gap-2.5 px-4 py-2.5 text-[12px] font-sans font-medium text-cr-text-muted hover:bg-cr-surface-2 hover:text-cr-primary transition-colors duration-100"
     >
-      <span className="text-cr-text-dim">{icon}</span>
+      <span className="text-cr-text-dim" aria-hidden="true">{icon}</span>
       {children}
     </Link>
   );

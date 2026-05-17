@@ -140,6 +140,7 @@ export default function LoginPage() {
         >
           {/* Email */}
           <motion.label
+            htmlFor="login-email"
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.4, delay: 0.15 }}
@@ -149,19 +150,24 @@ export default function LoginPage() {
               Email
             </span>
             <input
+              id="login-email"
               type="email"
               required
+              aria-required="true"
               autoFocus
               autoComplete="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               placeholder="tu@email.com"
+              aria-describedby={error ? "login-error" : undefined}
+              aria-invalid={!!error || undefined}
               className="w-full bg-white/[0.04] border border-white/[0.1] focus:border-cr-primary focus:shadow-[0_0_12px_rgb(219_255_0/0.15)] outline-none px-4 py-3 font-mono text-sm text-cr-text placeholder:text-white/20 transition-all duration-150"
             />
           </motion.label>
 
           {/* Password */}
           <motion.label
+            htmlFor="login-password"
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.4, delay: 0.2 }}
@@ -172,12 +178,16 @@ export default function LoginPage() {
             </span>
             <div className="relative">
               <input
+                id="login-password"
                 type={showPw ? "text" : "password"}
                 required
+                aria-required="true"
                 autoComplete="current-password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 placeholder="••••••••"
+                aria-describedby={error ? "login-error" : undefined}
+                aria-invalid={!!error || undefined}
                 className="w-full bg-white/[0.04] border border-white/[0.1] focus:border-cr-primary focus:shadow-[0_0_12px_rgb(219_255_0/0.15)] outline-none px-4 py-3 pr-12 font-mono text-sm text-cr-text placeholder:text-white/20 transition-all duration-150"
               />
               <button
@@ -192,7 +202,7 @@ export default function LoginPage() {
           </motion.label>
 
           {error && (
-            <p className="font-mono text-xs text-cr-secondary py-1" role="alert">
+            <p id="login-error" className="font-mono text-xs text-cr-secondary py-1" role="alert" aria-live="assertive">
               {error}
             </p>
           )}

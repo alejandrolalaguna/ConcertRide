@@ -40,7 +40,7 @@ import NotFoundPage from "./pages/NotFoundPage";
 import HowToGetTherePage from "./pages/HowToGetTherePage";
 import FestivalGuidePage from "./pages/FestivalGuidePage";
 import ComoFuncionaCarpoolingPage from "./pages/ComoFuncionaCarpoolingPage";
-import ComparativaBlaBlaCar from "./pages/ComparativaBlaBlaCar";
+// ComparativaBlaBlaCar — disabled per CLAUDE.md "Brand Restrictions". Never re-enable.
 import ComparativaTaxi from "./pages/ComparativaTaxi";
 import GenreLandingPage from "./pages/GenreLandingPage";
 import CalendarLandingPage from "./pages/CalendarLandingPage";
@@ -96,7 +96,7 @@ function ServerApp() {
         <Route path="/rutas/:route" element={<RouteLandingPage />} />
         <Route path="/como-llegar/:festival" element={<HowToGetTherePage />} />
         <Route path="/como-funciona-carpooling" element={<ComoFuncionaCarpoolingPage />} />
-        <Route path="/comparativa/concertride-vs-blablacar" element={<ComparativaBlaBlaCar />} />
+        {/* /comparativa/concertride-vs-blablacar disabled per CLAUDE.md "Brand Restrictions" */}
         <Route path="/comparativa/carpooling-vs-taxi-festival" element={<ComparativaTaxi />} />
         <Route path="/prensa" element={<PrensaPage />} />
         <Route path="/datos" element={<DatosPage />} />

@@ -30,6 +30,8 @@ import { FactDensityCallout } from "@/components/FactDensityCallout";
 import { SpeakableAnswerBlock } from "@/components/SpeakableAnswerBlock";
 import { AutoLinksForFestival } from "@/lib/autoLinking";
 import { BLOG_POSTS } from "@/lib/blogPosts";
+import { StickyRegBar } from "@/components/StickyRegBar";
+import { useSession } from "@/lib/session";
 
 const FESTIVAL_WIKIDATA: Record<string, string> = {
   "mad-cool": "https://www.wikidata.org/wiki/Q22808739",
@@ -53,8 +55,19 @@ const FESTIVAL_WIKIDATA: Record<string, string> = {
 export default function FestivalLandingPage() {
   const { festival: slug } = useParams<{ festival: string }>();
   const festival = slug ? FESTIVAL_LANDINGS_BY_SLUG[slug] : undefined;
+  const { user } = useSession();
 
   const [concerts, setConcerts] = useState<Concert[] | null>(null);
+
+  // Countdown: days until festival start (client-only)
+  const [daysLeft, setDaysLeft] = useState<number | null>(null);
+  useEffect(() => {
+    if (!festival) return;
+    const diff = Math.ceil(
+      (new Date(festival.startDate).getTime() - Date.now()) / (1000 * 60 * 60 * 24),
+    );
+    setDaysLeft(diff);
+  }, [festival]);
 
   // Curated festival OG image when present; otherwise fall back to the
   // dynamic Worker-rendered SVG card so each festival ships a unique
@@ -197,13 +210,19 @@ export default function FestivalLandingPage() {
   const festivalAbstract = `${festival.name} se celebra en ${festival.venue}, ${festival.city} (${festival.region}), del ${festival.startDate} al ${festival.endDate}. Aforo: ${festival.capacity}. Carpooling con ConcertRide desde ${festival.originCities[0]?.city ?? "toda España"} desde ${festival.originCities[0]?.concertRideRange ?? "3 €"}/asiento, sin comisión de plataforma. ${festival.originCities.length} ciudades de origen cubiertas.`;
 
   const festivalWikidataUri = FESTIVAL_WIKIDATA[festival.slug];
+  // Build consolidated sameAs array: FESTIVAL_WIKIDATA + festivalLandings.sameAs (Wikipedia ES, etc.)
+  const festivalSameAs: string[] = [
+    ...(festivalWikidataUri ? [festivalWikidataUri] : []),
+    ...(festival.sameAs ?? []).filter((url) => url !== festivalWikidataUri),
+    `${SITE_URL}/festivales/${festival.slug}`,
+  ].filter(Boolean);
 
   const jsonLdEvent = {
     "@context": "https://schema.org",
     "@type": "MusicEvent",
     name: festival.name,
     url: `${SITE_URL}/festivales/${festival.slug}`,
-    ...(festivalWikidataUri ? { sameAs: festivalWikidataUri } : {}),
+    sameAs: festivalSameAs.length > 0 ? festivalSameAs : undefined,
     image: festivalOgImage,
     description: festival.blurb,
     abstract: festivalAbstract,
@@ -237,17 +256,32 @@ export default function FestivalLandingPage() {
       name: festival.name,
       url: `${SITE_URL}/festivales/${festival.slug}`,
       description: `Festival de música que se celebra anualmente en ${festival.city}, España.`,
-      ...(festivalWikidataUri ? { sameAs: festivalWikidataUri } : {}),
+      sameAs: festivalSameAs.length > 0 ? festivalSameAs : undefined,
     },
-    offers: {
-      "@type": "Offer",
-      url: `${SITE_URL}/festivales/${festival.slug}`,
-      price: Number(festival.originCities[0]?.concertRideRange?.split("–")[0]?.replace(/[^0-9]/g, "") ?? "3"),
-      priceCurrency: "EUR",
-      availability: "https://schema.org/InStock",
-      validFrom: new Date().toISOString(),
-      description: `Carpooling desde ${festival.originCities.length} ciudades de España con ConcertRide. Precio desde ${festival.originCities[0]?.concertRideRange ?? "3 €"}/asiento, sin comisión de plataforma.`,
-    },
+    offers: (() => {
+      const allNums = festival.originCities
+        .map((oc) => (oc.concertRideRange ?? "").match(/\d+/g)?.map(Number))
+        .flat()
+        .filter((n): n is number => typeof n === "number" && !isNaN(n) && n > 0);
+      const minPrice = allNums.length ? Math.min(...allNums) : 3;
+      const maxPrice = allNums.length ? Math.max(...allNums) : 35;
+      return {
+        "@type": "Offer",
+        url: `${SITE_URL}/festivales/${festival.slug}`,
+        price: minPrice,
+        priceCurrency: "EUR",
+        availability: "https://schema.org/InStock",
+        validFrom: new Date().toISOString(),
+        description: `Carpooling desde ${festival.originCities.length} ciudades de España con ConcertRide. Precio desde ${festival.originCities[0]?.concertRideRange ?? "3 €"}/asiento, sin comisión de plataforma.`,
+        priceSpecification: {
+          "@type": "PriceSpecification",
+          price: minPrice,
+          maxPrice: maxPrice,
+          priceCurrency: "EUR",
+          description: `Precio por asiento en carpooling a ${festival.name}: desde ${minPrice} € hasta ${maxPrice} €. Sin comisión de plataforma (0%). Pago en efectivo o Bizum al conductor el día del festival.`,
+        },
+      };
+    })(),
   };
 
   const jsonLdSeries = {
@@ -271,9 +305,7 @@ export default function FestivalLandingPage() {
       name: festival.name,
     },
     inLanguage: "es-ES",
-    sameAs: festivalWikidataUri
-      ? [festivalWikidataUri, `${SITE_URL}/festivales/${festival.slug}`]
-      : `${SITE_URL}/festivales/${festival.slug}`,
+    sameAs: festivalSameAs.length > 0 ? festivalSameAs : `${SITE_URL}/festivales/${festival.slug}`,
   };
 
   const festRegion = REGION_LANDINGS.find((r) => r.festivalsInRegion.includes(festival.slug));
@@ -536,6 +568,7 @@ export default function FestivalLandingPage() {
   })();
 
   return (
+    <>
     <main id="main" className="min-h-dvh bg-cr-bg text-cr-text pt-14">
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdEvent) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdSeries) }} />
@@ -596,7 +629,7 @@ export default function FestivalLandingPage() {
           "name": festival.name,
           "startDate": festival.startDate,
           "location": { "@type": "Place", "name": festival.venue, "addressLocality": festival.city },
-          ...(festivalWikidataUri ? { "sameAs": festivalWikidataUri } : {}),
+          ...(festivalSameAs.length > 0 ? { "sameAs": festivalSameAs } : {}),
         },
         "keywords": `cómo ir a ${festival.shortName}, carpooling ${festival.name}, transporte ${festival.shortName} ${festival.city}, autobús ${festival.shortName}, bus ${festival.shortName}, ${festival.shortName} ${new Date(festival.startDate).getFullYear()}`,
         "speakable": {
@@ -685,6 +718,21 @@ export default function FestivalLandingPage() {
           {festival.shortName} {new Date(festival.startDate).getFullYear()}<br />
           <span className="text-cr-primary">desde {festival.originCities[0]?.concertRideRange ?? "3 €"}/asiento</span>
         </h1>
+
+        {/* ── Urgency countdown badge (anonymous users, upcoming festivals only) ── */}
+        {!user && daysLeft !== null && daysLeft > 0 && (
+          <div className="inline-flex items-center gap-2" aria-live="polite">
+            {daysLeft < 7 ? (
+              <span className="font-sans text-xs font-semibold uppercase tracking-[0.14em] bg-[#ff4f00] text-white px-3 py-1">
+                ¡Últimas plazas! Quedan {daysLeft} día{daysLeft === 1 ? "" : "s"}
+              </span>
+            ) : daysLeft < 30 ? (
+              <span className="font-sans text-xs font-semibold uppercase tracking-[0.14em] border border-[#dbff00] text-[#dbff00] px-3 py-1">
+                ¡Faltan {daysLeft} días!
+              </span>
+            ) : null}
+          </div>
+        )}
 
         {/* ── Answer-first block · SpeakableSpecification target for AI Overviews / voice assistants ── */}
         <SpeakableAnswerBlock
@@ -1642,6 +1690,9 @@ export default function FestivalLandingPage() {
       {/* Spacer for sticky bar on mobile */}
       <div className="md:hidden h-20" />
     </main>
+
+    <StickyRegBar />
+    </>
   );
 }
 

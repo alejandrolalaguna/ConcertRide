@@ -182,6 +182,39 @@ export default function RegisterPage() {
             </span>
           </div>
 
+          {/* Social proof — community size + key differentiators */}
+          <div
+            className="flex flex-wrap items-center gap-x-5 gap-y-2"
+            aria-label="Datos de la comunidad ConcertRide"
+          >
+            <div className="flex items-center gap-2">
+              <div className="flex -space-x-1.5" aria-hidden="true">
+                {["L","M","A","J","R"].map((initial) => (
+                  <span
+                    key={initial}
+                    className="w-6 h-6 rounded-full bg-cr-primary text-black font-display text-[10px] flex items-center justify-center border-2 border-cr-bg"
+                  >
+                    {initial}
+                  </span>
+                ))}
+              </div>
+              <span className="font-sans text-xs text-white/60">
+                Únete a más de <strong className="text-white/90 font-semibold">4.200 viajeros</strong>
+              </span>
+            </div>
+            <div className="flex flex-wrap gap-2" role="list" aria-label="Ventajas principales">
+              {["0% comisión", "Conductores verificados", "Gratis para siempre"].map((pill) => (
+                <span
+                  key={pill}
+                  role="listitem"
+                  className="font-mono text-[10px] font-semibold uppercase tracking-[0.1em] border border-white/[0.12] text-white/50 px-2 py-0.5"
+                >
+                  {pill}
+                </span>
+              ))}
+            </div>
+          </div>
+
           <h1 className="font-display text-4xl md:text-5xl uppercase leading-[0.92] tracking-tight">
             Únete gratis.
             <br />
@@ -238,53 +271,65 @@ export default function RegisterPage() {
           className="space-y-5"
         >
           {/* Name */}
-          <label className="block space-y-1.5">
+          <label htmlFor="reg-name" className="block space-y-1.5">
             <span className="font-mono text-[10px] font-semibold uppercase tracking-[0.14em] text-white/40">
               Nombre
             </span>
             <input
+              id="reg-name"
               type="text"
               required
+              aria-required="true"
               autoFocus
               autoComplete="name"
               value={name}
               onChange={(e) => setName(e.target.value)}
               placeholder="Tu nombre"
+              aria-describedby={error ? "reg-error" : undefined}
+              aria-invalid={!!error || undefined}
               className="w-full bg-white/[0.04] border border-white/[0.1] focus:border-cr-primary outline-none px-4 py-3 font-sans text-sm text-cr-text placeholder:text-white/20 transition-colors duration-150"
             />
           </label>
 
           {/* Email */}
-          <label className="block space-y-1.5">
+          <label htmlFor="reg-email" className="block space-y-1.5">
             <span className="font-mono text-[10px] font-semibold uppercase tracking-[0.14em] text-white/40">
               Email
             </span>
             <input
+              id="reg-email"
               type="email"
               required
+              aria-required="true"
               autoComplete="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               placeholder="tu@email.com"
+              aria-describedby={error ? "reg-error" : undefined}
+              aria-invalid={!!error || undefined}
               className="w-full bg-white/[0.04] border border-white/[0.1] focus:border-cr-primary outline-none px-4 py-3 font-mono text-sm text-cr-text placeholder:text-white/20 transition-colors duration-150"
             />
           </label>
 
           {/* Password */}
-          <label className="block space-y-1.5">
+          <label htmlFor="reg-password" className="block space-y-1.5">
             <span className="font-mono text-[10px] font-semibold uppercase tracking-[0.14em] text-white/40">
               Contraseña{" "}
-              <span className="font-normal normal-case tracking-normal text-white/25">(mín. 8 caracteres)</span>
+              <span id="reg-password-hint" className="font-normal normal-case tracking-normal text-white/25">(mín. 8 caracteres)</span>
             </span>
             <div className="relative">
               <input
+                id="reg-password"
                 type={showPw ? "text" : "password"}
                 required
+                aria-required="true"
                 minLength={8}
                 autoComplete="new-password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 placeholder="••••••••"
+                aria-describedby={`reg-password-hint${error ? " reg-error" : ""}`}
+                aria-invalid={!!error || undefined}
                 className="w-full bg-white/[0.04] border border-white/[0.1] focus:border-cr-primary outline-none px-4 py-3 pr-12 font-mono text-sm text-cr-text placeholder:text-white/20 transition-colors duration-150"
               />
               <button
@@ -328,11 +373,13 @@ export default function RegisterPage() {
                 >
                   <div className="pt-4 space-y-5 pb-1">
                     {/* City */}
-                    <label className="block space-y-1.5">
+                    <label htmlFor="reg-home-city" className="block space-y-1.5">
                       <span className="font-mono text-[10px] font-semibold uppercase tracking-[0.14em] text-white/40">
                         Ciudad habitual
                       </span>
                       <select
+                        id="reg-home-city"
+                        autoComplete="address-level2"
                         value={homeCity}
                         onChange={(e) => setHomeCity(e.target.value)}
                         className="w-full bg-white/[0.04] border border-white/[0.1] focus:border-cr-primary outline-none px-4 py-3 font-sans text-sm text-cr-text transition-colors duration-150 [color-scheme:dark]"
@@ -345,11 +392,12 @@ export default function RegisterPage() {
                     </label>
 
                     {/* Phone */}
-                    <label className="block space-y-1.5">
+                    <label htmlFor="reg-phone" className="block space-y-1.5">
                       <span className="font-mono text-[10px] font-semibold uppercase tracking-[0.14em] text-white/40">
                         Teléfono
                       </span>
                       <input
+                        id="reg-phone"
                         type="tel"
                         autoComplete="tel"
                         value={phone}
@@ -360,10 +408,10 @@ export default function RegisterPage() {
                     </label>
 
                     {/* Smoker toggle */}
-                    <div className="space-y-1.5">
-                      <span className="font-mono text-[10px] font-semibold uppercase tracking-[0.14em] text-white/40">
+                    <fieldset className="space-y-1.5 border-0 p-0 m-0">
+                      <legend className="font-mono text-[10px] font-semibold uppercase tracking-[0.14em] text-white/40">
                         ¿Fumas?
-                      </span>
+                      </legend>
                       <div className="flex gap-2">
                         {(["", "no", "yes"] as const).map((val) => {
                           const label = val === "" ? "Prefiero no decir" : val === "no" ? "No fumo" : "Sí fumo";
@@ -373,6 +421,7 @@ export default function RegisterPage() {
                               key={val}
                               type="button"
                               onClick={() => setSmoker(val)}
+                              aria-pressed={active}
                               className={`flex-1 py-2.5 font-mono text-[10px] font-semibold uppercase tracking-[0.1em] border transition-colors duration-150 ${
                                 active
                                   ? "border-cr-primary text-cr-primary bg-cr-primary/[0.08]"
@@ -384,7 +433,7 @@ export default function RegisterPage() {
                           );
                         })}
                       </div>
-                    </div>
+                    </fieldset>
                   </div>
                 </motion.div>
               )}
@@ -437,7 +486,7 @@ export default function RegisterPage() {
           </div>
 
           {error && (
-            <p className="font-mono text-xs text-cr-secondary py-1" role="alert">
+            <p id="reg-error" className="font-mono text-xs text-cr-secondary py-1" role="alert" aria-live="assertive">
               {error}
             </p>
           )}

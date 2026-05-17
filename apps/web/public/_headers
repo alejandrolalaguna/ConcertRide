@@ -106,6 +106,14 @@
   Cache-Control: no-store
   X-Robots-Tag: noindex, nofollow
 
+/rides/*
+  Cache-Control: no-store
+  X-Robots-Tag: noindex, nofollow
+
+/drivers/*
+  Cache-Control: no-store
+  X-Robots-Tag: noindex, nofollow
+
 # Phase 1+2+3 social surfaces — personal/dynamic, never indexable.
 # /memorias/:id is intentionally excluded from this block: public memories
 # may be indexed when visibility="public" (handled in MemoryDetailPage useSeoMeta).

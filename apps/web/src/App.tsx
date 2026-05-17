@@ -6,6 +6,7 @@ import { CookieBanner } from "./components/CookieBanner";
 import { ErrorBoundary } from "./components/ErrorBoundary";
 import { VerifyEmailBanner } from "./components/VerifyEmailBanner";
 import { LoadingSpinner } from "./components/ui";
+import { ExitIntentModal } from "./components/ExitIntentModal";
 
 const LandingPage = lazy(() => import("./pages/LandingPage"));
 const FavoritesPage = lazy(() => import("./pages/FavoritesPage"));
@@ -84,14 +85,14 @@ export default function App() {
       <>
       <a
         href="#main"
-        className="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-[100] focus:bg-cr-primary focus:text-black focus:px-4 focus:py-2 focus:font-sans focus:font-semibold focus:uppercase focus:tracking-[0.12em] focus:text-sm"
+        className="sr-only focus:not-sr-only focus:absolute focus:top-2 focus:left-2 focus:z-[100] focus:bg-[#dbff00] focus:text-black focus:px-4 focus:py-2 focus:font-sans focus:font-semibold focus:rounded focus:uppercase focus:tracking-[0.12em] focus:text-sm"
       >
-        Saltar al contenido principal
+        Ir al contenido principal
       </a>
       <TopNav />
       <VerifyEmailBanner />
       <ErrorBoundary>
-        <Suspense fallback={<LoadingSpinner text="Cargando…" />}>
+        <Suspense fallback={<div id="main" role="main" aria-busy="true" aria-label="Cargando página"><LoadingSpinner text="Cargando…" /></div>}>
           <Routes>
             <Route path="/" element={<LandingPage />} />
             <Route path="/concerts" element={<ConcertsPage />} />
@@ -153,6 +154,7 @@ export default function App() {
       </ErrorBoundary>
       <Footer />
       <CookieBanner />
+      <ExitIntentModal />
     </>
         }
       />

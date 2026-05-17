@@ -94,10 +94,21 @@ export default function DatosPage() {
     inLanguage: "es-ES",
     license: "https://creativecommons.org/licenses/by/4.0/",
     measurementTechnique: "Cálculo teórico basado en datos de la DGT y Google Maps",
-    variableMeasured: "Precio por asiento en euros para carpooling a festivales de música en España",
-    spatialCoverage: { "@type": "Country", name: "Spain" },
-    temporalCoverage: `${YEAR}`,
-    keywords: "carpooling, festivales, música, transporte, España, precio asiento",
+    spatialCoverage: {
+      "@type": "Country",
+      name: "Spain",
+      sameAs: "https://www.wikidata.org/wiki/Q29",
+    },
+    temporalCoverage: "2024/..",
+    keywords: "carpooling, festivales, música, transporte, España, precio asiento, rutas festivales, coche compartido conciertos",
+    variableMeasured: [
+      { "@type": "PropertyValue", name: "Precio mínimo por asiento (carpooling a festival)", value: "3", unitText: "EUR" },
+      { "@type": "PropertyValue", name: "Precio máximo por asiento (carpooling a festival)", value: "35", unitText: "EUR" },
+      { "@type": "PropertyValue", name: "Rutas ciudad→festival cubiertas", value: "96+", unitText: "rutas" },
+      { "@type": "PropertyValue", name: "Festivales cubiertos", value: "16", unitText: "festivales" },
+      { "@type": "PropertyValue", name: "Ciudades de origen con datos", value: "17", unitText: "ciudades" },
+      { "@type": "PropertyValue", name: "Comisión de plataforma", value: "0", unitText: "%" },
+    ],
   };
 
   const jsonLdBreadcrumb = {

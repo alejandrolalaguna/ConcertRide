@@ -127,12 +127,16 @@ function ConcertCardComponent({ concert, className = "", onClick, priority = fal
 
         <div className="flex items-center gap-2.5">
           {(concert.demand_count ?? 0) > 0 && (
-            <span className="font-mono text-[10px] text-cr-secondary flex items-center gap-1">
-              <span className="w-1.5 h-1.5 rounded-full bg-cr-secondary animate-pulse" />
-              {concert.demand_count} buscan
+            <span
+              className="font-mono text-[10px] text-cr-secondary flex items-center gap-1"
+              aria-label={`${concert.demand_count} personas buscan viaje`}
+            >
+              <span className="w-1.5 h-1.5 rounded-full bg-cr-secondary animate-pulse" aria-hidden="true" />
+              <span aria-hidden="true">{concert.demand_count} buscan</span>
             </span>
           )}
           <span
+            aria-label={hasRides ? `${ridesCount} viaje${ridesCount === 1 ? "" : "s"} disponible${ridesCount === 1 ? "" : "s"}` : "Sin viajes disponibles"}
             className={`font-mono text-xs font-semibold transition-colors ${
               hasRides
                 ? "text-cr-primary"

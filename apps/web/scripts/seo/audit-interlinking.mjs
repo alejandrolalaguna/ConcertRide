@@ -50,7 +50,7 @@ const HOW_TO_GET_THERE_SLUGS = [
 
 const BLOG_SLUGS = [
   "autobuses-festivales-espana-2026",
-  "blablacar-vs-concertride",
+  "alternativa-carpooling-festivales-espana",
   "carpooling-vs-taxi-festival-espana",
   "coldplay-madrid-barcelona-2026-como-llegar",
   "como-llegar-resurrection-fest-2026",

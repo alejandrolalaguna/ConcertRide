@@ -87,38 +87,48 @@ const FAQ_ITEMS_LANDING = [
 function FAQAccordion({ items }: { items: typeof FAQ_ITEMS_LANDING }) {
   const [open, setOpen] = useState<number | null>(null);
   return (
-    <div className="divide-y divide-white/[0.06] border border-white/[0.06]">
-      {items.map((item, i) => (
-        <div key={item.question}>
-          <button
-            onClick={() => setOpen(open === i ? null : i)}
-            aria-expanded={open === i}
-            className="w-full flex items-center justify-between gap-4 px-6 py-5 text-left hover:bg-white/[0.02] transition-colors"
-          >
-            <span className="font-display text-base lg:text-lg uppercase tracking-tight text-white/80">
-              {item.question}
-            </span>
-            <span
-              className={`flex-shrink-0 w-8 h-8 border flex items-center justify-center font-mono text-sm transition-colors duration-200 ${
-                open === i
-                  ? "border-[#dbff00] text-[#dbff00]"
-                  : "border-white/10 text-white/40"
-              }`}
-              aria-hidden="true"
+    <div className="divide-y divide-white/[0.06] border border-white/[0.06]" role="list">
+      {items.map((item, i) => {
+        const panelId = `faq-panel-${i}`;
+        const btnId = `faq-btn-${i}`;
+        return (
+          <div key={item.question} role="listitem">
+            <button
+              id={btnId}
+              onClick={() => setOpen(open === i ? null : i)}
+              aria-expanded={open === i}
+              aria-controls={panelId}
+              className="w-full flex items-center justify-between gap-4 px-6 py-5 text-left hover:bg-white/[0.02] transition-colors"
             >
-              {open === i ? "−" : "+"}
-            </span>
-          </button>
-          <div
-            className="overflow-hidden transition-all duration-300 ease-in-out"
-            style={{ maxHeight: open === i ? "300px" : "0" }}
-          >
-            <p className="px-6 pb-5 pt-1 font-sans text-sm text-white/40 font-light leading-relaxed">
-              {item.answer}
-            </p>
+              <span className="font-display text-base lg:text-lg uppercase tracking-tight text-white/80">
+                {item.question}
+              </span>
+              <span
+                className={`flex-shrink-0 w-8 h-8 border flex items-center justify-center font-mono text-sm transition-colors duration-200 ${
+                  open === i
+                    ? "border-[#dbff00] text-[#dbff00]"
+                    : "border-white/10 text-white/40"
+                }`}
+                aria-hidden="true"
+              >
+                {open === i ? "−" : "+"}
+              </span>
+            </button>
+            <div
+              id={panelId}
+              role="region"
+              aria-labelledby={btnId}
+              aria-hidden={open !== i}
+              className="overflow-hidden transition-all duration-300 ease-in-out"
+              style={{ maxHeight: open === i ? "300px" : "0" }}
+            >
+              <p className="px-6 pb-5 pt-1 font-sans text-sm text-white/40 font-light leading-relaxed">
+                {item.answer}
+              </p>
+            </div>
           </div>
-        </div>
-      ))}
+        );
+      })}
     </div>
   );
 }
@@ -183,6 +193,26 @@ export default function LandingPage() {
   return (
     <main id="main" className="bg-cr-bg text-cr-text">
       {/* JSON-LD schemas */}
+      {/* WebSite + SearchAction — enables Sitelinks Search Box in Google */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "WebSite",
+            "@id": `${SITE_URL}/#website`,
+            url: SITE_URL,
+            name: "ConcertRide",
+            description: "Carpooling para conciertos y festivales en España · 0% comisión",
+            inLanguage: "es-ES",
+            potentialAction: {
+              "@type": "SearchAction",
+              target: `${SITE_URL}/conciertos?q={search_term_string}`,
+              "query-input": "required name=search_term_string",
+            },
+          }),
+        }}
+      />
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
@@ -818,9 +848,14 @@ export default function LandingPage() {
       <FinalCTA />
 
       {/* 17. Sticky mobile CTA — links to next festival landing (Primavera Sound 28 may–1 jun) */}
-      <div className="fixed bottom-0 left-0 right-0 z-40 sm:hidden bg-[#080808]/95 backdrop-blur border-t border-white/[0.06] p-3">
+      <div
+        className="fixed bottom-0 left-0 right-0 z-40 sm:hidden bg-[#080808]/95 backdrop-blur border-t border-white/[0.06] p-3"
+        role="complementary"
+        aria-label="Acción rápida: buscar viajes al próximo festival"
+      >
         <a
           href="/festivales/primavera-sound"
+          aria-label="Ver viajes compartidos a Primavera Sound desde 4 euros por asiento"
           className="block w-full text-center bg-[#dbff00] text-black font-sans font-semibold uppercase tracking-[0.12em] text-sm py-3 hover:bg-[#c8ec00] transition-colors"
         >
           Ver viajes a Primavera Sound desde 4€ →

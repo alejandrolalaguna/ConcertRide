@@ -7,6 +7,7 @@ import { BLOG_POSTS_BY_SLUG, BLOG_CATEGORIES } from "@/lib/blogPosts";
 import { FESTIVAL_LANDINGS_BY_SLUG } from "@/lib/festivalLandings";
 import { AutoLinksForFestival, AutoLinksForBlog } from "@/lib/autoLinking";
 import { trackBlogView } from "@/lib/seoEvents";
+import { useSession } from "@/lib/session";
 
 function ShareCite({ url, title }: { url: string; title: string }) {
   const [copiedUrl, setCopiedUrl] = useState(false);
@@ -64,6 +65,7 @@ function ShareCite({ url, title }: { url: string; title: string }) {
 export default function BlogPostPage() {
   const { slug } = useParams<{ slug: string }>();
   const post = slug ? BLOG_POSTS_BY_SLUG[slug] : undefined;
+  const { user } = useSession();
 
   // Detect if this post links to a festival how-to page (e.g. "/como-llegar/arenal-sound")
   const relatedFestivalSlug = post
@@ -208,6 +210,64 @@ export default function BlogPostPage() {
     })),
   };
 
+  // NewsArticle schema — supplements BlogPosting for AI Overviews and Google News signals.
+  // Shares headline, dates, author and publisher with the BlogPosting above.
+  const jsonLdNewsArticle = {
+    "@context": "https://schema.org",
+    "@type": "NewsArticle",
+    headline: post.title.length > 110 ? post.title.slice(0, 107) + "…" : post.title,
+    description: post.excerpt,
+    url,
+    mainEntityOfPage: { "@type": "WebPage", "@id": url },
+    datePublished: post.publishedAt,
+    dateModified: post.updatedAt ?? post.publishedAt,
+    inLanguage: "es-ES",
+    author: {
+      "@type": "Person",
+      name: post.author?.trim() || "ConcertRide",
+      url: `${SITE_URL}/acerca-de`,
+      "@id": `${SITE_URL}/#founder`,
+    },
+    publisher: {
+      "@type": "Organization",
+      "@id": `${SITE_URL}/#organization`,
+      name: "ConcertRide",
+      logo: {
+        "@type": "ImageObject",
+        url: `${SITE_URL}/android-chrome-192x192.png`,
+        width: 192,
+        height: 192,
+      },
+    },
+    image: post.coverImage
+      ? {
+          "@type": "ImageObject",
+          url: post.coverImage.src.startsWith("http") ? post.coverImage.src : `${SITE_URL}${post.coverImage.src}`,
+          width: post.coverImage.width ?? 1200,
+          height: post.coverImage.height ?? 630,
+          caption: post.coverImage.alt,
+        }
+      : {
+          "@type": "ImageObject",
+          url: `${SITE_URL}/og/home.png`,
+          width: 1200,
+          height: 630,
+        },
+    articleSection: categoryLabel,
+    keywords: post.tags.join(", "),
+    isPartOf: { "@id": `${SITE_URL}/#website` },
+    speakable: {
+      "@type": "SpeakableSpecification",
+      cssSelector: ["h1", ".speakable", "article p:first-of-type", "h2", ".transport-info"],
+    },
+    about: (post.tags ?? []).length > 0
+      ? (post.tags ?? []).map((tag: string) => ({
+          "@type": "Thing",
+          name: tag,
+        }))
+      : { "@type": "Thing", name: "Carpooling festivales España" },
+  };
+
   const jsonLdBreadcrumb = {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
@@ -237,6 +297,7 @@ export default function BlogPostPage() {
   return (
     <main id="main" className="min-h-dvh bg-cr-bg text-cr-text pt-14">
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdArticle) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdNewsArticle) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdBreadcrumb) }} />
       {jsonLdFaq && (
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdFaq) }} />
@@ -363,28 +424,60 @@ export default function BlogPostPage() {
           </section>
         )}
 
-        {/* ── CTA ── */}
-        <section className="border border-cr-primary/40 bg-cr-primary/5 p-6 space-y-3">
-          <h2 className="font-display text-xl uppercase">¿Vas a un festival este verano?</h2>
-          <p className="font-sans text-sm text-cr-text-muted leading-relaxed">
-            Encuentra tu viaje compartido o publica el tuyo. Sin comisiones, pago al
-            conductor en efectivo o Bizum. Conductores verificados.
-          </p>
-          <div className="flex flex-wrap gap-3 pt-2">
-            <Link
-              to="/concerts"
-              className="inline-flex items-center gap-2 font-sans text-xs font-semibold uppercase tracking-[0.12em] border-2 border-cr-primary text-cr-primary px-4 py-2 hover:bg-cr-primary hover:text-black transition-colors"
-            >
-              Buscar viaje <ArrowRight size={12} />
-            </Link>
-            <Link
-              to="/publish"
-              className="inline-flex items-center gap-2 font-sans text-xs font-semibold uppercase tracking-[0.12em] border-2 border-cr-border text-cr-text-muted px-4 py-2 hover:border-cr-primary hover:text-cr-primary transition-colors"
-            >
-              Publicar viaje <ArrowRight size={12} />
-            </Link>
-          </div>
-        </section>
+        {/* ── Anon CTA — shown only to non-logged-in readers ── */}
+        {!user && (
+          <section
+            className="border border-[#dbff00]/40 bg-[#dbff00]/5 p-6 space-y-4"
+            aria-label="Encuentra transporte para tu próximo festival"
+          >
+            <h2 className="font-display text-xl uppercase">
+              ¿Buscas transporte para tu próximo festival?
+            </h2>
+            <p className="font-sans text-sm text-cr-text-muted leading-relaxed">
+              Encuentra carpooling gratis en ConcertRide · 0% comisión · conductores
+              verificados · vuelta de madrugada coordinada.
+            </p>
+            <div className="flex flex-wrap gap-3 pt-1">
+              <Link
+                to="/conciertos"
+                className="inline-flex items-center gap-2 font-sans text-xs font-semibold uppercase tracking-[0.12em] bg-[#dbff00] text-black border-2 border-black px-5 py-2.5 shadow-[3px_3px_0px_0px_rgba(0,0,0,1)] hover:shadow-[1px_1px_0px_0px_rgba(0,0,0,1)] hover:translate-x-[2px] hover:translate-y-[2px] transition-all duration-100"
+              >
+                Ver rutas disponibles <ArrowRight size={12} />
+              </Link>
+              <Link
+                to="/register"
+                className="inline-flex items-center gap-2 font-sans text-xs font-semibold uppercase tracking-[0.12em] border-2 border-cr-border text-cr-text-muted px-5 py-2.5 hover:border-[#dbff00] hover:text-[#dbff00] transition-colors"
+              >
+                Crear cuenta gratis <ArrowRight size={12} />
+              </Link>
+            </div>
+          </section>
+        )}
+
+        {/* ── CTA for logged-in users ── */}
+        {user && (
+          <section className="border border-cr-primary/40 bg-cr-primary/5 p-6 space-y-3">
+            <h2 className="font-display text-xl uppercase">¿Vas a un festival este verano?</h2>
+            <p className="font-sans text-sm text-cr-text-muted leading-relaxed">
+              Encuentra tu viaje compartido o publica el tuyo. Sin comisiones, pago al
+              conductor en efectivo o Bizum. Conductores verificados.
+            </p>
+            <div className="flex flex-wrap gap-3 pt-2">
+              <Link
+                to="/concerts"
+                className="inline-flex items-center gap-2 font-sans text-xs font-semibold uppercase tracking-[0.12em] border-2 border-cr-primary text-cr-primary px-4 py-2 hover:bg-cr-primary hover:text-black transition-colors"
+              >
+                Buscar viaje <ArrowRight size={12} />
+              </Link>
+              <Link
+                to="/publish"
+                className="inline-flex items-center gap-2 font-sans text-xs font-semibold uppercase tracking-[0.12em] border-2 border-cr-border text-cr-text-muted px-4 py-2 hover:border-cr-primary hover:text-cr-primary transition-colors"
+              >
+                Publicar viaje <ArrowRight size={12} />
+              </Link>
+            </div>
+          </section>
+        )}
 
         {/* ── Related posts ── */}
         {related.length > 0 && (

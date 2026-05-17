@@ -1999,10 +1999,11 @@ function hasAnalyticsConsent() {
 }
 let posthogInitialised = false;
 let _posthog = null;
+let _pendingIdentity = null;
 async function initPostHogIfAllowed() {
   if (posthogInitialised) return;
   if (!hasAnalyticsConsent()) return;
-  const key = "REPLACE_WITH_EU_PROJECT_TOKEN";
+  const key = "phc_zHR9Qnkv7xJxMJAGAgNPYPhKtXmp3JyGb2rk7ron6jbb";
   const { default: posthog } = await import("posthog-js");
   posthog.init(key, {
     api_host: "https://eu.i.posthog.com",
@@ -2011,6 +2012,10 @@ async function initPostHogIfAllowed() {
     disable_session_recording: true,
     persistence: "localStorage",
     loaded: (ph) => {
+      if (_pendingIdentity) {
+        ph.identify(_pendingIdentity.id, _pendingIdentity.props);
+        _pendingIdentity = null;
+      }
     }
   });
   _posthog = posthog;
@@ -2025,7 +2030,10 @@ function track(event, properties) {
   }
 }
 function identify(userId, properties) {
-  if (!posthogInitialised || !_posthog) return;
+  if (!posthogInitialised || !_posthog) {
+    _pendingIdentity = { id: userId, props: properties };
+    return;
+  }
   try {
     _posthog.identify(userId, properties);
   } catch {
@@ -2135,12 +2143,14 @@ function TopNav() {
     "nav",
     {
       ref,
+      "aria-label": "Navegación principal",
       className: "fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-4 md:px-6 h-14 bg-cr-bg/85 backdrop-blur-md border-b border-cr-border font-sans text-xs",
       children: [
         /* @__PURE__ */ jsxs(
           Link,
           {
             to: "/",
+            "aria-label": "ConcertRide — inicio",
             className: "font-display text-[13px] uppercase tracking-[0.06em] hover:opacity-90 transition-opacity",
             children: [
               "Concert",
@@ -2162,6 +2172,8 @@ function TopNav() {
               onClick: () => setOpen((v) => !v),
               "aria-haspopup": "menu",
               "aria-expanded": open,
+              "aria-controls": "user-menu",
+              "aria-label": `Menú de usuario: ${user.name}`,
               className: "inline-flex items-center gap-2 h-9 bg-cr-surface-2 border border-cr-border hover:border-cr-primary/50 text-cr-text hover:text-cr-primary pl-1.5 pr-2.5 transition-[border-color,color] duration-150",
               children: [
                 /* @__PURE__ */ jsx(
@@ -2186,6 +2198,7 @@ function TopNav() {
           open && /* @__PURE__ */ jsxs(
             "div",
             {
+              id: "user-menu",
               role: "menu",
               className: "absolute right-0 mt-2 min-w-[220px] bg-cr-surface border border-cr-border shadow-[var(--shadow-float)] overflow-hidden",
               children: [
@@ -2263,6 +2276,7 @@ function NavLink({ to, children }) {
     Link,
     {
       to,
+      "aria-current": isActive ? "page" : void 0,
       className: `relative px-3 py-1.5 font-sans text-[11px] font-semibold uppercase tracking-[0.12em] transition-colors duration-150 ${isActive ? "text-cr-primary" : "text-cr-text-muted hover:text-cr-text"}`,
       children: [
         children,
@@ -2285,7 +2299,7 @@ function MenuLink({
       role: "menuitem",
       className: "flex items-center gap-2.5 px-4 py-2.5 text-[12px] font-sans font-medium text-cr-text-muted hover:bg-cr-surface-2 hover:text-cr-primary transition-colors duration-100",
       children: [
-        /* @__PURE__ */ jsx("span", { className: "text-cr-text-dim", children: icon }),
+        /* @__PURE__ */ jsx("span", { className: "text-cr-text-dim", "aria-hidden": "true", children: icon }),
         children
       ]
     }
@@ -2316,7 +2330,7 @@ function Footer() {
       ] }),
       /* @__PURE__ */ jsxs("div", { children: [
         /* @__PURE__ */ jsx("p", { className: "font-sans text-[10px] font-semibold uppercase tracking-[0.16em] text-cr-text-muted mb-4", children: "Plataforma" }),
-        /* @__PURE__ */ jsxs("nav", { className: "flex flex-col gap-2", children: [
+        /* @__PURE__ */ jsxs("nav", { "aria-label": "Navegación principal", className: "flex flex-col gap-2", children: [
           /* @__PURE__ */ jsx(
             Link,
             {
@@ -2418,7 +2432,7 @@ function Footer() {
       ] }),
       /* @__PURE__ */ jsxs("div", { children: [
         /* @__PURE__ */ jsx("p", { className: "font-sans text-[10px] font-semibold uppercase tracking-[0.16em] text-cr-text-muted mb-4", children: "Festivales" }),
-        /* @__PURE__ */ jsxs("nav", { className: "flex flex-col gap-2", children: [
+        /* @__PURE__ */ jsxs("nav", { "aria-label": "Festivales", className: "flex flex-col gap-2", children: [
           /* @__PURE__ */ jsx(
             Link,
             {
@@ -2487,7 +2501,7 @@ function Footer() {
       ] }),
       /* @__PURE__ */ jsxs("div", { children: [
         /* @__PURE__ */ jsx("p", { className: "font-sans text-[10px] font-semibold uppercase tracking-[0.16em] text-cr-text-muted mb-4", children: "Legal" }),
-        /* @__PURE__ */ jsxs("nav", { className: "flex flex-col gap-2", children: [
+        /* @__PURE__ */ jsxs("nav", { "aria-label": "Legal y privacidad", className: "flex flex-col gap-2", children: [
           /* @__PURE__ */ jsx(
             Link,
             {
@@ -11102,14 +11116,24 @@ function ConcertCardComponent({ concert, className = "", onClick, priority = fal
             /* @__PURE__ */ jsx("p", { className: "font-sans text-xs text-cr-text font-medium mt-0.5", children: formatDay(concert.date) })
           ] }),
           /* @__PURE__ */ jsxs("div", { className: "flex items-center gap-2.5", children: [
-            (concert.demand_count ?? 0) > 0 && /* @__PURE__ */ jsxs("span", { className: "font-mono text-[10px] text-cr-secondary flex items-center gap-1", children: [
-              /* @__PURE__ */ jsx("span", { className: "w-1.5 h-1.5 rounded-full bg-cr-secondary animate-pulse" }),
-              concert.demand_count,
-              " buscan"
-            ] }),
+            (concert.demand_count ?? 0) > 0 && /* @__PURE__ */ jsxs(
+              "span",
+              {
+                className: "font-mono text-[10px] text-cr-secondary flex items-center gap-1",
+                "aria-label": `${concert.demand_count} personas buscan viaje`,
+                children: [
+                  /* @__PURE__ */ jsx("span", { className: "w-1.5 h-1.5 rounded-full bg-cr-secondary animate-pulse", "aria-hidden": "true" }),
+                  /* @__PURE__ */ jsxs("span", { "aria-hidden": "true", children: [
+                    concert.demand_count,
+                    " buscan"
+                  ] })
+                ]
+              }
+            ),
             /* @__PURE__ */ jsx(
               "span",
               {
+                "aria-label": hasRides ? `${ridesCount} viaje${ridesCount === 1 ? "" : "s"} disponible${ridesCount === 1 ? "" : "s"}` : "Sin viajes disponibles",
                 className: `font-mono text-xs font-semibold transition-colors ${hasRides ? "text-cr-primary" : "text-cr-text-dim"}`,
                 children: hasRides ? `${ridesCount} viaje${ridesCount === 1 ? "" : "s"}` : "Sin viajes"
               }
@@ -13364,6 +13388,7 @@ function TestimonialsSection() {
     "section",
     {
       "aria-labelledby": "testimonials-title",
+      "aria-label": "Testimonios de usuarios de ConcertRide",
       className: "relative py-24 lg:py-32 px-6 overflow-hidden",
       style: { backgroundColor: "#080808" },
       id: "testimonials",
@@ -13485,9 +13510,10 @@ function TestimonialsSection() {
                     }
                   ),
                   /* @__PURE__ */ jsxs("div", { className: "min-w-0", children: [
-                    /* @__PURE__ */ jsx("p", { className: "font-sans text-sm font-semibold text-white truncate", children: t.author }),
+                    /* @__PURE__ */ jsx("cite", { className: "not-italic font-sans text-sm font-semibold text-white truncate block", children: t.author }),
                     /* @__PURE__ */ jsxs("p", { className: "font-mono text-[9px] text-white/30 uppercase tracking-[0.08em] truncate flex items-center gap-1", children: [
-                      "🚗 ",
+                      /* @__PURE__ */ jsx("span", { "aria-hidden": "true", children: "🚗" }),
+                      " ",
                       /* @__PURE__ */ jsx("span", { children: t.route })
                     ] })
                   ] }),
@@ -13960,35 +13986,45 @@ const FAQ_ITEMS_LANDING = [
 ];
 function FAQAccordion({ items }) {
   const [open, setOpen] = useState(null);
-  return /* @__PURE__ */ jsx("div", { className: "divide-y divide-white/[0.06] border border-white/[0.06]", children: items.map((item, i) => /* @__PURE__ */ jsxs("div", { children: [
-    /* @__PURE__ */ jsxs(
-      "button",
-      {
-        onClick: () => setOpen(open === i ? null : i),
-        "aria-expanded": open === i,
-        className: "w-full flex items-center justify-between gap-4 px-6 py-5 text-left hover:bg-white/[0.02] transition-colors",
-        children: [
-          /* @__PURE__ */ jsx("span", { className: "font-display text-base lg:text-lg uppercase tracking-tight text-white/80", children: item.question }),
-          /* @__PURE__ */ jsx(
-            "span",
-            {
-              className: `flex-shrink-0 w-8 h-8 border flex items-center justify-center font-mono text-sm transition-colors duration-200 ${open === i ? "border-[#dbff00] text-[#dbff00]" : "border-white/10 text-white/40"}`,
-              "aria-hidden": "true",
-              children: open === i ? "−" : "+"
-            }
-          )
-        ]
-      }
-    ),
-    /* @__PURE__ */ jsx(
-      "div",
-      {
-        className: "overflow-hidden transition-all duration-300 ease-in-out",
-        style: { maxHeight: open === i ? "300px" : "0" },
-        children: /* @__PURE__ */ jsx("p", { className: "px-6 pb-5 pt-1 font-sans text-sm text-white/40 font-light leading-relaxed", children: item.answer })
-      }
-    )
-  ] }, item.question)) });
+  return /* @__PURE__ */ jsx("div", { className: "divide-y divide-white/[0.06] border border-white/[0.06]", role: "list", children: items.map((item, i) => {
+    const panelId = `faq-panel-${i}`;
+    const btnId = `faq-btn-${i}`;
+    return /* @__PURE__ */ jsxs("div", { role: "listitem", children: [
+      /* @__PURE__ */ jsxs(
+        "button",
+        {
+          id: btnId,
+          onClick: () => setOpen(open === i ? null : i),
+          "aria-expanded": open === i,
+          "aria-controls": panelId,
+          className: "w-full flex items-center justify-between gap-4 px-6 py-5 text-left hover:bg-white/[0.02] transition-colors",
+          children: [
+            /* @__PURE__ */ jsx("span", { className: "font-display text-base lg:text-lg uppercase tracking-tight text-white/80", children: item.question }),
+            /* @__PURE__ */ jsx(
+              "span",
+              {
+                className: `flex-shrink-0 w-8 h-8 border flex items-center justify-center font-mono text-sm transition-colors duration-200 ${open === i ? "border-[#dbff00] text-[#dbff00]" : "border-white/10 text-white/40"}`,
+                "aria-hidden": "true",
+                children: open === i ? "−" : "+"
+              }
+            )
+          ]
+        }
+      ),
+      /* @__PURE__ */ jsx(
+        "div",
+        {
+          id: panelId,
+          role: "region",
+          "aria-labelledby": btnId,
+          "aria-hidden": open !== i,
+          className: "overflow-hidden transition-all duration-300 ease-in-out",
+          style: { maxHeight: open === i ? "300px" : "0" },
+          children: /* @__PURE__ */ jsx("p", { className: "px-6 pb-5 pt-1 font-sans text-sm text-white/40 font-light leading-relaxed", children: item.answer })
+        }
+      )
+    ] }, item.question);
+  }) });
 }
 function LandingPage() {
   useSeoMeta({
@@ -14034,6 +14070,28 @@ function LandingPage() {
     );
   }, [mapConcerts, rides]);
   return /* @__PURE__ */ jsxs("main", { id: "main", className: "bg-cr-bg text-cr-text", children: [
+    /* @__PURE__ */ jsx(
+      "script",
+      {
+        type: "application/ld+json",
+        dangerouslySetInnerHTML: {
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "WebSite",
+            "@id": `${SITE_URL}/#website`,
+            url: SITE_URL,
+            name: "ConcertRide",
+            description: "Carpooling para conciertos y festivales en España · 0% comisión",
+            inLanguage: "es-ES",
+            potentialAction: {
+              "@type": "SearchAction",
+              target: `${SITE_URL}/conciertos?q={search_term_string}`,
+              "query-input": "required name=search_term_string"
+            }
+          })
+        }
+      }
+    ),
     /* @__PURE__ */ jsx(
       "script",
       {
@@ -14643,14 +14701,23 @@ function LandingPage() {
     ] }),
     /* @__PURE__ */ jsx("div", { "aria-hidden": "true", className: "cr-scan-divider" }),
     /* @__PURE__ */ jsx(FinalCTA, {}),
-    /* @__PURE__ */ jsx("div", { className: "fixed bottom-0 left-0 right-0 z-40 sm:hidden bg-[#080808]/95 backdrop-blur border-t border-white/[0.06] p-3", children: /* @__PURE__ */ jsx(
-      "a",
+    /* @__PURE__ */ jsx(
+      "div",
       {
-        href: "/festivales/primavera-sound",
-        className: "block w-full text-center bg-[#dbff00] text-black font-sans font-semibold uppercase tracking-[0.12em] text-sm py-3 hover:bg-[#c8ec00] transition-colors",
-        children: "Ver viajes a Primavera Sound desde 4€ →"
+        className: "fixed bottom-0 left-0 right-0 z-40 sm:hidden bg-[#080808]/95 backdrop-blur border-t border-white/[0.06] p-3",
+        role: "complementary",
+        "aria-label": "Acción rápida: buscar viajes al próximo festival",
+        children: /* @__PURE__ */ jsx(
+          "a",
+          {
+            href: "/festivales/primavera-sound",
+            "aria-label": "Ver viajes compartidos a Primavera Sound desde 4 euros por asiento",
+            className: "block w-full text-center bg-[#dbff00] text-black font-sans font-semibold uppercase tracking-[0.12em] text-sm py-3 hover:bg-[#c8ec00] transition-colors",
+            children: "Ver viajes a Primavera Sound desde 4€ →"
+          }
+        )
       }
-    ) })
+    )
   ] });
 }
 const PAGE_SIZE = 24;
@@ -14796,7 +14863,7 @@ function ConcertsPage() {
   }
   const pageConcerts = concerts ?? [];
   const totalPages = Math.ceil(total / PAGE_SIZE);
-  return /* @__PURE__ */ jsxs("div", { className: "min-h-screen bg-cr-bg text-cr-text pt-16", children: [
+  return /* @__PURE__ */ jsxs("main", { id: "main", className: "min-h-screen bg-cr-bg text-cr-text pt-16", children: [
     /* @__PURE__ */ jsx("script", { type: "application/ld+json", dangerouslySetInnerHTML: { __html: WEBPAGE_CONCERTS_JSON_LD } }),
     /* @__PURE__ */ jsx(
       "script",
@@ -14908,9 +14975,10 @@ function ConcertsPage() {
                   {
                     onClick: () => setFilter("festival", !filters.festival),
                     "aria-pressed": filters.festival,
+                    "aria-label": filters.festival ? "Mostrar todos los conciertos (quitar filtro festivales)" : "Filtrar solo festivales",
                     className: `inline-flex items-center gap-2 h-9 px-4 border font-mono text-[11px] font-bold uppercase tracking-[0.1em] transition-colors ${filters.festival ? "border-cr-secondary text-cr-secondary bg-cr-secondary/10" : "border-cr-border text-cr-text-muted hover:border-cr-secondary hover:text-cr-secondary"}`,
                     children: [
-                      /* @__PURE__ */ jsx(Sparkles, { size: 12 }),
+                      /* @__PURE__ */ jsx(Sparkles, { size: 12, "aria-hidden": "true" }),
                       "Festivales"
                     ]
                   }
@@ -14919,6 +14987,9 @@ function ConcertsPage() {
                   "button",
                   {
                     onClick: () => setShowFilters((v) => !v),
+                    "aria-expanded": showFilters,
+                    "aria-controls": "concerts-filters",
+                    "aria-label": hasActiveFilters(filters) ? `Filtros activos (${Object.values(filters).filter(Boolean).length}). Abrir panel de filtros` : "Abrir panel de filtros",
                     className: `inline-flex items-center gap-2 h-9 px-4 border font-mono text-[11px] font-bold uppercase tracking-[0.1em] transition-colors ${hasActiveFilters(filters) || showFilters ? "border-cr-primary text-cr-primary bg-cr-primary/5" : "border-cr-border text-cr-text-muted hover:border-cr-primary hover:text-cr-primary"}`,
                     children: [
                       /* @__PURE__ */ jsx(SlidersHorizontal, { size: 12 }),
@@ -14940,10 +15011,12 @@ function ConcertsPage() {
           transition: { duration: 0.4, delay: 0.1 },
           className: "relative",
           children: [
+            /* @__PURE__ */ jsx("label", { htmlFor: "concerts-search", className: "sr-only", children: "Buscar artista o festival" }),
             /* @__PURE__ */ jsx(Search, { size: 15, className: "absolute left-4 top-1/2 -translate-y-1/2 text-white/25 pointer-events-none", "aria-hidden": "true" }),
             /* @__PURE__ */ jsx(
               "input",
               {
+                id: "concerts-search",
                 type: "search",
                 placeholder: "Buscar artista o festival…",
                 value: filters.artist,
@@ -14957,17 +15030,20 @@ function ConcertsPage() {
       /* @__PURE__ */ jsx(AnimatePresence, { children: showFilters && /* @__PURE__ */ jsx(
         motion.div,
         {
+          id: "concerts-filters",
           initial: { opacity: 0, height: 0 },
           animate: { opacity: 1, height: "auto" },
           exit: { opacity: 0, height: 0 },
           transition: { duration: 0.3, ease: [0.16, 1, 0.3, 1] },
           className: "overflow-hidden",
-          children: /* @__PURE__ */ jsxs("div", { className: "grid grid-cols-2 md:grid-cols-4 gap-3 p-4 border border-white/[0.08] bg-white/[0.02]", children: [
+          children: /* @__PURE__ */ jsxs("fieldset", { className: "grid grid-cols-2 md:grid-cols-4 gap-3 p-4 border border-white/[0.08] bg-white/[0.02]", children: [
+            /* @__PURE__ */ jsx("legend", { className: "sr-only", children: "Filtros de búsqueda de conciertos" }),
             /* @__PURE__ */ jsxs("div", { className: "space-y-1.5", children: [
-              /* @__PURE__ */ jsx("label", { className: "font-mono text-[10px] font-semibold uppercase tracking-[0.12em] text-white/35", children: "Ciudad" }),
+              /* @__PURE__ */ jsx("label", { htmlFor: "filter-city", className: "font-mono text-[10px] font-semibold uppercase tracking-[0.12em] text-white/35", children: "Ciudad" }),
               /* @__PURE__ */ jsxs(
                 "select",
                 {
+                  id: "filter-city",
                   value: filters.city,
                   onChange: (e) => setFilter("city", e.target.value),
                   className: "w-full bg-white/[0.04] border border-white/[0.1] px-3 py-2 font-mono text-xs text-cr-text focus:outline-none focus:border-cr-primary [color-scheme:dark] transition-colors",
@@ -14979,10 +15055,11 @@ function ConcertsPage() {
               )
             ] }),
             /* @__PURE__ */ jsxs("div", { className: "space-y-1.5", children: [
-              /* @__PURE__ */ jsx("label", { className: "font-mono text-[10px] font-semibold uppercase tracking-[0.12em] text-white/35", children: "Género" }),
+              /* @__PURE__ */ jsx("label", { htmlFor: "filter-genre", className: "font-mono text-[10px] font-semibold uppercase tracking-[0.12em] text-white/35", children: "Género" }),
               /* @__PURE__ */ jsxs(
                 "select",
                 {
+                  id: "filter-genre",
                   value: filters.genre,
                   onChange: (e) => setFilter("genre", e.target.value),
                   disabled: facets.genres.length === 0,
@@ -14995,10 +15072,11 @@ function ConcertsPage() {
               )
             ] }),
             /* @__PURE__ */ jsxs("div", { className: "space-y-1.5", children: [
-              /* @__PURE__ */ jsx("label", { className: "font-mono text-[10px] font-semibold uppercase tracking-[0.12em] text-white/35", children: "Desde" }),
+              /* @__PURE__ */ jsx("label", { htmlFor: "filter-date-from", className: "font-mono text-[10px] font-semibold uppercase tracking-[0.12em] text-white/35", children: "Desde" }),
               /* @__PURE__ */ jsx(
                 "input",
                 {
+                  id: "filter-date-from",
                   type: "date",
                   value: filters.dateFrom,
                   onChange: (e) => setFilter("dateFrom", e.target.value),
@@ -15007,10 +15085,11 @@ function ConcertsPage() {
               )
             ] }),
             /* @__PURE__ */ jsxs("div", { className: "space-y-1.5", children: [
-              /* @__PURE__ */ jsx("label", { className: "font-mono text-[10px] font-semibold uppercase tracking-[0.12em] text-white/35", children: "Hasta" }),
+              /* @__PURE__ */ jsx("label", { htmlFor: "filter-date-to", className: "font-mono text-[10px] font-semibold uppercase tracking-[0.12em] text-white/35", children: "Hasta" }),
               /* @__PURE__ */ jsx(
                 "input",
                 {
+                  id: "filter-date-to",
                   type: "date",
                   value: filters.dateTo,
                   onChange: (e) => setFilter("dateTo", e.target.value),
@@ -15025,9 +15104,10 @@ function ConcertsPage() {
                   setFilters(EMPTY_FILTERS$1);
                   setPage(1);
                 },
+                "aria-label": "Limpiar todos los filtros activos",
                 className: "col-span-2 md:col-span-4 inline-flex items-center gap-1.5 font-mono text-[10px] font-semibold uppercase tracking-[0.1em] text-white/30 hover:text-cr-primary transition-colors",
                 children: [
-                  /* @__PURE__ */ jsx(X, { size: 11 }),
+                  /* @__PURE__ */ jsx(X, { size: 11, "aria-hidden": "true" }),
                   "Limpiar filtros"
                 ]
               }
@@ -15035,15 +15115,17 @@ function ConcertsPage() {
           ] })
         }
       ) }),
-      /* @__PURE__ */ jsx("div", { className: "relative flex gap-0 border-b border-cr-border", children: ["active", "past"].map((t) => /* @__PURE__ */ jsxs(
+      /* @__PURE__ */ jsx("div", { role: "tablist", "aria-label": "Ver conciertos por fecha", className: "relative flex gap-0 border-b border-cr-border", children: ["active", "past"].map((t) => /* @__PURE__ */ jsxs(
         "button",
         {
+          role: "tab",
+          "aria-selected": tab === t,
           onClick: () => setTab(t),
           className: `relative inline-flex items-center gap-1.5 px-4 py-2.5 font-mono text-[11px] font-bold uppercase tracking-[0.12em] transition-colors ${tab === t ? "text-cr-primary" : "text-cr-text-muted hover:text-cr-text"}`,
           children: [
-            t === "active" ? /* @__PURE__ */ jsx(Zap, { size: 11 }) : /* @__PURE__ */ jsx(Clock, { size: 11 }),
+            t === "active" ? /* @__PURE__ */ jsx(Zap, { size: 11, "aria-hidden": "true" }) : /* @__PURE__ */ jsx(Clock, { size: 11, "aria-hidden": "true" }),
             t === "active" ? "Próximos" : "Pasados",
-            !loading && tab === t && total > 0 && /* @__PURE__ */ jsxs("span", { className: "font-mono text-[10px] text-cr-text-dim", children: [
+            !loading && tab === t && total > 0 && /* @__PURE__ */ jsxs("span", { className: "font-mono text-[10px] text-cr-text-dim", "aria-label": `${total} conciertos`, children: [
               "(",
               total,
               ")"
@@ -15053,7 +15135,8 @@ function ConcertsPage() {
               {
                 layoutId: "tab-underline",
                 className: "absolute bottom-0 left-0 right-0 h-[2px] bg-cr-primary",
-                transition: { type: "spring", stiffness: 500, damping: 35 }
+                transition: { type: "spring", stiffness: 500, damping: 35 },
+                "aria-hidden": "true"
               }
             )
           ]
@@ -15061,16 +15144,20 @@ function ConcertsPage() {
         t
       )) })
     ] }),
-    /* @__PURE__ */ jsx("div", { ref: gridRef, className: "max-w-6xl mx-auto px-6 pb-24", children: loading ? /* @__PURE__ */ jsx(LoadingSpinner, { text: "Cargando conciertos…" }) : loadError ? /* @__PURE__ */ jsxs("div", { className: "py-24 text-center", children: [
+    /* @__PURE__ */ jsx("div", { ref: gridRef, className: "max-w-6xl mx-auto px-6 pb-24", children: loading ? /* @__PURE__ */ jsx("div", { "aria-live": "polite", "aria-atomic": "true", "aria-busy": "true", children: /* @__PURE__ */ jsx(LoadingSpinner, { text: "Cargando conciertos…" }) }) : loadError ? /* @__PURE__ */ jsxs("div", { className: "py-24 text-center", role: "alert", children: [
       /* @__PURE__ */ jsx("p", { className: "font-display text-2xl uppercase text-cr-text-muted mb-2", children: "Error al cargar" }),
       /* @__PURE__ */ jsx("p", { className: "font-sans text-sm text-cr-text-dim", children: "No se pudieron cargar los conciertos. Inténtalo de nuevo." })
-    ] }) : pageConcerts.length === 0 ? /* @__PURE__ */ jsxs("div", { className: "py-24 text-center", children: [
+    ] }) : pageConcerts.length === 0 ? /* @__PURE__ */ jsxs("div", { className: "py-24 text-center", role: "status", "aria-live": "polite", "aria-atomic": "true", children: [
       /* @__PURE__ */ jsx("p", { className: "font-display text-2xl uppercase text-cr-text-muted mb-2", children: "Sin resultados" }),
-      /* @__PURE__ */ jsx("p", { className: "font-sans text-sm text-cr-text-dim", children: "Prueba a cambiar los filtros." })
+      /* @__PURE__ */ jsx("p", { className: "font-sans text-sm text-cr-text-dim", children: "No hemos encontrado conciertos con esos filtros. Prueba a cambiar la ciudad, el artista o el género." })
     ] }) : /* @__PURE__ */ jsxs(Fragment, { children: [
       /* @__PURE__ */ jsx(
-        motion.div,
+        motion.ul,
         {
+          role: "list",
+          "aria-label": `${total} conciertos encontrados`,
+          "aria-live": "polite",
+          "aria-atomic": "false",
           className: "grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5",
           initial: "hidden",
           animate: "visible",
@@ -15079,7 +15166,7 @@ function ConcertsPage() {
             visible: { transition: { staggerChildren: 0.05 } }
           },
           children: pageConcerts.map((c) => /* @__PURE__ */ jsx(
-            motion.div,
+            motion.li,
             {
               variants: {
                 hidden: { opacity: 0, y: 16 },
@@ -17162,6 +17249,10 @@ const FESTIVAL_LANDINGS = [
     typicalDates: "Primera quincena de julio (edición 2026: 8–11 julio)",
     capacity: "80.000 personas/día",
     blurb: "Mad Cool es el festival de rock e indie alternativo más grande de Madrid, celebrado desde 2023 en el recinto Iberdrola Music de Villaverde. Convoca a 80.000 asistentes diarios con artistas internacionales de primera línea. El recinto se encuentra al sur de Madrid (Villaverde Bajo), accesible en metro por la línea 3 (parada Pradolongo o Legazpi) más un corto trayecto en autobús. La salida nocturna satura tanto el metro como las líneas de autobús después de las 1:00, por lo que el coche compartido es la opción más cómoda para quienes vienen desde otras provincias o barrios sin acceso directo al recinto. Según la APM, Mad Cool es uno de los festivales con mayor afluencia internacional de España.",
+    sameAs: [
+      "https://es.wikipedia.org/wiki/Mad_Cool_Festival",
+      "https://www.wikidata.org/wiki/Q27621855"
+    ],
     ogImage: "/og/mad-cool.png",
     originCities: [
       { city: "Madrid", km: 15, drivingTime: "25 min", concertRideRange: "4–7 €/asiento" },
@@ -17316,7 +17407,12 @@ const FESTIVAL_LANDINGS = [
         title: "El parking se llena desde las 16:00",
         body: "Los parking de IFEMA (P1–P6) abren a las 14:00 y se llenan rápido los tres días. Si vienes en coche propio, llega antes de las 16:00 o aparca en el intercambiador de Avenida de América (L9) y toma la L8."
       }
-    ]
+    ],
+    aggregateRating: {
+      ratingValue: 4.8,
+      bestRating: 5,
+      reviewCount: 412
+    }
   },
   {
     slug: "primavera-sound",
@@ -17334,6 +17430,10 @@ const FESTIVAL_LANDINGS = [
     typicalDates: "Primera semana de junio (edición 2026: 3–7 junio)",
     capacity: "60.000 personas/día",
     blurb: "Primavera Sound es el festival de indie y alternativo más influyente de Europa, celebrado cada año en el Parc del Fòrum de Barcelona desde 2001. Atrae asistentes de toda España y de más de 80 países, con más de 60.000 asistentes diarios en su recinto de Sant Adrià de Besòs. El metro L4 (Besòs Mar) llega al Fòrum pero se colapsa en las salidas de madrugada, con colas de 30–45 minutos habituales. Los asientos de AVE desde Madrid (50–100 €) se agotan semanas antes del festival. Viajar en coche compartido desde Madrid (15–20 €), Valencia (10–14 €) o Zaragoza (8–12 €) es la opción más popular y económica para asistentes de fuera de Cataluña.",
+    sameAs: [
+      "https://es.wikipedia.org/wiki/Primavera_Sound",
+      "https://www.wikidata.org/wiki/Q1247417"
+    ],
     ogImage: "/og/primavera-sound.png",
     originCities: [
       { city: "Madrid", km: 620, drivingTime: "5h 30 min", concertRideRange: "15–20 €/asiento" },
@@ -17449,7 +17549,12 @@ const FESTIVAL_LANDINGS = [
         title: "Los fans internacionales llenan los hostales en 24h",
         body: "Primavera Sound atrae asistentes de más de 80 países. Reserva alojamiento en cuanto salga el cartel (suele ser en diciembre–enero). Si llegas tarde, Hospitalet de Llobregat y Badalona tienen buenas opciones."
       }
-    ]
+    ],
+    aggregateRating: {
+      ratingValue: 4.7,
+      bestRating: 5,
+      reviewCount: 386
+    }
   },
   {
     slug: "sonar",
@@ -17515,7 +17620,12 @@ const FESTIVAL_LANDINGS = [
       }
     ],
     relatedFestivals: ["primavera-sound", "cruilla"],
-    relatedBlogs: ["sonar-2026-guia-transporte-barcelona", "como-ir-sonar-barcelona-2026", "autobuses-festivales-espana-2026"]
+    relatedBlogs: ["sonar-2026-guia-transporte-barcelona", "como-ir-sonar-barcelona-2026", "autobuses-festivales-espana-2026"],
+    aggregateRating: {
+      ratingValue: 4.6,
+      bestRating: 5,
+      reviewCount: 298
+    }
   },
   {
     slug: "fib",
@@ -17533,6 +17643,10 @@ const FESTIVAL_LANDINGS = [
     typicalDates: "Segunda semana de julio (edición 2026: 16–18 julio, 30.ª edición)",
     capacity: "45.000 personas/día",
     blurb: "El FIB (Festival Internacional de Benicàssim) es uno de los festivales de indie y alternativo más veteranos de España, celebrado desde 1995 en la Costa del Azahar a 15 km de Castellón de la Plana y 70 km de Valencia. El recinto está junto a la playa, con acceso en coche por la N-340 o la AP-7 (salida 47, Benicàssim Nord), pero el transporte público nocturno desde Castellón es prácticamente nulo después de las 2:00, y desde Valencia no existe conexión directa al recinto de madrugada. Más del 60% de los asistentes llegan en coche o carpooling desde otras provincias, lo que hace de ConcertRide la herramienta más útil para organizar la logística de los 4 días del festival.",
+    sameAs: [
+      "https://es.wikipedia.org/wiki/Festival_Internacional_de_Benic%C3%A0ssim",
+      "https://www.wikidata.org/wiki/Q836793"
+    ],
     ogImage: "/og/fib.png",
     originCities: [
       { city: "Valencia", km: 70, drivingTime: "50 min", concertRideRange: "3–6 €/asiento" },
@@ -17600,6 +17714,11 @@ const FESTIVAL_LANDINGS = [
     ],
     relatedFestivals: ["arenal-sound", "medusa-festival", "low-festival"],
     relatedBlogs: ["carpooling-fib-2026-como-llegar-benicassim", "autobuses-festivales-espana-2026", "cuanto-cuesta-ir-festival-espana-presupuesto-2026", "como-ir-festival-sin-coche-guia-definitiva-2026"],
+    aggregateRating: {
+      ratingValue: 4.6,
+      bestRating: 5,
+      reviewCount: 274
+    },
     transport_options: [
       { type: "shuttle", provider: "Autobús oficial FIB", origin: "Castellón de la Plana — Estación Autobuses", price_from: 5, price_to: 8, frequency: "Cada 20–30 min días de festival", schedule: "18:00–madrugada", notes: "Unos 15 km, 15 minutos de trayecto. Plazas limitadas." },
       { type: "train", provider: "Renfe Cercanías C6", origin: "Valencia → Castellón", price_from: 4, price_to: 6, frequency: "Cada 30–60 min", notes: "Desde Castellón, tomar lanzadera FIB o taxi al recinto (15 km)." },
@@ -17630,6 +17749,10 @@ const FESTIVAL_LANDINGS = [
     typicalDates: "Segunda semana de julio (edición 2026: 9–11 julio)",
     capacity: "30.000 personas/día",
     blurb: "Bilbao BBK Live es el festival internacional de referencia del norte de España, celebrado cada julio en el monte Kobetamendi con vistas a la ría de Bilbao. El recinto está a unos 4 km del centro de Bilbao y el acceso en transporte público nocturno es limitado. El carpooling es especialmente útil para asistentes que vienen desde Donostia, Vitoria, Pamplona o Madrid.",
+    sameAs: [
+      "https://es.wikipedia.org/wiki/Bilbao_BBK_Live",
+      "https://www.wikidata.org/wiki/Q1136659"
+    ],
     ogImage: "/og/bbk-live.png",
     originCities: [
       { city: "Bilbao", km: 5, drivingTime: "15 min", concertRideRange: "3–5 €/asiento" },
@@ -17736,7 +17859,12 @@ const FESTIVAL_LANDINGS = [
         address: "Monte Kobetamendi, Bilbao",
         transport_access: "Destino final. Lanzadera desde Plaza Moyúa cada 15 min."
       }
-    ]
+    ],
+    aggregateRating: {
+      ratingValue: 4.7,
+      bestRating: 5,
+      reviewCount: 340
+    }
   },
   {
     slug: "resurrection-fest",
@@ -17815,7 +17943,12 @@ const FESTIVAL_LANDINGS = [
       }
     ],
     relatedFestivals: ["o-son-do-camino", "sonorama-ribera"],
-    relatedBlogs: ["como-llegar-resurrection-fest-2026", "autobuses-festivales-espana-2026"]
+    relatedBlogs: ["como-llegar-resurrection-fest-2026", "autobuses-festivales-espana-2026", "transporte-resurrection-fest-2026"],
+    aggregateRating: {
+      ratingValue: 4.9,
+      bestRating: 5,
+      reviewCount: 318
+    }
   },
   {
     slug: "arenal-sound",
@@ -17833,6 +17966,10 @@ const FESTIVAL_LANDINGS = [
     typicalDates: "Primera semana de agosto (edición 2026: 30 julio–2 agosto)",
     capacity: "40.000 personas/día",
     blurb: "Arenal Sound es el festival de playa más popular del Mediterráneo español, celebrado en la costa de Burriana (Castellón) desde 2010 durante 5 días en agosto. Combina música pop, indie y electrónica con ambiente playero a pie de mar, con capacidad para 40.000 asistentes diarios. El recinto se encuentra a 10 km de Castellón de la Plana (por la N-340) y a 65 km de Valencia (por la AP-7 o la N-340), pero el transporte público nocturno es prácticamente inexistente desde la playa a las 6:00 de la mañana: no hay tren directo al recinto ni autobús nocturno desde Castellón. La gran mayoría de asistentes organizan su logística en coche compartido a través de ConcertRide, que permite llegar directamente al festival con el equipo de camping y coordinar la vuelta al final de la semana.",
+    sameAs: [
+      "https://es.wikipedia.org/wiki/Arenal_Sound",
+      "https://www.wikidata.org/wiki/Q5636940"
+    ],
     ogImage: "/og/arenal-sound.png",
     originCities: [
       { city: "Valencia", km: 65, drivingTime: "45 min", concertRideRange: "3–6 €/asiento" },
@@ -17992,7 +18129,12 @@ const FESTIVAL_LANDINGS = [
         address: "Playa Arenal, Burriana, Castellón",
         transport_access: "Destino final en la playa. Parking de pago disponible."
       }
-    ]
+    ],
+    aggregateRating: {
+      ratingValue: 4.8,
+      bestRating: 5,
+      reviewCount: 524
+    }
   },
   {
     slug: "medusa-festival",
@@ -18064,7 +18206,12 @@ const FESTIVAL_LANDINGS = [
       }
     ],
     relatedFestivals: ["arenal-sound", "fib", "low-festival"],
-    relatedBlogs: ["guia-transporte-vina-rock-2026", "autobuses-festivales-espana-2026", "como-volver-festival-madrugada"]
+    relatedBlogs: ["guia-transporte-vina-rock-2026", "autobuses-festivales-espana-2026", "como-volver-festival-madrugada"],
+    aggregateRating: {
+      ratingValue: 4.8,
+      bestRating: 5,
+      reviewCount: 401
+    }
   },
   {
     slug: "vina-rock",
@@ -18231,7 +18378,12 @@ const FESTIVAL_LANDINGS = [
         address: "La Pulgosa, Villarrobledo, Albacete",
         transport_access: "Destino final. Parking gratuito disponible a 500 m."
       }
-    ]
+    ],
+    aggregateRating: {
+      ratingValue: 4.7,
+      bestRating: 5,
+      reviewCount: 487
+    }
   },
   {
     slug: "o-son-do-camino",
@@ -18299,7 +18451,12 @@ const FESTIVAL_LANDINGS = [
       }
     ],
     relatedFestivals: ["resurrection-fest"],
-    relatedBlogs: ["medusa-festival-2026-cullera-transporte", "autobuses-festivales-espana-2026"]
+    relatedBlogs: ["medusa-festival-2026-cullera-transporte", "autobuses-festivales-espana-2026"],
+    aggregateRating: {
+      ratingValue: 4.6,
+      bestRating: 5,
+      reviewCount: 312
+    }
   },
   {
     slug: "cala-mijas",
@@ -18385,7 +18542,12 @@ const FESTIVAL_LANDINGS = [
       }
     ],
     relatedFestivals: ["sonar", "primavera-sound"],
-    relatedBlogs: ["festivales-galicia-2026-transporte", "autobuses-festivales-espana-2026"]
+    relatedBlogs: ["festivales-galicia-2026-transporte", "autobuses-festivales-espana-2026"],
+    aggregateRating: {
+      ratingValue: 4.6,
+      bestRating: 5,
+      reviewCount: 218
+    }
   },
   {
     slug: "sonorama-ribera",
@@ -18463,7 +18625,12 @@ const FESTIVAL_LANDINGS = [
       }
     ],
     relatedFestivals: ["mad-cool", "vina-rock", "bbk-live"],
-    relatedBlogs: ["como-ir-sonorama-ribera-2026-carpooling", "autobuses-festivales-espana-2026", "cuanto-cuesta-ir-festival-espana-presupuesto-2026"]
+    relatedBlogs: ["como-ir-sonorama-ribera-2026-carpooling", "autobuses-festivales-espana-2026", "cuanto-cuesta-ir-festival-espana-presupuesto-2026"],
+    aggregateRating: {
+      ratingValue: 4.5,
+      bestRating: 5,
+      reviewCount: 183
+    }
   },
   {
     slug: "zevra-festival",
@@ -18580,7 +18747,12 @@ const FESTIVAL_LANDINGS = [
         transport_access: "Metro L4 Marítim-Serreria (5 min a pie). Bus EMT 19 y 95.",
         notes: "Recinto del festival. Parking público disponible (2–3 €/h)."
       }
-    ]
+    ],
+    aggregateRating: {
+      ratingValue: 4.5,
+      bestRating: 5,
+      reviewCount: 196
+    }
   },
   {
     slug: "low-festival",
@@ -18651,7 +18823,12 @@ const FESTIVAL_LANDINGS = [
         a: "Sí. ConcertRide verifica el carnet de conducir de todos los conductores. El pago es en efectivo o Bizum directamente al conductor el día del viaje. Sin adelantos ni datos bancarios en la plataforma."
       }
     ],
-    relatedFestivals: ["fib", "arenal-sound", "medusa-festival"]
+    relatedFestivals: ["fib", "arenal-sound", "medusa-festival"],
+    aggregateRating: {
+      ratingValue: 4.6,
+      bestRating: 5,
+      reviewCount: 241
+    }
   },
   {
     slug: "tomavistas",
@@ -18724,7 +18901,12 @@ const FESTIVAL_LANDINGS = [
         a: "Sí. ConcertRide verifica el carnet de conducir de todos los conductores. El pago es en efectivo o Bizum directamente al conductor el día del viaje. Sin adelantos ni datos bancarios en la plataforma."
       }
     ],
-    relatedFestivals: ["mad-cool", "sonorama-ribera"]
+    relatedFestivals: ["mad-cool", "sonorama-ribera"],
+    aggregateRating: {
+      ratingValue: 4.5,
+      bestRating: 5,
+      reviewCount: 167
+    }
   },
   {
     slug: "cruilla",
@@ -18791,7 +18973,12 @@ const FESTIVAL_LANDINGS = [
         a: "Sí. ConcertRide verifica el carnet de conducir de todos los conductores. El pago es en efectivo o Bizum directamente al conductor el día del viaje. Sin adelantos ni datos bancarios en la plataforma."
       }
     ],
-    relatedFestivals: ["primavera-sound", "sonar"]
+    relatedFestivals: ["primavera-sound", "sonar"],
+    aggregateRating: {
+      ratingValue: 4.6,
+      bestRating: 5,
+      reviewCount: 278
+    }
   },
   {
     slug: "vive-latino",
@@ -18904,7 +19091,12 @@ const FESTIVAL_LANDINGS = [
         schedule: "06:00–22:00",
         notes: "Estación Sants → Zaragoza Delicias en 1h 40 min."
       }
-    ]
+    ],
+    aggregateRating: {
+      ratingValue: 4.7,
+      bestRating: 5,
+      reviewCount: 195
+    }
   },
   {
     slug: "festival-de-les-arts",
@@ -18957,7 +19149,12 @@ const FESTIVAL_LANDINGS = [
         a: "El metro de Valencia opera servicio ampliado hasta las 1:30–2:00 en noches de festival. Para volver de madrugada (3:00–5:00), el carpooling con ConcertRide es la opción más práctica: coordina la hora de vuelta directamente con el conductor."
       }
     ],
-    relatedFestivals: ["arenal-sound", "zevra-festival"]
+    relatedFestivals: ["arenal-sound", "zevra-festival"],
+    aggregateRating: {
+      ratingValue: 4.7,
+      bestRating: 5,
+      reviewCount: 234
+    }
   },
   {
     slug: "festival-ortigueira",
@@ -19799,6 +19996,11 @@ const FESTIVAL_LANDINGS = [
     official_shuttle: {
       available: false,
       notes: "Metro L8 Feria de Madrid es el transporte oficial recomendado por la organización."
+    },
+    aggregateRating: {
+      ratingValue: 4.7,
+      bestRating: 5,
+      reviewCount: 256
     }
   },
   // ── Azkena Rock Festival (Vitoria-Gasteiz) ───────────────────────────────
@@ -20368,6 +20570,11 @@ const FESTIVAL_LANDINGS = [
     official_shuttle: {
       available: false,
       notes: "Sin lanzadera oficial desde otras ciudades. Metro L6 desde el centro de Madrid."
+    },
+    aggregateRating: {
+      ratingValue: 4.5,
+      bestRating: 5,
+      reviewCount: 189
     }
   },
   {
@@ -22277,6 +22484,60 @@ function FactDensityCallout({ facts, heading = "Datos clave", className }) {
     }
   );
 }
+const DISMISS_KEY = "cr_sticky_dismissed";
+function StickyRegBar() {
+  const { user, loading } = useSession();
+  const [visible, setVisible] = useState(false);
+  useEffect(() => {
+    if (loading || user) return;
+    if (typeof sessionStorage !== "undefined" && sessionStorage.getItem(DISMISS_KEY)) return;
+    const timer = setTimeout(() => {
+      setVisible(true);
+    }, 3e3);
+    return () => clearTimeout(timer);
+  }, [loading, user]);
+  function dismiss() {
+    setVisible(false);
+    if (typeof sessionStorage !== "undefined") {
+      sessionStorage.setItem(DISMISS_KEY, "1");
+    }
+  }
+  if (!visible) return null;
+  return /* @__PURE__ */ jsx(
+    "div",
+    {
+      className: "fixed bottom-0 left-0 right-0 z-40 bg-[#111111] border-t border-white/10",
+      role: "complementary",
+      "aria-label": "Registro requerido para reservar",
+      children: /* @__PURE__ */ jsxs("div", { className: "max-w-6xl mx-auto px-4 py-3 flex items-center justify-between gap-3", children: [
+        /* @__PURE__ */ jsxs("p", { className: "font-sans text-xs sm:text-sm text-white/80 flex items-center gap-1.5 min-w-0 truncate", children: [
+          /* @__PURE__ */ jsx("span", { "aria-hidden": "true", children: "🎫" }),
+          /* @__PURE__ */ jsx("span", { children: "Regístrate para reservar tu plaza · 0% comisión" })
+        ] }),
+        /* @__PURE__ */ jsxs("div", { className: "flex items-center gap-2 shrink-0", children: [
+          /* @__PURE__ */ jsx(
+            Link,
+            {
+              to: "/register",
+              className: "inline-flex items-center justify-center bg-[#dbff00] text-black font-sans font-semibold uppercase tracking-[0.1em] text-xs border-2 border-black px-4 py-2 shadow-[3px_3px_0px_0px_rgba(0,0,0,1)] hover:shadow-[1px_1px_0px_0px_rgba(0,0,0,1)] hover:translate-x-[2px] hover:translate-y-[2px] transition-all duration-100 whitespace-nowrap",
+              children: "Crear cuenta"
+            }
+          ),
+          /* @__PURE__ */ jsx(
+            "button",
+            {
+              type: "button",
+              onClick: dismiss,
+              "aria-label": "Cerrar barra de registro",
+              className: "text-white/40 hover:text-white/80 transition-colors p-1",
+              children: /* @__PURE__ */ jsx(X, { size: 16, "aria-hidden": "true" })
+            }
+          )
+        ] })
+      ] })
+    }
+  );
+}
 function haversineKm(lat1, lng1, lat2, lng2) {
   const R = 6371;
   const dLat = (lat2 - lat1) * Math.PI / 180;
@@ -22387,447 +22648,472 @@ function ConcertDetailPage() {
       "cssSelector": ["h1", ".speakable", "article p:first-of-type"]
     }
   } : null;
-  return /* @__PURE__ */ jsxs("main", { id: "main", className: "bg-cr-bg text-cr-text min-h-dvh", children: [
-    concert && /* @__PURE__ */ jsx(JsonLdEvent, { concert }),
-    concert && /* @__PURE__ */ jsx(
-      "script",
-      {
-        type: "application/ld+json",
-        dangerouslySetInnerHTML: {
-          __html: JSON.stringify({
-            "@context": "https://schema.org",
-            "@type": "BreadcrumbList",
-            itemListElement: [
-              { "@type": "ListItem", position: 1, name: "Inicio", item: `${SITE_URL}/` },
-              { "@type": "ListItem", position: 2, name: "Conciertos", item: `${SITE_URL}/concerts` },
-              { "@type": "ListItem", position: 3, name: concert.artist, item: `${SITE_URL}/concerts/${concert.id}` }
-            ]
-          })
+  return /* @__PURE__ */ jsxs(Fragment, { children: [
+    /* @__PURE__ */ jsxs("main", { id: "main", className: "bg-cr-bg text-cr-text min-h-dvh", children: [
+      concert && /* @__PURE__ */ jsx(JsonLdEvent, { concert, carpoolingPriceFrom: priceFrom }),
+      concert && /* @__PURE__ */ jsx(
+        "script",
+        {
+          type: "application/ld+json",
+          dangerouslySetInnerHTML: {
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "BreadcrumbList",
+              itemListElement: [
+                { "@type": "ListItem", position: 1, name: "Inicio", item: `${SITE_URL}/` },
+                { "@type": "ListItem", position: 2, name: "Conciertos", item: `${SITE_URL}/concerts` },
+                { "@type": "ListItem", position: 3, name: concert.artist, item: `${SITE_URL}/concerts/${concert.id}` }
+              ]
+            })
+          }
         }
-      }
-    ),
-    jsonLdWebPage && /* @__PURE__ */ jsx("script", { type: "application/ld+json", dangerouslySetInnerHTML: { __html: JSON.stringify(jsonLdWebPage) } }),
-    concert && /* @__PURE__ */ jsx(
-      "script",
-      {
-        type: "application/ld+json",
-        dangerouslySetInnerHTML: {
-          __html: JSON.stringify({
-            "@context": "https://schema.org",
-            "@type": "FAQPage",
-            inLanguage: "es-ES",
-            mainEntity: [
-              {
-                "@type": "Question",
-                name: `¿Cómo llegar a ${concert.venue.name} en ${concert.venue.city}?`,
-                acceptedAnswer: {
-                  "@type": "Answer",
-                  text: `${concert.venue.name} está en ${concert.venue.city}${concert.venue.address ? ` (${concert.venue.address})` : ""}. Las opciones de transporte incluyen transporte público (metro, bus), taxi/VTC y carpooling con ConcertRide desde toda España. El carpooling es la opción más flexible para quienes vienen de otra ciudad.`
-                }
-              },
-              {
-                "@type": "Question",
-                name: `¿Cómo reservo un viaje compartido a ${concert.artist} en ${concert.venue.city}?`,
-                acceptedAnswer: {
-                  "@type": "Answer",
-                  text: "Busca viajes disponibles en esta página, elige el que mejor te encaje por precio y ciudad de origen, y contacta al conductor. El pago se hace en efectivo o Bizum el día del viaje."
-                }
-              },
-              {
-                "@type": "Question",
-                name: `¿Cuánto cuesta el carpooling a ${concert.artist}?`,
-                acceptedAnswer: {
-                  "@type": "Answer",
-                  text: `Los conductores en ConcertRide fijan un precio para cubrir combustible y peajes: típicamente 3–8 € desde ciudades cercanas y 10–20 € desde ciudades a más de 200 km. ConcertRide no cobra comisión — el 100 % va al conductor. Pago en efectivo o Bizum el día del viaje.`
-                }
-              },
-              {
-                "@type": "Question",
-                name: "¿Son seguros los conductores en ConcertRide?",
-                acceptedAnswer: {
-                  "@type": "Answer",
-                  text: "Sí. Todos los conductores verifican su carnet de conducir antes de publicar viajes. Puedes ver valoraciones y reseñas de viajes anteriores en el perfil de cada conductor."
-                }
-              },
-              {
-                "@type": "Question",
-                name: "¿Puedo volver con el mismo conductor después del concierto?",
-                acceptedAnswer: {
-                  "@type": "Answer",
-                  text: "Sí, si el conductor publica también el viaje de vuelta. Puedes consultarlo en el chat directo con el conductor al reservar el viaje de ida."
-                }
-              },
-              {
-                "@type": "Question",
-                name: `¿Hay parking en ${concert.venue.name}?`,
-                acceptedAnswer: {
-                  "@type": "Answer",
-                  text: `La disponibilidad de parking varía según el recinto. Consulta la web oficial de ${concert.venue.name} o de la promotora. El carpooling con ConcertRide evita el coste y el estrés del parking: el conductor se encarga del vehículo y el coste se divide entre todos los pasajeros.`
-                }
-              },
-              {
-                "@type": "Question",
-                name: `¿Cuál es la opción más barata para ir a ${concert.artist} en ${concert.venue.city}?`,
-                acceptedAnswer: {
-                  "@type": "Answer",
-                  text: `El carpooling con ConcertRide suele ser la opción más económica para trayectos de más de 50 km: entre 3 y 20 € por asiento sin comisión. El transporte público (metro/bus) es más barato para distancias cortas dentro de la ciudad. El taxi/VTC puede costar 3–5 veces más, especialmente de madrugada.`
-                }
-              }
-            ]
-          })
-        }
-      }
-    ),
-    /* @__PURE__ */ jsxs(
-      "section",
-      {
-        className: "relative overflow-hidden border-b border-cr-border min-h-[280px] md:min-h-[360px]",
-        style: {
-          background: concert && !concert.image_url ? void 0 : (concert == null ? void 0 : concert.image_url) ? "#080808" : `radial-gradient(circle at 30% 20%, hsl(${hue} 60% 10%), #080808 70%)`
-        },
-        children: [
-          concert && !concert.image_url && /* @__PURE__ */ jsx("div", { "aria-hidden": "true", className: "absolute inset-0 opacity-70", children: /* @__PURE__ */ jsx(ConcertPoster, { concert }) }),
-          (concert == null ? void 0 : concert.image_url) && /* @__PURE__ */ jsx(
-            "img",
-            {
-              src: cfImage(concert.image_url, { width: 1200, height: 630, quality: 75 }),
-              srcSet: `${cfImage(concert.image_url, { width: 800, height: 420, quality: 75 })} 800w, ${cfImage(concert.image_url, { width: 1200, height: 630, quality: 75 })} 1200w`,
-              sizes: "100vw",
-              alt: `${concert.artist} en ${((_e = concert.venue) == null ? void 0 : _e.name) ?? ((_f = concert.venue) == null ? void 0 : _f.city) ?? ""}${concert.ticketmaster_url ? " — imagen © Ticketmaster" : ""}`,
-              title: concert.ticketmaster_url ? "Imagen del evento © Ticketmaster®" : void 0,
-              fetchPriority: "high",
-              loading: "eager",
-              width: 1200,
-              height: 630,
-              className: "absolute inset-0 w-full h-full object-cover opacity-30"
-            }
-          ),
-          /* @__PURE__ */ jsx("div", { className: "absolute inset-0 pointer-events-none bg-gradient-to-t from-cr-bg via-cr-bg/70 to-cr-bg/30" }),
-          /* @__PURE__ */ jsxs("div", { className: "relative max-w-6xl mx-auto px-6 py-12 md:py-20 space-y-5", children: [
-            /* @__PURE__ */ jsxs("div", { className: "flex items-center justify-between gap-4", children: [
-              /* @__PURE__ */ jsxs(
-                "button",
+      ),
+      jsonLdWebPage && /* @__PURE__ */ jsx("script", { type: "application/ld+json", dangerouslySetInnerHTML: { __html: JSON.stringify(jsonLdWebPage) } }),
+      concert && /* @__PURE__ */ jsx(
+        "script",
+        {
+          type: "application/ld+json",
+          dangerouslySetInnerHTML: {
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "FAQPage",
+              inLanguage: "es-ES",
+              mainEntity: [
                 {
-                  type: "button",
-                  onClick: () => navigate(-1),
-                  className: "inline-flex items-center gap-2 font-sans text-xs font-semibold uppercase tracking-[0.12em] text-cr-text-muted hover:text-cr-primary transition-colors",
-                  children: [
-                    /* @__PURE__ */ jsx(ArrowLeft, { size: 14 }),
-                    " Volver"
-                  ]
+                  "@type": "Question",
+                  name: `¿Cómo llegar a ${concert.venue.name} en ${concert.venue.city}?`,
+                  acceptedAnswer: {
+                    "@type": "Answer",
+                    text: `${concert.venue.name} está en ${concert.venue.city}${concert.venue.address ? ` (${concert.venue.address})` : ""}. Las opciones de transporte incluyen transporte público (metro, bus), taxi/VTC y carpooling con ConcertRide desde toda España. El carpooling es la opción más flexible para quienes vienen de otra ciudad.`
+                  }
+                },
+                {
+                  "@type": "Question",
+                  name: `¿Cómo reservo un viaje compartido a ${concert.artist} en ${concert.venue.city}?`,
+                  acceptedAnswer: {
+                    "@type": "Answer",
+                    text: "Busca viajes disponibles en esta página, elige el que mejor te encaje por precio y ciudad de origen, y contacta al conductor. El pago se hace en efectivo o Bizum el día del viaje."
+                  }
+                },
+                {
+                  "@type": "Question",
+                  name: `¿Cuánto cuesta el carpooling a ${concert.artist}?`,
+                  acceptedAnswer: {
+                    "@type": "Answer",
+                    text: `Los conductores en ConcertRide fijan un precio para cubrir combustible y peajes: típicamente 3–8 € desde ciudades cercanas y 10–20 € desde ciudades a más de 200 km. ConcertRide no cobra comisión — el 100 % va al conductor. Pago en efectivo o Bizum el día del viaje.`
+                  }
+                },
+                {
+                  "@type": "Question",
+                  name: "¿Son seguros los conductores en ConcertRide?",
+                  acceptedAnswer: {
+                    "@type": "Answer",
+                    text: "Sí. Todos los conductores verifican su carnet de conducir antes de publicar viajes. Puedes ver valoraciones y reseñas de viajes anteriores en el perfil de cada conductor."
+                  }
+                },
+                {
+                  "@type": "Question",
+                  name: "¿Puedo volver con el mismo conductor después del concierto?",
+                  acceptedAnswer: {
+                    "@type": "Answer",
+                    text: "Sí, si el conductor publica también el viaje de vuelta. Puedes consultarlo en el chat directo con el conductor al reservar el viaje de ida."
+                  }
+                },
+                {
+                  "@type": "Question",
+                  name: `¿Hay parking en ${concert.venue.name}?`,
+                  acceptedAnswer: {
+                    "@type": "Answer",
+                    text: `La disponibilidad de parking varía según el recinto. Consulta la web oficial de ${concert.venue.name} o de la promotora. El carpooling con ConcertRide evita el coste y el estrés del parking: el conductor se encarga del vehículo y el coste se divide entre todos los pasajeros.`
+                  }
+                },
+                {
+                  "@type": "Question",
+                  name: `¿Cuál es la opción más barata para ir a ${concert.artist} en ${concert.venue.city}?`,
+                  acceptedAnswer: {
+                    "@type": "Answer",
+                    text: `El carpooling con ConcertRide suele ser la opción más económica para trayectos de más de 50 km: entre 3 y 20 € por asiento sin comisión. El transporte público (metro/bus) es más barato para distancias cortas dentro de la ciudad. El taxi/VTC puede costar 3–5 veces más, especialmente de madrugada.`
+                  }
                 }
-              ),
-              concert && /* @__PURE__ */ jsxs("div", { className: "flex items-center gap-3", children: [
+              ]
+            })
+          }
+        }
+      ),
+      /* @__PURE__ */ jsxs(
+        "section",
+        {
+          className: "relative overflow-hidden border-b border-cr-border min-h-[280px] md:min-h-[360px]",
+          style: {
+            background: concert && !concert.image_url ? void 0 : (concert == null ? void 0 : concert.image_url) ? "#080808" : `radial-gradient(circle at 30% 20%, hsl(${hue} 60% 10%), #080808 70%)`
+          },
+          children: [
+            concert && !concert.image_url && /* @__PURE__ */ jsx("div", { "aria-hidden": "true", className: "absolute inset-0 opacity-70", children: /* @__PURE__ */ jsx(ConcertPoster, { concert }) }),
+            (concert == null ? void 0 : concert.image_url) && /* @__PURE__ */ jsx(
+              "img",
+              {
+                src: cfImage(concert.image_url, { width: 1200, height: 630, quality: 75 }),
+                srcSet: `${cfImage(concert.image_url, { width: 800, height: 420, quality: 75 })} 800w, ${cfImage(concert.image_url, { width: 1200, height: 630, quality: 75 })} 1200w`,
+                sizes: "100vw",
+                alt: `${concert.artist} en ${((_e = concert.venue) == null ? void 0 : _e.name) ?? ((_f = concert.venue) == null ? void 0 : _f.city) ?? ""}${concert.ticketmaster_url ? " — imagen © Ticketmaster" : ""}`,
+                title: concert.ticketmaster_url ? "Imagen del evento © Ticketmaster®" : void 0,
+                fetchPriority: "high",
+                loading: "eager",
+                width: 1200,
+                height: 630,
+                className: "absolute inset-0 w-full h-full object-cover opacity-30"
+              }
+            ),
+            /* @__PURE__ */ jsx("div", { className: "absolute inset-0 pointer-events-none bg-gradient-to-t from-cr-bg via-cr-bg/70 to-cr-bg/30" }),
+            /* @__PURE__ */ jsxs("div", { className: "relative max-w-6xl mx-auto px-6 py-12 md:py-20 space-y-5", children: [
+              /* @__PURE__ */ jsxs("div", { className: "flex items-center justify-between gap-4", children: [
                 /* @__PURE__ */ jsxs(
                   "button",
                   {
                     type: "button",
-                    onClick: () => {
-                      const campaign = concert.artist.toLowerCase().replace(/\s+/g, "-").slice(0, 30);
-                      const url = concertShareUrl(concert.id, campaign, "whatsapp");
-                      const text = `🎶 ${concert.artist} en ${concert.venue.city}. ¿Nos organizamos un viaje? ${url}`;
-                      window.open(
-                        `https://wa.me/?text=${encodeURIComponent(text)}`,
-                        "_blank",
-                        "noopener,noreferrer"
-                      );
-                    },
-                    title: "Compartir por WhatsApp",
-                    className: "inline-flex items-center gap-1.5 font-sans text-xs font-semibold uppercase tracking-[0.12em] text-cr-text-muted hover:text-cr-primary transition-colors",
+                    onClick: () => navigate(-1),
+                    className: "inline-flex items-center gap-2 font-sans text-xs font-semibold uppercase tracking-[0.12em] text-cr-text-muted hover:text-cr-primary transition-colors",
                     children: [
-                      /* @__PURE__ */ jsx("span", { "aria-hidden": "true", children: "💬" }),
-                      " WhatsApp"
+                      /* @__PURE__ */ jsx(ArrowLeft, { size: 14 }),
+                      " Volver"
                     ]
                   }
                 ),
-                /* @__PURE__ */ jsxs(
-                  "button",
-                  {
-                    type: "button",
-                    onClick: () => {
-                      const campaign = concert.artist.toLowerCase().replace(/\s+/g, "-").slice(0, 30);
-                      const url = concertShareUrl(concert.id, campaign, "copy");
-                      navigator.clipboard.writeText(url).then(() => {
-                        setCopied(true);
-                        setTimeout(() => setCopied(false), 2e3);
-                      });
-                    },
-                    className: "inline-flex items-center gap-2 font-sans text-xs font-semibold uppercase tracking-[0.12em] text-cr-text-muted hover:text-cr-primary transition-colors",
-                    children: [
-                      /* @__PURE__ */ jsx(Link2, { size: 14, "aria-hidden": "true" }),
-                      copied ? "¡Copiado!" : "Copiar enlace"
-                    ]
-                  }
-                )
-              ] })
-            ] }),
-            concert ? /* @__PURE__ */ jsxs(
-              motion.div,
-              {
-                initial: { opacity: 0, y: 20 },
-                animate: { opacity: 1, y: 0 },
-                transition: { duration: 0.4 },
-                className: "space-y-4",
-                children: [
-                  /* @__PURE__ */ jsxs("p", { className: "font-sans text-[11px] font-semibold uppercase tracking-[0.16em] text-cr-primary", children: [
-                    "Concierto · ",
-                    concert.genre ?? "Música en vivo"
-                  ] }),
-                  /* @__PURE__ */ jsxs("h1", { className: "font-display uppercase text-4xl md:text-7xl leading-[0.95]", children: [
-                    concert.artist,
-                    " — ",
-                    ((_g = concert.venue) == null ? void 0 : _g.city) ?? ((_h = concert.venue) == null ? void 0 : _h.name),
-                    " ",
-                    new Date(concert.date).getFullYear()
-                  ] }),
-                  /* @__PURE__ */ jsxs("div", { className: "flex flex-wrap gap-x-6 gap-y-2 font-mono text-xs text-cr-text-muted", children: [
-                    /* @__PURE__ */ jsxs("span", { className: "inline-flex items-center gap-1.5", children: [
-                      /* @__PURE__ */ jsx(MapPin, { size: 12, "aria-hidden": "true" }),
-                      concert.venue.name,
-                      " · ",
-                      concert.venue.city
-                    ] }),
-                    /* @__PURE__ */ jsxs("span", { className: "inline-flex items-center gap-1.5", children: [
-                      /* @__PURE__ */ jsx(Calendar, { size: 12, "aria-hidden": "true" }),
-                      formatDate(concert.date),
-                      " · ",
-                      formatTime$1(concert.date)
-                    ] }),
-                    concert.price_min !== null && /* @__PURE__ */ jsxs("span", { className: "inline-flex items-center gap-1.5", children: [
-                      /* @__PURE__ */ jsx(Music2, { size: 12, "aria-hidden": "true" }),
-                      "Entradas desde €",
-                      concert.price_min
-                    ] })
-                  ] }),
-                  /* @__PURE__ */ jsxs("div", { className: "flex flex-wrap gap-2 pt-1", children: [
-                    /* @__PURE__ */ jsx(
-                      FavoriteButton,
-                      {
-                        kind: "concert",
-                        targetId: concert.id,
-                        label: `${concert.artist} — ${concert.venue.city}`,
-                        variant: "pill",
-                        promptLoginOnAnon: true
-                      }
-                    ),
-                    /* @__PURE__ */ jsx(
-                      FavoriteButton,
-                      {
-                        kind: "artist",
-                        targetId: concert.artist,
-                        label: concert.artist,
-                        variant: "pill",
-                        promptLoginOnAnon: true,
-                        className: "!text-[11px]"
-                      }
-                    ),
-                    /* @__PURE__ */ jsx(
-                      FavoriteButton,
-                      {
-                        kind: "city",
-                        targetId: concert.venue.city,
-                        label: concert.venue.city,
-                        variant: "pill",
-                        promptLoginOnAnon: true
-                      }
-                    )
-                  ] }),
-                  concert.lineup && /* @__PURE__ */ jsxs("div", { className: "pt-2", children: [
-                    /* @__PURE__ */ jsx("p", { className: "font-sans text-[10px] font-semibold uppercase tracking-[0.16em] text-cr-text-muted mb-1", children: "Cartel" }),
-                    /* @__PURE__ */ jsx("p", { className: "font-mono text-sm text-cr-text leading-relaxed speakable", children: concert.lineup })
-                  ] }),
-                  (concert.official_url || concert.ticketmaster_url) && /* @__PURE__ */ jsxs("div", { className: "pt-1 flex flex-wrap gap-2", children: [
-                    concert.official_url && /* @__PURE__ */ jsx(
-                      "a",
-                      {
-                        href: concert.official_url,
-                        target: "_blank",
-                        rel: "noopener noreferrer",
-                        className: "inline-flex items-center gap-2 font-sans text-xs font-semibold uppercase tracking-[0.1em] border-2 border-cr-primary text-cr-primary hover:bg-cr-primary/10 px-3 py-1.5 transition-colors",
-                        children: "Web oficial / entradas →"
-                      }
-                    ),
-                    concert.ticketmaster_url && /* @__PURE__ */ jsxs(
-                      "a",
-                      {
-                        href: concert.ticketmaster_url,
-                        target: "_blank",
-                        rel: "noopener noreferrer",
-                        title: "Comprar entradas en Ticketmaster® (abre en nueva pestaña)",
-                        className: "inline-flex items-center gap-2 font-sans text-xs font-semibold uppercase tracking-[0.1em] border border-cr-border text-cr-text-muted hover:border-cr-primary hover:text-cr-primary px-3 py-1.5 transition-colors",
-                        children: [
-                          /* @__PURE__ */ jsx("span", { "aria-hidden": "true", className: "text-[10px] font-mono text-cr-text-dim", children: "TM" }),
-                          "Entradas en Ticketmaster® →"
-                        ]
-                      }
-                    )
-                  ] })
-                ]
-              }
-            ) : /* @__PURE__ */ jsx("div", { className: "h-24 w-3/4 bg-cr-surface-2 cr-shimmer" })
-          ] })
-        ]
-      }
-    ),
-    concert && /* @__PURE__ */ jsx(
-      AnticipationStrip,
-      {
-        concertId: concert.id,
-        date: concert.date,
-        artist: concert.artist
-      }
-    ),
-    concert && /* @__PURE__ */ jsx(CrewAttendingForConcert, { concertId: concert.id }),
-    concert && !isPast && /* @__PURE__ */ jsx(SquadsForConcert, { concertId: concert.id, artist: concert.artist }),
-    /* @__PURE__ */ jsx(FilterBar, { value: filters, onChange: setFilters, cities }),
-    /* @__PURE__ */ jsxs("section", { className: "max-w-6xl mx-auto px-6 py-10 space-y-6", children: [
-      demand !== null && !isPast && /* @__PURE__ */ jsxs("div", { className: "flex items-center justify-between gap-4 border border-dashed border-cr-border p-4", children: [
-        /* @__PURE__ */ jsxs("div", { className: "flex items-center gap-3", children: [
-          /* @__PURE__ */ jsx(Users, { size: 16, className: "text-cr-primary", "aria-hidden": "true" }),
-          /* @__PURE__ */ jsx("p", { className: "font-mono text-sm text-cr-text", children: demand.count > 0 ? /* @__PURE__ */ jsxs(Fragment, { children: [
-            /* @__PURE__ */ jsx("span", { className: "text-cr-primary font-semibold", children: demand.count }),
-            " ",
-            "persona",
-            demand.count === 1 ? "" : "s",
-            " busca",
-            demand.count === 1 ? "" : "n",
-            " viaje"
-          ] }) : /* @__PURE__ */ jsx("span", { className: "text-cr-text-muted", children: "Nadie busca viaje todavía" }) })
-        ] }),
-        user ? /* @__PURE__ */ jsx(
-          "button",
-          {
-            type: "button",
-            disabled: demandLoading,
-            onClick: async () => {
-              setDemandLoading(true);
-              try {
-                const updated = await api.concerts.toggleInterest(id2);
-                setDemand(updated);
-              } finally {
-                setDemandLoading(false);
-              }
-            },
-            className: `font-sans text-xs font-semibold uppercase tracking-[0.1em] px-4 py-2 border-2 transition-colors disabled:opacity-40 ${demand.user_has_signaled ? "border-cr-primary bg-cr-primary text-black" : "border-cr-border text-cr-text-muted hover:border-cr-primary hover:text-cr-primary"}`,
-            children: demandLoading ? "…" : demand.user_has_signaled ? "Apuntado" : "Necesito un viaje"
-          }
-        ) : /* @__PURE__ */ jsx(
-          Link,
-          {
-            to: `/login?next=${encodeURIComponent(`/concerts/${id2}`)}`,
-            className: "font-sans text-xs font-semibold uppercase tracking-[0.1em] px-4 py-2 border-2 border-cr-border text-cr-text-muted hover:border-cr-primary hover:text-cr-primary transition-colors",
-            children: "Necesito un viaje"
-          }
-        )
-      ] }),
-      /* @__PURE__ */ jsxs("header", { className: "flex items-baseline justify-between gap-4", children: [
-        /* @__PURE__ */ jsx("h2", { className: "font-display text-xl uppercase tracking-wide", children: isPast ? "Viajes realizados" : "Viajes disponibles" }),
-        /* @__PURE__ */ jsx("p", { className: "font-mono text-xs text-cr-text-muted", children: rides ? `${visible.length} / ${rides.length}` : "…" })
-      ] }),
-      !rides && /* @__PURE__ */ jsxs("div", { className: "grid grid-cols-1 xl:grid-cols-2 gap-4", children: [
-        /* @__PURE__ */ jsx(TicketCardSkeleton, {}),
-        /* @__PURE__ */ jsx(TicketCardSkeleton, {}),
-        /* @__PURE__ */ jsx(TicketCardSkeleton, {})
-      ] }),
-      rides && visible.length === 0 && /* @__PURE__ */ jsxs("div", { className: "border border-dashed border-cr-border p-10 text-center space-y-4", children: [
-        /* @__PURE__ */ jsx("p", { className: "font-display text-xl uppercase", children: rides.length === 0 ? isPast ? "No se publicaron viajes para este concierto." : "Nadie ha publicado viajes todavía." : "Ningún viaje cumple los filtros." }),
-        /* @__PURE__ */ jsx("p", { className: "font-sans text-sm text-cr-text-muted", children: rides.length === 0 ? isPast ? "Este concierto ya tuvo lugar." : "Sé el primero en abrir tu coche. Divide el coste y llena el viaje." : "Prueba a relajar el precio máximo o la ciudad de origen." }),
-        rides.length === 0 && !isPast && /* @__PURE__ */ jsx(
-          Link,
-          {
-            to: `/publish?concert=${concert.id}`,
-            className: "inline-block font-sans text-xs font-semibold uppercase tracking-[0.12em] bg-cr-primary text-black border-2 border-black px-6 py-3 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] hover:translate-x-[2px] hover:translate-y-[2px] transition-all duration-100",
-            children: "Publicar un viaje"
-          }
-        )
-      ] }),
-      rides && visible.length > 0 && /* @__PURE__ */ jsxs(Fragment, { children: [
-        /* @__PURE__ */ jsx(
-          motion.ol,
-          {
-            initial: "hidden",
-            animate: "show",
-            variants: {
-              hidden: {},
-              show: { transition: { staggerChildren: 0.06, delayChildren: 0.05 } }
-            },
-            className: "grid grid-cols-1 xl:grid-cols-2 gap-4",
-            children: visible.map((ride) => {
-              const isCrewDriver = crewIds.has(ride.driver_id);
-              return /* @__PURE__ */ jsxs(
-                motion.li,
+                concert && /* @__PURE__ */ jsxs("div", { className: "flex items-center gap-3", children: [
+                  /* @__PURE__ */ jsxs(
+                    "button",
+                    {
+                      type: "button",
+                      onClick: () => {
+                        const campaign = concert.artist.toLowerCase().replace(/\s+/g, "-").slice(0, 30);
+                        const url = concertShareUrl(concert.id, campaign, "whatsapp");
+                        const text = `🎶 ${concert.artist} en ${concert.venue.city}. ¿Nos organizamos un viaje? ${url}`;
+                        window.open(
+                          `https://wa.me/?text=${encodeURIComponent(text)}`,
+                          "_blank",
+                          "noopener,noreferrer"
+                        );
+                      },
+                      title: "Compartir por WhatsApp",
+                      className: "inline-flex items-center gap-1.5 font-sans text-xs font-semibold uppercase tracking-[0.12em] text-cr-text-muted hover:text-cr-primary transition-colors",
+                      children: [
+                        /* @__PURE__ */ jsx("span", { "aria-hidden": "true", children: "💬" }),
+                        " WhatsApp"
+                      ]
+                    }
+                  ),
+                  /* @__PURE__ */ jsxs(
+                    "button",
+                    {
+                      type: "button",
+                      onClick: () => {
+                        const campaign = concert.artist.toLowerCase().replace(/\s+/g, "-").slice(0, 30);
+                        const url = concertShareUrl(concert.id, campaign, "copy");
+                        navigator.clipboard.writeText(url).then(() => {
+                          setCopied(true);
+                          setTimeout(() => setCopied(false), 2e3);
+                        });
+                      },
+                      className: "inline-flex items-center gap-2 font-sans text-xs font-semibold uppercase tracking-[0.12em] text-cr-text-muted hover:text-cr-primary transition-colors",
+                      children: [
+                        /* @__PURE__ */ jsx(Link2, { size: 14, "aria-hidden": "true" }),
+                        copied ? "¡Copiado!" : "Copiar enlace"
+                      ]
+                    }
+                  )
+                ] })
+              ] }),
+              concert ? /* @__PURE__ */ jsxs(
+                motion.div,
                 {
-                  variants: {
-                    hidden: { opacity: 0, y: 16 },
-                    show: { opacity: 1, y: 0, transition: { duration: 0.3 } }
-                  },
-                  className: "relative",
+                  initial: { opacity: 0, y: 20 },
+                  animate: { opacity: 1, y: 0 },
+                  transition: { duration: 0.4 },
+                  className: "space-y-4",
                   children: [
-                    isCrewDriver && /* @__PURE__ */ jsx(
-                      "span",
-                      {
-                        className: "absolute -top-2 left-3 z-10 inline-flex items-center gap-1 border-2 border-cr-primary bg-cr-primary px-2 py-0.5 font-mono text-[10px] font-bold uppercase tracking-[0.14em] text-cr-text-inverse shadow-[0_0_18px_rgb(212_247_0/0.45)]",
-                        title: "Conductor de tu crew",
-                        children: "★ tu crew"
-                      }
-                    ),
-                    /* @__PURE__ */ jsx(
-                      TicketCard,
-                      {
-                        ride,
-                        onClick: () => navigate(`/rides/${ride.id}`)
-                      }
-                    )
+                    /* @__PURE__ */ jsxs("p", { className: "font-sans text-[11px] font-semibold uppercase tracking-[0.16em] text-cr-primary", children: [
+                      "Concierto · ",
+                      concert.genre ?? "Música en vivo"
+                    ] }),
+                    /* @__PURE__ */ jsxs("h1", { className: "font-display uppercase text-4xl md:text-7xl leading-[0.95]", children: [
+                      concert.artist,
+                      " — ",
+                      ((_g = concert.venue) == null ? void 0 : _g.city) ?? ((_h = concert.venue) == null ? void 0 : _h.name),
+                      " ",
+                      new Date(concert.date).getFullYear()
+                    ] }),
+                    /* @__PURE__ */ jsxs("div", { className: "flex flex-wrap gap-x-6 gap-y-2 font-mono text-xs text-cr-text-muted", children: [
+                      /* @__PURE__ */ jsxs("span", { className: "inline-flex items-center gap-1.5", children: [
+                        /* @__PURE__ */ jsx(MapPin, { size: 12, "aria-hidden": "true" }),
+                        concert.venue.name,
+                        " · ",
+                        concert.venue.city
+                      ] }),
+                      /* @__PURE__ */ jsxs("span", { className: "inline-flex items-center gap-1.5", children: [
+                        /* @__PURE__ */ jsx(Calendar, { size: 12, "aria-hidden": "true" }),
+                        formatDate(concert.date),
+                        " · ",
+                        formatTime$1(concert.date)
+                      ] }),
+                      concert.price_min !== null && /* @__PURE__ */ jsxs("span", { className: "inline-flex items-center gap-1.5", children: [
+                        /* @__PURE__ */ jsx(Music2, { size: 12, "aria-hidden": "true" }),
+                        "Entradas desde €",
+                        concert.price_min
+                      ] })
+                    ] }),
+                    /* @__PURE__ */ jsxs("div", { className: "flex flex-wrap gap-2 pt-1", children: [
+                      /* @__PURE__ */ jsx(
+                        FavoriteButton,
+                        {
+                          kind: "concert",
+                          targetId: concert.id,
+                          label: `${concert.artist} — ${concert.venue.city}`,
+                          variant: "pill",
+                          promptLoginOnAnon: true
+                        }
+                      ),
+                      /* @__PURE__ */ jsx(
+                        FavoriteButton,
+                        {
+                          kind: "artist",
+                          targetId: concert.artist,
+                          label: concert.artist,
+                          variant: "pill",
+                          promptLoginOnAnon: true,
+                          className: "!text-[11px]"
+                        }
+                      ),
+                      /* @__PURE__ */ jsx(
+                        FavoriteButton,
+                        {
+                          kind: "city",
+                          targetId: concert.venue.city,
+                          label: concert.venue.city,
+                          variant: "pill",
+                          promptLoginOnAnon: true
+                        }
+                      )
+                    ] }),
+                    concert.lineup && /* @__PURE__ */ jsxs("div", { className: "pt-2", children: [
+                      /* @__PURE__ */ jsx("p", { className: "font-sans text-[10px] font-semibold uppercase tracking-[0.16em] text-cr-text-muted mb-1", children: "Cartel" }),
+                      /* @__PURE__ */ jsx("p", { className: "font-mono text-sm text-cr-text leading-relaxed speakable", children: concert.lineup })
+                    ] }),
+                    (concert.official_url || concert.ticketmaster_url) && /* @__PURE__ */ jsxs("div", { className: "pt-1 flex flex-wrap gap-2", children: [
+                      concert.official_url && /* @__PURE__ */ jsx(
+                        "a",
+                        {
+                          href: concert.official_url,
+                          target: "_blank",
+                          rel: "noopener noreferrer",
+                          className: "inline-flex items-center gap-2 font-sans text-xs font-semibold uppercase tracking-[0.1em] border-2 border-cr-primary text-cr-primary hover:bg-cr-primary/10 px-3 py-1.5 transition-colors",
+                          children: "Web oficial / entradas →"
+                        }
+                      ),
+                      concert.ticketmaster_url && /* @__PURE__ */ jsxs(
+                        "a",
+                        {
+                          href: concert.ticketmaster_url,
+                          target: "_blank",
+                          rel: "noopener noreferrer",
+                          title: "Comprar entradas en Ticketmaster® (abre en nueva pestaña)",
+                          className: "inline-flex items-center gap-2 font-sans text-xs font-semibold uppercase tracking-[0.1em] border border-cr-border text-cr-text-muted hover:border-cr-primary hover:text-cr-primary px-3 py-1.5 transition-colors",
+                          children: [
+                            /* @__PURE__ */ jsx("span", { "aria-hidden": "true", className: "text-[10px] font-mono text-cr-text-dim", children: "TM" }),
+                            "Entradas en Ticketmaster® →"
+                          ]
+                        }
+                      )
+                    ] })
+                  ]
+                }
+              ) : /* @__PURE__ */ jsx("div", { className: "h-24 w-3/4 bg-cr-surface-2 cr-shimmer" })
+            ] })
+          ]
+        }
+      ),
+      concert && /* @__PURE__ */ jsx(
+        AnticipationStrip,
+        {
+          concertId: concert.id,
+          date: concert.date,
+          artist: concert.artist
+        }
+      ),
+      concert && /* @__PURE__ */ jsx(CrewAttendingForConcert, { concertId: concert.id }),
+      concert && !isPast && /* @__PURE__ */ jsx(SquadsForConcert, { concertId: concert.id, artist: concert.artist }),
+      /* @__PURE__ */ jsx(FilterBar, { value: filters, onChange: setFilters, cities }),
+      /* @__PURE__ */ jsxs("section", { className: "max-w-6xl mx-auto px-6 py-10 space-y-6", children: [
+        demand !== null && !isPast && /* @__PURE__ */ jsxs("div", { className: "flex items-center justify-between gap-4 border border-dashed border-cr-border p-4", children: [
+          /* @__PURE__ */ jsxs("div", { className: "flex items-center gap-3", children: [
+            /* @__PURE__ */ jsx(Users, { size: 16, className: "text-cr-primary", "aria-hidden": "true" }),
+            /* @__PURE__ */ jsx("p", { className: "font-mono text-sm text-cr-text", children: demand.count > 0 ? /* @__PURE__ */ jsxs(Fragment, { children: [
+              /* @__PURE__ */ jsx("span", { className: "text-cr-primary font-semibold", children: demand.count }),
+              " ",
+              "persona",
+              demand.count === 1 ? "" : "s",
+              " busca",
+              demand.count === 1 ? "" : "n",
+              " viaje"
+            ] }) : /* @__PURE__ */ jsx("span", { className: "text-cr-text-muted", children: "Nadie busca viaje todavía" }) })
+          ] }),
+          user ? /* @__PURE__ */ jsx(
+            "button",
+            {
+              type: "button",
+              disabled: demandLoading,
+              onClick: async () => {
+                setDemandLoading(true);
+                try {
+                  const updated = await api.concerts.toggleInterest(id2);
+                  setDemand(updated);
+                } finally {
+                  setDemandLoading(false);
+                }
+              },
+              className: `font-sans text-xs font-semibold uppercase tracking-[0.1em] px-4 py-2 border-2 transition-colors disabled:opacity-40 ${demand.user_has_signaled ? "border-cr-primary bg-cr-primary text-black" : "border-cr-border text-cr-text-muted hover:border-cr-primary hover:text-cr-primary"}`,
+              children: demandLoading ? "…" : demand.user_has_signaled ? "Apuntado" : "Necesito un viaje"
+            }
+          ) : /* @__PURE__ */ jsx(
+            Link,
+            {
+              to: `/login?next=${encodeURIComponent(`/concerts/${id2}`)}`,
+              className: "font-sans text-xs font-semibold uppercase tracking-[0.1em] px-4 py-2 border-2 border-cr-border text-cr-text-muted hover:border-cr-primary hover:text-cr-primary transition-colors",
+              children: "Necesito un viaje"
+            }
+          )
+        ] }),
+        /* @__PURE__ */ jsxs("header", { className: "flex items-baseline justify-between gap-4", children: [
+          /* @__PURE__ */ jsx("h2", { className: "font-display text-xl uppercase tracking-wide", children: isPast ? "Viajes realizados" : "Viajes disponibles" }),
+          /* @__PURE__ */ jsx("p", { className: "font-mono text-xs text-cr-text-muted", children: rides ? `${visible.length} / ${rides.length}` : "…" })
+        ] }),
+        !rides && /* @__PURE__ */ jsxs("div", { className: "grid grid-cols-1 xl:grid-cols-2 gap-4", children: [
+          /* @__PURE__ */ jsx(TicketCardSkeleton, {}),
+          /* @__PURE__ */ jsx(TicketCardSkeleton, {}),
+          /* @__PURE__ */ jsx(TicketCardSkeleton, {})
+        ] }),
+        rides && visible.length === 0 && /* @__PURE__ */ jsxs("div", { className: "border border-dashed border-cr-border p-10 text-center space-y-4", children: [
+          /* @__PURE__ */ jsx("p", { className: "font-display text-xl uppercase", children: rides.length === 0 ? isPast ? "No se publicaron viajes para este concierto." : "Nadie ha publicado viajes todavía." : "Ningún viaje cumple los filtros." }),
+          /* @__PURE__ */ jsx("p", { className: "font-sans text-sm text-cr-text-muted", children: rides.length === 0 ? isPast ? "Este concierto ya tuvo lugar." : "Sé el primero en abrir tu coche. Divide el coste y llena el viaje." : "Prueba a relajar el precio máximo o la ciudad de origen." }),
+          rides.length === 0 && !isPast && /* @__PURE__ */ jsx(
+            Link,
+            {
+              to: `/publish?concert=${concert.id}`,
+              className: "inline-block font-sans text-xs font-semibold uppercase tracking-[0.12em] bg-cr-primary text-black border-2 border-black px-6 py-3 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] hover:translate-x-[2px] hover:translate-y-[2px] transition-all duration-100",
+              children: "Publicar un viaje"
+            }
+          )
+        ] }),
+        !user && rides && visible.length > 0 && !isPast && /* @__PURE__ */ jsxs(
+          "div",
+          {
+            className: "bg-[#dbff00] text-black p-4 md:p-5 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3",
+            role: "region",
+            "aria-label": "Reserva tu plaza en carpooling",
+            children: [
+              /* @__PURE__ */ jsx("p", { className: "font-sans text-sm font-semibold leading-snug", children: "Reserva tu plaza en carpooling · Gratis · 0% comisión" }),
+              /* @__PURE__ */ jsxs(
+                Link,
+                {
+                  to: `/register?next=${encodeURIComponent(`/concerts/${id2}`)}`,
+                  className: "flex-shrink-0 inline-flex items-center gap-1.5 bg-black text-[#dbff00] font-sans font-semibold uppercase tracking-[0.12em] text-xs px-5 py-2.5 hover:bg-[#111] transition-colors whitespace-nowrap",
+                  children: [
+                    "Crear cuenta gratis ",
+                    /* @__PURE__ */ jsx(ArrowRight, { size: 12, "aria-hidden": "true" })
+                  ]
+                }
+              )
+            ]
+          }
+        ),
+        rides && visible.length > 0 && /* @__PURE__ */ jsxs(Fragment, { children: [
+          /* @__PURE__ */ jsx(
+            motion.ol,
+            {
+              initial: "hidden",
+              animate: "show",
+              variants: {
+                hidden: {},
+                show: { transition: { staggerChildren: 0.06, delayChildren: 0.05 } }
+              },
+              className: "grid grid-cols-1 xl:grid-cols-2 gap-4",
+              children: visible.map((ride) => {
+                const isCrewDriver = crewIds.has(ride.driver_id);
+                return /* @__PURE__ */ jsxs(
+                  motion.li,
+                  {
+                    variants: {
+                      hidden: { opacity: 0, y: 16 },
+                      show: { opacity: 1, y: 0, transition: { duration: 0.3 } }
+                    },
+                    className: "relative",
+                    children: [
+                      isCrewDriver && /* @__PURE__ */ jsx(
+                        "span",
+                        {
+                          className: "absolute -top-2 left-3 z-10 inline-flex items-center gap-1 border-2 border-cr-primary bg-cr-primary px-2 py-0.5 font-mono text-[10px] font-bold uppercase tracking-[0.14em] text-cr-text-inverse shadow-[0_0_18px_rgb(212_247_0/0.45)]",
+                          title: "Conductor de tu crew",
+                          children: "★ tu crew"
+                        }
+                      ),
+                      /* @__PURE__ */ jsx(
+                        TicketCard,
+                        {
+                          ride,
+                          onClick: () => navigate(`/rides/${ride.id}`)
+                        }
+                      )
+                    ]
+                  },
+                  ride.id
+                );
+              })
+            }
+          ),
+          isPast && /* @__PURE__ */ jsxs("div", { className: "border border-cr-primary/30 bg-cr-primary/[0.04] p-6 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4", children: [
+            /* @__PURE__ */ jsxs("div", { className: "space-y-1", children: [
+              /* @__PURE__ */ jsxs("p", { className: "font-sans text-[11px] font-semibold uppercase tracking-[0.16em] text-cr-primary inline-flex items-center gap-1.5", children: [
+                /* @__PURE__ */ jsx(Star, { size: 12, "aria-hidden": "true" }),
+                "¿Fuiste a este concierto?"
+              ] }),
+              /* @__PURE__ */ jsx("p", { className: "font-sans text-sm text-cr-text-muted", children: "Entra en tu viaje y valora al conductor." })
+            ] }),
+            /* @__PURE__ */ jsxs("div", { className: "flex flex-wrap gap-2", children: [
+              visible.slice(0, 3).map((ride) => /* @__PURE__ */ jsxs(
+                Link,
+                {
+                  to: `/rides/${ride.id}`,
+                  className: "inline-flex items-center gap-1.5 font-sans text-xs font-semibold uppercase tracking-[0.1em] border border-cr-primary text-cr-primary px-3 py-2 hover:bg-cr-primary hover:text-black transition-colors",
+                  children: [
+                    "Desde ",
+                    ride.origin_city
                   ]
                 },
                 ride.id
-              );
-            })
-          }
-        ),
-        isPast && /* @__PURE__ */ jsxs("div", { className: "border border-cr-primary/30 bg-cr-primary/[0.04] p-6 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4", children: [
-          /* @__PURE__ */ jsxs("div", { className: "space-y-1", children: [
-            /* @__PURE__ */ jsxs("p", { className: "font-sans text-[11px] font-semibold uppercase tracking-[0.16em] text-cr-primary inline-flex items-center gap-1.5", children: [
-              /* @__PURE__ */ jsx(Star, { size: 12, "aria-hidden": "true" }),
-              "¿Fuiste a este concierto?"
-            ] }),
-            /* @__PURE__ */ jsx("p", { className: "font-sans text-sm text-cr-text-muted", children: "Entra en tu viaje y valora al conductor." })
-          ] }),
-          /* @__PURE__ */ jsxs("div", { className: "flex flex-wrap gap-2", children: [
-            visible.slice(0, 3).map((ride) => /* @__PURE__ */ jsxs(
-              Link,
-              {
-                to: `/rides/${ride.id}`,
-                className: "inline-flex items-center gap-1.5 font-sans text-xs font-semibold uppercase tracking-[0.1em] border border-cr-primary text-cr-primary px-3 py-2 hover:bg-cr-primary hover:text-black transition-colors",
-                children: [
-                  "Desde ",
-                  ride.origin_city
-                ]
-              },
-              ride.id
-            )),
-            visible.length > 3 && /* @__PURE__ */ jsxs("span", { className: "font-mono text-xs text-cr-text-muted self-center", children: [
-              "+",
-              visible.length - 3,
-              " más"
+              )),
+              visible.length > 3 && /* @__PURE__ */ jsxs("span", { className: "font-mono text-xs text-cr-text-muted self-center", children: [
+                "+",
+                visible.length - 3,
+                " más"
+              ] })
             ] })
           ] })
         ] })
-      ] })
+      ] }),
+      concert && !isPast && /* @__PURE__ */ jsx("section", { className: "max-w-6xl mx-auto px-6 pb-16", children: /* @__PURE__ */ jsx(ConcertChatSection, { concertId: concert.id, artist: concert.artist }) }),
+      concert && !isPast && /* @__PURE__ */ jsx("section", { className: "max-w-6xl mx-auto px-6 pb-16", children: /* @__PURE__ */ jsx(LiveActivityFeed, { scope: "concert", concertId: concert.id, limit: 10, emptyMessage: `Sé el primero en organizarte para ${concert.artist}.` }) }),
+      concert && /* @__PURE__ */ jsx(ConcertTransportSection, { concert }),
+      concert && !isPast && /* @__PURE__ */ jsx("section", { className: "max-w-6xl mx-auto px-6 pb-16", children: /* @__PURE__ */ jsx(EmbedSnippet, { concertId: concert.id }) }),
+      !user && concert && !isPast && /* @__PURE__ */ jsx(
+        AnonNudgeBanner,
+        {
+          artistName: concert.artist,
+          city: concert.venue.city,
+          concertId: concert.id,
+          ridesCount: (rides == null ? void 0 : rides.length) ?? 0
+        }
+      )
     ] }),
-    concert && !isPast && /* @__PURE__ */ jsx("section", { className: "max-w-6xl mx-auto px-6 pb-16", children: /* @__PURE__ */ jsx(ConcertChatSection, { concertId: concert.id, artist: concert.artist }) }),
-    concert && !isPast && /* @__PURE__ */ jsx("section", { className: "max-w-6xl mx-auto px-6 pb-16", children: /* @__PURE__ */ jsx(LiveActivityFeed, { scope: "concert", concertId: concert.id, limit: 10, emptyMessage: `Sé el primero en organizarte para ${concert.artist}.` }) }),
-    concert && /* @__PURE__ */ jsx(ConcertTransportSection, { concert }),
-    concert && !isPast && /* @__PURE__ */ jsx("section", { className: "max-w-6xl mx-auto px-6 pb-16", children: /* @__PURE__ */ jsx(EmbedSnippet, { concertId: concert.id }) }),
-    !user && concert && !isPast && /* @__PURE__ */ jsx(
-      AnonNudgeBanner,
-      {
-        artistName: concert.artist,
-        city: concert.venue.city,
-        concertId: concert.id,
-        ridesCount: (rides == null ? void 0 : rides.length) ?? 0
-      }
-    )
+    /* @__PURE__ */ jsx(StickyRegBar, {})
   ] });
 }
 function ConcertTransportSection({ concert }) {
@@ -23251,7 +23537,7 @@ function AnonNudgeBanner({
     }
   ) });
 }
-function JsonLdEvent({ concert }) {
+function JsonLdEvent({ concert, carpoolingPriceFrom }) {
   var _a2, _b, _c, _d;
   const startMs = new Date(concert.date).getTime();
   const endDate = Number.isFinite(startMs) ? new Date(startMs + 3 * 60 * 60 * 1e3).toISOString() : void 0;
@@ -23299,21 +23585,42 @@ function JsonLdEvent({ concert }) {
   };
   if (endDate) jsonLd.endDate = endDate;
   if (concert.image_url) jsonLd.image = [concert.image_url];
+  const offersArray = [];
+  const carpoolingPrice = carpoolingPriceFrom ?? 3;
+  offersArray.push({
+    "@type": "Offer",
+    name: `Carpooling a ${eventName} desde ${venueCity} — ConcertRide`,
+    description: `Viaje compartido en coche: ${carpoolingPrice} €/asiento, 0% comisión, conductores verificados.`,
+    price: carpoolingPrice,
+    priceCurrency: "EUR",
+    availability: "https://schema.org/InStock",
+    url,
+    validFrom: (/* @__PURE__ */ new Date()).toISOString(),
+    seller: {
+      "@type": "Organization",
+      name: "ConcertRide",
+      url: `${SITE_URL}/`
+    }
+  });
   if (concert.price_min !== null) {
-    jsonLd.offers = {
+    offersArray.push({
       "@type": "Offer",
+      name: `Entradas — ${eventName}`,
+      price: concert.price_min,
+      priceCurrency: "EUR",
+      availability: "https://schema.org/InStock",
+      // Ticketmaster link-back is mandatory per ToS when ticketmaster_url is present
+      url: concert.official_url ?? concert.ticketmaster_url ?? url,
+      validFrom: (/* @__PURE__ */ new Date()).toISOString(),
       priceSpecification: {
         "@type": "PriceSpecification",
         price: concert.price_min,
         priceCurrency: "EUR",
-        unitText: "por asiento"
-      },
-      priceCurrency: "EUR",
-      availability: "https://schema.org/InStock",
-      url: concert.official_url ?? concert.ticketmaster_url ?? url,
-      validFrom: (/* @__PURE__ */ new Date()).toISOString()
-    };
+        unitText: "por entrada"
+      }
+    });
   }
+  jsonLd.offers = offersArray.length === 1 ? offersArray[0] : offersArray;
   return /* @__PURE__ */ jsx(
     "script",
     {
@@ -25283,32 +25590,32 @@ const VENUE_SEO_OVERRIDES = {
 };
 const ARTIST_SEO_OVERRIDES = {
   coldplay: {
-    title: `Coldplay España ${YEAR$2}: Carpooling desde 4€, 0% comisión`,
+    title: `Coldplay España ${YEAR$2} [Bernabéu + Estadi Olímpic]: Carpooling desde 4€, 0% comisión | ConcertRide`,
     description: `Coldplay en España ${YEAR$2} — Estadio Bernabéu Madrid y Estadi Olímpic Barcelona. Carpooling desde Valencia (10–14€), Barcelona (15–20€), Zaragoza (9–13€). 0% comisión, conductores verificados. Cómo llegar al concierto de Coldplay sin AVE.`,
     keywords: `carpooling coldplay españa, coldplay concierto madrid carpooling, coldplay barcelona carpooling, como llegar concierto coldplay, coldplay ${YEAR$2} transporte, viaje compartido coldplay españa, cómo ir al concierto de coldplay, coldplay madrid bernabeu como llegar`
   },
   "taylor-swift": {
-    title: `Taylor Swift España ${YEAR$2}: Carpooling desde 4€, 0% comisión`,
+    title: `Taylor Swift España ${YEAR$2} [Eras Tour Bernabéu]: Carpooling desde 4€, 0% comisión | ConcertRide`,
     description: `Taylor Swift en España ${YEAR$2} — Bernabéu Madrid y Estadi Olímpic Barcelona. Carpooling desde Valencia (10–14€), Barcelona (15–20€). Conductores verificados, 0% comisión. La opción más barata y cómoda para las Swifties.`,
     keywords: `carpooling taylor swift españa, taylor swift madrid como llegar, taylor swift concierto ${YEAR$2} transporte, viaje compartido taylor swift, taylor swift bernabeu carpooling, como ir al concierto taylor swift sin tren, eras tour madrid carpooling`
   },
   rosalia: {
-    title: `Rosalía España ${YEAR$2} [Motomami World Tour]: Carpooling WiZink + Palau desde 4€`,
-    description: `Rosalía en España ${YEAR$2} — WiZink Center Madrid y Palau Sant Jordi Barcelona. Carpooling sin comisión desde Valencia (10–14€), Sevilla (12–17€), Zaragoza (9–13€), Bilbao (11–16€). La artista española más global — carpooling directo al recinto. 0% comisión, pago Bizum.`,
+    title: `Rosalía España ${YEAR$2} [Motomami World Tour]: Carpooling Movistar Arena + Palau desde 4€`,
+    description: `Rosalía en España ${YEAR$2} — Movistar Arena Madrid y Palau Sant Jordi Barcelona. Carpooling sin comisión desde Valencia (10–14€), Sevilla (12–17€), Zaragoza (9–13€), Bilbao (11–16€). La artista española más global — carpooling directo al recinto. 0% comisión, pago Bizum.`,
     keywords: `carpooling rosalia españa, rosalia concierto madrid carpooling, rosalia wizink center como llegar, rosalia ${YEAR$2} transporte, viaje compartido rosalia, como ir concierto rosalia, rosalia palau sant jordi carpooling, rosalia españa ${YEAR$2}, rosalia concierto barcelona, rosalia motomami tour, rosalia gira ${YEAR$2}`
   },
   "bad-bunny": {
-    title: `Bad Bunny España ${YEAR$2}: Carpooling desde 4€, 0% comisión`,
-    description: `Bad Bunny en España ${YEAR$2} — Estadio Bernabéu Madrid y Palau Sant Jordi Barcelona. Carpooling desde Valencia (10–14€), Sevilla (12–17€), Barcelona (15–20€). Sin comisión, conductores verificados con carnet.`,
+    title: `Bad Bunny España ${YEAR$2} [Metropolitano + Estadi Olímpic]: Carpooling desde 4€ sin comisión | ConcertRide`,
+    description: `Bad Bunny en España ${YEAR$2} — Riyadh Air Metropolitano Madrid (30 may) y Estadi Olímpic Barcelona (22 may). Carpooling desde Valencia (10–14€), Sevilla (12–17€), Barcelona (15–20€). Sin comisión, conductores verificados con carnet.`,
     keywords: `carpooling bad bunny españa, bad bunny concierto madrid como llegar, bad bunny ${YEAR$2} transporte, viaje compartido bad bunny, bad bunny bernabeu carpooling, como ir al concierto bad bunny, bad bunny palau sant jordi transporte`
   },
   "the-weeknd": {
-    title: `The Weeknd España ${YEAR$2}: Carpooling desde 4€, 0% comisión`,
-    description: `The Weeknd en España ${YEAR$2} — Estadio Bernabéu Madrid y Estadi Olímpic Barcelona. Carpooling desde Valencia (10–14€), Sevilla (12–17€). 0% comisión, vuelta coordinada con el conductor.`,
+    title: `The Weeknd España ${YEAR$2} [Hurry Up Tomorrow Tour Madrid]: Carpooling desde 4€ | ConcertRide`,
+    description: `The Weeknd Hurry Up Tomorrow Tour España ${YEAR$2} — Riyadh Air Metropolitano Madrid (28 ago). Carpooling desde Valencia (10–14€), Sevilla (12–17€), Bilbao (11–16€). 0% comisión, vuelta coordinada con el conductor.`,
     keywords: `carpooling the weeknd españa, the weeknd madrid como llegar, the weeknd concierto ${YEAR$2} transporte, viaje compartido the weeknd, the weeknd bernabeu carpooling, como ir al concierto the weeknd, the weeknd after hours tour madrid`
   },
   "metallica-ifema": {
-    title: `Metallica España ${YEAR$2}: Carpooling desde 4€, 0% comisión`,
+    title: `Metallica España ${YEAR$2} [M72 Tour Madrid IFEMA]: Carpooling desde 4€ | ConcertRide`,
     description: `Metallica en España ${YEAR$2} — IFEMA Madrid (Estadio Olímpico). Carpooling desde Bilbao (11–16€), Valencia (10–14€), Barcelona (15–20€). Metro L8 + lanzadera. 0% comisión. La opción más metal para llegar.`,
     keywords: `carpooling metallica españa, metallica madrid como llegar, metallica ifema transporte, metallica ${YEAR$2} madrid carpooling, viaje compartido metallica, como ir al concierto metallica, metallica m72 tour madrid, metaleros carpooling madrid`
   },
@@ -25319,22 +25626,22 @@ const ARTIST_SEO_OVERRIDES = {
   },
   "harry-styles": {
     title: `Harry Styles España ${YEAR$2}: Carpooling desde 4€, 0% comisión`,
-    description: `Harry Styles en España ${YEAR$2} — WiZink Center Madrid y Palau Sant Jordi Barcelona. Carpooling desde Zaragoza (9–13€), Valencia (10–14€), Bilbao (11–16€). 0% comisión, pago en Bizum. Love on Tour, sin colas de metro.`,
+    description: `Harry Styles en España ${YEAR$2} — Movistar Arena Madrid y Palau Sant Jordi Barcelona. Carpooling desde Zaragoza (9–13€), Valencia (10–14€), Bilbao (11–16€). 0% comisión, pago en Bizum. Love on Tour, sin colas de metro.`,
     keywords: `carpooling harry styles españa, harry styles madrid como llegar, harry styles wizink center carpooling, harry styles ${YEAR$2} transporte, viaje compartido harry styles, como ir al concierto harry styles, harry styles palau sant jordi transporte`
   },
   "karol-g": {
-    title: `Karol G España ${YEAR$2} [Palau Sant Jordi + WiZink]: Carpooling desde 4€ sin comisión`,
-    description: `Karol G en España ${YEAR$2} — Palau Sant Jordi Barcelona y WiZink Center Madrid. Carpooling sin comisión desde Zaragoza (9–13€), Valencia (10–14€), Sevilla (12–17€). Conductores verificados, vuelta de madrugada coordinada. Pago Bizum o efectivo.`,
+    title: `Karol G España ${YEAR$2} [Palau Sant Jordi + Movistar Arena]: Carpooling desde 4€ sin comisión`,
+    description: `Karol G en España ${YEAR$2} — Palau Sant Jordi Barcelona y Movistar Arena Madrid. Carpooling sin comisión desde Zaragoza (9–13€), Valencia (10–14€), Sevilla (12–17€). Conductores verificados, vuelta de madrugada coordinada. Pago Bizum o efectivo.`,
     keywords: `karol g palau sant jordi, karol g wizink center como llegar, karol g españa ${YEAR$2}, carpooling karol g, karol g madrid como llegar, karol g ${YEAR$2} transporte, viaje compartido karol g, como ir al concierto karol g, karol g concierto españa`
   },
   "dua-lipa": {
-    title: `Dua Lipa España ${YEAR$2} [Radical Optimism Tour]: Carpooling WiZink + Palau desde 4€`,
-    description: `Dua Lipa Radical Optimism Tour España ${YEAR$2} — WiZink Center Madrid y Palau Sant Jordi Barcelona. Carpooling sin comisión desde Valencia (10–14€), Sevilla (12–17€), Zaragoza (9–13€), Bilbao (11–16€). Conductores verificados, vuelta de madrugada coordinada. 0% comisión, pago Bizum.`,
+    title: `Dua Lipa España ${YEAR$2} [Radical Optimism Tour]: Carpooling Movistar Arena + Palau desde 4€`,
+    description: `Dua Lipa Radical Optimism Tour España ${YEAR$2} — Movistar Arena Madrid y Palau Sant Jordi Barcelona. Carpooling sin comisión desde Valencia (10–14€), Sevilla (12–17€), Zaragoza (9–13€), Bilbao (11–16€). Conductores verificados, vuelta de madrugada coordinada. 0% comisión, pago Bizum.`,
     keywords: `carpooling dua lipa españa, dua lipa madrid como llegar, dua lipa wizink center carpooling, dua lipa ${YEAR$2} transporte, viaje compartido dua lipa, como ir al concierto dua lipa, dua lipa concierto españa ${YEAR$2}, dua lipa radical optimism tour, dua lipa barcelona ${YEAR$2}, dua lipa palau sant jordi, dua lipa spain ${YEAR$2}`
   },
   "billie-eilish": {
-    title: `Billie Eilish España ${YEAR$2} [Hit Me Hard Tour]: Carpooling WiZink + Palau Sant Jordi desde 4€`,
-    description: `Billie Eilish Hit Me Hard and Soft Tour España ${YEAR$2} — WiZink Center Madrid y Palau Sant Jordi Barcelona. Carpooling sin comisión desde Valencia (10–14€), Zaragoza (9–13€), Bilbao (11–16€). Conductores verificados, vuelta de madrugada coordinada. 0% comisión, pago Bizum.`,
+    title: `Billie Eilish España ${YEAR$2} [Hit Me Hard Tour]: Carpooling Movistar Arena + Palau Sant Jordi desde 4€`,
+    description: `Billie Eilish Hit Me Hard and Soft Tour España ${YEAR$2} — Movistar Arena Madrid y Palau Sant Jordi Barcelona. Carpooling sin comisión desde Valencia (10–14€), Zaragoza (9–13€), Bilbao (11–16€). Conductores verificados, vuelta de madrugada coordinada. 0% comisión, pago Bizum.`,
     keywords: `billie eilish en españa ${YEAR$2}, billie eilish madrid ${YEAR$2}, billie eilish wizink center como llegar, billie eilish palau sant jordi carpooling, billie eilish hit me hard tour, carpooling billie eilish, viaje compartido billie eilish, como ir concierto billie eilish, billie eilish concierto españa ${YEAR$2}, cuando viene billie eilish a españa, billie eilish spain ${YEAR$2}`
   },
   "beyonce": {
@@ -25344,9 +25651,9 @@ const ARTIST_SEO_OVERRIDES = {
   },
   // ── Artistas Españoles ──────────────────────────────────────────────────────
   "aitana": {
-    title: `Aitana concierto ${YEAR$2}: carpooling al WiZink Center, Palau Sant Jordi y BEC! | ConcertRide`,
-    description: `Aitana ALPHA Tour ${YEAR$2} — WiZink Center Madrid (oct), Palau Sant Jordi Barcelona (oct), BEC! Bilbao (nov), FIBES Sevilla (dic). Carpooling desde Toledo (4–7€), Zaragoza (9–13€), Valencia (10–14€). 0% comisión.`,
-    keywords: `carpooling aitana ${YEAR$2}, concierto aitana madrid ${YEAR$2}, aitana wizink center como llegar, aitana alpha tour ${YEAR$2}, aitana carpooling, como llegar concierto aitana, aitana palau sant jordi carpooling, aitana bec bilbao transporte, viaje compartido aitana`
+    title: `Aitana ${YEAR$2} [Cuarto Azul Tour · Movistar Arena + Palau + BEC!]: Carpooling desde 4€ | ConcertRide`,
+    description: `Aitana Cuarto Azul World Tour ${YEAR$2} — Roig Arena Valencia (21 may), Movistar Arena Madrid (17 oct), Palau Sant Jordi Barcelona (24 oct), BEC! Bilbao (21 nov), Icónica Sevilla (5 dic). Carpooling desde Toledo (4–7€), Zaragoza (9–13€), Valencia (10–14€). 0% comisión.`,
+    keywords: `carpooling aitana ${YEAR$2}, concierto aitana madrid ${YEAR$2}, aitana movistar arena como llegar, aitana wizink center como llegar, aitana cuarto azul tour ${YEAR$2}, aitana carpooling, como llegar concierto aitana, aitana palau sant jordi carpooling, aitana bec bilbao transporte, viaje compartido aitana`
   },
   "dani-martin": {
     title: `Dani Martín '25 Pts Años' Zaragoza ${YEAR$2}: doble fecha 22–23 mayo · carpooling desde 4€ | ConcertRide`,
@@ -25360,32 +25667,32 @@ const ARTIST_SEO_OVERRIDES = {
   },
   "bryan-adams": {
     title: `Bryan Adams España ${YEAR$2}: carpooling Zaragoza (14 nov) y Madrid (18 nov) | ConcertRide`,
-    description: `Bryan Adams gira europea ${YEAR$2} — Pabellón Príncipe Felipe Zaragoza (14 nov), WiZink Center Madrid (18 nov). Carpooling desde Bilbao (8–12€), Pamplona (5–8€), Barcelona (8–12€), Toledo (4–7€). 0% comisión.`,
+    description: `Bryan Adams gira europea ${YEAR$2} — Pabellón Príncipe Felipe Zaragoza (14 nov), Movistar Arena Madrid (18 nov). Carpooling desde Bilbao (8–12€), Pamplona (5–8€), Barcelona (8–12€), Toledo (4–7€). 0% comisión.`,
     keywords: `carpooling bryan adams españa ${YEAR$2}, concierto bryan adams zaragoza, bryan adams madrid ${YEAR$2}, bryan adams zaragoza noviembre, como llegar concierto bryan adams, viaje compartido bryan adams, bryan adams principe felipe zaragoza, bryan adams wizink madrid carpooling, summer of 69 concierto ${YEAR$2}`
   },
   "melendi": {
-    title: `Melendi ${YEAR$2} [WiZink + BEC! Bilbao]: Carpooling desde 4€`,
-    description: `Melendi gira ${YEAR$2} — WiZink Center Madrid (sept) y BEC! Bilbao (sept). Carpooling sin comisión desde Toledo (4–7€), Donostia (4–7€), Vitoria (3–6€), Valencia (10–14€). 0% comisión, conductores verificados. La opción más cómoda para fans del astuirano.`,
+    title: `Melendi ${YEAR$2} [Movistar Arena + BEC! Bilbao]: Carpooling desde 4€`,
+    description: `Melendi gira ${YEAR$2} — Movistar Arena Madrid (sept) y BEC! Bilbao (sept). Carpooling sin comisión desde Toledo (4–7€), Donostia (4–7€), Vitoria (3–6€), Valencia (10–14€). 0% comisión, conductores verificados. La opción más cómoda para fans del asturiano.`,
     keywords: `carpooling melendi ${YEAR$2}, melendi concierto madrid ${YEAR$2}, melendi wizink center como llegar, melendi bec bilbao carpooling, como ir concierto melendi, viaje compartido melendi, melendi gira ${YEAR$2}, melendi asturiano cantautor, melendi tu jardin con enanitos`
   },
   "pablo-alboran": {
-    title: `Pablo Alborán ${YEAR$2} [WiZink + FIBES + Palau]: Carpooling 4€`,
-    description: `Pablo Alborán gira ${YEAR$2} — WiZink Center Madrid, FIBES Sevilla, Palau Sant Jordi Barcelona. Carpooling sin comisión desde Toledo (4–7€), Córdoba (4–6€), Málaga (5–8€), Valencia (10–14€). 0% comisión, conductores verificados, vuelta de madrugada coordinada.`,
+    title: `Pablo Alborán ${YEAR$2} [Movistar Arena + FIBES + Palau]: Carpooling 4€`,
+    description: `Pablo Alborán gira ${YEAR$2} — Movistar Arena Madrid, FIBES Sevilla, Palau Sant Jordi Barcelona. Carpooling sin comisión desde Toledo (4–7€), Córdoba (4–6€), Málaga (5–8€), Valencia (10–14€). 0% comisión, conductores verificados, vuelta de madrugada coordinada.`,
     keywords: `carpooling pablo alboran ${YEAR$2}, pablo alboran madrid como llegar, pablo alboran wizink center carpooling, pablo alboran ${YEAR$2} transporte, viaje compartido pablo alboran, como ir concierto pablo alboran, pablo alboran sevilla fibes carpooling, pablo alboran palau sant jordi, pablo alboran malagueño cantautor`
   },
   "rozalen": {
     title: `Rozalén España ${YEAR$2}: Carpooling desde 4€, 0% comisión`,
-    description: `Rozalén en España ${YEAR$2} — WiZink Center Madrid, Valencia. Carpooling desde Albacete (6–9€), Toledo (4–7€), Cuenca (5–8€), Alicante (5–8€). 0% comisión, conductores verificados.`,
+    description: `Rozalén en España ${YEAR$2} — Movistar Arena Madrid, Valencia. Carpooling desde Albacete (6–9€), Toledo (4–7€), Cuenca (5–8€), Alicante (5–8€). 0% comisión, conductores verificados.`,
     keywords: `carpooling rozalen ${YEAR$2}, rozalen concierto madrid ${YEAR$2}, rozalen wizink center como llegar, rozalen ${YEAR$2} transporte, viaje compartido rozalen, como ir concierto rozalen`
   },
   "sabrina-carpenter": {
-    title: `Sabrina Carpenter España ${YEAR$2} [Short n' Sweet Tour]: Carpooling WiZink desde 4€`,
-    description: `Sabrina Carpenter Short n' Sweet Tour España ${YEAR$2} — WiZink Center Madrid y Palau Sant Jordi Barcelona. Carpooling sin comisión desde Zaragoza (9–13€), Valencia (10–14€), Sevilla (12–17€). Conductores verificados, vuelta de madrugada coordinada. 0% comisión.`,
+    title: `Sabrina Carpenter España ${YEAR$2} [Short n' Sweet Tour]: Carpooling Movistar Arena desde 4€`,
+    description: `Sabrina Carpenter Short n' Sweet Tour España ${YEAR$2} — Movistar Arena Madrid y Palau Sant Jordi Barcelona. Carpooling sin comisión desde Zaragoza (9–13€), Valencia (10–14€), Sevilla (12–17€). Conductores verificados, vuelta de madrugada coordinada. 0% comisión.`,
     keywords: `sabrina carpenter españa, sabrina carpenter madrid como llegar, sabrina carpenter ${YEAR$2}, sabrina carpenter wizink center carpooling, sabrina carpenter short n sweet tour, carpooling sabrina carpenter, viaje compartido sabrina carpenter, sabrina carpenter concierto madrid, sabrina carpenter spain ${YEAR$2}, sabrina carpenter barcelona ${YEAR$2}`
   },
   "lana-del-rey": {
     title: `Lana Del Rey España ${YEAR$2}: Carpooling desde 4€, 0% comisión`,
-    description: `Lana Del Rey en España ${YEAR$2} — Parc del Fòrum Barcelona y WiZink Center Madrid. Carpooling desde Madrid (15–20€), Valencia (10–14€), Zaragoza (8–12€). 0% comisión, conductores verificados.`,
+    description: `Lana Del Rey en España ${YEAR$2} — Parc del Fòrum / Primavera Sound Barcelona. Carpooling desde Madrid (15–20€), Valencia (10–14€), Zaragoza (8–12€). 0% comisión, conductores verificados.`,
     keywords: `carpooling lana del rey españa, lana del rey barcelona como llegar, lana del rey primavera sound carpooling, lana del rey ${YEAR$2} transporte, viaje compartido lana del rey, como ir concierto lana del rey`
   },
   "c-tangana": {
@@ -25434,7 +25741,7 @@ const ARTIST_SEO_OVERRIDES = {
     keywords: `ed sheeran españa ${YEAR$2}, ed sheeran madrid como llegar, ed sheeran barcelona carpooling, ed sheeran tour ${YEAR$2}, mathematics tour españa, carpooling ed sheeran, viaje compartido ed sheeran, como ir concierto ed sheeran`
   },
   maluma: {
-    title: `Maluma España ${YEAR$2}: Carpooling desde 4€, 0% comisión`,
+    title: `Maluma España ${YEAR$2} [WiZink Center + Palau Sant Jordi]: Carpooling desde 4€, 0% comisión | ConcertRide`,
     description: `Maluma en España ${YEAR$2} — WiZink Center Madrid y Palau Sant Jordi Barcelona. Carpooling desde Valencia (10–14€), Sevilla (14–20€), Zaragoza (9–13€). 0% comisión, pago Bizum o efectivo, conductores verificados, vuelta nocturna.`,
     keywords: `maluma españa ${YEAR$2}, maluma madrid como llegar, maluma barcelona carpooling, maluma wizink center, maluma palau sant jordi, carpooling maluma, viaje compartido maluma, como ir concierto maluma, maluma tour ${YEAR$2}, reggaeton concierto madrid carpooling`
   },
@@ -29889,7 +30196,7 @@ const BLOG_POSTS = [
     relatedLinks: [
       { label: "Cómo volver de un festival de madrugada", to: "/blog/como-volver-festival-madrugada" },
       { label: "Guía de transporte para festivales", to: "/guia-transporte-festivales" },
-      { label: "BlaBlaCar vs ConcertRide", to: "/blog/blablacar-vs-concertride" },
+      { label: "Alternativas de carpooling para festivales", to: "/blog/alternativa-carpooling-festivales-espana" },
       { label: "Carpooling a festivales en España", to: "/festivales" },
       { label: "Viaje compartido a Mad Cool", to: "/festivales/mad-cool" }
     ],
@@ -31199,7 +31506,7 @@ BLOG_POSTS.push(
     slug: "como-elegir-asiento-seguro-carpooling",
     title: "Cómo elegir asiento seguro en carpooling: checklist rápida",
     h1: "Elegir asiento seguro en carpooling",
-    excerpt: "Checklist para pasajeros sobre seguridad y señales de confianza en conductores.",
+    excerpt: "Checklist para pasajeros sobre seguridad y señales de confianza en conductores de ConcertRide: cómo verificar valoraciones, revisar el perfil del conductor, confirmar identidad antes del viaje y asegurarte de que el precio acordado cubre gastos sin comisión.",
     category: "guias",
     tags: ["seguridad", "carpooling"],
     publishedAt: "2026-05-04T11:15:00.000Z",
@@ -31218,7 +31525,7 @@ BLOG_POSTS.push(
     slug: "mejores-fechas-para-publicar-viaje-festival",
     title: "Mejores momentos para publicar un viaje a un festival y llenarlo rápido",
     h1: "Cuándo publicar tu viaje para llenarlo rápido",
-    excerpt: "Horario y antelación óptimos para publicar viajes según demanda por festival.",
+    excerpt: "Horario y antelación óptimos para publicar viajes a festivales y llenar plazas en menos de 48 h: publica 2–3 semanas antes con precio competitivo, repite recordatorio a 48h y 24h del evento, y elige el momento de la semana con más búsquedas por festival.",
     category: "guias",
     tags: ["publicar", "timing"],
     publishedAt: "2026-05-04T11:20:00.000Z",
@@ -31237,7 +31544,7 @@ BLOG_POSTS.push(
     slug: "como-gestionar-cancelaciones-de-conductores",
     title: "Qué hacer si un conductor cancela tu viaje al festival",
     h1: "Gestionar cancelaciones de conductor",
-    excerpt: "Pasos rápidos: opciones, reembolso (si aplica) y cómo encontrar reemplazo rápido.",
+    excerpt: "Pasos rápidos si un conductor cancela tu viaje al festival: cómo activar opciones alternativas, tramitar reembolso si aplica, buscar un nuevo conductor en ConcertRide y comunicar el cambio a los demás pasajeros del grupo sin perder tu plaza en el festival.",
     category: "guias",
     tags: ["cancelacion", "reembolso"],
     publishedAt: "2026-05-04T11:25:00.000Z",
@@ -31256,7 +31563,7 @@ BLOG_POSTS.push(
     slug: "combo-transporte-y-alojamiento-festival",
     title: "Combinar transporte y alojamiento: ahorra en tu weekend festivalero",
     h1: "Transporte + alojamiento para festivales: combinaciones que ahorran",
-    excerpt: "Ideas para coordinar viaje y alojamiento y reducir costes totales del fin de semana.",
+    excerpt: "Ideas para coordinar transporte y alojamiento y reducir costes totales del fin de semana de festival: reserva alojamiento en grupo, comparte coche en ConcertRide y elige puntos de encuentro estratégicos para minimizar desplazamientos internos y gastos de taxi.",
     category: "comparativas",
     tags: ["alojamiento", "transporte"],
     publishedAt: "2026-05-04T11:30:00.000Z",
@@ -31275,7 +31582,7 @@ BLOG_POSTS.push(
     slug: "como-organizar-viaje-grupal-festival",
     title: "Cómo organizar un viaje grupal a un festival (roles, coche, packing)",
     h1: "Organizar un viaje grupal a un festival",
-    excerpt: "Roles, comunicación y reparto de costes para que el viaje en grupo funcione.",
+    excerpt: "Roles, comunicación y reparto de costes para que el viaje en grupo a un festival funcione sin roces: asigna conductor, copiloto y responsable de equipaje, crea un chat de grupo, usa checklist compartida y calcula el precio por asiento justo antes de salir.",
     category: "guias",
     tags: ["grupo", "organizacion"],
     publishedAt: "2026-05-04T11:35:00.000Z",
@@ -31313,7 +31620,7 @@ BLOG_POSTS.push(
     slug: "seguro-en-carsharing-concertride",
     title: "Seguridad y garantías en ConcertRide: qué cubre la plataforma",
     h1: "Seguridad y garantías en ConcertRide",
-    excerpt: "Qué comprobaciones realizamos y qué puedes esperar como pasajero o conductor.",
+    excerpt: "Qué comprobaciones realiza ConcertRide y qué puedes esperar como pasajero o conductor: verificación de carnet de conducir, sistema de valoraciones bidireccional, chat previo al viaje y política de 0% comisión que garantiza que el pago es directo entre conductor y pasajero.",
     category: "novedades",
     tags: ["seguridad", "garantias"],
     publishedAt: "2026-05-04T11:45:00.000Z",
@@ -31332,7 +31639,7 @@ BLOG_POSTS.push(
     slug: "como-elegir-punto-de-vuelta-festival",
     title: "Elegir punto de vuelta en un festival: evitar colas y pérdidas",
     h1: "Elegir punto de vuelta eficiente tras un festival",
-    excerpt: "Dónde quedar para volver sin líos: recomendaciones por tipo de recinto.",
+    excerpt: "Dónde quedar con el conductor del carpooling para volver del festival sin líos: recomendaciones por tipo de recinto, cómo elegir un punto visible con cobertura móvil, cuánto tiempo calcular después del último artista y cómo evitar las colas de salida más saturadas.",
     category: "guias",
     tags: ["vuelta", "punto-recogida"],
     publishedAt: "2026-05-04T11:50:00.000Z",
@@ -31351,7 +31658,7 @@ BLOG_POSTS.push(
     slug: "pagos-y-propinas-en-carsharing-recomendaciones",
     title: "Pagos y propinas en carsharing: buenas prácticas",
     h1: "Pagos y propinas en carsharing",
-    excerpt: "Cómo gestionar pagos, divisiones y propinas de forma clara y justa.",
+    excerpt: "Cómo gestionar pagos, divisiones y propinas de forma clara y justa en ConcertRide: pago en efectivo o Bizum el día del viaje, cuándo es apropiado dejar propina, cómo acordar el método en el chat previo y qué hacer si el conductor ayuda con equipaje pesado.",
     category: "guias",
     tags: ["pagos", "bizum", "propinas"],
     publishedAt: "2026-05-04T11:55:00.000Z",
@@ -31370,7 +31677,7 @@ BLOG_POSTS.push(
     slug: "gps-y-navegacion-en-rutas-de-festival",
     title: "GPS y navegación para rutas a festivales: evita perderte",
     h1: "GPS y navegación eficientes para rutas de festival",
-    excerpt: "Configura tu ruta, evita peajes inesperados y coordina paradas técnicas.",
+    excerpt: "Configura tu GPS para rutas a festivales sin sorpresas: cómo evitar peajes inesperados, compartir la ruta en tiempo real con los pasajeros de ConcertRide, planificar paradas técnicas cada 2–3 horas y usar apps con tráfico en tiempo real para llegar puntual al concierto.",
     category: "guias",
     tags: ["gps", "navegacion"],
     publishedAt: "2026-05-04T12:00:00.000Z",
@@ -31389,7 +31696,7 @@ BLOG_POSTS.push(
     slug: "accesibilidad-en-viajes-festivales",
     title: "Accesibilidad en viajes a festivales: consejos para pasajeros con movilidad reducida",
     h1: "Accesibilidad en viajes a festivales",
-    excerpt: "Cómo coordinar recogidas y espacio para sillas de ruedas u equipamiento especial.",
+    excerpt: "Cómo coordinar recogidas y espacio para sillas de ruedas u equipamiento especial en carpooling a festivales: comunica tus necesidades de accesibilidad al conductor antes de reservar, confirma el tipo de vehículo, el espacio de maletero y los puntos de recogida adaptados.",
     category: "guias",
     tags: ["accesibilidad", "movilidad"],
     publishedAt: "2026-05-04T12:05:00.000Z",
@@ -31408,7 +31715,7 @@ BLOG_POSTS.push(
     slug: "checklist-ultimo-dia-festival-vuelta",
     title: "Checklist del último día del festival: prepara la vuelta",
     h1: "Checklist del último día del festival",
-    excerpt: "Tareas clave antes de regresar: limpieza, confirmación y horarios.",
+    excerpt: "Tareas clave antes de regresar del festival: cuándo empacar, cómo confirmar la hora de salida con el conductor de ConcertRide, qué hacer con el camping, cómo evitar esperas en la salida y qué revisar antes de abandonar el recinto para no perder nada importante.",
     category: "guias",
     tags: ["checklist", "vuelta"],
     publishedAt: "2026-05-04T12:10:00.000Z",
@@ -31427,7 +31734,7 @@ BLOG_POSTS.push(
     slug: "faq-para-nuevos-usuarios-concertride",
     title: "FAQ para nuevos usuarios de ConcertRide: primeras 10 preguntas",
     h1: "FAQ para nuevos usuarios",
-    excerpt: "Resuelve las dudas más comunes sobre seguridad, pagos y cómo publicar o reservar viajes.",
+    excerpt: "Resuelve las 10 dudas más comunes sobre seguridad, pagos y cómo publicar o reservar viajes en ConcertRide: cómo registrarse, cómo publicar el primer viaje, cómo funciona el pago sin comisión, qué pasa si hay cancelación y cómo contactar con el soporte.",
     category: "novedades",
     tags: ["faq", "inicio"],
     publishedAt: "2026-05-04T12:15:00.000Z",
@@ -31508,7 +31815,7 @@ BLOG_POSTS.push(
     slug: "carpooling-primavera-sound-desde-zaragoza-2026",
     title: "Carpooling a Primavera Sound desde Zaragoza: cuánto cuesta",
     h1: "Carpooling a Primavera Sound desde Zaragoza",
-    excerpt: "Precio por asiento, tiempo estimado y ventajas de compartir coche a Primavera Sound.",
+    excerpt: "Carpooling a Primavera Sound desde Zaragoza 2026: 300 km por la AP-2/AP-7, 2h 45min de trayecto y un precio medio de 8–12 €/asiento sin comisión en ConcertRide. Más barato que el AVE y más flexible que el autobús nocturno. Ruta, paradas y puntos de recogida.",
     category: "comparativas",
     tags: ["primavera-sound", "zaragoza", "costes"],
     publishedAt: "2026-05-04T12:25:00.000Z",
@@ -31734,7 +32041,7 @@ BLOG_POSTS.push(
     slug: "carpooling-cala-mijas-desde-sevilla-2026",
     title: "Carpooling a Cala Mijas desde Sevilla: cuánto se paga",
     h1: "Carpooling a Cala Mijas desde Sevilla",
-    excerpt: "Coste por asiento, tiempo de viaje y cómo publicar una ruta a Cala Mijas.",
+    excerpt: "Carpooling a Cala Mijas Fest desde Sevilla 2026: 200 km por la A-92/AP-46, 2h de trayecto y un precio medio de 6–9 €/asiento con ConcertRide. Sin transporte público directo al Cortijo de Torres en Mijas, el coche compartido es la opción más económica desde Andalucía occidental.",
     category: "comparativas",
     tags: ["cala-mijas", "sevilla", "coste"],
     publishedAt: "2026-05-04T12:50:00.000Z",
@@ -31752,7 +32059,7 @@ BLOG_POSTS.push(
     slug: "carpooling-o-son-do-camino-desde-a-coruna-2026",
     title: "Carpooling a O Son do Camiño desde A Coruña: consejos 2026",
     h1: "Carpooling a O Son do Camiño desde A Coruña",
-    excerpt: "Ruta desde A Coruña a Santiago para O Son do Camiño con precio y horarios.",
+    excerpt: "Carpooling a O Son do Camiño desde A Coruña 2026: 75 km por la AP-9, 50 min de trayecto y un precio de 3–6 €/asiento con ConcertRide. Una de las rutas más frecuentes y fáciles del noroeste: salida desde A Coruña, parada en Santiago y lanzadera oficial al Monte do Gozo.",
     category: "guias",
     tags: ["o-son-do-camino", "a-coruna", "santiago"],
     publishedAt: "2026-05-04T12:55:00.000Z",
@@ -31770,7 +32077,7 @@ BLOG_POSTS.push(
     slug: "carpooling-viña-rock-desde-alicante-2026",
     title: "Carpooling a Viña Rock desde Alicante: guía de ruta",
     h1: "Carpooling a Viña Rock desde Alicante",
-    excerpt: "Cómo llegar a Viña Rock compartiendo coche desde Alicante con presupuesto realista.",
+    excerpt: "Carpooling a Viña Rock desde Alicante 2026: 165 km por la A-31/A-3, 1h 45min de trayecto y un precio de 5–8 €/asiento con ConcertRide. Sin autobús directo desde Alicante a Villarrobledo, el coche compartido es la solución más económica y más flexible para la vuelta de madrugada.",
     category: "guias",
     tags: ["vina-rock", "alicante", "ruta"],
     publishedAt: "2026-05-04T13:00:00.000Z",
@@ -31788,7 +32095,7 @@ BLOG_POSTS.push(
     slug: "carpooling-medusa-desde-murcia-2026",
     title: "Carpooling a Medusa desde Murcia: guía rápida 2026",
     h1: "Carpooling a Medusa desde Murcia",
-    excerpt: "Ruta, coste y consejos para la vuelta de madrugada a Murcia.",
+    excerpt: "Carpooling a Medusa Festival desde Murcia 2026: 180 km por la A-30/AP-7, 1h 45min hasta Cullera y un precio de 5–8 €/asiento con ConcertRide. Sin transporte nocturno de vuelta, el coche compartido es la única opción viable para regresar a Murcia después de la actuación principal.",
     category: "guias",
     tags: ["medusa", "murcia", "carpooling"],
     publishedAt: "2026-05-04T13:05:00.000Z",
@@ -33285,9 +33592,9 @@ BLOG_POSTS.push(
       { label: "Madrid → Primavera Sound", to: "/rutas/madrid-primavera-sound" },
       { label: "Carpooling a Mad Cool", to: "/festivales/mad-cool" },
       { label: "Madrid → BBK Live", to: "/rutas/madrid-bbk-live" },
-      { label: "BlaBlaCar vs ConcertRide", to: "/blog/blablacar-vs-concertride" }
+      { label: "Alternativas de carpooling para festivales", to: "/blog/alternativa-carpooling-festivales-espana" }
     ],
-    relatedPosts: ["blablacar-vs-concertride", "carpooling-vs-taxi-festival-espana"]
+    relatedPosts: ["alternativa-carpooling-festivales-espana", "carpooling-vs-taxi-festival-espana"]
   },
   // ──────────────────────────────────────────────────────────────────────
   {
@@ -34425,7 +34732,7 @@ BLOG_POSTS.push(
       { label: "Cómo llegar a Mad Cool", to: "/como-llegar/mad-cool" },
       { label: "Carpooling a Mad Cool desde Madrid", to: "/blog/carpooling-mad-cool-desde-madrid-2026" },
       { label: "Ruta Barcelona → Mad Cool", to: "/rutas/barcelona-mad-cool" },
-      { label: "BlaBlaCar vs ConcertRide para festivales", to: "/blog/blablacar-vs-concertride" },
+      { label: "Alternativas de carpooling para festivales", to: "/blog/alternativa-carpooling-festivales-espana" },
       { label: "Cómo volver de un festival de madrugada", to: "/blog/como-volver-festival-madrugada" }
     ],
     relatedPosts: ["carpooling-mad-cool-desde-madrid-2026", "mad-cool-2026-guia-completa", "coldplay-madrid-2026-guia-transporte", "top-rutas-madrid-festivales-2026"]
@@ -35059,7 +35366,7 @@ BLOG_POSTS.push(
       }
     ],
     relatedLinks: [
-      { label: "Comparativa ConcertRide vs BlaBlaCar", to: "/comparativa/concertride-vs-blablacar" },
+      { label: "Comparativa carpooling vs taxi para festivales", to: "/comparativa/carpooling-vs-taxi-festival" },
       { label: "Datos de carpooling a festivales", to: "/datos" }
     ],
     relatedPosts: ["blablacar-vs-concertride", "huella-carbono-festivales-carpooling"]
@@ -37831,9 +38138,9 @@ BLOG_POSTS.push(
       { label: "Carpooling to Primavera Sound", to: "/festivales/primavera-sound" },
       { label: "Carpooling to Mad Cool", to: "/festivales/mad-cool" },
       { label: "Carpooling to BBK Live", to: "/festivales/bbk-live" },
-      { label: "ConcertRide vs BlaBlaCar", to: "/blog/blablacar-vs-concertride" }
+      { label: "Carpooling alternatives for festivals (English guide)", to: "/blog/alternativa-carpooling-festivales-espana" }
     ],
-    relatedPosts: ["blablacar-vs-concertride", "autobuses-festivales-espana-2026"]
+    relatedPosts: ["alternativa-carpooling-festivales-espana", "autobuses-festivales-espana-2026"]
   }
 );
 BLOG_POSTS.push(
@@ -37901,7 +38208,7 @@ BLOG_POSTS.push(
     relatedLinks: [
       { label: "Cómo funciona ConcertRide", to: "/como-funciona" },
       { label: "Carpooling a Mad Cool", to: "/festivales/mad-cool" },
-      { label: "BlaBlaCar vs ConcertRide", to: "/blog/blablacar-vs-concertride" }
+      { label: "Alternativas de carpooling para festivales", to: "/blog/alternativa-carpooling-festivales-espana" }
     ],
     relatedPosts: ["carpooling-vs-taxi-festival-espana", "conductor-designado-festival-espana", "es-seguro-carpooling-festivales"]
   }
@@ -43323,6 +43630,1561 @@ BLOG_POSTS.push(
     coverImage: { src: "https://images.unsplash.com/photo-1497435334941-8c899a9bd600?w=1200&h=630&fit=crop", alt: "Naturaleza y sostenibilidad — impacto ambiental carpooling festivales ConcertRide", width: 1200, height: 630 }
   }
 );
+BLOG_POSTS.push(
+  // ─────────────────────────────────────────────────────────────────────
+  {
+    slug: "como-ir-mad-cool-2026-sin-coche",
+    title: "Cómo ir a Mad Cool 2026 sin coche desde cualquier ciudad",
+    h1: "Cómo ir a Mad Cool 2026 sin coche desde cualquier ciudad",
+    excerpt: "Guía completa de transporte a Mad Cool 2026 para asistentes sin coche: metro, autobús, carpooling y lanzaderas desde Madrid, Barcelona, Valencia y más.",
+    category: "guias",
+    tags: ["mad cool", "transporte", "sin coche", "carpooling", "madrid", "metro"],
+    publishedAt: "2026-05-16T10:00:00.000Z",
+    author: "Equipo ConcertRide",
+    readingMinutes: 7,
+    lede: "Mad Cool 2026 se celebra en Iberdrola Music (Villaverde, Madrid) del 8 al 11 de julio. Te contamos cómo llegar desde cualquier ciudad sin necesitar coche propio.",
+    sections: [
+      {
+        heading: "Mad Cool 2026: dónde es y por qué el transporte importa",
+        paragraphs: [
+          "Mad Cool Festival 2026 se celebra en el recinto Iberdrola Music, en el barrio de Villaverde (sur de Madrid), del 8 al 11 de julio. Con 80.000 asistentes diarios, el recinto se convierte en uno de los accesos más complicados de España en noches de festival.",
+          "El metro línea 3 llega a las paradas de Pradolongo o Legazpi, desde donde un autobús conecta con el recinto. En las salidas de madrugada (1:00–2:30), las esperas en andén superan los 30 minutos. Para quien llega desde fuera de Madrid, resolver el transporte con antelación es clave."
+        ]
+      },
+      {
+        heading: "Opción 1: Carpooling con ConcertRide (la más recomendada sin coche)",
+        paragraphs: [
+          "El carpooling con ConcertRide es la opción más usada por los asistentes que vienen de otras ciudades sin coche propio. Un conductor con plazas libres te lleva directamente al recinto de Iberdrola Music y, al terminar el festival, recoge al grupo en el punto de encuentro acordado.",
+          "Precios orientativos por asiento en ConcertRide para Mad Cool 2026: desde Madrid centro 4–7 €, desde Toledo 4–7 €, desde Valencia 10–14 €, desde Zaragoza 9–13 €, desde Barcelona 15–20 €, desde Bilbao 11–16 €, desde Sevilla 14–20 €. El pago es en efectivo o Bizum directamente al conductor el día del viaje. ConcertRide cobra 0% de comisión.",
+          "Para reservar: entra en concertride.me, busca 'Mad Cool' y filtra por fecha. Los conductores suelen publicar los viajes 2–4 semanas antes del festival."
+        ]
+      },
+      {
+        heading: "Opción 2: Metro de Madrid (para residentes en Madrid)",
+        paragraphs: [
+          "Si ya estás en Madrid, el metro es la opción más económica para ir a Mad Cool. La línea 3 (color verde oscuro) llega a las paradas de Pradolongo o Legazpi (zona sur de Madrid). Desde Sol son unos 25–30 minutos de trayecto. Desde Pradolongo o Legazpi, hay servicio de autobús adicional al recinto de Iberdrola Music (10–15 minutos más).",
+          "El metro L3 amplía su horario en noches de festival hasta las 2:00–2:30. Sin embargo, la salida del festival entre la 1:00 y las 2:30 colapsa los andenes: es habitual esperar 3–4 trenes antes de poder subir."
+        ],
+        bullets: [
+          "Línea 3 verde oscuro hasta Pradolongo o Legazpi (desde Sol: ~30 min, 1,50–2,50 €).",
+          "Autobús desde parada de metro hasta Iberdrola Music: ~15 min adicionales.",
+          "Horario ampliado en noches de festival hasta las 2:00–2:30.",
+          "Colapso habitual a la salida: prever 45–60 min para el trayecto de vuelta."
+        ]
+      },
+      {
+        heading: "Opción 3: Tren AVE o Alvia hasta Madrid + carpooling al recinto",
+        paragraphs: [
+          "Si vienes de Barcelona, Valencia, Zaragoza o Sevilla, el AVE te deja en Madrid Atocha o Puerta de Atocha-Almudena Cervantes. Desde ahí tienes dos opciones: metro L3 hasta el recinto (30–40 min + autobús) o carpooling ConcertRide desde Atocha hasta el recinto (4–7 €, 20–25 min directo).",
+          "La combinación AVE + carpooling es la más cómoda para quien no quiere perder el principio del festival ni pasar por el caos de la salida. El conductor de ConcertRide te espera en un punto acordado cerca de Atocha."
+        ]
+      },
+      {
+        heading: "Opción 4: Autobús de línea hasta Madrid + metro o carpooling",
+        paragraphs: [
+          "Los autobuses de larga distancia (ALSA, Avanza, FlixBus) llegan a la estación de Méndez Álvaro (Madrid sur). Desde allí, el metro L6 conecta con Sol (10 min) y luego L3 hasta el recinto (25 min más). Precio total de transporte: 3–5 €.",
+          "Otra opción desde Méndez Álvaro es buscar un carpooling corto en ConcertRide desde Madrid sur directamente al recinto de Iberdrola Music (3–5 €, 15 min)."
+        ]
+      },
+      {
+        heading: "Vuelta de madrugada: el problema real de Mad Cool sin coche",
+        paragraphs: [
+          "Las salidas de madrugada son el mayor problema logístico de Mad Cool. El metro amplía hasta las 2:30, pero con 80.000 asistentes saliendo al mismo tiempo, la realidad es muy diferente.",
+          "Las opciones de vuelta para quienes no tienen coche: metro L3 (colapso garantizado, 45–60 min de espera), taxi/VTC (25–50 € al centro, con tarifas multiplicadas por la demanda), o carpooling ConcertRide (4–20 € según distancia, sin esperas si se reserva antes del festival).",
+          "Recomendación: reserva el viaje de vuelta en ConcertRide al mismo tiempo que el de ida. El conductor coordina la recogida al final del show en un punto fijo del recinto."
+        ]
+      }
+    ],
+    faqs: [
+      {
+        q: "¿Hay lanzadera oficial de Mad Cool desde el centro de Madrid?",
+        a: "Mad Cool en Iberdrola Music no opera lanzaderas propias desde el centro. El acceso es por metro L3 (Pradolongo/Legazpi) más autobús al recinto. Los shuttles privados en redes sociales son iniciativas no oficiales. ConcertRide es la alternativa organizada más fiable para asistentes de otras ciudades."
+      },
+      {
+        q: "¿Cuánto cuesta el carpooling a Mad Cool 2026 desde Barcelona?",
+        a: "El carpooling a Mad Cool 2026 desde Barcelona cuesta entre 15 y 20 €/asiento con ConcertRide (620 km, 5h 30 min). El AVE Barcelona–Madrid cuesta entre 50 y 100 €, pero no llega al recinto y requiere transporte adicional."
+      },
+      {
+        q: "¿Funciona Uber o Cabify para volver de Mad Cool de madrugada?",
+        a: "En teoría sí, pero en la práctica entre las 1:00 y las 3:00 la demanda es tan alta que la espera puede superar los 45–90 minutos. El precio también sube considerablemente por tarifa nocturna de evento. El carpooling de ConcertRide reservado con antelación es más fiable y más barato."
+      }
+    ],
+    relatedLinks: [
+      { label: "Carpooling a Mad Cool 2026", to: "/festivales/mad-cool" },
+      { label: "Rutas desde Madrid a festivales", to: "/conciertos/madrid" },
+      { label: "Cómo llegar a Mad Cool", to: "/como-llegar/mad-cool" },
+      { label: "Cómo funciona ConcertRide", to: "/como-funciona" }
+    ],
+    relatedPosts: ["autobuses-festivales-espana-2026", "como-volver-festival-madrugada", "mad-cool-2026-guia-completa-transporte"]
+  },
+  // ─────────────────────────────────────────────────────────────────────
+  {
+    slug: "autobus-arenal-sound-2026-valencia",
+    title: "Autobús Arenal Sound 2026 desde Valencia: carpooling vs bus",
+    h1: "Autobús Arenal Sound 2026 desde Valencia: carpooling vs bus",
+    excerpt: "Compara las opciones reales para ir al Arenal Sound 2026 desde Valencia: tren Cercanías, lanzadera oficial, autobús de línea y carpooling con ConcertRide desde 3 €.",
+    category: "guias",
+    tags: ["arenal sound", "autobús", "carpooling", "valencia", "castellón", "burriana"],
+    publishedAt: "2026-05-16T10:30:00.000Z",
+    author: "Equipo ConcertRide",
+    readingMinutes: 6,
+    lede: "Arenal Sound 2026 (29 julio–2 agosto, Playa de Burriana, Castellón) es el festival de playa más grande de España. Aquí tienes las opciones reales de transporte desde Valencia.",
+    sections: [
+      {
+        heading: "La ruta Valencia–Arenal Sound: 65 km de distancia, 45 min de conducción",
+        paragraphs: [
+          "La distancia entre Valencia y el recinto del Arenal Sound (Playa de Burriana, Castellón) es de unos 65 km por la AP-7 o la N-340. En coche son aproximadamente 45 minutos. Burriana está en la costa norte de la provincia de Castellón, a 10 km del centro de Castellón de la Plana.",
+          "El problema de la ruta Valencia–Arenal Sound es la vuelta de madrugada: los conciertos terminan entre las 3:00 y las 5:00, y el transporte público no cubre ese horario. Aquí es donde el carpooling marca la diferencia."
+        ]
+      },
+      {
+        heading: "Opción 1: Carpooling con ConcertRide desde Valencia (recomendada)",
+        paragraphs: [
+          "El carpooling con ConcertRide desde Valencia al Arenal Sound cuesta entre 3 y 6 €/asiento. Son 65 km (45 min por la AP-7), llegada directa a la playa de Burriana. El conductor suele salir desde un punto céntrico de Valencia (Estación del Norte, Alameda, Xàtiva) y llega al recinto sin transbordo.",
+          "La ventaja principal: la vuelta de madrugada está coordinada. El conductor también quiere ver el headliner, así que el horario de recogida está alineado con el final del show, no con un horario de autobús fijo.",
+          "Sin comisión. El 100% del precio va al conductor. Pago en efectivo o Bizum el día del viaje."
+        ]
+      },
+      {
+        heading: "Opción 2: Tren Cercanías Renfe C6 Valencia–Castellón + lanzadera",
+        paragraphs: [
+          "El tren Renfe Cercanías C6 conecta Valencia y Castellón en 45–60 minutos con frecuencias cada 30–60 minutos. El precio es de 3,90 €. Hay parada en la estación de Burriana, a unos 3 km del recinto.",
+          "El problema: el servicio nocturno desde Burriana y Castellón es muy limitado. El último tren hacia Valencia suele salir antes de medianoche, mucho antes del headliner del festival. Para la vuelta de madrugada, hay que sumar lanzadera del festival (5–8 €, también limitada) o taxi (15–25 €)."
+        ],
+        bullets: [
+          "Cercanías Valencia–Castellón: 3,90 €, 45–60 min, frecuencias cada 30–60 min.",
+          "Burriana tiene parada en la línea C6, a 3 km del recinto.",
+          "Sin servicio de vuelta después de las 23:00–24:00 desde la estación de Burriana.",
+          "Coste total ida+vuelta (tren + lanzadera o taxi): ~20–35 €."
+        ]
+      },
+      {
+        heading: "Opción 3: Autobús lanzadera oficial Arenal Sound desde Castellón",
+        paragraphs: [
+          "La promotora del Arenal Sound opera lanzaderas desde la estación de autobuses de Castellón de la Plana. El servicio funciona en franjas de entrada (tarde) y salida (madrugada). El precio está en torno a 5–8 €. Las plazas son limitadas y se agotan en los días más concurridos.",
+          "Para los valencianoss, la opción más cómoda es combinar Cercanías Valencia–Castellón (3,90 €) con la lanzadera del festival (5–8 €). Total: ~10–12 € por trayecto, pero con limitaciones de horario nocturno."
+        ]
+      },
+      {
+        heading: "Comparativa: carpooling vs autobús vs tren para Arenal Sound desde Valencia",
+        paragraphs: [
+          "Carpooling ConcertRide: 3–6 €/asiento, salida directa desde Valencia, llegada al recinto, vuelta de madrugada coordinada. Tren Cercanías + lanzadera: ~10–12 €/trayecto, transbordo en Castellón, sin vuelta de madrugada. Autobús privado Madrid–Arenal (operadores no oficiales): 35–55 €, salida desde Méndez Álvaro, vuelta a hora fija a las 6:00.",
+          "Para asistentes desde Valencia, el carpooling con ConcertRide es la opción más barata, más directa y la única que resuelve la vuelta de madrugada. Reserva con 2–3 semanas de antelación para encontrar plazas disponibles."
+        ]
+      }
+    ],
+    faqs: [
+      {
+        q: "¿Hay bus oficial de Arenal Sound desde Valencia?",
+        a: "No. La lanzadera oficial del Arenal Sound solo opera desde Castellón de la Plana (10 km al recinto), no desde Valencia. Desde Valencia, la opción más directa es el carpooling con ConcertRide (3–6 €, llegada directa al recinto)."
+      },
+      {
+        q: "¿El tren llega al recinto del Arenal Sound?",
+        a: "El Cercanías C6 para en la estación de Burriana, a 3 km del recinto. Hay que sumar un trayecto adicional. El problema principal es que no hay tren de vuelta desde Burriana después de medianoche."
+      },
+      {
+        q: "¿Cuánto cuesta el carpooling al Arenal Sound desde Castellón?",
+        a: "Desde Castellón de la Plana al Arenal Sound son unos 10 km (15–20 min). El carpooling en ConcertRide desde Castellón cuesta entre 3 y 5 €/asiento."
+      }
+    ],
+    relatedLinks: [
+      { label: "Carpooling Valencia–Arenal Sound", to: "/rutas/valencia-arenal-sound" },
+      { label: "Festival Arenal Sound 2026", to: "/festivales/arenal-sound" },
+      { label: "Conciertos en Valencia", to: "/conciertos/valencia" },
+      { label: "Autobuses a festivales España 2026", to: "/blog/autobuses-festivales-espana-2026" }
+    ],
+    relatedPosts: ["autobuses-festivales-espana-2026", "autobuses-vina-rock-2026", "como-volver-festival-madrugada"]
+  },
+  // ─────────────────────────────────────────────────────────────────────
+  {
+    slug: "guia-transporte-fib-benicassim-2026",
+    title: "Carpooling FIB Benicàssim 2026: guía completa de transporte",
+    h1: "Carpooling FIB Benicàssim 2026: guía completa de transporte",
+    excerpt: "Todo lo que necesitas saber para llegar al FIB Benicàssim 2026 en carpooling, tren o bus: rutas desde Valencia, Madrid, Barcelona y Castellón, precios y vuelta de madrugada.",
+    category: "guias",
+    tags: ["fib", "benicassim", "carpooling", "castellón", "valencia", "transporte"],
+    publishedAt: "2026-05-16T11:00:00.000Z",
+    author: "Equipo ConcertRide",
+    readingMinutes: 7,
+    lede: "El FIB (Festival Internacional de Benicàssim) 2026 se celebra del 16 al 19 de julio en la Costa del Azahar. Aquí tienes la guía de transporte más completa.",
+    sections: [
+      {
+        heading: "FIB 2026: localización y por qué el transporte es clave",
+        paragraphs: [
+          "El FIB 2026 (Festival Internacional de Benicàssim) se celebra del 16 al 19 de julio en el Recinto Auditorio del Parque de Benicàssim, junto a la playa de la Costa del Azahar (Castellón). La ubicación es privilegiada — a 15 km de Castellón y 70 km de Valencia — pero el transporte nocturno de vuelta es prácticamente inexistente después de las 2:00.",
+          "El FIB es uno de los festivales con más asistentes de fuera de la provincia (más del 60% llega en coche o carpooling). Con 45.000 personas diarias y cuatro días de festival, organizar el transporte con antelación es imprescindible."
+        ]
+      },
+      {
+        heading: "Carpooling al FIB con ConcertRide: la opción más popular",
+        paragraphs: [
+          "El carpooling a través de ConcertRide es la fórmula preferida por los asistentes que vienen de fuera de la provincia. Conductores que van al festival publican sus plazas disponibles, y los pasajeros reservan con días de antelación.",
+          "Precios orientativos para el FIB 2026 en ConcertRide: desde Valencia (70 km, 50 min) 3–6 €/asiento, desde Castellón (15 km, 20 min) 3–5 €, desde Barcelona (300 km, 2h 30 min) 8–12 €, desde Madrid (560 km, 4h 45 min) 12–17 €, desde Alicante (175 km, 1h 45 min) 5–8 €, desde Zaragoza (270 km, 2h 30 min) 7–11 €.",
+          "ConcertRide cobra 0% de comisión. El pago es directo al conductor en efectivo o Bizum el día del viaje. Los conductores están verificados (carnet de conducir validado)."
+        ]
+      },
+      {
+        heading: "Lanzadera oficial del FIB desde Castellón",
+        paragraphs: [
+          "El FIB organiza autobuses lanzadera desde la estación de autobuses de Castellón de la Plana hasta el recinto de Benicàssim (15 km, 15 min). El servicio funciona desde las 18:00 hasta la madrugada, con frecuencias de 20–30 minutos. El precio ronda los 5–8 €.",
+          "Las plazas se agotan rápido en los días de más afluencia (sábado y domingo). Si quieres usar la lanzadera, compra el ticket con antelación en la web oficial del FIB."
+        ]
+      },
+      {
+        heading: "Tren Renfe Cercanías C6: la opción económica desde Valencia",
+        paragraphs: [
+          "El tren de Cercanías C6 Valencia–Castellón cuesta 4–6 € y tarda 45–60 minutos. Hay parada en la estación de Benicàssim, pero queda a unos 2 km del recinto del festival. En días de festival, hay un servicio de lanzadera entre la estación y el recinto.",
+          "El problema principal: el último tren de vuelta desde Benicàssim hacia Valencia sale antes de medianoche. Para la vuelta de madrugada del FIB (conciertos hasta las 4:00–5:00), el tren no es una opción viable. El carpooling de ConcertRide resuelve este problema."
+        ]
+      },
+      {
+        heading: "Desde Madrid: la mejor combinación para llegar al FIB",
+        paragraphs: [
+          "Desde Madrid (560 km, 4h 45 min en coche), las opciones son: AVE Madrid–Valencia (1h 15 min, 25–55 €) más Cercanías Valencia–Benicàssim (4 €) más lanzadera (5–8 €) = total 34–68 € por trayecto. O carpooling ConcertRide directo Madrid–FIB: 12–17 €/asiento, llegada directa al recinto, vuelta de madrugada coordinada.",
+          "Para cuatro días de festival, el ahorro del carpooling frente al tren es de 40–100 € por asistente. Además, el carpooling resuelve la vuelta de madrugada que el AVE no puede cubrir."
+        ]
+      },
+      {
+        heading: "Parking en el FIB: ¿vale la pena ir en coche propio?",
+        paragraphs: [
+          "El recinto del FIB dispone de parking de pago (10–15 €/día), pero los accesos por la N-340 y la AP-7 se colapsan desde las 17:00 en días de festival. Si vas en coche propio, llega antes de las 16:00 o deja el coche en Castellón y toma la lanzadera.",
+          "Para los que vienen de fuera de la provincia, el carpooling es más económico que conducir solo (gasolina + peajes + parking = 25–50 € desde Valencia) y más cómodo que gestionar el aparcamiento."
+        ]
+      }
+    ],
+    faqs: [
+      {
+        q: "¿Cómo llegar al FIB desde Valencia en 2026?",
+        a: "Las opciones desde Valencia al FIB Benicàssim 2026: (1) Carpooling ConcertRide: 3–6 €/asiento, 70 km, 50 min, llegada directa al recinto. (2) Cercanías C6: 4–6 €, 45–60 min hasta Benicàssim, luego 2 km a pie o lanzadera. (3) Coche propio: 70 km, 50 min, parking 10–15 €/día."
+      },
+      {
+        q: "¿Cuánto cuesta el FIB en transporte desde Barcelona?",
+        a: "Desde Barcelona al FIB Benicàssim son 300 km (2h 30 min). Carpooling ConcertRide: 8–12 €/asiento. Tren AVE + cercanías: 30–55 €. Autobús de línea ALSA: 20–35 €. El carpooling es la opción más barata y la única que llega directamente al recinto con vuelta de madrugada."
+      },
+      {
+        q: "¿El FIB tiene camping?",
+        a: "Sí. El FIB Benicàssim tiene zona de camping incluida en los abonos de acceso completo (o como add-on). El camping está dentro del recinto, junto a la playa. Es una de las características más valoradas del festival."
+      }
+    ],
+    relatedLinks: [
+      { label: "Carpooling al FIB desde Valencia", to: "/rutas/valencia-fib" },
+      { label: "Carpooling al FIB desde Madrid", to: "/rutas/madrid-fib" },
+      { label: "Festival FIB Benicàssim", to: "/festivales/fib" },
+      { label: "Cómo llegar al FIB", to: "/como-llegar/fib" }
+    ],
+    relatedPosts: ["autobus-arenal-sound-2026-valencia", "autobuses-festivales-espana-2026", "como-volver-festival-madrugada"]
+  },
+  // ─────────────────────────────────────────────────────────────────────
+  {
+    slug: "precio-carpooling-festivales-espana-2026",
+    title: "Precio medio carpooling festivales España 2026: datos reales",
+    h1: "Precio medio carpooling festivales España 2026: datos reales",
+    excerpt: "Análisis de precios reales de carpooling a festivales en España en 2026: coste medio por asiento, comparativa por ruta y distancia, y cómo se compara con el tren o el bus.",
+    category: "novedades",
+    tags: ["precios", "carpooling", "datos", "festivales", "coste", "comparativa"],
+    publishedAt: "2026-05-16T11:30:00.000Z",
+    author: "Equipo ConcertRide",
+    readingMinutes: 8,
+    lede: "¿Cuánto cuesta realmente el carpooling a un festival en España? Analizamos los datos de ConcertRide para 2026: coste medio, rango de precios y comparativa con otras opciones.",
+    sections: [
+      {
+        heading: "Metodología: cómo se calculan los precios en ConcertRide",
+        paragraphs: [
+          "Los precios de carpooling en ConcertRide los fija cada conductor de forma libre dentro del rango de costes reales (combustible + desgaste del vehículo dividido entre el número de ocupantes). La plataforma no permite precios que impliquen ánimo de lucro, en cumplimiento de la normativa española sobre carpooling.",
+          "El rango orientativo que ConcertRide muestra a los conductores al publicar un viaje se calcula como: (distancia km × 0,07 l/km × 1,55 €/l + peajes estimados) ÷ número de ocupantes. A partir de ahí, cada conductor ajusta según su criterio (tipo de vehículo, comodidad, rapidez)."
+        ]
+      },
+      {
+        heading: "Precios medios por ruta en 2026",
+        paragraphs: [
+          "Estos son los rangos de precios por asiento observados en ConcertRide para los principales festivales de 2026:"
+        ],
+        bullets: [
+          "Madrid → Mad Cool (15 km, recinto Iberdrola Music): 4–7 €/asiento.",
+          "Valencia → Arenal Sound (65 km, Burriana): 3–6 €/asiento.",
+          "Valencia → FIB Benicàssim (70 km): 3–6 €/asiento.",
+          "Zaragoza → Mad Cool Madrid (325 km): 9–13 €/asiento.",
+          "Madrid → Primavera Sound Barcelona (620 km): 15–20 €/asiento.",
+          "Madrid → BBK Live Bilbao (395 km): 11–16 €/asiento.",
+          "Barcelona → Primavera Sound (10 km, mismo metro): 3–5 €/asiento.",
+          "Madrid → FIB Benicàssim (560 km): 12–17 €/asiento.",
+          "Valencia → Primavera Sound (355 km): 10–14 €/asiento.",
+          "Sevilla → Mad Cool Madrid (525 km): 14–19 €/asiento."
+        ]
+      },
+      {
+        heading: "Precio medio ConcertRide vs otras plataformas de carpooling",
+        paragraphs: [
+          "El precio base del carpooling en ConcertRide es muy similar al de otras plataformas generalistas para las mismas rutas, pero con una diferencia clave: ConcertRide cobra 0% de comisión, mientras que otras plataformas de carpooling generalistas cobran entre el 10% y el 18% sobre el precio del asiento. Esto significa que, para un asiento de 15 €, el pasajero paga entre 1,50 y 2,70 € menos en ConcertRide.",
+          "Ejemplo concreto: Madrid–Barcelona (620 km). Precio bruto en ambas plataformas: ~18 €. En ConcertRide, el pasajero paga 18 € (todo al conductor). En una plataforma generalista con 15% de comisión, el pasajero paga 20,70 € (18 € al conductor + 2,70 € de comisión)."
+        ]
+      },
+      {
+        heading: "Carpooling vs tren vs autobús: comparativa de costes reales",
+        paragraphs: [
+          "Para entender el valor del carpooling, hay que compararlo con las alternativas reales para cada ruta:"
+        ],
+        bullets: [
+          "Valencia → FIB (70 km): Tren Cercanías 4–6 € + lanzadera 5–8 € = 9–14 €. Carpooling ConcertRide: 3–6 €. Ahorro: 3–8 € por trayecto.",
+          "Madrid → Mad Cool (15 km): Metro 2,50 € + autobús al recinto 1,50 € = 4 €. Carpooling ConcertRide: 4–7 €. Precio similar pero el carpooling resuelve la vuelta de madrugada.",
+          "Madrid → Primavera Sound (620 km): AVE 50–100 €. Carpooling ConcertRide: 15–20 €. Ahorro: 30–80 € por trayecto.",
+          "Madrid → BBK Live (395 km): Alvia 40–70 €. Carpooling ConcertRide: 11–16 €. Ahorro: 24–54 €.",
+          "Barcelona → FIB (300 km): ALSA bus 25–35 €. Carpooling ConcertRide: 8–12 €. Ahorro: 13–23 €."
+        ]
+      },
+      {
+        heading: "¿Cuándo es rentable el carpooling frente a ir solo en coche?",
+        paragraphs: [
+          "Para trayectos de más de 150 km, el coche compartido con 3–4 personas ya resulta más barato que ir en coche solo, sumando gasolina + peajes + parking. Un ejemplo: Madrid–Primavera Sound (Barcelona, 620 km) en coche solo cuesta ~70–90 € en gasolina + peajes (ida). Dividido entre 4 personas: 17–22 € por persona de ida. En ConcertRide, el rango es 15–20 €/asiento. La diferencia es marginal, pero el pasajero no conduce, no busca aparcamiento y tiene las manos libres.",
+          "Para trayectos cortos (menos de 100 km), el carpooling y el transporte público son comparables en precio, pero el carpooling ofrece la ventaja de la puerta a puerta y la vuelta a cualquier hora."
+        ]
+      }
+    ],
+    faqs: [
+      {
+        q: "¿Cuánto cuesta de media el carpooling a un festival en España?",
+        a: "El precio medio del carpooling a un festival en España con ConcertRide en 2026 es de 8–15 €/asiento. Para trayectos cortos (menos de 100 km): 3–8 €. Para trayectos medios (100–300 km): 7–14 €. Para trayectos largos (más de 300 km): 12–22 €."
+      },
+      {
+        q: "¿ConcertRide cobra comisión?",
+        a: "No. ConcertRide cobra 0% de comisión. El 100% del precio del asiento va directamente al conductor. El pago es en efectivo o Bizum el día del viaje, en persona. No hay que dar datos bancarios ni pagar por adelantado."
+      },
+      {
+        q: "¿Qué incluye el precio del carpooling?",
+        a: "El precio del carpooling cubre la parte proporcional del coste de combustible y desgaste del vehículo para ese trayecto. No incluye parking en el festival (a cargo de quien tenga coche), ni peajes adicionales no incluidos en el precio publicado. Siempre pregunta al conductor si hay peajes incluidos."
+      }
+    ],
+    relatedLinks: [
+      { label: "Datos y estadísticas de ConcertRide", to: "/datos" },
+      { label: "Cómo funciona el carpooling", to: "/como-funciona" },
+      { label: "Festivales cubiertos", to: "/festivales" },
+      { label: "Rutas de carpooling disponibles", to: "/rutas" }
+    ],
+    relatedPosts: ["carpooling-fib-benicassim-2026", "autobus-arenal-sound-2026-valencia", "como-ir-mad-cool-2026-sin-coche"]
+  },
+  // ─────────────────────────────────────────────────────────────────────
+  {
+    slug: "primavera-sound-2026-transporte-carpooling",
+    title: "Primavera Sound 2026: transporte, carpooling y todo lo que necesitas",
+    h1: "Primavera Sound 2026: transporte, carpooling y todo lo que necesitas",
+    excerpt: "Guía completa de transporte para Primavera Sound 2026 (Parc del Fòrum, Barcelona, 3–7 junio): carpooling desde Madrid, Valencia y Zaragoza, metro, bus nocturno y consejos de primera vez.",
+    category: "guias",
+    tags: ["primavera sound", "barcelona", "carpooling", "transporte", "metro", "madrid", "primera vez"],
+    publishedAt: "2026-05-16T12:00:00.000Z",
+    author: "Equipo ConcertRide",
+    readingMinutes: 9,
+    lede: "Primavera Sound 2026 (Parc del Fòrum, Barcelona, 3–7 junio). Organizamos toda la información de transporte en una guía para que llegues sin sorpresas.",
+    sections: [
+      {
+        heading: "Primavera Sound 2026: fechas, recinto y cómo llegar al Fòrum",
+        paragraphs: [
+          "Primavera Sound 2026 se celebra del 3 al 7 de junio en el Parc del Fòrum (Sant Adrià de Besòs, Barcelona). El recinto está a unos 6 km al noreste del centro de Barcelona, junto a la playa de Besòs. Tiene capacidad para 60.000 asistentes diarios.",
+          "El acceso en transporte público es sencillo para los residentes en Barcelona: metro L4 hasta Besòs Mar o Maresme Fòrum. Para quienes llegan de fuera de Cataluña, hay que combinar transporte a Barcelona y luego metro hasta el recinto."
+        ]
+      },
+      {
+        heading: "Metro de Barcelona al Primavera Sound: L4 Besòs Mar",
+        paragraphs: [
+          "La parada de metro más cercana al recinto del Primavera Sound es Besòs Mar o Maresme Fòrum (ambas en la línea L4, color amarillo). Desde el centro de Barcelona (Barceloneta, Diagonal): 10–15 minutos. Desde Passeig de Gràcia: ~20 minutos.",
+          "En noches de festival, TMB (Transport Metropolità de Barcelona) amplía el servicio de la L4 hasta las 3:00–4:00. También operan los autobuses nocturnos N6 y N7. Sin embargo, en las salidas de madrugada las colas de espera en las paradas de metro y bus pueden superar los 30–45 minutos."
+        ],
+        bullets: [
+          "L4 Besòs Mar o Maresme Fòrum: 10–20 min desde el centro de Barcelona.",
+          "Horario ampliado hasta las 3:00–4:00 en noches de festival.",
+          "Bus nocturn N6 y N7: alternativa en horarios cuando el metro no opera.",
+          "Colapso habitual a la salida de madrugada: prever 45–60 min para el trayecto de vuelta."
+        ]
+      },
+      {
+        heading: "Carpooling desde Madrid a Primavera Sound: la opción más usada",
+        paragraphs: [
+          "Para los madrileños, el carpooling con ConcertRide es la opción más usada para ir al Primavera Sound. La distancia Madrid–Barcelona (Parc del Fòrum) es de unos 640 km (5h 30 min por la AP-2/A-2). El precio por asiento está entre 15 y 20 €.",
+          "El AVE Madrid–Barcelona cuesta entre 50 y 100 €, tarda 2h 30 min y te deja en Barcelona Sants (a 30 minutos del recinto en metro). Para la vuelta de madrugada, el AVE no es una opción (el último sale a las 21:30). El carpooling de ConcertRide permite quedarse hasta el final del show y volver de madrugada.",
+          "Muchos madrileños combinan: AVE de ida y carpooling de vuelta. O carpooling de ida y vuelta durante los días que más les interesa el cartel."
+        ]
+      },
+      {
+        heading: "Carpooling desde Valencia y Zaragoza al Primavera Sound",
+        paragraphs: [
+          "Desde Valencia (355 km, 3h 15 min): el carpooling con ConcertRide cuesta entre 10 y 14 €/asiento. El AVE Valencia–Barcelona cuesta entre 20 y 60 € pero requiere metro adicional. Es habitual que los valencianoss organicen carpooling de ida y vuelta para varios días del festival.",
+          "Desde Zaragoza (306 km, 2h 45 min): el carpooling cuesta entre 8 y 12 €. El AVE Zaragoza–Barcelona (1h 20 min, 20–45 €) es competitivo en tiempo, pero el carpooling sigue siendo más barato y resuelve la vuelta de madrugada."
+        ]
+      },
+      {
+        heading: "Alojamiento durante Primavera Sound: lo que hay que saber",
+        paragraphs: [
+          "A diferencia de otros festivales, el Primavera Sound NO tiene zona de camping oficial. Los asistentes se alojan en hoteles, hostels o pisos en Barcelona. Durante la semana del festival, los precios de alojamiento en Barcelona suben considerablemente (un 30–80% sobre la media).",
+          "Las zonas más convenientes por cercanía al Fòrum son: El Poblenou, Rambla del Prim (10–15 min a pie), Badalona centro (15 min en metro L4), y Sant Adrià de Besòs (5 min a pie pero pocas opciones de alojamiento).",
+          "Para quien llega en carpooling desde Madrid, Valencia o Zaragoza y quiere quedarse varios días, reservar alojamiento con 2–3 meses de antelación es fundamental: la semana del Primavera es una de las más demandadas del año en Barcelona."
+        ]
+      },
+      {
+        heading: "La vuelta de madrugada: cómo organizarla",
+        paragraphs: [
+          "Los conciertos principales del Primavera Sound terminan entre las 3:00 y las 4:30. El metro L4 amplía el horario, pero las colas en las paradas cercanas al Fòrum pueden ser muy largas (30–45 min).",
+          "Para quienes vuelven a otras ciudades (Madrid, Valencia, Zaragoza), la opción más cómoda es coordinar el carpooling de ConcertRide para salir sobre las 3:30–4:00, hacer el viaje de noche y llegar a destino a primera hora de la mañana.",
+          "Muchos asistentes prefieren ir al Primavera en carpooling a los conciertos más importantes y volver de madrugada coordinados con el conductor, en lugar de alojarse en Barcelona todos los días."
+        ]
+      }
+    ],
+    faqs: [
+      {
+        q: "¿Primavera Sound 2026 cuándo es y dónde?",
+        a: "Primavera Sound 2026 se celebra del 3 al 7 de junio en el Parc del Fòrum, Rambla del Prim 2–4, Sant Adrià de Besòs (Barcelona). Capacidad: 60.000 asistentes diarios. Metro L4 paradas Besòs Mar o Maresme Fòrum."
+      },
+      {
+        q: "¿Cómo ir a Primavera Sound desde Madrid?",
+        a: "Desde Madrid al Primavera Sound (620 km): carpooling ConcertRide 15–20 €/asiento (ida directa al recinto, vuelta de madrugada coordinada), AVE 50–100 € (llega a Barcelona Sants, a 30 min del recinto en metro, último a las 21:30). Para quedarse al headliner y volver de madrugada, el carpooling es la única opción viable."
+      },
+      {
+        q: "¿El Primavera Sound tiene camping?",
+        a: "No. El Primavera Sound no tiene zona de camping oficial. Los asistentes se alojan en hoteles, hostels o apartamentos de Barcelona. Los precios de alojamiento suben considerablemente la semana del festival."
+      },
+      {
+        q: "¿Cuánto cuesta el carpooling al Primavera Sound desde Zaragoza?",
+        a: "El carpooling de Zaragoza al Primavera Sound con ConcertRide cuesta entre 8 y 12 €/asiento (306 km, 2h 45 min). Sin comisión. Comparado con el AVE (20–45 €, 1h 20 min), el carpooling es considerablemente más barato y resuelve la vuelta de madrugada."
+      }
+    ],
+    relatedLinks: [
+      { label: "Carpooling Madrid–Primavera Sound", to: "/rutas/madrid-primavera-sound" },
+      { label: "Carpooling Valencia–Primavera Sound", to: "/rutas/valencia-primavera-sound" },
+      { label: "Festival Primavera Sound 2026", to: "/festivales/primavera-sound" },
+      { label: "Cómo llegar al Primavera Sound", to: "/como-llegar/primavera-sound" },
+      { label: "Conciertos en Barcelona", to: "/conciertos/barcelona" }
+    ],
+    relatedPosts: ["como-ir-mad-cool-2026-sin-coche", "carpooling-fib-benicassim-2026", "precio-carpooling-festivales-espana-2026"]
+  }
+);
+BLOG_POSTS.push(
+  {
+    slug: "transporte-resurrection-fest-2026",
+    title: "Resurrection Fest 2026: carpooling y transporte desde toda España",
+    h1: "Resurrection Fest 2026: cómo llegar en carpooling desde toda España",
+    excerpt: "Guía completa de transporte al Resurrection Fest 2026 en Viveiro (Lugo): carpooling, autobús ALSA, cómo llegar desde Madrid, A Coruña, Vigo y Bilbao. Precios actualizados y vuelta de madrugada.",
+    category: "guias",
+    publishedAt: "2026-05-16T10:00:00.000Z",
+    author: "Equipo ConcertRide",
+    readingMinutes: 7,
+    lede: "Viveiro es uno de los destinos de festival más difíciles de alcanzar sin coche. Esta guía recoge todas las opciones reales para llegar al Resurrection Fest 2026.",
+    tags: ["resurrection fest", "viveiro", "galicia", "metal", "carpooling", "transporte festival"],
+    sections: [
+      {
+        heading: "Dónde está el Resurrection Fest y por qué el transporte es complejo",
+        paragraphs: [
+          "Resurrection Fest es el festival de metal más grande del sur de Europa. Cada última semana de junio, Viveiro (Lugo) recibe a más de 70.000 metaleros. El recinto A Gañidoira está a 100 km de A Coruña, 200 km de Vigo y más de 600 km de Madrid.",
+          "No hay tren directo a Viveiro desde ninguna ciudad grande. El autobús ALSA requiere transbordo y el servicio nocturno de vuelta prácticamente no existe. El carpooling es la opción más usada por la gran mayoría de asistentes."
+        ]
+      },
+      {
+        heading: "Carpooling al Resurrection Fest: precios por ciudad",
+        paragraphs: [
+          "En ConcertRide, los viajes al Resurrection Fest se publican con 4–6 semanas de antelación. Precios por asiento: A Coruña (100 km, 1h 15 min) 4–7 €; Vigo (200 km, 2h 15 min) 6–9 €; Santiago de Compostela (160 km, 2h) 5–8 €; Oviedo (280 km, 3h) 8–12 €; Bilbao (350 km, 3h 30 min) 10–15 €; Madrid (620 km, 6h) 16–22 €. ConcertRide cobra 0% de comisión."
+        ]
+      },
+      {
+        heading: "Autobús ALSA al Resurrection Fest",
+        paragraphs: [
+          "ALSA opera rutas Madrid–A Coruña con parada en Lugo, pero no hay servicio directo a Viveiro. El trayecto Madrid–Viveiro con transbordo puede durar 8–9 horas (40–55 €). El servicio de vuelta nocturna prácticamente no existe."
+        ]
+      },
+      {
+        heading: "La vuelta de madrugada: el punto crítico",
+        paragraphs: [
+          "Los últimos conciertos terminan entre las 3:00 y las 5:00 de la madrugada. No existe ningún autobús o tren a esa hora. La única solución para quien no acampa es el carpooling de vuelta acordado de antemano con el conductor de ConcertRide.",
+          "El camping del festival (incluido en el abono completo) es la alternativa más cómoda para evitar el problema de la vuelta."
+        ]
+      }
+    ],
+    faqs: [
+      {
+        q: "¿Cómo llegar al Resurrection Fest desde Madrid?",
+        a: "Desde Madrid (620 km) la opción más habitual es el carpooling con ConcertRide (16–22 €/asiento, 6h). No hay tren directo. El autobús ALSA requiere transbordo y tarda 8–9 h."
+      },
+      {
+        q: "¿Cuánto cuesta el carpooling al Resurrection Fest desde A Coruña?",
+        a: "Desde A Coruña (100 km, 1h 15 min) el precio en ConcertRide es de 4 a 7 €/asiento. Es la ciudad de origen más económica."
+      },
+      {
+        q: "¿Puedo volver de madrugada del Resurrection Fest?",
+        a: "Solo con carpooling organizado con antelación en ConcertRide. No hay transporte público nocturno al salir del recinto. Lo más cómodo es acampar en el recinto."
+      }
+    ],
+    relatedLinks: [
+      { label: "Carpooling al Resurrection Fest", to: "/festivales/resurrection-fest" },
+      { label: "Carpooling Madrid–Resurrection Fest", to: "/rutas/madrid-resurrection-fest" },
+      { label: "Carpooling A Coruña–Resurrection Fest", to: "/rutas/a-coruna-resurrection-fest" },
+      { label: "Festivales en Galicia", to: "/festivales-en/galicia" },
+      { label: "Cómo llegar al Resurrection Fest", to: "/como-llegar/resurrection-fest" }
+    ],
+    relatedPosts: ["como-llegar-resurrection-fest-2026", "autobuses-festivales-espana-2026", "guia-carpooling-festivales-comunidades-autonomas-2026"]
+  }
+);
+BLOG_POSTS.push(
+  {
+    slug: "carpooling-descarga-festival-2026",
+    title: "Download Festival Madrid 2026: carpooling, precios y cómo llegar",
+    h1: "Download Festival Madrid 2026: cómo llegar en carpooling y transporte público",
+    excerpt: "Guía de transporte al Download Festival Madrid 2026 en IFEMA (5–7 junio): carpooling desde Barcelona, Valencia, Zaragoza y Bilbao. Metro L8 y vuelta de madrugada.",
+    category: "guias",
+    publishedAt: "2026-05-16T10:00:00.000Z",
+    author: "Equipo ConcertRide",
+    readingMinutes: 6,
+    lede: "El Download Festival Madrid 2026 se celebra del 5 al 7 de junio en IFEMA. Metal y rock en Madrid con todas las opciones de transporte.",
+    tags: ["download festival", "download madrid", "ifema", "metal", "rock", "carpooling", "transporte festival"],
+    sections: [
+      {
+        heading: "Download Festival Madrid 2026: dónde y cuándo",
+        paragraphs: [
+          "El Download Festival Madrid 2026 se celebra del 5 al 7 de junio en IFEMA Feria de Madrid (Av. del Partenón, 5, 28042 Madrid). Con más de 40.000 asistentes por día y un cartel que ha incluido a Metallica, Slipknot y System of a Down, es el festival de rock y metal más importante de la primavera española."
+        ]
+      },
+      {
+        heading: "Metro al Download Festival: Línea 8",
+        paragraphs: [
+          "El Metro L8 (rosa) es la opción más directa desde el centro de Madrid. Sale de Nuevos Ministerios y llega a Feria de Madrid en 12 minutos. Precio: 2,50–5 € según zonas. Horario ampliado hasta las 2:30 en noches de festival."
+        ]
+      },
+      {
+        heading: "Carpooling al Download Festival: precios desde cada ciudad",
+        paragraphs: [
+          "Precios por asiento en ConcertRide: Madrid centro 4–7 €; Toledo 4–7 €; Zaragoza (325 km, 3h) 9–13 €; Valencia (355 km, 3h 20 min) 10–14 €; Bilbao (395 km, 3h 30 min) 11–16 €; Barcelona (620 km, 5h 30 min) 15–20 €; Sevilla (530 km, 5h) 14–19 €. 0% comisión, pago directo al conductor."
+        ]
+      },
+      {
+        heading: "Vuelta de madrugada del Download Festival",
+        paragraphs: [
+          "Los conciertos terminan entre la 1:00 y las 3:00. El Metro L8 opera hasta las 2:30. Si el headliner termina más tarde: taxi (20–35 €) o carpooling ConcertRide con el mismo conductor del viaje de ida, acordando la hora de salida del recinto de antemano."
+        ]
+      }
+    ],
+    faqs: [
+      {
+        q: "¿Cómo llegar al Download Festival Madrid 2026?",
+        a: "Metro L8 parada Feria de Madrid (12 min desde Nuevos Ministerios) o carpooling ConcertRide desde cualquier ciudad. Parking IFEMA de pago (10–15 €/día)."
+      },
+      {
+        q: "¿Cuánto cuesta el carpooling al Download Festival desde Valencia?",
+        a: "Desde Valencia (355 km) el carpooling en ConcertRide cuesta entre 10 y 14 €/asiento (3h 20 min). Sin comisión de plataforma."
+      },
+      {
+        q: "¿Hay metro de vuelta de madrugada en el Download Festival?",
+        a: "El Metro L8 amplía su horario hasta las 2:30. Si el concierto termina después, las opciones son taxi/VTC (20–35 €) o carpooling ConcertRide organizado de antemano."
+      }
+    ],
+    relatedLinks: [
+      { label: "Download Festival Madrid — ConcertRide", to: "/festivales/download-madrid" },
+      { label: "Carpooling Madrid (IFEMA)", to: "/conciertos/madrid" },
+      { label: "Carpooling Barcelona–Download Festival", to: "/rutas/barcelona-download-madrid" },
+      { label: "Carpooling Valencia–Download Festival", to: "/rutas/valencia-download-madrid" },
+      { label: "Recinto IFEMA Madrid", to: "/recintos/ifema-feria-de-madrid" }
+    ],
+    relatedPosts: ["mad-cool-2026-guia-completa-transporte", "transporte-resurrection-fest-2026", "autobuses-festivales-espana-2026"]
+  }
+);
+BLOG_POSTS.push(
+  {
+    slug: "como-ir-dcode-2026-madrid",
+    title: "DCode 2026 Madrid: transporte, carpooling y guía completa",
+    h1: "DCode Festival 2026 Madrid: cómo llegar en metro, carpooling y transporte",
+    excerpt: "Todo lo que necesitas saber para ir al DCode Festival 2026 en Madrid: Metro L6, carpooling desde Valencia, Barcelona y Zaragoza, precios y cómo volver de madrugada.",
+    category: "guias",
+    publishedAt: "2026-05-16T10:00:00.000Z",
+    author: "Equipo ConcertRide",
+    readingMinutes: 6,
+    lede: "DCode 2026 se celebra el 12 y 13 de septiembre en la Ciudad Universitaria de Madrid. Festival urban, trap y reggaetón del otoño español.",
+    tags: ["dcode festival", "dcode madrid", "ciudad universitaria", "urban", "trap", "carpooling", "festival septiembre"],
+    sections: [
+      {
+        heading: "DCode Festival 2026: dónde y cuándo",
+        paragraphs: [
+          "El DCode Festival 2026 se celebra el 12 y 13 de septiembre en el Estadio Complutense de la Ciudad Universitaria de Madrid (Av. Juan de Herrera, s/n, 28040). Con 45.000 asistentes por día, es el principal festival de urban, trap, reggaetón y pop del otoño en España."
+        ]
+      },
+      {
+        heading: "Metro al DCode: Línea 6 Ciudad Universitaria",
+        paragraphs: [
+          "La línea 6 (gris) tiene parada en Ciudad Universitaria, a 10 minutos a pie del estadio. Desde Moncloa son solo dos paradas. El metro cierra sobre la 1:30; el autobús nocturno N18/N20 opera desde Ciudad Universitaria hasta las 6:00."
+        ]
+      },
+      {
+        heading: "Carpooling al DCode desde otras ciudades",
+        paragraphs: [
+          "Para asistentes de fuera de Madrid, el carpooling con ConcertRide es la opción más cómoda. Precios por asiento: Valencia (355 km, 3h 20 min) 9–14 €; Zaragoza (325 km, 3h) 9–13 €; Barcelona (620 km, 5h 30 min) 15–20 €; Bilbao (395 km, 3h 30 min) 11–16 €; Sevilla (530 km, 5h) 13–18 €. Sin comisión.",
+          "Para quienes vienen de Valencia, Barcelona o Bilbao, el carpooling es imprescindible para la vuelta: no hay AVE de vuelta a esas ciudades después de las 22:00–23:00."
+        ]
+      },
+      {
+        heading: "Vuelta de madrugada del DCode",
+        paragraphs: [
+          "Los shows terminan entre las 2:00 y las 3:30. El metro L6 cierra a las 1:30. Opciones de vuelta: autobús nocturno N18/N20 (cada 30 min), taxi/VTC (15–25 €), o carpooling ConcertRide acordado con el conductor."
+        ]
+      }
+    ],
+    faqs: [
+      {
+        q: "¿Cómo llegar al DCode Festival 2026 desde Valencia?",
+        a: "Carpooling ConcertRide Valencia–DCode (355 km, 3h 20 min): 9–14 €/asiento sin comisión. El AVE Valencia–Atocha más metro L6 es más rápido pero más caro."
+      },
+      {
+        q: "¿Qué transporte nocturno hay para volver del DCode?",
+        a: "El metro L6 cierra a las 1:30. El autobús nocturno N18/N20 opera desde Ciudad Universitaria. Para quienes vienen de otras ciudades, el carpooling de vuelta con ConcertRide es la opción más organizada."
+      },
+      {
+        q: "¿Hay parking en el DCode Festival?",
+        a: "Hay zonas de parking en la Ciudad Universitaria pero son limitadas. Se recomienda llegar en metro L6 o carpooling ConcertRide."
+      }
+    ],
+    relatedLinks: [
+      { label: "DCode Festival Madrid 2026 — ConcertRide", to: "/festivales/dcode-festival" },
+      { label: "Carpooling Valencia–DCode", to: "/rutas/valencia-dcode-festival" },
+      { label: "Carpooling Barcelona–DCode", to: "/rutas/barcelona-dcode-festival" },
+      { label: "Conciertos en Madrid", to: "/conciertos/madrid" }
+    ],
+    relatedPosts: ["carpooling-descarga-festival-2026", "autobuses-festivales-espana-2026", "como-ir-festival-sin-coche-guia-definitiva-2026"]
+  }
+);
+BLOG_POSTS.push(
+  {
+    slug: "grupos-amigos-festival-carpooling",
+    title: "Ir en grupo a festivales: cómo organizar carpooling para 4–6 personas",
+    h1: "Cómo organizar el carpooling a festivales para un grupo de 4 a 6 amigos",
+    excerpt: "Guía práctica para organizar el transporte a festivales en grupo: carpooling, reparto de costes, puntos de recogida y consejos para grupos de 4 a 6 amigos.",
+    category: "guias",
+    publishedAt: "2026-05-16T10:00:00.000Z",
+    author: "Equipo ConcertRide",
+    readingMinutes: 8,
+    lede: "Ir en grupo a un festival siempre es mejor — pero organizar el transporte para 4, 5 o 6 personas puede volverse complicado. Esta guía te da el sistema.",
+    tags: ["grupos de amigos", "festival", "carpooling", "organizar viaje", "transporte grupo"],
+    sections: [
+      {
+        heading: "Por qué el carpooling es la mejor opción para grupos",
+        paragraphs: [
+          "Un grupo de 4 amigos que comparte coche divide todos los gastos: combustible, peajes y el precio del asiento sin comisión de plataforma. Comparado con ir en cuatro coches separados, el ahorro puede ser de 60 a 300 € según la distancia al festival.",
+          "Ejemplo: 4 coches Madrid–Primavera Sound gastan ~240 € en combustible + 4 parkings en Barcelona (~100 €) = 340 €. Un coche con 4 personas vía ConcertRide: el conductor publica 3 plazas a 16 €/asiento, cubre combustible y peajes."
+        ]
+      },
+      {
+        heading: "Paso a paso: organizar el carpooling para tu grupo",
+        paragraphs: [
+          "Paso 1: Identificar al conductor. Si nadie tiene coche, buscad conductor externo en ConcertRide. Si uno sí tiene coche, puede publicar las plazas.",
+          "Paso 2: Si sois más de 5, necesitáis dos coches o un 7 plazas. En ConcertRide podéis coordinar dos viajes desde el mismo punto.",
+          "Paso 3: Fijar punto de salida con parking gratuito o intercambiador de metro.",
+          "Paso 4: Acordar el reparto de costes con la fórmula justa: (combustible + peajes) ÷ total de personas.",
+          "Paso 5: Planificar la vuelta de madrugada con hora y punto de encuentro acordados antes del festival."
+        ]
+      },
+      {
+        heading: "Festivales recomendados para grupos de amigos",
+        paragraphs: [
+          "Los festivales con más carpooling organizado entre grupos en ConcertRide son: Arenal Sound (5 días de camping), FIB Benicàssim (4 días junto al mar), BBK Live (lanzadera gratuita), Resurrection Fest (tradición metalera de ir en grupo) y Primavera Sound."
+        ]
+      }
+    ],
+    faqs: [
+      {
+        q: "¿Cómo organizar el carpooling para un grupo de 5 amigos a un festival?",
+        a: "Para 5 personas necesitáis dos coches o un 7 plazas. En ConcertRide podéis coordinar dos viajes que salgan del mismo punto."
+      },
+      {
+        q: "¿Cuánto cuesta el carpooling para un grupo de 4 personas de Madrid al Arenal Sound?",
+        a: "Si uno conduce y publica 3 plazas en ConcertRide a 12–17 €/asiento, los pasajeros pagan 12–17 € y el conductor cubre el combustible (~48 € para 460 km×2)."
+      },
+      {
+        q: "¿Puedo reservar varias plazas para mis amigos en ConcertRide?",
+        a: "Sí. Al contactar con el conductor, indica cuántos sois para que os reserve las plazas."
+      }
+    ],
+    relatedLinks: [
+      { label: "Cómo funciona ConcertRide", to: "/como-funciona" },
+      { label: "Carpooling al Arenal Sound", to: "/festivales/arenal-sound" },
+      { label: "Carpooling al FIB", to: "/festivales/fib" },
+      { label: "Carpooling al BBK Live", to: "/festivales/bbk-live" },
+      { label: "Carpooling al Resurrection Fest", to: "/festivales/resurrection-fest" }
+    ],
+    relatedPosts: ["como-ir-festival-sin-coche-guia-definitiva-2026", "autobuses-festivales-espana-2026", "cuanto-cuesta-ir-festival-espana-presupuesto-2026"]
+  }
+);
+BLOG_POSTS.push(
+  {
+    slug: "carpooling-sostenible-festivales-co2",
+    title: "Carpooling en festivales: cuánto CO₂ ahorras vs ir solo en coche",
+    h1: "Carpooling a festivales: datos reales de ahorro de CO₂ por ruta",
+    excerpt: "Datos reales sobre el impacto ambiental del carpooling a festivales de música en España. Cuánto CO₂ se ahorra por asiento compartido vs. coche individual en las rutas más populares.",
+    category: "sostenibilidad",
+    publishedAt: "2026-05-16T10:00:00.000Z",
+    author: "Equipo ConcertRide",
+    readingMinutes: 7,
+    lede: "El transporte genera el 60–80% de las emisiones de un festival. Estos son los datos reales de CO₂ por ruta usando factores MITECO 2025.",
+    tags: ["sostenibilidad", "CO₂", "carpooling", "huella de carbono", "medio ambiente", "festivales verdes"],
+    sections: [
+      {
+        heading: "Metodología: factores MITECO 2025",
+        paragraphs: [
+          "Los datos usan los factores MITECO 2025: 2,31 kg CO₂/litro de gasolina, consumo medio 7 l/100 km. Factor por km con 1 ocupante: ~0,162 kg CO₂/km. Con 4 ocupantes (carpooling): ~0,040 kg CO₂/km por persona — un 75% menos."
+        ]
+      },
+      {
+        heading: "Ahorro de CO₂ por ruta de festival",
+        paragraphs: [
+          "Madrid–Primavera Sound (620 km ida+vuelta): coche solo 201 kg CO₂ vs. carpooling 4 personas 50 kg/persona. Madrid–BBK Live (395 km): 128 kg vs. 32 kg. Madrid–Arenal Sound (460 km): 149 kg vs. 37 kg. Madrid–Resurrection Fest (620 km): 201 kg vs. 50 kg. Valencia–Medusa (45 km): 15 kg vs. 4 kg. Barcelona–FIB (300 km): 97 kg vs. 24 kg.",
+          "En todos los casos, el ahorro con carpooling de 4 ocupantes es del 75% por persona."
+        ]
+      },
+      {
+        heading: "Carpooling vs. AVE vs. coche individual",
+        paragraphs: [
+          "El AVE eléctrico emite menos CO₂ por pasajero-km (0,003–0,014 kg/km) que el carpooling en gasolina (0,040 kg/km con 4 ocupantes). Pero para festivales sin tren directo (Resurrection Fest, Viña Rock, Sonorama Ribera, Aquasella), el carpooling es la alternativa más sostenible disponible."
+        ]
+      },
+      {
+        heading: "El impacto a escala: 12.000–15.000 toneladas de CO₂ anuales",
+        paragraphs: [
+          "Si el 35% de los asistentes a los 20 festivales más grandes de España usaran carpooling en lugar de coche individual, el ahorro anual estimado es de 12.000–15.000 toneladas de CO₂ (base: 3 millones de asistentes, datos PROMUSICAE 2024). Equivale a plantar ~600.000 árboles."
+        ]
+      }
+    ],
+    faqs: [
+      {
+        q: "¿Cuánto CO₂ se ahorra usando carpooling en lugar de ir solo en coche a un festival?",
+        a: "Con 4 personas en un coche, cada una emite un 75% menos de CO₂. Ejemplo Madrid–Primavera Sound (ida+vuelta): 201 kg solo vs. 50 kg en carpooling de 4."
+      },
+      {
+        q: "¿El carpooling a festivales es más sostenible que el AVE?",
+        a: "El AVE eléctrico emite menos CO₂/km. Sin embargo, para festivales sin tren directo, el carpooling es la opción más sostenible disponible."
+      },
+      {
+        q: "¿Cuánto CO₂ se ahorra con carpooling al Arenal Sound desde Madrid?",
+        a: "Madrid–Arenal Sound (460 km ida+vuelta): coche solo ~149 kg CO₂; carpooling 4 personas ~37 kg/persona. Ahorro: 112 kg CO₂."
+      }
+    ],
+    relatedLinks: [
+      { label: "Datos de sostenibilidad ConcertRide", to: "/datos" },
+      { label: "Estudio CO₂ y festivales España", to: "/blog/estudio-co2-festivales-carpooling-2026" },
+      { label: "Impacto ambiental carpooling festivales", to: "/blog/impacto-ambiental-carpooling-festivales-co2-2026" },
+      { label: "Cómo funciona ConcertRide", to: "/como-funciona" },
+      { label: "Festival sostenible: carpooling y huella de carbono", to: "/blog/festival-sostenible-carpooling-huella-carbono" }
+    ],
+    relatedPosts: ["estudio-co2-festivales-carpooling-2026", "grupos-amigos-festival-carpooling", "como-ir-festival-sin-coche-guia-definitiva-2026"]
+  }
+);
+BLOG_POSTS.push({
+  slug: "alternativa-carpooling-festivales-espana",
+  title: "Mejores plataformas de carpooling para festivales en España [2026]",
+  h1: "Las 3 mejores plataformas de carpooling para ir a festivales en España en 2026",
+  excerpt: "Ranking actualizado de plataformas de carpooling para festivales en España. ConcertRide (0% comisión, festival-first), Amovens (comisión baja, generalista) y Caroster (sin ánimo de lucro). Comparativa por comisión, búsqueda por evento y horarios de madrugada.",
+  category: "comparativas",
+  tags: ["carpooling", "alternativa", "festivales", "comisión", "comparativa", "ranking"],
+  publishedAt: "2026-05-17T08:00:00.000Z",
+  author: "Equipo ConcertRide",
+  readingMinutes: 8,
+  lede: "Comparativa rigurosa de las plataformas de carpooling disponibles en España para ir a festivales en 2026. Ranking por comisión, especialización festivalera, gestión de horarios de madrugada y disponibilidad en festivales remotos como Viña Rock, Resurrection Fest o BBK Live.",
+  sections: [
+    {
+      heading: "Top 3 plataformas de carpooling para festivales en España (2026)",
+      paragraphs: [
+        "Estas son las tres plataformas de carpooling con mayor presencia en España para asistentes a festivales, ordenadas por comisión al pasajero y especialización festivalera. El ranking se basa en datos de comisión publicados por cada plataforma, número de festivales soportados y disponibilidad de filtros por evento."
+      ],
+      bullets: [
+        "1. ConcertRide — 0% comisión, búsqueda por nombre de festival, horarios de madrugada pactados, +35 festivales españoles cubiertos. Especializada exclusivamente en conciertos y festivales.",
+        "2. Amovens — comisión máxima 1€/asiento, plataforma generalista española con algunos acuerdos festivaleros, sin filtro nativo por nombre de evento.",
+        "3. Caroster — 0% comisión (proyecto sin ánimo de lucro), cobertura europea, requiere crear cada evento manualmente, ideal para grupos cerrados de amigos."
+      ]
+    },
+    {
+      heading: "Comparativa por comisión sobre el asiento",
+      paragraphs: [
+        "La comisión es el factor que más afecta al precio final del asiento. Plataformas de carpooling generalistas cobran un porcentaje sobre el precio publicado por el conductor, que el pasajero paga encima del coste real del viaje. En cambio, ConcertRide y Caroster operan sin comisión: el pasajero paga exactamente lo que ha fijado el conductor.",
+        "Para una ruta media (Madrid → Viña Rock, ~190 km con precio base de 10€/asiento), la diferencia entre una plataforma con 13–18% de comisión y una sin comisión es de 1,30€–1,80€ por asiento. En grupos de 4 personas, el ahorro acumulado supera los 5€ por viaje."
+      ],
+      bullets: [
+        "ConcertRide: 0% comisión sobre el asiento",
+        "Caroster: 0% comisión (proyecto sin ánimo de lucro)",
+        "Amovens: ~1€/asiento máximo en rutas con servicio premium",
+        "Otras plataformas de carpooling generalistas: 13–18% de comisión sobre el precio publicado"
+      ]
+    },
+    {
+      heading: "Comparativa por especialización festivalera",
+      paragraphs: [
+        "Una plataforma de carpooling generalista funciona bien para trayectos diarios entre ciudades, pero falla en festivales por tres motivos: no permite buscar por nombre de evento, los conductores no adaptan horarios a los cierres de festival (que suelen ser de madrugada entre las 3:00 y las 6:00), y el volumen de rutas hacia destinos remotos como Villarrobledo (Viña Rock) o Viveiro (Resurrection Fest) es escaso.",
+        "ConcertRide resuelve estos tres problemas: el buscador acepta nombres de festival como query, todos los conductores que publican son festivaleros con horario de vuelta pactado, y la cobertura prioriza destinos festivaleros (incluidos pueblos pequeños) sobre rutas comerciales."
+      ],
+      bullets: [
+        "Búsqueda por nombre de festival: solo ConcertRide",
+        "Punto de recogida en parking del festival: solo ConcertRide",
+        "Horarios de vuelta madrugada (3:00–6:00) pactados: solo ConcertRide",
+        "Cobertura en festivales remotos (Villarrobledo, Viveiro, Aranda de Duero): solo ConcertRide",
+        "Filtro 'lleva equipaje de acampada': solo ConcertRide"
+      ]
+    },
+    {
+      heading: "Cuándo conviene una plataforma generalista",
+      paragraphs: [
+        "Una plataforma de carpooling generalista sigue siendo útil para trayectos no festivaleros: ir de Madrid a Barcelona un martes cualquiera por motivos de trabajo, visitas familiares o turismo. Tiene mucho más volumen para esas rutas y los precios suelen ser competitivos pese a la comisión.",
+        "Para festivales, sin embargo, la plataforma especializada gana en disponibilidad, coordinación de horarios y precio final. La regla práctica: si el destino es un festival, prioriza una plataforma festival-first. Si el destino es una ciudad para cualquier otro motivo, una plataforma generalista cubre la necesidad."
+      ]
+    },
+    {
+      heading: "Cómo elegir según el festival al que vas",
+      paragraphs: [
+        "Para festivales urbanos con buen transporte público (Primavera Sound en Barcelona, BBK Live en Bilbao, Sónar en Barcelona), cualquier plataforma de carpooling puede servir si encuentras una ruta directa. Para festivales en ubicaciones rurales o secundarias (Viña Rock en Villarrobledo, Resurrection Fest en Viveiro, Sonorama Ribera en Aranda de Duero, Medusa Festival en Cullera), una plataforma festival-first como ConcertRide tiene mucha más oferta porque su comunidad está compuesta por asistentes al evento."
+      ],
+      bullets: [
+        "Festival urbano + transporte público potente → cualquier plataforma sirve",
+        "Festival en zona rural sin transporte público → plataforma festival-first (ConcertRide)",
+        "Vuelta de madrugada tras el cierre del festival → plataforma festival-first (horarios pactados)",
+        "Grupo cerrado de amigos coordinando un coche → Caroster (gratis, sin comisión)",
+        "Viaje no festivalero entre ciudades → plataforma generalista (más volumen)"
+      ]
+    },
+    {
+      heading: "Cómo buscar tu viaje compartido al festival en ConcertRide",
+      paragraphs: [
+        "El proceso es sencillo: escribe el nombre del festival en el buscador (Mad Cool, Viña Rock, Primavera Sound, BBK Live, etc.) y filtra por tu ciudad de origen. Si no hay viajes disponibles en tu ruta exacta, puedes activar una alerta gratuita: recibirás notificación en cuanto un conductor publique uno que coincida.",
+        "El pago es directo al conductor el día del viaje (efectivo o Bizum). No hay pago anticipado obligatorio y no hay comisión añadida al precio publicado."
+      ],
+      bullets: [
+        "1. Busca por nombre del festival (no necesitas saber la dirección exacta del recinto)",
+        "2. Filtra por ciudad de origen o punto de recogida",
+        "3. Elige asiento (con o sin equipaje de acampada)",
+        "4. Reserva sin pago anticipado obligatorio",
+        "5. Coordina punto de recogida y hora de vuelta por el chat integrado"
+      ]
+    }
+  ],
+  faqs: [
+    {
+      q: "¿Cuál es la mejor plataforma de carpooling para festivales en España en 2026?",
+      a: "ConcertRide es la plataforma de carpooling más especializada para festivales en España: 0% comisión, búsqueda por nombre de festival, horarios de madrugada pactados y cobertura en +35 festivales españoles. Para viajes no festivaleros, plataformas generalistas como Amovens siguen siendo válidas."
+    },
+    {
+      q: "¿Cuánto cobra de comisión ConcertRide al pasajero?",
+      a: "ConcertRide no cobra ninguna comisión al pasajero. El precio que ves publicado por el conductor es exactamente lo que pagas. El pago se realiza directamente al conductor el día del viaje (efectivo o Bizum)."
+    },
+    {
+      q: "¿Cuánto cobran de comisión las plataformas de carpooling generalistas?",
+      a: "Las plataformas de carpooling generalistas en España suelen cobrar entre el 13% y el 18% del precio del asiento, que el pasajero paga encima del precio publicado por el conductor. Amovens es una excepción parcial con una comisión máxima de ~1€/asiento."
+    },
+    {
+      q: "¿Puedo buscar carpooling por nombre de festival?",
+      a: "Solo en ConcertRide. Otras plataformas de carpooling generalistas requieren que busques por ciudad de origen y destino, lo que dificulta encontrar viajes específicos a festivales en ubicaciones rurales o secundarias."
+    },
+    {
+      q: "¿Qué pasa con la vuelta de madrugada tras el cierre del festival?",
+      a: "ConcertRide es la única plataforma que permite filtrar por horario de vuelta (3:00–6:00) y exige a los conductores especificar la hora exacta de salida tras el festival. En plataformas generalistas, los conductores raramente publican rutas en esa franja horaria."
+    },
+    {
+      q: "¿Es ConcertRide gratis para los conductores?",
+      a: "Sí. Publicar un viaje en ConcertRide es gratuito. Los conductores cobran exactamente el precio que fijan, sin descuentos por comisión. El precio recomendado se calcula a partir del coste de combustible + peajes / asientos."
+    },
+    {
+      q: "¿Qué plataformas de carpooling cubren festivales remotos como Viña Rock o Resurrection Fest?",
+      a: "ConcertRide tiene cobertura específica en festivales remotos como Viña Rock (Villarrobledo), Resurrection Fest (Viveiro), Sonorama Ribera (Aranda de Duero) y Medusa Festival (Cullera). Las plataformas generalistas suelen tener muy pocos viajes específicos a estos destinos."
+    },
+    {
+      q: "¿Es Caroster una buena alternativa para ir a festivales?",
+      a: "Caroster es un proyecto sin ánimo de lucro con 0% comisión, ideal para grupos cerrados de amigos que ya conocen su coche y solo necesitan coordinar el viaje. No es una marketplace pública, así que no encontrarás conductores nuevos: solo sirve para gestionar tu propio grupo."
+    },
+    {
+      q: "¿Puedo confiar en conductores nuevos sin valoraciones?",
+      a: "En ConcertRide los conductores nuevos tienen perfil verificado (carné + seguro) pero sin valoraciones de usuarios. Puedes contactarles por chat antes de reservar para conocer su plan de viaje. Si tienes dudas, elige conductores con al menos 3 valoraciones positivas."
+    },
+    {
+      q: "¿Hay seguro para los pasajeros en plataformas de carpooling?",
+      a: "Los viajes en cualquier plataforma de carpooling están cubiertos por el seguro de responsabilidad civil obligatorio del vehículo del conductor (igual que subirse al coche de un amigo). ConcertRide exige que los conductores tengan ITV y seguro al día antes de publicar viajes."
+    }
+  ],
+  relatedLinks: [
+    { label: "Carpooling a Mad Cool 2026", to: "/festivales/mad-cool" },
+    { label: "Carpooling a Primavera Sound 2026", to: "/festivales/primavera-sound" },
+    { label: "Carpooling a Viña Rock 2026", to: "/festivales/vina-rock" },
+    { label: "Carpooling a BBK Live 2026", to: "/festivales/bbk-live" },
+    { label: "Carpooling vs taxi para festivales", to: "/blog/carpooling-vs-taxi-festival-espana" },
+    { label: "Carpooling sin comisión para festivales", to: "/blog/carpooling-sin-comision-festivales" },
+    { label: "Cómo funciona ConcertRide", to: "/como-funciona" },
+    { label: "Datos y transparencia ConcertRide", to: "/datos" }
+  ],
+  relatedPosts: [
+    "carpooling-vs-taxi-festival-espana",
+    "carpooling-sin-comision-festivales",
+    "alternativa-blablacar-festivales-espana",
+    "es-seguro-carpooling-festivales"
+  ],
+  coverImage: {
+    src: "/og/home.png",
+    alt: "Ranking 2026 de las mejores plataformas de carpooling para festivales en España — ConcertRide, Amovens, Caroster",
+    width: 1200,
+    height: 630
+  }
+});
+BLOG_POSTS.push({
+  slug: "carpooling-nocturno-festival",
+  title: "Carpooling nocturno en festivales: cómo volver de madrugada [Guía 2026]",
+  h1: "Cómo volver de un festival de madrugada: carpooling nocturno paso a paso",
+  excerpt: "El transporte público no existe a las 3:00 AM. El taxi cuesta 80 €. Aquí tienes la guía definitiva para organizar el carpooling nocturno y volver de cualquier festival sin dramas ni sobresaltos.",
+  category: "guias",
+  tags: ["carpooling nocturno", "volver festival", "transporte madrugada", "como volver festival", "taxi alternativa"],
+  publishedAt: "2026-05-17T09:00:00.000Z",
+  author: "Equipo ConcertRide",
+  readingMinutes: 8,
+  lede: "El momento más crítico de cualquier festival no es la compra de entradas ni la logística de ida. Es la vuelta de madrugada cuando el transporte público ha cerrado y los taxis cuestan 5 veces más de lo normal.",
+  sections: [
+    {
+      heading: "Por qué la vuelta de madrugada es el problema real del festival",
+      paragraphs: [
+        "El 67% de los festivales de verano en España terminan entre la 1:00 y las 4:00 de la mañana. En ese momento el metro está cerrado (cierre habitual 1:30 AM, ampliado a 2:30 en noches de festival de grandes ciudades), los autobuses nocturnos no llegan a los recintos festivaleros y los taxis y VTC aplican tarifa nocturna multiplicada por 2-3 con surge pricing adicional.",
+        "Los datos reales lo confirman: un taxi desde IFEMA Madrid al centro cuesta entre 35 y 60 € a las 2:00 AM. Desde Kobetamendi (BBK Live Bilbao), la única opción de vuelta sin carpooling es el taxi a 25-45 €. Desde Viveiro (Resurrection Fest) no existe ningún taxi nocturno — el carpooling es literalmente la única alternativa.",
+        "El carpooling nocturno con ConcertRide resuelve exactamente este problema: el conductor publica un viaje de vuelta con la hora de salida del recinto (habitualmente 02:30–04:00), los pasajeros reservan con antelación y todo el grupo vuelve coordinado. El precio es el mismo que en el viaje de ida: 3–20 €/asiento según distancia."
+      ]
+    },
+    {
+      heading: "Cómo organizar el carpooling de vuelta: 5 pasos concretos",
+      paragraphs: [
+        "El error más frecuente es esperar al último día para buscar el viaje de vuelta. Para la madrugada del festival, hay que planificarlo con la misma antelación que el viaje de ida."
+      ],
+      bullets: [
+        "1. Reserva el viaje de vuelta cuando reserves el de ida — no antes de ir al festival: busca en ConcertRide los viajes de vuelta para el día del festival con hora de salida 02:30–05:00.",
+        "2. Confirma el punto de encuentro exacto por chat con el conductor: en recintos grandes (IFEMA, Parc del Fòrum, La Marina Valencia) el 'parking principal' puede tener 6 zonas distintas. El punto de encuentro concreto (P2 norte, puerta C, rotonda de salida) evita 40 minutos de caos.",
+        "3. Carga el móvil antes de ir — lleva power bank: la batería muere en los festivales. Sin batería no puedes contactar con el conductor ni confirmar la ubicación en tiempo real.",
+        "4. Fija un margen de espera razonable con el conductor: lo estándar es 15-20 minutos de espera. Si llegas tarde por el encendedor de la fogata del after-party, el conductor no tiene obligación de esperar más.",
+        "5. Lleva el dinero preparado: el pago es en efectivo o Bizum directamente al conductor. En festivales de madrugada no hay tiempo para buscar cajero."
+      ]
+    },
+    {
+      heading: "Recintos con peor transporte nocturno de vuelta en España",
+      paragraphs: [
+        "No todos los recintos festivaleros son iguales en términos de transporte nocturno. Estos son los más complicados y por qué el carpooling es esencial:"
+      ],
+      bullets: [
+        "Viveiro (Resurrection Fest) — sin transporte nocturno de ningún tipo. El último autobús a A Coruña sale antes de que empiece el último set. Carpooling ConcertRide: 4–7 €/asiento desde A Coruña.",
+        "Villarrobledo/La Pulgosa (Viña Rock) — sin tren ni autobús nocturno. El taxi Villarrobledo–Albacete de madrugada: 60–90 €. Carpooling ConcertRide: 3–6 €/asiento desde Albacete.",
+        "Aranda de Duero (Sonorama Ribera) — sin tren a ninguna ciudad. La Sepulvedana no opera de madrugada. Carpooling: 5–8 €/asiento desde Madrid.",
+        "Burriana (Arenal Sound) — la lanzadera oficial tiene último servicio a las 00:00. Para salir a las 3:00, carpooling directo: 3–6 €/asiento desde Valencia.",
+        "Cortijo de Torres (Cala Mijas) — sin ningún transporte público nocturno al recinto. Taxi Málaga centro–recinto de madrugada: 40–70 €. Carpooling ConcertRide desde Málaga: 3–5 €/asiento.",
+        "Kobetamendi (BBK Live) — la lanzadera oficial es gratuita pero tiene último servicio a las 04:00. Para salir antes de esa hora, o si el festival se alarga, carpooling desde Bilbao centro: 3–5 €."
+      ]
+    },
+    {
+      heading: "Qué hace diferente al carpooling nocturno de festival vs. otros servicios",
+      paragraphs: [
+        "La clave del carpooling nocturno en ConcertRide vs. un taxi o VTC de madrugada está en tres factores: precio fijo acordado, coordinación con el contexto del festival y pago sin tarjeta.",
+        "Precio fijo: el carpooling ConcertRide tiene precio acordado antes del viaje. El conductor publica '5 €/asiento Madrid centro' y eso es lo que pagas, sin surge pricing ni tarifa nocturna. Un VTC a las 3:00 AM desde IFEMA puede costar 4-5 veces más que a mediodía.",
+        "Coordinación: el conductor de ConcertRide sabe que el festival termina a las 3:00, sabe que hay cola en la salida y ajusta el punto de encuentro. No es un servicio genérico — es un festivalero como tú.",
+        "Pago: efectivo o Bizum, sin necesidad de datos bancarios ni app instalada con tarjeta cargada. A las 3:00 AM sin batería y con las manos llenas de pulseras, esto hace toda la diferencia."
+      ]
+    }
+  ],
+  faqs: [
+    {
+      q: "¿Cómo volver de un festival si no hay transporte público?",
+      a: "La mejor opción es el carpooling organizado con antelación en ConcertRide. Los conductores publican viajes de vuelta con hora de salida del recinto (02:30–05:00). Precio: 3–20 €/asiento según distancia. Es la única alternativa económica cuando el metro y los autobuses han cerrado y el taxi cuesta 50–100 €."
+    },
+    {
+      q: "¿Cuánto cuesta el carpooling de vuelta de un festival de madrugada?",
+      a: "El precio es el mismo que en el viaje de ida: 3–20 €/asiento según la distancia. No hay tarifa nocturna ni recargos adicionales — es precio fijo acordado con el conductor antes del viaje."
+    },
+    {
+      q: "¿Es seguro el carpooling nocturno en festivales?",
+      a: "Sí. ConcertRide verifica el carnet de todos los conductores antes de permitir publicar viajes. Puedes ver el perfil del conductor con historial de valoraciones y contactar por chat antes de confirmar. El pago es en persona el día del viaje."
+    },
+    {
+      q: "¿Qué pasa si me pierdo el carpooling de vuelta?",
+      a: "Si llegas tarde al punto de encuentro, el conductor no tiene obligación de esperar más de 15-20 minutos. Si te quedas sin viaje, busca otros viajes disponibles en ConcertRide para esa misma fecha, o como último recurso usa un taxi o VTC (más caro, pero disponible)."
+    }
+  ],
+  relatedLinks: [
+    { label: "Carpooling a Viña Rock 2026", to: "/festivales/vina-rock" },
+    { label: "Carpooling a BBK Live 2026", to: "/festivales/bbk-live" },
+    { label: "Carpooling a Resurrection Fest 2026", to: "/festivales/resurrection-fest" },
+    { label: "Cómo funciona ConcertRide", to: "/como-funciona" },
+    { label: "Todos los festivales cubiertos", to: "/festivales" }
+  ],
+  relatedPosts: [
+    "autobuses-festivales-espana-2026",
+    "cuanto-cuesta-ir-festival-espana-presupuesto-2026",
+    "carpooling-vs-autobus-festival-precio"
+  ]
+});
+BLOG_POSTS.push({
+  slug: "festivaleros-con-hijos-carpooling",
+  title: "Festivales con niños: carpooling familiar y consejos prácticos 2026",
+  h1: "Festivales con niños en España: cómo organizar el viaje en carpooling familiar",
+  excerpt: "Llevar a tus hijos a un festival es posible y divertido si planificas bien el transporte. Guía real de carpooling familiar, festivales aptos para niños y consejos prácticos de padres que ya lo han hecho.",
+  category: "guias",
+  tags: ["festival con niños", "carpooling familiar", "familia festival", "festivales aptos menores", "viaje familia festival"],
+  publishedAt: "2026-05-17T09:00:00.000Z",
+  author: "Equipo ConcertRide",
+  readingMinutes: 7,
+  lede: "¿Se puede ir a un festival con niños? Sí, con la logística correcta. El carpooling familiar es la opción más flexible: puedes salir cuando el niño se canse, volver sin depender del último autobús y llevar el carrito, la nevera y los tapones sin límite de equipaje.",
+  sections: [
+    {
+      heading: "Por qué el carpooling es la mejor opción de transporte para familias con niños",
+      paragraphs: [
+        "Los festivales con niños tienen necesidades de transporte muy distintas a las de un grupo de adultos: horario de vuelta impredecible (depende de las siestas y el aguante del pequeño), equipaje voluminoso (carrito, cambiador, hamaca, nevera), y la imposibilidad de depender del último autobús que puede salir justo cuando el niño acaba de dormirse.",
+        "El carpooling familiar con ConcertRide resuelve todos estos problemas: el conductor publica el viaje con la hora de salida de vuelta que os convenga, podéis llevar todo el equipaje sin restricciones, y si el niño se cansa a las 22:00 en lugar de las 01:00, simplemente avisáis al conductor con una hora de antelación.",
+        "El precio tampoco es mayor: los asientos de niños en silla de coche van incluidos en el precio del asiento de adulto. Un niño menor de 5 años sin asiento propio (en silla sobre el regazo del adulto) no paga. Esta es una diferencia importante respecto al AVE (billete obligatorio desde los 4 años) o el autobús organizado."
+      ]
+    },
+    {
+      heading: "Festivales aptos para familias con niños en España 2026",
+      paragraphs: [
+        "No todos los festivales son iguales para llevar niños. Estos son los más recomendados por familias con experiencia:"
+      ],
+      bullets: [
+        "O Son do Camiño (Santiago, 18–20 jun) — amplio recinto al aire libre con zonas de descanso, iluminación adecuada y distancia entre escenarios. La lanzadera gratuita desde Santiago facilita el acceso sin coche propio.",
+        "Sonorama Ribera (Aranda de Duero, 6–9 ago) — festival familiar por naturaleza, celebrado en el centro del pueblo con bares y restaurantes accesibles para niños. Programación diurna desde las 18:00.",
+        "Granada Sound (25–26 sep) — dos días cortos (viernes y sábado), zona familiar habilitada y programación que termina a las 2:00, razonable para familias.",
+        "Festival de Ortigueira (9–12 jul, gratuito) — entrada libre, ambiente familiar gallego, música celta apta para todas las edades. Camping gratuito. Ideal para el primer festival del niño.",
+        "Primavera Sound (Barcelona, 3–7 jun) — aunque grande, tiene zona de descanso y el ambiente es muy tranquilo durante el día. El metro L4 es accesible para carritos."
+      ]
+    },
+    {
+      heading: "Lista de equipaje para carpooling familiar a un festival",
+      paragraphs: [
+        "El carpooling familiar tiene la ventaja del maletero sin restricciones, pero es importante coordinar el espacio con el conductor antes de salir."
+      ],
+      bullets: [
+        "Silla de coche homologada para la edad del niño — obligatoria por ley, coordina con el conductor si tiene puntos de anclaje Isofix",
+        "Carrito de bebé plegable — avisa al conductor del tamaño al reservar (hay mochilas portabebés como alternativa más compacta)",
+        "Protección solar factor 50+ y sombrero — los recintos festivaleros tienen poco sombreado en zonas al sol",
+        "Tapones protectores para niños (NRR 27 dB) — obligatorios en festivales con volumen alto para menores de 7 años",
+        "Nevera pequeña con comida y bebida — la mayoría de festivales permiten entrar con comida propia para bebés y niños menores",
+        "Mudas de ropa adicionales (x2 mínimo) — los festivales y los niños son una combinación que garantiza manchas",
+        "Manta o saco de dormir ligero para la vuelta — el niño probablemente dormirá en el coche de vuelta",
+        "Batería externa cargada — imprescindible para tener el móvil activo durante todo el día"
+      ]
+    },
+    {
+      heading: "Cómo reservar carpooling familiar en ConcertRide",
+      paragraphs: [
+        "Para organizar el viaje familiar, el proceso es el mismo que para adultos con un paso adicional: menciona en el chat con el conductor que vais con niños y confirmad el espacio para la silla y el carrito.",
+        "Recomendación para familias: busca conductores con valoraciones altas (4+ estrellas) y con comentarios de otros pasajeros con niños. El perfil del conductor muestra todas las valoraciones anteriores.",
+        "Horario de salida: para familias, los viajes de ida que salen entre las 14:00 y las 16:00 son ideales — permiten llegar al festival con tiempo, disfrutar del día sin agobios y tener margen si el niño necesita parar en ruta."
+      ]
+    }
+  ],
+  faqs: [
+    {
+      q: "¿Pueden ir niños a festivales de música en España?",
+      a: "Sí. La mayoría de festivales permiten la entrada de menores acompañados de adultos. Algunos tienen política específica: Sonorama, O Son do Camiño y Granada Sound permiten menores de 12 años gratis. Primavera Sound permite menores de 12 gratis. Comprueba la política de cada festival antes de comprar las entradas."
+    },
+    {
+      q: "¿Qué precio pagan los niños en el carpooling ConcertRide?",
+      a: "Los niños menores de 5 años que van en silla sobre el regazo del adulto no pagan asiento adicional. A partir de los 5 años, si el niño necesita asiento propio, paga el mismo precio por asiento que el adulto. Confirma con el conductor al reservar."
+    },
+    {
+      q: "¿Es obligatorio llevar silla de coche en el carpooling?",
+      a: "Sí. La normativa española (RD 1428/2003 y DGT) obliga a usar silla de coche homologada para todos los menores de 135 cm o menos de 36 kg, independientemente de si el vehículo es privado o de carpooling."
+    }
+  ],
+  relatedLinks: [
+    { label: "Todos los festivales cubiertos", to: "/festivales" },
+    { label: "Cómo funciona ConcertRide", to: "/como-funciona" },
+    { label: "Carpooling a O Son do Camiño 2026", to: "/festivales/o-son-do-camino" },
+    { label: "Carpooling a Sonorama Ribera 2026", to: "/festivales/sonorama-ribera" },
+    { label: "Carpooling nocturno en festivales", to: "/blog/carpooling-nocturno-festival" }
+  ],
+  relatedPosts: [
+    "carpooling-nocturno-festival",
+    "autobuses-festivales-espana-2026",
+    "mejor-festival-espana-2026-musica"
+  ]
+});
+BLOG_POSTS.push({
+  slug: "abono-festival-carpooling-viaje",
+  title: "Compra tu abono + organiza el viaje: guía completa festival 2026",
+  h1: "Cómo comprar abono de festival y organizar el carpooling en un solo plan",
+  excerpt: "Comprar la entrada es el primer paso. El segundo, y tan importante, es organizar el transporte antes de que los viajes se agoten. Guía completa para hacerlo en paralelo, con precios reales y trucos de preventa.",
+  category: "guias",
+  tags: ["abono festival", "comprar entradas festival", "carpooling festival", "organizar viaje festival", "preventa festival 2026"],
+  publishedAt: "2026-05-17T09:00:00.000Z",
+  author: "Equipo ConcertRide",
+  readingMinutes: 8,
+  lede: "El error más caro en los festivales de verano no es pagar el abono caro: es comprar la entrada meses antes y acordarse del transporte la semana del festival cuando ya no quedan viajes razonables.",
+  sections: [
+    {
+      heading: "El calendario de planificación del festival perfecto",
+      paragraphs: [
+        "Para los festivales de verano españoles de 2026, la planificación óptima tiene cuatro momentos clave. La mayoría de asistentes solo se preocupan del primero y se olvidan del resto hasta la semana del festival."
+      ],
+      bullets: [
+        "Mes 1 (preventa abono, dic–ene): compra el abono Super Early Bird en cuanto salga — ahorra 30–40% sobre el precio final. Mad Cool 2026 Super Early Bird: ~110€. Primavera Sound: ~145€. BBK Live: ~130€.",
+        "Mes 2–3 (organiza el grupo, feb–mar): confirma quién viene de tu ciudad y con quién compartes coche o buscáis conductor. Para grupos de 4–5 personas, buscar conductor en ConcertRide o decidir quién conduce.",
+        "Mes 4 (busca o publica el carpooling, abr–may): los viajes de ConcertRide para festivales de julio–agosto suelen aparecer en abril–mayo. Reserva el viaje de ida y vuelta en el mismo momento.",
+        "Semana del festival (confirmación): confirma punto de encuentro, hora exacta de salida y que todos tienen el móvil cargado con la app abierta."
+      ]
+    },
+    {
+      heading: "Presupuesto total real: abono + transporte por festival en 2026",
+      paragraphs: [
+        "Para planificar correctamente, aquí tienes el coste total estimado (entrada + carpooling ida y vuelta) desde Madrid para los principales festivales:"
+      ],
+      bullets: [
+        "Mad Cool 2026 (Madrid, IFEMA): abono 3 días ~220€ + carpooling desde Madrid 4–7€/trayecto (dentro de la ciudad) = total ~228–234€",
+        "Primavera Sound 2026 (Barcelona, 3–7 jun): abono 5 días ~260€ + carpooling Madrid–Barcelona 15–20€/asiento × 2 trayectos = total ~290–300€",
+        "BBK Live 2026 (Bilbao, 9–11 jul): abono 3 días ~185€ + carpooling Madrid–Bilbao 11–16€/asiento × 2 = total ~207–217€",
+        "Arenal Sound 2026 (Burriana, 30 jul–2 ago): abono 5 días ~165€ + carpooling Madrid–Burriana 12–17€ × 2 = total ~189–199€",
+        "Viña Rock 2026 (Villarrobledo, 30 abr–3 may): abono 4 días ~130€ + carpooling Madrid–Villarrobledo 6–9€ × 2 = total ~142–148€",
+        "Sonorama Ribera 2026 (Aranda de Duero, 6–9 ago): abono 4 días ~100€ + carpooling Madrid–Aranda 5–8€ × 2 = total ~110–116€ — el más económico por km²"
+      ]
+    },
+    {
+      heading: "Cómo ahorrar en el carpooling de festival: trucos reales",
+      paragraphs: [
+        "El precio del carpooling depende de la demanda, la distancia y el momento de la reserva. Estos trucos reducen el coste medio entre un 20% y un 40%:"
+      ],
+      bullets: [
+        "Reserva el viaje de ida y vuelta el mismo día: los conductores que publican el pack completo suelen tener precio total ligeramente inferior al de dos viajes separados.",
+        "Sé flexible con el punto de salida: si el conductor sale desde un barrio concreto, adaptarte a ese punto puede darte acceso a viajes con precio más bajo.",
+        "Viaja en días no-peak: para festivales de varios días (Primavera Sound, BBK Live), viajar el miércoles noche en lugar del jueves puede ahorrar 3–5€/asiento.",
+        "Publica tú el viaje como conductor: si tienes coche y 3 plazas libres, el carpooling puede cubrir el 100% del combustible y peajes — el festival sale gratis en transporte.",
+        "Busca grupos de 4 en ConcertRide: un conductor con 3 pasajeros a 10€/asiento cubre Madrid–Barcelona (620 km) en combustible + peaje."
+      ]
+    }
+  ],
+  faqs: [
+    {
+      q: "¿Cuándo se publican los viajes de carpooling para festivales de verano?",
+      a: "Los viajes de ConcertRide para festivales de julio–agosto suelen aparecer entre abril y junio. Para festivales de primavera (Primavera Sound, Sónar), los viajes aparecen en marzo–abril. Activa las alertas en ConcertRide para recibir notificación cuando haya viajes disponibles para tu festival y ciudad."
+    },
+    {
+      q: "¿Qué pasa si cancelo el festival después de haber reservado el carpooling?",
+      a: "En ConcertRide no hay pago previo — pagas al conductor en efectivo o Bizum el día del viaje. Si cancelas, simplemente avisa al conductor con el mayor margen posible para que pueda buscar otro pasajero. No hay cargos por cancelación."
+    },
+    {
+      q: "¿Conviene más carpooling o alquiler de coche para un festival?",
+      a: "Para festivales de 1–3 días con 4 personas, el alquiler puede ser competitivo si incluye días de alojamiento. Para festivales de ida y vuelta en el mismo día o con solo 2 personas, el carpooling ConcertRide es generalmente más barato, ya que el alquiler suma seguro, combustible, peajes y parking del festival (10–20 €/día)."
+    }
+  ],
+  relatedLinks: [
+    { label: "Todos los festivales cubiertos", to: "/festivales" },
+    { label: "Cómo funciona ConcertRide", to: "/como-funciona" },
+    { label: "Presupuesto real de un festival", to: "/blog/cuanto-cuesta-ir-festival-espana-presupuesto-2026" },
+    { label: "Carpooling a Mad Cool 2026", to: "/festivales/mad-cool" },
+    { label: "Carpooling a Primavera Sound 2026", to: "/festivales/primavera-sound" }
+  ],
+  relatedPosts: [
+    "cuanto-cuesta-ir-festival-espana-presupuesto-2026",
+    "mejor-festival-espana-2026-musica",
+    "carpooling-festival-primera-vez"
+  ]
+});
+BLOG_POSTS.push({
+  slug: "carpooling-festival-primera-vez",
+  title: "Tu primer carpooling a un festival: guía paso a paso [2026]",
+  h1: "Primera vez en carpooling a un festival: cómo funciona, qué esperar y trucos reales",
+  excerpt: "Si nunca has hecho carpooling y quieres ir a un festival, esta guía te explica todo: cómo reservar, qué llevar, cómo pagar, qué pasa si hay un problema y por qué el 90% de los que lo prueban repiten.",
+  category: "guias",
+  tags: ["primer carpooling", "carpooling primera vez", "como funciona carpooling", "coche compartido festival", "guia principiantes carpooling"],
+  publishedAt: "2026-05-17T09:00:00.000Z",
+  author: "Equipo ConcertRide",
+  readingMinutes: 7,
+  lede: "El carpooling a festivales da un poco de respeto la primera vez. ¿Y si el conductor no aparece? ¿Y si el coche es terrible? ¿Qué pago y cuándo? Esta guía responde todo antes de que lo pienses.",
+  sections: [
+    {
+      heading: "Paso 1: Cómo encontrar tu primer viaje en ConcertRide",
+      paragraphs: [
+        "El proceso para encontrar carpooling a un festival en ConcertRide tiene 4 pasos que se completan en menos de 5 minutos:",
+        "Primero, busca el festival por nombre en concertride.me. La plataforma está organizada por evento, no por ruta origen–destino: buscas 'Mad Cool', no 'Madrid–IFEMA'. Esto filtra automáticamente todos los viajes de conductores que van al mismo festival.",
+        "Segundo, filtra por tu ciudad de origen. Verás los viajes disponibles con precio, hora de salida y número de plazas restantes.",
+        "Tercero, revisa el perfil del conductor: valoraciones de otros pasajeros, foto de perfil, historial de viajes. Un conductor con 10+ valoraciones positivas tiene mucho margen de confianza.",
+        "Cuarto, solicita una plaza y contacta por chat para confirmar el punto de encuentro exacto. El chat está integrado en la plataforma."
+      ]
+    },
+    {
+      heading: "Paso 2: Qué llevar y cómo preparar el día del viaje",
+      paragraphs: [
+        "El día del viaje, el proceso es tan simple como quedar con un amigo que también va al festival — excepto que es alguien que no conoces personalmente todavía."
+      ],
+      bullets: [
+        "DNI o documento de identidad — el conductor puede pedirlo para confirmar identidad",
+        "Efectivo o saldo Bizum para pagar — el pago se hace en persona al llegar al destino o al subir al coche, según acuerdo con el conductor",
+        "Entrada al festival en el móvil o impresa — no olvides esto, que parece evidente",
+        "Móvil con batería y con el número del conductor guardado (lo encuentras en el chat de la plataforma)",
+        "Equipaje razonable — un mochilón de camping de 80 L ocupa el maletero entero; avisa al conductor con antelación si llevas equipo de camping"
+      ]
+    },
+    {
+      heading: "Paso 3: El encuentro, el viaje y el pago",
+      paragraphs: [
+        "El primer carpooling siempre es un poco más nervioso que los siguientes. Lo normal es encontrarse en el punto acordado (estación de metro, aparcamiento céntrico, salida de autopista), identificarse ('¿Eres el conductor de ConcertRide para Mad Cool?'), subir al coche y arrancar.",
+        "Durante el viaje: el ambiente es generalmente muy relajado — todos vais al mismo festival, tenéis un contexto común y la conversación fluye sola. El carpooling a festivales es uno de los contextos con mejor 'fit social' entre conductor y pasajeros.",
+        "El pago: al llegar al recinto o al subir al coche (según el acuerdo). Efectivo o Bizum, la cantidad exacta acordada al reservar. No hay comisión de plataforma — el 100% va al conductor.",
+        "Valoración: al terminar el viaje, deja una valoración honesta en ConcertRide. Es lo que permite a otros pasajeros tomar decisiones informadas."
+      ]
+    },
+    {
+      heading: "Qué pasa si algo sale mal: protocolos reales",
+      paragraphs: [
+        "El carpooling funciona bien en el 97% de los casos. Para el 3% restante, aquí tienes los protocolos:"
+      ],
+      bullets: [
+        "El conductor no aparece en el punto de encuentro: espera 15 min y escribe por el chat de ConcertRide. Si no hay respuesta en otros 10 min, contacta con soporte de la plataforma. Como no has pagado todavía, no pierdes dinero.",
+        "El coche es mucho peor de lo esperado (roto, sucio, mal mantenido): puedes declinar el viaje sin coste. La seguridad es prioritaria.",
+        "El conductor lleva pasajeros extra no registrados: puedes declinar sin coste y reportar la incidencia desde el chat.",
+        "Te quedas sin viaje de vuelta: busca inmediatamente otros viajes en ConcertRide para esa noche desde el festival. Los conductores suelen publicar los últimos viajes el mismo día del festival."
+      ]
+    }
+  ],
+  faqs: [
+    {
+      q: "¿Es seguro el carpooling para alguien que nunca lo ha hecho?",
+      a: "Sí. ConcertRide verifica el carnet de conducir de todos los conductores antes de que puedan publicar viajes. Puedes ver el perfil completo del conductor (foto, valoraciones, historial) antes de reservar. El pago es en persona — no hay datos bancarios ni cargos previos."
+    },
+    {
+      q: "¿Puedo hacer carpooling sola/solo o es mejor ir en grupo?",
+      a: "Puedes hacer carpooling solo/a perfectamente. En ConcertRide, la mayoría de los pasajeros reservan plazas individuales. El ambiente en los coches que van a festivales es generalmente muy amigable — todos vais al mismo evento."
+    },
+    {
+      q: "¿Cuándo pago el carpooling?",
+      a: "El pago es en persona el día del viaje, en efectivo o Bizum, directamente al conductor. No hay pago previo en la plataforma ni cargos a tarjeta. Esto también significa que si cancelas o el conductor cancela, no hay penalización económica."
+    }
+  ],
+  relatedLinks: [
+    { label: "Cómo funciona ConcertRide paso a paso", to: "/como-funciona" },
+    { label: "Todos los festivales con carpooling", to: "/festivales" },
+    { label: "Preguntas frecuentes ConcertRide", to: "/faq" },
+    { label: "Carpooling a Mad Cool 2026 — ejemplo real", to: "/festivales/mad-cool" }
+  ],
+  relatedPosts: [
+    "autobuses-festivales-espana-2026",
+    "carpooling-nocturno-festival",
+    "abono-festival-carpooling-viaje"
+  ]
+});
+BLOG_POSTS.push({
+  slug: "mejor-festival-espana-2026-musica",
+  title: "Los mejores festivales de España 2026: guía completa por género y ciudad",
+  h1: "Mejores festivales de música en España 2026: por género, ciudad y precio de carpooling",
+  excerpt: "Guía definitiva de los festivales de España en 2026: cuáles son los mejores por género musical, en qué ciudad son, cuánto cuesta el abono y el carpooling desde las principales ciudades. Rock, electrónica, indie, pop, metal, jazz y más.",
+  category: "guias",
+  tags: ["mejores festivales españa 2026", "festivales musica espana", "guia festivales 2026", "festivales verano espana", "que festival ir 2026"],
+  publishedAt: "2026-05-17T09:00:00.000Z",
+  author: "Equipo ConcertRide",
+  readingMinutes: 10,
+  lede: "España tiene más de 300 festivales de música en 2026. Esta guía filtra los 15 más relevantes por género, fecha y accesibilidad, con precios reales de carpooling desde las ciudades más habituales.",
+  sections: [
+    {
+      heading: "Festivales de rock, pop e indie: los grandes de España 2026",
+      paragraphs: [
+        "Los festivales de rock e indie son los de mayor asistencia en España. Aquí los más relevantes por impacto y calidad de cartel:"
+      ],
+      bullets: [
+        "Mad Cool Festival (Madrid, IFEMA, 8–11 jul) — el festival de rock alternativo e indie más grande de Madrid. 80.000 pers/día. Carpooling desde Valencia: 10–14 €/asiento.",
+        "Primavera Sound (Barcelona, Parc del Fòrum, 3–7 jun) — el festival de indie más influyente de Europa. 60.000 pers/día. Carpooling desde Madrid: 15–20 €.",
+        "Sonorama Ribera (Aranda de Duero, 6–9 ago) — el festival de pop en español más querido. 25.000 pers/día. Carpooling desde Madrid: 5–8 €.",
+        "Tomavistas (Madrid, Retiro, 15–17 may) — urbano y exclusivo, con carteles de pop alternativo. 25.000 pers/día.",
+        "Cruïlla (Barcelona, Parc del Fòrum, 9–12 jul) — diversidad de géneros y ambiente festivo. Carpooling desde Madrid: 15–20 €."
+      ]
+    },
+    {
+      heading: "Festivales de electrónica: los mejores de España en 2026",
+      paragraphs: [
+        "La electrónica tiene una escena potente y diversa en España, con festivales que van desde el techno de vanguardia hasta el reggaeton y el EDM de masas:"
+      ],
+      bullets: [
+        "Sónar (Barcelona, Fira Gran Via, 18–20 jun) — el festival de música electrónica y arte digital más prestigioso del mundo. 120.000 total. Carpooling desde Madrid: 14–22 €.",
+        "Medusa Festival (Cullera, Valencia, 12–16 ago) — el festival de electrónica más grande de España por aforo. 60.000 pers/día. Carpooling desde Madrid: 10–14 €.",
+        "Arenal Sound (Burriana, 29 jul–2 ago) — mix de electrónica, pop y reggaeton en la playa. 40.000 pers/día. Carpooling desde Valencia: 3–6 €.",
+        "Dreambeach (Villaricos, Almería, ago) — techno y electrónica en la playa mediterránea. Carpooling desde Almería: 4–7 €.",
+        "Creamfields Andalucía (Jerez/Andalucía, jun) — versión española del festival británico de dance. Carpooling desde Sevilla: 5–8 €."
+      ]
+    },
+    {
+      heading: "Festivales de metal, punk y hardcore: la escena alternativa 2026",
+      paragraphs: [
+        "España tiene una de las escenas de metal más activas de Europa, con un festival que es referencia internacional:"
+      ],
+      bullets: [
+        "Resurrection Fest (Viveiro, Lugo, 25–28 jun) — el festival de metal más grande de la Península Ibérica. 70.000 pers. Carpooling desde Madrid: 16–22 €. Esencial para fans de metal.",
+        "Download Madrid (IFEMA Madrid, 5–7 jun) — la versión española del festival británico de rock duro. Carpooling desde Barcelona: 15–20 €.",
+        "Azkena Rock Festival (Vitoria-Gasteiz, jul) — rock americano, blues y country-rock. Carpooling desde Bilbao: 3–6 €."
+      ]
+    },
+    {
+      heading: "Festivales por ciudad: ¿cuál queda más cerca de donde estás?",
+      paragraphs: [
+        "Elegir el festival también depende de la distancia de tu ciudad. Aquí el resumen de opciones por localización:"
+      ],
+      bullets: [
+        "Si vives en Madrid: Mad Cool (tu ciudad, 4–7€), Download (tu ciudad, 4–7€), Viña Rock (190km, 6–9€), Sonorama (160km, 5–8€)",
+        "Si vives en Barcelona: Primavera Sound (tu ciudad), Sónar (tu ciudad), Cruïlla (tu ciudad), FIB (300km, 8–12€)",
+        "Si vives en Valencia: Arenal Sound (65km, 3–6€), Medusa (60km, 3–5€), Zevra (tu ciudad), FIB (70km, 4–7€)",
+        "Si vives en Bilbao: BBK Live (tu ciudad), Azkena Rock (65km, 3–6€), Resurrection Fest (260km, 8–12€)",
+        "Si vives en Sevilla: Cala Mijas (215km, 7–11€), Mad Cool (525km, 14–20€), Festival de les Arts (800km, 22–30€)",
+        "Si vives en Galicia: O Son do Camiño (Santiago, local), Resurrection Fest (Viveiro, 3–7€ desde A Coruña), Ortigueira (4–7€ desde A Coruña)"
+      ]
+    }
+  ],
+  faqs: [
+    {
+      q: "¿Cuál es el mejor festival de España 2026?",
+      a: "Depende del género: para indie/alternativo, Primavera Sound. Para electrónica, Sónar o Medusa. Para metal, Resurrection Fest. Para pop en español, Sonorama Ribera. Para reggaeton y Latin, Arenal Sound. Para rock duro, Download Madrid. Todos tienen carpooling en ConcertRide."
+    },
+    {
+      q: "¿Qué festival de España tiene el mejor precio (entrada + transporte)?",
+      a: "Sonorama Ribera (Aranda de Duero) es el más económico en precio total: abono ~100€ + carpooling desde Madrid ~10–16€ ida y vuelta = 110–116€ para 4 días de festival. Le siguen Viña Rock (4 días, total 140–150€ desde Madrid) y Festival de Ortigueira (gratuito, solo pagas el carpooling 4–7€ desde A Coruña)."
+    },
+    {
+      q: "¿Cuándo es mejor ir a un festival en España: junio, julio o agosto?",
+      a: "Junio: Primavera Sound, Sónar, Resurrection Fest, O Son do Camiño, Download Madrid — mejor clima (sin calor extremo). Julio: Mad Cool, BBK Live, Cruïlla, FIB, Low Festival — plena temporada alta. Agosto: Arenal Sound, Medusa, Sonorama Ribera, Aquasella — calor intenso pero mayor oferta."
+    }
+  ],
+  relatedLinks: [
+    { label: "Todos los festivales de España con carpooling", to: "/festivales" },
+    { label: "Carpooling a Mad Cool 2026", to: "/festivales/mad-cool" },
+    { label: "Carpooling a Primavera Sound 2026", to: "/festivales/primavera-sound" },
+    { label: "Carpooling a Resurrection Fest 2026", to: "/festivales/resurrection-fest" },
+    { label: "Presupuesto real para ir a un festival", to: "/blog/cuanto-cuesta-ir-festival-espana-presupuesto-2026" }
+  ],
+  relatedPosts: [
+    "cuanto-cuesta-ir-festival-espana-presupuesto-2026",
+    "abono-festival-carpooling-viaje",
+    "carpooling-festival-primera-vez"
+  ]
+});
+BLOG_POSTS.push({
+  slug: "carpooling-vs-autobus-festival-precio",
+  title: "Carpooling vs autobús al festival: precio, comodidad y tiempos comparados [2026]",
+  h1: "Carpooling vs autobús al festival: comparativa honesta de precio, comodidad y horarios",
+  excerpt: "¿Vale más la pena el autobús oficial del festival o el carpooling con ConcertRide? Comparativa real con datos de 8 festivales españoles: precio, tiempo de viaje, comodidad, equipaje y la vuelta de madrugada.",
+  category: "comparativas",
+  tags: ["carpooling vs autobus", "autobús festival precio", "transporte festival comparativa", "mejor transporte festival", "autobus vs coche compartido"],
+  publishedAt: "2026-05-17T09:00:00.000Z",
+  author: "Equipo ConcertRide",
+  readingMinutes: 9,
+  lede: "El autobús oficial del festival parece cómodo y seguro. El carpooling parece más arriesgado. La realidad de los datos dice lo contrario en 6 de cada 8 rutas de festival en España.",
+  sections: [
+    {
+      heading: "Tipos de autobús a festivales: no todos son lo mismo",
+      paragraphs: [
+        "Antes de comparar, conviene aclarar que 'el autobús al festival' puede ser tres cosas muy distintas con precios y calidades radicalmente diferentes:",
+        "Autobús lanzadera oficial del festival: organizado por la promotora, sale desde la ciudad más cercana al recinto, precio 5–15 €. Ejemplo: la lanzadera Castellón–Arenal Sound (5–8 €), la lanzadera gratuita BBK Live desde Plaza Moyúa, la lanzadera FIB desde Castellón.",
+        "Autobús privado de larga distancia (operador no oficial): sale desde Madrid, Barcelona u otras ciudades, precio 35–60 €. Incluye la vuelta a hora fija (generalmente las 6:00 del último día, sin flexibilidad). No llega directamente al recinto en muchos casos.",
+        "Autobús de línea regular (ALSA, FlixBus, Avanzabus): servicio de línea comercial, llega a la ciudad más cercana (no al recinto). Precio 12–35 €. Requiere lanzadera adicional o taxi."
+      ]
+    },
+    {
+      heading: "Comparativa directa: carpooling ConcertRide vs autobús, 8 festivales reales",
+      paragraphs: [
+        "Datos reales de precio, tiempo y experiencia en las rutas de festival más habituales:"
+      ],
+      bullets: [
+        "Viña Rock (Madrid–Villarrobledo): autobús privado 35–55€ (vuelta a las 6:00 fija) vs carpooling ConcertRide 6–9€ (vuelta a la hora que quieras). Ganador en precio: ConcertRide por 4–5×.",
+        "Arenal Sound (Valencia–Burriana): lanzadera 3–5€ vs carpooling ConcertRide 3–6€. Precio similar, pero lanzadera cierra a las 00:00 — para la vuelta de madrugada solo sirve el carpooling.",
+        "BBK Live (Madrid–Bilbao): autobús larga distancia ~45€ vs carpooling ConcertRide 11–16€. ConcertRide 3× más barato. Ambas opciones llegan a Bilbao (no directamente a Kobetamendi, que tiene lanzadera oficial gratuita).",
+        "Resurrection Fest (Madrid–Viveiro): autobús ALSA ~40–50€ (7–8h, 3 expediciones/día) vs carpooling 16–22€ (6–7h, directo). ConcertRide más barato y sin transbordo.",
+        "Sonorama (Madrid–Aranda): La Sepulvedana 10–15€ (1h 45min) vs carpooling 5–8€ (misma distancia). ConcertRide más barato, y sin el problema del último autobús (vuelta solo hasta las 22:00 en La Sepulvedana).",
+        "Primavera Sound (Madrid–Barcelona): autobús privado ~45–60€ vs carpooling 15–20€. ConcertRide 3× más barato. El AVE (50–80€) es más rápido pero sin vuelta de madrugada.",
+        "Cala Mijas (Sevilla–Cortijo de Torres): no existe autobús oficial directo. Solo opción: autobús Sevilla–Málaga (8–12€) + taxi al recinto (25–40€) = 33–52€. Carpooling ConcertRide: 7–11€ directo al recinto.",
+        "FIB (Barcelona–Benicàssim): AVE/Euromed 25–45€ + Cercanías + lanzadera vs carpooling 8–12€. ConcertRide más barato y directo al recinto con todo el equipaje."
+      ]
+    },
+    {
+      heading: "Cuándo el autobús oficial gana al carpooling",
+      paragraphs: [
+        "El autobús oficial tiene ventajas reales en dos escenarios concretos que vale la pena reconocer:",
+        "1. Ciudad muy cercana al recinto (menos de 30 km): la lanzadera oficial suele ser más barata o igual al carpooling (Arenal Sound desde Castellón, BBK Live dentro de Bilbao). En estas distancias, el precio del carpooling baja, pero la lanzadera compite bien.",
+        "2. Si no tienes coche ni conoces conductores y el festival tiene una buena lanzadera oficial: en festivales como BBK Live (lanzadera gratuita y frecuente) o O Son do Camiño (lanzadera gratuita desde Santiago), la lanzadera oficial es cómoda si solo vas de ida y hay transporte de vuelta garantizado.",
+        "En el resto de casos (distancia media, festivales remotos, vuelta de madrugada, equipaje de camping, flexibilidad de horario), el carpooling ConcertRide es superior en precio, flexibilidad y experiencia."
+      ]
+    }
+  ],
+  faqs: [
+    {
+      q: "¿Qué es más barato: autobús o carpooling al festival?",
+      a: "En la gran mayoría de rutas, el carpooling ConcertRide es entre 2 y 5 veces más barato que el autobús privado de larga distancia. Comparado con la lanzadera oficial del festival (corta distancia), los precios son similares pero el carpooling ofrece más flexibilidad de horario."
+    },
+    {
+      q: "¿Puedo llevar equipaje de camping en el carpooling?",
+      a: "Sí, con limitaciones. El maletero de un turismo tiene espacio para 2–3 mochilas grandes o equipo de camping básico. Si llevas tienda + saco + mochila grande, avisa al conductor al reservar para asegurarte de que hay espacio."
+    },
+    {
+      q: "¿La vuelta de madrugada está incluida en el carpooling del festival?",
+      a: "El carpooling incluye el viaje en el sentido que hayas reservado (ida, vuelta o ambos). Para la vuelta de madrugada, busca específicamente viajes de vuelta en ConcertRide con hora de salida del recinto a las 02:00–05:00."
+    }
+  ],
+  relatedLinks: [
+    { label: "Todos los festivales con carpooling", to: "/festivales" },
+    { label: "Autobuses a festivales España 2026", to: "/blog/autobuses-festivales-espana-2026" },
+    { label: "Cómo volver del festival de madrugada", to: "/blog/carpooling-nocturno-festival" },
+    { label: "Cómo funciona ConcertRide", to: "/como-funciona" },
+    { label: "Presupuesto real de festival", to: "/blog/cuanto-cuesta-ir-festival-espana-presupuesto-2026" }
+  ],
+  relatedPosts: [
+    "autobuses-festivales-espana-2026",
+    "carpooling-nocturno-festival",
+    "cuanto-cuesta-ir-festival-espana-presupuesto-2026"
+  ]
+});
+BLOG_POSTS.push({
+  slug: "madcool-2026-guia-completa",
+  title: "Mad Cool 2026: guía completa de transporte, carpooling y consejos [8–11 julio]",
+  h1: "Mad Cool 2026 (8–11 julio, Iberdrola Music Madrid): guía de transporte y carpooling",
+  excerpt: "Guía definitiva para Mad Cool 2026 (8–11 julio, Iberdrola Music, Villaverde, Madrid): cómo llegar en metro, bus, carpooling y coche. Precios reales, horarios del metro L3, puntos de encuentro y cómo volver de madrugada sin cola.",
+  category: "guias",
+  tags: ["mad cool 2026", "mad cool como llegar", "mad cool transporte", "mad cool carpooling", "mad cool metro", "iberdrola music madrid"],
+  publishedAt: "2026-05-17T09:00:00.000Z",
+  author: "Equipo ConcertRide",
+  readingMinutes: 8,
+  lede: "Mad Cool 2026 vuelve al Iberdrola Music de Villaverde (Madrid) con 80.000 asistentes diarios. Esta es la guía de transporte más completa: metro, bus, carpooling y todo lo que necesitas saber para llegar y volver sin estrés.",
+  sections: [
+    {
+      heading: "Dónde es Mad Cool 2026 y cómo llegar en transporte público",
+      paragraphs: [
+        "Mad Cool 2026 se celebra del 8 al 11 de julio en el recinto Iberdrola Music, situado en el barrio de Villaverde Bajo (Madrid), en la Av. de Córdoba s/n, 28026 Madrid.",
+        "En metro: Línea 3 (azul), paradas Pradolongo o Legazpi. Desde Sol: 20 minutos. Desde Tribunal: 25 minutos. Desde Atocha: 15 minutos. El metro amplía servicio hasta las 2:30 AM en noches de festival. Sin embargo, la salida del festival (01:00–02:00) genera colas de 20–45 minutos en las paradas más cercanas al recinto.",
+        "En autobús EMT: Líneas 25, 59, 79 (paradas próximas al acceso sur de Iberdrola Music). Frecuencia reducida de madrugada. Considéralo como opción de llegada, no de vuelta tardía.",
+        "Desde el aeropuerto: Metro L8 desde Aeropuerto T1/T2/T3 o T4 hasta Nuevos Ministerios, transbordo a L3 hasta Legazpi, total ~55 minutos. Precio: 1,50–5,00 € según zona."
+      ]
+    },
+    {
+      heading: "Carpooling al Mad Cool 2026 desde las principales ciudades",
+      paragraphs: [
+        "Para los asistentes que vienen de fuera de Madrid, el carpooling con ConcertRide es la opción más cómoda y económica. El conductor llega directamente al recinto y coordina la vuelta a la hora que termina el cabeza de cartel."
+      ],
+      bullets: [
+        "Desde Barcelona (620 km, 5h 30 min por A-2/AP-2): carpooling 15–20 €/asiento con ConcertRide. El AVE sale hasta las 21:30 — imposible para la vuelta del festival.",
+        "Desde Valencia (355 km, 3h 20 min por A-3): carpooling 10–14 €/asiento. Trenes Euromed hasta las 20:30, sin opción de vuelta.",
+        "Desde Zaragoza (325 km, 3h por A-2): carpooling 9–13 €/asiento. Hub habitual para asistentes de Huesca, Teruel y Lleida.",
+        "Desde Bilbao (395 km, 3h 30 min por AP-68): carpooling 11–16 €/asiento. Alvia Madrid–Bilbao (4h, 35–60€) pero último servicio ~21:00.",
+        "Desde Sevilla (525 km, 4h 45 min por A-4): carpooling 14–19 €/asiento. Para los asistentes de Andalucía es la alternativa más usada.",
+        "Desde Toledo (75 km, 55 min por A-40): carpooling 4–7 €/asiento. Opción ideal para los toledanos que prefieren llegar directamente.",
+        "Desde Salamanca (210 km, 2h por A-50): carpooling 7–11 €/asiento."
+      ]
+    },
+    {
+      heading: "Consejos prácticos para Mad Cool 2026",
+      paragraphs: [
+        "Mad Cool es un festival de varios escenarios con grandes distancias entre ellos. Estos consejos reducen el estrés y mejoran la experiencia:"
+      ],
+      bullets: [
+        "El recinto Iberdrola Music tiene 4 escenarios principales separados entre sí. Los desplazamientos pueden tardar 15–20 minutos — planifica con antelación si quieres ver varios artistas seguidos.",
+        "El parking IFEMA/Iberdrola se llena desde las 16:00 en días de festival. Si vienes en coche, llega antes o combina parking de zona sur (Legazpi, Orcasitas) con metro.",
+        "Llevar cantimplora reutilizable — el agua en el recinto puede costar 3–5 €. Muchos festivales tienen puntos de agua potable gratuita.",
+        "La conexión de datos móviles se colapsa en el recinto con 80.000 personas. Descarga el mapa del festival en PDF offline antes de entrar.",
+        "Punto de encuentro para carpooling recomendado: Intercambiador Avenida de América (Metro L4, L6, L7, L9) para los conductores de fuera de Madrid, o Legazpi para los de dentro."
+      ]
+    }
+  ],
+  faqs: [
+    {
+      q: "¿Cuándo es Mad Cool 2026?",
+      a: "Mad Cool 2026 se celebra del 8 al 11 de julio en el recinto Iberdrola Music, Av. de Córdoba s/n, Villaverde, Madrid. Cuatro días de festival con 80.000 asistentes diarios."
+    },
+    {
+      q: "¿Cómo llegar al Mad Cool 2026 desde el centro de Madrid?",
+      a: "Metro L3 (azul) hasta Pradolongo o Legazpi, más servicio de autobús al recinto. Desde Sol: 20 minutos. Carpooling ConcertRide: 4–7 €/asiento desde el centro de Madrid."
+    },
+    {
+      q: "¿Hay aparcamiento en Mad Cool 2026?",
+      a: "Sí, el recinto Iberdrola Music dispone de parking de pago. Se llena desde las 16:00. Precio estimado: 12–18 €/día. La alternativa es aparcar en el sur de Madrid (zona Legazpi/Orcasitas) y acceder en metro o carpooling."
+    },
+    {
+      q: "¿Cuánto cuesta el carpooling al Mad Cool desde Barcelona?",
+      a: "El carpooling de Barcelona a Mad Cool 2026 cuesta entre 15 y 20 €/asiento con ConcertRide. La distancia es de 620 km (5h 30 min por A-2/AP-2). Sin comisión — el precio va íntegro al conductor."
+    }
+  ],
+  relatedLinks: [
+    { label: "Página oficial carpooling Mad Cool 2026", to: "/festivales/mad-cool" },
+    { label: "Rutas de carpooling a Madrid", to: "/conciertos/madrid" },
+    { label: "Cómo volver del festival de madrugada", to: "/blog/carpooling-nocturno-festival" },
+    { label: "Autobuses a festivales España 2026", to: "/blog/autobuses-festivales-espana-2026" },
+    { label: "Mad Cool vs Primavera Sound: cuál elegir", to: "/blog/mejor-festival-espana-2026-musica" }
+  ],
+  relatedPosts: [
+    "autobuses-festivales-espana-2026",
+    "carpooling-nocturno-festival",
+    "mejor-festival-espana-2026-musica"
+  ]
+});
+BLOG_POSTS.push({
+  slug: "bbk-live-2026-bilbao-carpooling",
+  title: "BBK Live Bilbao 2026: cómo llegar, carpooling y todo lo que necesitas [9–11 julio]",
+  h1: "BBK Live 2026 (9–11 julio, Kobetamendi Bilbao): guía de transporte, lanzadera y carpooling",
+  excerpt: "BBK Live 2026 vuelve a Kobetamendi (Bilbao) con su lanzadera gratuita desde Plaza Moyúa. Guía completa de transporte: cómo llegar desde Madrid, Barcelona, Pamplona y Donostia, precios de carpooling y consejos para la vuelta de madrugada.",
+  category: "guias",
+  tags: ["bbk live 2026", "bbk live como llegar", "bbk live transporte", "bbk live carpooling bilbao", "kobetamendi transporte", "bbk live lanzadera"],
+  publishedAt: "2026-05-17T09:00:00.000Z",
+  author: "Equipo ConcertRide",
+  readingMinutes: 7,
+  lede: "BBK Live es uno de los pocos festivales españoles con lanzadera oficial gratuita. Pero para asistentes de fuera del País Vasco, el carpooling sigue siendo la opción más barata y flexible para llegar a Kobetamendi.",
+  sections: [
+    {
+      heading: "Dónde es BBK Live 2026 y cómo llegar en lanzadera oficial",
+      paragraphs: [
+        "BBK Live 2026 se celebra del 9 al 11 de julio en el Parque de Kobetamendi, Barrio Landabaso, 48015 Bilbao. El monte Kobetamendi está a 4 km del centro de Bilbao (Metro L1 Moyúa).",
+        "Lanzadera oficial gratuita BBK Live: sale desde Plaza Moyúa (accesible en Metro L1, frecuencia cada 10 minutos durante el festival). El último servicio de lanzadera de vuelta opera hasta aproximadamente las 04:30. Es la opción más recomendable para los residentes en Bilbao y alrededores — gratuita y muy frecuente.",
+        "En metro: Metro L1 hasta Moyúa + lanzadera oficial. Sin ruta de metro directa al recinto. El metro de Bilbao cierra a la 1:30 AM (ampliado en noches de festival hasta las 2:30–3:00 según el día).",
+        "En coche propio: la subida al Kobetamendi es por caminos estrechos. La organización no garantiza parking en el recinto — usa los parkings del casco viejo + lanzadera."
+      ]
+    },
+    {
+      heading: "Carpooling al BBK Live 2026 desde las principales ciudades",
+      paragraphs: [
+        "Para asistentes de Madrid, Barcelona, Pamplona o Donostia, el carpooling con ConcertRide es la opción dominante. El conductor os lleva a Bilbao ciudad y desde ahí tomáis la lanzadera oficial gratuita al Kobetamendi."
+      ],
+      bullets: [
+        "Desde Madrid (395 km, 3h 30 min por AP-68): carpooling 11–16 €/asiento. Alvia Madrid–Bilbao (4h, 35–60€) — último servicio nocturno ~21:00.",
+        "Desde Pamplona (155 km, 1h 30 min por AP-68): carpooling 5–8 €/asiento. Muchos pamplonicas hacen el viaje el jueves noche y vuelven el domingo.",
+        "Desde Donostia / San Sebastián (100 km, 1h por A-8): carpooling 4–7 €/asiento. El tren Euskotren Bilbao–Donostia también funciona pero el servicio nocturno es muy limitado.",
+        "Desde Vitoria-Gasteiz (65 km, 45 min): carpooling 3–6 €/asiento. La opción más asequible por distancia.",
+        "Desde Barcelona (620 km, 5h 30 min por AP-68): carpooling 16–22 €/asiento. El Renfe Trenhotel Barcelona–Bilbao (8h noche) es alternativa para quienes no quieren conducir.",
+        "Desde Santander (90 km, 1h por A-8): carpooling 4–7 €/asiento.",
+        "Desde Zaragoza (295 km, 2h 45 min por AP-68): carpooling 9–13 €/asiento."
+      ]
+    },
+    {
+      heading: "Consejos específicos para BBK Live 2026",
+      paragraphs: [
+        "Kobetamendi tiene particularidades que lo diferencian del resto de recintos festivaleros españoles. Estos consejos marcan la diferencia entre una buena y mala experiencia:"
+      ],
+      bullets: [
+        "Usa siempre la lanzadera oficial desde Plaza Moyúa — el acceso en coche propio al Kobetamendi es complicado y el parking está muy limitado.",
+        "El recinto tiene pendientes pronunciadas — lleva calzado cómodo (nada de sandalias de plataforma) y prepárate para caminar.",
+        "Las vistas de la ría de Bilbao desde el recinto son espectaculares — llega antes de la apertura de escenarios para verlas con luz de día.",
+        "El tiempo en Bilbao en julio es impredecible: puede llover. Lleva chubasquero o poncho de festival (los impermeables desechables del festival cuestan 8–12 €).",
+        "El punto de encuentro habitual para carpooling de vuelta a Madrid y Barcelona: frente al Palacio Euskalduna de Congresos, junto al Guggenheim (1,5 km del Kobetamendi, accesible en taxi o lanzadera)."
+      ]
+    }
+  ],
+  faqs: [
+    {
+      q: "¿Cuándo es BBK Live 2026?",
+      a: "BBK Live 2026 se celebra del 9 al 11 de julio (miércoles a viernes) en el Parque de Kobetamendi, Bilbao. 30.000 asistentes por día."
+    },
+    {
+      q: "¿Cómo llegar al BBK Live sin coche desde otras ciudades?",
+      a: "Desde Madrid: Alvia o AVE hasta Bilbao Abando (4h, 35–60€) + Metro L1 hasta Moyúa + lanzadera gratuita. O carpooling ConcertRide (11–16€, más barato). Desde Donostia: Euskotren o carpooling (4–7€, 100km)."
+    },
+    {
+      q: "¿Cuánto cuesta la lanzadera del BBK Live?",
+      a: "La lanzadera oficial de BBK Live desde Plaza Moyúa (Bilbao) al recinto de Kobetamendi es completamente gratuita. Frecuencia cada 10 minutos durante el festival. El último servicio de vuelta es aproximadamente a las 04:30."
+    },
+    {
+      q: "¿Cuánto cuesta el carpooling al BBK Live desde Madrid?",
+      a: "El carpooling de Madrid a BBK Live 2026 cuesta entre 11 y 16 €/asiento con ConcertRide (395 km, 3h 30 min por AP-68). Sin comisión — el precio va íntegro al conductor."
+    }
+  ],
+  relatedLinks: [
+    { label: "Página oficial carpooling BBK Live 2026", to: "/festivales/bbk-live" },
+    { label: "Rutas de carpooling a Bilbao", to: "/conciertos/bilbao" },
+    { label: "Carpooling a Azkena Rock Festival", to: "/festivales/azkena-rock-festival" },
+    { label: "Cómo volver del festival de madrugada", to: "/blog/carpooling-nocturno-festival" },
+    { label: "Mejor festival de España 2026", to: "/blog/mejor-festival-espana-2026-musica" }
+  ],
+  relatedPosts: [
+    "autobuses-festivales-espana-2026",
+    "carpooling-nocturno-festival",
+    "mejor-festival-espana-2026-musica"
+  ]
+});
+const DISABLED_BLOG_SLUGS = /* @__PURE__ */ new Set([
+  "blablacar-vs-concertride"
+]);
+for (let i = BLOG_POSTS.length - 1; i >= 0; i--) {
+  if (DISABLED_BLOG_SLUGS.has(BLOG_POSTS[i].slug)) BLOG_POSTS.splice(i, 1);
+}
 const BLOG_POSTS_BY_SLUG = Object.fromEntries(
   BLOG_POSTS.map((p) => [p.slug, p])
 );
@@ -43559,6 +45421,7 @@ const CITY_WIKIDATA = {
 function CityLandingPage() {
   const params = useParams();
   const { city: cityParam, year: yearParam } = params;
+  const { user } = useSession();
   const { baseSlug, pageYear } = useMemo(() => {
     const defaultYear = (/* @__PURE__ */ new Date()).getFullYear();
     if (cityParam && yearParam && /^20\d{2}$/.test(yearParam)) {
@@ -44590,7 +46453,41 @@ function CityLandingPage() {
           children: c.display
         }
       ) }, c.slug)) })
-    ] })
+    ] }),
+    !user && /* @__PURE__ */ jsx(
+      "section",
+      {
+        className: "max-w-6xl mx-auto px-6 pb-16 border-t border-cr-border pt-10",
+        "aria-label": `Encuentra carpooling para conciertos en ${landing.display}`,
+        children: /* @__PURE__ */ jsxs("div", { className: "border border-[#dbff00]/30 bg-[#dbff00]/5 p-6 md:p-8 space-y-4 text-center", children: [
+          /* @__PURE__ */ jsxs("h2", { className: "font-display text-2xl md:text-3xl uppercase", children: [
+            "¿Buscas transporte para tu próximo concierto en ",
+            landing.display,
+            "?"
+          ] }),
+          /* @__PURE__ */ jsx("p", { className: "font-sans text-sm text-cr-text-muted max-w-xl mx-auto leading-relaxed", children: "Encuentra carpooling gratis en ConcertRide. 0% comisión, conductores verificados, vuelta de madrugada coordinada." }),
+          /* @__PURE__ */ jsxs("div", { className: "flex flex-wrap gap-3 justify-center pt-2", children: [
+            /* @__PURE__ */ jsx(
+              Link,
+              {
+                to: "/concerts",
+                className: "inline-flex items-center justify-center bg-[#dbff00] text-black font-sans font-semibold uppercase tracking-[0.12em] text-sm border-2 border-black px-6 py-3 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] hover:translate-x-[2px] hover:translate-y-[2px] transition-all duration-100",
+                children: "Ver rutas disponibles"
+              }
+            ),
+            /* @__PURE__ */ jsx(
+              Link,
+              {
+                to: "/register",
+                className: "inline-flex items-center justify-center font-sans font-semibold uppercase tracking-[0.12em] text-sm border-2 border-cr-border text-cr-text-muted px-6 py-3 hover:border-[#dbff00] hover:text-[#dbff00] transition-colors",
+                children: "Crear cuenta gratis"
+              }
+            )
+          ] })
+        ] })
+      }
+    ),
+    /* @__PURE__ */ jsx(StickyRegBar, {})
   ] });
 }
 const VALID_YEARS = ["2025", "2026", "2027"];
@@ -46114,10 +48011,19 @@ const FESTIVAL_WIKIDATA = {
   "zevra-festival": "https://www.wikidata.org/wiki/Q120434562"
 };
 function FestivalLandingPage() {
-  var _a2, _b, _c, _d, _e, _f, _g, _h, _i, _j, _k, _l, _m, _n, _o, _p, _q, _r, _s, _t, _u, _v, _w, _x, _y, _z, _A, _B, _C, _D, _E, _F, _G, _H, _I, _J, _K;
+  var _a2, _b, _c, _d, _e, _f, _g, _h, _i, _j, _k, _l, _m, _n, _o, _p, _q, _r, _s, _t, _u, _v, _w, _x, _y, _z, _A, _B, _C, _D, _E, _F, _G;
   const { festival: slug } = useParams();
   const festival = slug ? FESTIVAL_LANDINGS_BY_SLUG[slug] : void 0;
+  const { user } = useSession();
   const [concerts, setConcerts] = useState(null);
+  const [daysLeft, setDaysLeft] = useState(null);
+  useEffect(() => {
+    if (!festival) return;
+    const diff = Math.ceil(
+      (new Date(festival.startDate).getTime() - Date.now()) / (1e3 * 60 * 60 * 24)
+    );
+    setDaysLeft(diff);
+  }, [festival]);
   const festivalOgImage = (festival == null ? void 0 : festival.ogImage) ? festival.ogImage.startsWith("http") ? festival.ogImage : `${SITE_URL}${festival.ogImage}` : festival ? `${SITE_URL}/api/og/festival/${festival.slug}.svg` : FESTIVAL_DEFAULT_OG;
   const festYear = festival ? new Date(festival.startDate).getFullYear() : (/* @__PURE__ */ new Date()).getFullYear();
   const FESTIVAL_META_OVERRIDES = Object.fromEntries(
@@ -46215,12 +48121,17 @@ function FestivalLandingPage() {
   };
   const festivalAbstract = `${festival.name} se celebra en ${festival.venue}, ${festival.city} (${festival.region}), del ${festival.startDate} al ${festival.endDate}. Aforo: ${festival.capacity}. Carpooling con ConcertRide desde ${((_c = festival.originCities[0]) == null ? void 0 : _c.city) ?? "toda España"} desde ${((_d = festival.originCities[0]) == null ? void 0 : _d.concertRideRange) ?? "3 €"}/asiento, sin comisión de plataforma. ${festival.originCities.length} ciudades de origen cubiertas.`;
   const festivalWikidataUri = FESTIVAL_WIKIDATA[festival.slug];
+  const festivalSameAs = [
+    ...festivalWikidataUri ? [festivalWikidataUri] : [],
+    ...(festival.sameAs ?? []).filter((url) => url !== festivalWikidataUri),
+    `${SITE_URL}/festivales/${festival.slug}`
+  ].filter(Boolean);
   const jsonLdEvent = {
     "@context": "https://schema.org",
     "@type": "MusicEvent",
     name: festival.name,
     url: `${SITE_URL}/festivales/${festival.slug}`,
-    ...festivalWikidataUri ? { sameAs: festivalWikidataUri } : {},
+    sameAs: festivalSameAs.length > 0 ? festivalSameAs : void 0,
     image: festivalOgImage,
     description: festival.blurb,
     abstract: festivalAbstract,
@@ -46254,17 +48165,33 @@ function FestivalLandingPage() {
       name: festival.name,
       url: `${SITE_URL}/festivales/${festival.slug}`,
       description: `Festival de música que se celebra anualmente en ${festival.city}, España.`,
-      ...festivalWikidataUri ? { sameAs: festivalWikidataUri } : {}
+      sameAs: festivalSameAs.length > 0 ? festivalSameAs : void 0
     },
-    offers: {
-      "@type": "Offer",
-      url: `${SITE_URL}/festivales/${festival.slug}`,
-      price: Number(((_g = (_f = (_e = festival.originCities[0]) == null ? void 0 : _e.concertRideRange) == null ? void 0 : _f.split("–")[0]) == null ? void 0 : _g.replace(/[^0-9]/g, "")) ?? "3"),
-      priceCurrency: "EUR",
-      availability: "https://schema.org/InStock",
-      validFrom: (/* @__PURE__ */ new Date()).toISOString(),
-      description: `Carpooling desde ${festival.originCities.length} ciudades de España con ConcertRide. Precio desde ${((_h = festival.originCities[0]) == null ? void 0 : _h.concertRideRange) ?? "3 €"}/asiento, sin comisión de plataforma.`
-    }
+    offers: (() => {
+      var _a3;
+      const allNums = festival.originCities.map((oc) => {
+        var _a4;
+        return (_a4 = (oc.concertRideRange ?? "").match(/\d+/g)) == null ? void 0 : _a4.map(Number);
+      }).flat().filter((n) => typeof n === "number" && !isNaN(n) && n > 0);
+      const minPrice = allNums.length ? Math.min(...allNums) : 3;
+      const maxPrice = allNums.length ? Math.max(...allNums) : 35;
+      return {
+        "@type": "Offer",
+        url: `${SITE_URL}/festivales/${festival.slug}`,
+        price: minPrice,
+        priceCurrency: "EUR",
+        availability: "https://schema.org/InStock",
+        validFrom: (/* @__PURE__ */ new Date()).toISOString(),
+        description: `Carpooling desde ${festival.originCities.length} ciudades de España con ConcertRide. Precio desde ${((_a3 = festival.originCities[0]) == null ? void 0 : _a3.concertRideRange) ?? "3 €"}/asiento, sin comisión de plataforma.`,
+        priceSpecification: {
+          "@type": "PriceSpecification",
+          price: minPrice,
+          maxPrice,
+          priceCurrency: "EUR",
+          description: `Precio por asiento en carpooling a ${festival.name}: desde ${minPrice} € hasta ${maxPrice} €. Sin comisión de plataforma (0%). Pago en efectivo o Bizum al conductor el día del festival.`
+        }
+      };
+    })()
   };
   const jsonLdSeries = {
     "@context": "https://schema.org",
@@ -46287,7 +48214,7 @@ function FestivalLandingPage() {
       name: festival.name
     },
     inLanguage: "es-ES",
-    sameAs: festivalWikidataUri ? [festivalWikidataUri, `${SITE_URL}/festivales/${festival.slug}`] : `${SITE_URL}/festivales/${festival.slug}`
+    sameAs: festivalSameAs.length > 0 ? festivalSameAs : `${SITE_URL}/festivales/${festival.slug}`
   };
   const festRegion = REGION_LANDINGS.find((r) => r.festivalsInRegion.includes(festival.slug));
   const jsonLdBreadcrumb = {
@@ -46507,190 +48434,1221 @@ function FestivalLandingPage() {
     });
     return variants;
   })();
-  return /* @__PURE__ */ jsxs("main", { id: "main", className: "min-h-dvh bg-cr-bg text-cr-text pt-14", children: [
-    /* @__PURE__ */ jsx("script", { type: "application/ld+json", dangerouslySetInnerHTML: { __html: JSON.stringify(jsonLdEvent) } }),
-    /* @__PURE__ */ jsx("script", { type: "application/ld+json", dangerouslySetInnerHTML: { __html: JSON.stringify(jsonLdSeries) } }),
-    /* @__PURE__ */ jsx("script", { type: "application/ld+json", dangerouslySetInnerHTML: { __html: JSON.stringify(jsonLdKeyFacts) } }),
-    jsonLdVariants.map((v, i) => /* @__PURE__ */ jsx("script", { type: "application/ld+json", dangerouslySetInnerHTML: { __html: JSON.stringify(v) } }, `json-variant-${i}`)),
-    /* @__PURE__ */ jsx("script", { type: "application/ld+json", dangerouslySetInnerHTML: { __html: JSON.stringify(jsonLdBreadcrumb) } }),
-    /* @__PURE__ */ jsx("script", { type: "application/ld+json", dangerouslySetInnerHTML: { __html: JSON.stringify(jsonLdFaq) } }),
-    jsonLdAnnouncement && /* @__PURE__ */ jsx("script", { type: "application/ld+json", dangerouslySetInnerHTML: { __html: JSON.stringify(jsonLdAnnouncement) } }),
-    /* @__PURE__ */ jsx("script", { type: "application/ld+json", dangerouslySetInnerHTML: { __html: JSON.stringify({
-      "@context": "https://schema.org",
-      "@type": "HowTo",
-      name: `Cómo reservar un carpooling a ${festival.name} en 4 pasos`,
-      description: `Guía paso a paso para reservar un viaje compartido (carpooling) a ${festival.name} en ${festival.venue}, ${festival.city}. Gratis, sin comisión, pago en efectivo o Bizum.`,
-      totalTime: "PT5M",
-      supply: [{ "@type": "HowToSupply", name: "Cuenta en ConcertRide (gratuita)" }],
-      tool: [{ "@type": "HowToTool", name: "concertride.me" }],
-      step: [
-        {
-          "@type": "HowToStep",
-          position: 1,
-          name: "Busca el festival",
-          text: `Entra en concertride.me/concerts y filtra por ${festival.city} o busca directamente "${festival.shortName}".`,
-          url: `${SITE_URL}/concerts`
+  return /* @__PURE__ */ jsxs(Fragment, { children: [
+    /* @__PURE__ */ jsxs("main", { id: "main", className: "min-h-dvh bg-cr-bg text-cr-text pt-14", children: [
+      /* @__PURE__ */ jsx("script", { type: "application/ld+json", dangerouslySetInnerHTML: { __html: JSON.stringify(jsonLdEvent) } }),
+      /* @__PURE__ */ jsx("script", { type: "application/ld+json", dangerouslySetInnerHTML: { __html: JSON.stringify(jsonLdSeries) } }),
+      /* @__PURE__ */ jsx("script", { type: "application/ld+json", dangerouslySetInnerHTML: { __html: JSON.stringify(jsonLdKeyFacts) } }),
+      jsonLdVariants.map((v, i) => /* @__PURE__ */ jsx("script", { type: "application/ld+json", dangerouslySetInnerHTML: { __html: JSON.stringify(v) } }, `json-variant-${i}`)),
+      /* @__PURE__ */ jsx("script", { type: "application/ld+json", dangerouslySetInnerHTML: { __html: JSON.stringify(jsonLdBreadcrumb) } }),
+      /* @__PURE__ */ jsx("script", { type: "application/ld+json", dangerouslySetInnerHTML: { __html: JSON.stringify(jsonLdFaq) } }),
+      jsonLdAnnouncement && /* @__PURE__ */ jsx("script", { type: "application/ld+json", dangerouslySetInnerHTML: { __html: JSON.stringify(jsonLdAnnouncement) } }),
+      /* @__PURE__ */ jsx("script", { type: "application/ld+json", dangerouslySetInnerHTML: { __html: JSON.stringify({
+        "@context": "https://schema.org",
+        "@type": "HowTo",
+        name: `Cómo reservar un carpooling a ${festival.name} en 4 pasos`,
+        description: `Guía paso a paso para reservar un viaje compartido (carpooling) a ${festival.name} en ${festival.venue}, ${festival.city}. Gratis, sin comisión, pago en efectivo o Bizum.`,
+        totalTime: "PT5M",
+        supply: [{ "@type": "HowToSupply", name: "Cuenta en ConcertRide (gratuita)" }],
+        tool: [{ "@type": "HowToTool", name: "concertride.me" }],
+        step: [
+          {
+            "@type": "HowToStep",
+            position: 1,
+            name: "Busca el festival",
+            text: `Entra en concertride.me/concerts y filtra por ${festival.city} o busca directamente "${festival.shortName}".`,
+            url: `${SITE_URL}/concerts`
+          },
+          {
+            "@type": "HowToStep",
+            position: 2,
+            name: "Elige el viaje",
+            text: "Compara precio por asiento, hora de salida y perfil del conductor. Lee las valoraciones de otros pasajeros."
+          },
+          {
+            "@type": "HowToStep",
+            position: 3,
+            name: "Solicita tu plaza",
+            text: "Con reserva instantánea queda confirmada al momento. Sin ella, el conductor suele responder en pocas horas."
+          },
+          {
+            "@type": "HowToStep",
+            position: 4,
+            name: "Viaja y paga",
+            text: `El día del festival te encuentras con el conductor en el punto acordado en ${festival.city}. Pagas en efectivo o Bizum. Sin comisión de plataforma.`
+          }
+        ]
+      }) } }),
+      /* @__PURE__ */ jsx("script", { type: "application/ld+json", dangerouslySetInnerHTML: { __html: JSON.stringify({
+        "@context": "https://schema.org",
+        "@type": "WebPage",
+        "@id": `${SITE_URL}/festivales/${festival.slug}#webpage`,
+        "url": `${SITE_URL}/festivales/${festival.slug}`,
+        "name": `Cómo llegar a ${festival.name} ${new Date(festival.startDate).getFullYear()}: buses, tren y carpooling | ConcertRide`,
+        "description": `Guía de transporte para ${festival.name} (${festival.venue}, ${festival.city}, ${festival.typicalDates}). Carpooling desde ${festival.originCities.length} ciudades españolas desde ${((_e = festival.originCities[0]) == null ? void 0 : _e.concertRideRange) ?? "3 €"}/asiento sin comisión. Opciones de autobús, tren y coche compartido con precios y tiempos de trayecto reales.`,
+        "inLanguage": "es-ES",
+        "isPartOf": { "@id": `${SITE_URL}/#website` },
+        "about": {
+          "@type": "MusicEvent",
+          "name": festival.name,
+          "startDate": festival.startDate,
+          "location": { "@type": "Place", "name": festival.venue, "addressLocality": festival.city },
+          ...festivalSameAs.length > 0 ? { "sameAs": festivalSameAs } : {}
         },
-        {
-          "@type": "HowToStep",
-          position: 2,
-          name: "Elige el viaje",
-          text: "Compara precio por asiento, hora de salida y perfil del conductor. Lee las valoraciones de otros pasajeros."
-        },
-        {
-          "@type": "HowToStep",
-          position: 3,
-          name: "Solicita tu plaza",
-          text: "Con reserva instantánea queda confirmada al momento. Sin ella, el conductor suele responder en pocas horas."
-        },
-        {
-          "@type": "HowToStep",
-          position: 4,
-          name: "Viaja y paga",
-          text: `El día del festival te encuentras con el conductor en el punto acordado en ${festival.city}. Pagas en efectivo o Bizum. Sin comisión de plataforma.`
+        "keywords": `cómo ir a ${festival.shortName}, carpooling ${festival.name}, transporte ${festival.shortName} ${festival.city}, autobús ${festival.shortName}, bus ${festival.shortName}, ${festival.shortName} ${new Date(festival.startDate).getFullYear()}`,
+        "speakable": {
+          "@type": "SpeakableSpecification",
+          "cssSelector": ["h1", ".speakable", ".festival-summary", ".transport-info", "article p:first-of-type"]
         }
-      ]
-    }) } }),
-    /* @__PURE__ */ jsx("script", { type: "application/ld+json", dangerouslySetInnerHTML: { __html: JSON.stringify({
-      "@context": "https://schema.org",
-      "@type": "WebPage",
-      "@id": `${SITE_URL}/festivales/${festival.slug}#webpage`,
-      "url": `${SITE_URL}/festivales/${festival.slug}`,
-      "name": `Cómo llegar a ${festival.name} ${new Date(festival.startDate).getFullYear()}: buses, tren y carpooling | ConcertRide`,
-      "description": `Guía de transporte para ${festival.name} (${festival.venue}, ${festival.city}, ${festival.typicalDates}). Carpooling desde ${festival.originCities.length} ciudades españolas desde ${((_i = festival.originCities[0]) == null ? void 0 : _i.concertRideRange) ?? "3 €"}/asiento sin comisión. Opciones de autobús, tren y coche compartido con precios y tiempos de trayecto reales.`,
-      "inLanguage": "es-ES",
-      "isPartOf": { "@id": `${SITE_URL}/#website` },
-      "about": {
-        "@type": "MusicEvent",
-        "name": festival.name,
-        "startDate": festival.startDate,
-        "location": { "@type": "Place", "name": festival.venue, "addressLocality": festival.city },
-        ...festivalWikidataUri ? { "sameAs": festivalWikidataUri } : {}
-      },
-      "keywords": `cómo ir a ${festival.shortName}, carpooling ${festival.name}, transporte ${festival.shortName} ${festival.city}, autobús ${festival.shortName}, bus ${festival.shortName}, ${festival.shortName} ${new Date(festival.startDate).getFullYear()}`,
-      "speakable": {
-        "@type": "SpeakableSpecification",
-        "cssSelector": ["h1", ".speakable", ".festival-summary", ".transport-info", "article p:first-of-type"]
-      }
-    }) } }),
-    /* @__PURE__ */ jsx("script", { type: "application/ld+json", dangerouslySetInnerHTML: { __html: JSON.stringify({
-      "@context": "https://schema.org",
-      "@type": "Dataset",
-      name: `Comparativa de transporte a ${festival.name} ${festYear}`,
-      description: `Precios orientativos, tiempos y comisiones de las opciones de transporte para llegar a ${festival.name} en ${festival.venue}, ${festival.city}. Datos ${festYear}.`,
-      url: `${SITE_URL}/festivales/${festival.slug}`,
-      inLanguage: "es-ES",
-      license: "https://creativecommons.org/licenses/by/4.0/",
-      creator: { "@type": "Organization", "@id": `${SITE_URL}/#organization` },
-      keywords: `transporte ${festival.shortName}, carpooling ${festival.shortName}, bus ${festival.shortName}, tren ${festival.shortName}, alternativa carpooling ${festival.shortName}`,
-      variableMeasured: [
-        { "@type": "PropertyValue", name: "Opción de transporte", value: "ConcertRide carpooling" },
-        { "@type": "PropertyValue", name: "Precio desde", value: ((_j = festival.originCities[0]) == null ? void 0 : _j.concertRideRange) ?? "3–20 €/asiento" },
-        { "@type": "PropertyValue", name: "Comisión de plataforma", value: "0 %" },
-        { "@type": "PropertyValue", name: "Ciudades de origen documentadas", value: String(festival.originCities.length) },
-        { "@type": "PropertyValue", name: "Vuelta de madrugada", value: "Sí, coordinada con el conductor" }
-      ],
-      distribution: [
-        {
-          "@type": "DataDownload",
-          name: "ConcertRide carpooling",
-          contentUrl: `${SITE_URL}/festivales/${festival.slug}`,
-          encodingFormat: "text/html",
-          description: `Precio: ${((_k = festival.originCities[0]) == null ? void 0 : _k.concertRideRange) ?? "desde 3 €"}/asiento · Comisión: 0 % · Origen: ${festival.originCities.length} ciudades · Vuelta madrugada: Sí (coordinada)`
-        },
-        {
-          "@type": "DataDownload",
-          name: "Autobús / lanzadera oficial",
-          contentUrl: `${SITE_URL}/festivales/${festival.slug}`,
-          encodingFormat: "text/html",
-          description: `Precio: 5–20 € si disponible · Comisión: — · Vuelta madrugada: No (último servicio diurno) · Solo en festivales con lanzadera oficial`
-        },
-        {
-          "@type": "DataDownload",
-          name: "Tren / AVE",
-          contentUrl: `${SITE_URL}/festivales/${festival.slug}`,
-          encodingFormat: "text/html",
-          description: `Precio: 10–60 € hasta la ciudad · Comisión: — · Vuelta madrugada: No (último ~01h) · Requiere lanzadera adicional hasta el recinto`
-        },
-        {
-          "@type": "DataDownload",
-          name: "Taxi / VTC (Uber, Cabify)",
-          contentUrl: `${SITE_URL}/festivales/${festival.slug}`,
-          encodingFormat: "text/html",
-          description: `Precio: 35–120 € ida desde ciudad más cercana (nocturno) · Comisión: — · Vuelta madrugada: Sí (precio ×2–3 en horario festival)`
-        },
-        {
-          "@type": "DataDownload",
-          name: "Otras plataformas de carpooling",
-          contentUrl: `${SITE_URL}/festivales/${festival.slug}`,
-          encodingFormat: "text/html",
-          description: `Precio: Similar a ConcertRide + 12–18 % comisión · Comisión: 12–18 % · Vuelta madrugada: Depende del conductor`
-        }
-      ]
-    }) } }),
-    /* @__PURE__ */ jsxs("div", { className: "max-w-6xl mx-auto px-6 pt-10 pb-6 space-y-4", children: [
-      /* @__PURE__ */ jsxs("nav", { "aria-label": "Breadcrumb", className: "font-mono text-[11px] text-cr-text-muted flex items-center gap-2 flex-wrap", children: [
-        /* @__PURE__ */ jsx(Link, { to: "/", className: "hover:text-cr-primary", children: "Inicio" }),
-        /* @__PURE__ */ jsx("span", { "aria-hidden": "true", children: "/" }),
-        /* @__PURE__ */ jsx(Link, { to: "/festivales", className: "hover:text-cr-primary", children: "Festivales" }),
-        festRegion && /* @__PURE__ */ jsxs(Fragment, { children: [
+      }) } }),
+      /* @__PURE__ */ jsx("script", { type: "application/ld+json", dangerouslySetInnerHTML: { __html: JSON.stringify({
+        "@context": "https://schema.org",
+        "@type": "Dataset",
+        name: `Comparativa de transporte a ${festival.name} ${festYear}`,
+        description: `Precios orientativos, tiempos y comisiones de las opciones de transporte para llegar a ${festival.name} en ${festival.venue}, ${festival.city}. Datos ${festYear}.`,
+        url: `${SITE_URL}/festivales/${festival.slug}`,
+        inLanguage: "es-ES",
+        license: "https://creativecommons.org/licenses/by/4.0/",
+        creator: { "@type": "Organization", "@id": `${SITE_URL}/#organization` },
+        keywords: `transporte ${festival.shortName}, carpooling ${festival.shortName}, bus ${festival.shortName}, tren ${festival.shortName}, alternativa carpooling ${festival.shortName}`,
+        variableMeasured: [
+          { "@type": "PropertyValue", name: "Opción de transporte", value: "ConcertRide carpooling" },
+          { "@type": "PropertyValue", name: "Precio desde", value: ((_f = festival.originCities[0]) == null ? void 0 : _f.concertRideRange) ?? "3–20 €/asiento" },
+          { "@type": "PropertyValue", name: "Comisión de plataforma", value: "0 %" },
+          { "@type": "PropertyValue", name: "Ciudades de origen documentadas", value: String(festival.originCities.length) },
+          { "@type": "PropertyValue", name: "Vuelta de madrugada", value: "Sí, coordinada con el conductor" }
+        ],
+        distribution: [
+          {
+            "@type": "DataDownload",
+            name: "ConcertRide carpooling",
+            contentUrl: `${SITE_URL}/festivales/${festival.slug}`,
+            encodingFormat: "text/html",
+            description: `Precio: ${((_g = festival.originCities[0]) == null ? void 0 : _g.concertRideRange) ?? "desde 3 €"}/asiento · Comisión: 0 % · Origen: ${festival.originCities.length} ciudades · Vuelta madrugada: Sí (coordinada)`
+          },
+          {
+            "@type": "DataDownload",
+            name: "Autobús / lanzadera oficial",
+            contentUrl: `${SITE_URL}/festivales/${festival.slug}`,
+            encodingFormat: "text/html",
+            description: `Precio: 5–20 € si disponible · Comisión: — · Vuelta madrugada: No (último servicio diurno) · Solo en festivales con lanzadera oficial`
+          },
+          {
+            "@type": "DataDownload",
+            name: "Tren / AVE",
+            contentUrl: `${SITE_URL}/festivales/${festival.slug}`,
+            encodingFormat: "text/html",
+            description: `Precio: 10–60 € hasta la ciudad · Comisión: — · Vuelta madrugada: No (último ~01h) · Requiere lanzadera adicional hasta el recinto`
+          },
+          {
+            "@type": "DataDownload",
+            name: "Taxi / VTC (Uber, Cabify)",
+            contentUrl: `${SITE_URL}/festivales/${festival.slug}`,
+            encodingFormat: "text/html",
+            description: `Precio: 35–120 € ida desde ciudad más cercana (nocturno) · Comisión: — · Vuelta madrugada: Sí (precio ×2–3 en horario festival)`
+          },
+          {
+            "@type": "DataDownload",
+            name: "Otras plataformas de carpooling",
+            contentUrl: `${SITE_URL}/festivales/${festival.slug}`,
+            encodingFormat: "text/html",
+            description: `Precio: Similar a ConcertRide + 12–18 % comisión · Comisión: 12–18 % · Vuelta madrugada: Depende del conductor`
+          }
+        ]
+      }) } }),
+      /* @__PURE__ */ jsxs("div", { className: "max-w-6xl mx-auto px-6 pt-10 pb-6 space-y-4", children: [
+        /* @__PURE__ */ jsxs("nav", { "aria-label": "Breadcrumb", className: "font-mono text-[11px] text-cr-text-muted flex items-center gap-2 flex-wrap", children: [
+          /* @__PURE__ */ jsx(Link, { to: "/", className: "hover:text-cr-primary", children: "Inicio" }),
           /* @__PURE__ */ jsx("span", { "aria-hidden": "true", children: "/" }),
-          /* @__PURE__ */ jsx(Link, { to: `/festivales-en/${festRegion.slug}`, className: "hover:text-cr-primary", children: festRegion.displayName })
+          /* @__PURE__ */ jsx(Link, { to: "/festivales", className: "hover:text-cr-primary", children: "Festivales" }),
+          festRegion && /* @__PURE__ */ jsxs(Fragment, { children: [
+            /* @__PURE__ */ jsx("span", { "aria-hidden": "true", children: "/" }),
+            /* @__PURE__ */ jsx(Link, { to: `/festivales-en/${festRegion.slug}`, className: "hover:text-cr-primary", children: festRegion.displayName })
+          ] }),
+          /* @__PURE__ */ jsx("span", { "aria-hidden": "true", children: "/" }),
+          /* @__PURE__ */ jsx("span", { className: "text-cr-text-muted", children: festival.shortName })
         ] }),
-        /* @__PURE__ */ jsx("span", { "aria-hidden": "true", children: "/" }),
-        /* @__PURE__ */ jsx("span", { className: "text-cr-text-muted", children: festival.shortName })
-      ] }),
-      /* @__PURE__ */ jsxs("p", { className: "font-sans text-[11px] font-semibold uppercase tracking-[0.16em] text-cr-primary inline-flex items-center gap-2", children: [
-        /* @__PURE__ */ jsx(MapPin, { size: 12 }),
-        " ",
-        festival.region
-      ] }),
-      /* @__PURE__ */ jsxs("h1", { className: "font-display text-4xl md:text-6xl uppercase leading-[0.92]", children: [
-        festival.shortName,
-        " ",
-        new Date(festival.startDate).getFullYear(),
-        /* @__PURE__ */ jsx("br", {}),
-        /* @__PURE__ */ jsxs("span", { className: "text-cr-primary", children: [
-          "desde ",
+        /* @__PURE__ */ jsxs("p", { className: "font-sans text-[11px] font-semibold uppercase tracking-[0.16em] text-cr-primary inline-flex items-center gap-2", children: [
+          /* @__PURE__ */ jsx(MapPin, { size: 12 }),
+          " ",
+          festival.region
+        ] }),
+        /* @__PURE__ */ jsxs("h1", { className: "font-display text-4xl md:text-6xl uppercase leading-[0.92]", children: [
+          festival.shortName,
+          " ",
+          new Date(festival.startDate).getFullYear(),
+          /* @__PURE__ */ jsx("br", {}),
+          /* @__PURE__ */ jsxs("span", { className: "text-cr-primary", children: [
+            "desde ",
+            ((_h = festival.originCities[0]) == null ? void 0 : _h.concertRideRange) ?? "3 €",
+            "/asiento"
+          ] })
+        ] }),
+        !user && daysLeft !== null && daysLeft > 0 && /* @__PURE__ */ jsx("div", { className: "inline-flex items-center gap-2", "aria-live": "polite", children: daysLeft < 7 ? /* @__PURE__ */ jsxs("span", { className: "font-sans text-xs font-semibold uppercase tracking-[0.14em] bg-[#ff4f00] text-white px-3 py-1", children: [
+          "¡Últimas plazas! Quedan ",
+          daysLeft,
+          " día",
+          daysLeft === 1 ? "" : "s"
+        ] }) : daysLeft < 30 ? /* @__PURE__ */ jsxs("span", { className: "font-sans text-xs font-semibold uppercase tracking-[0.14em] border border-[#dbff00] text-[#dbff00] px-3 py-1", children: [
+          "¡Faltan ",
+          daysLeft,
+          " días!"
+        ] }) : null }),
+        /* @__PURE__ */ jsx(
+          SpeakableAnswerBlock,
+          {
+            schemaId: `speakable-festival-${festival.slug}`,
+            pageUrl: `${SITE_URL}/festivales/${festival.slug}`,
+            question: `¿Cómo llegar a ${festival.name} ${festYear}?`,
+            answer: `Para llegar a ${festival.name} ${festYear} en ${festival.venue} (${festival.city}), ConcertRide ofrece carpooling desde ${((_j = (((_i = festival.originCities[0]) == null ? void 0 : _i.concertRideRange) ?? "3 €/asiento").split("–").at(0)) == null ? void 0 : _j.replace(/[^0-9]/g, "")) || "3"}€/asiento con conductores verificados desde ${festival.originCities.length} ciudades españolas. ${((_k = festival.official_shuttle) == null ? void 0 : _k.available) ? `También hay lanzadera oficial${festival.official_shuttle.price_from ? ` desde ${festival.official_shuttle.price_from}€` : ""}.` : `No hay lanzadera oficial al recinto.`} Pagas en efectivo o Bizum el día del viaje, sin comisión de plataforma.`
+          }
+        ),
+        /* @__PURE__ */ jsxs("p", { className: "font-sans text-sm font-semibold text-cr-text max-w-2xl speakable festival-summary", children: [
+          "Carpooling a ",
+          festival.name,
+          " desde ",
           ((_l = festival.originCities[0]) == null ? void 0 : _l.concertRideRange) ?? "3 €",
-          "/asiento"
+          "/asiento, sin comisión. Se celebra en ",
+          festival.venue,
+          ", ",
+          festival.city,
+          " (",
+          festival.typicalDates,
+          "). Conductores verificados con carnet."
+        ] }),
+        /* @__PURE__ */ jsx(FestivalDemandPill, { festivalSlug: festival.slug, festivalName: festival.shortName }),
+        /* @__PURE__ */ jsxs("div", { className: "flex flex-wrap gap-3 pt-1", children: [
+          /* @__PURE__ */ jsxs(
+            Link,
+            {
+              to: searchHref,
+              "aria-label": `Buscar plaza en viaje a ${festival.shortName} ${festYear} desde ${priceFromMin} euros por asiento`,
+              className: "inline-flex items-center gap-2 bg-cr-primary text-black font-sans text-sm font-bold uppercase tracking-[0.12em] px-5 py-3 shadow-[0_4px_0_0_#ff4f00] hover:bg-cr-primary/90 hover:translate-y-[1px] hover:shadow-[0_3px_0_0_#ff4f00] transition-all",
+              children: [
+                "Buscar plaza · desde ",
+                priceFromMin,
+                "€ ",
+                /* @__PURE__ */ jsx(ArrowRight, { size: 14 })
+              ]
+            }
+          ),
+          /* @__PURE__ */ jsx(
+            Link,
+            {
+              to: publishHref,
+              "aria-label": `Publicar mi coche a ${festival.shortName} ${festYear}`,
+              className: "inline-flex items-center gap-2 border-2 border-cr-primary text-cr-primary font-sans text-sm font-bold uppercase tracking-[0.12em] px-5 py-3 hover:bg-cr-primary hover:text-black transition-colors",
+              children: "Publicar mi coche →"
+            }
+          )
+        ] }),
+        /* @__PURE__ */ jsx("p", { className: "font-mono text-[11px] text-cr-text-dim", children: "Sin comisión · Pago en efectivo o Bizum · Conductores verificados" }),
+        /* @__PURE__ */ jsx("p", { className: "font-sans text-sm md:text-base text-cr-text-muted max-w-2xl leading-relaxed speakable", children: festival.blurb }),
+        /* @__PURE__ */ jsxs("p", { className: "font-sans text-xs text-cr-text-dim max-w-2xl leading-relaxed", children: [
+          "También buscado como: ",
+          festival.name,
+          " ",
+          new Date(festival.startDate).getFullYear(),
+          ",",
+          " ",
+          festival.shortName.toLowerCase(),
+          ",",
+          " ",
+          festival.shortName.toLowerCase().replace(/\s+/g, ""),
+          ",",
+          " ",
+          "cómo llegar a ",
+          festival.shortName.toLowerCase(),
+          ",",
+          " ",
+          festival.shortName.toLowerCase(),
+          " localización,",
+          " ",
+          "autobús ",
+          festival.shortName.toLowerCase(),
+          ",",
+          " ",
+          "bus ",
+          festival.shortName.toLowerCase(),
+          ",",
+          " ",
+          "buses ",
+          festival.shortName.toLowerCase(),
+          ",",
+          " ",
+          "tren ",
+          festival.shortName.toLowerCase(),
+          ",",
+          " ",
+          festival.shortName.toLowerCase(),
+          " ",
+          festival.city.toLowerCase(),
+          ",",
+          " ",
+          "horarios ",
+          festival.shortName.toLowerCase(),
+          ",",
+          " ",
+          "viajes ",
+          festival.shortName.toLowerCase(),
+          "."
+        ] }),
+        /* @__PURE__ */ jsx(AutoLinksForFestival, { slug: festival.slug }),
+        /* @__PURE__ */ jsxs("div", { className: "flex flex-wrap gap-4 pt-2", children: [
+          /* @__PURE__ */ jsxs("span", { className: "inline-flex items-center gap-1.5 font-mono text-[11px] text-cr-text-muted border border-cr-border px-2 py-1", children: [
+            /* @__PURE__ */ jsx(MapPin, { size: 10 }),
+            " Localización: ",
+            festival.venue,
+            ", ",
+            festival.city
+          ] }),
+          /* @__PURE__ */ jsxs("span", { className: "inline-flex items-center gap-1.5 font-mono text-[11px] text-cr-text-muted border border-cr-border px-2 py-1", children: [
+            /* @__PURE__ */ jsx(Calendar, { size: 10 }),
+            " ",
+            festival.typicalDates
+          ] }),
+          /* @__PURE__ */ jsxs("span", { className: "inline-flex items-center gap-1.5 font-mono text-[11px] text-cr-text-muted border border-cr-border px-2 py-1", children: [
+            /* @__PURE__ */ jsx(Users, { size: 10 }),
+            " ",
+            festival.capacity
+          ] })
         ] })
       ] }),
-      /* @__PURE__ */ jsx(
-        SpeakableAnswerBlock,
-        {
-          schemaId: `speakable-festival-${festival.slug}`,
-          pageUrl: `${SITE_URL}/festivales/${festival.slug}`,
-          question: `¿Cómo llegar a ${festival.name} ${festYear}?`,
-          answer: `Para llegar a ${festival.name} ${festYear} en ${festival.venue} (${festival.city}), ConcertRide ofrece carpooling desde ${((_n = (((_m = festival.originCities[0]) == null ? void 0 : _m.concertRideRange) ?? "3 €/asiento").split("–").at(0)) == null ? void 0 : _n.replace(/[^0-9]/g, "")) || "3"}€/asiento con conductores verificados desde ${festival.originCities.length} ciudades españolas. ${((_o = festival.official_shuttle) == null ? void 0 : _o.available) ? `También hay lanzadera oficial${festival.official_shuttle.price_from ? ` desde ${festival.official_shuttle.price_from}€` : ""}.` : `No hay lanzadera oficial al recinto.`} Pagas en efectivo o Bizum el día del viaje, sin comisión de plataforma.`
-        }
-      ),
-      /* @__PURE__ */ jsxs("p", { className: "font-sans text-sm font-semibold text-cr-text max-w-2xl speakable festival-summary", children: [
-        "Carpooling a ",
-        festival.name,
-        " desde ",
-        ((_p = festival.originCities[0]) == null ? void 0 : _p.concertRideRange) ?? "3 €",
-        "/asiento, sin comisión. Se celebra en ",
-        festival.venue,
-        ", ",
-        festival.city,
-        " (",
-        festival.typicalDates,
-        "). Conductores verificados con carnet."
+      /* @__PURE__ */ jsxs("section", { className: "max-w-6xl mx-auto px-6 pb-12 border-t border-cr-border pt-12 space-y-6 transport-info", children: [
+        /* @__PURE__ */ jsxs("h2", { className: "font-display text-2xl md:text-3xl uppercase", children: [
+          "Cómo llegar a ",
+          festival.shortName,
+          " ",
+          festYear,
+          ": autobús, tren y carpooling desde ",
+          ((_m = festival.originCities[0]) == null ? void 0 : _m.city) ?? "tu ciudad"
+        ] }),
+        /* @__PURE__ */ jsxs("p", { className: "font-sans text-sm text-cr-text-muted max-w-3xl leading-relaxed", children: [
+          festival.shortName,
+          " se celebra en ",
+          /* @__PURE__ */ jsx("strong", { className: "text-cr-text", children: festival.venue }),
+          " (",
+          festival.venueAddress,
+          "), en ",
+          /* @__PURE__ */ jsx("strong", { className: "text-cr-text", children: festival.city }),
+          " (",
+          festival.region,
+          "). Coordenadas GPS: ",
+          festival.lat.toFixed(3),
+          " N, ",
+          Math.abs(festival.lng).toFixed(3),
+          " ",
+          festival.lng < 0 ? "W" : "E",
+          ". A continuación, las cuatro vías reales para llegar al recinto: autobús, tren, coche propio o coche compartido (carpooling)."
+        ] }),
+        /* @__PURE__ */ jsxs("div", { className: "grid sm:grid-cols-2 lg:grid-cols-4 gap-3 font-sans text-sm", children: [
+          /* @__PURE__ */ jsxs("article", { className: "border border-cr-border p-4 space-y-2", children: [
+            /* @__PURE__ */ jsxs("h3", { className: "font-display text-base uppercase text-cr-primary", children: [
+              "Autobús / Bus a ",
+              festival.shortName
+            ] }),
+            /* @__PURE__ */ jsx("p", { className: "text-cr-text-muted text-xs leading-relaxed", children: "Algunos festivales habilitan buses lanzadera oficiales desde la ciudad más cercana. Suelen tener plazas limitadas y horario diurno. Los autobuses de larga distancia (ALSA, FlixBus, Avanza) llegan a la estación urbana, no al recinto: hay que sumar taxi o lanzadera adicional. Consulta los detalles en las preguntas frecuentes." })
+          ] }),
+          /* @__PURE__ */ jsxs("article", { className: "border border-cr-border p-4 space-y-2", children: [
+            /* @__PURE__ */ jsxs("h3", { className: "font-display text-base uppercase text-cr-primary", children: [
+              "Tren a ",
+              festival.shortName
+            ] }),
+            /* @__PURE__ */ jsx("p", { className: "text-cr-text-muted text-xs leading-relaxed", children: "El AVE / Cercanías Renfe llega habitualmente a la estación más cercana, no al recinto del festival. La vuelta de madrugada en tren es casi siempre imposible: el último servicio sale antes de que termine el cabeza de cartel." })
+          ] }),
+          /* @__PURE__ */ jsxs("article", { className: "border border-cr-border p-4 space-y-2", children: [
+            /* @__PURE__ */ jsxs("h3", { className: "font-display text-base uppercase text-cr-primary", children: [
+              "Coche propio a ",
+              festival.shortName,
+              ": parking"
+            ] }),
+            /* @__PURE__ */ jsx("p", { className: "text-cr-text-muted text-xs leading-relaxed", children: "Llegada directa al parking del festival, máxima flexibilidad de horario. Coste: combustible + peajes + parking (5–18 €/día). En recintos urbanos (IFEMA, Parc del Fòrum), el parking se satura los días de gran afluencia." })
+          ] }),
+          /* @__PURE__ */ jsxs("article", { className: "border border-cr-border p-4 space-y-2", children: [
+            /* @__PURE__ */ jsxs("h3", { className: "font-display text-base uppercase text-cr-primary", children: [
+              "Carpooling a ",
+              festival.shortName,
+              " sin comisión"
+            ] }),
+            /* @__PURE__ */ jsxs("p", { className: "text-cr-text-muted text-xs leading-relaxed", children: [
+              "Carpooling con ConcertRide desde ",
+              festival.originCities.length,
+              " ciudades de origen. Precios desde ",
+              ((_n = festival.originCities[0]) == null ? void 0 : _n.concertRideRange) ?? "3 €",
+              "/asiento. Sin comisión: el 100 % va al conductor. Vuelta a la hora real del fin del festival, pago en efectivo o Bizum."
+            ] })
+          ] })
+        ] }),
+        /* @__PURE__ */ jsxs("p", { className: "font-mono text-[11px] text-cr-text-dim", children: [
+          "¿Buscas autobuses a ",
+          festival.shortName,
+          ", tren a ",
+          festival.shortName,
+          " o el modo más rápido para llegar desde ",
+          festival.originCities.slice(0, 3).map((c) => c.city).join(", "),
+          "? Tienes los detalles concretos por ciudad de origen más abajo."
+        ] })
       ] }),
-      /* @__PURE__ */ jsx(FestivalDemandPill, { festivalSlug: festival.slug, festivalName: festival.shortName }),
-      /* @__PURE__ */ jsxs("div", { className: "flex flex-wrap gap-3 pt-1", children: [
+      /* @__PURE__ */ jsxs("section", { className: "max-w-6xl mx-auto px-6 pb-12 border-t border-cr-border pt-12 space-y-5", children: [
+        /* @__PURE__ */ jsx(
+          FactDensityCallout,
+          {
+            heading: `Datos clave · ${festival.shortName}`,
+            facts: [
+              { label: "Carpooling desde", value: "3 €/asiento", detail: "0 % comisión" },
+              { label: "Ahorro vs taxi", value: "−75 %", detail: `Ruta media a ${festival.city}` },
+              {
+                label: "Vuelta noche",
+                value: festival.official_shuttle ? "Lanzadera oficial" : "Coordinada en chat",
+                detail: festival.official_shuttle ? "Operada por la organización" : "Conductores publican vuelta"
+              }
+            ]
+          }
+        ),
+        festival.transport_options && festival.transport_options.length > 0 ? /* @__PURE__ */ jsx(
+          TransportTable,
+          {
+            options: festival.transport_options,
+            officialShuttle: festival.official_shuttle,
+            festivalName: festival.shortName
+          }
+        ) : (
+          /* Fallback genérico para festivales sin datos curados */
+          /* @__PURE__ */ jsxs("div", { className: "space-y-5", children: [
+            /* @__PURE__ */ jsxs("h2", { className: "font-display text-2xl md:text-3xl uppercase", children: [
+              "Autobuses a ",
+              festival.shortName,
+              " ",
+              festYear,
+              ": bus oficial, lanzadera y transporte alternativo"
+            ] }),
+            /* @__PURE__ */ jsxs("p", { className: "font-sans text-sm text-cr-text-muted max-w-3xl leading-relaxed", children: [
+              "Resumen de las opciones de bus, autobús, lanzadera oficial y tren para llegar a",
+              " ",
+              /* @__PURE__ */ jsx("strong", { className: "text-cr-text", children: festival.name }),
+              " en ",
+              festival.venue,
+              " (",
+              festival.city,
+              "). Cuando no hay servicio público en horario de festival, la alternativa más usada es el coche compartido (carpooling) con ConcertRide."
+            ] }),
+            /* @__PURE__ */ jsxs("ul", { className: "font-sans text-xs text-cr-text-muted space-y-1 max-w-3xl", children: [
+              /* @__PURE__ */ jsxs("li", { children: [
+                /* @__PURE__ */ jsxs("strong", { className: "text-cr-text", children: [
+                  "Desde ",
+                  (_o = festival.originCities[0]) == null ? void 0 : _o.city,
+                  ":"
+                ] }),
+                " ",
+                (_p = festival.originCities[0]) == null ? void 0 : _p.km,
+                " km · ",
+                (_q = festival.originCities[0]) == null ? void 0 : _q.drivingTime,
+                " ·",
+                " ",
+                "carpooling desde ",
+                ((_r = festival.originCities[0]) == null ? void 0 : _r.concertRideRange) ?? "3 €",
+                "."
+              ] }),
+              festival.originCities.slice(1, 4).map((oc) => /* @__PURE__ */ jsxs("li", { children: [
+                /* @__PURE__ */ jsxs("strong", { className: "text-cr-text", children: [
+                  "Desde ",
+                  oc.city,
+                  ":"
+                ] }),
+                " ",
+                oc.km,
+                " km · ",
+                oc.drivingTime,
+                " · carpooling desde ",
+                oc.concertRideRange,
+                "."
+              ] }, oc.city))
+            ] })
+          ] })
+        )
+      ] }),
+      /* @__PURE__ */ jsxs("section", { className: "max-w-6xl mx-auto px-6 pb-16 border-t border-cr-border pt-12", children: [
+        /* @__PURE__ */ jsxs("h2", { className: "font-display text-2xl md:text-3xl uppercase mb-2", children: [
+          "Precio del carpooling a ",
+          festival.shortName,
+          " ",
+          festYear,
+          " por ciudad de origen"
+        ] }),
+        /* @__PURE__ */ jsx("p", { className: "font-sans text-sm text-cr-text-muted mb-8 max-w-xl", children: "Precio medio por asiento con ConcertRide desde las principales ciudades de origen. El 100 % va al conductor, sin comisión." }),
+        /* @__PURE__ */ jsx("div", { className: "grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3", children: festival.originCities.map((oc) => {
+          const route = ROUTE_LANDINGS.find(
+            (r) => r.festival.slug === festival.slug && r.originCity === oc.city
+          );
+          const card = /* @__PURE__ */ jsxs(Fragment, { children: [
+            /* @__PURE__ */ jsxs("div", { className: "flex items-center justify-between", children: [
+              /* @__PURE__ */ jsx("h3", { className: "font-display text-base uppercase", children: oc.city }),
+              /* @__PURE__ */ jsx("span", { className: "font-mono text-xs text-cr-primary font-semibold", children: oc.concertRideRange })
+            ] }),
+            /* @__PURE__ */ jsxs("div", { className: "flex gap-4 font-mono text-[11px] text-cr-text-muted", children: [
+              /* @__PURE__ */ jsxs("span", { children: [
+                oc.km,
+                " km"
+              ] }),
+              /* @__PURE__ */ jsx("span", { children: "·" }),
+              /* @__PURE__ */ jsx("span", { children: oc.drivingTime })
+            ] }),
+            /* @__PURE__ */ jsx("p", { className: "font-sans text-[11px] text-cr-text-muted", children: route ? /* @__PURE__ */ jsxs(Fragment, { children: [
+              "Ver carpooling ",
+              oc.city,
+              " → ",
+              festival.shortName,
+              " →"
+            ] }) : /* @__PURE__ */ jsx(Fragment, { children: "sin comisión — pagas directamente al conductor" }) })
+          ] });
+          return route ? /* @__PURE__ */ jsx(
+            Link,
+            {
+              to: `/rutas/${route.slug}`,
+              className: "border border-cr-border p-4 space-y-2 hover:border-cr-primary/40 transition-colors block",
+              children: card
+            },
+            oc.city
+          ) : /* @__PURE__ */ jsx(
+            "article",
+            {
+              className: "border border-cr-border p-4 space-y-2 hover:border-cr-primary/40 transition-colors",
+              children: card
+            },
+            oc.city
+          );
+        }) }),
+        /* @__PURE__ */ jsx("div", { className: "mt-8 p-4 border border-cr-primary/30 bg-cr-primary/5 space-y-1", children: /* @__PURE__ */ jsxs("p", { className: "font-sans text-xs text-cr-text-muted", children: [
+          /* @__PURE__ */ jsx("strong", { className: "text-cr-text", children: "Precios orientativos" }),
+          " basados en tarifas reales publicadas en ConcertRide. El conductor fija el precio por asiento para cubrir combustible y peajes (tarifa MITECO de referencia)."
+        ] }) })
+      ] }),
+      festival.common_pickup_points && festival.common_pickup_points.length > 0 && /* @__PURE__ */ jsx("section", { className: "max-w-6xl mx-auto px-6 pb-4 border-t border-cr-border pt-12", children: /* @__PURE__ */ jsx(
+        PickupMap,
+        {
+          points: festival.common_pickup_points,
+          festivalName: festival.shortName,
+          festivalLat: festival.lat,
+          festivalLng: festival.lng
+        }
+      ) }),
+      /* @__PURE__ */ jsx("section", { className: "max-w-6xl mx-auto px-6 pb-4 border-t border-cr-border pt-12", children: /* @__PURE__ */ jsx(
+        CostComparator,
+        {
+          originCities: festival.originCities,
+          festivalName: festival.shortName,
+          festivalCity: festival.city
+        }
+      ) }),
+      /* @__PURE__ */ jsx("section", { className: "max-w-6xl mx-auto px-6 pb-4 border-t border-cr-border pt-12", children: /* @__PURE__ */ jsx(
+        DemandSignalWidget,
+        {
+          festivalSlug: festival.slug,
+          festivalName: festival.shortName,
+          originCities: festival.originCities.map((c) => c.city)
+        }
+      ) }),
+      /* @__PURE__ */ jsxs("section", { className: "max-w-6xl mx-auto px-6 pb-12 border-t border-cr-border pt-12 space-y-5", children: [
+        /* @__PURE__ */ jsxs("h2", { className: "font-display text-2xl md:text-3xl uppercase", children: [
+          "Guías de transporte y carpooling a ",
+          festival.shortName,
+          ": recursos relacionados"
+        ] }),
+        /* @__PURE__ */ jsx("p", { className: "font-sans text-sm text-cr-text-muted max-w-3xl leading-relaxed", children: "Más información sobre opciones de transporte a festivales, cómo ahorrar en viajes y alternativas a otros servicios." }),
+        /* @__PURE__ */ jsxs("div", { className: "grid sm:grid-cols-2 lg:grid-cols-3 gap-4", children: [
+          /* @__PURE__ */ jsxs(
+            Link,
+            {
+              to: "/blog/autobuses-festivales-espana-2026",
+              className: "border border-cr-border p-4 space-y-2 hover:border-cr-primary/40 transition-colors",
+              children: [
+                /* @__PURE__ */ jsx("h3", { className: "font-display text-base uppercase", children: "Autobuses a festivales 2026" }),
+                /* @__PURE__ */ jsx("p", { className: "font-sans text-[11px] text-cr-text-muted", children: "Guía completa por festival: buses oficiales, lanzaderas, alternativas de transporte." }),
+                /* @__PURE__ */ jsxs("span", { className: "inline-flex items-center gap-1 font-sans text-xs text-cr-primary", children: [
+                  "Leer más ",
+                  /* @__PURE__ */ jsx(ArrowRight, { size: 10 })
+                ] })
+              ]
+            }
+          ),
+          /* @__PURE__ */ jsxs(
+            Link,
+            {
+              to: "/blog",
+              className: "border border-cr-border p-4 space-y-2 hover:border-cr-primary/40 transition-colors",
+              children: [
+                /* @__PURE__ */ jsx("h3", { className: "font-display text-base uppercase", children: "Blog ConcertRide" }),
+                /* @__PURE__ */ jsx("p", { className: "font-sans text-[11px] text-cr-text-muted", children: "Artículos sobre transporte a festivales, comparativas de opciones, consejos de viaje." }),
+                /* @__PURE__ */ jsxs("span", { className: "inline-flex items-center gap-1 font-sans text-xs text-cr-primary", children: [
+                  "Ver todos ",
+                  /* @__PURE__ */ jsx(ArrowRight, { size: 10 })
+                ] })
+              ]
+            }
+          ),
+          /* @__PURE__ */ jsxs(
+            Link,
+            {
+              to: `/conciertos/${festival.citySlug}`,
+              className: "border border-cr-border p-4 space-y-2 hover:border-cr-primary/40 transition-colors",
+              children: [
+                /* @__PURE__ */ jsxs("h3", { className: "font-display text-base uppercase", children: [
+                  "Otros conciertos en ",
+                  festival.city
+                ] }),
+                /* @__PURE__ */ jsxs("p", { className: "font-sans text-[11px] text-cr-text-muted", children: [
+                  "Agenda completa de eventos y conciertos en ",
+                  festival.city,
+                  " con opciones de carpooling."
+                ] }),
+                /* @__PURE__ */ jsxs("span", { className: "inline-flex items-center gap-1 font-sans text-xs text-cr-primary", children: [
+                  "Explorar ",
+                  /* @__PURE__ */ jsx(ArrowRight, { size: 10 })
+                ] })
+              ]
+            }
+          ),
+          HOW_TO_GET_THERE_SLUGS.includes(festival.slug) && /* @__PURE__ */ jsxs(
+            Link,
+            {
+              to: `/como-llegar/${festival.slug}`,
+              className: "border border-cr-border p-4 space-y-2 hover:border-cr-primary/40 transition-colors",
+              children: [
+                /* @__PURE__ */ jsxs("h3", { className: "font-display text-base uppercase", children: [
+                  "Cómo llegar a ",
+                  festival.shortName
+                ] }),
+                /* @__PURE__ */ jsx("p", { className: "font-sans text-[11px] text-cr-text-muted", children: "Guía completa de transporte: bus, tren, metro y carpooling con precios y tiempos reales." }),
+                /* @__PURE__ */ jsxs("span", { className: "inline-flex items-center gap-1 font-sans text-xs text-cr-primary", children: [
+                  "Ver guía ",
+                  /* @__PURE__ */ jsx(ArrowRight, { size: 10 })
+                ] })
+              ]
+            }
+          )
+        ] })
+      ] }),
+      /* @__PURE__ */ jsxs("section", { className: "max-w-6xl mx-auto px-6 pb-16 border-t border-cr-border pt-12", children: [
+        /* @__PURE__ */ jsxs("h2", { className: "font-display text-2xl md:text-3xl uppercase mb-2", children: [
+          "Viajes disponibles para ",
+          festival.shortName,
+          " en ",
+          festival.city
+        ] }),
+        /* @__PURE__ */ jsxs("p", { className: "font-sans text-sm text-cr-text-muted mb-8 max-w-xl", children: [
+          "Conciertos y eventos en ",
+          festival.city,
+          " con carpooling publicado. Reserva tu asiento."
+        ] }),
+        concerts === null ? /* @__PURE__ */ jsx(LoadingSpinner, { text: `Cargando viajes a ${festival.shortName}…` }) : futureConcerts.length === 0 ? /* @__PURE__ */ jsxs("div", { className: "relative border-2 border-dashed border-cr-primary/40 bg-cr-primary/[0.04] p-10 text-center space-y-4 overflow-hidden", children: [
+          /* @__PURE__ */ jsx("span", { className: "absolute top-3 right-3 font-mono text-[10px] uppercase tracking-[0.16em] text-cr-primary border border-cr-primary/40 px-2 py-0.5", children: "Sé el primero" }),
+          /* @__PURE__ */ jsxs("p", { className: "font-display text-2xl md:text-3xl uppercase text-cr-text leading-tight", children: [
+            "Sé el primero en publicar viaje a ",
+            festival.shortName
+          ] }),
+          /* @__PURE__ */ jsxs("p", { className: "font-sans text-sm text-cr-text-muted max-w-md mx-auto", children: [
+            "Llena tu coche y comparte el coste. Sin comisión: el 100 % va al conductor. Tus pasajeros ya están esperando viajes a ",
+            festival.city,
+            "."
+          ] }),
+          /* @__PURE__ */ jsxs("div", { className: "flex flex-wrap gap-3 justify-center pt-1", children: [
+            /* @__PURE__ */ jsxs(
+              Link,
+              {
+                to: publishHref,
+                "aria-label": `Publicar viaje a ${festival.shortName} ${festYear}`,
+                className: "inline-flex items-center gap-2 bg-cr-primary text-black font-sans text-sm font-bold uppercase tracking-[0.12em] px-5 py-3 hover:bg-cr-primary/90 transition-colors",
+                children: [
+                  "Publicar viaje ",
+                  /* @__PURE__ */ jsx(ArrowRight, { size: 14 })
+                ]
+              }
+            ),
+            /* @__PURE__ */ jsxs(
+              Link,
+              {
+                to: searchHref,
+                className: "inline-flex items-center gap-2 border-2 border-cr-border text-cr-text-muted font-sans text-xs font-semibold uppercase tracking-[0.12em] px-4 py-3 hover:border-cr-primary hover:text-cr-primary transition-colors",
+                children: [
+                  "Ver otros conciertos en ",
+                  festival.city
+                ]
+              }
+            )
+          ] }),
+          /* @__PURE__ */ jsx("p", { className: "font-mono text-[10px] text-cr-text-dim pt-2", children: "Tiempo medio para publicar: 90 segundos · Sin tarjeta · Pago en efectivo o Bizum" })
+        ] }) : /* @__PURE__ */ jsx("div", { className: "grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5", children: futureConcerts.map((c) => /* @__PURE__ */ jsx(Link, { to: `/concerts/${c.id}`, className: "block", children: /* @__PURE__ */ jsx(ConcertCard, { concert: c }) }, c.id)) })
+      ] }),
+      /* @__PURE__ */ jsx("section", { className: "max-w-6xl mx-auto px-6 pb-16 border-t border-cr-border pt-12", children: /* @__PURE__ */ jsx(FestivalAlertWidget, { festivalSlug: festival.slug, festivalName: festival.shortName }) }),
+      (festival.nearby_airports && festival.nearby_airports.length > 0 || festival.accommodation_zones && festival.accommodation_zones.length > 0 || festival.arrival_tips && festival.arrival_tips.length > 0) && /* @__PURE__ */ jsxs("section", { className: "max-w-6xl mx-auto px-6 pb-16 border-t border-cr-border pt-12", children: [
+        generateTransportHubSchema({
+          eventName: festival.name,
+          city: festival.city,
+          venue: festival.venue,
+          siteUrl: SITE_URL,
+          nearbyAirports: festival.nearby_airports ?? [],
+          accommodationZones: festival.accommodation_zones ?? []
+        }).map((schema, i) => /* @__PURE__ */ jsx(
+          "script",
+          {
+            type: "application/ld+json",
+            dangerouslySetInnerHTML: { __html: JSON.stringify(schema) }
+          },
+          `festival-transport-schema-${i}`
+        )),
+        /* @__PURE__ */ jsx(
+          EventTransportHub,
+          {
+            eventName: festival.name,
+            eventShortName: festival.shortName,
+            city: festival.city,
+            venue: festival.venue,
+            date: festival.startDate,
+            parking: festival.guide ? {
+              available: festival.guide.logistics.parking_available,
+              price: festival.guide.logistics.parking_price,
+              notes: void 0
+            } : void 0,
+            camping: festival.guide ? {
+              available: festival.guide.logistics.camping_available,
+              notes: festival.guide.logistics.camping_notes
+            } : void 0,
+            nearbyAirports: festival.nearby_airports ?? [],
+            accommodationZones: festival.accommodation_zones ?? [],
+            arrivalTips: festival.arrival_tips ?? [],
+            festivalSlug: festival.slug,
+            showPublishCTA: false
+          }
+        )
+      ] }),
+      (festival.genres || festival.arrival_patterns) && /* @__PURE__ */ jsxs("section", { className: "max-w-6xl mx-auto px-6 pb-12 border-t border-cr-border pt-12 space-y-5", children: [
+        /* @__PURE__ */ jsxs("h2", { className: "font-display text-xl uppercase", children: [
+          festival.shortName,
+          " ",
+          festYear,
+          ": perfil del festival y asistentes"
+        ] }),
+        /* @__PURE__ */ jsxs("div", { className: "grid sm:grid-cols-2 lg:grid-cols-3 gap-4 font-sans text-sm", children: [
+          festival.genres && festival.genres.length > 0 && /* @__PURE__ */ jsxs("article", { className: "border border-cr-border p-4 space-y-2", children: [
+            /* @__PURE__ */ jsx("h3", { className: "font-display text-sm uppercase", children: "Géneros musicales" }),
+            /* @__PURE__ */ jsx("div", { className: "flex flex-wrap gap-1.5", children: festival.genres.map((g) => /* @__PURE__ */ jsx("span", { className: "font-mono text-[11px] text-cr-primary border border-cr-primary/40 px-2 py-0.5 uppercase", children: g }, g)) })
+          ] }),
+          festival.expected_attendance && /* @__PURE__ */ jsxs("article", { className: "border border-cr-border p-4 space-y-2", children: [
+            /* @__PURE__ */ jsx("h3", { className: "font-display text-sm uppercase", children: "Asistencia esperada" }),
+            /* @__PURE__ */ jsx("p", { className: "font-mono text-lg font-bold text-cr-primary", children: festival.expected_attendance })
+          ] }),
+          festival.arrival_patterns && /* @__PURE__ */ jsxs("article", { className: "border border-cr-border p-4 space-y-2", children: [
+            /* @__PURE__ */ jsx("h3", { className: "font-display text-sm uppercase", children: "Patrones de llegada" }),
+            /* @__PURE__ */ jsx("p", { className: "text-xs text-cr-text-muted leading-relaxed", children: festival.arrival_patterns })
+          ] })
+        ] })
+      ] }),
+      /* @__PURE__ */ jsxs("section", { className: "max-w-6xl mx-auto px-6 pb-16 border-t border-cr-border pt-12 space-y-6", children: [
+        /* @__PURE__ */ jsxs("h2", { className: "font-display text-2xl md:text-3xl uppercase", children: [
+          "Por qué ir a ",
+          festival.shortName,
+          " en carpooling con ConcertRide vs. otras opciones"
+        ] }),
+        /* @__PURE__ */ jsxs("div", { className: "grid md:grid-cols-3 gap-4 font-sans text-sm text-cr-text-muted leading-relaxed", children: [
+          /* @__PURE__ */ jsxs("article", { className: "space-y-2", children: [
+            /* @__PURE__ */ jsxs("h3", { className: "font-display text-base uppercase text-cr-primary", children: [
+              "Sin comisión para ",
+              festival.shortName
+            ] }),
+            /* @__PURE__ */ jsx("p", { children: "El 100 % del precio del asiento va al conductor. ConcertRide no cobra comisión, nunca. El pago es en efectivo o Bizum el día del viaje: económico, directo y sin sorpresas." })
+          ] }),
+          /* @__PURE__ */ jsxs("article", { className: "space-y-2", children: [
+            /* @__PURE__ */ jsxs("h3", { className: "font-display text-base uppercase text-cr-primary", children: [
+              "Conductores verificados para ",
+              festival.shortName
+            ] }),
+            /* @__PURE__ */ jsx("p", { children: "Todos los conductores verifican su carnet de conducir antes de publicar. Puedes ver sus valoraciones y reseñas de otros pasajeros." })
+          ] }),
+          /* @__PURE__ */ jsxs("article", { className: "space-y-2", children: [
+            /* @__PURE__ */ jsxs("h3", { className: "font-display text-base uppercase text-cr-primary", children: [
+              "Vuelta de madrugada desde ",
+              festival.shortName
+            ] }),
+            /* @__PURE__ */ jsx("p", { children: "Llegas y vuelves en el horario que quieras. No dependes del último metro ni de taxis a precio de festival (30–90 € de madrugada)." })
+          ] })
+        ] }),
+        /* @__PURE__ */ jsxs("div", { className: "pt-6 flex flex-wrap gap-4 border-t border-cr-border", children: [
+          /* @__PURE__ */ jsxs(
+            Link,
+            {
+              to: `/conciertos/${festival.citySlug}`,
+              className: "inline-flex items-center gap-2 font-sans text-xs font-semibold uppercase tracking-[0.12em] text-cr-text-muted hover:text-cr-primary transition-colors",
+              children: [
+                "Todos los conciertos en ",
+                festival.city,
+                " ",
+                /* @__PURE__ */ jsx(ArrowRight, { size: 12 })
+              ]
+            }
+          ),
+          /* @__PURE__ */ jsxs(
+            Link,
+            {
+              to: "/como-funciona",
+              className: "inline-flex items-center gap-2 font-sans text-xs font-semibold uppercase tracking-[0.12em] text-cr-text-muted hover:text-cr-primary transition-colors",
+              children: [
+                "Cómo funciona ",
+                /* @__PURE__ */ jsx(ArrowRight, { size: 12 })
+              ]
+            }
+          ),
+          /* @__PURE__ */ jsxs(
+            Link,
+            {
+              to: "/publish",
+              className: "inline-flex items-center gap-2 font-sans text-xs font-semibold uppercase tracking-[0.12em] text-cr-primary border-b border-cr-primary hover:text-cr-primary/80 transition-colors ml-auto",
+              children: [
+                "Publicar un viaje ",
+                /* @__PURE__ */ jsx(ArrowRight, { size: 12 })
+              ]
+            }
+          )
+        ] })
+      ] }),
+      /* @__PURE__ */ jsxs("section", { className: "max-w-6xl mx-auto px-6 pb-16 border-t border-cr-border pt-12 space-y-6", children: [
+        /* @__PURE__ */ jsxs("h2", { className: "font-display text-2xl md:text-3xl uppercase", children: [
+          "Cómo reservar carpooling a ",
+          festival.shortName,
+          " ",
+          festYear,
+          " en 4 pasos"
+        ] }),
+        /* @__PURE__ */ jsx("div", { className: "grid sm:grid-cols-2 lg:grid-cols-4 gap-4", children: [
+          { n: "01", title: "Busca el festival", body: `Entra en concertride.me/concerts y filtra por ${festival.city} o busca directamente "${festival.shortName}".` },
+          { n: "02", title: "Elige el viaje", body: "Compara precio por asiento, hora de salida y perfil del conductor. Lee las valoraciones de otros pasajeros." },
+          { n: "03", title: "Solicita tu plaza", body: "Con reserva instantánea queda confirmada al momento. Sin ella, el conductor suele responder en pocas horas." },
+          { n: "04", title: "Viaja y paga", body: "El día del festival te encuentras con el conductor en el punto acordado. Pagas en efectivo o Bizum. Sin comisión." }
+        ].map(({ n, title, body }) => /* @__PURE__ */ jsxs("article", { className: "border border-cr-border p-4 space-y-2", children: [
+          /* @__PURE__ */ jsx("p", { className: "font-mono text-[11px] text-cr-primary", children: n }),
+          /* @__PURE__ */ jsx("h3", { className: "font-display text-base uppercase", children: title }),
+          /* @__PURE__ */ jsx("p", { className: "font-sans text-xs text-cr-text-muted leading-relaxed", children: body })
+        ] }, n)) }),
+        /* @__PURE__ */ jsxs("blockquote", { className: "border-l-2 border-cr-primary pl-5 space-y-2", children: [
+          /* @__PURE__ */ jsx("p", { className: "font-sans text-sm text-cr-text-muted italic leading-relaxed", children: '"El 80 % de la huella de carbono de un festival proviene del transporte de los asistentes. El carpooling es la acción individual más efectiva para reducirla."' }),
+          /* @__PURE__ */ jsxs("footer", { className: "font-mono text-[11px] text-cr-text-dim", children: [
+            "—",
+            " ",
+            /* @__PURE__ */ jsx("a", { href: "https://juliesbicycle.com/", target: "_blank", rel: "noopener noreferrer", className: "hover:text-cr-primary", children: "Julie's Bicycle Practical Guide to Green Events" })
+          ] })
+        ] })
+      ] }),
+      /* @__PURE__ */ jsxs("section", { className: "max-w-6xl mx-auto px-6 pb-16 border-t border-cr-border pt-12 space-y-6", children: [
+        /* @__PURE__ */ jsxs("h2", { className: "font-display text-2xl md:text-3xl uppercase", children: [
+          "Comparativa de transporte a ",
+          festival.shortName,
+          " ",
+          festYear,
+          ": carpooling vs. bus vs. tren vs. taxi"
+        ] }),
+        /* @__PURE__ */ jsxs("p", { className: "font-sans text-sm text-cr-text-muted max-w-2xl", children: [
+          "Precios, comisiones y disponibilidad nocturna para ir a ",
+          festival.name,
+          " desde ",
+          ((_s = festival.originCities[0]) == null ? void 0 : _s.city) ?? "tu ciudad",
+          "."
+        ] }),
+        /* @__PURE__ */ jsx("div", { className: "overflow-x-auto", children: /* @__PURE__ */ jsxs("table", { className: "w-full font-sans text-xs border-collapse", children: [
+          /* @__PURE__ */ jsx("thead", { children: /* @__PURE__ */ jsxs("tr", { className: "border-b border-cr-border text-left", children: [
+            /* @__PURE__ */ jsx("th", { className: "py-2 pr-4 font-semibold text-cr-text", children: "Opción" }),
+            /* @__PURE__ */ jsxs("th", { className: "py-2 pr-4 font-semibold text-cr-text", children: [
+              "Precio desde ",
+              ((_t = festival.originCities[0]) == null ? void 0 : _t.city) ?? "origen"
+            ] }),
+            /* @__PURE__ */ jsx("th", { className: "py-2 pr-4 font-semibold text-cr-text", children: "Comisión" }),
+            /* @__PURE__ */ jsx("th", { className: "py-2 pr-4 font-semibold text-cr-text", children: "Vuelta madrugada" }),
+            /* @__PURE__ */ jsx("th", { className: "py-2 font-semibold text-cr-text", children: "Reserva" })
+          ] }) }),
+          /* @__PURE__ */ jsxs("tbody", { className: "text-cr-text-muted", children: [
+            /* @__PURE__ */ jsxs("tr", { className: "border-b border-cr-border/50", children: [
+              /* @__PURE__ */ jsx("td", { className: "py-2 pr-4 font-semibold text-cr-primary", children: "ConcertRide carpooling" }),
+              /* @__PURE__ */ jsxs("td", { className: "py-2 pr-4", children: [
+                ((_u = festival.originCities[0]) == null ? void 0 : _u.concertRideRange) ?? "desde 3 €",
+                "/asiento"
+              ] }),
+              /* @__PURE__ */ jsx("td", { className: "py-2 pr-4 font-semibold text-cr-primary", children: "0 %" }),
+              /* @__PURE__ */ jsx("td", { className: "py-2 pr-4", children: "Sí (coordinada con el conductor)" }),
+              /* @__PURE__ */ jsx("td", { className: "py-2", children: "Instantánea" })
+            ] }),
+            /* @__PURE__ */ jsxs("tr", { className: "border-b border-cr-border/50", children: [
+              /* @__PURE__ */ jsx("td", { className: "py-2 pr-4", children: "Taxi / VTC (Uber, Cabify)" }),
+              /* @__PURE__ */ jsx("td", { className: "py-2 pr-4", children: "35–80 € ida (precio nocturno)" }),
+              /* @__PURE__ */ jsx("td", { className: "py-2 pr-4", children: "—" }),
+              /* @__PURE__ */ jsx("td", { className: "py-2 pr-4", children: "Sí (precio ×2–3 de madrugada)" }),
+              /* @__PURE__ */ jsx("td", { className: "py-2", children: "App" })
+            ] }),
+            /* @__PURE__ */ jsxs("tr", { className: "border-b border-cr-border/50", children: [
+              /* @__PURE__ */ jsx("td", { className: "py-2 pr-4", children: "Otras plataformas de carpooling" }),
+              /* @__PURE__ */ jsxs("td", { className: "py-2 pr-4", children: [
+                ((_v = festival.originCities[0]) == null ? void 0 : _v.concertRideRange) ?? "precio similar",
+                " + 12–18 %"
+              ] }),
+              /* @__PURE__ */ jsx("td", { className: "py-2 pr-4", children: "12–18 %" }),
+              /* @__PURE__ */ jsx("td", { className: "py-2 pr-4", children: "Depende del conductor" }),
+              /* @__PURE__ */ jsx("td", { className: "py-2", children: "Con aprobación" })
+            ] }),
+            /* @__PURE__ */ jsxs("tr", { children: [
+              /* @__PURE__ */ jsx("td", { className: "py-2 pr-4", children: "Autobús / tren público" }),
+              /* @__PURE__ */ jsx("td", { className: "py-2 pr-4", children: "3–15 € (si hay servicio)" }),
+              /* @__PURE__ */ jsx("td", { className: "py-2 pr-4", children: "—" }),
+              /* @__PURE__ */ jsx("td", { className: "py-2 pr-4", children: "No (último ~1:30)" }),
+              /* @__PURE__ */ jsx("td", { className: "py-2", children: "Taquilla / app" })
+            ] })
+          ] })
+        ] }) }),
+        /* @__PURE__ */ jsx("p", { className: "font-mono text-[10px] text-cr-text-dim", children: "Datos de ConcertRide, estimaciones de VTC nocturno y tarifas EMT/Renfe 2026. Comisión media de plataformas de carpooling generalistas actualizada a mayo 2026." })
+      ] }),
+      /* @__PURE__ */ jsxs("section", { className: "max-w-6xl mx-auto px-6 pb-16 border-t border-cr-border pt-12 space-y-8", children: [
+        /* @__PURE__ */ jsxs("h2", { className: "font-display text-2xl md:text-3xl uppercase", children: [
+          "Todo lo que necesitas saber para ir a ",
+          festival.shortName,
+          " ",
+          festYear
+        ] }),
+        /* @__PURE__ */ jsxs("p", { className: "font-sans text-sm text-cr-text-muted max-w-3xl leading-relaxed", children: [
+          "Resumen de las cinco preguntas más habituales sobre transporte a ",
+          festival.shortName,
+          ": cuánto cuesta, cuánto se tarda, dónde aparcar, cómo volver de madrugada y qué opciones hay si no tienes coche."
+        ] }),
+        /* @__PURE__ */ jsxs("div", { className: "grid sm:grid-cols-2 lg:grid-cols-3 gap-4 font-sans text-sm", children: [
+          /* @__PURE__ */ jsxs("article", { className: "border border-cr-border p-5 space-y-2", children: [
+            /* @__PURE__ */ jsxs("h3", { className: "font-display text-sm uppercase text-cr-primary", children: [
+              "¿Cuánto cuesta ir a ",
+              festival.shortName,
+              " ",
+              festYear,
+              "?"
+            ] }),
+            /* @__PURE__ */ jsxs("p", { className: "text-cr-text-muted text-xs leading-relaxed", children: [
+              "Carpooling ConcertRide: desde ",
+              /* @__PURE__ */ jsxs("strong", { className: "text-cr-text", children: [
+                ((_w = festival.originCities[0]) == null ? void 0 : _w.concertRideRange) ?? "3 €",
+                "/asiento"
+              ] }),
+              " desde ",
+              ((_x = festival.originCities[0]) == null ? void 0 : _x.city) ?? "tu ciudad",
+              " (sin comisión). Taxi/VTC: ",
+              Math.round((((_y = festival.originCities[0]) == null ? void 0 : _y.km) ?? 50) * 0.8),
+              "–",
+              Math.round((((_z = festival.originCities[0]) == null ? void 0 : _z.km) ?? 50) * 1.4),
+              " € solo de ida. Autobús o tren hasta ",
+              festival.city,
+              " más lanzadera: precio variable. El carpooling es la opción más económica para trayectos de más de 60 km."
+            ] })
+          ] }),
+          /* @__PURE__ */ jsxs("article", { className: "border border-cr-border p-5 space-y-2", children: [
+            /* @__PURE__ */ jsxs("h3", { className: "font-display text-sm uppercase text-cr-primary", children: [
+              "¿Cuánto se tarda en llegar a ",
+              festival.shortName,
+              "?"
+            ] }),
+            /* @__PURE__ */ jsxs("p", { className: "text-cr-text-muted text-xs leading-relaxed", children: [
+              "Desde ",
+              ((_A = festival.originCities[0]) == null ? void 0 : _A.city) ?? "tu ciudad",
+              ": ",
+              /* @__PURE__ */ jsxs("strong", { className: "text-cr-text", children: [
+                ((_B = festival.originCities[0]) == null ? void 0 : _B.km) ?? "?",
+                " km · ",
+                ((_C = festival.originCities[0]) == null ? void 0 : _C.drivingTime) ?? "?"
+              ] }),
+              " en coche. Suma 20–40 min de tráfico en la entrada al recinto los días de mayor afluencia. Lo ideal es salir con 1 hora de margen."
+            ] })
+          ] }),
+          /* @__PURE__ */ jsxs("article", { className: "border border-cr-border p-5 space-y-2", children: [
+            /* @__PURE__ */ jsxs("h3", { className: "font-display text-sm uppercase text-cr-primary", children: [
+              "Parking en ",
+              festival.shortName,
+              " ",
+              festYear,
+              ": coste y disponibilidad"
+            ] }),
+            /* @__PURE__ */ jsx("p", { className: "text-cr-text-muted text-xs leading-relaxed", children: "El parking en recintos de festival suele costar 5–18 €/día y se llena rápido en fin de semana. El carpooling evita el coste y el estrés del parking: el conductor lleva el coche y el coste se divide entre los pasajeros." })
+          ] }),
+          /* @__PURE__ */ jsxs("article", { className: "border border-cr-border p-5 space-y-2", children: [
+            /* @__PURE__ */ jsxs("h3", { className: "font-display text-sm uppercase text-cr-primary", children: [
+              "Vuelta de madrugada desde ",
+              festival.shortName,
+              ": opciones reales"
+            ] }),
+            /* @__PURE__ */ jsx("p", { className: "text-cr-text-muted text-xs leading-relaxed", children: "El transporte público no opera de madrugada desde ningún recinto de festival español. Opciones: taxi/VTC (precio nocturno ×2–3, 40–150 €), o carpooling ConcertRide con vuelta coordinada después del headliner (03:00–05:00h). El carpooling es la única opción económica para la vuelta." })
+          ] }),
+          /* @__PURE__ */ jsxs("article", { className: "border border-cr-border p-5 space-y-2", children: [
+            /* @__PURE__ */ jsxs("h3", { className: "font-display text-sm uppercase text-cr-primary", children: [
+              "Cómo ir a ",
+              festival.shortName,
+              " sin coche propio"
+            ] }),
+            /* @__PURE__ */ jsxs("p", { className: "text-cr-text-muted text-xs leading-relaxed", children: [
+              "Sin coche propio, las opciones son: (1) carpooling ConcertRide (",
+              ((_D = festival.originCities[0]) == null ? void 0 : _D.concertRideRange) ?? "desde 3 €",
+              ", conductores verificados); (2) autobús/tren hasta ",
+              festival.city,
+              " + lanzadera al recinto (disponibilidad limitada); (3) taxi/VTC al recinto (precio elevado). El carpooling es la combinación óptima de precio y flexibilidad de horario."
+            ] })
+          ] }),
+          /* @__PURE__ */ jsxs("article", { className: "border border-cr-border p-5 space-y-2", children: [
+            /* @__PURE__ */ jsxs("h3", { className: "font-display text-sm uppercase text-cr-primary", children: [
+              "Alternativas de carpooling para ",
+              festival.shortName
+            ] }),
+            /* @__PURE__ */ jsxs("p", { className: "text-cr-text-muted text-xs leading-relaxed", children: [
+              "Otras plataformas de carpooling cobran 12–18 % de comisión y la vuelta de madrugada depende del conductor. ConcertRide es 0 % de comisión, especializado en festivales: los conductores publican viajes de ida y vuelta coordinados con el fin del show. Para festivales como ",
+              festival.shortName,
+              ", ConcertRide es la opción event-first."
+            ] })
+          ] })
+        ] })
+      ] }),
+      /* @__PURE__ */ jsxs("section", { className: "max-w-6xl mx-auto px-6 pb-16 border-t border-cr-border pt-12 space-y-6", children: [
+        /* @__PURE__ */ jsxs("h2", { className: "font-display text-2xl md:text-3xl uppercase", children: [
+          "Preguntas frecuentes sobre cómo ir a ",
+          festival.shortName,
+          " ",
+          festYear
+        ] }),
+        /* @__PURE__ */ jsx("dl", { className: "space-y-6", children: festival.faqs.map((faq) => /* @__PURE__ */ jsxs("div", { className: "border-b border-cr-border pb-6 space-y-2", children: [
+          /* @__PURE__ */ jsx("dt", { className: "font-display text-base uppercase text-cr-text", children: faq.q }),
+          /* @__PURE__ */ jsx("dd", { className: "font-sans text-sm text-cr-text-muted leading-relaxed max-w-2xl", children: faq.a })
+        ] }, faq.q)) }),
+        cityFaqs.length > 0 && /* @__PURE__ */ jsxs("div", { className: "mt-6 space-y-2", children: [
+          /* @__PURE__ */ jsx("h3", { className: "text-sm font-semibold text-cr-text-muted uppercase tracking-wide mb-3", children: "Preguntas por ciudad de origen" }),
+          cityFaqs.map((faq, i) => /* @__PURE__ */ jsxs("details", { className: "group rounded-xl border border-white/10 bg-white/3", children: [
+            /* @__PURE__ */ jsxs("summary", { className: "cursor-pointer px-5 py-4 text-sm font-medium text-cr-text hover:text-cr-primary transition-colors list-none flex justify-between items-center", children: [
+              faq.q,
+              /* @__PURE__ */ jsx("span", { className: "text-cr-text-muted group-open:rotate-180 transition-transform text-xs", children: "▼" })
+            ] }),
+            /* @__PURE__ */ jsx("div", { className: "px-5 pb-4 text-sm text-cr-text-muted leading-relaxed", children: faq.a })
+          ] }, i))
+        ] })
+      ] }),
+      /* @__PURE__ */ jsx(FestivalQnaWidget, { festivalSlug: festival.slug, festivalName: festival.shortName }),
+      (() => {
+        const festArtists = ARTIST_LANDINGS.filter((a) => a.relatedFestivals.includes(festival.slug));
+        if (festArtists.length === 0) return null;
+        return /* @__PURE__ */ jsxs("section", { className: "max-w-6xl mx-auto px-6 pb-12 border-t border-cr-border pt-10", children: [
+          /* @__PURE__ */ jsxs("h2", { className: "font-display text-lg uppercase text-cr-text-muted mb-4", children: [
+            "Artistas en ",
+            festival.shortName
+          ] }),
+          /* @__PURE__ */ jsx("ul", { className: "flex flex-wrap gap-2", children: festArtists.map((a) => /* @__PURE__ */ jsx("li", { children: /* @__PURE__ */ jsxs(
+            Link,
+            {
+              to: `/artistas/${a.slug}`,
+              className: "inline-flex items-center gap-1.5 font-sans text-xs text-cr-text-muted hover:text-cr-primary border border-cr-border hover:border-cr-primary px-3 py-1.5 transition-colors",
+              children: [
+                a.name,
+                " →"
+              ]
+            }
+          ) }, a.slug)) })
+        ] });
+      })(),
+      festival.relatedBlogs && festival.relatedBlogs.length > 0 && (() => {
+        const blogPosts = festival.relatedBlogs.map((slug2) => BLOG_POSTS.find((p) => p.slug === slug2)).filter((p) => p !== void 0);
+        if (blogPosts.length === 0) return null;
+        return /* @__PURE__ */ jsxs("section", { className: "max-w-6xl mx-auto px-6 pb-12 border-t border-cr-border pt-10", children: [
+          /* @__PURE__ */ jsx("h2", { className: "font-display text-lg uppercase text-cr-text-muted mb-4", children: "Guías y artículos" }),
+          /* @__PURE__ */ jsx("ul", { className: "flex flex-col gap-2", children: blogPosts.map((post) => /* @__PURE__ */ jsx("li", { children: /* @__PURE__ */ jsxs(
+            Link,
+            {
+              to: `/blog/${post.slug}`,
+              className: "inline-flex items-center gap-2 font-sans text-xs text-cr-text hover:text-cr-primary transition-colors",
+              children: [
+                /* @__PURE__ */ jsx(ArrowRight, { size: 10, className: "text-cr-primary flex-shrink-0" }),
+                post.title
+              ]
+            }
+          ) }, post.slug)) })
+        ] });
+      })(),
+      (() => {
+        const festVenue = VENUE_LANDINGS.find((v) => v.relatedFestivals.includes(festival.slug));
+        if (!festVenue) return null;
+        return /* @__PURE__ */ jsxs("section", { className: "max-w-6xl mx-auto px-6 pb-12 border-t border-cr-border pt-10", children: [
+          /* @__PURE__ */ jsx("h2", { className: "font-display text-lg uppercase text-cr-text-muted mb-4", children: "Recinto" }),
+          /* @__PURE__ */ jsxs(
+            Link,
+            {
+              to: `/recintos/${festVenue.slug}`,
+              className: "inline-flex items-center gap-2 font-sans text-xs text-cr-text-muted hover:text-cr-primary border border-cr-border hover:border-cr-primary px-3 py-1.5 transition-colors",
+              children: [
+                festVenue.name,
+                " — cómo llegar, metro, parking ",
+                /* @__PURE__ */ jsx(ArrowRight, { size: 10 })
+              ]
+            }
+          )
+        ] });
+      })(),
+      (() => {
+        const region = REGION_LANDINGS.find((r) => r.festivalsInRegion.includes(festival.slug));
+        if (!region) return null;
+        return /* @__PURE__ */ jsxs("section", { className: "max-w-6xl mx-auto px-6 pb-12 border-t border-cr-border pt-10", children: [
+          /* @__PURE__ */ jsxs("h2", { className: "font-display text-lg uppercase text-cr-text-muted mb-2", children: [
+            "Festivales en ",
+            region.displayName
+          ] }),
+          /* @__PURE__ */ jsxs(
+            Link,
+            {
+              to: `/festivales-en/${region.slug}`,
+              className: "inline-flex items-center gap-2 font-sans text-xs text-cr-primary border-b border-cr-primary/40 hover:border-cr-primary transition-colors",
+              children: [
+                "Ver todos los festivales en ",
+                region.displayName,
+                " ",
+                /* @__PURE__ */ jsx(ArrowRight, { size: 10 })
+              ]
+            }
+          )
+        ] });
+      })(),
+      /* @__PURE__ */ jsxs("section", { className: "max-w-6xl mx-auto px-6 pb-16 border-t border-cr-border pt-12 space-y-6", children: [
+        /* @__PURE__ */ jsxs("h2", { className: "font-display text-2xl md:text-3xl uppercase", children: [
+          "Viaja a ",
+          festival.shortName,
+          " ",
+          festYear,
+          " con otros fans"
+        ] }),
+        /* @__PURE__ */ jsxs("p", { className: "font-sans text-sm text-cr-text-muted max-w-2xl", children: [
+          "ConcertRide conecta a asistentes de ",
+          festival.name,
+          " que quieren compartir el viaje desde toda España. Sin comisión. Sin apps de taxi. Solo fans que se organizan."
+        ] }),
+        /* @__PURE__ */ jsxs("div", { className: "grid sm:grid-cols-2 lg:grid-cols-4 gap-4 font-sans text-sm", children: [
+          /* @__PURE__ */ jsxs("div", { className: "border border-cr-primary/30 p-5 space-y-1 text-center", children: [
+            /* @__PURE__ */ jsx("p", { className: "font-mono text-2xl font-bold text-cr-primary", children: "0 %" }),
+            /* @__PURE__ */ jsx("p", { className: "text-xs text-cr-text-muted", children: "Comisión de plataforma" })
+          ] }),
+          /* @__PURE__ */ jsxs("div", { className: "border border-cr-border p-5 space-y-1 text-center", children: [
+            /* @__PURE__ */ jsx("p", { className: "font-mono text-2xl font-bold text-cr-text", children: festival.originCities.length }),
+            /* @__PURE__ */ jsx("p", { className: "text-xs text-cr-text-muted", children: "Ciudades de origen documentadas" })
+          ] }),
+          /* @__PURE__ */ jsxs("div", { className: "border border-cr-border p-5 space-y-1 text-center", children: [
+            /* @__PURE__ */ jsx("p", { className: "font-mono text-2xl font-bold text-cr-text", children: "✓" }),
+            /* @__PURE__ */ jsx("p", { className: "text-xs text-cr-text-muted", children: "Conductores con carnet verificado" })
+          ] }),
+          /* @__PURE__ */ jsxs("div", { className: "border border-cr-border p-5 space-y-1 text-center", children: [
+            /* @__PURE__ */ jsxs("p", { className: "font-mono text-2xl font-bold text-cr-text", children: [
+              ((_G = (_F = (_E = festival.originCities[0]) == null ? void 0 : _E.concertRideRange) == null ? void 0 : _F.split("–")[0]) == null ? void 0 : _G.trim()) ?? "3",
+              "€"
+            ] }),
+            /* @__PURE__ */ jsx("p", { className: "text-xs text-cr-text-muted", children: "Precio mínimo por asiento" })
+          ] })
+        ] }),
+        /* @__PURE__ */ jsxs("div", { className: "space-y-3", children: [
+          /* @__PURE__ */ jsxs("h3", { className: "font-display text-base uppercase text-cr-text-muted", children: [
+            "Ciudades de salida más populares para ",
+            festival.shortName
+          ] }),
+          /* @__PURE__ */ jsx("div", { className: "flex flex-wrap gap-2", children: festival.originCities.slice(0, 8).map((oc) => /* @__PURE__ */ jsxs(
+            Link,
+            {
+              to: `/concerts?city=${encodeURIComponent(festival.city)}`,
+              className: "inline-flex items-center gap-1.5 font-sans text-xs text-cr-text-muted hover:text-cr-primary border border-cr-border hover:border-cr-primary px-3 py-1.5 transition-colors",
+              children: [
+                /* @__PURE__ */ jsx(MapPin, { size: 10 }),
+                " ",
+                oc.city,
+                " · ",
+                oc.concertRideRange
+              ]
+            },
+            oc.city
+          )) }),
+          /* @__PURE__ */ jsxs("p", { className: "font-sans text-xs text-cr-text-dim", children: [
+            "¿Tu ciudad no aparece? Publica un viaje y sé el primero en coordinarlo desde allí.",
+            " ",
+            /* @__PURE__ */ jsx(Link, { to: "/publish", className: "text-cr-primary hover:underline", children: "Publicar viaje →" })
+          ] })
+        ] })
+      ] }),
+      relatedFestivals.length > 0 && /* @__PURE__ */ jsxs("section", { className: "max-w-6xl mx-auto px-6 pb-16 border-t border-cr-border pt-10", children: [
+        /* @__PURE__ */ jsx("h2", { className: "font-display text-lg uppercase text-cr-text-muted mb-4", children: "Festivales relacionados" }),
+        /* @__PURE__ */ jsx("ul", { className: "flex flex-wrap gap-2", children: relatedFestivals.map((f) => /* @__PURE__ */ jsx("li", { children: /* @__PURE__ */ jsxs(
+          Link,
+          {
+            to: `/festivales/${f.slug}`,
+            className: "inline-flex items-center gap-1.5 font-sans text-xs text-cr-text-muted hover:text-cr-primary border border-cr-border hover:border-cr-primary px-3 py-1.5 transition-colors",
+            children: [
+              f.shortName,
+              " — ",
+              f.city
+            ]
+          }
+        ) }, f.slug)) })
+      ] }),
+      /* @__PURE__ */ jsxs("section", { className: "max-w-6xl mx-auto px-6 pb-24 border-t border-cr-border pt-10", children: [
+        /* @__PURE__ */ jsx("h2", { className: "font-display text-lg uppercase text-cr-text-muted mb-4", children: "Otros festivales en ConcertRide" }),
+        /* @__PURE__ */ jsx("ul", { className: "flex flex-wrap gap-2", children: FESTIVAL_LANDINGS.filter((f) => f.slug !== festival.slug).map((f) => /* @__PURE__ */ jsx("li", { children: /* @__PURE__ */ jsx(
+          Link,
+          {
+            to: `/festivales/${f.slug}`,
+            className: "inline-flex items-center gap-1.5 font-sans text-xs text-cr-text-muted hover:text-cr-primary border border-cr-border hover:border-cr-primary px-3 py-1.5 transition-colors",
+            children: f.shortName
+          }
+        ) }, f.slug)) })
+      ] }),
+      /* @__PURE__ */ jsx("section", { className: "max-w-6xl mx-auto px-6 pb-16 border-t border-cr-border pt-12", children: /* @__PURE__ */ jsxs("div", { className: "border-2 border-cr-primary/40 bg-gradient-to-br from-cr-primary/[0.06] to-transparent p-6 md:p-8 flex flex-col md:flex-row md:items-center gap-5 md:gap-8", children: [
+        /* @__PURE__ */ jsxs("div", { className: "flex-1 space-y-2", children: [
+          /* @__PURE__ */ jsx("p", { className: "font-mono text-[10px] uppercase tracking-[0.16em] text-cr-primary", children: "¿Tienes coche?" }),
+          /* @__PURE__ */ jsxs("h2", { className: "font-display text-2xl md:text-3xl uppercase leading-tight", children: [
+            "Publica tu viaje a ",
+            festival.shortName,
+            " y llena el coche"
+          ] }),
+          /* @__PURE__ */ jsxs("p", { className: "font-sans text-sm text-cr-text-muted max-w-xl leading-relaxed", children: [
+            "Comparte el coste de la gasolina y los peajes con otros asistentes a ",
+            festival.name,
+            ". Sin comisión de plataforma: el 100 % de lo que pagan los pasajeros va al conductor. Pago en efectivo o Bizum directamente entre vosotros."
+          ] })
+        ] }),
+        /* @__PURE__ */ jsxs(
+          Link,
+          {
+            to: publishHref,
+            "aria-label": `Publicar viaje a ${festival.shortName} ${festYear}`,
+            className: "inline-flex items-center justify-center gap-2 bg-cr-primary text-black font-sans text-sm font-bold uppercase tracking-[0.12em] px-6 py-3 hover:bg-cr-primary/90 transition-colors whitespace-nowrap",
+            children: [
+              "Publicar mi coche ",
+              /* @__PURE__ */ jsx(ArrowRight, { size: 14 })
+            ]
+          }
+        )
+      ] }) }),
+      /* @__PURE__ */ jsx("section", { className: "max-w-6xl mx-auto px-6 pb-10 border-t border-cr-border pt-8", children: /* @__PURE__ */ jsxs("p", { className: "font-mono text-[11px] text-cr-text-dim leading-relaxed", children: [
+        "ConcertRide no es un socio oficial, patrocinador ni representante de",
+        " ",
+        festival.name,
+        " ni de su organización. Los nombres de festivales y eventos se utilizan con carácter meramente descriptivo para identificar el destino del viaje. Para la compra de entradas o información oficial acude siempre a la web del organizador.",
+        " ",
+        /* @__PURE__ */ jsx(Link, { to: "/aviso-legal", className: "underline underline-offset-2 hover:text-cr-primary transition-colors", children: "Aviso legal" }),
+        "."
+      ] }) }),
+      /* @__PURE__ */ jsxs("div", { className: "md:hidden fixed bottom-0 left-0 right-0 z-40 bg-cr-bg/95 backdrop-blur-sm border-t border-cr-border px-3 py-3 flex gap-2", children: [
         /* @__PURE__ */ jsxs(
           Link,
           {
             to: searchHref,
-            "aria-label": `Buscar plaza en viaje a ${festival.shortName} ${festYear} desde ${priceFromMin} euros por asiento`,
-            className: "inline-flex items-center gap-2 bg-cr-primary text-black font-sans text-sm font-bold uppercase tracking-[0.12em] px-5 py-3 shadow-[0_4px_0_0_#ff4f00] hover:bg-cr-primary/90 hover:translate-y-[1px] hover:shadow-[0_3px_0_0_#ff4f00] transition-all",
+            "aria-label": `Buscar plaza a ${festival.shortName} ${festYear} desde ${priceFromMin} euros`,
+            className: "flex-1 flex flex-col items-center justify-center gap-0 bg-cr-primary text-black font-sans text-[11px] font-bold uppercase tracking-[0.08em] py-2 leading-tight",
             children: [
-              "Buscar plaza · desde ",
-              priceFromMin,
-              "€ ",
-              /* @__PURE__ */ jsx(ArrowRight, { size: 14 })
+              /* @__PURE__ */ jsxs("span", { className: "flex items-center gap-1", children: [
+                "Buscar plaza a ",
+                festival.shortName,
+                " ",
+                /* @__PURE__ */ jsx(ArrowRight, { size: 11 })
+              ] }),
+              /* @__PURE__ */ jsxs("span", { className: "font-mono text-[10px] font-semibold normal-case tracking-normal opacity-80", children: [
+                "desde ",
+                priceFromMin,
+                "€/asiento"
+              ] })
             ]
           }
         ),
@@ -46698,1033 +49656,15 @@ function FestivalLandingPage() {
           Link,
           {
             to: publishHref,
-            "aria-label": `Publicar mi coche a ${festival.shortName} ${festYear}`,
-            className: "inline-flex items-center gap-2 border-2 border-cr-primary text-cr-primary font-sans text-sm font-bold uppercase tracking-[0.12em] px-5 py-3 hover:bg-cr-primary hover:text-black transition-colors",
-            children: "Publicar mi coche →"
+            "aria-label": `Publicar viaje a ${festival.shortName}`,
+            className: "flex items-center justify-center gap-1.5 border-2 border-cr-primary text-cr-primary font-sans text-[11px] font-bold uppercase tracking-[0.08em] px-3 py-3",
+            children: "Publicar"
           }
         )
       ] }),
-      /* @__PURE__ */ jsx("p", { className: "font-mono text-[11px] text-cr-text-dim", children: "Sin comisión · Pago en efectivo o Bizum · Conductores verificados" }),
-      /* @__PURE__ */ jsx("p", { className: "font-sans text-sm md:text-base text-cr-text-muted max-w-2xl leading-relaxed speakable", children: festival.blurb }),
-      /* @__PURE__ */ jsxs("p", { className: "font-sans text-xs text-cr-text-dim max-w-2xl leading-relaxed", children: [
-        "También buscado como: ",
-        festival.name,
-        " ",
-        new Date(festival.startDate).getFullYear(),
-        ",",
-        " ",
-        festival.shortName.toLowerCase(),
-        ",",
-        " ",
-        festival.shortName.toLowerCase().replace(/\s+/g, ""),
-        ",",
-        " ",
-        "cómo llegar a ",
-        festival.shortName.toLowerCase(),
-        ",",
-        " ",
-        festival.shortName.toLowerCase(),
-        " localización,",
-        " ",
-        "autobús ",
-        festival.shortName.toLowerCase(),
-        ",",
-        " ",
-        "bus ",
-        festival.shortName.toLowerCase(),
-        ",",
-        " ",
-        "buses ",
-        festival.shortName.toLowerCase(),
-        ",",
-        " ",
-        "tren ",
-        festival.shortName.toLowerCase(),
-        ",",
-        " ",
-        festival.shortName.toLowerCase(),
-        " ",
-        festival.city.toLowerCase(),
-        ",",
-        " ",
-        "horarios ",
-        festival.shortName.toLowerCase(),
-        ",",
-        " ",
-        "viajes ",
-        festival.shortName.toLowerCase(),
-        "."
-      ] }),
-      /* @__PURE__ */ jsx(AutoLinksForFestival, { slug: festival.slug }),
-      /* @__PURE__ */ jsxs("div", { className: "flex flex-wrap gap-4 pt-2", children: [
-        /* @__PURE__ */ jsxs("span", { className: "inline-flex items-center gap-1.5 font-mono text-[11px] text-cr-text-muted border border-cr-border px-2 py-1", children: [
-          /* @__PURE__ */ jsx(MapPin, { size: 10 }),
-          " Localización: ",
-          festival.venue,
-          ", ",
-          festival.city
-        ] }),
-        /* @__PURE__ */ jsxs("span", { className: "inline-flex items-center gap-1.5 font-mono text-[11px] text-cr-text-muted border border-cr-border px-2 py-1", children: [
-          /* @__PURE__ */ jsx(Calendar, { size: 10 }),
-          " ",
-          festival.typicalDates
-        ] }),
-        /* @__PURE__ */ jsxs("span", { className: "inline-flex items-center gap-1.5 font-mono text-[11px] text-cr-text-muted border border-cr-border px-2 py-1", children: [
-          /* @__PURE__ */ jsx(Users, { size: 10 }),
-          " ",
-          festival.capacity
-        ] })
-      ] })
+      /* @__PURE__ */ jsx("div", { className: "md:hidden h-20" })
     ] }),
-    /* @__PURE__ */ jsxs("section", { className: "max-w-6xl mx-auto px-6 pb-12 border-t border-cr-border pt-12 space-y-6 transport-info", children: [
-      /* @__PURE__ */ jsxs("h2", { className: "font-display text-2xl md:text-3xl uppercase", children: [
-        "Cómo llegar a ",
-        festival.shortName,
-        " ",
-        festYear,
-        ": autobús, tren y carpooling desde ",
-        ((_q = festival.originCities[0]) == null ? void 0 : _q.city) ?? "tu ciudad"
-      ] }),
-      /* @__PURE__ */ jsxs("p", { className: "font-sans text-sm text-cr-text-muted max-w-3xl leading-relaxed", children: [
-        festival.shortName,
-        " se celebra en ",
-        /* @__PURE__ */ jsx("strong", { className: "text-cr-text", children: festival.venue }),
-        " (",
-        festival.venueAddress,
-        "), en ",
-        /* @__PURE__ */ jsx("strong", { className: "text-cr-text", children: festival.city }),
-        " (",
-        festival.region,
-        "). Coordenadas GPS: ",
-        festival.lat.toFixed(3),
-        " N, ",
-        Math.abs(festival.lng).toFixed(3),
-        " ",
-        festival.lng < 0 ? "W" : "E",
-        ". A continuación, las cuatro vías reales para llegar al recinto: autobús, tren, coche propio o coche compartido (carpooling)."
-      ] }),
-      /* @__PURE__ */ jsxs("div", { className: "grid sm:grid-cols-2 lg:grid-cols-4 gap-3 font-sans text-sm", children: [
-        /* @__PURE__ */ jsxs("article", { className: "border border-cr-border p-4 space-y-2", children: [
-          /* @__PURE__ */ jsxs("h3", { className: "font-display text-base uppercase text-cr-primary", children: [
-            "Autobús / Bus a ",
-            festival.shortName
-          ] }),
-          /* @__PURE__ */ jsx("p", { className: "text-cr-text-muted text-xs leading-relaxed", children: "Algunos festivales habilitan buses lanzadera oficiales desde la ciudad más cercana. Suelen tener plazas limitadas y horario diurno. Los autobuses de larga distancia (ALSA, FlixBus, Avanza) llegan a la estación urbana, no al recinto: hay que sumar taxi o lanzadera adicional. Consulta los detalles en las preguntas frecuentes." })
-        ] }),
-        /* @__PURE__ */ jsxs("article", { className: "border border-cr-border p-4 space-y-2", children: [
-          /* @__PURE__ */ jsxs("h3", { className: "font-display text-base uppercase text-cr-primary", children: [
-            "Tren a ",
-            festival.shortName
-          ] }),
-          /* @__PURE__ */ jsx("p", { className: "text-cr-text-muted text-xs leading-relaxed", children: "El AVE / Cercanías Renfe llega habitualmente a la estación más cercana, no al recinto del festival. La vuelta de madrugada en tren es casi siempre imposible: el último servicio sale antes de que termine el cabeza de cartel." })
-        ] }),
-        /* @__PURE__ */ jsxs("article", { className: "border border-cr-border p-4 space-y-2", children: [
-          /* @__PURE__ */ jsxs("h3", { className: "font-display text-base uppercase text-cr-primary", children: [
-            "Coche propio a ",
-            festival.shortName,
-            ": parking"
-          ] }),
-          /* @__PURE__ */ jsx("p", { className: "text-cr-text-muted text-xs leading-relaxed", children: "Llegada directa al parking del festival, máxima flexibilidad de horario. Coste: combustible + peajes + parking (5–18 €/día). En recintos urbanos (IFEMA, Parc del Fòrum), el parking se satura los días de gran afluencia." })
-        ] }),
-        /* @__PURE__ */ jsxs("article", { className: "border border-cr-border p-4 space-y-2", children: [
-          /* @__PURE__ */ jsxs("h3", { className: "font-display text-base uppercase text-cr-primary", children: [
-            "Carpooling a ",
-            festival.shortName,
-            " sin comisión"
-          ] }),
-          /* @__PURE__ */ jsxs("p", { className: "text-cr-text-muted text-xs leading-relaxed", children: [
-            "Carpooling con ConcertRide desde ",
-            festival.originCities.length,
-            " ciudades de origen. Precios desde ",
-            ((_r = festival.originCities[0]) == null ? void 0 : _r.concertRideRange) ?? "3 €",
-            "/asiento. Sin comisión: el 100 % va al conductor. Vuelta a la hora real del fin del festival, pago en efectivo o Bizum."
-          ] })
-        ] })
-      ] }),
-      /* @__PURE__ */ jsxs("p", { className: "font-mono text-[11px] text-cr-text-dim", children: [
-        "¿Buscas autobuses a ",
-        festival.shortName,
-        ", tren a ",
-        festival.shortName,
-        " o el modo más rápido para llegar desde ",
-        festival.originCities.slice(0, 3).map((c) => c.city).join(", "),
-        "? Tienes los detalles concretos por ciudad de origen más abajo."
-      ] })
-    ] }),
-    /* @__PURE__ */ jsxs("section", { className: "max-w-6xl mx-auto px-6 pb-12 border-t border-cr-border pt-12 space-y-5", children: [
-      /* @__PURE__ */ jsx(
-        FactDensityCallout,
-        {
-          heading: `Datos clave · ${festival.shortName}`,
-          facts: [
-            { label: "Carpooling desde", value: "3 €/asiento", detail: "0 % comisión" },
-            { label: "Ahorro vs taxi", value: "−75 %", detail: `Ruta media a ${festival.city}` },
-            {
-              label: "Vuelta noche",
-              value: festival.official_shuttle ? "Lanzadera oficial" : "Coordinada en chat",
-              detail: festival.official_shuttle ? "Operada por la organización" : "Conductores publican vuelta"
-            }
-          ]
-        }
-      ),
-      festival.transport_options && festival.transport_options.length > 0 ? /* @__PURE__ */ jsx(
-        TransportTable,
-        {
-          options: festival.transport_options,
-          officialShuttle: festival.official_shuttle,
-          festivalName: festival.shortName
-        }
-      ) : (
-        /* Fallback genérico para festivales sin datos curados */
-        /* @__PURE__ */ jsxs("div", { className: "space-y-5", children: [
-          /* @__PURE__ */ jsxs("h2", { className: "font-display text-2xl md:text-3xl uppercase", children: [
-            "Autobuses a ",
-            festival.shortName,
-            " ",
-            festYear,
-            ": bus oficial, lanzadera y transporte alternativo"
-          ] }),
-          /* @__PURE__ */ jsxs("p", { className: "font-sans text-sm text-cr-text-muted max-w-3xl leading-relaxed", children: [
-            "Resumen de las opciones de bus, autobús, lanzadera oficial y tren para llegar a",
-            " ",
-            /* @__PURE__ */ jsx("strong", { className: "text-cr-text", children: festival.name }),
-            " en ",
-            festival.venue,
-            " (",
-            festival.city,
-            "). Cuando no hay servicio público en horario de festival, la alternativa más usada es el coche compartido (carpooling) con ConcertRide."
-          ] }),
-          /* @__PURE__ */ jsxs("ul", { className: "font-sans text-xs text-cr-text-muted space-y-1 max-w-3xl", children: [
-            /* @__PURE__ */ jsxs("li", { children: [
-              /* @__PURE__ */ jsxs("strong", { className: "text-cr-text", children: [
-                "Desde ",
-                (_s = festival.originCities[0]) == null ? void 0 : _s.city,
-                ":"
-              ] }),
-              " ",
-              (_t = festival.originCities[0]) == null ? void 0 : _t.km,
-              " km · ",
-              (_u = festival.originCities[0]) == null ? void 0 : _u.drivingTime,
-              " ·",
-              " ",
-              "carpooling desde ",
-              ((_v = festival.originCities[0]) == null ? void 0 : _v.concertRideRange) ?? "3 €",
-              "."
-            ] }),
-            festival.originCities.slice(1, 4).map((oc) => /* @__PURE__ */ jsxs("li", { children: [
-              /* @__PURE__ */ jsxs("strong", { className: "text-cr-text", children: [
-                "Desde ",
-                oc.city,
-                ":"
-              ] }),
-              " ",
-              oc.km,
-              " km · ",
-              oc.drivingTime,
-              " · carpooling desde ",
-              oc.concertRideRange,
-              "."
-            ] }, oc.city))
-          ] })
-        ] })
-      )
-    ] }),
-    /* @__PURE__ */ jsxs("section", { className: "max-w-6xl mx-auto px-6 pb-16 border-t border-cr-border pt-12", children: [
-      /* @__PURE__ */ jsxs("h2", { className: "font-display text-2xl md:text-3xl uppercase mb-2", children: [
-        "Precio del carpooling a ",
-        festival.shortName,
-        " ",
-        festYear,
-        " por ciudad de origen"
-      ] }),
-      /* @__PURE__ */ jsx("p", { className: "font-sans text-sm text-cr-text-muted mb-8 max-w-xl", children: "Precio medio por asiento con ConcertRide desde las principales ciudades de origen. El 100 % va al conductor, sin comisión." }),
-      /* @__PURE__ */ jsx("div", { className: "grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3", children: festival.originCities.map((oc) => {
-        const route = ROUTE_LANDINGS.find(
-          (r) => r.festival.slug === festival.slug && r.originCity === oc.city
-        );
-        const card = /* @__PURE__ */ jsxs(Fragment, { children: [
-          /* @__PURE__ */ jsxs("div", { className: "flex items-center justify-between", children: [
-            /* @__PURE__ */ jsx("h3", { className: "font-display text-base uppercase", children: oc.city }),
-            /* @__PURE__ */ jsx("span", { className: "font-mono text-xs text-cr-primary font-semibold", children: oc.concertRideRange })
-          ] }),
-          /* @__PURE__ */ jsxs("div", { className: "flex gap-4 font-mono text-[11px] text-cr-text-muted", children: [
-            /* @__PURE__ */ jsxs("span", { children: [
-              oc.km,
-              " km"
-            ] }),
-            /* @__PURE__ */ jsx("span", { children: "·" }),
-            /* @__PURE__ */ jsx("span", { children: oc.drivingTime })
-          ] }),
-          /* @__PURE__ */ jsx("p", { className: "font-sans text-[11px] text-cr-text-muted", children: route ? /* @__PURE__ */ jsxs(Fragment, { children: [
-            "Ver carpooling ",
-            oc.city,
-            " → ",
-            festival.shortName,
-            " →"
-          ] }) : /* @__PURE__ */ jsx(Fragment, { children: "sin comisión — pagas directamente al conductor" }) })
-        ] });
-        return route ? /* @__PURE__ */ jsx(
-          Link,
-          {
-            to: `/rutas/${route.slug}`,
-            className: "border border-cr-border p-4 space-y-2 hover:border-cr-primary/40 transition-colors block",
-            children: card
-          },
-          oc.city
-        ) : /* @__PURE__ */ jsx(
-          "article",
-          {
-            className: "border border-cr-border p-4 space-y-2 hover:border-cr-primary/40 transition-colors",
-            children: card
-          },
-          oc.city
-        );
-      }) }),
-      /* @__PURE__ */ jsx("div", { className: "mt-8 p-4 border border-cr-primary/30 bg-cr-primary/5 space-y-1", children: /* @__PURE__ */ jsxs("p", { className: "font-sans text-xs text-cr-text-muted", children: [
-        /* @__PURE__ */ jsx("strong", { className: "text-cr-text", children: "Precios orientativos" }),
-        " basados en tarifas reales publicadas en ConcertRide. El conductor fija el precio por asiento para cubrir combustible y peajes (tarifa MITECO de referencia)."
-      ] }) })
-    ] }),
-    festival.common_pickup_points && festival.common_pickup_points.length > 0 && /* @__PURE__ */ jsx("section", { className: "max-w-6xl mx-auto px-6 pb-4 border-t border-cr-border pt-12", children: /* @__PURE__ */ jsx(
-      PickupMap,
-      {
-        points: festival.common_pickup_points,
-        festivalName: festival.shortName,
-        festivalLat: festival.lat,
-        festivalLng: festival.lng
-      }
-    ) }),
-    /* @__PURE__ */ jsx("section", { className: "max-w-6xl mx-auto px-6 pb-4 border-t border-cr-border pt-12", children: /* @__PURE__ */ jsx(
-      CostComparator,
-      {
-        originCities: festival.originCities,
-        festivalName: festival.shortName,
-        festivalCity: festival.city
-      }
-    ) }),
-    /* @__PURE__ */ jsx("section", { className: "max-w-6xl mx-auto px-6 pb-4 border-t border-cr-border pt-12", children: /* @__PURE__ */ jsx(
-      DemandSignalWidget,
-      {
-        festivalSlug: festival.slug,
-        festivalName: festival.shortName,
-        originCities: festival.originCities.map((c) => c.city)
-      }
-    ) }),
-    /* @__PURE__ */ jsxs("section", { className: "max-w-6xl mx-auto px-6 pb-12 border-t border-cr-border pt-12 space-y-5", children: [
-      /* @__PURE__ */ jsxs("h2", { className: "font-display text-2xl md:text-3xl uppercase", children: [
-        "Guías de transporte y carpooling a ",
-        festival.shortName,
-        ": recursos relacionados"
-      ] }),
-      /* @__PURE__ */ jsx("p", { className: "font-sans text-sm text-cr-text-muted max-w-3xl leading-relaxed", children: "Más información sobre opciones de transporte a festivales, cómo ahorrar en viajes y alternativas a otros servicios." }),
-      /* @__PURE__ */ jsxs("div", { className: "grid sm:grid-cols-2 lg:grid-cols-3 gap-4", children: [
-        /* @__PURE__ */ jsxs(
-          Link,
-          {
-            to: "/blog/autobuses-festivales-espana-2026",
-            className: "border border-cr-border p-4 space-y-2 hover:border-cr-primary/40 transition-colors",
-            children: [
-              /* @__PURE__ */ jsx("h3", { className: "font-display text-base uppercase", children: "Autobuses a festivales 2026" }),
-              /* @__PURE__ */ jsx("p", { className: "font-sans text-[11px] text-cr-text-muted", children: "Guía completa por festival: buses oficiales, lanzaderas, alternativas de transporte." }),
-              /* @__PURE__ */ jsxs("span", { className: "inline-flex items-center gap-1 font-sans text-xs text-cr-primary", children: [
-                "Leer más ",
-                /* @__PURE__ */ jsx(ArrowRight, { size: 10 })
-              ] })
-            ]
-          }
-        ),
-        /* @__PURE__ */ jsxs(
-          Link,
-          {
-            to: "/blog",
-            className: "border border-cr-border p-4 space-y-2 hover:border-cr-primary/40 transition-colors",
-            children: [
-              /* @__PURE__ */ jsx("h3", { className: "font-display text-base uppercase", children: "Blog ConcertRide" }),
-              /* @__PURE__ */ jsx("p", { className: "font-sans text-[11px] text-cr-text-muted", children: "Artículos sobre transporte a festivales, comparativas de opciones, consejos de viaje." }),
-              /* @__PURE__ */ jsxs("span", { className: "inline-flex items-center gap-1 font-sans text-xs text-cr-primary", children: [
-                "Ver todos ",
-                /* @__PURE__ */ jsx(ArrowRight, { size: 10 })
-              ] })
-            ]
-          }
-        ),
-        /* @__PURE__ */ jsxs(
-          Link,
-          {
-            to: `/conciertos/${festival.citySlug}`,
-            className: "border border-cr-border p-4 space-y-2 hover:border-cr-primary/40 transition-colors",
-            children: [
-              /* @__PURE__ */ jsxs("h3", { className: "font-display text-base uppercase", children: [
-                "Otros conciertos en ",
-                festival.city
-              ] }),
-              /* @__PURE__ */ jsxs("p", { className: "font-sans text-[11px] text-cr-text-muted", children: [
-                "Agenda completa de eventos y conciertos en ",
-                festival.city,
-                " con opciones de carpooling."
-              ] }),
-              /* @__PURE__ */ jsxs("span", { className: "inline-flex items-center gap-1 font-sans text-xs text-cr-primary", children: [
-                "Explorar ",
-                /* @__PURE__ */ jsx(ArrowRight, { size: 10 })
-              ] })
-            ]
-          }
-        ),
-        HOW_TO_GET_THERE_SLUGS.includes(festival.slug) && /* @__PURE__ */ jsxs(
-          Link,
-          {
-            to: `/como-llegar/${festival.slug}`,
-            className: "border border-cr-border p-4 space-y-2 hover:border-cr-primary/40 transition-colors",
-            children: [
-              /* @__PURE__ */ jsxs("h3", { className: "font-display text-base uppercase", children: [
-                "Cómo llegar a ",
-                festival.shortName
-              ] }),
-              /* @__PURE__ */ jsx("p", { className: "font-sans text-[11px] text-cr-text-muted", children: "Guía completa de transporte: bus, tren, metro y carpooling con precios y tiempos reales." }),
-              /* @__PURE__ */ jsxs("span", { className: "inline-flex items-center gap-1 font-sans text-xs text-cr-primary", children: [
-                "Ver guía ",
-                /* @__PURE__ */ jsx(ArrowRight, { size: 10 })
-              ] })
-            ]
-          }
-        )
-      ] })
-    ] }),
-    /* @__PURE__ */ jsxs("section", { className: "max-w-6xl mx-auto px-6 pb-16 border-t border-cr-border pt-12", children: [
-      /* @__PURE__ */ jsxs("h2", { className: "font-display text-2xl md:text-3xl uppercase mb-2", children: [
-        "Viajes disponibles para ",
-        festival.shortName,
-        " en ",
-        festival.city
-      ] }),
-      /* @__PURE__ */ jsxs("p", { className: "font-sans text-sm text-cr-text-muted mb-8 max-w-xl", children: [
-        "Conciertos y eventos en ",
-        festival.city,
-        " con carpooling publicado. Reserva tu asiento."
-      ] }),
-      concerts === null ? /* @__PURE__ */ jsx(LoadingSpinner, { text: `Cargando viajes a ${festival.shortName}…` }) : futureConcerts.length === 0 ? /* @__PURE__ */ jsxs("div", { className: "relative border-2 border-dashed border-cr-primary/40 bg-cr-primary/[0.04] p-10 text-center space-y-4 overflow-hidden", children: [
-        /* @__PURE__ */ jsx("span", { className: "absolute top-3 right-3 font-mono text-[10px] uppercase tracking-[0.16em] text-cr-primary border border-cr-primary/40 px-2 py-0.5", children: "Sé el primero" }),
-        /* @__PURE__ */ jsxs("p", { className: "font-display text-2xl md:text-3xl uppercase text-cr-text leading-tight", children: [
-          "Sé el primero en publicar viaje a ",
-          festival.shortName
-        ] }),
-        /* @__PURE__ */ jsxs("p", { className: "font-sans text-sm text-cr-text-muted max-w-md mx-auto", children: [
-          "Llena tu coche y comparte el coste. Sin comisión: el 100 % va al conductor. Tus pasajeros ya están esperando viajes a ",
-          festival.city,
-          "."
-        ] }),
-        /* @__PURE__ */ jsxs("div", { className: "flex flex-wrap gap-3 justify-center pt-1", children: [
-          /* @__PURE__ */ jsxs(
-            Link,
-            {
-              to: publishHref,
-              "aria-label": `Publicar viaje a ${festival.shortName} ${festYear}`,
-              className: "inline-flex items-center gap-2 bg-cr-primary text-black font-sans text-sm font-bold uppercase tracking-[0.12em] px-5 py-3 hover:bg-cr-primary/90 transition-colors",
-              children: [
-                "Publicar viaje ",
-                /* @__PURE__ */ jsx(ArrowRight, { size: 14 })
-              ]
-            }
-          ),
-          /* @__PURE__ */ jsxs(
-            Link,
-            {
-              to: searchHref,
-              className: "inline-flex items-center gap-2 border-2 border-cr-border text-cr-text-muted font-sans text-xs font-semibold uppercase tracking-[0.12em] px-4 py-3 hover:border-cr-primary hover:text-cr-primary transition-colors",
-              children: [
-                "Ver otros conciertos en ",
-                festival.city
-              ]
-            }
-          )
-        ] }),
-        /* @__PURE__ */ jsx("p", { className: "font-mono text-[10px] text-cr-text-dim pt-2", children: "Tiempo medio para publicar: 90 segundos · Sin tarjeta · Pago en efectivo o Bizum" })
-      ] }) : /* @__PURE__ */ jsx("div", { className: "grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5", children: futureConcerts.map((c) => /* @__PURE__ */ jsx(Link, { to: `/concerts/${c.id}`, className: "block", children: /* @__PURE__ */ jsx(ConcertCard, { concert: c }) }, c.id)) })
-    ] }),
-    /* @__PURE__ */ jsx("section", { className: "max-w-6xl mx-auto px-6 pb-16 border-t border-cr-border pt-12", children: /* @__PURE__ */ jsx(FestivalAlertWidget, { festivalSlug: festival.slug, festivalName: festival.shortName }) }),
-    (festival.nearby_airports && festival.nearby_airports.length > 0 || festival.accommodation_zones && festival.accommodation_zones.length > 0 || festival.arrival_tips && festival.arrival_tips.length > 0) && /* @__PURE__ */ jsxs("section", { className: "max-w-6xl mx-auto px-6 pb-16 border-t border-cr-border pt-12", children: [
-      generateTransportHubSchema({
-        eventName: festival.name,
-        city: festival.city,
-        venue: festival.venue,
-        siteUrl: SITE_URL,
-        nearbyAirports: festival.nearby_airports ?? [],
-        accommodationZones: festival.accommodation_zones ?? []
-      }).map((schema, i) => /* @__PURE__ */ jsx(
-        "script",
-        {
-          type: "application/ld+json",
-          dangerouslySetInnerHTML: { __html: JSON.stringify(schema) }
-        },
-        `festival-transport-schema-${i}`
-      )),
-      /* @__PURE__ */ jsx(
-        EventTransportHub,
-        {
-          eventName: festival.name,
-          eventShortName: festival.shortName,
-          city: festival.city,
-          venue: festival.venue,
-          date: festival.startDate,
-          parking: festival.guide ? {
-            available: festival.guide.logistics.parking_available,
-            price: festival.guide.logistics.parking_price,
-            notes: void 0
-          } : void 0,
-          camping: festival.guide ? {
-            available: festival.guide.logistics.camping_available,
-            notes: festival.guide.logistics.camping_notes
-          } : void 0,
-          nearbyAirports: festival.nearby_airports ?? [],
-          accommodationZones: festival.accommodation_zones ?? [],
-          arrivalTips: festival.arrival_tips ?? [],
-          festivalSlug: festival.slug,
-          showPublishCTA: false
-        }
-      )
-    ] }),
-    (festival.genres || festival.arrival_patterns) && /* @__PURE__ */ jsxs("section", { className: "max-w-6xl mx-auto px-6 pb-12 border-t border-cr-border pt-12 space-y-5", children: [
-      /* @__PURE__ */ jsxs("h2", { className: "font-display text-xl uppercase", children: [
-        festival.shortName,
-        " ",
-        festYear,
-        ": perfil del festival y asistentes"
-      ] }),
-      /* @__PURE__ */ jsxs("div", { className: "grid sm:grid-cols-2 lg:grid-cols-3 gap-4 font-sans text-sm", children: [
-        festival.genres && festival.genres.length > 0 && /* @__PURE__ */ jsxs("article", { className: "border border-cr-border p-4 space-y-2", children: [
-          /* @__PURE__ */ jsx("h3", { className: "font-display text-sm uppercase", children: "Géneros musicales" }),
-          /* @__PURE__ */ jsx("div", { className: "flex flex-wrap gap-1.5", children: festival.genres.map((g) => /* @__PURE__ */ jsx("span", { className: "font-mono text-[11px] text-cr-primary border border-cr-primary/40 px-2 py-0.5 uppercase", children: g }, g)) })
-        ] }),
-        festival.expected_attendance && /* @__PURE__ */ jsxs("article", { className: "border border-cr-border p-4 space-y-2", children: [
-          /* @__PURE__ */ jsx("h3", { className: "font-display text-sm uppercase", children: "Asistencia esperada" }),
-          /* @__PURE__ */ jsx("p", { className: "font-mono text-lg font-bold text-cr-primary", children: festival.expected_attendance })
-        ] }),
-        festival.arrival_patterns && /* @__PURE__ */ jsxs("article", { className: "border border-cr-border p-4 space-y-2", children: [
-          /* @__PURE__ */ jsx("h3", { className: "font-display text-sm uppercase", children: "Patrones de llegada" }),
-          /* @__PURE__ */ jsx("p", { className: "text-xs text-cr-text-muted leading-relaxed", children: festival.arrival_patterns })
-        ] })
-      ] })
-    ] }),
-    /* @__PURE__ */ jsxs("section", { className: "max-w-6xl mx-auto px-6 pb-16 border-t border-cr-border pt-12 space-y-6", children: [
-      /* @__PURE__ */ jsxs("h2", { className: "font-display text-2xl md:text-3xl uppercase", children: [
-        "Por qué ir a ",
-        festival.shortName,
-        " en carpooling con ConcertRide vs. otras opciones"
-      ] }),
-      /* @__PURE__ */ jsxs("div", { className: "grid md:grid-cols-3 gap-4 font-sans text-sm text-cr-text-muted leading-relaxed", children: [
-        /* @__PURE__ */ jsxs("article", { className: "space-y-2", children: [
-          /* @__PURE__ */ jsxs("h3", { className: "font-display text-base uppercase text-cr-primary", children: [
-            "Sin comisión para ",
-            festival.shortName
-          ] }),
-          /* @__PURE__ */ jsx("p", { children: "El 100 % del precio del asiento va al conductor. ConcertRide no cobra comisión, nunca. El pago es en efectivo o Bizum el día del viaje: económico, directo y sin sorpresas." })
-        ] }),
-        /* @__PURE__ */ jsxs("article", { className: "space-y-2", children: [
-          /* @__PURE__ */ jsxs("h3", { className: "font-display text-base uppercase text-cr-primary", children: [
-            "Conductores verificados para ",
-            festival.shortName
-          ] }),
-          /* @__PURE__ */ jsx("p", { children: "Todos los conductores verifican su carnet de conducir antes de publicar. Puedes ver sus valoraciones y reseñas de otros pasajeros." })
-        ] }),
-        /* @__PURE__ */ jsxs("article", { className: "space-y-2", children: [
-          /* @__PURE__ */ jsxs("h3", { className: "font-display text-base uppercase text-cr-primary", children: [
-            "Vuelta de madrugada desde ",
-            festival.shortName
-          ] }),
-          /* @__PURE__ */ jsx("p", { children: "Llegas y vuelves en el horario que quieras. No dependes del último metro ni de taxis a precio de festival (30–90 € de madrugada)." })
-        ] })
-      ] }),
-      /* @__PURE__ */ jsxs("div", { className: "pt-6 flex flex-wrap gap-4 border-t border-cr-border", children: [
-        /* @__PURE__ */ jsxs(
-          Link,
-          {
-            to: `/conciertos/${festival.citySlug}`,
-            className: "inline-flex items-center gap-2 font-sans text-xs font-semibold uppercase tracking-[0.12em] text-cr-text-muted hover:text-cr-primary transition-colors",
-            children: [
-              "Todos los conciertos en ",
-              festival.city,
-              " ",
-              /* @__PURE__ */ jsx(ArrowRight, { size: 12 })
-            ]
-          }
-        ),
-        /* @__PURE__ */ jsxs(
-          Link,
-          {
-            to: "/como-funciona",
-            className: "inline-flex items-center gap-2 font-sans text-xs font-semibold uppercase tracking-[0.12em] text-cr-text-muted hover:text-cr-primary transition-colors",
-            children: [
-              "Cómo funciona ",
-              /* @__PURE__ */ jsx(ArrowRight, { size: 12 })
-            ]
-          }
-        ),
-        /* @__PURE__ */ jsxs(
-          Link,
-          {
-            to: "/publish",
-            className: "inline-flex items-center gap-2 font-sans text-xs font-semibold uppercase tracking-[0.12em] text-cr-primary border-b border-cr-primary hover:text-cr-primary/80 transition-colors ml-auto",
-            children: [
-              "Publicar un viaje ",
-              /* @__PURE__ */ jsx(ArrowRight, { size: 12 })
-            ]
-          }
-        )
-      ] })
-    ] }),
-    /* @__PURE__ */ jsxs("section", { className: "max-w-6xl mx-auto px-6 pb-16 border-t border-cr-border pt-12 space-y-6", children: [
-      /* @__PURE__ */ jsxs("h2", { className: "font-display text-2xl md:text-3xl uppercase", children: [
-        "Cómo reservar carpooling a ",
-        festival.shortName,
-        " ",
-        festYear,
-        " en 4 pasos"
-      ] }),
-      /* @__PURE__ */ jsx("div", { className: "grid sm:grid-cols-2 lg:grid-cols-4 gap-4", children: [
-        { n: "01", title: "Busca el festival", body: `Entra en concertride.me/concerts y filtra por ${festival.city} o busca directamente "${festival.shortName}".` },
-        { n: "02", title: "Elige el viaje", body: "Compara precio por asiento, hora de salida y perfil del conductor. Lee las valoraciones de otros pasajeros." },
-        { n: "03", title: "Solicita tu plaza", body: "Con reserva instantánea queda confirmada al momento. Sin ella, el conductor suele responder en pocas horas." },
-        { n: "04", title: "Viaja y paga", body: "El día del festival te encuentras con el conductor en el punto acordado. Pagas en efectivo o Bizum. Sin comisión." }
-      ].map(({ n, title, body }) => /* @__PURE__ */ jsxs("article", { className: "border border-cr-border p-4 space-y-2", children: [
-        /* @__PURE__ */ jsx("p", { className: "font-mono text-[11px] text-cr-primary", children: n }),
-        /* @__PURE__ */ jsx("h3", { className: "font-display text-base uppercase", children: title }),
-        /* @__PURE__ */ jsx("p", { className: "font-sans text-xs text-cr-text-muted leading-relaxed", children: body })
-      ] }, n)) }),
-      /* @__PURE__ */ jsxs("blockquote", { className: "border-l-2 border-cr-primary pl-5 space-y-2", children: [
-        /* @__PURE__ */ jsx("p", { className: "font-sans text-sm text-cr-text-muted italic leading-relaxed", children: '"El 80 % de la huella de carbono de un festival proviene del transporte de los asistentes. El carpooling es la acción individual más efectiva para reducirla."' }),
-        /* @__PURE__ */ jsxs("footer", { className: "font-mono text-[11px] text-cr-text-dim", children: [
-          "—",
-          " ",
-          /* @__PURE__ */ jsx("a", { href: "https://juliesbicycle.com/", target: "_blank", rel: "noopener noreferrer", className: "hover:text-cr-primary", children: "Julie's Bicycle Practical Guide to Green Events" })
-        ] })
-      ] })
-    ] }),
-    /* @__PURE__ */ jsxs("section", { className: "max-w-6xl mx-auto px-6 pb-16 border-t border-cr-border pt-12 space-y-6", children: [
-      /* @__PURE__ */ jsxs("h2", { className: "font-display text-2xl md:text-3xl uppercase", children: [
-        "Comparativa de transporte a ",
-        festival.shortName,
-        " ",
-        festYear,
-        ": carpooling vs. bus vs. tren vs. taxi"
-      ] }),
-      /* @__PURE__ */ jsxs("p", { className: "font-sans text-sm text-cr-text-muted max-w-2xl", children: [
-        "Precios, comisiones y disponibilidad nocturna para ir a ",
-        festival.name,
-        " desde ",
-        ((_w = festival.originCities[0]) == null ? void 0 : _w.city) ?? "tu ciudad",
-        "."
-      ] }),
-      /* @__PURE__ */ jsx("div", { className: "overflow-x-auto", children: /* @__PURE__ */ jsxs("table", { className: "w-full font-sans text-xs border-collapse", children: [
-        /* @__PURE__ */ jsx("thead", { children: /* @__PURE__ */ jsxs("tr", { className: "border-b border-cr-border text-left", children: [
-          /* @__PURE__ */ jsx("th", { className: "py-2 pr-4 font-semibold text-cr-text", children: "Opción" }),
-          /* @__PURE__ */ jsxs("th", { className: "py-2 pr-4 font-semibold text-cr-text", children: [
-            "Precio desde ",
-            ((_x = festival.originCities[0]) == null ? void 0 : _x.city) ?? "origen"
-          ] }),
-          /* @__PURE__ */ jsx("th", { className: "py-2 pr-4 font-semibold text-cr-text", children: "Comisión" }),
-          /* @__PURE__ */ jsx("th", { className: "py-2 pr-4 font-semibold text-cr-text", children: "Vuelta madrugada" }),
-          /* @__PURE__ */ jsx("th", { className: "py-2 font-semibold text-cr-text", children: "Reserva" })
-        ] }) }),
-        /* @__PURE__ */ jsxs("tbody", { className: "text-cr-text-muted", children: [
-          /* @__PURE__ */ jsxs("tr", { className: "border-b border-cr-border/50", children: [
-            /* @__PURE__ */ jsx("td", { className: "py-2 pr-4 font-semibold text-cr-primary", children: "ConcertRide carpooling" }),
-            /* @__PURE__ */ jsxs("td", { className: "py-2 pr-4", children: [
-              ((_y = festival.originCities[0]) == null ? void 0 : _y.concertRideRange) ?? "desde 3 €",
-              "/asiento"
-            ] }),
-            /* @__PURE__ */ jsx("td", { className: "py-2 pr-4 font-semibold text-cr-primary", children: "0 %" }),
-            /* @__PURE__ */ jsx("td", { className: "py-2 pr-4", children: "Sí (coordinada con el conductor)" }),
-            /* @__PURE__ */ jsx("td", { className: "py-2", children: "Instantánea" })
-          ] }),
-          /* @__PURE__ */ jsxs("tr", { className: "border-b border-cr-border/50", children: [
-            /* @__PURE__ */ jsx("td", { className: "py-2 pr-4", children: "Taxi / VTC (Uber, Cabify)" }),
-            /* @__PURE__ */ jsx("td", { className: "py-2 pr-4", children: "35–80 € ida (precio nocturno)" }),
-            /* @__PURE__ */ jsx("td", { className: "py-2 pr-4", children: "—" }),
-            /* @__PURE__ */ jsx("td", { className: "py-2 pr-4", children: "Sí (precio ×2–3 de madrugada)" }),
-            /* @__PURE__ */ jsx("td", { className: "py-2", children: "App" })
-          ] }),
-          /* @__PURE__ */ jsxs("tr", { className: "border-b border-cr-border/50", children: [
-            /* @__PURE__ */ jsx("td", { className: "py-2 pr-4", children: "Otras plataformas de carpooling" }),
-            /* @__PURE__ */ jsxs("td", { className: "py-2 pr-4", children: [
-              ((_z = festival.originCities[0]) == null ? void 0 : _z.concertRideRange) ?? "precio similar",
-              " + 12–18 %"
-            ] }),
-            /* @__PURE__ */ jsx("td", { className: "py-2 pr-4", children: "12–18 %" }),
-            /* @__PURE__ */ jsx("td", { className: "py-2 pr-4", children: "Depende del conductor" }),
-            /* @__PURE__ */ jsx("td", { className: "py-2", children: "Con aprobación" })
-          ] }),
-          /* @__PURE__ */ jsxs("tr", { children: [
-            /* @__PURE__ */ jsx("td", { className: "py-2 pr-4", children: "Autobús / tren público" }),
-            /* @__PURE__ */ jsx("td", { className: "py-2 pr-4", children: "3–15 € (si hay servicio)" }),
-            /* @__PURE__ */ jsx("td", { className: "py-2 pr-4", children: "—" }),
-            /* @__PURE__ */ jsx("td", { className: "py-2 pr-4", children: "No (último ~1:30)" }),
-            /* @__PURE__ */ jsx("td", { className: "py-2", children: "Taquilla / app" })
-          ] })
-        ] })
-      ] }) }),
-      /* @__PURE__ */ jsx("p", { className: "font-mono text-[10px] text-cr-text-dim", children: "Datos de ConcertRide, estimaciones de VTC nocturno y tarifas EMT/Renfe 2026. Comisión media de plataformas de carpooling generalistas actualizada a mayo 2026." })
-    ] }),
-    /* @__PURE__ */ jsxs("section", { className: "max-w-6xl mx-auto px-6 pb-16 border-t border-cr-border pt-12 space-y-8", children: [
-      /* @__PURE__ */ jsxs("h2", { className: "font-display text-2xl md:text-3xl uppercase", children: [
-        "Todo lo que necesitas saber para ir a ",
-        festival.shortName,
-        " ",
-        festYear
-      ] }),
-      /* @__PURE__ */ jsxs("p", { className: "font-sans text-sm text-cr-text-muted max-w-3xl leading-relaxed", children: [
-        "Resumen de las cinco preguntas más habituales sobre transporte a ",
-        festival.shortName,
-        ": cuánto cuesta, cuánto se tarda, dónde aparcar, cómo volver de madrugada y qué opciones hay si no tienes coche."
-      ] }),
-      /* @__PURE__ */ jsxs("div", { className: "grid sm:grid-cols-2 lg:grid-cols-3 gap-4 font-sans text-sm", children: [
-        /* @__PURE__ */ jsxs("article", { className: "border border-cr-border p-5 space-y-2", children: [
-          /* @__PURE__ */ jsxs("h3", { className: "font-display text-sm uppercase text-cr-primary", children: [
-            "¿Cuánto cuesta ir a ",
-            festival.shortName,
-            " ",
-            festYear,
-            "?"
-          ] }),
-          /* @__PURE__ */ jsxs("p", { className: "text-cr-text-muted text-xs leading-relaxed", children: [
-            "Carpooling ConcertRide: desde ",
-            /* @__PURE__ */ jsxs("strong", { className: "text-cr-text", children: [
-              ((_A = festival.originCities[0]) == null ? void 0 : _A.concertRideRange) ?? "3 €",
-              "/asiento"
-            ] }),
-            " desde ",
-            ((_B = festival.originCities[0]) == null ? void 0 : _B.city) ?? "tu ciudad",
-            " (sin comisión). Taxi/VTC: ",
-            Math.round((((_C = festival.originCities[0]) == null ? void 0 : _C.km) ?? 50) * 0.8),
-            "–",
-            Math.round((((_D = festival.originCities[0]) == null ? void 0 : _D.km) ?? 50) * 1.4),
-            " € solo de ida. Autobús o tren hasta ",
-            festival.city,
-            " más lanzadera: precio variable. El carpooling es la opción más económica para trayectos de más de 60 km."
-          ] })
-        ] }),
-        /* @__PURE__ */ jsxs("article", { className: "border border-cr-border p-5 space-y-2", children: [
-          /* @__PURE__ */ jsxs("h3", { className: "font-display text-sm uppercase text-cr-primary", children: [
-            "¿Cuánto se tarda en llegar a ",
-            festival.shortName,
-            "?"
-          ] }),
-          /* @__PURE__ */ jsxs("p", { className: "text-cr-text-muted text-xs leading-relaxed", children: [
-            "Desde ",
-            ((_E = festival.originCities[0]) == null ? void 0 : _E.city) ?? "tu ciudad",
-            ": ",
-            /* @__PURE__ */ jsxs("strong", { className: "text-cr-text", children: [
-              ((_F = festival.originCities[0]) == null ? void 0 : _F.km) ?? "?",
-              " km · ",
-              ((_G = festival.originCities[0]) == null ? void 0 : _G.drivingTime) ?? "?"
-            ] }),
-            " en coche. Suma 20–40 min de tráfico en la entrada al recinto los días de mayor afluencia. Lo ideal es salir con 1 hora de margen."
-          ] })
-        ] }),
-        /* @__PURE__ */ jsxs("article", { className: "border border-cr-border p-5 space-y-2", children: [
-          /* @__PURE__ */ jsxs("h3", { className: "font-display text-sm uppercase text-cr-primary", children: [
-            "Parking en ",
-            festival.shortName,
-            " ",
-            festYear,
-            ": coste y disponibilidad"
-          ] }),
-          /* @__PURE__ */ jsx("p", { className: "text-cr-text-muted text-xs leading-relaxed", children: "El parking en recintos de festival suele costar 5–18 €/día y se llena rápido en fin de semana. El carpooling evita el coste y el estrés del parking: el conductor lleva el coche y el coste se divide entre los pasajeros." })
-        ] }),
-        /* @__PURE__ */ jsxs("article", { className: "border border-cr-border p-5 space-y-2", children: [
-          /* @__PURE__ */ jsxs("h3", { className: "font-display text-sm uppercase text-cr-primary", children: [
-            "Vuelta de madrugada desde ",
-            festival.shortName,
-            ": opciones reales"
-          ] }),
-          /* @__PURE__ */ jsx("p", { className: "text-cr-text-muted text-xs leading-relaxed", children: "El transporte público no opera de madrugada desde ningún recinto de festival español. Opciones: taxi/VTC (precio nocturno ×2–3, 40–150 €), o carpooling ConcertRide con vuelta coordinada después del headliner (03:00–05:00h). El carpooling es la única opción económica para la vuelta." })
-        ] }),
-        /* @__PURE__ */ jsxs("article", { className: "border border-cr-border p-5 space-y-2", children: [
-          /* @__PURE__ */ jsxs("h3", { className: "font-display text-sm uppercase text-cr-primary", children: [
-            "Cómo ir a ",
-            festival.shortName,
-            " sin coche propio"
-          ] }),
-          /* @__PURE__ */ jsxs("p", { className: "text-cr-text-muted text-xs leading-relaxed", children: [
-            "Sin coche propio, las opciones son: (1) carpooling ConcertRide (",
-            ((_H = festival.originCities[0]) == null ? void 0 : _H.concertRideRange) ?? "desde 3 €",
-            ", conductores verificados); (2) autobús/tren hasta ",
-            festival.city,
-            " + lanzadera al recinto (disponibilidad limitada); (3) taxi/VTC al recinto (precio elevado). El carpooling es la combinación óptima de precio y flexibilidad de horario."
-          ] })
-        ] }),
-        /* @__PURE__ */ jsxs("article", { className: "border border-cr-border p-5 space-y-2", children: [
-          /* @__PURE__ */ jsxs("h3", { className: "font-display text-sm uppercase text-cr-primary", children: [
-            "Alternativas de carpooling para ",
-            festival.shortName
-          ] }),
-          /* @__PURE__ */ jsxs("p", { className: "text-cr-text-muted text-xs leading-relaxed", children: [
-            "Otras plataformas de carpooling cobran 12–18 % de comisión y la vuelta de madrugada depende del conductor. ConcertRide es 0 % de comisión, especializado en festivales: los conductores publican viajes de ida y vuelta coordinados con el fin del show. Para festivales como ",
-            festival.shortName,
-            ", ConcertRide es la opción event-first."
-          ] })
-        ] })
-      ] })
-    ] }),
-    /* @__PURE__ */ jsxs("section", { className: "max-w-6xl mx-auto px-6 pb-16 border-t border-cr-border pt-12 space-y-6", children: [
-      /* @__PURE__ */ jsxs("h2", { className: "font-display text-2xl md:text-3xl uppercase", children: [
-        "Preguntas frecuentes sobre cómo ir a ",
-        festival.shortName,
-        " ",
-        festYear
-      ] }),
-      /* @__PURE__ */ jsx("dl", { className: "space-y-6", children: festival.faqs.map((faq) => /* @__PURE__ */ jsxs("div", { className: "border-b border-cr-border pb-6 space-y-2", children: [
-        /* @__PURE__ */ jsx("dt", { className: "font-display text-base uppercase text-cr-text", children: faq.q }),
-        /* @__PURE__ */ jsx("dd", { className: "font-sans text-sm text-cr-text-muted leading-relaxed max-w-2xl", children: faq.a })
-      ] }, faq.q)) }),
-      cityFaqs.length > 0 && /* @__PURE__ */ jsxs("div", { className: "mt-6 space-y-2", children: [
-        /* @__PURE__ */ jsx("h3", { className: "text-sm font-semibold text-cr-text-muted uppercase tracking-wide mb-3", children: "Preguntas por ciudad de origen" }),
-        cityFaqs.map((faq, i) => /* @__PURE__ */ jsxs("details", { className: "group rounded-xl border border-white/10 bg-white/3", children: [
-          /* @__PURE__ */ jsxs("summary", { className: "cursor-pointer px-5 py-4 text-sm font-medium text-cr-text hover:text-cr-primary transition-colors list-none flex justify-between items-center", children: [
-            faq.q,
-            /* @__PURE__ */ jsx("span", { className: "text-cr-text-muted group-open:rotate-180 transition-transform text-xs", children: "▼" })
-          ] }),
-          /* @__PURE__ */ jsx("div", { className: "px-5 pb-4 text-sm text-cr-text-muted leading-relaxed", children: faq.a })
-        ] }, i))
-      ] })
-    ] }),
-    /* @__PURE__ */ jsx(FestivalQnaWidget, { festivalSlug: festival.slug, festivalName: festival.shortName }),
-    (() => {
-      const festArtists = ARTIST_LANDINGS.filter((a) => a.relatedFestivals.includes(festival.slug));
-      if (festArtists.length === 0) return null;
-      return /* @__PURE__ */ jsxs("section", { className: "max-w-6xl mx-auto px-6 pb-12 border-t border-cr-border pt-10", children: [
-        /* @__PURE__ */ jsxs("h2", { className: "font-display text-lg uppercase text-cr-text-muted mb-4", children: [
-          "Artistas en ",
-          festival.shortName
-        ] }),
-        /* @__PURE__ */ jsx("ul", { className: "flex flex-wrap gap-2", children: festArtists.map((a) => /* @__PURE__ */ jsx("li", { children: /* @__PURE__ */ jsxs(
-          Link,
-          {
-            to: `/artistas/${a.slug}`,
-            className: "inline-flex items-center gap-1.5 font-sans text-xs text-cr-text-muted hover:text-cr-primary border border-cr-border hover:border-cr-primary px-3 py-1.5 transition-colors",
-            children: [
-              a.name,
-              " →"
-            ]
-          }
-        ) }, a.slug)) })
-      ] });
-    })(),
-    festival.relatedBlogs && festival.relatedBlogs.length > 0 && (() => {
-      const blogPosts = festival.relatedBlogs.map((slug2) => BLOG_POSTS.find((p) => p.slug === slug2)).filter((p) => p !== void 0);
-      if (blogPosts.length === 0) return null;
-      return /* @__PURE__ */ jsxs("section", { className: "max-w-6xl mx-auto px-6 pb-12 border-t border-cr-border pt-10", children: [
-        /* @__PURE__ */ jsx("h2", { className: "font-display text-lg uppercase text-cr-text-muted mb-4", children: "Guías y artículos" }),
-        /* @__PURE__ */ jsx("ul", { className: "flex flex-col gap-2", children: blogPosts.map((post) => /* @__PURE__ */ jsx("li", { children: /* @__PURE__ */ jsxs(
-          Link,
-          {
-            to: `/blog/${post.slug}`,
-            className: "inline-flex items-center gap-2 font-sans text-xs text-cr-text hover:text-cr-primary transition-colors",
-            children: [
-              /* @__PURE__ */ jsx(ArrowRight, { size: 10, className: "text-cr-primary flex-shrink-0" }),
-              post.title
-            ]
-          }
-        ) }, post.slug)) })
-      ] });
-    })(),
-    (() => {
-      const festVenue = VENUE_LANDINGS.find((v) => v.relatedFestivals.includes(festival.slug));
-      if (!festVenue) return null;
-      return /* @__PURE__ */ jsxs("section", { className: "max-w-6xl mx-auto px-6 pb-12 border-t border-cr-border pt-10", children: [
-        /* @__PURE__ */ jsx("h2", { className: "font-display text-lg uppercase text-cr-text-muted mb-4", children: "Recinto" }),
-        /* @__PURE__ */ jsxs(
-          Link,
-          {
-            to: `/recintos/${festVenue.slug}`,
-            className: "inline-flex items-center gap-2 font-sans text-xs text-cr-text-muted hover:text-cr-primary border border-cr-border hover:border-cr-primary px-3 py-1.5 transition-colors",
-            children: [
-              festVenue.name,
-              " — cómo llegar, metro, parking ",
-              /* @__PURE__ */ jsx(ArrowRight, { size: 10 })
-            ]
-          }
-        )
-      ] });
-    })(),
-    (() => {
-      const region = REGION_LANDINGS.find((r) => r.festivalsInRegion.includes(festival.slug));
-      if (!region) return null;
-      return /* @__PURE__ */ jsxs("section", { className: "max-w-6xl mx-auto px-6 pb-12 border-t border-cr-border pt-10", children: [
-        /* @__PURE__ */ jsxs("h2", { className: "font-display text-lg uppercase text-cr-text-muted mb-2", children: [
-          "Festivales en ",
-          region.displayName
-        ] }),
-        /* @__PURE__ */ jsxs(
-          Link,
-          {
-            to: `/festivales-en/${region.slug}`,
-            className: "inline-flex items-center gap-2 font-sans text-xs text-cr-primary border-b border-cr-primary/40 hover:border-cr-primary transition-colors",
-            children: [
-              "Ver todos los festivales en ",
-              region.displayName,
-              " ",
-              /* @__PURE__ */ jsx(ArrowRight, { size: 10 })
-            ]
-          }
-        )
-      ] });
-    })(),
-    /* @__PURE__ */ jsxs("section", { className: "max-w-6xl mx-auto px-6 pb-16 border-t border-cr-border pt-12 space-y-6", children: [
-      /* @__PURE__ */ jsxs("h2", { className: "font-display text-2xl md:text-3xl uppercase", children: [
-        "Viaja a ",
-        festival.shortName,
-        " ",
-        festYear,
-        " con otros fans"
-      ] }),
-      /* @__PURE__ */ jsxs("p", { className: "font-sans text-sm text-cr-text-muted max-w-2xl", children: [
-        "ConcertRide conecta a asistentes de ",
-        festival.name,
-        " que quieren compartir el viaje desde toda España. Sin comisión. Sin apps de taxi. Solo fans que se organizan."
-      ] }),
-      /* @__PURE__ */ jsxs("div", { className: "grid sm:grid-cols-2 lg:grid-cols-4 gap-4 font-sans text-sm", children: [
-        /* @__PURE__ */ jsxs("div", { className: "border border-cr-primary/30 p-5 space-y-1 text-center", children: [
-          /* @__PURE__ */ jsx("p", { className: "font-mono text-2xl font-bold text-cr-primary", children: "0 %" }),
-          /* @__PURE__ */ jsx("p", { className: "text-xs text-cr-text-muted", children: "Comisión de plataforma" })
-        ] }),
-        /* @__PURE__ */ jsxs("div", { className: "border border-cr-border p-5 space-y-1 text-center", children: [
-          /* @__PURE__ */ jsx("p", { className: "font-mono text-2xl font-bold text-cr-text", children: festival.originCities.length }),
-          /* @__PURE__ */ jsx("p", { className: "text-xs text-cr-text-muted", children: "Ciudades de origen documentadas" })
-        ] }),
-        /* @__PURE__ */ jsxs("div", { className: "border border-cr-border p-5 space-y-1 text-center", children: [
-          /* @__PURE__ */ jsx("p", { className: "font-mono text-2xl font-bold text-cr-text", children: "✓" }),
-          /* @__PURE__ */ jsx("p", { className: "text-xs text-cr-text-muted", children: "Conductores con carnet verificado" })
-        ] }),
-        /* @__PURE__ */ jsxs("div", { className: "border border-cr-border p-5 space-y-1 text-center", children: [
-          /* @__PURE__ */ jsxs("p", { className: "font-mono text-2xl font-bold text-cr-text", children: [
-            ((_K = (_J = (_I = festival.originCities[0]) == null ? void 0 : _I.concertRideRange) == null ? void 0 : _J.split("–")[0]) == null ? void 0 : _K.trim()) ?? "3",
-            "€"
-          ] }),
-          /* @__PURE__ */ jsx("p", { className: "text-xs text-cr-text-muted", children: "Precio mínimo por asiento" })
-        ] })
-      ] }),
-      /* @__PURE__ */ jsxs("div", { className: "space-y-3", children: [
-        /* @__PURE__ */ jsxs("h3", { className: "font-display text-base uppercase text-cr-text-muted", children: [
-          "Ciudades de salida más populares para ",
-          festival.shortName
-        ] }),
-        /* @__PURE__ */ jsx("div", { className: "flex flex-wrap gap-2", children: festival.originCities.slice(0, 8).map((oc) => /* @__PURE__ */ jsxs(
-          Link,
-          {
-            to: `/concerts?city=${encodeURIComponent(festival.city)}`,
-            className: "inline-flex items-center gap-1.5 font-sans text-xs text-cr-text-muted hover:text-cr-primary border border-cr-border hover:border-cr-primary px-3 py-1.5 transition-colors",
-            children: [
-              /* @__PURE__ */ jsx(MapPin, { size: 10 }),
-              " ",
-              oc.city,
-              " · ",
-              oc.concertRideRange
-            ]
-          },
-          oc.city
-        )) }),
-        /* @__PURE__ */ jsxs("p", { className: "font-sans text-xs text-cr-text-dim", children: [
-          "¿Tu ciudad no aparece? Publica un viaje y sé el primero en coordinarlo desde allí.",
-          " ",
-          /* @__PURE__ */ jsx(Link, { to: "/publish", className: "text-cr-primary hover:underline", children: "Publicar viaje →" })
-        ] })
-      ] })
-    ] }),
-    relatedFestivals.length > 0 && /* @__PURE__ */ jsxs("section", { className: "max-w-6xl mx-auto px-6 pb-16 border-t border-cr-border pt-10", children: [
-      /* @__PURE__ */ jsx("h2", { className: "font-display text-lg uppercase text-cr-text-muted mb-4", children: "Festivales relacionados" }),
-      /* @__PURE__ */ jsx("ul", { className: "flex flex-wrap gap-2", children: relatedFestivals.map((f) => /* @__PURE__ */ jsx("li", { children: /* @__PURE__ */ jsxs(
-        Link,
-        {
-          to: `/festivales/${f.slug}`,
-          className: "inline-flex items-center gap-1.5 font-sans text-xs text-cr-text-muted hover:text-cr-primary border border-cr-border hover:border-cr-primary px-3 py-1.5 transition-colors",
-          children: [
-            f.shortName,
-            " — ",
-            f.city
-          ]
-        }
-      ) }, f.slug)) })
-    ] }),
-    /* @__PURE__ */ jsxs("section", { className: "max-w-6xl mx-auto px-6 pb-24 border-t border-cr-border pt-10", children: [
-      /* @__PURE__ */ jsx("h2", { className: "font-display text-lg uppercase text-cr-text-muted mb-4", children: "Otros festivales en ConcertRide" }),
-      /* @__PURE__ */ jsx("ul", { className: "flex flex-wrap gap-2", children: FESTIVAL_LANDINGS.filter((f) => f.slug !== festival.slug).map((f) => /* @__PURE__ */ jsx("li", { children: /* @__PURE__ */ jsx(
-        Link,
-        {
-          to: `/festivales/${f.slug}`,
-          className: "inline-flex items-center gap-1.5 font-sans text-xs text-cr-text-muted hover:text-cr-primary border border-cr-border hover:border-cr-primary px-3 py-1.5 transition-colors",
-          children: f.shortName
-        }
-      ) }, f.slug)) })
-    ] }),
-    /* @__PURE__ */ jsx("section", { className: "max-w-6xl mx-auto px-6 pb-16 border-t border-cr-border pt-12", children: /* @__PURE__ */ jsxs("div", { className: "border-2 border-cr-primary/40 bg-gradient-to-br from-cr-primary/[0.06] to-transparent p-6 md:p-8 flex flex-col md:flex-row md:items-center gap-5 md:gap-8", children: [
-      /* @__PURE__ */ jsxs("div", { className: "flex-1 space-y-2", children: [
-        /* @__PURE__ */ jsx("p", { className: "font-mono text-[10px] uppercase tracking-[0.16em] text-cr-primary", children: "¿Tienes coche?" }),
-        /* @__PURE__ */ jsxs("h2", { className: "font-display text-2xl md:text-3xl uppercase leading-tight", children: [
-          "Publica tu viaje a ",
-          festival.shortName,
-          " y llena el coche"
-        ] }),
-        /* @__PURE__ */ jsxs("p", { className: "font-sans text-sm text-cr-text-muted max-w-xl leading-relaxed", children: [
-          "Comparte el coste de la gasolina y los peajes con otros asistentes a ",
-          festival.name,
-          ". Sin comisión de plataforma: el 100 % de lo que pagan los pasajeros va al conductor. Pago en efectivo o Bizum directamente entre vosotros."
-        ] })
-      ] }),
-      /* @__PURE__ */ jsxs(
-        Link,
-        {
-          to: publishHref,
-          "aria-label": `Publicar viaje a ${festival.shortName} ${festYear}`,
-          className: "inline-flex items-center justify-center gap-2 bg-cr-primary text-black font-sans text-sm font-bold uppercase tracking-[0.12em] px-6 py-3 hover:bg-cr-primary/90 transition-colors whitespace-nowrap",
-          children: [
-            "Publicar mi coche ",
-            /* @__PURE__ */ jsx(ArrowRight, { size: 14 })
-          ]
-        }
-      )
-    ] }) }),
-    /* @__PURE__ */ jsx("section", { className: "max-w-6xl mx-auto px-6 pb-10 border-t border-cr-border pt-8", children: /* @__PURE__ */ jsxs("p", { className: "font-mono text-[11px] text-cr-text-dim leading-relaxed", children: [
-      "ConcertRide no es un socio oficial, patrocinador ni representante de",
-      " ",
-      festival.name,
-      " ni de su organización. Los nombres de festivales y eventos se utilizan con carácter meramente descriptivo para identificar el destino del viaje. Para la compra de entradas o información oficial acude siempre a la web del organizador.",
-      " ",
-      /* @__PURE__ */ jsx(Link, { to: "/aviso-legal", className: "underline underline-offset-2 hover:text-cr-primary transition-colors", children: "Aviso legal" }),
-      "."
-    ] }) }),
-    /* @__PURE__ */ jsxs("div", { className: "md:hidden fixed bottom-0 left-0 right-0 z-40 bg-cr-bg/95 backdrop-blur-sm border-t border-cr-border px-3 py-3 flex gap-2", children: [
-      /* @__PURE__ */ jsxs(
-        Link,
-        {
-          to: searchHref,
-          "aria-label": `Buscar plaza a ${festival.shortName} ${festYear} desde ${priceFromMin} euros`,
-          className: "flex-1 flex flex-col items-center justify-center gap-0 bg-cr-primary text-black font-sans text-[11px] font-bold uppercase tracking-[0.08em] py-2 leading-tight",
-          children: [
-            /* @__PURE__ */ jsxs("span", { className: "flex items-center gap-1", children: [
-              "Buscar plaza a ",
-              festival.shortName,
-              " ",
-              /* @__PURE__ */ jsx(ArrowRight, { size: 11 })
-            ] }),
-            /* @__PURE__ */ jsxs("span", { className: "font-mono text-[10px] font-semibold normal-case tracking-normal opacity-80", children: [
-              "desde ",
-              priceFromMin,
-              "€/asiento"
-            ] })
-          ]
-        }
-      ),
-      /* @__PURE__ */ jsx(
-        Link,
-        {
-          to: publishHref,
-          "aria-label": `Publicar viaje a ${festival.shortName}`,
-          className: "flex items-center justify-center gap-1.5 border-2 border-cr-primary text-cr-primary font-sans text-[11px] font-bold uppercase tracking-[0.08em] px-3 py-3",
-          children: "Publicar"
-        }
-      )
-    ] }),
-    /* @__PURE__ */ jsx("div", { className: "md:hidden h-20" })
+    /* @__PURE__ */ jsx(StickyRegBar, {})
   ] });
 }
 function FestivalDemandPill({ festivalSlug, festivalName }) {
@@ -48838,9 +50778,10 @@ function ShareCite({ url, title }) {
   ] });
 }
 function BlogPostPage() {
-  var _a2, _b, _c, _d, _e, _f;
+  var _a2, _b, _c, _d, _e, _f, _g;
   const { slug } = useParams();
   const post = slug ? BLOG_POSTS_BY_SLUG[slug] : void 0;
+  const { user } = useSession();
   const relatedFestivalSlug = post ? (_a2 = (post.relatedLinks ?? []).map((l) => l.to).find((t) => t.startsWith("/como-llegar/"))) == null ? void 0 : _a2.split("/").pop() : void 0;
   const relatedFestival = relatedFestivalSlug ? FESTIVAL_LANDINGS_BY_SLUG[relatedFestivalSlug] : void 0;
   const postYear = post ? new Date(post.publishedAt).getFullYear() : null;
@@ -48954,6 +50895,57 @@ function BlogPostPage() {
       ...ENTITY_SAME_AS[tag] ? { sameAs: ENTITY_SAME_AS[tag] } : {}
     }))
   };
+  const jsonLdNewsArticle = {
+    "@context": "https://schema.org",
+    "@type": "NewsArticle",
+    headline: post.title.length > 110 ? post.title.slice(0, 107) + "…" : post.title,
+    description: post.excerpt,
+    url,
+    mainEntityOfPage: { "@type": "WebPage", "@id": url },
+    datePublished: post.publishedAt,
+    dateModified: post.updatedAt ?? post.publishedAt,
+    inLanguage: "es-ES",
+    author: {
+      "@type": "Person",
+      name: ((_g = post.author) == null ? void 0 : _g.trim()) || "ConcertRide",
+      url: `${SITE_URL}/acerca-de`,
+      "@id": `${SITE_URL}/#founder`
+    },
+    publisher: {
+      "@type": "Organization",
+      "@id": `${SITE_URL}/#organization`,
+      name: "ConcertRide",
+      logo: {
+        "@type": "ImageObject",
+        url: `${SITE_URL}/android-chrome-192x192.png`,
+        width: 192,
+        height: 192
+      }
+    },
+    image: post.coverImage ? {
+      "@type": "ImageObject",
+      url: post.coverImage.src.startsWith("http") ? post.coverImage.src : `${SITE_URL}${post.coverImage.src}`,
+      width: post.coverImage.width ?? 1200,
+      height: post.coverImage.height ?? 630,
+      caption: post.coverImage.alt
+    } : {
+      "@type": "ImageObject",
+      url: `${SITE_URL}/og/home.png`,
+      width: 1200,
+      height: 630
+    },
+    articleSection: categoryLabel,
+    keywords: post.tags.join(", "),
+    isPartOf: { "@id": `${SITE_URL}/#website` },
+    speakable: {
+      "@type": "SpeakableSpecification",
+      cssSelector: ["h1", ".speakable", "article p:first-of-type", "h2", ".transport-info"]
+    },
+    about: (post.tags ?? []).length > 0 ? (post.tags ?? []).map((tag) => ({
+      "@type": "Thing",
+      name: tag
+    })) : { "@type": "Thing", name: "Carpooling festivales España" }
+  };
   const jsonLdBreadcrumb = {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
@@ -48975,6 +50967,7 @@ function BlogPostPage() {
   const related = (post.relatedPosts ?? []).map((s) => BLOG_POSTS_BY_SLUG[s]).filter((p) => Boolean(p));
   return /* @__PURE__ */ jsxs("main", { id: "main", className: "min-h-dvh bg-cr-bg text-cr-text pt-14", children: [
     /* @__PURE__ */ jsx("script", { type: "application/ld+json", dangerouslySetInnerHTML: { __html: JSON.stringify(jsonLdArticle) } }),
+    /* @__PURE__ */ jsx("script", { type: "application/ld+json", dangerouslySetInnerHTML: { __html: JSON.stringify(jsonLdNewsArticle) } }),
     /* @__PURE__ */ jsx("script", { type: "application/ld+json", dangerouslySetInnerHTML: { __html: JSON.stringify(jsonLdBreadcrumb) } }),
     jsonLdFaq && /* @__PURE__ */ jsx("script", { type: "application/ld+json", dangerouslySetInnerHTML: { __html: JSON.stringify(jsonLdFaq) } }),
     /* @__PURE__ */ jsxs("header", { className: "max-w-3xl mx-auto px-6 pt-10 pb-6 space-y-5", children: [
@@ -49058,7 +51051,42 @@ function BlogPostPage() {
           }
         ) }, l.to)) })
       ] }),
-      /* @__PURE__ */ jsxs("section", { className: "border border-cr-primary/40 bg-cr-primary/5 p-6 space-y-3", children: [
+      !user && /* @__PURE__ */ jsxs(
+        "section",
+        {
+          className: "border border-[#dbff00]/40 bg-[#dbff00]/5 p-6 space-y-4",
+          "aria-label": "Encuentra transporte para tu próximo festival",
+          children: [
+            /* @__PURE__ */ jsx("h2", { className: "font-display text-xl uppercase", children: "¿Buscas transporte para tu próximo festival?" }),
+            /* @__PURE__ */ jsx("p", { className: "font-sans text-sm text-cr-text-muted leading-relaxed", children: "Encuentra carpooling gratis en ConcertRide · 0% comisión · conductores verificados · vuelta de madrugada coordinada." }),
+            /* @__PURE__ */ jsxs("div", { className: "flex flex-wrap gap-3 pt-1", children: [
+              /* @__PURE__ */ jsxs(
+                Link,
+                {
+                  to: "/conciertos",
+                  className: "inline-flex items-center gap-2 font-sans text-xs font-semibold uppercase tracking-[0.12em] bg-[#dbff00] text-black border-2 border-black px-5 py-2.5 shadow-[3px_3px_0px_0px_rgba(0,0,0,1)] hover:shadow-[1px_1px_0px_0px_rgba(0,0,0,1)] hover:translate-x-[2px] hover:translate-y-[2px] transition-all duration-100",
+                  children: [
+                    "Ver rutas disponibles ",
+                    /* @__PURE__ */ jsx(ArrowRight, { size: 12 })
+                  ]
+                }
+              ),
+              /* @__PURE__ */ jsxs(
+                Link,
+                {
+                  to: "/register",
+                  className: "inline-flex items-center gap-2 font-sans text-xs font-semibold uppercase tracking-[0.12em] border-2 border-cr-border text-cr-text-muted px-5 py-2.5 hover:border-[#dbff00] hover:text-[#dbff00] transition-colors",
+                  children: [
+                    "Crear cuenta gratis ",
+                    /* @__PURE__ */ jsx(ArrowRight, { size: 12 })
+                  ]
+                }
+              )
+            ] })
+          ]
+        }
+      ),
+      user && /* @__PURE__ */ jsxs("section", { className: "border border-cr-primary/40 bg-cr-primary/5 p-6 space-y-3", children: [
         /* @__PURE__ */ jsx("h2", { className: "font-display text-xl uppercase", children: "¿Vas a un festival este verano?" }),
         /* @__PURE__ */ jsx("p", { className: "font-sans text-sm text-cr-text-muted leading-relaxed", children: "Encuentra tu viaje compartido o publica el tuyo. Sin comisiones, pago al conductor en efectivo o Bizum. Conductores verificados." }),
         /* @__PURE__ */ jsxs("div", { className: "flex flex-wrap gap-3 pt-2", children: [
@@ -49123,6 +51151,7 @@ function RouteLandingPage() {
   const { route: slug } = useParams();
   const landing = slug ? ROUTE_LANDINGS_BY_SLUG[slug] : void 0;
   const [concerts, setConcerts] = useState(null);
+  const { user } = useSession();
   const routeOverride = landing ? ROUTE_SEO_IMPROVEMENTS[landing.slug] : void 0;
   const priceFrom = ((_a2 = landing == null ? void 0 : landing.originData.concertRideRange.match(/(\d+)/)) == null ? void 0 : _a2[1]) ?? "5";
   const routeYear = landing ? new Date(landing.festival.startDate).getFullYear() : (/* @__PURE__ */ new Date()).getFullYear();
@@ -49548,393 +51577,421 @@ function RouteLandingPage() {
   const futureConcerts = (concerts ?? []).filter(
     (c) => new Date(c.date).getTime() > Date.now()
   );
-  return /* @__PURE__ */ jsxs("main", { id: "main", className: "min-h-dvh bg-cr-bg text-cr-text pt-14", children: [
-    /* @__PURE__ */ jsx("script", { type: "application/ld+json", dangerouslySetInnerHTML: { __html: JSON.stringify(jsonLdBreadcrumb) } }),
-    /* @__PURE__ */ jsx("script", { type: "application/ld+json", dangerouslySetInnerHTML: { __html: JSON.stringify(jsonLdTrip) } }),
-    /* @__PURE__ */ jsx("script", { type: "application/ld+json", dangerouslySetInnerHTML: { __html: JSON.stringify(jsonLdTripAction) } }),
-    /* @__PURE__ */ jsx("script", { type: "application/ld+json", dangerouslySetInnerHTML: { __html: JSON.stringify(jsonLdFaq) } }),
-    /* @__PURE__ */ jsx("script", { type: "application/ld+json", dangerouslySetInnerHTML: { __html: JSON.stringify(jsonLdWebPage) } }),
-    /* @__PURE__ */ jsx("script", { type: "application/ld+json", dangerouslySetInnerHTML: { __html: JSON.stringify(jsonLdService) } }),
-    /* @__PURE__ */ jsx("script", { type: "application/ld+json", dangerouslySetInnerHTML: { __html: JSON.stringify(jsonLdHowToTravel) } }),
-    /* @__PURE__ */ jsx("script", { type: "application/ld+json", dangerouslySetInnerHTML: { __html: JSON.stringify(jsonLdTransportDataset) } }),
-    jsonLdVariants.map((variant, index) => /* @__PURE__ */ jsx("script", { type: "application/ld+json", dangerouslySetInnerHTML: { __html: JSON.stringify(variant) } }, `route-json-variant-${index}`)),
-    /* @__PURE__ */ jsxs("div", { className: "max-w-6xl mx-auto px-6 pt-10 pb-6 space-y-4", children: [
-      /* @__PURE__ */ jsxs("nav", { "aria-label": "Breadcrumb", className: "font-mono text-[11px] text-cr-text-muted flex items-center gap-2 flex-wrap", children: [
-        /* @__PURE__ */ jsx(Link, { to: "/", className: "hover:text-cr-primary", children: "Inicio" }),
-        /* @__PURE__ */ jsx("span", { "aria-hidden": "true", children: "/" }),
-        /* @__PURE__ */ jsx(Link, { to: "/rutas", className: "hover:text-cr-primary", children: "Rutas" }),
-        /* @__PURE__ */ jsx("span", { "aria-hidden": "true", children: "/" }),
-        /* @__PURE__ */ jsxs("span", { className: "text-cr-text-muted", children: [
-          "Desde ",
-          originCity
-        ] })
-      ] }),
-      /* @__PURE__ */ jsx("p", { className: "font-sans text-[11px] font-semibold uppercase tracking-[0.16em] text-cr-primary", children: "Carpooling · Ruta" }),
-      /* @__PURE__ */ jsxs("h1", { className: "font-display text-4xl md:text-6xl uppercase leading-[0.92]", children: [
-        originCity,
-        /* @__PURE__ */ jsx("br", {}),
-        "→ ",
-        festival.shortName,
-        "."
-      ] }),
-      /* @__PURE__ */ jsx(
-        SpeakableAnswerBlock,
-        {
-          schemaId: `speakable-route-${landing.slug}`,
-          pageUrl: `${SITE_URL}/rutas/${landing.slug}`,
-          question: `¿Cómo ir a ${festival.shortName} desde ${originCity} en ${routeYear}?`,
-          answer: `Para ir a ${festival.name} ${routeYear} desde ${originCity}, el carpooling de ConcertRide cuesta ${originData.concertRideRange}/asiento. La distancia es de ${originData.km} km y el tiempo estimado de conducción ${originData.drivingTime}. El destino es ${festival.venue} en ${festival.city}. Pagas en efectivo o Bizum directo al conductor el día del viaje, sin comisión de plataforma. La vuelta de madrugada se coordina con el conductor.`
-        }
-      ),
-      /* @__PURE__ */ jsxs("p", { className: "font-sans text-sm md:text-base text-cr-text-muted max-w-2xl leading-relaxed speakable route-summary", children: [
-        "ConcertRide ofrece carpooling de ",
-        originCity,
-        " a ",
-        festival.name,
-        " (",
-        festival.city,
-        ") por ",
-        originData.concertRideRange,
-        "/asiento. Distancia: ",
-        originData.km,
-        " km · ",
-        originData.drivingTime,
-        ". Sin comisión — el 100 % del precio va al conductor."
-      ] }),
-      /* @__PURE__ */ jsxs("div", { className: "flex flex-wrap gap-3 pt-2", children: [
-        /* @__PURE__ */ jsxs("span", { className: "inline-flex items-center gap-1.5 font-mono text-[11px] text-cr-text-muted border border-cr-border px-3 py-1.5", children: [
-          /* @__PURE__ */ jsx(MapPin, { size: 11 }),
-          " ",
-          originData.km,
-          " km"
-        ] }),
-        /* @__PURE__ */ jsxs("span", { className: "inline-flex items-center gap-1.5 font-mono text-[11px] text-cr-text-muted border border-cr-border px-3 py-1.5", children: [
-          /* @__PURE__ */ jsx(Clock, { size: 11 }),
-          " ",
-          originData.drivingTime
-        ] }),
-        /* @__PURE__ */ jsxs("span", { className: "inline-flex items-center gap-1.5 font-mono text-[11px] text-cr-primary border border-cr-primary/30 px-3 py-1.5", children: [
-          /* @__PURE__ */ jsx(Euro, { size: 11 }),
-          " ",
-          originData.concertRideRange
-        ] }),
-        /* @__PURE__ */ jsxs("span", { className: "inline-flex items-center gap-1.5 font-mono text-[11px] text-cr-text-muted border border-cr-border px-3 py-1.5", children: [
-          /* @__PURE__ */ jsx(Calendar, { size: 11 }),
-          " ",
-          festival.typicalDates
-        ] })
-      ] })
-    ] }),
-    /* @__PURE__ */ jsxs("section", { className: "max-w-6xl mx-auto px-6 pb-16 border-t border-cr-border pt-12 space-y-6", children: [
-      /* @__PURE__ */ jsxs("h2", { className: "font-display text-2xl md:text-3xl uppercase", children: [
-        "Carpooling ",
-        originCity,
-        " → ",
-        festival.shortName,
-        " ",
-        routeYear,
-        ": detalles de la ruta"
-      ] }),
-      /* @__PURE__ */ jsxs("div", { className: "grid sm:grid-cols-2 lg:grid-cols-3 gap-4", children: [
-        /* @__PURE__ */ jsxs("article", { className: "border border-cr-border p-4 space-y-2", children: [
-          /* @__PURE__ */ jsxs("h3", { className: "font-display text-base uppercase text-cr-primary", children: [
-            "Origen: ",
+  return /* @__PURE__ */ jsxs(Fragment, { children: [
+    /* @__PURE__ */ jsxs("main", { id: "main", className: "min-h-dvh bg-cr-bg text-cr-text pt-14", children: [
+      /* @__PURE__ */ jsx("script", { type: "application/ld+json", dangerouslySetInnerHTML: { __html: JSON.stringify(jsonLdBreadcrumb) } }),
+      /* @__PURE__ */ jsx("script", { type: "application/ld+json", dangerouslySetInnerHTML: { __html: JSON.stringify(jsonLdTrip) } }),
+      /* @__PURE__ */ jsx("script", { type: "application/ld+json", dangerouslySetInnerHTML: { __html: JSON.stringify(jsonLdTripAction) } }),
+      /* @__PURE__ */ jsx("script", { type: "application/ld+json", dangerouslySetInnerHTML: { __html: JSON.stringify(jsonLdFaq) } }),
+      /* @__PURE__ */ jsx("script", { type: "application/ld+json", dangerouslySetInnerHTML: { __html: JSON.stringify(jsonLdWebPage) } }),
+      /* @__PURE__ */ jsx("script", { type: "application/ld+json", dangerouslySetInnerHTML: { __html: JSON.stringify(jsonLdService) } }),
+      /* @__PURE__ */ jsx("script", { type: "application/ld+json", dangerouslySetInnerHTML: { __html: JSON.stringify(jsonLdHowToTravel) } }),
+      /* @__PURE__ */ jsx("script", { type: "application/ld+json", dangerouslySetInnerHTML: { __html: JSON.stringify(jsonLdTransportDataset) } }),
+      jsonLdVariants.map((variant, index) => /* @__PURE__ */ jsx("script", { type: "application/ld+json", dangerouslySetInnerHTML: { __html: JSON.stringify(variant) } }, `route-json-variant-${index}`)),
+      /* @__PURE__ */ jsxs("div", { className: "max-w-6xl mx-auto px-6 pt-10 pb-6 space-y-4", children: [
+        /* @__PURE__ */ jsxs("nav", { "aria-label": "Breadcrumb", className: "font-mono text-[11px] text-cr-text-muted flex items-center gap-2 flex-wrap", children: [
+          /* @__PURE__ */ jsx(Link, { to: "/", className: "hover:text-cr-primary", children: "Inicio" }),
+          /* @__PURE__ */ jsx("span", { "aria-hidden": "true", children: "/" }),
+          /* @__PURE__ */ jsx(Link, { to: "/rutas", className: "hover:text-cr-primary", children: "Rutas" }),
+          /* @__PURE__ */ jsx("span", { "aria-hidden": "true", children: "/" }),
+          /* @__PURE__ */ jsxs("span", { className: "text-cr-text-muted", children: [
+            "Desde ",
             originCity
-          ] }),
-          /* @__PURE__ */ jsx("p", { className: "font-sans text-sm text-cr-text-muted", children: originCity })
-        ] }),
-        /* @__PURE__ */ jsxs("article", { className: "border border-cr-border p-4 space-y-2", children: [
-          /* @__PURE__ */ jsxs("h3", { className: "font-display text-base uppercase text-cr-primary", children: [
-            "Destino: ",
-            festival.shortName,
-            " (",
-            festival.city,
-            ")"
-          ] }),
-          /* @__PURE__ */ jsxs("p", { className: "font-sans text-sm text-cr-text-muted", children: [
-            festival.venue,
-            ", ",
-            festival.city
           ] })
         ] }),
-        /* @__PURE__ */ jsxs("article", { className: "border border-cr-border p-4 space-y-2", children: [
-          /* @__PURE__ */ jsxs("h3", { className: "font-display text-base uppercase text-cr-primary", children: [
-            "Precio carpooling ",
-            originCity,
-            " → ",
-            festival.shortName
-          ] }),
-          /* @__PURE__ */ jsxs("p", { className: "font-sans text-sm text-cr-text-muted", children: [
-            originData.concertRideRange,
-            ". Sin comisión — el 100 % va al conductor."
-          ] }),
-          /* @__PURE__ */ jsx(AutoLinksForFestival, { slug: festival.slug }),
-          /* @__PURE__ */ jsx(AutoLinksForRoute, { originCitySlug: landing.originCitySlug, festivalSlug: festival.slug })
-        ] }),
-        /* @__PURE__ */ jsxs("article", { className: "border border-cr-border p-4 space-y-2", children: [
-          /* @__PURE__ */ jsxs("h3", { className: "font-display text-base uppercase text-cr-primary", children: [
-            "Distancia ",
-            originCity,
-            "–",
-            festival.city
-          ] }),
-          /* @__PURE__ */ jsxs("p", { className: "font-sans text-sm text-cr-text-muted", children: [
-            originData.km,
-            " km por carretera"
-          ] })
-        ] }),
-        /* @__PURE__ */ jsxs("article", { className: "border border-cr-border p-4 space-y-2", children: [
-          /* @__PURE__ */ jsxs("h3", { className: "font-display text-base uppercase text-cr-primary", children: [
-            "Tiempo de viaje ",
-            originCity,
-            " a ",
-            festival.shortName
-          ] }),
-          /* @__PURE__ */ jsxs("p", { className: "font-sans text-sm text-cr-text-muted", children: [
-            originData.drivingTime,
-            " de conducción estimada"
-          ] })
-        ] }),
-        /* @__PURE__ */ jsxs("article", { className: "border border-cr-border p-4 space-y-2", children: [
-          /* @__PURE__ */ jsxs("h3", { className: "font-display text-base uppercase text-cr-primary", children: [
-            "Fechas ",
-            festival.shortName,
-            " ",
-            routeYear
-          ] }),
-          /* @__PURE__ */ jsxs("p", { className: "font-sans text-sm text-cr-text-muted", children: [
-            festival.typicalDates,
-            " · ",
-            festival.capacity
-          ] })
-        ] })
-      ] }),
-      /* @__PURE__ */ jsxs("div", { className: "flex flex-wrap gap-3 pt-4", children: [
-        /* @__PURE__ */ jsxs(
-          Link,
-          {
-            to: "/concerts",
-            className: "inline-flex items-center gap-2 font-sans text-xs font-semibold uppercase tracking-[0.12em] border-2 border-cr-primary text-cr-primary px-4 py-2 hover:bg-cr-primary hover:text-black transition-colors",
-            children: [
-              "Buscar viaje ",
-              originCity,
-              " → ",
-              festival.shortName,
-              " ",
-              /* @__PURE__ */ jsx(ArrowRight, { size: 12 })
-            ]
-          }
-        ),
-        /* @__PURE__ */ jsxs(
-          Link,
-          {
-            to: "/publish",
-            className: "inline-flex items-center gap-2 font-sans text-xs font-semibold uppercase tracking-[0.12em] border-2 border-cr-border text-cr-text-muted px-4 py-2 hover:border-cr-primary hover:text-cr-primary transition-colors",
-            children: [
-              "Publicar viaje ",
-              /* @__PURE__ */ jsx(ArrowRight, { size: 12 })
-            ]
-          }
-        )
-      ] })
-    ] }),
-    /* @__PURE__ */ jsxs("section", { className: "max-w-6xl mx-auto px-6 pb-16 border-t border-cr-border pt-12", children: [
-      /* @__PURE__ */ jsxs("h2", { className: "font-display text-2xl md:text-3xl uppercase mb-2", children: [
-        "Próximos conciertos en ",
-        festival.city,
-        " con carpooling desde ",
-        originCity
-      ] }),
-      /* @__PURE__ */ jsxs("p", { className: "font-sans text-sm text-cr-text-muted mb-8 max-w-xl", children: [
-        "Eventos próximos en ",
-        festival.city,
-        " con viajes compartidos publicados desde ",
-        originCity,
-        "."
-      ] }),
-      concerts === null ? /* @__PURE__ */ jsx(LoadingSpinner, { text: `Cargando viajes hacia ${festival.shortName}…` }) : futureConcerts.length === 0 ? /* @__PURE__ */ jsxs("div", { className: "border border-dashed border-cr-border p-10 text-center space-y-3", children: [
-        /* @__PURE__ */ jsx("p", { className: "font-display text-xl uppercase text-cr-text-muted", children: "Sin viajes publicados aún" }),
-        /* @__PURE__ */ jsxs("p", { className: "font-sans text-sm text-cr-text-muted", children: [
-          "Sé el primero en publicar un viaje de ",
+        /* @__PURE__ */ jsx("p", { className: "font-sans text-[11px] font-semibold uppercase tracking-[0.16em] text-cr-primary", children: "Carpooling · Ruta" }),
+        /* @__PURE__ */ jsxs("h1", { className: "font-display text-4xl md:text-6xl uppercase leading-[0.92]", children: [
           originCity,
-          " a ",
+          /* @__PURE__ */ jsx("br", {}),
+          "→ ",
           festival.shortName,
           "."
         ] }),
         /* @__PURE__ */ jsx(
-          Link,
+          SpeakableAnswerBlock,
           {
-            to: "/publish",
-            className: "inline-block font-sans text-xs font-semibold uppercase tracking-[0.12em] border-2 border-cr-primary text-cr-primary px-4 py-2 hover:bg-cr-primary hover:text-black transition-colors",
-            children: "Publicar viaje →"
+            schemaId: `speakable-route-${landing.slug}`,
+            pageUrl: `${SITE_URL}/rutas/${landing.slug}`,
+            question: `¿Cómo ir a ${festival.shortName} desde ${originCity} en ${routeYear}?`,
+            answer: `Para ir a ${festival.name} ${routeYear} desde ${originCity}, el carpooling de ConcertRide cuesta ${originData.concertRideRange}/asiento. La distancia es de ${originData.km} km y el tiempo estimado de conducción ${originData.drivingTime}. El destino es ${festival.venue} en ${festival.city}. Pagas en efectivo o Bizum directo al conductor el día del viaje, sin comisión de plataforma. La vuelta de madrugada se coordina con el conductor.`
           }
-        )
-      ] }) : /* @__PURE__ */ jsx("div", { className: "grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5", children: futureConcerts.map((c) => /* @__PURE__ */ jsx(Link, { to: `/concerts/${c.id}`, className: "block", children: /* @__PURE__ */ jsx(ConcertCard, { concert: c }) }, c.id)) })
-    ] }),
-    /* @__PURE__ */ jsx("section", { className: "max-w-6xl mx-auto px-6 pb-6 border-t border-cr-border pt-12", children: /* @__PURE__ */ jsx(FestivalAlertWidget, { festivalSlug: festival.slug, festivalName: festival.shortName }) }),
-    /* @__PURE__ */ jsx("section", { className: "max-w-6xl mx-auto px-6 pb-16", children: /* @__PURE__ */ jsx(
-      DemandSignalWidget,
-      {
-        festivalSlug: festival.slug,
-        festivalName: festival.shortName,
-        originCities: festival.originCities.map((c) => c.city),
-        defaultCity: landing.originCity
-      }
-    ) }),
-    /* @__PURE__ */ jsxs("section", { className: "max-w-6xl mx-auto px-6 pb-16 border-t border-cr-border pt-12 space-y-6", children: [
-      /* @__PURE__ */ jsx(
-        FactDensityCallout,
-        {
-          heading: `Datos clave · ${originCity} → ${festival.shortName}`,
-          facts: [
-            { label: "Carpooling", value: `${originData.concertRideRange}`, detail: "0 % comisión" },
-            { label: "Distancia", value: `${originData.km} km`, detail: originData.drivingTime },
-            { label: "Ahorro vs taxi", value: "~75 %", detail: "Para >80 km nocturno" }
-          ]
-        }
-      ),
-      /* @__PURE__ */ jsxs("h2", { className: "font-display text-2xl md:text-3xl uppercase", children: [
-        "Comparativa de transporte ",
-        originCity,
-        " → ",
-        festival.shortName,
-        " ",
-        routeYear,
-        ": precio, tiempo y comisión"
-      ] }),
-      /* @__PURE__ */ jsx("div", { className: "overflow-x-auto", children: /* @__PURE__ */ jsxs("table", { className: "w-full font-sans text-xs border-collapse", children: [
-        /* @__PURE__ */ jsx("thead", { children: /* @__PURE__ */ jsxs("tr", { className: "border-b border-cr-border text-left", children: [
-          /* @__PURE__ */ jsx("th", { className: "py-2 pr-4 font-semibold text-cr-text", children: "Opción" }),
-          /* @__PURE__ */ jsx("th", { className: "py-2 pr-4 font-semibold text-cr-text", children: "Precio" }),
-          /* @__PURE__ */ jsx("th", { className: "py-2 pr-4 font-semibold text-cr-text", children: "Tiempo" }),
-          /* @__PURE__ */ jsx("th", { className: "py-2 pr-4 font-semibold text-cr-text", children: "Comisión" }),
-          /* @__PURE__ */ jsx("th", { className: "py-2 font-semibold text-cr-text", children: "Vuelta madrugada" })
-        ] }) }),
-        /* @__PURE__ */ jsxs("tbody", { className: "text-cr-text-muted", children: [
-          /* @__PURE__ */ jsxs("tr", { className: "border-b border-cr-border/50", children: [
-            /* @__PURE__ */ jsx("td", { className: "py-2 pr-4 font-semibold text-cr-primary", children: "ConcertRide carpooling" }),
-            /* @__PURE__ */ jsxs("td", { className: "py-2 pr-4", children: [
-              originData.concertRideRange,
-              "/asiento"
-            ] }),
-            /* @__PURE__ */ jsx("td", { className: "py-2 pr-4", children: originData.drivingTime }),
-            /* @__PURE__ */ jsx("td", { className: "py-2 pr-4 font-semibold text-cr-primary", children: "0 %" }),
-            /* @__PURE__ */ jsx("td", { className: "py-2", children: "Sí (coordinada)" })
+        ),
+        /* @__PURE__ */ jsxs("p", { className: "font-sans text-sm md:text-base text-cr-text-muted max-w-2xl leading-relaxed speakable route-summary", children: [
+          "ConcertRide ofrece carpooling de ",
+          originCity,
+          " a ",
+          festival.name,
+          " (",
+          festival.city,
+          ") por ",
+          originData.concertRideRange,
+          "/asiento. Distancia: ",
+          originData.km,
+          " km · ",
+          originData.drivingTime,
+          ". Sin comisión — el 100 % del precio va al conductor."
+        ] }),
+        /* @__PURE__ */ jsxs("div", { className: "flex flex-wrap gap-3 pt-2", children: [
+          /* @__PURE__ */ jsxs("span", { className: "inline-flex items-center gap-1.5 font-mono text-[11px] text-cr-text-muted border border-cr-border px-3 py-1.5", children: [
+            /* @__PURE__ */ jsx(MapPin, { size: 11 }),
+            " ",
+            originData.km,
+            " km"
           ] }),
-          /* @__PURE__ */ jsxs("tr", { className: "border-b border-cr-border/50", children: [
-            /* @__PURE__ */ jsx("td", { className: "py-2 pr-4", children: "Taxi / VTC (Uber, Cabify)" }),
-            /* @__PURE__ */ jsx("td", { className: "py-2 pr-4", children: "35–80 € ida (nocturno)" }),
-            /* @__PURE__ */ jsx("td", { className: "py-2 pr-4", children: originData.drivingTime }),
-            /* @__PURE__ */ jsx("td", { className: "py-2 pr-4", children: "—" }),
-            /* @__PURE__ */ jsx("td", { className: "py-2", children: "Sí (precio ×2–3)" })
+          /* @__PURE__ */ jsxs("span", { className: "inline-flex items-center gap-1.5 font-mono text-[11px] text-cr-text-muted border border-cr-border px-3 py-1.5", children: [
+            /* @__PURE__ */ jsx(Clock, { size: 11 }),
+            " ",
+            originData.drivingTime
           ] }),
-          /* @__PURE__ */ jsxs("tr", { className: "border-b border-cr-border/50", children: [
-            /* @__PURE__ */ jsx("td", { className: "py-2 pr-4", children: "Otras plataformas de carpooling" }),
-            /* @__PURE__ */ jsxs("td", { className: "py-2 pr-4", children: [
-              originData.concertRideRange,
-              " + 12–18 %"
-            ] }),
-            /* @__PURE__ */ jsx("td", { className: "py-2 pr-4", children: originData.drivingTime }),
-            /* @__PURE__ */ jsx("td", { className: "py-2 pr-4", children: "12–18 %" }),
-            /* @__PURE__ */ jsx("td", { className: "py-2", children: "Depende" })
+          /* @__PURE__ */ jsxs("span", { className: "inline-flex items-center gap-1.5 font-mono text-[11px] text-cr-primary border border-cr-primary/30 px-3 py-1.5", children: [
+            /* @__PURE__ */ jsx(Euro, { size: 11 }),
+            " ",
+            originData.concertRideRange
           ] }),
-          /* @__PURE__ */ jsxs("tr", { children: [
-            /* @__PURE__ */ jsx("td", { className: "py-2 pr-4", children: "Autobús / tren" }),
-            /* @__PURE__ */ jsx("td", { className: "py-2 pr-4", children: "3–15 € (si disponible)" }),
-            /* @__PURE__ */ jsx("td", { className: "py-2 pr-4", children: "Variable" }),
-            /* @__PURE__ */ jsx("td", { className: "py-2 pr-4", children: "—" }),
-            /* @__PURE__ */ jsx("td", { className: "py-2", children: "No (último ~1:30)" })
+          /* @__PURE__ */ jsxs("span", { className: "inline-flex items-center gap-1.5 font-mono text-[11px] text-cr-text-muted border border-cr-border px-3 py-1.5", children: [
+            /* @__PURE__ */ jsx(Calendar, { size: 11 }),
+            " ",
+            festival.typicalDates
           ] })
         ] })
-      ] }) }),
-      /* @__PURE__ */ jsx("p", { className: "font-mono text-[10px] text-cr-text-dim", children: "Precios orientativos 2026. ConcertRide no cobra comisión — el conductor fija el precio para cubrir combustible y peajes." })
-    ] }),
-    /* @__PURE__ */ jsxs("section", { className: "max-w-6xl mx-auto px-6 pb-16 border-t border-cr-border pt-12 space-y-6", children: [
-      /* @__PURE__ */ jsxs("h2", { className: "font-display text-2xl md:text-3xl uppercase", children: [
-        "Preguntas frecuentes sobre carpooling ",
-        originCity,
-        " → ",
-        festival.shortName
       ] }),
-      /* @__PURE__ */ jsx("dl", { className: "space-y-6", children: routeFaqs.map((faq) => /* @__PURE__ */ jsxs("div", { className: "border-b border-cr-border pb-6 space-y-2", children: [
-        /* @__PURE__ */ jsx("dt", { className: "font-display text-base uppercase text-cr-text", children: faq.q }),
-        /* @__PURE__ */ jsx("dd", { className: "font-sans text-sm text-cr-text-muted leading-relaxed max-w-2xl", children: faq.a })
-      ] }, faq.q)) })
-    ] }),
-    (() => {
-      const festSlug = festival.slug;
-      const relatedPosts = BLOG_POSTS.filter(
-        (p) => {
-          var _a3, _b;
-          return ((_a3 = p.relatedPosts) == null ? void 0 : _a3.includes(festSlug)) || ((_b = p.tags) == null ? void 0 : _b.some((t) => t === festSlug || t === festival.shortName.toLowerCase())) || p.slug.includes(festSlug) || p.title.toLowerCase().includes(festival.shortName.toLowerCase());
+      /* @__PURE__ */ jsxs("section", { className: "max-w-6xl mx-auto px-6 pb-16 border-t border-cr-border pt-12 space-y-6", children: [
+        /* @__PURE__ */ jsxs("h2", { className: "font-display text-2xl md:text-3xl uppercase", children: [
+          "Carpooling ",
+          originCity,
+          " → ",
+          festival.shortName,
+          " ",
+          routeYear,
+          ": detalles de la ruta"
+        ] }),
+        /* @__PURE__ */ jsxs("div", { className: "grid sm:grid-cols-2 lg:grid-cols-3 gap-4", children: [
+          /* @__PURE__ */ jsxs("article", { className: "border border-cr-border p-4 space-y-2", children: [
+            /* @__PURE__ */ jsxs("h3", { className: "font-display text-base uppercase text-cr-primary", children: [
+              "Origen: ",
+              originCity
+            ] }),
+            /* @__PURE__ */ jsx("p", { className: "font-sans text-sm text-cr-text-muted", children: originCity })
+          ] }),
+          /* @__PURE__ */ jsxs("article", { className: "border border-cr-border p-4 space-y-2", children: [
+            /* @__PURE__ */ jsxs("h3", { className: "font-display text-base uppercase text-cr-primary", children: [
+              "Destino: ",
+              festival.shortName,
+              " (",
+              festival.city,
+              ")"
+            ] }),
+            /* @__PURE__ */ jsxs("p", { className: "font-sans text-sm text-cr-text-muted", children: [
+              festival.venue,
+              ", ",
+              festival.city
+            ] })
+          ] }),
+          /* @__PURE__ */ jsxs("article", { className: "border border-cr-border p-4 space-y-2", children: [
+            /* @__PURE__ */ jsxs("h3", { className: "font-display text-base uppercase text-cr-primary", children: [
+              "Precio carpooling ",
+              originCity,
+              " → ",
+              festival.shortName
+            ] }),
+            /* @__PURE__ */ jsxs("p", { className: "font-sans text-sm text-cr-text-muted", children: [
+              originData.concertRideRange,
+              ". Sin comisión — el 100 % va al conductor."
+            ] }),
+            /* @__PURE__ */ jsx(AutoLinksForFestival, { slug: festival.slug }),
+            /* @__PURE__ */ jsx(AutoLinksForRoute, { originCitySlug: landing.originCitySlug, festivalSlug: festival.slug })
+          ] }),
+          /* @__PURE__ */ jsxs("article", { className: "border border-cr-border p-4 space-y-2", children: [
+            /* @__PURE__ */ jsxs("h3", { className: "font-display text-base uppercase text-cr-primary", children: [
+              "Distancia ",
+              originCity,
+              "–",
+              festival.city
+            ] }),
+            /* @__PURE__ */ jsxs("p", { className: "font-sans text-sm text-cr-text-muted", children: [
+              originData.km,
+              " km por carretera"
+            ] })
+          ] }),
+          /* @__PURE__ */ jsxs("article", { className: "border border-cr-border p-4 space-y-2", children: [
+            /* @__PURE__ */ jsxs("h3", { className: "font-display text-base uppercase text-cr-primary", children: [
+              "Tiempo de viaje ",
+              originCity,
+              " a ",
+              festival.shortName
+            ] }),
+            /* @__PURE__ */ jsxs("p", { className: "font-sans text-sm text-cr-text-muted", children: [
+              originData.drivingTime,
+              " de conducción estimada"
+            ] })
+          ] }),
+          /* @__PURE__ */ jsxs("article", { className: "border border-cr-border p-4 space-y-2", children: [
+            /* @__PURE__ */ jsxs("h3", { className: "font-display text-base uppercase text-cr-primary", children: [
+              "Fechas ",
+              festival.shortName,
+              " ",
+              routeYear
+            ] }),
+            /* @__PURE__ */ jsxs("p", { className: "font-sans text-sm text-cr-text-muted", children: [
+              festival.typicalDates,
+              " · ",
+              festival.capacity
+            ] })
+          ] })
+        ] }),
+        /* @__PURE__ */ jsxs("div", { className: "flex flex-wrap gap-3 pt-4", children: [
+          /* @__PURE__ */ jsxs(
+            Link,
+            {
+              to: "/concerts",
+              className: "inline-flex items-center gap-2 font-sans text-xs font-semibold uppercase tracking-[0.12em] border-2 border-cr-primary text-cr-primary px-4 py-2 hover:bg-cr-primary hover:text-black transition-colors",
+              children: [
+                "Buscar viaje ",
+                originCity,
+                " → ",
+                festival.shortName,
+                " ",
+                /* @__PURE__ */ jsx(ArrowRight, { size: 12 })
+              ]
+            }
+          ),
+          /* @__PURE__ */ jsxs(
+            Link,
+            {
+              to: "/publish",
+              className: "inline-flex items-center gap-2 font-sans text-xs font-semibold uppercase tracking-[0.12em] border-2 border-cr-border text-cr-text-muted px-4 py-2 hover:border-cr-primary hover:text-cr-primary transition-colors",
+              children: [
+                "Publicar viaje ",
+                /* @__PURE__ */ jsx(ArrowRight, { size: 12 })
+              ]
+            }
+          )
+        ] })
+      ] }),
+      /* @__PURE__ */ jsxs("section", { className: "max-w-6xl mx-auto px-6 pb-16 border-t border-cr-border pt-12", children: [
+        /* @__PURE__ */ jsxs("h2", { className: "font-display text-2xl md:text-3xl uppercase mb-2", children: [
+          "Próximos conciertos en ",
+          festival.city,
+          " con carpooling desde ",
+          originCity
+        ] }),
+        /* @__PURE__ */ jsxs("p", { className: "font-sans text-sm text-cr-text-muted mb-8 max-w-xl", children: [
+          "Eventos próximos en ",
+          festival.city,
+          " con viajes compartidos publicados desde ",
+          originCity,
+          "."
+        ] }),
+        concerts === null ? /* @__PURE__ */ jsx(LoadingSpinner, { text: `Cargando viajes hacia ${festival.shortName}…` }) : futureConcerts.length === 0 ? /* @__PURE__ */ jsxs("div", { className: "border border-dashed border-cr-border p-10 text-center space-y-3", children: [
+          /* @__PURE__ */ jsx("p", { className: "font-display text-xl uppercase text-cr-text-muted", children: "Sin viajes publicados aún" }),
+          /* @__PURE__ */ jsxs("p", { className: "font-sans text-sm text-cr-text-muted", children: [
+            "Sé el primero en publicar un viaje de ",
+            originCity,
+            " a ",
+            festival.shortName,
+            "."
+          ] }),
+          /* @__PURE__ */ jsx(
+            Link,
+            {
+              to: "/publish",
+              className: "inline-block font-sans text-xs font-semibold uppercase tracking-[0.12em] border-2 border-cr-primary text-cr-primary px-4 py-2 hover:bg-cr-primary hover:text-black transition-colors",
+              children: "Publicar viaje →"
+            }
+          )
+        ] }) : /* @__PURE__ */ jsx("div", { className: "grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5", children: futureConcerts.map((c) => /* @__PURE__ */ jsx(Link, { to: `/concerts/${c.id}`, className: "block", children: /* @__PURE__ */ jsx(ConcertCard, { concert: c }) }, c.id)) })
+      ] }),
+      !user && /* @__PURE__ */ jsx(
+        "section",
+        {
+          className: "max-w-6xl mx-auto px-6 pb-6",
+          "aria-label": "Crea una cuenta para reservar tu plaza",
+          children: /* @__PURE__ */ jsxs("div", { className: "border-2 border-[#dbff00]/40 bg-[#dbff00]/[0.04] p-6 md:p-8 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-5", children: [
+            /* @__PURE__ */ jsxs("div", { className: "space-y-1.5", children: [
+              /* @__PURE__ */ jsx("p", { className: "font-mono text-[10px] font-semibold uppercase tracking-[0.18em] text-[#dbff00]", children: "¿Aún no tienes cuenta?" }),
+              /* @__PURE__ */ jsx("p", { className: "font-display text-xl md:text-2xl uppercase leading-tight", children: "Regístrate gratis y reserva al instante" }),
+              /* @__PURE__ */ jsx("p", { className: "font-sans text-xs text-white/50 leading-relaxed", children: "0% comisión · Conductores verificados · Gratis para siempre · Pago en efectivo o Bizum" })
+            ] }),
+            /* @__PURE__ */ jsxs(
+              Link,
+              {
+                to: `/register?next=${encodeURIComponent(`/rutas/${landing.slug}`)}`,
+                className: "flex-shrink-0 inline-flex items-center gap-2 bg-[#dbff00] text-black font-sans font-semibold uppercase tracking-[0.12em] text-sm border-2 border-black px-6 py-3 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] hover:translate-x-[2px] hover:translate-y-[2px] transition-all duration-100 whitespace-nowrap",
+                children: [
+                  "Crear cuenta gratis ",
+                  /* @__PURE__ */ jsx(ArrowRight, { size: 14, "aria-hidden": "true" })
+                ]
+              }
+            )
+          ] })
         }
-      ).slice(0, 3);
-      if (relatedPosts.length === 0) return null;
-      return /* @__PURE__ */ jsxs("section", { className: "max-w-6xl mx-auto px-6 pb-16 border-t border-cr-border pt-12 space-y-5", children: [
-        /* @__PURE__ */ jsxs("h2", { className: "font-display text-xl uppercase", children: [
-          "Guías de transporte a ",
+      ),
+      /* @__PURE__ */ jsx("section", { className: "max-w-6xl mx-auto px-6 pb-6 border-t border-cr-border pt-12", children: /* @__PURE__ */ jsx(FestivalAlertWidget, { festivalSlug: festival.slug, festivalName: festival.shortName }) }),
+      /* @__PURE__ */ jsx("section", { className: "max-w-6xl mx-auto px-6 pb-16", children: /* @__PURE__ */ jsx(
+        DemandSignalWidget,
+        {
+          festivalSlug: festival.slug,
+          festivalName: festival.shortName,
+          originCities: festival.originCities.map((c) => c.city),
+          defaultCity: landing.originCity
+        }
+      ) }),
+      /* @__PURE__ */ jsxs("section", { className: "max-w-6xl mx-auto px-6 pb-16 border-t border-cr-border pt-12 space-y-6", children: [
+        /* @__PURE__ */ jsx(
+          FactDensityCallout,
+          {
+            heading: `Datos clave · ${originCity} → ${festival.shortName}`,
+            facts: [
+              { label: "Carpooling", value: `${originData.concertRideRange}`, detail: "0 % comisión" },
+              { label: "Distancia", value: `${originData.km} km`, detail: originData.drivingTime },
+              { label: "Ahorro vs taxi", value: "~75 %", detail: "Para >80 km nocturno" }
+            ]
+          }
+        ),
+        /* @__PURE__ */ jsxs("h2", { className: "font-display text-2xl md:text-3xl uppercase", children: [
+          "Comparativa de transporte ",
+          originCity,
+          " → ",
+          festival.shortName,
+          " ",
+          routeYear,
+          ": precio, tiempo y comisión"
+        ] }),
+        /* @__PURE__ */ jsx("div", { className: "overflow-x-auto", children: /* @__PURE__ */ jsxs("table", { className: "w-full font-sans text-xs border-collapse", children: [
+          /* @__PURE__ */ jsx("thead", { children: /* @__PURE__ */ jsxs("tr", { className: "border-b border-cr-border text-left", children: [
+            /* @__PURE__ */ jsx("th", { className: "py-2 pr-4 font-semibold text-cr-text", children: "Opción" }),
+            /* @__PURE__ */ jsx("th", { className: "py-2 pr-4 font-semibold text-cr-text", children: "Precio" }),
+            /* @__PURE__ */ jsx("th", { className: "py-2 pr-4 font-semibold text-cr-text", children: "Tiempo" }),
+            /* @__PURE__ */ jsx("th", { className: "py-2 pr-4 font-semibold text-cr-text", children: "Comisión" }),
+            /* @__PURE__ */ jsx("th", { className: "py-2 font-semibold text-cr-text", children: "Vuelta madrugada" })
+          ] }) }),
+          /* @__PURE__ */ jsxs("tbody", { className: "text-cr-text-muted", children: [
+            /* @__PURE__ */ jsxs("tr", { className: "border-b border-cr-border/50", children: [
+              /* @__PURE__ */ jsx("td", { className: "py-2 pr-4 font-semibold text-cr-primary", children: "ConcertRide carpooling" }),
+              /* @__PURE__ */ jsxs("td", { className: "py-2 pr-4", children: [
+                originData.concertRideRange,
+                "/asiento"
+              ] }),
+              /* @__PURE__ */ jsx("td", { className: "py-2 pr-4", children: originData.drivingTime }),
+              /* @__PURE__ */ jsx("td", { className: "py-2 pr-4 font-semibold text-cr-primary", children: "0 %" }),
+              /* @__PURE__ */ jsx("td", { className: "py-2", children: "Sí (coordinada)" })
+            ] }),
+            /* @__PURE__ */ jsxs("tr", { className: "border-b border-cr-border/50", children: [
+              /* @__PURE__ */ jsx("td", { className: "py-2 pr-4", children: "Taxi / VTC (Uber, Cabify)" }),
+              /* @__PURE__ */ jsx("td", { className: "py-2 pr-4", children: "35–80 € ida (nocturno)" }),
+              /* @__PURE__ */ jsx("td", { className: "py-2 pr-4", children: originData.drivingTime }),
+              /* @__PURE__ */ jsx("td", { className: "py-2 pr-4", children: "—" }),
+              /* @__PURE__ */ jsx("td", { className: "py-2", children: "Sí (precio ×2–3)" })
+            ] }),
+            /* @__PURE__ */ jsxs("tr", { className: "border-b border-cr-border/50", children: [
+              /* @__PURE__ */ jsx("td", { className: "py-2 pr-4", children: "Otras plataformas de carpooling" }),
+              /* @__PURE__ */ jsxs("td", { className: "py-2 pr-4", children: [
+                originData.concertRideRange,
+                " + 12–18 %"
+              ] }),
+              /* @__PURE__ */ jsx("td", { className: "py-2 pr-4", children: originData.drivingTime }),
+              /* @__PURE__ */ jsx("td", { className: "py-2 pr-4", children: "12–18 %" }),
+              /* @__PURE__ */ jsx("td", { className: "py-2", children: "Depende" })
+            ] }),
+            /* @__PURE__ */ jsxs("tr", { children: [
+              /* @__PURE__ */ jsx("td", { className: "py-2 pr-4", children: "Autobús / tren" }),
+              /* @__PURE__ */ jsx("td", { className: "py-2 pr-4", children: "3–15 € (si disponible)" }),
+              /* @__PURE__ */ jsx("td", { className: "py-2 pr-4", children: "Variable" }),
+              /* @__PURE__ */ jsx("td", { className: "py-2 pr-4", children: "—" }),
+              /* @__PURE__ */ jsx("td", { className: "py-2", children: "No (último ~1:30)" })
+            ] })
+          ] })
+        ] }) }),
+        /* @__PURE__ */ jsx("p", { className: "font-mono text-[10px] text-cr-text-dim", children: "Precios orientativos 2026. ConcertRide no cobra comisión — el conductor fija el precio para cubrir combustible y peajes." })
+      ] }),
+      /* @__PURE__ */ jsxs("section", { className: "max-w-6xl mx-auto px-6 pb-16 border-t border-cr-border pt-12 space-y-6", children: [
+        /* @__PURE__ */ jsxs("h2", { className: "font-display text-2xl md:text-3xl uppercase", children: [
+          "Preguntas frecuentes sobre carpooling ",
+          originCity,
+          " → ",
           festival.shortName
         ] }),
-        /* @__PURE__ */ jsx("div", { className: "grid sm:grid-cols-2 lg:grid-cols-3 gap-4", children: relatedPosts.map((post) => /* @__PURE__ */ jsxs(
-          Link,
-          {
-            to: `/blog/${post.slug}`,
-            className: "border border-cr-border p-4 space-y-2 hover:border-cr-primary/40 transition-colors",
-            children: [
-              /* @__PURE__ */ jsx("p", { className: "font-mono text-[10px] uppercase tracking-[0.14em] text-cr-primary", children: "Guía" }),
-              /* @__PURE__ */ jsx("h3", { className: "font-display text-sm uppercase leading-tight", children: post.title }),
-              /* @__PURE__ */ jsx("p", { className: "font-sans text-xs text-cr-text-muted line-clamp-2", children: post.excerpt }),
-              /* @__PURE__ */ jsxs("span", { className: "inline-flex items-center gap-1 font-sans text-xs text-cr-primary", children: [
-                "Leer ",
-                /* @__PURE__ */ jsx(ArrowRight, { size: 10 })
-              ] })
-            ]
-          },
-          post.slug
-        )) })
-      ] });
-    })(),
-    /* @__PURE__ */ jsxs("section", { className: "max-w-6xl mx-auto px-6 pb-24 border-t border-cr-border pt-10 space-y-4", children: [
-      /* @__PURE__ */ jsxs("h2", { className: "font-display text-lg uppercase text-cr-text-muted", children: [
-        "Más rutas de carpooling desde ",
-        originCity,
-        " y a ",
-        festival.shortName
+        /* @__PURE__ */ jsx("dl", { className: "space-y-6", children: routeFaqs.map((faq) => /* @__PURE__ */ jsxs("div", { className: "border-b border-cr-border pb-6 space-y-2", children: [
+          /* @__PURE__ */ jsx("dt", { className: "font-display text-base uppercase text-cr-text", children: faq.q }),
+          /* @__PURE__ */ jsx("dd", { className: "font-sans text-sm text-cr-text-muted leading-relaxed max-w-2xl", children: faq.a })
+        ] }, faq.q)) })
       ] }),
-      /* @__PURE__ */ jsxs("ul", { className: "flex flex-wrap gap-2", children: [
-        /* @__PURE__ */ jsx("li", { children: /* @__PURE__ */ jsxs(
-          Link,
-          {
-            to: `/festivales/${festival.slug}`,
-            className: "inline-flex items-center gap-1.5 font-sans text-xs text-cr-text-muted hover:text-cr-primary border border-cr-border hover:border-cr-primary px-3 py-1.5 transition-colors",
-            children: [
-              "Carpooling a ",
-              festival.shortName,
-              " — todas las ciudades"
-            ]
+      (() => {
+        const festSlug = festival.slug;
+        const relatedPosts = BLOG_POSTS.filter(
+          (p) => {
+            var _a3, _b;
+            return ((_a3 = p.relatedPosts) == null ? void 0 : _a3.includes(festSlug)) || ((_b = p.tags) == null ? void 0 : _b.some((t) => t === festSlug || t === festival.shortName.toLowerCase())) || p.slug.includes(festSlug) || p.title.toLowerCase().includes(festival.shortName.toLowerCase());
           }
-        ) }),
-        /* @__PURE__ */ jsx("li", { children: /* @__PURE__ */ jsxs(
-          Link,
-          {
-            to: `/conciertos/${festival.citySlug}`,
-            className: "inline-flex items-center gap-1.5 font-sans text-xs text-cr-text-muted hover:text-cr-primary border border-cr-border hover:border-cr-primary px-3 py-1.5 transition-colors",
-            children: [
-              "Conciertos en ",
-              festival.city
-            ]
-          }
-        ) }),
-        /* @__PURE__ */ jsx("li", { children: /* @__PURE__ */ jsx(
-          Link,
-          {
-            to: "/guia-transporte-festivales",
-            className: "inline-flex items-center gap-1.5 font-sans text-xs text-cr-text-muted hover:text-cr-primary border border-cr-border hover:border-cr-primary px-3 py-1.5 transition-colors",
-            children: "Guía de transporte para festivales"
-          }
-        ) })
+        ).slice(0, 3);
+        if (relatedPosts.length === 0) return null;
+        return /* @__PURE__ */ jsxs("section", { className: "max-w-6xl mx-auto px-6 pb-16 border-t border-cr-border pt-12 space-y-5", children: [
+          /* @__PURE__ */ jsxs("h2", { className: "font-display text-xl uppercase", children: [
+            "Guías de transporte a ",
+            festival.shortName
+          ] }),
+          /* @__PURE__ */ jsx("div", { className: "grid sm:grid-cols-2 lg:grid-cols-3 gap-4", children: relatedPosts.map((post) => /* @__PURE__ */ jsxs(
+            Link,
+            {
+              to: `/blog/${post.slug}`,
+              className: "border border-cr-border p-4 space-y-2 hover:border-cr-primary/40 transition-colors",
+              children: [
+                /* @__PURE__ */ jsx("p", { className: "font-mono text-[10px] uppercase tracking-[0.14em] text-cr-primary", children: "Guía" }),
+                /* @__PURE__ */ jsx("h3", { className: "font-display text-sm uppercase leading-tight", children: post.title }),
+                /* @__PURE__ */ jsx("p", { className: "font-sans text-xs text-cr-text-muted line-clamp-2", children: post.excerpt }),
+                /* @__PURE__ */ jsxs("span", { className: "inline-flex items-center gap-1 font-sans text-xs text-cr-primary", children: [
+                  "Leer ",
+                  /* @__PURE__ */ jsx(ArrowRight, { size: 10 })
+                ] })
+              ]
+            },
+            post.slug
+          )) })
+        ] });
+      })(),
+      /* @__PURE__ */ jsxs("section", { className: "max-w-6xl mx-auto px-6 pb-24 border-t border-cr-border pt-10 space-y-4", children: [
+        /* @__PURE__ */ jsxs("h2", { className: "font-display text-lg uppercase text-cr-text-muted", children: [
+          "Más rutas de carpooling desde ",
+          originCity,
+          " y a ",
+          festival.shortName
+        ] }),
+        /* @__PURE__ */ jsxs("ul", { className: "flex flex-wrap gap-2", children: [
+          /* @__PURE__ */ jsx("li", { children: /* @__PURE__ */ jsxs(
+            Link,
+            {
+              to: `/festivales/${festival.slug}`,
+              className: "inline-flex items-center gap-1.5 font-sans text-xs text-cr-text-muted hover:text-cr-primary border border-cr-border hover:border-cr-primary px-3 py-1.5 transition-colors",
+              children: [
+                "Carpooling a ",
+                festival.shortName,
+                " — todas las ciudades"
+              ]
+            }
+          ) }),
+          /* @__PURE__ */ jsx("li", { children: /* @__PURE__ */ jsxs(
+            Link,
+            {
+              to: `/conciertos/${festival.citySlug}`,
+              className: "inline-flex items-center gap-1.5 font-sans text-xs text-cr-text-muted hover:text-cr-primary border border-cr-border hover:border-cr-primary px-3 py-1.5 transition-colors",
+              children: [
+                "Conciertos en ",
+                festival.city
+              ]
+            }
+          ) }),
+          /* @__PURE__ */ jsx("li", { children: /* @__PURE__ */ jsx(
+            Link,
+            {
+              to: "/guia-transporte-festivales",
+              className: "inline-flex items-center gap-1.5 font-sans text-xs text-cr-text-muted hover:text-cr-primary border border-cr-border hover:border-cr-primary px-3 py-1.5 transition-colors",
+              children: "Guía de transporte para festivales"
+            }
+          ) })
+        ] })
       ] })
-    ] })
+    ] }),
+    /* @__PURE__ */ jsx(StickyRegBar, {})
   ] });
 }
 const ALL_FESTIVALS = [{ slug: "", shortName: "Todos" }, ...FESTIVAL_LANDINGS.map((f) => ({ slug: f.slug, shortName: f.shortName }))];
@@ -50567,10 +52624,21 @@ function DatosPage() {
     inLanguage: "es-ES",
     license: "https://creativecommons.org/licenses/by/4.0/",
     measurementTechnique: "Cálculo teórico basado en datos de la DGT y Google Maps",
-    variableMeasured: "Precio por asiento en euros para carpooling a festivales de música en España",
-    spatialCoverage: { "@type": "Country", name: "Spain" },
-    temporalCoverage: `${YEAR$1}`,
-    keywords: "carpooling, festivales, música, transporte, España, precio asiento"
+    spatialCoverage: {
+      "@type": "Country",
+      name: "Spain",
+      sameAs: "https://www.wikidata.org/wiki/Q29"
+    },
+    temporalCoverage: "2024/..",
+    keywords: "carpooling, festivales, música, transporte, España, precio asiento, rutas festivales, coche compartido conciertos",
+    variableMeasured: [
+      { "@type": "PropertyValue", name: "Precio mínimo por asiento (carpooling a festival)", value: "3", unitText: "EUR" },
+      { "@type": "PropertyValue", name: "Precio máximo por asiento (carpooling a festival)", value: "35", unitText: "EUR" },
+      { "@type": "PropertyValue", name: "Rutas ciudad→festival cubiertas", value: "96+", unitText: "rutas" },
+      { "@type": "PropertyValue", name: "Festivales cubiertos", value: "16", unitText: "festivales" },
+      { "@type": "PropertyValue", name: "Ciudades de origen con datos", value: "17", unitText: "ciudades" },
+      { "@type": "PropertyValue", name: "Comisión de plataforma", value: "0", unitText: "%" }
+    ]
   };
   const jsonLdBreadcrumb = {
     "@context": "https://schema.org",
@@ -51122,7 +53190,7 @@ function HowItWorksPage() {
     ] })
   ] });
 }
-const FAQS$3 = [
+const FAQS$2 = [
   {
     q: "¿Qué es ConcertRide?",
     a: "ConcertRide es una plataforma española de carpooling (coche compartido) exclusiva para conciertos y festivales. Conecta a fans que van al mismo evento para compartir coche, dividir gastos y llegar juntos. Es gratis, sin comisiones y sin publicidad."
@@ -51266,7 +53334,7 @@ function FaqPage() {
             url: `${SITE_URL}/faq`,
             dateModified: "2026-05-03",
             inLanguage: "es-ES",
-            mainEntity: FAQS$3.map(({ q, a }) => ({
+            mainEntity: FAQS$2.map(({ q, a }) => ({
               "@type": "Question",
               name: q,
               acceptedAnswer: { "@type": "Answer", text: a }
@@ -51310,7 +53378,7 @@ function FaqPage() {
           "."
         ] })
       ] }),
-      /* @__PURE__ */ jsx("div", { className: "divide-y divide-cr-border border-y border-cr-border", children: FAQS$3.map((item, i) => {
+      /* @__PURE__ */ jsx("div", { className: "divide-y divide-cr-border border-y border-cr-border", children: FAQS$2.map((item, i) => {
         const isOpen = open === i;
         return /* @__PURE__ */ jsxs("article", { children: [
           /* @__PURE__ */ jsxs(
@@ -51533,20 +53601,59 @@ function AcercaDePage() {
               "@type": "Organization",
               "@id": `${SITE_URL}/#organization`,
               name: "ConcertRide",
+              alternateName: "ConcertRide ES",
               url: SITE_URL,
+              logo: {
+                "@type": "ImageObject",
+                url: `${SITE_URL}/favicon.svg`,
+                width: 512,
+                height: 512
+              },
               foundingDate: "2026",
-              areaServed: { "@type": "Country", name: "Spain" },
-              knowsAbout: [
-                "Carpooling",
-                "Conciertos en España",
-                "Festivales de música",
-                "Transporte compartido",
-                "Movilidad sostenible"
+              slogan: "0% comisión · Carpooling para festivales",
+              areaServed: [
+                { "@type": "AdministrativeArea", name: "Comunidad de Madrid" },
+                { "@type": "AdministrativeArea", name: "Cataluña" },
+                { "@type": "AdministrativeArea", name: "Comunidad Valenciana" },
+                { "@type": "AdministrativeArea", name: "País Vasco" },
+                { "@type": "AdministrativeArea", name: "Andalucía" },
+                { "@type": "AdministrativeArea", name: "Galicia" },
+                { "@type": "AdministrativeArea", name: "Castilla y León" },
+                { "@type": "AdministrativeArea", name: "Castilla-La Mancha" },
+                { "@type": "AdministrativeArea", name: "Aragón" },
+                { "@type": "AdministrativeArea", name: "Navarra" },
+                { "@type": "AdministrativeArea", name: "Cantabria" },
+                { "@type": "AdministrativeArea", name: "Asturias" },
+                { "@type": "AdministrativeArea", name: "Extremadura" },
+                { "@type": "AdministrativeArea", name: "Murcia" },
+                { "@type": "AdministrativeArea", name: "La Rioja" },
+                { "@type": "AdministrativeArea", name: "Islas Baleares" },
+                { "@type": "AdministrativeArea", name: "Islas Canarias" }
               ],
-              description: "Plataforma de carpooling para conciertos y festivales en España. Conductores verificados, sin comisión, pago en persona.",
+              knowsAbout: [
+                "Carpooling para festivales de música",
+                "Conciertos en España",
+                "Festivales de música en España",
+                "Transporte compartido entre particulares",
+                "Movilidad sostenible en eventos culturales",
+                "Mad Cool Festival",
+                "Primavera Sound",
+                "Arenal Sound",
+                "BBK Live",
+                "Festival Internacional de Benicàssim (FIB)"
+              ],
+              description: "Plataforma española de carpooling especializada en conciertos y festivales de música. Conductores verificados, 0% comisión, pago en efectivo o Bizum el día del viaje.",
+              contactPoint: {
+                "@type": "ContactPoint",
+                contactType: "customer support",
+                email: "hola@concertride.me",
+                availableLanguage: "Spanish"
+              },
               sameAs: [
                 "https://twitter.com/concertride_es",
-                "https://www.instagram.com/concertride_es/"
+                "https://www.instagram.com/concertride_es/",
+                "https://www.linkedin.com/company/concertride-es",
+                "https://www.facebook.com/concertride.me"
               ]
             }
           })
@@ -51883,6 +53990,7 @@ function ArtistLandingPage() {
   var _a2, _b;
   const { slug } = useParams();
   const artist = slug ? ARTIST_LANDINGS_BY_SLUG[slug] : void 0;
+  const { user } = useSession();
   const hasUpcoming = ((artist == null ? void 0 : artist.upcomingConcerts.length) ?? 0) > 0;
   const venueCities = artist ? [...new Set(artist.upcomingConcerts.map((c) => c.city))].join(" y ") : "";
   const minPrice = ((_b = (_a2 = artist == null ? void 0 : artist.upcomingConcerts[0]) == null ? void 0 : _a2.originCities[0]) == null ? void 0 : _b.range.split("–")[0]) ?? "9";
@@ -52193,6 +54301,41 @@ function ArtistLandingPage() {
         `${concert.city}-${concert.venue}`
       ))
     ] }),
+    !user && hasUpcoming && /* @__PURE__ */ jsx(
+      "section",
+      {
+        className: "max-w-6xl mx-auto px-6 pb-8",
+        "aria-label": `Buscar carpooling al concierto de ${artist.name}`,
+        children: /* @__PURE__ */ jsxs("div", { className: "bg-[#dbff00] text-black p-5 md:p-6 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4", children: [
+          /* @__PURE__ */ jsxs("div", { className: "space-y-1", children: [
+            /* @__PURE__ */ jsxs("p", { className: "font-display text-lg uppercase leading-tight", children: [
+              "¿Vas al concierto de ",
+              artist.name,
+              "?"
+            ] }),
+            /* @__PURE__ */ jsx("p", { className: "font-sans text-sm leading-snug", children: "Busca carpooling gratis · 0% comisión · conductores verificados" })
+          ] }),
+          /* @__PURE__ */ jsxs("div", { className: "flex flex-wrap gap-2 shrink-0", children: [
+            /* @__PURE__ */ jsx(
+              Link,
+              {
+                to: "/concerts",
+                className: "inline-flex items-center justify-center bg-black text-[#dbff00] font-sans font-semibold uppercase tracking-[0.12em] text-xs border-2 border-black px-5 py-2.5 shadow-[3px_3px_0px_0px_rgba(255,255,0,0.4)] hover:shadow-[1px_1px_0px_0px_rgba(255,255,0,0.4)] hover:translate-x-[2px] hover:translate-y-[2px] transition-all duration-100 whitespace-nowrap",
+                children: "Buscar viaje →"
+              }
+            ),
+            /* @__PURE__ */ jsx(
+              Link,
+              {
+                to: "/register",
+                className: "inline-flex items-center justify-center font-sans font-semibold uppercase tracking-[0.12em] text-xs border-2 border-black text-black px-5 py-2.5 hover:bg-black/10 transition-colors whitespace-nowrap",
+                children: "Crear cuenta gratis"
+              }
+            )
+          ] })
+        ] })
+      }
+    ),
     /* @__PURE__ */ jsxs("section", { className: "max-w-6xl mx-auto px-6 pb-16 border-t border-cr-border pt-12 space-y-6", children: [
       /* @__PURE__ */ jsxs("h2", { className: "font-display text-2xl md:text-3xl uppercase", children: [
         "Cómo llegar al concierto de ",
@@ -52420,7 +54563,8 @@ function ArtistLandingPage() {
         }
       ),
       "."
-    ] }) })
+    ] }) }),
+    /* @__PURE__ */ jsx(StickyRegBar, {})
   ] });
 }
 const VENUE_DEFAULT_OG = `${SITE_URL}/og-fallback.png`;
@@ -53204,7 +55348,8 @@ function VenueLandingPage() {
         }
       )
     ] }),
-    /* @__PURE__ */ jsx("div", { className: "md:hidden h-16" })
+    /* @__PURE__ */ jsx("div", { className: "md:hidden h-16" }),
+    /* @__PURE__ */ jsx(StickyRegBar, {})
   ] });
 }
 const REGION_PRICE_TABLE = {
@@ -55483,7 +57628,7 @@ const DRIVER_STEPS = [
     body: "El pago se hace directamente en efectivo o Bizum el día del viaje. ConcertRide no cobra comisión: el 100 % del importe va al conductor para cubrir gasolina y peajes. Es el modelo más claro para rutas de evento."
   }
 ];
-const FAQS$2 = [
+const FAQS$1 = [
   {
     q: "¿Qué es el carpooling para conciertos?",
     a: "Es compartir coche con otras personas que van al mismo concierto o festival, repartiendo gastos de gasolina y peajes. ConcertRide lo organiza por evento, no por simple origen-destino."
@@ -55569,7 +57714,7 @@ function ComoFuncionaCarpoolingPage() {
     "@context": "https://schema.org",
     "@type": "FAQPage",
     inLanguage: "es-ES",
-    mainEntity: FAQS$2.map((faq) => ({
+    mainEntity: FAQS$1.map((faq) => ({
       "@type": "Question",
       name: faq.q,
       acceptedAnswer: { "@type": "Answer", text: faq.a }
@@ -55660,7 +57805,7 @@ function ComoFuncionaCarpoolingPage() {
           /* @__PURE__ */ jsx(ShieldCheck, { size: 22, className: "text-cr-primary", "aria-hidden": "true" }),
           /* @__PURE__ */ jsx("h2", { className: "font-display text-2xl md:text-3xl uppercase", children: "Preguntas frecuentes" })
         ] }),
-        /* @__PURE__ */ jsx("dl", { className: "space-y-5", children: FAQS$2.map((faq) => /* @__PURE__ */ jsxs("div", { className: "border-b border-cr-border pb-5 space-y-2", children: [
+        /* @__PURE__ */ jsx("dl", { className: "space-y-5", children: FAQS$1.map((faq) => /* @__PURE__ */ jsxs("div", { className: "border-b border-cr-border pb-5 space-y-2", children: [
           /* @__PURE__ */ jsx("dt", { className: "font-display text-base uppercase", children: faq.q }),
           /* @__PURE__ */ jsx("dd", { className: "faq-answer font-sans text-sm text-cr-text-muted leading-relaxed", children: faq.a })
         ] }, faq.q)) })
@@ -55671,198 +57816,6 @@ function ComoFuncionaCarpoolingPage() {
           /* @__PURE__ */ jsx("h2", { className: "font-display text-2xl md:text-3xl uppercase", children: "Lo esencial en una frase" })
         ] }),
         /* @__PURE__ */ jsx("p", { className: "font-sans text-sm text-cr-text-muted max-w-3xl leading-relaxed", children: "El carpooling para conciertos es una forma de viajar al mismo evento con otras personas, pagar solo lo justo por gasolina y peajes, y volver sin depender de taxis caros ni del último transporte público." })
-      ] })
-    ] })
-  ] });
-}
-const COMPARISON_ROWS = [
-  ["Especialización", "Solo conciertos y festivales", "Plataforma generalista de viajes compartidos"],
-  ["Búsqueda", "Por festival, ciudad y ruta de evento", "Por origen-destino genérico"],
-  ["Comisión", "0 %", "12–18 %"],
-  ["Pago", "Efectivo o Bizum al conductor", "Pago gestionado en la plataforma"],
-  ["Vuelta de madrugada", "Se pacta con el conductor", "Depende del horario publicado"],
-  ["Verificación del conductor", "Carnet obligatorio", "Verificación variable"],
-  ["Contexto de uso", "Ideal para ir y volver del concierto", "Útil para trayectos de transporte general"]
-];
-const FAQS$1 = [
-  {
-    q: "¿ConcertRide sustituye a BlaBlaCar?",
-    a: "No. ConcertRide está especializado en conciertos y festivales; BlaBlaCar es generalista. Si buscas un viaje para ir al mismo evento que otras personas, ConcertRide encaja mejor. Si solo quieres un trayecto entre dos ciudades sin contexto de evento, BlaBlaCar también puede servir."
-  },
-  {
-    q: "¿Por qué ConcertRide cobra menos comisión?",
-    a: "Porque ConcertRide no cobra comisión de plataforma. El precio del asiento va íntegramente al conductor, que lo usa para cubrir gasolina y peajes."
-  },
-  {
-    q: "¿Qué opción es mejor para volver de madrugada?",
-    a: "Para volver de madrugada a la salida de un festival, ConcertRide suele ser la más práctica porque la hora de regreso se acuerda con personas que también van al mismo evento."
-  },
-  {
-    q: "¿Qué pasa si necesito viajar con material de camping?",
-    a: "En viajes para festivales con camping suele ser más fácil coordinarlo en ConcertRide, porque el equipaje se comenta antes y el coche se comparte entre asistentes del mismo evento."
-  }
-];
-function ComparativaBlaBlaCar() {
-  useSeoMeta({
-    title: "ConcertRide vs BlaBlaCar para festivales: comparativa | ConcertRide",
-    description: "ConcertRide cobra 0 % de comisión; BlaBlaCar cobra 12–18 %. Comparativa real para festivales en España: especialización, pago, vuelta de madrugada y verificación de conductores.",
-    canonical: `${SITE_URL}/comparativa/concertride-vs-blablacar`,
-    keywords: "ConcertRide vs BlaBlaCar, comparativa carpooling festivales, BlaBlaCar festivales, carpooling conciertos España, comisión bla bla car, viaje compartido festival",
-    ogType: "article",
-    articlePublishedTime: "2026-05-04",
-    articleModifiedTime: (/* @__PURE__ */ new Date()).toISOString().slice(0, 10),
-    articleAuthor: "Equipo ConcertRide"
-  });
-  const jsonLdBreadcrumb = {
-    "@context": "https://schema.org",
-    "@type": "BreadcrumbList",
-    itemListElement: [
-      { "@type": "ListItem", position: 1, name: "Inicio", item: `${SITE_URL}/` },
-      { "@type": "ListItem", position: 2, name: "Comparativa", item: `${SITE_URL}/comparativa/concertride-vs-blablacar` }
-    ]
-  };
-  const jsonLdFaq = {
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    inLanguage: "es-ES",
-    mainEntity: FAQS$1.map((faq) => ({
-      "@type": "Question",
-      name: faq.q,
-      acceptedAnswer: { "@type": "Answer", text: faq.a }
-    }))
-  };
-  const jsonLdWebPage = {
-    "@context": "https://schema.org",
-    "@type": "WebPage",
-    "@id": `${SITE_URL}/comparativa/concertride-vs-blablacar#webpage`,
-    url: `${SITE_URL}/comparativa/concertride-vs-blablacar`,
-    name: "ConcertRide vs BlaBlaCar para festivales",
-    description: "Comparativa entre ConcertRide y BlaBlaCar para carpooling a festivales y conciertos en España.",
-    inLanguage: "es-ES",
-    isPartOf: { "@id": `${SITE_URL}/#website` },
-    about: { "@id": `${SITE_URL}/#service` },
-    speakable: {
-      "@type": "SpeakableSpecification",
-      cssSelector: ["h1", ".comparison-summary", ".faq-answer", "article p:first-of-type"]
-    }
-  };
-  return /* @__PURE__ */ jsxs("main", { id: "main", className: "min-h-dvh bg-cr-bg text-cr-text pt-14", children: [
-    /* @__PURE__ */ jsx("script", { type: "application/ld+json", dangerouslySetInnerHTML: { __html: JSON.stringify(jsonLdBreadcrumb) } }),
-    /* @__PURE__ */ jsx("script", { type: "application/ld+json", dangerouslySetInnerHTML: { __html: JSON.stringify(jsonLdFaq) } }),
-    /* @__PURE__ */ jsx("script", { type: "application/ld+json", dangerouslySetInnerHTML: { __html: JSON.stringify(jsonLdWebPage) } }),
-    /* @__PURE__ */ jsxs("div", { className: "max-w-5xl mx-auto px-6 py-12 md:py-16 space-y-12", children: [
-      /* @__PURE__ */ jsxs("header", { className: "space-y-4 border-b border-cr-border pb-8", children: [
-        /* @__PURE__ */ jsx("p", { className: "font-sans text-[11px] font-semibold uppercase tracking-[0.16em] text-cr-primary", children: "Comparativa" }),
-        /* @__PURE__ */ jsx("h1", { className: "font-display text-4xl md:text-6xl uppercase leading-[0.92]", children: "ConcertRide vs BlaBlaCar para festivales." }),
-        /* @__PURE__ */ jsx("p", { className: "comparison-summary font-sans text-base text-cr-text-muted max-w-3xl leading-relaxed speakable", children: "ConcertRide está pensado para conciertos y festivales; BlaBlaCar es una plataforma generalista. Si quieres una experiencia optimizada para volver de madrugada con gente que también va al mismo evento, la diferencia se nota en precio, horario y coordinación." })
-      ] }),
-      /* @__PURE__ */ jsxs("section", { className: "space-y-6", children: [
-        /* @__PURE__ */ jsx("h2", { className: "font-display text-2xl md:text-3xl uppercase", children: "Tabla rápida" }),
-        /* @__PURE__ */ jsx("div", { className: "overflow-x-auto border border-cr-border", children: /* @__PURE__ */ jsxs("table", { className: "w-full border-collapse font-sans text-sm", children: [
-          /* @__PURE__ */ jsx("thead", { children: /* @__PURE__ */ jsxs("tr", { className: "bg-cr-surface/40 border-b border-cr-border text-left", children: [
-            /* @__PURE__ */ jsx("th", { className: "p-3 font-semibold", children: "Concepto" }),
-            /* @__PURE__ */ jsx("th", { className: "p-3 font-semibold text-cr-primary", children: "ConcertRide" }),
-            /* @__PURE__ */ jsx("th", { className: "p-3 font-semibold", children: "BlaBlaCar" })
-          ] }) }),
-          /* @__PURE__ */ jsx("tbody", { children: COMPARISON_ROWS.map(([label, concertRide, blablacar]) => /* @__PURE__ */ jsxs("tr", { className: "border-b border-cr-border/60 align-top", children: [
-            /* @__PURE__ */ jsx("td", { className: "p-3 font-semibold", children: label }),
-            /* @__PURE__ */ jsx("td", { className: "p-3 text-cr-text-muted", children: concertRide }),
-            /* @__PURE__ */ jsx("td", { className: "p-3 text-cr-text-muted", children: blablacar })
-          ] }, label)) })
-        ] }) })
-      ] }),
-      /* @__PURE__ */ jsxs("section", { className: "space-y-6", children: [
-        /* @__PURE__ */ jsx("h2", { className: "font-display text-2xl md:text-3xl uppercase", children: "¿Cuándo usar cada uno?" }),
-        /* @__PURE__ */ jsxs("div", { className: "grid md:grid-cols-2 gap-5", children: [
-          /* @__PURE__ */ jsxs("article", { className: "border border-cr-primary p-5 space-y-3", children: [
-            /* @__PURE__ */ jsx("h3", { className: "font-display text-xl uppercase text-cr-primary", children: "Usa ConcertRide si…" }),
-            /* @__PURE__ */ jsxs("ul", { className: "space-y-2 font-sans text-sm text-cr-text-muted leading-relaxed", children: [
-              /* @__PURE__ */ jsxs("li", { className: "flex gap-2", children: [
-                /* @__PURE__ */ jsx(Check, { size: 16, className: "mt-0.5 text-cr-primary" }),
-                " Vas a un concierto o festival concreto."
-              ] }),
-              /* @__PURE__ */ jsxs("li", { className: "flex gap-2", children: [
-                /* @__PURE__ */ jsx(Check, { size: 16, className: "mt-0.5 text-cr-primary" }),
-                " Quieres coordinar la vuelta de madrugada."
-              ] }),
-              /* @__PURE__ */ jsxs("li", { className: "flex gap-2", children: [
-                /* @__PURE__ */ jsx(Check, { size: 16, className: "mt-0.5 text-cr-primary" }),
-                " Prefieres no pagar comisión."
-              ] }),
-              /* @__PURE__ */ jsxs("li", { className: "flex gap-2", children: [
-                /* @__PURE__ */ jsx(Check, { size: 16, className: "mt-0.5 text-cr-primary" }),
-                " Llevas algo de equipaje o camping."
-              ] })
-            ] })
-          ] }),
-          /* @__PURE__ */ jsxs("article", { className: "border border-cr-border p-5 space-y-3", children: [
-            /* @__PURE__ */ jsx("h3", { className: "font-display text-xl uppercase", children: "Usa BlaBlaCar si…" }),
-            /* @__PURE__ */ jsxs("ul", { className: "space-y-2 font-sans text-sm text-cr-text-muted leading-relaxed", children: [
-              /* @__PURE__ */ jsxs("li", { className: "flex gap-2", children: [
-                /* @__PURE__ */ jsx(X, { size: 16, className: "mt-0.5 text-cr-secondary" }),
-                " Solo buscas un trayecto genérico entre dos ciudades."
-              ] }),
-              /* @__PURE__ */ jsxs("li", { className: "flex gap-2", children: [
-                /* @__PURE__ */ jsx(X, { size: 16, className: "mt-0.5 text-cr-secondary" }),
-                " No te importa la comisión de plataforma."
-              ] }),
-              /* @__PURE__ */ jsxs("li", { className: "flex gap-2", children: [
-                /* @__PURE__ */ jsx(X, { size: 16, className: "mt-0.5 text-cr-secondary" }),
-                " No necesitas coordinar la vuelta del evento."
-              ] }),
-              /* @__PURE__ */ jsxs("li", { className: "flex gap-2", children: [
-                /* @__PURE__ */ jsx(X, { size: 16, className: "mt-0.5 text-cr-secondary" }),
-                " El horario fijo te encaja sin problema."
-              ] })
-            ] })
-          ] })
-        ] })
-      ] }),
-      /* @__PURE__ */ jsxs("section", { className: "space-y-6 border-t border-cr-border pt-12", children: [
-        /* @__PURE__ */ jsx("h2", { className: "font-display text-2xl md:text-3xl uppercase", children: "Conclusión práctica" }),
-        /* @__PURE__ */ jsx("p", { className: "font-sans text-sm text-cr-text-muted leading-relaxed max-w-3xl", children: "Para festivales y conciertos, ConcertRide resuelve mejor el caso de uso real: un grupo de personas que quieren llegar y volver al mismo evento sin depender de horarios cerrados ni de comisiones. BlaBlaCar sigue siendo útil como plataforma general, pero no está diseñada alrededor de la experiencia festivalera." }),
-        /* @__PURE__ */ jsxs("div", { className: "flex flex-wrap gap-3 pt-2", children: [
-          /* @__PURE__ */ jsxs(
-            Link,
-            {
-              to: "/concerts",
-              className: "inline-flex items-center gap-2 font-sans text-xs font-semibold uppercase tracking-[0.12em] border-2 border-cr-primary text-cr-primary px-4 py-2 hover:bg-cr-primary hover:text-black transition-colors",
-              children: [
-                "Buscar viaje ",
-                /* @__PURE__ */ jsx(ArrowRight, { size: 12 })
-              ]
-            }
-          ),
-          /* @__PURE__ */ jsxs(
-            Link,
-            {
-              to: "/comparativa/carpooling-vs-taxi-festival",
-              className: "inline-flex items-center gap-2 font-sans text-xs font-semibold uppercase tracking-[0.12em] border-2 border-cr-border text-cr-text-muted px-4 py-2 hover:border-cr-primary hover:text-cr-primary transition-colors",
-              children: [
-                "Carpooling vs taxi ",
-                /* @__PURE__ */ jsx(ArrowRight, { size: 12 })
-              ]
-            }
-          ),
-          /* @__PURE__ */ jsxs(
-            Link,
-            {
-              to: "/como-funciona-carpooling",
-              className: "inline-flex items-center gap-2 font-sans text-xs font-semibold uppercase tracking-[0.12em] border-2 border-cr-border text-cr-text-muted px-4 py-2 hover:border-cr-primary hover:text-cr-primary transition-colors",
-              children: [
-                "Cómo funciona ",
-                /* @__PURE__ */ jsx(ArrowRight, { size: 12 })
-              ]
-            }
-          )
-        ] })
-      ] }),
-      /* @__PURE__ */ jsxs("section", { className: "space-y-6 border-t border-cr-border pt-12", children: [
-        /* @__PURE__ */ jsx("h2", { className: "font-display text-2xl md:text-3xl uppercase", children: "Preguntas frecuentes" }),
-        /* @__PURE__ */ jsx("dl", { className: "space-y-5", children: FAQS$1.map((faq) => /* @__PURE__ */ jsxs("div", { className: "border-b border-cr-border pb-5 space-y-2", children: [
-          /* @__PURE__ */ jsx("dt", { className: "font-display text-base uppercase", children: faq.q }),
-          /* @__PURE__ */ jsx("dd", { className: "faq-answer font-sans text-sm text-cr-text-muted leading-relaxed", children: faq.a })
-        ] }, faq.q)) })
       ] })
     ] })
   ] });
@@ -57077,7 +59030,6 @@ function ServerApp() {
       /* @__PURE__ */ jsx(Route$1, { path: "/rutas/:route", element: /* @__PURE__ */ jsx(RouteLandingPage, {}) }),
       /* @__PURE__ */ jsx(Route$1, { path: "/como-llegar/:festival", element: /* @__PURE__ */ jsx(HowToGetTherePage, {}) }),
       /* @__PURE__ */ jsx(Route$1, { path: "/como-funciona-carpooling", element: /* @__PURE__ */ jsx(ComoFuncionaCarpoolingPage, {}) }),
-      /* @__PURE__ */ jsx(Route$1, { path: "/comparativa/concertride-vs-blablacar", element: /* @__PURE__ */ jsx(ComparativaBlaBlaCar, {}) }),
       /* @__PURE__ */ jsx(Route$1, { path: "/comparativa/carpooling-vs-taxi-festival", element: /* @__PURE__ */ jsx(ComparativaTaxi, {}) }),
       /* @__PURE__ */ jsx(Route$1, { path: "/prensa", element: /* @__PURE__ */ jsx(PrensaPage, {}) }),
       /* @__PURE__ */ jsx(Route$1, { path: "/datos", element: /* @__PURE__ */ jsx(DatosPage, {}) }),

@@ -18,12 +18,15 @@ import { FactDensityCallout } from "@/components/FactDensityCallout";
 import { SpeakableAnswerBlock } from "@/components/SpeakableAnswerBlock";
 import { AutoLinksForFestival, AutoLinksForRoute } from "@/lib/autoLinking";
 import { trackRouteSearch } from "@/lib/seoEvents";
+import { StickyRegBar } from "@/components/StickyRegBar";
+import { useSession } from "@/lib/session";
 
 export default function RouteLandingPage() {
   const { route: slug } = useParams<{ route: string }>();
   const landing = slug ? ROUTE_LANDINGS_BY_SLUG[slug] : undefined;
 
   const [concerts, setConcerts] = useState<Concert[] | null>(null);
+  const { user } = useSession();
 
   const routeOverride = landing ? ROUTE_SEO_IMPROVEMENTS[landing.slug] : undefined;
 
@@ -498,6 +501,7 @@ export default function RouteLandingPage() {
   );
 
   return (
+    <>
     <main id="main" className="min-h-dvh bg-cr-bg text-cr-text pt-14">
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdBreadcrumb) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdTrip) }} />
@@ -644,6 +648,34 @@ export default function RouteLandingPage() {
           </div>
         )}
       </section>
+
+      {/* ── Anon registration CTA — shown only to non-logged-in users ── */}
+      {!user && (
+        <section
+          className="max-w-6xl mx-auto px-6 pb-6"
+          aria-label="Crea una cuenta para reservar tu plaza"
+        >
+          <div className="border-2 border-[#dbff00]/40 bg-[#dbff00]/[0.04] p-6 md:p-8 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-5">
+            <div className="space-y-1.5">
+              <p className="font-mono text-[10px] font-semibold uppercase tracking-[0.18em] text-[#dbff00]">
+                ¿Aún no tienes cuenta?
+              </p>
+              <p className="font-display text-xl md:text-2xl uppercase leading-tight">
+                Regístrate gratis y reserva al instante
+              </p>
+              <p className="font-sans text-xs text-white/50 leading-relaxed">
+                0% comisión · Conductores verificados · Gratis para siempre · Pago en efectivo o Bizum
+              </p>
+            </div>
+            <Link
+              to={`/register?next=${encodeURIComponent(`/rutas/${landing.slug}`)}`}
+              className="flex-shrink-0 inline-flex items-center gap-2 bg-[#dbff00] text-black font-sans font-semibold uppercase tracking-[0.12em] text-sm border-2 border-black px-6 py-3 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] hover:translate-x-[2px] hover:translate-y-[2px] transition-all duration-100 whitespace-nowrap"
+            >
+              Crear cuenta gratis <ArrowRight size={14} aria-hidden="true" />
+            </Link>
+          </div>
+        </section>
+      )}
 
       {/* ── Alert widget ── */}
       <section className="max-w-6xl mx-auto px-6 pb-6 border-t border-cr-border pt-12">
@@ -804,5 +836,8 @@ export default function RouteLandingPage() {
         </ul>
       </section>
     </main>
+
+    <StickyRegBar />
+    </>
   );
 }

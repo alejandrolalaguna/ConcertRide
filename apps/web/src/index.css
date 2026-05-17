@@ -84,25 +84,36 @@
     font-family: var(--font-mono);
   }
 
+  /* WCAG 2.2 §2.4.7 — visible keyboard focus indicator */
+  :focus-visible {
+    outline: 2px solid #dbff00;
+    outline-offset: 2px;
+  }
+
   ::selection {
     background-color: var(--color-cr-primary);
     color: #000;
   }
 
-  /* Scrollbar */
+  /* Scrollbar — brand-styled, thin for desktop UX */
   ::-webkit-scrollbar {
-    width: 4px;
-    height: 4px;
+    width: 6px;
+    height: 6px;
   }
   ::-webkit-scrollbar-track {
-    background: transparent;
+    background: #1a1a1a;
   }
   ::-webkit-scrollbar-thumb {
-    background: var(--color-cr-border-mid);
-    border-radius: 0;
+    background: var(--color-cr-primary);
+    border-radius: 3px;
   }
   ::-webkit-scrollbar-thumb:hover {
     background: var(--color-cr-primary-dim);
+  }
+  /* Firefox */
+  * {
+    scrollbar-width: thin;
+    scrollbar-color: var(--color-cr-primary) #1a1a1a;
   }
 
   @media (prefers-reduced-motion: reduce) {

@@ -1110,32 +1110,32 @@ export const VENUE_SEO_OVERRIDES: Record<string, { title: string; description: s
 
 export const ARTIST_SEO_OVERRIDES: Record<string, { title: string; description: string; keywords?: string }> = {
   coldplay: {
-    title: `Coldplay España ${YEAR}: Carpooling desde 4€, 0% comisión`,
+    title: `Coldplay España ${YEAR} [Bernabéu + Estadi Olímpic]: Carpooling desde 4€, 0% comisión | ConcertRide`,
     description: `Coldplay en España ${YEAR} — Estadio Bernabéu Madrid y Estadi Olímpic Barcelona. Carpooling desde Valencia (10–14€), Barcelona (15–20€), Zaragoza (9–13€). 0% comisión, conductores verificados. Cómo llegar al concierto de Coldplay sin AVE.`,
     keywords: `carpooling coldplay españa, coldplay concierto madrid carpooling, coldplay barcelona carpooling, como llegar concierto coldplay, coldplay ${YEAR} transporte, viaje compartido coldplay españa, cómo ir al concierto de coldplay, coldplay madrid bernabeu como llegar`,
   },
   "taylor-swift": {
-    title: `Taylor Swift España ${YEAR}: Carpooling desde 4€, 0% comisión`,
+    title: `Taylor Swift España ${YEAR} [Eras Tour Bernabéu]: Carpooling desde 4€, 0% comisión | ConcertRide`,
     description: `Taylor Swift en España ${YEAR} — Bernabéu Madrid y Estadi Olímpic Barcelona. Carpooling desde Valencia (10–14€), Barcelona (15–20€). Conductores verificados, 0% comisión. La opción más barata y cómoda para las Swifties.`,
     keywords: `carpooling taylor swift españa, taylor swift madrid como llegar, taylor swift concierto ${YEAR} transporte, viaje compartido taylor swift, taylor swift bernabeu carpooling, como ir al concierto taylor swift sin tren, eras tour madrid carpooling`,
   },
   rosalia: {
-    title: `Rosalía España ${YEAR} [Motomami World Tour]: Carpooling WiZink + Palau desde 4€`,
-    description: `Rosalía en España ${YEAR} — WiZink Center Madrid y Palau Sant Jordi Barcelona. Carpooling sin comisión desde Valencia (10–14€), Sevilla (12–17€), Zaragoza (9–13€), Bilbao (11–16€). La artista española más global — carpooling directo al recinto. 0% comisión, pago Bizum.`,
+    title: `Rosalía España ${YEAR} [Motomami World Tour]: Carpooling Movistar Arena + Palau desde 4€`,
+    description: `Rosalía en España ${YEAR} — Movistar Arena Madrid y Palau Sant Jordi Barcelona. Carpooling sin comisión desde Valencia (10–14€), Sevilla (12–17€), Zaragoza (9–13€), Bilbao (11–16€). La artista española más global — carpooling directo al recinto. 0% comisión, pago Bizum.`,
     keywords: `carpooling rosalia españa, rosalia concierto madrid carpooling, rosalia wizink center como llegar, rosalia ${YEAR} transporte, viaje compartido rosalia, como ir concierto rosalia, rosalia palau sant jordi carpooling, rosalia españa ${YEAR}, rosalia concierto barcelona, rosalia motomami tour, rosalia gira ${YEAR}`,
   },
   "bad-bunny": {
-    title: `Bad Bunny España ${YEAR}: Carpooling desde 4€, 0% comisión`,
-    description: `Bad Bunny en España ${YEAR} — Estadio Bernabéu Madrid y Palau Sant Jordi Barcelona. Carpooling desde Valencia (10–14€), Sevilla (12–17€), Barcelona (15–20€). Sin comisión, conductores verificados con carnet.`,
+    title: `Bad Bunny España ${YEAR} [Metropolitano + Estadi Olímpic]: Carpooling desde 4€ sin comisión | ConcertRide`,
+    description: `Bad Bunny en España ${YEAR} — Riyadh Air Metropolitano Madrid (30 may) y Estadi Olímpic Barcelona (22 may). Carpooling desde Valencia (10–14€), Sevilla (12–17€), Barcelona (15–20€). Sin comisión, conductores verificados con carnet.`,
     keywords: `carpooling bad bunny españa, bad bunny concierto madrid como llegar, bad bunny ${YEAR} transporte, viaje compartido bad bunny, bad bunny bernabeu carpooling, como ir al concierto bad bunny, bad bunny palau sant jordi transporte`,
   },
   "the-weeknd": {
-    title: `The Weeknd España ${YEAR}: Carpooling desde 4€, 0% comisión`,
-    description: `The Weeknd en España ${YEAR} — Estadio Bernabéu Madrid y Estadi Olímpic Barcelona. Carpooling desde Valencia (10–14€), Sevilla (12–17€). 0% comisión, vuelta coordinada con el conductor.`,
+    title: `The Weeknd España ${YEAR} [Hurry Up Tomorrow Tour Madrid]: Carpooling desde 4€ | ConcertRide`,
+    description: `The Weeknd Hurry Up Tomorrow Tour España ${YEAR} — Riyadh Air Metropolitano Madrid (28 ago). Carpooling desde Valencia (10–14€), Sevilla (12–17€), Bilbao (11–16€). 0% comisión, vuelta coordinada con el conductor.`,
     keywords: `carpooling the weeknd españa, the weeknd madrid como llegar, the weeknd concierto ${YEAR} transporte, viaje compartido the weeknd, the weeknd bernabeu carpooling, como ir al concierto the weeknd, the weeknd after hours tour madrid`,
   },
   "metallica-ifema": {
-    title: `Metallica España ${YEAR}: Carpooling desde 4€, 0% comisión`,
+    title: `Metallica España ${YEAR} [M72 Tour Madrid IFEMA]: Carpooling desde 4€ | ConcertRide`,
     description: `Metallica en España ${YEAR} — IFEMA Madrid (Estadio Olímpico). Carpooling desde Bilbao (11–16€), Valencia (10–14€), Barcelona (15–20€). Metro L8 + lanzadera. 0% comisión. La opción más metal para llegar.`,
     keywords: `carpooling metallica españa, metallica madrid como llegar, metallica ifema transporte, metallica ${YEAR} madrid carpooling, viaje compartido metallica, como ir al concierto metallica, metallica m72 tour madrid, metaleros carpooling madrid`,
   },
@@ -1146,22 +1146,22 @@ export const ARTIST_SEO_OVERRIDES: Record<string, { title: string; description: 
   },
   "harry-styles": {
     title: `Harry Styles España ${YEAR}: Carpooling desde 4€, 0% comisión`,
-    description: `Harry Styles en España ${YEAR} — WiZink Center Madrid y Palau Sant Jordi Barcelona. Carpooling desde Zaragoza (9–13€), Valencia (10–14€), Bilbao (11–16€). 0% comisión, pago en Bizum. Love on Tour, sin colas de metro.`,
+    description: `Harry Styles en España ${YEAR} — Movistar Arena Madrid y Palau Sant Jordi Barcelona. Carpooling desde Zaragoza (9–13€), Valencia (10–14€), Bilbao (11–16€). 0% comisión, pago en Bizum. Love on Tour, sin colas de metro.`,
     keywords: `carpooling harry styles españa, harry styles madrid como llegar, harry styles wizink center carpooling, harry styles ${YEAR} transporte, viaje compartido harry styles, como ir al concierto harry styles, harry styles palau sant jordi transporte`,
   },
   "karol-g": {
-    title: `Karol G España ${YEAR} [Palau Sant Jordi + WiZink]: Carpooling desde 4€ sin comisión`,
-    description: `Karol G en España ${YEAR} — Palau Sant Jordi Barcelona y WiZink Center Madrid. Carpooling sin comisión desde Zaragoza (9–13€), Valencia (10–14€), Sevilla (12–17€). Conductores verificados, vuelta de madrugada coordinada. Pago Bizum o efectivo.`,
+    title: `Karol G España ${YEAR} [Palau Sant Jordi + Movistar Arena]: Carpooling desde 4€ sin comisión`,
+    description: `Karol G en España ${YEAR} — Palau Sant Jordi Barcelona y Movistar Arena Madrid. Carpooling sin comisión desde Zaragoza (9–13€), Valencia (10–14€), Sevilla (12–17€). Conductores verificados, vuelta de madrugada coordinada. Pago Bizum o efectivo.`,
     keywords: `karol g palau sant jordi, karol g wizink center como llegar, karol g españa ${YEAR}, carpooling karol g, karol g madrid como llegar, karol g ${YEAR} transporte, viaje compartido karol g, como ir al concierto karol g, karol g concierto españa`,
   },
   "dua-lipa": {
-    title: `Dua Lipa España ${YEAR} [Radical Optimism Tour]: Carpooling WiZink + Palau desde 4€`,
-    description: `Dua Lipa Radical Optimism Tour España ${YEAR} — WiZink Center Madrid y Palau Sant Jordi Barcelona. Carpooling sin comisión desde Valencia (10–14€), Sevilla (12–17€), Zaragoza (9–13€), Bilbao (11–16€). Conductores verificados, vuelta de madrugada coordinada. 0% comisión, pago Bizum.`,
+    title: `Dua Lipa España ${YEAR} [Radical Optimism Tour]: Carpooling Movistar Arena + Palau desde 4€`,
+    description: `Dua Lipa Radical Optimism Tour España ${YEAR} — Movistar Arena Madrid y Palau Sant Jordi Barcelona. Carpooling sin comisión desde Valencia (10–14€), Sevilla (12–17€), Zaragoza (9–13€), Bilbao (11–16€). Conductores verificados, vuelta de madrugada coordinada. 0% comisión, pago Bizum.`,
     keywords: `carpooling dua lipa españa, dua lipa madrid como llegar, dua lipa wizink center carpooling, dua lipa ${YEAR} transporte, viaje compartido dua lipa, como ir al concierto dua lipa, dua lipa concierto españa ${YEAR}, dua lipa radical optimism tour, dua lipa barcelona ${YEAR}, dua lipa palau sant jordi, dua lipa spain ${YEAR}`,
   },
   "billie-eilish": {
-    title: `Billie Eilish España ${YEAR} [Hit Me Hard Tour]: Carpooling WiZink + Palau Sant Jordi desde 4€`,
-    description: `Billie Eilish Hit Me Hard and Soft Tour España ${YEAR} — WiZink Center Madrid y Palau Sant Jordi Barcelona. Carpooling sin comisión desde Valencia (10–14€), Zaragoza (9–13€), Bilbao (11–16€). Conductores verificados, vuelta de madrugada coordinada. 0% comisión, pago Bizum.`,
+    title: `Billie Eilish España ${YEAR} [Hit Me Hard Tour]: Carpooling Movistar Arena + Palau Sant Jordi desde 4€`,
+    description: `Billie Eilish Hit Me Hard and Soft Tour España ${YEAR} — Movistar Arena Madrid y Palau Sant Jordi Barcelona. Carpooling sin comisión desde Valencia (10–14€), Zaragoza (9–13€), Bilbao (11–16€). Conductores verificados, vuelta de madrugada coordinada. 0% comisión, pago Bizum.`,
     keywords: `billie eilish en españa ${YEAR}, billie eilish madrid ${YEAR}, billie eilish wizink center como llegar, billie eilish palau sant jordi carpooling, billie eilish hit me hard tour, carpooling billie eilish, viaje compartido billie eilish, como ir concierto billie eilish, billie eilish concierto españa ${YEAR}, cuando viene billie eilish a españa, billie eilish spain ${YEAR}`,
   },
   "beyonce": {
@@ -1171,9 +1171,9 @@ export const ARTIST_SEO_OVERRIDES: Record<string, { title: string; description: 
   },
   // ── Artistas Españoles ──────────────────────────────────────────────────────
   "aitana": {
-    title: `Aitana concierto ${YEAR}: carpooling al WiZink Center, Palau Sant Jordi y BEC! | ConcertRide`,
-    description: `Aitana ALPHA Tour ${YEAR} — WiZink Center Madrid (oct), Palau Sant Jordi Barcelona (oct), BEC! Bilbao (nov), FIBES Sevilla (dic). Carpooling desde Toledo (4–7€), Zaragoza (9–13€), Valencia (10–14€). 0% comisión.`,
-    keywords: `carpooling aitana ${YEAR}, concierto aitana madrid ${YEAR}, aitana wizink center como llegar, aitana alpha tour ${YEAR}, aitana carpooling, como llegar concierto aitana, aitana palau sant jordi carpooling, aitana bec bilbao transporte, viaje compartido aitana`,
+    title: `Aitana ${YEAR} [Cuarto Azul Tour · Movistar Arena + Palau + BEC!]: Carpooling desde 4€ | ConcertRide`,
+    description: `Aitana Cuarto Azul World Tour ${YEAR} — Roig Arena Valencia (21 may), Movistar Arena Madrid (17 oct), Palau Sant Jordi Barcelona (24 oct), BEC! Bilbao (21 nov), Icónica Sevilla (5 dic). Carpooling desde Toledo (4–7€), Zaragoza (9–13€), Valencia (10–14€). 0% comisión.`,
+    keywords: `carpooling aitana ${YEAR}, concierto aitana madrid ${YEAR}, aitana movistar arena como llegar, aitana wizink center como llegar, aitana cuarto azul tour ${YEAR}, aitana carpooling, como llegar concierto aitana, aitana palau sant jordi carpooling, aitana bec bilbao transporte, viaje compartido aitana`,
   },
   "dani-martin": {
     title: `Dani Martín '25 Pts Años' Zaragoza ${YEAR}: doble fecha 22–23 mayo · carpooling desde 4€ | ConcertRide`,
@@ -1187,32 +1187,32 @@ export const ARTIST_SEO_OVERRIDES: Record<string, { title: string; description: 
   },
   "bryan-adams": {
     title: `Bryan Adams España ${YEAR}: carpooling Zaragoza (14 nov) y Madrid (18 nov) | ConcertRide`,
-    description: `Bryan Adams gira europea ${YEAR} — Pabellón Príncipe Felipe Zaragoza (14 nov), WiZink Center Madrid (18 nov). Carpooling desde Bilbao (8–12€), Pamplona (5–8€), Barcelona (8–12€), Toledo (4–7€). 0% comisión.`,
+    description: `Bryan Adams gira europea ${YEAR} — Pabellón Príncipe Felipe Zaragoza (14 nov), Movistar Arena Madrid (18 nov). Carpooling desde Bilbao (8–12€), Pamplona (5–8€), Barcelona (8–12€), Toledo (4–7€). 0% comisión.`,
     keywords: `carpooling bryan adams españa ${YEAR}, concierto bryan adams zaragoza, bryan adams madrid ${YEAR}, bryan adams zaragoza noviembre, como llegar concierto bryan adams, viaje compartido bryan adams, bryan adams principe felipe zaragoza, bryan adams wizink madrid carpooling, summer of 69 concierto ${YEAR}`,
   },
   "melendi": {
-    title: `Melendi ${YEAR} [WiZink + BEC! Bilbao]: Carpooling desde 4€`,
-    description: `Melendi gira ${YEAR} — WiZink Center Madrid (sept) y BEC! Bilbao (sept). Carpooling sin comisión desde Toledo (4–7€), Donostia (4–7€), Vitoria (3–6€), Valencia (10–14€). 0% comisión, conductores verificados. La opción más cómoda para fans del astuirano.`,
+    title: `Melendi ${YEAR} [Movistar Arena + BEC! Bilbao]: Carpooling desde 4€`,
+    description: `Melendi gira ${YEAR} — Movistar Arena Madrid (sept) y BEC! Bilbao (sept). Carpooling sin comisión desde Toledo (4–7€), Donostia (4–7€), Vitoria (3–6€), Valencia (10–14€). 0% comisión, conductores verificados. La opción más cómoda para fans del asturiano.`,
     keywords: `carpooling melendi ${YEAR}, melendi concierto madrid ${YEAR}, melendi wizink center como llegar, melendi bec bilbao carpooling, como ir concierto melendi, viaje compartido melendi, melendi gira ${YEAR}, melendi asturiano cantautor, melendi tu jardin con enanitos`,
   },
   "pablo-alboran": {
-    title: `Pablo Alborán ${YEAR} [WiZink + FIBES + Palau]: Carpooling 4€`,
-    description: `Pablo Alborán gira ${YEAR} — WiZink Center Madrid, FIBES Sevilla, Palau Sant Jordi Barcelona. Carpooling sin comisión desde Toledo (4–7€), Córdoba (4–6€), Málaga (5–8€), Valencia (10–14€). 0% comisión, conductores verificados, vuelta de madrugada coordinada.`,
+    title: `Pablo Alborán ${YEAR} [Movistar Arena + FIBES + Palau]: Carpooling 4€`,
+    description: `Pablo Alborán gira ${YEAR} — Movistar Arena Madrid, FIBES Sevilla, Palau Sant Jordi Barcelona. Carpooling sin comisión desde Toledo (4–7€), Córdoba (4–6€), Málaga (5–8€), Valencia (10–14€). 0% comisión, conductores verificados, vuelta de madrugada coordinada.`,
     keywords: `carpooling pablo alboran ${YEAR}, pablo alboran madrid como llegar, pablo alboran wizink center carpooling, pablo alboran ${YEAR} transporte, viaje compartido pablo alboran, como ir concierto pablo alboran, pablo alboran sevilla fibes carpooling, pablo alboran palau sant jordi, pablo alboran malagueño cantautor`,
   },
   "rozalen": {
     title: `Rozalén España ${YEAR}: Carpooling desde 4€, 0% comisión`,
-    description: `Rozalén en España ${YEAR} — WiZink Center Madrid, Valencia. Carpooling desde Albacete (6–9€), Toledo (4–7€), Cuenca (5–8€), Alicante (5–8€). 0% comisión, conductores verificados.`,
+    description: `Rozalén en España ${YEAR} — Movistar Arena Madrid, Valencia. Carpooling desde Albacete (6–9€), Toledo (4–7€), Cuenca (5–8€), Alicante (5–8€). 0% comisión, conductores verificados.`,
     keywords: `carpooling rozalen ${YEAR}, rozalen concierto madrid ${YEAR}, rozalen wizink center como llegar, rozalen ${YEAR} transporte, viaje compartido rozalen, como ir concierto rozalen`,
   },
   "sabrina-carpenter": {
-    title: `Sabrina Carpenter España ${YEAR} [Short n' Sweet Tour]: Carpooling WiZink desde 4€`,
-    description: `Sabrina Carpenter Short n' Sweet Tour España ${YEAR} — WiZink Center Madrid y Palau Sant Jordi Barcelona. Carpooling sin comisión desde Zaragoza (9–13€), Valencia (10–14€), Sevilla (12–17€). Conductores verificados, vuelta de madrugada coordinada. 0% comisión.`,
+    title: `Sabrina Carpenter España ${YEAR} [Short n' Sweet Tour]: Carpooling Movistar Arena desde 4€`,
+    description: `Sabrina Carpenter Short n' Sweet Tour España ${YEAR} — Movistar Arena Madrid y Palau Sant Jordi Barcelona. Carpooling sin comisión desde Zaragoza (9–13€), Valencia (10–14€), Sevilla (12–17€). Conductores verificados, vuelta de madrugada coordinada. 0% comisión.`,
     keywords: `sabrina carpenter españa, sabrina carpenter madrid como llegar, sabrina carpenter ${YEAR}, sabrina carpenter wizink center carpooling, sabrina carpenter short n sweet tour, carpooling sabrina carpenter, viaje compartido sabrina carpenter, sabrina carpenter concierto madrid, sabrina carpenter spain ${YEAR}, sabrina carpenter barcelona ${YEAR}`,
   },
   "lana-del-rey": {
     title: `Lana Del Rey España ${YEAR}: Carpooling desde 4€, 0% comisión`,
-    description: `Lana Del Rey en España ${YEAR} — Parc del Fòrum Barcelona y WiZink Center Madrid. Carpooling desde Madrid (15–20€), Valencia (10–14€), Zaragoza (8–12€). 0% comisión, conductores verificados.`,
+    description: `Lana Del Rey en España ${YEAR} — Parc del Fòrum / Primavera Sound Barcelona. Carpooling desde Madrid (15–20€), Valencia (10–14€), Zaragoza (8–12€). 0% comisión, conductores verificados.`,
     keywords: `carpooling lana del rey españa, lana del rey barcelona como llegar, lana del rey primavera sound carpooling, lana del rey ${YEAR} transporte, viaje compartido lana del rey, como ir concierto lana del rey`,
   },
   "c-tangana": {
@@ -1261,7 +1261,7 @@ export const ARTIST_SEO_OVERRIDES: Record<string, { title: string; description: 
     keywords: `ed sheeran españa ${YEAR}, ed sheeran madrid como llegar, ed sheeran barcelona carpooling, ed sheeran tour ${YEAR}, mathematics tour españa, carpooling ed sheeran, viaje compartido ed sheeran, como ir concierto ed sheeran`,
   },
   maluma: {
-    title: `Maluma España ${YEAR}: Carpooling desde 4€, 0% comisión`,
+    title: `Maluma España ${YEAR} [WiZink Center + Palau Sant Jordi]: Carpooling desde 4€, 0% comisión | ConcertRide`,
     description: `Maluma en España ${YEAR} — WiZink Center Madrid y Palau Sant Jordi Barcelona. Carpooling desde Valencia (10–14€), Sevilla (14–20€), Zaragoza (9–13€). 0% comisión, pago Bizum o efectivo, conductores verificados, vuelta nocturna.`,
     keywords: `maluma españa ${YEAR}, maluma madrid como llegar, maluma barcelona carpooling, maluma wizink center, maluma palau sant jordi, carpooling maluma, viaje compartido maluma, como ir concierto maluma, maluma tour ${YEAR}, reggaeton concierto madrid carpooling`,
   },

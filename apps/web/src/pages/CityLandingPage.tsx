@@ -17,6 +17,8 @@ import { CITY_SEO_IMPROVEMENTS } from "@/lib/seoOverrides";
 import { trackCityView } from "@/lib/seoEvents";
 import { AutoLinksForCity } from "@/lib/autoLinking";
 import { BLOG_POSTS } from "@/lib/blogPosts";
+import { StickyRegBar } from "@/components/StickyRegBar";
+import { useSession } from "@/lib/session";
 
 const CITY_WIKIDATA: Record<string, string> = {
   "Madrid": "https://www.wikidata.org/wiki/Q2807",
@@ -43,6 +45,7 @@ const CITY_WIKIDATA: Record<string, string> = {
 export default function CityLandingPage() {
   const params = useParams<{ city?: string; year?: string }>();
   const { city: cityParam, year: yearParam } = params;
+  const { user } = useSession();
 
   // Support both /conciertos/:city and /conciertos/:city/:year and /conciertos/:city-:year
   const { baseSlug, pageYear } = useMemo(() => {
@@ -1068,6 +1071,40 @@ export default function CityLandingPage() {
           ))}
         </ul>
       </section>
+
+      {/* Anon conversion CTA — visible only to non-logged-in users */}
+      {!user && (
+        <section
+          className="max-w-6xl mx-auto px-6 pb-16 border-t border-cr-border pt-10"
+          aria-label={`Encuentra carpooling para conciertos en ${landing.display}`}
+        >
+          <div className="border border-[#dbff00]/30 bg-[#dbff00]/5 p-6 md:p-8 space-y-4 text-center">
+            <h2 className="font-display text-2xl md:text-3xl uppercase">
+              ¿Buscas transporte para tu próximo concierto en {landing.display}?
+            </h2>
+            <p className="font-sans text-sm text-cr-text-muted max-w-xl mx-auto leading-relaxed">
+              Encuentra carpooling gratis en ConcertRide. 0% comisión, conductores verificados,
+              vuelta de madrugada coordinada.
+            </p>
+            <div className="flex flex-wrap gap-3 justify-center pt-2">
+              <Link
+                to="/concerts"
+                className="inline-flex items-center justify-center bg-[#dbff00] text-black font-sans font-semibold uppercase tracking-[0.12em] text-sm border-2 border-black px-6 py-3 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] hover:translate-x-[2px] hover:translate-y-[2px] transition-all duration-100"
+              >
+                Ver rutas disponibles
+              </Link>
+              <Link
+                to="/register"
+                className="inline-flex items-center justify-center font-sans font-semibold uppercase tracking-[0.12em] text-sm border-2 border-cr-border text-cr-text-muted px-6 py-3 hover:border-[#dbff00] hover:text-[#dbff00] transition-colors"
+              >
+                Crear cuenta gratis
+              </Link>
+            </div>
+          </div>
+        </section>
+      )}
+
+      <StickyRegBar />
     </main>
   );
 }

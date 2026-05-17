@@ -40,6 +40,7 @@ import { useCrew } from "@/lib/crew";
 import { SquadsForConcert } from "@/components/SquadsForConcert";
 import { computeMusicMatch } from "@/lib/musicMatch";
 import { FactDensityCallout } from "@/components/FactDensityCallout";
+import { StickyRegBar } from "@/components/StickyRegBar";
 
 function hueFromString(s: string): number {
   let h = 0;
@@ -189,8 +190,9 @@ export default function ConcertDetailPage() {
   } : null;
 
   return (
+    <>
     <main id="main" className="bg-cr-bg text-cr-text min-h-dvh">
-      {concert && <JsonLdEvent concert={concert} />}
+      {concert && <JsonLdEvent concert={concert} carpoolingPriceFrom={priceFrom} />}
       {concert && (
         <script
           type="application/ld+json"
@@ -564,6 +566,25 @@ export default function ConcertDetailPage() {
           </div>
         )}
 
+        {/* Anon inline CTA — visible only to non-logged-in users when rides exist */}
+        {!user && rides && visible.length > 0 && !isPast && (
+          <div
+            className="bg-[#dbff00] text-black p-4 md:p-5 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3"
+            role="region"
+            aria-label="Reserva tu plaza en carpooling"
+          >
+            <p className="font-sans text-sm font-semibold leading-snug">
+              Reserva tu plaza en carpooling · Gratis · 0% comisión
+            </p>
+            <Link
+              to={`/register?next=${encodeURIComponent(`/concerts/${id}`)}`}
+              className="flex-shrink-0 inline-flex items-center gap-1.5 bg-black text-[#dbff00] font-sans font-semibold uppercase tracking-[0.12em] text-xs px-5 py-2.5 hover:bg-[#111] transition-colors whitespace-nowrap"
+            >
+              Crear cuenta gratis <ArrowRight size={12} aria-hidden="true" />
+            </Link>
+          </div>
+        )}
+
         {rides && visible.length > 0 && (
           <>
             <motion.ol
@@ -667,6 +688,9 @@ export default function ConcertDetailPage() {
         />
       )}
     </main>
+
+    <StickyRegBar />
+    </>
   );
 }
 
@@ -1096,7 +1120,7 @@ function AnonNudgeBanner({
   );
 }
 
-function JsonLdEvent({ concert }: { concert: Concert }) {
+function JsonLdEvent({ concert, carpoolingPriceFrom }: { concert: Concert; carpoolingPriceFrom: number | null }) {
   const startMs = new Date(concert.date).getTime();
   const endDate = Number.isFinite(startMs)
     ? new Date(startMs + 3 * 60 * 60 * 1000).toISOString()
@@ -1151,21 +1175,51 @@ function JsonLdEvent({ concert }: { concert: Concert }) {
   if (endDate) jsonLd.endDate = endDate;
   if (concert.image_url) jsonLd.image = [concert.image_url];
 
+  // Build offers array: carpooling offer first (our data, always present),
+  // then event ticket offer when price_min is available from Ticketmaster.
+  // Note: carpooling prices are ConcertRide's own data, not Ticketmaster data.
+  // Ticketmaster link-back is mandatory per ToS when ticketmaster_url is present.
+  const offersArray: Record<string, unknown>[] = [];
+
+  // Offer 1: ConcertRide carpooling seats (our own pricing data)
+  const carpoolingPrice = carpoolingPriceFrom ?? 3; // fallback to platform minimum
+  offersArray.push({
+    "@type": "Offer",
+    name: `Carpooling a ${eventName} desde ${venueCity} — ConcertRide`,
+    description: `Viaje compartido en coche: ${carpoolingPrice} €/asiento, 0% comisión, conductores verificados.`,
+    price: carpoolingPrice,
+    priceCurrency: "EUR",
+    availability: "https://schema.org/InStock",
+    url,
+    validFrom: new Date().toISOString(),
+    seller: {
+      "@type": "Organization",
+      name: "ConcertRide",
+      url: `${SITE_URL}/`,
+    },
+  });
+
+  // Offer 2: Event tickets (Ticketmaster data) — only when available
   if (concert.price_min !== null) {
-    jsonLd.offers = {
+    offersArray.push({
       "@type": "Offer",
+      name: `Entradas — ${eventName}`,
+      price: concert.price_min,
+      priceCurrency: "EUR",
+      availability: "https://schema.org/InStock",
+      // Ticketmaster link-back is mandatory per ToS when ticketmaster_url is present
+      url: concert.official_url ?? concert.ticketmaster_url ?? url,
+      validFrom: new Date().toISOString(),
       priceSpecification: {
         "@type": "PriceSpecification",
         price: concert.price_min,
         priceCurrency: "EUR",
-        unitText: "por asiento",
+        unitText: "por entrada",
       },
-      priceCurrency: "EUR",
-      availability: "https://schema.org/InStock",
-      url: concert.official_url ?? concert.ticketmaster_url ?? url,
-      validFrom: new Date().toISOString(),
-    };
+    });
   }
+
+  jsonLd.offers = offersArray.length === 1 ? offersArray[0] : offersArray;
 
   return (
     <script

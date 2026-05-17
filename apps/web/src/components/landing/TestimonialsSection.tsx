@@ -22,6 +22,7 @@ export function TestimonialsSection() {
   return (
     <section
       aria-labelledby="testimonials-title"
+      aria-label="Testimonios de usuarios de ConcertRide"
       className="relative py-24 lg:py-32 px-6 overflow-hidden"
       style={{ backgroundColor: "#080808" }}
       id="testimonials"
@@ -136,9 +137,9 @@ export function TestimonialsSection() {
                   {t.initial}
                 </div>
                 <div className="min-w-0">
-                  <p className="font-sans text-sm font-semibold text-white truncate">{t.author}</p>
+                  <cite className="not-italic font-sans text-sm font-semibold text-white truncate block">{t.author}</cite>
                   <p className="font-mono text-[9px] text-white/30 uppercase tracking-[0.08em] truncate flex items-center gap-1">
-                    🚗 <span>{t.route}</span>
+                    <span aria-hidden="true">🚗</span> <span>{t.route}</span>
                   </p>
                 </div>
                 {/* Festival badge */}

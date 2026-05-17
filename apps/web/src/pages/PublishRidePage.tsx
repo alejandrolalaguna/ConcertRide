@@ -136,7 +136,64 @@ export default function PublishRidePage() {
   }, [concerts, q]);
 
   if (!sessionLoading && !user) {
-    return <Navigate to="/login?next=%2Fpublish" replace />;
+    return (
+      <main
+        id="main"
+        className="min-h-dvh bg-cr-bg text-cr-text flex items-center justify-center px-6 py-20"
+      >
+        <div className="w-full max-w-md space-y-7">
+          {/* Value proposition for drivers — soft gate, not a hard redirect */}
+          <div className="space-y-4">
+            <p className="font-mono text-[10px] font-semibold uppercase tracking-[0.18em] text-[#dbff00]">
+              Para conductores
+            </p>
+            <h1 className="font-display text-3xl md:text-4xl uppercase leading-[0.92]">
+              Comparte tu coche.<br />
+              <span className="text-[#dbff00]">0% de comisión.</span>
+            </h1>
+            <p className="font-sans text-sm text-white/55 leading-relaxed">
+              Publica tu viaje en 2 minutos. Fija el precio, elige los pasajeros y divide el coste de gasolina y peajes. ConcertRide no cobra comisión — el 100&nbsp;% va a ti.
+            </p>
+          </div>
+
+          {/* Benefit pills */}
+          <ul className="space-y-2.5" aria-label="Ventajas de publicar un viaje">
+            {[
+              { label: "0% comisión", detail: "Todo el precio que fijas va a tu bolsillo." },
+              { label: "Conductores verificados", detail: "Verificamos el carnet antes del primer viaje." },
+              { label: "Pago en efectivo o Bizum", detail: "El día del viaje, sin adelantos online." },
+              { label: "Vuelta coordinada", detail: "Publica también el viaje de vuelta desde el recinto." },
+            ].map((item) => (
+              <li key={item.label} className="flex items-start gap-2.5">
+                <span className="mt-0.5 w-4 h-4 flex-shrink-0 flex items-center justify-center rounded-full bg-[#dbff00]/15 text-[#dbff00]">
+                  <Check size={9} strokeWidth={3} aria-hidden="true" />
+                </span>
+                <span className="font-sans text-xs leading-relaxed">
+                  <span className="text-white/80 font-semibold">{item.label}</span>
+                  <span className="text-white/40"> — {item.detail}</span>
+                </span>
+              </li>
+            ))}
+          </ul>
+
+          {/* CTAs */}
+          <div className="space-y-2 pt-1">
+            <Link
+              to="/register?next=%2Fpublish"
+              className="flex items-center justify-center w-full bg-[#dbff00] text-black font-sans font-semibold uppercase tracking-[0.14em] text-sm border-2 border-black px-6 py-4 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] hover:translate-x-[2px] hover:translate-y-[2px] transition-all duration-100"
+            >
+              Crear cuenta gratis y publicar →
+            </Link>
+            <Link
+              to="/login?next=%2Fpublish"
+              className="flex items-center justify-center w-full font-sans text-sm font-semibold uppercase tracking-[0.12em] text-white/50 hover:text-white/80 border border-white/10 px-6 py-3 transition-colors"
+            >
+              Ya tengo cuenta — entrar
+            </Link>
+          </div>
+        </div>
+      </main>
+    );
   }
 
   const manualConcertValid =
@@ -554,8 +611,10 @@ export default function PublishRidePage() {
             </h2>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <Field label="Ciudad de origen">
+              <Field label="Ciudad de origen *">
                 <select
+                  required
+                  aria-required="true"
                   value={form.origin_city}
                   onChange={(e) => update("origin_city", e.target.value)}
                   className="w-full bg-cr-surface border-2 border-cr-border focus:border-cr-primary outline-none px-3 py-3 font-sans text-sm text-cr-text [color-scheme:dark] transition-colors"
@@ -569,9 +628,11 @@ export default function PublishRidePage() {
                 </select>
               </Field>
 
-              <Field label="Dirección de recogida">
+              <Field label="Dirección de recogida *">
                 <input
                   type="text"
+                  required
+                  aria-required="true"
                   value={form.origin_address}
                   onChange={(e) => update("origin_address", e.target.value)}
                   placeholder="Estación Joaquín Sorolla, Valencia"
@@ -579,18 +640,22 @@ export default function PublishRidePage() {
                 />
               </Field>
 
-              <Field label="Salida">
+              <Field label="Salida *">
                 <input
                   type="datetime-local"
+                  required
+                  aria-required="true"
                   value={form.departure_time}
                   onChange={(e) => update("departure_time", e.target.value)}
                   className="w-full bg-cr-surface border-2 border-cr-border focus:border-cr-primary outline-none px-3 py-3 font-mono text-sm text-cr-text [color-scheme:dark] transition-colors"
                 />
               </Field>
 
-              <Field label="Precio por asiento (€)">
+              <Field label="Precio por asiento (€) *">
                 <input
                   type="number"
+                  required
+                  aria-required="true"
                   min={1}
                   max={200}
                   value={form.price_per_seat}
@@ -605,9 +670,11 @@ export default function PublishRidePage() {
                 />
               </Field>
 
-              <Field label="Plazas disponibles">
+              <Field label="Plazas disponibles *">
                 <input
                   type="number"
+                  required
+                  aria-required="true"
                   min={1}
                   max={8}
                   value={form.seats_total}
@@ -689,7 +756,7 @@ export default function PublishRidePage() {
 
             <div className="border border-cr-border p-4 flex items-start gap-4">
               <div className="flex-1 space-y-1">
-                <p className="font-sans text-sm font-semibold text-cr-text">
+                <p id="instant-booking-label" className="font-sans text-sm font-semibold text-cr-text">
                   Reserva instantánea
                 </p>
                 <p className="font-sans text-xs text-cr-text-muted">
@@ -700,12 +767,14 @@ export default function PublishRidePage() {
                 type="button"
                 role="switch"
                 aria-checked={form.instant_booking}
+                aria-labelledby="instant-booking-label"
                 onClick={() => update("instant_booking", !form.instant_booking)}
                 className={`relative flex-shrink-0 w-11 h-6 border-2 transition-colors duration-150 ${
                   form.instant_booking ? "bg-cr-primary border-cr-primary" : "bg-cr-surface-2 border-cr-border"
                 }`}
               >
                 <span
+                  aria-hidden="true"
                   className={`absolute top-0.5 w-4 h-4 bg-black transition-transform duration-150 ${
                     form.instant_booking ? "translate-x-5" : "translate-x-0.5"
                   }`}
@@ -715,7 +784,7 @@ export default function PublishRidePage() {
 
             <div className="border border-cr-border p-4 flex items-start gap-4">
               <div className="flex-1 space-y-1">
-                <p className="font-sans text-sm font-semibold text-cr-text">
+                <p id="price-negotiable-label" className="font-sans text-sm font-semibold text-cr-text">
                   Precio negociable
                 </p>
                 <p className="font-sans text-xs text-cr-text-muted">
@@ -726,12 +795,14 @@ export default function PublishRidePage() {
                 type="button"
                 role="switch"
                 aria-checked={form.price_negotiable}
+                aria-labelledby="price-negotiable-label"
                 onClick={() => update("price_negotiable", !form.price_negotiable)}
                 className={`relative flex-shrink-0 w-11 h-6 border-2 transition-colors duration-150 ${
                   form.price_negotiable ? "bg-cr-primary border-cr-primary" : "bg-cr-surface-2 border-cr-border"
                 }`}
               >
                 <span
+                  aria-hidden="true"
                   className={`absolute top-0.5 w-4 h-4 bg-black transition-transform duration-150 ${
                     form.price_negotiable ? "translate-x-5" : "translate-x-0.5"
                   }`}
@@ -739,10 +810,10 @@ export default function PublishRidePage() {
               </button>
             </div>
 
-            <div className="space-y-2">
-              <span className="font-sans text-[11px] font-semibold uppercase tracking-[0.12em] text-cr-text-muted">
+            <fieldset className="space-y-2 border-0 p-0 m-0">
+              <legend className="font-sans text-[11px] font-semibold uppercase tracking-[0.12em] text-cr-text-muted">
                 Método de pago aceptado
-              </span>
+              </legend>
               <div className="flex gap-2 flex-wrap">
                 {(
                   [
@@ -755,6 +826,7 @@ export default function PublishRidePage() {
                     key={value}
                     type="button"
                     onClick={() => update("accepted_payment", value)}
+                    aria-pressed={form.accepted_payment === value}
                     className={`flex-1 px-3 py-2 border-2 font-sans text-xs font-semibold uppercase tracking-[0.1em] transition-colors ${
                       form.accepted_payment === value
                         ? "border-cr-primary bg-cr-primary/[0.06] text-cr-primary"
@@ -765,12 +837,12 @@ export default function PublishRidePage() {
                   </button>
                 ))}
               </div>
-            </div>
+            </fieldset>
 
-            <div className="space-y-2">
-              <span className="font-sans text-[11px] font-semibold uppercase tracking-[0.12em] text-cr-text-muted">
+            <fieldset className="space-y-2 border-0 p-0 m-0">
+              <legend className="font-sans text-[11px] font-semibold uppercase tracking-[0.12em] text-cr-text-muted">
                 Política de tabaco
-              </span>
+              </legend>
               <div className="flex gap-2">
                 {(
                   [
@@ -782,6 +854,7 @@ export default function PublishRidePage() {
                     key={value}
                     type="button"
                     onClick={() => update("smoking_policy", value)}
+                    aria-pressed={form.smoking_policy === value}
                     className={`px-4 py-2 border-2 font-sans text-xs font-semibold uppercase tracking-[0.1em] transition-colors ${
                       form.smoking_policy === value
                         ? "border-cr-primary bg-cr-primary/[0.06] text-cr-primary"
@@ -792,12 +865,12 @@ export default function PublishRidePage() {
                   </button>
                 ))}
               </div>
-            </div>
+            </fieldset>
 
-            <div className="space-y-2">
-              <span className="font-sans text-[11px] font-semibold uppercase tracking-[0.12em] text-cr-text-muted">
+            <fieldset className="space-y-2 border-0 p-0 m-0">
+              <legend className="font-sans text-[11px] font-semibold uppercase tracking-[0.12em] text-cr-text-muted">
                 Equipaje máximo permitido
-              </span>
+              </legend>
               <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
                 {(
                   [
@@ -813,6 +886,7 @@ export default function PublishRidePage() {
                     key={value}
                     type="button"
                     onClick={() => update("max_luggage", value)}
+                    aria-pressed={form.max_luggage === value}
                     className={`py-2 px-3 font-sans text-xs font-semibold uppercase tracking-[0.08em] border-2 text-left transition-colors ${
                       form.max_luggage === value
                         ? "border-cr-primary text-cr-primary bg-cr-primary/5"
@@ -823,7 +897,7 @@ export default function PublishRidePage() {
                   </button>
                 ))}
               </div>
-            </div>
+            </fieldset>
 
             <Field label="Playlist de Spotify (opcional)">
               <input
@@ -846,7 +920,7 @@ export default function PublishRidePage() {
               />
             </Field>
 
-            {error && <p className="font-mono text-xs text-cr-secondary">{error}</p>}
+            {error && <p id="publish-error" role="alert" aria-live="assertive" className="font-mono text-xs text-cr-secondary">{error}</p>}
 
             <StepNav
               canContinue={canSubmit}
@@ -992,10 +1066,11 @@ function EarningsCalculator({
       {/* Fuel inputs */}
       <div className="grid grid-cols-2 gap-3">
         <div className="space-y-1.5">
-          <label className="font-sans text-[10px] font-semibold uppercase tracking-[0.12em] text-cr-text-muted">
+          <label htmlFor="fuel-type" className="font-sans text-[10px] font-semibold uppercase tracking-[0.12em] text-cr-text-muted">
             Combustible
           </label>
           <select
+            id="fuel-type"
             value={fuelType}
             onChange={(e) => setFuelType(e.target.value as FuelType)}
             className="w-full bg-cr-bg border border-cr-border px-2 py-1.5 font-mono text-xs text-cr-text focus:outline-none focus:border-cr-primary [color-scheme:dark]"
@@ -1005,10 +1080,11 @@ function EarningsCalculator({
           </select>
         </div>
         <div className="space-y-1.5">
-          <label className="font-sans text-[10px] font-semibold uppercase tracking-[0.12em] text-cr-text-muted">
+          <label htmlFor="fuel-consumption" className="font-sans text-[10px] font-semibold uppercase tracking-[0.12em] text-cr-text-muted">
             Consumo (L/100km)
           </label>
           <input
+            id="fuel-consumption"
             type="number"
             min="1"
             max="30"
@@ -1156,13 +1232,15 @@ function Stepper({ step }: { step: Step }) {
     { n: 3, label: "Vibe" },
   ] as const;
   return (
-    <ol className="flex items-center gap-3">
+    <ol aria-label="Pasos del formulario" className="flex items-center gap-3">
       {steps.map((s, i) => {
         const active = s.n <= step;
+        const isCurrent = s.n === step;
         return (
-          <li key={s.n} className="flex items-center gap-3 flex-1">
+          <li key={s.n} className="flex items-center gap-3 flex-1" aria-current={isCurrent ? "step" : undefined}>
             <div className="flex items-center gap-2">
               <span
+                aria-hidden="true"
                 className={`font-mono text-xs w-6 h-6 inline-flex items-center justify-center border ${
                   active
                     ? "bg-cr-primary text-black border-cr-primary"

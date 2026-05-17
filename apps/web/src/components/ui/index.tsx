@@ -212,7 +212,7 @@ export function EmptyState({
 // ── SuccessBanner ──────────────────────────────────────────────────────────────
 export function SuccessBanner({ message }: { message: string }) {
   return (
-    <div className="flex items-center gap-3 bg-cr-primary/[0.07] border border-cr-primary/20 px-4 py-3.5">
+    <div role="status" aria-live="polite" className="flex items-center gap-3 bg-cr-primary/[0.07] border border-cr-primary/20 px-4 py-3.5">
       <div className="flex-shrink-0 w-7 h-7 bg-cr-primary/10 flex items-center justify-center">
         <CheckCircle size={14} strokeWidth={2} className="text-cr-primary" />
       </div>
@@ -224,7 +224,7 @@ export function SuccessBanner({ message }: { message: string }) {
 // ── ErrorBanner ────────────────────────────────────────────────────────────────
 export function ErrorBanner({ message }: { message: string }) {
   return (
-    <div className="flex items-center gap-3 bg-cr-secondary/[0.07] border border-cr-secondary/20 px-4 py-3.5">
+    <div role="alert" aria-live="assertive" className="flex items-center gap-3 bg-cr-secondary/[0.07] border border-cr-secondary/20 px-4 py-3.5">
       <div className="flex-shrink-0 w-7 h-7 bg-cr-secondary/10 flex items-center justify-center">
         <AlertCircle size={14} strokeWidth={2} className="text-cr-secondary" />
       </div>

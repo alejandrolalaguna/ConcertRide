@@ -59,6 +59,8 @@ export function initSentry() {
 let posthogInitialised = false;
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 let _posthog: any = null;
+// Holds the last identify() call so it can be replayed after async init.
+let _pendingIdentity: { id: string; props?: Record<string, unknown> } | null = null;
 
 async function initPostHogIfAllowed() {
   if (posthogInitialised) return;
@@ -68,13 +70,18 @@ async function initPostHogIfAllowed() {
 
   const { default: posthog } = await import("posthog-js");
   posthog.init(key, {
-    api_host: (import.meta.env.VITE_POSTHOG_HOST as string | undefined) ?? "https://us.i.posthog.com",
+    api_host: (import.meta.env.VITE_POSTHOG_HOST as string | undefined) ?? "https://eu.i.posthog.com",
     autocapture: false,
     capture_pageview: true,
     disable_session_recording: true,
     persistence: "localStorage",
     loaded: (ph) => {
       if (import.meta.env.DEV) ph.debug(false);
+      // Replay identify if session resolved before PostHog finished loading.
+      if (_pendingIdentity) {
+        ph.identify(_pendingIdentity.id, _pendingIdentity.props);
+        _pendingIdentity = null;
+      }
     },
   });
   _posthog = posthog;
@@ -111,7 +118,11 @@ export function track(event: string, properties?: Record<string, unknown>) {
 }
 
 export function identify(userId: string, properties?: Record<string, unknown>) {
-  if (!posthogInitialised || !_posthog) return;
+  if (!posthogInitialised || !_posthog) {
+    // Queue it — PostHog's loaded() callback will replay it once ready.
+    _pendingIdentity = { id: userId, props: properties };
+    return;
+  }
   try {
     _posthog.identify(userId, properties);
   } catch {

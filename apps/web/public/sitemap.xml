@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <!-- Índice maestro de sitemaps — generado por prerender.mjs en build time -->
+  <!-- Este fichero es SOBRESCRITO en cada build por scripts/prerender.mjs. -->
+  <!-- No editar manualmente. Actualizado: 2026-05-16 -->
+
+  <sitemap>
+    <loc>https://concertride.me/sitemap-static.xml</loc>
+    <lastmod>2026-05-16</lastmod>
+  </sitemap>
+  <sitemap>
+    <loc>https://concertride.me/sitemap-festivals.xml</loc>
+    <lastmod>2026-05-16</lastmod>
+  </sitemap>
+  <sitemap>
+    <loc>https://concertride.me/sitemap-cities.xml</loc>
+    <lastmod>2026-05-16</lastmod>
+  </sitemap>
+  <sitemap>
+    <loc>https://concertride.me/sitemap-routes.xml</loc>
+    <lastmod>2026-05-16</lastmod>
+  </sitemap>
+  <sitemap>
+    <loc>https://concertride.me/sitemap-blog.xml</loc>
+    <lastmod>2026-05-16</lastmod>
+  </sitemap>
+  <sitemap>
+    <loc>https://concertride.me/sitemap-how-to-get-there.xml</loc>
+    <lastmod>2026-05-16</lastmod>
+  </sitemap>
+  <sitemap>
+    <loc>https://concertride.me/sitemap-artistas.xml</loc>
+    <lastmod>2026-05-16</lastmod>
+  </sitemap>
+  <sitemap>
+    <loc>https://concertride.me/sitemap-recintos.xml</loc>
+    <lastmod>2026-05-16</lastmod>
+  </sitemap>
+  <sitemap>
+    <loc>https://concertride.me/sitemap-regiones.xml</loc>
+    <lastmod>2026-05-16</lastmod>
+  </sitemap>
+  <sitemap>
+    <loc>https://concertride.me/sitemap-generos.xml</loc>
+    <lastmod>2026-05-16</lastmod>
+  </sitemap>
+  <sitemap>
+    <loc>https://concertride.me/sitemap-calendario.xml</loc>
+    <lastmod>2026-05-16</lastmod>
+  </sitemap>
+  <sitemap>
+    <loc>https://concertride.me/sitemap-static-others.xml</loc>
+    <lastmod>2026-05-16</lastmod>
+  </sitemap>
+  <sitemap>
+    <loc>https://concertride.me/api/sitemap-concerts.xml</loc>
+    <lastmod>2026-05-16</lastmod>
+  </sitemap>
+</sitemapindex>
