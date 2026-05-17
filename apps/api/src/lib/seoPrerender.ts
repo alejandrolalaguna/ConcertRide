@@ -1025,6 +1025,45 @@ ${venueLinks}
 <p>Contacto para medios: <a href="mailto:help@concertride.me">help@concertride.me</a></p>`;
       })(),
     },
+    "/sala-de-prensa": {
+      title: `Sala de prensa — ConcertRide | Datos y kit de medios`,
+      description: "Datos oficiales de ConcertRide para medios: 4.200+ viajeros, 12.000+ viajes, 51 festivales cubiertos, 0% comisión. Kit de prensa, embed codes y descripción oficial para periodistas y bloggers.",
+      canonical: `${base}/sala-de-prensa`,
+      h1: "ConcertRide en los medios",
+      body: (() => {
+        const orgJsonLd = JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "Organization",
+          "@id": `${base}/#organization`,
+          name: "ConcertRide",
+          url: base,
+          foundingDate: "2024",
+          description: "Plataforma española de carpooling especializada en conciertos y festivales de música. Más de 4.200 viajeros registrados, 12.000+ viajes publicados, 51 festivales cubiertos, 0% comisión.",
+          contactPoint: { "@type": "ContactPoint", contactType: "press", email: "hola@concertride.me" },
+        });
+        const breadcrumbJsonLd = JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "BreadcrumbList",
+          itemListElement: [
+            { "@type": "ListItem", position: 1, name: "Inicio", item: `${base}/` },
+            { "@type": "ListItem", position: 2, name: "Sala de prensa", item: `${base}/sala-de-prensa` },
+          ],
+        });
+        return `<script type="application/ld+json">${orgJsonLd}</script>
+<script type="application/ld+json">${breadcrumbJsonLd}</script>
+<p>Datos verificados de ConcertRide para medios y periodistas. Fundada en 2024 en Zaragoza.</p>
+<h2>Datos clave</h2>
+<ul>
+  <li>4.200+ viajeros registrados (temporada 2024–2026)</li>
+  <li>12.000+ viajes publicados</li>
+  <li>51 festivales cubiertos en España</li>
+  <li>400+ rutas ciudad→festival activas</li>
+  <li>0 % de comisión de plataforma</li>
+  <li>450 toneladas de CO₂ estimadas evitadas</li>
+</ul>
+<p>Contacto para medios: <a href="mailto:hola@concertride.me">hola@concertride.me</a></p>`;
+      })(),
+    },
     "/aviso-legal": {
       title: `Aviso Legal — ${SITE_NAME}`,
       description: "Aviso legal de ConcertRide. Información sobre el titular, condiciones de uso y responsabilidad de la plataforma de carpooling para conciertos en España.",

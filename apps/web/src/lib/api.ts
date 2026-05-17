@@ -427,6 +427,11 @@ export const api = {
         method: "POST",
         body: JSON.stringify({ email, festival_slug }),
       }),
+    subscribeConcert: (concert_id: string) =>
+      request<{ ok: true; created: boolean }>("/api/alerts", {
+        method: "POST",
+        body: JSON.stringify({ concert_id }),
+      }),
   },
   crew: {
     list: () => request<CrewListResponse>("/api/crew"),

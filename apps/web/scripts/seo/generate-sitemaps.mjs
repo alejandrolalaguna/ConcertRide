@@ -287,6 +287,12 @@ const BLOG_POSTS = [
   { slug: "que-llevar-a-un-festival-de-musica",                      title: "Qué llevar a un festival de música: lista definitiva 2026",                     publishedAt: "2026-05-07" },
   { slug: "festivales-espana-verano-2026",                            title: "Festivales en España verano 2026: agenda completa y transporte",                 publishedAt: "2026-05-07" },
   { slug: "carpooling-madrid-festivales",                             title: "Carpooling desde Madrid a festivales: guía completa 2026",                      publishedAt: "2026-05-07" },
+  // Wave 2026-05-17: 5 posts "ruta especial"
+  { slug: "carpooling-valencia-arenal-sound-2026",  title: "Carpooling Valencia → Arenal Sound 2026: guía completa de precios y horarios",    publishedAt: "2026-05-17" },
+  { slug: "como-ir-madrid-vina-rock-2026",          title: "Cómo ir de Madrid a Viña Rock 2026: carpooling, bus y AVE comparados",            publishedAt: "2026-05-17" },
+  { slug: "carpooling-bilbao-bbk-live-2026-guia",   title: "Carpooling Bilbao → BBK Live 2026: rutas, precios y puntos de encuentro",         publishedAt: "2026-05-17" },
+  { slug: "barcelona-fib-benicassim-2026-transporte", title: "De Barcelona al FIB Benicàssim 2026: carpooling, bus y tren comparados",        publishedAt: "2026-05-17" },
+  { slug: "madrid-mad-cool-2026-guia-transporte",   title: "Madrid → Mad Cool 2026: guía definitiva de carpooling y transporte",              publishedAt: "2026-05-17" },
 ];
 
 // Prioridades por tipo de contenido
@@ -304,12 +310,17 @@ const SEO_CONFIG = {
 
 // Blog posts con prioridad alta por importancia temática
 const BLOG_PRIORITY_OVERRIDES = {
-  "autobuses-festivales-espana-2026":     "0.85",
-  "guia-transporte-vina-rock-2026":       "0.85",
-  "como-llegar-resurrection-fest-2026":   "0.85",
-  "festivales-musica-espana-2026":        "0.82",
-  "blablacar-vs-concertride":             "0.80",
-  "carpooling-vs-taxi-festival-espana":   "0.80",
+  "autobuses-festivales-espana-2026":           "0.85",
+  "guia-transporte-vina-rock-2026":             "0.85",
+  "como-llegar-resurrection-fest-2026":         "0.85",
+  "festivales-musica-espana-2026":              "0.82",
+  "blablacar-vs-concertride":                   "0.80",
+  "carpooling-vs-taxi-festival-espana":         "0.80",
+  "carpooling-valencia-arenal-sound-2026":      "0.85",
+  "como-ir-madrid-vina-rock-2026":              "0.85",
+  "carpooling-bilbao-bbk-live-2026-guia":       "0.85",
+  "barcelona-fib-benicassim-2026-transporte":   "0.85",
+  "madrid-mad-cool-2026-guia-transporte":       "0.85",
 };
 
 // ── Helpers XML ───────────────────────────────────────────────────────────────

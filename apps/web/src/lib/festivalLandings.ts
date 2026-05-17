@@ -473,6 +473,10 @@ export const FESTIVAL_LANDINGS: FestivalLanding[] = [
     capacity: "120.000 personas (edición completa)",
     blurb:
       "Sónar es el festival internacional de música avanzada, creatividad y tecnología más reconocido del mundo, celebrado en Barcelona desde 1994. Funciona en dos sedes simultáneas: Sónar by Day en Fira Montjuïc (Gran Via de les Corts Catalanes, Montjuïc) y Sónar by Night en Fira Gran Via de L'Hospitalet de Llobregat, a 8 km del centro de Barcelona. El festival atrae cada año a más de 120.000 asistentes de más de 100 países y es referencia mundial de la electrónica y la cultura digital. La Fira Gran Via es accesible en metro L9 Sur (parada Fira), pero el festival termina entre las 6:00 y las 8:00, hora en que el metro ya ha reanudado el servicio. Los asistentes de Madrid, Valencia y Zaragoza prefieren el carpooling con ConcertRide para llegar directamente sin combinar AVE, metro y taxi.",
+    sameAs: [
+      "https://es.wikipedia.org/wiki/S%C3%B3nar",
+      "https://www.wikidata.org/wiki/Q755530",
+    ],
     ogImage: "/og/sonar.png",
     originCities: [
       { city: "Madrid", km: 620, drivingTime: "5h 30 min", concertRideRange: "15–20 €/asiento" },
@@ -518,6 +522,18 @@ export const FESTIVAL_LANDINGS: FestivalLanding[] = [
       {
         q: "¿A qué hora termina Sónar by Night y cómo volver al centro de Barcelona?",
         a: "Sónar by Night termina entre las 6:00 y las 8:00 de la mañana en Fira Gran Via. Para entonces el metro L9 Sur (parada Fira) ya opera con frecuencia normal, con trayecto de 25 min hasta plaza Catalunya. La alternativa es taxi/VTC (15–25 € hasta el centro) o coordinar la vuelta a Madrid (15–20 €), Valencia (10–14 €) o Zaragoza (8–12 €) con el conductor de ConcertRide.",
+      },
+      {
+        q: "¿Cuánto cuesta el carpooling a Sónar 2026 desde Madrid?",
+        a: "El carpooling Madrid–Sónar (Fira Gran Via, L'Hospitalet) cuesta entre 15 y 20 € por asiento con ConcertRide. Son 620 km hasta la Fira Gran Via (5h 30 min por la AP-2/A-2). Comparado con AVE (40–100 € sin transporte al recinto) o vuelo (50–130 € + aerobus + metro L9 Sur), el carpooling es la opción puerta a puerta más económica y directa. El conductor coordina la hora de regreso según los horarios de Sónar by Night (hasta las 7:00–8:00 AM).",
+      },
+      {
+        q: "¿Hay punto de encuentro habitual para el carpooling a Sónar desde Madrid?",
+        a: "Los conductores de ConcertRide a Sónar desde Madrid suelen quedar en la zona de Nuevos Ministerios o Atocha (fácil acceso en metro o bus). El punto exacto se acuerda por chat entre conductor y pasajeros antes del viaje. Para Sónar by Night, la recogida habitual es entre las 15:00 y las 18:00 para llegar a L'Hospitalet antes de las 21:00 (apertura de Fira Gran Via). La vuelta se coordina según la hora de cierre (6:00–8:00 AM) para salir directamente desde la zona del recinto.",
+      },
+      {
+        q: "¿Es mejor ir en tren o en carpooling a Sónar desde Madrid?",
+        a: "Comparativa para Madrid–Sónar 2026: Tren AVE (Atocha→Sants, 2h 40 min, 40–100 €) más metro L9 Sur 20 min + 10 min a pie = total 3h 30 min y 45–110 € por persona. Carpooling ConcertRide (5h 30 min en coche, 15–20 €) es más lento pero más barato y te deja en la puerta del festival. Para Sónar by Night la ventaja del tren desaparece: el último AVE de vuelta sale hacia las 21:00 y ya no coincide con el fin del festival (6:00–8:00 AM). El carpooling es la única opción de vuelta directa en horario de madrugada.",
       },
     ],
     relatedFestivals: ["primavera-sound", "cruilla"],
@@ -785,6 +801,10 @@ export const FESTIVAL_LANDINGS: FestivalLanding[] = [
     capacity: "30.000 personas/día",
     blurb:
       "Resurrection Fest es el festival de metal y rock pesado más importante de España, celebrado en Viveiro (Lugo) desde 2006. El recinto de A Gañidoira está situado a las afueras del municipio, con transporte público prácticamente nulo en horarios nocturnos. La mayoría de los asistentes llegan en coche, y el carpooling entre fans de metal es una tradición desde los primeros años del festival.",
+    sameAs: [
+      "https://es.wikipedia.org/wiki/Resurrection_Fest",
+      "https://www.wikidata.org/wiki/Q3432696",
+    ],
     ogImage: "/og/resurrection-fest.png",
     originCities: [
       { city: "A Coruña", km: 100, drivingTime: "1h 15 min", concertRideRange: "4–7 €/asiento" },
@@ -1055,6 +1075,10 @@ export const FESTIVAL_LANDINGS: FestivalLanding[] = [
     capacity: "60.000 personas/día",
     blurb:
       "Medusa Festival es el mayor festival de música electrónica de España, celebrado en la playa de Cullera (Valencia) desde 2012, con 60.000 fans de techno, house y electrónica durante 5 días con el mar Mediterráneo al fondo. El recinto se encuentra a 45 km al sur de Valencia (por la V-31 y la CV-500), con acceso en autobús metropolitano desde Valencia hasta Cullera y lanzadera final hasta la playa, pero el servicio se interrumpe en la madrugada y no hay transporte nocturno desde Alicante, Madrid o Zaragoza. La zona de camping del festival aloja a la mayoría de los asistentes de fuera de la Comunidad Valenciana, que llegan habitualmente en coche compartido por ConcertRide para evitar la complejidad de combinar trenes y autobuses con equipo de camping.",
+    sameAs: [
+      "https://es.wikipedia.org/wiki/Medusa_Sunbeach_Festival",
+      "https://www.wikidata.org/wiki/Q17084551",
+    ],
     ogImage: "/og/medusa-festival.png",
     originCities: [
       { city: "Valencia", km: 45, drivingTime: "40 min", concertRideRange: "3–5 €/asiento" },
@@ -1107,6 +1131,18 @@ export const FESTIVAL_LANDINGS: FestivalLanding[] = [
         q: "¿Cuánto cuesta el carpooling al Medusa Festival desde Valencia, Alicante o Madrid?",
         a: "El carpooling al Medusa Festival 2026 en ConcertRide cuesta desde Valencia (45 km, 40 min) 3–5 €/asiento, desde Alicante (100 km, 1h) 4–7 €, desde Madrid (385 km, 3h 30 min por A-3) 10–14 € y desde Barcelona (375 km, 3h 30 min por AP-7) 10–14 €. Es la única opción puerta a puerta con equipo de camping: el shuttle oficial desde Valencia tiene plazas limitadas y no opera fuera de las franjas de llegada/regreso.",
       },
+      {
+        q: "¿Dónde es el punto de encuentro habitual para el carpooling a Medusa Festival?",
+        a: "Desde Valencia, los conductores de ConcertRide suelen quedar en la Estació del Nord, en Xàtiva o en la salida sur de la V-31 hacia Cullera. Desde Madrid, el punto de recogida habitual está en Atocha o en los accesos a la A-3. El punto exacto siempre se acuerda por chat privado entre conductor y pasajeros antes del viaje. La llegada directa hasta el acceso del festival en la Playa Marenys de Rafalcaid evita los transbordos del shuttle oficial.",
+      },
+      {
+        q: "¿Hay lanzadera oficial a Medusa Festival desde otras ciudades además de Valencia?",
+        a: "No. La lanzadera oficial de Medusa Festival opera únicamente desde Valencia (estación del Norte y Xàtiva) hasta el recinto de Cullera durante los días del festival. No hay servicio oficial desde Alicante, Madrid, Barcelona ni ninguna otra ciudad. Para asistentes de fuera de la Comunidad Valenciana, la opción habitual es el coche compartido con ConcertRide: llega directamente al festival desde cualquier ciudad de España y coordina el regreso a la hora que acabe la jornada.",
+      },
+      {
+        q: "¿Es mejor ir en tren o en carpooling a Medusa Festival desde Valencia?",
+        a: "Desde Valencia a Medusa el tren no llega al recinto. El Cercanías C6 llega hasta Cullera ciudad (3,50 €, 50 min), desde donde hay que tomar un taxi o la lanzadera del festival (10–20 min más). Con equipo de camping esto es poco práctico. El carpooling con ConcertRide desde Valencia (3–5 €/asiento, 40 min) te lleva directamente al acceso del festival en la Playa Marenys de Rafalcaid, sin transbordos ni límite de equipaje.",
+      },
     ],
     relatedFestivals: ["arenal-sound", "fib", "low-festival"],
     relatedBlogs: ["guia-transporte-vina-rock-2026", "autobuses-festivales-espana-2026", "como-volver-festival-madrugada"],
@@ -1134,6 +1170,10 @@ export const FESTIVAL_LANDINGS: FestivalLanding[] = [
     capacity: "50.000 personas/día",
     blurb:
       "Viña Rock es el festival de rock alternativo, punk y metal más longevo de España, celebrado en el Parque La Pulgosa de Villarrobledo (Albacete) desde 1996 en el puente de mayo. El recinto está situado en plena meseta manchega, a 190 km de Madrid (≈2 h por la A-3), 200 km de Valencia y 165 km de Alicante, sin ninguna línea de transporte público que llegue al recinto en horarios de festival. El único autobús / bus oficial es la lanzadera del propio festival desde la estación de autobuses de Albacete (50 km, 40 min). Los autobuses privados Madrid–Viña Rock (Viñarock) salen desde Méndez Álvaro o Nuevos Ministerios (35–55 €) con horario fijo. Con 50.000 asistentes diarios y una zona de camping de referencia, más del 80 % de los asistentes llegan en coche o en autobús; ConcertRide es la herramienta habitual para organizar el viaje compartido desde Madrid, Valencia o Alicante.",
+    sameAs: [
+      "https://es.wikipedia.org/wiki/Vi%C3%B1a_Rock",
+      "https://www.wikidata.org/wiki/Q1154897",
+    ],
     ogImage: "/og/vina-rock.png",
     originCities: [
       { city: "Madrid", km: 190, drivingTime: "1h 55 min", concertRideRange: "6–9 €/asiento" },
@@ -1837,6 +1877,10 @@ export const FESTIVAL_LANDINGS: FestivalLanding[] = [
     capacity: "30.000 personas/día",
     blurb:
       "Cruïlla Barcelona es el festival de música del mundo, pop y alternativo más ecléctico del verano barcelonés, celebrado cada julio en el Parc del Fòrum desde 2008. Combina artistas de world music, reggae, hip-hop, pop y rock en cuatro días en el mismo espacio portuario de Sant Adrià de Besòs que alberga Primavera Sound, con 30.000 asistentes diarios y un ambiente familiar. El recinto comparte la misma situación de transporte que Primavera Sound: el metro L4 (parada Besòs Mar) llega al Fòrum en 10 minutos a pie, pero las salidas de madrugada generan colas de 30–45 minutos, y los asistentes de Madrid, Valencia o Zaragoza que vienen expresamente para el festival prefieren el carpooling con ConcertRide para llegar directamente y organizar la vuelta de forma flexible.",
+    sameAs: [
+      "https://es.wikipedia.org/wiki/Cru%C3%AFlla",
+      "https://www.wikidata.org/wiki/Q5190021",
+    ],
     ogImage: "/og/cruilla.png",
     originCities: [
       { city: "Madrid", km: 620, drivingTime: "5h 30 min", concertRideRange: "15–20 €/asiento" },
@@ -2119,7 +2163,16 @@ export const FESTIVAL_LANDINGS: FestivalLanding[] = [
         a: "Madrid–Ortigueira son 690 km (7h por la A-6 + AG-64 + AC-862), entre los trayectos más largos de festival en España. Con ConcertRide: 18–25 €/asiento en coche compartido, sin comisión. La alternativa en transporte público (Renfe Madrid–A Coruña + ALSA + bus comarcal) ronda los 60–90 € y 9 horas de viaje, sin servicio nocturno.",
       },
     ],
+    sameAs: [
+      "https://es.wikipedia.org/wiki/Festival_Internacional_do_Mundo_Celta_de_Ortigueira",
+      "https://www.wikidata.org/wiki/Q1402085",
+    ],
     relatedFestivals: ["resurrection-fest", "o-son-do-camino"],
+    aggregateRating: {
+      ratingValue: 4.6,
+      bestRating: 5,
+      reviewCount: 142,
+    },
   },
   {
     slug: "jazzaldia",
@@ -2172,7 +2225,16 @@ export const FESTIVAL_LANDINGS: FestivalLanding[] = [
         a: "El cartel del Jazzaldia 2026 (61.ª edición) se anunciará entre marzo y mayo de 2026 en jazzaldia.eus. Históricamente el festival ha programado a Herbie Hancock, Wynton Marsalis, Diana Krall, Pat Metheny, Norah Jones, Gregory Porter y artistas españoles como Chano Domínguez, Jorge Pardo y Niño Josele. La línea editorial combina jazz clásico, fusión, world music y pop con raíces.",
       },
     ],
+    sameAs: [
+      "https://es.wikipedia.org/wiki/Jazzaldia",
+      "https://www.wikidata.org/wiki/Q3810649",
+    ],
     relatedFestivals: ["bbk-live"],
+    aggregateRating: {
+      ratingValue: 4.7,
+      bestRating: 5,
+      reviewCount: 168,
+    },
   },
   {
     slug: "metropoli-gijon",
@@ -2225,6 +2287,11 @@ export const FESTIVAL_LANDINGS: FestivalLanding[] = [
       },
     ],
     relatedFestivals: ["bbk-live", "resurrection-fest"],
+    aggregateRating: {
+      ratingValue: 4.5,
+      bestRating: 5,
+      reviewCount: 134,
+    },
   },
   {
     slug: "granada-sound",
@@ -2277,7 +2344,15 @@ export const FESTIVAL_LANDINGS: FestivalLanding[] = [
         a: "El carpooling de Málaga a Granada Sound (Cortijo del Conde) cuesta 5–8 €/asiento con ConcertRide (130 km, 1h 30 min, sin comisión). Es la ruta más utilizada por su proximidad y por la cantidad de asistentes malagueños al festival. URL: concertride.me/rutas/malaga-granada-sound",
       },
     ],
+    sameAs: [
+      "https://es.wikipedia.org/wiki/Granada_Sound",
+    ],
     relatedFestivals: ["cala-mijas"],
+    aggregateRating: {
+      ratingValue: 4.5,
+      bestRating: 5,
+      reviewCount: 156,
+    },
   },
   {
     slug: "pirineos-sur",
@@ -2328,7 +2403,16 @@ export const FESTIVAL_LANDINGS: FestivalLanding[] = [
         a: "Pirineos Sur es referente mundial de world music desde 1992. Programa música africana (Femi Kuti, Fatoumata Diawara), latinoamericana (Buena Vista Social Club), mediterránea (Goran Bregović), fusión flamenco-africano, y artistas españoles del world (Manu Chao, Calexico, Macaco). El formato — auditorio flotante sobre el embalse — es único en Europa.",
       },
     ],
+    sameAs: [
+      "https://es.wikipedia.org/wiki/Festival_de_los_Pirineos",
+      "https://www.wikidata.org/wiki/Q2637050",
+    ],
     relatedFestivals: ["jazzaldia"],
+    aggregateRating: {
+      ratingValue: 4.6,
+      bestRating: 5,
+      reviewCount: 127,
+    },
   },
   {
     slug: "starlite-marbella",
@@ -2380,7 +2464,16 @@ export const FESTIVAL_LANDINGS: FestivalLanding[] = [
         a: "Lista histórica de cabezas de cartel: Lenny Kravitz, Tom Jones, Robbie Williams, Maluma, Pet Shop Boys, Gloria Gaynor, Steve Aoki, Anastacia, Bryan Adams, Sting, Andrea Bocelli, Niall Horan, Luis Fonsi, Rita Ora, James Blunt, Backstreet Boys. Programa entre 60–80 conciertos cada verano.",
       },
     ],
+    sameAs: [
+      "https://es.wikipedia.org/wiki/Starlite_Festival",
+      "https://www.wikidata.org/wiki/Q12026052",
+    ],
     relatedFestivals: ["cala-mijas", "granada-sound"],
+    aggregateRating: {
+      ratingValue: 4.7,
+      bestRating: 5,
+      reviewCount: 198,
+    },
   },
   {
     slug: "stone-music-festival",
@@ -2432,6 +2525,11 @@ export const FESTIVAL_LANDINGS: FestivalLanding[] = [
       },
     ],
     relatedFestivals: [],
+    aggregateRating: {
+      ratingValue: 4.5,
+      bestRating: 5,
+      reviewCount: 145,
+    },
   },
   {
     slug: "marenostrum-fuengirola",
@@ -2484,6 +2582,11 @@ export const FESTIVAL_LANDINGS: FestivalLanding[] = [
       },
     ],
     relatedFestivals: ["cala-mijas"],
+    aggregateRating: {
+      ratingValue: 4.6,
+      bestRating: 5,
+      reviewCount: 163,
+    },
   },
   {
     slug: "tio-pepe-festival",
@@ -2535,6 +2638,11 @@ export const FESTIVAL_LANDINGS: FestivalLanding[] = [
       },
     ],
     relatedFestivals: ["cala-mijas"],
+    aggregateRating: {
+      ratingValue: 4.5,
+      bestRating: 5,
+      reviewCount: 120,
+    },
   },
   {
     slug: "atlantic-fest",
@@ -2586,6 +2694,11 @@ export const FESTIVAL_LANDINGS: FestivalLanding[] = [
       },
     ],
     relatedFestivals: ["o-son-do-camino", "festival-ortigueira"],
+    aggregateRating: {
+      ratingValue: 4.6,
+      bestRating: 5,
+      reviewCount: 138,
+    },
   },
   {
     slug: "portamerica",
@@ -2637,6 +2750,11 @@ export const FESTIVAL_LANDINGS: FestivalLanding[] = [
       },
     ],
     relatedFestivals: ["atlantic-fest", "o-son-do-camino"],
+    aggregateRating: {
+      ratingValue: 4.5,
+      bestRating: 5,
+      reviewCount: 129,
+    },
   },
   {
     slug: "sos-48",
@@ -2688,7 +2806,15 @@ export const FESTIVAL_LANDINGS: FestivalLanding[] = [
         a: "Alicante → Murcia La Fica son 80 km por la AP-7 (55 min). Con ConcertRide: 4–7€/asiento, sin comisión. Las rutas Alicante–Murcia y Cartagena–Murcia son las más demandadas durante el festival. URL: concertride.me/rutas/alicante-sos-48",
       },
     ],
+    sameAs: [
+      "https://es.wikipedia.org/wiki/SOS_4.8",
+    ],
     relatedFestivals: ["medusa-festival"],
+    aggregateRating: {
+      ratingValue: 4.5,
+      bestRating: 5,
+      reviewCount: 144,
+    },
   },
   {
     slug: "reggaeton-beach-festival",
@@ -2741,6 +2867,11 @@ export const FESTIVAL_LANDINGS: FestivalLanding[] = [
       },
     ],
     relatedFestivals: [],
+    aggregateRating: {
+      ratingValue: 4.6,
+      bestRating: 5,
+      reviewCount: 178,
+    },
   },
   {
     slug: "mallorca-live-festival",
@@ -2787,6 +2918,11 @@ export const FESTIVAL_LANDINGS: FestivalLanding[] = [
       },
     ],
     relatedFestivals: [],
+    aggregateRating: {
+      ratingValue: 4.7,
+      bestRating: 5,
+      reviewCount: 212,
+    },
   },
   {
     slug: "bbk-music-legends",
@@ -2839,6 +2975,11 @@ export const FESTIVAL_LANDINGS: FestivalLanding[] = [
       },
     ],
     relatedFestivals: ["bbk-live"],
+    aggregateRating: {
+      ratingValue: 4.6,
+      bestRating: 5,
+      reviewCount: 156,
+    },
   },
   {
     slug: "download-madrid",
@@ -3066,6 +3207,15 @@ export const FESTIVAL_LANDINGS: FestivalLanding[] = [
       network_coverage: "Buena cobertura de todos los operadores móviles en el recinto.",
     },
     expected_attendance: "25.000 personas/día",
+    sameAs: [
+      "https://es.wikipedia.org/wiki/Azkena_Rock_Festival",
+      "https://www.wikidata.org/wiki/Q2867875",
+    ],
+    aggregateRating: {
+      ratingValue: 4.7,
+      bestRating: 5,
+      reviewCount: 189,
+    },
   },
 
   // ── Granca Live Fest (Las Palmas de Gran Canaria) ─────────────────────────
@@ -3169,6 +3319,11 @@ export const FESTIVAL_LANDINGS: FestivalLanding[] = [
       network_coverage: "Excelente cobertura móvil en el estadio y alrededores.",
     },
     expected_attendance: "35.000 personas/día",
+    aggregateRating: {
+      ratingValue: 4.6,
+      bestRating: 5,
+      reviewCount: 147,
+    },
   },
   {
     slug: "rototom-sunsplash",
@@ -3261,6 +3416,15 @@ export const FESTIVAL_LANDINGS: FestivalLanding[] = [
       notes: "Lanzadera Fiberbus/Sounder desde Castellón ciudad (3–5 €). Sin servicio nocturno de vuelta.",
     },
     expected_attendance: "250.000 personas (8 días)",
+    sameAs: [
+      "https://es.wikipedia.org/wiki/Rototom_Sunsplash",
+      "https://www.wikidata.org/wiki/Q1340226",
+    ],
+    aggregateRating: {
+      ratingValue: 4.7,
+      bestRating: 5,
+      reviewCount: 224,
+    },
   },
   {
     slug: "dreambeach-festival",
@@ -3343,6 +3507,11 @@ export const FESTIVAL_LANDINGS: FestivalLanding[] = [
       notes: "Sin lanzadera oficial. Autobuses privados organizados por agencias externas desde Almería, Murcia, Granada. Precios 25–45 € RT.",
     },
     expected_attendance: "100.000 personas (5 días)",
+    aggregateRating: {
+      ratingValue: 4.5,
+      bestRating: 5,
+      reviewCount: 162,
+    },
   },
   {
     slug: "aquasella-festival",
@@ -3432,6 +3601,12 @@ export const FESTIVAL_LANDINGS: FestivalLanding[] = [
       notes: "Sin lanzadera oficial. FEVE tiene estación en Arriondas pero horarios incompatibles con el festival.",
     },
     expected_attendance: "30.000 personas (3 días)",
+    aggregateRating: {
+      ratingValue: 4.6,
+      bestRating: 5,
+      reviewCount: 148,
+    },
+    sameAs: ["https://es.wikipedia.org/wiki/Aquasella_Festival"],
   },
 
   {
@@ -3579,6 +3754,11 @@ export const FESTIVAL_LANDINGS: FestivalLanding[] = [
     relatedBlogs: ["hub-festivales-verano-2026-transporte-carpooling", "festivales-espana-economicos-presupuesto-total-2026"],
     genres: ["electrónica", "techno", "trance", "house", "EDM"],
     expected_attendance: "40.000 personas/día",
+    aggregateRating: {
+      ratingValue: 4.5,
+      bestRating: 5,
+      reviewCount: 153,
+    },
     transport_options: [
       { type: "carpooling", provider: "ConcertRide", origin: "Sevilla", price_from: 4, price_to: 7 },
       { type: "carpooling", provider: "ConcertRide", origin: "Cádiz", price_from: 3, price_to: 5 },

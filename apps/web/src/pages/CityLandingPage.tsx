@@ -549,6 +549,53 @@ export default function CityLandingPage() {
         dangerouslySetInnerHTML={{
           __html: JSON.stringify({
             "@context": "https://schema.org",
+            "@type": "Trip",
+            "@id": `${SITE_URL}/conciertos/${landing.slug}#tourist-trip`,
+            name: `Carpooling a conciertos y festivales desde ${landing.display}`,
+            description: `Viaje compartido desde ${landing.display} a los principales festivales y conciertos de España. Precio desde ${(() => {
+              const prices = ROUTE_LANDINGS
+                .filter((r) => r.originCitySlug === landing.slug)
+                .map((r) => Number(r.originData.concertRideRange.match(/(\d+)/)?.[1] ?? ""))
+                .filter((n) => Number.isFinite(n) && n > 0);
+              return prices.length > 0 ? Math.min(...prices) : 3;
+            })()} €/asiento. 0% comisión. Conductores verificados.`,
+            inLanguage: "es-ES",
+            touristType: { "@type": "Audience", audienceType: "Festival goers", geographicArea: { "@type": "Place", name: landing.display } },
+            itinerary: {
+              "@type": "ItemList",
+              itemListElement: ROUTE_LANDINGS
+                .filter((r) => r.originCitySlug === landing.slug)
+                .slice(0, 5)
+                .map((r, i) => ({
+                  "@type": "ListItem",
+                  position: i + 1,
+                  item: {
+                    "@type": "Place",
+                    name: r.festival.shortName,
+                    address: { "@type": "PostalAddress", addressLocality: r.festival.city, addressCountry: "ES" },
+                  },
+                })),
+            },
+            offers: {
+              "@type": "Offer",
+              price: (() => {
+                const prices = ROUTE_LANDINGS
+                  .filter((r) => r.originCitySlug === landing.slug)
+                  .map((r) => Number(r.originData.concertRideRange.match(/(\d+)/)?.[1] ?? ""))
+                  .filter((n) => Number.isFinite(n) && n > 0);
+                return prices.length > 0 ? Math.min(...prices) : 3;
+              })(),
+              priceCurrency: "EUR",
+              seller: { "@type": "Organization", name: "ConcertRide", url: SITE_URL },
+            },
+          }),
+        }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
             "@type": "HowToTravelPage",
             name: `Cómo ir a conciertos en ${landing.display}`,
             url: `${SITE_URL}/conciertos/${landing.slug}`,

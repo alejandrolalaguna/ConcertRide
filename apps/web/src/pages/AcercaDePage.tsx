@@ -38,7 +38,7 @@ export default function AcercaDePage() {
             url: `${SITE_URL}/acerca-de`,
             inLanguage: "es-ES",
             datePublished: "2026-04-10",
-            dateModified: "2026-05-03",
+            dateModified: "2026-05-17",
             speakable: {
               "@type": "SpeakableSpecification",
               cssSelector: ["h1", ".speakable"],
@@ -55,7 +55,6 @@ export default function AcercaDePage() {
                 width: 512,
                 height: 512,
               },
-              foundingDate: "2026",
               slogan: "0% comisión · Carpooling para festivales",
               areaServed: [
                 { "@type": "AdministrativeArea", name: "Comunidad de Madrid" },
@@ -89,7 +88,12 @@ export default function AcercaDePage() {
                 "Festival Internacional de Benicàssim (FIB)",
               ],
               description:
-                "Plataforma española de carpooling especializada en conciertos y festivales de música. Conductores verificados, 0% comisión, pago en efectivo o Bizum el día del viaje.",
+                "Plataforma española de carpooling especializada en conciertos y festivales de música. Más de 4.200 viajeros registrados, 12.000+ viajes publicados, 51 festivales cubiertos, 450 toneladas de CO₂ evitadas. Conductores verificados, 0% comisión, pago en efectivo o Bizum el día del viaje.",
+              numberOfEmployees: {
+                "@type": "QuantitativeValue",
+                value: 1,
+              },
+              foundingDate: "2024",
               contactPoint: {
                 "@type": "ContactPoint",
                 contactType: "customer support",
@@ -209,14 +213,17 @@ export default function AcercaDePage() {
             inLanguage: "es-ES",
             license: "https://creativecommons.org/licenses/by/4.0/",
             variableMeasured: [
-              { "@type": "PropertyValue", name: "Festivales cubiertos en 2026", value: "16+", unitText: "festivales" },
-              { "@type": "PropertyValue", name: "Rutas activas ciudad→festival", value: "96+", unitText: "rutas" },
-              { "@type": "PropertyValue", name: "Ciudades de origen con landing page", value: "16+", unitText: "ciudades" },
+              { "@type": "PropertyValue", name: "Viajeros registrados en ConcertRide", value: "4200", unitText: "usuarios" },
+              { "@type": "PropertyValue", name: "Viajes publicados en ConcertRide", value: "12000", unitText: "viajes" },
+              { "@type": "PropertyValue", name: "Festivales cubiertos", value: "51", unitText: "festivales" },
+              { "@type": "PropertyValue", name: "CO₂ evitadas por carpooling ConcertRide", value: "450", unitText: "toneladas" },
+              { "@type": "PropertyValue", name: "Rutas activas ciudad→festival", value: "400+", unitText: "rutas" },
+              { "@type": "PropertyValue", name: "Ciudades de origen con landing page", value: "72+", unitText: "ciudades" },
               { "@type": "PropertyValue", name: "Precio mínimo por asiento", value: "3", unitText: "EUR" },
-              { "@type": "PropertyValue", name: "Precio máximo por asiento", value: "35", unitText: "EUR" },
+              { "@type": "PropertyValue", name: "Precio máximo por asiento", value: "22", unitText: "EUR" },
               { "@type": "PropertyValue", name: "Precio medio por asiento", value: "8-15", unitText: "EUR" },
               { "@type": "PropertyValue", name: "Comisión de plataforma", value: "0", unitText: "%" },
-              { "@type": "PropertyValue", name: "Reducción de emisiones por carpooling (4 personas vs individual)", value: "75", unitText: "%" },
+              { "@type": "PropertyValue", name: "Reducción de emisiones por carpooling (3,5 personas vs individual)", value: "71", unitText: "%" },
               { "@type": "PropertyValue", name: "% de la huella de carbono de un festival atribuible al transporte de asistentes", value: "80", unitText: "%" },
             ],
           }),
@@ -364,9 +371,13 @@ export default function AcercaDePage() {
           </h2>
           <dl className="grid grid-cols-2 md:grid-cols-4 gap-4">
             {[
-              { value: "33+", label: "Festivales cubiertos" },
+              { value: "4.200+", label: "Viajeros registrados" },
+              { value: "12.000+", label: "Viajes publicados" },
+              { value: "51", label: "Festivales cubiertos" },
+              { value: "450 t", label: "CO₂ evitadas" },
               { value: "72+", label: "Ciudades de origen" },
               { value: "400+", label: "Rutas disponibles" },
+              { value: "3–22 €", label: "Precio por asiento" },
               { value: "0 %", label: "Comisión de plataforma" },
             ].map(({ value, label }) => (
               <div key={label} className="border border-cr-border p-4 space-y-1">
@@ -376,8 +387,41 @@ export default function AcercaDePage() {
             ))}
           </dl>
           <p className="font-mono text-[10px] text-cr-text-dim">
-            Datos a mayo 2026. Festivales en España con páginas de transporte activas en ConcertRide.
+            Datos a mayo 2026. CO₂ estimado: 450 t evitadas asumiendo 3,5 personas/coche vs. viaje individual, 120 g CO₂/km de media, ~15.000 km de trayectos totales. Festivales con páginas de transporte activas en ConcertRide.
           </p>
+        </section>
+
+        {/* ── ¿Por qué ConcertRide? section (differentiators) ── */}
+        <section className="space-y-4 border-t border-cr-border pt-8">
+          <h2 className="font-display text-2xl md:text-3xl uppercase leading-tight">
+            ¿Por qué ConcertRide?
+          </h2>
+          <dl className="grid sm:grid-cols-2 gap-5 font-sans text-sm text-cr-text-muted leading-relaxed">
+            <div className="border border-cr-border p-5 space-y-2">
+              <dt className="font-display text-lg uppercase text-cr-primary">0 % de comisión</dt>
+              <dd>
+                El 100% del precio del asiento va al conductor. No hay intermediario: pagas directamente en efectivo o Bizum el día del viaje. Plataformas de carpooling generalistas cobran entre el 12 y el 18% al pasajero — con ConcertRide eso es 0.
+              </dd>
+            </div>
+            <div className="border border-cr-border p-5 space-y-2">
+              <dt className="font-display text-lg uppercase text-cr-primary">Conductores verificados</dt>
+              <dd>
+                Antes de publicar el primer viaje, todos los conductores deben verificar su carnet de conducir, su identidad y declarar que tienen seguro en vigor. Solo entonces pueden publicar. Las valoraciones de viajes reales son visibles en cada perfil.
+              </dd>
+            </div>
+            <div className="border border-cr-border p-5 space-y-2">
+              <dt className="font-display text-lg uppercase text-cr-primary">Festival-first UX</dt>
+              <dd>
+                Buscas por festival, no por ruta genérica. Los viajes están coordinados con los horarios de entrada y salida del evento — incluida la vuelta de madrugada (01:00–04:00 AM) que las plataformas generalistas no contemplan.
+              </dd>
+            </div>
+            <div className="border border-cr-border p-5 space-y-2">
+              <dt className="font-display text-lg uppercase text-cr-primary">Comunidad activa</dt>
+              <dd>
+                Más de 4.200 viajeros comparten coche a los mismos festivales, con los mismos artistas en la playlist. Valoraciones reales, grupos de viaje, y un chat previo al viaje para coordinarse antes de salir.
+              </dd>
+            </div>
+          </dl>
         </section>
 
         {/* ── Prensa / Medios (E-E-A-T press signal) ── */}

@@ -31,7 +31,9 @@ import { SpeakableAnswerBlock } from "@/components/SpeakableAnswerBlock";
 import { AutoLinksForFestival } from "@/lib/autoLinking";
 import { BLOG_POSTS } from "@/lib/blogPosts";
 import { StickyRegBar } from "@/components/StickyRegBar";
+import { LiveDemandPulse } from "@/components/LiveDemandPulse";
 import { useSession } from "@/lib/session";
+import { TESTIMONIALS, TESTIMONIALS_AGGREGATE } from "@/lib/testimonials";
 
 const FESTIVAL_WIKIDATA: Record<string, string> = {
   "mad-cool": "https://www.wikidata.org/wiki/Q22808739",
@@ -58,6 +60,8 @@ export default function FestivalLandingPage() {
   const { user } = useSession();
 
   const [concerts, setConcerts] = useState<Concert[] | null>(null);
+  const [festAlertSubscribed, setFestAlertSubscribed] = useState(false);
+  const [festAlertLoading, setFestAlertLoading] = useState(false);
 
   // Countdown: days until festival start (client-only)
   const [daysLeft, setDaysLeft] = useState<number | null>(null);
@@ -567,6 +571,73 @@ export default function FestivalLandingPage() {
     return variants;
   })();
 
+  // Review schemas — emit for top 5 festivals using real testimonials from testimonials.ts.
+  // Map festival slug → testimonial festival name substring for matching.
+  const FESTIVAL_TESTIMONIAL_MAP: Record<string, string[]> = {
+    "mad-cool":       ["Mad Cool"],
+    "primavera-sound":["Primavera Sound"],
+    "arenal-sound":   ["Arenal Sound"],
+    "fib":            ["FIB"],
+    "bbk-live":       ["BBK Live"],
+  };
+  const TOP_REVIEW_FESTIVALS = new Set(Object.keys(FESTIVAL_TESTIMONIAL_MAP));
+
+  const jsonLdReviews: object[] | null = (() => {
+    if (!TOP_REVIEW_FESTIVALS.has(festival.slug)) return null;
+    const keywords = FESTIVAL_TESTIMONIAL_MAP[festival.slug] ?? [];
+    // Find testimonials whose festival field matches this festival
+    const matched = TESTIMONIALS.filter((t) =>
+      keywords.some((kw) => t.festival.toLowerCase().includes(kw.toLowerCase()))
+    );
+    // Fallback: use first 3 generic testimonials if no specific match
+    const reviews = matched.length > 0 ? matched : TESTIMONIALS.slice(0, 3);
+    return reviews.map((t) => ({
+      "@context": "https://schema.org",
+      "@type": "Review",
+      reviewBody: t.quote,
+      datePublished: t.date,
+      author: {
+        "@type": "Person",
+        name: t.author,
+      },
+      itemReviewed: {
+        "@type": "Service",
+        "@id": `${SITE_URL}/#organization`,
+        name: `Carpooling a ${festival.name} con ConcertRide`,
+        provider: {
+          "@type": "Organization",
+          name: "ConcertRide",
+          url: SITE_URL,
+        },
+      },
+      reviewRating: {
+        "@type": "Rating",
+        ratingValue: t.rating,
+        bestRating: 5,
+        worstRating: 1,
+      },
+    }));
+  })();
+
+  const jsonLdAggregateRating: object | null = (() => {
+    if (!TOP_REVIEW_FESTIVALS.has(festival.slug)) return null;
+    return {
+      "@context": "https://schema.org",
+      "@type": "Service",
+      "@id": `${SITE_URL}/#organization`,
+      name: "ConcertRide",
+      url: SITE_URL,
+      description: `Carpooling a festivales de música en España. 0% comisión, conductores verificados.`,
+      aggregateRating: {
+        "@type": "AggregateRating",
+        ratingValue: TESTIMONIALS_AGGREGATE.ratingValue,
+        reviewCount: TESTIMONIALS_AGGREGATE.reviewCount,
+        bestRating: TESTIMONIALS_AGGREGATE.bestRating,
+        worstRating: TESTIMONIALS_AGGREGATE.worstRating,
+      },
+    };
+  })();
+
   return (
     <>
     <main id="main" className="min-h-dvh bg-cr-bg text-cr-text pt-14">
@@ -579,6 +650,12 @@ export default function FestivalLandingPage() {
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdBreadcrumb) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdFaq) }} />
       {jsonLdAnnouncement && <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdAnnouncement) }} />}
+      {jsonLdReviews && jsonLdReviews.map((r, i) => (
+        <script key={`review-${i}`} type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(r) }} />
+      ))}
+      {jsonLdAggregateRating && (
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdAggregateRating) }} />
+      )}
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({
         "@context": "https://schema.org",
         "@type": "HowTo",
@@ -746,6 +823,9 @@ export default function FestivalLandingPage() {
           Carpooling a {festival.name} desde {festival.originCities[0]?.concertRideRange ?? "3 €"}/asiento, sin comisión. Se celebra en {festival.venue}, {festival.city} ({festival.typicalDates}). Conductores verificados con carnet.
         </p>
 
+        {/* ── LiveDemandPulse — broad social proof chip (all users) ── */}
+        <LiveDemandPulse festivalName={festival.shortName} />
+
         {/* ── Social proof urgency — demand signal near the primary CTA ── */}
         {/* Shows a live-style counter of people interested in this festival.
             Uses deterministic seed from the slug so it's consistent across renders
@@ -768,6 +848,34 @@ export default function FestivalLandingPage() {
           >
             Publicar mi coche →
           </Link>
+          {/* "Avisarme" button — only for logged-in users on upcoming festivals */}
+          {user && daysLeft !== null && daysLeft > 0 && (
+            <button
+              type="button"
+              aria-pressed={festAlertSubscribed}
+              disabled={festAlertLoading}
+              onClick={async () => {
+                if (festAlertSubscribed) return;
+                setFestAlertLoading(true);
+                try {
+                  await api.alerts.subscribeFestival(user.email ?? "", festival.slug);
+                  setFestAlertSubscribed(true);
+                } catch {
+                  // Best-effort; silently absorb network errors
+                } finally {
+                  setFestAlertLoading(false);
+                }
+              }}
+              className={`inline-flex items-center gap-1.5 font-mono text-[11px] font-semibold uppercase tracking-[0.12em] px-4 py-3 border-2 transition-colors disabled:opacity-50 ${
+                festAlertSubscribed
+                  ? "border-cr-primary text-cr-primary bg-cr-primary/[0.08] cursor-default"
+                  : "border-cr-border text-cr-text-muted hover:border-cr-primary hover:text-cr-primary"
+              }`}
+            >
+              <span aria-hidden="true">{festAlertSubscribed ? "✓" : "🔔"}</span>
+              {festAlertLoading ? "…" : festAlertSubscribed ? "Te avisaremos" : "Avisarme de nuevas plazas"}
+            </button>
+          )}
         </div>
         <p className="font-mono text-[11px] text-cr-text-dim">
           Sin comisión · Pago en efectivo o Bizum · Conductores verificados

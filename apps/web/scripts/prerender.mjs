@@ -47,11 +47,13 @@ const STATIC_ROUTES = [
   // (route disabled in App.tsx per brand policy — see CLAUDE.md)
   "/comparativa/carpooling-vs-taxi-festival",
   "/prensa",
+  "/sala-de-prensa",
   "/datos",
   "/como-funciona",
   "/faq",
   "/contacto",
   "/acerca-de",
+  "/glosario",
   "/aviso-legal",
   "/privacidad",
   "/cookies",

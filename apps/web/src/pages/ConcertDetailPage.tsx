@@ -59,6 +59,8 @@ export default function ConcertDetailPage() {
   const [demand, setDemand] = useState<DemandSignal | null>(null);
   const [demandLoading, setDemandLoading] = useState(false);
   const [copied, setCopied] = useState(false);
+  const [alertSubscribed, setAlertSubscribed] = useState(false);
+  const [alertLoading, setAlertLoading] = useState(false);
 
   // Cheapest ride for this concert (if any) drives the title CTR + the
   // Spanish meta description's price hook. ConcertRide's own pricing
@@ -522,13 +524,43 @@ export default function ConcertDetailPage() {
           </div>
         )}
 
-        <header className="flex items-baseline justify-between gap-4">
+        <header className="flex items-baseline justify-between gap-4 flex-wrap">
           <h2 className="font-display text-xl uppercase tracking-wide">
             {isPast ? "Viajes realizados" : "Viajes disponibles"}
           </h2>
-          <p className="font-mono text-xs text-cr-text-muted">
-            {rides ? `${visible.length} / ${rides.length}` : "…"}
-          </p>
+          <div className="flex items-center gap-3">
+            {/* Alert button — only for logged-in users on upcoming concerts */}
+            {user && !isPast && concert && (
+              <button
+                type="button"
+                aria-pressed={alertSubscribed}
+                disabled={alertLoading}
+                onClick={async () => {
+                  if (alertSubscribed) return;
+                  setAlertLoading(true);
+                  try {
+                    await api.alerts.subscribeConcert(concert.id);
+                    setAlertSubscribed(true);
+                  } catch {
+                    // Best-effort; silently absorb network errors
+                  } finally {
+                    setAlertLoading(false);
+                  }
+                }}
+                className={`inline-flex items-center gap-1.5 font-mono text-[10px] font-semibold uppercase tracking-[0.12em] px-3 py-1.5 border transition-colors disabled:opacity-50 ${
+                  alertSubscribed
+                    ? "border-cr-primary text-cr-primary bg-cr-primary/[0.08] cursor-default"
+                    : "border-cr-border text-cr-text-muted hover:border-cr-primary hover:text-cr-primary"
+                }`}
+              >
+                <span aria-hidden="true">{alertSubscribed ? "✓" : "🔔"}</span>
+                {alertLoading ? "…" : alertSubscribed ? "Te avisaremos" : "Avisarme de nuevas plazas"}
+              </button>
+            )}
+            <p className="font-mono text-xs text-cr-text-muted">
+              {rides ? `${visible.length} / ${rides.length}` : "…"}
+            </p>
+          </div>
         </header>
 
         {!rides && (

@@ -170,6 +170,14 @@ export default function BlogPostPage() {
       name: post.author?.trim() || "ConcertRide",
       url: `${SITE_URL}/acerca-de`,
       "@id": `${SITE_URL}/#founder`,
+      knowsAbout: [
+        "carpooling",
+        "festivales de música",
+        "transporte sostenible",
+        "España",
+        "movilidad compartida",
+        "conciertos en España",
+      ],
       sameAs: [
         "https://www.linkedin.com/company/concertride-es",
         "https://twitter.com/concertride_es",
@@ -227,6 +235,14 @@ export default function BlogPostPage() {
       name: post.author?.trim() || "ConcertRide",
       url: `${SITE_URL}/acerca-de`,
       "@id": `${SITE_URL}/#founder`,
+      knowsAbout: [
+        "carpooling",
+        "festivales de música",
+        "transporte sostenible",
+        "España",
+        "movilidad compartida",
+        "conciertos en España",
+      ],
     },
     publisher: {
       "@type": "Organization",
@@ -318,12 +334,29 @@ export default function BlogPostPage() {
           <span aria-hidden="true">·</span>
           <span className="inline-flex items-center gap-1">
             <Calendar size={11} />
-            {new Date(post.publishedAt).toLocaleDateString("es-ES", {
-              day: "numeric",
-              month: "short",
-              year: "numeric",
-            })}
+            <time dateTime={post.publishedAt}>
+              {new Date(post.publishedAt).toLocaleDateString("es-ES", {
+                day: "numeric",
+                month: "short",
+                year: "numeric",
+              })}
+            </time>
           </span>
+          {post.updatedAt && post.updatedAt !== post.publishedAt && (
+            <>
+              <span aria-hidden="true">·</span>
+              <span className="inline-flex items-center gap-1 text-cr-primary/80">
+                <span>Actualizado:</span>
+                <time dateTime={post.updatedAt}>
+                  {new Date(post.updatedAt).toLocaleDateString("es-ES", {
+                    day: "numeric",
+                    month: "short",
+                    year: "numeric",
+                  })}
+                </time>
+              </span>
+            </>
+          )}
           <span aria-hidden="true">·</span>
           <span className="inline-flex items-center gap-1">
             <Clock size={11} />

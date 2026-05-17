@@ -1,17 +1,52 @@
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { X } from "lucide-react";
 import { useSession } from "../lib/session";
 
 const DISMISS_KEY = "cr_sticky_dismissed";
 
+const AUTH_PATHS_STICKY = new Set(["/login", "/register", "/forgot-password", "/reset-password", "/bienvenida"]);
+
+/** Convert a URL slug segment into a readable display name. */
+function slugToName(slug: string): string {
+  return slug
+    .split("-")
+    .map((w) => w.charAt(0).toUpperCase() + w.slice(1))
+    .join(" ");
+}
+
+/** Derive a contextual bar message from the current pathname. */
+function useContextualMessage(pathname: string): { emoji: string; text: string } {
+  const segments = pathname.split("/").filter(Boolean);
+
+  if (segments[0] === "festivales" && segments[1]) {
+    const name = slugToName(segments[1]);
+    return { emoji: "🎫", text: `${name} — Reserva tu plaza de carpooling gratis · 0% comisión` };
+  }
+
+  if (segments[0] === "artistas" && segments[1]) {
+    const name = slugToName(segments[1]);
+    return { emoji: "🎤", text: `Concierto de ${name} — Encuentra carpooling gratis · 0% comisión` };
+  }
+
+  if (segments[0] === "rutas") {
+    return { emoji: "🚗", text: "Carpooling para esta ruta — Regístrate gratis · 0% comisión" };
+  }
+
+  return { emoji: "🎫", text: "Encuentra tu carpooling · Regístrate gratis · 0% comisión" };
+}
+
 export function StickyRegBar() {
   const { user, loading } = useSession();
+  const location = useLocation();
   const [visible, setVisible] = useState(false);
 
+  const { emoji, text } = useContextualMessage(location.pathname);
+
   useEffect(() => {
-    // Guard: only for anonymous users
+    // Guard: only for anonymous users, not on auth pages
     if (loading || user) return;
+    if (AUTH_PATHS_STICKY.has(location.pathname)) return;
 
     // Check dismiss flag
     if (typeof sessionStorage !== "undefined" && sessionStorage.getItem(DISMISS_KEY)) return;
@@ -22,7 +57,7 @@ export function StickyRegBar() {
     }, 3000);
 
     return () => clearTimeout(timer);
-  }, [loading, user]);
+  }, [loading, user, location.pathname]);
 
   function dismiss() {
     setVisible(false);
@@ -42,8 +77,8 @@ export function StickyRegBar() {
       <div className="max-w-6xl mx-auto px-4 py-3 flex items-center justify-between gap-3">
         {/* Message */}
         <p className="font-sans text-xs sm:text-sm text-white/80 flex items-center gap-1.5 min-w-0 truncate">
-          <span aria-hidden="true">🎫</span>
-          <span>Regístrate para reservar tu plaza · 0% comisión</span>
+          <span aria-hidden="true">{emoji}</span>
+          <span>{text}</span>
         </p>
 
         <div className="flex items-center gap-2 shrink-0">

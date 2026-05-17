@@ -24,6 +24,7 @@ import BlogPostPage from "./pages/BlogPostPage";
 import RouteLandingPage from "./pages/RouteLandingPage";
 import RutasIndexPage from "./pages/RutasIndexPage";
 import PrensaPage from "./pages/PrensaPage";
+import SalaPrensaPage from "./pages/SalaPrensaPage";
 import DatosPage from "./pages/DatosPage";
 import HowItWorksPage from "./pages/HowItWorksPage";
 import FaqPage from "./pages/FaqPage";
@@ -99,6 +100,7 @@ function ServerApp() {
         {/* /comparativa/concertride-vs-blablacar disabled per CLAUDE.md "Brand Restrictions" */}
         <Route path="/comparativa/carpooling-vs-taxi-festival" element={<ComparativaTaxi />} />
         <Route path="/prensa" element={<PrensaPage />} />
+        <Route path="/sala-de-prensa" element={<SalaPrensaPage />} />
         <Route path="/datos" element={<DatosPage />} />
         <Route path="/como-funciona" element={<HowItWorksPage />} />
         <Route path="/faq" element={<FaqPage />} />

@@ -59,7 +59,9 @@ const REGISTER_TESTIMONIAL = {
 export default function RegisterPage() {
   const { user, loading, refresh } = useSession();
   const [params] = useSearchParams();
-  const rawNext = params.get("next") ?? "/";
+  const rawNext = params.get("next") ?? "";
+  // Respect an explicit ?next= param (e.g. from a gated page), but fall back
+  // to /bienvenida for new registrations so users get the onboarding wizard.
   const next =
     rawNext.startsWith("/") &&
     !rawNext.startsWith("/login") &&
@@ -68,7 +70,7 @@ export default function RegisterPage() {
     !rawNext.startsWith("/reset-password") &&
     !rawNext.startsWith("//")
       ? rawNext
-      : "/";
+      : "/bienvenida";
   const ref = params.get("ref") ?? undefined;
 
   const [name, setName] = useState("");

@@ -3,8 +3,43 @@ import { Link, useLocation } from "react-router-dom";
 import { X } from "lucide-react";
 import { useSession } from "../lib/session";
 
-const AUTH_PATHS = new Set(["/login", "/register", "/forgot-password", "/reset-password"]);
+const AUTH_PATHS = new Set(["/login", "/register", "/forgot-password", "/reset-password", "/bienvenida"]);
 const SESSION_KEY = "cr_exit_shown";
+
+/** Convert a URL slug segment into a readable display name.
+ *  "mad-cool-festival" → "Mad Cool Festival" */
+function slugToDisplayName(slug: string): string {
+  return slug
+    .split("-")
+    .map((w) => w.charAt(0).toUpperCase() + w.slice(1))
+    .join(" ");
+}
+
+/** Derive a contextual modal title from the current pathname. */
+function useContextualTitle(pathname: string): string {
+  const segments = pathname.split("/").filter(Boolean);
+
+  if (segments[0] === "festivales" && segments[1]) {
+    const festivalName = slugToDisplayName(segments[1]);
+    return `¿Te vas sin reservar plaza para ${festivalName}?`;
+  }
+
+  if (segments[0] === "artistas" && segments[1]) {
+    const artistName = slugToDisplayName(segments[1]);
+    return `¿Buscas viaje al concierto de ${artistName}?`;
+  }
+
+  if (segments[0] === "rutas") {
+    return "¿Te vas sin reservar tu plaza de carpooling?";
+  }
+
+  if (segments[0] === "conciertos" && segments[1]) {
+    const cityName = slugToDisplayName(segments[1]);
+    return `¿Buscas carpooling a conciertos en ${cityName}?`;
+  }
+
+  return "¿Te vas sin reservar tu plaza?";
+}
 
 // Selectors for all focusable elements inside a container
 const FOCUSABLE_SELECTORS = [
@@ -20,6 +55,8 @@ export function ExitIntentModal() {
   const { user, loading } = useSession();
   const location = useLocation();
   const [open, setOpen] = useState(false);
+
+  const modalTitle = useContextualTitle(location.pathname);
 
   // Focus trap refs
   const panelRef = useRef<HTMLDivElement | null>(null);
@@ -196,7 +233,7 @@ export function ExitIntentModal() {
             id="exit-modal-title"
             className="font-display text-2xl md:text-3xl uppercase leading-[0.95] text-white"
           >
-            ¿Te vas sin reservar<br />tu plaza?
+            {modalTitle}
           </h2>
 
           <div className="flex flex-wrap items-center justify-center gap-2" aria-label="Ventajas de ConcertRide">

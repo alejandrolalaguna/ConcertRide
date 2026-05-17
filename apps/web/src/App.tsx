@@ -54,16 +54,19 @@ const BlogPostPage = lazy(() => import("./pages/BlogPostPage"));
 const RouteLandingPage = lazy(() => import("./pages/RouteLandingPage"));
 const RutasIndexPage = lazy(() => import("./pages/RutasIndexPage"));
 const PrensaPage = lazy(() => import("./pages/PrensaPage"));
+const SalaPrensaPage = lazy(() => import("./pages/SalaPrensaPage"));
 const DatosPage = lazy(() => import("./pages/DatosPage"));
 const VerifyEmailPage = lazy(() => import("./pages/VerifyEmailPage"));
 const MessagesPage = lazy(() => import("./pages/MessagesPage"));
 const DirectMessagePage = lazy(() => import("./pages/DirectMessagePage"));
+const BienvenidaPage = lazy(() => import("./pages/BienvenidaPage"));
 const NotFoundPage = lazy(() => import("./pages/NotFoundPage"));
 const DevShowcase = lazy(() => import("./pages/DevShowcase"));
 const ConcertWidgetPage = lazy(() => import("./pages/ConcertWidgetPage"));
 const HowToGetTherePage = lazy(() => import("./pages/HowToGetTherePage"));
 const GenreLandingPage = lazy(() => import("./pages/GenreLandingPage"));
 const CalendarLandingPage = lazy(() => import("./pages/CalendarLandingPage"));
+const GlosarioPage = lazy(() => import("./pages/GlosarioPage"));
 
 export default function App() {
   return (
@@ -114,6 +117,7 @@ export default function App() {
             <Route path="/rutas/:route" element={<RouteLandingPage />} />
             <Route path="/como-llegar/:festival" element={<HowToGetTherePage />} />
             <Route path="/prensa" element={<PrensaPage />} />
+            <Route path="/sala-de-prensa" element={<SalaPrensaPage />} />
             <Route path="/datos" element={<DatosPage />} />
             <Route path="/rides/:id" element={<RideDetailPage />} />
             <Route path="/publish" element={<PublishRidePage />} />
@@ -147,6 +151,8 @@ export default function App() {
             <Route path="/comparativa/carpooling-vs-taxi-festival" element={<ComparativaTaxi />} />
             <Route path="/contacto" element={<ContactoPage />} />
             <Route path="/acerca-de" element={<AcercaDePage />} />
+            <Route path="/glosario" element={<GlosarioPage />} />
+            <Route path="/bienvenida" element={<BienvenidaPage />} />
             <Route path="/_dev" element={<DevShowcase />} />
             <Route path="*" element={<NotFoundPage />} />
           </Routes>

@@ -47,6 +47,29 @@ const METHODOLOGY = [
   "Datos actualizados para la temporada de festivales " + YEAR + ". Precios de combustible: promedio España abril " + YEAR + ".",
 ];
 
+const METHODOLOGY_EXTENDED = [
+  {
+    heading: "Fuente de datos",
+    detail: "Datos agregados de viajes publicados y completados en ConcertRide por conductores verificados. Cada viaje incluye precio declarado por asiento, ruta origen→festival, número de plazas y fecha.",
+  },
+  {
+    heading: "Frecuencia de actualización",
+    detail: "Los precios de referencia se actualizan mensualmente coincidiendo con la publicación de precios de combustible de la DGT. Los datos de demanda (rutas más populares, ciudades con más viajes) se actualizan semanalmente tras el cron de ingestión.",
+  },
+  {
+    heading: "Muestra",
+    detail: "Temporada 2024–2026. Más de 12.000 viajes publicados analizados. Se excluyen viajes con precio por asiento < 2 € (posibles errores de entrada) y > 35 € (outliers que superan el máximo legal proporcional). Porcentaje de viajes completados verificado vs. cancelados.",
+  },
+  {
+    heading: "Cálculo de CO₂ evitado",
+    detail: "Asumimos 3,5 personas por coche de media (dato ConcertRide). Emisión de referencia: 120 g CO₂/km (Media España según IDAE 2024). Si sin carpooling cada pasajero habría ido en coche individual (o en tren+taxi), el ahorro es del 71% por persona respecto al viaje individual. Total acumulado temporada 2024–2026: ~450 toneladas CO₂.",
+  },
+  {
+    heading: "Limitaciones",
+    detail: "Los precios son orientativos — cada conductor fija su precio en la plataforma. No incluyen peajes (variable según ruta). Los datos de CO₂ son estimaciones basadas en modelos, no en medición directa.",
+  },
+];
+
 function CopyButton({ text, label = "Copiar" }: { text: string; label?: string }) {
   const [copied, setCopied] = useState(false);
   function handleCopy() {
@@ -93,7 +116,7 @@ export default function DatosPage() {
     dateModified: `${YEAR}-05-06`,
     inLanguage: "es-ES",
     license: "https://creativecommons.org/licenses/by/4.0/",
-    measurementTechnique: "Cálculo teórico basado en datos de la DGT y Google Maps",
+    measurementTechnique: "Datos agregados de viajes publicados en ConcertRide, combinados con precios DGT y distancias Google Maps",
     spatialCoverage: {
       "@type": "Country",
       name: "Spain",
@@ -248,6 +271,20 @@ export default function DatosPage() {
             </li>
           ))}
         </ul>
+
+        {/* Extended methodology detail */}
+        <div className="space-y-4 pt-2">
+          <h3 className="font-display text-lg uppercase text-cr-text">Metodología detallada</h3>
+          <dl className="space-y-5">
+            {METHODOLOGY_EXTENDED.map((item) => (
+              <div key={item.heading} className="border-l-2 border-cr-primary/30 pl-4 space-y-1">
+                <dt className="font-sans text-sm font-semibold text-cr-text">{item.heading}</dt>
+                <dd className="font-sans text-sm text-cr-text-muted leading-relaxed">{item.detail}</dd>
+              </div>
+            ))}
+          </dl>
+        </div>
+
         <div className="border border-cr-border p-4 space-y-2 max-w-xl">
           <p className="font-mono text-[11px] text-cr-primary uppercase tracking-[0.1em]">Licencia</p>
           <p className="font-sans text-sm text-cr-text-muted leading-relaxed">
