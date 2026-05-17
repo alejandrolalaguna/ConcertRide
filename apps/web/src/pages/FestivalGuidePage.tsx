@@ -37,7 +37,7 @@ export default function FestivalGuidePage() {
   const festYear = new Date(festival.startDate).getFullYear();
 
   useSeoMeta({
-    title: `Guía ${festival.shortName} ${festYear}: qué llevar, cómo llegar y consejos | ConcertRide`,
+    title: `Guía ${festival.shortName} ${festYear}: qué llevar · ConcertRide`,
     description: `Guía completa para ${festival.name} ${festYear}. Qué llevar al festival, logística del recinto, acampada, transporte y consejos de veteranos. ${festival.venue}, ${festival.city}.`,
     canonical: `${SITE_URL}/festivales/${slug}/guia`,
     keywords: `guia ${festival.shortName}, que llevar ${festival.shortName}, ${festival.shortName} lista, como prepararse ${festival.shortName}, ${festival.shortName} acampada, ${festival.shortName} consejos, lista que llevar festival`,

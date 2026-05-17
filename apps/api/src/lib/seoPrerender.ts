@@ -602,24 +602,10 @@ function buildStaticRoutes(base: string): Record<string, { title: string; descri
 <p><a href="${base}/concerts">Buscar conciertos con carpooling disponible →</a></p>
 <p><a href="${base}/publish">Publicar un viaje →</a></p>`,
     },
-    "/comparativa/concertride-vs-blablacar": {
-      title: `ConcertRide vs BlaBlaCar para festivales | ConcertRide`,
-      description: "ConcertRide cobra 0 % de comisión; BlaBlaCar cobra 12–18 %. Comparativa real para festivales en España: especialización, pago, vuelta de madrugada y verificación de conductores.",
-      canonical: `${base}/comparativa/concertride-vs-blablacar`,
-      h1: "ConcertRide vs BlaBlaCar para festivales",
-      body: `<p>ConcertRide está pensado para conciertos y festivales; BlaBlaCar es una plataforma generalista. Si quieres viajar con personas que van al mismo evento, la experiencia de ConcertRide encaja mejor.</p>
-<h2>Comparativa rápida</h2>
-<table>
-  <tr><th>Concepto</th><th>ConcertRide</th><th>BlaBlaCar</th></tr>
-  <tr><td>Comisión</td><td>0 %</td><td>12–18 %</td></tr>
-  <tr><td>Búsqueda por evento</td><td>Sí</td><td>No</td></tr>
-  <tr><td>Vuelta de madrugada</td><td>Se pacta con el conductor</td><td>Depende de la ruta publicada</td></tr>
-  <tr><td>Pago</td><td>Efectivo o Bizum</td><td>Tarjeta</td></tr>
-  <tr><td>Verificación</td><td>Carnet obligatorio</td><td>Variable</td></tr>
-</table>
-<p>Para ir a festivales, ConcertRide reduce fricción y se centra en el caso de uso real: llegar y volver del evento con gente que tiene el mismo plan.</p>
-<p><a href="${base}/como-funciona-carpooling">Cómo funciona el carpooling →</a></p>`,
-    },
+    // NOTE: "/comparativa/concertride-vs-blablacar" intentionally REMOVED —
+    // route is 301-redirected to /blog/alternativa-carpooling-festivales-espana
+    // in apps/api/src/index.ts (LEGACY_REDIRECTS). Do not re-add — see CLAUDE.md
+    // "Brand Restrictions". The redirect runs before this prerender map.
     "/comparativa/carpooling-vs-taxi-festival": {
       title: `Carpooling vs taxi para ir a un festival | ConcertRide`,
       description: "El carpooling cuesta 3–20 €/asiento; un taxi de ida y vuelta supera los 50–100 €. Comparativa real para festivales en España: precio, vuelta de madrugada y CO₂ evitado.",

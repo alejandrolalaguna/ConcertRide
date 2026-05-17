@@ -9,7 +9,7 @@ const FEATURED_SLUGS = ["mad-cool", "primavera-sound", "sonar", "fib", "bbk-live
 export default function FestivalesPage() {
   const year = new Date().getFullYear();
   useSeoMeta({
-    title: `Festivales de música España ${year}: carpooling y transporte | ConcertRide`,
+    title: `Festivales España ${year} · Carpooling y transporte | ConcertRide`,
     description: `+${FESTIVAL_LANDINGS.length} festivales con viaje compartido en España ${year}: Mad Cool, Primavera Sound, BBK Live, Arenal Sound y más. Sin comisión. Únete ahora.`,
     canonical: `${SITE_URL}/festivales`,
     keywords:

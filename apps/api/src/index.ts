@@ -62,6 +62,21 @@ app.use("*", async (c, next) => {
   return next();
 });
 
+// ─── Legacy URL redirects (brand-restriction enforcement, see CLAUDE.md) ────
+// The disabled comparison page is permanently 301 redirected to the generic
+// replacement post. Keeps link equity from any external inbound links and
+// guarantees the deprecated URL never serves indexable content again.
+const LEGACY_REDIRECTS: Record<string, string> = {
+  "/comparativa/concertride-vs-blablacar": "/blog/alternativa-carpooling-festivales-espana",
+};
+app.use("*", async (c, next) => {
+  if (c.req.method === "GET" || c.req.method === "HEAD") {
+    const target = LEGACY_REDIRECTS[c.req.path];
+    if (target) return c.redirect(target, 301);
+  }
+  return next();
+});
+
 // ─── Trailing-slash normalisation ───────────────────────────────────────────
 // Redirects /path/ → /path for all GET requests (except bare "/").
 // Prevents GSC "page with redirect" exclusions from trailing-slash variants.
@@ -166,7 +181,9 @@ app.get("/festivales/:slug/guia", seoPrerender);
 app.get("/festivales-en/:slug", seoPrerender);
 app.get("/conciertos/:city/:year", seoPrerender);
 app.get("/como-funciona-carpooling", seoPrerender);
-app.get("/comparativa/concertride-vs-blablacar", seoPrerender);
+// NOTE: /comparativa/concertride-vs-blablacar intentionally NOT registered —
+// redirected 301 to /blog/alternativa-carpooling-festivales-espana above
+// (see LEGACY_REDIRECTS). Do not re-add per CLAUDE.md "Brand Restrictions".
 app.get("/comparativa/carpooling-vs-taxi-festival", seoPrerender);
 
 app.use("/api/*", storeMiddleware);

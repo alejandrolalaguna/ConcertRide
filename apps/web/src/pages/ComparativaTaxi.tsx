@@ -24,9 +24,9 @@ const FAQS = [
 
 export default function ComparativaTaxi() {
   useSeoMeta({
-    title: "Carpooling vs taxi para ir a un festival: comparativa | ConcertRide",
+    title: "Carpooling vs taxi para ir a un festival · ConcertRide",
     description:
-      "El carpooling cuesta 3–20 €/asiento; un taxi de ida y vuelta supera los 50–100 €. Comparativa real para festivales en España: precio, vuelta de madrugada y CO₂ evitado.",
+      "Carpooling 3–20 €/asiento vs taxi 50–100 € ida y vuelta. Comparativa real para festivales en España: precio, vuelta nocturna y CO₂ evitado.",
     canonical: `${SITE_URL}/comparativa/carpooling-vs-taxi-festival`,
     keywords:
       "carpooling vs taxi festival, taxi festival precio, ahorrar taxi festival, vuelta de madrugada festival, coche compartido versus taxi, transporte festival barato",
@@ -151,12 +151,6 @@ export default function ComparativaTaxi() {
             >
               Buscar viaje <ArrowRight size={12} />
             </Link>
-            {/* <Link
-              to="/comparativa/concertride-vs-blablacar"
-              className="inline-flex items-center gap-2 font-sans text-xs font-semibold uppercase tracking-[0.12em] border-2 border-cr-border text-cr-text-muted px-4 py-2 hover:border-cr-primary hover:text-cr-primary transition-colors"
-            >
-              ConcertRide vs BlaBlaCar <ArrowRight size={12} />
-            </Link> */}
             <Link
               to="/como-funciona-carpooling"
               className="inline-flex items-center gap-2 font-sans text-xs font-semibold uppercase tracking-[0.12em] border-2 border-cr-border text-cr-text-muted px-4 py-2 hover:border-cr-primary hover:text-cr-primary transition-colors"

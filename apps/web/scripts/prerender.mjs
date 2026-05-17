@@ -40,11 +40,13 @@ const STATIC_ROUTES = [
   "/concerts",
   "/festivales",
   "/guia-transporte-festivales",
+  "/guia-ir-festivales-2026",
   "/blog",
   "/rutas",
   "/como-funciona-carpooling",
-  // NOTE: /comparativa/concertride-vs-blablacar is intentionally EXCLUDED
-  // (route disabled in App.tsx per brand policy — see CLAUDE.md)
+  // NOTE: legacy comparison route intentionally EXCLUDED — Worker 301-redirects
+  // it to /blog/alternativa-carpooling-festivales-espana. Page component removed.
+  // See CLAUDE.md "Brand Restrictions". Never re-add.
   "/comparativa/carpooling-vs-taxi-festival",
   "/prensa",
   "/sala-de-prensa",
@@ -226,11 +228,14 @@ async function exists(p) {
 
 async function writeSitemapIndex() {
   const today = new Date().toISOString().slice(0, 10);
+  // Sitemap filenames standardized to Spanish (matches site locale & internal links).
+  // Note: legacy aliases (sitemap-festivals/cities/routes.xml) are NOT generated anymore —
+  // if external services (GSC, search engines) still reference them, re-add via redirects.
   const staticSitemaps = [
     "sitemap-static.xml",
-    "sitemap-festivals.xml",
-    "sitemap-cities.xml",
-    "sitemap-routes.xml",
+    "sitemap-festivales.xml",
+    "sitemap-ciudades.xml",
+    "sitemap-rutas.xml",
     "sitemap-blog.xml",
     "sitemap-how-to-get-there.xml",
     "sitemap-artistas.xml",
@@ -358,9 +363,9 @@ async function writeSeparateSitemaps(urls) {
     console.log(`[prerender] wrote ${filename} — ${list.length} URLs`);
   };
 
-  await write("sitemap-festivals.xml", groups.festivals, "weekly", "0.85");
-  await write("sitemap-cities.xml", groups.cities, "weekly", "0.8");
-  await write("sitemap-routes.xml", groups.routes, "monthly", "0.7");
+  await write("sitemap-festivales.xml", groups.festivals, "weekly", "0.85");
+  await write("sitemap-ciudades.xml", groups.cities, "weekly", "0.8");
+  await write("sitemap-rutas.xml", groups.routes, "monthly", "0.7");
   await write("sitemap-how-to-get-there.xml", groups.howto, "weekly", "0.85");
   await write("sitemap-blog.xml", groups.blog, "monthly", "0.75");
   await write("sitemap-generos.xml", groups.genres, "monthly", "0.78");

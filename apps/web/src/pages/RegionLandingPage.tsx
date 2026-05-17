@@ -82,9 +82,32 @@ export default function RegionLandingPage() {
   const nearbyCity = region.mainCities[1] ?? region.mainCities[0] ?? "otras ciudades";
 
   // ── SEO meta ──────────────────────────────────────────────────────────────
+  // Build a 135–155 char description with a 3-tier fallback so regions with
+  // many festivals (e.g. Comunitat Valenciana with 5+ shortNames) don't
+  // overflow 160 chars, and regions with 0–1 festivals still reach 135+.
+  const regionFestNames = festivalsData.map((f) => f.shortName);
+  const regionPriceRange = priceRows[0]?.range ?? "3 €/asiento";
+  // Try 3 festivals, then 2, then 1, then drop the festival list entirely.
+  const buildRegionDesc = (n: number) =>
+    `Festivales en ${region.name} ${year}: ${regionFestNames.slice(0, n).join(", ")}. Carpooling desde ${nearbyCity} desde ${regionPriceRange}, 0 % comisión, vuelta nocturna y conductores verificados.`;
+  const regionDescNoFest = `Festivales en ${region.name} ${year}: agenda actualizada y carpooling desde ${nearbyCity} desde ${regionPriceRange}, 0 % comisión, vuelta nocturna y conductores verificados.`;
+  let regionDescription = "";
+  for (const n of [3, 2, 1]) {
+    if (regionFestNames.length < n) continue;
+    const candidate = buildRegionDesc(n);
+    if (candidate.length <= 158) {
+      regionDescription = candidate;
+      break;
+    }
+  }
+  if (!regionDescription) {
+    regionDescription = regionDescNoFest.length <= 158
+      ? regionDescNoFest
+      : `Festivales en ${region.name} ${year} — carpooling 0 % comisión, vuelta nocturna y conductores verificados desde ${regionPriceRange} en ConcertRide.`;
+  }
   useSeoMeta({
-    title: `Festivales en ${region.displayName} ${year} · transporte y carpooling | ConcertRide`,
-    description: `Festivales en ${region.name} ${year}: ${festivalsData.map((f) => f.shortName).join(", ")}. Carpooling desde ${nearbyCity} desde ${priceRows[0]?.range ?? "3 €/asiento"}. Sin comisión, conductores verificados.`,
+    title: `Festivales en ${region.displayName} ${year} · Carpooling | ConcertRide`,
+    description: regionDescription,
     canonical: `${SITE_URL}/festivales-en/${region.slug}`,
     keywords: [
       `festivales ${region.displayName} ${year}`,

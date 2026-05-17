@@ -517,14 +517,14 @@ async function main() {
   await fs.mkdir(PUBLIC_DIR, { recursive: true });
 
   // NOTE: File names MUST match what prerender.mjs generates so public/ and dist/ stay in sync.
-  // prerender.mjs uses English names; this script mirrors them to avoid orphan files in dist/.
+  // Standardized to Spanish (festivales/ciudades/rutas) since site locale is es-ES.
   const sitemaps = [
-    { file: "sitemap-festivals.xml",        content: buildFestivalesSitemap(),  count: FESTIVAL_SLUGS.length },
+    { file: "sitemap-festivales.xml",       content: buildFestivalesSitemap(),  count: FESTIVAL_SLUGS.length },
     { file: "sitemap-artistas.xml",         content: buildArtistasSitemap(),    count: ARTIST_SLUGS.length   },
     { file: "sitemap-recintos.xml",         content: buildRecintosSitemap(),    count: VENUE_SLUGS.length    },
-    { file: "sitemap-cities.xml",           content: buildCiudadesSitemap(),    count: CITY_SLUGS.length     },
+    { file: "sitemap-ciudades.xml",         content: buildCiudadesSitemap(),    count: CITY_SLUGS.length     },
     { file: "sitemap-how-to-get-there.xml", content: buildComoLlegarSitemap(),  count: COMO_LLEGAR_SLUGS.length },
-    { file: "sitemap-routes.xml",           content: buildRutasSitemap(),       count: ROUTE_SLUGS.length    },
+    { file: "sitemap-rutas.xml",            content: buildRutasSitemap(),       count: ROUTE_SLUGS.length    },
     { file: "sitemap-blog.xml",             content: buildBlogSitemap(),        count: BLOG_POSTS.length     },
   ];
 

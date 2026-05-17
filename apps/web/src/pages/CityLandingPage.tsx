@@ -73,12 +73,12 @@ export default function CityLandingPage() {
   // Per-city title/description overrides targeting top GSC queries
   const CITY_META_OVERRIDES: Record<string, { title: string; description: string; keywords?: string }> = {
     sevilla: {
-      title: `Conciertos Sevilla ${year}–${nextYear}: La Cartuja, festivales y carpooling | ConcertRide`,
+      title: `Conciertos Sevilla ${year}: La Cartuja, FIBES + carpooling | ConcertRide`,
       description: `Próximos conciertos en Sevilla ${year} y ${nextYear}: La Cartuja (60.000 plazas), FIBES, Interestelar Sevilla, Icónica Fest. Carpooling sin comisión desde 3 €/asiento. Conductores verificados.`,
       keywords: `conciertos en Sevilla ${year}, conciertos Sevilla ${nextYear}, conciertos Sevilla ${nextYear + 1}, próximos conciertos Sevilla, conciertos música Sevilla, conciertos y recitales Sevilla, agenda musical Sevilla, concierto Sevilla, sevilla concierto, música en Sevilla, Interestelar Sevilla, Icónica Sevilla Fest, carpooling Sevilla festivales, festivales en Sevilla`,
     },
     donostia: {
-      title: `Conciertos Donostia–San Sebastián ${year}: Jazzaldia y carpooling | ConcertRide`,
+      title: `Conciertos Donostia ${year}: Jazzaldia + carpooling | ConcertRide`,
       description: `Próximos conciertos en Donostia–San Sebastián ${year}: Jazzaldia (julio), Donostia Arena, Anoeta. Carpooling sin comisión a BBK Live (100 km, 4–7 €) y Azkena Rock (100 km, 4–7 €). Desde 4 €/asiento.`,
       keywords: `conciertos Donostia ${year}, conciertos en Donostia ${year}, conciertos San Sebastián ${year}, conciertos en donostia 2026, conciertos en San Sebastián, conciertos en donosti ${year}, san sebastian conciertos, conciertos san sebastian, Jazzaldia ${year}, carpooling BBK Live desde Donostia`,
     },
@@ -93,7 +93,7 @@ export default function CityLandingPage() {
       keywords: `conciertos Bilbao ${year}, conciertos en Bilbao ${nextYear}, BBK Live ${year}, Kobetamendi, bilbao concert, como llegar BBK Live Bilbao, carpooling Bilbao festivales`,
     },
     zaragoza: {
-      title: `Conciertos Zaragoza ${year}–${nextYear}: Príncipe Felipe y carpooling | ConcertRide`,
+      title: `Conciertos Zaragoza ${year}: Príncipe Felipe + carpooling | ConcertRide`,
       description: `Próximos conciertos en Zaragoza ${year} y ${nextYear}: Pabellón Príncipe Felipe, Sala López, Pirineos Sur. Carpooling a Mad Cool (9–13 €), Primavera Sound (8–12 €), Arenal Sound (8–12 €). Sin comisión.`,
       keywords: `conciertos en Zaragoza ${year}, próximos conciertos Zaragoza, conciertos Zaragoza ${nextYear}, conciertos zaragoza ${nextYear + 1}, próximos conciertos en zaragoza, conciertos 2025 Zaragoza, Pabellón Príncipe Felipe, carpooling Zaragoza festivales`,
     },
@@ -138,7 +138,7 @@ export default function CityLandingPage() {
       keywords: `conciertos en Vigo ${year}, Resurrection Fest desde Vigo, O Son do Camiño Vigo, Auditorio Mar de Vigo conciertos, carpooling Vigo festivales`,
     },
     murcia: {
-      title: `Conciertos Murcia ${year}–${nextYear}: SOS 4.8, agenda y carpooling | ConcertRide`,
+      title: `Conciertos Murcia ${year}: SOS 4.8 + carpooling | ConcertRide`,
       description: `Próximos conciertos en Murcia ${year} y ${nextYear}: SOS 4.8, Auditorio Víctor Villegas. Carpooling a Medusa (180 km, 8–12 €), Arenal Sound (250 km, 10–14 €), Viña Rock (155 km, 6–9 €). Sin comisión.`,
       keywords: `conciertos en Murcia ${year}, conciertos Murcia ${nextYear}, conciertos murcia ${nextYear + 1}, proximos conciertos en murcia, agenda conciertos murcia, concierto murcia, SOS 4.8 Murcia, Auditorio Víctor Villegas, carpooling Murcia festivales, Medusa Festival desde Murcia`,
     },

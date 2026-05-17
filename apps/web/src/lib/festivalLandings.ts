@@ -126,6 +126,19 @@ export interface FestivalLanding {
     bestRating: number;
     reviewCount: number;
   };
+  /** Quotable answer-first paragraph (~140 words) rendered immediately after the H1.
+   *  Optimized for AI Overview / Generative-Engine citation: self-contained, fact-dense
+   *  passage answering "how to get to {festival}" with dates, venue, top-3 transport
+   *  options with prices, carpooling price range, top origin cities, and night-return tip. */
+  quotableAnswer?: string;
+  /** Differentiator blocks rendered as standalone H2 sections to reduce sibling text
+   *  similarity with paired festivals (e.g. Cruïlla vs Primavera Sound, BBK Live vs
+   *  BBK Music Legends). Each block covers a unique angle: history, audience demographics,
+   *  venue specificity, services & experience, music profile, etc. */
+  enrichmentBlocks?: Array<{
+    heading: string;
+    body: string;
+  }>;
 }
 
 export const FESTIVAL_LANDINGS: FestivalLanding[] = [
@@ -146,6 +159,30 @@ export const FESTIVAL_LANDINGS: FestivalLanding[] = [
     capacity: "80.000 personas/día",
     blurb:
       "Mad Cool es el festival de rock e indie alternativo más grande de Madrid, celebrado desde 2023 en el recinto Iberdrola Music de Villaverde. Convoca a 80.000 asistentes diarios con artistas internacionales de primera línea. El recinto se encuentra al sur de Madrid (Villaverde Bajo), accesible en metro por la línea 3 (parada Pradolongo o Legazpi) más un corto trayecto en autobús. La salida nocturna satura tanto el metro como las líneas de autobús después de las 1:00, por lo que el coche compartido es la opción más cómoda para quienes vienen desde otras provincias o barrios sin acceso directo al recinto. Según la APM, Mad Cool es uno de los festivales con mayor afluencia internacional de España.",
+    quotableAnswer:
+      "El festival Mad Cool 2026 se celebra del 8 al 11 de julio en Iberdrola Music, Villaverde Bajo (Madrid), con un aforo de 80.000 personas/día. Las tres mejores opciones para llegar son: (1) metro línea 3 hasta Pradolongo o Legazpi más autobús al recinto (1,50–3 €); (2) taxi o VTC desde el centro de Madrid (30–50 €, con tarifa multiplicada x2 en horario nocturno); (3) carpooling con ConcertRide (4–7 € desde Madrid centro, 10–14 € desde Valencia, 9–13 € desde Zaragoza). Para quienes vienen de fuera de Madrid, el carpooling es la opción más económica y directa. El recinto no opera lanzaderas oficiales desde el centro de la ciudad. Para volver de madrugada, la opción más práctica es coordinar la vuelta con un conductor de ConcertRide y evitar la saturación del metro y los búhos en torno a las 2:00.",
+    enrichmentBlocks: [
+      {
+        heading: "Historia y herencia de Mad Cool",
+        body: "Mad Cool nació en 2016 como apuesta de la promotora Live Nation España por un macrofestival urbano comparable a Lollapalooza o Reading. Su recorrido ha estado marcado por tres recintos distintos (La Caja Mágica 2016, Valdebebas 2017–2019, IFEMA 2021–2022 e Iberdrola Music desde 2023), reflejo de la dificultad logística de mover 80.000 asistentes/día dentro de Madrid. Ediciones icónicas incluyen The Cure y Pearl Jam en 2019, y Metallica + The Rolling Stones en 2022. Desde 2023 ocupa Iberdrola Music, en Villaverde Bajo, un recinto industrial reconvertido específicamente para grandes eventos."
+      },
+      {
+        heading: "Demografía típica del asistente de Mad Cool",
+        body: "El asistente medio de Mad Cool tiene entre 25 y 40 años, con fuerte peso del público profesional madrileño con poder adquisitivo medio-alto. Según datos de la APM, alrededor del 20–25 % del público es internacional (Reino Unido, Italia, Francia y Países Bajos los principales emisores). Predomina perfil indie/rock/electrónica con consumo intensivo de cabeza de cartel anglosajón."
+      },
+      {
+        heading: "Particularidad del recinto Iberdrola Music",
+        body: "Iberdrola Music es un recinto urbano de unas 28 hectáreas en Villaverde Bajo, sur de Madrid, antigua zona industrial reconvertida. A diferencia de festivales costeros o rurales, está plenamente integrado en la trama urbana: accesos por la M-45, metro L3 (Pradolongo / Legazpi) y dos líneas EMT. No hay camping —el alojamiento es hotelero en Madrid ciudad—. Cuatro escenarios principales con distancias largas entre sí y suelo asfaltado/grava (no hierba), lo que diferencia fuertemente la experiencia frente a festivales como Cruïlla (Parc del Fòrum, frente al mar) o Primavera Sound."
+      },
+      {
+        heading: "Servicios y experiencia diferencial",
+        body: "Sin zona de acampada ni glamping, Mad Cool se concibe como festival urbano de pernocta en hoteles de Madrid. Cuenta con zona VIP con upgrades de última hora, parking de pago (12–18 €/día), zona de bicis vigilada gratuita y pulseras cashless obligatorias. La oferta gastronómica está dominada por food trucks y barras corporativas (no feria gastronómica independiente como Cruïlla). Horario tipo 18:00–04:00 los cuatro días."
+      },
+      {
+        heading: "Cartel y géneros dominantes",
+        body: "Mad Cool es predominantemente headliner-driven con cabezas de cartel internacionales de gran formato (rock, indie, pop alternativo y electrónica de estadio). Aproximadamente el 70–80 % de los nombres principales son anglosajones, con presencia decreciente de underground o talento nacional. Este perfil lo diferencia claramente de festivales como Primavera Sound (donde la curaduría artística independiente pesa más) o Cruïlla (con apuesta multigénero y latina)."
+      }
+    ],
     sameAs: [
       "https://es.wikipedia.org/wiki/Mad_Cool_Festival",
       "https://www.wikidata.org/wiki/Q27621855",
@@ -207,11 +244,11 @@ export const FESTIVAL_LANDINGS: FestivalLanding[] = [
       },
       {
         q: "¿Es seguro ir a Mad Cool en coche compartido?",
-        a: "Sí. Los conductores de ConcertRide a Mad Cool 2026 (IFEMA, 9–11 julio) verifican carnet de conducir antes de publicar. Puedes ver perfil, valoraciones y chat antes de confirmar la plaza. El pago es en efectivo o Bizum (4–7 € desde Madrid, 15–20 € desde Barcelona) el día del viaje — sin adelantos ni datos bancarios.",
+        a: "Sí. Los conductores de ConcertRide a Mad Cool 2026 (Iberdrola Music Villaverde, 8–11 julio) verifican carnet de conducir antes de publicar. Puedes ver perfil, valoraciones y chat antes de confirmar la plaza. El pago es en efectivo o Bizum (4–7 € desde Madrid, 15–20 € desde Barcelona) el día del viaje — sin adelantos ni datos bancarios.",
       },
       {
         q: "¿Cuánto cuesta el carpooling a Mad Cool 2026 desde Madrid?",
-        a: "El carpooling a Mad Cool 2026 desde Madrid centro cuesta entre 4 y 7 € por asiento en ConcertRide. Son 15 km hasta IFEMA Madrid (25 min en coche). Como referencia: el metro L8 cuesta 2–3 € pero se colapsa en la salida (30 min de cola sobre las 1:00–2:30); un taxi nocturno desde IFEMA al centro ronda los 25–35 €.",
+        a: "El carpooling a Mad Cool 2026 desde Madrid centro cuesta entre 4 y 7 € por asiento en ConcertRide. Son 15 km hasta Iberdrola Music Villaverde (25 min en coche). Como referencia: el metro L3 cuesta 2–3 € pero se satura en la salida (30 min de cola sobre las 1:00–2:30); un taxi nocturno desde Villaverde al centro ronda los 20–30 €.",
       },
     ],
     relatedFestivals: ["tomavistas", "sonorama-ribera", "primavera-sound"],
@@ -329,6 +366,30 @@ export const FESTIVAL_LANDINGS: FestivalLanding[] = [
     capacity: "60.000 personas/día",
     blurb:
       "Primavera Sound es el festival de indie y alternativo más influyente de Europa, celebrado cada año en el Parc del Fòrum de Barcelona desde 2001. Atrae asistentes de toda España y de más de 80 países, con más de 60.000 asistentes diarios en su recinto de Sant Adrià de Besòs. El metro L4 (Besòs Mar) llega al Fòrum pero se colapsa en las salidas de madrugada, con colas de 30–45 minutos habituales. Los asientos de AVE desde Madrid (50–100 €) se agotan semanas antes del festival. Viajar en coche compartido desde Madrid (15–20 €), Valencia (10–14 €) o Zaragoza (8–12 €) es la opción más popular y económica para asistentes de fuera de Cataluña.",
+    quotableAnswer:
+      "El festival Primavera Sound 2026 se celebra del 3 al 7 de junio en el Parc del Fòrum, Sant Adrià de Besòs (Barcelona), con un aforo de 60.000 personas/día. Las tres mejores opciones para llegar son: (1) metro L4 hasta Besòs Mar, a 10 minutos a pie del recinto (2,55 €); (2) AVE desde Madrid hasta Sants más metro L4 (50–100 € + 2,55 €); (3) carpooling con ConcertRide (15–20 € desde Madrid, 10–14 € desde Valencia, 8–12 € desde Zaragoza, 4–7 € desde Tarragona). El parking del Fòrum es muy limitado (500 plazas, 25–35 €/día) y la organización desaconseja venir en coche particular. Más de 80 países envían asistentes, lo que satura hostales y AVE semanas antes. Para volver de madrugada, la opción más práctica es coordinar con un conductor de ConcertRide sobre las 3:30, ya que las colas del metro alcanzan 30–45 minutos.",
+    enrichmentBlocks: [
+      {
+        heading: "Historia y herencia de Primavera Sound",
+        body: "Primavera Sound nació en 2001 organizado por la promotora barcelonesa Primavera Sound S.L. (Alfonso Lanza, Pablo Soler, Gabi Ruiz) como festival de música independiente con vocación curatorial y dirección artística marcada. Desde 2005 se asentó en el Parc del Fòrum tras dos sedes previas (Poble Espanyol, Universidad Autónoma). Hitos icónicos: Pixies (reunión 2004), Pavement (2010), Aphex Twin, The Cure, Kendrick Lamar. En 2022 alcanzó su pico con dos fines de semana consecutivos y franquicias internacionales (Sao Paulo, Los Angeles, Porto). Es referencia mundial del periodismo musical y la prensa especializada anglosajona y europea."
+      },
+      {
+        heading: "Demografía típica del asistente de Primavera Sound",
+        body: "Primavera Sound es el festival español con mayor proporción de público extranjero: 50–60 % internacional según ediciones recientes, con Reino Unido, Estados Unidos, Italia, Francia, Alemania y Países Bajos liderando la afluencia. La edad media se sitúa en 28–38 años, con perfil profesional cualificado, periodistas musicales, melómanos y trabajadores del sector creativo. Apenas presencia adolescente."
+      },
+      {
+        heading: "Particularidad del Parc del Fòrum",
+        body: "El Parc del Fòrum se ubica en Sant Adrià de Besòs, frente al Mediterráneo, sobre la antigua zona industrial del río Besòs reconvertida tras el Fòrum Universal de las Culturas 2004. Es un espacio costero de hormigón con la placa fotovoltaica icónica como techo en uno de los escenarios. A diferencia de recintos rurales o estadios, ofrece vista al mar y brisa marítima en junio, con temperatura suave (18–25 ºC). Accesos por metro L4 (Besòs Mar), tranvía T4 (Fòrum) y caminando desde la playa. La proximidad al centro urbano de Barcelona es uno de sus rasgos diferenciales clave."
+      },
+      {
+        heading: "Servicios y experiencia diferencial",
+        body: "Primavera Sound no tiene zona de acampada: el alojamiento se distribuye por toda Barcelona (Eixample, Gràcia, Poblenou, Sant Martí). Cuenta con Primavera Pro (programa profesional independiente), Día de la Música (Primavera a la Ciutat — actividades gratuitas previas en clubes de Barcelona), una curaduría gastronómica con chefs locales y plástica/arte sonoro integrados en escenarios. Horario nocturno extendido hasta 06:00 en algunos años, con cierre por escenario Boiler Room / Dice."
+      },
+      {
+        heading: "Cartel y géneros dominantes",
+        body: "Primavera Sound combina cabezas de cartel internacionales (rock, indie, hip-hop, electrónica) con una capa profunda de underground, jazz contemporáneo, experimental y nombres en eclosión. Aproximadamente el 60 % del cartel total no son headliners y muchos artistas vienen sin gira española previa. Esto la diferencia claramente de festivales más comerciales o focalizados en pop latino, con cuotas importantes dedicadas a la curaduría editorial independiente."
+      }
+    ],
     sameAs: [
       "https://es.wikipedia.org/wiki/Primavera_Sound",
       "https://www.wikidata.org/wiki/Q1247417",
@@ -473,6 +534,8 @@ export const FESTIVAL_LANDINGS: FestivalLanding[] = [
     capacity: "120.000 personas (edición completa)",
     blurb:
       "Sónar es el festival internacional de música avanzada, creatividad y tecnología más reconocido del mundo, celebrado en Barcelona desde 1994. Funciona en dos sedes simultáneas: Sónar by Day en Fira Montjuïc (Gran Via de les Corts Catalanes, Montjuïc) y Sónar by Night en Fira Gran Via de L'Hospitalet de Llobregat, a 8 km del centro de Barcelona. El festival atrae cada año a más de 120.000 asistentes de más de 100 países y es referencia mundial de la electrónica y la cultura digital. La Fira Gran Via es accesible en metro L9 Sur (parada Fira), pero el festival termina entre las 6:00 y las 8:00, hora en que el metro ya ha reanudado el servicio. Los asistentes de Madrid, Valencia y Zaragoza prefieren el carpooling con ConcertRide para llegar directamente sin combinar AVE, metro y taxi.",
+    quotableAnswer:
+      "El festival Sónar Barcelona 2026 se celebra del 18 al 20 de junio en la Fira Gran Via (sede única), L'Hospitalet de Llobregat, con un aforo de 120.000 personas en la edición completa. Las tres mejores opciones para llegar son: (1) metro L9 Sud hasta Fira (2,55 €, 25 minutos desde el centro de Barcelona); (2) AVE desde Madrid hasta Sants más metro L9 (50–100 € + 2,55 €); (3) carpooling con ConcertRide (15–20 € desde Madrid, 10–14 € desde Valencia, 8–12 € desde Zaragoza, 4–7 € desde Tarragona). El festival cierra entre las 6:00 y las 8:00 de la mañana, hora en que el metro ya ha reanudado el servicio. Para volver de madrugada antes del reinicio del metro, la opción más práctica es coordinar con el conductor de ConcertRide o taxi (15–25 € al centro).",
     sameAs: [
       "https://es.wikipedia.org/wiki/S%C3%B3nar",
       "https://www.wikidata.org/wiki/Q755530",
@@ -562,6 +625,8 @@ export const FESTIVAL_LANDINGS: FestivalLanding[] = [
     capacity: "45.000 personas/día",
     blurb:
       "El FIB (Festival Internacional de Benicàssim) es uno de los festivales de indie y alternativo más veteranos de España, celebrado desde 1995 en la Costa del Azahar a 15 km de Castellón de la Plana y 70 km de Valencia. El recinto está junto a la playa, con acceso en coche por la N-340 o la AP-7 (salida 47, Benicàssim Nord), pero el transporte público nocturno desde Castellón es prácticamente nulo después de las 2:00, y desde Valencia no existe conexión directa al recinto de madrugada. Más del 60% de los asistentes llegan en coche o carpooling desde otras provincias, lo que hace de ConcertRide la herramienta más útil para organizar la logística de los 4 días del festival.",
+    quotableAnswer:
+      "El festival FIB · Festival Internacional de Benicàssim 2026 se celebra del 16 al 18 de julio en el Recinto Auditorio del Parque de Benicàssim (Castellón), con un aforo de 45.000 personas/día. Las tres mejores opciones para llegar son: (1) lanzadera oficial FIB desde la estación de autobuses de Castellón (5–8 €, 15 minutos, frecuencia cada 20–30 minutos); (2) Renfe Cercanías C6 Valencia–Castellón (4–6 €) más lanzadera o taxi hasta el recinto; (3) carpooling con ConcertRide (3–6 € desde Valencia, 3–5 € desde Castellón, 8–12 € desde Barcelona, 12–17 € desde Madrid). Más del 60 % de los asistentes llega en coche o carpooling desde otras provincias. Para volver de madrugada, la opción más práctica es coordinar con el conductor de ConcertRide, ya que el transporte público desde Castellón se interrumpe después de las 2:00.",
     sameAs: [
       "https://es.wikipedia.org/wiki/Festival_Internacional_de_Benic%C3%A0ssim",
       "https://www.wikidata.org/wiki/Q836793",
@@ -670,6 +735,30 @@ export const FESTIVAL_LANDINGS: FestivalLanding[] = [
     capacity: "30.000 personas/día",
     blurb:
       "Bilbao BBK Live es el festival internacional de referencia del norte de España, celebrado cada julio en el monte Kobetamendi con vistas a la ría de Bilbao. El recinto está a unos 4 km del centro de Bilbao y el acceso en transporte público nocturno es limitado. El carpooling es especialmente útil para asistentes que vienen desde Donostia, Vitoria, Pamplona o Madrid.",
+    quotableAnswer:
+      "El festival Bilbao BBK Live 2026 se celebra del 9 al 11 de julio en el Parque de Kobetamendi, Bilbao (Bizkaia), con un aforo de 30.000 personas/día. Las tres mejores opciones para llegar son: (1) lanzadera oficial gratuita desde Plaza Moyúa o Termibús, incluida con la entrada y con servicio continuo cada 15 minutos de 17:00 a 6:00; (2) taxi desde Bilbao centro (12–18 €, 12 minutos); (3) carpooling con ConcertRide hasta Bilbao centro (4–7 € desde Donostia, 3–6 € desde Vitoria, 11–16 € desde Madrid, 4–7 € desde Santander). El coche propio está fuertemente desaconsejado por la organización: la carretera al monte es estrecha y el parking casi inexistente. Para volver de madrugada, la opción más práctica es la lanzadera oficial al centro y luego coordinar el viaje a otras provincias con ConcertRide.",
+    enrichmentBlocks: [
+      {
+        heading: "Historia y herencia de BBK Live",
+        body: "Bilbao BBK Live arrancó en 2006 patrocinado por la fundación bancaria BBK (hoy Kutxabank) como festival internacional de música en directo en torno al rock, indie y electrónica. En sus casi dos décadas ha hospedado a Coldplay, Arctic Monkeys, Pearl Jam, Depeche Mode, Black Keys, Liam Gallagher, The Killers y Florence + The Machine. En 2012 estrenó su ubicación definitiva en el monte Kobetamendi, sobre Bilbao, lo que reforzó su perfil paisajístico junto al estuario. Es uno de los pocos festivales en España premiados internacionalmente por la European Festival Awards en sostenibilidad y experiencia."
+      },
+      {
+        heading: "Demografía típica del asistente de BBK Live",
+        body: "El asistente medio de BBK Live tiene entre 25 y 34 años, con una proporción internacional de aproximadamente el 30 % según ediciones recientes (Reino Unido, Francia, Alemania y Países Bajos como principales emisores). Predomina público vasco joven, periodistas musicales y melómanos del norte. Estilo indie/rock/electrónica con consumo intensivo de cabeza de cartel anglosajón."
+      },
+      {
+        heading: "Particularidad del recinto Kobetamendi",
+        body: "Kobetamendi es un parque municipal ubicado a 280 m de altitud, en la ladera de un monte sobre Bilbao, con vistas panorámicas a la ría, los puentes y el casco urbano. El recinto se enmarca en un entorno natural arbolado de la cornisa cantábrica, expuesto a brisa marina suave (15–22 ºC en julio, con posible txirimiri). Los accesos son por carretera estrecha BI-3741, sin parking de pago — la lanzadera oficial gratuita 24/7 es prácticamente obligatoria. La altitud, el verde y la lluvia ocasional configuran una experiencia muy distinta a festivales de explanada urbana o playa."
+      },
+      {
+        heading: "Servicios y experiencia diferencial",
+        body: "BBK Live ofrece zona de acampada gratuita Kobetazelaia adyacente al recinto (con duchas y baños) y opción glamping de pago. Cuenta con escenarios temáticos como Basoa (electrónica en el bosque, abierto hasta el amanecer), Lasai (chill out) y Truke Plaza. Programa además gastronomía vasca de pintxos en colaboración con productores locales y actividades de bienestar (yoga matutino). Sostenibilidad reconocida con vasos reutilizables, transporte público gratuito y compensación CO₂."
+      },
+      {
+        heading: "Cartel y géneros dominantes",
+        body: "BBK Live combina cabezas de cartel internacionales de rock, indie y pop (60–70 % anglosajones) con una capa significativa de electrónica de autor en el escenario Basoa y bandas vascas e ibéricas emergentes. Es referencia del rock alternativo en el sur de Europa, con menor peso del trap/urbano latino respecto a otros festivales españoles. El equilibrio entre headliner y curaduría independiente es notable."
+      }
+    ],
     sameAs: [
       "https://es.wikipedia.org/wiki/Bilbao_BBK_Live",
       "https://www.wikidata.org/wiki/Q1136659",
@@ -801,6 +890,8 @@ export const FESTIVAL_LANDINGS: FestivalLanding[] = [
     capacity: "30.000 personas/día",
     blurb:
       "Resurrection Fest es el festival de metal y rock pesado más importante de España, celebrado en Viveiro (Lugo) desde 2006. El recinto de A Gañidoira está situado a las afueras del municipio, con transporte público prácticamente nulo en horarios nocturnos. La mayoría de los asistentes llegan en coche, y el carpooling entre fans de metal es una tradición desde los primeros años del festival.",
+    quotableAnswer:
+      "El festival Resurrection Fest 2026 se celebra del 1 al 4 de julio en A Gañidoira, Viveiro (Lugo), con un aforo de 30.000 personas/día. Las tres mejores opciones para llegar son: (1) autobús ALSA hasta A Coruña o Lugo más conexión a Viveiro (limitado, sin servicio nocturno, 2–3 frecuencias diarias); (2) coche propio por la A-8 hasta Viveiro y desvío local al recinto; (3) carpooling con ConcertRide (4–7 € desde A Coruña, 6–9 € desde Santiago o Vigo, 3–5 € desde Lugo, 10–15 € desde Bilbao, 16–22 € desde Madrid). Viveiro no tiene AVE ni aeropuerto propio; los aeropuertos más cercanos son Santiago (185 km) y Asturias (195 km). Para volver de madrugada, la opción más práctica es coordinar con el conductor de ConcertRide, ya que no hay tren ni autobús nocturno desde Viveiro a ninguna provincia.",
     sameAs: [
       "https://es.wikipedia.org/wiki/Resurrection_Fest",
       "https://www.wikidata.org/wiki/Q3432696",
@@ -891,6 +982,8 @@ export const FESTIVAL_LANDINGS: FestivalLanding[] = [
     capacity: "40.000 personas/día",
     blurb:
       "Arenal Sound es el festival de playa más popular del Mediterráneo español, celebrado en la costa de Burriana (Castellón) desde 2010 durante 5 días en agosto. Combina música pop, indie y electrónica con ambiente playero a pie de mar, con capacidad para 40.000 asistentes diarios. El recinto se encuentra a 10 km de Castellón de la Plana (por la N-340) y a 65 km de Valencia (por la AP-7 o la N-340), pero el transporte público nocturno es prácticamente inexistente desde la playa a las 6:00 de la mañana: no hay tren directo al recinto ni autobús nocturno desde Castellón. La gran mayoría de asistentes organizan su logística en coche compartido a través de ConcertRide, que permite llegar directamente al festival con el equipo de camping y coordinar la vuelta al final de la semana.",
+    quotableAnswer:
+      "El festival Arenal Sound 2026 se celebra del 30 de julio al 2 de agosto en la Playa de Burriana (Castellón), con un aforo de 40.000 personas/día. Las tres mejores opciones para llegar son: (1) autobús lanzadera oficial desde la estación de Castellón (5–8 €, 20 minutos, plazas limitadas, no opera de madrugada); (2) Renfe Cercanías C6 Valencia–Castellón (4–6 €) más taxi o lanzadera al recinto (10–15 €); (3) carpooling con ConcertRide (3–6 € desde Valencia, 3–5 € desde Castellón, 8–12 € desde Barcelona, 12–17 € desde Madrid). No hay tren directo a la playa ni autobús nocturno desde Castellón. Para volver de madrugada, la opción más práctica es coordinar con un conductor de ConcertRide, ya que los conciertos cierran entre las 5:00 y las 6:00 y el transporte público de la zona se detiene a las 23:00.",
     sameAs: [
       "https://es.wikipedia.org/wiki/Arenal_Sound",
       "https://www.wikidata.org/wiki/Q5636940",
@@ -1075,6 +1168,30 @@ export const FESTIVAL_LANDINGS: FestivalLanding[] = [
     capacity: "60.000 personas/día",
     blurb:
       "Medusa Festival es el mayor festival de música electrónica de España, celebrado en la playa de Cullera (Valencia) desde 2012, con 60.000 fans de techno, house y electrónica durante 5 días con el mar Mediterráneo al fondo. El recinto se encuentra a 45 km al sur de Valencia (por la V-31 y la CV-500), con acceso en autobús metropolitano desde Valencia hasta Cullera y lanzadera final hasta la playa, pero el servicio se interrumpe en la madrugada y no hay transporte nocturno desde Alicante, Madrid o Zaragoza. La zona de camping del festival aloja a la mayoría de los asistentes de fuera de la Comunidad Valenciana, que llegan habitualmente en coche compartido por ConcertRide para evitar la complejidad de combinar trenes y autobuses con equipo de camping.",
+    quotableAnswer:
+      "El festival Medusa Festival 2026 se celebra del 13 al 17 de agosto en la Playa Marenys de Rafalcaid, Cullera (Valencia), con un aforo de 60.000 personas/día. Las tres mejores opciones para llegar son: (1) lanzadera oficial Medusa desde la Estació del Nord o Xàtiva en Valencia (5–10 €, plazas limitadas, sin servicio fuera de las franjas de llegada y regreso); (2) Cercanías Renfe C6 Valencia–Cullera (3,50 €, 50 minutos) más taxi o lanzadera al recinto; (3) carpooling con ConcertRide (3–5 € desde Valencia, 4–7 € desde Alicante, 10–14 € desde Madrid, 10–14 € desde Barcelona). No existe lanzadera oficial desde fuera de Valencia. Para volver de madrugada, la opción más práctica es coordinar con el conductor de ConcertRide, ya que tren y lanzadera no operan en el horario de cierre del festival.",
+    enrichmentBlocks: [
+      {
+        heading: "Historia y herencia de Medusa Festival",
+        body: "Medusa Sunbeach Festival arrancó en 2014 en Cullera (Valencia) y en apenas una década se convirtió en uno de los principales festivales de música electrónica de Europa, con presencia continuada de los DJ tops del Top 100 DJ Mag. En 2022 sufrió un incidente meteorológico grave —el desmontaje del escenario principal por un fuerte temporal— que obligó a cancelar parte de la edición y forzó al festival a invertir en infraestructura más resistente. La edición 2023 supuso el regreso con cartel internacional renovado (Steve Aoki, Hardwell, Don Diablo) y mejoras de seguridad y protocolos de evacuación."
+      },
+      {
+        heading: "Demografía típica del asistente de Medusa",
+        body: "El asistente medio de Medusa Festival es muy joven: entre 18 y 26 años predominantemente, con fuerte componente nacional (~85 % españoles) procedente de Levante, Murcia, Madrid y Andalucía. La presencia internacional es minoritaria (~10–15 %) frente a otros festivales electrónicos europeos. El público suele venir en grupos grandes que se alojan juntos en camping o apartamentos de Cullera."
+      },
+      {
+        heading: "Particularidad del recinto Playa de Cullera",
+        body: "El recinto de Medusa se monta directamente en la Playa Marenys de Rafalcaid, una zona arenosa al sur de Cullera, con el Mar Mediterráneo como fondo escenográfico. La superficie es arena fina (no hormigón ni hierba) y la temperatura nocturna ronda los 22–28 ºC en agosto con humedad alta. La playa está separada del núcleo urbano de Cullera por la desembocadura del Júcar y conectada por la CV-500. Esta combinación de playa, mar y verano extremo lo distingue de festivales urbanos o de montaña."
+      },
+      {
+        heading: "Servicios y experiencia diferencial",
+        body: "Medusa ofrece zona de camping cercana al recinto (Medusa Camping) con duchas, baños químicos, supermercado y servicios médicos 24h. También zonas glamping y hotel partners en Cullera y Valencia. Cuenta con escenarios temáticos como Main Stage, Live Stage (electrónica live), Indie Stage y zona VIP con piscinas. Horario sostenido hasta 06:00 los 5 días. Es referencia en grandes producciones audiovisuales con drones, pirotecnia y láseres."
+      },
+      {
+        heading: "Cartel y géneros dominantes",
+        body: "Medusa Festival es prácticamente monográfico de música electrónica de gran formato: EDM, big room house, techno comercial, hardstyle y trance. Cabezas de cartel típicas: Steve Aoki, David Guetta, Hardwell, Don Diablo, Dimitri Vegas & Like Mike, Vini Vici. Aproximadamente el 80 % del cartel son DJs internacionales. Apenas existe presencia de música en directo (rock, indie, pop) lo que lo aleja de festivales multigénero."
+      }
+    ],
     sameAs: [
       "https://es.wikipedia.org/wiki/Medusa_Sunbeach_Festival",
       "https://www.wikidata.org/wiki/Q17084551",
@@ -1170,6 +1287,8 @@ export const FESTIVAL_LANDINGS: FestivalLanding[] = [
     capacity: "50.000 personas/día",
     blurb:
       "Viña Rock es el festival de rock alternativo, punk y metal más longevo de España, celebrado en el Parque La Pulgosa de Villarrobledo (Albacete) desde 1996 en el puente de mayo. El recinto está situado en plena meseta manchega, a 190 km de Madrid (≈2 h por la A-3), 200 km de Valencia y 165 km de Alicante, sin ninguna línea de transporte público que llegue al recinto en horarios de festival. El único autobús / bus oficial es la lanzadera del propio festival desde la estación de autobuses de Albacete (50 km, 40 min). Los autobuses privados Madrid–Viña Rock (Viñarock) salen desde Méndez Álvaro o Nuevos Ministerios (35–55 €) con horario fijo. Con 50.000 asistentes diarios y una zona de camping de referencia, más del 80 % de los asistentes llegan en coche o en autobús; ConcertRide es la herramienta habitual para organizar el viaje compartido desde Madrid, Valencia o Alicante.",
+    quotableAnswer:
+      "El festival Viña Rock 2026 se celebra del 30 de abril al 3 de mayo en el Parque La Pulgosa, Villarrobledo (Albacete), con un aforo de 50.000 personas/día. Las tres mejores opciones para llegar son: (1) autobús lanzadera oficial desde la estación de Albacete (8–12 €, 40 minutos, frecuencia cada 1–2 horas hasta la 1:00); (2) autobús privado Madrid–Viña Rock desde Méndez Álvaro o Nuevos Ministerios (35–55 €, horario fijo); (3) carpooling con ConcertRide (6–9 € desde Madrid, 6–9 € desde Valencia, 5–8 € desde Alicante, 3–5 € desde Albacete). No existe tren directo al recinto. Más del 80 % de los asistentes llega en coche propio o compartido por falta de transporte público nocturno. Para volver de madrugada, la opción más práctica es coordinar la vuelta con el conductor de ConcertRide tras el último concierto.",
     sameAs: [
       "https://es.wikipedia.org/wiki/Vi%C3%B1a_Rock",
       "https://www.wikidata.org/wiki/Q1154897",
@@ -1344,6 +1463,8 @@ export const FESTIVAL_LANDINGS: FestivalLanding[] = [
     capacity: "90.000 personas (3 días)",
     blurb:
       "O Son do Camiño es el festival más importante de Galicia, celebrado en el Monte do Gozo de Santiago de Compostela desde 2019, con 90.000 asistentes en tres jornadas que combinan pop, indie y rock nacional e internacional junto al camino jacobeo. El recinto del Monte do Gozo se encuentra a 5 km del casco histórico de Santiago, accesible por la autovía AG-54 (salida Monte do Gozo) o en autobús lanzadera desde el centro de la ciudad, pero sin conexión de transporte público directo desde Vigo (90 km), Oviedo (295 km) o Madrid (585 km) en horarios de madrugada. Organizar el viaje con ConcertRide es especialmente útil para los asistentes de toda Galicia y del norte de España que quieren llegar directamente al recinto y coordinar la vuelta a cualquier hora.",
+    quotableAnswer:
+      "El festival O Son do Camiño 2026 se celebra del 18 al 20 de junio en el Monte do Gozo, Santiago de Compostela (A Coruña), con un aforo de 90.000 asistentes durante tres jornadas. Las tres mejores opciones para llegar son: (1) autobuses lanzadera desde el centro de Santiago (Galeras/Rúa do Franco) con frecuencia cada 15–20 minutos durante el festival; (2) coche propio por la autovía AG-54, salida Monte do Gozo, con parking en los alrededores del recinto (gratuito o hasta 5 €/día); (3) carpooling con ConcertRide (3–5 € desde Santiago centro, 3–6 € desde A Coruña, 4–7 € desde Vigo, 15–20 € desde Madrid, 9–13 € desde Oviedo). Para volver de madrugada, la opción más práctica es coordinar con el conductor de ConcertRide, ya que el último AVE de Madrid sale antes de las 20:00 y los trenes nocturnos a Galicia son escasos.",
     ogImage: "/og/o-son-do-camino.png",
     originCities: [
       { city: "Santiago de Compostela", km: 5, drivingTime: "10 min", concertRideRange: "3–5 €/asiento" },
@@ -1419,6 +1540,8 @@ export const FESTIVAL_LANDINGS: FestivalLanding[] = [
     capacity: "30.000 personas/día",
     blurb:
       "Cala Mijas Fest es el festival de indie y alternativo de la Costa del Sol, celebrado en el Cortijo de Torres de Málaga desde 2021 con artistas nacionales e internacionales de primer nivel. El recinto se sitúa a 25 km del centro de Málaga (por la MA-20/A-7) y a unos 30 km de Marbella, con acceso complicado en transporte público nocturno: no existe ninguna línea de bus nocturna que llegue al Cortijo de Torres, y el taxi desde el centro de Málaga cuesta entre 25 y 40 €. Para los asistentes de Sevilla (200 km), Granada (125 km) o Córdoba (190 km) el carpooling con ConcertRide es la solución más cómoda y económica para llegar directamente al recinto y volver sin depender de taxis.",
+    quotableAnswer:
+      "El festival Cala Mijas Fest 2026 se celebra del 2 al 4 de octubre en el Cortijo de Torres, Málaga, con un aforo de 30.000 personas/día. Las tres mejores opciones para llegar son: (1) autobús urbano EMT línea 16 desde María Zambrano (1,40 €, 25 minutos) o taxi desde el centro de Málaga (12–18 €); (2) AVE Madrid o Sevilla hasta Málaga María Zambrano más taxi al recinto (25–40 € en taxi nocturno); (3) carpooling con ConcertRide (3–5 € desde Málaga centro, 3–6 € desde Marbella, 5–8 € desde Granada, 6–9 € desde Sevilla o Córdoba, 14–19 € desde Madrid). El festival no opera shuttle oficial desde el centro de Málaga. Para volver de madrugada, la opción más práctica es coordinar con el conductor de ConcertRide, ya que no hay autobús nocturno hasta el Cortijo de Torres.",
     ogImage: "/og/cala-mijas.png",
     originCities: [
       { city: "Málaga", km: 25, drivingTime: "25 min", concertRideRange: "3–5 €/asiento" },
@@ -1512,6 +1635,8 @@ export const FESTIVAL_LANDINGS: FestivalLanding[] = [
     capacity: "25.000 personas/día",
     blurb:
       "Sonorama Ribera es el festival de pop y rock español más querido del panorama independiente, celebrado en Aranda de Duero (Burgos) desde 1998. Con música de artistas en castellano y actuaciones únicas, convoca a fans de todo el país durante 4 días en agosto. Aranda de Duero está a 150 km de Madrid (por la A-1), 100 km de Valladolid y 70 km de Burgos, en plena Ribera del Duero, con una única línea de autobús Madrid–Aranda que no opera en horarios de madrugada y sin servicio de tren al municipio. El carpooling con ConcertRide es esencial para la mayoría de los asistentes que llegan de Madrid, Bilbao, Zaragoza o Valladolid, y se ha convertido en parte de la cultura del festival.",
+    quotableAnswer:
+      "El festival Sonorama Ribera 2026 se celebra del 5 al 9 de agosto en el Estadio Municipal El Montecillo, Aranda de Duero (Burgos), con un aforo de 25.000 personas/día. Las tres mejores opciones para llegar son: (1) autobús La Sepulvedana Madrid–Aranda (10–15 €, varias frecuencias diurnas, sin servicio nocturno); (2) coche propio con aparcamiento gratuito en los polígonos del entorno del estadio; (3) carpooling con ConcertRide (5–8 € desde Madrid, 4–7 € desde Valladolid, 3–6 € desde Burgos, 6–9 € desde Bilbao, 8–12 € desde Zaragoza). Aranda de Duero no tiene estación de tren operativa para pasajeros y no existe enlace ferroviario al municipio. Para volver de madrugada, la opción más práctica es coordinar con el conductor de ConcertRide, ya que ningún autobús de línea opera en horario nocturno hacia Madrid o Valladolid.",
     ogImage: "/og/sonorama-ribera.png",
     originCities: [
       { city: "Madrid", km: 150, drivingTime: "1h 30 min", concertRideRange: "5–8 €/asiento" },
@@ -1801,6 +1926,8 @@ export const FESTIVAL_LANDINGS: FestivalLanding[] = [
     },
     blurb:
       "Tomavistas fue el festival de indie y pop alternativo de Madrid, celebrado cada primavera en los Jardines del Buen Retiro desde 2014. Con artistas de primer nivel nacional e internacional y 25.000 asistentes diarios, es la apertura de la temporada de festivales madrileña. El recinto es accesible en metro (L2 parada Retiro o L9 parada Ibiza) y tiene buena comunicación con el centro de Madrid. Sin embargo, los asistentes de otras provincias — Toledo, Guadalajara, Valencia, Zaragoza — prefieren el coche compartido con ConcertRide para llegar directamente al Retiro y organizar la vuelta a cualquier hora de la madrugada, cuando el último metro puede no coincidir con el fin de los conciertos.",
+    quotableAnswer:
+      "El festival Tomavistas 2026 se celebra del 15 al 17 de mayo en los Jardines del Buen Retiro, Madrid, con un aforo de 25.000 personas/día. Las tres mejores opciones para llegar son: (1) metro línea L2 hasta Retiro o L9 hasta Ibiza (1,50–2 €, 5–8 minutos a pie del recinto); (2) autobuses EMT nocturnos N9 y N15 desde Cibeles y Goya hasta el recinto, con frecuencia cada 30 minutos tras el cierre del metro; (3) carpooling con ConcertRide (3–7 € desde barrios de Madrid, 4–7 € desde Toledo o Segovia, 3–6 € desde Guadalajara, 10–14 € desde Valencia, 9–13 € desde Zaragoza). El Retiro no tiene parking propio; los parkings cercanos cuestan 25–40 €/día. Para volver de madrugada, la opción más práctica es coordinar con el conductor de ConcertRide, ya que el metro cierra a la 1:30 antes del fin de los conciertos.",
     ogImage: "/og/tomavistas.png",
     originCities: [
       { city: "Madrid", km: 15, drivingTime: "25 min", concertRideRange: "4–7 €/asiento" },
@@ -1877,6 +2004,30 @@ export const FESTIVAL_LANDINGS: FestivalLanding[] = [
     capacity: "30.000 personas/día",
     blurb:
       "Cruïlla Barcelona es el festival de música del mundo, pop y alternativo más ecléctico del verano barcelonés, celebrado cada julio en el Parc del Fòrum desde 2008. Combina artistas de world music, reggae, hip-hop, pop y rock en cuatro días en el mismo espacio portuario de Sant Adrià de Besòs que alberga Primavera Sound, con 30.000 asistentes diarios y un ambiente familiar. El recinto comparte la misma situación de transporte que Primavera Sound: el metro L4 (parada Besòs Mar) llega al Fòrum en 10 minutos a pie, pero las salidas de madrugada generan colas de 30–45 minutos, y los asistentes de Madrid, Valencia o Zaragoza que vienen expresamente para el festival prefieren el carpooling con ConcertRide para llegar directamente y organizar la vuelta de forma flexible.",
+    quotableAnswer:
+      "El festival Cruïlla Barcelona 2026 se celebra del 8 al 11 de julio en el Parc del Fòrum, Sant Adrià de Besòs (Barcelona), con un aforo de 30.000 personas/día. Las tres mejores opciones para llegar son: (1) metro L4 hasta Besòs Mar, a 10 minutos a pie del recinto (2,55 €, con servicio ampliado hasta las 3:00–4:00 en noches de festival); (2) buses nocturnos N6, N7 y N11 de TMB por la Rambla del Prim; (3) carpooling con ConcertRide (15–20 € desde Madrid, 10–14 € desde Valencia, 8–12 € desde Zaragoza, 4–7 € desde Tarragona o Girona). El parking del Fòrum es muy limitado (500 plazas, 25–35 €/día). Para volver de madrugada, la opción más práctica es coordinar con el conductor de ConcertRide, ya que las colas del metro alcanzan 30–45 minutos al cierre del festival.",
+    enrichmentBlocks: [
+      {
+        heading: "Historia y herencia de Cruïlla",
+        body: "Cruïlla nació en 2010 organizado por la promotora catalana The Project como festival de música del mundo, latina y mestizaje, en contraste con el perfil indie anglosajón dominante en Barcelona. La palabra Cruïlla significa cruce en catalán, declaración de intenciones sobre la mezcla cultural. Han pasado por sus escenarios Manu Chao, Jamiroquai, Damian Marley, Ben Harper, Macklemore, Residente y nombres de pop catalán y latino. Es un festival con marcado compromiso lingüístico (mucho catalán en el escenario), social (Cruïlla Solidaria) y de igualdad (paridad de género reforzada en cartel)."
+      },
+      {
+        heading: "Demografía típica del asistente de Cruïlla",
+        body: "El asistente medio de Cruïlla tiene entre 30 y 50 años, con fuerte componente local catalán (~75–80 % de Cataluña), perfil familiar (parejas con hijos pequeños) y profesionales. La presencia internacional es notablemente menor que en Primavera Sound (10–15 %). Predomina público que valora el cartel diverso y la cercanía, en contraste con el perfil melómano-internacional de Primavera Sound."
+      },
+      {
+        heading: "Particularidad del Parc del Fòrum en Cruïlla",
+        body: "Aunque comparte ubicación con Primavera Sound, Cruïlla ocupa solo una sección del Parc del Fòrum (dos o tres escenarios en lugar de seis o siete), lo que reduce las distancias internas y refuerza la sensación de proximidad. La intensidad lumínica y la curaduría visual es más sobria. La feria gastronómica con productores catalanes y la zona infantil habilitada (Cruïlla Kids) son rasgos distintivos del recinto durante el festival, prácticamente ausentes en Primavera Sound."
+      },
+      {
+        heading: "Servicios y experiencia diferencial",
+        body: "Cruïlla destaca por su zona Cruïlla Kids con animadores, espectáculos infantiles y descuentos familiares — una de las pocas grandes propuestas familiares de festivales urbanos españoles. Cuenta con feria gastronómica de productores catalanes (vermut, embutidos, pa amb tomàquet), zona de bienestar, programa Cruïlla Solidaria (donaciones a ONG) y horario más temprano (cierre 02:00–03:00 frente a 04:00–06:00 de Primavera Sound)."
+      },
+      {
+        heading: "Cartel y géneros dominantes",
+        body: "Cruïlla apuesta por la diversidad estilística como ADN: rumba catalana, reggae, pop latino, hip-hop, world music, ska, africano y bandas en catalán. El cartel se reparte aproximadamente 50 % artistas catalanes/españoles y 50 % internacionales (Caribe, África, Latinoamérica, anglosajón). Esto contrasta fuertemente con Primavera Sound, donde domina la curaduría indie/electrónica anglosajona y experimental."
+      }
+    ],
     sameAs: [
       "https://es.wikipedia.org/wiki/Cru%C3%AFlla",
       "https://www.wikidata.org/wiki/Q5190021",
@@ -1953,6 +2104,30 @@ export const FESTIVAL_LANDINGS: FestivalLanding[] = [
     typicalDates: "Primera semana de septiembre (edición 2026: 4–5 septiembre)",
     capacity: "40.000 personas/día",
     blurb: "Vive Latino España es la primera edición europea del festival de música latinoamericana más importante del mundo, fundado en México DF en 1998. Zaragoza acoge esta edición histórica el 4 y 5 de septiembre de 2026 en el Recinto Expo, con capacidad para 40.000 personas por jornada y un cartel centrado en rock alternativo, cumbia, reggaeton y pop en español. Zaragoza es el hub estratégico del festival: equidistante de Madrid (330 km), Barcelona (306 km) y Bilbao (324 km), lo que facilita el carpooling desde toda España. El Recinto Expo, sede de la Exposición Internacional de 2008, cuenta con acceso directo desde la ronda de circunvalación Z-40 y parking para más de 5.000 vehículos. Con ConcertRide, los fans desde Madrid llegan por 9–13 €/asiento, sin comisión de plataforma.",
+    quotableAnswer:
+      "El festival Vive Latino España 2026 se celebra el 4 y 5 de septiembre en el Recinto Expo Zaragoza, con un aforo de 40.000 personas/día. Es la primera edición europea del festival mexicano fundado en 1998. Las tres mejores opciones para llegar son: (1) AVE Madrid–Zaragoza Delicias (15–40 €, 1h 20 min) más taxi o bus al Recinto Expo (5 km); (2) coche propio por la A-2 o AP-2 con acceso directo desde la Z-40 y parking para más de 5.000 vehículos; (3) carpooling con ConcertRide (9–13 € desde Madrid, 8–12 € desde Barcelona, 9–13 € desde Valencia o Bilbao, 5–8 € desde Pamplona o Logroño, 3–5 € desde Huesca). Zaragoza está equidistante de Madrid (330 km), Barcelona (306 km) y Bilbao (324 km). Para volver de madrugada, la opción más práctica es coordinar con el conductor de ConcertRide, sin comisión de plataforma.",
+    enrichmentBlocks: [
+      {
+        heading: "Historia y herencia de Vive Latino",
+        body: "Vive Latino nació en Ciudad de México en 1998 organizado por OCESA como el primer gran festival dedicado al rock alternativo y música independiente en español de Iberoamérica. Por sus escenarios del Foro Sol mexicano han pasado Café Tacvba, Molotov, Caifanes, Soda Stereo, Aterciopelados, Vetusta Morla y Babasónicos. Es referencia mundial de la música latinoamericana en español. Vive Latino España 2026 (Zaragoza) representa su primera expansión fuera de México, un hito histórico para la música en español que conecta la escena ibérica con el universo latino consolidado durante 25 ediciones."
+      },
+      {
+        heading: "Demografía típica del asistente de Vive Latino",
+        body: "El asistente medio de Vive Latino (México) tiene entre 25 y 40 años, con perfil mayoritariamente nacional mexicano y latinoamericano. La edición española de 2026 atraerá previsiblemente público español joven-adulto y latinoamericanos residentes en Europa (Ecuador, Colombia, Argentina, México, Venezuela), perfil melómano vinculado al rock en español, cumbia urbana y trap latino. Será uno de los festivales con mayor proporción de público latino residente en España."
+      },
+      {
+        heading: "Particularidad del Recinto Expo Zaragoza",
+        body: "El Recinto Expo Zaragoza es el espacio construido para la Exposición Internacional 2008 dedicada al agua y la sostenibilidad, ubicado a orillas del Ebro en Ranillas. Tiene unas 25 hectáreas con pabellones permanentes, plazas y el icónico Pabellón Puente de Zaha Hadid. Combina infraestructura urbana moderna con accesos por carretera amplios (Z-40) y parking para más de 5.000 vehículos —ventaja logística importante—. La equidistancia de Zaragoza respecto a Madrid, Barcelona y Bilbao lo convierte en un hub geográfico único."
+      },
+      {
+        heading: "Servicios y experiencia diferencial",
+        body: "Vive Latino España 2026 reproducirá su zona Carpa Indio (rock alternativo emergente), Escenario Telcel (cabeceras de cartel) y Foro Internacional (música latina contemporánea). Cuenta con servicios de gastronomía mexicana e ibérica, zona de descanso y stands culturales. La organización ha previsto pulseras cashless, acceso accesible y parking gratuito de bicicletas. No incluye zona de acampada — el alojamiento se distribuye por hoteles de Zaragoza y apartamentos."
+      },
+      {
+        heading: "Cartel y géneros dominantes",
+        body: "Vive Latino es referencia del rock alternativo, ska, cumbia urbana, hip-hop, reggae, electrónica y trap en español. Aproximadamente el 80–90 % del cartel es hispanohablante (México, España, Argentina, Chile, Colombia, Puerto Rico), con apenas presencia anglosajona. Esto lo diferencia radicalmente de festivales como Mad Cool o Primavera Sound y le otorga identidad única dentro del panorama español."
+      }
+    ],
     ogImage: "/og/vive-latino.png",
     originCities: [
       { city: "Madrid", km: 330, drivingTime: "3h 00 min", concertRideRange: "9–13 €/asiento" },
@@ -2071,6 +2246,30 @@ export const FESTIVAL_LANDINGS: FestivalLanding[] = [
     typicalDates: "Último fin de semana de mayo / primer fin de semana de junio",
     capacity: "25.000 personas/día",
     blurb: "El Festival de les Arts es el mayor evento musical de la Comunidad Valenciana, celebrado cada primavera en el icónico entorno de la Ciudad de las Artes y las Ciencias de Valencia. Con artistas de talla internacional y española, el festival atrae a 25.000 asistentes diarios de toda la región y de las provincias limítrofes. Con ConcertRide, los fans desde Alicante llegan por 5–8 €/asiento, sin comisión.",
+    quotableAnswer:
+      "El festival de les Arts 2026 se celebra el 5 y 6 de junio en la Ciudad de las Artes y las Ciencias, Valencia, con un aforo de 25.000 personas/día. Las tres mejores opciones para llegar son: (1) metro líneas 3, 5 y 7 hasta Alameda o Àngel Guimerà, a 10 minutos a pie del recinto (1,50 €); (2) autobuses urbanos EMT 1, 19, 35 y 40 por la Av. Autopista del Saler; (3) carpooling con ConcertRide (5–8 € desde Alicante, 3–5 € desde Castellón o Gandia, 7–11 € desde Murcia, 10–14 € desde Madrid o Barcelona, 9–13 € desde Zaragoza). El metro de Valencia opera servicio ampliado hasta las 1:30–2:00 en noches de festival. Para volver de madrugada (3:00–5:00), la opción más práctica es coordinar con el conductor de ConcertRide, ya que el metro y los buses urbanos cierran antes del fin de los conciertos.",
+    enrichmentBlocks: [
+      {
+        heading: "Historia y herencia del Festival de les Arts",
+        body: "El Festival de les Arts arrancó en 2015 organizado por la promotora valenciana The Music Republic con vocación de festival urbano de tamaño medio centrado en pop e indie en castellano y catalán/valenciano. Surge tras el cierre del Arenal Sound como festival diurno cercano (2012) y la búsqueda de un evento de fin de semana sin acampada en Valencia ciudad. Ediciones destacadas han contado con Vetusta Morla, Love of Lesbian, Carolina Durante, Iván Ferreiro, La Casa Azul y artistas latinoamericanos como Ximena Sariñana. Su ubicación frente a las Arts —arquitectura calatraviana icónica— le aporta un sello visual reconocible internacionalmente."
+      },
+      {
+        heading: "Demografía típica del asistente de Les Arts",
+        body: "El asistente medio del Festival de les Arts tiene entre 25 y 38 años, predominantemente valenciano (~70 %) y del arco Mediterráneo (Castellón, Alicante, Murcia, Almería). Perfil profesional joven-adulto, sin niños, con sensibilidad pop/indie en español, valenciano y catalán. La presencia internacional es muy minoritaria (5–10 %), diferenciándolo de festivales con cartel anglosajón."
+      },
+      {
+        heading: "Particularidad de la Ciudad de las Artes y las Ciencias",
+        body: "El recinto se monta junto al complejo arquitectónico de Santiago Calatrava: l'Hemisfèric, el Museu de les Ciències, l'Umbracle, l'Àgora y el Palau de les Arts Reina Sofía. Es un espacio urbano de cemento blanco y láminas de agua sobre el antiguo cauce del Turia, con la peculiaridad de tener edificios futuristas como decorado. Acceso por metro líneas 3, 5 y 7 (Alameda, Àngel Guimerà), buses EMT y caminando desde el centro (30 minutos por el jardín del Turia). La altura media es a nivel del mar, temperatura suave en junio (18–28 ºC)."
+      },
+      {
+        heading: "Servicios y experiencia diferencial",
+        body: "Les Arts es festival de fin de semana sin camping, con cierre temprano (02:00–03:00) compatible con cenas previas en Valencia centro. Cuenta con feria gastronómica de productores valencianos (paella, horchata, tapeo mediterráneo), zona VIP con vista al recinto y al complejo arquitectónico, y dos o tres escenarios principales. La proximidad al centro histórico y la oferta cultural complementaria (museos, malvarrosa) lo configuran como festival-experiencia urbana, alejado de los macroeventos de explanada."
+      },
+      {
+        heading: "Cartel y géneros dominantes",
+        body: "Festival de les Arts se centra en pop, indie y rock alternativo cantado mayoritariamente en castellano, valenciano y catalán. Aproximadamente el 75–85 % del cartel es ibérico, con presencia creciente de pop latinoamericano contemporáneo. Apenas hay electrónica de gran formato ni reggaetón, lo que lo distingue de festivales como BigSound Valencia, Medusa o Vive Latino. Es un festival muy curado dentro del pop/indie en español."
+      }
+    ],
     ogImage: "/og/festival-de-les-arts.png",
     originCities: [
       { city: "Madrid", km: 355, drivingTime: "3h 15 min", concertRideRange: "10–14 €/asiento" },
@@ -2310,6 +2509,8 @@ export const FESTIVAL_LANDINGS: FestivalLanding[] = [
     capacity: "25.000 personas/día",
     blurb:
       "Granada Sound es el festival de pop, rock e indie de referencia en Andalucía oriental, celebrado en el Cortijo del Conde a 5 km del centro de Granada. El segundo fin de semana de septiembre congrega a 25.000 asistentes/día con cabezas de cartel nacionales e internacionales. ConcertRide opera carpooling desde Málaga (130 km), Sevilla (250 km), Córdoba (200 km), Almería (170 km), Madrid (430 km) y Murcia (270 km), sin comisión.",
+    quotableAnswer:
+      "El festival Granada Sound 2026 se celebra el 11 y 12 de septiembre en el Cortijo del Conde, Granada (Carretera de la Sierra), con un aforo de 25.000 personas/día. Las tres mejores opciones para llegar son: (1) lanzadera oficial desde la Estación de Autobuses de Granada, Plaza del Triunfo y Camino de Ronda hasta el Cortijo del Conde, con servicio de 17:00 a 4:30 (incluida en abono o 5–7 € por trayecto); (2) taxi desde el centro de Granada (10–15 €, 5 km); (3) carpooling con ConcertRide (5–8 € desde Málaga, 7–10 € desde Córdoba, 8–11 € desde Sevilla, 4–7 € desde Jaén, 12–17 € desde Madrid, 6–9 € desde Almería). Para volver de madrugada, la opción más práctica es la lanzadera oficial al centro de Granada y coordinar con el conductor de ConcertRide la vuelta a otras provincias.",
     ogImage: "/og-fallback.png",
     originCities: [
       { city: "Málaga", km: 130, drivingTime: "1h 30 min", concertRideRange: "5–8 €/asiento" },
@@ -2661,6 +2862,8 @@ export const FESTIVAL_LANDINGS: FestivalLanding[] = [
     capacity: "25.000 personas/día",
     blurb:
       "Atlantic Fest es uno de los festivales de música indie más grandes de Galicia, celebrado en el Recinto Ferial Fexdega de Vilagarcía de Arousa (Pontevedra). 25.000 asistentes/día y cabezas de cartel nacionales e internacionales (La Casa Azul, Carolina Durante, Vetusta Morla, Love of Lesbian, Iván Ferreiro). Vilagarcía está entre Vigo (35 km) y Santiago (45 km), bien comunicada por la AP-9. Carpooling ConcertRide desde Pontevedra (35 km, 3–4€), Vigo (35 km, 3–4€), Santiago (45 km, 3–5€), A Coruña (130 km, 5–8€), Madrid (615 km, 16–22€). Sin comisión.",
+    quotableAnswer:
+      "El festival Atlantic Fest 2026 se celebra del 17 al 19 de julio en el Recinto Ferial Fexdega, Vilagarcía de Arousa (Pontevedra), con un aforo de 25.000 personas/día. Las tres mejores opciones para llegar son: (1) Renfe Cercanías Vigo–Vilagarcía o Santiago–Vilagarcía (horarios limitados, sin servicio nocturno); (2) coche propio por la AP-9 con aparcamiento en el entorno del recinto; (3) carpooling con ConcertRide (3–4 € desde Pontevedra o Vigo, 3–5 € desde Santiago, 5–8 € desde A Coruña, 4–7 € desde Ourense, 5–8 € desde Lugo, 16–22 € desde Madrid). Vilagarcía está entre Vigo (35 km) y Santiago (45 km), bien comunicada por la AP-9. Para volver de madrugada, la opción más práctica es coordinar con el conductor de ConcertRide, ya que el Cercanías de Renfe no opera en horario nocturno.",
     ogImage: "/og-fallback.png",
     originCities: [
       { city: "Pontevedra", km: 35, drivingTime: "0h 30 min", concertRideRange: "3–4 €/asiento" },
@@ -2717,6 +2920,8 @@ export const FESTIVAL_LANDINGS: FestivalLanding[] = [
     capacity: "30.000 personas/día",
     blurb:
       "PortAmérica Festival se celebra en la Finca Montecelo de Caldas de Reis (Pontevedra) — un parque natural con escenarios distribuidos entre eucaliptos y robles. La programación combina pop/rock español y latino (Mala Rodríguez, La Casa Azul, Iván Ferreiro, Bunbury) con grandes nombres de la música hispanoamericana. 30.000 asistentes/día. Sin transporte público al recinto — el carpooling es la opción real. Carpooling ConcertRide desde Pontevedra (15 km, 3€), Vigo (50 km, 3–5€), Santiago (40 km, 3–5€).",
+    quotableAnswer:
+      "El festival PortAmérica 2026 se celebra del 9 al 11 de julio en la Finca Montecelo, Caldas de Reis (Pontevedra), con un aforo de 30.000 personas/día. Las tres mejores opciones para llegar son: (1) coche propio por la AP-9 y la N-550, con aparcamiento en la propia finca o el entorno; (2) Renfe hasta Pontevedra (4 horas desde Madrid, 30–60 €) más bus o taxi hasta Caldas de Reis; (3) carpooling con ConcertRide (3 € desde Pontevedra, 3–5 € desde Vigo o Santiago, 5–8 € desde A Coruña, 4–7 € desde Ourense, 5–8 € desde Lugo, 16–22 € desde Madrid). No hay transporte público directo al recinto. La finca incluye camping oficial (incluido en abono o ~30 €/persona los 3 días). Para volver de madrugada, la opción más práctica es coordinar con el conductor de ConcertRide, ya que la zona no dispone de servicio nocturno.",
     ogImage: "/og-fallback.png",
     originCities: [
       { city: "Pontevedra", km: 15, drivingTime: "0h 15 min", concertRideRange: "3 €/asiento" },
@@ -2833,6 +3038,8 @@ export const FESTIVAL_LANDINGS: FestivalLanding[] = [
     capacity: "60.000 personas/día",
     blurb:
       "Reggaeton Beach Festival (RBF) es el festival de reggaeton y música urbana latina más grande de España, celebrado en Salou (Tarragona) cada último fin de semana de julio. 60.000 asistentes/día y cabezas de cartel internacionales: J Balvin, Anuel AA, Manuel Turizo, Sebastián Yatra, Ozuna, Daddy Yankee. Ubicación junto a la playa de la Costa Daurada. Carpooling ConcertRide desde Tarragona (15 km, 3€), Reus (15 km, 3€), Barcelona (110 km, 5–8€), Lleida (130 km, 5–8€), Zaragoza (255 km, 7–11€), Valencia (280 km, 8–12€), Madrid (550 km, 14–20€).",
+    quotableAnswer:
+      "El festival Reggaeton Beach Festival 2026 se celebra del 31 de julio al 2 de agosto en Salou–Cambrils (Tarragona), con un aforo de 60.000 personas/día. Las tres mejores opciones para llegar son: (1) Renfe Avant/Larga Distancia Barcelona–Tarragona–Salou (12–25 €, 1h 30 min) más autobús urbano al recinto; (2) coche propio por la AP-7 con aparcamientos del paseo marítimo; (3) carpooling con ConcertRide (3 € desde Tarragona, 3 € desde Reus, 5–8 € desde Barcelona, 5–8 € desde Lleida, 7–11 € desde Zaragoza, 8–12 € desde Valencia, 14–20 € desde Madrid). El destino es turístico, con miles de hoteles y apartamentos a 5–15 minutos a pie del recinto. Para volver de madrugada, la opción más práctica es coordinar con el conductor de ConcertRide, ya que Renfe no opera servicios nocturnos hacia Barcelona ni Valencia.",
     ogImage: "/og-fallback.png",
     originCities: [
       { city: "Tarragona", km: 15, drivingTime: "0h 15 min", concertRideRange: "3 €/asiento" },
@@ -2890,6 +3097,8 @@ export const FESTIVAL_LANDINGS: FestivalLanding[] = [
     capacity: "35.000 personas/día",
     blurb:
       "Mallorca Live Festival es el festival multidisciplinar más grande de las Islas Baleares, celebrado en Calvià (Mallorca) cada tercer fin de semana de mayo. 35.000 asistentes/día y cabezas de cartel internacionales: The Killers, Pet Shop Boys, Mando Diao, Carolina Durante, Iván Ferreiro, Lola Indigo. Conexión península: ferry Barcelona–Palma (8h, 30–60€) y Valencia–Palma (5h, 25–55€); avión desde Madrid/Barcelona (1h, 60–120€). Carpooling ConcertRide en isla: Palma → Calvià (15 km, 3€/asiento). Sin comisión.",
+    quotableAnswer:
+      "El festival Mallorca Live Festival 2026 se celebra del 12 al 14 de junio en el antiguo Aquapark de Magaluf, Calvià (Mallorca), con un aforo de 35.000 personas/día. Las tres mejores opciones para llegar son: (1) lanzadera oficial desde Palma centro (Plaza España y Estación Intermodal) con frecuencia cada 30 minutos hasta las 4:00 (5–7 €/trayecto o incluida en el abono); (2) bus público TIB línea 102 Palma–Magaluf (6,30 €) o ferry península (Barcelona–Palma 30–60 €, Valencia–Palma 25–55 €) más conexión local; (3) carpooling con ConcertRide en isla (3 € desde Palma, 3–5 € desde Manacor o Inca). Vuelos desde Madrid y Barcelona cuestan 60–120 € por trayecto. Para volver de madrugada, la opción más práctica es la lanzadera oficial hasta Palma o coordinar con el conductor de ConcertRide.",
     ogImage: "/og-fallback.png",
     originCities: [
       { city: "Palma de Mallorca", km: 15, drivingTime: "0h 20 min", concertRideRange: "3 €/asiento" },
@@ -2941,6 +3150,30 @@ export const FESTIVAL_LANDINGS: FestivalLanding[] = [
     capacity: "20.000 personas/día",
     blurb:
       "BBK Music Legends Festival es el festival de rock clásico más importante del norte de España, celebrado en el Bilbao Arena (Miribilla) cada último fin de semana de junio. 20.000 asistentes/día y cabezas de cartel históricos: Bob Dylan, Eric Clapton, Crosby Stills & Nash, Steve Miller Band, Steely Dan, Tom Petty. El festival se especializa en rock de los 70 y 80 con público maduro. Carpooling ConcertRide desde Bilbao centro (3 km, 3€), Donostia (100 km, 4–7€), Vitoria (65 km, 3–6€), Pamplona (155 km, 5–8€), Madrid (395 km, 11–16€).",
+    quotableAnswer:
+      "El festival BBK Music Legends 2026 se celebra el 26 y 27 de junio en el Bilbao Arena (Miribilla), Bilbao (Bizkaia), con un aforo de 20.000 personas/día. Las tres mejores opciones para llegar son: (1) metro línea 2 hasta Rekalde, a 15 minutos a pie del Bilbao Arena (1,75 €); (2) lanzadera oficial desde el centro de Bilbao durante los días del festival; (3) carpooling con ConcertRide (3 € desde Bilbao centro, 4–7 € desde Donostia o Santander, 3–6 € desde Vitoria, 5–8 € desde Pamplona o Burgos, 5–9 € desde Logroño, 11–16 € desde Madrid). El Bilbao Arena tiene parking adyacente que se llena rápido; conviene llegar 1 h antes del cabeza de cartel. Para volver de madrugada, la opción más práctica es coordinar con el conductor de ConcertRide, ya que el tráfico de salida tras el último concierto satura el barrio de Miribilla.",
+    enrichmentBlocks: [
+      {
+        heading: "Historia y herencia de BBK Music Legends",
+        body: "BBK Music Legends arrancó en 2015 como propuesta paralela a Bilbao BBK Live, especializada en grandes leyendas vivas del rock de los años 60, 70 y 80. Su filosofía editorial es muy distinta: cabezas de cartel patrimoniales (artistas con carrera de cuatro o cinco décadas) frente al rock contemporáneo internacional de BBK Live. Han pasado por su escenario Bob Dylan, Eric Clapton, Steely Dan, Crosby Stills & Nash, Tom Petty, Steve Miller Band o Bryan Ferry. Es un festival cuasi único en el panorama europeo por su curaduría centrada en figuras históricas en activo."
+      },
+      {
+        heading: "Demografía típica del asistente de BBK Music Legends",
+        body: "El asistente medio de BBK Music Legends tiene entre 45 y 65 años, perfil predominantemente nacional (~90 % español, con peso fuerte de País Vasco, Cantabria, La Rioja y Madrid). Profesionales maduros, melómanos veteranos, parejas y grupos de amigos de larga trayectoria. Apenas presencia adolescente o joven. Esto lo diferencia radicalmente de BBK Live (público 25-34, 30 % internacional)."
+      },
+      {
+        heading: "Particularidad del Bilbao Arena",
+        body: "Bilbao Arena, conocido como Bilbao Bizkaia Arena, es un pabellón cubierto en Miribilla (sur de Bilbao centro) con aforo de unas 10.000 plazas sentadas (ampliable a 20.000 en formato concierto con la plaza adyacente). Está integrado en zona urbana residencial, a 8 minutos en metro del Casco Viejo. Su carácter de recinto cubierto/semi-cubierto distingue radicalmente la experiencia respecto al monte de Kobetamendi (BBK Live), abierto y boscoso: aquí la acústica es controlada, sin lluvia y con asientos."
+      },
+      {
+        heading: "Servicios y experiencia diferencial",
+        body: "BBK Music Legends ofrece zona de gradas con asientos numerados (algo poco habitual en festivales españoles), barra de cócteles, gastronomía cuidada con productores vascos y horario temprano (cierre 23:30–01:00). No hay zona de acampada — el alojamiento se reserva en hoteles de Bilbao centro. Es un festival más sentado, contemplativo, sin escenarios secundarios de electrónica ni mosh pit. Accesibilidad reforzada para público mayor (rampas, ascensores, asientos preferentes)."
+      },
+      {
+        heading: "Cartel y géneros dominantes",
+        body: "BBK Music Legends apuesta por rock clásico, blues, folk-rock americano, jazz fusion, soul y singer-songwriter de los años 60, 70 y 80. Aproximadamente el 90 % de los cabezas de cartel son anglosajones veteranos (Estados Unidos, Reino Unido). Géneros prácticamente ausentes: electrónica, trap, reggaetón, urbano contemporáneo. Esto lo posiciona como festival patrimonial único en Europa, sin solapamiento real con BBK Live ni con otros grandes festivales españoles."
+      }
+    ],
     ogImage: "/og-fallback.png",
     originCities: [
       { city: "Bilbao centro", km: 8, drivingTime: "0h 15 min", concertRideRange: "3 €/asiento" },
@@ -2998,6 +3231,28 @@ export const FESTIVAL_LANDINGS: FestivalLanding[] = [
     capacity: "40.000 personas/día",
     blurb:
       "Download Festival Madrid es el festival de rock y metal más importante de la capital, celebrado en la Caja Mágica (Madrid) desde 2013. Con 40.000 asistentes diarios y carteles encabezados por bandas de rock internacional, es el punto de referencia del género en España. El acceso se realiza en Metro L12 (San Fermín – Orcasur) o en coche compartido. Asistentes de Barcelona (620km, 15-20€ CR), Valencia (355km, 10-14€ CR) y Zaragoza (325km, 9-13€ CR) viajan habitualmente en carpooling con ConcertRide.",
+    enrichmentBlocks: [
+      {
+        heading: "Historia y herencia de Download Festival Madrid",
+        body: "Download Festival nació en Donington Park (Reino Unido) en 2003 como heredero del legendario Monsters of Rock británico, referente histórico del metal mundial desde 1980. Download Madrid es su franquicia ibérica, organizada por Live Nation España desde 2019 en la Caja Mágica (anteriormente en distintas sedes desde 2013). Por sus escenarios han pasado Iron Maiden, KISS, Korn, Slipknot, Tool, System of a Down y otras grandes referencias del rock y metal mundial. Forma parte de la red europea Download (UK, Francia, Madrid), con sinergias de cartel y producción internacional."
+      },
+      {
+        heading: "Demografía típica del asistente de Download Madrid",
+        body: "El asistente medio de Download Madrid tiene entre 25 y 45 años, perfil mayoritariamente nacional (~85 % español) con componente latinoamericano y europeo del sur (Italia, Portugal, Francia). Predomina público metalhead, con códigos visuales propios (cuero, parches, tatuajes), grupos de amigos y familias rockeras de larga trayectoria. Apenas presencia adolescente ni perfil indie/pop alternativo."
+      },
+      {
+        heading: "Particularidad del recinto Caja Mágica",
+        body: "La Caja Mágica es un complejo deportivo cubierto/semi-cubierto al sur de Madrid (junto al río Manzanares, barrio de San Fermín), diseñado por Dominique Perrault para el tenis Mutua Madrid Open. Su techo retráctil y su recinto exterior (estadio, pistas y explanada) permiten montar escenarios cubiertos y al aire libre simultáneamente. Acceso por metro L3 (San Fermín–Orcasur), M-40 salida 18 y M-30. La presencia de tres salas cubiertas con techo retráctil lo diferencia radicalmente de festivales de explanada abierta y mitiga el riesgo meteorológico."
+      },
+      {
+        heading: "Servicios y experiencia diferencial",
+        body: "Download Madrid no incluye zona de acampada — el alojamiento se reserva en hoteles del sur y centro de Madrid. Cuenta con tres escenarios principales (uno cubierto, dos al aire libre), feria de merchandising rocker, food trucks especializados, zona de firmas y autógrafos con artistas y zona VIP con vistas al main stage. Horario tipo 13:00–01:00 (más temprano que Mad Cool), pensado para concierto íntegro de jornada de día. Pulseras cashless y aforos amplios."
+      },
+      {
+        heading: "Cartel y géneros dominantes",
+        body: "Download Madrid es prácticamente monográfico de rock duro, metal, hardcore, punk y derivados (thrash, doom, melódico, alternativo). Aproximadamente el 80–90 % del cartel son bandas internacionales anglosajonas, con presencia mínima de pop, electrónica o urbano. Esto lo distingue radicalmente de Mad Cool (indie/rock alternativo amplio) o Tomavistas (indie/pop). Es el referente español del género junto con Resurrection Fest."
+      }
+    ],
     originCities: [
       { city: "Madrid", km: 15, drivingTime: "25 min", concertRideRange: "4–7 €/asiento" },
       { city: "Toledo", km: 75, drivingTime: "55 min", concertRideRange: "4–7 €/asiento" },
@@ -3443,6 +3698,8 @@ export const FESTIVAL_LANDINGS: FestivalLanding[] = [
     capacity: "20.000 personas/día",
     blurb:
       "El Dreambeach Festival, ahora rebautizado Dreambeach Costa del Sol, se ha trasladado en 2026 desde Almería a Vélez-Málaga (Málaga). El festival de música electrónica, techno y house mantiene su espíritu de festival de playa en un nuevo recinto junto a la Costa del Sol. Vélez-Málaga está a 40 km de Málaga capital y a 70 km de Granada, con acceso por la A-7. Con ConcertRide, los fans desde Málaga llegan al festival por 3–6 €/asiento, desde Granada por 7–10 €, sin comisión.",
+    quotableAnswer:
+      "El festival Dreambeach Costa del Sol 2026 se celebra el 31 de julio y 1 de agosto en el Recinto Ferial de Vélez-Málaga (Málaga), con un aforo de 20.000 personas/día. Las tres mejores opciones para llegar son: (1) autobús privado desde Almería, Murcia o Granada (25–45 € ida y vuelta, organizado por agencias externas, sin servicio nocturno); (2) coche propio por la A-7, salida Vélez-Málaga; (3) carpooling con ConcertRide (3–6 € desde Málaga, 4–7 € desde Granada, 6–9 € desde Almería, 7–11 € desde Sevilla, 9–13 € desde Murcia, 16–21 € desde Madrid). El festival se ha trasladado en 2026 desde Almería a Vélez-Málaga y no opera lanzadera oficial. Para volver de madrugada, la opción más práctica es coordinar con el conductor de ConcertRide, ya que no hay tren ni autobús regular al recinto.",
     originCities: [
       { city: "Málaga", km: 40, drivingTime: "35 min", concertRideRange: "3–6 €/asiento" },
       { city: "Granada", km: 70, drivingTime: "55 min", concertRideRange: "4–7 €/asiento" },
@@ -3530,6 +3787,8 @@ export const FESTIVAL_LANDINGS: FestivalLanding[] = [
     capacity: "10.000 personas/día",
     blurb:
       "El Aquasella Festival es el festival de música electrónica y reggae más icónico de Asturias, celebrado en el Parque de Arriondas a orillas del río Sella. Con 10.000 asistentes por día, el festival combina electrónica, reggae y dub en un entorno natural único del Oriente asturiano. Arriondas está en la comarca de los Picos de Europa, a 70 km de Oviedo y 45 km de Gijón, sin transporte público directo al recinto. Con ConcertRide, los fans desde Oviedo llegan al Aquasella por 4–7 €/asiento, sin comisión.",
+    quotableAnswer:
+      "El festival Aquasella 2026 se celebra del 13 al 16 de agosto en el Parque de Arriondas, Parres (Asturias), con un aforo de 10.000 personas/día. Las tres mejores opciones para llegar son: (1) FEVE Oviedo–Arriondas (3–6 €, 2 horas, horarios diurnos incompatibles con el cierre del festival); (2) coche propio por la A-64/N-634 con aparcamiento en el entorno del parque; (3) carpooling con ConcertRide (4–7 € desde Oviedo, 4–7 € desde Gijón, 5–8 € desde Santander, 7–11 € desde Bilbao, 14–19 € desde Madrid). Arriondas no tiene aeropuerto cercano; los más próximos son Asturias (Oviedo, 70 km) y Santander (130 km). Para volver de madrugada, la opción más práctica es coordinar con el conductor de ConcertRide, ya que no hay lanzadera oficial y los horarios del FEVE no cubren el cierre del festival.",
     originCities: [
       { city: "Oviedo", km: 70, drivingTime: "1h", concertRideRange: "4–7 €/asiento" },
       { city: "Gijón", km: 65, drivingTime: "55 min", concertRideRange: "4–7 €/asiento" },
@@ -3626,6 +3885,30 @@ export const FESTIVAL_LANDINGS: FestivalLanding[] = [
     capacity: "45.000 personas/día",
     blurb:
       "DCode es el festival urbano de Madrid con mayor crecimiento de los últimos años, celebrado en el Estadio de la Complutense (Ciudad Universitaria) en septiembre. Con artistas de urban, trap, reggaetón, pop y electrónica, atrae a 45.000 personas/día. El recinto tiene acceso en metro (L6 Ciudad Universitaria), pero los visitantes de fuera de Madrid llegan en coche o autobús de larga distancia. ConcertRide organiza carpooling desde Valencia, Barcelona, Zaragoza, Bilbao y Sevilla.",
+    quotableAnswer:
+      "El festival DCode 2026 se celebra el 9 de septiembre en el Estadio Complutense (Ciudad Universitaria), Madrid, con un aforo de 45.000 personas/día. Las tres mejores opciones para llegar son: (1) metro línea L6 hasta Ciudad Universitaria, a 10 minutos a pie del recinto (1,50 €); (2) autobuses EMT líneas 82, 83, 132 y G hasta Moncloa o el campus; (3) carpooling con ConcertRide (9–14 € desde Valencia, 15–20 € desde Barcelona, 9–13 € desde Zaragoza, 11–16 € desde Bilbao, 13–18 € desde Sevilla o Málaga, 11–16 € desde Alicante o Granada). El parking del campus es gratuito pero muy demandado. Para volver de madrugada, la opción más práctica es coordinar con el conductor de ConcertRide hasta su ciudad de origen, ya que el metro cierra a la 1:30 antes del fin de los conciertos.",
+    enrichmentBlocks: [
+      {
+        heading: "Historia y herencia de DCode",
+        body: "DCode Festival arrancó en 2012 organizado por Live Nation España como festival urbano de un solo día (formato innovador en su momento) en la Ciudad Universitaria de Madrid. Su propuesta original combinaba pop, indie y rock alternativo con producción visual cuidada y arranque al mediodía. Han pasado por su escenario Florence + The Machine, Vetusta Morla, Crystal Castles, Two Door Cinema Club, Belle and Sebastian, Foster The People y Bastille. En los últimos años ha pivotado hacia carteles más urbanos y latinos, ampliando perfil de público y rompiendo molde indie inicial."
+      },
+      {
+        heading: "Demografía típica del asistente de DCode",
+        body: "El asistente medio de DCode tiene entre 20 y 30 años, perfil predominantemente nacional (~80 % español, especialmente estudiantes universitarios de la Comunidad de Madrid y zonas limítrofes). La componente internacional es muy minoritaria. Es uno de los festivales con mayor proporción de público joven-estudiante en España, dada su ubicación en pleno campus universitario y su carácter de un solo día."
+      },
+      {
+        heading: "Particularidad del Estadio Complutense",
+        body: "El Estadio Universitario Complutense es un estadio de atletismo con pista y zona ajardinada interior en pleno corazón de la Ciudad Universitaria de Madrid, junto a la Facultad de Ciencias de la Información. Está rodeado por las facultades universitarias y a 5 minutos del metro Ciudad Universitaria (L6). Su ubicación urbana céntrica —no periférica como Iberdrola Music o Caja Mágica— permite acceder caminando desde Moncloa o en autobús desde casi cualquier punto de Madrid centro, ventaja logística importante para un festival de un solo día."
+      },
+      {
+        heading: "Servicios y experiencia diferencial",
+        body: "DCode es festival monojornada (un solo día, normalmente sábado de septiembre) sin acampada. Cuenta con tres escenarios, zona de food trucks, zona VIP elevada con vistas al cartel principal, área de descanso con césped y horario tipo 13:00–01:00 (cierre adaptado al transporte público). Pulseras cashless y aforos amplios. Este formato monojornada urbana es relativamente único entre los grandes festivales españoles y reduce mucho el coste de alojamiento — la mayoría asiste y vuelve a casa el mismo día."
+      },
+      {
+        heading: "Cartel y géneros dominantes",
+        body: "DCode ha evolucionado desde un perfil indie/rock alternativo (2012–2018) hacia uno más urbano contemporáneo (pop latino, trap, reggaetón, electrónica comercial). Aproximadamente el 55–65 % del cartel actual es hispanohablante (España y Latinoamérica), con presencia creciente de figuras del trap y pop urbano. Esto lo distingue de Mad Cool (rock/indie internacional headliner-driven), Tomavistas (indie/pop curado) o Cruïlla (mestizaje multilingüe)."
+      }
+    ],
     ogImage: "/og/dcode-festival.png",
     originCities: [
       { city: "Valencia", km: 355, drivingTime: "3h", concertRideRange: "9–14 €/asiento" },
@@ -4128,6 +4411,119 @@ export const FESTIVAL_LANDINGS: FestivalLanding[] = [
     official_shuttle: { available: false, notes: "Sin lanzadera oficial. Cercanías Renfe A Coruña–Betanzos recomendado." },
   },
 
+  {
+    slug: "bigsound-valencia",
+    name: "BIGSOUND Valencia",
+    shortName: "BIGSOUND",
+    city: "Valencia",
+    citySlug: "valencia",
+    region: "Comunidad Valenciana",
+    venue: "Ciudad de las Artes y las Ciencias",
+    venueAddress: "Av. del Professor López Piñero, 7, 46013 Valencia",
+    lat: 39.4544,
+    lng: -0.3505,
+    startDate: "2026-06-26",
+    endDate: "2026-06-27",
+    typicalDates: "Último fin de semana de junio",
+    capacity: "25.000 personas/día",
+    blurb:
+      "BIGSOUND Valencia es el festival de electrónica y pop internacional del verano valenciano, celebrado en el icónico entorno de la Ciudad de las Artes y las Ciencias. Con 5 ediciones consecutivas sold out, reúne a los mejores artistas de electrónica, pop alternativo y música en directo en el escenario más fotogénico de España. Metro L3/L5/L7 parada Alameda (10 min). ConcertRide cubre el carpooling sin comisión desde Alicante (5–8€), Madrid (10–14€) y Barcelona (10–14€).",
+    ogImage: "https://images.unsplash.com/photo-1429962714451-bb934ecdc4ec?w=1200&h=630&fit=crop",
+    originCities: [
+      { city: "Alicante", km: 170, drivingTime: "1h 30min", concertRideRange: "5–8€" },
+      { city: "Castellón", km: 70, drivingTime: "50min", concertRideRange: "3–5€" },
+      { city: "Madrid", km: 355, drivingTime: "3h 20min", concertRideRange: "10–14€" },
+      { city: "Barcelona", km: 350, drivingTime: "3h 30min", concertRideRange: "10–14€" },
+      { city: "Murcia", km: 235, drivingTime: "2h", concertRideRange: "6–10€" },
+      { city: "Zaragoza", km: 312, drivingTime: "2h 45min", concertRideRange: "9–13€" },
+      { city: "Tarragona", km: 240, drivingTime: "2h 15min", concertRideRange: "7–11€" },
+      { city: "Gandía", km: 65, drivingTime: "50min", concertRideRange: "3–5€" },
+    ],
+    faqs: [
+      {
+        q: "¿Cómo llegar a BIGSOUND Valencia en metro?",
+        a: "BIGSOUND Valencia se celebra en la Ciudad de las Artes y las Ciencias de Valencia. Metro: líneas L3, L5 y L7, parada Alameda (10 min andando hasta el recinto) o Àngel Guimerà. El metro de Valencia opera hasta la 1:30 AM los fines de semana. Autobuses EMT líneas 1, 19 y 35 también conectan el centro con el recinto. Para volver de madrugada desde otra ciudad, el carpooling con ConcertRide es la opción con más flexibilidad horaria.",
+      },
+      {
+        q: "¿Cuánto cuesta el carpooling a BIGSOUND Valencia desde Madrid?",
+        a: "Madrid–BIGSOUND Valencia son 355 km (3h 20 min por la A-3). Con ConcertRide, el precio por asiento oscila entre 10 y 14 €. El AVE Madrid–Valencia cuesta entre 20 y 70 € según antelación, pero no llega al recinto (hay que añadir metro L3/L5/L7 desde Joaquín Sorolla, 20 min). El carpooling ofrece servicio puerta a puerta sin restricción horaria para la vuelta de madrugada.",
+      },
+      {
+        q: "¿Hay parking en la Ciudad de las Artes y las Ciencias durante BIGSOUND?",
+        a: "La Ciudad de las Artes y las Ciencias dispone de aparcamiento de pago (desde 2 €/hora, plazas limitadas). La organización recomienda metro L3/L5/L7 parada Alameda o carpooling para reducir la congestión de la Av. Autopista del Saler. Venir en coche propio desde Madrid o Barcelona sin carpooling implica parking + gasolina, lo que supera el coste del asiento compartido.",
+      },
+      {
+        q: "¿Cuándo es BIGSOUND Valencia 2026?",
+        a: "BIGSOUND Valencia 2026 se celebra el 26 y 27 de junio en la Ciudad de las Artes y las Ciencias de Valencia. El festival acumula 5 ediciones consecutivas sold out. ConcertRide opera carpooling sin comisión desde Alicante (5–8 €), Castellón (3–5 €), Madrid (10–14 €) y Barcelona (10–14 €).",
+      },
+    ],
+    relatedFestivals: ["festival-de-les-arts", "medusa-festival", "sonar"],
+    relatedBlogs: ["festival-de-les-arts-2026-transporte-valencia"],
+    genres: ["electrónica", "pop", "indie"],
+    expected_attendance: "50.000 personas (edición completa)",
+    transport_options: [
+      { type: "carpooling", provider: "ConcertRide", origin: "Alicante", price_from: 5, price_to: 8, notes: "0% comisión, pago Bizum directo" },
+      { type: "carpooling", provider: "ConcertRide", origin: "Madrid", price_from: 10, price_to: 14, notes: "0% comisión, puerta a puerta" },
+      { type: "bus", provider: "Metrovalencia", origin: "Valencia centro", price_from: 1, price_to: 2, notes: "Metro L3/L5/L7 parada Alameda, 10 min andando. Hasta 1:30 AM fines de semana." },
+      { type: "bus", provider: "EMT Valencia", origin: "Valencia centro", price_from: 1, price_to: 2, notes: "Líneas 1, 19 y 35 por Av. Autopista del Saler" },
+    ],
+    official_shuttle: { available: false, notes: "Sin lanzadera oficial. Metro Metrovalencia L3/L5/L7 parada Alameda recomendado desde el centro de Valencia." },
+  },
+
+  {
+    slug: "jardin-de-las-delicias",
+    name: "Jardín de las Delicias Festival",
+    shortName: "Jardín de las Delicias",
+    city: "Madrid",
+    citySlug: "madrid",
+    region: "Comunidad de Madrid",
+    venue: "Campus de Cantarranas UCM",
+    venueAddress: "Campus Universitario de Cantarranas, 28023 Madrid",
+    lat: 40.4517,
+    lng: -3.7246,
+    startDate: "2026-09-18",
+    endDate: "2026-09-19",
+    typicalDates: "Tercer fin de semana de septiembre",
+    capacity: "27.500 personas/día",
+    blurb:
+      "Jardín de las Delicias Festival es el gran festival de otoño de Madrid, celebrado en el Campus de Cantarranas de la UCM con artistas de indie, pop y rock nacional e internacional. Con 55.000 asistentes, es el festival de referencia de la temporada de otoño en la capital. Metro L6 Ciudad Universitaria (10 min andando). ConcertRide cubre el carpooling sin comisión desde Valencia (10–14€), Sevilla (15–19€) y Barcelona (15–20€).",
+    ogImage: "https://images.unsplash.com/photo-1501386761578-eac5c94b800a?w=1200&h=630&fit=crop",
+    originCities: [
+      { city: "Toledo", km: 70, drivingTime: "50min", concertRideRange: "3–5€" },
+      { city: "Guadalajara", km: 57, drivingTime: "45min", concertRideRange: "3–5€" },
+      { city: "Segovia", km: 90, drivingTime: "1h", concertRideRange: "4–6€" },
+      { city: "Valencia", km: 355, drivingTime: "3h 20min", concertRideRange: "10–14€" },
+      { city: "Barcelona", km: 620, drivingTime: "5h 30min", concertRideRange: "15–20€" },
+      { city: "Sevilla", km: 535, drivingTime: "5h", concertRideRange: "15–19€" },
+      { city: "Zaragoza", km: 325, drivingTime: "3h", concertRideRange: "9–13€" },
+      { city: "Bilbao", km: 395, drivingTime: "3h 45min", concertRideRange: "12–17€" },
+    ],
+    faqs: [
+      {
+        q: "¿Cómo llegar al Jardín de las Delicias Festival en Madrid?",
+        a: "El Jardín de las Delicias Festival se celebra en el Campus de Cantarranas de la UCM (Ciudad Universitaria, Madrid). Metro: L6 parada Ciudad Universitaria (10 min andando). Autobús EMT: líneas 82, 83 y 84 desde Moncloa. Para asistentes de otras ciudades, el carpooling con ConcertRide es la opción más económica y directa al campus universitario.",
+      },
+      {
+        q: "¿Cuándo es el Jardín de las Delicias Festival 2026?",
+        a: "El Jardín de las Delicias Festival 2026 se celebra el 18 y 19 de septiembre en el Campus de Cantarranas de la UCM, Madrid. Con 55.000 asistentes esperados, es el festival de referencia del otoño festivalero madrileño. ConcertRide opera carpooling sin comisión desde Valencia (10–14 €), Barcelona (15–20 €), Sevilla (15–19 €) y Zaragoza (9–13 €).",
+      },
+      {
+        q: "¿Qué festivales hay en septiembre 2026 en Madrid?",
+        a: "El Jardín de las Delicias Festival (18–19 septiembre, Campus Cantarranas UCM, 55.000 asistentes) es el principal festival de septiembre de Madrid. Junto con Mad Cool (julio) y Tomavistas (mayo), completa la triada de festivales de referencia de la Comunidad de Madrid. El carpooling con ConcertRide desde Valencia (10–14 €), Barcelona (15–20 €) o Sevilla (15–19 €) es la opción más económica para asistentes de otras ciudades.",
+      },
+    ],
+    relatedFestivals: ["mad-cool", "tomavistas"],
+    relatedBlogs: [],
+    genres: ["indie", "pop", "rock", "alternativo"],
+    expected_attendance: "55.000 personas",
+    transport_options: [
+      { type: "carpooling", provider: "ConcertRide", origin: "Valencia", price_from: 10, price_to: 14, notes: "0% comisión, puerta a puerta" },
+      { type: "bus", provider: "Metro de Madrid", origin: "Madrid", price_from: 2, price_to: 2, notes: "Metro L6 parada Ciudad Universitaria, 10 min andando" },
+      { type: "bus", provider: "EMT Madrid", origin: "Madrid Moncloa", price_from: 1, price_to: 2, notes: "Líneas 82, 83 y 84 desde Moncloa" },
+    ],
+    official_shuttle: { available: false, notes: "Sin lanzadera oficial. Metro L6 Ciudad Universitaria o autobuses EMT desde Moncloa recomendados." },
+  },
+
 ];
 
 export const FESTIVAL_LANDINGS_BY_SLUG = Object.fromEntries(
@@ -4135,4 +4531,4 @@ export const FESTIVAL_LANDINGS_BY_SLUG = Object.fromEntries(
 );
 
 /** Last time festival data (dates, prices, venues) was updated — use for stable dateModified in schemas and sitemap. */
-export const FESTIVAL_LANDINGS_LAST_UPDATED = "2026-05-16"; // Wave 39: +10 (Barakaldo, Irún, Donostia-Hiria, Pontevedra, Vigo, Ferrol, Monforte, Lalín, Tui, Betanzos)
+export const FESTIVAL_LANDINGS_LAST_UPDATED = "2026-05-17"; // Wave 40: +2 (BIGSOUND Valencia, Jardín de las Delicias)

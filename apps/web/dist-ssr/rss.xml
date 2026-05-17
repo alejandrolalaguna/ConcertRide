@@ -5,13 +5,19 @@
     <link>https://concertride.me/blog</link>
     <description>Guías, consejos y noticias sobre carpooling para festivales y conciertos en España</description>
     <language>es</language>
-    <lastBuildDate>Sat, 16 May 2026 15:13:10 GMT</lastBuildDate>
+    <lastBuildDate>Sun, 17 May 2026 14:04:41 GMT</lastBuildDate>
     <atom:link href="https://concertride.me/rss.xml" rel="self" type="application/rss+xml"/>
     <image>
       <url>https://concertride.me/android-chrome-192x192.png</url>
       <title>ConcertRide Blog</title>
       <link>https://concertride.me/blog</link>
     </image>
+    <item>
+      <title>Mejores plataformas de carpooling para festivales en España [2026]</title>
+      <link>https://concertride.me/blog/alternativa-carpooling-festivales-espana</link>
+      <guid isPermaLink="true">https://concertride.me/blog/alternativa-carpooling-festivales-espana</guid>
+      <pubDate>Sun, 17 May 2026 00:00:00 GMT</pubDate>
+    </item>
     <item>
       <title>Autobuses a festivales de España 2026: guía completa</title>
       <link>https://concertride.me/blog/autobuses-festivales-espana-2026</link>
@@ -29,12 +35,6 @@
       <link>https://concertride.me/blog/huella-carbono-festivales-carpooling</link>
       <guid isPermaLink="true">https://concertride.me/blog/huella-carbono-festivales-carpooling</guid>
       <pubDate>Wed, 15 Apr 2026 00:00:00 GMT</pubDate>
-    </item>
-    <item>
-      <title>BlaBlaCar vs ConcertRide: ¿cuál elegir para ir a un festival?</title>
-      <link>https://concertride.me/blog/blablacar-vs-concertride</link>
-      <guid isPermaLink="true">https://concertride.me/blog/blablacar-vs-concertride</guid>
-      <pubDate>Fri, 10 Apr 2026 00:00:00 GMT</pubDate>
     </item>
     <item>
       <title>Qué llevar al festival: la lista definitiva</title>
@@ -533,6 +533,36 @@
       <link>https://concertride.me/blog/carpooling-madrid-festivales</link>
       <guid isPermaLink="true">https://concertride.me/blog/carpooling-madrid-festivales</guid>
       <pubDate>Thu, 07 May 2026 00:00:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>Carpooling Valencia → Arenal Sound 2026: guía completa de precios y horarios</title>
+      <link>https://concertride.me/blog/carpooling-valencia-arenal-sound-2026</link>
+      <guid isPermaLink="true">https://concertride.me/blog/carpooling-valencia-arenal-sound-2026</guid>
+      <pubDate>Sun, 17 May 2026 00:00:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>Cómo ir de Madrid a Viña Rock 2026: carpooling, bus y AVE comparados</title>
+      <link>https://concertride.me/blog/como-ir-madrid-vina-rock-2026</link>
+      <guid isPermaLink="true">https://concertride.me/blog/como-ir-madrid-vina-rock-2026</guid>
+      <pubDate>Sun, 17 May 2026 00:00:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>Carpooling Bilbao → BBK Live 2026: rutas, precios y puntos de encuentro</title>
+      <link>https://concertride.me/blog/carpooling-bilbao-bbk-live-2026-guia</link>
+      <guid isPermaLink="true">https://concertride.me/blog/carpooling-bilbao-bbk-live-2026-guia</guid>
+      <pubDate>Sun, 17 May 2026 00:00:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>De Barcelona al FIB Benicàssim 2026: carpooling, bus y tren comparados</title>
+      <link>https://concertride.me/blog/barcelona-fib-benicassim-2026-transporte</link>
+      <guid isPermaLink="true">https://concertride.me/blog/barcelona-fib-benicassim-2026-transporte</guid>
+      <pubDate>Sun, 17 May 2026 00:00:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>Madrid → Mad Cool 2026: guía definitiva de carpooling y transporte</title>
+      <link>https://concertride.me/blog/madrid-mad-cool-2026-guia-transporte</link>
+      <guid isPermaLink="true">https://concertride.me/blog/madrid-mad-cool-2026-guia-transporte</guid>
+      <pubDate>Sun, 17 May 2026 00:00:00 GMT</pubDate>
     </item>
   </channel>
 </rss>

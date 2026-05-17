@@ -6,8 +6,14 @@
   xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9
     http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
   <!-- Sitemap generado por generate-sitemaps.mjs -->
-  <!-- Tipo: blog | Actualizado: 2026-05-16 | 87 URLs -->
+  <!-- Tipo: blog | Actualizado: 2026-05-17 | 92 URLs -->
 
+  <url>
+    <loc>https://concertride.me/blog/alternativa-carpooling-festivales-espana</loc>
+    <lastmod>2026-05-17</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.75</priority>
+  </url>
   <url>
     <loc>https://concertride.me/blog/autobuses-festivales-espana-2026</loc>
     <lastmod>2026-04-20</lastmod>
@@ -25,12 +31,6 @@
     <lastmod>2026-04-15</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.75</priority>
-  </url>
-  <url>
-    <loc>https://concertride.me/blog/blablacar-vs-concertride</loc>
-    <lastmod>2026-04-10</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.80</priority>
   </url>
   <url>
     <loc>https://concertride.me/blog/que-llevar-al-festival</loc>
@@ -529,5 +529,35 @@
     <lastmod>2026-05-07</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.75</priority>
+  </url>
+  <url>
+    <loc>https://concertride.me/blog/carpooling-valencia-arenal-sound-2026</loc>
+    <lastmod>2026-05-17</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://concertride.me/blog/como-ir-madrid-vina-rock-2026</loc>
+    <lastmod>2026-05-17</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://concertride.me/blog/carpooling-bilbao-bbk-live-2026-guia</loc>
+    <lastmod>2026-05-17</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://concertride.me/blog/barcelona-fib-benicassim-2026-transporte</loc>
+    <lastmod>2026-05-17</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://concertride.me/blog/madrid-mad-cool-2026-guia-transporte</loc>
+    <lastmod>2026-05-17</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
   </url>
 </urlset>

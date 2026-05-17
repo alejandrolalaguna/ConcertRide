@@ -134,6 +134,30 @@ export const ARTIST_LANDINGS: ArtistLanding[] = [
       "Bad Bunny (Benito Antonio Martínez Ocasio) es el artista de reguetón y trap latino más escuchado del mundo, con cinco álbumes número uno consecutivos en el Billboard 200. En España, sus conciertos llenan estadios: el Riyadh Air Metropolitano de Madrid y el Estadi Olímpic de Barcelona son paradas habituales de sus giras europeas. Con ConcertRide, asistentes desde Sevilla llegan al Metropolitano por 12–17 €/asiento, sin comisión de plataforma.",
     upcomingConcerts: [
       {
+        city: "Barcelona",
+        citySlug: "barcelona",
+        venue: "Estadi Olímpic Lluis Companys",
+        date: "2026-05-22",
+        concertRideRange: "4–7 €/asiento",
+        originCities: [
+          { city: "Madrid", range: "15–20 €" },
+          { city: "Valencia", range: "10–14 €" },
+          { city: "Zaragoza", range: "8–12 €" },
+        ],
+      },
+      {
+        city: "Barcelona",
+        citySlug: "barcelona",
+        venue: "Estadi Olímpic Lluis Companys",
+        date: "2026-05-23",
+        concertRideRange: "4–7 €/asiento",
+        originCities: [
+          { city: "Madrid", range: "15–20 €" },
+          { city: "Valencia", range: "10–14 €" },
+          { city: "Zaragoza", range: "8–12 €" },
+        ],
+      },
+      {
         city: "Madrid",
         citySlug: "madrid",
         venue: "Riyadh Air Metropolitano",
@@ -146,15 +170,39 @@ export const ARTIST_LANDINGS: ArtistLanding[] = [
         ],
       },
       {
-        city: "Barcelona",
-        citySlug: "barcelona",
-        venue: "Estadi Olímpic Lluis Companys",
-        date: "2026-05-22",
+        city: "Madrid",
+        citySlug: "madrid",
+        venue: "Riyadh Air Metropolitano",
+        date: "2026-05-31",
         concertRideRange: "4–7 €/asiento",
         originCities: [
-          { city: "Madrid", range: "15–20 €" },
           { city: "Valencia", range: "10–14 €" },
-          { city: "Zaragoza", range: "8–12 €" },
+          { city: "Sevilla", range: "12–17 €" },
+          { city: "Barcelona", range: "15–20 €" },
+        ],
+      },
+      {
+        city: "Madrid",
+        citySlug: "madrid",
+        venue: "Riyadh Air Metropolitano",
+        date: "2026-06-03",
+        concertRideRange: "4–7 €/asiento",
+        originCities: [
+          { city: "Valencia", range: "10–14 €" },
+          { city: "Sevilla", range: "12–17 €" },
+          { city: "Barcelona", range: "15–20 €" },
+        ],
+      },
+      {
+        city: "Madrid",
+        citySlug: "madrid",
+        venue: "Riyadh Air Metropolitano",
+        date: "2026-06-15",
+        concertRideRange: "4–7 €/asiento",
+        originCities: [
+          { city: "Valencia", range: "10–14 €" },
+          { city: "Sevilla", range: "12–17 €" },
+          { city: "Barcelona", range: "15–20 €" },
         ],
       },
     ],
@@ -194,7 +242,7 @@ export const ARTIST_LANDINGS: ArtistLanding[] = [
       {
         city: "Madrid",
         citySlug: "madrid",
-        venue: "IFEMA Madrid",
+        venue: "Iberdrola Music (Villaverde)",
         date: "TBD",
         concertRideRange: "4–7 €/asiento",
         originCities: [
@@ -445,7 +493,7 @@ export const ARTIST_LANDINGS: ArtistLanding[] = [
     genre: ["pop", "alternative"],
     wikidata: "Q72630742",
     blurb:
-      "Billie Eilish es una artista estadounidense de pop alternativo que, con tan solo 15 años, comenzó a publicar canciones que se convirtieron en fenómenos virales, y ganó los cinco premios Grammy principales en 2020. En España, ha actuado en el Primavera Sound de Barcelona y ha dado conciertos en el Movistar Arena de Madrid. Con ConcertRide, los fans desde Madrid llegan al Primavera Sound por 15–20 €/asiento, sin comisión.",
+      "Billie Eilish es una artista estadounidense de pop alternativo que, con tan solo 15 años, comenzó a publicar canciones que se convirtieron en fenómenos virales, y ganó los cinco premios Grammy principales en 2020. En España, ha actuado en el Primavera Sound de Barcelona y en el Movistar Arena de Madrid. No hay fechas confirmadas de conciertos de Billie Eilish en España en 2026 — cuando se anuncien, ConcertRide habilitará carpooling sin comisión desde toda España.",
     upcomingConcerts: [
       {
         city: "Madrid",
@@ -480,12 +528,12 @@ export const ARTIST_LANDINGS: ArtistLanding[] = [
     genre: ["hip-hop", "pop"],
     wikidata: "Q25166768",
     blurb:
-      "Post Malone (Austin Richard Post) es un artista estadounidense de hip-hop y pop conocido por su estilo ecléctico que mezcla rap, pop y rock. En España, ha actuado en el Mad Cool Festival de Madrid, uno de los eventos donde ConcertRide registra mayor actividad de carpooling desde otras provincias. Con ConcertRide, los fans desde Barcelona llegan al Mad Cool por 15–20 €/asiento, sin comisión de plataforma.",
+      "Post Malone (Austin Richard Post) es un artista estadounidense de hip-hop y pop conocido por su estilo ecléctico que mezcla rap, pop y rock. En España, ha actuado en el Mad Cool Festival de Madrid (ahora en Iberdrola Music Villaverde), uno de los eventos donde ConcertRide registra mayor actividad de carpooling desde otras provincias. Con ConcertRide, los fans desde Barcelona llegan al Mad Cool por 15–20 €/asiento, sin comisión de plataforma.",
     upcomingConcerts: [
       {
         city: "Madrid",
         citySlug: "madrid",
-        venue: "IFEMA Madrid",
+        venue: "Iberdrola Music (Villaverde)",
         date: "TBD",
         concertRideRange: "4–7 €/asiento",
         originCities: [
@@ -1735,10 +1783,10 @@ export const ARTIST_LANDINGS: ArtistLanding[] = [
     genre: ["hip-hop", "trap", "rap"],
     wikidata: "Q15680928",
     blurb:
-      "Travis Scott (Jacques Webster II) es el rapero y productor texano conocido por sus espectaculares shows en vivo y su álbum 'Astroworld' (2018). En España ha actuado en el Movistar Arena de Madrid ante miles de fans del trap americano, con las rutas de carpooling hacia Madrid entre las más reservadas en ConcertRide. Con ConcertRide, los fans desde Valencia llegan al Movistar Arena por 10–14 €/asiento, sin comisión.",
+      "Travis Scott (Jacques Webster II) es el rapero y productor texano conocido por sus espectaculares shows en vivo y su álbum 'Astroworld' (2018). En España, sus fechas confirmadas en 2026 son en el WiZink Center de Madrid (30–31 julio), con miles de fans llegando desde toda la Península. Con ConcertRide, los fans desde Valencia llegan al WiZink Center por 10–14 €/asiento, sin comisión.",
     upcomingConcerts: [
-      { city: "Madrid", citySlug: "madrid", venue: "Movistar Arena", date: "TBD", concertRideRange: "4–7 €/asiento", originCities: [{ city: "Valencia", range: "10–14 €" }, { city: "Zaragoza", range: "9–13 €" }, { city: "Bilbao", range: "11–16 €" }] },
-      { city: "Barcelona", citySlug: "barcelona", venue: "Palau Sant Jordi", date: "TBD", concertRideRange: "4–7 €/asiento", originCities: [{ city: "Madrid", range: "15–20 €" }, { city: "Valencia", range: "10–14 €" }, { city: "Zaragoza", range: "8–12 €" }] },
+      { city: "Madrid", citySlug: "madrid", venue: "WiZink Center", date: "2026-07-30", concertRideRange: "4–7 €/asiento", originCities: [{ city: "Valencia", range: "10–14 €" }, { city: "Zaragoza", range: "9–13 €" }, { city: "Bilbao", range: "11–16 €" }] },
+      { city: "Madrid", citySlug: "madrid", venue: "WiZink Center", date: "2026-07-31", concertRideRange: "4–7 €/asiento", originCities: [{ city: "Valencia", range: "10–14 €" }, { city: "Zaragoza", range: "9–13 €" }, { city: "Bilbao", range: "11–16 €" }] },
     ],
     relatedFestivals: ["mad-cool"],
   },

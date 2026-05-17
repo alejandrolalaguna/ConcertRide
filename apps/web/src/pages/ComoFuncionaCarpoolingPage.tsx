@@ -86,9 +86,9 @@ const FAQS = [
 
 export default function ComoFuncionaCarpoolingPage() {
   useSeoMeta({
-    title: "¿Qué es el carpooling para conciertos? Guía completa | ConcertRide",
+    title: "¿Qué es el carpooling para conciertos? · ConcertRide",
     description:
-      "Guía práctica para entender cómo funciona el carpooling en conciertos y festivales: reservar plaza, publicar viajes, pagar sin comisiones y volver de madrugada sin depender del último metro.",
+      "Cómo funciona el carpooling en conciertos y festivales: reservar plaza, publicar viajes, pagar sin comisiones y volver de madrugada sin metro.",
     canonical: `${SITE_URL}/como-funciona-carpooling`,
     keywords:
       "qué es el carpooling para conciertos, cómo funciona carpooling festivales, reservar viaje compartido concierto, publicar viaje festival, volver festival madrugada, carpooling sin comisión, concert ride cómo funciona",

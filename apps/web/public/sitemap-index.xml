@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Alias del sitemap-index principal. La fuente canónica es /sitemap.xml
+  (referenciada en robots.txt y generada por scripts/prerender.mjs).
+  Este alias existe porque algunas herramientas SEO buscan /sitemap-index.xml
+  por convención estándar.
+-->
+<sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <sitemap>
+    <loc>https://concertride.me/sitemap.xml</loc>
+    <lastmod>2026-05-17</lastmod>
+  </sitemap>
+</sitemapindex>

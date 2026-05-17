@@ -33,9 +33,9 @@ const GUIDE_FAQS = [
 
 export default function GuiaTransporteFestivalesPage() {
   useSeoMeta({
-    title: `Guía de transporte para festivales de España ${new Date().getFullYear()}: autobús, tren y carpooling | ConcertRide`,
+    title: `Guía transporte festivales España ${new Date().getFullYear()}: bus, tren, carpooling`,
     description:
-      "Cómo llegar a los festivales de música en España: autobús organizado, tren, lanzadera oficial y carpooling comparados. Precios, pros, contras y opciones de vuelta de madrugada.",
+      "Cómo llegar a festivales en España: autobús, tren, lanzadera y carpooling comparados. Precios, pros, contras y opciones de vuelta nocturna.",
     canonical: `${SITE_URL}/guia-transporte-festivales`,
     keywords:
       "transporte festivales España, cómo llegar festival España, autobús festival España, bus festival España, lanzadera festival, tren festival, cómo ir al festival sin coche, alternativa taxi festival España, carpooling festival, guía transporte festival 2026, volver festival madrugada, movilidad sostenible festival, festival sin coche propio, transporte nocturno festival",

@@ -796,6 +796,18 @@ export default function FestivalLandingPage() {
           <span className="text-cr-primary">desde {festival.originCities[0]?.concertRideRange ?? "3 €"}/asiento</span>
         </h1>
 
+        {/* ── Quotable answer-first paragraph · target for AI Overviews / GEO citation ──
+            Rendered immediately after the H1 when present. Self-contained 140-word passage
+            answering "cómo llegar a {festival}" with dates, venue, top-3 options + prices. */}
+        {festival.quotableAnswer && (
+          <section
+            data-quotable
+            className="mt-4 mb-2 max-w-3xl font-sans text-base md:text-lg leading-relaxed text-cr-text"
+          >
+            {festival.quotableAnswer}
+          </section>
+        )}
+
         {/* ── Urgency countdown badge (anonymous users, upcoming festivals only) ── */}
         {!user && daysLeft !== null && daysLeft > 0 && (
           <div className="inline-flex items-center gap-2" aria-live="polite">
@@ -1509,6 +1521,22 @@ export default function FestivalLandingPage() {
           </article>
         </div>
       </section>
+
+      {/* ── Bloques diferenciadores (historia, demografía, recinto, servicios, cartel) ──
+          Renderizados como secciones independientes para reducir similitud entre festivales
+          hermanos (Cruïlla vs Primavera Sound, BBK Live vs BBK Music Legends, etc.). */}
+      {festival.enrichmentBlocks && festival.enrichmentBlocks.length > 0 && (
+        <section className="max-w-6xl mx-auto px-6 pb-16 border-t border-cr-border pt-12 space-y-10">
+          {festival.enrichmentBlocks.map((block) => (
+            <article key={block.heading} className="space-y-3 max-w-3xl">
+              <h2 className="font-display text-2xl md:text-3xl uppercase">{block.heading}</h2>
+              <p className="font-sans text-sm md:text-base text-cr-text-muted leading-relaxed">
+                {block.body}
+              </p>
+            </article>
+          ))}
+        </section>
+      )}
 
       {/* ── FAQ ── */}
       <section className="max-w-6xl mx-auto px-6 pb-16 border-t border-cr-border pt-12 space-y-6">

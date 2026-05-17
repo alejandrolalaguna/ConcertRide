@@ -106,8 +106,12 @@ function extractMeta(html, name) {
   );
   const tag = re.exec(html);
   if (!tag) return null;
-  const cm = /content=["']([^"']*)["']/i.exec(tag[0]);
-  return cm ? decodeEntities(cm[1]) : null;
+  // Match content="..." or content='...' but DO NOT use [^"'] as the inner
+  // class — an apostrophe inside a double-quoted attribute is legal HTML and
+  // must not terminate the match (e.g. "Guns N' Roses ..." was being cut to
+  // "Guns N"). Match the same quote char that opened the attribute instead.
+  const cm = /content=(["'])([\s\S]*?)\1/i.exec(tag[0]);
+  return cm ? decodeEntities(cm[2]) : null;
 }
 
 function hasH1(html) {

@@ -260,6 +260,43 @@ export const GENRE_LANDINGS: GenreLanding[] = [
       },
     ],
   },
+  {
+    slug: "jazz",
+    name: "Jazz",
+    nameFull: "Festivales de jazz en España",
+    emoji: "🎷",
+    blurb:
+      "España cuenta con uno de los circuitos de jazz más prestigiosos de Europa. Heineken Jazzaldia en Donostia–San Sebastián, fundado en 1966, es el festival de jazz más antiguo del Estado y el segundo más veterano de Europa, con más de 150.000 asistentes anuales y escenarios al aire libre en la Plaza de la Trinidad, Plaza de Sarriegi y la playa de la Zurriola. El Festival de Jazz de Madrid (noviembre) y el Festival Internacional de Jazz de Barcelona (octubre–diciembre) cierran la temporada con cartel internacional. Carpooling sin comisión con ConcertRide desde cualquier ciudad española.",
+    festivalSlugs: [
+      "jazzaldia",
+      "tio-pepe-festival",
+      "pirineos-sur",
+      "cruilla",
+    ],
+    relatedGenres: ["world-music", "folk-flamenco", "indie"],
+    faqs: [
+      {
+        q: "¿Cuál es el festival de jazz más importante de España?",
+        a: "Heineken Jazzaldia en Donostia–San Sebastián (julio, edición 61ª en 2026) es el festival de jazz más importante de España y el segundo más veterano de Europa (fundado en 1966). Atrae a más de 150.000 asistentes anuales con artistas de la talla de Wynton Marsalis, Pat Metheny, Diana Krall, Branford Marsalis o Esperanza Spalding. La mayoría de los escenarios son al aire libre y gratuitos (Plaza de la Trinidad, Plaza de Sarriegi, playa de la Zurriola).",
+      },
+      {
+        q: "¿Cómo llegar al Jazzaldia desde Bilbao o Madrid?",
+        a: "Bilbao–Donostia son 100 km (1h por la AP-8); con ConcertRide el carpooling cuesta 4–7€/asiento, frente a 18–30€ del bus PESA o 12–25€ del Euskotren con trasbordo. Madrid–Donostia son 460 km (4h 30 min por la A-1 y AP-15); el carpooling cuesta 13–18€/asiento, frente a 30–80€ del Alvia Renfe (5h 15 min) o 25–55€ del bus ALSA (6h). Donostia tiene aparcamiento muy limitado en julio, por lo que el coche compartido es la opción más práctica.",
+      },
+      {
+        q: "¿Hay festivales de jazz gratuitos en España?",
+        a: "Sí. Heineken Jazzaldia ofrece escenarios gratuitos cada noche durante toda la semana (Plaza de la Trinidad y playa de la Zurriola programan artistas internacionales sin entrada). El Festival de Jazz de San Javier (Murcia, julio) y el Getxo Jazz (Vizcaya, julio) también tienen sesiones gratuitas en plazas públicas. Para los conciertos de pago, los precios oscilan entre 25 y 80 € según artista. Carpooling con ConcertRide reduce el coste total del viaje un 60–75 % frente a alternativas.",
+      },
+      {
+        q: "¿Cuándo son los festivales de jazz en España 2026?",
+        a: "El calendario de festivales de jazz en España 2026 se concentra en verano y otoño: Jazzaldia Donostia (21–26 julio, 61ª edición), Getxo Jazz (Vizcaya, julio), Festival de Jazz de San Javier (Murcia, julio–agosto), Festival Internacional de Jazz de Barcelona (octubre–diciembre, programación distribuida en 2 meses) y Festival de Jazz de Madrid (noviembre). Pirineos Sur (Sallent de Gállego, julio) incluye habitualmente artistas de jazz en su programación de world music.",
+      },
+      {
+        q: "¿Cuánto cuesta el carpooling a festivales de jazz en España?",
+        a: "Con ConcertRide, el carpooling a festivales de jazz cuesta entre 3 y 18 €/asiento según distancia: Bilbao–Jazzaldia Donostia 4–7€, Pamplona–Jazzaldia 4–7€, Madrid–Jazzaldia 13–18€, Sevilla–Tío Pepe Jerez 3–6€, Zaragoza–Pirineos Sur 6–9€, Madrid–Cruïlla Barcelona 15–20€. El 100 % del importe va al conductor, sin comisión de plataforma, frente al 12–18 % que cobran otras plataformas de carpooling generalistas.",
+      },
+    ],
+  },
 ];
 
 export const GENRE_LANDINGS_BY_SLUG: Record<string, GenreLanding> = Object.fromEntries(

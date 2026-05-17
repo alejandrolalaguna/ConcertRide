@@ -47,21 +47,23 @@ export const CALENDAR_LANDINGS: CalendarLanding[] = [
     year: 2026,
     isoMonth: "2026-06",
     festivalSlugs: [
+      "primavera-sound",        // 3–7 jun
       "starlite-marbella",     // 13 jun – sep
       "marenostrum-fuengirola", // 15 jun
       "sonar",                 // 18–20 jun
       "o-son-do-camino",       // 18–20 jun
+      "bbk-music-legends",     // 19–21 jun
       "resurrection-fest",     // 25–28 jun
       "tio-pepe-festival",     // 25 jun
-      "bbk-music-legends",     // 19–21 jun
+      "bigsound-valencia",     // 26–27 jun
     ],
     blurb:
-      "Junio 2026 da el pistoletazo de salida al verano festivalero en España. Destacan Sónar en Barcelona (18–20 junio, electrónica de vanguardia, referente mundial), Resurrection Fest en Viveiro (25–28 junio, metal, 40.000 metaleros), O Son do Camiño en Santiago de Compostela (18–20 junio), Starlite Marbella (desde el 13 junio, pop internacional de lujo) y Tío Pepe Festival en Jerez (25 junio). ConcertRide cubre el carpooling a todos sin comisión.",
+      "Junio 2026 es el mes que abre el verano festivalero con dos eventos de talla mundial: Primavera Sound en Barcelona (3–7 junio, indie y alternativo internacional, 60.000/día Parc del Fòrum) y Sónar (18–20 junio, electrónica de vanguardia). Completan el mes Resurrection Fest en Viveiro (25–28 junio, metal, 40.000 metaleros), BBK Music Legends en Bilbao (19–21 junio, rock clásico), O Son do Camiño en Santiago (18–20 junio), BIGSOUND Valencia (26–27 junio, Ciudad de las Artes y las Ciencias, 5 ediciones sold out), Starlite Marbella (desde el 13 junio) y Tío Pepe Festival en Jerez (25 junio). ConcertRide cubre el carpooling a todos sin comisión.",
     searchIntent: "festivales junio 2026 españa",
     faqs: [
       {
         q: "¿Qué festivales hay en junio 2026 en España?",
-        a: "Los principales festivales de junio 2026 en España son: Sónar (Barcelona, 18–20 jun, electrónica), O Son do Camiño (Santiago de Compostela, 18–20 jun, pop e indie), BBK Music Legends (Bilbao, 19–21 jun, rock clásico), Resurrection Fest (Viveiro, 25–28 jun, metal), Tío Pepe Festival (Jerez, 25 jun), Starlite Marbella (Marbella, desde 13 jun, pop internacional) y Marenostrum (Fuengirola, desde 15 jun).",
+        a: "Los principales festivales de junio 2026 en España son: Primavera Sound (Barcelona, 3–7 jun, indie/alternativo internacional), Sónar (Barcelona, 18–20 jun, electrónica), O Son do Camiño (Santiago de Compostela, 18–20 jun, pop e indie), BBK Music Legends (Bilbao, 19–21 jun, rock clásico), Resurrection Fest (Viveiro, 25–28 jun, metal), Tío Pepe Festival (Jerez, 25 jun), BIGSOUND Valencia (Ciudad de las Artes y las Ciencias, 26–27 jun, electrónica y pop, 5 ediciones sold out), Starlite Marbella (Marbella, desde 13 jun, pop internacional) y Marenostrum (Fuengirola, desde 15 jun).",
       },
       {
         q: "¿Cómo llegar a Resurrection Fest en junio 2026?",
@@ -99,7 +101,7 @@ export const CALENDAR_LANDINGS: CalendarLanding[] = [
       },
       {
         q: "¿Qué festival es mejor en julio 2026, Mad Cool o BBK Live?",
-        a: "Mad Cool (Madrid, 9–11 julio) y BBK Live (Bilbao, 9–11 julio) son ambos excelentes pero diferentes: Mad Cool tiene carteles de rock e indie internacional más grandes (80.000/día, IFEMA Madrid) y es accesible en metro (L8). BBK Live tiene un enclave único en Kobetamendi con vistas a Bilbao, ambiente más íntimo (35.000/día) y fuerte identidad local vasca. Si estás en el norte, BBK Live. Si vienes de fuera de España, Mad Cool tiene más nombre internacional.",
+        a: "Mad Cool (Madrid, 8–11 julio) y BBK Live (Bilbao, 9–11 julio) son ambos excelentes pero diferentes: Mad Cool tiene carteles de rock e indie internacional más grandes (80.000/día, Iberdrola Music Villaverde) y se llega en metro L3 (Pradolongo/Legazpi). BBK Live tiene un enclave único en Kobetamendi con vistas a Bilbao, ambiente más íntimo (35.000/día) y fuerte identidad local vasca. Si estás en el norte, BBK Live. Si vienes de fuera de España, Mad Cool tiene más nombre internacional.",
       },
       {
         q: "¿Hay festivales gratuitos en julio 2026 en España?",
@@ -142,16 +144,17 @@ export const CALENDAR_LANDINGS: CalendarLanding[] = [
     year: 2026,
     isoMonth: "2026-09",
     festivalSlugs: [
-      "vive-latino",    // 4–5 sep
-      "granada-sound",  // 25–27 sep
+      "vive-latino",             // 4–5 sep
+      "jardin-de-las-delicias",  // 18–19 sep
+      "granada-sound",           // 25–27 sep
     ],
     blurb:
-      "Septiembre 2026 ofrece una alternativa al verano masificado con dos festivales muy distintos: Vive Latino España en Zaragoza (4–5 septiembre), la primera edición europea del festival de rock y pop latino más importante del mundo fundado en México DF en 1998, y Granada Sound en Granada (25–27 septiembre), el festival de pop, rock e indie de referencia en Andalucía oriental. Ambos con carpooling sin comisión desde ConcertRide desde cualquier punto de España.",
+      "Septiembre 2026 ofrece una alternativa al verano masificado con tres festivales muy distintos: Vive Latino España en Zaragoza (4–5 septiembre), la primera edición europea del festival de rock y pop latino más importante del mundo fundado en México DF en 1998; Jardín de las Delicias Festival en Madrid (18–19 septiembre, Campus Cantarranas UCM, 55.000 asistentes, indie y pop nacional e internacional); y Granada Sound en Granada (25–27 septiembre), el festival de referencia en Andalucía oriental. Todos con carpooling sin comisión desde ConcertRide.",
     searchIntent: "festivales septiembre 2026 españa",
     faqs: [
       {
         q: "¿Qué festivales hay en septiembre 2026 en España?",
-        a: "En septiembre 2026 hay dos festivales de música destacados: Vive Latino España (Zaragoza, Recinto Expo, 4–5 septiembre, rock alternativo, cumbia, reggaeton y pop en español, 40.000 personas/día) y Granada Sound (Cortijo del Conde, Granada, 25–27 septiembre, pop/rock/indie, 25.000 asistentes). También continúa Starlite Marbella con conciertos individuales hasta mediados de septiembre.",
+        a: "En septiembre 2026 hay tres festivales de música destacados: Vive Latino España (Zaragoza, Recinto Expo, 4–5 septiembre, rock alternativo y pop en español, 40.000 personas/día), Jardín de las Delicias Festival (Madrid, Campus Cantarranas UCM, 18–19 septiembre, indie y pop nacional e internacional, 55.000 asistentes) y Granada Sound (Cortijo del Conde, Granada, 25–27 septiembre, pop/rock/indie, 25.000 asistentes). También continúa Starlite Marbella con conciertos individuales hasta mediados de septiembre.",
       },
       {
         q: "¿Por qué ir a un festival en septiembre en lugar de julio?",

@@ -19,6 +19,7 @@ import CityYearPage from "./pages/CityYearPage";
 import FestivalLandingPage from "./pages/FestivalLandingPage";
 import FestivalesPage from "./pages/FestivalesPage";
 import GuiaTransporteFestivalesPage from "./pages/GuiaTransporteFestivalesPage";
+import PillarGuiaPage from "./pages/PillarGuiaPage";
 import BlogIndexPage from "./pages/BlogIndexPage";
 import BlogPostPage from "./pages/BlogPostPage";
 import RouteLandingPage from "./pages/RouteLandingPage";
@@ -41,7 +42,8 @@ import NotFoundPage from "./pages/NotFoundPage";
 import HowToGetTherePage from "./pages/HowToGetTherePage";
 import FestivalGuidePage from "./pages/FestivalGuidePage";
 import ComoFuncionaCarpoolingPage from "./pages/ComoFuncionaCarpoolingPage";
-// ComparativaBlaBlaCar — disabled per CLAUDE.md "Brand Restrictions". Never re-enable.
+// Legacy comparison page removed — Worker 301-redirects the URL to a generic
+// replacement post. See CLAUDE.md "Brand Restrictions". Never re-enable.
 import ComparativaTaxi from "./pages/ComparativaTaxi";
 import GenreLandingPage from "./pages/GenreLandingPage";
 import CalendarLandingPage from "./pages/CalendarLandingPage";
@@ -91,13 +93,14 @@ function ServerApp() {
         <Route path="/festivales-genero/:slug" element={<GenreLandingPage />} />
         <Route path="/calendario-festivales/:slug" element={<CalendarLandingPage />} />
         <Route path="/guia-transporte-festivales" element={<GuiaTransporteFestivalesPage />} />
+        <Route path="/guia-ir-festivales-2026" element={<PillarGuiaPage />} />
         <Route path="/blog" element={<BlogIndexPage />} />
         <Route path="/blog/:slug" element={<BlogPostPage />} />
         <Route path="/rutas" element={<RutasIndexPage />} />
         <Route path="/rutas/:route" element={<RouteLandingPage />} />
         <Route path="/como-llegar/:festival" element={<HowToGetTherePage />} />
         <Route path="/como-funciona-carpooling" element={<ComoFuncionaCarpoolingPage />} />
-        {/* /comparativa/concertride-vs-blablacar disabled per CLAUDE.md "Brand Restrictions" */}
+        {/* Legacy comparison route removed — 301 redirect handled by Worker. See CLAUDE.md. */}
         <Route path="/comparativa/carpooling-vs-taxi-festival" element={<ComparativaTaxi />} />
         <Route path="/prensa" element={<PrensaPage />} />
         <Route path="/sala-de-prensa" element={<SalaPrensaPage />} />

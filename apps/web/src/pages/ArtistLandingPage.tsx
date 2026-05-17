@@ -26,6 +26,21 @@ export default function ArtistLandingPage() {
 
   const artistOverride = artist ? ARTIST_SEO_OVERRIDES[artist.slug] : undefined;
 
+  // Build a 135–155 char meta description. Uses up to 2 venue cities when
+  // they fit, then strips them progressively for long artist names so we
+  // never exceed 160 chars (e.g. "Bruce Springsteen", "Imagine Dragons").
+  const artistMetaDescription = (() => {
+    if (!artist) return "Carpooling para conciertos de artistas en España con ConcertRide.";
+    const cities = [...new Set(artist.upcomingConcerts.map((c) => c.city))].slice(0, 2).join(" y ");
+    const withCities = `Conciertos de ${artist.name} en España 2026${cities ? ` — ${cities}` : ""}. Carpooling desde ${minPrice}€/asiento, 0 % comisión, vuelta nocturna coordinada y conductores verificados en ConcertRide.`;
+    if (withCities.length <= 158) return withCities;
+    // Drop cities — keeps the high-CTR trailers.
+    const noCities = `Conciertos de ${artist.name} en España 2026. Carpooling desde ${minPrice}€/asiento, 0 % comisión, vuelta nocturna coordinada y conductores verificados en ConcertRide.`;
+    if (noCities.length <= 158) return noCities;
+    // Last resort for extremely long artist names — drop "vuelta nocturna".
+    return `Conciertos de ${artist.name} en España 2026. Carpooling desde ${minPrice}€/asiento, 0 % comisión y conductores verificados en ConcertRide.`;
+  })();
+
   useSeoMeta({
     title: artist
       // Keep <=65 chars: "{Artist} 2026 · Carpooling desde {N}€ | ConcertRide".
@@ -34,7 +49,9 @@ export default function ArtistLandingPage() {
       ? artistOverride?.title ?? `${artist.name} 2026 · Carpooling desde ${minPrice}€ | ConcertRide`
       : "Artistas · ConcertRide",
     description: artist
-      ? artistOverride?.description ?? `Conciertos de ${artist.name} en España 2026${venueCities ? ` — ${venueCities}` : ""}. Carpooling desde ${minPrice} €/asiento, 0 % de comisión, conductores verificados. Cómo llegar al concierto de ${artist.name} con ConcertRide.`
+      // 135–155 char target. See `artistMetaDescription` above for the
+      // 3-tier fallback; legacy overrides in ARTIST_SEO_OVERRIDES still win.
+      ? artistOverride?.description ?? artistMetaDescription
       : "Carpooling para conciertos de artistas en España con ConcertRide.",
     canonical: artist ? `${SITE_URL}/artistas/${artist.slug}` : undefined,
     ogImageAlt: artist

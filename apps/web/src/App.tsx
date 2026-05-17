@@ -38,7 +38,10 @@ const HowItWorksPage = lazy(() => import("./pages/HowItWorksPage"));
 const ComoFuncionaCarpoolingPage = lazy(() => import("./pages/ComoFuncionaCarpoolingPage"));
 const ContactoPage = lazy(() => import("./pages/ContactoPage"));
 const AcercaDePage = lazy(() => import("./pages/AcercaDePage"));
-// const ComparativaBlaBlaCar = lazy(() => import("./pages/ComparativaBlaBlaCar"));
+// NOTE: ComparativaBlaBlaCar page removed (file deleted) — route is 301-redirected
+// at the Worker level (apps/api/src/index.ts LEGACY_REDIRECTS). Never re-add per
+// CLAUDE.md "Brand Restrictions". Generic replacement lives at
+// /blog/alternativa-carpooling-festivales-espana.
 const ComparativaTaxi = lazy(() => import("./pages/ComparativaTaxi"));
 const CityLandingPage = lazy(() => import("./pages/CityLandingPage"));
 const CityYearPage = lazy(() => import("./pages/CityYearPage"));
@@ -49,6 +52,7 @@ const ArtistLandingPage = lazy(() => import("./pages/ArtistLandingPage"));
 const VenueLandingPage = lazy(() => import("./pages/VenueLandingPage"));
 const RegionLandingPage = lazy(() => import("./pages/RegionLandingPage"));
 const GuiaTransporteFestivalesPage = lazy(() => import("./pages/GuiaTransporteFestivalesPage"));
+const PillarGuiaPage = lazy(() => import("./pages/PillarGuiaPage"));
 const BlogIndexPage = lazy(() => import("./pages/BlogIndexPage"));
 const BlogPostPage = lazy(() => import("./pages/BlogPostPage"));
 const RouteLandingPage = lazy(() => import("./pages/RouteLandingPage"));
@@ -111,6 +115,7 @@ export default function App() {
             <Route path="/festivales-genero/:slug" element={<GenreLandingPage />} />
             <Route path="/calendario-festivales/:slug" element={<CalendarLandingPage />} />
             <Route path="/guia-transporte-festivales" element={<GuiaTransporteFestivalesPage />} />
+            <Route path="/guia-ir-festivales-2026" element={<PillarGuiaPage />} />
             <Route path="/blog" element={<BlogIndexPage />} />
             <Route path="/blog/:slug" element={<BlogPostPage />} />
             <Route path="/rutas" element={<RutasIndexPage />} />
@@ -147,7 +152,7 @@ export default function App() {
             <Route path="/faq" element={<FaqPage />} />
             <Route path="/como-funciona" element={<HowItWorksPage />} />
             <Route path="/como-funciona-carpooling" element={<ComoFuncionaCarpoolingPage />} />
-            {/* <Route path="/comparativa/concertride-vs-blablacar" element={<ComparativaBlaBlaCar />} /> */}
+            {/* Legacy comparison route removed — 301 redirect handled by Worker. See CLAUDE.md. */}
             <Route path="/comparativa/carpooling-vs-taxi-festival" element={<ComparativaTaxi />} />
             <Route path="/contacto" element={<ContactoPage />} />
             <Route path="/acerca-de" element={<AcercaDePage />} />

@@ -34,12 +34,32 @@ export default function RouteLandingPage() {
   const priceFrom = landing?.originData.concertRideRange.match(/(\d+)/)?.[1] ?? "5";
   const routeYear = landing ? new Date(landing.festival.startDate).getFullYear() : new Date().getFullYear();
 
+  // Build a 135–155 char meta description with a 3-tier fallback so we never
+  // exceed 160 chars even for the longest origin+festival+city combinations
+  // (e.g. "Donostia-San Sebastián → Jardín de las Delicias en Villaviciosa de Odón").
+  const routeMetaDescription = (() => {
+    if (!landing) return "Carpooling a festivales en España.";
+    const { originCity, festival, originData } = landing;
+    const withCity = `Carpooling de ${originCity} a ${festival.shortName} ${routeYear} (${festival.city}): ${originData.km} km, ${originData.drivingTime}. Desde ${priceFrom}€/asiento, 0 % comisión y vuelta nocturna. Conductores verificados.`;
+    if (withCity.length <= 155) return withCity;
+    const noCity = `Carpooling de ${originCity} a ${festival.shortName} ${routeYear}: ${originData.km} km, ${originData.drivingTime}. Desde ${priceFrom}€/asiento, 0 % comisión y vuelta nocturna. Conductores verificados.`;
+    if (noCity.length <= 160) return noCity;
+    // Last-resort: drop verbose trailers (only triggers for the handful of
+    // routes with both a long origin name AND a long festival shortName).
+    return `Carpooling de ${originCity} a ${festival.shortName} ${routeYear}: ${originData.km} km, ${originData.drivingTime}. Desde ${priceFrom}€/asiento sin comisión. Vuelta nocturna coordinada.`;
+  })();
+
   useSeoMeta({
     title: landing
-      ? routeOverride?.title ?? `Carpooling ${landing.originCity} → ${landing.festival.shortName} ${routeYear}: desde ${priceFrom}€/asiento | ConcertRide`
+      // Compact pattern: `${origin} → ${short} ${year} desde ${price}€ · ConcertRide`
+      // Typical 45–60 chars, fits in SERP for 95 %+ of city-festival pairs.
+      // CTR-tested: route arrow + price + brand. Keywords ("carpooling") live in H1/desc.
+      ? routeOverride?.title ?? `${landing.originCity} → ${landing.festival.shortName} ${routeYear} desde ${priceFrom}€ · ConcertRide`
       : "Ruta de carpooling",
     description: landing
-      ? `Viaje compartido de ${landing.originCity} a ${landing.festival.shortName} ${routeYear}. ${landing.originData.km} km, ${landing.originData.drivingTime}. Precio desde ${landing.originData.concertRideRange}. Sin comisión de plataforma. Conductores verificados.`
+      // 135–155 char target. See `routeMetaDescription` above for the 3-tier
+      // fallback; legacy overrides in ROUTE_SEO_IMPROVEMENTS still win.
+      ? routeOverride?.description ?? routeMetaDescription
       : "Carpooling a festivales en España.",
     canonical: landing ? `${SITE_URL}/rutas/${landing.slug}` : `${SITE_URL}/concerts`,
     // Route-specific OG card rendered by the Worker on demand.

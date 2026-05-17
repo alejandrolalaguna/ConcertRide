@@ -135,9 +135,9 @@ function FAQAccordion({ items }: { items: typeof FAQ_ITEMS_LANDING }) {
 
 export default function LandingPage() {
   useSeoMeta({
-    title: "Carpooling a Festivales [2026] — Ahorra 40–60€ sin comisión | ConcertRide",
+    title: "Carpooling a Festivales [2026] · Ahorra 40–60€ · ConcertRide",
     description:
-      "Comparte coche a Mad Cool, Primavera Sound, Sónar, BBK Live y +30 festivales en España. 0% comisión. Conductores verificados. Vuelta de madrugada pactada. Desde 5€/asiento.",
+      "Carpooling a Mad Cool, Primavera Sound, Sónar, BBK Live y +30 festivales en España. 0% comisión, conductores verificados. Desde 5€/asiento.",
     canonical: `${SITE_URL}/`,
     keywords: "carpooling conciertos España, viajes compartidos festivales, autobuses festivales españa, bus festivales 2026, transporte a conciertos, coche compartido música, ride-sharing festivales, conciertos en madrid, conciertos en barcelona, conciertos en sevilla, conciertos en bilbao 2026, conciertos en donostia 2026, conciertos en zaragoza, viña rock buses, arenal sound como llegar, bbk santander, mad cool carpooling, primavera sound viaje compartido, deja tu coche en casa festival, carpooling sin comisiones, volver festival madrugada, ir al festival sin coche",
     ogType: "website",

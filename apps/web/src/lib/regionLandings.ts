@@ -25,30 +25,30 @@ export const REGION_LANDINGS: RegionLanding[] = [
     lat: 40.4168,
     lng: -3.7038,
     blurb:
-      "La Comunidad de Madrid es el principal hub de festivales de España con más de 15 eventos anuales de primer nivel. Mad Cool (IFEMA, julio) y Tomavistas (Retiro, mayo) concentran la mayor asistencia. El acceso en transporte público pasada la medianoche es limitado, lo que convierte el carpooling en la opción más popular para asistentes de Valencia, Barcelona y Zaragoza.",
+      "La Comunidad de Madrid es el principal hub de festivales de España con más de 15 eventos anuales de primer nivel. Mad Cool (Iberdrola Music Villaverde, julio) y Tomavistas (Retiro, mayo) concentran la mayor asistencia. El acceso en transporte público pasada la medianoche es limitado, lo que convierte el carpooling en la opción más popular para asistentes de Valencia, Barcelona y Zaragoza.",
     festivalsInRegion: ["mad-cool", "tomavistas"],
     mainCities: ["Madrid", "Valencia", "Zaragoza", "Barcelona", "Sevilla", "Bilbao"],
     upcomingFestivalHighlight: "mad-cool",
     faqs: [
       {
         q: "¿Qué festivales hay en la Comunidad de Madrid en 2026?",
-        a: "Los principales festivales de la Comunidad de Madrid en 2026 son Mad Cool Festival (IFEMA, 9–11 julio, 80.000 personas/día) y Tomavistas (Jardines del Buen Retiro, 15–17 mayo). Además, Madrid acoge múltiples conciertos de estadio en el Estadio Metropolitano y el WiZink Center. Mad Cool es el festival de rock e indie alternativo más grande de Madrid y uno de los de mayor afluencia internacional de España.",
+        a: "Los principales festivales de la Comunidad de Madrid en 2026 son Mad Cool Festival (Iberdrola Music Villaverde, 8–11 julio, 80.000 personas/día) y Tomavistas (Jardines del Buen Retiro, 15–17 mayo). Además, Madrid acoge múltiples conciertos de estadio en el Riyadh Air Metropolitano y el WiZink Center. Mad Cool es el festival de rock e indie alternativo más grande de Madrid y uno de los de mayor afluencia internacional de España.",
       },
       {
         q: "¿Cómo llegar a los festivales de Madrid desde Valencia?",
-        a: "La distancia Valencia–Madrid es de 355 km (3h 20 min por la A-3 o el AVE en 1h 30 min). Para Mad Cool (IFEMA) o Tomavistas (Retiro), el carpooling con ConcertRide cuesta entre 10 y 14 €/asiento. El AVE Valencia–Madrid Atocha cuesta entre 25 y 70 € según antelación, pero requiere transporte adicional desde Atocha hasta IFEMA (metro Línea 8, 25 min) o Retiro (metro Línea 2, 5 min).",
+        a: "La distancia Valencia–Madrid es de 355 km (3h 20 min por la A-3 o el AVE en 1h 30 min). Para Mad Cool (Iberdrola Music Villaverde) o Tomavistas (Retiro), el carpooling con ConcertRide cuesta entre 10 y 14 €/asiento. El AVE Valencia–Madrid Atocha cuesta entre 25 y 70 € según antelación, pero requiere transporte adicional desde Atocha hasta Iberdrola Music (metro L3 Pradolongo o Legazpi, 30 min) o Retiro (metro Línea 2, 5 min).",
       },
       {
         q: "¿Cómo llegar a los festivales de Madrid desde Barcelona?",
-        a: "Barcelona–Madrid son 620 km (5h 30 min en coche o 2h 30 min en AVE). El AVE cuesta entre 50 y 100 €; con ConcertRide el precio por asiento está entre 15 y 20 €. Para IFEMA desde Atocha conviene el metro Línea 8 hasta 'Feria de Madrid' (unos 25 min). El carpooling es especialmente popular para asistentes que quieren ir y volver del festival sin las restricciones horarias del tren.",
+        a: "Barcelona–Madrid son 620 km (5h 30 min en coche o 2h 30 min en AVE). El AVE cuesta entre 50 y 100 €; con ConcertRide el precio por asiento está entre 15 y 20 €. Para Iberdrola Music (Villaverde Bajo) desde Atocha conviene el metro L3 hasta Pradolongo o Legazpi (unos 30 min). El carpooling es especialmente popular para asistentes que quieren ir y volver del festival sin las restricciones horarias del tren.",
       },
       {
         q: "¿Cuánto cuesta el carpooling a Mad Cool desde Zaragoza?",
-        a: "El trayecto Zaragoza–Madrid (IFEMA) son 325 km (3h por la A-2). Con ConcertRide, el precio por asiento oscila entre 9 y 13 €. Es el trayecto más frecuente de carpooling a Mad Cool después de Madrid–Madrid (desplazamiento urbano). El carpooling sale de la estación de Delicias o de la zona de la Gran Vía de Zaragoza.",
+        a: "El trayecto Zaragoza–Madrid (Iberdrola Music Villaverde) son 325 km (3h por la A-2). Con ConcertRide, el precio por asiento oscila entre 9 y 13 €. Es el trayecto más frecuente de carpooling a Mad Cool después de Madrid–Madrid (desplazamiento urbano). El carpooling sale de la estación de Delicias o de la zona de la Gran Vía de Zaragoza.",
       },
       {
         q: "¿Hay transporte de madrugada de vuelta de Mad Cool?",
-        a: "El metro de Madrid cierra sobre la 1:30 (se amplía hasta las 2:00–2:30 en noches de Mad Cool). Los autobuses nocturnos N1 y N6 no paran en IFEMA directamente. Los taxis y VTC aplican precio x2–x3 de madrugada (60–90 €). El carpooling con ConcertRide es la única alternativa organizada para quienes vienen de otra provincia y necesitan volver cuando termine el último artista.",
+        a: "El metro de Madrid cierra sobre la 1:30 (se amplía hasta las 2:00–2:30 en noches de Mad Cool, con L3 reforzado hacia Pradolongo). Los autobuses nocturnos no tienen parada en Villaverde Bajo directa. Los taxis y VTC aplican precio x2–x3 de madrugada (60–90 €). El carpooling con ConcertRide es la única alternativa organizada para quienes vienen de otra provincia y necesitan volver cuando termine el último artista.",
       },
     ],
   },
@@ -301,6 +301,327 @@ export const REGION_LANDINGS: RegionLanding[] = [
       {
         q: "¿Cómo llegar a Viña Rock desde Murcia?",
         a: "Murcia–Villarrobledo son 155 km (1h 30 min por la A-30 y la A-3). Con ConcertRide, el precio por asiento desde Murcia está entre 5 y 8 €. Es la tercera ciudad de origen con más asistentes al festival, después de Madrid y Valencia. El autobús de línea Murcia–Albacete existe pero requiere transbordo y no cubre horarios de madrugada.",
+      },
+    ],
+  },
+
+  {
+    slug: "aragon",
+    name: "Aragón",
+    displayName: "Aragón",
+    isoCode: "ES-AR",
+    lat: 41.6488,
+    lng: -0.8891,
+    blurb:
+      "Aragón es punto de cruce natural entre Madrid, Barcelona, País Vasco y Valencia gracias a su capital, Zaragoza (700.000 habitantes), y a la red A-2/AP-2. La región acoge Pirineos Sur (Sallent de Gállego, Huesca, julio) — único festival europeo con escenario flotante sobre el embalse de Lanuza — y Vive Latino España (Espacio Expo Zaragoza, septiembre). Las dos sedes carecen de transporte público nocturno hasta los recintos, por lo que el carpooling concentra el 60–70 % del tráfico de asistentes desde Madrid, Bilbao, Barcelona y Valencia. La región ahorra de media un 75 % de emisiones de CO₂ por trayecto compartido frente al vehículo individual.",
+    festivalsInRegion: ["pirineos-sur", "vive-latino"],
+    mainCities: ["Zaragoza", "Huesca", "Teruel", "Madrid", "Barcelona", "Bilbao"],
+    upcomingFestivalHighlight: "pirineos-sur",
+    faqs: [
+      {
+        q: "¿Qué festivales hay en Aragón en 2026?",
+        a: "Los principales festivales de Aragón en 2026 son Pirineos Sur (Sallent de Gállego, Huesca, 10–25 julio, 15.000 personas/día, único en Europa con escenario flotante sobre el embalse de Lanuza) y Vive Latino España (Espacio Expo Zaragoza, 4–5 septiembre, primera edición europea del histórico festival mexicano fundado en 1998, cartel de reggaetón, rock latino y pop urbano).",
+      },
+      {
+        q: "¿Cómo llegar a Pirineos Sur desde Zaragoza?",
+        a: "Zaragoza–Sallent de Gállego son 175 km (2h 15 min por la A-23 hasta Huesca y la A-136). Con ConcertRide, el precio por asiento está entre 6 y 9 €. No existe autobús nocturno hasta Sallent de Gállego; ALSA y Avanza operan rutas Zaragoza–Jaca (95 km al sur del recinto) sin frecuencias de madrugada. El carpooling es la opción mayoritaria para los aragoneses.",
+      },
+      {
+        q: "¿Cómo llegar a Vive Latino Zaragoza desde Madrid?",
+        a: "Madrid–Espacio Expo Zaragoza son 325 km (3h por la A-2). Con ConcertRide, el precio por asiento está entre 9 y 13 €. El AVE Madrid–Zaragoza Delicias cuesta entre 25 y 70 € y tarda 1h 15 min, pero requiere taxi adicional (8–12 €) hasta el Espacio Expo. El carpooling deja directamente en el recinto, sin transbordos.",
+      },
+      {
+        q: "¿Cuánto cuesta el carpooling de Barcelona a Zaragoza para festival?",
+        a: "Barcelona–Zaragoza son 310 km (3h 5 min por la AP-2). Con ConcertRide, el precio por asiento está entre 9 y 13 €. Es uno de los trayectos con más demanda histórica del festival Vive Latino, junto con Madrid–Zaragoza. El ahorro medio en emisiones de CO₂ frente al desplazamiento individual es de 75–80 % (15 kg CO₂ por asiento en grupo de 4 frente a 60 kg en coche solo).",
+      },
+      {
+        q: "¿Hay parking en los festivales de Aragón?",
+        a: "Pirineos Sur habilita parking gratuito en Sallent de Gállego para asistentes con coche, pero el aforo es limitado y se llena en las primeras horas de jornada. Vive Latino Zaragoza cuenta con parking de pago en el Espacio Expo (5–10 €/día). Para los dos festivales, el carpooling con ConcertRide reduce la presión sobre el aparcamiento y permite llegar con margen sin colas de acceso.",
+      },
+    ],
+  },
+
+  {
+    slug: "asturias",
+    name: "Principado de Asturias",
+    displayName: "Asturias",
+    isoCode: "ES-AS",
+    lat: 43.3614,
+    lng: -5.8593,
+    blurb:
+      "Asturias (1 millón de habitantes, capital Oviedo) concentra su oferta festivalera en dos citas costeras: Metrópoli Gijón (Recinto Ferial Luis Adaro, julio) — uno de los festivales urbanos con mayor crecimiento del norte — y Aquasella Festival (Arriondas, julio) — referente del techno de vanguardia desde 1996, situado en plena naturaleza del oriente asturiano. La red de transporte público nocturno desde Gijón a Arriondas (60 km) es prácticamente inexistente y el carpooling concentra a asistentes de Oviedo, Santander, Bilbao y A Coruña. La A-8 conecta toda la cornisa cantábrica y es la vía principal para el tráfico compartido.",
+    festivalsInRegion: ["metropoli-gijon", "aquasella-festival"],
+    mainCities: ["Oviedo", "Gijón", "Avilés", "Santander", "Bilbao", "A Coruña"],
+    upcomingFestivalHighlight: "metropoli-gijon",
+    faqs: [
+      {
+        q: "¿Qué festivales hay en Asturias en 2026?",
+        a: "Los principales festivales de Asturias en 2026 son Metrópoli Gijón (Recinto Ferial Luis Adaro, Gijón, 10–12 julio, 30.000 personas/día, pop e indie internacional) y Aquasella Festival (Arriondas, 16–18 julio, 12.000 personas/día, techno de vanguardia y electrónica en plena naturaleza, edición número 30 en 2026). Es la región con mejor mezcla pop-urbano + techno underground del norte de España.",
+      },
+      {
+        q: "¿Cómo llegar a Aquasella desde Oviedo?",
+        a: "Oviedo–Arriondas son 65 km (50 min por la A-64). Con ConcertRide, el precio por asiento está entre 4 y 7 €. El tren FEVE de Renfe Oviedo–Arriondas opera con frecuencias diurnas (1h 30 min de trayecto) pero el último servicio sale antes de las 22:00, lo que impide la vuelta nocturna. El carpooling es la opción dominante para los ovetenses.",
+      },
+      {
+        q: "¿Cómo llegar a Metrópoli Gijón desde Madrid?",
+        a: "Madrid–Gijón son 460 km (4h 30 min por la A-6 y la AP-66). Con ConcertRide, el precio por asiento está entre 13 y 18 €. El tren ALVIA Madrid–Gijón cuesta entre 35 y 70 € y tarda 4h 45 min; el autobús ALSA cuesta 25–40 € en unas 5h 30 min. El carpooling es la única opción puerta a puerta para llegar al Recinto Ferial Luis Adaro sin combinar con taxi o bus urbano gijonés.",
+      },
+      {
+        q: "¿Cuánto cuesta el carpooling de Bilbao a Asturias?",
+        a: "Bilbao–Gijón son 295 km (2h 50 min por la A-8). Con ConcertRide, el precio por asiento está entre 9 y 13 €. Es la ruta más usada entre dos ciudades de la cornisa cantábrica para asistir a Metrópoli o Aquasella. El ahorro medio en CO₂ es del 75 % por asiento compartido frente al vehículo individual.",
+      },
+      {
+        q: "¿Hay transporte nocturno desde Aquasella Festival?",
+        a: "No. Arriondas no tiene transporte público nocturno de vuelta a Oviedo, Gijón o Santander. El festival habilita zona de camping en el recinto (incluida con abono completo) y muchos asistentes pernoctan en la zona. Para los que prefieren volver a su ciudad, el carpooling con ConcertRide coordina la vuelta cuando termina el último DJ, sin depender del horario del tren FEVE.",
+      },
+    ],
+  },
+
+  {
+    slug: "baleares",
+    name: "Illes Balears",
+    displayName: "Baleares",
+    isoCode: "ES-IB",
+    lat: 39.5696,
+    lng: 2.6502,
+    blurb:
+      "Baleares (1,2 millones de habitantes, capital Palma) acoge Mallorca Live Festival (Calvià, mayo), uno de los festivales pop e indie con mayor proyección internacional del Mediterráneo, con cartel anual de 80.000 asistentes en 3 jornadas. Al ser un archipiélago, el acceso desde la Península se realiza por avión (Madrid–Palma, Barcelona–Palma, 1h de vuelo) o ferri (Barcelona/Valencia–Palma, 7–8h). El carpooling balear opera principalmente intra-isla: desde Palma hasta el recinto (Antigua Aqualand, Calvià, 18 km), y entre los principales núcleos turísticos. ConcertRide reduce el coste medio del traslado al recinto un 60 % frente al taxi (20–35 € por persona).",
+    festivalsInRegion: ["mallorca-live-festival"],
+    mainCities: ["Palma de Mallorca", "Inca", "Manacor", "Calvià", "Maó", "Eivissa"],
+    upcomingFestivalHighlight: "mallorca-live-festival",
+    faqs: [
+      {
+        q: "¿Qué festivales hay en Baleares en 2026?",
+        a: "El principal festival de Baleares en 2026 es Mallorca Live Festival (Antiguo Aqualand, Calvià, 13–16 mayo, 25.000 personas/día, pop e indie internacional). Además, las islas acogen festivales temáticos puntuales (BCM Festival en Magaluf, eventos privados de electrónica en Ibiza y Formentera durante todo el verano), pero Mallorca Live es el único con página propia en ConcertRide y carpooling activo.",
+      },
+      {
+        q: "¿Cómo llegar a Mallorca Live desde Palma?",
+        a: "Palma–Calvià (Antiguo Aqualand) son 18 km (25 min por la Ma-1). Con ConcertRide, el precio por asiento está entre 3 y 5 €. El bus TIB línea 104 Palma–Magaluf opera durante el día (frecuencia 30 min) pero sin servicio nocturno de vuelta. El taxi cuesta 25–35 € por coche. El carpooling es la opción más económica para grupos pequeños.",
+      },
+      {
+        q: "¿Se puede ir a Mallorca Live desde Barcelona?",
+        a: "Sí, principalmente combinando avión + carpooling local. Barcelona–Palma son 1h de vuelo (40–120 € ida con Vueling, Iberia o Ryanair). El ferri Trasmediterránea Barcelona–Palma tarda 7–8h y cuesta 50–150 € con coche. Una vez en Palma, el carpooling con ConcertRide al recinto cuesta entre 3 y 5 €/asiento. El traslado completo es más rápido en avión + carpooling que en ferri con coche propio.",
+      },
+      {
+        q: "¿Cuánto cuesta el transporte en Baleares para festivales?",
+        a: "El bus TIB cubre los principales núcleos de Mallorca durante el día (1,50–8 € según trayecto) pero sin servicio nocturno desde la mayoría de festivales. El taxi en Mallorca tiene tarifas más altas que en la Península (precio mínimo 4–5 €, 1,20 €/km). Con ConcertRide, los trayectos cortos (Palma–Calvià, Palma–Magaluf) cuestan 3–5 €/asiento, frente a 25–35 € del taxi. Ahorro medio del 60–70 % por persona.",
+      },
+      {
+        q: "¿Hay carpooling entre las islas Baleares?",
+        a: "El carpooling intra-archipiélago es minoritario porque requiere ferri (Mallorca–Menorca 1h 45 min, Mallorca–Ibiza 2h 15 min) con coste adicional 30–60 € por coche. ConcertRide opera principalmente intra-isla: Palma–Calvià, Palma–Magaluf, Palma–Alcúdia. Para Menorca o Ibiza, los asistentes locales se desplazan por su propia red interna; los peninsulares vuelan a la isla destino del festival.",
+      },
+    ],
+  },
+
+  {
+    slug: "canarias",
+    name: "Canarias",
+    displayName: "Canarias",
+    isoCode: "ES-CN",
+    lat: 28.2916,
+    lng: -16.6291,
+    blurb:
+      "Canarias (2,2 millones de habitantes, capitales Las Palmas de Gran Canaria y Santa Cruz de Tenerife) tiene en GranCa Live Fest (Estadio de Gran Canaria, Las Palmas, junio) su festival pop más relevante, con cartel internacional y aforo medio de 30.000 personas/día. El archipiélago opera sin conexión por carretera con la Península, por lo que el carpooling canario es exclusivamente intra-isla: desde el centro de Las Palmas hasta el recinto (Estadio de Gran Canaria, barrio de Siete Palmas, 7 km) y entre los principales núcleos turísticos (Maspalomas, Playa del Inglés). El precio medio del carpooling intra-isla es de 3–6 €/asiento frente a 15–25 € del taxi. Sostenibilidad media: 70 % menos emisiones por asiento compartido.",
+    festivalsInRegion: ["granca-live-fest"],
+    mainCities: ["Las Palmas de Gran Canaria", "Santa Cruz de Tenerife", "Telde", "Arona", "Maspalomas", "La Laguna"],
+    upcomingFestivalHighlight: "granca-live-fest",
+    faqs: [
+      {
+        q: "¿Qué festivales hay en Canarias en 2026?",
+        a: "El principal festival de Canarias en 2026 es GranCa Live Fest (Estadio de Gran Canaria, Las Palmas, 19–20 junio, 30.000 personas/día, pop e indie internacional con cabezas de cartel europeos). Tenerife acoge eventos puntuales en el Recinto Ferial de Santa Cruz, pero GranCa Live es el único festival canario con página propia en ConcertRide y carpooling activo durante las jornadas.",
+      },
+      {
+        q: "¿Cómo llegar a GranCa Live Fest desde Las Palmas?",
+        a: "Centro de Las Palmas–Estadio de Gran Canaria (Siete Palmas) son 7 km (15 min por la GC-1). Con ConcertRide, el precio por asiento está entre 3 y 5 €. Las guaguas amarillas líneas 47 y 80 conectan Plaza de la Estación con Siete Palmas durante el día (frecuencia 15–20 min) pero el servicio nocturno se reduce y no cubre la salida del estadio a las 2:00 AM. El carpooling es la opción más cómoda para la vuelta.",
+      },
+      {
+        q: "¿Se puede ir a un festival en Canarias desde la Península?",
+        a: "Sí, combinando avión + carpooling local. Madrid–Las Palmas son 2h 30 min de vuelo (50–200 € ida con Iberia, Air Europa, Ryanair o Vueling según antelación). Barcelona–Las Palmas 3h (60–220 €). Una vez en Las Palmas o Tenerife, el carpooling con ConcertRide al recinto cuesta 3–5 €/asiento, frente a 18–25 € del taxi. Muchos peninsulares aprovechan el viaje para hacer 4–5 días de turismo + festival.",
+      },
+      {
+        q: "¿Hay carpooling entre Tenerife y Gran Canaria?",
+        a: "No es habitual: el trayecto entre islas requiere ferri (Fred Olsen o Naviera Armas, 1h 30 min, 30–60 €/persona con coche) o vuelo interinsular Binter (25 min, 30–80 €). El carpooling se concentra intra-isla: Las Palmas–Estadio (GranCa Live), Santa Cruz–La Laguna, Maspalomas–Las Palmas. ConcertRide cubre las rutas urbanas con ahorro medio del 65 % frente al taxi.",
+      },
+      {
+        q: "¿Cuánto se ahorra en CO₂ usando carpooling en Canarias?",
+        a: "Un coche con 4 personas en el trayecto Las Palmas centro–Estadio (14 km ida y vuelta) emite ~3,4 kg de CO₂ en total frente a 13,6 kg si esas 4 personas usan 4 coches individuales. Ahorro medio del 75 % por asiento compartido. Para los 30.000 asistentes diarios del GranCa Live Fest, si el 40 % comparte coche se evitan aproximadamente 80 toneladas de CO₂ por jornada respecto al uso individual.",
+      },
+    ],
+  },
+
+  {
+    slug: "cantabria",
+    name: "Cantabria",
+    displayName: "Cantabria",
+    isoCode: "ES-CB",
+    lat: 43.4623,
+    lng: -3.8099,
+    blurb:
+      "Cantabria (584.000 habitantes, capital Santander) es paso obligado en la cornisa cantábrica entre País Vasco y Asturias gracias a la A-8. La región no tiene festivales propios con landing en ConcertRide, pero es origen y destino frecuente de carpooling para Bilbao BBK Live (95 km al este, 1h), Resurrection Fest en Viveiro (380 km al oeste, 4h) y Metrópoli Gijón (200 km al oeste, 2h). Santander es el principal nodo de carpooling cántabro y desde allí salen rutas a todos los festivales del norte peninsular. Ahorro medio del 78 % de emisiones CO₂ por asiento compartido en la ruta Santander–Bilbao.",
+    festivalsInRegion: [],
+    mainCities: ["Santander", "Torrelavega", "Castro Urdiales", "Laredo", "Bilbao", "Oviedo"],
+    faqs: [
+      {
+        q: "¿Hay festivales en Cantabria en 2026?",
+        a: "Cantabria no acoge en 2026 festivales de gran formato con landing propia en ConcertRide. La región sí celebra ciclos privados de verano en la Plaza Porticada de Santander, en el Palacio de Festivales y en la Plaza de Toros de Santander, pero sin landing dedicada. Los cántabros que asisten a festivales se desplazan a Bilbao BBK Live (95 km), Resurrection Fest (380 km) o Metrópoli Gijón (200 km).",
+      },
+      {
+        q: "¿Cómo llegar al BBK Live desde Santander?",
+        a: "Santander–Kobetamendi (Bilbao) son 105 km (1h 10 min por la A-8). Con ConcertRide, el precio por asiento está entre 4 y 7 €. ALSA opera autobuses Santander–Bilbao (1h 15 min, 8–15 €) pero la última salida nocturna desde Bilbao es a las 22:30, antes del final del BBK Live. El carpooling permite vuelta cuando termina el último cabeza de cartel (sobre las 2:00–3:00 AM).",
+      },
+      {
+        q: "¿Cuánto cuesta el carpooling de Santander a Resurrection Fest?",
+        a: "Santander–Viveiro son 380 km (4h 15 min por la A-8). Con ConcertRide, el precio por asiento está entre 11 y 16 €. Es la opción más práctica para los metaleros cántabros: no existe tren directo ni autobús con frecuencia razonable, y el coche propio implica 80–100 € de combustible más peajes para una sola persona.",
+      },
+      {
+        q: "¿Hay carpooling desde Torrelavega a festivales?",
+        a: "Sí. Torrelavega (28 km de Santander, 56.000 habitantes) es el segundo origen cántabro más demandado en ConcertRide tras la capital. Los principales destinos son Bilbao BBK Live (1h 30 min, 5–8 €/asiento), Resurrection Fest (4h 30 min, 12–17 €) y Sonorama Ribera (2h 15 min, 9–13 €). Para festivales del norte, el carpooling es la opción dominante.",
+      },
+      {
+        q: "¿Cómo llegar a Metrópoli Gijón desde Santander?",
+        a: "Santander–Gijón son 200 km (1h 50 min por la A-8). Con ConcertRide, el precio por asiento está entre 6 y 9 €. El ALSA Santander–Gijón cuesta 12–20 € (2h 30 min) pero sin frecuencias nocturnas. El AVE no llega a Gijón desde Cantabria sin trasbordo en Madrid. El carpooling es la única opción puerta a puerta hasta el Recinto Ferial Luis Adaro.",
+      },
+    ],
+  },
+
+  {
+    slug: "extremadura",
+    name: "Extremadura",
+    displayName: "Extremadura",
+    isoCode: "ES-EX",
+    lat: 39.4711,
+    lng: -6.3722,
+    blurb:
+      "Extremadura (1 millón de habitantes, capital Mérida) acoge Stone & Music Festival (Anfiteatro Romano de Mérida, julio–septiembre), uno de los festivales más singulares de Europa al celebrarse en un anfiteatro romano del siglo I a.C. patrimonio UNESCO, con artistas pop, rock y soul internacionales. Stone & Music tiene un aforo de 3.500 personas/noche en 20 conciertos durante el verano. La región carece de red ferroviaria de alta velocidad — el AVE Madrid–Extremadura no llega aún a 2026 — y el carpooling desde Madrid (340 km, 3h 30 min), Sevilla (200 km, 2h 15 min) y Cáceres (75 km, 1h) es la opción mayoritaria. Ahorro medio 75 % CO₂ por asiento compartido.",
+    festivalsInRegion: ["stone-music-festival"],
+    mainCities: ["Mérida", "Badajoz", "Cáceres", "Plasencia", "Madrid", "Sevilla"],
+    upcomingFestivalHighlight: "stone-music-festival",
+    faqs: [
+      {
+        q: "¿Qué festivales hay en Extremadura en 2026?",
+        a: "El principal festival de Extremadura en 2026 es Stone & Music Festival (Anfiteatro Romano de Mérida, julio a septiembre), 20 conciertos en formato íntimo (aforo 3.500/noche) celebrados en el anfiteatro romano del siglo I a.C., patrimonio UNESCO. El cartel histórico ha incluido a Pet Shop Boys, Sting, Anastacia, Tom Jones y los mejores artistas pop/rock españoles. Es uno de los festivales más singulares de Europa por el entorno arqueológico.",
+      },
+      {
+        q: "¿Cómo llegar a Stone & Music Mérida desde Madrid?",
+        a: "Madrid–Mérida son 340 km (3h 30 min por la A-5). Con ConcertRide, el precio por asiento está entre 10 y 14 €. El AVE no llega aún a Mérida (línea Madrid–Extremadura en construcción). El tren convencional Renfe Madrid–Mérida tarda 4h 30 min con trasbordo en Talavera y cuesta 35–60 €. El autobús ALSA Madrid–Mérida cuesta 20–30 € (4h). El carpooling es la opción más rápida y económica.",
+      },
+      {
+        q: "¿Cómo llegar a Mérida desde Sevilla?",
+        a: "Sevilla–Mérida son 200 km (2h 15 min por la A-66). Con ConcertRide, el precio por asiento está entre 7 y 10 €. ALSA opera Sevilla–Mérida (2h 30 min, 12–20 €) con frecuencia escasa en horario nocturno. El tren Renfe tarda 4h con trasbordo. El carpooling permite ida y vuelta el mismo día del concierto sin alojamiento adicional.",
+      },
+      {
+        q: "¿Hay parking en el Anfiteatro Romano de Mérida?",
+        a: "El acceso al recinto del Anfiteatro está restringido al tráfico rodado por su valor patrimonial. Los asistentes aparcan en parkings cercanos (Parking Conventual de Mérida, Parking Almendralejo a 800 m) por 1,50–2,50 €/h. En noches de concierto los parkings se saturan, especialmente con cabezas de cartel internacionales. El carpooling reduce la presión sobre el aparcamiento al concentrar 4 personas en un solo coche.",
+      },
+      {
+        q: "¿Cuánto cuesta el carpooling de Cáceres a Mérida?",
+        a: "Cáceres–Mérida son 75 km (1h por la A-66). Con ConcertRide, el precio por asiento está entre 3 y 6 €. Es el trayecto más popular del Stone & Music Festival entre las dos capitales extremeñas. El bus ALSA Cáceres–Mérida cuesta 6–10 € (1h 15 min) pero no opera de madrugada.",
+      },
+    ],
+  },
+
+  {
+    slug: "la-rioja",
+    name: "La Rioja",
+    displayName: "La Rioja",
+    isoCode: "ES-RI",
+    lat: 42.4627,
+    lng: -2.4449,
+    blurb:
+      "La Rioja (320.000 habitantes, capital Logroño) es un nodo estratégico de carpooling entre País Vasco, Aragón y Castilla y León. La región no acoge en 2026 festivales con landing propia en ConcertRide, pero es punto de origen frecuente hacia Sonorama Ribera (Aranda de Duero, 165 km, 2h), Bilbao BBK Live (140 km, 1h 30 min) y Vive Latino Zaragoza (175 km, 1h 45 min). Logroño es el principal nodo riojano y desde allí salen rutas a los principales festivales del cuadrante norte de España. El ahorro medio en emisiones de CO₂ es del 77 % por asiento compartido frente al vehículo individual.",
+    festivalsInRegion: [],
+    mainCities: ["Logroño", "Calahorra", "Arnedo", "Haro", "Pamplona", "Bilbao"],
+    faqs: [
+      {
+        q: "¿Hay festivales en La Rioja en 2026?",
+        a: "La Rioja no acoge en 2026 festivales de música de gran formato con landing propia en ConcertRide. La región celebra ciclos privados en la Concha del Espolón (Logroño), en la Plaza de Toros La Ribera y conciertos en bodegas dentro de la programación enoturística. Los riojanos que asisten a festivales se desplazan principalmente a Sonorama Ribera (165 km), Bilbao BBK Live (140 km), Vive Latino Zaragoza (175 km) y Pirineos Sur (210 km).",
+      },
+      {
+        q: "¿Cómo llegar a Sonorama desde Logroño?",
+        a: "Logroño–Aranda de Duero son 165 km (1h 50 min por la A-12 y la N-122). Con ConcertRide, el precio por asiento está entre 6 y 9 €. No existe tren directo Logroño–Aranda; ALSA opera autobuses con trasbordo en Miranda de Ebro o Burgos (3h–4h, 15–25 €) sin frecuencias de madrugada. El carpooling es la opción mayoritaria para los riojanos en Sonorama.",
+      },
+      {
+        q: "¿Cuánto cuesta el carpooling de Logroño a Bilbao BBK Live?",
+        a: "Logroño–Kobetamendi (Bilbao) son 140 km (1h 30 min por la AP-68). Con ConcertRide, el precio por asiento está entre 5 y 8 €. El tren Logroño–Bilbao Renfe tarda 3h con trasbordo y cuesta 18–35 €. ALSA opera Logroño–Bilbao en 1h 45 min por 11–18 € pero sin servicio para la vuelta nocturna del festival. El carpooling permite volver cuando termina el último cabeza de cartel.",
+      },
+      {
+        q: "¿Cómo llegar a Vive Latino Zaragoza desde Logroño?",
+        a: "Logroño–Espacio Expo Zaragoza son 175 km (1h 45 min por la AP-68). Con ConcertRide, el precio por asiento está entre 5 y 8 €. Es el trayecto de carpooling más demandado en La Rioja durante el primer fin de semana de septiembre por Vive Latino. ALSA opera bus directo en 2h 15 min (15–25 €) pero el último servicio sale a las 21:30.",
+      },
+      {
+        q: "¿Hay carpooling desde Calahorra para festivales?",
+        a: "Sí. Calahorra (50 km al sureste de Logroño, 24.000 habitantes) es el segundo origen riojano más frecuente en ConcertRide. Los destinos principales son Vive Latino Zaragoza (130 km, 1h 20 min, 4–7 €/asiento), Bilbao BBK Live (190 km, 2h, 6–9 €) y Sonorama Ribera (215 km, 2h 20 min, 7–10 €). Para asistentes del valle del Ebro, el carpooling es la opción dominante.",
+      },
+    ],
+  },
+
+  {
+    slug: "murcia",
+    name: "Región de Murcia",
+    displayName: "Murcia",
+    isoCode: "ES-MC",
+    lat: 37.9922,
+    lng: -1.1307,
+    blurb:
+      "La Región de Murcia (1,5 millones de habitantes, capital Murcia) acoge SOS 4.8 (Recinto Ferial La Fica, Murcia, mayo), uno de los festivales urbanos de indie y electrónica más reconocidos del sureste, con cartel internacional desde 2008 y un aforo de 25.000 personas/día. La región es nodo estratégico de carpooling con Valencia (240 km, 2h 15 min), Alicante (80 km, 50 min), Albacete (155 km, 1h 30 min) y Almería (220 km, 2h 15 min). El SOS 4.8 concentra el 65 % de su público en asistentes del litoral mediterráneo, donde el coche compartido es la opción dominante por la falta de transporte público nocturno hasta La Fica.",
+    festivalsInRegion: ["sos-48"],
+    mainCities: ["Murcia", "Cartagena", "Lorca", "Molina de Segura", "Alicante", "Albacete"],
+    upcomingFestivalHighlight: "sos-48",
+    faqs: [
+      {
+        q: "¿Qué festivales hay en la Región de Murcia en 2026?",
+        a: "El principal festival de Murcia en 2026 es SOS 4.8 (Recinto Ferial La Fica, Murcia, 8–10 mayo, 25.000 personas/día, indie y electrónica internacional). Es uno de los festivales urbanos más respetados del sureste español, con cartel internacional desde 2008. Además, Cartagena acoge La Mar de Músicas (julio) y Murcia celebra ciclos privados en la Plaza de Toros durante el verano.",
+      },
+      {
+        q: "¿Cómo llegar a SOS 4.8 desde Alicante?",
+        a: "Alicante–Recinto Ferial La Fica (Murcia) son 85 km (55 min por la A-7). Con ConcertRide, el precio por asiento está entre 4 y 7 €. El tren Cercanías Renfe Alicante–Murcia tarda 1h 25 min y cuesta 9–12 €, pero la estación de Murcia del Carmen está a 4 km de La Fica (taxi adicional 7–10 €). El carpooling es puerta a puerta.",
+      },
+      {
+        q: "¿Cómo llegar a SOS 4.8 desde Valencia?",
+        a: "Valencia–Murcia son 240 km (2h 15 min por la A-7). Con ConcertRide, el precio por asiento está entre 7 y 11 €. El AVANT Renfe Valencia–Murcia tarda 2h 30 min y cuesta 30–55 €. El autobús ALSA cuesta 18–28 € (3h–3h 30 min). El carpooling es la opción más popular entre los asistentes valencianos al festival.",
+      },
+      {
+        q: "¿Hay transporte nocturno en Murcia para festivales?",
+        a: "El servicio nocturno de bus urbano de Murcia (Líneas N1, N2 búho) cubre principales arterias hasta las 3:00 AM los viernes y sábados, pero las paradas más cercanas a La Fica están a 1,5 km del recinto. El taxi del centro a La Fica cuesta 8–12 €. Para asistentes de fuera de Murcia capital, el carpooling con ConcertRide es la única opción organizada para volver al pueblo de origen tras el festival.",
+      },
+      {
+        q: "¿Cuánto cuesta el carpooling de Cartagena a SOS 4.8?",
+        a: "Cartagena–Murcia son 50 km (40 min por la A-30). Con ConcertRide, el precio por asiento está entre 3 y 6 €. Es el trayecto intra-regional más demandado del festival, junto con Lorca–Murcia (65 km, 4–7 €/asiento). El Cercanías Renfe Cartagena–Murcia opera con frecuencia diurna pero sin servicios después de las 22:30, lo que impide la vuelta nocturna.",
+      },
+    ],
+  },
+
+  {
+    slug: "navarra",
+    name: "Comunidad Foral de Navarra",
+    displayName: "Navarra",
+    isoCode: "ES-NC",
+    lat: 42.8125,
+    lng: -1.6458,
+    blurb:
+      "Navarra (665.000 habitantes, capital Pamplona) es uno de los principales nodos de carpooling del cuadrante noreste español. La región no acoge en 2026 festivales con landing propia en ConcertRide, pero Pamplona es origen frecuente hacia Bilbao BBK Live (155 km, 1h 30 min), Vive Latino Zaragoza (175 km, 1h 45 min), Pirineos Sur (180 km, 2h por la A-15 y A-21) y Sonorama Ribera (215 km, 2h 15 min). La AP-15 y la A-15 conectan Pamplona con Madrid (400 km, 4h) y con el corredor Bilbao–Zaragoza–Barcelona. El ahorro medio en CO₂ es del 76 % por asiento compartido en estos trayectos.",
+    festivalsInRegion: [],
+    mainCities: ["Pamplona", "Tudela", "Estella", "Tafalla", "Bilbao", "Zaragoza"],
+    faqs: [
+      {
+        q: "¿Hay festivales en Navarra en 2026?",
+        a: "Navarra no acoge en 2026 festivales de música de gran formato con landing propia en ConcertRide. La región celebra Flamenco On Fire en Pamplona (agosto), conciertos durante los Sanfermines (6–14 julio) y ciclos privados en el Navarra Arena. Los navarros que asisten a festivales se desplazan principalmente a Bilbao BBK Live (155 km), Vive Latino Zaragoza (175 km), Pirineos Sur (180 km) y Sonorama Ribera (215 km).",
+      },
+      {
+        q: "¿Cómo llegar al BBK Live desde Pamplona?",
+        a: "Pamplona–Kobetamendi (Bilbao) son 155 km (1h 30 min por la A-15 y la A-68). Con ConcertRide, el precio por asiento está entre 5 y 8 €. ALSA opera Pamplona–Bilbao en unas 2h por 10–16 € pero sin frecuencias para la vuelta nocturna del festival. El carpooling es la opción dominante entre los pamploneses para el BBK Live, especialmente para grupos de 3–4 personas.",
+      },
+      {
+        q: "¿Cuánto cuesta el carpooling de Pamplona a Vive Latino?",
+        a: "Pamplona–Espacio Expo Zaragoza son 175 km (1h 45 min por la AP-15 y la AP-68). Con ConcertRide, el precio por asiento está entre 5 y 8 €. Es el trayecto más demandado en Navarra durante el primer fin de semana de septiembre por Vive Latino. ALSA opera bus directo Pamplona–Zaragoza Delicias en 2h por 12–20 € pero requiere taxi adicional al Espacio Expo.",
+      },
+      {
+        q: "¿Cómo llegar a Pirineos Sur desde Pamplona?",
+        a: "Pamplona–Sallent de Gállego son 180 km (2h 10 min por la A-21 y la N-330). Con ConcertRide, el precio por asiento está entre 6 y 9 €. Es la ruta natural para acceder al Pirineo aragonés desde Navarra: no existe transporte público regular hasta Sallent de Gállego. El recorrido por la A-21 Pamplona–Jaca atraviesa paisajes pirenaicos y suele duplicar los asistentes en julio.",
+      },
+      {
+        q: "¿Hay carpooling desde Tudela para festivales?",
+        a: "Sí. Tudela (95 km al sur de Pamplona, 36.000 habitantes) es el segundo origen navarro más frecuente en ConcertRide tras la capital. Los destinos más demandados son Vive Latino Zaragoza (85 km, 50 min, 3–6 €/asiento), Bilbao BBK Live (220 km, 2h 30 min, 7–11 €) y Sonorama Ribera (165 km, 1h 50 min, 6–9 €). Para asistentes de la Ribera de Navarra, el carpooling es la opción dominante hacia Aragón.",
       },
     ],
   },

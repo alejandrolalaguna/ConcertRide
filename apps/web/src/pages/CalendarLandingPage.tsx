@@ -14,7 +14,7 @@ export default function CalendarLandingPage() {
   const festivals = getCalendarFestivals(cal) as FestivalLanding[];
 
   useSeoMeta({
-    title: `Festivales de música ${cal.month} ${cal.year} en España · carpooling sin comisión | ConcertRide`,
+    title: `Festivales ${cal.month} ${cal.year} España · Carpooling | ConcertRide`,
     description: `¿Qué festivales hay en ${cal.month.toLowerCase()} ${cal.year} en España? ${festivals.slice(0, 3).map((f) => f.shortName).join(", ")} y más. Carpooling sin comisión con ConcertRide.`,
     canonical: `${SITE_URL}/calendario-festivales/${cal.slug}`,
     keywords: [
@@ -129,6 +129,38 @@ export default function CalendarLandingPage() {
           </span>
         </div>
       </div>
+
+      {/* ── Summary table (featured-snippet target) ── */}
+      {festivals.length > 0 && (
+        <section className="max-w-6xl mx-auto px-6 pb-6">
+          <div className="overflow-x-auto">
+            <table className="w-full font-mono text-xs border-collapse" aria-label={`Festivales de música en España en ${cal.month} ${cal.year}`}>
+              <thead>
+                <tr className="border-b border-cr-border text-cr-text-muted text-left">
+                  <th className="py-2 pr-4 font-semibold uppercase tracking-[0.1em]">Festival</th>
+                  <th className="py-2 pr-4 font-semibold uppercase tracking-[0.1em]">Fechas</th>
+                  <th className="py-2 pr-4 font-semibold uppercase tracking-[0.1em]">Ciudad</th>
+                  <th className="py-2 font-semibold uppercase tracking-[0.1em]">Carpooling desde</th>
+                </tr>
+              </thead>
+              <tbody>
+                {festivals.map((f) => (
+                  <tr key={f.slug} className="border-b border-cr-border/50 hover:bg-cr-primary/5 transition-colors">
+                    <td className="py-2 pr-4">
+                      <Link to={`/festivales/${f.slug}`} className="text-cr-text hover:text-cr-primary font-semibold">
+                        {f.shortName}
+                      </Link>
+                    </td>
+                    <td className="py-2 pr-4 text-cr-text-muted">{f.typicalDates}</td>
+                    <td className="py-2 pr-4 text-cr-text-muted">{f.city}</td>
+                    <td className="py-2 text-cr-primary font-semibold">{f.originCities[0]?.concertRideRange ?? "3 €"}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </section>
+      )}
 
       {/* ── Festival cards ── */}
       <section className="max-w-6xl mx-auto px-6 pb-16 border-t border-cr-border pt-12 space-y-6">

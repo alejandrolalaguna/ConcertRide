@@ -5,9 +5,9 @@ import { ExternalLink } from "lucide-react";
 
 export default function AcercaDePage() {
   useSeoMeta({
-    title: "Acerca de ConcertRide · Carpooling para conciertos en España | ConcertRide",
+    title: "Acerca de ConcertRide · Carpooling para conciertos",
     description:
-      "Qué es ConcertRide, quién lo hace y por qué existe: la plataforma española de carpooling para conciertos y festivales. Gratuita, sin comisiones, conductores verificados.",
+      "Qué es ConcertRide y por qué existe: plataforma española de carpooling para conciertos y festivales. Sin comisiones, conductores verificados.",
     canonical: `${SITE_URL}/acerca-de`,
     keywords:
       "qué es ConcertRide, sobre ConcertRide, fundador ConcertRide, equipo ConcertRide, carpooling conciertos España, plataforma viajes compartidos conciertos, sin comisión carpooling, misión ConcertRide, transporte económico festivales",

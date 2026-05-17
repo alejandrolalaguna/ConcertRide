@@ -2135,6 +2135,62 @@ export const VENUE_LANDINGS: VenueLanding[] = [
     ],
     relatedFestivals: ["vive-latino"],
   },
+
+  // ── REALE ARENA / ESTADIO DE ANOETA (DONOSTIA) ───────────────────────────────
+
+  {
+    slug: "reale-arena-anoeta",
+    name: "Reale Arena (Estadio de Anoeta)",
+    shortName: "Reale Arena",
+    city: "Donostia-San Sebastián",
+    citySlug: "donostia",
+    region: "País Vasco",
+    address: "Anoeta Pasealekua, 1, 20014 Donostia-San Sebastián",
+    lat: 43.3014,
+    lng: -1.9736,
+    capacity: "39.500 personas",
+    venueType: "Estadio (sede de la Real Sociedad)",
+    transport: {
+      metro: "Sin metro — Donostia no dispone de red de metro",
+      bus: "Dbus líneas 17, 26, 28, 31, 33, 36 · parada Anoeta",
+      tren: "Renfe Cercanías E2/E3 Anoeta (5 min andando) + Euskotren Anoeta",
+      parking: "Parking propio Anoeta (uso restringido en eventos) + Parking Illunbe a 600 m",
+    },
+    blurb:
+      "El Reale Arena, conocido históricamente como Estadio de Anoeta, es el principal recinto de mega-aforo de Donostia–San Sebastián con capacidad para 39.500 personas y sede de la Real Sociedad de Fútbol. Acoge giras internacionales de gran formato (Bruce Springsteen, Bon Jovi, AC/DC, Bad Bunny) y conciertos vinculados a la programación de verano (Jazzaldia extensión, conciertos benéficos vascos). A 5 min andando de la estación de Renfe Cercanías Anoeta (líneas E2/E3 Brinkola–Donostia) y bien conectado por Dbus (17, 26, 28, 31, 33, 36). Carpooling con ConcertRide desde Bilbao, Vitoria, Pamplona, Logroño, Santander, Madrid y Barcelona.",
+    originCities: [
+      { city: "Pamplona", km: 80, drivingTime: "1h", concertRideRange: "3–6 €/asiento" },
+      { city: "Bilbao", km: 100, drivingTime: "1h 10 min", concertRideRange: "4–7 €/asiento" },
+      { city: "Vitoria", km: 100, drivingTime: "1h 5 min", concertRideRange: "4–7 €/asiento" },
+      { city: "Logroño", km: 175, drivingTime: "1h 50 min", concertRideRange: "6–9 €/asiento" },
+      { city: "Santander", km: 205, drivingTime: "2h 10 min", concertRideRange: "7–10 €/asiento" },
+      { city: "Madrid", km: 460, drivingTime: "4h 30 min", concertRideRange: "13–18 €/asiento" },
+      { city: "Barcelona", km: 575, drivingTime: "5h 30 min", concertRideRange: "16–22 €/asiento" },
+    ],
+    faqs: [
+      {
+        q: "¿Cómo llegar al Reale Arena de Anoeta en transporte público?",
+        a: "El Reale Arena está a 5 min andando de la estación Renfe Cercanías Anoeta (líneas E2/E3 hacia Brinkola y Donostia) y de la parada Anoeta de Euskotren. Las líneas Dbus 17, 26, 28, 31, 33 y 36 paran junto al estadio. Donostia no tiene metro. Desde el centro (Plaza Gipuzkoa o Plaza Bilbao), unos 15 min andando o 5 min en bus.",
+      },
+      {
+        q: "¿Hay parking en el Reale Arena para conciertos?",
+        a: "El parking propio del Reale Arena tiene aforo limitado y suele restringirse a abonados de la Real Sociedad / VIP en jornadas de concierto. La alternativa más cercana es el Parking Illunbe (600 m, 2,20 €/h). En eventos de mega-aforo (Springsteen, Bad Bunny) los aparcamientos se llenan 2h antes del concierto. El carpooling con ConcertRide reduce la presión sobre el aparcamiento al concentrar 4 personas por coche.",
+      },
+      {
+        q: "¿Qué conciertos hay en el Reale Arena en 2026?",
+        a: "El Reale Arena programa anualmente 4–6 conciertos de gran formato durante mayo–agosto, fuera de la temporada futbolística. Históricamente ha acogido a Bruce Springsteen (1988, 2008, 2023), Bon Jovi, AC/DC, U2, Pink, Manuel Carrasco y giras nacionales de mega-aforo. La programación se concentra en junio–julio para coincidir con el Jazzaldia (que usa escenarios propios distintos al estadio). Agenda en realsociedad.eus.",
+      },
+      {
+        q: "¿Cómo volver del Reale Arena de madrugada?",
+        a: "Renfe Cercanías E2/E3 opera hasta las 22:30 entre semana y hasta las 0:30 los fines de semana. Euskotren opera con frecuencias reducidas tras las 23:00. Los Dbus nocturnos (Búho líneas N1, N2) cubren los principales barrios donostiarras hasta las 4:00 AM los viernes y sábados. Taxi al centro de Donostia 8–12 €. Para asistentes de Bilbao, Pamplona, Madrid o Barcelona, ConcertRide coordina la vuelta cuando termina el concierto, sin depender del horario del tren.",
+      },
+      {
+        q: "¿Cuánto cuesta el carpooling de Bilbao al Reale Arena?",
+        a: "Bilbao–Donostia (Reale Arena) son 100 km por la AP-8 (1h 10 min). Con ConcertRide el precio por asiento es de 4–7 €, frente a 18–30 € del bus PESA o 12–25 € del Euskotren con trasbordo. Sin comisión, pago Bizum o efectivo, vuelta nocturna coordinada con el horario real del concierto.",
+      },
+    ],
+    relatedFestivals: ["jazzaldia"],
+  },
 ];
 
 /** Lookup map by slug for O(1) access in route components */
