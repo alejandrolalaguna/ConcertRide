@@ -201,14 +201,19 @@ function NavLink({ to, children }: { to: string; children: React.ReactNode }) {
     <Link
       to={to}
       aria-current={isActive ? "page" : undefined}
-      className={`relative px-3 py-1.5 font-sans text-[11px] font-semibold uppercase tracking-[0.12em] transition-colors duration-150 ${
-        isActive ? "text-cr-primary" : "text-cr-text-muted hover:text-cr-text"
+      className={`group relative px-3 py-1.5 font-sans text-[12px] font-semibold uppercase tracking-[0.12em] transition-colors duration-150 ${
+        isActive
+          ? "text-cr-primary"
+          : "text-cr-text hover:text-cr-primary"
       }`}
     >
       {children}
-      {isActive && (
-        <span className="absolute bottom-0 left-1/2 -translate-x-1/2 w-4 h-px bg-cr-primary" />
-      )}
+      <span
+        aria-hidden="true"
+        className={`absolute bottom-0 left-1/2 -translate-x-1/2 h-px bg-cr-primary transition-all duration-200 ${
+          isActive ? "w-6 opacity-100" : "w-0 opacity-0 group-hover:w-6 group-hover:opacity-100"
+        }`}
+      />
     </Link>
   );
 }

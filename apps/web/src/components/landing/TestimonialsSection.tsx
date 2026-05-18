@@ -32,6 +32,10 @@ export function TestimonialsSection() {
         aria-hidden="true"
         src="https://images.unsplash.com/photo-1492684223066-81342ee5ff30?w=1400&q=40&auto=format&fit=crop"
         alt=""
+        width={1400}
+        height={800}
+        loading="lazy"
+        decoding="async"
         className="absolute inset-0 w-full h-full object-cover object-center opacity-[0.04] pointer-events-none"
       />
       {/* Orange bloom top-right */}

@@ -67,6 +67,24 @@ export function Footer() {
               Guía de transporte
             </Link>
             <Link
+              to="/guia/festival-sin-coche"
+              className="font-sans text-xs text-cr-text-muted hover:text-cr-primary transition-colors"
+            >
+              Festival sin coche
+            </Link>
+            <Link
+              to="/guia/presupuesto-festival-grupo"
+              className="font-sans text-xs text-cr-text-muted hover:text-cr-primary transition-colors"
+            >
+              Presupuesto festival grupo
+            </Link>
+            <Link
+              to="/guia/seguridad-carpooling-festival"
+              className="font-sans text-xs text-cr-text-muted hover:text-cr-primary transition-colors"
+            >
+              Seguridad carpooling
+            </Link>
+            <Link
               to="/faq"
               className="font-sans text-xs text-cr-text-muted hover:text-cr-primary transition-colors"
             >
@@ -95,6 +113,13 @@ export function Footer() {
               className="font-sans text-xs text-cr-text-muted hover:text-cr-primary transition-colors"
             >
               Acerca de
+            </Link>
+            <Link
+              to="/autor/alejandro-lalaguna"
+              className="font-sans text-xs text-cr-text-muted hover:text-cr-primary transition-colors"
+              title="Sobre el autor — Alejandro Lalaguna, founder de ConcertRide"
+            >
+              Sobre el autor
             </Link>
             <Link
               to="/contacto"

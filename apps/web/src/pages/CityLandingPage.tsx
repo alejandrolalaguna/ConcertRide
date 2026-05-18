@@ -74,87 +74,87 @@ export default function CityLandingPage() {
   const CITY_META_OVERRIDES: Record<string, { title: string; description: string; keywords?: string }> = {
     sevilla: {
       title: `Conciertos Sevilla ${year}: La Cartuja, FIBES + carpooling | ConcertRide`,
-      description: `Próximos conciertos en Sevilla ${year} y ${nextYear}: La Cartuja (60.000 plazas), FIBES, Interestelar Sevilla, Icónica Fest. Carpooling sin comisión desde 3 €/asiento. Conductores verificados.`,
+      description: `Conciertos en Sevilla ${year}: La Cartuja (60.000 pl.), FIBES, Interestelar Fest, Icónica Fest. Carpooling sin comisión desde 3 €/asiento. Conductores verificados.`,
       keywords: `conciertos en Sevilla ${year}, conciertos Sevilla ${nextYear}, conciertos Sevilla ${nextYear + 1}, próximos conciertos Sevilla, conciertos música Sevilla, conciertos y recitales Sevilla, agenda musical Sevilla, concierto Sevilla, sevilla concierto, música en Sevilla, Interestelar Sevilla, Icónica Sevilla Fest, carpooling Sevilla festivales, festivales en Sevilla`,
     },
     donostia: {
       title: `Conciertos Donostia ${year}: Jazzaldia + carpooling | ConcertRide`,
-      description: `Próximos conciertos en Donostia–San Sebastián ${year}: Jazzaldia (julio), Donostia Arena, Anoeta. Carpooling sin comisión a BBK Live (100 km, 4–7 €) y Azkena Rock (100 km, 4–7 €). Desde 4 €/asiento.`,
+      description: `Conciertos en Donostia ${year}: Jazzaldia (julio), Donostia Arena, Anoeta. Carpooling sin comisión a BBK Live (4–7 €) y Azkena Rock (4–7 €). Desde 4 €/asiento.`,
       keywords: `conciertos Donostia ${year}, conciertos en Donostia ${year}, conciertos San Sebastián ${year}, conciertos en donostia 2026, conciertos en San Sebastián, conciertos en donosti ${year}, san sebastian conciertos, conciertos san sebastian, Jazzaldia ${year}, carpooling BBK Live desde Donostia`,
     },
     alicante: {
       title: `Conciertos Alicante ${year}: Plaza Toros, festivales | ConcertRide`,
-      description: `Próximos conciertos en Alicante ${year}: Plaza de Toros, ADDA. Carpooling a Low Festival Benidorm (45 km), Arenal Sound (115 km), Viña Rock (165 km). Desde 3 €/asiento.`,
+      description: `Conciertos en Alicante ${year}: Plaza de Toros, ADDA. Carpooling a Low Festival Benidorm, Arenal Sound y Viña Rock. Desde 3 €/asiento. Sin comisión.`,
       keywords: `conciertos en Alicante ${year}, conciertos Alicante ${nextYear}, plaza de toros alicante conciertos ${year}, conciertos plaza toros alicante ${year}, carpooling Alicante festivales`,
     },
     bilbao: {
       title: `Conciertos Bilbao ${year}: BBK Live, carpooling | ConcertRide`,
-      description: `Conciertos en Bilbao ${year}: BBK Live (Kobetamendi, 9–11 jul), Bilbao Arena, Euskalduna. Carpooling desde Santander (4–7 €), Vitoria (4–6 €), Madrid (11–16 €). Sin comisión.`,
+      description: `Conciertos en Bilbao ${year}: BBK Live (Kobetamendi), Bilbao Arena, Euskalduna. Carpooling desde Santander, Vitoria (4–6 €) y Madrid (11–16 €). Sin comisión.`,
       keywords: `conciertos Bilbao ${year}, conciertos en Bilbao ${nextYear}, BBK Live ${year}, Kobetamendi, bilbao concert, como llegar BBK Live Bilbao, carpooling Bilbao festivales`,
     },
     zaragoza: {
       title: `Conciertos Zaragoza ${year}: Príncipe Felipe + carpooling | ConcertRide`,
-      description: `Próximos conciertos en Zaragoza ${year} y ${nextYear}: Pabellón Príncipe Felipe, Sala López, Pirineos Sur. Carpooling a Mad Cool (9–13 €), Primavera Sound (8–12 €), Arenal Sound (8–12 €). Sin comisión.`,
+      description: `Conciertos en Zaragoza ${year}: Pabellón Príncipe Felipe, Sala López, Pirineos Sur. Carpooling a Mad Cool (9–13 €) y Primavera Sound (8–12 €). Sin comisión.`,
       keywords: `conciertos en Zaragoza ${year}, próximos conciertos Zaragoza, conciertos Zaragoza ${nextYear}, conciertos zaragoza ${nextYear + 1}, próximos conciertos en zaragoza, conciertos 2025 Zaragoza, Pabellón Príncipe Felipe, carpooling Zaragoza festivales`,
     },
     madrid: {
       title: `Conciertos Madrid ${year}: WiZink, IFEMA, carpooling | ConcertRide`,
-      description: `Próximos conciertos en Madrid ${year}: WiZink Center, Vistalegre, IFEMA (Mad Cool), Caja Mágica. Carpooling sin comisión desde toda España. Desde 4 €/asiento, conductores verificados.`,
+      description: `Conciertos en Madrid ${year}: WiZink Center, Vistalegre, IFEMA (Mad Cool), Caja Mágica. Carpooling desde toda España, desde 4 €/asiento. Sin comisión.`,
       keywords: `conciertos en Madrid ${year}, conciertos Madrid ${nextYear}, próximos conciertos Madrid, WiZink Center ${year}, Mad Cool Madrid, IFEMA conciertos, carpooling Madrid festivales, cómo llegar conciertos Madrid`,
     },
     barcelona: {
       title: `Conciertos Barcelona ${year}: Primavera Sound, Sónar | ConcertRide`,
-      description: `Próximos conciertos en Barcelona ${year}: Primavera Sound (Fòrum, 28 may–1 jun), Sónar (Fira Montjuïc, 18–20 jun), Cruïlla (Fòrum, 9–12 jul). Carpooling desde Madrid (14–22 €). Sin comisión.`,
+      description: `Conciertos en Barcelona ${year}: Primavera Sound (Fòrum), Sónar (Fira Montjuïc), Cruïlla (Fòrum, julio). Carpooling desde Madrid (14–22 €). Sin comisión.`,
       keywords: `conciertos en Barcelona ${year}, conciertos Barcelona ${nextYear}, Primavera Sound ${year}, Sónar Barcelona, Cruïlla ${year}, carpooling Barcelona festivales, Palau Sant Jordi conciertos`,
     },
     valencia: {
       title: `Conciertos Valencia ${year}: Zevra, Arenal Sound | ConcertRide`,
-      description: `Próximos conciertos en Valencia ${year}: Zevra Festival (La Marina), Arenal Sound (Burriana, 55 km), Medusa (Cullera, 40 km), FIB (Benicàssim, 75 km). Carpooling desde 3 €/asiento. Sin comisión.`,
+      description: `Conciertos en Valencia ${year}: Zevra Festival (La Marina), Arenal Sound, Medusa, FIB. Carpooling desde 3 €/asiento. Sin comisión de plataforma.`,
       keywords: `conciertos en Valencia ${year}, conciertos Valencia ${nextYear}, Zevra Festival Valencia, Arenal Sound Valencia, Medusa Festival Valencia, carpooling Valencia festivales, festivales cerca Valencia`,
     },
     malaga: {
       title: `Conciertos Málaga ${year}: Cala Mijas, carpooling | ConcertRide`,
-      description: `Próximos conciertos en Málaga ${year}: Cala Mijas Fest (Cortijo de Torres, 2–4 oct), Marenostrum (Fuengirola), Andalucía Big. Carpooling desde Sevilla (6–9 €), Madrid (12–16 €). Sin comisión.`,
+      description: `Conciertos en Málaga ${year}: Cala Mijas Fest (Cortijo de Torres), Marenostrum (Fuengirola), Andalucía Big. Carpooling desde Sevilla (6–9 €). Sin comisión.`,
       keywords: `conciertos en Málaga ${year}, Cala Mijas ${year}, Cortijo de Torres Málaga, carpooling Málaga festivales, festivales Málaga Costa del Sol`,
     },
     "a-coruna": {
       title: `Conciertos A Coruña ${year}: Resurrection Fest | ConcertRide`,
-      description: `Próximos conciertos en A Coruña ${year}: Coliseum, Palexco. Carpooling a Resurrection Fest en Viveiro (100 km, 10–14 €) y O Son do Camiño en Santiago (85 km, 8–12 €). Sin comisión.`,
+      description: `Conciertos en A Coruña ${year}: Coliseum, Palexco. Carpooling a Resurrection Fest (10–14 €) y O Son do Camiño (8–12 €). Sin comisión de plataforma.`,
       keywords: `conciertos en A Coruña ${year}, Resurrection Fest carpooling, carpooling A Coruña Viveiro, O Son do Camiño carpooling, Coliseum A Coruña conciertos`,
     },
     pamplona: {
       title: `Conciertos Pamplona ${year}: Navarra Arena, festivales | ConcertRide`,
-      description: `Próximos conciertos en Pamplona ${year}: Navarra Arena (12.500), Anaitasuna. Carpooling a BBK Live (155 km, 5–8 €), Azkena Rock (95 km, 4–7 €), Mad Cool (390 km, 11–16 €). Sin comisión.`,
+      description: `Conciertos en Pamplona ${year}: Navarra Arena, Anaitasuna. Carpooling a BBK Live (5–8 €), Azkena Rock (4–7 €) y Mad Cool (11–16 €). Sin comisión.`,
       keywords: `conciertos en Pamplona ${year}, conciertos Pamplona Navarra, Navarra Arena, carpooling Pamplona festivales, BBK Live desde Pamplona`,
     },
     "vitoria-gasteiz": {
       title: `Conciertos Vitoria-Gasteiz ${year}: Azkena Rock | ConcertRide`,
-      description: `Próximos conciertos en Vitoria-Gasteiz ${year}: Azkena Rock Festival (Mendizabala, jun), Iradier Arena. Carpooling a BBK Live (65 km, 3–6 €), Sonorama (185 km, 7–11 €). Sin comisión.`,
+      description: `Conciertos en Vitoria-Gasteiz ${year}: Azkena Rock (Mendizabala), Iradier Arena. Carpooling a BBK Live (3–6 €) y Sonorama (7–11 €). Sin comisión.`,
       keywords: `conciertos en Vitoria ${year}, Azkena Rock ${year}, Mendizabala conciertos, carpooling Vitoria-Gasteiz festivales, BBK Live desde Vitoria`,
     },
     vigo: {
       title: `Conciertos Vigo ${year}: Resurrection Fest, festivales | ConcertRide`,
-      description: `Próximos conciertos en Vigo ${year}: Auditorio Mar de Vigo, Pabellón Multiusos. Carpooling a Resurrection Fest (200 km, 12–16 €), O Son do Camiño en Santiago (90 km, 8–12 €). Sin comisión.`,
+      description: `Conciertos en Vigo ${year}: Auditorio Mar de Vigo, Pabellón Multiusos. Carpooling a Resurrection Fest (12–16 €) y O Son do Camiño (8–12 €). Sin comisión.`,
       keywords: `conciertos en Vigo ${year}, Resurrection Fest desde Vigo, O Son do Camiño Vigo, Auditorio Mar de Vigo conciertos, carpooling Vigo festivales`,
     },
     murcia: {
       title: `Conciertos Murcia ${year}: SOS 4.8 + carpooling | ConcertRide`,
-      description: `Próximos conciertos en Murcia ${year} y ${nextYear}: SOS 4.8, Auditorio Víctor Villegas. Carpooling a Medusa (180 km, 8–12 €), Arenal Sound (250 km, 10–14 €), Viña Rock (155 km, 6–9 €). Sin comisión.`,
+      description: `Conciertos en Murcia ${year}: SOS 4.8 Festival, Auditorio Víctor Villegas. Carpooling a Medusa (8–12 €), Arenal Sound (10–14 €) y Viña Rock (6–9 €). Sin comisión.`,
       keywords: `conciertos en Murcia ${year}, conciertos Murcia ${nextYear}, conciertos murcia ${nextYear + 1}, proximos conciertos en murcia, agenda conciertos murcia, concierto murcia, SOS 4.8 Murcia, Auditorio Víctor Villegas, carpooling Murcia festivales, Medusa Festival desde Murcia`,
     },
     valladolid: {
       title: `Conciertos Valladolid ${year}: Sonorama, festivales | ConcertRide`,
-      description: `Próximos conciertos en Valladolid ${year}: Plaza de Toros, Pabellón Pisuerga. Carpooling a Sonorama Ribera (100 km, 8–12 €), Mad Cool Madrid (200 km, 8–12 €). Sin comisión.`,
+      description: `Conciertos en Valladolid ${year}: Plaza de Toros, Pabellón Pisuerga. Carpooling a Sonorama Ribera (8–12 €) y Mad Cool Madrid (8–12 €). Sin comisión.`,
       keywords: `conciertos en Valladolid ${year}, Sonorama Ribera desde Valladolid, carpooling Valladolid festivales, Plaza de Toros Valladolid conciertos`,
     },
     granada: {
       title: `Conciertos Granada ${year}: Granada Sound, festivales | ConcertRide`,
-      description: `Próximos conciertos en Granada ${year}: Granada Sound (Cortijo del Conde, septiembre). Carpooling a Cala Mijas (170 km, 6–9 €), Interestelar Sevilla (250 km, 8–12 €). Sin comisión.`,
+      description: `Conciertos en Granada ${year}: Granada Sound (Cortijo del Conde, septiembre). Carpooling a Cala Mijas (6–9 €) e Interestelar Sevilla (8–12 €). Sin comisión.`,
       keywords: `conciertos en Granada ${year}, Granada Sound ${year}, Cortijo del Conde, carpooling Granada festivales, Cala Mijas desde Granada`,
     },
     "santiago-de-compostela": {
       title: `Conciertos Santiago ${year}: O Son do Camiño | ConcertRide`,
-      description: `Próximos conciertos en Santiago ${year}: O Son do Camiño (Monte do Gozo, 18–20 jun, 90.000+). Carpooling desde A Coruña (10–12 €), Vigo (12–15 €), Madrid (20–30 €). Sin comisión.`,
+      description: `Conciertos en Santiago ${year}: O Son do Camiño (Monte do Gozo, 18–20 jun). Carpooling desde A Coruña (10–12 €), Vigo (12–15 €), Madrid (20–30 €). Sin comisión.`,
       keywords: `conciertos en Santiago de Compostela ${year}, O Son do Camiño ${year}, Monte do Gozo, carpooling Santiago festivales, A Coruña Santiago carpooling`,
     },
   };
@@ -169,7 +169,15 @@ export default function CityLandingPage() {
       // Front-load price + city in first 50 words for AI extraction. The
       // overrides above for top cities can stay verbose; the generic
       // fallback is the AI-optimised baseline for every other city.
-      ? cityOverride?.description ?? `Carpooling a conciertos en ${landing.display} ${year} desde 3 €/asiento, 0% comisión. Próximos eventos en ${landing.venues.slice(0, 2).join(", ")} y más. Conductores verificados.`
+      // 3-tier guard so the meta never overflows 160 chars for cities with
+      // long venue names (e.g. "Palacio de los Deportes de Guadalajara").
+      ? cityOverride?.description ?? (() => {
+          const t1 = `Carpooling a conciertos en ${landing.display} ${year} desde 3 €/asiento, 0% comisión. Próximos eventos en ${landing.venues.slice(0, 2).join(", ")} y más. Conductores verificados.`;
+          if (t1.length <= 160) return t1;
+          const t2 = `Carpooling a conciertos en ${landing.display} ${year} desde 3 €/asiento, 0% comisión. Eventos en ${landing.venues[0] ?? landing.display}. Conductores verificados.`;
+          if (t2.length <= 160) return t2;
+          return `Carpooling a conciertos en ${landing.display} ${year} desde 3 €/asiento. 0% comisión, conductores verificados, vuelta nocturna coordinada.`;
+        })()
       : "Explora conciertos por ciudad en España.",
     canonical: landing
       ? `${SITE_URL}/conciertos/${landing.slug}`
@@ -757,6 +765,21 @@ export default function CityLandingPage() {
           </div>
         )}
 
+        <div className="flex flex-wrap gap-3 pt-3">
+          <Link
+            to={`/concerts?city=${encodeURIComponent(landing.slug)}`}
+            className="inline-flex items-center justify-center font-sans text-sm font-bold uppercase tracking-wider bg-cr-primary text-black px-5 py-3 shadow-[4px_4px_0_0_rgba(219,255,0,0.25)] hover:shadow-[6px_6px_0_0_rgba(219,255,0,0.4)] transition-shadow"
+          >
+            Buscar carpooling en {landing.display}
+          </Link>
+          <Link
+            to="/publish"
+            className="inline-flex items-center justify-center font-sans text-sm font-bold uppercase tracking-wider border-2 border-cr-border text-cr-text px-5 py-3 hover:border-cr-primary hover:text-cr-primary transition-colors"
+          >
+            Publicar mi viaje
+          </Link>
+        </div>
+
         <AutoLinksForCity slug={landing.slug} />
       </div>
 
@@ -776,7 +799,7 @@ export default function CityLandingPage() {
             </p>
             <Link
               to="/concerts"
-              className="inline-block font-sans text-xs font-semibold uppercase tracking-[0.12em] border-2 border-cr-primary text-cr-primary px-4 py-2 hover:bg-cr-primary hover:text-black transition-colors"
+              className="inline-block font-sans text-sm font-semibold uppercase tracking-[0.12em] border-2 border-cr-primary text-cr-primary px-5 py-3 hover:bg-cr-primary hover:text-black transition-colors"
             >
               Ver todos los conciertos →
             </Link>

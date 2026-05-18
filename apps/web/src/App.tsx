@@ -52,6 +52,10 @@ const ArtistLandingPage = lazy(() => import("./pages/ArtistLandingPage"));
 const VenueLandingPage = lazy(() => import("./pages/VenueLandingPage"));
 const RegionLandingPage = lazy(() => import("./pages/RegionLandingPage"));
 const GuiaTransporteFestivalesPage = lazy(() => import("./pages/GuiaTransporteFestivalesPage"));
+const GuiaFestivalSinCochePage = lazy(() => import("./pages/GuiaFestivalSinCochePage"));
+const GuiaPresupuestoFestivalGrupoPage = lazy(() => import("./pages/GuiaPresupuestoFestivalGrupoPage"));
+const GuiaFestivalSostenibleCO2Page = lazy(() => import("./pages/GuiaFestivalSostenibleCO2Page"));
+const GuiaSeguridadCarpoolingFestivalPage = lazy(() => import("./pages/GuiaSeguridadCarpoolingFestivalPage"));
 const PillarGuiaPage = lazy(() => import("./pages/PillarGuiaPage"));
 const BlogIndexPage = lazy(() => import("./pages/BlogIndexPage"));
 const BlogPostPage = lazy(() => import("./pages/BlogPostPage"));
@@ -60,6 +64,9 @@ const RutasIndexPage = lazy(() => import("./pages/RutasIndexPage"));
 const PrensaPage = lazy(() => import("./pages/PrensaPage"));
 const SalaPrensaPage = lazy(() => import("./pages/SalaPrensaPage"));
 const DatosPage = lazy(() => import("./pages/DatosPage"));
+const DatasetPrecioMedio2026Page = lazy(() => import("./pages/DatasetPrecioMedio2026Page"));
+const DatasetMapaConexion2026Page = lazy(() => import("./pages/DatasetMapaConexion2026Page"));
+const DatasetRankingPreciosFestivales2026Page = lazy(() => import("./pages/DatasetRankingPreciosFestivales2026Page"));
 const VerifyEmailPage = lazy(() => import("./pages/VerifyEmailPage"));
 const MessagesPage = lazy(() => import("./pages/MessagesPage"));
 const DirectMessagePage = lazy(() => import("./pages/DirectMessagePage"));
@@ -71,6 +78,7 @@ const HowToGetTherePage = lazy(() => import("./pages/HowToGetTherePage"));
 const GenreLandingPage = lazy(() => import("./pages/GenreLandingPage"));
 const CalendarLandingPage = lazy(() => import("./pages/CalendarLandingPage"));
 const GlosarioPage = lazy(() => import("./pages/GlosarioPage"));
+const AutorAlejandroLalagunaPage = lazy(() => import("./pages/AutorAlejandroLalagunaPage"));
 
 export default function App() {
   return (
@@ -115,6 +123,10 @@ export default function App() {
             <Route path="/festivales-genero/:slug" element={<GenreLandingPage />} />
             <Route path="/calendario-festivales/:slug" element={<CalendarLandingPage />} />
             <Route path="/guia-transporte-festivales" element={<GuiaTransporteFestivalesPage />} />
+            <Route path="/guia/festival-sin-coche" element={<GuiaFestivalSinCochePage />} />
+            <Route path="/guia/presupuesto-festival-grupo" element={<GuiaPresupuestoFestivalGrupoPage />} />
+            <Route path="/guia/festival-sostenible-co2" element={<GuiaFestivalSostenibleCO2Page />} />
+            <Route path="/guia/seguridad-carpooling-festival" element={<GuiaSeguridadCarpoolingFestivalPage />} />
             <Route path="/guia-ir-festivales-2026" element={<PillarGuiaPage />} />
             <Route path="/blog" element={<BlogIndexPage />} />
             <Route path="/blog/:slug" element={<BlogPostPage />} />
@@ -124,6 +136,9 @@ export default function App() {
             <Route path="/prensa" element={<PrensaPage />} />
             <Route path="/sala-de-prensa" element={<SalaPrensaPage />} />
             <Route path="/datos" element={<DatosPage />} />
+            <Route path="/datos/precio-medio-carpooling-vs-bus-festivales-2026" element={<DatasetPrecioMedio2026Page />} />
+            <Route path="/datos/festivales-peor-conexion-transporte-publico-2026" element={<DatasetMapaConexion2026Page />} />
+            <Route path="/datos/festivales-mas-caros-mas-baratos-llegar-2026" element={<DatasetRankingPreciosFestivales2026Page />} />
             <Route path="/rides/:id" element={<RideDetailPage />} />
             <Route path="/publish" element={<PublishRidePage />} />
             <Route path="/login" element={<LoginPage />} />
@@ -157,6 +172,7 @@ export default function App() {
             <Route path="/contacto" element={<ContactoPage />} />
             <Route path="/acerca-de" element={<AcercaDePage />} />
             <Route path="/glosario" element={<GlosarioPage />} />
+            <Route path="/autor/alejandro-lalaguna" element={<AutorAlejandroLalagunaPage />} />
             <Route path="/bienvenida" element={<BienvenidaPage />} />
             <Route path="/_dev" element={<DevShowcase />} />
             <Route path="*" element={<NotFoundPage />} />

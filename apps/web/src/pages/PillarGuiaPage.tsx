@@ -163,7 +163,7 @@ const SECTIONS: Array<{
     tldr: "Festival fin de semana ronda 220–380 € por persona: entrada 120–200, transporte 20–55, alojamiento 30–80, comida 50–80.",
     body:
       "Desglose realista 2026 para un festival fin de semana de 2 noches: abono general 120–200 € (Mad Cool 195 €, Primavera Sound 230 €, Resurrection Fest 195 €, BBK Live 175 €), transporte ida+vuelta en carpooling 20–55 € desde tu ciudad (Madrid–Mad Cool 12–16 €, Madrid–FIB 35–45 €, Barcelona–Primavera 4–8 €), alojamiento 30–80 € por noche en VV compartido o camping, comida y bebida dentro del recinto 50–80 € (cerveza 5–8 €, menú food truck 12–14 €). Total: 220–380 € por persona. Si viajas en grupo y compartes alojamiento, baja a 180–280 €. El factor que más impacta el presupuesto es el transporte y el alojamiento; la entrada y la comida varían poco. Reservar con 3 meses de antelación supone un ahorro medio del 22 %.",
-    link: { label: "Presupuesto festival paso a paso", to: "/blog/presupuesto-festival-2026" },
+    link: { label: "Presupuesto festival paso a paso", to: "/blog/cuanto-cuesta-ir-festival-espana-presupuesto-2026" },
   },
   {
     id: "viajar-en-grupo",
@@ -199,7 +199,7 @@ const SECTIONS: Array<{
     tldr: "Sí. La mayoría de pasajeros de carpooling no tienen coche: combina bus o tren a la ciudad emisora y carpool al recinto.",
     body:
       "El 61 % de los pasajeros de carpooling para festivales no son conductores titulares: usan la plataforma justamente porque no quieren conducir o no tienen coche. Estrategia tipo: bus o tren a la ciudad emisora más cercana al festival (Madrid para Mad Cool, Barcelona para Primavera Sound, Bilbao para BBK Live, Castellón para FIB, Vilagarcía para O Son do Camiño), y carpool intraurbano o de proximidad al recinto. Coste medio 8–25 € en el último tramo. Para Resurrection Fest (sin tren cercano) la opción es bus desde Lugo (3 € + 30 min). Para Aquasella o festivales en pueblos pequeños, busca carpool puerta a puerta desde la capital de provincia. Publica tu solicitud (no solo busca ofertas) si no encuentras viaje publicado: muchos conductores con plazas libres responden a solicitudes activas.",
-    link: { label: "Cómo ir al festival sin coche", to: "/blog/sin-coche-festival" },
+    link: { label: "Cómo ir al festival sin coche", to: "/blog/como-ir-festival-sin-coche-guia-definitiva-2026" },
   },
   {
     id: "huella-carbono",
@@ -260,9 +260,9 @@ const SECTIONS: Array<{
 export default function PillarGuiaPage() {
   useSeoMeta({
     title:
-      "Cómo ir a un festival en España en 2026: guía completa transporte, equipaje, presupuesto | ConcertRide",
+      "Cómo ir a un festival en España 2026: guía completa | ConcertRide",
     description:
-      "Guía completa para ir a un festival de música en España en 2026: transporte, equipaje, presupuesto, alojamiento, ZBE, lluvia, vuelta de madrugada, festivales baratos. 25 respuestas operativas con datos reales.",
+      "Guía completa para ir a un festival en España 2026: transporte, equipaje, presupuesto, alojamiento, vuelta de madrugada. 25 respuestas con datos reales.",
     canonical: CANONICAL,
     keywords:
       "cómo ir a un festival en España, guía festival 2026, transporte festival España, qué llevar festival, presupuesto festival, vuelta madrugada festival, ZBE Madrid 360 festival, autobús oficial festival, carpooling festival, alojamiento festival",

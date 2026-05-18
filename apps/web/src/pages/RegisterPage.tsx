@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import { useState } from "react";
 import { Link, Navigate, useSearchParams } from "react-router-dom";
 import { motion, AnimatePresence } from "motion/react";
 import { ArrowLeft, Check, ChevronDown, Eye, EyeOff, ShieldCheck } from "lucide-react";
@@ -7,21 +7,6 @@ import { useSession } from "@/lib/session";
 import { SPANISH_CITIES } from "@/lib/constants";
 import { useSeoMeta } from "@/lib/useSeoMeta";
 import { SITE_URL } from "@/lib/siteUrl";
-
-// Next major festival used in the header headline. Kept in sync with hero/landing.
-const NEXT_FESTIVAL = {
-  name: "Primavera Sound",
-  // Festival start date (ISO yyyy-mm-dd) — used to compute the live countdown shown in the H1.
-  date: "2026-05-28",
-};
-
-function daysUntil(iso: string): number {
-  const target = new Date(`${iso}T00:00:00`).getTime();
-  const today = new Date();
-  today.setHours(0, 0, 0, 0);
-  const diff = target - today.getTime();
-  return Math.max(0, Math.ceil(diff / 86_400_000));
-}
 
 const TRUST_BULLETS: { title: string; detail: string }[] = [
   {
@@ -87,9 +72,6 @@ export default function RegisterPage() {
   // Progressive disclosure — optional profile fields hidden by default to reduce form friction.
   // Users complete the core 3-field form first; expanding is available after.
   const [showOptional, setShowOptional] = useState(false);
-
-  // Countdown for the H1 — computed once per render, no effect needed.
-  const daysToFestival = useMemo(() => daysUntil(NEXT_FESTIVAL.date), []);
 
   useSeoMeta({
     title: "Crear cuenta gratis",
@@ -218,15 +200,7 @@ export default function RegisterPage() {
           </div>
 
           <h1 className="font-display text-4xl md:text-5xl uppercase leading-[0.92] tracking-tight">
-            Únete gratis.
-            <br />
-            <span className="text-cr-primary">{NEXT_FESTIVAL.name}</span>
-            {daysToFestival > 0 && (
-              <>
-                {" "}
-                <span className="text-white/80">en {daysToFestival} días.</span>
-              </>
-            )}
+            Únete <span className="text-cr-primary">gratis.</span>
           </h1>
 
           <p className="font-sans text-sm text-white/45 leading-relaxed">

@@ -187,8 +187,11 @@ export function Hero() {
         <img
           src="https://images.unsplash.com/photo-1459749411175-04bf5292ceea?w=1800&q=80&auto=format&fit=crop"
           alt=""
+          width={1800}
+          height={1200}
           className="w-full h-full object-cover object-center"
           loading="eager"
+          decoding="async"
           // @ts-expect-error — fetchpriority (lowercase) needed for SSR, React types use fetchPriority
           fetchpriority="high"
         />

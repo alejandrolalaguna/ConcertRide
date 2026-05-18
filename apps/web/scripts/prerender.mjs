@@ -28,7 +28,12 @@ if (!(await exists(ssrEntry))) {
   console.error(`[prerender] SSR bundle missing at ${ssrEntry}. Did the SSR build run?`);
   process.exit(1);
 }
-const { render, FESTIVAL_SLUGS, CITY_SLUGS, CITY_YEAR_SLUGS, BLOG_SLUGS, ROUTE_SLUGS, ARTIST_SLUGS, VENUE_SLUGS, REGION_SLUGS, HOW_TO_GET_THERE_PAGE_SLUGS, GENRE_SLUGS, CALENDAR_SLUGS, CONTENT_LAST_UPDATED } = await import(pathToFileURL(ssrEntry).href);
+const { render, FESTIVAL_SLUGS, CITY_SLUGS, CITY_YEAR_SLUGS, BLOG_SLUGS, ROUTE_SLUGS, ARTIST_SLUGS, VENUE_SLUGS, REGION_SLUGS, HOW_TO_GET_THERE_PAGE_SLUGS, GENRE_SLUGS, CALENDAR_SLUGS, CONTENT_LAST_UPDATED, DISABLED_BLOG_SLUGS } = await import(pathToFileURL(ssrEntry).href);
+
+// Defense-in-depth: even if the SSR bundle is stale, never let a disabled slug
+// leak into prerender output or sitemaps. CLAUDE.md "Brand Restrictions".
+const DISABLED_SLUG_SET = new Set(DISABLED_BLOG_SLUGS ?? []);
+const isDisabledBlogSlug = (slug) => DISABLED_SLUG_SET.has(slug);
 
 // ── Read shell ──────────────────────────────────────────────────────────────
 const shellPath = path.join(distDir, "index.html");
@@ -40,6 +45,10 @@ const STATIC_ROUTES = [
   "/concerts",
   "/festivales",
   "/guia-transporte-festivales",
+  "/guia/festival-sin-coche",
+  "/guia/presupuesto-festival-grupo",
+  "/guia/festival-sostenible-co2",
+  "/guia/seguridad-carpooling-festival",
   "/guia-ir-festivales-2026",
   "/blog",
   "/rutas",
@@ -51,18 +60,26 @@ const STATIC_ROUTES = [
   "/prensa",
   "/sala-de-prensa",
   "/datos",
+  "/datos/precio-medio-carpooling-vs-bus-festivales-2026",
+  "/datos/festivales-peor-conexion-transporte-publico-2026",
+  "/datos/festivales-mas-caros-mas-baratos-llegar-2026",
   "/como-funciona",
   "/faq",
   "/contacto",
   "/acerca-de",
   "/glosario",
+  "/autor/alejandro-lalaguna",
   "/aviso-legal",
   "/privacidad",
   "/cookies",
   "/terminos",
 ];
 
-const BLOG_POST_SLUGS = BLOG_SLUGS ?? [];
+const BLOG_POST_SLUGS = (BLOG_SLUGS ?? []).filter((slug) => !isDisabledBlogSlug(slug));
+const BLOG_POST_SLUGS_DROPPED = (BLOG_SLUGS ?? []).filter((slug) => isDisabledBlogSlug(slug));
+if (BLOG_POST_SLUGS_DROPPED.length > 0) {
+  console.warn(`[prerender] WARNING: SSR bundle still contains ${BLOG_POST_SLUGS_DROPPED.length} disabled blog slug(s): ${BLOG_POST_SLUGS_DROPPED.join(", ")}. Filtered out by defense-in-depth.`);
+}
 const ROUTE_LANDING_SLUGS = ROUTE_SLUGS ?? [];
 const ARTIST_LANDING_SLUGS = ARTIST_SLUGS ?? [];
 const VENUE_LANDING_SLUGS = VENUE_SLUGS ?? [];
@@ -275,6 +292,7 @@ async function writeSitemap(urls) {
   const PRIORITY = (u) => {
     if (u === "/") return "1.0";
     if (u === "/concerts" || u === "/festivales" || u === "/guia-transporte-festivales" || u === "/rutas") return "0.9";
+    if (u === "/guia-ir-festivales-2026") return "0.92";
     if (u.startsWith("/festivales/")) return "0.85";
     if (u.match(/^\/conciertos\/[^/]+\/\d{4}$/)) return "0.78";
     if (u.startsWith("/conciertos/")) return "0.8";
@@ -292,6 +310,7 @@ async function writeSitemap(urls) {
     if (u.startsWith("/comparativa/")) return "0.72";
     if (["/acerca-de", "/contacto", "/prensa"].includes(u)) return "0.6";
     if (u === "/datos") return "0.7";
+    if (u.startsWith("/datos/")) return "0.8";
     return "0.3";
   };
   const FREQ = (u) => {

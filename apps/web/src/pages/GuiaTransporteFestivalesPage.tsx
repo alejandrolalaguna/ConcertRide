@@ -414,6 +414,21 @@ export default function GuiaTransporteFestivalesPage() {
           si ya vas a ir en coche. Sin aplicación de empresa, sin flotas de vehículos adicionales:
           aprovecha los asientos vacíos de coches que ya iban a hacer el trayecto.
         </p>
+        <p className="font-sans text-xs text-cr-text-muted leading-relaxed">
+          Más datos abiertos:{" "}
+          <Link to="/datos/precio-medio-carpooling-vs-bus-festivales-2026" className="text-cr-primary underline underline-offset-2">
+            Dataset CC BY 4.0 — Precio medio carpooling vs bus oficial en 25 festivales 2026
+          </Link>
+          {" "}(CSV + JSON, ahorro medio 52,7%) ·{" "}
+          <Link to="/datos/festivales-peor-conexion-transporte-publico-2026" className="text-cr-primary underline underline-offset-2">
+            Mapa festivales peor conexión transporte público 2026
+          </Link>
+          {" "}(52 festivales con score 0-100) ·{" "}
+          <Link to="/datos/festivales-mas-caros-mas-baratos-llegar-2026" className="text-cr-primary underline underline-offset-2">
+            Ranking festivales más caros vs baratos de llegar 2026
+          </Link>
+          {" "}(57 festivales con coste total ida+vuelta desde Madrid).
+        </p>
       </section>
 
       {/* ── ConcertRide vs otras plataformas de carpooling ── */}

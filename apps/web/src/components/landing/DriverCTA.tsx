@@ -45,6 +45,10 @@ export function DriverCTA() {
         <img
           src="https://images.unsplash.com/photo-1470229722913-7c0e2dbbafd3?w=1400&q=80&auto=format&fit=crop"
           alt=""
+          width={1400}
+          height={800}
+          loading="lazy"
+          decoding="async"
           className="w-full h-[115%] object-cover object-center opacity-30"
         />
       </motion.div>

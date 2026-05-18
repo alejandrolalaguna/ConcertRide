@@ -36,9 +36,32 @@ export default function FestivalGuidePage() {
   const guide = festival.guide;
   const festYear = new Date(festival.startDate).getFullYear();
 
+  // 3-tier fallback so we never overflow 160 chars for long festival names
+  // (e.g. "BBK Music Legends Festival" + "Vilagarcía de Arousa" venue).
+  const guideDesc = (() => {
+    const a = `Guía ${festival.name} ${festYear}: qué llevar, logística, acampada y transporte a ${festival.venue} (${festival.city}). Consejos de veteranos y lista de imprescindibles.`;
+    if (a.length <= 160) return a;
+    const b = `Guía ${festival.name} ${festYear}: qué llevar, logística, acampada y transporte. Consejos prácticos y lista de imprescindibles para ${festival.city}.`;
+    if (b.length <= 160) return b;
+    return `Guía ${festival.name} ${festYear}: qué llevar, logística, acampada, transporte. Lista imprescindibles y consejos para ${festival.city}.`;
+  })();
+
+  // Title: keep ≥40 chars and ≤65. When the festival shortName is very
+  // short (e.g. "FIB", "BBK", "FIZ") the canonical pattern lands at ~39 chars,
+  // which is under Google's CTR-optimal 40-char floor. Fallback expands the
+  // descriptor to "qué llevar, transporte" so titles like "Guía FIB" still
+  // ship with full content signal.
+  const guideTitleBase = `Guía ${festival.shortName} ${festYear}: qué llevar · ConcertRide`;
+  const guideTitle = guideTitleBase.length >= 40
+    ? guideTitleBase
+    : (() => {
+        const ext = `Guía ${festival.shortName} ${festYear}: qué llevar y transporte · ConcertRide`;
+        if (ext.length <= 65) return ext;
+        return `Guía ${festival.shortName} ${festYear} (${festival.city}): qué llevar · ConcertRide`;
+      })();
   useSeoMeta({
-    title: `Guía ${festival.shortName} ${festYear}: qué llevar · ConcertRide`,
-    description: `Guía completa para ${festival.name} ${festYear}. Qué llevar al festival, logística del recinto, acampada, transporte y consejos de veteranos. ${festival.venue}, ${festival.city}.`,
+    title: guideTitle,
+    description: guideDesc,
     canonical: `${SITE_URL}/festivales/${slug}/guia`,
     keywords: `guia ${festival.shortName}, que llevar ${festival.shortName}, ${festival.shortName} lista, como prepararse ${festival.shortName}, ${festival.shortName} acampada, ${festival.shortName} consejos, lista que llevar festival`,
     ogImageAlt: `Guía completa ${festival.shortName} ${festYear}: qué llevar, transporte y carpooling · ConcertRide`,
@@ -118,6 +141,21 @@ export default function FestivalGuidePage() {
     })),
   };
 
+  // Speakable schema — flags answer-first H1 + lede + [data-quotable] blocks
+  // for AI Overviews, Google SGE and voice assistants.
+  const jsonLdSpeakable = {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    "@id": `${SITE_URL}/festivales/${slug}/guia#speakable`,
+    url: `${SITE_URL}/festivales/${slug}/guia`,
+    name: guideTitle,
+    inLanguage: "es-ES",
+    speakable: {
+      "@type": "SpeakableSpecification",
+      cssSelector: ["h1", ".lede", "[data-quotable]", ".speakable"],
+    },
+  };
+
   const esenciales = packingList.filter((p) => p.category === "esencial");
   const comodidad = packingList.filter((p) => p.category === "comodidad");
   const opcionales = packingList.filter((p) => p.category === "opcional");
@@ -127,6 +165,7 @@ export default function FestivalGuidePage() {
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdBreadcrumb) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdHowTo) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdItemList) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdSpeakable) }} />
 
       <div className="max-w-4xl mx-auto px-6 pt-10 pb-20 space-y-12">
         {/* Breadcrumb */}

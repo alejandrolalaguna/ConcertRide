@@ -11,6 +11,7 @@ export interface CalendarLanding {
   blurb: string;          // ~80 words, citable
   searchIntent: string;   // what the user is looking for
   faqs: Array<{ q: string; a: string }>;
+  relatedLinks?: Array<{ label: string; to: string }>;
 }
 
 export const CALENDAR_LANDINGS: CalendarLanding[] = [
@@ -39,6 +40,11 @@ export const CALENDAR_LANDINGS: CalendarLanding[] = [
         q: "¿Es buen mes mayo para ir a festivales en España?",
         a: "Sí, mayo es excelente para festivales en España: el clima es ideal (20–25°C, sin el calor extremo del verano), los festivales están menos masificados que en julio–agosto, los precios de alojamiento son menores y el repertorio de artistas es de primer nivel. El puente de mayo (1 de mayo, día festivo) concentra Viña Rock, el festival más largo de la temporada de primavera.",
       },
+    ],
+    relatedLinks: [
+      { label: "Carpooling Madrid → Viña Rock", to: "/rutas/madrid-vina-rock" },
+      { label: "Carpooling Madrid → SOS 4.8", to: "/rutas/madrid-sos-48" },
+      { label: "Carpooling Madrid → Tomavistas", to: "/rutas/madrid-tomavistas" },
     ],
   },
   {
@@ -69,6 +75,11 @@ export const CALENDAR_LANDINGS: CalendarLanding[] = [
         q: "¿Cómo llegar a Resurrection Fest en junio 2026?",
         a: "Resurrection Fest se celebra en Viveiro (Lugo, Galicia) del 25 al 28 de junio de 2026. Viveiro no tiene tren ni autobús nocturno útil desde otras provincias. La mejor opción es carpooling con ConcertRide: desde A Coruña (80 km, 5–8€/asiento), Oviedo (220 km, 8–12€), Bilbao (390 km, 12–17€) o Madrid (590 km, 16–22€). El festival también tiene buses oficiales desde A Coruña y Lugo (comprar en web del festival con antelación).",
       },
+    ],
+    relatedLinks: [
+      { label: "Carpooling Madrid → Primavera Sound", to: "/rutas/madrid-primavera-sound" },
+      { label: "Carpooling Madrid → Starlite Marbella", to: "/rutas/madrid-starlite-marbella" },
+      { label: "Carpooling Madrid → Marenostrum", to: "/rutas/madrid-marenostrum-fuengirola" },
     ],
   },
   {
@@ -108,6 +119,11 @@ export const CALENDAR_LANDINGS: CalendarLanding[] = [
         a: "En julio hay conciertos gratuitos en fiestas patronales y ferias municipales de muchas ciudades, pero los festivales de múltiples días con cartel internacional (Mad Cool, BBK Live, FIB, Cruïlla) requieren entrada de pago (40–180 €/día). Jazzaldia en Donostia tiene algunos conciertos gratuitos en la Playa de La Concha (la mitad del programa es gratuito). ConcertRide opera carpooling a todos ellos sin comisión.",
       },
     ],
+    relatedLinks: [
+      { label: "Carpooling Madrid → Mad Cool", to: "/rutas/madrid-mad-cool" },
+      { label: "Carpooling Madrid → BBK Live", to: "/rutas/madrid-bbk-live" },
+      { label: "Carpooling Madrid → Cruïlla", to: "/rutas/madrid-cruilla" },
+    ],
   },
   {
     slug: "agosto-2026",
@@ -137,6 +153,11 @@ export const CALENDAR_LANDINGS: CalendarLanding[] = [
         a: "Sí. Medusa Festival en Cullera (Valencia, 12–16 agosto 2026) es el mayor festival de música electrónica de España por aforo, con 120.000 asistentes en cinco días y los mayores DJs del mundo de techno, house, trance y EDM. El segundo festival de electrónica más grande es Sónar (Barcelona, junio), con 130.000 asistentes totales pero en tres días. Para transporte desde Madrid, Barcelona o Murcia a Medusa, ConcertRide ofrece carpooling desde 5–17€/asiento.",
       },
     ],
+    relatedLinks: [
+      { label: "Carpooling Madrid → Arenal Sound", to: "/rutas/madrid-arenal-sound" },
+      { label: "Carpooling Madrid → Sonorama", to: "/rutas/madrid-sonorama-ribera" },
+      { label: "Carpooling Madrid → Medusa", to: "/rutas/madrid-medusa-festival" },
+    ],
   },
   {
     slug: "septiembre-2026",
@@ -161,6 +182,11 @@ export const CALENDAR_LANDINGS: CalendarLanding[] = [
         a: "Septiembre tiene varias ventajas sobre julio para ir a festivales en España: temperaturas más suaves (22–27°C, sin el calor extremo de agosto), precios de alojamiento más bajos, menos masificación, abonos de tren más económicos y menos tráfico en carretera. La contrapartida es que hay muchos menos festivales en septiembre que en julio–agosto. Para los que prefieren el otoño festivalero, Cala Mijas en Málaga (2–4 octubre) extiende la temporada.",
       },
     ],
+    relatedLinks: [
+      { label: "Carpooling Madrid → Vive Latino", to: "/rutas/madrid-vive-latino" },
+      { label: "Carpooling Madrid → Jardín de las Delicias", to: "/rutas/madrid-jardin-de-las-delicias" },
+      { label: "Carpooling Madrid → Granada Sound", to: "/rutas/madrid-granada-sound" },
+    ],
   },
   {
     slug: "octubre-2026",
@@ -182,6 +208,9 @@ export const CALENDAR_LANDINGS: CalendarLanding[] = [
         q: "¿Cómo llegar a Cala Mijas en Málaga?",
         a: "Cala Mijas se celebra en el Cortijo El Atabal de Málaga, accesible por la A-357 (salida Campanillas). Desde el centro de Málaga son unos 8 km. Opciones: taxi/VTC desde Málaga (10–15€), autobús lanzadera si el festival lo habilita, o carpooling con ConcertRide desde Sevilla (215 km, 6–10€/asiento), Granada (130 km, 4–7€), Madrid (540 km, 15–20€) o Almería (215 km, 6–10€).",
       },
+    ],
+    relatedLinks: [
+      { label: "Carpooling Madrid → Cala Mijas", to: "/rutas/madrid-cala-mijas" },
     ],
   },
 ];

@@ -132,8 +132,41 @@ export default function HowToGetTherePage() {
 
   const speakableAnswer = `Se llega a ${festival.name} ${YEAR} (${festival.venue}, ${festival.city}) por: (1) Carpooling ConcertRide desde ${minCarpoolPrice}€/asiento con conductores verificados, sin comisión de plataforma. (2) ${speakableTransit.primary}. (3) ${speakableTransit.alt}. Pago directo al conductor en efectivo o Bizum, vuelta de madrugada coordinada con otros asistentes.`;
   const seoOverride = HOW_TO_GET_THERE_SEO[festival.slug];
-  const seoTitle = seoOverride?.title ?? `Cómo llegar a ${festName} ${YEAR}: Bus, Carpooling y Tren | ConcertRide`;
-  const seoDescription = seoOverride?.description ?? `Guía completa: cómo llegar a ${festName} ${YEAR} (${festival.venue}, ${festival.city}). Carpooling desde ${estimatedPrices[firstCitySlug] ?? 5}€/asiento. Bus, tren y coche compartido. Sin comisión.`;
+  // Title: keep 40 ≤ length ≤ 65. "Cómo llegar a {name} {year} — ConcertRide"
+  // base is ~33 chars, leaving ~32 chars for the festival name. Truncate at
+  // word boundary if needed. Pad with " desde 3€" when the result is under
+  // 40 chars (short festival names like "DCode" land at ~38).
+  function buildHowToTitle(name: string, yr: number, city?: string): string {
+    const suffix = ` ${yr} — ConcertRide`;
+    const prefix = "Cómo llegar a ";
+    const full = `${prefix}${name}${suffix}`;
+    if (full.length > 65) {
+      const budget = 65 - prefix.length - suffix.length;
+      const trimmed = name.slice(0, budget);
+      const lastSpace = trimmed.lastIndexOf(" ");
+      const cut = lastSpace > budget - 10 ? trimmed.slice(0, lastSpace) : trimmed;
+      return `${prefix}${cut}${suffix}`;
+    }
+    if (full.length >= 40) return full;
+    // Expand: add city or carpooling descriptor to lift over 40 chars.
+    if (city) {
+      const withCity = `Cómo llegar a ${name} ${yr} (${city}) — ConcertRide`;
+      if (withCity.length >= 40 && withCity.length <= 65) return withCity;
+    }
+    const withDesc = `Cómo llegar a ${name} ${yr}: bus, tren, carpooling — ConcertRide`;
+    if (withDesc.length <= 65) return withDesc;
+    return full;
+  }
+  // Description: keep ≤160 chars. Drop venue parenthetical when it causes overflow.
+  function buildHowToDesc(name: string, yr: number, venue: string, city: string, price: number): string {
+    const withVenue = `Cómo llegar a ${name} ${yr} (${venue}, ${city}): carpooling desde ${price}€/asiento, bus y tren. Sin comisión de plataforma.`;
+    if (withVenue.length <= 160) return withVenue;
+    const noVenue = `Cómo llegar a ${name} ${yr} en ${city}: carpooling desde ${price}€/asiento, autobús y tren. 0% comisión, conductores verificados.`;
+    if (noVenue.length <= 160) return noVenue;
+    return `Guía de transporte ${yr}: carpooling desde ${price}€/asiento, bus y tren hasta ${city}. 0% comisión, conductores verificados en ConcertRide.`;
+  }
+  const seoTitle = seoOverride?.title ?? buildHowToTitle(festName, YEAR, festival.city);
+  const seoDescription = seoOverride?.description ?? buildHowToDesc(festName, YEAR, festival.venue, festival.city, estimatedPrices[firstCitySlug] ?? 5);
 
   useSeoMeta({
     title: seoTitle,

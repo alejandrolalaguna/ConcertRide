@@ -13,9 +13,24 @@ export default function CalendarLandingPage() {
 
   const festivals = getCalendarFestivals(cal) as FestivalLanding[];
 
+  // Build description 120–160 chars.
+  // Months with few festivals use the blurb to pad to ≥120 chars.
+  const calDesc = (() => {
+    const festNames = festivals.slice(0, 3).map((f) => f.shortName).join(", ");
+    const hasFests = festivals.length > 0;
+    const core = hasFests
+      ? `Festivales de música en ${cal.month.toLowerCase()} ${cal.year} en España: ${festNames}${festivals.length > 3 ? " y más" : ""}. Carpooling sin comisión con ConcertRide.`
+      : `Festivales de música en ${cal.month.toLowerCase()} ${cal.year} en España. Carpooling sin comisión con ConcertRide.`;
+    if (core.length >= 120) return core.slice(0, 160);
+    // Pad with first sentence of blurb to reach ≥120 chars
+    const blurbSentence = (cal.blurb.split(".")[0] ?? "").trim();
+    const padded = `${core} ${blurbSentence}.`.slice(0, 160);
+    return padded.length >= 120 ? padded : core;
+  })();
+
   useSeoMeta({
     title: `Festivales ${cal.month} ${cal.year} España · Carpooling | ConcertRide`,
-    description: `¿Qué festivales hay en ${cal.month.toLowerCase()} ${cal.year} en España? ${festivals.slice(0, 3).map((f) => f.shortName).join(", ")} y más. Carpooling sin comisión con ConcertRide.`,
+    description: calDesc,
     canonical: `${SITE_URL}/calendario-festivales/${cal.slug}`,
     keywords: [
       `festivales ${cal.month.toLowerCase()} ${cal.year}`,
@@ -235,6 +250,27 @@ export default function CalendarLandingPage() {
               </div>
             ))}
           </dl>
+        </section>
+      )}
+
+      {/* ── Rutas destacadas (internal linking → /rutas/) ── */}
+      {cal.relatedLinks && cal.relatedLinks.length > 0 && (
+        <section className="max-w-6xl mx-auto px-6 pb-12 border-t border-cr-border pt-10">
+          <h2 className="font-display text-lg uppercase text-cr-text-muted mb-4">
+            Rutas destacadas para {cal.month.toLowerCase()} {cal.year}
+          </h2>
+          <ul className="flex flex-wrap gap-2">
+            {cal.relatedLinks.map((l) => (
+              <li key={l.to}>
+                <Link
+                  to={l.to}
+                  className="inline-flex items-center gap-1.5 font-sans text-xs text-cr-text-muted hover:text-cr-primary border border-cr-border hover:border-cr-primary px-3 py-1.5 transition-colors"
+                >
+                  {l.label}
+                </Link>
+              </li>
+            ))}
+          </ul>
         </section>
       )}
 

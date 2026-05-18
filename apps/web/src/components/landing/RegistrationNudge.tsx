@@ -26,6 +26,10 @@ export function RegistrationNudge() {
         aria-hidden="true"
         src="https://images.unsplash.com/photo-1506157786151-b8491531f063?w=1400&q=40&auto=format&fit=crop"
         alt=""
+        width={1400}
+        height={800}
+        loading="lazy"
+        decoding="async"
         className="absolute inset-0 w-full h-full object-cover object-top opacity-[0.06] pointer-events-none"
       />
       {/* Lime bloom center */}

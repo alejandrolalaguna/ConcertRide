@@ -12,6 +12,13 @@ export const SEO_CONFIG = {
     language: "es-ES",
     defaultLocale: "es-ES",
     author: "Alejandro Lalaguna",
+    /**
+     * Canonical author URL — points to the founder's E-E-A-T author page.
+     * Used by schemaGenerators / BlogPostPage to populate `author.url` on
+     * BlogPosting / NewsArticle / Person JSON-LD so AI Overviews can resolve
+     * the byline to a real, schema-marked-up Person entity.
+     */
+    authorUrl: "https://concertride.me/autor/alejandro-lalaguna",
     contactEmail: "help@concertride.me",
   },
 
@@ -99,6 +106,14 @@ export const SEO_CONFIG = {
     creator: "@concertride_es",
   },
 
+  /**
+   * Wikidata Q-ID for ConcertRide entity.
+   * TODO: Set once the Wikidata entity is created — see apps/web/docs/wikidata-entity-setup.md
+   * Until populated, the Wikidata URL is NOT injected into Organization.sameAs to avoid 404 dead links.
+   * Format: "Q123456789"
+   */
+  wikidataQid: "" as string,
+
   // Schema markup organization
   schema: {
     organization: {
@@ -119,6 +134,9 @@ export const SEO_CONFIG = {
         "@type": "Country",
         name: "Spain",
       },
+      // sameAs: external identity references for Knowledge Graph disambiguation.
+      // TODO: Add Wikidata Q-ID once entity is created — see apps/web/docs/wikidata-entity-setup.md
+      // TODO: Add GitHub org URL once the public org is set up.
       sameAs: [
         "https://twitter.com/concertride_es",
         "https://www.instagram.com/concertride_es/",
@@ -231,9 +249,22 @@ export function getPageSeo(pageName: keyof typeof SEO_CONFIG.pages) {
  * Build schema.org markup for a page
  * @param schemaType - Type of schema to include
  * @returns Schema object ready for JSON-LD
+ *
+ * When `schemaType === "organization"` and `SEO_CONFIG.wikidataQid` is non-empty,
+ * the Wikidata URL is appended to `sameAs` so Google's Knowledge Graph can resolve
+ * ConcertRide to a single canonical entity.
  */
 export function buildSchema(schemaType: keyof typeof SEO_CONFIG.schema) {
-  return SEO_CONFIG.schema[schemaType];
+  const base = SEO_CONFIG.schema[schemaType];
+  if (schemaType === "organization" && SEO_CONFIG.wikidataQid) {
+    const wikidataUrl = `https://www.wikidata.org/wiki/${SEO_CONFIG.wikidataQid}`;
+    const orgBase = base as typeof SEO_CONFIG.schema.organization;
+    return {
+      ...orgBase,
+      sameAs: [...orgBase.sameAs, wikidataUrl],
+    };
+  }
+  return base;
 }
 
 /**

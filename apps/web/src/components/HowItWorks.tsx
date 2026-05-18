@@ -103,7 +103,10 @@ export function HowItWorks() {
                     src={step.img}
                     alt=""
                     aria-hidden="true"
+                    width={600}
+                    height={400}
                     loading="lazy"
+                    decoding="async"
                     className="w-full h-full object-cover object-center"
                     whileHover={{ scale: 1.06 }}
                     transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}

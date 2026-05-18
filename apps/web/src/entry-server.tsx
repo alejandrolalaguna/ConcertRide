@@ -19,6 +19,10 @@ import CityYearPage from "./pages/CityYearPage";
 import FestivalLandingPage from "./pages/FestivalLandingPage";
 import FestivalesPage from "./pages/FestivalesPage";
 import GuiaTransporteFestivalesPage from "./pages/GuiaTransporteFestivalesPage";
+import GuiaFestivalSinCochePage from "./pages/GuiaFestivalSinCochePage";
+import GuiaPresupuestoFestivalGrupoPage from "./pages/GuiaPresupuestoFestivalGrupoPage";
+import GuiaFestivalSostenibleCO2Page from "./pages/GuiaFestivalSostenibleCO2Page";
+import GuiaSeguridadCarpoolingFestivalPage from "./pages/GuiaSeguridadCarpoolingFestivalPage";
 import PillarGuiaPage from "./pages/PillarGuiaPage";
 import BlogIndexPage from "./pages/BlogIndexPage";
 import BlogPostPage from "./pages/BlogPostPage";
@@ -27,6 +31,9 @@ import RutasIndexPage from "./pages/RutasIndexPage";
 import PrensaPage from "./pages/PrensaPage";
 import SalaPrensaPage from "./pages/SalaPrensaPage";
 import DatosPage from "./pages/DatosPage";
+import DatasetPrecioMedio2026Page from "./pages/DatasetPrecioMedio2026Page";
+import DatasetMapaConexion2026Page from "./pages/DatasetMapaConexion2026Page";
+import DatasetRankingPreciosFestivales2026Page from "./pages/DatasetRankingPreciosFestivales2026Page";
 import HowItWorksPage from "./pages/HowItWorksPage";
 import FaqPage from "./pages/FaqPage";
 import ContactoPage from "./pages/ContactoPage";
@@ -47,9 +54,11 @@ import ComoFuncionaCarpoolingPage from "./pages/ComoFuncionaCarpoolingPage";
 import ComparativaTaxi from "./pages/ComparativaTaxi";
 import GenreLandingPage from "./pages/GenreLandingPage";
 import CalendarLandingPage from "./pages/CalendarLandingPage";
+import AutorAlejandroLalagunaPage from "./pages/AutorAlejandroLalagunaPage";
+import GlosarioPage from "./pages/GlosarioPage";
 import { FESTIVAL_LANDINGS, FESTIVAL_LANDINGS_LAST_UPDATED } from "./lib/festivalLandings";
 import { CITY_LANDINGS } from "./lib/cityLandings";
-import { BLOG_SLUGS as BLOG_POST_SLUGS } from "./lib/blogPosts";
+import { BLOG_SLUGS as BLOG_POST_SLUGS, DISABLED_BLOG_SLUGS as ALL_DISABLED_BLOG_SLUGS } from "./lib/blogPosts";
 import { ROUTE_SLUGS as ALL_ROUTE_SLUGS } from "./lib/routeLandings";
 import { ARTIST_SLUGS as ALL_ARTIST_SLUGS } from "./lib/artistLandings";
 import { VENUE_SLUGS as ALL_VENUE_SLUGS } from "./lib/venueLandings";
@@ -65,6 +74,7 @@ export const CITY_YEAR_SLUGS: string[] = CITY_LANDINGS.flatMap((c) =>
   CITY_YEARS.map((y) => `${c.slug}/${y}`),
 );
 export const BLOG_SLUGS = BLOG_POST_SLUGS;
+export const DISABLED_BLOG_SLUGS = Array.from(ALL_DISABLED_BLOG_SLUGS);
 export const ROUTE_SLUGS = ALL_ROUTE_SLUGS;
 export const ARTIST_SLUGS = ALL_ARTIST_SLUGS;
 export const VENUE_SLUGS = ALL_VENUE_SLUGS;
@@ -93,6 +103,10 @@ function ServerApp() {
         <Route path="/festivales-genero/:slug" element={<GenreLandingPage />} />
         <Route path="/calendario-festivales/:slug" element={<CalendarLandingPage />} />
         <Route path="/guia-transporte-festivales" element={<GuiaTransporteFestivalesPage />} />
+        <Route path="/guia/festival-sin-coche" element={<GuiaFestivalSinCochePage />} />
+        <Route path="/guia/presupuesto-festival-grupo" element={<GuiaPresupuestoFestivalGrupoPage />} />
+        <Route path="/guia/festival-sostenible-co2" element={<GuiaFestivalSostenibleCO2Page />} />
+        <Route path="/guia/seguridad-carpooling-festival" element={<GuiaSeguridadCarpoolingFestivalPage />} />
         <Route path="/guia-ir-festivales-2026" element={<PillarGuiaPage />} />
         <Route path="/blog" element={<BlogIndexPage />} />
         <Route path="/blog/:slug" element={<BlogPostPage />} />
@@ -105,10 +119,15 @@ function ServerApp() {
         <Route path="/prensa" element={<PrensaPage />} />
         <Route path="/sala-de-prensa" element={<SalaPrensaPage />} />
         <Route path="/datos" element={<DatosPage />} />
+        <Route path="/datos/precio-medio-carpooling-vs-bus-festivales-2026" element={<DatasetPrecioMedio2026Page />} />
+        <Route path="/datos/festivales-peor-conexion-transporte-publico-2026" element={<DatasetMapaConexion2026Page />} />
+        <Route path="/datos/festivales-mas-caros-mas-baratos-llegar-2026" element={<DatasetRankingPreciosFestivales2026Page />} />
         <Route path="/como-funciona" element={<HowItWorksPage />} />
         <Route path="/faq" element={<FaqPage />} />
         <Route path="/contacto" element={<ContactoPage />} />
         <Route path="/acerca-de" element={<AcercaDePage />} />
+        <Route path="/glosario" element={<GlosarioPage />} />
+        <Route path="/autor/alejandro-lalaguna" element={<AutorAlejandroLalagunaPage />} />
         <Route path="/aviso-legal" element={<AvisoLegalPage />} />
         <Route path="/privacidad" element={<PrivacidadPage />} />
         <Route path="/cookies" element={<CookiesPage />} />

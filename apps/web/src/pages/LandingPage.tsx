@@ -139,6 +139,8 @@ export default function LandingPage() {
     description:
       "Carpooling a Mad Cool, Primavera Sound, Sónar, BBK Live y +30 festivales en España. 0% comisión, conductores verificados. Desde 5€/asiento.",
     canonical: `${SITE_URL}/`,
+    preloadImage:
+      "https://images.unsplash.com/photo-1459749411175-04bf5292ceea?w=1800&q=80&auto=format&fit=crop",
     keywords: "carpooling conciertos España, viajes compartidos festivales, autobuses festivales españa, bus festivales 2026, transporte a conciertos, coche compartido música, ride-sharing festivales, conciertos en madrid, conciertos en barcelona, conciertos en sevilla, conciertos en bilbao 2026, conciertos en donostia 2026, conciertos en zaragoza, viña rock buses, arenal sound como llegar, bbk santander, mad cool carpooling, primavera sound viaje compartido, deja tu coche en casa festival, carpooling sin comisiones, volver festival madrugada, ir al festival sin coche",
     ogType: "website",
     ogImageAlt: "ConcertRide: carpooling sin comisión a conciertos y festivales en España · Mad Cool, Primavera Sound, BBK Live",
@@ -209,6 +211,26 @@ export default function LandingPage() {
               "@type": "SearchAction",
               target: `${SITE_URL}/conciertos?q={search_term_string}`,
               "query-input": "required name=search_term_string",
+            },
+          }),
+        }}
+      />
+      {/* SpeakableSpecification — flags answer-first H1 + lede paragraphs +
+          [data-quotable] blocks to AI Overviews / voice assistants. */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "WebPage",
+            "@id": `${SITE_URL}/#webpage`,
+            url: SITE_URL,
+            name: "ConcertRide · Carpooling para conciertos y festivales en España",
+            inLanguage: "es-ES",
+            isPartOf: { "@id": `${SITE_URL}/#website` },
+            speakable: {
+              "@type": "SpeakableSpecification",
+              cssSelector: ["h1", ".lede", "[data-quotable]", ".speakable"],
             },
           }),
         }}
@@ -381,6 +403,10 @@ export default function LandingPage() {
           aria-hidden="true"
           src="https://images.unsplash.com/photo-1506157786151-b8491531f063?w=1400&q=50&auto=format&fit=crop"
           alt=""
+          width={1400}
+          height={800}
+          loading="lazy"
+          decoding="async"
           className="absolute inset-0 w-full h-full object-cover object-top opacity-[0.07] pointer-events-none"
         />
         {/* Orange glow top-right */}
@@ -440,8 +466,11 @@ export default function LandingPage() {
               <motion.img
                 src="https://images.unsplash.com/photo-1449965408869-eaa3f722e40d?w=900&q=80&fit=crop"
                 alt="Viaje nocturno a un concierto con luces de ciudad"
+                width={900}
+                height={600}
                 className="w-full h-full object-cover"
                 loading="lazy"
+                decoding="async"
                 whileHover={{ scale: 1.04 }}
                 transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
               />
@@ -562,6 +591,10 @@ export default function LandingPage() {
           aria-hidden="true"
           src="https://images.unsplash.com/photo-1514525253161-7a46d19cd819?w=1400&q=40&auto=format&fit=crop"
           alt=""
+          width={1400}
+          height={800}
+          loading="lazy"
+          decoding="async"
           className="absolute inset-0 w-full h-full object-cover object-center opacity-[0.06] pointer-events-none"
         />
         {/* Lime atmospheric glow top-center */}
@@ -698,6 +731,10 @@ export default function LandingPage() {
           aria-hidden="true"
           src="https://images.unsplash.com/photo-1504208434309-cb69f4fe52b0?w=1400&q=40&auto=format&fit=crop"
           alt=""
+          width={1400}
+          height={800}
+          loading="lazy"
+          decoding="async"
           className="absolute inset-0 w-full h-full object-cover object-center opacity-[0.05] pointer-events-none"
         />
         <div
@@ -775,6 +812,10 @@ export default function LandingPage() {
           aria-hidden="true"
           src="https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=1400&q=40&auto=format&fit=crop"
           alt=""
+          width={1400}
+          height={800}
+          loading="lazy"
+          decoding="async"
           className="absolute inset-0 w-full h-full object-cover object-center opacity-[0.04] pointer-events-none"
         />
         <div
@@ -797,6 +838,24 @@ export default function LandingPage() {
               <p className="font-mono text-[10px] uppercase tracking-[0.14em] text-cr-primary">Guía</p>
               <h3 className="font-display text-base uppercase leading-tight group-hover:text-cr-primary transition-colors">Guía de transporte para festivales</h3>
               <p className="font-sans text-xs text-cr-text-muted leading-relaxed">Carpooling, lanzaderas, tren o taxi: cuándo usar cada opción y cómo ahorrar en el trayecto.</p>
+              <span className="inline-flex items-center gap-1 font-sans text-xs text-cr-primary">Leer <ArrowRight size={11} /></span>
+            </Link>
+            <Link to="/guia/festival-sin-coche" className="border border-cr-border p-5 hover:border-cr-primary/50 transition-colors group space-y-3">
+              <p className="font-mono text-[10px] uppercase tracking-[0.14em] text-cr-primary">Guía</p>
+              <h3 className="font-display text-base uppercase leading-tight group-hover:text-cr-primary transition-colors">Cómo ir a un festival sin coche</h3>
+              <p className="font-sans text-xs text-cr-text-muted leading-relaxed">Las 3 formas reales de llegar sin coche propio: carpooling pasajero, bus oficial y tren+lanzadera con precios.</p>
+              <span className="inline-flex items-center gap-1 font-sans text-xs text-cr-primary">Leer <ArrowRight size={11} /></span>
+            </Link>
+            <Link to="/guia/presupuesto-festival-grupo" className="border border-cr-border p-5 hover:border-cr-primary/50 transition-colors group space-y-3">
+              <p className="font-mono text-[10px] uppercase tracking-[0.14em] text-cr-primary">Guía</p>
+              <h3 className="font-display text-base uppercase leading-tight group-hover:text-cr-primary transition-colors">Presupuesto festival grupo de 4</h3>
+              <p className="font-sans text-xs text-cr-text-muted leading-relaxed">Desglose en 6 partidas, calculadora con 3 perfiles y casos reales Mad Cool, Primavera Sound y Sonorama para un fin de semana.</p>
+              <span className="inline-flex items-center gap-1 font-sans text-xs text-cr-primary">Leer <ArrowRight size={11} /></span>
+            </Link>
+            <Link to="/guia/seguridad-carpooling-festival" className="border border-cr-border p-5 hover:border-cr-primary/50 transition-colors group space-y-3">
+              <p className="font-mono text-[10px] uppercase tracking-[0.14em] text-cr-primary">Guía</p>
+              <h3 className="font-display text-base uppercase leading-tight group-hover:text-cr-primary transition-colors">¿Es seguro el carpooling a festivales?</h3>
+              <p className="font-sans text-xs text-cr-text-muted leading-relaxed">Mecanismos de control, comparativa de seguridad por modalidad, checklist de 10 pasos y sección específica para mujeres que viajan solas.</p>
               <span className="inline-flex items-center gap-1 font-sans text-xs text-cr-primary">Leer <ArrowRight size={11} /></span>
             </Link>
             <Link to="/blog/como-volver-festival-madrugada" className="border border-cr-border p-5 hover:border-cr-primary/50 transition-colors group space-y-3">

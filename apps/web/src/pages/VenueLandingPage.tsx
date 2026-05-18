@@ -10,6 +10,7 @@ import { ROUTE_LANDINGS } from "@/lib/routeLandings";
 import { AutoLinksForVenue } from "@/lib/autoLinking";
 import { VENUE_SEO_OVERRIDES } from "@/lib/seoOverrides";
 import { SpeakableAnswerBlock } from "@/components/SpeakableAnswerBlock";
+import { FactDensityCallout } from "@/components/FactDensityCallout";
 import { StickyRegBar } from "@/components/StickyRegBar";
 
 const VENUE_DEFAULT_OG = `${SITE_URL}/og-fallback.png`;
@@ -27,20 +28,86 @@ export default function VenueLandingPage() {
 
   const venueOverride = venue ? VENUE_SEO_OVERRIDES[venue.slug] : undefined;
 
+  // 4-tier title fallback so we never overflow 65 chars even for the few
+  // venues with both a long shortName (e.g. "Estadio Gran Canaria") and a
+  // long city ("Las Palmas de Gran Canaria"). Falls back via city abbrev
+  // → drop trailer → drop city paren.
+  const VENUE_CITY_ABBREV: Record<string, string> = {
+    "Las Palmas de Gran Canaria": "Las Palmas",
+    "Donostia-San Sebastián": "San Sebastián",
+    "Cornellà de Llobregat": "Cornellà",
+    "Sallent de Gállego": "Sallent",
+    "Vilagarcía de Arousa": "Vilagarcía",
+    "Caldas de Reis": "Caldas",
+  };
+  const venueMetaTitle = (() => {
+    if (!venue) return "Recintos de conciertos en España | ConcertRide";
+    const short = venue.shortName;
+    const city = venue.city;
+    const t1 = `${short} (${city}) · Carpooling y transporte | ConcertRide`;
+    if (t1.length <= 65) return t1;
+    const abbr = VENUE_CITY_ABBREV[city] ?? city;
+    const t2 = `${short} (${abbr}) · Carpooling y transporte | ConcertRide`;
+    if (t2.length <= 65) return t2;
+    const t3 = `${short} (${abbr}) · Carpooling | ConcertRide`;
+    if (t3.length <= 65) return t3;
+    const t4 = `${short} · Carpooling y transporte | ConcertRide`;
+    if (t4.length <= 65) return t4;
+    return `${short} · Carpooling | ConcertRide`;
+  })();
+
   useSeoMeta({
     title: venue
-      // Use shortName to keep <=65 chars even for venues with long official
-      // names (e.g. "Estadio Santiago Bernabéu" → "Bernabéu"). The full
-      // venue.name still appears in the H1 + OG image alt + JSON-LD.
-      ? venueOverride?.title ?? `${venue.shortName} (${venue.city}) · Carpooling y transporte | ConcertRide`
+      // 4-tier fallback in `venueMetaTitle`; curated overrides still win.
+      ? venueOverride?.title ?? venueMetaTitle
       : "Recintos de conciertos en España | ConcertRide",
     description: venue
-      ? venueOverride?.description ?? `${venue.name} (${venue.city}): ${venue.transport.metro ? `Metro ${venue.transport.metro}.` : ""} ${venue.transport.bus ? `Bus: ${venue.transport.bus}.` : ""} Carpooling desde ${topOrigin?.city ?? "tu ciudad"} desde ${topPrice} €/asiento sin comisión. ${venue.blurb.slice(0, 120)}…`
+      ? (() => {
+          if (venueOverride?.description) return venueOverride.description;
+          const metro = venue.transport.metro ? `Metro ${venue.transport.metro}. ` : "";
+          const bus = venue.transport.bus ? `Bus: ${venue.transport.bus}. ` : "";
+          // Pad short candidates back up over 120 chars when they fall short.
+          // Originally we dropped to `shortened` (≤120 chars) for stadium venues
+          // without metro, leaving the meta description under the 120-char min.
+          const pad = ` Conductores verificados, vuelta nocturna coordinada y pago directo al conductor.`;
+          const fitWithPad = (s: string) => {
+            if (s.length >= 120 && s.length <= 160) return s;
+            if (s.length < 120) {
+              const candidate = `${s}${pad}`;
+              if (candidate.length <= 160) return candidate;
+              // Trim the pad to fit ≤160 at word boundary.
+              const room = 160 - s.length;
+              const trimmed = pad.slice(0, room);
+              const lastSpace = trimmed.lastIndexOf(" ");
+              return s + (lastSpace > 0 ? trimmed.slice(0, lastSpace) : trimmed);
+            }
+            return s;
+          };
+          const base = `${venue.name} (${venue.city}): ${metro}${bus}Carpooling desde ${topPrice} €/asiento sin comisión.`;
+          // Keep ≤160 chars — append blurb only if there's room
+          if (base.length <= 160) {
+            const blurbBudget = 158 - base.length;
+            if (blurbBudget > 20) {
+              const blurbSlice = venue.blurb.slice(0, blurbBudget).trimEnd();
+              const lastSpace = blurbSlice.lastIndexOf(" ");
+              const blurbCut = lastSpace > blurbBudget - 15 ? blurbSlice.slice(0, lastSpace) : blurbSlice;
+              return `${base} ${blurbCut}…`;
+            }
+            return fitWithPad(base);
+          }
+          // base > 160: trim metro/bus details progressively.
+          const shortened = `${venue.shortName} (${venue.city}): ${metro}Carpooling desde ${topPrice} €/asiento sin comisión.`;
+          if (shortened.length <= 160) return fitWithPad(shortened);
+          const noMetro = `${venue.shortName} (${venue.city}): Carpooling desde ${topPrice} €/asiento, transporte público disponible. Sin comisión, conductores verificados.`;
+          if (noMetro.length <= 160) return fitWithPad(noMetro);
+          return fitWithPad(`${venue.shortName} (${venue.city}): Carpooling desde ${topPrice} €/asiento sin comisión. Conductores verificados.`);
+        })()
       : "Guías de transporte para los principales recintos de conciertos de España. Cómo llegar, opciones de bus, metro y carpooling.",
     canonical: venue
       ? `${SITE_URL}/recintos/${venue.slug}`
       : `${SITE_URL}/concerts`,
     ogImage: venueOgImage,
+    preloadImage: venueOgImage,
     ogImageAlt: venue
       ? `Cómo llegar a ${venue.name} en ${venue.city}: carpooling y transporte · ConcertRide`
       : "Recintos de conciertos en España · ConcertRide",
@@ -361,6 +428,18 @@ export default function VenueLandingPage() {
           )}.
         </h1>
 
+        {/* ── Quotable answer-first paragraph · target for AI Overviews / GEO citation ──
+            Rendered immediately after the H1 when present. Self-contained 130–150 word passage
+            answering "¿Cómo llegar a {venue}?" with capacity, transport options, prices, late-night. */}
+        {venue.quotableAnswer && (
+          <section
+            data-quotable
+            className="mt-4 mb-2 max-w-3xl font-sans text-base md:text-lg leading-relaxed text-cr-text"
+          >
+            {venue.quotableAnswer}
+          </section>
+        )}
+
         {/* Speakable answer block — answer-first for AI Overviews + voice */}
         <SpeakableAnswerBlock
           schemaId={`speakable-venue-${venue.slug}`}
@@ -391,6 +470,36 @@ export default function VenueLandingPage() {
             .filter(Boolean)
             .join(" ")}
         />
+
+        {/* ── Fact density callout grid ── */}
+        <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 my-4">
+          {(
+            [
+              { label: "Capacidad", value: venue.capacity ?? null },
+              { label: "Ciudad", value: venue.city },
+              {
+                label: "Metro / Bus",
+                value:
+                  venue.transport.metro ??
+                  venue.transport.bus ??
+                  venue.transport.tren ??
+                  null,
+              },
+              { label: "Carpooling desde", value: `${topPrice} €/asiento` },
+            ] as Array<{ label: string; value: string | null }>
+          )
+            .filter((f) => f.value !== null)
+            .map((f) => (
+              <div key={f.label} className="bg-white/5 rounded-lg p-3">
+                <div className="text-xs text-white/50 uppercase tracking-wide">
+                  {f.label}
+                </div>
+                <div className="text-cr-primary font-bold mt-1 text-sm leading-snug">
+                  {f.value}
+                </div>
+              </div>
+            ))}
+        </div>
 
         {/* Price + 0% commission signal — reinforces title keyword */}
         <p className="font-mono text-xs font-semibold uppercase tracking-[0.14em] text-cr-text-muted">
@@ -436,6 +545,35 @@ export default function VenueLandingPage() {
           conciertos {venue.shortName.toLowerCase()}.
         </p>
       </div>
+
+      {/* ── Fact density callout — scannable numeric facts for AI extractors ── */}
+      <section className="max-w-6xl mx-auto px-6 pt-6">
+        <FactDensityCallout
+          heading={`Datos clave · ${venue.shortName}`}
+          facts={[
+            { label: "Aforo", value: venue.capacity },
+            {
+              label: "Carpooling desde",
+              value: `${topPrice} €/asiento`,
+              detail: "0 % comisión",
+            },
+            ...(topOrigin
+              ? [
+                  {
+                    label: `Desde ${topOrigin.city}`,
+                    value: `${topOrigin.km} km`,
+                    detail: topOrigin.drivingTime,
+                  },
+                ]
+              : []),
+            {
+              label: "Tipo",
+              value: venue.venueType,
+              detail: venue.city,
+            },
+          ]}
+        />
+      </section>
 
       {/* ── Transport section ── */}
       <section className="max-w-6xl mx-auto px-6 pb-12 border-t border-cr-border pt-12 space-y-6 transport-info">

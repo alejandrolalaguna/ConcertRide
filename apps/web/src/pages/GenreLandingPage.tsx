@@ -75,9 +75,38 @@ export default function GenreLandingPage() {
   const priceRows = GENRE_PRICE_REF[genre.slug] ?? [];
   const year = 2026;
 
+  // Build description ≤160 chars: try 4 festival names, then 3, then 2, then drop names.
+  const genreDesc = (() => {
+    const price = priceRows[0]?.range ?? "3 €/asiento";
+    const suffix = ` Carpooling desde ${price}. Conductores verificados, 0% comisión.`;
+    const allNames = festivals.map((f) => f.shortName);
+    for (const n of [4, 3, 2] as const) {
+      if (allNames.length < n) continue;
+      const names = allNames.slice(0, n).join(", ");
+      const candidate = `${genre.nameFull} ${year}: ${names} y más.${suffix}`;
+      if (candidate.length <= 160) return candidate;
+    }
+    return `${genre.nameFull} ${year}: festivales de España.${suffix}`.slice(0, 160);
+  })();
+
+  // 4-tier title fallback so we never overflow 65 chars even for the longest
+  // genre nameFull (e.g. "Festivales de música electrónica en España" = 42 +
+  // " 2026 · Transporte y carpooling | ConcertRide" = 87 chars total).
+  const genreTitle = (() => {
+    const t1 = `${genre.nameFull} ${year} · Transporte y carpooling | ConcertRide`;
+    if (t1.length <= 65) return t1;
+    const t2 = `${genre.nameFull} ${year} · Carpooling | ConcertRide`;
+    if (t2.length <= 65) return t2;
+    const t3 = `${genre.nameFull} ${year} · Carpooling y transporte`;
+    if (t3.length <= 65) return t3;
+    const t4 = `${genre.nameFull} ${year} | ConcertRide`;
+    if (t4.length <= 65) return t4;
+    return `${genre.nameFull} ${year}`;
+  })();
+
   useSeoMeta({
-    title: `${genre.nameFull} ${year} · Transporte y carpooling | ConcertRide`,
-    description: `${genre.nameFull} ${year}: ${festivals.slice(0, 4).map((f) => f.shortName).join(", ")} y más. Carpooling desde ${priceRows[0]?.range ?? "3 €/asiento"}. Conductores verificados, 0% comisión.`,
+    title: genreTitle,
+    description: genreDesc,
     canonical: `${SITE_URL}/festivales-genero/${genre.slug}`,
     keywords: [
       `festivales ${genre.name.toLowerCase()} España ${year}`,

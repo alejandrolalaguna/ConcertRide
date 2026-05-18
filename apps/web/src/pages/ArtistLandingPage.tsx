@@ -6,6 +6,7 @@ import { FESTIVAL_LANDINGS_BY_SLUG } from "@/lib/festivalLandings";
 import { AutoLinksForArtist } from "@/lib/autoLinking";
 import { ARTIST_SEO_OVERRIDES } from "@/lib/seoOverrides";
 import { SpeakableAnswerBlock } from "@/components/SpeakableAnswerBlock";
+import { FactDensityCallout } from "@/components/FactDensityCallout";
 import { StickyRegBar } from "@/components/StickyRegBar";
 import { useSession } from "@/lib/session";
 
@@ -268,6 +269,18 @@ export default function ArtistLandingPage() {
           {artist.name.toUpperCase()} EN ESPAÑA 2026
         </h1>
 
+        {/* ── Quotable answer-first paragraph · target for AI Overviews / GEO citation ──
+            Rendered immediately after the H1 when present. Self-contained 130–150 word passage
+            answering "¿Cuándo actúa {artist} en España?" with venues, dates, top-3 origins + prices. */}
+        {artist.quotableAnswer && (
+          <section
+            data-quotable
+            className="mt-4 mb-2 max-w-3xl font-sans text-base md:text-lg leading-relaxed text-cr-text"
+          >
+            {artist.quotableAnswer}
+          </section>
+        )}
+
         {/* Speakable answer block — answer-first for AI Overviews + voice */}
         <SpeakableAnswerBlock
           schemaId={`speakable-artist-${artist.slug}`}
@@ -303,11 +316,51 @@ export default function ArtistLandingPage() {
           cómo llegar concierto {artist.name.toLowerCase()},{" "}
           coche compartido {artist.name.toLowerCase()} España.
         </p>
+
+        {/* Hero CTAs — visible above-the-fold on mobile per UX audit */}
+        <div className="flex flex-wrap gap-3 pt-3">
+          <a
+            href="#proximos-conciertos"
+            className="inline-flex items-center justify-center font-sans text-sm font-bold uppercase tracking-wider bg-cr-primary text-black px-5 py-3 shadow-[4px_4px_0_0_rgba(219,255,0,0.25)] hover:shadow-[6px_6px_0_0_rgba(219,255,0,0.4)] transition-shadow"
+          >
+            Ver {artist.upcomingConcerts.length} concierto{artist.upcomingConcerts.length === 1 ? "" : "s"} · desde {minPrice}€
+          </a>
+          <Link
+            to="/publish"
+            className="inline-flex items-center justify-center font-sans text-sm font-bold uppercase tracking-wider border-2 border-cr-border text-cr-text px-5 py-3 hover:border-cr-primary hover:text-cr-primary transition-colors"
+          >
+            Publicar mi viaje
+          </Link>
+        </div>
+
+        {/* Fact density callout — quick AI-extractable facts (numeric + scannable) */}
+        <FactDensityCallout
+          heading={`Datos clave · ${artist.name}`}
+          className="my-6"
+          facts={[
+            { label: "Carpooling desde", value: `${minPrice} €/asiento`, detail: "0 % comisión" },
+            {
+              label: "Conciertos ES 2026",
+              value: `${artist.upcomingConcerts.length}`,
+              detail: artist.upcomingConcerts.length === 1 ? "fecha" : "fechas confirmadas",
+            },
+            { label: "Género", value: artist.genre.slice(0, 2).join(" · ") || "—" },
+            ...(artist.upcomingConcerts[0]?.venue
+              ? [
+                  {
+                    label: "Recinto principal",
+                    value: artist.upcomingConcerts[0].venue,
+                    detail: artist.upcomingConcerts[0].city,
+                  },
+                ]
+              : []),
+          ]}
+        />
       </div>
 
       {/* ── Próximos conciertos ── */}
       {hasUpcoming && (
-        <section className="max-w-6xl mx-auto px-6 pb-16 border-t border-cr-border pt-12 space-y-8">
+        <section id="proximos-conciertos" className="max-w-6xl mx-auto px-6 pb-16 border-t border-cr-border pt-12 space-y-8">
           <h2 className="font-display text-2xl md:text-3xl uppercase">
             Próximos conciertos de {artist.name} en España
           </h2>
@@ -371,7 +424,7 @@ export default function ArtistLandingPage() {
               {/* CTA */}
               <Link
                 to="/concerts"
-                className="inline-flex items-center gap-2 font-sans text-xs font-semibold uppercase tracking-[0.12em] border-2 border-cr-primary text-cr-primary px-4 py-2 hover:bg-cr-primary hover:text-black transition-colors"
+                className="inline-flex items-center gap-2 font-sans text-sm font-semibold uppercase tracking-[0.12em] border-2 border-cr-primary text-cr-primary px-5 py-3 hover:bg-cr-primary hover:text-black transition-colors"
               >
                 Buscar viaje a {concert.city} →
               </Link>
@@ -398,13 +451,13 @@ export default function ArtistLandingPage() {
             <div className="flex flex-wrap gap-2 shrink-0">
               <Link
                 to="/concerts"
-                className="inline-flex items-center justify-center bg-black text-[#dbff00] font-sans font-semibold uppercase tracking-[0.12em] text-xs border-2 border-black px-5 py-2.5 shadow-[3px_3px_0px_0px_rgba(255,255,0,0.4)] hover:shadow-[1px_1px_0px_0px_rgba(255,255,0,0.4)] hover:translate-x-[2px] hover:translate-y-[2px] transition-all duration-100 whitespace-nowrap"
+                className="inline-flex items-center justify-center bg-black text-[#dbff00] font-sans font-semibold uppercase tracking-[0.12em] text-sm border-2 border-black px-5 py-3 shadow-[3px_3px_0px_0px_rgba(255,255,0,0.4)] hover:shadow-[1px_1px_0px_0px_rgba(255,255,0,0.4)] hover:translate-x-[2px] hover:translate-y-[2px] transition-all duration-100 whitespace-nowrap"
               >
                 Buscar viaje →
               </Link>
               <Link
                 to="/register"
-                className="inline-flex items-center justify-center font-sans font-semibold uppercase tracking-[0.12em] text-xs border-2 border-black text-black px-5 py-2.5 hover:bg-black/10 transition-colors whitespace-nowrap"
+                className="inline-flex items-center justify-center font-sans font-semibold uppercase tracking-[0.12em] text-sm border-2 border-black text-black px-5 py-3 hover:bg-black/10 transition-colors whitespace-nowrap"
               >
                 Crear cuenta gratis
               </Link>

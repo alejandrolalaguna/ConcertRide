@@ -9,6 +9,22 @@ import { AutoLinksForFestival, AutoLinksForBlog } from "@/lib/autoLinking";
 import { trackBlogView } from "@/lib/seoEvents";
 import { useSession } from "@/lib/session";
 
+// Canonical founder/author page URL. When the byline matches a known author
+// (Alejandro Lalaguna, or the team byline we sign with the same person),
+// the byline links here and the JSON-LD author.url points here too. This is
+// the E-E-A-T anchor that AI Overviews follow to resolve the author entity.
+const AUTHOR_PAGE_URL = `${SITE_URL}/autor/alejandro-lalaguna`;
+function isFounderByline(author?: string): boolean {
+  if (!author) return false;
+  const a = author.toLowerCase();
+  return (
+    a.includes("alejandro") ||
+    a.includes("equipo concertride") ||
+    a === "concertride" ||
+    a === "concertride team"
+  );
+}
+
 function ShareCite({ url, title }: { url: string; title: string }) {
   const [copiedUrl, setCopiedUrl] = useState(false);
   const [copiedCite, setCopiedCite] = useState(false);
@@ -78,19 +94,67 @@ export default function BlogPostPage() {
 
   const relatedFestival = relatedFestivalSlug ? FESTIVAL_LANDINGS_BY_SLUG[relatedFestivalSlug] : undefined;
 
-  // Only append year to title if the title doesn't already contain a 4-digit year.
-  const postYear = post ? new Date(post.publishedAt).getFullYear() : null;
-  const titleHasYear = post ? /\b20\d{2}\b/.test(post.title) : false;
+  // Build SEO-safe <title> ≤ 65 chars and <meta description> ≤ 160 chars.
+  // Order of precedence:
+  //   1. `metaTitle` / `metaDescription` if curated on the post (used as-is).
+  //   2. Otherwise build from `title` + year + brand and truncate by word.
+  // Google SERP cuts ~65 chars for titles and ~160 chars for descriptions.
+  const TITLE_MAX = 65;
+  const BRAND_SUFFIX = " | ConcertRide";
+
+  function truncateByWord(text: string, maxLen: number, ellipsis = "…"): string {
+    if (text.length <= maxLen) return text;
+    const slice = text.slice(0, maxLen - ellipsis.length);
+    // Cut at the last word boundary (space, en-dash, em-dash, hyphen, colon).
+    const cutMatch = slice.match(/^[\s\S]*[\s\-—–:]/);
+    const cut = cutMatch ? cutMatch[0].replace(/[\s\-—–:]+$/, "") : slice;
+    return cut + ellipsis;
+  }
+
+  function buildSeoTitle(p: NonNullable<typeof post>): string {
+    if (p.metaTitle && p.metaTitle.trim().length > 0) return p.metaTitle.trim();
+    const year = new Date(p.publishedAt).getFullYear();
+    const titleHasYear = /\b20\d{2}\b/.test(p.title);
+    // Try variants in order of preference (best CTR first):
+    // 1. title + year + brand
+    // 2. title + brand (no year)
+    // 3. title alone (truncated)
+    const withYearAndBrand = titleHasYear
+      ? `${p.title}${BRAND_SUFFIX}`
+      : `${p.title} ${year}${BRAND_SUFFIX}`;
+    if (withYearAndBrand.length <= TITLE_MAX) return withYearAndBrand;
+    const withBrand = `${p.title}${BRAND_SUFFIX}`;
+    if (withBrand.length <= TITLE_MAX) return withBrand;
+    // Truncate title body, then append brand if it still fits, otherwise
+    // just truncate without brand (rare — only for extremely long titles).
+    const bodyBudget = TITLE_MAX - BRAND_SUFFIX.length;
+    if (bodyBudget >= 20) {
+      const truncatedBody = truncateByWord(p.title, bodyBudget);
+      return `${truncatedBody}${BRAND_SUFFIX}`;
+    }
+    return truncateByWord(p.title, TITLE_MAX);
+  }
+
+  function buildSeoDescription(p: NonNullable<typeof post>): string {
+    if (p.metaDescription && p.metaDescription.trim().length > 0) {
+      return p.metaDescription.trim();
+    }
+    // Target ≤ 155 chars to leave room for any en-dash punctuation and stay
+    // well under the 160-char SERP cut.
+    return truncateByWord(p.excerpt, 155);
+  }
+
   useSeoMeta({
-    title: post
-      ? titleHasYear
-        ? `${post.title} | ConcertRide`
-        : `${post.title} ${postYear} | ConcertRide`
-      : "Artículo no encontrado",
-    description: post?.excerpt,
+    title: post ? buildSeoTitle(post) : "Artículo no encontrado",
+    description: post ? buildSeoDescription(post) : undefined,
     canonical: post ? `${SITE_URL}/blog/${post.slug}` : `${SITE_URL}/blog`,
     keywords: post?.tags.join(", "),
     ogImage: post?.coverImage?.src
+      ? (post.coverImage.src.startsWith("http") ? post.coverImage.src : `${SITE_URL}${post.coverImage.src}`)
+      : undefined,
+    // Blog hero is the coverImage <img> — preload so it becomes the LCP element
+    // before the rest of the document parses.
+    preloadImage: post?.coverImage?.src
       ? (post.coverImage.src.startsWith("http") ? post.coverImage.src : `${SITE_URL}${post.coverImage.src}`)
       : undefined,
     ogType: "article",
@@ -168,7 +232,7 @@ export default function BlogPostPage() {
     author: {
       "@type": "Person",
       name: post.author?.trim() || "ConcertRide",
-      url: `${SITE_URL}/acerca-de`,
+      url: isFounderByline(post.author) ? AUTHOR_PAGE_URL : `${SITE_URL}/acerca-de`,
       "@id": `${SITE_URL}/#founder`,
       knowsAbout: [
         "carpooling",
@@ -179,8 +243,9 @@ export default function BlogPostPage() {
         "conciertos en España",
       ],
       sameAs: [
-        "https://www.linkedin.com/company/concertride-es",
+        "https://www.linkedin.com/in/alejandrolalaguna/",
         "https://twitter.com/concertride_es",
+        "https://github.com/ALalagunaa",
       ],
     },
     publisher: { "@id": `${SITE_URL}/#organization` },
@@ -233,7 +298,7 @@ export default function BlogPostPage() {
     author: {
       "@type": "Person",
       name: post.author?.trim() || "ConcertRide",
-      url: `${SITE_URL}/acerca-de`,
+      url: isFounderByline(post.author) ? AUTHOR_PAGE_URL : `${SITE_URL}/acerca-de`,
       "@id": `${SITE_URL}/#founder`,
       knowsAbout: [
         "carpooling",
@@ -363,7 +428,18 @@ export default function BlogPostPage() {
             {post.readingMinutes} min
           </span>
           <span aria-hidden="true">·</span>
-          <span>{post.author}</span>
+          {isFounderByline(post.author) ? (
+            <Link
+              to="/autor/alejandro-lalaguna"
+              className="hover:text-cr-primary transition-colors underline-offset-2 hover:underline"
+              rel="author"
+              title={`Sobre el autor: ${post.author}`}
+            >
+              {post.author}
+            </Link>
+          ) : (
+            <span>{post.author}</span>
+          )}
         </div>
 
         <h1 className="font-display text-3xl md:text-5xl uppercase leading-[0.96]">

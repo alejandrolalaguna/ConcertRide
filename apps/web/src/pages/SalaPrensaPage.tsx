@@ -57,7 +57,7 @@ export default function SalaPrensaPage() {
 
   useSeoMeta({
     title: `Sala de prensa — ConcertRide | Datos y kit de medios ${YEAR}`,
-    description: `Datos oficiales de ConcertRide para medios: 4.200+ viajeros, 12.000+ viajes, 51 festivales cubiertos, 0% comisión. Kit de prensa, embed codes y descripción oficial para periodistas y bloggers.`,
+    description: `Datos oficiales ConcertRide: 4.200+ viajeros, 12.000+ viajes, 51 festivales, 0% comisión. Kit de prensa y embed codes para periodistas.`,
     canonical: url,
     keywords: `ConcertRide prensa, kit de prensa carpooling, datos ConcertRide, estadísticas carpooling festivales España, información medios ConcertRide`,
   });

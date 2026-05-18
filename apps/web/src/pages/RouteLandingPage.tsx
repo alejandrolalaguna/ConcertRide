@@ -8,8 +8,8 @@ import { LoadingSpinner } from "@/components/ui";
 import { useSeoMeta } from "@/lib/useSeoMeta";
 import { SITE_URL } from "@/lib/siteUrl";
 import { REGION_ISO } from "@/lib/seoConfig";
-import { generateServiceSchema } from "@/lib/schemaGenerators";
-import { ROUTE_LANDINGS_BY_SLUG } from "@/lib/routeLandings";
+import { generateServiceSchema, generateTouristTripFromRoute } from "@/lib/schemaGenerators";
+import { ROUTE_LANDINGS_BY_SLUG, type RouteLanding } from "@/lib/routeLandings";
 import { ROUTE_SEO_IMPROVEMENTS } from "@/lib/seoOverrides";
 import { BLOG_POSTS } from "@/lib/blogPosts";
 import { FestivalAlertWidget } from "@/components/FestivalAlertWidget";
@@ -20,6 +20,48 @@ import { AutoLinksForFestival, AutoLinksForRoute } from "@/lib/autoLinking";
 import { trackRouteSearch } from "@/lib/seoEvents";
 import { StickyRegBar } from "@/components/StickyRegBar";
 import { useSession } from "@/lib/session";
+
+// ---------------------------------------------------------------------------
+// generateQuotable — produces a 120–150 word self-contained passage for
+// AI extraction (GEO citation target). Answers "How do I get from [origin]
+// to [festival]?" with all key facts in a single, scannable paragraph.
+// Only uses fields guaranteed to exist on RouteLanding / OriginCity /
+// FestivalLanding. Optional fields (official_shuttle) are guarded with
+// optional chaining so the function ALWAYS returns a non-empty string.
+// ---------------------------------------------------------------------------
+function generateQuotable(route: RouteLanding): string {
+  const { originCity, festival, originData } = route;
+  const { shortName, name, city, venue, typicalDates } = festival;
+
+  // Extract numeric price bounds from range strings like "9–14 €/asiento"
+  const rangeParts = originData.concertRideRange.split("–");
+  const precioMin = (rangeParts[0] ?? "").replace(/[^0-9]/g, "") || "3";
+  const precioMax = (rangeParts[1] ?? rangeParts[0] ?? "").replace(/[^0-9]/g, "") || precioMin;
+
+  // Taxi estimate uses standard Spanish night-rate heuristic (0.8–1.4 €/km)
+  const taxiEstMin = Math.round(originData.km * 0.8);
+
+  // Optional official shuttle hint — only included when the data is present
+  const shuttleHint =
+    festival.official_shuttle?.available === true &&
+    festival.official_shuttle.price_from != null
+      ? ` El festival dispone de lanzadera oficial desde ${city} desde ${festival.official_shuttle.price_from} €/trayecto.`
+      : "";
+
+  return (
+    `El carpooling de ${originCity} a ${shortName} en ConcertRide cuesta entre ` +
+    `${precioMin} y ${precioMax} € por asiento para los ${originData.km} km de ` +
+    `trayecto, con un tiempo estimado de conducción de ${originData.drivingTime}. ` +
+    `Es la opción más económica y directa para llegar a ${name} (${venue}, ${city}): ` +
+    `los conductores van al mismo evento, ajustan el horario de salida al acceso del ` +
+    `recinto y comparten gastos de combustible sin comisión de plataforma (0 %). ` +
+    `Alternativas: taxi o VTC desde ${taxiEstMin} € el trayecto, autobús hasta ` +
+    `${city} más lanzadera (sin servicio nocturno), o coche propio.${shuttleHint} ` +
+    `El festival se celebra habitualmente ${typicalDates}. ` +
+    `Viajar en carpooling reduce las emisiones de CO₂ en un 67 % respecto a ir solo. ` +
+    `Busca tu viaje en ConcertRide directamente por el nombre del festival.`
+  );
+}
 
 export default function RouteLandingPage() {
   const { route: slug } = useParams<{ route: string }>();
@@ -49,12 +91,52 @@ export default function RouteLandingPage() {
     return `Carpooling de ${originCity} a ${festival.shortName} ${routeYear}: ${originData.km} km, ${originData.drivingTime}. Desde ${priceFrom}€/asiento sin comisión. Vuelta nocturna coordinada.`;
   })();
 
+  // 5-tier title fallback. Tier 1 is the canonical CTR-tuned pattern; subsequent
+  // tiers progressively drop year → brand → expand abbreviations to fit ≤65.
+  // The H1 + body always render the full origin name; abbreviations are purely
+  // a meta-title hygiene escape valve for ~30 long origin × long festival pairs
+  // (e.g. "Las Palmas de Gran Canaria → Jardín de las Delicias" = 80 chars).
+  const ORIGIN_ABBREV: Record<string, string> = {
+    "Las Palmas de Gran Canaria": "Las Palmas GC",
+    "Donostia / San Sebastián": "San Sebastián",
+    "Santiago de Compostela": "Santiago",
+    "Vitoria-Gasteiz": "Vitoria",
+    "Palma de Mallorca": "Palma",
+  };
+  const routeMetaTitle = (() => {
+    if (!landing) return "Ruta de carpooling";
+    const { originCity, festival } = landing;
+    const short = festival.shortName;
+    const t1 = `${originCity} → ${short} ${routeYear} desde ${priceFrom}€ · ConcertRide`;
+    // Tier 1 — fits ≤65 AND ≥40 chars (CTR-optimal floor).
+    if (t1.length >= 40 && t1.length <= 65) return t1;
+    // Tier 1a — short originCity + short festival shortName lands ≤39 chars
+    // (e.g. "Jaén → FIB 2026 desde 23€ · ConcertRide" = 39 chars). Pad with
+    // "Carpooling" keyword so the title stays ≥40 chars.
+    if (t1.length < 40) {
+      const padded = `Carpooling ${originCity} → ${short} ${routeYear} desde ${priceFrom}€ · ConcertRide`;
+      if (padded.length <= 65) return padded;
+      const padShort = `${originCity} → ${short} ${routeYear} · Carpooling ${priceFrom}€ · ConcertRide`;
+      if (padShort.length <= 65) return padShort;
+      return t1;
+    }
+    const t2 = `${originCity} → ${short} desde ${priceFrom}€ · ConcertRide`;
+    if (t2.length <= 65) return t2;
+    const t3 = `${originCity} → ${short} ${routeYear} desde ${priceFrom}€/asiento`;
+    if (t3.length <= 65) return t3;
+    const abbr = ORIGIN_ABBREV[originCity] ?? originCity;
+    const t4 = `${abbr} → ${short} ${routeYear} desde ${priceFrom}€ · ConcertRide`;
+    if (t4.length <= 65) return t4;
+    const t5 = `${abbr} → ${short} desde ${priceFrom}€ · ConcertRide`;
+    if (t5.length <= 65) return t5;
+    return `${abbr} → ${short} · ${priceFrom}€/asiento`;
+  })();
+
   useSeoMeta({
     title: landing
-      // Compact pattern: `${origin} → ${short} ${year} desde ${price}€ · ConcertRide`
-      // Typical 45–60 chars, fits in SERP for 95 %+ of city-festival pairs.
-      // CTR-tested: route arrow + price + brand. Keywords ("carpooling") live in H1/desc.
-      ? routeOverride?.title ?? `${landing.originCity} → ${landing.festival.shortName} ${routeYear} desde ${priceFrom}€ · ConcertRide`
+      // Compact pattern with 5-tier fallback in `routeMetaTitle`. Curated
+      // overrides in ROUTE_SEO_IMPROVEMENTS still win when present.
+      ? routeOverride?.title ?? routeMetaTitle
       : "Ruta de carpooling",
     description: landing
       // 135–155 char target. See `routeMetaDescription` above for the 3-tier
@@ -65,6 +147,9 @@ export default function RouteLandingPage() {
     // Route-specific OG card rendered by the Worker on demand.
     // Edge-cached 7d; falls through to the global default when no landing.
     ogImage: landing ? `${SITE_URL}/api/og/route/${landing.slug}.svg` : undefined,
+    // Hero is a CSS-painted card (no <img>) — preload the OG card SVG so the
+    // browser has it ready if the LCP element ever becomes that surface.
+    preloadImage: landing ? `${SITE_URL}/api/og/route/${landing.slug}.svg` : undefined,
     ogImageAlt: landing
       ? `Carpooling ${landing.originCity} a ${landing.festival.shortName} ${routeYear} · ConcertRide`
       : "Carpooling a festivales de música en España · ConcertRide",
@@ -165,67 +250,35 @@ export default function RouteLandingPage() {
 
   const routeAbstract = `Carpooling de ${originCity} a ${festival.name} (${festival.venue}, ${festival.city}): ${originData.km} km · ${originData.drivingTime} · desde ${originData.concertRideRange}/asiento sin comisión de plataforma. Conductores verificados; pago en efectivo o Bizum el día del festival.`;
 
+  // TouristTrip schema — generated via shared helper. Includes tripOrigin /
+  // tripDestination, numeric offer price (EUR), validThrough at festival end,
+  // and subjectOf MusicEvent referencing the festival page.
   const jsonLdTrip = {
-    "@context": "https://schema.org",
-    "@type": "TouristTrip",
-    name: `Carpooling de ${originCity} a ${festival.name}`,
-    description: `Viaje compartido de ${originCity} a ${festival.name}. ${originData.km} km, ${originData.drivingTime}, desde ${originData.concertRideRange}.`,
+    ...generateTouristTripFromRoute({
+      originCity,
+      festival: {
+        name: festival.name,
+        shortName: festival.shortName,
+        slug: festival.slug,
+        city: festival.city,
+        region: festival.region,
+        venue: festival.venue,
+        venueAddress: festival.venueAddress,
+        lat: festival.lat,
+        lng: festival.lng,
+        startDate: festival.startDate,
+        endDate: festival.endDate,
+      },
+      km: originData.km,
+      drivingTime: originData.drivingTime,
+      priceRange: originData.concertRideRange,
+      priceMin,
+      priceMax,
+      routeSlug: landing.slug,
+      siteUrl: SITE_URL,
+    }),
+    // Extra narrative abstract — kept inline because helper stays generic.
     abstract: routeAbstract,
-    url: `${SITE_URL}/rutas/${landing.slug}`,
-    touristType: { "@type": "Audience", audienceType: "Aficionados a la música", geographicArea: { "@type": "Country", name: "Spain" } },
-    itinerary: [
-      {
-        "@type": "Place",
-        name: originCity,
-        address: { "@type": "PostalAddress", addressLocality: originCity, addressCountry: "ES" },
-      },
-      {
-        "@type": "Place",
-        name: festival.venue,
-        address: {
-          "@type": "PostalAddress",
-          streetAddress: festival.venueAddress,
-          addressLocality: festival.city,
-          addressRegion: festival.region,
-          addressCountry: "ES",
-        },
-        geo: { "@type": "GeoCoordinates", latitude: festival.lat, longitude: festival.lng },
-      },
-    ],
-    provider: { "@type": "Organization", "@id": `${SITE_URL}/#organization` },
-    subjectOf: {
-      "@type": "MusicEvent",
-      "@id": `${SITE_URL}/festivales/${festival.slug}#event`,
-      name: festival.name,
-      startDate: festival.startDate,
-      endDate: festival.endDate,
-      location: {
-        "@type": "Place",
-        name: festival.venue,
-        address: {
-          "@type": "PostalAddress",
-          streetAddress: festival.venueAddress,
-          addressLocality: festival.city,
-          addressRegion: festival.region,
-          addressCountry: "ES",
-        },
-        geo: { "@type": "GeoCoordinates", latitude: festival.lat, longitude: festival.lng },
-      },
-    },
-    offers: {
-      "@type": "Offer",
-      price: priceMin,
-      priceSpecification: {
-        "@type": "PriceSpecification",
-        price: priceMin,
-        maxPrice: priceMax,
-        priceCurrency: "EUR",
-      },
-      priceCurrency: "EUR",
-      availability: "https://schema.org/InStock",
-      validFrom: new Date().toISOString(),
-      url: `${SITE_URL}/rutas/${landing.slug}`,
-    },
   };
 
 
@@ -564,6 +617,19 @@ export default function RouteLandingPage() {
           ConcertRide ofrece carpooling de {originCity} a {festival.name} ({festival.city}) por {originData.concertRideRange}/asiento. Distancia: {originData.km} km · {originData.drivingTime}. Sin comisión — el 100&nbsp;% del precio va al conductor.
         </p>
 
+        {/* ── AI-extractable quotable passage (GEO citation target) ── */}
+        {/* Visually subtle; primary purpose is machine readability for   */}
+        {/* ChatGPT, Perplexity, Google AI Overviews and similar engines. */}
+        <section
+          data-quotable
+          aria-label={`Resumen de la ruta ${originCity} → ${festival.shortName}`}
+          className="max-w-2xl rounded-lg border border-white/10 bg-white/5 px-4 py-3"
+        >
+          <p className="font-sans text-sm leading-relaxed text-white/70">
+            {generateQuotable(landing)}
+          </p>
+        </section>
+
         {/* Route stats */}
         <div className="flex flex-wrap gap-3 pt-2">
           <span className="inline-flex items-center gap-1.5 font-mono text-[11px] text-cr-text-muted border border-cr-border px-3 py-1.5">
@@ -578,6 +644,22 @@ export default function RouteLandingPage() {
           <span className="inline-flex items-center gap-1.5 font-mono text-[11px] text-cr-text-muted border border-cr-border px-3 py-1.5">
             <Calendar size={11} /> {festival.typicalDates}
           </span>
+        </div>
+
+        {/* Hero CTAs — visible above-the-fold on mobile per UX audit */}
+        <div className="flex flex-wrap gap-3 pt-3">
+          <Link
+            to={`/concerts?city=${encodeURIComponent(festival.citySlug)}&from=${encodeURIComponent(originCity)}`}
+            className="inline-flex items-center justify-center font-sans text-sm font-bold uppercase tracking-wider bg-cr-primary text-black px-5 py-3 shadow-[4px_4px_0_0_rgba(219,255,0,0.25)] hover:shadow-[6px_6px_0_0_rgba(219,255,0,0.4)] transition-shadow"
+          >
+            Buscar plaza · desde {originData.concertRideRange.match(/(\d+)/)?.[1] ?? "3"}€
+          </Link>
+          <Link
+            to={`/publish?to=${encodeURIComponent(festival.slug)}&from=${encodeURIComponent(originCity)}`}
+            className="inline-flex items-center justify-center font-sans text-sm font-bold uppercase tracking-wider border-2 border-cr-border text-cr-text px-5 py-3 hover:border-cr-primary hover:text-cr-primary transition-colors"
+          >
+            Publicar mi viaje
+          </Link>
         </div>
       </div>
 
@@ -621,13 +703,13 @@ export default function RouteLandingPage() {
         <div className="flex flex-wrap gap-3 pt-4">
           <Link
             to="/concerts"
-            className="inline-flex items-center gap-2 font-sans text-xs font-semibold uppercase tracking-[0.12em] border-2 border-cr-primary text-cr-primary px-4 py-2 hover:bg-cr-primary hover:text-black transition-colors"
+            className="inline-flex items-center gap-2 font-sans text-sm font-semibold uppercase tracking-[0.12em] border-2 border-cr-primary text-cr-primary px-5 py-3 hover:bg-cr-primary hover:text-black transition-colors"
           >
             Buscar viaje {originCity} → {festival.shortName} <ArrowRight size={12} />
           </Link>
           <Link
             to="/publish"
-            className="inline-flex items-center gap-2 font-sans text-xs font-semibold uppercase tracking-[0.12em] border-2 border-cr-border text-cr-text-muted px-4 py-2 hover:border-cr-primary hover:text-cr-primary transition-colors"
+            className="inline-flex items-center gap-2 font-sans text-sm font-semibold uppercase tracking-[0.12em] border-2 border-cr-border text-cr-text-muted px-5 py-3 hover:border-cr-primary hover:text-cr-primary transition-colors"
           >
             Publicar viaje <ArrowRight size={12} />
           </Link>
@@ -653,7 +735,7 @@ export default function RouteLandingPage() {
             </p>
             <Link
               to="/publish"
-              className="inline-block font-sans text-xs font-semibold uppercase tracking-[0.12em] border-2 border-cr-primary text-cr-primary px-4 py-2 hover:bg-cr-primary hover:text-black transition-colors"
+              className="inline-block font-sans text-sm font-semibold uppercase tracking-[0.12em] border-2 border-cr-primary text-cr-primary px-5 py-3 hover:bg-cr-primary hover:text-black transition-colors"
             >
               Publicar viaje →
             </Link>

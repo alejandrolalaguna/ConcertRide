@@ -4,7 +4,7 @@ import { SITE_URL } from "@/lib/siteUrl";
 
 export default function CookiesPage() {
   useSeoMeta({
-    title: "Política de cookies | ConcertRide",
+    title: "Política de cookies · Carpooling festivales | ConcertRide",
     description: "Política de cookies de ConcertRide: qué cookies usamos, para qué las usamos y cómo puedes gestionar o rechazar tus preferencias de seguimiento.",
     canonical: `${SITE_URL}/cookies`,
   });

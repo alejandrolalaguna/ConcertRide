@@ -57,7 +57,7 @@ export default function HowItWorksPage() {
   useSeoMeta({
     title: "Cómo funciona el carpooling para conciertos | ConcertRide",
     description:
-      "Guía paso a paso: cómo reservar plaza en un viaje compartido a un concierto o cómo publicar tu propio viaje en ConcertRide. Gratis, sin comisiones, con conductores verificados.",
+      "Cómo reservar plaza en un viaje compartido a un concierto o publicar tu propio viaje. Gratis, sin comisiones, conductores verificados en ConcertRide.",
     canonical: `${SITE_URL}/como-funciona`,
     keywords:
       "cómo funciona carpooling conciertos, cómo reservar viaje compartido concierto, cómo publicar viaje a festival, compartir coche concierto España, cómo ir al concierto en coche compartido, carpooling festival sin comisión, conductor verificado concierto",

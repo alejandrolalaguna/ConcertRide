@@ -19,6 +19,10 @@ export function FinalCTA() {
         aria-hidden="true"
         src="https://images.unsplash.com/photo-1492684223066-81342ee5ff30?w=1800&q=80&auto=format&fit=crop"
         alt=""
+        width={1800}
+        height={1200}
+        loading="lazy"
+        decoding="async"
         className="absolute inset-0 w-full h-full object-cover object-center pointer-events-none"
       />
       {/* Dark overlay — lighter to show more image */}

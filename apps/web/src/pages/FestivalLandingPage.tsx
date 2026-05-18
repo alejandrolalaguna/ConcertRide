@@ -100,12 +100,23 @@ export default function FestivalLandingPage() {
       ? festOverride?.title ?? `Llegar a ${festival.shortName} ${festYear}: carpooling | ConcertRide`
       : "Festivales de música en España",
     description: festival
-      ? festOverride?.description ?? `${festival.shortName} ${festYear} en ${festival.venue}, ${festival.city}. Transporte: autobús, tren y carpooling desde ${festival.originCities.slice(0, 2).map((c) => c.city).join(", ")}. Cómo llegar sin coche desde ${((festival.originCities[0]?.concertRideRange ?? "3 €/asiento").split("–").at(0) ?? "3").replace(/[^0-9]/g, "") || "3"} €.`
+      ? (() => {
+          if (festOverride?.description) return festOverride.description;
+          const shortN = festival.shortName;
+          const priceRaw = ((festival.originCities[0]?.concertRideRange ?? "3 €/asiento").split("–").at(0) ?? "3").replace(/[^0-9]/g, "") || "3";
+          const cities = festival.originCities.slice(0, 2).map((c) => c.city).join(", ");
+          const withCities = `${shortN} ${festYear} en ${festival.venue}, ${festival.city}. Carpooling desde ${cities} desde ${priceRaw} €/asiento, 0% comisión.`;
+          if (withCities.length <= 160) return withCities;
+          const noVenue = `${shortN} ${festYear} en ${festival.city}. Carpooling desde ${cities} desde ${priceRaw} €/asiento, 0% comisión.`;
+          if (noVenue.length <= 160) return noVenue;
+          return `${shortN} ${festYear}: carpooling desde ${priceRaw} €/asiento, 0% comisión. Conductores verificados en ConcertRide.`;
+        })()
       : "Carpooling a festivales de música en España con ConcertRide.",
     canonical: festival
       ? `${SITE_URL}/festivales/${festival.slug}`
       : `${SITE_URL}/concerts`,
     ogImage: festivalOgImage,
+    preloadImage: festivalOgImage,
     ogImageAlt: festival
       ? `Carpooling a ${festival.shortName} ${festYear} en ${festival.city} · ConcertRide`
       : "Carpooling a festivales de música en España · ConcertRide",
@@ -802,7 +813,7 @@ export default function FestivalLandingPage() {
         {festival.quotableAnswer && (
           <section
             data-quotable
-            className="mt-4 mb-2 max-w-3xl font-sans text-base md:text-lg leading-relaxed text-cr-text"
+            className="mt-4 mb-2 max-w-3xl font-sans text-sm md:text-lg leading-relaxed text-cr-text line-clamp-3 md:line-clamp-none"
           >
             {festival.quotableAnswer}
           </section>

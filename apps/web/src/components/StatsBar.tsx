@@ -58,6 +58,10 @@ export function StatsBar() {
         aria-hidden="true"
         src="https://images.unsplash.com/photo-1429962714451-bb934ecdc4ec?w=1400&q=60&auto=format&fit=crop"
         alt=""
+        width={1400}
+        height={600}
+        loading="lazy"
+        decoding="async"
         className="absolute inset-0 w-full h-full object-cover object-center opacity-[0.12] pointer-events-none"
       />
       {/* Gradient overlays */}

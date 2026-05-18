@@ -28,6 +28,10 @@ export function AdhocRidesSection() {
         aria-hidden="true"
         src="https://images.unsplash.com/photo-1504208434309-cb69f4fe52b0?w=1400&q=40&auto=format&fit=crop"
         alt=""
+        width={1400}
+        height={800}
+        loading="lazy"
+        decoding="async"
         className="absolute inset-0 w-full h-full object-cover object-center opacity-[0.04] pointer-events-none"
       />
       <div

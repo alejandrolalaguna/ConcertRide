@@ -7,7 +7,7 @@ export default function ContactoPage() {
   useSeoMeta({
     title: "Contacto · ConcertRide | Carpooling para conciertos",
     description:
-      "Contacta con el equipo de ConcertRide. Atendemos consultas sobre viajes compartidos a conciertos, reportes de abuso, dudas legales y partnerships con festivales.",
+      "Contacta con ConcertRide. Consultas sobre viajes compartidos a conciertos, reportes, dudas legales y partnerships con festivales.",
     canonical: `${SITE_URL}/contacto`,
   });
 

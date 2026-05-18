@@ -30,6 +30,7 @@ export interface VenueLanding {
   }>;
   faqs: Array<{ q: string; a: string }>;
   relatedFestivals: string[]; // festival slugs
+  quotableAnswer?: string; // 130–150 word AI-Overview-citable answer paragraph
 }
 
 export const VENUE_LANDINGS: VenueLanding[] = [
@@ -38,6 +39,8 @@ export const VENUE_LANDINGS: VenueLanding[] = [
   {
     slug: "wizink-center",
     name: "WiZink Center",
+    quotableAnswer:
+      "WiZink Center es un recinto con capacidad para 17.000 personas en Madrid, dedicado a conciertos en formato arena y giras de gran formato. Está conectado con el centro de Madrid mediante metro directo (10–20 minutos), y la estación de transporte público más cercana es Metro L2 Ventas. Las opciones para llegar son: (1) Metro L2 Ventas (200 m) (1,50–2,50 €); (2) Autobús urbano Líneas 21, 146 (1,50–2 €); (3) Vehículo propio: Sin parking propio — zonas ORA y aparcamientos cercanos (6–10 €/día). El carpooling desde Zaragoza, Valencia, Bilbao cuesta 9–20 €/asiento. Para volver de madrugada, la opción más utilizada es el bus nocturno o el carpooling de vuelta con ConcertRide, que coordina al conductor con el horario real del concierto. ConcertRide coordina viaje, entrada y grupo en un único punto, sin comisión de plataforma.",
     shortName: "WiZink Center",
     city: "Madrid",
     citySlug: "madrid",
@@ -89,6 +92,8 @@ export const VENUE_LANDINGS: VenueLanding[] = [
   {
     slug: "palacio-vistalegre",
     name: "Palacio Vistalegre",
+    quotableAnswer:
+      "Palacio Vistalegre es un recinto con capacidad para 10.000 personas en Madrid, dedicado a conciertos en formato arena y giras de gran formato. Está conectado con el centro de Madrid mediante metro directo (10–20 minutos), y la estación de transporte público más cercana es Metro L5 Carabanchel. Las opciones para llegar son: (1) Metro L5 Carabanchel (600 m) (1,50–2,50 €); (2) Autobús urbano Líneas 35, 56, 116 (1,50–2 €); (3) Vehículo propio: Parking Vistalegre: 8 €/día. El carpooling desde Toledo, Zaragoza, Valencia cuesta 4–20 €/asiento. Para volver de madrugada, la opción más utilizada es el bus nocturno o el carpooling de vuelta con ConcertRide, que coordina al conductor con el horario real del concierto. ConcertRide coordina viaje, entrada y grupo en un único punto, sin comisión de plataforma.",
     shortName: "Vistalegre",
     city: "Madrid",
     citySlug: "madrid",
@@ -140,6 +145,8 @@ export const VENUE_LANDINGS: VenueLanding[] = [
   {
     slug: "ifema-madrid",
     name: "IFEMA Madrid · Recintos de festival",
+    quotableAnswer:
+      "IFEMA Madrid · Recintos de festival es un recinto con capacidad para 80.000 personas/día (grandes festivales) en Madrid, dedicado a festivales al aire libre y macroconciertos. Está conectado con el centro de Madrid mediante metro directo (10–20 minutos), y la estación de transporte público más cercana es Metro L8 Feria de Madrid. Las opciones para llegar son: (1) Metro L8 Feria de Madrid (acceso directo) (1,50–2,50 €); (2) Autobús urbano N1, N6 (nocturnos — no acceden a IFEMA directamente) (1,50–2 €); (3) Vehículo propio: Parking IFEMA: 12–18 €/día; colapsa desde las 18:00. El carpooling desde Madrid, Toledo, Zaragoza cuesta 4–20 €/asiento. Para volver de madrugada, la opción más utilizada es el bus nocturno o el carpooling de vuelta con ConcertRide, que coordina al conductor con el horario real del concierto. ConcertRide coordina viaje, entrada y grupo en un único punto, sin comisión de plataforma.",
     shortName: "IFEMA Madrid",
     city: "Madrid",
     citySlug: "madrid",
@@ -191,6 +198,8 @@ export const VENUE_LANDINGS: VenueLanding[] = [
   {
     slug: "caja-magica",
     name: "Caja Mágica",
+    quotableAnswer:
+      "Caja Mágica es un recinto con capacidad para 20.000 personas en Madrid, dedicado a conciertos y eventos multidisciplinares. Está conectado con el centro de Madrid mediante metro directo (10–20 minutos), y la estación de transporte público más cercana es Metro L3 San Fermín-Orcasur. Las opciones para llegar son: (1) Metro L3 San Fermín-Orcasur (1,2 km) (1,50–2,50 €); (2) Autobús urbano Circular C1 (entrada principal) (1,50–2 €); (3) Vehículo propio: Parking exterior gratuito en días no laborables; parking de pago en eventos: 8 €. El carpooling desde Getafe, Toledo, Zaragoza cuesta 3–18 €/asiento. Para volver de madrugada, la opción más utilizada es el bus nocturno o el carpooling de vuelta con ConcertRide, que coordina al conductor con el horario real del concierto. ConcertRide coordina viaje, entrada y grupo en un único punto, sin comisión de plataforma.",
     shortName: "Caja Mágica",
     city: "Madrid",
     citySlug: "madrid",
@@ -244,6 +253,8 @@ export const VENUE_LANDINGS: VenueLanding[] = [
   {
     slug: "palau-sant-jordi",
     name: "Palau Sant Jordi",
+    quotableAnswer:
+      "Palau Sant Jordi es un recinto con capacidad para 17.000 personas en Barcelona, dedicado a conciertos en formato arena y giras de gran formato. Está conectado con el centro de Barcelona mediante metro directo (10–20 minutos), y la estación de transporte público más cercana es Metro L1 Espanya. Las opciones para llegar son: (1) Metro L1 Espanya (15 min a pie subiendo Montjuïc) (1,50–2,50 €); (2) Autobús urbano Líneas 55, 150 (1,50–2 €); (3) Vehículo propio: Parking Anella Olímpica: 10 €/día; plazas limitadas. El carpooling desde Tarragona, Girona, Zaragoza cuesta 4–20 €/asiento. Para volver de madrugada, la opción más utilizada es el bus nocturno o el carpooling de vuelta con ConcertRide, que coordina al conductor con el horario real del concierto. ConcertRide coordina viaje, entrada y grupo en un único punto, sin comisión de plataforma.",
     shortName: "Palau Sant Jordi",
     city: "Barcelona",
     citySlug: "barcelona",
@@ -295,6 +306,8 @@ export const VENUE_LANDINGS: VenueLanding[] = [
   {
     slug: "parc-del-forum",
     name: "Parc del Fòrum",
+    quotableAnswer:
+      "Parc del Fòrum es un recinto con capacidad para 60.000 personas (festival) en Barcelona, dedicado a festivales al aire libre y macroconciertos. Está conectado con el centro de Barcelona mediante metro directo (10–20 minutos), y la estación de transporte público más cercana es Metro L4 Besòs Mar. Las opciones para llegar son: (1) Metro L4 Besòs Mar (acceso directo al recinto) (1,50–2,50 €); (2) Autobús urbano Tramvia T4 (parada Fòrum) (1,50–2 €); (3) Vehículo propio: Parking Fòrum: 12 €/día; acceso por Rambla Prim. El carpooling desde Tarragona, Lleida, Zaragoza cuesta 4–20 €/asiento. Para volver de madrugada, la opción más utilizada es el bus nocturno o el carpooling de vuelta con ConcertRide, que coordina al conductor con el horario real del concierto. ConcertRide coordina viaje, entrada y grupo en un único punto, sin comisión de plataforma.",
     shortName: "Parc del Fòrum",
     city: "Barcelona",
     citySlug: "barcelona",
@@ -348,6 +361,8 @@ export const VENUE_LANDINGS: VenueLanding[] = [
   {
     slug: "estadio-la-cartuja",
     name: "Estadio Olímpico de La Cartuja",
+    quotableAnswer:
+      "Estadio Olímpico de La Cartuja es un recinto con capacidad para 57.000 personas en Sevilla, dedicado a grandes conciertos, festivales y eventos deportivos. Está conectado con el centro de Sevilla por tren de cercanías (15–25 minutos), y la estación de transporte público más cercana es tren Sin conexión ferroviaria directa — estación Santa Justa a 6 km. Las opciones para llegar son: (1) Autobús urbano Líneas C1, C2 desde Prado de San Sebastián (1,50–2 €); (2) Renfe Sin conexión ferroviaria directa — estación Santa Justa a 6 km (2–5 €); (3) Vehículo propio: Parking propio: 8–12 €/día; aparcamiento disuasorio Charco de la Pava. El carpooling desde Huelva, Cádiz, Córdoba cuesta 4–18 €/asiento. Para volver de madrugada, la opción más utilizada es el carpooling con ConcertRide, que coordina la vuelta con el horario real del concierto. ConcertRide coordina viaje, entrada y grupo en un único punto, sin comisión de plataforma.",
     shortName: "La Cartuja",
     city: "Sevilla",
     citySlug: "sevilla",
@@ -401,6 +416,8 @@ export const VENUE_LANDINGS: VenueLanding[] = [
   {
     slug: "kobetamendi",
     name: "Kobetamendi",
+    quotableAnswer:
+      "Kobetamendi es un recinto con capacidad para 30.000 personas/día en Bilbao, dedicado a festivales al aire libre y macroconciertos. Está conectado con el centro de Bilbao mediante metro directo (10–20 minutos), y la estación de transporte público más cercana es Metro L1/L2 San Ignacio o Basurto. Las opciones para llegar son: (1) Metro L1/L2 San Ignacio o Basurto (1,5–2 km del recinto) + lanzadera BBK Live (1,50–2,50 €); (2) Autobús urbano Lanzadera oficial gratuita desde Plaza Moyúa durante BBK Live (1,50–2 €); (3) Taxi/VTC al centro: 8–20 €. El carpooling desde Vitoria-Gasteiz, Santander, San Sebastián cuesta 3–16 €/asiento. Para volver de madrugada, la opción más utilizada es el bus nocturno o el carpooling de vuelta con ConcertRide, que coordina al conductor con el horario real del concierto. ConcertRide coordina viaje, entrada y grupo en un único punto, sin comisión de plataforma.",
     shortName: "Kobetamendi",
     city: "Bilbao",
     citySlug: "bilbao",
@@ -453,6 +470,8 @@ export const VENUE_LANDINGS: VenueLanding[] = [
   {
     slug: "fira-barcelona",
     name: "Fira de Barcelona (Gran Via)",
+    quotableAnswer:
+      "Fira de Barcelona (Gran Via) es un recinto con capacidad para Variable (hasta 40.000) en Barcelona, dedicado a festivales al aire libre y macroconciertos. Está conectado con el centro de Barcelona mediante metro directo (10–20 minutos), y la estación de transporte público más cercana es Metro L1 Europa/Fira. Las opciones para llegar son: (1) Metro L1 Europa/Fira (acceso directo) (1,50–2,50 €); (2) Autobús urbano Lanzadera Sónar Day desde Fira Montjuïc (1,50–2 €); (3) Renfe Cercanías R5/R6 (estación Europa/Fira, acceso directo) (2–5 €). El carpooling desde Tarragona, Girona, Zaragoza cuesta 4–20 €/asiento. Para volver de madrugada, la opción más utilizada es el bus nocturno o el carpooling de vuelta con ConcertRide, que coordina al conductor con el horario real del concierto. ConcertRide coordina viaje, entrada y grupo en un único punto, sin comisión de plataforma.",
     shortName: "Fira de Barcelona",
     city: "Barcelona",
     citySlug: "barcelona",
@@ -504,6 +523,8 @@ export const VENUE_LANDINGS: VenueLanding[] = [
   {
     slug: "palau-blaugrana",
     name: "Palau Blaugrana",
+    quotableAnswer:
+      "Palau Blaugrana es un recinto con capacidad para 7.500 personas en Barcelona, dedicado a conciertos en formato arena y giras de gran formato. Está conectado con el centro de Barcelona mediante metro directo (10–20 minutos), y la estación de transporte público más cercana es Metro L3 Palau Reial. Las opciones para llegar son: (1) Metro L3 Palau Reial (800 m) (1,50–2,50 €); (2) Autobús urbano Líneas 7, 15, 67 (1,50–2 €); (3) Vehículo propio: Parking Camp Nou (Travessera de les Corts): 6–8 €/día. El carpooling desde Tarragona, Lleida, Zaragoza cuesta 4–20 €/asiento. Para volver de madrugada, la opción más utilizada es el bus nocturno o el carpooling de vuelta con ConcertRide, que coordina al conductor con el horario real del concierto. ConcertRide coordina viaje, entrada y grupo en un único punto, sin comisión de plataforma.",
     shortName: "Palau Blaugrana",
     city: "Barcelona",
     citySlug: "barcelona",
@@ -555,6 +576,8 @@ export const VENUE_LANDINGS: VenueLanding[] = [
   {
     slug: "estadio-santiago-bernabeu",
     name: "Estadio Santiago Bernabéu",
+    quotableAnswer:
+      "Estadio Santiago Bernabéu es un recinto con capacidad para 85.000 personas en Madrid, dedicado a grandes conciertos, festivales y eventos deportivos. Está conectado con el centro de Madrid mediante metro directo (10–20 minutos), y la estación de transporte público más cercana es Metro L10 Santiago Bernabéu. Las opciones para llegar son: (1) Metro L10 Santiago Bernabéu (puerta) (1,50–2,50 €); (2) Autobús urbano Líneas 14, 27, 40, 43, 120, 147, 150 (1,50–2 €); (3) Vehículo propio: Parking propio Bernabéu Stadium (15–25 €/noche en concierto) — colapsado siempre. El carpooling desde Toledo, Guadalajara, Zaragoza cuesta 3–20 €/asiento. Para volver de madrugada, la opción más utilizada es el bus nocturno o el carpooling de vuelta con ConcertRide, que coordina al conductor con el horario real del concierto. ConcertRide coordina viaje, entrada y grupo en un único punto, sin comisión de plataforma.",
     shortName: "Bernabéu",
     city: "Madrid",
     citySlug: "madrid",
@@ -608,6 +631,8 @@ export const VENUE_LANDINGS: VenueLanding[] = [
   {
     slug: "estadio-civitas-metropolitano",
     name: "Estadio Cívitas Metropolitano",
+    quotableAnswer:
+      "Estadio Cívitas Metropolitano es un recinto con capacidad para 68.000 personas en Madrid, dedicado a grandes conciertos, festivales y eventos deportivos. Está conectado con el centro de Madrid mediante metro directo (10–20 minutos), y la estación de transporte público más cercana es Metro L7 Estadio Metropolitano. Las opciones para llegar son: (1) Metro L7 Estadio Metropolitano (puerta del estadio, 3 min andando) (1,50–2,50 €); (2) Autobús urbano Líneas 38, 140, 263 (1,50–2 €); (3) Vehículo propio: Parking Metropolitano (5–10 €/coche en concierto, capacidad 1.500 plazas). El carpooling desde Toledo, Alcalá de Henares, Zaragoza cuesta 3–20 €/asiento. Para volver de madrugada, la opción más utilizada es el bus nocturno o el carpooling de vuelta con ConcertRide, que coordina al conductor con el horario real del concierto. ConcertRide coordina viaje, entrada y grupo en un único punto, sin comisión de plataforma.",
     shortName: "Metropolitano",
     city: "Madrid",
     citySlug: "madrid",
@@ -661,6 +686,8 @@ export const VENUE_LANDINGS: VenueLanding[] = [
   {
     slug: "estadi-olimpic-lluis-companys",
     name: "Estadi Olímpic Lluís Companys",
+    quotableAnswer:
+      "Estadi Olímpic Lluís Companys es un recinto con capacidad para 55.000 personas en Barcelona, dedicado a grandes conciertos, festivales y eventos deportivos. Está conectado con el centro de Barcelona mediante metro directo (10–20 minutos), y la estación de transporte público más cercana es Metro L1/L3 Plaça Espanya. Las opciones para llegar son: (1) Metro L1/L3 Plaça Espanya (15 min andando + escaleras mecánicas Montjuïc) (1,50–2,50 €); (2) Autobús urbano Bus Montjuïc 50 (1,50–2 €); (3) Vehículo propio: Parking Anella Olímpica (10–15 €/coche en concierto, capacidad limitada). El carpooling desde Sabadell, Tarragona, Lleida cuesta 3–22 €/asiento. Para volver de madrugada, la opción más utilizada es el bus nocturno o el carpooling de vuelta con ConcertRide, que coordina al conductor con el horario real del concierto. ConcertRide coordina viaje, entrada y grupo en un único punto, sin comisión de plataforma.",
     shortName: "Estadi Olímpic",
     city: "Barcelona",
     citySlug: "barcelona",
@@ -714,6 +741,8 @@ export const VENUE_LANDINGS: VenueLanding[] = [
   {
     slug: "roig-arena",
     name: "Roig Arena Valencia",
+    quotableAnswer:
+      "Roig Arena Valencia es un recinto con capacidad para 20.000 personas en Valencia, dedicado a conciertos en formato arena y giras de gran formato. Está conectado con el centro de Valencia mediante metro directo (10–20 minutos), y la estación de transporte público más cercana es Metro L4 Tarongers. Las opciones para llegar son: (1) Metro L4 Tarongers (5 min andando) (1,50–2,50 €); (2) Autobús urbano EMT 30, 31 (1,50–2 €); (3) Vehículo propio: Parking propio en construcción (capacidad prevista 2.500 plazas). El carpooling desde Castellón, Gandia, Alicante cuesta 3–14 €/asiento. Para volver de madrugada, la opción más utilizada es el bus nocturno o el carpooling de vuelta con ConcertRide, que coordina al conductor con el horario real del concierto. ConcertRide coordina viaje, entrada y grupo en un único punto, sin comisión de plataforma.",
     shortName: "Roig Arena",
     city: "Valencia",
     citySlug: "valencia",
@@ -768,6 +797,8 @@ export const VENUE_LANDINGS: VenueLanding[] = [
   {
     slug: "fibes-sevilla",
     name: "FIBES Palacio de Exposiciones y Congresos de Sevilla",
+    quotableAnswer:
+      "FIBES Palacio de Exposiciones y Congresos de Sevilla es un recinto con capacidad para 9.500 personas (Pabellón Principal) en Sevilla, dedicado a festivales al aire libre y macroconciertos. Está conectado con el centro de Sevilla mediante metro directo (10–20 minutos), y la estación de transporte público más cercana es Metro L1 Cocheras. Las opciones para llegar son: (1) Metro L1 Cocheras (15 min andando) (1,50–2,50 €); (2) Autobús urbano Tussam 27, 28 (1,50–2 €); (3) Vehículo propio: Parking propio FIBES (3–6 €/coche, capacidad 2.000 plazas). El carpooling desde Huelva, Jerez de la Frontera, Cádiz cuesta 4–20 €/asiento. Para volver de madrugada, la opción más utilizada es el bus nocturno o el carpooling de vuelta con ConcertRide, que coordina al conductor con el horario real del concierto. ConcertRide coordina viaje, entrada y grupo en un único punto, sin comisión de plataforma.",
     shortName: "FIBES",
     city: "Sevilla",
     citySlug: "sevilla",
@@ -812,6 +843,8 @@ export const VENUE_LANDINGS: VenueLanding[] = [
   {
     slug: "bilbao-arena",
     name: "Bilbao Arena Miribilla",
+    quotableAnswer:
+      "Bilbao Arena Miribilla es un recinto con capacidad para 10.014 personas en Bilbao, dedicado a conciertos en formato arena y giras de gran formato. Está conectado con el centro de Bilbao mediante metro directo (10–20 minutos), y la estación de transporte público más cercana es Metro L2 Miribilla. Las opciones para llegar son: (1) Metro L2 Miribilla (5 min andando) (1,50–2,50 €); (2) Autobús urbano Bilbobus 1, 38, 56, 71 (1,50–2 €); (3) Vehículo propio: Parking subterráneo Miribilla (3–6 €/coche). El carpooling desde Vitoria-Gasteiz, Donostia, Santander cuesta 3–22 €/asiento. Para volver de madrugada, la opción más utilizada es el bus nocturno o el carpooling de vuelta con ConcertRide, que coordina al conductor con el horario real del concierto. ConcertRide coordina viaje, entrada y grupo en un único punto, sin comisión de plataforma.",
     shortName: "Bilbao Arena",
     city: "Bilbao",
     citySlug: "bilbao",
@@ -857,6 +890,8 @@ export const VENUE_LANDINGS: VenueLanding[] = [
   {
     slug: "pabellon-principe-felipe-zaragoza",
     name: "Pabellón Príncipe Felipe",
+    quotableAnswer:
+      "Pabellón Príncipe Felipe es un recinto con capacidad para 10.744 personas en Zaragoza, dedicado a conciertos en formato arena y giras de gran formato. Está conectado con el centro de Zaragoza mediante metro directo (10–20 minutos), y la estación de transporte público más cercana es Metro Tranvía L1 Plaza San Francisco / Plaza Aragón. Las opciones para llegar son: (1) Metro Tranvía L1 Plaza San Francisco / Plaza Aragón (15 min andando) (1,50–2,50 €); (2) Autobús urbano Líneas 21, 22, 32, 35, Ci1, Ci2 (1,50–2 €); (3) Vehículo propio: Sin parking propio — zonas ORA y aparcamientos cercanos (Plaza Pilar, San Pablo). El carpooling desde Huesca, Pamplona, Logroño cuesta 3–13 €/asiento. Para volver de madrugada, la opción más utilizada es el bus nocturno o el carpooling de vuelta con ConcertRide, que coordina al conductor con el horario real del concierto. ConcertRide coordina viaje, entrada y grupo en un único punto, sin comisión de plataforma.",
     shortName: "Príncipe Felipe Zaragoza",
     city: "Zaragoza",
     citySlug: "zaragoza",
@@ -905,6 +940,8 @@ export const VENUE_LANDINGS: VenueLanding[] = [
   {
     slug: "espacio-expo-zaragoza",
     name: "Espacio Expo Zaragoza",
+    quotableAnswer:
+      "Espacio Expo Zaragoza es un recinto con capacidad para 30.000 personas en Zaragoza, dedicado a festivales al aire libre y macroconciertos. Está conectado con el centro de Zaragoza mediante metro directo (10–20 minutos), y la estación de transporte público más cercana es Metro Tranvía L1. Las opciones para llegar son: (1) Metro Tranvía L1 (parada Expo, acceso directo al recinto) (1,50–2,50 €); (2) Autobús urbano Líneas Ci1, Ci2 (1,50–2 €); (3) Vehículo propio: Parking gratuito zona Expo — amplias explanadas junto al recinto. El carpooling desde Pamplona, Barcelona, Valencia cuesta 5–13 €/asiento. Para volver de madrugada, la opción más utilizada es el bus nocturno o el carpooling de vuelta con ConcertRide, que coordina al conductor con el horario real del concierto. ConcertRide coordina viaje, entrada y grupo en un único punto, sin comisión de plataforma.",
     shortName: "Espacio Expo",
     city: "Zaragoza",
     citySlug: "zaragoza",
@@ -958,6 +995,8 @@ export const VENUE_LANDINGS: VenueLanding[] = [
   {
     slug: "parc-del-forum-barcelona",
     name: "Parc del Fòrum (Barcelona)",
+    quotableAnswer:
+      "Parc del Fòrum (Barcelona) es un recinto con capacidad para 60.000 personas en Barcelona, dedicado a festivales al aire libre y macroconciertos. Está conectado con el centro de Barcelona mediante metro directo (10–20 minutos), y la estación de transporte público más cercana es Metro L4 Besòs Mar. Las opciones para llegar son: (1) Metro L4 Besòs Mar (10 min a pie hasta el recinto) (1,50–2,50 €); (2) Autobús urbano H14, H16, bus 7 (1,50–2 €); (3) Vehículo propio: Parking Fòrum: 25–35 €/día, máx. 500 plazas — prácticamente inaccesible en festival. El carpooling desde Tarragona, Zaragoza, Valencia cuesta 4–20 €/asiento. Para volver de madrugada, la opción más utilizada es el bus nocturno o el carpooling de vuelta con ConcertRide, que coordina al conductor con el horario real del concierto. ConcertRide coordina viaje, entrada y grupo en un único punto, sin comisión de plataforma.",
     shortName: "Parc del Fòrum",
     city: "Barcelona",
     citySlug: "barcelona",
@@ -1011,6 +1050,8 @@ export const VENUE_LANDINGS: VenueLanding[] = [
   {
     slug: "movistar-arena",
     name: "Movistar Arena",
+    quotableAnswer:
+      "Movistar Arena es un recinto con capacidad para 16.291–20.000 personas en Madrid, dedicado a conciertos en formato arena y giras de gran formato. Está conectado con el centro de Madrid mediante metro directo (10–20 minutos), y la estación de transporte público más cercana es Metro L5 Ventas. Las opciones para llegar son: (1) Metro L5 Ventas (5 min a pie) (1,50–2,50 €); (2) Autobús urbano Líneas 21, 53, 63, 106 (parada Ventas) (1,50–2 €); (3) Taxi/VTC al centro: 8–20 €. El carpooling desde Zaragoza, Valencia, Sevilla cuesta 9–20 €/asiento. Para volver de madrugada, la opción más utilizada es el bus nocturno o el carpooling de vuelta con ConcertRide, que coordina al conductor con el horario real del concierto. ConcertRide coordina viaje, entrada y grupo en un único punto, sin comisión de plataforma.",
     shortName: "Movistar Arena",
     city: "Madrid",
     citySlug: "madrid",
@@ -1062,6 +1103,8 @@ export const VENUE_LANDINGS: VenueLanding[] = [
   {
     slug: "bizkaia-arena-bec",
     name: "Bizkaia Arena – BEC",
+    quotableAnswer:
+      "Bizkaia Arena – BEC es un recinto con capacidad para 26.000 personas en Barakaldo, dedicado a conciertos en formato arena y giras de gran formato. Está conectado con el centro de Barakaldo mediante metro directo (10–20 minutos), y la estación de transporte público más cercana es Metro L2 Ansio. Las opciones para llegar son: (1) Metro L2 Ansio (5 min a pie) — servicio frecuente desde Bilbao y San Sebastián (1,50–2,50 €); (2) Autobús urbano Bizkaibus A3247 desde Bilbao Termibus (1,50–2 €); (3) Taxi/VTC al centro: 8–20 €. El carpooling desde Vitoria, Donostia, Pamplona cuesta 3–16 €/asiento. Para volver de madrugada, la opción más utilizada es el bus nocturno o el carpooling de vuelta con ConcertRide, que coordina al conductor con el horario real del concierto. ConcertRide coordina viaje, entrada y grupo en un único punto, sin comisión de plataforma.",
     shortName: "Bizkaia Arena",
     city: "Barakaldo",
     citySlug: "bilbao",
@@ -1113,6 +1156,8 @@ export const VENUE_LANDINGS: VenueLanding[] = [
   {
     slug: "estadio-mestalla-valencia",
     name: "Estadio de Mestalla",
+    quotableAnswer:
+      "Estadio de Mestalla es un recinto con capacidad para 55.000 personas en Valencia, dedicado a grandes conciertos, festivales y eventos deportivos. Está conectado con el centro de Valencia mediante metro directo (10–20 minutos), y la estación de transporte público más cercana es Metro L5 y L7 Aragón. Las opciones para llegar son: (1) Metro L5 y L7 Aragón (10 min a pie del estadio) (1,50–2,50 €); (2) Autobús urbano EMT Valencia líneas 10, 10A, 79 (parada Mestalla) (1,50–2 €); (3) Taxi/VTC al centro: 8–20 €. El carpooling desde Alicante, Zaragoza, Madrid cuesta 5–14 €/asiento. Para volver de madrugada, la opción más utilizada es el bus nocturno o el carpooling de vuelta con ConcertRide, que coordina al conductor con el horario real del concierto. ConcertRide coordina viaje, entrada y grupo en un único punto, sin comisión de plataforma.",
     shortName: "Mestalla",
     city: "Valencia",
     citySlug: "valencia",
@@ -1164,6 +1209,8 @@ export const VENUE_LANDINGS: VenueLanding[] = [
   {
     slug: "estadio-la-romareda",
     name: "Estadio de La Romareda",
+    quotableAnswer:
+      "Estadio de La Romareda es un recinto con capacidad para 34.500 personas en Zaragoza, dedicado a grandes conciertos, festivales y eventos deportivos. Está conectado con el centro de Zaragoza mediante metro directo (10–20 minutos), y la estación de transporte público más cercana es Metro Tranvía línea 1 — parada Romareda. Las opciones para llegar son: (1) Metro Tranvía línea 1 — parada Romareda (frente al estadio) (1,50–2,50 €); (2) Autobús urbano Líneas 23, 30, 38 y 44 de Avanza Zaragoza (1,50–2 €); (3) Vehículo propio: Parking Romareda (sótano del estadio, 8–15 € evento). El carpooling desde Huesca, Pamplona, Logroño cuesta 3–13 €/asiento. Para volver de madrugada, la opción más utilizada es el bus nocturno o el carpooling de vuelta con ConcertRide, que coordina al conductor con el horario real del concierto. ConcertRide coordina viaje, entrada y grupo en un único punto, sin comisión de plataforma.",
     shortName: "La Romareda",
     city: "Zaragoza",
     citySlug: "zaragoza",
@@ -1220,6 +1267,8 @@ export const VENUE_LANDINGS: VenueLanding[] = [
   {
     slug: "estadio-gran-canaria",
     name: "Estadio de Gran Canaria",
+    quotableAnswer:
+      "Estadio de Gran Canaria es un recinto con capacidad para 32.000 personas en Las Palmas de Gran Canaria, dedicado a grandes conciertos, festivales y eventos deportivos. Está a 5–15 km del centro de Las Palmas de Gran Canaria, accesible en autobús urbano o taxi (15–30 minutos), y la estación de transporte público más cercana es bus urbano Guagua. Las opciones para llegar son: (1) Autobús urbano Guagua (autobús Global) líneas 12, 13, 25 — parada Estadio Gran Canaria (15 min desde el centro) (1,50–2 €); (2) Vehículo propio: Parking municipal Estadio Gran Canaria (6–12 € evento); (3) Taxi/VTC al centro: 8–20 €. El carpooling desde Maspalomas, Playa del Inglés, Telde cuesta 3–7 €/asiento. Para volver de madrugada, la opción más utilizada es el carpooling con ConcertRide, que coordina la vuelta con el horario real del concierto. ConcertRide coordina viaje, entrada y grupo en un único punto, sin comisión de plataforma.",
     shortName: "Estadio Gran Canaria",
     city: "Las Palmas de Gran Canaria",
     citySlug: "las-palmas-de-gran-canaria",
@@ -1268,6 +1317,8 @@ export const VENUE_LANDINGS: VenueLanding[] = [
   {
     slug: "estadio-la-rosaleda",
     name: "Estadio La Rosaleda",
+    quotableAnswer:
+      "Estadio La Rosaleda es un recinto con capacidad para 30.044 personas en Málaga, dedicado a grandes conciertos, festivales y eventos deportivos. Está conectado con el centro de Málaga mediante metro directo (10–20 minutos), y la estación de transporte público más cercana es Metro Metro de Málaga línea 2 — parada Guadalmedina. Las opciones para llegar son: (1) Metro Metro de Málaga línea 2 — parada Guadalmedina (5 min a pie) (1,50–2,50 €); (2) Autobús urbano EMT Málaga: líneas 11, 14, 36 — parada Estadio (1,50–2 €); (3) Vehículo propio: Parking Salamanca (300 m, 10–15 € evento). El carpooling desde Granada, Córdoba, Jaén cuesta 4–22 €/asiento. Para volver de madrugada, la opción más utilizada es el bus nocturno o el carpooling de vuelta con ConcertRide, que coordina al conductor con el horario real del concierto. ConcertRide coordina viaje, entrada y grupo en un único punto, sin comisión de plataforma.",
     shortName: "La Rosaleda",
     city: "Málaga",
     citySlug: "malaga",
@@ -1324,6 +1375,8 @@ export const VENUE_LANDINGS: VenueLanding[] = [
   {
     slug: "rcde-stadium",
     name: "RCDE Stadium",
+    quotableAnswer:
+      "RCDE Stadium es un recinto con capacidad para 40.500 personas en Cornellà de Llobregat, dedicado a grandes conciertos, festivales y eventos deportivos. Está conectado con el centro de Cornellà de Llobregat mediante metro directo (10–20 minutos), y la estación de transporte público más cercana es Metro Metro L5 — parada Cornellà Centre. Las opciones para llegar son: (1) Metro Metro L5 — parada Cornellà Centre (10 min a pie) (1,50–2,50 €); (2) Autobús urbano TMB líneas 79, L63 (1,50–2 €); (3) Vehículo propio: Parking propio estadio (10–15 € evento). El carpooling desde Tarragona, Girona, Lleida cuesta 4–20 €/asiento. Para volver de madrugada, la opción más utilizada es el bus nocturno o el carpooling de vuelta con ConcertRide, que coordina al conductor con el horario real del concierto. ConcertRide coordina viaje, entrada y grupo en un único punto, sin comisión de plataforma.",
     shortName: "RCDE Stadium",
     city: "Cornellà de Llobregat",
     citySlug: "barcelona",
@@ -1380,6 +1433,8 @@ export const VENUE_LANDINGS: VenueLanding[] = [
   {
     slug: "la-riviera",
     name: "Sala La Riviera",
+    quotableAnswer:
+      "Sala La Riviera es un recinto con capacidad para 2.500 personas en Madrid, dedicado a conciertos y eventos multidisciplinares. Está conectado con el centro de Madrid mediante metro directo (10–20 minutos), y la estación de transporte público más cercana es Metro L6/L10/R Príncipe Pío. Las opciones para llegar son: (1) Metro L6/L10/R Príncipe Pío (8 min a pie) (1,50–2,50 €); (2) Autobús urbano Líneas 41, 46, 75, 138 (1,50–2 €); (3) Vehículo propio: Parking Príncipe Pío (3–5 €/h). El carpooling desde Getafe, Toledo, Zaragoza cuesta 3–20 €/asiento. Para volver de madrugada, la opción más utilizada es el bus nocturno o el carpooling de vuelta con ConcertRide, que coordina al conductor con el horario real del concierto. ConcertRide coordina viaje, entrada y grupo en un único punto, sin comisión de plataforma.",
     shortName: "La Riviera",
     city: "Madrid",
     citySlug: "madrid",
@@ -1433,6 +1488,8 @@ export const VENUE_LANDINGS: VenueLanding[] = [
   {
     slug: "sala-apolo",
     name: "Sala Apolo",
+    quotableAnswer:
+      "Sala Apolo es un recinto con capacidad para 1.800 personas en Barcelona, dedicado a conciertos y eventos multidisciplinares. Está conectado con el centro de Barcelona mediante metro directo (10–20 minutos), y la estación de transporte público más cercana es Metro L3 Paral. Las opciones para llegar son: (1) Metro L3 Paral (1,50–2,50 €); (2) Autobús urbano Líneas 21, 121, V11 (1,50–2 €); (3) Vehículo propio: Sin parking propio — parking BSM Paral. El carpooling desde Tarragona, Girona, Lleida cuesta 4–20 €/asiento. Para volver de madrugada, la opción más utilizada es el bus nocturno o el carpooling de vuelta con ConcertRide, que coordina al conductor con el horario real del concierto. ConcertRide coordina viaje, entrada y grupo en un único punto, sin comisión de plataforma.",
     shortName: "Apolo",
     city: "Barcelona",
     citySlug: "barcelona",
@@ -1487,6 +1544,8 @@ export const VENUE_LANDINGS: VenueLanding[] = [
   {
     slug: "razzmatazz",
     name: "Razzmatazz",
+    quotableAnswer:
+      "Razzmatazz es un recinto con capacidad para 2.500 personas (5 salas) en Barcelona, dedicado a conciertos y eventos multidisciplinares. Está conectado con el centro de Barcelona mediante metro directo (10–20 minutos), y la estación de transporte público más cercana es Metro L1 Marina o Glòries. Las opciones para llegar son: (1) Metro L1 Marina o Glòries (8–10 min a pie) (1,50–2,50 €); (2) Autobús urbano Líneas 6, 7, 92, V21 (1,50–2 €); (3) Vehículo propio: Parking SABA Bolívia (3–4 €/h). El carpooling desde Tarragona, Girona, Lleida cuesta 4–20 €/asiento. Para volver de madrugada, la opción más utilizada es el bus nocturno o el carpooling de vuelta con ConcertRide, que coordina al conductor con el horario real del concierto. ConcertRide coordina viaje, entrada y grupo en un único punto, sin comisión de plataforma.",
     shortName: "Razzmatazz",
     city: "Barcelona",
     citySlug: "barcelona",
@@ -1541,6 +1600,8 @@ export const VENUE_LANDINGS: VenueLanding[] = [
   {
     slug: "sant-jordi-club",
     name: "Sant Jordi Club",
+    quotableAnswer:
+      "Sant Jordi Club es un recinto con capacidad para 4.500 personas en Barcelona, dedicado a conciertos y eventos multidisciplinares. Está conectado con el centro de Barcelona mediante metro directo (10–20 minutos), y la estación de transporte público más cercana es Metro L1/L3 Espanya + escaleras mecánicas Montjuïc. Las opciones para llegar son: (1) Metro L1/L3 Espanya + escaleras mecánicas Montjuïc (15 min) (1,50–2,50 €); (2) Autobús urbano Líneas 13, 23, 150 (Montjuïc) (1,50–2 €); (3) Vehículo propio: Parking Anella Olímpica (4 €/h). El carpooling desde Tarragona, Girona, Lleida cuesta 4–20 €/asiento. Para volver de madrugada, la opción más utilizada es el bus nocturno o el carpooling de vuelta con ConcertRide, que coordina al conductor con el horario real del concierto. ConcertRide coordina viaje, entrada y grupo en un único punto, sin comisión de plataforma.",
     shortName: "Sant Jordi Club",
     city: "Barcelona",
     citySlug: "barcelona",
@@ -1595,6 +1656,8 @@ export const VENUE_LANDINGS: VenueLanding[] = [
   {
     slug: "sala-bikini",
     name: "Sala Bikini",
+    quotableAnswer:
+      "Sala Bikini es un recinto con capacidad para 1.500 personas en Barcelona, dedicado a conciertos y eventos multidisciplinares. Está conectado con el centro de Barcelona mediante metro directo (10–20 minutos), y la estación de transporte público más cercana es Metro L3 Maria Cristina o Les Corts. Las opciones para llegar son: (1) Metro L3 Maria Cristina o Les Corts (5–7 min a pie) (1,50–2,50 €); (2) Autobús urbano Líneas 6, 7, 33, 34, 54, 59, 66, 67, 78, H6, H8 (1,50–2 €); (3) Vehículo propio: Parking L'Illa Diagonal (3 €/h, mismo edificio). El carpooling desde Tarragona, Girona, Lleida cuesta 4–20 €/asiento. Para volver de madrugada, la opción más utilizada es el bus nocturno o el carpooling de vuelta con ConcertRide, que coordina al conductor con el horario real del concierto. ConcertRide coordina viaje, entrada y grupo en un único punto, sin comisión de plataforma.",
     shortName: "Bikini",
     city: "Barcelona",
     citySlug: "barcelona",
@@ -1649,6 +1712,8 @@ export const VENUE_LANDINGS: VenueLanding[] = [
   {
     slug: "plaza-toros-las-ventas",
     name: "Plaza de Toros de Las Ventas",
+    quotableAnswer:
+      "Plaza de Toros de Las Ventas es un recinto con capacidad para 23.798 personas (configuración concierto) en Madrid, dedicado a conciertos en formato arena y giras de gran formato. Está conectado con el centro de Madrid mediante metro directo (10–20 minutos), y la estación de transporte público más cercana es Metro L2 Ventas. Las opciones para llegar son: (1) Metro L2 Ventas (acceso directo) (1,50–2,50 €); (2) Autobús urbano Líneas 12, 21, 38, 53, 74, 110, 146 (1,50–2 €); (3) Vehículo propio: Sin parking propio — Parking Forum (Av. Felipe II) 6–10€. El carpooling desde Toledo, Zaragoza, Valencia cuesta 4–20 €/asiento. Para volver de madrugada, la opción más utilizada es el bus nocturno o el carpooling de vuelta con ConcertRide, que coordina al conductor con el horario real del concierto. ConcertRide coordina viaje, entrada y grupo en un único punto, sin comisión de plataforma.",
     shortName: "Las Ventas",
     city: "Madrid",
     citySlug: "madrid",
@@ -1703,6 +1768,8 @@ export const VENUE_LANDINGS: VenueLanding[] = [
   {
     slug: "auditorio-rocio-jurado",
     name: "Auditorio Rocío Jurado",
+    quotableAnswer:
+      "Auditorio Rocío Jurado es un recinto con capacidad para 12.000 personas en Sevilla, dedicado a conciertos en formato sala y eventos culturales. Está a 5–15 km del centro de Sevilla, accesible en autobús urbano o taxi (15–30 minutos), y la estación de transporte público más cercana es bus urbano Tussam C1. Las opciones para llegar son: (1) Autobús urbano Tussam C1, C2 (circulares) hasta Estadio La Cartuja (1,50–2 €); (2) Vehículo propio: Parking gratuito anexo (limitado, llegar pronto); (3) Taxi/VTC al centro: 8–20 €. El carpooling desde Huelva, Cádiz, Córdoba cuesta 4–18 €/asiento. Para volver de madrugada, la opción más utilizada es el carpooling con ConcertRide, que coordina la vuelta con el horario real del concierto. ConcertRide coordina viaje, entrada y grupo en un único punto, sin comisión de plataforma.",
     shortName: "Auditorio Rocío Jurado",
     city: "Sevilla",
     citySlug: "sevilla",
@@ -1757,6 +1824,8 @@ export const VENUE_LANDINGS: VenueLanding[] = [
   {
     slug: "sala-but",
     name: "Sala But",
+    quotableAnswer:
+      "Sala But es un recinto con capacidad para 1.500 personas en Madrid, dedicado a conciertos y eventos multidisciplinares. Está conectado con el centro de Madrid mediante metro directo (10–20 minutos), y la estación de transporte público más cercana es Metro L10 Alonso Martínez. Las opciones para llegar son: (1) Metro L10 Alonso Martínez (5 min) (1,50–2,50 €); (2) Autobús urbano Líneas 3, 21, 37, 40 (1,50–2 €); (3) Vehículo propio: Sin parking propio — Parking Tribunal/Bilbao (3–5 €/h). El carpooling desde Getafe, Toledo, Zaragoza cuesta 3–20 €/asiento. Para volver de madrugada, la opción más utilizada es el bus nocturno o el carpooling de vuelta con ConcertRide, que coordina al conductor con el horario real del concierto. ConcertRide coordina viaje, entrada y grupo en un único punto, sin comisión de plataforma.",
     shortName: "But",
     city: "Madrid",
     citySlug: "madrid",
@@ -1811,6 +1880,8 @@ export const VENUE_LANDINGS: VenueLanding[] = [
   {
     slug: "plaza-toros-valencia",
     name: "Plaza de Toros de Valencia",
+    quotableAnswer:
+      "Plaza de Toros de Valencia es un recinto con capacidad para 10.500 personas en Valencia, dedicado a conciertos y eventos multidisciplinares. Está conectado con el centro de Valencia mediante metro directo (10–20 minutos), y la estación de transporte público más cercana es Metro Metro L3/L5 Xàtiva. Las opciones para llegar son: (1) Metro Metro L3/L5 Xàtiva (junto al recinto, 0 m) (1,50–2,50 €); (2) Autobús urbano EMT 13, 40, 89, 92 (1,50–2 €); (3) Renfe Renfe Estación del Norte (junto al recinto, 50 m) (2–5 €). El carpooling desde Castellón, Alicante, Murcia cuesta 3–14 €/asiento. Para volver de madrugada, la opción más utilizada es el bus nocturno o el carpooling de vuelta con ConcertRide, que coordina al conductor con el horario real del concierto. ConcertRide coordina viaje, entrada y grupo en un único punto, sin comisión de plataforma.",
     shortName: "Plaza de Toros Valencia",
     city: "Valencia",
     citySlug: "valencia",
@@ -1866,6 +1937,8 @@ export const VENUE_LANDINGS: VenueLanding[] = [
   {
     slug: "estadio-san-mames",
     name: "Estadio San Mamés",
+    quotableAnswer:
+      "Estadio San Mamés es un recinto con capacidad para 53.289 personas en Bilbao, dedicado a grandes conciertos, festivales y eventos deportivos. Está conectado con el centro de Bilbao mediante metro directo (10–20 minutos), y la estación de transporte público más cercana es Metro Metro L1/L2 San Mamés. Las opciones para llegar son: (1) Metro Metro L1/L2 San Mamés (acceso directo, 0 m) (1,50–2,50 €); (2) Autobús urbano Bilbobus A2, A3, A8, 18, 28, 38, 48, 58, 71 (1,50–2 €); (3) Renfe Renfe Cercanías C-1 / FEVE Olabeaga (10 min andando) (2–5 €). El carpooling desde Vitoria, Donostia, Santander cuesta 3–16 €/asiento. Para volver de madrugada, la opción más utilizada es el bus nocturno o el carpooling de vuelta con ConcertRide, que coordina al conductor con el horario real del concierto. ConcertRide coordina viaje, entrada y grupo en un único punto, sin comisión de plataforma.",
     shortName: "San Mamés",
     city: "Bilbao",
     citySlug: "bilbao",
@@ -1921,6 +1994,8 @@ export const VENUE_LANDINGS: VenueLanding[] = [
   {
     slug: "coliseum-a-coruna",
     name: "Coliseum da Coruña",
+    quotableAnswer:
+      "Coliseum da Coruña es un recinto con capacidad para 11.000 personas en A Coruña, dedicado a conciertos en formato arena y giras de gran formato. Está conectado con el centro de A Coruña por tren de cercanías (15–25 minutos), y la estación de transporte público más cercana es tren Renfe A Coruña San Cristóbal. Las opciones para llegar son: (1) Autobús urbano Bus urbano líneas 12, 14 (1,50–2 €); (2) Renfe Renfe A Coruña San Cristóbal (15 min en bus / 5 min en taxi) (2–5 €); (3) Vehículo propio: Parking propio gratuito (800 plazas). El carpooling desde Santiago, Lugo, Pontevedra cuesta 3–22 €/asiento. Para volver de madrugada, la opción más utilizada es el carpooling con ConcertRide, que coordina la vuelta con el horario real del concierto. ConcertRide coordina viaje, entrada y grupo en un único punto, sin comisión de plataforma.",
     shortName: "Coliseum A Coruña",
     city: "A Coruña",
     citySlug: "a-coruna",
@@ -1976,6 +2051,8 @@ export const VENUE_LANDINGS: VenueLanding[] = [
   {
     slug: "auditorio-castrelos",
     name: "Auditorio de Castrelos",
+    quotableAnswer:
+      "Auditorio de Castrelos es un recinto con capacidad para 20.000 personas (al aire libre, verano) en Vigo, dedicado a conciertos en formato sala y eventos culturales. Está conectado con el centro de Vigo por tren de cercanías (15–25 minutos), y la estación de transporte público más cercana es tren Renfe Vigo Urzáiz. Las opciones para llegar son: (1) Autobús urbano Vitrasa líneas 11, C9A, R3 (1,50–2 €); (2) Renfe Renfe Vigo Urzáiz (20 min en bus, 3,5 km) (2–5 €); (3) Vehículo propio: Parking del Parque de Castrelos (gratuito, limitado). El carpooling desde Pontevedra, Santiago, Ourense cuesta 3–22 €/asiento. Para volver de madrugada, la opción más utilizada es el carpooling con ConcertRide, que coordina la vuelta con el horario real del concierto. ConcertRide coordina viaje, entrada y grupo en un único punto, sin comisión de plataforma.",
     shortName: "Castrelos",
     city: "Vigo",
     citySlug: "vigo",
@@ -2031,6 +2108,8 @@ export const VENUE_LANDINGS: VenueLanding[] = [
   {
     slug: "marenostrum-fuengirola",
     name: "Marenostrum Fuengirola",
+    quotableAnswer:
+      "Marenostrum Fuengirola es un recinto con capacidad para 14.000 personas en Fuengirola, dedicado a festivales al aire libre y macroconciertos. Está conectado con el centro de Fuengirola por tren de cercanías (15–25 minutos), y la estación de transporte público más cercana es tren Renfe Cercanías C-1 Málaga–Fuengirola. Las opciones para llegar son: (1) Autobús urbano Avanza M-110 / M-220 desde Málaga (1,50–2 €); (2) Renfe Renfe Cercanías C-1 Málaga–Fuengirola (45 min desde María Zambrano) (2–5 €); (3) Vehículo propio: Sin parking propio — aparcamientos públicos Fuengirola Sur (2–4 €/día). El carpooling desde Málaga, Granada, Córdoba cuesta 3–20 €/asiento. Para volver de madrugada, la opción más utilizada es el carpooling con ConcertRide, que coordina la vuelta con el horario real del concierto. ConcertRide coordina viaje, entrada y grupo en un único punto, sin comisión de plataforma.",
     shortName: "Marenostrum",
     city: "Fuengirola",
     citySlug: "malaga",
@@ -2086,6 +2165,8 @@ export const VENUE_LANDINGS: VenueLanding[] = [
   {
     slug: "plaza-toros-zaragoza",
     name: "Plaza de Toros de Zaragoza (La Misericordia)",
+    quotableAnswer:
+      "Plaza de Toros de Zaragoza (La Misericordia) es un recinto con capacidad para 10.700 personas en Zaragoza, dedicado a conciertos y eventos multidisciplinares. Está conectado con el centro de Zaragoza por tren de cercanías (15–25 minutos), y la estación de transporte público más cercana es tren Renfe Zaragoza-Delicias. Las opciones para llegar son: (1) Autobús urbano Tuzsa líneas 22, 33, Ci1, Ci2 (1,50–2 €); (2) Renfe Renfe Zaragoza-Delicias (20 min andando, 1,5 km) (2–5 €); (3) Vehículo propio: Sin parking propio — Parking Plaza Toros / Parking Salduba (2–3 €/h). El carpooling desde Logroño, Pamplona, Valencia cuesta 5–13 €/asiento. Para volver de madrugada, la opción más utilizada es el carpooling con ConcertRide, que coordina la vuelta con el horario real del concierto. ConcertRide coordina viaje, entrada y grupo en un único punto, sin comisión de plataforma.",
     shortName: "Plaza Toros Zaragoza",
     city: "Zaragoza",
     citySlug: "zaragoza",
@@ -2141,6 +2222,8 @@ export const VENUE_LANDINGS: VenueLanding[] = [
   {
     slug: "reale-arena-anoeta",
     name: "Reale Arena (Estadio de Anoeta)",
+    quotableAnswer:
+      "Reale Arena (Estadio de Anoeta) es un recinto con capacidad para 39.500 personas en Donostia-San Sebastián, dedicado a grandes conciertos, festivales y eventos deportivos. Está conectado con el centro de Donostia-San Sebastián por tren de cercanías (15–25 minutos), y la estación de transporte público más cercana es tren Renfe Cercanías E2/E3 Anoeta. Las opciones para llegar son: (1) Autobús urbano Dbus líneas 17, 26, 28, 31, 33, 36 (1,50–2 €); (2) Renfe Renfe Cercanías E2/E3 Anoeta (5 min andando) + Euskotren Anoeta (2–5 €); (3) Vehículo propio: Parking propio Anoeta (uso restringido en eventos) + Parking Illunbe a 600 m. El carpooling desde Pamplona, Bilbao, Vitoria cuesta 3–22 €/asiento. Para volver de madrugada, la opción más utilizada es el carpooling con ConcertRide, que coordina la vuelta con el horario real del concierto. ConcertRide coordina viaje, entrada y grupo en un único punto, sin comisión de plataforma.",
     shortName: "Reale Arena",
     city: "Donostia-San Sebastián",
     citySlug: "donostia",

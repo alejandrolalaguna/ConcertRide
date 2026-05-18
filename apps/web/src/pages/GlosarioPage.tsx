@@ -289,7 +289,7 @@ const CATEGORIES = [
 
 const PAGE_TITLE = "Glosario de carpooling y festivales | ConcertRide";
 const PAGE_DESC =
-  "Definiciones de los términos más usados en carpooling a festivales de música en España. Qué es un conductor verificado, qué es una lanzadera, cashless, abono, headliner y más.";
+  "Definiciones de los términos clave del carpooling a festivales en España: conductor verificado, lanzadera, cashless, abono, headliner y más.";
 
 export default function GlosarioPage() {
   useSeoMeta({

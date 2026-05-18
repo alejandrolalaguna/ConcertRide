@@ -39,7 +39,7 @@ export const FESTIVAL_SEO_OVERRIDES: Record<string, { title: string; description
     keywords: `mad cool ${YEAR}, como llegar al mad cool ${YEAR}, mad cool como llegar, mad cool madrid carpooling, mad cool transporte, como ir mad cool, mad cool metro, mad cool iberdrola music, mad cool villaverde, mad cool barcelona, viaje compartido mad cool, carpooling madrid mad cool, mad cool entradas, mad cool cartel, mad cool fechas, mad cool 2026 horarios, mad cool desde barcelona`,
   },
   "bbk-live": {
-    title: `BBK Live ${YEAR} Bilbao · ConcertRide`,
+    title: `BBK Live ${YEAR} Bilbao · Carpooling Kobetamendi | ConcertRide`,
     description: `BBK Live ${YEAR} (9–11 jul, Kobetamendi Bilbao, 30.000 pers/día): lanzadera oficial GRATUITA desde Plaza Moyúa (Metro L1 Moyua, frecuencia 10 min, hasta.`,
     keywords: `bbk live ${YEAR}, bbk live carpooling, como llegar bbk live, transporte bbk live, autobús bbk live bilbao, viaje compartido kobetamendi, bbk live lanzadera, bbk live entradas, bbk live cartel, bbk live horarios, festival bilbao ${YEAR}, bbk live desde madrid, bbk live desde donostia`,
   },
@@ -501,7 +501,7 @@ export const CITY_SEO_IMPROVEMENTS: Record<string, { title: string; description:
     keywords: `conciertos Jerez ${YEAR}, conciertos en jerez de la frontera, tio pepe festival jerez, festival flamenco jerez, circuito jerez conciertos, conciertos cadiz provincia, agenda conciertos jerez`,
   },
   elche: {
-    title: `Conciertos en Elche ${YEAR} · ConcertRide`,
+    title: `Conciertos en Elche ${YEAR} · Carpooling sin comisión | ConcertRide`,
     description: `Conciertos en Elche ${YEAR}: Festival Elx (julio, mediterráneo), Pabellón Esperanza Lag (5.000), Auditorio Centro de Congresos. Carpooling sin comisión a Low.`,
     keywords: `conciertos Elche ${YEAR}, conciertos en elx, festival elx, conciertos en elche 2026, conciertos alicante provincia, carpooling elche festivales, agenda conciertos elche`,
   },
@@ -516,7 +516,7 @@ export const CITY_SEO_IMPROVEMENTS: Record<string, { title: string; description:
     keywords: `Arenal Sound Burriana, conciertos burriana, burriana arenal sound, playa burriana arenal sound, lanzadera arenal sound burriana, autobus castellon burriana, arenal sound desde valencia, beach camp burriana`,
   },
   mijas: {
-    title: `Conciertos en Mijas ${YEAR} · ConcertRide`,
+    title: `Conciertos en Mijas ${YEAR} · Cala Mijas + carpooling | ConcertRide`,
     description: `Mijas (Málaga): sede de Cala Mijas Festival ${YEAR} (2–4 oct, Cortijo de Torres). 0 % comisión, vuelta nocturna y conductores verificados en ConcertRide.`,
     keywords: `Cala Mijas Festival, conciertos en Mijas, mijas pueblo conciertos, cortijo de torres mijas, cala mijas como llegar, mijas costa del sol, carpooling mijas festival`,
   },
@@ -531,12 +531,12 @@ export const CITY_SEO_IMPROVEMENTS: Record<string, { title: string; description:
     keywords: `Marenostrum Fuengirola, conciertos Fuengirola, sohail castle park, fuengirola castle park festival, cercanias malaga fuengirola, fuengirola cala mijas, carpooling costa del sol fuengirola`,
   },
   merida: {
-    title: `Conciertos en Mérida ${YEAR} · ConcertRide`,
+    title: `Conciertos Mérida ${YEAR}: Stone & Music + carpooling | ConcertRide`,
     description: `Conciertos en Mérida ${YEAR}: Stone & Music Festival en el Teatro Romano de Mérida (siglo I a.C., 7.000 plazas, conciertos pop/rock con cabezas de cartel.`,
     keywords: `Stone Music Festival Merida, conciertos teatro romano merida, festival merida teatro clasico, conciertos extremadura, conciertos en merida 2026, carpooling merida festival`,
   },
   ibiza: {
-    title: `Conciertos en Ibiza ${YEAR} · ConcertRide`,
+    title: `Conciertos en Ibiza ${YEAR}: Ushuaïa, Hï + carpooling | ConcertRide`,
     description: `Eivissa/Ibiza ${YEAR}: David Guetta y Calvin Harris en residencias semanales — Ushuaïa (open-air, 7.000 plazas), Hï Ibiza, Pacha, Amnesia, DC10.`,
     keywords: `conciertos Ibiza ${YEAR}, ushuaia ibiza, hi ibiza, pacha ibiza, david guetta ibiza, calvin harris ibiza, conciertos eivissa, festivales ibiza electronica, ferry barcelona ibiza, eivissa carpooling`,
   },
@@ -551,12 +551,12 @@ export const CITY_SEO_IMPROVEMENTS: Record<string, { title: string; description:
     keywords: `conciertos Terrassa, festival jazz terrassa, jazz terrassa cataluña, terrassa barcelona carpooling, terrassa centre cultural, festivales catalanes`,
   },
   mataro: {
-    title: `Conciertos en Mataró ${YEAR} · ConcertRide`,
+    title: `Conciertos en Mataró ${YEAR} · Carpooling Maresme | ConcertRide`,
     description: `Conciertos en Mataró (Maresme) ${YEAR}: Teatre Monumental, Pavelló de Mataró, Maresme Music Days (verano gratuito). 0% comisión, conductores verificados.`,
     keywords: `conciertos Mataró, maresme music days, conciertos maresme, mataro barcelona carpooling, festivales costa catalana, mataro festivales`,
   },
   reus: {
-    title: `Conciertos en Reus ${YEAR} · ConcertRide`,
+    title: `Conciertos en Reus ${YEAR} · Carpooling Tarragona | ConcertRide`,
     description: `Conciertos en Reus (Tarragona) ${YEAR}: Festival Trapezi (mayo, circo contemporáneo), Teatre Bartrina, Pavelló Olímpic. 0% comisión, conductores verificados.`,
     keywords: `conciertos Reus, festival trapezi reus, conciertos tarragona provincia, teatre bartrina reus, reus barcelona carpooling, costa daurada conciertos`,
   },
@@ -566,7 +566,7 @@ export const CITY_SEO_IMPROVEMENTS: Record<string, { title: string; description:
     keywords: `conciertos Manresa, hipnotik festival manresa, kursaal manresa, manresa barcelona carpooling, bages festival, festivales catalanes`,
   },
   huesca: {
-    title: `Conciertos en Huesca ${YEAR} · ConcertRide`,
+    title: `Conciertos Huesca ${YEAR}: Pirineos Sur + carpooling | ConcertRide`,
     description: `Conciertos en Huesca ${YEAR}: Periferias Festival (otoño, world music), Festival Cine Huesca (junio), Palacio de Congresos, Pabellón Polideportivo. Hub para.`,
     keywords: `conciertos Huesca, periferias festival huesca, pirineos sur lanuza, festival cine huesca, huesca conciertos 2026, aragon festivales pirineo, carpooling huesca`,
   },
@@ -581,7 +581,7 @@ export const CITY_SEO_IMPROVEMENTS: Record<string, { title: string; description:
     keywords: `conciertos Algeciras, algeciras entre dos continentes, algeciras conciertos, conciertos campo gibraltar, carpooling andalucia algeciras, algeciras festivales`,
   },
   aviles: {
-    title: `Conciertos en Avilés ${YEAR} · ConcertRide`,
+    title: `Conciertos Avilés ${YEAR}: Centro Niemeyer + carpooling | ConcertRide`,
     description: `Conciertos en Avilés (Asturias) ${YEAR}: Centro Niemeyer (Oscar Niemeyer, plaza para 8.000 personas), Plaza de España, Pabellón Quirinal. Festival propio.`,
     keywords: `conciertos Avilés, centro niemeyer aviles, aviles festivales, conciertos asturias, aviles bbk live carpooling, festival celsius aviles`,
   },
@@ -606,12 +606,12 @@ export const CITY_SEO_IMPROVEMENTS: Record<string, { title: string; description:
     keywords: `conciertos Alcala de Henares, don juan en alcala, festival sefarad, conciertos alcala madrid, alcala henares carpooling, alcala mad cool`,
   },
   getafe: {
-    title: `Conciertos en Getafe ${YEAR} · ConcertRide`,
+    title: `Conciertos en Getafe ${YEAR} · Carpooling a Mad Cool | ConcertRide`,
     description: `Conciertos en Getafe (Madrid) ${YEAR}: Coliseum Alfonso Pérez (estadio del Getafe CF, eventos music & lifestyle), Pabellón Juan de la Cierva, Centro Cultural.`,
     keywords: `conciertos Getafe, coliseum alfonso perez conciertos, getafe madrid carpooling, getafe mad cool, getafe cf eventos`,
   },
   gandia: {
-    title: `Conciertos en Gandia ${YEAR} · ConcertRide`,
+    title: `Conciertos en Gandia ${YEAR} · Polifònic + carpooling | ConcertRide`,
     description: `Conciertos en Gandia (Valencia) ${YEAR}: Polifònic Festival (julio, indie/pop, formato playa), Tu Otro Verano Music Festival, Auditori del Raval, Pavelló.`,
     keywords: `conciertos Gandia, polifonic festival gandia, gandia valencia conciertos, gandia medusa festival, la safor festivales, gandia carpooling`,
   },

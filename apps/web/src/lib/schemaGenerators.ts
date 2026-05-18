@@ -96,6 +96,141 @@ export function generateTouristTripSchema({
   };
 }
 
+/**
+ * Full TouristTrip schema for a route landing page (/rutas/{origin}-{festival}).
+ *
+ * Emits a complete JSON-LD with:
+ *  - tripOrigin (Place, origin city)
+ *  - tripDestination (Place, festival venue + city)
+ *  - itinerary (ordered ItemList of origin -> destination Places)
+ *  - offers (numeric price/maxPrice in EUR, InStock, validFrom/validThrough)
+ *  - subjectOf (MusicEvent ref to the festival with startDate/endDate/location)
+ *  - provider (ConcertRide Organization @id)
+ *
+ * Numeric prices (NOT "12 €" strings) so Google accepts the Offer node.
+ */
+export function generateTouristTripFromRoute({
+  originCity,
+  festival,
+  km,
+  drivingTime,
+  priceRange,
+  priceMin,
+  priceMax,
+  routeSlug,
+  siteUrl,
+}: {
+  originCity: string;
+  festival: {
+    name: string;
+    shortName: string;
+    slug: string;
+    city: string;
+    region: string;
+    venue: string;
+    venueAddress: string;
+    lat: number;
+    lng: number;
+    startDate: string;
+    endDate: string;
+  };
+  km: number;
+  drivingTime: string;
+  priceRange: string;
+  priceMin: number;
+  priceMax: number;
+  routeSlug: string;
+  siteUrl: string;
+}) {
+  const routeUrl = `${siteUrl}/rutas/${routeSlug}`;
+  const originPlace = {
+    "@type": "Place",
+    name: originCity,
+    address: {
+      "@type": "PostalAddress",
+      addressLocality: originCity,
+      addressCountry: "ES",
+    },
+  };
+  const destinationPlace = {
+    "@type": "Place",
+    name: festival.venue,
+    address: {
+      "@type": "PostalAddress",
+      streetAddress: festival.venueAddress,
+      addressLocality: festival.city,
+      addressRegion: festival.region,
+      addressCountry: "ES",
+    },
+    geo: {
+      "@type": "GeoCoordinates",
+      latitude: festival.lat,
+      longitude: festival.lng,
+    },
+  };
+
+  // validThrough = the festival end date (offer is meaningful only up to that date).
+  // Fall back to +1 year from now if endDate is malformed.
+  const validThrough = (() => {
+    const d = new Date(festival.endDate);
+    if (!Number.isNaN(d.getTime())) return d.toISOString();
+    const fallback = new Date();
+    fallback.setFullYear(fallback.getFullYear() + 1);
+    return fallback.toISOString();
+  })();
+
+  return {
+    "@context": "https://schema.org",
+    "@type": "TouristTrip",
+    "@id": `${routeUrl}#trip`,
+    name: `Carpooling ${originCity} → ${festival.name}`,
+    description: `Viaje compartido de ${originCity} a ${festival.name} (${festival.venue}, ${festival.city}). ${km} km, ${drivingTime}, desde ${priceRange}/asiento sin comisión.`,
+    url: routeUrl,
+    inLanguage: "es-ES",
+    touristType: {
+      "@type": "Audience",
+      audienceType: "Aficionados a la música",
+      geographicArea: { "@type": "Country", name: "Spain" },
+    },
+    tripOrigin: originPlace,
+    tripDestination: destinationPlace,
+    itinerary: [
+      { ...originPlace },
+      { ...destinationPlace },
+    ],
+    provider: {
+      "@type": "Organization",
+      "@id": `${siteUrl}/#organization`,
+      name: "ConcertRide",
+      url: siteUrl,
+    },
+    subjectOf: {
+      "@type": "MusicEvent",
+      "@id": `${siteUrl}/festivales/${festival.slug}#event`,
+      name: festival.name,
+      startDate: festival.startDate,
+      endDate: festival.endDate,
+      location: destinationPlace,
+    },
+    offers: {
+      "@type": "Offer",
+      price: priceMin,
+      priceCurrency: "EUR",
+      availability: "https://schema.org/InStock",
+      validFrom: new Date().toISOString(),
+      validThrough,
+      url: routeUrl,
+      priceSpecification: {
+        "@type": "PriceSpecification",
+        price: priceMin,
+        minPrice: priceMin,
+        maxPrice: priceMax,
+        priceCurrency: "EUR",
+      },
+    },
+  };
+}
+
 export function generateEventSchema({
   name,
   description,

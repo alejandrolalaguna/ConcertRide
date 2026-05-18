@@ -1,0 +1,468 @@
+import { Link } from "react-router-dom";
+import { ExternalLink, Mail } from "lucide-react";
+import { useSeoMeta } from "@/lib/useSeoMeta";
+import { SITE_URL } from "@/lib/siteUrl";
+import { BLOG_POSTS, BLOG_CATEGORIES } from "@/lib/blogPosts";
+
+/**
+ * Author landing page — `/autor/alejandro-lalaguna`.
+ *
+ * E-E-A-T page: provides a canonical Person entity for the founder so that
+ * Google + AI Overviews can associate every blog post `author` field with a
+ * real, schema-marked-up person URL. Listed in `seoConfig.AUTHOR_URL` and
+ * consumed by `BlogPostPage.tsx` for the byline link + JSON-LD author.url.
+ */
+
+const AUTHOR_NAME = "Alejandro Lalaguna";
+const AUTHOR_URL = `${SITE_URL}/autor/alejandro-lalaguna`;
+const AUTHOR_EMAIL = "help@concertride.me";
+
+const SAME_AS = [
+  "https://www.linkedin.com/in/alejandrolalaguna/",
+  "https://twitter.com/concertride_es",
+  "https://github.com/ALalagunaa",
+];
+
+const KNOWS_ABOUT = [
+  "Carpooling para festivales de música",
+  "Movilidad festivalera en España",
+  "Comparativa de transporte a festivales (bus, tren, carpooling, taxi)",
+  "Sostenibilidad y huella de carbono de eventos masivos",
+  "Programmatic SEO para plataformas de movilidad",
+  "Datos de transporte de festivales en España",
+];
+
+/**
+ * Pick the last 10 posts authored by the founder or the team byline.
+ * Read-only on `BLOG_POSTS`. Filter accepts any author string containing
+ * "Alejandro" or "Equipo ConcertRide" / "ConcertRide" so future hand-signed
+ * posts also appear here automatically.
+ */
+function getAuthoredPosts() {
+  return [...BLOG_POSTS]
+    .filter((p) => {
+      const a = (p.author ?? "").toLowerCase();
+      return (
+        a.includes("alejandro") ||
+        a.includes("equipo concertride") ||
+        a === "concertride" ||
+        a === "concertride team"
+      );
+    })
+    .sort((a, b) => new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime())
+    .slice(0, 10);
+}
+
+export default function AutorAlejandroLalagunaPage() {
+  const posts = getAuthoredPosts();
+
+  useSeoMeta({
+    title: "Alejandro Lalaguna — Founder ConcertRide | Movilidad festivalera",
+    description:
+      "Founder de ConcertRide y autor de guías de carpooling festivalero en España. Datos, rutas y sostenibilidad para conciertos y festivales 2026.",
+    canonical: AUTHOR_URL,
+    keywords:
+      "Alejandro Lalaguna, founder ConcertRide, autor ConcertRide, carpooling festivales España, movilidad festivalera, autor transporte festivales",
+    ogImage: `${SITE_URL}/og/home.png`,
+    ogImageAlt: `${AUTHOR_NAME} — Founder de ConcertRide`,
+    ogType: "article",
+    articleAuthor: AUTHOR_NAME,
+    articleSection: "Autor",
+    breadcrumb: [
+      { position: 1, name: "Inicio", url: `${SITE_URL}/` },
+      { position: 2, name: "Autor", url: AUTHOR_URL },
+      { position: 3, name: AUTHOR_NAME, url: AUTHOR_URL },
+    ],
+  });
+
+  // ── JSON-LD Person ──────────────────────────────────────────────────────
+  const personSchema = {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "@id": `${SITE_URL}/#founder`,
+    name: AUTHOR_NAME,
+    givenName: "Alejandro",
+    familyName: "Lalaguna",
+    url: AUTHOR_URL,
+    mainEntityOfPage: AUTHOR_URL,
+    jobTitle: "Founder & autor",
+    description:
+      "Founder de ConcertRide (2026), plataforma española de carpooling para festivales y conciertos. Autor de guías sobre movilidad festivalera, comparativas de transporte y sostenibilidad de eventos masivos en España.",
+    worksFor: {
+      "@type": "Organization",
+      "@id": `${SITE_URL}/#organization`,
+      name: "ConcertRide ES",
+      url: SITE_URL,
+      sameAs: [
+        "https://twitter.com/concertride_es",
+        "https://www.instagram.com/concertride_es/",
+        "https://www.linkedin.com/company/concertride-es",
+        "https://www.facebook.com/concertride.me",
+      ],
+    },
+    sameAs: SAME_AS,
+    knowsAbout: KNOWS_ABOUT,
+    knowsLanguage: ["es", "en"],
+    nationality: { "@type": "Country", name: "Spain" },
+    email: `mailto:${AUTHOR_EMAIL}`,
+    image: {
+      "@type": "ImageObject",
+      url: `${SITE_URL}/og/home.png`,
+      width: 1200,
+      height: 630,
+    },
+  };
+
+  const breadcrumbSchema = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      { "@type": "ListItem", position: 1, name: "Inicio", item: `${SITE_URL}/` },
+      { "@type": "ListItem", position: 2, name: "Autor", item: AUTHOR_URL },
+      { "@type": "ListItem", position: 3, name: AUTHOR_NAME, item: AUTHOR_URL },
+    ],
+  };
+
+  const profilePageSchema = {
+    "@context": "https://schema.org",
+    "@type": "ProfilePage",
+    name: `${AUTHOR_NAME} — Founder de ConcertRide`,
+    url: AUTHOR_URL,
+    inLanguage: "es-ES",
+    dateModified: "2026-05-17",
+    mainEntity: { "@id": `${SITE_URL}/#founder` },
+    about: { "@id": `${SITE_URL}/#founder` },
+    isPartOf: { "@id": `${SITE_URL}/#website` },
+    speakable: {
+      "@type": "SpeakableSpecification",
+      cssSelector: ["h1", ".speakable"],
+    },
+  };
+
+  return (
+    <main id="main" className="min-h-dvh bg-cr-bg text-cr-text pt-14">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(personSchema) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(profilePageSchema) }}
+      />
+
+      <div className="max-w-3xl mx-auto px-6 py-12 md:py-16 space-y-12">
+        {/* ── Header / Hero ── */}
+        <header className="border-b border-cr-border pb-8 space-y-4">
+          <nav
+            aria-label="Breadcrumb"
+            className="font-mono text-[11px] text-cr-text-muted flex items-center gap-2"
+          >
+            <Link to="/" className="hover:text-cr-primary">
+              Inicio
+            </Link>
+            <span aria-hidden="true">/</span>
+            <span className="text-cr-text-muted">Autor</span>
+            <span aria-hidden="true">/</span>
+            <span className="text-cr-text-muted">{AUTHOR_NAME}</span>
+          </nav>
+
+          <p className="font-sans text-[11px] font-semibold uppercase tracking-[0.16em] text-cr-primary">
+            Autor verificado · E-E-A-T
+          </p>
+
+          <div className="flex flex-col sm:flex-row items-start sm:items-center gap-5 pt-2">
+            {/* Avatar — falls back to monogram on a primary-tinted disc.
+                No external photo to avoid hosting/consent issues. */}
+            <div
+              aria-hidden="true"
+              className="w-20 h-20 rounded-full bg-cr-primary/10 border border-cr-primary/40 flex items-center justify-center shrink-0 font-display text-3xl text-cr-primary uppercase select-none"
+            >
+              AL
+            </div>
+            <div className="space-y-2">
+              <h1 className="font-display text-3xl md:text-5xl uppercase leading-[0.96]">
+                {AUTHOR_NAME} — Founder & autor en ConcertRide
+              </h1>
+              <p className="font-mono text-[11px] text-cr-primary uppercase tracking-[0.12em]">
+                Founder · Movilidad festivalera España
+              </p>
+            </div>
+          </div>
+        </header>
+
+        {/* ── Bio ── */}
+        <section className="space-y-4 font-sans text-base text-cr-text-muted leading-relaxed">
+          <p className="speakable">
+            <strong className="text-cr-text">Alejandro Lalaguna</strong> es el founder de{" "}
+            <Link to="/" className="text-cr-primary hover:underline">
+              ConcertRide
+            </Link>
+            , la plataforma española de carpooling especializada en{" "}
+            <strong className="text-cr-text">festivales y conciertos</strong>. Lanzó el
+            proyecto en 2026 después de comprobar que el transporte a los grandes festivales
+            de España (Mad Cool, Primavera Sound, Arenal Sound, BBK Live, FIB, Resurrection
+            Fest, Viña Rock) sigue resolviéndose con coches medio vacíos, taxis caros de
+            madrugada o autobuses que no cubren la vuelta nocturna.
+          </p>
+          <p>
+            Ingeniero de software con experiencia en IoT y desarrollo de producto, Alejandro
+            combina la práctica del producto con un trabajo continuo de{" "}
+            <strong className="text-cr-text">investigación sobre movilidad festivalera</strong>:
+            recopila datos de rutas, precios por asiento, distancias y horarios reales de
+            cada recinto y los publica como guías accesibles. Es el autor principal de las
+            comparativas de transporte y de los artículos de carpooling festival a festival
+            que se publican en este blog.
+          </p>
+          <p>
+            Vive entre Zaragoza y Madrid, ha asistido a más de 15 festivales en los últimos
+            cinco años (entre ellos Resurrection Fest, Sonorama, Mad Cool y Primavera Sound)
+            y escribe en español sobre carpooling, transporte público a festivales y
+            sostenibilidad de eventos masivos en España. ConcertRide es 100% bootstrapped,
+            sin comisión de plataforma y enfocada en datos abiertos —{" "}
+            <Link to="/datos" className="text-cr-primary hover:underline">
+              ver dataset CC BY 4.0
+            </Link>
+            .
+          </p>
+        </section>
+
+        {/* ── Sobre qué escribo ── */}
+        <section className="space-y-4 border-t border-cr-border pt-8">
+          <h2 className="font-display text-2xl md:text-3xl uppercase leading-tight">
+            Sobre qué escribo
+          </h2>
+          <dl className="grid sm:grid-cols-2 gap-5 font-sans text-sm text-cr-text-muted leading-relaxed">
+            <div className="border border-cr-border p-5 space-y-2">
+              <dt className="font-display text-base uppercase text-cr-primary">
+                Carpooling festivalero
+              </dt>
+              <dd>
+                Cómo funciona el coche compartido a festivales, precios por asiento (3–22 €),
+                seguro, legalidad en España (Sentencia del Supremo 2017 sobre gastos
+                compartidos), y la diferencia entre carpooling festivalero y una plataforma
+                genérica.
+              </dd>
+            </div>
+            <div className="border border-cr-border p-5 space-y-2">
+              <dt className="font-display text-base uppercase text-cr-primary">
+                Comparativas de transporte
+              </dt>
+              <dd>
+                Autobús oficial vs lanzadera vs bus interurbano vs tren vs carpooling vs
+                taxi. Tablas con precio, tiempo, horario, disponibilidad de vuelta nocturna y
+                trampas comunes ("bus al festival" privados, lanzaderas que no son
+                oficiales).
+              </dd>
+            </div>
+            <div className="border border-cr-border p-5 space-y-2">
+              <dt className="font-display text-base uppercase text-cr-primary">
+                Sostenibilidad y CO₂
+              </dt>
+              <dd>
+                Huella de carbono de un festival, peso del transporte de asistentes (~80%
+                del total según Julie's Bicycle), reducción de emisiones por carpooling
+                (~71% con 3,5 personas/coche vs viaje individual) y benchmarks comparados
+                con UE.
+              </dd>
+            </div>
+            <div className="border border-cr-border p-5 space-y-2">
+              <dt className="font-display text-base uppercase text-cr-primary">
+                Programmatic SEO de movilidad
+              </dt>
+              <dd>
+                Cómo construimos +400 rutas, +70 ciudades, +50 festivales y +200 posts
+                informativos con quality gates contra contenido duplicado. Notas técnicas
+                sobre schema.org, llms.txt y indexabilidad en GSC.
+              </dd>
+            </div>
+            <div className="border border-cr-border p-5 space-y-2">
+              <dt className="font-display text-base uppercase text-cr-primary">
+                Datos abiertos de transporte
+              </dt>
+              <dd>
+                Dataset propio de ConcertRide sobre rutas activas, precios medios y
+                cobertura geográfica de festivales en España, publicado bajo licencia
+                Creative Commons BY 4.0 — disponible en{" "}
+                <Link to="/datos" className="text-cr-primary hover:underline">
+                  /datos
+                </Link>
+                .
+              </dd>
+            </div>
+          </dl>
+        </section>
+
+        {/* ── Datos y metodología ── */}
+        <section className="space-y-4 border-t border-cr-border pt-8">
+          <h2 className="font-display text-2xl md:text-3xl uppercase leading-tight">
+            Datos y metodología
+          </h2>
+          <p className="font-sans text-sm text-cr-text-muted leading-relaxed">
+            Las cifras y comparativas que aparecen en mis artículos provienen del dataset
+            propio de ConcertRide (rutas, precios, distancias, tiempos) complementado con
+            fuentes públicas: Asociación de Promotores Musicales (APM), Renfe, ALSA,
+            Ticketmaster Discovery API v2, y datos abiertos de movilidad de la DGT. La
+            metodología, los supuestos y las limitaciones se documentan junto al dataset.
+          </p>
+          <div className="flex flex-wrap gap-3 pt-2">
+            <Link
+              to="/datos"
+              className="inline-flex items-center gap-2 font-sans text-xs font-semibold uppercase tracking-[0.12em] border border-cr-primary text-cr-primary px-4 py-2 hover:bg-cr-primary hover:text-black transition-colors"
+            >
+              Dataset CC BY 4.0 →
+            </Link>
+            <Link
+              to="/prensa"
+              className="inline-flex items-center gap-2 font-sans text-xs font-semibold uppercase tracking-[0.12em] border border-cr-border text-cr-text-muted px-4 py-2 hover:border-cr-primary hover:text-cr-primary transition-colors"
+            >
+              Kit de prensa →
+            </Link>
+            <Link
+              to="/acerca-de"
+              className="inline-flex items-center gap-2 font-sans text-xs font-semibold uppercase tracking-[0.12em] border border-cr-border text-cr-text-muted px-4 py-2 hover:border-cr-primary hover:text-cr-primary transition-colors"
+            >
+              Acerca de ConcertRide →
+            </Link>
+          </div>
+        </section>
+
+        {/* ── Conecta ── */}
+        <section className="space-y-4 border-t border-cr-border pt-8">
+          <h2 className="font-display text-2xl md:text-3xl uppercase leading-tight">
+            Conecta
+          </h2>
+          <ul className="grid sm:grid-cols-2 gap-3 font-sans text-sm">
+            <li>
+              <a
+                href="https://www.linkedin.com/in/alejandrolalaguna/"
+                target="_blank"
+                rel="me noopener noreferrer"
+                className="flex items-center justify-between gap-2 border border-cr-border p-4 hover:border-cr-primary transition-colors group"
+              >
+                <span className="flex flex-col">
+                  <span className="font-mono text-[10px] uppercase tracking-[0.12em] text-cr-text-muted">
+                    LinkedIn
+                  </span>
+                  <span className="text-cr-text group-hover:text-cr-primary transition-colors">
+                    /in/alejandrolalaguna
+                  </span>
+                </span>
+                <ExternalLink size={14} className="text-cr-text-muted group-hover:text-cr-primary" />
+              </a>
+            </li>
+            <li>
+              <a
+                href="https://twitter.com/concertride_es"
+                target="_blank"
+                rel="me noopener noreferrer"
+                className="flex items-center justify-between gap-2 border border-cr-border p-4 hover:border-cr-primary transition-colors group"
+              >
+                <span className="flex flex-col">
+                  <span className="font-mono text-[10px] uppercase tracking-[0.12em] text-cr-text-muted">
+                    X / Twitter (ConcertRide)
+                  </span>
+                  <span className="text-cr-text group-hover:text-cr-primary transition-colors">
+                    @concertride_es
+                  </span>
+                </span>
+                <ExternalLink size={14} className="text-cr-text-muted group-hover:text-cr-primary" />
+              </a>
+            </li>
+            <li>
+              <a
+                href="https://github.com/ALalagunaa"
+                target="_blank"
+                rel="me noopener noreferrer"
+                className="flex items-center justify-between gap-2 border border-cr-border p-4 hover:border-cr-primary transition-colors group"
+              >
+                <span className="flex flex-col">
+                  <span className="font-mono text-[10px] uppercase tracking-[0.12em] text-cr-text-muted">
+                    GitHub
+                  </span>
+                  <span className="text-cr-text group-hover:text-cr-primary transition-colors">
+                    ALalagunaa
+                  </span>
+                </span>
+                <ExternalLink size={14} className="text-cr-text-muted group-hover:text-cr-primary" />
+              </a>
+            </li>
+            <li>
+              <a
+                href={`mailto:${AUTHOR_EMAIL}`}
+                className="flex items-center justify-between gap-2 border border-cr-border p-4 hover:border-cr-primary transition-colors group"
+              >
+                <span className="flex flex-col">
+                  <span className="font-mono text-[10px] uppercase tracking-[0.12em] text-cr-text-muted">
+                    Email
+                  </span>
+                  <span className="text-cr-text group-hover:text-cr-primary transition-colors">
+                    {AUTHOR_EMAIL}
+                  </span>
+                </span>
+                <Mail size={14} className="text-cr-text-muted group-hover:text-cr-primary" />
+              </a>
+            </li>
+          </ul>
+        </section>
+
+        {/* ── Últimos posts firmados ── */}
+        <section className="space-y-4 border-t border-cr-border pt-8">
+          <h2 className="font-display text-2xl md:text-3xl uppercase leading-tight">
+            Últimos posts firmados
+          </h2>
+          {posts.length === 0 ? (
+            <p className="font-sans text-sm text-cr-text-muted leading-relaxed">
+              Aún no hay artículos firmados publicados.
+            </p>
+          ) : (
+            <ul className="space-y-3">
+              {posts.map((p) => {
+                const categoryLabel =
+                  BLOG_CATEGORIES.find((c) => c.slug === p.category)?.label ?? p.category;
+                return (
+                  <li key={p.slug}>
+                    <Link
+                      to={`/blog/${p.slug}`}
+                      className="block border border-cr-border p-4 hover:border-cr-primary transition-colors group"
+                    >
+                      <div className="flex flex-wrap items-center gap-2 font-mono text-[11px] text-cr-text-muted mb-1">
+                        <span className="text-cr-primary uppercase tracking-[0.12em]">
+                          {categoryLabel}
+                        </span>
+                        <span aria-hidden="true">·</span>
+                        <time dateTime={p.publishedAt}>
+                          {new Date(p.publishedAt).toLocaleDateString("es-ES", {
+                            day: "numeric",
+                            month: "short",
+                            year: "numeric",
+                          })}
+                        </time>
+                        <span aria-hidden="true">·</span>
+                        <span>{p.readingMinutes} min</span>
+                      </div>
+                      <h3 className="font-display text-base uppercase leading-tight group-hover:text-cr-primary transition-colors">
+                        {p.title}
+                      </h3>
+                    </Link>
+                  </li>
+                );
+              })}
+            </ul>
+          )}
+          <div className="pt-2">
+            <Link
+              to="/blog"
+              className="inline-flex items-center gap-2 font-sans text-xs font-semibold uppercase tracking-[0.12em] text-cr-text-muted hover:text-cr-primary transition-colors"
+            >
+              Ver todos los artículos del blog →
+            </Link>
+          </div>
+        </section>
+      </div>
+    </main>
+  );
+}

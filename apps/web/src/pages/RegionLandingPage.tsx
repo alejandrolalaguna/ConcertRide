@@ -4,6 +4,7 @@ import { useSeoMeta } from "@/lib/useSeoMeta";
 import { SITE_URL } from "@/lib/siteUrl";
 import { REGION_LANDINGS, REGION_LANDINGS_BY_SLUG } from "@/lib/regionLandings";
 import { FESTIVAL_LANDINGS_BY_SLUG, type FestivalLanding } from "@/lib/festivalLandings";
+import { StickyRegBar } from "@/components/StickyRegBar";
 
 // Carpooling price reference per (region, origin city) pair — citable by AI overviews
 const REGION_PRICE_TABLE: Record<string, Array<{ city: string; range: string; km: string }>> = {
@@ -250,6 +251,21 @@ export default function RegionLandingPage() {
             {festivalsData.length} {festivalsData.length === 1 ? "festival" : "festivales"} en ConcertRide
           </span>
         </div>
+
+        <div className="flex flex-wrap gap-3 pt-3">
+          <Link
+            to="/festivales"
+            className="inline-flex items-center justify-center font-sans text-sm font-bold uppercase tracking-wider bg-cr-primary text-black px-5 py-3 shadow-[4px_4px_0_0_rgba(219,255,0,0.25)] hover:shadow-[6px_6px_0_0_rgba(219,255,0,0.4)] transition-shadow"
+          >
+            Ver festivales en {region.displayName}
+          </Link>
+          <Link
+            to="/publish"
+            className="inline-flex items-center justify-center font-sans text-sm font-bold uppercase tracking-wider border-2 border-cr-border text-cr-text px-5 py-3 hover:border-cr-primary hover:text-cr-primary transition-colors"
+          >
+            Publicar mi viaje
+          </Link>
+        </div>
       </div>
 
       {/* ── Festival cards ── */}
@@ -271,7 +287,7 @@ export default function RegionLandingPage() {
             </p>
             <Link
               to="/festivales"
-              className="inline-block font-sans text-xs font-semibold uppercase tracking-[0.12em] border-2 border-cr-primary text-cr-primary px-4 py-2 hover:bg-cr-primary hover:text-black transition-colors"
+              className="inline-block font-sans text-sm font-semibold uppercase tracking-[0.12em] border-2 border-cr-primary text-cr-primary px-5 py-3 hover:bg-cr-primary hover:text-black transition-colors"
             >
               Ver todos los festivales →
             </Link>
@@ -527,13 +543,13 @@ export default function RegionLandingPage() {
           <div className="flex flex-wrap gap-3 justify-center pt-2">
             <Link
               to="/concerts"
-              className="inline-block font-sans text-xs font-semibold uppercase tracking-[0.12em] bg-cr-primary text-black px-5 py-2.5 hover:bg-cr-primary/90 transition-colors"
+              className="inline-block font-sans text-sm font-semibold uppercase tracking-[0.12em] bg-cr-primary text-black px-5 py-3 hover:bg-cr-primary/90 transition-colors"
             >
               Buscar viaje →
             </Link>
             <Link
               to="/publish"
-              className="inline-block font-sans text-xs font-semibold uppercase tracking-[0.12em] border-2 border-cr-primary text-cr-primary px-5 py-2.5 hover:bg-cr-primary hover:text-black transition-colors"
+              className="inline-block font-sans text-sm font-semibold uppercase tracking-[0.12em] border-2 border-cr-primary text-cr-primary px-5 py-3 hover:bg-cr-primary hover:text-black transition-colors"
             >
               Publicar viaje
             </Link>
@@ -554,6 +570,7 @@ export default function RegionLandingPage() {
           .
         </p>
       </section>
+      <StickyRegBar />
     </main>
   );
 }

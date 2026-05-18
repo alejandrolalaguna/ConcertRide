@@ -35,6 +35,18 @@ interface SeoMeta {
   geoLng?: number;
   /** Breadcrumb items for JSON-LD BreadcrumbList */
   breadcrumb?: BreadcrumbItem[];
+  /**
+   * Absolute URL of the LCP candidate image (hero/cover) for this page.
+   * Emits a `<link rel="preload" as="image">` tag so the browser fetches it
+   * before parsing the rest of the document, knocking ~200–600 ms off LCP.
+   * Only set on page types where the hero is reliably the LCP element.
+   */
+  preloadImage?: string;
+  /**
+   * Optional `imagesrcset` value (responsive preload). Pair with `preloadImage`.
+   * Skip when the hero is a single fixed-size CDN image.
+   */
+  preloadImageSrcset?: string;
 }
 
 const DEFAULT_DESCRIPTION =
@@ -81,6 +93,8 @@ export interface ResolvedSeo {
   geoLat?: number;
   geoLng?: number;
   breadcrumb?: BreadcrumbItem[];
+  preloadImage?: string;
+  preloadImageSrcset?: string;
 }
 
 // Google SERP truncates titles at ~580px (~65 chars). The brand suffix
@@ -120,6 +134,8 @@ function resolve(meta: SeoMeta): ResolvedSeo {
     geoLat: meta.geoLat,
     geoLng: meta.geoLng,
     breadcrumb: meta.breadcrumb,
+    preloadImage: meta.preloadImage,
+    preloadImageSrcset: meta.preloadImageSrcset,
   };
 }
 
@@ -223,6 +239,15 @@ export function useSeoMeta(meta: SeoMeta) {
       setLink("alternate", r.canonical, { hreflang: "x-default" });
     }
 
+    // LCP image preload — client-side runtime emission. The SSR path adds the
+    // same tag inline in <head>, so when a prerendered page hydrates the
+    // browser, this code path either updates the existing link or is a no-op.
+    if (r.preloadImage) {
+      const extras: Record<string, string> = { as: "image" };
+      if (r.preloadImageSrcset) extras.imagesrcset = r.preloadImageSrcset;
+      setLink("preload", r.preloadImage, extras);
+    }
+
     // Geo meta tags — dynamic per page (not hardcoded to Madrid)
     if (r.geoRegion) {
       setMeta("geo.region", r.geoRegion);
@@ -247,6 +272,7 @@ export function useSeoMeta(meta: SeoMeta) {
     meta.ogImageHeight, meta.ogType, meta.noindex,
     meta.articleAuthor, meta.articlePublishedTime, meta.articleModifiedTime, meta.articleSection, meta.articleTags,
     meta.geoRegion, meta.geoPlacename, meta.geoLat, meta.geoLng,
+    meta.preloadImage, meta.preloadImageSrcset,
   ]);
 }
 
@@ -319,6 +345,14 @@ export function renderSeoToHtml(seo: ResolvedSeo, urlPath: string): {
     linkLines.push(`    <link rel="canonical" href="${escapeAttr(seo.canonical)}" />`);
     linkLines.push(`    <link rel="alternate" hreflang="es-ES" href="${escapeAttr(seo.canonical)}" />`);
     linkLines.push(`    <link rel="alternate" hreflang="x-default" href="${escapeAttr(seo.canonical)}" />`);
+  }
+  if (seo.preloadImage) {
+    const srcsetAttr = seo.preloadImageSrcset
+      ? ` imagesrcset="${escapeAttr(seo.preloadImageSrcset)}"`
+      : "";
+    linkLines.push(
+      `    <link rel="preload" as="image" href="${escapeAttr(seo.preloadImage)}"${srcsetAttr} />`,
+    );
   }
 
   return {

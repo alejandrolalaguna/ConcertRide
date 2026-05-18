@@ -273,7 +273,7 @@ const BLOG_POSTS = [
   { slug: "carpooling-vs-tren-ave-festivales-espana-2026",             title: "Carpooling vs AVE vs tren: qué es más barato para ir a festivales",     publishedAt: "2026-05-06" },
   { slug: "como-volver-concierto-madrugada-espana-2026",               title: "Cómo volver de un concierto o festival de madrugada en España 2026",    publishedAt: "2026-05-06" },
   { slug: "guia-carpooling-festivales-comunidades-autonomas-2026",     title: "Guía de carpooling a festivales por comunidad autónoma en España 2026", publishedAt: "2026-05-06" },
-  { slug: "alternativa-blablacar-festivales-espana",                  title: "Alternativa a BlaBlaCar para ir a festivales en España 2026",            publishedAt: "2026-05-06" },
+  // alternativa-blablacar-festivales-espana — DISABLED per CLAUDE.md "Brand Restrictions". Do NOT re-add.
   { slug: "es-seguro-carpooling-festivales",                          title: "¿Es seguro el coche compartido para ir a festivales? Guía 2026",          publishedAt: "2026-05-06" },
   { slug: "transporte-nocturno-vuelta-festival",                      title: "Transporte de vuelta de un festival de madrugada: todas las opciones 2026", publishedAt: "2026-05-06" },
   { slug: "carpooling-gratuito-festivales-sin-comision",              title: "Carpooling sin comisión para festivales en España: cómo funciona 2026",   publishedAt: "2026-05-06" },
@@ -295,6 +295,20 @@ const BLOG_POSTS = [
   { slug: "madrid-mad-cool-2026-guia-transporte",   title: "Madrid → Mad Cool 2026: guía definitiva de carpooling y transporte",              publishedAt: "2026-05-17" },
 ];
 
+// Defense-in-depth: drop any disabled slugs per CLAUDE.md "Brand Restrictions"
+// in case a future edit re-adds them above. Keep this list in sync with
+// apps/web/src/lib/blogPosts.ts DISABLED_BLOG_SLUGS.
+const DISABLED_BLOG_SLUGS = new Set([
+  "blablacar-vs-concertride",
+  "alternativa-blablacar-festivales-espana",
+]);
+for (let i = BLOG_POSTS.length - 1; i >= 0; i--) {
+  if (DISABLED_BLOG_SLUGS.has(BLOG_POSTS[i].slug)) {
+    console.warn(`[generate-sitemaps] WARNING: dropped disabled slug from BLOG_POSTS: ${BLOG_POSTS[i].slug}`);
+    BLOG_POSTS.splice(i, 1);
+  }
+}
+
 // Prioridades por tipo de contenido
 // changefreq diferenciado: static=yearly, blog=weekly, rutas=daily, festivales=monthly
 const SEO_CONFIG = {
@@ -314,7 +328,7 @@ const BLOG_PRIORITY_OVERRIDES = {
   "guia-transporte-vina-rock-2026":             "0.85",
   "como-llegar-resurrection-fest-2026":         "0.85",
   "festivales-musica-espana-2026":              "0.82",
-  "blablacar-vs-concertride":                   "0.80",
+  // blablacar-vs-concertride — DISABLED per CLAUDE.md "Brand Restrictions"
   "carpooling-vs-taxi-festival-espana":         "0.80",
   "carpooling-valencia-arenal-sound-2026":      "0.85",
   "como-ir-madrid-vina-rock-2026":              "0.85",

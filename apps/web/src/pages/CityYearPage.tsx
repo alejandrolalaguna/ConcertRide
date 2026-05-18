@@ -142,10 +142,24 @@ export default function CityYearPage() {
   // Hook must be called unconditionally before any early returns
   useSeoMeta({
     title: landing
-      ? `Conciertos ${landing.display} ${y}: festivales y carpooling | ConcertRide`
+      ? (() => {
+          const t = `Conciertos ${landing.display} ${y}: festivales y carpooling | ConcertRide`;
+          if (t.length <= 65) return t;
+          // Fallback shorter pattern for cities with long names
+          const t2 = `Conciertos en ${landing.display} ${y} · ConcertRide`;
+          return t2.length <= 65 ? t2 : `${landing.display} ${y}: conciertos y carpooling`;
+        })()
       : "Conciertos por ciudad y año",
     description: landing
-      ? `Próximos conciertos en ${landing.display} ${y}. ${landing.venues.slice(0, 2).join(", ")}. Carpooling sin comisión desde 3 €/asiento con ConcertRide. Conductores verificados.`
+      ? (() => {
+          // Build ≤160 char description: include up to 2 venues if they fit
+          const suffix = ` Carpooling sin comisión desde 3 €/asiento. Conductores verificados.`;
+          const withVenues = `Conciertos en ${landing.display} ${y}: ${landing.venues.slice(0, 2).join(", ")}.${suffix}`;
+          if (withVenues.length <= 160) return withVenues;
+          const oneVenue = `Conciertos en ${landing.display} ${y}: ${landing.venues[0] ?? landing.city}.${suffix}`;
+          if (oneVenue.length <= 160) return oneVenue;
+          return `Conciertos en ${landing.display} ${y}.${suffix}`;
+        })()
       : "Conciertos en España por ciudad y año.",
     canonical: landing
       ? `${SITE_URL}/conciertos/${slug}/${y}`

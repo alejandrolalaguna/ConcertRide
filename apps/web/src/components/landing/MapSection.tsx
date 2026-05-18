@@ -18,6 +18,10 @@ export function MapSection({ concerts, rides }: Props) {
         aria-hidden="true"
         src="https://images.unsplash.com/photo-1477959858617-67f85cf4f1df?w=1400&q=50&auto=format&fit=crop"
         alt=""
+        width={1400}
+        height={800}
+        loading="lazy"
+        decoding="async"
         className="absolute inset-0 w-full h-full object-cover object-center opacity-[0.05] pointer-events-none"
       />
       {/* Top lime bloom */}
