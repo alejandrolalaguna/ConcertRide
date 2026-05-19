@@ -510,6 +510,9 @@ export default function GuiaPresupuestoFestivalGrupoPage() {
           </Link>. Ranking 57 festivales por coste total transporte ida+vuelta desde Madrid:{" "}
           <Link to="/datos/festivales-mas-caros-mas-baratos-llegar-2026" className="hover:text-cr-primary">
             /datos/festivales-mas-caros-mas-baratos-llegar-2026
+          </Link>. Calendario maestro cronológico de los 58 festivales 2026 con presupuesto, conectividad y ranking:{" "}
+          <Link to="/datos/calendario-maestro-festivales-2026" className="hover:text-cr-primary">
+            /datos/calendario-maestro-festivales-2026
           </Link>.
         </p>
       </section>

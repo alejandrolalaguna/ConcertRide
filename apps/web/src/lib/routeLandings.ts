@@ -3,7 +3,8 @@
 //   "carpooling Madrid Mad Cool", "viaje compartido Valencia Primavera Sound"
 //
 // Data is derived 100% from festivalLandings.ts — no duplication.
-// A RouteLanding is generated for every (originCity × festival) pair.
+// A RouteLanding is generated for every (originCity × festival) pair,
+// subject to the distance gate (see DISTANCE GATE section below).
 
 import { FESTIVAL_LANDINGS, type FestivalLanding, type OriginCity } from "./festivalLandings";
 import { CITY_LANDINGS } from "./cityLandings";
@@ -21,9 +22,78 @@ function cityToSlug(city: string): string {
   return city
     .toLowerCase()
     .normalize("NFD")
-    .replace(/[\u0300-\u036f]/g, "")
+    .replace(/[̀-ͯ]/g, "")
     .replace(/[^a-z0-9]+/g, "-")
     .replace(/^-+|-+$/g, "");
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Distance gate (added 2026-05-19)
+// ─────────────────────────────────────────────────────────────────────────────
+// Skip route pages where origin↔festival straight-line >800 km, because no
+// carpooling driver realistically does a single-leg trip that long. Primary
+// effect: removing Canarias↔mainland and Baleares↔mainland combinations
+// where there's no ferry-bundled context.
+//
+// Two layers of defence:
+//   1. Hard cross-sea exclusion via ISLAND_*_SLUGS sets (works even if lat/lng
+//      were missing on one side).
+//   2. Haversine >800 km check (catches any future case we forgot to enumerate).
+//
+// Reviewers can override either layer by adding `${citySlug}|${festivalSlug}`
+// to DISTANCE_GATE_ALLOWLIST (e.g. once we publish ferry+drive bundles).
+const MAX_ROUTE_STRAIGHT_KM = 800;
+
+// CityLanding slugs known to be on islands (no road link to mainland).
+const ISLAND_CITY_SLUGS = new Set<string>([
+  "palma",                      // Mallorca
+  "ibiza",                      // Ibiza
+  "las-palmas-de-gran-canaria", // Gran Canaria
+  "santa-cruz-de-tenerife",     // Tenerife
+]);
+
+// FestivalLanding slugs known to be on islands.
+const ISLAND_FESTIVAL_SLUGS = new Set<string>([
+  "mallorca-live-festival", // Mallorca (Baleares)
+  "granca-live-fest",       // Gran Canaria (Canarias)
+]);
+
+// Same-archipelago island↔island pairs are kept; cross-archipelago is filtered.
+const ARCHIPELAGO_OF = new Map<string, "baleares" | "canarias">([
+  ["palma", "baleares"],
+  ["ibiza", "baleares"],
+  ["mallorca-live-festival", "baleares"],
+  ["las-palmas-de-gran-canaria", "canarias"],
+  ["santa-cruz-de-tenerife", "canarias"],
+  ["granca-live-fest", "canarias"],
+]);
+
+const DISTANCE_GATE_ALLOWLIST = new Set<string>([
+  // Add `${citySlug}|${festivalSlug}` entries here to override the filter.
+  // (empty for now)
+]);
+
+function isCrossSeaCombo(originCitySlug: string, festivalSlug: string): boolean {
+  const cityIsIsland = ISLAND_CITY_SLUGS.has(originCitySlug);
+  const festivalIsIsland = ISLAND_FESTIVAL_SLUGS.has(festivalSlug);
+  if (!cityIsIsland && !festivalIsIsland) return false;
+  if (cityIsIsland && festivalIsIsland) {
+    return ARCHIPELAGO_OF.get(originCitySlug) !== ARCHIPELAGO_OF.get(festivalSlug);
+  }
+  return true;
+}
+
+function haversineKm(lat1: number, lng1: number, lat2: number, lng2: number): number {
+  const R = 6371;
+  const dLat = ((lat2 - lat1) * Math.PI) / 180;
+  const dLng = ((lng2 - lng1) * Math.PI) / 180;
+  const a =
+    Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+    Math.cos((lat1 * Math.PI) / 180) *
+      Math.cos((lat2 * Math.PI) / 180) *
+      Math.sin(dLng / 2) *
+      Math.sin(dLng / 2);
+  return R * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
 }
 
 function buildRoutes(): RouteLanding[] {
@@ -31,10 +101,23 @@ function buildRoutes(): RouteLanding[] {
   for (const festival of FESTIVAL_LANDINGS) {
     // Merge explicit originCities from the festival with the canonical CITY_LANDINGS
     const seen = new Set<string>();
-    // First, add the explicit originCities (trusted data)
+    // First, add the explicit originCities (trusted data) — still subject to
+    // the distance gate (cross-sea or >800 km combos are dropped).
     for (const oc of festival.originCities) {
       const originSlug = cityToSlug(oc.city);
       seen.add(originSlug);
+      const pairKey = `${originSlug}|${festival.slug}`;
+      if (!DISTANCE_GATE_ALLOWLIST.has(pairKey)) {
+        if (isCrossSeaCombo(originSlug, festival.slug)) continue;
+        // OriginCity has no lat/lng — look up CITY_LANDINGS where available.
+        const cityLanding = CITY_LANDINGS.find(
+          (c) => cityToSlug(c.display || c.city) === originSlug,
+        );
+        if (cityLanding) {
+          const straightKm = haversineKm(cityLanding.lat, cityLanding.lng, festival.lat, festival.lng);
+          if (straightKm > MAX_ROUTE_STRAIGHT_KM) continue;
+        }
+      }
       routes.push({
         slug: `${originSlug}-${festival.slug}`,
         originCity: oc.city,
@@ -47,20 +130,22 @@ function buildRoutes(): RouteLanding[] {
     // Then, augment with canonical city landings to scale the number of routes.
     // We only add cities not already present in the festival originCities to avoid duplicates.
     for (const c of CITY_LANDINGS) {
-      const originSlug = cityToSlug(c.display || c.city);
+      // Use the canonical slug from cityLandings (not re-derived from display),
+      // so route slugs stay consistent with seoOverrides and sitemap entries.
+      const originSlug = c.slug;
       if (seen.has(originSlug)) continue;
       seen.add(originSlug);
+      const pairKey = `${originSlug}|${festival.slug}`;
+      // Distance gate: skip cross-sea combos unless explicitly allowlisted.
+      if (!DISTANCE_GATE_ALLOWLIST.has(pairKey) && isCrossSeaCombo(originSlug, festival.slug)) {
+        continue;
+      }
       // Estimate distance using Haversine formula from city coords to festival coords.
-      const R = 6371;
-      const dLat = ((festival.lat - c.lat) * Math.PI) / 180;
-      const dLng = ((festival.lng - c.lng) * Math.PI) / 180;
-      const a =
-        Math.sin(dLat / 2) * Math.sin(dLat / 2) +
-        Math.cos((c.lat * Math.PI) / 180) *
-          Math.cos((festival.lat * Math.PI) / 180) *
-          Math.sin(dLng / 2) *
-          Math.sin(dLng / 2);
-      const straightKm = R * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+      const straightKm = haversineKm(c.lat, c.lng, festival.lat, festival.lng);
+      // Skip implausibly-long single-leg drives (>800 km straight-line).
+      if (straightKm > MAX_ROUTE_STRAIGHT_KM && !DISTANCE_GATE_ALLOWLIST.has(pairKey)) {
+        continue;
+      }
       // Road distance ≈ straight-line × 1.35 for Spain
       const km = Math.round(straightKm * 1.35);
       // Driving time at ~90 km/h average (motorways + urban)

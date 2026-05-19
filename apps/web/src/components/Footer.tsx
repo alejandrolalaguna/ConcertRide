@@ -85,6 +85,12 @@ export function Footer() {
               Seguridad carpooling
             </Link>
             <Link
+              to="/guia/festival-primera-vez"
+              className="font-sans text-xs text-cr-text-muted hover:text-cr-primary transition-colors"
+            >
+              Mi primer festival
+            </Link>
+            <Link
               to="/faq"
               className="font-sans text-xs text-cr-text-muted hover:text-cr-primary transition-colors"
             >

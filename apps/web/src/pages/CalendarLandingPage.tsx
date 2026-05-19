@@ -293,6 +293,28 @@ export default function CalendarLandingPage() {
         </ul>
       </section>
 
+      {/* ── Dataset abierto del calendario ── */}
+      <section className="max-w-6xl mx-auto px-6 pb-12 border-t border-cr-border pt-10">
+        <div className="border border-cr-border p-5 space-y-3">
+          <p className="font-mono text-[11px] text-cr-primary uppercase tracking-[0.1em]">Dataset abierto CC BY 4.0</p>
+          <h2 className="font-display text-lg md:text-xl uppercase">
+            Calendario maestro festivales España 2026 (CSV + JSON)
+          </h2>
+          <p className="font-sans text-sm text-cr-text-muted leading-relaxed max-w-2xl">
+            Calendario cronológico comprehensivo de 58 festivales españoles 2026 (abril-octubre)
+            con precio de entrada, precio carpooling, precio bus oficial, score de conectividad,
+            ranking de festivales más baratos de llegar y CO₂ ahorrado por asiento. Descarga
+            libre bajo licencia CC BY 4.0.
+          </p>
+          <Link
+            to="/datos/calendario-maestro-festivales-2026"
+            className="inline-flex items-center gap-1.5 font-sans text-xs text-cr-primary hover:underline underline-offset-2"
+          >
+            Ver dataset completo →
+          </Link>
+        </div>
+      </section>
+
       {/* ── CTA ── */}
       <section className="max-w-6xl mx-auto px-6 pb-16 border-t border-cr-border pt-12">
         <div className="border border-cr-primary/30 bg-cr-primary/5 p-8 space-y-4 text-center">

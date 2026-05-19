@@ -427,7 +427,11 @@ export default function GuiaTransporteFestivalesPage() {
           <Link to="/datos/festivales-mas-caros-mas-baratos-llegar-2026" className="text-cr-primary underline underline-offset-2">
             Ranking festivales más caros vs baratos de llegar 2026
           </Link>
-          {" "}(57 festivales con coste total ida+vuelta desde Madrid).
+          {" "}(57 festivales con coste total ida+vuelta desde Madrid) ·{" "}
+          <Link to="/datos/calendario-maestro-festivales-2026" className="text-cr-primary underline underline-offset-2">
+            Calendario maestro festivales España 2026
+          </Link>
+          {" "}(58 festivales cronológico abril-octubre con precios + conectividad + ranking).
         </p>
       </section>
 

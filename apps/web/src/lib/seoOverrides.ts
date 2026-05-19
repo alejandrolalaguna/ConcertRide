@@ -581,7 +581,7 @@ export const CITY_SEO_IMPROVEMENTS: Record<string, { title: string; description:
     keywords: `conciertos Algeciras, algeciras entre dos continentes, algeciras conciertos, conciertos campo gibraltar, carpooling andalucia algeciras, algeciras festivales`,
   },
   aviles: {
-    title: `Conciertos Avilés ${YEAR}: Centro Niemeyer + carpooling | ConcertRide`,
+    title: `Conciertos Avilés ${YEAR}: Niemeyer + carpooling | ConcertRide`,
     description: `Conciertos en Avilés (Asturias) ${YEAR}: Centro Niemeyer (Oscar Niemeyer, plaza para 8.000 personas), Plaza de España, Pabellón Quirinal. Festival propio.`,
     keywords: `conciertos Avilés, centro niemeyer aviles, aviles festivales, conciertos asturias, aviles bbk live carpooling, festival celsius aviles`,
   },

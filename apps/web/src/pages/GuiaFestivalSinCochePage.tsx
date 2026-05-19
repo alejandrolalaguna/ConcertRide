@@ -379,7 +379,10 @@ export default function GuiaFestivalSinCochePage() {
           <Link to="/datos/festivales-mas-caros-mas-baratos-llegar-2026" className="hover:text-cr-primary">
             /datos/festivales-mas-caros-mas-baratos-llegar-2026
           </Link>{" "}
-          (ranking 57 festivales).
+          (ranking 57 festivales). Calendario cronológico maestro 2026 (abril-octubre) con todos los campos combinados:{" "}
+          <Link to="/datos/calendario-maestro-festivales-2026" className="hover:text-cr-primary">
+            /datos/calendario-maestro-festivales-2026
+          </Link>.
         </p>
       </section>
 

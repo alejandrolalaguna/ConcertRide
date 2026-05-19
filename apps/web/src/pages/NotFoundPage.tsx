@@ -31,10 +31,15 @@ const TOP_ROUTES = [
 
 export default function NotFoundPage() {
   useSeoMeta({
-    title: "404 · Página no encontrada | ConcertRide",
-    description: "Esta URL no existe en ConcertRide. Explora conciertos, festivales y rutas de carpooling disponibles.",
+    title: "Página no encontrada — ¿Buscabas algo? · ConcertRide",
+    description:
+      "Esta URL no existe en ConcertRide. Te dejamos sugerencias: festivales con carpooling, conciertos por ciudad, rutas populares y guías de transporte.",
     canonical: `${SITE_URL}/404`,
     noindex: true,
+    // 404 should be discoverable for outbound link follow (SEO best practice
+    // for soft-404 recovery): noindex, FOLLOW lets Googlebot crawl through
+    // to indexable destinations even though this URL itself isn't indexed.
+    noindexFollow: true,
   });
 
   return (
@@ -67,9 +72,9 @@ export default function NotFoundPage() {
             Error 404
           </p>
           <h1 className="font-display text-5xl md:text-7xl uppercase leading-[0.9] tracking-tight">
-            Página no
+            Hmm, esa página
             <br />
-            encontrada.
+            ya no existe
           </h1>
           <p className="font-sans text-sm md:text-base text-white/40 max-w-md mx-auto leading-relaxed">
             Esta URL no existe, o el viaje que buscas ya no está disponible. Prueba desde el inicio o explora los eventos activos.

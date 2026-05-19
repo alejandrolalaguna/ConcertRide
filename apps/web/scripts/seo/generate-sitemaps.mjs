@@ -437,18 +437,17 @@ function buildCiudadesSitemap() {
     changefreq,
     priority,
   }));
-  // Páginas con año /conciertos/:city/:year (44 × 3 = 132 URLs) — espejando sistema antiguo
-  const yearUrls = [];
-  for (const slug of CITY_SLUGS) {
-    for (const year of ["2025", "2026", "2027"]) {
-      yearUrls.push(urlEntry({
-        loc: `${SITE_URL}/conciertos/${slug}/${year}`,
-        changefreq: "weekly",
-        priority: year === "2026" ? "0.72" : "0.60",
-      }));
-    }
-  }
-  return sitemapWrapper("ciudades (conciertos + años)", [...baseUrls, ...yearUrls].join(""));
+  // Páginas con año /conciertos/:city/:year — ONLY the current year (2026)
+  // is added to the sitemap. Past (2025) and future (2027) variants exist as
+  // crawlable pages but canonical → /conciertos/:city, so including them in
+  // the sitemap would just signal duplicates to Google. Internal links still
+  // make them discoverable.
+  const yearUrls = CITY_SLUGS.map((slug) => urlEntry({
+    loc: `${SITE_URL}/conciertos/${slug}/2026`,
+    changefreq: "weekly",
+    priority: "0.72",
+  }));
+  return sitemapWrapper("ciudades (conciertos + año actual)", [...baseUrls, ...yearUrls].join(""));
 }
 
 function buildComoLlegarSitemap() {

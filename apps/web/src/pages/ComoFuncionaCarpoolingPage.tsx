@@ -45,7 +45,7 @@ const DRIVER_STEPS = [
   {
     title: "Cobra sin comisión",
     body:
-      "El pago se hace directamente en efectivo o Bizum el día del viaje. ConcertRide no cobra comisión: el 100 % del importe va al conductor para cubrir gasolina y peajes. Es el modelo más claro para rutas de evento.",
+      "ConcertRide aplica una comisión del 0 % al conductor y al pasajero sobre cada viaje. Si el precio publicado del asiento es 12 €, el conductor recibe 12 € y el pasajero paga 12 €. El pago ocurre fuera de la plataforma: efectivo o Bizum directo al conductor el día del trayecto. ConcertRide no procesa cobros ni custodia importes. El conductor fija el precio del asiento para cubrir gasolina (95 a ~1,58 €/L según boletín DGT abril 2026), peajes y desgaste, dividido entre 2 a 4 pasajeros. Las plataformas de carpooling generalistas cobran entre el 10 % y el 18 % de comisión; en una ruta a 6 €, equivaldría a 0,60–1,08 € descontados al conductor.",
   },
 ];
 

@@ -49,6 +49,7 @@ const STATIC_ROUTES = [
   "/guia/presupuesto-festival-grupo",
   "/guia/festival-sostenible-co2",
   "/guia/seguridad-carpooling-festival",
+  "/guia/festival-primera-vez",
   "/guia-ir-festivales-2026",
   "/blog",
   "/rutas",
@@ -63,6 +64,7 @@ const STATIC_ROUTES = [
   "/datos/precio-medio-carpooling-vs-bus-festivales-2026",
   "/datos/festivales-peor-conexion-transporte-publico-2026",
   "/datos/festivales-mas-caros-mas-baratos-llegar-2026",
+  "/datos/calendario-maestro-festivales-2026",
   "/como-funciona",
   "/faq",
   "/contacto",
@@ -149,8 +151,15 @@ function injectIntoShell(shellHtml, bodyHtml, seo, url) {
       `<meta name="description" content="${escapeAttr(seo.description)}" />`,
     );
 
-    // Patch canonical + alternates
-    if (seo.canonical) {
+    // Patch canonical + alternates.
+    // Google's guideline: never combine `noindex` + `canonical`. The noindex
+    // wins and the canonical wastes crawl budget. When the page is noindex
+    // we WIPE the shell's defaults (which point at "/") instead of patching.
+    if (seo.noindex) {
+      out = out.replace(/<link rel="canonical"[^>]*>\s*\n?/, "");
+      out = out.replace(/<link rel="alternate" hreflang="es-ES"[^>]*>\s*\n?/, "");
+      out = out.replace(/<link rel="alternate" hreflang="x-default"[^>]*>\s*\n?/, "");
+    } else if (seo.canonical) {
       out = out.replace(
         /<link rel="canonical"[^>]*>/,
         `<link rel="canonical" href="${escapeAttr(seo.canonical)}" />`,
@@ -189,7 +198,9 @@ function injectIntoShell(shellHtml, bodyHtml, seo, url) {
       out,
       "robots",
       seo.noindex
-        ? "noindex, nofollow"
+        ? seo.noindexFollow
+          ? "noindex, follow"
+          : "noindex, nofollow"
         : "index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1",
       false,
     );
@@ -361,9 +372,14 @@ async function writeSeparateSitemaps(urls) {
 
   const INDEXED_PREFIXES = ["/festivales/", "/conciertos/", "/rutas/", "/como-llegar/", "/blog/",
     "/festivales-genero/", "/calendario-festivales/", "/artistas/", "/recintos/", "/festivales-en/"];
+  // /conciertos/:city/:year — past (2025) and future (2027) variants are
+  // canonical-consolidated to the parent /conciertos/:city. Excluded from
+  // sitemap (only current year 2026 is kept) so we don't signal duplicates
+  // to Google. Internal links still make them discoverable.
+  const isPastOrFutureYearCity = (u) => /^\/conciertos\/[^/]+\/(2025|2027)$/.test(u);
   const groups = {
     festivals: urls.filter((u) => u.startsWith("/festivales/") && !u.startsWith("/festivales-genero/") && !u.startsWith("/festivales-en/")),
-    cities: urls.filter((u) => u.startsWith("/conciertos/")),
+    cities: urls.filter((u) => u.startsWith("/conciertos/") && !isPastOrFutureYearCity(u)),
     routes: urls.filter((u) => u.startsWith("/rutas/")),
     howto: urls.filter((u) => u.startsWith("/como-llegar/")),
     blog: urls.filter((u) => u.startsWith("/blog/")),

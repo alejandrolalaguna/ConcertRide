@@ -82,12 +82,32 @@ function makeBeasties() {
 /* -------------------------------------------------------------------------- */
 
 async function* walkHtml(dir) {
-  for (const entry of await readdir(dir, { withFileTypes: true })) {
+  let entries;
+  try {
+    entries = await readdir(dir, { withFileTypes: true });
+  } catch (e) {
+    // Directory may have been removed between parent readdir and this call
+    // (race with prerender cleanup, or Windows encoding edge case).
+    if (e.code === "ENOENT") {
+      if (VERBOSE) console.warn(`  SKIP (ENOENT parent): ${path.relative(DIST, dir)}`);
+      return;
+    }
+    throw e;
+  }
+  for (const entry of entries) {
     const full = path.join(dir, entry.name);
     if (entry.isDirectory()) {
       // Skip assets (already-built CSS/JS), images, sourcemaps.
       if (entry.name === "assets" || entry.name === "og" || entry.name === "images") continue;
-      yield* walkHtml(full);
+      try {
+        yield* walkHtml(full);
+      } catch (e) {
+        if (e.code === "ENOENT") {
+          console.warn(`  SKIP (ENOENT subdir): ${entry.name}`);
+          continue;
+        }
+        throw e;
+      }
     } else if (entry.isFile() && entry.name.endsWith(".html")) {
       yield full;
     }
@@ -128,7 +148,18 @@ async function main() {
   console.log(`inline-critical-css: scanning ${DIST}…`);
 
   for await (const filePath of walkHtml(DIST)) {
-    const html = await readFile(filePath, "utf8");
+    let html;
+    try {
+      html = await readFile(filePath, "utf8");
+    } catch (e) {
+      // Stale dist/ entry from a previous build — file was removed by prerender cleanup
+      if (e.code === "ENOENT") {
+        if (VERBOSE) console.warn(`  SKIP (stale): ${path.relative(DIST, filePath)}`);
+        skipped++;
+        continue;
+      }
+      throw e;
+    }
     if (!isCandidate(html)) {
       skipped++;
       if (VERBOSE) console.log(`  SKIP ${path.relative(DIST, filePath)}`);

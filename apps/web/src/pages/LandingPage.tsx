@@ -858,6 +858,12 @@ export default function LandingPage() {
               <p className="font-sans text-xs text-cr-text-muted leading-relaxed">Mecanismos de control, comparativa de seguridad por modalidad, checklist de 10 pasos y sección específica para mujeres que viajan solas.</p>
               <span className="inline-flex items-center gap-1 font-sans text-xs text-cr-primary">Leer <ArrowRight size={11} /></span>
             </Link>
+            <Link to="/guia/festival-primera-vez" className="border border-cr-border p-5 hover:border-cr-primary/50 transition-colors group space-y-3">
+              <p className="font-mono text-[10px] uppercase tracking-[0.14em] text-cr-primary">Guía</p>
+              <h3 className="font-display text-base uppercase leading-tight group-hover:text-cr-primary transition-colors">Mi primer festival: guía para novatos</h3>
+              <p className="font-sans text-xs text-cr-text-muted leading-relaxed">Preparación, kit de 15 ítems, día a día, errores típicos, salud y 5 festivales recomendados para tu primera experiencia.</p>
+              <span className="inline-flex items-center gap-1 font-sans text-xs text-cr-primary">Leer <ArrowRight size={11} /></span>
+            </Link>
             <Link to="/blog/como-volver-festival-madrugada" className="border border-cr-border p-5 hover:border-cr-primary/50 transition-colors group space-y-3">
               <p className="font-mono text-[10px] uppercase tracking-[0.14em] text-cr-primary">Guía</p>
               <h3 className="font-display text-base uppercase leading-tight group-hover:text-cr-primary transition-colors">Cómo volver de un festival de madrugada</h3>

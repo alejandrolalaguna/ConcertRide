@@ -1,4 +1,3 @@
-import { motion } from "motion/react";
 import React from "react";
 import type { Concert } from "@concertride/types";
 import { formatDay } from "@/lib/format";
@@ -35,11 +34,10 @@ function ConcertCardComponent({ concert, className = "", onClick, priority = fal
   const hasRides = ridesCount > 0;
 
   return (
-    <motion.article
-      whileHover={{ y: -6, transition: { duration: 0.2, ease: [0.25, 0.46, 0.45, 0.94] } }}
+    <article
       aria-label={`${concert.artist} en ${concert.venue.name}, ${formatDay(concert.date)}`}
       onClick={onClick}
-      className={`group relative overflow-hidden bg-cr-surface border border-cr-border cursor-pointer transition-[border-color,box-shadow] duration-200 hover:border-cr-primary/30 hover:shadow-[0_20px_60px_rgb(0_0_0/0.7),0_0_0_1px_rgb(212_247_0/0.08)] ${status !== "upcoming" ? "opacity-50 saturate-50" : ""} ${className}`}
+      className={`group relative overflow-hidden bg-cr-surface border border-cr-border cursor-pointer transition-[transform,border-color,box-shadow] duration-200 ease-out hover:-translate-y-1.5 hover:border-cr-primary/30 hover:shadow-[0_20px_60px_rgb(0_0_0/0.7),0_0_0_1px_rgb(212_247_0/0.08)] ${status !== "upcoming" ? "opacity-50 saturate-50" : ""} ${className}`}
     >
       {/* PASSED label */}
       {status === "passed" && (
@@ -149,7 +147,7 @@ function ConcertCardComponent({ concert, className = "", onClick, priority = fal
           </span>
         </div>
       </div>
-    </motion.article>
+    </article>
   );
 }
 

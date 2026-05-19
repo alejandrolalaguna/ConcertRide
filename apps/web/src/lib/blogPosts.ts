@@ -401,93 +401,21 @@ export const BLOG_POSTS: BlogPost[] = [
   },
   // ──────────────────────────────────────────────────────────────────────
   {
+    // Archived per brand-compliance rules (see CLAUDE.md). Entry retained so
+    // DISABLED_BLOG_SLUGS can splice it out at runtime without breaking the
+    // slug-list contract. Do not restore content.
     slug: "blablacar-vs-concertride",
-    title: "BlaBlaCar vs. ConcertRide: ¿Cuál es mejor para festivales? [Guía 2026]",
-    h1: "BlaBlaCar vs ConcertRide para festivales: diferencias clave en 2026",
-    excerpt:
-      "BlaBlaCar es la plataforma de carpooling más conocida en España, pero ConcertRide es la alternativa especializada en conciertos y festivales. ¿Cuál da mejores resultados para ir a Mad Cool, Primavera Sound o Arenal Sound? Comparamos precios, experiencia y fiabilidad.",
+    title: "[Post archivado por restricción de marca]",
+    h1: "[Post archivado por restricción de marca]",
+    excerpt: "Post archivado por restricción de marca.",
     category: "comparativas",
-    tags: ["blablacar", "comparativa", "carpooling", "festivales", "alternativa blablacar"],
+    tags: ["archivado"],
     publishedAt: "2026-04-15T09:00:00.000Z",
     author: "Equipo ConcertRide",
     readingMinutes: 6,
-    lede:
-      "Buscas carpooling para un festival y dudas entre BlaBlaCar y ConcertRide. No son iguales: una es genérica y cobra comisión, la otra es especializada en eventos y es gratuita. Aquí tienes la comparativa honesta.",
-    sections: [
-      {
-        heading: "La diferencia fundamental: generalista vs. especializado",
-        paragraphs: [
-          "BlaBlaCar es una plataforma generalista de viaje compartido que cubre cualquier trayecto entre ciudades: trabajo, familia, viajes de ocio. Es útil cuando necesitas ir de Madrid a Barcelona cualquier día. Su modelo se basa en cobrar una comisión del 15–20 % sobre el precio que paga el pasajero.",
-          "ConcertRide nació exclusivamente para conciertos y festivales. Los viajes están vinculados a un evento concreto, lo que significa que conductor y pasajeros van al mismo lugar, a la misma hora, y tienen el mismo plan de vuelta. Sin comisión: el 100 % del precio va al conductor.",
-        ],
-      },
-      {
-        heading: "Precio: comisión vs. sin comisión",
-        paragraphs: [
-          "En BlaBlaCar, si un conductor pone 10 € por plaza, tú pagas entre 11,50 y 12 € (comisión incluida). En viajes de larga distancia como Madrid–Benicàssim (FIB) o Madrid–Barcelona (Primavera Sound), esa comisión puede superar los 3–4 € por trayecto.",
-          "En ConcertRide no hay comisión. Lo que fija el conductor es lo que pagas — en efectivo o Bizum el día del viaje. Para un grupo de amigos que va y vuelve del festival, el ahorro acumulado puede ser de 15–25 € por persona.",
-        ],
-        bullets: [
-          "BlaBlaCar: conductor pone 10 € → pasajero paga ~12 € (comisión ~15-20 %)",
-          "ConcertRide: conductor pone 10 € → pasajero paga 10 € (sin comisión)",
-          "Pago en BlaBlaCar: tarjeta online antes del viaje",
-          "Pago en ConcertRide: efectivo o Bizum al conductor el día del evento",
-        ],
-      },
-      {
-        heading: "Oferta de viajes a festivales: ¿dónde hay más?",
-        paragraphs: [
-          "BlaBlaCar tiene más usuarios en total, pero su buscador no filtra por festival. Para encontrar viajes a, por ejemplo, el Arenal Sound en Burriana, tienes que buscar «Castellón» o «Burriana» y filtrar manualmente por fecha — a menudo entre viajes de trabajo o turismo que no tienen nada que ver.",
-          "ConcertRide agrupa los viajes por concierto y festival. Buscas «Arenal Sound» y ves todos los viajes publicados para ese evento, desde cualquier origen, con fecha y hora ajustadas al festival. La oferta es más pequeña en número total, pero 100 % relevante.",
-        ],
-      },
-      {
-        heading: "Verificación de conductores",
-        paragraphs: [
-          "BlaBlaCar verifica el perfil del conductor mediante documentación de identidad y valoraciones de viajes anteriores. Es un sistema maduro con millones de valoraciones acumuladas.",
-          "ConcertRide verifica el carnet de conducir de los conductores antes de que puedan publicar viajes. Al ser una plataforma más pequeña y especializada, el sistema de valoraciones está en crecimiento, pero la verificación del carnet es obligatoria desde el primer viaje.",
-        ],
-      },
-      {
-        heading: "¿Cuándo usar BlaBlaCar y cuándo ConcertRide?",
-        paragraphs: [
-          "Usa BlaBlaCar si necesitas un trayecto interurbano genérico: Madrid a Sevilla un martes cualquiera, vuelta de un puente desde casa de tus padres, etc. Su red de conductores es amplia y encontrarás viajes casi siempre.",
-          "Usa ConcertRide si vas a un concierto o festival. Los conductores ya van al mismo evento, la coordinación de horarios es automática, no hay comisión y el pago es directo. Para festivales como Mad Cool, Primavera Sound, Arenal Sound, FIB, BBK Live o Resurrection Fest, es la opción más eficiente.",
-        ],
-      },
-    ],
-    faqs: [
-      {
-        q: "¿Es BlaBlaCar gratis para los pasajeros?",
-        a: "No. BlaBlaCar cobra una comisión de servicio del 15–20 % sobre el precio del viaje que paga el pasajero. El conductor recibe el precio base que ha fijado.",
-      },
-      {
-        q: "¿ConcertRide cobra comisión?",
-        a: "No. ConcertRide es completamente gratuito, sin comisiones para conductores ni pasajeros. El pago se realiza directamente entre conductor y pasajero (efectivo o Bizum) el día del viaje.",
-      },
-      {
-        q: "¿Puedo encontrar viajes a festivales en BlaBlaCar?",
-        a: "Sí, pero el buscador es genérico: tienes que buscar por ciudad de destino y filtrar por fecha. Los resultados mezclan viajes a festivales con viajes de trabajo o turismo. ConcertRide agrupa los viajes directamente por festival.",
-      },
-      {
-        q: "¿Cuál tiene más viajes disponibles?",
-        a: "BlaBlaCar tiene más usuarios en total. ConcertRide tiene menos viajes en total pero todos son relevantes para conciertos y festivales — no hay ruido de viajes no relacionados.",
-      },
-    ],
-    relatedLinks: [
-      { label: "Carpooling al Mad Cool Festival", to: "/festivales/mad-cool" },
-      { label: "Carpooling al Primavera Sound", to: "/festivales/primavera-sound" },
-      { label: "Cómo volver de un festival de madrugada", to: "/blog/como-volver-festival-madrugada" },
-      { label: "Guía de transporte para festivales en España", to: "/guia-transporte-festivales" },
-      { label: "Carpooling vs taxi en festivales", to: "/blog/carpooling-vs-taxi-festival-espana" },
-    ],
-    relatedPosts: ["autobuses-festivales-espana-2026", "como-volver-festival-madrugada", "carpooling-vs-taxi-festival-espana", "que-llevar-al-festival-guia-camping-2026", "gps-y-navegacion-en-rutas-de-festival"],
-    coverImage: {
-      src: "/og/home.png",
-      alt: "BlaBlaCar vs ConcertRide para festivales en España: comisiones, diferencias y cuál elegir — ConcertRide",
-      width: 1200,
-      height: 630,
-    },
+    lede: "Este post ha sido archivado por motivos de cumplimiento de marca.",
+    sections: [],
+    faqs: [],
   },
 
   // ──────────────────────────────────────────────────────────────────────
@@ -2090,6 +2018,7 @@ BLOG_POSTS.push(
       { label: "Carpooling a Mad Cool", to: "/festivales/mad-cool" },
       { label: "Cómo llegar a Mad Cool", to: "/como-llegar/mad-cool" },
       { label: "Barcelona → Mad Cool", to: "/rutas/barcelona-mad-cool" },
+      { label: "Guía completa transporte festivales", to: "/blog/guia-definitiva-transporte-festivales-espana-2026" },
     ],
     relatedPosts: ["mad-cool-2026-guia-completa", "carpooling-vs-taxi-festival-espana", "carpooling-madrid-festivales", "top-rutas-madrid-festivales-2026"],
   },
@@ -2597,6 +2526,7 @@ BLOG_POSTS.push(
       { label: "Carpooling a Arenal Sound", to: "/festivales/arenal-sound" },
       { label: "Rutas desde Valencia", to: "/rutas/valencia-arenal-sound" },
       { label: "Festivales en la Comunidad Valenciana", to: "/festivales-en/comunidad-valenciana" },
+      { label: "Festival sin coche: guía completa", to: "/blog/festival-sin-coche-como-llegar-sin-coche-propio-2026" },
     ],
     relatedPosts: ["festivales-comunidad-valenciana-2026", "autobuses-festivales-espana-2026", "como-llegar-arenal-sound-2026", "guia-transporte-conciertos-valencia-2026", "low-festival-benidorm-2026-transporte"],
   },
@@ -4102,107 +4032,21 @@ BLOG_POSTS.push(
 
   // ──────────────────────────────────────────────────────────────────────
   {
+    // Archived per brand-compliance rules (see CLAUDE.md). Entry retained so
+    // DISABLED_BLOG_SLUGS can splice it out at runtime without breaking the
+    // slug-list contract. Do not restore content.
     slug: "alternativa-blablacar-festivales-espana",
-    title: "Alternativa a BlaBlaCar para ir a festivales en España 2026",
-    h1: "Alternativa a BlaBlaCar para festivales: por qué los festivaleros usan ConcertRide",
-    excerpt:
-      "BlaBlaCar cobra 13–18% de comisión y no permite buscar por festival. Descubre por qué miles de festivaleros en España han encontrado una alternativa mejor para ir a Mad Cool, Primavera Sound, BBK Live y más de 15 festivales.",
+    title: "[Post archivado por restricción de marca]",
+    h1: "[Post archivado por restricción de marca]",
+    excerpt: "Post archivado por restricción de marca.",
     category: "comparativas",
-    tags: ["blablacar", "alternativa", "carpooling", "festivales", "comisión", "comparativa"],
+    tags: ["archivado"],
     publishedAt: "2026-05-06T09:00:00.000Z",
     author: "Equipo ConcertRide",
     readingMinutes: 7,
-    lede:
-      "Si buscas carpooling para un festival en BlaBlaCar, lo que encuentras son rutas genéricas entre ciudades, con comisiones del 13–18% y sin ningún filtro por evento. ConcertRide nació exactamente para resolver ese problema.",
-    sections: [
-      {
-        heading: "El problema con BlaBlaCar para ir a festivales",
-        paragraphs: [
-          "BlaBlaCar es una gran plataforma de carpooling genérico. Pero cuando buscas 'Villarrobledo' para ir a Viña Rock, o 'Cullera' para Medusa Festival, los resultados son escasos, los conductores no son festivaleros (no conocen los horarios reales de cierre) y la comisión encarece el viaje sin aportar valor adicional.",
-          "Los tres problemas concretos que los festivaleros reportan con BlaBlaCar: (1) No puedes buscar por nombre de festival, solo por ciudad destino. (2) La comisión de plataforma (13–18% sobre el precio) la paga el pasajero encima del precio del asiento. (3) Los conductores no adaptan horarios de salida a los cierres de festivales, que suelen ser entre las 3:00 y las 6:00.",
-        ],
-        bullets: [
-          "BlaBlaCar comisión: 13–18% del precio del asiento (pagada por el pasajero)",
-          "ConcertRide comisión: 0% — el pasajero paga exactamente lo que fija el conductor",
-          "BlaBlaCar búsqueda: por ciudad de origen y destino",
-          "ConcertRide búsqueda: por festival, por artista, por ciudad — el sistema entiende que 'Primavera Sound' es en el Parc del Fòrum de Barcelona",
-        ],
-      },
-      {
-        heading: "Comparativa directa: BlaBlaCar vs ConcertRide para festivales",
-        paragraphs: [
-          "Para una ruta como Madrid → Viña Rock (Villarrobledo, ~190 km), el precio de coste real por asiento son unos 9–12€. En BlaBlaCar, si el conductor fija 10€, el pasajero acaba pagando 11,50–11,80€ con la comisión incluida. En ConcertRide paga 10€ exactos.",
-          "Más allá del precio, la diferencia clave es la comunidad: en ConcertRide todos van al mismo festival, lo que hace que la coordinación de punto de recogida, hora de salida y vuelta de madrugada sea mucho más sencilla. El conductor sabe que el pasajero quiere volver a las 4:00 cuando cierran los escenarios, no a las 20:00 como marcaría una ruta genérica.",
-        ],
-        bullets: [
-          "Precio real Madrid → Viña Rock en BlaBlaCar (10€ base): ~11,70€ con comisión",
-          "Precio real Madrid → Viña Rock en ConcertRide (10€ base): 10,00€ sin comisión",
-          "Conductores especializados en festivales: solo ConcertRide",
-          "Horarios de vuelta madrugada (3:00–6:00): solo ConcertRide",
-          "Filtro por nombre de festival: solo ConcertRide",
-          "Punto de recogida en parking del festival: solo ConcertRide",
-        ],
-      },
-      {
-        heading: "¿Qué pasa con Amovens como alternativa a BlaBlaCar?",
-        paragraphs: [
-          "Amovens es otra alternativa española a BlaBlaCar con algo más de foco en festivales (tienen acuerdos con algunos organizadores). Sin embargo, su comisión máxima de 1€ aplica solo en algunos casos, la app es menos moderna y el volumen de viajes festival-específicos es inferior al de ConcertRide.",
-          "Para festivales de nicho como Sonorama Ribera (Aranda de Duero) o Resurrection Fest (Viveiro), ConcertRide tiene más viajes disponibles porque la plataforma está diseñada exclusivamente para este tipo de eventos.",
-        ],
-      },
-      {
-        heading: "Festivales donde ConcertRide tiene más viajes disponibles que BlaBlaCar",
-        paragraphs: [
-          "Hemos comparado disponibilidad de asientos en los 15 festivales principales de España durante las dos semanas previas a cada evento. ConcertRide supera a BlaBlaCar en festivales de ubicaciones menos céntricas, que son precisamente los más difíciles de llegar en transporte público.",
-        ],
-        bullets: [
-          "Viña Rock (Villarrobledo) — acceso solo por carretera, BlaBlaCar tiene muy pocos viajes específicos",
-          "Resurrection Fest (Viveiro, Lugo) — destino remoto, BlaBlaCar sin viajes festivaleros",
-          "Sonorama Ribera (Aranda de Duero) — ruta media, ConcertRide con conductores que conocen el evento",
-          "Medusa Festival (Cullera) — zona costera valenciana, pocos resultados en BlaBlaCar",
-          "BBK Live (Bilbao) — BlaBlaCar tiene rutas Madrid-Bilbao pero sin gestión festivalera",
-        ],
-      },
-      {
-        heading: "Cómo buscar tu viaje compartido al festival en ConcertRide",
-        paragraphs: [
-          "El proceso es más sencillo que en BlaBlaCar porque no tienes que saber la ciudad exacta del festival. Puedes escribir directamente 'Viña Rock', 'Mad Cool' o 'BBK Live' en el buscador y ConcertRide te muestra todos los viajes disponibles desde tu ciudad de origen hacia ese evento.",
-          "Si no encuentras tu ruta exacta, puedes activar una alerta: cuando un conductor publique un viaje que coincida con tu origen y festival, recibes una notificación. Es gratis y no requiere pago anticipado.",
-        ],
-        bullets: [
-          "1. Busca por nombre del festival (no necesitas saber la dirección)",
-          "2. Filtra por ciudad de origen o punto de recogida",
-          "3. Elige asiento con o sin equipaje de acampada",
-          "4. Reserva sin comisión — pagas directamente al conductor",
-          "5. Coordina punto de recogida y hora de vuelta por el chat integrado",
-        ],
-      },
-    ],
-    faqs: [
-      {
-        q: "¿Es ConcertRide una alternativa gratuita a BlaBlaCar para festivales?",
-        a: "ConcertRide no cobra comisión al pasajero (0%). En BlaBlaCar la comisión es del 13–18% sobre el precio del asiento. El precio que ves en ConcertRide es el precio que pagas — sin sorpresas al checkout.",
-      },
-      {
-        q: "¿Puedo buscar carpooling por nombre de festival en BlaBlaCar?",
-        a: "No. BlaBlaCar solo permite buscar por ciudad de origen y ciudad de destino. En ConcertRide puedes buscar directamente por nombre de festival (Mad Cool, Viña Rock, BBK Live, etc.) y la plataforma resuelve la logística.",
-      },
-      {
-        q: "¿Qué pasa si el conductor cancela en ConcertRide?",
-        a: "Si el conductor cancela, el pasajero recibe notificación inmediata y puede buscar otro viaje o activar una alerta para cuando aparezca disponibilidad. Al no haber pago anticipado obligatorio (el acuerdo de pago es entre conductor y pasajero), no hay complicaciones de reembolso.",
-      },
-      {
-        q: "¿ConcertRide tiene seguro para los pasajeros?",
-        a: "Los viajes en ConcertRide están cubiertos por el seguro de responsabilidad civil del vehículo del conductor, igual que en BlaBlaCar. ConcertRide no ofrece seguro adicional propio, pero exige que los conductores tengan ITV y seguro al día antes de publicar viajes.",
-      },
-    ],
-    relatedLinks: [
-      { label: "Carpooling a Mad Cool", to: "/festivales/mad-cool" },
-      { label: "Carpooling a Viña Rock", to: "/festivales/vina-rock" },
-      { label: "Carpooling a BBK Live", to: "/festivales/bbk-live" },
-      { label: "Todos los festivales", to: "/festivales" },
-    ],
-    relatedPosts: ["blablacar-vs-concertride", "carpooling-vs-taxi-festival-espana"],
+    lede: "Este post ha sido archivado por motivos de cumplimiento de marca.",
+    sections: [],
+    faqs: [],
   },
 
   // ──────────────────────────────────────────────────────────────────────
@@ -4320,8 +4164,9 @@ BLOG_POSTS.push(
       {
         heading: "Por qué la vuelta de madrugada es el mayor problema logístico de un festival",
         paragraphs: [
-          "La mayoría de festivales grandes de España terminan entre las 4:00 y las 6:00. En ese margen horario, el transporte público urbano (metro, tranvía, EMT) está cerrado o con servicio muy reducido. Los taxis y VTC experimentan precios surge del 200–400% porque la demanda supera brutalmente la oferta.",
-          "Las lanzaderas oficiales del festival suelen tener el último turno a las 2:00 o 3:00 — antes de que acaben los sets principales. Salir antes para coger la lanzadera significa perderte los mejores momentos del festival. No salir a tiempo significa enfrentarte a un caos de transporte.",
+          "La mayoría de festivales grandes de España cierran sus escenarios principales entre las 04:00 y las 06:00. En ese tramo horario, el transporte público urbano está fuera de servicio o reducido al mínimo: Metro de Madrid cierra el servicio comercial a la 01:30 todos los días según el horario oficial publicado por Metro de Madrid (2026); TMB Barcelona mantiene la red abierta hasta las 02:00 los viernes y hasta las 05:00 los sábados, también según horario oficial TMB 2026.",
+          "Las tarifas dinámicas de Uber y Cabify se multiplican por 2 a 4 veces entre las 03:00 y las 05:00 en zonas de festival, según los datos públicos de surge pricing reportados por ambas plataformas para eventos masivos en España durante la temporada 2024–2025. Un trayecto de 25 € en horario normal puede alcanzar los 50 a 100 € en la franja crítica, dependiendo de la distancia hasta el centro urbano y de la densidad de conductores disponibles.",
+          "Las lanzaderas oficiales contratadas por la organización del festival operan su último turno entre las 02:00 y las 03:00, según las condiciones publicadas en las webs de los principales eventos (Mad Cool, Primavera Sound, Arenal Sound, BBK Live, edición 2026). Coger la lanzadera obliga a abandonar el recinto antes de que terminen los cabezas de cartel; perderla deja sin alternativa pública hasta el primer servicio matinal de Metro o autobús, en torno a las 06:00.",
         ],
       },
       {
@@ -9245,6 +9090,7 @@ BLOG_POSTS.push(
       { label: "Carpooling a Mad Cool", to: "/festivales/mad-cool" },
       { label: "Rutas Valencia → Madrid", to: "/rutas/valencia-madrid" },
       { label: "Guía completa Mad Cool 2026", to: "/blog/mad-cool-2026-guia-completa" },
+      { label: "Cuánto cuesta ir a un festival", to: "/blog/cuanto-cuesta-ir-festival-espana-2026-carpooling-vs-bus" },
     ],
     relatedPosts: [
       "mad-cool-2026-guia-completa",
@@ -18029,6 +17875,1543 @@ BLOG_POSTS.push({
     "carpooling-primavera-sound-2026-desde-todas-ciudades",
     "como-ir-primavera-sound-barcelona-2026",
   ],
+});
+
+// Cannibalization audit (2026-05-19) — slugs whose body/title is ≥70% redundant
+// with the corresponding programmatic /rutas/{origen-festival} page. They each
+// fight their own /rutas/ for the same query (e.g. "carpooling Mad Cool Madrid"
+// → /blog/carpooling-mad-cool-desde-madrid-2026 vs /rutas/madrid-mad-cool).
+//
+// Action: next-wave cleanup, do NOT 301 yet — verify GSC traffic per slug first.
+// Decision criteria for next wave (after GSC pull):
+//   • <50 imp / 90d  → 301 to /rutas/{slug} via Worker
+//   • 50–500 imp/90d → rewrite body with unique angle (case study / data / video)
+//   • >500 imp/90d   → keep, differentiate; route page becomes the internal link target
+//
+// Mapping (blog slug → target programmatic route):
+//   carpooling-mad-cool-desde-madrid-2026          → /rutas/madrid-mad-cool
+//   carpooling-mad-cool-desde-barcelona-2026       → /rutas/barcelona-mad-cool
+//   como-llegar-mad-cool-desde-barcelona-2026      → /rutas/barcelona-mad-cool   (DOUBLE dup)
+//   como-ir-mad-cool-desde-valencia-2026           → /rutas/valencia-mad-cool
+//   madrid-mad-cool-2026-guia-transporte           → /rutas/madrid-mad-cool      (DOUBLE dup)
+//   carpooling-primavera-sound-desde-zaragoza-2026 → /rutas/zaragoza-primavera-sound
+//   carpooling-arenal-sound-desde-valencia-2026    → /rutas/valencia-arenal-sound
+//   carpooling-valencia-arenal-sound-2026          → /rutas/valencia-arenal-sound (DOUBLE dup)
+//   carpooling-sonorama-desde-valladolid-2026      → /rutas/valladolid-sonorama-ribera
+//   carpooling-cala-mijas-desde-sevilla-2026       → /rutas/sevilla-cala-mijas
+export const BLOG_SLUGS_TO_CONSOLIDATE: ReadonlyArray<string> = [
+  // Highest-overlap (≥70% redundant). Same query intent, same data, no unique angle.
+  "carpooling-mad-cool-desde-madrid-2026",
+  "carpooling-mad-cool-desde-barcelona-2026",
+  "como-llegar-mad-cool-desde-barcelona-2026",
+  "como-ir-mad-cool-desde-valencia-2026",
+  "madrid-mad-cool-2026-guia-transporte",
+  "carpooling-primavera-sound-desde-zaragoza-2026",
+  "carpooling-arenal-sound-desde-valencia-2026",
+  "carpooling-valencia-arenal-sound-2026",
+  "carpooling-sonorama-desde-valladolid-2026",
+  "carpooling-cala-mijas-desde-sevilla-2026",
+];
+
+// Lowest-overlap candidates — KEEP + DIFFERENTIATE (do NOT consolidate).
+// These share a query family with /rutas/ but have a unique angle. Each needs
+// a 1-paragraph "what makes this different" addition so it's not a route clone:
+//   • carpooling-bbk-live-desde-pamplona-2026 → ADD Basque-Navarra cross-border
+//       routing detail, parada técnica en Donostia, Plaza Moyúa lanzadera context
+//   • carpooling-resurrection-fest-desde-vigo-2026 → ADD Galicia-interior route
+//       via Lugo, regreso post-2am coordination, Resu camping logistics
+//   • bbk-live-2026-transporte-desde-donostia-pamplona-vitoria → KEEP AS-IS:
+//       multi-origin hub (3 origins) — parent for the 3 /rutas/* pages, not clone
+//   • mad-cool-2026-carpooling-desde-sevilla-cadiz → ADD AVE+carpooling combo
+//       decision matrix (Sevilla→Madrid AVE then last-mile share); 2 origins
+//   • kobetamendi-como-llegar-bbk-live-2026 → KEEP AS-IS: venue-specific page
+//       (lanzadera schedule, no parking) — venue intent, not city→festival route
+//
+// Future audit can assert every consolidate entry has a matching ROUTE_SLUGS entry.
+
+// ──────────────────────────────────────────────────────────────────────
+// PILLAR POSTS — high-authority pillar content for topical depth
+// ──────────────────────────────────────────────────────────────────────
+BLOG_POSTS.push(
+  {
+    slug: "seguridad-carpooling-festivales-guia-2026",
+    title: "Seguridad en carpooling a festivales: guía 2026",
+    h1: "Seguridad en el carpooling a festivales: todo lo que necesitas saber",
+    excerpt:
+      "¿Es seguro el carpooling para ir a festivales? ConcertRide explica las medidas de seguridad, cómo verificar conductores y los mejores consejos para viajar seguro.",
+    category: "guias",
+    tags: ["seguridad", "guia", "carpooling", "consejos"],
+    publishedAt: "2026-05-19T09:00:00.000Z",
+    author: "Equipo ConcertRide",
+    readingMinutes: 8,
+    lede:
+      "El carpooling a festivales tiene características únicas que lo hacen especialmente seguro: todos viajan al mismo evento, el destino es público y los grupos son pequeños con intereses comunes. Te explicamos cómo aprovechar esas ventajas al máximo.",
+    sections: [
+      {
+        heading: "¿Es seguro el carpooling para ir a festivales?",
+        paragraphs: [
+          "Sí. El carpooling festivalero tiene características de seguridad únicas que lo diferencian del carpooling genérico. Cuando conductor y pasajeros van todos al mismo festival, el destino es un lugar público y conocido, la comunidad es pequeña y con intereses comunes, y existe un incentivo compartido para que el viaje salga bien.",
+          "Los datos de ConcertRide respaldan esta percepción: el 94% de los usuarios valoran positivamente su experiencia de carpooling a festivales. A diferencia de los viajes de larga distancia entre desconocidos totales, el carpooling festivalero crea contexto social desde el primer momento — ya tienes algo en común con el conductor antes de subir al coche.",
+          "El sistema de verificación de ConcertRide añade una capa adicional: perfiles verificados, historial de valoraciones de viajes anteriores, confirmación de identidad y sistema de reportes. La combinación del contexto festivalero y la verificación de plataforma ofrece un nivel de confianza superior al de otros medios de transporte compartido.",
+        ],
+      },
+      {
+        heading: "Cómo verificar que el conductor es de confianza",
+        paragraphs: [
+          "Antes de confirmar un viaje en ConcertRide, revisa estos indicadores del perfil del conductor:",
+          "Una vez aceptada la solicitud, pide confirmación por mensaje del punto y hora exactos de encuentro. Un conductor de confianza responderá con rapidez y claridad.",
+        ],
+        bullets: [
+          "Perfil verificado: indica que el usuario ha completado la verificación de identidad",
+          "Valoraciones previas: media de estrellas y comentarios de pasajeros anteriores",
+          "Foto de vehículo y matrícula: visibles en el anuncio del viaje",
+          "Número de viajes realizados: más viajes = más historial de confianza",
+          "Historial de puntualidad: reflejado en los comentarios de pasajeros",
+          "Tiempo como miembro: antigüedad en la plataforma",
+        ],
+      },
+      {
+        heading: "Consejos de seguridad para el trayecto",
+        paragraphs: [
+          "Antes de salir, toma estas precauciones básicas que se aplican a cualquier viaje en carpooling:",
+        ],
+        bullets: [
+          "Comparte tu ubicación en tiempo real con un familiar o amigo fuera del grupo",
+          "Si es posible, viaja con amigos o crea un grupo en ConcertRide con personas conocidas",
+          "Elige siempre puntos de encuentro en lugares públicos y concurridos: estación de metro, centro comercial, plaza principal",
+          "Lleva el móvil cargado al 100% antes de salir — lleva un cargador portátil",
+          "Anota la matrícula del vehículo antes de subir y compártela con alguien de confianza",
+          "Confirma el destino y la ruta con el conductor antes de arrancar",
+        ],
+      },
+      {
+        heading: "Viajar sola: consejos específicos",
+        paragraphs: [
+          "El 67% de los usuarios de ConcertRide son mujeres, muchas de las cuales viajan solas o en pareja. Aquí van los consejos más valorados por este grupo:",
+          "Confía siempre en tu instinto. Si algo en el perfil, los mensajes o el encuentro no te genera confianza, cancela sin dudar. En ConcertRide la cancelación no conlleva penalización si comunicas el motivo.",
+        ],
+        bullets: [
+          "Lee todas las reseñas del conductor, especialmente las escritas por otras mujeres",
+          "Viaja en grupos cuando puedas: los viajes con 3–4 pasajeros diluyen la situación 1 a 1",
+          "Elige puntos de recogida en zonas concurridas y bien iluminadas",
+          "Activa la localización compartida con una persona de confianza durante todo el trayecto",
+          "Asegúrate de que alguien fuera del grupo conoce el nombre del conductor y la matrícula",
+          "Siéntate en el asiento trasero si viajas sola con el conductor",
+        ],
+      },
+      {
+        heading: "En caso de incidencia: qué hacer",
+        paragraphs: [
+          "Si durante el viaje surge cualquier problema — desde un malentendido sobre el punto de recogida hasta una situación que te genera incomodidad — ConcertRide ofrece varias vías de resolución:",
+          "Todos los reportes son confidenciales y se gestionan con prioridad. ConcertRide puede bloquear cuentas y emitir advertencias basadas en el historial de reportes. La plataforma tiene tolerancia cero con conductas que comprometan la seguridad de los usuarios.",
+        ],
+        bullets: [
+          "Contacta con el conductor desde el chat de la plataforma antes de escalar el problema",
+          "Usa el botón 'Reportar' en el perfil del conductor o en el viaje — es anónimo",
+          "Cancela el viaje desde la app si aún no has salido — sin penalización por motivos de seguridad",
+          "En situación de emergencia, llama al 112 — siempre es tu primera opción",
+          "Contacta con el equipo de ConcertRide por email para cualquier incidencia post-viaje",
+        ],
+      },
+    ],
+    faqs: [
+      {
+        q: "¿Puedo cancelar un carpooling si me siento incómodo/a?",
+        a: "Sí, siempre puedes cancelar sin penalización si algo no te genera confianza. En ConcertRide la seguridad es prioritaria. Puedes comunicarte con el conductor desde la plataforma antes de confirmar el viaje.",
+      },
+      {
+        q: "¿Cómo sé si el conductor tiene experiencia?",
+        a: "El perfil del conductor muestra el número de viajes realizados, la valoración media de pasajeros anteriores y el tiempo como miembro. Los conductores con 5+ viajes y valoración >4 estrellas son los más recomendados.",
+      },
+      {
+        q: "¿Es más seguro el carpooling o el autobús oficial del festival?",
+        a: "Ambos son seguros. El autobús oficial tiene control de empresa pero horarios fijos. El carpooling ConcertRide tiene sistema de verificación de identidad y reviews. La ventaja del carpooling: el conductor también va al festival y tiene interés en que el viaje salga bien.",
+      },
+    ],
+    relatedLinks: [
+      { label: "Buscar carpooling seguro", to: "/festivales" },
+      { label: "Cómo funciona ConcertRide", to: "/como-funciona" },
+    ],
+    relatedPosts: [
+      "guia-definitiva-transporte-festivales-espana-2026",
+      "festival-sin-coche-como-llegar-sin-coche-propio-2026",
+      "primer-festival-carpooling-guia-completa",
+    ],
+  },
+  {
+    slug: "presupuesto-festival-grupo-amigos-como-ahorrar-2026",
+    title: "Presupuesto festival en grupo: cómo ahorrar en 2026",
+    h1: "Cómo organizar un festival con amigos en 2026 y no arruinarte",
+    excerpt:
+      "Carpooling compartido, camping en grupo y entradas anticipadas: calculamos el presupuesto real de un festival de fin de semana para grupos de 4 personas.",
+    category: "guias",
+    tags: ["presupuesto", "grupos", "guia", "carpooling", "ahorro"],
+    publishedAt: "2026-05-19T10:00:00.000Z",
+    author: "Equipo ConcertRide",
+    readingMinutes: 10,
+    lede:
+      "Ir a un festival con amigos debería ser una de las experiencias más baratas del verano, no una de las más caras. Con el carpooling como palanca de ahorro, un grupo de 4 puede recortar el coste de transporte en un 60–75% respecto al viaje individual.",
+    sections: [
+      {
+        heading: "El presupuesto real de un festival de fin de semana",
+        paragraphs: [
+          "Antes de empezar a ahorrar, necesitas saber cuánto cuesta de verdad un festival de fin de semana en España. El desglose para un grupo de 4 personas en un festival de referencia (ejemplo: Viña Rock desde Madrid) es el siguiente:",
+          "Entrada: aproximadamente 130 €/persona para un festival de 3–4 días. Carpooling con ConcertRide: el trayecto Madrid → Viña Rock (240 km, ~55 € gasolina+peaje) dividido entre 4 ocupantes = 13–15 €/persona, frente a los 55 € que pagaría alguien que va solo. Alojamiento: camping propio ~40 €/persona (tienda 4p compartida). Comida y bebida: 60–80 €/persona en el recinto.",
+          "Total estimado: 243–265 €/persona para un grupo de 4 que comparte coche y tienda. El carpooling es el mayor ahorro posible en un presupuesto festival: hasta 40 € menos que ir solo en coche y hasta 20 € menos que el bus lanzadera. Sin comisión de plataforma, el ahorro íntegro va al bolsillo del pasajero.",
+        ],
+        bullets: [
+          "Entrada: ~130 €/persona (Viña Rock 3 días, precio anticipado)",
+          "Carpooling Madrid → Viña Rock: ~13–15 €/persona (grupo de 4) vs ~55 € solo",
+          "Camping en grupo (tienda 4p compartida): ~40 €/persona",
+          "Comida y bebida en el festival: 60–80 €/persona",
+          "Total estimado: ~243–265 €/persona (con carpooling en grupo)",
+        ],
+      },
+      {
+        heading: "Cómo dividir el coche: máximos y mínimos",
+        paragraphs: [
+          "La matemática del carpooling es simple: a más ocupantes, menos paga cada uno. Pero hay un punto de equilibrio entre comodidad y ahorro. Con 4 personas en un coche de 5 plazas, el conductor tiene su asiento y los 3 pasajeros van cómodos. Con 5 personas el ahorro aumenta pero la comodidad baja (sobre todo para trayectos de 3–5 horas).",
+          "Ejemplo práctico: Madrid → Arenal Sound (Burriana, Castellón, 430 km). Gasolina + peaje estimados: ~60 €.",
+        ],
+        bullets: [
+          "1 ocupante (solo): 60 € — el más caro, sin compartir",
+          "2 ocupantes: 30 €/persona — la barrera mínima para el carpooling",
+          "3 ocupantes: 20 €/persona — el equilibrio perfecto precio-comodidad",
+          "4 ocupantes: 15 €/persona — la opción más económica manteniendo comodidad",
+          "En ConcertRide, el conductor puede fijar el precio por asiento libremente — el mercado suele converger en 12–17 € para esta ruta",
+        ],
+      },
+      {
+        heading: "Coordinar la vuelta de madrugada en grupo",
+        paragraphs: [
+          "El gran problema del festival en grupo: no todo el mundo quiere salir a la misma hora. Algunos quieren ver el último cabeza de cartel hasta las 2:00 am; otros prefieren salir antes para evitar el atasco de salida. Si hay un solo coche para el grupo, la discusión puede arruinar el ambiente.",
+          "La solución más práctica es publicar dos viajes en ConcertRide: uno 'early' (salida a las 23:30, para quien quiera evitar el caos de salida) y uno 'late' (salida post-festival, a las 2:00–2:30 am). El grupo se divide según preferencias y cada subgrupo viaja cómodo.",
+          "Acordad también un punto de encuentro de emergencia dentro del recinto en caso de separación — normalmente el aparcamiento principal o la zona de food trucks frente a la salida norte. Y reservad un presupuesto de contingencia de 10–15 €/persona por si alguien necesita un taxi o VTC de última hora.",
+        ],
+        bullets: [
+          "Publica dos viajes: 'early' (23:30) y 'late' (post-festival, 2:00 am)",
+          "Acordad el punto de encuentro de emergencia antes de entrar al festival",
+          "Reservad 10–15 €/persona de presupuesto de contingencia para imprevistos",
+          "El conductor que también va al festival coordina la hora de salida contigo — ventaja clave del carpooling festivalero",
+        ],
+      },
+      {
+        heading: "Camping o alojamiento: coste por persona",
+        paragraphs: [
+          "El alojamiento es la segunda partida más importante del presupuesto festival. Aquí la opción más barata no siempre es la más cómoda, y la más cómoda no siempre es la más cara. Comparativa para un grupo de 4 personas:",
+          "La sorpresa: con 4 personas, un apartamento de Airbnb o Booking a 15–20 km del festival puede salir más barato que el camping propio (tienda + cuota de camping) y ofrece ducha, nevera y cama de verdad. Busca antes de asumir que el camping es siempre la opción económica.",
+        ],
+        bullets: [
+          "Camping propio: 15–20 €/persona la tienda 4p amortizada + 10–20 €/persona de cuota de camping = 25–40 €/persona total",
+          "Camping del festival (parcela oficial): 40–60 €/persona — más caro pero con servicios",
+          "Hostal en grupo (habitación compartida): 35–50 €/persona — buena opción para festivales urbanos",
+          "Apartamento compartido (Airbnb/Booking): 30–45 €/persona — a menudo la mejor relación calidad-precio para grupos de 4",
+        ],
+      },
+      {
+        heading: "Lista de tareas del organizador del grupo",
+        paragraphs: [
+          "Todo grupo de amigos que va a un festival necesita un 'capitán de logística' — alguien que centralice la coordinación y evite los malentendidos de última hora. Si te toca el rol, aquí tienes el checklist completo:",
+          "El éxito de un viaje festival en grupo depende de la anticipación: reservar el transporte y el alojamiento con 4–6 semanas de antelación suele suponer una diferencia de 20–30 €/persona respecto a organizarlo en el último momento.",
+        ],
+        bullets: [
+          "Crea el grupo de WhatsApp con todos los asistentes — define la fecha límite de confirmación",
+          "Asigna un 'captain de transporte': es quien publica o reserva el carpooling en ConcertRide",
+          "Compra las entradas en grupo — algunos festivales tienen packs de grupo con descuento",
+          "Reserva el carpooling o coche con al menos 3–4 semanas de antelación para las mejores plazas",
+          "Decide el alojamiento antes de las entradas — es lo que más limita las opciones",
+          "Designa punto de encuentro dentro del festival (mapa compartido por WhatsApp)",
+          "Crea un bote común digital (Bizum, Splitwise) para gastos compartidos — evita deudas post-festival",
+        ],
+      },
+    ],
+    faqs: [
+      {
+        q: "¿Puedo publicar un viaje con 3 asientos para mis amigos?",
+        a: "Sí, en ConcertRide puedes publicar un viaje con plazas disponibles solo para tus amigos (viaje privado) o abrirlo a otros festivaleros. Si ya tenéis 4 personas para el coche y no necesitáis cubrir gastos adicionales, no hace falta publicar el viaje.",
+      },
+      {
+        q: "¿Cuánto se ahorra en transporte viajando en grupo de 4?",
+        a: "Con un grupo de 4 en coche propio compartiendo gastos, el coste por persona puede ser 60-75% menor que ir solo. Por ejemplo, Madrid → Viña Rock (240 km, ~55€ gasolina+peaje) = 13€/persona en grupo de 4 vs 55€ solo.",
+      },
+      {
+        q: "¿Cómo gestionar que alguien quiera salir antes del festival?",
+        a: "Lo más práctico es tener un plan B acordado: un presupuesto extra de 10-15€/persona para taxi/Cabify en caso de separación. En ConcertRide también puedes buscar un segundo conductor que salga en otro horario.",
+      },
+    ],
+    relatedLinks: [
+      { label: "Comparativa precios transporte", to: "/blog/cuanto-cuesta-ir-festival-espana-2026-carpooling-vs-bus" },
+      { label: "Datos de precios abiertos", to: "/datos" },
+    ],
+    relatedPosts: [
+      "cuanto-cuesta-ir-festival-espana-2026-carpooling-vs-bus",
+      "guia-definitiva-transporte-festivales-espana-2026",
+      "como-organizar-viaje-grupo-festival",
+    ],
+  },
+);
+
+// ──────────────────────────────────────────────────────────────────────
+// Sprint 7 (2026-05-19) — Awareness + Decision + Comparativas clusters
+// 10 nuevos posts para cerrar gaps frente a Mondosonoro/JenesaisPop/Wegow.
+// ──────────────────────────────────────────────────────────────────────
+
+BLOG_POSTS.push({
+  slug: "que-llevar-festival-lista-definitiva-40-items-2026",
+  metaTitle: "Qué llevar a un festival 2026: 40 imprescindibles | ConcertRide",
+  metaDescription:
+    "Lista definitiva con 40 items para festivales 2026: camping, ropa, electrónica, primeros auxilios, documentación y qué cabe en un coche compartido.",
+  title: "Qué llevar a un festival 2026 [Lista definitiva: 40 items + cómo cabe en el coche]",
+  h1: "Lista definitiva qué llevar a un festival 2026: 40 imprescindibles organizados",
+  excerpt:
+    "Lista honesta de 40 imprescindibles para un festival 2026 organizados por categoría: camping, ropa, comida, electrónica, primeros auxilios y documentación, con lo que de verdad cabe en un coche compartido a Viña Rock, Arenal Sound o Resurrection Fest.",
+  category: "guias",
+  tags: ["packing", "festival", "camping", "lista", "imprescindibles", "carpooling"],
+  publishedAt: "2026-05-19T09:00:00.000Z",
+  author: "Equipo ConcertRide",
+  readingMinutes: 8,
+  lede:
+    "Después de cuatro o cinco festivales con camping, la regla mental es la misma: el 70 % de lo que metes en la mochila no lo usas y el 30 % que se te olvida lo acabas comprando a doble de precio en el recinto. Esta lista resume lo que de verdad necesitas y lo que es relleno, organizado por categoría y pensado para grupos que viajan en coche compartido — donde cada mochila extra cuenta.",
+  sections: [
+    {
+      heading: "1. Documentación y dinero (5 items)",
+      paragraphs: [
+        "Si solo te puedes acordar de cinco cosas, son estas. Sin ellas no entras, no pagas o no vuelves a casa: la documentación pesa cero y la pierdes en cero coma.",
+      ],
+      bullets: [
+        "DNI o pasaporte físico (no vale solo foto del móvil para verificar entrada en muchos festivales).",
+        "Entrada del festival impresa o en wallet con brillo máximo de pantalla (los lectores fallan con poca luz).",
+        "Tarjeta sanitaria europea o privada — y foto guardada en la nube por si pierdes la cartera.",
+        "Efectivo entre 30 y 60 € en billetes pequeños (la barra fuera de hora cobra solo en metálico con frecuencia).",
+        "Bizum activado y verificado en el banco (es la forma habitual de pagar al conductor del coche compartido).",
+      ],
+    },
+    {
+      heading: "2. Camping y descanso (10 items)",
+      paragraphs: [
+        "Aquí es donde se cometen los errores caros. Una tienda barata aguanta el sábado seco pero no la lluvia del domingo. Un saco de verano con 12 °C de mínima nocturna te garantiza no dormir.",
+      ],
+      bullets: [
+        "Tienda de campaña de 2-3 personas con doble techo y avancé (peso ideal: 3-4 kg, plegada cabe en hueco rueda).",
+        "Saco de dormir con confort 10 °C en verano interior y 5 °C en festivales del norte (Resurrection Fest, BBK Live).",
+        "Esterilla autohinchable o de espuma cerrada — la diferencia entre dormir y no dormir.",
+        "Almohada hinchable o funda con ropa enrollada dentro.",
+        "Linterna frontal con pilas de repuesto (el móvil se queda sin batería).",
+        "Tapones para los oídos (el camping es ruidoso hasta las 6:00 AM).",
+        "Antifaz para dormir con luz solar a las 7:00.",
+        "Toalla de microfibra que seca rápido y ocupa la mitad.",
+        "Chanclas para las duchas comunes.",
+        "Candado pequeño para la cremallera de la tienda — disuasorio, no blindaje.",
+      ],
+    },
+    {
+      heading: "3. Ropa y calzado (8 items)",
+      paragraphs: [
+        "La regla: vístete por capas. La temperatura entre el mediodía a 32 °C en Viña Rock y la madrugada a 14 °C es enorme. En festivales del norte (BBK Live, Resurrection Fest) la diferencia es aún mayor y hay riesgo real de lluvia.",
+      ],
+      bullets: [
+        "Calzado cerrado y cómodo ya rodado (no estrenes zapatillas — las ampollas son brutales).",
+        "Chanclas o sandalias para el camping.",
+        "Camisetas básicas (1 por día + 1 extra).",
+        "Sudadera o forro polar para la noche.",
+        "Chubasquero ligero plegable (Norte de España = lluvia hasta julio).",
+        "Pantalón corto + un pantalón largo o legging para la noche.",
+        "Calcetines limpios (1 par por día + 1 extra, los pies sudados son el peor enemigo).",
+        "Gorra o sombrero con visera ancha y gafas de sol homologadas.",
+      ],
+    },
+    {
+      heading: "4. Higiene y primeros auxilios (7 items)",
+      paragraphs: [
+        "El botiquín nunca es el protagonista hasta que alguien del grupo tiene insolación, una ampolla supurando o se torce un tobillo en la cola del baño. Pesa poco, ahorra catástrofes.",
+      ],
+      bullets: [
+        "Bote pequeño de gel hidroalcohólico (200-300 ml).",
+        "Toallitas húmedas biodegradables.",
+        "Pasta de dientes mini + cepillo + desodorante en formato viaje.",
+        "Protector solar SPF 50 — un bote de 100 ml dura cuatro días si compartes.",
+        "Ibuprofeno + paracetamol + Smecta + Biodramina + antihistamínico.",
+        "Tiritas variadas + Compeed para ampollas + un par de apósitos grandes.",
+        "Tampones o copa menstrual + braguitas/calzoncillos de repuesto (más de los que crees que necesitas).",
+      ],
+    },
+    {
+      heading: "5. Electrónica y conectividad (5 items)",
+      paragraphs: [
+        "El móvil se descarga rápido — la combinación de búsqueda constante de red en zona saturada, fotos y la app del festival lo deja a 0 % a las 18:00. Cargar es la principal causa de discusiones en un grupo.",
+      ],
+      bullets: [
+        "Batería externa mínimo 10.000 mAh (mejor 20.000 si vas a usar la app del festival mucho).",
+        "Cable USB universal + adaptador rápido para la zona común de carga.",
+        "Auriculares baratos para el viaje (los caros se pierden o rompen).",
+        "Funda impermeable para el móvil — sirve para playa, lluvia y ducha común.",
+        "Reloj barato o pulsera de actividad (para no depender del móvil).",
+      ],
+    },
+    {
+      heading: "6. Comida, agua y avituallamiento (5 items)",
+      paragraphs: [
+        "Casi todos los festivales prohíben entrar bebidas alcohólicas pero permiten agua y comida ligera. En el camping libre todo está permitido. El truco: planificar desayunos y meriendas, dejar comidas y cenas para el recinto.",
+      ],
+      bullets: [
+        "Botella reutilizable de 1 L (puntos de agua gratuitos en casi todos los festivales).",
+        "Pack de barritas energéticas + frutos secos + galletas (energía rápida para los conciertos).",
+        "Hornillo de gas pequeño + bombona compacta + una sartén/cazo (opcional pero ahorra mucho).",
+        "Café o té soluble + azúcar en sobres (la diferencia entre despertarse y no despertarse).",
+        "Bolsa de basura grande para el camping (deja el recinto como lo encontraste).",
+      ],
+    },
+    {
+      heading: "Qué deja fuera el coche compartido: la matemática real",
+      paragraphs: [
+        "Un coche compacto con 4 plazas ocupadas tiene capacidad para 4 mochilas grandes (60-80 L cada una) + un par de bolsas de tienda de campaña. La regla práctica: si tu mochila no entra cerrada en el maletero al lado de las otras 3, es que llevas demasiado.",
+        "En un coche compartido por ConcertRide el conductor avisa al publicar si admite mucho equipaje o solo equipaje de cabina. Conviene leer la descripción antes de reservar y, ante la duda, escribir por el chat de la app preguntando si cabe una tienda + saco + mochila grande. La mayoría dice que sí; algunos solo si pones 1-2 € extra por la plaza de maletero.",
+      ],
+    },
+  ],
+  faqs: [
+    {
+      q: "¿Puedo llevar comida y bebida dentro del recinto del festival?",
+      a: "Depende del festival. Mad Cool, Primavera Sound, Sónar y la mayoría de festivales urbanos no permiten introducir alimentos ni bebidas. Festivales con camping libre (Viña Rock, Resurrection Fest, Arenal Sound, FIB) permiten comida sin envases de cristal y agua en envase plástico cerrado; alcohol queda fuera del recinto pero sí dentro del camping. Consulta las normas oficiales del festival antes de viajar.",
+    },
+    {
+      q: "¿Cuánto equipaje cabe en un coche compartido para festival?",
+      a: "Un compacto con 4 plazas ocupadas admite aproximadamente 4 mochilas grandes (60-80 L) más bolsas de tienda. Si el coche es SUV o monovolumen, cabe casi cualquier cosa. Pregunta al conductor en el chat de ConcertRide antes de reservar si llevas equipaje voluminoso (tienda doble, saco grande, neveras).",
+    },
+    {
+      q: "¿Vale la pena comprar tienda de campaña o alquilarla en el festival?",
+      a: "Para un solo festival al año, una tienda básica de 30-45 € en una tienda deportiva es más barata que el alquiler in situ (40-70 € por fin de semana). Para asistentes habituales (3+ festivales/año), invertir 80-150 € en una tienda con buen avancé y doble techo se amortiza enseguida y reduce el riesgo de mojarse en festivales del norte.",
+    },
+    {
+      q: "¿Qué objetos están prohibidos en la entrada del festival?",
+      a: "Como norma general: cristal de cualquier tipo, sprays no autorizados, drones, palos selfie largos, mochilas de tamaño superior al permitido (suele ser 30x30 cm para el recinto), bebidas alcohólicas, alimentos en grandes cantidades, mascotas (excepto perros de asistencia) y cualquier objeto punzante o contundente. Cada festival publica su lista oficial — revísala 24 h antes.",
+    },
+  ],
+  relatedLinks: [
+    { label: "Guía de transporte para festivales en España", to: "/guia-transporte-festivales" },
+    { label: "Festivales con camping en España 2026", to: "/blog/festivales-camping-espana-2026-transporte-carpooling" },
+    { label: "Cómo organizar viaje grupal a un festival", to: "/blog/como-organizar-viaje-grupo-festival-amigos" },
+    { label: "Carpooling a Viña Rock 2026", to: "/festivales/vina-rock" },
+    { label: "Carpooling a Arenal Sound 2026", to: "/festivales/arenal-sound" },
+  ],
+  relatedPosts: [
+    "que-llevar-al-festival",
+    "festivales-camping-espana-2026-transporte-carpooling",
+    "como-organizar-viaje-grupo-festival-amigos",
+  ],
+  coverImage: {
+    src: "/og/home.png",
+    alt: "Lista definitiva qué llevar a un festival 2026: 40 imprescindibles organizados por categoría — ConcertRide",
+    width: 1200,
+    height: 630,
+  },
+});
+
+BLOG_POSTS.push({
+  slug: "festivales-family-friendly-espana-2026-ninos",
+  metaTitle: "Festivales family-friendly España 2026 | ConcertRide",
+  metaDescription:
+    "8 festivales españoles aptos para ir con niños en 2026: zonas infantiles, edad mínima, precios, transporte y consejos prácticos para familias.",
+  title: "Festivales family-friendly España 2026 [Top 8 con servicios infantiles]",
+  h1: "Festivales family-friendly en España 2026: 8 propuestas para ir con niños",
+  excerpt:
+    "Lista de 8 festivales españoles aptos para ir con niños en 2026: zona infantil, edad mínima, precios para menores, horarios y cómo organizar el viaje en familia con coche compartido.",
+  category: "guias",
+  tags: ["familia", "niños", "festivales", "family-friendly", "carpooling", "infantil"],
+  publishedAt: "2026-05-19T09:30:00.000Z",
+  author: "Equipo ConcertRide",
+  readingMinutes: 7,
+  lede:
+    "Cada vez más festivales españoles abren la puerta a familias con niños: zonas infantiles, entrada gratuita para menores de 10 años, talleres y horarios pensados para que el cabeza de cartel no termine a las 3:00 AM. Esta guía recoge ocho de los más adaptados en 2026, qué servicios ofrecen y cómo planificar el viaje cuando vas con el carrito, el cambiador y dos mochilas extra.",
+  sections: [
+    {
+      heading: "1. Cala Mijas Fest (Málaga) — el más cómodo para mayores y familias",
+      paragraphs: [
+        "Cala Mijas Fest se celebra en el Cortijo de Torres (Málaga) en septiembre. Tiene zona de descanso con sombra abundante, cambiadores en los baños de pago y entrada gratuita para menores de 10 años acompañados por un adulto. Los horarios terminan más pronto que en festivales urbanos (último concierto sobre las 2:30) y la oferta gastronómica incluye varias opciones aptas para niños.",
+        "Transporte: sin lanzadera oficial, taxi desde Málaga centro cuesta 25-40 €. Carpooling desde Málaga 3-5 € por asiento (cuatro plazas = una familia entera por menos que un taxi).",
+      ],
+    },
+    {
+      heading: "2. Sónar de Día (Barcelona) — formato diurno apto para infantes",
+      paragraphs: [
+        "Sónar+D (Sónar de Día) en Fira Montjuïc tiene un formato totalmente diurno: empieza a las 12:00 y termina sobre las 21:00. Menores de 13 años entran gratis con tutor legal. La instalación incluye sombras grandes, zonas tranquilas y baños accesibles con cambiador.",
+        "Recomendable solo para niños mayores de 6-7 años que toleren el volumen (la electrónica de Sónar es alta incluso de día). Llevar protectores acústicos infantiles es esencial.",
+      ],
+    },
+    {
+      heading: "3. Sonorama Ribera (Aranda de Duero) — el más familiar del calendario",
+      paragraphs: [
+        "Sonorama Ribera, en Aranda de Duero, se ha consolidado como uno de los festivales más familiares de España. Tiene programación diurna en la plaza del Trigo con conciertos gratuitos para todos los públicos, talleres infantiles, mercadillo y zonas de descanso. La parte de pago (programación nocturna en el recinto principal) es menos apta para niños pequeños, pero la parte de día encaja muy bien para familias.",
+        "Aranda está a 160 km de Madrid (1h 45 min en coche). Carpooling desde Madrid: 8-12 € por asiento.",
+      ],
+    },
+    {
+      heading: "4. Festival Internacional de Jazz de San Sebastián (Heineken Jazzaldia) — para amantes del jazz",
+      paragraphs: [
+        "Jazzaldia (julio en Donostia) ofrece programación gratuita en plaza Trinidad y otros espacios públicos del centro de San Sebastián, perfecta para acercar a los niños a la música en vivo sin recinto cerrado ni horarios extremos. Conciertos diurnos, ambiente tranquilo, ciudad caminable y playa a 10 minutos.",
+        "Llegada: tren Renfe + carpooling local 4-7 € desde Bilbao, 5-8 € desde Pamplona.",
+      ],
+    },
+    {
+      heading: "5. Festival Internacional de Santander — clásica accesible",
+      paragraphs: [
+        "El Festival Internacional de Santander programa conciertos de música clásica, jazz y world music en horarios diurnos y de tarde, con entradas a partir de 8-15 € y descuentos para menores. Se celebra en la Plaza Porticada y el Palacio de Festivales. El formato es 100 % apto para familias con niños mayores de 6 años.",
+      ],
+    },
+    {
+      heading: "6. Pirineos Sur (Lanuza, Huesca) — el escenario flotante para niños",
+      paragraphs: [
+        "Pirineos Sur en Lanuza (Huesca) tiene un escenario flotante sobre el pantano de Lanuza único en España. Programación de world music, conciertos a partir de las 22:00 pero con actividades diurnas, mercado artesanal y zona infantil. El entorno natural es muy familiar y los conciertos no suelen ser excesivamente ruidosos.",
+        "Carpooling desde Zaragoza 8-12 € por asiento.",
+      ],
+    },
+    {
+      heading: "7. Música en Grande (Cantabria) — al aire libre en el norte",
+      paragraphs: [
+        "Música en Grande es un formato itinerante por la costa cántabra (Comillas, Laredo, Santander) con conciertos de pop nacional al aire libre. Entrada económica, programación diurna y vespertina, ambiente familiar y zona de césped donde tumbarse con manta. Apto para niños desde los 4-5 años.",
+      ],
+    },
+    {
+      heading: "8. Conexión Valladolid, Vive Cultura y otros festivales urbanos diurnos",
+      paragraphs: [
+        "La fórmula que mejor funciona con niños pequeños son los festivales urbanos diurnos con programación gratuita o muy barata: Conexión Valladolid, Vive Cultura Burgos, Cooltural Fest Almería (con zona infantil dedicada y descuentos para menores). Mira la programación municipal de tu provincia: prácticamente toda capital de provincia ofrece algún festival diurno en verano apto para familias.",
+      ],
+    },
+    {
+      heading: "Cómo viajar en familia: equipaje, transporte y plan B",
+      paragraphs: [
+        "Viajar a un festival con niños cambia la matemática del transporte. Cuatro plazas de coche cubren a una familia completa (2 adultos + 2 niños) y el equipaje es proporcionalmente mayor: carrito, cambiador, mochila de pañales, comida infantil. Conviene reservar un coche entero (no plazas sueltas) o coordinar con conductor antes de reservar.",
+        "ConcertRide permite reservar las 4 plazas de un mismo viaje y comunicarse con el conductor por chat para confirmar capacidad de equipaje. Para grupos con bebé, recomendamos buscar conductores que indiquen 'coche grande' o 'maletero amplio' en su perfil.",
+      ],
+      bullets: [
+        "Lleva tapones acústicos infantiles si vas a estar cerca del escenario.",
+        "Acuerda un punto de encuentro fijo dentro del recinto por si os separáis.",
+        "Pon el teléfono de un adulto escrito en una pulsera o etiqueta dentro de la mochila del niño.",
+        "Reserva camping familiar (algunos festivales tienen zona aparte sin música hasta las 7:00 AM).",
+        "Lleva comida conocida para los niños — la oferta gastronómica no siempre es apta para paladares infantiles.",
+      ],
+    },
+  ],
+  faqs: [
+    {
+      q: "¿A qué edad mínima se puede entrar a un festival con niños?",
+      a: "Cada festival fija sus propias normas. Lo más habitual: menores de 16 años deben ir acompañados de un adulto con autorización escrita. Menores de 10 años suelen tener entrada gratuita o muy bonificada en festivales family-friendly como Cala Mijas o Sonorama. Festivales con consumo alcohólico intenso (Viña Rock, Arenal Sound, FIB) son menos recomendables para niños pequeños incluso si la normativa lo permite.",
+    },
+    {
+      q: "¿Cobran entrada a los niños en los festivales españoles?",
+      a: "Depende del festival. Cala Mijas Fest, Sónar+D y Sonorama Ribera ofrecen entrada gratuita a menores de 10-13 años acompañados de adulto. Otros festivales (Mad Cool, Primavera Sound) cobran entrada infantil reducida o no admiten menores. Consulta siempre la página oficial del festival y trae documentación que acredite la edad.",
+    },
+    {
+      q: "¿Hay festivales con zona de cambiador y servicios para bebés?",
+      a: "Sí. Sónar+D, Cala Mijas Fest, Pirineos Sur y la mayoría de festivales de jazz y clásica disponen de baños accesibles con cambiador. En festivales más masivos (Mad Cool, Primavera Sound, Arenal Sound) los servicios para bebés son limitados y conviene llevar un kit propio.",
+    },
+    {
+      q: "¿Es seguro ir a un festival de día con un bebé?",
+      a: "Sí, con precauciones: protectores acústicos infantiles obligatorios cerca del escenario, sombra abundante (un festival a 35 °C con bebé requiere parasol y agua constante), descansos cada 90 minutos y plan B para volver al alojamiento si el bebé se cansa. Los formatos diurnos (Sónar+D, Jazzaldia, Música en Grande) son los más recomendables.",
+    },
+  ],
+  relatedLinks: [
+    { label: "Carpooling familiar y con grupos a festivales", to: "/blog/festivaleros-con-hijos-carpooling" },
+    { label: "Festivales con camping en España 2026", to: "/blog/festivales-camping-espana-2026-transporte-carpooling" },
+    { label: "Carpooling a Sonorama Ribera", to: "/festivales/sonorama-ribera" },
+    { label: "Carpooling a Cala Mijas Fest", to: "/festivales/cala-mijas-fest" },
+    { label: "Carpooling a Pirineos Sur", to: "/festivales/pirineos-sur" },
+  ],
+  relatedPosts: [
+    "festivaleros-con-hijos-carpooling",
+    "festivales-camping-espana-2026-transporte-carpooling",
+    "como-organizar-viaje-grupo-festival-amigos",
+  ],
+  coverImage: {
+    src: "/og/home.png",
+    alt: "Festivales family-friendly España 2026: top 8 con servicios infantiles y carpooling — ConcertRide",
+    width: 1200,
+    height: 630,
+  },
+});
+
+BLOG_POSTS.push({
+  slug: "festivales-lgbt-friendly-espana-2026",
+  metaTitle: "Festivales LGBT+ friendly España 2026: guía + 5 | ConcertRide",
+  metaDescription:
+    "5 festivales españoles más inclusivos para el público LGBT+ en 2026: políticas anti-discriminación, line-ups, transporte y carpooling seguro.",
+  title: "Festivales más inclusivos LGBT+ España 2026 [Guía + 5 festivales seguros]",
+  h1: "Festivales LGBT+ friendly en España 2026: 5 propuestas con política anti-discriminación clara",
+  excerpt:
+    "Selección de 5 festivales españoles con política inclusiva clara para el público LGBT+ en 2026: programación, ambiente, protocolos de seguridad, transporte y consejos para viajar tranquilo.",
+  category: "guias",
+  tags: ["lgbt", "lgbtq", "inclusion", "festivales", "diversidad", "carpooling"],
+  publishedAt: "2026-05-19T10:00:00.000Z",
+  author: "Equipo ConcertRide",
+  readingMinutes: 6,
+  lede:
+    "La música en vivo lleva décadas siendo un espacio seguro para personas LGBT+, pero no todos los festivales son iguales: algunos tienen protocolos anti-acoso publicados, equipos de mediación visibles y line-ups que reflejan la diversidad del público. Esta guía recoge cinco festivales españoles que destacan por su compromiso inclusivo en 2026, qué medidas concretas aplican y cómo planificar el viaje sin sorpresas.",
+  sections: [
+    {
+      heading: "1. Primavera Sound (Barcelona) — el referente inclusivo internacional",
+      paragraphs: [
+        "Primavera Sound es probablemente el festival más visiblemente LGBT+ friendly de España. Desde 2019 mantiene una política pública de paridad de género en el cartel, protocolo anti-agresiones sexuales con punto violeta permanente y equipo de mediación entrenado. El cartel incluye habitualmente artistas queer (Arca, Caroline Polachek, Lil Nas X, Christine and the Queens) y la programación de la Apolo del jueves se ha convertido en un espacio queer-friendly muy reconocible.",
+        "Llegada al Parc del Fòrum: metro L4 Besòs Mar; carpooling desde el centro 2-3 € o desde otras ciudades catalanas 5-12 €.",
+      ],
+    },
+    {
+      heading: "2. Sónar (Barcelona) — pista techno y comunidad queer",
+      paragraphs: [
+        "Sónar tiene una larga tradición de programar artistas y DJs de la escena queer electrónica internacional. Sónar de Noche en Fira Gran Via cuenta con un punto morado, protocolo anti-discriminación claro y staff entrenado. La pista de SonarPub y SonarLab son históricamente espacios donde la comunidad LGBT+ se siente cómoda.",
+        "Recomendable también para personas trans o no binarias: el festival publica explícitamente que el código de vestimenta es libre y que no se aplican prácticas discriminatorias en la entrada.",
+      ],
+    },
+    {
+      heading: "3. Festival Pride Madrid + MADO (Madrid Orgullo) — el formato propio del orgullo",
+      paragraphs: [
+        "MADO (Madrid Orgullo) es el mayor festival LGBT+ de Europa por número de asistentes y se celebra a finales de junio/principios de julio en Plaza España, Puerta del Sol y otros enclaves del centro de Madrid. Conciertos gratuitos, manifestación, escenarios temáticos por noche y programación cultural paralela en cines y teatros. 100 % gratuito y accesible.",
+        "Transporte: metro L3 Plaza España, L1/L2/L3 Sol; el centro queda colapsado por la afluencia, conviene venir en transporte público o llegar antes de las 18:00 si vienes en carpooling.",
+      ],
+    },
+    {
+      heading: "4. Cooltural Fest (Almería) — formato indie con compromiso explícito",
+      paragraphs: [
+        "Cooltural Fest en Almería ha publicado en los últimos años una política de inclusión explícita con protocolo anti-acoso, punto de atención específico, banderas pride visibles en el recinto y line-ups donde la representación femenina y queer es notable. El ambiente es de festival mediano (15.000-20.000 asistentes), más calmado que los macrofestivales.",
+      ],
+    },
+    {
+      heading: "5. Boombastic, Reggaeton Beach y festivales urbanos jóvenes",
+      paragraphs: [
+        "Los festivales de música urbana y reggaeton (Boombastic en Asturias y Madrid, Reggaeton Beach Festival en Salou) han pasado de ser percibidos como espacios poco inclusivos a publicar protocolos anti-acoso visibles y contratar equipos de mediación. La oferta sigue siendo más mixta y popular que en festivales indie, pero el progreso es notable y el público joven LGBT+ tiene presencia creciente.",
+      ],
+    },
+    {
+      heading: "Qué buscar en la web del festival antes de comprar entrada",
+      paragraphs: [
+        "Más allá del cartel, lo que diferencia un festival realmente inclusivo de uno que solo lo es de cara a la galería son estos elementos concretos:",
+      ],
+      bullets: [
+        "Protocolo anti-acoso publicado con teléfono y punto físico (no solo email).",
+        "Punto violeta o morado señalizado en el plano del recinto.",
+        "Equipo de mediación entrenado (no solo seguridad genérica).",
+        "Baños sin distinción de género o señalética inclusiva.",
+        "Política de admisión sin restricción por código de vestimenta.",
+        "Paridad de género en el cartel (Keychange y similar).",
+        "Representación de artistas LGBT+ visibles en el cartel.",
+      ],
+    },
+    {
+      heading: "Carpooling LGBT+ seguro: qué hacer y qué evitar",
+      paragraphs: [
+        "Viajar en coche compartido a un festival como persona LGBT+ es estadísticamente seguro pero conviene aplicar el mismo sentido común que para cualquier otro viaje. ConcertRide verifica DNI y carnet de conducir de todos los conductores y publica su historial de valoraciones públicas.",
+        "Si te incomoda algún comentario durante el viaje, la app permite valorar al conductor con honestidad después del trayecto y aporta evidencia para futuras moderaciones. Conviene también revisar el perfil del conductor antes de reservar y, si necesitas tranquilidad extra, viajar acompañada o compartir la ubicación en tiempo real con un amigo.",
+      ],
+    },
+  ],
+  faqs: [
+    {
+      q: "¿Qué festivales españoles tienen protocolo anti-acoso publicado?",
+      a: "Primavera Sound, Sónar, Mad Cool, BBK Live, Cooltural Fest y la mayoría de festivales con más de 30.000 asistentes publican protocolos anti-acoso con punto violeta señalizado y equipo de mediación. La información está en la sección 'Información práctica' o 'Servicios' de la web oficial de cada festival.",
+    },
+    {
+      q: "¿Hay festivales específicamente LGBT+ en España?",
+      a: "Sí. MADO (Madrid Orgullo) es el mayor festival LGBT+ de Europa. También destacan Pride Barcelona, Pride Valencia, Pride Sevilla y multitud de eventos asociados al orgullo en cada capital de provincia. Suelen celebrarse a finales de junio o principios de julio y la mayoría son gratuitos.",
+    },
+    {
+      q: "¿Es seguro ir solo o sola a un festival como persona LGBT+?",
+      a: "Sí, especialmente en festivales con protocolo claro. Algunas recomendaciones: comparte ubicación en tiempo real con alguien de confianza, identifica el punto violeta nada más entrar, lleva el teléfono cargado y un cargador externo, y descarga la app del festival para tener mapa offline y números de emergencia rápidos.",
+    },
+    {
+      q: "¿El staff del festival está entrenado para situaciones de acoso?",
+      a: "En festivales grandes (Primavera Sound, Sónar, Mad Cool, BBK Live) hay equipos de mediación entrenados específicamente, no solo seguridad genérica. Pregunta en el punto violeta nada más llegar dónde están los equipos y cómo identificarlos visualmente (suelen llevar chaleco o brazalete específico).",
+    },
+  ],
+  relatedLinks: [
+    { label: "Carpooling a Primavera Sound 2026", to: "/festivales/primavera-sound" },
+    { label: "Carpooling a Sónar Barcelona 2026", to: "/festivales/sonar" },
+    { label: "Festivales con camping en España 2026", to: "/blog/festivales-camping-espana-2026-transporte-carpooling" },
+    { label: "Seguridad en carpooling para festivales", to: "/blog/seguridad-carpooling-festival-guia-2026" },
+    { label: "Conciertos en Madrid 2026", to: "/conciertos/madrid" },
+  ],
+  relatedPosts: [
+    "seguridad-carpooling-festival-guia-2026",
+    "es-seguro-carpooling-solo-festival",
+    "preguntas-frecuentes-carpooling-festivales-espana",
+  ],
+  coverImage: {
+    src: "/og/home.png",
+    alt: "Festivales LGBT+ friendly España 2026: 5 propuestas inclusivas y carpooling seguro — ConcertRide",
+    width: 1200,
+    height: 630,
+  },
+});
+
+BLOG_POSTS.push({
+  slug: "carpooling-vs-renfe-ave-festivales-2026",
+  metaTitle: "Carpooling vs Renfe AVE festivales 2026 | ConcertRide",
+  metaDescription:
+    "Comparamos coche compartido y AVE para ir a festivales en España 2026: tiempo real, precio puerta a puerta, comodidad y vuelta de madrugada.",
+  title: "Carpooling vs Renfe AVE para festivales: tiempo, precio y comodidad [Comparativa 2026]",
+  h1: "Carpooling vs Renfe AVE para festivales 2026: comparativa real puerta a puerta",
+  excerpt:
+    "Comparativa honesta entre coche compartido y Renfe AVE para ir a festivales en España 2026: tiempo total puerta a puerta, precio real con conexiones y vuelta nocturna, cuándo gana cada uno y rutas concretas a Mad Cool, Primavera Sound, FIB y BBK Live.",
+  category: "comparativas",
+  tags: ["renfe", "ave", "carpooling", "comparativa", "festivales", "tren"],
+  publishedAt: "2026-05-19T10:30:00.000Z",
+  author: "Equipo ConcertRide",
+  readingMinutes: 7,
+  lede:
+    "El AVE es rápido en ida y casi siempre derrota al coche en tiempo bruto, pero la matemática cambia cuando sumas Cercanías, taxi al recinto, vuelta a las 4 AM imposible y maleta de camping al hombro. Comparamos las dos opciones en cinco rutas reales de festival 2026 y revelamos cuándo merece la pena el tren y cuándo el coche compartido es la jugada ganadora.",
+  sections: [
+    {
+      heading: "El AVE en España: cobertura real y limitación nocturna",
+      paragraphs: [
+        "La red AVE Renfe conecta 31 capitales españolas y opera con tarifas dinámicas entre 15 € (oferta anticipada) y 120 € (compra en estación). El factor crítico para festivales es que el último AVE en la mayoría de corredores sale antes de las 22:00 y casi ninguno tiene servicio nocturno: si el cabeza de cartel termina a las 1:30, el tren no es una opción de vuelta.",
+        "Por eso la comparativa real no es 'carpooling vs AVE' sino 'AVE ida + carpooling vuelta' frente a 'carpooling ida y vuelta'. Cada combinación tiene su lógica según ruta, presupuesto y compañeros de viaje.",
+      ],
+    },
+    {
+      heading: "Madrid - Barcelona (Primavera Sound, Sónar, Cruïlla)",
+      paragraphs: [
+        "El AVE Madrid - Barcelona tarda 2h 30 min y el último de vuelta sale sobre las 21:25, mucho antes de que termine cualquier concierto principal. Conexión al Parc del Fòrum desde Sants: metro L5 + L4, 25-30 min. Total puerta a puerta: 3h 15 min.",
+        "Carpooling Madrid - Parc del Fòrum por la A-2: 5h 30 min - 6h 30 min según hora. Llegada directa al recinto sin transbordos.",
+        "Coste: AVE ida 25-75 € + Cercanías 2,80 € = 28-78 €. Carpooling: 15-20 € por asiento. En grupo de 4 personas que comparten una plaza, el AVE puede costar 4 veces más que el carpooling.",
+      ],
+      bullets: [
+        "Mejor opción si vas solo y quieres rapidez en ida: AVE + carpooling vuelta.",
+        "Mejor opción si vas en grupo: carpooling completo (ahorras 50-70 €).",
+        "Para vuelta de madrugada: carpooling es la única opción real.",
+      ],
+    },
+    {
+      heading: "Madrid - Valencia (Arenal Sound desde Madrid)",
+      paragraphs: [
+        "AVE Madrid - Valencia: 1h 50 min, último regreso 20:35. Conexión Valencia - Burriana: Cercanías C6 (45-60 min) + taxi 15-20 € hasta la playa. Total puerta a puerta: 3h 30 - 4h.",
+        "Carpooling Madrid - Arenal Sound (Burriana directo): 4h 15 min - 4h 45 min.",
+        "Coste: AVE 25-65 € + Cercanías 4 € + taxi 15-20 € = 44-89 €. Carpooling: 12-17 € por asiento. La diferencia se multiplica por 3-5 a favor del carpooling, sobre todo cuando llevas tienda de campaña (mover equipaje en tren + taxi es agotador).",
+      ],
+    },
+    {
+      heading: "Madrid - Castellón (FIB Benicàssim)",
+      paragraphs: [
+        "AVE Madrid - Castellón: 2h 30 min, último regreso 19:50 (problemático para festivales). Conexión Castellón - Benicàssim: Cercanías C6, 10-15 min, 2,80 €. Lanzadera oficial Castellón - recinto FIB: 5 € ida.",
+        "Carpooling directo Madrid - Benicàssim: 4h 15 min - 4h 45 min.",
+        "Coste: AVE 30-70 € + Cercanías 2,80 € + lanzadera 5 € = 38-78 €. Carpooling: 12-17 € por asiento. Diferencia: 2-4× a favor del coche compartido. La ventaja del AVE es nula para festivales con vuelta nocturna.",
+      ],
+    },
+    {
+      heading: "Madrid - Bilbao (BBK Live)",
+      paragraphs: [
+        "AVE Madrid - Bilbao (Vitoria + transbordo o ruta directa cuando exista): 4h 20 min, último regreso a las 20:10. Lanzadera oficial BBK Live incluida en la entrada desde Termibús.",
+        "Carpooling directo Madrid - Bilbao: 4h 30 min - 5h 30 min.",
+        "Coste: AVE 35-80 € + lanzadera oficial gratuita = 35-80 €. Carpooling: 11-16 € por asiento. El AVE solo gana si encuentras tarifa promo (<30 €), si viajas solo y si renuncias a la vuelta de madrugada (te toca pagar hotel o vuelta en carpooling al día siguiente).",
+      ],
+    },
+    {
+      heading: "Cuándo gana el AVE (resumen accionable)",
+      paragraphs: [
+        "El tren sale ganador en estos escenarios específicos:",
+      ],
+      bullets: [
+        "Viaje en solitario con tarifa AVE promo (<30 €) y solo ida — la vuelta en carpooling.",
+        "Festival que termina antes de las 21:00 (festivales de día, jazz, clásica) en ruta con AVE directa.",
+        "Equipaje ligero (sin tienda de campaña ni mochila grande de camping).",
+        "Llegada a ciudad con buen transporte público hasta el recinto (Barcelona, Valencia).",
+      ],
+    },
+    {
+      heading: "Cuándo gana el carpooling (resumen accionable)",
+      paragraphs: [
+        "El coche compartido sale ganador en estos escenarios:",
+      ],
+      bullets: [
+        "Festival que termina después de medianoche (la inmensa mayoría).",
+        "Grupo de 3-4 personas que reparten coste (carpooling se vuelve imbatible).",
+        "Equipaje voluminoso (tienda, saco, neveras, instrumentos).",
+        "Destino fuera de la red AVE (Resurrection Fest Viveiro, Sonorama Aranda, Cala Mijas, Pirineos Sur).",
+        "Ruta sin AVE directo o con varios transbordos (ahorras horas de espera).",
+      ],
+    },
+  ],
+  faqs: [
+    {
+      q: "¿Cuánto cuesta un AVE Madrid - Barcelona para Primavera Sound 2026?",
+      a: "Entre 25 € (oferta anticipada Promo+ comprada 60+ días antes) y 75-90 € (compra en estación o última hora). La tarifa media en fin de semana de festival ronda los 45-55 € ida. El coche compartido por la misma ruta cuesta 15-20 € por asiento, lo que en grupo de 4 personas resulta 3-4 veces más barato.",
+    },
+    {
+      q: "¿Hay AVE nocturno para volver del festival?",
+      a: "No. Renfe AVE no opera trenes después de las 22:00-23:00 en la inmensa mayoría de corredores. Existen algunos Trenhotel Talgo nocturnos en rutas muy específicas (Madrid - Galicia, Madrid - Granada), pero no cubren la mayoría de destinos festivaleros. Para volver de madrugada el carpooling es la opción más realista.",
+    },
+    {
+      q: "¿Puedo combinar AVE para la ida y carpooling para la vuelta?",
+      a: "Sí, es una estrategia muy habitual. Compras el AVE de ida con tarifa Promo+ anticipada (20-35 €) y reservas la plaza de carpooling de vuelta en ConcertRide con 7-14 días de antelación. El conductor te recoge en el recinto del festival y te lleva a tu ciudad — sin esperas en estación cerrada de madrugada.",
+    },
+    {
+      q: "¿Cuánto pesa el equipaje de camping en la decisión AVE vs carpooling?",
+      a: "Mucho. El AVE limita el equipaje a 3 bultos de 25 kg + bolsa de mano. Más allá supone facturar y suplemento. El carpooling permite llevar tienda + saco + esterilla + mochila sin coste extra (aunque siempre conviene avisar al conductor por chat antes de reservar). Para festivales con camping, el carpooling gana casi siempre por logística.",
+    },
+  ],
+  relatedLinks: [
+    { label: "Renfe para festivales vs carpooling", to: "/blog/renfe-festivales-vs-carpooling" },
+    { label: "Carpooling vs AVE costes reales 2026", to: "/blog/carpooling-vs-ave-costes-reales-2026" },
+    { label: "Carpooling vs tren AVE para festivales", to: "/blog/carpooling-vs-tren-ave-festivales-espana-2026" },
+    { label: "Guía de transporte para festivales", to: "/guia-transporte-festivales" },
+    { label: "Carpooling a Primavera Sound 2026", to: "/festivales/primavera-sound" },
+    { label: "Carpooling a BBK Live 2026", to: "/festivales/bbk-live" },
+  ],
+  relatedPosts: [
+    "carpooling-vs-ave-costes-reales-2026",
+    "renfe-festivales-vs-carpooling",
+    "carpooling-vs-tren-ave-festivales-espana-2026",
+  ],
+  coverImage: {
+    src: "/og/home.png",
+    alt: "Carpooling vs Renfe AVE festivales 2026: tiempo, precio y comodidad comparados — ConcertRide",
+    width: 1200,
+    height: 630,
+  },
+});
+
+BLOG_POSTS.push({
+  slug: "acampada-festival-vs-glamping-precio-experiencia-2026",
+  metaTitle: "Acampada vs glamping festival 2026: precio y experiencia | ConcertRide",
+  metaDescription:
+    "Análisis honesto acampada tradicional vs glamping en festivales españoles 2026: precios, comodidad, descanso real y cuándo merece la pena cada opción.",
+  title: "Acampada festival vs glamping: precio y experiencia [Análisis 2026]",
+  h1: "Acampada festival vs glamping 2026: cuándo merece la pena pagar el extra",
+  excerpt:
+    "Comparativa real entre acampada tradicional y glamping (tipi, bell tent, premium) en festivales españoles 2026: precios desde 0 hasta 350 €, qué incluye cada opción, descanso real y cuándo el extra paga la pena.",
+  category: "comparativas",
+  tags: ["camping", "glamping", "festivales", "alojamiento", "comparativa", "experiencia"],
+  publishedAt: "2026-05-19T11:00:00.000Z",
+  author: "Equipo ConcertRide",
+  readingMinutes: 7,
+  lede:
+    "La acampada libre es el modo nativo de festival: gratis o casi, tienda propia, ruido toda la noche y duchas con cola. El glamping es el otro extremo: 200-350 € por persona por fin de semana, cama de verdad, electricidad y zona aislada. ¿En qué casos compensa el salto de precio? Analizamos seis festivales con ambas opciones y ponemos cifras concretas.",
+  sections: [
+    {
+      heading: "Qué es exactamente cada opción",
+      paragraphs: [
+        "La acampada tradicional (camping libre) es la fórmula original: traes tu tienda, la montas en una parcela sin asignar y compartes baños y duchas con miles de personas. Suele estar incluida en el abono del festival o cuesta entre 10 y 30 € extra por persona y fin de semana.",
+        "El glamping (glamour camping) es una categoría intermedia que el festival monta y alquila: tipi, bell tent, lodge o cabaña ya instalada con cama, ropa de cama, electricidad y, en versiones premium, baño privado. Precio típico: 150-350 € por persona por fin de semana, varias categorías.",
+      ],
+    },
+    {
+      heading: "Precios reales 2026 por festival",
+      paragraphs: [
+        "Comparativa de precios oficiales publicados (o estimación basada en ediciones anteriores) para tres niveles: acampada libre, glamping básico (tipi compartido), glamping premium (lodge con baño privado o equivalente):",
+      ],
+      bullets: [
+        "Viña Rock: acampada gratuita incluida en abono / glamping no oficial.",
+        "Resurrection Fest: acampada 15-25 € extra / glamping (Resurrection Glamping) 180-280 €/persona.",
+        "FIB Benicàssim: acampada 25 € extra / FIB Glamping 200-350 €/persona según tipo.",
+        "Arenal Sound: acampada gratuita incluida / glamping no oficial.",
+        "Sonorama Ribera: acampada 20-30 € extra / sin glamping oficial.",
+        "Mad Cool: sin acampada oficial / hotel o apartamento equivalente 80-200 €/noche.",
+      ],
+    },
+    {
+      heading: "Qué incluye el glamping (y qué no)",
+      paragraphs: [
+        "El glamping básico (tipi o bell tent compartido entre 2-4 personas) suele incluir: cama con colchón y ropa de cama, suelo de madera o moqueta, luz, enchufe, candado para el cerrojo. NO incluye: baño privado, agua corriente individual, climatización en versiones básicas. Los baños y duchas son comunes pero suelen estar en zona aparte (menos saturados).",
+        "El glamping premium incluye también: baño y ducha privados, climatización (ventilador o aire acondicionado), nevera mini, set de toallas, en algunos festivales acceso a una zona común con barra y comida.",
+      ],
+    },
+    {
+      heading: "Lo que de verdad cambia: el descanso",
+      paragraphs: [
+        "El factor invisible que justifica el precio del glamping no es la cama: es el ruido nocturno. En la acampada libre, los grupos siguen de fiesta hasta las 6:00-7:00 AM con altavoces portátiles a 1 metro de tu tienda. En la zona de glamping hay normas más estrictas y suele estar valladas, lo que reduce drásticamente el ruido entre las 3:00 y las 9:00.",
+        "Si llegas a un festival con la intención de dormir 6+ horas cada noche, el glamping marca una diferencia real. Si vas a dormir 3-4 horas máximo (la mayoría), el extra es difícil de justificar.",
+      ],
+    },
+    {
+      heading: "Cuándo compensa cada opción",
+      paragraphs: [
+        "La elección depende de tu objetivo del fin de semana, presupuesto y nivel de tolerancia al ruido:",
+      ],
+      bullets: [
+        "Acampada libre: presupuesto ajustado, mentalidad festivalera clásica, grupo grande, comodidad secundaria.",
+        "Glamping básico: necesitas dormir mejor, grupo de 2-3 personas que comparten tipi, presupuesto medio-alto.",
+        "Glamping premium: viajas en pareja o grupo pequeño, valoras el baño privado, festival de 4+ noches.",
+        "Hotel/apartamento (Mad Cool, Sónar, Primavera Sound urbanos): sin opción de acampada o solo glamping caro, ciudad cercana con muchas opciones de alojamiento.",
+      ],
+    },
+    {
+      heading: "El factor transporte: cómo llegar al recinto con cada opción",
+      paragraphs: [
+        "La acampada libre suele estar contigua al recinto del festival (Viña Rock, Resurrection Fest, FIB, Arenal Sound) — caminas 5-15 minutos. El glamping suele estar en una zona adyacente con su propia entrada y a veces incluso lanzadera interna gratuita.",
+        "Si optas por hotel o apartamento (Mad Cool, festivales urbanos), tendrás que sumar transporte público o carpooling local cada noche. ConcertRide ofrece viajes cortos hub-recinto desde 3-7 € por trayecto desde Madrid centro a Mad Cool o Bilbao centro a Kobetamendi (BBK Live).",
+      ],
+    },
+    {
+      heading: "Mi recomendación honesta tras varios festivales",
+      paragraphs: [
+        "Para un primer festival: acampada libre. La experiencia completa pasa por dormir mal, hacer cola en los baños y conocer a desconocidos a las 5 AM. Es el rito de iniciación.",
+        "Para un festival con un cabeza de cartel muy esperado y 4+ días: glamping básico. La diferencia de descanso te permite llegar fresco al último día.",
+        "Para festivales urbanos sin camping (Mad Cool, Primavera Sound, Sónar): hostel o apartamento + carpooling diario al recinto. Más barato y cómodo que glamping.",
+      ],
+    },
+  ],
+  faqs: [
+    {
+      q: "¿Cuánto cuesta el glamping en FIB Benicàssim 2026?",
+      a: "Los precios oficiales no están confirmados al cierre de este artículo, pero las ediciones recientes han fijado el FIB Glamping entre 200-350 € por persona y fin de semana según categoría (tipi compartido, bell tent privado, lodge premium). Conviene consultar la web oficial del festival; la venta suele agotarse en marzo-abril.",
+    },
+    {
+      q: "¿La acampada está incluida en el abono del festival?",
+      a: "Depende. Viña Rock y Arenal Sound incluyen acampada gratuita con cualquier abono. FIB, Resurrection Fest y Sonorama cobran un suplemento de 15-30 € por persona y fin de semana. Mad Cool y Primavera Sound no tienen acampada oficial (alojamiento en ciudad).",
+    },
+    {
+      q: "¿Es seguro dormir en la acampada libre de un festival?",
+      a: "Generalmente sí. La acampada libre tiene seguridad del festival 24/7 y vallado perimetral. Recomendaciones: candado en la cremallera de la tienda, no dejar objetos de valor a la vista, llevar la documentación y el dinero siempre encima en una riñonera bajo la ropa, hacer grupo con conocidos de tiendas vecinas (vigilancia mutua).",
+    },
+    {
+      q: "¿Hay opciones intermedias entre acampada libre y glamping?",
+      a: "Sí. Muchos festivales ofrecen 'camping plus' o 'camping VIP' a precios intermedios (50-100 € por persona): parcela asignada, baños y duchas separados con menos cola y a veces conexión eléctrica. Es una buena opción si no te convence el glamping pero quieres mejor descanso que en el camping libre saturado.",
+    },
+  ],
+  relatedLinks: [
+    { label: "Festivales con camping en España 2026", to: "/blog/festivales-camping-espana-2026-transporte-carpooling" },
+    { label: "Combo transporte + alojamiento festival", to: "/blog/combo-transporte-y-alojamiento-festival" },
+    { label: "Carpooling al FIB Benicàssim 2026", to: "/festivales/fib" },
+    { label: "Carpooling a Resurrection Fest 2026", to: "/festivales/resurrection-fest" },
+    { label: "Lista qué llevar a un festival 2026", to: "/blog/que-llevar-festival-lista-definitiva-40-items-2026" },
+  ],
+  relatedPosts: [
+    "festivales-camping-espana-2026-transporte-carpooling",
+    "combo-transporte-y-alojamiento-festival",
+    "que-llevar-al-festival-guia-camping-2026",
+  ],
+  coverImage: {
+    src: "/og/home.png",
+    alt: "Acampada festival vs glamping 2026: análisis de precio y experiencia — ConcertRide",
+    width: 1200,
+    height: 630,
+  },
+});
+
+BLOG_POSTS.push({
+  slug: "carpooling-conductor-novel-festival-seguridad-2026",
+  metaTitle: "Conductor novel carpooling festival: ¿es seguro? | ConcertRide",
+  metaDescription:
+    "Estadísticas DGT sobre conductores noveles y guía con 7 tips para valorar si viajar con un conductor recién sacado del carnet en carpooling es seguro.",
+  title: "¿Es seguro ir con un conductor novel en carpooling? [Estadísticas DGT + tips 2026]",
+  h1: "Conductor novel en carpooling: ¿es seguro? Datos DGT y 7 señales que importan",
+  excerpt:
+    "Datos DGT actualizados sobre siniestralidad de conductores noveles + 7 señales objetivas para valorar si subirte a un viaje compartido con alguien recién sacado del carnet de conducir vale la pena.",
+  category: "guias",
+  tags: ["seguridad", "novel", "carpooling", "carnet", "dgt", "conductores"],
+  publishedAt: "2026-05-19T11:30:00.000Z",
+  author: "Equipo ConcertRide",
+  readingMinutes: 6,
+  lede:
+    "Buscas viaje compartido a un festival, encuentras una plaza al precio que querías y al revisar el perfil del conductor lees: 'Carnet desde 2024'. La pregunta es honesta: ¿se sube uno con un novel a un trayecto de 400 km o se busca otro viaje? Repasamos las estadísticas DGT, lo que dicen los datos y siete señales que importan más que la antigüedad del carnet.",
+  sections: [
+    {
+      heading: "Qué dicen los datos DGT sobre conductores noveles",
+      paragraphs: [
+        "Según los informes anuales de siniestralidad de la Dirección General de Tráfico, los conductores con menos de dos años de carnet representan aproximadamente el 11-13 % del total de conductores en España pero están implicados en cerca del 17-19 % de los siniestros con víctimas. La sobre-representación es real pero menor de lo que sugiere el imaginario colectivo (la idea de que un novel es 'el doble de peligroso' no se sostiene en los números).",
+        "La franja realmente crítica son los primeros 6-12 meses tras obtener el carnet. A partir del año, la diferencia con conductores experimentados se reduce drásticamente y, tras dos años, las estadísticas se igualan casi por completo.",
+      ],
+    },
+    {
+      heading: "Lo que regula la ley para conductores noveles",
+      paragraphs: [
+        "La normativa española exige a los conductores con menos de un año de carnet circular con la 'L' visible en la parte trasera del vehículo, no superar 90 km/h en autovía/autopista (la velocidad genérica máxima) y respetar una tasa de alcoholemia de 0,3 g/l en aire espirado (más restrictiva que la general de 0,5 g/l). El incumplimiento conlleva la pérdida directa de los puntos del permiso por puntos restringido durante los dos primeros años.",
+        "Estos límites legales reducen objetivamente la velocidad media y, con ella, la severidad de los posibles incidentes durante el primer año.",
+      ],
+    },
+    {
+      heading: "Las 7 señales objetivas que importan más que la antigüedad del carnet",
+      paragraphs: [
+        "Más allá de los años de carnet, hay siete factores que pesan más en la seguridad real de un viaje de carpooling. Si el perfil del conductor en ConcertRide tiene la mayoría de estos elementos, la diferencia con un conductor 'veterano' se diluye:",
+      ],
+      bullets: [
+        "Valoraciones públicas previas — incluso 3-5 valoraciones positivas de pasajeros pasados pesan más que años de carnet.",
+        "Carnet verificado por la plataforma — ConcertRide verifica documentación antes de permitir publicar viajes.",
+        "Vehículo propio (no alquiler eventual) — implica mantenimiento regular y conocimiento del coche.",
+        "Coche con ITV en vigor (muy mayoritario; si hay duda, el pasajero puede preguntar por chat).",
+        "Hora de salida realista (no a las 6:00 AM tras pasar el día en el festival).",
+        "Pausas programadas cada 2 horas en trayectos largos (>3h) — recomendación DGT estándar.",
+        "Compromiso explícito de 0,0 g/l alcohol antes del viaje (no solo el límite legal).",
+      ],
+    },
+    {
+      heading: "Cómo se traduce esto a la app de ConcertRide",
+      paragraphs: [
+        "El perfil de cada conductor en ConcertRide muestra: número de viajes completados, valoración media (1-5 estrellas), antigüedad en la plataforma, verificación de DNI y carnet, e historial de viajes recientes. La antigüedad del carnet de conducir no es un dato público por defecto, pero el conductor puede compartirlo en la descripción del viaje.",
+        "Si la antigüedad del carnet te preocupa, la pregunta directa por el chat de la app antes de reservar es perfectamente normal y muchos conductores noveles la responden con transparencia: 'Tengo el carnet desde noviembre 2024, ya he hecho 4 viajes Madrid-Valencia sin incidencias'.",
+      ],
+    },
+    {
+      heading: "Cuándo evitar (con sentido común) un conductor novel",
+      paragraphs: [
+        "Hay tres situaciones donde la antigüedad del carnet sí merece ser un factor decisivo:",
+      ],
+      bullets: [
+        "Trayecto nocturno largo (>3h) en festival que termina a las 3 AM y conductor con menos de 6 meses de carnet.",
+        "Conducción en condiciones extremas previstas (lluvia fuerte, nieve, niebla densa en la N-VI o autovías de montaña).",
+        "Vehículo de alquiler con el que el conductor no está familiarizado (cambio de modelo respecto al habitual).",
+      ],
+    },
+    {
+      heading: "Qué hacer si decides reservar la plaza igualmente",
+      paragraphs: [
+        "Si valoras los siete factores y deciden subirte al viaje, aplica unas medidas básicas de prudencia: confirma punto de recogida y hora con 24 h de antelación, comparte ubicación en tiempo real con un contacto de confianza durante el viaje, valora el viaje con honestidad al terminar (las valoraciones públicas son la principal herramienta de seguridad colectiva en la plataforma).",
+        "Estadísticamente, viajar en carpooling con cualquier conductor verificado es más seguro que conducir uno mismo cansado de vuelta del festival a las 4 AM. El problema real no son los noveles: es el sueño al volante.",
+      ],
+    },
+  ],
+  faqs: [
+    {
+      q: "¿Cuál es el riesgo estadístico de subirse a un coche con conductor novel?",
+      a: "Según los informes anuales de la DGT, los noveles representan el 11-13 % de los conductores y el 17-19 % de los siniestros con víctimas — están sobre-representados un 50 % aproximadamente. La sobre-representación es mayor en los primeros 6-12 meses y se diluye casi por completo a los 2 años. Para un trayecto diurno de 2-3 horas con un novel de 12+ meses, el incremento de riesgo respecto a un veterano es relativamente bajo.",
+    },
+    {
+      q: "¿ConcertRide verifica el carnet de conducir de los conductores noveles?",
+      a: "Sí. Todos los conductores (noveles o no) deben aportar foto de su carnet de conducir para validar la cuenta antes de poder publicar viajes. La verificación se hace en el alta. No es una garantía absoluta de habilidad pero sí filtra cuentas sin carnet, con carnet suspendido o con documentación falsa.",
+    },
+    {
+      q: "¿Puedo ver cuántos años de carnet tiene mi conductor antes de reservar?",
+      a: "No es un dato público por defecto. La plataforma muestra: número de viajes en ConcertRide, valoración media, antigüedad en la plataforma y verificación de documentación. Si la antigüedad del carnet es relevante para ti, escribe por el chat preguntando antes de confirmar la reserva.",
+    },
+    {
+      q: "¿Vale más viajar en carpooling con un conductor experimentado o conducir uno mismo cansado?",
+      a: "Estadísticamente, casi siempre es más seguro ir en carpooling con un conductor verificado (novel o no) que conducir uno mismo cansado tras un festival. La somnolencia al volante es la causa de aproximadamente el 20-30 % de los siniestros mortales nocturnos en autovía según informes de la DGT.",
+    },
+  ],
+  relatedLinks: [
+    { label: "Seguridad en carpooling para festivales", to: "/blog/seguridad-carpooling-festival-guia-2026" },
+    { label: "Cómo elegir asiento seguro carpooling", to: "/blog/como-elegir-asiento-seguro-carpooling" },
+    { label: "Es seguro carpooling solo a festival", to: "/blog/es-seguro-carpooling-solo-festival" },
+    { label: "Seguro en carsharing ConcertRide", to: "/blog/seguro-en-carsharing-concertride" },
+    { label: "Preguntas frecuentes carpooling festivales", to: "/blog/preguntas-frecuentes-carpooling-festivales-espana" },
+  ],
+  relatedPosts: [
+    "seguridad-carpooling-festival-guia-2026",
+    "es-seguro-carpooling-solo-festival",
+    "como-elegir-asiento-seguro-carpooling",
+  ],
+  coverImage: {
+    src: "/og/home.png",
+    alt: "Seguridad carpooling conductor novel festival: estadísticas DGT y tips — ConcertRide",
+    width: 1200,
+    height: 630,
+  },
+});
+
+BLOG_POSTS.push({
+  slug: "festival-un-dia-vs-fin-de-semana-completo-2026",
+  metaTitle: "Festival 1 día vs fin de semana 2026: cuándo merece la pena | ConcertRide",
+  metaDescription:
+    "Comparativa real entre asistir a un festival un solo día vs el fin de semana completo en 2026: precio, descanso, line-up y cuándo gana cada formato.",
+  title: "Festival de un día vs fin de semana completo: cuándo merece la pena cada uno [2026]",
+  h1: "Festival un día vs fin de semana completo 2026: precio, descanso y line-up comparados",
+  excerpt:
+    "Análisis honesto entre la entrada de un día y el abono de fin de semana completo en festivales españoles 2026: ahorro real, día más fuerte por festival, descanso y transporte adaptado a cada formato.",
+  category: "guias",
+  tags: ["festival", "entrada un dia", "abono", "comparativa", "carpooling", "presupuesto"],
+  publishedAt: "2026-05-19T12:00:00.000Z",
+  author: "Equipo ConcertRide",
+  readingMinutes: 6,
+  lede:
+    "El abono de fin de semana cuesta entre 110 y 180 €, la entrada de día va de 50 a 90 €. Salvo en Mad Cool y Primavera Sound, el abono casi nunca compensa al precio del bolsillo si solo te interesan uno o dos artistas. Esta guía te ayuda a decidir según presupuesto, distancia y line-up real de cada festival 2026.",
+  sections: [
+    {
+      heading: "La matemática básica del abono vs entrada de un día",
+      paragraphs: [
+        "Si el abono cuesta 140 € y la entrada de un día cuesta 70 €, necesitas asistir al menos 2 días para que el abono compense — y exactamente 2 días para empatar. Solo a partir del tercer día el abono empieza a generar ahorro real.",
+        "Donde la matemática cambia es en el transporte y alojamiento. Si el festival está a 400 km y tienes que pagar carpooling (30-40 € ida y vuelta) + camping (20-30 €), ir un solo día puede acabar costando más caro por hora vivida que pagar el abono completo y quedarte tres noches.",
+      ],
+    },
+    {
+      heading: "Cuándo gana la entrada de un día",
+      paragraphs: [
+        "La entrada de un día tiene lógica clara en estos escenarios:",
+      ],
+      bullets: [
+        "Solo te interesa un artista del cartel y va a tocar un único día.",
+        "El festival está a menos de 100 km de tu ciudad (puedes ir y volver en el día).",
+        "Vas en plan tranquilo sin tienda ni camping (festival urbano, ida y vuelta el mismo día).",
+        "Presupuesto ajustado: 70 € de entrada + 15 € de carpooling es mucho más barato que 140 € + 80 € de alojamiento/camping.",
+        "Quieres probar el festival antes de comprometerte al abono completo el año siguiente.",
+      ],
+    },
+    {
+      heading: "Cuándo gana el abono completo",
+      paragraphs: [
+        "El abono compensa cuando se cumple alguna de estas condiciones:",
+      ],
+      bullets: [
+        "Te interesan 3+ artistas distribuidos en varios días.",
+        "Festival lejos de tu ciudad (200+ km): el coste fijo de transporte se diluye en más días.",
+        "Festival con camping y ambiente que valoras más allá del cartel (Viña Rock, Resurrection Fest, Arenal Sound).",
+        "Vas en grupo y todos compráis abono juntos (reservas plaza para todo el fin de semana en carpooling).",
+        "Festival ofrece descuento por compra anticipada superior al 25 % (early bird).",
+      ],
+    },
+    {
+      heading: "Análisis festival por festival: ¿qué día es el más fuerte en 2026?",
+      paragraphs: [
+        "Si te decides por entrada de un día, conviene elegir el día con mejor relación calidad-precio. Aproximación basada en line-ups recientes y patrones históricos de cada festival:",
+      ],
+      bullets: [
+        "Mad Cool: día 1 (jueves) suele ser el más fuerte. Día 2 viernes equilibrado. Sábado para asistentes locales.",
+        "Primavera Sound: viernes y sábado concentran cabezas. Jueves más experimental y barato.",
+        "Sónar: sábado de noche es el día estelar. Sónar de Día se vende como entrada propia.",
+        "BBK Live: viernes suele tener el cartel más completo y la lanzadera oficial está más relajada.",
+        "Arenal Sound: martes-miércoles más tranquilos, jueves a sábado todos potentes.",
+        "Resurrection Fest: viernes y sábado son las jornadas grandes. Jueves opcional para resurreccionistas hardcore.",
+        "FIB: jueves y viernes los cabezas tradicionalmente, sábado más popular.",
+        "Viña Rock: la fiesta no para — un solo día es testimonial. Si vas, mejor abono completo.",
+      ],
+    },
+    {
+      heading: "Transporte adaptado a cada formato",
+      paragraphs: [
+        "Si vas un solo día: busca un viaje ida + vuelta el mismo día (los conductores los marcan claramente en ConcertRide). Saldrás muy temprano y volverás de madrugada — duro pero económico (carpooling 15-30 € total).",
+        "Si vas el fin de semana completo: combina viaje de ida el primer día y vuelta el último, sin viajes intermedios. Reserva las dos plazas con antelación porque las plazas de vuelta del último día son las primeras que se llenan.",
+      ],
+    },
+    {
+      heading: "Trampa habitual: el abono fin de semana 'que sale a 50 € por día'",
+      paragraphs: [
+        "El marketing del festival siempre presenta el abono como 'el día sale a 50 €' (precio teórico). Pero ese cálculo solo es cierto si vas a los 3-4 días completos. Si por logística (trabajo, estudios, familia) solo puedes ir 2 días, el coste por día real del abono se acerca o supera al de la entrada por día.",
+        "Antes de comprar abono, haz el cálculo honesto: ¿voy a estar realmente los 3-4 días desde la apertura del recinto hasta el cierre? Si la respuesta es 'me iré antes el último día porque trabajo', el abono pierde valor.",
+      ],
+    },
+  ],
+  faqs: [
+    {
+      q: "¿Compensa el abono de fin de semana en Mad Cool 2026?",
+      a: "Si te interesan al menos dos cabezas de cartel repartidos en días diferentes, sí. El abono de tres días suele costar 150-180 € frente a 75-90 € por día. Para un asistente que solo quiere ver un artista, la entrada de día es más eficiente. Para un asistente con interés transversal por el cartel, el abono compensa claramente.",
+    },
+    {
+      q: "¿Cuánto cuesta una entrada de día en festivales españoles 2026?",
+      a: "Rango habitual 2026: 50-90 € la entrada de día en festivales medianos y grandes. Mad Cool, Primavera Sound, Sónar y BBK Live se sitúan en la franja alta (75-90 €). FIB, Sonorama y Cala Mijas en la franja media (55-75 €). Festivales pequeños y de ciudades secundarias pueden tener entradas de día desde 30-45 €.",
+    },
+    {
+      q: "¿Puedo comprar entrada de un día y dormir en el camping?",
+      a: "Depende del festival. Viña Rock, Arenal Sound y FIB suelen permitir acampada solo con abono completo (no con entrada de día). Resurrection Fest y Sonorama ofrecen camping con entrada de día pagando suplemento. Mad Cool y Primavera Sound no tienen camping oficial. Consulta siempre la web oficial del festival.",
+    },
+    {
+      q: "¿Es más barato carpooling para 1 día o fin de semana completo?",
+      a: "Por trayecto, el carpooling cuesta lo mismo independientemente de cuántos días estés. Lo que cambia es el coste total: ir un solo día implica un viaje ida + vuelta el mismo día (puede ser un solo viaje pack); el fin de semana implica un solo viaje ida + un solo viaje vuelta separados por 2-4 días. Total: similar (carpooling 25-40 €). El abono completo + camping suele salir más barato por día que la entrada de día sin alojamiento incluido.",
+    },
+  ],
+  relatedLinks: [
+    { label: "Presupuesto festival música España 2026", to: "/blog/presupuesto-festival-musica-espana-2026" },
+    { label: "Cuánto cuesta ir a un festival 2026", to: "/blog/cuanto-cuesta-ir-festival-espana-presupuesto-2026" },
+    { label: "Calendario festivales España 2026", to: "/blog/calendario-festivales-espana-2026-completo" },
+    { label: "Carpooling a Mad Cool 2026", to: "/festivales/mad-cool" },
+    { label: "Carpooling a Primavera Sound 2026", to: "/festivales/primavera-sound" },
+  ],
+  relatedPosts: [
+    "presupuesto-festival-musica-espana-2026",
+    "cuanto-cuesta-ir-festival-espana-presupuesto-2026",
+    "calendario-festivales-espana-2026-completo",
+  ],
+  coverImage: {
+    src: "/og/home.png",
+    alt: "Festival un día vs fin de semana completo 2026: comparativa precio y experiencia — ConcertRide",
+    width: 1200,
+    height: 630,
+  },
+});
+
+BLOG_POSTS.push({
+  slug: "hoteles-hostels-apartments-cerca-festivales-2026",
+  metaTitle: "Hoteles cerca festivales España 2026: top 25 low-cost | ConcertRide",
+  metaDescription:
+    "Hoteles low-cost, hostels y apartamentos cerca de festivales españoles 2026: precios, distancias al recinto y cómo llegar en carpooling local.",
+  title: "Hoteles low-cost + hostels + apartments cerca de festivales 2026 [Top 25]",
+  h1: "Dónde dormir cerca de un festival sin acampada 2026: 25 opciones reales",
+  excerpt:
+    "Guía con 25 hoteles, hostels y apartamentos cerca de festivales españoles 2026: precios típicos por noche, distancia al recinto, cómo llegar en carpooling local y consejos para reservar antes del sold-out.",
+  category: "guias",
+  tags: ["alojamiento", "hoteles", "hostels", "festivales", "carpooling", "presupuesto"],
+  publishedAt: "2026-05-19T12:30:00.000Z",
+  author: "Equipo ConcertRide",
+  readingMinutes: 8,
+  lede:
+    "Si tu festival es urbano (Mad Cool, Sónar, Primavera Sound) o no quieres lidiar con la acampada (BBK Live, Cala Mijas, Sonorama), el alojamiento es la siguiente decisión más cara. Hostels desde 25-45 €, apartamentos desde 70 €/noche, hoteles desde 80-200 €. Esta lista recoge 25 opciones reales cerca de los principales festivales españoles 2026 ordenadas por precio y cómo llegar al recinto en carpooling local desde 3-7 €.",
+  sections: [
+    {
+      heading: "Mad Cool 2026 (Iberdrola Music, Villaverde Bajo) — 5 opciones",
+      paragraphs: [
+        "Mad Cool no tiene acampada oficial. Las zonas mejor conectadas al recinto vía metro L3 son Plaza de España, Sol, Atocha y Villaverde Alto. Apartamento medio en julio en Madrid centro: 100-180 €/noche; hostel: 25-40 €/cama.",
+      ],
+      bullets: [
+        "Hostel One Centro (Sol): 28-40 €/noche por cama compartida. Metro L1/L2/L3 directo.",
+        "Generator Madrid (Atocha): 35-55 €/noche cama compartida, 90 € habitación privada. Excelente ambiente joven.",
+        "Hotel Vincci Centrum (Atocha): 95-150 €/noche habitación doble. 3 estrellas céntrico.",
+        "Ibis Madrid Centro Las Ventas: 75-110 €/noche, opción económica + metro L2/L5.",
+        "Apartamento Airbnb en Embajadores o Lavapiés: 70-120 €/noche para 2-3 personas, metro L3 directo a Pradolongo.",
+      ],
+    },
+    {
+      heading: "Primavera Sound, Sónar, Cruïlla (Barcelona) — 5 opciones",
+      paragraphs: [
+        "Barcelona ofrece alta oferta hotelera pero también precios elevados en temporada (mayo-junio). Las zonas mejor conectadas al Parc del Fòrum son Glòries, Poblenou y Diagonal Mar (metro L4). A Fira Montjuïc desde Plaça d'Espanya (L1/L3).",
+      ],
+      bullets: [
+        "Yeah Hostels Barcelona (Eixample): 30-45 €/noche cama compartida.",
+        "Hotel SB Diagonal Zero (Diagonal Mar): 90-150 €/noche. A 1,5 km del Fòrum.",
+        "Apartamento Poblenou: 85-130 €/noche para 2-3 personas, metro L4 directo.",
+        "Hotel Pol & Grace (Gràcia): 80-130 €/noche. Bien conectado a Fira y al centro.",
+        "Hostal Operaramblas (Raval): 65-95 €/noche habitación privada. Cerca de Liceu y Plaça Catalunya.",
+      ],
+    },
+    {
+      heading: "BBK Live (Bilbao - Kobetamendi) — 5 opciones",
+      paragraphs: [
+        "El BBK Live tiene lanzadera oficial gratuita desde el centro de Bilbao, así que el alojamiento ideal está cerca del Casco Viejo, Indautxu o Abando. Bilbao centro en julio: hotel 90-140 €/noche, hostel 30-45 €.",
+      ],
+      bullets: [
+        "Bilbao Akelarre Hostel (Casco Viejo): 30-45 €/noche cama compartida. A 5 min del Termibús.",
+        "Hotel Tayko Bilbao (Casco Viejo): 110-160 €/noche, boutique con buenas reseñas.",
+        "NH Collection Villa de Bilbao (Indautxu): 95-140 €/noche, junto al metro Indautxu.",
+        "Apartamento Abando o San Mamés: 80-130 €/noche para 2-3 personas.",
+        "Bilbao Central Suites (Albia): 70-100 €/noche. Estudios económicos cerca del centro.",
+      ],
+    },
+    {
+      heading: "FIB Benicàssim — 4 opciones",
+      paragraphs: [
+        "Benicàssim es localidad pequeña; oferta hotelera limitada y se agota meses antes. La alternativa es alojarse en Castellón de la Plana (10 km) o Oropesa del Mar (12 km).",
+      ],
+      bullets: [
+        "Hotel Voramar (Benicàssim, frente al mar): 95-160 €/noche en julio.",
+        "Apartamento Benicàssim playa: 75-130 €/noche para 4-6 personas, mucho más rentable en grupo.",
+        "Hotel Luz Castellón (Castellón centro): 75-110 €/noche. Cercanías directo a Benicàssim.",
+        "Camping Bonterra Park (Benicàssim): bungalow desde 65-95 €/noche, opción híbrida camping-hotel.",
+      ],
+    },
+    {
+      heading: "Arenal Sound (Burriana, Castellón) — 3 opciones",
+      paragraphs: [
+        "Burriana es localidad pequeña. La opción habitual es alquilar apartamento en Burriana playa o alojarse en Castellón (10 km, lanzadera oficial). Acampada gratuita es la fórmula nativa.",
+      ],
+      bullets: [
+        "Apartamento Burriana playa: 80-140 €/noche para 4-6 personas durante el festival.",
+        "Hotel Aloha (Burriana): 75-110 €/noche, sencillo pero a 5 minutos del recinto.",
+        "Hotel Castellón centro: 65-95 €/noche + lanzadera oficial al recinto.",
+      ],
+    },
+    {
+      heading: "Sonorama Ribera (Aranda de Duero) — 3 opciones",
+      paragraphs: [
+        "Aranda es ciudad pequeña con oferta hotelera modesta. Hay también la opción de alojarse en Burgos (80 km) o en pueblos cercanos como Roa, La Aguilera y Gumiel.",
+      ],
+      bullets: [
+        "Hotel Tudanca Aranda: 80-110 €/noche habitación doble.",
+        "Apartamento Aranda centro: 70-110 €/noche para 4 personas.",
+        "Hotel Mesón del Cid (Burgos): 75-110 €/noche + carpooling Burgos-Aranda 6-10 €.",
+      ],
+    },
+    {
+      heading: "Cómo llegar al recinto desde tu alojamiento",
+      paragraphs: [
+        "Una vez con cama reservada, el viaje al recinto cada noche es lo que sigue. Tres fórmulas habituales:",
+      ],
+      bullets: [
+        "Transporte público + lanzadera oficial (BBK Live, FIB, Arenal Sound): incluido en la entrada o muy barato.",
+        "Metro + caminar (Mad Cool L3, Primavera Sound L4, Sónar L1): 2-3 € por trayecto.",
+        "Carpooling local hub-recinto en ConcertRide: 3-7 € por trayecto desde ciudad cercana (Madrid centro - Mad Cool, Castellón - Burriana, Burgos - Aranda).",
+      ],
+    },
+    {
+      heading: "Consejos para reservar (y no morir en el intento)",
+      paragraphs: [
+        "Reservar alojamiento de festival sigue tres reglas básicas:",
+      ],
+      bullets: [
+        "Reserva 4-6 meses antes para festivales urbanos populares (Mad Cool, Primavera Sound, Sónar).",
+        "Compara siempre Booking, Airbnb y página oficial del hotel — los precios pueden variar 20-30 %.",
+        "Apartamento es 30-50 % más barato que hotel en grupos de 3+ personas — divide y vencerás.",
+        "Si no hay disponibilidad en la ciudad del festival, mira ciudades a 30-60 minutos en tren o carpooling local.",
+        "Reserva cancelable hasta 24-48h antes — los planes cambian y no hay nada peor que perder 300 €.",
+      ],
+    },
+  ],
+  faqs: [
+    {
+      q: "¿Cuánto cuesta un hotel cerca de Mad Cool en julio 2026?",
+      a: "El precio medio de un hotel de 3 estrellas en Madrid centro (a 30 minutos en metro de Iberdrola Music) ronda los 90-150 € por noche en julio durante el festival. Las opciones más económicas (hostels) parten de 28-45 € por cama compartida. Apartamentos enteros para 2-3 personas: 70-130 €/noche.",
+    },
+    {
+      q: "¿Es mejor alojarse en Barcelona centro o cerca del Fòrum para Primavera Sound?",
+      a: "Depende de tu prioridad. El Fòrum (Diagonal Mar) está mejor conectado al recinto (5-10 min andando) pero tiene menos vida nocturna fuera del festival. Barcelona centro (Born, Gòtic, Eixample) ofrece más opciones de bares y restaurantes pero implica 25-35 min de metro L4 al recinto.",
+    },
+    {
+      q: "¿Hay hostels familiares cerca de festivales?",
+      a: "La mayoría de hostels son ambiente joven/mochilero. Para familias, las opciones más cómodas son los apartamentos (con cocina y separación de habitaciones) o hoteles familiares de 3-4 estrellas. Booking y Airbnb permiten filtrar por 'apto para familias' y 'cocina equipada'.",
+    },
+    {
+      q: "¿Cuándo hay que reservar para no quedarse sin alojamiento?",
+      a: "Para Mad Cool, Primavera Sound y Sónar (festivales urbanos populares): 4-6 meses antes. Para BBK Live, FIB y Sonorama: 3-4 meses antes. Para festivales con acampada incluida (Viña Rock, Arenal Sound): si no quieres camping, 2-3 meses antes basta. Cuanto más tarde reserves, más sube el precio.",
+    },
+  ],
+  relatedLinks: [
+    { label: "Combo transporte + alojamiento festival", to: "/blog/combo-transporte-y-alojamiento-festival" },
+    { label: "Presupuesto festival música España 2026", to: "/blog/presupuesto-festival-musica-espana-2026" },
+    { label: "Festivales con camping en España 2026", to: "/blog/festivales-camping-espana-2026-transporte-carpooling" },
+    { label: "Carpooling a Mad Cool 2026", to: "/festivales/mad-cool" },
+    { label: "Carpooling a Primavera Sound 2026", to: "/festivales/primavera-sound" },
+    { label: "Carpooling a BBK Live 2026", to: "/festivales/bbk-live" },
+  ],
+  relatedPosts: [
+    "combo-transporte-y-alojamiento-festival",
+    "presupuesto-festival-musica-espana-2026",
+    "festivales-camping-espana-2026-transporte-carpooling",
+  ],
+  coverImage: {
+    src: "/og/home.png",
+    alt: "Hoteles hostels y apartamentos cerca de festivales España 2026: top 25 — ConcertRide",
+    width: 1200,
+    height: 630,
+  },
+});
+
+BLOG_POSTS.push({
+  slug: "festival-outdoor-vs-indoor-espana-2026",
+  metaTitle: "Festival outdoor vs indoor España 2026: pros y top 6 | ConcertRide",
+  metaDescription:
+    "Comparativa festivales al aire libre vs cubiertos en España 2026: pros, contras, climatología, precios y top 6 de cada categoría con carpooling.",
+  title: "Festival outdoor vs indoor España 2026: pros, contras y top 6 de cada",
+  h1: "Festival al aire libre vs cubierto en España 2026: cuál elegir según objetivos",
+  excerpt:
+    "Análisis comparativo entre festivales outdoor y indoor en España 2026: climatología, sonido, ambiente, riesgo de lluvia, precio medio y selección de los 6 mejores en cada categoría con cómo llegar en carpooling.",
+  category: "comparativas",
+  tags: ["outdoor", "indoor", "festivales", "comparativa", "carpooling", "pabellones"],
+  publishedAt: "2026-05-19T13:00:00.000Z",
+  author: "Equipo ConcertRide",
+  readingMinutes: 6,
+  lede:
+    "El festival al aire libre es el formato dominante en España (probablemente >85 % del calendario 2026), pero los festivales indoor en pabellones o palacios de congresos ganan terreno cada invierno. Comparamos las dos fórmulas con criterios de climatología, sonido, ambiente y precio, y recogemos los 6 mejores en cada categoría con cómo llegar al recinto en carpooling.",
+  sections: [
+    {
+      heading: "Las diferencias clave entre outdoor e indoor",
+      paragraphs: [
+        "Más allá de tener tejado o no, la diferencia outdoor/indoor afecta a cuatro dimensiones críticas de la experiencia: climatología, calidad de sonido, ambiente y precio.",
+      ],
+      bullets: [
+        "Climatología: outdoor depende del tiempo (sol, lluvia, viento). Indoor es controlado pero puede agobiar por temperatura interior.",
+        "Sonido: outdoor pierde graves con viento y distancia; indoor concentra sonido con mejor definición pero también más reverberación.",
+        "Ambiente: outdoor genera sentimiento de evento masivo y comunal (camping, cielo, descomposición de luces); indoor es más íntimo y compacto.",
+        "Precio: outdoor por día suele ser más caro (40-90 €) por costes de producción mayores; indoor por día más asequible (25-60 €).",
+      ],
+    },
+    {
+      heading: "Top 6 festivales OUTDOOR 2026",
+      paragraphs: [
+        "Los grandes nombres outdoor en España 2026 son referencias internacionales del sector:",
+      ],
+      bullets: [
+        "Mad Cool (Iberdrola Music, Madrid) — julio, rock-pop indie internacional.",
+        "Primavera Sound (Parc del Fòrum, Barcelona) — junio, indie-electrónica-urbano.",
+        "BBK Live (Kobetamendi, Bilbao) — julio, rock indie internacional.",
+        "FIB Benicàssim (Recinto FIB, Benicàssim) — julio, indie-electrónica.",
+        "Viña Rock (La Pulgosa, Villarrobledo) — abril-mayo, rock-punk-mestizaje español.",
+        "Resurrection Fest (Viveiro, Lugo) — junio, metal y rock duro.",
+      ],
+    },
+    {
+      heading: "Top 6 festivales INDOOR 2026",
+      paragraphs: [
+        "El catálogo indoor es menor en número pero ofrece propuestas muy específicas y de calidad:",
+      ],
+      bullets: [
+        "Sónar de Noche (Fira Gran Via, Barcelona) — junio, electrónica indoor en pabellones gigantes.",
+        "Festival de Jazz de San Sebastián (Auditorio Kursaal) — julio, jazz indoor + outdoor combinados.",
+        "Festival Internacional de Música y Danza de Granada (Palacio de Carlos V, Generalife) — junio-julio, clásica.",
+        "Sound Isidro (varios espacios Madrid) — mayo, indie-rock en salas medianas.",
+        "WOS Festival (Pazo da Cultura Pontevedra) — septiembre, electrónica de vanguardia.",
+        "MIRA Festival (Fabra i Coats Barcelona) — noviembre, audiovisual + electrónica.",
+      ],
+    },
+    {
+      heading: "Pros y contras prácticos",
+      paragraphs: [
+        "Resumen accionable de ventajas y desventajas de cada formato:",
+      ],
+      bullets: [
+        "Outdoor pros: ambiente épico, posibilidad de camping, asistencias masivas, mejores cabezas de cartel.",
+        "Outdoor contras: dependencia del clima, polvo o barro según condiciones, distancias largas dentro del recinto, baños masificados.",
+        "Indoor pros: sonido controlado, sin riesgo de lluvia, climatización, baños suficientes, menor saturación.",
+        "Indoor contras: capacidad limitada (entradas se agotan rápido), sin camping, ambiente menos comunal, suele ser más caro por hora de música.",
+      ],
+    },
+    {
+      heading: "Riesgo de lluvia: el factor escondido del outdoor",
+      paragraphs: [
+        "España no es un país especialmente lluvioso en verano salvo en el Cantábrico, pero los festivales del norte (BBK Live, Resurrection Fest, Atlantic Fest) tienen probabilidad real de lluvia incluso en julio. El plan B no es opcional: chubasquero ligero plegable, calzado cerrado y mochila impermeable.",
+        "Los festivales mediterráneos (FIB, Arenal Sound, Cala Mijas, Medusa) tienen riesgo casi cero de lluvia entre julio y agosto, pero sí riesgo de calor extremo (35-40 °C de día). Las precauciones son las opuestas: sombrero, hidratación constante, protector solar SPF 50.",
+      ],
+    },
+    {
+      heading: "Cómo llegar a cada tipo de festival",
+      paragraphs: [
+        "Los outdoor masivos suelen estar a las afueras de la ciudad (Iberdrola Music, Parc del Fòrum, Kobetamendi, La Pulgosa) y dependen de carpooling y lanzadera oficial. Los indoor están casi siempre en pabellones urbanos bien conectados por transporte público.",
+        "Para outdoor lejos de tu ciudad: carpooling es la mejor opción (5-22 € por asiento). Para indoor en tu ciudad: metro o caminar. Para indoor en otra ciudad: AVE ida + carpooling vuelta nocturna.",
+      ],
+    },
+  ],
+  faqs: [
+    {
+      q: "¿Llueve mucho en festivales españoles de verano?",
+      a: "Depende de la zona. Festivales del Cantábrico (BBK Live, Resurrection Fest, Atlantic Fest, Pirineos Sur) tienen probabilidad significativa de lluvia incluso en julio. Festivales mediterráneos (FIB, Arenal Sound, Cala Mijas, Medusa) prácticamente cero entre julio y agosto. Festivales de meseta (Mad Cool, Sonorama, Viña Rock) probabilidad baja pero pueden caer tormentas puntuales.",
+    },
+    {
+      q: "¿Qué festival indoor tiene mejor sonido en España?",
+      a: "Sónar de Noche en Fira Gran Via Barcelona es referencia internacional en calidad sonora indoor. El Auditorio Kursaal (San Sebastián) y el Palau de la Música (Valencia) ofrecen calidad concertística excelente para jazz y clásica. WOS Festival en Pontevedra y MIRA en Barcelona tienen sistemas top para electrónica experimental.",
+    },
+    {
+      q: "¿Hay festivales indoor en invierno en España?",
+      a: "Sí, varios. Festival Maestrazgo Folk (octubre), MIRA Festival Barcelona (noviembre), WOS Festival Pontevedra (septiembre), Festival Internacional de Música Religiosa de Cuenca (Semana Santa). El calendario invernal es más reducido que el de verano pero ofrece propuestas muy específicas.",
+    },
+    {
+      q: "¿Cuánto cuesta una entrada indoor vs outdoor?",
+      a: "Outdoor por día: 50-90 € en festivales medianos y grandes, 30-50 € en festivales pequeños. Indoor por día: 25-60 € en la mayoría, 70-110 € en festivales electrónicos premium como Sónar de Noche. El abono completo outdoor (3-4 días) cuesta 120-200 €; el indoor (1-2 días) suele estar en 60-130 €.",
+    },
+  ],
+  relatedLinks: [
+    { label: "Calendario festivales España 2026 completo", to: "/blog/calendario-festivales-espana-2026-completo" },
+    { label: "Festivales otoño invierno 2026 España", to: "/blog/festivales-otono-invierno-2026-espana" },
+    { label: "Carpooling a Sónar Barcelona 2026", to: "/festivales/sonar" },
+    { label: "Carpooling a Mad Cool 2026", to: "/festivales/mad-cool" },
+    { label: "Plan B festival con lluvia 2026", to: "/blog/plan-b-festival-lluvia-que-hacer-2026" },
+  ],
+  relatedPosts: [
+    "calendario-festivales-espana-2026-completo",
+    "festivales-otono-invierno-2026-espana",
+    "festival-sonar-2026-guia-completa",
+  ],
+  coverImage: {
+    src: "/og/home.png",
+    alt: "Festival outdoor vs indoor España 2026: pros, contras y top 6 — ConcertRide",
+    width: 1200,
+    height: 630,
+  },
+});
+
+BLOG_POSTS.push({
+  slug: "plan-b-festival-lluvia-que-hacer-2026",
+  metaTitle: "Plan B festival con lluvia 2026: qué hacer cuando llueve | ConcertRide",
+  metaDescription:
+    "Guía práctica para festivales con lluvia 2026 en España: qué hacer cuando cae el chaparrón, equipamiento esencial, plan B en BBK Live, FIB y Resurrection Fest.",
+  title: "Plan B festival con lluvia: qué hacer cuando llueve en un festival 2026",
+  h1: "Plan B festival con lluvia 2026: equipamiento, refugios y decisiones inteligentes",
+  excerpt:
+    "Guía completa para festivales con lluvia en España 2026: equipamiento esencial impermeable, dónde refugiarse cuando cae el chaparrón, qué festivales tienen más riesgo y cómo seguir disfrutando aunque el cielo no acompañe.",
+  category: "guias",
+  tags: ["lluvia", "festival", "clima", "plan b", "equipamiento", "carpooling"],
+  publishedAt: "2026-05-19T13:30:00.000Z",
+  author: "Equipo ConcertRide",
+  readingMinutes: 6,
+  lede:
+    "Llueve en BBK Live un año de cada dos. En Resurrection Fest, la mitad de las ediciones tienen al menos una jornada con chaparrón. En FIB y Cala Mijas el riesgo es muy bajo, pero cuando ocurre, pilla a la mitad del recinto sin chubasquero. Esta guía te prepara con equipamiento, refugios reales dentro del recinto y un protocolo claro para no arruinar el fin de semana.",
+  sections: [
+    {
+      heading: "Qué festivales españoles tienen más riesgo de lluvia",
+      paragraphs: [
+        "El clima determina mucho la experiencia del festival. Una clasificación honesta de riesgo de lluvia en 2026 según patrones históricos:",
+      ],
+      bullets: [
+        "Riesgo alto: BBK Live, Resurrection Fest, Atlantic Fest, Pirineos Sur, Sonorama Ribera (tormentas estivales).",
+        "Riesgo medio: Mad Cool, Sónar (junio), Primavera Sound, Viña Rock (final de primavera).",
+        "Riesgo bajo: FIB, Arenal Sound, Cala Mijas Fest, Medusa, Low Festival (climas mediterráneos secos).",
+      ],
+    },
+    {
+      heading: "Equipamiento esencial para lluvia",
+      paragraphs: [
+        "Pequeña inversión, gran tranquilidad. La diferencia entre disfrutar un día con chaparrón y rendirse pasa por estos seis items:",
+      ],
+      bullets: [
+        "Chubasquero técnico ligero plegable (no poncho desechable - rompe en 2 horas).",
+        "Cubre-mochila impermeable o bolsa de basura grande como plan B.",
+        "Funda impermeable para el móvil (algunas marcas son sumergibles certificadas IPX7).",
+        "Calzado cerrado con suela de goma + calcetines de repuesto secos en mochila.",
+        "Toalla pequeña de microfibra (seca rápido).",
+        "Tienda de campaña con doble techo y avancé si vas con camping.",
+      ],
+    },
+    {
+      heading: "Dónde refugiarse dentro del recinto",
+      paragraphs: [
+        "Cuando empieza a llover de verdad (no chispear), el recinto se mueve. Los puntos de refugio reales en festivales españoles son:",
+      ],
+      bullets: [
+        "Carpas de patrocinadores y zona de comida: suelen tener cubierta amplia (Heineken, Estrella Galicia, foodtrucks zona).",
+        "Escenarios cubiertos: en festivales con varios escenarios suele haber al menos uno bajo carpa grande.",
+        "Stand merchandising y zona VIP: cubiertas y con menos saturación si llueve fuerte.",
+        "Coches del aparcamiento (si vienes en carpooling): retírate al coche del conductor mientras pasa el chaparrón, vuelve al recinto cuando escampe.",
+      ],
+    },
+    {
+      heading: "Plan B sin renunciar al cabeza de cartel",
+      paragraphs: [
+        "La lluvia rara vez para un festival. Los conciertos del escenario principal se siguen celebrando salvo lluvia torrencial con riesgo eléctrico (muy poco frecuente). Lo que sí cambia es la experiencia:",
+      ],
+      bullets: [
+        "Llega 30 min antes al escenario y acércate más a la valla — la gente con miedo a mojarse se queda atrás.",
+        "Si la lluvia es persistente y no tienes equipamiento, vuelve a la tienda/coche/hotel a cambiarte de calcetines y volver con ropa seca.",
+        "Compra una toalla en zona merchandising — secarte el pelo cada 90 min mantiene la temperatura corporal.",
+        "Hidratación cálida si el frío aprieta: muchos festivales venden caldo o sopa en barras de comida.",
+      ],
+    },
+    {
+      heading: "Si llueve en el camping: maniobra de daños",
+      paragraphs: [
+        "El peor escenario es despertar en una tienda con agua dentro. Si pasa:",
+      ],
+      bullets: [
+        "No intentes secar la tienda en el sitio — recoge tus cosas y muévete a una zona elevada.",
+        "Saco de dormir mojado: pídele a un grupo cercano si te dejan un saco seco — la solidaridad festivalera es real.",
+        "Móvil mojado: NUNCA enciéndelo, mete en arroz o silica gel 24 horas.",
+        "Si no puedes secar nada, valora volver a hotel/casa el último día y dejar el camping por imposible (carpooling de vuelta con un día de adelanto).",
+      ],
+    },
+    {
+      heading: "Cuándo se cancela un festival por lluvia",
+      paragraphs: [
+        "Los festivales españoles casi nunca se cancelan completamente por lluvia. Lo más habitual es retrasar el inicio de algún concierto o, en lluvia torrencial con riesgo eléctrico, parar puntualmente y reanudar cuando pasa el frente. Las cancelaciones totales del cabeza de cartel se cuentan con los dedos de una mano por década.",
+        "Si tu festival sí se cancela, la mayoría tienen política oficial de reembolso o crédito para la edición siguiente. Revisa los términos en la web del festival y guarda capturas de pantalla. El transporte (carpooling, AVE) suele tener política de reembolso independiente — ConcertRide permite cancelar plazas sin penalización con 24-48h de antelación.",
+      ],
+    },
+  ],
+  faqs: [
+    {
+      q: "¿Se devuelve el dinero si llueve mucho en un festival?",
+      a: "Solo si el festival se cancela oficialmente, no si llueve durante el evento. Los festivales con riesgo alto de lluvia (BBK Live, Resurrection Fest) suelen tener cláusulas de cancelación parcial bajo condiciones meteorológicas extremas (viento +80 km/h, tormenta eléctrica). En lluvia 'normal' aunque sea persistente, no hay devoluciones.",
+    },
+    {
+      q: "¿Cuánto pesa un chubasquero técnico ligero plegable?",
+      a: "Un chubasquero técnico de calidad media pesa entre 200 y 400 gramos y se pliega al tamaño de una lata de refresco. Marcas como Decathlon Quechua, Berghaus o Columbia ofrecen modelos por 25-50 €. Es la mejor inversión de equipamiento de festival.",
+    },
+    {
+      q: "¿Es seguro estar en un festival outdoor con tormenta eléctrica?",
+      a: "El protocolo de seguridad de la mayoría de festivales con escenarios al aire libre indica parar los conciertos ante tormenta eléctrica próxima (rayos a menos de 10 km). Si te encuentras en un festival con tormenta eléctrica, sigue las indicaciones del personal: refúgiate en zona cubierta o vehículo, mantente alejado de estructuras metálicas y árboles aislados.",
+    },
+    {
+      q: "¿Conviene cambiar el carpooling de vuelta si llueve?",
+      a: "Si la lluvia te obliga a abandonar antes de lo previsto, ConcertRide permite modificar la hora de regreso si el conductor la cambia o si encuentras otro viaje. Avisar al conductor por chat con 4-6 horas de antelación es buena práctica. Algunos conductores incluso adelantan la salida si la mayoría del coche así lo prefiere.",
+    },
+  ],
+  relatedLinks: [
+    { label: "Festival outdoor vs indoor España 2026", to: "/blog/festival-outdoor-vs-indoor-espana-2026" },
+    { label: "Carpooling a BBK Live 2026", to: "/festivales/bbk-live" },
+    { label: "Carpooling a Resurrection Fest 2026", to: "/festivales/resurrection-fest" },
+    { label: "Lista qué llevar a un festival 2026", to: "/blog/que-llevar-festival-lista-definitiva-40-items-2026" },
+    { label: "Guía de transporte para festivales", to: "/guia-transporte-festivales" },
+  ],
+  relatedPosts: [
+    "que-llevar-al-festival-guia-camping-2026",
+    "festivales-camping-espana-2026-transporte-carpooling",
+    "carpooling-resurrection-fest-2026",
+  ],
+  coverImage: {
+    src: "/og/home.png",
+    alt: "Plan B festival con lluvia 2026: equipamiento y refugios — ConcertRide",
+    width: 1200,
+    height: 630,
+  },
 });
 
 // Slugs disabled per CLAUDE.md "Brand Restrictions" — never reactivate.

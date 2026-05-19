@@ -1,0 +1,59 @@
+festival_slug,festival_name,city,region,fecha_inicio,fecha_fin,mes,dia_semana_inicio,genero_dominante,capacidad_aforo,precio_entrada_min_eur,precio_carpooling_medio_eur,precio_bus_oficial_eur,ahorro_carpooling_pct,score_conectividad,ranking_global_baratos_llegar,co2_ahorrado_kg_asiento
+marenostrum-fuengirola,Marenostrum Fuengirola Festival,Fuengirola,Andalucía,2026-04-24,2026-09-12,abril,viernes,pop-rock,15000 plazas/concierto,45,17,32,46.9,70,42,17.5
+vina-rock,Viña Rock,Villarrobledo,Castilla-La Mancha,2026-04-30,2026-05-02,abril,jueves,rock-mestizaje,50000 personas/día,90,7.5,45,83.3,70,11,16.3
+sos-48,SOS 4.8 Festival,Murcia,Región de Murcia,2026-05-03,2026-05-04,mayo,domingo,indie-electronica,40000 personas/día,55,13.5,27,50,79,30,11.6
+tomavistas,Tomavistas Festival,Madrid,Comunidad de Madrid,2026-05-15,2026-05-17,mayo,viernes,indie-pop,25000 personas/día,55,5.5,9,38.9,40,2,6.5
+primavera-sound,Primavera Sound Barcelona,Barcelona,Cataluña,2026-06-03,2026-06-07,junio,miércoles,indie-rock,60000 personas/día,275,17.5,35,50,40,38,53.3
+festival-de-les-arts,Festival de les Arts,Valencia,Comunidad Valenciana,2026-06-05,2026-06-06,junio,viernes,indie,25000 personas/día,55,12,24,50,40,19,14.3
+stone-music-festival,Stone & Music Festival Mérida,Mérida,Extremadura,2026-06-05,2026-06-27,junio,viernes,pop-rock,3000 plazas (gradas romanas),55,12,24,50,39,21,12.8
+creamfields-andalucia,Creamfields Andalucía,Jerez de la Frontera,Andalucía,2026-06-05,2026-06-07,junio,viernes,electronica,40000 personas/día,75,18,36,50,78,49,30.9
+mallorca-live-festival,Mallorca Live Festival,Calvià,Islas Baleares,2026-06-12,2026-06-14,junio,viernes,indie-electronica,35000 personas/día,95,55,110,50,46,57,NA
+azkena-rock-festival,Azkena Rock Festival,Vitoria-Gasteiz,País Vasco,2026-06-18,2026-06-20,junio,jueves,rock-clasico,25000 personas/día,75,15.5,31,50,69,34,26.6
+sonar,Sónar Barcelona,Barcelona,Cataluña,2026-06-18,2026-06-20,junio,jueves,electronica,120000 personas (3 días),195,10,20,50,40,39,26.3
+o-son-do-camino,O Son do Camiño,Santiago de Compostela,Galicia,2026-06-18,2026-06-20,junio,jueves,pop-rock,90000 personas (3 días),95,4.5,9,50,79,40,6
+starlite-marbella,Starlite Catalana Occidente Festival,Marbella,Andalucía,2026-06-19,2026-08-31,junio,viernes,pop-clasico,7500 plazas/concierto,75,4,8,50,20,32,5.2
+bigsound-valencia,BIGSOUND Valencia,Valencia,Comunidad Valenciana,2026-06-26,2026-06-27,junio,viernes,electronica-pop,25000 personas/día,75,12,24,50,40,18,14.3
+bbk-music-legends,BBK Music Legends Festival,Bilbao,País Vasco,2026-06-26,2026-06-27,junio,viernes,rock-clasico,20000 personas/día,75,13.5,27,50,79,21,11.6
+metropoli-gijon,Festival Internacional Metrópoli Gijón,Gijón,Asturias,2026-06-26,2026-07-05,junio,viernes,pop-rock,30000 personas/día,55,15,33,54.5,69,28,38.3
+download-madrid,Download Festival Madrid,Madrid,Comunidad de Madrid,2026-06-28,2026-06-30,junio,domingo,metal-rock,40000 personas/día,165,11,21,47.6,40,3,28
+resurrection-fest,Resurrection Fest,Viveiro,Galicia,2026-07-01,2026-07-04,julio,miércoles,metal,30000 personas/día,165,5.5,15,63.3,0,21,8.6
+zevra-festival,Zevra Festival,Valencia,Comunidad Valenciana,2026-07-01,2026-07-31,julio,miércoles,electronica,20000 personas/día,55,6.5,17,61.8,40,15,15.1
+granca-live-fest,Granca Live Fest,Las Palmas de Gran Canaria,Canarias,2026-07-02,2026-07-05,julio,jueves,pop-latino,35000 personas/día,75,65,130,50,49,58,NA
+tio-pepe-festival,Tío Pepe Festival Jerez,Jerez de la Frontera,Andalucía,2026-07-04,2026-08-31,julio,sábado,pop-flamenco,1800 plazas/concierto,65,18,36,50,39,33,30.9
+mad-cool,Mad Cool Festival,Madrid,Comunidad de Madrid,2026-07-08,2026-07-11,julio,miércoles,rock-indie,80000 personas/día,195,12,27.5,56.4,40,4,30.5
+cruilla,Cruïlla Barcelona,Barcelona,Cataluña,2026-07-08,2026-07-11,julio,miércoles,multigenero,30000 personas/día,135,17.5,35,50,40,37,30.5
+bbk-live,Bilbao BBK Live,Bilbao,País Vasco,2026-07-09,2026-07-11,julio,jueves,indie-rock,30000 personas/día,165,13.5,30,55,68,17,33.9
+pirineos-sur,Festival Internacional de las Culturas Pirineos Sur,Lanuza,Aragón,2026-07-09,2026-07-26,julio,jueves,musicas-del-mundo,12000 personas/día,45,7,16,56.3,31,29,15.1
+portamerica,PortAmérica Festival,Caldas de Reis,Galicia,2026-07-09,2026-07-11,julio,jueves,indie-latino,30000 personas/día,75,19,38,50,4,53,NA
+festival-ortigueira,Festival Internacional do Mundo Celta de Ortigueira,Ortigueira,Galicia,2026-07-09,2026-07-12,julio,jueves,musicas-celtas,100000 acumulados (4 días gratis),0,21.5,43,50,0,55,NA
+festival-de-musica-de-donostia-hiria,Festival de Música de Donostia-Hiria,San Sebastián,País Vasco,2026-07-10,2026-07-12,julio,viernes,pop-rock,12000 personas/día,55,11,22,50,50,25,15.5
+festival-de-musica-de-ferrol,Festival de Música de Ferrol,Ferrol,Galicia,2026-07-10,2026-07-12,julio,viernes,indie,7000 personas/día,45,12.5,25,50,50,26,17.5
+festival-de-musica-de-betanzos,Festival de Música de Betanzos,Betanzos,Galicia,2026-07-10,2026-07-11,julio,viernes,indie-folk,5000 personas/día,40,12.5,25,50,50,26,17.5
+fib,FIB · Festival Internacional de Benicàssim,Benicàssim,Comunidad Valenciana,2026-07-16,2026-07-18,julio,jueves,indie-rock,45000 personas/día,165,14.5,29,50,79,20,1.3
+festival-de-musica-de-irun,Festival de Música de Irún,Irún,País Vasco,2026-07-17,2026-07-18,julio,viernes,pop-rock,8000 personas/día,40,11,22,50,50,25,15.5
+festival-de-musica-de-pontevedra,Festival de Música de Pontevedra,Pontevedra,Galicia,2026-07-17,2026-07-19,julio,viernes,pop-rock,8000 personas/día,40,12.5,25,50,50,26,17.5
+festival-de-musica-de-monforte,Festival de Música de Monforte de Lemos,Monforte de Lemos,Galicia,2026-07-17,2026-07-18,julio,viernes,folk,5000 personas/día,35,12,24,50,50,24,16.5
+atlantic-fest,Atlantic Fest,Vilagarcía de Arousa,Galicia,2026-07-17,2026-07-19,julio,viernes,indie,25000 personas/día,75,19,38,50,39,52,52.9
+jazzaldia,Heineken Jazzaldia,San Sebastián,País Vasco,2026-07-22,2026-07-26,julio,miércoles,jazz,150000 acumulados (5 días),0,15.5,31,50,50,31,8.6
+festival-de-musica-de-barakaldo,Festival de Música de Barakaldo,Barakaldo,País Vasco,2026-07-24,2026-07-26,julio,viernes,indie-pop,10000 personas/día,45,10,20,50,40,23,14
+festival-de-musica-de-vigo,Festival de Música de Vigo,Vigo,Galicia,2026-07-24,2026-07-26,julio,viernes,pop-rock,15000 personas/día,45,12.5,25,50,50,26,17.5
+festival-de-musica-de-lalin,Festival de Música de Lalín,Lalín,Galicia,2026-07-24,2026-07-25,julio,viernes,folk,5000 personas/día,35,12,24,50,50,24,16.5
+arenal-sound,Arenal Sound,Burriana,Comunidad Valenciana,2026-07-30,2026-08-02,julio,jueves,electronica-pop,40000 personas/día,135,4,6.5,38.5,49,16,0.9
+low-festival,Low Festival,Torrevieja,Comunidad Valenciana,2026-07-31,2026-08-02,julio,viernes,indie-rock,20000 personas/día,75,6.5,14,53.6,79,18,12.9
+dreambeach-festival,Dreambeach Costa del Sol,Vélez-Málaga,Andalucía,2026-07-31,2026-08-01,julio,viernes,electronica,20000 personas/día,85,17.5,35,50,40,48,30.1
+reggaeton-beach-festival,Reggaeton Beach Festival,Salou,Cataluña,2026-07-31,2026-08-02,julio,viernes,reggaeton,60000 personas/día,95,17,34,50,79,42,29.2
+festival-de-musica-de-tui,Festival de Música de Tui,Tui,Galicia,2026-07-31,2026-08-01,julio,viernes,folk,6000 personas/día,40,13,26,50,50,29,18.2
+sonorama-ribera,Sonorama Ribera,Aranda de Duero,Castilla y León,2026-08-05,2026-08-09,agosto,miércoles,indie,25000 personas/día,95,6.5,12.5,48,50,12,12.9
+medusa-festival,Medusa Festival,Cullera,Comunidad Valenciana,2026-08-13,2026-08-17,agosto,jueves,electronica,60000 personas/día,135,4,6,33.3,79,14,4.3
+aquasella-festival,Aquasella Festival,Arriondas,Asturias,2026-08-13,2026-08-16,agosto,jueves,electronica,10000 personas/día,75,15,30,50,7,NA,17.2
+rototom-sunsplash,Rototom Sunsplash,Benicàssim,Comunidad Valenciana,2026-08-16,2026-08-22,agosto,domingo,reggae,30000 personas/día,225,14.5,29,50,79,20,1.3
+holika-festival,Holika Festival,Vélez-Rubio,Andalucía,2026-08-21,2026-08-21,agosto,viernes,electronica,NA,55,16,32,50,0,50,27.5
+ebrovision,Ebrovisión,Miranda de Ebro,Castilla y León,2026-08-21,2026-08-22,agosto,viernes,indie,NA,55,10.5,21,50,39,13,12
+santander-music,Santander Music Festival,Santander,Cantabria,2026-08-06,2026-08-08,agosto,jueves,indie-pop,NA,55,13.5,27,50,69,21,11.6
+vive-latino,Vive Latino España,Zaragoza,Aragón,2026-09-04,2026-09-05,septiembre,viernes,pop-latino,40000 personas/día,115,11,25,56,40,10,28.4
+cooltural-fest,Cooltural Fest,Almería,Andalucía,2026-09-04,2026-09-05,septiembre,viernes,indie,NA,55,17,34,50,69,44,29.2
+dcode-festival,DCode Festival Madrid,Madrid,Comunidad de Madrid,2026-09-09,2026-09-09,septiembre,miércoles,pop-indie,45000 personas/día,75,5.5,11,50,40,5,6.5
+granada-sound,Granada Sound,Granada,Andalucía,2026-09-11,2026-09-12,septiembre,viernes,indie,25000 personas/día,55,9.5,17,44.1,48,27,21.5
+jardin-de-las-delicias,Jardín de las Delicias Festival,Madrid,Comunidad de Madrid,2026-09-18,2026-09-19,septiembre,viernes,pop-electronica,27500 personas/día,75,5.5,11,50,40,5,6.5
+cala-mijas,Cala Mijas Fest,Mijas,Andalucía,2026-10-02,2026-10-04,octubre,viernes,indie-rock,30000 personas/día,135,7.5,22.5,66.7,99,36,17.2
+weekend-beach-torre-del-mar,Weekend Beach Festival,Torre del Mar,Andalucía,2026-07-09,2026-07-11,julio,jueves,electronica-reggaeton,NA,75,16,32,50,48,46,27.5

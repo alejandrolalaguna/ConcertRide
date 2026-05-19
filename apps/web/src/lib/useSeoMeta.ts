@@ -20,6 +20,13 @@ interface SeoMeta {
   ogImageHeight?: number;
   ogType?: "website" | "article" | "music.event";
   noindex?: boolean;
+  /**
+   * When true (and noindex is also true), emit `noindex, follow` instead of
+   * `noindex, nofollow`. Use this on dead-end pages (404, internal-only)
+   * where we still want Googlebot to discover and recrawl outbound links to
+   * indexable destinations. SEO best practice for soft-404 and not-found.
+   */
+  noindexFollow?: boolean;
   articleAuthor?: string;
   articlePublishedTime?: string;
   articleModifiedTime?: string;
@@ -83,6 +90,7 @@ export interface ResolvedSeo {
   ogImageHeight: number;
   ogType: "website" | "article" | "music.event";
   noindex: boolean;
+  noindexFollow: boolean;
   articleAuthor?: string;
   articlePublishedTime?: string;
   articleModifiedTime?: string;
@@ -124,6 +132,7 @@ function resolve(meta: SeoMeta): ResolvedSeo {
     ogImageHeight: meta.ogImageHeight ?? DEFAULT_OG_IMAGE_HEIGHT,
     ogType: meta.ogType ?? "website",
     noindex: meta.noindex ?? false,
+    noindexFollow: meta.noindexFollow ?? false,
     articleAuthor: meta.articleAuthor,
     articlePublishedTime: meta.articlePublishedTime,
     articleModifiedTime: meta.articleModifiedTime,
@@ -188,7 +197,9 @@ export function useSeoMeta(meta: SeoMeta) {
     setMeta(
       "robots",
       r.noindex
-        ? "noindex, nofollow"
+        ? r.noindexFollow
+          ? "noindex, follow"
+          : "noindex, nofollow"
         : "index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1",
     );
     if (r.keywords) setMeta("keywords", r.keywords);
@@ -233,7 +244,18 @@ export function useSeoMeta(meta: SeoMeta) {
     setMeta("twitter:image", r.ogImage);
     setMeta("twitter:image:alt", r.ogImageAlt.includes(SITE_NAME) ? r.ogImageAlt : `${r.ogImageAlt} — ${SITE_NAME}`);
 
-    if (r.canonical) {
+    // Google's guideline: never combine `noindex` + `canonical`. The noindex
+    // signal wins (canonical wastes crawl budget) and conflicting signals
+    // confuse selection. When the current page is noindex, strip any stale
+    // canonical + hreflang alternates left over from a previous navigation
+    // (e.g. user navigated from an indexable landing → /register, where the
+    // shell ships default canonical/alternates pointing at "/").
+    if (r.noindex) {
+      document.querySelectorAll('link[rel="canonical"]').forEach((el) => el.remove());
+      document
+        .querySelectorAll('link[rel="alternate"][hreflang]')
+        .forEach((el) => el.remove());
+    } else if (r.canonical) {
       setLink("canonical", r.canonical);
       setLink("alternate", r.canonical, { hreflang: "es-ES" });
       setLink("alternate", r.canonical, { hreflang: "x-default" });
@@ -269,7 +291,7 @@ export function useSeoMeta(meta: SeoMeta) {
   }, [
     meta.title, meta.description, meta.canonical, meta.keywords,
     meta.ogTitle, meta.ogDescription, meta.ogImage, meta.ogImageWidth,
-    meta.ogImageHeight, meta.ogType, meta.noindex,
+    meta.ogImageHeight, meta.ogType, meta.noindex, meta.noindexFollow,
     meta.articleAuthor, meta.articlePublishedTime, meta.articleModifiedTime, meta.articleSection, meta.articleTags,
     meta.geoRegion, meta.geoPlacename, meta.geoLat, meta.geoLng,
     meta.preloadImage, meta.preloadImageSrcset,
@@ -291,7 +313,9 @@ export function renderSeoToHtml(seo: ResolvedSeo, urlPath: string): {
   push(
     `<meta name="robots" content="${
       seo.noindex
-        ? "noindex, nofollow"
+        ? seo.noindexFollow
+          ? "noindex, follow"
+          : "noindex, nofollow"
         : "index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1"
     }" />`,
   );
@@ -341,7 +365,10 @@ export function renderSeoToHtml(seo: ResolvedSeo, urlPath: string): {
   }
 
   const linkLines: string[] = [];
-  if (seo.canonical) {
+  // Google's guideline: don't ship `<link rel="canonical">` or hreflang
+  // alternates on a noindex page. The noindex directive wins and the canonical
+  // just wastes crawl budget / muddies signal selection.
+  if (seo.canonical && !seo.noindex) {
     linkLines.push(`    <link rel="canonical" href="${escapeAttr(seo.canonical)}" />`);
     linkLines.push(`    <link rel="alternate" hreflang="es-ES" href="${escapeAttr(seo.canonical)}" />`);
     linkLines.push(`    <link rel="alternate" hreflang="x-default" href="${escapeAttr(seo.canonical)}" />`);

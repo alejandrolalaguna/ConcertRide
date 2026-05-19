@@ -160,7 +160,7 @@ export const FESTIVAL_LANDINGS: FestivalLanding[] = [
     blurb:
       "Mad Cool es el festival de rock e indie alternativo más grande de Madrid, celebrado desde 2023 en el recinto Iberdrola Music de Villaverde. Convoca a 80.000 asistentes diarios con artistas internacionales de primera línea. El recinto se encuentra al sur de Madrid (Villaverde Bajo), accesible en metro por la línea 3 (parada Pradolongo o Legazpi) más un corto trayecto en autobús. La salida nocturna satura tanto el metro como las líneas de autobús después de las 1:00, por lo que el coche compartido es la opción más cómoda para quienes vienen desde otras provincias o barrios sin acceso directo al recinto. Según la APM, Mad Cool es uno de los festivales con mayor afluencia internacional de España.",
     quotableAnswer:
-      "El festival Mad Cool 2026 se celebra del 8 al 11 de julio en Iberdrola Music, Villaverde Bajo (Madrid), con un aforo de 80.000 personas/día. Las tres mejores opciones para llegar son: (1) metro línea 3 hasta Pradolongo o Legazpi más autobús al recinto (1,50–3 €); (2) taxi o VTC desde el centro de Madrid (30–50 €, con tarifa multiplicada x2 en horario nocturno); (3) carpooling con ConcertRide (4–7 € desde Madrid centro, 10–14 € desde Valencia, 9–13 € desde Zaragoza). Para quienes vienen de fuera de Madrid, el carpooling es la opción más económica y directa. El recinto no opera lanzaderas oficiales desde el centro de la ciudad. Para volver de madrugada, la opción más práctica es coordinar la vuelta con un conductor de ConcertRide y evitar la saturación del metro y los búhos en torno a las 2:00.",
+      "Mad Cool 2026 se celebra del 8 al 11 de julio en el recinto Iberdrola Music (Villaverde, Madrid), con aforo de 80.000 personas/día. Hay tres opciones verificadas para llegar desde el centro de Madrid: Metro Línea 3 hasta Pradolongo o Legazpi más autobús EMT al recinto (1,50–3 € por trayecto, 30–40 min); taxi o VTC desde Sol (30–50 €, coeficiente ×2 entre 22:00 y 06:00); o carpooling con ConcertRide (4–7 €/asiento desde Madrid, 10–14 € desde Valencia, 9–13 € desde Zaragoza). Para la vuelta nocturna, Metro de Madrid amplía la L3 hasta las 2:30 AM en noches de festival; carpooling coordinado recoge en el aparcamiento del recinto entre las 2:00 y las 4:00. (Fuentes: Metro de Madrid, Ayuntamiento de Madrid, ConcertRide Dataset 2026.)",
     enrichmentBlocks: [
       {
         heading: "Historia y herencia de Mad Cool",
@@ -274,7 +274,7 @@ export const FESTIVAL_LANDINGS: FestivalLanding[] = [
         camping_notes: "No hay camping. Alojamiento en Madrid (múltiples opciones en la ciudad).",
       },
       packing_list: [
-        { item: "Protector solar FPS 50+", category: "esencial", notes: "IFEMA es explanada sin sombra" },
+        { item: "Protector solar FPS 50+", category: "esencial", notes: "Iberdrola Music es explanada sin sombra" },
         { item: "Calzado muy cómodo", category: "esencial", notes: "3 días de más de 15.000 pasos" },
         { item: "Ropa en capas", category: "esencial", notes: "El día calienta, las noches de julio en Madrid refrescan" },
         { item: "Tapones para los oídos", category: "esencial" },
@@ -287,8 +287,8 @@ export const FESTIVAL_LANDINGS: FestivalLanding[] = [
         { item: "Impermeable ligero", category: "opcional", notes: "Madrid en julio raramente llueve, pero por si acaso" },
       ],
       venue_tips: [
-        "IFEMA tiene 4 escenarios separados por distancias largas — planifica los cruces con tiempo.",
-        "El metro L8 (Feria de Madrid) es el transporte más rápido desde el centro pero se colapsa a la salida.",
+        "Iberdrola Music tiene 4 escenarios separados por distancias largas — planifica los cruces con tiempo.",
+        "El metro L3 (Pradolongo / Legazpi) + autobús EMT es el transporte más rápido desde el centro pero se colapsa a la salida.",
         "Llega 30 min antes de la actuación que más te interese — las colas de acceso son largas.",
         "Hay zona de parking para bicicletas vigilada gratuita dentro del recinto.",
         "Las barras de las zonas VIP son accesibles con upgrade de última hora — consulta en la app oficial.",
@@ -367,7 +367,7 @@ export const FESTIVAL_LANDINGS: FestivalLanding[] = [
     blurb:
       "Primavera Sound es el festival de indie y alternativo más influyente de Europa, celebrado cada año en el Parc del Fòrum de Barcelona desde 2001. Atrae asistentes de toda España y de más de 80 países, con más de 60.000 asistentes diarios en su recinto de Sant Adrià de Besòs. El metro L4 (Besòs Mar) llega al Fòrum pero se colapsa en las salidas de madrugada, con colas de 30–45 minutos habituales. Los asientos de AVE desde Madrid (50–100 €) se agotan semanas antes del festival. Viajar en coche compartido desde Madrid (15–20 €), Valencia (10–14 €) o Zaragoza (8–12 €) es la opción más popular y económica para asistentes de fuera de Cataluña.",
     quotableAnswer:
-      "El festival Primavera Sound 2026 se celebra del 3 al 7 de junio en el Parc del Fòrum, Sant Adrià de Besòs (Barcelona), con un aforo de 60.000 personas/día. Las tres mejores opciones para llegar son: (1) metro L4 hasta Besòs Mar, a 10 minutos a pie del recinto (2,55 €); (2) AVE desde Madrid hasta Sants más metro L4 (50–100 € + 2,55 €); (3) carpooling con ConcertRide (15–20 € desde Madrid, 10–14 € desde Valencia, 8–12 € desde Zaragoza, 4–7 € desde Tarragona). El parking del Fòrum es muy limitado (500 plazas, 25–35 €/día) y la organización desaconseja venir en coche particular. Más de 80 países envían asistentes, lo que satura hostales y AVE semanas antes. Para volver de madrugada, la opción más práctica es coordinar con un conductor de ConcertRide sobre las 3:30, ya que las colas del metro alcanzan 30–45 minutos.",
+      "Primavera Sound 2026 se celebra del 3 al 7 de junio en el Parc del Fòrum (Sant Adrià de Besòs, Barcelona), con aforo de 60.000 personas/día. Hay tres opciones verificadas para llegar al recinto: Metro L4 hasta Besòs Mar, a 10 minutos a pie del Fòrum (2,55 € por trayecto sencillo según tarifa TMB 2026); AVE Madrid-Barcelona Sants más L4 (50–100 € por trayecto en Renfe AVE + 2,55 € de metro); o carpooling con ConcertRide (15–20 €/asiento desde Madrid, 10–14 € desde Valencia, 8–12 € desde Zaragoza). El parking del Fòrum dispone de 500 plazas a 25–35 €/día. Para la vuelta de madrugada, TMB mantiene la L4 abierta hasta las 02:00 los viernes y hasta las 05:00 los sábados; carpooling coordinado recoge a partir de las 03:00. (Fuentes: TMB Barcelona, Renfe AVE, ConcertRide Dataset 2026.)",
     enrichmentBlocks: [
       {
         heading: "Historia y herencia de Primavera Sound",

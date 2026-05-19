@@ -11,6 +11,15 @@ import { ROUTE_LANDINGS } from "@/lib/routeLandings";
 const VALID_YEARS = ["2025", "2026", "2027"] as const;
 type ValidYear = (typeof VALID_YEARS)[number];
 
+// Year-page canonical strategy (Google: consolidate near-duplicates via canonical):
+// /2026 is the "current year" — self-canonical, indexable.
+// /2025 (past) and /2027 (unconfirmed line-up) have near-identical body content
+//   to /2026 (same venues, prices, festivals) → canonical to the parent
+//   /conciertos/:city to consolidate signals. We keep them crawlable
+//   (noindex: false) so Google follows the canonical and merges metrics,
+//   instead of just dropping them as excluded.
+const CURRENT_YEAR: ValidYear = "2026";
+
 const PRICE_TABLE: Record<string, { from: string; to: string; price: string }[]> = {
   madrid: [
     { from: "Madrid", to: "Barcelona", price: "14–22 €" },
@@ -161,8 +170,14 @@ export default function CityYearPage() {
           return `Conciertos en ${landing.display} ${y}.${suffix}`;
         })()
       : "Conciertos en España por ciudad y año.",
+    // Only the current-year variant is self-canonical. Past (2025) and
+    // future (2027) year pages have body content nearly identical to /2026
+    // — point their canonical at the parent /conciertos/:city to consolidate
+    // signals rather than self-canonical near-duplicates.
     canonical: landing
-      ? `${SITE_URL}/conciertos/${slug}/${y}`
+      ? y === CURRENT_YEAR
+        ? `${SITE_URL}/conciertos/${slug}/${y}`
+        : `${SITE_URL}/conciertos/${slug}`
       : `${SITE_URL}/concerts`,
     keywords: landing
       ? `conciertos ${landing.display} ${y}, conciertos en ${landing.display} ${y}, conciertos ${landing.city} ${y}, festivales ${landing.display} ${y}, agenda musical ${landing.display} ${y}, próximos conciertos ${landing.display} ${y}, carpooling ${landing.display} ${y}, coche compartido concierto ${landing.display}, cómo ir a conciertos ${landing.display} ${y}, viaje compartido ${landing.display} ${y}, conciertos ${landing.display.toLowerCase()} ${y}`

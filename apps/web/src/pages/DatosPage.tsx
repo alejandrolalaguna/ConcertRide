@@ -431,6 +431,35 @@ export default function DatosPage() {
           de media).
         </p>
 
+        <div className="space-y-4 max-w-3xl">
+          <h3 className="font-display text-base md:text-lg uppercase text-cr-text tracking-wide">
+            Metodología del cálculo de precio
+          </h3>
+          <p className="font-sans text-sm text-cr-text-muted leading-relaxed">
+            ConcertRide calcula el precio por asiento como (coste de combustible + peajes) dividido
+            entre el número de plazas ocupadas. El factor de combustible aplicado es 1,58 €/L para gasolina
+            95 y 1,45 €/L para gasóleo, según el Boletín Petrolero de la Dirección General de Tráfico (DGT)
+            de abril de 2026. El consumo medio considerado es 6,5 L/100 km, dentro del rango 6–7 L/100 km
+            que el Instituto para la Diversificación y Ahorro de la Energía (IDAE) reporta para turismos
+            matriculados en España entre 2018 y 2024.
+          </p>
+          <p className="font-sans text-sm text-cr-text-muted leading-relaxed">
+            La ocupación media usada en el cálculo de CO₂ es 3,5 personas por vehículo en viajes de
+            carpooling festival, frente a 1,2 personas por turismo en desplazamientos privados de larga
+            distancia, según el último Informe Anual del Sector de la Movilidad publicado por el IDAE.
+            El factor de emisión de referencia es 118 g CO₂/km por turismo diésel y 120 g CO₂/km para
+            gasolina, valores del Inventario Nacional de Emisiones a la Atmósfera (IDAE, 2024).
+          </p>
+          <p className="font-sans text-sm text-cr-text-muted leading-relaxed">
+            Los precios publicados por conductor están sujetos al artículo 101 del Reglamento General de
+            Circulación: en transporte privado entre particulares, la contraprestación no puede superar el
+            coste proporcional del trayecto. Para preservar el anonimato del conductor y del pasajero,
+            ConcertRide agrega rutas por par origen-festival y aplica un umbral de k-anonimato k≥5: ninguna
+            cifra publicada corresponde a menos de cinco viajes distintos en la temporada. Los datos brutos
+            no se exponen ni se redistribuyen.
+          </p>
+        </div>
+
         <div className="overflow-x-auto">
           <table className="w-full font-sans text-sm border-collapse min-w-[640px]">
             <thead>
@@ -550,6 +579,29 @@ export default function DatosPage() {
           </p>
         </div>
         <ul className="space-y-3">
+          <li className="border border-cr-border p-4 space-y-2 hover:border-cr-primary transition-colors">
+            <div className="flex items-baseline justify-between gap-3 flex-wrap">
+              <Link
+                to="/datos/calendario-maestro-festivales-2026"
+                className="font-display text-lg uppercase text-cr-primary hover:underline underline-offset-2"
+              >
+                Calendario maestro festivales España 2026 — precios + conectividad + ranking
+              </Link>
+              <span className="font-mono text-[10px] text-cr-text-dim uppercase tracking-[0.1em]">19 mayo 2026 · CSV + JSON</span>
+            </div>
+            <p className="font-sans text-sm text-cr-text-muted leading-relaxed">
+              Calendario cronológico comprehensivo de 58 festivales españoles 2026 (abril-octubre).
+              Combina los 3 datasets previos en un solo recurso: festival + fechas + género + aforo +
+              precio entrada + precio carpooling + precio bus + ahorro % + score conectividad + ranking
+              + CO₂ ahorrado. Ordenado por fecha de inicio.
+            </p>
+            <Link
+              to="/datos/calendario-maestro-festivales-2026"
+              className="inline-flex items-center gap-1.5 font-sans text-xs text-cr-primary hover:underline underline-offset-2"
+            >
+              Ver dataset y descargar <ArrowRight size={11} />
+            </Link>
+          </li>
           <li className="border border-cr-border p-4 space-y-2 hover:border-cr-primary transition-colors">
             <div className="flex items-baseline justify-between gap-3 flex-wrap">
               <Link

@@ -61,11 +61,22 @@ const FORBIDDEN_PREFIXES = [
 ];
 
 async function* walkHtml(dir) {
-  const entries = await fs.readdir(dir, { withFileTypes: true });
+  let entries;
+  try {
+    entries = await fs.readdir(dir, { withFileTypes: true });
+  } catch (e) {
+    if (e.code === "ENOENT") return;
+    throw e;
+  }
   for (const entry of entries) {
     const full = path.join(dir, entry.name);
     if (entry.isDirectory()) {
-      yield* walkHtml(full);
+      try {
+        yield* walkHtml(full);
+      } catch (e) {
+        if (e.code === "ENOENT") continue;
+        throw e;
+      }
     } else if (entry.name === "index.html") {
       yield full;
     }
