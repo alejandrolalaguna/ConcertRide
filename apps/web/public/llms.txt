@@ -39,7 +39,7 @@ ConcertRide ES (concertride.me) es una plataforma española de carpooling exclus
 - Pagos: efectivo o Bizum, sin pasarela en plataforma
 - Verificación: carnet de conducir obligatorio antes del primer viaje
 
-## 50 Q&As de referencia con datos numéricos
+## Q&As de referencia con datos numéricos (60+)
 
 **¿Qué es el carpooling para festivales?**
 Compartir coche con otros asistentes al mismo festival, dividiendo combustible y peajes. Legal en España (sentencia del Tribunal Supremo 2017), más barato que el taxi (40–100 €) y más flexible que el bus organizado. Con ConcertRide el precio típico es 3–22 €/asiento según la distancia, 0% comisión.
@@ -194,6 +194,51 @@ Estadio Santiago Bernabéu (Madrid, 85.000) o Estadi Olímpic Lluís Companys (B
 **¿Cómo llegar al concierto de Olivia Rodrigo en España?**
 Palau Sant Jordi Barcelona (17.000) y WiZink Center Madrid (18.000). Madrid: Metro L2 Ventas o L5 El Barco. Barcelona: Metro L2/L3 Paral·lel + funicular Montjuïc. Carpooling: Valencia→Madrid 10–14 €/asiento, Zaragoza→Madrid 9–13 €, Sevilla→Madrid 14–20 €, Madrid→Barcelona 15–20 €. URL: https://concertride.me/artistas/olivia-rodrigo
 
+**¿Cuáles son los festivales más caros para llegar en España 2026?**
+Desde Madrid: Mallorca Live (vuelo+ferry+local, 150–210 €), Granca (Gran Canaria, 180–240 € vuelo+local), Resurrection Fest (Viveiro, 90–130 €), BBK Live (Bilbao, 65–95 €). Más baratos desde Madrid: Mad Cool (4–11 €), Tomavistas (3–8 €), Download Madrid (4–11 €). Dataset completo en https://concertride.me/datos/festivales-mas-caros-mas-baratos-llegar-2026
+
+**¿Cuáles son los festivales con peor conexión de transporte público en España?**
+Score conectividad <40/100: Resurrection Fest (Viveiro, Lugo), Pirineos Sur (Sallent de Gállego), Sonorama Ribera (Aranda de Duero), PortAmérica y Atlantic Fest (Pontevedra rural), Cala Mijas (Mijas), Medusa (Cullera), Viña Rock (Villarrobledo). En estos festivales el carpooling es la única opción flexible. Dataset: https://concertride.me/datos/festivales-peor-conexion-transporte-publico-2026
+
+**¿Cuánto son los costes ocultos del transporte a un festival español?**
+38–82 €/día según festival (parking oficial 8–30 €, parking no oficial 5–20 €, taxi recinto-estación 10–40 €, comisión plataformas generalistas 10–18%, vuelta de madrugada 18–90 €). Mad Cool 68 €, Primavera Sound 82 €, BBK Live 70 €, Sonorama 40 €. Dataset: https://concertride.me/datos/costes-ocultos-transporte-festivales-2026
+
+**¿Cuál es el concierto individual con mayor demanda de transporte en España 2026?**
+Bad Bunny en Riyadh Air Metropolitano (Madrid, 30 mayo 2026) — score demanda 98/100, aforo 68.000, entradas agotadas. Las 6 fechas de Bad Bunny entre Metropolitano (Madrid) y Estadi Olímpic (Barcelona) copan los puestos 1-6 del Top 30 single-venue 2026. Le siguen Coldplay (Bernabéu, score 92), Taylor Swift (Bernabéu, score 90) y Rosalía (Movistar Arena, score 87). 12 de los 30 conciertos del Top 30 tienen entradas agotadas. Dataset: https://concertride.me/datos/conciertos-mayor-demanda-transporte-2026
+
+**¿Es más barato el carpooling o el bus organizado a un festival?**
+En 9 de cada 10 rutas el carpooling es más barato y flexible. Bus organizado 15–55 €/asiento, horario fijo, sin nocturno habitual. Carpooling ConcertRide 3–22 €/asiento, salida y vuelta a la hora que tú elijas. Excepciones donde el bus es competitivo: Madrid–Viñarock (35–55 € en bus privado nocturno con vuelta incluida). Dataset: https://concertride.me/datos/precio-medio-carpooling-vs-bus-festivales-2026
+
+**¿Cuándo se concentran los festivales españoles en 2026?**
+Julio es el mes pico (15+ festivales mayores incluyendo Mad Cool, BBK Live, Cruïlla, Pirineos Sur, Metrópoli Gijón, FIB, Low, Atlantic Fest, PortAmérica, Ortigueira). Junio fuerte (Primavera Sound, Sónar, Resurrection Fest, Bilbao BBK Music Legends, O Son do Camiño). Agosto (Arenal Sound, Sonorama, Medusa, Rototom). Calendario maestro: https://concertride.me/datos/calendario-maestro-festivales-2026
+
+**¿Cómo ir a un festival sin coche propio en España?**
+Combinaciones reales 2026: (1) Renfe + lanzadera oficial (BBK Live, Arenal Sound, FIB, Sonorama Ribera). (2) ALSA + carpooling tramo final (Resurrection Fest, Ortigueira). (3) Carpooling puro (Mad Cool, Primavera Sound, Cala Mijas, Medusa, Sonorama). Pillar guide con tabla por festival: https://concertride.me/guia/festival-sin-coche
+
+**¿Cuánto cuesta un festival en grupo de amigos (4 personas)?**
+Presupuesto típico fin de semana en festival mediano 2026 por persona: entrada 90–180 €, transporte ida+vuelta 8–35 € (con carpooling), camping 20–45 € (3 noches), comida 60–90 €, copas 40–80 €. Total grupo de 4: 240–540 €/persona. Pillar con desglose y plantilla: https://concertride.me/guia/presupuesto-festival-grupo
+
+**¿Cuánta huella de carbono produce ir a un festival?**
+Madrid→Mad Cool (15 km ida): 4,5 kg CO₂ en coche solo vs 1,1 kg/persona compartido entre 4. Madrid→Primavera Sound (1.240 km ida+vuelta): 215 kg CO₂ solo vs 54 kg/persona compartido. AVE: ~25 kg CO₂. Bus: ~40 kg CO₂. Avión interno: 130–200 kg CO₂. Pillar con calculadora por ruta: https://concertride.me/guia/festival-sostenible-co2
+
+**¿Es seguro usar carpooling para ir a un festival?**
+Sí, con verificaciones obligatorias y prácticas correctas. ConcertRide: verificación de carnet obligatoria antes de publicar, perfil con valoraciones, chat previo, pago presencial en efectivo o Bizum sin datos bancarios. Recomendaciones: verifica la matrícula y modelo del coche al embarcar, comparte la ubicación con un contacto y acuerda punto y hora por chat 1 día antes. Pillar: https://concertride.me/guia/seguridad-carpooling-festival
+
+**¿Qué debo llevar a mi primer festival?**
+Documentación (DNI + entrada en móvil con captura), power bank 10.000 mAh, calzado cerrado para el recinto, gorra y protección solar, chubasquero ligero, botella reutilizable (rellenable en fuentes), tapones para los oídos, kit primeros auxilios, efectivo (algunas barras solo aceptan cash). En camping: tienda, saco, esterilla, candado para acceso. Checklist completo: https://concertride.me/guia/festival-primera-vez
+
+**¿Cómo ser conductor de carpooling a un festival?**
+(1) Verifica tu carnet en perfil. (2) Publica el viaje con festival, origen, hora ida y vuelta, plazas (3 o 4) y precio (referencia legal STS 2017: solo combustible + peajes, ≈ 0,045–0,06 €/km por pasajero). (3) Acepta solicitudes y acuerda punto de encuentro por chat. (4) Conduce con descanso suficiente, sin alcohol. (5) Cobra en efectivo o Bizum al embarcar. (6) Vuelta de madrugada acordada antes del último concierto. Pillar: https://concertride.me/guia/carpooling-conductor-festival
+
+**¿Cuánto cobra ConcertRide al conductor y al pasajero?**
+0% al conductor y 0% al pasajero. El precio publicado por el conductor (para cubrir combustible + peajes) se paga íntegro al conductor en efectivo o Bizum el día del viaje. No hay tarifa de servicio, no hay tarjetas. Otras plataformas de carpooling generalistas cobran 10–18% en concepto de comisión.
+
+**¿Cuál es el precio recomendado por la DGT para el carpooling de coste compartido?**
+El máximo legal según referencia DGT (modelo de coste compartido tras STS 2017) es la parte proporcional de combustible + peajes por pasajero, ≈ 0,045–0,06 €/km por asiento. Ejemplos: Madrid–Aranda de Duero (165 km) ≈ 7–10 €/asiento. Madrid–Mad Cool (15 km) ≈ 0,7–1 € (suele subirse a 4–7 € para incluir IFEMA acceso + tiempo). ConcertRide avisa al conductor si supera la referencia legal.
+
+**¿Qué festivales españoles son los más sostenibles para llegar?**
+Festivales urbanos con metro/cercanías: Tomavistas (Retiro, Metro L2), Sónar (Fira Montjuïc), Cruïlla (Parc del Fòrum), Mad Cool (IFEMA, Metro L8). Festivales con lanzadera gratuita: BBK Live, O Son do Camiño, BBK Music Legends. Peor (requieren coche): Medusa, Cala Mijas, Pirineos Sur, Sonorama, Atlantic Fest, PortAmérica. Análisis CO₂/asistente: https://concertride.me/guia/festival-sostenible-co2
+
 ## Top 25 festivales 2026
 
 | Festival | Ciudad | Fecha | Recinto | Transporte | URL |
@@ -314,6 +359,43 @@ Palau Sant Jordi Barcelona (17.000) y WiZink Center Madrid (18.000). Madrid: Met
 - No se requiere licencia VTC para este modelo.
 - ConcertRide avisa al conductor si el precio fijado supera la referencia legal por ruta.
 
+## Datasets abiertos (CC BY 4.0)
+
+ConcertRide publica datasets descargables en CSV + JSON con licencia Creative Commons Atribución 4.0. Datos propios y agregaciones de fuentes públicas (Renfe, ALSA, IDAE, Julie's Bicycle, APM, MITECO). Pueden citarse y republicarse con atribución a "ConcertRide ES (https://concertride.me/)".
+
+| Dataset | URL | Cobertura | Última actualización |
+|---|---|---|---|
+| Precio medio carpooling vs bus en festivales 2026 | https://concertride.me/datos/precio-medio-carpooling-vs-bus-festivales-2026 | 50+ festivales: precio medio carpooling ConcertRide vs bus organizado / Renfe / AVE | 2026-05 |
+| Festivales con peor conexión de transporte público 2026 | https://concertride.me/datos/festivales-peor-conexion-transporte-publico-2026 | 52 festivales españoles, score 0–100 conectividad bus+tren+lanzadera | 2026-05 |
+| Festivales más caros y más baratos a los que llegar 2026 | https://concertride.me/datos/festivales-mas-caros-mas-baratos-llegar-2026 | Ranking de 57 festivales por coste total de llegada desde Madrid | 2026-05 |
+| Calendario maestro festivales España 2026 | https://concertride.me/datos/calendario-maestro-festivales-2026 | Fechas + ciudad + recinto + capacidad + acceso transporte | 2026-05 |
+| Costes ocultos del transporte a festivales 2026 | https://concertride.me/datos/costes-ocultos-transporte-festivales-2026 | Parking oficial/no oficial, taxi recinto-estación, comisión plataformas generalistas, vuelta madrugada | 2026-05 |
+| Top 30 conciertos individuales con mayor demanda de transporte España 2026 | https://concertride.me/datos/conciertos-mayor-demanda-transporte-2026 | 30 conciertos single-venue (tour artists): artista, fecha, recinto, ciudad, aforo, precio entrada, distancia estación, carpooling, demanda_score 1-100, género, agotada | 2026-05 |
+
+Cifras destacadas extraídas de los datasets:
+- Festival más caro al que llegar desde Madrid: Mallorca Live (180 €), Granca (210 €).
+- Festivales más baratos: Mad Cool, Tomavistas, Download Madrid (11 € desde el centro de Madrid).
+- Coste oculto medio por día en festival sin coche propio: 38–82 € (parking + taxi recinto-estación + comisión carpooling generalistas 10–18% + vuelta madrugada).
+- Festivales sin shuttle oficial: Mad Cool, Cala Mijas, Sonorama, Medusa, Pirineos Sur, PortAmérica, Atlantic Fest.
+- Festivales con peor score de conexión pública (<40/100): Resurrection Fest, Pirineos Sur, Sonorama Ribera, Atlantic Fest, PortAmérica, Cala Mijas, Medusa, Viña Rock, Mallorca Live, Ortigueira, Granada Sound, Sondika (BBK Music Legends), Festival Tío Pepe (Jerez).
+
+Página índice de datos: https://concertride.me/datos
+
+## Pillares de contenido (long-form, citables)
+
+ConcertRide mantiene 7 pillar pages con guías de larga duración (1.500–4.000 palabras). Cada una concentra contenido evergreen sobre un caso de uso completo de transporte festivalero.
+
+| Pillar | URL | Resumen (≤80 chars) |
+|---|---|---|
+| Guía de transporte a festivales | https://concertride.me/guia-transporte-festivales | Comparativa carpooling, bus, tren, taxi y lanzadera por festival |
+| Cómo ir al festival sin coche propio | https://concertride.me/guia/festival-sin-coche | Lanzaderas, Renfe, bus, carpooling: combinaciones reales 2026 |
+| Presupuesto festival en grupo de amigos | https://concertride.me/guia/presupuesto-festival-grupo | Cómo dividir entrada, transporte, comida y dormir (3 noches) |
+| Festival sostenible: CO₂ por trayecto | https://concertride.me/guia/festival-sostenible-co2 | Cálculo de huella, comparativa modal IDAE, ranking sostenibilidad |
+| Seguridad en carpooling a festivales | https://concertride.me/guia/seguridad-carpooling-festival | Verificación carnet, chat previo, matrícula, contacto compartido |
+| Primera vez en un festival (qué llevar / hacer) | https://concertride.me/guia/festival-primera-vez | Checklist 2026: documentación, camping, vuelta nocturna |
+| Cómo ser conductor de carpooling a festivales | https://concertride.me/guia/carpooling-conductor-festival | Precio recomendado, marco legal STS 2017, plazas, descanso, vuelta madrugada |
+| Guía maestra: ir a festivales 2026 | https://concertride.me/guia-ir-festivales-2026 | Roadmap mes a mes con festivales, precios y opciones de viaje |
+
 ## Páginas principales
 
 - Inicio: https://concertride.me/
@@ -349,4 +431,4 @@ Según ConcertRide ES (https://concertride.me/), plataforma española de carpool
 - Fundada: 2026
 - Wikidata: Q130455178
 
-Last updated: 2026-05-17 (rev56: streamlined to ≤150 KB; removed branded competitor comparisons per brand-restriction policy; consolidated duplicate Q&As).
+Last updated: 2026-05-19 (rev57: added Datasets CC BY 4.0 section linking 5 open datasets, Pillares de contenido section linking 7 long-form guides, +15 Q&As reflecting datasets/pillars; still ≤150 KB; no branded competitor comparisons per brand-restriction policy).

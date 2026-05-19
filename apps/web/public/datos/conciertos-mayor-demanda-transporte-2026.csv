@@ -1,0 +1,32 @@
+concierto_slug,artist_name,fecha,venue,city,aforo_estimado,precio_entrada_medio_eur,distancia_estacion_km,transporte_publico_disponible,precio_carpooling_medio_eur,demanda_score,genero_dominante,agotada_entradas
+bad-bunny-metropolitano-2026-05-30,Bad Bunny,2026-05-30,Riyadh Air Metropolitano,Madrid,68000,95,2.5,yes,14,98,reggaeton,true
+bad-bunny-metropolitano-2026-05-31,Bad Bunny,2026-05-31,Riyadh Air Metropolitano,Madrid,68000,95,2.5,yes,14,97,reggaeton,true
+bad-bunny-metropolitano-2026-06-03,Bad Bunny,2026-06-03,Riyadh Air Metropolitano,Madrid,68000,95,2.5,yes,14,95,reggaeton,true
+bad-bunny-olimpic-2026-05-22,Bad Bunny,2026-05-22,Estadi Olímpic Lluís Companys,Barcelona,55000,95,1.5,yes,17,96,reggaeton,true
+bad-bunny-olimpic-2026-05-23,Bad Bunny,2026-05-23,Estadi Olímpic Lluís Companys,Barcelona,55000,95,1.5,yes,17,94,reggaeton,true
+bad-bunny-metropolitano-2026-06-15,Bad Bunny,2026-06-15,Riyadh Air Metropolitano,Madrid,68000,95,2.5,yes,14,93,reggaeton,true
+coldplay-bernabeu-2026,Coldplay,TBD,Estadio Santiago Bernabéu,Madrid,85000,120,1.0,yes,15,92,pop rock,true
+coldplay-olimpic-2026,Coldplay,TBD,Estadi Olímpic Lluís Companys,Barcelona,55000,120,1.5,yes,17,91,pop rock,true
+taylor-swift-bernabeu-2026,Taylor Swift,TBD,Estadio Santiago Bernabéu,Madrid,85000,135,1.0,yes,15,90,pop,true
+taylor-swift-olimpic-2026,Taylor Swift,TBD,Estadi Olímpic Lluís Companys,Barcelona,55000,135,1.5,yes,17,89,pop,true
+rosalia-movistar-2026,Rosalía,TBD,Movistar Arena,Madrid,17000,75,3.5,yes,12,87,flamenco pop,true
+rosalia-sant-jordi-2026,Rosalía,TBD,Palau Sant Jordi,Barcelona,17000,75,2.0,yes,15,86,flamenco pop,true
+beyonce-bernabeu-2026,Beyoncé,TBD,Estadio Santiago Bernabéu,Madrid,85000,140,1.0,yes,15,85,pop r&b,false
+karol-g-metropolitano-2026,Karol G,TBD,Riyadh Air Metropolitano,Madrid,68000,90,2.5,yes,14,84,reggaeton,false
+karol-g-olimpic-2026,Karol G,TBD,Estadi Olímpic Lluís Companys,Barcelona,55000,90,1.5,yes,17,83,reggaeton,false
+metallica-ifema-2026,Metallica,TBD,IFEMA / Estadio Olímpico,Madrid,60000,110,4.0,yes,14,82,heavy metal,false
+guns-n-roses-ifema-2026,Guns N' Roses,TBD,IFEMA / Estadio Olímpico,Madrid,60000,105,4.0,yes,14,80,hard rock,false
+ac-dc-bernabeu-2026,AC/DC,TBD,Estadio Santiago Bernabéu,Madrid,85000,115,1.0,yes,15,79,hard rock,false
+bruce-springsteen-bernabeu-2026,Bruce Springsteen,TBD,Estadio Santiago Bernabéu,Madrid,85000,125,1.0,yes,15,78,rock,false
+the-weeknd-metropolitano-2026,The Weeknd,TBD,Riyadh Air Metropolitano,Madrid,68000,95,2.5,yes,14,77,r&b pop,false
+the-weeknd-olimpic-2026,The Weeknd,TBD,Estadi Olímpic Lluís Companys,Barcelona,55000,95,1.5,yes,17,76,r&b pop,false
+ed-sheeran-bernabeu-2026,Ed Sheeran,TBD,Estadio Santiago Bernabéu,Madrid,85000,90,1.0,yes,15,75,pop,false
+dua-lipa-metropolitano-2026,Dua Lipa,TBD,Riyadh Air Metropolitano,Madrid,68000,85,2.5,yes,14,74,pop,false
+billie-eilish-wizink-2026,Billie Eilish,TBD,WiZink Center,Madrid,17000,80,1.2,yes,13,73,pop alternative,false
+billie-eilish-sant-jordi-2026,Billie Eilish,TBD,Palau Sant Jordi,Barcelona,17000,80,2.0,yes,15,72,pop alternative,false
+olivia-rodrigo-wizink-2026,Olivia Rodrigo,TBD,WiZink Center,Madrid,17000,75,1.2,yes,13,71,pop,false
+harry-styles-metropolitano-2026,Harry Styles,TBD,Riyadh Air Metropolitano,Madrid,68000,95,2.5,yes,14,70,pop,false
+iron-maiden-ifema-2026,Iron Maiden,TBD,IFEMA / Estadio Olímpico,Madrid,60000,95,4.0,yes,14,69,heavy metal,false
+imagine-dragons-metropolitano-2026,Imagine Dragons,TBD,Riyadh Air Metropolitano,Madrid,68000,75,2.5,yes,14,68,pop rock,false
+aitana-wizink-2026,Aitana,TBD,WiZink Center,Madrid,17000,55,1.2,yes,13,67,pop,false
+estopa-cartuja-2026,Estopa,TBD,Estadio La Cartuja,Sevilla,57000,55,3.0,yes,13,66,rumba rock,false

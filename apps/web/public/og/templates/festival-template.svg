@@ -1,0 +1,60 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630">
+  <!--
+    OG template: Festival landing pages
+    Placeholders (replace before export to PNG):
+      {{FESTIVAL_NAME}}   e.g. "MAD COOL"
+      {{FESTIVAL_DATES}}  e.g. "10–12 JUL 2026"
+      {{FESTIVAL_CITY}}   e.g. "MADRID · IBERDROLA MUSIC"
+      {{PRICE_FROM}}      e.g. "5"
+    Size: 1200x630 (Open Graph standard).
+    Brand: cr-primary #D4F700 (lime), cr-secondary #FF4F00 (orange), bg #080808.
+  -->
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#080808"/>
+      <stop offset="100%" stop-color="#111111"/>
+    </linearGradient>
+    <linearGradient id="accentGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#D4F700"/>
+      <stop offset="100%" stop-color="#FF4F00"/>
+    </linearGradient>
+    <filter id="noise">
+      <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" stitchTiles="stitch"/>
+      <feColorMatrix values="0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0.04 0"/>
+    </filter>
+  </defs>
+
+  <rect width="1200" height="630" fill="url(#bgGrad)"/>
+  <rect width="1200" height="630" filter="url(#noise)" opacity="0.5"/>
+
+  <!-- Corner accents -->
+  <path d="M40 40h60M40 40v60M1160 40h-60M1160 40v60M40 590h60M40 590v-60M1160 590h-60M1160 590v-60" stroke="#D4F700" stroke-width="2" fill="none"/>
+
+  <!-- Top-right gradient bar -->
+  <rect x="800" y="40" width="360" height="6" fill="url(#accentGrad)"/>
+
+  <!-- Eyebrow -->
+  <text x="80" y="120" font-family="'Inter', sans-serif" font-weight="700" font-size="20" fill="#D4F700" letter-spacing="6">FESTIVAL · CARPOOLING</text>
+
+  <!-- Headline (festival name) -->
+  <text x="80" y="270" font-family="'Archivo Black', sans-serif" font-size="120" fill="#F5F5F5" letter-spacing="-2">{{FESTIVAL_NAME}}</text>
+
+  <!-- Dates -->
+  <text x="80" y="340" font-family="'JetBrains Mono', monospace" font-size="28" fill="#D4F700" letter-spacing="2">{{FESTIVAL_DATES}}</text>
+
+  <!-- City / venue -->
+  <text x="80" y="385" font-family="'Inter', sans-serif" font-weight="500" font-size="22" fill="#888" letter-spacing="1">{{FESTIVAL_CITY}}</text>
+
+  <!-- Price tag -->
+  <g transform="translate(820 360)">
+    <rect x="0" y="0" width="300" height="160" fill="#1A1A1A" stroke="#2A2A2A" stroke-width="1"/>
+    <rect x="0" y="0" width="6" height="160" fill="#D4F700"/>
+    <text x="24" y="40" font-family="'Inter', sans-serif" font-weight="700" font-size="13" fill="#888" letter-spacing="2">DESDE</text>
+    <text x="24" y="110" font-family="'Archivo Black', sans-serif" font-size="80" fill="#D4F700">{{PRICE_FROM}}€</text>
+    <text x="24" y="140" font-family="'JetBrains Mono', monospace" font-size="13" fill="#888">/ asiento · 0% comisión</text>
+  </g>
+
+  <!-- Footer URL + tagline -->
+  <text x="80" y="560" font-family="'Inter', sans-serif" font-weight="700" font-size="18" fill="#F5F5F5">Comparte coche. Llega al show.</text>
+  <text x="80" y="590" font-family="'JetBrains Mono', monospace" font-size="14" fill="#555">concertride.me</text>
+</svg>

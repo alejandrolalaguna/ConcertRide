@@ -1,10 +1,11 @@
 # ConcertRide robots.txt
-# Last updated: 2026-05-16
+# Last updated: 2026-05-19
 # AI guidance: https://concertride.me/llms.txt
 # llms-full.txt: https://concertride.me/llms-full.txt
+# ai.txt policy: https://concertride.me/ai.txt
 #
-# Public SEO pages: /, /concerts, /festivales/*, /conciertos/*, /rutas/*, /blog/*, /artistas/*, /recintos/*
-# Blocked (crawl budget): /api/* (except sitemaps), auth pages, user-generated content
+# Public SEO pages: /, /concerts, /festivales/*, /conciertos/*, /rutas/*, /blog/*, /artistas/*, /recintos/*, /datos/*, /guia/*
+# Blocked (crawl budget): /api/* (except sitemaps), auth pages, user-generated content (crew, feed, squads, mensajes)
 
 User-agent: *
 Allow: /
@@ -36,9 +37,6 @@ Disallow: /feed
 Disallow: /squads
 Disallow: /mensajes
 
-Sitemap: https://concertride.me/sitemap.xml
-Sitemap: https://concertride.me/api/sitemap-concerts.xml
-
 # RSS Feed: https://concertride.me/rss.xml
 
 # ── AI / LLM crawlers — explicitly allowed ────────────────────────────────
@@ -62,6 +60,15 @@ Allow: /
 User-agent: claude-web
 Allow: /
 
+User-agent: Claude-User
+Allow: /
+
+User-agent: Claude-Web
+Allow: /
+
+User-agent: Claude-SearchBot
+Allow: /
+
 # Perplexity
 User-agent: PerplexityBot
 Allow: /
@@ -71,6 +78,12 @@ Allow: /
 
 # Google Gemini + AI Overviews
 User-agent: Google-Extended
+Allow: /
+
+User-agent: GoogleOther
+Allow: /
+
+User-agent: GoogleOther-Image
 Allow: /
 
 User-agent: Gemini-Bot
@@ -144,3 +157,14 @@ Allow: /
 # Yandex
 User-agent: YandexBot
 Allow: /
+
+# ── Sitemaps (referenced at end of file for max crawler compatibility) ────
+Sitemap: https://concertride.me/sitemap.xml
+Sitemap: https://concertride.me/sitemap-festivales.xml
+Sitemap: https://concertride.me/sitemap-artistas.xml
+Sitemap: https://concertride.me/sitemap-recintos.xml
+Sitemap: https://concertride.me/sitemap-ciudades.xml
+Sitemap: https://concertride.me/sitemap-rutas.xml
+Sitemap: https://concertride.me/sitemap-blog.xml
+Sitemap: https://concertride.me/sitemap-how-to-get-there.xml
+Sitemap: https://concertride.me/api/sitemap-concerts.xml

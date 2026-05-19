@@ -513,6 +513,19 @@ export default function GuiaPresupuestoFestivalGrupoPage() {
           </Link>. Calendario maestro cronológico de los 58 festivales 2026 con presupuesto, conectividad y ranking:{" "}
           <Link to="/datos/calendario-maestro-festivales-2026" className="hover:text-cr-primary">
             /datos/calendario-maestro-festivales-2026
+          </Link>. Costes ocultos del transporte (parking, taxi vuelta de madrugada, comisiones plataformas
+          generalistas, propinas): 52,5 €/día de media adicional por persona, desglose en{" "}
+          <Link to="/datos/costes-ocultos-transporte-festivales-2026" className="hover:text-cr-primary">
+            /datos/costes-ocultos-transporte-festivales-2026
+          </Link>. Si tu plan no es un festival sino un concierto individual (Bad Bunny, Coldplay, Taylor Swift,
+          Rosalía…), el Top 30 single-venue con mayor demanda 2026 está en{" "}
+          <Link to="/datos/conciertos-mayor-demanda-transporte-2026" className="hover:text-cr-primary">
+            /datos/conciertos-mayor-demanda-transporte-2026
+          </Link>{" "}(aforo + precio entrada medio + carpooling medio + género dominante). Y para el
+          presupuesto de cama y noches, el alojamiento mediano por tipología (hotel 4★ 152 €, 3★ 105 €,
+          hostel 30 €/cama, apartamento 2 pax 122 €) por festival está en{" "}
+          <Link to="/datos/alojamiento-cercano-festivales-2026" className="hover:text-cr-primary">
+            /datos/alojamiento-cercano-festivales-2026
           </Link>.
         </p>
       </section>

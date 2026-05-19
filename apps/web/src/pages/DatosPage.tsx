@@ -582,6 +582,75 @@ export default function DatosPage() {
           <li className="border border-cr-border p-4 space-y-2 hover:border-cr-primary transition-colors">
             <div className="flex items-baseline justify-between gap-3 flex-wrap">
               <Link
+                to="/datos/alojamiento-cercano-festivales-2026"
+                className="font-display text-lg uppercase text-cr-primary hover:underline underline-offset-2"
+              >
+                Alojamiento cerca de festivales España 2026 — precio por noche y tipo
+              </Link>
+              <span className="font-mono text-[10px] text-cr-text-dim uppercase tracking-[0.1em]">19 mayo 2026 · CSV + JSON</span>
+            </div>
+            <p className="font-sans text-sm text-cr-text-muted leading-relaxed">
+              50 festivales españoles 2026 con precio mediano del alojamiento durante las fechas exactas
+              del festival, segmentado por tipología: hotel básico 1-2★, hotel 3★ (105€/noche medio),
+              hotel 4★ (152€), hostel/albergue (30€/cama), apartamento turístico 2 pax (122€), distancia
+              al recinto y ocupación %. Más caro: Starlite Marbella 295€. Más barato: Resurrection 115€.
+            </p>
+            <Link
+              to="/datos/alojamiento-cercano-festivales-2026"
+              className="inline-flex items-center gap-1.5 font-sans text-xs text-cr-primary hover:underline underline-offset-2"
+            >
+              Ver dataset y descargar <ArrowRight size={11} />
+            </Link>
+          </li>
+          <li className="border border-cr-border p-4 space-y-2 hover:border-cr-primary transition-colors">
+            <div className="flex items-baseline justify-between gap-3 flex-wrap">
+              <Link
+                to="/datos/conciertos-mayor-demanda-transporte-2026"
+                className="font-display text-lg uppercase text-cr-primary hover:underline underline-offset-2"
+              >
+                Top 30 conciertos individuales con mayor demanda de transporte España 2026
+              </Link>
+              <span className="font-mono text-[10px] text-cr-text-dim uppercase tracking-[0.1em]">19 mayo 2026 · CSV + JSON</span>
+            </div>
+            <p className="font-sans text-sm text-cr-text-muted leading-relaxed">
+              30 conciertos individuales (single venue, tour artists) en España 2026 ordenados por
+              score de demanda 1-100. Variables: artista, fecha, recinto, ciudad, aforo, precio
+              entrada, distancia estación, transporte público, carpooling medio, género, entradas
+              agotadas. Concierto #1: Bad Bunny Metropolitano (score 98). 12/30 con entradas agotadas.
+            </p>
+            <Link
+              to="/datos/conciertos-mayor-demanda-transporte-2026"
+              className="inline-flex items-center gap-1.5 font-sans text-xs text-cr-primary hover:underline underline-offset-2"
+            >
+              Ver dataset y descargar <ArrowRight size={11} />
+            </Link>
+          </li>
+          <li className="border border-cr-border p-4 space-y-2 hover:border-cr-primary transition-colors">
+            <div className="flex items-baseline justify-between gap-3 flex-wrap">
+              <Link
+                to="/datos/costes-ocultos-transporte-festivales-2026"
+                className="font-display text-lg uppercase text-cr-primary hover:underline underline-offset-2"
+              >
+                Costes ocultos del transporte a festivales España 2026 — parking + taxi + comisiones
+              </Link>
+              <span className="font-mono text-[10px] text-cr-text-dim uppercase tracking-[0.1em]">19 mayo 2026 · CSV + JSON</span>
+            </div>
+            <p className="font-sans text-sm text-cr-text-muted leading-relaxed">
+              50 festivales españoles 2026 con costes ocultos del transporte: parking oficial y no
+              oficial por día, taxi recinto→estación min/máx, kilómetros estación-recinto, comisión de
+              plataformas generalistas (13-18%), propina conductor recomendada y vuelta de madrugada.
+              Coste oculto total medio 52,5 €/día. Top sobrecoste: Resurrection Fest 95 €/día.
+            </p>
+            <Link
+              to="/datos/costes-ocultos-transporte-festivales-2026"
+              className="inline-flex items-center gap-1.5 font-sans text-xs text-cr-primary hover:underline underline-offset-2"
+            >
+              Ver dataset y descargar <ArrowRight size={11} />
+            </Link>
+          </li>
+          <li className="border border-cr-border p-4 space-y-2 hover:border-cr-primary transition-colors">
+            <div className="flex items-baseline justify-between gap-3 flex-wrap">
+              <Link
                 to="/datos/calendario-maestro-festivales-2026"
                 className="font-display text-lg uppercase text-cr-primary hover:underline underline-offset-2"
               >

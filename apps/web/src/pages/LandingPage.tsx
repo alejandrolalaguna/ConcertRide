@@ -7,7 +7,6 @@ import { api } from "@/lib/api";
 import { useSeoMeta } from "@/lib/useSeoMeta";
 import { SITE_URL } from "@/lib/siteUrl";
 import { concertStatus } from "@/components/ConcertCard";
-import { generateServiceReviewSchema } from "@/lib/schemaGenerators";
 import { TESTIMONIAL_REVIEWS, TESTIMONIALS_AGGREGATE } from "@/lib/testimonials";
 import { Hero } from "@/components/landing/Hero";
 import { StatsBar } from "@/components/StatsBar";
@@ -194,27 +193,11 @@ export default function LandingPage() {
 
   return (
     <main id="main" className="bg-cr-bg text-cr-text">
-      {/* JSON-LD schemas */}
-      {/* WebSite + SearchAction — enables Sitelinks Search Box in Google */}
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify({
-            "@context": "https://schema.org",
-            "@type": "WebSite",
-            "@id": `${SITE_URL}/#website`,
-            url: SITE_URL,
-            name: "ConcertRide",
-            description: "Carpooling para conciertos y festivales en España · 0% comisión",
-            inLanguage: "es-ES",
-            potentialAction: {
-              "@type": "SearchAction",
-              target: `${SITE_URL}/conciertos?q={search_term_string}`,
-              "query-input": "required name=search_term_string",
-            },
-          }),
-        }}
-      />
+      {/* JSON-LD schemas.
+          NOTE (Sprint 10 dedup): WebSite + SoftwareApplication + Organization
+          ya se emiten globalmente en apps/web/index.html (SPA shell), por lo
+          que se han eliminado de esta página para evitar duplicados
+          intra-página detectados por scripts/audit-schema-integrity.mjs. */}
       {/* SpeakableSpecification — flags answer-first H1 + lede paragraphs +
           [data-quotable] blocks to AI Overviews / voice assistants. */}
       <script
@@ -235,6 +218,10 @@ export default function LandingPage() {
           }),
         }}
       />
+      {/* Service entity (single, consolidated). Combina la definición canónica
+          del servicio (provider/offers/areaServed) con AggregateRating + Reviews
+          derivados de lib/testimonials.ts. Sprint 10 dedup: previamente se
+          emitían dos bloques Service con el mismo @id="#service". */}
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
@@ -264,6 +251,26 @@ export default function LandingPage() {
               },
               seller: { "@id": `${SITE_URL}/#organization` },
             },
+            aggregateRating: {
+              "@type": "AggregateRating",
+              ratingValue: TESTIMONIALS_AGGREGATE.ratingValue,
+              reviewCount: TESTIMONIALS_AGGREGATE.reviewCount,
+              bestRating: TESTIMONIALS_AGGREGATE.bestRating,
+              worstRating: TESTIMONIALS_AGGREGATE.worstRating,
+            },
+            review: TESTIMONIAL_REVIEWS.map((r) => ({
+              "@type": "Review",
+              author: { "@type": "Person", name: r.name },
+              datePublished: r.date,
+              reviewBody: r.quote,
+              reviewRating: {
+                "@type": "Rating",
+                ratingValue: r.rating,
+                bestRating: 5,
+                worstRating: 1,
+              },
+              itemReviewed: { "@id": `${SITE_URL}/#service` },
+            })),
           }),
         }}
       />
@@ -317,46 +324,13 @@ export default function LandingPage() {
           }),
         }}
       />
-      {/* Service entity with AggregateRating + individual Reviews — derived from real testimonials (lib/testimonials.ts). */}
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify(
-            generateServiceReviewSchema({
-              siteUrl: SITE_URL,
-              aggregate: TESTIMONIALS_AGGREGATE,
-              reviews: TESTIMONIAL_REVIEWS,
-            }),
-          ),
-        }}
-      />
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify({
-            "@context": "https://schema.org",
-            "@type": "SoftwareApplication",
-            name: "ConcertRide",
-            description: "Carpooling para conciertos y festivales en España. 0% comisión.",
-            applicationCategory: "TransportationApplication",
-            operatingSystem: "Web, iOS, Android",
-            url: SITE_URL,
-            offers: {
-              "@type": "Offer",
-              price: 0,
-              priceCurrency: "EUR",
-              description: "Registro gratuito, sin comisión de plataforma",
-            },
-            aggregateRating: {
-              "@type": "AggregateRating",
-              ratingValue: TESTIMONIALS_AGGREGATE.ratingValue,
-              reviewCount: TESTIMONIALS_AGGREGATE.reviewCount,
-              bestRating: TESTIMONIALS_AGGREGATE.bestRating,
-              worstRating: TESTIMONIALS_AGGREGATE.worstRating,
-            },
-          }),
-        }}
-      />
+      {/* Sprint 10 dedup: el bloque Service+Reviews ahora va consolidado
+          arriba en un único schema con @id="#service". La función
+          generateServiceReviewSchema sigue disponible para otras páginas. */}
+      {/* SoftwareApplication eliminado (Sprint 10 dedup) — la versión canónica
+          se emite en apps/web/index.html con @id estable. La aggregateRating
+          se mantiene en el bloque Service de arriba (generateServiceReviewSchema)
+          que también referencia provider via @id="#organization". */}
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
@@ -862,6 +836,18 @@ export default function LandingPage() {
               <p className="font-mono text-[10px] uppercase tracking-[0.14em] text-cr-primary">Guía</p>
               <h3 className="font-display text-base uppercase leading-tight group-hover:text-cr-primary transition-colors">Mi primer festival: guía para novatos</h3>
               <p className="font-sans text-xs text-cr-text-muted leading-relaxed">Preparación, kit de 15 ítems, día a día, errores típicos, salud y 5 festivales recomendados para tu primera experiencia.</p>
+              <span className="inline-flex items-center gap-1 font-sans text-xs text-cr-primary">Leer <ArrowRight size={11} /></span>
+            </Link>
+            <Link to="/guia/carpooling-conductor-festival" className="border border-cr-border p-5 hover:border-cr-primary/50 transition-colors group space-y-3">
+              <p className="font-mono text-[10px] uppercase tracking-[0.14em] text-cr-primary">Guía conductor</p>
+              <h3 className="font-display text-base uppercase leading-tight group-hover:text-cr-primary transition-colors">Conducir carpooling a festivales</h3>
+              <p className="font-sans text-xs text-cr-text-muted leading-relaxed">Marco legal en España, cuánto recuperas con 3 pasajeros y 7 reglas para no tener problemas con Hacienda ni con la autoridad de transportes.</p>
+              <span className="inline-flex items-center gap-1 font-sans text-xs text-cr-primary">Leer <ArrowRight size={11} /></span>
+            </Link>
+            <Link to="/guia/festival-accesibilidad-movilidad-reducida" className="border border-cr-border p-5 hover:border-cr-primary/50 transition-colors group space-y-3">
+              <p className="font-mono text-[10px] uppercase tracking-[0.14em] text-cr-primary">Guía inclusión</p>
+              <h3 className="font-display text-base uppercase leading-tight group-hover:text-cr-primary transition-colors">Festival accesibilidad y movilidad reducida</h3>
+              <p className="font-sans text-xs text-cr-text-muted leading-relaxed">Top 8 festivales PMR-friendly, cómo conseguir el bono accesibilidad y transporte adaptado: Renfe Atendo, ALSA, Eurotaxi y carpooling accesible.</p>
               <span className="inline-flex items-center gap-1 font-sans text-xs text-cr-primary">Leer <ArrowRight size={11} /></span>
             </Link>
             <Link to="/blog/como-volver-festival-madrugada" className="border border-cr-border p-5 hover:border-cr-primary/50 transition-colors group space-y-3">

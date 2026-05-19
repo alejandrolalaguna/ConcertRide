@@ -57,6 +57,10 @@ const GuiaPresupuestoFestivalGrupoPage = lazy(() => import("./pages/GuiaPresupue
 const GuiaFestivalSostenibleCO2Page = lazy(() => import("./pages/GuiaFestivalSostenibleCO2Page"));
 const GuiaSeguridadCarpoolingFestivalPage = lazy(() => import("./pages/GuiaSeguridadCarpoolingFestivalPage"));
 const GuiaFestivalPrimeraVezPage = lazy(() => import("./pages/GuiaFestivalPrimeraVezPage"));
+const GuiaCarpoolingConductorFestivalPage = lazy(() => import("./pages/GuiaCarpoolingConductorFestivalPage"));
+const GuiaFestivalInternacionalEspanaPage = lazy(() => import("./pages/GuiaFestivalInternacionalEspanaPage"));
+const GuiaFestivalAccesibilidadPage = lazy(() => import("./pages/GuiaFestivalAccesibilidadPage"));
+const GuiaAcampadaFestivalPage = lazy(() => import("./pages/GuiaAcampadaFestivalPage"));
 const PillarGuiaPage = lazy(() => import("./pages/PillarGuiaPage"));
 const BlogIndexPage = lazy(() => import("./pages/BlogIndexPage"));
 const BlogPostPage = lazy(() => import("./pages/BlogPostPage"));
@@ -69,6 +73,9 @@ const DatasetPrecioMedio2026Page = lazy(() => import("./pages/DatasetPrecioMedio
 const DatasetMapaConexion2026Page = lazy(() => import("./pages/DatasetMapaConexion2026Page"));
 const DatasetRankingPreciosFestivales2026Page = lazy(() => import("./pages/DatasetRankingPreciosFestivales2026Page"));
 const DatasetCalendarioMaestro2026Page = lazy(() => import("./pages/DatasetCalendarioMaestro2026Page"));
+const DatasetCostesOcultos2026Page = lazy(() => import("./pages/DatasetCostesOcultos2026Page"));
+const DatasetConciertosDemanda2026Page = lazy(() => import("./pages/DatasetConciertosDemanda2026Page"));
+const DatasetAlojamiento2026Page = lazy(() => import("./pages/DatasetAlojamiento2026Page"));
 const VerifyEmailPage = lazy(() => import("./pages/VerifyEmailPage"));
 const MessagesPage = lazy(() => import("./pages/MessagesPage"));
 const DirectMessagePage = lazy(() => import("./pages/DirectMessagePage"));
@@ -130,6 +137,10 @@ export default function App() {
             <Route path="/guia/festival-sostenible-co2" element={<GuiaFestivalSostenibleCO2Page />} />
             <Route path="/guia/seguridad-carpooling-festival" element={<GuiaSeguridadCarpoolingFestivalPage />} />
             <Route path="/guia/festival-primera-vez" element={<GuiaFestivalPrimeraVezPage />} />
+            <Route path="/guia/carpooling-conductor-festival" element={<GuiaCarpoolingConductorFestivalPage />} />
+            <Route path="/guia/festival-internacional-espana" element={<GuiaFestivalInternacionalEspanaPage />} />
+            <Route path="/guia/festival-accesibilidad-movilidad-reducida" element={<GuiaFestivalAccesibilidadPage />} />
+            <Route path="/guia/acampada-festival-libre-vs-oficial-2026" element={<GuiaAcampadaFestivalPage />} />
             <Route path="/guia-ir-festivales-2026" element={<PillarGuiaPage />} />
             <Route path="/blog" element={<BlogIndexPage />} />
             <Route path="/blog/:slug" element={<BlogPostPage />} />
@@ -143,6 +154,9 @@ export default function App() {
             <Route path="/datos/festivales-peor-conexion-transporte-publico-2026" element={<DatasetMapaConexion2026Page />} />
             <Route path="/datos/festivales-mas-caros-mas-baratos-llegar-2026" element={<DatasetRankingPreciosFestivales2026Page />} />
             <Route path="/datos/calendario-maestro-festivales-2026" element={<DatasetCalendarioMaestro2026Page />} />
+            <Route path="/datos/costes-ocultos-transporte-festivales-2026" element={<DatasetCostesOcultos2026Page />} />
+            <Route path="/datos/conciertos-mayor-demanda-transporte-2026" element={<DatasetConciertosDemanda2026Page />} />
+            <Route path="/datos/alojamiento-cercano-festivales-2026" element={<DatasetAlojamiento2026Page />} />
             <Route path="/rides/:id" element={<RideDetailPage />} />
             <Route path="/publish" element={<PublishRidePage />} />
             <Route path="/login" element={<LoginPage />} />

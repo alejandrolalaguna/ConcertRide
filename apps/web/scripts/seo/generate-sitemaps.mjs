@@ -493,15 +493,31 @@ function buildBlogSitemap() {
 
 // ── RSS 2.0 ───────────────────────────────────────────────────────────────────
 
+const RSS_ITEM_LIMIT = 30; // Best practice: keep RSS feed short (latest 30 posts).
+const RSS_CURRENT_YEAR = new Date().getFullYear();
+
 function buildRss() {
-  const items = BLOG_POSTS.map(({ slug, title, publishedAt }) => {
+  // Sort posts by publishedAt DESC and take the most recent N. Defensive copy so
+  // we don't mutate BLOG_POSTS (which is used by buildBlogSitemap above).
+  const recent = [...BLOG_POSTS]
+    .sort((a, b) => (a.publishedAt < b.publishedAt ? 1 : a.publishedAt > b.publishedAt ? -1 : 0))
+    .slice(0, RSS_ITEM_LIMIT);
+
+  const items = recent.map(({ slug, title, publishedAt }) => {
     const pubDate = new Date(publishedAt).toUTCString();
+    // <description> is optional in RSS 2.0 but recommended — most readers (Feedly,
+    // Inoreader, etc.) render the title alone poorly. We use the title itself as a
+    // fallback description because we don't ship per-post excerpts in this script.
+    // Plain text only — no HTML, no markup — to avoid CDATA escaping headaches.
+    const description = `${title} · Léelo en ConcertRide Blog.`;
     return `
     <item>
       <title>${escapeXml(title)}</title>
       <link>${SITE_URL}/blog/${slug}</link>
       <guid isPermaLink="true">${SITE_URL}/blog/${slug}</guid>
       <pubDate>${pubDate}</pubDate>
+      <description>${escapeXml(description)}</description>
+      <category>Carpooling festivales</category>
     </item>`;
   }).join("");
 
@@ -510,14 +526,22 @@ function buildRss() {
   <channel>
     <title>ConcertRide Blog — Carpooling para conciertos en España</title>
     <link>${SITE_URL}/blog</link>
-    <description>Guías, consejos y noticias sobre carpooling para festivales y conciertos en España</description>
-    <language>es</language>
+    <description>Guías, consejos y noticias sobre carpooling para festivales y conciertos en España. Últimas ${recent.length} entradas.</description>
+    <language>es-ES</language>
+    <copyright>© ${RSS_CURRENT_YEAR} ConcertRide ES · Contenido CC BY 4.0 con atribución</copyright>
+    <managingEditor>founder@concertride.me (Alejandro Lalaguna)</managingEditor>
+    <webMaster>help@concertride.me (ConcertRide team)</webMaster>
+    <generator>generate-sitemaps.mjs (ConcertRide)</generator>
+    <docs>https://www.rssboard.org/rss-specification</docs>
+    <ttl>360</ttl>
     <lastBuildDate>${RFC822_NOW}</lastBuildDate>
     <atom:link href="${SITE_URL}/rss.xml" rel="self" type="application/rss+xml"/>
     <image>
       <url>${SITE_URL}/android-chrome-192x192.png</url>
       <title>ConcertRide Blog</title>
       <link>${SITE_URL}/blog</link>
+      <width>192</width>
+      <height>192</height>
     </image>${items}
   </channel>
 </rss>`;

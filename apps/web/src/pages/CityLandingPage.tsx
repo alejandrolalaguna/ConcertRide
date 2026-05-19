@@ -274,24 +274,10 @@ export default function CityLandingPage() {
           containedInPlace: { "@type": "Country", name: "España" },
         },
       },
-      // LocalBusiness gives ConcertRide a local entity anchor per city —
-      // even though we're a digital service, the social-coordination layer
-      // is genuinely place-bound and Google now rewards local entity hints
-      // for "carpooling [city]" SERPs.
-      {
-        "@context": "https://schema.org",
-        "@type": "LocalBusiness",
-        "@id": `${SITE_URL}/conciertos/${landing.slug}#localbusiness`,
-        name: `ConcertRide · ${landing.display}`,
-        url: `${SITE_URL}/conciertos/${landing.slug}`,
-        areaServed: {
-          "@type": "City",
-          name: landing.display,
-          address: { "@type": "PostalAddress", addressLocality: landing.display, addressCountry: "ES" },
-        },
-        geo: { "@type": "GeoCoordinates", latitude: landing.lat, longitude: landing.lng },
-        priceRange: "€3-€20",
-      },
+      // LocalBusiness intencionalmente NO se emite aquí — la versión canónica
+      // (con priceRange completo €3-€35, currenciesAccepted, paymentAccepted,
+      // address + Wikidata sameAs) se emite más abajo como bloque standalone.
+      // Removido en Sprint 10 dedup para evitar @id collision intra-página.
       {
         "@context": "https://schema.org",
         "@type": "ItemList",

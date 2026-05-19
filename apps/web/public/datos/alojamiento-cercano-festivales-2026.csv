@@ -1,0 +1,51 @@
+festival_slug,festival_name,city,fecha_inicio,hotel_basico_eur_noche_promedio,hotel_3star_eur_noche,hotel_4star_eur_noche,hostel_eur_noche,apartment_2pax_eur_noche,distancia_alojamiento_recinto_km,ocupacion_pct_fechas_festival,recomendacion
+mad-cool,Mad Cool Festival,Madrid,2026-07-08,95,135,195,38,165,8,96,Alojarse en Villaverde Alto o Getafe a 4-6 km del IFEMA/Iberdrola Music ahorra 50% vs centro; usar cercanías C-4
+tomavistas,Tomavistas Festival,Madrid,2026-05-15,85,120,170,32,140,5,88,Hotel cerca Quinta de los Molinos o Ventas; metro L5 directo evita taxi nocturno
+download-madrid,Download Festival Madrid,Madrid,2026-06-28,90,128,180,35,150,7,90,Alojarse Caja Mágica o Villaverde es 40% más barato que Sol; bus 22 noche directo
+dcode-festival,DCode Festival Madrid,Madrid,2026-09-09,80,115,165,30,135,4,85,Camping/hostel Moncloa o Ciudad Universitaria; metro L6 a 5 min andando del recinto
+jardin-de-las-delicias,Jardín de las Delicias Festival,Madrid,2026-09-18,75,110,155,28,125,4,82,Alojarse Matadero o Embajadores; recinto urbano accesible a pie 15 min Atocha
+sonorama-ribera,Sonorama Ribera,Aranda de Duero,2026-08-05,70,95,135,NA,90,1,99,Reservar 6 meses antes; hoteles del centro a 800m del recinto se agotan en febrero
+vina-rock,Viña Rock,Villarrobledo,2026-04-30,55,75,110,NA,75,2,98,Camping oficial es la opción mayoritaria; hoteles Albacete a 35 km saturados
+primavera-sound,Primavera Sound Barcelona,Barcelona,2026-06-03,110,165,235,45,195,6,97,Alojarse Poblenou o Sant Martí cerca Parc Fòrum; evitar centro turístico
+sonar,Sónar Barcelona,Barcelona,2026-06-18,105,160,225,42,185,5,95,Hostal Gràcia o Sant Antoni; metro L1 directo a Fira Montjuïc
+cruilla,Cruïlla Barcelona,Barcelona,2026-07-08,100,155,220,40,180,4,93,Apartamentos Poblenou cerca Parc del Fòrum; tranvía T4 directo
+fib,FIB Benicàssim,Benicàssim,2026-07-16,75,100,140,28,110,2,99,Apartamentos en primera línea Benicàssim saturados; alquilar en Castellón 12 km
+rototom-sunsplash,Rototom Sunsplash,Benicàssim,2026-08-16,80,105,145,30,115,2,99,Pico de ocupación toda la semana; reservar antes de marzo o irse a Castellón
+arenal-sound,Arenal Sound,Burriana,2026-07-30,70,95,135,25,105,3,98,Camping oficial domina; hoteles Castellón 18 km son alternativa razonable
+medusa-festival,Medusa Festival,Cullera,2026-08-13,75,100,140,28,110,5,98,Alojarse Sueca o Valencia capital 40 km y desplazarse; alquileres vacacionales saturados
+zevra-festival,Zevra Festival,Valencia,2026-07-01,85,115,165,32,135,3,82,Hostales Ruzafa o Carmen; metro L3 directo al recinto
+festival-de-les-arts,Festival de les Arts,Valencia,2026-06-05,80,110,160,30,130,3,80,Ciutat de les Arts a 15 min metro centro; reservar Ruzafa o Russafa
+bigsound-valencia,BIGSOUND Valencia,Valencia,2026-06-26,82,112,162,31,132,3,80,Hotel cerca Avenida Francia o Ciutat Vella; metro 3 paradas
+low-festival,Low Festival,Torrevieja,2026-07-31,65,90,125,NA,95,4,90,Apartamentos vacacionales Torrevieja/La Mata; pico turismo verano costa
+bbk-live,Bilbao BBK Live,Bilbao,2026-07-09,95,135,190,38,160,9,94,Alojarse centro Bilbao Casco Viejo; lanzadera oficial al Kobetamendi
+bbk-music-legends,BBK Music Legends Festival,Bilbao,2026-06-26,90,130,180,35,150,8,90,Hotel Indautxu o Abando; metro L1 directo Sondika lanzadera
+resurrection-fest,Resurrection Fest,Viveiro,2026-07-01,55,80,115,NA,85,1,99,Camping oficial gratuito con entrada; hoteles Viveiro/Foz se agotan en enero
+o-son-do-camino,O Son do Camiño,Santiago de Compostela,2026-06-18,75,105,150,28,115,4,92,Hostal centro Santiago; bus urbano a Monte do Gozo
+atlantic-fest,Atlantic Fest,Vilagarcía de Arousa,2026-07-17,65,90,130,NA,95,3,93,Apartamentos rías baixas; alternativa Pontevedra 30 km
+portamerica,PortAmérica Festival,Caldas de Reis,2026-07-09,60,85,120,NA,90,8,94,Apartamentos Pontevedra/Vilagarcía; pueblo pequeño sin hoteles capacidad
+festival-ortigueira,Festival Internacional do Mundo Celta de Ortigueira,Ortigueira,2026-07-09,55,80,115,NA,85,12,99,Camping municipal gratuito junto recinto; hoteles muy limitados
+cala-mijas,Cala Mijas Fest,Mijas,2026-10-02,85,120,170,32,140,8,82,Apartamentos La Cala de Mijas/Fuengirola; baja temporada octubre alivia precios
+marenostrum-fuengirola,Marenostrum Fuengirola Festival,Fuengirola,2026-04-24,75,105,155,30,125,4,78,Hoteles Fuengirola/Los Boliches; primavera fuera de temporada alta
+starlite-marbella,Starlite Catalana Occidente Festival,Marbella,2026-06-19,135,195,295,50,235,7,95,Marbella en verano es la zona más cara España; alternativa Mijas/San Pedro 10 km
+weekend-beach-torre-del-mar,Weekend Beach Festival,Torre del Mar,2026-07-09,70,95,135,25,105,9,97,Apartamentos Torre del Mar/Vélez; pico verano Costa del Sol
+creamfields-andalucia,Creamfields Andalucía,Jerez de la Frontera,2026-06-05,60,85,120,25,95,5,75,Hoteles Jerez centro con buena disponibilidad; bus al recinto incluido entrada
+granada-sound,Granada Sound,Granada,2026-09-11,70,95,135,28,110,3,82,Hostal Albaicín o Realejo; metro L1 directo al recinto Fermasa
+tio-pepe-festival,Tío Pepe Festival,Jerez de la Frontera,2026-07-04,65,90,125,25,100,3,78,Hoteles Jerez centro caminando al recinto Bodegas González Byass
+cooltural-fest,Cooltural Fest,Almería,2026-09-04,55,80,115,22,90,3,72,Hostales Almería centro; oferta amplia fuera de temporada alta
+dreambeach-festival,Dreambeach Costa del Sol,Vélez-Málaga,2026-07-31,70,95,135,25,105,42,97,Hoteles Torre del Mar/Vélez 5-10 km; alquileres vacacionales reservar marzo
+holika-festival,Holika Festival,Vélez-Rubio,2026-08-21,55,80,115,NA,85,15,95,Camping junto al recinto; alternativa Lorca 35 km o Pulpí 25 km
+vive-latino,Vive Latino España,Zaragoza,2026-09-04,65,90,130,25,100,4,80,Hoteles centro Zaragoza Coso/Plaza España; tranvía L1 a Recinto Expo
+pirineos-sur,Festival Internacional de las Culturas Pirineos Sur,Lanuza,2026-07-09,75,100,140,NA,110,18,98,Apartamentos Sallent de Gállego/Formigal/Tramacastilla; valle saturado
+jazzaldia,Heineken Jazzaldia,San Sebastián,2026-07-22,130,185,285,55,215,3,98,San Sebastián la 2ª ciudad más cara España julio; alternativa Hendaya/Hondarribia
+azkena-rock-festival,Azkena Rock Festival,Vitoria-Gasteiz,2026-06-18,65,90,130,25,100,3,80,Hoteles Vitoria centro caminando al recinto Mendizabala
+metropoli-gijon,Festival Internacional Metrópoli Gijón,Gijón,2026-06-26,75,100,140,28,115,3,90,Hoteles Gijón Cimadevilla o playa San Lorenzo; pico turismo verano norte
+santander-music,Santander Music Festival,Santander,2026-08-06,90,125,175,35,145,4,95,Santander en agosto pico turismo cantábrico; alternativa Torrelavega 27 km
+ebrovision,Ebrovisión,Miranda de Ebro,2026-08-21,55,75,110,NA,85,2,90,Hostal Miranda centro a 800m recinto; oferta limitada
+stone-music-festival,Stone & Music Festival Mérida,Mérida,2026-06-05,60,85,120,22,90,3,75,Hoteles Mérida centro caminando al Teatro Romano; oferta razonable
+reggaeton-beach-festival,Reggaeton Beach Festival,Salou,2026-07-31,70,95,135,25,110,5,98,Apartamentos Salou/Cambrils saturados verano; alternativa Reus 15 km
+mallorca-live-festival,Mallorca Live Festival,Calvià,2026-06-12,85,120,170,32,140,7,92,Hoteles Magaluf/Palmanova; alquiler coche aconsejable
+granca-live-fest,Granca Live Fest,Las Palmas de Gran Canaria,2026-07-02,75,105,150,28,120,10,85,Hoteles Las Canteras o Triana; guagua 1 directa al recinto Siete Palmas
+sos-48,SOS 4.8 Festival,Murcia,2026-05-03,55,80,115,22,90,3,72,Hostales Murcia centro a 15 min andando del recinto Cuartel Artillería
+aquasella-festival,Aquasella Festival,Arriondas,2026-08-13,55,80,115,NA,85,8,96,Camping junto al río Sella; alternativa Cangas de Onís 5 km
+boombastic-asturias,Boombastic Asturias,Llanera,2026-08-13,60,85,120,22,95,3,85,Hoteles Oviedo 12 km; servicio bus oficial al recinto
+canela-party,Canela Party,Torremolinos,2026-08-13,80,110,160,30,135,3,98,Torremolinos en agosto saturado; alternativa Benalmádena 4 km

@@ -9,6 +9,8 @@ import { SpeakableAnswerBlock } from "@/components/SpeakableAnswerBlock";
 import { FactDensityCallout } from "@/components/FactDensityCallout";
 import { StickyRegBar } from "@/components/StickyRegBar";
 import { useSession } from "@/lib/session";
+import { TESTIMONIALS, TESTIMONIALS_AGGREGATE, selectTestimonialsFor } from "@/lib/testimonials";
+import { generateAggregateRatingSchema, generateReviewSchemas } from "@/lib/schemaGenerators";
 
 export default function ArtistLandingPage() {
   const { slug } = useParams<{ slug: string }>();
@@ -209,6 +211,70 @@ export default function ArtistLandingPage() {
     tool: [{ "@type": "HowToTool", name: "ConcertRide app" }],
   };
 
+  // ── Review + AggregateRating schemas — Sprint 9 ──────────────────────────
+  // Estrategia:
+  //   1. selectTestimonialsFor con artistSlug (cuando exista en applicableTo).
+  //   2. Fallback: AggregateRating GLOBAL (rating real, count total) sobre una
+  //      Service entity scoped al artista. Solo se emite si hay ≥3 testimonios.
+  const matchedArtistReviews = selectTestimonialsFor({
+    artistSlug: artist.slug,
+    minCount: 3,
+  });
+  const artistServiceId = `${SITE_URL}/artistas/${artist.slug}#service`;
+  const artistServiceName = `Carpooling a conciertos de ${artist.name} con ConcertRide`;
+
+  const jsonLdArtistReviews: object[] | null = matchedArtistReviews
+    ? generateReviewSchemas({
+        itemReviewedId: artistServiceId,
+        itemReviewedType: "Service",
+        itemReviewedName: artistServiceName,
+        reviews: matchedArtistReviews.map((t) => ({
+          quote: t.quote,
+          name: t.author,
+          concert: t.festival,
+          date: t.date,
+          rating: t.rating,
+        })),
+      })
+    : null;
+
+  const jsonLdArtistAggregateRating: object | null = (() => {
+    if (matchedArtistReviews) {
+      const agg = generateAggregateRatingSchema(
+        matchedArtistReviews.map((t) => ({ rating: t.rating })),
+        { minCount: 3 },
+      );
+      if (!agg) return null;
+      return {
+        "@context": "https://schema.org",
+        "@type": "Service",
+        "@id": artistServiceId,
+        name: artistServiceName,
+        description: `Carpooling a conciertos de ${artist.name} en España. 0% comisión, conductores verificados.`,
+        provider: { "@type": "Organization", name: "ConcertRide", url: SITE_URL },
+        aggregateRating: agg,
+      };
+    }
+    if (TESTIMONIALS.length >= 3) {
+      return {
+        "@context": "https://schema.org",
+        "@type": "Service",
+        "@id": artistServiceId,
+        name: artistServiceName,
+        description: `Carpooling a conciertos de ${artist.name} en España. 0% comisión, conductores verificados.`,
+        provider: { "@type": "Organization", name: "ConcertRide", url: SITE_URL },
+        aggregateRating: {
+          "@type": "AggregateRating",
+          ratingValue: TESTIMONIALS_AGGREGATE.ratingValue,
+          reviewCount: TESTIMONIALS_AGGREGATE.reviewCount,
+          bestRating: TESTIMONIALS_AGGREGATE.bestRating,
+          worstRating: TESTIMONIALS_AGGREGATE.worstRating,
+        },
+      };
+    }
+    return null;
+  })();
+
   // ── Related festivals ──────────────────────────────────────────────────────
   const relatedFestivals = artist.relatedFestivals
     .map((s) => FESTIVAL_LANDINGS_BY_SLUG[s])
@@ -240,6 +306,19 @@ export default function ArtistLandingPage() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdHowTo) }}
       />
+      {jsonLdArtistAggregateRating && (
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdArtistAggregateRating) }}
+        />
+      )}
+      {jsonLdArtistReviews && jsonLdArtistReviews.map((r, i) => (
+        <script
+          key={`artist-review-${i}`}
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(r) }}
+        />
+      ))}
 
       {/* ── Hero ── */}
       <div className="max-w-6xl mx-auto px-6 pt-10 pb-8 space-y-4">

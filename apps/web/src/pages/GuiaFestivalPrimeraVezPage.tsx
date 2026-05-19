@@ -156,7 +156,7 @@ export default function GuiaFestivalPrimeraVezPage() {
   const today = new Date().toISOString().slice(0, 10);
 
   useSeoMeta({
-    title: "Mi primer festival 2026: guía completa novatos [6 secciones] | ConcertRide",
+    title: "Mi primer festival 2026: guía completa novatos | ConcertRide",
     description:
       "Tu primer festival en España 2026: qué llevar, cómo llegar, errores de novato a evitar, salud y seguridad. Guía completa principiantes.",
     canonical: `${SITE_URL}/guia/festival-primera-vez`,
@@ -700,11 +700,17 @@ export default function GuiaFestivalPrimeraVezPage() {
           <Link to="/datos" className="border border-cr-border p-4 hover:border-cr-primary/50 transition-colors">
             Datos abiertos ConcertRide
           </Link>
+          <Link to="/datos/alojamiento-cercano-festivales-2026" className="border border-cr-border p-4 hover:border-cr-primary/50 transition-colors">
+            Dataset: alojamiento por festival
+          </Link>
           <Link to="/concerts" className="border border-cr-border p-4 hover:border-cr-primary/50 transition-colors">
             Buscar conciertos
           </Link>
           <Link to="/como-funciona" className="border border-cr-border p-4 hover:border-cr-primary/50 transition-colors">
             Cómo funciona ConcertRide
+          </Link>
+          <Link to="/glosario" className="border border-cr-border p-4 hover:border-cr-primary/50 transition-colors">
+            Glosario: 100 términos
           </Link>
         </div>
       </section>

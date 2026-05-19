@@ -1,17 +1,108 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import { ArrowRight, Check, Copy, Download, ExternalLink } from "lucide-react";
+import { ArrowRight, Check, Copy, Download, ExternalLink, FileText, Quote } from "lucide-react";
 import { useSeoMeta } from "@/lib/useSeoMeta";
 import { SITE_URL } from "@/lib/siteUrl";
 
 const STATS = [
-  { label: "Festivales cubiertos", value: "16" },
-  { label: "Ciudades con landing page", value: "10" },
-  { label: "Rutas programáticas", value: "93" },
-  { label: "Cobertura", value: "España" },
+  { label: "Festivales cubiertos", value: "50+" },
+  { label: "Datasets abiertos CC BY 4.0", value: "4" },
   { label: "Comisión de plataforma", value: "0 %" },
-  { label: "Fondada", value: "2026" },
+  { label: "Asistentes/año al mercado", value: "25 M" },
+  { label: "Reducción CO₂ por asiento", value: "−67 %" },
+  { label: "Cobertura", value: "España" },
 ];
+
+// Las 5 cifras "quick stats" destacadas para titulares periodísticos
+const QUICK_STATS = [
+  {
+    headline: "50+ festivales",
+    sub: "España, agenda 2026 cubierta — Mad Cool, Primavera Sound, BBK Live, FIB, Resurrection Fest, Arenal Sound y +44 más con landing y rutas dedicadas.",
+  },
+  {
+    headline: "4 datasets abiertos CC BY 4.0",
+    sub: "Precios, mapa de conexión, ranking caros/baratos y calendario maestro. CSV + JSON descargables. Reutilizables con atribución.",
+  },
+  {
+    headline: "0 % de comisión",
+    sub: "El conductor recibe el 100 % del precio del asiento. Pago en persona (efectivo o Bizum) el día del viaje. Sin procesadores de pago intermediarios.",
+  },
+  {
+    headline: "Conductores verificados",
+    sub: "Carnet de conducir validado antes de publicar el primer viaje. Modelo de cost-sharing reconocido por la DGT (no requiere licencia VTC).",
+  },
+  {
+    headline: "−67 % CO₂ por asistente",
+    sub: "Compartir coche con 3 pasajeros reduce la huella de carbono del transporte del festival hasta un 67 % frente al coche en solitario (fuente: Julie's Bicycle / cálculo propio).",
+  },
+];
+
+// Datasets activos publicados en /datos (todos CC BY 4.0)
+const DATASETS = [
+  {
+    slug: "precio-medio-carpooling-vs-bus-festivales-2026",
+    title: "Precio medio carpooling vs. bus a festivales 2026",
+    desc: "Comparativa de precio por asiento (carpooling) frente al bus oficial para los 12 festivales más concurridos de España.",
+    rows: "12 festivales",
+  },
+  {
+    slug: "festivales-peor-conexion-transporte-publico-2026",
+    title: "Festivales con peor conexión de transporte público 2026",
+    desc: "Ranking de festivales con menos opciones de tren/bus oficial — donde el carpooling es la alternativa más eficiente.",
+    rows: "15 festivales",
+  },
+  {
+    slug: "festivales-mas-caros-mas-baratos-llegar-2026",
+    title: "Festivales más caros y más baratos a los que llegar 2026",
+    desc: "Coste total promedio (transporte + parking) para llegar a cada festival desde las 5 grandes capitales españolas.",
+    rows: "20 festivales",
+  },
+  {
+    slug: "calendario-maestro-festivales-2026",
+    title: "Calendario maestro de festivales en España 2026",
+    desc: "Agenda completa con fechas, recinto, ciudad y comunidad autónoma de los principales festivales musicales de 2026.",
+    rows: "50+ festivales",
+  },
+];
+
+// Quotes ready-to-use del founder, listos para citar en pieza periodística
+const FOUNDER_QUOTES = [
+  {
+    quote: "El 80 % de la huella de carbono de un festival viene del transporte de los asistentes. Si conseguimos que cada coche lleve a tres personas más en lugar de viajar vacío, hemos resuelto el mayor problema medioambiental del sector.",
+    context: "Sobre sostenibilidad y festivales",
+  },
+  {
+    quote: "Cobrar comisión por conectar a un conductor con tres pasajeros que ya iban al mismo concierto nunca tuvo sentido para nosotros. El precio que ve el pasajero es el precio que recibe el conductor. Punto.",
+    context: "Sobre el modelo 0 % comisión",
+  },
+  {
+    quote: "Volver de un festival a las 4 de la mañana es donde el sistema de transporte público falla. No hay AVE, no hay bus, y un taxi cuesta 90 €. El carpooling es la única respuesta razonable para la madrugada.",
+    context: "Sobre el problema de la vuelta nocturna",
+  },
+  {
+    quote: "España celebra más de 1.000 festivales al año con 25 millones de asistentes. Es un mercado enorme que ninguna plataforma de carpooling generalista entiende: necesitas saber a qué hora termina el último concierto y dónde está el punto de recogida real, no solo la ciudad.",
+    context: "Sobre el foco festival-first vs. carpooling generalista",
+  },
+];
+
+// Brand colors (sincronizado con src/index.css)
+const BRAND_COLORS = [
+  { name: "Primary lime",     hex: "#D4F700", role: "Color principal — CTAs, links, badges" },
+  { name: "Secondary orange", hex: "#FF4F00", role: "Acentos, gradientes, énfasis" },
+  { name: "Background",       hex: "#080808", role: "Fondo base oscuro" },
+  { name: "Surface",          hex: "#1A1A1A", role: "Cards, paneles, contenedores" },
+  { name: "Text primary",     hex: "#F5F5F5", role: "Texto sobre fondo oscuro" },
+  { name: "Text muted",       hex: "#888888", role: "Texto secundario, captions" },
+];
+
+const BRAND_FONTS = [
+  { name: "Archivo Black", role: "Display / títulos", source: "Google Fonts (open-source)" },
+  { name: "Inter",         role: "Body / UI",          source: "Google Fonts (open-source)" },
+  { name: "JetBrains Mono", role: "Monoespaciada / código y datos", source: "Google Fonts (open-source)" },
+];
+
+// Cobertura previa — placeholder hasta que tengamos piezas publicadas reales
+const PRESS_COVERAGE: Array<{ outlet: string; headline: string; url: string; date: string }> = [];
 
 const KEY_FACTS = [
   "Plataforma española de carpooling exclusiva para conciertos y festivales de música.",
@@ -24,10 +115,14 @@ const KEY_FACTS = [
 ];
 
 const LINKS = [
-  { label: "Logo SVG (alta resolución)", href: `${SITE_URL}/favicon.svg`, ext: true },
-  { label: "OG Image 1200×630 PNG", href: `${SITE_URL}/og/home.png`, ext: true },
+  { label: "Logo SVG (vectorial, escalable)",      href: `${SITE_URL}/favicon.svg`, ext: true },
+  { label: "Logo PNG 512×512 (alta resolución)",   href: `${SITE_URL}/android-chrome-512x512.png`, ext: true },
+  { label: "Logo PNG 192×192 (publicación web)",   href: `${SITE_URL}/android-chrome-192x192.png`, ext: true },
+  { label: "Apple touch icon 180×180",             href: `${SITE_URL}/apple-touch-icon.png`, ext: true },
+  { label: "OG Image 1200×630 (Open Graph)",       href: `${SITE_URL}/og/home.png`, ext: true },
+  { label: "Plantillas OG SVG (festival/ruta/dataset/pillar/blog)", href: `${SITE_URL}/og/templates/festival-template.svg`, ext: true },
   { label: "llms.txt (datos estructurados para IA)", href: `${SITE_URL}/llms.txt`, ext: true },
-  { label: "llms-full.txt (contexto extendido)", href: `${SITE_URL}/llms-full.txt`, ext: true },
+  { label: "llms-full.txt (contexto extendido para IA)", href: `${SITE_URL}/llms-full.txt`, ext: true },
 ];
 
 const EMBED_SNIPPETS = [
@@ -88,12 +183,13 @@ function CopyButton({ text }: { text: string }) {
 }
 
 export default function PrensaPage() {
+  // SEO meta: title ≤ 65 chars; description 135–155 chars.
   useSeoMeta({
-    title: "Prensa y medios · Kit de prensa | ConcertRide",
+    title: "Press kit ConcertRide · Datos, cifras y contacto prensa",
     description:
-      "Datos, cifras y contacto para medios. ConcertRide: carpooling para conciertos y festivales en España. Sin comisiones, conductores verificados.",
+      "Press kit ConcertRide: 5 cifras clave, 4 datasets CC BY 4.0 descargables, citas del fundador, logos y contacto de prensa para medios españoles.",
     canonical: `${SITE_URL}/prensa`,
-    keywords: "press kit ConcertRide, medios ConcertRide, datos ConcertRide, carpooling festivales España prensa",
+    keywords: "press kit ConcertRide, medios ConcertRide, datos ConcertRide, carpooling festivales España prensa, datasets festivales",
   });
 
   const jsonLdBreadcrumb = {
@@ -105,29 +201,57 @@ export default function PrensaPage() {
     ],
   };
 
+  // NewsMediaOrganization is a distinct sub-entity of the canonical
+  // Organization (emitted globally in index.html with @id #organization).
+  // Using a different @id (#press-newsroom) avoids the in-page collision
+  // detected by audit-schema-integrity.mjs while preserving the
+  // NewsMediaOrganization typing for press/media discovery.
   const jsonLdOrg = {
     "@context": "https://schema.org",
-    "@type": "Organization",
-    "@id": `${SITE_URL}/#organization`,
-    name: "ConcertRide",
-    url: SITE_URL,
+    "@type": "NewsMediaOrganization",
+    "@id": `${SITE_URL}/#press-newsroom`,
+    name: "ConcertRide · Sala de prensa",
+    alternateName: "ConcertRide Press",
+    parentOrganization: { "@id": `${SITE_URL}/#organization` },
+    url: `${SITE_URL}/prensa`,
     logo: `${SITE_URL}/favicon.svg`,
     image: `${SITE_URL}/og/home.png`,
     description:
-      "Plataforma española de carpooling exclusiva para conciertos y festivales. Conecta conductores y pasajeros que van al mismo evento para compartir gastos de desplazamiento. Sin comisiones.",
+      "Sala de prensa de ConcertRide: datasets abiertos CC BY 4.0, descripciones oficiales, cifras verificadas y contacto para medios sobre carpooling para conciertos y festivales en España.",
     foundingDate: "2026",
     areaServed: { "@type": "Country", name: "Spain" },
-    contactPoint: {
-      "@type": "ContactPoint",
-      contactType: "Press",
-      email: "help@concertride.me",
-    },
+    contactPoint: [
+      {
+        "@type": "ContactPoint",
+        contactType: "Press",
+        email: "help@concertride.me",
+        availableLanguage: ["Spanish", "English"],
+        areaServed: "ES",
+      },
+    ],
+    sameAs: [`${SITE_URL}/datos`, `${SITE_URL}/blog`],
+  };
+
+  // Itemized list of the 4 active CC BY 4.0 datasets — helps Google Dataset Search
+  // index this page as a comprehensive press resource.
+  const jsonLdDatasets = {
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    name: "Datasets abiertos ConcertRide (CC BY 4.0)",
+    numberOfItems: DATASETS.length,
+    itemListElement: DATASETS.map((d, idx) => ({
+      "@type": "ListItem",
+      position: idx + 1,
+      url: `${SITE_URL}/datos/${d.slug}`,
+      name: d.title,
+    })),
   };
 
   return (
     <main id="main" className="min-h-dvh bg-cr-bg text-cr-text pt-14">
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdBreadcrumb) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdOrg) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdDatasets) }} />
 
       {/* ── Hero ── */}
       <div className="max-w-6xl mx-auto px-6 pt-10 pb-6 space-y-4">
@@ -167,7 +291,7 @@ export default function PrensaPage() {
       </section>
 
       {/* ── Cifras clave ── */}
-      <section className="max-w-6xl mx-auto px-6 pb-16 border-t border-cr-border pt-12 space-y-6">
+      <section id="cifras-clave" className="max-w-6xl mx-auto px-6 pb-16 border-t border-cr-border pt-12 space-y-6">
         <h2 className="font-display text-2xl md:text-3xl uppercase">Cifras clave</h2>
         <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
           {STATS.map((s) => (
@@ -176,6 +300,191 @@ export default function PrensaPage() {
               <p className="font-mono text-[11px] text-cr-text-muted">{s.label}</p>
             </div>
           ))}
+        </div>
+      </section>
+
+      {/* ── Quick stats (titulares periodísticos) ── */}
+      <section id="quick-stats" className="max-w-6xl mx-auto px-6 pb-16 border-t border-cr-border pt-12 space-y-6">
+        <div className="space-y-2">
+          <h2 className="font-display text-2xl md:text-3xl uppercase">Quick stats para titulares</h2>
+          <p className="font-sans text-sm text-cr-text-muted leading-relaxed max-w-2xl">
+            5 cifras listas para usar en titulares, leads de artículo o gráficos. Todas verificables en
+            las páginas enlazadas y en los datasets abiertos.
+          </p>
+        </div>
+        <ol className="space-y-3">
+          {QUICK_STATS.map((q, idx) => (
+            <li key={q.headline} className="border border-cr-border p-4 flex gap-4 items-start">
+              <span className="font-mono text-[11px] text-cr-primary mt-1 shrink-0">0{idx + 1}</span>
+              <div className="space-y-1">
+                <p className="font-display text-lg md:text-xl uppercase text-cr-text leading-tight">{q.headline}</p>
+                <p className="font-sans text-sm text-cr-text-muted leading-relaxed">{q.sub}</p>
+              </div>
+            </li>
+          ))}
+        </ol>
+      </section>
+
+      {/* ── Datasets abiertos CC BY 4.0 ── */}
+      <section id="datasets" className="max-w-6xl mx-auto px-6 pb-16 border-t border-cr-border pt-12 space-y-6">
+        <div className="space-y-2">
+          <h2 className="font-display text-2xl md:text-3xl uppercase">Datasets abiertos</h2>
+          <p className="font-sans text-sm text-cr-text-muted leading-relaxed max-w-2xl">
+            Cuatro datasets publicados bajo licencia <strong className="text-cr-text">Creative Commons Attribution 4.0</strong>
+            {" "}— libre uso editorial, comercial y académico con cita a ConcertRide. Descarga directa en CSV y JSON.
+          </p>
+        </div>
+        <ul className="grid sm:grid-cols-2 gap-3">
+          {DATASETS.map((d) => (
+            <li key={d.slug} className="border border-cr-border p-4 space-y-3">
+              {/* Dataset thumbnail */}
+              <div className="aspect-[1200/630] bg-gradient-to-br from-cr-bg to-black border border-cr-border/60 flex items-center justify-center relative overflow-hidden">
+                <FileText size={42} className="text-cr-primary opacity-80" />
+                <span className="absolute top-2 left-2 font-mono text-[9px] uppercase tracking-widest text-cr-primary bg-cr-bg/80 px-2 py-1 border border-cr-primary/40">
+                  CC BY 4.0
+                </span>
+                <span className="absolute bottom-2 right-2 font-mono text-[9px] text-cr-text-muted">
+                  {d.rows}
+                </span>
+              </div>
+              <div className="space-y-1">
+                <Link
+                  to={`/datos/${d.slug}`}
+                  className="font-display text-base uppercase text-cr-text hover:text-cr-primary transition-colors leading-tight block"
+                >
+                  {d.title}
+                </Link>
+                <p className="font-sans text-xs text-cr-text-muted leading-relaxed">{d.desc}</p>
+              </div>
+              <div className="flex flex-wrap gap-2 pt-1">
+                <a
+                  href={`${SITE_URL}/datos/${d.slug}.csv`}
+                  download
+                  className="inline-flex items-center gap-1.5 font-mono text-[10px] uppercase tracking-wider text-cr-primary border border-cr-primary/40 hover:border-cr-primary px-2.5 py-1.5 transition-colors"
+                >
+                  <Download size={11} /> CSV
+                </a>
+                <a
+                  href={`${SITE_URL}/datos/${d.slug}.json`}
+                  download
+                  className="inline-flex items-center gap-1.5 font-mono text-[10px] uppercase tracking-wider text-cr-primary border border-cr-primary/40 hover:border-cr-primary px-2.5 py-1.5 transition-colors"
+                >
+                  <Download size={11} /> JSON
+                </a>
+                <Link
+                  to={`/datos/${d.slug}`}
+                  className="inline-flex items-center gap-1.5 font-mono text-[10px] uppercase tracking-wider text-cr-text-muted hover:text-cr-text border border-cr-border hover:border-cr-text px-2.5 py-1.5 transition-colors"
+                >
+                  Detalle <ArrowRight size={11} />
+                </Link>
+              </div>
+            </li>
+          ))}
+        </ul>
+        <p className="font-mono text-[11px] text-cr-text-dim">
+          Cita sugerida: <span className="text-cr-text-muted">«ConcertRide (2026). {`{Nombre del dataset}`}. CC BY 4.0. concertride.me/datos.»</span>
+        </p>
+      </section>
+
+      {/* ── Quotes ready-to-use del founder ── */}
+      <section id="quotes" className="max-w-6xl mx-auto px-6 pb-16 border-t border-cr-border pt-12 space-y-6">
+        <div className="space-y-2">
+          <h2 className="font-display text-2xl md:text-3xl uppercase">Citas del fundador</h2>
+          <p className="font-sans text-sm text-cr-text-muted leading-relaxed max-w-2xl">
+            4 citas autorizadas de Alejandro Lalaguna (Fundador, ConcertRide ES) — listas para reproducir
+            en piezas periodísticas sin necesidad de entrevista previa. Atribución requerida.
+          </p>
+        </div>
+        <ul className="space-y-4">
+          {FOUNDER_QUOTES.map((q) => (
+            <li key={q.quote.slice(0, 40)} className="border border-cr-border p-5 space-y-3 relative">
+              <Quote size={20} className="text-cr-primary opacity-60 absolute top-4 right-4" aria-hidden="true" />
+              <blockquote className="font-sans text-base text-cr-text leading-relaxed italic max-w-3xl">
+                «{q.quote}»
+              </blockquote>
+              <footer className="flex items-center justify-between gap-4 flex-wrap pt-2">
+                <p className="font-mono text-[11px] text-cr-text-muted">
+                  — Alejandro Lalaguna, Fundador ConcertRide ES
+                </p>
+                <p className="font-mono text-[10px] text-cr-text-dim uppercase tracking-wider">{q.context}</p>
+              </footer>
+              <div className="pt-1">
+                <CopyButton text={`«${q.quote}» — Alejandro Lalaguna, Fundador ConcertRide ES`} />
+              </div>
+            </li>
+          ))}
+        </ul>
+      </section>
+
+      {/* ── Brand assets ── */}
+      <section id="brand-assets" className="max-w-6xl mx-auto px-6 pb-16 border-t border-cr-border pt-12 space-y-8">
+        <div className="space-y-2">
+          <h2 className="font-display text-2xl md:text-3xl uppercase">Brand assets</h2>
+          <p className="font-sans text-sm text-cr-text-muted leading-relaxed max-w-2xl">
+            Identidad visual ConcertRide — logos, paleta cromática y tipografías. Uso libre en contexto
+            editorial. Para campañas comerciales o adaptaciones del logo, contacta con prensa.
+          </p>
+        </div>
+
+        {/* Colores */}
+        <div className="space-y-3">
+          <h3 className="font-display text-lg uppercase text-cr-text">Paleta cromática</h3>
+          <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
+            {BRAND_COLORS.map((c) => (
+              <div key={c.hex} className="border border-cr-border overflow-hidden">
+                <div className="h-20" style={{ backgroundColor: c.hex }} aria-label={`Muestra del color ${c.name}`} />
+                <div className="p-3 space-y-1">
+                  <p className="font-display text-xs uppercase text-cr-text">{c.name}</p>
+                  <p className="font-mono text-[11px] text-cr-primary">{c.hex}</p>
+                  <p className="font-sans text-[11px] text-cr-text-muted leading-snug">{c.role}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Tipografías */}
+        <div className="space-y-3">
+          <h3 className="font-display text-lg uppercase text-cr-text">Tipografías</h3>
+          <ul className="space-y-2">
+            {BRAND_FONTS.map((f) => (
+              <li
+                key={f.name}
+                className="border border-cr-border p-4 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2"
+              >
+                <div>
+                  <p className="font-display text-base uppercase text-cr-text">{f.name}</p>
+                  <p className="font-mono text-[11px] text-cr-text-muted">{f.role}</p>
+                </div>
+                <p className="font-mono text-[10px] text-cr-text-dim">{f.source}</p>
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        {/* Descargas */}
+        <div className="space-y-3">
+          <h3 className="font-display text-lg uppercase text-cr-text">Descargas</h3>
+          <ul className="space-y-2">
+            {LINKS.map((l) => (
+              <li key={l.href}>
+                <a
+                  href={l.href}
+                  target={l.ext ? "_blank" : undefined}
+                  rel={l.ext ? "noopener noreferrer" : undefined}
+                  className="inline-flex items-center gap-2 font-sans text-sm text-cr-primary border-b border-cr-primary/40 hover:border-cr-primary transition-colors"
+                >
+                  {l.ext ? <ExternalLink size={12} /> : <Download size={12} />}
+                  {l.label}
+                </a>
+              </li>
+            ))}
+          </ul>
+          <p className="font-sans text-xs text-cr-text-muted leading-relaxed max-w-2xl pt-2">
+            El logotipo y los activos gráficos de ConcertRide pueden usarse en contexto editorial
+            (artículos, reseñas, comparativas) sin autorización previa. Para campañas publicitarias
+            o usos comerciales, contacta con nosotros.
+          </p>
         </div>
       </section>
 
@@ -205,31 +514,6 @@ export default function PrensaPage() {
           <a href="https://www.miteco.gob.es/" target="_blank" rel="noopener noreferrer" className="underline underline-offset-2 hover:text-cr-primary">
             MITECO
           </a>
-        </p>
-      </section>
-
-      {/* ── Recursos gráficos ── */}
-      <section className="max-w-6xl mx-auto px-6 pb-16 border-t border-cr-border pt-12 space-y-6">
-        <h2 className="font-display text-2xl md:text-3xl uppercase">Recursos gráficos</h2>
-        <ul className="space-y-2">
-          {LINKS.map((l) => (
-            <li key={l.href}>
-              <a
-                href={l.href}
-                target={l.ext ? "_blank" : undefined}
-                rel={l.ext ? "noopener noreferrer" : undefined}
-                className="inline-flex items-center gap-2 font-sans text-sm text-cr-primary border-b border-cr-primary/40 hover:border-cr-primary transition-colors"
-              >
-                {l.ext ? <ExternalLink size={12} /> : <Download size={12} />}
-                {l.label}
-              </a>
-            </li>
-          ))}
-        </ul>
-        <p className="font-sans text-xs text-cr-text-muted leading-relaxed max-w-2xl">
-          El logotipo y los activos gráficos de ConcertRide pueden usarse en contexto editorial
-          (artículos, reseñas, comparativas) sin autorización previa. Para campañas publicitarias
-          o usos comerciales, contacta con nosotros.
         </p>
       </section>
 
@@ -333,22 +617,82 @@ export default function PrensaPage() {
       </section>
 
       {/* ── Contacto de prensa ── */}
-      <section className="max-w-6xl mx-auto px-6 pb-16 border-t border-cr-border pt-12 space-y-4">
+      <section id="contacto-prensa" className="max-w-6xl mx-auto px-6 pb-16 border-t border-cr-border pt-12 space-y-4">
         <h2 className="font-display text-2xl md:text-3xl uppercase">Contacto de prensa</h2>
         <p className="font-sans text-sm text-cr-text-muted leading-relaxed max-w-xl">
-          Para entrevistas, datos adicionales, imágenes en alta resolución o colaboraciones
-          editoriales, contacta directamente:
+          Para entrevistas, datos adicionales, imágenes en alta resolución, declaraciones específicas
+          o colaboraciones editoriales, contacta directamente con el fundador.
         </p>
-        <div className="border border-cr-border p-5 space-y-2 max-w-sm">
-          <p className="font-display text-base uppercase">Alejandro Lalaguna</p>
-          <p className="font-mono text-xs text-cr-text-muted">Fundador, ConcertRide ES</p>
-          <a
-            href="mailto:help@concertride.me"
-            className="font-sans text-sm text-cr-primary border-b border-cr-primary/40 hover:border-cr-primary transition-colors"
-          >
-            help@concertride.me
-          </a>
+        <div className="grid sm:grid-cols-2 gap-4">
+          <div className="border border-cr-border p-5 space-y-2">
+            <p className="font-mono text-[11px] uppercase tracking-wider text-cr-primary">Email principal</p>
+            <p className="font-display text-base uppercase">Alejandro Lalaguna</p>
+            <p className="font-mono text-xs text-cr-text-muted">Fundador, ConcertRide ES</p>
+            <a
+              href="mailto:founder@concertride.me"
+              className="font-sans text-sm text-cr-primary border-b border-cr-primary/40 hover:border-cr-primary transition-colors block"
+            >
+              founder@concertride.me
+            </a>
+            <a
+              href="mailto:help@concertride.me"
+              className="font-sans text-xs text-cr-text-muted border-b border-cr-border hover:border-cr-text hover:text-cr-text transition-colors block"
+            >
+              help@concertride.me (alternativo)
+            </a>
+          </div>
+          <div className="border border-cr-border p-5 space-y-2">
+            <p className="font-mono text-[11px] uppercase tracking-wider text-cr-primary">Reservar entrevista</p>
+            <p className="font-sans text-sm text-cr-text leading-relaxed">
+              Disponibilidad de lunes a viernes, 10:00–18:00 (CET). Entrevistas en castellano o inglés,
+              presenciales en Madrid o videollamada.
+            </p>
+            <p className="font-mono text-xs text-cr-text-muted">
+              Teléfono: <span className="text-cr-text">disponible bajo petición</span> (solicitar por email)
+            </p>
+            <p className="font-mono text-[11px] text-cr-text-dim pt-1">
+              Tiempo de respuesta habitual: &lt; 24 h laborables.
+            </p>
+          </div>
         </div>
+      </section>
+
+      {/* ── Cobertura previa ── */}
+      <section id="cobertura" className="max-w-6xl mx-auto px-6 pb-16 border-t border-cr-border pt-12 space-y-4">
+        <div className="space-y-2">
+          <h2 className="font-display text-2xl md:text-3xl uppercase">Cobertura previa</h2>
+          <p className="font-sans text-sm text-cr-text-muted leading-relaxed max-w-2xl">
+            Apariciones de ConcertRide en medios, podcasts y publicaciones del sector. Si publicas
+            una pieza sobre ConcertRide, escríbenos y la añadiremos.
+          </p>
+        </div>
+        {PRESS_COVERAGE.length === 0 ? (
+          <div className="border border-cr-border border-dashed p-6 max-w-2xl">
+            <p className="font-mono text-xs uppercase tracking-wider text-cr-text-dim">Próximamente</p>
+            <p className="font-sans text-sm text-cr-text-muted leading-relaxed mt-1">
+              ConcertRide está en fase de lanzamiento. Aún no contamos con cobertura pública;
+              esta sección se actualizará a medida que aparezcan piezas en medios.
+            </p>
+          </div>
+        ) : (
+          <ul className="space-y-2">
+            {PRESS_COVERAGE.map((c) => (
+              <li key={c.url} className="border border-cr-border p-4">
+                <a
+                  href={c.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="font-display text-base uppercase text-cr-text hover:text-cr-primary transition-colors"
+                >
+                  {c.headline}
+                </a>
+                <p className="font-mono text-[11px] text-cr-text-muted mt-1">
+                  {c.outlet} · {c.date}
+                </p>
+              </li>
+            ))}
+          </ul>
+        )}
       </section>
 
       {/* ── Cobertura recomendada ── */}

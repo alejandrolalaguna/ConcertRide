@@ -110,38 +110,11 @@ export default function AcercaDePage() {
           }),
         }}
       />
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify({
-            "@context": "https://schema.org",
-            "@type": "Person",
-            "@id": `${SITE_URL}/#founder`,
-            name: "Alejandro Lalaguna",
-            givenName: "Alejandro",
-            familyName: "Lalaguna",
-            url: `${SITE_URL}/acerca-de`,
-            jobTitle: "Fundador y CEO",
-            worksFor: { "@type": "Organization", "@id": `${SITE_URL}/#organization` },
-            knowsAbout: [
-              "Carpooling",
-              "Conciertos en España",
-              "Festivales de música",
-              "Movilidad sostenible",
-              "Plataformas de transporte compartido",
-              "SEO y marketing digital",
-              "Desarrollo de productos tecnológicos",
-            ],
-            description:
-              "Fundador de ConcertRide, la plataforma española de carpooling para conciertos y festivales de música. Ingeniero de software con experiencia en IoT y desarrollo de producto. Festival-goer habitual con más de 15 festivales en los últimos 5 años.",
-            sameAs: [
-              "https://twitter.com/concertride_es",
-              "https://www.instagram.com/concertride_es/",
-              "https://www.linkedin.com/in/alejandrolalaguna/",
-            ],
-          }),
-        }}
-      />
+      {/* Person #founder schema removida en Sprint 10 dedup — la versión
+          canónica (con bio, knowsAbout, sameAs) se emite en
+          /autor/alejandro-lalaguna (AutorAlejandroLalagunaPage.tsx). Esta
+          página referencia al fundador solo por @id en el WebPage de arriba
+          para evitar @id collision intra-página. */}
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{

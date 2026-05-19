@@ -431,7 +431,15 @@ export default function GuiaTransporteFestivalesPage() {
           <Link to="/datos/calendario-maestro-festivales-2026" className="text-cr-primary underline underline-offset-2">
             Calendario maestro festivales España 2026
           </Link>
-          {" "}(58 festivales cronológico abril-octubre con precios + conectividad + ranking).
+          {" "}(58 festivales cronológico abril-octubre con precios + conectividad + ranking) ·{" "}
+          <Link to="/datos/conciertos-mayor-demanda-transporte-2026" className="text-cr-primary underline underline-offset-2">
+            Top 30 conciertos individuales con mayor demanda transporte España 2026
+          </Link>
+          {" "}(single venue + tour artists: Bad Bunny, Coldplay, Taylor Swift, Rosalía) ·{" "}
+          <Link to="/datos/alojamiento-cercano-festivales-2026" className="text-cr-primary underline underline-offset-2">
+            Alojamiento cerca de festivales España 2026 — precio por noche y tipo
+          </Link>
+          {" "}(50 festivales con hotel 3★/4★, hostel, apartamento y ocupación %).
         </p>
       </section>
 
@@ -541,6 +549,13 @@ export default function GuiaTransporteFestivalesPage() {
             className="inline-flex items-center gap-2 font-sans text-xs text-cr-text-muted hover:text-cr-primary transition-colors"
           >
             Ver todas las FAQs <ArrowRight size={12} />
+          </Link>
+          <Link
+            to="/glosario"
+            className="inline-flex items-center gap-2 font-sans text-xs text-cr-text-muted hover:text-cr-primary transition-colors"
+            title="Glosario de carpooling y festivales — 100 términos definidos"
+          >
+            Glosario (100 términos) <ArrowRight size={12} />
           </Link>
         </div>
       </section>

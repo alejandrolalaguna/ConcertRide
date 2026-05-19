@@ -138,6 +138,27 @@ function snippetOf(raw) {
   return cleaned.length > 240 ? cleaned.slice(0, 240) + "…" : cleaned;
 }
 
+/**
+ * Page-level dedup state. Reset before scanning each HTML file. Tracks
+ * `@type+name`, `@type+@id`, and standalone `Organization` instances across
+ * ALL JSON-LD blocks in the same page (not just within one block).
+ */
+let pageDedup = null;
+function resetPageDedup() {
+  pageDedup = {
+    byTypeName: new Map(),     // `${type}::${name}` -> { blockIndex, schemaIndex }
+    byTypeIdGlobal: new Map(), // `${type}::${@id}`  -> { blockIndex, schemaIndex }
+    organizationCount: 0,
+    organizationFirst: null,
+    softwareApplicationCount: 0,
+    softwareApplicationFirst: null,
+    webSiteCount: 0,
+    webSiteFirst: null,
+    breadcrumbCount: 0,
+    breadcrumbFirst: null,
+  };
+}
+
 function validateBlock(url, blockIndex, raw) {
   let parsed;
   try {
@@ -232,6 +253,75 @@ function validateBlock(url, blockIndex, raw) {
         );
       }
     }
+
+    // ───────── Cross-block (page-level) duplicate detection ─────────
+    // These checks span ALL <script type="application/ld+json"> blocks in
+    // the same HTML page, so emitting Organization in LandingPage AND in a
+    // shared layout, for example, will be flagged.
+    if (pageDedup) {
+      // @type + @id collision across blocks
+      if (node["@id"]) {
+        const globalKey = `${types.join("|")}::${node["@id"]}`;
+        const prior = pageDedup.byTypeIdGlobal.get(globalKey);
+        if (prior) {
+          pushFinding(
+            url,
+            "error",
+            "DUPLICATE_TYPE_ID_PAGE",
+            `Block #${blockIndex} node #${schemaIndex}: @id="${node["@id"]}" (@type=${types.join("|")}) already used in block #${prior.blockIndex} node #${prior.schemaIndex}`,
+          );
+        } else {
+          pageDedup.byTypeIdGlobal.set(globalKey, { blockIndex, schemaIndex });
+        }
+      }
+
+      // @type + name collision across blocks (likely-duplicate entity)
+      if (typeof node.name === "string" && node.name.length > 0) {
+        for (const tname of types.filter(Boolean)) {
+          const key = `${tname}::${node.name}`;
+          const prior = pageDedup.byTypeName.get(key);
+          if (prior) {
+            // Don't double-report low-cardinality types where duplication is intentional
+            // (e.g. ListItem inside multiple ItemLists).
+            if (tname === "ListItem" || tname === "Question" || tname === "Answer") continue;
+            pushFinding(
+              url,
+              "warning",
+              "DUPLICATE_TYPE_NAME_PAGE",
+              `Block #${blockIndex} node #${schemaIndex}: (@type=${tname}, name="${node.name}") already emitted in block #${prior.blockIndex} node #${prior.schemaIndex}`,
+            );
+          } else {
+            pageDedup.byTypeName.set(key, { blockIndex, schemaIndex });
+          }
+        }
+      }
+
+      // Specific high-value singletons (should appear at most once per page)
+      if (types.includes("Organization")) {
+        pageDedup.organizationCount += 1;
+        if (pageDedup.organizationCount === 1) {
+          pageDedup.organizationFirst = { blockIndex, schemaIndex };
+        }
+      }
+      if (types.includes("SoftwareApplication") || types.includes("MobileApplication") || types.includes("WebApplication")) {
+        pageDedup.softwareApplicationCount += 1;
+        if (pageDedup.softwareApplicationCount === 1) {
+          pageDedup.softwareApplicationFirst = { blockIndex, schemaIndex };
+        }
+      }
+      if (types.includes("WebSite")) {
+        pageDedup.webSiteCount += 1;
+        if (pageDedup.webSiteCount === 1) {
+          pageDedup.webSiteFirst = { blockIndex, schemaIndex };
+        }
+      }
+      if (types.includes("BreadcrumbList")) {
+        pageDedup.breadcrumbCount += 1;
+        if (pageDedup.breadcrumbCount === 1) {
+          pageDedup.breadcrumbFirst = { blockIndex, schemaIndex };
+        }
+      }
+    }
   }
 
   // Offer.price validation — independent walk so it catches inline Offers
@@ -276,7 +366,47 @@ async function main() {
     const url = relUrlFromHtmlPath(htmlPath);
     const html = await fs.readFile(htmlPath, "utf8");
     const blocks = extractJsonLdBlocks(html);
+
+    // Reset cross-block dedup state for this page
+    resetPageDedup();
     blocks.forEach((raw, idx) => validateBlock(url, idx, raw));
+
+    // After all blocks for this page have been scanned, flag singleton
+    // schemas that were emitted multiple times across blocks.
+    if (pageDedup) {
+      if (pageDedup.organizationCount > 1) {
+        pushFinding(
+          url,
+          "warning",
+          "DUPLICATE_ORGANIZATION_PAGE",
+          `Organization schema emitted ${pageDedup.organizationCount}× across blocks — consolidate into a single root-level emitter (e.g. in entry-server.tsx or a top-level layout).`,
+        );
+      }
+      if (pageDedup.softwareApplicationCount > 1) {
+        pushFinding(
+          url,
+          "warning",
+          "DUPLICATE_SOFTWAREAPPLICATION_PAGE",
+          `SoftwareApplication schema emitted ${pageDedup.softwareApplicationCount}× across blocks — consolidate to one canonical instance.`,
+        );
+      }
+      if (pageDedup.webSiteCount > 1) {
+        pushFinding(
+          url,
+          "warning",
+          "DUPLICATE_WEBSITE_PAGE",
+          `WebSite schema emitted ${pageDedup.webSiteCount}× across blocks — consolidate to a single root-level emitter.`,
+        );
+      }
+      if (pageDedup.breadcrumbCount > 1) {
+        pushFinding(
+          url,
+          "warning",
+          "DUPLICATE_BREADCRUMB_PAGE",
+          `BreadcrumbList schema emitted ${pageDedup.breadcrumbCount}× across blocks — keep only the page-specific instance.`,
+        );
+      }
+    }
   }
 
   // Aggregate

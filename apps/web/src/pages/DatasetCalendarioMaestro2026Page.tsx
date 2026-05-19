@@ -127,7 +127,7 @@ export default function DatasetCalendarioMaestro2026Page() {
   const url = `${SITE_URL}/datos/calendario-maestro-festivales-2026`;
 
   useSeoMeta({
-    title: `Calendario maestro festivales España 2026 [Dataset 50+ eventos] | ConcertRide`,
+    title: `Calendario festivales España 2026 [Dataset 50+] | ConcertRide`,
     description: `Calendario completo 50+ festivales España 2026 con precios, conectividad y ahorros carpooling. Dataset CC BY 4.0 descargable CSV+JSON.`,
     canonical: url,
     keywords: `calendario festivales españa 2026 completo, agenda festivales 2026, festivales por mes 2026, lista festivales 2026, dataset festivales 2026, precio festivales carpooling, festivales abril mayo junio julio agosto septiembre 2026`,

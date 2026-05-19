@@ -24,6 +24,10 @@ import GuiaPresupuestoFestivalGrupoPage from "./pages/GuiaPresupuestoFestivalGru
 import GuiaFestivalSostenibleCO2Page from "./pages/GuiaFestivalSostenibleCO2Page";
 import GuiaSeguridadCarpoolingFestivalPage from "./pages/GuiaSeguridadCarpoolingFestivalPage";
 import GuiaFestivalPrimeraVezPage from "./pages/GuiaFestivalPrimeraVezPage";
+import GuiaCarpoolingConductorFestivalPage from "./pages/GuiaCarpoolingConductorFestivalPage";
+import GuiaFestivalInternacionalEspanaPage from "./pages/GuiaFestivalInternacionalEspanaPage";
+import GuiaFestivalAccesibilidadPage from "./pages/GuiaFestivalAccesibilidadPage";
+import GuiaAcampadaFestivalPage from "./pages/GuiaAcampadaFestivalPage";
 import PillarGuiaPage from "./pages/PillarGuiaPage";
 import BlogIndexPage from "./pages/BlogIndexPage";
 import BlogPostPage from "./pages/BlogPostPage";
@@ -36,6 +40,9 @@ import DatasetPrecioMedio2026Page from "./pages/DatasetPrecioMedio2026Page";
 import DatasetMapaConexion2026Page from "./pages/DatasetMapaConexion2026Page";
 import DatasetRankingPreciosFestivales2026Page from "./pages/DatasetRankingPreciosFestivales2026Page";
 import DatasetCalendarioMaestro2026Page from "./pages/DatasetCalendarioMaestro2026Page";
+import DatasetCostesOcultos2026Page from "./pages/DatasetCostesOcultos2026Page";
+import DatasetConciertosDemanda2026Page from "./pages/DatasetConciertosDemanda2026Page";
+import DatasetAlojamiento2026Page from "./pages/DatasetAlojamiento2026Page";
 import HowItWorksPage from "./pages/HowItWorksPage";
 import FaqPage from "./pages/FaqPage";
 import ContactoPage from "./pages/ContactoPage";
@@ -115,6 +122,10 @@ function ServerApp() {
         <Route path="/guia/festival-sostenible-co2" element={<GuiaFestivalSostenibleCO2Page />} />
         <Route path="/guia/seguridad-carpooling-festival" element={<GuiaSeguridadCarpoolingFestivalPage />} />
         <Route path="/guia/festival-primera-vez" element={<GuiaFestivalPrimeraVezPage />} />
+        <Route path="/guia/carpooling-conductor-festival" element={<GuiaCarpoolingConductorFestivalPage />} />
+        <Route path="/guia/festival-internacional-espana" element={<GuiaFestivalInternacionalEspanaPage />} />
+        <Route path="/guia/festival-accesibilidad-movilidad-reducida" element={<GuiaFestivalAccesibilidadPage />} />
+        <Route path="/guia/acampada-festival-libre-vs-oficial-2026" element={<GuiaAcampadaFestivalPage />} />
         <Route path="/guia-ir-festivales-2026" element={<PillarGuiaPage />} />
         <Route path="/blog" element={<BlogIndexPage />} />
         <Route path="/blog/:slug" element={<BlogPostPage />} />
@@ -131,6 +142,9 @@ function ServerApp() {
         <Route path="/datos/festivales-peor-conexion-transporte-publico-2026" element={<DatasetMapaConexion2026Page />} />
         <Route path="/datos/festivales-mas-caros-mas-baratos-llegar-2026" element={<DatasetRankingPreciosFestivales2026Page />} />
         <Route path="/datos/calendario-maestro-festivales-2026" element={<DatasetCalendarioMaestro2026Page />} />
+        <Route path="/datos/costes-ocultos-transporte-festivales-2026" element={<DatasetCostesOcultos2026Page />} />
+        <Route path="/datos/conciertos-mayor-demanda-transporte-2026" element={<DatasetConciertosDemanda2026Page />} />
+        <Route path="/datos/alojamiento-cercano-festivales-2026" element={<DatasetAlojamiento2026Page />} />
         <Route path="/como-funciona" element={<HowItWorksPage />} />
         <Route path="/faq" element={<FaqPage />} />
         <Route path="/contacto" element={<ContactoPage />} />

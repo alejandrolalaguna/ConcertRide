@@ -382,7 +382,11 @@ export default function GuiaFestivalSinCochePage() {
           (ranking 57 festivales). Calendario cronológico maestro 2026 (abril-octubre) con todos los campos combinados:{" "}
           <Link to="/datos/calendario-maestro-festivales-2026" className="hover:text-cr-primary">
             /datos/calendario-maestro-festivales-2026
-          </Link>.
+          </Link>. Costes ocultos del transporte (parking, taxi vuelta madrugada, comisiones, propinas) que no aparecen en los anuncios principales:{" "}
+          <Link to="/datos/costes-ocultos-transporte-festivales-2026" className="hover:text-cr-primary">
+            /datos/costes-ocultos-transporte-festivales-2026
+          </Link>{" "}
+          (50 festivales, coste oculto medio 52,5 €/día).
         </p>
       </section>
 
@@ -758,6 +762,13 @@ export default function GuiaFestivalSinCochePage() {
             className="inline-flex items-center gap-2 font-sans text-xs text-cr-text-muted hover:text-cr-primary transition-colors"
           >
             Ver datos abiertos <ArrowRight size={12} />
+          </Link>
+          <Link
+            to="/glosario"
+            className="inline-flex items-center gap-2 font-sans text-xs text-cr-text-muted hover:text-cr-primary transition-colors"
+            title="Glosario carpooling y festivales — 100 términos"
+          >
+            Glosario carpooling <ArrowRight size={12} />
           </Link>
         </div>
       </section>

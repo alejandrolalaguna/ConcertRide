@@ -12,6 +12,8 @@ import { VENUE_SEO_OVERRIDES } from "@/lib/seoOverrides";
 import { SpeakableAnswerBlock } from "@/components/SpeakableAnswerBlock";
 import { FactDensityCallout } from "@/components/FactDensityCallout";
 import { StickyRegBar } from "@/components/StickyRegBar";
+import { TESTIMONIALS, TESTIMONIALS_AGGREGATE, selectTestimonialsFor } from "@/lib/testimonials";
+import { generateAggregateRatingSchema, generateReviewSchemas } from "@/lib/schemaGenerators";
 
 const VENUE_DEFAULT_OG = `${SITE_URL}/og-fallback.png`;
 
@@ -386,6 +388,69 @@ export default function VenueLandingPage() {
     estimatedCost: { "@type": "MonetaryAmount", currency: "EUR", value: topPrice },
   };
 
+  // ── Review + AggregateRating schemas — Sprint 9 ──────────────────────────
+  // 1. Match real por venueSlug / citySlug. 2. Fallback: global AggregateRating
+  // sobre una Service entity scoped al recinto. Solo si ≥3 testimonios.
+  const matchedVenueReviews = selectTestimonialsFor({
+    venueSlug: venue.slug,
+    citySlug: venue.city.toLowerCase().replace(/[^a-z0-9]+/g, "-"),
+    minCount: 3,
+  });
+  const venueServiceId = `${SITE_URL}/recintos/${venue.slug}#service`;
+  const venueServiceName = `Carpooling a ${venue.name} con ConcertRide`;
+
+  const jsonLdVenueReviews: object[] | null = matchedVenueReviews
+    ? generateReviewSchemas({
+        itemReviewedId: venueServiceId,
+        itemReviewedType: "Service",
+        itemReviewedName: venueServiceName,
+        reviews: matchedVenueReviews.map((t) => ({
+          quote: t.quote,
+          name: t.author,
+          concert: t.festival,
+          date: t.date,
+          rating: t.rating,
+        })),
+      })
+    : null;
+
+  const jsonLdVenueAggregateRating: object | null = (() => {
+    if (matchedVenueReviews) {
+      const agg = generateAggregateRatingSchema(
+        matchedVenueReviews.map((t) => ({ rating: t.rating })),
+        { minCount: 3 },
+      );
+      if (!agg) return null;
+      return {
+        "@context": "https://schema.org",
+        "@type": "Service",
+        "@id": venueServiceId,
+        name: venueServiceName,
+        description: `Carpooling a ${venue.name} (${venue.city}). 0% comisión, conductores verificados.`,
+        provider: { "@type": "Organization", name: "ConcertRide", url: SITE_URL },
+        aggregateRating: agg,
+      };
+    }
+    if (TESTIMONIALS.length >= 3) {
+      return {
+        "@context": "https://schema.org",
+        "@type": "Service",
+        "@id": venueServiceId,
+        name: venueServiceName,
+        description: `Carpooling a ${venue.name} (${venue.city}). 0% comisión, conductores verificados.`,
+        provider: { "@type": "Organization", name: "ConcertRide", url: SITE_URL },
+        aggregateRating: {
+          "@type": "AggregateRating",
+          ratingValue: TESTIMONIALS_AGGREGATE.ratingValue,
+          reviewCount: TESTIMONIALS_AGGREGATE.reviewCount,
+          bestRating: TESTIMONIALS_AGGREGATE.bestRating,
+          worstRating: TESTIMONIALS_AGGREGATE.worstRating,
+        },
+      };
+    }
+    return null;
+  })();
+
   return (
     <main id="main" className="min-h-dvh bg-cr-bg text-cr-text pt-14">
       {/* ── JSON-LD ── */}
@@ -395,6 +460,12 @@ export default function VenueLandingPage() {
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdLocalBusiness) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdWebPage) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdHowTo) }} />
+      {jsonLdVenueAggregateRating && (
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdVenueAggregateRating) }} />
+      )}
+      {jsonLdVenueReviews && jsonLdVenueReviews.map((r, i) => (
+        <script key={`venue-review-${i}`} type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(r) }} />
+      ))}
       {venueJsonLdVariants.map((variant, i) => (
         <script key={i} type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(variant) }} />
       ))}

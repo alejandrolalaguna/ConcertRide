@@ -1,0 +1,54 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630">
+  <!--
+    OG template: Pillar guide pages (e.g. /guia-transporte-festivales, /como-funciona)
+    Placeholders:
+      {{GUIDE_TITLE}}     e.g. "GUÍA DE TRANSPORTE"
+      {{GUIDE_SUBTITLE}}  e.g. "Festivales de música en España 2026"
+      {{GUIDE_TAG}}       e.g. "PILLAR · ACTUALIZADA"
+    Size: 1200x630.
+  -->
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#080808"/>
+      <stop offset="100%" stop-color="#111111"/>
+    </linearGradient>
+    <linearGradient id="accentBar" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#D4F700"/>
+      <stop offset="100%" stop-color="#FF4F00"/>
+    </linearGradient>
+    <filter id="noise">
+      <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" stitchTiles="stitch"/>
+      <feColorMatrix values="0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0.04 0"/>
+    </filter>
+  </defs>
+
+  <rect width="1200" height="630" fill="url(#bgGrad)"/>
+  <rect width="1200" height="630" filter="url(#noise)" opacity="0.5"/>
+
+  <!-- Corner accents -->
+  <path d="M40 40h60M40 40v60M1160 40h-60M1160 40v60M40 590h60M40 590v-60M1160 590h-60M1160 590v-60" stroke="#D4F700" stroke-width="2" fill="none"/>
+
+  <!-- Big left accent bar -->
+  <rect x="40" y="120" width="8" height="380" fill="url(#accentBar)"/>
+
+  <!-- Tag -->
+  <text x="80" y="160" font-family="'Inter', sans-serif" font-weight="700" font-size="20" fill="#D4F700" letter-spacing="6">{{GUIDE_TAG}}</text>
+
+  <!-- Title (large) -->
+  <text x="80" y="290" font-family="'Archivo Black', sans-serif" font-size="96" fill="#F5F5F5" letter-spacing="-2">{{GUIDE_TITLE}}</text>
+
+  <!-- Subtitle -->
+  <text x="80" y="370" font-family="'Inter', sans-serif" font-weight="500" font-size="32" fill="#AAA" letter-spacing="0">{{GUIDE_SUBTITLE}}</text>
+
+  <!-- Numbered chapter markers (decorative) -->
+  <g transform="translate(80 450)" font-family="'JetBrains Mono', monospace" font-size="14" fill="#888" letter-spacing="2">
+    <text x="0" y="0">01 · COCHE</text>
+    <text x="160" y="0">02 · BUS</text>
+    <text x="300" y="0">03 · TREN</text>
+    <text x="450" y="0">04 · CARPOOLING</text>
+  </g>
+
+  <!-- Footer -->
+  <text x="80" y="560" font-family="'Inter', sans-serif" font-weight="700" font-size="18" fill="#F5F5F5">Comparte coche a cualquier festival de España</text>
+  <text x="80" y="590" font-family="'JetBrains Mono', monospace" font-size="14" fill="#555">concertride.me</text>
+</svg>

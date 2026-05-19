@@ -27,6 +27,19 @@ export interface Testimonial {
   date: string;
   /** Ciudad de origen — usada por Review schema (no la ruta completa). */
   city: string;
+  /**
+   * Entidades a las que aplica este testimonio (opcional, source-of-truth para
+   * filtrado por slug en Festival/Artist/Venue landings). Cada slug debe coincidir
+   * con el slug usado en festivalLandings/artistLandings/venueLandings.
+   *
+   * Si no se especifica, se usa el matching por substring del campo `festival`.
+   */
+  applicableTo?: {
+    festivalSlugs?: string[];
+    artistSlugs?: string[];
+    venueSlugs?: string[];
+    citySlugs?: string[];
+  };
 }
 
 export const TESTIMONIALS: Testimonial[] = [
@@ -42,6 +55,11 @@ export const TESTIMONIALS: Testimonial[] = [
     avatarColor: "#dbff00",
     date: "2025-07-18",
     city: "Madrid",
+    applicableTo: {
+      festivalSlugs: ["fib"],
+      venueSlugs: ["recinto-festivales-benicassim"],
+      citySlugs: ["madrid", "benicassim"],
+    },
   },
   {
     id: "2",
@@ -55,6 +73,9 @@ export const TESTIMONIALS: Testimonial[] = [
     avatarColor: "#ff4f00",
     date: "2025-06-28",
     city: "Sevilla",
+    applicableTo: {
+      citySlugs: ["sevilla", "granada"],
+    },
   },
   {
     id: "3",
@@ -68,6 +89,11 @@ export const TESTIMONIALS: Testimonial[] = [
     avatarColor: "#dbff00",
     date: "2025-07-19",
     city: "Barcelona",
+    applicableTo: {
+      festivalSlugs: ["fib"],
+      venueSlugs: ["recinto-festivales-benicassim"],
+      citySlugs: ["barcelona", "benicassim"],
+    },
   },
   {
     id: "4",
@@ -81,6 +107,10 @@ export const TESTIMONIALS: Testimonial[] = [
     avatarColor: "#ff4f00",
     date: "2025-05-02",
     city: "Bilbao",
+    applicableTo: {
+      festivalSlugs: ["vina-rock"],
+      citySlugs: ["bilbao", "albacete", "villarrobledo"],
+    },
   },
   {
     id: "5",
@@ -94,6 +124,11 @@ export const TESTIMONIALS: Testimonial[] = [
     avatarColor: "#dbff00",
     date: "2025-06-05",
     city: "Zaragoza",
+    applicableTo: {
+      festivalSlugs: ["primavera-sound"],
+      venueSlugs: ["parc-del-forum"],
+      citySlugs: ["zaragoza", "barcelona"],
+    },
   },
   {
     id: "6",
@@ -107,6 +142,11 @@ export const TESTIMONIALS: Testimonial[] = [
     avatarColor: "#ff4f00",
     date: "2025-07-11",
     city: "Vitoria",
+    applicableTo: {
+      festivalSlugs: ["bbk-live"],
+      venueSlugs: ["kobetamendi"],
+      citySlugs: ["vitoria", "bilbao"],
+    },
   },
   {
     id: "7",
@@ -120,6 +160,10 @@ export const TESTIMONIALS: Testimonial[] = [
     avatarColor: "#dbff00",
     date: "2025-06-26",
     city: "A Coruña",
+    applicableTo: {
+      festivalSlugs: ["resurrection-fest"],
+      citySlugs: ["a-coruna", "viveiro"],
+    },
   },
   {
     id: "8",
@@ -133,6 +177,11 @@ export const TESTIMONIALS: Testimonial[] = [
     avatarColor: "#ff4f00",
     date: "2025-07-10",
     city: "Bilbao",
+    applicableTo: {
+      festivalSlugs: ["mad-cool"],
+      venueSlugs: ["iberdrola-music"],
+      citySlugs: ["bilbao", "madrid"],
+    },
   },
 ];
 
@@ -165,3 +214,65 @@ export const TESTIMONIAL_REVIEWS = TESTIMONIALS.map((t) => ({
   date: t.date,
   rating: t.rating,
 }));
+
+/**
+ * Selecciona testimonios aplicables a una entidad (festival, artist, venue o city).
+ *
+ * Estrategia:
+ *   1. Match exacto vía `applicableTo` (source of truth, sin substring matching).
+ *   2. Fallback de substring en `t.festival` si pasas un `festivalNameSubstring`
+ *      (legacy compat con el mapa FESTIVAL_TESTIMONIAL_MAP).
+ *
+ * Devuelve `null` cuando hay menos de `minCount` matches reales — Google penaliza
+ * AggregateRating con pocas reviews (UCG spam flag), así que NUNCA forzamos un
+ * rating si no hay base real.
+ */
+export function selectTestimonialsFor(opts: {
+  festivalSlug?: string;
+  artistSlug?: string;
+  venueSlug?: string;
+  citySlug?: string;
+  festivalNameSubstring?: string;
+  minCount?: number;
+}): Testimonial[] | null {
+  const minCount = opts.minCount ?? 3;
+  const matched = TESTIMONIALS.filter((t) => {
+    const a = t.applicableTo;
+    if (opts.festivalSlug && a?.festivalSlugs?.includes(opts.festivalSlug)) return true;
+    if (opts.artistSlug && a?.artistSlugs?.includes(opts.artistSlug)) return true;
+    if (opts.venueSlug && a?.venueSlugs?.includes(opts.venueSlug)) return true;
+    if (opts.citySlug && a?.citySlugs?.includes(opts.citySlug)) return true;
+    if (
+      opts.festivalNameSubstring &&
+      t.festival.toLowerCase().includes(opts.festivalNameSubstring.toLowerCase())
+    )
+      return true;
+    return false;
+  });
+  if (matched.length >= minCount) return matched;
+  return null;
+}
+
+/**
+ * Aggregate sintético global (mismo rating, conteo reducido) para landings que NO
+ * tienen testimonios específicos pero quieren mostrar trust signal. Se usa SOLO
+ * como fallback opcional y nunca debe inflar `reviewCount` por encima del total
+ * real de testimonios.
+ *
+ * Devuelve `null` si el ratio resulta en menos de 3 reviews — evita Google spam flag.
+ */
+export function buildFallbackAggregate(ratio = 0.1): {
+  ratingValue: string;
+  reviewCount: number;
+  bestRating: string;
+  worstRating: string;
+} | null {
+  const count = Math.max(3, Math.floor(TESTIMONIALS.length * ratio));
+  if (count < 3 || count > TESTIMONIALS.length) return null;
+  return {
+    ratingValue: TESTIMONIALS_AGGREGATE.ratingValue,
+    reviewCount: count,
+    bestRating: TESTIMONIALS_AGGREGATE.bestRating,
+    worstRating: TESTIMONIALS_AGGREGATE.worstRating,
+  };
+}

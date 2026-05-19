@@ -62,32 +62,10 @@ export default function SalaPrensaPage() {
     keywords: `ConcertRide prensa, kit de prensa carpooling, datos ConcertRide, estadísticas carpooling festivales España, información medios ConcertRide`,
   });
 
-  const jsonLdOrg = {
-    "@context": "https://schema.org",
-    "@type": "Organization",
-    "@id": `${SITE_URL}/#organization`,
-    name: "ConcertRide",
-    url: SITE_URL,
-    logo: {
-      "@type": "ImageObject",
-      url: `${SITE_URL}/favicon.svg`,
-      width: 512,
-      height: 512,
-    },
-    foundingDate: "2024",
-    description: OFFICIAL_DESCRIPTION_SHORT,
-    contactPoint: {
-      "@type": "ContactPoint",
-      contactType: "press",
-      email: "hola@concertride.me",
-      availableLanguage: "Spanish",
-    },
-    sameAs: [
-      "https://twitter.com/concertride_es",
-      "https://www.instagram.com/concertride_es/",
-      "https://www.linkedin.com/company/concertride-es",
-    ],
-  };
+  // Organization schema removida en Sprint 10 dedup — la versión canónica se
+  // emite en apps/web/index.html (SPA shell). El WebPage de abajo referencia
+  // a la Organization vía @id (about) para mantener conexión semántica sin
+  // duplicar la entidad.
 
   const jsonLdWebPage = {
     "@context": "https://schema.org",
@@ -115,7 +93,6 @@ export default function SalaPrensaPage() {
 
   return (
     <main id="main" className="min-h-dvh bg-cr-bg text-cr-text pt-14">
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdOrg) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdWebPage) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdBreadcrumb) }} />
 

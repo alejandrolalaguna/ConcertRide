@@ -33,7 +33,8 @@ import { BLOG_POSTS } from "@/lib/blogPosts";
 import { StickyRegBar } from "@/components/StickyRegBar";
 import { LiveDemandPulse } from "@/components/LiveDemandPulse";
 import { useSession } from "@/lib/session";
-import { TESTIMONIALS, TESTIMONIALS_AGGREGATE } from "@/lib/testimonials";
+import { TESTIMONIALS, TESTIMONIALS_AGGREGATE, selectTestimonialsFor } from "@/lib/testimonials";
+import { generateAggregateRatingSchema, generateReviewSchemas } from "@/lib/schemaGenerators";
 
 const FESTIVAL_WIKIDATA: Record<string, string> = {
   "mad-cool": "https://www.wikidata.org/wiki/Q22808739",
@@ -582,71 +583,89 @@ export default function FestivalLandingPage() {
     return variants;
   })();
 
-  // Review schemas — emit for top 5 festivals using real testimonials from testimonials.ts.
-  // Map festival slug → testimonial festival name substring for matching.
-  const FESTIVAL_TESTIMONIAL_MAP: Record<string, string[]> = {
-    "mad-cool":       ["Mad Cool"],
-    "primavera-sound":["Primavera Sound"],
-    "arenal-sound":   ["Arenal Sound"],
-    "fib":            ["FIB"],
-    "bbk-live":       ["BBK Live"],
+  // Review + AggregateRating schemas — Sprint 9 expansion.
+  //
+  // 1. Try to match real testimonials by slug (applicableTo.festivalSlugs).
+  // 2. Fallback: substring match on `festival` field for top festivals where
+  //    a slug match is missing but the testimonial mentions the festival.
+  // 3. Only emit if ≥3 testimonials apply (Google penaliza AggregateRating con <3 reviews).
+  // 4. If no specific reviews but ≥3 global testimonials exist, attach the GLOBAL
+  //    AggregateRating to a Service entity scoped to "Carpooling a {festival}".
+  //    This lifts coverage from 5/53 → 53/53 without inventing per-festival ratings.
+  const FESTIVAL_SUBSTRING_FALLBACK: Record<string, string[]> = {
+    "mad-cool":        ["Mad Cool"],
+    "primavera-sound": ["Primavera Sound"],
+    "arenal-sound":    ["Arenal Sound"],
+    "fib":             ["FIB"],
+    "bbk-live":        ["BBK Live"],
+    "vina-rock":       ["Viña Rock"],
+    "resurrection-fest":["Resurrection Fest"],
   };
-  const TOP_REVIEW_FESTIVALS = new Set(Object.keys(FESTIVAL_TESTIMONIAL_MAP));
+
+  const matchedTestimonials = selectTestimonialsFor({
+    festivalSlug: festival.slug,
+    festivalNameSubstring: FESTIVAL_SUBSTRING_FALLBACK[festival.slug]?.[0],
+    minCount: 3,
+  });
+
+  const serviceId = `${SITE_URL}/festivales/${festival.slug}#service`;
+  const serviceName = `Carpooling a ${festival.name} con ConcertRide`;
 
   const jsonLdReviews: object[] | null = (() => {
-    if (!TOP_REVIEW_FESTIVALS.has(festival.slug)) return null;
-    const keywords = FESTIVAL_TESTIMONIAL_MAP[festival.slug] ?? [];
-    // Find testimonials whose festival field matches this festival
-    const matched = TESTIMONIALS.filter((t) =>
-      keywords.some((kw) => t.festival.toLowerCase().includes(kw.toLowerCase()))
-    );
-    // Fallback: use first 3 generic testimonials if no specific match
-    const reviews = matched.length > 0 ? matched : TESTIMONIALS.slice(0, 3);
-    return reviews.map((t) => ({
-      "@context": "https://schema.org",
-      "@type": "Review",
-      reviewBody: t.quote,
-      datePublished: t.date,
-      author: {
-        "@type": "Person",
+    if (!matchedTestimonials) return null;
+    return generateReviewSchemas({
+      itemReviewedId: serviceId,
+      itemReviewedType: "Service",
+      itemReviewedName: serviceName,
+      reviews: matchedTestimonials.map((t) => ({
+        quote: t.quote,
         name: t.author,
-      },
-      itemReviewed: {
-        "@type": "Service",
-        "@id": `${SITE_URL}/#organization`,
-        name: `Carpooling a ${festival.name} con ConcertRide`,
-        provider: {
-          "@type": "Organization",
-          name: "ConcertRide",
-          url: SITE_URL,
-        },
-      },
-      reviewRating: {
-        "@type": "Rating",
-        ratingValue: t.rating,
-        bestRating: 5,
-        worstRating: 1,
-      },
-    }));
+        concert: t.festival,
+        date: t.date,
+        rating: t.rating,
+      })),
+    });
   })();
 
   const jsonLdAggregateRating: object | null = (() => {
-    if (!TOP_REVIEW_FESTIVALS.has(festival.slug)) return null;
-    return {
-      "@context": "https://schema.org",
-      "@type": "Service",
-      "@id": `${SITE_URL}/#organization`,
-      name: "ConcertRide",
-      url: SITE_URL,
-      description: `Carpooling a festivales de música en España. 0% comisión, conductores verificados.`,
-      aggregateRating: {
-        "@type": "AggregateRating",
-        ratingValue: TESTIMONIALS_AGGREGATE.ratingValue,
-        reviewCount: TESTIMONIALS_AGGREGATE.reviewCount,
-        bestRating: TESTIMONIALS_AGGREGATE.bestRating,
-        worstRating: TESTIMONIALS_AGGREGATE.worstRating,
-      },
-    };
+    // Case 1 — testimonios específicos: usa rating real de los matches.
+    if (matchedTestimonials) {
+      const agg = generateAggregateRatingSchema(
+        matchedTestimonials.map((t) => ({ rating: t.rating })),
+        { minCount: 3 },
+      );
+      if (!agg) return null;
+      return {
+        "@context": "https://schema.org",
+        "@type": "Service",
+        "@id": serviceId,
+        name: serviceName,
+        description: `Carpooling a ${festival.name} en ${festival.city}. 0% comisión, conductores verificados.`,
+        provider: { "@type": "Organization", name: "ConcertRide", url: SITE_URL },
+        aggregateRating: agg,
+      };
+    }
+    // Case 2 — no hay testimonios específicos pero hay base global ≥3:
+    // emite Service scoped al festival con AggregateRating GLOBAL (transparente,
+    // no inventa ratings por festival).
+    if (TESTIMONIALS.length >= 3) {
+      return {
+        "@context": "https://schema.org",
+        "@type": "Service",
+        "@id": serviceId,
+        name: serviceName,
+        description: `Carpooling a ${festival.name} en ${festival.city}. 0% comisión, conductores verificados.`,
+        provider: { "@type": "Organization", name: "ConcertRide", url: SITE_URL },
+        aggregateRating: {
+          "@type": "AggregateRating",
+          ratingValue: TESTIMONIALS_AGGREGATE.ratingValue,
+          reviewCount: TESTIMONIALS_AGGREGATE.reviewCount,
+          bestRating: TESTIMONIALS_AGGREGATE.bestRating,
+          worstRating: TESTIMONIALS_AGGREGATE.worstRating,
+        },
+      };
+    }
+    return null;
   })();
 
   return (

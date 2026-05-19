@@ -91,6 +91,18 @@ export function Footer() {
               Mi primer festival
             </Link>
             <Link
+              to="/guia/carpooling-conductor-festival"
+              className="font-sans text-xs text-cr-text-muted hover:text-cr-primary transition-colors"
+            >
+              Conducir carpooling
+            </Link>
+            <Link
+              to="/guia/festival-accesibilidad-movilidad-reducida"
+              className="font-sans text-xs text-cr-text-muted hover:text-cr-primary transition-colors"
+            >
+              Accesibilidad PMR
+            </Link>
+            <Link
               to="/faq"
               className="font-sans text-xs text-cr-text-muted hover:text-cr-primary transition-colors"
             >
@@ -113,6 +125,13 @@ export function Footer() {
               className="font-sans text-xs text-cr-text-muted hover:text-cr-primary transition-colors"
             >
               Datos
+            </Link>
+            <Link
+              to="/glosario"
+              className="font-sans text-xs text-cr-text-muted hover:text-cr-primary transition-colors"
+              title="Glosario de carpooling y festivales — 100 términos definidos"
+            >
+              Glosario
             </Link>
             <Link
               to="/acerca-de"

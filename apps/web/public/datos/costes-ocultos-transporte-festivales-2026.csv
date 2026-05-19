@@ -1,0 +1,51 @@
+festival_slug,festival_name,city,parking_oficial_eur_dia,parking_no_oficial_eur_dia,taxi_recinto_estacion_min_eur,taxi_recinto_estacion_max_eur,kms_estacion_recinto,comision_carpooling_plataforma_generalista_pct,propina_conductor_carpooling_recomendada_pct,coste_oculto_total_estimado_eur_dia,vuelta_madrugada_eur_min,vuelta_madrugada_eur_max
+mad-cool,Mad Cool Festival,Madrid,25,15,18,32,8,15,5,68,30,70
+tomavistas,Tomavistas Festival,Madrid,NA,12,12,22,5,15,5,42,20,55
+download-madrid,Download Festival Madrid,Madrid,20,12,16,30,7,15,5,58,28,65
+dcode-festival,DCode Festival Madrid,Madrid,NA,10,10,20,4,15,5,38,18,50
+jardin-de-las-delicias,Jardín de las Delicias Festival,Madrid,NA,10,10,20,4,15,5,38,18,50
+sonorama-ribera,Sonorama Ribera,Aranda de Duero,8,5,12,22,2,15,5,40,30,65
+vina-rock,Viña Rock,Villarrobledo,10,5,18,32,3,15,5,55,40,90
+primavera-sound,Primavera Sound Barcelona,Barcelona,30,20,22,40,6,15,5,82,35,80
+sonar,Sónar Barcelona,Barcelona,28,18,18,32,5,15,5,68,30,70
+cruilla,Cruïlla Barcelona,Barcelona,25,15,16,28,4,15,5,60,28,65
+fib,FIB Benicàssim,Benicàssim,12,8,14,25,2,15,5,48,35,70
+rototom-sunsplash,Rototom Sunsplash,Benicàssim,12,8,14,25,2,15,5,48,32,65
+arenal-sound,Arenal Sound,Burriana,10,6,15,28,3,15,5,50,38,75
+medusa-festival,Medusa Festival,Cullera,15,8,18,32,5,15,5,60,40,80
+zevra-festival,Zevra Festival,Valencia,12,8,12,22,3,15,5,42,22,55
+festival-de-les-arts,Festival de les Arts,Valencia,12,8,12,22,3,15,5,42,22,55
+bigsound-valencia,BIGSOUND Valencia,Valencia,12,8,12,22,3,15,5,42,22,55
+low-festival,Low Festival,Torrevieja,8,5,16,28,4,15,5,46,32,65
+bbk-live,Bilbao BBK Live,Bilbao,18,10,22,38,9,15,5,70,40,80
+bbk-music-legends,BBK Music Legends Festival,Bilbao,15,10,20,35,8,15,5,62,35,70
+resurrection-fest,Resurrection Fest,Viveiro,NA,5,55,90,55,15,5,95,80,140
+o-son-do-camino,O Son do Camiño,Santiago de Compostela,10,5,15,28,4,15,5,50,30,65
+atlantic-fest,Atlantic Fest,Vilagarcía de Arousa,NA,5,12,22,3,15,5,38,28,55
+portamerica,PortAmérica Festival,Caldas de Reis,8,5,18,32,8,15,5,50,32,70
+festival-ortigueira,Festival Internacional do Mundo Celta de Ortigueira,Ortigueira,NA,5,20,38,12,15,5,55,30,65
+cala-mijas,Cala Mijas Fest,Mijas,12,8,20,38,8,15,5,62,35,80
+marenostrum-fuengirola,Marenostrum Fuengirola Festival,Fuengirola,10,6,15,28,4,15,5,48,30,65
+starlite-marbella,Starlite Catalana Occidente Festival,Marbella,15,10,22,40,7,15,5,70,38,90
+weekend-beach-torre-del-mar,Weekend Beach Festival,Torre del Mar,8,5,18,35,9,15,5,55,35,75
+creamfields-andalucia,Creamfields Andalucía,Jerez de la Frontera,10,6,15,28,5,15,5,48,30,65
+granada-sound,Granada Sound,Granada,12,8,12,22,3,15,5,42,25,55
+tio-pepe-festival,Tío Pepe Festival,Jerez de la Frontera,10,6,12,22,3,15,5,40,25,55
+cooltural-fest,Cooltural Fest,Almería,10,6,12,22,3,15,5,40,25,55
+dreambeach-festival,Dreambeach Costa del Sol,Vélez-Málaga,10,6,28,55,42,15,5,85,55,120
+holika-festival,Holika Festival,Vélez-Rubio,NA,5,22,42,15,15,5,65,40,90
+vive-latino,Vive Latino España,Zaragoza,10,6,15,28,4,15,5,48,28,60
+pirineos-sur,Festival Internacional de las Culturas Pirineos Sur,Lanuza,NA,5,25,48,18,15,5,68,40,95
+jazzaldia,Heineken Jazzaldia,San Sebastián,18,12,14,25,3,15,5,52,28,55
+azkena-rock-festival,Azkena Rock Festival,Vitoria-Gasteiz,10,6,12,22,3,15,5,40,25,55
+metropoli-gijon,Festival Internacional Metrópoli Gijón,Gijón,12,8,12,22,3,15,5,42,28,60
+santander-music,Santander Music Festival,Santander,12,8,14,25,4,15,5,46,28,60
+ebrovision,Ebrovisión,Miranda de Ebro,8,5,10,18,2,15,5,32,22,48
+stone-music-festival,Stone & Music Festival Mérida,Mérida,8,5,12,22,3,15,5,38,25,55
+reggaeton-beach-festival,Reggaeton Beach Festival,Salou,15,10,15,28,5,15,5,55,32,70
+mallorca-live-festival,Mallorca Live Festival,Calvià,10,6,18,32,7,15,5,55,35,75
+granca-live-fest,Granca Live Fest,Las Palmas de Gran Canaria,8,5,22,38,10,15,5,60,38,80
+sos-48,SOS 4.8 Festival,Murcia,10,6,12,22,3,15,5,40,25,55
+aquasella-festival,Aquasella Festival,Arriondas,NA,5,18,32,8,15,5,48,30,65
+boombastic-asturias,Boombastic Asturias,Llanera,12,8,12,22,3,15,5,42,28,60
+canela-party,Canela Party,Torremolinos,12,8,12,22,3,15,5,42,28,60

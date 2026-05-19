@@ -461,6 +461,74 @@ export function generateServiceSchema({
 }
 
 /**
+ * Generic AggregateRating subnode generator — pass a list of reviews and get
+ * the schema.org/AggregateRating object back. Returns `null` when there are
+ * fewer than `minCount` reviews (default 3) — Google flags AggregateRating
+ * with too few reviews as low-quality UGC.
+ *
+ * Designed to be embedded inside another entity (Service, Organization,
+ * MusicEvent, MusicGroup, Place, LocalBusiness…) under the `aggregateRating`
+ * property. NOT a top-level @context'd schema.
+ */
+export function generateAggregateRatingSchema(
+  reviews: Array<{ rating: number }>,
+  opts: { minCount?: number } = {},
+) {
+  const minCount = opts.minCount ?? 3;
+  if (!reviews || reviews.length < minCount) return null;
+  const sum = reviews.reduce((s, r) => s + r.rating, 0);
+  const avg = sum / reviews.length;
+  return {
+    "@type": "AggregateRating",
+    ratingValue: avg.toFixed(2),
+    reviewCount: reviews.length,
+    bestRating: "5",
+    worstRating: "1",
+  };
+}
+
+/**
+ * Builds a list of individual @type:Review nodes from testimonial data,
+ * each pointed at the entity passed in `itemReviewedId`.
+ *
+ * Each Review has:
+ *  - reviewRating (Rating, numeric value 1–5)
+ *  - author (Person)
+ *  - reviewBody, datePublished, name
+ *  - itemReviewed (the parent entity by @id)
+ *
+ * Returns an empty array if `reviews` is empty/null.
+ */
+export function generateReviewSchemas(opts: {
+  itemReviewedId: string;
+  itemReviewedType?: string; // e.g. "MusicEvent", "MusicGroup", "Place", "Service"
+  itemReviewedName: string;
+  reviews: Array<{ quote: string; name: string; concert: string; date: string; rating: number }>;
+}): object[] {
+  if (!opts.reviews || opts.reviews.length === 0) return [];
+  const type = opts.itemReviewedType ?? "Service";
+  return opts.reviews.map((r) => ({
+    "@context": "https://schema.org",
+    "@type": "Review",
+    reviewRating: {
+      "@type": "Rating",
+      ratingValue: String(r.rating),
+      bestRating: "5",
+      worstRating: "1",
+    },
+    author: { "@type": "Person", name: r.name },
+    datePublished: r.date,
+    reviewBody: r.quote,
+    name: `Experiencia ConcertRide · ${r.concert}`,
+    itemReviewed: {
+      "@type": type,
+      "@id": opts.itemReviewedId,
+      name: opts.itemReviewedName,
+    },
+  }));
+}
+
+/**
  * AggregateRating + individual Review schema for the homepage Service entity.
  *
  * Google requires individual Review nodes when you include AggregateRating
