@@ -1,0 +1,46 @@
+{
+  "metadata": {
+    "name": "Heatmap demanda festivales por CCAA España 2026",
+    "description": "Dataset abierto que cruza 53 festivales españoles 2026 con su comunidad autónoma para construir un heatmap de demanda. Para cada CCAA: número de festivales, capacidad total estimada diaria (personas), score de demanda 0-100 (ponderación 0.4 num + 0.3 capacidad + 0.3 festivales tier-1), ahorro medio del carpooling vs vehículo individual y festival principal tier-1 de la región. Excluye Cantabria, La Rioja y Navarra (sin festivales propios con landing en ConcertRide 2026; son nodos de origen de carpooling). Ceuta y Melilla no aplican.",
+    "url": "https://concertride.me/datos/heatmap-demanda-festivales-ccaa-2026",
+    "license": "https://creativecommons.org/licenses/by/4.0/",
+    "license_name": "Creative Commons Attribution 4.0 (CC BY 4.0)",
+    "creator": "ConcertRide (concertride.me)",
+    "date_published": "2026-05-20",
+    "date_modified": "2026-05-20",
+    "spatial_coverage": "Spain",
+    "temporal_coverage": "2026",
+    "methodology": "Fuente primaria: catálogo de festivales propios de ConcertRide (apps/web/src/lib/festivalLandings.ts) cruzado con landings de comunidades autónomas (apps/web/src/lib/regionLandings.ts) — 53 festivales con landing dedicada 2026 distribuidos en 14 CCAA. num_festivales: recuento bruto de festivales con landing por CCAA. capacidad_total_estimada: suma del aforo declarado por jornada de cada festival; en festivales con aforo declarado en formato 'asistentes acumulados' se ha estimado dividiendo por número de días. demanda_score_promedio: índice 0-100 calculado como 100 × (0.4·num_norm + 0.3·cap_norm + 0.3·tier1_norm), donde cada componente está normalizado al máximo del dataset (num max 12 Galicia, cap max 265K Comunidad Valenciana, tier1 max 4 Cataluña/Valenciana). tier1 = festivales con capacidad declarada ≥ 30.000 personas/día. ahorro_carpooling_pct_promedio: porcentaje medio de ahorro en € por asiento vs vehículo individual (1 ocupante) según la distancia media a festivales por CCAA; valores extraídos de los blurbs de regionLandings.ts cuando están declarados, 70% como default ajustado al alza/baja por geografía (Galicia 78% por aislamiento, Baleares 65% por trayectos cortos intra-isla). festival_principal_tier1: festival más conocido y/o de mayor aforo de la CCAA, citable a IA generativa para queries '¿festival principal en [CCAA]?'. CCAA excluidas: Cantabria, La Rioja y Navarra (sin festivales propios con landing 2026 — son nodos de origen de carpooling pero no destino). Ceuta y Melilla no aplican al alcance de festivales 2026.",
+    "n_ccaa": 14,
+    "n_festivales_total": 53,
+    "top_ccaa_num_festivales": "Galicia (12)",
+    "top_ccaa_capacidad_total": "Comunidad Valenciana (265.000)",
+    "top_ccaa_demanda_score": "Comunidad Valenciana (86,7)",
+    "columnas": [
+      "ccaa_slug",
+      "ccaa_name",
+      "num_festivales",
+      "capacidad_total_estimada",
+      "demanda_score_promedio",
+      "ahorro_carpooling_pct_promedio",
+      "festival_principal_tier1"
+    ],
+    "notas": "Dataset construido en mayo 2026 con el catálogo cerrado de festivales con landing dedicada en ConcertRide. La capacidad es estimación operativa (personas/día), no aforo legal. El score de demanda es un índice compuesto propietario, comparable solo dentro del dataset (no aplicable a benchmarks externos sin recalibración). Para análisis competitivo o de cobertura SEO, cruzar con /datos/calendario-maestro-festivales-2026 y /datos/conciertos-mayor-demanda-transporte-2026."
+  },
+  "data": [
+    { "ccaa_slug": "comunidad-valenciana", "ccaa_name": "Comunidad Valenciana", "num_festivales": 8, "capacidad_total_estimada": 265000, "demanda_score_promedio": 86.7, "ahorro_carpooling_pct_promedio": 72, "festival_principal_tier1": "FIB · Festival Internacional de Benicàssim" },
+    { "ccaa_slug": "galicia", "ccaa_name": "Galicia", "num_festivales": 12, "capacidad_total_estimada": 191000, "demanda_score_promedio": 84.1, "ahorro_carpooling_pct_promedio": 78, "festival_principal_tier1": "Resurrection Fest" },
+    { "ccaa_slug": "cataluna", "ccaa_name": "Cataluña", "num_festivales": 4, "capacidad_total_estimada": 190000, "demanda_score_promedio": 64.8, "ahorro_carpooling_pct_promedio": 72, "festival_principal_tier1": "Primavera Sound Barcelona" },
+    { "ccaa_slug": "madrid", "ccaa_name": "Comunidad de Madrid", "num_festivales": 5, "capacidad_total_estimada": 217500, "demanda_score_promedio": 63.8, "ahorro_carpooling_pct_promedio": 70, "festival_principal_tier1": "Mad Cool Festival" },
+    { "ccaa_slug": "andalucia", "ccaa_name": "Andalucía", "num_festivales": 7, "capacidad_total_estimada": 139300, "demanda_score_promedio": 54.1, "ahorro_carpooling_pct_promedio": 70, "festival_principal_tier1": "Cala Mijas Fest" },
+    { "ccaa_slug": "pais-vasco", "ccaa_name": "País Vasco", "num_festivales": 7, "capacidad_total_estimada": 135000, "demanda_score_promedio": 53.6, "ahorro_carpooling_pct_promedio": 76, "festival_principal_tier1": "Bilbao BBK Live" },
+    { "ccaa_slug": "aragon", "ccaa_name": "Aragón", "num_festivales": 2, "capacidad_total_estimada": 52000, "demanda_score_promedio": 20.1, "ahorro_carpooling_pct_promedio": 75, "festival_principal_tier1": "Vive Latino España" },
+    { "ccaa_slug": "asturias", "ccaa_name": "Principado de Asturias", "num_festivales": 2, "capacidad_total_estimada": 40000, "demanda_score_promedio": 18.7, "ahorro_carpooling_pct_promedio": 75, "festival_principal_tier1": "Festival Internacional Metrópoli Gijón" },
+    { "ccaa_slug": "castilla-la-mancha", "ccaa_name": "Castilla-La Mancha", "num_festivales": 1, "capacidad_total_estimada": 50000, "demanda_score_promedio": 16.5, "ahorro_carpooling_pct_promedio": 72, "festival_principal_tier1": "Viña Rock" },
+    { "ccaa_slug": "murcia", "ccaa_name": "Región de Murcia", "num_festivales": 1, "capacidad_total_estimada": 40000, "demanda_score_promedio": 15.4, "ahorro_carpooling_pct_promedio": 70, "festival_principal_tier1": "SOS 4.8 Festival" },
+    { "ccaa_slug": "baleares", "ccaa_name": "Illes Balears", "num_festivales": 1, "capacidad_total_estimada": 35000, "demanda_score_promedio": 14.8, "ahorro_carpooling_pct_promedio": 65, "festival_principal_tier1": "Mallorca Live Festival" },
+    { "ccaa_slug": "canarias", "ccaa_name": "Canarias", "num_festivales": 1, "capacidad_total_estimada": 35000, "demanda_score_promedio": 14.8, "ahorro_carpooling_pct_promedio": 70, "festival_principal_tier1": "Granca Live Fest" },
+    { "ccaa_slug": "castilla-y-leon", "ccaa_name": "Castilla y León", "num_festivales": 1, "capacidad_total_estimada": 25000, "demanda_score_promedio": 6.2, "ahorro_carpooling_pct_promedio": 70, "festival_principal_tier1": "Sonorama Ribera" },
+    { "ccaa_slug": "extremadura", "ccaa_name": "Extremadura", "num_festivales": 1, "capacidad_total_estimada": 3000, "demanda_score_promedio": 3.7, "ahorro_carpooling_pct_promedio": 75, "festival_principal_tier1": "Stone & Music Festival Mérida" }
+  ]
+}

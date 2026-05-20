@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import { ArrowRight, Car, CreditCard, ShieldCheck, Users } from "lucide-react";
 import { useSeoMeta } from "@/lib/useSeoMeta";
 import { SITE_URL } from "@/lib/siteUrl";
+import { TerminologyAside } from "@/components/TerminologyAside";
 
 const PASSENGER_STEPS = [
   {
@@ -180,7 +181,7 @@ export default function ComoFuncionaCarpoolingPage() {
         <header className="space-y-4 border-b border-cr-border pb-8">
           <p className="font-sans text-[11px] font-semibold uppercase tracking-[0.16em] text-cr-primary">Guía</p>
           <h1 className="font-display text-4xl md:text-6xl uppercase leading-[0.92]">
-            ¿Qué es el carpooling para conciertos? Guía completa.
+            Cómo funciona el carpooling para festivales y conciertos
           </h1>
           <p className="intro-summary font-sans text-base text-cr-text-muted max-w-3xl leading-relaxed speakable">
             ConcertRide es carpooling pensado para conciertos y festivales: personas que van al mismo evento comparten coche, dividen gastos y coordinan la vuelta de madrugada sin comisiones de plataforma.
@@ -261,6 +262,8 @@ export default function ComoFuncionaCarpoolingPage() {
           </p>
         </section>
       </div>
+
+      <TerminologyAside />
     </main>
   );
 }

@@ -16,6 +16,12 @@ import {
 } from "lucide-react";
 import { useSeoMeta } from "@/lib/useSeoMeta";
 import { SITE_URL } from "@/lib/siteUrl";
+import { ANALYTICS_EVENTS, trackEvent } from "@/lib/analytics-events";
+import EeatTrustBlock from "@/components/EeatTrustBlock";
+import AiDisclosureNote from "@/components/AiDisclosureNote";
+import { aiLevelForPageType } from "@/lib/aiContentPolicy";
+
+const PILLAR_SLUG = "guia-festival-accesibilidad";
 
 /**
  * Pillar 9 — cluster "Inclusion / accessibility at Spanish festivals".
@@ -32,7 +38,7 @@ import { SITE_URL } from "@/lib/siteUrl";
  * Donde un festival NO publica datos concretos en web, se indica
  * "consultar organización" en lugar de inventar cifras.
  *
- * Per CLAUDE.md Brand Restrictions: NEVER name BlaBlaCar; use "plataformas
+ * Per CLAUDE.md Brand Restrictions: NEVER name BlaBlaCar; use "plataformas    // ALLOWED_BRAND_MENTION: policy-reminder comment, not user-visible copy
  * de carpooling generalistas" cuando haga falta referirse a competencia.
  */
 
@@ -904,6 +910,7 @@ export default function GuiaFestivalAccesibilidadPage() {
         <div className="flex flex-wrap gap-3 pt-2">
           <Link
             to="/concerts"
+            onClick={() => trackEvent(ANALYTICS_EVENTS.PILLAR_CTA_CLICKED, { pillar_slug: PILLAR_SLUG, cta_target: "/buscar" })}
             className="inline-flex items-center gap-2 font-sans text-xs font-semibold uppercase tracking-[0.12em] bg-cr-primary text-black px-5 py-2.5 hover:bg-cr-primary/90 transition-colors"
           >
             Buscar carpooling accesible <ArrowRight size={12} />
@@ -927,6 +934,15 @@ export default function GuiaFestivalAccesibilidadPage() {
             Preguntas frecuentes <ArrowRight size={12} />
           </Link>
         </div>
+      </section>
+
+      <section className="max-w-6xl mx-auto px-6 pb-16">
+        <EeatTrustBlock
+          pageType="pillar"
+          lastReviewed="2026-05-20"
+          author={{ name: "Equipo ConcertRide", url: "/autor/alejandro-lalaguna" }}
+        />
+        <AiDisclosureNote level={aiLevelForPageType("pillar")} />
       </section>
     </main>
   );

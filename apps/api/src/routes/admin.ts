@@ -28,6 +28,45 @@ route.get("/stats", async (c) => {
   return c.json(stats);
 });
 
+/**
+ * LLM-bot visibility report — query string `?days=7` (default 7, max 35).
+ * Returns aggregate counts of AI crawler pulls per bot + the top pulled paths.
+ * This is the "visibility" metric the AI-search playbook calls out: the
+ * branded-search hop is invisible to GA, but the LLM read that triggered it
+ * is visible here.
+ */
+route.get("/llm-bots", async (c) => {
+  const gate = await requireAdmin(c);
+  if (gate instanceof Response) return gate;
+  const cache = c.env.CACHE;
+  if (!cache) return c.json({ error: "kv_unavailable" }, 503);
+  const days = Math.min(35, Math.max(1, parseInt(c.req.query("days") ?? "7", 10) || 7));
+  const today = new Date();
+  const byBot: Record<string, number> = {};
+  const byPath: Record<string, { bot: string; path: string; count: number }> = {};
+  for (let i = 0; i < days; i++) {
+    const d = new Date(today);
+    d.setUTCDate(today.getUTCDate() - i);
+    const bucket = d.toISOString().slice(0, 10);
+    const list = await cache.list({ prefix: `llmbot:${bucket}:`, limit: 1000 });
+    for (const k of list.keys) {
+      const v = await cache.get(k.name);
+      if (!v) continue;
+      const n = parseInt(v, 10) || 0;
+      const parts = k.name.split(":");
+      const bot = parts[2] ?? "unknown";
+      const hash = parts[3] ?? "";
+      byBot[bot] = (byBot[bot] ?? 0) + n;
+      const path = (await cache.get(`llmbotpath:${bucket}:${bot}:${hash}`)) ?? hash;
+      const key = `${bot}:${path}`;
+      const prev = byPath[key];
+      byPath[key] = { bot, path, count: (prev?.count ?? 0) + n };
+    }
+  }
+  const top = Object.values(byPath).sort((a, b) => b.count - a.count).slice(0, 50);
+  return c.json({ window_days: days, by_bot: byBot, top_paths: top });
+});
+
 route.get("/me", async (c) => {
   // Used by the admin UI to verify access before rendering. Returns 404 for
   // non-admins, 200 + user payload otherwise.

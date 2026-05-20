@@ -8,6 +8,7 @@ import type { Luggage, PaymentMethod, Ride, RideRequest, SmokingPolicy } from "@
 import { api, ApiError } from "@/lib/api";
 import { rideShareUrl } from "@/lib/utm";
 import { track } from "@/lib/observability";
+import { ANALYTICS_EVENTS, trackEvent } from "@/lib/analytics-events";
 import { ReportButton } from "@/components/ReportButton";
 
 const LUGGAGE_LABEL: Record<Luggage, string> = {
@@ -231,6 +232,7 @@ export default function RideDetailPage() {
       navigate(`/login?next=${encodeURIComponent(`/rides/${ride.id}`)}`);
       return;
     }
+    trackEvent(ANALYTICS_EVENTS.REQUEST_SEAT_STARTED, { ride_id: ride.id });
     setReserve({ status: "submitting" });
     try {
       const effectivePayment = ride.accepted_payment === "cash" ? "cash" : paymentMethod;
@@ -250,6 +252,11 @@ export default function RideDetailPage() {
         concert_id: ride.concert_id,
         seats: payload.seats,
         price_total: payload.seats * ride.price_per_seat,
+      });
+      trackEvent(ANALYTICS_EVENTS.REQUEST_SEAT_COMPLETED, {
+        ride_id: ride.id,
+        seats: payload.seats,
+        instant: ride.instant_booking,
       });
     } catch (err) {
       setReserve({

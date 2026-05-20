@@ -3,6 +3,12 @@ import { Link } from "react-router-dom";
 import { ArrowRight, Check, Copy, Download, ExternalLink } from "lucide-react";
 import { useSeoMeta } from "@/lib/useSeoMeta";
 import { SITE_URL } from "@/lib/siteUrl";
+import { ANALYTICS_EVENTS, trackEvent } from "@/lib/analytics-events";
+import EeatTrustBlock from "@/components/EeatTrustBlock";
+import AiDisclosureNote from "@/components/AiDisclosureNote";
+import { aiLevelForPageType } from "@/lib/aiContentPolicy";
+
+const DATASET_SLUG = "festivales-peor-conexion-transporte-publico-2026";
 
 // ── Dataset rows (mirrors apps/web/public/datos/festivales-peor-conexion-transporte-publico-2026.{csv,json}) ──
 interface DatasetRow {
@@ -269,9 +275,27 @@ export default function DatasetMapaConexion2026Page() {
   const citationApa = `ConcertRide. (2026). Mapa festivales españoles con peor conexión en transporte público 2026 [Dataset]. ${url}. CC BY 4.0.`;
   const citationHtml = `<a href="${url}" rel="noopener">Mapa festivales españoles con peor conexión en transporte público 2026</a> (ConcertRide, CC BY 4.0)`;
 
+  // WebPage wrapper with Speakable — Dataset schema does not natively support
+  // speakable, so we emit a sibling WebPage that mainEntity-points to the Dataset
+  // and exposes the standard ConcertRide speakable selectors for AI Overviews.
+  const jsonLdWebPage = {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    "@id": `${url}#webpage`,
+    url,
+    name: "Mapa festivales españoles con peor conexión en transporte público 2026",
+    inLanguage: "es-ES",
+    mainEntity: { "@id": `${url}#dataset` },
+    speakable: {
+      "@type": "SpeakableSpecification",
+      cssSelector: ["h1", ".lede", "[data-quotable]", ".speakable"],
+    },
+  };
+
   return (
     <main id="main" className="min-h-dvh bg-cr-bg text-cr-text pt-14">
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdDataset) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdWebPage) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdBreadcrumb) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdFaq) }} />
 
@@ -319,6 +343,7 @@ export default function DatasetMapaConexion2026Page() {
           <a
             href={CSV_URL}
             download
+            onClick={() => trackEvent(ANALYTICS_EVENTS.DATASET_DOWNLOAD, { dataset_slug: DATASET_SLUG, format: "csv" })}
             className="inline-flex items-center gap-2 font-sans text-xs font-semibold uppercase tracking-[0.12em] border-2 border-cr-primary text-cr-primary px-4 py-2 hover:bg-cr-primary hover:text-black transition-colors"
           >
             <Download size={13} /> Descargar CSV
@@ -326,6 +351,7 @@ export default function DatasetMapaConexion2026Page() {
           <a
             href={JSON_URL}
             download
+            onClick={() => trackEvent(ANALYTICS_EVENTS.DATASET_DOWNLOAD, { dataset_slug: DATASET_SLUG, format: "json" })}
             className="inline-flex items-center gap-2 font-sans text-xs font-semibold uppercase tracking-[0.12em] border-2 border-cr-primary text-cr-primary px-4 py-2 hover:bg-cr-primary hover:text-black transition-colors"
           >
             <Download size={13} /> Descargar JSON
@@ -339,6 +365,14 @@ export default function DatasetMapaConexion2026Page() {
             <ExternalLink size={11} /> Licencia CC BY 4.0
           </a>
         </div>
+
+        <EeatTrustBlock
+          pageType="dataset"
+          lastReviewed="2026-05-20"
+          author={{ name: "Equipo de datos ConcertRide", url: "/autor/alejandro-lalaguna" }}
+          methodologyHref="#metodologia"
+        />
+        <AiDisclosureNote level={aiLevelForPageType("dataset")} />
       </div>
 
       {/* ── Stats banner ── */}
@@ -503,7 +537,7 @@ export default function DatasetMapaConexion2026Page() {
       </section>
 
       {/* ── Metodología ── */}
-      <section className="max-w-6xl mx-auto px-6 pb-16 border-t border-cr-border pt-12 space-y-6">
+      <section id="metodologia" className="max-w-6xl mx-auto px-6 pb-16 border-t border-cr-border pt-12 space-y-6 scroll-mt-20">
         <h2 className="font-display text-2xl md:text-3xl uppercase">Metodología</h2>
 
         <p className="font-sans text-sm text-cr-text-muted leading-relaxed max-w-3xl">

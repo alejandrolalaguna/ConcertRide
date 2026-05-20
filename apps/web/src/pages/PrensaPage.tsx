@@ -247,11 +247,28 @@ export default function PrensaPage() {
     })),
   };
 
+  // WebPage with Speakable — signals to AI Overviews / voice assistants the
+  // quotable sections of the press page (h1, lede paragraph, .speakable blocks).
+  const jsonLdWebPage = {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    "@id": `${SITE_URL}/prensa#webpage`,
+    url: `${SITE_URL}/prensa`,
+    name: "Press kit ConcertRide",
+    inLanguage: "es-ES",
+    about: { "@id": `${SITE_URL}/#press-newsroom` },
+    speakable: {
+      "@type": "SpeakableSpecification",
+      cssSelector: ["h1", ".lede", "[data-quotable]", ".speakable"],
+    },
+  };
+
   return (
     <main id="main" className="min-h-dvh bg-cr-bg text-cr-text pt-14">
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdBreadcrumb) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdOrg) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdDatasets) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdWebPage) }} />
 
       {/* ── Hero ── */}
       <div className="max-w-6xl mx-auto px-6 pt-10 pb-6 space-y-4">

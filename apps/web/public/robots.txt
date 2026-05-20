@@ -1,14 +1,16 @@
 # ConcertRide robots.txt
-# Last updated: 2026-05-19
+# Last updated: 2026-05-20
 # AI guidance: https://concertride.me/llms.txt
 # llms-full.txt: https://concertride.me/llms-full.txt
 # ai.txt policy: https://concertride.me/ai.txt
+# Security disclosure: https://concertride.me/.well-known/security.txt
 #
 # Public SEO pages: /, /concerts, /festivales/*, /conciertos/*, /rutas/*, /blog/*, /artistas/*, /recintos/*, /datos/*, /guia/*
 # Blocked (crawl budget): /api/* (except sitemaps), auth pages, user-generated content (crew, feed, squads, mensajes)
 
 User-agent: *
 Allow: /
+Allow: /.well-known/
 Allow: /api/sitemap-concerts.xml
 Allow: /api/sitemap-index.xml
 Disallow: /api/

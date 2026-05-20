@@ -6,7 +6,13 @@ import { CookieBanner } from "./components/CookieBanner";
 import { ErrorBoundary } from "./components/ErrorBoundary";
 import { VerifyEmailBanner } from "./components/VerifyEmailBanner";
 import { LoadingSpinner } from "./components/ui";
-import { ExitIntentModal } from "./components/ExitIntentModal";
+// ExitIntentModal lazy-loaded — it renders null until the user moves the
+// mouse out the top of the viewport / scrolls back up on mobile, so it has
+// no first-paint cost. Suspense fallback is null because the modal is
+// strictly non-essential UI.
+const ExitIntentModal = lazy(() =>
+  import("./components/ExitIntentModal").then((m) => ({ default: m.ExitIntentModal })),
+);
 
 const LandingPage = lazy(() => import("./pages/LandingPage"));
 const FavoritesPage = lazy(() => import("./pages/FavoritesPage"));
@@ -43,6 +49,15 @@ const AcercaDePage = lazy(() => import("./pages/AcercaDePage"));
 // CLAUDE.md "Brand Restrictions". Generic replacement lives at
 // /blog/alternativa-carpooling-festivales-espana.
 const ComparativaTaxi = lazy(() => import("./pages/ComparativaTaxi"));
+const AlternativasCarpoolingFestivalesPage = lazy(() => import("./pages/AlternativasCarpoolingFestivalesPage"));
+const MejorCarpoolingFestivales2026Page = lazy(() => import("./pages/MejorCarpoolingFestivales2026Page"));
+const ViajeCompartidoPage = lazy(() => import("./pages/ViajeCompartidoPage"));
+const CompartirCocheFestivalPage = lazy(() => import("./pages/CompartirCocheFestivalPage"));
+const IrJuntosAlFestivalPage = lazy(() => import("./pages/IrJuntosAlFestivalPage"));
+const CocheCompartidoConciertosPage = lazy(() => import("./pages/CocheCompartidoConciertosPage"));
+const CompartirGastosFestivalPage = lazy(() => import("./pages/CompartirGastosFestivalPage"));
+const ViajeEnGrupoFestivalPage = lazy(() => import("./pages/ViajeEnGrupoFestivalPage"));
+const HacerPinaFestivalPage = lazy(() => import("./pages/HacerPinaFestivalPage"));
 const CityLandingPage = lazy(() => import("./pages/CityLandingPage"));
 const CityYearPage = lazy(() => import("./pages/CityYearPage"));
 const FestivalLandingPage = lazy(() => import("./pages/FestivalLandingPage"));
@@ -61,6 +76,7 @@ const GuiaCarpoolingConductorFestivalPage = lazy(() => import("./pages/GuiaCarpo
 const GuiaFestivalInternacionalEspanaPage = lazy(() => import("./pages/GuiaFestivalInternacionalEspanaPage"));
 const GuiaFestivalAccesibilidadPage = lazy(() => import("./pages/GuiaFestivalAccesibilidadPage"));
 const GuiaAcampadaFestivalPage = lazy(() => import("./pages/GuiaAcampadaFestivalPage"));
+const GuiaFestivalVeteranoPage = lazy(() => import("./pages/GuiaFestivalVeteranoPage"));
 const PillarGuiaPage = lazy(() => import("./pages/PillarGuiaPage"));
 const BlogIndexPage = lazy(() => import("./pages/BlogIndexPage"));
 const BlogPostPage = lazy(() => import("./pages/BlogPostPage"));
@@ -76,6 +92,8 @@ const DatasetCalendarioMaestro2026Page = lazy(() => import("./pages/DatasetCalen
 const DatasetCostesOcultos2026Page = lazy(() => import("./pages/DatasetCostesOcultos2026Page"));
 const DatasetConciertosDemanda2026Page = lazy(() => import("./pages/DatasetConciertosDemanda2026Page"));
 const DatasetAlojamiento2026Page = lazy(() => import("./pages/DatasetAlojamiento2026Page"));
+const DatasetCancelaciones2026Page = lazy(() => import("./pages/DatasetCancelaciones2026Page"));
+const DatasetHeatmapCcaa2026Page = lazy(() => import("./pages/DatasetHeatmapCcaa2026Page"));
 const VerifyEmailPage = lazy(() => import("./pages/VerifyEmailPage"));
 const MessagesPage = lazy(() => import("./pages/MessagesPage"));
 const DirectMessagePage = lazy(() => import("./pages/DirectMessagePage"));
@@ -141,6 +159,7 @@ export default function App() {
             <Route path="/guia/festival-internacional-espana" element={<GuiaFestivalInternacionalEspanaPage />} />
             <Route path="/guia/festival-accesibilidad-movilidad-reducida" element={<GuiaFestivalAccesibilidadPage />} />
             <Route path="/guia/acampada-festival-libre-vs-oficial-2026" element={<GuiaAcampadaFestivalPage />} />
+            <Route path="/guia/festival-veterano-aficionados-mayores-2026" element={<GuiaFestivalVeteranoPage />} />
             <Route path="/guia-ir-festivales-2026" element={<PillarGuiaPage />} />
             <Route path="/blog" element={<BlogIndexPage />} />
             <Route path="/blog/:slug" element={<BlogPostPage />} />
@@ -157,6 +176,8 @@ export default function App() {
             <Route path="/datos/costes-ocultos-transporte-festivales-2026" element={<DatasetCostesOcultos2026Page />} />
             <Route path="/datos/conciertos-mayor-demanda-transporte-2026" element={<DatasetConciertosDemanda2026Page />} />
             <Route path="/datos/alojamiento-cercano-festivales-2026" element={<DatasetAlojamiento2026Page />} />
+            <Route path="/datos/cancelaciones-festivales-espana-2020-2026" element={<DatasetCancelaciones2026Page />} />
+            <Route path="/datos/heatmap-demanda-festivales-ccaa-2026" element={<DatasetHeatmapCcaa2026Page />} />
             <Route path="/rides/:id" element={<RideDetailPage />} />
             <Route path="/publish" element={<PublishRidePage />} />
             <Route path="/login" element={<LoginPage />} />
@@ -187,6 +208,15 @@ export default function App() {
             <Route path="/como-funciona-carpooling" element={<ComoFuncionaCarpoolingPage />} />
             {/* Legacy comparison route removed — 301 redirect handled by Worker. See CLAUDE.md. */}
             <Route path="/comparativa/carpooling-vs-taxi-festival" element={<ComparativaTaxi />} />
+            <Route path="/alternativas-carpooling-festivales" element={<AlternativasCarpoolingFestivalesPage />} />
+            <Route path="/mejor-carpooling-festivales-2026" element={<MejorCarpoolingFestivales2026Page />} />
+            <Route path="/viaje-compartido" element={<ViajeCompartidoPage />} />
+            <Route path="/compartir-coche-festival" element={<CompartirCocheFestivalPage />} />
+            <Route path="/ir-juntos-al-festival" element={<IrJuntosAlFestivalPage />} />
+            <Route path="/coche-compartido-conciertos" element={<CocheCompartidoConciertosPage />} />
+            <Route path="/compartir-gastos-festival" element={<CompartirGastosFestivalPage />} />
+            <Route path="/viaje-en-grupo-festival" element={<ViajeEnGrupoFestivalPage />} />
+            <Route path="/hacer-pina-festival" element={<HacerPinaFestivalPage />} />
             <Route path="/contacto" element={<ContactoPage />} />
             <Route path="/acerca-de" element={<AcercaDePage />} />
             <Route path="/glosario" element={<GlosarioPage />} />
@@ -199,7 +229,9 @@ export default function App() {
       </ErrorBoundary>
       <Footer />
       <CookieBanner />
-      <ExitIntentModal />
+      <Suspense fallback={null}>
+        <ExitIntentModal />
+      </Suspense>
     </>
         }
       />

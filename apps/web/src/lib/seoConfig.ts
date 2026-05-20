@@ -1,14 +1,21 @@
 /**
  * SEO Configuration for ConcertRide ES
  * Centralized configuration for meta tags, schema markup, and SEO best practices
- * Last updated: 2026-05-02
+ * Last updated: 2026-05-20
+ *
+ * Brand descriptions resolve to BRAND in brandEntity.ts so every page,
+ * schema, OG tag, and external directory profile reads identically.
+ * Entity consistency is the lever that gets an LLM to recognise us as one
+ * coherent thing rather than five blurry probabilistic clusters.
  */
+
+import { BRAND } from "./brandEntity";
 
 export const SEO_CONFIG = {
   site: {
     name: "ConcertRide ES",
     url: "https://concertride.me",
-    description: "Carpooling para conciertos en España. Comparte coche, divide gastos y llega seguro.",
+    description: BRAND.shortDescription,
     language: "es-ES",
     defaultLocale: "es-ES",
     author: "Alejandro Lalaguna",
@@ -128,7 +135,7 @@ export const SEO_CONFIG = {
         width: 512,
         height: 512,
       },
-      description: "ConcertRide ES es la plataforma española de carpooling exclusiva para conciertos y festivales.",
+      description: BRAND.longDescription,
       foundingDate: "2026",
       areaServed: {
         "@type": "Country",

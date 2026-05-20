@@ -582,6 +582,54 @@ export default function DatosPage() {
           <li className="border border-cr-border p-4 space-y-2 hover:border-cr-primary transition-colors">
             <div className="flex items-baseline justify-between gap-3 flex-wrap">
               <Link
+                to="/datos/heatmap-demanda-festivales-ccaa-2026"
+                className="font-display text-lg uppercase text-cr-primary hover:underline underline-offset-2"
+              >
+                Heatmap demanda festivales por CCAA España 2026 — 17 comunidades autónomas
+              </Link>
+              <span className="font-mono text-[10px] text-cr-text-dim uppercase tracking-[0.1em]">20 mayo 2026 · CSV + JSON</span>
+            </div>
+            <p className="font-sans text-sm text-cr-text-muted leading-relaxed">
+              14 CCAA con festivales propios 2026 (53 festivales totales) — número de festivales,
+              capacidad agregada/día, score de demanda 0-100 (ponderación 0.4·num + 0.3·capacidad +
+              0.3·tier1) y festival principal tier-1 por región. Lideran Comunidad Valenciana
+              (score 86,7; 8 festivales, 265.000/día), Galicia (84,1; 12 festivales) y Cataluña (64,8).
+              Cantabria, La Rioja y Navarra excluidas (sin festivales propios 2026).
+            </p>
+            <Link
+              to="/datos/heatmap-demanda-festivales-ccaa-2026"
+              className="inline-flex items-center gap-1.5 font-sans text-xs text-cr-primary hover:underline underline-offset-2"
+            >
+              Ver dataset y descargar <ArrowRight size={11} />
+            </Link>
+          </li>
+          <li className="border border-cr-border p-4 space-y-2 hover:border-cr-primary transition-colors">
+            <div className="flex items-baseline justify-between gap-3 flex-wrap">
+              <Link
+                to="/datos/cancelaciones-festivales-espana-2020-2026"
+                className="font-display text-lg uppercase text-cr-primary hover:underline underline-offset-2"
+              >
+                Cancelaciones festivales España 2020-2026 — histórico documentado
+              </Link>
+              <span className="font-mono text-[10px] text-cr-text-dim uppercase tracking-[0.1em]">20 mayo 2026 · CSV + JSON</span>
+            </div>
+            <p className="font-sans text-sm text-cr-text-muted leading-relaxed">
+              40 cancelaciones y aplazamientos públicamente documentados de festivales españoles
+              entre 2020 y 2026 (37 festivales únicos). 2020 el año más afectado (30 casos por
+              COVID-19), 2023 cancelación organizativa de Doctor Music Festival, 2024 dos
+              suspensiones parciales por meteorología (Granca Live Fest, O Son do Camiño).
+              Categorías: covid, weather, organizational, economic, legal.
+            </p>
+            <Link
+              to="/datos/cancelaciones-festivales-espana-2020-2026"
+              className="inline-flex items-center gap-1.5 font-sans text-xs text-cr-primary hover:underline underline-offset-2"
+            >
+              Ver dataset y descargar <ArrowRight size={11} />
+            </Link>
+          </li>
+          <li className="border border-cr-border p-4 space-y-2 hover:border-cr-primary transition-colors">
+            <div className="flex items-baseline justify-between gap-3 flex-wrap">
+              <Link
                 to="/datos/alojamiento-cercano-festivales-2026"
                 className="font-display text-lg uppercase text-cr-primary hover:underline underline-offset-2"
               >

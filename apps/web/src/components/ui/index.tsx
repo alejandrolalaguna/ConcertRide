@@ -87,7 +87,7 @@ export function DriverCard({ driver }: { driver: User }) {
           {driver.avatar_url ? (
             <img
               src={driver.avatar_url}
-              alt={driver.name}
+              alt={`Avatar del conductor ${driver.name}`}
               className="w-full h-full object-cover"
             />
           ) : (

@@ -6,6 +6,7 @@ import { api, ApiError } from "@/lib/api";
 import { useSession } from "@/lib/session";
 import { useSeoMeta } from "@/lib/useSeoMeta";
 import { SITE_URL } from "@/lib/siteUrl";
+import { ANALYTICS_EVENTS, trackEvent } from "@/lib/analytics-events";
 
 export default function LoginPage() {
   const { user, loading, refresh } = useSession();
@@ -45,6 +46,7 @@ export default function LoginPage() {
     setError(null);
     try {
       await api.auth.login(email.trim(), password);
+      trackEvent(ANALYTICS_EVENTS.USER_LOGIN, { method: "email" });
       await refresh();
     } catch (err) {
       if (err instanceof ApiError) {

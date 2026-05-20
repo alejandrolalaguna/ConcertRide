@@ -60,7 +60,7 @@ function ReviewCard({ review }: { review: Review }) {
         {review.reviewer.avatar_url ? (
           <img
             src={review.reviewer.avatar_url}
-            alt={review.reviewer.name}
+            alt={`Avatar de ${review.reviewer.name}, autor de la reseña`}
             className="w-full h-full object-cover"
           />
         ) : (

@@ -103,6 +103,12 @@ export function Footer() {
               Accesibilidad PMR
             </Link>
             <Link
+              to="/guia/festival-veterano-aficionados-mayores-2026"
+              className="font-sans text-xs text-cr-text-muted hover:text-cr-primary transition-colors"
+            >
+              Festivaleros 35+
+            </Link>
+            <Link
               to="/faq"
               className="font-sans text-xs text-cr-text-muted hover:text-cr-primary transition-colors"
             >

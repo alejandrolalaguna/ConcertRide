@@ -235,6 +235,10 @@ export default function CityYearPage() {
             inLanguage: "es-ES",
             dateModified: new Date().toISOString().slice(0, 10),
             description: `Agenda de conciertos y festivales en ${landing.display} para el año ${y}. ${landing.venues.slice(0, 3).join(", ")}.`,
+            speakable: {
+              "@type": "SpeakableSpecification",
+              cssSelector: ["h1", ".lede", "[data-quotable]", ".speakable"],
+            },
             about: {
               "@type": "Place",
               name: landing.display,

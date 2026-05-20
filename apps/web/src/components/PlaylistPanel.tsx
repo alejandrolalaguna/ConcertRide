@@ -122,7 +122,7 @@ export function PlaylistPanel({ scope, heading = "Playlist del viaje" }: Props) 
                 {String(idx + 1).padStart(2, "0")}
               </span>
               {t.album_image_url ? (
-                <img src={t.album_image_url} alt="" className="h-10 w-10 object-cover" />
+                <img src={t.album_image_url} alt="" aria-hidden="true" className="h-10 w-10 object-cover" />
               ) : (
                 <span className="inline-flex h-10 w-10 items-center justify-center bg-cr-surface-3 text-cr-text-muted" aria-hidden>
                   🎵

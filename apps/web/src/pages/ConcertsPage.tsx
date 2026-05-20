@@ -8,6 +8,7 @@ import type { Concert } from "@concertride/types";
 import { api } from "@/lib/api";
 import { ConcertCard } from "@/components/ConcertCard";
 import { LoadingSpinner } from "@/components/ui";
+import { ANALYTICS_EVENTS, trackEvent } from "@/lib/analytics-events";
 
 const PAGE_SIZE = 24;
 // Past tab: show concerts from up to 3 months ago
@@ -184,6 +185,10 @@ export default function ConcertsPage() {
   function setFilter<K extends keyof Filters>(key: K, value: Filters[K]) {
     setFilters((f) => ({ ...f, [key]: value }));
     setPage(1);
+    trackEvent(ANALYTICS_EVENTS.CONCERT_SEARCH_FILTER_APPLIED, {
+      filter_type: String(key),
+      filter_value: typeof value === "string" ? value : String(value),
+    });
   }
 
   function setTab(t: Tab) {

@@ -7,6 +7,7 @@ import { useSession } from "@/lib/session";
 import { SPANISH_CITIES } from "@/lib/constants";
 import { useSeoMeta } from "@/lib/useSeoMeta";
 import { SITE_URL } from "@/lib/siteUrl";
+import { ANALYTICS_EVENTS, trackEvent } from "@/lib/analytics-events";
 
 const TRUST_BULLETS: { title: string; detail: string }[] = [
   {
@@ -105,6 +106,10 @@ export default function RegisterPage() {
         },
         ref,
       );
+      trackEvent(ANALYTICS_EVENTS.USER_REGISTERED, {
+        method: "email",
+        has_ref: Boolean(ref),
+      });
       await refresh();
     } catch (err) {
       if (err instanceof ApiError) {

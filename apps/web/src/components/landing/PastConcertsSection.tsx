@@ -30,6 +30,7 @@ function PastConcertRow({ concert }: { concert: Concert }) {
           <img
             src={concert.image_url}
             alt=""
+            aria-hidden="true"
             className="w-full h-full object-cover opacity-50"
           />
         ) : (

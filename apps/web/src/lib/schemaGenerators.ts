@@ -337,15 +337,42 @@ export function generateLocalBusinessSchema({
 }
 
 /**
+ * Standard Speakable cssSelector set — apply to any page where we want voice
+ * assistants and AI Overviews to extract the most quotable, factual text.
+ * Matches: page h1, lede paragraph (.lede), explicitly marked quotables
+ * ([data-quotable]) and the .speakable utility class.
+ */
+export const STANDARD_SPEAKABLE_SELECTORS = [
+  "h1",
+  ".lede",
+  "[data-quotable]",
+  ".speakable",
+] as const;
+
+/**
  * SpeakableSpecification — marks page sections readable by voice assistants
  * and GEO AI engines (Google SGE, Perplexity, etc.).
  * Pass CSS selectors that wrap the most factual, quotable content.
  * Use generateSpeakableSchema() for full WebPage+Speakable nodes.
  */
-export function generateSpeakableSpecification(cssSelectors: string[] = ["h1", ".speakable", "p:first-of-type"]) {
+export function generateSpeakableSpecification(
+  cssSelectors: readonly string[] = STANDARD_SPEAKABLE_SELECTORS,
+) {
   return {
     "@type": "SpeakableSpecification",
-    cssSelector: cssSelectors,
+    cssSelector: [...cssSelectors],
+  };
+}
+
+/**
+ * Convenience: returns the `speakable` sub-property to inline inside an
+ * existing Article, WebPage, CollectionPage or Dataset JSON-LD schema.
+ * Uses the standard ConcertRide Speakable selector set.
+ */
+export function speakableSubProperty(cssSelectors: readonly string[] = STANDARD_SPEAKABLE_SELECTORS) {
+  return {
+    "@type": "SpeakableSpecification" as const,
+    cssSelector: [...cssSelectors],
   };
 }
 

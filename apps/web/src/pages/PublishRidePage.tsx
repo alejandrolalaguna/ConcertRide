@@ -1,7 +1,9 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { Link, Navigate, useNavigate, useSearchParams } from "react-router-dom";
 import { motion } from "motion/react";
-import confetti from "canvas-confetti";
+// canvas-confetti is dynamically imported inside the success handler so the
+// ~28 KB animation lib doesn't enter the PublishRidePage chunk on first load
+// (used only after the user successfully publishes a ride).
 import { ArrowLeft, ArrowRight, Check, Copy, MessageCircle, PenLine, Search, Sparkles } from "lucide-react";
 import type { Concert, CreateConcertInput, Luggage, PaymentMethod, Ride, SmokingPolicy, Vibe } from "@concertride/types";
 import { api, ApiError } from "@/lib/api";
@@ -9,6 +11,7 @@ import { SPANISH_CITIES, SPANISH_CITIES_BY_NAME } from "@/lib/constants";
 import { formatDate, formatTime } from "@/lib/format";
 import { useSession } from "@/lib/session";
 import { track } from "@/lib/observability";
+import { ANALYTICS_EVENTS, trackEvent } from "@/lib/analytics-events";
 import { VibeSelector } from "@/components/VibeSelector";
 import { PulsingDot } from "@/components/LoadingStates";
 import { useSeoMeta } from "@/lib/useSeoMeta";
@@ -96,6 +99,14 @@ export default function PublishRidePage() {
       .list({ limit: 200, date_from: new Date().toISOString() })
       .then((res) => setConcerts(res.concerts))
       .catch(() => setConcerts([]));
+  }, []);
+
+  // Analytics: funnel entry — record the source page so we can attribute
+  // publish completions to the landing page that drove the visit.
+  useEffect(() => {
+    trackEvent(ANALYTICS_EVENTS.PUBLISH_RIDE_STARTED, {
+      source: typeof window !== "undefined" ? window.location.pathname : "",
+    });
   }, []);
 
   // Pre-select concert from ?concert= query param once the list is loaded
@@ -304,13 +315,29 @@ export default function PublishRidePage() {
         vibe: ride.vibe,
         adhoc: manualMode,
       });
+      // Canonical funnel event — keep alongside the legacy ride_published
+      // call so existing PostHog cohorts/insights don't break.
+      trackEvent(ANALYTICS_EVENTS.PUBLISH_RIDE_COMPLETED, {
+        ride_id: ride.id,
+        concert_id: ride.concert_id,
+        seats: ride.seats_total,
+      });
       if (!window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-        confetti({
-          particleCount: 120,
-          spread: 75,
-          origin: { y: 0.45 },
-          colors: ["#DBFF00", "#FF4F00", "#F5F5F5"],
-        });
+        // Lazy-load canvas-confetti only when we actually need it. Best-effort:
+        // if the chunk fails to load (offline, blocked) we silently skip the
+        // celebration — the success state still renders correctly.
+        import("canvas-confetti")
+          .then(({ default: confetti }) => {
+            confetti({
+              particleCount: 120,
+              spread: 75,
+              origin: { y: 0.45 },
+              colors: ["#DBFF00", "#FF4F00", "#F5F5F5"],
+            });
+          })
+          .catch(() => {
+            // swallow — non-essential UI flourish
+          });
       }
     } catch (err) {
       if (err instanceof ApiError) setError(err.message);

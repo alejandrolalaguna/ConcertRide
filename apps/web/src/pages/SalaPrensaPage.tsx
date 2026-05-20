@@ -80,6 +80,10 @@ export default function SalaPrensaPage() {
       name: "ConcertRide",
     },
     description: `Sala de prensa oficial de ConcertRide. Estadísticas, embed codes y descripción oficial para periodistas, bloggers y creadores de contenido.`,
+    speakable: {
+      "@type": "SpeakableSpecification",
+      cssSelector: ["h1", ".lede", "[data-quotable]", ".speakable"],
+    },
   };
 
   const jsonLdBreadcrumb = {

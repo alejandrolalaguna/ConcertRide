@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useState } from "react";
 import { AnimatePresence, motion, useScroll, useTransform } from "motion/react";
 import { ArrowRight } from "lucide-react";
+import { ANALYTICS_EVENTS, trackEvent } from "@/lib/analytics-events";
 
 interface TicketData {
   id: string;
@@ -254,7 +255,7 @@ export function Hero() {
           </span>
         </motion.div>
 
-        {/* H1 — festival + price above the fold */}
+        {/* H1 — keyword-anchored ("carpooling a festivales en España 2026") + festival/price visible */}
         <motion.h1
           id="hero-title"
           initial={{ opacity: 0, y: 40 }}
@@ -262,10 +263,11 @@ export function Hero() {
           transition={{ duration: 0.6, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
           className="font-display uppercase leading-[0.88] tracking-tight text-[clamp(2.6rem,7.5vw,6.5rem)] max-w-5xl"
         >
-          <span className="cr-heading-gradient">¿Vas a {NEXT_FESTIVAL.name}?</span>
+          <span className="cr-heading-gradient">Carpooling a festivales</span>
+          <span className="text-white/55"> en España 2026.</span>
           <br />
           <span className="text-[#dbff00]">
-            Carpooling desde {NEXT_FESTIVAL.minPrice}€
+            {NEXT_FESTIVAL.name} desde {NEXT_FESTIVAL.minPrice}€
           </span>
           <span className="text-white/55">/asiento.</span>
         </motion.h1>
@@ -299,6 +301,7 @@ export function Hero() {
         >
           <a
             href={`/festivales/${NEXT_FESTIVAL.slug}`}
+            onClick={() => trackEvent(ANALYTICS_EVENTS.HERO_CTA_CLICKED, { variant: "search_festival", target: NEXT_FESTIVAL.slug })}
             className="cr-btn-shine inline-flex items-center justify-center gap-2 bg-[#dbff00] text-black font-sans font-semibold uppercase tracking-[0.12em] text-sm px-8 py-4 hover:bg-[#c8ec00] transition-colors duration-150 group"
           >
             Buscar viaje a {NEXT_FESTIVAL.name}
@@ -306,6 +309,7 @@ export function Hero() {
           </a>
           <a
             href="/publish"
+            onClick={() => trackEvent(ANALYTICS_EVENTS.HERO_CTA_CLICKED, { variant: "publish_ride" })}
             className="inline-flex items-center justify-center gap-2 bg-transparent text-white/80 font-sans font-semibold uppercase tracking-[0.12em] text-sm border border-white/25 px-8 py-4 hover:border-[#dbff00]/60 hover:text-white transition-colors duration-150"
           >
             Publicar mi coche →

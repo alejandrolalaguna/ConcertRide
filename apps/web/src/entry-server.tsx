@@ -28,6 +28,7 @@ import GuiaCarpoolingConductorFestivalPage from "./pages/GuiaCarpoolingConductor
 import GuiaFestivalInternacionalEspanaPage from "./pages/GuiaFestivalInternacionalEspanaPage";
 import GuiaFestivalAccesibilidadPage from "./pages/GuiaFestivalAccesibilidadPage";
 import GuiaAcampadaFestivalPage from "./pages/GuiaAcampadaFestivalPage";
+import GuiaFestivalVeteranoPage from "./pages/GuiaFestivalVeteranoPage";
 import PillarGuiaPage from "./pages/PillarGuiaPage";
 import BlogIndexPage from "./pages/BlogIndexPage";
 import BlogPostPage from "./pages/BlogPostPage";
@@ -43,6 +44,8 @@ import DatasetCalendarioMaestro2026Page from "./pages/DatasetCalendarioMaestro20
 import DatasetCostesOcultos2026Page from "./pages/DatasetCostesOcultos2026Page";
 import DatasetConciertosDemanda2026Page from "./pages/DatasetConciertosDemanda2026Page";
 import DatasetAlojamiento2026Page from "./pages/DatasetAlojamiento2026Page";
+import DatasetCancelaciones2026Page from "./pages/DatasetCancelaciones2026Page";
+import DatasetHeatmapCcaa2026Page from "./pages/DatasetHeatmapCcaa2026Page";
 import HowItWorksPage from "./pages/HowItWorksPage";
 import FaqPage from "./pages/FaqPage";
 import ContactoPage from "./pages/ContactoPage";
@@ -61,6 +64,15 @@ import ComoFuncionaCarpoolingPage from "./pages/ComoFuncionaCarpoolingPage";
 // Legacy comparison page removed — Worker 301-redirects the URL to a generic
 // replacement post. See CLAUDE.md "Brand Restrictions". Never re-enable.
 import ComparativaTaxi from "./pages/ComparativaTaxi";
+import AlternativasCarpoolingFestivalesPage from "./pages/AlternativasCarpoolingFestivalesPage";
+import MejorCarpoolingFestivales2026Page from "./pages/MejorCarpoolingFestivales2026Page";
+import ViajeCompartidoPage from "./pages/ViajeCompartidoPage";
+import CompartirCocheFestivalPage from "./pages/CompartirCocheFestivalPage";
+import IrJuntosAlFestivalPage from "./pages/IrJuntosAlFestivalPage";
+import CocheCompartidoConciertosPage from "./pages/CocheCompartidoConciertosPage";
+import CompartirGastosFestivalPage from "./pages/CompartirGastosFestivalPage";
+import ViajeEnGrupoFestivalPage from "./pages/ViajeEnGrupoFestivalPage";
+import HacerPinaFestivalPage from "./pages/HacerPinaFestivalPage";
 import GenreLandingPage from "./pages/GenreLandingPage";
 import CalendarLandingPage from "./pages/CalendarLandingPage";
 import AutorAlejandroLalagunaPage from "./pages/AutorAlejandroLalagunaPage";
@@ -126,6 +138,7 @@ function ServerApp() {
         <Route path="/guia/festival-internacional-espana" element={<GuiaFestivalInternacionalEspanaPage />} />
         <Route path="/guia/festival-accesibilidad-movilidad-reducida" element={<GuiaFestivalAccesibilidadPage />} />
         <Route path="/guia/acampada-festival-libre-vs-oficial-2026" element={<GuiaAcampadaFestivalPage />} />
+        <Route path="/guia/festival-veterano-aficionados-mayores-2026" element={<GuiaFestivalVeteranoPage />} />
         <Route path="/guia-ir-festivales-2026" element={<PillarGuiaPage />} />
         <Route path="/blog" element={<BlogIndexPage />} />
         <Route path="/blog/:slug" element={<BlogPostPage />} />
@@ -135,6 +148,15 @@ function ServerApp() {
         <Route path="/como-funciona-carpooling" element={<ComoFuncionaCarpoolingPage />} />
         {/* Legacy comparison route removed — 301 redirect handled by Worker. See CLAUDE.md. */}
         <Route path="/comparativa/carpooling-vs-taxi-festival" element={<ComparativaTaxi />} />
+        <Route path="/alternativas-carpooling-festivales" element={<AlternativasCarpoolingFestivalesPage />} />
+        <Route path="/mejor-carpooling-festivales-2026" element={<MejorCarpoolingFestivales2026Page />} />
+        <Route path="/viaje-compartido" element={<ViajeCompartidoPage />} />
+        <Route path="/compartir-coche-festival" element={<CompartirCocheFestivalPage />} />
+        <Route path="/ir-juntos-al-festival" element={<IrJuntosAlFestivalPage />} />
+        <Route path="/coche-compartido-conciertos" element={<CocheCompartidoConciertosPage />} />
+        <Route path="/compartir-gastos-festival" element={<CompartirGastosFestivalPage />} />
+        <Route path="/viaje-en-grupo-festival" element={<ViajeEnGrupoFestivalPage />} />
+        <Route path="/hacer-pina-festival" element={<HacerPinaFestivalPage />} />
         <Route path="/prensa" element={<PrensaPage />} />
         <Route path="/sala-de-prensa" element={<SalaPrensaPage />} />
         <Route path="/datos" element={<DatosPage />} />
@@ -145,6 +167,8 @@ function ServerApp() {
         <Route path="/datos/costes-ocultos-transporte-festivales-2026" element={<DatasetCostesOcultos2026Page />} />
         <Route path="/datos/conciertos-mayor-demanda-transporte-2026" element={<DatasetConciertosDemanda2026Page />} />
         <Route path="/datos/alojamiento-cercano-festivales-2026" element={<DatasetAlojamiento2026Page />} />
+        <Route path="/datos/cancelaciones-festivales-espana-2020-2026" element={<DatasetCancelaciones2026Page />} />
+        <Route path="/datos/heatmap-demanda-festivales-ccaa-2026" element={<DatasetHeatmapCcaa2026Page />} />
         <Route path="/como-funciona" element={<HowItWorksPage />} />
         <Route path="/faq" element={<FaqPage />} />
         <Route path="/contacto" element={<ContactoPage />} />

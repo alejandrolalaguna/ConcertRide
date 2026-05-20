@@ -2,6 +2,7 @@ import { createContext, useCallback, useContext, useEffect, useState } from "rea
 import type { User } from "@concertride/types";
 import { api } from "./api";
 import { identify, resetIdentity } from "./observability";
+import { ANALYTICS_EVENTS, trackEvent } from "./analytics-events";
 
 interface SessionValue {
   user: User | null;
@@ -35,6 +36,9 @@ export function SessionProvider({ children }: { children: React.ReactNode }) {
   }, []);
 
   const logout = useCallback(async () => {
+    // Emit BEFORE we reset identity so the event is still attributed to the
+    // user we're about to log out.
+    trackEvent(ANALYTICS_EVENTS.USER_LOGOUT);
     try {
       await api.auth.logout();
     } catch {

@@ -4,6 +4,7 @@ import type { Concert } from "@concertride/types";
 import { api, ApiError } from "@/lib/api";
 import { useSeoMeta } from "@/lib/useSeoMeta";
 import { useSession } from "@/lib/session";
+import { ANALYTICS_EVENTS, trackEvent } from "@/lib/analytics-events";
 
 const SUGGESTED_TAGS = [
   "indie",
@@ -58,6 +59,11 @@ export default function SquadCreatePage() {
         concert_id: concertId,
         name: name.trim(),
         vibe_tags: tags,
+        visibility,
+      });
+      trackEvent(ANALYTICS_EVENTS.CREW_CREATED, {
+        squad_id: sq.id,
+        concert_id: concertId,
         visibility,
       });
       navigate(`/squads/${sq.id}`);

@@ -54,6 +54,7 @@ const STATIC_ROUTES = [
   "/guia/festival-internacional-espana",
   "/guia/festival-accesibilidad-movilidad-reducida",
   "/guia/acampada-festival-libre-vs-oficial-2026",
+  "/guia/festival-veterano-aficionados-mayores-2026",
   "/guia-ir-festivales-2026",
   "/blog",
   "/rutas",
@@ -62,6 +63,15 @@ const STATIC_ROUTES = [
   // it to /blog/alternativa-carpooling-festivales-espana. Page component removed.
   // See CLAUDE.md "Brand Restrictions". Never re-add.
   "/comparativa/carpooling-vs-taxi-festival",
+  "/alternativas-carpooling-festivales",
+  "/mejor-carpooling-festivales-2026",
+  "/viaje-compartido",
+  "/compartir-coche-festival",
+  "/ir-juntos-al-festival",
+  "/coche-compartido-conciertos",
+  "/compartir-gastos-festival",
+  "/viaje-en-grupo-festival",
+  "/hacer-pina-festival",
   "/prensa",
   "/sala-de-prensa",
   "/datos",
@@ -72,6 +82,8 @@ const STATIC_ROUTES = [
   "/datos/costes-ocultos-transporte-festivales-2026",
   "/datos/conciertos-mayor-demanda-transporte-2026",
   "/datos/alojamiento-cercano-festivales-2026",
+  "/datos/cancelaciones-festivales-espana-2020-2026",
+  "/datos/heatmap-demanda-festivales-ccaa-2026",
   "/como-funciona",
   "/faq",
   "/contacto",
@@ -325,6 +337,14 @@ async function writeSitemap(urls) {
     if (u.startsWith("/como-llegar/")) return "0.85";
     if (["/como-funciona", "/faq"].includes(u)) return "0.7";
     if (u === "/como-funciona-carpooling") return "0.75";
+    if (u === "/mejor-carpooling-festivales-2026") return "0.85";
+    if (u === "/viaje-compartido") return "0.8";
+    if (u === "/compartir-coche-festival") return "0.78";
+    if (u === "/ir-juntos-al-festival") return "0.78";
+    if (u === "/coche-compartido-conciertos") return "0.8";
+    if (u === "/compartir-gastos-festival") return "0.78";
+    if (u === "/viaje-en-grupo-festival") return "0.78";
+    if (u === "/hacer-pina-festival") return "0.75";
     if (u.startsWith("/comparativa/")) return "0.72";
     if (["/acerca-de", "/contacto", "/prensa"].includes(u)) return "0.6";
     if (u === "/datos") return "0.7";

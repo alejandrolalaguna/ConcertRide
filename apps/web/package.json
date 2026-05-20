@@ -6,6 +6,7 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc --noEmit && vite build && npm run build:ssr && npm run prerender && npm run inline:critical-css && npm run gen:llms-routes && npm run validate:schema && npm run audit:meta",
+    "build:report": "cross-env ANALYZE=true vite build",
     "build:ssr": "node scripts/build-ssr.mjs",
     "prerender": "node scripts/prerender.mjs",
     "inline:critical-css": "node scripts/inline-critical-css.mjs",
@@ -17,8 +18,6 @@
     "favicons": "node scripts/gen-favicons.mjs",
     "gen:og": "node scripts/gen-og-festivals.mjs",
     "gen:llms-routes": "node scripts/gen-llms-routes.mjs",
-    "indexnow:ping": "node scripts/ping-indexnow.mjs",
-    "indexnow:dry-run": "node scripts/ping-indexnow.mjs --dry-run",
     "audit:cwv-static": "node scripts/audit-cwv-static.mjs",
     "test": "vitest run",
     "test:watch": "vitest"
@@ -45,6 +44,8 @@
     "@types/react-dom": "^18.3.1",
     "@vitejs/plugin-react": "^4.3.4",
     "beasties": "^0.4.2",
+    "cross-env": "^7.0.3",
+    "rollup-plugin-visualizer": "^5.12.0",
     "sharp": "^0.33.5",
     "tailwindcss": "^4.0.0-beta.7",
     "typescript": "^5.6.3",

@@ -1,0 +1,130 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="robots" content="noindex, nofollow" />
+    <title>Sin conexión — ConcertRide</title>
+    <meta name="description" content="No hay conexión a Internet. Vuelve a intentarlo cuando tengas red para buscar carpooling a tu festival o concierto." />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <style>
+      *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+      :root {
+        --bg: #080808;
+        --text: #e8e8e8;
+        --text-muted: #888;
+        --primary: #dbff00;
+        --secondary: #ff4f00;
+        --border: rgba(255,255,255,0.10);
+      }
+      html, body { height: 100%; }
+      body {
+        background: var(--bg);
+        color: var(--text);
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+        min-height: 100vh;
+        padding: 64px 24px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .container { max-width: 560px; width: 100%; text-align: center; }
+      .label {
+        font-size: 11px;
+        font-weight: 700;
+        letter-spacing: 0.24em;
+        text-transform: uppercase;
+        color: var(--secondary);
+        display: block;
+        margin-bottom: 16px;
+      }
+      h1 {
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+        font-weight: 900;
+        font-size: clamp(36px, 7vw, 60px);
+        text-transform: uppercase;
+        line-height: 0.95;
+        margin-bottom: 20px;
+        letter-spacing: -0.02em;
+      }
+      p.subtitle {
+        color: var(--text-muted);
+        font-size: 15px;
+        line-height: 1.5;
+        margin-bottom: 32px;
+        max-width: 420px;
+        margin-left: auto;
+        margin-right: auto;
+      }
+      .brand {
+        font-weight: 900;
+        color: var(--primary);
+        letter-spacing: -0.01em;
+      }
+      .btn-group {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 12px;
+        justify-content: center;
+        margin-bottom: 32px;
+      }
+      .btn-primary {
+        background: var(--primary);
+        color: #000;
+        font-weight: 700;
+        font-size: 12px;
+        text-transform: uppercase;
+        letter-spacing: 0.12em;
+        text-decoration: none;
+        padding: 14px 26px;
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        border: 2px solid #000;
+        box-shadow: 4px 4px 0 #000;
+      }
+      .btn-secondary {
+        background: transparent;
+        color: var(--text);
+        font-weight: 700;
+        font-size: 12px;
+        text-transform: uppercase;
+        letter-spacing: 0.12em;
+        text-decoration: none;
+        padding: 14px 26px;
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        border: 2px solid var(--border);
+      }
+      .hint {
+        color: var(--text-muted);
+        font-size: 12px;
+        letter-spacing: 0.04em;
+      }
+      .dot {
+        display: inline-block;
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background: var(--secondary);
+        margin-right: 8px;
+        vertical-align: middle;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <span class="label"><span class="dot"></span>Sin conexión</span>
+      <h1>Estás <span class="brand">offline</span></h1>
+      <p class="subtitle">
+        No hay conexión a Internet. Vuelve cuando tengas red para buscar carpooling al festival o concierto que te interese.
+      </p>
+      <div class="btn-group">
+        <a href="/" class="btn-primary">Reintentar</a>
+        <a href="/festivales" class="btn-secondary">Ver festivales</a>
+      </div>
+      <p class="hint">ConcertRide — Carpooling para festivales en Espana</p>
+    </div>
+  </body>
+</html>

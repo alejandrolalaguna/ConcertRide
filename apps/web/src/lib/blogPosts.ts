@@ -21887,6 +21887,1479 @@ BLOG_POSTS.push({
   },
 });
 
+BLOG_POSTS.push({
+  slug: "festival-mejores-pulseras-RFID-electronicas-2026",
+  metaTitle: "Pulseras RFID festivales 2026: cómo funcionan y mejores",
+  metaDescription:
+    "Cómo funcionan las pulseras RFID en festivales españoles, mejores fabricantes 2026 y diferencias entre eventos. Guía técnica completa.",
+  title: "Pulseras RFID en festivales 2026: cómo funcionan y mejores",
+  h1: "Pulseras RFID en festivales españoles: guía técnica 2026",
+  excerpt:
+    "Cómo funcionan las pulseras RFID en festivales, qué tecnología usan los principales eventos españoles y por qué cambian la experiencia de acceso, cashless y control.",
+  category: "novedades",
+  tags: ["tecnología", "RFID", "festivales 2026", "innovación"],
+  publishedAt: "2026-05-20T09:00:00.000Z",
+  author: "Equipo ConcertRide",
+  readingMinutes: 7,
+  lede:
+    "Si has ido a Mad Cool, Primavera Sound, Arenal Sound o BBK Live en los últimos años, ya conoces la pulsera de tela con un chip incrustado: te la ponen en el control de acceso, no te la quitas en todo el fin de semana y la usas para entrar al recinto, pagar en barras y acceder a zonas VIP. Detrás hay tecnología RFID (Radio Frequency Identification) con chips NXP MIFARE o EM Microelectronic. Esta guía explica cómo funcionan, qué fabricantes dominan en España y por qué prácticamente ningún festival grande vuelve al ticket impreso.",
+  sections: [
+    {
+      heading: "¿Qué son las pulseras RFID y por qué se han impuesto en festivales?",
+      paragraphs: [
+        "Una pulsera RFID es una pulsera (normalmente de tela tejida resistente al agua) con un microchip RFID pasivo embebido y una antena de bobina de cobre. No tiene batería propia: cuando un lector se acerca a 2–5 cm, genera un campo electromagnético que alimenta el chip y lee su identificador único. Cada pulsera lleva un ID irrepetible (UID) y un área de memoria con datos cifrados (entradas adquiridas, saldo cashless, accesos VIP).",
+        "Frente al ticket impreso o al PDF móvil, la pulsera RFID resuelve cuatro problemas a la vez: imposibilidad de duplicar (cada UID es único), accesos cinco veces más rápidos (200–400 ms vs 2–3 segundos del QR), resistencia al agua y sudor de tres días seguidos, y posibilidad de añadir capas (cashless, control de aforos por zona, datos de comportamiento para el festival).",
+        "Por eso desde 2017 prácticamente todos los festivales españoles con más de 30.000 asistentes la han adoptado: Mad Cool, Primavera Sound, Arenal Sound, BBK Live, Sónar, Resurrection Fest, Viña Rock, FIB y Sonorama Ribera entre los principales. Festivales más pequeños mantienen el ticket QR por coste.",
+      ],
+    },
+    {
+      heading: "Qué chip lleva tu pulsera: NXP MIFARE vs EM Microelectronic",
+      paragraphs: [
+        "Los dos fabricantes de chips RFID que dominan el mercado de festivales son NXP Semiconductors (con la familia MIFARE Classic y MIFARE Ultralight) y EM Microelectronic (suizo, con la serie EM4xxx). Ambos operan en la banda de 13,56 MHz (HF, alta frecuencia) bajo el estándar ISO/IEC 14443-A.",
+        "MIFARE Classic 1K (el más extendido en festivales españoles desde 2018) ofrece 1 KB de memoria dividida en 16 sectores, suficiente para almacenar la entrada, el saldo cashless y los accesos VIP. MIFARE Ultralight (más barato, 64 bytes de memoria) se usa para festivales pequeños donde solo hace falta validar acceso. EM4423 es alternativa habitual en festivales europeos con menor coste por unidad.",
+        "El coste real por pulsera para el festival ronda los 0,50–2 € por unidad (chip + tejido + impresión + logística), frente a 0,02–0,05 € por entrada impresa o PDF. La inversión se justifica por la reducción de fraude (revendedores con tickets duplicados), la velocidad de acceso y la posibilidad de cobrar cashless con margen.",
+      ],
+    },
+    {
+      heading: "Cashless: cómo cargas saldo en tu pulsera y por qué nunca se la quitan",
+      paragraphs: [
+        "El cashless es la función que ha hecho que la pulsera RFID sea, además del acceso, el método de pago dentro del recinto. Cargas saldo previamente desde la web del festival (con tarjeta o PayPal) y los lectores de las barras descuentan el importe del chip en menos de un segundo. No hay cola para sacar dinero, no se pierden monedas y el festival controla el flujo de caja en tiempo real.",
+        "El proceso típico: registras tu pulsera al recibirla (asocia UID a tu email), cargas 30–100 € desde la app o la web del festival, los pagos se descuentan al instante en cada barra. Al final del festival, puedes solicitar el reembolso del saldo no consumido (suele tener una comisión de 1–2 € o un plazo de 30 días). Lo que más cabrea a los asistentes: festivales que aplican comisión de reembolso obligatoria del 10 % o que ponen plazos demasiado cortos para reclamar.",
+        "Por seguridad, la pulsera no se debe quitar durante el fin de semana: si la cortas, pierdes el saldo (no hay forma de transferirlo a otra). Algunas pulseras llevan un sistema anti-tamper que invalida el chip si se intenta separar de la muñeca.",
+      ],
+    },
+    {
+      heading: "Comparativa por festival: qué pulsera lleva cada evento español 2026",
+      paragraphs: [
+        "Por experiencia recogida en las ediciones más recientes, esta es la situación de las pulseras RFID en los grandes festivales españoles para 2026. Cada festival firma con un proveedor diferente (Intellitix, Connect&GO, GET in, Weezevent) y los chips varían en función del coste y de las funciones contratadas:",
+      ],
+      bullets: [
+        "Mad Cool: MIFARE Classic 1K, cashless desde 2018, recarga online y en quioscos del recinto.",
+        "Primavera Sound: MIFARE Classic 1K con cashless, accesos VIP y control de aforos por zona (Primavera Pro).",
+        "Arenal Sound: MIFARE Classic 1K, cashless obligatorio en barras desde 2019, también para el camping.",
+        "BBK Live: MIFARE Classic 1K, cashless e integración con lanzadera oficial gratuita Plaza Moyúa–Kobetamendi.",
+        "Resurrection Fest: MIFARE Classic 1K, cashless en barras y camping.",
+        "Sónar: MIFARE Classic 1K para festival de día y de noche; el cashless es opcional, conviven efectivo y tarjeta en barras.",
+      ],
+    },
+  ],
+  faqs: [
+    {
+      q: "¿Puedo recuperar el saldo cashless que me sobra al acabar el festival?",
+      a: "Sí, pero con condiciones que varían por festival. La mayoría permite solicitar el reembolso en los 7–30 días posteriores con una comisión de 1–2 €. Algunos festivales aplican comisiones más altas o plazos muy cortos: lee siempre las condiciones antes de cargar más saldo del que vas a gastar. Si no reclamas en plazo, el saldo se pierde.",
+    },
+    {
+      q: "¿Es seguro pagar con la pulsera RFID en las barras de festival?",
+      a: "Sí, técnicamente más seguro que llevar efectivo o pasar tarjeta una y otra vez. El chip MIFARE Classic emplea cifrado Crypto1 (no es invulnerable, pero la transacción se cierra en local sin transmitir datos sensibles). El riesgo real es perder la pulsera con saldo cargado, por eso es importante registrarla con tu email al recibirla: si la pierdes, el festival puede bloquear la pulsera y emitir una nueva con el saldo restante.",
+    },
+    {
+      q: "¿La pulsera RFID rastrea mi ubicación dentro del recinto?",
+      a: "El chip RFID pasivo solo emite a 2–5 cm del lector, no es un GPS. Los lectores están en accesos, barras y zonas VIP; no hay seguimiento continuo. Algunos festivales sí registran las validaciones (entrada a recinto, compra en barra X) y los agregan en estadísticas para optimizar zonas, pero los datos personales se rigen por el RGPD y la política de privacidad del festival.",
+    },
+  ],
+  relatedLinks: [
+    { label: "Cómo funciona ConcertRide", to: "/como-funciona" },
+    { label: "Festivales en España 2026", to: "/festivales" },
+    { label: "Buscar un viaje", to: "/buscar" },
+    { label: "PayPal vs tarjeta para entradas de festival", to: "/blog/comprar-entradas-festival-paypal-vs-tarjeta-2026" },
+  ],
+  relatedPosts: [
+    "comprar-entradas-festival-paypal-vs-tarjeta-2026",
+    "festival-zonas-prensa-fotografo-acreditacion-2026",
+  ],
+  coverImage: {
+    src: "/og/home.png",
+    alt: "Pulseras RFID en festivales españoles 2026 — ConcertRide",
+    width: 1200,
+    height: 630,
+  },
+});
+
+BLOG_POSTS.push({
+  slug: "festival-zonas-prensa-fotografo-acreditacion-2026",
+  metaTitle: "Zona prensa festival 2026: acreditación fotógrafo y media",
+  metaDescription:
+    "Cómo conseguir acreditación de prensa o fotógrafo para festivales españoles 2026: requisitos, fechas, qué se incluye y cómo cubrir desde foso o backstage.",
+  title: "Zona prensa en festivales 2026: cómo conseguir acreditación",
+  h1: "Zonas de prensa y acreditación de fotógrafo en festivales 2026",
+  excerpt:
+    "Requisitos, fechas y normas reales para conseguir acreditación de prensa o fotógrafo en Mad Cool, Primavera Sound, BBK Live y otros festivales españoles 2026.",
+  category: "guias",
+  tags: ["prensa", "fotógrafo", "acreditación", "festivales 2026"],
+  publishedAt: "2026-05-20T09:15:00.000Z",
+  author: "Equipo ConcertRide",
+  readingMinutes: 7,
+  lede:
+    "La acreditación de prensa o fotógrafo de un festival español no se compra: se solicita y se justifica. Es la diferencia entre cubrir el cartel desde el foso (los 3 primeros temas, sin flash, con cámara DSLR/mirrorless) o desde la zona del público con un móvil. Esta guía explica qué medios consiguen acreditación, plazos reales para solicitarla en Mad Cool, Primavera Sound, BBK Live, Arenal Sound y Sónar, qué se incluye exactamente en cada nivel y los errores que descartan al 80 % de los solicitantes.",
+  sections: [
+    {
+      heading: "Quién consigue acreditación de prensa en festivales españoles",
+      paragraphs: [
+        "El perfil que recibe acreditación es estricto y consistente entre festivales: medios con cobertura activa (blog/web/podcast actualizado en los 90 días previos), fotógrafos con porfolio de música en vivo previo y profesionales con encargo concreto del festival a cubrir. No basta tener cuenta de Instagram con 5.000 seguidores: los gabinetes de prensa lo descartan en menos de 60 segundos.",
+        "Los medios que reciben acreditación habitualmente: RTVE, Cadena SER, La Vanguardia, El País, redacciones musicales especializadas (Mondo Sonoro, Indienauta, Jenesaispop, Rockzone), revistas internacionales (NME, Rolling Stone, Pitchfork), agencias (Reuters, EFE, Europa Press), y blogs musicales con historial demostrable. Los fotógrafos consiguen acreditación si vienen avalados por una publicación o agencia.",
+        "Los influencers de Instagram/TikTok no entran en la categoría de prensa: muchos festivales tienen un programa separado de 'content creators' con condiciones muy distintas (acceso a zonas VIP pero no al foso, sin acreditación de fotógrafo). No confundir ambas categorías al solicitar.",
+      ],
+    },
+    {
+      heading: "Plazos reales para solicitar acreditación en 2026",
+      paragraphs: [
+        "Los plazos varían por festival pero hay un patrón: solicitudes 90–60 días antes del festival, respuesta 30–45 días antes, recogida de credencial en el primer día del festival. Si solicitas con menos de 30 días, la probabilidad de respuesta cae a menos del 10 %.",
+        "Por ejemplo, para 2026: Primavera Sound (4–6 jun) abre solicitudes en enero–febrero, cierre del plazo en marzo. Mad Cool (8–11 jul) abre en marzo, cierre en mayo. BBK Live (10–12 jul) abre en abril, cierre en junio. Arenal Sound (29 jul–3 ago) abre en mayo, cierre en julio. Sónar (junio) abre en marzo, cierre en mayo. Las fechas exactas se publican en la sección 'Prensa/Press' de la web oficial.",
+        "Cada solicitud requiere: medio que represents, URL del medio con cobertura previa, motivación de cobertura del festival concreto, equipo que llevarás (cámara, objetivos), tipo de credencial solicitada (prensa, fotógrafo, vídeo). Adjuntar dossier de prensa del medio o tres trabajos publicados previos sube enormemente la tasa de aprobación.",
+      ],
+    },
+    {
+      heading: "Qué incluye cada nivel de acreditación: prensa, fotógrafo, vídeo",
+      paragraphs: [
+        "Los festivales suelen ofrecer tres niveles distintos de acreditación, cada uno con accesos diferentes:",
+      ],
+      bullets: [
+        "Acreditación de prensa básica: acceso al recinto los días contratados, sin entrada al foso, con punto de prensa para escribir crónica (mesa, wifi, enchufe), normalmente sin acceso a backstage.",
+        "Acreditación de fotógrafo: incluye los anteriores más acceso al foso durante los 3 primeros temas de cada concierto (regla universal en festivales medianos/grandes), sin flash, sin trípode largo. No incluye acceso libre a backstage.",
+        "Acreditación de vídeo: incluye los anteriores más permiso para grabar 30–60 s por canción de cada concierto (uso editorial solo). Requiere autorización adicional para artistas con restricciones contractuales propias.",
+        "Backstage/VIP profesional: solo se concede en casos puntuales (medio principal del festival, entrevistas confirmadas con artistas), con autorización por escrito de la agencia del artista en cuestión.",
+        "Punto de prensa: la mayoría de festivales habilita un workroom climatizado con mesas y wifi reservado a acreditados. Imprescindible para entregar crónicas en directo o subir fotos a tiempo.",
+        "Aparcamiento dedicado: algunos festivales (Mad Cool, BBK Live) ofrecen acceso a parking de prensa con plazas reservadas para acreditados que vengan con coche propio o coche compartido a través de ConcertRide.",
+      ],
+    },
+    {
+      heading: "Errores que descartan al 80 % de las solicitudes",
+      paragraphs: [
+        "Las personas que tramitan acreditaciones en festivales españoles repiten los mismos errores que ven una y otra vez en solicitudes de medios pequeños o aspirantes a fotógrafo:",
+      ],
+      bullets: [
+        "Solicitar con plazo cumplido: el gabinete cierra solicitudes 30–45 días antes y no acepta retrasos.",
+        "Sin URL de cobertura previa: si tu blog tiene 0 entradas en los últimos 12 meses, te descartan automáticamente.",
+        "Pedir credencial de fotógrafo sin porfolio de música en vivo: hace falta enseñar 3–5 trabajos publicados de directos.",
+        "No justificar por qué cubres ESE festival concreto: 'me gusta la música' no es motivación; 'cobertura para [medio X] de [artistas Y, Z]' sí lo es.",
+        "Solicitar con email genérico (Gmail/Hotmail) sin dominio del medio: parece dudoso. Mejor email con dominio del medio.",
+        "Pedir tres días con credencial de fotógrafo cuando vas a cubrir un solo concierto: solicita solo el día concreto.",
+        "Confundir 'prensa' con 'content creator': son procesos paralelos pero separados, con condiciones distintas.",
+      ],
+    },
+  ],
+  faqs: [
+    {
+      q: "¿Cuántas fotos suelo poder publicar tras un festival si soy fotógrafo acreditado?",
+      a: "Las condiciones las pone el gabinete de prensa del festival y, sobre todo, las agencias de los artistas. Lo más habitual es: uso editorial libre (publicar en el medio para el que cubres durante 1–6 meses), prohibición de venta a terceros sin autorización, créditos visibles del fotógrafo y del medio. Para uso comercial (camisetas, posters) hace falta licencia adicional. Lee siempre las condiciones que firmas al recoger la credencial.",
+    },
+    {
+      q: "¿Puedo cubrir un festival como freelance sin medio detrás?",
+      a: "Sí, pero con dificultad. Algunos festivales aceptan freelances con porfolio sólido y carta de encargo de una publicación que va a publicar tu trabajo. Lo más realista para empezar: acuerda cobertura con un blog/medio mediano y solicita la acreditación a su nombre antes del cierre de plazo. Las acreditaciones a freelances 'puros' sin medio detrás son cada vez menos frecuentes.",
+    },
+    {
+      q: "¿Sale rentable un viaje en coche compartido para cubrir un festival?",
+      a: "Para un freelance o periodista de medio pequeño, sí. Un Madrid–Mad Cool en coche compartido cuesta unos 14–22 € por asiento (frente a 60–80 € en taxi o 30–40 € en AVE). Para cobertura de tres días con equipo (cámara, ordenador, trípode), el coche propio o el coche compartido con maletero amplio es la opción más cómoda. ConcertRide permite filtrar por tamaño de maletero en cada viaje publicado.",
+    },
+  ],
+  relatedLinks: [
+    { label: "Cómo funciona ConcertRide", to: "/como-funciona" },
+    { label: "Festivales en España 2026", to: "/festivales" },
+    { label: "Buscar un viaje", to: "/buscar" },
+    { label: "Pulseras RFID en festivales 2026", to: "/blog/festival-mejores-pulseras-RFID-electronicas-2026" },
+  ],
+  relatedPosts: [
+    "festival-mejores-pulseras-RFID-electronicas-2026",
+    "festival-zonas-acotadas-front-stage-trasera-2026",
+  ],
+  coverImage: {
+    src: "/og/home.png",
+    alt: "Zonas de prensa y fotógrafo en festivales españoles 2026 — ConcertRide",
+    width: 1200,
+    height: 630,
+  },
+});
+
+BLOG_POSTS.push({
+  slug: "comprar-entradas-festival-paypal-vs-tarjeta-2026",
+  metaTitle: "PayPal vs tarjeta para entradas festival 2026: comparativa",
+  metaDescription:
+    "PayPal o tarjeta para comprar entradas de festival 2026: comisiones reales, protección al comprador, plazo de reembolso y casos prácticos.",
+  title: "PayPal vs tarjeta para comprar entradas de festival 2026",
+  h1: "Comprar entradas de festival 2026: PayPal vs tarjeta comparado",
+  excerpt:
+    "Comisiones reales, protección al comprador y plazo de reembolso: PayPal vs tarjeta de débito o crédito para comprar entradas de festival en 2026. Datos reales.",
+  category: "comparativas",
+  tags: ["entradas", "PayPal", "tarjeta", "festivales 2026"],
+  publishedAt: "2026-05-20T09:30:00.000Z",
+  author: "Equipo ConcertRide",
+  readingMinutes: 6,
+  lede:
+    "Comprar una entrada de festival en España en 2026 implica una elección que mucha gente hace en automático: PayPal o tarjeta. La diferencia entre ambos métodos no es solo de comodidad: cambia la comisión final que paga el festival (y que termina repercutiendo en el precio), la protección del comprador si hay problemas y el plazo en el que recibirás el reembolso si el evento se cancela. Esta comparativa cruza datos reales: PayPal cobra 2,9 % + 0,35 € por transacción, las TPV de tarjeta entre 1 y 1,5 % y los plazos legales del reembolso son los mismos pero la práctica difiere.",
+  sections: [
+    {
+      heading: "Las dos opciones reales: PayPal y tarjeta (Visa/Mastercard/débito)",
+      paragraphs: [
+        "El 95 % de las compras de entradas en festivales españoles se hacen por uno de estos dos canales: PayPal o tarjeta (débito Visa/Mastercard/Maestro, o crédito Visa Premier/Gold). Otros medios (Bizum, transferencia bancaria) son minoritarios y solo aceptados por festivales pequeños. Apple Pay y Google Pay funcionan como cubiertas sobre la tarjeta original, así que se rigen por las mismas reglas.",
+        "PayPal y la tarjeta cobran al usuario el mismo importe final (el festival no puede aplicar recargo por método de pago según el Real Decreto-ley 19/2018 de servicios de pago). Pero internamente, las comisiones que paga el festival al procesador difieren: PayPal cobra 2,9 % + 0,35 € por transacción al organizador (puede negociarse al alza por volumen), una TPV Visa/Mastercard cobra entre 1 % y 1,5 % a través del banco adquirente.",
+        "Si bien el precio final es el mismo, lo que cambia es la experiencia del comprador frente a problemas: PayPal incluye su 'Protección del comprador' con plazo de reclamación de 180 días, las tarjetas Visa/Mastercard incluyen 'chargeback' bancario con plazo de 120 días.",
+      ],
+    },
+    {
+      heading: "Protección al comprador: PayPal vs chargeback",
+      paragraphs: [
+        "La protección efectiva si el festival no entrega lo prometido o cancela es la diferencia clave entre PayPal y tarjeta. PayPal ofrece su 'Protección del comprador' de 180 días tras la transacción: abres una reclamación, PayPal congela el dinero al vendedor mientras investiga, y normalmente resuelve en 7–30 días. Funciona muy bien con festivales pequeños o desconocidos.",
+        "La tarjeta Visa/Mastercard ofrece 'chargeback' (contracargo) a través de tu banco emisor con un plazo de 120 días desde la fecha del cargo (no del festival). El banco devuelve el dinero a tu cuenta y reclama al festival. Es eficaz si guardas el justificante de compra y el del incumplimiento (email del festival anunciando cancelación, captura de pantalla).",
+        "En la práctica: si compras una entrada para un festival nacional con organizador conocido (Live Nation, Last Tour, Doctor Music), ambos métodos protegen igual de bien. Si compras a un festival pequeño, nuevo o internacional con organizador opaco, PayPal con su Protección del comprador suele ser más rápido para recuperar el dinero.",
+      ],
+    },
+    {
+      heading: "Plazo de reembolso en caso de cancelación: 14 días por ley",
+      paragraphs: [
+        "El plazo legal para el reembolso de una entrada en caso de cancelación es el mismo independientemente del método de pago: 14 días naturales desde el anuncio oficial, según el Real Decreto Legislativo 1/2007 (Ley General para la Defensa de los Consumidores). Si el festival supera ese plazo, puedes reclamar intereses legales por mora.",
+        "La diferencia en la práctica: con tarjeta, el reembolso lo ejecuta el festival y aparece en tu cuenta 2–5 días hábiles después de la orden. Con PayPal, el reembolso se ejecuta a tu saldo PayPal en horas (instantáneo si es desde la cuenta del vendedor) y luego tardas otros 2–3 días hábiles si quieres traspasarlo al banco.",
+        "Si el festival se demora y no reembolsa: con tarjeta, abres chargeback (más papel pero con respaldo bancario formal). Con PayPal, abres reclamación en su sistema y la decisión es interna del operador. Para festivales que han desaparecido (organizador insolvente), ambos sistemas funcionan, pero el chargeback con tarjeta de crédito (no de débito) suele cubrir el 100 % del importe sin discusión.",
+      ],
+    },
+    {
+      heading: "Casos prácticos: qué elegir según escenario",
+      paragraphs: [
+        "Recomendaciones de método de pago según el escenario habitual:",
+      ],
+      bullets: [
+        "Festival grande nacional con organizador conocido (Mad Cool, Primavera Sound, BBK Live): tarjeta o PayPal, indistinto. Ambos seguros.",
+        "Festival pequeño, nuevo o sin historial previo: PayPal por su Protección del comprador de 180 días.",
+        "Festival internacional con web en idioma distinto al español: PayPal (cambio de divisa automático y protección común).",
+        "Entrada de segunda mano comprada en reventa autorizada: PayPal con Protección obligatorio. Evita transferencias bancarias.",
+        "Compra anticipada con 6+ meses de antelación: tarjeta de crédito (chargeback funciona hasta 120 días) o PayPal.",
+        "Para abonos caros (200–400 €) y mejor protección legal: tarjeta de crédito con seguro de viaje incluido (Visa Premier, Gold, Platinum).",
+        "Evita siempre: transferencia bancaria a cuenta privada, Bizum a número desconocido, criptomonedas a wallet de un revendedor.",
+      ],
+    },
+  ],
+  faqs: [
+    {
+      q: "¿Pierdo dinero por usar PayPal en lugar de tarjeta?",
+      a: "No: el festival no puede repercutirte la comisión (es ilegal en España desde 2018). Pagas el mismo precio final. Lo que cambia es la comisión interna que paga el festival al procesador (PayPal 2,9 % + 0,35 €, TPV 1–1,5 %), pero eso no se traslada al ticket final del comprador.",
+    },
+    {
+      q: "¿Puedo pagar con PayPal en la taquilla del festival el mismo día?",
+      a: "Depende: algunas taquillas tienen TPV con NFC y aceptan Apple Pay/Google Pay, pero no siempre PayPal directo. La mayoría de festivales españoles solo acepta tarjeta física o efectivo en taquilla del día del evento. Para máxima seguridad, compra anticipada online y guarda el ticket digital.",
+    },
+    {
+      q: "¿Sirve el coche compartido para repartir el coste de la entrada entre amigos?",
+      a: "ConcertRide solo gestiona el transporte (pago del asiento al conductor por Bizum, efectivo o transferencia). El coste de la entrada del festival es independiente y cada asistente la compra individualmente en la web oficial. Lo que sí se reparte fácilmente entre los 4 ocupantes de un coche es el combustible, los peajes y el coste total del viaje compartido — eso suele ahorrar más que cualquier descuento por entrada anticipada.",
+    },
+  ],
+  relatedLinks: [
+    { label: "Cómo funciona ConcertRide", to: "/como-funciona" },
+    { label: "Festivales en España 2026", to: "/festivales" },
+    { label: "Buscar un viaje", to: "/buscar" },
+    { label: "Festival cancelado última hora: reembolso 2026", to: "/blog/festivales-cancelados-ultima-hora-reembolso-2026" },
+  ],
+  relatedPosts: [
+    "festivales-cancelados-ultima-hora-reembolso-2026",
+    "festival-mejores-pulseras-RFID-electronicas-2026",
+  ],
+  coverImage: {
+    src: "/og/home.png",
+    alt: "PayPal vs tarjeta para entradas de festival 2026 — ConcertRide",
+    width: 1200,
+    height: 630,
+  },
+});
+
+BLOG_POSTS.push({
+  slug: "festival-comparativa-precio-cerveza-marca-2026",
+  metaTitle: "Precio cerveza festivales España 2026: comparativa marcas",
+  metaDescription:
+    "Cuánto cuesta la caña en Mad Cool, Primavera Sound, BBK Live y más festivales 2026. Comparativa por marca: Estrella Damm, Mahou, San Miguel, Heineken.",
+  title: "Precio cerveza en festivales España 2026: comparativa marcas",
+  h1: "Cuánto cuesta una cerveza en cada festival español 2026",
+  excerpt:
+    "Precio real de la caña en los principales festivales españoles 2026, por marca patrocinadora: Estrella Damm, Mahou, San Miguel, Heineken. Datos cruzados.",
+  category: "comparativas",
+  tags: ["cerveza", "precios", "festivales 2026", "barras"],
+  publishedAt: "2026-05-20T09:45:00.000Z",
+  author: "Equipo ConcertRide",
+  readingMinutes: 6,
+  lede:
+    "La caña dentro del recinto de un festival español cuesta entre 4 y 7 € en 2026. La diferencia depende de tres cosas: la marca patrocinadora oficial (Estrella Damm en Primavera Sound, Mahou en Mad Cool, San Miguel en BBK Live, Estrella Galicia en Resurrection Fest y Heineken en Sónar), el tamaño del vaso (caña 25–33 cl, pinta 50 cl o vaso reutilizable de la marca) y la política de cashless. Esta guía recoge precios reales recogidos en las ediciones recientes y explica cómo se reparte el margen entre festival y marca.",
+  sections: [
+    {
+      heading: "Las 5 marcas que patrocinan los festivales españoles grandes",
+      paragraphs: [
+        "El mercado de patrocinios de cerveza en festivales españoles está dominado por cinco marcas, cada una con presencia geográfica concreta: Mahou (Madrid y centro de España, patrocinador de Mad Cool desde hace años), Estrella Damm (Cataluña, patrocinador de Primavera Sound, Sónar de día/noche y Cruïlla), San Miguel (centro y norte, patrocinador habitual de BBK Live junto con la propia organización Last Tour), Estrella Galicia (Galicia y Asturias, patrocinador de Resurrection Fest y O Son do Camiño) y Heineken (presencia rotatoria en Sónar y festivales catalanes).",
+        "Los acuerdos de patrocinio cubren tres ámbitos: exclusividad en el recinto (la marca patrocinadora es la única cerveza a la venta), branding visible (escenarios, vasos, lonas, pulseras) y rebajas operativas (la marca aporta personal de barra y vasos reutilizables). El festival recibe entre 100.000 y 1.000.000 € por acuerdo según tamaño del evento.",
+        "Por eso no se puede comprar 'la cerveza que te apetezca' dentro de un festival: solo está la del patrocinador. Si vas a varios festivales en una temporada, irás cambiando obligatoriamente de marca.",
+      ],
+    },
+    {
+      heading: "Precio real por festival: la caña en 2026",
+      paragraphs: [
+        "Precios recogidos en las ediciones recientes (2024–2025) y previstos para 2026, con horquillas que reflejan la diferencia entre caña pequeña y pinta o vaso premium. Las cifras incluyen el coste del vaso reutilizable obligatorio en muchos festivales (1–2 € retornable):",
+      ],
+      bullets: [
+        "Mad Cool (Mahou): caña 33 cl 5–6 €, pinta 50 cl 7–8 €, vaso reutilizable retornable 2 €.",
+        "Primavera Sound (Estrella Damm): caña 33 cl 4,50–5,50 €, pinta 50 cl 6,50–7,50 €, vaso reutilizable retornable 1 €.",
+        "Sónar (Estrella Damm): caña 33 cl 5–6 €, pinta 50 cl 7–8 €, vaso reutilizable retornable 1 €.",
+        "BBK Live (San Miguel): caña 33 cl 4,50–5,50 €, pinta 50 cl 6,50–7,50 €, vaso reutilizable retornable 1–2 €.",
+        "Resurrection Fest (Estrella Galicia): caña 33 cl 4,50–5,50 €, pinta 50 cl 6,50–7,50 €, vaso reutilizable retornable 1 €.",
+        "Arenal Sound (Mahou/Estrella Damm rotatorio): caña 33 cl 4,50–5,50 €, pinta 50 cl 6,50–7,50 €, vaso retornable 1 €.",
+        "Viña Rock (Mahou): caña 33 cl 4–5 €, pinta 50 cl 6–7 €, vaso retornable 1 €.",
+        "Sonorama Ribera (Mahou): caña 33 cl 4,50–5,50 €, pinta 50 cl 6,50–7,50 €, vaso retornable 1 €.",
+      ],
+    },
+    {
+      heading: "Cómo se reparte el margen entre festival y marca",
+      paragraphs: [
+        "Sobre una caña de 5,50 € (precio medio en festival grande), el reparto aproximado del margen es: coste de la cerveza (producto en barril, 33 cl) 0,40–0,60 €, vaso reutilizable amortizado 0,20 €, personal de barra (TPV cashless) 0,40 €, IVA al 10 % 0,50 €, margen del festival 2 €, margen de la marca patrocinadora 1,80 €. Es un margen muy alto comparado con un bar de calle (donde la misma caña cuesta 2,50–3,50 €).",
+        "El motivo no es estrictamente el coste: es la economía de monopolio dentro del recinto (la única cerveza disponible es la del patrocinador), el coste de montar y operar barras temporales para 50.000 personas durante 3 días, y la inversión en infraestructura de cashless. La rebaja de impuestos sobre alcohol en festivales también es nula: el IVA del 10 % se aplica como en cualquier bar.",
+        "Por eso muchos asistentes habituales planifican un consumo realista: 4–6 cañas por jornada × 5,50 € = 22–33 € diarios solo en cerveza. Multiplicado por 3 días, 66–99 € por fin de semana solo en bebida.",
+      ],
+    },
+    {
+      heading: "Cómo reducir el gasto en bebida sin sufrir el festival",
+      paragraphs: [
+        "Estrategias reales que se ven una y otra vez entre los asistentes habituales:",
+      ],
+      bullets: [
+        "Hidrátate antes con agua: ir bien hidratado al recinto reduce el consumo compulsivo en las primeras horas.",
+        "Compra packs anticipados de cashless con descuento por volumen: algunos festivales ofrecen 30 € de saldo por 25 € pagados con antelación.",
+        "Alterna agua y cerveza: el agua suele ser gratuita en fuentes de agua potable obligatorias por normativa autonómica.",
+        "Devuelve el vaso reutilizable al final: 1–2 € por vaso × 12 vasos = 12–24 € que recuperas al cierre del festival.",
+        "Cena fuera del recinto: las cervezas en el bar de la ciudad cabecera cuestan 2,50–3,50 € (mitad que en festival).",
+        "Solicita el reembolso del saldo no consumido en el plazo legal (7–30 días según festival).",
+        "Vete en coche compartido para repartir todos los gastos del viaje y dejar más presupuesto para el festival en sí.",
+      ],
+    },
+  ],
+  faqs: [
+    {
+      q: "¿Por qué cobra el festival más cara la cerveza que un bar normal?",
+      a: "Por tres motivos sumados: exclusividad de marca patrocinadora dentro del recinto (no hay competencia), coste de montar barras temporales para decenas de miles de personas y margen del festival como ingreso principal junto con la entrada. El IVA es el mismo (10 %), no hay impuestos festivaleros. El precio refleja el monopolio temporal y los costes operativos de barras móviles.",
+    },
+    {
+      q: "¿Puedo entrar bebida alcohólica al recinto del festival?",
+      a: "No. Todos los festivales españoles grandes prohíben la entrada de bebida alcohólica al recinto (lo recoge expresamente la normativa de cada evento). Los controles de acceso revisan mochilas y descartan bebidas, comida en grandes cantidades, vasos rígidos y sprays. Sí se permite agua en envases blandos sellados (1–1,5 L por persona habitualmente).",
+    },
+    {
+      q: "¿Existe alguna alternativa más barata a la cerveza en festival?",
+      a: "Sí: el agua de fuentes públicas obligatorias (gratuita por normativa autonómica), los refrescos sin alcohol (3–4 €, ligeramente más baratos), el café/té en zona de food trucks (3–4 €) y el vino o sangría (5–7 €, parecido). La cerveza es el producto más vendido y por tanto el que más visibilidad tiene, pero no es el más caro por mililitro.",
+    },
+  ],
+  relatedLinks: [
+    { label: "Cuánto cuesta ir a un festival en España 2026", to: "/blog/cuanto-cuesta-ir-festival-espana-presupuesto-2026" },
+    { label: "Buscar un viaje", to: "/buscar" },
+    { label: "Bono 1 día vs abono 3 días: cuál sale mejor", to: "/blog/festival-comparativa-bono-1dia-3dias-coste-2026" },
+    { label: "Mejor bebida no alcohólica en festival 2026", to: "/blog/festival-mejor-bebida-no-alcoholica-2026" },
+  ],
+  relatedPosts: [
+    "cuanto-cuesta-ir-festival-espana-presupuesto-2026",
+    "festival-comparativa-bono-1dia-3dias-coste-2026",
+  ],
+  coverImage: {
+    src: "/og/home.png",
+    alt: "Precio de la cerveza en festivales españoles 2026 — ConcertRide",
+    width: 1200,
+    height: 630,
+  },
+});
+
+BLOG_POSTS.push({
+  slug: "festival-comparativa-bono-1dia-3dias-coste-2026",
+  metaTitle: "Bono 1 día vs abono 3 días festival 2026: cuál sale mejor",
+  metaDescription:
+    "Entrada de 1 día vs abono completo en festivales españoles 2026: precio real, qué incluye cada uno y cuándo compensa cada opción. Datos por festival.",
+  title: "Bono 1 día vs abono 3 días festival 2026: comparativa real",
+  h1: "Entrada 1 día vs abono completo en festivales españoles 2026",
+  excerpt:
+    "Cuánto cuesta una entrada de 1 día comparada con el abono completo en Mad Cool, Primavera Sound, BBK Live y más festivales 2026. Ratio típico 50–60 %.",
+  category: "comparativas",
+  tags: ["bonos", "abonos", "precios", "festivales 2026"],
+  publishedAt: "2026-05-20T10:00:00.000Z",
+  author: "Equipo ConcertRide",
+  readingMinutes: 6,
+  lede:
+    "Antes de comprar la entrada de un festival, mucha gente duda entre la entrada de 1 día (la del día con su artista favorito) o el abono completo de 3 días. La regla general en festivales españoles para 2026 es clara: la entrada de 1 día cuesta entre el 50 % y el 60 % del abono completo. Si vas a ir 2 días, el abono ya compensa; si solo te interesa 1 día, conviene comprarla suelta. Esta guía cruza precios reales por festival y explica las excepciones por las que a veces sale mejor pagar el abono aunque solo vayas un día.",
+  sections: [
+    {
+      heading: "La regla general: ratio 50–60 % por día suelto vs abono",
+      paragraphs: [
+        "En festivales españoles grandes con 3 días de programación, el reparto del precio entre bonos y abono completo sigue una proporción estable: el bono de 1 día equivale al 50–60 % del abono de 3 días. Por ejemplo, si el abono cuesta 150 €, el bono de 1 día suele estar entre 75 y 90 €. El motivo es comercial: el festival quiere incentivar la compra del abono porque maximiza el ingreso por asistente y reduce la rotación operativa (mismo aforo, sin nuevos accesos cada día).",
+        "Esto implica que si solo te interesa 1 día, comprar el bono de 1 día es la opción racional. Si tienes interés en 2 días o más, el abono completo sale a cuenta porque rompes la regla: 2 bonos de 1 día = 100–120 % del precio del abono completo. A partir del segundo día, el abono compensa siempre.",
+        "Hay excepciones a esta regla en festivales de 4 días (Primavera Sound, Sónar) y en festivales boutique pequeños donde la diferencia se estrecha hasta el 70–80 %.",
+      ],
+    },
+    {
+      heading: "Precio real por festival: bono 1 día vs abono completo 2026",
+      paragraphs: [
+        "Precios orientativos para 2026 según los anuncios oficiales y la evolución de las últimas ediciones. Las cifras varían si la entrada se compra en fase early-bird, fase 1 o fase final (las fases anticipadas ofrecen descuento de 10–20 %):",
+      ],
+      bullets: [
+        "Mad Cool (4 días, julio): bono 1 día 95–115 €, abono completo 195–230 €. Ratio 49–50 %.",
+        "Primavera Sound (4 días, junio): bono 1 día 90–110 €, abono completo 215–260 €. Ratio 42–50 %.",
+        "Sónar (3 días, junio): bono 1 día 60–80 €, abono completo 150–185 €. Ratio 40–43 %.",
+        "BBK Live (3 días, julio): bono 1 día 70–85 €, abono completo 140–170 €. Ratio 50 %.",
+        "Resurrection Fest (3 días, julio): bono 1 día 75–95 €, abono completo 145–175 €. Ratio 52–54 %.",
+        "Arenal Sound (4 días, agosto): bono 1 día 50–65 €, abono completo 100–130 €. Ratio 50 %.",
+        "Viña Rock (3 días, abril): bono 1 día 50–60 €, abono completo 100–120 €. Ratio 50 %.",
+        "Sonorama Ribera (4 días, agosto): bono 1 día 55–70 €, abono completo 110–135 €. Ratio 50–52 %.",
+      ],
+    },
+    {
+      heading: "Cuándo sale rentable el abono aunque vayas 1 día",
+      paragraphs: [
+        "Hay tres escenarios reales en los que comprar el abono completo te compensa aunque solo vayas 1 día confirmado:",
+      ],
+      bullets: [
+        "Si reservas el abono en fase early-bird (con 8–10 meses de antelación) puedes pagar 100–120 € por un abono cuyo precio final será 200 €. En ese caso, el bono de 1 día comprado tarde puede costar más que el abono early-bird.",
+        "Si compras a través de una promoción especial (joven menor de 25 años, descuento UGT, oferta del banco patrocinador) el descuento del 15–25 % suele aplicarse solo a abonos completos, no a bonos de 1 día.",
+        "Si te interesa el camping incluido: en algunos festivales (Arenal Sound, Viña Rock, Sonorama, Resurrection Fest) el abono completo lleva acceso al camping incluido, mientras que el bono de 1 día no. Si necesitas alojamiento, el abono con camping puede ahorrar más que el coste del bono.",
+        "Si planeas decidir sobre la marcha qué días ir: el abono te permite cambiar de opinión y volver más días sin pagar más.",
+      ],
+    },
+    {
+      heading: "Cuándo el bono de 1 día es la opción claramente mejor",
+      paragraphs: [
+        "Por el contrario, hay casos en los que el bono de 1 día es siempre la opción más eficiente:",
+      ],
+      bullets: [
+        "Solo te interesa un artista específico (cabeza de cartel de un día concreto) y no piensas asistir al resto.",
+        "Vienes de fuera y solo dispones de un día libre por trabajo o estudios.",
+        "Vas a coordinar el viaje con otros amigos y solo te encajan 1 día de los 3–4 disponibles.",
+        "El precio del bono completo se ha disparado por encima del doble del bono de 1 día (ratio mayor del 60 %).",
+        "Vas con niños o personas mayores que solo aguantan 1 día de festival.",
+        "Tu presupuesto total para el festival (entrada + viaje + comida + bebida) no llega a cubrir 3–4 días completos.",
+      ],
+    },
+  ],
+  faqs: [
+    {
+      q: "¿Qué descuentos hay por compra anticipada?",
+      a: "Los festivales españoles operan en fases: early-bird (mayor descuento, 25–35 % sobre precio final), fase 1 (15–20 %), fase 2 (5–10 %), precio final (sin descuento). Cuanto antes compres, más barato. En festivales muy populares (Mad Cool, Primavera Sound) las primeras fases se agotan en horas; en festivales medianos pueden quedar a la venta varias semanas. Suscribirse al boletín del festival es la forma más rápida de enterarse del lanzamiento.",
+    },
+    {
+      q: "¿Vale la pena el camping incluido en el abono?",
+      a: "Depende. En festivales como Arenal Sound, Viña Rock, Resurrection Fest o Sonorama Ribera, el camping incluido ahorra el coste de 3–4 noches de alojamiento (30–80 €/noche en hotel cercano). En festivales sin camping oficial (Mad Cool, Primavera Sound, BBK Live), el abono no incluye alojamiento y tienes que reservar hotel, hostel o piso aparte.",
+    },
+    {
+      q: "¿Cómo encaja el coche compartido con la elección de bono o abono?",
+      a: "El coche compartido es independiente del tipo de entrada: el coste del viaje se reparte entre los ocupantes del coche, no depende de cuántos días vayas al festival. Lo que sí ayuda: si vas solo 1 día, encontrar coche compartido de ida y vuelta el mismo día es más fácil que coordinar 3–4 noches. ConcertRide permite reservar trayectos separados de ida y vuelta o pack completo.",
+    },
+  ],
+  relatedLinks: [
+    { label: "Cuánto cuesta ir a un festival en España 2026", to: "/blog/cuanto-cuesta-ir-festival-espana-presupuesto-2026" },
+    { label: "Buscar un viaje", to: "/buscar" },
+    { label: "Festival 1 día vs fin de semana completo 2026", to: "/blog/festival-un-dia-vs-fin-de-semana-completo-2026" },
+    { label: "Cómo funciona ConcertRide", to: "/como-funciona" },
+  ],
+  relatedPosts: [
+    "festival-un-dia-vs-fin-de-semana-completo-2026",
+    "cuanto-cuesta-ir-festival-espana-presupuesto-2026",
+  ],
+  coverImage: {
+    src: "/og/home.png",
+    alt: "Bono 1 día vs abono completo festival 2026 — ConcertRide",
+    width: 1200,
+    height: 630,
+  },
+});
+
+BLOG_POSTS.push({
+  slug: "festival-mejor-bebida-no-alcoholica-2026",
+  metaTitle: "Mejor bebida no alcohólica festival 2026: hidratación real",
+  metaDescription:
+    "Qué bebida no alcohólica elegir en festivales españoles 2026: agua, isotónica, refresco, café. Comparativa por precio e hidratación efectiva.",
+  title: "Mejor bebida no alcohólica en festival 2026: guía de hidratación",
+  h1: "Bebidas sin alcohol en festivales españoles 2026: qué pedir",
+  excerpt:
+    "Agua, isotónica, refresco, té helado o café: cuál es la mejor bebida no alcohólica para hidratarse en un festival español 2026 sin disparar el presupuesto.",
+  category: "guias",
+  tags: ["hidratación", "bebida", "festivales 2026", "sin alcohol"],
+  publishedAt: "2026-05-20T10:15:00.000Z",
+  author: "Equipo ConcertRide",
+  readingMinutes: 6,
+  lede:
+    "Estar 9 horas seguidas en un festival de verano en España con temperaturas de 28–38 °C y consumir solo cerveza es la receta para terminar el primer día deshidratado, con resaca y sin energía para el resto del fin de semana. La bebida no alcohólica que elijas dentro del recinto marca la diferencia entre aguantar el cartel completo o irte a casa el sábado por la mañana. Esta guía compara las cinco opciones más realistas (agua, isotónica, refresco, té helado, café) por precio, hidratación efectiva y disponibilidad en festivales españoles 2026.",
+  sections: [
+    {
+      heading: "Las 5 opciones reales sin alcohol en festival",
+      paragraphs: [
+        "Dentro del recinto de un festival español grande encontrarás siempre estas cinco categorías de bebida sin alcohol: agua (tanto embotellada en barras como en fuentes potables obligatorias por normativa autonómica), bebida isotónica (Aquarius, Powerade o Gatorade según el patrocinador), refresco (Coca-Cola, Fanta, Sprite, Schweppes), té helado (Nestea, Lipton) y café/té caliente (en food trucks de zona gastronómica).",
+        "El agua de las fuentes públicas obligatorias es siempre gratuita y potable: la normativa autonómica obliga a los festivales a habilitar puntos de agua para llenar botellas. Las barras venden agua embotellada de 33 cl a 2,50–3,50 € y de 50 cl a 3,50–4,50 €. La diferencia entre comprar agua embotellada y rellenar tu botella propia es de 100 € en tres días, sin exagerar.",
+        "Las bebidas isotónicas y los refrescos cuestan 3–4 € por lata 33 cl. El café/té caliente, 3–4 € en food truck especializado. Los precios no varían sustancialmente por festival: la horquilla 3–4 € es estándar en España para bebida no alcohólica en festival.",
+      ],
+    },
+    {
+      heading: "Hidratación efectiva: agua vs isotónica vs refresco",
+      paragraphs: [
+        "Para hidratar de verdad después de 4 horas saltando en el recinto a 32 °C, las cinco opciones no son equivalentes. El criterio médico estándar (recomendado por la AESAN y la SEDCA, sociedades españolas de nutrición) prioriza así:",
+        "Agua: óptimo para hidratación normal (sin ejercicio intenso) y la opción más barata. La calidad del agua de las fuentes públicas obligatorias de los festivales españoles cumple normativa potable y es perfectamente segura. Llena la botella reutilizable cada hora.",
+        "Bebida isotónica (Aquarius, Powerade): mejor opción para reponer sales tras 3+ horas de baile intenso o tras sudoración fuerte. Aporta sodio y potasio, pero también 35–50 g de azúcar por lata. No es bebida diaria.",
+        "Refresco con azúcar (Coca-Cola, Fanta): hidrata mal por la cantidad de azúcar (35–40 g por lata) que ralentiza la absorción. Mejor como bebida ocasional, no como hidratación principal.",
+        "Té helado: posición intermedia. Hidrata mejor que el refresco si tiene menos azúcar, peor que el agua. La cafeína de algunos tés tiene efecto ligeramente diurético.",
+        "Café: efecto diurético ligero. No sirve como hidratación; sirve solo para mantenerte despierto los conciertos de madrugada.",
+      ],
+    },
+    {
+      heading: "Cómo planificar la bebida no alcohólica para 3 días de festival",
+      paragraphs: [
+        "Una pauta realista de consumo de bebida no alcohólica para un fin de semana de festival español en verano, según fuentes nutricionales españolas:",
+      ],
+      bullets: [
+        "Llena tu botella reutilizable de 1 L en la fuente potable al menos 3 veces al día (3 L total).",
+        "Añade 1 isotónica de 33 cl al día después del momento de mayor actividad (cabeza de cartel, baile intenso).",
+        "Refresco con azúcar: 1 lata como mucho al día (es premio, no hidratación).",
+        "Café/té: 1–2 cafés en jornada nocturna si necesitas aguantar hasta las 4:00 am.",
+        "Si te das cuenta de que tienes la boca pastosa, la orina amarilla oscura o dolor de cabeza, pasa a agua o isotónica de inmediato: son señales claras de deshidratación.",
+        "Antes de salir hacia el festival, bebe 500 ml de agua. En el coche compartido tendrás 3–6 horas de viaje, hidrátate progresivamente.",
+        "Al final del día, antes de dormir, bebe 500 ml de agua o isotónica suave. Te despertarás con mejor estado.",
+      ],
+    },
+    {
+      heading: "Precio total estimado de bebida no alcohólica para 3 días",
+      paragraphs: [
+        "Sumando un consumo realista de un asistente medio para tres jornadas de festival (sin contar alcohol):",
+      ],
+      bullets: [
+        "Agua de fuente pública (gratuita, 9 L total): 0 €.",
+        "Agua embotellada de barra (2–3 botellas de 33 cl como complemento): 6–10 €.",
+        "Isotónica (3 latas, 1 al día): 9–12 €.",
+        "Refresco con azúcar (2 latas en total): 6–8 €.",
+        "Café o té (3 cafés en jornadas nocturnas): 9–12 €.",
+        "Total estimado bebida no alcohólica para 3 días: 30–42 €.",
+        "Por comparación, 3 días bebiendo solo cerveza a 5,50 €/caña (consumo medio 5 cañas/día): 82 € total + dolor de cabeza el lunes.",
+      ],
+    },
+  ],
+  faqs: [
+    {
+      q: "¿Puedo entrar agua embotellada al recinto de un festival?",
+      a: "La mayoría de festivales españoles permite entrar agua en envases blandos sellados (botellas de plástico sin tapa rígida) hasta 1–1,5 L por persona. Las botellas con tapa rígida y los envases de cristal están prohibidos por seguridad. Dentro del recinto puedes rellenar tu botella reutilizable en las fuentes potables obligatorias.",
+    },
+    {
+      q: "¿La fuente de agua del festival es segura?",
+      a: "Sí. La normativa autonómica obliga a los festivales a habilitar puntos de agua potable con caudal suficiente y la calidad del agua se controla periódicamente (analíticas obligatorias). En zonas calurosas el caudal puede no dar abasto en horas pico; conviene rellenar antes del cabeza de cartel.",
+    },
+    {
+      q: "¿Vale la pena llevar bebida desde casa en el coche compartido?",
+      a: "Sí, para el trayecto. Llevar 2–3 botellas de agua frías en el coche compartido para el viaje de ida es lo más cómodo (1 L por persona × 4 ocupantes = 4 L de hidratación durante el viaje y la primera entrada al recinto). En la mayoría de coches compartidos hay nevera portátil o el conductor lleva una. Coordinar esto en el chat de la app antes de salir es trivial.",
+    },
+  ],
+  relatedLinks: [
+    { label: "Buscar un viaje", to: "/buscar" },
+    { label: "Precio cerveza festivales 2026", to: "/blog/festival-comparativa-precio-cerveza-marca-2026" },
+    { label: "Qué llevar a un festival: lista 40 items 2026", to: "/blog/que-llevar-festival-lista-definitiva-40-items-2026" },
+    { label: "Cuánto cuesta ir a un festival en España 2026", to: "/blog/cuanto-cuesta-ir-festival-espana-presupuesto-2026" },
+  ],
+  relatedPosts: [
+    "festival-comparativa-precio-cerveza-marca-2026",
+    "que-llevar-festival-lista-definitiva-40-items-2026",
+  ],
+  coverImage: {
+    src: "/og/home.png",
+    alt: "Bebidas no alcohólicas en festival 2026 — ConcertRide",
+    width: 1200,
+    height: 630,
+  },
+});
+
+BLOG_POSTS.push({
+  slug: "carpooling-festival-con-ninos-asientos-seguros-2026",
+  metaTitle: "Carpooling festival con niños 2026: asientos seguros DGT",
+  metaDescription:
+    "Cómo llevar niños en coche compartido a un festival 2026: normativa DGT, sistema de retención por edad y altura, y cómo coordinar con el conductor.",
+  title: "Carpooling con niños a festival 2026: asientos y normativa",
+  h1: "Coche compartido a festival con niños en 2026: DGT, asientos y consejos",
+  excerpt:
+    "Normativa DGT 2026, sistemas de retención por edad y altura, y consejos reales para ir en coche compartido a un festival con niños menores de 12 años.",
+  category: "guias",
+  tags: ["niños", "carpooling", "DGT", "festivales 2026"],
+  publishedAt: "2026-05-20T10:30:00.000Z",
+  author: "Equipo ConcertRide",
+  readingMinutes: 7,
+  lede:
+    "Llevar a un niño a un festival familiar en España en coche compartido es perfectamente legal y cada vez más común, pero hay que cumplir la normativa de la DGT al pie de la letra. La regla clave: todo menor de 135 cm o menor de 12 años debe ir con sistema de retención infantil (silla, alzador o sistema homologado) en las plazas traseras. Esta guía explica qué silla corresponde a cada edad, cómo coordinar con el conductor el espacio que ocupa la silla y qué festivales españoles 2026 son realmente compatibles con niños pequeños.",
+  sections: [
+    {
+      heading: "La regla DGT 2026: niños menores de 135 cm con sistema de retención",
+      paragraphs: [
+        "La normativa española vigente, recogida en el Reglamento General de Circulación y actualizada en 2015 y revisiones posteriores, es clara: los menores de edad cuya altura no alcance los 135 cm deben usar obligatoriamente un sistema de retención infantil (SRI) homologado y adecuado a su talla y peso. Los menores deben viajar en las plazas traseras, salvo excepciones tasadas. La excepción al asiento delantero solo aplica cuando todas las plazas traseras están ocupadas por otros menores o cuando el vehículo no dispone de plazas traseras (descapotables, comerciales).",
+        "El conductor del vehículo es el responsable directo del cumplimiento. La multa por circular con un menor sin sistema de retención adecuado es de 200 € (la DGT publica el detalle en dgt.es). Más importante: en caso de accidente, viajar sin SRI multiplica por 5 el riesgo de lesiones graves o fallecimiento en el menor.",
+        "La regla del 135 cm es absoluta: no se aplica solo a niños pequeños. Un niño de 11 años que mida 130 cm debe seguir yendo con alzador en el coche compartido a Mad Cool o a Cala Mijas, igual que el de 4 años en su silla del grupo 1.",
+      ],
+    },
+    {
+      heading: "Qué silla o alzador corresponde a cada edad y altura",
+      paragraphs: [
+        "La normativa europea ECE R44/04 y la actualizada R129 (i-Size) clasifican los SRI por grupos según peso y altura del menor:",
+      ],
+      bullets: [
+        "Grupo 0+ (0–13 kg, hasta ~15 meses): silla a contramarcha (orientada hacia atrás). Imprescindible en bebés.",
+        "Grupo 1 (9–18 kg, 1–4 años): silla con arnés de 5 puntos, orientada al frente. Es la silla 'media' clásica.",
+        "Grupo 2 (15–25 kg, 4–7 años aprox): silla con respaldo y cojín, sin arnés propio. Usa el cinturón del coche.",
+        "Grupo 3 (22–36 kg, 7–12 años aprox): alzador con respaldo o sin respaldo (los con respaldo son más seguros). Usa el cinturón del coche.",
+        "i-Size R129: estándar más reciente, basado en altura. Sustituye progresivamente al R44/04. Compatible con anclajes ISOFIX universales.",
+        "El grupo correcto depende del peso y altura del niño, no de su edad. Un niño de 5 años con 18 kg puede seguir necesitando silla con arnés en lugar de alzador.",
+      ],
+    },
+    {
+      heading: "Cómo coordinar la silla con el conductor del coche compartido",
+      paragraphs: [
+        "Para llevar a un niño en coche compartido a un festival, hay tres cosas que coordinar con el conductor antes de reservar el viaje, idealmente en el chat de la app:",
+      ],
+      bullets: [
+        "Avisa que llevas niño: muchos conductores prefieren saberlo antes para garantizar que su coche tiene anclajes ISOFIX disponibles o cinturones traseros funcionales.",
+        "Confirma quién aporta la silla: lo habitual es que la familia traiga su propia silla (la conoce, sabe ajustarla). El conductor solo pone los puntos de anclaje.",
+        "Espacio que ocupa la silla: una silla de grupo 1 ocupa una plaza completa. Un alzador de grupo 3 ocupa menos pero requiere una plaza.",
+        "Tiempo extra para instalar y desinstalar: añade 10–15 minutos al recoger y al dejar. Plánealo para no retrasar al resto del grupo.",
+        "Comprueba el cinturón trasero del vehículo: si el coche tiene anclaje ISOFIX visible (etiqueta entre asiento y respaldo), la instalación es más segura y rápida.",
+        "Lleva agua, snacks y tablet/cuento para el niño durante el trayecto de 3–6 horas hasta el festival.",
+        "Si paráis a comer en ruta, organízate para entrar y salir del coche sin desinstalar la silla cada vez.",
+      ],
+    },
+    {
+      heading: "Festivales españoles 2026 compatibles con niños pequeños",
+      paragraphs: [
+        "No todos los festivales españoles son adecuados para niños menores de 12 años. La distinción clave es: festivales con horario diurno predominante (terminan antes de medianoche o tienen zona infantil), festivales generalistas (cabeza de cartel después de las 23:00) y festivales nocturnos (Sónar de noche, festivales electrónicos).",
+        "Festivales 2026 más amigables con niños: Mallorca Live (Calvià, mayo–junio): zona infantil oficial y horario que termina antes de las 2:00. Cala Mijas (Mijas, septiembre): playa, zona infantil y horario flexible. Festival de les Arts (Valencia, junio): formato familiar con zona descanso. WeekendBeach Torre del Mar: zona infantil y camping familiar habilitado.",
+        "Festivales que admiten menores pero no son ideales: Mad Cool, Primavera Sound, BBK Live (cabeza de cartel a las 0:00–2:00 am, demasiado tarde para niños). Sónar de día acepta menores, pero el de noche no. Resurrection Fest y Viña Rock tienen camping no diseñado para familias.",
+      ],
+    },
+  ],
+  faqs: [
+    {
+      q: "¿Cuántos años tiene que tener un niño para ir a un festival?",
+      a: "No hay edad mínima legal para asistir a un festival con asientos cubiertos (no acotada como nocturna). Cada festival establece sus propias normas: muchos festivales españoles permiten entrada gratuita a menores de 8 o 12 años acompañados de un adulto con entrada. La normativa de seguridad y de transporte (DGT, sistemas de retención) sí es estricta independientemente de la política del festival.",
+    },
+    {
+      q: "¿Puede el niño dormir en el camping del festival?",
+      a: "Sí en festivales con camping familiar habilitado (Arenal Sound tiene zona familiar, Mallorca Live no tiene camping). Cada festival publica las zonas y restricciones en su web. En general, camping de glamping con tiendas montadas y servicios suele ser preferible para familias frente al camping libre. Para festivales pequeños tipo boutique, el alojamiento en hotel o piso es la opción más cómoda con niños.",
+    },
+    {
+      q: "¿Es legal compartir un trayecto largo con un niño en coche compartido sin conocer al conductor?",
+      a: "Sí. La normativa de coche compartido en España está regulada como transporte privado entre particulares. La obligación de cumplir DGT (sistema de retención adecuado, cinturones, plazas) es responsabilidad del conductor. ConcertRide verifica DNI y carnet de los conductores y muestra valoraciones públicas anteriores. Conviene leer las valoraciones del conductor antes de reservar y avisar en el chat con tiempo que viajáis con niño.",
+    },
+  ],
+  relatedLinks: [
+    { label: "Cómo funciona ConcertRide", to: "/como-funciona" },
+    { label: "Buscar un viaje", to: "/buscar" },
+    { label: "Carpooling primera vez festival", to: "/blog/carpooling-festival-primera-vez" },
+    { label: "Festivales en España 2026", to: "/festivales" },
+  ],
+  relatedPosts: [
+    "carpooling-festival-primera-vez",
+    "festival-mejor-mes-clima-temperatura-2026",
+  ],
+  coverImage: {
+    src: "/og/home.png",
+    alt: "Carpooling con niños a festivales 2026 — ConcertRide",
+    width: 1200,
+    height: 630,
+  },
+});
+
+BLOG_POSTS.push({
+  slug: "festival-mejor-mes-clima-temperatura-2026",
+  metaTitle: "Mejor mes para festival España 2026: clima y temperaturas",
+  metaDescription:
+    "Cuál es el mejor mes para ir a un festival en España 2026: clima por región, temperaturas medias mayo–septiembre y festivales por mes.",
+  title: "Mejor mes para festival en España 2026: clima y temperaturas",
+  h1: "Festivales españoles 2026 por mes: clima, temperaturas y elección",
+  excerpt:
+    "Cuál es el mejor mes para asistir a un festival en España 2026: temperaturas medias y festivales destacados de mayo a septiembre, con datos AEMET.",
+  category: "guias",
+  tags: ["clima", "calendario", "festivales 2026", "temperatura"],
+  publishedAt: "2026-05-20T10:45:00.000Z",
+  author: "Equipo ConcertRide",
+  readingMinutes: 7,
+  lede:
+    "El calendario español de festivales se concentra entre mayo y septiembre, pero el clima cambia muchísimo entre el primer fin de semana de junio (Primavera Sound, 22–28 °C, brisa marítima) y el último de julio (Viña Rock seca a 38 °C en Albacete, FIB en Benicàssim a 30 °C con humedad). Saber elegir el mes adecuado al festival y a tu tolerancia al calor o la humedad ahorra mucho sufrimiento. Esta guía cruza temperaturas medias AEMET por región con el calendario festivalero 2026 y propone el mes ideal para distintos perfiles de festivalero.",
+  sections: [
+    {
+      heading: "Mayo: festivales suaves entre primavera y verano (18–25 °C)",
+      paragraphs: [
+        "Mayo es el mes más amable climáticamente para festivales en España. Las temperaturas medias según AEMET están entre 18 y 25 °C en casi toda la península, con noches de 12–18 °C. El riesgo principal es la lluvia, especialmente en el norte (Galicia, Asturias, Cantabria) y en la cornisa cantábrica.",
+        "Festivales destacados de mayo 2026: SOS 4.8 (Murcia, primera quincena): clima ideal mediterráneo, 22–26 °C, riesgo bajo de lluvia. Granca Live Fest (Las Palmas, segunda quincena): canario, 22–25 °C estables todo el año. Mallorca Live Festival (Calvià, finales mayo–principios junio): mediterráneo cálido, 22–26 °C. Festival de les Arts (Valencia, finales mayo).",
+        "El perfil que prefiere mayo: festivaleros que huyen del calor extremo del verano, familias con niños pequeños, gente con poca tolerancia al sol fuerte. La pega: las noches pueden ser frescas (12–15 °C), llevar sudadera o cortavientos es imprescindible.",
+      ],
+    },
+    {
+      heading: "Junio: arranca el verano (22–30 °C, calor cómodo)",
+      paragraphs: [
+        "Junio inaugura la temporada alta. Temperaturas medias entre 22 y 30 °C en la península, con noches de 16–22 °C. El sol pega ya con fuerza desde las 11:00, pero el calor seco extremo (35+ °C) suele empezar en julio.",
+        "Festivales destacados de junio 2026: Primavera Sound (Barcelona, primer fin de semana): 22–26 °C, brisa marítima, clima ideal. Sónar (Barcelona, segunda quincena): 25–28 °C, festival de día con bastante sombra. Tomavistas (Madrid, primera quincena): 25–28 °C en parque urbano. Download Madrid (segunda quincena): 28–32 °C, ya se nota el calor seco de Madrid.",
+        "El perfil que prefiere junio: la mayoría de festivaleros. Es el equilibrio entre calor manejable y noches cálidas para conciertos al aire libre. Lo único a vigilar: protección solar fuerte (SPF 50+) y hidratación constante por las temperaturas en franja central.",
+      ],
+    },
+    {
+      heading: "Julio: el mes más caluroso (28–38 °C según región)",
+      paragraphs: [
+        "Julio concentra el mayor número de festivales españoles. Temperaturas según AEMET: Mediterráneo 28–32 °C, interior peninsular (Madrid, Salamanca, Albacete) 32–38 °C, costa norte 22–26 °C, Canarias 24–28 °C. Las noches en interior peninsular siguen siendo cálidas (22–26 °C), las costeras se quedan en 18–22 °C.",
+        "Festivales destacados de julio 2026: Mad Cool (Madrid, segunda semana): 32–38 °C en franja central, baja por la noche a 22–26 °C. BBK Live (Bilbao, segunda semana): 22–26 °C, frescos por proximidad cantábrica. Resurrection Fest (Viveiro, segunda semana): 18–22 °C, fresco por estar en Galicia costera. Sonorama Ribera (Aranda de Duero, mediados): 28–32 °C de día, noches frescas 16–20 °C por estar a 798 m de altitud.",
+        "El perfil que prefiere julio: festivaleros que asumen el calor extremo a cambio de la mayor concentración de carteles. Imprescindible: protección solar SPF 50+, gorra, ropa transpirable, hidratación de 4–5 L de agua al día, parar a la sombra entre las 14:00 y las 18:00.",
+      ],
+    },
+    {
+      heading: "Agosto y septiembre: el cierre de temporada (28–35 °C)",
+      paragraphs: [
+        "Agosto mantiene el calor de julio pero con noches más suaves a partir de mediados. Septiembre es el mes más estable: 24–30 °C, noches de 18–22 °C, bajo riesgo de lluvia.",
+        "Festivales destacados de agosto 2026: Arenal Sound (Burriana, primera semana): 30–34 °C con humedad mediterránea. FIB (Benicàssim, mediados): 30–34 °C con humedad, noches de 22–24 °C. Sonorama Ribera (mediados): mismo perfil que en julio. Aquasella (Asturias, principios): 22–26 °C, fresco asturiano.",
+        "Festivales destacados de septiembre 2026: Cala Mijas (mediados): 26–30 °C, mediterráneo suave, noches agradables 20–24 °C. DGTL (Barcelona o ciudad rotatoria): 25–28 °C. PortAmérica (Caldas de Reis, Galicia, principios): 22–26 °C, fresco gallego.",
+        "El perfil que prefiere agosto/septiembre: festivaleros que prefieren temperaturas más estables, sin extremos de julio, y vacaciones laborales coincidiendo. Septiembre es especialmente bueno por estabilidad climática y porque la playa todavía es accesible para festivales costeros.",
+      ],
+    },
+  ],
+  faqs: [
+    {
+      q: "¿Qué mes es el peor para ir a un festival en España?",
+      a: "Si tu tolerancia al calor es baja, evita la tercera y cuarta semana de julio en interior peninsular (Madrid, Albacete, Aranda de Duero): temperaturas medias 35–38 °C con olas de calor que pueden superar los 42 °C. Si lo que evitas es la lluvia, mayo y principios de junio en el norte (Galicia, Asturias) tienen mayor probabilidad de precipitaciones. Para temperaturas suaves y baja lluvia: septiembre y finales de mayo.",
+    },
+    {
+      q: "¿Hace mucho frío de noche en los festivales españoles?",
+      a: "Depende mucho del mes y la región. Mayo y septiembre tienen noches de 12–18 °C (sudadera obligatoria). Junio noches de 16–22 °C (sudadera ligera). Julio y agosto noches de 18–24 °C (camiseta de manga corta basta en interior peninsular; cortavientos en costa norte). Sonorama Ribera en agosto sorprende a muchos con noches de 14–18 °C por altitud, pese a tener 30 °C de día.",
+    },
+    {
+      q: "¿Cambia el precio del coche compartido según el mes del festival?",
+      a: "Cambia ligeramente por demanda, no por el mes en sí. Los festivales más populares (Mad Cool, Primavera Sound, Sónar) tienen plazas que se llenan en cuanto se publican, lo que puede subir el precio medio en horario punta (jueves tarde, vuelta lunes madrugada). Los festivales de mayo y septiembre suelen tener menor demanda relativa y los precios son más estables. ConcertRide no aplica comisión y el precio lo fija el conductor.",
+    },
+  ],
+  relatedLinks: [
+    { label: "Calendario completo festivales España 2026", to: "/calendario-festivales" },
+    { label: "Festivales en España 2026", to: "/festivales" },
+    { label: "Buscar un viaje", to: "/buscar" },
+    { label: "Zonas de sombra protegidas del sol", to: "/blog/festival-zonas-sombra-protegidas-sol-2026" },
+  ],
+  relatedPosts: [
+    "festival-zonas-sombra-protegidas-sol-2026",
+    "festival-temporada-baja-vs-alta-precios-2026",
+  ],
+  coverImage: {
+    src: "/og/home.png",
+    alt: "Mejor mes para festival en España 2026 — ConcertRide",
+    width: 1200,
+    height: 630,
+  },
+});
+
+BLOG_POSTS.push({
+  slug: "festival-zonas-sombra-protegidas-sol-2026",
+  metaTitle: "Zonas de sombra en festivales España 2026: dónde refugiarse",
+  metaDescription:
+    "Dónde encontrar sombra en festivales españoles 2026: zonas chill, carpas, áreas de descanso. Datos por festival y consejos contra el sol fuerte.",
+  title: "Zonas de sombra en festivales españoles 2026: guía real",
+  h1: "Sombra y protección solar en festivales españoles 2026",
+  excerpt:
+    "Dónde encontrar zonas de sombra en Mad Cool, Primavera Sound, BBK Live y otros festivales 2026. Carpas, chill, áreas de descanso y consejos anti-sol.",
+  category: "guias",
+  tags: ["sombra", "sol", "festivales 2026", "verano"],
+  publishedAt: "2026-05-20T11:00:00.000Z",
+  author: "Equipo ConcertRide",
+  readingMinutes: 6,
+  lede:
+    "Pasar 9 horas seguidas al sol de Madrid en julio (con UV 10–11, máxima escala europea) sin haber localizado zonas de sombra es el camino más rápido a una insolación. La diferencia entre disfrutar tres días de Mad Cool o tirar el último por estar quemado es saber dónde refugiarse entre las 13:00 y las 18:00. Esta guía recoge las zonas de sombra reales en los principales festivales españoles 2026, qué tipo de cubrición ofrecen (carpa, vegetación, edificio) y los protocolos básicos contra el sol fuerte que cualquier festivalero veterano aplica sin pensarlo.",
+  sections: [
+    {
+      heading: "Por qué la sombra es crítica en festivales españoles de verano",
+      paragraphs: [
+        "España tiene el índice de radiación UV más alto de Europa occidental durante el verano. Según AEMET, en julio y agosto los valores UV oscilan entre 8 y 11 en franja central (12:00–17:00) en interior peninsular. Un UV de 11 implica quemadura visible en piel clara en 10–15 minutos sin protección. El protector solar SPF 50+ reduce el riesgo, pero no lo elimina si pasas 6 horas seguidas expuesto.",
+        "La temperatura en sol directo a las 15:00 en Madrid puede ser 8–12 °C superior a la temperatura ambiente que marca AEMET (38 °C ambiente = 46–50 °C en suelo bajo sol directo). Es exactamente la diferencia entre 'puedo aguantar' y 'tengo que ir a la sombra ya'.",
+        "Por eso saber dónde está la sombra de un festival no es lujo: es planificación básica de seguridad. Los festivales más nuevos lo entienden y diseñan zonas chill expresamente; los festivales clásicos pueden tener carencias graves de sombra en franjas de horario crítico.",
+      ],
+    },
+    {
+      heading: "Tipos de sombra en festivales españoles",
+      paragraphs: [
+        "Las zonas de sombra en festivales se dividen en cuatro tipos según su origen, cada uno con propiedades distintas:",
+      ],
+      bullets: [
+        "Carpas oficiales del festival: estructuras de lona blanca o gris montadas para el evento. Suelen estar en escenarios secundarios, zona de barras o zona de food trucks. Cubrición total, ventilación regular, capacidad de 200–2.000 personas según tamaño.",
+        "Carpas comerciales (zona patrocinador): instaladas por marcas patrocinadoras (Coca-Cola, Estrella Damm, marcas de moda). Suelen incluir asientos, agua gratuita, recarga de móvil. Cubrición total y la mejor opción durante franja central.",
+        "Vegetación nativa: árboles del propio recinto. Festivales con árboles maduros (Mad Cool en el recinto de Iberdrola Music tiene árboles, BBK Live en Kobetamendi tiene zona arbolada, Sonorama Ribera en Plaza del Trigo tiene tilos) ofrecen sombra natural confortable pero limitada en aforo.",
+        "Edificios o estructuras permanentes: festivales urbanos (Tomavistas, Sónar) aprovechan edificios próximos, soportales, marquesinas. Cubrición parcial, pero accesible a cualquier hora.",
+      ],
+    },
+    {
+      heading: "Zonas de sombra por festival 2026",
+      paragraphs: [
+        "Datos recopilados de las ediciones recientes y previstos para 2026, indicando aforos aproximados y horario más concurrido (franja central 13:00–18:00 suele saturar las zonas de sombra):",
+      ],
+      bullets: [
+        "Mad Cool (Iberdrola Music, Madrid): zona chill oficial (carpa grande, asientos, capacidad 500–800), carpa de patrocinador principal, zona arbolada al norte del recinto. Insuficiente para todo el aforo en franja central.",
+        "Primavera Sound (Parc del Fòrum, Barcelona): brisa marítima reduce el calor percibido, sombra limitada en escenarios principales. Mejor opción: el escenario Llevant (cubierto parcial) y zona de food trucks.",
+        "BBK Live (Kobetamendi, Bilbao): el propio monte ofrece sombra arbórea natural, carpas oficiales en zona Lasai (chill) y carpa pequeña en escenario secundario.",
+        "Resurrection Fest (Viveiro, Galicia): clima fresco (22–26 °C medio), carpas oficiales en zona Stage 2 cubierto. La sombra no es prioridad por la temperatura ambiente.",
+        "Sónar de día (Fira Montjuïc, Barcelona): casi todos los escenarios son interiores (Sonar Lab, Sonar Hall, Sonar Dome con cubrición). Excelente protección.",
+        "Viña Rock (Villarrobledo, Albacete): mínima sombra natural por geografía manchega, carpas grandes obligatorias en franja central. Insuficiente para los 60.000 asistentes simultáneos.",
+        "Arenal Sound (Burriana, Castellón): playa con sombrillas (no oficiales del festival, llévatela), escenarios principales con carpa, zona camping con sombra propia si llevas tienda con avance.",
+        "Sonorama Ribera (Aranda de Duero, Burgos): Plaza del Trigo con tilos centenarios, zona Riberalia y escenario Bodegas con sombra estructural. Buena cobertura general.",
+      ],
+    },
+    {
+      heading: "Protocolo anti-sol para 3 días de festival",
+      paragraphs: [
+        "Lo que un festivalero veterano hace sin pensarlo durante tres días de festival con UV alto:",
+      ],
+      bullets: [
+        "Aplicar SPF 50+ al despertarse y reaplicar cada 2 horas, especialmente tras nadar (Arenal Sound) o sudar.",
+        "Gorra o pamela siempre desde las 11:00. Una gorra previene el 70 % de las insolaciones.",
+        "Camiseta de manga larga de tejido transpirable si el UV pasa de 8 (más fresca que ir sin manga al sol directo).",
+        "Cargar la franja 13:00–17:00 en zona de sombra: comida, conversación, recarga de pulsera cashless, descanso. Los conciertos importantes suelen ser tarde, no necesitas estar al frente del escenario al mediodía.",
+        "Hidratación constante: 4–5 L de agua al día. Cuando notes la boca pastosa o la orina amarillo oscuro, es deshidratación.",
+        "Identificar tu zona de sombra preferida en las primeras 2 horas del festival: vuelve allí cada vez que necesites bajar revoluciones.",
+        "Si vas con niños o adultos mayores, planifica el día en torno a las zonas de sombra desde antes de entrar al recinto.",
+        "Si notas mareo, dolor de cabeza intenso o náuseas, busca el punto de cruz roja del festival (todos los grandes tienen) y pide hidratación supervisada.",
+      ],
+    },
+  ],
+  faqs: [
+    {
+      q: "¿Puedo llevar mi propia sombrilla o silla plegable al festival?",
+      a: "Depende del festival. La mayoría prohíbe sombrillas largas y sillas plegables grandes por motivos de seguridad y aforo. Sí se permiten habitualmente: gorra, sombrero pamela, paraguas de mano pequeño, esterilla fina enrollable. En festivales en playa (Arenal Sound, Cala Mijas) las sombrillas en zona de camping/playa son aceptadas; dentro del recinto del escenario principal suelen prohibirse.",
+    },
+    {
+      q: "¿Hay sombra en el camping del festival?",
+      a: "Casi nunca por defecto. Los campings de festival son terrenos abiertos sin vegetación. Si llevas tienda con avance o varios palos para crear un toldo, te montas tu propia sombra. La mayoría de campings tienen una carpa común central con sombra (zona de socialización) pero suele estar llena en franja central. Una solución habitual: tarp/lona ligera que se monta como toldo sobre la tienda.",
+    },
+    {
+      q: "¿Sale rentable ir a un festival con clima más fresco para evitar el calor?",
+      a: "Sí, si tu prioridad es el confort climático. Festivales del norte (BBK Live, Resurrection Fest, Aquasella, PortAmérica) tienen temperaturas máximas 22–26 °C frente a los 32–38 °C de los del interior. El cartel a menudo es comparable. Lo que cambia: el viaje en coche compartido suele ser más largo (Madrid–Bilbao 6 h, Madrid–Viveiro 7 h) pero también más cómodo si conduces de noche. Tener identificadas zonas de sombra deja de ser una urgencia.",
+    },
+  ],
+  relatedLinks: [
+    { label: "Buscar un viaje", to: "/buscar" },
+    { label: "Mejor mes para festival España 2026", to: "/blog/festival-mejor-mes-clima-temperatura-2026" },
+    { label: "Qué llevar a un festival: lista 40 items", to: "/blog/que-llevar-festival-lista-definitiva-40-items-2026" },
+    { label: "Bebidas no alcohólicas en festival 2026", to: "/blog/festival-mejor-bebida-no-alcoholica-2026" },
+  ],
+  relatedPosts: [
+    "festival-mejor-mes-clima-temperatura-2026",
+    "festival-mejor-bebida-no-alcoholica-2026",
+  ],
+  coverImage: {
+    src: "/og/home.png",
+    alt: "Zonas de sombra en festivales españoles 2026 — ConcertRide",
+    width: 1200,
+    height: 630,
+  },
+});
+
+BLOG_POSTS.push({
+  slug: "festival-aforos-records-historia-2026",
+  metaTitle: "Récord de aforo en festivales España 2026: historia y datos",
+  metaDescription:
+    "Los festivales españoles con mayor aforo de la historia: Viña Rock, Mad Cool, FIB, Primavera Sound. Datos por edición y comparativa internacional.",
+  title: "Récord de aforo en festivales España 2026: historia",
+  h1: "Aforos récord de los festivales españoles: historia y datos",
+  excerpt:
+    "Qué festival español ha reunido más asistentes en su historia: Viña Rock, Mad Cool, FIB, Primavera Sound. Datos por edición y récord internacional.",
+  category: "novedades",
+  tags: ["aforos", "datos", "festivales 2026", "récords"],
+  publishedAt: "2026-05-20T11:15:00.000Z",
+  author: "Equipo ConcertRide",
+  readingMinutes: 6,
+  lede:
+    "Cuando un festival anuncia 'récord de aforo' suelen referirse a la asistencia total acumulada del fin de semana (sumando 3 o 4 días), no al aforo simultáneo del recinto. Ambos datos son interesantes pero miden cosas distintas. En España, los festivales con asistencia acumulada más alta históricamente son Viña Rock (Villarrobledo) en su pico de 2017, FIB (Benicàssim), Arenal Sound (Burriana), Primavera Sound (Barcelona) y Mad Cool (Madrid). Esta guía cruza datos públicos de aforos comunicados por los organizadores en cada edición y compara con festivales europeos para dar contexto.",
+  sections: [
+    {
+      heading: "Cómo se mide el aforo: simultáneo vs acumulado",
+      paragraphs: [
+        "Hay dos formas distintas de medir cuánta gente asiste a un festival y conviene no confundirlas. El aforo simultáneo es la cantidad máxima de personas que pueden estar dentro del recinto en un momento concreto. Lo determina la licencia municipal del recinto y los servicios de emergencia (entradas, salidas, aforo por escenario). Es un número fijo y limitado por seguridad.",
+        "La asistencia acumulada (también llamada 'total de asistentes' en notas de prensa) suma todas las entradas vendidas por día. Si un festival de 3 días tiene aforo simultáneo de 60.000 y vende 60.000 entradas por día, la asistencia acumulada es 180.000 — pero solo si todos los asistentes son distintos (asistentes con abono cuentan 3 veces en muchas mediciones, asistentes con bono 1 día cuentan 1 vez).",
+        "Por eso 'récord de 300.000 asistentes' suena mucho más impactante que '100.000 aforo diario', pero ambos pueden referirse al mismo evento. Las cifras de prensa suelen ser asistencia acumulada porque son las más vistosas.",
+      ],
+    },
+    {
+      heading: "Top de aforos acumulados en festivales españoles",
+      paragraphs: [
+        "Datos públicos comunicados por los organizadores en sus notas de prensa de cada edición. Las cifras son acumuladas del fin de semana completo:",
+      ],
+      bullets: [
+        "Viña Rock 2017 (Villarrobledo, Albacete): 250.000 asistentes acumulados según organización, pico histórico del festival.",
+        "FIB en sus mejores ediciones (Benicàssim): 200.000–230.000 asistentes acumulados en ediciones con cabeza de cartel internacional fuerte (Coldplay, Arctic Monkeys).",
+        "Arenal Sound (Burriana): 280.000–300.000 asistentes acumulados de los 4–5 días, cifra muy alta por el formato playero familiar.",
+        "Mad Cool (Madrid): 220.000–240.000 asistentes acumulados de los 4 días según ediciones (Iberdrola Music desde 2023).",
+        "Primavera Sound (Barcelona): 220.000 asistentes acumulados Parc del Fòrum, ediciones recientes con cabezas internacionales.",
+        "BBK Live (Bilbao): 100.000–120.000 asistentes acumulados de los 3 días en Kobetamendi.",
+        "Resurrection Fest (Viveiro): 90.000–110.000 asistentes acumulados de los 3 días.",
+        "Sonorama Ribera (Aranda de Duero): 100.000–120.000 asistentes acumulados de los 4 días.",
+      ],
+    },
+    {
+      heading: "Contexto internacional: España vs Europa",
+      paragraphs: [
+        "Para dar contexto, los festivales europeos con asistencia acumulada más alta llegan a cifras muy superiores. Glastonbury (Reino Unido) ronda los 210.000 asistentes simultáneos × 5 días = más de 1 millón acumulado. Tomorrowland (Bélgica) atrae 400.000–600.000 asistentes en sus 2–3 fines de semana. Rock am Ring/Rock im Park (Alemania) suman 150.000–180.000 simultáneos × 3 días.",
+        "España, aunque tiene festivales relevantes, no llega al volumen de Reino Unido, Alemania o Bélgica. El motivo principal: la oferta está más fragmentada (más festivales medianos repartidos por la geografía) frente a la concentración británica en eventos enormes. Esto es una ventaja para el público español: hay festival adecuado para cada gusto sin necesidad de viajar al extranjero.",
+        "El aforo simultáneo más alto en un festival español es el de Arenal Sound (Burriana) con licencia de 90.000–100.000 personas simultáneas en el recinto principal, seguido de Mad Cool con 80.000 simultáneos y Primavera Sound con 70.000.",
+      ],
+    },
+    {
+      heading: "Por qué el aforo importa al festivalero",
+      paragraphs: [
+        "El aforo no es solo un dato curioso: afecta directamente a la experiencia del asistente. Festivales con aforo muy alto (80.000+ simultáneos) tienen ventajas e inconvenientes:",
+      ],
+      bullets: [
+        "Ventaja: cartel internacional más grande (los grandes cabezas internacionales solo pisan España en festivales con aforo y presupuesto suficiente).",
+        "Ventaja: producción escenográfica más espectacular, pirotecnia, pantallas LED gigantes.",
+        "Ventaja: oferta gastronómica más diversa (50+ food trucks vs 10–15 en festivales pequeños).",
+        "Inconveniente: colas más largas en barras (15–30 min) y baños (10–20 min).",
+        "Inconveniente: dificultad para llegar al frente del escenario sin estar 2–3 horas antes.",
+        "Inconveniente: vuelta de madrugada saturada (transporte público, taxis, lanzaderas privadas).",
+        "Inconveniente: precio más alto (correlación clara entre aforo grande y entrada cara).",
+        "El balance que prefieren los asistentes habituales: festivales medianos (15.000–30.000 simultáneos) suelen dar mejor relación experiencia-precio que los grandes (80.000+).",
+      ],
+    },
+  ],
+  faqs: [
+    {
+      q: "¿El aforo real coincide con el aforo anunciado por la organización?",
+      a: "Suele ser cercano pero no idéntico. La licencia municipal fija un aforo máximo (por seguridad y servicios de emergencia) y la organización del festival comunica cifras de venta. En la práctica, la asistencia real puede ser ligeramente menor por entradas vendidas no consumidas (10–15 % de no-show es habitual en festivales con abonos de 200+ €). La cifra de prensa redondea hacia arriba.",
+    },
+    {
+      q: "¿Qué festival español es el de mayor aforo en 2026?",
+      a: "Sin datos confirmados para 2026, las cifras esperadas según trayectoria reciente son: Arenal Sound (80.000–90.000 simultáneos × 4–5 días), Mad Cool (70.000–80.000 × 4 días), Primavera Sound (65.000–70.000 × 4 días). Las cifras finales se publican en notas de prensa post-festival y dependen del cartel concreto.",
+    },
+    {
+      q: "¿Cómo afecta el aforo al transporte y al coche compartido?",
+      a: "Directamente. Festivales con aforo alto saturan el transporte público y las carreteras de acceso. Para Mad Cool y Primavera Sound, el coche compartido se llena 2–4 semanas antes del festival y la vuelta de madrugada se llena la primera. Para festivales más pequeños (Sonorama Ribera, BBK Live), la planificación con 7–14 días puede bastar. La regla universal: cuanto más grande el festival, antes hay que reservar el viaje.",
+    },
+  ],
+  relatedLinks: [
+    { label: "Festivales en España 2026", to: "/festivales" },
+    { label: "Buscar un viaje", to: "/buscar" },
+    { label: "Calendario completo festivales España 2026", to: "/calendario-festivales" },
+    { label: "Cuánto cuesta ir a un festival 2026", to: "/blog/cuanto-cuesta-ir-festival-espana-presupuesto-2026" },
+  ],
+  relatedPosts: [
+    "festival-pequeno-vs-mega-festival-pros-contras-2026",
+    "festival-policia-seguridad-presencia-2026",
+  ],
+  coverImage: {
+    src: "/og/home.png",
+    alt: "Récord de aforos en festivales españoles 2026 — ConcertRide",
+    width: 1200,
+    height: 630,
+  },
+});
+
+BLOG_POSTS.push({
+  slug: "festival-policia-seguridad-presencia-2026",
+  metaTitle: "Policía y seguridad en festivales España 2026: qué esperar",
+  metaDescription:
+    "Presencia policial y seguridad privada en festivales españoles 2026: cuántos efectivos, qué hacen, cómo te afecta y cuándo intervienen.",
+  title: "Policía y seguridad en festivales 2026: qué esperar",
+  h1: "Policía, Guardia Civil y seguridad privada en festivales españoles 2026",
+  excerpt:
+    "Cuántos policías y guardias de seguridad hay en festivales españoles 2026, qué controles hacen, cómo te afecta y cuándo intervienen. Datos por evento.",
+  category: "guias",
+  tags: ["seguridad", "policía", "festivales 2026", "controles"],
+  publishedAt: "2026-05-20T11:30:00.000Z",
+  author: "Equipo ConcertRide",
+  readingMinutes: 7,
+  lede:
+    "La presencia policial y de seguridad privada en un festival español grande es muy alta: para un Mad Cool con 60.000 asistentes simultáneos se despliegan 250–400 efectivos de seguridad privada habilitada, además de presencia de Policía Nacional (en ciudad), Guardia Civil (en municipio rural) y Policía Municipal. Esta guía explica qué cuerpo se encarga de cada cosa, qué controles puedes esperar en el acceso, cuándo intervienen en el recinto y cómo evitar los errores que más fricciones generan. No es alarmismo: la mayoría de festivales transcurren sin incidentes graves precisamente por esta presencia coordinada.",
+  sections: [
+    {
+      heading: "Quién garantiza la seguridad: tres cuerpos coordinados",
+      paragraphs: [
+        "En un festival español hay tres figuras de seguridad operando simultáneamente, cada una con su responsabilidad propia regulada por la Ley 5/2014 de Seguridad Privada y la Ley Orgánica 4/2015 de Seguridad Ciudadana:",
+        "Seguridad privada (vigilantes habilitados): contratada por la organización del festival. Identifica con chaleco/uniforme con número TIP visible. Su competencia: control de accesos, requisa de objetos prohibidos, mantenimiento del orden dentro del recinto, asistencia inicial en incidentes (informa al cuerpo público competente). No tiene potestad sancionadora ni puede detener salvo flagrante delito.",
+        "Policía Nacional (ciudades): patrullas exteriores al recinto, control del entorno urbano, coordinación con UIP (Unidad de Intervención Policial) si hay incidentes mayores. Activa en festivales urbanos (Mad Cool, Primavera Sound, Sónar, Tomavistas) y festivales en ciudades con más de 20.000 habitantes.",
+        "Guardia Civil (entornos rurales): patrullas en festivales fuera de ciudades grandes (Viña Rock en Villarrobledo, Sonorama Ribera en Aranda de Duero, Resurrection Fest en Viveiro, Arenal Sound en Burriana). Coordina con seguridad privada y atiende incidentes según convenio con el municipio.",
+      ],
+    },
+    {
+      heading: "Qué controles puedes esperar en el acceso",
+      paragraphs: [
+        "Los controles de acceso en festivales españoles están estandarizados. Aunque cada festival tiene sus particularidades, esto es lo que se hace casi siempre y lo que el vigilante puede pedirte:",
+      ],
+      bullets: [
+        "Verificación de pulsera RFID o entrada digital: lectura de chip o escaneo de QR. 200–400 ms por persona.",
+        "Inspección visual de mochila y bolsillos exteriores. No es cacheo: es vista a la mochila abierta.",
+        "Si llevas mochila grande (más de 25 L) o bolsa con muchos compartimentos, el control puede pedir abrir compartimentos concretos.",
+        "Decomiso de objetos prohibidos en el listado oficial del festival: bebida alcohólica externa, vasos rígidos/cristal, sprays, drogas, armas, palos de selfie largos, tarp/sombrillas grandes según festival.",
+        "Si hay sospecha razonable, el vigilante puede solicitar cacheo personal. Por ley, lo hace una persona del mismo sexo y siempre con dos testigos. Si te niegas, te impiden la entrada (no es delito negarse, simplemente no entras).",
+        "Si dejas algún objeto prohibido en el control, suelen ofrecer consignas externas pagadas (3–8 €) o reservar el objeto en una zona temporal.",
+        "Una vez dentro, los re-accesos siguen el mismo protocolo (si sales del recinto y vuelves).",
+      ],
+    },
+    {
+      heading: "Cuándo intervienen Policía/Guardia Civil",
+      paragraphs: [
+        "Los cuerpos públicos no patrullan el interior del recinto en condiciones normales; están desplegados en el perímetro y en zonas de salida masiva. Intervienen específicamente en estos escenarios:",
+      ],
+      bullets: [
+        "Robo, hurto o pickpocket dentro o fuera del recinto: la víctima va al punto de información del festival, este avisa a la seguridad privada que coordina con Policía/Guardia Civil para denuncia.",
+        "Agresión física o sexual: la seguridad privada interviene inicialmente y avisa de inmediato al cuerpo público competente. En festivales con protocolo No callem (Sónar) o equivalente, hay punto morado con personal específico.",
+        "Incidente médico grave: ambulancia y servicios de emergencia 112; la seguridad privada coordina paso por el recinto y zonas de evacuación.",
+        "Reyerta o conflicto colectivo: Policía Nacional o Guardia Civil actúan según ubicación y gravedad; la seguridad privada acota el incidente y aísla del resto del público.",
+        "Drogas: dentro del recinto la seguridad privada decomisa y avisa; fuera del recinto puede haber controles de Policía/Guardia Civil que sancionen o sanciones administrativas según Ley 4/2015.",
+        "Tráfico en accesos: la Policía Municipal o Tráfico (en carreteras) regula entradas/salidas masivas.",
+      ],
+    },
+    {
+      heading: "Cómo facilitar tu paso por los controles",
+      paragraphs: [
+        "Recomendaciones que los habituales hacen sin pensar:",
+      ],
+      bullets: [
+        "Llega con tiempo: en horas pico (primera hora del cabeza de cartel) los controles pueden tener cola de 20–30 minutos.",
+        "Prepara la mochila con los compartimentos accesibles: facilita la inspección visual al vigilante.",
+        "No lleves objetos prohibidos: revisa la lista oficial del festival antes de salir. Cada festival publica su lista en la web.",
+        "Lleva el DNI: para festivales con edad mínima 16 o 18 años, los controles aleatorios verifican identidad. Sin DNI, no entras.",
+        "Evita objetos rígidos en la mochila exterior (calculadora vieja, libro pequeño con encuadernación dura): pueden generar control adicional.",
+        "Si llevas medicación de prescripción, prepara la receta médica o el envase original con tu nombre. Los vigilantes lo verifican y suelen permitir la entrada sin problemas.",
+        "Sé paciente con los vigilantes: están haciendo su trabajo. La fricción suele desaparecer al colaborar con la inspección.",
+        "Si tienes dudas sobre algún objeto, pregunta al vigilante antes de entrar al control. Es la diferencia entre perder o no el objeto.",
+      ],
+    },
+  ],
+  faqs: [
+    {
+      q: "¿Pueden cachearme en el acceso a un festival?",
+      a: "Sí, si hay sospecha razonable. Lo regula la Ley 5/2014 de Seguridad Privada y la Ley 4/2015 de Seguridad Ciudadana. El cacheo lo hace personal del mismo sexo, en zona habilitada y con dos testigos. Tienes derecho a oponerte, pero entonces no entras al recinto. El registro inicial de mochila (vista exterior) es habitual y no es cacheo personal.",
+    },
+    {
+      q: "¿Qué hago si me roban dentro del festival?",
+      a: "Pasos: 1) Acude al punto de información del festival y notifica el robo, 2) Pide que avisen a la seguridad privada y a Policía/Guardia Civil para tramitar denuncia, 3) Tramita la denuncia en comisaría con los datos del incidente (hora aproximada, descripción del autor si lo viste). Si te roban la pulsera cashless con saldo cargado, avisa a la oficina del festival: pueden bloquearla y emitir una nueva con el saldo restante si la pulsera estaba registrada con tu email.",
+    },
+    {
+      q: "¿Es seguro llevar dinero en efectivo a un festival?",
+      a: "Casi todos los festivales españoles funcionan con cashless en barras: cargas saldo en la pulsera y no necesitas efectivo. Llevar más de 50 € en efectivo es innecesario y arriesgado (cola del cajero, hurto, perdida en bolsillo). Conviene llevar tarjeta como backup por si falla el sistema cashless. Para coche compartido, el pago al conductor por Bizum o transferencia es lo más cómodo (sin efectivo).",
+    },
+  ],
+  relatedLinks: [
+    { label: "Protocolos anti-pickpocket en festivales 2026", to: "/blog/festival-protocolos-anti-pickpocket-2026" },
+    { label: "Cómo funciona ConcertRide", to: "/como-funciona" },
+    { label: "Buscar un viaje", to: "/buscar" },
+    { label: "Festivales en España 2026", to: "/festivales" },
+  ],
+  relatedPosts: [
+    "festival-protocolos-anti-pickpocket-2026",
+    "festival-aforos-records-historia-2026",
+  ],
+  coverImage: {
+    src: "/og/home.png",
+    alt: "Seguridad y policía en festivales españoles 2026 — ConcertRide",
+    width: 1200,
+    height: 630,
+  },
+});
+
+BLOG_POSTS.push({
+  slug: "festival-protocolos-anti-pickpocket-2026",
+  metaTitle: "Anti-pickpocket en festivales 2026: protocolos y consejos",
+  metaDescription:
+    "Cómo evitar carteristas en festivales españoles 2026: protocolos, accesorios anti-pickpocket y qué hacer si te roban. Guía de seguridad personal.",
+  title: "Anti-pickpocket en festivales 2026: protocolos y prevención",
+  h1: "Protocolos anti-carterista en festivales españoles 2026",
+  excerpt:
+    "Cómo evitar el robo en festivales españoles 2026: accesorios anti-pickpocket, dónde llevar el móvil y qué hacer si te roban. Guía práctica de seguridad.",
+  category: "guias",
+  tags: ["seguridad", "pickpocket", "festivales 2026", "prevención"],
+  publishedAt: "2026-05-20T11:45:00.000Z",
+  author: "Equipo ConcertRide",
+  readingMinutes: 6,
+  lede:
+    "El robo en festivales españoles, especialmente del móvil y la cartera, ocurre cada año y suele concentrarse en zonas de aglomeración: pit del escenario principal, barras saturadas y entrada/salida del recinto. La denuncia más habitual es 'me lo quitaron del bolsillo trasero sin darme cuenta'. Los pickpockets que operan en festivales son profesionales que aprovechan exactamente las situaciones que el festivalero medio piensa que son seguras. Esta guía explica los protocolos que aplican los habituales para reducir el riesgo a casi cero, qué accesorios anti-pickpocket funcionan de verdad y qué hacer paso a paso si te roban.",
+  sections: [
+    {
+      heading: "Dónde y cuándo ocurren los robos en festivales españoles",
+      paragraphs: [
+        "El patrón de robo en festivales españoles es muy predecible. La mayoría de denuncias en comisaría tras un Mad Cool, Primavera Sound, FIB o Arenal Sound responde a estos cuatro escenarios:",
+      ],
+      bullets: [
+        "Pit del escenario principal durante el cabeza de cartel: aglomeración máxima, gente saltando, móviles en bolsillos traseros. Pico de robos entre las 22:00 y la 1:00.",
+        "Barras saturadas: cola larga, todos pendientes del TPV cashless, el pickpocket se acerca por detrás. Bolsillos delanteros y mochila exterior son objetivo.",
+        "Entrada/salida del recinto: aglomeración en cuello de botella del control, móvil en la mano para enseñar entrada/pulsera, descuido por estrés de la cola.",
+        "Vuelta al camping de madrugada: cansancio, oscuridad, grupos dispersos. Mochilas abiertas, objetos visibles.",
+        "Zonas chill saturadas: gente tumbada con la mochila al lado, atención dispersa.",
+        "Salida del transporte público (metro, lanzadera): bolsillos llenos al sacar tarjeta, descuido en la transición.",
+      ],
+    },
+    {
+      heading: "Protocolos anti-pickpocket que aplican los habituales",
+      paragraphs: [
+        "Lo que un festivalero habitual hace para reducir el riesgo de robo en 90 %:",
+      ],
+      bullets: [
+        "Cartera: no llevar nunca cartera grande. Solo lo esencial: DNI, una tarjeta, 30 € en efectivo. Todo en un mismo soporte pequeño (mini-monedero, riñonera interna).",
+        "Móvil: bolsillo delantero del pantalón o riñonera cruzada en la zona del pecho. Nunca en bolsillo trasero. Nunca en mochila exterior.",
+        "Riñonera cruzada (no de cintura): cruzada por delante del pecho. Es la opción que más recomiendan los vigilantes de festival. Cuesta 15–35 €.",
+        "Mochila con cremalleras en la espalda: las mochilas anti-pickpocket tienen las cremalleras invisibles por dentro. Cuestan 30–60 €.",
+        "Candados pequeños en cremalleras de mochila convencional: opción barata (3–8 €) que disuade el 80 % de pickpockets.",
+        "Cordón al cuello para el móvil + funda con cordón: visible y poco habitual en España, pero efectivo en aglomeraciones extremas.",
+        "Cashless en lugar de efectivo: la pulsera RFID se quita solo cortándola, y aún así no se pierde el saldo si está registrada.",
+        "Grupo de 3–4 amigos en el pit: rotación atenta, uno vigila al resto. Es la diferencia entre disfrutar el cabeza de cartel o pasar un mal rato.",
+      ],
+    },
+    {
+      heading: "Qué hacer si te roban dentro del festival",
+      paragraphs: [
+        "Pasos a seguir en orden de prioridad si sufres robo:",
+      ],
+      bullets: [
+        "Comunicarlo de inmediato al punto de información del festival: la seguridad privada coordina con Policía/Guardia Civil.",
+        "Si te roban el móvil: bloquéalo desde otro dispositivo (Find My iPhone, Google Find My Device) en cuanto tengas wifi del festival. Avisa a tu operadora para bloquear la SIM.",
+        "Tramita denuncia en comisaría de Policía Nacional o cuartel de Guardia Civil según ubicación del festival. Es imprescindible para reclamación al seguro y para que tu operadora active el IMEI como robado.",
+        "Si tienes seguro de viaje (incluido en tarjeta Visa Premier, Gold, Platinum) o seguro de móvil contratado, abre reclamación en las primeras 48 h con copia de la denuncia.",
+        "Si te roban la pulsera RFID con saldo cashless: avisa a oficina del festival. Si la pulsera está registrada con tu email, suelen bloquearla y emitir nueva con el saldo restante.",
+        "Si te roban la cartera completa con DNI y tarjetas: bloquea las tarjetas desde la app del banco, comunícalo al banco emisor (puede haber cargos no autorizados), inicia trámite de duplicado de DNI en cita previa policial.",
+      ],
+    },
+    {
+      heading: "Festivales con mayor incidencia de robos en España",
+      paragraphs: [
+        "Por datos públicos de denuncias (Policía Nacional y Guardia Civil), no todos los festivales tienen la misma incidencia de robo. La correlación es clara: a mayor aforo simultáneo y mayor concentración de público de fuera (turismo internacional), mayor incidencia.",
+        "Festivales con incidencia alta: Primavera Sound (Barcelona, aforo simultáneo 70.000, turismo internacional alto), Mad Cool (Madrid, aforo simultáneo 70.000+, turismo nacional masivo), Sónar (Barcelona, aforo combinado día+noche), FIB (Benicàssim, turismo internacional, camping disperso).",
+        "Festivales con incidencia media: Arenal Sound (Burriana, camping y playa generan dispersión), Viña Rock (Villarrobledo, descampados rurales).",
+        "Festivales con incidencia baja: BBK Live (Bilbao, aforo controlado en Kobetamendi, predomina turismo nacional), Resurrection Fest (Viveiro, aforo limitado, comunidad cerrada), Sonorama Ribera (Aranda de Duero, aforo pequeño, plaza urbana muy vigilada).",
+      ],
+    },
+  ],
+  faqs: [
+    {
+      q: "¿Vale la pena el seguro específico para festivales?",
+      a: "Si pagaste mucho por la entrada y vas a llevar móvil de gama alta, cámara o accesorios caros, sí. Algunos festivales venden seguro propio (4–12 €) que cubre robo y pérdida de objetos. Las tarjetas Visa Premier/Gold/Platinum incluyen seguro de viaje con cobertura por robo. El seguro de hogar a veces extiende cobertura fuera del domicilio: revisa las condiciones de la póliza.",
+    },
+    {
+      q: "¿Es legal grabar a un pickpocket si lo pillas en flagrante?",
+      a: "Sí, en espacios públicos puedes grabar a personas si la grabación está justificada por un fin legítimo (denuncia, identificación para autoridades). Es preferible avisar inmediatamente a seguridad privada con la descripción y, si tienes la grabación, mostrarla al cuerpo policial competente para la denuncia. No subas el vídeo a redes sociales públicas sin asesoría legal por temas de derecho a la imagen.",
+    },
+    {
+      q: "¿Cómo afecta el coche compartido al riesgo de robo?",
+      a: "El riesgo de robo en coche compartido es muy bajo si sigues protocolos básicos: no dejes mochila visible en asiento trasero al parar a comer, no compartas valores con desconocidos (efectivo grande, joyas) sin tenerlos contigo. Una ventaja del coche compartido: llegas y vuelves con un grupo que conoces (más vigilancia mutua). ConcertRide muestra valoraciones públicas anteriores del conductor para que veas su historial antes de reservar.",
+    },
+  ],
+  relatedLinks: [
+    { label: "Policía y seguridad en festivales 2026", to: "/blog/festival-policia-seguridad-presencia-2026" },
+    { label: "Qué llevar a un festival: lista 40 items", to: "/blog/que-llevar-festival-lista-definitiva-40-items-2026" },
+    { label: "Cómo funciona ConcertRide", to: "/como-funciona" },
+    { label: "Buscar un viaje", to: "/buscar" },
+  ],
+  relatedPosts: [
+    "festival-policia-seguridad-presencia-2026",
+    "festival-mejores-pulseras-RFID-electronicas-2026",
+  ],
+  coverImage: {
+    src: "/og/home.png",
+    alt: "Anti-pickpocket en festivales españoles 2026 — ConcertRide",
+    width: 1200,
+    height: 630,
+  },
+});
+
+BLOG_POSTS.push({
+  slug: "festival-camerinos-backstage-tour-2026",
+  metaTitle: "Camerinos y backstage festivales 2026: cómo funcionan",
+  metaDescription:
+    "Qué hay realmente en los camerinos y backstage de festivales españoles 2026: zonas, riders, accesos VIP y cómo funciona la logística detrás del escenario.",
+  title: "Camerinos y backstage en festivales 2026: cómo funcionan",
+  h1: "Camerinos y backstage de festivales españoles 2026: el otro lado",
+  excerpt:
+    "Cómo se organizan los camerinos y backstage de Mad Cool, Primavera Sound, BBK Live: riders, zonas profesionales y qué hay realmente detrás del escenario.",
+  category: "novedades",
+  tags: ["backstage", "camerinos", "festivales 2026", "industria"],
+  publishedAt: "2026-05-20T12:00:00.000Z",
+  author: "Equipo ConcertRide",
+  readingMinutes: 7,
+  lede:
+    "Lo que ocurre detrás del escenario de un Mad Cool, Primavera Sound o BBK Live es tan elaborado como el propio cartel visible: un sistema de camerinos por artista, zonas de catering profesional, riders técnicos y catering personalizados, control estricto de accesos por nivel de credencial y una logística que mueve a 1.000–2.000 personas (artistas, técnicos, manager, sellos discográficos, prensa) cada día del festival. Esta guía explica con datos reales cómo funcionan los camerinos y backstage, qué riders son típicos en festivales españoles y por qué la mayoría de asistentes nunca ve la mitad del trabajo que hace posible el espectáculo.",
+  sections: [
+    {
+      heading: "Los tres niveles de backstage en un festival grande",
+      paragraphs: [
+        "El término 'backstage' en festivales no es un concepto único: hay tres niveles distintos según la cercanía al escenario y el tipo de personal autorizado. Cada uno con su credencial concreta y sus normas:",
+        "Backstage A (área de artistas): zona inmediata detrás del escenario, exclusiva para artistas en gira de festival, sus mánagers directos y un grupo muy reducido de técnicos. Acceso limitado a 30–60 personas por banda. Las credenciales son All Access Artist con foto del artista en muchos casos.",
+        "Backstage B (área profesional): zona detrás del escenario o entre escenarios, accesible a técnicos del festival, sonido, luces, montaje, road managers de bandas no actuando en ese momento, sellos discográficos (Universal, Sony, Warner) y prensa con acreditación premium. Capacidad de 300–500 personas.",
+        "Backstage C (zona profesional ampliada o 'Industry'): zona destinada a invitados profesionales del sector, sellos, agencias, prensa con acreditación de fotógrafo, equipo del propio festival no operativo. Aforo de 500–1.500 personas según festival. A veces incluye barras y catering profesional.",
+        "Las pulseras o credenciales se diferencian por color, símbolo o tipografía. Un vigilante de zona puede invalidar un acceso por intentar entrar en una zona superior con credencial inferior.",
+      ],
+    },
+    {
+      heading: "Qué hay en los camerinos: el rider típico",
+      paragraphs: [
+        "Cada artista o banda firma un contrato con el festival que incluye un rider técnico (equipo necesario en escenario) y un rider de catering (comida, bebida, comodidades del camerino). El rider de catering varía mucho por artista pero los patrones son consistentes:",
+      ],
+      bullets: [
+        "Camerino con sofás, mesa, baño privado, espejo iluminado, frigorífico y enchufes. Tamaño 12–30 m² por banda.",
+        "Catering frío base: agua mineral (Vichy o equivalente), refrescos (Coca-Cola, Sprite), zumos naturales, café y té caliente.",
+        "Catering frío extendido: fruta de temporada, frutos secos, embutido (jamón ibérico es petición habitual en festivales españoles), queso curado, pan artesano, ensaladas.",
+        "Bebida alcohólica: cerveza de la marca patrocinadora, vino tinto/blanco (Rioja o Ribera del Duero suele estar en muchos riders), licores específicos si los pide la banda.",
+        "Catering caliente para horas previas al concierto: típicamente cena con dos opciones (pescado/carne, opción vegana). Para banda con 10+ personas, mesa profesional servida.",
+        "Toallas blancas, productos de higiene básicos, batas si lo pide la banda.",
+        "Algunos riders incluyen elementos curiosos: marca específica de calcetines (banda metalera francesa), gato peluche para niño del cantante (banda indie internacional), monedas de chocolate de oro (rapero internacional). Los pide la banda y el festival los cumple para no incumplir contrato.",
+      ],
+    },
+    {
+      heading: "Logística detrás del escenario: cuánta gente trabaja",
+      paragraphs: [
+        "Para un festival como Mad Cool (60.000+ asistentes/día) se mueven en backstage entre 1.500 y 2.500 personas diarias, una cifra que muchos asistentes desconocen completamente:",
+      ],
+      bullets: [
+        "Equipo de producción del festival: 200–300 personas (director artístico, productores, programación, técnicos de escenario).",
+        "Sonido y luces (rental de empresa profesional): 80–150 técnicos por día.",
+        "Montaje/desmontaje escenarios: 200–300 técnicos en jornada nocturna del miércoles al jueves, y del domingo al lunes.",
+        "Catering profesional: 80–200 personas para preparar comida en backstage, food court de personal y catering de patrocinadores.",
+        "Seguridad privada: 250–400 vigilantes habilitados durante el horario del festival.",
+        "Equipos de artistas: cada banda lleva 15–80 personas (manager, road manager, técnicos propios, asistentes, prensa propia). Multiplicado por 30–40 bandas en cartel.",
+        "Limpieza: 150–300 personas en turnos de noche y madrugada.",
+        "Servicios médicos: 30–80 sanitarios y paramédicos en ambulancias y carpas médicas.",
+        "Personal logística: transporte de equipo, almacén, supervisión, prevención de riesgos.",
+      ],
+    },
+    {
+      heading: "Tours backstage y experiencias VIP: realidad y mito",
+      paragraphs: [
+        "Algunos festivales ofrecen experiencias VIP que incluyen tour backstage. La realidad varía mucho del marketing:",
+      ],
+      bullets: [
+        "Mad Cool 'VIP Pass': acceso a Backstage C (zona profesional ampliada), barra premium, asientos elevados, vista de escenario. No incluye encuentro con artistas. Precio: 200–400 €/día.",
+        "Primavera Sound 'Pro Pass': acceso a zonas Pro/Industry y catering profesional. Pensado para profesionales del sector. Precio: 400–800 €/festival.",
+        "BBK Live 'Premium': acceso a zona Premium con catering y descanso. Sin acceso a Backstage A o B. Precio: 150–250 €/día.",
+        "Lo que NO ofrecen estos paquetes: encuentro con artistas, foto con banda, paso a Backstage A. Eso solo se consigue como invitado del sello/agencia/banda o como prensa con acreditación específica.",
+        "Tours realmente cercanos a backstage: algunos festivales pequeños (Resurrection Fest, Sonorama) tienen tours guiados pre-festival que enseñan el recinto vacío al día siguiente del montaje. Coste 20–40 €.",
+        "Experiencias 'meet&greet' con artistas: se venden por separado por la agencia del artista, no por el festival. Coste 100–300 € según artista.",
+      ],
+    },
+  ],
+  faqs: [
+    {
+      q: "¿Puedo acceder al backstage de un festival como aficionado?",
+      a: "No, salvo con credencial profesional concreta (artista, técnico, sello, prensa acreditada). La VIP Pass de festivales como Mad Cool da acceso a Backstage C pero no a las zonas exclusivas de artistas. Si quieres ver el otro lado, lo más realista es: solicitar acreditación de prensa o fotógrafo si trabajas para un medio (90–60 días antes), conseguir credencial de sello/agencia si trabajas en industria musical.",
+    },
+    {
+      q: "¿Cuánto cobra una banda por tocar en un festival español grande?",
+      a: "Las cifras se mantienen confidenciales pero las horquillas públicas son: cabeza de cartel internacional (Coldplay, Rosalía, Bad Bunny) 1–3 millones €/concierto. Headliner medio (Travis Scott, Kendrick Lamar) 500.000–1.000.000 €. Banda principal nacional o internacional media 100.000–300.000 €. Banda emergente con repercusión 20.000–80.000 €. Banda local 2.000–10.000 €. Estas cifras incluyen rider técnico y de catering, transporte y alojamiento.",
+    },
+    {
+      q: "¿Cómo llega el equipo de las bandas al festival?",
+      a: "Los headliners llegan en avión privado o jet compartido (al aeropuerto más cercano: Barajas para Mad Cool, El Prat para Primavera Sound) y de ahí en SUV o furgoneta de la organización al hotel y al festival. Bandas medianas suelen llegar en autocar de gira con su equipo. Equipos técnicos de festivales pequeños se mueven habitualmente en coche compartido (incluso usando ConcertRide para trayectos largos) entre festival y festival cuando viajan en gira.",
+    },
+  ],
+  relatedLinks: [
+    { label: "Zonas prensa y fotógrafo acreditación 2026", to: "/blog/festival-zonas-prensa-fotografo-acreditacion-2026" },
+    { label: "Zona VIP merece la pena 2026", to: "/blog/festival-zona-vip-merece-pena-precio-2026" },
+    { label: "Festivales en España 2026", to: "/festivales" },
+    { label: "Buscar un viaje", to: "/buscar" },
+  ],
+  relatedPosts: [
+    "festival-zonas-prensa-fotografo-acreditacion-2026",
+    "festival-zona-vip-merece-pena-precio-2026",
+  ],
+  coverImage: {
+    src: "/og/home.png",
+    alt: "Camerinos y backstage en festivales españoles 2026 — ConcertRide",
+    width: 1200,
+    height: 630,
+  },
+});
+
+BLOG_POSTS.push({
+  slug: "festival-camping-tienda-vs-furgoneta-2026",
+  metaTitle: "Camping festival 2026: tienda vs furgoneta camper",
+  metaDescription:
+    "Camping de festival con tienda o con furgoneta camper: precios reales 2026, zonas habilitadas, comodidad y cuándo compensa cada opción.",
+  title: "Camping festival 2026: tienda vs furgoneta camper",
+  h1: "Camping de festival 2026: tienda de campaña vs furgoneta camper",
+  excerpt:
+    "Comparativa real de camping con tienda o furgoneta camper en festivales españoles 2026: precios, zonas, comodidad y cuándo compensa cada opción.",
+  category: "comparativas",
+  tags: ["camping", "furgoneta", "festivales 2026", "alojamiento"],
+  publishedAt: "2026-05-20T12:15:00.000Z",
+  author: "Equipo ConcertRide",
+  readingMinutes: 7,
+  lede:
+    "Dormir en el camping del festival es una de las grandes experiencias del fin de semana, pero la decisión entre tienda de campaña o furgoneta camper cambia mucho la economía y la comodidad del viaje. Una tienda básica en zona camping te costará entre 15 y 30 €/noche; una furgoneta autorizada en zona parking-caravana, entre 25 y 50 €/noche. La furgoneta da independencia (ducha propia, cocina, dormir bien) pero implica conducir desde casa o alquilar (200–400 €/3 días). Esta guía cruza precios reales 2026 por festival, zonas habilitadas y cuándo compensa cada opción según presupuesto y comodidad.",
+  sections: [
+    {
+      heading: "Precios reales camping festival 2026: tienda y furgoneta",
+      paragraphs: [
+        "Datos reales según anuncios oficiales y trayectoria de las ediciones recientes en festivales españoles con camping habilitado. Precios por persona por noche (tienda) o por vehículo por noche (furgoneta):",
+      ],
+      bullets: [
+        "Arenal Sound (Burriana, agosto): tienda 15–25 €/noche/persona, furgoneta autorizada zona parking-caravana 35–50 €/noche/vehículo.",
+        "Viña Rock (Villarrobledo, abril–mayo): tienda 12–20 €/noche/persona, furgoneta 25–35 €/noche/vehículo.",
+        "Resurrection Fest (Viveiro, julio): tienda 18–30 €/noche/persona, furgoneta 35–45 €/noche/vehículo.",
+        "Sonorama Ribera (Aranda de Duero, agosto): tienda 18–28 €/noche/persona, furgoneta 30–40 €/noche/vehículo.",
+        "FIB (Benicàssim, julio): tienda 25–40 €/noche/persona (camping incluido si compras abono completo), furgoneta autorizada 50–80 €/noche/vehículo.",
+        "Atlantic Fest (Vilagarcía, agosto): tienda 15–25 €/noche/persona, furgoneta 25–40 €/noche/vehículo.",
+        "Aquasella (Asturias, agosto): tienda 12–20 €/noche/persona, furgoneta 25–35 €/noche/vehículo.",
+        "Algunos festivales (Mad Cool, Primavera Sound, BBK Live, Sónar) no tienen camping oficial: hay que reservar hotel, hostel o piso en la ciudad cabecera.",
+      ],
+    },
+    {
+      heading: "Qué incluye exactamente cada modalidad",
+      paragraphs: [
+        "La diferencia entre tienda y furgoneta no es solo el precio, son los servicios incluidos en cada caso:",
+      ],
+      bullets: [
+        "Camping tienda: parcela asignada o libre según festival, accesos a duchas y baños comunes, agua potable, puntos de luz (no enchufes en parcela en la mayoría), seguridad 24h vigilada por personal del festival.",
+        "Camping furgoneta autorizada: parcela en zona parking-caravana habilitada, accesos a duchas y baños comunes igual que tienda (no individuales), agua potable de manguera para el depósito (festivales con zona furgoneta), vaciado de aguas grises/negras (solo en festivales grandes), enchufes 220V por parcela (solo en algunos festivales).",
+        "Glamping (algunos festivales): tienda montada por el festival con cama elevada, electricidad, sábanas, almohada. Precio 80–150 €/noche/persona. Para quien quiere camping sin el esfuerzo.",
+        "Camping libre fuera del recinto (Resurrection Fest tiene zonas autorizadas, otros no): gratuito o muy barato pero sin servicios. No recomendado para primer año.",
+      ],
+    },
+    {
+      heading: "Cuándo compensa la furgoneta camper",
+      paragraphs: [
+        "La furgoneta no es solo más cómoda; cambia toda la dinámica del fin de semana. Compensa en estos escenarios:",
+      ],
+      bullets: [
+        "Vais 3–4 amigos con presupuesto para alquiler conjunto (200–400 €/3 días entre 4 = 50–100 € por persona).",
+        "Te molesta dormir en el suelo y necesitas una cama elevada para descansar.",
+        "Quieres tu propio baño/ducha aunque sea química (las furgonetas con ducha cuestan más al alquilar).",
+        "Quieres cocinar (la mayoría de furgonetas camper tienen cocina con 2 fogones).",
+        "Vas a festivales en cadena (Bilbao, Mallorca, Madrid en 2 semanas) y la furgoneta es tu base móvil.",
+        "Llevas equipo profesional (cámara, ordenador, instrumentos) y la furgoneta da seguridad para guardarlos.",
+        "No te importa conducir 5–8 horas de ida y otras tantas de vuelta con la furgoneta.",
+      ],
+    },
+    {
+      heading: "Cuándo es mejor la tienda",
+      paragraphs: [
+        "La tienda sigue siendo la opción más rentable y la que recomiendan los habituales para la mayoría de casos:",
+      ],
+      bullets: [
+        "Vas solo o con 1–2 amigos: la tienda básica para 2–3 personas cuesta 30–80 € y dura varios festivales.",
+        "Vas a un festival aislado y luego vuelves a casa (no a varios festivales en cadena).",
+        "Tu presupuesto total para alojamiento es limitado: tienda 12–25 €/noche es la opción más barata.",
+        "Llegas en coche compartido (ConcertRide u otro): no necesitas furgoneta propia para moverte.",
+        "La duración del festival es 1–2 días: el alquiler de furgoneta no compensa para tan poco.",
+        "Vas a festivales con camping muy bien organizado (Arenal Sound, FIB, Resurrection Fest): los servicios comunes son aceptables y no necesitas más independencia.",
+        "Quieres maximizar la experiencia social: el camping de tienda fomenta el contacto entre asistentes; el camping furgoneta queda en una zona más cerrada.",
+      ],
+    },
+  ],
+  faqs: [
+    {
+      q: "¿Cuánto cuesta alquilar una furgoneta camper para 3 días de festival?",
+      a: "Alquiler de furgoneta camper para 3–4 días en temporada de festivales (junio–agosto) cuesta entre 200 y 500 € según modelo (Volkswagen California, Pössl, Adria), incluido kilometraje suficiente y seguro básico. Hay que sumar combustible (300–500 km de ida + vuelta = 60–100 €), peajes opcionales y depósito de fianza (600–1.500 €) bloqueado durante el alquiler. Plataformas como Goboony, Yescapa o Indie Campers concentran la oferta.",
+    },
+    {
+      q: "¿Puedo dormir en mi propio coche en el parking del festival?",
+      a: "Depende del festival. Algunos permiten dormir en el coche en zona parking general sin coste extra (ahorra el camping), otros lo prohíben expresamente y solo permiten dormir en zona parking-caravana habilitada (con precio). Lee las condiciones de cada festival antes de planearlo. Si vas en coche compartido (ConcertRide), el conductor decide su propio plan de alojamiento independiente.",
+    },
+    {
+      q: "¿Combinan bien el coche compartido y el camping?",
+      a: "Sí, perfectamente. Lo habitual: conductor y pasajeros llegan juntos en coche al festival, pero cada uno reserva su propia tienda/parcela de camping. El coche compartido baja el coste del viaje (combustible repartido entre 4 = 20–25 € por persona en lugar de 80–120 € si fueras solo) y el camping cubre el alojamiento (15–25 €/noche). Tres días de festival con esta combinación: 70–110 € total entre transporte y alojamiento.",
+    },
+  ],
+  relatedLinks: [
+    { label: "Buscar un viaje", to: "/buscar" },
+    { label: "Festivales en España 2026", to: "/festivales" },
+    { label: "Cuánto cuesta ir a un festival 2026", to: "/blog/cuanto-cuesta-ir-festival-espana-presupuesto-2026" },
+    { label: "Camping vs hotel vs Airbnb festival", to: "/blog/festival-comparativa-bono-1dia-3dias-coste-2026" },
+  ],
+  relatedPosts: [
+    "cuanto-cuesta-ir-festival-espana-presupuesto-2026",
+    "festival-vegetariano-vegano-puestos-recomendaciones-2026",
+  ],
+  coverImage: {
+    src: "/og/home.png",
+    alt: "Camping de festival 2026: tienda vs furgoneta camper — ConcertRide",
+    width: 1200,
+    height: 630,
+  },
+});
+
+BLOG_POSTS.push({
+  slug: "festival-vegetariano-vegano-puestos-recomendaciones-2026",
+  metaTitle: "Festival vegetariano y vegano 2026: puestos y opciones",
+  metaDescription:
+    "Comida vegetariana y vegana en festivales españoles 2026: puestos recomendados, precios y festivales con mejor oferta plant-based.",
+  title: "Vegetariano y vegano en festival 2026: puestos recomendados",
+  h1: "Comida vegetariana y vegana en festivales españoles 2026",
+  excerpt:
+    "Festivales españoles 2026 con mejor oferta vegetariana y vegana: puestos recomendados, precios reales y consejos para comer plant-based en festival.",
+  category: "guias",
+  tags: ["vegetariano", "vegano", "festivales 2026", "food trucks"],
+  publishedAt: "2026-05-20T12:30:00.000Z",
+  author: "Equipo ConcertRide",
+  readingMinutes: 6,
+  lede:
+    "Hace cinco años, encontrar opciones veganas en un festival español se limitaba a un puesto de falafel y la ensalada de la barra principal. En 2026, los festivales españoles con más de 30.000 asistentes diarios han incorporado entre 5 y 20 puestos con opciones vegetarianas/veganas, y festivales pioneros como Mad Cool, Primavera Sound y Sónar tienen zonas gastronómicas con marcas reconocidas del sector plant-based. Esta guía recoge los puestos que más se recomiendan, los precios reales y los festivales españoles con mejor oferta para 2026.",
+  sections: [
+    {
+      heading: "Cómo ha cambiado la oferta vegetariana/vegana en festivales españoles",
+      paragraphs: [
+        "Entre 2019 y 2026 la oferta plant-based en festivales españoles ha crecido más del 400 %. Hace 7 años, un festival grande tenía 1–2 puestos con opciones veganas (típicamente falafel y un wok vegetariano). En 2026, Mad Cool tiene 12 puestos con menú vegano y vegetariano, Primavera Sound supera los 15 y Sónar (con su perfil más urbano) llega a 18. Festivales medianos (BBK Live, Sonorama Ribera) suelen tener 5–8 puestos plant-based.",
+        "El cambio se debe a dos factores: el aumento del público vegetariano/vegano en España (datos del informe Lantern 2023 indican que un 9,9 % de la población mayor de 18 años se declara veg/vegano/flexitariano) y la demanda específica de turistas internacionales en festivales como Primavera Sound y Sónar. La organización ha incorporado proveedores especializados (Burgermeister vegano, Beyond Meat, marcas de queso vegano artesano) y diversificado la oferta más allá del falafel.",
+        "Los precios de los puestos veg/vegan están alineados con los de los puestos convencionales: hamburguesa vegana 8–12 €, bowl vegetariano 10–14 €, tacos veganos 8–11 €, ensalada elaborada 9–13 €. No hay sobreprecio por ser plant-based.",
+      ],
+    },
+    {
+      heading: "Tipos de puesto plant-based que verás en festival",
+      paragraphs: [
+        "La oferta vegetariana/vegana en festivales españoles se concentra en estos tipos de puesto, cada uno con su precio y su carga calórica adecuada para 9 horas de festival:",
+      ],
+      bullets: [
+        "Hamburguesa vegana: 8–12 €, opciones de Beyond Meat, Heura, Vegetalia o marca propia del puesto. La opción más calórica y saciante.",
+        "Bowl vegetariano: 10–14 €, base de quinoa o arroz, verduras, salsa tahini, opcionalmente proteína vegetal. Ligero pero saciante.",
+        "Tacos veganos: 8–11 €, tortilla de maíz con relleno de proteína vegetal o verduras, salsas mexicanas. Buena opción para compartir.",
+        "Pizza vegana al corte: 7–10 €, opciones con queso vegano (Violife, Tofutti) y verduras o pesto sin queso. Saciante.",
+        "Falafel y pita: 7–10 €, opción clásica que sigue funcionando bien.",
+        "Wok vegetariano: 9–13 €, fideos o arroz salteado con verduras, tofu o seitán.",
+        "Ensalada elaborada: 9–13 €, mezcla de hojas, verduras, frutos secos, vinagreta y proteína vegetal opcional.",
+        "Heladería vegana: 4–7 €, helado con base de almendra, coco o avena (Llaollao, Vitanas, marcas locales).",
+      ],
+    },
+    {
+      heading: "Festivales españoles 2026 con mejor oferta plant-based",
+      paragraphs: [
+        "Ranking subjetivo según número y diversidad de puestos confirmados en ediciones recientes:",
+      ],
+      bullets: [
+        "Primavera Sound (Barcelona): 15+ puestos con opciones veg/vegan. Marcas reconocidas, oferta internacional. La mejor en su categoría.",
+        "Sónar (Barcelona): 18+ puestos. Sónar de día con oferta gastronómica muy diversa. Perfil urbano que atrae food trucks especializados.",
+        "Mad Cool (Madrid): 12+ puestos con opción veg/vegan en cada uno. Variedad muy alta.",
+        "BBK Live (Bilbao): 8+ puestos. Influencia del País Vasco con pintxos veganos y opciones locales.",
+        "Resurrection Fest (Viveiro): 6+ puestos. Oferta más limitada pero suficiente, con opciones gallegas adaptadas.",
+        "Sonorama Ribera (Aranda de Duero): 5+ puestos. Oferta enmarcada en gastronomía castellana.",
+        "Arenal Sound (Burriana): 5+ puestos. Crecimiento notable en últimos años.",
+        "Viña Rock (Villarrobledo): 4+ puestos. Oferta plant-based más limitada por perfil rock/punk del público.",
+      ],
+    },
+    {
+      heading: "Consejos para comer plant-based en festival sin sorpresas",
+      paragraphs: [
+        "Lo que un festivalero vegano/vegetariano habitual aplica desde el primer día:",
+      ],
+      bullets: [
+        "Revisa el listado oficial de food trucks del festival 1–2 semanas antes (suele publicarse en la web).",
+        "Identifica los puestos plant-based en el plano del recinto y úbicalos en zonas distintas para no depender de uno solo.",
+        "Pregunta siempre antes de pedir: 'Esto es 100 % vegano sin lácteos ni huevo?' — algunos puestos tienen opciones vegetarianas que sin querer llevan queso o mantequilla.",
+        "Lleva snacks veganos al recinto si tu festival permite comida exterior (Mad Cool no la permite, Primavera Sound y Sónar son flexibles).",
+        "Prevé el horario: muchos puestos veganos cierran antes del cabeza de cartel. Cena temprano (20:00–22:00) para evitar quedarte sin opciones.",
+        "Si pasas por un food truck que no veas claro: pide ver el listado de ingredientes. Los puestos serios lo tienen impreso.",
+        "Hidrátate: la dieta plant-based no te exime de la deshidratación si pasas 9 horas al sol bebiendo solo cerveza.",
+        "Si vas en coche compartido, comenta en el chat si traéis snacks veganos para el viaje (acordáis bocadillos, fruta, frutos secos en lugar de embutido).",
+      ],
+    },
+  ],
+  faqs: [
+    {
+      q: "¿Hay opciones sin gluten en los puestos veganos de festival?",
+      a: "Cada vez más. Los puestos especializados (Beyond Meat, Heura, marcas plant-based españolas) suelen tener opción sin gluten claramente etiquetada. Los puestos tradicionales adaptados pueden tener cruce de gluten (uso de planchas compartidas, salsas). Si tienes celiaquía, pregunta siempre y pide producto fresco preparado en superficie limpia. Algunos festivales ofrecen carta filtrable en su app: filtra por vegano + sin gluten.",
+    },
+    {
+      q: "¿Es más caro comer vegetariano/vegano en festival que comer carne?",
+      a: "No. Los precios están alineados: hamburguesa vegana 8–12 €, hamburguesa con carne 8–12 €. Las opciones de bowl vegetariano (10–14 €) son habitualmente más baratas que opciones con carne premium (12–16 €). El plant-based no penaliza el bolsillo en festival.",
+    },
+    {
+      q: "¿Hay alguna ventaja del coche compartido si vas con dieta plant-based?",
+      a: "Sí: puedes coordinar con tus compañeros de coche compartido qué snacks llevar para el viaje. Lo habitual es acordar antes (chat de la app) si traéis bocadillos veganos, fruta, frutos secos, hummus. Te ahorras 8–15 € en gasolinera (pierdes opciones plant-based en zonas rurales) y haces el viaje más cómodo.",
+    },
+  ],
+  relatedLinks: [
+    { label: "Buscar un viaje", to: "/buscar" },
+    { label: "Festivales en España 2026", to: "/festivales" },
+    { label: "Cuánto cuesta ir a un festival 2026", to: "/blog/cuanto-cuesta-ir-festival-espana-presupuesto-2026" },
+    { label: "Bebidas no alcohólicas en festival 2026", to: "/blog/festival-mejor-bebida-no-alcoholica-2026" },
+  ],
+  relatedPosts: [
+    "festival-mejor-bebida-no-alcoholica-2026",
+    "festival-camping-tienda-vs-furgoneta-2026",
+  ],
+  coverImage: {
+    src: "/og/home.png",
+    alt: "Comida vegetariana y vegana en festivales 2026 — ConcertRide",
+    width: 1200,
+    height: 630,
+  },
+});
+
 // Slugs disabled per CLAUDE.md "Brand Restrictions" — never reactivate.
 // We splice them out of BLOG_POSTS in place so every consumer (BlogIndex, sitemap, prerender,
 // autoLinking, festival/route/city landing pages) sees the same filtered list. relatedPosts

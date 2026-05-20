@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { X } from "lucide-react";
 import { useSession } from "../lib/session";
+import { ANALYTICS_EVENTS, trackEvent } from "../lib/analytics-events";
 
 const DISMISS_KEY = "cr_sticky_dismissed";
 
@@ -84,6 +85,10 @@ export function StickyRegBar() {
         <div className="flex items-center gap-2 shrink-0">
           <Link
             to="/register"
+            onClick={() => {
+              const pageType = location.pathname.split("/").filter(Boolean)[0] ?? "home";
+              trackEvent(ANALYTICS_EVENTS.STICKY_REG_BAR_CLICKED, { page_type: pageType });
+            }}
             className="inline-flex items-center justify-center bg-[#dbff00] text-black font-sans font-semibold uppercase tracking-[0.1em] text-xs border-2 border-black px-4 py-2 shadow-[3px_3px_0px_0px_rgba(0,0,0,1)] hover:shadow-[1px_1px_0px_0px_rgba(0,0,0,1)] hover:translate-x-[2px] hover:translate-y-[2px] transition-all duration-100 whitespace-nowrap"
           >
             Crear cuenta

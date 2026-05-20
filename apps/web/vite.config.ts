@@ -10,6 +10,27 @@ import path from "node:path";
 // across both.
 const isSsrBuild = process.env.VITE_SSR_BUILD === "1";
 
+// Bundle analyzer — opt-in via `ANALYZE=true vite build` (script: `build:report`).
+// Generates dist/stats.html which can be opened locally or attached to CI
+// artefacts. Loaded asynchronously and fail-soft so a fresh checkout without
+// the optional `rollup-plugin-visualizer` dep installed still builds normally.
+const analyze = process.env.ANALYZE === "true";
+let visualizerPlugin: any = null;
+if (analyze && !isSsrBuild) {
+  try {
+    const mod = await import("rollup-plugin-visualizer");
+    visualizerPlugin = mod.visualizer({
+      filename: "dist/stats.html",
+      template: "treemap",
+      gzipSize: true,
+      brotliSize: true,
+      open: false,
+    });
+  } catch {
+    console.warn("[vite] ANALYZE=true but rollup-plugin-visualizer not installed; run `npm i -D rollup-plugin-visualizer` first");
+  }
+}
+
 export default defineConfig({
   plugins: [
     react(),
@@ -45,12 +66,34 @@ export default defineConfig({
       injectManifest: {
         swSrc: "src/sw.ts",
         swDest: "dist/sw.js",
-        globPatterns: ["**/*.{js,css,html,ico,png,svg,webp,woff,woff2}"],
+        // Precache the app shell + critical static assets. offline.html is
+        // explicitly included so the SW can serve it from precache when a
+        // navigation request fails. Programmatic landing pages
+        // (festivales/rutas/conciertos/blog) are intentionally OUT of the
+        // precache — they're handled at runtime via the workbox routes in
+        // sw.ts so the precache manifest stays small for first-load cost.
+        globPatterns: [
+          "index.html",
+          "offline.html",
+          "404.html",
+          "manifest.webmanifest",
+          "favicon.svg",
+          "favicon-16x16.png",
+          "favicon-32x32.png",
+          "favicon-48x48.png",
+          "apple-touch-icon.png",
+          "android-chrome-192x192.png",
+          "android-chrome-512x512.png",
+          "og/home.png",
+          "og-fallback.png",
+          "assets/**/*.{js,css,woff,woff2}",
+        ],
         // Large programmatic pages (rutas/index.html, etc.) exceed the default 2 MiB limit.
         // Raised to 8 MiB so the service worker precache manifest includes them.
         maximumFileSizeToCacheInBytes: 8 * 1024 * 1024,
       },
     }),
+    visualizerPlugin,
   ].filter(Boolean),
   resolve: {
     alias: {

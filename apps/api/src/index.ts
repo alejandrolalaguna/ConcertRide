@@ -67,7 +67,11 @@ app.use("*", async (c, next) => {
 // replacement post. Keeps link equity from any external inbound links and
 // guarantees the deprecated URL never serves indexable content again.
 const LEGACY_REDIRECTS: Record<string, string> = {
-  "/comparativa/concertride-vs-blablacar": "/blog/alternativa-carpooling-festivales-espana",
+  // Target upgraded 2026-05-20 to the top-level BOFU comparison landing (more
+  // product weight than the blog equivalent, same intent satisfaction).
+  "/comparativa/concertride-vs-blablacar": "/alternativas-carpooling-festivales",
+  // Blog post still 200s on its own URL but is no longer the canonical answer
+  // to the conversational query "alternativas carpooling festivales".
 };
 app.use("*", async (c, next) => {
   if (c.req.method === "GET" || c.req.method === "HEAD") {

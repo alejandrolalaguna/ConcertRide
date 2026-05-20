@@ -3,6 +3,12 @@ import { ArrowRight, Bus, Car, Train, Users, Moon, MapPin } from "lucide-react";
 import { useSeoMeta } from "@/lib/useSeoMeta";
 import { SITE_URL } from "@/lib/siteUrl";
 import { generateHowToSchema } from "@/lib/schemaGenerators";
+import { ANALYTICS_EVENTS, trackEvent } from "@/lib/analytics-events";
+import EeatTrustBlock from "@/components/EeatTrustBlock";
+import AiDisclosureNote from "@/components/AiDisclosureNote";
+import { aiLevelForPageType } from "@/lib/aiContentPolicy";
+
+const PILLAR_SLUG = "guia-festival-sin-coche";
 
 /**
  * Pillar SEO page — cluster "festival sin coche".
@@ -747,6 +753,7 @@ export default function GuiaFestivalSinCochePage() {
         <div className="flex flex-wrap gap-3 pt-2">
           <Link
             to="/concerts"
+            onClick={() => trackEvent(ANALYTICS_EVENTS.PILLAR_CTA_CLICKED, { pillar_slug: PILLAR_SLUG, cta_target: "/buscar" })}
             className="inline-flex items-center gap-2 font-sans text-xs font-semibold uppercase tracking-[0.12em] bg-cr-primary text-black px-5 py-2.5 hover:bg-cr-primary/90 transition-colors"
           >
             Buscar viaje <ArrowRight size={12} />
@@ -771,6 +778,15 @@ export default function GuiaFestivalSinCochePage() {
             Glosario carpooling <ArrowRight size={12} />
           </Link>
         </div>
+      </section>
+
+      <section className="max-w-6xl mx-auto px-6 pb-16">
+        <EeatTrustBlock
+          pageType="pillar"
+          lastReviewed="2026-05-20"
+          author={{ name: "Equipo ConcertRide", url: "/autor/alejandro-lalaguna" }}
+        />
+        <AiDisclosureNote level={aiLevelForPageType("pillar")} />
       </section>
     </main>
   );

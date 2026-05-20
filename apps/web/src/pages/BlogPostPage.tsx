@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Link, Navigate, useParams } from "react-router-dom";
 import { ArrowRight, Calendar, Check, Clock, Copy, ArrowLeft, Share2 } from "lucide-react";
 import { useSeoMeta } from "@/lib/useSeoMeta";
@@ -7,7 +7,11 @@ import { BLOG_POSTS_BY_SLUG, BLOG_CATEGORIES } from "@/lib/blogPosts";
 import { FESTIVAL_LANDINGS_BY_SLUG } from "@/lib/festivalLandings";
 import { AutoLinksForFestival, AutoLinksForBlog } from "@/lib/autoLinking";
 import { trackBlogView } from "@/lib/seoEvents";
+import { ANALYTICS_EVENTS, trackEvent } from "@/lib/analytics-events";
 import { useSession } from "@/lib/session";
+import EeatTrustBlock from "@/components/EeatTrustBlock";
+import AiDisclosureNote from "@/components/AiDisclosureNote";
+import { aiLevelForPageType } from "@/lib/aiContentPolicy";
 
 // Canonical founder/author page URL. When the byline matches a known author
 // (Alejandro Lalaguna, or the team byline we sign with the same person),
@@ -176,6 +180,53 @@ export default function BlogPostPage() {
   useEffect(() => {
     if (post) trackBlogView(post.slug, post.title);
   }, [post]);
+
+  // ── Scroll-depth tracking ────────────────────────────────────────────
+  // Two sentinel divs (50% / end of article) fire one-shot events each. We
+  // do this with IntersectionObserver instead of a scroll listener so it
+  // stays passive and doesn't impact INP. Reads-per-post are dedup'd via
+  // refs so re-renders during the same visit don't double-count.
+  const articleStartTimeRef = useRef<number>(Date.now());
+  const fired50Ref = useRef(false);
+  const fired100Ref = useRef(false);
+  const midSentinelRef = useRef<HTMLDivElement | null>(null);
+  const endSentinelRef = useRef<HTMLDivElement | null>(null);
+
+  useEffect(() => {
+    if (!post) return;
+    articleStartTimeRef.current = Date.now();
+    fired50Ref.current = false;
+    fired100Ref.current = false;
+  }, [post?.slug]);
+
+  useEffect(() => {
+    if (!post) return;
+    if (typeof IntersectionObserver === "undefined") return;
+    const mid = midSentinelRef.current;
+    const end = endSentinelRef.current;
+    if (!mid || !end) return;
+
+    const obs = new IntersectionObserver((entries) => {
+      for (const entry of entries) {
+        if (!entry.isIntersecting) continue;
+        if (entry.target === mid && !fired50Ref.current) {
+          fired50Ref.current = true;
+          trackEvent(ANALYTICS_EVENTS.BLOG_POST_READ_50, { slug: post.slug });
+        } else if (entry.target === end && !fired100Ref.current) {
+          fired100Ref.current = true;
+          const seconds = Math.round((Date.now() - articleStartTimeRef.current) / 1000);
+          trackEvent(ANALYTICS_EVENTS.BLOG_POST_READ_100, {
+            slug: post.slug,
+            time_on_page_seconds: seconds,
+          });
+        }
+      }
+    }, { threshold: 0 });
+
+    obs.observe(mid);
+    obs.observe(end);
+    return () => obs.disconnect();
+  }, [post?.slug]);
 
   if (!slug || !post) return <Navigate to="/blog" replace />;
 
@@ -468,30 +519,36 @@ export default function BlogPostPage() {
           {post.lede}
         </p>
         {relatedFestivalSlug && <AutoLinksForFestival slug={relatedFestivalSlug} />}
-        {post.sections.map((section) => (
-          <section key={section.heading} className="space-y-4">
-            <h2 className="font-display text-2xl md:text-3xl uppercase">
-              {section.heading}
-            </h2>
-            {section.paragraphs.map((p, i) => (
-              <p key={i} className="font-sans text-sm md:text-base text-cr-text-muted leading-relaxed">
-                {p}
-              </p>
-            ))}
-            {section.bullets && section.bullets.length > 0 && (
-              <ul className="space-y-2 pt-2">
-                {section.bullets.map((b, i) => (
-                  <li
-                    key={i}
-                    className="font-sans text-sm text-cr-text-muted leading-relaxed pl-5 relative before:content-['▸'] before:absolute before:left-0 before:text-cr-primary"
-                  >
-                    {b}
-                  </li>
-                ))}
-              </ul>
-            )}
-          </section>
-        ))}
+        {post.sections.map((section, idx) => {
+          const midIdx = Math.floor(post.sections.length / 2);
+          return (
+            <section key={section.heading} className="space-y-4">
+              {idx === midIdx && (
+                <div ref={midSentinelRef} aria-hidden="true" style={{ height: 1 }} />
+              )}
+              <h2 className="font-display text-2xl md:text-3xl uppercase">
+                {section.heading}
+              </h2>
+              {section.paragraphs.map((p, i) => (
+                <p key={i} className="font-sans text-sm md:text-base text-cr-text-muted leading-relaxed">
+                  {p}
+                </p>
+              ))}
+              {section.bullets && section.bullets.length > 0 && (
+                <ul className="space-y-2 pt-2">
+                  {section.bullets.map((b, i) => (
+                    <li
+                      key={i}
+                      className="font-sans text-sm text-cr-text-muted leading-relaxed pl-5 relative before:content-['▸'] before:absolute before:left-0 before:text-cr-primary"
+                    >
+                      {b}
+                    </li>
+                  ))}
+                </ul>
+              )}
+            </section>
+          );
+        })}
 
         {/* ── Auto contextual links (festival/route cross-links) ── */}
         {slug && <AutoLinksForBlog slug={slug} />}
@@ -588,6 +645,18 @@ export default function BlogPostPage() {
           </section>
         )}
 
+        {/* ── E-E-A-T trust block (Google Helpful Content 2026) ── */}
+        <EeatTrustBlock
+          pageType="blog"
+          lastReviewed={post.updatedAt ?? post.publishedAt ?? "2026-05-20"}
+          author={
+            isFounderByline(post.author)
+              ? { name: post.author!, url: "/autor/alejandro-lalaguna" }
+              : undefined
+          }
+        />
+        <AiDisclosureNote level={aiLevelForPageType("blog")} />
+
         {/* ── Related posts ── */}
         {related.length > 0 && (
           <section className="border-t border-cr-border pt-10 space-y-4">
@@ -622,6 +691,10 @@ export default function BlogPostPage() {
             <ArrowLeft size={12} /> Volver al blog
           </Link>
         </div>
+
+        {/* End-of-article sentinel used by IntersectionObserver to emit
+            BLOG_POST_READ_100. Intentionally invisible — no semantic content. */}
+        <div ref={endSentinelRef} aria-hidden="true" style={{ height: 1 }} />
       </article>
     </main>
   );

@@ -26,6 +26,15 @@ export function grantAnalyticsConsent() {
   }
   // Lazy-init PostHog on the first consent grant in-session
   initPostHogIfAllowed();
+  // Notify other listeners (e.g. ClarityScript) so they can load now
+  // without requiring a full page reload.
+  try {
+    if (typeof window !== "undefined") {
+      window.dispatchEvent(new Event("cr:analytics-consent"));
+    }
+  } catch {
+    // ignore
+  }
 }
 
 // ── Sentry ───────────────────────────────────────────────────────────────

@@ -49,7 +49,7 @@ export function CrewAvatars({ crew, people, max = 4, size = "md", label, clickab
           const content = user.avatar_url ? (
             <img
               src={user.avatar_url}
-              alt=""
+              alt={`Avatar de ${user.name}`}
               className={`${sz.box} rounded-full object-cover ${sz.ring} ring-cr-bg`}
               loading="lazy"
             />

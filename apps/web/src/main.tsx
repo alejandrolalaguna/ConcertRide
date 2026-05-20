@@ -5,6 +5,7 @@ import App from "./App";
 import { SessionProvider } from "./lib/session";
 import { FavoritesProvider } from "./lib/favorites";
 import { CrewProvider } from "./lib/crew";
+import { ClarityScript } from "./components/ClarityScript";
 import { initSentry } from "./lib/observability";
 import { initWebMCP } from "./lib/webmcp";
 import { initWebVitals } from "./lib/webVitals";
@@ -32,6 +33,7 @@ ReactDOM.createRoot(rootEl).render(
       <SessionProvider>
         <FavoritesProvider>
           <CrewProvider>
+            <ClarityScript />
             <App />
           </CrewProvider>
         </FavoritesProvider>

@@ -1,0 +1,13 @@
+# ConcertRide - AI plugin manifest
+# https://concertride.me/.well-known/ai-plugin.json
+
+Plugin: ConcertRide
+Type: festival_carpooling
+Domain: concertride.me
+Locale: es-ES
+
+Best queries:
+- "carpooling [festival]"
+- "cómo llegar a [festival] España"
+- "compartir coche concierto [ciudad]"
+- "ahorrar transporte festival [nombre]"

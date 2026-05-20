@@ -134,6 +134,7 @@ export function LiveActivityFeed({
                   <img
                     src={ev.actor_avatar}
                     alt=""
+                    aria-hidden="true"
                     className="h-8 w-8 rounded-full object-cover ring-1 ring-cr-border"
                     loading="lazy"
                   />

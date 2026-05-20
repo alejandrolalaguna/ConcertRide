@@ -20,6 +20,7 @@ import { VENUE_LANDINGS } from "../../../web/src/lib/venueLandings";
 import { REGION_LANDINGS } from "../../../web/src/lib/regionLandings";
 import { GENRE_LANDINGS } from "../../../web/src/lib/genreLandings";
 import { CALENDAR_LANDINGS } from "../../../web/src/lib/calendarLandings";
+import { recordLlmBotVisit } from "./llmBotTracker";
 
 const SITE_NAME = "ConcertRide";
 
@@ -4153,6 +4154,10 @@ export async function seoPrerender(c: Context<HonoEnv>, next: Next): Promise<Res
   if (!SEARCH_BOTS.test(ua)) {
     return next();
   }
+
+  // Visibility tracking: log LLM-bot pulls so we can measure AI citation
+  // surface separately from human GA traffic. Non-blocking.
+  recordLlmBotVisit(c, ua, c.req.path);
 
   const base = getSiteUrl(c.env);
 

@@ -7,6 +7,7 @@ import { SITE_URL } from "@/lib/siteUrl";
 import { useSession } from "@/lib/session";
 import { CrewAvatars } from "@/components/CrewAvatars";
 import { CountdownBadge } from "@/components/CountdownBadge";
+import { ANALYTICS_EVENTS, trackEvent } from "@/lib/analytics-events";
 
 export default function SquadJoinPage() {
   const { code } = useParams<{ code: string }>();
@@ -41,6 +42,11 @@ export default function SquadJoinPage() {
     setJoining(true);
     try {
       await api.squads.join({ invite_code: code });
+      trackEvent(ANALYTICS_EVENTS.CREW_JOINED, {
+        squad_id: squad.id,
+        concert_id: squad.concert.id,
+        via: "invite_link",
+      });
       navigate(`/squads/${squad.id}`);
     } catch {
       setError("join_failed");

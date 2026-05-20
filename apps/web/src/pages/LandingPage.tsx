@@ -17,6 +17,7 @@ import { MapSection } from "@/components/landing/MapSection";
 import { TrustSection } from "@/components/landing/TrustSection";
 import { FinalCTA } from "@/components/landing/FinalCTA";
 import { TestimonialsSection } from "@/components/landing/TestimonialsSection";
+import { TerminologyAside } from "@/components/TerminologyAside";
 import { FestivalMarquee } from "@/components/landing/FestivalMarquee";
 import { DriverCTA } from "@/components/landing/DriverCTA";
 import { RegistrationNudge } from "@/components/landing/RegistrationNudge";
@@ -620,6 +621,9 @@ export default function LandingPage() {
         </div>
       </section>
 
+      {/* 11.5. Terminology bridge — natural-Spanish synonyms for "carpooling" */}
+      <TerminologyAside />
+
       {/* 12. Trust section — sector stats + full FAQ + badges */}
       <TrustSection />
 
@@ -848,6 +852,12 @@ export default function LandingPage() {
               <p className="font-mono text-[10px] uppercase tracking-[0.14em] text-cr-primary">Guía inclusión</p>
               <h3 className="font-display text-base uppercase leading-tight group-hover:text-cr-primary transition-colors">Festival accesibilidad y movilidad reducida</h3>
               <p className="font-sans text-xs text-cr-text-muted leading-relaxed">Top 8 festivales PMR-friendly, cómo conseguir el bono accesibilidad y transporte adaptado: Renfe Atendo, ALSA, Eurotaxi y carpooling accesible.</p>
+              <span className="inline-flex items-center gap-1 font-sans text-xs text-cr-primary">Leer <ArrowRight size={11} /></span>
+            </Link>
+            <Link to="/guia/festival-veterano-aficionados-mayores-2026" className="border border-cr-border p-5 hover:border-cr-primary/50 transition-colors group space-y-3">
+              <p className="font-mono text-[10px] uppercase tracking-[0.14em] text-cr-primary">Guía adulto</p>
+              <h3 className="font-display text-base uppercase leading-tight group-hover:text-cr-primary transition-colors">Festivales para mayores de 35 en España</h3>
+              <p className="font-sans text-xs text-cr-text-muted leading-relaxed">Top 10 festivales 35+ friendly 2026, paquetes VIP desde 150€/día, horarios razonables y carpooling adulto. Guía completa para festivaleros veteranos.</p>
               <span className="inline-flex items-center gap-1 font-sans text-xs text-cr-primary">Leer <ArrowRight size={11} /></span>
             </Link>
             <Link to="/blog/como-volver-festival-madrugada" className="border border-cr-border p-5 hover:border-cr-primary/50 transition-colors group space-y-3">

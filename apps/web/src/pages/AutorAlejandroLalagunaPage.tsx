@@ -129,7 +129,7 @@ export default function AutorAlejandroLalagunaPage() {
     name: `${AUTHOR_NAME} — Founder de ConcertRide`,
     url: AUTHOR_URL,
     inLanguage: "es-ES",
-    dateModified: "2026-05-17",
+    dateModified: "2026-05-20",
     mainEntity: { "@id": `${SITE_URL}/#founder` },
     about: { "@id": `${SITE_URL}/#founder` },
     isPartOf: { "@id": `${SITE_URL}/#website` },
@@ -328,6 +328,96 @@ export default function AutorAlejandroLalagunaPage() {
               Acerca de ConcertRide →
             </Link>
           </div>
+        </section>
+
+        {/* ── Cómo trabajamos el contenido (E-E-A-T expanded) ── */}
+        <section className="space-y-5 border-t border-cr-border pt-8">
+          <h2 className="font-display text-2xl md:text-3xl uppercase leading-tight">
+            Cómo trabajamos el contenido
+          </h2>
+          <p className="font-sans text-sm text-cr-text-muted leading-relaxed">
+            Última actualización: <time dateTime="2026-05-20">20 de mayo de 2026</time>.
+            Esta es nuestra política editorial pública para guías de carpooling y movilidad
+            festivalera. La aplicamos en pillars, datasets, blog y comparativas.
+          </p>
+
+          <dl className="grid sm:grid-cols-2 gap-5 font-sans text-sm text-cr-text-muted leading-relaxed">
+            <div className="border border-cr-border p-5 space-y-2">
+              <dt className="font-display text-base uppercase text-cr-primary">
+                Experiencia directa
+              </dt>
+              <dd>
+                Nuestro equipo ha asistido a más de 15 festivales en España en los últimos
+                cinco años (Resurrection Fest, Sonorama Ribera, Mad Cool, Primavera Sound,
+                BBK Live, Arenal Sound, Viña Rock, FIB y otros) y ha testado decenas de
+                rutas de carpooling, autobús oficial y tren a esos recintos. Las cifras y
+                consejos que publicamos reflejan esa experiencia real.
+              </dd>
+            </div>
+            <div className="border border-cr-border p-5 space-y-2">
+              <dt className="font-display text-base uppercase text-cr-primary">
+                Verificación de datos
+              </dt>
+              <dd>
+                Contrastamos cada dato cuantitativo con fuentes oficiales: organización del
+                festival, ayuntamientos, Renfe, ALSA, Avanza, Asociación de Promotores
+                Musicales (APM), Instituto Nacional de Estadística (INE), Dirección General
+                de Tráfico (DGT) y Agencia Europea de Medio Ambiente (EEA). Citamos la fuente
+                cuando se trata de datos reproducibles.
+              </dd>
+            </div>
+            <div className="border border-cr-border p-5 space-y-2">
+              <dt className="font-display text-base uppercase text-cr-primary">
+                Independencia editorial
+              </dt>
+              <dd>
+                ConcertRide no recibe compensación de festivales, promotores ni ticketeras
+                por aparecer ni por tener un trato editorial favorable. Usamos la API pública
+                Ticketmaster Discovery v2 como fuente de datos de eventos: es una API abierta
+                a desarrolladores y no implica acuerdo comercial ni patrocinio. Tampoco
+                aceptamos posts patrocinados disfrazados de contenido editorial.
+              </dd>
+            </div>
+            <div className="border border-cr-border p-5 space-y-2">
+              <dt className="font-display text-base uppercase text-cr-primary">
+                Uso de inteligencia artificial
+              </dt>
+              <dd>
+                Cuando usamos asistencia de IA en investigación, estructura o primer borrador,
+                lo indicamos al final del artículo con una nota de transparencia. Toda
+                publicación pasa por revisión, edición y verificación humana antes de salir
+                — la IA nunca publica de forma autónoma en ConcertRide.
+              </dd>
+            </div>
+            <div className="border border-cr-border p-5 space-y-2">
+              <dt className="font-display text-base uppercase text-cr-primary">
+                Revisiones y actualizaciones
+              </dt>
+              <dd>
+                Revisamos los pillars (guías largas) al menos una vez al mes y los datasets
+                al menos una vez por trimestre. Las páginas de festival se actualizan cuando
+                la organización publica fechas, line-up o información de transporte. La fecha
+                de última revisión aparece de forma visible en cada página.
+              </dd>
+            </div>
+            <div className="border border-cr-border p-5 space-y-2">
+              <dt className="font-display text-base uppercase text-cr-primary">
+                Correcciones
+              </dt>
+              <dd>
+                Si detectas un error fáctico (precio incorrecto, distancia equivocada,
+                cambio de recinto, fecha cambiada) escríbenos a{" "}
+                <a
+                  href={`mailto:${AUTHOR_EMAIL}`}
+                  className="text-cr-primary hover:underline"
+                >
+                  {AUTHOR_EMAIL}
+                </a>
+                . Corregimos errores fácticos en menos de 48 horas y dejamos constancia
+                en el `dateModified` de la página.
+              </dd>
+            </div>
+          </dl>
         </section>
 
         {/* ── Conecta ── */}

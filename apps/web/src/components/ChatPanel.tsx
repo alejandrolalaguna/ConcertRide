@@ -102,7 +102,7 @@ function PhotoBubble({ url, isOwn }: { url: string; isOwn: boolean }) {
       >
         <img
           src={url}
-          alt="Foto del punto de encuentro"
+          alt="Foto del punto de encuentro compartida en el chat"
           className="max-w-[200px] max-h-[150px] object-cover"
           loading="lazy"
         />
@@ -122,7 +122,7 @@ function PhotoBubble({ url, isOwn }: { url: string; isOwn: boolean }) {
           </button>
           <img
             src={url}
-            alt="Foto del punto de encuentro"
+            alt="Foto ampliada del punto de encuentro compartida en el chat"
             className="max-w-full max-h-full object-contain"
             onClick={(e) => e.stopPropagation()}
           />
@@ -324,7 +324,7 @@ export function ChatPanel({ messages, loading, forbidden, currentUserId, onSend 
           {pending.kind === "photo" && (
             <img
               src={pending.previewUrl}
-              alt="preview"
+              alt="Vista previa de la foto adjunta"
               className="h-10 w-10 object-cover border border-cr-border-mid"
             />
           )}
