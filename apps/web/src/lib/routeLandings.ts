@@ -28,21 +28,29 @@ function cityToSlug(city: string): string {
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
-// Distance gate (added 2026-05-19)
+// Distance gate (tightened 2026-05-21)
 // ─────────────────────────────────────────────────────────────────────────────
-// Skip route pages where origin↔festival straight-line >800 km, because no
-// carpooling driver realistically does a single-leg trip that long. Primary
-// effect: removing Canarias↔mainland and Baleares↔mainland combinations
-// where there's no ferry-bundled context.
+// Skip route pages where origin↔festival straight-line >700 km, because no
+// carpooling driver realistically does a single-leg trip that long (a 700 km
+// straight line is roughly 945 km of road and ~10 h of driving). Primary
+// effects:
+//   - Removing Canarias↔mainland and Baleares↔mainland combinations where
+//     there's no ferry-bundled context (also handled by ISLAND_*_SLUGS).
+//   - Keeping route-page asset count safely under Cloudflare Workers' Free
+//     plan limit of 20,000 files per manifest. With 199 festivals × ~116
+//     cities the unbounded set would be ~20k routes; capping at 700 km
+//     straight brings it down to ~18.1k routes (~19.9k total dist/ assets).
 //
 // Two layers of defence:
 //   1. Hard cross-sea exclusion via ISLAND_*_SLUGS sets (works even if lat/lng
 //      were missing on one side).
-//   2. Haversine >800 km check (catches any future case we forgot to enumerate).
+//   2. Haversine >700 km check (catches any future case we forgot to enumerate).
 //
 // Reviewers can override either layer by adding `${citySlug}|${festivalSlug}`
 // to DISTANCE_GATE_ALLOWLIST (e.g. once we publish ferry+drive bundles).
-const MAX_ROUTE_STRAIGHT_KM = 800;
+// All currently-curated festival.originCities are <700 km from their festival
+// (verified 2026-05-21 via scripts/_measure-route-buckets.mjs).
+const MAX_ROUTE_STRAIGHT_KM = 700;
 
 // CityLanding slugs known to be on islands (no road link to mainland).
 const ISLAND_CITY_SLUGS = new Set<string>([
@@ -102,7 +110,7 @@ function buildRoutes(): RouteLanding[] {
     // Merge explicit originCities from the festival with the canonical CITY_LANDINGS
     const seen = new Set<string>();
     // First, add the explicit originCities (trusted data) — still subject to
-    // the distance gate (cross-sea or >800 km combos are dropped).
+    // the distance gate (cross-sea or >700 km combos are dropped).
     for (const oc of festival.originCities) {
       const originSlug = cityToSlug(oc.city);
       seen.add(originSlug);
@@ -142,7 +150,7 @@ function buildRoutes(): RouteLanding[] {
       }
       // Estimate distance using Haversine formula from city coords to festival coords.
       const straightKm = haversineKm(c.lat, c.lng, festival.lat, festival.lng);
-      // Skip implausibly-long single-leg drives (>800 km straight-line).
+      // Skip implausibly-long single-leg drives (>700 km straight-line).
       if (straightKm > MAX_ROUTE_STRAIGHT_KM && !DISTANCE_GATE_ALLOWLIST.has(pairKey)) {
         continue;
       }
