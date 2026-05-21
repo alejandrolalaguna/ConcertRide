@@ -4073,8 +4073,11 @@ async function resolveConcertPage(id: string, base: string, store: HonoEnv["Vari
       "@context": "https://schema.org",
       "@type": "MusicEvent",
       "@id": `${canonical}#event`,
+      identifier: id,
       name: venueName !== artist ? `${artist} en ${venueName}` : artist,
       startDate,
+      eventStatus: "https://schema.org/EventScheduled",
+      eventAttendanceMode: "https://schema.org/OfflineEventAttendanceMode",
       location: {
         "@type": "Place",
         name: venueName,
@@ -4088,16 +4091,18 @@ async function resolveConcertPage(id: string, base: string, store: HonoEnv["Vari
         "@type": "MusicGroup",
         name: artist,
       },
+      organizer: { "@type": "Organization", name: "ConcertRide", url: base },
       url: canonical,
       description,
       ...(concert.image_url ? { image: concert.image_url } : {}),
       offers: {
         "@type": "Offer",
         url: canonical,
-        price: 0,
+        price: 3,
         priceCurrency: "EUR",
         availability: "https://schema.org/InStock",
-        description: "Carpooling sin comisión con ConcertRide",
+        validFrom: new Date().toISOString().slice(0, 10),
+        description: `Carpooling desde 3 €/asiento — sin comisión, conductores verificados`,
       },
     });
 
@@ -4111,19 +4116,29 @@ async function resolveConcertPage(id: string, base: string, store: HonoEnv["Vari
       ],
     });
 
+    const citySlug = venueCity
+      .toLowerCase()
+      .normalize("NFD")
+      .replace(/[̀-ͯ]/g, "")
+      .replace(/[^a-z0-9]+/g, "-")
+      .replace(/^-|-$/g, "");
+    const cityHref = `${base}/conciertos/${citySlug}`;
+    const dayOfWeek = new Date(startDate).toLocaleDateString("es-ES", { weekday: "long" });
     const body = `<script type="application/ld+json">${eventJsonLd}</script>
 <script type="application/ld+json">${breadcrumbJsonLd}</script>
-<nav aria-label="Breadcrumb"><a href="${base}/">Inicio</a> / <a href="${base}/concerts">Conciertos</a> / <span>${esc(artist)}</span></nav>
-<p>${esc(artist)} actúa en ${esc(venueName)}, ${esc(venueCity)} el ${dateStr}.</p>
-<h2>Viajes compartidos a este concierto</h2>
-<p>Encuentra o publica un viaje a ${esc(artist)}. Sin comisión, conductores verificados. Pago en efectivo o Bizum al conductor el día del evento.</p>
-<h2>¿Por qué ir con ConcertRide?</h2>
+<nav aria-label="Breadcrumb"><a href="${base}/">Inicio</a> / <a href="${base}/concerts">Conciertos</a> / <a href="${cityHref}">${esc(venueCity)}</a> / <span>${esc(artist)}</span></nav>
+<p><strong>${esc(artist)}</strong> actúa en <strong>${esc(venueName)}</strong> (${esc(venueCity)}) el ${dayOfWeek} ${dateStr}. ConcertRide reúne a fans en una misma ruta de carpooling para llegar al recinto sin depender del taxi y volver de madrugada sin pagar 80 € por la vuelta.</p>
+<h2>Llegar a ${esc(venueName)} el ${dateStr}</h2>
+<p>El recinto está en ${esc(venueCity)}. Si vienes desde una ciudad próxima, busca un viaje compartido ya publicado o publica el tuyo para que otros asistentes a ${esc(artist)} compartan gastos contigo. Precio orientativo desde 3 €/asiento para trayectos urbanos y entre 8–25 €/asiento para rutas interurbanas, según distancia y combustible repartido.</p>
+<h2>Por qué ConcertRide en lugar de buscar el viaje por tu cuenta</h2>
 <ul>
-  <li><strong>Sin comisión</strong> — el 100% del precio va al conductor.</li>
-  <li><strong>Conductores verificados</strong> — carnet comprobado y sistema de valoraciones.</li>
-  <li><strong>Vuelta incluida</strong> — muchos conductores publican el viaje de vuelta.</li>
+  <li><strong>0 % comisión</strong> — el precio del asiento va íntegro al conductor.</li>
+  <li><strong>Conductor verificado</strong> — DNI/carnet revisado y sistema de valoraciones post-viaje.</li>
+  <li><strong>Vuelta sincronizada</strong> — coordinas con el conductor la hora de salida después del concierto, incluso si termina pasada la 1 a.m.</li>
+  <li><strong>Pago en mano</strong> — Bizum o efectivo al subir al coche el día del evento. Sin tarjeta, sin retención previa.</li>
 </ul>
-<p><a href="${base}/concerts">Ver todos los conciertos →</a></p>`;
+<h2>Más conciertos próximos en ${esc(venueCity)}</h2>
+<p>Si no encuentras viaje para esta fecha, mira el resto de la agenda local: <a href="${cityHref}">conciertos en ${esc(venueCity)}</a>. También puedes <a href="${base}/concerts">explorar todos los conciertos en España</a> o publicar tu propio viaje si tienes coche.</p>`;
 
     return {
       title,
@@ -4160,6 +4175,22 @@ export async function seoPrerender(c: Context<HonoEnv>, next: Next): Promise<Res
   recordLlmBotVisit(c, ua, c.req.path);
 
   const base = getSiteUrl(c.env);
+
+  // /concerts?city=X / ?q=X / ?artist=X — filter states, not canonical pages.
+  // Internal anchors on landing pages generate these query-param URLs as UX
+  // helpers; Googlebot follows them. Without intervention they end up flagged
+  // as "Alternate page with proper canonical tag" in GSC and waste crawl
+  // budget. Send bots to the canonical `/concerts` index instead.
+  // See gsc-indexing SKILL.md §B.
+  if (c.req.path === "/concerts") {
+    const search = new URL(c.req.url).search;
+    if (search && search !== "?") {
+      return new Response(null, {
+        status: 301,
+        headers: { Location: `${base}/concerts`, "X-SEO-Prerender": "bot-query-redirect" },
+      });
+    }
+  }
 
   // Auth pages — bots get a minimal noindex response so GSC doesn't index
   // /login?next=... variants (query params are stripped for matching).

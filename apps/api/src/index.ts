@@ -78,6 +78,13 @@ const LEGACY_REDIRECTS: Record<string, string> = {
   // Author page renamed 2026-05-20: founder byline replaced by collective
   // "Equipo ConcertRide". Keeps E-E-A-T author entity stable.
   "/autor/alejandro-lalaguna": "/autor/equipo-concertride",
+  // /conciertos (index, plural-Spanish) has no React route in App.tsx — users
+  // land on NotFoundPage and Googlebot reported it as 5xx. Redirect to the
+  // canonical English /concerts list page. NOTE: do NOT redirect /recintos —
+  // it has a full prerendered index in seoPrerender §"/recintos" and
+  // VenueLandingPage emits a "Recintos" breadcrumb back to it; redirecting it
+  // would create chains on every /recintos/:slug page. See SKILL.md §P.
+  "/conciertos": "/concerts",
 };
 app.use("*", async (c, next) => {
   if (c.req.method === "GET" || c.req.method === "HEAD") {

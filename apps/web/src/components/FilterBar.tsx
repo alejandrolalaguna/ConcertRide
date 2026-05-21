@@ -244,13 +244,17 @@ export function FilterBar({ value, onChange, cities, sticky = true }: Props) {
           <Drawer.Portal>
             <Drawer.Overlay className="fixed inset-0 z-50 bg-black/70" />
             <Drawer.Content
-              aria-describedby={undefined}
+              aria-labelledby="filterbar-drawer-title"
+              aria-describedby="filterbar-drawer-desc"
               className="fixed bottom-0 left-0 right-0 z-50 max-h-[85vh] bg-cr-surface border-t-2 border-cr-primary p-4 pb-8 overflow-y-auto flex flex-col"
             >
               <div className="mx-auto mb-4 h-1.5 w-12 rounded-full bg-cr-border" aria-hidden="true" />
-              <Drawer.Title className="font-display text-xl uppercase mb-4 text-cr-text">
+              <Drawer.Title id="filterbar-drawer-title" className="font-display text-xl uppercase mb-4 text-cr-text">
                 Filtros
               </Drawer.Title>
+              <Drawer.Description id="filterbar-drawer-desc" className="sr-only">
+                Ajusta origen, precio máximo, vibe, trayecto y ubicación para filtrar los viajes disponibles.
+              </Drawer.Description>
               <form
                 role="search"
                 aria-label="Filtrar viajes"

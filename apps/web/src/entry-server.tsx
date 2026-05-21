@@ -52,6 +52,7 @@ import ContactoPage from "./pages/ContactoPage";
 import AcercaDePage from "./pages/AcercaDePage";
 import ArtistLandingPage from "./pages/ArtistLandingPage";
 import VenueLandingPage from "./pages/VenueLandingPage";
+import RecintosIndexPage from "./pages/RecintosIndexPage";
 import RegionLandingPage from "./pages/RegionLandingPage";
 import AvisoLegalPage from "./pages/AvisoLegalPage";
 import PrivacidadPage from "./pages/PrivacidadPage";
@@ -124,6 +125,7 @@ function ServerApp() {
         <Route path="/festivales/:festival/guia" element={<FestivalGuidePage />} />
         <Route path="/festivales/:festival" element={<FestivalLandingPage />} />
         <Route path="/artistas/:slug" element={<ArtistLandingPage />} />
+        <Route path="/recintos" element={<RecintosIndexPage />} />
         <Route path="/recintos/:slug" element={<VenueLandingPage />} />
         <Route path="/festivales-en/:slug" element={<RegionLandingPage />} />
         <Route path="/festivales-genero/:slug" element={<GenreLandingPage />} />

@@ -230,11 +230,29 @@ Run `/tm-compliance audit` at any time to verify. The full audit skill is at `.c
 ## GSC Issue Knowledge Base — Mandatory Rule
 
 **Whenever a GSC (Google Search Console) problem is diagnosed and fixed, add the new case to `.claude/skills/gsc-indexing/SKILL.md`** before closing the task:
-- Add to the relevant section (e.g. §4 "Página alternativa", §7 "Duplicada", §5 "Rastreada sin indexar", etc.)
-- Include: root cause, verification command, fix snippet, and the general rule extracted
-- Update the CHECKLIST and PRIORITIES TABLE if applicable
+- Add to the relevant section (§A "Rastreada sin indexar", §B "Página alternativa con canónica", §P "5xx índices sin route", §Q "Duplicada /:id masivo", §R "Query params faceted", §T "404 slugs renombrados", etc.) or create a new §X section at the end of the file if it's a fundamentally new pattern.
+- Include: root cause (with file:line refs), verification command (curl/grep), fix snippet, and the general rule extracted.
+- Update the CHECKLIST (§"CHECKLIST RÁPIDA ANTES DE CADA DEPLOY") and the PRIORITIES TABLE (§"MATRIZ DE PRIORIDADES GSC") if applicable.
+- Update the `<!-- Last updated -->` HTML comment at the top of `SKILL.md` with a one-line summary of the new pattern.
 
 This keeps the skill as the single source of truth for all GSC patterns seen in production.
+
+**Mandatory final phase (every turn that modifies code related to SEO/indexing/GSC):**
+
+The **last step before closing the response** must be to invoke the `gsc-indexing` skill (via the Skill tool with `skill: "gsc-indexing"`). This applies to any response that introduced a code change which could affect indexability:
+- Redirects (`LEGACY_REDIRECTS`, middleware 301), sitemap updates, schema/JSON-LD changes
+- New routes in `App.tsx` / `entry-server.tsx` / `seoPrerender.ts`
+- robots.txt edits, canonical changes, render path changes
+- Any of the patterns listed in `gsc-indexing/SKILL.md` (§A–§V)
+
+Running the skill confirms that none of the documented anti-patterns were reintroduced and that the change still respects: trailing-slash 301, canonical autorreferencial, `Offer.price` numeric (never 0 as stub), MusicEvent inline fields, `isDynamicPattern` coverage, sitemap consistency, and the App.tsx ⇄ entry-server.tsx ⇄ seoPrerender.ts triple invariant.
+
+Skip the skill invocation only when the change is purely:
+- Documentation (CLAUDE.md, README, code comments) with no behavior change
+- Tests unrelated to SEO render path
+- Build tooling / dependencies with no SEO impact
+
+When in doubt, run it.
 
 ---
 

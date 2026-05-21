@@ -28,6 +28,10 @@ Disallow: /admin
 Disallow: /widget/
 Disallow: /rides/
 Disallow: /drivers/
+# Filter query params on /concerts are UX-only; bots 301 to canonical (see seoPrerender §B).
+# Disallowing here additionally saves crawl budget for non-bot UAs that still follow links.
+Disallow: /concerts?
+Disallow: /concerts/?
 # Phase 1+2+3 social surfaces — personal/dynamic, never indexable.
 # /memorias/:id is intentionally NOT blocked: public memories with
 # visibility="public" remain indexable as social-proof landing pages.

@@ -31,7 +31,6 @@ export const OSM_RASTER_STYLE: StyleSpecification = {
       maxzoom: 22,
     },
   ],
-  glyphs: undefined,
 };
 
 // Spain bounds for default map viewport

@@ -121,9 +121,12 @@ export function ExitIntentModal() {
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 pointer-events-none">
           <Dialog.Content
             aria-labelledby="exit-modal-title"
-            aria-describedby={undefined}
+            aria-describedby="exit-modal-desc"
             className="pointer-events-auto relative z-10 w-full max-w-md bg-[#111111] border border-white/10 p-8 shadow-2xl animate-[fadeIn_0.25s_ease-out]"
           >
+            <Dialog.Description id="exit-modal-desc" className="sr-only">
+              ConcertRide es carpooling para festivales sin comisiones. Crea tu cuenta gratis para reservar plaza en segundos.
+            </Dialog.Description>
             {/* Close button */}
             <Dialog.Close asChild>
               <button
