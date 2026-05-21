@@ -53,9 +53,12 @@ app.use("*", prettyJSON());
 // Cloudflare Workers can receive HTTP requests when accessed via custom domain
 // without "Always Use HTTPS" enabled in the dashboard. A 301 here ensures
 // Googlebot sees the canonical HTTPS version and doesn't record duplicates.
+// Skipped for local dev hostnames (127.0.0.1 / localhost) so `wrangler dev`
+// on http://127.0.0.1:8787 doesn't loop the Vite proxy into 301s.
 app.use("*", async (c, next) => {
   const url = new URL(c.req.url);
-  if (c.req.method === "GET" && url.protocol === "http:") {
+  const isLocal = url.hostname === "127.0.0.1" || url.hostname === "localhost" || url.hostname === "0.0.0.0";
+  if (c.req.method === "GET" && url.protocol === "http:" && !isLocal) {
     url.protocol = "https:";
     return c.redirect(url.toString(), 301);
   }

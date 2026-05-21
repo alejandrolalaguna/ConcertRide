@@ -20,6 +20,7 @@ vi.mock("motion/react", async () => {
   return {
     motion: new Proxy({} as Record<string, unknown>, { get: () => passthrough }),
     AnimatePresence: ({ children }: { children: unknown }) => children as never,
+    LayoutGroup: ({ children }: { children: unknown }) => children as never,
   };
 });
 

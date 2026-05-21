@@ -3,13 +3,16 @@ import { Link, useNavigate, useParams } from "react-router-dom";
 import { useSeoMeta } from "@/lib/useSeoMeta";
 import { SITE_URL } from "@/lib/siteUrl";
 import { motion } from "motion/react";
+import { toast } from "sonner";
 import { ArrowLeft, Check, CheckCheck, Clock, Link2, MapPin, Minus, Music, Plus } from "lucide-react";
 import type { Luggage, PaymentMethod, Ride, RideRequest, SmokingPolicy } from "@concertride/types";
 import { api, ApiError } from "@/lib/api";
+import { celebrate } from "@/lib/celebrate";
 import { rideShareUrl } from "@/lib/utm";
 import { track } from "@/lib/observability";
 import { ANALYTICS_EVENTS, trackEvent } from "@/lib/analytics-events";
 import { ReportButton } from "@/components/ReportButton";
+import { AgentActionRail } from "@/components/AgentActionRail";
 
 const LUGGAGE_LABEL: Record<Luggage, string> = {
   none: "Sin equipaje",
@@ -50,6 +53,7 @@ import { CrewAvatars } from "@/components/CrewAvatars";
 import { PlaylistPanel } from "@/components/PlaylistPanel";
 
 const RideRouteMap = lazy(() => import("@/components/RideRouteMap"));
+const BottomCTABar = lazy(() => import("@/components/BottomCTABar"));
 
 type ReserveState =
   | { status: "idle" }
@@ -195,6 +199,12 @@ export default function RideDetailPage() {
     });
   }
 
+  function scrollToBookingForm() {
+    document
+      .getElementById("ride-booking-form")
+      ?.scrollIntoView({ behavior: "smooth", block: "start" });
+  }
+
   function handleShareWhatsApp() {
     if (!ride) return;
     const campaign = ride.concert.artist.toLowerCase().replace(/\s+/g, "-").slice(0, 30);
@@ -257,6 +267,15 @@ export default function RideDetailPage() {
         ride_id: ride.id,
         seats: payload.seats,
         instant: ride.instant_booking,
+      });
+      // Micro-celebration: confetti + haptic + sonner toast.
+      // For instant bookings the seat is confirmed already; for regular
+      // requests the driver still needs to accept, but the user took action.
+      celebrate();
+      toast.success("Reserva confirmada", {
+        description: ride.instant_booking
+          ? "Tu plaza queda confirmada al instante."
+          : "Te avisaremos cuando el conductor responda.",
       });
     } catch (err) {
       setReserve({
@@ -392,6 +411,37 @@ export default function RideDetailPage() {
                   {ride.concert.venue.name} · {formatDate(ride.concert.date)}
                 </p>
               </div>
+
+              {/* ── Agentic booking surface (Google I/O 2026 agentic commerce) ──
+                  Three semantic intents exposed in a stable accessibility tree
+                  so Gemini / ChatGPT agents can reason about "what can I do
+                  on this page" without screen-scraping selectors. */}
+              <AgentActionRail
+                ariaLabel={`Acciones disponibles en este viaje desde ${ride.origin_city} hasta ${ride.concert.venue.city}`}
+                actions={[
+                  ...(ride.seats_left > 0
+                    ? [{
+                        label: `Reservar plaza · €${ride.price_per_seat}`,
+                        href: `#ride-booking-form`,
+                        intent: "book-ride" as const,
+                        variant: "primary" as const,
+                        description: `Reservar una plaza en este viaje desde ${ride.origin_city} hasta ${ride.concert.venue.city} por €${ride.price_per_seat}`,
+                      }]
+                    : []),
+                  {
+                    label: "Ver perfil del conductor",
+                    href: `/users/${ride.driver.id}`,
+                    intent: "view-driver",
+                    description: `Ver perfil verificado de ${ride.driver.name}`,
+                  },
+                  {
+                    label: "Ver concierto",
+                    href: `/concerts/${ride.concert.id}`,
+                    intent: "view-concert",
+                    description: `Información del concierto: ${ride.concert.artist} en ${ride.concert.venue.name}`,
+                  },
+                ]}
+              />
 
               <dl className="grid grid-cols-2 gap-x-4 gap-y-4 border-t border-dashed border-cr-border pt-4">
                 <div>
@@ -690,8 +740,9 @@ export default function RideDetailPage() {
           </section>
         ) : user ? (
           <section
+            id="ride-booking-form"
             aria-labelledby="reserve-title"
-            className="bg-cr-surface border border-cr-border p-6 md:p-8 space-y-5"
+            className="bg-cr-surface border border-cr-border p-6 md:p-8 space-y-5 scroll-mt-20"
           >
             <header className="space-y-1">
               <h2 id="reserve-title" className="font-display text-lg uppercase tracking-wide">
@@ -837,20 +888,25 @@ export default function RideDetailPage() {
                         { value: "large", label: "Maleta grande" },
                         { value: "extra", label: "Extra (instrumento…)" },
                       ] as { value: Luggage; label: string }[]
-                    ).map(({ value, label }) => (
-                      <button
-                        key={value}
-                        type="button"
-                        onClick={() => setLuggage(value)}
-                        className={`py-2 px-3 font-sans text-xs font-semibold uppercase tracking-[0.08em] border-2 text-left transition-colors ${
-                          luggage === value
-                            ? "border-cr-primary text-cr-primary bg-cr-primary/5"
-                            : "border-cr-border text-cr-text-muted hover:border-cr-primary/50"
-                        }`}
-                      >
-                        {label}
-                      </button>
-                    ))}
+                    ).map(({ value, label }) => {
+                      const selected = luggage === value;
+                      return (
+                        <button
+                          key={value}
+                          type="button"
+                          aria-pressed={selected}
+                          onClick={() => setLuggage(value)}
+                          className={
+                            "border-2 px-3 py-2 text-xs font-sans font-semibold uppercase tracking-wide text-left transition-all " +
+                            (selected
+                              ? "border-cr-primary bg-cr-primary/10 text-cr-primary shadow-[2px_2px_0_0_#d4f700]"
+                              : "border-cr-border text-cr-text-muted hover:border-cr-primary/40")
+                          }
+                        >
+                          {label}
+                        </button>
+                      );
+                    })}
                   </div>
                 </div>
 
@@ -864,20 +920,25 @@ export default function RideDetailPage() {
                         (o) =>
                           ride.accepted_payment === "cash_or_bizum" ||
                           o.value === ride.accepted_payment,
-                      ).map(({ value, label }) => (
-                        <button
-                          key={value}
-                          type="button"
-                          onClick={() => setPaymentMethod(value)}
-                          className={`flex-1 py-2 px-3 font-sans text-xs font-semibold uppercase tracking-[0.08em] border-2 transition-colors ${
-                            paymentMethod === value
-                              ? "border-cr-primary text-cr-primary bg-cr-primary/5"
-                              : "border-cr-border text-cr-text-muted hover:border-cr-primary/50"
-                          }`}
-                        >
-                          {label}
-                        </button>
-                      ))}
+                      ).map(({ value, label }) => {
+                        const selected = paymentMethod === value;
+                        return (
+                          <button
+                            key={value}
+                            type="button"
+                            aria-pressed={selected}
+                            onClick={() => setPaymentMethod(value)}
+                            className={
+                              "flex-1 border-2 px-3 py-2 text-xs font-sans font-semibold uppercase tracking-wide transition-all " +
+                              (selected
+                                ? "border-cr-primary bg-cr-primary/10 text-cr-primary shadow-[2px_2px_0_0_#d4f700]"
+                                : "border-cr-border text-cr-text-muted hover:border-cr-primary/40")
+                            }
+                          >
+                            {label}
+                          </button>
+                        );
+                      })}
                     </div>
                   </div>
                 )}
@@ -1005,6 +1066,20 @@ export default function RideDetailPage() {
 
         <RideReviewsSection ride={ride} currentUser={user ?? null} />
       </div>
+
+      {ride.seats_left > 0 &&
+        !isDriver &&
+        !isCompleted &&
+        ride.status !== "cancelled" &&
+        !(myRequest && (myRequest.status === "pending" || myRequest.status === "confirmed")) && (
+          <Suspense fallback={null}>
+            <BottomCTABar
+              label="Reservar plaza"
+              sublabel={`€${ride.price_per_seat} · ${ride.seats_left} plaza${ride.seats_left === 1 ? "" : "s"}`}
+              onClick={scrollToBookingForm}
+            />
+          </Suspense>
+        )}
     </main>
   );
 }

@@ -442,6 +442,12 @@ export function generateServiceSchema({
   priceMin,
   priceMax,
   siteUrl,
+  /** ISO date when this offer expires (typically festival endDate).
+   *  Required by Google's Universal Cart / agentic commerce spec — agents
+   *  reject Offer entries without `priceValidUntil`. */
+  priceValidUntil,
+  /** ISO date when this offer starts being available. */
+  validFrom,
 }: {
   originCity: string;
   festivalShortName: string;
@@ -450,6 +456,8 @@ export function generateServiceSchema({
   priceMin: string | number;
   priceMax: string | number;
   siteUrl: string;
+  priceValidUntil?: string;
+  validFrom?: string;
 }) {
   return {
     "@context": "https://schema.org",
@@ -483,6 +491,8 @@ export function generateServiceSchema({
       priceCurrency: "EUR",
       availability: "https://schema.org/InStock",
       url: `${siteUrl}/rutas/${routeSlug}`,
+      ...(validFrom ? { validFrom } : {}),
+      ...(priceValidUntil ? { priceValidUntil, validThrough: priceValidUntil } : {}),
     },
   };
 }

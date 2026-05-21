@@ -1,10 +1,12 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link, Navigate, useSearchParams } from "react-router-dom";
 import { motion, AnimatePresence } from "motion/react";
-import { ArrowLeft, Check, ChevronDown, Eye, EyeOff, ShieldCheck } from "lucide-react";
+import { toast } from "sonner";
+import { ArrowLeft, Check, ChevronDown, Eye, EyeOff, Loader2, ShieldCheck } from "lucide-react";
 import { api, ApiError } from "@/lib/api";
 import { useSession } from "@/lib/session";
 import { SPANISH_CITIES } from "@/lib/constants";
+import { celebrate } from "@/lib/celebrate";
 import { useSeoMeta } from "@/lib/useSeoMeta";
 import { SITE_URL } from "@/lib/siteUrl";
 import { ANALYTICS_EVENTS, trackEvent } from "@/lib/analytics-events";
@@ -70,9 +72,18 @@ export default function RegisterPage() {
   const [smoker, setSmoker] = useState<"yes" | "no" | "">("");
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  // Toggles briefly when an error is set so the input containers animate.
+  const [shake, setShake] = useState(false);
   // Progressive disclosure — optional profile fields hidden by default to reduce form friction.
   // Users complete the core 3-field form first; expanding is available after.
   const [showOptional, setShowOptional] = useState(false);
+
+  useEffect(() => {
+    if (!error) return;
+    setShake(true);
+    const t = window.setTimeout(() => setShake(false), 320);
+    return () => window.clearTimeout(t);
+  }, [error]);
 
   useSeoMeta({
     title: "Crear cuenta gratis",
@@ -109,6 +120,11 @@ export default function RegisterPage() {
       trackEvent(ANALYTICS_EVENTS.USER_REGISTERED, {
         method: "email",
         has_ref: Boolean(ref),
+      });
+      // Lighter celebration than booking confetti — single burst is enough.
+      celebrate();
+      toast.success("¡Bienvenido a ConcertRide!", {
+        description: "Empieza descubriendo conciertos.",
       });
       await refresh();
     } catch (err) {
@@ -256,20 +272,22 @@ export default function RegisterPage() {
             <span className="font-mono text-[10px] font-semibold uppercase tracking-[0.14em] text-white/40">
               Nombre
             </span>
-            <input
-              id="reg-name"
-              type="text"
-              required
-              aria-required="true"
-              autoFocus
-              autoComplete="name"
-              value={name}
-              onChange={(e) => setName(e.target.value)}
-              placeholder="Tu nombre"
-              aria-describedby={error ? "reg-error" : undefined}
-              aria-invalid={!!error || undefined}
-              className="w-full bg-white/[0.04] border border-white/[0.1] focus:border-cr-primary outline-none px-4 py-3 font-sans text-sm text-cr-text placeholder:text-white/20 transition-colors duration-150"
-            />
+            <div className={`group relative ${shake ? "cr-shake" : ""}`}>
+              <input
+                id="reg-name"
+                type="text"
+                required
+                aria-required="true"
+                autoFocus
+                autoComplete="name"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+                placeholder="Tu nombre"
+                aria-describedby={error ? "reg-error" : undefined}
+                aria-invalid={!!error || undefined}
+                className={`w-full border-2 bg-cr-surface px-4 py-3 font-sans text-sm text-cr-text placeholder:text-white/20 focus:border-cr-primary focus:outline-none focus:shadow-[0_0_0_3px_rgba(212,247,0,0.25)] transition-all ${error ? "border-cr-secondary/60" : "border-cr-border"}`}
+              />
+            </div>
           </label>
 
           {/* Email */}
@@ -277,19 +295,21 @@ export default function RegisterPage() {
             <span className="font-mono text-[10px] font-semibold uppercase tracking-[0.14em] text-white/40">
               Email
             </span>
-            <input
-              id="reg-email"
-              type="email"
-              required
-              aria-required="true"
-              autoComplete="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              placeholder="tu@email.com"
-              aria-describedby={error ? "reg-error" : undefined}
-              aria-invalid={!!error || undefined}
-              className="w-full bg-white/[0.04] border border-white/[0.1] focus:border-cr-primary outline-none px-4 py-3 font-mono text-sm text-cr-text placeholder:text-white/20 transition-colors duration-150"
-            />
+            <div className={`group relative ${shake ? "cr-shake" : ""}`}>
+              <input
+                id="reg-email"
+                type="email"
+                required
+                aria-required="true"
+                autoComplete="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                placeholder="tu@email.com"
+                aria-describedby={error ? "reg-error" : undefined}
+                aria-invalid={!!error || undefined}
+                className={`w-full border-2 bg-cr-surface px-4 py-3 font-mono text-sm text-cr-text placeholder:text-white/20 focus:border-cr-primary focus:outline-none focus:shadow-[0_0_0_3px_rgba(212,247,0,0.25)] transition-all ${error ? "border-cr-secondary/60" : "border-cr-border"}`}
+              />
+            </div>
           </label>
 
           {/* Password */}
@@ -298,7 +318,7 @@ export default function RegisterPage() {
               Contraseña{" "}
               <span id="reg-password-hint" className="font-normal normal-case tracking-normal text-white/25">(mín. 8 caracteres)</span>
             </span>
-            <div className="relative">
+            <div className={`group relative ${shake ? "cr-shake" : ""}`}>
               <input
                 id="reg-password"
                 type={showPw ? "text" : "password"}
@@ -311,7 +331,7 @@ export default function RegisterPage() {
                 placeholder="••••••••"
                 aria-describedby={`reg-password-hint${error ? " reg-error" : ""}`}
                 aria-invalid={!!error || undefined}
-                className="w-full bg-white/[0.04] border border-white/[0.1] focus:border-cr-primary outline-none px-4 py-3 pr-12 font-mono text-sm text-cr-text placeholder:text-white/20 transition-colors duration-150"
+                className={`w-full border-2 bg-cr-surface px-4 py-3 pr-12 font-mono text-sm text-cr-text placeholder:text-white/20 focus:border-cr-primary focus:outline-none focus:shadow-[0_0_0_3px_rgba(212,247,0,0.25)] transition-all ${error ? "border-cr-secondary/60" : "border-cr-border"}`}
               />
               <button
                 type="button"
@@ -477,9 +497,17 @@ export default function RegisterPage() {
             <button
               type="submit"
               disabled={submitting || !name.trim() || !email.trim() || password.length < 8 || !tosAccepted || !ageConfirmed}
-              className="cr-btn-shine w-full bg-cr-primary text-black font-sans font-semibold uppercase tracking-[0.14em] text-sm px-6 py-4 hover:bg-[#c8ec00] transition-colors duration-150 disabled:opacity-40 disabled:pointer-events-none"
+              aria-busy={submitting || undefined}
+              className="cr-btn-shine w-full inline-flex items-center justify-center gap-2 bg-cr-primary text-black font-sans font-semibold uppercase tracking-[0.14em] text-sm px-6 py-4 hover:bg-[#c8ec00] transition-colors duration-150 disabled:opacity-40 disabled:pointer-events-none"
             >
-              {submitting ? "Creando cuenta…" : "Crear cuenta gratis →"}
+              {submitting ? (
+                <>
+                  <Loader2 size={16} className="animate-spin" aria-hidden="true" />
+                  Creando cuenta…
+                </>
+              ) : (
+                "Crear cuenta gratis →"
+              )}
             </button>
             <p className="font-sans text-[11px] text-white/40 text-center leading-relaxed">
               <Check size={10} strokeWidth={3} className="inline-block text-cr-primary mr-1 -mt-0.5" aria-hidden="true" />

@@ -1,4 +1,4 @@
-import { useRef, useMemo } from "react";
+import { useRef, useMemo, type CSSProperties } from "react";
 import { Link } from "react-router-dom";
 import { motion, useScroll, useTransform } from "motion/react";
 import React from "react";
@@ -67,7 +67,11 @@ function HorizontalCarouselComponent({ concerts }: Props) {
             className="flex gap-6 px-[6vw]"
           >
             {concerts.map((c, i) => (
-              <li key={c.id} className="shrink-0 w-[340px] lg:w-[400px]">
+              <li
+                key={c.id}
+                className="shrink-0 w-[340px] lg:w-[400px] cr-vt-card"
+                style={{ "--cr-vt-name": `concert-card-${c.id}` } as CSSProperties}
+              >
                 <Link to={`/concerts/${c.id}`} className="block">
                   <ConcertCard concert={c} priority={i === 0} />
                 </Link>
@@ -90,7 +94,11 @@ function HorizontalCarouselComponent({ concerts }: Props) {
       <div className="md:hidden">
         <ol className="flex gap-4 overflow-x-auto snap-x snap-mandatory px-6 pb-10 -mx-1 scroll-pl-6">
           {concerts.map((c, i) => (
-            <li key={c.id} className="shrink-0 w-[78%] snap-start">
+            <li
+              key={c.id}
+              className="shrink-0 w-[78%] snap-start cr-vt-card"
+              style={{ "--cr-vt-name": `concert-card-${c.id}` } as CSSProperties}
+            >
               <Link to={`/concerts/${c.id}`} className="block">
                 <ConcertCard concert={c} priority={i === 0} />
               </Link>

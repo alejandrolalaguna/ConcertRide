@@ -97,7 +97,7 @@ export default function AcercaDePage() {
               contactPoint: {
                 "@type": "ContactPoint",
                 contactType: "customer support",
-                email: "hola@concertride.me",
+                email: "help@concertride.me",
                 availableLanguage: "Spanish",
               },
               sameAs: [
@@ -412,8 +412,8 @@ export default function AcercaDePage() {
           </div>
           <p className="font-sans text-xs text-cr-text-muted">
             Contacto para medios:{" "}
-            <a href="mailto:hola@concertride.me" className="text-cr-primary hover:underline">
-              hola@concertride.me
+            <a href="mailto:help@concertride.me" className="text-cr-primary hover:underline">
+              help@concertride.me
             </a>
           </p>
         </section>

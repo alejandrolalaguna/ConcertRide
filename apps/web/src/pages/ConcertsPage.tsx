@@ -1,14 +1,15 @@
-import { useCallback, useEffect, useMemo, useRef, useState } from "react";
-import { Link, useSearchParams } from "react-router-dom";
-import { AnimatePresence, motion } from "motion/react";
+import { useCallback, useEffect, useMemo, useRef, useState, type CSSProperties } from "react";
+import { Link, useNavigate, useSearchParams } from "react-router-dom";
+import { AnimatePresence, LayoutGroup, motion } from "motion/react";
 import { useSeoMeta } from "@/lib/useSeoMeta";
 import { SITE_URL } from "@/lib/siteUrl";
 import { SlidersHorizontal, Sparkles, X, Clock, Zap, ChevronLeft, ChevronRight, Search } from "lucide-react";
 import type { Concert } from "@concertride/types";
 import { api } from "@/lib/api";
 import { ConcertCard } from "@/components/ConcertCard";
-import { LoadingSpinner } from "@/components/ui";
+import { ConcertCardSkeleton } from "@/components/LoadingStates";
 import { ANALYTICS_EVENTS, trackEvent } from "@/lib/analytics-events";
+import { withViewTransition } from "@/lib/viewTransitions";
 
 const PAGE_SIZE = 24;
 // Past tab: show concerts from up to 3 months ago
@@ -64,6 +65,7 @@ const WEBPAGE_CONCERTS_JSON_LD = JSON.stringify({
 });
 
 export default function ConcertsPage() {
+  const navigate = useNavigate();
   const [searchParams, setSearchParams] = useSearchParams();
   const [concerts, setConcerts] = useState<Concert[] | null>(null);
   const [total, setTotal] = useState(0);
@@ -481,8 +483,16 @@ export default function ConcertsPage() {
       {/* Grid */}
       <div ref={gridRef} className="max-w-6xl mx-auto px-6 pb-24">
         {loading ? (
-          <div aria-live="polite" aria-atomic="true" aria-busy="true">
-            <LoadingSpinner text="Cargando conciertos…" />
+          <div
+            aria-live="polite"
+            aria-atomic="true"
+            aria-busy="true"
+            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5"
+          >
+            <span className="sr-only">Cargando conciertos…</span>
+            {Array.from({ length: 6 }).map((_, i) => (
+              <ConcertCardSkeleton key={i} />
+            ))}
           </div>
         ) : loadError ? (
           <div className="py-24 text-center" role="alert">
@@ -500,33 +510,49 @@ export default function ConcertsPage() {
           </div>
         ) : (
           <>
-            <motion.ul
-              role="list"
-              aria-label={`${total} conciertos encontrados`}
-              aria-live="polite"
-              aria-atomic="false"
-              className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5"
-              initial="hidden"
-              animate="visible"
-              variants={{
-                hidden: {},
-                visible: { transition: { staggerChildren: 0.05 } },
-              }}
-            >
-              {pageConcerts.map((c) => (
-                <motion.li
-                  key={c.id}
-                  variants={{
-                    hidden: { opacity: 0, y: 16 },
-                    visible: { opacity: 1, y: 0, transition: { duration: 0.4, ease: [0.16, 1, 0.3, 1] } },
-                  }}
-                >
-                  <Link to={`/concerts/${c.id}`} className="block">
-                    <ConcertCard concert={c} />
-                  </Link>
-                </motion.li>
-              ))}
-            </motion.ul>
+            <LayoutGroup>
+              <motion.ul
+                layout
+                role="list"
+                aria-label={`${total} conciertos encontrados`}
+                aria-live="polite"
+                aria-atomic="false"
+                className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 snap-y snap-mandatory md:snap-none"
+                initial="hidden"
+                animate="visible"
+                variants={{
+                  hidden: {},
+                  visible: { transition: { staggerChildren: 0.05 } },
+                }}
+              >
+                {pageConcerts.map((c) => (
+                  <motion.li
+                    key={c.id}
+                    layout
+                    layoutId={`concert-${c.id}`}
+                    variants={{
+                      hidden: { opacity: 0, y: 16 },
+                      visible: { opacity: 1, y: 0, transition: { duration: 0.4, ease: [0.16, 1, 0.3, 1] } },
+                    }}
+                    className="snap-start cr-vt-card"
+                    style={{ "--cr-vt-name": `concert-card-${c.id}` } as CSSProperties}
+                  >
+                    <Link
+                      to={`/concerts/${c.id}`}
+                      onClick={(e) => {
+                        // Only intercept plain left-clicks so middle-click / cmd-click still open in new tab
+                        if (e.metaKey || e.ctrlKey || e.shiftKey || e.button !== 0) return;
+                        e.preventDefault();
+                        withViewTransition(() => navigate(`/concerts/${c.id}`));
+                      }}
+                      className="block"
+                    >
+                      <ConcertCard concert={c} />
+                    </Link>
+                  </motion.li>
+                ))}
+              </motion.ul>
+            </LayoutGroup>
 
             {/* Pagination */}
             {totalPages > 1 && (

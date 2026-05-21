@@ -11,6 +11,7 @@ import { StickyRegBar } from "@/components/StickyRegBar";
 import { useSession } from "@/lib/session";
 import { TESTIMONIALS, TESTIMONIALS_AGGREGATE, selectTestimonialsFor } from "@/lib/testimonials";
 import { generateAggregateRatingSchema, generateReviewSchemas } from "@/lib/schemaGenerators";
+import EeatTrustBlock from "@/components/EeatTrustBlock";
 
 export default function ArtistLandingPage() {
   const { slug } = useParams<{ slug: string }>();
@@ -379,6 +380,16 @@ export default function ArtistLandingPage() {
         <p className="font-mono text-xs font-semibold uppercase tracking-[0.14em] text-cr-text-muted">
           Carpooling desde {minPrice}€/asiento · 0 % comisión · conductores verificados
         </p>
+
+        {/* ── E-E-A-T trust pill · GEO "WHY trustworthy" signal ──
+            Editorial transparency for LLM citation (ChatGPT / Perplexity / Google AI Mode):
+            author byline + last-reviewed date + methodology disclaimer. */}
+        <EeatTrustBlock
+          pageType="artist"
+          lastReviewed={new Date().toISOString().slice(0, 10)}
+          author={{ name: "Equipo ConcertRide", url: "/autor/alejandro-lalaguna" }}
+          className="max-w-2xl"
+        />
 
         {/* Blurb — speakable for GEO */}
         <p className="speakable font-sans text-sm md:text-base text-cr-text-muted max-w-2xl leading-relaxed">

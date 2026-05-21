@@ -1,7 +1,7 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link, Navigate, useSearchParams } from "react-router-dom";
 import { motion } from "motion/react";
-import { ArrowLeft, Eye, EyeOff, Music, Zap, Users } from "lucide-react";
+import { ArrowLeft, Eye, EyeOff, Loader2, Music, Zap, Users } from "lucide-react";
 import { api, ApiError } from "@/lib/api";
 import { useSession } from "@/lib/session";
 import { useSeoMeta } from "@/lib/useSeoMeta";
@@ -27,6 +27,16 @@ export default function LoginPage() {
   const [showPw, setShowPw] = useState(false);
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  // Toggles briefly when an error is set so the input container animates
+  // (cr-shake keyframe — respects prefers-reduced-motion globally).
+  const [shake, setShake] = useState(false);
+
+  useEffect(() => {
+    if (!error) return;
+    setShake(true);
+    const t = window.setTimeout(() => setShake(false), 320);
+    return () => window.clearTimeout(t);
+  }, [error]);
 
   useSeoMeta({
     title: "Entrar",
@@ -151,20 +161,22 @@ export default function LoginPage() {
             <span className="font-mono text-[10px] font-semibold uppercase tracking-[0.14em] text-white/40">
               Email
             </span>
-            <input
-              id="login-email"
-              type="email"
-              required
-              aria-required="true"
-              autoFocus
-              autoComplete="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              placeholder="tu@email.com"
-              aria-describedby={error ? "login-error" : undefined}
-              aria-invalid={!!error || undefined}
-              className="w-full bg-white/[0.04] border border-white/[0.1] focus:border-cr-primary focus:shadow-[0_0_12px_rgb(219_255_0/0.15)] outline-none px-4 py-3 font-mono text-sm text-cr-text placeholder:text-white/20 transition-all duration-150"
-            />
+            <div className={`group relative ${shake ? "cr-shake" : ""}`}>
+              <input
+                id="login-email"
+                type="email"
+                required
+                aria-required="true"
+                autoFocus
+                autoComplete="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                placeholder="tu@email.com"
+                aria-describedby={error ? "login-error" : undefined}
+                aria-invalid={!!error || undefined}
+                className={`w-full border-2 bg-cr-surface px-4 py-3 font-mono text-sm text-cr-text placeholder:text-white/20 focus:border-cr-primary focus:outline-none focus:shadow-[0_0_0_3px_rgba(212,247,0,0.25)] transition-all ${error ? "border-cr-secondary/60" : "border-cr-border"}`}
+              />
+            </div>
           </motion.label>
 
           {/* Password */}
@@ -178,7 +190,7 @@ export default function LoginPage() {
             <span className="font-mono text-[10px] font-semibold uppercase tracking-[0.14em] text-white/40">
               Contraseña
             </span>
-            <div className="relative">
+            <div className={`group relative ${shake ? "cr-shake" : ""}`}>
               <input
                 id="login-password"
                 type={showPw ? "text" : "password"}
@@ -190,7 +202,7 @@ export default function LoginPage() {
                 placeholder="••••••••"
                 aria-describedby={error ? "login-error" : undefined}
                 aria-invalid={!!error || undefined}
-                className="w-full bg-white/[0.04] border border-white/[0.1] focus:border-cr-primary focus:shadow-[0_0_12px_rgb(219_255_0/0.15)] outline-none px-4 py-3 pr-12 font-mono text-sm text-cr-text placeholder:text-white/20 transition-all duration-150"
+                className={`w-full border-2 bg-cr-surface px-4 py-3 pr-12 font-mono text-sm text-cr-text placeholder:text-white/20 focus:border-cr-primary focus:outline-none focus:shadow-[0_0_0_3px_rgba(212,247,0,0.25)] transition-all ${error ? "border-cr-secondary/60" : "border-cr-border"}`}
               />
               <button
                 type="button"
@@ -223,9 +235,17 @@ export default function LoginPage() {
             <button
               type="submit"
               disabled={submitting || !email.trim() || !password}
-              className="cr-btn-shine w-full bg-cr-primary text-black font-sans font-semibold uppercase tracking-[0.14em] text-sm px-6 py-4 hover:bg-[#c8ec00] transition-colors duration-150 disabled:opacity-40 disabled:pointer-events-none"
+              aria-busy={submitting || undefined}
+              className="cr-btn-shine w-full inline-flex items-center justify-center gap-2 bg-cr-primary text-black font-sans font-semibold uppercase tracking-[0.14em] text-sm px-6 py-4 hover:bg-[#c8ec00] transition-colors duration-150 disabled:opacity-40 disabled:pointer-events-none"
             >
-              {submitting ? "Entrando…" : "Entrar →"}
+              {submitting ? (
+                <>
+                  <Loader2 size={16} className="animate-spin" aria-hidden="true" />
+                  Entrando…
+                </>
+              ) : (
+                "Entrar →"
+              )}
             </button>
           </div>
 

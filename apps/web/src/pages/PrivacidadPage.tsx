@@ -242,6 +242,112 @@ export default function PrivacidadPage() {
           </section>
 
           <section className="space-y-3">
+            <h2 className="font-display text-xl uppercase text-cr-primary">4.1 Mapas y OpenStreetMap Foundation</h2>
+            <p>
+              ConcertRide muestra mapas para visualizar puntos de recogida, recintos y rutas de
+              carpooling utilizando datos cartográficos de{" "}
+              <a
+                href="https://www.openstreetmap.org/copyright"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-cr-primary underline underline-offset-2"
+              >
+                OpenStreetMap
+              </a>
+              , un proyecto cartográfico colaborativo cuyos datos se distribuyen bajo la{" "}
+              <a
+                href="https://opendatacommons.org/licenses/odbl/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-cr-primary underline underline-offset-2"
+              >
+                Open Database License (ODbL)
+              </a>
+              . Los tiles cartográficos se solicitan directamente a los servidores de OpenStreetMap
+              Foundation (OSMF) cuando cargas una página con mapa.
+            </p>
+
+            <h3 className="font-display text-sm uppercase text-cr-text mt-4">Datos que recibe OpenStreetMap Foundation</h3>
+            <ul className="space-y-1 pl-4 list-disc text-cr-text-muted">
+              <li>
+                <strong className="text-cr-text">Dirección IP</strong> — reducida a los 2 primeros
+                bytes antes de ser registrada (pseudonimización).
+              </li>
+              <li>
+                <strong className="text-cr-text">User-Agent</strong> — identificador del navegador
+                y de la aplicación (<code className="font-mono text-[11px]">ConcertRide/1.0 (https://concertride.me)</code>).
+              </li>
+              <li>
+                <strong className="text-cr-text">Referer</strong> — la URL de origen{" "}
+                <code className="font-mono text-[11px]">concertride.me</code>.
+              </li>
+              <li>
+                <strong className="text-cr-text">Timestamp</strong> — fecha y hora de la petición.
+              </li>
+            </ul>
+
+            <h3 className="font-display text-sm uppercase text-cr-text mt-4">Retención y finalidad</h3>
+            <p className="text-cr-text-muted">
+              OpenStreetMap Foundation conserva los registros de acceso agregados durante un máximo
+              de 180 días con la única finalidad de detectar abuso del servicio (scraping, ataques
+              de denegación). OSMF no identifica individualmente a los usuarios finales, no realiza
+              tracking publicitario ni perfila comportamiento de navegación, y no instala cookies
+              en tu navegador.
+            </p>
+
+            <h3 className="font-display text-sm uppercase text-cr-text mt-4">Transferencia a terceros países</h3>
+            <p className="text-cr-text-muted">
+              La infraestructura de OpenStreetMap Foundation está alojada en el Reino Unido y los
+              Países Bajos. La Comisión Europea adoptó el 28 de junio de 2021 una{" "}
+              <strong className="text-cr-text">decisión de adecuación post-Brexit</strong>{" "}
+              respecto al Reino Unido, en vigor, que garantiza un nivel de protección equivalente
+              al del RGPD. Los Países Bajos forman parte del Espacio Económico Europeo. OSMF no
+              transfiere datos de acceso a países sin decisión de adecuación.
+            </p>
+
+            <h3 className="font-display text-sm uppercase text-cr-text mt-4">Base legal</h3>
+            <ul className="space-y-1 pl-4 list-disc text-cr-text-muted">
+              <li>
+                <strong className="text-cr-text">Art. 6.1.b RGPD</strong> — ejecución del contrato.
+                La visualización de mapas es esencial para mostrar puntos de recogida, recintos y
+                rutas de los viajes compartidos publicados en la plataforma.
+              </li>
+              <li>
+                <strong className="text-cr-text">Art. 6.1.f RGPD</strong> — interés legítimo en
+                ofrecer una experiencia geográfica completa que permita al usuario evaluar la
+                viabilidad del viaje (distancia, paradas, accesos al recinto).
+              </li>
+            </ul>
+
+            <h3 className="font-display text-sm uppercase text-cr-text mt-4">Más información</h3>
+            <p className="text-cr-text-muted">
+              Puedes consultar las políticas oficiales de OpenStreetMap Foundation en:
+            </p>
+            <ul className="space-y-1 pl-4 list-disc text-cr-text-muted">
+              <li>
+                <a
+                  href="https://osmfoundation.org/wiki/Privacy_Policy"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-cr-primary underline underline-offset-2"
+                >
+                  OSMF Privacy Policy
+                </a>
+              </li>
+              <li>
+                <a
+                  href="https://osmfoundation.org/wiki/GDPR_Privacy_Statement"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-cr-primary underline underline-offset-2"
+                >
+                  OSMF GDPR Privacy Statement
+                </a>
+              </li>
+            </ul>
+          </section>
+
+          <section className="space-y-3">
             <h2 className="font-display text-xl uppercase text-cr-primary">5. Tus derechos</h2>
             <p>
               Puedes ejercer en cualquier momento los siguientes derechos. La supresión de la cuenta

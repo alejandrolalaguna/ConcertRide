@@ -24,16 +24,21 @@
   },
   "dependencies": {
     "@concertride/types": "*",
+    "@radix-ui/react-dialog": "^1.1.4",
+    "@radix-ui/react-popover": "^1.1.4",
+    "@radix-ui/react-toast": "^1.2.4",
     "@sentry/react": "^8.55.1",
     "canvas-confetti": "^1.9.4",
-    "leaflet": "^1.9.4",
+    "embla-carousel-react": "^8.5.1",
     "lucide-react": "^1.8.0",
+    "maplibre-gl": "^4.7.1",
     "motion": "^11.13.1",
     "posthog-js": "^1.371.0",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
-    "react-leaflet": "^4.2.1",
-    "react-router-dom": "^6.28.0"
+    "react-router-dom": "^6.28.0",
+    "sonner": "^1.7.1",
+    "vaul": "^1.1.2"
   },
   "devDependencies": {
     "@cloudflare/vite-plugin": "^1.0.0",
@@ -42,7 +47,6 @@
     "@testing-library/react": "^16.1.0",
     "@testing-library/user-event": "^14.5.2",
     "@types/canvas-confetti": "^1.9.0",
-    "@types/leaflet": "^1.9.21",
     "@types/react": "^18.3.12",
     "@types/react-dom": "^18.3.1",
     "@vitejs/plugin-react": "^4.3.4",

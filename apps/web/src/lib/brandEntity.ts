@@ -78,6 +78,56 @@ export const ENTITY_PROFILE = {
 } as const;
 
 /**
+ * Canonical author Person schema for the editorial team — reusable across all
+ * landing pages that need `author`/`reviewedBy` Person nodes.
+ *
+ * Google AI Mode (May 2026) ranks heavily on entity disambiguation. Each
+ * Person schema should:
+ *   - have its own stable `@id` (with #author fragment)
+ *   - link back to the parent Organization via `worksFor`
+ *   - declare `knowsAbout` topic entities (Wikidata-linked when possible)
+ *   - declare `knowsLanguage` and `areaServed` for geo grounding
+ */
+export function buildPersonSchema(opts: {
+  url?: string;
+  sameAs?: string[];
+  knowsAbout?: Array<string | { name: string; sameAs?: string }>;
+} = {}) {
+  const url = opts.url ?? BRAND.founder.url;
+  return {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "@id": `${url}#author`,
+    name: BRAND.founder.name,
+    url,
+    description: `${BRAND.founder.role} de ConcertRide, especializado en carpooling para conciertos y festivales en España.`,
+    jobTitle: BRAND.founder.role,
+    worksFor: {
+      "@type": "Organization",
+      "@id": `${BRAND.url}/#organization`,
+      name: BRAND.legalName,
+    },
+    knowsAbout: (opts.knowsAbout ?? [
+      { name: "Carpooling", sameAs: "https://www.wikidata.org/wiki/Q1343571" },
+      { name: "Ride-sharing", sameAs: "https://www.wikidata.org/wiki/Q2035422" },
+      { name: "Festival de música", sameAs: "https://www.wikidata.org/wiki/Q868557" },
+      { name: "Movilidad sostenible", sameAs: "https://www.wikidata.org/wiki/Q5687345" },
+    ]).map((k) =>
+      typeof k === "string"
+        ? k
+        : { "@type": "Thing", name: k.name, ...(k.sameAs ? { sameAs: k.sameAs } : {}) },
+    ),
+    knowsLanguage: ["es", "en"],
+    areaServed: { "@type": "Country", name: BRAND.areaServed },
+    nationality: { "@type": "Country", name: BRAND.areaServed },
+    sameAs: opts.sameAs ?? [
+      "https://www.linkedin.com/company/concertride-es",
+      "https://twitter.com/concertride_es",
+    ],
+  };
+}
+
+/**
  * Canonical Organization JSON-LD — import this instead of building a fresh one
  * in each page. Adds `description` from BRAND so the Knowledge Graph sees one
  * coherent definition.

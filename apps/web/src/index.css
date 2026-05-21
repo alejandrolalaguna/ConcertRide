@@ -26,7 +26,10 @@
 
   /* ── Text ──────────────────────────────────────────── */
   --color-cr-text: #f0f0f4;
-  --color-cr-text-muted: #7a7a8e;
+  /* WCAG 2.2 AA — was #7a7a8e (~3.1:1 on #060608, failed body-text).
+     #9094a8 gives ~5.0:1 contrast → passes AA while keeping muted feel.
+     --color-cr-text-dim is decorative only (placeholders, faint accents). */
+  --color-cr-text-muted: #9094a8;
   --color-cr-text-dim: #3c3c50;
   --color-cr-text-inverse: #060608;
 
@@ -586,5 +589,55 @@
     background: linear-gradient(90deg, #dbff00, #ff4f00, #00e5c8, #dbff00);
     background-size: 200% auto;
     animation: cr-border-spin 3s linear infinite;
+  }
+
+  /* Shake — for form error feedback. Brief horizontal jitter, disabled
+     automatically by the global prefers-reduced-motion rule above. */
+  @keyframes cr-shake {
+    0%, 100% { transform: translateX(0); }
+    25%      { transform: translateX(-4px); }
+    75%      { transform: translateX(4px); }
+  }
+  .cr-shake {
+    animation: cr-shake 0.3s ease-in-out;
+  }
+}
+
+/* ── View Transitions API ───────────────────────────────
+   Smooth page→page morphing on supported browsers (Chrome 111+, Edge,
+   Safari 18+, Firefox 144+). Old browsers see an instant change (fallback
+   handled in lib/viewTransitions.ts). Respects prefers-reduced-motion. */
+@layer utilities {
+  ::view-transition-old(root),
+  ::view-transition-new(root) {
+    animation-duration: 220ms;
+    animation-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  ::view-transition-old(root) {
+    animation-name: cr-vt-fade-out;
+  }
+  ::view-transition-new(root) {
+    animation-name: cr-vt-fade-in;
+  }
+  @keyframes cr-vt-fade-in {
+    from { opacity: 0; transform: translateY(6px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes cr-vt-fade-out {
+    from { opacity: 1; }
+    to   { opacity: 0; }
+  }
+
+  /* Named morphs — applied via inline style on cards/heroes that should
+     follow you across navigations. The name must be unique per route. */
+  .cr-vt-card {
+    view-transition-name: var(--cr-vt-name, none);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    ::view-transition-old(root),
+    ::view-transition-new(root) {
+      animation: none;
+    }
   }
 }

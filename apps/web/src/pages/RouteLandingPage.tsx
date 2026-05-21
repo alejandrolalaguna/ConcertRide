@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { Suspense, lazy, useEffect, useState } from "react";
 import { Link, Navigate, useParams } from "react-router-dom";
 import { ArrowRight, MapPin, Clock, Euro, Calendar } from "lucide-react";
 import type { Concert } from "@concertride/types";
@@ -10,6 +10,7 @@ import { SITE_URL } from "@/lib/siteUrl";
 import { REGION_ISO } from "@/lib/seoConfig";
 import { generateServiceSchema, generateTouristTripFromRoute } from "@/lib/schemaGenerators";
 import { ROUTE_LANDINGS_BY_SLUG, type RouteLanding } from "@/lib/routeLandings";
+import { CITY_LANDINGS } from "@/lib/cityLandings";
 import { ROUTE_SEO_IMPROVEMENTS } from "@/lib/seoOverrides";
 import { BLOG_POSTS } from "@/lib/blogPosts";
 import { FestivalAlertWidget } from "@/components/FestivalAlertWidget";
@@ -19,7 +20,23 @@ import { SpeakableAnswerBlock } from "@/components/SpeakableAnswerBlock";
 import { AutoLinksForFestival, AutoLinksForRoute } from "@/lib/autoLinking";
 import { trackRouteSearch } from "@/lib/seoEvents";
 import { StickyRegBar } from "@/components/StickyRegBar";
+import { AgentActionRail } from "@/components/AgentActionRail";
 import { useSession } from "@/lib/session";
+
+// Lazy-loaded MapLibre map — keeps the heavy vendor chunk out of the
+// prerendered HTML and the initial JS payload for ~3.8k route pages.
+const LocationContextMap = lazy(() => import("@/components/LocationContextMap"));
+
+// Parse a "3h 30 min" / "45 min" / "2h" string into minutes for the map
+// overlay. Returns undefined if no numbers are detected.
+function parseDrivingTimeMinutes(s: string): number | undefined {
+  const h = s.match(/(\d+)\s*h/i);
+  const m = s.match(/(\d+)\s*min/i);
+  const hours = h ? parseInt(h[1]!, 10) : 0;
+  const mins = m ? parseInt(m[1]!, 10) : 0;
+  const total = hours * 60 + mins;
+  return total > 0 ? total : undefined;
+}
 
 // ---------------------------------------------------------------------------
 // generateQuotable — produces a 120–150 word self-contained passage for
@@ -319,6 +336,10 @@ export default function RouteLandingPage() {
     priceMin,
     priceMax,
     siteUrl: SITE_URL,
+    // Offer expires the day after the festival ends — Google I/O 2026 agentic
+    // commerce requires every Offer to declare priceValidUntil for agent use.
+    priceValidUntil: festival.endDate,
+    validFrom: new Date().toISOString().slice(0, 10),
   });
 
   const jsonLdTripAction = {
@@ -493,6 +514,33 @@ export default function RouteLandingPage() {
           </p>
         </section>
 
+        {/* ── Agentic booking surface (Google I/O 2026 agentic commerce) ──
+            Stable semantic intents for Gemini agents reasoning over the route. */}
+        <AgentActionRail
+          ariaLabel={`Acciones disponibles para la ruta ${originCity} → ${festival.shortName}`}
+          actions={[
+            {
+              label: `Buscar viajes · desde ${originData.concertRideRange.split("–")[0]}/asiento`,
+              href: `/concerts?city=${encodeURIComponent(festival.city)}`,
+              intent: "search-ride",
+              variant: "primary",
+              description: `Buscar carpooling desde ${originCity} a ${festival.shortName} por ${originData.concertRideRange}/asiento`,
+            },
+            {
+              label: "Ver ficha del festival",
+              href: `/festivales/${festival.slug}`,
+              intent: "view-festival",
+              description: `Información completa del festival ${festival.name}`,
+            },
+            {
+              label: "Publicar mi viaje",
+              href: "/publish",
+              intent: "publish-ride",
+              description: `Publicar un viaje desde ${originCity} a ${festival.shortName} como conductor`,
+            },
+          ]}
+        />
+
         {/* Route stats */}
         <div className="flex flex-wrap gap-3 pt-2">
           <span className="inline-flex items-center gap-1.5 font-mono text-[11px] text-cr-text-muted border border-cr-border px-3 py-1.5">
@@ -525,6 +573,65 @@ export default function RouteLandingPage() {
           </Link>
         </div>
       </div>
+
+      {/* ── Location context map — origin → festival polyline ── */}
+      {(() => {
+        const originCityLanding = CITY_LANDINGS.find(
+          (c) => c.slug === landing.originCitySlug,
+        );
+        const originLat = originCityLanding?.lat;
+        const originLng = originCityLanding?.lng;
+        if (
+          typeof originLat !== "number" ||
+          typeof originLng !== "number" ||
+          typeof festival.lat !== "number" ||
+          typeof festival.lng !== "number"
+        ) {
+          return null;
+        }
+        const durationMin = parseDrivingTimeMinutes(originData.drivingTime);
+        return (
+          <section
+            aria-labelledby={`route-map-${landing.slug}`}
+            className="max-w-6xl mx-auto px-6 pt-2"
+          >
+            <h2 id={`route-map-${landing.slug}`} className="sr-only">
+              Mapa de la ruta {originCity} a {festival.shortName}
+            </h2>
+            <Suspense
+              fallback={
+                <div
+                  className="h-[280px] md:h-[360px] cr-card animate-pulse"
+                  aria-hidden="true"
+                />
+              }
+            >
+              <LocationContextMap
+                points={[
+                  {
+                    lat: originLat,
+                    lng: originLng,
+                    label: originCity,
+                    kind: "secondary",
+                  },
+                  {
+                    lat: festival.lat,
+                    lng: festival.lng,
+                    label: festival.name,
+                    kind: "primary",
+                  },
+                ]}
+                polyline
+                overlay={{
+                  distanceKm: originData.km,
+                  durationMin,
+                }}
+                ariaLabel={`Mapa de la ruta ${originCity} a ${festival.shortName}`}
+              />
+            </Suspense>
+          </section>
+        );
+      })()}
 
       {/* ── Route detail ── */}
       <section className="max-w-6xl mx-auto px-6 pb-16 border-t border-cr-border pt-12 space-y-6">

@@ -126,8 +126,8 @@ export default defineConfig({
         rollupOptions: {
           output: {
             manualChunks(id) {
-              // Leaflet + react-leaflet: only needed on map pages
-              if (id.includes("leaflet")) return "vendor-map";
+              // maplibre-gl: only needed on map pages, kept in lazy chunk
+              if (id.includes("maplibre-gl")) return "vendor-map";
               // Motion: animation library, not needed for SSR/prerendered pages
               if (id.includes("motion")) return "vendor-motion";
               // Sentry: error monitoring, split so it doesn't block page render

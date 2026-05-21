@@ -29,7 +29,11 @@ export type AgentIntent =
   | "view-route"
   | "contact-driver"
   | "view-pricing"
-  | "view-faq";
+  | "view-faq"
+  | "book-ride"
+  | "view-driver"
+  | "view-concert"
+  | "buy-ticket";
 
 interface AgentAction {
   /** Visible text. Should be a verb phrase: "Buscar viajes", "Publicar viaje". */
@@ -68,7 +72,8 @@ export function AgentActionRail({ ariaLabel, actions }: AgentActionRailProps) {
           "border border-cr-primary text-cr-primary hover:bg-cr-primary hover:text-cr-bg focus-visible:outline focus-visible:outline-2 focus-visible:outline-cr-primary";
         const className = `${base} ${a.variant === "primary" ? primary : secondary}`;
         const isExternal = /^https?:/i.test(a.href);
-        if (isExternal) {
+        const isAnchor = a.href.startsWith("#");
+        if (isExternal || isAnchor) {
           return (
             <a
               key={a.intent + a.href}

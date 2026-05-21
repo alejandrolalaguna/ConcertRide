@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { Navigate, useNavigate, useSearchParams } from "react-router-dom";
+import { toast } from "sonner";
 import type { Concert } from "@concertride/types";
 import { api, ApiError } from "@/lib/api";
 import { useSeoMeta } from "@/lib/useSeoMeta";
@@ -65,6 +66,9 @@ export default function SquadCreatePage() {
         squad_id: sq.id,
         concert_id: concertId,
         visibility,
+      });
+      toast.success("Squad creado", {
+        description: "Comparte el enlace para que se una tu gente.",
       });
       navigate(`/squads/${sq.id}`);
     } catch (err) {

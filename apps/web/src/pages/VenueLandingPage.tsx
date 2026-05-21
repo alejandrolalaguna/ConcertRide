@@ -1,4 +1,4 @@
-import { useMemo } from "react";
+import { Suspense, lazy, useMemo } from "react";
 import { Link, Navigate, useParams } from "react-router-dom";
 import { MapPin, Train, Bus, Car, ParkingSquare, Users, ArrowRight } from "lucide-react";
 import { useSeoMeta } from "@/lib/useSeoMeta";
@@ -14,6 +14,10 @@ import { FactDensityCallout } from "@/components/FactDensityCallout";
 import { StickyRegBar } from "@/components/StickyRegBar";
 import { TESTIMONIALS, TESTIMONIALS_AGGREGATE, selectTestimonialsFor } from "@/lib/testimonials";
 import { generateAggregateRatingSchema, generateReviewSchemas } from "@/lib/schemaGenerators";
+
+// Lazy-loaded MapLibre map — keeps the heavy vendor chunk out of the
+// prerendered HTML and the initial JS payload for this page.
+const LocationContextMap = lazy(() => import("@/components/LocationContextMap"));
 
 const VENUE_DEFAULT_OG = `${SITE_URL}/og-fallback.png`;
 
@@ -616,6 +620,41 @@ export default function VenueLandingPage() {
           conciertos {venue.shortName.toLowerCase()}.
         </p>
       </div>
+
+      {/* ── Location context map — lazy MapLibre marker on venue coords ── */}
+      {typeof venue.lat === "number" && typeof venue.lng === "number" && (
+        <section
+          aria-labelledby={`venue-map-${venue.slug}`}
+          className="max-w-6xl mx-auto px-6 pt-6"
+        >
+          <h2
+            id={`venue-map-${venue.slug}`}
+            className="sr-only"
+          >
+            Mapa de {venue.name} en {venue.city}
+          </h2>
+          <Suspense
+            fallback={
+              <div
+                className="h-[280px] md:h-[360px] cr-card animate-pulse"
+                aria-hidden="true"
+              />
+            }
+          >
+            <LocationContextMap
+              points={[
+                {
+                  lat: venue.lat,
+                  lng: venue.lng,
+                  label: venue.name,
+                  kind: "primary",
+                },
+              ]}
+              ariaLabel={`Mapa de ${venue.name} en ${venue.city}`}
+            />
+          </Suspense>
+        </section>
+      )}
 
       {/* ── Fact density callout — scannable numeric facts for AI extractors ── */}
       <section className="max-w-6xl mx-auto px-6 pt-6">

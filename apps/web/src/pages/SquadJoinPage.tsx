@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { Link, Navigate, useNavigate, useParams } from "react-router-dom";
+import { toast } from "sonner";
 import type { Squad } from "@concertride/types";
 import { api, ApiError } from "@/lib/api";
 import { useSeoMeta } from "@/lib/useSeoMeta";
@@ -47,6 +48,7 @@ export default function SquadJoinPage() {
         concert_id: squad.concert.id,
         via: "invite_link",
       });
+      toast.success("¡Te uniste!");
       navigate(`/squads/${squad.id}`);
     } catch {
       setError("join_failed");

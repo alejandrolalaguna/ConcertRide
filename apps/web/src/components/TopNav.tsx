@@ -15,11 +15,48 @@ import {
 import { useSession } from "@/lib/session";
 import { initials } from "@/lib/format";
 
+function useHideOnScrollDown() {
+  const [hidden, setHidden] = useState(false);
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    let lastY = window.scrollY;
+    let raf = 0;
+    function onScroll() {
+      if (raf) return;
+      raf = requestAnimationFrame(() => {
+        const y = window.scrollY;
+        // Desktop (md+) always visible
+        if (window.innerWidth >= 768) {
+          setHidden(false);
+        } else if (y > 80) {
+          // Hide when scrolling DOWN past 80px, show when scrolling UP
+          setHidden(y > lastY);
+        } else {
+          setHidden(false);
+        }
+        lastY = y;
+        raf = 0;
+      });
+    }
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      if (raf) cancelAnimationFrame(raf);
+    };
+  }, []);
+  return hidden;
+}
+
 export function TopNav() {
   const { user, loading, logout } = useSession();
   const location = useLocation();
   const [open, setOpen] = useState(false);
   const ref = useRef<HTMLElement | null>(null);
+  const hidden = useHideOnScrollDown();
+
+  const prefersReducedMotion =
+    typeof window !== "undefined" &&
+    !!window.matchMedia?.("(prefers-reduced-motion: reduce)").matches;
 
   useEffect(() => {
     function onDocClick(e: MouseEvent) {
@@ -62,7 +99,16 @@ export function TopNav() {
     <nav
       ref={ref}
       aria-label="Navegación principal"
-      className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-4 md:px-6 h-14 bg-cr-bg/85 backdrop-blur-md border-b border-cr-border font-sans text-xs"
+      aria-hidden={hidden ? "true" : undefined}
+      // WCAG 2.4.7 / 4.1.2 — when translated off-screen, also remove the nav from
+      // the tab/AT tree so keyboard users can't focus invisible items. `inert`
+      // is the broadest fix (no descendants are reachable until the bar returns).
+      {...(hidden ? { inert: "" as unknown as undefined } : {})}
+      className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-4 md:px-6 h-14 bg-cr-bg/85 backdrop-blur-md border-b border-cr-border font-sans text-xs transition-transform duration-200"
+      style={{
+        transform: hidden ? "translateY(-100%)" : "translateY(0)",
+        transition: prefersReducedMotion ? "none" : undefined,
+      }}
     >
       {/* Wordmark */}
       <Link

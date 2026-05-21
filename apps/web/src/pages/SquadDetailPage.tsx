@@ -100,7 +100,7 @@ export default function SquadDetailPage() {
           <div className="mt-3 flex flex-wrap items-center gap-2">
             <CountdownBadge target={squad.concert.date} size="sm" />
             {squad.vibe_tags.map((t) => (
-              <span key={t} className="border border-cr-border-mid px-2 py-0.5 font-mono text-[10px] uppercase tracking-[0.1em] text-cr-text-muted">
+              <span key={t} className="border-2 border-cr-border-mid px-2 py-0.5 font-mono text-[10px] uppercase tracking-[0.1em] text-cr-text-muted">
                 {t}
               </span>
             ))}

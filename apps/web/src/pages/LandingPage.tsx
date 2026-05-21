@@ -601,8 +601,8 @@ export default function LandingPage() {
               </div>
               <p className="font-sans text-sm text-white/40 font-light leading-relaxed">
                 ¿Tienes más dudas?{" "}
-                <a href="mailto:hola@concertride.me" className="text-[#dbff00] hover:underline">
-                  Escríbenos a hola@concertride.me
+                <a href="mailto:help@concertride.me" className="text-[#dbff00] hover:underline">
+                  Escríbenos a help@concertride.me
                 </a>
               </p>
               <div className="hidden lg:block">

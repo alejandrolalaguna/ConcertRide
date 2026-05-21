@@ -111,7 +111,7 @@ export default function AvisoLegalPage() {
               respectivos titulares.
             </p>
             <p>
-              Los mapas se muestran con datos de{" "}
+              Los mapas se renderizan con datos cartográficos de{" "}
               <a
                 href="https://www.openstreetmap.org/copyright"
                 target="_blank"
@@ -119,17 +119,41 @@ export default function AvisoLegalPage() {
                 className="text-cr-primary underline underline-offset-2"
               >
                 OpenStreetMap contributors
-              </a>{" "}
-              (licencia ODbL) y tiles proporcionados por{" "}
+              </a>
+              , cuyos datos se distribuyen bajo la{" "}
               <a
-                href="https://carto.com/attributions"
+                href="https://opendatacommons.org/licenses/odbl/"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-cr-primary underline underline-offset-2"
               >
-                CARTO
+                Open Database License (ODbL)
               </a>
-              .
+              . La licencia ODbL aplica exclusivamente a los <strong className="text-cr-text">datos</strong>{" "}
+              cartográficos (geometrías, nombres, atributos) y no a este sitio web ni a su código fuente.
+              ConcertRide cumple las{" "}
+              <a
+                href="https://osmfoundation.org/wiki/Licence/Attribution_Guidelines"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-cr-primary underline underline-offset-2"
+              >
+                Attribution Guidelines de OpenStreetMap Foundation
+              </a>{" "}
+              mostrando la atribución visible y enlazable en cada mapa.
+            </p>
+            <p>
+              La librería de renderizado utilizada es{" "}
+              <a
+                href="https://maplibre.org/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-cr-primary underline underline-offset-2"
+              >
+                MapLibre GL JS
+              </a>
+              , distribuida bajo licencia BSD 3-Clause (software libre), sin telemetría ni
+              dependencias comerciales propietarias.
             </p>
           </section>
 

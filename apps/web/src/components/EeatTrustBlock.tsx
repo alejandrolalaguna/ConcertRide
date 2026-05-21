@@ -32,7 +32,7 @@ import { CalendarClock, ShieldCheck, BookOpen } from "lucide-react";
  * @param className optional extra classes for layout overrides.
  */
 export interface EeatTrustBlockProps {
-  pageType: "pillar" | "dataset" | "blog" | "festival";
+  pageType: "pillar" | "dataset" | "blog" | "festival" | "city" | "artist" | "venue";
   lastReviewed: string;
   author?: { name: string; url: string };
   methodologyHref?: string;
@@ -61,6 +61,12 @@ function disclaimerFor(pageType: EeatTrustBlockProps["pageType"]): string {
       return "Información elaborada por nuestro equipo combinando experiencia directa asistiendo a festivales en España, datos de transporte verificados con fuentes oficiales y revisión editorial humana antes de publicación.";
     case "blog":
       return "Artículo redactado y editado por personas, contrastado con fuentes oficiales y experiencia directa de nuestro equipo en festivales y carpooling en España.";
+    case "city":
+      return "Página de ciudad elaborada por nuestro equipo combinando recintos, festivales y rutas de carpooling verificadas en ConcertRide, con datos cruzados con ayuntamiento, recintos oficiales y APM, y revisión editorial humana.";
+    case "artist":
+      return "Información de artista compilada por nuestro equipo a partir de fechas anunciadas oficialmente por la promotora, agenda Ticketmaster Discovery API y rutas reales de carpooling activas en ConcertRide, con revisión editorial humana.";
+    case "venue":
+      return "Ficha de recinto elaborada por nuestro equipo combinando capacidad y dirección oficial del operador del recinto, agenda de eventos verificada y rutas de carpooling activas en ConcertRide, con revisión editorial humana.";
     case "pillar":
     default:
       return "Guía elaborada combinando experiencia directa de nuestro equipo asistiendo a festivales en España, datos verificados con fuentes oficiales (organización del festival, ayuntamientos, INE, APM, DGT) y revisión editorial humana antes de publicación.";

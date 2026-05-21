@@ -1,6 +1,7 @@
-import { useEffect, useMemo, useRef, useState } from "react";
+import { lazy, Suspense, useEffect, useMemo, useRef, useState } from "react";
 import { Link, Navigate, useNavigate, useSearchParams } from "react-router-dom";
 import { motion } from "motion/react";
+import { toast } from "sonner";
 // canvas-confetti is dynamically imported inside the success handler so the
 // ~28 KB animation lib doesn't enter the PublishRidePage chunk on first load
 // (used only after the user successfully publishes a ride).
@@ -8,6 +9,7 @@ import { ArrowLeft, ArrowRight, Check, Copy, MessageCircle, PenLine, Search, Spa
 import type { Concert, CreateConcertInput, Luggage, PaymentMethod, Ride, SmokingPolicy, Vibe } from "@concertride/types";
 import { api, ApiError } from "@/lib/api";
 import { SPANISH_CITIES, SPANISH_CITIES_BY_NAME } from "@/lib/constants";
+import { celebrate } from "@/lib/celebrate";
 import { formatDate, formatTime } from "@/lib/format";
 import { useSession } from "@/lib/session";
 import { track } from "@/lib/observability";
@@ -16,6 +18,10 @@ import { VibeSelector } from "@/components/VibeSelector";
 import { PulsingDot } from "@/components/LoadingStates";
 import { useSeoMeta } from "@/lib/useSeoMeta";
 import { SITE_URL } from "@/lib/siteUrl";
+
+// Lazy-loaded so the maplibre-gl chunk does not enter the publish flow's
+// initial bundle. Only needed when the user reaches Step 2.
+const OriginPickerMap = lazy(() => import("@/components/OriginPickerMap"));
 
 type Step = 1 | 2 | 3;
 
@@ -30,6 +36,8 @@ interface Form {
   manual_genre: string;
   origin_city: string;
   origin_address: string;
+  origin_lat: number | null;
+  origin_lng: number | null;
   departure_time: string;
   round_trip: boolean;
   return_time: string;
@@ -55,6 +63,8 @@ const INITIAL: Form = {
   manual_genre: "",
   origin_city: "",
   origin_address: "",
+  origin_lat: null,
+  origin_lng: null,
   departure_time: "",
   round_trip: false,
   return_time: "",
@@ -262,6 +272,10 @@ export default function PublishRidePage() {
       setError("Ciudad no reconocida");
       return;
     }
+    // Prefer exact map-picked coords when the user has dragged the marker;
+    // fall back to the city centroid from SPANISH_CITIES_BY_NAME.
+    const originLat = form.origin_lat ?? coord.lat;
+    const originLng = form.origin_lng ?? coord.lng;
     setSubmitting(true);
     setError(null);
     try {
@@ -286,8 +300,8 @@ export default function PublishRidePage() {
       const ride = await api.rides.create({
         concert_id: concertId,
         origin_city: coord.name,
-        origin_lat: coord.lat,
-        origin_lng: coord.lng,
+        origin_lat: originLat,
+        origin_lng: originLng,
         origin_address: form.origin_address.trim(),
         departure_time: new Date(form.departure_time).toISOString(),
         price_per_seat: form.price_per_seat,
@@ -322,23 +336,12 @@ export default function PublishRidePage() {
         concert_id: ride.concert_id,
         seats: ride.seats_total,
       });
-      if (!window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-        // Lazy-load canvas-confetti only when we actually need it. Best-effort:
-        // if the chunk fails to load (offline, blocked) we silently skip the
-        // celebration — the success state still renders correctly.
-        import("canvas-confetti")
-          .then(({ default: confetti }) => {
-            confetti({
-              particleCount: 120,
-              spread: 75,
-              origin: { y: 0.45 },
-              colors: ["#DBFF00", "#FF4F00", "#F5F5F5"],
-            });
-          })
-          .catch(() => {
-            // swallow — non-essential UI flourish
-          });
-      }
+      // Micro-celebration: brand-colored confetti + haptic + sonner toast.
+      // celebrate() respects prefers-reduced-motion and is SSR-safe.
+      celebrate();
+      toast.success("Tu viaje está online", {
+        description: "Los pasajeros ya pueden encontrarlo.",
+      });
     } catch (err) {
       if (err instanceof ApiError) setError(err.message);
       else setError("Algo falló. Inténtalo otra vez.");
@@ -353,6 +356,32 @@ export default function PublishRidePage() {
 
   return (
     <main id="main" className="min-h-dvh bg-cr-bg text-cr-text">
+      {/* Mobile sticky step progress — hidden on desktop where the full
+          Stepper inside the header is already visible. */}
+      <div
+        className="md:hidden sticky top-0 z-30 bg-cr-bg/95 backdrop-blur border-b-2 border-cr-border py-3 px-4"
+        role="progressbar"
+        aria-valuemin={1}
+        aria-valuemax={3}
+        aria-valuenow={step}
+        aria-label={`Paso ${step} de 3`}
+      >
+        <div className="flex items-center gap-2 font-mono text-[10px] uppercase">
+          <span className={step >= 1 ? "text-cr-primary" : "text-cr-text-dim"}>1 · Concierto</span>
+          <span className="text-cr-text-dim">·</span>
+          <span className={step >= 2 ? "text-cr-primary" : "text-cr-text-dim"}>2 · Ruta</span>
+          <span className="text-cr-text-dim">·</span>
+          <span className={step >= 3 ? "text-cr-primary" : "text-cr-text-dim"}>3 · Vibe</span>
+        </div>
+        <div className="mt-2 h-[3px] bg-cr-border relative overflow-hidden">
+          <div
+            className="absolute inset-y-0 left-0 bg-cr-primary transition-all duration-300"
+            style={{ width: `${(step / 3) * 100}%` }}
+            aria-hidden="true"
+          />
+        </div>
+      </div>
+
       <div className="max-w-3xl mx-auto px-6 py-10 md:py-16 space-y-10">
         <motion.header
           initial={{ opacity: 0, y: 20 }}
@@ -637,13 +666,41 @@ export default function PublishRidePage() {
               02 · Detalles del viaje
             </h2>
 
+            <div className="space-y-2">
+              <span className="cr-label font-sans text-[11px] font-semibold uppercase tracking-[0.12em] text-cr-text-muted">
+                Punto de recogida en el mapa (opcional)
+              </span>
+              <Suspense
+                fallback={<div className="h-[320px] cr-card animate-pulse" aria-hidden="true" />}
+              >
+                <OriginPickerMap
+                  lat={form.origin_lat ?? null}
+                  lng={form.origin_lng ?? null}
+                  onChange={({ lat, lng }) =>
+                    setForm((prev) => ({ ...prev, origin_lat: lat, origin_lng: lng }))
+                  }
+                />
+              </Suspense>
+            </div>
+
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <Field label="Ciudad de origen *">
                 <select
                   required
                   aria-required="true"
                   value={form.origin_city}
-                  onChange={(e) => update("origin_city", e.target.value)}
+                  onChange={(e) => {
+                    const cityName = e.target.value;
+                    const next = SPANISH_CITIES_BY_NAME[cityName];
+                    setForm((f) => ({
+                      ...f,
+                      origin_city: cityName,
+                      // Re-seed map coords to the new city's centroid so the
+                      // map jumps there. The user can then drag for precision.
+                      origin_lat: next ? next.lat : null,
+                      origin_lng: next ? next.lng : null,
+                    }));
+                  }}
                   className="w-full bg-cr-surface border-2 border-cr-border focus:border-cr-primary outline-none px-3 py-3 font-sans text-sm text-cr-text [color-scheme:dark] transition-colors"
                 >
                   <option value="">Selecciona…</option>

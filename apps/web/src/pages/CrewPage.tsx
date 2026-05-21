@@ -1,4 +1,6 @@
 import { Link, Navigate } from "react-router-dom";
+import { AnimatePresence, motion } from "motion/react";
+import { toast } from "sonner";
 import { useSeoMeta } from "@/lib/useSeoMeta";
 import { SITE_URL } from "@/lib/siteUrl";
 import { useSession } from "@/lib/session";
@@ -8,6 +10,24 @@ import { CrewAvatars } from "@/components/CrewAvatars";
 export default function CrewPage() {
   const { user, loading } = useSession();
   const { crew, pendingIncoming, pendingOutgoing, accept, remove } = useCrew();
+
+  async function handleAccept(userId: string) {
+    try {
+      await accept(userId);
+      toast.success("Invitación aceptada");
+    } catch {
+      toast.error("No se pudo aceptar la invitación");
+    }
+  }
+
+  async function handleReject(userId: string) {
+    try {
+      await remove(userId);
+      toast("Invitación descartada");
+    } catch {
+      toast.error("No se pudo descartar la invitación");
+    }
+  }
 
   useSeoMeta({
     title: "Mi crew · ConcertRide",
@@ -43,38 +63,45 @@ export default function CrewPage() {
               Invitaciones recibidas · {pendingIncoming.length}
             </h2>
             <ul className="mt-4 grid gap-3">
-              {pendingIncoming.map((m) => (
-                <li
-                  key={m.user.id}
-                  className="flex items-center justify-between gap-3 border-2 border-cr-border bg-cr-surface-2 p-4"
-                >
-                  <div className="flex items-center gap-3">
-                    <CrewAvatars people={[{ id: m.user.id, name: m.user.name, avatar_url: m.user.avatar_url }]} size="md" />
-                    <div>
-                      <p className="font-display text-base">{m.user.name}</p>
-                      <p className="font-mono text-[10px] uppercase tracking-[0.12em] text-cr-text-muted">
-                        Quiere unirse a tu crew
-                      </p>
+              <AnimatePresence initial={false}>
+                {pendingIncoming.map((m) => (
+                  <motion.li
+                    key={m.user.id}
+                    layout
+                    initial={{ opacity: 0, y: 8 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, x: -20 }}
+                    transition={{ duration: 0.25 }}
+                    className="flex items-center justify-between gap-3 border-2 border-cr-border bg-cr-surface-2 p-4"
+                  >
+                    <div className="flex items-center gap-3">
+                      <CrewAvatars people={[{ id: m.user.id, name: m.user.name, avatar_url: m.user.avatar_url }]} size="md" />
+                      <div>
+                        <p className="font-display text-base">{m.user.name}</p>
+                        <p className="font-mono text-[10px] uppercase tracking-[0.12em] text-cr-text-muted">
+                          Quiere unirse a tu crew
+                        </p>
+                      </div>
                     </div>
-                  </div>
-                  <div className="flex gap-2">
-                    <button
-                      type="button"
-                      onClick={() => void accept(m.user.id)}
-                      className="border-2 border-cr-primary bg-cr-primary px-3 py-1.5 font-mono text-[10px] font-bold uppercase tracking-[0.14em] text-cr-text-inverse"
-                    >
-                      Aceptar
-                    </button>
-                    <button
-                      type="button"
-                      onClick={() => void remove(m.user.id)}
-                      className="border-2 border-cr-border px-3 py-1.5 font-mono text-[10px] font-bold uppercase tracking-[0.14em] text-cr-text-muted hover:border-cr-secondary hover:text-cr-secondary"
-                    >
-                      Ignorar
-                    </button>
-                  </div>
-                </li>
-              ))}
+                    <div className="flex gap-2">
+                      <button
+                        type="button"
+                        onClick={() => void handleAccept(m.user.id)}
+                        className="border-2 border-cr-primary bg-cr-primary px-3 py-1.5 font-mono text-[10px] font-bold uppercase tracking-[0.14em] text-cr-text-inverse"
+                      >
+                        Aceptar
+                      </button>
+                      <button
+                        type="button"
+                        onClick={() => void handleReject(m.user.id)}
+                        className="border-2 border-cr-border px-3 py-1.5 font-mono text-[10px] font-bold uppercase tracking-[0.14em] text-cr-text-muted hover:border-cr-secondary hover:text-cr-secondary"
+                      >
+                        Ignorar
+                      </button>
+                    </div>
+                  </motion.li>
+                ))}
+              </AnimatePresence>
             </ul>
           </section>
         )}

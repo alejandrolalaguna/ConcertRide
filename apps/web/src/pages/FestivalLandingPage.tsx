@@ -40,6 +40,7 @@ import { LiveDemandPulse } from "@/components/LiveDemandPulse";
 import { useSession } from "@/lib/session";
 import { TESTIMONIALS, TESTIMONIALS_AGGREGATE, selectTestimonialsFor } from "@/lib/testimonials";
 import { generateAggregateRatingSchema, generateReviewSchemas } from "@/lib/schemaGenerators";
+import { deriveFestivalQuotableAnswer } from "@/lib/quotableAnswerDerive";
 import EeatTrustBlock from "@/components/EeatTrustBlock";
 
 const FESTIVAL_WIKIDATA: Record<string, string> = {
@@ -833,16 +834,17 @@ export default function FestivalLandingPage() {
         </h1>
 
         {/* ── Quotable answer-first paragraph · target for AI Overviews / GEO citation ──
-            Rendered immediately after the H1 when present. Self-contained 140-word passage
-            answering "cómo llegar a {festival}" with dates, venue, top-3 options + prices. */}
-        {festival.quotableAnswer && (
-          <section
-            data-quotable
-            className="mt-4 mb-2 max-w-3xl font-sans text-sm md:text-lg leading-relaxed text-cr-text line-clamp-3 md:line-clamp-none"
-          >
-            {festival.quotableAnswer}
-          </section>
-        )}
+            Rendered immediately after the H1. Self-contained ~140-word passage answering
+            "cómo llegar a {festival}" with dates, venue, top-3 options + prices.
+            Manual `quotableAnswer` when available; falls back to a derived passage built
+            from originCities/venue/dates so 100 % of festivals are citable by LLMs. */}
+        <section
+          data-quotable
+          data-quotable-source={festival.quotableAnswer ? "curated" : "derived"}
+          className="mt-4 mb-2 max-w-3xl font-sans text-sm md:text-lg leading-relaxed text-cr-text line-clamp-3 md:line-clamp-none"
+        >
+          {deriveFestivalQuotableAnswer(festival)}
+        </section>
 
         {/* ── Urgency countdown badge (anonymous users, upcoming festivals only) ── */}
         {!user && daysLeft !== null && daysLeft > 0 && (

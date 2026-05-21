@@ -1,4 +1,5 @@
 import { Link, Navigate } from "react-router-dom";
+import { motion } from "motion/react";
 import { Heart, MapPin, Mic2, Music } from "lucide-react";
 import { useSeoMeta } from "@/lib/useSeoMeta";
 import { SITE_URL } from "@/lib/siteUrl";
@@ -7,6 +8,25 @@ import { useSession } from "@/lib/session";
 import { ConcertCard } from "@/components/ConcertCard";
 import { LoadingSpinner } from "@/components/ui";
 import { FavoriteButton } from "@/components/FavoriteButton";
+
+type EmptySection = {
+  label: string;
+  emoji: string;
+  to: string;
+};
+
+function SectionEmptyState({ section }: { section: EmptySection }) {
+  return (
+    <div className="border-2 border-cr-border bg-cr-surface p-6 text-center space-y-2">
+      <div className="text-4xl" aria-hidden="true">{section.emoji}</div>
+      <p className="font-display text-lg uppercase">Sin {section.label} todavía</p>
+      <p className="font-mono text-xs text-cr-text-muted">
+        Explora conciertos y guarda los que te flipen.
+      </p>
+      <Link to={section.to} className="cr-btn-ghost mt-2 inline-block">Explorar</Link>
+    </div>
+  );
+}
 
 export default function FavoritesPage() {
   const { user, loading: sessionLoading } = useSession();
@@ -83,7 +103,7 @@ export default function FavoritesPage() {
         )}
 
         {/* Starred concerts */}
-        {concertFavs.length > 0 && (
+        {!empty && (
           <section className="space-y-4">
             <header className="flex items-center gap-2 border-b border-cr-border pb-2">
               <Music size={14} className="text-cr-text-muted" />
@@ -92,24 +112,34 @@ export default function FavoritesPage() {
               </h2>
               <span className="ml-auto font-mono text-xs text-cr-text-muted">{concertFavs.length}</span>
             </header>
-            <ul className="divide-y divide-cr-border border border-cr-border">
-              {concertFavs.map((f) => (
-                <li key={f.id} className="flex items-center gap-3 p-3">
-                  <Link
-                    to={`/concerts/${f.target_id}`}
-                    className="flex-1 font-sans text-sm text-cr-text hover:text-cr-primary transition-colors"
+            {concertFavs.length === 0 ? (
+              <SectionEmptyState section={{ label: "conciertos", emoji: "🎟️", to: "/concerts" }} />
+            ) : (
+              <motion.ul className="divide-y divide-cr-border border border-cr-border">
+                {concertFavs.map((f, i) => (
+                  <motion.li
+                    key={f.id}
+                    initial={{ opacity: 0, y: 8 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: i * 0.03, duration: 0.25 }}
+                    className="flex items-center gap-3 p-3"
                   >
-                    {f.label}
-                  </Link>
-                  <FavoriteButton kind="concert" targetId={f.target_id} label={f.label} size="sm" />
-                </li>
-              ))}
-            </ul>
+                    <Link
+                      to={`/concerts/${f.target_id}`}
+                      className="flex-1 font-sans text-sm text-cr-text hover:text-cr-primary transition-colors"
+                    >
+                      {f.label}
+                    </Link>
+                    <FavoriteButton kind="concert" targetId={f.target_id} label={f.label} size="sm" />
+                  </motion.li>
+                ))}
+              </motion.ul>
+            )}
           </section>
         )}
 
         {/* Artists */}
-        {artistFavs.length > 0 && (
+        {!empty && (
           <section className="space-y-4">
             <header className="flex items-center gap-2 border-b border-cr-border pb-2">
               <Mic2 size={14} className="text-cr-text-muted" />
@@ -118,24 +148,34 @@ export default function FavoritesPage() {
               </h2>
               <span className="ml-auto font-mono text-xs text-cr-text-muted">{artistFavs.length}</span>
             </header>
-            <ul className="flex flex-wrap gap-2">
-              {artistFavs.map((f) => (
-                <li key={f.id} className="flex items-center gap-2 border border-cr-border px-3 py-2">
-                  <Link
-                    to={`/concerts?artist=${encodeURIComponent(f.label)}`}
-                    className="font-sans text-sm text-cr-text hover:text-cr-primary transition-colors"
+            {artistFavs.length === 0 ? (
+              <SectionEmptyState section={{ label: "artistas", emoji: "🎤", to: "/concerts" }} />
+            ) : (
+              <motion.ul className="flex flex-wrap gap-2">
+                {artistFavs.map((f, i) => (
+                  <motion.li
+                    key={f.id}
+                    initial={{ opacity: 0, y: 8 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: i * 0.03, duration: 0.25 }}
+                    className="flex items-center gap-2 border border-cr-border px-3 py-2"
                   >
-                    {f.label}
-                  </Link>
-                  <FavoriteButton kind="artist" targetId={f.target_id} label={f.label} size="sm" />
-                </li>
-              ))}
-            </ul>
+                    <Link
+                      to={`/concerts?artist=${encodeURIComponent(f.label)}`}
+                      className="font-sans text-sm text-cr-text hover:text-cr-primary transition-colors"
+                    >
+                      {f.label}
+                    </Link>
+                    <FavoriteButton kind="artist" targetId={f.target_id} label={f.label} size="sm" />
+                  </motion.li>
+                ))}
+              </motion.ul>
+            )}
           </section>
         )}
 
         {/* Cities */}
-        {cityFavs.length > 0 && (
+        {!empty && (
           <section className="space-y-4">
             <header className="flex items-center gap-2 border-b border-cr-border pb-2">
               <MapPin size={14} className="text-cr-text-muted" />
@@ -144,19 +184,29 @@ export default function FavoritesPage() {
               </h2>
               <span className="ml-auto font-mono text-xs text-cr-text-muted">{cityFavs.length}</span>
             </header>
-            <ul className="flex flex-wrap gap-2">
-              {cityFavs.map((f) => (
-                <li key={f.id} className="flex items-center gap-2 border border-cr-border px-3 py-2">
-                  <Link
-                    to={`/concerts?city=${encodeURIComponent(f.label)}`}
-                    className="font-sans text-sm text-cr-text hover:text-cr-primary transition-colors"
+            {cityFavs.length === 0 ? (
+              <SectionEmptyState section={{ label: "ciudades", emoji: "📍", to: "/concerts" }} />
+            ) : (
+              <motion.ul className="flex flex-wrap gap-2">
+                {cityFavs.map((f, i) => (
+                  <motion.li
+                    key={f.id}
+                    initial={{ opacity: 0, y: 8 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: i * 0.03, duration: 0.25 }}
+                    className="flex items-center gap-2 border border-cr-border px-3 py-2"
                   >
-                    {f.label}
-                  </Link>
-                  <FavoriteButton kind="city" targetId={f.target_id} label={f.label} size="sm" />
-                </li>
-              ))}
-            </ul>
+                    <Link
+                      to={`/concerts?city=${encodeURIComponent(f.label)}`}
+                      className="font-sans text-sm text-cr-text hover:text-cr-primary transition-colors"
+                    >
+                      {f.label}
+                    </Link>
+                    <FavoriteButton kind="city" targetId={f.target_id} label={f.label} size="sm" />
+                  </motion.li>
+                ))}
+              </motion.ul>
+            )}
           </section>
         )}
       </div>

@@ -18,6 +18,7 @@ import { trackCityView } from "@/lib/seoEvents";
 import { AutoLinksForCity } from "@/lib/autoLinking";
 import { BLOG_POSTS } from "@/lib/blogPosts";
 import { StickyRegBar } from "@/components/StickyRegBar";
+import EeatTrustBlock from "@/components/EeatTrustBlock";
 import { useSession } from "@/lib/session";
 
 const CITY_WIKIDATA: Record<string, string> = {
@@ -737,6 +738,16 @@ export default function CityLandingPage() {
         <p className="font-sans text-sm md:text-base text-cr-text-muted max-w-2xl leading-relaxed speakable">
           {landing.blurb}
         </p>
+
+        {/* ── E-E-A-T trust pill · GEO "WHY trustworthy" signal ──
+            Editorial transparency for LLM citation (ChatGPT / Perplexity / Google AI Mode):
+            author byline + last-reviewed date + methodology disclaimer. */}
+        <EeatTrustBlock
+          pageType="city"
+          lastReviewed={new Date().toISOString().slice(0, 10)}
+          author={{ name: "Equipo ConcertRide", url: "/autor/alejandro-lalaguna" }}
+          className="max-w-2xl"
+        />
 
         {landing.venues.length > 0 && (
           <div className="flex flex-wrap gap-2 pt-2">

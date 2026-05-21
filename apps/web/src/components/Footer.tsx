@@ -1,10 +1,32 @@
 ﻿import { Link } from "react-router-dom";
 
+// Click delegation: when any in-app link inside the footer is clicked, scroll
+// the new page to the top after navigation. React Router preserves scroll
+// position by default and that's awful UX when jumping from the footer (which
+// lives at the bottom) into a fresh page.
+function scrollTopOnInternalLink(e: React.MouseEvent<HTMLElement>) {
+  const target = (e.target as HTMLElement).closest("a");
+  if (!target) return;
+  // Only intercept same-origin, plain left-clicks. Modified clicks (cmd/ctrl/
+  // shift/middle) open in a new tab and shouldn't trigger our scroll.
+  if (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
+  if ((e as unknown as { button?: number }).button && (e as unknown as { button?: number }).button !== 0) return;
+  const href = target.getAttribute("href");
+  if (!href || href.startsWith("http") || href.startsWith("mailto:") || href.startsWith("tel:")) return;
+  // Schedule after React Router's navigation flush — top of the new page.
+  requestAnimationFrame(() => {
+    window.scrollTo({ top: 0, left: 0, behavior: "auto" });
+  });
+}
+
 export function Footer() {
   const year = new Date().getFullYear();
 
   return (
-    <footer className="border-t border-cr-border bg-cr-bg text-cr-text">
+    <footer
+      className="border-t border-cr-border bg-cr-bg text-cr-text"
+      onClick={scrollTopOnInternalLink}
+    >
       <div className="max-w-6xl mx-auto px-6 py-12 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-10">
         <div className="space-y-4">
           <p className="font-display text-lg uppercase tracking-[0.06em]">
@@ -306,24 +328,16 @@ export function Footer() {
               Ticketmaster®
             </a>
             <span>·</span>
-            <span>Mapas:</span>
+            <span>Mapas: ©</span>
             <a
               href="https://www.openstreetmap.org/copyright"
               target="_blank"
               rel="noopener noreferrer"
               className="hover:text-cr-primary transition-colors"
             >
-              OpenStreetMap contributors
+              OpenStreetMap
             </a>
-            <span>·</span>
-            <a
-              href="https://carto.com/attributions"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="hover:text-cr-primary transition-colors"
-            >
-              CARTO
-            </a>
+            <span>contributors · MapLibre GL JS (BSD)</span>
             <span>·</span>
             <span>Fotografías:</span>
             <a

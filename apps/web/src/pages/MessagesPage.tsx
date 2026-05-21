@@ -1,11 +1,12 @@
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { MessageSquare, Lock, Users, ArrowRight } from "lucide-react";
+import { MessageSquare, Lock, Users, ArrowRight, Search } from "lucide-react";
 import type { ConversationPreview } from "@concertride/types";
 import { api } from "@/lib/api";
 import { useSession } from "@/lib/session";
 import { useSeoMeta } from "@/lib/useSeoMeta";
 import { initials } from "@/lib/format";
+import { withViewTransition } from "@/lib/viewTransitions";
 
 function formatRelativeTime(iso: string): string {
   const diff = Date.now() - new Date(iso).getTime();
@@ -18,6 +19,7 @@ function formatRelativeTime(iso: string): string {
 }
 
 function ConvRow({ conv }: { conv: ConversationPreview }) {
+  const navigate = useNavigate();
   const isDM = conv.kind === "dm";
   const isRide = conv.kind === "ride";
 
@@ -42,9 +44,17 @@ function ConvRow({ conv }: { conv: ConversationPreview }) {
     ? { text: "Viaje · Privado", color: "text-amber-400 border-amber-400/30 bg-amber-400/10" }
     : { text: "Concierto · Público", color: "text-emerald-400 border-emerald-400/30 bg-emerald-400/10" };
 
+  const handleClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
+    // Only intercept primary, unmodified clicks so middle/cmd-click still open in new tab.
+    if (e.defaultPrevented || e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
+    e.preventDefault();
+    withViewTransition(() => navigate(to));
+  };
+
   return (
     <Link
       to={to}
+      onClick={handleClick}
       className="flex items-center gap-3 px-4 py-3 hover:bg-cr-surface-2 border-b border-cr-border transition-colors group"
     >
       <div className="flex-shrink-0 w-10 h-10 bg-cr-surface-2 border border-cr-border flex items-center justify-center font-display text-sm text-cr-primary">
@@ -69,6 +79,15 @@ function ConvRow({ conv }: { conv: ConversationPreview }) {
         </div>
       </div>
 
+      {conv.unread_count > 0 && (
+        <span
+          aria-label={`${conv.unread_count} sin leer`}
+          className="ml-auto flex h-5 min-w-5 items-center justify-center rounded-full bg-cr-secondary px-1.5 font-mono text-[10px] font-bold text-black"
+        >
+          {conv.unread_count > 99 ? "99+" : conv.unread_count}
+        </span>
+      )}
+
       <ArrowRight size={14} className="flex-shrink-0 text-cr-text-dim group-hover:text-cr-primary transition-colors" />
     </Link>
   );
@@ -80,6 +99,21 @@ export default function MessagesPage() {
   const [conversations, setConversations] = useState<ConversationPreview[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
+  const [query, setQuery] = useState("");
+
+  const filteredConversations = useMemo(() => {
+    const q = query.trim().toLowerCase();
+    if (!q) return conversations;
+    return conversations.filter((c) => {
+      const name = c.kind === "dm"
+        ? c.other_user?.name ?? ""
+        : c.kind === "ride"
+        ? c.ride_label ?? ""
+        : c.concert_label ?? "";
+      const body = c.last_message_body ?? "";
+      return name.toLowerCase().includes(q) || body.toLowerCase().includes(q);
+    });
+  }, [conversations, query]);
 
   useSeoMeta({
     title: "Mensajes · ConcertRide",
@@ -119,6 +153,24 @@ export default function MessagesPage() {
         </div>
       </header>
 
+      {!loading && !error && conversations.length > 0 && (
+        <div className="relative mb-4">
+          <Search
+            size={14}
+            aria-hidden="true"
+            className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-cr-text-dim"
+          />
+          <input
+            type="search"
+            placeholder="Buscar conversaciones..."
+            value={query}
+            onChange={(e) => setQuery(e.target.value)}
+            aria-label="Buscar conversaciones"
+            className="w-full border-2 border-cr-border bg-cr-surface px-4 py-2.5 pl-9 font-sans text-sm focus:border-cr-primary focus:outline-none focus:shadow-[0_0_0_3px_rgba(212,247,0,0.25)] transition-all"
+          />
+        </div>
+      )}
+
       <div className="border border-cr-border bg-cr-surface">
         {loading && (
           <div className="p-8 text-center font-mono text-xs text-cr-text-dim animate-pulse">
@@ -146,9 +198,14 @@ export default function MessagesPage() {
             </Link>
           </div>
         )}
-        {!loading && !error && conversations.length > 0 && (
+        {!loading && !error && conversations.length > 0 && filteredConversations.length === 0 && (
+          <div className="p-8 text-center font-mono text-xs text-cr-text-dim">
+            Sin resultados para "{query}".
+          </div>
+        )}
+        {!loading && !error && filteredConversations.length > 0 && (
           <ul>
-            {conversations.map((conv, i) => (
+            {filteredConversations.map((conv, i) => (
               <li key={i}>
                 <ConvRow conv={conv} />
               </li>

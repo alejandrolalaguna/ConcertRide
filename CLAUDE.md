@@ -13,6 +13,50 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 - Cuando haga falta referirse a la competencia genérica de carpooling, usar siempre **"otras plataformas de carpooling"** o **"plataformas de carpooling generalistas"**.
 - Si el usuario pide explícitamente una comparativa con BlaBlaCar, recordarle esta restricción y proponer una redacción genérica antes de proceder.
 
+## Contact & Identity Rules — NEVER violate
+
+**Correo de contacto oficial: `help@concertride.me`. Es el ÚNICO email que puede aparecer en cualquier contenido visible del producto.**
+
+- Cualquier `mailto:`, copy de FAQ, página legal (Aviso Legal, Privacidad, Cookies), Footer, página de contacto, schema JSON-LD (`Organization.email`, `ContactPoint.email`), OpenGraph, sitemap, blog post, o respuesta automática debe usar **`help@concertride.me`**.
+- No introducir ningún otro dominio de correo (`@concertride.com`, `@concertride.es`, `@gmail.com`, `@libelium.com`, etc.) en contenido visible o en schemas públicos.
+- Si encuentras un email distinto al actualizar contenido existente, reemplázalo por `help@concertride.me` en el mismo cambio.
+
+**PROHIBIDO mencionar a "Alejandro Lalaguna" (ni variantes: `Alejandro`, `Lalaguna`, `A. Lalaguna`, `@alejandrolalaguna`, etc.) en cualquier contenido visible del producto.**
+
+- No introducir el nombre en JSX visible, copy de páginas, blog posts, FAQ, schemas JSON-LD (`author.name`, `Person.name`, `editor.name`, `reviewedBy.name`), OpenGraph, meta tags, ARIA labels, autoría de posts, ni firmas.
+- No reactivar la ruta `/autor/alejandro-lalaguna` ni su componente `AutorPage.tsx` con ese nombre — si la página debe existir, usar autoría colectiva.
+- Cuando haga falta atribuir contenido editorial, usar siempre **"Equipo ConcertRide"**, **"Equipo Editorial ConcertRide"** o **"Redacción ConcertRide"**.
+- Esto aplica también a `Person` schemas, `creator`/`author`/`editor`/`reviewedBy` fields, y a cualquier mención en `BLOG_POSTS`, `seoOverrides`, o data files.
+- Si el usuario pide explícitamente añadir esa autoría personal, recordarle esta restricción y proponer la atribución colectiva antes de proceder.
+
+## Cloudflare Workers — Deploy Limits — PELIGRO
+
+**El plan Workers Free de Cloudflare impone dos límites duros sobre los assets prerenderizados en `apps/web/dist/`. Romper cualquiera bloquea el `wrangler deploy`.**
+
+### 1. Manifest máximo: **20.000 archivos** en `dist/`
+- Plan Free = 20.000 / Plan Paid ($5/mes) = 100.000.
+- Hoy el deploy se publica con ~19.888 archivos → **margen ≈ 112 archivos**.
+- El bulk (~18.120) son páginas `/rutas/[slug]/index.html` generadas en `apps/web/src/lib/routeLandings.ts` desde el producto `FESTIVAL_LANDINGS × CITY_LANDINGS` filtrado por `MAX_ROUTE_STRAIGHT_KM = 700 km`.
+- **Antes de añadir festivales, ciudades o tipologías de páginas programáticas nuevas**, estimar el delta:
+  - Cada festival nuevo añade ~115 rutas (cuántas cities en CITY_LANDINGS pasen el distance gate).
+  - Cada ciudad nueva añade ~190 rutas (cuántos festivales <=700 km).
+  - Cualquier otra tipología programática que prerenderice (artistas, recintos, regiones, géneros) cuenta 1×1 hacia el manifest.
+- **Cómo medir antes de un commit grande**: `npm run build` y `find apps/web/dist -type f | wc -l`. Si pasa de 19.500, bajar `MAX_ROUTE_STRAIGHT_KM` o paginar otra tipología.
+- **Cuándo proponer subir a Workers Paid**: si el conteo supera 19.700 y no hay rutas seguras que cortar (todas las cortables son curadas o tienen tráfico orgánico real).
+
+### 2. Tamaño máximo por asset: **25 MiB**
+- Cualquier `dist/**/*.html` o `dist/assets/*.js|css` >25 MiB bloquea el deploy.
+- El caso histórico (2026-05-21) fue `dist/rutas/index.html` a 29 MiB por SSR de los 20K+ ROUTE_LANDINGS en `RutasIndexPage.tsx`. Fix aplicado: cap SSR a `TOP_ROUTE_LANDINGS` (500 rutas).
+- **Reglas para evitar que vuelva a pasar:**
+  - Cualquier página índice (`/rutas`, `/festivales`, `/artistas`, `/recintos`, `/blog`, etc.) que itere sobre catálogos >1.000 items **debe paginar el SSR**. Patrón: usar un cap `TOP_*` (≤500) priorizando curated/popular, y dejar el resto accesible vía filtros client-side + sitemap.
+  - El `itemListElement` de cualquier `<script type="application/ld+json">` debe limitarse al subset visible. `numberOfItems` SÍ puede reflejar el total real.
+  - Antes de mergear, comprobar tamaños con `find apps/web/dist -name "*.html" -size +5M`. Cualquier resultado es señal de alarma.
+
+### Quién mantiene esto
+- `apps/web/src/lib/routeLandings.ts` — `MAX_ROUTE_STRAIGHT_KM` controla el manifest size.
+- `apps/web/src/pages/RutasIndexPage.tsx` — `ROUTES_INDEX_CAP = 500` controla el HTML size.
+- Si se añade una nueva tipología programática (artistas-festival, recinto-ciudad, etc.), aplicar **AMBOS** patrones desde el día 1: distance gate o filtro de relevancia + cap SSR.
+
 ## Commands
 
 ### Development

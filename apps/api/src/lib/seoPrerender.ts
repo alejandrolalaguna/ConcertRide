@@ -1026,7 +1026,7 @@ ${venueLinks}
           url: base,
           foundingDate: "2024",
           description: "Plataforma española de carpooling especializada en conciertos y festivales de música. Más de 4.200 viajeros registrados, 12.000+ viajes publicados, 51 festivales cubiertos, 0% comisión.",
-          contactPoint: { "@type": "ContactPoint", contactType: "press", email: "hola@concertride.me" },
+          contactPoint: { "@type": "ContactPoint", contactType: "press", email: "help@concertride.me" },
         });
         const breadcrumbJsonLd = JSON.stringify({
           "@context": "https://schema.org",
@@ -1048,7 +1048,7 @@ ${venueLinks}
   <li>0 % de comisión de plataforma</li>
   <li>450 toneladas de CO₂ estimadas evitadas</li>
 </ul>
-<p>Contacto para medios: <a href="mailto:hola@concertride.me">hola@concertride.me</a></p>`;
+<p>Contacto para medios: <a href="mailto:help@concertride.me">help@concertride.me</a></p>`;
       })(),
     },
     "/aviso-legal": {

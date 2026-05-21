@@ -255,7 +255,8 @@ export function Hero() {
           </span>
         </motion.div>
 
-        {/* H1 — keyword-anchored ("carpooling a festivales en España 2026") + festival/price visible */}
+        {/* H1 — punchy hook for Gen Z. Festival + price live in the subheadline
+            (still keyword-rich for SEO without burying the lead). */}
         <motion.h1
           id="hero-title"
           initial={{ opacity: 0, y: 40 }}
@@ -263,14 +264,17 @@ export function Hero() {
           transition={{ duration: 0.6, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
           className="font-display uppercase leading-[0.88] tracking-tight text-[clamp(2.6rem,7.5vw,6.5rem)] max-w-5xl"
         >
-          <span className="cr-heading-gradient">Carpooling a festivales</span>
-          <span className="text-white/55"> en España 2026.</span>
+          <span className="cr-heading-gradient">Tu plan, sin coche</span>
+          <span className="text-white/55">.</span>
           <br />
-          <span className="text-[#dbff00]">
-            {NEXT_FESTIVAL.name} desde {NEXT_FESTIVAL.minPrice}€
-          </span>
-          <span className="text-white/55">/asiento.</span>
+          <span className="text-[#dbff00]">Llega al festival</span>
+          <span className="text-white/55"> con tu gente.</span>
         </motion.h1>
+
+        {/* H2 — keyword anchor (SEO + AIO) preserved below the headline */}
+        <p className="sr-only">
+          Carpooling a festivales en España 2026: viajes compartidos a {NEXT_FESTIVAL.name} desde {NEXT_FESTIVAL.minPrice}€ por asiento.
+        </p>
 
         {/* Lime underline rule */}
         <motion.div
@@ -281,15 +285,17 @@ export function Hero() {
           aria-hidden="true"
         />
 
-        {/* Subheadline — resolve trust + payment objection */}
+        {/* Subheadline — concrete + festival + price + trust */}
         <motion.p
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.8, ease: [0.16, 1, 0.3, 1] }}
-          className="font-sans text-base md:text-xl text-white/55 max-w-xl leading-relaxed font-light"
+          className="font-sans text-base md:text-xl text-white/65 max-w-xl leading-relaxed font-light"
         >
-          Conductores verificados con carnet.{" "}
-          <span className="text-white/85 font-medium">Pago en efectivo o Bizum directo el día del viaje. 0% comisión.</span>
+          Carpooling a {NEXT_FESTIVAL.name} desde{" "}
+          <span className="text-[#dbff00] font-semibold">{NEXT_FESTIVAL.minPrice}€/asiento</span>{" "}
+          con conductores verificados.{" "}
+          <span className="text-white/90 font-medium">Pago directo en efectivo o Bizum · 0% comisión.</span>
         </motion.p>
 
         {/* CTAs — primary: see rides to next festival, secondary: publish */}

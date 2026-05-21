@@ -1,4 +1,7 @@
 import { useState } from "react";
+import { motion } from "motion/react";
+import { toast } from "sonner";
+import { RefreshCw } from "lucide-react";
 import { useSeoMeta } from "@/lib/useSeoMeta";
 import { SITE_URL } from "@/lib/siteUrl";
 import { useSession } from "@/lib/session";
@@ -14,6 +17,12 @@ const TABS: Array<{ value: ActivityScope; label: string; description: string }> 
 export default function FeedPage() {
   const { user } = useSession();
   const [scope, setScope] = useState<ActivityScope>("all");
+  const [refreshKey, setRefreshKey] = useState(0);
+
+  function handleRefresh() {
+    setRefreshKey((k) => k + 1);
+    toast.success("Feed actualizado");
+  }
 
   useSeoMeta({
     title: "En directo · ConcertRide",
@@ -44,7 +53,7 @@ export default function FeedPage() {
       </header>
 
       <div className="mx-auto max-w-3xl px-4 py-6 sm:px-6">
-        <div className="mb-4 flex flex-wrap gap-2 border-b border-cr-border pb-3">
+        <div className="mb-4 flex flex-wrap items-center gap-2 border-b border-cr-border pb-3">
           {tabs.map((t) => (
             <button
               key={t.value}
@@ -59,14 +68,29 @@ export default function FeedPage() {
               {t.label}
             </button>
           ))}
+          <button
+            type="button"
+            onClick={handleRefresh}
+            aria-label="Actualizar feed"
+            className="ml-auto font-mono text-[10px] uppercase text-cr-text-muted hover:text-cr-primary transition-colors flex items-center gap-1"
+          >
+            <RefreshCw className="w-3 h-3" /> Actualizar
+          </button>
         </div>
-        <LiveActivityFeed
-          scope={scope}
-          city={scope === "city" ? user?.home_city ?? undefined : undefined}
-          limit={40}
-          layout="card"
-          emptyMessage="Aún no hay actividad en este ámbito."
-        />
+        <motion.div
+          key={`${scope}-${refreshKey}`}
+          initial={{ opacity: 0, y: 8 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.3 }}
+        >
+          <LiveActivityFeed
+            scope={scope}
+            city={scope === "city" ? user?.home_city ?? undefined : undefined}
+            limit={40}
+            layout="card"
+            emptyMessage="Aún no hay actividad en este ámbito."
+          />
+        </motion.div>
       </div>
     </main>
   );

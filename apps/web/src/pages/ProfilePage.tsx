@@ -1,6 +1,7 @@
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { Link, Navigate, useNavigate } from "react-router-dom";
 import { motion } from "motion/react";
+import { toast } from "sonner";
 import { AlertTriangle, Bell, BellOff, Check, Link2, ShieldCheck, Star, TrendingUp, Upload } from "lucide-react";
 import type { IdentityReview, LicenseReview, Review, Ride } from "@concertride/types";
 import { api, ApiError } from "@/lib/api";
@@ -10,6 +11,25 @@ import { SPANISH_CITIES } from "@/lib/constants";
 import { initials, formatDay, formatDate } from "@/lib/format";
 import { useSeoMeta } from "@/lib/useSeoMeta";
 import { SITE_URL } from "@/lib/siteUrl";
+
+const GENRE_OPTIONS = [
+  "Indie",
+  "Rock",
+  "Pop",
+  "Electrónica",
+  "Hip-Hop",
+  "Reggaetón",
+  "Techno",
+  "Punk",
+  "Metal",
+  "Folk",
+  "Jazz",
+  "Clásica",
+];
+
+function normalizeGenre(s: string) {
+  return s.trim().toLowerCase();
+}
 
 type Tristate = "yes" | "no" | "";
 
@@ -78,6 +98,7 @@ export default function ProfilePage() {
   const [carColor, setCarColor] = useState("");
   const [bio, setBio] = useState("");
   const [musicGenresInput, setMusicGenresInput] = useState("");
+  const [selectedGenres, setSelectedGenres] = useState<string[]>([]);
   const [topArtistsInput, setTopArtistsInput] = useState("");
 
   const [submitting, setSubmitting] = useState(false);
@@ -123,9 +144,34 @@ export default function ProfilePage() {
     setCarModel(user.car_model ?? "");
     setCarColor(user.car_color ?? "");
     setBio(user.bio ?? "");
-    setMusicGenresInput((user.music_genres ?? []).join(", "));
+    const userGenres = user.music_genres ?? [];
+    setMusicGenresInput(userGenres.join(", "));
+    setSelectedGenres(userGenres);
     setTopArtistsInput((user.top_artists ?? []).join(", "));
   }, [user]);
+
+  const knownGenreSet = useMemo(
+    () => new Set(GENRE_OPTIONS.map(normalizeGenre)),
+    [],
+  );
+  const customGenres = useMemo(
+    () => selectedGenres.filter((g) => !knownGenreSet.has(normalizeGenre(g))),
+    [selectedGenres, knownGenreSet],
+  );
+
+  function toggleGenre(genre: string) {
+    setSelectedGenres((prev) => {
+      const target = normalizeGenre(genre);
+      const exists = prev.some((g) => normalizeGenre(g) === target);
+      const next = exists
+        ? prev.filter((g) => normalizeGenre(g) !== target)
+        : prev.length >= 8
+        ? prev
+        : [...prev, genre];
+      setMusicGenresInput(next.join(", "));
+      return next;
+    });
+  }
 
   useEffect(() => {
     if (!user) return;
@@ -180,6 +226,7 @@ export default function ProfilePage() {
           .slice(0, max);
         return parts.length ? parts : null;
       };
+      const finalGenres = selectedGenres.length > 0 ? selectedGenres.slice(0, 8) : splitTags(musicGenresInput, 8);
       await api.auth.updateProfile({
         name: name.trim() || undefined,
         phone: phone.trim() || null,
@@ -189,11 +236,12 @@ export default function ProfilePage() {
         car_model: carModel.trim() || null,
         car_color: carColor.trim() || null,
         bio: bio.trim() || null,
-        music_genres: splitTags(musicGenresInput, 8),
+        music_genres: finalGenres,
         top_artists: splitTags(topArtistsInput, 10),
       });
       await refresh();
       setSaved(true);
+      toast.success("Perfil actualizado");
       setTimeout(() => setSaved(false), 3000);
     } catch (err) {
       setError(err instanceof ApiError ? err.message : "Error al guardar. Inténtalo de nuevo.");
@@ -690,18 +738,46 @@ export default function ProfilePage() {
                 {bio.length}/200
               </span>
             </label>
-            <label className="block">
+            <div className="space-y-2">
               <span className="font-sans text-[11px] font-semibold uppercase tracking-[0.16em] text-cr-text-muted">
-                Géneros (separados por coma, máx 8)
+                Géneros (máx 8)
               </span>
-              <input
-                type="text"
-                value={musicGenresInput}
-                onChange={(e) => setMusicGenresInput(e.target.value)}
-                placeholder="indie, electronica, post-punk, hip hop"
-                className="mt-1 w-full bg-white/[0.04] border border-white/[0.1] focus:border-cr-primary outline-none px-4 py-2.5 font-sans text-sm text-cr-text transition-all duration-150"
-              />
-            </label>
+              <div className="flex flex-wrap gap-2" role="group" aria-label="Géneros musicales">
+                {GENRE_OPTIONS.map((genre) => {
+                  const target = normalizeGenre(genre);
+                  const selected = selectedGenres.some((g) => normalizeGenre(g) === target);
+                  return (
+                    <button
+                      key={genre}
+                      type="button"
+                      onClick={() => toggleGenre(genre)}
+                      aria-pressed={selected}
+                      className={
+                        selected
+                          ? "border-2 border-cr-primary bg-cr-primary text-black px-3 py-1.5 text-xs font-semibold uppercase tracking-wide"
+                          : "border-2 border-cr-border bg-cr-surface text-cr-text-muted px-3 py-1.5 text-xs font-semibold uppercase tracking-wide hover:border-cr-primary/50"
+                      }
+                    >
+                      {genre}
+                    </button>
+                  );
+                })}
+                {customGenres.map((genre) => (
+                  <button
+                    key={genre}
+                    type="button"
+                    onClick={() => toggleGenre(genre)}
+                    aria-pressed={true}
+                    className="border-2 border-cr-primary bg-cr-primary text-black px-3 py-1.5 text-xs font-semibold uppercase tracking-wide"
+                  >
+                    {genre}
+                  </button>
+                ))}
+              </div>
+              <span className="block font-mono text-[10px] uppercase tracking-[0.12em] text-cr-text-dim">
+                {selectedGenres.length}/8
+              </span>
+            </div>
             <label className="block">
               <span className="font-sans text-[11px] font-semibold uppercase tracking-[0.16em] text-cr-text-muted">
                 Top artistas (separados por coma, máx 10)

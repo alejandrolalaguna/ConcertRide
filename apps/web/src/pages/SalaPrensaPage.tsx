@@ -120,8 +120,8 @@ export default function SalaPrensaPage() {
           </p>
           <p className="font-sans text-xs text-cr-text-muted">
             Contacto para medios:{" "}
-            <a href="mailto:hola@concertride.me" className="text-cr-primary hover:underline">
-              hola@concertride.me
+            <a href="mailto:help@concertride.me" className="text-cr-primary hover:underline">
+              help@concertride.me
             </a>
           </p>
         </header>
@@ -230,12 +230,12 @@ export default function SalaPrensaPage() {
           <h2 className="font-display text-2xl md:text-3xl uppercase">Contacto y recursos</h2>
           <div className="grid sm:grid-cols-2 gap-4">
             <a
-              href="mailto:hola@concertride.me"
+              href="mailto:help@concertride.me"
               className="border border-cr-border p-5 hover:border-cr-primary transition-colors group space-y-2"
             >
               <p className="font-sans text-[11px] font-semibold uppercase tracking-[0.12em] text-cr-primary">Prensa</p>
               <p className="font-display text-lg uppercase leading-tight group-hover:text-cr-primary transition-colors">
-                hola@concertride.me →
+                help@concertride.me →
               </p>
             </a>
             <Link

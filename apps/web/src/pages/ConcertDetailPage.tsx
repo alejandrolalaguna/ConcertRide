@@ -1,8 +1,10 @@
-import { useEffect, useMemo, useRef, useState } from "react";
+import { lazy, Suspense, useEffect, useMemo, useRef, useState, type CSSProperties } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
+
+const ConcertRidesMap = lazy(() => import("@/components/ConcertRidesMap"));
 import { useSeoMeta } from "@/lib/useSeoMeta";
 import { SITE_URL } from "@/lib/siteUrl";
-import { AnimatePresence, motion } from "motion/react";
+import { AnimatePresence, LayoutGroup, motion } from "motion/react";
 import { ArrowLeft, ArrowRight, Calendar, Link2, MapPin, Music2, Star, Users, X } from "lucide-react";
 import { concertShareUrl } from "@/lib/utm";
 import { cfImage } from "@/lib/imageUrl";
@@ -40,6 +42,7 @@ import { useCrew } from "@/lib/crew";
 import { SquadsForConcert } from "@/components/SquadsForConcert";
 import { computeMusicMatch } from "@/lib/musicMatch";
 import { FactDensityCallout } from "@/components/FactDensityCallout";
+import { AgentActionRail } from "@/components/AgentActionRail";
 import { StickyRegBar } from "@/components/StickyRegBar";
 
 function hueFromString(s: string): number {
@@ -372,7 +375,10 @@ export default function ConcertDetailPage() {
               <p className="font-sans text-[11px] font-semibold uppercase tracking-[0.16em] text-cr-primary">
                 Concierto · {concert.genre ?? "Música en vivo"}
               </p>
-              <h1 className="font-display uppercase text-4xl md:text-7xl leading-[0.95]">
+              <h1
+                className="font-display uppercase text-4xl md:text-7xl leading-[0.95] cr-vt-card"
+                style={{ "--cr-vt-name": `concert-card-${concert.id}` } as CSSProperties}
+              >
                 {concert.artist} — {concert.venue?.city ?? concert.venue?.name} {new Date(concert.date).getFullYear()}
               </h1>
               <div className="flex flex-wrap gap-x-6 gap-y-2 font-mono text-xs text-cr-text-muted">
@@ -417,6 +423,37 @@ export default function ConcertDetailPage() {
                   promptLoginOnAnon
                 />
               </div>
+
+              {/* ── Agentic surface (Google I/O 2026 agentic commerce) ──
+                  Three primary intents exposed as a stable nav with semantic
+                  data-agent-action / data-intent so Gemini agents can plan
+                  multi-step booking (find ride → view ride → buy ticket). */}
+              <AgentActionRail
+                ariaLabel={`Acciones disponibles para ${concert.artist} en ${concert.venue.city}`}
+                actions={[
+                  {
+                    label: "Buscar carpooling",
+                    href: `/concerts?city=${encodeURIComponent(concert.venue.city)}`,
+                    intent: "search-ride",
+                    variant: "primary",
+                    description: `Buscar viajes compartidos disponibles a ${concert.venue.city} para este concierto`,
+                  },
+                  ...(concert.ticketmaster_url
+                    ? [{
+                        label: "Comprar entrada",
+                        href: concert.ticketmaster_url,
+                        intent: "buy-ticket" as const,
+                        description: `Comprar entrada para ${concert.artist} en Ticketmaster`,
+                      }]
+                    : []),
+                  {
+                    label: "Publicar mi viaje",
+                    href: "/publish",
+                    intent: "publish-ride",
+                    description: "Publicar un viaje compartido como conductor",
+                  },
+                ]}
+              />
 
               {concert.lineup && (
                 <div className="pt-2">
@@ -572,30 +609,33 @@ export default function ConcertDetailPage() {
         )}
 
         {rides && visible.length === 0 && (
-          <div className="border border-dashed border-cr-border p-10 text-center space-y-4">
-            <p className="font-display text-xl uppercase">
-              {rides.length === 0
-                ? isPast
-                  ? "No se publicaron viajes para este concierto."
-                  : "Nadie ha publicado viajes todavía."
-                : "Ningún viaje cumple los filtros."}
-            </p>
-            <p className="font-sans text-sm text-cr-text-muted">
-              {rides.length === 0
-                ? isPast
-                  ? "Este concierto ya tuvo lugar."
-                  : "Sé el primero en abrir tu coche. Divide el coste y llena el viaje."
-                : "Prueba a relajar el precio máximo o la ciudad de origen."}
-            </p>
-            {rides.length === 0 && !isPast && (
+          rides.length === 0 && !isPast && concert ? (
+            <div className="border-2 border-cr-border bg-cr-surface p-6 md:p-8 text-center space-y-3">
+              <p className="font-display text-2xl uppercase">Aún no hay viajes</p>
+              <p className="font-mono text-xs text-cr-text-muted max-w-md mx-auto">
+                Sé tú quien lo monte. Publica un viaje y arrastra a tu crew hasta {concert.venue.name}.
+              </p>
               <Link
-                to={`/publish?concert=${concert!.id}`}
-                className="inline-block font-sans text-xs font-semibold uppercase tracking-[0.12em] bg-cr-primary text-black border-2 border-black px-6 py-3 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] hover:translate-x-[2px] hover:translate-y-[2px] transition-all duration-100"
+                to={`/publish?concert=${concert.id}`}
+                className="cr-btn-primary mt-2 inline-flex items-center gap-2"
               >
-                Publicar un viaje
+                Publicar viaje →
               </Link>
-            )}
-          </div>
+            </div>
+          ) : (
+            <div className="border border-dashed border-cr-border p-10 text-center space-y-4">
+              <p className="font-display text-xl uppercase">
+                {rides.length === 0
+                  ? "No se publicaron viajes para este concierto."
+                  : "Ningún viaje cumple los filtros."}
+              </p>
+              <p className="font-sans text-sm text-cr-text-muted">
+                {rides.length === 0
+                  ? "Este concierto ya tuvo lugar."
+                  : "Prueba a relajar el precio máximo o la ciudad de origen."}
+              </p>
+            </div>
+          )
         )}
 
         {/* Anon inline CTA — visible only to non-logged-in users when rides exist */}
@@ -619,42 +659,47 @@ export default function ConcertDetailPage() {
 
         {rides && visible.length > 0 && (
           <>
-            <motion.ol
-              initial="hidden"
-              animate="show"
-              variants={{
-                hidden: {},
-                show: { transition: { staggerChildren: 0.06, delayChildren: 0.05 } },
-              }}
-              className="grid grid-cols-1 xl:grid-cols-2 gap-4"
-            >
-              {visible.map((ride) => {
-                const isCrewDriver = crewIds.has(ride.driver_id);
-                return (
-                  <motion.li
-                    key={ride.id}
-                    variants={{
-                      hidden: { opacity: 0, y: 16 },
-                      show: { opacity: 1, y: 0, transition: { duration: 0.3 } },
-                    }}
-                    className="relative"
-                  >
-                    {isCrewDriver && (
-                      <span
-                        className="absolute -top-2 left-3 z-10 inline-flex items-center gap-1 border-2 border-cr-primary bg-cr-primary px-2 py-0.5 font-mono text-[10px] font-bold uppercase tracking-[0.14em] text-cr-text-inverse shadow-[0_0_18px_rgb(212_247_0/0.45)]"
-                        title="Conductor de tu crew"
-                      >
-                        ★ tu crew
-                      </span>
-                    )}
-                    <TicketCard
-                      ride={ride}
-                      onClick={() => navigate(`/rides/${ride.id}`)}
-                    />
-                  </motion.li>
-                );
-              })}
-            </motion.ol>
+            <LayoutGroup>
+              <motion.ol
+                layout
+                initial="hidden"
+                animate="show"
+                variants={{
+                  hidden: {},
+                  show: { transition: { staggerChildren: 0.06, delayChildren: 0.05 } },
+                }}
+                className="grid grid-cols-1 xl:grid-cols-2 gap-4"
+              >
+                {visible.map((ride) => {
+                  const isCrewDriver = crewIds.has(ride.driver_id);
+                  return (
+                    <motion.li
+                      key={ride.id}
+                      layout
+                      layoutId={`ride-${ride.id}`}
+                      variants={{
+                        hidden: { opacity: 0, y: 16 },
+                        show: { opacity: 1, y: 0, transition: { duration: 0.3 } },
+                      }}
+                      className="relative"
+                    >
+                      {isCrewDriver && (
+                        <span
+                          className="absolute -top-2 left-3 z-10 inline-flex items-center gap-1 border-2 border-cr-primary bg-cr-primary px-2 py-0.5 font-mono text-[10px] font-bold uppercase tracking-[0.14em] text-cr-text-inverse shadow-[0_0_18px_rgb(212_247_0/0.45)]"
+                          title="Conductor de tu crew"
+                        >
+                          ★ tu crew
+                        </span>
+                      )}
+                      <TicketCard
+                        ride={ride}
+                        onClick={() => navigate(`/rides/${ride.id}`)}
+                      />
+                    </motion.li>
+                  );
+                })}
+              </motion.ol>
+            </LayoutGroup>
 
             {isPast && (
               <div className="border border-cr-primary/30 bg-cr-primary/[0.04] p-6 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
@@ -688,6 +733,37 @@ export default function ConcertDetailPage() {
           </>
         )}
       </section>
+
+      {concert &&
+        typeof concert.venue.lat === "number" &&
+        typeof concert.venue.lng === "number" && (
+          <section
+            className="max-w-6xl mx-auto px-6 pb-16 space-y-5"
+            aria-labelledby="concert-rides-map-heading"
+          >
+            <header className="space-y-2">
+              <h2
+                id="concert-rides-map-heading"
+                className="font-display text-2xl uppercase"
+              >
+                Mapa de viajes
+              </h2>
+              <p className="font-sans text-sm text-cr-text-muted max-w-2xl leading-relaxed">
+                Visualiza desde dónde salen los viajes hacia {concert.venue.name}.
+              </p>
+            </header>
+            <Suspense
+              fallback={
+                <div
+                  className="h-[360px] md:h-[480px] cr-card animate-pulse"
+                  aria-hidden="true"
+                />
+              }
+            >
+              <ConcertRidesMap concert={concert} rides={rides ?? []} />
+            </Suspense>
+          </section>
+        )}
 
       {concert && !isPast && (
         <section className="max-w-6xl mx-auto px-6 pb-16">
