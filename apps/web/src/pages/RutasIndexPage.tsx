@@ -3,10 +3,36 @@ import { Link } from "react-router-dom";
 import { ArrowRight, MapPin } from "lucide-react";
 import { useSeoMeta } from "@/lib/useSeoMeta";
 import { SITE_URL } from "@/lib/siteUrl";
-import { ROUTE_LANDINGS } from "@/lib/routeLandings";
+import { ROUTE_LANDINGS, type RouteLanding } from "@/lib/routeLandings";
 import { FESTIVAL_LANDINGS } from "@/lib/festivalLandings";
 
 const ALL_FESTIVALS = [{ slug: "", shortName: "Todos" }, ...FESTIVAL_LANDINGS.map((f) => ({ slug: f.slug, shortName: f.shortName }))];
+
+// Cap for SSR / JSON-LD payload.
+// With ~200 festivales × ~120 cities we generate >20k routes, which inflates
+// /rutas/index.html beyond Cloudflare's 25 MiB per-asset limit. We render the
+// top ROUTES_INDEX_CAP routes statically (curated originCities first, then
+// shortest km), and the rest stay accessible via /rutas/[slug] (already in
+// sitemap.xml) + the client-side festival filter, which expands to the full
+// ROUTE_LANDINGS list for the selected festival.
+const ROUTES_INDEX_CAP = 500;
+
+const TOP_ROUTE_LANDINGS: RouteLanding[] = (() => {
+  // Heuristic: curated festival.originCities are "trusted" (manually picked,
+  // best long-tail SEO). They come first; we recognise them by checking if the
+  // route's originCity matches one of the festival's originCities entries.
+  const curatedKey = (r: RouteLanding) =>
+    r.festival.originCities.some((oc) => oc.city === r.originCity);
+  const curated: RouteLanding[] = [];
+  const rest: RouteLanding[] = [];
+  for (const r of ROUTE_LANDINGS) {
+    if (curatedKey(r)) curated.push(r);
+    else rest.push(r);
+  }
+  // Within rest, prefer shorter routes (more plausible carpooling demand).
+  rest.sort((a, b) => a.originData.km - b.originData.km);
+  return [...curated, ...rest].slice(0, ROUTES_INDEX_CAP);
+})();
 
 export default function RutasIndexPage() {
   useSeoMeta({
@@ -19,8 +45,14 @@ export default function RutasIndexPage() {
 
   const [activeFilter, setActiveFilter] = useState("");
 
+  // When a festival filter is active we show all of its routes (pulled from the
+  // full dataset — usually <130 entries per festival). Without a filter we only
+  // show the SSR-friendly TOP slice; the rest live at /rutas/[slug] and in the
+  // sitemap.
   const filtered = useMemo(
-    () => activeFilter ? ROUTE_LANDINGS.filter((r) => r.festival.slug === activeFilter) : ROUTE_LANDINGS,
+    () => activeFilter
+      ? ROUTE_LANDINGS.filter((r) => r.festival.slug === activeFilter)
+      : TOP_ROUTE_LANDINGS,
     [activeFilter],
   );
 
@@ -63,6 +95,10 @@ export default function RutasIndexPage() {
     ],
   };
 
+  // numberOfItems reports the true catalogue size (good for AI/LLM citations),
+  // but itemListElement is capped to TOP_ROUTE_LANDINGS to keep the per-page
+  // payload under Cloudflare's 25 MiB asset ceiling. The remaining routes are
+  // crawlable from sitemap.xml.
   const jsonLdItemList = {
     "@context": "https://schema.org",
     "@type": "ItemList",
@@ -70,7 +106,7 @@ export default function RutasIndexPage() {
     url: `${SITE_URL}/rutas`,
     itemListOrder: "https://schema.org/ItemListOrderAscending",
     numberOfItems: ROUTE_LANDINGS.length,
-    itemListElement: ROUTE_LANDINGS.map((r, i) => ({
+    itemListElement: TOP_ROUTE_LANDINGS.map((r, i) => ({
       "@type": "ListItem",
       position: i + 1,
       name: `Carpooling ${r.originCity} → ${r.festival.shortName}`,
@@ -285,8 +321,11 @@ export default function RutasIndexPage() {
             ¿No encuentras tu ruta?
           </h2>
           <p className="font-sans text-sm text-cr-text-muted max-w-xl leading-relaxed">
-            Publica tu viaje o busca uno existente desde cualquier ciudad.
-            También puedes activar alertas para recibir aviso cuando salga un viaje a tu festival.
+            Mostramos las {ROUTES_INDEX_CAP} rutas más populares en esta página.
+            Tenemos un total de {ROUTE_LANDINGS.length} rutas city→festival.
+            Filtra por festival arriba para ver todas las ciudades de origen, o
+            publica un viaje desde cualquier ciudad. También puedes activar
+            alertas para recibir aviso cuando salga un viaje a tu festival.
           </p>
           <div className="flex flex-wrap gap-3">
             <Link
