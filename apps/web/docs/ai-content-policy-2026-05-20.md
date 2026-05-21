@@ -1,4 +1,4 @@
-# Gen AI Disclosure Policy — ConcertRide
+﻿# Gen AI Disclosure Policy — ConcertRide
 
 Última actualización: 2026-05-20 (WAVE G6).
 
@@ -83,10 +83,10 @@ Antes de publicar cambios masivos de contenido o de añadir page types nuevos, c
 
 1. **Foco en utilidad real**: ¿este contenido responde a una pregunta concreta de un usuario potencial de ConcertRide? Si la respuesta es no, no publicar (independientemente de si es IA o humano).
 2. **Verificación de datos**: cualquier número (precio, km, tiempo, capacidad) debe estar contrastado con fuente oficial (organización festival, ALSA, Renfe, APM, INE, DGT, EEA). En `EeatTrustBlock` decimos exactamente eso.
-3. **Autoría real**: la firma debe corresponder a una persona o equipo identificable. En ConcertRide la firma canónica es "Equipo ConcertRide" o "Alejandro Lalaguna", y siempre enlaza a `/autor/alejandro-lalaguna`.
-4. **Revisión humana documentada**: no publicamos AI raw. La página `/autor/alejandro-lalaguna` describe el flujo público de revisión (sección "Cómo trabajamos el contenido").
+3. **Autoría real**: la firma debe corresponder a una persona o equipo identificable. En ConcertRide la firma canónica es "Equipo ConcertRide" o "Equipo ConcertRide", y siempre enlaza a `/autor/equipo-concertride`.
+4. **Revisión humana documentada**: no publicamos AI raw. La página `/autor/equipo-concertride` describe el flujo público de revisión (sección "Cómo trabajamos el contenido").
 5. **Disclosure cuando corresponde**: si el nivel es distinto de `fully-human`, el componente `<AiDisclosureNote>` aparece al final del artículo. No es opcional para esos niveles.
-6. **Coherencia entre páginas**: la nota visible en pillars / datasets / blog debe coincidir conceptualmente con lo declarado en `/autor/alejandro-lalaguna`. Si cambias el copy de uno, revisa el otro.
+6. **Coherencia entre páginas**: la nota visible en pillars / datasets / blog debe coincidir conceptualmente con lo declarado en `/autor/equipo-concertride`. Si cambias el copy de uno, revisa el otro.
 
 ## Implementación actual (estado al 2026-05-20)
 
@@ -96,4 +96,4 @@ Antes de publicar cambios masivos de contenido o de añadir page types nuevos, c
   - 1 template blog: `apps/web/src/pages/BlogPostPage.tsx` (cubre los 283 posts).
 - No integrado en festival / route / city / region / artist / venue / calendar / genre / legal / product (todos `fully-human`).
 - Helper de freshness: `apps/web/src/lib/freshness.ts` exporta `isFresh()` y `formatLastReviewed()`.
-- Página de autor en `/autor/alejandro-lalaguna` documenta política y flujo editorial públicamente.
+- Página de autor en `/autor/equipo-concertride` documenta política y flujo editorial públicamente.

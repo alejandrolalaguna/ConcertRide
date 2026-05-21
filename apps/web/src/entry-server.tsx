@@ -75,7 +75,7 @@ import ViajeEnGrupoFestivalPage from "./pages/ViajeEnGrupoFestivalPage";
 import HacerPinaFestivalPage from "./pages/HacerPinaFestivalPage";
 import GenreLandingPage from "./pages/GenreLandingPage";
 import CalendarLandingPage from "./pages/CalendarLandingPage";
-import AutorAlejandroLalagunaPage from "./pages/AutorAlejandroLalagunaPage";
+import AutorEquipoConcertRidePage from "./pages/AutorEquipoConcertRidePage";
 import GlosarioPage from "./pages/GlosarioPage";
 import { FESTIVAL_LANDINGS, FESTIVAL_LANDINGS_LAST_UPDATED } from "./lib/festivalLandings";
 import { CITY_LANDINGS } from "./lib/cityLandings";
@@ -174,7 +174,7 @@ function ServerApp() {
         <Route path="/contacto" element={<ContactoPage />} />
         <Route path="/acerca-de" element={<AcercaDePage />} />
         <Route path="/glosario" element={<GlosarioPage />} />
-        <Route path="/autor/alejandro-lalaguna" element={<AutorAlejandroLalagunaPage />} />
+        <Route path="/autor/equipo-concertride" element={<AutorEquipoConcertRidePage />} />
         <Route path="/aviso-legal" element={<AvisoLegalPage />} />
         <Route path="/privacidad" element={<PrivacidadPage />} />
         <Route path="/cookies" element={<CookiesPage />} />

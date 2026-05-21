@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+﻿import { Link } from "react-router-dom";
 import { useSeoMeta } from "@/lib/useSeoMeta";
 import { SITE_URL } from "@/lib/siteUrl";
 
@@ -269,7 +269,7 @@ export default function PillarGuiaPage() {
     ogType: "article",
     articlePublishedTime: PUBLISHED,
     articleModifiedTime: MODIFIED,
-    articleAuthor: "Alejandro Lalaguna",
+    articleAuthor: "Equipo ConcertRide",
   });
 
   // ---- Article schema ----
@@ -282,9 +282,10 @@ export default function PillarGuiaPage() {
     url: CANONICAL,
     inLanguage: "es-ES",
     author: {
-      "@type": "Person",
-      name: "Alejandro Lalaguna",
+      "@type": "Organization",
+      name: "Equipo ConcertRide",
       url: `${SITE_URL}/acerca-de`,
+      "@id": `${SITE_URL}/#editorial-team`,
     },
     publisher: { "@id": `${SITE_URL}/#organization` },
     datePublished: PUBLISHED,
@@ -462,7 +463,7 @@ export default function PillarGuiaPage() {
         </h1>
         <p className="text-lg text-white/80">
           Guía operativa de 25 respuestas con datos reales: transporte, equipaje, presupuesto, alojamiento,
-          ZBE Madrid 360, lluvia, vuelta de madrugada, festivales baratos y seguridad. Por Alejandro Lalaguna,
+          ZBE Madrid 360, lluvia, vuelta de madrugada, festivales baratos y seguridad. Por Equipo ConcertRide,
           fundador de ConcertRide.
         </p>
       </header>

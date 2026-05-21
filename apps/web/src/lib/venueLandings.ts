@@ -2274,6 +2274,2233 @@ export const VENUE_LANDINGS: VenueLanding[] = [
     ],
     relatedFestivals: ["jazzaldia"],
   },
+
+  // ─── Wave 49 (2026-05-20): 4 venues con tráfico orgánico independiente ─────
+
+  {
+    slug: "teatro-villamarta-jerez",
+    name: "Teatro Villamarta",
+    quotableAnswer:
+      "Teatro Villamarta es el teatro principal de Jerez de la Frontera (Cádiz), con aforo de 1.196 personas y sede del Festival de Jerez de Flamenco y Danza Española (referente internacional, 16 días en febrero-marzo). Acceso: en pleno centro histórico de Jerez (Plaza Romero Martínez), a 10 min andando de la estación de Renfe. Las opciones para llegar son: (1) Renfe Cercanías C-1 desde Cádiz (45 min, 4-6 €); (2) AVE/Avant desde Sevilla (1h, 15-30 €); (3) Carpooling ConcertRide desde Sevilla (5-8 €), Cádiz (3-5 €), Málaga (8-12 €) o Madrid (15-20 €). Aparcamiento limitado en el centro histórico: aparcamiento subterráneo Plaza del Arenal (5 min, ~1,50€/hora). El carpooling es la opción más práctica para asistentes interprovinciales durante el Festival de Jerez, especialmente para volver de madrugada tras funciones que acaban hacia las 23:30. ConcertRide opera sin comisión.",
+    shortName: "Villamarta",
+    city: "Jerez de la Frontera",
+    citySlug: "jerez-de-la-frontera",
+    region: "Andalucía",
+    address: "Plaza Romero Martínez, s/n, 11403 Jerez de la Frontera, Cádiz",
+    lat: 36.6849,
+    lng: -6.1366,
+    capacity: "1.196 personas",
+    venueType: "Teatro",
+    transport: {
+      tren: "Renfe Cercanías C-1 desde Cádiz (45 min) y AVE/Avant desde Sevilla (1h). Estación a 10 min andando.",
+      bus: "ALSA desde Sevilla (8-14 €, 1h 45 min)",
+      parking: "Aparcamiento subterráneo Plaza del Arenal (5 min, ~1,50€/hora) y Plaza Esteve",
+    },
+    blurb:
+      "Teatro Villamarta es el teatro principal de Jerez de la Frontera con aforo de 1.196 personas, sede del Festival de Jerez de Flamenco y Danza Española. Programación anual de ópera, flamenco, danza y música clásica. Acceso por Renfe Cercanías C-1 desde Cádiz o AVE/Avant desde Sevilla. ConcertRide cubre el carpooling sin comisión desde Sevilla (5-8 €), Cádiz (3-5 €) y Málaga (8-12 €), especialmente útil durante el Festival de Jerez por las funciones que acaban tarde.",
+    originCities: [
+      { city: "Sevilla", km: 95, drivingTime: "1h 10min", concertRideRange: "5–8€" },
+      { city: "Cádiz", km: 35, drivingTime: "35min", concertRideRange: "3–5€" },
+      { city: "Málaga", km: 200, drivingTime: "2h", concertRideRange: "8–12€" },
+      { city: "Granada", km: 280, drivingTime: "2h 50min", concertRideRange: "9–13€" },
+      { city: "Córdoba", km: 195, drivingTime: "2h", concertRideRange: "8–12€" },
+      { city: "Madrid", km: 605, drivingTime: "5h 30min", concertRideRange: "15–20€" },
+    ],
+    faqs: [
+      {
+        q: "¿Cómo llegar al Teatro Villamarta desde Sevilla?",
+        a: "Sevilla–Jerez (Teatro Villamarta) son 95 km por la AP-4 (1h 10 min). Con ConcertRide el precio por asiento es de 5-8 €/asiento, frente a 8-14 € del bus ALSA (1h 45 min) o 15-30 € del AVE/Avant Sevilla-Jerez (1h, ~22:00 último servicio). El Villamarta está a 10 min andando de la estación de Renfe Jerez. Sin comisión, pago Bizum o efectivo, vuelta nocturna coordinada con el horario real de la función.",
+      },
+      {
+        q: "¿Hay aparcamiento cerca del Teatro Villamarta?",
+        a: "El Teatro Villamarta está en el centro histórico de Jerez (Plaza Romero Martínez). Aparcamiento subterráneo en Plaza del Arenal (5 min andando, ~1,50€/hora) y Plaza Esteve. Durante el Festival de Jerez la zona se satura — recomendamos llegar en carpooling con ConcertRide desde Sevilla, Cádiz o Málaga, o aparcar en zonas residenciales del extrarradio (15 min andando).",
+      },
+      {
+        q: "¿Cuándo es el Festival de Jerez en el Teatro Villamarta?",
+        a: "El Festival de Jerez se celebra anualmente del 20 de febrero al 7 de marzo (16 días) en el Teatro Villamarta y otros espacios de la ciudad. Es el festival de flamenco y danza española de referencia internacional. Programación intensiva con más de 30 espectáculos y artistas de primer nivel. ConcertRide opera carpooling sin comisión durante todo el festival desde Sevilla (5-8 €), Cádiz (3-5 €), Málaga (8-12 €) y Madrid (15-20 €).",
+      },
+    ],
+    relatedFestivals: ["festival-de-jerez-flamenco", "bienal-flamenco-sevilla", "tio-pepe-festival"],
+  },
+
+  {
+    slug: "auditorio-principe-felipe-oviedo",
+    name: "Auditorio Príncipe Felipe",
+    quotableAnswer:
+      "Auditorio Príncipe Felipe es el principal auditorio de Asturias, situado en Oviedo (Plaza del Fresno), con aforo de 1.505 personas en la sala principal (705 patio + 800 anfiteatro) y 2.388 totales sumando salas auxiliares. Sede de la Orquesta Sinfónica del Principado de Asturias (OSPA) y de los Conciertos del Auditorio (ciclo de música clásica anual). Programación 2026: Emily D'Angelo mezzosoprano (21 may), Steven Isserlis violonchelo (4 jun), Les Arts Florissants (6 nov), Benjamin Appl (9 nov). Acceso: a 10 min andando del centro de Oviedo y a 15 min de la estación de Renfe. Las opciones para llegar son: (1) Caminando desde el centro (10 min); (2) Bus urbano TUA líneas A, B, C (~1,50 €); (3) Carpooling ConcertRide desde León (5-8€), Gijón (3-5€), Avilés (3-5€), Santander (8-12€) o Madrid (12-16€). Aparcamiento subterráneo del propio Auditorio (~2€/hora). ConcertRide opera sin comisión.",
+    shortName: "Auditorio Oviedo",
+    city: "Oviedo",
+    citySlug: "oviedo",
+    region: "Asturias",
+    address: "Plaza del Fresno, s/n, 33007 Oviedo",
+    lat: 43.3611,
+    lng: -5.8517,
+    capacity: "1.505 personas (sala principal) · 2.388 personas (todas las salas)",
+    venueType: "Auditorio",
+    transport: {
+      bus: "TUA líneas A, B, C (~1,50 €). Estación a 15 min andando.",
+      tren: "Renfe Oviedo–Cercanías + 15 min caminando",
+      parking: "Aparcamiento subterráneo propio (~2€/hora)",
+    },
+    blurb:
+      "Auditorio Príncipe Felipe es el principal auditorio de Asturias en Oviedo, con aforo de 1.505 personas en la sala principal. Sede de la Orquesta Sinfónica del Principado de Asturias y del ciclo Conciertos del Auditorio Luis G. Iberni. Programación 2026: música clásica internacional (Emily D'Angelo, Steven Isserlis, Les Arts Florissants). ConcertRide cubre el carpooling sin comisión desde León (5-8€), Gijón (3-5€), Avilés (3-5€) y Santander (8-12€), especialmente útil para conciertos nocturnos sin transporte público a partir de las 23:00.",
+    originCities: [
+      { city: "Gijón", km: 30, drivingTime: "30min", concertRideRange: "3–5€" },
+      { city: "Avilés", km: 25, drivingTime: "25min", concertRideRange: "3–5€" },
+      { city: "León", km: 115, drivingTime: "1h 15min", concertRideRange: "5–8€" },
+      { city: "Santander", km: 195, drivingTime: "2h", concertRideRange: "8–12€" },
+      { city: "Madrid", km: 450, drivingTime: "4h 30min", concertRideRange: "12–16€" },
+      { city: "Bilbao", km: 305, drivingTime: "3h", concertRideRange: "10–14€" },
+    ],
+    faqs: [
+      {
+        q: "¿Cómo llegar al Auditorio Príncipe Felipe desde Gijón?",
+        a: "Gijón–Oviedo (Auditorio Príncipe Felipe) son 30 km por la A-66 (30 min). Con ConcertRide el precio por asiento es de 3-5 €/asiento, frente a 3-5 € del bus ALSA (45 min) o 4-6 € del Cercanías C-1 (35 min, último servicio hacia Gijón ~23:00). El carpooling permite volver tras conciertos que terminen pasadas las 22:30. Sin comisión, pago Bizum o efectivo.",
+      },
+      {
+        q: "¿Qué conciertos hay en el Auditorio Príncipe Felipe en 2026?",
+        a: "El Auditorio Príncipe Felipe 2026 programa el ciclo Conciertos del Auditorio Luis G. Iberni con artistas de música clásica internacional: Emily D'Angelo (mezzosoprano, 21 mayo), Steven Isserlis (violonchelo, 4 junio), Le Jardin des Voix / Les Arts Florissants (6 noviembre), Benjamin Appl (9 noviembre). También sede de la temporada de la OSPA (Orquesta Sinfónica del Principado de Asturias).",
+      },
+      {
+        q: "¿Cuál es el aforo del Auditorio Príncipe Felipe Oviedo?",
+        a: "El Auditorio Príncipe Felipe de Oviedo tiene un aforo de 1.505 personas en la sala principal (705 patio + 800 anfiteatro). Sumando salas auxiliares, el aforo total alcanza 2.388 personas. Es uno de los auditorios de música clásica con mejor acústica del norte de España.",
+      },
+    ],
+    relatedFestivals: ["festival-granada-musica-y-danza", "granada-international-jazz-festival"],
+  },
+
+  {
+    slug: "estadio-martinez-valero-elche",
+    name: "Estadio Manuel Martínez Valero",
+    quotableAnswer:
+      "Estadio Manuel Martínez Valero es el estadio principal de Elche (Alicante), con aforo de 33.732 personas y sede del Elche CF. También acoge grandes conciertos en formato estadio (verano, formato al aire libre) con artistas nacionales e internacionales. Acceso: en el sur de Elche, conectado por bus urbano y a 10 min en coche del centro. Las opciones para llegar son: (1) Bus urbano de Elche líneas C, D (~1,50 €); (2) Renfe Cercanías C-3 hasta Elche–Carrús (15 min andando); (3) Carpooling ConcertRide desde Alicante (3-5€), Murcia (5-8€), Valencia (8-12€) o Madrid (12-16€). Aparcamiento gratuito en zonas adyacentes al estadio durante eventos. El carpooling es la opción más práctica para asistentes interprovinciales, especialmente para volver de madrugada tras conciertos en estadio. ConcertRide opera sin comisión.",
+    shortName: "Martínez Valero",
+    city: "Elche",
+    citySlug: "elche",
+    region: "Comunidad Valenciana",
+    address: "Av. Manuel Martínez Valero, s/n, 03206 Elche, Alicante",
+    lat: 38.2670,
+    lng: -0.6644,
+    capacity: "33.732 personas",
+    venueType: "Estadio",
+    transport: {
+      bus: "Bus urbano Elche líneas C, D (~1,50 €)",
+      tren: "Renfe Cercanías C-3 hasta Elche–Carrús + 15 min andando",
+      parking: "Aparcamiento gratuito en zonas adyacentes durante eventos",
+    },
+    blurb:
+      "Estadio Manuel Martínez Valero es el estadio del Elche CF en Alicante con aforo de 33.732 personas. Acoge conciertos de gran formato en verano con artistas nacionales e internacionales. Acceso por bus urbano de Elche o Cercanías C-3 hasta Elche–Carrús. ConcertRide cubre el carpooling sin comisión desde Alicante (3-5€), Murcia (5-8€), Valencia (8-12€) y Madrid (12-16€), especialmente útil para volver de madrugada tras conciertos sin transporte público nocturno.",
+    originCities: [
+      { city: "Alicante", km: 25, drivingTime: "25min", concertRideRange: "3–5€" },
+      { city: "Murcia", km: 60, drivingTime: "45min", concertRideRange: "5–8€" },
+      { city: "Valencia", km: 175, drivingTime: "1h 45min", concertRideRange: "8–12€" },
+      { city: "Cartagena", km: 110, drivingTime: "1h 10min", concertRideRange: "5–8€" },
+      { city: "Albacete", km: 175, drivingTime: "1h 45min", concertRideRange: "8–12€" },
+      { city: "Madrid", km: 405, drivingTime: "3h 50min", concertRideRange: "12–16€" },
+    ],
+    faqs: [
+      {
+        q: "¿Cómo llegar al Estadio Martínez Valero desde Alicante?",
+        a: "Alicante–Elche (Martínez Valero) son 25 km por la A-7 (25 min). Con ConcertRide el precio por asiento es de 3-5 €/asiento, frente a 2-3 € del Cercanías C-3 Alicante-Elche-Carrús (25 min, último servicio ~22:30) + 15 min andando al estadio. El carpooling permite volver tras conciertos que acaben pasadas las 23:00 sin restricción horaria. Sin comisión, pago Bizum o efectivo.",
+      },
+      {
+        q: "¿Hay aparcamiento en el Estadio Martínez Valero?",
+        a: "El Estadio Martínez Valero dispone de aparcamiento gratuito en zonas adyacentes durante eventos. En noches de concierto la zona se satura y conviene llegar con 1-2 horas de antelación. Como alternativa, el carpooling con ConcertRide evita la búsqueda de aparcamiento y reparte el coste del viaje entre 3-4 personas.",
+      },
+      {
+        q: "¿Qué conciertos ha acogido el Estadio Martínez Valero?",
+        a: "El Estadio Manuel Martínez Valero ha acogido conciertos de gran formato de artistas nacionales e internacionales, incluyendo giras de pop, rock y reggaetón en formato estadio. La programación de conciertos se concentra en verano (junio-agosto) cuando el campo no tiene partidos del Elche CF. Las entradas se venden por Ticketmaster y otras plataformas.",
+      },
+    ],
+    relatedFestivals: ["leyendas-del-rock", "rock-imperium-cartagena", "marenostrum-fuengirola"],
+  },
+
+  {
+    slug: "estadio-carranza-cadiz",
+    name: "Estadio Nuevo Mirandilla (antiguo Ramón de Carranza)",
+    quotableAnswer:
+      "Estadio Nuevo Mirandilla (anteriormente Ramón de Carranza) es el estadio principal de Cádiz, con aforo de 20.724 personas y sede del Cádiz CF. Acoge conciertos de gran formato en verano en la modalidad Cádiz Music Stadium. Situado en Plaza de Madrid, en el centro de Cádiz, a 15 min andando del casco antiguo y a 5 min de la estación de Renfe. Las opciones para llegar son: (1) Caminando desde el centro (15 min); (2) Renfe Cercanías C-1 (Estación de Cádiz, 5 min andando); (3) Bus urbano Cádiz líneas 1, 2 (~1,30 €); (4) Carpooling ConcertRide desde Jerez (3-5€), Sevilla (5-8€), Málaga (8-12€) o Madrid (15-19€). Aparcamiento en zonas adyacentes y aparcamiento subterráneo Plaza de Madrid. El carpooling es la opción más práctica para asistentes interprovinciales, especialmente para volver de madrugada. ConcertRide opera sin comisión.",
+    shortName: "Estadio Nuevo Mirandilla",
+    city: "Cádiz",
+    citySlug: "cadiz",
+    region: "Andalucía",
+    address: "Plaza de Madrid, s/n, 11010 Cádiz",
+    lat: 36.5009,
+    lng: -6.2733,
+    capacity: "20.724 personas",
+    venueType: "Estadio",
+    transport: {
+      tren: "Renfe Cercanías C-1 Estación de Cádiz, 5 min andando",
+      bus: "Bus urbano Cádiz líneas 1, 2 (~1,30 €)",
+      parking: "Aparcamiento subterráneo Plaza de Madrid + zonas adyacentes",
+    },
+    blurb:
+      "Estadio Nuevo Mirandilla (antiguo Ramón de Carranza) es el estadio del Cádiz CF con aforo de 20.724 personas. Acoge conciertos en verano dentro de la modalidad Cádiz Music Stadium con artistas nacionales e internacionales. Acceso por Renfe Cercanías C-1 (5 min andando) o caminando desde el centro (15 min). ConcertRide cubre el carpooling sin comisión desde Jerez (3-5€), Sevilla (5-8€), Málaga (8-12€) y Madrid (15-19€).",
+    originCities: [
+      { city: "Jerez de la Frontera", km: 35, drivingTime: "35min", concertRideRange: "3–5€" },
+      { city: "Sevilla", km: 125, drivingTime: "1h 20min", concertRideRange: "5–8€" },
+      { city: "Málaga", km: 245, drivingTime: "2h 30min", concertRideRange: "8–12€" },
+      { city: "Huelva", km: 220, drivingTime: "2h 15min", concertRideRange: "8–12€" },
+      { city: "Madrid", km: 660, drivingTime: "6h", concertRideRange: "15–19€" },
+      { city: "Córdoba", km: 270, drivingTime: "2h 45min", concertRideRange: "9–13€" },
+    ],
+    faqs: [
+      {
+        q: "¿Cómo llegar al Estadio Carranza (Nuevo Mirandilla) desde Sevilla?",
+        a: "Sevilla–Cádiz son 125 km por la AP-4 (1h 20 min). Con ConcertRide el precio por asiento es de 5-8 €/asiento, frente a 15-30 € del AVE Sevilla-Cádiz (1h 45 min, último servicio ~22:00) o 10-18 € del bus ALSA (2h). El Estadio está a 5 min andando de la estación de Renfe. Sin comisión, pago Bizum o efectivo, vuelta de madrugada pactada con el horario real del concierto.",
+      },
+      {
+        q: "¿Qué es Cádiz Music Stadium?",
+        a: "Cádiz Music Stadium es la modalidad de conciertos del Estadio Nuevo Mirandilla (antiguo Ramón de Carranza). Acoge en verano (junio-agosto, fuera de temporada del Cádiz CF) grandes conciertos de pop, rock y reggaetón en formato estadio con aforo hasta 20.000 personas. Las entradas se venden por la web oficial cadizmusicstadium.com y Ticketmaster.",
+      },
+      {
+        q: "¿Hay parking en el Estadio Carranza durante conciertos?",
+        a: "El Estadio Nuevo Mirandilla (Carranza) dispone de aparcamiento subterráneo en Plaza de Madrid (5 min andando, ~2€/hora) y aparcamiento gratuito en zonas adyacentes durante eventos. En noches de concierto la zona se satura y conviene llegar con 1-2 horas de antelación. Como alternativa, el carpooling con ConcertRide evita la búsqueda de aparcamiento.",
+      },
+    ],
+    relatedFestivals: ["festival-de-jerez-flamenco", "bienal-flamenco-sevilla", "iconica-fest-sevilla"],
+  },
+
+  // ─── Wave 52 (2026-05-20): 6 venues ópera/clásica nicho ─────
+
+  {
+    slug: "teatro-real-madrid",
+    name: "Teatro Real",
+    quotableAnswer:
+      "Teatro Real es el principal teatro de ópera de España, con capacidad para 1.748 espectadores en Madrid, situado en la Plaza de Isabel II junto al Palacio Real. Acoge la temporada lírica nacional con producciones de ópera, ballet y conciertos sinfónicos. Está conectado con el centro de Madrid mediante metro directo (5–10 minutos), y la estación más cercana es Metro L2/L5 Ópera (50 m). Las opciones para llegar son: (1) Metro L2/L5 Ópera (50 m) (1,50–2,50 €); (2) Autobús urbano Líneas 3, 25, 39, 148 (1,50 €); (3) Vehículo propio: Parking Plaza de Oriente: 3 €/hora (sin parking propio). El carpooling desde Toledo, Segovia, Valladolid, Zaragoza, Valencia cuesta 5–14 €/asiento. Para volver tras la función (suelen acabar 22:30–23:30), el metro sigue operativo y el carpooling de vuelta con ConcertRide se pacta con el horario real de salida. ConcertRide opera sin comisión, con pago Bizum o efectivo.",
+    shortName: "Teatro Real",
+    city: "Madrid",
+    citySlug: "madrid",
+    region: "Comunidad de Madrid",
+    address: "Plaza de Isabel II, s/n, 28013 Madrid",
+    lat: 40.4181,
+    lng: -3.7106,
+    capacity: "1.748 plazas",
+    venueType: "Teatro",
+    transport: {
+      metro: "L2/L5 Ópera (50 m)",
+      bus: "Líneas 3, 25, 39, 148",
+      parking: "Sin parking propio — Parking Plaza de Oriente (3 €/hora)",
+    },
+    blurb:
+      "El Teatro Real es la principal sede de ópera de España con 1.748 plazas en pleno centro histórico de Madrid, frente al Palacio Real. Su temporada (octubre–julio) atrae a público de toda España, especialmente Castilla-La Mancha, Castilla y León y Levante. La conexión por Metro Ópera (L2/L5) es inmediata, pero las funciones suelen acabar entre las 22:30 y las 23:30, momento en el que el carpooling con ConcertRide desde Toledo o Valladolid (5–10 €/asiento) resulta más cómodo que el AVE de última hora.",
+    originCities: [
+      { city: "Toledo", km: 75, drivingTime: "1h", concertRideRange: "5–8 €/asiento" },
+      { city: "Segovia", km: 95, drivingTime: "1h 15min", concertRideRange: "6–9 €/asiento" },
+      { city: "Valladolid", km: 200, drivingTime: "2h", concertRideRange: "8–12 €/asiento" },
+      { city: "Zaragoza", km: 325, drivingTime: "3h", concertRideRange: "10–14 €/asiento" },
+      { city: "Valencia", km: 358, drivingTime: "3h 20min", concertRideRange: "11–14 €/asiento" },
+      { city: "Ávila", km: 115, drivingTime: "1h 25min", concertRideRange: "6–9 €/asiento" },
+    ],
+    faqs: [
+      {
+        q: "¿Cómo llegar al Teatro Real de Madrid en transporte público?",
+        a: "La opción más directa es el Metro: líneas 2 (rojo) y 5 (verde claro) tienen parada en Ópera, a 50 metros de la entrada principal. También paran junto al teatro los autobuses 3, 25, 39 y 148. Desde Atocha o Chamartín, el trayecto en metro dura 10–15 minutos con un transbordo. El teatro no dispone de parking propio; la opción más cercana es el Parking Plaza de Oriente (3 €/hora).",
+      },
+      {
+        q: "¿A qué hora termina una función en el Teatro Real?",
+        a: "Las óperas suelen comenzar a las 19:30 o 20:00 y terminan entre las 22:30 y las 23:30 según la duración (algunas óperas wagnerianas pueden alargarse hasta las 00:00). El Metro de Madrid cierra a la 1:30 (2:00 los fines de semana), por lo que sigue siendo viable. Para quienes vienen de fuera de Madrid, el carpooling con ConcertRide se pacta con el horario real de salida del teatro.",
+      },
+      {
+        q: "¿Cuánto cuesta ir al Teatro Real desde Toledo en carpooling?",
+        a: "Toledo–Madrid son 75 km por la A-42 (1 hora). Con ConcertRide el precio medio por asiento oscila entre 5 y 8 €, frente a los 13–22 € del AVE Toledo–Atocha (33 min, último servicio ~21:30) o los 25–40 € del taxi. ConcertRide permite volver tras la función sin restricción horaria, sin comisión de plataforma, con pago en Bizum o efectivo.",
+      },
+    ],
+    relatedFestivals: ["festival-otono-madrid"],
+  },
+
+  {
+    slug: "gran-teatre-liceu-barcelona",
+    name: "Gran Teatre del Liceu",
+    quotableAnswer:
+      "Gran Teatre del Liceu es la principal sede de ópera de Barcelona, con capacidad para 2.292 espectadores, situado en La Rambla 51-59 en pleno casco histórico. Acoge la temporada lírica catalana con ópera, ballet y recitales de prestigio internacional. Está conectado con el centro de Barcelona mediante metro directo (2–10 minutos), y la estación más cercana es Metro L3 Liceu (a pie de calle). Las opciones para llegar son: (1) Metro L3 Liceu (entrada directa) (2,40 €); (2) Autobús urbano Líneas V13, 59, 91, 120 (2,40 €); (3) Vehículo propio: Sin parking propio — SABA Plaça Catalunya o Saba BAMSA La Boqueria (3–4 €/hora). El carpooling desde Tarragona, Girona, Lleida, Zaragoza, Valencia cuesta 5–16 €/asiento. Para volver tras la función (22:30–23:30), el metro sigue operativo hasta las 24:00 (toda la noche los viernes y sábados). ConcertRide opera sin comisión, con pago Bizum o efectivo.",
+    shortName: "Liceu",
+    city: "Barcelona",
+    citySlug: "barcelona",
+    region: "Cataluña",
+    address: "La Rambla, 51-59, 08002 Barcelona",
+    lat: 41.3809,
+    lng: 2.1733,
+    capacity: "2.292 plazas",
+    venueType: "Teatro",
+    transport: {
+      metro: "L3 Liceu (entrada directa al teatro)",
+      bus: "Líneas V13, 59, 91, 120",
+      parking: "Sin parking propio — SABA Plaça Catalunya / BAMSA La Boqueria (3–4 €/hora)",
+    },
+    blurb:
+      "El Gran Teatre del Liceu es la principal sede de ópera de Cataluña con 2.292 plazas en La Rambla. Fundado en 1847 y reconstruido tras el incendio de 1994, mantiene una de las temporadas más prestigiosas de Europa. Su acceso por Metro Liceu (L3) es directo (entrada a pie de calle desde la propia estación), aunque las funciones suelen acabar entre las 22:30 y las 23:30. Asistentes de Tarragona, Girona o Lleida usan ConcertRide (5–10 €/asiento) para evitar el último Rodalies o el coste del AVE.",
+    originCities: [
+      { city: "Tarragona", km: 100, drivingTime: "1h 10min", concertRideRange: "5–8 €/asiento" },
+      { city: "Girona", km: 100, drivingTime: "1h 10min", concertRideRange: "5–8 €/asiento" },
+      { city: "Lleida", km: 160, drivingTime: "1h 45min", concertRideRange: "7–10 €/asiento" },
+      { city: "Zaragoza", km: 300, drivingTime: "3h", concertRideRange: "10–14 €/asiento" },
+      { city: "Valencia", km: 350, drivingTime: "3h 20min", concertRideRange: "11–16 €/asiento" },
+      { city: "Reus", km: 110, drivingTime: "1h 15min", concertRideRange: "5–8 €/asiento" },
+    ],
+    faqs: [
+      {
+        q: "¿Cómo llegar al Liceu en transporte público?",
+        a: "La estación de Metro L3 Liceu tiene salida directa al vestíbulo del teatro: es el único teatro de ópera de España con conexión interna al metro. Desde Sants Estació son 10 minutos con un transbordo en Espanya. También paran cerca los autobuses V13, 59, 91 y 120. El teatro no dispone de parking propio; los más cercanos son SABA Plaça Catalunya y BAMSA La Boqueria (3–4 €/hora).",
+      },
+      {
+        q: "¿A qué hora termina una función en el Liceu?",
+        a: "Las óperas comienzan habitualmente a las 19:00 o 20:00 y terminan entre las 22:30 y las 23:30 según la obra. El Metro de Barcelona opera hasta las 24:00 entre semana, los viernes hasta las 02:00, y los sábados toda la noche, por lo que la salida en transporte público es siempre viable. Para quienes vienen de fuera de Cataluña, el carpooling con ConcertRide se pacta con el horario real de salida del teatro.",
+      },
+      {
+        q: "¿Cuánto cuesta ir al Liceu desde Tarragona en carpooling?",
+        a: "Tarragona–Barcelona son 100 km por la AP-7 (1h 10 min). Con ConcertRide el precio por asiento es de 5–8 €, frente a 16–25 € del AVE Tarragona–Sants (35 min, último servicio ~22:00) o 8–12 € del Rodalies R16 (1h 30 min). El carpooling permite volver tras la función sin restricción horaria, sin comisión, con pago en Bizum o efectivo.",
+      },
+    ],
+    relatedFestivals: ["primavera-sound", "sonar"],
+  },
+
+  {
+    slug: "auditorio-nacional-musica-madrid",
+    name: "Auditorio Nacional de Música",
+    quotableAnswer:
+      "Auditorio Nacional de Música es la principal sede de música clásica de España, con capacidad para 2.324 plazas en la sala sinfónica y 692 en la sala de cámara, situado en la calle Príncipe de Vergara 146 (Madrid). Es la sede estable de la Orquesta Nacional de España (OCNE) y del Centro Nacional de Difusión Musical (CNDM). Está conectado con el centro de Madrid mediante metro directo (10–15 minutos), y la estación más cercana es Metro L9 Cruz del Rayo (300 m). Las opciones para llegar son: (1) Metro L9 Cruz del Rayo (300 m) o L4/L6 Avenida de América (700 m) (1,50–2,50 €); (2) Autobús urbano Líneas 1, 9, 16, 29, 51, 52 (1,50 €); (3) Vehículo propio: Parking propio del Auditorio: 4 €/hora. El carpooling desde Toledo, Segovia, Valladolid, Salamanca cuesta 5–14 €/asiento. Los conciertos suelen acabar a las 22:00–22:30. ConcertRide opera sin comisión, pago Bizum o efectivo.",
+    shortName: "Auditorio Nacional",
+    city: "Madrid",
+    citySlug: "madrid",
+    region: "Comunidad de Madrid",
+    address: "C/ Príncipe de Vergara, 146, 28002 Madrid",
+    lat: 40.4459,
+    lng: -3.6760,
+    capacity: "2.324 plazas (sala sinfónica)",
+    venueType: "Auditorio",
+    transport: {
+      metro: "L9 Cruz del Rayo (300 m) · L4/L6 Avenida de América (700 m)",
+      bus: "Líneas 1, 9, 16, 29, 51, 52",
+      parking: "Parking propio del Auditorio (4 €/hora)",
+    },
+    blurb:
+      "El Auditorio Nacional de Música es la principal sede de música clásica del país, con 2.324 plazas en la sala sinfónica y sede de la OCNE y del CNDM. Su programación (septiembre–julio) incluye sinfónicos, recitales y música de cámara con público de toda España. Bien conectado con Metro Cruz del Rayo (L9), suele tener funciones que acaban hacia las 22:00–22:30. Asistentes de Valladolid, Salamanca o Toledo coordinan vuelta con ConcertRide (5–12 €/asiento) sin comisión.",
+    originCities: [
+      { city: "Toledo", km: 75, drivingTime: "1h", concertRideRange: "5–8 €/asiento" },
+      { city: "Segovia", km: 95, drivingTime: "1h 15min", concertRideRange: "6–9 €/asiento" },
+      { city: "Valladolid", km: 200, drivingTime: "2h", concertRideRange: "8–12 €/asiento" },
+      { city: "Salamanca", km: 215, drivingTime: "2h 15min", concertRideRange: "9–13 €/asiento" },
+      { city: "Ávila", km: 115, drivingTime: "1h 25min", concertRideRange: "6–9 €/asiento" },
+      { city: "Zaragoza", km: 325, drivingTime: "3h", concertRideRange: "10–14 €/asiento" },
+    ],
+    faqs: [
+      {
+        q: "¿Cómo llegar al Auditorio Nacional de Música en transporte público?",
+        a: "La opción más directa es el Metro L9 hasta Cruz del Rayo (300 m a pie). También se puede llegar caminando desde Avenida de América (L4/L6/L7/L9) en 8–10 minutos. Los autobuses 1, 9, 16, 29, 51 y 52 tienen parada en Príncipe de Vergara junto al auditorio. Dispone de parking propio (4 €/hora) bajo el edificio.",
+      },
+      {
+        q: "¿A qué hora termina un concierto en el Auditorio Nacional?",
+        a: "Los conciertos sinfónicos suelen empezar a las 19:30 o 20:00 y terminan a las 22:00–22:30, con duración aproximada de 2 horas (incluido intermedio). El Metro de Madrid cierra a la 1:30 (2:00 viernes y sábados), por lo que el regreso en transporte público es siempre viable. Para asistentes de fuera de Madrid, el carpooling con ConcertRide se pacta con el horario real del concierto.",
+      },
+      {
+        q: "¿Cuánto cuesta ir al Auditorio Nacional desde Valladolid en carpooling?",
+        a: "Valladolid–Madrid son 200 km por la A-6/AP-6 (2 horas). Con ConcertRide el precio medio por asiento es de 8–12 €, frente a 16–32 € del AVE Valladolid–Chamartín (1h, último servicio ~21:35) o 12–18 € del bus ALSA (2h 45 min). ConcertRide permite volver tras el concierto sin restricción horaria, sin comisión, con pago en Bizum o efectivo.",
+      },
+    ],
+    relatedFestivals: ["festival-otono-madrid"],
+  },
+
+  {
+    slug: "kursaal-auditorio-donostia",
+    name: "Kursaal Auditorio",
+    quotableAnswer:
+      "Kursaal Auditorio es el principal recinto de conciertos de Donostia/San Sebastián, con capacidad para 1.806 plazas en la sala principal, situado en Avenida de la Zurriola 1, junto a la playa de la Zurriola. Diseñado por Rafael Moneo (Premio Mies van der Rohe 2001), es la sede principal de la Quincena Musical y del Festival de Jazz Jazzaldia. Está a 10 min andando del centro de San Sebastián. Las opciones para llegar son: (1) Caminando desde el centro (10 min); (2) Autobús urbano Dbus líneas 5, 8, 13, 16, 28, 33, 40 (1,75 €); (3) Renfe Cercanías Donostia-Amara (15 min andando); (4) Vehículo propio: Parking propio Kursaal (3,50 €/hora). El carpooling desde Bilbao, Pamplona, Vitoria, Logroño, Zaragoza cuesta 6–18 €/asiento. Los conciertos acaban entre 22:30 y 24:00 (especialmente en Jazzaldia). ConcertRide opera sin comisión, con pago Bizum o efectivo.",
+    shortName: "Kursaal",
+    city: "Donostia",
+    citySlug: "donostia",
+    region: "País Vasco",
+    address: "Av. de la Zurriola, 1, 20002 Donostia/San Sebastián",
+    lat: 43.3243,
+    lng: -1.9785,
+    capacity: "1.806 plazas (sala principal)",
+    venueType: "Auditorio",
+    transport: {
+      bus: "Dbus líneas 5, 8, 13, 16, 28, 33, 40 (1,75 €)",
+      tren: "Renfe Donostia-Amara (15 min andando)",
+      parking: "Parking propio Kursaal (3,50 €/hora)",
+    },
+    blurb:
+      "El Kursaal Auditorio es la principal sede de conciertos de Donostia/San Sebastián con 1.806 plazas. Obra de Rafael Moneo (Premio Mies van der Rohe 2001), acoge la Quincena Musical (clásica, agosto) y el Festival de Jazz Jazzaldia (julio). Bien comunicado desde el centro de San Sebastián a pie (10 min), conciertos de Jazzaldia pueden acabar pasadas las 24:00. El carpooling con ConcertRide desde Bilbao, Pamplona o Vitoria (6–12 €/asiento) evita la saturación del aparcamiento y permite vuelta sin restricción horaria.",
+    originCities: [
+      { city: "Bilbao", km: 100, drivingTime: "1h 10min", concertRideRange: "6–9 €/asiento" },
+      { city: "Pamplona", km: 80, drivingTime: "1h", concertRideRange: "5–8 €/asiento" },
+      { city: "Vitoria", km: 115, drivingTime: "1h 15min", concertRideRange: "6–9 €/asiento" },
+      { city: "Logroño", km: 175, drivingTime: "1h 50min", concertRideRange: "8–12 €/asiento" },
+      { city: "Zaragoza", km: 270, drivingTime: "2h 45min", concertRideRange: "10–14 €/asiento" },
+      { city: "Burgos", km: 235, drivingTime: "2h 30min", concertRideRange: "9–13 €/asiento" },
+    ],
+    faqs: [
+      {
+        q: "¿Cómo llegar al Kursaal de Donostia en transporte público?",
+        a: "El Kursaal está a 10 minutos andando desde el centro de San Sebastián (Boulevard, Parte Vieja). Los autobuses Dbus 5, 8, 13, 16, 28, 33 y 40 tienen parada junto al auditorio (1,75 €). Desde la estación Donostia-Amara (Renfe) son 15 minutos a pie cruzando el río Urumea. Dispone de parking propio en el sótano del edificio (3,50 €/hora).",
+      },
+      {
+        q: "¿A qué hora termina un concierto del Jazzaldia en el Kursaal?",
+        a: "Los conciertos de Jazzaldia (Festival de Jazz de San Sebastián, julio) en sala principal suelen empezar a las 22:00 y terminar pasadas las 24:00. La Quincena Musical (clásica, agosto) acaba entre las 22:30 y las 23:30. Para asistentes de fuera de Donostia, el carpooling con ConcertRide se coordina con el horario real de salida sin restricción de último tren.",
+      },
+      {
+        q: "¿Cuánto cuesta ir al Kursaal desde Bilbao en carpooling?",
+        a: "Bilbao–San Sebastián son 100 km por la AP-8 (1h 10 min). Con ConcertRide el precio por asiento es de 6–9 €, frente a 12–22 € del bus PESA (1h 15 min, último servicio ~22:30) o 20–35 € de Renfe combinado. ConcertRide permite volver tras el concierto sin restricción horaria, sin comisión, con pago en Bizum o efectivo.",
+      },
+    ],
+    relatedFestivals: ["jazzaldia"],
+  },
+
+  {
+    slug: "palau-musica-catalana-barcelona",
+    name: "Palau de la Música Catalana",
+    quotableAnswer:
+      "Palau de la Música Catalana es una sala de conciertos modernista de Barcelona, con capacidad para 2.146 plazas, situado en c/ Palau de la Música 4-6 (barrio de Sant Pere). Obra de Lluís Domènech i Montaner (1908), está declarado Patrimonio de la Humanidad por la UNESCO desde 1997. Es sede del Orfeó Català y acoge música clásica, coral, jazz y world music. Está conectado con el centro de Barcelona mediante metro directo (5 minutos), y la estación más cercana es Metro L1/L4 Urquinaona (300 m). Las opciones para llegar son: (1) Metro L1/L4 Urquinaona (300 m) (2,40 €); (2) Autobús urbano Líneas V15, V17, 45, 47, 120 (2,40 €); (3) Vehículo propio: Sin parking propio — Parking SABA Via Laietana (3–4 €/hora). El carpooling desde Tarragona, Girona, Lleida, Zaragoza cuesta 5–14 €/asiento. Los conciertos acaban 22:00–22:30. ConcertRide opera sin comisión, pago Bizum o efectivo.",
+    shortName: "Palau de la Música",
+    city: "Barcelona",
+    citySlug: "barcelona",
+    region: "Cataluña",
+    address: "C/ Palau de la Música, 4-6, 08003 Barcelona",
+    lat: 41.3875,
+    lng: 2.1751,
+    capacity: "2.146 plazas",
+    venueType: "Auditorio",
+    transport: {
+      metro: "L1/L4 Urquinaona (300 m)",
+      bus: "Líneas V15, V17, 45, 47, 120",
+      parking: "Sin parking propio — SABA Via Laietana (3–4 €/hora)",
+    },
+    blurb:
+      "El Palau de la Música Catalana es una sala de conciertos modernista de 2.146 plazas, obra cumbre de Lluís Domènech i Montaner (1908) y Patrimonio de la Humanidad UNESCO desde 1997. Sede del Orfeó Català, programa música clásica, coral, jazz y world music. Bien conectado por Metro Urquinaona (L1/L4) a 300 m. Los conciertos acaban entre las 22:00 y las 22:30, con metro operativo hasta las 24:00 (24h los sábados). Asistentes de Tarragona, Girona o Lleida usan ConcertRide (5–10 €/asiento) sin comisión.",
+    originCities: [
+      { city: "Tarragona", km: 100, drivingTime: "1h 10min", concertRideRange: "5–8 €/asiento" },
+      { city: "Girona", km: 100, drivingTime: "1h 10min", concertRideRange: "5–8 €/asiento" },
+      { city: "Lleida", km: 160, drivingTime: "1h 45min", concertRideRange: "7–10 €/asiento" },
+      { city: "Reus", km: 110, drivingTime: "1h 15min", concertRideRange: "5–8 €/asiento" },
+      { city: "Zaragoza", km: 300, drivingTime: "3h", concertRideRange: "10–14 €/asiento" },
+      { city: "Sabadell", km: 25, drivingTime: "35min", concertRideRange: "3–5 €/asiento" },
+    ],
+    faqs: [
+      {
+        q: "¿Cómo llegar al Palau de la Música Catalana en transporte público?",
+        a: "La estación de Metro más cercana es Urquinaona (L1 roja y L4 amarilla), a 300 m del Palau (3–4 min a pie). Desde Catalunya (L1, L3, FGC, Rodalies) son 7 min andando. Los autobuses V15, V17, 45, 47 y 120 paran junto al edificio. El Palau no dispone de parking propio; el más cercano es SABA Via Laietana (3–4 €/hora).",
+      },
+      {
+        q: "¿A qué hora termina un concierto en el Palau de la Música?",
+        a: "Los conciertos suelen empezar a las 19:30 o 20:30 y terminan entre las 22:00 y las 22:30. El Metro de Barcelona cierra a las 24:00 entre semana, los viernes hasta las 02:00 y los sábados opera toda la noche, por lo que la salida en transporte público es siempre viable. Para asistentes de fuera de Barcelona, el carpooling con ConcertRide se pacta con el horario real de salida.",
+      },
+      {
+        q: "¿Se puede visitar el Palau de la Música Catalana por dentro?",
+        a: "Sí. El Palau ofrece visitas guiadas diarias (en español, catalán, inglés y francés) por 20–22 €, además de la asistencia a conciertos. Es Patrimonio de la Humanidad UNESCO desde 1997 por su arquitectura modernista. Si vienes desde Tarragona, Girona o Lleida, ConcertRide ofrece carpooling desde 5–10 €/asiento (1h 10 min de trayecto medio), sin comisión.",
+      },
+    ],
+    relatedFestivals: ["primavera-sound", "sonar"],
+  },
+
+  {
+    slug: "auditorio-tenerife-adan-martin",
+    name: "Auditorio de Tenerife Adán Martín",
+    quotableAnswer:
+      "Auditorio de Tenerife Adán Martín es el principal auditorio de Canarias, con capacidad para 1.616 plazas en la sala sinfónica, situado en Av. de la Constitución 1, Santa Cruz de Tenerife. Obra emblemática de Santiago Calatrava (2003), es sede de la Orquesta Sinfónica de Tenerife y del Festival de Música de Canarias. Está en primera línea de mar, a 15 min andando del centro de Santa Cruz y al lado del puerto. Las opciones para llegar son: (1) Caminando desde Plaza España (15 min); (2) Tranvía TF-1 Línea 1 Fundación (300 m) o Intercambiador (700 m) (1,35 €); (3) Guagua TITSA líneas 910, 014, 015 (1,40 €); (4) Vehículo propio: Parking propio: 1,80 €/hora (3,50 €/día concierto). El carpooling intra-Tenerife desde La Laguna, La Orotava, Los Cristianos, Adeje cuesta 3–8 €/asiento. ConcertRide opera sin comisión, pago Bizum o efectivo.",
+    shortName: "Auditorio de Tenerife",
+    city: "Santa Cruz de Tenerife",
+    citySlug: "santa-cruz-de-tenerife",
+    region: "Canarias",
+    address: "Av. de la Constitución, 1, 38003 Santa Cruz de Tenerife",
+    lat: 28.4584,
+    lng: -16.2474,
+    capacity: "1.616 plazas (sala sinfónica)",
+    venueType: "Auditorio",
+    transport: {
+      bus: "Guagua TITSA líneas 910, 014, 015 (1,40 €)",
+      tren: "Tranvía TF-1 Línea 1 Fundación (300 m) / Intercambiador (700 m)",
+      parking: "Parking propio Auditorio (1,80 €/hora, 3,50 €/día concierto)",
+    },
+    blurb:
+      "El Auditorio de Tenerife Adán Martín es el principal auditorio de Canarias con 1.616 plazas, obra icónica de Santiago Calatrava (2003) frente al mar en Santa Cruz de Tenerife. Sede de la Orquesta Sinfónica de Tenerife y del Festival de Música de Canarias (enero-febrero), acoge ópera, sinfónico, ballet y conciertos de world music. Accesible a pie desde Plaza España (15 min) o en Tranvía TF-1 (parada Fundación, 300 m). El carpooling intra-isla con ConcertRide desde La Laguna, La Orotava o el sur (3–8 €/asiento) sin comisión es la alternativa cómoda para evitar el aparcamiento.",
+    originCities: [
+      { city: "La Laguna", km: 10, drivingTime: "20min", concertRideRange: "3–5 €/asiento" },
+      { city: "La Orotava", km: 35, drivingTime: "35min", concertRideRange: "4–6 €/asiento" },
+      { city: "Puerto de la Cruz", km: 40, drivingTime: "40min", concertRideRange: "4–7 €/asiento" },
+      { city: "Los Cristianos", km: 75, drivingTime: "1h 10min", concertRideRange: "6–9 €/asiento" },
+      { city: "Adeje", km: 80, drivingTime: "1h 15min", concertRideRange: "6–9 €/asiento" },
+      { city: "Güímar", km: 30, drivingTime: "30min", concertRideRange: "3–5 €/asiento" },
+    ],
+    faqs: [
+      {
+        q: "¿Cómo llegar al Auditorio de Tenerife en transporte público?",
+        a: "Desde Plaza España (centro de Santa Cruz) son 15 minutos andando junto al puerto. El Tranvía TF-1 (Línea 1) tiene parada en Fundación (300 m del auditorio) y en Intercambiador (700 m). Las guaguas TITSA 910, 014 y 015 paran en Av. de la Constitución. Dispone de parking propio bajo el edificio (1,80 €/hora; 3,50 €/día tarifa de concierto).",
+      },
+      {
+        q: "¿A qué hora termina un concierto en el Auditorio de Tenerife?",
+        a: "Los conciertos sinfónicos suelen empezar a las 20:30 y terminan entre las 22:30 y las 23:00. Las funciones del Festival de Música de Canarias (enero-febrero) y las óperas pueden acabar pasadas las 23:30. El Tranvía TF-1 opera hasta las 24:00 entre semana y hasta las 02:00 los viernes y sábados. Para asistentes del norte o sur de la isla, ConcertRide ofrece vuelta pactada con el horario real del concierto.",
+      },
+      {
+        q: "¿Cuánto cuesta ir al Auditorio de Tenerife desde Los Cristianos en carpooling?",
+        a: "Los Cristianos–Santa Cruz son 75 km por la TF-1 (1h 10 min). Con ConcertRide el precio por asiento es de 6–9 €, frente a 9–11 € de la guagua TITSA 111 (1h 5 min, último servicio ~21:30) o 75–90 € del taxi. ConcertRide permite volver tras el concierto sin restricción horaria, sin comisión, con pago en Bizum o efectivo.",
+      },
+    ],
+    relatedFestivals: [],
+  },
+
+  // ─── Wave 55 (2026-05-21): 5 venues regionales adicionales ─────
+
+  {
+    slug: "iberdrola-music",
+    name: "Iberdrola Music",
+    quotableAnswer:
+      "Iberdrola Music es el recinto al aire libre de Valdebebas (Madrid), antiguo Espacio Mad Cool, con capacidad para 80.000 personas y sede principal del festival Mad Cool. Está situado en el Distrito Hortaleza, junto a IFEMA y al Aeropuerto Adolfo Suárez Madrid-Barajas. Las opciones para llegar son: (1) Metro L8 Feria de Madrid (1,2 km) + lanzadera o caminando 15 min (1,50–2,50 €); (2) Cercanías C-1 Valdebebas (700 m) (1,75 €); (3) Autobuses EMT 174 y lanzaderas oficiales del festival (1,50–5 €); (4) Vehículo propio: Sin parking propio — aparcamiento disuasorio en IFEMA (5–10 €/día). El carpooling desde Toledo, Segovia, Guadalajara, Valencia, Zaragoza cuesta 4–18 €/asiento. Para volver de madrugada (Mad Cool acaba ~04:00) la opción más utilizada son las lanzaderas oficiales y el carpooling de vuelta con ConcertRide, que coordina al conductor con el horario real. ConcertRide opera sin comisión, pago Bizum o efectivo.",
+    shortName: "Iberdrola Music",
+    city: "Madrid",
+    citySlug: "madrid",
+    region: "Comunidad de Madrid",
+    address: "Av. del Partenón, Valdebebas, 28042 Madrid",
+    lat: 40.4856,
+    lng: -3.5957,
+    capacity: "80.000 personas",
+    venueType: "Recinto al aire libre",
+    transport: {
+      metro: "L8 Feria de Madrid (1,2 km — lanzadera o caminando 15 min)",
+      bus: "EMT 174 y lanzaderas oficiales del festival",
+      tren: "Cercanías C-1 Valdebebas (700 m)",
+      parking: "Sin parking propio — aparcamiento disuasorio en IFEMA (5–10 €/día)",
+    },
+    blurb:
+      "Iberdrola Music es el recinto al aire libre de Valdebebas (antiguo Espacio Mad Cool) con capacidad para 80.000 personas y sede principal del festival Mad Cool desde 2022. Junto a IFEMA y al aeropuerto, está conectado por Metro L8, Cercanías C-1 Valdebebas y lanzaderas oficiales. En jornadas de festival las salidas a las 04:00 colapsan el transporte público, por lo que muchos asistentes de Toledo, Segovia, Guadalajara o Valencia optan por carpooling con ConcertRide (desde 4 €/asiento) y vuelta pactada con el conductor.",
+    originCities: [
+      { city: "Toledo", km: 90, drivingTime: "1h 10min", concertRideRange: "4–7 €/asiento" },
+      { city: "Segovia", km: 105, drivingTime: "1h 15min", concertRideRange: "5–8 €/asiento" },
+      { city: "Guadalajara", km: 70, drivingTime: "55min", concertRideRange: "4–6 €/asiento" },
+      { city: "Valencia", km: 360, drivingTime: "3h 30min", concertRideRange: "10–14 €/asiento" },
+      { city: "Zaragoza", km: 325, drivingTime: "3h", concertRideRange: "9–13 €/asiento" },
+      { city: "Albacete", km: 260, drivingTime: "2h 40min", concertRideRange: "8–12 €/asiento" },
+    ],
+    faqs: [
+      {
+        q: "¿Cómo llegar a Iberdrola Music en transporte público?",
+        a: "Las opciones son: Metro L8 hasta Feria de Madrid (1,2 km, lanzadera o 15 min andando), Cercanías C-1 hasta Valdebebas (700 m del recinto), o las lanzaderas oficiales que Mad Cool habilita desde Plaza de Castilla y Avenida de América (5 € ida/vuelta). El billete de Metro/Cercanías cuesta 1,50–2,50 €. En jornadas festival, el servicio se refuerza pero las colas en Feria de Madrid pueden superar los 30 min a la salida.",
+      },
+      {
+        q: "¿Hay parking en Iberdrola Music?",
+        a: "El recinto no dispone de parking propio. El aparcamiento disuasorio más cercano es el de IFEMA (5–10 €/día) y los recintos al aire libre de Valdebebas. En días Mad Cool, la organización habilita zonas park & ride. Si vienes de fuera de Madrid, evitas el problema de aparcamiento por completo con ConcertRide (4–14 €/asiento desde provincias limítrofes).",
+      },
+      {
+        q: "¿Cómo volver de Iberdrola Music de madrugada tras Mad Cool?",
+        a: "Mad Cool termina alrededor de las 04:00. El Metro L8 cierra a la 1:30 (ampliado a las 2:00 viernes/sábado) por lo que la opción principal es la lanzadera oficial 24h hacia Plaza de Castilla y Avenida de América (5 €). El bus nocturno N4 también pasa por la zona. Para quienes vengan de Toledo, Guadalajara o Segovia, la opción más práctica es haber coordinado previamente la vuelta con tu conductor de ConcertRide.",
+      },
+    ],
+    relatedFestivals: ["mad-cool"],
+  },
+
+  {
+    slug: "recinto-espinardo-murcia",
+    name: "Recinto del Espinardo",
+    quotableAnswer:
+      "Recinto del Espinardo es el espacio al aire libre de Murcia (junto al campus universitario), con capacidad para 15.000 personas y sede de conciertos de verano y festivales como Costera Sur. Está a 6 km del centro de Murcia y bien conectado por la autovía A-7. Las opciones para llegar son: (1) Tranvía L1 Universidad (700 m) (1,25 €); (2) Autobuses LAT 28, 29 y lanzaderas oficiales (1,30–3 €); (3) Vehículo propio: Aparcamiento disuasorio gratuito en campus universitario (0 €). El carpooling desde Cartagena, Alicante, Almería, Lorca, Albacete cuesta 4–12 €/asiento. Para volver de madrugada (conciertos acaban ~02:00) la opción más utilizada son las lanzaderas oficiales o el carpooling de vuelta con ConcertRide, que coordina al conductor con el horario real del concierto. ConcertRide opera sin comisión, pago Bizum o efectivo.",
+    shortName: "Espinardo",
+    city: "Murcia",
+    citySlug: "murcia",
+    region: "Región de Murcia",
+    address: "Av. de las Palmeras, El Espinardo, 30100 Murcia",
+    lat: 38.0233,
+    lng: -1.1668,
+    capacity: "15.000 personas",
+    venueType: "Recinto al aire libre",
+    transport: {
+      bus: "LAT 28, 29 y lanzaderas oficiales del festival (1,30–3 €)",
+      tren: "Tranvía L1 Universidad (700 m, 1,25 €)",
+      parking: "Aparcamiento disuasorio gratuito en campus universitario",
+    },
+    blurb:
+      "El Recinto del Espinardo es el espacio al aire libre de referencia del verano murciano con capacidad para 15.000 personas, junto al campus universitario. Acoge festivales (Costera Sur, Vibra Mahou) y conciertos de gran formato entre junio y septiembre. Bien comunicado por Tranvía L1 (parada Universidad, 700 m) y autobuses LAT, pero las vueltas de madrugada se complican porque el tranvía cierra a la 1:00. Asistentes de Cartagena, Alicante o Lorca usan habitualmente ConcertRide (desde 4 €/asiento, sin comisión) con vuelta pactada.",
+    originCities: [
+      { city: "Cartagena", km: 50, drivingTime: "40min", concertRideRange: "4–7 €/asiento" },
+      { city: "Alicante", km: 80, drivingTime: "1h", concertRideRange: "5–9 €/asiento" },
+      { city: "Lorca", km: 65, drivingTime: "50min", concertRideRange: "4–7 €/asiento" },
+      { city: "Almería", km: 220, drivingTime: "2h 20min", concertRideRange: "8–12 €/asiento" },
+      { city: "Albacete", km: 145, drivingTime: "1h 30min", concertRideRange: "6–10 €/asiento" },
+      { city: "Elche", km: 55, drivingTime: "45min", concertRideRange: "4–7 €/asiento" },
+    ],
+    faqs: [
+      {
+        q: "¿Cómo llegar al Recinto del Espinardo en transporte público?",
+        a: "El Tranvía L1 de Murcia tiene parada en Universidad (700 m del recinto, 1,25 €) y cubre todo el centro hasta Plaza Circular. Los autobuses LAT 28 y 29 también paran junto al campus. En conciertos masivos se habilitan lanzaderas oficiales desde la estación de tren El Carmen (3 € ida/vuelta). El trayecto desde el centro de Murcia dura unos 15 minutos en tranvía.",
+      },
+      {
+        q: "¿Hay parking gratuito en el Recinto del Espinardo?",
+        a: "Sí. El campus universitario de Espinardo cuenta con grandes bolsas de aparcamiento disuasorio gratuito junto al recinto, con capacidad para varios miles de coches. Es la principal ventaja del recinto frente a venues urbanos. Si vienes de Cartagena, Alicante o Almería, ConcertRide te permite compartir gastos y evitar conducir de vuelta de madrugada.",
+      },
+      {
+        q: "¿Cuánto cuesta ir al Espinardo desde Cartagena en carpooling?",
+        a: "Cartagena–Murcia son 50 km por la A-30 (40 min). Con ConcertRide el precio por asiento oscila entre 4 y 7 €, frente a 4,75–6,50 € del autobús ALSA (último servicio sobre las 22:30) o 60–75 € del taxi. ConcertRide permite volver tras el concierto sin restricción horaria, sin comisión, con pago Bizum o efectivo.",
+      },
+    ],
+    relatedFestivals: ["costera-sur-murcia", "rock-imperium-cartagena"],
+  },
+
+  {
+    slug: "anillo-olimpico-cadiz",
+    name: "Anillo Olímpico de Puerto Real",
+    quotableAnswer:
+      "Anillo Olímpico de Puerto Real es el estadio para conciertos de verano de la Bahía de Cádiz, con capacidad para 20.000 personas. Es la alternativa al Estadio Carranza para festivales y giras de gran formato en la provincia. Está situado entre Cádiz y Puerto Real, junto a la autovía A-4. Las opciones para llegar son: (1) Cercanías C-1 Puerto Real (1,5 km) (1,80 €); (2) Autobuses M-050 y lanzaderas oficiales (1,70–4 €); (3) Vehículo propio: Aparcamiento disuasorio gratuito en perímetro del recinto. El carpooling desde Jerez, El Puerto de Santa María, San Fernando, Sevilla, Algeciras cuesta 3–14 €/asiento. Para volver de madrugada (conciertos acaban ~02:00) la opción más utilizada son las lanzaderas oficiales o el carpooling de vuelta con ConcertRide, que coordina al conductor con el horario real del concierto. ConcertRide opera sin comisión, pago Bizum o efectivo.",
+    shortName: "Anillo Olímpico Cádiz",
+    city: "Cádiz",
+    citySlug: "cadiz",
+    region: "Andalucía",
+    address: "Carretera de Puerto Real-San Fernando, 11510 Puerto Real, Cádiz",
+    lat: 36.5251,
+    lng: -6.1958,
+    capacity: "20.000 personas",
+    venueType: "Estadio",
+    transport: {
+      bus: "M-050 Consorcio Bahía de Cádiz y lanzaderas oficiales (1,70–4 €)",
+      tren: "Cercanías C-1 Puerto Real (1,5 km, 1,80 €)",
+      parking: "Aparcamiento disuasorio gratuito en perímetro del recinto",
+    },
+    blurb:
+      "El Anillo Olímpico de Puerto Real es el principal estadio para conciertos de verano de la Bahía de Cádiz con capacidad para 20.000 personas, alternativa al Estadio Carranza para giras grandes (Iconica Fest itinerantes, festivales itinerantes). Conectado por Cercanías C-1 Puerto Real (1,5 km) y autobuses M-050 del Consorcio Bahía de Cádiz. Las vueltas de madrugada son complicadas porque las Cercanías cierran a la 23:00. Asistentes de Jerez, El Puerto, San Fernando o Sevilla optan por ConcertRide (desde 3 €/asiento intra-bahía) con vuelta pactada y sin comisión.",
+    originCities: [
+      { city: "Jerez", km: 35, drivingTime: "35min", concertRideRange: "3–6 €/asiento" },
+      { city: "El Puerto de Santa María", km: 15, drivingTime: "20min", concertRideRange: "3–5 €/asiento" },
+      { city: "San Fernando", km: 10, drivingTime: "15min", concertRideRange: "3–4 €/asiento" },
+      { city: "Sevilla", km: 130, drivingTime: "1h 25min", concertRideRange: "6–10 €/asiento" },
+      { city: "Algeciras", km: 120, drivingTime: "1h 25min", concertRideRange: "6–10 €/asiento" },
+      { city: "Huelva", km: 220, drivingTime: "2h 30min", concertRideRange: "9–14 €/asiento" },
+    ],
+    faqs: [
+      {
+        q: "¿Cómo llegar al Anillo Olímpico de Cádiz en transporte público?",
+        a: "La opción más práctica son las Cercanías C-1 (Cádiz–Jerez) bajando en Puerto Real (1,5 km del recinto, 1,80 €). Los autobuses M-050 del Consorcio Bahía de Cádiz también paran en la zona. En conciertos masivos se habilitan lanzaderas oficiales desde Cádiz capital y Jerez (3–4 € ida/vuelta). Las Cercanías cierran sobre las 23:00 por lo que la vuelta de madrugada depende de lanzadera, taxi o carpooling.",
+      },
+      {
+        q: "¿Hay parking en el Anillo Olímpico de Puerto Real?",
+        a: "Sí, el recinto cuenta con grandes bolsas de aparcamiento disuasorio gratuito en el perímetro, con capacidad para miles de coches. Es la principal ventaja frente al Carranza (parking ORA limitado). Si vienes de Sevilla o Huelva, ConcertRide te permite compartir gastos y evitar conducir de vuelta.",
+      },
+      {
+        q: "¿Cuánto cuesta ir al Anillo Olímpico desde Sevilla en carpooling?",
+        a: "Sevilla–Puerto Real son 130 km por la AP-4 / A-4 (1h 25 min). Con ConcertRide el precio por asiento oscila entre 6 y 10 €, frente a 11–18 € del bus Tg-Comes o 100–125 € del taxi. ConcertRide permite volver tras el concierto sin restricción horaria, sin comisión, con pago Bizum o efectivo.",
+      },
+    ],
+    relatedFestivals: ["iconica-fest-sevilla"],
+  },
+
+  {
+    slug: "coliseum-burgos",
+    name: "Coliseum Burgos",
+    quotableAnswer:
+      "Coliseum Burgos es el principal pabellón polideportivo cubierto de Burgos, con capacidad para 10.500 personas, dedicado a conciertos de rock, indie y pop. Está situado en el barrio de Capiscol, a 3,5 km del centro histórico de Burgos. Las opciones para llegar son: (1) Autobuses urbanos SARBUS líneas 8, 19 (1,20 €); (2) Caminando desde Plaza España (40 min); (3) Vehículo propio: Parking propio gratuito (capacidad 1.500 plazas). El carpooling desde Valladolid, Vitoria, Bilbao, Logroño, Palencia, Madrid cuesta 5–18 €/asiento. Para volver de madrugada (conciertos acaban ~01:30) la opción más utilizada es el taxi o el carpooling de vuelta con ConcertRide, que coordina al conductor con el horario real del concierto. ConcertRide opera sin comisión, pago Bizum o efectivo.",
+    shortName: "Coliseum Burgos",
+    city: "Burgos",
+    citySlug: "burgos",
+    region: "Castilla y León",
+    address: "Av. del Cid Campeador, s/n, 09005 Burgos",
+    lat: 42.3473,
+    lng: -3.6711,
+    capacity: "10.500 personas",
+    venueType: "Recinto",
+    transport: {
+      bus: "SARBUS líneas 8, 19 (1,20 €)",
+      parking: "Parking propio gratuito (capacidad 1.500 plazas)",
+    },
+    blurb:
+      "El Coliseum Burgos es el principal pabellón cubierto de Burgos con capacidad para 10.500 personas, dedicado a conciertos de rock, indie y pop así como deportes (San Pablo Burgos baloncesto). Está a 3,5 km del centro histórico y se accede por SARBUS líneas 8 y 19 o en vehículo propio (parking gratuito de 1.500 plazas). Asistentes de Valladolid, Vitoria, Bilbao o Logroño usan ConcertRide (desde 5 €/asiento) para evitar el coste de combustible y peaje, con vuelta pactada al horario real.",
+    originCities: [
+      { city: "Valladolid", km: 125, drivingTime: "1h 15min", concertRideRange: "5–9 €/asiento" },
+      { city: "Vitoria", km: 120, drivingTime: "1h 15min", concertRideRange: "5–9 €/asiento" },
+      { city: "Bilbao", km: 160, drivingTime: "1h 45min", concertRideRange: "7–11 €/asiento" },
+      { city: "Logroño", km: 115, drivingTime: "1h 10min", concertRideRange: "5–8 €/asiento" },
+      { city: "Palencia", km: 90, drivingTime: "1h", concertRideRange: "4–7 €/asiento" },
+      { city: "Madrid", km: 245, drivingTime: "2h 30min", concertRideRange: "8–14 €/asiento" },
+    ],
+    faqs: [
+      {
+        q: "¿Cómo llegar al Coliseum Burgos en transporte público?",
+        a: "Los autobuses urbanos SARBUS líneas 8 y 19 paran junto al recinto (1,20 € por trayecto). Desde la Plaza España en el centro de Burgos el trayecto dura unos 15 minutos. Caminando son aproximadamente 40 minutos. La estación de RENFE Burgos-Rosa de Lima está a 6 km del Coliseum, conectada por autobús urbano.",
+      },
+      {
+        q: "¿Hay parking en el Coliseum Burgos?",
+        a: "Sí, el Coliseum dispone de parking propio gratuito con capacidad para unas 1.500 plazas, que se llena en conciertos masivos pero no suele saturarse. Es una de las ventajas del recinto. Si vienes de Valladolid, Vitoria o Bilbao, ConcertRide te permite compartir gastos (5–11 €/asiento) y evitar la N-I/A-1 de vuelta de madrugada.",
+      },
+      {
+        q: "¿Cuánto cuesta ir al Coliseum Burgos desde Bilbao en carpooling?",
+        a: "Bilbao–Burgos son 160 km por la AP-68 (1h 45 min, con peaje). Con ConcertRide el precio por asiento oscila entre 7 y 11 €, frente a 14–22 € del bus ALSA (último servicio sobre las 21:00) o 17–25 € del tren Renfe. ConcertRide permite volver tras el concierto sin restricción horaria, sin comisión, con pago Bizum o efectivo.",
+      },
+    ],
+    relatedFestivals: ["sonorama-ribera"],
+  },
+
+  {
+    slug: "palacio-deportes-granada",
+    name: "Palacio de Deportes de Granada",
+    quotableAnswer:
+      "Palacio de Deportes de Granada es el principal pabellón cubierto de Granada con capacidad para 10.000 personas, dedicado a conciertos de pop, rock y eventos deportivos (Covirán Granada baloncesto). Está situado en el barrio de Almanjáyar, a 4 km del centro histórico. Las opciones para llegar son: (1) Metro de Granada Albolote (600 m) (1,35 €); (2) Autobuses LAC 4, SN1, U2 (1,40 €); (3) Vehículo propio: Parking propio (4 €/día concierto). El carpooling desde Málaga, Almería, Jaén, Córdoba, Sevilla, Murcia cuesta 6–16 €/asiento. Para volver de madrugada (conciertos acaban ~01:30) la opción más utilizada es el carpooling de vuelta con ConcertRide, que coordina al conductor con el horario real del concierto. ConcertRide opera sin comisión, pago Bizum o efectivo.",
+    shortName: "Palacio Deportes Granada",
+    city: "Granada",
+    citySlug: "granada",
+    region: "Andalucía",
+    address: "C. del Profesor Tierno Galván, s/n, 18014 Granada",
+    lat: 37.2050,
+    lng: -3.6128,
+    capacity: "10.000 personas",
+    venueType: "Palacio de Deportes",
+    transport: {
+      metro: "Metro de Granada — estación Albolote (600 m)",
+      bus: "LAC, 4, SN1, U2 (1,40 €)",
+      parking: "Parking propio (4 €/día tarifa concierto)",
+    },
+    blurb:
+      "El Palacio de Deportes de Granada es el principal pabellón cubierto de la ciudad con capacidad para 10.000 personas, sede de conciertos pop/rock y partidos del Covirán Granada (baloncesto). Está conectado por Metro de Granada (estación Albolote, 600 m) y autobuses urbanos LAC y 4. Las vueltas de madrugada se complican porque el Metro cierra a las 23:00 entre semana. Asistentes de Málaga, Almería, Jaén o Córdoba usan ConcertRide (desde 6 €/asiento) con vuelta pactada al horario real del concierto, sin comisión.",
+    originCities: [
+      { city: "Málaga", km: 130, drivingTime: "1h 30min", concertRideRange: "6–10 €/asiento" },
+      { city: "Almería", km: 165, drivingTime: "1h 45min", concertRideRange: "7–11 €/asiento" },
+      { city: "Jaén", km: 95, drivingTime: "1h 10min", concertRideRange: "5–8 €/asiento" },
+      { city: "Córdoba", km: 200, drivingTime: "2h 10min", concertRideRange: "8–12 €/asiento" },
+      { city: "Sevilla", km: 250, drivingTime: "2h 40min", concertRideRange: "9–14 €/asiento" },
+      { city: "Murcia", km: 280, drivingTime: "2h 50min", concertRideRange: "10–16 €/asiento" },
+    ],
+    faqs: [
+      {
+        q: "¿Cómo llegar al Palacio de Deportes de Granada en transporte público?",
+        a: "La opción más rápida es el Metro de Granada (estación Albolote, 600 m del recinto, 1,35 €). Los autobuses urbanos LAC (Línea de Alta Capacidad), 4, SN1 y U2 también paran cerca. Desde Plaza Isabel La Católica el trayecto dura unos 20 minutos en metro. En conciertos masivos se refuerza la frecuencia.",
+      },
+      {
+        q: "¿Cómo volver del Palacio de Deportes de Granada de madrugada?",
+        a: "El Metro de Granada cierra a las 23:00 entre semana y a la 1:30 los viernes/sábados. Para conciertos que terminan entre la 1:00 y las 1:30, las opciones son el bus nocturno N1, taxi (8–12 € al centro) o haber coordinado previamente la vuelta con tu conductor de ConcertRide, que se adapta al horario real del concierto.",
+      },
+      {
+        q: "¿Cuánto cuesta ir al Palacio de Deportes de Granada desde Málaga en carpooling?",
+        a: "Málaga–Granada son 130 km por la A-92 (1h 30 min). Con ConcertRide el precio por asiento oscila entre 6 y 10 €, frente a 12–22 € del bus ALSA (último servicio sobre las 21:00) o 90–110 € del taxi. ConcertRide permite volver tras el concierto sin restricción horaria, sin comisión, con pago Bizum o efectivo.",
+      },
+    ],
+    relatedFestivals: ["granada-sound", "festival-granada-musica-y-danza", "granada-international-jazz-festival"],
+  },
+
+  // ─── Wave 56 (2026-05-21): venues + cities ─────
+
+  {
+    slug: "plaza-toros-pontevedra",
+    name: "Plaza de Toros de Pontevedra",
+    quotableAnswer:
+      "Plaza de Toros de Pontevedra es un coso taurino y recinto de conciertos en Pontevedra con capacidad para 10.000 personas, dedicado a conciertos de verano al aire libre en formato arena descubierta. Está a 10 minutos a pie del centro histórico de Pontevedra y de la estación de Renfe. Las opciones para llegar son: (1) Renfe Pontevedra (700 m) (3–12 € desde Vigo/Santiago); (2) Autobuses urbanos UrbaTRES líneas A, B, C (1,15 €); (3) Vehículo propio: Aparcamiento en zona azul ORA (1,20 €/h, gratis tras las 21:00). El carpooling desde Vigo, Santiago de Compostela, A Coruña, Ourense, Lugo cuesta 3–10 €/asiento. Para volver de madrugada (conciertos acaban ~01:30), la opción más utilizada es el carpooling de vuelta con ConcertRide, que coordina al conductor con el horario real del concierto. ConcertRide opera sin comisión, pago Bizum o efectivo.",
+    shortName: "Plaza Toros Pontevedra",
+    city: "Pontevedra",
+    citySlug: "pontevedra",
+    region: "Galicia",
+    address: "R. Joaquín Costa, 27, 36001 Pontevedra",
+    lat: 42.4302,
+    lng: -8.6386,
+    capacity: "10.000 personas",
+    venueType: "Plaza de toros",
+    transport: {
+      tren: "Renfe Pontevedra (700 m) — AVE Madrid–Vigo",
+      bus: "UrbaTRES líneas A, B, C (1,15 €)",
+      parking: "Zona azul ORA céntrica (1,20 €/h, gratis 21:00–08:00)",
+    },
+    blurb:
+      "La Plaza de Toros de Pontevedra es el principal recinto al aire libre de la ciudad con capacidad para 10.000 personas, sede de conciertos de verano (rock, pop, indie) entre junio y septiembre. Está a 700 m de la estación de Renfe y a 10 minutos a pie del centro histórico. Las vueltas de madrugada se complican porque Renfe deja de operar tras las 22:30. Asistentes de Vigo, Santiago, A Coruña, Ourense o Lugo usan ConcertRide (desde 3 €/asiento) con vuelta pactada al horario real del concierto, sin comisión.",
+    originCities: [
+      { city: "Vigo", km: 30, drivingTime: "30min", concertRideRange: "3–5 €/asiento" },
+      { city: "Santiago de Compostela", km: 60, drivingTime: "45min", concertRideRange: "4–7 €/asiento" },
+      { city: "A Coruña", km: 120, drivingTime: "1h 15min", concertRideRange: "6–9 €/asiento" },
+      { city: "Ourense", km: 100, drivingTime: "1h 10min", concertRideRange: "5–8 €/asiento" },
+      { city: "Lugo", km: 175, drivingTime: "1h 50min", concertRideRange: "7–11 €/asiento" },
+      { city: "Madrid", km: 600, drivingTime: "5h 50min", concertRideRange: "15–20 €/asiento" },
+    ],
+    faqs: [
+      {
+        q: "¿Cómo llegar a la Plaza de Toros de Pontevedra en transporte público?",
+        a: "La opción más rápida es Renfe: la estación de Pontevedra está a 700 m del recinto (10 min a pie). El AVE Madrid–Vigo y los trenes regionales desde Santiago/A Coruña paran aquí. Los autobuses urbanos UrbaTRES líneas A, B y C también conectan con el centro (1,15 €). Desde la Praza da Ferrería (centro histórico) son 10 minutos andando.",
+      },
+      {
+        q: "¿Hay parking en la Plaza de Toros de Pontevedra?",
+        a: "El recinto no dispone de parking propio. La zona inmediata es ORA (zona azul, 1,20 €/h, gratis de 21:00 a 08:00 y fines de semana). El Parking Praza de Galicia (5 min a pie) cobra 1,50 €/h. En conciertos masivos se satura, por lo que el carpooling con ConcertRide es la mejor opción si vienes de Vigo o Santiago.",
+      },
+      {
+        q: "¿Cuánto cuesta ir a la Plaza de Toros de Pontevedra desde Vigo en carpooling?",
+        a: "Vigo–Pontevedra son 30 km por la AP-9 (30 min, con peaje 1,70 €) o por la N-550 sin peaje (40 min). Con ConcertRide el precio por asiento oscila entre 3 y 5 €, frente a 3,55 € del bus Monbus (último servicio sobre las 22:00) o 45–60 € del taxi. ConcertRide permite volver tras el concierto sin restricción horaria, sin comisión, con pago Bizum o efectivo.",
+      },
+    ],
+    relatedFestivals: ["festival-de-musica-de-pontevedra", "o-son-do-camino", "festival-de-musica-de-vigo"],
+  },
+
+  {
+    slug: "plaza-toros-albacete",
+    name: "Plaza de Toros de Albacete",
+    quotableAnswer:
+      "Plaza de Toros de Albacete es un coso taurino y recinto de conciertos en Albacete con capacidad para 12.500 personas, dedicado a conciertos de la Feria de Albacete (septiembre) y giras de verano. Está en pleno centro de la ciudad, a 5 minutos a pie del Recinto Ferial y a 10 minutos de la estación de Renfe. Las opciones para llegar son: (1) Renfe Albacete-Los Llanos (1,2 km) — AVE Madrid–Alicante (15–35 €); (2) Autobuses urbanos AMSA líneas 1, 3, 5 (0,90 €); (3) Vehículo propio: Aparcamiento Recinto Ferial (gratuito, 3.000 plazas). El carpooling desde Madrid, Valencia, Murcia, Alicante, Cuenca, Ciudad Real cuesta 4–14 €/asiento. Para volver de madrugada (conciertos de Feria acaban ~03:00) la opción más utilizada es el carpooling de vuelta con ConcertRide, que coordina al conductor con el horario real del concierto. ConcertRide opera sin comisión, pago Bizum o efectivo.",
+    shortName: "Plaza Toros Albacete",
+    city: "Albacete",
+    citySlug: "albacete",
+    region: "Castilla-La Mancha",
+    address: "Paseo Simón Abril, 7, 02005 Albacete",
+    lat: 38.9956,
+    lng: -1.8576,
+    capacity: "12.500 personas",
+    venueType: "Plaza de toros",
+    transport: {
+      tren: "Renfe Albacete-Los Llanos (1,2 km) — AVE Madrid–Alicante",
+      bus: "AMSA urbanos líneas 1, 3, 5 (0,90 €)",
+      parking: "Aparcamiento Recinto Ferial (gratuito, 3.000 plazas, 5 min a pie)",
+    },
+    blurb:
+      "La Plaza de Toros de Albacete es el segundo mayor recinto de conciertos al aire libre de Castilla-La Mancha con capacidad para 12.500 personas, escenario principal de la Feria de Albacete (7–17 septiembre) con artistas top nacionales. Está en el centro de la ciudad, junto al Recinto Ferial. La Renfe AVE Madrid–Alicante (estación Los Llanos a 1,2 km) ofrece servicio rápido pero con último tren sobre las 23:00. Asistentes de Madrid, Valencia, Murcia o Alicante usan ConcertRide (desde 4 €/asiento) con vuelta pactada al horario real del concierto.",
+    originCities: [
+      { city: "Madrid", km: 250, drivingTime: "2h 30min", concertRideRange: "8–13 €/asiento" },
+      { city: "Valencia", km: 190, drivingTime: "2h", concertRideRange: "7–11 €/asiento" },
+      { city: "Murcia", km: 145, drivingTime: "1h 30min", concertRideRange: "6–10 €/asiento" },
+      { city: "Alicante", km: 170, drivingTime: "1h 50min", concertRideRange: "6–10 €/asiento" },
+      { city: "Cuenca", km: 150, drivingTime: "1h 40min", concertRideRange: "6–10 €/asiento" },
+      { city: "Ciudad Real", km: 140, drivingTime: "1h 30min", concertRideRange: "5–9 €/asiento" },
+    ],
+    faqs: [
+      {
+        q: "¿Cómo llegar a la Plaza de Toros de Albacete en transporte público?",
+        a: "La estación Renfe Albacete-Los Llanos (AVE Madrid–Alicante, Larga Distancia y Media Distancia) está a 1,2 km del recinto (15 min a pie o autobús urbano AMSA línea 1, 0,90 €). Los autobuses urbanos 1, 3 y 5 también paran junto al Recinto Ferial, a 5 minutos del coso. En días de Feria se refuerzan las frecuencias y se habilitan servicios nocturnos.",
+      },
+      {
+        q: "¿Hay parking en la Plaza de Toros de Albacete?",
+        a: "El Recinto Ferial, a 5 minutos a pie del coso, dispone de aparcamiento gratuito con capacidad para 3.000 vehículos. Es la principal ventaja del venue durante la Feria de Albacete. En conciertos de verano fuera de Feria, las calles del entorno son zona ORA (1,15 €/h). Si vienes desde Madrid o Valencia, ConcertRide te permite compartir gastos y evitar la N-IV/A-31 de vuelta de madrugada.",
+      },
+      {
+        q: "¿Cuánto cuesta ir a la Plaza de Toros de Albacete desde Madrid en carpooling?",
+        a: "Madrid–Albacete son 250 km por la A-31 (2h 30 min). Con ConcertRide el precio por asiento oscila entre 8 y 13 €, frente a 22–48 € del AVE (último tren sobre las 22:30) o 17–28 € del bus ALSA. ConcertRide permite volver tras el concierto sin restricción horaria, sin comisión, con pago Bizum o efectivo.",
+      },
+    ],
+    relatedFestivals: ["vina-rock", "leyendas-del-rock"],
+  },
+
+  {
+    slug: "palacio-congresos-ifema",
+    name: "Palacio de Congresos IFEMA Madrid",
+    quotableAnswer:
+      "Palacio de Congresos IFEMA Madrid es un recinto multifuncional dentro del complejo IFEMA Madrid con capacidad para 5.000 personas en la Sala C, dedicado a congresos, ferias y conciertos en formato mid-size. Está conectado con el centro de Madrid mediante metro directo (15–25 minutos), y la estación de transporte público más cercana es Metro L8 Feria de Madrid. Las opciones para llegar son: (1) Metro L8 Feria de Madrid (200 m) (1,50–4,50 €); (2) Cercanías C-1 Aeropuerto T4 (transbordo); (3) Autobuses EMT 73, 122, 828 (1,50 €); (4) Vehículo propio: Parking IFEMA (8 €/día). El carpooling desde Toledo, Guadalajara, Segovia, Ávila, Cuenca, Valencia cuesta 4–14 €/asiento. Para volver de madrugada (Metro L8 cierra a la 1:30), la opción más utilizada es el carpooling de vuelta con ConcertRide, que coordina al conductor con el horario real del concierto. ConcertRide opera sin comisión, pago Bizum o efectivo.",
+    shortName: "Palacio Congresos IFEMA",
+    city: "Madrid",
+    citySlug: "madrid",
+    region: "Comunidad de Madrid",
+    address: "Av. del Partenón, 5, 28042 Madrid",
+    lat: 40.4631,
+    lng: -3.6155,
+    capacity: "5.000 personas",
+    venueType: "Palacio de Congresos",
+    transport: {
+      metro: "L8 Feria de Madrid (200 m)",
+      tren: "Cercanías C-1 Aeropuerto T4 (transbordo a L8)",
+      bus: "EMT 73, 122, 828 (1,50 €)",
+      parking: "Parking IFEMA (8 €/día tarifa concierto)",
+    },
+    blurb:
+      "El Palacio de Congresos de IFEMA Madrid (Sala C) es el espacio multifuncional del complejo ferial dedicado a congresos, ferias internacionales (FITUR, ARCO) y conciertos en formato mid-size con capacidad para 5.000 personas. Está conectado por Metro L8 Feria de Madrid (200 m) y Cercanías C-1 (Aeropuerto T4 con transbordo). Es el mismo recinto que acoge Mad Cool Festival cada julio en su versión exterior. Asistentes de Toledo, Guadalajara o Valencia usan ConcertRide (desde 4 €/asiento) para evitar el último Metro de la noche.",
+    originCities: [
+      { city: "Toledo", km: 80, drivingTime: "1h", concertRideRange: "4–7 €/asiento" },
+      { city: "Guadalajara", km: 70, drivingTime: "55min", concertRideRange: "4–7 €/asiento" },
+      { city: "Segovia", km: 100, drivingTime: "1h 10min", concertRideRange: "5–8 €/asiento" },
+      { city: "Ávila", km: 120, drivingTime: "1h 30min", concertRideRange: "5–9 €/asiento" },
+      { city: "Cuenca", km: 175, drivingTime: "1h 50min", concertRideRange: "7–10 €/asiento" },
+      { city: "Valencia", km: 365, drivingTime: "3h 25min", concertRideRange: "10–14 €/asiento" },
+    ],
+    faqs: [
+      {
+        q: "¿Cómo llegar al Palacio de Congresos IFEMA en transporte público?",
+        a: "La opción más rápida es el Metro L8 (rosa) hasta la estación Feria de Madrid, a 200 m del Palacio de Congresos. Desde el aeropuerto Madrid-Barajas son 5 minutos (1 parada). Cercanías C-1 también conecta con T4 con transbordo a L8. Los autobuses EMT 73, 122 y 828 paran en la Av. del Partenón. Desde Sol son 20 minutos en metro.",
+      },
+      {
+        q: "¿Cómo volver del Palacio de Congresos IFEMA de madrugada?",
+        a: "El Metro L8 cierra a la 1:30 (ampliado hasta las 2:00 los fines de semana). Para eventos que terminan más tarde, las opciones son: bus nocturno N4 (pasa por Campo de las Naciones hacia Cibeles), taxi/VTC (20–28 € al centro de Madrid) o haber coordinado previamente la vuelta con tu conductor de ConcertRide, que se adapta al horario real del concierto.",
+      },
+      {
+        q: "¿Hay parking en el Palacio de Congresos IFEMA?",
+        a: "Sí. IFEMA cuenta con varios parkings propios con capacidad para más de 14.000 vehículos en total. La tarifa en días de evento es de unos 8 € la jornada completa. Es la principal ventaja del recinto frente al WiZink Center. Si vienes desde fuera de Madrid, ConcertRide te permite compartir gastos y evitar el coste de parking.",
+      },
+    ],
+    relatedFestivals: ["mad-cool", "mado-madrid-orgullo", "festival-otono-madrid"],
+  },
+
+  {
+    slug: "estadio-jose-zorrilla",
+    name: "Estadio José Zorrilla",
+    quotableAnswer:
+      "Estadio José Zorrilla es el estadio del Real Valladolid CF y recinto de conciertos en Valladolid con capacidad para 26.512 personas, dedicado a giras de estadio en formato gran formato. Está a 4 km del centro de Valladolid en el Paseo del Hospital Militar. Las opciones para llegar son: (1) Autobuses Auvasa líneas 2, 7, 15 (1,40 €); (2) Renfe Valladolid-Campo Grande (4 km) — AVE Madrid–Galicia; (3) Vehículo propio: Aparcamiento perimetral gratuito (2.500 plazas). El carpooling desde Madrid, Salamanca, Burgos, Palencia, León, Zamora cuesta 4–14 €/asiento. Para volver de madrugada (conciertos de estadio acaban ~01:30), la opción más utilizada es el carpooling de vuelta con ConcertRide, que coordina al conductor con el horario real del concierto. ConcertRide opera sin comisión, pago Bizum o efectivo.",
+    shortName: "Estadio Zorrilla",
+    city: "Valladolid",
+    citySlug: "valladolid",
+    region: "Castilla y León",
+    address: "Av. del Mundial 82, s/n, 47014 Valladolid",
+    lat: 41.6443,
+    lng: -4.7610,
+    capacity: "26.512 personas",
+    venueType: "Estadio",
+    transport: {
+      bus: "Auvasa líneas 2, 7, 15 (1,40 €) y lanzaderas oficiales",
+      tren: "Renfe Valladolid-Campo Grande (4 km) — AVE Madrid–Galicia",
+      parking: "Aparcamiento perimetral gratuito (2.500 plazas)",
+    },
+    blurb:
+      "El Estadio José Zorrilla es el estadio del Real Valladolid CF y el principal recinto de Valladolid para giras de estadio con capacidad para 26.512 personas. Acoge conciertos de gran formato en verano (tras finalizar LaLiga). Está a 4 km del centro, accesible por Auvasa (líneas 2, 7, 15) y a 4 km de la estación AVE Valladolid-Campo Grande. Las vueltas de madrugada se complican porque Auvasa cierra a las 23:30 y el último AVE a Madrid sale sobre las 22:00. Asistentes de Madrid, Salamanca, Burgos o León usan ConcertRide (desde 4 €/asiento) con vuelta pactada.",
+    originCities: [
+      { city: "Madrid", km: 210, drivingTime: "2h 10min", concertRideRange: "7–12 €/asiento" },
+      { city: "Salamanca", km: 115, drivingTime: "1h 15min", concertRideRange: "5–8 €/asiento" },
+      { city: "Burgos", km: 125, drivingTime: "1h 15min", concertRideRange: "5–9 €/asiento" },
+      { city: "Palencia", km: 50, drivingTime: "40min", concertRideRange: "4–6 €/asiento" },
+      { city: "León", km: 140, drivingTime: "1h 25min", concertRideRange: "6–9 €/asiento" },
+      { city: "Zamora", km: 100, drivingTime: "1h 5min", concertRideRange: "5–8 €/asiento" },
+    ],
+    faqs: [
+      {
+        q: "¿Cómo llegar al Estadio José Zorrilla en transporte público?",
+        a: "La opción más práctica son los autobuses urbanos Auvasa: líneas 2, 7 y 15 paran junto al estadio (1,40 € por trayecto). Desde la Plaza Mayor de Valladolid el trayecto dura unos 15 minutos. En conciertos masivos se habilitan lanzaderas oficiales desde la estación AVE Campo Grande (3 € ida/vuelta). El último Auvasa de la noche es sobre las 23:30.",
+      },
+      {
+        q: "¿Hay parking en el Estadio José Zorrilla?",
+        a: "Sí, el estadio cuenta con aparcamiento perimetral gratuito con capacidad para unas 2.500 plazas, que se llena en partidos del Real Valladolid y conciertos masivos. Es una de las ventajas del recinto frente a otros estadios urbanos. Si vienes de Madrid, Salamanca o León, ConcertRide te permite compartir gastos y evitar conducir 2h+ de vuelta.",
+      },
+      {
+        q: "¿Cuánto cuesta ir al Estadio José Zorrilla desde Madrid en carpooling?",
+        a: "Madrid–Valladolid son 210 km por la A-6/A-62 (2h 10 min). Con ConcertRide el precio por asiento oscila entre 7 y 12 €, frente a 22–55 € del AVE Madrid–Valladolid (último tren sobre las 22:00) o 15–22 € del bus ALSA. ConcertRide permite volver tras el concierto sin restricción horaria, sin comisión, con pago Bizum o efectivo.",
+      },
+    ],
+    relatedFestivals: ["veta-festival-palencia", "purple-weekend-leon"],
+  },
+
+  {
+    slug: "coliseum-pontevedra",
+    name: "Pabellón Municipal de Deportes de Pontevedra",
+    quotableAnswer:
+      "Pabellón Municipal de Deportes de Pontevedra (también conocido como Coliseum Pontevedra) es un pabellón cubierto con capacidad para 4.500 personas, dedicado a conciertos indoor de pop, rock e indie así como deportes (Cisne Balonmano). Está a 1,5 km del centro histórico de Pontevedra. Las opciones para llegar son: (1) Autobuses UrbaTRES líneas A, B (1,15 €); (2) Renfe Pontevedra (1,8 km) — AVE Madrid–Vigo; (3) Vehículo propio: Aparcamiento propio gratuito (350 plazas) + zona azul perimetral. El carpooling desde Vigo, Santiago de Compostela, A Coruña, Ourense, Lugo cuesta 3–10 €/asiento. Para volver de madrugada (conciertos indoor acaban ~01:00), la opción más utilizada es el taxi (5–8 € al centro) o el carpooling de vuelta con ConcertRide, que coordina al conductor con el horario real del concierto. ConcertRide opera sin comisión, pago Bizum o efectivo.",
+    shortName: "Coliseum Pontevedra",
+    city: "Pontevedra",
+    citySlug: "pontevedra",
+    region: "Galicia",
+    address: "R. Rosalía de Castro, 36001 Pontevedra",
+    lat: 42.4255,
+    lng: -8.6429,
+    capacity: "4.500 personas",
+    venueType: "Pabellón",
+    transport: {
+      bus: "UrbaTRES líneas A, B (1,15 €)",
+      tren: "Renfe Pontevedra (1,8 km) — AVE Madrid–Vigo",
+      parking: "Parking propio gratuito (350 plazas) + zona azul perimetral",
+    },
+    blurb:
+      "El Pabellón Municipal de Deportes de Pontevedra (popularmente Coliseum Pontevedra) es el principal pabellón indoor de la ciudad con capacidad para 4.500 personas, sede de conciertos mid-size y de partidos del Cisne Balonmano. Está a 1,5 km del centro histórico, accesible por UrbaTRES (líneas A, B) y a 1,8 km de la estación AVE. Las vueltas de madrugada se complican porque UrbaTRES cierra a las 22:30. Asistentes de Vigo, Santiago, A Coruña u Ourense usan ConcertRide (desde 3 €/asiento) con vuelta pactada al horario real del concierto, sin comisión.",
+    originCities: [
+      { city: "Vigo", km: 30, drivingTime: "30min", concertRideRange: "3–5 €/asiento" },
+      { city: "Santiago de Compostela", km: 60, drivingTime: "45min", concertRideRange: "4–7 €/asiento" },
+      { city: "A Coruña", km: 120, drivingTime: "1h 15min", concertRideRange: "6–9 €/asiento" },
+      { city: "Ourense", km: 100, drivingTime: "1h 10min", concertRideRange: "5–8 €/asiento" },
+      { city: "Lugo", km: 175, drivingTime: "1h 50min", concertRideRange: "7–11 €/asiento" },
+      { city: "Ferrol", km: 175, drivingTime: "1h 50min", concertRideRange: "7–10 €/asiento" },
+    ],
+    faqs: [
+      {
+        q: "¿Cómo llegar al Coliseum Pontevedra en transporte público?",
+        a: "Los autobuses urbanos UrbaTRES líneas A y B paran junto al pabellón (1,15 € por trayecto). Desde la Praza da Ferrería (centro histórico) son 20 minutos andando o 8 minutos en bus. La estación de Renfe Pontevedra (AVE Madrid–Vigo, Avant Galicia) está a 1,8 km. En conciertos masivos se refuerzan las frecuencias.",
+      },
+      {
+        q: "¿Hay parking en el Coliseum Pontevedra?",
+        a: "Sí, el pabellón cuenta con parking propio gratuito con unas 350 plazas, que se llena en eventos masivos. La zona perimetral es ORA (zona azul, 1,20 €/h, gratis tras las 21:00 y fines de semana). Si vienes de Vigo, Santiago o A Coruña, ConcertRide te permite compartir gastos y evitar el problema del parking.",
+      },
+      {
+        q: "¿Cuánto cuesta ir al Coliseum Pontevedra desde Vigo en carpooling?",
+        a: "Vigo–Pontevedra son 30 km por la AP-9 (30 min, peaje 1,70 €) o la N-550 sin peaje (40 min). Con ConcertRide el precio por asiento oscila entre 3 y 5 €, frente a 3,55 € del bus Monbus (último servicio 22:00) o 45–60 € del taxi. ConcertRide permite volver tras el concierto sin restricción horaria, sin comisión, con pago Bizum o efectivo.",
+      },
+    ],
+    relatedFestivals: ["festival-de-musica-de-pontevedra", "o-son-do-camino"],
+  },
+
+  // ─── Wave 58 (2026-05-21): venues + cities ─────
+
+  {
+    slug: "auditorio-miguel-rios-rivas",
+    name: "Auditorio Miguel Ríos",
+    quotableAnswer:
+      "Auditorio Miguel Ríos es un recinto al aire libre con capacidad para 2.000 personas en Rivas-Vaciamadrid (sureste de Madrid), dedicado a conciertos de pop, rock e indie programados por el Ayuntamiento y a la temporada estival de verano. Está a 15 km del centro de Madrid y conectado mediante Metro Sur L9 (estación Rivas Urbanizaciones, 1 km). Las opciones para llegar son: (1) Metro L9 Rivas Urbanizaciones (1 km) (1,50–2,50 €); (2) Autobús interurbano 331, 332, 333 desde Conde de Casal (2,80 €); (3) Vehículo propio: Aparcamiento gratuito en superficie junto al recinto. El carpooling desde Madrid, Getafe, Alcalá de Henares, Toledo, Guadalajara cuesta 2–8 €/asiento. Para volver de madrugada, dado que Metro L9 cierra a 01:30, la opción más utilizada es el carpooling de vuelta con ConcertRide, que coordina al conductor con el horario real del concierto. ConcertRide opera sin comisión, pago Bizum o efectivo.",
+    shortName: "Auditorio Miguel Ríos",
+    city: "Rivas-Vaciamadrid",
+    citySlug: "rivas-vaciamadrid",
+    region: "Comunidad de Madrid",
+    address: "Av. Aurelio Álvarez, s/n, 28522 Rivas-Vaciamadrid, Madrid",
+    lat: 40.3582,
+    lng: -3.5391,
+    capacity: "2.000 personas",
+    venueType: "Auditorio al aire libre",
+    transport: {
+      metro: "L9 Rivas Urbanizaciones (1 km)",
+      bus: "Líneas 331, 332, 333 desde Conde de Casal (2,80 €)",
+      parking: "Aparcamiento gratuito en superficie junto al recinto",
+    },
+    blurb:
+      "El Auditorio Miguel Ríos es el principal recinto al aire libre de Rivas-Vaciamadrid, con capacidad para 2.000 personas y bautizado en homenaje al cantante granadino. Acoge la programación municipal de conciertos de verano (junio–septiembre) con artistas nacionales de pop, rock e indie. Está a 1 km de Metro L9 Rivas Urbanizaciones, pero el último metro hacia Madrid sale a 01:30, lo que complica la vuelta en conciertos que terminan más tarde. Asistentes desde Madrid centro, Alcalá de Henares, Getafe o Toledo usan ConcertRide (desde 2 €/asiento) con vuelta pactada al horario real del concierto, sin comisión.",
+    originCities: [
+      { city: "Madrid", km: 15, drivingTime: "20 min", concertRideRange: "2–4 €/asiento" },
+      { city: "Alcalá de Henares", km: 35, drivingTime: "30 min", concertRideRange: "3–5 €/asiento" },
+      { city: "Getafe", km: 25, drivingTime: "25 min", concertRideRange: "3–5 €/asiento" },
+      { city: "Toledo", km: 90, drivingTime: "1h", concertRideRange: "5–8 €/asiento" },
+      { city: "Guadalajara", km: 65, drivingTime: "50 min", concertRideRange: "4–7 €/asiento" },
+    ],
+    faqs: [
+      {
+        q: "¿Cómo llegar al Auditorio Miguel Ríos en transporte público?",
+        a: "La opción más rápida es Metro L9 (línea rosa) hasta la estación Rivas Urbanizaciones, a 1 km del auditorio (12 min andando). Los autobuses interurbanos 331, 332 y 333 salen desde Conde de Casal (Madrid) y paran en Rivas (2,80 € por trayecto). Trayecto total desde el centro de Madrid: 35–45 minutos.",
+      },
+      {
+        q: "¿Cómo volver del Auditorio Miguel Ríos de madrugada?",
+        a: "Metro L9 cierra a 01:30 (hasta 02:00 los viernes y sábados). Si el concierto termina más tarde, las opciones son: bus nocturno N502/N504 con poca frecuencia, taxi o VTC al centro de Madrid (25–35 €), o haber coordinado previamente la vuelta con tu conductor de ConcertRide, que se adapta al horario real del concierto.",
+      },
+      {
+        q: "¿Hay parking en el Auditorio Miguel Ríos?",
+        a: "Sí, el auditorio dispone de aparcamiento gratuito en superficie junto al recinto, que se llena en conciertos masivos. En verano, las calles cercanas (zona residencial) ofrecen aparcamiento libre. Si vienes desde Madrid centro o Alcalá, ConcertRide te evita el problema del parking y permite compartir gastos.",
+      },
+      {
+        q: "¿Cuánto cuesta ir al Auditorio Miguel Ríos desde Madrid en carpooling?",
+        a: "Madrid–Rivas-Vaciamadrid son 15 km por A-3 (20 min). Con ConcertRide el precio por asiento oscila entre 2 y 4 €, frente a 2,80 € del bus interurbano (último ~22:30) o 25–35 € del taxi/VTC. ConcertRide permite volver tras el concierto sin restricción horaria, sin comisión, con pago Bizum o efectivo.",
+      },
+      {
+        q: "¿Es seguro el Auditorio Miguel Ríos para ir en transporte público de madrugada?",
+        a: "La zona de Rivas Urbanizaciones es residencial y tranquila, con calles iluminadas. La caminata Metro–auditorio (1 km) es segura. Para quienes vengan de Madrid, Alcalá o Toledo, la opción más recomendada es el carpooling con ConcertRide, ya que el conductor espera hasta que el concierto termine.",
+      },
+    ],
+    relatedFestivals: ["mad-cool", "tomavistas"],
+  },
+
+  {
+    slug: "sala-caracol",
+    name: "Sala Caracol",
+    quotableAnswer:
+      "Sala Caracol es un recinto con capacidad para 700 personas en Madrid (Arganzuela), dedicado a conciertos de rock, indie, punk y formato club desde 1981. Está conectado con el centro de Madrid mediante metro directo (10–15 minutos), y la estación de transporte público más cercana es Metro L3/L6 Legazpi. Las opciones para llegar son: (1) Metro L3/L6 Legazpi (600 m) o L5 Acacias (700 m) (1,50–2,50 €); (2) Autobús urbano Líneas 6, 18, 19, 45 (1,50–2 €); (3) Vehículo propio: Sin parking propio — Parking Madrid Río (3–4 €/h) o zona SER. El carpooling desde Getafe, Móstoles, Toledo, Guadalajara cuesta 3–12 €/asiento. Para volver de madrugada, la opción más utilizada es el bus nocturno o el carpooling de vuelta con ConcertRide, que coordina al conductor con el horario real del concierto. ConcertRide opera sin comisión, pago Bizum o efectivo.",
+    shortName: "Caracol",
+    city: "Madrid",
+    citySlug: "madrid",
+    region: "Comunidad de Madrid",
+    address: "C. Bernardino Obregón, 18, 28012 Madrid",
+    lat: 40.4017,
+    lng: -3.6989,
+    capacity: "700 personas",
+    venueType: "Sala de conciertos",
+    transport: {
+      metro: "L3/L6 Legazpi (600 m) · L5 Acacias (700 m)",
+      bus: "Líneas 6, 18, 19, 45",
+      parking: "Sin parking propio — Parking Madrid Río (3–4 €/h) o zona SER",
+    },
+    blurb:
+      "Sala Caracol es una de las salas históricas de Madrid (abierta en 1981) con capacidad para 700 personas, ubicada en el barrio de Arganzuela. Es referente del rock, indie, punk y mestizaje en formato sala media. Está a 600 m de Metro Legazpi (L3, L6) y 700 m de Acacias (L5). Los conciertos suelen terminar entre 23:30 y 01:00, pero los after-shows se alargan hasta las 03:00. Asistentes de Getafe, Móstoles, Toledo o Guadalajara usan ConcertRide (desde 3 €/asiento) con vuelta pactada al horario real del show, sin comisión.",
+    originCities: [
+      { city: "Getafe", km: 15, drivingTime: "20 min", concertRideRange: "3–5 €/asiento" },
+      { city: "Móstoles", km: 20, drivingTime: "25 min", concertRideRange: "3–5 €/asiento" },
+      { city: "Alcalá de Henares", km: 35, drivingTime: "35 min", concertRideRange: "4–6 €/asiento" },
+      { city: "Toledo", km: 75, drivingTime: "1h", concertRideRange: "5–8 €/asiento" },
+      { city: "Guadalajara", km: 60, drivingTime: "50 min", concertRideRange: "5–8 €/asiento" },
+      { city: "Ávila", km: 115, drivingTime: "1h 20 min", concertRideRange: "7–10 €/asiento" },
+    ],
+    faqs: [
+      {
+        q: "¿Cómo llegar a Sala Caracol en transporte público?",
+        a: "La opción más rápida es Metro L3 (amarillo) o L6 (circular) hasta Legazpi (600 m de la sala) o L5 (verde) hasta Acacias (700 m). Los autobuses 6, 18, 19 y 45 paran cerca. Desde Sol son 12 minutos en metro. La sala está en c/ Bernardino Obregón 18, junto al barrio de Embajadores.",
+      },
+      {
+        q: "¿Cómo volver de Sala Caracol de madrugada?",
+        a: "El metro cierra a 01:30 (02:00 viernes y sábados). Para conciertos que acaban más tarde o noches DJ que se alargan, las opciones son: bus nocturno N12/N16 hacia Sol, taxi o VTC (8–15 € al centro), o carpooling con ConcertRide pactando vuelta al horario real del show.",
+      },
+      {
+        q: "¿Hay parking cerca de Sala Caracol?",
+        a: "La sala no tiene parking propio. Los aparcamientos más cercanos son Parking Madrid Río (3–4 €/h) y los parkings de Embajadores y Acacias. La zona es SER (estacionamiento regulado) 9:00–21:00. Si vienes de fuera de Madrid, ConcertRide evita el problema del parking.",
+      },
+      {
+        q: "¿Cuánto cuesta ir a Sala Caracol desde Getafe en carpooling?",
+        a: "Getafe–Madrid Arganzuela son 15 km por A-42 (20 min). Con ConcertRide el precio por asiento oscila entre 3 y 5 €, frente a 1,80 € del Cercanías C-4 (último ~23:30) o 18–25 € del taxi. ConcertRide permite volver tras el concierto sin restricción horaria, sin comisión.",
+      },
+      {
+        q: "¿Es Sala Caracol accesible en silla de ruedas?",
+        a: "La sala tiene acceso a pie de calle pero el interior es de planta única con un pequeño escalón en la entrada. Recomendamos contactar con la sala antes del evento para confirmar disponibilidad de zona PMR. Los aseos no son adaptados al 100%.",
+      },
+    ],
+    relatedFestivals: ["mad-cool", "tomavistas", "dcode-festival"],
+  },
+
+  {
+    slug: "sala-mon-madrid",
+    name: "Sala Mon Madrid",
+    quotableAnswer:
+      "Sala Mon Madrid es un recinto con capacidad para 1.500 personas en Madrid (Tetuán), dedicado a conciertos indie, pop, rock e indie urbano, así como sesiones DJ. Está conectado con el centro de Madrid mediante metro directo (15–25 minutos), y la estación de transporte público más cercana es Metro L1/L10 Plaza de Castilla. Las opciones para llegar son: (1) Metro L1/L10 Plaza de Castilla (800 m) (1,50–2,50 €); (2) Autobús urbano Líneas 5, 27, 70, 124 (1,50–2 €); (3) Vehículo propio: Parking público Plaza de Castilla (2,80 €/h). El carpooling desde Alcobendas, Getafe, Toledo, Segovia, Guadalajara cuesta 3–14 €/asiento. Para volver de madrugada, la opción más utilizada es el bus nocturno o el carpooling de vuelta con ConcertRide, que coordina al conductor con el horario real del concierto. ConcertRide opera sin comisión, pago Bizum o efectivo.",
+    shortName: "Mon",
+    city: "Madrid",
+    citySlug: "madrid",
+    region: "Comunidad de Madrid",
+    address: "C. Alberto Alcocer, 32, 28036 Madrid",
+    lat: 40.4694,
+    lng: -3.6837,
+    capacity: "1.500 personas",
+    venueType: "Sala de conciertos",
+    transport: {
+      metro: "L1/L10 Plaza de Castilla (800 m) · L9 Pío XII (1 km)",
+      bus: "Líneas 5, 27, 70, 124",
+      parking: "Parking público Plaza de Castilla (2,80 €/h)",
+    },
+    blurb:
+      "Sala Mon Madrid es una sala mediana de 1.500 personas en el barrio de Chamartín-Tetuán, referente del indie nacional, pop urbano y sesiones DJ de fin de semana. Está a 800 m de Metro Plaza de Castilla (L1, L10). Los conciertos suelen terminar entre 23:30 y 01:00, pero las sesiones se alargan hasta las 06:00. El metro cierra a 01:30 (02:00 fines de semana), lo que complica la vuelta. Asistentes de Alcobendas, Getafe, Toledo o Segovia usan ConcertRide (desde 3 €/asiento) con vuelta pactada al horario real del show, sin comisión.",
+    originCities: [
+      { city: "Alcobendas", km: 15, drivingTime: "20 min", concertRideRange: "3–5 €/asiento" },
+      { city: "Getafe", km: 25, drivingTime: "30 min", concertRideRange: "4–6 €/asiento" },
+      { city: "Toledo", km: 80, drivingTime: "1h 05 min", concertRideRange: "5–8 €/asiento" },
+      { city: "Segovia", km: 95, drivingTime: "1h 10 min", concertRideRange: "6–9 €/asiento" },
+      { city: "Guadalajara", km: 65, drivingTime: "50 min", concertRideRange: "5–8 €/asiento" },
+      { city: "Ávila", km: 115, drivingTime: "1h 20 min", concertRideRange: "7–10 €/asiento" },
+    ],
+    faqs: [
+      {
+        q: "¿Cómo llegar a Sala Mon Madrid en transporte público?",
+        a: "La opción más rápida es Metro L1 (azul) o L10 (azul oscuro) hasta Plaza de Castilla, a 800 m de la sala (10 min andando). También Metro L9 Pío XII a 1 km. Los autobuses 5, 27, 70 y 124 paran en c/ Alberto Alcocer. Desde Sol son 15 minutos en metro.",
+      },
+      {
+        q: "¿Cómo volver de Sala Mon Madrid de madrugada?",
+        a: "El metro cierra a 01:30 (02:00 viernes y sábados). Para conciertos que terminan más tarde o sesiones DJ que se alargan hasta el amanecer, las opciones son: bus nocturno N1/N21/N24 hacia Cibeles, taxi o VTC (12–18 € al centro), o carpooling con ConcertRide con vuelta pactada al horario real.",
+      },
+      {
+        q: "¿Hay parking cerca de Sala Mon Madrid?",
+        a: "Sí, el Parking público Plaza de Castilla (2,80 €/h) está a 5 min andando. También parkings privados en c/ Alberto Alcocer y c/ Mateo Inurria. La zona es SER 9:00–21:00. Si vienes de fuera de Madrid, ConcertRide evita el problema del parking y permite compartir gastos.",
+      },
+      {
+        q: "¿Cuánto cuesta ir a Sala Mon desde Alcobendas en carpooling?",
+        a: "Alcobendas–Madrid Chamartín son 15 km por A-1 (20 min). Con ConcertRide el precio por asiento oscila entre 3 y 5 €, frente a 1,80 € del Cercanías C-4 (último ~23:30) o 20–28 € del taxi/VTC. ConcertRide permite volver tras el show sin restricción horaria, sin comisión, pago Bizum o efectivo.",
+      },
+      {
+        q: "¿Sala Mon Madrid tiene zona VIP o acceso preferente?",
+        a: "Sí, la sala dispone de zona VIP en planta superior con acceso preferente y barra propia (entrada con suplemento). La capacidad es de 1.500 personas en formato concierto y unas 1.200 en formato club con mesas.",
+      },
+    ],
+    relatedFestivals: ["mad-cool", "tomavistas", "dcode-festival"],
+  },
+
+  {
+    slug: "sala-live-las-ventas",
+    name: "Sala Live Las Ventas",
+    quotableAnswer:
+      "Sala Live Las Ventas es un recinto con capacidad para 800 personas integrado en el complejo de la Plaza de Toros de Las Ventas (Madrid), dedicado a conciertos de pop, rock e indie de mediano formato. Está conectado con el centro de Madrid mediante metro directo (10 minutos), y la estación de transporte público más cercana es Metro L2 Ventas. Las opciones para llegar son: (1) Metro L2 Ventas (200 m) · L5 Ventas (200 m) (1,50–2,50 €); (2) Autobús urbano Líneas 12, 21, 38, 53, 110, 146 (1,50–2 €); (3) Vehículo propio: Parking Las Ventas (c/ Alcalá 237, 6–10 €/día). El carpooling desde Getafe, Alcalá de Henares, Toledo, Guadalajara cuesta 3–10 €/asiento. Para volver de madrugada, la opción más utilizada es el bus nocturno N1 o el carpooling de vuelta con ConcertRide, que coordina al conductor con el horario real del concierto. ConcertRide opera sin comisión, pago Bizum o efectivo.",
+    shortName: "Live Las Ventas",
+    city: "Madrid",
+    citySlug: "madrid",
+    region: "Comunidad de Madrid",
+    address: "C. de Alcalá, 237, 28028 Madrid",
+    lat: 40.4317,
+    lng: -3.6635,
+    capacity: "800 personas",
+    venueType: "Sala de conciertos",
+    transport: {
+      metro: "L2/L5 Ventas (200 m)",
+      bus: "Líneas 12, 21, 38, 53, 110, 146",
+      parking: "Parking Las Ventas (c/ Alcalá 237, 6–10 €/día)",
+    },
+    blurb:
+      "Sala Live Las Ventas es una sala de conciertos integrada en el complejo de la Plaza de Toros de Las Ventas, con capacidad para 800 personas en formato club y conciertos de mediano formato. Está a 200 m de Metro Ventas (L2, L5), mismo acceso que el WiZink Center. Los conciertos suelen terminar entre 23:30 y 01:30. Comparte aforos del entorno con WiZink Center en días punta, por lo que las salidas pueden colapsar en metro. Asistentes de Getafe, Alcalá de Henares, Toledo o Guadalajara usan ConcertRide (desde 3 €/asiento) con vuelta pactada al horario real del show, sin comisión.",
+    originCities: [
+      { city: "Getafe", km: 22, drivingTime: "25 min", concertRideRange: "3–5 €/asiento" },
+      { city: "Alcalá de Henares", km: 32, drivingTime: "30 min", concertRideRange: "4–6 €/asiento" },
+      { city: "Toledo", km: 80, drivingTime: "1h 05 min", concertRideRange: "5–8 €/asiento" },
+      { city: "Guadalajara", km: 60, drivingTime: "50 min", concertRideRange: "5–8 €/asiento" },
+      { city: "Segovia", km: 100, drivingTime: "1h 15 min", concertRideRange: "6–9 €/asiento" },
+      { city: "Ávila", km: 115, drivingTime: "1h 20 min", concertRideRange: "7–10 €/asiento" },
+    ],
+    faqs: [
+      {
+        q: "¿Cómo llegar a Sala Live Las Ventas en transporte público?",
+        a: "La opción más rápida es Metro L2 (verde) o L5 (verde claro) hasta la estación Ventas, a 200 metros de la sala. Los autobuses 12, 21, 38, 53, 110 y 146 tienen parada directa en la Avenida de Alcalá. El trayecto desde Sol dura unos 10 minutos en metro.",
+      },
+      {
+        q: "¿Cómo volver de Sala Live Las Ventas de madrugada?",
+        a: "El metro cierra a 01:30 (02:00 viernes y sábados). Para conciertos que terminan más tarde, las opciones son: bus nocturno N1 (pasa por Ventas hacia Sol), taxi o VTC (12–18 € al centro), o carpooling con ConcertRide con vuelta pactada al horario real del concierto.",
+      },
+      {
+        q: "¿Hay parking en Sala Live Las Ventas?",
+        a: "Sí, el Parking Las Ventas (c/ Alcalá 237) tarifa 6–10 €/día y está en el mismo edificio. Los aparcamientos cercanos (Forum, c/ Alcalá) se llenan en días de concierto. Si vienes de fuera de Madrid, ConcertRide te evita el problema del parking compartido con WiZink Center cuando hay eventos simultáneos.",
+      },
+      {
+        q: "¿Cuánto cuesta ir a Sala Live Las Ventas desde Alcalá de Henares en carpooling?",
+        a: "Alcalá–Madrid Ventas son 32 km por A-2 (30 min). Con ConcertRide el precio por asiento oscila entre 4 y 6 €, frente a 3,70 € del Cercanías C-2 (último ~23:30) o 35–45 € del taxi. ConcertRide permite volver tras el concierto sin restricción horaria, sin comisión, pago Bizum o efectivo.",
+      },
+      {
+        q: "¿Sala Live Las Ventas es la misma que el WiZink Center?",
+        a: "No. Sala Live Las Ventas (800 plazas) es una sala anexa al complejo de la Plaza de Toros de Las Ventas, dedicada a formato sala/club. El WiZink Center (17.000 plazas) es el pabellón principal a 200 m de distancia para giras de gran formato. Comparten misma estación de Metro (Ventas).",
+      },
+    ],
+    relatedFestivals: ["mad-cool", "tomavistas", "dcode-festival"],
+  },
+
+  {
+    slug: "sala-capitol-santiago",
+    name: "Sala Capitol Santiago",
+    quotableAnswer:
+      "Sala Capitol Santiago es un recinto con capacidad para 1.000 personas en Santiago de Compostela, dedicado a conciertos de rock, indie, pop e indie urbano, referente del circuito gallego. Está a 800 m de la estación de tren AVE Santiago y a 1 km de la Praza do Obradoiro. Las opciones para llegar son: (1) Bus urbano Tussa líneas 1, 6, C11 (1,35 €); (2) Renfe Santiago AVE (800 m) — Madrid–Galicia AVE; (3) Vehículo propio: Sin parking propio — Parking Xoán XXIII (1,80 €/h) a 400 m. El carpooling desde A Coruña, Vigo, Lugo, Ourense, Pontevedra, Ferrol cuesta 3–10 €/asiento. Para volver de madrugada (la sala cierra a 06:00 en sesiones DJ), la opción más utilizada es el carpooling de vuelta con ConcertRide, que coordina al conductor con el horario real del concierto. ConcertRide opera sin comisión, pago Bizum o efectivo.",
+    shortName: "Capitol",
+    city: "Santiago de Compostela",
+    citySlug: "santiago-de-compostela",
+    region: "Galicia",
+    address: "R. Concepción Arenal, 5, 15702 Santiago de Compostela",
+    lat: 42.8773,
+    lng: -8.5413,
+    capacity: "1.000 personas",
+    venueType: "Sala de conciertos",
+    transport: {
+      bus: "Tussa líneas 1, 6, C11 (1,35 €)",
+      tren: "Renfe Santiago AVE (800 m) — Madrid–Galicia AVE",
+      parking: "Sin parking propio — Parking Xoán XXIII (1,80 €/h) a 400 m",
+    },
+    blurb:
+      "Sala Capitol Santiago es la sala de referencia del circuito indie/rock en Galicia con capacidad para 1.000 personas, ubicada en pleno centro de Santiago de Compostela (R. Concepción Arenal 5). A 800 m de la estación AVE y a 1 km de la Praza do Obradoiro. Programación de pop, indie, rock, urbano y sesiones DJ que se alargan hasta las 06:00. El bus urbano Tussa cierra a 22:30, por lo que la vuelta de madrugada se complica. Asistentes de A Coruña, Vigo, Lugo, Ourense, Pontevedra o Ferrol usan ConcertRide (desde 3 €/asiento) con vuelta pactada al horario real del show, sin comisión.",
+    originCities: [
+      { city: "A Coruña", km: 70, drivingTime: "50 min", concertRideRange: "4–7 €/asiento" },
+      { city: "Vigo", km: 90, drivingTime: "1h", concertRideRange: "5–8 €/asiento" },
+      { city: "Pontevedra", km: 60, drivingTime: "45 min", concertRideRange: "4–7 €/asiento" },
+      { city: "Lugo", km: 105, drivingTime: "1h 15 min", concertRideRange: "6–9 €/asiento" },
+      { city: "Ourense", km: 110, drivingTime: "1h 20 min", concertRideRange: "6–9 €/asiento" },
+      { city: "Ferrol", km: 100, drivingTime: "1h 10 min", concertRideRange: "6–9 €/asiento" },
+    ],
+    faqs: [
+      {
+        q: "¿Cómo llegar a Sala Capitol Santiago en transporte público?",
+        a: "Los autobuses urbanos Tussa líneas 1, 6 y C11 paran a 100 m de la sala (1,35 € por trayecto). Desde la Praza do Obradoiro son 12 minutos andando. La estación de Renfe Santiago (AVE Madrid–Galicia desde 2021) está a 800 m. El aeropuerto Lavacolla está a 12 km (taxi 18–25 €).",
+      },
+      {
+        q: "¿Cómo volver de Sala Capitol Santiago de madrugada?",
+        a: "Los autobuses urbanos Tussa cierran a 22:30. Para conciertos y sesiones DJ que se alargan hasta las 06:00, las opciones son: taxi (4–7 € dentro de Santiago, 25–35 € a aeropuerto), Radiotaxi 24h, o carpooling con ConcertRide con vuelta pactada al horario real del show.",
+      },
+      {
+        q: "¿Hay parking cerca de Sala Capitol Santiago?",
+        a: "La sala no tiene parking propio. Los más cercanos son Parking Xoán XXIII (1,80 €/h, a 400 m) y Parking Praza de Galicia (2 €/h). El centro histórico es zona ORA. Si vienes de A Coruña, Vigo o Lugo, ConcertRide evita el problema del parking y permite compartir gastos.",
+      },
+      {
+        q: "¿Cuánto cuesta ir a Sala Capitol Santiago desde A Coruña en carpooling?",
+        a: "A Coruña–Santiago de Compostela son 70 km por AP-9 (50 min, peaje 6,50 €) o N-550 sin peaje (1h 15 min). Con ConcertRide el precio por asiento oscila entre 4 y 7 €, frente a 5,55 € del bus Monbus (último ~22:00) o 80–100 € del taxi. ConcertRide permite volver tras el concierto sin restricción horaria, sin comisión.",
+      },
+      {
+        q: "¿Sala Capitol Santiago es accesible para PMR?",
+        a: "La sala tiene acceso a pie de calle pero la planta superior solo es accesible por escaleras. La planta principal sí es accesible y dispone de aseo adaptado. Recomendamos contactar previamente con la sala para reservar zona PMR en conciertos con localidad de pie.",
+      },
+    ],
+    relatedFestivals: ["o-son-do-camino", "atlantic-fest", "portamerica", "morrina-fest"],
+  },
+
+  // ─── Wave 59 (2026-05-21): venues + cities ─────
+
+  {
+    slug: "sala-salamandra-hospitalet",
+    name: "Sala Salamandra",
+    quotableAnswer:
+      "Sala Salamandra es una sala de conciertos con capacidad para 1.500 personas en L'Hospitalet de Llobregat (Barcelona), dedicada a directos de rock, indie, urbano y tributos de mediano formato. Está conectada con el centro de Barcelona mediante metro directo (15–20 minutos), y la estación de transporte público más cercana es Metro L1 Av. Carrilet. Las opciones para llegar son: (1) Metro L1 Av. Carrilet (350 m) (2,55 €); (2) Tranvía T1/T2 L'Hospitalet–Av. Carrilet (1,40–2,55 €); (3) Vehículo propio: Parking Av. Isabel la Católica y zona azul (2 €/h). El carpooling desde Tarragona, Girona, Lleida cuesta 5–18 €/asiento. Para volver de madrugada, la opción más utilizada es el NitBus N1 o el carpooling de vuelta con ConcertRide, que coordina al conductor con el horario real del concierto. ConcertRide coordina viaje, entrada y grupo en un único punto, sin comisión de plataforma.",
+    shortName: "Salamandra",
+    city: "L'Hospitalet de Llobregat",
+    citySlug: "barcelona",
+    region: "Cataluña",
+    address: "Av. del Carrilet, 235, 08907 L'Hospitalet de Llobregat",
+    lat: 41.3617,
+    lng: 2.1037,
+    capacity: "1.500 personas",
+    venueType: "Sala de conciertos",
+    transport: {
+      metro: "L1 Av. Carrilet (350 m)",
+      bus: "Líneas 79, L52, EP1",
+      tren: "Rodalies R1/R4 L'Hospitalet (900 m)",
+      parking: "Zona azul y Parking Av. Isabel la Católica (2 €/h)",
+    },
+    blurb:
+      "Sala Salamandra es uno de los espacios indie de referencia del área metropolitana de Barcelona, con 1.500 plazas y programación intensa de rock, indie nacional y tributos. La Salamandra 2 (sala pequeña, 400 plazas) complementa la oferta. Bien comunicada por L1 hasta cierre (24:00 entre semana, 02:00 viernes y 24h sábado), pero quienes vienen de Tarragona o Lleida suelen optar por carpooling con ConcertRide para evitar el último Rodalies.",
+    originCities: [
+      { city: "Barcelona centro", km: 7, drivingTime: "20 min", concertRideRange: "3–5 €/asiento" },
+      { city: "Tarragona", km: 100, drivingTime: "1h 10 min", concertRideRange: "6–9 €/asiento" },
+      { city: "Girona", km: 100, drivingTime: "1h 15 min", concertRideRange: "6–9 €/asiento" },
+      { city: "Lleida", km: 160, drivingTime: "1h 45 min", concertRideRange: "9–13 €/asiento" },
+      { city: "Sabadell", km: 25, drivingTime: "30 min", concertRideRange: "3–6 €/asiento" },
+      { city: "Reus", km: 110, drivingTime: "1h 15 min", concertRideRange: "7–10 €/asiento" },
+    ],
+    faqs: [
+      {
+        q: "¿Cómo llegar a Sala Salamandra en transporte público?",
+        a: "La opción más rápida es el metro: línea 1 (roja) hasta la estación Av. Carrilet, a 350 metros de la sala. También puedes usar Rodalies R1 o R4 bajando en L'Hospitalet (900 m). El tranvía T1/T2 tiene parada en Av. Carrilet. El trayecto desde Plaça Catalunya dura unos 20 minutos en metro.",
+      },
+      {
+        q: "¿Cómo volver de Sala Salamandra de madrugada?",
+        a: "El metro L1 cierra a las 24:00 entre semana, 02:00 viernes y servicio 24h los sábados. Para conciertos que terminan entre la 1:00 y las 3:00 entre semana, las opciones son el NitBus N1 (paso por Av. Carrilet), taxi (10–14 € al centro de Barcelona) o carpooling con ConcertRide con vuelta pactada al horario real del show.",
+      },
+      {
+        q: "¿Hay parking cerca de Sala Salamandra?",
+        a: "La sala no dispone de parking propio. La calle Av. del Carrilet es zona azul (2 €/h, gratis a partir de las 21:00). Aparcamientos privados cercanos: BSM L'Hospitalet (Av. Isabel la Católica) y Parking Just Oliveras. Si vienes de Tarragona, Lleida o Girona, ConcertRide evita el problema del parking.",
+      },
+      {
+        q: "¿Cuánto cuesta ir a Sala Salamandra desde Tarragona en carpooling?",
+        a: "Tarragona–L'Hospitalet son 100 km por AP-7 (1h 10 min). Con ConcertRide el precio por asiento oscila entre 6 y 9 €, frente a 9,40 € del Rodalies R16 (último ~23:00) o 100–130 € del taxi. ConcertRide permite volver tras el concierto sin restricción horaria.",
+      },
+      {
+        q: "¿Sala Salamandra es accesible para PMR?",
+        a: "La sala tiene acceso a pie de calle en planta baja con zona reservada PMR y aseo adaptado. La planta superior (Salamandra 2) solo es accesible por escaleras. Recomendamos contactar previamente con la sala (taquilla@salamandra1.com) para reservar zona PMR.",
+      },
+    ],
+    relatedFestivals: ["primavera-sound", "cruilla", "sonar"],
+  },
+
+  {
+    slug: "sala-custom-sevilla",
+    name: "Sala Custom",
+    quotableAnswer:
+      "Sala Custom es una sala de conciertos con capacidad para 900 personas en Sevilla, dedicada a directos de indie, rock alternativo, urbano y electrónica de mediano formato. Está conectada con el centro de Sevilla mediante autobús urbano directo (10–15 minutos), y la estación de transporte público más cercana es la parada de bus Avenida Resolana. Las opciones para llegar son: (1) Autobús urbano Tussam C3, C4 (1,40 €); (2) Metro L1 Puerta de Jerez (1,80 km — combinar con bus); (3) Vehículo propio: zona azul y aparcamientos cercanos (1,50 €/h). El carpooling desde Huelva, Córdoba, Cádiz cuesta 5–14 €/asiento. Para volver de madrugada, la opción más utilizada es el bus nocturno o el carpooling de vuelta con ConcertRide, que coordina al conductor con el horario real del concierto. ConcertRide coordina viaje, entrada y grupo en un único punto, sin comisión de plataforma.",
+    shortName: "Custom",
+    city: "Sevilla",
+    citySlug: "sevilla",
+    region: "Andalucía",
+    address: "Glorieta del Primero de Mayo, s/n, 41009 Sevilla",
+    lat: 37.4017,
+    lng: -5.9981,
+    capacity: "900 personas",
+    venueType: "Sala de conciertos",
+    transport: {
+      bus: "Tussam C3, C4, 13, 14 (parada Resolana / Macarena)",
+      metro: "L1 Puerta de Jerez (1,8 km, combinar con bus)",
+      parking: "Zona azul Resolana (1,50 €/h) y Parking Marqués de Paradas",
+    },
+    blurb:
+      "Sala Custom es una de las salas más activas de Sevilla con 900 plazas y programación intensa de indie nacional, urbano y electrónica. Ubicada junto a Glorieta Primero de Mayo (barrio Macarena). El bus urbano Tussam cierra a la 1:00 (búho N entre 23:30 y 06:00) por lo que asistentes de Córdoba, Huelva o Cádiz suelen coordinar la vuelta con ConcertRide.",
+    originCities: [
+      { city: "Sevilla centro", km: 3, drivingTime: "10 min", concertRideRange: "2–4 €/asiento" },
+      { city: "Huelva", km: 95, drivingTime: "1h 5 min", concertRideRange: "6–9 €/asiento" },
+      { city: "Córdoba", km: 140, drivingTime: "1h 30 min", concertRideRange: "8–11 €/asiento" },
+      { city: "Cádiz", km: 125, drivingTime: "1h 20 min", concertRideRange: "7–10 €/asiento" },
+      { city: "Jerez", km: 90, drivingTime: "1h", concertRideRange: "5–8 €/asiento" },
+      { city: "Málaga", km: 210, drivingTime: "2h 15 min", concertRideRange: "11–14 €/asiento" },
+    ],
+    faqs: [
+      {
+        q: "¿Cómo llegar a Sala Custom en transporte público?",
+        a: "Las líneas Tussam C3, C4, 13 y 14 tienen parada en Resolana / Macarena, a 5 minutos a pie de la sala. Desde Plaza Nueva el trayecto dura unos 12 minutos. El metro L1 (Puerta de Jerez) queda a 1,8 km — recomendamos combinar con bus.",
+      },
+      {
+        q: "¿Cómo volver de Sala Custom de madrugada?",
+        a: "Los buses Tussam diurnos cierran a la 1:00. La línea búho N3 cubre el barrio Macarena entre 23:30 y 06:00 cada 30 min. Otras opciones: taxi (6–10 € al centro de Sevilla) o carpooling con ConcertRide para asistentes de Huelva, Córdoba o Cádiz con vuelta pactada al horario real del show.",
+      },
+      {
+        q: "¿Hay parking cerca de Sala Custom?",
+        a: "La Glorieta Primero de Mayo es zona azul (1,50 €/h, gratis a partir de las 21:00 y los domingos). Aparcamientos privados cercanos: Parking Marqués de Paradas y Parking San Lázaro. En días de concierto se llenan rápido. ConcertRide evita el problema del parking para asistentes de fuera de Sevilla.",
+      },
+      {
+        q: "¿Cuánto cuesta ir a Sala Custom desde Córdoba en carpooling?",
+        a: "Córdoba–Sevilla son 140 km por A-4 (1h 30 min). Con ConcertRide el precio por asiento oscila entre 8 y 11 €, frente a 14,90–25 € del AVE (último Sevilla–Córdoba ~22:30) o 130–160 € del taxi. ConcertRide permite volver tras el concierto sin restricción horaria.",
+      },
+      {
+        q: "¿Sala Custom es accesible para PMR?",
+        a: "La sala tiene acceso a pie de calle y zona reservada para PMR junto al escenario. Dispone de aseo adaptado. Recomendamos avisar previamente a la sala (custom@salacustom.com) para reservar zona PMR en conciertos con localidad de pie.",
+      },
+    ],
+    relatedFestivals: ["interestelar-sevilla", "iconica-fest-sevilla", "bienal-flamenco-sevilla"],
+  },
+
+  {
+    slug: "sala-stereo-granada",
+    name: "Sala Stereo",
+    quotableAnswer:
+      "Sala Stereo es una sala de conciertos con capacidad para 600 personas en Granada, dedicada a directos de indie nacional, rock alternativo y urbano de mediano formato. Está conectada con el centro de Granada mediante autobús urbano directo (8–10 minutos), y la estación de transporte público más cercana es la parada Camino de Ronda. Las opciones para llegar son: (1) Autobús urbano LAC, U1, U2 (1,40 €); (2) Metro Granada Universidad (700 m) (1,35 €); (3) Vehículo propio: zona azul y Parking Hipercor (1,30 €/h). El carpooling desde Málaga, Almería, Jaén cuesta 5–13 €/asiento. Para volver de madrugada, la opción más utilizada es el taxi o el carpooling de vuelta con ConcertRide, que coordina al conductor con el horario real del concierto. ConcertRide coordina viaje, entrada y grupo en un único punto, sin comisión de plataforma.",
+    shortName: "Stereo",
+    city: "Granada",
+    citySlug: "granada",
+    region: "Andalucía",
+    address: "C/ Beethoven, 2, 18004 Granada",
+    lat: 37.1700,
+    lng: -3.6080,
+    capacity: "600 personas",
+    venueType: "Sala de conciertos",
+    transport: {
+      metro: "Granada Universidad (700 m)",
+      bus: "LAC, U1, U2 (parada Camino de Ronda)",
+      parking: "Zona azul Camino de Ronda (1,30 €/h) y Parking Hipercor",
+    },
+    blurb:
+      "Sala Stereo es la sala indie de referencia en Granada con 600 plazas y una programación que pasa por Vetusta Morla, Iván Ferreiro, La M.O.D.A. y artistas urbanos como Recycled J. Está bien comunicada por el metro de Granada (estación Universidad) y por las líneas LAC, U1 y U2. El metro cierra a la 1:15 los viernes y sábados, por lo que asistentes de Málaga, Almería o Jaén suelen coordinar la vuelta con ConcertRide.",
+    originCities: [
+      { city: "Granada centro", km: 2, drivingTime: "8 min", concertRideRange: "2–4 €/asiento" },
+      { city: "Málaga", km: 125, drivingTime: "1h 20 min", concertRideRange: "7–10 €/asiento" },
+      { city: "Almería", km: 165, drivingTime: "1h 45 min", concertRideRange: "9–12 €/asiento" },
+      { city: "Jaén", km: 95, drivingTime: "1h 10 min", concertRideRange: "5–8 €/asiento" },
+      { city: "Córdoba", km: 165, drivingTime: "1h 50 min", concertRideRange: "9–13 €/asiento" },
+      { city: "Motril", km: 70, drivingTime: "55 min", concertRideRange: "5–8 €/asiento" },
+    ],
+    faqs: [
+      {
+        q: "¿Cómo llegar a Sala Stereo en transporte público?",
+        a: "La opción más rápida es el metro de Granada: estación Universidad, a 700 metros de la sala. También las líneas LAC (línea de alta capacidad), U1 y U2 tienen parada en Camino de Ronda, a 4 minutos a pie. Desde el centro (Gran Vía) el trayecto dura unos 12 minutos en bus.",
+      },
+      {
+        q: "¿Cómo volver de Sala Stereo de madrugada?",
+        a: "El metro de Granada cierra a la 1:15 viernes y sábados, 23:00 entre semana. La línea búho 111 cubre la zona entre 00:00 y 06:00 cada 30 min. Otras opciones: taxi (5–8 € al centro), o carpooling con ConcertRide para asistentes de Málaga, Jaén o Almería con vuelta pactada.",
+      },
+      {
+        q: "¿Hay parking cerca de Sala Stereo?",
+        a: "La calle Beethoven es zona azul (1,30 €/h, gratis a partir de las 21:00). Aparcamientos privados cercanos: Parking Hipercor (Camino de Ronda) y Parking Neptuno. En conciertos con aforo cercano al lleno se llenan rápido. ConcertRide evita el problema del parking para asistentes de fuera.",
+      },
+      {
+        q: "¿Cuánto cuesta ir a Sala Stereo desde Málaga en carpooling?",
+        a: "Málaga–Granada son 125 km por A-92 (1h 20 min). Con ConcertRide el precio por asiento oscila entre 7 y 10 €, frente a 12–18 € del autobús ALSA (último ~21:30) o 130–160 € del taxi. ConcertRide permite volver tras el concierto sin restricción horaria.",
+      },
+      {
+        q: "¿Sala Stereo es accesible para PMR?",
+        a: "La sala tiene acceso a pie de calle y zona reservada para PMR. Dispone de aseo adaptado. Recomendamos contactar previamente con la sala (info@salastereogranada.com) para reservar zona PMR en conciertos con localidad de pie.",
+      },
+    ],
+    relatedFestivals: ["granada-sound", "festival-granada-musica-y-danza", "granada-international-jazz-festival"],
+  },
+
+  {
+    slug: "teatro-lope-de-vega-sevilla",
+    name: "Teatro Lope de Vega",
+    quotableAnswer:
+      "Teatro Lope de Vega es un teatro histórico con capacidad para 1.150 personas en Sevilla, dedicado a programación de teatro, ópera, flamenco y conciertos acústicos. Es sede principal de la Bienal de Flamenco de Sevilla. Está conectado con el centro de Sevilla a pie (10 minutos), y la estación de transporte público más cercana es Metro L1 Puerta de Jerez. Las opciones para llegar son: (1) Metro L1 Puerta de Jerez (550 m) (1,80 €); (2) Autobús urbano Tussam C1, C2, 5, 6 (1,40 €); (3) Vehículo propio: Parking María Luisa (1,80 €/h). El carpooling desde Huelva, Córdoba, Cádiz cuesta 5–14 €/asiento. Para volver de madrugada, la opción más utilizada es el taxi o el carpooling de vuelta con ConcertRide, que coordina al conductor con el horario real del show. ConcertRide coordina viaje, entrada y grupo en un único punto, sin comisión de plataforma.",
+    shortName: "Lope de Vega",
+    city: "Sevilla",
+    citySlug: "sevilla",
+    region: "Andalucía",
+    address: "Av. de María Luisa, s/n, 41013 Sevilla",
+    lat: 37.3786,
+    lng: -5.9889,
+    capacity: "1.150 personas",
+    venueType: "Teatro",
+    transport: {
+      metro: "L1 Puerta de Jerez (550 m)",
+      bus: "Tussam C1, C2, 5, 6 (parada Prado de San Sebastián)",
+      parking: "Parking María Luisa y Parking Prado San Sebastián (1,80 €/h)",
+    },
+    blurb:
+      "El Teatro Lope de Vega es un teatro modernista de 1929 con 1.150 plazas, sede principal de la Bienal de Flamenco de Sevilla (edición par, septiembre–octubre). Su programación combina teatro, ópera, flamenco y conciertos acústicos. Está a 550 metros del metro Puerta de Jerez y a 10 minutos a pie del centro histórico. Asistentes de Huelva, Córdoba o Cádiz suelen optar por ConcertRide para evitar los horarios limitados del último tren.",
+    originCities: [
+      { city: "Sevilla centro", km: 1, drivingTime: "10 min andando", concertRideRange: "2–3 €/asiento" },
+      { city: "Huelva", km: 95, drivingTime: "1h 5 min", concertRideRange: "6–9 €/asiento" },
+      { city: "Córdoba", km: 140, drivingTime: "1h 30 min", concertRideRange: "8–11 €/asiento" },
+      { city: "Cádiz", km: 125, drivingTime: "1h 20 min", concertRideRange: "7–10 €/asiento" },
+      { city: "Jerez", km: 90, drivingTime: "1h", concertRideRange: "5–8 €/asiento" },
+      { city: "Málaga", km: 210, drivingTime: "2h 15 min", concertRideRange: "11–14 €/asiento" },
+    ],
+    faqs: [
+      {
+        q: "¿Cómo llegar al Teatro Lope de Vega en transporte público?",
+        a: "La opción más rápida es el metro: línea 1 hasta Puerta de Jerez, a 550 metros del teatro (7 min andando por la avenida de Roma). También las líneas Tussam C1, C2, 5 y 6 paran en Prado de San Sebastián, a 4 minutos a pie. Desde Plaza Nueva el trayecto dura unos 15 minutos en bus.",
+      },
+      {
+        q: "¿Cómo volver del Teatro Lope de Vega de madrugada?",
+        a: "El metro de Sevilla cierra a las 23:00 entre semana y a las 02:00 viernes y sábado. Las funciones del Lope de Vega suelen terminar entre las 22:30 y las 23:30, por lo que normalmente da tiempo al último metro. Para asistentes de Huelva, Córdoba o Cádiz, ConcertRide permite vuelta pactada al horario real del show sin depender del tren.",
+      },
+      {
+        q: "¿Hay parking cerca del Teatro Lope de Vega?",
+        a: "Los aparcamientos más cercanos son Parking María Luisa (Av. María Luisa) y Parking Prado de San Sebastián, ambos a 4 minutos andando, con tarifa de 1,80 €/h. La zona es ORA (zona azul) entre 09:00 y 21:00. En jornadas de Bienal de Flamenco se llenan rápido. ConcertRide evita el problema del parking para asistentes de fuera.",
+      },
+      {
+        q: "¿Cuánto cuesta ir al Teatro Lope de Vega desde Cádiz en carpooling?",
+        a: "Cádiz–Sevilla son 125 km por AP-4 (1h 20 min). Con ConcertRide el precio por asiento oscila entre 7 y 10 €, frente a 16,50–26 € del Avant o MD (último Sevilla–Cádiz ~21:35) o 130–160 € del taxi. ConcertRide permite volver tras el espectáculo sin restricción horaria.",
+      },
+      {
+        q: "¿El Teatro Lope de Vega es accesible para PMR?",
+        a: "El teatro dispone de acceso adaptado por la entrada lateral (Av. María Luisa) y zona reservada para PMR en patio de butacas. Cuenta con aseo adaptado. Recomendamos comprar la entrada directamente en taquilla del Ayuntamiento de Sevilla indicando la necesidad de zona PMR.",
+      },
+    ],
+    relatedFestivals: ["bienal-flamenco-sevilla", "iconica-fest-sevilla", "festival-de-jerez-flamenco"],
+  },
+
+  {
+    slug: "teatro-calderon-valladolid",
+    name: "Teatro Calderón",
+    quotableAnswer:
+      "Teatro Calderón es un teatro histórico con capacidad para 700 personas en Valladolid, dedicado a ópera, ballet, flamenco, conciertos sinfónicos y proyecciones de la Seminci. Es el principal coliseo de la ciudad y sede de la Semana Internacional de Cine de Valladolid (octubre). Está conectado con el centro de Valladolid a pie (5 minutos), y la estación de transporte público más cercana es Estación Valladolid-Campo Grande (Renfe). Las opciones para llegar son: (1) A pie desde Plaza Mayor (5 min); (2) Autobús urbano Auvasa 2, 6, 7 (1,40 €); (3) Vehículo propio: Parking España y Parking Plaza Mayor (1,40 €/h). El carpooling desde Madrid, Burgos, Salamanca cuesta 6–14 €/asiento. Para volver de madrugada, la opción más utilizada es el taxi o el carpooling de vuelta con ConcertRide, que coordina al conductor con el horario real del show. ConcertRide coordina viaje, entrada y grupo en un único punto, sin comisión de plataforma.",
+    shortName: "Calderón",
+    city: "Valladolid",
+    citySlug: "valladolid",
+    region: "Castilla y León",
+    address: "C/ Angustias, 1, 47003 Valladolid",
+    lat: 41.6549,
+    lng: -4.7280,
+    capacity: "700 personas",
+    venueType: "Teatro",
+    transport: {
+      bus: "Auvasa 2, 6, 7 (parada Plaza Mayor / Angustias)",
+      tren: "Estación Valladolid-Campo Grande (1,2 km, AVE Madrid 1h)",
+      parking: "Parking España (1,40 €/h) y Parking Plaza Mayor",
+    },
+    blurb:
+      "El Teatro Calderón es el principal coliseo de Valladolid, con 700 plazas y programación intensa de ópera, ballet, flamenco y conciertos sinfónicos. Cada octubre acoge la Seminci (Semana Internacional de Cine de Valladolid). Está a 5 minutos a pie de la Plaza Mayor y a 1,2 km de la estación AVE. Asistentes de Madrid, Burgos o Salamanca llegan habitualmente con ConcertRide para evitar el último AVE de vuelta.",
+    originCities: [
+      { city: "Valladolid centro", km: 0.5, drivingTime: "5 min andando", concertRideRange: "1–3 €/asiento" },
+      { city: "Madrid", km: 195, drivingTime: "2h", concertRideRange: "8–12 €/asiento" },
+      { city: "Burgos", km: 125, drivingTime: "1h 20 min", concertRideRange: "7–10 €/asiento" },
+      { city: "Salamanca", km: 115, drivingTime: "1h 15 min", concertRideRange: "6–9 €/asiento" },
+      { city: "León", km: 140, drivingTime: "1h 30 min", concertRideRange: "8–11 €/asiento" },
+      { city: "Segovia", km: 110, drivingTime: "1h 15 min", concertRideRange: "6–9 €/asiento" },
+    ],
+    faqs: [
+      {
+        q: "¿Cómo llegar al Teatro Calderón en transporte público?",
+        a: "El teatro está a 5 minutos andando de la Plaza Mayor de Valladolid. Las líneas Auvasa 2, 6 y 7 tienen parada en Plaza Mayor / Angustias. Desde la estación AVE de Valladolid-Campo Grande son 15 minutos andando o 6 minutos en taxi (4–6 €).",
+      },
+      {
+        q: "¿Cómo volver del Teatro Calderón de madrugada?",
+        a: "Los buses Auvasa cierran a la 1:00. Las funciones del Calderón terminan entre las 22:00 y las 23:00, por lo que normalmente da tiempo al último AVE Valladolid–Madrid (22:35). Para asistentes de Burgos, Salamanca o León, ConcertRide permite vuelta pactada al horario real del show sin restricciones de tren.",
+      },
+      {
+        q: "¿Hay parking cerca del Teatro Calderón?",
+        a: "Los aparcamientos más cercanos son Parking España (Plaza España) y Parking Plaza Mayor, ambos a 3 minutos andando, con tarifa de 1,40 €/h. La zona es ORA (zona azul) entre 09:00 y 20:00. En Seminci y conciertos de ópera se llenan rápido. ConcertRide evita el problema del parking para asistentes de fuera de Valladolid.",
+      },
+      {
+        q: "¿Cuánto cuesta ir al Teatro Calderón desde Madrid en carpooling?",
+        a: "Madrid–Valladolid son 195 km por A-6/AP-6 (2h). Con ConcertRide el precio por asiento oscila entre 8 y 12 €, frente a 22–37 € del AVE (último Valladolid–Madrid 22:35) o 200–240 € del taxi. ConcertRide permite volver tras el espectáculo sin restricción horaria.",
+      },
+      {
+        q: "¿El Teatro Calderón es accesible para PMR?",
+        a: "El teatro dispone de acceso adaptado por la entrada principal con rampa y ascensor. Zona reservada para PMR en patio de butacas y aseo adaptado. Recomendamos contactar previamente con taquilla (taquilla@tcalderon.com) para reservar zona PMR.",
+      },
+    ],
+    relatedFestivals: ["conexion-valladolid", "teatro-clasico-merida", "festival-otono-madrid"],
+  },
+
+  {
+    slug: "teatro-cervantes-malaga",
+    name: "Teatro Cervantes",
+    quotableAnswer:
+      "Teatro Cervantes es un teatro histórico con capacidad para 1.100 personas en Málaga, dedicado a ópera, flamenco, ballet, jazz y conciertos acústicos. Es el principal coliseo de la ciudad y sede del Festival de Cine de Málaga (marzo). Está conectado con el centro de Málaga a pie (8 minutos), y la estación de transporte público más cercana es Metro L1/L2 Atarazanas. Las opciones para llegar son: (1) A pie desde Plaza de la Constitución (8 min); (2) Autobús urbano EMT 4, 11, 14, 35 (1,40 €); (3) Vehículo propio: Parking Tejón y Rodríguez (1,80 €/h). El carpooling desde Granada, Sevilla, Córdoba cuesta 7–13 €/asiento. Para volver de madrugada, la opción más utilizada es el taxi o el carpooling de vuelta con ConcertRide, que coordina al conductor con el horario real del show. ConcertRide coordina viaje, entrada y grupo en un único punto, sin comisión de plataforma.",
+    shortName: "Cervantes Málaga",
+    city: "Málaga",
+    citySlug: "malaga",
+    region: "Andalucía",
+    address: "C/ Ramos Marín, s/n, 29012 Málaga",
+    lat: 36.7236,
+    lng: -4.4197,
+    capacity: "1.100 personas",
+    venueType: "Teatro",
+    transport: {
+      metro: "L1/L2 Atarazanas (1,1 km)",
+      bus: "EMT 4, 11, 14, 35 (parada Plaza de la Merced)",
+      tren: "Estación Málaga-María Zambrano (1,4 km, AVE)",
+      parking: "Parking Tejón y Rodríguez (1,80 €/h)",
+    },
+    blurb:
+      "El Teatro Cervantes es el principal coliseo de Málaga, con 1.100 plazas y programación intensa de ópera, flamenco, ballet y jazz. Es sede principal del Festival de Cine de Málaga (marzo). Está a 8 minutos a pie de Plaza de la Constitución y a 1,4 km de la estación AVE María Zambrano. Asistentes de Granada, Sevilla o Córdoba llegan habitualmente con ConcertRide para evitar el último AVE de vuelta.",
+    originCities: [
+      { city: "Málaga centro", km: 0.7, drivingTime: "8 min andando", concertRideRange: "1–3 €/asiento" },
+      { city: "Granada", km: 125, drivingTime: "1h 20 min", concertRideRange: "7–10 €/asiento" },
+      { city: "Sevilla", km: 210, drivingTime: "2h 15 min", concertRideRange: "11–14 €/asiento" },
+      { city: "Córdoba", km: 165, drivingTime: "1h 50 min", concertRideRange: "9–13 €/asiento" },
+      { city: "Marbella", km: 60, drivingTime: "45 min", concertRideRange: "4–7 €/asiento" },
+      { city: "Almería", km: 220, drivingTime: "2h 20 min", concertRideRange: "12–15 €/asiento" },
+    ],
+    faqs: [
+      {
+        q: "¿Cómo llegar al Teatro Cervantes en transporte público?",
+        a: "El teatro está a 8 minutos andando de la Plaza de la Constitución. Las líneas EMT 4, 11, 14 y 35 tienen parada en Plaza de la Merced, a 3 minutos a pie. El metro de Málaga (L1/L2 Atarazanas) queda a 1,1 km — recomendamos combinar con bus o andar.",
+      },
+      {
+        q: "¿Cómo volver del Teatro Cervantes de madrugada?",
+        a: "Los buses EMT cierran a las 23:30. Las funciones del Cervantes terminan entre las 22:00 y las 23:00. Para volver al centro: a pie (8 min), taxi (4–6 €) o líneas búho N1, N2 entre 23:30 y 06:00. Para asistentes de Granada, Sevilla o Córdoba, ConcertRide permite vuelta pactada al horario real del show.",
+      },
+      {
+        q: "¿Hay parking cerca del Teatro Cervantes?",
+        a: "Los aparcamientos más cercanos son Parking Tejón y Rodríguez (Calle Granada) y Parking Plaza de la Merced, ambos a 3 minutos andando, con tarifa de 1,80 €/h. La zona es ORA (zona azul) entre 09:00 y 20:00. En Festival de Cine se llenan rápido. ConcertRide evita el problema del parking para asistentes de fuera.",
+      },
+      {
+        q: "¿Cuánto cuesta ir al Teatro Cervantes desde Granada en carpooling?",
+        a: "Granada–Málaga son 125 km por A-92 (1h 20 min). Con ConcertRide el precio por asiento oscila entre 7 y 10 €, frente a 12–18 € del autobús ALSA (último Málaga–Granada ~21:30) o 130–160 € del taxi. ConcertRide permite volver tras el espectáculo sin restricción horaria.",
+      },
+      {
+        q: "¿El Teatro Cervantes es accesible para PMR?",
+        a: "El teatro dispone de acceso adaptado por la entrada principal con rampa, ascensor a todas las plantas y zona reservada para PMR en patio de butacas. Cuenta con aseo adaptado. Recomendamos contactar previamente con taquilla (taquilla@teatrocervantes.com) para reservar zona PMR.",
+      },
+    ],
+    relatedFestivals: ["cala-mijas", "marenostrum-fuengirola", "starlite-marbella"],
+  },
+
+  {
+    slug: "auditorio-manuel-de-falla-granada",
+    name: "Auditorio Manuel de Falla",
+    quotableAnswer:
+      "Auditorio Manuel de Falla es un auditorio con capacidad para 1.300 personas en Granada, dedicado a música clásica, flamenco, jazz y conciertos sinfónicos. Es sede principal del Festival Internacional de Música y Danza de Granada (junio–julio). Está conectado con el centro de Granada mediante autobús urbano directo (15–20 minutos), y la estación de transporte público más cercana es la parada de bus Plaza Nueva. Las opciones para llegar son: (1) Microbús Alhambra C30, C35 (1,40 €); (2) Autobús urbano LAC + microbús (1,40 €); (3) Vehículo propio: Parking Alhambra (1,80 €/h). El carpooling desde Málaga, Almería, Jaén cuesta 5–13 €/asiento. Para volver de madrugada, la opción más utilizada es el taxi o el carpooling de vuelta con ConcertRide, que coordina al conductor con el horario real del show. ConcertRide coordina viaje, entrada y grupo en un único punto, sin comisión de plataforma.",
+    shortName: "Manuel de Falla",
+    city: "Granada",
+    citySlug: "granada",
+    region: "Andalucía",
+    address: "Paseo de los Mártires, s/n, 18009 Granada",
+    lat: 37.1748,
+    lng: -3.5921,
+    capacity: "1.300 personas",
+    venueType: "Auditorio",
+    transport: {
+      bus: "Microbús Alhambra C30, C32, C35 (parada Auditorio)",
+      parking: "Parking Alhambra (1,80 €/h, 600 plazas)",
+    },
+    blurb:
+      "El Auditorio Manuel de Falla, integrado en el recinto de la Alhambra, es el principal espacio sinfónico de Granada con 1.300 plazas. Es sede principal del Festival Internacional de Música y Danza de Granada (FEX, junio–julio) y acoge programación regular de la OCG (Orquesta Ciudad de Granada). Asistentes de Málaga, Almería o Jaén suelen optar por ConcertRide para evitar los horarios limitados del último autobús ALSA.",
+    originCities: [
+      { city: "Granada centro", km: 2.5, drivingTime: "10 min", concertRideRange: "2–4 €/asiento" },
+      { city: "Málaga", km: 125, drivingTime: "1h 20 min", concertRideRange: "7–10 €/asiento" },
+      { city: "Almería", km: 165, drivingTime: "1h 45 min", concertRideRange: "9–12 €/asiento" },
+      { city: "Jaén", km: 95, drivingTime: "1h 10 min", concertRideRange: "5–8 €/asiento" },
+      { city: "Córdoba", km: 165, drivingTime: "1h 50 min", concertRideRange: "9–13 €/asiento" },
+      { city: "Sevilla", km: 250, drivingTime: "2h 35 min", concertRideRange: "13–16 €/asiento" },
+    ],
+    faqs: [
+      {
+        q: "¿Cómo llegar al Auditorio Manuel de Falla en transporte público?",
+        a: "La opción más rápida son los microbuses Alhambra C30, C32 y C35, que parten de Plaza Isabel la Católica y Plaza Nueva con parada en Auditorio Manuel de Falla. Trayecto de 15 minutos. También se puede combinar la línea LAC hasta Pza. Isabel la Católica y subir andando (20 min cuesta).",
+      },
+      {
+        q: "¿Cómo volver del Auditorio Manuel de Falla de madrugada?",
+        a: "Los microbuses Alhambra terminan servicio a las 23:00. Los conciertos del FEX (Festival de Música y Danza) suelen terminar entre las 22:30 y las 23:30. Opciones de vuelta: taxi (8–12 € al centro de Granada) o carpooling con ConcertRide para asistentes de Málaga, Jaén o Almería con vuelta pactada al horario real del concierto.",
+      },
+      {
+        q: "¿Hay parking cerca del Auditorio Manuel de Falla?",
+        a: "El Parking Alhambra (600 plazas) está a 5 minutos andando del auditorio, con tarifa de 1,80 €/h. En noches de festival se llena con frecuencia — se recomienda llegar con margen de 45 minutos. ConcertRide evita el problema del parking para asistentes de fuera de Granada.",
+      },
+      {
+        q: "¿Cuánto cuesta ir al Auditorio Manuel de Falla desde Málaga en carpooling?",
+        a: "Málaga–Granada son 125 km por A-92 (1h 20 min). Con ConcertRide el precio por asiento oscila entre 7 y 10 €, frente a 12–18 € del autobús ALSA (último ~21:30) o 130–160 € del taxi. ConcertRide permite volver tras el concierto sin restricción horaria.",
+      },
+      {
+        q: "¿El Auditorio Manuel de Falla es accesible para PMR?",
+        a: "El auditorio dispone de acceso adaptado por entrada principal, zona reservada para PMR en patio de butacas y aseo adaptado. Hay plazas de aparcamiento reservadas PMR a 50 metros de la entrada. Recomendamos comprar entrada en taquilla del Festival indicando la necesidad de zona PMR.",
+    },
+    ],
+    relatedFestivals: ["festival-granada-musica-y-danza", "granada-international-jazz-festival", "granada-sound"],
+  },
+
+  // ─── Wave 60 (2026-05-21): venues + cities ─────
+
+  {
+    slug: "teatro-romano-merida",
+    name: "Teatro Romano de Mérida",
+    quotableAnswer:
+      "El Teatro Romano de Mérida es un recinto patrimonio UNESCO con capacidad para 3.000 personas en Mérida, dedicado al Festival Internacional de Teatro Clásico (julio–agosto) y a conciertos sinfónicos y de zarzuela. Está conectado con el centro de Mérida a pie (10 minutos), y la estación de transporte público más cercana es la Estación Mérida-Renfe. Las opciones para llegar son: (1) A pie desde Plaza de España (10 min); (2) Autobús urbano Tubasa L4, L5 (1,20 €); (3) Vehículo propio: Parking Margallo y Parking Anas (1,20 €/h). El carpooling desde Cáceres, Badajoz, Sevilla cuesta 4–14 €/asiento. Para volver de madrugada, la opción más utilizada es el taxi o el carpooling de vuelta con ConcertRide, que coordina al conductor con el horario real del espectáculo. ConcertRide coordina viaje, entrada y grupo en un único punto, sin comisión de plataforma (pago en efectivo o Bizum).",
+    shortName: "Teatro Romano",
+    city: "Mérida",
+    citySlug: "merida",
+    region: "Extremadura",
+    address: "Plaza Margarita Xirgu, s/n, 06800 Mérida, Badajoz",
+    lat: 38.9156,
+    lng: -6.3389,
+    capacity: "3.000 personas",
+    venueType: "Teatro",
+    transport: {
+      bus: "Tubasa L4, L5 (parada Teatro Romano)",
+      tren: "Estación Mérida-Renfe (1,2 km, MD Madrid 4h 20 min)",
+      parking: "Parking Margallo y Parking Anas (1,20 €/h)",
+    },
+    blurb:
+      "El Teatro Romano de Mérida es un monumento del siglo I a.C. (patrimonio UNESCO) con capacidad para 3.000 personas, sede del Festival Internacional de Teatro Clásico cada julio y agosto. Está a 10 minutos a pie del centro y a 1,2 km de la estación Renfe. Las funciones nocturnas terminan entre las 23:30 y 00:30, por lo que asistentes de Cáceres, Badajoz o Sevilla optan por ConcertRide para evitar el último tren MD de regreso.",
+    originCities: [
+      { city: "Mérida centro", km: 0.9, drivingTime: "10 min andando", concertRideRange: "1–3 €/asiento" },
+      { city: "Cáceres", km: 75, drivingTime: "50 min", concertRideRange: "4–7 €/asiento" },
+      { city: "Badajoz", km: 65, drivingTime: "45 min", concertRideRange: "4–6 €/asiento" },
+      { city: "Sevilla", km: 195, drivingTime: "2h 5 min", concertRideRange: "10–14 €/asiento" },
+      { city: "Madrid", km: 345, drivingTime: "3h 30 min", concertRideRange: "13–18 €/asiento" },
+      { city: "Salamanca", km: 215, drivingTime: "2h 25 min", concertRideRange: "11–15 €/asiento" },
+    ],
+    faqs: [
+      {
+        q: "¿Cómo llegar al Teatro Romano de Mérida en transporte público?",
+        a: "El teatro está a 10 minutos a pie de la Plaza de España y a 15 minutos a pie de la estación Renfe Mérida. Las líneas urbanas Tubasa L4 y L5 tienen parada en Avenida de Extremadura/Teatro Romano. Trenes MD desde Badajoz, Cáceres y Madrid Chamartín llegan a la estación de Mérida.",
+      },
+      {
+        q: "¿Cómo volver del Teatro Romano de madrugada?",
+        a: "Los buses Tubasa cierran a las 22:30 y no hay servicio nocturno regular. Las funciones del Festival de Teatro Clásico terminan entre las 23:30 y 00:30. Opciones de vuelta: taxi al centro (4–6 €), taxi a Badajoz (75–95 €), o carpooling con ConcertRide para asistentes de Cáceres, Badajoz o Sevilla con vuelta pactada al horario real del espectáculo.",
+      },
+      {
+        q: "¿Hay parking cerca del Teatro Romano?",
+        a: "Los aparcamientos más cercanos son Parking Margallo (Calle Margallo) y Parking Anas (junto al Museo Nacional de Arte Romano), ambos a 5 minutos a pie, con tarifa de 1,20 €/h. En noches de Festival se llenan con 60–90 minutos de antelación. ConcertRide evita el problema del parking para asistentes de fuera de Mérida.",
+      },
+      {
+        q: "¿Cuánto cuesta ir al Teatro Romano desde Cáceres en carpooling?",
+        a: "Cáceres–Mérida son 75 km por A-66 (50 min). Con ConcertRide el precio por asiento oscila entre 4 y 7 €, frente a 8–12 € del bus Avanza (último ~21:30, no útil) o 95–115 € del taxi. ConcertRide permite volver tras la función sin restricción horaria — el conductor espera al final del espectáculo.",
+      },
+      {
+        q: "¿El Teatro Romano es accesible para PMR?",
+        a: "El Teatro Romano dispone de itinerario accesible con rampas adaptadas y zona reservada para PMR junto a la orchestra. Cuenta con aseo adaptado en el recinto anexo y plazas reservadas en Parking Margallo. Recomendamos comprar entrada en festivaldemerida.es indicando la necesidad de zona PMR.",
+      },
+    ],
+    relatedFestivals: ["teatro-clasico-merida", "womad-caceres", "extremusika"],
+  },
+
+  {
+    slug: "teatro-olimpia-huesca",
+    name: "Teatro Olimpia",
+    quotableAnswer:
+      "El Teatro Olimpia es un teatro histórico con capacidad para 700 personas en Huesca, dedicado a música clásica, jazz, flamenco y conciertos acústicos de cantautor. Es sede principal del Festival Periferias (noviembre) y de programación municipal cultural. Está conectado con el centro de Huesca a pie (5 minutos), y la estación de transporte público más cercana es la Estación Huesca-Renfe. Las opciones para llegar son: (1) A pie desde Plaza López Allué (5 min); (2) Autobús urbano AUS líneas 1, 2 (1,20 €); (3) Vehículo propio: Parking Cervantes y Parking Mercado (1,20 €/h). El carpooling desde Zaragoza, Lleida, Jaca cuesta 4–9 €/asiento. Para volver de madrugada, la opción más utilizada es el taxi o el carpooling de vuelta con ConcertRide, que coordina al conductor con el horario real del show. ConcertRide coordina viaje, entrada y grupo en un único punto, sin comisión de plataforma (pago en efectivo o Bizum).",
+    shortName: "Olimpia Huesca",
+    city: "Huesca",
+    citySlug: "huesca",
+    region: "Aragón",
+    address: "C/ Berenguer, 2, 22002 Huesca",
+    lat: 42.1359,
+    lng: -0.4087,
+    capacity: "700 personas",
+    venueType: "Teatro",
+    transport: {
+      bus: "AUS líneas 1, 2 (parada Coso Alto / Plaza Navarra)",
+      tren: "Estación Huesca-Renfe (1,1 km, Avant Zaragoza 35 min)",
+      parking: "Parking Cervantes y Parking Mercado (1,20 €/h)",
+    },
+    blurb:
+      "El Teatro Olimpia es el principal coliseo de Huesca, con 700 plazas y programación regular de música clásica, jazz, flamenco y cantautor. Es sede principal del Festival Periferias (noviembre, dedicado a las músicas más experimentales). Está a 5 minutos a pie del centro y a 1,1 km de la estación Avant. Asistentes de Zaragoza, Lleida o Jaca llegan habitualmente con ConcertRide para no depender del último Avant Zaragoza–Huesca (21:30).",
+    originCities: [
+      { city: "Huesca centro", km: 0.4, drivingTime: "5 min andando", concertRideRange: "1–3 €/asiento" },
+      { city: "Zaragoza", km: 75, drivingTime: "50 min", concertRideRange: "4–7 €/asiento" },
+      { city: "Lleida", km: 115, drivingTime: "1h 15 min", concertRideRange: "6–9 €/asiento" },
+      { city: "Jaca", km: 70, drivingTime: "55 min", concertRideRange: "4–7 €/asiento" },
+      { city: "Pamplona", km: 165, drivingTime: "1h 50 min", concertRideRange: "9–12 €/asiento" },
+      { city: "Barbastro", km: 50, drivingTime: "40 min", concertRideRange: "3–5 €/asiento" },
+    ],
+    faqs: [
+      {
+        q: "¿Cómo llegar al Teatro Olimpia en transporte público?",
+        a: "El teatro está a 5 minutos andando de la Plaza López Allué. Las líneas urbanas AUS 1 y 2 tienen parada en Coso Alto y Plaza Navarra, a 2 minutos a pie. Desde la estación Renfe son 15 minutos andando o 4 minutos en taxi (4–6 €).",
+      },
+      {
+        q: "¿Cómo volver del Teatro Olimpia de madrugada?",
+        a: "Los buses urbanos AUS cierran a las 22:30. Las funciones del Olimpia y los conciertos del Festival Periferias terminan entre las 22:00 y 00:30. El último Avant a Zaragoza sale a las 21:30 (poco útil). Opciones: taxi (3–5 € al centro), o carpooling con ConcertRide para asistentes de Zaragoza, Lleida o Jaca con vuelta pactada.",
+      },
+      {
+        q: "¿Hay parking cerca del Teatro Olimpia?",
+        a: "Los aparcamientos más cercanos son Parking Cervantes (Plaza Cervantes) y Parking Mercado, ambos a 3 minutos a pie, con tarifa de 1,20 €/h. La zona es ORA entre 09:00 y 20:00. En Festival Periferias se llenan rápido. ConcertRide evita el problema del parking para asistentes de fuera.",
+      },
+      {
+        q: "¿Cuánto cuesta ir al Teatro Olimpia desde Zaragoza en carpooling?",
+        a: "Zaragoza–Huesca son 75 km por A-23 (50 min). Con ConcertRide el precio por asiento oscila entre 4 y 7 €, frente a 7–9 € del Avant Renfe (último 21:30, no útil para vuelta) o 95–115 € del taxi. ConcertRide permite volver tras el espectáculo sin restricción horaria.",
+      },
+      {
+        q: "¿El Teatro Olimpia es accesible para PMR?",
+        a: "El teatro dispone de acceso adaptado por la entrada principal con rampa, ascensor y zona reservada para PMR en patio de butacas. Cuenta con aseo adaptado. Recomendamos contactar con taquilla del Ayuntamiento de Huesca (taquilla@huesca.es) para reservar zona PMR.",
+      },
+    ],
+    relatedFestivals: ["festival-periferias", "festival-periferias-indie", "festival-jaca"],
+  },
+
+  {
+    slug: "espazo-mas-lugo",
+    name: "Espazo +Lugo",
+    quotableAnswer:
+      "El Espazo +Lugo es un recinto polideportivo y de eventos con capacidad para 6.000 personas en Lugo, dedicado a conciertos de gran formato del Caudal Fest (julio) y del Underfest (octubre), además de festivales urbanos y eventos deportivos. Está conectado con el centro de Lugo mediante autobús urbano directo (10 minutos), y la estación de transporte público más cercana es la Estación Lugo-Renfe. Las opciones para llegar son: (1) Autobús urbano TUL líneas 4, 6 (1,30 €); (2) A pie desde la muralla romana (20 min); (3) Vehículo propio: Parking gratuito en superficie (300 plazas). El carpooling desde Santiago, A Coruña, Ourense cuesta 5–10 €/asiento. Para volver de madrugada, la opción más utilizada es el bus búho o el carpooling de vuelta con ConcertRide, que coordina al conductor con el horario real del festival. ConcertRide coordina viaje, entrada y grupo en un único punto, sin comisión de plataforma (pago en efectivo o Bizum).",
+    shortName: "Espazo +Lugo",
+    city: "Lugo",
+    citySlug: "lugo",
+    region: "Galicia",
+    address: "Av. Filarmónica Lucense, s/n, 27002 Lugo",
+    lat: 43.0097,
+    lng: -7.5567,
+    capacity: "6.000 personas",
+    venueType: "Recinto polideportivo",
+    transport: {
+      bus: "TUL líneas 4, 6 (parada Espazo +Lugo)",
+      tren: "Estación Lugo-Renfe (2,5 km, MD A Coruña 1h 30 min)",
+      parking: "Parking gratuito en superficie (300 plazas)",
+    },
+    blurb:
+      "El Espazo +Lugo es el principal recinto polideportivo y de eventos de Lugo, con capacidad para 6.000 personas. Acoge el Caudal Fest (julio, pop-rock indie) y el Underfest (octubre, urbano). Está a 20 minutos a pie de la muralla romana y a 2,5 km de la estación Renfe. Asistentes de Santiago, A Coruña u Ourense optan por ConcertRide para evitar los buses Monbus de última hora y el problema del parking en festival.",
+    originCities: [
+      { city: "Lugo centro", km: 2.2, drivingTime: "8 min", concertRideRange: "2–4 €/asiento" },
+      { city: "Santiago de Compostela", km: 105, drivingTime: "1h 10 min", concertRideRange: "5–8 €/asiento" },
+      { city: "A Coruña", km: 95, drivingTime: "1h", concertRideRange: "5–7 €/asiento" },
+      { city: "Ourense", km: 95, drivingTime: "1h 10 min", concertRideRange: "5–8 €/asiento" },
+      { city: "Vigo", km: 155, drivingTime: "1h 45 min", concertRideRange: "8–11 €/asiento" },
+      { city: "Ponferrada", km: 110, drivingTime: "1h 15 min", concertRideRange: "6–9 €/asiento" },
+    ],
+    faqs: [
+      {
+        q: "¿Cómo llegar al Espazo +Lugo en transporte público?",
+        a: "Las líneas urbanas TUL 4 y 6 tienen parada directa en Espazo +Lugo (15 minutos desde Praza Maior). Desde la estación Renfe son 25 minutos andando o 6 minutos en taxi (5–7 €). En días de festival se refuerza la frecuencia con buses lanzadera desde la Praza Maior y la Estación Renfe.",
+      },
+      {
+        q: "¿Cómo volver del Espazo +Lugo de madrugada?",
+        a: "Los buses urbanos TUL cierran a las 22:30. Caudal Fest y Underfest terminan entre las 04:00 y 05:00. En festival se opera servicio búho hasta las 04:00 (2 €). Opciones de vuelta: bus búho, taxi (5–8 € al centro), o carpooling con ConcertRide para asistentes de Santiago, A Coruña u Ourense con vuelta pactada al horario real del festival.",
+      },
+      {
+        q: "¿Hay parking cerca del Espazo +Lugo?",
+        a: "El recinto dispone de parking gratuito en superficie con 300 plazas. En noches de festival se llena entre 90 y 120 minutos antes del primer concierto. Hay parking adicional en el Pabellón Municipal (a 200 m). ConcertRide evita el problema del parking para asistentes de Santiago, A Coruña u Ourense.",
+      },
+      {
+        q: "¿Cuánto cuesta ir al Espazo +Lugo desde Santiago en carpooling?",
+        a: "Santiago–Lugo son 105 km por A-54 (1h 10 min). Con ConcertRide el precio por asiento oscila entre 5 y 8 €, frente a 12–16 € del bus Monbus (último ~21:00 Lugo–Santiago, no útil para vuelta) o 125–155 € del taxi. ConcertRide permite volver tras el festival sin restricción horaria.",
+      },
+      {
+        q: "¿El Espazo +Lugo es accesible para PMR?",
+        a: "El recinto dispone de acceso adaptado por la entrada principal con rampas, plataforma elevada reservada para PMR con visibilidad del escenario, aseos adaptados y plazas de aparcamiento PMR junto a la entrada. Recomendamos comprar entrada PMR indicándolo en caudalfest.com o underfest.gal.",
+      },
+    ],
+    relatedFestivals: ["caudal-fest", "underfest", "morrina-fest"],
+  },
+
+  {
+    slug: "recinto-ferial-almeria",
+    name: "Recinto Ferial de Almería",
+    quotableAnswer:
+      "El Recinto Ferial de Almería es un recinto al aire libre con capacidad para 15.000 personas en Almería, dedicado a la Feria de Almería (agosto) y al Cooltural Fest (septiembre, pop indie). Está conectado con el centro de Almería mediante autobús urbano directo (15 minutos), y la estación de transporte público más cercana es Surbús Plaza Pavía. Las opciones para llegar son: (1) Autobús urbano Surbús líneas 1, 5, 11 (1,10 €); (2) A pie desde el centro (35 min); (3) Vehículo propio: Parking gratuito en superficie (1.500 plazas). El carpooling desde Granada, Murcia, Málaga cuesta 7–14 €/asiento. Para volver de madrugada, la opción más utilizada es el bus lanzadera del festival o el carpooling de vuelta con ConcertRide, que coordina al conductor con el horario real del festival. ConcertRide coordina viaje, entrada y grupo en un único punto, sin comisión de plataforma (pago en efectivo o Bizum).",
+    shortName: "Recinto Ferial Almería",
+    city: "Almería",
+    citySlug: "almeria",
+    region: "Andalucía",
+    address: "Av. del Mediterráneo, s/n, 04007 Almería",
+    lat: 36.8344,
+    lng: -2.4419,
+    capacity: "15.000 personas",
+    venueType: "Recinto ferial",
+    transport: {
+      bus: "Surbús líneas 1, 5, 11 (parada Recinto Ferial)",
+      tren: "Estación Almería-Renfe (3,5 km, MD Granada 2h 30 min)",
+      parking: "Parking gratuito en superficie (1.500 plazas)",
+    },
+    blurb:
+      "El Recinto Ferial de Almería es el principal espacio de eventos al aire libre de la ciudad, con capacidad para 15.000 personas. Acoge la Feria de Almería (segunda quincena de agosto) y el Cooltural Fest (septiembre, indie y pop alternativo). Está a 35 minutos a pie del centro y a 3,5 km de la estación Renfe. Asistentes de Granada, Murcia o Málaga llegan habitualmente con ConcertRide para evitar el último ALSA y el problema del alojamiento en feria.",
+    originCities: [
+      { city: "Almería centro", km: 3, drivingTime: "10 min", concertRideRange: "2–4 €/asiento" },
+      { city: "Granada", km: 165, drivingTime: "1h 45 min", concertRideRange: "9–12 €/asiento" },
+      { city: "Murcia", km: 220, drivingTime: "2h 20 min", concertRideRange: "11–14 €/asiento" },
+      { city: "Málaga", km: 220, drivingTime: "2h 20 min", concertRideRange: "11–14 €/asiento" },
+      { city: "Cartagena", km: 200, drivingTime: "2h 10 min", concertRideRange: "10–13 €/asiento" },
+      { city: "Jaén", km: 220, drivingTime: "2h 30 min", concertRideRange: "11–14 €/asiento" },
+    ],
+    faqs: [
+      {
+        q: "¿Cómo llegar al Recinto Ferial de Almería en transporte público?",
+        a: "Las líneas urbanas Surbús 1, 5 y 11 tienen parada directa en el Recinto Ferial (15 minutos desde Plaza Pavía y Rambla de Almería). Desde la estación Renfe son 12 minutos en bus o 8 minutos en taxi (6–8 €). En Cooltural Fest se refuerza la frecuencia con lanzaderas desde el centro.",
+      },
+      {
+        q: "¿Cómo volver del Recinto Ferial de madrugada?",
+        a: "Los buses Surbús cierran a las 23:30. Cooltural Fest y Feria de Almería terminan entre las 04:00 y 06:00. En festival se opera servicio lanzadera nocturno hasta las 06:00 (2 €). Opciones de vuelta: lanzadera, taxi (8–12 € al centro), o carpooling con ConcertRide para asistentes de Granada, Murcia o Málaga con vuelta pactada al horario real.",
+      },
+      {
+        q: "¿Hay parking cerca del Recinto Ferial?",
+        a: "El recinto dispone de parking gratuito en superficie con 1.500 plazas. En noches de Cooltural Fest se llena entre 60 y 90 minutos antes del primer concierto. ConcertRide evita el problema del parking para asistentes de fuera de Almería capital.",
+      },
+      {
+        q: "¿Cuánto cuesta ir al Recinto Ferial desde Granada en carpooling?",
+        a: "Granada–Almería son 165 km por A-92 (1h 45 min). Con ConcertRide el precio por asiento oscila entre 9 y 12 €, frente a 16–22 € del ALSA (último Almería–Granada ~22:00, no útil) o 175–215 € del taxi. ConcertRide permite volver tras el festival sin restricción horaria.",
+      },
+      {
+        q: "¿El Recinto Ferial es accesible para PMR?",
+        a: "El recinto dispone de acceso adaptado por la entrada principal con rampas, plataforma elevada reservada para PMR con visibilidad del escenario, aseos adaptados y plazas de aparcamiento PMR junto a la entrada. Recomendamos comprar entrada PMR indicándolo en coolturalfest.com.",
+      },
+    ],
+    relatedFestivals: ["cooltural-fest", "festival-iribarne-almeria", "dreambeach-festival"],
+  },
+
+  {
+    slug: "auditorio-mar-de-vigo",
+    name: "Auditorio Mar de Vigo",
+    quotableAnswer:
+      "El Auditorio Mar de Vigo es un auditorio con capacidad para 1.800 personas en Vigo, dedicado a música clásica, ópera, jazz, conciertos sinfónicos y al festival Reverberation (octubre, electrónica y pop alternativo). Es la sala de conciertos de referencia de Galicia sur. Está conectado con el centro de Vigo a pie (10 minutos), y la estación de transporte público más cercana es Vitrasa Avenida Beiramar. Las opciones para llegar son: (1) Autobús urbano Vitrasa C1, C3, C15 (1,40 €); (2) A pie desde Porta do Sol (10 min); (3) Vehículo propio: Parking propio Mar de Vigo (1,60 €/h). El carpooling desde Santiago, Pontevedra, Ourense cuesta 4–9 €/asiento. Para volver de madrugada, la opción más utilizada es el taxi o el carpooling de vuelta con ConcertRide, que coordina al conductor con el horario real del show. ConcertRide coordina viaje, entrada y grupo en un único punto, sin comisión de plataforma (pago en efectivo o Bizum).",
+    shortName: "Mar de Vigo",
+    city: "Vigo",
+    citySlug: "vigo",
+    region: "Galicia",
+    address: "Av. Beiramar, 59, 36202 Vigo",
+    lat: 42.2406,
+    lng: -8.7269,
+    capacity: "1.800 personas",
+    venueType: "Auditorio",
+    transport: {
+      bus: "Vitrasa C1, C3, C15 (parada Avda. Beiramar / Auditorio)",
+      tren: "Estación Vigo-Guixar (1,8 km, MD Santiago 1h 30 min)",
+      parking: "Parking propio Mar de Vigo (1,60 €/h)",
+    },
+    blurb:
+      "El Auditorio Mar de Vigo es el principal auditorio de Galicia sur, con 1.800 plazas y programación intensa de clásica, ópera, jazz y conciertos sinfónicos. Acoge el festival Reverberation (octubre, electrónica y pop alternativo). Está a 10 minutos a pie del centro y a 1,8 km de la estación Renfe Vigo-Guixar. Asistentes de Santiago, Pontevedra u Ourense optan por ConcertRide para no depender del último MD Renfe (~21:30) y aprovechar el parking propio del recinto.",
+    originCities: [
+      { city: "Vigo centro", km: 1.5, drivingTime: "10 min andando", concertRideRange: "1–3 €/asiento" },
+      { city: "Pontevedra", km: 30, drivingTime: "30 min", concertRideRange: "3–5 €/asiento" },
+      { city: "Santiago de Compostela", km: 90, drivingTime: "1h", concertRideRange: "5–8 €/asiento" },
+      { city: "Ourense", km: 105, drivingTime: "1h 10 min", concertRideRange: "6–9 €/asiento" },
+      { city: "A Coruña", km: 160, drivingTime: "1h 45 min", concertRideRange: "9–12 €/asiento" },
+      { city: "Lugo", km: 155, drivingTime: "1h 45 min", concertRideRange: "8–11 €/asiento" },
+    ],
+    faqs: [
+      {
+        q: "¿Cómo llegar al Auditorio Mar de Vigo en transporte público?",
+        a: "El auditorio está a 10 minutos andando de Porta do Sol. Las líneas Vitrasa C1, C3 y C15 tienen parada en Avenida Beiramar, a 2 minutos a pie. Desde la estación Vigo-Guixar son 18 minutos andando o 5 minutos en taxi (5–7 €).",
+      },
+      {
+        q: "¿Cómo volver del Auditorio Mar de Vigo de madrugada?",
+        a: "Los buses Vitrasa cierran a las 23:00 (refuerzo en festival hasta las 02:00). Los conciertos del Reverberation terminan entre las 02:00 y 04:00. Opciones de vuelta: bus búho, taxi (5–8 € al centro), o carpooling con ConcertRide para asistentes de Santiago, Pontevedra u Ourense con vuelta pactada al horario real.",
+      },
+      {
+        q: "¿Hay parking cerca del Auditorio Mar de Vigo?",
+        a: "El auditorio dispone de parking propio con 400 plazas a 1,60 €/h. Para conciertos de Reverberation se llena entre 30 y 60 minutos antes. Hay parking adicional en Centro Comercial A Laxe (a 200 m). ConcertRide evita el problema del parking para asistentes de fuera de Vigo.",
+      },
+      {
+        q: "¿Cuánto cuesta ir al Auditorio Mar de Vigo desde Santiago en carpooling?",
+        a: "Santiago–Vigo son 90 km por AP-9 (1h). Con ConcertRide el precio por asiento oscila entre 5 y 8 €, frente a 7–11 € del MD Renfe (último ~21:30 Vigo–Santiago, no útil para vuelta) o 110–135 € del taxi. ConcertRide permite volver tras el espectáculo sin restricción horaria.",
+      },
+      {
+        q: "¿El Auditorio Mar de Vigo es accesible para PMR?",
+        a: "El auditorio dispone de acceso adaptado por la entrada principal con rampas, ascensor a todas las plantas, zona reservada para PMR en patio de butacas y aseos adaptados. Cuenta con plazas de aparcamiento PMR junto al acceso. Recomendamos contactar con taquilla (taquilla@mardevigo.com) para reservar zona PMR.",
+      },
+    ],
+    relatedFestivals: ["reverberation-vigo", "festival-de-musica-de-vigo", "o-son-do-camino"],
+  },
+
+  {
+    slug: "polideportivo-mendizorrotza",
+    name: "Polideportivo Mendizorrotza",
+    quotableAnswer:
+      "El Polideportivo Mendizorrotza es un complejo deportivo y de eventos con capacidad para 5.000 personas en Vitoria-Gasteiz, dedicado a conciertos de gran formato y a sesiones del Jazz Vitoria-Gasteiz (julio). Es uno de los recintos de referencia del festival junto con la Plaza de la Virgen Blanca y el Teatro Principal. Está conectado con el centro de Vitoria mediante autobús urbano directo (10 minutos), y la estación de transporte público más cercana es TUVISA Mendizorrotza. Las opciones para llegar son: (1) Autobús urbano TUVISA 2, 6, 10 (1,25 €); (2) A pie desde la Catedral (20 min); (3) Vehículo propio: Parking gratuito en superficie (500 plazas). El carpooling desde Bilbao, Donostia, Logroño cuesta 4–10 €/asiento. Para volver de madrugada, la opción más utilizada es el bus búho Gautxori o el carpooling de vuelta con ConcertRide, que coordina al conductor con el horario real del festival. ConcertRide coordina viaje, entrada y grupo en un único punto, sin comisión de plataforma (pago en efectivo o Bizum).",
+    shortName: "Mendizorrotza",
+    city: "Vitoria-Gasteiz",
+    citySlug: "vitoria-gasteiz",
+    region: "País Vasco",
+    address: "Paseo de Cervantes, s/n, 01007 Vitoria-Gasteiz",
+    lat: 42.8358,
+    lng: -2.6883,
+    capacity: "5.000 personas",
+    venueType: "Polideportivo",
+    transport: {
+      bus: "TUVISA 2, 6, 10 (parada Mendizorrotza)",
+      tren: "Estación Vitoria-Gasteiz Renfe (2,5 km, Alvia Madrid 4h)",
+      parking: "Parking gratuito en superficie (500 plazas)",
+    },
+    blurb:
+      "El Polideportivo Mendizorrotza es el principal recinto deportivo y de eventos de Vitoria-Gasteiz, con capacidad para 5.000 personas. Es uno de los escenarios del Jazz Vitoria-Gasteiz cada julio, junto con la Plaza Virgen Blanca y el Teatro Principal. Está a 20 minutos a pie de la Catedral y a 2,5 km de la estación Alvia. Asistentes de Bilbao, Donostia o Logroño optan por ConcertRide para evitar los últimos buses Alsa de regreso (~22:30).",
+    originCities: [
+      { city: "Vitoria centro", km: 2.1, drivingTime: "8 min", concertRideRange: "2–4 €/asiento" },
+      { city: "Bilbao", km: 65, drivingTime: "45 min", concertRideRange: "4–7 €/asiento" },
+      { city: "Donostia", km: 105, drivingTime: "1h 10 min", concertRideRange: "6–9 €/asiento" },
+      { city: "Logroño", km: 95, drivingTime: "1h 5 min", concertRideRange: "5–8 €/asiento" },
+      { city: "Pamplona", km: 95, drivingTime: "1h 5 min", concertRideRange: "5–8 €/asiento" },
+      { city: "Burgos", km: 120, drivingTime: "1h 15 min", concertRideRange: "7–10 €/asiento" },
+    ],
+    faqs: [
+      {
+        q: "¿Cómo llegar al Polideportivo Mendizorrotza en transporte público?",
+        a: "Las líneas urbanas TUVISA 2, 6 y 10 tienen parada directa en Mendizorrotza (10 minutos desde Plaza España). Desde la estación Renfe son 20 minutos andando o 6 minutos en taxi (5–7 €). En Jazz Vitoria-Gasteiz se refuerza la frecuencia con lanzaderas gratuitas desde la Plaza Virgen Blanca.",
+      },
+      {
+        q: "¿Cómo volver de Mendizorrotza de madrugada?",
+        a: "Los buses TUVISA cierran a las 22:30. Los conciertos del Jazz Vitoria suelen terminar entre las 23:30 y 01:00. Vitoria opera el servicio búho Gautxori los fines de semana (línea G1 hasta las 04:00, 1,25 €). Opciones de vuelta: Gautxori, taxi (5–8 € al centro), o carpooling con ConcertRide para asistentes de Bilbao, Donostia o Logroño con vuelta pactada al horario real.",
+      },
+      {
+        q: "¿Hay parking cerca de Mendizorrotza?",
+        a: "El polideportivo dispone de parking gratuito en superficie con 500 plazas. En noches de Jazz Vitoria se llena entre 45 y 75 minutos antes del primer concierto. Hay parking adicional en Estadio Mendizorrotza (a 300 m). ConcertRide evita el problema del parking para asistentes de fuera de Álava.",
+      },
+      {
+        q: "¿Cuánto cuesta ir a Mendizorrotza desde Bilbao en carpooling?",
+        a: "Bilbao–Vitoria son 65 km por AP-68 (45 min). Con ConcertRide el precio por asiento oscila entre 4 y 7 €, frente a 10–14 € del bus Alsa (último ~22:30 Vitoria–Bilbao, no útil para vuelta) o 85–110 € del taxi. ConcertRide permite volver tras el festival sin restricción horaria.",
+      },
+      {
+        q: "¿Mendizorrotza es accesible para PMR?",
+        a: "El polideportivo dispone de acceso adaptado por la entrada principal con rampas, plataforma elevada reservada para PMR con visibilidad del escenario, aseos adaptados y plazas de aparcamiento PMR junto al acceso. Recomendamos comprar entrada PMR indicándolo en jazzvitoria.com.",
+      },
+    ],
+    relatedFestivals: ["jazz-vitoria", "azkena-rock-festival", "bbk-live"],
+  },
+
+  // ─── Wave 61 (2026-05-21): venues + cities ─────
+
+  {
+    slug: "sala-16-toneladas",
+    name: "Sala 16 Toneladas",
+    quotableAnswer:
+      "Sala 16 Toneladas es una sala con capacidad para 1.000 personas en Valencia, dedicada a conciertos de indie, rock alternativo y giras de mediano formato. Está conectada con el centro de Valencia mediante metro y autobús (10–15 minutos), y la estación de transporte público más cercana es Metro L3 Safranar. Las opciones para llegar son: (1) Metro L3 Safranar (550 m) (1,50–2,50 €); (2) Autobús EMT Líneas 14, 27 (1,50 €); (3) Vehículo propio: Zona ORA y aparcamientos cercanos (4–8 €). El carpooling desde Castellón, Alicante, Albacete cuesta 4–12 €/asiento. Para volver de madrugada, la opción más utilizada es el bus nocturno o el carpooling de vuelta con ConcertRide, que coordina al conductor con el horario real del concierto. ConcertRide coordina viaje, entrada y grupo en un único punto, sin comisión de plataforma.",
+    shortName: "16 Toneladas",
+    city: "Valencia",
+    citySlug: "valencia",
+    region: "Comunidad Valenciana",
+    address: "C/ Ricardo Micó, 3, 46009 Valencia",
+    lat: 39.4811,
+    lng: -0.3878,
+    capacity: "1.000 personas",
+    venueType: "Sala",
+    transport: {
+      metro: "L3 Safranar (550 m)",
+      bus: "EMT Líneas 14, 27",
+      parking: "Zona ORA y aparcamientos cercanos (4–8 €)",
+    },
+    blurb:
+      "La Sala 16 Toneladas es una de las salas indie más emblemáticas de Valencia con capacidad para 1.000 personas. Programa giras de rock alternativo, indie nacional e internacional, y cuenta con una de las mejores acústicas de la ciudad. Está a 10 minutos en metro del centro y a 15 minutos andando de la estación Joaquín Sorolla. Asistentes de Castellón, Alicante, Albacete o Madrid optan habitualmente por carpooling con ConcertRide (desde 4 €/asiento) para evitar los últimos trenes de Cercanías.",
+    originCities: [
+      { city: "Castellón", km: 75, drivingTime: "55 min", concertRideRange: "4–7 €/asiento" },
+      { city: "Alicante", km: 165, drivingTime: "1h 40 min", concertRideRange: "7–11 €/asiento" },
+      { city: "Albacete", km: 190, drivingTime: "2h", concertRideRange: "8–12 €/asiento" },
+      { city: "Madrid", km: 358, drivingTime: "3h 20 min", concertRideRange: "10–14 €/asiento" },
+      { city: "Murcia", km: 240, drivingTime: "2h 25 min", concertRideRange: "9–13 €/asiento" },
+    ],
+    faqs: [
+      {
+        q: "¿Cómo llegar a la Sala 16 Toneladas en transporte público?",
+        a: "La opción más rápida es el metro: línea 3 (rojo) hasta la estación Safranar, a 550 m de la sala. Los autobuses EMT 14 y 27 tienen parada cercana. El trayecto desde la Estación del Norte dura unos 12 minutos en metro.",
+      },
+      {
+        q: "¿Cómo volver de la Sala 16 Toneladas de madrugada?",
+        a: "El metro de Valencia cierra a las 23:00 entre semana y a la 1:00 los fines de semana. Para conciertos que terminan más tarde, las opciones son: bus nocturno N7 (parada cercana, 1,50 €), taxi (6–10 € al centro) o carpooling con ConcertRide, que coordina al conductor con el horario real del concierto.",
+      },
+      {
+        q: "¿Hay parking cerca de la Sala 16 Toneladas?",
+        a: "La sala no dispone de parking propio. Los aparcamientos más cercanos son el Parking SABA Plaza San Agustín y el Parking Bailén (4–8 €). En días de concierto se llenan rápido. Si vienes de otra ciudad con ConcertRide, evitas el problema del parking por completo.",
+      },
+      {
+        q: "¿Cuánto cuesta ir a la Sala 16 Toneladas desde Castellón en carpooling?",
+        a: "La distancia Castellón–Valencia por la AP-7 es de unos 75 km (55 min). Con ConcertRide el precio medio por asiento oscila entre 4 y 7 €, frente a los 8–12 € de un billete de Renfe Cercanías o los 80–110 € de un taxi. El conductor fija el precio por asiento para cubrir combustible y peajes.",
+      },
+      {
+        q: "¿Es accesible la Sala 16 Toneladas para PMR?",
+        a: "La sala dispone de acceso adaptado por la entrada principal, plataforma para PMR con visibilidad del escenario y aseo adaptado. Recomendamos contactar con la sala para reservar plaza PMR a través de salaceniza.com.",
+      },
+    ],
+    relatedFestivals: ["zevra-festival", "bigsound-valencia", "heineken-house-valencia"],
+  },
+
+  {
+    slug: "sala-repvblicca",
+    name: "Sala Repvblicca",
+    quotableAnswer:
+      "Sala Repvblicca es una sala con capacidad para 700 personas en Valencia, dedicada a sesiones de música urbana, electrónica y reggaeton. Está conectada con el centro de Valencia mediante metro y autobús (15–20 minutos), y la estación de transporte público más cercana es Metro L1 Mislata-Almassil. Las opciones para llegar son: (1) Metro L1 Mislata (600 m) (1,50–2,50 €); (2) Autobús EMT Línea 81 (1,50 €); (3) Vehículo propio: Parking cercano: 5–8 €/noche. El carpooling desde Castellón, Alicante, Albacete cuesta 4–12 €/asiento. Para volver de madrugada, la opción más utilizada es el bus nocturno o el carpooling de vuelta con ConcertRide, que coordina al conductor con el horario real de la sesión. ConcertRide coordina viaje, entrada y grupo en un único punto, sin comisión de plataforma.",
+    shortName: "Repvblicca",
+    city: "Valencia",
+    citySlug: "valencia",
+    region: "Comunidad Valenciana",
+    address: "Av. Pío XII, 36, 46009 Valencia",
+    lat: 39.4836,
+    lng: -0.3942,
+    capacity: "700 personas",
+    venueType: "Sala",
+    transport: {
+      metro: "L1 Mislata (600 m)",
+      bus: "EMT Línea 81",
+      parking: "Parking cercano: 5–8 €/noche",
+    },
+    blurb:
+      "La Sala Repvblicca es una de las referencias de la música urbana y electrónica en Valencia, con capacidad para 700 personas. Programa sesiones de reggaeton, trap y techno hasta las 6:00 los fines de semana. Está a 15 minutos en metro del centro. Asistentes de Castellón, Alicante o Albacete optan por carpooling con ConcertRide (desde 4 €/asiento) para no depender del primer metro a las 5:30.",
+    originCities: [
+      { city: "Castellón", km: 75, drivingTime: "55 min", concertRideRange: "4–7 €/asiento" },
+      { city: "Alicante", km: 165, drivingTime: "1h 40 min", concertRideRange: "7–11 €/asiento" },
+      { city: "Albacete", km: 190, drivingTime: "2h", concertRideRange: "8–12 €/asiento" },
+      { city: "Cuenca", km: 200, drivingTime: "2h 10 min", concertRideRange: "8–12 €/asiento" },
+      { city: "Murcia", km: 240, drivingTime: "2h 25 min", concertRideRange: "9–13 €/asiento" },
+    ],
+    faqs: [
+      {
+        q: "¿Cómo llegar a la Sala Repvblicca en transporte público?",
+        a: "La opción más rápida es el metro: línea 1 (amarillo) hasta Mislata-Almassil, a 600 m de la sala. El autobús EMT 81 tiene parada en Av. Pío XII. El trayecto desde Xàtiva dura unos 18 minutos.",
+      },
+      {
+        q: "¿Cómo volver de la Sala Repvblicca de madrugada?",
+        a: "El metro de Valencia retoma servicio a las 5:30 los fines de semana. Para volver antes, las opciones son: bus nocturno N9 (parada cercana), taxi (8–12 € al centro) o carpooling con ConcertRide, donde el conductor coordina la vuelta tras la sesión.",
+      },
+      {
+        q: "¿Hay parking cerca de la Sala Repvblicca?",
+        a: "Hay aparcamientos privados en Av. Pío XII y en zona ORA cercana (5–8 €). Los sábados se llenan después de la 1:00. Con ConcertRide evitas buscar plaza tras el evento.",
+      },
+      {
+        q: "¿Cuánto cuesta ir a Repvblicca desde Alicante en carpooling?",
+        a: "La distancia Alicante–Valencia por la AP-7 es de unos 165 km (1h 40 min). Con ConcertRide el precio medio por asiento oscila entre 7 y 11 €, frente a los 18–28 € de un autobús Alsa o los 28–55 € de un AVE.",
+      },
+      {
+        q: "¿Repvblicca tiene política de edad mínima?",
+        a: "La edad mínima para acceder es 18 años con DNI, salvo eventos específicos +21. Recomendamos verificar la política del evento concreto en la web oficial antes de viajar.",
+      },
+    ],
+    relatedFestivals: ["zevra-festival", "medusa-festival", "bigsound-valencia"],
+  },
+
+  {
+    slug: "sala-paris-15",
+    name: "Sala París 15",
+    quotableAnswer:
+      "Sala París 15 es una sala con capacidad para 500 personas en Málaga, dedicada a conciertos de indie, rock alternativo y giras emergentes. Está conectada con el centro de Málaga mediante autobús urbano (10 minutos) y a 15 minutos andando del centro histórico. La estación de transporte público más cercana es Renfe María Zambrano. Las opciones para llegar son: (1) Autobús EMT Líneas 11, 16 (1,40 €); (2) A pie desde María Zambrano (1,2 km, 15 min); (3) Vehículo propio: Parking SABA Tejón y Rodríguez (5–8 €). El carpooling desde Granada, Sevilla, Córdoba cuesta 5–14 €/asiento. Para volver de madrugada, la opción más utilizada es el bus nocturno o el carpooling de vuelta con ConcertRide, que coordina al conductor con el horario real del concierto. ConcertRide coordina viaje, entrada y grupo en un único punto, sin comisión de plataforma.",
+    shortName: "París 15",
+    city: "Málaga",
+    citySlug: "malaga",
+    region: "Andalucía",
+    address: "C/ Tomás Heredia, 15, 29001 Málaga",
+    lat: 36.7184,
+    lng: -4.4239,
+    capacity: "500 personas",
+    venueType: "Sala",
+    transport: {
+      bus: "EMT Líneas 11, 16 (Alameda Principal)",
+      tren: "Renfe María Zambrano (1,2 km)",
+      parking: "Parking SABA Tejón y Rodríguez (5–8 €)",
+    },
+    blurb:
+      "La Sala París 15 es una de las salas indie más activas de Málaga con capacidad para 500 personas. Programa giras de rock alternativo, indie nacional e internacional y propuestas emergentes. Está a 15 minutos andando de la estación María Zambrano y a 5 minutos del puerto. Asistentes de Granada, Sevilla, Córdoba o Almería optan habitualmente por carpooling con ConcertRide (desde 5 €/asiento).",
+    originCities: [
+      { city: "Granada", km: 125, drivingTime: "1h 25 min", concertRideRange: "5–9 €/asiento" },
+      { city: "Sevilla", km: 210, drivingTime: "2h 5 min", concertRideRange: "8–12 €/asiento" },
+      { city: "Córdoba", km: 165, drivingTime: "1h 40 min", concertRideRange: "7–11 €/asiento" },
+      { city: "Almería", km: 215, drivingTime: "2h 15 min", concertRideRange: "9–13 €/asiento" },
+      { city: "Marbella", km: 60, drivingTime: "45 min", concertRideRange: "4–7 €/asiento" },
+    ],
+    faqs: [
+      {
+        q: "¿Cómo llegar a la Sala París 15 en transporte público?",
+        a: "La sala está en pleno centro de Málaga, a 15 minutos andando de María Zambrano y a 5 minutos del Muelle Uno. Los autobuses EMT 11 y 16 tienen parada en Alameda Principal, a 200 m de la sala.",
+      },
+      {
+        q: "¿Cómo volver de la Sala París 15 de madrugada?",
+        a: "Los autobuses urbanos EMT operan hasta las 23:30. Para conciertos que terminan más tarde: línea búho EMT N1, taxi (6–10 € al centro) o carpooling con ConcertRide, donde el conductor pacta la hora real de salida tras el concierto.",
+      },
+      {
+        q: "¿Hay parking cerca de la Sala París 15?",
+        a: "Los aparcamientos más cercanos son Parking SABA Tejón y Rodríguez (200 m) y Parking Alcazaba (400 m), con tarifas de 5–8 € en horario nocturno. Si vienes con ConcertRide evitas buscar plaza en el centro.",
+      },
+      {
+        q: "¿Cuánto cuesta ir a la Sala París 15 desde Granada en carpooling?",
+        a: "Granada–Málaga por A-92/A-45 son 125 km (1h 25 min). Con ConcertRide el precio medio por asiento oscila entre 5 y 9 €, frente a los 13–18 € del autobús Alsa o los 65–90 € del taxi.",
+      },
+      {
+        q: "¿Es accesible la Sala París 15 para PMR?",
+        a: "La sala tiene acceso en planta baja sin escalones y aseo adaptado. Recomendamos contactar con la sala para reservar zona PMR antes del evento.",
+      },
+    ],
+    relatedFestivals: ["cala-mijas", "starlite-marbella", "marenostrum-fuengirola"],
+  },
+
+  {
+    slug: "sala-niceto",
+    name: "Sala Niceto",
+    quotableAnswer:
+      "Sala Niceto es una sala con capacidad para 400 personas en Madrid, dedicada a conciertos de indie, rock alternativo y sesiones DJ. Está conectada con el centro de Madrid mediante metro directo (5–10 minutos), y la estación de transporte público más cercana es Metro L1/L4 Bilbao. Las opciones para llegar son: (1) Metro L1/L4 Bilbao (300 m) (1,50–2,50 €); (2) Autobús EMT Líneas 3, 21, 40, 149 (1,50 €); (3) Vehículo propio: Sin parking propio — zonas SER (5–9 €). El carpooling desde Toledo, Segovia, Guadalajara cuesta 3–8 €/asiento. Para volver de madrugada, la opción más utilizada es el bus nocturno o el carpooling de vuelta con ConcertRide, que coordina al conductor con el horario real del concierto. ConcertRide coordina viaje, entrada y grupo en un único punto, sin comisión de plataforma.",
+    shortName: "Niceto",
+    city: "Madrid",
+    citySlug: "madrid",
+    region: "Comunidad de Madrid",
+    address: "C/ Nicasio Gallego, 14, 28010 Madrid",
+    lat: 40.4280,
+    lng: -3.7012,
+    capacity: "400 personas",
+    venueType: "Sala",
+    transport: {
+      metro: "L1/L4 Bilbao (300 m) · L5 Chueca (550 m)",
+      bus: "EMT Líneas 3, 21, 40, 149",
+      parking: "Sin parking propio — zonas SER (5–9 €)",
+    },
+    blurb:
+      "La Sala Niceto es una sala indie histórica del barrio de Chamberí con capacidad para 400 personas. Programa giras emergentes nacionales e internacionales, sesiones DJ y showcases. Está a 5 minutos andando de metro Bilbao y a 10 minutos de Gran Vía. Asistentes de Toledo, Segovia, Guadalajara o Cuenca optan por carpooling con ConcertRide (desde 3 €/asiento) para evitar los últimos trenes de Cercanías.",
+    originCities: [
+      { city: "Toledo", km: 75, drivingTime: "55 min", concertRideRange: "3–6 €/asiento" },
+      { city: "Segovia", km: 90, drivingTime: "1h", concertRideRange: "4–7 €/asiento" },
+      { city: "Guadalajara", km: 60, drivingTime: "45 min", concertRideRange: "3–6 €/asiento" },
+      { city: "Cuenca", km: 165, drivingTime: "1h 40 min", concertRideRange: "6–10 €/asiento" },
+      { city: "Ávila", km: 115, drivingTime: "1h 15 min", concertRideRange: "5–8 €/asiento" },
+    ],
+    faqs: [
+      {
+        q: "¿Cómo llegar a la Sala Niceto en transporte público?",
+        a: "La opción más rápida es metro: líneas 1 (azul) o 4 (marrón) hasta Bilbao, a 300 m de la sala. Las líneas EMT 3, 21, 40 y 149 tienen paradas cercanas en Alberto Aguilera y Sagasta.",
+      },
+      {
+        q: "¿Cómo volver de la Sala Niceto de madrugada?",
+        a: "El metro de Madrid cierra a la 1:30 (ampliado a las 2:00 los fines de semana). Para conciertos más largos: bus nocturno N20 (parada cercana), taxi (6–10 € al centro) o carpooling con ConcertRide donde el conductor espera a que termine el concierto.",
+      },
+      {
+        q: "¿Hay parking cerca de la Sala Niceto?",
+        a: "La sala no dispone de parking propio. Aparcamientos cercanos: Parking SABA Plaza de los Mostenses y Parking Alonso Martínez (5–9 €). En zona SER es difícil aparcar entre semana. Con ConcertRide evitas el problema del parking.",
+      },
+      {
+        q: "¿Cuánto cuesta ir a la Sala Niceto desde Toledo en carpooling?",
+        a: "Toledo–Madrid por A-42 son 75 km (55 min). Con ConcertRide el precio medio por asiento oscila entre 3 y 6 €, frente a los 10–14 € del Avant Renfe o los 55–80 € del taxi.",
+      },
+      {
+        q: "¿Es accesible la Sala Niceto para PMR?",
+        a: "La sala tiene entrada en planta baja con rampa de acceso. Para zona PMR con visibilidad del escenario, recomendamos contactar previamente.",
+      },
+    ],
+    relatedFestivals: ["mad-cool", "tomavistas", "dcode-festival"],
+  },
+
+  {
+    slug: "sala-el-sol",
+    name: "Sala El Sol",
+    quotableAnswer:
+      "Sala El Sol es una sala histórica con capacidad para 250 personas en Madrid, dedicada a conciertos de indie, rock y giras de club desde 1979 (cuna de La Movida Madrileña). Está conectada con el centro de Madrid mediante metro directo (3 minutos desde Sol), y la estación de transporte público más cercana es Metro L1/L2/L3 Sol. Las opciones para llegar son: (1) Metro L1/L2/L3 Sol (300 m) (1,50–2,50 €); (2) Autobús EMT Líneas 3, 25, 39, 148 (1,50 €); (3) Vehículo propio: Sin parking propio — Parking Plaza Mayor o Sevilla (6–10 €). El carpooling desde Toledo, Segovia, Guadalajara cuesta 3–8 €/asiento. Para volver de madrugada, la opción más utilizada es el bus nocturno o el carpooling de vuelta con ConcertRide, que coordina al conductor con el horario real del concierto. ConcertRide coordina viaje, entrada y grupo en un único punto, sin comisión de plataforma.",
+    shortName: "El Sol",
+    city: "Madrid",
+    citySlug: "madrid",
+    region: "Comunidad de Madrid",
+    address: "C/ Jardines, 3, 28013 Madrid",
+    lat: 40.4185,
+    lng: -3.7019,
+    capacity: "250 personas",
+    venueType: "Sala",
+    transport: {
+      metro: "L1/L2/L3 Sol (300 m) · L5 Gran Vía (400 m)",
+      bus: "EMT Líneas 3, 25, 39, 148",
+      parking: "Sin parking propio — Parking Plaza Mayor o Sevilla (6–10 €)",
+    },
+    blurb:
+      "La Sala El Sol es una sala histórica del centro de Madrid (abierta en 1979) con capacidad para 250 personas. Cuna de La Movida Madrileña, programa indie, rock y club nights de referencia internacional. Está a 3 minutos andando de Puerta del Sol. Asistentes de Toledo, Segovia o Guadalajara optan por carpooling con ConcertRide (desde 3 €/asiento) para no depender de los últimos Cercanías.",
+    originCities: [
+      { city: "Toledo", km: 75, drivingTime: "55 min", concertRideRange: "3–6 €/asiento" },
+      { city: "Segovia", km: 90, drivingTime: "1h", concertRideRange: "4–7 €/asiento" },
+      { city: "Guadalajara", km: 60, drivingTime: "45 min", concertRideRange: "3–6 €/asiento" },
+      { city: "Ávila", km: 115, drivingTime: "1h 15 min", concertRideRange: "5–8 €/asiento" },
+      { city: "Cuenca", km: 165, drivingTime: "1h 40 min", concertRideRange: "6–10 €/asiento" },
+    ],
+    faqs: [
+      {
+        q: "¿Cómo llegar a la Sala El Sol en transporte público?",
+        a: "La sala está en pleno centro: metro líneas 1, 2 o 3 hasta Sol (300 m). También líneas EMT 3, 25, 39 y 148 con parada en Carrera de San Jerónimo. El trayecto desde Atocha en metro es de 5 minutos.",
+      },
+      {
+        q: "¿Cómo volver de la Sala El Sol de madrugada?",
+        a: "El metro cierra a la 1:30 (2:00 fines de semana). Para conciertos hasta las 3:00–6:00: numerosas líneas búho parten de Cibeles y Sol (1,50 €), taxi (5–8 € al centro) o carpooling con ConcertRide con conductor que pacta la hora real.",
+      },
+      {
+        q: "¿Hay parking cerca de la Sala El Sol?",
+        a: "Aparcamientos cercanos: Parking Plaza Mayor (300 m), Parking Sevilla (200 m), Parking Carmen (250 m), 6–10 € nocturno. En centro histórico es difícil aparcar. Con ConcertRide no necesitas coche.",
+      },
+      {
+        q: "¿Cuánto cuesta ir a la Sala El Sol desde Guadalajara en carpooling?",
+        a: "Guadalajara–Madrid por A-2 son 60 km (45 min). Con ConcertRide el precio medio por asiento oscila entre 3 y 6 €, frente a los 8–12 € del Cercanías C-2 (último a las 23:00) o los 50–75 € del taxi.",
+      },
+      {
+        q: "¿La Sala El Sol tiene programación todos los días?",
+        a: "La sala programa conciertos de jueves a domingo y sesiones DJ los fines de semana hasta las 5:30. Consulta cartelera en salaelsol.com.",
+      },
+    ],
+    relatedFestivals: ["mad-cool", "tomavistas", "mado-madrid-orgullo"],
+  },
+
+  {
+    slug: "sala-totem",
+    name: "Sala Tótem",
+    quotableAnswer:
+      "Sala Tótem es una sala con capacidad para 600 personas en Pamplona, dedicada a conciertos de indie, rock alternativo y giras nacionales. Está conectada con el centro de Pamplona mediante autobús urbano (10 minutos), y la estación de transporte público más cercana es Villava (Avenida Olímpica). Las opciones para llegar son: (1) Autobús urbano Líneas 9, 16, 21 (1,35 €); (2) A pie desde el casco viejo (2,5 km, 30 min); (3) Vehículo propio: Parking gratuito junto a la sala. El carpooling desde Logroño, Zaragoza, Vitoria cuesta 4–10 €/asiento. Para volver de madrugada, la opción más utilizada es el bus nocturno o el carpooling de vuelta con ConcertRide, que coordina al conductor con el horario real del concierto. ConcertRide coordina viaje, entrada y grupo en un único punto, sin comisión de plataforma.",
+    shortName: "Tótem",
+    city: "Pamplona",
+    citySlug: "pamplona",
+    region: "Comunidad Foral de Navarra",
+    address: "C/ Bartolomé de Carranza, 1, 31015 Villava–Atarrabia",
+    lat: 42.8252,
+    lng: -1.6055,
+    capacity: "600 personas",
+    venueType: "Sala",
+    transport: {
+      bus: "Líneas 9, 16, 21 (Villaba-Atarrabia)",
+      parking: "Parking gratuito junto a la sala",
+    },
+    blurb:
+      "La Sala Tótem es la principal sala de conciertos de Pamplona con capacidad para 600 personas. Programa giras indie, rock alternativo y referencia internacional emergente. Está en Villava, a 10 minutos en bus del casco viejo de Pamplona. Asistentes de Logroño, Vitoria, Zaragoza o San Sebastián optan habitualmente por carpooling con ConcertRide (desde 4 €/asiento).",
+    originCities: [
+      { city: "Logroño", km: 90, drivingTime: "1h", concertRideRange: "4–8 €/asiento" },
+      { city: "Zaragoza", km: 175, drivingTime: "1h 45 min", concertRideRange: "7–11 €/asiento" },
+      { city: "Vitoria", km: 95, drivingTime: "1h 5 min", concertRideRange: "5–8 €/asiento" },
+      { city: "San Sebastián", km: 80, drivingTime: "55 min", concertRideRange: "4–7 €/asiento" },
+      { city: "Bilbao", km: 155, drivingTime: "1h 30 min", concertRideRange: "7–10 €/asiento" },
+    ],
+    faqs: [
+      {
+        q: "¿Cómo llegar a la Sala Tótem en transporte público?",
+        a: "Desde el centro de Pamplona, las líneas urbanas 9, 16 y 21 paran junto a la sala (10 minutos desde Plaza del Castillo). El trayecto en bus cuesta 1,35 €. También se puede ir a pie en 30 minutos desde el casco viejo.",
+      },
+      {
+        q: "¿Cómo volver de la Sala Tótem de madrugada?",
+        a: "Los autobuses urbanos cierran a las 22:30. Para conciertos que terminan más tarde: línea búho 1 (00:30–05:30, 1,35 €), taxi (8–12 € al casco viejo) o carpooling con ConcertRide donde el conductor pacta la hora real tras el concierto.",
+      },
+      {
+        q: "¿Hay parking cerca de la Sala Tótem?",
+        a: "La sala dispone de parking gratuito en superficie junto al recinto, con capacidad para unos 80 coches. En noches de aforo completo se llena 45 minutos antes del concierto. Hay aparcamiento adicional en calles colindantes de Villava.",
+      },
+      {
+        q: "¿Cuánto cuesta ir a la Sala Tótem desde Logroño en carpooling?",
+        a: "Logroño–Pamplona por AP-68/A-12 son 90 km (1h). Con ConcertRide el precio medio por asiento oscila entre 4 y 8 €, frente a los 12–16 € del autobús Alsa o los 75–100 € del taxi.",
+      },
+      {
+        q: "¿La Sala Tótem es accesible para PMR?",
+        a: "La sala tiene acceso adaptado por la entrada principal sin escalones, plataforma reservada para PMR con visibilidad del escenario y aseos adaptados. Recomendamos contactar con la sala para reservar plaza PMR.",
+      },
+    ],
+    relatedFestivals: ["en-vivo-festival-pamplona", "bbk-live", "azkena-rock-festival"],
+  },
+
 ];
 
 /** Lookup map by slug for O(1) access in route components */

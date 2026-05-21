@@ -89,7 +89,7 @@ const STATIC_ROUTES = [
   "/contacto",
   "/acerca-de",
   "/glosario",
-  "/autor/alejandro-lalaguna",
+  "/autor/equipo-concertride",
   "/aviso-legal",
   "/privacidad",
   "/cookies",

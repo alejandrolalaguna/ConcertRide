@@ -1,4 +1,4 @@
-#!/usr/bin/env node
+﻿#!/usr/bin/env node
 /**
  * SCRIPT 4: generate-sitemaps.mjs  (actualizado 2026-05-05)
  *
@@ -529,7 +529,7 @@ function buildRss() {
     <description>Guías, consejos y noticias sobre carpooling para festivales y conciertos en España. Últimas ${recent.length} entradas.</description>
     <language>es-ES</language>
     <copyright>© ${RSS_CURRENT_YEAR} ConcertRide ES · Contenido CC BY 4.0 con atribución</copyright>
-    <managingEditor>founder@concertride.me (Alejandro Lalaguna)</managingEditor>
+    <managingEditor>founder@concertride.me (Equipo ConcertRide)</managingEditor>
     <webMaster>help@concertride.me (ConcertRide team)</webMaster>
     <generator>generate-sitemaps.mjs (ConcertRide)</generator>
     <docs>https://www.rssboard.org/rss-specification</docs>

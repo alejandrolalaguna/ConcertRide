@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+﻿import { Link } from "react-router-dom";
 
 export function Footer() {
   const year = new Date().getFullYear();
@@ -59,6 +59,30 @@ export function Footer() {
               className="font-sans text-xs text-cr-text-muted hover:text-cr-primary transition-colors"
             >
               Rutas de carpooling
+            </Link>
+            <Link
+              to="/mejor-carpooling-festivales-2026"
+              className="font-sans text-xs text-cr-text-muted hover:text-cr-primary transition-colors"
+            >
+              Mejor carpooling 2026
+            </Link>
+            <Link
+              to="/viaje-compartido"
+              className="font-sans text-xs text-cr-text-muted hover:text-cr-primary transition-colors"
+            >
+              Viaje compartido
+            </Link>
+            <Link
+              to="/compartir-coche-festival"
+              className="font-sans text-xs text-cr-text-muted hover:text-cr-primary transition-colors"
+            >
+              Compartir coche festival
+            </Link>
+            <Link
+              to="/compartir-gastos-festival"
+              className="font-sans text-xs text-cr-text-muted hover:text-cr-primary transition-colors"
+            >
+              Compartir gastos festival
             </Link>
             <Link
               to="/guia-transporte-festivales"
@@ -146,9 +170,9 @@ export function Footer() {
               Acerca de
             </Link>
             <Link
-              to="/autor/alejandro-lalaguna"
+              to="/autor/equipo-concertride"
               className="font-sans text-xs text-cr-text-muted hover:text-cr-primary transition-colors"
-              title="Sobre el autor — Alejandro Lalaguna, founder de ConcertRide"
+              title="Sobre el autor — Equipo ConcertRide, founder de ConcertRide"
             >
               Sobre el autor
             </Link>

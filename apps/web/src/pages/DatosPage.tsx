@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { ArrowRight, Check, Copy, ExternalLink } from "lucide-react";
 import { useSeoMeta } from "@/lib/useSeoMeta";
 import { SITE_URL } from "@/lib/siteUrl";
+import { TerminologyAside } from "@/components/TerminologyAside";
 
 const YEAR = new Date().getFullYear();
 
@@ -821,6 +822,8 @@ export default function DatosPage() {
           ))}
         </ul>
       </section>
+
+      <TerminologyAside />
     </main>
   );
 }

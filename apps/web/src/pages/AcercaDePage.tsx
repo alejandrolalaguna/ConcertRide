@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+﻿import { Link } from "react-router-dom";
 import { useSeoMeta } from "@/lib/useSeoMeta";
 import { SITE_URL } from "@/lib/siteUrl";
 import { ExternalLink } from "lucide-react";
@@ -110,11 +110,9 @@ export default function AcercaDePage() {
           }),
         }}
       />
-      {/* Person #founder schema removida en Sprint 10 dedup — la versión
-          canónica (con bio, knowsAbout, sameAs) se emite en
-          /autor/alejandro-lalaguna (AutorAlejandroLalagunaPage.tsx). Esta
-          página referencia al fundador solo por @id en el WebPage de arriba
-          para evitar @id collision intra-página. */}
+      {/* Author schema (Organization #editorial-team) lives canonically on
+          /autor/equipo-concertride. This page references it by @id from the
+          WebPage above to avoid intra-page @id collision. */}
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
@@ -296,7 +294,7 @@ export default function AcercaDePage() {
               AL
             </div>
             <div className="space-y-2">
-              <p className="font-display text-lg uppercase" itemProp="name">Alejandro Lalaguna</p>
+              <p className="font-display text-lg uppercase" itemProp="name">Equipo ConcertRide</p>
               <p className="font-mono text-[11px] text-cr-primary uppercase tracking-[0.12em]" itemProp="jobTitle">Fundador y CEO</p>
               <p className="font-sans text-sm text-cr-text-muted leading-relaxed" itemProp="description">
                 Ingeniero de software con experiencia en IoT y desarrollo de producto en{" "}
@@ -314,15 +312,6 @@ export default function AcercaDePage() {
                 al mismo concierto.
               </p>
               <div className="flex gap-3 pt-1">
-                <a
-                  href="https://www.linkedin.com/in/alejandrolalaguna/"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-1.5 font-mono text-[11px] text-cr-text-muted hover:text-cr-primary transition-colors"
-                  itemProp="sameAs"
-                >
-                  LinkedIn <ExternalLink size={10} />
-                </a>
                 <a
                   href="https://twitter.com/concertride_es"
                   target="_blank"

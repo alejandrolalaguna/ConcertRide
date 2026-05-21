@@ -1,4 +1,4 @@
-# Términos de Servicio — ConcertRide ES
+﻿# Términos de Servicio — ConcertRide ES
 
 **Última actualización:** 2026-04-25  
 **Efectivos desde:** 2026-04-25
@@ -9,7 +9,7 @@
 
 Al acceder o usar ConcertRide ES ("**Servicios**"), aceptas estar legalmente vinculado por estos Términos de Servicio. Si no aceptas, **no uses ConcertRide**.
 
-**ConcertRide ES** es operado por Alejandro Lalaguna, domiciliado en Madrid, España.
+**ConcertRide ES** es operado por Equipo ConcertRide, domiciliado en Madrid, España.
 
 ---
 

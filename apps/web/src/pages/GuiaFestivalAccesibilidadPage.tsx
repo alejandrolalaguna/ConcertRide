@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+﻿import { Link } from "react-router-dom";
 import {
   ArrowRight,
   Accessibility,
@@ -236,7 +236,7 @@ export default function GuiaFestivalAccesibilidadPage() {
     ogImageAlt: "Guía de accesibilidad en festivales de España 2026 para personas con movilidad reducida — ConcertRide",
     articlePublishedTime: "2026-05-19",
     articleModifiedTime: today,
-    articleAuthor: "Alejandro Lalaguna",
+    articleAuthor: "Equipo ConcertRide",
     articleSection: "Guías",
     breadcrumb: [
       { position: 1, name: "Inicio", url: `${SITE_URL}/` },
@@ -255,10 +255,10 @@ export default function GuiaFestivalAccesibilidadPage() {
     url: `${SITE_URL}/guia/festival-accesibilidad-movilidad-reducida`,
     inLanguage: "es-ES",
     author: {
-      "@type": "Person",
-      name: "Alejandro Lalaguna",
+      "@type": "Organization",
+      name: "Equipo ConcertRide",
       url: `${SITE_URL}/acerca-de`,
-      "@id": `${SITE_URL}/#founder`,
+      "@id": `${SITE_URL}/#editorial-team`,
     },
     publisher: {
       "@id": `${SITE_URL}/#organization`,
@@ -940,7 +940,7 @@ export default function GuiaFestivalAccesibilidadPage() {
         <EeatTrustBlock
           pageType="pillar"
           lastReviewed="2026-05-20"
-          author={{ name: "Equipo ConcertRide", url: "/autor/alejandro-lalaguna" }}
+          author={{ name: "Equipo ConcertRide", url: "/autor/equipo-concertride" }}
         />
         <AiDisclosureNote level={aiLevelForPageType("pillar")} />
       </section>

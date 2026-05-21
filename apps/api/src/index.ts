@@ -28,6 +28,7 @@ import squads from "./routes/squads";
 import playlists from "./routes/playlists";
 import stats from "./routes/stats";
 import og from "./routes/og";
+import testMode from "./routes/test-mode";
 import { rateLimit } from "./lib/ratelimit";
 import { htmlToMarkdown, estimateTokens } from "./lib/markdown";
 import { seoPrerender } from "./lib/seoPrerender";
@@ -41,7 +42,6 @@ import * as Sentry from "@sentry/cloudflare";
 // changing the canonical domain only requires updating wrangler `vars`.
 const STATIC_ALLOWED_ORIGINS = [
   "http://localhost:5173",
-  "https://concertride.alejandrolalaguna.workers.dev",
 ];
 
 const app = new Hono<HonoEnv>();
@@ -72,6 +72,9 @@ const LEGACY_REDIRECTS: Record<string, string> = {
   "/comparativa/concertride-vs-blablacar": "/alternativas-carpooling-festivales",
   // Blog post still 200s on its own URL but is no longer the canonical answer
   // to the conversational query "alternativas carpooling festivales".
+  // Author page renamed 2026-05-20: founder byline replaced by collective
+  // "Equipo ConcertRide". Keeps E-E-A-T author entity stable.
+  "/autor/alejandro-lalaguna": "/autor/equipo-concertride",
 };
 app.use("*", async (c, next) => {
   if (c.req.method === "GET" || c.req.method === "HEAD") {
@@ -505,6 +508,9 @@ app.route("/api/squads", squads);
 app.route("/api/playlists", playlists);
 app.route("/api/stats", stats);
 app.route("/api/og", og);
+// Test-only namespace. The route module itself guards with a 404 fallback
+// when TEST_MODE !== "true" so this mount is safe in production.
+app.route("/api/__test__", testMode);
 
 // Social / AI crawlers get a thin OG-enriched HTML shell for festival pages
 // so WhatsApp, Twitter, LinkedIn and AI scrapers see correct title/description/image

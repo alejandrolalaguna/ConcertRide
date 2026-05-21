@@ -104,7 +104,7 @@ const FAQS = [
 
 export default function CocheCompartidoConciertosPage() {
   useSeoMeta({
-    title: "Coche compartido para conciertos · ConcertRide — WiZink, Movistar Arena, Roig",
+    title: "Coche compartido para conciertos [2026] · ConcertRide",
     description:
       "Coche compartido para ir a conciertos en España: WiZink Center, Movistar Arena, Estadi Olímpic, Palau Sant Jordi, Roig Arena, Bilbao Arena y más. 0 % comisión, pago en mano. Desde 3 €/asiento.",
     canonical: `${SITE_URL}/coche-compartido-conciertos`,

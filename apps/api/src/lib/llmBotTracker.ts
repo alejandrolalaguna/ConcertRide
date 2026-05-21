@@ -56,50 +56,22 @@ export function classifyLlmBot(userAgent: string | null | undefined): BotClassif
   return null;
 }
 
-function todayBucket(): string {
-  return new Date().toISOString().slice(0, 10);
-}
-
-/** Stable short hash for path. Avoids unbounded key cardinality. */
-function pathHash(path: string): string {
-  let h = 5381;
-  for (let i = 0; i < path.length; i++) h = ((h << 5) + h + path.charCodeAt(i)) | 0;
-  return (h >>> 0).toString(36);
-}
-
 /**
  * Non-blocking record. Call from any request handler. Returns the
  * classification (or null) so the caller can use it for response shaping
  * (e.g. extra schema for retrieval bots).
+ *
+ * NOTE (2026-05-21): KV writes disabled to stay within the Workers KV free
+ * tier (1000 puts/day). With 4.7k prerendered pages × multiple LLM crawlers
+ * the per-visit put was blowing the daily quota in hours. Classification is
+ * still returned so callers can shape responses; only the persistence is off.
+ * Re-enable with sampling (e.g. 1/20) or a Durable Object aggregator if the
+ * metric is needed again.
  */
 export function recordLlmBotVisit(
-  c: Context<HonoEnv>,
+  _c: Context<HonoEnv>,
   userAgent: string | null | undefined,
-  path: string,
+  _path: string,
 ): BotClassification | null {
-  const cls = classifyLlmBot(userAgent);
-  if (!cls) return null;
-  const cache = c.env.CACHE;
-  if (!cache) return cls;
-  const date = todayBucket();
-  const key = `llmbot:${date}:${cls.bot}:${pathHash(path)}`;
-  const pathKey = `llmbotpath:${date}:${cls.bot}:${pathHash(path)}`;
-  c.executionCtx.waitUntil(
-    (async () => {
-      try {
-        const prev = await cache.get(key);
-        const n = prev ? parseInt(prev, 10) + 1 : 1;
-        // 35-day TTL — enough for a monthly visibility report; KV charges by row.
-        await cache.put(key, String(n), { expirationTtl: 60 * 60 * 24 * 35 });
-        if (!prev) {
-          // First time today we see this (bot, path) — store the readable path
-          // so we don't need a reverse lookup.
-          await cache.put(pathKey, path.slice(0, 200), { expirationTtl: 60 * 60 * 24 * 35 });
-        }
-      } catch {
-        // Swallow — analytics should never crash a request.
-      }
-    })(),
-  );
-  return cls;
+  return classifyLlmBot(userAgent);
 }

@@ -1,4 +1,4 @@
-// Sends one test email per template to help@concertride.me using Resend.
+﻿// Sends one test email per template to help@concertride.me using Resend.
 // Usage: RESEND_API_KEY=re_xxx node scripts/test-emails.mjs
 // Or:    node scripts/test-emails.mjs  (reads from ../.env.local or root .env)
 
@@ -149,8 +149,8 @@ const EMAILS = [
     html: shell("Solicitud de plaza", "Alejandro quiere 2 plazas · Coldplay",
       `<h1 style="font-family:Georgia,serif;font-size:28px;line-height:1.15;margin:0 0 12px 0;">Hola, Carlos.</h1>
       <p style="margin:0 0 6px 0;">${badge("Requiere confirmación", "warning")}</p>
-      <p style="color:#ccc;margin:12px 0 24px 0;line-height:1.6;font-size:15px;"><strong style="color:#DBFF00;">Alejandro Lalaguna</strong> quiere 2 plazas en tu viaje. Confírmala o recházala cuanto antes.</p>
-      ${table([["Concierto","Coldplay · Music of the Spheres"],["Salida desde","Madrid (Atocha)"],["Plazas","2 plazas"],["Pasajero","Alejandro Lalaguna"]])}
+      <p style="color:#ccc;margin:12px 0 24px 0;line-height:1.6;font-size:15px;"><strong style="color:#DBFF00;">Equipo ConcertRide</strong> quiere 2 plazas en tu viaje. Confírmala o recházala cuanto antes.</p>
+      ${table([["Concierto","Coldplay · Music of the Spheres"],["Salida desde","Madrid (Atocha)"],["Plazas","2 plazas"],["Pasajero","Equipo ConcertRide"]])}
       ${alert(`⚡ Los conductores que responden en menos de 2 horas reciben mejores valoraciones. ¡No dejes esperando a Alejandro!`, "warning")}
       <p style="margin:0 0 8px 0;">${cta(`${BASE}/rides/123`, "Revisar y responder")}</p>`
     ),
@@ -228,11 +228,11 @@ const EMAILS = [
     ),
   },
   {
-    subject: "[TEST] [Admin] Nuevo carnet para verificar — Alejandro Lalaguna",
-    html: shell("[Admin] Carnet pendiente", "Acción requerida: revisar carnet de Alejandro Lalaguna",
+    subject: "[TEST] [Admin] Nuevo carnet para verificar — Equipo ConcertRide",
+    html: shell("[Admin] Carnet pendiente", "Acción requerida: revisar carnet de Equipo ConcertRide",
       `<h1 style="font-family:Georgia,serif;font-size:24px;line-height:1.15;margin:0 0 12px 0;">Nuevo carnet pendiente de revisión.</h1>
       <p style="color:#ccc;margin:0 0 24px 0;line-height:1.6;font-size:15px;">Un usuario ha enviado su carnet de conducir para verificación. Revísalo en el panel de administración.</p>
-      ${table([["Usuario","Alejandro Lalaguna"],["User ID","usr_abc123"],["Review ID","rev_xyz789"]])}
+      ${table([["Usuario","Equipo ConcertRide"],["User ID","usr_abc123"],["Review ID","rev_xyz789"]])}
       ${alert(`🔍 Comprueba que el documento es legible, pertenece al usuario y está vigente. Aprueba o rechaza desde el panel admin indicando el motivo si procede.`, "info")}
       <p style="margin:0 0 12px 0;">${cta(`${BASE}/api/license-file/TEST`, "Ver documento")}</p>
       <p style="margin:0;">${ctaSec(`${BASE}/admin`, "Ir al panel admin")}</p>`

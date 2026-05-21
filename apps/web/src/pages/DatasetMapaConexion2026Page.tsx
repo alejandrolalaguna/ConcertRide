@@ -1,4 +1,4 @@
-import { useState } from "react";
+﻿import { useState } from "react";
 import { Link } from "react-router-dom";
 import { ArrowRight, Check, Copy, Download, ExternalLink } from "lucide-react";
 import { useSeoMeta } from "@/lib/useSeoMeta";
@@ -369,7 +369,7 @@ export default function DatasetMapaConexion2026Page() {
         <EeatTrustBlock
           pageType="dataset"
           lastReviewed="2026-05-20"
-          author={{ name: "Equipo de datos ConcertRide", url: "/autor/alejandro-lalaguna" }}
+          author={{ name: "Equipo de datos ConcertRide", url: "/autor/equipo-concertride" }}
           methodologyHref="#metodologia"
         />
         <AiDisclosureNote level={aiLevelForPageType("dataset")} />

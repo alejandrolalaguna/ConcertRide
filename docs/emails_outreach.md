@@ -1,7 +1,7 @@
-# ConcertRide — Emails de Outreach Redactados
+﻿# ConcertRide — Emails de Outreach Redactados
 
 > **Fecha:** 3 de mayo de 2026  
-> **Autor:** Alejandro Lalaguna Maza — ConcertRide  
+> **Autor:** Equipo ConcertRide Maza — ConcertRide  
 > **Uso:** Copiar el cuerpo del email, adjuntar la captura indicada y enviar. Los seguimientos están redactados debajo de cada email principal.
 
 ---
@@ -10,7 +10,7 @@
 
 1. **Firma fija en todos los emails:**
    ```
-   Alejandro Lalaguna Maza
+   Equipo ConcertRide Maza
    Fundador — ConcertRide
    concertride.me | 653 290 456
    ```
@@ -62,7 +62,7 @@ Cero coste, cero integración técnica. Solo un link.
 
 ¿Podemos hablar esta semana?
 
-Alejandro Lalaguna Maza  
+Equipo ConcertRide Maza  
 Fundador — ConcertRide  
 concertride.me | 653 290 456
 
@@ -104,7 +104,7 @@ Sin coste, sin integración técnica. Solo un link que ya funciona.
 
 ¿Hay alguien del equipo de operaciones o comunicación con quien pueda hablar esta semana?
 
-Alejandro Lalaguna Maza  
+Equipo ConcertRide Maza  
 Fundador — ConcertRide  
 concertride.me | 653 290 456
 
@@ -146,7 +146,7 @@ Modelo revenue share — sin coste fijo para el festival.
 
 ¿20 minutos esta semana o la próxima para verlo en vivo?
 
-Alejandro Lalaguna Maza  
+Equipo ConcertRide Maza  
 Fundador — ConcertRide  
 concertride.me | 653 290 456
 
@@ -186,7 +186,7 @@ Sin coste fijo. La activación más rápida posible: un link en vuestro email de
 
 ¿Tenéis 20 minutos esta semana para ver una demo?
 
-Alejandro Lalaguna Maza  
+Equipo ConcertRide Maza  
 Fundador — ConcertRide  
 concertride.me | 653 290 456
 
@@ -226,7 +226,7 @@ Para el festival: datos de procedencia de asistentes, reducción de congestión 
 
 ¿20 minutos esta semana?
 
-Alejandro Lalaguna Maza  
+Equipo ConcertRide Maza  
 Fundador — ConcertRide  
 concertride.me | 653 290 456
 
@@ -265,7 +265,7 @@ Para Arenal Sound:
 
 La plataforma ya está funcionando. ¿Tenéis 20 minutos para una demo aplicada a Arenal Sound?
 
-Alejandro Lalaguna Maza  
+Equipo ConcertRide Maza  
 Fundador — ConcertRide  
 concertride.me | 653 290 456
 
@@ -305,7 +305,7 @@ Con un attach rate del 3 % (conservador), el ingreso adicional para Wegow es rel
 
 ¿20 minutos con alguien de producto o partnerships esta semana?
 
-Alejandro Lalaguna Maza  
+Equipo ConcertRide Maza  
 Fundador — ConcertRide  
 concertride.me | 653 290 456
 
@@ -347,7 +347,7 @@ Con el volumen de Ticketmaster en España, incluso un 2 % de attach rate represe
 
 ¿Hay alguien del equipo de partnerships con quien pueda hablar 20 minutos?
 
-Alejandro Lalaguna Maza  
+Equipo ConcertRide Maza  
 Fundador — ConcertRide  
 concertride.me | 653 290 456
 
@@ -387,7 +387,7 @@ La integración más sencilla: un botón o link "Organiza tu transporte" en la p
 
 ¿20 minutos con alguien de partnerships o producto esta semana?
 
-Alejandro Lalaguna Maza  
+Equipo ConcertRide Maza  
 Fundador — ConcertRide  
 concertride.me | 653 290 456
 
@@ -433,7 +433,7 @@ Lo que propongo es un widget o link en la web del WiZink para cada concierto:
 
 ¿20 minutos para ver cómo quedaría aplicado al WiZink?
 
-Alejandro Lalaguna Maza  
+Equipo ConcertRide Maza  
 Fundador — ConcertRide  
 concertride.me | 653 290 456
 
@@ -457,7 +457,7 @@ Para el Palau: un link o widget en vuestra web de cada evento, sin coste, con co
 
 ¿Os cuadra una llamada de 20 minutos?
 
-Alejandro Lalaguna Maza  
+Equipo ConcertRide Maza  
 Fundador — ConcertRide  
 concertride.me | 653 290 456
 
@@ -485,7 +485,7 @@ Sin coste fijo. Revenue share solo si hay bookings.
 
 ¿20 minutos esta semana?
 
-Alejandro Lalaguna Maza  
+Equipo ConcertRide Maza  
 Fundador — ConcertRide  
 concertride.me | 653 290 456
 
@@ -513,7 +513,7 @@ El 80 % de los asistentes de Viña Rock vienen de fuera de Villarobledo. Sin coo
 
 Sin coste fijo. ¿20 minutos para verlo?
 
-Alejandro Lalaguna Maza  
+Equipo ConcertRide Maza  
 Fundador — ConcertRide  
 concertride.me | 653 290 456
 
@@ -541,7 +541,7 @@ Para el festival: menos congestión en los accesos a Viveiro, datos de procedenc
 
 ¿Hablamos esta semana?
 
-Alejandro Lalaguna Maza  
+Equipo ConcertRide Maza  
 Fundador — ConcertRide  
 concertride.me | 653 290 456
 
@@ -573,7 +573,7 @@ Modelo revenue share — sin coste fijo. Un acuerdo con Live Nation abre acceso 
 
 ¿Hay alguien del equipo de partnerships con quien pueda hablar?
 
-Alejandro Lalaguna Maza  
+Equipo ConcertRide Maza  
 Fundador — ConcertRide  
 concertride.me | 653 290 456
 
@@ -620,4 +620,4 @@ Hacer los siguientes screenshots en escritorio (mínimo 1200px de ancho), guarda
 
 ---
 
-*Documento actualizado: 3 de mayo de 2026 — Alejandro Lalaguna Maza / ConcertRide*
+*Documento actualizado: 3 de mayo de 2026 — Equipo ConcertRide Maza / ConcertRide*

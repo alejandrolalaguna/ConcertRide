@@ -5,22 +5,22 @@ import { SITE_URL } from "@/lib/siteUrl";
 import { BLOG_POSTS, BLOG_CATEGORIES } from "@/lib/blogPosts";
 
 /**
- * Author landing page — `/autor/alejandro-lalaguna`.
+ * Author landing page — `/autor/equipo-concertride`.
  *
- * E-E-A-T page: provides a canonical Person entity for the founder so that
- * Google + AI Overviews can associate every blog post `author` field with a
- * real, schema-marked-up person URL. Listed in `seoConfig.AUTHOR_URL` and
- * consumed by `BlogPostPage.tsx` for the byline link + JSON-LD author.url.
+ * E-E-A-T page: canonical Organization-as-author entity. Every blog post's
+ * `author` field points here so Google + AI Overviews can resolve the byline
+ * to a real URL with bio, knowsAbout, sameAs and editorial policy.
  */
 
-const AUTHOR_NAME = "Alejandro Lalaguna";
-const AUTHOR_URL = `${SITE_URL}/autor/alejandro-lalaguna`;
+const AUTHOR_NAME = "Equipo ConcertRide";
+const AUTHOR_URL = `${SITE_URL}/autor/equipo-concertride`;
 const AUTHOR_EMAIL = "help@concertride.me";
 
 const SAME_AS = [
-  "https://www.linkedin.com/in/alejandrolalaguna/",
   "https://twitter.com/concertride_es",
-  "https://github.com/ALalagunaa",
+  "https://www.instagram.com/concertride_es/",
+  "https://www.linkedin.com/company/concertride-es",
+  "https://www.facebook.com/concertride.me",
 ];
 
 const KNOWS_ABOUT = [
@@ -33,17 +33,16 @@ const KNOWS_ABOUT = [
 ];
 
 /**
- * Pick the last 10 posts authored by the founder or the team byline.
- * Read-only on `BLOG_POSTS`. Filter accepts any author string containing
- * "Alejandro" or "Equipo ConcertRide" / "ConcertRide" so future hand-signed
- * posts also appear here automatically.
+ * Pick the last 10 posts authored by the editorial team. Read-only on
+ * `BLOG_POSTS`. Filter accepts any author string containing
+ * "Equipo ConcertRide" / "ConcertRide" so future hand-signed posts also
+ * appear here automatically.
  */
 function getAuthoredPosts() {
   return [...BLOG_POSTS]
     .filter((p) => {
       const a = (p.author ?? "").toLowerCase();
       return (
-        a.includes("alejandro") ||
         a.includes("equipo concertride") ||
         a === "concertride" ||
         a === "concertride team"
@@ -53,18 +52,18 @@ function getAuthoredPosts() {
     .slice(0, 10);
 }
 
-export default function AutorAlejandroLalagunaPage() {
+export default function AutorEquipoConcertRidePage() {
   const posts = getAuthoredPosts();
 
   useSeoMeta({
-    title: "Alejandro Lalaguna — Founder ConcertRide | Movilidad festivalera",
+    title: "Equipo ConcertRide — Autores de movilidad festivalera",
     description:
-      "Founder de ConcertRide y autor de guías de carpooling festivalero en España. Datos, rutas y sostenibilidad para conciertos y festivales 2026.",
+      "Equipo editorial de ConcertRide. Guías de carpooling para festivales en España, comparativas de transporte y datos abiertos de movilidad festivalera 2026.",
     canonical: AUTHOR_URL,
     keywords:
-      "Alejandro Lalaguna, founder ConcertRide, autor ConcertRide, carpooling festivales España, movilidad festivalera, autor transporte festivales",
+      "Equipo ConcertRide, autor ConcertRide, carpooling festivales España, movilidad festivalera, autor transporte festivales",
     ogImage: `${SITE_URL}/og/home.png`,
-    ogImageAlt: `${AUTHOR_NAME} — Founder de ConcertRide`,
+    ogImageAlt: `${AUTHOR_NAME} — Equipo editorial`,
     ogType: "article",
     articleAuthor: AUTHOR_NAME,
     articleSection: "Autor",
@@ -75,35 +74,27 @@ export default function AutorAlejandroLalagunaPage() {
     ],
   });
 
-  // ── JSON-LD Person ──────────────────────────────────────────────────────
-  const personSchema = {
+  // ── JSON-LD Organization-as-author ────────────────────────────────────
+  const orgAuthorSchema = {
     "@context": "https://schema.org",
-    "@type": "Person",
-    "@id": `${SITE_URL}/#founder`,
+    "@type": "Organization",
+    "@id": `${SITE_URL}/#editorial-team`,
     name: AUTHOR_NAME,
-    givenName: "Alejandro",
-    familyName: "Lalaguna",
     url: AUTHOR_URL,
     mainEntityOfPage: AUTHOR_URL,
-    jobTitle: "Founder & autor",
     description:
-      "Founder de ConcertRide (2026), plataforma española de carpooling para festivales y conciertos. Autor de guías sobre movilidad festivalera, comparativas de transporte y sostenibilidad de eventos masivos en España.",
-    worksFor: {
+      "Equipo editorial de ConcertRide (2026), plataforma española de carpooling para festivales y conciertos. Guías sobre movilidad festivalera, comparativas de transporte y sostenibilidad de eventos masivos en España.",
+    parentOrganization: {
       "@type": "Organization",
       "@id": `${SITE_URL}/#organization`,
       name: "ConcertRide ES",
       url: SITE_URL,
-      sameAs: [
-        "https://twitter.com/concertride_es",
-        "https://www.instagram.com/concertride_es/",
-        "https://www.linkedin.com/company/concertride-es",
-        "https://www.facebook.com/concertride.me",
-      ],
+      sameAs: SAME_AS,
     },
     sameAs: SAME_AS,
     knowsAbout: KNOWS_ABOUT,
     knowsLanguage: ["es", "en"],
-    nationality: { "@type": "Country", name: "Spain" },
+    areaServed: { "@type": "Country", name: "Spain" },
     email: `mailto:${AUTHOR_EMAIL}`,
     image: {
       "@type": "ImageObject",
@@ -126,12 +117,12 @@ export default function AutorAlejandroLalagunaPage() {
   const profilePageSchema = {
     "@context": "https://schema.org",
     "@type": "ProfilePage",
-    name: `${AUTHOR_NAME} — Founder de ConcertRide`,
+    name: `${AUTHOR_NAME} — Autores de ConcertRide`,
     url: AUTHOR_URL,
     inLanguage: "es-ES",
     dateModified: "2026-05-20",
-    mainEntity: { "@id": `${SITE_URL}/#founder` },
-    about: { "@id": `${SITE_URL}/#founder` },
+    mainEntity: { "@id": `${SITE_URL}/#editorial-team` },
+    about: { "@id": `${SITE_URL}/#editorial-team` },
     isPartOf: { "@id": `${SITE_URL}/#website` },
     speakable: {
       "@type": "SpeakableSpecification",
@@ -143,7 +134,7 @@ export default function AutorAlejandroLalagunaPage() {
     <main id="main" className="min-h-dvh bg-cr-bg text-cr-text pt-14">
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(personSchema) }}
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(orgAuthorSchema) }}
       />
       <script
         type="application/ld+json"
@@ -175,20 +166,19 @@ export default function AutorAlejandroLalagunaPage() {
           </p>
 
           <div className="flex flex-col sm:flex-row items-start sm:items-center gap-5 pt-2">
-            {/* Avatar — falls back to monogram on a primary-tinted disc.
-                No external photo to avoid hosting/consent issues. */}
+            {/* Avatar — collective monogram on a primary-tinted disc. */}
             <div
               aria-hidden="true"
               className="w-20 h-20 rounded-full bg-cr-primary/10 border border-cr-primary/40 flex items-center justify-center shrink-0 font-display text-3xl text-cr-primary uppercase select-none"
             >
-              AL
+              CR
             </div>
             <div className="space-y-2">
               <h1 className="font-display text-3xl md:text-5xl uppercase leading-[0.96]">
-                {AUTHOR_NAME} — Founder & autor en ConcertRide
+                {AUTHOR_NAME} — Autores en ConcertRide
               </h1>
               <p className="font-mono text-[11px] text-cr-primary uppercase tracking-[0.12em]">
-                Founder · Movilidad festivalera España
+                Equipo editorial · Movilidad festivalera España
               </p>
             </div>
           </div>
@@ -197,32 +187,32 @@ export default function AutorAlejandroLalagunaPage() {
         {/* ── Bio ── */}
         <section className="space-y-4 font-sans text-base text-cr-text-muted leading-relaxed">
           <p className="speakable">
-            <strong className="text-cr-text">Alejandro Lalaguna</strong> es el founder de{" "}
+            <strong className="text-cr-text">{AUTHOR_NAME}</strong> es el equipo editorial detrás
+            de las guías de{" "}
             <Link to="/" className="text-cr-primary hover:underline">
               ConcertRide
             </Link>
             , la plataforma española de carpooling especializada en{" "}
-            <strong className="text-cr-text">festivales y conciertos</strong>. Lanzó el
-            proyecto en 2026 después de comprobar que el transporte a los grandes festivales
-            de España (Mad Cool, Primavera Sound, Arenal Sound, BBK Live, FIB, Resurrection
-            Fest, Viña Rock) sigue resolviéndose con coches medio vacíos, taxis caros de
-            madrugada o autobuses que no cubren la vuelta nocturna.
+            <strong className="text-cr-text">festivales y conciertos</strong>. El proyecto se
+            lanzó en 2026 tras comprobar que el transporte a los grandes festivales de España
+            (Mad Cool, Primavera Sound, Arenal Sound, BBK Live, FIB, Resurrection Fest, Viña
+            Rock) sigue resolviéndose con coches medio vacíos, taxis caros de madrugada o
+            autobuses que no cubren la vuelta nocturna.
           </p>
           <p>
-            Ingeniero de software con experiencia en IoT y desarrollo de producto, Alejandro
-            combina la práctica del producto con un trabajo continuo de{" "}
-            <strong className="text-cr-text">investigación sobre movilidad festivalera</strong>:
-            recopila datos de rutas, precios por asiento, distancias y horarios reales de
-            cada recinto y los publica como guías accesibles. Es el autor principal de las
+            El equipo combina práctica de producto y desarrollo software con un trabajo continuo
+            de <strong className="text-cr-text">investigación sobre movilidad festivalera</strong>:
+            recopilamos datos de rutas, precios por asiento, distancias y horarios reales de
+            cada recinto y los publicamos como guías accesibles. Somos los autores de las
             comparativas de transporte y de los artículos de carpooling festival a festival
-            que se publican en este blog.
+            que publicamos en este blog.
           </p>
           <p>
-            Vive entre Zaragoza y Madrid, ha asistido a más de 15 festivales en los últimos
-            cinco años (entre ellos Resurrection Fest, Sonorama, Mad Cool y Primavera Sound)
-            y escribe en español sobre carpooling, transporte público a festivales y
-            sostenibilidad de eventos masivos en España. ConcertRide es 100% bootstrapped,
-            sin comisión de plataforma y enfocada en datos abiertos —{" "}
+            Hemos asistido en conjunto a más de 15 festivales en los últimos cinco años (entre
+            ellos Resurrection Fest, Sonorama, Mad Cool y Primavera Sound) y escribimos en
+            español sobre carpooling, transporte público a festivales y sostenibilidad de
+            eventos masivos en España. ConcertRide es 100% bootstrapped, sin comisión de
+            plataforma y enfocada en datos abiertos —{" "}
             <Link to="/datos" className="text-cr-primary hover:underline">
               ver dataset CC BY 4.0
             </Link>
@@ -230,10 +220,10 @@ export default function AutorAlejandroLalagunaPage() {
           </p>
         </section>
 
-        {/* ── Sobre qué escribo ── */}
+        {/* ── Sobre qué escribimos ── */}
         <section className="space-y-4 border-t border-cr-border pt-8">
           <h2 className="font-display text-2xl md:text-3xl uppercase leading-tight">
-            Sobre qué escribo
+            Sobre qué escribimos
           </h2>
           <dl className="grid sm:grid-cols-2 gap-5 font-sans text-sm text-cr-text-muted leading-relaxed">
             <div className="border border-cr-border p-5 space-y-2">
@@ -254,7 +244,7 @@ export default function AutorAlejandroLalagunaPage() {
               <dd>
                 Autobús oficial vs lanzadera vs bus interurbano vs tren vs carpooling vs
                 taxi. Tablas con precio, tiempo, horario, disponibilidad de vuelta nocturna y
-                trampas comunes ("bus al festival" privados, lanzaderas que no son
+                trampas comunes (&ldquo;bus al festival&rdquo; privados, lanzaderas que no son
                 oficiales).
               </dd>
             </div>
@@ -264,7 +254,7 @@ export default function AutorAlejandroLalagunaPage() {
               </dt>
               <dd>
                 Huella de carbono de un festival, peso del transporte de asistentes (~80%
-                del total según Julie's Bicycle), reducción de emisiones por carpooling
+                del total según Julie&apos;s Bicycle), reducción de emisiones por carpooling
                 (~71% con 3,5 personas/coche vs viaje individual) y benchmarks comparados
                 con UE.
               </dd>
@@ -302,7 +292,7 @@ export default function AutorAlejandroLalagunaPage() {
             Datos y metodología
           </h2>
           <p className="font-sans text-sm text-cr-text-muted leading-relaxed">
-            Las cifras y comparativas que aparecen en mis artículos provienen del dataset
+            Las cifras y comparativas que aparecen en nuestros artículos provienen del dataset
             propio de ConcertRide (rutas, precios, distancias, tiempos) complementado con
             fuentes públicas: Asociación de Promotores Musicales (APM), Renfe, ALSA,
             Ticketmaster Discovery API v2, y datos abiertos de movilidad de la DGT. La
@@ -428,7 +418,7 @@ export default function AutorAlejandroLalagunaPage() {
           <ul className="grid sm:grid-cols-2 gap-3 font-sans text-sm">
             <li>
               <a
-                href="https://www.linkedin.com/in/alejandrolalaguna/"
+                href="https://www.linkedin.com/company/concertride-es"
                 target="_blank"
                 rel="me noopener noreferrer"
                 className="flex items-center justify-between gap-2 border border-cr-border p-4 hover:border-cr-primary transition-colors group"
@@ -438,7 +428,7 @@ export default function AutorAlejandroLalagunaPage() {
                     LinkedIn
                   </span>
                   <span className="text-cr-text group-hover:text-cr-primary transition-colors">
-                    /in/alejandrolalaguna
+                    /company/concertride-es
                   </span>
                 </span>
                 <ExternalLink size={14} className="text-cr-text-muted group-hover:text-cr-primary" />
@@ -453,7 +443,7 @@ export default function AutorAlejandroLalagunaPage() {
               >
                 <span className="flex flex-col">
                   <span className="font-mono text-[10px] uppercase tracking-[0.12em] text-cr-text-muted">
-                    X / Twitter (ConcertRide)
+                    X / Twitter
                   </span>
                   <span className="text-cr-text group-hover:text-cr-primary transition-colors">
                     @concertride_es
@@ -464,17 +454,17 @@ export default function AutorAlejandroLalagunaPage() {
             </li>
             <li>
               <a
-                href="https://github.com/ALalagunaa"
+                href="https://www.instagram.com/concertride_es/"
                 target="_blank"
                 rel="me noopener noreferrer"
                 className="flex items-center justify-between gap-2 border border-cr-border p-4 hover:border-cr-primary transition-colors group"
               >
                 <span className="flex flex-col">
                   <span className="font-mono text-[10px] uppercase tracking-[0.12em] text-cr-text-muted">
-                    GitHub
+                    Instagram
                   </span>
                   <span className="text-cr-text group-hover:text-cr-primary transition-colors">
-                    ALalagunaa
+                    @concertride_es
                   </span>
                 </span>
                 <ExternalLink size={14} className="text-cr-text-muted group-hover:text-cr-primary" />

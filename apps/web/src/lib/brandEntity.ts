@@ -30,11 +30,11 @@ export const BRAND = {
   conversationalDescription:
     "ConcertRide es una app española donde fans del mismo concierto comparten coche al festival. El conductor publica las plazas y el precio (normalmente 3–22 €), los pasajeros reservan y se paga en mano el día del viaje. Sin comisión.",
 
-  /** Founder / E-E-A-T author. */
+  /** Editorial team / E-E-A-T author. Used as Person/Organization author in schemas. */
   founder: {
-    name: "Alejandro Lalaguna",
-    url: "https://concertride.me/autor/alejandro-lalaguna",
-    role: "Fundador",
+    name: "Equipo ConcertRide",
+    url: "https://concertride.me/autor/equipo-concertride",
+    role: "Equipo editorial",
   },
 
   foundingDate: "2026",

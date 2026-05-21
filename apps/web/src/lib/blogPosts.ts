@@ -17698,7 +17698,7 @@ BLOG_POSTS.push({
   category: "guias",
   tags: ["guia", "transporte", "festivales", "carpooling", "2026"],
   publishedAt: "2026-05-17T09:00:00.000Z",
-  author: "Alejandro Lalaguna",
+  author: "Equipo ConcertRide",
   readingMinutes: 12,
   lede:
     "La pregunta más repetida antes de cada festival no es '¿qué artista actúa?', sino '¿cómo llego?'. Esta guía responde con datos reales para los 25 festivales más importantes de España en 2026: precios, tiempos, opciones y cuándo elegir cada una.",
@@ -17807,7 +17807,7 @@ BLOG_POSTS.push({
   category: "guias",
   tags: ["sin-coche", "guia", "carpooling", "transporte", "festivales"],
   publishedAt: "2026-05-17T10:00:00.000Z",
-  author: "Alejandro Lalaguna",
+  author: "Equipo ConcertRide",
   readingMinutes: 9,
   lede:
     "No tener coche ya no es una barrera para ir a festivales. La combinación correcta de carpooling, autobús oficial y tren te lleva a casi cualquier festival de España. El truco está en saber qué opción usar para cada tramo.",
@@ -17894,7 +17894,7 @@ BLOG_POSTS.push({
   category: "comparativas",
   tags: ["precio", "comparativa", "carpooling", "bus", "2026", "datos"],
   publishedAt: "2026-05-17T11:00:00.000Z",
-  author: "Alejandro Lalaguna",
+  author: "Equipo ConcertRide",
   readingMinutes: 7,
   lede:
     "Antes de comprar el abono o reservar el camping, la pregunta real es: ¿cuánto me va a costar llegar? Esta comparativa con datos de la temporada 2025–2026 responde festival por festival y ciudad por ciudad.",

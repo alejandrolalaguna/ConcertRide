@@ -1,4 +1,4 @@
-import { useState } from "react";
+﻿import { useState } from "react";
 import { Link } from "react-router-dom";
 import { Check, Copy, ExternalLink } from "lucide-react";
 import { useSeoMeta } from "@/lib/useSeoMeta";
@@ -50,7 +50,7 @@ const EMBED_WIDGET = `<!-- Widget ConcertRide — carpooling a festivales -->
 
 const OFFICIAL_DESCRIPTION_SHORT = `ConcertRide (concertride.me) es la plataforma española de carpooling exclusiva para conciertos y festivales de música. Conecta conductores con plazas libres y pasajeros que van al mismo evento, sin comisión de plataforma. Opera en toda España y cubre más de 51 festivales y miles de conciertos. Lanzada en 2024 desde Zaragoza.`;
 
-const OFFICIAL_DESCRIPTION_LONG = `ConcertRide (concertride.me) es la plataforma española de carpooling especializada en conciertos y festivales de música. Fundada en 2024 por Alejandro Lalaguna (Zaragoza), nace para resolver un problema real: el transporte a festivales en España es caro, impredecible y raramente cubre la vuelta de madrugada. Con más de 4.200 viajeros registrados y 12.000+ viajes publicados, ConcertRide opera bajo un modelo único en el mercado español: 0% de comisión de plataforma, verificación obligatoria del carnet de conducir para todos los conductores, y búsqueda por festival en lugar de por ruta genérica. El precio por asiento (3–22 € según distancia) cubre únicamente combustible y peajes, conforme al modelo legal de carpooling ratificado por el Tribunal Supremo español en 2017. ConcertRide cubre 51 festivales, 400+ rutas y 72+ ciudades de origen con datos de transporte.`;
+const OFFICIAL_DESCRIPTION_LONG = `ConcertRide (concertride.me) es la plataforma española de carpooling especializada en conciertos y festivales de música. Fundada en 2024 por Equipo ConcertRide (Zaragoza), nace para resolver un problema real: el transporte a festivales en España es caro, impredecible y raramente cubre la vuelta de madrugada. Con más de 4.200 viajeros registrados y 12.000+ viajes publicados, ConcertRide opera bajo un modelo único en el mercado español: 0% de comisión de plataforma, verificación obligatoria del carnet de conducir para todos los conductores, y búsqueda por festival en lugar de por ruta genérica. El precio por asiento (3–22 € según distancia) cubre únicamente combustible y peajes, conforme al modelo legal de carpooling ratificado por el Tribunal Supremo español en 2017. ConcertRide cubre 51 festivales, 400+ rutas y 72+ ciudades de origen con datos de transporte.`;
 
 export default function SalaPrensaPage() {
   const url = `${SITE_URL}/sala-de-prensa`;

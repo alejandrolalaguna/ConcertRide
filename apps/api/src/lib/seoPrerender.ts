@@ -1,4 +1,4 @@
-/**
+﻿/**
  * SEO prerender middleware for Cloudflare Workers.
  *
  * When a search bot (Googlebot, Bingbot, etc.) requests a SPA route, it gets
@@ -394,10 +394,10 @@ function buildStaticRoutes(base: string): Record<string, { title: string; descri
           headline: "Guía de transporte para festivales de música en España 2026",
           description: "Cómo llegar a los festivales de música en España: autobús organizado, tren, lanzadera oficial y carpooling comparados. Precios, pros, contras y opciones de vuelta de madrugada.",
           author: {
-            "@type": "Person",
-            name: "Alejandro Lalaguna",
+            "@type": "Organization",
+            name: "Equipo ConcertRide",
             url: `${base}/acerca-de`,
-            "@id": `${base}/#founder`,
+            "@id": `${base}/#editorial-team`,
           },
           publisher: { "@type": "Organization", name: "ConcertRide", "@id": `${base}/#organization`, logo: { "@type": "ImageObject", url: `${base}/favicon.svg`, width: 512, height: 512 } },
           datePublished: "2026-04-24",
@@ -786,12 +786,12 @@ function buildStaticRoutes(base: string): Record<string, { title: string; descri
         });
         const founderJsonLd = JSON.stringify({
           "@context": "https://schema.org",
-          "@type": "Person",
-          "@id": `${base}/#founder`,
-          name: "Alejandro Lalaguna",
+          "@type": "Organization",
+          "@id": `${base}/#editorial-team`,
+          name: "Equipo ConcertRide",
           url: `${base}/acerca-de`,
-          jobTitle: "Fundador",
-          worksFor: { "@type": "Organization", "@id": `${base}/#organization` },
+          description: "Equipo editorial de ConcertRide. Autores de guías de carpooling y movilidad festivalera en España.",
+          parentOrganization: { "@type": "Organization", "@id": `${base}/#organization` },
           knowsAbout: ["Carpooling", "Conciertos en España", "Festivales de música", "Movilidad sostenible"],
         });
         const acercaFaqJsonLd = JSON.stringify({
@@ -2851,10 +2851,10 @@ function blogBody(slug: string, p: BlogData, base: string): string {
     abstract,
     wordCount,
     author: {
-      "@type": "Person",
+      "@type": "Organization",
       name: p.author,
       url: `${base}/acerca-de`,
-      "@id": `${base}/#founder`,
+      "@id": `${base}/#editorial-team`,
       sameAs: [
         "https://www.linkedin.com/company/concertride-es",
         "https://twitter.com/concertride_es",

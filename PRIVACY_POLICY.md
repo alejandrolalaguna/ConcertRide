@@ -1,4 +1,4 @@
-# Política de Privacidad — ConcertRide ES
+﻿# Política de Privacidad — ConcertRide ES
 
 **Última actualización:** 2026-04-25  
 **Efectiva desde:** 2026-04-25
@@ -9,7 +9,7 @@
 
 ConcertRide ES ("**nosotros**", "**la empresa**" o "**ConcertRide**") es una plataforma de carpooling especializada en conciertos y festivales en España. Esta Política de Privacidad explica cómo recopilamos, usamos, compartimos y protegemos tu información personal cuando utilizas nuestro sitio web, aplicación móvil (cuando esté disponible) y servicios asociados (colectivamente, los "**Servicios**").
 
-**Responsable del tratamiento de datos:** Alejandro Lalaguna  
+**Responsable del tratamiento de datos:** Equipo ConcertRide  
 **Correo electrónico:** help@concertride.me  
 **Domicilio:** Madrid, España
 

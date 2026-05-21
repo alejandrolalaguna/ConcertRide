@@ -1,4 +1,4 @@
-# Google Helpful Content + AI Disclosure — Implementation Notes (2026-05-20)
+﻿# Google Helpful Content + AI Disclosure — Implementation Notes (2026-05-20)
 
 Aligns ConcertRide content with Google's official "Creating helpful, reliable,
 people-first content" and "Using AI-generated content in Search" guidelines.
@@ -180,7 +180,7 @@ cubriendo automáticamente todas las instancias renderizadas por `:slug`.
   de los "Más artículos" relacionados. `lastReviewed` resuelve a
   `post.updatedAt ?? post.publishedAt`, y el `author` se rellena con la
   byline del post sólo si `isFounderByline()` la reconoce como Alejandro /
-  Equipo ConcertRide (link a `/autor/alejandro-lalaguna`). Para bylines
+  Equipo ConcertRide (link a `/autor/equipo-concertride`). Para bylines
   ajenos, se omite el author y se muestra sólo fecha + disclaimer.
 
 ### Total cobertura E-E-A-T (acumulada)

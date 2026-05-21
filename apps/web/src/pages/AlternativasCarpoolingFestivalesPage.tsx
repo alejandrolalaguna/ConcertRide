@@ -10,6 +10,7 @@ import { UniqueInsight } from "@/components/UniqueInsight";
 import { AgentActionRail } from "@/components/AgentActionRail";
 import { QueryFanoutCoverage } from "@/components/QueryFanoutCoverage";
 import { ContentProvenance } from "@/components/ContentProvenance";
+import { TerminologyAside } from "@/components/TerminologyAside";
 
 /**
  * BOFU comparison landing — /alternativas-carpooling-festivales
@@ -513,6 +514,8 @@ export default function AlternativasCarpoolingFestivalesPage() {
           ))}
         </div>
       </section>
+
+      <TerminologyAside />
 
       {/* ── Final CTA ── */}
       <section className="bg-cr-primary/10 border-t-2 border-cr-primary">

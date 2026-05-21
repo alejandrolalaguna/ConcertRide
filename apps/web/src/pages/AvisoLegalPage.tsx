@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+﻿import { Link } from "react-router-dom";
 import { useSeoMeta } from "@/lib/useSeoMeta";
 import { SITE_URL } from "@/lib/siteUrl";
 
@@ -44,7 +44,7 @@ export default function AvisoLegalPage() {
               sitio web es:
             </p>
             <ul className="space-y-1 pl-4 list-disc text-cr-text-muted">
-              <li><strong className="text-cr-text">Titular:</strong> Alejandro Lalaguna</li>
+              <li><strong className="text-cr-text">Titular:</strong> Equipo ConcertRide</li>
               <li><strong className="text-cr-text">Correo electrónico de contacto:</strong>{" "}
                 <a href="mailto:help@concertride.me" className="font-mono text-cr-primary underline underline-offset-2">
                   help@concertride.me

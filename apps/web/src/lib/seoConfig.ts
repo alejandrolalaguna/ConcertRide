@@ -1,4 +1,4 @@
-/**
+﻿/**
  * SEO Configuration for ConcertRide ES
  * Centralized configuration for meta tags, schema markup, and SEO best practices
  * Last updated: 2026-05-20
@@ -18,14 +18,14 @@ export const SEO_CONFIG = {
     description: BRAND.shortDescription,
     language: "es-ES",
     defaultLocale: "es-ES",
-    author: "Alejandro Lalaguna",
+    author: "Equipo ConcertRide",
     /**
      * Canonical author URL — points to the founder's E-E-A-T author page.
      * Used by schemaGenerators / BlogPostPage to populate `author.url` on
      * BlogPosting / NewsArticle / Person JSON-LD so AI Overviews can resolve
      * the byline to a real, schema-marked-up Person entity.
      */
-    authorUrl: "https://concertride.me/autor/alejandro-lalaguna",
+    authorUrl: "https://concertride.me/autor/equipo-concertride",
     contactEmail: "help@concertride.me",
   },
 

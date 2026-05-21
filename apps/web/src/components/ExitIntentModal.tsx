@@ -4,7 +4,10 @@ import { X } from "lucide-react";
 import { useSession } from "../lib/session";
 
 const AUTH_PATHS = new Set(["/login", "/register", "/forgot-password", "/reset-password", "/bienvenida"]);
-const SESSION_KEY = "cr_exit_shown";
+// Persisted in localStorage (not sessionStorage) so the modal fires at most
+// once per browser profile — closing the tab and returning later will not
+// re-trigger. Bump the key suffix to force-show again after a copy change.
+const STORAGE_KEY = "cr_exit_shown_v2";
 
 /** Convert a URL slug segment into a readable display name.
  *  "mad-cool-festival" → "Mad Cool Festival" */
@@ -69,9 +72,14 @@ export function ExitIntentModal() {
 
   const tryShow = useCallback(() => {
     if (shouldSuppress) return;
-    if (typeof sessionStorage === "undefined") return;
-    if (sessionStorage.getItem(SESSION_KEY)) return;
-    sessionStorage.setItem(SESSION_KEY, "1");
+    if (typeof window === "undefined" || typeof window.localStorage === "undefined") return;
+    try {
+      if (window.localStorage.getItem(STORAGE_KEY)) return;
+      window.localStorage.setItem(STORAGE_KEY, "1");
+    } catch {
+      // localStorage can throw in private mode / quota — fall through and
+      // still show once for this page lifetime to keep the UX intact.
+    }
     // Remember what was focused before opening the modal
     triggerRef.current = document.activeElement;
     setOpen(true);

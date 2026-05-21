@@ -8,6 +8,7 @@
 // don't break request paths.
 import type { Env } from "../env";
 import { getSiteUrl } from "./siteUrl";
+import { logTestEmail } from "./email-test-log";
 
 export interface SendResult {
   sent: boolean;
@@ -25,6 +26,12 @@ export async function sendEmail(
   env: Env,
   params: { to: string; subject: string; html: string },
 ): Promise<SendResult> {
+  // When TEST_MODE is on, log the email locally and skip the real Resend call.
+  // Lets E2E tests assert "an email was sent" without hitting Resend's API.
+  if (env.TEST_MODE === "true") {
+    logTestEmail({ template: "raw", to: params.to, subject: params.subject, payload: { html: params.html } });
+    return { sent: true, id: "test-mode" };
+  }
   if (!env.RESEND_API_KEY) {
     console.log(`[email:dev] → ${params.to} · ${params.subject}`);
     return { sent: false, error: "no_resend_key" };

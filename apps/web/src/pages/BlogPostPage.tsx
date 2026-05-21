@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+﻿import { useEffect, useRef, useState } from "react";
 import { Link, Navigate, useParams } from "react-router-dom";
 import { ArrowRight, Calendar, Check, Clock, Copy, ArrowLeft, Share2 } from "lucide-react";
 import { useSeoMeta } from "@/lib/useSeoMeta";
@@ -11,18 +11,18 @@ import { ANALYTICS_EVENTS, trackEvent } from "@/lib/analytics-events";
 import { useSession } from "@/lib/session";
 import EeatTrustBlock from "@/components/EeatTrustBlock";
 import AiDisclosureNote from "@/components/AiDisclosureNote";
+import { TerminologyAside } from "@/components/TerminologyAside";
 import { aiLevelForPageType } from "@/lib/aiContentPolicy";
 
 // Canonical founder/author page URL. When the byline matches a known author
-// (Alejandro Lalaguna, or the team byline we sign with the same person),
+// (Equipo ConcertRide, or the team byline we sign with the same person),
 // the byline links here and the JSON-LD author.url points here too. This is
 // the E-E-A-T anchor that AI Overviews follow to resolve the author entity.
-const AUTHOR_PAGE_URL = `${SITE_URL}/autor/alejandro-lalaguna`;
+const AUTHOR_PAGE_URL = `${SITE_URL}/autor/equipo-concertride`;
 function isFounderByline(author?: string): boolean {
   if (!author) return false;
   const a = author.toLowerCase();
   return (
-    a.includes("alejandro") ||
     a.includes("equipo concertride") ||
     a === "concertride" ||
     a === "concertride team"
@@ -281,10 +281,10 @@ export default function BlogPostPage() {
     keywords: post.tags.join(", "),
     wordCount: post.sections.reduce((acc, s) => acc + s.paragraphs.join(" ").split(/\s+/).length, 0),
     author: {
-      "@type": "Person",
-      name: post.author?.trim() || "ConcertRide",
+      "@type": "Organization",
+      name: post.author?.trim() || "Equipo ConcertRide",
       url: isFounderByline(post.author) ? AUTHOR_PAGE_URL : `${SITE_URL}/acerca-de`,
-      "@id": `${SITE_URL}/#founder`,
+      "@id": `${SITE_URL}/#editorial-team`,
       knowsAbout: [
         "carpooling",
         "festivales de música",
@@ -294,9 +294,10 @@ export default function BlogPostPage() {
         "conciertos en España",
       ],
       sameAs: [
-        "https://www.linkedin.com/in/alejandrolalaguna/",
         "https://twitter.com/concertride_es",
-        "https://github.com/ALalagunaa",
+        "https://www.instagram.com/concertride_es/",
+        "https://www.linkedin.com/company/concertride-es",
+        "https://www.facebook.com/concertride.me",
       ],
     },
     publisher: { "@id": `${SITE_URL}/#organization` },
@@ -347,10 +348,10 @@ export default function BlogPostPage() {
     dateModified: post.updatedAt ?? post.publishedAt,
     inLanguage: "es-ES",
     author: {
-      "@type": "Person",
-      name: post.author?.trim() || "ConcertRide",
+      "@type": "Organization",
+      name: post.author?.trim() || "Equipo ConcertRide",
       url: isFounderByline(post.author) ? AUTHOR_PAGE_URL : `${SITE_URL}/acerca-de`,
-      "@id": `${SITE_URL}/#founder`,
+      "@id": `${SITE_URL}/#editorial-team`,
       knowsAbout: [
         "carpooling",
         "festivales de música",
@@ -481,7 +482,7 @@ export default function BlogPostPage() {
           <span aria-hidden="true">·</span>
           {isFounderByline(post.author) ? (
             <Link
-              to="/autor/alejandro-lalaguna"
+              to="/autor/equipo-concertride"
               className="hover:text-cr-primary transition-colors underline-offset-2 hover:underline"
               rel="author"
               title={`Sobre el autor: ${post.author}`}
@@ -651,7 +652,7 @@ export default function BlogPostPage() {
           lastReviewed={post.updatedAt ?? post.publishedAt ?? "2026-05-20"}
           author={
             isFounderByline(post.author)
-              ? { name: post.author!, url: "/autor/alejandro-lalaguna" }
+              ? { name: post.author!, url: "/autor/equipo-concertride" }
               : undefined
           }
         />
@@ -696,6 +697,9 @@ export default function BlogPostPage() {
             BLOG_POST_READ_100. Intentionally invisible — no semantic content. */}
         <div ref={endSentinelRef} aria-hidden="true" style={{ height: 1 }} />
       </article>
+
+      {/* Terminology bridge — Gen Z synonyms for "carpooling" with internal links */}
+      <TerminologyAside variant="compact" />
     </main>
   );
 }

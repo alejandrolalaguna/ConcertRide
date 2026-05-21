@@ -1,7 +1,8 @@
-import { Link } from "react-router-dom";
+﻿import { Link } from "react-router-dom";
 import { ArrowRight, Bus, Car, Train, Zap } from "lucide-react";
 import { useSeoMeta } from "@/lib/useSeoMeta";
 import { SITE_URL } from "@/lib/siteUrl";
+import { TerminologyAside } from "@/components/TerminologyAside";
 import { FESTIVAL_LANDINGS } from "@/lib/festivalLandings";
 import { ANALYTICS_EVENTS, trackEvent } from "@/lib/analytics-events";
 import EeatTrustBlock from "@/components/EeatTrustBlock";
@@ -48,7 +49,7 @@ export default function GuiaTransporteFestivalesPage() {
     ogType: "article",
     articlePublishedTime: "2026-04-24",
     articleModifiedTime: new Date().toISOString().slice(0, 10),
-    articleAuthor: "Alejandro Lalaguna",
+    articleAuthor: "Equipo ConcertRide",
   });
 
   const jsonLdArticle = {
@@ -60,10 +61,10 @@ export default function GuiaTransporteFestivalesPage() {
     url: `${SITE_URL}/guia-transporte-festivales`,
     inLanguage: "es-ES",
     author: {
-      "@type": "Person",
-      name: "Alejandro Lalaguna",
+      "@type": "Organization",
+      name: "Equipo ConcertRide",
       url: `${SITE_URL}/acerca-de`,
-      "@id": `${SITE_URL}/#founder`,
+      "@id": `${SITE_URL}/#editorial-team`,
     },
     publisher: {
       "@id": `${SITE_URL}/#organization`,
@@ -568,11 +569,13 @@ export default function GuiaTransporteFestivalesPage() {
         </div>
       </section>
 
+      <TerminologyAside />
+
       <section className="max-w-6xl mx-auto px-6 pb-16">
         <EeatTrustBlock
           pageType="pillar"
           lastReviewed="2026-05-20"
-          author={{ name: "Equipo ConcertRide", url: "/autor/alejandro-lalaguna" }}
+          author={{ name: "Equipo ConcertRide", url: "/autor/equipo-concertride" }}
         />
         <AiDisclosureNote level={aiLevelForPageType("pillar")} />
       </section>

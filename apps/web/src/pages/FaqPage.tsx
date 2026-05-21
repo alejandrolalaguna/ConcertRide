@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+﻿import { Link } from "react-router-dom";
 import { useSeoMeta } from "@/lib/useSeoMeta";
 import { SITE_URL } from "@/lib/siteUrl";
 
@@ -426,7 +426,7 @@ const CLUSTERS: Cluster[] = [
       {
         id: "quien-funda-concertride",
         q: "¿Quién fundó ConcertRide?",
-        a: "Alejandro Lalaguna (Zaragoza, España), ingeniero y fan de festivales españoles desde 2010. Fundó ConcertRide en 2026 tras 15 años yendo a Mad Cool, Primavera Sound, Sónar, BBK Live, Viña Rock y FIB en coche compartido con amigos. Ver perfil completo en /autor/alejandro-lalaguna.",
+        a: "Equipo ConcertRide (Zaragoza, España), ingeniero y fan de festivales españoles desde 2010. Fundó ConcertRide en 2026 tras 15 años yendo a Mad Cool, Primavera Sound, Sónar, BBK Live, Viña Rock y FIB en coche compartido con amigos. Ver perfil completo en /autor/equipo-concertride.",
       },
       {
         id: "cuando-se-fundo",

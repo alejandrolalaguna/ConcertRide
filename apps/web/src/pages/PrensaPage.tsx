@@ -1,4 +1,4 @@
-import { useState } from "react";
+﻿import { useState } from "react";
 import { Link } from "react-router-dom";
 import { ArrowRight, Check, Copy, Download, ExternalLink, FileText, Quote } from "lucide-react";
 import { useSeoMeta } from "@/lib/useSeoMeta";
@@ -408,7 +408,7 @@ export default function PrensaPage() {
         <div className="space-y-2">
           <h2 className="font-display text-2xl md:text-3xl uppercase">Citas del fundador</h2>
           <p className="font-sans text-sm text-cr-text-muted leading-relaxed max-w-2xl">
-            4 citas autorizadas de Alejandro Lalaguna (Fundador, ConcertRide ES) — listas para reproducir
+            4 citas autorizadas de Equipo ConcertRide (Fundador, ConcertRide ES) — listas para reproducir
             en piezas periodísticas sin necesidad de entrevista previa. Atribución requerida.
           </p>
         </div>
@@ -421,12 +421,12 @@ export default function PrensaPage() {
               </blockquote>
               <footer className="flex items-center justify-between gap-4 flex-wrap pt-2">
                 <p className="font-mono text-[11px] text-cr-text-muted">
-                  — Alejandro Lalaguna, Fundador ConcertRide ES
+                  — Equipo ConcertRide, Fundador ConcertRide ES
                 </p>
                 <p className="font-mono text-[10px] text-cr-text-dim uppercase tracking-wider">{q.context}</p>
               </footer>
               <div className="pt-1">
-                <CopyButton text={`«${q.quote}» — Alejandro Lalaguna, Fundador ConcertRide ES`} />
+                <CopyButton text={`«${q.quote}» — Equipo ConcertRide, Fundador ConcertRide ES`} />
               </div>
             </li>
           ))}
@@ -643,7 +643,7 @@ export default function PrensaPage() {
         <div className="grid sm:grid-cols-2 gap-4">
           <div className="border border-cr-border p-5 space-y-2">
             <p className="font-mono text-[11px] uppercase tracking-wider text-cr-primary">Email principal</p>
-            <p className="font-display text-base uppercase">Alejandro Lalaguna</p>
+            <p className="font-display text-base uppercase">Equipo ConcertRide</p>
             <p className="font-mono text-xs text-cr-text-muted">Fundador, ConcertRide ES</p>
             <a
               href="mailto:founder@concertride.me"

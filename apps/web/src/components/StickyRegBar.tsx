@@ -4,7 +4,9 @@ import { X } from "lucide-react";
 import { useSession } from "../lib/session";
 import { ANALYTICS_EVENTS, trackEvent } from "../lib/analytics-events";
 
-const DISMISS_KEY = "cr_sticky_dismissed";
+// Persisted in localStorage so a single dismiss survives across sessions.
+// Bump the key suffix to force-show again after a copy change.
+const DISMISS_KEY = "cr_sticky_dismissed_v2";
 
 const AUTH_PATHS_STICKY = new Set(["/login", "/register", "/forgot-password", "/reset-password", "/bienvenida"]);
 
@@ -49,8 +51,14 @@ export function StickyRegBar() {
     if (loading || user) return;
     if (AUTH_PATHS_STICKY.has(location.pathname)) return;
 
-    // Check dismiss flag
-    if (typeof sessionStorage !== "undefined" && sessionStorage.getItem(DISMISS_KEY)) return;
+    // Check dismiss flag — persistent across browser sessions
+    if (typeof window !== "undefined" && typeof window.localStorage !== "undefined") {
+      try {
+        if (window.localStorage.getItem(DISMISS_KEY)) return;
+      } catch {
+        // localStorage can throw in private mode / quota — fall through
+      }
+    }
 
     // Delay 3 seconds before showing
     const timer = setTimeout(() => {
@@ -62,8 +70,13 @@ export function StickyRegBar() {
 
   function dismiss() {
     setVisible(false);
-    if (typeof sessionStorage !== "undefined") {
-      sessionStorage.setItem(DISMISS_KEY, "1");
+    if (typeof window !== "undefined" && typeof window.localStorage !== "undefined") {
+      try {
+        window.localStorage.setItem(DISMISS_KEY, "1");
+      } catch {
+        // localStorage can throw in private mode / quota — visual dismiss
+        // still works for the current page lifetime.
+      }
     }
   }
 

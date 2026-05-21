@@ -98,7 +98,7 @@ const FAQS = [
 
 export default function CompartirGastosFestivalPage() {
   useSeoMeta({
-    title: "Compartir gastos de coche al festival · ConcertRide — Bizum, Splitwise, sin comisión",
+    title: "Compartir gastos de coche al festival 2026 · ConcertRide",
     description:
       "Cómo compartir gastos de coche para ir a un festival: reparto entre 3-4 personas (15-25 €/persona), pago en Bizum o efectivo, apps como Splitwise o Tricount. Sin comisión ni intermediarios. Guía 2026.",
     canonical: `${SITE_URL}/compartir-gastos-festival`,

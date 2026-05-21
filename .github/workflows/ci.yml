@@ -1,28 +1,69 @@
-# name: CI
+name: CI
 
-# on:
-#   push:
-#     branches: [main]
-#   pull_request:
-#     branches: [main]
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
 
-# jobs:
-#   ci:
-#     runs-on: ubuntu-latest
-#     steps:
-#       - uses: actions/checkout@v4
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
 
-#       - uses: actions/setup-node@v4
-#         with:
-#           node-version: "20"
-#           cache: "npm"
+jobs:
+  lint-typecheck-unit:
+    name: Type-check + unit/integration tests
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
 
-#       - run: npm ci
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: "npm"
 
-#       - run: npm run type-check
+      - run: npm ci
 
-#       - run: npm test
+      - name: Brand-restriction lint
+        run: npm run lint:brand --workspace=@concertride/web
 
-#       - run: npm run build
-#         env:
-#           JWT_SECRET: ci-placeholder-not-used-at-runtime
+      - name: Type-check (all workspaces)
+        run: npm run type-check
+
+      - name: Vitest (api + web)
+        run: npm test
+        env:
+          JWT_SECRET: ci-placeholder-not-used-at-runtime
+
+  e2e:
+    name: Playwright E2E
+    runs-on: ubuntu-latest
+    needs: lint-typecheck-unit
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: "npm"
+
+      - run: npm ci
+
+      - name: Install Playwright browsers
+        run: npx playwright install --with-deps chromium
+
+      - name: Run Playwright
+        run: npm run e2e
+        env:
+          TEST_MODE: "true"
+          JWT_SECRET: ci-placeholder-not-used-at-runtime
+
+      - name: Upload Playwright report on failure
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: playwright-report
+          path: |
+            playwright-report/
+            test-results/
+          retention-days: 7

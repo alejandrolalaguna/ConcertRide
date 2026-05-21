@@ -105,7 +105,7 @@ const HowToGetTherePage = lazy(() => import("./pages/HowToGetTherePage"));
 const GenreLandingPage = lazy(() => import("./pages/GenreLandingPage"));
 const CalendarLandingPage = lazy(() => import("./pages/CalendarLandingPage"));
 const GlosarioPage = lazy(() => import("./pages/GlosarioPage"));
-const AutorAlejandroLalagunaPage = lazy(() => import("./pages/AutorAlejandroLalagunaPage"));
+const AutorEquipoConcertRidePage = lazy(() => import("./pages/AutorEquipoConcertRidePage"));
 
 export default function App() {
   return (
@@ -220,7 +220,7 @@ export default function App() {
             <Route path="/contacto" element={<ContactoPage />} />
             <Route path="/acerca-de" element={<AcercaDePage />} />
             <Route path="/glosario" element={<GlosarioPage />} />
-            <Route path="/autor/alejandro-lalaguna" element={<AutorAlejandroLalagunaPage />} />
+            <Route path="/autor/equipo-concertride" element={<AutorEquipoConcertRidePage />} />
             <Route path="/bienvenida" element={<BienvenidaPage />} />
             <Route path="/_dev" element={<DevShowcase />} />
             <Route path="*" element={<NotFoundPage />} />

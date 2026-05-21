@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+﻿import { useEffect, useState } from "react";
 import { Link, Navigate, useParams } from "react-router-dom";
 import { ArrowRight, MapPin, Calendar, Users } from "lucide-react";
 import type { Concert } from "@concertride/types";
@@ -35,6 +35,7 @@ import { SpeakableAnswerBlock } from "@/components/SpeakableAnswerBlock";
 import { AutoLinksForFestival } from "@/lib/autoLinking";
 import { BLOG_POSTS } from "@/lib/blogPosts";
 import { StickyRegBar } from "@/components/StickyRegBar";
+import { TerminologyAside } from "@/components/TerminologyAside";
 import { LiveDemandPulse } from "@/components/LiveDemandPulse";
 import { useSession } from "@/lib/session";
 import { TESTIMONIALS, TESTIMONIALS_AGGREGATE, selectTestimonialsFor } from "@/lib/testimonials";
@@ -1888,7 +1889,7 @@ export default function FestivalLandingPage() {
         <EeatTrustBlock
           pageType="festival"
           lastReviewed="2026-05-20"
-          author={{ name: "Equipo ConcertRide", url: "/autor/alejandro-lalaguna" }}
+          author={{ name: "Equipo ConcertRide", url: "/autor/equipo-concertride" }}
           methodologyHref="#fuentes-datos"
         />
         <div id="fuentes-datos" className="scroll-mt-20 space-y-2">
@@ -1941,6 +1942,9 @@ export default function FestivalLandingPage() {
           Publicar
         </Link>
       </div>
+      {/* Terminology bridge — Gen Z synonyms for "carpooling" with internal links */}
+      <TerminologyAside variant="compact" />
+
       {/* Spacer for sticky bar on mobile */}
       <div className="md:hidden h-20" />
     </main>

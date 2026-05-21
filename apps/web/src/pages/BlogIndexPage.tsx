@@ -4,6 +4,7 @@ import { ArrowRight, Calendar, Clock, X } from "lucide-react";
 import { useSeoMeta } from "@/lib/useSeoMeta";
 import { SITE_URL } from "@/lib/siteUrl";
 import { BLOG_POSTS, BLOG_CATEGORIES } from "@/lib/blogPosts";
+import { TerminologyAside } from "@/components/TerminologyAside";
 
 export default function BlogIndexPage() {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -311,6 +312,8 @@ export default function BlogIndexPage() {
           </li>
         </ul>
       </section>
+
+      <TerminologyAside />
     </main>
   );
 }

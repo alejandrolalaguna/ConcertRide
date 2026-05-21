@@ -28,4 +28,9 @@ export interface Env {
   YANDEX_VERIFICATION_TOKEN?: string;
   ASSETS: Fetcher;
   CACHE: KVNamespace;
+  // Test-only flag. When set to "true" AND ENVIRONMENT === "development",
+  // the Worker mounts /api/__test__/* helper endpoints used by Playwright E2E
+  // to seed users, flip verification flags, and read captured emails.
+  // MUST be empty/absent in any production deployment.
+  TEST_MODE?: string;
 }

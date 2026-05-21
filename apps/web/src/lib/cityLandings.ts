@@ -757,6 +757,477 @@ export const CITY_LANDINGS: CityLanding[] = [
     venues: ["Auditori del Raval", "Pavelló Esportiu de Gandia", "Polifònic Festival"],
     lat: 38.9676, lng: -0.1815,
   },
+  // ─── Wave 53 (2026-05-20): 8 cities festival/venue host ─────
+  {
+    slug: "fraga",
+    city: "Fraga",
+    display: "Fraga",
+    region: "Aragón",
+    blurb:
+      "Fraga (Huesca, 15.000 habitantes) es la capital de la comarca del Bajo Cinca, en el límite oriental de Aragón con Cataluña. Su entorno desértico de los Monegros acoge desde 1994 el Monegros Desert Festival, uno de los referentes europeos de música electrónica al aire libre (techno, drum'n'bass, house). El recinto se monta en pleno desierto, a unos 20 km de la ciudad, sin transporte público nocturno: el carpooling es la opción por defecto. Recintos urbanos: Palacio de Congresos de Fraga, Auditorio Municipal. Conectada por A-2 (Madrid-Barcelona) y AVE Zaragoza-Lleida. Carpooling ConcertRide a Monegros Desert Festival (20 km, 3–4€), Primavera Sound Barcelona (220 km, 7–10€), Vive Latino España Zaragoza (115 km, 5–7€), Mad Cool Madrid (430 km, 12–17€). Sin comisión, vuelta nocturna coordinada con asistentes del mismo evento.",
+    venues: ["Monegros Desert Festival (recinto desértico)", "Palacio de Congresos de Fraga", "Auditorio Municipal de Fraga"],
+    lat: 41.5215, lng: 0.3489,
+  },
+  {
+    slug: "bueu",
+    city: "Bueu",
+    display: "Bueu",
+    region: "Galicia",
+    blurb:
+      "Bueu (Pontevedra, 12.300 habitantes) es una villa marinera de la ría de Pontevedra (Rías Baixas), en la península do Morrazo. Acoge desde 2002 el festival SonRías Baixas (agosto, 3 días, indie/rock/folk con bandas en gallego e internacionales), uno de los referentes culturales de Galicia, celebrado en el recinto de Banda do Río junto a la playa. Recintos: Auditorio de Bueu, Praza Massó, recinto SonRías Baixas. Conectada con Pontevedra (20 km, AP-9) y Vigo (35 km). Carpooling ConcertRide a SonRías Baixas (en la villa, 0–3€ rutas internas), O Son do Camiño Santiago (90 km, 4–6€), Atlantic Fest Vilagarcía (45 km, 3–5€), Festival Ortigueira (235 km, 7–10€), Resurrection Fest Viveiro (260 km, 8–11€). Sin comisión.",
+    venues: ["Recinto SonRías Baixas (Banda do Río)", "Auditorio Municipal de Bueu", "Praza Massó"],
+    lat: 42.3267, lng: -8.7867,
+  },
+  {
+    slug: "arrecife",
+    city: "Arrecife",
+    display: "Arrecife",
+    region: "Canarias",
+    blurb:
+      "Arrecife (Lanzarote, 64.000 habitantes) es la capital de Lanzarote y principal puerto de la isla. Acoge el Lava Live Festival (julio, indie/pop/electrónica) en un recinto frente al océano que rinde homenaje al paisaje volcánico de la isla. Recintos: Recinto Ferial de Arrecife (Lava Live), Charco de San Ginés (escenarios urbanos), Auditorio Jameos del Agua (obra de César Manrique, Haría, 30 km). Aeropuerto de Lanzarote (ACE) a 5 km. Carpooling ConcertRide cubre rutas internas en Lanzarote desde Playa Blanca (40 km, 4–6€), Puerto del Carmen (15 km, 3–4€), Costa Teguise (10 km, 3–4€) y Haría (30 km, 4–5€) hacia Lava Live Festival y conciertos del Auditorio Jameos del Agua. Sin comisión, vuelta nocturna coordinada.",
+    venues: ["Recinto Ferial de Arrecife (Lava Live Festival)", "Charco de San Ginés", "Auditorio Jameos del Agua (Haría)"],
+    lat: 28.9630, lng: -13.5477,
+  },
+  {
+    slug: "salou",
+    city: "Salou",
+    display: "Salou",
+    region: "Cataluña",
+    blurb:
+      "Salou (Tarragona, 28.000 habitantes residentes, 200.000 en temporada alta) es una de las capitales turísticas de la Costa Daurada, a 10 km de Tarragona y junto a PortAventura World. Acoge el Festiuet (julio, formato playa, indie/pop/electrónica) en el Parc del Carrilet, así como conciertos urbanos de verano en la Platja de Llevant. Recintos: Parc del Carrilet (Festiuet), Teatre Auditori de Salou, Plaça Europa (escenarios urbanos). Conectada con Tarragona por R16/R17 Renfe (10 min) y AP-7. Carpooling ConcertRide a Festiuet Salou (0–3€ rutas internas), Reggaeton Beach Festival Salou (en el municipio), Primavera Sound Barcelona (105 km, 5–7€), Cruïlla Barcelona (105 km, 5–7€), Vive Latino España Zaragoza (270 km, 8–11€). Sin comisión, vuelta nocturna coordinada.",
+    venues: ["Parc del Carrilet (Festiuet)", "Teatre Auditori de Salou", "Platja de Llevant (escenarios urbanos)"],
+    lat: 41.0763, lng: 1.1419,
+  },
+  {
+    slug: "daroca",
+    city: "Daroca",
+    display: "Daroca",
+    region: "Aragón",
+    blurb:
+      "Daroca (Zaragoza, 2.200 habitantes) es una villa medieval amurallada del sur de la provincia de Zaragoza, declarada Conjunto Histórico-Artístico. Acoge desde 1979 el Festival Internacional de Música Antigua de Daroca (agosto, música medieval, renacentista y barroca con intérpretes internacionales), uno de los festivales históricos de música antigua más respetados de España. Recintos: Colegiata de Santa María (acústica catedralicia), Iglesia de San Juan, Iglesia de San Miguel, Teatro Municipal de Daroca. A 85 km de Zaragoza por N-330 y A-23. Carpooling ConcertRide a Festival de Música Antigua de Daroca (rutas internas), Vive Latino España Zaragoza (85 km, 4–6€), Mad Cool Madrid (260 km, 8–11€), Primavera Sound Barcelona (310 km, 9–13€), Sonorama Ribera Aranda (240 km, 7–10€). Sin comisión.",
+    venues: ["Colegiata de Santa María de Daroca", "Iglesia de San Juan", "Iglesia de San Miguel", "Teatro Municipal de Daroca"],
+    lat: 41.1158, lng: -1.4128,
+  },
+  {
+    slug: "barruelo-de-santullan",
+    city: "Barruelo de Santullán",
+    display: "Barruelo de Santullán",
+    region: "Castilla y León",
+    blurb:
+      "Barruelo de Santullán (Palencia, 1.100 habitantes) es una antigua villa minera del norte de la provincia de Palencia, en la comarca de la Montaña Palentina. Su pasado carbonero la convirtió en uno de los enclaves industriales de Castilla y León durante el siglo XX, hoy reconvertido a turismo de naturaleza con el Centro de Interpretación de la Minería. Acoge el Veta Festival (agosto, indie/rock/folk en antiguas instalaciones mineras), un festival boutique que reivindica el patrimonio industrial. Recintos: Antiguo Pozo Calero (recinto Veta Festival), Plaza del Ayuntamiento, Centro Cultural de Barruelo. A 100 km de Palencia y 100 km de Santander por N-611. Carpooling ConcertRide a Veta Festival (rutas internas), BBK Live Bilbao (175 km, 6–9€), Sonorama Ribera Aranda (160 km, 6–8€), Mad Cool Madrid (340 km, 10–14€), Resurrection Fest Viveiro (390 km, 12–16€). Sin comisión.",
+    venues: ["Antiguo Pozo Calero (Veta Festival)", "Plaza del Ayuntamiento", "Centro de Interpretación de la Minería"],
+    lat: 42.9197, lng: -4.2961,
+  },
+  {
+    slug: "villena",
+    city: "Villena",
+    display: "Villena",
+    region: "Comunidad Valenciana",
+    blurb:
+      "Villena (Alicante, 34.000 habitantes) es la capital del Alto Vinalopó, en el interior norte de la provincia de Alicante, conocida por su castillo medieval y el Tesoro de Villena. Acoge desde 2006 el Leyendas del Rock Festival (agosto, 4 días, heavy metal, rock y hard rock con bandas internacionales), uno de los festivales de metal más importantes de Europa con 30.000 asistentes/día en el recinto de Villena. Recintos: Recinto Leyendas del Rock (a las afueras), Teatro Chapí (1.000 plazas, Teatro Histórico de España), Plaza de Toros, Castillo de la Atalaya (escenario en eventos puntuales). Conectada con Alicante por A-31 (60 km, 45 min) y AVE Madrid-Alicante. Carpooling ConcertRide a Leyendas del Rock (rutas internas y desde toda España, 0–25€), Low Festival Benidorm (110 km, 5–7€), Madrid (350 km, 10–14€), Valencia (110 km, 5–7€), Barcelona (440 km, 13–17€). Sin comisión, vuelta nocturna coordinada.",
+    venues: ["Recinto Leyendas del Rock", "Teatro Chapí", "Plaza de Toros de Villena", "Castillo de la Atalaya"],
+    lat: 38.6379, lng: -0.8651,
+  },
+  {
+    slug: "pollenca",
+    city: "Pollença",
+    display: "Pollença",
+    region: "Islas Baleares",
+    blurb:
+      "Pollença (Mallorca, 16.500 habitantes) es una villa histórica del norte de Mallorca, entre la Serra de Tramuntana y la bahía de Pollença. Acoge desde 1962 el Festival de Pollença (julio-agosto, música clásica y de cámara con intérpretes internacionales), uno de los festivales de música clásica más longevos de España, celebrado en el Claustro de Sant Domingo (acústica única). También Festival Pollença Nit (noches de jazz, agosto). Recintos: Claustro de Sant Domingo (Festival de Pollença), Església de Sant Jordi, Teatre de Pollença, Plaça Major. A 60 km de Palma por Ma-13. Carpooling ConcertRide a Festival de Pollença (rutas internas y desde Palma 60 km, 4–6€), Mallorca Live Festival (Calvià, 75 km, 5–7€), Alcúdia (8 km, 3€) y Port de Pollença (5 km, 3€). Sin comisión, vuelta nocturna coordinada.",
+    venues: ["Claustro de Sant Domingo (Festival de Pollença)", "Església de Sant Jordi", "Teatre de Pollença", "Plaça Major"],
+    lat: 39.8769, lng: 3.0163,
+  },
+
+  // ─── Wave 56 (2026-05-21): venues + cities ─────
+
+  {
+    slug: "crevillent",
+    city: "Crevillent",
+    display: "Crevillent",
+    region: "Comunidad Valenciana",
+    blurb:
+      "Crevillent (Alicante, 28.000 habitantes) es un municipio del Baix Vinalopó conocido por la Institución Ferial Alicantina (IFA), uno de los principales recintos feriales del sur peninsular y sede de festivales masivos como FEST FESTIVAL y eventos electrónicos. La IFA cuenta con 27.000 m² cubiertos y aparcamiento para 5.000 vehículos. Recintos: IFA (Institución Ferial Alicantina), Teatro Chapí, Casa Municipal de Cultura. Conectada con Alicante por A-7/AP-7 (30 km, 25 min) y Elche por N-340 (15 km, 15 min). Carpooling ConcertRide a Low Festival Benidorm (90 km, 5–7€), Arenal Sound Burriana (220 km, 8–11€), Madrid (400 km, 12–17€), Valencia (170 km, 6–9€). Sin comisión, vuelta nocturna coordinada (los conciertos en IFA suelen acabar pasadas las 04:00).",
+    venues: ["IFA (Institución Ferial Alicantina)", "Teatro Chapí", "Casa Municipal de Cultura"],
+    lat: 38.2497, lng: -0.8108,
+  },
+  {
+    slug: "velez-malaga",
+    city: "Vélez-Málaga",
+    display: "Vélez-Málaga",
+    region: "Andalucía",
+    blurb:
+      "Vélez-Málaga (Málaga, 84.000 habitantes) es la capital de la Axarquía, 30 km al este de Málaga capital en plena Costa del Sol oriental. Recintos: Recinto Ferial Vélez-Málaga, Teatro del Carmen, Auditorio Marqués de Beniel. Es la zona de influencia más cercana al festival Cala Mijas (otra zona costera), Dreambeach (Villaricos) y Marenostrum Fuengirola. Conectada con Málaga por la A-7 (30 km, 30 min) y con Nerja por la N-340 (25 km). Carpooling ConcertRide a Cala Mijas Fest (60 km, 4–6€), Marenostrum Fuengirola (50 km, 3–5€), Andalucía Big Festival Málaga (35 km, 3–5€), Granada (130 km, 6–9€), Almería (180 km, 7–11€). Sin comisión, vuelta nocturna coordinada.",
+    venues: ["Recinto Ferial Vélez-Málaga", "Teatro del Carmen", "Auditorio Marqués de Beniel"],
+    lat: 36.7807, lng: -4.0993,
+  },
+  {
+    slug: "sant-carles-rapita",
+    city: "Sant Carles de la Ràpita",
+    display: "Sant Carles de la Ràpita",
+    region: "Cataluña",
+    blurb:
+      "Sant Carles de la Ràpita (Tarragona, 15.500 habitantes) es un municipio costero en la desembocadura del Ebro, dentro del Delta del Ebro y la comarca del Montsià. Acoge desde 2012 el Festival Eufònic Delta Ebre (sonido experimental y arte audiovisual, septiembre), distribuido entre Sant Carles, Amposta y Alcanar. Recintos: Mercat Vell, Auditori Sixto Mir, Far de la Bana, Plaça d'Espanya. Conectado con Tarragona por la AP-7/N-340 (90 km, 1h) y con Tortosa por la N-340 (25 km, 25 min). Carpooling ConcertRide a Eufònic (rutas internas Tarragona-Castellón, 3–8€), FIB Benicàssim (95 km, 5–7€), Arenal Sound (115 km, 6–9€), Cruïlla Barcelona (185 km, 7–10€), Primavera Sound Barcelona (185 km, 7–10€), Valencia (130 km, 6–9€). Sin comisión.",
+    venues: ["Mercat Vell", "Auditori Sixto Mir", "Far de la Bana", "Plaça d'Espanya"],
+    lat: 40.6175, lng: 0.5946,
+  },
+  {
+    slug: "ciudad-real",
+    city: "Ciudad Real",
+    display: "Ciudad Real",
+    region: "Castilla-La Mancha",
+    blurb:
+      "Ciudad Real (75.000 habitantes) es la capital de la provincia manchega, a 200 km al sur de Madrid en plena llanura. Recintos: Quijote Arena (12.000 plazas, conciertos y deporte), Antiguo Casino, Plaza de Toros de Ciudad Real, Auditorio La Granja. La ciudad acoge la programación de la Feria de Agosto (Pandorga, Virgen del Prado) con conciertos al aire libre. AVE Madrid–Sevilla en 55 minutos (estación Ciudad Real). Carpooling ConcertRide a Mad Cool Madrid (200 km, 7–11€), Vive Latino Zaragoza (525 km, 14–19€), Viña Rock Villarrobledo (105 km, 5–7€), Interestelar Sevilla (415 km, 12–17€), Granada (320 km, 10–14€). Sin comisión, vuelta nocturna coordinada.",
+    venues: ["Quijote Arena", "Antiguo Casino", "Plaza de Toros de Ciudad Real", "Auditorio La Granja"],
+    lat: 38.9848, lng: -3.9273,
+  },
+  {
+    slug: "soria",
+    city: "Soria",
+    display: "Soria",
+    region: "Castilla y León",
+    blurb:
+      "Soria (39.000 habitantes) es la capital de la provincia menos poblada de España, en plena meseta norte a 1.063 m de altitud. Recintos: Palacio de la Audiencia (Teatro Palacio, 700 plazas), Polideportivo San Andrés, Plaza de Toros de Soria, Pabellón Los Pajaritos. La ciudad es hub clave hacia Sonorama Ribera (Aranda de Duero, 90 km, 1h), el festival de referencia de Castilla y León. Carpooling ConcertRide a Sonorama Ribera (90 km, 4–6€), Mad Cool Madrid (230 km, 8–12€), Vive Latino Zaragoza (160 km, 6–9€), Pirineos Sur Lanuza (290 km, 10–14€), Bilbao BBK Live (240 km, 9–13€). Sin comisión, vuelta nocturna coordinada (los conciertos de Sonorama acaban pasadas las 05:00).",
+    venues: ["Palacio de la Audiencia (Teatro Palacio)", "Polideportivo San Andrés", "Plaza de Toros de Soria", "Pabellón Los Pajaritos"],
+    lat: 41.7665, lng: -2.4790,
+  },
+  {
+    slug: "linares",
+    city: "Linares",
+    display: "Linares",
+    region: "Andalucía",
+    blurb:
+      "Linares (Jaén, 56.000 habitantes) es la segunda ciudad de la provincia de Jaén, en pleno centro minero histórico y patria de Raphael. Recintos: Teatro Cervantes (1.000 plazas), Plaza de Toros Santa Margarita, Estadio Linarejos (Linares Deportivo), Auditorio El Pósito. La ciudad acoge el Festival Internacional de Guitarra Andrés Segovia (septiembre, música clásica) y conciertos durante la Feria y Fiestas de San Agustín (agosto). Conectada con Jaén por A-44 (50 km, 35 min) y Madrid por A-4 (290 km, 2h 45min). Carpooling ConcertRide a Interestelar Sevilla (270 km, 9–13€), Cazorla Blues (90 km, 5–7€), Andalucía Big Málaga (220 km, 8–11€), Granada (95 km, 5–7€), Madrid (290 km, 9–13€). Sin comisión.",
+    venues: ["Teatro Cervantes de Linares", "Plaza de Toros Santa Margarita", "Estadio Linarejos", "Auditorio El Pósito"],
+    lat: 38.0951, lng: -3.6363,
+  },
+
+  // ─── Wave 58 (2026-05-21): venues + cities ─────
+
+  {
+    slug: "jaca",
+    city: "Jaca",
+    display: "Jaca",
+    region: "Aragón",
+    blurb:
+      "Jaca (Huesca, 14.000 habitantes) es la capital del Pirineo aragonés, a 820 m de altitud y puerta de la estación de esquí de Astún y Candanchú. Recintos: Palacio de Hielo de Jaca (3.000 plazas, eventos indoor), Plaza Biscós, Auditorio Casino de Jaca, Carpa del Festival Folclórico de los Pirineos. La ciudad acoge cada agosto el Festival Folclórico de los Pirineos (declarado de Interés Turístico Internacional) y la programación musical estival. Conectada con Huesca por A-23 (75 km, 1h) y con Pamplona por N-240 (110 km, 1h 30min). Carpooling ConcertRide a Pirineos Sur Lanuza (60 km, 4–6€), Mad Cool Madrid (475 km, 14–19€), Bilbao BBK Live (240 km, 9–13€), Zaragoza (155 km, 6–9€), Pamplona (110 km, 5–7€). Sin comisión, vuelta nocturna coordinada.",
+    venues: ["Palacio de Hielo de Jaca", "Plaza Biscós", "Auditorio Casino de Jaca", "Carpa Festival Folclórico de los Pirineos"],
+    lat: 42.5697, lng: -0.5497,
+  },
+  {
+    slug: "cangas-de-onis",
+    city: "Cangas de Onís",
+    display: "Cangas de Onís",
+    region: "Asturias",
+    blurb:
+      "Cangas de Onís (Asturias, 6.000 habitantes) es la antigua capital del Reino de Asturias y puerta de los Lagos de Covadonga y el Parque Nacional de los Picos de Europa. Recintos: Puente Romano (escenarios al aire libre), Plaza del Ayuntamiento, Polideportivo Municipal, El Bosque Sonoro (Festival Vesu). La zona acoge cada julio el Festival Aquasella en Arriondas (12 km al sur) — referente del techno y house en el norte. Carpooling ConcertRide a Aquasella Festival (12 km, 2–3€), BBK Live Bilbao (245 km, 9–13€), Resurrection Fest Viveiro (250 km, 9–13€), Oviedo (75 km, 4–6€), Santander (115 km, 5–8€), Gijón (75 km, 4–6€). Sin comisión, vuelta nocturna coordinada (los conciertos de Aquasella se alargan hasta el amanecer).",
+    venues: ["Puente Romano de Cangas de Onís", "Plaza del Ayuntamiento", "Polideportivo Municipal", "El Bosque Sonoro (Festival Vesu)"],
+    lat: 43.3503, lng: -5.1306,
+  },
+  {
+    slug: "tossa-de-mar",
+    city: "Tossa de Mar",
+    display: "Tossa de Mar",
+    region: "Cataluña",
+    blurb:
+      "Tossa de Mar (Girona, 5.000 habitantes) es uno de los pueblos costeros más fotografiados de la Costa Brava, con su Vila Vella amurallada del siglo XII como icono. Recintos: Castell de Tossa (escenario al aire libre con vistas al Mediterráneo), Plaza de España, Espai Cultural Ca'n Ganga, Anfiteatro Vila Vella. La villa acoge cada verano el Festival de Cine de Tossa y un ciclo de conciertos en el Castell. Conectada con Girona por GI-681 (40 km, 50min) y con Barcelona por C-32/AP-7 (95 km, 1h 15min). Carpooling ConcertRide a Cap Roig Festival Calella de Palafrugell (35 km, 3–5€), Cruïlla Barcelona (95 km, 5–8€), Sant Feliu de Guíxols (15 km, 2–3€), Lloret de Mar (12 km, 2–3€), Girona (40 km, 3–6€), Sónar Barcelona (95 km, 5–8€). Sin comisión.",
+    venues: ["Castell de Tossa", "Plaza de España", "Espai Cultural Ca'n Ganga", "Anfiteatro Vila Vella"],
+    lat: 41.7196, lng: 2.9320,
+  },
+  {
+    slug: "cazorla",
+    city: "Cazorla",
+    display: "Cazorla",
+    region: "Andalucía",
+    blurb:
+      "Cazorla (Jaén, 8.000 habitantes) es la puerta del Parque Natural de las Sierras de Cazorla, Segura y Las Villas, el mayor espacio protegido de España. Recintos: Plaza de Santa María (escenario natural con las ruinas de la iglesia de Santa María), Castillo de la Yedra, Plaza de Toros de Cazorla, Teatro de la Merced. La villa acoge cada julio el Cazorla Blues Festival, referente del blues en España con cuatro días de programación y artistas internacionales. Conectada con Jaén por A-319 (105 km, 1h 30min) y con Granada por A-44/A-319 (180 km, 2h 15min). Carpooling ConcertRide a Cazorla Blues (in situ, 0€), Granada Sound (180 km, 7–10€), Andalucía Big Málaga (300 km, 10–14€), Jaén (105 km, 5–7€), Linares (90 km, 5–7€), Madrid (335 km, 11–15€). Sin comisión, vuelta nocturna coordinada.",
+    venues: ["Plaza de Santa María (Cazorla Blues)", "Castillo de la Yedra", "Plaza de Toros de Cazorla", "Teatro de la Merced"],
+    lat: 37.9106, lng: -3.0017,
+  },
+  {
+    slug: "rivas-vaciamadrid",
+    city: "Rivas-Vaciamadrid",
+    display: "Rivas-Vaciamadrid",
+    region: "Comunidad de Madrid",
+    blurb:
+      "Rivas-Vaciamadrid (95.000 habitantes) es uno de los municipios más jóvenes del sureste de Madrid, a 15 km del centro. Recintos: Auditorio Miguel Ríos (2.000 plazas, ciclo de conciertos de verano homenaje al cantante granadino), Centro Cultural García Lorca, Sala Marcos Ana, Polideportivo Cerro del Telégrafo. La ciudad acoge cada verano el programa municipal Rivas en Vivo con artistas nacionales de pop, rock e indie. Metro Sur L9 (estaciones Rivas Urbanizaciones y Rivas Vaciamadrid) conecta con Madrid en 30 min. Carpooling ConcertRide al Auditorio Miguel Ríos (in situ), Mad Cool Madrid (12 km, 2–4€), Madrid centro (15 km, 2–4€), Alcalá de Henares (35 km, 3–5€), Toledo (90 km, 5–8€), Guadalajara (55 km, 4–7€). Sin comisión, vuelta nocturna coordinada (Metro L9 cierra a 01:30).",
+    venues: ["Auditorio Miguel Ríos", "Centro Cultural García Lorca", "Sala Marcos Ana", "Polideportivo Cerro del Telégrafo"],
+    lat: 40.3568, lng: -3.5198,
+  },
+  {
+    slug: "la-roda",
+    city: "La Roda",
+    display: "La Roda",
+    region: "Castilla-La Mancha",
+    blurb:
+      "La Roda (Albacete, 17.000 habitantes) es una de las localidades de referencia de la provincia de Albacete, famosa por sus miguelitos y por acoger uno de los festivales indie con más solera de Castilla-La Mancha. Recintos: Recinto Ferial de La Roda (Festival de los Sentidos, 25.000 plazas en formato festival), Plaza Mayor, Auditorio Municipal, Pabellón Polideportivo. La villa acoge cada junio el Festival de los Sentidos, referente del indie nacional desde 2008 con artistas como Vetusta Morla, Love of Lesbian o Iván Ferreiro. Conectada con Albacete por A-31 (40 km, 30min) y con Madrid por A-31/A-3 (200 km, 2h). Carpooling ConcertRide al Festival de los Sentidos (in situ), Viña Rock Villarrobledo (40 km, 3–5€), Mad Cool Madrid (200 km, 7–11€), Albacete (40 km, 3–5€), Valencia (160 km, 6–9€), Murcia (190 km, 7–10€). Sin comisión.",
+    venues: ["Recinto Ferial de La Roda (Festival de los Sentidos)", "Plaza Mayor de La Roda", "Auditorio Municipal", "Pabellón Polideportivo"],
+    lat: 39.2089, lng: -2.1576,
+  },
+
+  // ─── Wave 59 (2026-05-21): venues + cities ─────
+
+  {
+    slug: "andujar",
+    city: "Andújar",
+    display: "Andújar",
+    region: "Andalucía",
+    blurb:
+      "Andújar (Jaén, 36.000 habitantes) es la segunda localidad más poblada de la provincia de Jaén y centro económico del valle medio del Guadalquivir. Recintos: Plaza de Toros de Andújar (5.500 plazas, conciertos de verano), Recinto Ferial Las Vistillas (Feria de Septiembre con actuaciones de pop y flamenco), Teatro Principal (650 plazas), Auditorio Pedro Escarvajal. Cada septiembre la Feria de Andújar acoge artistas de copla, flamenco-pop y reggaetón (anteriores ediciones: India Martínez, Rozalén, Estopa). Conectada con Jaén por A-32 (60 km, 45 min) y con Córdoba por A-4 (75 km, 50 min). Carpooling ConcertRide a Festival de Cante de las Minas La Unión (350 km, 14–18€), Cala Mijas (240 km, 12–15€), Granada Sound (115 km, 7–10€), Jaén (60 km, 4–7€), Córdoba (75 km, 5–8€), Sevilla (215 km, 11–14€). Sin comisión, vuelta nocturna coordinada.",
+    venues: ["Plaza de Toros de Andújar", "Recinto Ferial Las Vistillas", "Teatro Principal", "Auditorio Pedro Escarvajal"],
+    lat: 38.0388, lng: -4.0497,
+  },
+  {
+    slug: "calatayud",
+    city: "Calatayud",
+    display: "Calatayud",
+    region: "Aragón",
+    blurb:
+      "Calatayud (Zaragoza, 19.000 habitantes) es la segunda ciudad de la provincia de Zaragoza y nudo ferroviario entre Madrid y Zaragoza (AVE Madrid-Calatayud 1h 25 min). Recintos: Teatro Capitol (500 plazas, programación de música y teatro), Recinto Ferial Casa Mariola (Feria de San Juan y San Pedro con actuaciones de pop y flamenco), Auditorio Municipal de Música, Plaza de Toros (4.000 plazas, conciertos de verano). La ciudad acoge cada julio la Feria con conciertos al aire libre y el Festival Daroca de Música Antigua queda a 35 km (40 min) por A-2. Conectada con Zaragoza por A-2 (90 km, 55 min) y con Madrid por A-2/AVE. Carpooling ConcertRide a Monegros Desert Festival Sariñena (140 km, 8–11€), Mad Cool Madrid (240 km, 12–15€), Zaragoza centro (90 km, 5–8€), Festival Música Antigua Daroca (35 km, 3–5€), Soria (110 km, 7–10€), Pamplona (210 km, 11–14€). Sin comisión, vuelta nocturna coordinada (último AVE Madrid–Calatayud 21:25).",
+    venues: ["Teatro Capitol", "Recinto Ferial Casa Mariola", "Auditorio Municipal de Música", "Plaza de Toros de Calatayud"],
+    lat: 41.3528, lng: -1.6428,
+  },
+  {
+    slug: "sant-andreu-de-la-barca",
+    city: "Sant Andreu de la Barca",
+    display: "Sant Andreu de la Barca",
+    region: "Cataluña",
+    blurb:
+      "Sant Andreu de la Barca (Barcelona, 27.000 habitantes) es un municipio del Baix Llobregat a 20 km de Barcelona, conectado por Rodalies R4 (estación Sant Andreu de la Barca, 25 min al centro). Recintos: Auditori Sant Andreu de la Barca (500 plazas), Centre Cultural La Lira (350 plazas), Pavelló Esportiu Municipal (conciertos puntuales), Recinto Festes de Maig (Festa Major). El municipio acoge en mayo la Festa Major con conciertos de pop y rock catalán al aire libre. Carpooling ConcertRide a Primavera Sound Barcelona (25 km, 3–5€), Cruïlla Parc del Fòrum (28 km, 3–6€), Sónar Fira Montjuïc (22 km, 3–5€), Barcelona centro (20 km, 3–5€), Sant Jordi Club (22 km, 3–5€), Sala Salamandra L'Hospitalet (15 km, 2–4€). Sin comisión, vuelta nocturna coordinada (Rodalies R4 último Barcelona–Sant Andreu 23:30).",
+    venues: ["Auditori Sant Andreu de la Barca", "Centre Cultural La Lira", "Pavelló Esportiu Municipal", "Recinto Festes de Maig"],
+    lat: 41.4500, lng: 1.9667,
+  },
+  {
+    slug: "el-escorial",
+    city: "El Escorial",
+    display: "El Escorial",
+    region: "Comunidad de Madrid",
+    blurb:
+      "El Escorial (Madrid, 16.000 habitantes) es el conjunto histórico junto a San Lorenzo de El Escorial, a 50 km del centro de Madrid, sede del Real Monasterio de El Escorial (Patrimonio de la Humanidad UNESCO). Recintos: Real Coliseo Carlos III (440 plazas, teatro histórico con programación clásica), Auditorio del Centro Cultural, Teatro Variedades, Plaza de la Constitución (conciertos al aire libre durante MUSEG). La villa acoge cada agosto MUSEG, festival decano de música clásica española desde 1985, con conciertos en el monasterio y otras sedes. Conectada con Madrid por Cercanías C-3a (50 km, 1h 5 min) y por A-6/M-505 (50 km, 50 min en coche). Carpooling ConcertRide a Mad Cool Madrid (65 km, 4–7€), Madrid centro (50 km, 4–6€), WiZink Center (52 km, 4–6€), Segovia (40 km, 3–6€), Ávila (60 km, 4–7€), Salamanca (175 km, 9–12€). Sin comisión, vuelta nocturna coordinada (Cercanías C-3a último Madrid–El Escorial 23:00).",
+    venues: ["Real Coliseo Carlos III", "Auditorio del Centro Cultural", "Teatro Variedades", "Plaza de la Constitución"],
+    lat: 40.5828, lng: -4.1364,
+  },
+  {
+    slug: "estepona",
+    city: "Estepona",
+    display: "Estepona",
+    region: "Andalucía",
+    blurb:
+      "Estepona (Málaga, 73.000 habitantes) es uno de los municipios principales de la Costa del Sol occidental, a 80 km al oeste de Málaga capital. Recintos: Auditorio Felipe VI (1.150 plazas, programación de conciertos y teatro), Palacio de Congresos y Exposiciones, Plaza de Toros de Estepona (8.000 plazas, conciertos de verano), Anfiteatro Padre Manuel (1.500 plazas al aire libre). El municipio acoge cada verano el Estepona Summer Concerts en el Auditorio Felipe VI con artistas nacionales e internacionales. Conectada con Málaga por AP-7 (80 km, 1h) y A-7 (sin peaje, 1h 15 min). Carpooling ConcertRide a Cala Mijas Mijas (40 km, 3–6€), Marenostrum Fuengirola (50 km, 4–7€), Starlite Marbella (28 km, 3–5€), Málaga centro (80 km, 5–8€), Andalucía Big Festival (75 km, 5–8€), Reggaeton Beach Festival Marbella (28 km, 3–5€). Sin comisión, vuelta nocturna coordinada.",
+    venues: ["Auditorio Felipe VI", "Palacio de Congresos y Exposiciones", "Plaza de Toros de Estepona", "Anfiteatro Padre Manuel"],
+    lat: 36.4257, lng: -5.1450,
+  },
+  {
+    slug: "manacor",
+    city: "Manacor",
+    display: "Manacor",
+    region: "Islas Baleares",
+    blurb:
+      "Manacor (Mallorca, 50.000 habitantes) es el segundo municipio de Mallorca por población y centro económico del Llevant mallorquín, cuna de Rafael Nadal. Recintos: Teatre de Manacor (700 plazas, programación de teatro y música), Auditori de Manacor (380 plazas), Plaça de Sant Jaume (conciertos al aire libre durante Fires i Festes de Primavera), Pavelló Esportiu. La localidad acoge cada mayo–junio las Fires i Festes de Primavera con conciertos de pop y rock catalán, y queda a 60 km de Palma (Mallorca Live Festival, 50 min). Conectada con Palma por Ma-15 (60 km, 50 min en coche, sin tren directo). Carpooling ConcertRide a Mallorca Live Festival Calvià (75 km, 5–8€), Palma centro (60 km, 4–7€), Festival de Pollença (55 km, 4–7€), Iboga Summer Tavernes (vía ferry: no aplica), Festes de Sant Joan (in situ), Castell de Cap Roig (vía ferry: no aplica). Sin comisión, vuelta nocturna coordinada (sin tren — el coche es la opción principal).",
+    venues: ["Teatre de Manacor", "Auditori de Manacor", "Plaça de Sant Jaume", "Pavelló Esportiu"],
+    lat: 39.5694, lng: 3.2086,
+  },
+  {
+    slug: "sanlucar-de-barrameda",
+    city: "Sanlúcar de Barrameda",
+    display: "Sanlúcar de Barrameda",
+    region: "Andalucía",
+    blurb:
+      "Sanlúcar de Barrameda (Cádiz, 69.000 habitantes) es uno de los municipios principales de la provincia de Cádiz, en la desembocadura del Guadalquivir frente a Doñana, declarada Capital Española de la Gastronomía 2022. Recintos: Auditorio de la Merced (600 plazas, antigua iglesia rehabilitada), Plaza de Toros El Pino (10.000 plazas, conciertos de verano), Hipódromo de Bajo de Guía (carreras de caballos en playa en agosto, conciertos paralelos), Castillo de Santiago (programación cultural). La villa acoge cada agosto el Festival de Música Sacra y conciertos en el Castillo de Santiago, y queda a 25 km de Jerez (Festival de Jerez Flamenco, 30 min). Conectada con Jerez por A-480 (25 km, 30 min) y con Cádiz por A-471/AP-4 (50 km, 50 min). Carpooling ConcertRide a Festival de Jerez Flamenco (25 km, 3–5€), Cabo de Plata Barbate (60 km, 4–7€), Cádiz centro (50 km, 4–6€), Sevilla centro (105 km, 6–9€), Slap Cádiz (50 km, 4–6€), Festival Castell de Peralada (no aplica). Sin comisión, vuelta nocturna coordinada.",
+    venues: ["Auditorio de la Merced", "Plaza de Toros El Pino", "Hipódromo de Bajo de Guía", "Castillo de Santiago"],
+    lat: 36.7783, lng: -6.3525,
+  },
+  {
+    slug: "lorca",
+    city: "Lorca",
+    display: "Lorca",
+    region: "Región de Murcia",
+    blurb:
+      "Lorca (Murcia, 95.000 habitantes) es la tercera ciudad de la Región de Murcia, declarada Ciudad Barroca por su patrimonio. Recintos: Teatro Guerra (700 plazas, programación de música y teatro), Castillo de Lorca (programación de verano con conciertos al aire libre), Plaza de Toros de Sutullena (8.000 plazas, conciertos de verano), Auditorio Casa del Artesano. La localidad acoge cada septiembre el Festival Internacional de Folklore en el Mediterráneo y conciertos en el Castillo. Queda a 30 km de Cartagena (Rock Imperium, 25 min) y a 70 km de Murcia capital. Conectada con Murcia por A-7 (70 km, 50 min) y con Cartagena por RM-2/N-340 (30 km, 25 min). Carpooling ConcertRide a Rock Imperium Cartagena (30 km, 3–5€), SOS 4.8 Murcia (70 km, 5–8€), Costera Sur Murcia (70 km, 5–8€), Festival Cante de las Minas La Unión (50 km, 4–7€), Almería (140 km, 8–11€), Murcia centro (70 km, 5–8€). Sin comisión, vuelta nocturna coordinada.",
+    venues: ["Teatro Guerra", "Castillo de Lorca", "Plaza de Toros de Sutullena", "Auditorio Casa del Artesano"],
+    lat: 37.6731, lng: -1.6989,
+  },
+
+  // ─── Wave 60 (2026-05-21): venues + cities ─────
+
+  {
+    slug: "zamora",
+    city: "Zamora",
+    display: "Zamora",
+    region: "Castilla y León",
+    blurb:
+      "Zamora (60.000 habitantes) es la capital de la provincia homónima en Castilla y León, conocida por su Semana Santa de Interés Turístico Internacional y por su patrimonio románico. Recintos: Teatro Principal de Zamora (700 plazas, programación de música y teatro), Auditorio Ruta de la Plata (1.200 plazas, conciertos sinfónicos), Pabellón Ángel Nieto (5.000 plazas, conciertos de gran formato) y Plaza Mayor (conciertos al aire libre del Z! Live Rock Fest en julio). La ciudad acoge cada julio el Z! Live Rock Fest (rock duro y metal nacional) y el Festival Pórtico de Zamora (septiembre, músicas del mundo). Conectada con Salamanca por A-66 (65 km, 55 min), con Valladolid por A-11 (95 km, 1h 5 min) y con Madrid por A-6/A-66 (245 km, 2h 40 min). Carpooling ConcertRide a Sonorama Ribera Aranda (155 km, 8–11€), Conexión Valladolid (95 km, 6–8€), Indyspensable Salamanca (65 km, 4–6€), Z! Live (in situ, 1–3€), Madrid centro (245 km, 12–16€) y León (140 km, 8–11€). Sin comisión, vuelta nocturna coordinada (último bus Avanza a las 22:00, AVE Zamora–Madrid hasta 21:30).",
+    venues: ["Teatro Principal de Zamora", "Auditorio Ruta de la Plata", "Pabellón Ángel Nieto", "Plaza Mayor (Z! Live Rock Fest)"],
+    lat: 41.5034, lng: -5.7446,
+  },
+
+  {
+    slug: "areatza",
+    city: "Areatza",
+    display: "Areatza",
+    region: "País Vasco",
+    blurb:
+      "Areatza (Bizkaia, 1.200 habitantes) es una pequeña villa del valle de Arratia, a los pies del Parque Natural de Gorbeia, conocida por su festival rock veraniego y sus jornadas de cerveza artesana. Recintos: Plaza Bastegieta (escenario principal del festival, conciertos al aire libre julio–agosto), Frontón Municipal (programación de invierno), Antigua Carbonería (sala alternativa). La localidad acoge cada agosto un festival rock combinado con feria de cerveza artesana vasca, con cartel mixto de bandas indie locales (Berri Txarrak, La Furia, Niña Coyote eta Chico Tornado). Conectada con Bilbao por BI-635/N-240 (35 km, 35 min) y con Vitoria por A-1/BI-3543 (50 km, 45 min). Sin servicio Renfe local; bus Bizkaibus A3923 desde Bilbao hasta las 22:00. Carpooling ConcertRide a BBK Live Kobetamendi (40 km, 3–6€), Azkena Rock Festival Vitoria (55 km, 4–7€), Bilbao centro (35 km, 3–5€), Vitoria centro (50 km, 4–6€), Donostia Jazzaldia (135 km, 8–11€) y Pamplona (155 km, 8–11€). Sin comisión, vuelta nocturna coordinada (último Bizkaibus 22:00 — el coche compartido es esencial).",
+    venues: ["Plaza Bastegieta", "Frontón Municipal", "Antigua Carbonería"],
+    lat: 43.0833, lng: -2.7833,
+  },
+
+  {
+    slug: "vilanova-i-la-geltru",
+    city: "Vilanova i la Geltrú",
+    display: "Vilanova i la Geltrú",
+    region: "Cataluña",
+    blurb:
+      "Vilanova i la Geltrú (Barcelona, 67.000 habitantes) es la capital del Garraf, ciudad costera entre Sitges y Tarragona, conocida por su Carnaval de Interés Turístico Nacional y por el festival Faraday. Recintos: Teatre Principal (700 plazas, programación municipal de teatro y música), Auditori Eduard Toldrà (450 plazas, clásica y jazz), Plaça de la Vila (conciertos al aire libre), Platja del Far (escenario principal del Faraday Festival, julio, indie y pop alternativo). La ciudad acoge cada julio el Faraday Festival y conciertos del Festival Internacional de Música Popular Tradicional. Conectada con Barcelona por C-32 (50 km, 40 min) y Rodalies R2 Sud (cada 30 min, 50 min, 4,90€); con Tarragona por C-32 (50 km, 40 min); con Sitges por C-31 (10 km, 15 min). Carpooling ConcertRide a Faraday Festival (in situ, 1–3€), Cruïlla Barcelona (50 km, 4–6€), Primavera Sound Parc del Fòrum (55 km, 4–7€), Sónar (52 km, 4–6€), Festiuet Salou (60 km, 5–7€) y Bonobus Sant Andreu (60 km, 5–7€). Sin comisión, vuelta nocturna coordinada (último Rodalies R2 23:00 — el coche compartido es ideal para vuelta de festival).",
+    venues: ["Teatre Principal", "Auditori Eduard Toldrà", "Plaça de la Vila", "Platja del Far (Faraday Festival)"],
+    lat: 41.2241, lng: 1.7256,
+  },
+
+  {
+    slug: "la-seu-d-urgell",
+    city: "La Seu d'Urgell",
+    display: "La Seu d'Urgell",
+    region: "Cataluña",
+    blurb:
+      "La Seu d'Urgell (Lleida, 12.000 habitantes) es la capital de la comarca del Alt Urgell en el Pirineo de Lleida, sede del Coprincipado de Andorra y conocida por su catedral románica y el Parc Olímpic del Segre (sede de piragüismo Barcelona '92). Recintos: Sala Sant Domènec (450 plazas, programación municipal y festivales), Plaça dels Oms (conciertos al aire libre del Connecta'l Festival cada agosto), Parc Olímpic del Segre (eventos al aire libre y festivales de verano), Auditori del Conservatori (300 plazas). La localidad acoge cada agosto el Connecta'l Festival (indie y pop catalán) y conciertos del Festival Pirineus. Conectada con Lleida por C-14 (135 km, 1h 50 min), con Andorra por N-145 (10 km, 15 min) y con Barcelona por C-16/C-14 (185 km, 2h 30 min); sin tren. Carpooling ConcertRide a Connecta'l (in situ, 1–3€), Pirineos Sur Lanuza (vía A-2: 295 km, 18–22€ — no recomendado), Animac Lleida (135 km, 7–10€), Lleida centro (135 km, 7–10€), Barcelona centro (185 km, 10–14€) y Festival de Pollença (vía ferry: no aplica). Sin comisión, vuelta nocturna coordinada (sin transporte público a Lleida después de las 20:00).",
+    venues: ["Sala Sant Domènec", "Plaça dels Oms (Connecta'l Festival)", "Parc Olímpic del Segre", "Auditori del Conservatori"],
+    lat: 42.3589, lng: 1.4592,
+  },
+
+  {
+    slug: "barbate",
+    city: "Barbate",
+    display: "Barbate",
+    region: "Andalucía",
+    blurb:
+      "Barbate (Cádiz, 22.000 habitantes) es una villa costera de la Costa de la Luz gaditana, conocida por su atún rojo de almadraba y por el festival Cabo de Plata. Recintos: Recinto Ferial Playa del Carmen (escenario principal del Cabo de Plata, cada agosto, capacidad 25.000 personas), Castillo de Santiago de Vejer (vía Vejer, conciertos al aire libre), Plaza de Toros (conciertos de verano), Mercado de Abastos rehabilitado (programación municipal). La localidad acoge cada agosto el Cabo de Plata Festival (indie y rock español, 4 días) y conciertos del Festival Castell de Cap Roig (en agosto). Conectada con Cádiz por A-48/E-5 (60 km, 50 min) y con Sevilla por AP-4/A-4 (155 km, 1h 50 min); sin tren — bus Comes desde Cádiz hasta las 21:30. Carpooling ConcertRide a Cabo de Plata (in situ, 1–3€), Slap Cádiz (60 km, 4–6€), Festival de Jerez Flamenco (65 km, 4–7€), Cádiz centro (60 km, 4–6€), Sevilla centro (155 km, 9–12€) y Sanlúcar de Barrameda (60 km, 4–7€). Sin comisión, vuelta nocturna coordinada (último bus Comes Barbate–Cádiz 21:30, no útil para vuelta de festival).",
+    venues: ["Recinto Ferial Playa del Carmen (Cabo de Plata)", "Plaza de Toros", "Mercado de Abastos", "Castillo de Santiago (Vejer)"],
+    lat: 36.1908, lng: -5.9203,
+  },
+
+  {
+    slug: "cunit",
+    city: "Cunit",
+    display: "Cunit",
+    region: "Cataluña",
+    blurb:
+      "Cunit (Tarragona, 13.000 habitantes) es una villa costera del Baix Penedès, en la Costa Daurada catalana, conocida por sus playas y por el festival Cunit Reggae. Recintos: Playa de Cunit (escenario principal del Cunit Reggae cada agosto, capacidad 8.000 personas), Plaça del Mil·lenari (conciertos al aire libre), Centre Cívic de Cunit (programación municipal, 350 plazas), Pavelló Poliesportiu Municipal. La villa acoge cada agosto el Festival Cunit Reggae (reggae, ska y dub, gratuito) y conciertos del Festival Internacional de Música del Baix Penedès. Conectada con Barcelona por C-32 (55 km, 50 min) y Rodalies R2 Sud (cada 30 min, 1h, 5,40€); con Tarragona por C-32 (45 km, 40 min); con Vilanova i la Geltrú por N-340 (10 km, 15 min). Carpooling ConcertRide a Festival Cunit Reggae (in situ, 1–3€), Faraday Festival Vilanova (10 km, 2–4€), Cruïlla Barcelona (55 km, 4–7€), Festiuet Salou (50 km, 4–6€), Rototom Sunsplash Benicàssim (175 km, 10–14€) y Tarragona centro (45 km, 3–6€). Sin comisión, vuelta nocturna coordinada (último Rodalies R2 23:00).",
+    venues: ["Playa de Cunit (Cunit Reggae)", "Plaça del Mil·lenari", "Centre Cívic de Cunit", "Pavelló Poliesportiu Municipal"],
+    lat: 41.1972, lng: 1.6328,
+  },
+
+  {
+    slug: "ronda",
+    city: "Ronda",
+    display: "Ronda",
+    region: "Andalucía",
+    blurb:
+      "Ronda (Málaga, 33.000 habitantes) es uno de los municipios más turísticos de Málaga, ciudad monumental sobre el tajo del Guadalevín, conocida por su Plaza de Toros (la más antigua de España, 1785) y por el festival Sierra Bandolera. Recintos: Plaza de Toros de Ronda (5.000 plazas, conciertos de verano e impresionante escenario), Convento de Santo Domingo (Sala de los Bandoleros, programación municipal), Alameda del Tajo (conciertos al aire libre del Sierra Bandolera cada agosto), Teatro Vicente Espinel (600 plazas, programación de teatro y música). La ciudad acoge cada agosto el Sierra Bandolera Festival (folk, rock alternativo y americana) y conciertos de la Feria de Pedro Romero (septiembre). Conectada con Málaga por A-367/A-357 (105 km, 1h 35 min), con Sevilla por A-374/A-376 (135 km, 1h 50 min) y con Marbella por A-397 (50 km, 50 min); tren MD Algeciras–Ronda 1 vez/día. Carpooling ConcertRide a Sierra Bandolera (in situ, 1–3€), Cala Mijas Festival (90 km, 5–8€), Marenostrum Fuengirola (75 km, 5–7€), Starlite Marbella (50 km, 4–6€), Málaga centro (105 km, 6–9€) y Sevilla centro (135 km, 8–11€). Sin comisión, vuelta nocturna coordinada (sin tren útil después de las 20:00).",
+    venues: ["Plaza de Toros de Ronda", "Alameda del Tajo (Sierra Bandolera)", "Convento de Santo Domingo", "Teatro Vicente Espinel"],
+    lat: 36.7426, lng: -5.1659,
+  },
+
+  {
+    slug: "oropesa-del-mar",
+    city: "Oropesa del Mar",
+    display: "Oropesa del Mar",
+    region: "Comunidad Valenciana",
+    blurb:
+      "Oropesa del Mar (Castellón, 13.000 habitantes) es una villa costera de la Costa del Azahar, conocida por la urbanización Marina d'Or y por el festival Cabezo Beach. Recintos: Playa de la Concha (escenario principal del Cabezo Beach Festival cada julio, capacidad 12.000 personas), Auditorio Cap Roig (1.000 plazas, programación municipal), Plaza de la Iglesia (conciertos al aire libre), Marina d'Or Recinto (eventos privados de gran formato). La villa acoge cada julio el Cabezo Beach Festival (urbano, reggaeton y trap) y conciertos del Festival de Música Popular de Oropesa. Conectada con Castellón por N-340/AP-7 (25 km, 25 min) y con Valencia por AP-7 (95 km, 1h); Rodalies C-6 hasta Castellón cada hora. Carpooling ConcertRide a Cabezo Beach (in situ, 1–3€), Rototom Sunsplash Benicàssim (10 km, 2–4€), Arenal Sound Burriana (45 km, 3–6€), FIB Benicàssim (10 km, 2–4€), SanSan Festival Benicàssim (10 km, 2–4€) y Valencia centro (95 km, 5–8€). Sin comisión, vuelta nocturna coordinada (último Rodalies C-6 a Valencia 22:30).",
+    venues: ["Playa de la Concha (Cabezo Beach)", "Auditorio Cap Roig", "Plaza de la Iglesia", "Marina d'Or Recinto"],
+    lat: 40.0867, lng: 0.1422,
+  },
+
+  // ─── Wave 61 (2026-05-21): venues + cities ─────
+
+  {
+    slug: "aranjuez",
+    city: "Aranjuez",
+    display: "Aranjuez",
+    region: "Comunidad de Madrid",
+    blurb:
+      "Aranjuez (Madrid, 60.000 habitantes) es una villa real Patrimonio de la Humanidad UNESCO desde 2001, ciudad-jardín a orillas del Tajo, conocida por el Palacio Real, los Jardines del Príncipe y por su programación de música clásica en verano. Recintos: Plaza de Toros de Aranjuez (10.000 plazas, conciertos de verano), Teatro Real Carlos III (550 plazas, programación municipal), Jardines del Príncipe (conciertos al aire libre en verano), Auditorio Joaquín Rodrigo (800 plazas, ciclo Aranjuez Suena). La villa acoge cada julio el Festival Aranjuez Suena (música clásica y jazz) y la Fiesta del Motín de Aranjuez (septiembre). Conectada con Madrid por A-4 (50 km, 40 min) y Cercanías C-3 desde Atocha (50 min, 5,40€); con Toledo por A-42 (40 km, 35 min); con Cuenca por A-40 (150 km, 1h 35 min). Carpooling ConcertRide a Mad Cool (50 km, 4–6€), Tomavistas Madrid (50 km, 4–6€), DCode Festival Madrid (50 km, 4–6€), WiZink Center Madrid (50 km, 4–6€), Festival Otoño Madrid (50 km, 4–6€) y Toledo centro (40 km, 3–5€). Sin comisión, vuelta nocturna coordinada (último Cercanías C-3 23:30, no útil para vuelta de festival).",
+    venues: ["Plaza de Toros de Aranjuez", "Teatro Real Carlos III", "Jardines del Príncipe", "Auditorio Joaquín Rodrigo"],
+    lat: 40.0319, lng: -3.6033,
+  },
+
+  {
+    slug: "sant-cugat-del-valles",
+    city: "Sant Cugat del Vallès",
+    display: "Sant Cugat del Vallès",
+    region: "Cataluña",
+    blurb:
+      "Sant Cugat del Vallès (Barcelona, 92.000 habitantes) es la principal ciudad del Vallès Occidental, conurbación de Barcelona conocida por su Monasterio románico-gótico (siglos XI-XIV) y por una de las rentas per cápita más altas de Cataluña. Recintos: Teatre-Auditori Sant Cugat (818 plazas, programación de música clásica y contemporánea), Plaza del Monasterio (conciertos al aire libre en verano), Pavelló Olímpic Municipal (3.500 personas, eventos de gran formato), Casa de Cultura Sant Domènec (300 plazas, programación municipal). La ciudad acoge cada verano el Festival Petit Format y el Festival Internacional de Música de Sant Cugat (octubre). Conectada con Barcelona por C-16 (20 km, 25 min) y FGC L7/S1/S2 desde Plaça Catalunya (25 min, 2,55€); con Sabadell por C-58 (10 km, 15 min); con Terrassa por C-58 (20 km, 20 min). Carpooling ConcertRide a Cruïlla Barcelona (20 km, 2–4€), Primavera Sound (20 km, 2–4€), Sónar Barcelona (20 km, 2–4€), Palau Sant Jordi (20 km, 2–4€), Brunch Electronik Barcelona (20 km, 2–4€) y Festiuet Salou (105 km, 6–9€). Sin comisión, vuelta nocturna coordinada (último FGC Sant Cugat–Barcelona 00:15).",
+    venues: ["Teatre-Auditori Sant Cugat", "Plaza del Monasterio", "Pavelló Olímpic Municipal", "Casa de Cultura Sant Domènec"],
+    lat: 41.4727, lng: 2.0844,
+  },
+
+  {
+    slug: "granollers",
+    city: "Granollers",
+    display: "Granollers",
+    region: "Cataluña",
+    blurb:
+      "Granollers (Barcelona, 62.000 habitantes) es la capital del Vallès Oriental, ciudad textil e industrial conocida por su Mercado del Jueves (uno de los más antiguos de Cataluña, desde el siglo XIV) y por el Palau d'Esports. Recintos: Palau d'Esports de Granollers (5.500 personas, conciertos de gran formato), Teatre Auditori de Granollers (800 plazas, programación municipal), Roca Umbert Fàbrica de les Arts (1.500 plazas, espacio cultural multidisciplinar), Plaça de la Porxada (conciertos al aire libre en Fiestas de Blancos y Azules). La ciudad acoge cada septiembre las Festes Majors de Blancos y Azules (más de 200 años de historia) y el Festival Tradicionàrius en marzo. Conectada con Barcelona por AP-7/C-17 (30 km, 30 min) y Rodalies R2 Nord/R3 desde Sants (30 min, 4,90€); con Mataró por C-60 (25 km, 25 min); con Sabadell por C-59 (25 km, 25 min). Carpooling ConcertRide a Cruïlla Barcelona (30 km, 3–5€), Primavera Sound (30 km, 3–5€), Sónar Barcelona (30 km, 3–5€), Palau Sant Jordi (30 km, 3–5€), Brunch Electronik Barcelona (30 km, 3–5€) y Festiuet Salou (115 km, 6–9€). Sin comisión, vuelta nocturna coordinada (último Rodalies R2 Granollers–Barcelona 23:45).",
+    venues: ["Palau d'Esports de Granollers", "Teatre Auditori de Granollers", "Roca Umbert Fàbrica de les Arts", "Plaça de la Porxada"],
+    lat: 41.6082, lng: 2.2872,
+  },
+
+  {
+    slug: "tarazona",
+    city: "Tarazona",
+    display: "Tarazona",
+    region: "Aragón",
+    blurb:
+      "Tarazona (Zaragoza, 11.000 habitantes) es la capital de la comarca de Tarazona y el Moncayo, ciudad mudéjar al pie del Moncayo, conocida por su Catedral de Santa María (Patrimonio Mundial UNESCO desde 2001) y por el festival Tarazona Folk. Recintos: Plaza de Toros Vieja de Tarazona (5.000 plazas, una de las más antiguas de España, conciertos de verano), Teatro Bellas Artes (480 plazas, programación municipal), Plaza de la Seo (conciertos al aire libre de Tarazona Folk), Centro Cívico (300 plazas). La ciudad acoge cada agosto el Festival Tarazona Folk (music folk, world music) y las Fiestas del Cipotegato (agosto). Conectada con Zaragoza por A-68/N-122 (90 km, 1h) y bus Therpasa (1h 15 min, 9,80€); con Soria por N-122 (75 km, 55 min); con Tudela por N-121 (35 km, 30 min). Carpooling ConcertRide a Tarazona Folk (in situ, 1–3€), Vive Latino Zaragoza (90 km, 5–8€), Monegros Desert Festival (105 km, 6–9€), Sonorama Ribera Aranda (170 km, 9–13€), Veta Festival Palencia (200 km, 11–15€) y Pamplona centro (110 km, 6–9€). Sin comisión, vuelta nocturna coordinada (último bus Therpasa a Zaragoza 20:30, no útil para vuelta de festival).",
+    venues: ["Plaza de Toros Vieja", "Teatro Bellas Artes", "Plaza de la Seo", "Centro Cívico"],
+    lat: 41.9036, lng: -1.7233,
+  },
+
+  {
+    slug: "trujillo",
+    city: "Trujillo",
+    display: "Trujillo",
+    region: "Extremadura",
+    blurb:
+      "Trujillo (Cáceres, 9.000 habitantes) es una villa monumental medieval Conjunto Histórico-Artístico desde 1962, cuna de conquistadores (Francisco Pizarro, Francisco de Orellana), conocida por su Plaza Mayor renacentista y por el Festival de Teatro Clásico. Recintos: Plaza Mayor de Trujillo (1.500 personas, escenario principal del Festival de Teatro Clásico cada agosto), Castillo de Trujillo (conciertos al aire libre en verano), Iglesia de Santa María la Mayor (música sacra), Teatro Municipal Carlos Sá (450 plazas, programación municipal). La villa acoge cada agosto el Festival Trujillo Clásico (teatro y música clásica) y la Feria Nacional del Queso (abril–mayo). Conectada con Cáceres por A-58 (50 km, 35 min) y bus Mirat (45 min, 5,80€); con Mérida por N-630/A-66 (90 km, 1h); con Madrid por A-5 (250 km, 2h 30 min). Carpooling ConcertRide a Trujillo Clásico (in situ, 1–3€), WOMAD Cáceres (50 km, 3–6€), Teatro Clásico Mérida (90 km, 5–8€), Extremusika Cáceres (50 km, 3–6€), Mad Cool Madrid (250 km, 13–18€) y Cáceres centro (50 km, 3–6€). Sin comisión, vuelta nocturna coordinada (último bus Mirat a Cáceres 21:30, no útil para vuelta de festival).",
+    venues: ["Plaza Mayor de Trujillo", "Castillo de Trujillo", "Iglesia de Santa María la Mayor", "Teatro Municipal Carlos Sá"],
+    lat: 39.4592, lng: -5.8819,
+  },
+
+  {
+    slug: "san-sebastian-de-los-reyes",
+    city: "San Sebastián de los Reyes",
+    display: "San Sebastián de los Reyes",
+    region: "Comunidad de Madrid",
+    blurb:
+      "San Sebastián de los Reyes (Madrid, 90.000 habitantes), conocida popularmente como Sanse, es uno de los principales municipios del corredor norte de Madrid, conurbación con Alcobendas, conocida por sus Encierros (Fiestas del Cristo de los Remedios en agosto) y por el centro comercial Plaza Norte 2. Recintos: Teatro Auditorio Adolfo Marsillach (815 plazas, programación municipal de música y teatro), Pabellón Municipal Dehesa Boyal (4.500 personas, conciertos y deporte), Plaza de la Constitución (conciertos al aire libre en fiestas), Centro Joven Sanse (200 plazas, programación juvenil). El municipio acoge cada agosto el Festival Cristo de los Remedios (música y encierros) y conciertos del Festival Internacional de Jazz de Sanse (mayo). Conectada con Madrid por A-1 (20 km, 25 min) y Cercanías C-4 desde Atocha (30 min, 2,90€) y Metro L10 hasta Hospital Infanta Sofía (35 min, 2 €); con Alcalá de Henares por R-2 (25 km, 25 min). Carpooling ConcertRide a Mad Cool (20 km, 2–4€), Tomavistas Madrid (20 km, 2–4€), DCode Festival Madrid (20 km, 2–4€), WiZink Center Madrid (20 km, 2–4€), Festival Otoño Madrid (20 km, 2–4€) y Madrid centro (20 km, 2–4€). Sin comisión, vuelta nocturna coordinada (último metro L10 a Hospital Infanta Sofía 01:30).",
+    venues: ["Teatro Auditorio Adolfo Marsillach", "Pabellón Municipal Dehesa Boyal", "Plaza de la Constitución", "Centro Joven Sanse"],
+    lat: 40.5475, lng: -3.6253,
+  },
+
+  {
+    slug: "algemesi",
+    city: "Algemesí",
+    display: "Algemesí",
+    region: "Comunidad Valenciana",
+    blurb:
+      "Algemesí (Valencia, 28.000 habitantes) es una villa de la Ribera Alta, conocida por la Mare de Déu de la Salut (Patrimonio Inmaterial de la Humanidad UNESCO desde 2011, en septiembre) y por su Festival Internacional de Polifonía. Recintos: Auditori Municipal d'Algemesí (650 plazas, programación municipal), Plaza Mayor (conciertos al aire libre en fiestas y procesiones), Teatre Capitoli (450 plazas, programación de teatro y música), Centre Cultural Algemesí (300 plazas). La villa acoge cada septiembre la Festa de la Mare de Déu de la Salut (procesiones únicas de muixerangues y la Capella de Música) y el Festival Internacional de Música de Algemesí (julio). Conectada con Valencia por A-7/N-340 (35 km, 30 min) y Rodalies C-1 desde Estación del Norte (35 min, 4,80€); con Alzira por N-340 (8 km, 12 min); con Sueca por CV-510 (12 km, 15 min). Carpooling ConcertRide a Medusa Festival Cullera (15 km, 2–4€), Iboga Summer Tavernes (25 km, 2–4€), Arenal Sound Burriana (90 km, 5–8€), Zevra Valencia (35 km, 3–5€), Vive Latino (650 km, 28–38€) y Valencia centro (35 km, 3–5€). Sin comisión, vuelta nocturna coordinada (último Rodalies C-1 23:15).",
+    venues: ["Auditori Municipal d'Algemesí", "Plaza Mayor", "Teatre Capitoli", "Centre Cultural Algemesí"],
+    lat: 39.1903, lng: -0.4361,
+  },
+
+  {
+    slug: "sax",
+    city: "Sax",
+    display: "Sax",
+    region: "Comunidad Valenciana",
+    blurb:
+      "Sax (Alicante, 9.000 habitantes) es una villa del Alto Vinalopó, conocida por su Castillo medieval del siglo XII (sobre roca calcárea) y por las Fiestas de Moros y Cristianos (febrero). Recintos: Castillo de Sax (escenario simbólico de conciertos al aire libre en agosto), Plaza Mayor (conciertos populares en fiestas), Casa de Cultura de Sax (350 plazas, programación municipal), Plaza de Toros (3.000 plazas, conciertos en feria). La villa acoge cada febrero las Fiestas de Moros y Cristianos (declaradas Interés Turístico Internacional) y conciertos de la Feria de Sant Bertomeu (agosto). Conectada con Alicante por A-31 (45 km, 35 min) y Renfe MD Alicante–Madrid (35 min, 5,90€); con Elda–Petrer por CV-83 (8 km, 10 min); con Albacete por A-31 (135 km, 1h 20 min). Carpooling ConcertRide a Low Festival Benidorm (75 km, 5–7€), Marenostrum Fuengirola (400 km, 16–22€), Leyendas del Rock Villena (15 km, 2–4€), Son of Spain Alicante (45 km, 3–6€), Festival Internacional de Música de Mediterránea (45 km, 3–6€) y Alicante centro (45 km, 3–6€). Sin comisión, vuelta nocturna coordinada (último tren MD Sax–Alicante 21:30, no útil para vuelta de festival).",
+    venues: ["Castillo de Sax", "Plaza Mayor", "Casa de Cultura de Sax", "Plaza de Toros"],
+    lat: 38.5419, lng: -0.8175,
+  },
+
 ];
 
 export const CITY_LANDINGS_BY_SLUG = Object.fromEntries(
