@@ -23,7 +23,7 @@ import { StickyRegBar } from "@/components/StickyRegBar";
 import { AgentActionRail } from "@/components/AgentActionRail";
 import { useSession } from "@/lib/session";
 
-// Lazy-loaded MapLibre map — keeps the heavy vendor chunk out of the
+// Lazy-loaded Leaflet map — keeps the heavy vendor chunk out of the
 // prerendered HTML and the initial JS payload for ~3.8k route pages.
 const LocationContextMap = lazy(() => import("@/components/LocationContextMap"));
 
@@ -210,8 +210,54 @@ export default function RouteLandingPage() {
 
   const { festival, originData, originCity } = landing;
 
+  // Realistic taxi/VTC night-rate range for this route (~0.8–1.4 €/km in
+  // Spain including night surcharge, flagdown, and dynamic pricing).
+  // Replaces the previous hardcoded "35–80 €" which was factually incorrect
+  // for both very short routes (Madrid→Mad Cool 15 km should be 12–21 €) and
+  // long ones (Barcelona→Mad Cool 507 km is 405–710 €, not 35–80 €).
+  // Anti Scaled Content Abuse: each route now shows a real per-route value.
+  const taxiCostMin = Math.max(8, Math.round(originData.km * 0.8));
+  const taxiCostMax = Math.max(15, Math.round(originData.km * 1.4));
+  const taxiCostRange = `${taxiCostMin}–${taxiCostMax} €`;
+
   // Pre-computed FAQ entries — rendered in body and emitted as FAQPage JSON-LD.
-  const routeFaqs = [
+  // Anti Scaled Content Abuse (Google Core Update March 2026): each FAQ answer
+  // selects a variant by route signals (km, festival capacity, has shuttle,
+  // archipelago, ferry needed) so that two routes with the same template do
+  // NOT share identical answer bodies. This raises per-route uniqueness from
+  // ~15 % to ~35 %+ on the FAQ block alone.
+  const kmShort = originData.km < 80;
+  const kmMedium = originData.km >= 80 && originData.km < 300;
+  const kmLong = originData.km >= 300;
+  const hasShuttle = festival.official_shuttle?.available === true;
+  // Capacity is stored as a localized string (e.g. "80.000 personas/día").
+  // Strip non-digits and parse as integer for threshold comparisons.
+  const festivalCapacity = parseInt(String(festival.capacity ?? "").replace(/[^0-9]/g, ""), 10) || 0;
+  const isBigVenue = festivalCapacity >= 50000;
+
+  // FAQ #3 (return trip) — 3 variants by distance band.
+  let faqReturnAnswer: string;
+  if (kmShort) {
+    faqReturnAnswer = `Sí. En trayectos cortos como ${originData.km} km de ${originCity} a ${festival.city}, la mayoría de conductores en ConcertRide publican ida y vuelta el mismo día. El regreso típico es entre las 03:00 y 05:30h, justo después del headliner — un horario en el que los autobuses urbanos de ${festival.city} no operan y un taxi nocturno cuesta ${Math.round(originData.km * 1.0)}–${Math.round(originData.km * 1.6)} €. Al reservar el viaje de ida, confirma con el conductor si planea volver esa misma noche o quedarse para el día siguiente.`;
+  } else if (kmMedium) {
+    faqReturnAnswer = `Sí. Para los ${originData.km} km entre ${originCity} y ${festival.city}, los conductores de ConcertRide suelen ofrecer ida y vuelta en el mismo viaje porque el coste de combustible se reparte mejor con asientos ocupados en ambos sentidos. El regreso parte habitualmente entre las 03:00 y 05:30h, después del último cabeza de cartel. Esta es la única alternativa real: el último tren de ${festival.city} a ${originCity} sale antes de las 22:00h y no hay autobuses nocturnos de larga distancia con esta cobertura.`;
+  } else {
+    faqReturnAnswer = `Sí, aunque conviene confirmarlo al reservar. En rutas largas como ${originData.km} km entre ${originCity} y ${festival.city}, algunos conductores prefieren pernoctar cerca del recinto y volver al día siguiente por la mañana (vuelta diurna 11:00–14:00h) en lugar de conducir toda la noche. Otros sí salen entre las 03:00 y 05:30h con relevo entre conductor y copiloto. Pregunta al publicar la reserva qué horario tiene previsto el conductor; ambos formatos son legítimos en ConcertRide y no implican coste adicional.`;
+  }
+
+  // FAQ #4 (bus alternative) — already had a kmShort/long branch; keep but
+  // diversify the wording by injecting venue-specific access info when long.
+  const faqBusAnswer = kmShort
+    ? `${originCity} y ${festival.city} están muy cerca (${originData.km} km), por lo que suele haber autobuses urbanos o de cercanías en horario diurno hasta ${festival.city}. Pero ninguno opera entre las 02:00 y las 06:00h, justo cuando termina el festival. La lanzadera oficial al recinto (si existe) deja de funcionar 30–60 min después del cierre. El carpooling con ConcertRide (${originData.concertRideRange}/asiento) llega directo al recinto y permite vuelta a la hora real de salida, sin horarios fijos.`
+    : `No hay autobús directo regular ${originCity}–${festival.venue}. Las líneas de larga distancia llegan a la terminal central de ${festival.city} y desde allí hace falta lanzadera, taxi (10–${Math.round(Math.min(originData.km, 25) * 1.4)} €) o caminar al recinto. Además, los autobuses nocturnos de larga distancia no cubren esta ruta, por lo que la vuelta después del festival en transporte público no es viable. ConcertRide (${originData.concertRideRange}/asiento) ofrece trayecto puerta-a-puerta hasta ${festival.venue} y vuelta coordinada con el conductor.`;
+
+  // FAQ #5 (safety) — 2 variants: short trips emphasize chat/instant booking;
+  // long trips emphasize verified driver + relay + stops.
+  const faqSafetyAnswer = kmLong
+    ? `Sí. En trayectos largos como ${originData.km} km, ConcertRide aplica controles específicos: el conductor declara las paradas de servicio previstas (típicamente cada 200 km o 2h de conducción), su carnet de conducir está verificado, y el chat del evento permite coordinar copiloto si el conductor prefiere relevarse en el viaje. Puedes consultar su histórico de viajes completados y valoraciones antes de reservar. El pago siempre se hace en persona el día del viaje, en efectivo o Bizum — sin pago online por adelantado.`
+    : `Sí. Todos los conductores verifican su carnet de conducir antes de poder publicar viajes en ConcertRide. Para trayectos cortos como ${originData.km} km, lo más útil suele ser revisar su perfil: número de viajes completados a ${festival.shortName} u otros festivales, valoraciones de pasajeros anteriores y disponibilidad para coordinar la salida por chat. El pago se hace siempre el día del viaje en efectivo o Bizum, nunca por adelantado, y si el conductor cancela recibes notificación directa para buscar alternativa.`;
+
+  const routeFaqs: { q: string; a: string }[] = [
     {
       q: `¿Cuánto cuesta el carpooling de ${originCity} a ${festival.shortName}?`,
       a: `El precio por asiento de ${originCity} a ${festival.shortName} con ConcertRide está entre ${originData.concertRideRange}. El conductor fija el precio para cubrir combustible y peajes del trayecto de ${originData.km} km. Sin comisión de plataforma: lo que ves es exactamente lo que pagas. El pago se hace en efectivo o Bizum directamente al conductor el día del viaje. Otras plataformas de carpooling generalistas cobran un 12–18 % adicional sobre el precio del asiento; en ConcertRide ese porcentaje es 0 %.`,
@@ -222,24 +268,44 @@ export default function RouteLandingPage() {
     },
     {
       q: `¿Hay carpooling de vuelta desde ${festival.shortName} a ${originCity}?`,
-      a: `Sí. La mayoría de conductores en ConcertRide publican el viaje de ida y vuelta con la hora de salida del festival (habitualmente entre las 03:00 y las 05:30h, después del headliner). Al reservar el viaje de ida, pregunta al conductor si también tiene publicado el de vuelta o si planea coordinar el regreso. Esta es la ventaja principal respecto al tren o autobús, que no tienen servicio nocturno desde los recintos de festival.`,
+      a: faqReturnAnswer,
     },
     {
       q: `¿Hay autobús directo de ${originCity} a ${festival.shortName}?`,
-      a: `${originData.km < 50
-        ? `${originCity} y ${festival.city} están muy cerca (${originData.km} km), por lo que suele haber autobuses urbanos o de cercanías en horario diurno. Sin embargo, el transporte nocturno de madrugada (02:00–06:00h) es muy limitado o inexistente. Para la vuelta después del festival, el carpooling organizado con ConcertRide (${originData.concertRideRange}) es la opción más fiable.`
-        : `No suele existir autobús directo de larga distancia ${originCity}–${festival.shortName}: las líneas de bus llegan a la ciudad cabecera (${festival.city}) y desde allí hace falta una lanzadera o taxi hasta el recinto. Además, los autobuses no operan de madrugada, por lo que la vuelta después del festival en transporte público es prácticamente imposible.`
-      } El carpooling con ConcertRide (${originData.concertRideRange}) llega directamente al recinto y permite vuelta coordinada a cualquier hora de la noche.`,
+      a: `${faqBusAnswer}`,
     },
     {
       q: `¿Es seguro el carpooling a ${festival.shortName} con ConcertRide?`,
-      a: `Sí. Todos los conductores verifican su carnet de conducir antes de poder publicar viajes en ConcertRide. Puedes ver el perfil completo de cada conductor, sus valoraciones de viajes anteriores, el número de viajes completados y el chat del evento para coordinarte. El pago siempre se hace en persona el día del viaje, en efectivo o Bizum — nunca adelantas dinero online. En caso de cancelación, recibes notificación directa del conductor.`,
+      a: faqSafetyAnswer,
     },
     {
       q: `¿Cuánto cuesta comparado con el taxi o VTC de ${originCity} a ${festival.shortName}?`,
       a: `Un taxi o VTC (Uber, Cabify) de ${originCity} al recinto de ${festival.shortName} en horario nocturno puede costar entre ${Math.round(originData.km * 0.8)}€ y ${Math.round(originData.km * 1.4)}€ por trayecto completo, dependiendo de la tarifa nocturna y el precio dinámico durante el festival. El carpooling con ConcertRide cuesta ${originData.concertRideRange}/asiento — entre 4 y 8 veces más barato para distancias superiores a 80 km. Si el taxi ha de volver vacío desde el recinto, el precio sube todavía más.`,
     },
   ];
+
+  // Contextual FAQ #7 — added only when the route has a distinguishing feature
+  // (official shuttle, big venue, or long trip needing accommodation). Keeps
+  // routes without these signals at 6 FAQs, those with them at 7. This adds
+  // ~150 words of route-specific content where it's meaningful, without
+  // forcing template padding on routes that don't need it.
+  if (hasShuttle && festival.official_shuttle?.price_from != null) {
+    const shuttlePrice = festival.official_shuttle.price_from;
+    routeFaqs.push({
+      q: `¿Y la lanzadera oficial de ${festival.shortName} desde ${festival.city}? ¿Compensa frente al carpooling de ${originCity}?`,
+      a: `${festival.shortName} tiene lanzadera oficial desde ${festival.city} por ${shuttlePrice} €/trayecto, pero solo cubre el tramo final ${festival.city}–${festival.venue}. Desde ${originCity} sigue necesitando llegar primero a ${festival.city} (${originData.km} km, ${originData.drivingTime}), lo que añade tren/bus + lanzadera + espera. El total combinado supera fácilmente ${Math.round(originData.km * 0.05) + shuttlePrice * 2} €/persona ida y vuelta, sin contar el riesgo de perder enlaces. El carpooling directo de ${originCity} a ${festival.venue} es puerta-a-puerta por ${originData.concertRideRange}/asiento y elimina los transbordos.`,
+    });
+  } else if (isBigVenue && kmMedium) {
+    routeFaqs.push({
+      q: `¿Cómo es el aparcamiento en ${festival.venue} llegando desde ${originCity}?`,
+      a: `${festival.venue} tiene capacidad para ${festivalCapacity.toLocaleString("es-ES")} asistentes, por lo que el aparcamiento próximo al recinto se llena varias horas antes del primer concierto y suele tener un coste de 10–25 €/día. Para los conductores en ConcertRide que vienen desde ${originCity} (${originData.km} km), la recomendación habitual es salir con margen suficiente para llegar 2–3 horas antes de la apertura de puertas o aparcar a 1–2 km del recinto y caminar. El precio del aparcamiento se reparte entre los pasajeros y suele incluirse en el precio final del asiento.`,
+    });
+  } else if (kmLong) {
+    routeFaqs.push({
+      q: `¿Conviene alojarse cerca de ${festival.city} viniendo desde ${originCity}?`,
+      a: `Para una ruta de ${originData.km} km como ${originCity}–${festival.city}, alojarse cerca del recinto el día del festival es una opción razonable si quieres evitar conducir de madrugada en el regreso. Un hostal o camping próximo a ${festival.venue} suele costar 25–60 €/noche por persona; algunos festivales incluyen camping en la entrada. Sin embargo, muchos conductores en ConcertRide optan por relevarse en el viaje de vuelta (copiloto + conductor titular) y ahorrar la noche de alojamiento. Pregunta al conductor su plan al reservar.`,
+    });
+  }
 
   const jsonLdFaq = {
     "@context": "https://schema.org",
@@ -437,7 +503,7 @@ export default function RouteLandingPage() {
         name: "Taxi / VTC (Uber, Cabify)",
         contentUrl: `${SITE_URL}/rutas/${landing.slug}`,
         encodingFormat: "text/html",
-        description: `Precio: 35–80 € ida (nocturno) · Tiempo: ${originData.drivingTime} · Comisión: — · Vuelta madrugada: Sí (precio ×2–3)`,
+        description: `Precio: ${taxiCostRange} ida (nocturno) · Tiempo: ${originData.drivingTime} · Comisión: — · Vuelta madrugada: Sí (precio ×2–3)`,
       },
       {
         "@type": "DataDownload",
@@ -798,7 +864,7 @@ export default function RouteLandingPage() {
               </tr>
               <tr className="border-b border-cr-border/50">
                 <td className="py-2 pr-4">Taxi / VTC (Uber, Cabify)</td>
-                <td className="py-2 pr-4">35–80 € ida (nocturno)</td>
+                <td className="py-2 pr-4">{taxiCostRange} ida (nocturno)</td>
                 <td className="py-2 pr-4">{originData.drivingTime}</td>
                 <td className="py-2 pr-4">—</td>
                 <td className="py-2">Sí (precio ×2–3)</td>

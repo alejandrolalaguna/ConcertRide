@@ -2,6 +2,14 @@
 
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
+## Git Push — NEVER do it
+
+**NUNCA hacer `git push` (ni `git push --force`, ni `gh pr merge`, ni cualquier comando que publique commits al remoto).**
+
+- `git commit` está permitido (solo cuando el usuario lo pida explícitamente).
+- El usuario hace el push manualmente. Cualquier intento automatizado de push dispara prompts de credenciales en su entorno y rompe el flujo.
+- Si crees que ya hay que pushear, dilo en texto, no lo ejecutes.
+
 ## Brand Restrictions — NEVER violate
 
 **PROHIBIDO mencionar a "BlaBlaCar" en cualquier contenido visible del producto.**

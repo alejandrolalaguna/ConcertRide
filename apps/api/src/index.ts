@@ -35,6 +35,8 @@ import { seoPrerender } from "./lib/seoPrerender";
 import { getSiteUrl } from "./lib/siteUrl";
 import { ARTIST_LANDINGS } from "../../web/src/lib/artistLandings";
 import { VENUE_LANDINGS } from "../../web/src/lib/venueLandings";
+import { FESTIVAL_LANDINGS } from "../../web/src/lib/festivalLandings";
+import { ROUTE_LANDINGS_BY_SLUG } from "../../web/src/lib/routeLandings";
 import * as Sentry from "@sentry/cloudflare";
 
 // Origins always allowed for CORS. The configured SITE_URL (and its `www.`
@@ -91,6 +93,37 @@ app.use("*", async (c, next) => {
     const target = LEGACY_REDIRECTS[c.req.path];
     if (target) return c.redirect(target, 301);
   }
+  return next();
+});
+
+// ─── /rutas/:slug popularity-cut redirect (added 2026-05-23) ────────────────
+// On 2026-05-23 we tightened the popularity gate in routeLandings.ts: ~10,700
+// algorithmic route pages (no curated origin, no big-origin city, no tier-1
+// festival) were removed to reduce Scaled Content Abuse risk after the
+// March 2026 Core Update. For any cut route the slug still parses as
+// "<originCitySlug>-<festivalSlug>" — we extract the festivalSlug suffix
+// and 301 to /festivales/<festivalSlug>. This preserves link equity from
+// any external inbound links and any Googlebot still discovering the URL
+// from old sitemaps. Routes that still exist (in ROUTE_LANDINGS_BY_SLUG)
+// pass through untouched.
+const FESTIVAL_SLUG_SET = new Set(FESTIVAL_LANDINGS.map((f) => f.slug));
+// Sort by length DESC so longer festival slugs (e.g. "primavera-sound") are
+// matched before shorter ones (e.g. "sound") that could be substrings.
+const FESTIVAL_SLUGS_BY_LENGTH = [...FESTIVAL_SLUG_SET].sort((a, b) => b.length - a.length);
+app.use("*", async (c, next) => {
+  if (c.req.method !== "GET" && c.req.method !== "HEAD") return next();
+  if (!c.req.path.startsWith("/rutas/")) return next();
+  const slug = c.req.path.slice("/rutas/".length).replace(/\/$/, "");
+  if (!slug || slug.includes("/")) return next();
+  // Route still exists post-popularity-gate — let it render normally.
+  if (ROUTE_LANDINGS_BY_SLUG[slug]) return next();
+  // Try to extract the festival slug suffix.
+  for (const fSlug of FESTIVAL_SLUGS_BY_LENGTH) {
+    if (slug.endsWith(`-${fSlug}`)) {
+      return c.redirect(`/festivales/${fSlug}`, 301);
+    }
+  }
+  // Not a recognisable route slug — let the normal 404/SPA path handle it.
   return next();
 });
 

@@ -2541,8 +2541,8 @@ ${transportSummary}<p>${esc(f.blurb)}</p>
   </thead>
   <tbody>
     <tr><td><strong>ConcertRide carpooling</strong></td><td>${esc(f.originCities[0]?.range ?? f.priceFrom + " €")}/asiento</td><td>0 %</td><td>Sí (coordinada con el conductor)</td><td>Instantánea</td></tr>
-    <tr><td>Taxi / VTC (Uber, Cabify)</td><td>35–80 € ida (precio nocturno)</td><td>—</td><td>Sí (precio x2–x3 de madrugada)</td><td>App</td></tr>
-    <tr><td>BlaBlaCar</td><td>${esc(f.originCities[0]?.range ?? f.priceFrom + " €")} + 12–18 % comisión</td><td>12–18 %</td><td>Depende del conductor</td><td>Con aprobación</td></tr>
+    <tr><td>Taxi / VTC (Uber, Cabify)</td><td>${(() => { const km = f.originCities[0]?.km ?? 0; return km > 0 ? `${Math.max(8, Math.round(km * 0.8))}–${Math.max(15, Math.round(km * 1.4))} € ida (precio nocturno)` : "Variable según origen (precio nocturno)"; })()}</td><td>—</td><td>Sí (precio x2–x3 de madrugada)</td><td>App</td></tr>
+    <tr><td>Otras plataformas de carpooling</td><td>${esc(f.originCities[0]?.range ?? f.priceFrom + " €")} + 12–18 % comisión</td><td>12–18 %</td><td>Depende del conductor</td><td>Con aprobación</td></tr>
     <tr><td>Autobús / tren público</td><td>3–15 € (si hay servicio)</td><td>—</td><td>No (último servicio ~1:30)</td><td>Taquilla / app</td></tr>
   </tbody>
 </table>
@@ -3092,8 +3092,8 @@ ${routeEventJsonLd ? `<script type="application/ld+json">${routeEventJsonLd}</sc
   </thead>
   <tbody>
     <tr><td><strong>ConcertRide carpooling</strong></td><td>${r.priceFrom}–${r.priceTo} €/asiento</td><td>${esc(r.drivingTime)}</td><td>0 %</td><td>Sí (coordinada)</td></tr>
-    <tr><td>Taxi / VTC (Uber, Cabify)</td><td>35–80 € ida (precio nocturno)</td><td>${esc(r.drivingTime)}</td><td>—</td><td>Sí (precio x2–x3)</td></tr>
-    <tr><td>BlaBlaCar</td><td>${r.priceFrom}–${r.priceTo} € + 12–18 %</td><td>${esc(r.drivingTime)}</td><td>12–18 %</td><td>Depende</td></tr>
+    <tr><td>Taxi / VTC (Uber, Cabify)</td><td>${(() => { const km = parseInt(r.distance, 10) || 0; return km > 0 ? `${Math.max(8, Math.round(km * 0.8))}–${Math.max(15, Math.round(km * 1.4))} € ida (precio nocturno)` : "Variable según distancia"; })()}</td><td>${esc(r.drivingTime)}</td><td>—</td><td>Sí (precio x2–x3)</td></tr>
+    <tr><td>Otras plataformas de carpooling</td><td>${r.priceFrom}–${r.priceTo} € + 12–18 %</td><td>${esc(r.drivingTime)}</td><td>12–18 %</td><td>Depende</td></tr>
     <tr><td>Autobús / tren</td><td>3–15 € (si disponible)</td><td>Variable</td><td>—</td><td>No (último ~1:30)</td></tr>
   </tbody>
 </table>
