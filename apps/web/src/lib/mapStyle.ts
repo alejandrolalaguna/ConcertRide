@@ -8,6 +8,9 @@ import type { StyleSpecification } from "maplibre-gl";
 
 export const OSM_RASTER_STYLE: StyleSpecification = {
   version: 8,
+  // MapLibre requires `glyphs` even for raster-only styles (used by NavigationControl
+  // labels and any future symbol layers). Public MapLibre demo endpoint, CORS-enabled.
+  glyphs: "https://demotiles.maplibre.org/font/{fontstack}/{range}.pbf",
   sources: {
     osm: {
       type: "raster",
