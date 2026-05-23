@@ -47,18 +47,21 @@ const MARKER = "<!-- critical-css-inlined -->";
 
 /**
  * Beasties options tuned for ConcertRide.
- *  - preload:"swap"       → <link rel="preload" as="style" onload="this.rel='stylesheet'">
- *                           which is the LCP-friendly pattern Google recommends.
+ *  - preload:"body"       → moves non-critical <link rel="stylesheet"> to end of <body>
+ *                           (no inline event handlers — CSP-safe). Critical CSS is
+ *                           already inlined in <style>, so this is non-blocking.
+ *                           We used to use "swap", which emitted
+ *                           `<link rel="preload" as="style" onload="this.rel='stylesheet'">`
+ *                           — that inline `onload=` violates our strict CSP
+ *                           (`script-src 'self' 'wasm-unsafe-eval'`, no unsafe-inline).
  *  - pruneSource:false    → keep the original CSS file on disk; we only modify HTML.
  *                           Tailwind v4's bundle is shared across 4500+ pages, deleting
  *                           per-page would break navigation.
- *  - inlineFonts:false    → Google Fonts is already deferred via preload pattern.
- *                           Don't double-inline.
+ *  - inlineFonts:false    → Google Fonts already loaded as a normal stylesheet.
  *  - mergeStylesheets:true → merge multiple <style> blocks into one.
- *  - logLevel:"warn"      → keep stdout clean; we'll surface our own progress.
- *  - reduceInlineStyles:false → don't dedupe inline styles (could break JSON-LD which
- *                              has no styles but defensive).
- *  - additionalStylesheets: include 404.css etc. if any (none currently).
+ *  - logLevel:"silent"    → keep stdout clean; we'll surface our own progress.
+ *  - reduceInlineStyles:false → don't dedupe inline styles (defensive — could break
+ *                              JSON-LD or other inline blocks we don't own).
  *
  * Beasties resolves stylesheet hrefs relative to `path`. Each HTML lives in a
  * different depth (dist/index.html vs dist/festivales/mad-cool/index.html), so
@@ -68,7 +71,7 @@ function makeBeasties() {
   return new Beasties({
     path: DIST,
     publicPath: "/",
-    preload: "swap",
+    preload: "body",
     pruneSource: false,
     inlineFonts: false,
     mergeStylesheets: true,
@@ -155,6 +158,13 @@ async function main() {
       // Stale dist/ entry from a previous build — file was removed by prerender cleanup
       if (e.code === "ENOENT") {
         if (VERBOSE) console.warn(`  SKIP (stale): ${path.relative(DIST, filePath)}`);
+        skipped++;
+        continue;
+      }
+      // Windows file lock (antivirus, watcher process) — skip rather than abort
+      // the whole build. The file will be re-inlined on the next clean build.
+      if (e.code === "EPERM" || e.code === "EBUSY") {
+        console.warn(`  SKIP (locked: ${e.code}): ${path.relative(DIST, filePath)}`);
         skipped++;
         continue;
       }
