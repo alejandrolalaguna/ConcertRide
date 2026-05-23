@@ -145,15 +145,24 @@ export default function AvisoLegalPage() {
             <p>
               La librería de renderizado utilizada es{" "}
               <a
-                href="https://maplibre.org/"
+                href="https://leafletjs.com/"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-cr-primary underline underline-offset-2"
               >
-                MapLibre GL JS
+                Leaflet
               </a>
-              , distribuida bajo licencia BSD 3-Clause (software libre), sin telemetría ni
-              dependencias comerciales propietarias.
+              , distribuida bajo licencia BSD 2-Clause (software libre). Los teselados (tiles) los
+              sirve{" "}
+              <a
+                href="https://carto.com/attributions"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-cr-primary underline underline-offset-2"
+              >
+                CARTO
+              </a>{" "}
+              a partir de datos de OpenStreetMap.
             </p>
           </section>
 

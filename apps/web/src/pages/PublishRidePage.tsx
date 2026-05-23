@@ -19,7 +19,7 @@ import { PulsingDot } from "@/components/LoadingStates";
 import { useSeoMeta } from "@/lib/useSeoMeta";
 import { SITE_URL } from "@/lib/siteUrl";
 
-// Lazy-loaded so the maplibre-gl chunk does not enter the publish flow's
+// Lazy-loaded so the leaflet chunk does not enter the publish flow's
 // initial bundle. Only needed when the user reaches Step 2.
 const OriginPickerMap = lazy(() => import("@/components/OriginPickerMap"));
 

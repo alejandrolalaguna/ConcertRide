@@ -1,10 +1,26 @@
 import { useEffect, useRef } from "react";
-import maplibregl, { Map as MapLibreMap, Marker as MapMarker, LngLat } from "maplibre-gl";
-import { OSM_RASTER_STYLE, SPAIN_CENTER } from "@/lib/mapStyle";
-import { mapTransformRequest } from "@/lib/mapTransformRequest";
-import { hasWebGL } from "@/lib/webglSupport";
-import MapAttribution from "./MapAttribution";
+import { MapContainer, Marker, TileLayer, useMap, useMapEvents } from "react-leaflet";
+import L from "leaflet";
+import markerIcon2x from "leaflet/dist/images/marker-icon-2x.png";
+import markerIcon from "leaflet/dist/images/marker-icon.png";
+import markerShadow from "leaflet/dist/images/marker-shadow.png";
 import "./MapView.css";
+
+delete (L.Icon.Default.prototype as unknown as Record<string, unknown>)._getIconUrl;
+L.Icon.Default.mergeOptions({ iconUrl: markerIcon, iconRetinaUrl: markerIcon2x, shadowUrl: markerShadow });
+
+const TILE_URL = "https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}.png";
+const TILE_ATTR =
+  '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>';
+
+const SPAIN_CENTER: [number, number] = [40.4168, -3.7038];
+
+const originIcon = L.divIcon({
+  className: "cr-marker-wrapper",
+  html: '<span class="cr-marker-origin" aria-hidden="true"></span>',
+  iconSize: [20, 20],
+  iconAnchor: [10, 10],
+});
 
 interface Props {
   lat: number | null;
@@ -13,128 +29,81 @@ interface Props {
   initialCenter?: [number, number];
 }
 
-function makeOriginMarkerElement(): HTMLElement {
-  const wrap = document.createElement("div");
-  wrap.className = "cr-marker-wrapper";
-  const inner = document.createElement("span");
-  inner.className = "cr-marker-origin";
-  inner.setAttribute("aria-hidden", "true");
-  wrap.appendChild(inner);
-  return wrap;
+function ClickHandler({ onPick }: { onPick: (lat: number, lng: number) => void }) {
+  useMapEvents({
+    click(e) {
+      onPick(e.latlng.lat, e.latlng.lng);
+    },
+  });
+  return null;
+}
+
+function ExternalSync({ lat, lng }: { lat: number | null; lng: number | null }) {
+  const map = useMap();
+  useEffect(() => {
+    if (lat === null || lng === null) return;
+    map.flyTo([lat, lng], Math.max(map.getZoom(), 12), { animate: true, duration: 0.4 });
+  }, [lat, lng, map]);
+  return null;
 }
 
 export default function OriginPickerMap({ lat, lng, onChange, initialCenter }: Props) {
-  const containerRef = useRef<HTMLDivElement | null>(null);
-  const mapRef = useRef<MapLibreMap | null>(null);
-  const markerRef = useRef<MapMarker | null>(null);
-  // Keep latest onChange in a ref so the init effect can read it without
-  // re-running. Init must only run once per mount.
   const onChangeRef = useRef(onChange);
   useEffect(() => {
     onChangeRef.current = onChange;
   }, [onChange]);
 
-  // ---- Init map once ----
+  const hasInitial = lat !== null && lng !== null;
+  const center: [number, number] = hasInitial
+    ? [lat as number, lng as number]
+    : initialCenter ?? SPAIN_CENTER;
+  const zoom = hasInitial ? 13 : 5.5;
+
   useEffect(() => {
-    if (!containerRef.current || mapRef.current) return;
-    if (!hasWebGL()) return; // jsdom / unsupported browsers — skip MapLibre
-
-    const startCenter: [number, number] =
-      lat !== null && lng !== null
-        ? [lng, lat]
-        : initialCenter ?? SPAIN_CENTER;
-    const startZoom = lat !== null && lng !== null ? 13 : 5.5;
-
-    const map = new maplibregl.Map({
-      container: containerRef.current,
-      style: OSM_RASTER_STYLE,
-      center: startCenter,
-      zoom: startZoom,
-      attributionControl: false,
-      transformRequest: mapTransformRequest,
-    });
-    mapRef.current = map;
-
-    const marker = new maplibregl.Marker({
-      element: makeOriginMarkerElement(),
-      draggable: true,
-    })
-      .setLngLat(startCenter)
-      .addTo(map);
-    markerRef.current = marker;
-
-    marker.on("dragend", () => {
-      const pos = marker.getLngLat();
-      onChangeRef.current({ lat: pos.lat, lng: pos.lng });
-    });
-
-    map.on("click", (e) => {
-      const ll = e.lngLat as LngLat;
-      marker.setLngLat(ll);
-      onChangeRef.current({ lat: ll.lat, lng: ll.lng });
-    });
-
-    // ---- Geolocation: only if no initial coords supplied ----
-    if (lat === null || lng === null) {
-      if (typeof navigator !== "undefined" && navigator.geolocation) {
-        try {
-          navigator.geolocation.getCurrentPosition(
-            (position) => {
-              if (!mapRef.current || !markerRef.current) return;
-              const detectedLat = position.coords.latitude;
-              const detectedLng = position.coords.longitude;
-              mapRef.current.flyTo({
-                center: [detectedLng, detectedLat],
-                zoom: 13,
-                animate: !window.matchMedia("(prefers-reduced-motion: reduce)").matches,
-              });
-              markerRef.current.setLngLat([detectedLng, detectedLat]);
-              onChangeRef.current({ lat: detectedLat, lng: detectedLng });
-            },
-            () => {
-              // Permission denied or timeout — keep current default center.
-            },
-            { enableHighAccuracy: false, timeout: 5000 },
-          );
-        } catch {
-          // Geolocation API blocked — silently fall back to default center.
-        }
-      }
+    if (hasInitial) return;
+    if (typeof navigator === "undefined" || !navigator.geolocation) return;
+    try {
+      navigator.geolocation.getCurrentPosition(
+        (pos) => {
+          onChangeRef.current({ lat: pos.coords.latitude, lng: pos.coords.longitude });
+        },
+        () => {},
+        { enableHighAccuracy: false, timeout: 5000 },
+      );
+    } catch {
+      // Geolocation blocked — silently fall back.
     }
-
-    return () => {
-      map.remove();
-      mapRef.current = null;
-      markerRef.current = null;
-    };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
-  // ---- Sync external lat/lng changes into the marker (e.g. when origin_city
-  // dropdown is changed and the parent updates coords). ----
-  useEffect(() => {
-    if (!mapRef.current || !markerRef.current) return;
-    if (lat === null || lng === null) return;
-    const current = markerRef.current.getLngLat();
-    if (Math.abs(current.lat - lat) < 1e-6 && Math.abs(current.lng - lng) < 1e-6) return;
-    markerRef.current.setLngLat([lng, lat]);
-    mapRef.current.flyTo({
-      center: [lng, lat],
-      zoom: Math.max(mapRef.current.getZoom(), 12),
-      animate: !window.matchMedia("(prefers-reduced-motion: reduce)").matches,
-    });
-  }, [lat, lng]);
+  }, [hasInitial]);
 
   return (
     <div className="cr-map border border-cr-border overflow-hidden">
       <div className="relative h-[320px] w-full">
-        <div
-          ref={containerRef}
-          className="absolute inset-0"
+        <MapContainer
+          center={center}
+          zoom={zoom}
+          style={{ height: "100%", width: "100%" }}
           aria-label="Selecciona el punto de recogida en el mapa"
-          role="region"
-        />
-        <MapAttribution />
+        >
+          <TileLayer url={TILE_URL} attribution={TILE_ATTR} />
+          <ClickHandler
+            onPick={(la, ln) => onChangeRef.current({ lat: la, lng: ln })}
+          />
+          <ExternalSync lat={lat} lng={lng} />
+          {hasInitial && (
+            <Marker
+              position={[lat as number, lng as number]}
+              icon={originIcon}
+              draggable
+              eventHandlers={{
+                dragend: (e) => {
+                  const m = e.target as L.Marker;
+                  const p = m.getLatLng();
+                  onChangeRef.current({ lat: p.lat, lng: p.lng });
+                },
+              }}
+            />
+          )}
+        </MapContainer>
       </div>
       <p className="font-mono text-[10px] text-cr-text-muted px-3 py-2 border-t border-cr-border bg-cr-surface">
         Arrastra el marcador para ajustar el punto exacto de recogida.

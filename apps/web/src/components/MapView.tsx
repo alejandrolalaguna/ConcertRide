@@ -1,50 +1,120 @@
 import { useEffect, useMemo, useRef, useState } from "react";
+import { MapContainer, Marker, TileLayer, ZoomControl, useMap, useMapEvents } from "react-leaflet";
 import { Link } from "react-router-dom";
-import maplibregl, { Map as MapLibreMap, Marker as MapMarker, NavigationControl } from "maplibre-gl";
+import L from "leaflet";
+import markerIcon2x from "leaflet/dist/images/marker-icon-2x.png";
+import markerIcon from "leaflet/dist/images/marker-icon.png";
+import markerShadow from "leaflet/dist/images/marker-shadow.png";
 import type { Concert, Ride } from "@concertride/types";
 import { formatDay, formatTime } from "@/lib/format";
-import { OSM_RASTER_STYLE, SPAIN_BOUNDS, SPAIN_CENTER } from "@/lib/mapStyle";
-import { mapTransformRequest } from "@/lib/mapTransformRequest";
-import { hasWebGL } from "@/lib/webglSupport";
-import MapAttribution from "./MapAttribution";
 import "./MapView.css";
+
+// Fix leaflet default icon paths broken by Vite bundling
+delete (L.Icon.Default.prototype as unknown as Record<string, unknown>)._getIconUrl;
+L.Icon.Default.mergeOptions({ iconUrl: markerIcon, iconRetinaUrl: markerIcon2x, shadowUrl: markerShadow });
+
+const SPAIN_CENTER: [number, number] = [40.4168, -3.7038];
+const SPAIN_BOUNDS: L.LatLngBoundsLiteral = [
+  [35.9, -9.5],
+  [43.8, 4.4],
+];
+
+const TILE_URL = "https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}.png";
+const TILE_ATTR =
+  '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>';
+
+const concertIcon = L.divIcon({
+  className: "cr-marker-wrapper",
+  html: '<span class="cr-marker-concert" aria-hidden="true"></span>',
+  iconSize: [28, 28],
+  iconAnchor: [14, 14],
+});
+
+const originIcon = L.divIcon({
+  className: "cr-marker-wrapper",
+  html: '<span class="cr-marker-origin" aria-hidden="true"></span>',
+  iconSize: [20, 20],
+  iconAnchor: [10, 10],
+});
 
 interface Props {
   concerts: Concert[];
   rides: Ride[];
 }
 
-function makeConcertMarker(): HTMLElement {
-  const wrap = document.createElement("div");
-  wrap.className = "cr-marker-wrapper";
-  const inner = document.createElement("span");
-  inner.className = "cr-marker-concert";
-  inner.setAttribute("aria-hidden", "true");
-  wrap.appendChild(inner);
-  return wrap;
+// Enables scroll-wheel zoom only while Ctrl is held
+function CtrlScrollZoom() {
+  const map = useMap();
+  const containerRef = useRef<HTMLElement | null>(null);
+
+  useEffect(() => {
+    containerRef.current = map.getContainer();
+    const el = containerRef.current;
+
+    function onWheel(e: WheelEvent) {
+      if (e.ctrlKey) {
+        e.preventDefault();
+        const delta = e.deltaY > 0 ? -1 : 1;
+        map.setZoom(map.getZoom() + delta, { animate: true });
+      }
+    }
+
+    el.addEventListener("wheel", onWheel, { passive: false });
+    return () => el.removeEventListener("wheel", onWheel);
+  }, [map]);
+
+  return null;
 }
 
-function makeOriginMarker(): HTMLElement {
-  const wrap = document.createElement("div");
-  wrap.className = "cr-marker-wrapper";
-  const inner = document.createElement("span");
-  inner.className = "cr-marker-origin";
-  inner.setAttribute("aria-hidden", "true");
-  wrap.appendChild(inner);
-  return wrap;
+// Shows a hint overlay when user scrolls without Ctrl
+function CtrlHint() {
+  const map = useMap();
+  const [visible, setVisible] = useState(false);
+  const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  useEffect(() => {
+    const el = map.getContainer();
+    function onWheel(e: WheelEvent) {
+      if (!e.ctrlKey) {
+        setVisible(true);
+        if (timerRef.current) clearTimeout(timerRef.current);
+        timerRef.current = setTimeout(() => setVisible(false), 1500);
+      }
+    }
+    el.addEventListener("wheel", onWheel, { passive: true });
+    return () => el.removeEventListener("wheel", onWheel);
+  }, [map]);
+
+  if (!visible) return null;
+  return (
+    <div className="absolute inset-0 z-[999] flex items-center justify-center pointer-events-none">
+      <div className="bg-cr-bg/90 backdrop-blur border border-cr-border px-4 py-2 font-mono text-xs text-cr-text-muted">
+        Mantén <kbd className="font-sans text-[10px] border border-cr-border px-1 py-0.5 text-cr-primary">Ctrl</kbd> para hacer zoom
+      </div>
+    </div>
+  );
+}
+
+function CloseOnMapClick({
+  onClose,
+  skipRef,
+}: {
+  onClose: () => void;
+  skipRef: React.RefObject<number>;
+}) {
+  useMapEvents({
+    click: () => {
+      if (Date.now() - (skipRef.current ?? 0) > 80) onClose();
+    },
+  });
+  return null;
 }
 
 export default function MapView({ concerts, rides }: Props) {
-  const containerRef = useRef<HTMLDivElement | null>(null);
-  const mapRef = useRef<MapLibreMap | null>(null);
-  const markersRef = useRef<MapMarker[]>([]);
-  const ctrlHintTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
-  const justOpenedRef = useRef<number>(0);
-
   const [activeCity, setActiveCity] = useState<string | null>(null);
   const [selectedConcert, setSelectedConcert] = useState<Concert | null>(null);
   const [selectedRide, setSelectedRide] = useState<Ride | null>(null);
-  const [ctrlHintVisible, setCtrlHintVisible] = useState(false);
+  const justOpenedRef = useRef<number>(0);
 
   function closeAll() {
     setSelectedConcert(null);
@@ -81,150 +151,59 @@ export default function MapView({ concerts, rides }: Props) {
     const map: Record<string, Ride[]> = {};
     for (const r of rides) {
       const existing = map[r.concert_id];
-      if (!existing) {
-        map[r.concert_id] = [r];
-      } else {
-        existing.push(r);
-      }
+      if (!existing) { map[r.concert_id] = [r]; } else { existing.push(r); }
     }
     return map;
   }, [rides]);
 
-  const concertRides: Ride[] = selectedConcert ? ridesByConcert[selectedConcert.id] ?? [] : [];
+  const concertRides: Ride[] = selectedConcert ? (ridesByConcert[selectedConcert.id] ?? []) : [];
   const rideConcert: Concert | null = selectedRide
-    ? concerts.find((c) => c.id === selectedRide.concert_id) ?? null
+    ? (concerts.find((c) => c.id === selectedRide.concert_id) ?? null)
     : null;
-
-  // Initialize map once
-  useEffect(() => {
-    if (!containerRef.current || mapRef.current) return;
-    if (!hasWebGL()) return; // jsdom / unsupported browsers — skip MapLibre
-
-    const map = new maplibregl.Map({
-      container: containerRef.current,
-      style: OSM_RASTER_STYLE,
-      center: SPAIN_CENTER,
-      zoom: 5.4,
-      minZoom: 5,
-      maxZoom: 14,
-      maxBounds: SPAIN_BOUNDS,
-      scrollZoom: false,
-      attributionControl: false,
-      transformRequest: mapTransformRequest,
-    });
-
-    map.addControl(new NavigationControl({ showCompass: false }), "top-right");
-
-    // Ctrl+wheel to zoom; show hint otherwise
-    const container = containerRef.current;
-    function onWheel(e: WheelEvent) {
-      if (e.ctrlKey) {
-        e.preventDefault();
-        const delta = e.deltaY > 0 ? -0.6 : 0.6;
-        map.zoomTo(map.getZoom() + delta, { duration: 200 });
-      } else {
-        setCtrlHintVisible(true);
-        if (ctrlHintTimerRef.current) clearTimeout(ctrlHintTimerRef.current);
-        ctrlHintTimerRef.current = setTimeout(() => setCtrlHintVisible(false), 1500);
-      }
-    }
-    container.addEventListener("wheel", onWheel, { passive: false });
-
-    // Close popups on background click (but not immediately after opening)
-    map.on("click", () => {
-      if (Date.now() - justOpenedRef.current > 80) {
-        setSelectedConcert(null);
-        setSelectedRide(null);
-      }
-    });
-
-    mapRef.current = map;
-
-    return () => {
-      container.removeEventListener("wheel", onWheel);
-      if (ctrlHintTimerRef.current) clearTimeout(ctrlHintTimerRef.current);
-      markersRef.current.forEach((m) => m.remove());
-      markersRef.current = [];
-      map.remove();
-      mapRef.current = null;
-    };
-  }, []);
-
-  // Sync markers when visible data changes
-  useEffect(() => {
-    const map = mapRef.current;
-    if (!map) return;
-
-    markersRef.current.forEach((m) => m.remove());
-    markersRef.current = [];
-
-    for (const c of visibleConcerts) {
-      if (typeof c.venue.lat !== "number" || typeof c.venue.lng !== "number") continue;
-      const el = makeConcertMarker();
-      const concertLabel = `${c.artist} en ${c.venue.city}. Ver viajes disponibles.`;
-      el.setAttribute("title", `${c.artist} · ${c.venue.city}`);
-      el.setAttribute("role", "button");
-      el.setAttribute("tabindex", "0");
-      el.setAttribute("aria-label", concertLabel);
-      el.addEventListener("click", (e) => {
-        e.stopPropagation();
-        openConcert(c);
-      });
-      el.addEventListener("keydown", (e: KeyboardEvent) => {
-        if (e.key === "Enter" || e.key === " ") {
-          e.preventDefault();
-          openConcert(c);
-        }
-      });
-      const marker = new maplibregl.Marker({ element: el }).setLngLat([c.venue.lng, c.venue.lat]).addTo(map);
-      markersRef.current.push(marker);
-    }
-
-    for (const r of visibleOrigins) {
-      if (typeof r.origin_lat !== "number" || typeof r.origin_lng !== "number") continue;
-      const el = makeOriginMarker();
-      const seatsLabel = `${r.seats_left} plaza${r.seats_left === 1 ? "" : "s"}`;
-      const rideLabel = `Viaje desde ${r.origin_city} a ${r.concert.venue.city}: ${r.price_per_seat} € por asiento, ${seatsLabel}.`;
-      el.setAttribute(
-        "title",
-        `${r.origin_city} → ${r.concert.venue.city} · €${r.price_per_seat} · ${seatsLabel}`,
-      );
-      el.setAttribute("role", "button");
-      el.setAttribute("tabindex", "0");
-      el.setAttribute("aria-label", rideLabel);
-      el.addEventListener("click", (e) => {
-        e.stopPropagation();
-        openRide(r);
-      });
-      el.addEventListener("keydown", (e: KeyboardEvent) => {
-        if (e.key === "Enter" || e.key === " ") {
-          e.preventDefault();
-          openRide(r);
-        }
-      });
-      const marker = new maplibregl.Marker({ element: el }).setLngLat([r.origin_lng, r.origin_lat]).addTo(map);
-      markersRef.current.push(marker);
-    }
-  }, [visibleConcerts, visibleOrigins]);
 
   return (
     <div className="cr-map relative h-[60vh] min-h-[420px] w-full border-y border-cr-border">
-      <div ref={containerRef} className="absolute inset-0" aria-label="Mapa de conciertos y viajes en España" role="region" />
-      <MapAttribution />
+      <MapContainer
+        center={SPAIN_CENTER}
+        zoom={6}
+        maxBounds={SPAIN_BOUNDS}
+        minZoom={5}
+        maxZoom={14}
+        scrollWheelZoom={false}
+        zoomControl={false}
+        attributionControl
+        className="h-full w-full"
+      >
+        <TileLayer url={TILE_URL} attribution={TILE_ATTR} subdomains="abcd" />
+        <ZoomControl position="topright" />
+        <CtrlScrollZoom />
+        <CtrlHint />
+        <CloseOnMapClick onClose={closeAll} skipRef={justOpenedRef} />
 
-      {ctrlHintVisible && (
-        <div className="absolute inset-0 z-[999] flex items-center justify-center pointer-events-none">
-          <div className="bg-cr-bg/90 backdrop-blur border border-cr-border px-4 py-2 font-mono text-xs text-cr-text-muted">
-            Mantén <kbd className="font-sans text-[10px] border border-cr-border px-1 py-0.5 text-cr-primary">Ctrl</kbd> para hacer zoom
-          </div>
-        </div>
-      )}
+        {visibleConcerts.map((c) => (
+          <Marker
+            key={c.id}
+            position={[c.venue.lat, c.venue.lng]}
+            icon={concertIcon}
+            title={`${c.artist} · ${c.venue.city}`}
+            eventHandlers={{ click: () => openConcert(c) }}
+          />
+        ))}
+
+        {visibleOrigins.map((r) => (
+          <Marker
+            key={r.id}
+            position={[r.origin_lat, r.origin_lng]}
+            icon={originIcon}
+            title={`${r.origin_city} → ${r.concert.venue.city} · €${r.price_per_seat} · ${r.seats_left} plaza${r.seats_left === 1 ? "" : "s"}`}
+            eventHandlers={{ click: () => openRide(r) }}
+          />
+        ))}
+      </MapContainer>
 
       {/* City filter dropdown */}
       <div className="absolute top-3 left-3 z-[1000] pointer-events-auto">
-        <label className="sr-only" htmlFor="map-city-filter">
-          Ciudad
-        </label>
+        <label className="sr-only" htmlFor="map-city-filter">Ciudad</label>
         <select
           id="map-city-filter"
           value={activeCity ?? ""}
@@ -255,7 +234,7 @@ export default function MapView({ concerts, rides }: Props) {
         </div>
       </div>
 
-      {/* Single ride popup */}
+      {/* Single ride popup — shown when clicking an origin marker */}
       {selectedRide && (
         <div className="absolute bottom-3 right-3 z-[1000] w-[min(300px,calc(100vw-24px))] bg-cr-surface/96 backdrop-blur-md border border-cr-border pointer-events-auto shadow-[0_0_32px_rgba(0,0,0,0.8)]">
           <button
@@ -273,7 +252,9 @@ export default function MapView({ concerts, rides }: Props) {
                 <span className="w-1.5 h-1.5 rounded-full bg-cr-secondary inline-block" />
                 Salida desde {selectedRide.origin_city}
               </p>
-              <h3 className="font-display text-xl uppercase leading-tight pr-6">{selectedRide.concert.artist}</h3>
+              <h3 className="font-display text-xl uppercase leading-tight pr-6">
+                {selectedRide.concert.artist}
+              </h3>
               <p className="font-mono text-[11px] text-cr-text-muted">
                 {selectedRide.concert.venue.name} · {formatDay(selectedRide.concert.date)}
               </p>
@@ -323,9 +304,10 @@ export default function MapView({ concerts, rides }: Props) {
         </div>
       )}
 
-      {/* Concert popup */}
+      {/* Concert popup — shown when clicking a venue marker */}
       {selectedConcert && (
         <div className="absolute bottom-3 right-3 z-[1000] w-[min(320px,calc(100vw-24px))] bg-cr-surface/96 backdrop-blur-md border border-cr-border pointer-events-auto shadow-[0_0_32px_rgba(0,0,0,0.8)] flex flex-col max-h-[min(480px,55vh)]">
+          {/* Header */}
           <div className="relative flex-shrink-0">
             <button
               type="button"
@@ -353,13 +335,16 @@ export default function MapView({ concerts, rides }: Props) {
                 <span className="w-1.5 h-1.5 rounded-full bg-cr-primary inline-block animate-pulse" />
                 {concertRides.length} viaje{concertRides.length === 1 ? "" : "s"} con plazas
               </p>
-              <h3 className="font-display text-xl uppercase leading-tight pr-6">{selectedConcert.artist}</h3>
+              <h3 className="font-display text-xl uppercase leading-tight pr-6">
+                {selectedConcert.artist}
+              </h3>
               <p className="font-mono text-[11px] text-cr-text-muted">
                 {selectedConcert.venue.name} · {formatDay(selectedConcert.date)}
               </p>
             </div>
           </div>
 
+          {/* Ride list */}
           {concertRides.length > 0 ? (
             <ul className="flex-1 overflow-y-auto divide-y divide-cr-border border-t border-cr-border">
               {concertRides.map((r) => (
@@ -390,9 +375,12 @@ export default function MapView({ concerts, rides }: Props) {
               ))}
             </ul>
           ) : (
-            <p className="px-4 py-3 font-mono text-xs text-cr-text-dim border-t border-cr-border">Sin viajes disponibles.</p>
+            <p className="px-4 py-3 font-mono text-xs text-cr-text-dim border-t border-cr-border">
+              Sin viajes disponibles.
+            </p>
           )}
 
+          {/* Footer CTA */}
           <div className="flex-shrink-0 border-t border-cr-border p-3">
             <Link
               to={`/concerts/${selectedConcert.id}`}
@@ -406,3 +394,4 @@ export default function MapView({ concerts, rides }: Props) {
     </div>
   );
 }
+

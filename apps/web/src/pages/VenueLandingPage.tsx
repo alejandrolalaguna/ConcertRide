@@ -15,7 +15,7 @@ import { StickyRegBar } from "@/components/StickyRegBar";
 import { TESTIMONIALS, TESTIMONIALS_AGGREGATE, selectTestimonialsFor } from "@/lib/testimonials";
 import { generateAggregateRatingSchema, generateReviewSchemas } from "@/lib/schemaGenerators";
 
-// Lazy-loaded MapLibre map — keeps the heavy vendor chunk out of the
+// Lazy-loaded Leaflet map — keeps the heavy vendor chunk out of the
 // prerendered HTML and the initial JS payload for this page.
 const LocationContextMap = lazy(() => import("@/components/LocationContextMap"));
 
@@ -621,7 +621,7 @@ export default function VenueLandingPage() {
         </p>
       </div>
 
-      {/* ── Location context map — lazy MapLibre marker on venue coords ── */}
+      {/* ── Location context map — lazy Leaflet marker on venue coords ── */}
       {typeof venue.lat === "number" && typeof venue.lng === "number" && (
         <section
           aria-labelledby={`venue-map-${venue.slug}`}

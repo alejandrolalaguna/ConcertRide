@@ -1,4 +1,4 @@
-@import "maplibre-gl/dist/maplibre-gl.css";
+@import "leaflet/dist/leaflet.css";
 
 .cr-map {
   background: var(--color-cr-bg);
@@ -6,80 +6,55 @@
   z-index: 0;
 }
 
-/* OSM tiles → dark via CSS filter on the canvas. Markers/overlays use
-   `mix-blend-mode: normal` and live outside the filtered canvas so their
-   colours stay accurate. */
-.cr-map .maplibregl-canvas {
-  filter: invert(1) hue-rotate(180deg) brightness(0.92) contrast(0.88) saturate(0.85);
-}
+/* CartoDB Dark Matter tiles are natively dark — no CSS invert hack needed */
 
-.cr-map .maplibregl-map {
+.cr-map .leaflet-container {
   background: #080808;
 }
 
-/* Hide MapLibre's built-in attribution — we render <MapAttribution /> instead
-   so it can be styled to match ConcertRide's aesthetic. The OSM badge is
-   still visible and still links to /copyright, as required by the OSM Tile
-   Usage Policy. */
-.cr-map .maplibregl-ctrl-attrib,
-.cr-map .maplibregl-ctrl-bottom-right .maplibregl-ctrl-attrib,
-.cr-map .maplibregl-ctrl-bottom-left .maplibregl-ctrl-attrib {
-  display: none;
+.cr-map .leaflet-control-attribution {
+  background: rgba(8, 8, 8, 0.88);
+  color: #555;
+  backdrop-filter: blur(6px);
+  font-family: "JetBrains Mono", ui-monospace, monospace;
+  font-size: 9px;
+  padding: 2px 8px;
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+}
+.cr-map .leaflet-control-attribution a {
+  color: #666;
+}
+.cr-map .leaflet-control-attribution a:hover {
+  color: #dbff00;
 }
 
-/* Hide the MapLibre logo (BSD licence, optional) */
-.cr-map .maplibregl-ctrl-logo {
-  display: none;
-}
-
-/* Zoom control styled to match brutalist dark aesthetic */
-.cr-map .maplibregl-ctrl-group {
-  background: #111 !important;
+.cr-map .leaflet-control-zoom {
   border: 1px solid #242424 !important;
   border-radius: 0 !important;
-  box-shadow: none !important;
 }
-.cr-map .maplibregl-ctrl-group button {
+.cr-map .leaflet-control-zoom a {
   background: #111 !important;
-  width: 28px !important;
-  height: 28px !important;
+  color: #aaa !important;
+  border-color: #242424 !important;
+  border-radius: 0 !important;
+  width: 28px;
+  height: 28px;
+  line-height: 28px;
+  font-size: 16px;
+  transition: color 0.15s, background 0.15s;
 }
-.cr-map .maplibregl-ctrl-group button span {
-  filter: invert(0.6);
-}
-.cr-map .maplibregl-ctrl-group button:hover {
+.cr-map .leaflet-control-zoom a:hover {
   background: #1c1c1c !important;
-}
-.cr-map .maplibregl-ctrl-group button:hover span {
-  filter: invert(0.85) sepia(1) saturate(8) hue-rotate(35deg);
+  color: #dbff00 !important;
 }
 
-/* Marker base — applied to the wrapper element of each MapLibre Marker */
+/* Marker base */
 .cr-marker-wrapper {
   display: flex;
   align-items: center;
   justify-content: center;
   background: transparent !important;
   border: none !important;
-  cursor: pointer;
-}
-
-/* Decorative markers (no role="button") should not look clickable. */
-.cr-marker-wrapper:not([role="button"]) {
-  cursor: default;
-}
-
-/* WCAG 2.4.7 — keyboard focus indicator for interactive map markers.
-   The global :focus-visible outline lives on a transparent wrapper that's
-   only 14–36 px wide, so we layer a dedicated ring around the inner dot
-   to make the focus state clearly visible on the dark map canvas. */
-.cr-marker-wrapper[role="button"]:focus {
-  outline: none;
-}
-.cr-marker-wrapper[role="button"]:focus-visible {
-  outline: 2px solid #dbff00;
-  outline-offset: 4px;
-  border-radius: 9999px;
 }
 
 /* Concert venue marker — yellow glow dot with pulse ring */
@@ -131,26 +106,6 @@
   border: 1px solid #ff4f00;
   opacity: 0.35;
   animation: cr-marker-pulse 2.6s ease-out infinite 0.5s;
-}
-
-/* Cluster marker — for ConcertRidesMap (many origins around a venue) */
-.cr-marker-cluster {
-  position: relative;
-  width: 36px;
-  height: 36px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 9999px;
-  background: rgba(255, 79, 0, 0.92);
-  color: #080808;
-  font-family: "Inter", system-ui, sans-serif;
-  font-weight: 700;
-  font-size: 13px;
-  border: 2px solid #ff4f00;
-  box-shadow:
-    0 0 0 4px rgba(255, 79, 0, 0.18),
-    0 0 14px rgba(255, 79, 0, 0.4);
 }
 
 @keyframes cr-marker-pulse {

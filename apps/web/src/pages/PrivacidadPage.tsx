@@ -242,7 +242,7 @@ export default function PrivacidadPage() {
           </section>
 
           <section className="space-y-3">
-            <h2 className="font-display text-xl uppercase text-cr-primary">4.1 Mapas y OpenStreetMap Foundation</h2>
+            <h2 className="font-display text-xl uppercase text-cr-primary">4.1 Mapas, CARTO y OpenStreetMap</h2>
             <p>
               ConcertRide muestra mapas para visualizar puntos de recogida, recintos y rutas de
               carpooling utilizando datos cartográficos de{" "}
@@ -263,19 +263,37 @@ export default function PrivacidadPage() {
               >
                 Open Database License (ODbL)
               </a>
-              . Los tiles cartográficos se solicitan directamente a los servidores de OpenStreetMap
-              Foundation (OSMF) cuando cargas una página con mapa.
+              . Los teselados (tiles) cartográficos los sirve{" "}
+              <a
+                href="https://carto.com/attributions"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-cr-primary underline underline-offset-2"
+              >
+                CARTO
+              </a>{" "}
+              desde su CDN (<code className="font-mono text-[11px]">basemaps.cartocdn.com</code>)
+              a partir de los datos abiertos de OpenStreetMap. La biblioteca de renderizado utilizada
+              en el cliente es{" "}
+              <a
+                href="https://leafletjs.com/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-cr-primary underline underline-offset-2"
+              >
+                Leaflet
+              </a>{" "}
+              (BSD 2-Clause), software libre sin telemetría.
             </p>
 
-            <h3 className="font-display text-sm uppercase text-cr-text mt-4">Datos que recibe OpenStreetMap Foundation</h3>
+            <h3 className="font-display text-sm uppercase text-cr-text mt-4">Datos que recibe CARTO al cargar tiles</h3>
             <ul className="space-y-1 pl-4 list-disc text-cr-text-muted">
               <li>
-                <strong className="text-cr-text">Dirección IP</strong> — reducida a los 2 primeros
-                bytes antes de ser registrada (pseudonimización).
+                <strong className="text-cr-text">Dirección IP</strong> — necesaria para entregar
+                los tiles desde el nodo CDN más cercano.
               </li>
               <li>
-                <strong className="text-cr-text">User-Agent</strong> — identificador del navegador
-                y de la aplicación (<code className="font-mono text-[11px]">ConcertRide/1.0 (https://concertride.me)</code>).
+                <strong className="text-cr-text">User-Agent</strong> — identificador del navegador.
               </li>
               <li>
                 <strong className="text-cr-text">Referer</strong> — la URL de origen{" "}
@@ -288,21 +306,30 @@ export default function PrivacidadPage() {
 
             <h3 className="font-display text-sm uppercase text-cr-text mt-4">Retención y finalidad</h3>
             <p className="text-cr-text-muted">
-              OpenStreetMap Foundation conserva los registros de acceso agregados durante un máximo
-              de 180 días con la única finalidad de detectar abuso del servicio (scraping, ataques
-              de denegación). OSMF no identifica individualmente a los usuarios finales, no realiza
-              tracking publicitario ni perfila comportamiento de navegación, y no instala cookies
-              en tu navegador.
+              CARTO trata estos datos para entregar los tiles, prevenir abuso del CDN y cumplir con
+              sus obligaciones legales. CARTO no instala cookies de tracking ni cookies publicitarias
+              en estas peticiones (son solicitudes de imágenes <code className="font-mono text-[11px]">.png</code>),
+              no perfila comportamiento de navegación con esos datos y no enlaza la actividad de
+              mapas con ningún identificador de usuario de ConcertRide.
             </p>
 
-            <h3 className="font-display text-sm uppercase text-cr-text mt-4">Transferencia a terceros países</h3>
+            <h3 className="font-display text-sm uppercase text-cr-text mt-4">Transferencia internacional</h3>
             <p className="text-cr-text-muted">
-              La infraestructura de OpenStreetMap Foundation está alojada en el Reino Unido y los
-              Países Bajos. La Comisión Europea adoptó el 28 de junio de 2021 una{" "}
-              <strong className="text-cr-text">decisión de adecuación post-Brexit</strong>{" "}
-              respecto al Reino Unido, en vigor, que garantiza un nivel de protección equivalente
-              al del RGPD. Los Países Bajos forman parte del Espacio Económico Europeo. OSMF no
-              transfiere datos de acceso a países sin decisión de adecuación.
+              CARTO es una sociedad española (CartoDB Inc., con sede en Madrid). Su CDN puede servir
+              tiles desde nodos ubicados en EE. UU. y otros países. Cuando aplique, la transferencia
+              se ampara en las{" "}
+              <strong className="text-cr-text">Cláusulas Contractuales Tipo (SCC)</strong> aprobadas
+              por la Comisión Europea (Decisión 2021/914). Puedes ejercer tus derechos sobre estos
+              datos contactando con CARTO en{" "}
+              <a
+                href="https://carto.com/legal/privacy/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-cr-primary underline underline-offset-2"
+              >
+                carto.com/legal/privacy
+              </a>
+              .
             </p>
 
             <h3 className="font-display text-sm uppercase text-cr-text mt-4">Base legal</h3>
@@ -320,10 +347,17 @@ export default function PrivacidadPage() {
             </ul>
 
             <h3 className="font-display text-sm uppercase text-cr-text mt-4">Más información</h3>
-            <p className="text-cr-text-muted">
-              Puedes consultar las políticas oficiales de OpenStreetMap Foundation en:
-            </p>
             <ul className="space-y-1 pl-4 list-disc text-cr-text-muted">
+              <li>
+                <a
+                  href="https://carto.com/legal/privacy/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-cr-primary underline underline-offset-2"
+                >
+                  Política de privacidad de CARTO
+                </a>
+              </li>
               <li>
                 <a
                   href="https://osmfoundation.org/wiki/Privacy_Policy"
@@ -331,17 +365,17 @@ export default function PrivacidadPage() {
                   rel="noopener noreferrer"
                   className="text-cr-primary underline underline-offset-2"
                 >
-                  OSMF Privacy Policy
+                  Política de privacidad de OpenStreetMap Foundation
                 </a>
               </li>
               <li>
                 <a
-                  href="https://osmfoundation.org/wiki/GDPR_Privacy_Statement"
+                  href="https://www.openstreetmap.org/copyright"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="text-cr-primary underline underline-offset-2"
                 >
-                  OSMF GDPR Privacy Statement
+                  Términos de atribución de OpenStreetMap
                 </a>
               </li>
             </ul>

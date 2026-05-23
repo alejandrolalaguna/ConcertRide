@@ -1,95 +1,34 @@
-import { useEffect, useRef } from "react";
-import maplibregl, { Map as MapLibreMap, LngLatBounds } from "maplibre-gl";
+import { MapContainer, Marker, Polyline, TileLayer } from "react-leaflet";
+import L from "leaflet";
 import type { Ride } from "@concertride/types";
-import { OSM_RASTER_STYLE } from "@/lib/mapStyle";
-import { mapTransformRequest } from "@/lib/mapTransformRequest";
-import { hasWebGL } from "@/lib/webglSupport";
-import MapAttribution from "./MapAttribution";
 import "./MapView.css";
+
+const TILE_URL = "https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}.png";
+const TILE_ATTR =
+  '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>';
+
+const originIcon = L.divIcon({
+  className: "cr-marker-wrapper",
+  html: '<span class="cr-marker-origin" aria-hidden="true"></span>',
+  iconSize: [20, 20],
+  iconAnchor: [10, 10],
+});
+
+const venueIcon = L.divIcon({
+  className: "cr-marker-wrapper",
+  html: '<span class="cr-marker-concert" aria-hidden="true"></span>',
+  iconSize: [28, 28],
+  iconAnchor: [14, 14],
+});
 
 interface Props {
   ride: Ride;
 }
 
-function makeOriginMarkerElement(): HTMLElement {
-  const wrap = document.createElement("div");
-  wrap.className = "cr-marker-wrapper";
-  const inner = document.createElement("span");
-  inner.className = "cr-marker-origin";
-  inner.setAttribute("aria-hidden", "true");
-  wrap.appendChild(inner);
-  return wrap;
-}
-
-function makeVenueMarkerElement(): HTMLElement {
-  const wrap = document.createElement("div");
-  wrap.className = "cr-marker-wrapper";
-  const inner = document.createElement("span");
-  inner.className = "cr-marker-concert";
-  inner.setAttribute("aria-hidden", "true");
-  wrap.appendChild(inner);
-  return wrap;
-}
-
 export default function RideRouteMap({ ride }: Props) {
-  const containerRef = useRef<HTMLDivElement | null>(null);
-  const mapRef = useRef<MapLibreMap | null>(null);
-
-  useEffect(() => {
-    if (!containerRef.current || mapRef.current) return;
-    if (!hasWebGL()) return;
-
-    const origin: [number, number] = [ride.origin_lng, ride.origin_lat];
-    const venue: [number, number] = [ride.concert.venue.lng, ride.concert.venue.lat];
-    const bounds = new LngLatBounds(origin, origin).extend(venue);
-
-    const map = new maplibregl.Map({
-      container: containerRef.current,
-      style: OSM_RASTER_STYLE,
-      bounds,
-      fitBoundsOptions: { padding: 50, animate: false },
-      scrollZoom: false,
-      attributionControl: false,
-      transformRequest: mapTransformRequest,
-    });
-
-    map.on("load", () => {
-      map.addSource("route", {
-        type: "geojson",
-        data: {
-          type: "Feature",
-          properties: {},
-          geometry: {
-            type: "LineString",
-            coordinates: [origin, venue],
-          },
-        },
-      });
-      map.addLayer({
-        id: "route-line",
-        type: "line",
-        source: "route",
-        layout: { "line-join": "round", "line-cap": "round" },
-        paint: {
-          "line-color": "#ff4f00",
-          "line-width": 2.5,
-          "line-opacity": 0.85,
-          "line-dasharray": [3, 2],
-        },
-      });
-    });
-
-    new maplibregl.Marker({ element: makeOriginMarkerElement() }).setLngLat(origin).addTo(map);
-    new maplibregl.Marker({ element: makeVenueMarkerElement() }).setLngLat(venue).addTo(map);
-
-    mapRef.current = map;
-
-    return () => {
-      map.remove();
-      mapRef.current = null;
-    };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  const origin: [number, number] = [ride.origin_lat, ride.origin_lng];
+  const venue: [number, number] = [ride.concert.venue.lat, ride.concert.venue.lng];
+  const bounds = L.latLngBounds([origin, venue]).pad(0.35);
 
   return (
     <div className="cr-map border border-cr-border overflow-hidden">
@@ -107,13 +46,26 @@ export default function RideRouteMap({ ride }: Props) {
       </div>
 
       <div className="relative h-[300px] w-full">
-        <div
-          ref={containerRef}
-          className="absolute inset-0"
-          aria-label={`Mapa de la ruta: ${ride.origin_city} a ${ride.concert.venue.name}`}
-          role="region"
-        />
-        <MapAttribution />
+        <MapContainer
+          bounds={bounds}
+          scrollWheelZoom={false}
+          zoomControl={false}
+          attributionControl
+          className="h-full w-full"
+        >
+          <TileLayer url={TILE_URL} attribution={TILE_ATTR} subdomains="abcd" />
+          <Marker position={origin} icon={originIcon} title="Punto de recogida" />
+          <Marker position={venue} icon={venueIcon} title={ride.concert.venue.name} />
+          <Polyline
+            positions={[origin, venue]}
+            pathOptions={{
+              color: "#FF4F00",
+              weight: 2.5,
+              opacity: 0.85,
+              dashArray: "8 6",
+            }}
+          />
+        </MapContainer>
       </div>
     </div>
   );

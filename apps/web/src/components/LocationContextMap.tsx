@@ -1,18 +1,33 @@
 // Reusable static-context map for landing pages (venue + route).
 // Renders 1..N markers (primary = yellow pulse / secondary = orange pulse),
-// optionally connects exactly 2 points with a dashed orange polyline, and can
-// show a small distance/duration overlay in the bottom-left corner.
-//
-// Designed for prerendered SPA pages — all MapLibre work is inside useEffect,
-// nothing at module scope. Lazy-load this component with React.lazy.
+// optionally connects exactly 2 points with a dashed orange polyline.
 
-import { useEffect, useRef } from "react";
-import maplibregl, { Map as MapLibreMap, LngLatBounds } from "maplibre-gl";
-import { OSM_RASTER_STYLE } from "@/lib/mapStyle";
-import { mapTransformRequest } from "@/lib/mapTransformRequest";
-import { hasWebGL } from "@/lib/webglSupport";
-import MapAttribution from "./MapAttribution";
+import { MapContainer, Marker, Polyline, TileLayer } from "react-leaflet";
+import L from "leaflet";
+import markerIcon2x from "leaflet/dist/images/marker-icon-2x.png";
+import markerIcon from "leaflet/dist/images/marker-icon.png";
+import markerShadow from "leaflet/dist/images/marker-shadow.png";
 import "./MapView.css";
+
+delete (L.Icon.Default.prototype as unknown as Record<string, unknown>)._getIconUrl;
+L.Icon.Default.mergeOptions({ iconUrl: markerIcon, iconRetinaUrl: markerIcon2x, shadowUrl: markerShadow });
+
+const TILE_URL = "https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}.png";
+const TILE_ATTR =
+  '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>';
+
+const primaryIcon = L.divIcon({
+  className: "cr-marker-wrapper",
+  html: '<span class="cr-marker-concert" aria-hidden="true"></span>',
+  iconSize: [28, 28],
+  iconAnchor: [14, 14],
+});
+const secondaryIcon = L.divIcon({
+  className: "cr-marker-wrapper",
+  html: '<span class="cr-marker-origin" aria-hidden="true"></span>',
+  iconSize: [20, 20],
+  iconAnchor: [10, 10],
+});
 
 export type MapPoint = {
   lat: number;
@@ -33,17 +48,6 @@ interface Props {
   overlay?: MapOverlay;
   height?: string;
   ariaLabel: string;
-}
-
-function makeMarkerElement(kind: MapPoint["kind"], label?: string): HTMLElement {
-  const wrap = document.createElement("div");
-  wrap.className = "cr-marker-wrapper";
-  const inner = document.createElement("span");
-  inner.className = kind === "primary" ? "cr-marker-concert" : "cr-marker-origin";
-  inner.setAttribute("aria-hidden", "true");
-  wrap.appendChild(inner);
-  if (label) wrap.setAttribute("title", label);
-  return wrap;
 }
 
 function formatDuration(minutes: number): string {
@@ -68,99 +72,51 @@ export default function LocationContextMap({
   height = "h-[280px] md:h-[360px]",
   ariaLabel,
 }: Props) {
-  const containerRef = useRef<HTMLDivElement | null>(null);
-  const mapRef = useRef<MapLibreMap | null>(null);
+  if (points.length === 0) return null;
 
-  useEffect(() => {
-    if (!containerRef.current || mapRef.current) return;
-    if (!hasWebGL()) return;
-    if (points.length === 0) return;
+  const first = points[0]!;
+  const center: [number, number] = [first.lat, first.lng];
 
-    const first = points[0]!;
-    const initOpts: maplibregl.MapOptions = {
-      container: containerRef.current,
-      style: OSM_RASTER_STYLE,
-      scrollZoom: false,
-      attributionControl: false,
-      transformRequest: mapTransformRequest,
-    };
-
-    if (points.length === 1) {
-      initOpts.center = [first.lng, first.lat];
-      initOpts.zoom = 12;
-    } else {
-      const bounds = new LngLatBounds([first.lng, first.lat], [first.lng, first.lat]);
-      for (const p of points.slice(1)) bounds.extend([p.lng, p.lat]);
-      initOpts.bounds = bounds;
-      initOpts.fitBoundsOptions = { padding: 60, animate: false };
-    }
-
-    const map = new maplibregl.Map(initOpts);
-    mapRef.current = map;
-
-    // Dashed orange route line — only when exactly 2 points + polyline=true.
-    // Same paint as RideRouteMap.tsx for visual consistency.
-    if (polyline && points.length === 2) {
-      const a = points[0]!;
-      const b = points[1]!;
-      map.on("load", () => {
-        map.addSource("route", {
-          type: "geojson",
-          data: {
-            type: "Feature",
-            properties: {},
-            geometry: {
-              type: "LineString",
-              coordinates: [
-                [a.lng, a.lat],
-                [b.lng, b.lat],
-              ],
-            },
-          },
-        });
-        map.addLayer({
-          id: "route-line",
-          type: "line",
-          source: "route",
-          layout: { "line-join": "round", "line-cap": "round" },
-          paint: {
-            "line-color": "#ff4f00",
-            "line-width": 2.5,
-            "line-opacity": 0.85,
-            "line-dasharray": [3, 2],
-          },
-        });
-      });
-    }
-
-    for (const p of points) {
-      new maplibregl.Marker({ element: makeMarkerElement(p.kind, p.label) })
-        .setLngLat([p.lng, p.lat])
-        .addTo(map);
-    }
-
-    return () => {
-      map.remove();
-      mapRef.current = null;
-    };
-    // Intentionally run once — landing pages render with static point data.
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  // For 2+ points use bounds; for 1 just center+zoom.
+  const bounds = points.length >= 2
+    ? L.latLngBounds(points.map((p) => [p.lat, p.lng] as [number, number])).pad(0.25)
+    : undefined;
 
   const overlayText = overlay ? formatOverlay(overlay) : "";
 
   return (
     <div className={`cr-map relative ${height} w-full border border-cr-border overflow-hidden`}>
-      <div
-        ref={containerRef}
-        className="absolute inset-0"
+      <MapContainer
+        center={center}
+        zoom={points.length === 1 ? 12 : undefined}
+        bounds={bounds}
+        boundsOptions={{ padding: [40, 40] }}
+        scrollWheelZoom={false}
+        style={{ height: "100%", width: "100%" }}
         aria-label={ariaLabel}
-        role="region"
-      />
-      <MapAttribution />
+      >
+        <TileLayer url={TILE_URL} attribution={TILE_ATTR} />
+        {polyline && points.length === 2 && (
+          <Polyline
+            positions={[
+              [points[0]!.lat, points[0]!.lng],
+              [points[1]!.lat, points[1]!.lng],
+            ]}
+            pathOptions={{ color: "#ff4f00", weight: 2.5, opacity: 0.85, dashArray: "6 4" }}
+          />
+        )}
+        {points.map((p, i) => (
+          <Marker
+            key={i}
+            position={[p.lat, p.lng]}
+            icon={p.kind === "primary" ? primaryIcon : secondaryIcon}
+            title={p.label}
+          />
+        ))}
+      </MapContainer>
 
       {overlay && overlayText && (
-        <div className="absolute bottom-3 left-3 z-[2] pointer-events-none">
+        <div className="absolute bottom-3 left-3 z-[400] pointer-events-none">
           <div className="bg-cr-bg/90 backdrop-blur border border-cr-border/60 px-3 py-1.5 font-mono text-[11px] text-cr-text">
             {overlayText}
           </div>

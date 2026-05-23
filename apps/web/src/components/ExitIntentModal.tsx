@@ -120,13 +120,17 @@ export function ExitIntentModal() {
         />
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 pointer-events-none">
           <Dialog.Content
-            aria-labelledby="exit-modal-title"
-            aria-describedby="exit-modal-desc"
             className="pointer-events-auto relative z-10 w-full max-w-md bg-[#111111] border border-white/10 p-8 shadow-2xl animate-[fadeIn_0.25s_ease-out]"
           >
-            <Dialog.Description id="exit-modal-desc" className="sr-only">
+            {/* Required for a11y — Radix auto-wires aria-labelledby / aria-describedby
+                when Title and Description are descendants of Content. */}
+            <Dialog.Title className="font-display text-2xl md:text-3xl uppercase leading-[0.95] text-white sr-only">
+              {modalTitle}
+            </Dialog.Title>
+            <Dialog.Description className="sr-only">
               ConcertRide es carpooling para festivales sin comisiones. Crea tu cuenta gratis para reservar plaza en segundos.
             </Dialog.Description>
+
             {/* Close button */}
             <Dialog.Close asChild>
               <button
@@ -144,12 +148,12 @@ export function ExitIntentModal() {
                 ¡Espera!
               </p>
 
-              <Dialog.Title
-                id="exit-modal-title"
+              <h2
+                aria-hidden="true"
                 className="font-display text-2xl md:text-3xl uppercase leading-[0.95] text-white"
               >
                 {modalTitle}
-              </Dialog.Title>
+              </h2>
 
               <div className="flex flex-wrap items-center justify-center gap-2" aria-label="Ventajas de ConcertRide">
                 {["Plazas limitadas", "0% comisión", "Solo 30 segundos"].map((label) => (

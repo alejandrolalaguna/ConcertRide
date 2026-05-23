@@ -337,7 +337,7 @@ export function Footer() {
             >
               OpenStreetMap
             </a>
-            <span>contributors · MapLibre GL JS (BSD)</span>
+            <span>contributors · Tiles: CARTO · Leaflet (BSD-2)</span>
             <span>·</span>
             <span>Fotografías:</span>
             <a

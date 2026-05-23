@@ -264,10 +264,27 @@ export function useSeoMeta(meta: SeoMeta) {
     // LCP image preload — client-side runtime emission. The SSR path adds the
     // same tag inline in <head>, so when a prerendered page hydrates the
     // browser, this code path either updates the existing link or is a no-op.
-    if (r.preloadImage) {
+    // We guard against:
+    //  - undefined/null/"" → no preload at all (remove stale tag from prior nav)
+    //  - "undefined"/"null" string accidents from upstream string coercion
+    //  - non-http/relative paths without leading "/" → invalid for preload href
+    const preloadCandidate = r.preloadImage;
+    const validPreload =
+      typeof preloadCandidate === "string" &&
+      preloadCandidate.length > 0 &&
+      preloadCandidate !== "undefined" &&
+      preloadCandidate !== "null" &&
+      (preloadCandidate.startsWith("http") || preloadCandidate.startsWith("/"));
+
+    if (validPreload) {
       const extras: Record<string, string> = { as: "image" };
       if (r.preloadImageSrcset) extras.imagesrcset = r.preloadImageSrcset;
-      setLink("preload", r.preloadImage, extras);
+      setLink("preload", preloadCandidate, extras);
+    } else {
+      // Drop any stale <link rel="preload" as="image"> from a previous route.
+      document
+        .querySelectorAll<HTMLLinkElement>('link[rel="preload"][as="image"]')
+        .forEach((el) => el.remove());
     }
 
     // Geo meta tags — dynamic per page (not hardcoded to Madrid)
