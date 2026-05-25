@@ -158,6 +158,8 @@ export default function ArtistLandingPage() {
   };
 
   const datedConcerts = artist.upcomingConcerts.filter((c) => c.date !== "TBD");
+  const artistOgImage = `${SITE_URL}/og/${artist.slug}.png`;
+  const todayIso = new Date().toISOString().slice(0, 10);
   const jsonLdEventList =
     hasUpcoming && datedConcerts.length > 0
       ? {
@@ -165,35 +167,59 @@ export default function ArtistLandingPage() {
           "@type": "ItemList",
           name: `Conciertos de ${artist.name} en España 2026`,
           url: `${SITE_URL}/artistas/${artist.slug}`,
-          itemListElement: datedConcerts.map((c, i) => ({
-            "@type": "ListItem",
-            position: i + 1,
-            item: {
-              "@type": "MusicEvent",
-              name: `${artist.name} en ${c.city}`,
-              location: {
-                "@type": "MusicVenue",
-                name: c.venue,
-                address: {
-                  "@type": "PostalAddress",
-                  addressLocality: c.city,
-                  addressCountry: "ES",
+          itemListElement: datedConcerts.map((c, i) => {
+            const priceFrom = Number(c.originCities[0]?.range.split("–")[0]?.replace(/[^0-9]/g, "") || 9);
+            const concertUrl = `${SITE_URL}/artistas/${artist.slug}#${c.citySlug}`;
+            return {
+              "@type": "ListItem",
+              position: i + 1,
+              item: {
+                "@type": "MusicEvent",
+                "@id": `${concertUrl}-event`,
+                name: `${artist.name} en ${c.city}`,
+                description: `Concierto de ${artist.name} en ${c.venue} (${c.city}, España). Carpooling con ConcertRide desde ${c.originCities[0]?.city ?? "España"} a ${c.originCities[0]?.range ?? c.concertRideRange}/asiento, sin comisión de plataforma.`,
+                image: artistOgImage,
+                location: {
+                  "@type": "MusicVenue",
+                  name: c.venue,
+                  address: {
+                    "@type": "PostalAddress",
+                    streetAddress: c.venue,
+                    addressLocality: c.city,
+                    addressCountry: "ES",
+                  },
                 },
+                startDate: c.date,
+                // Single-day concert: endDate equals startDate. Google's
+                // Event rich result recommends endDate as a "recommended"
+                // field — omitting it triggers "Falta el campo endDate".
+                endDate: c.date,
+                performer: { "@type": "MusicGroup", name: artist.name },
+                // organizer.url is required by GSC ("Falta el campo url en
+                // organizer"). Falls back to the venue page; can be the
+                // venue's own URL if we ever populate one per concert.
+                organizer: {
+                  "@type": "Organization",
+                  name: c.venue,
+                  url: concertUrl,
+                },
+                offers: {
+                  "@type": "Offer",
+                  url: concertUrl,
+                  price: priceFrom,
+                  priceCurrency: "EUR",
+                  // availability + validFrom are required for Offer rich
+                  // results. Carpooling listings are always reservable.
+                  availability: "https://schema.org/InStock",
+                  validFrom: todayIso,
+                  description: `Carpooling desde ${c.originCities[0]?.city ?? "España"} (${c.originCities[0]?.range ?? c.concertRideRange}/asiento, sin comisión). ConcertRide.`,
+                },
+                url: concertUrl,
+                eventAttendanceMode: "https://schema.org/OfflineEventAttendanceMode",
+                eventStatus: "https://schema.org/EventScheduled",
               },
-              startDate: c.date,
-              performer: { "@type": "MusicGroup", name: artist.name },
-              offers: {
-                "@type": "Offer",
-                url: `${SITE_URL}/artistas/${artist.slug}`,
-                price: Number(c.originCities[0]?.range.split("–")[0]?.replace(/[^0-9]/g, "") || 9),
-                priceCurrency: "EUR",
-                description: `Carpooling desde ${c.originCities[0]?.city ?? "España"} (${c.originCities[0]?.range ?? c.concertRideRange}/asiento, sin comisión). ConcertRide.`,
-              },
-              url: `${SITE_URL}/artistas/${artist.slug}`,
-              eventAttendanceMode: "https://schema.org/OfflineEventAttendanceMode",
-              eventStatus: "https://schema.org/EventScheduled",
-            },
-          })),
+            };
+          }),
         }
       : null;
 
@@ -221,14 +247,20 @@ export default function ArtistLandingPage() {
     artistSlug: artist.slug,
     minCount: 3,
   });
-  const artistServiceId = `${SITE_URL}/artistas/${artist.slug}#service`;
-  const artistServiceName = `Carpooling a conciertos de ${artist.name} con ConcertRide`;
+
+  // Review snippets: Reviews must point to a Google-supported parent type.
+  // Service is NOT in Google's Review-snippet supported list. Organization
+  // IS — and is already defined site-wide in index.html as #organization,
+  // so reviews on every artist page resolve to a valid parent on the same
+  // document. Same pattern applied across festival/home pages.
+  const organizationId = `${SITE_URL}/#organization`;
+  const organizationName = "ConcertRide";
 
   const jsonLdArtistReviews: object[] | null = matchedArtistReviews
     ? generateReviewSchemas({
-        itemReviewedId: artistServiceId,
-        itemReviewedType: "Service",
-        itemReviewedName: artistServiceName,
+        itemReviewedId: organizationId,
+        itemReviewedType: "Organization",
+        itemReviewedName: organizationName,
         reviews: matchedArtistReviews.map((t) => ({
           quote: t.quote,
           name: t.author,
@@ -239,42 +271,34 @@ export default function ArtistLandingPage() {
       })
     : null;
 
-  const jsonLdArtistAggregateRating: object | null = (() => {
+  // AggregateRating subobject (Schema.org-valid for any entity). Inlined
+  // into the existing MusicGroup so we don't emit a second top-level entity
+  // block that GSC would validate for completeness. MusicGroup is not in
+  // Google's Review snippet supported parent list, but the Reviews above
+  // already point at Organization (which IS supported) — this aggregate
+  // signal is just additional structured data.
+  const artistAggregateRating: object | null = (() => {
     if (matchedArtistReviews) {
-      const agg = generateAggregateRatingSchema(
+      return generateAggregateRatingSchema(
         matchedArtistReviews.map((t) => ({ rating: t.rating })),
         { minCount: 3 },
       );
-      if (!agg) return null;
-      return {
-        "@context": "https://schema.org",
-        "@type": "Service",
-        "@id": artistServiceId,
-        name: artistServiceName,
-        description: `Carpooling a conciertos de ${artist.name} en España. 0% comisión, conductores verificados.`,
-        provider: { "@type": "Organization", name: "ConcertRide", url: SITE_URL },
-        aggregateRating: agg,
-      };
     }
     if (TESTIMONIALS.length >= 3) {
       return {
-        "@context": "https://schema.org",
-        "@type": "Service",
-        "@id": artistServiceId,
-        name: artistServiceName,
-        description: `Carpooling a conciertos de ${artist.name} en España. 0% comisión, conductores verificados.`,
-        provider: { "@type": "Organization", name: "ConcertRide", url: SITE_URL },
-        aggregateRating: {
-          "@type": "AggregateRating",
-          ratingValue: TESTIMONIALS_AGGREGATE.ratingValue,
-          reviewCount: TESTIMONIALS_AGGREGATE.reviewCount,
-          bestRating: TESTIMONIALS_AGGREGATE.bestRating,
-          worstRating: TESTIMONIALS_AGGREGATE.worstRating,
-        },
+        "@type": "AggregateRating",
+        ratingValue: TESTIMONIALS_AGGREGATE.ratingValue,
+        reviewCount: TESTIMONIALS_AGGREGATE.reviewCount,
+        bestRating: TESTIMONIALS_AGGREGATE.bestRating,
+        worstRating: TESTIMONIALS_AGGREGATE.worstRating,
       };
     }
     return null;
   })();
+
+  const jsonLdMusicGroupWithRating = artistAggregateRating
+    ? { ...jsonLdMusicGroup, aggregateRating: artistAggregateRating }
+    : jsonLdMusicGroup;
 
   // ── Related festivals ──────────────────────────────────────────────────────
   const relatedFestivals = artist.relatedFestivals
@@ -291,7 +315,7 @@ export default function ArtistLandingPage() {
       />
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdMusicGroup) }}
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdMusicGroupWithRating) }}
       />
       <script
         type="application/ld+json"
@@ -307,12 +331,6 @@ export default function ArtistLandingPage() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdHowTo) }}
       />
-      {jsonLdArtistAggregateRating && (
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdArtistAggregateRating) }}
-        />
-      )}
       {jsonLdArtistReviews && jsonLdArtistReviews.map((r, i) => (
         <script
           key={`artist-review-${i}`}

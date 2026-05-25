@@ -204,14 +204,12 @@ export function generateTouristTripFromRoute({
       name: "ConcertRide",
       url: siteUrl,
     },
-    subjectOf: {
-      "@type": "MusicEvent",
-      "@id": `${siteUrl}/festivales/${festival.slug}#event`,
-      name: festival.name,
-      startDate: festival.startDate,
-      endDate: festival.endDate,
-      location: destinationPlace,
-    },
+    // subjectOf points to the canonical MusicEvent defined on the festival
+    // page (/festivales/[slug]). Pure @id reference so Google parses this as
+    // a *reference* (not a duplicate Event entity), avoiding "missing field"
+    // errors on every route page — the canonical MusicEvent already has
+    // image/description/organizer/offers/performer/eventStatus.
+    subjectOf: { "@id": `${siteUrl}/festivales/${festival.slug}#event` },
     offers: {
       "@type": "Offer",
       price: priceMin,
@@ -238,18 +236,27 @@ export function generateEventSchema({
   endDate,
   location,
   organizer,
+  organizerUrl,
   image,
   url,
+  performer,
   offers = null,
 }: {
   name: string;
   description: string;
   startDate: string;
   endDate: string;
-  location: { name: string; city: string; country: string };
+  location: { name: string; city: string; country: string; streetAddress?: string; region?: string };
   organizer: string;
+  /** Optional URL for the organizer Organization. Google Event rich result
+   *  recommends `organizer.url`; without it GSC reports "Falta el campo url
+   *  (en organizer)". Falls back to the page url. */
+  organizerUrl?: string;
   image?: string;
   url: string;
+  /** Optional performer name. Defaults to the event name (works for festivals
+   *  where the headliner is the festival brand itself). */
+  performer?: string;
   offers?: { name: string; url: string } | null;
 }) {
   return {
@@ -260,20 +267,27 @@ export function generateEventSchema({
     image: image || "https://concertride.me/og/home.png",
     startDate,
     endDate,
-    eventAttendanceMode: "OfflineEventAttendanceMode",
-    eventStatus: "EventScheduled",
+    eventAttendanceMode: "https://schema.org/OfflineEventAttendanceMode",
+    eventStatus: "https://schema.org/EventScheduled",
     location: {
       "@type": "Place",
       name: location.name,
       address: {
         "@type": "PostalAddress",
+        ...(location.streetAddress ? { streetAddress: location.streetAddress } : {}),
         addressLocality: location.city,
+        ...(location.region ? { addressRegion: location.region } : {}),
         addressCountry: location.country,
       },
     },
     organizer: {
       "@type": "Organization",
       name: organizer,
+      url: organizerUrl || url,
+    },
+    performer: {
+      "@type": "PerformingGroup",
+      name: performer || name,
     },
     url,
     ...(offers && {

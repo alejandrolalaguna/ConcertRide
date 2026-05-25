@@ -75,8 +75,13 @@ const LEGACY_REDIRECTS: Record<string, string> = {
   // Target upgraded 2026-05-20 to the top-level BOFU comparison landing (more
   // product weight than the blog equivalent, same intent satisfaction).
   "/comparativa/concertride-vs-blablacar": "/alternativas-carpooling-festivales",
-  // Blog post still 200s on its own URL but is no longer the canonical answer
-  // to the conversational query "alternativas carpooling festivales".
+  // Blog post is disabled per CLAUDE.md "Brand Restrictions" but the prerender
+  // override and BLOG_POSTS entry still exist as legacy data, so Googlebot was
+  // getting a 200 with brand-violating content. 301 to the generic alternative
+  // landing kills indexable surface and preserves any inbound link equity.
+  // Added 2026-05-25 after GSC reported it under both "Alternate page with
+  // proper canonical" and "Page with redirect" categories. See SKILL.md §X.
+  "/blog/blablacar-vs-concertride": "/alternativas-carpooling-festivales",
   // Author page renamed 2026-05-20: founder byline replaced by collective
   // "Equipo ConcertRide". Keeps E-E-A-T author entity stable.
   "/autor/alejandro-lalaguna": "/autor/equipo-concertride",

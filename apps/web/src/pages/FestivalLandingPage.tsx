@@ -243,6 +243,7 @@ export default function FestivalLandingPage() {
   const jsonLdEvent = {
     "@context": "https://schema.org",
     "@type": "MusicEvent",
+    "@id": `${SITE_URL}/festivales/${festival.slug}#event`,
     name: festival.name,
     url: `${SITE_URL}/festivales/${festival.slug}`,
     sameAs: festivalSameAs.length > 0 ? festivalSameAs : undefined,
@@ -267,7 +268,10 @@ export default function FestivalLandingPage() {
     organizer: {
       "@type": "Organization",
       name: festival.name,
-      url: `${SITE_URL}/festivales/${festival.slug}`,
+      // Prefer the official festival URL from sameAs (Wikipedia/Wikidata/site)
+      // so Google's Event rich result has a real organizer endpoint. Falls
+      // back to the canonical landing page when no external source exists.
+      url: festival.sameAs?.find((u) => /^https?:\/\//.test(u)) ?? `${SITE_URL}/festivales/${festival.slug}`,
     },
     eventAttendanceMode: "https://schema.org/OfflineEventAttendanceMode",
     eventStatus: "https://schema.org/EventScheduled",
@@ -615,15 +619,20 @@ export default function FestivalLandingPage() {
     minCount: 3,
   });
 
-  const serviceId = `${SITE_URL}/festivales/${festival.slug}#service`;
-  const serviceName = `Carpooling a ${festival.name} con ConcertRide`;
+  // Reviews + AggregateRating point at the festival MusicEvent (#event).
+  // Google's Review snippet rich result supports: Book, Course, Event,
+  // LocalBusiness, MediaObject, Movie, MusicPlaylist, MusicRecording,
+  // Organization, Product, Recipe, SoftwareApplication, etc. — but NOT
+  // Service. Pointing at Event keeps everything Review-snippet-eligible.
+  const eventEntityId = `${SITE_URL}/festivales/${festival.slug}#event`;
+  const eventEntityName = festival.name;
 
   const jsonLdReviews: object[] | null = (() => {
     if (!matchedTestimonials) return null;
     return generateReviewSchemas({
-      itemReviewedId: serviceId,
-      itemReviewedType: "Service",
-      itemReviewedName: serviceName,
+      itemReviewedId: eventEntityId,
+      itemReviewedType: "Event",
+      itemReviewedName: eventEntityName,
       reviews: matchedTestimonials.map((t) => ({
         quote: t.quote,
         name: t.author,
@@ -634,51 +643,41 @@ export default function FestivalLandingPage() {
     });
   })();
 
-  const jsonLdAggregateRating: object | null = (() => {
-    // Case 1 — testimonios específicos: usa rating real de los matches.
+  // AggregateRating subobject (NO parent @type wrapper). Injected directly
+  // into jsonLdEvent below via conditional spread so the festival's
+  // MusicEvent carries the aggregateRating on the same entity. Emitting a
+  // *second* MusicEvent (even by @id ref) gets flagged by GSC as
+  // "MusicEvent incomplete" because each top-level JSON-LD <script> block
+  // is validated independently for required fields.
+  const eventAggregateRating: object | null = (() => {
     if (matchedTestimonials) {
-      const agg = generateAggregateRatingSchema(
+      return generateAggregateRatingSchema(
         matchedTestimonials.map((t) => ({ rating: t.rating })),
         { minCount: 3 },
       );
-      if (!agg) return null;
-      return {
-        "@context": "https://schema.org",
-        "@type": "Service",
-        "@id": serviceId,
-        name: serviceName,
-        description: `Carpooling a ${festival.name} en ${festival.city}. 0% comisión, conductores verificados.`,
-        provider: { "@type": "Organization", name: "ConcertRide", url: SITE_URL },
-        aggregateRating: agg,
-      };
     }
-    // Case 2 — no hay testimonios específicos pero hay base global ≥3:
-    // emite Service scoped al festival con AggregateRating GLOBAL (transparente,
-    // no inventa ratings por festival).
     if (TESTIMONIALS.length >= 3) {
       return {
-        "@context": "https://schema.org",
-        "@type": "Service",
-        "@id": serviceId,
-        name: serviceName,
-        description: `Carpooling a ${festival.name} en ${festival.city}. 0% comisión, conductores verificados.`,
-        provider: { "@type": "Organization", name: "ConcertRide", url: SITE_URL },
-        aggregateRating: {
-          "@type": "AggregateRating",
-          ratingValue: TESTIMONIALS_AGGREGATE.ratingValue,
-          reviewCount: TESTIMONIALS_AGGREGATE.reviewCount,
-          bestRating: TESTIMONIALS_AGGREGATE.bestRating,
-          worstRating: TESTIMONIALS_AGGREGATE.worstRating,
-        },
+        "@type": "AggregateRating",
+        ratingValue: TESTIMONIALS_AGGREGATE.ratingValue,
+        reviewCount: TESTIMONIALS_AGGREGATE.reviewCount,
+        bestRating: TESTIMONIALS_AGGREGATE.bestRating,
+        worstRating: TESTIMONIALS_AGGREGATE.worstRating,
       };
     }
     return null;
   })();
 
+  // Merge aggregateRating into the canonical MusicEvent so the Review +
+  // AggregateRating signal sits on one Review-snippet-eligible entity.
+  const jsonLdEventWithRating = eventAggregateRating
+    ? { ...jsonLdEvent, aggregateRating: eventAggregateRating }
+    : jsonLdEvent;
+
   return (
     <>
     <main id="main" className="min-h-dvh bg-cr-bg text-cr-text pt-14">
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdEvent) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdEventWithRating) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdSeries) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdKeyFacts) }} />
       {jsonLdVariants.map((v, i) => (
@@ -690,9 +689,6 @@ export default function FestivalLandingPage() {
       {jsonLdReviews && jsonLdReviews.map((r, i) => (
         <script key={`review-${i}`} type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(r) }} />
       ))}
-      {jsonLdAggregateRating && (
-        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdAggregateRating) }} />
-      )}
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({
         "@context": "https://schema.org",
         "@type": "HowTo",
@@ -738,13 +734,10 @@ export default function FestivalLandingPage() {
         "description": `Guía de transporte para ${festival.name} (${festival.venue}, ${festival.city}, ${festival.typicalDates}). Carpooling desde ${festival.originCities.length} ciudades españolas desde ${festival.originCities[0]?.concertRideRange ?? "3 €"}/asiento sin comisión. Opciones de autobús, tren y coche compartido con precios y tiempos de trayecto reales.`,
         "inLanguage": "es-ES",
         "isPartOf": { "@id": `${SITE_URL}/#website` },
-        "about": {
-          "@type": "MusicEvent",
-          "name": festival.name,
-          "startDate": festival.startDate,
-          "location": { "@type": "Place", "name": festival.venue, "addressLocality": festival.city },
-          ...(festivalSameAs.length > 0 ? { "sameAs": festivalSameAs } : {}),
-        },
+        // Pure @id ref to the canonical MusicEvent emitted by jsonLdEvent
+        // above. Avoids a duplicate (and incomplete) MusicEvent that GSC
+        // flags for missing image/description/organizer/offers/performer.
+        "about": { "@id": `${SITE_URL}/festivales/${festival.slug}#event` },
         "keywords": `cómo ir a ${festival.shortName}, carpooling ${festival.name}, transporte ${festival.shortName} ${festival.city}, autobús ${festival.shortName}, bus ${festival.shortName}, ${festival.shortName} ${new Date(festival.startDate).getFullYear()}`,
         "speakable": {
           "@type": "SpeakableSpecification",

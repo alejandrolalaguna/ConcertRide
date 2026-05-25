@@ -154,23 +154,13 @@ export default function RegionLandingPage() {
       latitude: region.lat,
       longitude: region.lng,
     },
+    // Reference the canonical MusicEvent on each festival page by @id.
+    // A pure @id ref is treated as a reference by Google's JSON-LD parser
+    // and avoids "missing field" errors for image/description/organizer/
+    // offers/performer/eventStatus that would otherwise trigger on every
+    // region page (one error per nested festival × ~10 regions).
     containsPlace: festivalsData.map((f) => ({
-      "@type": "MusicEvent",
-      name: f.name,
-      url: `${SITE_URL}/festivales/${f.slug}`,
-      startDate: f.startDate,
-      endDate: f.endDate,
-      location: {
-        "@type": "Place",
-        name: f.venue,
-        address: {
-          "@type": "PostalAddress",
-          streetAddress: f.venueAddress,
-          addressLocality: f.city,
-          addressRegion: region.name,
-          addressCountry: "ES",
-        },
-      },
+      "@id": `${SITE_URL}/festivales/${f.slug}#event`,
     })),
     description: region.blurb,
     inLanguage: "es-ES",
