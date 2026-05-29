@@ -6,6 +6,9 @@ import type {
   AddPlaylistTrackRequest,
   AdminAuditAction,
   AdminAuditLogEntry,
+  AdminDashboard,
+  AdminUserDetail,
+  AdminUserListItem,
   AnticipationStatus,
   AnticipationSummary,
   Concert,
@@ -43,6 +46,10 @@ import type {
   Vibe,
 } from "@concertride/types";
 import type { RawConcert, SourceId } from "../ingest/types";
+
+// Re-export so store implementations can reference them via
+// `import("./adapter").AdminDashboard` (the pattern used for AdminStats).
+export type { AdminDashboard, AdminUserListItem, AdminUserDetail } from "@concertride/types";
 
 export interface AdminStats {
   users: {
@@ -327,6 +334,11 @@ export interface StoreAdapter {
 
   // --- admin stats ---
   getAdminStats(): Promise<AdminStats>;
+
+  // --- admin dashboard (comprehensive DB overview) ---
+  getAdminDashboard(): Promise<AdminDashboard>;
+  listAdminUsers(): Promise<AdminUserListItem[]>;
+  getAdminUserDetail(userId: string): Promise<AdminUserDetail | null>;
 
   // --- ban system ---
   banUser(adminId: string, userId: string, reason: string): Promise<User | null>;

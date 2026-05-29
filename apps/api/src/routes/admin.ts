@@ -28,6 +28,31 @@ route.get("/stats", async (c) => {
   return c.json(stats);
 });
 
+// Comprehensive DB overview for the visual dashboard.
+route.get("/dashboard", async (c) => {
+  const gate = await requireAdmin(c);
+  if (gate instanceof Response) return gate;
+  const dashboard = await c.var.store.getAdminDashboard();
+  return c.json(dashboard);
+});
+
+// Full users table with derived per-user activity counts.
+route.get("/users-list", async (c) => {
+  const gate = await requireAdmin(c);
+  if (gate instanceof Response) return gate;
+  const users = await c.var.store.listAdminUsers();
+  return c.json({ users });
+});
+
+// Per-user drill-down: their rides, requests, favorites, messages, reviews.
+route.get("/users/:id/detail", async (c) => {
+  const gate = await requireAdmin(c);
+  if (gate instanceof Response) return gate;
+  const detail = await c.var.store.getAdminUserDetail(c.req.param("id"));
+  if (!detail) return c.json({ error: "not_found" }, 404);
+  return c.json(detail);
+});
+
 /**
  * LLM-bot visibility report — query string `?days=7` (default 7, max 35).
  * Returns aggregate counts of AI crawler pulls per bot + the top pulled paths.

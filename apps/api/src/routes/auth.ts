@@ -1,4 +1,4 @@
-import { Hono } from "hono";
+import { Hono, type Context } from "hono";
 import { deleteCookie, getCookie, setCookie } from "hono/cookie";
 import { z } from "zod";
 import type { HonoEnv } from "../types";
@@ -15,6 +15,21 @@ import {
 
 export const SESSION_COOKIE = "cr_session";
 const MAX_AGE = 60 * 60 * 24 * 30;
+
+// Production is served on both the apex (concertride.me) and www. A host-only
+// cookie set on one host isn't sent to the other, which breaks any cross-host
+// link (e.g. an email pointing at the apex while the user is logged in on www)
+// → 401/404. Scoping the cookie to the registrable domain makes the session
+// valid on both. In dev/preview (localhost, *.workers.dev) we return undefined
+// so the cookie stays host-only — a ".concertride.me" domain there would make
+// the browser drop it entirely. Must be passed to BOTH setCookie and
+// deleteCookie (a domain-scoped cookie can only be cleared with the same domain).
+function sessionCookieDomain(c: Context<HonoEnv>): string | undefined {
+  const host = new URL(c.req.url).hostname;
+  return host === "concertride.me" || host.endsWith(".concertride.me")
+    ? ".concertride.me"
+    : undefined;
+}
 
 const route = new Hono<HonoEnv>();
 
@@ -111,6 +126,7 @@ route.post("/register", authLimiter, async (c) => {
     sameSite: "Lax",
     path: "/",
     maxAge: MAX_AGE,
+    domain: sessionCookieDomain(c),
   });
   return c.json({ ok: true, user }, 201);
 });
@@ -144,6 +160,7 @@ route.post("/login", authLimiter, async (c) => {
     sameSite: "Lax",
     path: "/",
     maxAge: MAX_AGE,
+    domain: sessionCookieDomain(c),
   });
   return c.json({ ok: true, user });
 });
@@ -379,12 +396,13 @@ route.post("/reset-password", authLimiter, async (c) => {
     sameSite: "Lax",
     path: "/",
     maxAge: MAX_AGE,
+    domain: sessionCookieDomain(c),
   });
   return c.json({ ok: true, user });
 });
 
 route.post("/logout", (c) => {
-  deleteCookie(c, SESSION_COOKIE, { path: "/" });
+  deleteCookie(c, SESSION_COOKIE, { path: "/", domain: sessionCookieDomain(c) });
   return c.json({ ok: true });
 });
 
@@ -455,7 +473,7 @@ route.delete("/me", async (c) => {
   const userOrResp = await requireUser(c);
   if (userOrResp instanceof Response) return userOrResp;
   await c.var.store.deleteUser(userOrResp.id);
-  deleteCookie(c, SESSION_COOKIE, { path: "/" });
+  deleteCookie(c, SESSION_COOKIE, { path: "/", domain: sessionCookieDomain(c) });
   return c.json({ ok: true });
 });
 

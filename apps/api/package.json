@@ -14,6 +14,7 @@
     "db:generate": "drizzle-kit generate",
     "db:push": "drizzle-kit push",
     "db:studio": "drizzle-kit studio",
+    "db:monitor": "node scripts/monitor.mjs",
     "db:seed": "tsx scripts/seed.ts",
     "db:seed-social": "tsx scripts/seed-social.ts",
     "ingest:backfill": "node --import tsx/esm scripts/backfill-2026.ts"

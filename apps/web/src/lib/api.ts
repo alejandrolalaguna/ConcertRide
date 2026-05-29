@@ -3,7 +3,10 @@ import type {
   ActivityFeedResponse,
   AddPlaylistTrackRequest,
   AdminAuditLogEntry,
+  AdminDashboard,
   AdminStats,
+  AdminUserDetail,
+  AdminUserListItem,
   AnticipationStatus,
   AnticipationSummary,
   Concert,
@@ -367,6 +370,9 @@ export const api = {
   },
   admin: {
     stats: () => request<AdminStats>("/api/admin/stats"),
+    dashboard: () => request<AdminDashboard>("/api/admin/dashboard"),
+    usersList: () => request<{ users: AdminUserListItem[] }>("/api/admin/users-list"),
+    userDetail: (id: string) => request<AdminUserDetail>(`/api/admin/users/${encodeURIComponent(id)}/detail`),
     me: () => request<{ ok: true; user: User }>("/api/admin/me"),
     listReports: (status?: "pending" | "reviewed" | "resolved" | "dismissed") => {
       const qs = status ? `?status=${status}` : "";
@@ -387,6 +393,22 @@ export const api = {
     listLicenseReviews: (status?: "pending" | "approved" | "rejected") => {
       const qs = status ? `?status=${status}` : "";
       return request<{ reviews: Array<LicenseReview & { user: User | null }> }>(`/api/admin/license-reviews${qs}`);
+    },
+    // Fetch a license document as a Blob using the panel's own authenticated
+    // origin (cookie sent via credentials:"include"). Avoids a top-level <a>
+    // navigation, which can hit a different host (apex vs www) where the
+    // host-only cr_session cookie isn't sent → 401/404.
+    fetchLicenseDoc: async (fileKvKey: string): Promise<Blob> => {
+      const res = await fetch(`${BASE}/api/auth/license-doc/${encodeURIComponent(fileKvKey)}`, {
+        credentials: "include",
+        headers: { accept: "*/*" },
+      });
+      if (!res.ok) {
+        let body: unknown;
+        try { body = await res.json(); } catch { body = undefined; }
+        throw new ApiError("No se pudo cargar el documento", res.status, "/api/auth/license-doc", body);
+      }
+      return res.blob();
     },
     approveLicenseReview: (id: string) =>
       request<{ ok: true; review: LicenseReview }>(`/api/admin/license-reviews/${encodeURIComponent(id)}/approve`, {

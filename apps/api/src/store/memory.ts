@@ -1236,6 +1236,172 @@ export class MemoryStore implements StoreAdapter {
     };
   }
 
+  async getAdminDashboard(): Promise<import("./adapter").AdminDashboard> {
+    const now = new Date().toISOString();
+    const d7 = new Date(Date.now() - 7 * 24 * 60 * 60 * 1000).toISOString();
+    const d30 = new Date(Date.now() - 30 * 24 * 60 * 60 * 1000).toISOString();
+    const rideStatus = (st: string) => this.rides.filter((r) => r.status === st).length;
+    const reqStatus = (st: string) => this.requests.filter((r) => r.status === st).length;
+    const favKind = (k: string) => this.favorites.filter((f) => f.kind === k).length;
+    const lic = (st: string) => this.licenseReviews.filter((r) => r.status === st).length;
+    const byDay = (rows: Array<{ created_at: string }>) => {
+      const m = new Map<string, number>();
+      for (const row of rows) {
+        if (row.created_at < d30) continue;
+        const day = row.created_at.slice(0, 10);
+        m.set(day, (m.get(day) ?? 0) + 1);
+      }
+      return [...m.entries()].sort((a, b) => a[0].localeCompare(b[0])).map(([date, count]) => ({ date, count }));
+    };
+    const groupCount = <T>(rows: T[], key: (r: T) => string) => {
+      const m = new Map<string, number>();
+      for (const row of rows) m.set(key(row), (m.get(key(row)) ?? 0) + 1);
+      return m;
+    };
+    const cities = [...groupCount(this.rides, (r) => r.origin_city).entries()].sort((a, b) => b[1] - a[1]).slice(0, 8);
+    const concertCounts = [...groupCount(this.rides, (r) => r.concert_id).entries()].sort((a, b) => b[1] - a[1]).slice(0, 8);
+    const concertName = (id: string) => this.concerts.find((c) => c.id === id)?.name ?? "—";
+    const activityKinds = [...groupCount(this.activity, (a) => a.kind).entries()].sort((a, b) => b[1] - a[1]);
+    const avgPrice = this.rides.length ? this.rides.reduce((s, r) => s + r.price_per_seat, 0) / this.rides.length : 0;
+    const avgRating = this.reviews.length ? this.reviews.reduce((s, r) => s + r.rating, 0) / this.reviews.length : 0;
+
+    return {
+      generated_at: now,
+      users: {
+        total: this.users.length,
+        verified_email: this.users.filter((u) => u.email_verified_at != null).length,
+        unverified_email: this.users.filter((u) => u.email_verified_at == null).length,
+        license_verified: this.users.filter((u) => u.license_verified).length,
+        identity_verified: this.users.filter((u) => u.identity_verified).length,
+        phone_verified: this.users.filter((u) => u.phone_verified_at != null).length,
+        banned: this.users.filter((u) => u.banned_at != null).length,
+        with_home_city: this.users.filter((u) => u.home_city != null).length,
+        new_7d: this.users.filter((u) => u.created_at >= d7).length,
+        new_30d: this.users.filter((u) => u.created_at >= d30).length,
+      },
+      rides: {
+        total: this.rides.length,
+        active: rideStatus("active"),
+        full: rideStatus("full"),
+        completed: rideStatus("completed"),
+        cancelled: rideStatus("cancelled"),
+        round_trip: this.rides.filter((r) => r.round_trip).length,
+        seats_available: this.rides.filter((r) => r.status === "active").reduce((s, r) => s + r.seats_left, 0),
+        avg_price: Math.round(avgPrice * 100) / 100,
+        published_7d: this.rides.filter((r) => r.created_at >= d7).length,
+      },
+      bookings: {
+        total: this.requests.length,
+        pending: reqStatus("pending"),
+        confirmed: reqStatus("confirmed"),
+        rejected: reqStatus("rejected"),
+        cancelled: reqStatus("cancelled"),
+      },
+      reviews: { total: this.reviews.length, avg_rating: Math.round(avgRating * 100) / 100 },
+      favorites: { total: this.favorites.length, concert: favKind("concert"), artist: favKind("artist"), city: favKind("city") },
+      engagement: {
+        chat_messages: this.messages.length,
+        direct_messages: this.directMessages.length,
+        demand_signals: this.demandSignals.length,
+        festival_demand: 0,
+        festival_alerts: this.festivalAlerts.length,
+        event_anticipations: this.anticipations.length,
+        crew_connections: this.crew.length,
+        squads: this.squadsList.length,
+        squad_members: this.squadMembersList.length,
+        trip_memories: this.memories.length,
+        activity_events: this.activity.length,
+      },
+      catalog: {
+        concerts: this.concerts.length,
+        upcoming_concerts: this.concerts.filter((c) => c.date >= now).length,
+        venues: this.venues.length,
+      },
+      moderation: {
+        reports_pending: this.reports.filter((r) => r.status === "pending").length,
+        reports_total: this.reports.length,
+        license_pending: lic("pending"),
+        license_approved: lic("approved"),
+        license_rejected: lic("rejected"),
+        identity_pending: this.identityReviews.filter((r) => r.status === "pending").length,
+      },
+      top_cities: cities.map(([city, ride_count]) => ({ city, ride_count })),
+      top_concerts: concertCounts.map(([concert_id, ride_count]) => ({ concert_id, name: concertName(concert_id), ride_count })),
+      activity_by_kind: activityKinds.map(([kind, count]) => ({ kind, count })),
+      signups_by_day: byDay(this.users),
+      rides_by_day: byDay(this.rides),
+    };
+  }
+
+  async listAdminUsers(): Promise<import("./adapter").AdminUserListItem[]> {
+    const countBy = (rows: Array<Record<string, unknown>>, field: string) => {
+      const m = new Map<string, number>();
+      for (const row of rows) {
+        const id = row[field] as string;
+        m.set(id, (m.get(id) ?? 0) + 1);
+      }
+      return m;
+    };
+    const rides = countBy(this.rides as unknown as Array<Record<string, unknown>>, "driver_id");
+    const reqs = countBy(this.requests as unknown as Array<Record<string, unknown>>, "passenger_id");
+    const favs = countBy(this.favorites as unknown as Array<Record<string, unknown>>, "user_id");
+    const msgs = countBy(this.messages as unknown as Array<Record<string, unknown>>, "user_id");
+    const revs = countBy(this.reviews as unknown as Array<Record<string, unknown>>, "reviewee_id");
+    return [...this.users]
+      .sort((a, b) => b.created_at.localeCompare(a.created_at))
+      .map((u) => ({
+        id: u.id,
+        email: u.email,
+        name: u.name,
+        avatar_url: u.avatar_url,
+        email_verified: u.email_verified_at != null,
+        license_verified: u.license_verified,
+        identity_verified: u.identity_verified,
+        phone_verified: u.phone_verified_at != null,
+        banned: u.banned_at != null,
+        home_city: u.home_city,
+        rating: u.rating,
+        created_at: u.created_at,
+        rides_published: rides.get(u.id) ?? 0,
+        requests_made: reqs.get(u.id) ?? 0,
+        favorites_count: favs.get(u.id) ?? 0,
+        messages_sent: msgs.get(u.id) ?? 0,
+        reviews_received: revs.get(u.id) ?? 0,
+      }));
+  }
+
+  async getAdminUserDetail(userId: string): Promise<import("./adapter").AdminUserDetail | null> {
+    const user = this.users.find((u) => u.id === userId);
+    if (!user) return null;
+    const concertName = (id: string) => this.concerts.find((c) => c.id === id)?.name ?? null;
+    const { password_hash: _ph, password_salt: _ps, ...publicUser } = user;
+    return {
+      user: publicUser as unknown as import("@concertride/types").User,
+      rides: this.rides
+        .filter((r) => r.driver_id === userId)
+        .map((r) => ({
+          id: r.id, concert_id: r.concert_id, concert_name: concertName(r.concert_id), origin_city: r.origin_city,
+          status: r.status, price_per_seat: r.price_per_seat, seats_total: r.seats_total, seats_left: r.seats_left,
+          departure_time: r.departure_time, created_at: r.created_at,
+        })),
+      requests: this.requests
+        .filter((r) => r.passenger_id === userId)
+        .map((r) => ({ id: r.id, ride_id: r.ride_id, status: r.status, seats: r.seats, created_at: r.created_at })),
+      favorites: this.favorites
+        .filter((f) => f.user_id === userId)
+        .map((f) => ({ id: f.id, kind: f.kind, target_id: f.target_id, label: f.label, created_at: f.created_at })),
+      messages: this.messages
+        .filter((m) => m.user_id === userId)
+        .map((m) => ({ id: m.id, ride_id: m.ride_id ?? null, concert_id: m.concert_id ?? null, kind: m.kind, body: m.body, created_at: m.created_at })),
+      reviews_received: this.reviews
+        .filter((r) => r.reviewee_id === userId)
+        .map((r) => ({ id: r.id, rating: r.rating, comment: r.comment ?? null, created_at: r.created_at })),
+      anticipations: this.anticipations
+        .filter((a) => a.user_id === userId)
+        .map((a) => ({ id: a.id, concert_id: a.concert_id, status: a.status, created_at: a.created_at })),
+    };
+  }
+
   async getMyLicenseReview(userId: string): Promise<import("@concertride/types").LicenseReview | null> {
     const userReviews = this.licenseReviews.filter((r) => r.user_id === userId);
     if (userReviews.length === 0) return null;

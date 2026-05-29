@@ -13673,7 +13673,7 @@ BLOG_POSTS.push(
     ],
     relatedLinks: [
       { label: "Carpooling a conciertos en Madrid", to: "/conciertos/madrid" },
-      { label: "Publicar un viaje en ConcertRide", to: "/publicar" },
+      { label: "Publicar un viaje en ConcertRide", to: "/publish" },
       { label: "Rutas desde Guadalajara a Madrid", to: "/rutas/guadalajara-madrid" },
     ],
     relatedPosts: ["pablo-alboran-india-martinez-espana-2026", "conciertos-estadios-espana-2026-guia", "guia-festivales-interior-espana-2026"],
@@ -13946,7 +13946,7 @@ BLOG_POSTS.push(
       { q: "¿Qué pasa si no hay viajes con dos plazas disponibles?", a: "Si no encuentras viajes con dos plazas libres, publica una solicitud de viaje indicando que sois dos personas. Los conductores pueden ofreceros un viaje a medida." },
     ],
     relatedLinks: [
-      { label: "Publicar un viaje como conductor", to: "/publicar" },
+      { label: "Publicar un viaje como conductor", to: "/publish" },
       { label: "Cómo funciona ConcertRide", to: "/como-funciona" },
     ],
     relatedPosts: ["carpooling-madrugada-fin-festival", "guia-festivales-madrid-2026-completa", "festival-de-sonar-2026-electronica"],
@@ -14000,7 +14000,7 @@ BLOG_POSTS.push(
     ],
     relatedLinks: [
       { label: "Cómo funciona ConcertRide", to: "/como-funciona" },
-      { label: "Publicar un viaje", to: "/publicar" },
+      { label: "Publicar un viaje", to: "/publish" },
       { label: "Conciertos en Madrid", to: "/conciertos/madrid" },
     ],
     relatedPosts: ["carpooling-madrugada-fin-festival", "carpooling-pareja-festival-romantico", "guia-festivales-madrid-2026-completa"],
@@ -14107,7 +14107,7 @@ BLOG_POSTS.push(
     ],
     relatedLinks: [
       { label: "Cómo funciona ConcertRide", to: "/como-funciona" },
-      { label: "Publicar un viaje de vuelta", to: "/publicar" },
+      { label: "Publicar un viaje de vuelta", to: "/publish" },
     ],
     relatedPosts: ["carpooling-pareja-festival-romantico", "conciertos-teatros-auditorios-espana-2026", "guia-festivales-madrid-2026-completa"],
     coverImage: { src: "https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=1200&h=630&fit=crop", alt: "Carpooling de madrugada vuelta casa festival — ConcertRide", width: 1200, height: 630 },
@@ -14262,7 +14262,7 @@ BLOG_POSTS.push(
       { q: "¿Cómo dividir los peajes en un coche de carpooling?", a: "Suma el importe total de peajes al gasto de combustible y divide entre todos los ocupantes (incluyendo al conductor). Si usas vía telemática (Via-T), calcula el importe aproximado antes del viaje con el buscador de peajes de la web de la DGT." },
     ],
     relatedLinks: [
-      { label: "Publicar un viaje en ConcertRide", to: "/publicar" },
+      { label: "Publicar un viaje en ConcertRide", to: "/publish" },
       { label: "Cómo funciona ConcertRide", to: "/como-funciona" },
       { label: "Carpooling Madrid a Primavera Sound", to: "/rutas/madrid-primavera-sound" },
       { label: "Carpooling a Primavera Sound", to: "/festivales/primavera-sound" },
@@ -14702,7 +14702,7 @@ BLOG_POSTS.push(
     relatedLinks: [
       { label: "Cómo funciona ConcertRide", to: "/como-funciona" },
       { label: "Preguntas frecuentes", to: "/faq" },
-      { label: "Publicar un viaje", to: "/publicar" },
+      { label: "Publicar un viaje", to: "/publish" },
     ],
     relatedPosts: ["carpooling-madrugada-fin-festival", "como-organizar-viaje-grupo-festival-amigos", "que-llevar-al-festival-guia-camping-2026"],
     coverImage: { src: "https://images.unsplash.com/photo-1489824904134-891ab64532f1?w=1200&h=630&fit=crop", alt: "Persona verificando teléfono en coche antes del viaje — seguridad carpooling festival", width: 1200, height: 630 },

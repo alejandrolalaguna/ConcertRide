@@ -2,12 +2,14 @@ import { useEffect, useState } from "react";
 import { Link, Navigate } from "react-router-dom";
 import { AlertTriangle, Ban, Check, X, Eye, ShieldCheck, FileText, Users, Car, CalendarCheck, MapPin } from "lucide-react";
 import type { AdminStats, LicenseReview, Report, ReportStatus, User } from "@concertride/types";
+import { toast } from "sonner";
 import { api, ApiError } from "@/lib/api";
 import { useSession } from "@/lib/session";
 import { useSeoMeta } from "@/lib/useSeoMeta";
 import { SITE_URL } from "@/lib/siteUrl";
 import { driverPath } from "@/lib/format";
 import { LoadingSpinner } from "@/components/ui";
+import AdminDashboardPanel from "@/components/AdminDashboardPanel";
 
 type HydratedReport = Report & { reporter: User | null; target_user: User | null };
 type HydratedLicenseReview = LicenseReview & { user: User | null };
@@ -124,6 +126,38 @@ export default function AdminReportsPage() {
     }
   }
 
+  const [docLoadingId, setDocLoadingId] = useState<string | null>(null);
+
+  // Fetch the document through the authenticated API client (cookie via
+  // credentials:"include") and open the resulting blob in a new tab. A plain
+  // <a href> would do a top-level navigation that can land on a different host
+  // (apex vs www) where the host-only session cookie isn't sent → 401/404.
+  async function viewDocument(review: HydratedLicenseReview) {
+    setDocLoadingId(review.id);
+    try {
+      const blob = await api.admin.fetchLicenseDoc(review.file_kv_key);
+      const url = URL.createObjectURL(blob);
+      const ext = review.file_kv_key.split(".").pop() || "jpg";
+      const filename = `carnet-${review.user_id}.${ext}`;
+      const opened = window.open(url, "_blank", "noopener");
+      if (!opened) {
+        // Popup blocked → fall back to a direct download of the blob.
+        const a = document.createElement("a");
+        a.href = url;
+        a.download = filename;
+        document.body.appendChild(a);
+        a.click();
+        a.remove();
+      }
+      setTimeout(() => URL.revokeObjectURL(url), 60_000);
+    } catch (e) {
+      const status = e instanceof ApiError ? ` (${e.status})` : "";
+      toast.error(`No se pudo abrir el documento${status}. ¿Sigues con sesión de admin?`);
+    } finally {
+      setDocLoadingId(null);
+    }
+  }
+
   async function banUser(userId: string) {
     if (!banReason.trim()) return;
     try {
@@ -161,11 +195,14 @@ export default function AdminReportsPage() {
           <p className="font-sans text-[11px] font-semibold uppercase tracking-[0.16em] text-cr-secondary inline-flex items-center gap-2">
             <ShieldCheck size={12} /> Admin
           </p>
-          <h1 className="font-display text-3xl md:text-4xl uppercase">Reportes de abuso</h1>
+          <h1 className="font-display text-3xl md:text-4xl uppercase">Panel de administración</h1>
           <p className="font-mono text-xs text-cr-text-muted">
             Solo usuarios en <code className="text-cr-primary">ADMIN_USER_IDS</code>. Acciones auditadas por Cloudflare logs + Sentry.
           </p>
         </header>
+
+        {/* ── Dashboard completo (todas las estadísticas de la BD) ────────── */}
+        <AdminDashboardPanel />
 
         {/* ── Stats ────────────────────────────────────────────────────── */}
         {stats && (
@@ -378,14 +415,14 @@ export default function AdminReportsPage() {
                         {new Date(r.submitted_at).toLocaleString("es-ES", { dateStyle: "short", timeStyle: "short" })}
                         {" · "}{r.id}
                       </p>
-                      <a
-                        href={`/api/auth/license-doc/${encodeURIComponent(r.file_kv_key)}`}
-                        target="_blank"
-                        rel="noreferrer"
-                        className="inline-flex items-center gap-1 font-sans text-xs text-cr-primary hover:underline"
+                      <button
+                        type="button"
+                        onClick={() => viewDocument(r)}
+                        disabled={docLoadingId === r.id}
+                        className="inline-flex items-center gap-1 font-sans text-xs text-cr-primary hover:underline disabled:opacity-50"
                       >
-                        <FileText size={11} /> Ver documento
-                      </a>
+                        <FileText size={11} /> {docLoadingId === r.id ? "Abriendo…" : "Ver documento"}
+                      </button>
                     </div>
 
                     <div className="flex flex-wrap gap-2 items-start">

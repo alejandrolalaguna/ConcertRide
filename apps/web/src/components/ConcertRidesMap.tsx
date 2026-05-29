@@ -43,7 +43,7 @@ export default function ConcertRidesMap({ concert, rides }: Props) {
         <p className="font-mono text-xs text-cr-text-muted">
           Sé el primero en publicar uno para {concert.artist}
         </p>
-        <Link to={`/publicar?concert=${concert.id}`} className="cr-btn-primary mt-2 inline-block">
+        <Link to={`/publish?concert=${concert.id}`} className="cr-btn-primary mt-2 inline-block">
           Publicar viaje
         </Link>
       </div>

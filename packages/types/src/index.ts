@@ -95,6 +95,122 @@ export interface AdminStats {
   top_cities: Array<{ city: string; ride_count: number }>;
 }
 
+// ── Admin dashboard (comprehensive DB overview) ────────────────────────────
+// Powers the visual admin dashboard. One round-trip aggregation across every
+// table so the panel can render cards + charts without N queries.
+export interface AdminDashboard {
+  generated_at: string;
+  users: {
+    total: number;
+    verified_email: number;
+    unverified_email: number;
+    license_verified: number;
+    identity_verified: number;
+    phone_verified: number;
+    banned: number;
+    with_home_city: number;
+    new_7d: number;
+    new_30d: number;
+  };
+  rides: {
+    total: number;
+    active: number;
+    full: number;
+    completed: number;
+    cancelled: number;
+    round_trip: number;
+    seats_available: number;
+    avg_price: number;
+    published_7d: number;
+  };
+  bookings: {
+    total: number;
+    pending: number;
+    confirmed: number;
+    rejected: number;
+    cancelled: number;
+  };
+  reviews: { total: number; avg_rating: number };
+  favorites: { total: number; concert: number; artist: number; city: number };
+  engagement: {
+    chat_messages: number;
+    direct_messages: number;
+    demand_signals: number;
+    festival_demand: number;
+    festival_alerts: number;
+    event_anticipations: number;
+    crew_connections: number;
+    squads: number;
+    squad_members: number;
+    trip_memories: number;
+    activity_events: number;
+  };
+  catalog: { concerts: number; upcoming_concerts: number; venues: number };
+  moderation: {
+    reports_pending: number;
+    reports_total: number;
+    license_pending: number;
+    license_approved: number;
+    license_rejected: number;
+    identity_pending: number;
+  };
+  top_cities: Array<{ city: string; ride_count: number }>;
+  top_concerts: Array<{ concert_id: string; name: string; ride_count: number }>;
+  activity_by_kind: Array<{ kind: string; count: number }>;
+  signups_by_day: Array<{ date: string; count: number }>;
+  rides_by_day: Array<{ date: string; count: number }>;
+}
+
+// One row per user in the admin users table, with derived activity counts.
+export interface AdminUserListItem {
+  id: string;
+  email: string;
+  name: string;
+  avatar_url: string | null;
+  email_verified: boolean;
+  license_verified: boolean;
+  identity_verified: boolean;
+  phone_verified: boolean;
+  banned: boolean;
+  home_city: string | null;
+  rating: number;
+  created_at: string;
+  rides_published: number;
+  requests_made: number;
+  favorites_count: number;
+  messages_sent: number;
+  reviews_received: number;
+}
+
+// Full per-user breakdown shown when an admin drills into a user.
+export interface AdminUserDetail {
+  user: User;
+  rides: Array<{
+    id: string;
+    concert_id: string;
+    concert_name: string | null;
+    origin_city: string;
+    status: string;
+    price_per_seat: number;
+    seats_total: number;
+    seats_left: number;
+    departure_time: string;
+    created_at: string;
+  }>;
+  requests: Array<{ id: string; ride_id: string; status: string; seats: number; created_at: string }>;
+  favorites: Array<{ id: string; kind: string; target_id: string; label: string; created_at: string }>;
+  messages: Array<{
+    id: string;
+    ride_id: string | null;
+    concert_id: string | null;
+    kind: string;
+    body: string;
+    created_at: string;
+  }>;
+  reviews_received: Array<{ id: string; rating: number; comment: string | null; created_at: string }>;
+  anticipations: Array<{ id: string; concert_id: string; status: string; created_at: string }>;
+}
+
 export type LicenseReviewStatus = "pending" | "approved" | "rejected";
 
 export interface LicenseReview {

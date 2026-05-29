@@ -2046,6 +2046,206 @@ export class DrizzleStore implements StoreAdapter {
     };
   }
 
+  async getAdminDashboard(): Promise<import("./adapter").AdminDashboard> {
+    const now = new Date().toISOString();
+    const d7 = new Date(Date.now() - 7 * 24 * 60 * 60 * 1000).toISOString();
+    const d30 = new Date(Date.now() - 30 * 24 * 60 * 60 * 1000).toISOString();
+    const u = schema.users;
+    const r = schema.rides;
+    const rr = schema.rideRequests;
+    const n = (rows: Array<{ c: number }>) => rows[0]?.c ?? 0;
+    const s = (rows: Array<{ s: number }>) => Number(rows[0]?.s ?? 0);
+
+    const [
+      usersTotal, usersVerified, usersLicense, usersIdentity, usersPhone, usersBanned, usersHomeCity, usersNew7, usersNew30,
+      ridesTotal, ridesRoundTrip, ridesSeats, ridesAvg, ridesPub7,
+      bookingsTotal, reviewsTotal, reviewsAvg,
+      chatMessages, directMessages, demandSignalsC, festivalDemandC, festivalAlertsC,
+      eventAnticipationsC, crewConnectionsC, squadsC, squadMembersC, tripMemoriesC, activityEventsC,
+      concertsTotal, concertsUpcoming, venuesC,
+      reportsTotal, reportsPending, identityPending,
+    ] = await Promise.all([
+      this.db.select({ c: count() }).from(u),
+      this.db.select({ c: count() }).from(u).where(sql`${u.email_verified_at} IS NOT NULL`),
+      this.db.select({ c: count() }).from(u).where(eq(u.license_verified, true)),
+      this.db.select({ c: count() }).from(u).where(eq(u.identity_verified, true)),
+      this.db.select({ c: count() }).from(u).where(sql`${u.phone_verified_at} IS NOT NULL`),
+      this.db.select({ c: count() }).from(u).where(sql`${u.banned_at} IS NOT NULL`),
+      this.db.select({ c: count() }).from(u).where(sql`${u.home_city} IS NOT NULL`),
+      this.db.select({ c: count() }).from(u).where(gte(u.created_at, d7)),
+      this.db.select({ c: count() }).from(u).where(gte(u.created_at, d30)),
+      this.db.select({ c: count() }).from(r),
+      this.db.select({ c: count() }).from(r).where(eq(r.round_trip, true)),
+      this.db.select({ s: sql<number>`COALESCE(SUM(${r.seats_left}), 0)` }).from(r).where(eq(r.status, "active")),
+      this.db.select({ s: sql<number>`COALESCE(AVG(${r.price_per_seat}), 0)` }).from(r),
+      this.db.select({ c: count() }).from(r).where(gte(r.created_at, d7)),
+      this.db.select({ c: count() }).from(rr),
+      this.db.select({ c: count() }).from(schema.reviews),
+      this.db.select({ s: sql<number>`COALESCE(AVG(${schema.reviews.rating}), 0)` }).from(schema.reviews),
+      this.db.select({ c: count() }).from(schema.messages),
+      this.db.select({ c: count() }).from(schema.directMessages),
+      this.db.select({ c: count() }).from(schema.demandSignals),
+      this.db.select({ c: count() }).from(schema.festivalDemand),
+      this.db.select({ c: count() }).from(schema.festivalAlerts),
+      this.db.select({ c: count() }).from(schema.eventAnticipations),
+      this.db.select({ c: count() }).from(schema.crewConnections),
+      this.db.select({ c: count() }).from(schema.squads),
+      this.db.select({ c: count() }).from(schema.squadMembers),
+      this.db.select({ c: count() }).from(schema.tripMemories),
+      this.db.select({ c: count() }).from(schema.activityEvents),
+      this.db.select({ c: count() }).from(schema.concerts),
+      this.db.select({ c: count() }).from(schema.concerts).where(gte(schema.concerts.date, now)),
+      this.db.select({ c: count() }).from(schema.venues),
+      this.db.select({ c: count() }).from(schema.reports),
+      this.db.select({ c: count() }).from(schema.reports).where(eq(schema.reports.status, "pending")),
+      this.db.select({ c: count() }).from(schema.identityReviews).where(eq(schema.identityReviews.status, "pending")),
+    ]);
+
+    const [ridesByStatus, bookingsByStatus, favByKind, licenseByStatus, activityByKind, topCities, topConcerts, signupsByDay, ridesByDay] = await Promise.all([
+      this.db.select({ k: r.status, c: count() }).from(r).groupBy(r.status),
+      this.db.select({ k: rr.status, c: count() }).from(rr).groupBy(rr.status),
+      this.db.select({ k: schema.favorites.kind, c: count() }).from(schema.favorites).groupBy(schema.favorites.kind),
+      this.db.select({ k: schema.licenseReviews.status, c: count() }).from(schema.licenseReviews).groupBy(schema.licenseReviews.status),
+      this.db.select({ k: schema.activityEvents.kind, c: count() }).from(schema.activityEvents).groupBy(schema.activityEvents.kind).orderBy(desc(count())),
+      this.db.select({ city: r.origin_city, ride_count: count() }).from(r).groupBy(r.origin_city).orderBy(desc(count())).limit(8),
+      this.db.select({ concert_id: r.concert_id, name: schema.concerts.name, ride_count: count() }).from(r).leftJoin(schema.concerts, eq(r.concert_id, schema.concerts.id)).groupBy(r.concert_id).orderBy(desc(count())).limit(8),
+      this.db.select({ date: sql<string>`substr(${u.created_at}, 1, 10)`, c: count() }).from(u).where(gte(u.created_at, d30)).groupBy(sql`substr(${u.created_at}, 1, 10)`).orderBy(asc(sql`substr(${u.created_at}, 1, 10)`)),
+      this.db.select({ date: sql<string>`substr(${r.created_at}, 1, 10)`, c: count() }).from(r).where(gte(r.created_at, d30)).groupBy(sql`substr(${r.created_at}, 1, 10)`).orderBy(asc(sql`substr(${r.created_at}, 1, 10)`)),
+    ]);
+
+    const rideStatus = (st: string) => ridesByStatus.find((x) => x.k === st)?.c ?? 0;
+    const bookStatus = (st: string) => bookingsByStatus.find((x) => x.k === st)?.c ?? 0;
+    const favKind = (k: string) => favByKind.find((x) => x.k === k)?.c ?? 0;
+    const licStatus = (st: string) => licenseByStatus.find((x) => x.k === st)?.c ?? 0;
+
+    return {
+      generated_at: new Date().toISOString(),
+      users: {
+        total: n(usersTotal),
+        verified_email: n(usersVerified),
+        unverified_email: n(usersTotal) - n(usersVerified),
+        license_verified: n(usersLicense),
+        identity_verified: n(usersIdentity),
+        phone_verified: n(usersPhone),
+        banned: n(usersBanned),
+        with_home_city: n(usersHomeCity),
+        new_7d: n(usersNew7),
+        new_30d: n(usersNew30),
+      },
+      rides: {
+        total: n(ridesTotal),
+        active: rideStatus("active"),
+        full: rideStatus("full"),
+        completed: rideStatus("completed"),
+        cancelled: rideStatus("cancelled"),
+        round_trip: n(ridesRoundTrip),
+        seats_available: s(ridesSeats),
+        avg_price: Math.round(s(ridesAvg) * 100) / 100,
+        published_7d: n(ridesPub7),
+      },
+      bookings: {
+        total: n(bookingsTotal),
+        pending: bookStatus("pending"),
+        confirmed: bookStatus("confirmed"),
+        rejected: bookStatus("rejected"),
+        cancelled: bookStatus("cancelled"),
+      },
+      reviews: { total: n(reviewsTotal), avg_rating: Math.round(s(reviewsAvg) * 100) / 100 },
+      favorites: { total: favKind("concert") + favKind("artist") + favKind("city"), concert: favKind("concert"), artist: favKind("artist"), city: favKind("city") },
+      engagement: {
+        chat_messages: n(chatMessages),
+        direct_messages: n(directMessages),
+        demand_signals: n(demandSignalsC),
+        festival_demand: n(festivalDemandC),
+        festival_alerts: n(festivalAlertsC),
+        event_anticipations: n(eventAnticipationsC),
+        crew_connections: n(crewConnectionsC),
+        squads: n(squadsC),
+        squad_members: n(squadMembersC),
+        trip_memories: n(tripMemoriesC),
+        activity_events: n(activityEventsC),
+      },
+      catalog: { concerts: n(concertsTotal), upcoming_concerts: n(concertsUpcoming), venues: n(venuesC) },
+      moderation: {
+        reports_pending: n(reportsPending),
+        reports_total: n(reportsTotal),
+        license_pending: licStatus("pending"),
+        license_approved: licStatus("approved"),
+        license_rejected: licStatus("rejected"),
+        identity_pending: n(identityPending),
+      },
+      top_cities: topCities.map((x) => ({ city: x.city, ride_count: x.ride_count })),
+      top_concerts: topConcerts.map((x) => ({ concert_id: x.concert_id, name: x.name ?? "—", ride_count: x.ride_count })),
+      activity_by_kind: activityByKind.map((x) => ({ kind: x.k, count: x.c })),
+      signups_by_day: signupsByDay.map((x) => ({ date: x.date, count: x.c })),
+      rides_by_day: ridesByDay.map((x) => ({ date: x.date, count: x.c })),
+    };
+  }
+
+  async listAdminUsers(): Promise<import("./adapter").AdminUserListItem[]> {
+    const u = schema.users;
+    const [users, ridesByDriver, reqByPassenger, favByUser, msgByUser, revByReviewee] = await Promise.all([
+      this.db.select().from(u).orderBy(desc(u.created_at)),
+      this.db.select({ id: schema.rides.driver_id, c: count() }).from(schema.rides).groupBy(schema.rides.driver_id),
+      this.db.select({ id: schema.rideRequests.passenger_id, c: count() }).from(schema.rideRequests).groupBy(schema.rideRequests.passenger_id),
+      this.db.select({ id: schema.favorites.user_id, c: count() }).from(schema.favorites).groupBy(schema.favorites.user_id),
+      this.db.select({ id: schema.messages.user_id, c: count() }).from(schema.messages).groupBy(schema.messages.user_id),
+      this.db.select({ id: schema.reviews.reviewee_id, c: count() }).from(schema.reviews).groupBy(schema.reviews.reviewee_id),
+    ]);
+    const toMap = (rows: Array<{ id: string; c: number }>) => new Map(rows.map((x) => [x.id, x.c]));
+    const rides = toMap(ridesByDriver);
+    const reqs = toMap(reqByPassenger);
+    const favs = toMap(favByUser);
+    const msgs = toMap(msgByUser);
+    const revs = toMap(revByReviewee);
+    return users.map((row) => ({
+      id: row.id,
+      email: row.email,
+      name: row.name,
+      avatar_url: row.avatar_url,
+      email_verified: row.email_verified_at != null,
+      license_verified: row.license_verified,
+      identity_verified: row.identity_verified,
+      phone_verified: row.phone_verified_at != null,
+      banned: row.banned_at != null,
+      home_city: row.home_city,
+      rating: row.rating,
+      created_at: row.created_at,
+      rides_published: rides.get(row.id) ?? 0,
+      requests_made: reqs.get(row.id) ?? 0,
+      favorites_count: favs.get(row.id) ?? 0,
+      messages_sent: msgs.get(row.id) ?? 0,
+      reviews_received: revs.get(row.id) ?? 0,
+    }));
+  }
+
+  async getAdminUserDetail(userId: string): Promise<import("./adapter").AdminUserDetail | null> {
+    const user = await this.getUser(userId);
+    if (!user) return null;
+    const r = schema.rides;
+    const [rideRows, reqRows, favRows, msgRows, revRows, antRows] = await Promise.all([
+      this.db.select({
+        id: r.id, concert_id: r.concert_id, concert_name: schema.concerts.name, origin_city: r.origin_city,
+        status: r.status, price_per_seat: r.price_per_seat, seats_total: r.seats_total, seats_left: r.seats_left,
+        departure_time: r.departure_time, created_at: r.created_at,
+      }).from(r).leftJoin(schema.concerts, eq(r.concert_id, schema.concerts.id)).where(eq(r.driver_id, userId)).orderBy(desc(r.created_at)),
+      this.db.select({ id: schema.rideRequests.id, ride_id: schema.rideRequests.ride_id, status: schema.rideRequests.status, seats: schema.rideRequests.seats, created_at: schema.rideRequests.created_at }).from(schema.rideRequests).where(eq(schema.rideRequests.passenger_id, userId)).orderBy(desc(schema.rideRequests.created_at)),
+      this.db.select({ id: schema.favorites.id, kind: schema.favorites.kind, target_id: schema.favorites.target_id, label: schema.favorites.label, created_at: schema.favorites.created_at }).from(schema.favorites).where(eq(schema.favorites.user_id, userId)).orderBy(desc(schema.favorites.created_at)),
+      this.db.select({ id: schema.messages.id, ride_id: schema.messages.ride_id, concert_id: schema.messages.concert_id, kind: schema.messages.kind, body: schema.messages.body, created_at: schema.messages.created_at }).from(schema.messages).where(eq(schema.messages.user_id, userId)).orderBy(desc(schema.messages.created_at)).limit(200),
+      this.db.select({ id: schema.reviews.id, rating: schema.reviews.rating, comment: schema.reviews.comment, created_at: schema.reviews.created_at }).from(schema.reviews).where(eq(schema.reviews.reviewee_id, userId)).orderBy(desc(schema.reviews.created_at)),
+      this.db.select({ id: schema.eventAnticipations.id, concert_id: schema.eventAnticipations.concert_id, status: schema.eventAnticipations.status, created_at: schema.eventAnticipations.created_at }).from(schema.eventAnticipations).where(eq(schema.eventAnticipations.user_id, userId)).orderBy(desc(schema.eventAnticipations.created_at)),
+    ]);
+    return {
+      user,
+      rides: rideRows.map((x) => ({ ...x })),
+      requests: reqRows.map((x) => ({ ...x })),
+      favorites: favRows.map((x) => ({ ...x })),
+      messages: msgRows.map((x) => ({ ...x })),
+      reviews_received: revRows.map((x) => ({ ...x })),
+      anticipations: antRows.map((x) => ({ ...x })),
+    };
+  }
+
   async banUser(adminId: string, userId: string, reason: string): Promise<User | null> {
     const now = new Date().toISOString();
     await this.db.update(schema.users).set({ banned_at: now, ban_reason: reason }).where(eq(schema.users.id, userId));
