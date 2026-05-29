@@ -40,13 +40,24 @@ test.describe("/admin/reports access control", () => {
 
     // Page should load and NOT redirect away
     await expect(page.getByRole("heading", { level: 1 })).toContainText(
-      /Reportes de abuso/i,
+      /Panel de administración/i,
       { timeout: 10_000 },
     );
 
-    // Tabs visible
+    // Top-level view tabs visible
+    await expect(page.getByTestId("tab-resumen")).toBeVisible();
+    await expect(page.getByTestId("tab-usuarios")).toBeVisible();
+    await expect(page.getByTestId("tab-moderacion")).toBeVisible();
+
+    // Default tab = Resumen → dashboard overview renders
+    await expect(page.getByTestId("admin-overview")).toBeVisible();
+
+    // Usuarios tab lazy-loads the users table
+    await page.getByTestId("tab-usuarios").click();
+    await expect(page.getByTestId("admin-users")).toBeVisible();
+
+    // Moderación tab shows the report status sub-tabs
+    await page.getByTestId("tab-moderacion").click();
     await expect(page.getByRole("button", { name: /Pendientes/i })).toBeVisible();
-    await expect(page.getByRole("button", { name: /Revisados/i })).toBeVisible();
-    await expect(page.getByRole("button", { name: /Resueltos/i })).toBeVisible();
   });
 });

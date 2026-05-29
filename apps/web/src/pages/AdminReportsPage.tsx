@@ -9,7 +9,14 @@ import { useSeoMeta } from "@/lib/useSeoMeta";
 import { SITE_URL } from "@/lib/siteUrl";
 import { driverPath } from "@/lib/format";
 import { LoadingSpinner } from "@/components/ui";
-import AdminDashboardPanel from "@/components/AdminDashboardPanel";
+import { AdminOverviewTab, AdminUsersTab } from "@/components/AdminDashboardPanel";
+
+type AdminView = "resumen" | "usuarios" | "moderacion";
+const VIEW_TABS: { value: AdminView; label: string }[] = [
+  { value: "resumen", label: "Resumen" },
+  { value: "usuarios", label: "Usuarios" },
+  { value: "moderacion", label: "Moderación" },
+];
 
 type HydratedReport = Report & { reporter: User | null; target_user: User | null };
 type HydratedLicenseReview = LicenseReview & { user: User | null };
@@ -51,6 +58,7 @@ export default function AdminReportsPage() {
   const [banUserId, setBanUserId] = useState<string | null>(null);
   const [banReason, setBanReason] = useState("");
   const [stats, setStats] = useState<AdminStats | null>(null);
+  const [view, setView] = useState<AdminView>("resumen");
 
   useSeoMeta({
     title: "Admin · Reportes",
@@ -78,30 +86,32 @@ export default function AdminReportsPage() {
       });
   }, [user, sessionLoading]);
 
+  // Moderation data is fetched lazily — only when the "Moderación" tab is open.
+  // The Resumen/Usuarios tabs fetch their own data inside their components.
   useEffect(() => {
-    if (allowed !== "yes") return;
+    if (allowed !== "yes" || view !== "moderacion") return;
     setLoading(true);
     api.admin
       .listReports(tab === "all" ? undefined : tab)
       .then((r) => setReports(r.reports))
       .catch(() => setReports([]))
       .finally(() => setLoading(false));
-  }, [allowed, tab]);
+  }, [allowed, tab, view]);
 
   useEffect(() => {
-    if (allowed !== "yes") return;
+    if (allowed !== "yes" || view !== "moderacion") return;
     api.admin.stats().then(setStats).catch(() => {});
-  }, [allowed]);
+  }, [allowed, view]);
 
   useEffect(() => {
-    if (allowed !== "yes") return;
+    if (allowed !== "yes" || view !== "moderacion") return;
     setLicenseLoading(true);
     api.admin
       .listLicenseReviews("pending")
       .then((r) => setLicenseReviews(r.reviews))
       .catch(() => setLicenseReviews([]))
       .finally(() => setLicenseLoading(false));
-  }, [allowed]);
+  }, [allowed, view]);
 
   async function approveLicense(id: string) {
     setLicenseReviews((prev) => prev.map((r) => r.id === id ? { ...r, status: "approved" as const } : r));
@@ -201,9 +211,33 @@ export default function AdminReportsPage() {
           </p>
         </header>
 
-        {/* ── Dashboard completo (todas las estadísticas de la BD) ────────── */}
-        <AdminDashboardPanel />
+        {/* ── Tabs principales (cada una carga sus datos al activarse) ───── */}
+        <div className="flex gap-0 border-b border-cr-border" role="tablist">
+          {VIEW_TABS.map((t) => (
+            <button
+              key={t.value}
+              type="button"
+              role="tab"
+              aria-selected={view === t.value}
+              data-testid={`tab-${t.value}`}
+              onClick={() => setView(t.value)}
+              className={`px-5 py-2.5 font-sans text-xs font-semibold uppercase tracking-[0.12em] border-b-2 transition-colors ${
+                view === t.value
+                  ? "border-cr-primary text-cr-primary"
+                  : "border-transparent text-cr-text-muted hover:text-cr-text"
+              }`}
+            >
+              {t.label}
+            </button>
+          ))}
+        </div>
 
+        {view === "resumen" && <AdminOverviewTab />}
+        {view === "usuarios" && <AdminUsersTab />}
+
+        {/* ── Moderación: stats clásicas + reportes + carnets ───────────── */}
+        {view === "moderacion" && (
+        <div className="space-y-6">
         {/* ── Stats ────────────────────────────────────────────────────── */}
         {stats && (
           <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
@@ -474,6 +508,8 @@ export default function AdminReportsPage() {
             </ul>
           )}
         </section>
+        </div>
+        )}
       </div>
 
       {/* ── Ban modal ────────────────────────────────────────────────────── */}

@@ -1,4 +1,4 @@
-import { Hono } from "hono";
+import { Hono, type Context } from "hono";
 import { cors } from "hono/cors";
 import { logger } from "hono/logger";
 import { prettyJSON } from "hono/pretty-json";
@@ -60,7 +60,10 @@ app.use("*", prettyJSON());
 app.use("*", async (c, next) => {
   const url = new URL(c.req.url);
   const isLocal = url.hostname === "127.0.0.1" || url.hostname === "localhost" || url.hostname === "0.0.0.0";
-  if (c.req.method === "GET" && url.protocol === "http:" && !isLocal) {
+  // `wrangler dev` doesn't always surface a local hostname here, so also skip
+  // the upgrade whenever we're running in development — local HTTP must work.
+  const isDev = c.env.ENVIRONMENT === "development";
+  if (c.req.method === "GET" && url.protocol === "http:" && !isLocal && !isDev) {
     url.protocol = "https:";
     return c.redirect(url.toString(), 301);
   }
@@ -148,10 +151,26 @@ app.use("*", async (c, next) => {
 // This ensures /login, /register (and their ?next=... variants) are always
 // treated as noindex regardless of User-Agent or JS execution.
 const AUTH_NOINDEX_PATHS = new Set(["/login", "/register", "/forgot-password", "/reset-password", "/verify-email"]);
+
+// The SPA fallback served by `env.ASSETS.fetch()` returns a Response whose
+// headers are IMMUTABLE; calling `.set()` on them throws "Can't modify
+// immutable headers", which `app.onError` turns into a 500. That broke every
+// non-prerendered SPA route (/profile, /admin/reports, /login, …) on a hard
+// load/refresh. Clone the response into a mutable one before mutating headers.
+function setResponseHeaderSafe(c: Context<HonoEnv>, name: string, value: string) {
+  try {
+    c.res.headers.set(name, value);
+  } catch {
+    const mutable = new Response(c.res.body, c.res);
+    mutable.headers.set(name, value);
+    c.res = mutable;
+  }
+}
+
 app.use("*", async (c, next) => {
   await next();
   if (c.req.method === "GET" && AUTH_NOINDEX_PATHS.has(c.req.path)) {
-    c.res.headers.set("X-Robots-Tag", "noindex, nofollow");
+    setResponseHeaderSafe(c, "X-Robots-Tag", "noindex, nofollow");
   }
 });
 
@@ -172,7 +191,7 @@ app.use("*", async (c, next) => {
     const canonical = `${site}${c.req.path}`;
     // Only set if not already present (seoPrerender sets its own Link header)
     if (!c.res.headers.has("Link")) {
-      c.res.headers.set("Link", `<${canonical}>; rel="canonical"`);
+      setResponseHeaderSafe(c, "Link", `<${canonical}>; rel="canonical"`);
     }
   }
 });
