@@ -53,6 +53,15 @@ route.get("/users/:id/detail", async (c) => {
   return c.json(detail);
 });
 
+// Drill-down for a single dashboard metric (e.g. /breakdown/favorites_total).
+route.get("/breakdown/:metric", async (c) => {
+  const gate = await requireAdmin(c);
+  if (gate instanceof Response) return gate;
+  const breakdown = await c.var.store.getAdminBreakdown(c.req.param("metric"));
+  if (!breakdown) return c.json({ error: "not_found" }, 404);
+  return c.json(breakdown);
+});
+
 /**
  * LLM-bot visibility report — query string `?days=7` (default 7, max 35).
  * Returns aggregate counts of AI crawler pulls per bot + the top pulled paths.

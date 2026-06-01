@@ -5,7 +5,7 @@
 // apps/api/scripts/seed.ts for the bring-up flow.
 
 import { createClient } from "@libsql/client/web";
-import { and, asc, avg, count, desc, eq, gte, inArray, isNull, like, lte, lt, notInArray, or, sql } from "drizzle-orm";
+import { and, asc, avg, count, desc, eq, gte, inArray, isNull, like, lte, lt, notInArray, or, sql, type SQL } from "drizzle-orm";
 import { drizzle } from "drizzle-orm/libsql";
 import type {
   ActivityEvent,
@@ -2244,6 +2244,263 @@ export class DrizzleStore implements StoreAdapter {
       reviews_received: revRows.map((x) => ({ ...x })),
       anticipations: antRows.map((x) => ({ ...x })),
     };
+  }
+
+  async getAdminBreakdown(metric: string): Promise<import("./adapter").AdminBreakdown | null> {
+    const LIMIT = 500;
+    const u = schema.users;
+    const r = schema.rides;
+    const rr = schema.rideRequests;
+    const now = new Date().toISOString();
+    const d7 = new Date(Date.now() - 7 * 24 * 60 * 60 * 1000).toISOString();
+    const d30 = new Date(Date.now() - 30 * 24 * 60 * 60 * 1000).toISOString();
+    const T = sql`1=1`;
+    type Row = Record<string, string | number | null>;
+    const wrap = (title: string, columns: Array<{ key: string; label: string }>, rows: Row[]) => ({
+      metric, title, columns, rows, total: rows.length, truncated: rows.length >= LIMIT,
+    });
+
+    // User id → name/email map for entities that reference users twice (reviews,
+    // crew, reports) where a double self-join would be awkward.
+    const uAll = await this.db.select({ id: u.id, name: u.name, email: u.email }).from(u);
+    const uMap = new Map(uAll.map((x) => [x.id, x]));
+    const nameOf = (id: string | null) => (id ? uMap.get(id)?.name ?? id : "—");
+    const emailOf = (id: string | null) => (id ? uMap.get(id)?.email ?? "" : "");
+
+    const usersList = async (title: string, where: SQL) => {
+      const rows = await this.db.select({
+        name: u.name, email: u.email, home_city: u.home_city,
+        email_ok: sql<string>`CASE WHEN ${u.email_verified_at} IS NOT NULL THEN 'sí' ELSE 'no' END`,
+        license_ok: sql<string>`CASE WHEN ${u.license_verified} = 1 THEN 'sí' ELSE 'no' END`,
+        created_at: u.created_at,
+      }).from(u).where(where).orderBy(desc(u.created_at)).limit(LIMIT);
+      return wrap(title, [
+        { key: "name", label: "Nombre" }, { key: "email", label: "Email" }, { key: "home_city", label: "Ciudad" },
+        { key: "email_ok", label: "Email ✓" }, { key: "license_ok", label: "Carné ✓" }, { key: "created_at", label: "Alta" },
+      ], rows);
+    };
+
+    const ridesList = async (title: string, where: SQL, order = desc(r.created_at)) => {
+      const rows = await this.db.select({
+        driver: u.name, concert: schema.concerts.name, origin_city: r.origin_city, status: r.status,
+        price: r.price_per_seat, seats: sql<string>`${r.seats_left} || '/' || ${r.seats_total}`,
+        departure_time: r.departure_time,
+      }).from(r).leftJoin(u, eq(r.driver_id, u.id)).leftJoin(schema.concerts, eq(r.concert_id, schema.concerts.id))
+        .where(where).orderBy(order).limit(LIMIT);
+      return wrap(title, [
+        { key: "driver", label: "Conductor" }, { key: "concert", label: "Concierto" }, { key: "origin_city", label: "Origen" },
+        { key: "status", label: "Estado" }, { key: "price", label: "€/plaza" }, { key: "seats", label: "Plazas" }, { key: "departure_time", label: "Salida" },
+      ], rows);
+    };
+
+    const requestsList = async (title: string, where: SQL) => {
+      const rows = await this.db.select({
+        passenger: u.name, email: u.email, ride_id: rr.ride_id, status: rr.status, seats: rr.seats, created_at: rr.created_at,
+      }).from(rr).leftJoin(u, eq(rr.passenger_id, u.id)).where(where).orderBy(desc(rr.created_at)).limit(LIMIT);
+      return wrap(title, [
+        { key: "passenger", label: "Pasajero" }, { key: "email", label: "Email" }, { key: "ride_id", label: "Viaje" },
+        { key: "status", label: "Estado" }, { key: "seats", label: "Plazas" }, { key: "created_at", label: "Fecha" },
+      ], rows);
+    };
+
+    const favoritesList = async (title: string, where: SQL) => {
+      const rows = await this.db.select({
+        user: u.name, email: u.email, kind: schema.favorites.kind, target: schema.favorites.label, created_at: schema.favorites.created_at,
+      }).from(schema.favorites).leftJoin(u, eq(schema.favorites.user_id, u.id)).where(where).orderBy(desc(schema.favorites.created_at)).limit(LIMIT);
+      return wrap(title, [
+        { key: "user", label: "Usuario" }, { key: "email", label: "Email" }, { key: "kind", label: "Tipo" },
+        { key: "target", label: "A qué" }, { key: "created_at", label: "Fecha" },
+      ], rows);
+    };
+
+    const concertsList = async (title: string, where: SQL) => {
+      const rows = await this.db.select({
+        name: schema.concerts.name, artist: schema.concerts.artist, venue: schema.venues.name, city: schema.venues.city, date: schema.concerts.date,
+      }).from(schema.concerts).leftJoin(schema.venues, eq(schema.concerts.venue_id, schema.venues.id)).where(where).orderBy(desc(schema.concerts.date)).limit(LIMIT);
+      return wrap(title, [
+        { key: "name", label: "Nombre" }, { key: "artist", label: "Artista" }, { key: "venue", label: "Recinto" },
+        { key: "city", label: "Ciudad" }, { key: "date", label: "Fecha" },
+      ], rows);
+    };
+
+    const reviewsList = async (title: string, byRating = false) => {
+      const raw = await this.db.select({
+        reviewer_id: schema.reviews.reviewer_id, reviewee_id: schema.reviews.reviewee_id,
+        rating: schema.reviews.rating, comment: schema.reviews.comment, created_at: schema.reviews.created_at,
+      }).from(schema.reviews).orderBy(byRating ? desc(schema.reviews.rating) : desc(schema.reviews.created_at)).limit(LIMIT);
+      const rows: Row[] = raw.map((x) => ({
+        reviewer: nameOf(x.reviewer_id), reviewee: nameOf(x.reviewee_id), rating: x.rating, comment: x.comment ?? "—", created_at: x.created_at,
+      }));
+      return wrap(title, [
+        { key: "reviewer", label: "Autor" }, { key: "reviewee", label: "Reseñado" }, { key: "rating", label: "★" },
+        { key: "comment", label: "Comentario" }, { key: "created_at", label: "Fecha" },
+      ], rows);
+    };
+
+    const reviewRows = (title: string, raw: Array<{ user_id: string; status: string; submitted_at: string; reviewed_at: string | null }>) => {
+      const rows: Row[] = raw.map((x) => ({
+        user: nameOf(x.user_id), email: emailOf(x.user_id), status: x.status, submitted_at: x.submitted_at, reviewed_at: x.reviewed_at ?? "—",
+      }));
+      return wrap(title, [
+        { key: "user", label: "Usuario" }, { key: "email", label: "Email" }, { key: "status", label: "Estado" },
+        { key: "submitted_at", label: "Enviado" }, { key: "reviewed_at", label: "Revisado" },
+      ], rows);
+    };
+    const licenseRows = (where: SQL) => this.db.select({
+      user_id: schema.licenseReviews.user_id, status: schema.licenseReviews.status,
+      submitted_at: schema.licenseReviews.submitted_at, reviewed_at: schema.licenseReviews.reviewed_at,
+    }).from(schema.licenseReviews).where(where).orderBy(desc(schema.licenseReviews.submitted_at)).limit(LIMIT);
+
+    const reportsList = async (title: string, where: SQL) => {
+      const raw = await this.db.select({
+        reporter_id: schema.reports.reporter_id, target_user_id: schema.reports.target_user_id,
+        reason: schema.reports.reason, status: schema.reports.status, created_at: schema.reports.created_at,
+      }).from(schema.reports).where(where).orderBy(desc(schema.reports.created_at)).limit(LIMIT);
+      const rows: Row[] = raw.map((x) => ({
+        reporter: nameOf(x.reporter_id), target: nameOf(x.target_user_id), reason: x.reason, status: x.status, created_at: x.created_at,
+      }));
+      return wrap(title, [
+        { key: "reporter", label: "Reporta" }, { key: "target", label: "Reportado" }, { key: "reason", label: "Motivo" },
+        { key: "status", label: "Estado" }, { key: "created_at", label: "Fecha" },
+      ], rows);
+    };
+
+    switch (metric) {
+      // ── Users ──
+      case "users_total": return usersList("Todos los usuarios", T);
+      case "users_verified_email": return usersList("Usuarios con email verificado", sql`${u.email_verified_at} IS NOT NULL`);
+      case "users_unverified_email": return usersList("Usuarios SIN email verificado", sql`${u.email_verified_at} IS NULL`);
+      case "users_license_verified": return usersList("Usuarios con carné verificado", eq(u.license_verified, true));
+      case "users_identity_verified": return usersList("Usuarios con identidad verificada", eq(u.identity_verified, true));
+      case "users_phone_verified": return usersList("Usuarios con teléfono verificado", sql`${u.phone_verified_at} IS NOT NULL`);
+      case "users_banned": return usersList("Usuarios baneados", sql`${u.banned_at} IS NOT NULL`);
+      case "users_with_home_city": return usersList("Usuarios con ciudad", sql`${u.home_city} IS NOT NULL`);
+      case "users_new_7d": return usersList("Altas últimos 7 días", gte(u.created_at, d7));
+      case "users_new_30d": return usersList("Altas últimos 30 días", gte(u.created_at, d30));
+      // ── Rides ──
+      case "rides_total": return ridesList("Todos los viajes", T);
+      case "rides_active": return ridesList("Viajes activos", eq(r.status, "active"));
+      case "rides_full": return ridesList("Viajes llenos", eq(r.status, "full"));
+      case "rides_completed": return ridesList("Viajes completados", eq(r.status, "completed"));
+      case "rides_cancelled": return ridesList("Viajes cancelados", eq(r.status, "cancelled"));
+      case "rides_round_trip": return ridesList("Viajes ida y vuelta", eq(r.round_trip, true));
+      case "rides_seats_available": return ridesList("Viajes con plazas libres", and(eq(r.status, "active"), sql`${r.seats_left} > 0`)!);
+      case "rides_avg_price": return ridesList("Viajes ordenados por precio", T, desc(r.price_per_seat));
+      case "rides_published_7d": return ridesList("Viajes publicados (7 días)", gte(r.created_at, d7));
+      // ── Bookings ──
+      case "bookings_total": return requestsList("Todas las reservas", T);
+      case "bookings_pending": return requestsList("Reservas pendientes", eq(rr.status, "pending"));
+      case "bookings_confirmed": return requestsList("Reservas confirmadas", eq(rr.status, "confirmed"));
+      case "bookings_rejected": return requestsList("Reservas rechazadas", eq(rr.status, "rejected"));
+      case "bookings_cancelled": return requestsList("Reservas canceladas", eq(rr.status, "cancelled"));
+      // ── Reviews ──
+      case "reviews_total": return reviewsList("Todas las reseñas");
+      case "reviews_avg_rating": return reviewsList("Reseñas ordenadas por nota", true);
+      // ── Favorites ──
+      case "favorites_total": return favoritesList("Todos los favoritos", T);
+      case "favorites_concert": return favoritesList("Favoritos: conciertos", eq(schema.favorites.kind, "concert"));
+      case "favorites_artist": return favoritesList("Favoritos: artistas", eq(schema.favorites.kind, "artist"));
+      case "favorites_city": return favoritesList("Favoritos: ciudades", eq(schema.favorites.kind, "city"));
+      // ── Catalog ──
+      case "concerts": return concertsList("Conciertos", T);
+      case "upcoming_concerts": return concertsList("Conciertos próximos", gte(schema.concerts.date, now));
+      case "venues": {
+        const rows = await this.db.select({ name: schema.venues.name, city: schema.venues.city, capacity: schema.venues.capacity })
+          .from(schema.venues).orderBy(asc(schema.venues.name)).limit(LIMIT);
+        return wrap("Recintos", [{ key: "name", label: "Nombre" }, { key: "city", label: "Ciudad" }, { key: "capacity", label: "Aforo" }], rows);
+      }
+      // ── Moderation ──
+      case "reports_total": return reportsList("Todos los reportes", T);
+      case "reports_pending": return reportsList("Reportes pendientes", eq(schema.reports.status, "pending"));
+      case "license_pending": return reviewRows("Carnés pendientes", await licenseRows(eq(schema.licenseReviews.status, "pending")));
+      case "license_approved": return reviewRows("Carnés aprobados", await licenseRows(eq(schema.licenseReviews.status, "approved")));
+      case "license_rejected": return reviewRows("Carnés rechazados", await licenseRows(eq(schema.licenseReviews.status, "rejected")));
+      case "identity_pending": {
+        const raw = await this.db.select({
+          user_id: schema.identityReviews.user_id, status: schema.identityReviews.status,
+          submitted_at: schema.identityReviews.submitted_at, reviewed_at: schema.identityReviews.reviewed_at,
+        }).from(schema.identityReviews).where(eq(schema.identityReviews.status, "pending")).orderBy(desc(schema.identityReviews.submitted_at)).limit(LIMIT);
+        return reviewRows("Identidad pendiente", raw);
+      }
+      // ── Engagement ──
+      case "chat_messages": {
+        const rows = await this.db.select({
+          user: u.name, kind: schema.messages.kind, body: sql<string>`substr(${schema.messages.body}, 1, 80)`, created_at: schema.messages.created_at,
+        }).from(schema.messages).leftJoin(u, eq(schema.messages.user_id, u.id)).orderBy(desc(schema.messages.created_at)).limit(LIMIT);
+        return wrap("Mensajes de chat", [{ key: "user", label: "Autor" }, { key: "kind", label: "Tipo" }, { key: "body", label: "Mensaje" }, { key: "created_at", label: "Fecha" }], rows);
+      }
+      case "direct_messages": {
+        const raw = await this.db.select({
+          sender_id: schema.directMessages.sender_id, recipient_id: schema.directMessages.recipient_id,
+          body: sql<string>`substr(${schema.directMessages.body}, 1, 80)`, created_at: schema.directMessages.created_at,
+        }).from(schema.directMessages).orderBy(desc(schema.directMessages.created_at)).limit(LIMIT);
+        const rows: Row[] = raw.map((x) => ({ from: nameOf(x.sender_id), to: nameOf(x.recipient_id), body: x.body, created_at: x.created_at }));
+        return wrap("Mensajes directos", [{ key: "from", label: "De" }, { key: "to", label: "Para" }, { key: "body", label: "Mensaje" }, { key: "created_at", label: "Fecha" }], rows);
+      }
+      case "demand_signals": {
+        const raw = await this.db.select({
+          user_id: schema.demandSignals.user_id, concert: schema.concerts.name, created_at: schema.demandSignals.created_at, expires_at: schema.demandSignals.expires_at,
+        }).from(schema.demandSignals).leftJoin(schema.concerts, eq(schema.demandSignals.concert_id, schema.concerts.id)).orderBy(desc(schema.demandSignals.created_at)).limit(LIMIT);
+        const rows: Row[] = raw.map((x) => ({ user: nameOf(x.user_id), concert: x.concert ?? "—", created_at: x.created_at, expires_at: x.expires_at }));
+        return wrap("Señales de interés", [{ key: "user", label: "Usuario" }, { key: "concert", label: "Concierto" }, { key: "created_at", label: "Fecha" }, { key: "expires_at", label: "Expira" }], rows);
+      }
+      case "festival_demand": {
+        const rows = await this.db.select({
+          festival_slug: schema.festivalDemand.festival_slug, origin_city: schema.festivalDemand.origin_city,
+          email: schema.festivalDemand.email, created_at: schema.festivalDemand.created_at, notified_at: schema.festivalDemand.notified_at,
+        }).from(schema.festivalDemand).orderBy(desc(schema.festivalDemand.created_at)).limit(LIMIT);
+        return wrap("Waitlist por festival", [{ key: "festival_slug", label: "Festival" }, { key: "origin_city", label: "Origen" }, { key: "email", label: "Email" }, { key: "created_at", label: "Fecha" }, { key: "notified_at", label: "Avisado" }], rows);
+      }
+      case "festival_alerts": {
+        const rows = await this.db.select({
+          email: schema.festivalAlerts.email, festival_slug: schema.festivalAlerts.festival_slug, created_at: schema.festivalAlerts.created_at,
+        }).from(schema.festivalAlerts).orderBy(desc(schema.festivalAlerts.created_at)).limit(LIMIT);
+        return wrap("Alertas de festival", [{ key: "email", label: "Email" }, { key: "festival_slug", label: "Festival" }, { key: "created_at", label: "Fecha" }], rows);
+      }
+      case "event_anticipations": {
+        const raw = await this.db.select({
+          user_id: schema.eventAnticipations.user_id, concert: schema.concerts.name, status: schema.eventAnticipations.status, created_at: schema.eventAnticipations.created_at,
+        }).from(schema.eventAnticipations).leftJoin(schema.concerts, eq(schema.eventAnticipations.concert_id, schema.concerts.id)).orderBy(desc(schema.eventAnticipations.created_at)).limit(LIMIT);
+        const rows: Row[] = raw.map((x) => ({ user: nameOf(x.user_id), concert: x.concert ?? "—", status: x.status, created_at: x.created_at }));
+        return wrap("Asistencias (going/maybe)", [{ key: "user", label: "Usuario" }, { key: "concert", label: "Concierto" }, { key: "status", label: "Estado" }, { key: "created_at", label: "Fecha" }], rows);
+      }
+      case "crew_connections": {
+        const raw = await this.db.select({
+          a_id: schema.crewConnections.a_id, b_id: schema.crewConnections.b_id, status: schema.crewConnections.status, created_at: schema.crewConnections.created_at,
+        }).from(schema.crewConnections).orderBy(desc(schema.crewConnections.created_at)).limit(LIMIT);
+        const rows: Row[] = raw.map((x) => ({ a: nameOf(x.a_id), b: nameOf(x.b_id), status: x.status, created_at: x.created_at }));
+        return wrap("Conexiones de crew", [{ key: "a", label: "Usuario A" }, { key: "b", label: "Usuario B" }, { key: "status", label: "Estado" }, { key: "created_at", label: "Fecha" }], rows);
+      }
+      case "squads": {
+        const raw = await this.db.select({
+          name: schema.squads.name, owner_id: schema.squads.owner_id, concert: schema.concerts.name, visibility: schema.squads.visibility, created_at: schema.squads.created_at,
+        }).from(schema.squads).leftJoin(schema.concerts, eq(schema.squads.concert_id, schema.concerts.id)).orderBy(desc(schema.squads.created_at)).limit(LIMIT);
+        const rows: Row[] = raw.map((x) => ({ name: x.name, owner: nameOf(x.owner_id), concert: x.concert ?? "—", visibility: x.visibility, created_at: x.created_at }));
+        return wrap("Squads", [{ key: "name", label: "Nombre" }, { key: "owner", label: "Dueño" }, { key: "concert", label: "Concierto" }, { key: "visibility", label: "Visibilidad" }, { key: "created_at", label: "Fecha" }], rows);
+      }
+      case "squad_members": {
+        const raw = await this.db.select({
+          squad: schema.squads.name, user_id: schema.squadMembers.user_id, role: schema.squadMembers.role, joined_at: schema.squadMembers.joined_at,
+        }).from(schema.squadMembers).leftJoin(schema.squads, eq(schema.squadMembers.squad_id, schema.squads.id)).orderBy(desc(schema.squadMembers.joined_at)).limit(LIMIT);
+        const rows: Row[] = raw.map((x) => ({ squad: x.squad ?? "—", user: nameOf(x.user_id), role: x.role, joined_at: x.joined_at }));
+        return wrap("Miembros de squad", [{ key: "squad", label: "Squad" }, { key: "user", label: "Usuario" }, { key: "role", label: "Rol" }, { key: "joined_at", label: "Entró" }], rows);
+      }
+      case "trip_memories": {
+        const raw = await this.db.select({
+          title: schema.tripMemories.title, created_by: schema.tripMemories.created_by, concert: schema.concerts.name, share_count: schema.tripMemories.share_count, created_at: schema.tripMemories.created_at,
+        }).from(schema.tripMemories).leftJoin(schema.concerts, eq(schema.tripMemories.concert_id, schema.concerts.id)).orderBy(desc(schema.tripMemories.created_at)).limit(LIMIT);
+        const rows: Row[] = raw.map((x) => ({ title: x.title, creator: nameOf(x.created_by), concert: x.concert ?? "—", share_count: x.share_count, created_at: x.created_at }));
+        return wrap("Trip memories", [{ key: "title", label: "Título" }, { key: "creator", label: "Creador" }, { key: "concert", label: "Concierto" }, { key: "share_count", label: "Compartido" }, { key: "created_at", label: "Fecha" }], rows);
+      }
+      case "activity_events": {
+        const rows = await this.db.select({
+          actor: schema.activityEvents.actor_name, kind: schema.activityEvents.kind, label: schema.activityEvents.label, created_at: schema.activityEvents.created_at,
+        }).from(schema.activityEvents).orderBy(desc(schema.activityEvents.created_at)).limit(LIMIT);
+        return wrap("Eventos de actividad", [{ key: "actor", label: "Actor" }, { key: "kind", label: "Tipo" }, { key: "label", label: "Descripción" }, { key: "created_at", label: "Fecha" }], rows);
+      }
+      default:
+        return null;
+    }
   }
 
   async banUser(adminId: string, userId: string, reason: string): Promise<User | null> {

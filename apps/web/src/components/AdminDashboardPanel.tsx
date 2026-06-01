@@ -1,22 +1,130 @@
 import { Fragment, useEffect, useMemo, useState } from "react";
 import {
-  Users, Car, MessageSquare, ShieldAlert, Database, RefreshCw, ChevronDown, ChevronRight, Search,
+  Users, Car, MessageSquare, ShieldAlert, Database, RefreshCw, ChevronDown, ChevronRight, Search, X,
 } from "lucide-react";
-import type { AdminDashboard, AdminUserDetail, AdminUserListItem } from "@concertride/types";
+import type { AdminBreakdown, AdminDashboard, AdminUserDetail, AdminUserListItem } from "@concertride/types";
 import { api } from "@/lib/api";
 import { LoadingSpinner } from "@/components/ui";
 
 const LIME = "#dbff00";
 const ORANGE = "#ff4f00";
 
-function StatCard({ label, value, sub, accent }: { label: string; value: number | string; sub?: string; accent?: boolean }) {
+function StatCard({ label, value, sub, accent, metric, onOpen }: {
+  label: string; value: number | string; sub?: string; accent?: boolean;
+  metric?: string; onOpen?: (m: string) => void;
+}) {
+  const clickable = !!(metric && onOpen);
   return (
-    <div className={`border ${accent ? "border-cr-primary" : "border-cr-border"} bg-cr-surface p-3`}>
-      <p className="font-mono text-[10px] uppercase tracking-wider text-cr-text-dim">{label}</p>
+    <button
+      type="button"
+      disabled={!clickable}
+      onClick={() => clickable && onOpen!(metric!)}
+      title={clickable ? "Ver desglose" : undefined}
+      className={`text-left w-full border ${accent ? "border-cr-primary" : "border-cr-border"} bg-cr-surface p-3 transition-colors ${clickable ? "cursor-pointer hover:border-cr-primary hover:bg-cr-primary/5" : "cursor-default"}`}
+    >
+      <p className="font-mono text-[10px] uppercase tracking-wider text-cr-text-dim flex items-center gap-1">
+        {label}{clickable && <span className="text-cr-primary/50">↗</span>}
+      </p>
       <p className={`font-display text-2xl leading-tight ${accent ? "text-cr-primary" : "text-cr-text"}`}>
         {typeof value === "number" ? value.toLocaleString("es-ES") : value}
       </p>
       {sub && <p className="font-sans text-[11px] text-cr-text-muted mt-0.5">{sub}</p>}
+    </button>
+  );
+}
+
+function fmtCell(v: string | number | null, key: string): string {
+  if (v == null || v === "") return "—";
+  if (typeof v === "string" && /(_at|date|departure_time|expires|joined|submitted|reviewed)/i.test(key) && /^\d{4}-\d{2}-\d{2}/.test(v)) {
+    return fmtDate(v);
+  }
+  return String(v);
+}
+
+// Drill-down modal: fetches the breakdown for a metric and renders it as a table.
+function BreakdownModal({ metric, onClose }: { metric: string; onClose: () => void }) {
+  const [data, setData] = useState<AdminBreakdown | null>(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(false);
+  const [q, setQ] = useState("");
+
+  useEffect(() => {
+    setLoading(true); setError(false); setData(null); setQ("");
+    api.admin.breakdown(metric).then(setData).catch(() => setError(true)).finally(() => setLoading(false));
+  }, [metric]);
+
+  useEffect(() => {
+    const onKey = (e: KeyboardEvent) => { if (e.key === "Escape") onClose(); };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, [onClose]);
+
+  const filtered = useMemo(() => {
+    if (!data) return [];
+    const term = q.trim().toLowerCase();
+    if (!term) return data.rows;
+    return data.rows.filter((row) => Object.values(row).some((v) => String(v ?? "").toLowerCase().includes(term)));
+  }, [data, q]);
+
+  return (
+    <div className="fixed inset-0 z-50 bg-black/70 flex items-start justify-center p-4 overflow-y-auto" onClick={onClose} data-testid="breakdown-modal">
+      <div className="bg-cr-bg border-2 border-cr-primary w-full max-w-4xl my-8" onClick={(e) => e.stopPropagation()}>
+        <header className="flex items-center justify-between gap-4 border-b border-cr-border p-4">
+          <div>
+            <h3 className="font-display text-xl uppercase">{data?.title ?? "Detalle"}</h3>
+            {data && (
+              <p className="font-mono text-[10px] text-cr-text-dim">
+                {data.total.toLocaleString("es-ES")} registro(s){data.truncated ? ` · mostrando ${data.rows.length}` : ""}
+              </p>
+            )}
+          </div>
+          <button type="button" onClick={onClose} className="text-cr-text-dim hover:text-cr-primary" aria-label="Cerrar"><X size={18} /></button>
+        </header>
+        <div className="p-4 space-y-3">
+          {loading ? (
+            <LoadingSpinner text="Cargando desglose…" />
+          ) : error ? (
+            <p className="font-sans text-sm text-cr-text-muted">No se pudo cargar el desglose.</p>
+          ) : data && data.rows.length === 0 ? (
+            <p className="font-sans text-sm text-cr-text-muted">Sin registros para esta métrica.</p>
+          ) : data ? (
+            <>
+              {data.rows.length > 8 && (
+                <div className="relative">
+                  <Search size={13} className="absolute left-2.5 top-1/2 -translate-y-1/2 text-cr-text-dim" />
+                  <input
+                    type="text" value={q} onChange={(e) => setQ(e.target.value)} placeholder="Filtrar…"
+                    className="bg-cr-surface border border-cr-border font-sans text-xs pl-8 pr-3 py-2 text-cr-text placeholder:text-cr-text-dim focus:outline-none focus:border-cr-primary w-64 max-w-full"
+                  />
+                </div>
+              )}
+              <div className="overflow-auto border border-cr-border max-h-[60vh]">
+                <table className="w-full border-collapse text-left">
+                  <thead className="sticky top-0 bg-cr-surface">
+                    <tr className="border-b border-cr-border">
+                      {data.columns.map((c) => (
+                        <th key={c.key} className="font-mono text-[10px] uppercase tracking-wider text-cr-text-dim px-2 py-2 whitespace-nowrap">{c.label}</th>
+                      ))}
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {filtered.map((row, i) => (
+                      <tr key={i} className="border-b border-cr-border hover:bg-cr-surface">
+                        {data.columns.map((c) => (
+                          <td key={c.key} className="font-sans text-xs text-cr-text px-2 py-1.5 align-top max-w-[280px] truncate" title={String(row[c.key] ?? "")}>
+                            {fmtCell(row[c.key] ?? null, c.key)}
+                          </td>
+                        ))}
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+              <p className="font-mono text-[10px] text-cr-text-dim">{filtered.length} fila(s){q ? ` (filtradas de ${data.rows.length})` : ""}</p>
+            </>
+          ) : null}
+        </div>
+      </div>
     </div>
   );
 }
@@ -95,6 +203,7 @@ export function AdminOverviewTab() {
   const [data, setData] = useState<AdminDashboard | null>(null);
   const [loading, setLoading] = useState(true);
   const [refreshing, setRefreshing] = useState(false);
+  const [openMetric, setOpenMetric] = useState<string | null>(null);
 
   async function load() {
     setRefreshing(true);
@@ -128,56 +237,57 @@ export function AdminOverviewTab() {
 
       <SectionTitle icon={<Users size={15} />}>Usuarios</SectionTitle>
       <div className="grid gap-2 grid-cols-2 sm:grid-cols-3 lg:grid-cols-5">
-        <StatCard label="Total" value={data.users.total} accent />
-        <StatCard label="Email verificado" value={data.users.verified_email} sub={`${data.users.unverified_email} sin verificar`} />
-        <StatCard label="Carné verificado" value={data.users.license_verified} />
-        <StatCard label="Identidad verif." value={data.users.identity_verified} />
-        <StatCard label="Teléfono verif." value={data.users.phone_verified} />
-        <StatCard label="Con ciudad" value={data.users.with_home_city} />
-        <StatCard label="Baneados" value={data.users.banned} />
-        <StatCard label="Nuevos 7d" value={data.users.new_7d} />
-        <StatCard label="Nuevos 30d" value={data.users.new_30d} />
+        <StatCard label="Total" value={data.users.total} accent metric="users_total" onOpen={setOpenMetric} />
+        <StatCard label="Email verificado" value={data.users.verified_email} sub={`${data.users.unverified_email} sin verificar`} metric="users_verified_email" onOpen={setOpenMetric} />
+        <StatCard label="Sin verificar" value={data.users.unverified_email} metric="users_unverified_email" onOpen={setOpenMetric} />
+        <StatCard label="Carné verificado" value={data.users.license_verified} metric="users_license_verified" onOpen={setOpenMetric} />
+        <StatCard label="Identidad verif." value={data.users.identity_verified} metric="users_identity_verified" onOpen={setOpenMetric} />
+        <StatCard label="Teléfono verif." value={data.users.phone_verified} metric="users_phone_verified" onOpen={setOpenMetric} />
+        <StatCard label="Con ciudad" value={data.users.with_home_city} metric="users_with_home_city" onOpen={setOpenMetric} />
+        <StatCard label="Baneados" value={data.users.banned} metric="users_banned" onOpen={setOpenMetric} />
+        <StatCard label="Nuevos 7d" value={data.users.new_7d} metric="users_new_7d" onOpen={setOpenMetric} />
+        <StatCard label="Nuevos 30d" value={data.users.new_30d} metric="users_new_30d" onOpen={setOpenMetric} />
       </div>
 
       <SectionTitle icon={<Car size={15} />}>Viajes y reservas</SectionTitle>
       <div className="grid gap-2 grid-cols-2 sm:grid-cols-3 lg:grid-cols-5">
-        <StatCard label="Viajes total" value={data.rides.total} accent />
-        <StatCard label="Activos" value={data.rides.active} />
-        <StatCard label="Completados" value={data.rides.completed} />
-        <StatCard label="Cancelados" value={data.rides.cancelled} />
-        <StatCard label="Ida y vuelta" value={data.rides.round_trip} />
-        <StatCard label="Plazas libres" value={data.rides.seats_available} />
-        <StatCard label="Precio medio" value={`${data.rides.avg_price}€`} />
-        <StatCard label="Publicados 7d" value={data.rides.published_7d} />
-        <StatCard label="Reservas total" value={data.bookings.total} />
-        <StatCard label="Reservas confirm." value={data.bookings.confirmed} sub={`${data.bookings.pending} pendientes`} />
+        <StatCard label="Viajes total" value={data.rides.total} accent metric="rides_total" onOpen={setOpenMetric} />
+        <StatCard label="Activos" value={data.rides.active} metric="rides_active" onOpen={setOpenMetric} />
+        <StatCard label="Completados" value={data.rides.completed} metric="rides_completed" onOpen={setOpenMetric} />
+        <StatCard label="Cancelados" value={data.rides.cancelled} metric="rides_cancelled" onOpen={setOpenMetric} />
+        <StatCard label="Ida y vuelta" value={data.rides.round_trip} metric="rides_round_trip" onOpen={setOpenMetric} />
+        <StatCard label="Plazas libres" value={data.rides.seats_available} metric="rides_seats_available" onOpen={setOpenMetric} />
+        <StatCard label="Precio medio" value={`${data.rides.avg_price}€`} metric="rides_avg_price" onOpen={setOpenMetric} />
+        <StatCard label="Publicados 7d" value={data.rides.published_7d} metric="rides_published_7d" onOpen={setOpenMetric} />
+        <StatCard label="Reservas total" value={data.bookings.total} metric="bookings_total" onOpen={setOpenMetric} />
+        <StatCard label="Reservas confirm." value={data.bookings.confirmed} sub={`${data.bookings.pending} pendientes`} metric="bookings_confirmed" onOpen={setOpenMetric} />
       </div>
 
       <SectionTitle icon={<MessageSquare size={15} />}>Engagement</SectionTitle>
       <div className="grid gap-2 grid-cols-2 sm:grid-cols-3 lg:grid-cols-6">
-        <StatCard label="Reseñas" value={data.reviews.total} sub={`★ ${data.reviews.avg_rating} media`} />
-        <StatCard label="Favoritos" value={data.favorites.total} sub={`${data.favorites.concert}c · ${data.favorites.artist}a · ${data.favorites.city}ci`} />
-        <StatCard label="Mensajes chat" value={data.engagement.chat_messages} />
-        <StatCard label="Mensajes directos" value={data.engagement.direct_messages} />
-        <StatCard label="Interés (signals)" value={data.engagement.demand_signals} />
-        <StatCard label="Waitlist festival" value={data.engagement.festival_demand} />
-        <StatCard label="Alertas festival" value={data.engagement.festival_alerts} />
-        <StatCard label="Asistencias" value={data.engagement.event_anticipations} />
-        <StatCard label="Conexiones crew" value={data.engagement.crew_connections} />
-        <StatCard label="Squads" value={data.engagement.squads} sub={`${data.engagement.squad_members} miembros`} />
-        <StatCard label="Trip memories" value={data.engagement.trip_memories} />
-        <StatCard label="Eventos actividad" value={data.engagement.activity_events} />
+        <StatCard label="Reseñas" value={data.reviews.total} sub={`★ ${data.reviews.avg_rating} media`} metric="reviews_total" onOpen={setOpenMetric} />
+        <StatCard label="Favoritos" value={data.favorites.total} sub={`${data.favorites.concert}c · ${data.favorites.artist}a · ${data.favorites.city}ci`} metric="favorites_total" onOpen={setOpenMetric} />
+        <StatCard label="Mensajes chat" value={data.engagement.chat_messages} metric="chat_messages" onOpen={setOpenMetric} />
+        <StatCard label="Mensajes directos" value={data.engagement.direct_messages} metric="direct_messages" onOpen={setOpenMetric} />
+        <StatCard label="Interés (signals)" value={data.engagement.demand_signals} metric="demand_signals" onOpen={setOpenMetric} />
+        <StatCard label="Waitlist festival" value={data.engagement.festival_demand} metric="festival_demand" onOpen={setOpenMetric} />
+        <StatCard label="Alertas festival" value={data.engagement.festival_alerts} metric="festival_alerts" onOpen={setOpenMetric} />
+        <StatCard label="Asistencias" value={data.engagement.event_anticipations} metric="event_anticipations" onOpen={setOpenMetric} />
+        <StatCard label="Conexiones crew" value={data.engagement.crew_connections} metric="crew_connections" onOpen={setOpenMetric} />
+        <StatCard label="Squads" value={data.engagement.squads} sub={`${data.engagement.squad_members} miembros`} metric="squads" onOpen={setOpenMetric} />
+        <StatCard label="Trip memories" value={data.engagement.trip_memories} metric="trip_memories" onOpen={setOpenMetric} />
+        <StatCard label="Eventos actividad" value={data.engagement.activity_events} metric="activity_events" onOpen={setOpenMetric} />
       </div>
 
       <SectionTitle icon={<ShieldAlert size={15} />}>Catálogo y moderación</SectionTitle>
       <div className="grid gap-2 grid-cols-2 sm:grid-cols-3 lg:grid-cols-6">
-        <StatCard label="Conciertos" value={data.catalog.concerts} sub={`${data.catalog.upcoming_concerts} próximos`} />
-        <StatCard label="Recintos" value={data.catalog.venues} />
-        <StatCard label="Reportes pend." value={data.moderation.reports_pending} sub={`${data.moderation.reports_total} total`} />
-        <StatCard label="Carnés pend." value={data.moderation.license_pending} accent={data.moderation.license_pending > 0} />
-        <StatCard label="Carnés aprob." value={data.moderation.license_approved} />
-        <StatCard label="Carnés rechaz." value={data.moderation.license_rejected} />
-        <StatCard label="Identidad pend." value={data.moderation.identity_pending} />
+        <StatCard label="Conciertos" value={data.catalog.concerts} sub={`${data.catalog.upcoming_concerts} próximos`} metric="concerts" onOpen={setOpenMetric} />
+        <StatCard label="Recintos" value={data.catalog.venues} metric="venues" onOpen={setOpenMetric} />
+        <StatCard label="Reportes pend." value={data.moderation.reports_pending} sub={`${data.moderation.reports_total} total`} metric="reports_pending" onOpen={setOpenMetric} />
+        <StatCard label="Carnés pend." value={data.moderation.license_pending} accent={data.moderation.license_pending > 0} metric="license_pending" onOpen={setOpenMetric} />
+        <StatCard label="Carnés aprob." value={data.moderation.license_approved} metric="license_approved" onOpen={setOpenMetric} />
+        <StatCard label="Carnés rechaz." value={data.moderation.license_rejected} metric="license_rejected" onOpen={setOpenMetric} />
+        <StatCard label="Identidad pend." value={data.moderation.identity_pending} metric="identity_pending" onOpen={setOpenMetric} />
       </div>
 
       <div className="grid gap-3 md:grid-cols-2">
@@ -218,6 +328,8 @@ export function AdminOverviewTab() {
       </div>
 
       <p className="font-mono text-[10px] text-cr-text-dim">Generado: {new Date(data.generated_at).toLocaleString("es-ES")}</p>
+
+      {openMetric && <BreakdownModal metric={openMetric} onClose={() => setOpenMetric(null)} />}
     </div>
   );
 }

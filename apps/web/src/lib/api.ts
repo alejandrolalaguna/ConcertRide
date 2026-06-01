@@ -3,6 +3,7 @@ import type {
   ActivityFeedResponse,
   AddPlaylistTrackRequest,
   AdminAuditLogEntry,
+  AdminBreakdown,
   AdminDashboard,
   AdminStats,
   AdminUserDetail,
@@ -373,6 +374,7 @@ export const api = {
     dashboard: () => request<AdminDashboard>("/api/admin/dashboard"),
     usersList: () => request<{ users: AdminUserListItem[] }>("/api/admin/users-list"),
     userDetail: (id: string) => request<AdminUserDetail>(`/api/admin/users/${encodeURIComponent(id)}/detail`),
+    breakdown: (metric: string) => request<AdminBreakdown>(`/api/admin/breakdown/${encodeURIComponent(metric)}`),
     me: () => request<{ ok: true; user: User }>("/api/admin/me"),
     listReports: (status?: "pending" | "reviewed" | "resolved" | "dismissed") => {
       const qs = status ? `?status=${status}` : "";

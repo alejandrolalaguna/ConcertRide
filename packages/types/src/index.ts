@@ -161,6 +161,24 @@ export interface AdminDashboard {
   rides_by_day: Array<{ date: string; count: number }>;
 }
 
+// Generic drill-down for a single dashboard metric. The frontend renders
+// `rows` as a table using `columns` for headers/order. Each metric maps to a
+// list of the underlying records (e.g. favorites_total → every favorite with
+// the user who saved it and what they saved).
+export interface AdminBreakdownColumn {
+  key: string;
+  label: string;
+}
+export interface AdminBreakdown {
+  metric: string;
+  title: string;
+  columns: AdminBreakdownColumn[];
+  rows: Array<Record<string, string | number | null>>;
+  total: number;
+  // Set when rows were capped (rows.length < total).
+  truncated?: boolean;
+}
+
 // One row per user in the admin users table, with derived activity counts.
 export interface AdminUserListItem {
   id: string;

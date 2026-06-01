@@ -6,6 +6,7 @@ import type {
   AddPlaylistTrackRequest,
   AdminAuditAction,
   AdminAuditLogEntry,
+  AdminBreakdown,
   AdminDashboard,
   AdminUserDetail,
   AdminUserListItem,
@@ -49,7 +50,7 @@ import type { RawConcert, SourceId } from "../ingest/types";
 
 // Re-export so store implementations can reference them via
 // `import("./adapter").AdminDashboard` (the pattern used for AdminStats).
-export type { AdminDashboard, AdminUserListItem, AdminUserDetail } from "@concertride/types";
+export type { AdminDashboard, AdminUserListItem, AdminUserDetail, AdminBreakdown } from "@concertride/types";
 
 export interface AdminStats {
   users: {
@@ -339,6 +340,9 @@ export interface StoreAdapter {
   getAdminDashboard(): Promise<AdminDashboard>;
   listAdminUsers(): Promise<AdminUserListItem[]>;
   getAdminUserDetail(userId: string): Promise<AdminUserDetail | null>;
+  // Drill-down for a single dashboard metric (e.g. "favorites_total"). Returns
+  // null for unknown metric keys.
+  getAdminBreakdown(metric: string): Promise<AdminBreakdown | null>;
 
   // --- ban system ---
   banUser(adminId: string, userId: string, reason: string): Promise<User | null>;

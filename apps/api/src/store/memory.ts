@@ -1402,6 +1402,173 @@ export class MemoryStore implements StoreAdapter {
     };
   }
 
+  async getAdminBreakdown(metric: string): Promise<import("./adapter").AdminBreakdown | null> {
+    const LIMIT = 500;
+    const now = new Date().toISOString();
+    const d7 = new Date(Date.now() - 7 * 24 * 60 * 60 * 1000).toISOString();
+    const d30 = new Date(Date.now() - 30 * 24 * 60 * 60 * 1000).toISOString();
+    type Row = Record<string, string | number | null>;
+    const nameOf = (id: string | null) => (id ? this.users.find((u) => u.id === id)?.name ?? id : "—");
+    const emailOf = (id: string | null) => (id ? this.users.find((u) => u.id === id)?.email ?? "" : "");
+    const concertName = (id: string | null) => (id ? this.concerts.find((c) => c.id === id)?.name ?? "—" : "—");
+    const cmp = (a: string, b: string) => (a < b ? 1 : a > b ? -1 : 0);
+    const wrap = (title: string, columns: Array<{ key: string; label: string }>, rows: Row[]) => ({
+      metric, title, columns, rows: rows.slice(0, LIMIT), total: rows.length, truncated: rows.length > LIMIT,
+    });
+
+    const usersList = (title: string, pred: (u: MemoryUser) => boolean) => wrap(title, [
+      { key: "name", label: "Nombre" }, { key: "email", label: "Email" }, { key: "home_city", label: "Ciudad" },
+      { key: "email_ok", label: "Email ✓" }, { key: "license_ok", label: "Carné ✓" }, { key: "created_at", label: "Alta" },
+    ], this.users.filter(pred).sort((a, b) => cmp(a.created_at, b.created_at)).map((u) => ({
+      name: u.name, email: u.email, home_city: u.home_city, email_ok: u.email_verified_at ? "sí" : "no",
+      license_ok: u.license_verified ? "sí" : "no", created_at: u.created_at,
+    })));
+
+    const ridesList = (title: string, pred: (r: Ride) => boolean, byPrice = false) => wrap(title, [
+      { key: "driver", label: "Conductor" }, { key: "concert", label: "Concierto" }, { key: "origin_city", label: "Origen" },
+      { key: "status", label: "Estado" }, { key: "price", label: "€/plaza" }, { key: "seats", label: "Plazas" }, { key: "departure_time", label: "Salida" },
+    ], this.rides.filter(pred).sort((a, b) => byPrice ? b.price_per_seat - a.price_per_seat : cmp(a.created_at, b.created_at)).map((r) => ({
+      driver: nameOf(r.driver_id), concert: concertName(r.concert_id), origin_city: r.origin_city, status: r.status,
+      price: r.price_per_seat, seats: `${r.seats_left}/${r.seats_total}`, departure_time: r.departure_time,
+    })));
+
+    const requestsList = (title: string, pred: (r: RideRequest) => boolean) => wrap(title, [
+      { key: "passenger", label: "Pasajero" }, { key: "email", label: "Email" }, { key: "ride_id", label: "Viaje" },
+      { key: "status", label: "Estado" }, { key: "seats", label: "Plazas" }, { key: "created_at", label: "Fecha" },
+    ], this.requests.filter(pred).sort((a, b) => cmp(a.created_at, b.created_at)).map((r) => ({
+      passenger: nameOf(r.passenger_id), email: emailOf(r.passenger_id), ride_id: r.ride_id, status: r.status, seats: r.seats, created_at: r.created_at,
+    })));
+
+    const favoritesList = (title: string, pred: (f: { kind: string }) => boolean) => wrap(title, [
+      { key: "user", label: "Usuario" }, { key: "email", label: "Email" }, { key: "kind", label: "Tipo" },
+      { key: "target", label: "A qué" }, { key: "created_at", label: "Fecha" },
+    ], this.favorites.filter(pred).sort((a, b) => cmp(a.created_at, b.created_at)).map((f) => ({
+      user: nameOf(f.user_id), email: emailOf(f.user_id), kind: f.kind, target: f.label, created_at: f.created_at,
+    })));
+
+    const reviewsList = (title: string, byRating = false) => wrap(title, [
+      { key: "reviewer", label: "Autor" }, { key: "reviewee", label: "Reseñado" }, { key: "rating", label: "★" },
+      { key: "comment", label: "Comentario" }, { key: "created_at", label: "Fecha" },
+    ], [...this.reviews].sort((a, b) => byRating ? b.rating - a.rating : cmp(a.created_at, b.created_at)).map((r) => ({
+      reviewer: nameOf(r.reviewer_id), reviewee: nameOf(r.reviewee_id), rating: r.rating, comment: r.comment ?? "—", created_at: r.created_at,
+    })));
+
+    const reviewLikeList = (title: string, rows: Array<{ user_id: string; status: string; submitted_at: string; reviewed_at: string | null }>) => wrap(title, [
+      { key: "user", label: "Usuario" }, { key: "email", label: "Email" }, { key: "status", label: "Estado" },
+      { key: "submitted_at", label: "Enviado" }, { key: "reviewed_at", label: "Revisado" },
+    ], rows.sort((a, b) => cmp(a.submitted_at, b.submitted_at)).map((x) => ({
+      user: nameOf(x.user_id), email: emailOf(x.user_id), status: x.status, submitted_at: x.submitted_at, reviewed_at: x.reviewed_at ?? "—",
+    })));
+
+    switch (metric) {
+      case "users_total": return usersList("Todos los usuarios", () => true);
+      case "users_verified_email": return usersList("Usuarios con email verificado", (u) => u.email_verified_at != null);
+      case "users_unverified_email": return usersList("Usuarios SIN email verificado", (u) => u.email_verified_at == null);
+      case "users_license_verified": return usersList("Usuarios con carné verificado", (u) => !!u.license_verified);
+      case "users_identity_verified": return usersList("Usuarios con identidad verificada", (u) => !!u.identity_verified);
+      case "users_phone_verified": return usersList("Usuarios con teléfono verificado", (u) => u.phone_verified_at != null);
+      case "users_banned": return usersList("Usuarios baneados", (u) => u.banned_at != null);
+      case "users_with_home_city": return usersList("Usuarios con ciudad", (u) => u.home_city != null);
+      case "users_new_7d": return usersList("Altas últimos 7 días", (u) => u.created_at >= d7);
+      case "users_new_30d": return usersList("Altas últimos 30 días", (u) => u.created_at >= d30);
+      case "rides_total": return ridesList("Todos los viajes", () => true);
+      case "rides_active": return ridesList("Viajes activos", (r) => r.status === "active");
+      case "rides_full": return ridesList("Viajes llenos", (r) => r.status === "full");
+      case "rides_completed": return ridesList("Viajes completados", (r) => r.status === "completed");
+      case "rides_cancelled": return ridesList("Viajes cancelados", (r) => r.status === "cancelled");
+      case "rides_round_trip": return ridesList("Viajes ida y vuelta", (r) => !!r.round_trip);
+      case "rides_seats_available": return ridesList("Viajes con plazas libres", (r) => r.status === "active" && r.seats_left > 0);
+      case "rides_avg_price": return ridesList("Viajes ordenados por precio", () => true, true);
+      case "rides_published_7d": return ridesList("Viajes publicados (7 días)", (r) => r.created_at >= d7);
+      case "bookings_total": return requestsList("Todas las reservas", () => true);
+      case "bookings_pending": return requestsList("Reservas pendientes", (r) => r.status === "pending");
+      case "bookings_confirmed": return requestsList("Reservas confirmadas", (r) => r.status === "confirmed");
+      case "bookings_rejected": return requestsList("Reservas rechazadas", (r) => r.status === "rejected");
+      case "bookings_cancelled": return requestsList("Reservas canceladas", (r) => r.status === "cancelled");
+      case "reviews_total": return reviewsList("Todas las reseñas");
+      case "reviews_avg_rating": return reviewsList("Reseñas ordenadas por nota", true);
+      case "favorites_total": return favoritesList("Todos los favoritos", () => true);
+      case "favorites_concert": return favoritesList("Favoritos: conciertos", (f) => f.kind === "concert");
+      case "favorites_artist": return favoritesList("Favoritos: artistas", (f) => f.kind === "artist");
+      case "favorites_city": return favoritesList("Favoritos: ciudades", (f) => f.kind === "city");
+      case "concerts": return wrap("Conciertos", [
+        { key: "name", label: "Nombre" }, { key: "artist", label: "Artista" }, { key: "date", label: "Fecha" },
+      ], [...this.concerts].sort((a, b) => cmp(a.date, b.date)).map((c) => ({ name: c.name, artist: c.artist, date: c.date })));
+      case "upcoming_concerts": return wrap("Conciertos próximos", [
+        { key: "name", label: "Nombre" }, { key: "artist", label: "Artista" }, { key: "date", label: "Fecha" },
+      ], this.concerts.filter((c) => c.date >= now).sort((a, b) => cmp(b.date, a.date)).map((c) => ({ name: c.name, artist: c.artist, date: c.date })));
+      case "venues": return wrap("Recintos", [
+        { key: "name", label: "Nombre" }, { key: "city", label: "Ciudad" }, { key: "capacity", label: "Aforo" },
+      ], [...this.venues].sort((a, b) => a.name.localeCompare(b.name)).map((v) => ({ name: v.name, city: v.city, capacity: v.capacity })));
+      case "reports_total":
+      case "reports_pending": return wrap(metric === "reports_pending" ? "Reportes pendientes" : "Todos los reportes", [
+        { key: "reporter", label: "Reporta" }, { key: "target", label: "Reportado" }, { key: "reason", label: "Motivo" },
+        { key: "status", label: "Estado" }, { key: "created_at", label: "Fecha" },
+      ], this.reports.filter((r) => metric === "reports_total" || r.status === "pending").sort((a, b) => cmp(a.created_at, b.created_at)).map((r) => ({
+        reporter: nameOf(r.reporter_id), target: nameOf(r.target_user_id), reason: r.reason, status: r.status, created_at: r.created_at,
+      })));
+      case "license_pending": return reviewLikeList("Carnés pendientes", this.licenseReviews.filter((r) => r.status === "pending"));
+      case "license_approved": return reviewLikeList("Carnés aprobados", this.licenseReviews.filter((r) => r.status === "approved"));
+      case "license_rejected": return reviewLikeList("Carnés rechazados", this.licenseReviews.filter((r) => r.status === "rejected"));
+      case "identity_pending": return reviewLikeList("Identidad pendiente", this.identityReviews.filter((r) => r.status === "pending"));
+      case "chat_messages": return wrap("Mensajes de chat", [
+        { key: "user", label: "Autor" }, { key: "kind", label: "Tipo" }, { key: "body", label: "Mensaje" }, { key: "created_at", label: "Fecha" },
+      ], [...this.messages].sort((a, b) => cmp(a.created_at, b.created_at)).map((m) => ({
+        user: nameOf(m.user_id), kind: m.kind, body: m.body.slice(0, 80), created_at: m.created_at,
+      })));
+      case "direct_messages": return wrap("Mensajes directos", [
+        { key: "from", label: "De" }, { key: "to", label: "Para" }, { key: "body", label: "Mensaje" }, { key: "created_at", label: "Fecha" },
+      ], [...this.directMessages].sort((a, b) => cmp(a.created_at, b.created_at)).map((m) => ({
+        from: nameOf(m.sender_id), to: nameOf(m.recipient_id), body: m.body.slice(0, 80), created_at: m.created_at,
+      })));
+      case "demand_signals": return wrap("Señales de interés", [
+        { key: "user", label: "Usuario" }, { key: "concert", label: "Concierto" }, { key: "expires_at", label: "Expira" },
+      ], [...this.demandSignals].sort((a, b) => cmp(a.expires_at, b.expires_at)).map((d) => ({
+        user: nameOf(d.user_id), concert: concertName(d.concert_id), expires_at: d.expires_at,
+      })));
+      case "festival_demand": return wrap("Waitlist por festival", [
+        { key: "festival_slug", label: "Festival" }, { key: "origin_city", label: "Origen" }, { key: "email", label: "Email" },
+      ], []);
+      case "festival_alerts": return wrap("Alertas de festival", [
+        { key: "email", label: "Email" }, { key: "festival_slug", label: "Festival" }, { key: "created_at", label: "Fecha" },
+      ], [...this.festivalAlerts].sort((a, b) => cmp(a.created_at, b.created_at)).map((a) => ({
+        email: a.email, festival_slug: a.festival_slug, created_at: a.created_at,
+      })));
+      case "event_anticipations": return wrap("Asistencias (going/maybe)", [
+        { key: "user", label: "Usuario" }, { key: "concert", label: "Concierto" }, { key: "status", label: "Estado" }, { key: "created_at", label: "Fecha" },
+      ], [...this.anticipations].sort((a, b) => cmp(a.created_at, b.created_at)).map((a) => ({
+        user: nameOf(a.user_id), concert: concertName(a.concert_id), status: a.status, created_at: a.created_at,
+      })));
+      case "crew_connections": return wrap("Conexiones de crew", [
+        { key: "a", label: "Usuario A" }, { key: "b", label: "Usuario B" }, { key: "status", label: "Estado" }, { key: "created_at", label: "Fecha" },
+      ], [...this.crew].sort((a, b) => cmp(a.created_at, b.created_at)).map((c) => ({
+        a: nameOf(c.a_id), b: nameOf(c.b_id), status: c.status, created_at: c.created_at,
+      })));
+      case "squads": return wrap("Squads", [
+        { key: "name", label: "Nombre" }, { key: "owner", label: "Dueño" }, { key: "concert", label: "Concierto" }, { key: "visibility", label: "Visibilidad" }, { key: "created_at", label: "Fecha" },
+      ], [...this.squadsList].sort((a, b) => cmp(a.created_at, b.created_at)).map((s) => ({
+        name: s.name, owner: nameOf(s.owner_id), concert: concertName(s.concert_id), visibility: s.visibility, created_at: s.created_at,
+      })));
+      case "squad_members": return wrap("Miembros de squad", [
+        { key: "squad", label: "Squad" }, { key: "user", label: "Usuario" }, { key: "role", label: "Rol" }, { key: "joined_at", label: "Entró" },
+      ], [...this.squadMembersList].sort((a, b) => cmp(a.joined_at, b.joined_at)).map((m) => ({
+        squad: this.squadsList.find((s) => s.id === m.squad_id)?.name ?? "—", user: nameOf(m.user_id), role: m.role, joined_at: m.joined_at,
+      })));
+      case "trip_memories": return wrap("Trip memories", [
+        { key: "title", label: "Título" }, { key: "creator", label: "Creador" }, { key: "concert", label: "Concierto" }, { key: "share_count", label: "Compartido" }, { key: "created_at", label: "Fecha" },
+      ], [...this.memories].sort((a, b) => cmp(a.created_at, b.created_at)).map((m) => ({
+        title: m.title, creator: nameOf(m.created_by), concert: concertName(m.concert_id), share_count: m.share_count, created_at: m.created_at,
+      })));
+      case "activity_events": return wrap("Eventos de actividad", [
+        { key: "actor", label: "Actor" }, { key: "kind", label: "Tipo" }, { key: "label", label: "Descripción" }, { key: "created_at", label: "Fecha" },
+      ], [...this.activity].sort((a, b) => cmp(a.created_at, b.created_at)).map((a) => ({
+        actor: a.actor_name, kind: a.kind, label: a.label, created_at: a.created_at,
+      })));
+      default:
+        return null;
+    }
+  }
+
   async getMyLicenseReview(userId: string): Promise<import("@concertride/types").LicenseReview | null> {
     const userReviews = this.licenseReviews.filter((r) => r.user_id === userId);
     if (userReviews.length === 0) return null;
