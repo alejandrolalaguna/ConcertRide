@@ -262,7 +262,7 @@ export const FESTIVAL_LANDINGS: FestivalLanding[] = [
     ],
     official_shuttle: {
       available: false,
-      notes: 'Mad Cool no opera lanzadera oficial propia. El único transporte oficial es Metro L8 (Feria de Madrid).'
+      notes: 'Mad Cool no opera lanzadera oficial propia. El acceso en transporte público es Metro L3 (Pradolongo o Legazpi) más autobús EMT al recinto.'
     },
     guide: {
       logistics: {
@@ -457,6 +457,18 @@ export const FESTIVAL_LANDINGS: FestivalLanding[] = [
     ],
     relatedFestivals: ["sonar", "cruilla"],
     relatedBlogs: ["como-ir-primavera-sound-barcelona-2026", "primavera-sound-2026-como-llegar", "autobuses-festivales-espana-2026", "carpooling-vs-taxi-festival-espana"],
+    transport_options: [
+      { type: 'train', provider: 'Metro TMB L4', origin: 'Barcelona centro → Besòs Mar', price_from: 2, price_to: 3, frequency: 'Cada 4–6 min', schedule: 'Ampliado hasta 02:00 vie y 05:00 sáb en festival', notes: 'Parada Besòs Mar a 10 min a pie del Parc del Fòrum. Tranvía T4 (Fòrum) alternativa. Se satura en salidas de madrugada.' },
+      { type: 'train', provider: 'Renfe AVE', origin: 'Madrid → Barcelona Sants', price_from: 50, price_to: 100, notes: 'AVE Madrid–Sants + metro L4. Se agota semanas antes. Sin AVE de vuelta de madrugada (primer tren 06:05).' },
+      { type: 'carpooling', provider: 'ConcertRide', origin: 'Madrid', price_from: 15, price_to: 20 },
+      { type: 'carpooling', provider: 'ConcertRide', origin: 'Valencia', price_from: 10, price_to: 14 },
+      { type: 'carpooling', provider: 'ConcertRide', origin: 'Zaragoza', price_from: 8, price_to: 12 },
+      { type: 'carpooling', provider: 'ConcertRide', origin: 'Tarragona', price_from: 4, price_to: 7 },
+    ],
+    official_shuttle: {
+      available: false,
+      notes: 'Primavera Sound no opera lanzadera oficial de larga distancia. Acceso al recinto por metro L4 (Besòs Mar) o tranvía T4 (Fòrum).'
+    },
     genres: ["indie", "alternativo", "pop", "rock", "electrónica", "experimental"],
     expected_attendance: "60.000 personas/día",
     arrival_patterns: "Los fans madrileños suelen organizar viaje de 4–5 días y alojarse en Barcelona. La mayoría llega el jueves, regresa el domingo o lunes. Los de Valencia o Zaragoza hacen trayectos de ida y vuelta.",
@@ -3730,7 +3742,7 @@ export const FESTIVAL_LANDINGS: FestivalLanding[] = [
         a: "El Dreambeach Costa del Sol 2026 se celebra el 31 de julio y 1 de agosto en el Recinto Ferial de Vélez-Málaga (Málaga). El festival ha cambiado de ubicación desde Almería a la Costa del Sol para la edición 2026.",
       },
     ],
-    relatedFestivals: ["medusa-festival", "cala-mijas-fest", "starlite-marbella"],
+    relatedFestivals: ["medusa-festival", "cala-mijas", "starlite-marbella"],
     relatedBlogs: [],
     genres: ["electrónica", "techno", "house", "EDM"],
     transport_options: [

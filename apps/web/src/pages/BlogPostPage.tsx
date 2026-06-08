@@ -87,13 +87,15 @@ export default function BlogPostPage() {
   const post = slug ? BLOG_POSTS_BY_SLUG[slug] : undefined;
   const { user } = useSession();
 
-  // Detect if this post links to a festival how-to page (e.g. "/como-llegar/arenal-sound")
+  // Detect the canonical festival this post supports — from a "/como-llegar/:slug" OR a
+  // "/festivales/:slug" relatedLink. Anti-cannibalization: surfaces a first-scroll link to the
+  // canonical /festivales/:slug hub (via AutoLinksForFestival) on every transport-cluster blog.
+  // Uses path segment [2] so "/festivales/:slug/guia" still resolves to :slug (not "guia").
   const relatedFestivalSlug = post
     ? (post.relatedLinks ?? [])
         .map((l) => l.to)
-        .find((t) => t.startsWith("/como-llegar/"))
-        ?.split("/")
-        .pop()
+        .find((t) => t.startsWith("/como-llegar/") || t.startsWith("/festivales/"))
+        ?.split("/")[2]
     : undefined;
 
   const relatedFestival = relatedFestivalSlug ? FESTIVAL_LANDINGS_BY_SLUG[relatedFestivalSlug] : undefined;

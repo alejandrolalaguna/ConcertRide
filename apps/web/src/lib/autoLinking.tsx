@@ -27,7 +27,12 @@ export function AutoLinksForFestival({ slug }: { slug: string }) {
         <h3 className="font-bold mb-2">Enlaces útiles</h3>
         <ul className="space-y-2 text-sm">
           <li>
-            <Link to={howTo} className="text-cr-primary hover:underline">Cómo llegar a {festival.shortName}</Link>
+            <Link to={`/festivales/${festival.slug}`} className="text-cr-primary font-semibold hover:underline">
+              Carpooling y viajes a {festival.shortName}
+            </Link>
+          </li>
+          <li>
+            <Link to={howTo} className="hover:underline">Cómo llegar a {festival.shortName}</Link>
           </li>
           {cityPage && (
             <li>

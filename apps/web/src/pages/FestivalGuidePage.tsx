@@ -191,9 +191,9 @@ export default function FestivalGuidePage() {
             Guía {festival.shortName} {festYear}
           </h1>
           <p className="text-cr-text-muted text-sm max-w-2xl">
-            Todo lo que necesitas saber para ir a {festival.name}: qué llevar, cómo llegar a{" "}
-            <strong className="text-cr-text">{festival.venue}</strong> en {festival.city},
-            logística del recinto y consejos de veteranos.
+            Qué llevar, logística del recinto y consejos de veteranos para {festival.name} en{" "}
+            <strong className="text-cr-text">{festival.venue}</strong> ({festival.city}). Para buses, tren y carpooling, mira{" "}
+            <Link to={`/festivales/${slug}`} className="text-cr-primary hover:underline">cómo llegar a {festival.shortName}</Link>.
           </p>
           <div className="flex flex-wrap gap-2 pt-1">
             <span className="font-mono text-[10px] border border-cr-border px-2 py-1 text-cr-text-muted">

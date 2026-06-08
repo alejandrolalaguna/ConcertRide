@@ -3913,6 +3913,8 @@ BLOG_POSTS.push(
       { label: "Festivales en Barcelona", to: "/festivales-en/cataluna" },
       { label: "Conciertos en Madrid", to: "/conciertos/madrid" },
       { label: "Conciertos en Barcelona", to: "/conciertos/barcelona" },
+      { label: "Carpooling barato a Arenal Sound", to: "/festivales/arenal-sound" },
+      { label: "Carpooling barato a Viña Rock", to: "/festivales/vina-rock" },
     ],
     relatedPosts: ["festivales-musica-espana-2026", "festivales-verano-espana-2026-transporte", "conciertos-sevilla-2026-guia-completa", "festivales-extremadura-2026-stone-music-merida"],
   },
@@ -8290,6 +8292,8 @@ BLOG_POSTS.push({
     { label: "Calendario festivales 2026", to: "/blog/calendario-festivales-espana-2026-completo" },
     { label: "Mad Cool Festival", to: "/festivales/mad-cool" },
     { label: "Primavera Sound", to: "/festivales/primavera-sound" },
+    { label: "Arenal Sound", to: "/festivales/arenal-sound" },
+    { label: "Viña Rock", to: "/festivales/vina-rock" },
     { label: "Festivales", to: "/festivales" },
   ],
   relatedPosts: [
@@ -16278,6 +16282,8 @@ BLOG_POSTS.push({
     { label: "Cómo volver del festival de madrugada", to: "/blog/carpooling-nocturno-festival" },
     { label: "Autobuses a festivales España 2026", to: "/blog/autobuses-festivales-espana-2026" },
     { label: "Mad Cool vs Primavera Sound: cuál elegir", to: "/blog/mejor-festival-espana-2026-musica" },
+    { label: "Carpooling a Primavera Sound", to: "/festivales/primavera-sound" },
+    { label: "Carpooling a Arenal Sound", to: "/festivales/arenal-sound" },
   ],
   relatedPosts: [
     "autobuses-festivales-espana-2026",
@@ -18981,7 +18987,7 @@ BLOG_POSTS.push({
     { label: "Carpooling familiar y con grupos a festivales", to: "/blog/festivaleros-con-hijos-carpooling" },
     { label: "Festivales con camping en España 2026", to: "/blog/festivales-camping-espana-2026-transporte-carpooling" },
     { label: "Carpooling a Sonorama Ribera", to: "/festivales/sonorama-ribera" },
-    { label: "Carpooling a Cala Mijas Fest", to: "/festivales/cala-mijas-fest" },
+    { label: "Carpooling a Cala Mijas Fest", to: "/festivales/cala-mijas" },
     { label: "Carpooling a Pirineos Sur", to: "/festivales/pirineos-sur" },
   ],
   relatedPosts: [

@@ -351,7 +351,19 @@ export default function HowToGetTherePage() {
             Cómo llegar a {festName} {YEAR}
           </h1>
           <p className="text-xl text-gray-300 leading-relaxed">
-            Guía completa: distancias, horarios, transporte público, autobús y carpooling económico sin comisión.
+            Guía paso a paso del transporte a {festival.venue} ({festival.city}): distancias y precio por ciudad de origen, autobús, tren y cómo coordinar la vuelta de madrugada.
+          </p>
+
+          {/* Canonical hub link in the first scroll — points booking intent to the festival page
+              so /como-llegar supports (not cannibalizes) /festivales/:slug for "X bus / cómo llegar". */}
+          <p className="mt-4 text-base text-gray-300">
+            ¿Buscas plaza?{" "}
+            <Link
+              to={`/festivales/${festival.slug}`}
+              className="text-cr-primary font-semibold underline underline-offset-4 hover:text-white"
+            >
+              Ver carpooling y viajes disponibles a {festName} →
+            </Link>
           </p>
 
           {/* Speakable answer block — optimizes for AI Overviews + voice assistants. */}
