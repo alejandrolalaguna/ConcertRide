@@ -20,23 +20,18 @@ interface TicketData {
   ticketNum: string;
 }
 
-// Next major festival, hardcoded for above-the-fold targeting.
-// Update when a new festival becomes "the closest" — keep slug + dates + min price in sync with festivalLandings.ts.
+// Generic "festival season" anchor for above-the-fold targeting.
+// Deliberately NOT pinned to a single festival name — the hero stays evergreen and
+// links to the festival index. `startDate` only drives the countdown badge:
+// keep it on the nearest upcoming major festival of the season.
 const NEXT_FESTIVAL = {
-  name: "Primavera Sound",
-  fullName: "Primavera Sound 2026",
-  slug: "primavera-sound",
-  startDate: "2026-05-28",
-  endDate: "2026-06-01",
-  shortDates: "28 may–1 jun",
-  minPrice: 4, // €/asiento — Tarragona→Barcelona (la ruta corta más barata)
-  // Madrid es la ruta más buscada
-  topRoute: { from: "Madrid", priceRange: "15–20 €" },
+  startDate: "2026-07-09", // próximo gran festival de la temporada (para el contador)
+  minPrice: 4, // €/asiento — la ruta corta más barata
 } as const;
 
 const LIVE_ACTIVITY = [
-  "Rafa desde Madrid · reservó asiento → Barcelona (Primavera Sound) · hace 2 min",
-  "María desde Valencia · publicó viaje → Primavera Sound · hace 5 min",
+  "Rafa desde Madrid · reservó asiento → Barcelona (Cruïlla) · hace 2 min",
+  "María desde Valencia · publicó viaje → Sonorama Ribera · hace 5 min",
   "Lucía desde Zaragoza · se unió a ConcertRide · hace 7 min",
   "Carlos desde Valencia · publicó viaje → FIB Benicàssim · hace 11 min",
   "Ana desde Bilbao · publicó viaje → Mad Cool Madrid · hace 15 min",
@@ -92,11 +87,11 @@ const TICKETS: TicketData[] = [
     ticketNum: "#CR-01034",
   },
   {
-    id: "primavera",
-    artist: "PRIMAVERA",
-    tour: "SOUND 2026 · FRI",
+    id: "cruilla",
+    artist: "CRUÏLLA",
+    tour: "FESTIVAL · 2026",
     venue: "Parc del Fòrum · Barcelona",
-    date: "VIE 5 JUN · 18:00 CEST",
+    date: "JUE 9 JUL · 18:00 CEST",
     from: "ZARAGOZA",
     to: "BARCELONA",
     price: 28,
@@ -248,7 +243,7 @@ export function Hero() {
         >
           <span className="w-1.5 h-1.5 rounded-full bg-[#ff4f00] animate-pulse flex-shrink-0" />
           <span className="font-mono text-[10px] tracking-[0.2em] uppercase text-[#ff4f00]">
-            {NEXT_FESTIVAL.name} · {NEXT_FESTIVAL.shortDates}
+            Festivales 2026
             {daysToNextFestival > 0 && daysToNextFestival <= 60
               ? ` · faltan ${daysToNextFestival} ${daysToNextFestival === 1 ? "día" : "días"}`
               : " · plazas limitadas"}
@@ -273,7 +268,7 @@ export function Hero() {
 
         {/* H2 — keyword anchor (SEO + AIO) preserved below the headline */}
         <p className="sr-only">
-          Carpooling a festivales en España 2026: viajes compartidos a {NEXT_FESTIVAL.name} desde {NEXT_FESTIVAL.minPrice}€ por asiento.
+          Carpooling a festivales en España 2026: viajes compartidos a festivales desde {NEXT_FESTIVAL.minPrice}€ por asiento.
         </p>
 
         {/* Lime underline rule */}
@@ -292,7 +287,7 @@ export function Hero() {
           transition={{ duration: 0.5, delay: 0.8, ease: [0.16, 1, 0.3, 1] }}
           className="font-sans text-base md:text-xl text-white/65 max-w-xl leading-relaxed font-light"
         >
-          Carpooling a {NEXT_FESTIVAL.name} desde{" "}
+          Carpooling a festivales desde{" "}
           <span className="text-[#dbff00] font-semibold">{NEXT_FESTIVAL.minPrice}€/asiento</span>{" "}
           con conductores verificados.{" "}
           <span className="text-white/90 font-medium">Pago directo en efectivo o Bizum · 0% comisión.</span>
@@ -306,11 +301,11 @@ export function Hero() {
           className="flex flex-col sm:flex-row gap-3"
         >
           <a
-            href={`/festivales/${NEXT_FESTIVAL.slug}`}
-            onClick={() => trackEvent(ANALYTICS_EVENTS.HERO_CTA_CLICKED, { variant: "search_festival", target: NEXT_FESTIVAL.slug })}
+            href="/festivales"
+            onClick={() => trackEvent(ANALYTICS_EVENTS.HERO_CTA_CLICKED, { variant: "search_festival", target: "festivales" })}
             className="cr-btn-shine inline-flex items-center justify-center gap-2 bg-[#dbff00] text-black font-sans font-semibold uppercase tracking-[0.12em] text-sm px-8 py-4 hover:bg-[#c8ec00] transition-colors duration-150 group"
           >
-            Buscar viaje a {NEXT_FESTIVAL.name}
+            Buscar viaje a tu festival
             <ArrowRight size={14} className="transition-transform duration-150 group-hover:translate-x-1" aria-hidden="true" />
           </a>
           <a
