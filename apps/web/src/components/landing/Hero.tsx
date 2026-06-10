@@ -243,7 +243,7 @@ export function Hero() {
         >
           <span className="w-1.5 h-1.5 rounded-full bg-[#ff4f00] animate-pulse flex-shrink-0" />
           <span className="font-mono text-[10px] tracking-[0.2em] uppercase text-[#ff4f00]">
-            Festivales 2026
+            Conciertos y festivales 2026
             {daysToNextFestival > 0 && daysToNextFestival <= 60
               ? ` · faltan ${daysToNextFestival} ${daysToNextFestival === 1 ? "día" : "días"}`
               : " · plazas limitadas"}
@@ -262,13 +262,13 @@ export function Hero() {
           <span className="cr-heading-gradient">Tu plan, sin coche</span>
           <span className="text-white/55">.</span>
           <br />
-          <span className="text-[#dbff00]">Llega al festival</span>
+          <span className="text-[#dbff00]">Llega al concierto</span>
           <span className="text-white/55"> con tu gente.</span>
         </motion.h1>
 
         {/* H2 — keyword anchor (SEO + AIO) preserved below the headline */}
         <p className="sr-only">
-          Carpooling a festivales en España 2026: viajes compartidos a festivales desde {NEXT_FESTIVAL.minPrice}€ por asiento.
+          Carpooling a conciertos y festivales en España 2026: viajes compartidos desde {NEXT_FESTIVAL.minPrice}€ por asiento.
         </p>
 
         {/* Lime underline rule */}
@@ -287,7 +287,7 @@ export function Hero() {
           transition={{ duration: 0.5, delay: 0.8, ease: [0.16, 1, 0.3, 1] }}
           className="font-sans text-base md:text-xl text-white/65 max-w-xl leading-relaxed font-light"
         >
-          Carpooling a festivales desde{" "}
+          Carpooling a conciertos y festivales desde{" "}
           <span className="text-[#dbff00] font-semibold">{NEXT_FESTIVAL.minPrice}€/asiento</span>{" "}
           con conductores verificados.{" "}
           <span className="text-white/90 font-medium">Pago directo en efectivo o Bizum · 0% comisión.</span>
@@ -301,11 +301,11 @@ export function Hero() {
           className="flex flex-col sm:flex-row gap-3"
         >
           <a
-            href="/festivales"
-            onClick={() => trackEvent(ANALYTICS_EVENTS.HERO_CTA_CLICKED, { variant: "search_festival", target: "festivales" })}
+            href="/concerts"
+            onClick={() => trackEvent(ANALYTICS_EVENTS.HERO_CTA_CLICKED, { variant: "search_rides", target: "concerts" })}
             className="cr-btn-shine inline-flex items-center justify-center gap-2 bg-[#dbff00] text-black font-sans font-semibold uppercase tracking-[0.12em] text-sm px-8 py-4 hover:bg-[#c8ec00] transition-colors duration-150 group"
           >
-            Buscar viaje a tu festival
+            Buscar viaje
             <ArrowRight size={14} className="transition-transform duration-150 group-hover:translate-x-1" aria-hidden="true" />
           </a>
           <a
@@ -313,7 +313,7 @@ export function Hero() {
             onClick={() => trackEvent(ANALYTICS_EVENTS.HERO_CTA_CLICKED, { variant: "publish_ride" })}
             className="inline-flex items-center justify-center gap-2 bg-transparent text-white/80 font-sans font-semibold uppercase tracking-[0.12em] text-sm border border-white/25 px-8 py-4 hover:border-[#dbff00]/60 hover:text-white transition-colors duration-150"
           >
-            Publicar mi coche →
+            Publicar viaje →
           </a>
         </motion.div>
 
