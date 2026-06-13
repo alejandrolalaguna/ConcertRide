@@ -39,10 +39,10 @@ function esc(s: string): string {
 function buildStaticRoutes(base: string): Record<string, { title: string; description: string; canonical: string; h1: string; body: string }> {
   return {
     "/": {
-      title: `${SITE_NAME} — Carpooling para conciertos en España`,
-      description: "Carpooling para conciertos en España. Comparte coche, divide gastos y llega seguro. Publica un viaje o busca uno en 2 minutos. Gratis, sin comisiones.",
+      title: `${SITE_NAME} — Carpooling para conciertos y festivales`,
+      description: "Carpooling para conciertos y festivales en España. Comparte coche, divide gastos y llega seguro. Publica un viaje o busca uno en 2 minutos. Gratis, sin comisiones.",
       canonical: `${base}/`,
-      h1: "Carpooling para conciertos en España",
+      h1: "Carpooling para conciertos y festivales en España",
       body: (() => {
         const orgJsonLd = JSON.stringify({
           "@context": "https://schema.org",
@@ -100,8 +100,8 @@ function buildStaticRoutes(base: string): Record<string, { title: string; descri
           mainEntity: [
             { "@type": "Question", name: "¿Qué es ConcertRide?", acceptedAnswer: { "@type": "Answer", text: "ConcertRide es la plataforma española de carpooling exclusiva para conciertos y festivales. Conecta conductores con plazas libres y pasajeros que van al mismo evento. Sin comisión de plataforma — el 100 % del precio del asiento va al conductor. Conductores verificados con carnet. Pago en efectivo o Bizum el día del viaje." } },
             { "@type": "Question", name: "¿Cuánto cuesta el carpooling a un concierto en España?", acceptedAnswer: { "@type": "Answer", text: "El precio lo fija el conductor para cubrir combustible y peajes: entre 3 y 8 € para trayectos cortos (< 200 km) y entre 10 y 35 € para larga distancia. ConcertRide no cobra comisión. El precio medio es 8–15 € por asiento." } },
-            { "@type": "Question", name: "¿Es ConcertRide mejor que BlaBlaCar para festivales?", acceptedAnswer: { "@type": "Answer", text: "Para festivales sí: ConcertRide cobra 0 % de comisión (BlaBlaCar cobra 12–18 %), cada viaje está vinculado al evento concreto (hora de vuelta alineada con el fin del show), y el pago es en efectivo sin tarjeta obligatoria." } },
-            { "@type": "Question", name: "¿Es legal el carpooling a festivales en España?", acceptedAnswer: { "@type": "Answer", text: "Sí. El carpooling de gastos compartidos sin beneficio económico está reconocido como legal por el Tribunal Supremo español (sentencia 2017, caso BlaBlaCar). El conductor solo puede cobrar su parte proporcional del combustible y peajes." } },
+            { "@type": "Question", name: "¿Por qué usar ConcertRide en vez de una plataforma de carpooling generalista para festivales?", acceptedAnswer: { "@type": "Answer", text: "Para festivales y conciertos, ConcertRide cobra 0 % de comisión (las plataformas generalistas cobran 12–18 %), cada viaje está vinculado al evento concreto (hora de vuelta alineada con el fin del show), y el pago es en efectivo sin tarjeta obligatoria." } },
+            { "@type": "Question", name: "¿Es legal el carpooling a festivales en España?", acceptedAnswer: { "@type": "Answer", text: "Sí. El carpooling de gastos compartidos sin beneficio económico está reconocido como legal por el Tribunal Supremo español (sentencia de 2017 sobre plataformas de coche compartido). El conductor solo puede cobrar su parte proporcional del combustible y peajes." } },
           ],
         });
         const serviceJsonLd = JSON.stringify({
@@ -157,15 +157,15 @@ function buildStaticRoutes(base: string): Record<string, { title: string; descri
 <h2>Festivales con viajes compartidos disponibles</h2>
 <ul>
   <li><a href="${base}/festivales/mad-cool">Carpooling al Mad Cool Festival Madrid — 8–10 jul 2026, Iberdrola Music</a></li>
-  <li><a href="${base}/festivales/primavera-sound">Carpooling al Primavera Sound Barcelona — 28 may–1 jun 2026</a></li>
+  <li><a href="${base}/festivales/cruilla">Carpooling al Cruïlla Barcelona — jul 2026, Parc del Fòrum</a></li>
   <li><a href="${base}/festivales/sonar">Carpooling al Sónar Barcelona — 18–20 jun 2026</a></li>
   <li><a href="${base}/festivales/fib">Carpooling al FIB Benicàssim — 16–19 jul 2026</a></li>
   <li><a href="${base}/festivales/bbk-live">Carpooling al BBK Live Bilbao — 9–11 jul 2026</a></li>
   <li><a href="${base}/festivales/arenal-sound">Carpooling al Arenal Sound Burriana — 29 jul–2 ago 2026</a></li>
 </ul>
-<h2>ConcertRide vs BlaBlaCar para festivales</h2>
+<h2>ConcertRide vs otras plataformas de carpooling para festivales</h2>
 <table>
-  <tr><th>Característica</th><th>ConcertRide</th><th>BlaBlaCar</th></tr>
+  <tr><th>Característica</th><th>ConcertRide</th><th>Plataformas generalistas</th></tr>
   <tr><td>Comisión</td><td>0 %</td><td>12–18 %</td></tr>
   <tr><td>Búsqueda por festival/evento</td><td>Sí</td><td>No (solo por ruta)</td></tr>
   <tr><td>Pago</td><td>Efectivo / Bizum</td><td>Tarjeta (plataforma)</td></tr>
