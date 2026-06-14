@@ -4,6 +4,7 @@ import { ArrowRight, Banknote, Clock, MapPinned, ShieldCheck } from "lucide-reac
 import { motion } from "motion/react";
 import type { Concert, Ride } from "@concertride/types";
 import { api } from "@/lib/api";
+import { useI18n } from "@/lib/i18n";
 import { useSeoMeta } from "@/lib/useSeoMeta";
 import { SITE_URL } from "@/lib/siteUrl";
 import { concertStatus } from "@/components/ConcertCard";
@@ -22,69 +23,35 @@ import { FestivalMarquee } from "@/components/landing/FestivalMarquee";
 import { DriverCTA } from "@/components/landing/DriverCTA";
 import { RegistrationNudge } from "@/components/landing/RegistrationNudge";
 
+// Icon + i18n-key map for the 6-card "Por qué ConcertRide" grid. Visible text
+// (title/body/highlight) is resolved at render time via t("home.whyN…") so the
+// Spanish output stays byte-identical while en/ca render translated copy.
 const WHY_CONCERTRIDE = [
-  {
-    icon: Banknote,
-    title: "Rutas a conciertos reales",
-    body: "Viajes organizados hacia festivales y conciertos verificados. Sin destinos genéricos.",
-    highlight: "Ahorra 13–18€ por viaje",
-  },
-  {
-    icon: ShieldCheck,
-    title: "Perfiles verificados",
-    body: "Conductores y pasajeros con valoraciones reales. Viaja con quien confías.",
-    highlight: "100% verificados",
-  },
-  {
-    icon: MapPinned,
-    title: "Reserva instantánea",
-    body: "Encuentra asiento en segundos. Sin negociaciones ni mensajes infinitos.",
-    highlight: "+30 festivales cubiertos",
-  },
-  {
-    icon: Clock,
-    title: "Vibe del viaje",
-    body: "Elige el ambiente: playlist compartida, charla o silencio. Tú mandas.",
-    highlight: "Vuelta pactada",
-  },
-  {
-    icon: Banknote,
-    title: "Comunidad de fans",
-    body: "Conecta con gente que va al mismo evento. Comparte música, no solo gasolina.",
-    highlight: "+2k fans",
-  },
-  {
-    icon: ShieldCheck,
-    title: "Impacto real",
-    body: "Menos coches, menos CO₂. Cada viaje compartido reduce la huella del evento.",
-    highlight: "80% menos CO₂",
-  },
+  { icon: Banknote, titleKey: "home.why1Title", bodyKey: "home.why1Body", highlightKey: "home.why1Highlight" },
+  { icon: ShieldCheck, titleKey: "home.why2Title", bodyKey: "home.why2Body", highlightKey: "home.why2Highlight" },
+  { icon: MapPinned, titleKey: "home.why3Title", bodyKey: "home.why3Body", highlightKey: "home.why3Highlight" },
+  { icon: Clock, titleKey: "home.why4Title", bodyKey: "home.why4Body", highlightKey: "home.why4Highlight" },
+  { icon: Banknote, titleKey: "home.why5Title", bodyKey: "home.why5Body", highlightKey: "home.why5Highlight" },
+  { icon: ShieldCheck, titleKey: "home.why6Title", bodyKey: "home.why6Body", highlightKey: "home.why6Highlight" },
 ] as const;
 
+// FAQ items as i18n-key pairs. Rendered text comes from t("home.faqN…"); the
+// Spanish render must stay byte-identical with the previous hardcoded copy
+// because it also feeds the visible FAQ block consumed by AI Overviews.
 const FAQ_ITEMS_LANDING = [
-  {
-    question: "¿Es seguro viajar con desconocidos?",
-    answer:
-      "Todos los usuarios tienen perfil verificado con valoraciones reales de viajes anteriores. Puedes ver el historial del conductor antes de reservar. Además, cada viaje queda registrado en la plataforma.",
-  },
-  {
-    question: "¿Cómo se paga el viaje?",
-    answer:
-      "El precio lo fija el conductor para cubrir gasolina y peajes — ConcertRide no cobra comisiones. El pago se acuerda directamente entre conductor y pasajero (efectivo o Bizum). Sin intermediarios, sin sorpresas.",
-  },
-  {
-    question: "¿Qué pasa si el concierto se cancela?",
-    answer:
-      "Si el evento se cancela, el viaje se cancela automáticamente y ambas partes son notificadas. La gestión del dinero (si ya se había acordado) queda entre conductor y pasajero.",
-  },
-  {
-    question: "¿Puedo publicar un viaje si nunca he usado la app?",
-    answer:
-      "Sí. Regístrate gratis, verifica tu perfil y publica tu viaje en menos de 2 minutos. Sin procesos complicados ni documentación adicional para empezar.",
-  },
-];
+  { questionKey: "home.faq1Q", answerKey: "home.faq1A" },
+  { questionKey: "home.faq2Q", answerKey: "home.faq2A" },
+  { questionKey: "home.faq3Q", answerKey: "home.faq3A" },
+  { questionKey: "home.faq4Q", answerKey: "home.faq4A" },
+] as const;
 
-function FAQAccordion({ items }: { items: typeof FAQ_ITEMS_LANDING }) {
+function FAQAccordion({
+  items,
+  t,
+}: {
+  items: typeof FAQ_ITEMS_LANDING;
+  t: (key: string, params?: Record<string, string | number>) => string;
+}) {
   const [open, setOpen] = useState<number | null>(null);
   return (
     <div className="divide-y divide-white/[0.06] border border-white/[0.06]" role="list">
@@ -92,7 +59,7 @@ function FAQAccordion({ items }: { items: typeof FAQ_ITEMS_LANDING }) {
         const panelId = `faq-panel-${i}`;
         const btnId = `faq-btn-${i}`;
         return (
-          <div key={item.question} role="listitem">
+          <div key={item.questionKey} role="listitem">
             <button
               id={btnId}
               onClick={() => setOpen(open === i ? null : i)}
@@ -101,7 +68,7 @@ function FAQAccordion({ items }: { items: typeof FAQ_ITEMS_LANDING }) {
               className="w-full flex items-center justify-between gap-4 px-6 py-5 text-left hover:bg-white/[0.02] transition-colors"
             >
               <span className="font-display text-base lg:text-lg uppercase tracking-tight text-white/80">
-                {item.question}
+                {t(item.questionKey)}
               </span>
               <span
                 className={`flex-shrink-0 w-8 h-8 border flex items-center justify-center font-mono text-sm transition-colors duration-200 ${
@@ -123,7 +90,7 @@ function FAQAccordion({ items }: { items: typeof FAQ_ITEMS_LANDING }) {
               style={{ maxHeight: open === i ? "300px" : "0" }}
             >
               <p className="px-6 pb-5 pt-1 font-sans text-sm text-white/40 font-light leading-relaxed">
-                {item.answer}
+                {t(item.answerKey)}
               </p>
             </div>
           </div>
@@ -134,16 +101,16 @@ function FAQAccordion({ items }: { items: typeof FAQ_ITEMS_LANDING }) {
 }
 
 export default function LandingPage() {
+  const { t } = useI18n();
   useSeoMeta({
-    title: "Carpooling a Festivales [2026] · Ahorra 40–60€ · ConcertRide",
-    description:
-      "Carpooling a Mad Cool, Primavera Sound, Sónar, BBK Live y +30 festivales en España. 0% comisión, conductores verificados. Desde 5€/asiento.",
+    title: t("home.metaTitle"),
+    description: t("home.metaDescription"),
     canonical: `${SITE_URL}/`,
     preloadImage:
       "https://images.unsplash.com/photo-1459749411175-04bf5292ceea?w=1800&q=80&auto=format&fit=crop",
-    keywords: "carpooling conciertos España, viajes compartidos festivales, autobuses festivales españa, bus festivales 2026, transporte a conciertos, coche compartido música, ride-sharing festivales, conciertos en madrid, conciertos en barcelona, conciertos en sevilla, conciertos en bilbao 2026, conciertos en donostia 2026, conciertos en zaragoza, viña rock buses, arenal sound como llegar, bbk santander, mad cool carpooling, primavera sound viaje compartido, deja tu coche en casa festival, carpooling sin comisiones, volver festival madrugada, ir al festival sin coche",
+    keywords: t("home.metaKeywords"),
     ogType: "website",
-    ogImageAlt: "ConcertRide: carpooling sin comisión a conciertos y festivales en España · Mad Cool, Primavera Sound, BBK Live",
+    ogImageAlt: t("home.metaOgImageAlt"),
   });
 
   const [concerts, setConcerts] = useState<Concert[] | null>(null);
@@ -411,15 +378,15 @@ export default function LandingPage() {
               transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
             >
               <p className="font-mono text-xs tracking-[0.3em] text-[#ff4f00] uppercase">
-                Por qué ConcertRide
+                {t("home.whyEyebrow")}
               </p>
               <h2
                 id="why-title"
                 className="font-display text-4xl lg:text-6xl uppercase tracking-tight mt-4 leading-[0.88]"
               >
-                No es solo
+                {t("home.whyTitleLine1")}
                 <br />
-                <span className="text-[#dbff00]">un viaje.</span>
+                <span className="text-[#dbff00]">{t("home.whyTitleLine2")}</span>
               </h2>
               <motion.div
                 initial={{ scaleX: 0 }}
@@ -430,8 +397,7 @@ export default function LandingPage() {
                 aria-hidden="true"
               />
               <p className="text-white/40 font-light leading-relaxed max-w-md text-base font-sans">
-                ConcertRide no es otra plataforma de carpooling generalista. Está diseñada específicamente
-                para la comunidad de música en vivo.
+                {t("home.whyIntro")}
               </p>
             </motion.div>
 
@@ -445,7 +411,7 @@ export default function LandingPage() {
             >
               <motion.img
                 src="https://images.unsplash.com/photo-1449965408869-eaa3f722e40d?w=900&q=80&fit=crop"
-                alt="Viaje nocturno a un concierto con luces de ciudad"
+                alt={t("home.whyImageAlt")}
                 width={900}
                 height={600}
                 className="w-full h-full object-cover"
@@ -473,11 +439,11 @@ export default function LandingPage() {
               {/* Caption */}
               <div className="absolute bottom-4 left-4 space-y-1">
                 <p className="font-mono text-[9px] tracking-[0.18em] text-white/35 uppercase">
-                  La madrugada empieza aquí
+                  {t("home.whyImageCaption")}
                 </p>
                 <div className="flex items-center gap-1.5">
                   <span className="w-1 h-1 rounded-full bg-[#dbff00]/40" aria-hidden="true" />
-                  <span className="font-mono text-[8px] text-white/20 uppercase tracking-[0.1em]">+30 festivales cubiertos</span>
+                  <span className="font-mono text-[8px] text-white/20 uppercase tracking-[0.1em]">{t("home.whyImageBadge")}</span>
                 </div>
               </div>
             </motion.div>
@@ -485,9 +451,9 @@ export default function LandingPage() {
 
           {/* 6-card feature grid */}
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-px bg-white/[0.05]">
-            {WHY_CONCERTRIDE.map(({ icon: Icon, title, body, highlight }, i) => (
+            {WHY_CONCERTRIDE.map(({ icon: Icon, titleKey, bodyKey, highlightKey }, i) => (
               <motion.div
-                key={title}
+                key={titleKey}
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, amount: 0.2 }}
@@ -512,14 +478,14 @@ export default function LandingPage() {
                     <Icon size={18} aria-hidden="true" />
                   </div>
                   <span className="font-mono text-[9px] font-semibold text-[#dbff00] border border-[#dbff00]/20 bg-[#dbff00]/5 px-2 py-1 uppercase tracking-[0.1em]">
-                    {highlight}
+                    {t(highlightKey)}
                   </span>
                 </div>
                 <h3 className="font-display text-lg uppercase leading-tight text-white relative group-hover:text-[#f5f5f5] transition-colors">
-                  {title}
+                  {t(titleKey)}
                 </h3>
                 <p className="font-sans text-sm text-white/40 leading-relaxed font-light relative group-hover:text-white/55 transition-colors">
-                  {body}
+                  {t(bodyKey)}
                 </p>
               </motion.div>
             ))}
@@ -530,14 +496,14 @@ export default function LandingPage() {
               to="/register"
               className="cr-btn-shine inline-flex items-center justify-center gap-2 bg-[#dbff00] text-black font-sans font-semibold uppercase tracking-[0.12em] text-sm px-8 py-4 hover:bg-[#c8ec00] transition-colors duration-150 group"
             >
-              Unirme gratis
+              {t("home.whyCtaJoin")}
               <ArrowRight size={14} className="transition-transform duration-150 group-hover:translate-x-1" aria-hidden="true" />
             </Link>
             <Link
               to="/concerts"
               className="inline-flex items-center justify-center font-sans font-semibold uppercase tracking-[0.12em] text-sm border border-white/20 text-white/70 px-8 py-4 hover:border-white/40 hover:text-white transition-colors duration-150"
             >
-              Ver viajes disponibles →
+              {t("home.whyCtaSeeRides")}
             </Link>
           </div>
         </div>
@@ -595,19 +561,19 @@ export default function LandingPage() {
             <div className="space-y-6">
               <div className="space-y-4">
                 <p className="font-mono text-xs tracking-[0.3em] uppercase text-[#ff4f00]">
-                  Preguntas frecuentes
+                  {t("home.faqEyebrow")}
                 </p>
                 <h2 className="font-display text-4xl lg:text-5xl uppercase tracking-tight leading-[0.88]">
-                  Sin
+                  {t("home.faqTitleLine1")}
                   <br />
-                  <span className="text-[#dbff00]">letra pequeña.</span>
+                  <span className="text-[#dbff00]">{t("home.faqTitleLine2")}</span>
                 </h2>
                 <div className="h-[2px] bg-[#dbff00] w-16" aria-hidden="true" />
               </div>
               <p className="font-sans text-sm text-white/40 font-light leading-relaxed">
-                ¿Tienes más dudas?{" "}
+                {t("home.faqMorePrefix")}{" "}
                 <a href="mailto:help@concertride.me" className="text-[#dbff00] hover:underline">
-                  Escríbenos a help@concertride.me
+                  {t("home.faqMoreLink")}
                 </a>
               </p>
               <div className="hidden lg:block">
@@ -615,13 +581,13 @@ export default function LandingPage() {
                   to="/como-funciona-carpooling"
                   className="inline-flex items-center gap-2 font-mono text-xs text-white/30 uppercase tracking-[0.15em] hover:text-white/60 transition-colors"
                 >
-                  Ver guía completa <ArrowRight size={11} aria-hidden="true" />
+                  {t("home.faqGuideLink")} <ArrowRight size={11} aria-hidden="true" />
                 </Link>
               </div>
             </div>
 
             {/* Right — accordion */}
-            <FAQAccordion items={FAQ_ITEMS_LANDING} />
+            <FAQAccordion items={FAQ_ITEMS_LANDING} t={t} />
           </div>
         </div>
       </section>
@@ -636,71 +602,66 @@ export default function LandingPage() {
       <section className="border-t border-cr-border bg-cr-bg">
         <div className="max-w-6xl mx-auto px-6 py-12 md:py-16 space-y-6">
           <p className="font-sans text-[11px] font-semibold uppercase tracking-[0.16em] text-cr-primary">
-            Fuentes y contexto
+            {t("home.sourcesEyebrow")}
           </p>
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
             <blockquote className="space-y-3 border-l-2 border-cr-primary/30 pl-4">
               <p className="font-sans text-sm text-cr-text-muted italic leading-relaxed">
-                "El transporte de los asistentes supone el 80&nbsp;% de la huella de carbono de un festival.
-                El carpooling es la acción individual más efectiva para reducirla."
+                {t("home.quote1Text")}
               </p>
               <footer className="font-mono text-[10px] text-cr-text-dim">
                 —{" "}
                 <a href="https://juliesbicycle.com/" target="_blank" rel="noopener noreferrer" className="hover:text-cr-primary">
-                  Julie's Bicycle Green Events Guide
+                  {t("home.quote1Source")}
                 </a>
               </footer>
             </blockquote>
             <blockquote className="space-y-3 border-l-2 border-cr-primary/30 pl-4">
               <p className="font-sans text-sm text-cr-text-muted italic leading-relaxed">
-                "España celebró más de 1.000 festivales con más de 25 millones de asistentes en 2024
-                y una facturación que superó los 600 millones de euros."
+                {t("home.quote2Text")}
               </p>
               <footer className="font-mono text-[10px] text-cr-text-dim">
                 —{" "}
                 <a href="https://www.apmusicales.com/" target="_blank" rel="noopener noreferrer" className="hover:text-cr-primary">
-                  Asociación de Promotores Musicales (APM)
+                  {t("home.quote2Source")}
                 </a>
-                , Informe 2024
+                {t("home.quote2Suffix")}
               </footer>
             </blockquote>
             <blockquote className="space-y-3 border-l-2 border-cr-primary/30 pl-4">
               <p className="font-sans text-sm text-cr-text-muted italic leading-relaxed">
-                "España figura entre los cinco mercados de música en vivo con mayor crecimiento
-                de Europa en 2023–2024."
+                {t("home.quote3Text")}
               </p>
               <footer className="font-mono text-[10px] text-cr-text-dim">
                 —{" "}
                 <a href="https://www.pollstar.com/" target="_blank" rel="noopener noreferrer" className="hover:text-cr-primary">
-                  Pollstar
+                  {t("home.quote3Source")}
                 </a>
-                , ranking europeo de música en directo
+                {t("home.quote3Suffix")}
               </footer>
             </blockquote>
             <blockquote className="space-y-3 border-l-2 border-cr-primary/30 pl-4">
               <p className="font-sans text-sm text-cr-text-muted italic leading-relaxed">
-                "El coche compartido puede reducir las emisiones de CO₂ por kilómetro y pasajero
-                entre un 50&nbsp;% y un 75&nbsp;% frente al vehículo privado con un solo ocupante."
+                {t("home.quote4Text")}
               </p>
               <footer className="font-mono text-[10px] text-cr-text-dim">
                 —{" "}
                 <a href="https://www.eea.europa.eu/" target="_blank" rel="noopener noreferrer" className="hover:text-cr-primary">
-                  European Environment Agency (EEA)
+                  {t("home.quote4Source")}
                 </a>
-                , Transport and Environment Report
+                {t("home.quote4Suffix")}
               </footer>
             </blockquote>
             <blockquote className="space-y-3 border-l-2 border-cr-primary/30 pl-4">
               <p className="font-sans text-sm text-cr-text-muted italic leading-relaxed">
-                "El Tribunal Supremo de España estableció en 2017 que el carpooling sin ánimo
-                de lucro es legal: el conductor solo puede recuperar los gastos del viaje."
+                {t("home.quote5Text")}
               </p>
               <footer className="font-mono text-[10px] text-cr-text-dim">
                 —{" "}
                 <a href="https://www.poderjudicial.es/" target="_blank" rel="noopener noreferrer" className="hover:text-cr-primary">
-                  Tribunal Supremo de España
+                  {t("home.quote5Source")}
                 </a>
-                , Sentencia 2017 (STS 3145/2017)
+                {t("home.quote5Suffix")}
               </footer>
             </blockquote>
           </div>
@@ -728,13 +689,13 @@ export default function LandingPage() {
         <div className="relative max-w-6xl mx-auto px-6 py-12 md:py-16 space-y-6">
           <header className="space-y-2">
             <p className="font-sans text-[11px] font-semibold uppercase tracking-[0.16em] text-cr-primary">
-              Comparativa
+              {t("home.compareEyebrow")}
             </p>
             <h2 id="comparativa-title" className="font-display text-2xl md:text-3xl uppercase leading-tight">
-              ¿Cuánto cuesta llegar a un festival en España?
+              {t("home.compareTitle")}
             </h2>
             <p className="font-sans text-sm text-cr-text-muted">
-              Precios orientativos para trayectos de 150–300&nbsp;km (ej. Madrid → festival).
+              {t("home.compareSubtitle")}
             </p>
           </header>
 
@@ -742,48 +703,48 @@ export default function LandingPage() {
             <table className="w-full text-sm font-sans border-collapse">
               <thead>
                 <tr className="border-b border-cr-border">
-                  <th className="text-left py-3 pr-6 font-semibold text-cr-text text-xs uppercase tracking-[0.1em]">Opción</th>
-                  <th className="text-right py-3 px-4 font-semibold text-cr-text text-xs uppercase tracking-[0.1em]">Precio/persona</th>
-                  <th className="text-right py-3 px-4 font-semibold text-cr-text text-xs uppercase tracking-[0.1em]">Comisión</th>
-                  <th className="text-left py-3 pl-4 font-semibold text-cr-text text-xs uppercase tracking-[0.1em]">Vuelta de madrugada</th>
+                  <th className="text-left py-3 pr-6 font-semibold text-cr-text text-xs uppercase tracking-[0.1em]">{t("home.compareColOption")}</th>
+                  <th className="text-right py-3 px-4 font-semibold text-cr-text text-xs uppercase tracking-[0.1em]">{t("home.compareColPrice")}</th>
+                  <th className="text-right py-3 px-4 font-semibold text-cr-text text-xs uppercase tracking-[0.1em]">{t("home.compareColFee")}</th>
+                  <th className="text-left py-3 pl-4 font-semibold text-cr-text text-xs uppercase tracking-[0.1em]">{t("home.compareColReturn")}</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-cr-border">
                 <tr className="bg-cr-primary/5">
-                  <td className="py-3 pr-6 font-semibold text-cr-primary">ConcertRide</td>
-                  <td className="py-3 px-4 text-right text-cr-text">5 – 20&nbsp;€</td>
-                  <td className="py-3 px-4 text-right text-cr-primary font-semibold">0&nbsp;%</td>
-                  <td className="py-3 pl-4 text-cr-text-muted">Sí, pactada con el conductor</td>
+                  <td className="py-3 pr-6 font-semibold text-cr-primary">{t("home.compareRow1Option")}</td>
+                  <td className="py-3 px-4 text-right text-cr-text">{t("home.compareRow1Price")}</td>
+                  <td className="py-3 px-4 text-right text-cr-primary font-semibold">{t("home.compareRow1Fee")}</td>
+                  <td className="py-3 pl-4 text-cr-text-muted">{t("home.compareRow1Return")}</td>
                 </tr>
                 <tr>
-                  <td className="py-3 pr-6 text-cr-text">Otras plataformas</td>
-                  <td className="py-3 px-4 text-right text-cr-text">8 – 25&nbsp;€</td>
-                  <td className="py-3 px-4 text-right text-cr-text-muted">13–18&nbsp;%</td>
-                  <td className="py-3 pl-4 text-cr-text-muted">Limitada (horarios fijos)</td>
+                  <td className="py-3 pr-6 text-cr-text">{t("home.compareRow2Option")}</td>
+                  <td className="py-3 px-4 text-right text-cr-text">{t("home.compareRow2Price")}</td>
+                  <td className="py-3 px-4 text-right text-cr-text-muted">{t("home.compareRow2Fee")}</td>
+                  <td className="py-3 pl-4 text-cr-text-muted">{t("home.compareRow2Return")}</td>
                 </tr>
                 <tr>
-                  <td className="py-3 pr-6 text-cr-text">Bus oficial festival</td>
-                  <td className="py-3 px-4 text-right text-cr-text">10 – 35&nbsp;€</td>
-                  <td className="py-3 px-4 text-right text-cr-text-muted">Incluida</td>
-                  <td className="py-3 pl-4 text-cr-text-muted">Solo última lanzadera</td>
+                  <td className="py-3 pr-6 text-cr-text">{t("home.compareRow3Option")}</td>
+                  <td className="py-3 px-4 text-right text-cr-text">{t("home.compareRow3Price")}</td>
+                  <td className="py-3 px-4 text-right text-cr-text-muted">{t("home.compareRow3Fee")}</td>
+                  <td className="py-3 pl-4 text-cr-text-muted">{t("home.compareRow3Return")}</td>
                 </tr>
                 <tr>
-                  <td className="py-3 pr-6 text-cr-text">Tren + bus</td>
-                  <td className="py-3 px-4 text-right text-cr-text">15 – 50&nbsp;€</td>
-                  <td className="py-3 px-4 text-right text-cr-text-muted">—</td>
-                  <td className="py-3 pl-4 text-cr-text-muted">No (último tren nocturno)</td>
+                  <td className="py-3 pr-6 text-cr-text">{t("home.compareRow4Option")}</td>
+                  <td className="py-3 px-4 text-right text-cr-text">{t("home.compareRow4Price")}</td>
+                  <td className="py-3 px-4 text-right text-cr-text-muted">{t("home.compareRow4Fee")}</td>
+                  <td className="py-3 pl-4 text-cr-text-muted">{t("home.compareRow4Return")}</td>
                 </tr>
                 <tr>
-                  <td className="py-3 pr-6 text-cr-text">Taxi / VTC</td>
-                  <td className="py-3 px-4 text-right text-cr-text">40 – 120&nbsp;€</td>
-                  <td className="py-3 px-4 text-right text-cr-text-muted">Incluida</td>
-                  <td className="py-3 pl-4 text-cr-text-muted">Sí, pero precio elevado</td>
+                  <td className="py-3 pr-6 text-cr-text">{t("home.compareRow5Option")}</td>
+                  <td className="py-3 px-4 text-right text-cr-text">{t("home.compareRow5Price")}</td>
+                  <td className="py-3 px-4 text-right text-cr-text-muted">{t("home.compareRow5Fee")}</td>
+                  <td className="py-3 pl-4 text-cr-text-muted">{t("home.compareRow5Return")}</td>
                 </tr>
               </tbody>
             </table>
           </div>
           <p className="font-mono text-[10px] text-cr-text-dim">
-            Precios estimados para rutas de 150–300&nbsp;km (p. ej. Madrid–Albacete, Madrid–Valencia).
+            {t("home.compareFootnote")}
           </p>
         </div>
       </section>
@@ -809,99 +770,99 @@ export default function LandingPage() {
         <div className="relative max-w-6xl mx-auto px-6 py-12 md:py-16 space-y-10">
           <div className="space-y-2">
             <p className="font-sans text-[11px] font-semibold uppercase tracking-[0.16em] text-cr-primary">
-              Guías y recursos
+              {t("home.hubEyebrow")}
             </p>
             <h2 className="font-display text-2xl md:text-3xl uppercase">
-              Todo lo que necesitas saber
+              {t("home.hubTitle")}
             </h2>
           </div>
 
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
             <Link to="/guia-transporte-festivales" className="border border-cr-border p-5 hover:border-cr-primary/50 transition-colors group space-y-3">
-              <p className="font-mono text-[10px] uppercase tracking-[0.14em] text-cr-primary">Guía</p>
-              <h3 className="font-display text-base uppercase leading-tight group-hover:text-cr-primary transition-colors">Guía de transporte para festivales</h3>
-              <p className="font-sans text-xs text-cr-text-muted leading-relaxed">Carpooling, lanzaderas, tren o taxi: cuándo usar cada opción y cómo ahorrar en el trayecto.</p>
-              <span className="inline-flex items-center gap-1 font-sans text-xs text-cr-primary">Leer <ArrowRight size={11} /></span>
+              <p className="font-mono text-[10px] uppercase tracking-[0.14em] text-cr-primary">{t("home.hubLabelGuide")}</p>
+              <h3 className="font-display text-base uppercase leading-tight group-hover:text-cr-primary transition-colors">{t("home.hubCard1Title")}</h3>
+              <p className="font-sans text-xs text-cr-text-muted leading-relaxed">{t("home.hubCard1Body")}</p>
+              <span className="inline-flex items-center gap-1 font-sans text-xs text-cr-primary">{t("home.hubReadCta")} <ArrowRight size={11} /></span>
             </Link>
             <Link to="/guia/festival-sin-coche" className="border border-cr-border p-5 hover:border-cr-primary/50 transition-colors group space-y-3">
-              <p className="font-mono text-[10px] uppercase tracking-[0.14em] text-cr-primary">Guía</p>
-              <h3 className="font-display text-base uppercase leading-tight group-hover:text-cr-primary transition-colors">Cómo ir a un festival sin coche</h3>
-              <p className="font-sans text-xs text-cr-text-muted leading-relaxed">Las 3 formas reales de llegar sin coche propio: carpooling pasajero, bus oficial y tren+lanzadera con precios.</p>
-              <span className="inline-flex items-center gap-1 font-sans text-xs text-cr-primary">Leer <ArrowRight size={11} /></span>
+              <p className="font-mono text-[10px] uppercase tracking-[0.14em] text-cr-primary">{t("home.hubLabelGuide")}</p>
+              <h3 className="font-display text-base uppercase leading-tight group-hover:text-cr-primary transition-colors">{t("home.hubCard2Title")}</h3>
+              <p className="font-sans text-xs text-cr-text-muted leading-relaxed">{t("home.hubCard2Body")}</p>
+              <span className="inline-flex items-center gap-1 font-sans text-xs text-cr-primary">{t("home.hubReadCta")} <ArrowRight size={11} /></span>
             </Link>
             <Link to="/guia/presupuesto-festival-grupo" className="border border-cr-border p-5 hover:border-cr-primary/50 transition-colors group space-y-3">
-              <p className="font-mono text-[10px] uppercase tracking-[0.14em] text-cr-primary">Guía</p>
-              <h3 className="font-display text-base uppercase leading-tight group-hover:text-cr-primary transition-colors">Presupuesto festival grupo de 4</h3>
-              <p className="font-sans text-xs text-cr-text-muted leading-relaxed">Desglose en 6 partidas, calculadora con 3 perfiles y casos reales Mad Cool, Primavera Sound y Sonorama para un fin de semana.</p>
-              <span className="inline-flex items-center gap-1 font-sans text-xs text-cr-primary">Leer <ArrowRight size={11} /></span>
+              <p className="font-mono text-[10px] uppercase tracking-[0.14em] text-cr-primary">{t("home.hubLabelGuide")}</p>
+              <h3 className="font-display text-base uppercase leading-tight group-hover:text-cr-primary transition-colors">{t("home.hubCard3Title")}</h3>
+              <p className="font-sans text-xs text-cr-text-muted leading-relaxed">{t("home.hubCard3Body")}</p>
+              <span className="inline-flex items-center gap-1 font-sans text-xs text-cr-primary">{t("home.hubReadCta")} <ArrowRight size={11} /></span>
             </Link>
             <Link to="/guia/seguridad-carpooling-festival" className="border border-cr-border p-5 hover:border-cr-primary/50 transition-colors group space-y-3">
-              <p className="font-mono text-[10px] uppercase tracking-[0.14em] text-cr-primary">Guía</p>
-              <h3 className="font-display text-base uppercase leading-tight group-hover:text-cr-primary transition-colors">¿Es seguro el carpooling a festivales?</h3>
-              <p className="font-sans text-xs text-cr-text-muted leading-relaxed">Mecanismos de control, comparativa de seguridad por modalidad, checklist de 10 pasos y sección específica para mujeres que viajan solas.</p>
-              <span className="inline-flex items-center gap-1 font-sans text-xs text-cr-primary">Leer <ArrowRight size={11} /></span>
+              <p className="font-mono text-[10px] uppercase tracking-[0.14em] text-cr-primary">{t("home.hubLabelGuide")}</p>
+              <h3 className="font-display text-base uppercase leading-tight group-hover:text-cr-primary transition-colors">{t("home.hubCard4Title")}</h3>
+              <p className="font-sans text-xs text-cr-text-muted leading-relaxed">{t("home.hubCard4Body")}</p>
+              <span className="inline-flex items-center gap-1 font-sans text-xs text-cr-primary">{t("home.hubReadCta")} <ArrowRight size={11} /></span>
             </Link>
             <Link to="/guia/festival-primera-vez" className="border border-cr-border p-5 hover:border-cr-primary/50 transition-colors group space-y-3">
-              <p className="font-mono text-[10px] uppercase tracking-[0.14em] text-cr-primary">Guía</p>
-              <h3 className="font-display text-base uppercase leading-tight group-hover:text-cr-primary transition-colors">Mi primer festival: guía para novatos</h3>
-              <p className="font-sans text-xs text-cr-text-muted leading-relaxed">Preparación, kit de 15 ítems, día a día, errores típicos, salud y 5 festivales recomendados para tu primera experiencia.</p>
-              <span className="inline-flex items-center gap-1 font-sans text-xs text-cr-primary">Leer <ArrowRight size={11} /></span>
+              <p className="font-mono text-[10px] uppercase tracking-[0.14em] text-cr-primary">{t("home.hubLabelGuide")}</p>
+              <h3 className="font-display text-base uppercase leading-tight group-hover:text-cr-primary transition-colors">{t("home.hubCard5Title")}</h3>
+              <p className="font-sans text-xs text-cr-text-muted leading-relaxed">{t("home.hubCard5Body")}</p>
+              <span className="inline-flex items-center gap-1 font-sans text-xs text-cr-primary">{t("home.hubReadCta")} <ArrowRight size={11} /></span>
             </Link>
             <Link to="/guia/carpooling-conductor-festival" className="border border-cr-border p-5 hover:border-cr-primary/50 transition-colors group space-y-3">
-              <p className="font-mono text-[10px] uppercase tracking-[0.14em] text-cr-primary">Guía conductor</p>
-              <h3 className="font-display text-base uppercase leading-tight group-hover:text-cr-primary transition-colors">Conducir carpooling a festivales</h3>
-              <p className="font-sans text-xs text-cr-text-muted leading-relaxed">Marco legal en España, cuánto recuperas con 3 pasajeros y 7 reglas para no tener problemas con Hacienda ni con la autoridad de transportes.</p>
-              <span className="inline-flex items-center gap-1 font-sans text-xs text-cr-primary">Leer <ArrowRight size={11} /></span>
+              <p className="font-mono text-[10px] uppercase tracking-[0.14em] text-cr-primary">{t("home.hubCard6Label")}</p>
+              <h3 className="font-display text-base uppercase leading-tight group-hover:text-cr-primary transition-colors">{t("home.hubCard6Title")}</h3>
+              <p className="font-sans text-xs text-cr-text-muted leading-relaxed">{t("home.hubCard6Body")}</p>
+              <span className="inline-flex items-center gap-1 font-sans text-xs text-cr-primary">{t("home.hubReadCta")} <ArrowRight size={11} /></span>
             </Link>
             <Link to="/guia/festival-accesibilidad-movilidad-reducida" className="border border-cr-border p-5 hover:border-cr-primary/50 transition-colors group space-y-3">
-              <p className="font-mono text-[10px] uppercase tracking-[0.14em] text-cr-primary">Guía inclusión</p>
-              <h3 className="font-display text-base uppercase leading-tight group-hover:text-cr-primary transition-colors">Festival accesibilidad y movilidad reducida</h3>
-              <p className="font-sans text-xs text-cr-text-muted leading-relaxed">Top 8 festivales PMR-friendly, cómo conseguir el bono accesibilidad y transporte adaptado: Renfe Atendo, ALSA, Eurotaxi y carpooling accesible.</p>
-              <span className="inline-flex items-center gap-1 font-sans text-xs text-cr-primary">Leer <ArrowRight size={11} /></span>
+              <p className="font-mono text-[10px] uppercase tracking-[0.14em] text-cr-primary">{t("home.hubCard7Label")}</p>
+              <h3 className="font-display text-base uppercase leading-tight group-hover:text-cr-primary transition-colors">{t("home.hubCard7Title")}</h3>
+              <p className="font-sans text-xs text-cr-text-muted leading-relaxed">{t("home.hubCard7Body")}</p>
+              <span className="inline-flex items-center gap-1 font-sans text-xs text-cr-primary">{t("home.hubReadCta")} <ArrowRight size={11} /></span>
             </Link>
             <Link to="/guia/festival-veterano-aficionados-mayores-2026" className="border border-cr-border p-5 hover:border-cr-primary/50 transition-colors group space-y-3">
-              <p className="font-mono text-[10px] uppercase tracking-[0.14em] text-cr-primary">Guía adulto</p>
-              <h3 className="font-display text-base uppercase leading-tight group-hover:text-cr-primary transition-colors">Festivales para mayores de 35 en España</h3>
-              <p className="font-sans text-xs text-cr-text-muted leading-relaxed">Top 10 festivales 35+ friendly 2026, paquetes VIP desde 150€/día, horarios razonables y carpooling adulto. Guía completa para festivaleros veteranos.</p>
-              <span className="inline-flex items-center gap-1 font-sans text-xs text-cr-primary">Leer <ArrowRight size={11} /></span>
+              <p className="font-mono text-[10px] uppercase tracking-[0.14em] text-cr-primary">{t("home.hubCard8Label")}</p>
+              <h3 className="font-display text-base uppercase leading-tight group-hover:text-cr-primary transition-colors">{t("home.hubCard8Title")}</h3>
+              <p className="font-sans text-xs text-cr-text-muted leading-relaxed">{t("home.hubCard8Body")}</p>
+              <span className="inline-flex items-center gap-1 font-sans text-xs text-cr-primary">{t("home.hubReadCta")} <ArrowRight size={11} /></span>
             </Link>
             <Link to="/blog/como-volver-festival-madrugada" className="border border-cr-border p-5 hover:border-cr-primary/50 transition-colors group space-y-3">
-              <p className="font-mono text-[10px] uppercase tracking-[0.14em] text-cr-primary">Guía</p>
-              <h3 className="font-display text-base uppercase leading-tight group-hover:text-cr-primary transition-colors">Cómo volver de un festival de madrugada</h3>
-              <p className="font-sans text-xs text-cr-text-muted leading-relaxed">El último metro sale a la 1:30 y el festival acaba a las 2:30. Opciones reales sin pagar 90&nbsp;€ de taxi.</p>
-              <span className="inline-flex items-center gap-1 font-sans text-xs text-cr-primary">Leer <ArrowRight size={11} /></span>
+              <p className="font-mono text-[10px] uppercase tracking-[0.14em] text-cr-primary">{t("home.hubLabelGuide")}</p>
+              <h3 className="font-display text-base uppercase leading-tight group-hover:text-cr-primary transition-colors">{t("home.hubCard9Title")}</h3>
+              <p className="font-sans text-xs text-cr-text-muted leading-relaxed">{t("home.hubCard9Body")}</p>
+              <span className="inline-flex items-center gap-1 font-sans text-xs text-cr-primary">{t("home.hubReadCta")} <ArrowRight size={11} /></span>
             </Link>
             <Link to="/rutas/madrid-mad-cool" className="border border-cr-border p-5 hover:border-cr-primary/50 transition-colors group space-y-3">
-              <p className="font-mono text-[10px] uppercase tracking-[0.14em] text-cr-primary">Ruta</p>
-              <h3 className="font-display text-base uppercase leading-tight group-hover:text-cr-primary transition-colors">Carpooling Madrid → Mad Cool</h3>
-              <p className="font-sans text-xs text-cr-text-muted leading-relaxed">Precios, tiempo de conducción y horarios de vuelta para la ruta más popular a Mad Cool 2026.</p>
-              <span className="inline-flex items-center gap-1 font-sans text-xs text-cr-primary">Ver ruta <ArrowRight size={11} /></span>
+              <p className="font-mono text-[10px] uppercase tracking-[0.14em] text-cr-primary">{t("home.hubLabelRoute")}</p>
+              <h3 className="font-display text-base uppercase leading-tight group-hover:text-cr-primary transition-colors">{t("home.hubCard10Title")}</h3>
+              <p className="font-sans text-xs text-cr-text-muted leading-relaxed">{t("home.hubCard10Body")}</p>
+              <span className="inline-flex items-center gap-1 font-sans text-xs text-cr-primary">{t("home.hubSeeRouteCta")} <ArrowRight size={11} /></span>
             </Link>
             <Link to="/rutas/madrid-primavera-sound" className="border border-cr-border p-5 hover:border-cr-primary/50 transition-colors group space-y-3">
-              <p className="font-mono text-[10px] uppercase tracking-[0.14em] text-cr-primary">Ruta</p>
-              <h3 className="font-display text-base uppercase leading-tight group-hover:text-cr-primary transition-colors">Carpooling Madrid → Primavera Sound</h3>
-              <p className="font-sans text-xs text-cr-text-muted leading-relaxed">Madrid–Barcelona en coche compartido: 620 km, ~5 h 30 min, desde 14&nbsp;€/asiento.</p>
-              <span className="inline-flex items-center gap-1 font-sans text-xs text-cr-primary">Ver ruta <ArrowRight size={11} /></span>
+              <p className="font-mono text-[10px] uppercase tracking-[0.14em] text-cr-primary">{t("home.hubLabelRoute")}</p>
+              <h3 className="font-display text-base uppercase leading-tight group-hover:text-cr-primary transition-colors">{t("home.hubCard11Title")}</h3>
+              <p className="font-sans text-xs text-cr-text-muted leading-relaxed">{t("home.hubCard11Body")}</p>
+              <span className="inline-flex items-center gap-1 font-sans text-xs text-cr-primary">{t("home.hubSeeRouteCta")} <ArrowRight size={11} /></span>
             </Link>
             <Link to="/como-funciona-carpooling" className="border border-cr-border p-5 hover:border-cr-primary/50 transition-colors group space-y-3">
-              <p className="font-mono text-[10px] uppercase tracking-[0.14em] text-cr-primary">Guía</p>
-              <h3 className="font-display text-base uppercase leading-tight group-hover:text-cr-primary transition-colors">Qué es el carpooling para conciertos</h3>
-              <p className="font-sans text-xs text-cr-text-muted leading-relaxed">Respuesta directa, pasos numerados y comparación con taxi y autobús para entenderlo en un minuto.</p>
-              <span className="inline-flex items-center gap-1 font-sans text-xs text-cr-primary">Leer <ArrowRight size={11} /></span>
+              <p className="font-mono text-[10px] uppercase tracking-[0.14em] text-cr-primary">{t("home.hubLabelGuide")}</p>
+              <h3 className="font-display text-base uppercase leading-tight group-hover:text-cr-primary transition-colors">{t("home.hubCard12Title")}</h3>
+              <p className="font-sans text-xs text-cr-text-muted leading-relaxed">{t("home.hubCard12Body")}</p>
+              <span className="inline-flex items-center gap-1 font-sans text-xs text-cr-primary">{t("home.hubReadCta")} <ArrowRight size={11} /></span>
             </Link>
             <Link to="/comparativa/carpooling-vs-taxi-festival" className="border border-cr-border p-5 hover:border-cr-primary/50 transition-colors group space-y-3">
-              <p className="font-mono text-[10px] uppercase tracking-[0.14em] text-cr-primary">Comparativa</p>
-              <h3 className="font-display text-base uppercase leading-tight group-hover:text-cr-primary transition-colors">Carpooling vs taxi en festivales</h3>
-              <p className="font-sans text-xs text-cr-text-muted leading-relaxed">Un taxi de ida y vuelta supera los 50&nbsp;€. El carpooling sale entre 3 y 20&nbsp;€ por asiento según distancia.</p>
-              <span className="inline-flex items-center gap-1 font-sans text-xs text-cr-primary">Leer <ArrowRight size={11} /></span>
+              <p className="font-mono text-[10px] uppercase tracking-[0.14em] text-cr-primary">{t("home.hubLabelComparison")}</p>
+              <h3 className="font-display text-base uppercase leading-tight group-hover:text-cr-primary transition-colors">{t("home.hubCard13Title")}</h3>
+              <p className="font-sans text-xs text-cr-text-muted leading-relaxed">{t("home.hubCard13Body")}</p>
+              <span className="inline-flex items-center gap-1 font-sans text-xs text-cr-primary">{t("home.hubReadCta")} <ArrowRight size={11} /></span>
             </Link>
             <Link to="/blog" className="border border-cr-border p-5 hover:border-cr-primary/50 transition-colors group space-y-3 flex flex-col justify-between">
               <div className="space-y-3">
-                <p className="font-mono text-[10px] uppercase tracking-[0.14em] text-cr-primary">Blog</p>
-                <h3 className="font-display text-base uppercase leading-tight group-hover:text-cr-primary transition-colors">Más artículos y guías</h3>
-                <p className="font-sans text-xs text-cr-text-muted leading-relaxed">Comparativas, datos de sostenibilidad y todo lo que necesitas para ir a un festival en España.</p>
+                <p className="font-mono text-[10px] uppercase tracking-[0.14em] text-cr-primary">{t("home.hubLabelBlog")}</p>
+                <h3 className="font-display text-base uppercase leading-tight group-hover:text-cr-primary transition-colors">{t("home.hubCard14Title")}</h3>
+                <p className="font-sans text-xs text-cr-text-muted leading-relaxed">{t("home.hubCard14Body")}</p>
               </div>
-              <span className="inline-flex items-center gap-1 font-sans text-xs text-cr-primary mt-3">Ver blog <ArrowRight size={11} /></span>
+              <span className="inline-flex items-center gap-1 font-sans text-xs text-cr-primary mt-3">{t("home.hubSeeBlogCta")} <ArrowRight size={11} /></span>
             </Link>
           </div>
         </div>
@@ -917,14 +878,14 @@ export default function LandingPage() {
       <div
         className="fixed bottom-0 left-0 right-0 z-40 sm:hidden bg-[#080808]/95 backdrop-blur border-t border-white/[0.06] p-3"
         role="complementary"
-        aria-label="Acción rápida: buscar viajes al próximo festival"
+        aria-label={t("home.stickyAriaRegion")}
       >
         <a
           href="/festivales/primavera-sound"
-          aria-label="Ver viajes compartidos a Primavera Sound desde 4 euros por asiento"
+          aria-label={t("home.stickyAriaLink")}
           className="block w-full text-center bg-[#dbff00] text-black font-sans font-semibold uppercase tracking-[0.12em] text-sm py-3 hover:bg-[#c8ec00] transition-colors"
         >
-          Ver viajes a Primavera Sound desde 4€ →
+          {t("home.stickyCta")}
         </a>
       </div>
     </main>

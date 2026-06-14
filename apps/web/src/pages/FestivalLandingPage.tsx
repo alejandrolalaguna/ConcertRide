@@ -42,6 +42,7 @@ import { TESTIMONIALS, TESTIMONIALS_AGGREGATE, selectTestimonialsFor } from "@/l
 import { generateAggregateRatingSchema, generateReviewSchemas } from "@/lib/schemaGenerators";
 import { deriveFestivalQuotableAnswer } from "@/lib/quotableAnswerDerive";
 import EeatTrustBlock from "@/components/EeatTrustBlock";
+import { useI18n } from "@/lib/i18n";
 
 const FESTIVAL_WIKIDATA: Record<string, string> = {
   "mad-cool": "https://www.wikidata.org/wiki/Q22808739",
@@ -66,6 +67,8 @@ export default function FestivalLandingPage() {
   const { festival: slug } = useParams<{ festival: string }>();
   const festival = slug ? FESTIVAL_LANDINGS_BY_SLUG[slug] : undefined;
   const { user } = useSession();
+  const { locale } = useI18n();
+  const isEn = locale === "en";
 
   const [concerts, setConcerts] = useState<Concert[] | null>(null);
   const [festAlertSubscribed, setFestAlertSubscribed] = useState(false);
@@ -105,10 +108,26 @@ export default function FestivalLandingPage() {
 
   useSeoMeta({
     title: festival
-      ? festOverride?.title ?? `Llegar a ${festival.shortName} ${festYear}: carpooling | ConcertRide`
-      : "Festivales de música en España",
+      ? isEn
+        ? festOverride?.title ?? `Getting to ${festival.shortName} ${festYear}: carpooling | ConcertRide`
+        : festOverride?.title ?? `Llegar a ${festival.shortName} ${festYear}: carpooling | ConcertRide`
+      : isEn
+        ? "Music festivals in Spain"
+        : "Festivales de música en España",
     description: festival
-      ? (() => {
+      ? isEn
+        ? (() => {
+            if (festOverride?.description) return festOverride.description;
+            const shortN = festival.shortName;
+            const priceRaw = ((festival.originCities[0]?.concertRideRange ?? "3 €/asiento").split("–").at(0) ?? "3").replace(/[^0-9]/g, "") || "3";
+            const cities = festival.originCities.slice(0, 2).map((c) => c.city).join(", ");
+            const withCities = `${shortN} ${festYear} at ${festival.venue}, ${festival.city}. Carpooling from ${cities} from €${priceRaw}/seat, 0% commission.`;
+            if (withCities.length <= 160) return withCities;
+            const noVenue = `${shortN} ${festYear} in ${festival.city}. Carpooling from ${cities} from €${priceRaw}/seat, 0% commission.`;
+            if (noVenue.length <= 160) return noVenue;
+            return `${shortN} ${festYear}: carpooling from €${priceRaw}/seat, 0% commission. Verified drivers on ConcertRide.`;
+          })()
+        : (() => {
           if (festOverride?.description) return festOverride.description;
           const shortN = festival.shortName;
           const priceRaw = ((festival.originCities[0]?.concertRideRange ?? "3 €/asiento").split("–").at(0) ?? "3").replace(/[^0-9]/g, "") || "3";
@@ -119,18 +138,45 @@ export default function FestivalLandingPage() {
           if (noVenue.length <= 160) return noVenue;
           return `${shortN} ${festYear}: carpooling desde ${priceRaw} €/asiento, 0% comisión. Conductores verificados en ConcertRide.`;
         })()
-      : "Carpooling a festivales de música en España con ConcertRide.",
+      : isEn
+        ? "Carpooling to music festivals in Spain with ConcertRide."
+        : "Carpooling a festivales de música en España con ConcertRide.",
     canonical: festival
       ? `${SITE_URL}/festivales/${festival.slug}`
       : `${SITE_URL}/concerts`,
     ogImage: festivalOgImage,
     preloadImage: festivalOgImage,
     ogImageAlt: festival
-      ? `Carpooling a ${festival.shortName} ${festYear} en ${festival.city} · ConcertRide`
-      : "Carpooling a festivales de música en España · ConcertRide",
+      ? isEn
+        ? `Carpooling to ${festival.shortName} ${festYear} in ${festival.city} · ConcertRide`
+        : `Carpooling a ${festival.shortName} ${festYear} en ${festival.city} · ConcertRide`
+      : isEn
+        ? "Carpooling to music festivals in Spain · ConcertRide"
+        : "Carpooling a festivales de música en España · ConcertRide",
     ogType: "music.event",
     keywords: festival
-      ? [
+      ? isEn
+        ? [
+            `how to get to ${festival.shortName}`,
+            `getting to ${festival.shortName}`,
+            `bus to ${festival.shortName}`,
+            `buses to ${festival.shortName}`,
+            `${festival.shortName} transport`,
+            `how to get to ${festival.shortName} ${new Date(festival.startDate).getFullYear()}`,
+            `transport ${festival.shortName} ${new Date(festival.startDate).getFullYear()}`,
+            `carpooling ${festival.name}`,
+            `car sharing ${festival.shortName}`,
+            `${festival.shortName} ${festival.city}`,
+            `ride share ${festival.shortName} ${new Date().getFullYear()}`,
+            `share a car ${festival.shortName}`,
+            `shuttle ${festival.shortName}`,
+            `transport ${festival.shortName} ${festival.city}`,
+            `${festival.shortName} public transport`,
+            `train ${festival.shortName}`,
+            `travel to ${festival.shortName} from ${festival.originCities[0]?.city ?? "Madrid"}`,
+            `carpooling ${festival.city} ${festival.shortName}`,
+          ].join(", ")
+        : [
           `cómo llegar a ${festival.shortName}`,
           `cómo ir a ${festival.shortName}`,
           `autobus ${festival.shortName}`,
@@ -154,7 +200,7 @@ export default function FestivalLandingPage() {
         ].join(", ")
       : undefined,
     geoRegion: festival ? (REGION_ISO[festival.region] ?? undefined) : undefined,
-    geoPlacename: festival ? `${festival.city}, España` : undefined,
+    geoPlacename: festival ? (isEn ? `${festival.city}, Spain` : `${festival.city}, España`) : undefined,
     geoLat: festival?.lat,
     geoLng: festival?.lng,
   });
@@ -179,6 +225,16 @@ export default function FestivalLandingPage() {
   }, [festival]);
 
   if (!slug || !festival) return <Navigate to="/concerts" replace />;
+
+  // ── Locale-aware data fields. English variants are used only when locale==='en'
+  // AND the festival ships the corresponding `_en` field; otherwise we fall back to
+  // the Spanish field so non-pilot festivals keep rendering Spanish unchanged. ──
+  const blurb = isEn && festival.blurb_en ? festival.blurb_en : festival.blurb;
+  const quotableAnswer = isEn && festival.quotableAnswer_en ? festival.quotableAnswer_en : festival.quotableAnswer;
+  const faqs = isEn && festival.faqs_en ? festival.faqs_en : festival.faqs;
+  const arrivalTips = isEn && festival.arrival_tips_en ? festival.arrival_tips_en : festival.arrival_tips;
+  const arrivalPatterns = isEn && festival.arrival_patterns_en ? festival.arrival_patterns_en : festival.arrival_patterns;
+  const expectedAttendance = isEn && festival.expected_attendance_en ? festival.expected_attendance_en : festival.expected_attendance;
 
   const futureConcerts = (concerts ?? []).filter(
     (c) => new Date(c.date).getTime() > Date.now(),
@@ -248,7 +304,7 @@ export default function FestivalLandingPage() {
     url: `${SITE_URL}/festivales/${festival.slug}`,
     sameAs: festivalSameAs.length > 0 ? festivalSameAs : undefined,
     image: festivalOgImage,
-    description: festival.blurb,
+    description: blurb,
     abstract: festivalAbstract,
     startDate: festival.startDate,
     endDate: festival.endDate,
@@ -316,7 +372,7 @@ export default function FestivalLandingPage() {
     "@type": "EventSeries",
     name: festival.name,
     url: `${SITE_URL}/festivales/${festival.slug}`,
-    description: festival.blurb,
+    description: blurb,
     startDate: festival.startDate,
     endDate: festival.endDate,
     location: festivalPlace,
@@ -352,6 +408,19 @@ export default function FestivalLandingPage() {
   const cityFaqs = festival.originCities.flatMap((oc) => {
     const priceFrom = oc.concertRideRange.match(/(\d+)/)?.[1] ?? "5";
     const fuelEst = Math.round((oc.km * 2 * 0.07 * 1.65) / 4); // 4 personas, 7L/100, 1.65€/L
+    if (isEn) {
+      const ocRangeEn = oc.concertRideRange.replace("/asiento", "/seat");
+      return [
+        {
+          q: `How to get from ${oc.city} to ${festival.shortName}?`,
+          a: `From ${oc.city} it's ${oc.km} km to ${festival.venue} in ${festival.city} (${oc.drivingTime} by car). The cheapest option is carpooling with ConcertRide from ${ocRangeEn}/seat, with no platform commission. You can also take a train or bus to ${festival.city} and from there use local transport to the site.`,
+        },
+        {
+          q: `How much does the trip from ${oc.city} to ${festival.shortName} cost?`,
+          a: `By carpooling from ${oc.city} with ConcertRide, the price per seat is ${ocRangeEn}. In your own car (if there are 4 of you), the round-trip fuel works out at about €${fuelEst} per person. A taxi or VTC from ${oc.city} can cost €${Math.round(oc.km * 1.1 * 1.3)} one way.`,
+        },
+      ];
+    }
     return [
       {
         q: `¿Cómo llegar desde ${oc.city} a ${festival.shortName}?`,
@@ -372,7 +441,7 @@ export default function FestivalLandingPage() {
     "@type": "FAQPage",
     inLanguage: "es-ES",
     mainEntity: [
-      ...festival.faqs.map((f) => ({
+      ...faqs.map((f) => ({
         "@type": "Question",
         name: f.q,
         acceptedAnswer: { "@type": "Answer", text: f.a },
@@ -833,10 +902,10 @@ export default function FestivalLandingPage() {
             from originCities/venue/dates so 100 % of festivals are citable by LLMs. */}
         <section
           data-quotable
-          data-quotable-source={festival.quotableAnswer ? "curated" : "derived"}
+          data-quotable-source={(isEn ? quotableAnswer : festival.quotableAnswer) ? "curated" : "derived"}
           className="mt-4 mb-2 max-w-3xl font-sans text-sm md:text-lg leading-relaxed text-cr-text line-clamp-3 md:line-clamp-none"
         >
-          {deriveFestivalQuotableAnswer(festival)}
+          {isEn && festival.quotableAnswer_en ? festival.quotableAnswer_en : deriveFestivalQuotableAnswer(festival)}
         </section>
 
         {/* ── Urgency countdown badge (anonymous users, upcoming festivals only) ── */}
@@ -844,11 +913,13 @@ export default function FestivalLandingPage() {
           <div className="inline-flex items-center gap-2" aria-live="polite">
             {daysLeft < 7 ? (
               <span className="font-sans text-xs font-semibold uppercase tracking-[0.14em] bg-[#ff4f00] text-white px-3 py-1">
-                ¡Últimas plazas! Quedan {daysLeft} día{daysLeft === 1 ? "" : "s"}
+                {isEn
+                  ? `Last seats! ${daysLeft} day${daysLeft === 1 ? "" : "s"} left`
+                  : `¡Últimas plazas! Quedan ${daysLeft} día${daysLeft === 1 ? "" : "s"}`}
               </span>
             ) : daysLeft < 30 ? (
               <span className="font-sans text-xs font-semibold uppercase tracking-[0.14em] border border-[#dbff00] text-[#dbff00] px-3 py-1">
-                ¡Faltan {daysLeft} días!
+                {isEn ? `${daysLeft} days to go!` : `¡Faltan ${daysLeft} días!`}
               </span>
             ) : null}
           </div>
@@ -858,12 +929,18 @@ export default function FestivalLandingPage() {
         <SpeakableAnswerBlock
           schemaId={`speakable-festival-${festival.slug}`}
           pageUrl={`${SITE_URL}/festivales/${festival.slug}`}
-          question={`¿Cómo llegar a ${festival.name} ${festYear}?`}
-          answer={`Para llegar a ${festival.name} ${festYear} en ${festival.venue} (${festival.city}), ConcertRide ofrece carpooling desde ${(festival.originCities[0]?.concertRideRange ?? "3 €/asiento").split("–").at(0)?.replace(/[^0-9]/g, "") || "3"}€/asiento con conductores verificados desde ${festival.originCities.length} ciudades españolas. ${festival.official_shuttle?.available ? `También hay lanzadera oficial${festival.official_shuttle.price_from ? ` desde ${festival.official_shuttle.price_from}€` : ""}.` : `No hay lanzadera oficial al recinto.`} Pagas en efectivo o Bizum el día del viaje, sin comisión de plataforma.`}
+          question={isEn ? `How to get to ${festival.name} ${festYear}?` : `¿Cómo llegar a ${festival.name} ${festYear}?`}
+          answer={isEn
+            ? `To get to ${festival.name} ${festYear} at ${festival.venue} (${festival.city}), ConcertRide offers carpooling from €${(festival.originCities[0]?.concertRideRange ?? "3 €/asiento").split("–").at(0)?.replace(/[^0-9]/g, "") || "3"}/seat with verified drivers from ${festival.originCities.length} Spanish cities. ${festival.official_shuttle?.available ? `There is also an official shuttle${festival.official_shuttle.price_from ? ` from €${festival.official_shuttle.price_from}` : ""}.` : `There is no official shuttle to the site.`} You pay in cash or by Bizum on the day of the trip, with no platform commission.`
+            : `Para llegar a ${festival.name} ${festYear} en ${festival.venue} (${festival.city}), ConcertRide ofrece carpooling desde ${(festival.originCities[0]?.concertRideRange ?? "3 €/asiento").split("–").at(0)?.replace(/[^0-9]/g, "") || "3"}€/asiento con conductores verificados desde ${festival.originCities.length} ciudades españolas. ${festival.official_shuttle?.available ? `También hay lanzadera oficial${festival.official_shuttle.price_from ? ` desde ${festival.official_shuttle.price_from}€` : ""}.` : `No hay lanzadera oficial al recinto.`} Pagas en efectivo o Bizum el día del viaje, sin comisión de plataforma.`}
         />
 
         <p className="font-sans text-sm font-semibold text-cr-text max-w-2xl speakable festival-summary">
-          Carpooling a {festival.name} desde {festival.originCities[0]?.concertRideRange ?? "3 €"}/asiento, sin comisión. Se celebra en {festival.venue}, {festival.city} ({festival.typicalDates}). Conductores verificados con carnet.
+          {isEn ? (
+            <>Carpooling to {festival.name} from {festival.originCities[0]?.concertRideRange?.replace("/asiento", "/seat") ?? "€3"}/seat, no commission. It takes place at {festival.venue}, {festival.city} ({festival.typicalDates}). Verified drivers with a licence.</>
+          ) : (
+            <>Carpooling a {festival.name} desde {festival.originCities[0]?.concertRideRange ?? "3 €"}/asiento, sin comisión. Se celebra en {festival.venue}, {festival.city} ({festival.typicalDates}). Conductores verificados con carnet.</>
+          )}
         </p>
 
         {/* ── LiveDemandPulse — broad social proof chip (all users) ── */}
@@ -873,23 +950,27 @@ export default function FestivalLandingPage() {
         {/* Shows a live-style counter of people interested in this festival.
             Uses deterministic seed from the slug so it's consistent across renders
             and avoids a real API call for this above-the-fold element. */}
-        <FestivalDemandPill festivalSlug={festival.slug} festivalName={festival.shortName} />
+        <FestivalDemandPill festivalSlug={festival.slug} festivalName={festival.shortName} isEn={isEn} />
 
         {/* ── Hero CTAs — máximo impacto en el fold, precio en el CTA principal ── */}
         <div className="flex flex-wrap gap-3 pt-1">
           <Link
             to={searchHref}
-            aria-label={`Buscar plaza en viaje a ${festival.shortName} ${festYear} desde ${priceFromMin} euros por asiento`}
+            aria-label={isEn
+              ? `Find a seat on a ride to ${festival.shortName} ${festYear} from ${priceFromMin} euros per seat`
+              : `Buscar plaza en viaje a ${festival.shortName} ${festYear} desde ${priceFromMin} euros por asiento`}
             className="inline-flex items-center gap-2 bg-cr-primary text-black font-sans text-sm font-bold uppercase tracking-[0.12em] px-5 py-3 shadow-[0_4px_0_0_#ff4f00] hover:bg-cr-primary/90 hover:translate-y-[1px] hover:shadow-[0_3px_0_0_#ff4f00] transition-all"
           >
-            Buscar plaza · desde {priceFromMin}€ <ArrowRight size={14} />
+            {isEn ? <>Find a seat · from {priceFromMin}€ </> : <>Buscar plaza · desde {priceFromMin}€ </>}<ArrowRight size={14} />
           </Link>
           <Link
             to={publishHref}
-            aria-label={`Publicar mi coche a ${festival.shortName} ${festYear}`}
+            aria-label={isEn
+              ? `Offer my car to ${festival.shortName} ${festYear}`
+              : `Publicar mi coche a ${festival.shortName} ${festYear}`}
             className="inline-flex items-center gap-2 border-2 border-cr-primary text-cr-primary font-sans text-sm font-bold uppercase tracking-[0.12em] px-5 py-3 hover:bg-cr-primary hover:text-black transition-colors"
           >
-            Publicar mi coche →
+            {isEn ? "Offer my car →" : "Publicar mi coche →"}
           </Link>
           {/* "Avisarme" button — only for logged-in users on upcoming festivals */}
           {user && daysLeft !== null && daysLeft > 0 && (
@@ -916,33 +997,57 @@ export default function FestivalLandingPage() {
               }`}
             >
               <span aria-hidden="true">{festAlertSubscribed ? "✓" : "🔔"}</span>
-              {festAlertLoading ? "…" : festAlertSubscribed ? "Te avisaremos" : "Avisarme de nuevas plazas"}
+              {festAlertLoading
+                ? "…"
+                : festAlertSubscribed
+                  ? (isEn ? "We'll notify you" : "Te avisaremos")
+                  : (isEn ? "Notify me of new seats" : "Avisarme de nuevas plazas")}
             </button>
           )}
         </div>
         <p className="font-mono text-[11px] text-cr-text-dim">
-          Sin comisión · Pago en efectivo o Bizum · Conductores verificados
+          {isEn
+            ? "No commission · Pay in cash or by Bizum · Verified drivers"
+            : "Sin comisión · Pago en efectivo o Bizum · Conductores verificados"}
         </p>
 
         <p className="font-sans text-sm md:text-base text-cr-text-muted max-w-2xl leading-relaxed speakable">
-          {festival.blurb}
+          {blurb}
         </p>
 
         {/* Search-query synonyms — improves recall for variant phrasing
             (e.g. "viñarock" without space, "festival 2026", "como llegar"). */}
         <p className="font-sans text-xs text-cr-text-dim max-w-2xl leading-relaxed">
-          También buscado como: {festival.name} {new Date(festival.startDate).getFullYear()},
-          {" "}{festival.shortName.toLowerCase()},
-          {" "}{festival.shortName.toLowerCase().replace(/\s+/g, "")},
-          {" "}cómo llegar a {festival.shortName.toLowerCase()},
-          {" "}{festival.shortName.toLowerCase()} localización,
-          {" "}autobús {festival.shortName.toLowerCase()},
-          {" "}bus {festival.shortName.toLowerCase()},
-          {" "}buses {festival.shortName.toLowerCase()},
-          {" "}tren {festival.shortName.toLowerCase()},
-          {" "}{festival.shortName.toLowerCase()} {festival.city.toLowerCase()},
-          {" "}horarios {festival.shortName.toLowerCase()},
-          {" "}viajes {festival.shortName.toLowerCase()}.
+          {isEn ? (
+            <>
+              Also searched as: {festival.name} {new Date(festival.startDate).getFullYear()},
+              {" "}{festival.shortName.toLowerCase()},
+              {" "}{festival.shortName.toLowerCase().replace(/\s+/g, "")},
+              {" "}how to get to {festival.shortName.toLowerCase()},
+              {" "}{festival.shortName.toLowerCase()} location,
+              {" "}bus to {festival.shortName.toLowerCase()},
+              {" "}buses to {festival.shortName.toLowerCase()},
+              {" "}train to {festival.shortName.toLowerCase()},
+              {" "}{festival.shortName.toLowerCase()} {festival.city.toLowerCase()},
+              {" "}{festival.shortName.toLowerCase()} times,
+              {" "}rides to {festival.shortName.toLowerCase()}.
+            </>
+          ) : (
+            <>
+              También buscado como: {festival.name} {new Date(festival.startDate).getFullYear()},
+              {" "}{festival.shortName.toLowerCase()},
+              {" "}{festival.shortName.toLowerCase().replace(/\s+/g, "")},
+              {" "}cómo llegar a {festival.shortName.toLowerCase()},
+              {" "}{festival.shortName.toLowerCase()} localización,
+              {" "}autobús {festival.shortName.toLowerCase()},
+              {" "}bus {festival.shortName.toLowerCase()},
+              {" "}buses {festival.shortName.toLowerCase()},
+              {" "}tren {festival.shortName.toLowerCase()},
+              {" "}{festival.shortName.toLowerCase()} {festival.city.toLowerCase()},
+              {" "}horarios {festival.shortName.toLowerCase()},
+              {" "}viajes {festival.shortName.toLowerCase()}.
+            </>
+          )}
         </p>
 
         <AutoLinksForFestival slug={festival.slug} />
@@ -950,7 +1055,7 @@ export default function FestivalLandingPage() {
         {/* Festival meta strip */}
         <div className="flex flex-wrap gap-4 pt-2">
           <span className="inline-flex items-center gap-1.5 font-mono text-[11px] text-cr-text-muted border border-cr-border px-2 py-1">
-            <MapPin size={10} /> Localización: {festival.venue}, {festival.city}
+            <MapPin size={10} /> {isEn ? "Location:" : "Localización:"} {festival.venue}, {festival.city}
           </span>
           <span className="inline-flex items-center gap-1.5 font-mono text-[11px] text-cr-text-muted border border-cr-border px-2 py-1">
             <Calendar size={10} /> {festival.typicalDates}
@@ -964,66 +1069,107 @@ export default function FestivalLandingPage() {
       {/* ── Cómo llegar a [festival]: localización + autobús/tren/coche ── */}
       <section className="max-w-6xl mx-auto px-6 pb-12 border-t border-cr-border pt-12 space-y-6 transport-info">
         <h2 className="font-display text-2xl md:text-3xl uppercase">
-          Cómo llegar a {festival.shortName} {festYear}: autobús, tren y carpooling desde {festival.originCities[0]?.city ?? "tu ciudad"}
+          {isEn
+            ? <>How to get to {festival.shortName} {festYear}: bus, train and carpooling from {festival.originCities[0]?.city ?? "your city"}</>
+            : <>Cómo llegar a {festival.shortName} {festYear}: autobús, tren y carpooling desde {festival.originCities[0]?.city ?? "tu ciudad"}</>}
         </h2>
         <p className="font-sans text-sm text-cr-text-muted max-w-3xl leading-relaxed">
-          {festival.shortName} se celebra en <strong className="text-cr-text">{festival.venue}</strong> ({festival.venueAddress}),
-          en <strong className="text-cr-text">{festival.city}</strong> ({festival.region}).
-          Coordenadas GPS: {festival.lat.toFixed(3)} N, {Math.abs(festival.lng).toFixed(3)} {festival.lng < 0 ? "W" : "E"}.
-          A continuación, las cuatro vías reales para llegar al recinto: autobús,
-          tren, coche propio o coche compartido (carpooling).
+          {isEn ? (
+            <>
+              {festival.shortName} takes place at <strong className="text-cr-text">{festival.venue}</strong> ({festival.venueAddress}),
+              in <strong className="text-cr-text">{festival.city}</strong> ({festival.region}).
+              GPS coordinates: {festival.lat.toFixed(3)} N, {Math.abs(festival.lng).toFixed(3)} {festival.lng < 0 ? "W" : "E"}.
+              Below are the four real ways to reach the site: bus,
+              train, your own car or carpooling.
+            </>
+          ) : (
+            <>
+              {festival.shortName} se celebra en <strong className="text-cr-text">{festival.venue}</strong> ({festival.venueAddress}),
+              en <strong className="text-cr-text">{festival.city}</strong> ({festival.region}).
+              Coordenadas GPS: {festival.lat.toFixed(3)} N, {Math.abs(festival.lng).toFixed(3)} {festival.lng < 0 ? "W" : "E"}.
+              A continuación, las cuatro vías reales para llegar al recinto: autobús,
+              tren, coche propio o coche compartido (carpooling).
+            </>
+          )}
         </p>
 
         <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-3 font-sans text-sm">
           <article className="border border-cr-border p-4 space-y-2">
-            <h3 className="font-display text-base uppercase text-cr-primary">Autobús / Bus a {festival.shortName}</h3>
+            <h3 className="font-display text-base uppercase text-cr-primary">{isEn ? <>Bus to {festival.shortName}</> : <>Autobús / Bus a {festival.shortName}</>}</h3>
             <p className="text-cr-text-muted text-xs leading-relaxed">
-              Algunos festivales habilitan buses lanzadera oficiales desde la ciudad
-              más cercana. Suelen tener plazas limitadas y horario diurno. Los autobuses
-              de larga distancia (ALSA, FlixBus, Avanza) llegan a la estación urbana,
-              no al recinto: hay que sumar taxi o lanzadera adicional.
-              Consulta los detalles en las preguntas frecuentes.
+              {isEn
+                ? "Some festivals run official shuttle buses from the nearest city. They usually have limited seats and daytime hours. Long-distance buses (ALSA, FlixBus, Avanza) arrive at the city station, not the site: you have to add a taxi or an extra shuttle. Check the details in the FAQs."
+                : "Algunos festivales habilitan buses lanzadera oficiales desde la ciudad más cercana. Suelen tener plazas limitadas y horario diurno. Los autobuses de larga distancia (ALSA, FlixBus, Avanza) llegan a la estación urbana, no al recinto: hay que sumar taxi o lanzadera adicional. Consulta los detalles en las preguntas frecuentes."}
             </p>
           </article>
           <article className="border border-cr-border p-4 space-y-2">
-            <h3 className="font-display text-base uppercase text-cr-primary">Tren a {festival.shortName}</h3>
+            <h3 className="font-display text-base uppercase text-cr-primary">{isEn ? <>Train to {festival.shortName}</> : <>Tren a {festival.shortName}</>}</h3>
             <p className="text-cr-text-muted text-xs leading-relaxed">
-              El AVE / Cercanías Renfe llega habitualmente a la estación más cercana,
-              no al recinto del festival. La vuelta de madrugada en tren es casi siempre
-              imposible: el último servicio sale antes de que termine el cabeza de cartel.
+              {isEn
+                ? "The AVE / Renfe Cercanías usually arrives at the nearest station, not at the festival site. The late-night return by train is almost always impossible: the last service leaves before the headliner finishes."
+                : "El AVE / Cercanías Renfe llega habitualmente a la estación más cercana, no al recinto del festival. La vuelta de madrugada en tren es casi siempre imposible: el último servicio sale antes de que termine el cabeza de cartel."}
             </p>
           </article>
           <article className="border border-cr-border p-4 space-y-2">
-            <h3 className="font-display text-base uppercase text-cr-primary">Coche propio a {festival.shortName}: parking</h3>
+            <h3 className="font-display text-base uppercase text-cr-primary">{isEn ? <>Own car to {festival.shortName}: parking</> : <>Coche propio a {festival.shortName}: parking</>}</h3>
             <p className="text-cr-text-muted text-xs leading-relaxed">
-              Llegada directa al parking del festival, máxima flexibilidad de horario.
-              Coste: combustible + peajes + parking (5–18 €/día). En recintos urbanos
-              (IFEMA, Parc del Fòrum), el parking se satura los días de gran afluencia.
+              {isEn
+                ? "Direct arrival at the festival car park, maximum flexibility on timing. Cost: fuel + tolls + parking (€5–18/day). At urban venues (IFEMA, Parc del Fòrum), parking fills up on high-attendance days."
+                : "Llegada directa al parking del festival, máxima flexibilidad de horario. Coste: combustible + peajes + parking (5–18 €/día). En recintos urbanos (IFEMA, Parc del Fòrum), el parking se satura los días de gran afluencia."}
             </p>
           </article>
           <article className="border border-cr-border p-4 space-y-2">
-            <h3 className="font-display text-base uppercase text-cr-primary">Carpooling a {festival.shortName} sin comisión</h3>
+            <h3 className="font-display text-base uppercase text-cr-primary">{isEn ? <>Carpooling to {festival.shortName} with no commission</> : <>Carpooling a {festival.shortName} sin comisión</>}</h3>
             <p className="text-cr-text-muted text-xs leading-relaxed">
-              Carpooling con ConcertRide desde {festival.originCities.length} ciudades de origen.
-              Precios desde {festival.originCities[0]?.concertRideRange ?? "3 €"}/asiento. Sin comisión:
-              el 100 % va al conductor. Vuelta a la hora real del fin del festival, pago en
-              efectivo o Bizum.
+              {isEn ? (
+                <>
+                  Carpooling with ConcertRide from {festival.originCities.length} origin cities.
+                  Prices from {festival.originCities[0]?.concertRideRange?.replace("/asiento", "/seat") ?? "€3"}/seat. No commission:
+                  100% goes to the driver. Return at the real time the festival ends, payment in
+                  cash or by Bizum.
+                </>
+              ) : (
+                <>
+                  Carpooling con ConcertRide desde {festival.originCities.length} ciudades de origen.
+                  Precios desde {festival.originCities[0]?.concertRideRange ?? "3 €"}/asiento. Sin comisión:
+                  el 100 % va al conductor. Vuelta a la hora real del fin del festival, pago en
+                  efectivo o Bizum.
+                </>
+              )}
             </p>
           </article>
         </div>
 
         <p className="font-mono text-[11px] text-cr-text-dim">
-          ¿Buscas autobuses a {festival.shortName}, tren a {festival.shortName} o el modo
-          más rápido para llegar desde {festival.originCities.slice(0, 3).map((c) => c.city).join(", ")}?
-          Tienes los detalles concretos por ciudad de origen más abajo.
+          {isEn ? (
+            <>
+              Looking for buses to {festival.shortName}, the train to {festival.shortName} or the fastest
+              way to get there from {festival.originCities.slice(0, 3).map((c) => c.city).join(", ")}?
+              You'll find the specific details by origin city further down.
+            </>
+          ) : (
+            <>
+              ¿Buscas autobuses a {festival.shortName}, tren a {festival.shortName} o el modo
+              más rápido para llegar desde {festival.originCities.slice(0, 3).map((c) => c.city).join(", ")}?
+              Tienes los detalles concretos por ciudad de origen más abajo.
+            </>
+          )}
         </p>
       </section>
 
       {/* ── TransportHub: tabla detallada de transporte (bus, tren, lanzadera, carpooling) ── */}
       <section className="max-w-6xl mx-auto px-6 pb-12 border-t border-cr-border pt-12 space-y-5">
         <FactDensityCallout
-          heading={`Datos clave · ${festival.shortName}`}
-          facts={[
+          heading={isEn ? `Key facts · ${festival.shortName}` : `Datos clave · ${festival.shortName}`}
+          facts={isEn ? [
+            { label: "Carpooling from", value: "€3/seat", detail: "0% commission" },
+            { label: "Savings vs taxi", value: "−75%", detail: `Average route to ${festival.city}` },
+            {
+              label: "Night return",
+              value: festival.official_shuttle ? "Official shuttle" : "Coordinated in chat",
+              detail: festival.official_shuttle ? "Operated by the organisers" : "Drivers post the return trip",
+            },
+          ] : [
             { label: "Carpooling desde", value: "3 €/asiento", detail: "0 % comisión" },
             { label: "Ahorro vs taxi", value: "−75 %", detail: `Ruta media a ${festival.city}` },
             {
@@ -1043,24 +1189,41 @@ export default function FestivalLandingPage() {
           /* Fallback genérico para festivales sin datos curados */
           <div className="space-y-5">
             <h2 className="font-display text-2xl md:text-3xl uppercase">
-              Autobuses a {festival.shortName} {festYear}: bus oficial, lanzadera y transporte alternativo
+              {isEn
+                ? <>Buses to {festival.shortName} {festYear}: official bus, shuttle and alternative transport</>
+                : <>Autobuses a {festival.shortName} {festYear}: bus oficial, lanzadera y transporte alternativo</>}
             </h2>
             <p className="font-sans text-sm text-cr-text-muted max-w-3xl leading-relaxed">
-              Resumen de las opciones de bus, autobús, lanzadera oficial y tren para llegar a{" "}
-              <strong className="text-cr-text">{festival.name}</strong> en {festival.venue} ({festival.city}).
-              Cuando no hay servicio público en horario de festival, la alternativa más usada es
-              el coche compartido (carpooling) con ConcertRide.
+              {isEn ? (
+                <>
+                  Overview of the bus, official shuttle and train options to reach{" "}
+                  <strong className="text-cr-text">{festival.name}</strong> at {festival.venue} ({festival.city}).
+                  When there is no public service during festival hours, the most-used alternative is
+                  carpooling with ConcertRide.
+                </>
+              ) : (
+                <>
+                  Resumen de las opciones de bus, autobús, lanzadera oficial y tren para llegar a{" "}
+                  <strong className="text-cr-text">{festival.name}</strong> en {festival.venue} ({festival.city}).
+                  Cuando no hay servicio público en horario de festival, la alternativa más usada es
+                  el coche compartido (carpooling) con ConcertRide.
+                </>
+              )}
             </p>
             <ul className="font-sans text-xs text-cr-text-muted space-y-1 max-w-3xl">
               <li>
-                <strong className="text-cr-text">Desde {festival.originCities[0]?.city}:</strong>{" "}
+                <strong className="text-cr-text">{isEn ? "From" : "Desde"} {festival.originCities[0]?.city}:</strong>{" "}
                 {festival.originCities[0]?.km} km · {festival.originCities[0]?.drivingTime} ·{" "}
-                carpooling desde {festival.originCities[0]?.concertRideRange ?? "3 €"}.
+                {isEn
+                  ? <>carpooling from {festival.originCities[0]?.concertRideRange?.replace("/asiento", "/seat") ?? "€3"}.</>
+                  : <>carpooling desde {festival.originCities[0]?.concertRideRange ?? "3 €"}.</>}
               </li>
               {festival.originCities.slice(1, 4).map((oc) => (
                 <li key={oc.city}>
-                  <strong className="text-cr-text">Desde {oc.city}:</strong>{" "}
-                  {oc.km} km · {oc.drivingTime} · carpooling desde {oc.concertRideRange}.
+                  <strong className="text-cr-text">{isEn ? "From" : "Desde"} {oc.city}:</strong>{" "}
+                  {oc.km} km · {oc.drivingTime} · {isEn
+                    ? <>carpooling from {oc.concertRideRange.replace("/asiento", "/seat")}.</>
+                    : <>carpooling desde {oc.concertRideRange}.</>}
                 </li>
               ))}
             </ul>
@@ -1071,7 +1234,7 @@ export default function FestivalLandingPage() {
             site + transport operator + relevant gov source. Triggers the
             source-quality filter that frontier models apply during retrieval. */}
         <PrimarySourceFootnote
-          context={`transporte a ${festival.shortName}`}
+          context={isEn ? `transport to ${festival.shortName}` : `transporte a ${festival.shortName}`}
           sources={[
             ...(getFestivalOfficialSite(festival.slug)
               ? [getFestivalOfficialSite(festival.slug)!]
@@ -1080,31 +1243,67 @@ export default function FestivalLandingPage() {
             OPERATOR_SOURCES.ALSA,
             GOV_SOURCES.DGT,
           ]}
-          verifiedOn="mayo 2026"
+          verifiedOn={isEn ? "May 2026" : "mayo 2026"}
         />
 
         {/* First-party insight · "novel perspective" that Google AI Mode upweights.
             Numbers are derived from real route data so the figure stays defensible. */}
         <UniqueInsight
           id={`insight-${festival.slug}-precio`}
-          headline={`Precio medio a ${festival.shortName}: ${festival.originCities[0]?.concertRideRange ?? "3 €"}/asiento desde ${festival.originCities[0]?.city ?? "ciudad principal"}`}
-          basis={`${festival.originCities.length} rutas analizadas con origen en las principales ciudades emisoras hacia ${festival.shortName} ${festYear}.`}
-          asOf="mayo 2026"
+          label={isEn ? "ConcertRide first-party data" : undefined}
+          headline={isEn
+            ? `Average price to ${festival.shortName}: ${festival.originCities[0]?.concertRideRange?.replace("/asiento", "/seat") ?? "€3"}/seat from ${festival.originCities[0]?.city ?? "main city"}`
+            : `Precio medio a ${festival.shortName}: ${festival.originCities[0]?.concertRideRange ?? "3 €"}/asiento desde ${festival.originCities[0]?.city ?? "ciudad principal"}`}
+          basis={isEn
+            ? `${festival.originCities.length} routes analysed originating from the main feeder cities towards ${festival.shortName} ${festYear}.`
+            : `${festival.originCities.length} rutas analizadas con origen en las principales ciudades emisoras hacia ${festival.shortName} ${festYear}.`}
+          asOf={isEn ? "May 2026" : "mayo 2026"}
         >
-          <p>
-            El precio medio se mantiene un 30-60 % por debajo del coste del AVE
-            más el traslado al recinto en distancias inferiores a 400 km. En
-            festivales con jornada que cierra después de medianoche, el 71 % de
-            los pasajeros pacta también la vuelta nocturna en la misma reserva.
-          </p>
+          {isEn ? (
+            <p>
+              The average price stays 30-60% below the cost of the AVE
+              plus the transfer to the site for distances under 400 km. At
+              festivals whose day ends after midnight, 71% of
+              passengers also arrange the night-time return in the same booking.
+            </p>
+          ) : (
+            <p>
+              El precio medio se mantiene un 30-60 % por debajo del coste del AVE
+              más el traslado al recinto en distancias inferiores a 400 km. En
+              festivales con jornada que cierra después de medianoche, el 71 % de
+              los pasajeros pacta también la vuelta nocturna en la misma reserva.
+            </p>
+          )}
         </UniqueInsight>
 
         {/* Agent-friendly action rail · I/O 2026 agentic-booking. Each link carries
             data-intent so booking agents reading the DOM/a11y tree can act without
             visual scraping. */}
         <AgentActionRail
-          ariaLabel={`Acciones disponibles para ${festival.shortName}`}
-          actions={[
+          ariaLabel={isEn ? `Available actions for ${festival.shortName}` : `Acciones disponibles para ${festival.shortName}`}
+          actions={isEn ? [
+            {
+              label: `See rides to ${festival.shortName}`,
+              href: `/festivales/${festival.slug}#rides`,
+              intent: "search-ride",
+              description: `Search for available carpooling to ${festival.name}`,
+              variant: "primary",
+            },
+            {
+              label: "Offer your ride",
+              href: "/publish",
+              intent: "publish-ride",
+              description: `Publish a ride as a driver to ${festival.name}`,
+              variant: "secondary",
+            },
+            {
+              label: "Compare alternatives",
+              href: "/alternativas-carpooling-festivales",
+              intent: "view-pricing",
+              description: "Comparison of carpooling, AVE, bus and taxi to festivals",
+              variant: "secondary",
+            },
+          ] : [
             {
               label: `Ver viajes a ${festival.shortName}`,
               href: `/festivales/${festival.slug}#rides`,
@@ -1133,11 +1332,22 @@ export default function FestivalLandingPage() {
       {/* ── Origin cities — Cómo llegar desde tu ciudad ── */}
       <section className="max-w-6xl mx-auto px-6 pb-16 border-t border-cr-border pt-12">
         <h2 className="font-display text-2xl md:text-3xl uppercase mb-2">
-          Precio del carpooling a {festival.shortName} {festYear} por ciudad de origen
+          {isEn
+            ? <>Carpooling price to {festival.shortName} {festYear} by origin city</>
+            : <>Precio del carpooling a {festival.shortName} {festYear} por ciudad de origen</>}
         </h2>
         <p className="font-sans text-sm text-cr-text-muted mb-8 max-w-xl">
-          Precio medio por asiento con ConcertRide desde las principales ciudades de origen.
-          El 100&nbsp;% va al conductor, sin comisión.
+          {isEn ? (
+            <>
+              Average price per seat with ConcertRide from the main origin cities.
+              100&nbsp;% goes to the driver, no commission.
+            </>
+          ) : (
+            <>
+              Precio medio por asiento con ConcertRide desde las principales ciudades de origen.
+              El 100&nbsp;% va al conductor, sin comisión.
+            </>
+          )}
         </p>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
@@ -1150,7 +1360,7 @@ export default function FestivalLandingPage() {
                 <div className="flex items-center justify-between">
                   <h3 className="font-display text-base uppercase">{oc.city}</h3>
                   <span className="font-mono text-xs text-cr-primary font-semibold">
-                    {oc.concertRideRange}
+                    {isEn ? oc.concertRideRange.replace("/asiento", "/seat") : oc.concertRideRange}
                   </span>
                 </div>
                 <div className="flex gap-4 font-mono text-[11px] text-cr-text-muted">
@@ -1160,9 +1370,13 @@ export default function FestivalLandingPage() {
                 </div>
                 <p className="font-sans text-[11px] text-cr-text-muted">
                   {route ? (
-                    <>Ver carpooling {oc.city} → {festival.shortName} →</>
+                    isEn
+                      ? <>See carpooling {oc.city} → {festival.shortName} →</>
+                      : <>Ver carpooling {oc.city} → {festival.shortName} →</>
                   ) : (
-                    <>sin comisión — pagas directamente al conductor</>
+                    isEn
+                      ? <>no commission — you pay the driver directly</>
+                      : <>sin comisión — pagas directamente al conductor</>
                   )}
                 </p>
               </>
@@ -1188,8 +1402,17 @@ export default function FestivalLandingPage() {
 
         <div className="mt-8 p-4 border border-cr-primary/30 bg-cr-primary/5 space-y-1">
           <p className="font-sans text-xs text-cr-text-muted">
-            <strong className="text-cr-text">Precios orientativos</strong> basados en tarifas reales publicadas en ConcertRide.
-            El conductor fija el precio por asiento para cubrir combustible y peajes (tarifa MITECO de referencia).
+            {isEn ? (
+              <>
+                <strong className="text-cr-text">Indicative prices</strong> based on real fares published on ConcertRide.
+                The driver sets the price per seat to cover fuel and tolls (MITECO reference rate).
+              </>
+            ) : (
+              <>
+                <strong className="text-cr-text">Precios orientativos</strong> basados en tarifas reales publicadas en ConcertRide.
+                El conductor fija el precio por asiento para cubrir combustible y peajes (tarifa MITECO de referencia).
+              </>
+            )}
           </p>
         </div>
 
@@ -1228,44 +1451,48 @@ export default function FestivalLandingPage() {
       {/* ── Internal linking: Transport guides + related topics ── */}
       <section className="max-w-6xl mx-auto px-6 pb-12 border-t border-cr-border pt-12 space-y-5">
         <h2 className="font-display text-2xl md:text-3xl uppercase">
-          Guías de transporte y carpooling a {festival.shortName}: recursos relacionados
+          {isEn
+            ? <>Transport and carpooling guides to {festival.shortName}: related resources</>
+            : <>Guías de transporte y carpooling a {festival.shortName}: recursos relacionados</>}
         </h2>
         <p className="font-sans text-sm text-cr-text-muted max-w-3xl leading-relaxed">
-          Más información sobre opciones de transporte a festivales, cómo ahorrar en viajes y alternativas a otros servicios.
+          {isEn
+            ? "More information about transport options to festivals, how to save on trips and alternatives to other services."
+            : "Más información sobre opciones de transporte a festivales, cómo ahorrar en viajes y alternativas a otros servicios."}
         </p>
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
           <Link
             to="/blog/autobuses-festivales-espana-2026"
             className="border border-cr-border p-4 space-y-2 hover:border-cr-primary/40 transition-colors"
           >
-            <h3 className="font-display text-base uppercase">Autobuses a festivales 2026</h3>
-            <p className="font-sans text-[11px] text-cr-text-muted">Guía completa por festival: buses oficiales, lanzaderas, alternativas de transporte.</p>
-            <span className="inline-flex items-center gap-1 font-sans text-xs text-cr-primary">Leer más <ArrowRight size={10} /></span>
+            <h3 className="font-display text-base uppercase">{isEn ? "Buses to festivals 2026" : "Autobuses a festivales 2026"}</h3>
+            <p className="font-sans text-[11px] text-cr-text-muted">{isEn ? "Complete guide by festival: official buses, shuttles, alternative transport." : "Guía completa por festival: buses oficiales, lanzaderas, alternativas de transporte."}</p>
+            <span className="inline-flex items-center gap-1 font-sans text-xs text-cr-primary">{isEn ? "Read more" : "Leer más"} <ArrowRight size={10} /></span>
           </Link>
           <Link
             to="/blog"
             className="border border-cr-border p-4 space-y-2 hover:border-cr-primary/40 transition-colors"
           >
-            <h3 className="font-display text-base uppercase">Blog ConcertRide</h3>
-            <p className="font-sans text-[11px] text-cr-text-muted">Artículos sobre transporte a festivales, comparativas de opciones, consejos de viaje.</p>
-            <span className="inline-flex items-center gap-1 font-sans text-xs text-cr-primary">Ver todos <ArrowRight size={10} /></span>
+            <h3 className="font-display text-base uppercase">{isEn ? "ConcertRide Blog" : "Blog ConcertRide"}</h3>
+            <p className="font-sans text-[11px] text-cr-text-muted">{isEn ? "Articles about transport to festivals, option comparisons, travel tips." : "Artículos sobre transporte a festivales, comparativas de opciones, consejos de viaje."}</p>
+            <span className="inline-flex items-center gap-1 font-sans text-xs text-cr-primary">{isEn ? "See all" : "Ver todos"} <ArrowRight size={10} /></span>
           </Link>
           <Link
             to={`/conciertos/${festival.citySlug}`}
             className="border border-cr-border p-4 space-y-2 hover:border-cr-primary/40 transition-colors"
           >
-            <h3 className="font-display text-base uppercase">Otros conciertos en {festival.city}</h3>
-            <p className="font-sans text-[11px] text-cr-text-muted">Agenda completa de eventos y conciertos en {festival.city} con opciones de carpooling.</p>
-            <span className="inline-flex items-center gap-1 font-sans text-xs text-cr-primary">Explorar <ArrowRight size={10} /></span>
+            <h3 className="font-display text-base uppercase">{isEn ? <>Other concerts in {festival.city}</> : <>Otros conciertos en {festival.city}</>}</h3>
+            <p className="font-sans text-[11px] text-cr-text-muted">{isEn ? <>Full agenda of events and concerts in {festival.city} with carpooling options.</> : <>Agenda completa de eventos y conciertos en {festival.city} con opciones de carpooling.</>}</p>
+            <span className="inline-flex items-center gap-1 font-sans text-xs text-cr-primary">{isEn ? "Explore" : "Explorar"} <ArrowRight size={10} /></span>
           </Link>
           {HOW_TO_GET_THERE_SLUGS.includes(festival.slug) && (
             <Link
               to={`/como-llegar/${festival.slug}`}
               className="border border-cr-border p-4 space-y-2 hover:border-cr-primary/40 transition-colors"
             >
-              <h3 className="font-display text-base uppercase">Cómo llegar a {festival.shortName}</h3>
-              <p className="font-sans text-[11px] text-cr-text-muted">Guía completa de transporte: bus, tren, metro y carpooling con precios y tiempos reales.</p>
-              <span className="inline-flex items-center gap-1 font-sans text-xs text-cr-primary">Ver guía <ArrowRight size={10} /></span>
+              <h3 className="font-display text-base uppercase">{isEn ? <>How to get to {festival.shortName}</> : <>Cómo llegar a {festival.shortName}</>}</h3>
+              <p className="font-sans text-[11px] text-cr-text-muted">{isEn ? "Complete transport guide: bus, train, metro and carpooling with real prices and times." : "Guía completa de transporte: bus, tren, metro y carpooling con precios y tiempos reales."}</p>
+              <span className="inline-flex items-center gap-1 font-sans text-xs text-cr-primary">{isEn ? "See guide" : "Ver guía"} <ArrowRight size={10} /></span>
             </Link>
           )}
         </div>
@@ -1274,43 +1501,60 @@ export default function FestivalLandingPage() {
       {/* ── Viajes disponibles (dynamic) ── */}
       <section className="max-w-6xl mx-auto px-6 pb-16 border-t border-cr-border pt-12">
         <h2 className="font-display text-2xl md:text-3xl uppercase mb-2">
-          Viajes disponibles para {festival.shortName} en {festival.city}
+          {isEn
+            ? <>Available rides for {festival.shortName} in {festival.city}</>
+            : <>Viajes disponibles para {festival.shortName} en {festival.city}</>}
         </h2>
         <p className="font-sans text-sm text-cr-text-muted mb-8 max-w-xl">
-          Conciertos y eventos en {festival.city} con carpooling publicado. Reserva tu asiento.
+          {isEn
+            ? <>Concerts and events in {festival.city} with published carpooling. Book your seat.</>
+            : <>Conciertos y eventos en {festival.city} con carpooling publicado. Reserva tu asiento.</>}
         </p>
 
         {concerts === null ? (
-          <LoadingSpinner text={`Cargando viajes a ${festival.shortName}…`} />
+          <LoadingSpinner text={isEn ? `Loading rides to ${festival.shortName}…` : `Cargando viajes a ${festival.shortName}…`} />
         ) : futureConcerts.length === 0 ? (
           <div className="relative border-2 border-dashed border-cr-primary/40 bg-cr-primary/[0.04] p-10 text-center space-y-4 overflow-hidden">
             <span className="absolute top-3 right-3 font-mono text-[10px] uppercase tracking-[0.16em] text-cr-primary border border-cr-primary/40 px-2 py-0.5">
-              Sé el primero
+              {isEn ? "Be the first" : "Sé el primero"}
             </span>
             <p className="font-display text-2xl md:text-3xl uppercase text-cr-text leading-tight">
-              Sé el primero en publicar viaje a {festival.shortName}
+              {isEn
+                ? <>Be the first to post a ride to {festival.shortName}</>
+                : <>Sé el primero en publicar viaje a {festival.shortName}</>}
             </p>
             <p className="font-sans text-sm text-cr-text-muted max-w-md mx-auto">
-              Llena tu coche y comparte el coste. Sin comisión: el 100 % va al conductor.
-              Tus pasajeros ya están esperando viajes a {festival.city}.
+              {isEn ? (
+                <>
+                  Fill your car and share the cost. No commission: 100% goes to the driver.
+                  Your passengers are already waiting for rides to {festival.city}.
+                </>
+              ) : (
+                <>
+                  Llena tu coche y comparte el coste. Sin comisión: el 100 % va al conductor.
+                  Tus pasajeros ya están esperando viajes a {festival.city}.
+                </>
+              )}
             </p>
             <div className="flex flex-wrap gap-3 justify-center pt-1">
               <Link
                 to={publishHref}
-                aria-label={`Publicar viaje a ${festival.shortName} ${festYear}`}
+                aria-label={isEn ? `Post a ride to ${festival.shortName} ${festYear}` : `Publicar viaje a ${festival.shortName} ${festYear}`}
                 className="inline-flex items-center gap-2 bg-cr-primary text-black font-sans text-sm font-bold uppercase tracking-[0.12em] px-5 py-3 hover:bg-cr-primary/90 transition-colors"
               >
-                Publicar viaje <ArrowRight size={14} />
+                {isEn ? "Post a ride" : "Publicar viaje"} <ArrowRight size={14} />
               </Link>
               <Link
                 to={searchHref}
                 className="inline-flex items-center gap-2 border-2 border-cr-border text-cr-text-muted font-sans text-xs font-semibold uppercase tracking-[0.12em] px-4 py-3 hover:border-cr-primary hover:text-cr-primary transition-colors"
               >
-                Ver otros conciertos en {festival.city}
+                {isEn ? <>See other concerts in {festival.city}</> : <>Ver otros conciertos en {festival.city}</>}
               </Link>
             </div>
             <p className="font-mono text-[10px] text-cr-text-dim pt-2">
-              Tiempo medio para publicar: 90 segundos · Sin tarjeta · Pago en efectivo o Bizum
+              {isEn
+                ? "Average time to post: 90 seconds · No card · Pay in cash or by Bizum"
+                : "Tiempo medio para publicar: 90 segundos · Sin tarjeta · Pago en efectivo o Bizum"}
             </p>
           </div>
         ) : (
@@ -1366,7 +1610,7 @@ export default function FestivalLandingPage() {
             } : undefined}
             nearbyAirports={(festival.nearby_airports ?? []) as NearbyAirport[]}
             accommodationZones={(festival.accommodation_zones ?? []) as AccommodationZone[]}
-            arrivalTips={(festival.arrival_tips ?? []) as ArrivalTip[]}
+            arrivalTips={(arrivalTips ?? []) as ArrivalTip[]}
             festivalSlug={festival.slug}
             showPublishCTA={false}
           />
@@ -1377,12 +1621,14 @@ export default function FestivalLandingPage() {
       {(festival.genres || festival.arrival_patterns) && (
         <section className="max-w-6xl mx-auto px-6 pb-12 border-t border-cr-border pt-12 space-y-5">
           <h2 className="font-display text-xl uppercase">
-            {festival.shortName} {festYear}: perfil del festival y asistentes
+            {isEn
+              ? <>{festival.shortName} {festYear}: festival profile and attendees</>
+              : <>{festival.shortName} {festYear}: perfil del festival y asistentes</>}
           </h2>
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 font-sans text-sm">
             {festival.genres && festival.genres.length > 0 && (
               <article className="border border-cr-border p-4 space-y-2">
-                <h3 className="font-display text-sm uppercase">Géneros musicales</h3>
+                <h3 className="font-display text-sm uppercase">{isEn ? "Music genres" : "Géneros musicales"}</h3>
                 <div className="flex flex-wrap gap-1.5">
                   {festival.genres.map((g) => (
                     <span key={g} className="font-mono text-[11px] text-cr-primary border border-cr-primary/40 px-2 py-0.5 uppercase">
@@ -1392,16 +1638,16 @@ export default function FestivalLandingPage() {
                 </div>
               </article>
             )}
-            {festival.expected_attendance && (
+            {expectedAttendance && (
               <article className="border border-cr-border p-4 space-y-2">
-                <h3 className="font-display text-sm uppercase">Asistencia esperada</h3>
-                <p className="font-mono text-lg font-bold text-cr-primary">{festival.expected_attendance}</p>
+                <h3 className="font-display text-sm uppercase">{isEn ? "Expected attendance" : "Asistencia esperada"}</h3>
+                <p className="font-mono text-lg font-bold text-cr-primary">{expectedAttendance}</p>
               </article>
             )}
-            {festival.arrival_patterns && (
+            {arrivalPatterns && (
               <article className="border border-cr-border p-4 space-y-2">
-                <h3 className="font-display text-sm uppercase">Patrones de llegada</h3>
-                <p className="text-xs text-cr-text-muted leading-relaxed">{festival.arrival_patterns}</p>
+                <h3 className="font-display text-sm uppercase">{isEn ? "Arrival patterns" : "Patrones de llegada"}</h3>
+                <p className="text-xs text-cr-text-muted leading-relaxed">{arrivalPatterns}</p>
               </article>
             )}
           </div>
@@ -1411,28 +1657,33 @@ export default function FestivalLandingPage() {
       {/* ── Por qué ConcertRide para este festival ── */}
       <section className="max-w-6xl mx-auto px-6 pb-16 border-t border-cr-border pt-12 space-y-6">
         <h2 className="font-display text-2xl md:text-3xl uppercase">
-          Por qué ir a {festival.shortName} en carpooling con ConcertRide vs. otras opciones
+          {isEn
+            ? <>Why go to {festival.shortName} by carpooling with ConcertRide vs. other options</>
+            : <>Por qué ir a {festival.shortName} en carpooling con ConcertRide vs. otras opciones</>}
         </h2>
         <div className="grid md:grid-cols-3 gap-4 font-sans text-sm text-cr-text-muted leading-relaxed">
           <article className="space-y-2">
-            <h3 className="font-display text-base uppercase text-cr-primary">Sin comisión para {festival.shortName}</h3>
+            <h3 className="font-display text-base uppercase text-cr-primary">{isEn ? <>No commission for {festival.shortName}</> : <>Sin comisión para {festival.shortName}</>}</h3>
             <p>
-              El 100&nbsp;% del precio del asiento va al conductor. ConcertRide no cobra comisión,
-              nunca. El pago es en efectivo o Bizum el día del viaje: económico, directo y sin sorpresas.
+              {isEn
+                ? <>100&nbsp;% of the seat price goes to the driver. ConcertRide never charges commission. Payment is in cash or by Bizum on the day of the trip: cheap, direct and with no surprises.</>
+                : <>El 100&nbsp;% del precio del asiento va al conductor. ConcertRide no cobra comisión, nunca. El pago es en efectivo o Bizum el día del viaje: económico, directo y sin sorpresas.</>}
             </p>
           </article>
           <article className="space-y-2">
-            <h3 className="font-display text-base uppercase text-cr-primary">Conductores verificados para {festival.shortName}</h3>
+            <h3 className="font-display text-base uppercase text-cr-primary">{isEn ? <>Verified drivers for {festival.shortName}</> : <>Conductores verificados para {festival.shortName}</>}</h3>
             <p>
-              Todos los conductores verifican su carnet de conducir antes de publicar.
-              Puedes ver sus valoraciones y reseñas de otros pasajeros.
+              {isEn
+                ? "All drivers verify their driving licence before publishing. You can see their ratings and reviews from other passengers."
+                : "Todos los conductores verifican su carnet de conducir antes de publicar. Puedes ver sus valoraciones y reseñas de otros pasajeros."}
             </p>
           </article>
           <article className="space-y-2">
-            <h3 className="font-display text-base uppercase text-cr-primary">Vuelta de madrugada desde {festival.shortName}</h3>
+            <h3 className="font-display text-base uppercase text-cr-primary">{isEn ? <>Late-night return from {festival.shortName}</> : <>Vuelta de madrugada desde {festival.shortName}</>}</h3>
             <p>
-              Llegas y vuelves en el horario que quieras. No dependes del último metro
-              ni de taxis a precio de festival (30–90&nbsp;€ de madrugada).
+              {isEn
+                ? <>You arrive and return whenever you want. You don't depend on the last metro or on festival-priced taxis (30–90&nbsp;€ at night).</>
+                : <>Llegas y vuelves en el horario que quieras. No dependes del último metro ni de taxis a precio de festival (30–90&nbsp;€ de madrugada).</>}
             </p>
           </article>
         </div>
@@ -1442,19 +1693,19 @@ export default function FestivalLandingPage() {
             to={`/conciertos/${festival.citySlug}`}
             className="inline-flex items-center gap-2 font-sans text-xs font-semibold uppercase tracking-[0.12em] text-cr-text-muted hover:text-cr-primary transition-colors"
           >
-            Todos los conciertos en {festival.city} <ArrowRight size={12} />
+            {isEn ? <>All concerts in {festival.city}</> : <>Todos los conciertos en {festival.city}</>} <ArrowRight size={12} />
           </Link>
           <Link
             to="/como-funciona"
             className="inline-flex items-center gap-2 font-sans text-xs font-semibold uppercase tracking-[0.12em] text-cr-text-muted hover:text-cr-primary transition-colors"
           >
-            Cómo funciona <ArrowRight size={12} />
+            {isEn ? "How it works" : "Cómo funciona"} <ArrowRight size={12} />
           </Link>
           <Link
             to="/publish"
             className="inline-flex items-center gap-2 font-sans text-xs font-semibold uppercase tracking-[0.12em] text-cr-primary border-b border-cr-primary hover:text-cr-primary/80 transition-colors ml-auto"
           >
-            Publicar un viaje <ArrowRight size={12} />
+            {isEn ? "Post a ride" : "Publicar un viaje"} <ArrowRight size={12} />
           </Link>
         </div>
       </section>
@@ -1462,15 +1713,22 @@ export default function FestivalLandingPage() {
       {/* ── Cómo funciona (HowTo visual) ── */}
       <section className="max-w-6xl mx-auto px-6 pb-16 border-t border-cr-border pt-12 space-y-6">
         <h2 className="font-display text-2xl md:text-3xl uppercase">
-          Cómo reservar carpooling a {festival.shortName} {festYear} en 4 pasos
+          {isEn
+            ? <>How to book carpooling to {festival.shortName} {festYear} in 4 steps</>
+            : <>Cómo reservar carpooling a {festival.shortName} {festYear} en 4 pasos</>}
         </h2>
         <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
-          {[
+          {(isEn ? [
+            { n: "01", title: "Find the festival", body: `Go to concertride.me/concerts and filter by ${festival.city} or search directly for "${festival.shortName}".` },
+            { n: "02", title: "Choose the ride", body: "Compare price per seat, departure time and driver profile. Read other passengers' reviews." },
+            { n: "03", title: "Request your seat", body: "With instant booking it's confirmed right away. Without it, the driver usually replies within a few hours." },
+            { n: "04", title: "Travel and pay", body: "On festival day you meet the driver at the agreed point. You pay in cash or by Bizum. No commission." },
+          ] : [
             { n: "01", title: "Busca el festival", body: `Entra en concertride.me/concerts y filtra por ${festival.city} o busca directamente "${festival.shortName}".` },
             { n: "02", title: "Elige el viaje", body: "Compara precio por asiento, hora de salida y perfil del conductor. Lee las valoraciones de otros pasajeros." },
             { n: "03", title: "Solicita tu plaza", body: "Con reserva instantánea queda confirmada al momento. Sin ella, el conductor suele responder en pocas horas." },
             { n: "04", title: "Viaja y paga", body: "El día del festival te encuentras con el conductor en el punto acordado. Pagas en efectivo o Bizum. Sin comisión." },
-          ].map(({ n, title, body }) => (
+          ]).map(({ n, title, body }) => (
             <article key={n} className="border border-cr-border p-4 space-y-2">
               <p className="font-mono text-[11px] text-cr-primary">{n}</p>
               <h3 className="font-display text-base uppercase">{title}</h3>
@@ -1481,8 +1739,9 @@ export default function FestivalLandingPage() {
 
         <blockquote className="border-l-2 border-cr-primary pl-5 space-y-2">
           <p className="font-sans text-sm text-cr-text-muted italic leading-relaxed">
-            "El 80 % de la huella de carbono de un festival proviene del transporte de los asistentes.
-            El carpooling es la acción individual más efectiva para reducirla."
+            {isEn
+              ? `"80% of a festival's carbon footprint comes from attendee travel. Carpooling is the single most effective individual action to reduce it."`
+              : `"El 80 % de la huella de carbono de un festival proviene del transporte de los asistentes. El carpooling es la acción individual más efectiva para reducirla."`}
           </p>
           <footer className="font-mono text-[11px] text-cr-text-dim">
             —{" "}
@@ -1496,120 +1755,154 @@ export default function FestivalLandingPage() {
       {/* ── Transport comparison table — citable by Perplexity/ChatGPT for "X vs Y" queries ── */}
       <section className="max-w-6xl mx-auto px-6 pb-16 border-t border-cr-border pt-12 space-y-6">
         <h2 className="font-display text-2xl md:text-3xl uppercase">
-          Comparativa de transporte a {festival.shortName} {festYear}: carpooling vs. bus vs. tren vs. taxi
+          {isEn
+            ? <>Transport comparison to {festival.shortName} {festYear}: carpooling vs. bus vs. train vs. taxi</>
+            : <>Comparativa de transporte a {festival.shortName} {festYear}: carpooling vs. bus vs. tren vs. taxi</>}
         </h2>
         <p className="font-sans text-sm text-cr-text-muted max-w-2xl">
-          Precios, comisiones y disponibilidad nocturna para ir a {festival.name} desde {festival.originCities[0]?.city ?? "tu ciudad"}.
+          {isEn
+            ? <>Prices, commissions and night-time availability to get to {festival.name} from {festival.originCities[0]?.city ?? "your city"}.</>
+            : <>Precios, comisiones y disponibilidad nocturna para ir a {festival.name} desde {festival.originCities[0]?.city ?? "tu ciudad"}.</>}
         </p>
         <div className="overflow-x-auto">
           <table className="w-full font-sans text-xs border-collapse">
             <thead>
               <tr className="border-b border-cr-border text-left">
-                <th className="py-2 pr-4 font-semibold text-cr-text">Opción</th>
-                <th className="py-2 pr-4 font-semibold text-cr-text">Precio desde {festival.originCities[0]?.city ?? "origen"}</th>
-                <th className="py-2 pr-4 font-semibold text-cr-text">Comisión</th>
-                <th className="py-2 pr-4 font-semibold text-cr-text">Vuelta madrugada</th>
-                <th className="py-2 font-semibold text-cr-text">Reserva</th>
+                <th className="py-2 pr-4 font-semibold text-cr-text">{isEn ? "Option" : "Opción"}</th>
+                <th className="py-2 pr-4 font-semibold text-cr-text">{isEn ? <>Price from {festival.originCities[0]?.city ?? "origin"}</> : <>Precio desde {festival.originCities[0]?.city ?? "origen"}</>}</th>
+                <th className="py-2 pr-4 font-semibold text-cr-text">{isEn ? "Commission" : "Comisión"}</th>
+                <th className="py-2 pr-4 font-semibold text-cr-text">{isEn ? "Late-night return" : "Vuelta madrugada"}</th>
+                <th className="py-2 font-semibold text-cr-text">{isEn ? "Booking" : "Reserva"}</th>
               </tr>
             </thead>
             <tbody className="text-cr-text-muted">
               <tr className="border-b border-cr-border/50">
                 <td className="py-2 pr-4 font-semibold text-cr-primary">ConcertRide carpooling</td>
-                <td className="py-2 pr-4">{festival.originCities[0]?.concertRideRange ?? "desde 3 €"}/asiento</td>
-                <td className="py-2 pr-4 font-semibold text-cr-primary">0 %</td>
-                <td className="py-2 pr-4">Sí (coordinada con el conductor)</td>
-                <td className="py-2">Instantánea</td>
+                <td className="py-2 pr-4">{isEn ? <>{festival.originCities[0]?.concertRideRange?.replace("/asiento", "/seat") ?? "from €3"}/seat</> : <>{festival.originCities[0]?.concertRideRange ?? "desde 3 €"}/asiento</>}</td>
+                <td className="py-2 pr-4 font-semibold text-cr-primary">{isEn ? "0%" : "0 %"}</td>
+                <td className="py-2 pr-4">{isEn ? "Yes (coordinated with the driver)" : "Sí (coordinada con el conductor)"}</td>
+                <td className="py-2">{isEn ? "Instant" : "Instantánea"}</td>
               </tr>
               <tr className="border-b border-cr-border/50">
                 <td className="py-2 pr-4">Taxi / VTC (Uber, Cabify)</td>
-                <td className="py-2 pr-4">35–80 € ida (precio nocturno)</td>
+                <td className="py-2 pr-4">{isEn ? "€35–80 one way (night price)" : "35–80 € ida (precio nocturno)"}</td>
                 <td className="py-2 pr-4">—</td>
-                <td className="py-2 pr-4">Sí (precio ×2–3 de madrugada)</td>
+                <td className="py-2 pr-4">{isEn ? "Yes (price ×2–3 at night)" : "Sí (precio ×2–3 de madrugada)"}</td>
                 <td className="py-2">App</td>
               </tr>
               <tr className="border-b border-cr-border/50">
-                <td className="py-2 pr-4">Otras plataformas de carpooling</td>
-                <td className="py-2 pr-4">{festival.originCities[0]?.concertRideRange ?? "precio similar"} + 12–18 %</td>
-                <td className="py-2 pr-4">12–18 %</td>
-                <td className="py-2 pr-4">Depende del conductor</td>
-                <td className="py-2">Con aprobación</td>
+                <td className="py-2 pr-4">{isEn ? "Other carpooling platforms" : "Otras plataformas de carpooling"}</td>
+                <td className="py-2 pr-4">{isEn ? <>{festival.originCities[0]?.concertRideRange?.replace("/asiento", "/seat") ?? "similar price"} + 12–18%</> : <>{festival.originCities[0]?.concertRideRange ?? "precio similar"} + 12–18 %</>}</td>
+                <td className="py-2 pr-4">{isEn ? "12–18%" : "12–18 %"}</td>
+                <td className="py-2 pr-4">{isEn ? "Depends on the driver" : "Depende del conductor"}</td>
+                <td className="py-2">{isEn ? "With approval" : "Con aprobación"}</td>
               </tr>
               <tr>
-                <td className="py-2 pr-4">Autobús / tren público</td>
-                <td className="py-2 pr-4">3–15 € (si hay servicio)</td>
+                <td className="py-2 pr-4">{isEn ? "Public bus / train" : "Autobús / tren público"}</td>
+                <td className="py-2 pr-4">{isEn ? "€3–15 (if available)" : "3–15 € (si hay servicio)"}</td>
                 <td className="py-2 pr-4">—</td>
-                <td className="py-2 pr-4">No (último ~1:30)</td>
-                <td className="py-2">Taquilla / app</td>
+                <td className="py-2 pr-4">{isEn ? "No (last ~1:30)" : "No (último ~1:30)"}</td>
+                <td className="py-2">{isEn ? "Box office / app" : "Taquilla / app"}</td>
               </tr>
             </tbody>
           </table>
         </div>
         <p className="font-mono text-[10px] text-cr-text-dim">
-          Datos de ConcertRide, estimaciones de VTC nocturno y tarifas EMT/Renfe 2026. Comisión media de plataformas de carpooling generalistas actualizada a mayo 2026.
+          {isEn
+            ? "ConcertRide data, night-time VTC estimates and EMT/Renfe 2026 fares. Average commission of generalist carpooling platforms updated as of May 2026."
+            : "Datos de ConcertRide, estimaciones de VTC nocturno y tarifas EMT/Renfe 2026. Comisión media de plataformas de carpooling generalistas actualizada a mayo 2026."}
         </p>
       </section>
 
       {/* ── Query fan-out: subconsultas de búsqueda — cubre 5 intenciones de "cómo ir a [festival]" ── */}
       <section className="max-w-6xl mx-auto px-6 pb-16 border-t border-cr-border pt-12 space-y-8">
         <h2 className="font-display text-2xl md:text-3xl uppercase">
-          Todo lo que necesitas saber para ir a {festival.shortName} {festYear}
+          {isEn
+            ? <>Everything you need to know to get to {festival.shortName} {festYear}</>
+            : <>Todo lo que necesitas saber para ir a {festival.shortName} {festYear}</>}
         </h2>
         <p className="font-sans text-sm text-cr-text-muted max-w-3xl leading-relaxed">
-          Resumen de las cinco preguntas más habituales sobre transporte a {festival.shortName}: cuánto cuesta, cuánto se tarda, dónde aparcar, cómo volver de madrugada y qué opciones hay si no tienes coche.
+          {isEn
+            ? <>A summary of the five most common questions about transport to {festival.shortName}: how much it costs, how long it takes, where to park, how to get back at night and what options there are if you don't have a car.</>
+            : <>Resumen de las cinco preguntas más habituales sobre transporte a {festival.shortName}: cuánto cuesta, cuánto se tarda, dónde aparcar, cómo volver de madrugada y qué opciones hay si no tienes coche.</>}
         </p>
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 font-sans text-sm">
           {/* subconsulta 1: precio */}
           <article className="border border-cr-border p-5 space-y-2">
             <h3 className="font-display text-sm uppercase text-cr-primary">
-              ¿Cuánto cuesta ir a {festival.shortName} {festYear}?
+              {isEn
+                ? <>How much does it cost to get to {festival.shortName} {festYear}?</>
+                : <>¿Cuánto cuesta ir a {festival.shortName} {festYear}?</>}
             </h3>
             <p className="text-cr-text-muted text-xs leading-relaxed">
-              Carpooling ConcertRide: desde <strong className="text-cr-text">{festival.originCities[0]?.concertRideRange ?? "3 €"}/asiento</strong> desde {festival.originCities[0]?.city ?? "tu ciudad"} (sin comisión). Taxi/VTC: {Math.round((festival.originCities[0]?.km ?? 50) * 0.8)}–{Math.round((festival.originCities[0]?.km ?? 50) * 1.4)} € solo de ida. Autobús o tren hasta {festival.city} más lanzadera: precio variable. El carpooling es la opción más económica para trayectos de más de 60 km.
+              {isEn
+                ? <>ConcertRide carpooling: from <strong className="text-cr-text">{festival.originCities[0]?.concertRideRange?.replace("/asiento", "/seat") ?? "€3/seat"}</strong> from {festival.originCities[0]?.city ?? "your city"} (no commission). Taxi/VTC: €{Math.round((festival.originCities[0]?.km ?? 50) * 0.8)}–{Math.round((festival.originCities[0]?.km ?? 50) * 1.4)} one way. Bus or train to {festival.city} plus shuttle: variable price. Carpooling is the cheapest option for trips over 60 km.</>
+                : <>Carpooling ConcertRide: desde <strong className="text-cr-text">{festival.originCities[0]?.concertRideRange ?? "3 €"}/asiento</strong> desde {festival.originCities[0]?.city ?? "tu ciudad"} (sin comisión). Taxi/VTC: {Math.round((festival.originCities[0]?.km ?? 50) * 0.8)}–{Math.round((festival.originCities[0]?.km ?? 50) * 1.4)} € solo de ida. Autobús o tren hasta {festival.city} más lanzadera: precio variable. El carpooling es la opción más económica para trayectos de más de 60 km.</>}
             </p>
           </article>
           {/* subconsulta 2: tiempo */}
           <article className="border border-cr-border p-5 space-y-2">
             <h3 className="font-display text-sm uppercase text-cr-primary">
-              ¿Cuánto se tarda en llegar a {festival.shortName}?
+              {isEn
+                ? <>How long does it take to get to {festival.shortName}?</>
+                : <>¿Cuánto se tarda en llegar a {festival.shortName}?</>}
             </h3>
             <p className="text-cr-text-muted text-xs leading-relaxed">
-              Desde {festival.originCities[0]?.city ?? "tu ciudad"}: <strong className="text-cr-text">{festival.originCities[0]?.km ?? "?"} km · {festival.originCities[0]?.drivingTime ?? "?"}</strong> en coche. Suma 20–40 min de tráfico en la entrada al recinto los días de mayor afluencia. Lo ideal es salir con 1 hora de margen.
+              {isEn
+                ? <>From {festival.originCities[0]?.city ?? "your city"}: <strong className="text-cr-text">{festival.originCities[0]?.km ?? "?"} km · {festival.originCities[0]?.drivingTime ?? "?"}</strong> by car. Add 20–40 min of traffic at the site entrance on the busiest days. It's best to leave with an hour to spare.</>
+                : <>Desde {festival.originCities[0]?.city ?? "tu ciudad"}: <strong className="text-cr-text">{festival.originCities[0]?.km ?? "?"} km · {festival.originCities[0]?.drivingTime ?? "?"}</strong> en coche. Suma 20–40 min de tráfico en la entrada al recinto los días de mayor afluencia. Lo ideal es salir con 1 hora de margen.</>}
             </p>
           </article>
           {/* subconsulta 3: parking */}
           <article className="border border-cr-border p-5 space-y-2">
             <h3 className="font-display text-sm uppercase text-cr-primary">
-              Parking en {festival.shortName} {festYear}: coste y disponibilidad
+              {isEn
+                ? <>Parking at {festival.shortName} {festYear}: cost and availability</>
+                : <>Parking en {festival.shortName} {festYear}: coste y disponibilidad</>}
             </h3>
             <p className="text-cr-text-muted text-xs leading-relaxed">
-              El parking en recintos de festival suele costar 5–18 €/día y se llena rápido en fin de semana. El carpooling evita el coste y el estrés del parking: el conductor lleva el coche y el coste se divide entre los pasajeros.
+              {isEn
+                ? "Parking at festival sites usually costs €5–18/day and fills up fast at the weekend. Carpooling avoids the cost and stress of parking: the driver brings the car and the cost is split among the passengers."
+                : "El parking en recintos de festival suele costar 5–18 €/día y se llena rápido en fin de semana. El carpooling evita el coste y el estrés del parking: el conductor lleva el coche y el coste se divide entre los pasajeros."}
             </p>
           </article>
           {/* subconsulta 4: vuelta de madrugada */}
           <article className="border border-cr-border p-5 space-y-2">
             <h3 className="font-display text-sm uppercase text-cr-primary">
-              Vuelta de madrugada desde {festival.shortName}: opciones reales
+              {isEn
+                ? <>Late-night return from {festival.shortName}: real options</>
+                : <>Vuelta de madrugada desde {festival.shortName}: opciones reales</>}
             </h3>
             <p className="text-cr-text-muted text-xs leading-relaxed">
-              El transporte público no opera de madrugada desde ningún recinto de festival español. Opciones: taxi/VTC (precio nocturno ×2–3, 40–150 €), o carpooling ConcertRide con vuelta coordinada después del headliner (03:00–05:00h). El carpooling es la única opción económica para la vuelta.
+              {isEn
+                ? "Public transport does not run at night from any Spanish festival site. Options: taxi/VTC (night price ×2–3, €40–150), or ConcertRide carpooling with a return coordinated after the headliner (03:00–05:00h). Carpooling is the only affordable option for the return."
+                : "El transporte público no opera de madrugada desde ningún recinto de festival español. Opciones: taxi/VTC (precio nocturno ×2–3, 40–150 €), o carpooling ConcertRide con vuelta coordinada después del headliner (03:00–05:00h). El carpooling es la única opción económica para la vuelta."}
             </p>
           </article>
           {/* subconsulta 5: sin coche */}
           <article className="border border-cr-border p-5 space-y-2">
             <h3 className="font-display text-sm uppercase text-cr-primary">
-              Cómo ir a {festival.shortName} sin coche propio
+              {isEn
+                ? <>How to get to {festival.shortName} without your own car</>
+                : <>Cómo ir a {festival.shortName} sin coche propio</>}
             </h3>
             <p className="text-cr-text-muted text-xs leading-relaxed">
-              Sin coche propio, las opciones son: (1) carpooling ConcertRide ({festival.originCities[0]?.concertRideRange ?? "desde 3 €"}, conductores verificados); (2) autobús/tren hasta {festival.city} + lanzadera al recinto (disponibilidad limitada); (3) taxi/VTC al recinto (precio elevado). El carpooling es la combinación óptima de precio y flexibilidad de horario.
+              {isEn
+                ? <>Without your own car, the options are: (1) ConcertRide carpooling ({festival.originCities[0]?.concertRideRange?.replace("/asiento", "/seat") ?? "from €3"}, verified drivers); (2) bus/train to {festival.city} + shuttle to the site (limited availability); (3) taxi/VTC to the site (high price). Carpooling is the optimal combination of price and timing flexibility.</>
+                : <>Sin coche propio, las opciones son: (1) carpooling ConcertRide ({festival.originCities[0]?.concertRideRange ?? "desde 3 €"}, conductores verificados); (2) autobús/tren hasta {festival.city} + lanzadera al recinto (disponibilidad limitada); (3) taxi/VTC al recinto (precio elevado). El carpooling es la combinación óptima de precio y flexibilidad de horario.</>}
             </p>
           </article>
           {/* subconsulta 6: alternativas de carpooling */}
           <article className="border border-cr-border p-5 space-y-2">
             <h3 className="font-display text-sm uppercase text-cr-primary">
-              Alternativas de carpooling para {festival.shortName}
+              {isEn
+                ? <>Carpooling alternatives for {festival.shortName}</>
+                : <>Alternativas de carpooling para {festival.shortName}</>}
             </h3>
             <p className="text-cr-text-muted text-xs leading-relaxed">
-              Otras plataformas de carpooling cobran 12–18 % de comisión y la vuelta de madrugada depende del conductor. ConcertRide es 0 % de comisión, especializado en festivales: los conductores publican viajes de ida y vuelta coordinados con el fin del show. Para festivales como {festival.shortName}, ConcertRide es la opción event-first.
+              {isEn
+                ? <>Other carpooling platforms charge 12–18% commission and the late-night return depends on the driver. ConcertRide is 0% commission, specialised in festivals: drivers post round trips coordinated with the end of the show. For festivals like {festival.shortName}, ConcertRide is the event-first option.</>
+                : <>Otras plataformas de carpooling cobran 12–18 % de comisión y la vuelta de madrugada depende del conductor. ConcertRide es 0 % de comisión, especializado en festivales: los conductores publican viajes de ida y vuelta coordinados con el fin del show. Para festivales como {festival.shortName}, ConcertRide es la opción event-first.</>}
             </p>
           </article>
         </div>
@@ -1634,10 +1927,12 @@ export default function FestivalLandingPage() {
       {/* ── FAQ ── */}
       <section className="max-w-6xl mx-auto px-6 pb-16 border-t border-cr-border pt-12 space-y-6">
         <h2 className="font-display text-2xl md:text-3xl uppercase">
-          Preguntas frecuentes sobre cómo ir a {festival.shortName} {festYear}
+          {isEn
+            ? <>Frequently asked questions about getting to {festival.shortName} {festYear}</>
+            : <>Preguntas frecuentes sobre cómo ir a {festival.shortName} {festYear}</>}
         </h2>
         <dl className="space-y-6">
-          {festival.faqs.map((faq) => (
+          {faqs.map((faq) => (
             <div key={faq.q} className="border-b border-cr-border pb-6 space-y-2">
               <dt className="font-display text-base uppercase text-cr-text">{faq.q}</dt>
               <dd className="font-sans text-sm text-cr-text-muted leading-relaxed max-w-2xl">{faq.a}</dd>
@@ -1649,7 +1944,7 @@ export default function FestivalLandingPage() {
         {cityFaqs.length > 0 && (
           <div className="mt-6 space-y-2">
             <h3 className="text-sm font-semibold text-cr-text-muted uppercase tracking-wide mb-3">
-              Preguntas por ciudad de origen
+              {isEn ? "Questions by origin city" : "Preguntas por ciudad de origen"}
             </h3>
             {cityFaqs.map((faq, i) => (
               <details key={i} className="group rounded-xl border border-white/10 bg-white/3">
@@ -1676,7 +1971,7 @@ export default function FestivalLandingPage() {
         return (
           <section className="max-w-6xl mx-auto px-6 pb-12 border-t border-cr-border pt-10">
             <h2 className="font-display text-lg uppercase text-cr-text-muted mb-4">
-              Artistas en {festival.shortName}
+              {isEn ? <>Artists at {festival.shortName}</> : <>Artistas en {festival.shortName}</>}
             </h2>
             <ul className="flex flex-wrap gap-2">
               {festArtists.map((a) => (
@@ -1703,7 +1998,7 @@ export default function FestivalLandingPage() {
         return (
           <section className="max-w-6xl mx-auto px-6 pb-12 border-t border-cr-border pt-10">
             <h2 className="font-display text-lg uppercase text-cr-text-muted mb-4">
-              Guías y artículos
+              {isEn ? "Guides and articles" : "Guías y artículos"}
             </h2>
             <ul className="flex flex-col gap-2">
               {blogPosts.map((post) => (
@@ -1729,13 +2024,13 @@ export default function FestivalLandingPage() {
         return (
           <section className="max-w-6xl mx-auto px-6 pb-12 border-t border-cr-border pt-10">
             <h2 className="font-display text-lg uppercase text-cr-text-muted mb-4">
-              Recinto
+              {isEn ? "Venue" : "Recinto"}
             </h2>
             <Link
               to={`/recintos/${festVenue.slug}`}
               className="inline-flex items-center gap-2 font-sans text-xs text-cr-text-muted hover:text-cr-primary border border-cr-border hover:border-cr-primary px-3 py-1.5 transition-colors"
             >
-              {festVenue.name} — cómo llegar, metro, parking <ArrowRight size={10} />
+              {festVenue.name} — {isEn ? "how to get there, metro, parking" : "cómo llegar, metro, parking"} <ArrowRight size={10} />
             </Link>
           </section>
         );
@@ -1748,13 +2043,13 @@ export default function FestivalLandingPage() {
         return (
           <section className="max-w-6xl mx-auto px-6 pb-12 border-t border-cr-border pt-10">
             <h2 className="font-display text-lg uppercase text-cr-text-muted mb-2">
-              Festivales en {region.displayName}
+              {isEn ? <>Festivals in {region.displayName}</> : <>Festivales en {region.displayName}</>}
             </h2>
             <Link
               to={`/festivales-en/${region.slug}`}
               className="inline-flex items-center gap-2 font-sans text-xs text-cr-primary border-b border-cr-primary/40 hover:border-cr-primary transition-colors"
             >
-              Ver todos los festivales en {region.displayName} <ArrowRight size={10} />
+              {isEn ? <>See all festivals in {region.displayName}</> : <>Ver todos los festivales en {region.displayName}</>} <ArrowRight size={10} />
             </Link>
           </section>
         );
@@ -1763,35 +2058,41 @@ export default function FestivalLandingPage() {
       {/* ── People going / social proof / network effects ── */}
       <section className="max-w-6xl mx-auto px-6 pb-16 border-t border-cr-border pt-12 space-y-6">
         <h2 className="font-display text-2xl md:text-3xl uppercase">
-          Viaja a {festival.shortName} {festYear} con otros fans
+          {isEn
+            ? <>Travel to {festival.shortName} {festYear} with other fans</>
+            : <>Viaja a {festival.shortName} {festYear} con otros fans</>}
         </h2>
         <p className="font-sans text-sm text-cr-text-muted max-w-2xl">
-          ConcertRide conecta a asistentes de {festival.name} que quieren compartir el viaje desde toda España. Sin comisión. Sin apps de taxi. Solo fans que se organizan.
+          {isEn
+            ? <>ConcertRide connects {festival.name} attendees who want to share the trip from all over Spain. No commission. No taxi apps. Just fans getting organised.</>
+            : <>ConcertRide conecta a asistentes de {festival.name} que quieren compartir el viaje desde toda España. Sin comisión. Sin apps de taxi. Solo fans que se organizan.</>}
         </p>
 
         <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 font-sans text-sm">
           <div className="border border-cr-primary/30 p-5 space-y-1 text-center">
-            <p className="font-mono text-2xl font-bold text-cr-primary">0 %</p>
-            <p className="text-xs text-cr-text-muted">Comisión de plataforma</p>
+            <p className="font-mono text-2xl font-bold text-cr-primary">{isEn ? "0%" : "0 %"}</p>
+            <p className="text-xs text-cr-text-muted">{isEn ? "Platform commission" : "Comisión de plataforma"}</p>
           </div>
           <div className="border border-cr-border p-5 space-y-1 text-center">
             <p className="font-mono text-2xl font-bold text-cr-text">{festival.originCities.length}</p>
-            <p className="text-xs text-cr-text-muted">Ciudades de origen documentadas</p>
+            <p className="text-xs text-cr-text-muted">{isEn ? "Documented origin cities" : "Ciudades de origen documentadas"}</p>
           </div>
           <div className="border border-cr-border p-5 space-y-1 text-center">
             <p className="font-mono text-2xl font-bold text-cr-text">✓</p>
-            <p className="text-xs text-cr-text-muted">Conductores con carnet verificado</p>
+            <p className="text-xs text-cr-text-muted">{isEn ? "Drivers with a verified licence" : "Conductores con carnet verificado"}</p>
           </div>
           <div className="border border-cr-border p-5 space-y-1 text-center">
             <p className="font-mono text-2xl font-bold text-cr-text">{festival.originCities[0]?.concertRideRange?.split("–")[0]?.trim() ?? "3"}€</p>
-            <p className="text-xs text-cr-text-muted">Precio mínimo por asiento</p>
+            <p className="text-xs text-cr-text-muted">{isEn ? "Minimum price per seat" : "Precio mínimo por asiento"}</p>
           </div>
         </div>
 
         {/* Popular departure cities with CTA */}
         <div className="space-y-3">
           <h3 className="font-display text-base uppercase text-cr-text-muted">
-            Ciudades de salida más populares para {festival.shortName}
+            {isEn
+              ? <>Most popular departure cities for {festival.shortName}</>
+              : <>Ciudades de salida más populares para {festival.shortName}</>}
           </h3>
           <div className="flex flex-wrap gap-2">
             {festival.originCities.slice(0, 8).map((oc) => (
@@ -1800,15 +2101,26 @@ export default function FestivalLandingPage() {
                 to={`/concerts?city=${encodeURIComponent(festival.city)}`}
                 className="inline-flex items-center gap-1.5 font-sans text-xs text-cr-text-muted hover:text-cr-primary border border-cr-border hover:border-cr-primary px-3 py-1.5 transition-colors"
               >
-                <MapPin size={10} /> {oc.city} · {oc.concertRideRange}
+                <MapPin size={10} /> {oc.city} · {isEn ? oc.concertRideRange.replace("/asiento", "/seat") : oc.concertRideRange}
               </Link>
             ))}
           </div>
           <p className="font-sans text-xs text-cr-text-dim">
-            ¿Tu ciudad no aparece? Publica un viaje y sé el primero en coordinarlo desde allí.{" "}
-            <Link to="/publish" className="text-cr-primary hover:underline">
-              Publicar viaje →
-            </Link>
+            {isEn ? (
+              <>
+                Your city not listed? Post a ride and be the first to coordinate one from there.{" "}
+                <Link to="/publish" className="text-cr-primary hover:underline">
+                  Post a ride →
+                </Link>
+              </>
+            ) : (
+              <>
+                ¿Tu ciudad no aparece? Publica un viaje y sé el primero en coordinarlo desde allí.{" "}
+                <Link to="/publish" className="text-cr-primary hover:underline">
+                  Publicar viaje →
+                </Link>
+              </>
+            )}
           </p>
         </div>
       </section>
@@ -1817,7 +2129,7 @@ export default function FestivalLandingPage() {
       {relatedFestivals.length > 0 && (
         <section className="max-w-6xl mx-auto px-6 pb-16 border-t border-cr-border pt-10">
           <h2 className="font-display text-lg uppercase text-cr-text-muted mb-4">
-            Festivales relacionados
+            {isEn ? "Related festivals" : "Festivales relacionados"}
           </h2>
           <ul className="flex flex-wrap gap-2">
             {relatedFestivals.map((f) => (
@@ -1837,7 +2149,7 @@ export default function FestivalLandingPage() {
       {/* ── All festivals hub ── */}
       <section className="max-w-6xl mx-auto px-6 pb-24 border-t border-cr-border pt-10">
         <h2 className="font-display text-lg uppercase text-cr-text-muted mb-4">
-          Otros festivales en ConcertRide
+          {isEn ? "Other festivals on ConcertRide" : "Otros festivales en ConcertRide"}
         </h2>
         <ul className="flex flex-wrap gap-2">
           {FESTIVAL_LANDINGS.filter((f) => f.slug !== festival.slug).map((f) => (
@@ -1858,23 +2170,35 @@ export default function FestivalLandingPage() {
         <div className="border-2 border-cr-primary/40 bg-gradient-to-br from-cr-primary/[0.06] to-transparent p-6 md:p-8 flex flex-col md:flex-row md:items-center gap-5 md:gap-8">
           <div className="flex-1 space-y-2">
             <p className="font-mono text-[10px] uppercase tracking-[0.16em] text-cr-primary">
-              ¿Tienes coche?
+              {isEn ? "Got a car?" : "¿Tienes coche?"}
             </p>
             <h2 className="font-display text-2xl md:text-3xl uppercase leading-tight">
-              Publica tu viaje a {festival.shortName} y llena el coche
+              {isEn
+                ? <>Post your ride to {festival.shortName} and fill the car</>
+                : <>Publica tu viaje a {festival.shortName} y llena el coche</>}
             </h2>
             <p className="font-sans text-sm text-cr-text-muted max-w-xl leading-relaxed">
-              Comparte el coste de la gasolina y los peajes con otros asistentes a {festival.name}.
-              Sin comisión de plataforma: el 100 % de lo que pagan los pasajeros va al conductor.
-              Pago en efectivo o Bizum directamente entre vosotros.
+              {isEn ? (
+                <>
+                  Share the cost of fuel and tolls with other {festival.name} attendees.
+                  No platform commission: 100% of what passengers pay goes to the driver.
+                  Payment in cash or by Bizum directly between you.
+                </>
+              ) : (
+                <>
+                  Comparte el coste de la gasolina y los peajes con otros asistentes a {festival.name}.
+                  Sin comisión de plataforma: el 100 % de lo que pagan los pasajeros va al conductor.
+                  Pago en efectivo o Bizum directamente entre vosotros.
+                </>
+              )}
             </p>
           </div>
           <Link
             to={publishHref}
-            aria-label={`Publicar viaje a ${festival.shortName} ${festYear}`}
+            aria-label={isEn ? `Post a ride to ${festival.shortName} ${festYear}` : `Publicar viaje a ${festival.shortName} ${festYear}`}
             className="inline-flex items-center justify-center gap-2 bg-cr-primary text-black font-sans text-sm font-bold uppercase tracking-[0.12em] px-6 py-3 hover:bg-cr-primary/90 transition-colors whitespace-nowrap"
           >
-            Publicar mi coche <ArrowRight size={14} />
+            {isEn ? "Offer my car" : "Publicar mi coche"} <ArrowRight size={14} />
           </Link>
         </div>
       </section>
@@ -1889,13 +2213,12 @@ export default function FestivalLandingPage() {
         />
         <div id="fuentes-datos" className="scroll-mt-20 space-y-2">
           <h2 className="font-display text-base uppercase tracking-[0.08em] text-cr-text-muted">
-            Fuentes y verificación
+            {isEn ? "Sources and verification" : "Fuentes y verificación"}
           </h2>
           <p className="font-mono text-[11px] text-cr-text-dim leading-relaxed">
-            Fuentes: organización oficial del festival, ayuntamientos, INE, APM
-            (Asociación de Promotores Musicales), DGT, ALSA y Renfe. Última
-            verificación coordinada: 2026-05-20. Los precios de carpooling son
-            orientativos basados en tarifas reales publicadas en ConcertRide.
+            {isEn
+              ? "Sources: the festival's official organisation, city councils, INE, APM (Spanish Association of Music Promoters), DGT, ALSA and Renfe. Last coordinated verification: 2026-05-20. Carpooling prices are indicative, based on real fares published on ConcertRide."
+              : "Fuentes: organización oficial del festival, ayuntamientos, INE, APM (Asociación de Promotores Musicales), DGT, ALSA y Renfe. Última verificación coordinada: 2026-05-20. Los precios de carpooling son orientativos basados en tarifas reales publicadas en ConcertRide."}
           </p>
         </div>
       </section>
@@ -1903,15 +2226,31 @@ export default function FestivalLandingPage() {
       {/* ── Legal disclaimer ── */}
       <section className="max-w-6xl mx-auto px-6 pb-10 border-t border-cr-border pt-8">
         <p className="font-mono text-[11px] text-cr-text-dim leading-relaxed">
-          ConcertRide no es un socio oficial, patrocinador ni representante de{" "}
-          {festival.name} ni de su organización. Los nombres de festivales y eventos
-          se utilizan con carácter meramente descriptivo para identificar el destino
-          del viaje. Para la compra de entradas o información oficial acude siempre
-          a la web del organizador.{" "}
-          <Link to="/aviso-legal" className="underline underline-offset-2 hover:text-cr-primary transition-colors">
-            Aviso legal
-          </Link>
-          .
+          {isEn ? (
+            <>
+              ConcertRide is not an official partner, sponsor or representative of{" "}
+              {festival.name} or its organisation. Festival and event names
+              are used purely descriptively to identify the destination
+              of the trip. For ticket purchases or official information always go
+              to the organiser's website.{" "}
+              <Link to="/aviso-legal" className="underline underline-offset-2 hover:text-cr-primary transition-colors">
+                Legal notice
+              </Link>
+              .
+            </>
+          ) : (
+            <>
+              ConcertRide no es un socio oficial, patrocinador ni representante de{" "}
+              {festival.name} ni de su organización. Los nombres de festivales y eventos
+              se utilizan con carácter meramente descriptivo para identificar el destino
+              del viaje. Para la compra de entradas o información oficial acude siempre
+              a la web del organizador.{" "}
+              <Link to="/aviso-legal" className="underline underline-offset-2 hover:text-cr-primary transition-colors">
+                Aviso legal
+              </Link>
+              .
+            </>
+          )}
         </p>
       </section>
 
@@ -1919,22 +2258,24 @@ export default function FestivalLandingPage() {
       <div className="md:hidden fixed bottom-0 left-0 right-0 z-40 bg-cr-bg/95 backdrop-blur-sm border-t border-cr-border px-3 py-3 flex gap-2">
         <Link
           to={searchHref}
-          aria-label={`Buscar plaza a ${festival.shortName} ${festYear} desde ${priceFromMin} euros`}
+          aria-label={isEn
+            ? `Find a seat to ${festival.shortName} ${festYear} from ${priceFromMin} euros`
+            : `Buscar plaza a ${festival.shortName} ${festYear} desde ${priceFromMin} euros`}
           className="flex-1 flex flex-col items-center justify-center gap-0 bg-cr-primary text-black font-sans text-[11px] font-bold uppercase tracking-[0.08em] py-2 leading-tight"
         >
           <span className="flex items-center gap-1">
-            Buscar plaza a {festival.shortName} <ArrowRight size={11} />
+            {isEn ? <>Find a seat to {festival.shortName} </> : <>Buscar plaza a {festival.shortName} </>}<ArrowRight size={11} />
           </span>
           <span className="font-mono text-[10px] font-semibold normal-case tracking-normal opacity-80">
-            desde {priceFromMin}€/asiento
+            {isEn ? <>from {priceFromMin}€/seat</> : <>desde {priceFromMin}€/asiento</>}
           </span>
         </Link>
         <Link
           to={publishHref}
-          aria-label={`Publicar viaje a ${festival.shortName}`}
+          aria-label={isEn ? `Post a ride to ${festival.shortName}` : `Publicar viaje a ${festival.shortName}`}
           className="flex items-center justify-center gap-1.5 border-2 border-cr-primary text-cr-primary font-sans text-[11px] font-bold uppercase tracking-[0.08em] px-3 py-3"
         >
-          Publicar
+          {isEn ? "Post" : "Publicar"}
         </Link>
       </div>
       {/* Terminology bridge — Gen Z synonyms for "carpooling" with internal links */}
@@ -1959,7 +2300,7 @@ export default function FestivalLandingPage() {
  * The visual pulsing dot + number creates urgency ("other people are looking at this") — a
  * well-established CRO pattern from hotel/flight booking sites.
  */
-function FestivalDemandPill({ festivalSlug, festivalName }: { festivalSlug: string; festivalName: string }) {
+function FestivalDemandPill({ festivalSlug, festivalName, isEn }: { festivalSlug: string; festivalName: string; isEn?: boolean }) {
   // Deterministic seeded demand count from slug — range 12-87, stable across renders.
   const count = (() => {
     let h = 0;
@@ -1977,10 +2318,21 @@ function FestivalDemandPill({ festivalSlug, festivalName }: { festivalSlug: stri
         <span className="relative block w-2 h-2 rounded-full bg-[#ff4f00]" aria-hidden="true" />
       </span>
       <span className="font-mono text-[11px] text-white/70 leading-tight">
-        <span className="text-white font-semibold">{weeklyCount} personas</span>
-        {" "}han buscado viaje a{" "}
-        <span className="text-cr-primary">{festivalName}</span>
-        {" "}esta semana
+        {isEn ? (
+          <>
+            <span className="text-white font-semibold">{weeklyCount} people</span>
+            {" "}searched for a ride to{" "}
+            <span className="text-cr-primary">{festivalName}</span>
+            {" "}this week
+          </>
+        ) : (
+          <>
+            <span className="text-white font-semibold">{weeklyCount} personas</span>
+            {" "}han buscado viaje a{" "}
+            <span className="text-cr-primary">{festivalName}</span>
+            {" "}esta semana
+          </>
+        )}
       </span>
     </div>
   );

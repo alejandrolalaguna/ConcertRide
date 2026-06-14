@@ -1130,6 +1130,320 @@ export const en: Dict = {
     reviewsHeading: "Reviews ({count})",
     noRidesYet: "This driver hasn't published any rides yet.",
   },
+
+  // Home / landing page (LandingPage.tsx + Hero.tsx)
+  home: {
+    // SEO meta (useSeoMeta)
+    metaTitle: "Carpooling to Festivals [2026] · Save €40–60 · ConcertRide",
+    metaDescription:
+      "Carpooling to Mad Cool, Primavera Sound, Sónar, BBK Live and 30+ festivals across Spain. 0% commission, verified drivers. From €5/seat.",
+    metaKeywords:
+      "carpooling to concerts Spain, festival ride sharing, buses to festivals Spain, festival buses 2026, transport to concerts, shared car to gigs, ride-sharing festivals, concerts in madrid, concerts in barcelona, concerts in seville, concerts in bilbao 2026, concerts in san sebastian 2026, concerts in zaragoza, viña rock buses, how to get to arenal sound, bbk santander, mad cool carpooling, primavera sound shared ride, leave your car at home festival, carpooling no commission, getting back from a festival at night, going to a festival without a car",
+    metaOgImageAlt:
+      "ConcertRide: commission-free carpooling to concerts and festivals in Spain · Mad Cool, Primavera Sound, BBK Live",
+
+    // Hero (Hero.tsx)
+    heroBadgeBase: "Concerts and festivals 2026",
+    heroBadgeCountdownPrefix: " ·",
+    heroBadgeDaySingular: "day to go",
+    heroBadgeDayPlural: "days to go",
+    heroBadgeLimited: " · limited seats",
+    heroTitleLine1a: "Your plan, no car",
+    heroTitleLine1b: ".",
+    heroTitleLine2a: "Get to the show",
+    heroTitleLine2b: " with your crew.",
+    heroSrKeyword:
+      "Carpooling to concerts and festivals in Spain 2026: shared rides from €{price} per seat.",
+    heroSubheadlinePrefix: "Carpooling to concerts and festivals from",
+    heroSubheadlinePrice: "€{price}/seat",
+    heroSubheadlineMiddle: "with verified drivers.",
+    heroSubheadlineTrust: "Pay the driver directly in cash or Bizum · 0% commission.",
+    heroCtaSearch: "Find a ride",
+    heroCtaPublish: "Publish a ride →",
+    heroFansCount: "+2,000 fans already in the community",
+    heroTestimonialRating: "★ 4.9",
+    heroTestimonialQuote: "“I saved €40 getting to Sónar from Madrid” · Sara M.",
+    heroBadgeNoCard: "No credit card",
+    heroBadgeVerifiedLicense: "Verified licence",
+    heroBadgeReturn: "Late-night return agreed",
+
+    // "Why ConcertRide" section
+    whyEyebrow: "Why ConcertRide",
+    whyTitleLine1: "It's more than",
+    whyTitleLine2: "a ride.",
+    whyIntro:
+      "ConcertRide isn't just another generalist carpooling platform. It's built specifically for the live-music community.",
+    whyImageAlt: "Night drive to a concert with city lights",
+    whyImageCaption: "The night starts here",
+    whyImageBadge: "30+ festivals covered",
+
+    // WHY_CONCERTRIDE cards
+    why1Title: "Rides to real concerts",
+    why1Body: "Trips organised to verified festivals and concerts. No generic destinations.",
+    why1Highlight: "Save €13–18 per trip",
+    why2Title: "Verified profiles",
+    why2Body: "Drivers and passengers with real ratings. Travel with people you trust.",
+    why2Highlight: "100% verified",
+    why3Title: "Instant booking",
+    why3Body: "Find a seat in seconds. No haggling, no endless messages.",
+    why3Highlight: "30+ festivals covered",
+    why4Title: "Trip vibe",
+    why4Body: "Pick the mood: shared playlist, chat or silence. Your call.",
+    why4Highlight: "Return trip agreed",
+    why5Title: "A community of fans",
+    why5Body: "Connect with people heading to the same event. Share the music, not just the fuel.",
+    why5Highlight: "+2k fans",
+    why6Title: "Real impact",
+    why6Body: "Fewer cars, less CO₂. Every shared ride cuts the event's footprint.",
+    why6Highlight: "80% less CO₂",
+
+    whyCtaJoin: "Join for free",
+    whyCtaSeeRides: "See available rides →",
+
+    // FAQ section
+    faqEyebrow: "Frequently asked questions",
+    faqTitleLine1: "No",
+    faqTitleLine2: "fine print.",
+    faqMorePrefix: "Still have questions?",
+    faqMoreLink: "Write to us at help@concertride.me",
+    faqGuideLink: "See the full guide",
+    faq1Q: "Is it safe to travel with strangers?",
+    faq1A:
+      "Every user has a verified profile with real ratings from previous trips. You can check the driver's history before booking. On top of that, every ride is logged on the platform.",
+    faq2Q: "How do I pay for the ride?",
+    faq2A:
+      "The driver sets the price to cover fuel and tolls — ConcertRide charges no commission. Payment is arranged directly between driver and passenger (cash or Bizum). No middlemen, no surprises.",
+    faq3Q: "What happens if the concert is cancelled?",
+    faq3A:
+      "If the event is cancelled, the ride is cancelled automatically and both sides are notified. Any money already agreed is settled directly between driver and passenger.",
+    faq4Q: "Can I publish a ride if I've never used the app?",
+    faq4A:
+      "Yes. Sign up for free, verify your profile and publish your ride in under 2 minutes. No complicated steps and no extra paperwork to get started.",
+
+    // Industry authority quotes section
+    sourcesEyebrow: "Sources and context",
+    quote1Text:
+      "\"Audience travel accounts for 80% of a festival's carbon footprint. Carpooling is the single most effective individual action to reduce it.\"",
+    quote1Source: "Julie's Bicycle Green Events Guide",
+    quote2Text:
+      "\"Spain held more than 1,000 festivals with over 25 million attendees in 2024 and revenue exceeding 600 million euros.\"",
+    quote2Source: "Asociación de Promotores Musicales (APM)",
+    quote2Suffix: ", 2024 Report",
+    quote3Text:
+      "\"Spain ranks among the five fastest-growing live-music markets in Europe in 2023–2024.\"",
+    quote3Source: "Pollstar",
+    quote3Suffix: ", European live-music ranking",
+    quote4Text:
+      "\"Carpooling can cut CO₂ emissions per kilometre and passenger by between 50% and 75% compared with a privately owned car carrying a single occupant.\"",
+    quote4Source: "European Environment Agency (EEA)",
+    quote4Suffix: ", Transport and Environment Report",
+    quote5Text:
+      "\"Spain's Supreme Court ruled in 2017 that non-profit carpooling is legal: the driver may only recover the cost of the trip.\"",
+    quote5Source: "Spanish Supreme Court",
+    quote5Suffix: ", 2017 Ruling (STS 3145/2017)",
+
+    // Comparison table section
+    compareEyebrow: "Comparison",
+    compareTitle: "How much does it cost to get to a festival in Spain?",
+    compareSubtitle: "Indicative prices for trips of 150–300 km (e.g. Madrid → festival).",
+    compareColOption: "Option",
+    compareColPrice: "Price/person",
+    compareColFee: "Commission",
+    compareColReturn: "Late-night return",
+    compareRow1Option: "ConcertRide",
+    compareRow1Price: "€5 – 20",
+    compareRow1Fee: "0%",
+    compareRow1Return: "Yes, agreed with the driver",
+    compareRow2Option: "Other platforms",
+    compareRow2Price: "€8 – 25",
+    compareRow2Fee: "13–18%",
+    compareRow2Return: "Limited (fixed schedules)",
+    compareRow3Option: "Official festival bus",
+    compareRow3Price: "€10 – 35",
+    compareRow3Fee: "Included",
+    compareRow3Return: "Last shuttle only",
+    compareRow4Option: "Train + bus",
+    compareRow4Price: "€15 – 50",
+    compareRow4Fee: "—",
+    compareRow4Return: "No (last night train)",
+    compareRow5Option: "Taxi / ride-hail",
+    compareRow5Price: "€40 – 120",
+    compareRow5Fee: "Included",
+    compareRow5Return: "Yes, but pricey",
+    compareFootnote: "Estimated prices for routes of 150–300 km (e.g. Madrid–Albacete, Madrid–Valencia).",
+
+    // Content hub section
+    hubEyebrow: "Guides and resources",
+    hubTitle: "Everything you need to know",
+    hubLabelGuide: "Guide",
+    hubLabelRoute: "Route",
+    hubLabelComparison: "Comparison",
+    hubLabelBlog: "Blog",
+    hubReadCta: "Read",
+    hubSeeRouteCta: "See route",
+    hubSeeBlogCta: "See blog",
+    hubCard1Title: "Festival transport guide",
+    hubCard1Body: "Carpooling, shuttles, train or taxi: when to use each option and how to save on the journey.",
+    hubCard2Title: "How to go to a festival without a car",
+    hubCard2Body: "The 3 real ways to get there without your own car: passenger carpooling, official bus and train+shuttle, with prices.",
+    hubCard3Title: "Festival budget for a group of 4",
+    hubCard3Body: "A 6-item breakdown, a calculator with 3 profiles and real cases from Mad Cool, Primavera Sound and Sonorama for a weekend.",
+    hubCard4Title: "Is carpooling to festivals safe?",
+    hubCard4Body: "Safety mechanisms, a safety comparison by mode, a 10-step checklist and a dedicated section for women travelling alone.",
+    hubCard5Title: "My first festival: a guide for beginners",
+    hubCard5Body: "Preparation, a 15-item kit, day by day, common mistakes, health tips and 5 recommended festivals for your first time.",
+    hubCard6Label: "Driver guide",
+    hubCard6Title: "Driving carpooling to festivals",
+    hubCard6Body: "The legal framework in Spain, how much you recover with 3 passengers and 7 rules to stay clear of the tax office and transport authorities.",
+    hubCard7Label: "Inclusion guide",
+    hubCard7Title: "Festival accessibility and reduced mobility",
+    hubCard7Body: "Top 8 accessibility-friendly festivals, how to get the accessibility pass and adapted transport: Renfe Atendo, ALSA, Eurotaxi and accessible carpooling.",
+    hubCard8Label: "Grown-up guide",
+    hubCard8Title: "Festivals for over-35s in Spain",
+    hubCard8Body: "Top 10 over-35-friendly festivals for 2026, VIP packages from €150/day, sensible timetables and grown-up carpooling. A complete guide for veteran festival-goers.",
+    hubCard9Title: "How to get back from a festival at night",
+    hubCard9Body: "The last metro leaves at 1:30 and the festival ends at 2:30. Real options without paying €90 for a taxi.",
+    hubCard10Title: "Carpooling Madrid → Mad Cool",
+    hubCard10Body: "Prices, driving time and return schedules for the most popular route to Mad Cool 2026.",
+    hubCard11Title: "Carpooling Madrid → Primavera Sound",
+    hubCard11Body: "Madrid–Barcelona by shared car: 620 km, ~5 h 30 min, from €14/seat.",
+    hubCard12Title: "What is carpooling for concerts",
+    hubCard12Body: "A direct answer, numbered steps and a comparison with taxi and bus so you get it in a minute.",
+    hubCard13Title: "Carpooling vs taxi at festivals",
+    hubCard13Body: "A return taxi tops €50. Carpooling works out between €3 and €20 per seat depending on distance.",
+    hubCard14Title: "More articles and guides",
+    hubCard14Body: "Comparisons, sustainability data and everything you need to go to a festival in Spain.",
+
+    // Sticky mobile CTA
+    stickyAriaRegion: "Quick action: find rides to the next festival",
+    stickyAriaLink: "See shared rides to Primavera Sound from 4 euros per seat",
+    stickyCta: "See rides to Primavera Sound from €4 →",
+
+    // How it works (HowItWorks.tsx)
+    hiwSectionAria: "How it works",
+    hiwEyebrow: "How it works",
+    hiwTitleLine1: "Three steps.",
+    hiwTitleLine2: "Zero hassle.",
+    hiwStep1Title: "Pick the concert",
+    hiwStep1Body: "Search by artist, festival or city. See active rides instantly in our catalogue of 120+ events.",
+    hiwStep2Title: "Book or publish",
+    hiwStep2Body: "Take a free seat or open up your car. You set the price to cover fuel and tolls, nothing more.",
+    hiwStep3Title: "Let's rock together",
+    hiwStep3Body: "Shared playlist, good company and at the venue on time. That's how the perfect night begins.",
+    hiwDriverEyebrow: "Got a car?",
+    hiwDriverTitle1: "Publish your ride.",
+    hiwDriverTitle2: "Get your fuel back.",
+    hiwDriverBody: "Set the price per seat to cover fuel and tolls — no platform fee. In 2 minutes your ride is live.",
+    hiwDriverStat1Label: "commission",
+    hiwDriverStat2Label: "to publish",
+    hiwDriverStat3Label: "for you",
+    hiwDriverCta: "Publish my first ride",
+
+    // Stats bar (StatsBar.tsx)
+    statsSectionAria: "ConcertRide statistics",
+    statsFestivals: "festivals in the 2026 catalogue",
+    statsCities: "cities covered in Spain",
+    statsSavings: "estimated savings* vs taxi and bus",
+    statsFee: "platform commission",
+    statsFootnote: "* Estimated savings on routes of 100–300 km compared with a private taxi and a regular-line coach. Calculation based on 2025 average fares (CNMC, MITMA).",
+
+    // Testimonials (TestimonialsSection.tsx)
+    testimonialsSectionAria: "ConcertRide user testimonials",
+    testimonialsStarsAria: "{rating} out of 5 stars",
+    testimonialsEyebrow: "Real community",
+    testimonialsTitleLine1: "Fans already",
+    testimonialsTitleLine2: "travelling together.",
+    testimonialsLiveCount: "+2,000 fans in the community",
+
+    // Hero — live activity ticker (Hero.tsx)
+    heroActivity1: "Rafa from Madrid · booked a seat → Barcelona (Cruïlla) · 2 min ago",
+    heroActivity2: "María from Valencia · published a ride → Sonorama Ribera · 5 min ago",
+    heroActivity3: "Lucía from Zaragoza · joined ConcertRide · 7 min ago",
+    heroActivity4: "Carlos from Valencia · published a ride → FIB Benicàssim · 11 min ago",
+    heroActivity5: "Ana from Bilbao · published a ride → Mad Cool Madrid · 15 min ago",
+
+    // Hero — ticket stub labels (Hero.tsx TicketStub)
+    heroStubBoardingPass: "CONCERTRIDE · BOARDING PASS",
+    heroStubTagline: "CARPOOLING · CONCERTS · FESTIVALS",
+    heroStubFrom: "FROM",
+    heroStubTo: "TO",
+    heroStubPrice: "PRICE",
+    heroStubPerSeat: "PER SEAT",
+    heroStubSeatSingular: "SEAT",
+    heroStubSeatPlural: "SEATS",
+
+    // Registration nudge (RegistrationNudge.tsx)
+    nudgeAriaLabel: "Join ConcertRide",
+    nudgeLiveIndicator: "Users joining now",
+    nudgeTitle1: "+2,000 fans signed up.",
+    nudgeTitle2: "Join free today.",
+    nudgeBadge1: "30 seconds to get started",
+    nudgeBadge2: "No credit card",
+    nudgeBadge3: "Always 0€ commission",
+    nudgeCta: "Create free account",
+    nudgeFootnote: "No card · No commission · Cancel anytime",
+    nudgeJoinTicker: "{name} · {city} · {min} min ago",
+
+    // Trust section (TrustSection.tsx)
+    trustPlatformStat1Label: "Festivals covered",
+    trustPlatformStat1Sublabel: "2026 season",
+    trustPlatformStat2Label: "Platform commission",
+    trustPlatformStat2Sublabel: "fair price guaranteed",
+    trustPlatformStat3Label: "Verified drivers",
+    trustPlatformStat3Sublabel: "ID + driving licence",
+    trustPlatformStat4Label: "To publish a ride",
+    trustPlatformStat4Sublabel: "no hassle",
+    trustPoint1: "Profile verified with ID",
+    trustPoint2: "Drivers with verified licence",
+    trustPoint3: "No platform commission",
+    trustSectorStat1Label: "festival-goers in Spain in 2024",
+    trustSectorStat2Label: "festivals held in Spain in 2024",
+    trustSectorStat3Label: "of a festival's carbon footprint comes from attendee transport",
+    trustSectorSource: "Source: {source} ↗",
+    trustSectorEyebrow: "The sector in numbers",
+    trustSectorTitleLine1: "Spain leads",
+    trustSectorTitleLine2: "festival tourism.",
+    trustSectorIntro:
+      "Spain's live music market is one of the five fastest-growing in Europe. The challenge is getting there without spending twice the ticket price on transport.",
+    trustFaqEyebrow: "Frequently asked questions",
+    trustFaqTitle: "Everything you need to know before booking",
+    trustFaq1Q: "Is ConcertRide free to use?",
+    trustFaq1A:
+      "Yes. ConcertRide charges no commission to either the driver or the passenger. The driver sets the price to cover fuel and tolls; payment is made directly in cash or by Bizum.",
+    trustFaq2Q: "How much does a ride on ConcertRide cost?",
+    trustFaq2A:
+      "The driver sets the price based on the distance and the cost of fuel. On short routes (50–100 km) it's around 5–12 €/seat. On long routes (300–600 km) it can reach 15–30 €. ConcertRide adds no commission, so the price is always lower than on other platforms.",
+    trustFaq3Q: "How are drivers verified?",
+    trustFaq3A:
+      "Each driver uploads a photo of their driving licence and verifies their identity with an ID document. The ConcertRide team manually reviews every profile before activating it.",
+    trustFaq4Q: "What happens if the driver cancels the ride?",
+    trustFaq4A:
+      "You get an immediate notification and can look for another available ride. Since payment is made in person (cash or Bizum), there are no automatic charges to manage.",
+    trustFaq5Q: "Can I publish a ride if I'm driving to the festival?",
+    trustFaq5A:
+      "Yes. You publish your route, date, departure time and the price per seat. Passengers request a seat and you decide whether to accept. Cover fuel and tolls without losing money.",
+    trustFaq6Q: "Does ConcertRide cover the whole of Spain?",
+    trustFaq6A:
+      "Yes. The platform operates across the entire Spanish territory. The most active routes connect Madrid, Barcelona, Valencia, Bilbao, Seville and Zaragoza with the biggest festivals of the year.",
+    trustFaq7Q: "Can I travel with my friends in the same car?",
+    trustFaq7A:
+      "Yes, you can request several seats on the same ride if the driver has seats available. Coordinate with your group before requesting so you can all travel together.",
+    trustFaq8Q: "What documents do I need to sign up?",
+    trustFaq8A:
+      "You only need an email and, if you're going to drive, a photo of your driving licence and ID for verification. Passengers only need to create a free account.",
+    trustFaq9Q: "How is payment made?",
+    trustFaq9A:
+      "Payment is made directly to the driver on the day of the trip, in cash or by Bizum. ConcertRide does not handle payments or hold money — no commissions, no surprises.",
+    trustFaq10Q: "Is it safe to travel with ConcertRide?",
+    trustFaq10A:
+      "All drivers are verified with ID and a driving licence. Profiles include a photo, ratings from other users and a trip history. Plus, you can communicate directly with the driver before confirming.",
+    trustFaq11Q: "Can I cancel my booking?",
+    trustFaq11A:
+      "Yes, you can cancel from your profile. As payment is made in person, there are no automatic charges. Let the driver know as far in advance as possible so they can find another passenger.",
+    trustFaq12Q: "What happens if I'm late to the pick-up point?",
+    trustFaq12A:
+      "Coordinate with the driver through the platform's chat. On ConcertRide drivers usually allow a margin of 5–10 minutes, but remember they also have a festival they don't want to miss.",
+  },
 };
 
 export default en;

@@ -28,7 +28,7 @@ if (!(await exists(ssrEntry))) {
   console.error(`[prerender] SSR bundle missing at ${ssrEntry}. Did the SSR build run?`);
   process.exit(1);
 }
-const { render, FESTIVAL_SLUGS, CITY_SLUGS, CITY_YEAR_SLUGS, BLOG_SLUGS, ROUTE_SLUGS, ARTIST_SLUGS, VENUE_SLUGS, REGION_SLUGS, HOW_TO_GET_THERE_PAGE_SLUGS, GENRE_SLUGS, CALENDAR_SLUGS, CONTENT_LAST_UPDATED, DISABLED_BLOG_SLUGS } = await import(pathToFileURL(ssrEntry).href);
+const { render, FESTIVAL_SLUGS, CITY_SLUGS, CITY_YEAR_SLUGS, BLOG_SLUGS, ROUTE_SLUGS, ARTIST_SLUGS, VENUE_SLUGS, REGION_SLUGS, HOW_TO_GET_THERE_PAGE_SLUGS, GENRE_SLUGS, CALENDAR_SLUGS, CONTENT_LAST_UPDATED, DISABLED_BLOG_SLUGS, EN_PILOT_PATHS, hreflangAlternates } = await import(pathToFileURL(ssrEntry).href);
 
 // Defense-in-depth: even if the SSR bundle is stale, never let a disabled slug
 // leak into prerender output or sitemaps. CLAUDE.md "Brand Restrictions".
@@ -124,6 +124,9 @@ const ROUTES = [
   ...HOW_TO_GET_THERE_SLUGS.map((slug) => `/como-llegar/${slug}`),
   ...GENRE_LANDING_SLUGS.map((slug) => `/festivales-genero/${slug}`),
   ...CALENDAR_LANDING_SLUGS.map((slug) => `/calendario-festivales/${slug}`),
+  // English (/en/) pilot — locale-prefixed SSR variants. render() detects the
+  // prefix, forces locale='en', and self-canonicals to the /en/ URL.
+  ...(EN_PILOT_PATHS ?? []),
 ];
 
 console.log(`[prerender] ${ROUTES.length} routes (${FESTIVAL_SLUGS.length} festivals + ${FESTIVAL_SLUGS.length} guias, ${CITY_SLUGS.length} cities, ${CITY_YEAR_LANDING_SLUGS.length} city-year, ${BLOG_POST_SLUGS.length} blog posts, ${ROUTE_LANDING_SLUGS.length} routes, ${ARTIST_LANDING_SLUGS.length} artists, ${VENUE_LANDING_SLUGS.length} venues, ${REGION_LANDING_SLUGS.length} regions, ${HOW_TO_GET_THERE_SLUGS.length} how-to-get-there, ${GENRE_LANDING_SLUGS.length} genres, ${CALENDAR_LANDING_SLUGS.length} calendar)`);
@@ -134,8 +137,8 @@ const succeeded = [];
 
 for (const url of ROUTES) {
   try {
-    const { html, seo } = render(url);
-    const out = injectIntoShell(shell, html, seo, url);
+    const { html, seo, lang } = render(url);
+    const out = injectIntoShell(shell, html, seo, url, lang ?? "es");
     const outPath = url === "/"
       ? path.join(distDir, "index.html")
       : path.join(distDir, url.replace(/^\/+/, ""), "index.html");
@@ -157,8 +160,13 @@ await writeSeparateSitemaps(succeeded);
 await writeSitemapIndex();
 
 // ── Helpers ─────────────────────────────────────────────────────────────────
-function injectIntoShell(shellHtml, bodyHtml, seo, url) {
+function injectIntoShell(shellHtml, bodyHtml, seo, url, lang = "es") {
   let out = shellHtml;
+
+  // <html lang> — localized pages (/en/…) render in their language.
+  if (lang && lang !== "es") {
+    out = out.replace(/<html lang="[^"]*"/i, `<html lang="${lang}"`);
+  }
 
   if (seo) {
     // Replace <title>
@@ -183,19 +191,41 @@ function injectIntoShell(shellHtml, bodyHtml, seo, url) {
         /<link rel="canonical"[^>]*>/,
         `<link rel="canonical" href="${escapeAttr(seo.canonical)}" />`,
       );
-      out = out.replace(
-        /<link rel="alternate" hreflang="es-ES"[^>]*>/,
-        `<link rel="alternate" hreflang="es-ES" href="${escapeAttr(seo.canonical)}" />`,
-      );
-      out = out.replace(
-        /<link rel="alternate" hreflang="x-default"[^>]*>/,
-        `<link rel="alternate" hreflang="x-default" href="${escapeAttr(seo.canonical)}" />`,
-      );
+      // Reciprocal hreflang for localized pages (es-ES → ES url, en → EN url,
+      // x-default → ES url); otherwise keep the es-only behaviour. The shell only
+      // ships es-ES + x-default placeholders, so the `en` alternate is appended
+      // alongside the es-ES replacement.
+      const alts = typeof hreflangAlternates === "function" ? hreflangAlternates(seo.canonical) : null;
+      if (alts && alts.length) {
+        const esAlt = alts.find((a) => a.hreflang === "es-ES");
+        const enAlt = alts.find((a) => a.hreflang === "en");
+        const xAlt = alts.find((a) => a.hreflang === "x-default");
+        out = out.replace(
+          /<link rel="alternate" hreflang="es-ES"[^>]*>/,
+          `<link rel="alternate" hreflang="es-ES" href="${escapeAttr(esAlt.href)}" />\n    <link rel="alternate" hreflang="en" href="${escapeAttr(enAlt.href)}" />`,
+        );
+        out = out.replace(
+          /<link rel="alternate" hreflang="x-default"[^>]*>/,
+          `<link rel="alternate" hreflang="x-default" href="${escapeAttr(xAlt.href)}" />`,
+        );
+      } else {
+        out = out.replace(
+          /<link rel="alternate" hreflang="es-ES"[^>]*>/,
+          `<link rel="alternate" hreflang="es-ES" href="${escapeAttr(seo.canonical)}" />`,
+        );
+        out = out.replace(
+          /<link rel="alternate" hreflang="x-default"[^>]*>/,
+          `<link rel="alternate" hreflang="x-default" href="${escapeAttr(seo.canonical)}" />`,
+        );
+      }
     }
 
     // OG / Twitter — patch the obvious ones, otherwise append
     const ogUrl = seo.canonical ?? `${SITE_URL}${url}`;
     out = patchMeta(out, "og:url", ogUrl, true);
+    if (lang && lang !== "es") {
+      out = patchMeta(out, "og:locale", lang === "en" ? "en_US" : `${lang}_ES`, true);
+    }
     out = patchMeta(out, "og:title", seo.ogTitle, true);
     out = patchMeta(out, "og:description", seo.ogDescription, true);
     out = patchMeta(out, "og:type", seo.ogType, true);
@@ -291,6 +321,7 @@ async function writeSitemapIndex() {
     "sitemap-generos.xml",
     "sitemap-calendario.xml",
     "sitemap-static-others.xml",
+    "sitemap-en.xml",
   ];
   const entries = staticSitemaps
     .map((f) => `  <sitemap>\n    <loc>${SITE_URL}/${f}</loc>\n    <lastmod>${today}</lastmod>\n  </sitemap>`)
@@ -397,6 +428,11 @@ async function writeSeparateSitemaps(urls) {
   const today = new Date().toISOString().slice(0, 10);
   const contentDate = CONTENT_LAST_UPDATED ?? today;
 
+  // English (/en/) pilot URLs go to their own sitemap with hreflang alternates;
+  // keep them out of the Spanish groups below.
+  const enUrls = urls.filter((u) => u === "/en" || u.startsWith("/en/"));
+  urls = urls.filter((u) => !(u === "/en" || u.startsWith("/en/")));
+
   const INDEXED_PREFIXES = ["/festivales/", "/conciertos/", "/rutas/", "/como-llegar/", "/blog/",
     "/festivales-genero/", "/calendario-festivales/", "/artistas/", "/recintos/", "/festivales-en/"];
   // /conciertos/:city/:year — past (2025) and future (2027) variants are
@@ -436,4 +472,22 @@ async function writeSeparateSitemaps(urls) {
   await write("sitemap-recintos.xml", groups.venues, "monthly", "0.72");
   await write("sitemap-regiones.xml", groups.regions, "monthly", "0.75");
   await write("sitemap-static-others.xml", groups.others, "monthly", "0.6");
+
+  // English pilot sitemap — each entry carries reciprocal xhtml:link hreflang
+  // alternates so Google associates the es/en variants as a language cluster.
+  if (enUrls.length) {
+    const entries = enUrls
+      .map((u) => {
+        const self = `${SITE_URL}${u}`;
+        const alts = typeof hreflangAlternates === "function" ? hreflangAlternates(self) : null;
+        const altLinks = (alts ?? [])
+          .map((a) => `\n    <xhtml:link rel="alternate" hreflang="${a.hreflang}" href="${a.href}" />`)
+          .join("");
+        return `  <url>\n    <loc>${self}</loc>\n    <lastmod>${today}</lastmod>\n    <changefreq>weekly</changefreq>\n    <priority>0.8</priority>${altLinks}\n  </url>`;
+      })
+      .join("\n");
+    const xml = `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"\n        xmlns:xhtml="http://www.w3.org/1999/xhtml">\n${entries}\n</urlset>\n`;
+    await fs.writeFile(path.join(distDir, "sitemap-en.xml"), xml, "utf8");
+    console.log(`[prerender] wrote sitemap-en.xml — ${enUrls.length} URLs`);
+  }
 }

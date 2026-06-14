@@ -4,10 +4,12 @@ import { PenLine, ArrowRight } from "lucide-react";
 import { motion } from "motion/react";
 import type { Ride } from "@concertride/types";
 import { api } from "@/lib/api";
+import { useI18n } from "@/lib/i18n";
 import { TicketCard } from "@/components/TicketCard";
 import { SkeletonCard } from "@/components/ui";
 
 export function AdhocRidesSection() {
+  const { locale } = useI18n();
   const navigate = useNavigate();
   const [rides, setRides] = useState<Ride[] | null>(null);
 
@@ -50,32 +52,47 @@ export function AdhocRidesSection() {
         >
           <div className="space-y-3">
             <p className="font-sans text-[11px] font-semibold uppercase tracking-[0.16em] text-cr-primary inline-flex items-center gap-2">
-              <PenLine size={12} aria-hidden="true" /> Conciertos no listados
+              <PenLine size={12} aria-hidden="true" /> {locale === "en" ? "Unlisted concerts" : "Conciertos no listados"}
             </p>
             <h2
               id="adhoc-heading"
               className="font-display uppercase text-3xl md:text-4xl leading-[0.95]"
             >
-              Viajes para
+              {locale === "en" ? "Trips for" : "Viajes para"}
               <br />
-              <span className="text-[#dbff00]">otros conciertos</span>
+              <span className="text-[#dbff00]">{locale === "en" ? "other concerts" : "otros conciertos"}</span>
             </h2>
             <p className="font-sans text-sm text-cr-text-muted max-w-md">
-              Viajes publicados por conductores para conciertos que todavía no aparecen en nuestra
-              agenda. ¿El tuyo tampoco está?{" "}
-              <Link
-                to="/publish"
-                className="text-cr-primary underline hover:no-underline"
-              >
-                Publícalo ahora.
-              </Link>
+              {locale === "en" ? (
+                <>
+                  Trips posted by drivers for concerts that aren't on our calendar yet. Yours isn't
+                  there either?{" "}
+                  <Link
+                    to="/publish"
+                    className="text-cr-primary underline hover:no-underline"
+                  >
+                    Post it now.
+                  </Link>
+                </>
+              ) : (
+                <>
+                  Viajes publicados por conductores para conciertos que todavía no aparecen en nuestra
+                  agenda. ¿El tuyo tampoco está?{" "}
+                  <Link
+                    to="/publish"
+                    className="text-cr-primary underline hover:no-underline"
+                  >
+                    Publícalo ahora.
+                  </Link>
+                </>
+              )}
             </p>
           </div>
           <Link
             to="/concerts"
             className="hidden md:inline-flex items-center gap-2 font-mono text-xs text-white/30 uppercase tracking-[0.15em] hover:text-white/60 transition-colors group"
           >
-            Ver todos los viajes
+            {locale === "en" ? "See all trips" : "Ver todos los viajes"}
             <ArrowRight size={11} className="transition-transform group-hover:translate-x-1" aria-hidden="true" />
           </Link>
         </motion.header>

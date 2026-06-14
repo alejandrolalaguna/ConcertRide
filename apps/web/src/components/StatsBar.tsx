@@ -1,8 +1,11 @@
 import { motion } from "motion/react";
 import { useCountUp, useInView } from "@/hooks/useCountUp";
+import { useI18n } from "@/lib/i18n";
 
 interface Stat {
-  label: string;
+  /** Stable identifier (used as React key and i18n label key). */
+  id: string;
+  labelKey: string;
   target: number;
   prefix?: string;
   suffix?: string;
@@ -10,13 +13,14 @@ interface Stat {
 }
 
 const STATS: Stat[] = [
-  { label: "festivales en el catálogo 2026", target: 33, suffix: "+" },
-  { label: "ciudades cubiertas en España",   target: 72, suffix: "+" },
-  { label: "ahorro estimado* vs taxi y bus", target: 60, suffix: "%" },
-  { label: "comisión de plataforma",         target: 0,  suffix: "%", accent: true },
+  { id: "festivals", labelKey: "home.statsFestivals", target: 33, suffix: "+" },
+  { id: "cities",    labelKey: "home.statsCities",    target: 72, suffix: "+" },
+  { id: "savings",   labelKey: "home.statsSavings",   target: 60, suffix: "%" },
+  { id: "fee",       labelKey: "home.statsFee",       target: 0,  suffix: "%", accent: true },
 ];
 
 function Counter({ stat, enabled, index }: { stat: Stat; enabled: boolean; index: number }) {
+  const { t } = useI18n();
   const value = useCountUp({ target: stat.target, enabled });
   return (
     <motion.div
@@ -39,18 +43,19 @@ function Counter({ stat, enabled, index }: { stat: Stat; enabled: boolean; index
         {stat.suffix ?? ""}
       </p>
       <p className="font-mono text-[10px] font-semibold uppercase tracking-[0.18em] text-white/35">
-        {stat.label}
+        {t(stat.labelKey)}
       </p>
     </motion.div>
   );
 }
 
 export function StatsBar() {
+  const { t } = useI18n();
   const { ref, inView } = useInView<HTMLElement>();
   return (
     <section
       ref={ref}
-      aria-label="Estadísticas de ConcertRide"
+      aria-label={t("home.statsSectionAria")}
       className="relative overflow-hidden border-y border-white/[0.06]"
     >
       {/* Crowd photo — slightly more visible */}
@@ -82,7 +87,7 @@ export function StatsBar() {
       <div className="relative max-w-6xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-px bg-white/[0.04]">
         {STATS.map((s, i) => (
           <div
-            key={s.label}
+            key={s.id}
             className="relative bg-[#080808] px-8 py-10 md:py-14 overflow-hidden group"
           >
             {/* Hover lime glow */}
@@ -111,7 +116,7 @@ export function StatsBar() {
       </div>
       {/* Footnote for estimated stat */}
       <p className="relative max-w-6xl mx-auto px-8 py-2 font-mono text-[9px] text-white/20">
-        * Ahorro estimado en rutas de 100–300 km respecto a taxi particular y autobús de línea regular. Cálculo basado en tarifas medias 2025 (CNMC, MITMA).
+        {t("home.statsFootnote")}
       </p>
     </section>
   );

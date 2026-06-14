@@ -1130,6 +1130,320 @@ export const ca: Dict = {
     reviewsHeading: "Valoracions ({count})",
     noRidesYet: "Aquest conductor encara no té viatges publicats.",
   },
+
+  // Home / landing page (LandingPage.tsx + Hero.tsx)
+  home: {
+    // SEO meta (useSeoMeta)
+    metaTitle: "Carpooling a Festivals [2026] · Estalvia 40–60€ · ConcertRide",
+    metaDescription:
+      "Carpooling a Mad Cool, Primavera Sound, Sónar, BBK Live i +30 festivals a Espanya. 0% de comissió, conductors verificats. Des de 5€/seient.",
+    metaKeywords:
+      "carpooling concerts Espanya, viatges compartits festivals, autobusos festivals espanya, bus festivals 2026, transport a concerts, cotxe compartit música, ride-sharing festivals, concerts a madrid, concerts a barcelona, concerts a sevilla, concerts a bilbao 2026, concerts a donostia 2026, concerts a saragossa, viña rock buses, arenal sound com arribar, bbk santander, mad cool carpooling, primavera sound viatge compartit, deixa el cotxe a casa festival, carpooling sense comissions, tornar festival matinada, anar al festival sense cotxe",
+    metaOgImageAlt:
+      "ConcertRide: carpooling sense comissió a concerts i festivals a Espanya · Mad Cool, Primavera Sound, BBK Live",
+
+    // Hero (Hero.tsx)
+    heroBadgeBase: "Concerts i festivals 2026",
+    heroBadgeCountdownPrefix: " · falten",
+    heroBadgeDaySingular: "dia",
+    heroBadgeDayPlural: "dies",
+    heroBadgeLimited: " · places limitades",
+    heroTitleLine1a: "El teu pla, sense cotxe",
+    heroTitleLine1b: ".",
+    heroTitleLine2a: "Arriba al concert",
+    heroTitleLine2b: " amb la teva gent.",
+    heroSrKeyword:
+      "Carpooling a concerts i festivals a Espanya 2026: viatges compartits des de {price}€ per seient.",
+    heroSubheadlinePrefix: "Carpooling a concerts i festivals des de",
+    heroSubheadlinePrice: "{price}€/seient",
+    heroSubheadlineMiddle: "amb conductors verificats.",
+    heroSubheadlineTrust: "Pagament directe en efectiu o Bizum · 0% de comissió.",
+    heroCtaSearch: "Buscar viatge",
+    heroCtaPublish: "Publicar viatge →",
+    heroFansCount: "+2.000 fans ja a la comunitat",
+    heroTestimonialRating: "★ 4,9",
+    heroTestimonialQuote: "“Vaig estalviar 40€ anant al Sónar des de Madrid” · Sara M.",
+    heroBadgeNoCard: "Sense targeta de crèdit",
+    heroBadgeVerifiedLicense: "Carnet verificat",
+    heroBadgeReturn: "Tornada de matinada pactada",
+
+    // "Per què ConcertRide" section
+    whyEyebrow: "Per què ConcertRide",
+    whyTitleLine1: "No és només",
+    whyTitleLine2: "un viatge.",
+    whyIntro:
+      "ConcertRide no és una altra plataforma de carpooling generalista. Està dissenyada específicament per a la comunitat de música en directe.",
+    whyImageAlt: "Viatge nocturn a un concert amb llums de ciutat",
+    whyImageCaption: "La matinada comença aquí",
+    whyImageBadge: "+30 festivals coberts",
+
+    // WHY_CONCERTRIDE cards
+    why1Title: "Rutes a concerts reals",
+    why1Body: "Viatges organitzats cap a festivals i concerts verificats. Sense destinacions genèriques.",
+    why1Highlight: "Estalvia 13–18€ per viatge",
+    why2Title: "Perfils verificats",
+    why2Body: "Conductors i passatgers amb valoracions reals. Viatja amb qui confies.",
+    why2Highlight: "100% verificats",
+    why3Title: "Reserva instantània",
+    why3Body: "Troba seient en segons. Sense negociacions ni missatges infinits.",
+    why3Highlight: "+30 festivals coberts",
+    why4Title: "Vibe del viatge",
+    why4Body: "Tria l'ambient: playlist compartida, conversa o silenci. Tu manes.",
+    why4Highlight: "Tornada pactada",
+    why5Title: "Comunitat de fans",
+    why5Body: "Connecta amb gent que va al mateix esdeveniment. Comparteix música, no només gasolina.",
+    why5Highlight: "+2k fans",
+    why6Title: "Impacte real",
+    why6Body: "Menys cotxes, menys CO₂. Cada viatge compartit redueix la petjada de l'esdeveniment.",
+    why6Highlight: "80% menys CO₂",
+
+    whyCtaJoin: "Unir-me gratis",
+    whyCtaSeeRides: "Veure viatges disponibles →",
+
+    // FAQ section
+    faqEyebrow: "Preguntes freqüents",
+    faqTitleLine1: "Sense",
+    faqTitleLine2: "lletra petita.",
+    faqMorePrefix: "Tens més dubtes?",
+    faqMoreLink: "Escriu-nos a help@concertride.me",
+    faqGuideLink: "Veure guia completa",
+    faq1Q: "És segur viatjar amb desconeguts?",
+    faq1A:
+      "Tots els usuaris tenen un perfil verificat amb valoracions reals de viatges anteriors. Pots veure l'historial del conductor abans de reservar. A més, cada viatge queda registrat a la plataforma.",
+    faq2Q: "Com es paga el viatge?",
+    faq2A:
+      "El preu el fixa el conductor per cobrir gasolina i peatges — ConcertRide no cobra comissions. El pagament s'acorda directament entre conductor i passatger (efectiu o Bizum). Sense intermediaris, sense sorpreses.",
+    faq3Q: "Què passa si el concert s'anul·la?",
+    faq3A:
+      "Si l'esdeveniment s'anul·la, el viatge es cancel·la automàticament i ambdues parts són notificades. La gestió dels diners (si ja s'havia acordat) queda entre conductor i passatger.",
+    faq4Q: "Puc publicar un viatge si mai he fet servir l'app?",
+    faq4A:
+      "Sí. Registra't gratis, verifica el teu perfil i publica el teu viatge en menys de 2 minuts. Sense processos complicats ni documentació addicional per començar.",
+
+    // Industry authority quotes section
+    sourcesEyebrow: "Fonts i context",
+    quote1Text:
+      "\"El transport dels assistents suposa el 80 % de la petjada de carboni d'un festival. El carpooling és l'acció individual més efectiva per reduir-la.\"",
+    quote1Source: "Julie's Bicycle Green Events Guide",
+    quote2Text:
+      "\"Espanya va celebrar més de 1.000 festivals amb més de 25 milions d'assistents el 2024 i una facturació que va superar els 600 milions d'euros.\"",
+    quote2Source: "Asociación de Promotores Musicales (APM)",
+    quote2Suffix: ", Informe 2024",
+    quote3Text:
+      "\"Espanya figura entre els cinc mercats de música en directe amb més creixement d'Europa el 2023–2024.\"",
+    quote3Source: "Pollstar",
+    quote3Suffix: ", rànquing europeu de música en directe",
+    quote4Text:
+      "\"El cotxe compartit pot reduir les emissions de CO₂ per quilòmetre i passatger entre un 50 % i un 75 % respecte al vehicle privat amb un sol ocupant.\"",
+    quote4Source: "European Environment Agency (EEA)",
+    quote4Suffix: ", Transport and Environment Report",
+    quote5Text:
+      "\"El Tribunal Suprem d'Espanya va establir el 2017 que el carpooling sense ànim de lucre és legal: el conductor només pot recuperar les despeses del viatge.\"",
+    quote5Source: "Tribunal Suprem d'Espanya",
+    quote5Suffix: ", Sentència 2017 (STS 3145/2017)",
+
+    // Comparison table section
+    compareEyebrow: "Comparativa",
+    compareTitle: "Quant costa arribar a un festival a Espanya?",
+    compareSubtitle: "Preus orientatius per a trajectes de 150–300 km (ex. Madrid → festival).",
+    compareColOption: "Opció",
+    compareColPrice: "Preu/persona",
+    compareColFee: "Comissió",
+    compareColReturn: "Tornada de matinada",
+    compareRow1Option: "ConcertRide",
+    compareRow1Price: "5 – 20 €",
+    compareRow1Fee: "0 %",
+    compareRow1Return: "Sí, pactada amb el conductor",
+    compareRow2Option: "Altres plataformes",
+    compareRow2Price: "8 – 25 €",
+    compareRow2Fee: "13–18 %",
+    compareRow2Return: "Limitada (horaris fixos)",
+    compareRow3Option: "Bus oficial festival",
+    compareRow3Price: "10 – 35 €",
+    compareRow3Fee: "Inclosa",
+    compareRow3Return: "Només última llançadora",
+    compareRow4Option: "Tren + bus",
+    compareRow4Price: "15 – 50 €",
+    compareRow4Fee: "—",
+    compareRow4Return: "No (últim tren nocturn)",
+    compareRow5Option: "Taxi / VTC",
+    compareRow5Price: "40 – 120 €",
+    compareRow5Fee: "Inclosa",
+    compareRow5Return: "Sí, però preu elevat",
+    compareFootnote: "Preus estimats per a rutes de 150–300 km (p. ex. Madrid–Albacete, Madrid–València).",
+
+    // Content hub section
+    hubEyebrow: "Guies i recursos",
+    hubTitle: "Tot el que necessites saber",
+    hubLabelGuide: "Guia",
+    hubLabelRoute: "Ruta",
+    hubLabelComparison: "Comparativa",
+    hubLabelBlog: "Blog",
+    hubReadCta: "Llegir",
+    hubSeeRouteCta: "Veure ruta",
+    hubSeeBlogCta: "Veure blog",
+    hubCard1Title: "Guia de transport per a festivals",
+    hubCard1Body: "Carpooling, llançadores, tren o taxi: quan fer servir cada opció i com estalviar en el trajecte.",
+    hubCard2Title: "Com anar a un festival sense cotxe",
+    hubCard2Body: "Les 3 maneres reals d'arribar sense cotxe propi: carpooling passatger, bus oficial i tren+llançadora amb preus.",
+    hubCard3Title: "Pressupost festival grup de 4",
+    hubCard3Body: "Desglossament en 6 partides, calculadora amb 3 perfils i casos reals Mad Cool, Primavera Sound i Sonorama per a un cap de setmana.",
+    hubCard4Title: "És segur el carpooling a festivals?",
+    hubCard4Body: "Mecanismes de control, comparativa de seguretat per modalitat, checklist de 10 passos i secció específica per a dones que viatgen soles.",
+    hubCard5Title: "El meu primer festival: guia per a novells",
+    hubCard5Body: "Preparació, kit de 15 ítems, dia a dia, errors típics, salut i 5 festivals recomanats per a la teva primera experiència.",
+    hubCard6Label: "Guia conductor",
+    hubCard6Title: "Conduir carpooling a festivals",
+    hubCard6Body: "Marc legal a Espanya, quant recuperes amb 3 passatgers i 7 regles per no tenir problemes amb Hisenda ni amb l'autoritat de transports.",
+    hubCard7Label: "Guia inclusió",
+    hubCard7Title: "Festival accessibilitat i mobilitat reduïda",
+    hubCard7Body: "Top 8 festivals PMR-friendly, com aconseguir el bo accessibilitat i transport adaptat: Renfe Atendo, ALSA, Eurotaxi i carpooling accessible.",
+    hubCard8Label: "Guia adult",
+    hubCard8Title: "Festivals per a majors de 35 a Espanya",
+    hubCard8Body: "Top 10 festivals 35+ friendly 2026, paquets VIP des de 150€/dia, horaris raonables i carpooling adult. Guia completa per a festivalers veterans.",
+    hubCard9Title: "Com tornar d'un festival de matinada",
+    hubCard9Body: "L'últim metro surt a la 1:30 i el festival acaba a les 2:30. Opcions reals sense pagar 90 € de taxi.",
+    hubCard10Title: "Carpooling Madrid → Mad Cool",
+    hubCard10Body: "Preus, temps de conducció i horaris de tornada per a la ruta més popular a Mad Cool 2026.",
+    hubCard11Title: "Carpooling Madrid → Primavera Sound",
+    hubCard11Body: "Madrid–Barcelona en cotxe compartit: 620 km, ~5 h 30 min, des de 14 €/seient.",
+    hubCard12Title: "Què és el carpooling per a concerts",
+    hubCard12Body: "Resposta directa, passos numerats i comparació amb taxi i autobús per entendre-ho en un minut.",
+    hubCard13Title: "Carpooling vs taxi en festivals",
+    hubCard13Body: "Un taxi d'anada i tornada supera els 50 €. El carpooling surt entre 3 i 20 € per seient segons distància.",
+    hubCard14Title: "Més articles i guies",
+    hubCard14Body: "Comparatives, dades de sostenibilitat i tot el que necessites per anar a un festival a Espanya.",
+
+    // Sticky mobile CTA
+    stickyAriaRegion: "Acció ràpida: buscar viatges al pròxim festival",
+    stickyAriaLink: "Veure viatges compartits a Primavera Sound des de 4 euros per seient",
+    stickyCta: "Veure viatges a Primavera Sound des de 4€ →",
+
+    // How it works (HowItWorks.tsx)
+    hiwSectionAria: "Com funciona",
+    hiwEyebrow: "Com funciona",
+    hiwTitleLine1: "Tres passos.",
+    hiwTitleLine2: "Zero embolics.",
+    hiwStep1Title: "Tria el concert",
+    hiwStep1Body: "Cerca per artista, festival o ciutat. Veu els viatges actius a l'instant al nostre catàleg de +120 esdeveniments.",
+    hiwStep2Title: "Reserva o publica",
+    hiwStep2Body: "Ocupa un seient lliure o obre el teu cotxe. Tu decideixes el preu per cobrir gasolina i peatges, res més.",
+    hiwStep3Title: "A rockejar junts",
+    hiwStep3Body: "Playlist compartida, bona companyia i al recinte a temps. Així comença la nit perfecta.",
+    hiwDriverEyebrow: "Tens cotxe?",
+    hiwDriverTitle1: "Publica el teu viatge.",
+    hiwDriverTitle2: "Recupera la gasolina.",
+    hiwDriverBody: "Fixa el preu per seient per cobrir combustible i peatges — sense comissió de plataforma. En 2 minuts tens el viatge publicat.",
+    hiwDriverStat1Label: "comissió",
+    hiwDriverStat2Label: "per publicar",
+    hiwDriverStat3Label: "per a tu",
+    hiwDriverCta: "Publicar el meu primer viatge",
+
+    // Stats bar (StatsBar.tsx)
+    statsSectionAria: "Estadístiques de ConcertRide",
+    statsFestivals: "festivals al catàleg 2026",
+    statsCities: "ciutats cobertes a Espanya",
+    statsSavings: "estalvi estimat* vs taxi i bus",
+    statsFee: "comissió de plataforma",
+    statsFootnote: "* Estalvi estimat en rutes de 100–300 km respecte a taxi particular i autobús de línia regular. Càlcul basat en tarifes mitjanes 2025 (CNMC, MITMA).",
+
+    // Testimonials (TestimonialsSection.tsx)
+    testimonialsSectionAria: "Testimonis d'usuaris de ConcertRide",
+    testimonialsStarsAria: "{rating} de 5 estrelles",
+    testimonialsEyebrow: "Comunitat real",
+    testimonialsTitleLine1: "Fans que ja",
+    testimonialsTitleLine2: "viatgen junts.",
+    testimonialsLiveCount: "+2.000 fans a la comunitat",
+
+    // Hero — live activity ticker (Hero.tsx)
+    heroActivity1: "Rafa des de Madrid · ha reservat seient → Barcelona (Cruïlla) · fa 2 min",
+    heroActivity2: "María des de València · ha publicat viatge → Sonorama Ribera · fa 5 min",
+    heroActivity3: "Lucía des de Saragossa · s'ha unit a ConcertRide · fa 7 min",
+    heroActivity4: "Carlos des de València · ha publicat viatge → FIB Benicàssim · fa 11 min",
+    heroActivity5: "Ana des de Bilbao · ha publicat viatge → Mad Cool Madrid · fa 15 min",
+
+    // Hero — ticket stub labels (Hero.tsx TicketStub)
+    heroStubBoardingPass: "CONCERTRIDE · BOARDING PASS",
+    heroStubTagline: "CARPOOLING · CONCERTS · FESTIVALS",
+    heroStubFrom: "DES DE",
+    heroStubTo: "FINS A",
+    heroStubPrice: "PREU",
+    heroStubPerSeat: "PER SEIENT",
+    heroStubSeatSingular: "PLAÇA",
+    heroStubSeatPlural: "PLACES",
+
+    // Registration nudge (RegistrationNudge.tsx)
+    nudgeAriaLabel: "Uneix-te a ConcertRide",
+    nudgeLiveIndicator: "Usuaris unint-se ara",
+    nudgeTitle1: "+2.000 fans registrats.",
+    nudgeTitle2: "Uneix-te gratis avui.",
+    nudgeBadge1: "30 segons per començar",
+    nudgeBadge2: "Sense targeta de crèdit",
+    nudgeBadge3: "0€ de comissió sempre",
+    nudgeCta: "Crear compte gratis",
+    nudgeFootnote: "Sense targeta · Sense comissió · Cancel·la quan vulguis",
+    nudgeJoinTicker: "{name} · {city} · fa {min} min",
+
+    // Trust section (TrustSection.tsx)
+    trustPlatformStat1Label: "Festivals coberts",
+    trustPlatformStat1Sublabel: "temporada 2026",
+    trustPlatformStat2Label: "Comissió de plataforma",
+    trustPlatformStat2Sublabel: "preu just garantit",
+    trustPlatformStat3Label: "Conductors verificats",
+    trustPlatformStat3Sublabel: "DNI + carnet de conduir",
+    trustPlatformStat4Label: "Per publicar un viatge",
+    trustPlatformStat4Sublabel: "sense complicacions",
+    trustPoint1: "Perfil verificat amb DNI",
+    trustPoint2: "Conductors amb carnet verificat",
+    trustPoint3: "Sense comissions de plataforma",
+    trustSectorStat1Label: "assistents a festivals a Espanya el 2024",
+    trustSectorStat2Label: "festivals celebrats a Espanya el 2024",
+    trustSectorStat3Label: "de la petjada de carboni d'un festival prové del transport dels assistents",
+    trustSectorSource: "Font: {source} ↗",
+    trustSectorEyebrow: "El sector en xifres",
+    trustSectorTitleLine1: "Espanya lidera",
+    trustSectorTitleLine2: "el turisme festivaler.",
+    trustSectorIntro:
+      "El mercat de música en viu a Espanya és un dels cinc amb més creixement d'Europa. El repte és arribar-hi sense gastar el doble del tiquet en transport.",
+    trustFaqEyebrow: "Preguntes freqüents",
+    trustFaqTitle: "Tot el que necessites saber abans de reservar",
+    trustFaq1Q: "És gratis fer servir ConcertRide?",
+    trustFaq1A:
+      "Sí. ConcertRide no cobra comissió ni al conductor ni al passatger. El preu el fixa el conductor per cobrir gasolina i peatges; el pagament es fa directament en efectiu o per Bizum.",
+    trustFaq2Q: "Quant costa un viatge a ConcertRide?",
+    trustFaq2A:
+      "El preu el fixa el conductor segons la distància i el cost de la gasolina. En rutes curtes (50–100 km) ronda els 5–12 €/seient. En rutes llargues (300–600 km) pot arribar a 15–30 €. ConcertRide no afegeix comissió, així que el preu és sempre més baix que en altres plataformes.",
+    trustFaq3Q: "Com es verifiquen els conductors?",
+    trustFaq3A:
+      "Cada conductor puja una foto del carnet de conduir i verifica la seva identitat amb el DNI. L'equip de ConcertRide revisa manualment cada perfil abans d'activar-lo.",
+    trustFaq4Q: "Què passa si el conductor cancel·la el viatge?",
+    trustFaq4A:
+      "Reps una notificació immediata i pots buscar un altre viatge disponible. Com que el pagament és presencial (efectiu o Bizum) no hi ha càrrecs automàtics per gestionar.",
+    trustFaq5Q: "Puc publicar un viatge si vaig amb cotxe al festival?",
+    trustFaq5A:
+      "Sí. Publiques la teva ruta, data, hora de sortida i el preu per seient. Els passatgers et demanen plaça i tu decideixes acceptar. Cobreix gasolina i peatges sense perdre diners.",
+    trustFaq6Q: "ConcertRide cobreix tota Espanya?",
+    trustFaq6A:
+      "Sí. La plataforma opera a tot el territori espanyol. Les rutes més actives connecten Madrid, Barcelona, València, Bilbao, Sevilla i Saragossa amb els festivals més grans de l'any.",
+    trustFaq7Q: "Puc viatjar amb els meus amics al mateix cotxe?",
+    trustFaq7A:
+      "Sí, pots demanar diverses places en un mateix viatge si el conductor té seients disponibles. Coordina't amb el teu grup abans de demanar-ho per anar tots junts.",
+    trustFaq8Q: "Quins documents necessito per registrar-me?",
+    trustFaq8A:
+      "Només necessites un correu electrònic i, si vas a conduir, una foto del carnet de conduir i el DNI per a la verificació. Els passatgers només necessiten crear un compte gratuït.",
+    trustFaq9Q: "Com es fa el pagament?",
+    trustFaq9A:
+      "El pagament es fa directament al conductor el dia del viatge, en efectiu o per Bizum. ConcertRide no gestiona cobraments ni reté diners — sense comissions, sense sorpreses.",
+    trustFaq10Q: "És segur viatjar amb ConcertRide?",
+    trustFaq10A:
+      "Tots els conductors estan verificats amb DNI i carnet de conduir. Els perfils inclouen foto, valoracions d'altres usuaris i un historial de viatges. A més, pots comunicar-te directament amb el conductor abans de confirmar.",
+    trustFaq11Q: "Puc cancel·lar la meva reserva?",
+    trustFaq11A:
+      "Sí, pots cancel·lar des del teu perfil. En ser el pagament presencial, no hi ha càrrecs automàtics. Avisa el conductor amb tanta antelació com sigui possible perquè pugui buscar un altre passatger.",
+    trustFaq12Q: "Què passa si arribo tard al punt de recollida?",
+    trustFaq12A:
+      "Coordina't amb el conductor pel xat de la plataforma. A ConcertRide els conductors solen tenir un marge de 5–10 minuts, però recorda que també tenen festival que no es volen perdre.",
+  },
 };
 
 export default ca;

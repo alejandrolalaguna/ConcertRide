@@ -1,10 +1,12 @@
 import { motion } from "motion/react";
 import { Quote } from "lucide-react";
 import { TESTIMONIALS } from "@/lib/testimonials";
+import { useI18n } from "@/lib/i18n";
 
 function Stars({ rating }: { rating: number }) {
+  const { t } = useI18n();
   return (
-    <span className="flex gap-0.5" aria-label={`${rating} de 5 estrellas`}>
+    <span className="flex gap-0.5" aria-label={t("home.testimonialsStarsAria", { rating })}>
       {[1, 2, 3, 4, 5].map((n) => (
         <span
           key={n}
@@ -19,10 +21,11 @@ function Stars({ rating }: { rating: number }) {
 }
 
 export function TestimonialsSection() {
+  const { t } = useI18n();
   return (
     <section
       aria-labelledby="testimonials-title"
-      aria-label="Testimonios de usuarios de ConcertRide"
+      aria-label={t("home.testimonialsSectionAria")}
       className="relative py-24 lg:py-32 px-6 overflow-hidden"
       style={{ backgroundColor: "#080808" }}
       id="testimonials"
@@ -62,22 +65,22 @@ export function TestimonialsSection() {
         >
           <div className="space-y-4">
             <p className="font-mono text-xs tracking-[0.3em] uppercase text-[#ff4f00]">
-              Comunidad real
+              {t("home.testimonialsEyebrow")}
             </p>
             <h2
               id="testimonials-title"
               className="font-display text-4xl lg:text-6xl uppercase tracking-tight leading-[0.88]"
             >
-              Fans que ya
+              {t("home.testimonialsTitleLine1")}
               <br />
-              <span className="text-white/25">viajan juntos.</span>
+              <span className="text-white/25">{t("home.testimonialsTitleLine2")}</span>
             </h2>
           </div>
           {/* Live count badge */}
           <div className="hidden md:flex items-center gap-3 mb-2">
             <span className="w-1.5 h-1.5 rounded-full bg-[#dbff00] animate-pulse flex-shrink-0" aria-hidden="true" />
             <span className="font-mono text-[10px] text-white/30 uppercase tracking-[0.15em]">
-              +2.000 fans en la comunidad
+              {t("home.testimonialsLiveCount")}
             </span>
           </div>
         </motion.div>

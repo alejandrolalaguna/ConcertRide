@@ -2,6 +2,7 @@ import { useEffect, useMemo, useState } from "react";
 import { AnimatePresence, motion, useScroll, useTransform } from "motion/react";
 import { ArrowRight } from "lucide-react";
 import { ANALYTICS_EVENTS, trackEvent } from "@/lib/analytics-events";
+import { useI18n } from "@/lib/i18n";
 
 interface TicketData {
   id: string;
@@ -29,12 +30,15 @@ const NEXT_FESTIVAL = {
   minPrice: 4, // €/asiento — la ruta corta más barata
 } as const;
 
-const LIVE_ACTIVITY = [
-  "Rafa desde Madrid · reservó asiento → Barcelona (Cruïlla) · hace 2 min",
-  "María desde Valencia · publicó viaje → Sonorama Ribera · hace 5 min",
-  "Lucía desde Zaragoza · se unió a ConcertRide · hace 7 min",
-  "Carlos desde Valencia · publicó viaje → FIB Benicàssim · hace 11 min",
-  "Ana desde Bilbao · publicó viaje → Mad Cool Madrid · hace 15 min",
+// i18n keys for the fake live-activity ticker (resolved at render time so the
+// ticker follows the active locale). Proper nouns (people/festivals/cities) are
+// kept inside the translations.
+const LIVE_ACTIVITY_KEYS = [
+  "home.heroActivity1",
+  "home.heroActivity2",
+  "home.heroActivity3",
+  "home.heroActivity4",
+  "home.heroActivity5",
 ];
 
 const TICKETS: TicketData[] = [
@@ -133,6 +137,7 @@ function usePrefersReducedMotion(): boolean {
 }
 
 export function Hero() {
+  const { t } = useI18n();
   const { scrollY } = useScroll();
   const indicatorOpacity = useTransform(scrollY, [0, 120], [1, 0]);
   const stubY = useTransform(scrollY, [0, 600], [0, 160]);
@@ -162,7 +167,7 @@ export function Hero() {
   useEffect(() => {
     if (reducedMotion) return;
     const actTimer = setInterval(() => {
-      setActivityIdx((i) => (i + 1) % LIVE_ACTIVITY.length);
+      setActivityIdx((i) => (i + 1) % LIVE_ACTIVITY_KEYS.length);
     }, 3500);
     return () => clearInterval(actTimer);
   }, [reducedMotion]);
@@ -226,7 +231,7 @@ export function Hero() {
             exit={{ opacity: 0, y: -20, scale: 0.96 }}
             transition={{ duration: 0.5, ease: [0.25, 0.46, 0.45, 0.94] }}
           >
-            <TicketStub ticket={currentTicket} />
+            <TicketStub ticket={currentTicket} t={t} />
           </motion.div>
         </AnimatePresence>
       </motion.div>
@@ -243,10 +248,10 @@ export function Hero() {
         >
           <span className="w-1.5 h-1.5 rounded-full bg-[#ff4f00] animate-pulse flex-shrink-0" />
           <span className="font-mono text-[10px] tracking-[0.2em] uppercase text-[#ff4f00]">
-            Conciertos y festivales 2026
+            {t("home.heroBadgeBase")}
             {daysToNextFestival > 0 && daysToNextFestival <= 60
-              ? ` · faltan ${daysToNextFestival} ${daysToNextFestival === 1 ? "día" : "días"}`
-              : " · plazas limitadas"}
+              ? `${t("home.heroBadgeCountdownPrefix")} ${daysToNextFestival} ${daysToNextFestival === 1 ? t("home.heroBadgeDaySingular") : t("home.heroBadgeDayPlural")}`
+              : t("home.heroBadgeLimited")}
           </span>
         </motion.div>
 
@@ -259,16 +264,16 @@ export function Hero() {
           transition={{ duration: 0.6, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
           className="font-display uppercase leading-[0.88] tracking-tight text-[clamp(2.6rem,7.5vw,6.5rem)] max-w-5xl"
         >
-          <span className="cr-heading-gradient">Tu plan, sin coche</span>
-          <span className="text-white/55">.</span>
+          <span className="cr-heading-gradient">{t("home.heroTitleLine1a")}</span>
+          <span className="text-white/55">{t("home.heroTitleLine1b")}</span>
           <br />
-          <span className="text-[#dbff00]">Llega al concierto</span>
-          <span className="text-white/55"> con tu gente.</span>
+          <span className="text-[#dbff00]">{t("home.heroTitleLine2a")}</span>
+          <span className="text-white/55">{t("home.heroTitleLine2b")}</span>
         </motion.h1>
 
         {/* H2 — keyword anchor (SEO + AIO) preserved below the headline */}
         <p className="sr-only">
-          Carpooling a conciertos y festivales en España 2026: viajes compartidos desde {NEXT_FESTIVAL.minPrice}€ por asiento.
+          {t("home.heroSrKeyword", { price: NEXT_FESTIVAL.minPrice })}
         </p>
 
         {/* Lime underline rule */}
@@ -287,10 +292,10 @@ export function Hero() {
           transition={{ duration: 0.5, delay: 0.8, ease: [0.16, 1, 0.3, 1] }}
           className="font-sans text-base md:text-xl text-white/65 max-w-xl leading-relaxed font-light"
         >
-          Carpooling a conciertos y festivales desde{" "}
-          <span className="text-[#dbff00] font-semibold">{NEXT_FESTIVAL.minPrice}€/asiento</span>{" "}
-          con conductores verificados.{" "}
-          <span className="text-white/90 font-medium">Pago directo en efectivo o Bizum · 0% comisión.</span>
+          {t("home.heroSubheadlinePrefix")}{" "}
+          <span className="text-[#dbff00] font-semibold">{t("home.heroSubheadlinePrice", { price: NEXT_FESTIVAL.minPrice })}</span>{" "}
+          {t("home.heroSubheadlineMiddle")}{" "}
+          <span className="text-white/90 font-medium">{t("home.heroSubheadlineTrust")}</span>
         </motion.p>
 
         {/* CTAs — primary: see rides to next festival, secondary: publish */}
@@ -305,7 +310,7 @@ export function Hero() {
             onClick={() => trackEvent(ANALYTICS_EVENTS.HERO_CTA_CLICKED, { variant: "search_rides", target: "concerts" })}
             className="cr-btn-shine inline-flex items-center justify-center gap-2 bg-[#dbff00] text-black font-sans font-semibold uppercase tracking-[0.12em] text-sm px-8 py-4 hover:bg-[#c8ec00] transition-colors duration-150 group"
           >
-            Buscar viaje
+            {t("home.heroCtaSearch")}
             <ArrowRight size={14} className="transition-transform duration-150 group-hover:translate-x-1" aria-hidden="true" />
           </a>
           <a
@@ -313,7 +318,7 @@ export function Hero() {
             onClick={() => trackEvent(ANALYTICS_EVENTS.HERO_CTA_CLICKED, { variant: "publish_ride" })}
             className="inline-flex items-center justify-center gap-2 bg-transparent text-white/80 font-sans font-semibold uppercase tracking-[0.12em] text-sm border border-white/25 px-8 py-4 hover:border-[#dbff00]/60 hover:text-white transition-colors duration-150"
           >
-            Publicar viaje →
+            {t("home.heroCtaPublish")}
           </a>
         </motion.div>
 
@@ -340,18 +345,18 @@ export function Hero() {
                   +2k
                 </div>
               </div>
-              <span className="font-mono text-[11px] text-white/45">+2.000 fans ya en la comunidad</span>
+              <span className="font-mono text-[11px] text-white/45">{t("home.heroFansCount")}</span>
             </div>
             {/* Inline testimonial pill — uses Sara M. from existing reviews ItemList (no fabricated quote) */}
             <div className="inline-flex items-center gap-2 border border-white/10 bg-white/[0.03] px-3 py-1.5">
-              <span className="font-mono text-[10px] text-[#dbff00]">★ 4,9</span>
+              <span className="font-mono text-[10px] text-[#dbff00]">{t("home.heroTestimonialRating")}</span>
               <span className="font-mono text-[10px] text-white/55">
-                &ldquo;Ahorré 40€ yendo al Sónar desde Madrid&rdquo; · Sara M.
+                {t("home.heroTestimonialQuote")}
               </span>
             </div>
           </div>
           <div className="flex flex-wrap items-center gap-x-4 gap-y-1">
-            {["Sin tarjeta de crédito", "Carnet verificado", "Vuelta de madrugada pactada"].map((badge) => (
+            {[t("home.heroBadgeNoCard"), t("home.heroBadgeVerifiedLicense"), t("home.heroBadgeReturn")].map((badge) => (
               <span key={badge} className="flex items-center gap-1.5 font-mono text-[10px] text-white/35 uppercase tracking-[0.1em]">
                 <span className="w-1 h-1 rounded-full bg-[#dbff00]/60" aria-hidden="true" />
                 {badge}
@@ -378,7 +383,7 @@ export function Hero() {
                 transition={{ duration: 0.35, ease: "easeOut" }}
                 className="font-mono text-[10px] text-white/30 truncate"
               >
-                {LIVE_ACTIVITY[activityIdx]}
+                {t(LIVE_ACTIVITY_KEYS[activityIdx]!)}
               </motion.p>
             </AnimatePresence>
           </div>
@@ -442,7 +447,13 @@ function barcodeFor(seed: string): number[] {
   return out;
 }
 
-function TicketStub({ ticket }: { ticket: TicketData }) {
+function TicketStub({
+  ticket,
+  t,
+}: {
+  ticket: TicketData;
+  t: (key: string, params?: Record<string, string | number>) => string;
+}) {
   const barcode = barcodeFor(ticket.id);
   const artistFontSize = ticket.artist.length > 9 ? 30 : ticket.artist.length > 7 ? 36 : 40;
 
@@ -475,7 +486,7 @@ function TicketStub({ ticket }: { ticket: TicketData }) {
       <ellipse cx="140" cy="110" rx="130" ry="50" fill="url(#artistGlow)" />
       <rect x="14" y="18" width="6" height="6" fill="#DBFF00" />
       <text x="28" y="24" fill="#DBFF00" fontFamily="'Inter', sans-serif" fontWeight="700" fontSize="9" letterSpacing="2" dominantBaseline="middle">
-        CONCERTRIDE · BOARDING PASS
+        {t("home.heroStubBoardingPass")}
       </text>
       <text x="360" y="24" fill="#888" fontFamily="'JetBrains Mono', monospace" fontSize="8" textAnchor="end" dominantBaseline="middle">
         {ticket.ticketNum}
@@ -488,7 +499,7 @@ function TicketStub({ ticket }: { ticket: TicketData }) {
         <animate attributeName="opacity" values="0.8;0;0.8" dur="1.4s" repeatCount="indefinite" />
       </circle>
       <text x="38" y="52" fill="#F5F5F5" fontFamily="'Inter', sans-serif" fontWeight="700" fontSize="9" letterSpacing="1.6" dominantBaseline="middle">
-        CARPOOLING · CONCIERTOS · FESTIVALES
+        {t("home.heroStubTagline")}
       </text>
       <text x="24" y="108" fill="#DBFF00" fontFamily="'Archivo Black', 'Inter', sans-serif" fontWeight="900" fontSize={artistFontSize} letterSpacing="-1.5" opacity="0.18">
         {ticket.artist}
@@ -504,10 +515,10 @@ function TicketStub({ ticket }: { ticket: TicketData }) {
       <text x="34" y="162" fill="#F5F5F5" fontFamily="'JetBrains Mono', monospace" fontSize="11">{ticket.venue}</text>
       <circle cx="27" cy="179" r="2" fill="#DBFF00" />
       <text x="34" y="182" fill="#F5F5F5" fontFamily="'JetBrains Mono', monospace" fontSize="11">{ticket.date}</text>
-      <text x="24" y="212" fill="#888" fontFamily="'Inter', sans-serif" fontWeight="700" fontSize="9" letterSpacing="1.6">DESDE</text>
+      <text x="24" y="212" fill="#888" fontFamily="'Inter', sans-serif" fontWeight="700" fontSize="9" letterSpacing="1.6">{t("home.heroStubFrom")}</text>
       <text x="24" y="228" fill="#F5F5F5" fontFamily="'Archivo Black', 'Inter', sans-serif" fontWeight="900" fontSize="14" letterSpacing="0.5">{ticket.from}</text>
       <text x="108" y="222" fill="#DBFF00" fontFamily="'JetBrains Mono', monospace" fontSize="14" letterSpacing="1.5">──▶</text>
-      <text x="150" y="212" fill="#888" fontFamily="'Inter', sans-serif" fontWeight="700" fontSize="9" letterSpacing="1.6">HASTA</text>
+      <text x="150" y="212" fill="#888" fontFamily="'Inter', sans-serif" fontWeight="700" fontSize="9" letterSpacing="1.6">{t("home.heroStubTo")}</text>
       <text x="150" y="228" fill="#F5F5F5" fontFamily="'Archivo Black', 'Inter', sans-serif" fontWeight="900" fontSize="14" letterSpacing="0.5">{ticket.to}</text>
       <rect x="24" y="240" width="108" height="14" rx="1" fill="#111" stroke="#2A2A2A" strokeWidth="1" />
       <circle cx="31" cy="247" r="4" fill="#DBFF00" />
@@ -523,12 +534,12 @@ function TicketStub({ ticket }: { ticket: TicketData }) {
           <animate attributeName="x" from="270" to="370" dur="2.8s" repeatCount="indefinite" />
         </rect>
       </g>
-      <text x="320" y="72" fill="#888" fontFamily="'Inter', sans-serif" fontWeight="700" fontSize="8" letterSpacing="1.6" textAnchor="middle">PRECIO</text>
+      <text x="320" y="72" fill="#888" fontFamily="'Inter', sans-serif" fontWeight="700" fontSize="8" letterSpacing="1.6" textAnchor="middle">{t("home.heroStubPrice")}</text>
       <text x="320" y="116" fill="#DBFF00" fontFamily="'Archivo Black', 'Inter', sans-serif" fontWeight="900" fontSize="44" letterSpacing="-2" textAnchor="middle">€{ticket.price}</text>
-      <text x="320" y="132" fill="#888" fontFamily="'Inter', sans-serif" fontWeight="600" fontSize="8" letterSpacing="2" textAnchor="middle">POR ASIENTO</text>
+      <text x="320" y="132" fill="#888" fontFamily="'Inter', sans-serif" fontWeight="600" fontSize="8" letterSpacing="2" textAnchor="middle">{t("home.heroStubPerSeat")}</text>
       <rect x="282" y="144" width="76" height="22" fill="#DBFF00" />
       <text x="320" y="158" fill="#000" fontFamily="'Archivo Black', 'Inter', sans-serif" fontWeight="900" fontSize="10" letterSpacing="1.5" textAnchor="middle">
-        {ticket.seats} {ticket.seats === 1 ? "PLAZA" : "PLAZAS"}
+        {ticket.seats} {ticket.seats === 1 ? t("home.heroStubSeatSingular") : t("home.heroStubSeatPlural")}
       </text>
       <g transform="translate(278, 192)">
         {barcode.map((w, i) => {

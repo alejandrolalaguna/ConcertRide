@@ -1,6 +1,7 @@
 import { Calendar, Car, Music, ArrowRight } from "lucide-react";
 import { Link } from "react-router-dom";
 import { motion } from "motion/react";
+import { useI18n } from "@/lib/i18n";
 
 const STEPS = [
   {
@@ -9,8 +10,8 @@ const STEPS = [
     glowColor: "rgba(219,255,0,0.35)",
     bgGlow: "rgba(219,255,0,0.05)",
     icon: Calendar,
-    title: "Elige el concierto",
-    body: "Busca por artista, festival o ciudad. Ve los viajes activos al instante en nuestro catálogo de +120 eventos.",
+    titleKey: "home.hiwStep1Title",
+    bodyKey: "home.hiwStep1Body",
     img: "https://images.unsplash.com/photo-1501386761578-eac5c94b800a?w=600&q=70&auto=format&fit=crop",
   },
   {
@@ -19,8 +20,8 @@ const STEPS = [
     glowColor: "rgba(255,79,0,0.35)",
     bgGlow: "rgba(255,79,0,0.05)",
     icon: Car,
-    title: "Reserva o publica",
-    body: "Ocupa un asiento libre o abre tu coche. Tú decides el precio para cubrir gasolina y peajes, nada más.",
+    titleKey: "home.hiwStep2Title",
+    bodyKey: "home.hiwStep2Body",
     img: "https://images.unsplash.com/photo-1449965408869-eaa3f722e40d?w=600&q=70&auto=format&fit=crop",
   },
   {
@@ -29,16 +30,17 @@ const STEPS = [
     glowColor: "rgba(219,255,0,0.35)",
     bgGlow: "rgba(219,255,0,0.05)",
     icon: Music,
-    title: "A rockear juntos",
-    body: "Playlist compartida, buena compañía y al recinto a tiempo. Así empieza la noche perfecta.",
+    titleKey: "home.hiwStep3Title",
+    bodyKey: "home.hiwStep3Body",
     img: "https://images.unsplash.com/photo-1470229538611-16ba8c7ffbd7?w=600&q=70&auto=format&fit=crop",
   },
 ];
 
 export function HowItWorks() {
+  const { t } = useI18n();
   return (
     <section
-      aria-label="Cómo funciona"
+      aria-label={t("home.hiwSectionAria")}
       id="como-funciona"
       className="relative py-24 md:py-32 px-6 overflow-hidden"
       style={{ backgroundColor: "#0a0a0a" }}
@@ -77,11 +79,11 @@ export function HowItWorks() {
           className="mb-16 space-y-4"
         >
           <p className="font-mono text-xs tracking-[0.3em] uppercase text-[#dbff00]">
-            Cómo funciona
+            {t("home.hiwEyebrow")}
           </p>
           <h2 className="font-display text-4xl lg:text-6xl uppercase tracking-tight leading-[0.88]">
-            Tres pasos.{" "}
-            <span className="text-white/25">Cero rollos.</span>
+            {t("home.hiwTitleLine1")}{" "}
+            <span className="text-white/25">{t("home.hiwTitleLine2")}</span>
           </h2>
         </motion.header>
 
@@ -148,10 +150,10 @@ export function HowItWorks() {
 
                   <div className="space-y-3 flex-1 relative">
                     <h3 className="font-display text-lg uppercase tracking-tight text-white group-hover:text-[#f5f5f5] transition-colors">
-                      {step.title}
+                      {t(step.titleKey)}
                     </h3>
                     <p className="font-sans text-sm text-white/40 leading-relaxed font-light group-hover:text-white/55 transition-colors">
-                      {step.body}
+                      {t(step.bodyKey)}
                     </p>
                   </div>
 
@@ -193,15 +195,14 @@ export function HowItWorks() {
             {/* Copy */}
             <div className="space-y-2">
               <p className="font-mono text-[10px] font-semibold uppercase tracking-[0.22em] text-[#ff4f00]">
-                ¿Tienes coche?
+                {t("home.hiwDriverEyebrow")}
               </p>
               <h3 className="font-display text-2xl md:text-3xl uppercase leading-tight">
-                Publica tu viaje.{" "}
-                <span className="text-[#dbff00]">Recupera la gasolina.</span>
+                {t("home.hiwDriverTitle1")}{" "}
+                <span className="text-[#dbff00]">{t("home.hiwDriverTitle2")}</span>
               </h3>
               <p className="font-sans text-sm text-white/45 leading-relaxed max-w-md">
-                Fija el precio por asiento para cubrir combustible y peajes —
-                sin comisión de plataforma. En 2 minutos tienes el viaje publicado.
+                {t("home.hiwDriverBody")}
               </p>
             </div>
 
@@ -210,9 +211,9 @@ export function HowItWorks() {
               {/* Mini stats — social proof for drivers */}
               <div className="flex gap-5">
                 {[
-                  { value: "0 %", label: "comisión" },
-                  { value: "2 min", label: "para publicar" },
-                  { value: "100 %", label: "para ti" },
+                  { value: "0 %", label: t("home.hiwDriverStat1Label") },
+                  { value: "2 min", label: t("home.hiwDriverStat2Label") },
+                  { value: "100 %", label: t("home.hiwDriverStat3Label") },
                 ].map((s) => (
                   <div key={s.label} className="text-center">
                     <p className="font-display text-lg uppercase text-[#dbff00] leading-none">{s.value}</p>
@@ -225,7 +226,7 @@ export function HowItWorks() {
                 to="/register?ref=hiw-driver"
                 className="cr-btn-shine inline-flex items-center justify-center gap-2 bg-[#ff4f00] text-white font-sans font-semibold uppercase tracking-[0.12em] text-sm px-7 py-3.5 hover:bg-[#e54500] transition-colors duration-150 group"
               >
-                Publicar mi primer viaje
+                {t("home.hiwDriverCta")}
                 <ArrowRight size={14} className="transition-transform duration-150 group-hover:translate-x-1" aria-hidden="true" />
               </Link>
             </div>

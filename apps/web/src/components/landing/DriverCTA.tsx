@@ -2,29 +2,51 @@ import { motion, useScroll, useTransform } from "motion/react";
 import { ArrowRight, Fuel, Users, Star } from "lucide-react";
 import { Link } from "react-router-dom";
 import { useRef } from "react";
-
-const BENEFITS = [
-  {
-    icon: Fuel,
-    title: "Recupera la gasolina",
-    body: "Divide el coste entre los pasajeros. El viaje te sale gratis.",
-    color: "#dbff00",
-  },
-  {
-    icon: Users,
-    title: "Compañía del buena",
-    body: "Fans que van al mismo show. La charla sola se da.",
-    color: "#ff4f00",
-  },
-  {
-    icon: Star,
-    title: "Construye tu reputación",
-    body: "Valoraciones reales que te abren más viajes y más plazas.",
-    color: "#dbff00",
-  },
-];
+import { useI18n } from "@/lib/i18n";
 
 export function DriverCTA() {
+  const { locale } = useI18n();
+  const BENEFITS = locale === "en"
+    ? [
+        {
+          icon: Fuel,
+          title: "Get your fuel back",
+          body: "Split the cost between passengers. The trip ends up free for you.",
+          color: "#dbff00",
+        },
+        {
+          icon: Users,
+          title: "Good company",
+          body: "Fans heading to the same show. The conversation just happens.",
+          color: "#ff4f00",
+        },
+        {
+          icon: Star,
+          title: "Build your reputation",
+          body: "Real ratings that unlock more trips and more seats.",
+          color: "#dbff00",
+        },
+      ]
+    : [
+        {
+          icon: Fuel,
+          title: "Recupera la gasolina",
+          body: "Divide el coste entre los pasajeros. El viaje te sale gratis.",
+          color: "#dbff00",
+        },
+        {
+          icon: Users,
+          title: "Compañía del buena",
+          body: "Fans que van al mismo show. La charla sola se da.",
+          color: "#ff4f00",
+        },
+        {
+          icon: Star,
+          title: "Construye tu reputación",
+          body: "Valoraciones reales que te abren más viajes y más plazas.",
+          color: "#dbff00",
+        },
+      ];
   const sectionRef = useRef<HTMLElement>(null);
   const { scrollYProgress } = useScroll({ target: sectionRef, offset: ["start end", "end start"] });
   const imgY = useTransform(scrollYProgress, [0, 1], ["0%", "15%"]);
@@ -75,17 +97,17 @@ export function DriverCTA() {
               className="space-y-4"
             >
               <p className="font-mono text-xs tracking-[0.3em] uppercase text-[#ff4f00]">
-                Para conductores
+                {locale === "en" ? "For drivers" : "Para conductores"}
               </p>
               <h2
                 id="driver-cta-title"
                 className="font-display text-4xl lg:text-6xl uppercase tracking-tight leading-[0.88]"
               >
-                Tu coche.
+                {locale === "en" ? "Your car." : "Tu coche."}
                 <br />
-                <span className="text-[#dbff00]">Tu viaje.</span>
+                <span className="text-[#dbff00]">{locale === "en" ? "Your trip." : "Tu viaje."}</span>
                 <br />
-                Tus reglas.
+                {locale === "en" ? "Your rules." : "Tus reglas."}
               </h2>
               {/* Animated orange underline */}
               <motion.div
@@ -105,8 +127,9 @@ export function DriverCTA() {
               transition={{ duration: 0.5, delay: 0.15, ease: [0.16, 1, 0.3, 1] }}
               className="font-sans text-base text-white/45 font-light leading-relaxed max-w-lg"
             >
-              Publica tu viaje al concierto en 2 minutos. Elige cuántos pasajeros,
-              el precio del asiento y si quieres paradas. Tú tienes el control total.
+              {locale === "en"
+                ? "Post your trip to the show in 2 minutes. Choose how many passengers, the price per seat and whether you want stops. You're in full control."
+                : "Publica tu viaje al concierto en 2 minutos. Elige cuántos pasajeros, el precio del asiento y si quieres paradas. Tú tienes el control total."}
             </motion.p>
 
             <motion.div
@@ -120,14 +143,14 @@ export function DriverCTA() {
                 to="/register"
                 className="cr-btn-shine inline-flex items-center justify-center gap-2 bg-[#dbff00] text-black font-sans font-semibold uppercase tracking-[0.12em] text-sm px-8 py-4 hover:bg-[#c8ec00] transition-colors duration-150 group"
               >
-                Crear cuenta y publicar
+                {locale === "en" ? "Create account & publish" : "Crear cuenta y publicar"}
                 <ArrowRight size={14} className="transition-transform duration-150 group-hover:translate-x-1" aria-hidden="true" />
               </Link>
               <Link
                 to="/publish"
                 className="inline-flex items-center justify-center font-mono text-xs text-white/45 uppercase tracking-[0.15em] hover:text-white transition-colors duration-150"
               >
-                Ya tengo cuenta → publicar viaje
+                {locale === "en" ? "I already have an account → publish a trip" : "Ya tengo cuenta → publicar viaje"}
               </Link>
             </motion.div>
           </div>

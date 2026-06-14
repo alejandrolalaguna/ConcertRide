@@ -84,8 +84,17 @@ function detectInitialLocale(): Locale {
   return DEFAULT_LOCALE;
 }
 
-export function I18nProvider({ children }: { children: React.ReactNode }) {
-  const [locale, setLocaleState] = useState<Locale>(detectInitialLocale);
+export function I18nProvider({
+  children,
+  initialLocale,
+}: {
+  children: React.ReactNode;
+  // When set (e.g. SSR/prerender of an /en/ URL, or client mount on an /en/
+  // path), forces the starting locale. Without it, the client sniffs
+  // localStorage/navigator and the server falls back to DEFAULT_LOCALE ('es').
+  initialLocale?: Locale;
+}) {
+  const [locale, setLocaleState] = useState<Locale>(() => initialLocale ?? detectInitialLocale());
 
   // Sync <html lang> for a11y and search engines.
   useEffect(() => {

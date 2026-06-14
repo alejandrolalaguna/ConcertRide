@@ -1,5 +1,7 @@
 import { useEffect } from "react";
 import { SITE_URL } from "./siteUrl";
+import { useI18n } from "./i18n";
+import { hreflangAlternates, localizeCanonical } from "./localizedRoutes";
 
 export interface BreadcrumbItem {
   position: number;
@@ -180,6 +182,12 @@ function setLink(rel: string, href: string, extraAttrs?: Record<string, string>)
 }
 
 export function useSeoMeta(meta: SeoMeta) {
+  // Active locale — drives client-side canonical/hreflang for /en/ pages (the
+  // page itself only sees the basename-stripped path, so its canonical is the
+  // Spanish one; we localize it here). On SSR the canonical is localized in
+  // entry-server's render() instead.
+  const { locale } = useI18n();
+
   // SSR path: capture the resolved meta on the global slot. The prerender
   // script reads this AFTER renderToString so it always sees the deepest
   // hook call (i.e. the page-level useSeoMeta wins over layout-level ones).
@@ -191,7 +199,10 @@ export function useSeoMeta(meta: SeoMeta) {
     const r = resolve(meta);
     document.title = r.fullTitle;
 
-    const ogUrl = r.canonical ?? (window.location.origin + window.location.pathname);
+    // Self-referential canonical for the active locale (/en/ pages canonical to
+    // their own /en/ URL, never the Spanish one).
+    const selfCanonical = r.canonical ? localizeCanonical(r.canonical, locale) : undefined;
+    const ogUrl = selfCanonical ?? (window.location.origin + window.location.pathname);
 
     setMeta("description", r.description);
     setMeta(
@@ -255,10 +266,20 @@ export function useSeoMeta(meta: SeoMeta) {
       document
         .querySelectorAll('link[rel="alternate"][hreflang]')
         .forEach((el) => el.remove());
-    } else if (r.canonical) {
-      setLink("canonical", r.canonical);
-      setLink("alternate", r.canonical, { hreflang: "es-ES" });
-      setLink("alternate", r.canonical, { hreflang: "x-default" });
+    } else if (selfCanonical) {
+      setLink("canonical", selfCanonical);
+      // Clear stale alternates from a previous navigation, then emit the right
+      // set: reciprocal es/en/x-default for localized pages, es-only otherwise.
+      document
+        .querySelectorAll('link[rel="alternate"][hreflang]')
+        .forEach((el) => el.remove());
+      const alts = hreflangAlternates(selfCanonical);
+      if (alts) {
+        for (const a of alts) setLink("alternate", a.href, { hreflang: a.hreflang });
+      } else {
+        setLink("alternate", selfCanonical, { hreflang: "es-ES" });
+        setLink("alternate", selfCanonical, { hreflang: "x-default" });
+      }
     }
 
     // LCP image preload — client-side runtime emission. The SSR path adds the
@@ -386,9 +407,19 @@ export function renderSeoToHtml(seo: ResolvedSeo, urlPath: string): {
   // alternates on a noindex page. The noindex directive wins and the canonical
   // just wastes crawl budget / muddies signal selection.
   if (seo.canonical && !seo.noindex) {
+    // `seo.canonical` is already self-referential (entry-server localized it for
+    // /en/ renders). Emit reciprocal hreflang for localized pages; otherwise keep
+    // the es-only behaviour (avoids pointing at non-existent /en/ counterparts).
     linkLines.push(`    <link rel="canonical" href="${escapeAttr(seo.canonical)}" />`);
-    linkLines.push(`    <link rel="alternate" hreflang="es-ES" href="${escapeAttr(seo.canonical)}" />`);
-    linkLines.push(`    <link rel="alternate" hreflang="x-default" href="${escapeAttr(seo.canonical)}" />`);
+    const alts = hreflangAlternates(seo.canonical);
+    if (alts) {
+      for (const a of alts) {
+        linkLines.push(`    <link rel="alternate" hreflang="${a.hreflang}" href="${escapeAttr(a.href)}" />`);
+      }
+    } else {
+      linkLines.push(`    <link rel="alternate" hreflang="es-ES" href="${escapeAttr(seo.canonical)}" />`);
+      linkLines.push(`    <link rel="alternate" hreflang="x-default" href="${escapeAttr(seo.canonical)}" />`);
+    }
   }
   if (seo.preloadImage) {
     const srcsetAttr = seo.preloadImageSrcset

@@ -139,6 +139,23 @@ export interface FestivalLanding {
     heading: string;
     body: string;
   }>;
+
+  // ── English (en) variants — populated only for festivals in the /en/ SSR pilot
+  // (see lib/localizedRoutes.ts LOCALIZED_PATHS). FestivalLandingPage renders these
+  // when locale==='en' and falls back to the Spanish field when absent, so
+  // non-pilot festivals keep rendering Spanish safely. ──
+  /** English `blurb`. */
+  blurb_en?: string;
+  /** English `quotableAnswer` (~140 words, GEO-citable). */
+  quotableAnswer_en?: string;
+  /** English `faqs` (same length/order as `faqs`). */
+  faqs_en?: FestivalFaq[];
+  /** English `arrival_tips` (same length/order as `arrival_tips`). */
+  arrival_tips_en?: Array<{ title: string; body: string }>;
+  /** English `arrival_patterns`. */
+  arrival_patterns_en?: string;
+  /** English `expected_attendance`. */
+  expected_attendance_en?: string;
 }
 
 export const FESTIVAL_LANDINGS: FestivalLanding[] = [
@@ -342,6 +359,68 @@ export const FESTIVAL_LANDINGS: FestivalLanding[] = [
         body: "Los parking de IFEMA (P1–P6) abren a las 14:00 y se llenan rápido los tres días. Si vienes en coche propio, llega antes de las 16:00 o aparca en el intercambiador de Avenida de América (L9) y toma la L8.",
       },
     ],
+    blurb_en:
+      "Mad Cool is the largest rock and alternative-indie festival in Madrid, held since 2023 at the Iberdrola Music venue in Villaverde. It draws 80,000 people a day to see top-tier international artists. The venue sits in the south of Madrid (Villaverde Bajo) and is reachable by metro line 3 (Pradolongo or Legazpi stop) plus a short bus ride. The late-night exit overwhelms both the metro and the bus lines after 1:00 AM, which is why carpooling is the most comfortable option for anyone travelling from other provinces or from neighbourhoods with no direct access to the venue. According to the APM, Mad Cool is one of the Spanish festivals with the highest international attendance.",
+    quotableAnswer_en:
+      "Mad Cool 2026 takes place from 8 to 11 July at the Iberdrola Music venue (Villaverde, Madrid), with a capacity of 80,000 people per day. There are three verified ways to get there from central Madrid: Metro Line 3 to Pradolongo or Legazpi plus an EMT bus to the venue (1.50–3 € per trip, 30–40 min); a taxi or ride-hailing service from Sol (30–50 €, with a ×2 multiplier between 22:00 and 06:00); or carpooling with ConcertRide (4–7 €/seat from Madrid, 10–14 € from Valencia, 9–13 € from Zaragoza). For the late-night return, Metro de Madrid extends Line 3 until 2:30 AM on festival nights; coordinated carpooling picks passengers up at the venue car park between 2:00 and 4:00. (Sources: Metro de Madrid, Ayuntamiento de Madrid, ConcertRide Dataset 2026.)",
+    faqs_en: [
+      {
+        q: "How do I get to Mad Cool from central Madrid?",
+        a: "Mad Cool 2026 is held at Iberdrola Music (Villaverde Bajo). By metro, line 3 reaches Pradolongo or Legazpi, and from there a bus service runs to the venue. It is about 30–40 minutes from Sol. On festival nights the metro and buses get overwhelmed at closing time (1:00–2:00). With ConcertRide you can coordinate the return trip with other attendees and skip the crowds, paying between 4 and 7 € per seat from central Madrid.",
+      },
+      {
+        q: "Is there late-night public transport back from Mad Cool?",
+        a: "Mad Cool 2026 is at Iberdrola Music (Villaverde). Metro line 3 closes around 1:30 (extended on festival nights). Night buses have limited coverage in Villaverde. The most common alternative is a taxi or ride-hailing service (30–50 € to the centre, with the fare doubled during peak-demand hours) or carpooling with ConcertRide (4–7 € from central Madrid, 10–14 € from Valencia, 9–13 € from Zaragoza).",
+      },
+      {
+        q: "How much does it cost to get to Mad Cool from Barcelona by carpooling?",
+        a: "The Madrid–Barcelona distance is about 620 km (5h 30 min). With ConcertRide, the typical price per seat ranges from 15 to 20 €, compared with 50–70 € for an AVE ticket or 180–220 € to rent a car on your own. Fans from Barcelona often organise the round trip and stay in Madrid over the festival weekend.",
+      },
+      {
+        q: "Can I park at Iberdrola Music during Mad Cool?",
+        a: "The Iberdrola Music venue (Villaverde Bajo) has paid parking (10–15 €/day), but the access roads via the M-45 are jammed from 18:00 on festival days. Most drivers from outside Madrid prefer to park in car parks in the south of the city and reach the venue by bus. With ConcertRide you can arrive directly at the festival with no parking hassle.",
+      },
+      {
+        q: "Is there an official Mad Cool shuttle from central Madrid?",
+        a: "Mad Cool at Iberdrola Music (Villaverde) does not run its own shuttles from the centre. Access is by metro L3 (Pradolongo/Legazpi) plus a bus to the venue. The private shuttles that appear on social media are unofficial initiatives. ConcertRide is the most reliable organised alternative for attendees from other cities.",
+      },
+      {
+        q: "When does Mad Cool 2026 take place?",
+        a: "The 2026 edition of Mad Cool Festival is scheduled for 8, 9, 10 and 11 July at the Iberdrola Music venue in Villaverde (Madrid). You can search for available trips for those dates at concertride.me.",
+      },
+      {
+        q: "Is Mad Cool in Barcelona or in Madrid?",
+        a: "Mad Cool Festival takes place in Madrid, not in Barcelona. The search 'mad cool barcelona' is common because many Catalan attendees confuse it with festivals like Primavera Sound (which is in Barcelona). Since 2023, the Mad Cool venue has been Iberdrola Music, in the Villaverde district (south of Madrid). Getting from Barcelona to Mad Cool is ~620 km (5h 30 min via the AP-2/A-2). With ConcertRide there are Barcelona–Mad Cool trips for 15–20 €/seat. If you are looking for a festival similar to Mad Cool in Barcelona, the closest in line-up are Primavera Sound (June) and Cruïlla (July).",
+      },
+      {
+        q: "Does Mad Cool Barcelona exist?",
+        a: "There is no edition of Mad Cool in Barcelona. Mad Cool is an entirely Madrid-based festival held every July at the Iberdrola Music venue in Villaverde (Madrid). The rumours about 'Mad Cool Barcelona' circulating on social media actually refer to Primavera Sound, a Catalan festival with a similar international line-up (indie, rock, alternative pop) held at the Parc del Fòrum in Barcelona in June.",
+      },
+      {
+        q: "Is it safe to go to Mad Cool by carpooling?",
+        a: "Yes. ConcertRide drivers heading to Mad Cool 2026 (Iberdrola Music Villaverde, 8–11 July) verify their driving licence before publishing. You can see their profile, ratings and chat before confirming your seat. Payment is in cash or by Bizum (4–7 € from Madrid, 15–20 € from Barcelona) on the day of the trip — no upfront payment, no bank details.",
+      },
+      {
+        q: "How much does carpooling to Mad Cool 2026 from Madrid cost?",
+        a: "Carpooling to Mad Cool 2026 from central Madrid costs between 4 and 7 € per seat on ConcertRide. It is 15 km to Iberdrola Music Villaverde (25 min by car). For reference: metro L3 costs 2–3 € but gets overwhelmed at closing time (30 min queues around 1:00–2:30); a late-night taxi from Villaverde to the centre is around 20–30 €.",
+      },
+    ],
+    expected_attendance_en: "80,000 people/day",
+    arrival_patterns_en: "Most attendees from outside Madrid arrive by carpooling or AVE the same day in the afternoon. Those from Barcelona tend to do the round trip in a single day or stay 2–3 nights.",
+    arrival_tips_en: [
+      {
+        title: "Take metro L8 before 18:00",
+        body: "Metro L8 runs every 5 minutes, but at closing time (1:00–2:30) the platform queues can exceed 30 minutes. If you have arranged a carpool for the way back, meet your driver outside the venue before heading out.",
+      },
+      {
+        title: "Arrive 45 min before the artist you care about most",
+        body: "IFEMA is a venue with 4 separate stages. Moving between stages can take 15–20 minutes on foot. Plan your transfers in advance.",
+      },
+      {
+        title: "The car park fills up from 16:00",
+        body: "The IFEMA car parks (P1–P6) open at 14:00 and fill up fast on all three days. If you come in your own car, arrive before 16:00 or park at the Avenida de América interchange (L9) and take the L8.",
+      },
+    ],
     aggregateRating: {
       ratingValue: 4.8,
       bestRating: 5,
@@ -522,6 +601,68 @@ export const FESTIVAL_LANDINGS: FestivalLanding[] = [
         body: "Primavera Sound atrae asistentes de más de 80 países. Reserva alojamiento en cuanto salga el cartel (suele ser en diciembre–enero). Si llegas tarde, Hospitalet de Llobregat y Badalona tienen buenas opciones.",
       },
     ],
+    blurb_en:
+      "Primavera Sound is the most influential indie and alternative festival in Europe, held every year at the Parc del Fòrum in Barcelona since 2001. It draws attendees from all over Spain and from more than 80 countries, with over 60,000 people a day at its site in Sant Adrià de Besòs. Metro line L4 (Besòs Mar) reaches the Fòrum but gets overwhelmed during the early-morning exits, with 30–45 minute queues being common. AVE seats from Madrid (50–100 €) sell out weeks before the festival. Travelling by carpool from Madrid (15–20 €), Valencia (10–14 €) or Zaragoza (8–12 €) is the most popular and affordable option for attendees from outside Catalonia.",
+    quotableAnswer_en:
+      "Primavera Sound 2026 takes place from 3 to 7 June at the Parc del Fòrum (Sant Adrià de Besòs, Barcelona), with a capacity of 60,000 people per day. There are three verified ways to reach the venue: Metro L4 to Besòs Mar, a 10-minute walk from the Fòrum (2.55 € per single trip under the 2026 TMB fare); the Madrid–Barcelona Sants AVE plus L4 (50–100 € per trip on Renfe AVE + 2.55 € for the metro); or carpooling with ConcertRide (15–20 €/seat from Madrid, 10–14 € from Valencia, 8–12 € from Zaragoza). The Fòrum car park has 500 spaces at 25–35 €/day. For the early-morning return, TMB keeps L4 open until 02:00 on Fridays and until 05:00 on Saturdays; coordinated carpooling picks passengers up from 03:00. (Sources: TMB Barcelona, Renfe AVE, ConcertRide Dataset 2026.)",
+    faqs_en: [
+      {
+        q: "How do I get to Primavera Sound from Madrid?",
+        a: "The Madrid–Barcelona journey is about 620 km (5–6 hours by car). The AVE costs between 50 and 100 € and requires additional transport to the Parc del Fòrum. With ConcertRide you can find a shared ride for 15–20 € per seat, set off from anywhere in Madrid and arrive directly at the Fòrum. Madrid fans often look for a 5-day trip and book accommodation in Barcelona for the whole festival week.",
+      },
+      {
+        q: "What metro or transport is available during Primavera Sound?",
+        a: "Barcelona metro line L4 (Besòs Mar stop) is a 10-minute walk from the Fòrum site. On festival nights TMB extends the service until 3:00–4:00. Night buses N6 and N7 round out the late-night network. However, the early-morning exits get overwhelmed: 30–45 minute queues are common. Many attendees coordinate their return to their home cities with ConcertRide to avoid the crowds.",
+      },
+      {
+        q: "How much does it cost to get to Primavera Sound from Valencia?",
+        a: "The Valencia–Barcelona (Fòrum) distance is about 355 km (3h 15 min by car). On ConcertRide, the price per seat is usually between 10 and 14 €. The Valencia–Barcelona AVE train costs between 20 and 60 € but does not reach the venue; you have to take an additional metro or taxi from Estació de Sants (about 30 minutes more).",
+      },
+      {
+        q: "Is there parking at the Parc del Fòrum for Primavera Sound?",
+        a: "Parking at the Parc del Fòrum and Sant Adrià de Besòs is very limited during the festival (maximum 500 spaces, 25–35 €/day). The organisers advise against coming to the venue by private car. The most common choice for those travelling from outside Barcelona is to park in the metropolitan area (Badalona, Sant Adrià) and take the L4 metro, or to arrive directly with a ConcertRide driver.",
+      },
+      {
+        q: "Is there an official Primavera Sound shuttle?",
+        a: "Primavera Sound does not run an official long-distance shuttle from other cities. Some private operators offer buses from Madrid (30–50 €) with limited seats. ConcertRide is the most flexible alternative: you can choose your home city, your departure time and arrange the return when the last set finishes.",
+      },
+      {
+        q: "What dates is Primavera Sound 2026?",
+        a: "Primavera Sound 2026 is scheduled for 28 May to 1 June at the Parc del Fòrum in Barcelona. Search for trips at concertride.me for those dates.",
+      },
+      {
+        q: "How much does carpooling to Primavera Sound 2026 from Madrid cost?",
+        a: "Carpooling from Madrid to Primavera Sound costs between 15 and 20 € per seat on ConcertRide for the 2026 edition (28 May–1 June). It is 620 km to the Parc del Fòrum (5h 30 min via the AP-2/A-2). Compared with the AVE (50–100 €, with no transport to the venue) or a flight (60–130 € + Aerobús/metro), it is the cheapest door-to-door option.",
+      },
+      {
+        q: "Where is Primavera Sound and how do you get to the venue?",
+        a: "Primavera Sound is held at the Parc del Fòrum (Rambla del Prim, 2-4, 08019 Barcelona), in the Besòs district, 8 km from the centre of Barcelona. Coordinates: 41.4066 N, 2.2218 E. Access is by metro L4, Besòs Mar stop (10 min on foot from the venue), or tram T4. From BCN-El Prat airport it is 17 km (40 min by public transport).",
+      },
+      {
+        q: "What time does Primavera Sound end?",
+        a: "The main concerts at Primavera Sound finish between 3:00 and 4:30 in the early morning. The 60,000-person capacity means metro L4 (Besòs Mar) gets overwhelmed at exit time, with 30–45 minute waits. Fans returning to other cities (Madrid, Valencia, Zaragoza) usually leave the venue around 3:30 and arrange the pickup with their ConcertRide driver at a point near the car park.",
+      },
+      {
+        q: "How do I get back to Madrid from Primavera Sound in the early morning?",
+        a: "The late-night Madrid–Barcelona return from Primavera Sound is one of ConcertRide's most in-demand routes. There is no early-morning AVE; the first train leaves at 6:05 from Sants. The most comfortable option is to agree with your driver to set off around 3:30–4:00, make the 5h 30 min trip and arrive in Madrid around 9:00–10:00. The cost per seat is between 15 and 20 €.",
+      },
+    ],
+    expected_attendance_en: "60,000 people/day",
+    arrival_patterns_en: "Madrid fans usually organise a 4–5 day trip and stay in Barcelona. Most arrive on Thursday and head back on Sunday or Monday. Those from Valencia or Zaragoza do same-day round trips.",
+    arrival_tips_en: [
+      {
+        title: "Metro L4 (Besòs Mar) is the most direct option",
+        body: "From Passeig de Gràcia it is 4 stops to Besòs Mar (10 min), an 8-minute walk from the Fòrum. TMB extends the service until 3:00–4:00 on festival nights.",
+      },
+      {
+        title: "Avoid the Fòrum car park · it is full before 16:00",
+        body: "If you come by car from another city, park in the Badalona or Sant Adrià area and walk 15–20 minutes. Or better still, coordinate the carpool: the driver can drop passengers off at the gate and park further away.",
+      },
+      {
+        title: "International fans fill the hostels within 24h",
+        body: "Primavera Sound draws attendees from more than 80 countries. Book your accommodation as soon as the line-up is announced (usually December–January). If you arrive late, Hospitalet de Llobregat and Badalona have good options.",
+      },
+    ],
     aggregateRating: {
       ratingValue: 4.7,
       bestRating: 5,
@@ -609,6 +750,52 @@ export const FESTIVAL_LANDINGS: FestivalLanding[] = [
       {
         q: "¿Es mejor ir en tren o en carpooling a Sónar desde Madrid?",
         a: "Comparativa para Madrid–Sónar 2026: Tren AVE (Atocha→Sants, 2h 40 min, 40–100 €) más metro L9 Sur 20 min + 10 min a pie = total 3h 30 min y 45–110 € por persona. Carpooling ConcertRide (5h 30 min en coche, 15–20 €) es más lento pero más barato y te deja en la puerta del festival. Para Sónar by Night la ventaja del tren desaparece: el último AVE de vuelta sale hacia las 21:00 y ya no coincide con el fin del festival (6:00–8:00 AM). El carpooling es la única opción de vuelta directa en horario de madrugada.",
+      },
+    ],
+    blurb_en:
+      "Sónar is the most renowned international festival of advanced music, creativity and technology in the world, held in Barcelona since 1994. It runs across two simultaneous sites: Sónar by Day at Fira Montjuïc (Gran Via de les Corts Catalanes, Montjuïc) and Sónar by Night at Fira Gran Via in L'Hospitalet de Llobregat, 8 km from the centre of Barcelona. Each year the festival draws more than 120,000 attendees from over 100 countries and is a global reference point for electronic music and digital culture. Fira Gran Via is reachable by metro L9 Sud (Fira stop), but the festival ends between 6:00 and 8:00, by which time the metro has already resumed service. Attendees from Madrid, Valencia and Zaragoza prefer carpooling with ConcertRide to arrive directly without combining AVE, metro and taxi.",
+    quotableAnswer_en:
+      "Sónar Barcelona 2026 takes place from 18 to 20 June at Fira Gran Via (single site), L'Hospitalet de Llobregat, with a capacity of 120,000 people across the full edition. The three best ways to get there are: (1) metro L9 Sud to Fira (2.55 €, 25 minutes from the centre of Barcelona); (2) AVE from Madrid to Sants plus metro L9 (50–100 € + 2.55 €); (3) carpooling with ConcertRide (15–20 € from Madrid, 10–14 € from Valencia, 8–12 € from Zaragoza, 4–7 € from Tarragona). The festival closes between 6:00 and 8:00 in the morning, by which time the metro has already resumed service. To get back in the early morning before the metro restarts, the most practical option is to coordinate with your ConcertRide driver or take a taxi (15–25 € to the centre).",
+    faqs_en: [
+      {
+        q: "How do I get to Sónar by Night from central Barcelona?",
+        a: "Sónar by Night is held at Fira Gran Via (L'Hospitalet de Llobregat), reachable by metro L9 Sud (Fira stop). The trip from Plaça Catalunya takes about 25 minutes with a transfer on L3 or L5. The festival ends between 6:00 and 8:00, by which point the metro is running on its normal service. If you have travelled from another city, you can coordinate the return with ConcertRide so you don't have to wait for the first train of the morning.",
+      },
+      {
+        q: "How do I get to Sónar by Day (Fira Montjuïc) from central Barcelona?",
+        a: "Sónar by Day is held at Fira Montjuïc, reachable by metro L3 (Espanya stop) or by the Trambaix tram from Gran Via. The trip from Les Rambles is about 10–12 minutes. Unlike Sónar by Night, the daytime schedule lets you use public transport without restrictions. Many attendees visit both sites on the same day and stay overnight in Barcelona if they have travelled from another city.",
+      },
+      {
+        q: "How much does it cost to get to Sónar from Madrid?",
+        a: "Madrid–Barcelona is 620 km. With ConcertRide, the one-way trip usually costs between 15 and 20 € per seat. The AVE costs between 40 and 100 € and does not reach the venue; you have to add metro L9 Sud from Sants station (about 20 extra minutes). The carpool picks you up at an agreed point in Madrid and drops you near the festival.",
+      },
+      {
+        q: "Does Sónar have its own transport or shuttle?",
+        a: "Sónar usually runs paid shuttles from points in central Barcelona (Plaça Espanya, Gran Via) to Fira Gran Via in the hours before Sónar by Night begins. However, for those coming from outside Barcelona, ConcertRide carpooling is more comfortable and cheaper than combining train + shuttle.",
+      },
+      {
+        q: "Is there parking at Fira Gran Via during Sónar?",
+        a: "Fira Gran Via has its own parking (P1 and P2, around 20–25 €/day), but the access roads via the Gran Via de les Corts Catalanes and the A-2 motorway get jammed during arrivals (from 22:00). The organisers recommend public transport (L9 Sud) for Barcelona residents. For drivers coming from outside, the most practical option is to park in a metered zone in L'Hospitalet and take the metro to the Fira stop, or to arrive directly with ConcertRide.",
+      },
+      {
+        q: "When is Sónar 2026 and where is the venue?",
+        a: "Sónar 2026 takes place on 18, 19 and 20 June in Barcelona across two simultaneous sites: Sónar by Day at Fira Montjuïc (metro L3 Espanya) and Sónar by Night at Fira Gran Via, L'Hospitalet de Llobregat (metro L9 Sud, Fira stop). Total capacity: 120,000 people across the full edition. Sónar by Night coordinates: 41.3561 N, 2.1302 E.",
+      },
+      {
+        q: "What time does Sónar by Night end and how do I get back to central Barcelona?",
+        a: "Sónar by Night ends between 6:00 and 8:00 in the morning at Fira Gran Via. By then metro L9 Sud (Fira stop) is already running at normal frequency, with a 25-minute trip to Plaça Catalunya. The alternative is a taxi/ride-hailing service (15–25 € to the centre) or coordinating the return to Madrid (15–20 €), Valencia (10–14 €) or Zaragoza (8–12 €) with your ConcertRide driver.",
+      },
+      {
+        q: "How much does carpooling to Sónar 2026 from Madrid cost?",
+        a: "Carpooling from Madrid to Sónar (Fira Gran Via, L'Hospitalet) costs between 15 and 20 € per seat with ConcertRide. It is 620 km to Fira Gran Via (5h 30 min via the AP-2/A-2). Compared with the AVE (40–100 €, with no transport to the venue) or a flight (50–130 € + Aerobús + metro L9 Sud), carpooling is the cheapest and most direct door-to-door option. The driver arranges the return time around the Sónar by Night schedule (until 7:00–8:00 AM).",
+      },
+      {
+        q: "Is there a usual meeting point for carpooling to Sónar from Madrid?",
+        a: "ConcertRide drivers heading to Sónar from Madrid usually meet in the Nuevos Ministerios or Atocha area (easy to reach by metro or bus). The exact point is agreed by chat between driver and passengers before the trip. For Sónar by Night, the usual pickup is between 15:00 and 18:00 in order to reach L'Hospitalet before 21:00 (when Fira Gran Via opens). The return is coordinated around the closing time (6:00–8:00 AM) so you can set off straight from the venue area.",
+      },
+      {
+        q: "Is it better to take the train or carpool to Sónar from Madrid?",
+        a: "Comparison for Madrid–Sónar 2026: AVE train (Atocha→Sants, 2h 40 min, 40–100 €) plus metro L9 Sud 20 min + 10 min on foot = a total of 3h 30 min and 45–110 € per person. ConcertRide carpooling (5h 30 min by car, 15–20 €) is slower but cheaper and drops you at the festival gate. For Sónar by Night the train's advantage disappears: the last AVE back leaves around 21:00 and no longer matches the end of the festival (6:00–8:00 AM). Carpooling is the only direct return option in the early-morning hours.",
       },
     ],
     relatedFestivals: ["primavera-sound", "cruilla"],

@@ -1,14 +1,13 @@
 import { motion } from "motion/react";
 import { ArrowRight } from "lucide-react";
-
-const TRUST_BADGES = [
-  "Sin tarjeta de crédito",
-  "100% gratuito",
-  "Sin comisiones",
-  "Cancela cuando quieras",
-];
+import { useI18n } from "@/lib/i18n";
 
 export function FinalCTA() {
+  const { locale } = useI18n();
+  const isEn = locale === "en";
+  const TRUST_BADGES = isEn
+    ? ["No credit card", "100% free", "No fees", "Cancel anytime"]
+    : ["Sin tarjeta de crédito", "100% gratuito", "Sin comisiones", "Cancela cuando quieras"];
   return (
     <section
       aria-labelledby="final-cta"
@@ -63,7 +62,7 @@ export function FinalCTA() {
           transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
           className="font-mono text-xs tracking-[0.3em] text-[#dbff00] uppercase"
         >
-          Únete al movimiento
+          {isEn ? "Join the movement" : "Únete al movimiento"}
         </motion.span>
 
         {/* Headline */}
@@ -76,9 +75,9 @@ export function FinalCTA() {
           className="font-display uppercase tracking-tight mt-6 leading-[0.84]"
           style={{ fontSize: "clamp(2.8rem, 8vw, 7rem)" }}
         >
-          Tu próximo
+          {isEn ? "Your next" : "Tu próximo"}
           <br />
-          <span className="text-[#dbff00]">concierto te espera.</span>
+          <span className="text-[#dbff00]">{isEn ? "concert is waiting." : "concierto te espera."}</span>
         </motion.h2>
 
         {/* Body */}
@@ -89,8 +88,9 @@ export function FinalCTA() {
           transition={{ duration: 0.4, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
           className="text-white/45 font-light leading-relaxed max-w-lg mx-auto mt-8 text-lg font-sans"
         >
-          Únete a la comunidad que ya viaja diferente. Regístrate en 30 segundos y encuentra
-          asiento a tu próximo festival — sin comisiones, sin rollos.
+          {isEn
+            ? "Join the community already travelling differently. Sign up in 30 seconds and find a seat to your next festival — no fees, no hassle."
+            : "Únete a la comunidad que ya viaja diferente. Regístrate en 30 segundos y encuentra asiento a tu próximo festival — sin comisiones, sin rollos."}
         </motion.p>
 
         {/* CTAs */}
@@ -105,14 +105,14 @@ export function FinalCTA() {
             href="/register"
             className="cr-btn-shine inline-flex items-center justify-center gap-3 px-10 py-5 bg-[#dbff00] text-[#080808] font-semibold text-sm uppercase tracking-wider group hover:bg-[#c8ec00] transition-colors duration-150"
           >
-            Crear cuenta gratis — 30 segundos
+            {isEn ? "Create free account — 30 seconds" : "Crear cuenta gratis — 30 segundos"}
             <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" aria-hidden="true" />
           </a>
           <a
             href="/concerts"
             className="inline-flex items-center justify-center px-10 py-5 border border-white/20 text-white/70 font-semibold text-sm uppercase tracking-wider hover:border-white/40 hover:text-white transition-all font-sans"
           >
-            Buscar viajes sin registrarme →
+            {isEn ? "Browse rides without signing up →" : "Buscar viajes sin registrarme →"}
           </a>
         </motion.div>
 

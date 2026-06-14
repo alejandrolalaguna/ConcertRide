@@ -173,4 +173,5 @@ Sitemap: https://concertride.me/sitemap-ciudades.xml
 Sitemap: https://concertride.me/sitemap-rutas.xml
 Sitemap: https://concertride.me/sitemap-blog.xml
 Sitemap: https://concertride.me/sitemap-how-to-get-there.xml
+Sitemap: https://concertride.me/sitemap-en.xml
 Sitemap: https://concertride.me/api/sitemap-concerts.xml

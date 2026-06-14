@@ -1,115 +1,70 @@
 import { Check, TrendingUp, Leaf, Users, MapPin, Music2, Zap, ShieldCheck } from "lucide-react";
+import { useI18n } from "@/lib/i18n";
 
 const PLATFORM_STATS = [
-  { icon: MapPin, value: "+30", label: "Festivales cubiertos", sublabel: "temporada 2026" },
-  { icon: Music2, value: "0%", label: "Comisión de plataforma", sublabel: "precio justo garantizado" },
-  { icon: ShieldCheck, value: "100%", label: "Conductores verificados", sublabel: "DNI + carnet de conducir" },
-  { icon: Zap, value: "<2 min", label: "Para publicar un viaje", sublabel: "sin complicaciones" },
+  { icon: MapPin, value: "+30", labelKey: "home.trustPlatformStat1Label", sublabelKey: "home.trustPlatformStat1Sublabel" },
+  { icon: Music2, value: "0%", labelKey: "home.trustPlatformStat2Label", sublabelKey: "home.trustPlatformStat2Sublabel" },
+  { icon: ShieldCheck, value: "100%", labelKey: "home.trustPlatformStat3Label", sublabelKey: "home.trustPlatformStat3Sublabel" },
+  { icon: Zap, value: "<2 min", labelKey: "home.trustPlatformStat4Label", sublabelKey: "home.trustPlatformStat4Sublabel" },
 ] as const;
 
 const TRUST_POINTS = [
-  "Perfil verificado con DNI",
-  "Conductores con carnet verificado",
-  "Sin comisiones de plataforma",
-];
+  "home.trustPoint1",
+  "home.trustPoint2",
+  "home.trustPoint3",
+] as const;
 
 const SECTOR_STATS = [
   {
     icon: Users,
     figure: "+25M",
-    label: "asistentes a festivales en España en 2024",
+    labelKey: "home.trustSectorStat1Label",
     source: "APM 2024",
     sourceUrl: "https://www.apmusicales.com/",
   },
   {
     icon: TrendingUp,
     figure: "1.000+",
-    label: "festivales celebrados en España en 2024",
+    labelKey: "home.trustSectorStat2Label",
     source: "APM 2024",
     sourceUrl: "https://www.apmusicales.com/",
   },
   {
     icon: Leaf,
     figure: "80%",
-    label: "de la huella de carbono de un festival viene del transporte de asistentes",
+    labelKey: "home.trustSectorStat3Label",
     source: "Julie's Bicycle",
     sourceUrl: "https://juliesbicycle.com/",
   },
-];
+] as const;
 
 const FAQ_ITEMS = [
-  {
-    question: "¿Es gratis usar ConcertRide?",
-    answer:
-      "Sí. ConcertRide no cobra comisión ni al conductor ni al pasajero. El precio lo fija el conductor para cubrir gasolina y peajes; el pago se hace directamente en efectivo o Bizum.",
-  },
-  {
-    question: "¿Cuánto cuesta un viaje en ConcertRide?",
-    answer:
-      "El precio lo fija el conductor según la distancia y el coste de gasolina. En rutas cortas (50–100 km) ronda los 5–12 €/asiento. En rutas largas (300–600 km) puede llegar a 15–30 €. ConcertRide no añade comisión, así que el precio es siempre más bajo que en otras plataformas.",
-  },
-  {
-    question: "¿Cómo se verifican los conductores?",
-    answer:
-      "Cada conductor sube una foto del carnet de conducir y verifica su identidad con DNI. El equipo de ConcertRide revisa manualmente cada perfil antes de activarlo.",
-  },
-  {
-    question: "¿Qué pasa si el conductor cancela el viaje?",
-    answer:
-      "Recibes una notificación inmediata y puedes buscar otro viaje disponible. Como el pago es presencial (efectivo o Bizum) no hay cargos automáticos que gestionar.",
-  },
-  {
-    question: "¿Puedo publicar un viaje si voy en coche al festival?",
-    answer:
-      "Sí. Publicas tu ruta, fecha, hora de salida y el precio por asiento. Los pasajeros te solicitan plaza y tú decides aceptar. Cubre gasolina y peajes sin perder dinero.",
-  },
-  {
-    question: "¿ConcertRide cubre toda España?",
-    answer:
-      "Sí. La plataforma opera en todo el territorio español. Las rutas más activas conectan Madrid, Barcelona, Valencia, Bilbao, Sevilla y Zaragoza con los festivales más grandes del año.",
-  },
-  {
-    question: "¿Puedo viajar con mis amigos en el mismo coche?",
-    answer:
-      "Sí, puedes solicitar varias plazas en un mismo viaje si el conductor tiene asientos disponibles. Coordínate con tu grupo antes de solicitar para ir todos juntos.",
-  },
-  {
-    question: "¿Qué documentos necesito para registrarme?",
-    answer:
-      "Solo necesitas un email y, si vas a conducir, una foto del carnet de conducir y DNI para la verificación. Los pasajeros solo necesitan crear una cuenta gratuita.",
-  },
-  {
-    question: "¿Cómo se hace el pago?",
-    answer:
-      "El pago se realiza directamente al conductor el día del viaje, en efectivo o por Bizum. ConcertRide no gestiona cobros ni retiene dinero — sin comisiones, sin sorpresas.",
-  },
-  {
-    question: "¿Es seguro viajar en ConcertRide?",
-    answer:
-      "Todos los conductores están verificados con DNI y carnet de conducir. Los perfiles incluyen foto, valoraciones de otros usuarios y un historial de viajes. Además, puedes comunicarte directamente con el conductor antes de confirmar.",
-  },
-  {
-    question: "¿Puedo cancelar mi reserva?",
-    answer:
-      "Sí, puedes cancelar desde tu perfil. Al ser el pago presencial, no hay cargos automáticos. Avisa al conductor con la mayor antelación posible para que pueda buscar otro pasajero.",
-  },
-  {
-    question: "¿Qué ocurre si llego tarde al punto de recogida?",
-    answer:
-      "Coordínate con el conductor por el chat de la plataforma. En ConcertRide los conductores suelen tener margen de 5–10 minutos, pero recuerda que también tienen festival que no quieren perderse.",
-  },
-];
+  { questionKey: "home.trustFaq1Q", answerKey: "home.trustFaq1A" },
+  { questionKey: "home.trustFaq2Q", answerKey: "home.trustFaq2A" },
+  { questionKey: "home.trustFaq3Q", answerKey: "home.trustFaq3A" },
+  { questionKey: "home.trustFaq4Q", answerKey: "home.trustFaq4A" },
+  { questionKey: "home.trustFaq5Q", answerKey: "home.trustFaq5A" },
+  { questionKey: "home.trustFaq6Q", answerKey: "home.trustFaq6A" },
+  { questionKey: "home.trustFaq7Q", answerKey: "home.trustFaq7A" },
+  { questionKey: "home.trustFaq8Q", answerKey: "home.trustFaq8A" },
+  { questionKey: "home.trustFaq9Q", answerKey: "home.trustFaq9A" },
+  { questionKey: "home.trustFaq10Q", answerKey: "home.trustFaq10A" },
+  { questionKey: "home.trustFaq11Q", answerKey: "home.trustFaq11A" },
+  { questionKey: "home.trustFaq12Q", answerKey: "home.trustFaq12A" },
+] as const;
 
 export function TrustSection() {
+  const { t } = useI18n();
+
   const faqSchema = {
     "@context": "https://schema.org",
     "@type": "FAQPage",
-    mainEntity: FAQ_ITEMS.map(({ question, answer }) => ({
+    mainEntity: FAQ_ITEMS.map(({ questionKey, answerKey }) => ({
       "@type": "Question",
-      name: question,
+      name: t(questionKey),
       acceptedAnswer: {
         "@type": "Answer",
-        text: answer,
+        text: t(answerKey),
       },
     })),
   };
@@ -145,8 +100,8 @@ export function TrustSection() {
 
         {/* ── Platform metrics — números de ConcertRide ── */}
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-px bg-white/[0.04]">
-          {PLATFORM_STATS.map(({ icon: Icon, value, label, sublabel }) => (
-            <div key={label} className="bg-[#0a0a0a] px-6 py-8 flex flex-col gap-3 group hover:bg-[#0f0f0f] transition-colors duration-200">
+          {PLATFORM_STATS.map(({ icon: Icon, value, labelKey, sublabelKey }) => (
+            <div key={labelKey} className="bg-[#0a0a0a] px-6 py-8 flex flex-col gap-3 group hover:bg-[#0f0f0f] transition-colors duration-200">
               <Icon size={16} className="text-cr-primary" aria-hidden="true" />
               <p
                 className="font-display text-3xl md:text-5xl text-cr-primary leading-none"
@@ -154,8 +109,8 @@ export function TrustSection() {
               >
                 {value}
               </p>
-              <p className="font-sans text-sm font-semibold text-cr-text leading-tight">{label}</p>
-              <p className="font-mono text-[10px] text-cr-text-dim uppercase tracking-[0.14em]">{sublabel}</p>
+              <p className="font-sans text-sm font-semibold text-cr-text leading-tight">{t(labelKey)}</p>
+              <p className="font-mono text-[10px] text-cr-text-dim uppercase tracking-[0.14em]">{t(sublabelKey)}</p>
             </div>
           ))}
         </div>
@@ -164,22 +119,21 @@ export function TrustSection() {
         <div className="space-y-8">
           <header className="space-y-3 max-w-2xl">
             <p className="font-sans text-[11px] font-semibold uppercase tracking-[0.16em] text-cr-primary">
-              El sector en cifras
+              {t("home.trustSectorEyebrow")}
             </p>
             <h2
               id="trust-title"
               className="font-display text-3xl md:text-5xl uppercase leading-[0.95]"
             >
-              España lidera<br />el turismo festivalero.
+              {t("home.trustSectorTitleLine1")}<br />{t("home.trustSectorTitleLine2")}
             </h2>
             <p className="font-sans text-sm text-cr-text-muted leading-relaxed max-w-xl">
-              El mercado de música en vivo en España es uno de los cinco con mayor crecimiento
-              en Europa. El reto está en llegar sin gastar el doble del ticket en transporte.
+              {t("home.trustSectorIntro")}
             </p>
           </header>
 
           <dl className="grid sm:grid-cols-3 gap-px bg-white/[0.04]">
-            {SECTOR_STATS.map(({ icon: Icon, figure, label, source, sourceUrl }) => (
+            {SECTOR_STATS.map(({ icon: Icon, figure, labelKey, source, sourceUrl }) => (
               <div
                 key={figure}
                 className="bg-[#0a0a0a] p-8 space-y-3 flex flex-col justify-between group hover:bg-[#0f0f0f] transition-colors duration-200 relative overflow-hidden"
@@ -199,7 +153,7 @@ export function TrustSection() {
                     {figure}
                   </dt>
                   <dd className="font-sans text-sm text-cr-text-muted leading-relaxed">
-                    {label}
+                    {t(labelKey)}
                   </dd>
                 </div>
                 <a
@@ -208,7 +162,7 @@ export function TrustSection() {
                   rel="noopener noreferrer"
                   className="font-mono text-[10px] text-cr-text-dim hover:text-cr-primary transition-colors relative"
                 >
-                  Fuente: {source} ↗
+                  {t("home.trustSectorSource", { source })}
                 </a>
               </div>
             ))}
@@ -219,19 +173,19 @@ export function TrustSection() {
         <div className="space-y-6">
           <header className="space-y-2">
             <p className="font-sans text-[11px] font-semibold uppercase tracking-[0.16em] text-cr-primary">
-              Preguntas frecuentes
+              {t("home.trustFaqEyebrow")}
             </p>
             <h3 className="font-display text-2xl md:text-3xl uppercase leading-tight">
-              Todo lo que necesitas saber antes de reservar
+              {t("home.trustFaqTitle")}
             </h3>
           </header>
 
           <div className="divide-y divide-cr-border border border-cr-border">
-            {FAQ_ITEMS.map(({ question, answer }) => (
-              <details key={question} className="group">
+            {FAQ_ITEMS.map(({ questionKey, answerKey }) => (
+              <details key={questionKey} className="group">
                 <summary className="flex items-center justify-between gap-4 px-6 py-4 cursor-pointer list-none select-none hover:bg-white/[0.02] transition-colors">
                   <span className="font-sans text-sm font-medium text-cr-text leading-snug">
-                    {question}
+                    {t(questionKey)}
                   </span>
                   <span
                     className="flex-shrink-0 w-5 h-5 border border-cr-border flex items-center justify-center text-cr-text-dim group-open:rotate-45 transition-transform duration-200"
@@ -241,7 +195,7 @@ export function TrustSection() {
                   </span>
                 </summary>
                 <p className="px-6 pb-5 pt-1 font-sans text-sm text-cr-text-muted leading-relaxed">
-                  {answer}
+                  {t(answerKey)}
                 </p>
               </details>
             ))}
@@ -250,15 +204,15 @@ export function TrustSection() {
 
         {/* ── Trust badges ── */}
         <ul className="flex flex-wrap items-center gap-x-8 gap-y-3 border-t border-dashed border-cr-border pt-8">
-          {TRUST_POINTS.map((point) => (
+          {TRUST_POINTS.map((pointKey) => (
             <li
-              key={point}
+              key={pointKey}
               className="flex items-center gap-2 font-sans text-xs text-cr-text-muted"
             >
               <span className="inline-flex items-center justify-center w-4 h-4 rounded-full bg-cr-primary/15 text-cr-primary">
                 <Check size={10} strokeWidth={3} aria-hidden="true" />
               </span>
-              {point}
+              {t(pointKey)}
             </li>
           ))}
         </ul>

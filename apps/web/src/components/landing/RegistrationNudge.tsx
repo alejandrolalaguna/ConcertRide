@@ -1,23 +1,27 @@
 import { motion } from "motion/react";
 import { ArrowRight, Users, Zap, Shield } from "lucide-react";
+import { useI18n } from "@/lib/i18n";
 
-const JOINING_MESSAGES = [
-  "María · Sevilla · hace 3 min",
-  "Carlos · Valencia · hace 7 min",
-  "Lucía · Bilbao · hace 12 min",
-  "Rafa · Málaga · hace 18 min",
+// Proper names (people / cities) stay verbatim; only the relative-time portion
+// is localized via the `home.nudgeJoinTicker` template ({name} · {city} · …).
+const JOINING_ENTRIES = [
+  { name: "María", city: "Sevilla", min: 3 },
+  { name: "Carlos", city: "Valencia", min: 7 },
+  { name: "Lucía", city: "Bilbao", min: 12 },
+  { name: "Rafa", city: "Málaga", min: 18 },
 ];
 
 const BADGES = [
-  { icon: Zap, text: "30 segundos para empezar" },
-  { icon: Users, text: "Sin tarjeta de crédito" },
-  { icon: Shield, text: "0€ comisión siempre" },
-];
+  { icon: Zap, textKey: "home.nudgeBadge1" },
+  { icon: Users, textKey: "home.nudgeBadge2" },
+  { icon: Shield, textKey: "home.nudgeBadge3" },
+] as const;
 
 export function RegistrationNudge() {
+  const { t } = useI18n();
   return (
     <section
-      aria-label="Únete a ConcertRide"
+      aria-label={t("home.nudgeAriaLabel")}
       className="relative overflow-hidden border-y border-[#dbff00]/15"
       style={{ backgroundColor: "#09100a" }}
     >
@@ -59,24 +63,24 @@ export function RegistrationNudge() {
                 <span className="relative inline-flex rounded-full h-2 w-2 bg-[#dbff00]" />
               </span>
               <span className="font-mono text-[10px] text-[#dbff00]/70 uppercase tracking-[0.2em]">
-                Usuarios uniéndose ahora
+                {t("home.nudgeLiveIndicator")}
               </span>
             </div>
 
             <div>
               <p className="font-display text-2xl md:text-3xl uppercase tracking-tight leading-tight text-white">
-                +2.000 fans registrados.
+                {t("home.nudgeTitle1")}
               </p>
               <p className="font-display text-2xl md:text-3xl uppercase tracking-tight leading-tight text-[#dbff00]">
-                Únete gratis hoy.
+                {t("home.nudgeTitle2")}
               </p>
             </div>
 
             <div className="flex flex-wrap items-center justify-center md:justify-start gap-x-5 gap-y-2">
-              {BADGES.map(({ icon: Icon, text }) => (
-                <span key={text} className="flex items-center gap-1.5 font-mono text-[10px] text-white/30 uppercase tracking-[0.1em]">
+              {BADGES.map(({ icon: Icon, textKey }) => (
+                <span key={textKey} className="flex items-center gap-1.5 font-mono text-[10px] text-white/30 uppercase tracking-[0.1em]">
                   <Icon size={10} className="text-[#dbff00]/50" aria-hidden="true" />
-                  {text}
+                  {t(textKey)}
                 </span>
               ))}
             </div>
@@ -94,11 +98,11 @@ export function RegistrationNudge() {
               href="/register"
               className="cr-btn-shine inline-flex items-center gap-3 bg-[#dbff00] text-[#080808] font-semibold text-sm uppercase tracking-wider px-10 py-4 hover:bg-[#c8ec00] transition-colors duration-150 group"
             >
-              Crear cuenta gratis
+              {t("home.nudgeCta")}
               <ArrowRight size={14} className="transition-transform duration-150 group-hover:translate-x-1" aria-hidden="true" />
             </a>
             <p className="font-mono text-[9px] text-white/20 uppercase tracking-[0.12em]">
-              Sin tarjeta · Sin comisión · Cancela cuando quieras
+              {t("home.nudgeFootnote")}
             </p>
           </motion.div>
         </div>
@@ -112,21 +116,24 @@ export function RegistrationNudge() {
           className="mt-8 pt-5 border-t border-[#dbff00]/[0.08] grid grid-cols-2 md:grid-cols-4 gap-3"
           aria-hidden="true"
         >
-          {JOINING_MESSAGES.map((msg, i) => (
-            <motion.div
-              key={msg}
-              initial={{ opacity: 0, y: 8 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.4, delay: 0.4 + i * 0.06 }}
-              className="flex items-center gap-2"
-            >
-              <span className="w-1.5 h-1.5 rounded-full bg-[#dbff00]/35 flex-shrink-0" />
-              <span className="font-mono text-[9px] text-white/22 uppercase tracking-[0.1em] truncate">
-                {msg}
-              </span>
-            </motion.div>
-          ))}
+          {JOINING_ENTRIES.map((entry, i) => {
+            const msg = t("home.nudgeJoinTicker", { name: entry.name, city: entry.city, min: entry.min });
+            return (
+              <motion.div
+                key={msg}
+                initial={{ opacity: 0, y: 8 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.4, delay: 0.4 + i * 0.06 }}
+                className="flex items-center gap-2"
+              >
+                <span className="w-1.5 h-1.5 rounded-full bg-[#dbff00]/35 flex-shrink-0" />
+                <span className="font-mono text-[9px] text-white/22 uppercase tracking-[0.1em] truncate">
+                  {msg}
+                </span>
+              </motion.div>
+            );
+          })}
         </motion.div>
       </div>
     </section>

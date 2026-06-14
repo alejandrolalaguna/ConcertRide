@@ -66,7 +66,7 @@ const WEBPAGE_CONCERTS_JSON_LD = JSON.stringify({
 });
 
 export default function ConcertsPage() {
-  const { t } = useI18n();
+  const { t, locale } = useI18n();
   const navigate = useNavigate();
   const [searchParams, setSearchParams] = useSearchParams();
   const [concerts, setConcerts] = useState<Concert[] | null>(null);
@@ -94,36 +94,64 @@ export default function ConcertsPage() {
 
   const dynamicTitle = useMemo(() => {
     const year = new Date().getFullYear();
+    if (locale === "en") {
+      if (!hasActiveFilters(filters)) return `Concerts & festivals in Spain ${year} | ConcertRide`;
+      const enParts: string[] = [];
+      if (filters.artist) enParts.push(`by ${filters.artist}`);
+      if (filters.city) enParts.push(`in ${filters.city}`);
+      if (filters.genre) enParts.push(filters.genre);
+      return `Concerts ${enParts.join(" ")} ${year} | ConcertRide`.trim();
+    }
     if (!hasActiveFilters(filters)) return `Conciertos y festivales en España ${year} | ConcertRide`;
     const parts: string[] = [];
     if (filters.artist) parts.push(`de ${filters.artist}`);
     if (filters.city) parts.push(`en ${filters.city}`);
     if (filters.genre) parts.push(filters.genre);
     return `Conciertos ${parts.join(" ")} ${year} | ConcertRide`.trim();
-  }, [filters]);
+  }, [filters, locale]);
 
+  const isEn = locale === "en";
   useSeoMeta({
     title: dynamicTitle,
-    description: filters.city
-      ? `Conciertos en ${filters.city} ${new Date().getFullYear()}: Mad Cool, Primavera Sound, Arenal Sound. Carpooling desde 3–7 €/asiento sin comisión. Conductores verificados.`
-      : `Conciertos en España ${new Date().getFullYear()} con carpooling desde 3–7 €/asiento. Mad Cool, Primavera Sound, Arenal Sound, FIB. Sin comisión, pago efectivo/Bizum.`,
+    description: isEn
+      ? filters.city
+        ? `Concerts in ${filters.city} ${new Date().getFullYear()}: Mad Cool, Primavera Sound, Arenal Sound. Carpooling from €3–7/seat, zero commission. Verified drivers.`
+        : `Concerts in Spain ${new Date().getFullYear()} with carpooling from €3–7/seat. Mad Cool, Primavera Sound, Arenal Sound, FIB. Zero commission, pay cash/Bizum.`
+      : filters.city
+        ? `Conciertos en ${filters.city} ${new Date().getFullYear()}: Mad Cool, Primavera Sound, Arenal Sound. Carpooling desde 3–7 €/asiento sin comisión. Conductores verificados.`
+        : `Conciertos en España ${new Date().getFullYear()} con carpooling desde 3–7 €/asiento. Mad Cool, Primavera Sound, Arenal Sound, FIB. Sin comisión, pago efectivo/Bizum.`,
     canonical: `${SITE_URL}/concerts`,
-    keywords: [
-      `conciertos en España ${new Date().getFullYear()}`,
-      `conciertos ${filters.city || "España"}`,
-      "conciertos música España",
-      "carpooling conciertos España",
-      "viajes compartidos conciertos",
-      "coche compartido festival España",
-      "carpooling festival España",
-      "conciertos sin taxi",
-      "transporte compartido conciertos",
-      "cómo ir al concierto en coche compartido",
-      filters.genre ? `conciertos ${filters.genre} España` : "festivales música España",
-      "carpooling sin comisión España",
-      "carpooling conciertos alternativa",
-      `conciertos ${new Date().getFullYear()} ${new Date().getFullYear() + 1}`,
-    ].filter(Boolean).join(", "),
+    keywords: (isEn
+      ? [
+          `concerts in Spain ${new Date().getFullYear()}`,
+          `concerts ${filters.city || "Spain"}`,
+          "live music Spain",
+          "carpooling to concerts Spain",
+          "concert ride share Spain",
+          "festival carpooling Spain",
+          "how to get to concert Spain",
+          filters.genre ? `${filters.genre} concerts Spain` : "music festivals Spain",
+          "concert transport Spain no taxi",
+        ]
+      : [
+          `conciertos en España ${new Date().getFullYear()}`,
+          `conciertos ${filters.city || "España"}`,
+          "conciertos música España",
+          "carpooling conciertos España",
+          "viajes compartidos conciertos",
+          "coche compartido festival España",
+          "carpooling festival España",
+          "conciertos sin taxi",
+          "transporte compartido conciertos",
+          "cómo ir al concierto en coche compartido",
+          filters.genre ? `conciertos ${filters.genre} España` : "festivales música España",
+          "carpooling sin comisión España",
+          "carpooling conciertos alternativa",
+          `conciertos ${new Date().getFullYear()} ${new Date().getFullYear() + 1}`,
+        ]
+    )
+      .filter(Boolean)
+      .join(", "),
   });
 
   const debounceRef = useRef<ReturnType<typeof setTimeout> | null>(null);
@@ -245,32 +273,40 @@ export default function ConcertsPage() {
           __html: JSON.stringify({
             "@context": "https://schema.org",
             "@type": "FAQPage",
-            mainEntity: [
-              {
-                "@type": "Question",
-                name: "¿Qué es ConcertRide?",
-                acceptedAnswer: {
-                  "@type": "Answer",
-                  text: "ConcertRide es la primera plataforma española de carpooling exclusiva para conciertos y festivales. Conecta conductores y pasajeros que van al mismo evento, sin comisión y con conductores verificados.",
-                },
-              },
-              {
-                "@type": "Question",
-                name: "¿Cómo busco un viaje compartido a un concierto?",
-                acceptedAnswer: {
-                  "@type": "Answer",
-                  text: "Introduce el nombre del artista, la ciudad o el festival en el buscador. Verás todos los viajes disponibles con precio, origen y valoraciones del conductor. El pago se hace en efectivo o Bizum el día del viaje.",
-                },
-              },
-              {
-                "@type": "Question",
-                name: "¿Cuánto cuesta un viaje compartido a un concierto en España?",
-                acceptedAnswer: {
-                  "@type": "Answer",
-                  text: "Los precios típicos van de 3 a 20 € por asiento según la distancia. Los conductores fijan el precio para cubrir combustible y peajes. ConcertRide no cobra comisión ni cargos de servicio.",
-                },
-              },
-            ],
+            mainEntity: (isEn
+              ? [
+                  {
+                    q: "What is ConcertRide?",
+                    a: "ConcertRide is Spain's first carpooling platform built exclusively for concerts and festivals. It connects drivers and passengers heading to the same event, with zero commission and verified drivers.",
+                  },
+                  {
+                    q: "How do I find a carpool ride to a concert?",
+                    a: "Type the artist, city or festival into the search box. You'll see every available ride with its price, origin and driver ratings. Payment is made in cash or Bizum on the day of the trip.",
+                  },
+                  {
+                    q: "How much does a carpool ride to a concert in Spain cost?",
+                    a: "Typical prices range from €3 to €20 per seat depending on distance. Drivers set the price to cover fuel and tolls. ConcertRide charges no commission or service fees.",
+                  },
+                ]
+              : [
+                  {
+                    q: "¿Qué es ConcertRide?",
+                    a: "ConcertRide es la primera plataforma española de carpooling exclusiva para conciertos y festivales. Conecta conductores y pasajeros que van al mismo evento, sin comisión y con conductores verificados.",
+                  },
+                  {
+                    q: "¿Cómo busco un viaje compartido a un concierto?",
+                    a: "Introduce el nombre del artista, la ciudad o el festival en el buscador. Verás todos los viajes disponibles con precio, origen y valoraciones del conductor. El pago se hace en efectivo o Bizum el día del viaje.",
+                  },
+                  {
+                    q: "¿Cuánto cuesta un viaje compartido a un concierto en España?",
+                    a: "Los precios típicos van de 3 a 20 € por asiento según la distancia. Los conductores fijan el precio para cubrir combustible y peajes. ConcertRide no cobra comisión ni cargos de servicio.",
+                  },
+                ]
+            ).map((f) => ({
+              "@type": "Question",
+              name: f.q,
+              acceptedAnswer: { "@type": "Answer", text: f.a },
+            })),
           }),
         }}
       />
@@ -299,12 +335,14 @@ export default function ConcertsPage() {
           <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4">
             <div>
               <h1 className="font-display text-4xl md:text-6xl uppercase leading-[0.92] tracking-tight">
-                Todos los
+                {isEn ? "All" : "Todos los"}
                 <br />
-                conciertos.
+                {isEn ? "concerts." : "conciertos."}
               </h1>
               <p className="font-sans text-sm text-cr-text-muted max-w-2xl leading-relaxed speakable mt-3">
-                La plataforma española de carpooling exclusiva para conciertos y festivales. Sin comisión, sin taxi, conductores verificados.
+                {isEn
+                  ? "Spain's carpooling platform built exclusively for concerts and festivals. Zero commission, no taxi, verified drivers."
+                  : "La plataforma española de carpooling exclusiva para conciertos y festivales. Sin comisión, sin taxi, conductores verificados."}
               </p>
             </div>
             <div className="flex items-center gap-2 flex-shrink-0">

@@ -8,7 +8,13 @@ import { SessionProvider } from "./lib/session";
 import { FavoritesProvider } from "./lib/favorites";
 import { CrewProvider } from "./lib/crew";
 import { I18nProvider } from "./lib/i18n";
+import { isLocale, type Locale } from "./locales";
+import { localizeCanonical } from "./lib/localizedRoutes";
 import type { ResolvedSeo } from "./lib/useSeoMeta";
+
+// Re-export the /en/ pilot paths + hreflang helper so prerender.mjs can read
+// them from the SSR bundle (same pattern as FESTIVAL_SLUGS etc. below).
+export { EN_PILOT_PATHS, hreflangAlternates } from "./lib/localizedRoutes";
 
 // Eager imports for routes we prerender. Avoids React.lazy which doesn't
 // resolve under renderToString (sync-only, no Suspense awaiting).
@@ -201,13 +207,30 @@ function ServerApp() {
 export interface RenderResult {
   html: string;
   seo: ResolvedSeo | null;
+  /** `<html lang>` value for the shell (es | ca | en). */
+  lang: Locale;
+}
+
+// Locale-prefixed URLs (`/en/…`) render in that locale. We strip the prefix so
+// the existing <Routes> match the base path, force the I18nProvider locale so
+// SSR output is in that language, and rewrite the captured canonical to be
+// self-referential to the localized URL (never the Spanish one). URLs without a
+// known locale prefix render Spanish (default), exactly as before.
+function parseLocale(url: string): { locale: Locale; path: string } {
+  const seg = url.split("/")[1];
+  if (seg && seg !== "es" && isLocale(seg)) {
+    const stripped = url.slice(seg.length + 1) || "/";
+    return { locale: seg, path: stripped.startsWith("/") ? stripped : `/${stripped}` };
+  }
+  return { locale: "es", path: url };
 }
 
 export function render(url: string): RenderResult {
+  const { locale, path } = parseLocale(url);
   globalThis.__concertrideSsrSeo = null;
   const html = renderToString(
-    <StaticRouter location={url}>
-      <I18nProvider>
+    <StaticRouter location={path}>
+      <I18nProvider initialLocale={locale}>
         <SessionProvider>
           <FavoritesProvider>
             <CrewProvider>
@@ -218,6 +241,12 @@ export function render(url: string): RenderResult {
       </I18nProvider>
     </StaticRouter>,
   );
-  const seo = globalThis.__concertrideSsrSeo ?? null;
-  return { html, seo };
+  const captured = globalThis.__concertrideSsrSeo as ResolvedSeo | null | undefined;
+  let seo: ResolvedSeo | null = captured ?? null;
+  // For localized renders the page computed an ES canonical (it only sees the
+  // stripped path); rewrite it to the self-referential localized URL.
+  if (seo !== null && locale !== "es" && seo.canonical) {
+    seo = { ...seo, canonical: localizeCanonical(seo.canonical, locale) };
+  }
+  return { html, seo, lang: locale };
 }

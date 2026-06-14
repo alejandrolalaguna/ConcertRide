@@ -7,6 +7,7 @@ import { SessionProvider } from "./lib/session";
 import { FavoritesProvider } from "./lib/favorites";
 import { CrewProvider } from "./lib/crew";
 import { I18nProvider } from "./lib/i18n";
+import { isLocale, type Locale } from "./locales";
 import { ClarityScript } from "./components/ClarityScript";
 import { initSentry } from "./lib/observability";
 import { initWebMCP } from "./lib/webmcp";
@@ -35,10 +36,19 @@ trackAiReferralOnce();
 const rootEl = document.getElementById("root");
 if (!rootEl) throw new Error("Root element #root not found in DOM");
 
+// Locale-prefixed entry (e.g. landing on a prerendered /en/… URL): set the
+// router basename so react-router <Link>s stay within the locale, and force the
+// i18n locale to match. No prefix → Spanish default (localStorage still wins
+// for client-only preference once mounted).
+const firstSeg = window.location.pathname.split("/")[1];
+const localePrefix: Locale | undefined =
+  firstSeg && firstSeg !== "es" && isLocale(firstSeg) ? firstSeg : undefined;
+const routerBasename = localePrefix ? `/${localePrefix}` : undefined;
+
 ReactDOM.createRoot(rootEl).render(
   <React.StrictMode>
-    <BrowserRouter>
-      <I18nProvider>
+    <BrowserRouter basename={routerBasename}>
+      <I18nProvider initialLocale={localePrefix}>
         <SessionProvider>
           <FavoritesProvider>
             <CrewProvider>
