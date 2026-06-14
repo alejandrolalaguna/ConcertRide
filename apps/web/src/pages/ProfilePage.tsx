@@ -11,6 +11,7 @@ import { SPANISH_CITIES } from "@/lib/constants";
 import { initials, formatDay, formatDate } from "@/lib/format";
 import { useSeoMeta } from "@/lib/useSeoMeta";
 import { SITE_URL } from "@/lib/siteUrl";
+import { useI18n } from "@/lib/i18n";
 
 const GENRE_OPTIONS = [
   "Indie",
@@ -82,6 +83,7 @@ function TristateToggle({
 }
 
 export default function ProfilePage() {
+  const { t } = useI18n();
   const { user, loading, refresh, logout } = useSession();
   const navigate = useNavigate();
   const [deleting, setDeleting] = useState(false);
@@ -241,10 +243,10 @@ export default function ProfilePage() {
       });
       await refresh();
       setSaved(true);
-      toast.success("Perfil actualizado");
+      toast.success(t("profile.toastSaved"));
       setTimeout(() => setSaved(false), 3000);
     } catch (err) {
-      setError(err instanceof ApiError ? err.message : "Error al guardar. Inténtalo de nuevo.");
+      setError(err instanceof ApiError ? err.message : t("profile.saveError"));
     } finally {
       setSubmitting(false);
     }
@@ -272,14 +274,14 @@ export default function ProfilePage() {
               {initials(user.name)}
             </div>
             {user.verified && (
-              <span className="absolute -bottom-1 -right-1 w-5 h-5 bg-cr-primary flex items-center justify-center" aria-label="Verificado">
+              <span className="absolute -bottom-1 -right-1 w-5 h-5 bg-cr-primary flex items-center justify-center" aria-label={t("profile.verifiedBadge")}>
                 <ShieldCheck size={10} strokeWidth={2.5} className="text-black" />
               </span>
             )}
           </div>
           <div>
             <p className="font-mono text-[10px] font-semibold uppercase tracking-[0.16em] text-cr-primary mb-1">
-              Mi perfil
+              {t("profile.eyebrow")}
             </p>
             <h1 className="font-display text-3xl md:text-4xl uppercase leading-[0.92] tracking-tight">{user.name}</h1>
             <p className="font-mono text-xs text-white/35 mt-1">{user.email}</p>
@@ -294,15 +296,15 @@ export default function ProfilePage() {
           className="flex gap-0 border border-white/[0.06] bg-white/[0.02]"
         >
           {[
-            { label: "Viajes dados", value: user.rides_given, color: "text-cr-text" },
+            { label: t("profile.statRidesGiven"), value: user.rides_given, color: "text-cr-text" },
             {
-              label: "Valoración",
+              label: t("profile.statRating"),
               value: user.rating.toFixed(1),
               suffix: user.rating_count > 0 ? ` (${user.rating_count})` : "",
               color: "text-cr-primary",
               star: true,
             },
-            { label: "Confirmados", value: confirmedTrips, color: "text-cr-text" },
+            { label: t("profile.statConfirmed"), value: confirmedTrips, color: "text-cr-text" },
           ].map((stat, i) => (
             <div key={stat.label} className={`flex-1 px-5 py-4 ${i > 0 ? "border-l border-white/[0.06]" : ""}`}>
               <dt className="font-mono text-[9px] font-semibold uppercase tracking-[0.14em] text-white/30 mb-1">{stat.label}</dt>
@@ -327,19 +329,19 @@ export default function ProfilePage() {
             <header className="flex items-center gap-2 relative">
               <TrendingUp size={14} className="text-cr-primary" aria-hidden="true" />
               <h2 className="font-mono text-[10px] font-bold uppercase tracking-[0.16em] text-cr-primary">
-                Panel de conductor
+                {t("profile.driverPanel")}
               </h2>
             </header>
             <dl className="grid grid-cols-3 gap-0 border border-white/[0.06]">
               <div className="px-4 py-3">
                 <dt className="font-mono text-[9px] font-semibold uppercase tracking-[0.14em] text-white/30 mb-1">
-                  Viajes dados
+                  {t("profile.statRidesGiven")}
                 </dt>
                 <dd className="font-mono text-xl text-cr-text">{user.rides_given}</dd>
               </div>
               <div className="px-4 py-3 border-l border-white/[0.06]">
                 <dt className="font-mono text-[9px] font-semibold uppercase tracking-[0.14em] text-white/30 mb-1">
-                  Ganancias est.
+                  {t("profile.earningsEst")}
                 </dt>
                 <dd className="font-mono text-xl text-cr-primary">
                   €{myRides
@@ -350,7 +352,7 @@ export default function ProfilePage() {
               </div>
               <div className="px-4 py-3 border-l border-white/[0.06]">
                 <dt className="font-mono text-[9px] font-semibold uppercase tracking-[0.14em] text-white/30 mb-1">
-                  Plazas vendidas
+                  {t("profile.seatsSold")}
                 </dt>
                 <dd className="font-mono text-xl text-cr-text">
                   {myRides.reduce((sum, r) => sum + (r.seats_total - r.seats_left), 0)}
@@ -361,7 +363,7 @@ export default function ProfilePage() {
             {myRides.filter((r) => r.status === "active" || r.status === "full").length > 0 && (
               <div className="border-t border-dashed border-cr-border pt-4 space-y-2">
                 <p className="font-sans text-[10px] font-semibold uppercase tracking-[0.12em] text-cr-text-muted">
-                  Próximos viajes
+                  {t("profile.upcomingRides")}
                 </p>
                 <ul className="space-y-2">
                   {myRides
@@ -382,9 +384,9 @@ export default function ProfilePage() {
                             </p>
                           </div>
                           <div className="text-right shrink-0">
-                            <p className="font-mono text-xs text-cr-primary">€{r.price_per_seat}/plaza</p>
+                            <p className="font-mono text-xs text-cr-primary">{t("profile.pricePerSeat", { price: r.price_per_seat })}</p>
                             <p className="font-mono text-[11px] text-cr-text-muted">
-                              {r.seats_left}/{r.seats_total} libres
+                              {t("profile.seatsFree", { left: r.seats_left, total: r.seats_total })}
                             </p>
                           </div>
                         </Link>
@@ -396,10 +398,10 @@ export default function ProfilePage() {
             {user.referral_code && (
               <div className="border-t border-dashed border-cr-border pt-4 space-y-2">
                 <p className="font-sans text-[10px] font-semibold uppercase tracking-[0.12em] text-cr-text-muted">
-                  Enlace de invitación
+                  {t("profile.referralTitle")}
                   {user.referral_count >= 3 && (
                     <span className="ml-2 bg-cr-primary text-black px-1.5 py-0.5 text-[9px]">
-                      ★ Embajador
+                      {t("profile.ambassadorBadge")}
                     </span>
                   )}
                 </p>
@@ -420,11 +422,13 @@ export default function ProfilePage() {
                     className="shrink-0 inline-flex items-center gap-1.5 font-sans text-xs font-semibold uppercase tracking-[0.1em] text-cr-text-muted hover:text-cr-primary border border-cr-border hover:border-cr-primary px-3 py-1.5 transition-colors"
                   >
                     <Link2 size={12} aria-hidden="true" />
-                    {refCopied ? "¡Copiado!" : "Copiar"}
+                    {refCopied ? t("profile.copied") : t("profile.copy")}
                   </button>
                 </div>
                 <p className="font-mono text-[11px] text-cr-text-muted">
-                  {user.referral_count} conductor{user.referral_count === 1 ? "" : "es"} invitado{user.referral_count === 1 ? "" : "s"}
+                  {user.referral_count === 1
+                    ? t("profile.referralCountSingular", { count: user.referral_count })
+                    : t("profile.referralCountPlural", { count: user.referral_count })}
                 </p>
               </div>
             )}
@@ -436,25 +440,25 @@ export default function ProfilePage() {
           <section className="space-y-4 border border-white/[0.06] bg-white/[0.02] p-5">
             <header className="flex items-center gap-2">
               <span className="font-mono text-[10px] font-bold uppercase tracking-[0.16em] text-cr-primary">
-                Tu impacto
+                {t("profile.impactTitle")}
               </span>
             </header>
             <dl className="grid grid-cols-3 gap-0 border border-white/[0.06]">
               <div className="px-4 py-3">
                 <dt className="font-mono text-[9px] font-semibold uppercase tracking-[0.14em] text-white/30 mb-1">
-                  Como conductor
+                  {t("profile.asDriver")}
                 </dt>
                 <dd className="font-mono text-xl text-cr-text">{user.rides_given}</dd>
               </div>
               <div className="px-4 py-3 border-l border-white/[0.06]">
                 <dt className="font-mono text-[9px] font-semibold uppercase tracking-[0.14em] text-white/30 mb-1">
-                  Como pasajero
+                  {t("profile.asPassenger")}
                 </dt>
                 <dd className="font-mono text-xl text-cr-text">{confirmedTrips}</dd>
               </div>
               <div className="px-4 py-3 border-l border-white/[0.06]">
                 <dt className="font-mono text-[9px] font-semibold uppercase tracking-[0.14em] text-white/30 mb-1">
-                  CO₂ ahorrado est.
+                  {t("profile.co2Saved")}
                 </dt>
                 <dd className="font-mono text-xl text-cr-primary">
                   {Math.round((user.rides_given + confirmedTrips) * 120 * 0.12)} kg
@@ -466,7 +470,7 @@ export default function ProfilePage() {
 
         <section className="space-y-3">
           <h2 className="font-mono text-[10px] font-bold uppercase tracking-[0.16em] text-cr-primary border-b border-white/[0.06] pb-3">
-            Tu archivo
+            {t("profile.archiveTitle")}
           </h2>
           <div className="grid gap-3 sm:grid-cols-3">
             <Link
@@ -474,11 +478,11 @@ export default function ProfilePage() {
               className="group block border border-white/[0.08] bg-white/[0.02] p-4 hover:border-cr-primary/50 hover:bg-cr-primary/[0.03] transition-all duration-200"
             >
               <p className="font-mono text-[9px] uppercase tracking-[0.16em] text-white/30 group-hover:text-cr-primary/60 transition-colors">
-                recap personal
+                {t("profile.memoriesEyebrow")}
               </p>
-              <p className="mt-1.5 font-display text-base uppercase group-hover:text-white transition-colors">Mis recuerdos</p>
+              <p className="mt-1.5 font-display text-base uppercase group-hover:text-white transition-colors">{t("profile.memoriesTitle")}</p>
               <p className="mt-1 text-xs text-white/35">
-                Vibe cards y stats por año.
+                {t("profile.memoriesDesc")}
               </p>
             </Link>
             <Link
@@ -486,11 +490,15 @@ export default function ProfilePage() {
               className="group block border border-white/[0.08] bg-white/[0.02] p-4 hover:border-cr-primary/50 hover:bg-cr-primary/[0.03] transition-all duration-200"
             >
               <p className="font-mono text-[9px] uppercase tracking-[0.16em] text-white/30 group-hover:text-cr-primary/60 transition-colors">
-                tu gente
+                {t("profile.crewEyebrow")}
               </p>
-              <p className="mt-1.5 font-display text-base uppercase group-hover:text-white transition-colors">Mi crew</p>
+              <p className="mt-1.5 font-display text-base uppercase group-hover:text-white transition-colors">{t("profile.crewTitle")}</p>
               <p className="mt-1 text-xs text-white/35">
-                {user.crew_count > 0 ? `${user.crew_count} ${user.crew_count === 1 ? "persona" : "personas"}` : "Aún sin crew"}
+                {user.crew_count > 0
+                  ? user.crew_count === 1
+                    ? t("profile.crewCountSingular", { count: user.crew_count })
+                    : t("profile.crewCountPlural", { count: user.crew_count })
+                  : t("profile.crewEmpty")}
               </p>
             </Link>
             <Link
@@ -498,11 +506,11 @@ export default function ProfilePage() {
               className="group block border border-white/[0.08] bg-white/[0.02] p-4 hover:border-cr-primary/50 hover:bg-cr-primary/[0.03] transition-all duration-200"
             >
               <p className="font-mono text-[9px] uppercase tracking-[0.16em] text-white/30 group-hover:text-cr-primary/60 transition-colors">
-                en directo
+                {t("profile.feedEyebrow")}
               </p>
-              <p className="mt-1.5 font-display text-base uppercase group-hover:text-white transition-colors">Activity feed</p>
+              <p className="mt-1.5 font-display text-base uppercase group-hover:text-white transition-colors">{t("profile.feedTitle")}</p>
               <p className="mt-1 text-xs text-white/35">
-                Quién organiza viajes ahora.
+                {t("profile.feedDesc")}
               </p>
             </Link>
           </div>
@@ -512,10 +520,10 @@ export default function ProfilePage() {
         {(reviewsLoading || reviews.length > 0) && (
           <section className="space-y-3">
             <h2 className="font-mono text-[10px] font-bold uppercase tracking-[0.16em] text-cr-primary border-b border-white/[0.06] pb-3">
-              Valoraciones recibidas
+              {t("profile.reviewsTitle")}
             </h2>
             {reviewsLoading ? (
-              <p className="font-mono text-xs text-cr-text-muted">Cargando…</p>
+              <p className="font-mono text-xs text-cr-text-muted">{t("profile.loading")}</p>
             ) : (
               <ul className="space-y-3">
                 {reviews.map((r) => (
@@ -559,14 +567,14 @@ export default function ProfilePage() {
               )}
               <div>
                 <p className="font-sans text-xs font-semibold text-cr-text">
-                  {pushState === "subscribed" ? "Notificaciones activadas" : "Notificaciones desactivadas"}
+                  {pushState === "subscribed" ? t("profile.pushOn") : t("profile.pushOff")}
                 </p>
                 <p className="font-mono text-[11px] text-cr-text-muted">
                   {pushState === "denied"
-                    ? "Bloqueadas en el navegador — actívalas en Ajustes"
+                    ? t("profile.pushDenied")
                     : pushState === "subscribed"
-                      ? "Recibirás avisos de solicitudes y mensajes"
-                      : "Actívalas para no perderte solicitudes ni mensajes"}
+                      ? t("profile.pushSubscribedHint")
+                      : t("profile.pushEnableHint")}
                 </p>
               </div>
             </div>
@@ -581,7 +589,7 @@ export default function ProfilePage() {
                     : "border-cr-primary text-cr-primary hover:bg-cr-primary/10"
                 }`}
               >
-                {pushState === "loading" ? "…" : pushState === "subscribed" ? "Desactivar" : "Activar"}
+                {pushState === "loading" ? "…" : pushState === "subscribed" ? t("profile.deactivate") : t("profile.activate")}
               </button>
             )}
           </div>
@@ -592,11 +600,11 @@ export default function ProfilePage() {
           {/* Cuenta */}
           <section className="space-y-4">
             <h2 className="font-mono text-[10px] font-bold uppercase tracking-[0.16em] text-cr-primary border-b border-white/[0.06] pb-3">
-              Cuenta
+              {t("profile.accountSection")}
             </h2>
             <label className="block space-y-1.5">
               <span className="font-mono text-[10px] font-semibold uppercase tracking-[0.14em] text-white/40">
-                Nombre
+                {t("profile.nameLabel")}
               </span>
               <input
                 type="text"
@@ -609,12 +617,12 @@ export default function ProfilePage() {
             <div className="space-y-2">
               <div className="flex items-center gap-2">
                 <span className="font-mono text-[10px] font-semibold uppercase tracking-[0.14em] text-white/40">
-                  Teléfono
+                  {t("profile.phoneLabel")}
                 </span>
                 {user.phone_verified_at ? (
-                  <span className="font-sans text-[10px] font-semibold uppercase tracking-[0.1em] text-cr-primary border border-cr-primary/40 px-1.5 py-0.5">Verificado</span>
+                  <span className="font-sans text-[10px] font-semibold uppercase tracking-[0.1em] text-cr-primary border border-cr-primary/40 px-1.5 py-0.5">{t("profile.verified")}</span>
                 ) : (
-                  <span className="font-sans text-[10px] text-cr-text-dim">(no verificado)</span>
+                  <span className="font-sans text-[10px] text-cr-text-dim">{t("profile.notVerified")}</span>
                 )}
               </div>
               <div className="flex gap-2">
@@ -637,20 +645,20 @@ export default function ProfilePage() {
                         await api.auth.sendPhoneOtp(phone.trim());
                         setOtpSent(true);
                       } catch {
-                        setOtpError("No se pudo enviar el código. Inténtalo de nuevo.");
+                        setOtpError(t("profile.otpSendError"));
                       } finally {
                         setOtpSending(false);
                       }
                     }}
                     className="font-sans text-xs font-semibold uppercase tracking-[0.1em] border-2 border-cr-primary text-cr-primary px-3 py-2 hover:bg-cr-primary/10 disabled:opacity-40 transition-colors whitespace-nowrap"
                   >
-                    {otpSending ? "Enviando…" : "Verificar"}
+                    {otpSending ? t("profile.sending") : t("profile.verify")}
                   </button>
                 )}
               </div>
               {otpSent && !user.phone_verified_at && (
                 <div className="space-y-2">
-                  <p className="font-sans text-xs text-cr-text-muted">Introduce el código de 6 dígitos enviado a {phone}:</p>
+                  <p className="font-sans text-xs text-cr-text-muted">{t("profile.otpPrompt", { phone })}</p>
                   <div className="flex gap-2">
                     <input
                       type="text"
@@ -674,16 +682,16 @@ export default function ProfilePage() {
                           setOtpCode("");
                           if (result.user) setOtpError(null);
                         } catch {
-                          setOtpError("Código incorrecto o expirado.");
+                          setOtpError(t("profile.otpInvalid"));
                         } finally {
                           setOtpVerifying(false);
                         }
                       }}
                       className="font-sans text-xs font-semibold uppercase tracking-[0.1em] bg-cr-primary text-black px-3 py-2 disabled:opacity-40 transition-opacity"
                     >
-                      {otpVerifying ? "Verificando…" : "Confirmar"}
+                      {otpVerifying ? t("profile.verifying") : t("profile.confirm")}
                     </button>
-                    <button type="button" onClick={() => { setOtpSent(false); setOtpCode(""); }} className="font-sans text-xs text-cr-text-dim px-2">Cancelar</button>
+                    <button type="button" onClick={() => { setOtpSent(false); setOtpCode(""); }} className="font-sans text-xs text-cr-text-dim px-2">{t("profile.cancel")}</button>
                   </div>
                 </div>
               )}
@@ -694,18 +702,18 @@ export default function ProfilePage() {
           {/* Ubicación */}
           <section className="space-y-4">
             <h2 className="font-mono text-[10px] font-bold uppercase tracking-[0.16em] text-cr-primary border-b border-white/[0.06] pb-3">
-              Ubicación
+              {t("profile.locationSection")}
             </h2>
             <label className="block space-y-2">
               <span className="font-mono text-[10px] font-semibold uppercase tracking-[0.14em] text-white/40">
-                Ciudad habitual — se autocompleta como origen al publicar viajes
+                {t("profile.homeCityLabel")}
               </span>
               <select
                 value={homeCity}
                 onChange={(e) => setHomeCity(e.target.value)}
                 className="w-full bg-white/[0.04] border border-white/[0.1] focus:border-cr-primary focus:shadow-[0_0_12px_rgb(219_255_0/0.1)] outline-none px-4 py-3 font-sans text-sm text-cr-text transition-all duration-150 [color-scheme:dark]"
               >
-                <option value="">Sin especificar</option>
+                <option value="">{t("profile.unspecified")}</option>
                 {SPANISH_CITIES.map((c) => (
                   <option key={c.name} value={c.name}>{c.name}</option>
                 ))}
@@ -717,21 +725,21 @@ export default function ProfilePage() {
           <section className="space-y-4">
             <div className="border-b border-cr-border pb-2">
               <h2 className="font-sans text-[11px] font-semibold uppercase tracking-[0.16em] text-cr-primary">
-                Identidad musical
+                {t("profile.musicIdentityTitle")}
               </h2>
               <p className="mt-1 text-xs text-cr-text-muted">
-                Te ayuda a encontrar gente con tus mismos gustos. Aparece en tu perfil público y en cards de viajes.
+                {t("profile.musicIdentityDesc")}
               </p>
             </div>
             <label className="block">
               <span className="font-sans text-[11px] font-semibold uppercase tracking-[0.16em] text-cr-text-muted">
-                Bio (máx 200)
+                {t("profile.bioLabel")}
               </span>
               <textarea
                 value={bio}
                 onChange={(e) => setBio(e.target.value.slice(0, 200))}
                 rows={2}
-                placeholder="Festivalera reincidente. Indie, post-punk, alguna electrónica."
+                placeholder={t("profile.bioPlaceholder")}
                 className="mt-1 w-full bg-white/[0.04] border border-white/[0.1] focus:border-cr-primary outline-none px-4 py-2.5 font-sans text-sm text-cr-text transition-all duration-150"
               />
               <span className="mt-1 block font-mono text-[10px] uppercase tracking-[0.12em] text-cr-text-dim">
@@ -740,9 +748,9 @@ export default function ProfilePage() {
             </label>
             <div className="space-y-2">
               <span className="font-sans text-[11px] font-semibold uppercase tracking-[0.16em] text-cr-text-muted">
-                Géneros (máx 8)
+                {t("profile.genresLabel")}
               </span>
-              <div className="flex flex-wrap gap-2" role="group" aria-label="Géneros musicales">
+              <div className="flex flex-wrap gap-2" role="group" aria-label={t("profile.genresAria")}>
                 {GENRE_OPTIONS.map((genre) => {
                   const target = normalizeGenre(genre);
                   const selected = selectedGenres.some((g) => normalizeGenre(g) === target);
@@ -780,7 +788,7 @@ export default function ProfilePage() {
             </div>
             <label className="block">
               <span className="font-sans text-[11px] font-semibold uppercase tracking-[0.16em] text-cr-text-muted">
-                Top artistas (separados por coma, máx 10)
+                {t("profile.topArtistsLabel")}
               </span>
               <input
                 type="text"
@@ -795,26 +803,26 @@ export default function ProfilePage() {
           {/* Sobre ti */}
           <section className="space-y-4">
             <h2 className="font-mono text-[10px] font-bold uppercase tracking-[0.16em] text-cr-primary border-b border-white/[0.06] pb-3">
-              Preferencias de viaje
+              {t("profile.travelPrefsSection")}
             </h2>
             <TristateToggle
-              label="Carnet de conducir"
+              label={t("profile.licenseToggleLabel")}
               value={hasLicense}
               onChange={setHasLicense}
               options={[
-                { value: "", label: "No indicado" },
-                { value: "yes", label: "Sí tengo" },
-                { value: "no", label: "No tengo" },
+                { value: "", label: t("profile.notIndicated") },
+                { value: "yes", label: t("profile.licenseYes") },
+                { value: "no", label: t("profile.licenseNo") },
               ]}
             />
             <TristateToggle
-              label="¿Fumas? — se usará como valor por defecto al publicar viajes"
+              label={t("profile.smokerToggleLabel")}
               value={smoker}
               onChange={setSmoker}
               options={[
-                { value: "", label: "No indicado" },
-                { value: "no", label: "No fumo" },
-                { value: "yes", label: "Sí fumo" },
+                { value: "", label: t("profile.notIndicated") },
+                { value: "no", label: t("profile.smokerNo") },
+                { value: "yes", label: t("profile.smokerYes") },
               ]}
             />
 
@@ -823,7 +831,7 @@ export default function ProfilePage() {
               <div className="flex items-center gap-2 border border-cr-primary/40 bg-cr-primary/[0.06] px-4 py-3">
                 <ShieldCheck size={14} className="text-cr-primary shrink-0" aria-hidden="true" />
                 <p className="font-sans text-xs font-semibold uppercase tracking-[0.1em] text-cr-primary">
-                  Conductor verificado
+                  {t("profile.driverVerified")}
                 </p>
               </div>
             ) : licenseReview?.status === "pending" ? (
@@ -831,19 +839,17 @@ export default function ProfilePage() {
                 <div className="flex items-center gap-2">
                   <ShieldCheck size={14} className="text-yellow-400 shrink-0" aria-hidden="true" />
                   <p className="font-sans text-xs font-semibold uppercase tracking-[0.1em] text-yellow-400">
-                    Pendiente de aprobación
+                    {t("profile.pendingApproval")}
                   </p>
                 </div>
                 <p className="font-sans text-xs text-cr-text-muted">
-                  Recibimos tu carnet el{" "}
-                  {new Date(licenseReview.submitted_at).toLocaleDateString("es-ES", { day: "numeric", month: "long" })}.
-                  Lo revisaremos en 24–48 h y te avisamos por email.
+                  {t("profile.licensePendingBody", { date: new Date(licenseReview.submitted_at).toLocaleDateString("es-ES", { day: "numeric", month: "long" }) })}
                 </p>
                 <a
                   href={`mailto:help@concertride.me?subject=${encodeURIComponent("Estado verificación carnet — " + user.name)}&body=${encodeURIComponent("Hola,\n\nQuería preguntar por el estado de la verificación de mi carnet de conducir.\n\nMi usuario: " + user.email + "\nID de revisión: " + licenseReview.id + "\n\nGracias.")}`}
                   className="inline-flex items-center gap-1.5 font-sans text-xs text-cr-text-muted hover:text-cr-primary underline underline-offset-2 transition-colors"
                 >
-                  Preguntar por el estado →
+                  {t("profile.askStatus")}
                 </a>
               </div>
             ) : licenseReview?.status === "rejected" ? (
@@ -851,16 +857,16 @@ export default function ProfilePage() {
                 <div className="flex items-center gap-2">
                   <AlertTriangle size={14} className="text-cr-secondary shrink-0" aria-hidden="true" />
                   <p className="font-sans text-xs font-semibold uppercase tracking-[0.1em] text-cr-secondary">
-                    Verificación rechazada
+                    {t("profile.verificationRejected")}
                   </p>
                 </div>
                 {licenseReview.rejection_reason && (
                   <p className="font-sans text-xs text-cr-text-muted">
-                    Motivo: {licenseReview.rejection_reason}
+                    {t("profile.rejectionReason", { reason: licenseReview.rejection_reason })}
                   </p>
                 )}
                 <p className="font-sans text-xs text-cr-text-muted">
-                  Puedes enviar un nuevo documento corrigiendo el problema.
+                  {t("profile.resubmitHint")}
                 </p>
                 <div className="flex flex-wrap gap-3">
                   <button
@@ -868,13 +874,13 @@ export default function ProfilePage() {
                     onClick={() => setLicenseReview(null)}
                     className="font-sans text-xs font-semibold uppercase tracking-[0.1em] bg-cr-primary text-black px-3 py-2 hover:bg-cr-primary/90 transition-colors"
                   >
-                    Enviar nuevo documento
+                    {t("profile.sendNewDocument")}
                   </button>
                   <a
                     href={`mailto:help@concertride.me?subject=${encodeURIComponent("Revisión rechazo carnet — " + user.name)}&body=${encodeURIComponent("Hola,\n\nMi verificación fue rechazada y me gustaría entender el motivo o enviar un documento nuevo.\n\nMi usuario: " + user.email + "\nID de revisión: " + licenseReview.id + "\n\nGracias.")}`}
                     className="inline-flex items-center gap-1.5 font-sans text-xs text-cr-text-muted hover:text-cr-primary underline underline-offset-2 transition-colors"
                   >
-                    Preguntar al equipo →
+                    {t("profile.askTeam")}
                   </a>
                 </div>
               </div>
@@ -884,15 +890,15 @@ export default function ProfilePage() {
                   <ShieldCheck size={14} className="text-cr-text-muted mt-0.5 shrink-0" aria-hidden="true" />
                   <div>
                     <p className="font-sans text-xs font-semibold text-cr-text">
-                      Verifica tu carnet de conducir
+                      {t("profile.verifyLicenseTitle")}
                     </p>
                     <p className="font-sans text-xs text-cr-text-muted mt-0.5">
-                      Sube una foto del carnet (anverso). Revisaremos el documento en 24–48 h y te avisamos por email.
+                      {t("profile.verifyLicenseDesc")}
                     </p>
                     <p className="font-sans text-[11px] text-cr-text-muted mt-2 leading-relaxed">
-                      Tu documento se usa únicamente para verificar que eres conductor habilitado. Se almacena cifrado y se elimina automáticamente a los 90 días.{" "}
+                      {t("profile.licensePrivacy")}{" "}
                       <Link to="/privacidad" className="underline underline-offset-2 hover:text-cr-primary">
-                        Política de privacidad
+                        {t("profile.privacyPolicy")}
                       </Link>
                       .
                     </p>
@@ -921,10 +927,10 @@ export default function ProfilePage() {
                     />
                     <Upload size={20} className="text-cr-text-muted" aria-hidden="true" />
                     <span className="font-sans text-xs font-semibold uppercase tracking-[0.12em] text-cr-text-muted">
-                      Seleccionar archivo
+                      {t("profile.selectFile")}
                     </span>
                     <span className="font-mono text-[10px] text-cr-text-dim">
-                      JPEG · PNG · WebP · PDF — máx. 4 MB
+                      {t("profile.fileFormats4mb")}
                     </span>
                   </label>
                 )}
@@ -936,7 +942,7 @@ export default function ProfilePage() {
                       <div className="border border-cr-border bg-cr-surface p-2">
                         <img
                           src={previewUrl}
-                          alt="Vista previa del carnet"
+                          alt={t("profile.licensePreviewAlt")}
                           className="max-h-52 w-full object-contain"
                         />
                       </div>
@@ -963,7 +969,7 @@ export default function ProfilePage() {
                         }}
                         className="flex-1 font-sans text-xs font-semibold uppercase tracking-[0.1em] text-cr-text-muted border border-cr-border px-3 py-2 hover:border-cr-primary hover:text-cr-text transition-colors disabled:opacity-40"
                       >
-                        Cambiar
+                        {t("profile.change")}
                       </button>
                       <button
                         type="button"
@@ -979,14 +985,14 @@ export default function ProfilePage() {
                             setSelectedFile(null);
                             setPreviewUrl(null);
                           } catch (err) {
-                            setVerifyError(err instanceof Error ? err.message : "Error al enviar el documento");
+                            setVerifyError(err instanceof Error ? err.message : t("profile.documentSendError"));
                           } finally {
                             setVerifying(false);
                           }
                         }}
                         className="flex-1 font-sans text-xs font-semibold uppercase tracking-[0.1em] bg-cr-primary text-black px-3 py-2 hover:bg-cr-primary/90 transition-colors disabled:opacity-50 disabled:pointer-events-none"
                       >
-                        {verifying ? "Enviando…" : "Confirmar y enviar"}
+                        {verifying ? t("profile.sending") : t("profile.confirmAndSend")}
                       </button>
                     </div>
                   </div>
@@ -1002,14 +1008,14 @@ export default function ProfilePage() {
           {/* Identity verification */}
           <section className="space-y-3 border-t border-dashed border-cr-border pt-5">
             <h3 className="font-display text-sm uppercase tracking-wide text-cr-text-muted">
-              Identidad como pasajero
+              {t("profile.identityPassengerTitle")}
             </h3>
 
             {user.identity_verified ? (
               <div className="flex items-center gap-2 border border-cr-primary/40 bg-cr-primary/[0.06] px-4 py-3">
                 <ShieldCheck size={14} className="text-cr-primary shrink-0" aria-hidden="true" />
                 <p className="font-sans text-xs font-semibold uppercase tracking-[0.1em] text-cr-primary">
-                  Identidad verificada
+                  {t("profile.identityVerified")}
                 </p>
               </div>
             ) : identityReview?.status === "pending" ? (
@@ -1017,13 +1023,11 @@ export default function ProfilePage() {
                 <div className="flex items-center gap-2">
                   <ShieldCheck size={14} className="text-yellow-400 shrink-0" aria-hidden="true" />
                   <p className="font-sans text-xs font-semibold uppercase tracking-[0.1em] text-yellow-400">
-                    Pendiente de aprobación
+                    {t("profile.pendingApproval")}
                   </p>
                 </div>
                 <p className="font-sans text-xs text-cr-text-muted">
-                  Recibimos tu documento el{" "}
-                  {new Date(identityReview.submitted_at).toLocaleDateString("es-ES", { day: "numeric", month: "long" })}.
-                  Lo revisaremos en 24–48 h y te avisamos por email.
+                  {t("profile.identityPendingBody", { date: new Date(identityReview.submitted_at).toLocaleDateString("es-ES", { day: "numeric", month: "long" }) })}
                 </p>
               </div>
             ) : identityReview?.status === "rejected" ? (
@@ -1031,23 +1035,23 @@ export default function ProfilePage() {
                 <div className="flex items-center gap-2">
                   <AlertTriangle size={14} className="text-cr-secondary shrink-0" aria-hidden="true" />
                   <p className="font-sans text-xs font-semibold uppercase tracking-[0.1em] text-cr-secondary">
-                    Verificación rechazada
+                    {t("profile.verificationRejected")}
                   </p>
                 </div>
                 {identityReview.rejection_reason && (
                   <p className="font-sans text-xs text-cr-text-muted">
-                    Motivo: {identityReview.rejection_reason}
+                    {t("profile.rejectionReason", { reason: identityReview.rejection_reason })}
                   </p>
                 )}
                 <p className="font-sans text-xs text-cr-text-muted">
-                  Puedes enviar un nuevo documento corrigiendo el problema.
+                  {t("profile.resubmitHint")}
                 </p>
                 <button
                   type="button"
                   onClick={() => setIdentityReview(null)}
                   className="font-sans text-xs font-semibold uppercase tracking-[0.1em] bg-cr-primary text-black px-3 py-2 hover:bg-cr-primary/90 transition-colors"
                 >
-                  Enviar nuevo documento
+                  {t("profile.sendNewDocument")}
                 </button>
               </div>
             ) : (
@@ -1056,15 +1060,15 @@ export default function ProfilePage() {
                   <ShieldCheck size={14} className="text-cr-text-muted mt-0.5 shrink-0" aria-hidden="true" />
                   <div>
                     <p className="font-sans text-xs font-semibold text-cr-text">
-                      Verifica tu identidad como pasajero
+                      {t("profile.verifyIdentityTitle")}
                     </p>
                     <p className="font-sans text-xs text-cr-text-muted mt-0.5">
-                      Sube una foto de tu DNI o pasaporte (anverso). Genera más confianza en los conductores al solicitar plaza. Revisaremos el documento en 24–48 h.
+                      {t("profile.verifyIdentityDesc")}
                     </p>
                     <p className="font-sans text-[11px] text-cr-text-muted mt-2 leading-relaxed">
-                      Tu documento se usa únicamente para confirmar tu identidad ante otros usuarios. Se almacena cifrado y se elimina automáticamente a los 90 días. No lo compartimos con terceros.{" "}
+                      {t("profile.identityPrivacy")}{" "}
                       <Link to="/privacidad" className="underline underline-offset-2 hover:text-cr-primary">
-                        Política de privacidad
+                        {t("profile.privacyPolicy")}
                       </Link>
                       .
                     </p>
@@ -1091,10 +1095,10 @@ export default function ProfilePage() {
                     />
                     <Upload size={20} className="text-cr-text-muted" aria-hidden="true" />
                     <span className="font-sans text-xs font-semibold uppercase tracking-[0.12em] text-cr-text-muted">
-                      Seleccionar archivo
+                      {t("profile.selectFile")}
                     </span>
                     <span className="font-mono text-[10px] text-cr-text-dim">
-                      JPEG · PNG · WebP · PDF — máx. 10 MB
+                      {t("profile.fileFormats10mb")}
                     </span>
                   </label>
                 )}
@@ -1105,7 +1109,7 @@ export default function ProfilePage() {
                       <div className="border border-cr-border bg-cr-surface p-2">
                         <img
                           src={identityPreviewUrl}
-                          alt="Vista previa del documento"
+                          alt={t("profile.documentPreviewAlt")}
                           className="max-h-52 w-full object-contain"
                         />
                       </div>
@@ -1130,7 +1134,7 @@ export default function ProfilePage() {
                         }}
                         className="flex-1 font-sans text-xs font-semibold uppercase tracking-[0.1em] text-cr-text-muted border border-cr-border px-3 py-2 hover:border-cr-primary hover:text-cr-text transition-colors disabled:opacity-40"
                       >
-                        Cambiar
+                        {t("profile.change")}
                       </button>
                       <button
                         type="button"
@@ -1146,14 +1150,14 @@ export default function ProfilePage() {
                             setIdentitySelectedFile(null);
                             setIdentityPreviewUrl(null);
                           } catch (err) {
-                            setIdentityVerifyError(err instanceof Error ? err.message : "Error al enviar el documento");
+                            setIdentityVerifyError(err instanceof Error ? err.message : t("profile.documentSendError"));
                           } finally {
                             setIdentityVerifying(false);
                           }
                         }}
                         className="flex-1 font-sans text-xs font-semibold uppercase tracking-[0.1em] bg-cr-primary text-black px-3 py-2 hover:bg-cr-primary/90 transition-colors disabled:opacity-50 disabled:pointer-events-none"
                       >
-                        {identityVerifying ? "Enviando…" : "Confirmar y enviar"}
+                        {identityVerifying ? t("profile.sending") : t("profile.confirmAndSend")}
                       </button>
                     </div>
                   </div>
@@ -1169,41 +1173,41 @@ export default function ProfilePage() {
           {/* Coche */}
           <section className="space-y-4">
             <h2 className="font-mono text-[10px] font-bold uppercase tracking-[0.16em] text-cr-primary border-b border-white/[0.06] pb-3">
-              Tu vehículo
+              {t("profile.vehicleSection")}
             </h2>
             <div className="bg-cr-surface border border-dashed border-cr-border px-4 py-3 flex items-start gap-3">
               <span aria-hidden="true" className="text-base mt-0.5">🚗</span>
               <div className="space-y-0.5">
                 <p className="font-sans text-xs font-semibold text-cr-text">
-                  Los pasajeros ven estos datos en la página de tu viaje
+                  {t("profile.vehicleInfoTitle")}
                 </p>
                 <p className="font-sans text-xs text-cr-text-muted">
-                  Modelo y color ayudan a identificarte en el punto de recogida. También aparecen en tu perfil público de conductor.
+                  {t("profile.vehicleInfoDesc")}
                 </p>
               </div>
             </div>
             <div className="grid grid-cols-2 gap-4">
               <label className="block space-y-2">
                 <span className="font-mono text-[10px] font-semibold uppercase tracking-[0.14em] text-white/40">
-                  Modelo
+                  {t("profile.carModelLabel")}
                 </span>
                 <input
                   type="text"
                   value={carModel}
                   onChange={(e) => setCarModel(e.target.value)}
-                  placeholder="SEAT León, Renault Clio…"
+                  placeholder={t("profile.carModelPlaceholder")}
                   className="w-full bg-white/[0.04] border border-white/[0.1] focus:border-cr-primary focus:shadow-[0_0_12px_rgb(219_255_0/0.1)] outline-none px-4 py-3 font-sans text-sm text-cr-text placeholder:text-white/20 transition-all duration-150"
                 />
               </label>
               <label className="block space-y-2">
                 <span className="font-mono text-[10px] font-semibold uppercase tracking-[0.14em] text-white/40">
-                  Color
+                  {t("profile.carColorLabel")}
                 </span>
                 <input
                   type="text"
                   value={carColor}
                   onChange={(e) => setCarColor(e.target.value)}
-                  placeholder="Negro, Blanco…"
+                  placeholder={t("profile.carColorPlaceholder")}
                   className="w-full bg-white/[0.04] border border-white/[0.1] focus:border-cr-primary focus:shadow-[0_0_12px_rgb(219_255_0/0.1)] outline-none px-4 py-3 font-sans text-sm text-cr-text placeholder:text-white/20 transition-all duration-150"
                 />
               </label>
@@ -1211,7 +1215,7 @@ export default function ProfilePage() {
             {(carModel || carColor) && (
               <div className="flex items-center gap-2 font-mono text-[11px] text-cr-text-muted">
                 <span aria-hidden="true">👁</span>
-                <span>Los pasajeros verán: <strong className="text-cr-text">{[carModel, carColor].filter(Boolean).join(" · ")}</strong></span>
+                <span>{t("profile.passengersWillSee")} <strong className="text-cr-text">{[carModel, carColor].filter(Boolean).join(" · ")}</strong></span>
               </div>
             )}
           </section>
@@ -1229,11 +1233,11 @@ export default function ProfilePage() {
                 : "bg-cr-primary text-black hover:bg-[#c8ec00]"
             }`}
           >
-            {submitting ? "Guardando…" : saved ? (
+            {submitting ? t("profile.saving") : saved ? (
               <span className="inline-flex items-center justify-center gap-2">
-                <Check size={14} aria-hidden="true" /> Guardado
+                <Check size={14} aria-hidden="true" /> {t("profile.saved")}
               </span>
-            ) : "Guardar cambios →"}
+            ) : t("profile.saveChanges")}
           </button>
         </form>
 
@@ -1241,15 +1245,14 @@ export default function ProfilePage() {
         <section className="mt-16 pt-8 border-t border-cr-border space-y-4">
           <h2 className="font-sans text-[11px] font-semibold uppercase tracking-[0.16em] text-cr-secondary flex items-center gap-2">
             <AlertTriangle size={13} />
-            Zona peligro
+            {t("profile.dangerZone")}
           </h2>
           {!confirmDelete ? (
             <div className="flex items-start justify-between gap-4 border border-cr-border p-4">
               <div>
-                <p className="font-sans text-sm text-cr-text font-semibold mb-1">Eliminar cuenta</p>
+                <p className="font-sans text-sm text-cr-text font-semibold mb-1">{t("profile.deleteAccount")}</p>
                 <p className="font-sans text-xs text-cr-text-muted">
-                  Se cancelarán tus viajes activos, se eliminarán favoritos, señales de interés y
-                  notificaciones push. Las reseñas se conservan anonimizadas. Acción irreversible.
+                  {t("profile.deleteAccountDesc")}
                 </p>
               </div>
               <button
@@ -1257,13 +1260,13 @@ export default function ProfilePage() {
                 onClick={() => setConfirmDelete(true)}
                 className="flex-shrink-0 font-sans text-xs font-semibold uppercase tracking-[0.1em] border-2 border-cr-secondary text-cr-secondary hover:bg-cr-secondary hover:text-white px-3 py-2 transition-colors"
               >
-                Eliminar
+                {t("profile.delete")}
               </button>
             </div>
           ) : (
             <div className="border-2 border-cr-secondary bg-cr-secondary/5 p-4 space-y-3">
               <p className="font-sans text-sm text-cr-text">
-                Para confirmar, escribe <strong className="font-mono text-cr-secondary">ELIMINAR</strong> abajo. Esta acción no se puede deshacer.
+                {t("profile.deleteConfirmBefore")} <strong className="font-mono text-cr-secondary">ELIMINAR</strong> {t("profile.deleteConfirmAfter")}
               </p>
               <input
                 type="text"
@@ -1283,7 +1286,7 @@ export default function ProfilePage() {
                   disabled={deleting}
                   className="font-sans text-xs font-semibold uppercase tracking-[0.1em] border border-cr-border text-cr-text-muted hover:text-cr-text px-3 py-2 transition-colors disabled:opacity-50"
                 >
-                  Cancelar
+                  {t("profile.cancel")}
                 </button>
                 <button
                   type="button"
@@ -1296,13 +1299,13 @@ export default function ProfilePage() {
                       await logout();
                       navigate("/", { replace: true });
                     } catch {
-                      setDeleteError("No se pudo eliminar la cuenta. Prueba más tarde.");
+                      setDeleteError(t("profile.deleteError"));
                       setDeleting(false);
                     }
                   }}
                   className="font-sans text-xs font-semibold uppercase tracking-[0.1em] bg-cr-secondary text-white px-4 py-2 hover:bg-cr-secondary/90 transition-colors disabled:opacity-40 disabled:pointer-events-none"
                 >
-                  {deleting ? "Eliminando…" : "Eliminar cuenta definitivamente"}
+                  {deleting ? t("profile.deleting") : t("profile.deletePermanently")}
                 </button>
               </div>
             </div>

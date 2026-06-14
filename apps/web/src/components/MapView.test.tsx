@@ -18,7 +18,15 @@ vi.mock("react-leaflet", () => ({
   Marker: () => null,
   Polyline: () => null,
   ZoomControl: () => null,
-  useMap: () => ({ flyTo: () => {}, getZoom: () => 5, setView: () => {} }),
+  useMap: () => ({
+    flyTo: () => {},
+    getZoom: () => 5,
+    setView: () => {},
+    // MapView's CtrlScrollZoom/CtrlHint call map.getContainer() in an effect to
+    // attach scroll/keyboard listeners. The mock must return a real element so
+    // addEventListener exists (otherwise the effect throws and the render fails).
+    getContainer: () => document.createElement("div"),
+  }),
   useMapEvents: () => ({}),
 }));
 

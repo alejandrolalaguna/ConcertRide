@@ -7,8 +7,10 @@ import { useSession } from "@/lib/session";
 import { useSeoMeta } from "@/lib/useSeoMeta";
 import { SITE_URL } from "@/lib/siteUrl";
 import { ANALYTICS_EVENTS, trackEvent } from "@/lib/analytics-events";
+import { useI18n } from "@/lib/i18n";
 
 export default function LoginPage() {
+  const { t } = useI18n();
   const { user, loading, refresh } = useSession();
   const [params] = useSearchParams();
   const rawNext = params.get("next") ?? "/";
@@ -62,11 +64,11 @@ export default function LoginPage() {
       if (err instanceof ApiError) {
         setError(
           err.status === 401
-            ? "Email o contraseña incorrectos."
+            ? t("auth.loginInvalidCredentials")
             : err.message,
         );
       } else {
-        setError("No pudimos conectar. Prueba de nuevo.");
+        setError(t("auth.connectionError"));
       }
     } finally {
       setSubmitting(false);
@@ -98,7 +100,7 @@ export default function LoginPage() {
           to="/"
           className="inline-flex items-center gap-1.5 font-mono text-[10px] font-semibold uppercase tracking-[0.18em] text-white/30 hover:text-cr-primary transition-colors mb-10"
         >
-          <ArrowLeft size={12} aria-hidden="true" /> Inicio
+          <ArrowLeft size={12} aria-hidden="true" /> {t("auth.home")}
         </Link>
 
         {/* Header */}
@@ -109,25 +111,25 @@ export default function LoginPage() {
           className="mb-10 space-y-4"
         >
           <p className="font-mono text-[10px] font-semibold uppercase tracking-[0.16em] text-cr-primary">
-            Acceso
+            {t("auth.loginEyebrow")}
           </p>
           <h1 className="font-display text-4xl md:text-5xl uppercase leading-[0.92] tracking-tight">
-            Entra en
+            {t("auth.loginTitleLine1")}
             <br />
             <span className="text-cr-primary">ConcertRide.</span>
           </h1>
           <p className="font-sans text-sm text-white/40 leading-relaxed">
-            Accede para gestionar tus viajes y reservas.
+            {t("auth.loginSubtitle")}
           </p>
 
           {/* Mini value props */}
           <div className="flex flex-wrap gap-4 pt-1">
             {[
-              { icon: Zap, text: "0% comisión" },
-              { icon: Users, text: "Conductores verificados" },
-              { icon: Music, text: "+50 festivales" },
-            ].map(({ icon: Icon, text }) => (
-              <span key={text} className="inline-flex items-center gap-1.5 font-mono text-[10px] text-white/30">
+              { icon: Zap, key: "noCommission", text: t("auth.propNoCommission") },
+              { icon: Users, key: "verifiedDrivers", text: t("auth.propVerifiedDrivers") },
+              { icon: Music, key: "festivals", text: t("auth.propFestivals") },
+            ].map(({ icon: Icon, key, text }) => (
+              <span key={key} className="inline-flex items-center gap-1.5 font-mono text-[10px] text-white/30">
                 <Icon size={10} className="text-cr-primary" aria-hidden="true" />
                 {text}
               </span>
@@ -159,7 +161,7 @@ export default function LoginPage() {
             className="block space-y-1.5"
           >
             <span className="font-mono text-[10px] font-semibold uppercase tracking-[0.14em] text-white/40">
-              Email
+              {t("auth.emailLabel")}
             </span>
             <div className={`group relative ${shake ? "cr-shake" : ""}`}>
               <input
@@ -171,7 +173,7 @@ export default function LoginPage() {
                 autoComplete="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                placeholder="tu@email.com"
+                placeholder={t("auth.emailPlaceholder")}
                 aria-describedby={error ? "login-error" : undefined}
                 aria-invalid={!!error || undefined}
                 className={`w-full border-2 bg-cr-surface px-4 py-3 font-mono text-sm text-cr-text placeholder:text-white/20 focus:border-cr-primary focus:outline-none focus:shadow-[0_0_0_3px_rgba(212,247,0,0.25)] transition-all ${error ? "border-cr-secondary/60" : "border-cr-border"}`}
@@ -188,7 +190,7 @@ export default function LoginPage() {
             className="block space-y-1.5"
           >
             <span className="font-mono text-[10px] font-semibold uppercase tracking-[0.14em] text-white/40">
-              Contraseña
+              {t("auth.passwordLabel")}
             </span>
             <div className={`group relative ${shake ? "cr-shake" : ""}`}>
               <input
@@ -207,7 +209,7 @@ export default function LoginPage() {
               <button
                 type="button"
                 onClick={() => setShowPw((v) => !v)}
-                aria-label={showPw ? "Ocultar contraseña" : "Mostrar contraseña"}
+                aria-label={showPw ? t("auth.hidePassword") : t("auth.showPassword")}
                 className="absolute right-3 top-1/2 -translate-y-1/2 text-white/30 hover:text-cr-primary transition-colors"
               >
                 {showPw ? <EyeOff size={16} strokeWidth={1.5} /> : <Eye size={16} strokeWidth={1.5} />}
@@ -226,7 +228,7 @@ export default function LoginPage() {
               to="/forgot-password"
               className="font-mono text-[10px] text-white/30 hover:text-cr-primary transition-colors uppercase tracking-[0.12em]"
             >
-              ¿Olvidaste tu contraseña?
+              {t("auth.forgotPasswordLink")}
             </Link>
           </div>
 
@@ -241,21 +243,21 @@ export default function LoginPage() {
               {submitting ? (
                 <>
                   <Loader2 size={16} className="animate-spin" aria-hidden="true" />
-                  Entrando…
+                  {t("auth.loginSubmitting")}
                 </>
               ) : (
-                "Entrar →"
+                t("auth.loginSubmit")
               )}
             </button>
           </div>
 
           <p className="font-sans text-sm text-white/30 text-center pt-1">
-            ¿Aún no tienes cuenta?{" "}
+            {t("auth.noAccountQuestion")}{" "}
             <Link
               to={`/register${next !== "/" ? `?next=${encodeURIComponent(next)}` : ""}`}
               className="text-cr-primary underline hover:no-underline"
             >
-              Regístrate gratis
+              {t("auth.registerFreeLink")}
             </Link>
           </p>
         </motion.form>

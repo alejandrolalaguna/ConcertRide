@@ -13,7 +13,9 @@ import {
   ChevronDown,
 } from "lucide-react";
 import { useSession } from "@/lib/session";
+import { useI18n } from "@/lib/i18n";
 import { initials } from "@/lib/format";
+import { LanguageSwitcher } from "./LanguageSwitcher";
 
 function useHideOnScrollDown() {
   const [hidden, setHidden] = useState(false);
@@ -49,9 +51,11 @@ function useHideOnScrollDown() {
 
 export function TopNav() {
   const { user, loading, logout } = useSession();
+  const { t } = useI18n();
   const location = useLocation();
   const [open, setOpen] = useState(false);
   const ref = useRef<HTMLElement | null>(null);
+  const menuBtnRef = useRef<HTMLButtonElement | null>(null);
   const hidden = useHideOnScrollDown();
 
   const prefersReducedMotion =
@@ -65,6 +69,20 @@ export function TopNav() {
     document.addEventListener("mousedown", onDocClick);
     return () => document.removeEventListener("mousedown", onDocClick);
   }, []);
+
+  // WCAG 2.1.2 / 3.2.1 — Escape closes the user menu and returns focus to its
+  // trigger button (the menu is a manual dropdown, not a Radix primitive).
+  useEffect(() => {
+    if (!open) return;
+    function onKeyDown(e: KeyboardEvent) {
+      if (e.key === "Escape") {
+        setOpen(false);
+        menuBtnRef.current?.focus();
+      }
+    }
+    document.addEventListener("keydown", onKeyDown);
+    return () => document.removeEventListener("keydown", onKeyDown);
+  }, [open]);
 
   if (loading) return null;
 
@@ -98,7 +116,7 @@ export function TopNav() {
   return (
     <nav
       ref={ref}
-      aria-label="Navegación principal"
+      aria-label={t("nav.mainNav")}
       aria-hidden={hidden ? "true" : undefined}
       // WCAG 2.4.7 / 4.1.2 — when translated off-screen, also remove the nav from
       // the tab/AT tree so keyboard users can't focus invisible items. `inert`
@@ -113,7 +131,7 @@ export function TopNav() {
       {/* Wordmark */}
       <Link
         to="/"
-        aria-label="ConcertRide — inicio"
+        aria-label={t("nav.homeAria")}
         className="font-display text-[13px] uppercase tracking-[0.06em] hover:opacity-90 transition-opacity"
       >
         Concert<span className="text-cr-primary">Ride</span>
@@ -121,22 +139,25 @@ export function TopNav() {
 
       {/* Centre nav links */}
       <div className="hidden md:flex items-center gap-1 absolute left-1/2 -translate-x-1/2">
-        <NavLink to="/concerts">Conciertos</NavLink>
-        <NavLink to="/festivales">Festivales</NavLink>
-        <NavLink to="/rutas">Rutas</NavLink>
-        <NavLink to="/feed">Live</NavLink>
+        <NavLink to="/concerts">{t("nav.concerts")}</NavLink>
+        <NavLink to="/festivales">{t("nav.festivals")}</NavLink>
+        <NavLink to="/rutas">{t("nav.routes")}</NavLink>
+        <NavLink to="/feed">{t("nav.live")}</NavLink>
       </div>
 
       {/* Right side */}
+      <div className="flex items-center gap-2">
+      <LanguageSwitcher />
       {user ? (
         <div className="relative">
           <button
             type="button"
+            ref={menuBtnRef}
             onClick={() => setOpen((v) => !v)}
             aria-haspopup="menu"
             aria-expanded={open}
             aria-controls="user-menu"
-            aria-label={`Menú de usuario: ${user.name}`}
+            aria-label={t("nav.userMenu", { name: user.name })}
             className="inline-flex items-center gap-2 h-9 bg-cr-surface-2 border border-cr-border hover:border-cr-primary/50 text-cr-text hover:text-cr-primary pl-1.5 pr-2.5 transition-[border-color,color] duration-150"
           >
             {/* Avatar */}
@@ -167,34 +188,34 @@ export function TopNav() {
                 <p className="font-mono text-[10px] text-cr-text-muted mt-0.5 flex items-center gap-1.5">
                   <span className="text-cr-primary">★ {user.rating.toFixed(1)}</span>
                   <span className="text-cr-text-dim">·</span>
-                  <span>{user.rides_given} viajes</span>
+                  <span>{t("nav.trips", { count: user.rides_given })}</span>
                 </p>
               </div>
 
               <div className="py-1">
                 <MenuLink to="/publish" icon={<UserIcon size={12} />} onClick={() => setOpen(false)}>
-                  Publicar un viaje
+                  {t("nav.publishRide")}
                 </MenuLink>
                 <MenuLink to="/mis-viajes" icon={<TicketCheck size={12} />} onClick={() => setOpen(false)}>
-                  Mis viajes
+                  {t("nav.myRides")}
                 </MenuLink>
                 <MenuLink to="/crew" icon={<Users size={12} />} onClick={() => setOpen(false)}>
-                  Mi crew
+                  {t("nav.myCrew")}
                 </MenuLink>
                 <MenuLink to="/feed" icon={<Activity size={12} />} onClick={() => setOpen(false)}>
-                  En directo
+                  {t("nav.liveNow")}
                 </MenuLink>
                 <MenuLink to="/memorias" icon={<Camera size={12} />} onClick={() => setOpen(false)}>
-                  Mis recuerdos
+                  {t("nav.myMemories")}
                 </MenuLink>
                 <MenuLink to="/mensajes" icon={<MessageSquare size={12} />} onClick={() => setOpen(false)}>
-                  Mensajes
+                  {t("nav.messages")}
                 </MenuLink>
                 <MenuLink to="/favoritos" icon={<Heart size={12} />} onClick={() => setOpen(false)}>
-                  Favoritos
+                  {t("nav.favorites")}
                 </MenuLink>
                 <MenuLink to="/profile" icon={<Settings size={12} />} onClick={() => setOpen(false)}>
-                  Mi perfil
+                  {t("nav.myProfile")}
                 </MenuLink>
               </div>
 
@@ -209,7 +230,7 @@ export function TopNav() {
                   className="w-full flex items-center gap-2.5 px-4 py-2.5 text-left text-[12px] font-sans font-medium text-cr-text-muted hover:bg-cr-secondary/[0.06] hover:text-cr-secondary transition-colors"
                 >
                   <LogOut size={12} aria-hidden="true" />
-                  Cerrar sesión
+                  {t("nav.logout")}
                 </button>
               </div>
             </div>
@@ -222,17 +243,18 @@ export function TopNav() {
             rel="nofollow"
             className="hidden sm:inline-flex items-center gap-1.5 h-9 bg-[#dbff00] text-[#080808] px-3.5 font-semibold uppercase tracking-[0.12em] text-[11px] hover:bg-[#c8ec00] transition-colors duration-150"
           >
-            Registro gratis
+            {t("nav.register")}
           </Link>
           <Link
             to={`/login${next !== "%2F" ? `?next=${next}` : ""}`}
             rel="nofollow"
             className="inline-flex items-center gap-1.5 h-9 bg-cr-surface-2 border border-cr-border hover:border-cr-primary/50 hover:text-cr-primary text-cr-text px-3.5 font-semibold uppercase tracking-[0.12em] text-[11px] transition-[border-color,color] duration-150"
           >
-            Entrar
+            {t("nav.login")}
           </Link>
         </div>
       )}
+      </div>
     </nav>
   );
 }

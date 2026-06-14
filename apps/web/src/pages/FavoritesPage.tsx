@@ -3,6 +3,7 @@ import { motion } from "motion/react";
 import { Heart, MapPin, Mic2, Music } from "lucide-react";
 import { useSeoMeta } from "@/lib/useSeoMeta";
 import { SITE_URL } from "@/lib/siteUrl";
+import { useI18n } from "@/lib/i18n";
 import { useFavorites } from "@/lib/favorites";
 import { useSession } from "@/lib/session";
 import { ConcertCard } from "@/components/ConcertCard";
@@ -16,19 +17,21 @@ type EmptySection = {
 };
 
 function SectionEmptyState({ section }: { section: EmptySection }) {
+  const { t } = useI18n();
   return (
     <div className="border-2 border-cr-border bg-cr-surface p-6 text-center space-y-2">
       <div className="text-4xl" aria-hidden="true">{section.emoji}</div>
-      <p className="font-display text-lg uppercase">Sin {section.label} todavía</p>
+      <p className="font-display text-lg uppercase">{t("favorites.sectionEmptyTitle", { label: section.label })}</p>
       <p className="font-mono text-xs text-cr-text-muted">
-        Explora conciertos y guarda los que te flipen.
+        {t("favorites.sectionEmptyBody")}
       </p>
-      <Link to={section.to} className="cr-btn-ghost mt-2 inline-block">Explorar</Link>
+      <Link to={section.to} className="cr-btn-ghost mt-2 inline-block">{t("favorites.explore")}</Link>
     </div>
   );
 }
 
 export default function FavoritesPage() {
+  const { t } = useI18n();
   const { user, loading: sessionLoading } = useSession();
   const { favorites, upcomingConcerts, loading } = useFavorites();
 
@@ -39,7 +42,7 @@ export default function FavoritesPage() {
     noindex: true,
   });
 
-  if (sessionLoading) return <LoadingSpinner text="Cargando…" />;
+  if (sessionLoading) return <LoadingSpinner text={t("favorites.loading")} />;
   if (!user) return <Navigate to="/login?next=/favoritos" replace />;
 
   const artistFavs = favorites.filter((f) => f.kind === "artist");
@@ -51,32 +54,32 @@ export default function FavoritesPage() {
     <main id="main" className="min-h-dvh bg-cr-bg text-cr-text pt-16">
       <div className="max-w-6xl mx-auto px-6 pt-10 pb-12 space-y-4">
         <p className="font-sans text-[11px] font-semibold uppercase tracking-[0.16em] text-cr-secondary">
-          Tu colección
+          {t("favorites.eyebrow")}
         </p>
         <h1 className="font-display text-4xl md:text-6xl uppercase leading-[0.92]">
-          Favoritos.
+          {t("favorites.title")}
         </h1>
         <p className="font-sans text-sm text-cr-text-muted max-w-xl">
-          Conciertos, artistas y ciudades que sigues. Cuando alguien publique un viaje a un evento que te guste, lo verás aquí arriba.
+          {t("favorites.intro")}
         </p>
       </div>
 
       <div className="max-w-6xl mx-auto px-6 pb-24 space-y-16">
-        {loading && favorites.length === 0 && <LoadingSpinner text="Cargando favoritos…" />}
+        {loading && favorites.length === 0 && <LoadingSpinner text={t("favorites.loadingList")} />}
 
         {empty && !loading && (
           <div className="border border-dashed border-cr-border p-10 text-center space-y-3">
             <Heart size={32} className="mx-auto text-cr-text-dim" strokeWidth={1.5} />
-            <p className="font-display text-2xl uppercase text-cr-text-muted">Aún no hay favoritos</p>
+            <p className="font-display text-2xl uppercase text-cr-text-muted">{t("favorites.emptyTitle")}</p>
             <p className="font-sans text-sm text-cr-text-dim">
-              Marca conciertos, artistas o ciudades con el icono <Heart size={12} className="inline text-cr-secondary" />{" "}
-              y los verás aquí agrupados.
+              {t("favorites.emptyBodyBefore")} <Heart size={12} className="inline text-cr-secondary" />{" "}
+              {t("favorites.emptyBodyAfter")}
             </p>
             <Link
               to="/concerts"
               className="inline-block font-sans text-xs font-semibold uppercase tracking-[0.12em] border-2 border-cr-primary text-cr-primary px-4 py-2 hover:bg-cr-primary/10 transition-colors mt-3"
             >
-              Explorar conciertos
+              {t("favorites.exploreConcerts")}
             </Link>
           </div>
         )}
@@ -86,7 +89,7 @@ export default function FavoritesPage() {
           <section className="space-y-4">
             <header className="flex items-baseline justify-between gap-4 border-b border-cr-border pb-2">
               <h2 className="font-sans text-[11px] font-semibold uppercase tracking-[0.16em] text-cr-primary">
-                Próximos que te interesan
+                {t("favorites.upcomingTitle")}
               </h2>
               <span className="font-mono text-xs text-cr-text-muted">
                 {upcomingConcerts.length}
@@ -108,12 +111,12 @@ export default function FavoritesPage() {
             <header className="flex items-center gap-2 border-b border-cr-border pb-2">
               <Music size={14} className="text-cr-text-muted" />
               <h2 className="font-sans text-[11px] font-semibold uppercase tracking-[0.16em] text-cr-primary">
-                Conciertos
+                {t("favorites.concertsHeading")}
               </h2>
               <span className="ml-auto font-mono text-xs text-cr-text-muted">{concertFavs.length}</span>
             </header>
             {concertFavs.length === 0 ? (
-              <SectionEmptyState section={{ label: "conciertos", emoji: "🎟️", to: "/concerts" }} />
+              <SectionEmptyState section={{ label: t("favorites.labelConcerts"), emoji: "🎟️", to: "/concerts" }} />
             ) : (
               <motion.ul className="divide-y divide-cr-border border border-cr-border">
                 {concertFavs.map((f, i) => (
@@ -144,12 +147,12 @@ export default function FavoritesPage() {
             <header className="flex items-center gap-2 border-b border-cr-border pb-2">
               <Mic2 size={14} className="text-cr-text-muted" />
               <h2 className="font-sans text-[11px] font-semibold uppercase tracking-[0.16em] text-cr-primary">
-                Artistas
+                {t("favorites.artistsHeading")}
               </h2>
               <span className="ml-auto font-mono text-xs text-cr-text-muted">{artistFavs.length}</span>
             </header>
             {artistFavs.length === 0 ? (
-              <SectionEmptyState section={{ label: "artistas", emoji: "🎤", to: "/concerts" }} />
+              <SectionEmptyState section={{ label: t("favorites.labelArtists"), emoji: "🎤", to: "/concerts" }} />
             ) : (
               <motion.ul className="flex flex-wrap gap-2">
                 {artistFavs.map((f, i) => (
@@ -180,12 +183,12 @@ export default function FavoritesPage() {
             <header className="flex items-center gap-2 border-b border-cr-border pb-2">
               <MapPin size={14} className="text-cr-text-muted" />
               <h2 className="font-sans text-[11px] font-semibold uppercase tracking-[0.16em] text-cr-primary">
-                Ciudades
+                {t("favorites.citiesHeading")}
               </h2>
               <span className="ml-auto font-mono text-xs text-cr-text-muted">{cityFavs.length}</span>
             </header>
             {cityFavs.length === 0 ? (
-              <SectionEmptyState section={{ label: "ciudades", emoji: "📍", to: "/concerts" }} />
+              <SectionEmptyState section={{ label: t("favorites.labelCities"), emoji: "📍", to: "/concerts" }} />
             ) : (
               <motion.ul className="flex flex-wrap gap-2">
                 {cityFavs.map((f, i) => (

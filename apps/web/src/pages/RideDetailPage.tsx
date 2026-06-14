@@ -2,6 +2,7 @@ import { Suspense, lazy, useEffect, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { useSeoMeta } from "@/lib/useSeoMeta";
 import { SITE_URL } from "@/lib/siteUrl";
+import { useI18n } from "@/lib/i18n";
 import { motion } from "motion/react";
 import { toast } from "sonner";
 import { ArrowLeft, Check, CheckCheck, Clock, Link2, MapPin, Minus, Music, Plus } from "lucide-react";
@@ -14,29 +15,29 @@ import { ANALYTICS_EVENTS, trackEvent } from "@/lib/analytics-events";
 import { ReportButton } from "@/components/ReportButton";
 import { AgentActionRail } from "@/components/AgentActionRail";
 
-const LUGGAGE_LABEL: Record<Luggage, string> = {
-  none: "Sin equipaje",
-  small: "Bolso pequeño",
-  backpack: "Mochila",
-  cabin: "Maleta cabina",
-  large: "Maleta grande",
-  extra: "Extra",
+const LUGGAGE_LABEL_KEY: Record<Luggage, string> = {
+  none: "ride.luggageNone",
+  small: "ride.luggageSmall",
+  backpack: "ride.luggageBackpack",
+  cabin: "ride.luggageCabin",
+  large: "ride.luggageLarge",
+  extra: "ride.luggageExtra",
 };
 
-const SMOKING_LABEL: Record<SmokingPolicy, string> = {
-  no: "🚭 No fumar",
-  yes: "🚬 Fumadores OK",
+const SMOKING_LABEL_KEY: Record<SmokingPolicy, string> = {
+  no: "ride.smokingNo",
+  yes: "ride.smokingYes",
 };
 
-const PAYMENT_LABEL: Record<PaymentMethod, string> = {
-  cash: "💵 Efectivo",
-  bizum: "📱 Bizum",
-  cash_or_bizum: "💵 Efectivo o 📱 Bizum",
+const PAYMENT_LABEL_KEY: Record<PaymentMethod, string> = {
+  cash: "ride.paymentCash",
+  bizum: "ride.paymentBizum",
+  cash_or_bizum: "ride.paymentCashOrBizum",
 };
 
-const PAYMENT_OPTIONS: { value: PaymentMethod; label: string }[] = [
-  { value: "cash", label: "💵 Efectivo" },
-  { value: "bizum", label: "📱 Bizum" },
+const PAYMENT_OPTION_KEYS: { value: PaymentMethod; labelKey: string }[] = [
+  { value: "cash", labelKey: "ride.paymentCash" },
+  { value: "bizum", labelKey: "ride.paymentBizum" },
 ];
 import { formatDate, formatTime } from "@/lib/format";
 import { useSession } from "@/lib/session";
@@ -62,6 +63,7 @@ type ReserveState =
   | { status: "error"; message: string };
 
 export default function RideDetailPage() {
+  const { t } = useI18n();
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
   const { user, loading: sessionLoading } = useSession();
@@ -138,13 +140,13 @@ export default function RideDetailPage() {
     return (
       <main className="min-h-dvh flex items-center justify-center px-6 bg-cr-bg">
         <div className="text-center space-y-4 max-w-md">
-          <p className="font-display text-3xl uppercase text-cr-text-muted">Error al cargar</p>
-          <p className="font-sans text-sm text-cr-text-dim">No se pudo cargar el viaje. Inténtalo de nuevo.</p>
+          <p className="font-display text-3xl uppercase text-cr-text-muted">{t("ride.loadErrorTitle")}</p>
+          <p className="font-sans text-sm text-cr-text-dim">{t("ride.loadErrorBody")}</p>
           <Link
             to="/"
             className="inline-block font-sans text-xs font-semibold uppercase tracking-[0.12em] text-cr-primary border-b border-cr-primary pb-0.5"
           >
-            ← Volver al inicio
+            {t("ride.backHome")}
           </Link>
         </div>
       </main>
@@ -158,12 +160,12 @@ export default function RideDetailPage() {
           <p className="font-sans text-[11px] font-semibold uppercase tracking-[0.16em] text-cr-secondary">
             404
           </p>
-          <h1 className="font-display text-3xl uppercase">Viaje no encontrado</h1>
+          <h1 className="font-display text-3xl uppercase">{t("ride.notFoundTitle")}</h1>
           <Link
             to="/"
             className="inline-block font-sans text-xs font-semibold uppercase tracking-[0.12em] text-cr-primary border-b border-cr-primary pb-0.5"
           >
-            ← Volver al inicio
+            {t("ride.backHome")}
           </Link>
         </div>
       </main>
@@ -173,7 +175,7 @@ export default function RideDetailPage() {
   if (!ride) {
     return (
       <main className="min-h-dvh bg-cr-bg flex items-center justify-center">
-        <PulsingDot label="Cargando viaje" />
+        <PulsingDot label={t("ride.loadingRide")} />
       </main>
     );
   }
@@ -209,7 +211,7 @@ export default function RideDetailPage() {
     if (!ride) return;
     const campaign = ride.concert.artist.toLowerCase().replace(/\s+/g, "-").slice(0, 30);
     const url = rideShareUrl(ride.id, campaign, "whatsapp");
-    const text = `🎶 Voy al concierto de ${ride.concert.artist} desde ${ride.origin_city}. ¿Te vienes? ${url}`;
+    const text = t("ride.whatsappShareText", { artist: ride.concert.artist, origin: ride.origin_city, url });
     window.open(`https://wa.me/?text=${encodeURIComponent(text)}`, "_blank", "noopener,noreferrer");
   }
 
@@ -272,15 +274,15 @@ export default function RideDetailPage() {
       // For instant bookings the seat is confirmed already; for regular
       // requests the driver still needs to accept, but the user took action.
       celebrate();
-      toast.success("Reserva confirmada", {
+      toast.success(t("ride.reserveToastTitle"), {
         description: ride.instant_booking
-          ? "Tu plaza queda confirmada al instante."
-          : "Te avisaremos cuando el conductor responda.",
+          ? t("ride.reserveToastInstant")
+          : t("ride.reserveToastRequest"),
       });
     } catch (err) {
       setReserve({
         status: "error",
-        message: err instanceof Error ? err.message : "Algo falló",
+        message: err instanceof Error ? err.message : t("ride.errorGeneric"),
       });
     }
   }
@@ -368,16 +370,16 @@ export default function RideDetailPage() {
             onClick={() => navigate(-1)}
             className="inline-flex items-center gap-2 font-sans text-xs font-semibold uppercase tracking-[0.12em] text-cr-text-muted hover:text-cr-primary transition-colors"
           >
-            <ArrowLeft size={14} /> Volver
+            <ArrowLeft size={14} /> {t("ride.back")}
           </button>
           <div className="flex items-center gap-3">
             <button
               type="button"
               onClick={handleShareWhatsApp}
-              title="Compartir por WhatsApp"
+              title={t("ride.shareWhatsAppTitle")}
               className="inline-flex items-center gap-1.5 font-sans text-xs font-semibold uppercase tracking-[0.12em] text-cr-text-muted hover:text-cr-primary transition-colors"
             >
-              <span aria-hidden="true">💬</span> WhatsApp
+              <span aria-hidden="true">💬</span> {t("ride.whatsapp")}
             </button>
             <button
               type="button"
@@ -385,7 +387,7 @@ export default function RideDetailPage() {
               className="inline-flex items-center gap-2 font-sans text-xs font-semibold uppercase tracking-[0.12em] text-cr-text-muted hover:text-cr-primary transition-colors"
             >
               <Link2 size={14} aria-hidden="true" />
-              {copied ? "¡Copiado!" : "Copiar enlace"}
+              {copied ? t("ride.copied") : t("ride.copyLink")}
             </button>
           </div>
         </div>
@@ -400,7 +402,7 @@ export default function RideDetailPage() {
             <div className="flex-1 p-6 md:p-8 space-y-5 min-w-0">
               <div className="space-y-1">
                 <p className="font-sans text-[11px] font-semibold uppercase tracking-[0.16em] text-cr-primary">
-                  Viaje · {ride.origin_city} → {ride.concert.venue.city}
+                  {t("ride.eyebrow", { origin: ride.origin_city, dest: ride.concert.venue.city })}
                 </p>
                 <Link to={`/concerts/${ride.concert.id}`} className="block group">
                   <h1 className="font-display uppercase text-3xl md:text-5xl leading-[0.95] group-hover:text-cr-primary transition-colors">
@@ -417,28 +419,28 @@ export default function RideDetailPage() {
                   so Gemini / ChatGPT agents can reason about "what can I do
                   on this page" without screen-scraping selectors. */}
               <AgentActionRail
-                ariaLabel={`Acciones disponibles en este viaje desde ${ride.origin_city} hasta ${ride.concert.venue.city}`}
+                ariaLabel={t("ride.agentRailAriaLabel", { origin: ride.origin_city, dest: ride.concert.venue.city })}
                 actions={[
                   ...(ride.seats_left > 0
                     ? [{
-                        label: `Reservar plaza · €${ride.price_per_seat}`,
+                        label: t("ride.agentBookLabel", { price: ride.price_per_seat }),
                         href: `#ride-booking-form`,
                         intent: "book-ride" as const,
                         variant: "primary" as const,
-                        description: `Reservar una plaza en este viaje desde ${ride.origin_city} hasta ${ride.concert.venue.city} por €${ride.price_per_seat}`,
+                        description: t("ride.agentBookDescription", { origin: ride.origin_city, dest: ride.concert.venue.city, price: ride.price_per_seat }),
                       }]
                     : []),
                   {
-                    label: "Ver perfil del conductor",
+                    label: t("ride.agentViewDriverLabel"),
                     href: `/users/${ride.driver.id}`,
                     intent: "view-driver",
-                    description: `Ver perfil verificado de ${ride.driver.name}`,
+                    description: t("ride.agentViewDriverDescription", { name: ride.driver.name }),
                   },
                   {
-                    label: "Ver concierto",
+                    label: t("ride.agentViewConcertLabel"),
                     href: `/concerts/${ride.concert.id}`,
                     intent: "view-concert",
-                    description: `Información del concierto: ${ride.concert.artist} en ${ride.concert.venue.name}`,
+                    description: t("ride.agentViewConcertDescription", { artist: ride.concert.artist, venue: ride.concert.venue.name }),
                   },
                 ]}
               />
@@ -446,7 +448,7 @@ export default function RideDetailPage() {
               <dl className="grid grid-cols-2 gap-x-4 gap-y-4 border-t border-dashed border-cr-border pt-4">
                 <div>
                   <dt className="font-sans text-xs font-semibold uppercase tracking-[0.1em] text-cr-text-muted">
-                    Origen
+                    {t("ride.dlOrigin")}
                   </dt>
                   <dd className="font-sans text-sm text-cr-text mt-1 flex items-center gap-1.5">
                     <MapPin size={11} aria-hidden="true" />
@@ -455,7 +457,7 @@ export default function RideDetailPage() {
                 </div>
                 <div>
                   <dt className="font-sans text-xs font-semibold uppercase tracking-[0.1em] text-cr-text-muted">
-                    Salida
+                    {t("ride.dlDeparture")}
                   </dt>
                   <dd className="font-sans text-sm text-cr-text mt-1 flex items-center gap-1.5">
                     <Clock size={11} aria-hidden="true" />
@@ -464,7 +466,7 @@ export default function RideDetailPage() {
                 </div>
                 <div>
                   <dt className="font-sans text-xs font-semibold uppercase tracking-[0.1em] text-cr-text-muted">
-                    Vuelta
+                    {t("ride.dlReturn")}
                   </dt>
                   <dd className="font-sans text-sm text-cr-text mt-1">
                     {ride.round_trip && ride.return_time
@@ -474,7 +476,7 @@ export default function RideDetailPage() {
                 </div>
                 <div>
                   <dt className="font-sans text-xs font-semibold uppercase tracking-[0.1em] text-cr-text-muted">
-                    Coche
+                    {t("ride.dlCar")}
                   </dt>
                   <dd className="font-sans text-sm text-cr-text mt-1">
                     {ride.driver.car_model
@@ -484,26 +486,26 @@ export default function RideDetailPage() {
                 </div>
                 <div>
                   <dt className="font-sans text-xs font-semibold uppercase tracking-[0.1em] text-cr-text-muted">
-                    Fumar
+                    {t("ride.dlSmoking")}
                   </dt>
                   <dd className="font-sans text-sm text-cr-text mt-1">
-                    {SMOKING_LABEL[ride.smoking_policy]}
+                    {t(SMOKING_LABEL_KEY[ride.smoking_policy])}
                   </dd>
                 </div>
                 <div>
                   <dt className="font-sans text-xs font-semibold uppercase tracking-[0.1em] text-cr-text-muted">
-                    Equipaje máx.
+                    {t("ride.dlLuggage")}
                   </dt>
                   <dd className="font-sans text-sm text-cr-text mt-1">
-                    🧳 {LUGGAGE_LABEL[ride.max_luggage]}
+                    🧳 {t(LUGGAGE_LABEL_KEY[ride.max_luggage])}
                   </dd>
                 </div>
                 <div>
                   <dt className="font-sans text-xs font-semibold uppercase tracking-[0.1em] text-cr-text-muted">
-                    Pago aceptado
+                    {t("ride.dlPayment")}
                   </dt>
                   <dd className="font-sans text-sm text-cr-text mt-1">
-                    {PAYMENT_LABEL[ride.accepted_payment]}
+                    {t(PAYMENT_LABEL_KEY[ride.accepted_payment])}
                   </dd>
                 </div>
               </dl>
@@ -511,7 +513,7 @@ export default function RideDetailPage() {
               {ride.notes && (
                 <div className="border-t border-dashed border-cr-border pt-4">
                   <p className="font-sans text-xs font-semibold uppercase tracking-[0.1em] text-cr-text-muted mb-1">
-                    Notas del conductor
+                    {t("ride.driverNotes")}
                   </p>
                   <p className="font-sans text-sm text-cr-text leading-relaxed">{ride.notes}</p>
                 </div>
@@ -519,7 +521,7 @@ export default function RideDetailPage() {
 
               <div className="border-t border-dashed border-cr-border pt-4">
                 <p className="font-sans text-xs font-semibold uppercase tracking-[0.1em] text-cr-text-muted mb-3">
-                  Conductor
+                  {t("ride.driver")}
                 </p>
                 <DriverProfileMini driver={ride.driver} />
                 {user && user.id !== ride.driver_id && (
@@ -534,17 +536,17 @@ export default function RideDetailPage() {
               <div>
                 <p className="font-mono text-4xl text-cr-primary leading-none">€{ride.price_per_seat}</p>
                 <p className="font-sans text-xs font-semibold uppercase tracking-[0.1em] text-cr-text-muted mt-1">
-                  /asiento
+                  {t("ride.perSeat")}
                 </p>
                 {ride.price_negotiable && (
                   <span className="inline-block mt-2 font-sans text-xs font-semibold uppercase tracking-[0.08em] border border-cr-primary text-cr-primary px-1.5 py-0.5">
-                    Negociable
+                    {t("ride.negotiable")}
                   </span>
                 )}
               </div>
               <div className="flex md:flex-col md:items-start items-end gap-2">
                 <p className="font-sans text-sm text-cr-text">
-                  {ride.seats_left} plaza{ride.seats_left === 1 ? "" : "s"}
+                  {t("ride.seatsLeft", { count: ride.seats_left, plural: ride.seats_left === 1 ? "" : "s" })}
                 </p>
                 <VibeBadge vibe={ride.vibe} />
                 {ride.playlist_url && (
@@ -555,7 +557,7 @@ export default function RideDetailPage() {
                     className="inline-flex items-center gap-1.5 font-sans text-xs text-cr-text-muted hover:text-cr-primary"
                   >
                     <Music size={12} aria-hidden="true" />
-                    Playlist
+                    {t("ride.playlist")}
                   </a>
                 )}
               </div>
@@ -569,7 +571,7 @@ export default function RideDetailPage() {
               id="passengers-title"
               className="font-display text-sm uppercase tracking-wide text-cr-text-muted"
             >
-              Quién va
+              {t("ride.whoGoes")}
             </h2>
             <div className="flex items-center gap-3">
               <div className="flex -space-x-2">
@@ -579,7 +581,7 @@ export default function RideDetailPage() {
                     to={`/drivers/${p.id}`}
                     title={p.name}
                     className="w-9 h-9 rounded-full bg-cr-primary text-black font-display text-sm flex items-center justify-center border-2 border-cr-bg hover:z-10 hover:scale-110 transition-transform"
-                    aria-label={`Perfil de ${p.name}`}
+                    aria-label={t("ride.profileOf", { name: p.name })}
                   >
                     {p.initial}
                   </Link>
@@ -593,18 +595,18 @@ export default function RideDetailPage() {
               <p className="font-sans text-sm text-cr-text-muted">
                 {confirmedPassengers.length === 1 ? (
                   <>
-                    <span className="text-cr-text font-semibold">{confirmedPassengers[0]?.name}</span> va en este viaje.
+                    <span className="text-cr-text font-semibold">{confirmedPassengers[0]?.name}</span> {t("ride.passengerGoesSingular")}
                   </>
                 ) : confirmedPassengers.length === 2 ? (
                   <>
-                    <span className="text-cr-text font-semibold">{confirmedPassengers[0]?.name}</span> y{" "}
-                    <span className="text-cr-text font-semibold">{confirmedPassengers[1]?.name}</span> van en este viaje.
+                    <span className="text-cr-text font-semibold">{confirmedPassengers[0]?.name}</span> {t("ride.passengerAnd")}{" "}
+                    <span className="text-cr-text font-semibold">{confirmedPassengers[1]?.name}</span> {t("ride.passengerGoPlural")}
                   </>
                 ) : (
                   <>
                     <span className="text-cr-text font-semibold">{confirmedPassengers[0]?.name}</span>,{" "}
-                    <span className="text-cr-text font-semibold">{confirmedPassengers[1]?.name}</span> y{" "}
-                    <span className="text-cr-text font-semibold">{confirmedPassengers.length - 2} más</span> van en este viaje.
+                    <span className="text-cr-text font-semibold">{confirmedPassengers[1]?.name}</span> {t("ride.passengerAnd")}{" "}
+                    <span className="text-cr-text font-semibold">{t("ride.passengerMore", { count: confirmedPassengers.length - 2 })}</span> {t("ride.passengerGoPlural")}
                   </>
                 )}
               </p>
@@ -618,7 +620,7 @@ export default function RideDetailPage() {
               id="checklist-title"
               className="font-display text-sm uppercase tracking-wide text-cr-text-muted"
             >
-              Pre-viaje
+              {t("ride.preTrip")}
             </h2>
             <div className="space-y-2">
               {checklist.map((item) => (
@@ -649,10 +651,10 @@ export default function RideDetailPage() {
                   />
                   <div className="flex-1 min-w-0">
                     <p className="font-mono text-xs text-cr-text-muted uppercase tracking-wide">
-                      {item.item_type === "pickup_location" && "Punto de recogida"}
-                      {item.item_type === "pickup_time" && "Hora de recogida"}
-                      {item.item_type === "driver_phone" && "Teléfono del driver"}
-                      {item.item_type === "luggage_confirmation" && "Confirmación de equipaje"}
+                      {item.item_type === "pickup_location" && t("ride.checklistPickupLocation")}
+                      {item.item_type === "pickup_time" && t("ride.checklistPickupTime")}
+                      {item.item_type === "driver_phone" && t("ride.checklistDriverPhone")}
+                      {item.item_type === "luggage_confirmation" && t("ride.checklistLuggageConfirmation")}
                     </p>
                     {item.value && (
                       <p className="text-sm text-cr-text mt-0.5 truncate">{item.value}</p>
@@ -669,12 +671,12 @@ export default function RideDetailPage() {
 
         <section aria-labelledby="route-title" className="space-y-3">
           <h2 id="route-title" className="font-display text-sm uppercase tracking-wide text-cr-text-muted">
-            Ruta
+            {t("ride.routeTitle")}
           </h2>
           <Suspense
             fallback={
               <div className="h-[320px] bg-cr-surface border border-cr-border flex items-center justify-center">
-                <PulsingDot label="Cargando mapa" />
+                <PulsingDot label={t("ride.loadingMap")} />
               </div>
             }
           >
@@ -696,30 +698,30 @@ export default function RideDetailPage() {
             )}
             {ride.status === "cancelled" && (
               <section className="border-2 border-cr-secondary/60 bg-cr-secondary/10 p-5 space-y-2">
-                <p className="font-display text-base uppercase text-cr-secondary">Viaje cancelado</p>
+                <p className="font-display text-base uppercase text-cr-secondary">{t("ride.cancelledTitle")}</p>
                 <p className="font-sans text-xs text-cr-text-muted">
-                  Las reservas pendientes y confirmadas fueron canceladas y se notificó a los pasajeros.
+                  {t("ride.cancelledBody")}
                 </p>
               </section>
             )}
           </>
         ) : !user && !sessionLoading ? (
           <section className="border border-dashed border-cr-border p-6 md:p-8 text-center space-y-4">
-            <p className="font-display text-lg uppercase">Inicia sesión para reservar</p>
+            <p className="font-display text-lg uppercase">{t("ride.loginToReserveTitle")}</p>
             <p className="font-sans text-sm text-cr-text-muted">
-              Tarda menos de 1 minuto. Volverás a esta página tras entrar o registrarte.
+              {t("ride.loginToReserveBody")}
             </p>
 
             {/* Social proof: testimonial + savings badge */}
             <div className="flex flex-col sm:flex-row items-center justify-center gap-3 py-2">
               <blockquote className="font-sans text-xs italic text-cr-text-muted border-l-2 border-cr-primary pl-3 text-left max-w-xs">
-                "María de Valencia: 'Llegué a Primavera Sound por 8€ desde casa'"
+                {t("ride.loginTestimonial")}
               </blockquote>
               <div
                 className="inline-flex items-center gap-1.5 font-sans text-xs font-semibold uppercase tracking-[0.1em] bg-[#dbff00]/10 border border-[#dbff00]/40 text-[#dbff00] px-3 py-1.5 whitespace-nowrap"
-                aria-label="Ahorra hasta 15€ comparado con el taxi"
+                aria-label={t("ride.savingsAriaLabel")}
               >
-                <span aria-hidden="true">💚</span> Ahorra hasta 15€ vs taxi
+                <span aria-hidden="true">💚</span> {t("ride.savingsBadge")}
               </div>
             </div>
 
@@ -728,13 +730,13 @@ export default function RideDetailPage() {
                 to={`/login?next=${encodeURIComponent(`/rides/${ride.id}`)}`}
                 className="inline-flex items-center justify-center bg-cr-primary text-black font-sans font-semibold uppercase tracking-[0.12em] text-sm border-2 border-black px-6 py-3 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] hover:translate-x-[2px] hover:translate-y-[2px] transition-all duration-100"
               >
-                Entrar
+                {t("ride.loginCta")}
               </Link>
               <Link
                 to={`/register?next=${encodeURIComponent(`/rides/${ride.id}`)}`}
                 className="inline-flex items-center justify-center font-sans font-semibold uppercase tracking-[0.12em] text-sm border-2 border-cr-border text-cr-text hover:border-cr-primary hover:text-cr-primary px-6 py-3 transition-colors"
               >
-                Crear cuenta
+                {t("ride.registerCta")}
               </Link>
             </div>
           </section>
@@ -746,21 +748,21 @@ export default function RideDetailPage() {
           >
             <header className="space-y-1">
               <h2 id="reserve-title" className="font-display text-lg uppercase tracking-wide">
-                {ride.instant_booking ? "Reserva instantánea" : "Reservar asiento"}
+                {ride.instant_booking ? t("ride.reserveTitleInstant") : t("ride.reserveTitleRequest")}
               </h2>
               <p className="font-mono text-xs text-cr-text-muted">
                 {ride.instant_booking
-                  ? "Tu plaza queda confirmada al instante. Pago en efectivo al conductor."
-                  : "Pago en efectivo al conductor. El conductor confirma tu solicitud."}
+                  ? t("ride.reserveSubInstant")
+                  : t("ride.reserveSubRequest")}
               </p>
               {ride.instant_booking && (
                 <span className="inline-block font-sans text-[10px] font-semibold uppercase tracking-[0.12em] bg-cr-primary text-black px-2 py-0.5">
-                  Confirmación inmediata
+                  {t("ride.badgeInstant")}
                 </span>
               )}
               {ride.price_negotiable && (
                 <span className="inline-block font-sans text-[10px] font-semibold uppercase tracking-[0.12em] border border-cr-primary text-cr-primary px-2 py-0.5">
-                  Precio negociable
+                  {t("ride.badgeNegotiable")}
                 </span>
               )}
             </header>
@@ -769,18 +771,18 @@ export default function RideDetailPage() {
               <div className="border border-cr-primary/40 bg-cr-primary/[0.06] p-5 space-y-4">
                 <p className="font-sans text-[11px] font-semibold uppercase tracking-[0.12em] text-cr-primary inline-flex items-center gap-2">
                   <Check size={14} aria-hidden="true" />
-                  {myRequest.status === "confirmed" ? "Plaza confirmada" : "Solicitud pendiente"}
+                  {myRequest.status === "confirmed" ? t("ride.seatConfirmed") : t("ride.requestPending")}
                 </p>
                 <p className="font-sans text-sm text-cr-text">
                   {myRequest.status === "confirmed" ? (
                     <>
                       <span className="font-mono text-cr-primary">{myRequest.seats}</span>{" "}
-                      plaza{myRequest.seats === 1 ? "" : "s"} confirmada{myRequest.seats === 1 ? "" : "s"} con {ride.driver.name}. Nos vemos en el viaje.
+                      {t("ride.myRequestConfirmedSuffix", { plural: myRequest.seats === 1 ? "" : "s", driver: ride.driver.name })}
                     </>
                   ) : (
                     <>
-                      Pediste <span className="font-mono text-cr-primary">{myRequest.seats}</span>{" "}
-                      plaza{myRequest.seats === 1 ? "" : "s"} a {ride.driver.name}. Te avisamos cuando confirme.
+                      {t("ride.myRequestPendingPrefix")} <span className="font-mono text-cr-primary">{myRequest.seats}</span>{" "}
+                      {t("ride.myRequestPendingSuffix", { plural: myRequest.seats === 1 ? "" : "s", driver: ride.driver.name })}
                     </>
                   )}
                 </p>
@@ -788,7 +790,7 @@ export default function RideDetailPage() {
                   type="button"
                   disabled={cancellingMine}
                   onClick={async () => {
-                    if (!confirm("¿Cancelar tu reserva? Se libera la plaza para otros pasajeros.")) return;
+                    if (!confirm(t("ride.cancelReserveConfirm"))) return;
                     setCancellingMine(true);
                     try {
                       const updated = await api.rides.updateRequest(ride.id, myRequest.id, "cancelled");
@@ -805,40 +807,40 @@ export default function RideDetailPage() {
                   }}
                   className="font-sans text-[11px] font-semibold uppercase tracking-[0.12em] border border-cr-border text-cr-text-muted hover:border-cr-secondary hover:text-cr-secondary px-3 py-1.5 transition-colors disabled:opacity-40 disabled:pointer-events-none"
                 >
-                  {cancellingMine ? "Cancelando…" : "Cancelar reserva"}
+                  {cancellingMine ? t("ride.cancelling") : t("ride.cancelReserve")}
                 </button>
               </div>
             ) : myRequest && myRequest.status === "rejected" ? (
               <div className="border border-dashed border-cr-border p-5 space-y-2">
-                <p className="font-sans text-sm font-semibold text-cr-text">Solicitud rechazada</p>
+                <p className="font-sans text-sm font-semibold text-cr-text">{t("ride.requestRejectedTitle")}</p>
                 <p className="font-sans text-xs text-cr-text-muted">
-                  {ride.driver.name} no pudo aceptar tu plaza. Hay más viajes a este concierto.
+                  {t("ride.requestRejectedBody", { driver: ride.driver.name })}
                 </p>
               </div>
             ) : reserve.status === "success" ? (
               <div className="border border-cr-primary/40 bg-cr-primary/[0.06] p-5 space-y-3">
                 <p className="font-sans text-[11px] font-semibold uppercase tracking-[0.12em] text-cr-primary inline-flex items-center gap-2">
-                  <Check size={14} aria-hidden="true" /> Solicitud enviada
+                  <Check size={14} aria-hidden="true" /> {t("ride.requestSent")}
                 </p>
                 <p className="font-sans text-sm text-cr-text">
                   {ride.instant_booking ? (
                     <>
                       <span className="font-mono text-cr-primary">{reserve.request.seats}</span>{" "}
-                      plaza{reserve.request.seats === 1 ? "" : "s"} confirmada{reserve.request.seats === 1 ? "" : "s"} con {ride.driver.name}. Nos vemos en el viaje.
+                      {t("ride.myRequestConfirmedSuffix", { plural: reserve.request.seats === 1 ? "" : "s", driver: ride.driver.name })}
                     </>
                   ) : (
                     <>
-                      Pedimos <span className="font-mono text-cr-primary">{reserve.request.seats}</span>{" "}
-                      plaza{reserve.request.seats === 1 ? "" : "s"} a {ride.driver.name}. Te avisamos cuando confirme.
+                      {t("ride.reserveSentPrefix")} <span className="font-mono text-cr-primary">{reserve.request.seats}</span>{" "}
+                      {t("ride.myRequestPendingSuffix", { plural: reserve.request.seats === 1 ? "" : "s", driver: ride.driver.name })}
                     </>
                   )}
                 </p>
               </div>
             ) : isFull ? (
               <div className="border border-dashed border-cr-border p-5">
-                <p className="font-display uppercase">Viaje completo</p>
+                <p className="font-display uppercase">{t("ride.fullTitle")}</p>
                 <p className="font-sans text-sm text-cr-text-muted mt-1">
-                  Puedes publicar otro viaje desde {ride.origin_city}.
+                  {t("ride.fullBody", { origin: ride.origin_city })}
                 </p>
               </div>
             ) : (
@@ -848,12 +850,12 @@ export default function RideDetailPage() {
                     htmlFor="seats"
                     className="font-sans text-[11px] font-semibold uppercase tracking-[0.12em] text-cr-text-muted"
                   >
-                    ¿Cuántos asientos?
+                    {t("ride.howManySeats")}
                   </label>
                   <div className="flex items-center gap-3">
                     <button
                       type="button"
-                      aria-label="Restar un asiento"
+                      aria-label={t("ride.removeSeat")}
                       onClick={() => setSeats((s) => Math.max(1, s - 1))}
                       className="w-9 h-9 flex items-center justify-center bg-cr-surface-2 border border-cr-border hover:border-cr-primary hover:text-cr-primary transition-colors"
                     >
@@ -864,7 +866,7 @@ export default function RideDetailPage() {
                     </span>
                     <button
                       type="button"
-                      aria-label="Sumar un asiento"
+                      aria-label={t("ride.addSeat")}
                       onClick={() => setSeats((s) => Math.min(maxSeats, s + 1))}
                       className="w-9 h-9 flex items-center justify-center bg-cr-surface-2 border border-cr-border hover:border-cr-primary hover:text-cr-primary transition-colors disabled:opacity-40 disabled:pointer-events-none"
                       disabled={seats >= maxSeats}
@@ -876,17 +878,17 @@ export default function RideDetailPage() {
 
                 <div className="space-y-2">
                   <span className="font-sans text-[11px] font-semibold uppercase tracking-[0.12em] text-cr-text-muted">
-                    Equipaje
+                    {t("ride.luggage")}
                   </span>
                   <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
                     {(
                       [
-                        { value: "none", label: "Sin equipaje" },
-                        { value: "small", label: "Bolso pequeño" },
-                        { value: "backpack", label: "Mochila" },
-                        { value: "cabin", label: "Maleta cabina" },
-                        { value: "large", label: "Maleta grande" },
-                        { value: "extra", label: "Extra (instrumento…)" },
+                        { value: "none", label: t("ride.luggageNone") },
+                        { value: "small", label: t("ride.luggageSmall") },
+                        { value: "backpack", label: t("ride.luggageBackpack") },
+                        { value: "cabin", label: t("ride.luggageCabin") },
+                        { value: "large", label: t("ride.luggageLargeOption") },
+                        { value: "extra", label: t("ride.luggageExtraOption") },
                       ] as { value: Luggage; label: string }[]
                     ).map(({ value, label }) => {
                       const selected = luggage === value;
@@ -913,14 +915,14 @@ export default function RideDetailPage() {
                 {ride.accepted_payment !== "cash" && (
                   <div className="space-y-2">
                     <span className="font-sans text-[11px] font-semibold uppercase tracking-[0.12em] text-cr-text-muted">
-                      ¿Cómo pagas?
+                      {t("ride.howToPay")}
                     </span>
                     <div className="flex gap-2">
-                      {PAYMENT_OPTIONS.filter(
+                      {PAYMENT_OPTION_KEYS.filter(
                         (o) =>
                           ride.accepted_payment === "cash_or_bizum" ||
                           o.value === ride.accepted_payment,
-                      ).map(({ value, label }) => {
+                      ).map(({ value, labelKey }) => {
                         const selected = paymentMethod === value;
                         return (
                           <button
@@ -935,7 +937,7 @@ export default function RideDetailPage() {
                                 : "border-cr-border text-cr-text-muted hover:border-cr-primary/40")
                             }
                           >
-                            {label}
+                            {t(labelKey)}
                           </button>
                         );
                       })}
@@ -945,11 +947,11 @@ export default function RideDetailPage() {
 
                 <label className="block space-y-2">
                   <span className="font-sans text-[11px] font-semibold uppercase tracking-[0.12em] text-cr-text-muted">
-                    {ride.price_negotiable ? "Tu propuesta al conductor" : "Mensaje al conductor (opcional)"}
+                    {ride.price_negotiable ? t("ride.messageLabelNegotiable") : t("ride.messageLabel")}
                   </span>
                   {ride.price_negotiable && (
                     <p className="font-mono text-[11px] text-cr-primary">
-                      Este viaje acepta negociación de precio. Indica aquí tu oferta y el conductor decidirá.
+                      {t("ride.messageNegotiableHint")}
                     </p>
                   )}
                   <textarea
@@ -959,8 +961,8 @@ export default function RideDetailPage() {
                     maxLength={500}
                     placeholder={
                       ride.price_negotiable
-                        ? "Ej: Ofrezco €10 por plaza, somos 2, somos puntuales…"
-                        : "Soy puntual, no fumo, llevo mochila pequeña…"
+                        ? t("ride.messagePlaceholderNegotiable")
+                        : t("ride.messagePlaceholder")
                     }
                     className={`w-full bg-cr-bg border-2 outline-none px-3 py-2 font-sans text-sm text-cr-text placeholder:text-cr-text-dim transition-colors ${
                       ride.price_negotiable ? "border-cr-primary/50 focus:border-cr-primary" : "border-cr-border focus:border-cr-primary"
@@ -970,7 +972,7 @@ export default function RideDetailPage() {
 
                 <div className="flex items-center justify-between gap-4 pt-2 border-t border-dashed border-cr-border">
                   <p className="font-mono text-sm">
-                    Total <span className="text-cr-primary">€{seats * ride.price_per_seat}</span>
+                    {t("ride.total")} <span className="text-cr-primary">€{seats * ride.price_per_seat}</span>
                     <span className="text-cr-text-dim">
                       {" "}
                       · {seats} × €{ride.price_per_seat}
@@ -982,10 +984,10 @@ export default function RideDetailPage() {
                     className="bg-cr-primary text-black font-sans font-semibold uppercase tracking-[0.12em] text-sm border-2 border-black px-6 py-3 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] hover:translate-x-[2px] hover:translate-y-[2px] active:shadow-none active:translate-x-[4px] active:translate-y-[4px] transition-all duration-100 disabled:opacity-50 disabled:pointer-events-none"
                   >
                     {reserve.status === "submitting"
-                    ? "Enviando…"
+                    ? t("ride.submitting")
                     : ride.instant_booking
-                    ? "Reservar ahora"
-                    : "Reservar asiento"}
+                    ? t("ride.reserveNow")
+                    : t("ride.reserveSeat")}
                   </button>
                 </div>
 
@@ -1003,10 +1005,10 @@ export default function RideDetailPage() {
               <CheckCheck size={18} className="text-cr-primary shrink-0" aria-hidden="true" />
               <div>
                 <p className="font-sans text-[11px] font-semibold uppercase tracking-[0.12em] text-cr-primary">
-                  Viaje completado
+                  {t("ride.completedTitle")}
                 </p>
                 <p className="font-sans text-xs text-cr-text-muted mt-0.5">
-                  ¡Gracias por viajar con ConcertRide! Puedes dejar una valoración abajo.
+                  {t("ride.completedBody")}
                 </p>
               </div>
             </div>
@@ -1027,12 +1029,12 @@ export default function RideDetailPage() {
               <CheckCheck size={16} className="text-cr-text-muted mt-0.5 shrink-0" aria-hidden="true" />
               <div>
                 <p className="font-sans text-sm font-semibold text-cr-text">
-                  {driverAlreadyConfirmed ? "Esperando confirmación del pasajero" : "¿El viaje ya terminó?"}
+                  {driverAlreadyConfirmed ? t("ride.completeWaitingTitle") : t("ride.completePromptTitle")}
                 </p>
                 <p className="font-sans text-xs text-cr-text-muted mt-0.5">
                   {driverAlreadyConfirmed
-                    ? "Confirmaste el viaje. En cuanto el pasajero confirme, se marcará como completado."
-                    : "Confirma que el viaje se realizó. El pasajero también podrá confirmarlo para dejarlo como completado."}
+                    ? t("ride.completeWaitingBody")
+                    : t("ride.completePromptBody")}
                 </p>
               </div>
             </div>
@@ -1043,7 +1045,7 @@ export default function RideDetailPage() {
                 disabled={completing}
                 className="font-sans text-xs font-semibold uppercase tracking-[0.12em] border-2 border-cr-primary text-cr-primary px-4 py-2 hover:bg-cr-primary/10 transition-colors disabled:opacity-40 disabled:pointer-events-none"
               >
-                {completing ? "Confirmando…" : "Confirmar viaje completado"}
+                {completing ? t("ride.confirming") : t("ride.confirmCompleted")}
               </button>
             ) : (
               isDriver && (
@@ -1053,14 +1055,14 @@ export default function RideDetailPage() {
                   disabled={completing}
                   className="font-sans text-xs font-semibold uppercase tracking-[0.12em] border-2 border-cr-border text-cr-text-muted px-4 py-2 hover:border-cr-secondary hover:text-cr-secondary transition-colors disabled:opacity-40 disabled:pointer-events-none"
                 >
-                  {completing ? "Cancelando…" : "Cancelar confirmación"}
+                  {completing ? t("ride.cancelling") : t("ride.cancelConfirmation")}
                 </button>
               )
             )}
           </section>
         )}
 
-        <PlaylistPanel scope={{ ride_id: ride.id }} heading="Playlist del viaje" />
+        <PlaylistPanel scope={{ ride_id: ride.id }} heading={t("ride.playlistHeading")} />
 
         {user && <RideChatSection ride={ride} currentUser={user} />}
 
@@ -1074,8 +1076,8 @@ export default function RideDetailPage() {
         !(myRequest && (myRequest.status === "pending" || myRequest.status === "confirmed")) && (
           <Suspense fallback={null}>
             <BottomCTABar
-              label="Reservar plaza"
-              sublabel={`€${ride.price_per_seat} · ${ride.seats_left} plaza${ride.seats_left === 1 ? "" : "s"}`}
+              label={t("ride.bottomCtaLabel")}
+              sublabel={t("ride.bottomCtaSublabel", { price: ride.price_per_seat, count: ride.seats_left, plural: ride.seats_left === 1 ? "" : "s" })}
               onClick={scrollToBookingForm}
             />
           </Suspense>
@@ -1101,6 +1103,7 @@ function PostTripCrewCta({
   driver: PostTripPerson;
   passengers: PostTripPerson[];
 }) {
+  const { t } = useI18n();
   const { isCrew, isPendingWith, invite } = useCrew();
   const candidates = [driver, ...passengers].filter((p) => p.id !== viewerId);
   const addable = candidates
@@ -1109,16 +1112,16 @@ function PostTripCrewCta({
   if (!addable.length) return null;
   return (
     <section
-      aria-label="Añadir compañeros a tu crew"
+      aria-label={t("ride.crewCtaAriaLabel")}
       className="border-2 border-cr-primary bg-gradient-to-br from-cr-primary/10 via-cr-bg to-cr-bg p-5"
     >
       <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
         <div className="flex items-start gap-3">
           <CrewAvatars people={addable} size="sm" />
           <div>
-            <p className="font-display text-base uppercase">Súmalos a tu crew</p>
+            <p className="font-display text-base uppercase">{t("ride.crewCtaTitle")}</p>
             <p className="font-mono text-[10px] uppercase tracking-[0.14em] text-cr-text-muted">
-              Recibirás avisos cuando organicen su próximo viaje.
+              {t("ride.crewCtaBody")}
             </p>
           </div>
         </div>

@@ -5,8 +5,10 @@ import { ArrowLeft, Mail } from "lucide-react";
 import { api } from "@/lib/api";
 import { useSeoMeta } from "@/lib/useSeoMeta";
 import { SITE_URL } from "@/lib/siteUrl";
+import { useI18n } from "@/lib/i18n";
 
 export default function ForgotPasswordPage() {
+  const { t } = useI18n();
   const [email, setEmail] = useState("");
   const [submitting, setSubmitting] = useState(false);
   const [sent, setSent] = useState(false);
@@ -51,7 +53,7 @@ export default function ForgotPasswordPage() {
           to="/login"
           className="inline-flex items-center gap-1.5 font-mono text-[10px] font-semibold uppercase tracking-[0.18em] text-white/30 hover:text-cr-primary transition-colors mb-10"
         >
-          <ArrowLeft size={12} aria-hidden="true" /> Volver al login
+          <ArrowLeft size={12} aria-hidden="true" /> {t("auth.backToLogin")}
         </Link>
 
         <motion.header
@@ -61,15 +63,15 @@ export default function ForgotPasswordPage() {
           className="mb-10 space-y-4"
         >
           <p className="font-mono text-[10px] font-semibold uppercase tracking-[0.16em] text-cr-primary">
-            Recuperar acceso
+            {t("auth.forgotEyebrow")}
           </p>
           <h1 className="font-display text-4xl md:text-5xl uppercase leading-[0.92] tracking-tight">
-            ¿Olvidaste tu
+            {t("auth.forgotTitleLine1")}
             <br />
-            <span className="text-cr-primary">contraseña?</span>
+            <span className="text-cr-primary">{t("auth.forgotTitleLine2")}</span>
           </h1>
           <p className="font-sans text-sm text-white/40 leading-relaxed">
-            Te enviaremos un enlace para crear una nueva. Caduca en 30 minutos.
+            {t("auth.forgotSubtitle")}
           </p>
         </motion.header>
 
@@ -92,25 +94,25 @@ export default function ForgotPasswordPage() {
                   <Mail size={14} className="text-cr-primary" aria-hidden="true" />
                 </div>
                 <p className="font-mono text-[10px] font-semibold uppercase tracking-[0.14em] text-cr-primary">
-                  Revisa tu email
+                  {t("auth.forgotSentTitle")}
                 </p>
               </div>
               <p className="font-sans text-sm text-white/50 leading-relaxed">
-                Si tu cuenta existe, te hemos enviado un enlace a{" "}
-                <span className="text-white/80">{email}</span>. Mira también el spam.
+                {t("auth.forgotSentPrefix")}{" "}
+                <span className="text-white/80">{email}</span>{t("auth.forgotSentSuffix")}
               </p>
               <Link
                 to="/login"
                 className="inline-flex items-center gap-1.5 font-mono text-[10px] font-semibold uppercase tracking-[0.14em] text-cr-primary hover:text-white transition-colors"
               >
-                <ArrowLeft size={10} aria-hidden="true" /> Volver al login
+                <ArrowLeft size={10} aria-hidden="true" /> {t("auth.backToLogin")}
               </Link>
             </div>
           ) : (
             <form onSubmit={submit} className="space-y-5">
               <label className="block space-y-1.5">
                 <span className="font-mono text-[10px] font-semibold uppercase tracking-[0.14em] text-white/40">
-                  Email
+                  {t("auth.emailLabel")}
                 </span>
                 <input
                   type="email"
@@ -119,7 +121,7 @@ export default function ForgotPasswordPage() {
                   autoComplete="email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  placeholder="tu@email.com"
+                  placeholder={t("auth.emailPlaceholder")}
                   className="w-full bg-white/[0.04] border border-white/[0.1] focus:border-cr-primary focus:shadow-[0_0_12px_rgb(219_255_0/0.15)] outline-none px-4 py-3 font-mono text-sm text-cr-text placeholder:text-white/20 transition-all duration-150"
                 />
               </label>
@@ -130,7 +132,7 @@ export default function ForgotPasswordPage() {
                   disabled={submitting || !email.trim()}
                   className="cr-btn-shine w-full bg-cr-primary text-black font-sans font-semibold uppercase tracking-[0.14em] text-sm px-6 py-4 hover:bg-[#c8ec00] transition-colors duration-150 disabled:opacity-40 disabled:pointer-events-none"
                 >
-                  {submitting ? "Enviando…" : "Enviar enlace →"}
+                  {submitting ? t("auth.forgotSubmitting") : t("auth.forgotSubmit")}
                 </button>
               </div>
             </form>

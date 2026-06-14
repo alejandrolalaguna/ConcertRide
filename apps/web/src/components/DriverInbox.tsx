@@ -4,6 +4,7 @@ import { Check, X } from "lucide-react";
 import type { PaymentMethod, RequestStatus, Ride, RideRequest } from "@concertride/types";
 import { api, ApiError } from "@/lib/api";
 import { formatTime } from "@/lib/format";
+import { useI18n } from "@/lib/i18n";
 import { TrustBadge } from "./TrustBadge";
 import { PulsingDot } from "./LoadingStates";
 
@@ -33,6 +34,7 @@ interface Props {
 }
 
 export function DriverInbox({ ride, onRequestUpdated }: Props) {
+  const { t } = useI18n();
   const [requests, setRequests] = useState<RideRequest[] | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [busy, setBusy] = useState<string | null>(null);
@@ -79,10 +81,15 @@ export function DriverInbox({ ride, onRequestUpdated }: Props) {
     >
       <header className="flex items-baseline justify-between gap-4">
         <h2 id="inbox-title" className="font-display text-lg uppercase tracking-wide">
-          Solicitudes
+          {t("driverInbox.title")}
         </h2>
         <p className="font-mono text-xs text-cr-text-muted">
-          {requests ? `${pending.length} pendiente${pending.length === 1 ? "" : "s"}` : "…"}
+          {requests
+            ? t("driverInbox.pendingCount", {
+                count: pending.length,
+                plural: pending.length === 1 ? "" : "s",
+              })
+            : "…"}
         </p>
       </header>
 
@@ -92,11 +99,11 @@ export function DriverInbox({ ride, onRequestUpdated }: Props) {
         </p>
       )}
 
-      {!requests && <PulsingDot label="Cargando solicitudes" />}
+      {!requests && <PulsingDot label={t("driverInbox.loading")} />}
 
       {requests && requests.length === 0 && (
         <p className="font-mono text-xs text-cr-text-dim">
-          Aún nadie ha solicitado asiento. Se listará aquí cuando lleguen.
+          {t("driverInbox.empty")}
         </p>
       )}
 

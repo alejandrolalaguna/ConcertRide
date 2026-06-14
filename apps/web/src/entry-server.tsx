@@ -7,6 +7,7 @@ import { Footer } from "./components/Footer";
 import { SessionProvider } from "./lib/session";
 import { FavoritesProvider } from "./lib/favorites";
 import { CrewProvider } from "./lib/crew";
+import { I18nProvider } from "./lib/i18n";
 import type { ResolvedSeo } from "./lib/useSeoMeta";
 
 // Eager imports for routes we prerender. Avoids React.lazy which doesn't
@@ -114,6 +115,15 @@ export const CONTENT_LAST_UPDATED = FESTIVAL_LANDINGS_LAST_UPDATED;
 function ServerApp() {
   return (
     <>
+      {/* Skip-link in parity with App.tsx. Each page renders its own
+          <main id="main">, so the #main target exists in the prerendered HTML.
+          Do NOT add a wrapper <main> here (would nest + duplicate the id). */}
+      <a
+        href="#main"
+        className="sr-only focus:not-sr-only focus:absolute focus:top-2 focus:left-2 focus:z-[100] focus:bg-[#dbff00] focus:text-black focus:px-4 focus:py-2 focus:font-sans focus:font-semibold focus:rounded focus:uppercase focus:tracking-[0.12em] focus:text-sm"
+      >
+        Ir al contenido principal
+      </a>
       <TopNav />
       <Routes>
         <Route path="/" element={<LandingPage />} />
@@ -197,13 +207,15 @@ export function render(url: string): RenderResult {
   globalThis.__concertrideSsrSeo = null;
   const html = renderToString(
     <StaticRouter location={url}>
-      <SessionProvider>
-        <FavoritesProvider>
-          <CrewProvider>
-            <ServerApp />
-          </CrewProvider>
-        </FavoritesProvider>
-      </SessionProvider>
+      <I18nProvider>
+        <SessionProvider>
+          <FavoritesProvider>
+            <CrewProvider>
+              <ServerApp />
+            </CrewProvider>
+          </FavoritesProvider>
+        </SessionProvider>
+      </I18nProvider>
     </StaticRouter>,
   );
   const seo = globalThis.__concertrideSsrSeo ?? null;

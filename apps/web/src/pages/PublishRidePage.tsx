@@ -18,6 +18,7 @@ import { VibeSelector } from "@/components/VibeSelector";
 import { PulsingDot } from "@/components/LoadingStates";
 import { useSeoMeta } from "@/lib/useSeoMeta";
 import { SITE_URL } from "@/lib/siteUrl";
+import { useI18n } from "@/lib/i18n";
 
 // Lazy-loaded so the leaflet chunk does not enter the publish flow's
 // initial bundle. Only needed when the user reaches Step 2.
@@ -81,6 +82,7 @@ const INITIAL: Form = {
 };
 
 export default function PublishRidePage() {
+  const { t } = useI18n();
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
   const preselectedConcertId = searchParams.get("concert");
@@ -135,11 +137,11 @@ export default function PublishRidePage() {
       const patch: Partial<Form> = {};
       if (user.home_city && !f.origin_city) {
         patch.origin_city = user.home_city;
-        filled.push(`Ciudad de origen: ${user.home_city}`);
+        filled.push(t("publish.autofillOriginCity", { city: user.home_city }));
       }
       if (user.smoker === true) {
         patch.smoking_policy = "yes";
-        filled.push("Política de tabaco: fumadores OK");
+        filled.push(t("publish.autofillSmokingYes"));
       }
       return { ...f, ...patch };
     });
@@ -166,24 +168,24 @@ export default function PublishRidePage() {
           {/* Value proposition for drivers — soft gate, not a hard redirect */}
           <div className="space-y-4">
             <p className="font-mono text-[10px] font-semibold uppercase tracking-[0.18em] text-[#dbff00]">
-              Para conductores
+              {t("publish.gateForDrivers")}
             </p>
             <h1 className="font-display text-3xl md:text-4xl uppercase leading-[0.92]">
-              Comparte tu coche.<br />
-              <span className="text-[#dbff00]">0% de comisión.</span>
+              {t("publish.gateHeadlineLine1")}<br />
+              <span className="text-[#dbff00]">{t("publish.gateHeadlineLine2")}</span>
             </h1>
             <p className="font-sans text-sm text-white/55 leading-relaxed">
-              Publica tu viaje en 2 minutos. Fija el precio, elige los pasajeros y divide el coste de gasolina y peajes. ConcertRide no cobra comisión — el 100&nbsp;% va a ti.
+              {t("publish.gateDescription")}
             </p>
           </div>
 
           {/* Benefit pills */}
-          <ul className="space-y-2.5" aria-label="Ventajas de publicar un viaje">
+          <ul className="space-y-2.5" aria-label={t("publish.gateBenefitsAriaLabel")}>
             {[
-              { label: "0% comisión", detail: "Todo el precio que fijas va a tu bolsillo." },
-              { label: "Conductores verificados", detail: "Verificamos el carnet antes del primer viaje." },
-              { label: "Pago en efectivo o Bizum", detail: "El día del viaje, sin adelantos online." },
-              { label: "Vuelta coordinada", detail: "Publica también el viaje de vuelta desde el recinto." },
+              { label: t("publish.gateBenefit1Label"), detail: t("publish.gateBenefit1Detail") },
+              { label: t("publish.gateBenefit2Label"), detail: t("publish.gateBenefit2Detail") },
+              { label: t("publish.gateBenefit3Label"), detail: t("publish.gateBenefit3Detail") },
+              { label: t("publish.gateBenefit4Label"), detail: t("publish.gateBenefit4Detail") },
             ].map((item) => (
               <li key={item.label} className="flex items-start gap-2.5">
                 <span className="mt-0.5 w-4 h-4 flex-shrink-0 flex items-center justify-center rounded-full bg-[#dbff00]/15 text-[#dbff00]">
@@ -203,13 +205,13 @@ export default function PublishRidePage() {
               to="/register?next=%2Fpublish"
               className="flex items-center justify-center w-full bg-[#dbff00] text-black font-sans font-semibold uppercase tracking-[0.14em] text-sm border-2 border-black px-6 py-4 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] hover:translate-x-[2px] hover:translate-y-[2px] transition-all duration-100"
             >
-              Crear cuenta gratis y publicar →
+              {t("publish.gateCtaRegister")}
             </Link>
             <Link
               to="/login?next=%2Fpublish"
               className="flex items-center justify-center w-full font-sans text-sm font-semibold uppercase tracking-[0.12em] text-white/50 hover:text-white/80 border border-white/10 px-6 py-3 transition-colors"
             >
-              Ya tengo cuenta — entrar
+              {t("publish.gateCtaLogin")}
             </Link>
           </div>
         </div>
@@ -260,16 +262,16 @@ export default function PublishRidePage() {
   async function submit() {
     if (!form.vibe) return;
     if (manualMode && form.manual_date && new Date(form.manual_date) < new Date()) {
-      setError("La fecha del concierto no puede ser en el pasado.");
+      setError(t("publish.errorConcertDatePast"));
       return;
     }
     if (form.departure_time && new Date(form.departure_time) < new Date()) {
-      setError("La hora de salida no puede ser en el pasado.");
+      setError(t("publish.errorDepartureTimePast"));
       return;
     }
     const coord = SPANISH_CITIES_BY_NAME[form.origin_city];
     if (!coord) {
-      setError("Ciudad no reconocida");
+      setError(t("publish.errorCityNotRecognized"));
       return;
     }
     // Prefer exact map-picked coords when the user has dragged the marker;
@@ -339,12 +341,12 @@ export default function PublishRidePage() {
       // Micro-celebration: brand-colored confetti + haptic + sonner toast.
       // celebrate() respects prefers-reduced-motion and is SSR-safe.
       celebrate();
-      toast.success("Tu viaje está online", {
-        description: "Los pasajeros ya pueden encontrarlo.",
+      toast.success(t("publish.toastSuccessTitle"), {
+        description: t("publish.toastSuccessDescription"),
       });
     } catch (err) {
       if (err instanceof ApiError) setError(err.message);
-      else setError("Algo falló. Inténtalo otra vez.");
+      else setError(t("publish.errorGeneric"));
     } finally {
       setSubmitting(false);
     }
@@ -364,14 +366,14 @@ export default function PublishRidePage() {
         aria-valuemin={1}
         aria-valuemax={3}
         aria-valuenow={step}
-        aria-label={`Paso ${step} de 3`}
+        aria-label={t("publish.stepProgressAriaLabel", { step })}
       >
         <div className="flex items-center gap-2 font-mono text-[10px] uppercase">
-          <span className={step >= 1 ? "text-cr-primary" : "text-cr-text-dim"}>1 · Concierto</span>
+          <span className={step >= 1 ? "text-cr-primary" : "text-cr-text-dim"}>{t("publish.mobileStep1")}</span>
           <span className="text-cr-text-dim">·</span>
-          <span className={step >= 2 ? "text-cr-primary" : "text-cr-text-dim"}>2 · Ruta</span>
+          <span className={step >= 2 ? "text-cr-primary" : "text-cr-text-dim"}>{t("publish.mobileStep2")}</span>
           <span className="text-cr-text-dim">·</span>
-          <span className={step >= 3 ? "text-cr-primary" : "text-cr-text-dim"}>3 · Vibe</span>
+          <span className={step >= 3 ? "text-cr-primary" : "text-cr-text-dim"}>{t("publish.mobileStep3")}</span>
         </div>
         <div className="mt-2 h-[3px] bg-cr-border relative overflow-hidden">
           <div
@@ -394,16 +396,16 @@ export default function PublishRidePage() {
             onClick={() => navigate(-1)}
             className="inline-flex items-center gap-1.5 font-mono text-[10px] font-semibold uppercase tracking-[0.18em] text-white/30 hover:text-cr-primary transition-colors"
           >
-            <ArrowLeft size={12} aria-hidden="true" /> Volver
+            <ArrowLeft size={12} aria-hidden="true" /> {t("publish.back")}
           </button>
           <div className="space-y-3">
             <p className="font-mono text-[10px] font-semibold uppercase tracking-[0.16em] text-cr-primary">
-              Publicar un viaje
+              {t("publish.eyebrow")}
             </p>
             <h1 className="font-display uppercase text-3xl md:text-5xl leading-[0.92] tracking-tight">
-              Abre tu coche.
+              {t("publish.headlineLine1")}
               <br />
-              <span className="text-cr-primary">Divide el coste.</span>
+              <span className="text-cr-primary">{t("publish.headlineLine2")}</span>
             </h1>
           </div>
           <Stepper step={step} />
@@ -415,11 +417,10 @@ export default function PublishRidePage() {
               <span aria-hidden="true" className="text-lg">🛂</span>
               <div className="flex-1 space-y-1.5">
                 <p className="font-sans text-sm font-semibold text-cr-text">
-                  Verifica tu carnet para publicar
+                  {t("publish.licenseBannerTitle")}
                 </p>
                 <p className="font-sans text-xs text-cr-text-muted">
-                  Para mantener la confianza de la comunidad solo los conductores con carnet
-                  verificado pueden publicar viajes. Tarda 30 segundos.
+                  {t("publish.licenseBannerBody")}
                 </p>
               </div>
             </div>
@@ -428,7 +429,7 @@ export default function PublishRidePage() {
                 to="/profile"
                 className="font-sans text-xs font-semibold uppercase tracking-[0.12em] border-2 border-cr-secondary text-cr-secondary hover:bg-cr-secondary hover:text-white px-4 py-2 transition-colors"
               >
-                Verificar carnet →
+                {t("publish.licenseBannerCta")}
               </Link>
             </div>
           </section>
@@ -439,17 +440,17 @@ export default function PublishRidePage() {
             <span aria-hidden="true" className="text-base mt-0.5">🚗</span>
             <div className="flex-1 space-y-1">
               <p className="font-sans text-xs font-semibold text-cr-text">
-                Añade tu coche al perfil para generar más confianza
+                {t("publish.carBannerTitle")}
               </p>
               <p className="font-sans text-xs text-cr-text-muted">
-                Modelo y color aparecen en la página del viaje y ayudan a los pasajeros a identificarte en el punto de recogida.
+                {t("publish.carBannerBody")}
               </p>
             </div>
             <Link
               to="/profile"
               className="shrink-0 font-sans text-[11px] font-semibold uppercase tracking-[0.1em] border border-cr-border text-cr-text-muted hover:border-cr-primary hover:text-cr-primary px-3 py-1.5 transition-colors whitespace-nowrap"
             >
-              Ir al perfil
+              {t("publish.carBannerCta")}
             </Link>
           </section>
         )}
@@ -462,7 +463,7 @@ export default function PublishRidePage() {
           >
             <Sparkles size={14} className="text-cr-primary mt-0.5 shrink-0" aria-hidden="true" />
             <div className="flex-1 space-y-1">
-              <p className="font-sans text-xs font-semibold text-cr-primary">Rellenado automáticamente desde tu perfil</p>
+              <p className="font-sans text-xs font-semibold text-cr-primary">{t("publish.autofillBannerTitle")}</p>
               <ul className="space-y-0.5">
                 {autofilledFields.map((f) => (
                   <li key={f} className="font-mono text-[11px] text-cr-text-muted">· {f}</li>
@@ -473,7 +474,7 @@ export default function PublishRidePage() {
               type="button"
               onClick={() => setAutofilledFields([])}
               className="shrink-0 font-mono text-[11px] text-cr-text-dim hover:text-cr-text transition-colors"
-              aria-label="Cerrar"
+              aria-label={t("publish.close")}
             >
               ✕
             </button>
@@ -483,7 +484,7 @@ export default function PublishRidePage() {
         {step === 1 && (
           <section aria-labelledby="step1" className="space-y-5">
             <h2 id="step1" className="font-display text-lg uppercase tracking-wide">
-              01 · Elige el concierto
+              {t("publish.step1Title")}
             </h2>
 
             {/* Mode toggle */}
@@ -498,7 +499,7 @@ export default function PublishRidePage() {
                 }`}
               >
                 <Search size={13} aria-hidden="true" />
-                Buscar en la web
+                {t("publish.modeSearch")}
               </button>
               <button
                 type="button"
@@ -510,14 +511,14 @@ export default function PublishRidePage() {
                 }`}
               >
                 <PenLine size={13} aria-hidden="true" />
-                Mi concierto no está aquí
+                {t("publish.modeManual")}
               </button>
             </div>
 
             {!manualMode && (
               <>
                 <label className="relative block">
-                  <span className="sr-only">Buscar concierto</span>
+                  <span className="sr-only">{t("publish.searchLabel")}</span>
                   <Search
                     size={14}
                     aria-hidden="true"
@@ -527,22 +528,22 @@ export default function PublishRidePage() {
                     type="search"
                     value={q}
                     onChange={(e) => setQ(e.target.value)}
-                    placeholder="Artista, recinto o ciudad"
+                    placeholder={t("publish.searchPlaceholder")}
                     className="w-full pl-9 pr-3 py-3 bg-cr-surface border-2 border-cr-border focus:border-cr-primary outline-none font-sans text-sm text-cr-text placeholder:text-cr-text-dim transition-colors"
                   />
                 </label>
 
-                {!concerts && <PulsingDot label="Cargando conciertos" />}
+                {!concerts && <PulsingDot label={t("publish.loadingConcerts")} />}
 
                 {concerts && filteredConcerts.length === 0 && (
                   <p className="font-mono text-xs text-cr-text-dim">
-                    Sin resultados para "{q}".{" "}
+                    {t("publish.noResults", { query: q })}{" "}
                     <button
                       type="button"
                       onClick={switchToManual}
                       className="underline text-cr-primary hover:no-underline"
                     >
-                      Añádelo manualmente.
+                      {t("publish.addManually")}
                     </button>
                   </p>
                 )}
@@ -582,46 +583,46 @@ export default function PublishRidePage() {
             {manualMode && (
               <div className="space-y-4 border-2 border-dashed border-cr-border p-5">
                 <p className="font-sans text-xs text-cr-text-muted uppercase tracking-[0.1em]">
-                  Datos del concierto
+                  {t("publish.manualSectionTitle")}
                 </p>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  <Field label="Artista *">
+                  <Field label={t("publish.manualArtistLabel")}>
                     <input
                       type="text"
                       value={form.manual_artist}
                       onChange={(e) => update("manual_artist", e.target.value)}
-                      placeholder="Ej: Rosalía"
+                      placeholder={t("publish.manualArtistPlaceholder")}
                       className="w-full bg-cr-surface border-2 border-cr-border focus:border-cr-primary outline-none px-3 py-3 font-sans text-sm text-cr-text placeholder:text-cr-text-dim transition-colors"
                     />
                   </Field>
 
-                  <Field label="Nombre del evento">
+                  <Field label={t("publish.manualNameLabel")}>
                     <input
                       type="text"
                       value={form.manual_name}
                       onChange={(e) => update("manual_name", e.target.value)}
-                      placeholder="Si lo dejas vacío se usa el artista"
+                      placeholder={t("publish.manualNamePlaceholder")}
                       className="w-full bg-cr-surface border-2 border-cr-border focus:border-cr-primary outline-none px-3 py-3 font-sans text-sm text-cr-text placeholder:text-cr-text-dim transition-colors"
                     />
                   </Field>
 
-                  <Field label="Recinto *">
+                  <Field label={t("publish.manualVenueLabel")}>
                     <input
                       type="text"
                       value={form.manual_venue_name}
                       onChange={(e) => update("manual_venue_name", e.target.value)}
-                      placeholder="Ej: Palau Sant Jordi"
+                      placeholder={t("publish.manualVenuePlaceholder")}
                       className="w-full bg-cr-surface border-2 border-cr-border focus:border-cr-primary outline-none px-3 py-3 font-sans text-sm text-cr-text placeholder:text-cr-text-dim transition-colors"
                     />
                   </Field>
 
-                  <Field label="Ciudad del recinto *">
+                  <Field label={t("publish.manualVenueCityLabel")}>
                     <select
                       value={form.manual_venue_city}
                       onChange={(e) => update("manual_venue_city", e.target.value)}
                       className="w-full bg-cr-surface border-2 border-cr-border focus:border-cr-primary outline-none px-3 py-3 font-sans text-sm text-cr-text [color-scheme:dark] transition-colors"
                     >
-                      <option value="">Selecciona…</option>
+                      <option value="">{t("publish.selectPlaceholder")}</option>
                       {SPANISH_CITIES.map((city) => (
                         <option key={city.name} value={city.name}>
                           {city.name}
@@ -630,7 +631,7 @@ export default function PublishRidePage() {
                     </select>
                   </Field>
 
-                  <Field label="Fecha y hora *">
+                  <Field label={t("publish.manualDateLabel")}>
                     <input
                       type="datetime-local"
                       value={form.manual_date}
@@ -639,12 +640,12 @@ export default function PublishRidePage() {
                     />
                   </Field>
 
-                  <Field label="Género (opcional)">
+                  <Field label={t("publish.manualGenreLabel")}>
                     <input
                       type="text"
                       value={form.manual_genre}
                       onChange={(e) => update("manual_genre", e.target.value)}
-                      placeholder="Ej: Pop, Rock, Reggaeton…"
+                      placeholder={t("publish.manualGenrePlaceholder")}
                       className="w-full bg-cr-surface border-2 border-cr-border focus:border-cr-primary outline-none px-3 py-3 font-sans text-sm text-cr-text placeholder:text-cr-text-dim transition-colors"
                     />
                   </Field>
@@ -663,12 +664,12 @@ export default function PublishRidePage() {
         {step === 2 && (
           <section aria-labelledby="step2" className="space-y-5">
             <h2 id="step2" className="font-display text-lg uppercase tracking-wide">
-              02 · Detalles del viaje
+              {t("publish.step2Title")}
             </h2>
 
             <div className="space-y-2">
               <span className="cr-label font-sans text-[11px] font-semibold uppercase tracking-[0.12em] text-cr-text-muted">
-                Punto de recogida en el mapa (opcional)
+                {t("publish.mapPickerLabel")}
               </span>
               <Suspense
                 fallback={<div className="h-[320px] cr-card animate-pulse" aria-hidden="true" />}
@@ -684,7 +685,7 @@ export default function PublishRidePage() {
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <Field label="Ciudad de origen *">
+              <Field label={t("publish.originCityLabel")}>
                 <select
                   required
                   aria-required="true"
@@ -703,7 +704,7 @@ export default function PublishRidePage() {
                   }}
                   className="w-full bg-cr-surface border-2 border-cr-border focus:border-cr-primary outline-none px-3 py-3 font-sans text-sm text-cr-text [color-scheme:dark] transition-colors"
                 >
-                  <option value="">Selecciona…</option>
+                  <option value="">{t("publish.selectPlaceholder")}</option>
                   {SPANISH_CITIES.map((city) => (
                     <option key={city.name} value={city.name}>
                       {city.name}
@@ -712,19 +713,19 @@ export default function PublishRidePage() {
                 </select>
               </Field>
 
-              <Field label="Dirección de recogida *">
+              <Field label={t("publish.pickupAddressLabel")}>
                 <input
                   type="text"
                   required
                   aria-required="true"
                   value={form.origin_address}
                   onChange={(e) => update("origin_address", e.target.value)}
-                  placeholder="Estación Joaquín Sorolla, Valencia"
+                  placeholder={t("publish.pickupAddressPlaceholder")}
                   className="w-full bg-cr-surface border-2 border-cr-border focus:border-cr-primary outline-none px-3 py-3 font-sans text-sm text-cr-text placeholder:text-cr-text-dim transition-colors"
                 />
               </Field>
 
-              <Field label="Salida *">
+              <Field label={t("publish.departureLabel")}>
                 <input
                   type="datetime-local"
                   required
@@ -735,7 +736,7 @@ export default function PublishRidePage() {
                 />
               </Field>
 
-              <Field label="Precio por asiento (€) *">
+              <Field label={t("publish.pricePerSeatLabel")}>
                 <input
                   type="number"
                   required
@@ -754,7 +755,7 @@ export default function PublishRidePage() {
                 />
               </Field>
 
-              <Field label="Plazas disponibles *">
+              <Field label={t("publish.seatsLabel")}>
                 <input
                   type="number"
                   required
@@ -775,12 +776,12 @@ export default function PublishRidePage() {
                     onChange={(e) => update("round_trip", e.target.checked)}
                     className="accent-cr-primary"
                   />
-                  <span className="font-sans text-sm">Ida y vuelta</span>
+                  <span className="font-sans text-sm">{t("publish.roundTrip")}</span>
                 </label>
               </div>
 
               {form.round_trip && (
-                <Field label="Vuelta" full>
+                <Field label={t("publish.returnLabel")} full>
                   <input
                     type="datetime-local"
                     value={form.return_time}
@@ -795,7 +796,7 @@ export default function PublishRidePage() {
               <div className="flex items-center gap-3 border border-cr-border bg-cr-surface px-4 py-3">
                 <span aria-hidden="true" className="text-base">🚗</span>
                 <div className="flex-1 min-w-0">
-                  <p className="font-sans text-[11px] font-semibold uppercase tracking-[0.1em] text-cr-text-muted">Tu vehículo</p>
+                  <p className="font-sans text-[11px] font-semibold uppercase tracking-[0.1em] text-cr-text-muted">{t("publish.yourVehicle")}</p>
                   <p className="font-sans text-sm text-cr-text truncate">
                     {[user.car_model, user.car_color].filter(Boolean).join(" · ")}
                   </p>
@@ -804,7 +805,7 @@ export default function PublishRidePage() {
                   to="/profile"
                   className="shrink-0 font-mono text-[11px] text-cr-text-dim hover:text-cr-primary transition-colors"
                 >
-                  Editar
+                  {t("publish.edit")}
                 </Link>
               </div>
             )}
@@ -833,7 +834,7 @@ export default function PublishRidePage() {
         {step === 3 && (
           <section aria-labelledby="step3" className="space-y-6">
             <h2 id="step3" className="font-display text-lg uppercase tracking-wide">
-              03 · Vibe check
+              {t("publish.step3Title")}
             </h2>
 
             <VibeSelector value={form.vibe} onChange={(v) => update("vibe", v)} />
@@ -841,10 +842,10 @@ export default function PublishRidePage() {
             <div className="border border-cr-border p-4 flex items-start gap-4">
               <div className="flex-1 space-y-1">
                 <p id="instant-booking-label" className="font-sans text-sm font-semibold text-cr-text">
-                  Reserva instantánea
+                  {t("publish.instantBookingTitle")}
                 </p>
                 <p className="font-sans text-xs text-cr-text-muted">
-                  Los pasajeros reservan sin esperar tu confirmación. Se descuenta el asiento al momento.
+                  {t("publish.instantBookingDesc")}
                 </p>
               </div>
               <button
@@ -869,10 +870,10 @@ export default function PublishRidePage() {
             <div className="border border-cr-border p-4 flex items-start gap-4">
               <div className="flex-1 space-y-1">
                 <p id="price-negotiable-label" className="font-sans text-sm font-semibold text-cr-text">
-                  Precio negociable
+                  {t("publish.priceNegotiableTitle")}
                 </p>
                 <p className="font-sans text-xs text-cr-text-muted">
-                  Los pasajeros podrán hacerte una propuesta de precio en el mensaje al solicitar plaza. Tú decides si aceptas.
+                  {t("publish.priceNegotiableDesc")}
                 </p>
               </div>
               <button
@@ -896,14 +897,14 @@ export default function PublishRidePage() {
 
             <fieldset className="space-y-2 border-0 p-0 m-0">
               <legend className="font-sans text-[11px] font-semibold uppercase tracking-[0.12em] text-cr-text-muted">
-                Método de pago aceptado
+                {t("publish.paymentLegend")}
               </legend>
               <div className="flex gap-2 flex-wrap">
                 {(
                   [
-                    { value: "cash", label: "💵 Efectivo" },
-                    { value: "bizum", label: "📱 Bizum" },
-                    { value: "cash_or_bizum", label: "💵 / 📱 Ambos" },
+                    { value: "cash", label: t("publish.paymentCash") },
+                    { value: "bizum", label: t("publish.paymentBizum") },
+                    { value: "cash_or_bizum", label: t("publish.paymentBoth") },
                   ] as { value: PaymentMethod; label: string }[]
                 ).map(({ value, label }) => (
                   <button
@@ -925,13 +926,13 @@ export default function PublishRidePage() {
 
             <fieldset className="space-y-2 border-0 p-0 m-0">
               <legend className="font-sans text-[11px] font-semibold uppercase tracking-[0.12em] text-cr-text-muted">
-                Política de tabaco
+                {t("publish.smokingLegend")}
               </legend>
               <div className="flex gap-2">
                 {(
                   [
-                    { value: "no", label: "🚭 Prohibido fumar" },
-                    { value: "yes", label: "🚬 Fumadores OK" },
+                    { value: "no", label: t("publish.smokingNo") },
+                    { value: "yes", label: t("publish.smokingYes") },
                   ] as { value: SmokingPolicy; label: string }[]
                 ).map(({ value, label }) => (
                   <button
@@ -953,17 +954,17 @@ export default function PublishRidePage() {
 
             <fieldset className="space-y-2 border-0 p-0 m-0">
               <legend className="font-sans text-[11px] font-semibold uppercase tracking-[0.12em] text-cr-text-muted">
-                Equipaje máximo permitido
+                {t("publish.luggageLegend")}
               </legend>
               <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
                 {(
                   [
-                    { value: "none", label: "Sin equipaje" },
-                    { value: "small", label: "Bolso pequeño" },
-                    { value: "backpack", label: "Mochila" },
-                    { value: "cabin", label: "Maleta cabina" },
-                    { value: "large", label: "Maleta grande" },
-                    { value: "extra", label: "Extra (instrumento…)" },
+                    { value: "none", label: t("publish.luggageNone") },
+                    { value: "small", label: t("publish.luggageSmall") },
+                    { value: "backpack", label: t("publish.luggageBackpack") },
+                    { value: "cabin", label: t("publish.luggageCabin") },
+                    { value: "large", label: t("publish.luggageLarge") },
+                    { value: "extra", label: t("publish.luggageExtra") },
                   ] as { value: Luggage; label: string }[]
                 ).map(({ value, label }) => (
                   <button
@@ -983,7 +984,7 @@ export default function PublishRidePage() {
               </div>
             </fieldset>
 
-            <Field label="Playlist de Spotify (opcional)">
+            <Field label={t("publish.playlistLabel")}>
               <input
                 type="url"
                 value={form.playlist_url}
@@ -993,13 +994,13 @@ export default function PublishRidePage() {
               />
             </Field>
 
-            <Field label="Notas para pasajeros (opcional)">
+            <Field label={t("publish.notesLabel")}>
               <textarea
                 value={form.notes}
                 onChange={(e) => update("notes", e.target.value)}
                 rows={3}
                 maxLength={500}
-                placeholder="Coche con AC, no fumadores, paramos a comer en la ruta…"
+                placeholder={t("publish.notesPlaceholder")}
                 className="w-full bg-cr-surface border-2 border-cr-border focus:border-cr-primary outline-none px-3 py-3 font-sans text-sm text-cr-text placeholder:text-cr-text-dim transition-colors"
               />
             </Field>
@@ -1011,7 +1012,7 @@ export default function PublishRidePage() {
               submitting={submitting}
               onBack={() => setStep(2)}
               onNext={submit}
-              finalLabel="Publicar viaje"
+              finalLabel={t("publish.publishCta")}
             />
           </section>
         )}
@@ -1065,6 +1066,7 @@ function EarningsCalculator({
   onSuggestedPrice?: (price: number) => void;
   onMaxReasonablePrice?: (price: number) => void;
 }) {
+  const { t } = useI18n();
   const [fuelType, setFuelType] = useState<FuelType>("gasoline95");
   const [consumption, setConsumption] = useState<string>("7.0"); // L/100km
   const [prices, setPrices] = useState<FuelPrices>(DEFAULT_PRICES);
@@ -1123,7 +1125,7 @@ function EarningsCalculator({
   return (
     <div className="border-2 border-cr-primary/30 bg-cr-primary/[0.04] p-4 space-y-4">
       <p className="font-sans text-[10px] font-semibold uppercase tracking-[0.16em] text-cr-primary">
-        Calculadora de ganancias
+        {t("publish.earningsTitle")}
       </p>
 
       <div className="space-y-2">
@@ -1132,7 +1134,7 @@ function EarningsCalculator({
             €{grossEarnings.toFixed(0)}
           </p>
           <p className="font-sans text-xs text-cr-text-muted">
-            brutos · {seatsTotal} pasajero{seatsTotal === 1 ? "" : "s"} a €{pricePerSeat}/asiento
+            {t("publish.earningsGross", { seats: seatsTotal, passengers: seatsTotal === 1 ? "" : "s", price: pricePerSeat })}
           </p>
         </div>
         {netEarnings !== null && (
@@ -1141,7 +1143,7 @@ function EarningsCalculator({
               €{netEarnings.toFixed(0)}
             </p>
             <p className="font-sans text-xs text-cr-text-muted">
-              netos · después de €{fuelCost!.toFixed(0)} de combustible
+              {t("publish.earningsNet", { fuel: fuelCost!.toFixed(0) })}
             </p>
           </div>
         )}
@@ -1151,7 +1153,7 @@ function EarningsCalculator({
       <div className="grid grid-cols-2 gap-3">
         <div className="space-y-1.5">
           <label htmlFor="fuel-type" className="font-sans text-[10px] font-semibold uppercase tracking-[0.12em] text-cr-text-muted">
-            Combustible
+            {t("publish.fuelType")}
           </label>
           <select
             id="fuel-type"
@@ -1159,13 +1161,13 @@ function EarningsCalculator({
             onChange={(e) => setFuelType(e.target.value as FuelType)}
             className="w-full bg-cr-bg border border-cr-border px-2 py-1.5 font-mono text-xs text-cr-text focus:outline-none focus:border-cr-primary [color-scheme:dark]"
           >
-            <option value="gasoline95">Gasolina 95</option>
-            <option value="diesel">Diésel</option>
+            <option value="gasoline95">{t("publish.fuelGasoline95")}</option>
+            <option value="diesel">{t("publish.fuelDiesel")}</option>
           </select>
         </div>
         <div className="space-y-1.5">
           <label htmlFor="fuel-consumption" className="font-sans text-[10px] font-semibold uppercase tracking-[0.12em] text-cr-text-muted">
-            Consumo (L/100km)
+            {t("publish.fuelConsumption")}
           </label>
           <input
             id="fuel-consumption"
@@ -1184,40 +1186,44 @@ function EarningsCalculator({
       {fuelCost !== null ? (
         <div className="space-y-1">
           <p className="font-mono text-xs text-cr-text-muted">
-            Combustible estimado:{" "}
+            {t("publish.fuelEstimatedLabel")}{" "}
             <span className="text-cr-text">€{fuelCost.toFixed(2)}</span>
             <span className="text-cr-text-dim">
-              {" "}(≈{roadKm} km · {consumptionNum}L/100km · {pricesPerLitreLabel(pricePerLitre, pricesLoading)})
+              {" "}(≈{roadKm} km · {consumptionNum}L/100km · {pricesPerLitreLabel(pricePerLitre, pricesLoading, t)})
             </span>
           </p>
           {coveragePercent !== null && (
             <p className="font-mono text-xs text-cr-text-muted">
-              Cubre{" "}
+              {t("publish.coveragePrefix")}{" "}
               <span className={`font-semibold ${coveragePercent >= 100 ? "text-cr-primary" : coveragePercent >= 60 ? "text-cr-primary/70" : "text-cr-secondary"}`}>
                 {coveragePercent}%
               </span>
-              {" "}del coste de combustible
-              {coveragePercent >= 100 && " — ¡ya sacas beneficio!"}
+              {" "}{t("publish.coverageSuffix")}
+              {coveragePercent >= 100 && t("publish.coverageProfit")}
             </p>
           )}
         </div>
       ) : (originCity && destinationCity) ? (
         <p className="font-mono text-xs text-cr-text-dim">
-          Selecciona origen y destino para ver la estimación.
+          {t("publish.selectOriginDest")}
         </p>
       ) : null}
 
       {prices.updatedAt && (
         <p className="font-mono text-[10px] text-cr-text-dim">
-          Precio {fuelType === "gasoline95" ? "G95" : "Diésel"}: {pricePerLitre.toFixed(3)} €/L · Datos MITECO
+          {t("publish.fuelPriceFooter", { fuel: fuelType === "gasoline95" ? "G95" : "Diésel", price: pricePerLitre.toFixed(3) })}
         </p>
       )}
     </div>
   );
 }
 
-function pricesPerLitreLabel(price: number, loading: boolean): string {
-  if (loading) return "cargando…";
+function pricesPerLitreLabel(
+  price: number,
+  loading: boolean,
+  t: (key: string, params?: Record<string, string | number>) => string,
+): string {
+  if (loading) return t("publish.fuelLoading");
   return `${price.toFixed(3)} €/L`;
 }
 
@@ -1232,6 +1238,7 @@ function PriceWarning({
   maxReasonablePrice: number | null;
   onApplySuggested: () => void;
 }) {
+  const { t } = useI18n();
   // No data yet — just show the basic suggested price hint
   if (maxReasonablePrice === null || suggestedPrice === null) {
     return suggestedPrice !== null && pricePerSeat !== suggestedPrice ? (
@@ -1240,11 +1247,11 @@ function PriceWarning({
         onClick={onApplySuggested}
         className="mt-1.5 font-mono text-[11px] text-cr-primary hover:underline text-left"
       >
-        Sugerido: €{suggestedPrice} (basado en combustible) → aplicar
+        {t("publish.priceSuggested", { price: suggestedPrice })}
       </button>
     ) : suggestedPrice !== null ? (
       <p className="mt-1.5 font-mono text-[11px] text-cr-primary/70">
-        ✓ Usando el precio sugerido por combustible
+        {t("publish.priceUsingSuggested")}
       </p>
     ) : null;
   }
@@ -1256,12 +1263,10 @@ function PriceWarning({
     return (
       <div className="mt-2 border border-cr-secondary/40 bg-cr-secondary/5 px-3 py-2 space-y-1">
         <p className="font-sans text-[11px] font-semibold text-cr-secondary uppercase tracking-[0.1em]">
-          Precio muy por encima del coste
+          {t("publish.priceVeryHighTitle")}
         </p>
         <p className="font-mono text-[11px] text-cr-text-muted leading-relaxed">
-          €{pricePerSeat}/asiento es más de {THRESHOLD_VERY_HIGH}× el coste de combustible
-          estimado. La LOTT prohíbe cobrar con ánimo de lucro en viajes compartidos entre
-          particulares. Considera bajar a{" "}
+          {t("publish.priceVeryHighBody1", { price: pricePerSeat, threshold: THRESHOLD_VERY_HIGH })}{" "}
           <button
             type="button"
             onClick={onApplySuggested}
@@ -1269,7 +1274,7 @@ function PriceWarning({
           >
             €{suggestedPrice}
           </button>{" "}
-          o como máximo €{maxReasonablePrice}.
+          {t("publish.priceVeryHighBody2", { max: maxReasonablePrice })}
         </p>
       </div>
     );
@@ -1279,12 +1284,10 @@ function PriceWarning({
     return (
       <div className="mt-2 border border-amber-500/30 bg-amber-500/5 px-3 py-2 space-y-1">
         <p className="font-sans text-[11px] font-semibold text-amber-400 uppercase tracking-[0.1em]">
-          Precio alto — repasa que sea razonable
+          {t("publish.priceHighTitle")}
         </p>
         <p className="font-mono text-[11px] text-cr-text-muted leading-relaxed">
-          €{pricePerSeat}/asiento cubre el combustible + un margen para desgaste y tu tiempo.
-          Recuerda que la plataforma es de compartición de costes, no de transporte con
-          beneficio.
+          {t("publish.priceHighBody", { price: pricePerSeat })}
         </p>
       </div>
     );
@@ -1293,7 +1296,7 @@ function PriceWarning({
   if (pricePerSeat === suggestedPrice) {
     return (
       <p className="mt-1.5 font-mono text-[11px] text-cr-primary/70">
-        ✓ Usando el precio sugerido por combustible
+        {t("publish.priceUsingSuggested")}
       </p>
     );
   }
@@ -1304,19 +1307,20 @@ function PriceWarning({
       onClick={onApplySuggested}
       className="mt-1.5 font-mono text-[11px] text-cr-primary hover:underline text-left"
     >
-      Sugerido: €{suggestedPrice} (basado en combustible) → aplicar
+      {t("publish.priceSuggested", { price: suggestedPrice })}
     </button>
   );
 }
 
 function Stepper({ step }: { step: Step }) {
+  const { t } = useI18n();
   const steps = [
-    { n: 1, label: "Concierto" },
-    { n: 2, label: "Ruta" },
-    { n: 3, label: "Vibe" },
+    { n: 1, label: t("publish.stepperConcert") },
+    { n: 2, label: t("publish.stepperRoute") },
+    { n: 3, label: t("publish.stepperVibe") },
   ] as const;
   return (
-    <ol aria-label="Pasos del formulario" className="flex items-center gap-3">
+    <ol aria-label={t("publish.stepperAriaLabel")} className="flex items-center gap-3">
       {steps.map((s, i) => {
         const active = s.n <= step;
         const isCurrent = s.n === step;
@@ -1386,6 +1390,7 @@ function StepNav({
   onNext: () => void;
   finalLabel?: string;
 }) {
+  const { t } = useI18n();
   return (
     <div className="flex items-center justify-between gap-4 pt-4 border-t border-dashed border-cr-border">
       {onBack ? (
@@ -1394,7 +1399,7 @@ function StepNav({
           onClick={onBack}
           className="inline-flex items-center gap-2 font-sans text-xs font-semibold uppercase tracking-[0.12em] text-cr-text-muted hover:text-cr-text transition-colors"
         >
-          <ArrowLeft size={14} /> Atrás
+          <ArrowLeft size={14} /> {t("publish.stepNavBack")}
         </button>
       ) : (
         <span />
@@ -1405,7 +1410,7 @@ function StepNav({
         disabled={!canContinue}
         className="inline-flex items-center gap-2 bg-cr-primary text-black font-sans font-semibold uppercase tracking-[0.12em] text-sm border-2 border-black px-6 py-3 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] hover:translate-x-[2px] hover:translate-y-[2px] active:shadow-none active:translate-x-[4px] active:translate-y-[4px] transition-all duration-100 disabled:opacity-40 disabled:pointer-events-none"
       >
-        {finalLabel ?? "Continuar"}
+        {finalLabel ?? t("publish.stepNavContinue")}
         {!submitting && <ArrowRight size={14} />}
       </button>
     </div>
@@ -1420,13 +1425,20 @@ function StepNav({
  * empty, and sharing takes 1 tap.
  */
 function PublishSuccessScreen({ ride }: { ride: Ride }) {
+  const { t } = useI18n();
   const [copied, setCopied] = useState(false);
 
   const rideUrl = `${SITE_URL}/rides/${ride.id}`;
   const artistName = ride.concert.artist;
   const originCity = ride.origin_city;
 
-  const shareText = `🚗 Tengo ${ride.seats_total} plazas disponibles para ir a ${artistName} desde ${originCity}. ${ride.price_per_seat}€/asiento · 0% comisión. ¿Te apuntas? ${rideUrl}`;
+  const shareText = t("publish.successShareText", {
+    seats: ride.seats_total,
+    artist: artistName,
+    origin: originCity,
+    price: ride.price_per_seat,
+    url: rideUrl,
+  });
 
   function shareWhatsApp() {
     window.open(
@@ -1451,7 +1463,7 @@ function PublishSuccessScreen({ ride }: { ride: Ride }) {
           animate={{ opacity: 1 }}
           className="font-sans text-[11px] font-semibold uppercase tracking-[0.16em] text-cr-primary inline-flex items-center gap-2"
         >
-          <Check size={14} aria-hidden="true" /> Viaje publicado
+          <Check size={14} aria-hidden="true" /> {t("publish.successBadge")}
         </motion.p>
 
         <motion.h1
@@ -1460,9 +1472,9 @@ function PublishSuccessScreen({ ride }: { ride: Ride }) {
           transition={{ duration: 0.4 }}
           className="font-display uppercase text-3xl md:text-5xl leading-[0.95]"
         >
-          Nos vemos
+          {t("publish.successHeadlineLine1")}
           <br />
-          en el show.
+          {t("publish.successHeadlineLine2")}
         </motion.h1>
 
         {/* Ride summary card */}
@@ -1473,14 +1485,14 @@ function PublishSuccessScreen({ ride }: { ride: Ride }) {
           className="inline-block bg-cr-surface border border-cr-border text-left px-6 py-4 font-mono text-xs max-w-sm mx-auto"
         >
           <p className="text-cr-primary font-sans font-semibold tracking-[0.12em] mb-2">
-            DE · {originCity.toUpperCase()}
+            {t("publish.successCardFrom", { city: originCity.toUpperCase() })}
           </p>
           <p className="font-display uppercase text-lg">{artistName}</p>
           <p className="text-cr-text-muted mt-1">
             {formatDate(ride.departure_time)} · {formatTime(ride.departure_time)}
           </p>
           <p className="text-cr-primary mt-2">
-            €{ride.price_per_seat} · {ride.seats_total} plazas
+            {t("publish.successCardSeats", { price: ride.price_per_seat, seats: ride.seats_total })}
           </p>
         </motion.div>
 
@@ -1492,7 +1504,7 @@ function PublishSuccessScreen({ ride }: { ride: Ride }) {
           className="space-y-3 max-w-sm mx-auto"
         >
           <p className="font-mono text-[10px] font-semibold uppercase tracking-[0.2em] text-white/40">
-            Llena tus plazas — comparte ahora
+            {t("publish.successShareHeading")}
           </p>
 
           <div className="flex flex-col sm:flex-row gap-2">
@@ -1503,7 +1515,7 @@ function PublishSuccessScreen({ ride }: { ride: Ride }) {
               className="flex-1 cr-btn-shine inline-flex items-center justify-center gap-2 bg-[#25d366] text-black font-sans font-semibold uppercase tracking-[0.1em] text-xs px-5 py-3.5 hover:bg-[#1fba59] transition-colors duration-150"
             >
               <MessageCircle size={14} aria-hidden="true" />
-              Compartir en WhatsApp
+              {t("publish.successShareWhatsApp")}
             </button>
 
             {/* Copy link */}
@@ -1513,12 +1525,12 @@ function PublishSuccessScreen({ ride }: { ride: Ride }) {
               className="flex-1 inline-flex items-center justify-center gap-2 bg-transparent text-cr-text-muted font-sans font-semibold uppercase tracking-[0.1em] text-xs border border-white/[0.12] hover:border-cr-primary hover:text-cr-primary px-5 py-3.5 transition-all duration-150"
             >
               <Copy size={14} aria-hidden="true" />
-              {copied ? "¡Enlace copiado!" : "Copiar enlace"}
+              {copied ? t("publish.successLinkCopied") : t("publish.successCopyLink")}
             </button>
           </div>
 
           <p className="font-sans text-[11px] text-white/25 leading-relaxed">
-            Los conductores que comparten su viaje llenan las plazas 3× más rápido.
+            {t("publish.successShareTip")}
           </p>
         </motion.div>
 
@@ -1528,13 +1540,13 @@ function PublishSuccessScreen({ ride }: { ride: Ride }) {
             to={`/rides/${ride.id}`}
             className="cr-btn-shine inline-flex items-center justify-center bg-cr-primary text-black font-sans font-semibold uppercase tracking-[0.14em] text-sm px-6 py-4 hover:bg-[#c8ec00] transition-colors duration-150"
           >
-            Ver mi viaje →
+            {t("publish.successViewRide")}
           </Link>
           <Link
             to="/"
             className="inline-flex items-center justify-center bg-transparent text-cr-text-muted font-sans font-semibold uppercase tracking-[0.12em] text-sm border border-white/[0.1] hover:border-cr-primary hover:text-cr-primary px-6 py-4 transition-all duration-150"
           >
-            Volver al inicio
+            {t("publish.successBackHome")}
           </Link>
         </div>
       </div>

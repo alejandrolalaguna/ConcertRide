@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import type { Message, MessageKind, Ride, User } from "@concertride/types";
 import { api, ApiError } from "@/lib/api";
+import { useI18n } from "@/lib/i18n";
 import { ChatPanel } from "./ChatPanel";
 
 interface Props {
@@ -66,6 +67,7 @@ function usePollingFetch(
 }
 
 export function RideChatSection({ ride, currentUser }: Props) {
+  const { t } = useI18n();
   const [tab, setTab] = useState<Tab>("ride");
 
   const [rideMessages, setRideMessages] = useState<Message[]>([]);
@@ -118,19 +120,19 @@ export function RideChatSection({ ride, currentUser }: Props) {
   const tabs = [
     {
       id: "ride" as Tab,
-      label: "Tu viaje",
-      badge: "Privado · solo miembros del viaje",
+      label: t("chat.tabRide"),
+      badge: t("chat.badgeRidePrivate"),
       badgeColor: "text-amber-400 border-amber-400/30 bg-amber-400/10",
       dot: "◉",
     },
     {
       id: "concert" as Tab,
-      label: "Chat del concierto",
-      badge: "Público · usuarios registrados",
+      label: t("chat.tabConcert"),
+      badge: t("chat.badgePublicRegistered"),
       badgeColor: "text-emerald-400 border-emerald-400/30 bg-emerald-400/10",
       dot: "◉",
     },
-  ] as const;
+  ];
 
   const activeTab = tabs.find((t) => t.id === tab)!;
 
@@ -138,7 +140,7 @@ export function RideChatSection({ ride, currentUser }: Props) {
     <section aria-labelledby="chat-title" className="space-y-4">
       <div className="flex items-baseline justify-between gap-3">
         <h2 id="chat-title" className="font-display text-sm uppercase tracking-wide text-cr-text-muted">
-          Chat
+          {t("chat.sectionTitle")}
         </h2>
         <span className={`inline-flex items-center gap-1.5 font-mono text-[10px] uppercase tracking-wide border px-2 py-0.5 ${activeTab.badgeColor}`}>
           <span aria-hidden="true">{activeTab.dot}</span> {activeTab.badge}

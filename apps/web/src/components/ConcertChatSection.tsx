@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import type { Message, MessageKind } from "@concertride/types";
 import { api, ApiError } from "@/lib/api";
 import { useSession } from "@/lib/session";
+import { useI18n } from "@/lib/i18n";
 import { ChatPanel } from "./ChatPanel";
 
 interface Props {
@@ -18,6 +19,7 @@ const MAX_BACKOFF_MS = 60_000;
 // the same show and drives SEO + repeat visits.
 export function ConcertChatSection({ concertId, artist }: Props) {
   const { user } = useSession();
+  const { t } = useI18n();
   const [messages, setMessages] = useState<Message[]>([]);
   const [loading, setLoading] = useState(true);
   const [forbidden, setForbidden] = useState(false);
@@ -96,23 +98,23 @@ export function ConcertChatSection({ concertId, artist }: Props) {
     <section aria-labelledby="concert-chat-title" className="space-y-4">
       <header className="flex items-baseline justify-between gap-3">
         <h2 id="concert-chat-title" className="font-display text-sm uppercase tracking-wide text-cr-text-muted">
-          Chat del concierto
+          {t("chat.tabConcert")}
         </h2>
         <span className="inline-flex items-center gap-1.5 font-mono text-[10px] uppercase tracking-wide text-emerald-400 border border-emerald-400/30 bg-emerald-400/10 px-2 py-0.5">
-          <span aria-hidden="true">◉</span> Chat público · usuarios registrados
+          <span aria-hidden="true">◉</span> {t("chat.badgePublicChat")}
         </span>
       </header>
 
       {!user ? (
         <div className="border border-dashed border-cr-border p-6 text-center space-y-3">
           <p className="font-sans text-sm text-cr-text-muted">
-            Inicia sesión para unirte al chat con otros fans de {artist}.
+            {t("chat.loginPrompt", { artist })}
           </p>
           <Link
             to={`/login?next=${encodeURIComponent(`/concerts/${concertId}`)}`}
             className="inline-flex items-center justify-center bg-cr-primary text-black font-sans font-semibold uppercase tracking-[0.12em] text-sm border-2 border-black px-5 py-2 shadow-[3px_3px_0px_0px_rgba(0,0,0,1)] hover:shadow-[1px_1px_0px_0px_rgba(0,0,0,1)] hover:translate-x-[2px] hover:translate-y-[2px] transition-all duration-100"
           >
-            Entrar
+            {t("chat.enter")}
           </Link>
         </div>
       ) : (

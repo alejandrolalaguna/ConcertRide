@@ -44,6 +44,7 @@ import { computeMusicMatch } from "@/lib/musicMatch";
 import { FactDensityCallout } from "@/components/FactDensityCallout";
 import { AgentActionRail } from "@/components/AgentActionRail";
 import { StickyRegBar } from "@/components/StickyRegBar";
+import { useI18n } from "@/lib/i18n";
 
 function hueFromString(s: string): number {
   let h = 0;
@@ -52,6 +53,7 @@ function hueFromString(s: string): number {
 }
 
 export default function ConcertDetailPage() {
+  const { t } = useI18n();
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
   const { user } = useSession();
@@ -169,7 +171,7 @@ export default function ConcertDetailPage() {
             to="/"
             className="inline-block font-sans text-xs font-semibold uppercase tracking-[0.12em] text-cr-primary border-b border-cr-primary pb-0.5"
           >
-            ← Volver al inicio
+            {t("concertDetail.backHome")}
           </Link>
         </div>
       </main>
@@ -325,7 +327,7 @@ export default function ConcertDetailPage() {
               onClick={() => navigate(-1)}
               className="inline-flex items-center gap-2 font-sans text-xs font-semibold uppercase tracking-[0.12em] text-cr-text-muted hover:text-cr-primary transition-colors"
             >
-              <ArrowLeft size={14} /> Volver
+              <ArrowLeft size={14} /> {t("concertDetail.back")}
             </button>
             {concert && (
               <div className="flex items-center gap-3">
@@ -341,10 +343,10 @@ export default function ConcertDetailPage() {
                       "noopener,noreferrer",
                     );
                   }}
-                  title="Compartir por WhatsApp"
+                  title={t("concertDetail.shareWhatsApp")}
                   className="inline-flex items-center gap-1.5 font-sans text-xs font-semibold uppercase tracking-[0.12em] text-cr-text-muted hover:text-cr-primary transition-colors"
                 >
-                  <span aria-hidden="true">💬</span> WhatsApp
+                  <span aria-hidden="true">💬</span> {t("concertDetail.whatsapp")}
                 </button>
                 <button
                   type="button"
@@ -359,7 +361,7 @@ export default function ConcertDetailPage() {
                   className="inline-flex items-center gap-2 font-sans text-xs font-semibold uppercase tracking-[0.12em] text-cr-text-muted hover:text-cr-primary transition-colors"
                 >
                   <Link2 size={14} aria-hidden="true" />
-                  {copied ? "¡Copiado!" : "Copiar enlace"}
+                  {copied ? t("concertDetail.copied") : t("concertDetail.copyLink")}
                 </button>
               </div>
             )}
@@ -773,7 +775,7 @@ export default function ConcertDetailPage() {
 
       {concert && !isPast && (
         <section className="max-w-6xl mx-auto px-6 pb-16">
-          <LiveActivityFeed scope="concert" concertId={concert.id} limit={10} emptyMessage={`Sé el primero en organizarte para ${concert.artist}.`} />
+          <LiveActivityFeed scope="concert" concertId={concert.id} limit={10} emptyMessage={t("concertDetail.feedEmpty", { artist: concert.artist })} />
         </section>
       )}
 

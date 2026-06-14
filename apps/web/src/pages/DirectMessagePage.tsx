@@ -5,6 +5,7 @@ import type { DirectMessage, MessageKind, User } from "@concertride/types";
 import { api } from "@/lib/api";
 import { useSession } from "@/lib/session";
 import { useSeoMeta } from "@/lib/useSeoMeta";
+import { useI18n } from "@/lib/i18n";
 import { initials } from "@/lib/format";
 import { ChatPanel } from "@/components/ChatPanel";
 
@@ -28,6 +29,7 @@ function toMessages(dms: DirectMessage[]): import("@concertride/types").Message[
 
 export default function DirectMessagePage() {
   const { user, loading: sessionLoading } = useSession();
+  const { t } = useI18n();
   const navigate = useNavigate();
   const { userId: otherUserId } = useParams<{ userId: string }>();
 
@@ -132,7 +134,7 @@ export default function DirectMessagePage() {
         <Link
           to="/mensajes"
           className="flex items-center justify-center w-8 h-8 border border-cr-border text-cr-text-muted hover:border-cr-primary hover:text-cr-primary transition-colors"
-          aria-label="Volver a mensajes"
+          aria-label={t("dm.backAria")}
         >
           <ArrowLeft size={14} />
         </Link>
@@ -152,7 +154,7 @@ export default function DirectMessagePage() {
               {otherUser ? otherUser.name : "…"}
             </h1>
             <span className="inline-flex items-center gap-1 font-mono text-[9px] uppercase tracking-wide border border-amber-400/30 bg-amber-400/10 text-amber-400 px-1.5 py-0.5 flex-shrink-0">
-              <Lock size={8} /> Privado
+              <Lock size={8} /> {t("dm.private")}
             </span>
           </div>
           {otherUser && (
@@ -160,7 +162,7 @@ export default function DirectMessagePage() {
               to={`/drivers/${otherUser.id}`}
               className="font-mono text-[10px] text-cr-text-dim hover:text-cr-primary transition-colors"
             >
-              Ver perfil →
+              {t("dm.viewProfile")}
             </Link>
           )}
         </div>
@@ -168,7 +170,7 @@ export default function DirectMessagePage() {
 
       {loadError ? (
         <div className="border border-dashed border-cr-border p-8 text-center font-mono text-xs text-cr-secondary">
-          No se pudo cargar esta conversación.
+          {t("dm.loadError")}
         </div>
       ) : (
         <div className="space-y-3">
@@ -180,7 +182,7 @@ export default function DirectMessagePage() {
             onSend={send}
           />
           <p className="font-mono text-[10px] text-cr-text-dim text-center">
-            Este mensaje privado solo lo ven tú y {otherUser?.name ?? "el destinatario"}.
+            {t("dm.privacyNote", { name: otherUser?.name ?? t("dm.recipientFallback") })}
           </p>
         </div>
       )}

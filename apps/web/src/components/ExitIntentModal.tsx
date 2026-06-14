@@ -3,6 +3,7 @@ import { Link, useLocation } from "react-router-dom";
 import { X } from "lucide-react";
 import * as Dialog from "@radix-ui/react-dialog";
 import { useSession } from "../lib/session";
+import { useI18n } from "@/lib/i18n";
 
 const AUTH_PATHS = new Set(["/login", "/register", "/forgot-password", "/reset-password", "/bienvenida"]);
 // Persisted in localStorage (not sessionStorage) so the modal fires at most
@@ -20,37 +21,41 @@ function slugToDisplayName(slug: string): string {
 }
 
 /** Derive a contextual modal title from the current pathname. */
-function useContextualTitle(pathname: string): string {
+function contextualTitle(
+  pathname: string,
+  t: (key: string, params?: Record<string, string | number>) => string,
+): string {
   const segments = pathname.split("/").filter(Boolean);
 
   if (segments[0] === "festivales" && segments[1]) {
     const festivalName = slugToDisplayName(segments[1]);
-    return `¿Te vas sin reservar plaza para ${festivalName}?`;
+    return t("exitModal.titleFestival", { name: festivalName });
   }
 
   if (segments[0] === "artistas" && segments[1]) {
     const artistName = slugToDisplayName(segments[1]);
-    return `¿Buscas viaje al concierto de ${artistName}?`;
+    return t("exitModal.titleArtist", { name: artistName });
   }
 
   if (segments[0] === "rutas") {
-    return "¿Te vas sin reservar tu plaza de carpooling?";
+    return t("exitModal.titleRoute");
   }
 
   if (segments[0] === "conciertos" && segments[1]) {
     const cityName = slugToDisplayName(segments[1]);
-    return `¿Buscas carpooling a conciertos en ${cityName}?`;
+    return t("exitModal.titleCity", { name: cityName });
   }
 
-  return "¿Te vas sin reservar tu plaza?";
+  return t("exitModal.titleDefault");
 }
 
 export function ExitIntentModal() {
+  const { t } = useI18n();
   const { user, loading } = useSession();
   const location = useLocation();
   const [open, setOpen] = useState(false);
 
-  const modalTitle = useContextualTitle(location.pathname);
+  const modalTitle = contextualTitle(location.pathname, t);
 
   const shouldSuppress =
     loading ||
@@ -128,14 +133,14 @@ export function ExitIntentModal() {
               {modalTitle}
             </Dialog.Title>
             <Dialog.Description className="sr-only">
-              ConcertRide es carpooling para festivales sin comisiones. Crea tu cuenta gratis para reservar plaza en segundos.
+              {t("exitModal.description")}
             </Dialog.Description>
 
             {/* Close button */}
             <Dialog.Close asChild>
               <button
                 type="button"
-                aria-label="Cerrar modal"
+                aria-label={t("exitModal.close")}
                 className="absolute top-4 right-4 text-white/40 hover:text-white transition-colors"
               >
                 <X size={18} aria-hidden="true" />
@@ -145,7 +150,7 @@ export function ExitIntentModal() {
             {/* Content */}
             <div className="space-y-5 text-center">
               <p className="font-sans text-[11px] font-semibold uppercase tracking-[0.2em] text-[#dbff00]">
-                ¡Espera!
+                {t("exitModal.wait")}
               </p>
 
               <h2
@@ -155,8 +160,8 @@ export function ExitIntentModal() {
                 {modalTitle}
               </h2>
 
-              <div className="flex flex-wrap items-center justify-center gap-2" aria-label="Ventajas de ConcertRide">
-                {["Plazas limitadas", "0% comisión", "Solo 30 segundos"].map((label) => (
+              <div className="flex flex-wrap items-center justify-center gap-2" aria-label={t("exitModal.benefitsLabel")}>
+                {[t("exitModal.benefitLimited"), t("exitModal.benefitNoFee"), t("exitModal.benefitFast")].map((label) => (
                   <span
                     key={label}
                     className="font-sans text-[11px] font-semibold uppercase tracking-[0.12em] border border-[#dbff00]/40 text-[#dbff00] px-2.5 py-1"
@@ -172,7 +177,7 @@ export function ExitIntentModal() {
                   onClick={close}
                   className="flex items-center justify-center w-full bg-[#dbff00] text-black font-sans font-semibold uppercase tracking-[0.12em] text-sm border-2 border-black px-6 py-3.5 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] hover:translate-x-[2px] hover:translate-y-[2px] transition-all duration-100"
                 >
-                  Crear cuenta gratis
+                  {t("exitModal.ctaPrimary")}
                 </Link>
 
                 <Dialog.Close asChild>
@@ -180,7 +185,7 @@ export function ExitIntentModal() {
                     type="button"
                     className="flex items-center justify-center w-full font-sans text-sm font-semibold uppercase tracking-[0.12em] text-white/50 hover:text-white/80 border border-white/10 px-6 py-3 transition-colors"
                   >
-                    Seguir viendo
+                    {t("exitModal.ctaSecondary")}
                   </button>
                 </Dialog.Close>
               </div>

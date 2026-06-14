@@ -3,6 +3,7 @@ import { motion } from "motion/react";
 import { ArrowRight, Music2, MapPin, Route, BookOpen } from "lucide-react";
 import { useSeoMeta } from "@/lib/useSeoMeta";
 import { SITE_URL } from "@/lib/siteUrl";
+import { useI18n } from "@/lib/i18n";
 
 const TOP_FESTIVALS = [
   { slug: "mad-cool", label: "Mad Cool Festival" },
@@ -30,6 +31,7 @@ const TOP_ROUTES = [
 ];
 
 export default function NotFoundPage() {
+  const { t } = useI18n();
   useSeoMeta({
     title: "Página no encontrada — ¿Buscabas algo? · ConcertRide",
     description:
@@ -69,28 +71,28 @@ export default function NotFoundPage() {
           className="text-center space-y-5 mb-16"
         >
           <p className="font-mono text-[10px] font-semibold uppercase tracking-[0.24em] text-cr-secondary">
-            Error 404
+            {t("notFound.errorLabel")}
           </p>
           <h1 className="font-display text-5xl md:text-7xl uppercase leading-[0.9] tracking-tight">
-            Hmm, esa página
+            {t("notFound.titleLine1")}
             <br />
-            ya no existe
+            {t("notFound.titleLine2")}
           </h1>
           <p className="font-sans text-sm md:text-base text-white/40 max-w-md mx-auto leading-relaxed">
-            Esta URL no existe, o el viaje que buscas ya no está disponible. Prueba desde el inicio o explora los eventos activos.
+            {t("notFound.subtitle")}
           </p>
           <div className="flex flex-wrap justify-center gap-3 pt-2">
             <Link
               to="/"
               className="cr-btn-shine inline-flex items-center gap-2 bg-cr-primary text-black font-sans font-semibold uppercase tracking-[0.14em] text-sm px-6 py-4 hover:bg-[#c8ec00] transition-colors duration-150"
             >
-              Volver al inicio
+              {t("notFound.backHome")}
             </Link>
             <Link
               to="/concerts"
               className="inline-flex items-center gap-2 bg-transparent text-cr-text-muted font-sans font-semibold uppercase tracking-[0.12em] text-sm border border-white/[0.1] hover:border-cr-primary hover:text-cr-primary px-6 py-4 transition-all duration-150"
             >
-              Explorar conciertos <ArrowRight size={13} aria-hidden="true" />
+              {t("notFound.exploreConcerts")} <ArrowRight size={13} aria-hidden="true" />
             </Link>
           </div>
         </motion.div>
@@ -108,7 +110,7 @@ export default function NotFoundPage() {
           {/* Festivales */}
           <section>
             <h2 className="font-mono text-[10px] font-bold uppercase tracking-[0.16em] text-cr-primary mb-4 flex items-center gap-2">
-              <Music2 size={10} aria-hidden="true" /> Festivales con carpooling
+              <Music2 size={10} aria-hidden="true" /> {t("notFound.festivalsHeading")}
             </h2>
             <ul className="space-y-2">
               {TOP_FESTIVALS.map((f) => (
@@ -118,13 +120,13 @@ export default function NotFoundPage() {
                     className="font-sans text-sm text-white/40 hover:text-cr-primary transition-colors inline-flex items-center gap-1.5 group"
                   >
                     <ArrowRight size={10} className="text-cr-primary/40 group-hover:text-cr-primary flex-shrink-0 transition-colors" aria-hidden="true" />
-                    Carpooling al {f.label}
+                    {t("notFound.festivalLinkPrefix")} {f.label}
                   </Link>
                 </li>
               ))}
               <li>
                 <Link to="/festivales" className="font-mono text-[10px] font-semibold uppercase tracking-[0.1em] text-cr-primary hover:text-white transition-colors">
-                  Ver todos →
+                  {t("notFound.seeAllMasc")}
                 </Link>
               </li>
             </ul>
@@ -133,7 +135,7 @@ export default function NotFoundPage() {
           {/* Ciudades */}
           <section>
             <h2 className="font-mono text-[10px] font-bold uppercase tracking-[0.16em] text-cr-primary mb-4 flex items-center gap-2">
-              <MapPin size={10} aria-hidden="true" /> Conciertos por ciudad
+              <MapPin size={10} aria-hidden="true" /> {t("notFound.citiesHeading")}
             </h2>
             <ul className="space-y-2">
               {TOP_CITIES.map((c) => (
@@ -143,13 +145,13 @@ export default function NotFoundPage() {
                     className="font-sans text-sm text-white/40 hover:text-cr-primary transition-colors inline-flex items-center gap-1.5 group"
                   >
                     <ArrowRight size={10} className="text-cr-primary/40 group-hover:text-cr-primary flex-shrink-0 transition-colors" aria-hidden="true" />
-                    Conciertos en {c.label}
+                    {t("notFound.cityLinkPrefix")} {c.label}
                   </Link>
                 </li>
               ))}
               <li>
                 <Link to="/concerts" className="font-mono text-[10px] font-semibold uppercase tracking-[0.1em] text-cr-primary hover:text-white transition-colors">
-                  Ver todos →
+                  {t("notFound.seeAllMasc")}
                 </Link>
               </li>
             </ul>
@@ -158,7 +160,7 @@ export default function NotFoundPage() {
           {/* Rutas */}
           <section>
             <h2 className="font-mono text-[10px] font-bold uppercase tracking-[0.16em] text-cr-primary mb-4 flex items-center gap-2">
-              <Route size={10} aria-hidden="true" /> Rutas de carpooling populares
+              <Route size={10} aria-hidden="true" /> {t("notFound.routesHeading")}
             </h2>
             <ul className="space-y-2">
               {TOP_ROUTES.map((r) => (
@@ -174,7 +176,7 @@ export default function NotFoundPage() {
               ))}
               <li>
                 <Link to="/rutas" className="font-mono text-[10px] font-semibold uppercase tracking-[0.1em] text-cr-primary hover:text-white transition-colors">
-                  Ver todas →
+                  {t("notFound.seeAllFem")}
                 </Link>
               </li>
             </ul>
@@ -183,15 +185,15 @@ export default function NotFoundPage() {
           {/* Guías */}
           <section>
             <h2 className="font-mono text-[10px] font-bold uppercase tracking-[0.16em] text-cr-primary mb-4 flex items-center gap-2">
-              <BookOpen size={10} aria-hidden="true" /> Guías y recursos
+              <BookOpen size={10} aria-hidden="true" /> {t("notFound.guidesHeading")}
             </h2>
             <ul className="space-y-2">
               {[
-                { to: "/guia-transporte-festivales", label: "Guía de transporte a festivales" },
-                { to: "/blog/autobuses-festivales-espana-2026", label: "Autobuses a festivales 2026" },
-                { to: "/blog/como-volver-festival-madrugada", label: "Cómo volver de madrugada" },
-                { to: "/blog/festivales-musica-espana-2026", label: "Festivales de España 2026" },
-                { to: "/como-funciona", label: "Cómo funciona ConcertRide" },
+                { to: "/guia-transporte-festivales", labelKey: "notFound.guideTransport" },
+                { to: "/blog/autobuses-festivales-espana-2026", labelKey: "notFound.guideBuses" },
+                { to: "/blog/como-volver-festival-madrugada", labelKey: "notFound.guideReturn" },
+                { to: "/blog/festivales-musica-espana-2026", labelKey: "notFound.guideFestivals2026" },
+                { to: "/como-funciona", labelKey: "notFound.guideHowItWorks" },
               ].map((item) => (
                 <li key={item.to}>
                   <Link
@@ -199,7 +201,7 @@ export default function NotFoundPage() {
                     className="font-sans text-sm text-white/40 hover:text-cr-primary transition-colors inline-flex items-center gap-1.5 group"
                   >
                     <ArrowRight size={10} className="text-cr-primary/40 group-hover:text-cr-primary flex-shrink-0 transition-colors" aria-hidden="true" />
-                    {item.label}
+                    {t(item.labelKey)}
                   </Link>
                 </li>
               ))}

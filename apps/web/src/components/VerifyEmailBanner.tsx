@@ -3,6 +3,7 @@ import { useLocation, useSearchParams } from "react-router-dom";
 import { AlertCircle, Check, Mail, X } from "lucide-react";
 import { api } from "@/lib/api";
 import { useSession } from "@/lib/session";
+import { useI18n } from "@/lib/i18n";
 
 // Single component that combines:
 //  (a) A persistent "Verifica tu email" banner for logged-in users who haven't
@@ -11,6 +12,7 @@ import { useSession } from "@/lib/session";
 //      the app with ?verify=ok | expired | invalid.
 // Keeps the UI footprint tiny and keeps all email-verification UX in one file.
 export function VerifyEmailBanner() {
+  const { t } = useI18n();
   const { user, refresh } = useSession();
   const [params, setParams] = useSearchParams();
   const location = useLocation();
@@ -54,7 +56,7 @@ export function VerifyEmailBanner() {
         role="status"
         className="fixed top-20 left-1/2 -translate-x-1/2 z-[150] bg-cr-primary text-black px-5 py-3 font-sans text-sm font-semibold shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] border-2 border-black inline-flex items-center gap-2"
       >
-        <Check size={16} strokeWidth={3} /> Email verificado, ¡bienvenid@!
+        <Check size={16} strokeWidth={3} /> {t("verifyBanner.verifiedToast")}
       </div>
     );
   }
@@ -65,7 +67,7 @@ export function VerifyEmailBanner() {
         className="fixed top-20 left-1/2 -translate-x-1/2 z-[150] bg-cr-secondary text-white px-5 py-3 font-sans text-sm font-semibold shadow-[4px_4px_0px_0px_rgba(0,0,0,0.8)] border-2 border-black inline-flex items-center gap-2"
       >
         <AlertCircle size={16} strokeWidth={2.5} />
-        El enlace ha caducado.{" "}
+        {t("verifyBanner.linkExpired")}{" "}
         {user ? (
           <button
             type="button"
@@ -73,10 +75,10 @@ export function VerifyEmailBanner() {
             className="underline underline-offset-2 font-bold"
             disabled={resending}
           >
-            Reenviar
+            {t("verifyBanner.resend")}
           </button>
         ) : (
-          "Inicia sesión y solicita uno nuevo."
+          t("verifyBanner.loginToRequest")
         )}
       </div>
     );
@@ -88,19 +90,19 @@ export function VerifyEmailBanner() {
   return (
     <div
       role="region"
-      aria-label="Verificación de email pendiente"
+      aria-label={t("verifyBanner.regionLabel")}
       className="sticky top-14 z-[90] border-b border-cr-secondary/40 bg-cr-secondary/10 backdrop-blur"
     >
       <div className="max-w-6xl mx-auto px-4 py-2.5 flex items-center gap-3">
         <Mail size={14} className="text-cr-secondary flex-shrink-0" aria-hidden="true" />
         <p className="font-sans text-xs text-cr-text flex-1 leading-snug">
-          <strong className="text-cr-secondary">Verifica tu email</strong> para poder publicar
-          viajes y reservar plazas. Te mandamos un enlace a{" "}
+          <strong className="text-cr-secondary">{t("verifyBanner.title")}</strong>{" "}
+          {t("verifyBanner.bodyBefore")}{" "}
           <code className="font-mono text-cr-text-muted">{user.email}</code>.
         </p>
         {resentAt && Date.now() - resentAt < 8000 ? (
           <span className="font-sans text-[11px] font-semibold uppercase tracking-[0.1em] text-cr-primary inline-flex items-center gap-1">
-            <Check size={11} /> Reenviado
+            <Check size={11} /> {t("verifyBanner.resent")}
           </span>
         ) : (
           <button
@@ -109,14 +111,14 @@ export function VerifyEmailBanner() {
             disabled={resending}
             className="font-sans text-[11px] font-semibold uppercase tracking-[0.1em] border border-cr-secondary text-cr-secondary hover:bg-cr-secondary hover:text-white px-3 py-1 transition-colors disabled:opacity-50"
           >
-            {resending ? "Enviando…" : "Reenviar"}
+            {resending ? t("verifyBanner.sending") : t("verifyBanner.resend")}
           </button>
         )}
         <button
           type="button"
           onClick={() => setDismissed(true)}
           className="text-cr-text-muted hover:text-cr-text transition-colors"
-          aria-label="Descartar aviso"
+          aria-label={t("verifyBanner.dismiss")}
         >
           <X size={14} />
         </button>

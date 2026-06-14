@@ -6,8 +6,10 @@ import { api, ApiError } from "@/lib/api";
 import { useSession } from "@/lib/session";
 import { useSeoMeta } from "@/lib/useSeoMeta";
 import { SITE_URL } from "@/lib/siteUrl";
+import { useI18n } from "@/lib/i18n";
 
 export default function ResetPasswordPage() {
+  const { t } = useI18n();
   const [params] = useSearchParams();
   const token = params.get("token") ?? "";
   const { refresh } = useSession();
@@ -33,11 +35,11 @@ export default function ResetPasswordPage() {
     e.preventDefault();
     setError(null);
     if (password.length < 8) {
-      setError("La contraseña debe tener al menos 8 caracteres.");
+      setError(t("auth.errorPasswordTooShort"));
       return;
     }
     if (password !== confirm) {
-      setError("Las contraseñas no coinciden.");
+      setError(t("auth.errorPasswordsDontMatch"));
       return;
     }
     setSubmitting(true);
@@ -47,9 +49,9 @@ export default function ResetPasswordPage() {
       setDone(true);
     } catch (err) {
       if (err instanceof ApiError && err.status === 400) {
-        setError("El enlace ha caducado o ya se usó. Solicita uno nuevo.");
+        setError(t("auth.errorResetLinkExpired"));
       } else {
-        setError("No pudimos actualizar la contraseña. Inténtalo de nuevo.");
+        setError(t("auth.errorResetFailed"));
       }
     } finally {
       setSubmitting(false);
@@ -63,7 +65,7 @@ export default function ResetPasswordPage() {
           to="/login"
           className="inline-flex items-center gap-2 font-sans text-xs font-semibold uppercase tracking-[0.12em] text-cr-text-muted hover:text-cr-primary transition-colors"
         >
-          <ArrowLeft size={14} /> Volver al login
+          <ArrowLeft size={14} /> {t("auth.backToLogin")}
         </Link>
 
         <motion.header
@@ -73,19 +75,19 @@ export default function ResetPasswordPage() {
           className="space-y-3"
         >
           <p className="font-sans text-[11px] font-semibold uppercase tracking-[0.16em] text-cr-primary">
-            Nueva contraseña
+            {t("auth.newPasswordLabel")}
           </p>
           <h1 className="font-display text-4xl md:text-5xl uppercase leading-[0.95]">
-            Elige una
+            {t("auth.resetTitleLine1")}
             <br />
-            <span className="text-cr-primary">nueva clave.</span>
+            <span className="text-cr-primary">{t("auth.resetTitleLine2")}</span>
           </h1>
         </motion.header>
 
         <form onSubmit={submit} className="space-y-4">
           <label className="block space-y-2">
             <span className="font-sans text-[11px] font-semibold uppercase tracking-[0.12em] text-cr-text-muted">
-              Nueva contraseña
+              {t("auth.newPasswordLabel")}
             </span>
             <div className="relative">
               <input
@@ -96,13 +98,13 @@ export default function ResetPasswordPage() {
                 minLength={8}
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                placeholder="Mínimo 8 caracteres"
+                placeholder={t("auth.minimum8CharsPlaceholder")}
                 className="w-full bg-cr-surface border-2 border-cr-border focus:border-cr-primary outline-none px-3 py-3 pr-11 font-mono text-sm text-cr-text placeholder:text-cr-text-dim transition-colors"
               />
               <button
                 type="button"
                 onClick={() => setShowPw((v) => !v)}
-                aria-label={showPw ? "Ocultar contraseña" : "Mostrar contraseña"}
+                aria-label={showPw ? t("auth.hidePassword") : t("auth.showPassword")}
                 className="absolute right-3 top-1/2 -translate-y-1/2 text-cr-text-muted hover:text-cr-primary transition-colors"
               >
                 {showPw ? <EyeOff size={16} strokeWidth={1.75} /> : <Eye size={16} strokeWidth={1.75} />}
@@ -112,7 +114,7 @@ export default function ResetPasswordPage() {
 
           <label className="block space-y-2">
             <span className="font-sans text-[11px] font-semibold uppercase tracking-[0.12em] text-cr-text-muted">
-              Confirmar contraseña
+              {t("auth.confirmPasswordLabel")}
             </span>
             <input
               type={showPw ? "text" : "password"}
@@ -121,7 +123,7 @@ export default function ResetPasswordPage() {
               minLength={8}
               value={confirm}
               onChange={(e) => setConfirm(e.target.value)}
-              placeholder="Repítela"
+              placeholder={t("auth.repeatPasswordPlaceholder")}
               className="w-full bg-cr-surface border-2 border-cr-border focus:border-cr-primary outline-none px-3 py-3 font-mono text-sm text-cr-text placeholder:text-cr-text-dim transition-colors"
             />
           </label>
@@ -137,7 +139,7 @@ export default function ResetPasswordPage() {
             disabled={submitting || !password || !confirm}
             className="w-full bg-cr-primary text-black font-sans font-semibold uppercase tracking-[0.12em] text-sm border-2 border-black px-6 py-3 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] hover:translate-x-[2px] hover:translate-y-[2px] active:shadow-none active:translate-x-[4px] active:translate-y-[4px] transition-all duration-100 disabled:opacity-50 disabled:pointer-events-none"
           >
-            {submitting ? "Guardando…" : "Guardar y entrar"}
+            {submitting ? t("auth.resetSubmitting") : t("auth.resetSubmit")}
           </button>
         </form>
       </div>

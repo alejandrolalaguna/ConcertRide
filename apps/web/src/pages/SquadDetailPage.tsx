@@ -5,11 +5,13 @@ import { api, ApiError } from "@/lib/api";
 import { useSeoMeta } from "@/lib/useSeoMeta";
 import { SITE_URL } from "@/lib/siteUrl";
 import { useSession } from "@/lib/session";
+import { useI18n } from "@/lib/i18n";
 import { CrewAvatars } from "@/components/CrewAvatars";
 import { CountdownBadge } from "@/components/CountdownBadge";
 import { PlaylistPanel } from "@/components/PlaylistPanel";
 
 export default function SquadDetailPage() {
+  const { t } = useI18n();
   const { id } = useParams<{ id: string }>();
   const { user, loading: sessionLoading } = useSession();
   const [squad, setSquad] = useState<Squad | null>(null);
@@ -43,21 +45,21 @@ export default function SquadDetailPage() {
   if (error === "404") {
     return (
       <main className="min-h-dvh bg-cr-bg pt-14 px-6 text-center">
-        <p className="mt-20 font-display text-2xl uppercase text-cr-text-muted">Squad no encontrado</p>
-        <Link to="/concerts" className="mt-4 inline-block text-cr-primary underline">Volver a conciertos</Link>
+        <p className="mt-20 font-display text-2xl uppercase text-cr-text-muted">{t("squad.notFound")}</p>
+        <Link to="/concerts" className="mt-4 inline-block text-cr-primary underline">{t("squad.backToConcerts")}</Link>
       </main>
     );
   }
   if (error === "403") {
     return (
       <main className="min-h-dvh bg-cr-bg pt-14 px-6 text-center">
-        <p className="mt-20 font-display text-2xl uppercase text-cr-text-muted">Squad privado</p>
-        <p className="mt-2 text-sm text-cr-text-dim">Pide el enlace de invitación al organizador.</p>
+        <p className="mt-20 font-display text-2xl uppercase text-cr-text-muted">{t("squad.private")}</p>
+        <p className="mt-2 text-sm text-cr-text-dim">{t("squad.privateHint")}</p>
       </main>
     );
   }
   if (!squad || sessionLoading) {
-    return <main className="min-h-dvh bg-cr-bg pt-14 px-6"><p className="mt-20 text-center text-cr-text-muted">Cargando…</p></main>;
+    return <main className="min-h-dvh bg-cr-bg pt-14 px-6"><p className="mt-20 text-center text-cr-text-muted">{t("squad.loading")}</p></main>;
   }
 
   const isMember = !!user && squad.members.some((m) => m.user.id === user.id);
@@ -77,7 +79,7 @@ export default function SquadDetailPage() {
   }
 
   async function leave() {
-    if (!confirm("¿Salir del squad?")) return;
+    if (!confirm(t("squad.leaveConfirm"))) return;
     try {
       await api.squads.leave(squad!.id);
       window.location.href = "/concerts";
@@ -91,7 +93,7 @@ export default function SquadDetailPage() {
       <header className="border-b border-cr-border px-4 py-8 sm:px-6">
         <div className="mx-auto max-w-5xl">
           <p className="font-mono text-[11px] uppercase tracking-[0.18em] text-cr-text-muted">
-            Squad · {squad.visibility === "public" ? "abierto" : "privado"}
+            {t("squad.label")} · {squad.visibility === "public" ? t("squad.visibilityOpen") : t("squad.visibilityPrivate")}
           </p>
           <h1 className="mt-2 font-display text-4xl uppercase leading-tight">{squad.name}</h1>
           <p className="mt-2 max-w-prose text-sm text-cr-text-muted">
@@ -112,7 +114,7 @@ export default function SquadDetailPage() {
         {(isMember || isOwner) && (
           <section className="border-2 border-cr-primary bg-cr-primary/5 p-4">
             <p className="font-mono text-[10px] uppercase tracking-[0.18em] text-cr-text-muted">
-              Enlace de invitación
+              {t("squad.inviteLink")}
             </p>
             <div className="mt-2 flex items-center gap-3">
               <code className="flex-1 truncate bg-cr-surface px-3 py-2 font-mono text-xs text-cr-text">
@@ -123,7 +125,7 @@ export default function SquadDetailPage() {
                 onClick={copyInvite}
                 className="border-2 border-cr-primary bg-cr-primary px-3 py-2 font-mono text-[10px] font-bold uppercase tracking-[0.14em] text-cr-text-inverse"
               >
-                {copied ? "✓ Copiado" : "Copiar"}
+                {copied ? t("squad.copied") : t("squad.copy")}
               </button>
             </div>
           </section>
@@ -131,7 +133,7 @@ export default function SquadDetailPage() {
 
         <section>
           <h2 className="border-b border-cr-border pb-2 font-mono text-[11px] uppercase tracking-[0.16em] text-cr-text-muted">
-            Miembros · {squad.members.length}
+            {t("squad.membersHeading", { count: squad.members.length })}
           </h2>
           <ul className="mt-4 grid gap-2 sm:grid-cols-2">
             {squad.members.map((m) => (
@@ -145,7 +147,7 @@ export default function SquadDetailPage() {
                     {m.user.name}
                   </Link>
                   <p className="font-mono text-[10px] uppercase tracking-[0.14em] text-cr-text-muted">
-                    {m.role === "owner" ? "👑 organizador" : m.role === "driver" ? "🚗 conductor" : m.role === "looking" ? "🪧 busca coche" : "🎟️ pasajero"}
+                    {m.role === "owner" ? t("squad.roleOwner") : m.role === "driver" ? t("squad.roleDriver") : m.role === "looking" ? t("squad.roleLooking") : t("squad.rolePassenger")}
                   </p>
                 </div>
               </li>
@@ -156,7 +158,7 @@ export default function SquadDetailPage() {
         {squad.rides.length > 0 && (
           <section>
             <h2 className="border-b border-cr-border pb-2 font-mono text-[11px] uppercase tracking-[0.16em] text-cr-text-muted">
-              Coches · {squad.rides.length}
+              {t("squad.carsHeading", { count: squad.rides.length })}
             </h2>
             <ul className="mt-4 grid gap-2 sm:grid-cols-2">
               {squad.rides.map((r) => (
@@ -169,7 +171,7 @@ export default function SquadDetailPage() {
                       {r.origin_city} → {r.concert.venue.city}
                     </p>
                     <p className="font-mono text-[10px] uppercase tracking-[0.12em] text-cr-text-muted">
-                      {r.driver.name} · {r.seats_left}/{r.seats_total} libres · €{r.price_per_seat}
+                      {r.driver.name} · {r.seats_left}/{r.seats_total} {t("squad.seatsFree")} · €{r.price_per_seat}
                     </p>
                   </Link>
                 </li>
@@ -178,7 +180,7 @@ export default function SquadDetailPage() {
           </section>
         )}
 
-        {(isMember || isOwner) && <PlaylistPanel scope={{ squad_id: squad.id }} heading="Playlist del squad" />}
+        {(isMember || isOwner) && <PlaylistPanel scope={{ squad_id: squad.id }} heading={t("squad.playlistHeading")} />}
 
         {(isMember || isOwner) && !isOwner && (
           <section>
@@ -187,7 +189,7 @@ export default function SquadDetailPage() {
               onClick={leave}
               className="font-mono text-[10px] uppercase tracking-[0.14em] text-cr-text-muted hover:text-cr-secondary"
             >
-              Salir del squad
+              {t("squad.leave")}
             </button>
           </section>
         )}

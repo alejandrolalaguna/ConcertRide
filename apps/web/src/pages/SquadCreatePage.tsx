@@ -5,6 +5,7 @@ import type { Concert } from "@concertride/types";
 import { api, ApiError } from "@/lib/api";
 import { useSeoMeta } from "@/lib/useSeoMeta";
 import { useSession } from "@/lib/session";
+import { useI18n } from "@/lib/i18n";
 import { ANALYTICS_EVENTS, trackEvent } from "@/lib/analytics-events";
 
 const SUGGESTED_TAGS = [
@@ -20,6 +21,7 @@ const SUGGESTED_TAGS = [
 ];
 
 export default function SquadCreatePage() {
+  const { t } = useI18n();
   const [params] = useSearchParams();
   const concertId = params.get("concert") ?? "";
   const navigate = useNavigate();
@@ -39,7 +41,7 @@ export default function SquadCreatePage() {
       .get(concertId)
       .then((c) => {
         setConcert(c);
-        setName(`Squad ${c.artist}`);
+        setName(t("squad.defaultName", { artist: c.artist }));
       })
       .catch(() => setError("concert_not_found"));
   }, [concertId]);
@@ -67,8 +69,8 @@ export default function SquadCreatePage() {
         concert_id: concertId,
         visibility,
       });
-      toast.success("Squad creado", {
-        description: "Comparte el enlace para que se una tu gente.",
+      toast.success(t("squad.createdToast"), {
+        description: t("squad.createdToastDescription"),
       });
       navigate(`/squads/${sq.id}`);
     } catch (err) {
@@ -86,23 +88,23 @@ export default function SquadCreatePage() {
     <main id="main" className="min-h-dvh bg-cr-bg pt-14 text-cr-text">
       <div className="mx-auto max-w-2xl px-4 py-12 sm:px-6">
         <p className="font-mono text-[11px] uppercase tracking-[0.18em] text-cr-text-muted">
-          Nuevo squad
+          {t("squad.newSquad")}
         </p>
         <h1 className="mt-2 font-display text-4xl uppercase leading-tight">
-          {concert ? `Coordina ${concert.artist}` : "Coordina tu grupo"}
+          {concert ? t("squad.coordinateArtist", { artist: concert.artist }) : t("squad.coordinateGroup")}
         </h1>
         <p className="mt-2 max-w-prose text-sm text-cr-text-muted">
-          Un squad agrupa varios coches para el mismo evento. Tu equipo coordina pickup, playlist y plazas en un solo sitio.
+          {t("squad.createIntro")}
         </p>
 
         {error === "concert_not_found" && (
-          <p className="mt-6 font-mono text-xs text-cr-secondary">Concierto no encontrado.</p>
+          <p className="mt-6 font-mono text-xs text-cr-secondary">{t("squad.concertNotFound")}</p>
         )}
 
         <form onSubmit={submit} className="mt-8 space-y-6">
           <label className="block">
             <span className="font-mono text-[11px] font-semibold uppercase tracking-[0.14em] text-cr-text-muted">
-              Nombre del squad
+              {t("squad.nameLabel")}
             </span>
             <input
               type="text"
@@ -117,7 +119,7 @@ export default function SquadCreatePage() {
 
           <fieldset>
             <legend className="font-mono text-[11px] font-semibold uppercase tracking-[0.14em] text-cr-text-muted">
-              Vibe (máx 6)
+              {t("squad.vibeLegend")}
             </legend>
             <ul className="mt-2 flex flex-wrap gap-2">
               {SUGGESTED_TAGS.map((t) => (
@@ -140,7 +142,7 @@ export default function SquadCreatePage() {
 
           <fieldset>
             <legend className="font-mono text-[11px] font-semibold uppercase tracking-[0.14em] text-cr-text-muted">
-              Visibilidad
+              {t("squad.visibilityLegend")}
             </legend>
             <div className="mt-2 grid gap-2 sm:grid-cols-2">
               {(["private", "public"] as const).map((v) => (
@@ -159,12 +161,12 @@ export default function SquadCreatePage() {
                       onChange={() => setVisibility(v)}
                       className="accent-cr-primary"
                     />
-                    {v === "public" ? "Público" : "Privado"}
+                    {v === "public" ? t("squad.visibilityPublicLabel") : t("squad.visibilityPrivateLabel")}
                   </span>
                   <span className="font-mono text-[10px] uppercase tracking-[0.12em] text-cr-text-muted">
                     {v === "public"
-                      ? "Aparece en la página del evento. Cualquiera con cuenta puede unirse."
-                      : "Solo se entra con el enlace de invitación."}
+                      ? t("squad.visibilityPublicDesc")
+                      : t("squad.visibilityPrivateDesc")}
                   </span>
                 </label>
               ))}
@@ -176,10 +178,10 @@ export default function SquadCreatePage() {
             disabled={submitting || !concertId}
             className="border-2 border-cr-primary bg-cr-primary px-5 py-2.5 font-mono text-[11px] font-bold uppercase tracking-[0.14em] text-cr-text-inverse disabled:opacity-40"
           >
-            {submitting ? "Creando…" : "Crear squad"}
+            {submitting ? t("squad.creating") : t("squad.createButton")}
           </button>
           {error && error !== "concert_not_found" && (
-            <p className="font-mono text-xs text-cr-secondary">Error al crear. Inténtalo de nuevo.</p>
+            <p className="font-mono text-xs text-cr-secondary">{t("squad.createError")}</p>
           )}
         </form>
       </div>

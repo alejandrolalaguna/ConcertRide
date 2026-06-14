@@ -43,14 +43,13 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ### 1. Manifest máximo: **20.000 archivos** en `dist/`
 - Plan Free = 20.000 / Plan Paid ($5/mes) = 100.000.
-- Hoy el deploy se publica con ~19.888 archivos → **margen ≈ 112 archivos**.
-- El bulk (~18.120) son páginas `/rutas/[slug]/index.html` generadas en `apps/web/src/lib/routeLandings.ts` desde el producto `FESTIVAL_LANDINGS × CITY_LANDINGS` filtrado por `MAX_ROUTE_STRAIGHT_KM = 700 km`.
+- **Medición real 2026-06-13** (`find apps/web/dist -type f | wc -l`): **9.182 archivos** (8.893 HTML) → **margen ≈ 10.818 archivos**. Cifras anteriores ("~19.888 / margen 112") quedaron obsoletas tras el popularity gate del §W (2026-05-23).
+- El bulk son páginas `/rutas/[slug]/index.html` (**7.399 rutas**, ver `sitemap-rutas.xml`) generadas en `apps/web/src/lib/routeLandings.ts`. El filtro ya **no** es solo distancia: `MAX_ROUTE_STRAIGHT_KM = 900 km` es un sanity-bound, y el corte real lo hace el **popularity gate** `hasPopularitySignal()` (curated origin OR `BIG_ORIGIN_SLUGS` >200k hab OR `TIER1_FESTIVAL_SLUGS`).
 - **Antes de añadir festivales, ciudades o tipologías de páginas programáticas nuevas**, estimar el delta:
-  - Cada festival nuevo añade ~115 rutas (cuántas cities en CITY_LANDINGS pasen el distance gate).
-  - Cada ciudad nueva añade ~190 rutas (cuántos festivales <=700 km).
+  - Cada festival/ciudad nuevo añade rutas solo si pasan el popularity gate (no todas las combinaciones).
   - Cualquier otra tipología programática que prerenderice (artistas, recintos, regiones, géneros) cuenta 1×1 hacia el manifest.
-- **Cómo medir antes de un commit grande**: `npm run build` y `find apps/web/dist -type f | wc -l`. Si pasa de 19.500, bajar `MAX_ROUTE_STRAIGHT_KM` o paginar otra tipología.
-- **Cuándo proponer subir a Workers Paid**: si el conteo supera 19.700 y no hay rutas seguras que cortar (todas las cortables son curadas o tienen tráfico orgánico real).
+- **Cómo medir antes de un commit grande**: `npm run build:web` y `find apps/web/dist -type f | wc -l`. Si pasa de ~18.000, endurecer el popularity gate (`hasPopularitySignal`) o paginar otra tipología.
+- **Cuándo proponer subir a Workers Paid**: si el conteo supera ~19.000 y no hay rutas seguras que cortar (todas las cortables son curadas o tienen tráfico orgánico real).
 
 ### 2. Tamaño máximo por asset: **25 MiB**
 - Cualquier `dist/**/*.html` o `dist/assets/*.js|css` >25 MiB bloquea el deploy.
@@ -61,7 +60,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
   - Antes de mergear, comprobar tamaños con `find apps/web/dist -name "*.html" -size +5M`. Cualquier resultado es señal de alarma.
 
 ### Quién mantiene esto
-- `apps/web/src/lib/routeLandings.ts` — `MAX_ROUTE_STRAIGHT_KM` controla el manifest size.
+- `apps/web/src/lib/routeLandings.ts` — el **popularity gate** `hasPopularitySignal()` (+ `MAX_ROUTE_STRAIGHT_KM = 900` como sanity-bound) controla el manifest size.
 - `apps/web/src/pages/RutasIndexPage.tsx` — `ROUTES_INDEX_CAP = 500` controla el HTML size.
 - Si se añade una nueva tipología programática (artistas-festival, recinto-ciudad, etc.), aplicar **AMBOS** patrones desde el día 1: distance gate o filtro de relevancia + cap SSR.
 

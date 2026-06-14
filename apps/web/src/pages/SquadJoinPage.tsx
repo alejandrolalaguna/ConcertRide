@@ -6,11 +6,13 @@ import { api, ApiError } from "@/lib/api";
 import { useSeoMeta } from "@/lib/useSeoMeta";
 import { SITE_URL } from "@/lib/siteUrl";
 import { useSession } from "@/lib/session";
+import { useI18n } from "@/lib/i18n";
 import { CrewAvatars } from "@/components/CrewAvatars";
 import { CountdownBadge } from "@/components/CountdownBadge";
 import { ANALYTICS_EVENTS, trackEvent } from "@/lib/analytics-events";
 
 export default function SquadJoinPage() {
+  const { t } = useI18n();
   const { code } = useParams<{ code: string }>();
   const navigate = useNavigate();
   const { user, loading: sessionLoading } = useSession();
@@ -48,7 +50,7 @@ export default function SquadJoinPage() {
         concert_id: squad.concert.id,
         via: "invite_link",
       });
-      toast.success("¡Te uniste!");
+      toast.success(t("squad.joinedToast"));
       navigate(`/squads/${squad.id}`);
     } catch {
       setError("join_failed");
@@ -60,14 +62,14 @@ export default function SquadJoinPage() {
   if (error === "not_found") {
     return (
       <main className="min-h-dvh bg-cr-bg pt-14 px-6 text-center">
-        <p className="mt-20 font-display text-2xl uppercase text-cr-text-muted">Invitación no válida</p>
-        <p className="mt-2 text-sm text-cr-text-dim">Quizá el squad ya no existe o el enlace caducó.</p>
-        <Link to="/concerts" className="mt-4 inline-block text-cr-primary underline">Ver conciertos</Link>
+        <p className="mt-20 font-display text-2xl uppercase text-cr-text-muted">{t("squad.invalidInvite")}</p>
+        <p className="mt-2 text-sm text-cr-text-dim">{t("squad.invalidInviteHint")}</p>
+        <Link to="/concerts" className="mt-4 inline-block text-cr-primary underline">{t("squad.seeConcerts")}</Link>
       </main>
     );
   }
   if (!squad) {
-    return <main className="min-h-dvh bg-cr-bg pt-14 px-6"><p className="mt-20 text-center text-cr-text-muted">Cargando…</p></main>;
+    return <main className="min-h-dvh bg-cr-bg pt-14 px-6"><p className="mt-20 text-center text-cr-text-muted">{t("squad.loading")}</p></main>;
   }
 
   const isMember = !!user && squad.members.some((m) => m.user.id === user.id);
@@ -76,18 +78,18 @@ export default function SquadJoinPage() {
     <main id="main" className="min-h-dvh bg-cr-bg pt-14 text-cr-text">
       <div className="mx-auto max-w-2xl px-4 py-12 sm:px-6">
         <p className="font-mono text-[11px] uppercase tracking-[0.18em] text-cr-text-muted">
-          Invitación
+          {t("squad.inviteTitle")}
         </p>
         <h1 className="mt-2 font-display text-4xl uppercase leading-tight">
-          Te invitan a {squad.name}
+          {t("squad.youAreInvitedTo")} {squad.name}
         </h1>
         <p className="mt-2 max-w-prose text-sm text-cr-text-muted">
-          Squad para <strong className="text-cr-text">{squad.concert.artist}</strong> en {squad.concert.venue.city}.
+          {t("squad.squadForPrefix")} <strong className="text-cr-text">{squad.concert.artist}</strong> {t("squad.squadForIn")} {squad.concert.venue.city}.
         </p>
         <div className="mt-3 flex items-center gap-2">
           <CountdownBadge target={squad.concert.date} />
           <span className="font-mono text-[10px] uppercase tracking-[0.14em] text-cr-text-muted">
-            {squad.members.length} {squad.members.length === 1 ? "miembro" : "miembros"} · {squad.rides.length} {squad.rides.length === 1 ? "coche" : "coches"}
+            {squad.members.length} {squad.members.length === 1 ? t("squad.memberSingular") : t("squad.memberPlural")} · {squad.rides.length} {squad.rides.length === 1 ? t("squad.carSingular") : t("squad.carPlural")}
           </span>
         </div>
         {squad.members.length > 0 && (
@@ -108,7 +110,7 @@ export default function SquadJoinPage() {
               to={`/squads/${squad.id}`}
               className="border-2 border-cr-primary bg-cr-primary px-4 py-2 font-mono text-[11px] font-bold uppercase tracking-[0.14em] text-cr-text-inverse"
             >
-              Ya estás dentro · Abrir squad
+              {t("squad.alreadyInOpen")}
             </Link>
           ) : (
             <button
@@ -117,18 +119,18 @@ export default function SquadJoinPage() {
               disabled={joining}
               className="border-2 border-cr-primary bg-cr-primary px-4 py-2 font-mono text-[11px] font-bold uppercase tracking-[0.14em] text-cr-text-inverse disabled:opacity-40"
             >
-              {joining ? "Uniéndome…" : "Unirme al squad"}
+              {joining ? t("squad.joining") : t("squad.join")}
             </button>
           )}
           <Link
             to={`/concerts/${squad.concert.id}`}
             className="border-2 border-cr-border px-4 py-2 font-mono text-[11px] font-bold uppercase tracking-[0.14em] text-cr-text-muted hover:border-cr-primary hover:text-cr-primary"
           >
-            Ver evento
+            {t("squad.viewEvent")}
           </Link>
         </div>
         {error === "join_failed" && (
-          <p className="mt-4 font-mono text-xs text-cr-secondary">No se pudo unir. Inténtalo de nuevo.</p>
+          <p className="mt-4 font-mono text-xs text-cr-secondary">{t("squad.joinFailed")}</p>
         )}
       </div>
     </main>

@@ -128,6 +128,9 @@ export default defineConfig({
             manualChunks(id) {
               // maplibre-gl: only needed on map pages, kept in lazy chunk
               if (id.includes("maplibre-gl")) return "vendor-map";
+              // embla-carousel: only used by carousel sections — keep it out of
+              // the main chunk so non-carousel routes don't pay for it (~60 KB).
+              if (id.includes("embla-carousel")) return "vendor-carousel";
               // Motion: animation library, not needed for SSR/prerendered pages
               if (id.includes("motion")) return "vendor-motion";
               // Sentry: error monitoring, split so it doesn't block page render

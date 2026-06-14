@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Drawer } from "vaul";
 import { LocateFixed, SlidersHorizontal, X } from "lucide-react";
 import type { Vibe } from "@concertride/types";
+import { useI18n } from "@/lib/i18n";
 
 export interface FilterState {
   origin_city: string;
@@ -44,6 +45,7 @@ function countActiveFilters(value: FilterState): number {
 }
 
 export function FilterBar({ value, onChange, cities, sticky = true }: Props) {
+  const { t } = useI18n();
   const [locating, setLocating] = useState(false);
   const [locError, setLocError] = useState("");
 
@@ -62,7 +64,7 @@ export function FilterBar({ value, onChange, cities, sticky = true }: Props) {
       return;
     }
     if (!navigator.geolocation) {
-      setLocError("Tu navegador no soporta geolocalización.");
+      setLocError(t("filter.geoUnsupported"));
       return;
     }
     setLocating(true);
@@ -73,7 +75,7 @@ export function FilterBar({ value, onChange, cities, sticky = true }: Props) {
         setLocating(false);
       },
       () => {
-        setLocError("No se pudo obtener tu ubicación.");
+        setLocError(t("filter.geoFailed"));
         setLocating(false);
       },
     );
@@ -89,9 +91,9 @@ export function FilterBar({ value, onChange, cities, sticky = true }: Props) {
   const filterFields = (
     <>
       <label className="flex-1 min-w-[140px] max-md:w-full">
-        <span className="sr-only">Ciudad de origen</span>
+        <span className="sr-only">{t("filter.originCityLabel")}</span>
         <span className="md:hidden block font-mono text-[11px] uppercase tracking-wider text-cr-text-muted mb-1">
-          Origen
+          {t("filter.originShort")}
         </span>
         <select
           value={value.origin_city}
@@ -99,7 +101,7 @@ export function FilterBar({ value, onChange, cities, sticky = true }: Props) {
           disabled={value.near_lat !== null}
           className={`${fieldCls} w-full disabled:opacity-40`}
         >
-          <option value="">Origen · todos</option>
+          <option value="">{t("filter.originAll")}</option>
           {cities.map((city) => (
             <option key={city} value={city}>
               {city}
@@ -109,9 +111,9 @@ export function FilterBar({ value, onChange, cities, sticky = true }: Props) {
       </label>
 
       <label className="w-[110px] max-md:w-full">
-        <span className="sr-only">Precio máximo</span>
+        <span className="sr-only">{t("filter.maxPriceLabel")}</span>
         <span className="md:hidden block font-mono text-[11px] uppercase tracking-wider text-cr-text-muted mb-1">
-          Máx. €
+          {t("filter.maxPriceShort")}
         </span>
         <input
           type="number"
@@ -120,55 +122,55 @@ export function FilterBar({ value, onChange, cities, sticky = true }: Props) {
           max={500}
           value={value.max_price}
           onChange={(e) => set("max_price", e.target.value)}
-          placeholder="Máx. €"
+          placeholder={t("filter.maxPriceShort")}
           className={`${fieldCls} w-full font-mono`}
         />
       </label>
 
       <label className="w-[110px] max-md:w-full">
-        <span className="sr-only">Vibe</span>
+        <span className="sr-only">{t("filter.vibeLabel")}</span>
         <span className="md:hidden block font-mono text-[11px] uppercase tracking-wider text-cr-text-muted mb-1">
-          Vibe
+          {t("filter.vibeLabel")}
         </span>
         <select
           value={value.vibe}
           onChange={(e) => set("vibe", e.target.value as Vibe | "")}
           className={`${fieldCls} w-full`}
         >
-          <option value="">Vibe</option>
-          <option value="party">🔥 Party</option>
-          <option value="mixed">⚡ Mixed</option>
-          <option value="chill">🌙 Chill</option>
+          <option value="">{t("filter.vibeLabel")}</option>
+          <option value="party">{t("filter.vibeParty")}</option>
+          <option value="mixed">{t("filter.vibeMixed")}</option>
+          <option value="chill">{t("filter.vibeChill")}</option>
         </select>
       </label>
 
       <label className="w-[140px] max-md:w-full">
-        <span className="sr-only">Ida y vuelta</span>
+        <span className="sr-only">{t("filter.roundTripLabel")}</span>
         <span className="md:hidden block font-mono text-[11px] uppercase tracking-wider text-cr-text-muted mb-1">
-          Trayecto
+          {t("filter.routeShort")}
         </span>
         <select
           value={value.round_trip}
           onChange={(e) => set("round_trip", e.target.value as "any" | "yes" | "no")}
           className={`${fieldCls} w-full`}
         >
-          <option value="any">Ida (y vuelta)</option>
-          <option value="yes">Ida y vuelta</option>
-          <option value="no">Solo ida</option>
+          <option value="any">{t("filter.tripAny")}</option>
+          <option value="yes">{t("filter.tripRound")}</option>
+          <option value="no">{t("filter.tripOneWay")}</option>
         </select>
       </label>
 
       <button
         type="button"
         onClick={() => set("no_smoking", !value.no_smoking)}
-        title={value.no_smoking ? "Quitar filtro no fumadores" : "Solo viajes sin fumadores"}
+        title={value.no_smoking ? t("filter.noSmokingRemove") : t("filter.noSmokingApply")}
         className={`flex items-center gap-1.5 px-3 py-2 border font-mono text-[11px] font-semibold uppercase tracking-[0.1em] transition-[border-color,background,color] ${
           value.no_smoking
             ? "border-cr-primary bg-cr-primary/[0.07] text-cr-primary"
             : "border-cr-border-mid text-cr-text-muted hover:border-cr-primary/50 hover:text-cr-primary"
         }`}
       >
-        🚭 No fumar
+        {t("filter.noSmoking")}
       </button>
 
       <div className="flex items-center gap-1.5">
@@ -178,8 +180,8 @@ export function FilterBar({ value, onChange, cities, sticky = true }: Props) {
           disabled={locating}
           title={
             value.near_lat !== null
-              ? "Desactivar filtro por ubicación"
-              : "Buscar salidas cerca de mí"
+              ? t("filter.nearMeDisable")
+              : t("filter.nearMeSearch")
           }
           className={`flex items-center gap-1.5 px-3 py-2 border font-mono text-[11px] font-semibold uppercase tracking-[0.1em] transition-[border-color,background,color] disabled:opacity-40 ${
             value.near_lat !== null
@@ -188,14 +190,14 @@ export function FilterBar({ value, onChange, cities, sticky = true }: Props) {
           }`}
         >
           <LocateFixed size={12} aria-hidden="true" />
-          {locating ? "Buscando…" : "Cerca de mí"}
+          {locating ? t("filter.locating") : t("filter.nearMe")}
         </button>
 
         {value.near_lat !== null && (
           <select
             value={value.radius_km}
             onChange={(e) => set("radius_km", Number(e.target.value))}
-            aria-label="Radio de búsqueda"
+            aria-label={t("filter.radiusLabel")}
             className="bg-cr-surface-2 border border-cr-primary/50 outline-none px-2 py-2 font-mono text-[11px] text-cr-primary [color-scheme:dark]"
           >
             <option value={10}>10 km</option>
@@ -227,12 +229,12 @@ export function FilterBar({ value, onChange, cities, sticky = true }: Props) {
           <Drawer.Trigger asChild>
             <button
               type="button"
-              aria-label={`Abrir filtros${activeCount > 0 ? ` (${activeCount} activos)` : ""}`}
+              aria-label={activeCount > 0 ? t("filter.openFiltersActive", { count: activeCount }) : t("filter.openFilters")}
               className="md:hidden w-full border-2 border-cr-border bg-cr-surface px-4 py-3 font-display text-sm uppercase tracking-wide flex items-center justify-between text-cr-text"
             >
               <span className="flex items-center gap-2">
                 <SlidersHorizontal className="w-4 h-4" aria-hidden="true" />
-                Filtros
+                {t("filter.filters")}
               </span>
               {activeCount > 0 && (
                 <span className="rounded-full bg-cr-primary px-2 py-0.5 text-[10px] font-mono text-black">
@@ -250,14 +252,14 @@ export function FilterBar({ value, onChange, cities, sticky = true }: Props) {
             >
               <div className="mx-auto mb-4 h-1.5 w-12 rounded-full bg-cr-border" aria-hidden="true" />
               <Drawer.Title id="filterbar-drawer-title" className="font-display text-xl uppercase mb-4 text-cr-text">
-                Filtros
+                {t("filter.filters")}
               </Drawer.Title>
               <Drawer.Description id="filterbar-drawer-desc" className="sr-only">
-                Ajusta origen, precio máximo, vibe, trayecto y ubicación para filtrar los viajes disponibles.
+                {t("filter.drawerDescription")}
               </Drawer.Description>
               <form
                 role="search"
-                aria-label="Filtrar viajes"
+                aria-label={t("filter.formLabel")}
                 className="flex flex-col gap-3"
               >
                 {filterFields}
@@ -268,11 +270,11 @@ export function FilterBar({ value, onChange, cities, sticky = true }: Props) {
                   onClick={resetAll}
                   className="flex-1 border-2 border-cr-border py-2.5 font-mono text-xs uppercase text-cr-text"
                 >
-                  Limpiar
+                  {t("filter.clear")}
                 </button>
                 <Drawer.Close asChild>
                   <button type="button" className="cr-btn-primary flex-1">
-                    Aplicar
+                    {t("filter.apply")}
                   </button>
                 </Drawer.Close>
               </div>
@@ -284,7 +286,7 @@ export function FilterBar({ value, onChange, cities, sticky = true }: Props) {
       {/* Desktop: inline FilterBar (unchanged layout) */}
       <form
         role="search"
-        aria-label="Filtrar viajes"
+        aria-label={t("filter.formLabel")}
         className="hidden md:flex flex-wrap items-center gap-2 px-4 md:px-6 py-3 border-b border-cr-border"
       >
         {/* Filter icon */}
@@ -301,7 +303,7 @@ export function FilterBar({ value, onChange, cities, sticky = true }: Props) {
             className="flex items-center gap-1.5 font-mono text-[11px] uppercase tracking-[0.1em] text-cr-text-dim hover:text-cr-primary px-2 py-2 transition-colors"
           >
             <X size={11} />
-            Limpiar
+            {t("filter.clear")}
           </button>
         )}
       </form>

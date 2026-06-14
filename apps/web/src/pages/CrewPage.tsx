@@ -5,27 +5,29 @@ import { useSeoMeta } from "@/lib/useSeoMeta";
 import { SITE_URL } from "@/lib/siteUrl";
 import { useSession } from "@/lib/session";
 import { useCrew } from "@/lib/crew";
+import { useI18n } from "@/lib/i18n";
 import { CrewAvatars } from "@/components/CrewAvatars";
 
 export default function CrewPage() {
   const { user, loading } = useSession();
   const { crew, pendingIncoming, pendingOutgoing, accept, remove } = useCrew();
+  const { t } = useI18n();
 
   async function handleAccept(userId: string) {
     try {
       await accept(userId);
-      toast.success("Invitación aceptada");
+      toast.success(t("crew.toastAccepted"));
     } catch {
-      toast.error("No se pudo aceptar la invitación");
+      toast.error(t("crew.toastAcceptError"));
     }
   }
 
   async function handleReject(userId: string) {
     try {
       await remove(userId);
-      toast("Invitación descartada");
+      toast(t("crew.toastRejected"));
     } catch {
-      toast.error("No se pudo descartar la invitación");
+      toast.error(t("crew.toastRejectError"));
     }
   }
 
@@ -44,14 +46,14 @@ export default function CrewPage() {
       <header className="border-b border-cr-border px-4 py-8 sm:px-6">
         <div className="mx-auto max-w-4xl">
           <p className="font-mono text-[11px] uppercase tracking-[0.18em] text-cr-text-muted">
-            Tu gente
+            {t("crew.eyebrow")}
           </p>
           <h1 className="mt-2 font-display text-4xl uppercase leading-tight">
-            Mi crew{" "}
+            {t("crew.title")}{" "}
             <span className="text-cr-primary">{crew.length}</span>
           </h1>
           <p className="mt-2 max-w-prose text-sm text-cr-text-muted">
-            Las personas con las que has viajado. Aparecen en cards de eventos y compatibilidad de viajes.
+            {t("crew.intro")}
           </p>
         </div>
       </header>
@@ -60,7 +62,7 @@ export default function CrewPage() {
         {pendingIncoming.length > 0 && (
           <section>
             <h2 className="border-b border-cr-border pb-2 font-mono text-[11px] uppercase tracking-[0.16em] text-cr-secondary">
-              Invitaciones recibidas · {pendingIncoming.length}
+              {t("crew.incomingHeading", { count: pendingIncoming.length })}
             </h2>
             <ul className="mt-4 grid gap-3">
               <AnimatePresence initial={false}>
@@ -79,7 +81,7 @@ export default function CrewPage() {
                       <div>
                         <p className="font-display text-base">{m.user.name}</p>
                         <p className="font-mono text-[10px] uppercase tracking-[0.12em] text-cr-text-muted">
-                          Quiere unirse a tu crew
+                          {t("crew.wantsToJoin")}
                         </p>
                       </div>
                     </div>
@@ -89,14 +91,14 @@ export default function CrewPage() {
                         onClick={() => void handleAccept(m.user.id)}
                         className="border-2 border-cr-primary bg-cr-primary px-3 py-1.5 font-mono text-[10px] font-bold uppercase tracking-[0.14em] text-cr-text-inverse"
                       >
-                        Aceptar
+                        {t("crew.accept")}
                       </button>
                       <button
                         type="button"
                         onClick={() => void handleReject(m.user.id)}
                         className="border-2 border-cr-border px-3 py-1.5 font-mono text-[10px] font-bold uppercase tracking-[0.14em] text-cr-text-muted hover:border-cr-secondary hover:text-cr-secondary"
                       >
-                        Ignorar
+                        {t("crew.ignore")}
                       </button>
                     </div>
                   </motion.li>
@@ -108,19 +110,19 @@ export default function CrewPage() {
 
         <section>
           <h2 className="border-b border-cr-border pb-2 font-mono text-[11px] uppercase tracking-[0.16em] text-cr-text-muted">
-            Crew activa · {crew.length}
+            {t("crew.activeHeading", { count: crew.length })}
           </h2>
           {crew.length === 0 ? (
             <div className="mt-8 border-2 border-dashed border-cr-border bg-cr-surface-2 p-8 text-center">
-              <p className="font-display text-xl uppercase">Aún no tienes crew</p>
-              <p className="mt-2 text-sm text-cr-text-muted">
-                Tras un viaje completado, podrás añadir a tus compañeros con un toque.
+              <p className="font-display text-xl uppercase">{t("crew.emptyTitle")}</p>
+              <p className="mt-2 max-w-prose mx-auto text-sm text-cr-text-muted">
+                {t("crew.emptyBody")}
               </p>
               <Link
                 to="/concerts"
                 className="mt-4 inline-block border-2 border-cr-primary px-4 py-2 font-mono text-[11px] font-bold uppercase tracking-[0.14em] text-cr-primary hover:bg-cr-primary hover:text-cr-text-inverse"
               >
-                Buscar conciertos →
+                {t("crew.emptyCta")}
               </Link>
             </div>
           ) : (
@@ -148,7 +150,7 @@ export default function CrewPage() {
                     onClick={() => void remove(m.user.id)}
                     className="font-mono text-[10px] uppercase tracking-[0.14em] text-cr-text-muted hover:text-cr-secondary"
                   >
-                    quitar
+                    {t("crew.remove")}
                   </button>
                 </li>
               ))}
@@ -159,7 +161,7 @@ export default function CrewPage() {
         {pendingOutgoing.length > 0 && (
           <section>
             <h2 className="border-b border-cr-border pb-2 font-mono text-[11px] uppercase tracking-[0.16em] text-cr-text-muted">
-              Invitaciones enviadas · {pendingOutgoing.length}
+              {t("crew.outgoingHeading", { count: pendingOutgoing.length })}
             </h2>
             <ul className="mt-4 grid gap-2">
               {pendingOutgoing.map((m) => (
@@ -173,7 +175,7 @@ export default function CrewPage() {
                     onClick={() => void remove(m.user.id)}
                     className="font-mono text-[10px] uppercase tracking-[0.14em] text-cr-text-muted hover:text-cr-secondary"
                   >
-                    cancelar
+                    {t("crew.cancel")}
                   </button>
                 </li>
               ))}

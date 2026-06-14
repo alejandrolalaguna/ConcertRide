@@ -10,34 +10,18 @@ import { celebrate } from "@/lib/celebrate";
 import { useSeoMeta } from "@/lib/useSeoMeta";
 import { SITE_URL } from "@/lib/siteUrl";
 import { ANALYTICS_EVENTS, trackEvent } from "@/lib/analytics-events";
+import { useI18n } from "@/lib/i18n";
 
-const TRUST_BULLETS: { title: string; detail: string }[] = [
-  {
-    title: "Gratis · sin tarjeta de crédito",
-    detail: "Crea tu cuenta sin datos bancarios. Solo email y contraseña.",
-  },
-  {
-    title: "Verificamos el carnet de conducir",
-    detail: "Cada conductor debe subir su carnet antes de publicar el primer viaje.",
-  },
-  {
-    title: "Pago en efectivo o Bizum directo",
-    detail: "Pagas al conductor el día del viaje. Sin adelantos en la plataforma.",
-  },
-  {
-    title: "0% comisión — ConcertRide no toca tu dinero",
-    detail: "El precio que ves es el que paga el pasajero al conductor. Sin sorpresas.",
-  },
-  {
-    title: "Cancelación sin coste antes del viaje",
-    detail: "Como el pago es el día del viaje, cancelar antes no tiene coste económico.",
-  },
-];
+const TRUST_BULLET_KEYS = [
+  "noCreditCard",
+  "verifyLicense",
+  "cashOrBizum",
+  "zeroCommission",
+  "freeCancellation",
+] as const;
 
 // Verbatim from apps/web/src/components/landing/TestimonialsSection.tsx (id "1").
 const REGISTER_TESTIMONIAL = {
-  quote:
-    "Encontré viaje en 5 minutos. Llegamos cantando todo el camino. Ya no concibo ir a un festival de otra forma.",
   author: "Lucía M.",
   route: "Madrid → Benicàssim",
   festival: "FIB 2025",
@@ -45,6 +29,7 @@ const REGISTER_TESTIMONIAL = {
 };
 
 export default function RegisterPage() {
+  const { t } = useI18n();
   const { user, loading, refresh } = useSession();
   const [params] = useSearchParams();
   const rawNext = params.get("next") ?? "";
@@ -100,7 +85,7 @@ export default function RegisterPage() {
     e.preventDefault();
     if (!name.trim() || !email.trim() || !password) return;
     if (!tosAccepted) {
-      setError("Debes aceptar los términos y la política de privacidad.");
+      setError(t("auth.errorMustAcceptTerms"));
       return;
     }
     setSubmitting(true);
@@ -123,21 +108,21 @@ export default function RegisterPage() {
       });
       // Lighter celebration than booking confetti — single burst is enough.
       celebrate();
-      toast.success("¡Bienvenido a ConcertRide!", {
-        description: "Empieza descubriendo conciertos.",
+      toast.success(t("auth.registerToastTitle"), {
+        description: t("auth.registerToastDescription"),
       });
       await refresh();
     } catch (err) {
       if (err instanceof ApiError) {
         setError(
           err.status === 409
-            ? "Ya existe una cuenta con ese email."
+            ? t("auth.errorEmailExists")
             : err.status === 400
-              ? "Revisa los datos: la contraseña debe tener al menos 8 caracteres."
+              ? t("auth.errorPasswordTooShortRegister")
               : err.message,
         );
       } else {
-        setError("No pudimos conectar. Prueba de nuevo.");
+        setError(t("auth.connectionError"));
       }
     } finally {
       setSubmitting(false);
@@ -169,7 +154,7 @@ export default function RegisterPage() {
           to="/"
           className="inline-flex items-center gap-1.5 font-mono text-[10px] font-semibold uppercase tracking-[0.18em] text-white/30 hover:text-cr-primary transition-colors mb-10"
         >
-          <ArrowLeft size={12} aria-hidden="true" /> Inicio
+          <ArrowLeft size={12} aria-hidden="true" /> {t("auth.home")}
         </Link>
 
         {/* Header */}
@@ -183,14 +168,14 @@ export default function RegisterPage() {
           <div className="inline-flex items-center gap-2 border border-cr-primary/30 bg-cr-primary/[0.07] px-3 py-1.5">
             <span className="w-1.5 h-1.5 rounded-full bg-cr-primary animate-pulse flex-shrink-0" aria-hidden="true" />
             <span className="font-mono text-[10px] font-semibold uppercase tracking-[0.16em] text-cr-primary">
-              Acceso early adopter — gratis para siempre
+              {t("auth.registerBadge")}
             </span>
           </div>
 
           {/* Social proof — community size + key differentiators */}
           <div
             className="flex flex-wrap items-center gap-x-5 gap-y-2"
-            aria-label="Datos de la comunidad ConcertRide"
+            aria-label={t("auth.communityDataLabel")}
           >
             <div className="flex items-center gap-2">
               <div className="flex -space-x-1.5" aria-hidden="true">
@@ -204,28 +189,32 @@ export default function RegisterPage() {
                 ))}
               </div>
               <span className="font-sans text-xs text-white/60">
-                Únete a más de <strong className="text-white/90 font-semibold">4.200 viajeros</strong>
+                {t("auth.joinTravelersPrefix")} <strong className="text-white/90 font-semibold">{t("auth.joinTravelersCount")}</strong>
               </span>
             </div>
-            <div className="flex flex-wrap gap-2" role="list" aria-label="Ventajas principales">
-              {["0% comisión", "Conductores verificados", "Gratis para siempre"].map((pill) => (
+            <div className="flex flex-wrap gap-2" role="list" aria-label={t("auth.mainAdvantagesLabel")}>
+              {[
+                { key: "noCommission", text: t("auth.propNoCommission") },
+                { key: "verifiedDrivers", text: t("auth.propVerifiedDrivers") },
+                { key: "freeForever", text: t("auth.propFreeForever") },
+              ].map((pill) => (
                 <span
-                  key={pill}
+                  key={pill.key}
                   role="listitem"
                   className="font-mono text-[10px] font-semibold uppercase tracking-[0.1em] border border-white/[0.12] text-white/50 px-2 py-0.5"
                 >
-                  {pill}
+                  {pill.text}
                 </span>
               ))}
             </div>
           </div>
 
           <h1 className="font-display text-4xl md:text-5xl uppercase leading-[0.92] tracking-tight">
-            Únete <span className="text-cr-primary">gratis.</span>
+            {t("auth.registerTitlePrefix")} <span className="text-cr-primary">{t("auth.registerTitleHighlight")}</span>
           </h1>
 
           <p className="font-sans text-sm text-white/45 leading-relaxed">
-            Carpooling a festivales y conciertos en España. Sin comisión. Sin intermediarios.
+            {t("auth.registerSubtitle")}
           </p>
 
           {/* Trust signals — proof-driven, fact-dense, no vague promises */}
@@ -233,18 +222,18 @@ export default function RegisterPage() {
             <div className="flex items-center gap-2">
               <ShieldCheck size={14} strokeWidth={1.5} className="text-cr-primary" aria-hidden="true" />
               <p className="font-mono text-[10px] font-semibold uppercase tracking-[0.18em] text-white/55">
-                Por qué confiar en ConcertRide
+                {t("auth.whyTrustTitle")}
               </p>
             </div>
             <ul className="space-y-2.5">
-              {TRUST_BULLETS.map((b) => (
-                <li key={b.title} className="flex items-start gap-2.5">
+              {TRUST_BULLET_KEYS.map((key) => (
+                <li key={key} className="flex items-start gap-2.5">
                   <span className="mt-0.5 w-4 h-4 flex-shrink-0 flex items-center justify-center rounded-full bg-cr-primary/15 text-cr-primary">
                     <Check size={9} strokeWidth={3} aria-hidden="true" />
                   </span>
                   <span className="font-sans text-xs leading-relaxed">
-                    <span className="text-white/80 font-semibold">{b.title}</span>
-                    <span className="text-white/40"> — {b.detail}</span>
+                    <span className="text-white/80 font-semibold">{t(`auth.trust_${key}_title`)}</span>
+                    <span className="text-white/40"> — {t(`auth.trust_${key}_detail`)}</span>
                   </span>
                 </li>
               ))}
@@ -270,7 +259,7 @@ export default function RegisterPage() {
           {/* Name */}
           <label htmlFor="reg-name" className="block space-y-1.5">
             <span className="font-mono text-[10px] font-semibold uppercase tracking-[0.14em] text-white/40">
-              Nombre
+              {t("auth.nameLabel")}
             </span>
             <div className={`group relative ${shake ? "cr-shake" : ""}`}>
               <input
@@ -282,7 +271,7 @@ export default function RegisterPage() {
                 autoComplete="name"
                 value={name}
                 onChange={(e) => setName(e.target.value)}
-                placeholder="Tu nombre"
+                placeholder={t("auth.namePlaceholder")}
                 aria-describedby={error ? "reg-error" : undefined}
                 aria-invalid={!!error || undefined}
                 className={`w-full border-2 bg-cr-surface px-4 py-3 font-sans text-sm text-cr-text placeholder:text-white/20 focus:border-cr-primary focus:outline-none focus:shadow-[0_0_0_3px_rgba(212,247,0,0.25)] transition-all ${error ? "border-cr-secondary/60" : "border-cr-border"}`}
@@ -293,7 +282,7 @@ export default function RegisterPage() {
           {/* Email */}
           <label htmlFor="reg-email" className="block space-y-1.5">
             <span className="font-mono text-[10px] font-semibold uppercase tracking-[0.14em] text-white/40">
-              Email
+              {t("auth.emailLabel")}
             </span>
             <div className={`group relative ${shake ? "cr-shake" : ""}`}>
               <input
@@ -304,7 +293,7 @@ export default function RegisterPage() {
                 autoComplete="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                placeholder="tu@email.com"
+                placeholder={t("auth.emailPlaceholder")}
                 aria-describedby={error ? "reg-error" : undefined}
                 aria-invalid={!!error || undefined}
                 className={`w-full border-2 bg-cr-surface px-4 py-3 font-mono text-sm text-cr-text placeholder:text-white/20 focus:border-cr-primary focus:outline-none focus:shadow-[0_0_0_3px_rgba(212,247,0,0.25)] transition-all ${error ? "border-cr-secondary/60" : "border-cr-border"}`}
@@ -315,8 +304,8 @@ export default function RegisterPage() {
           {/* Password */}
           <label htmlFor="reg-password" className="block space-y-1.5">
             <span className="font-mono text-[10px] font-semibold uppercase tracking-[0.14em] text-white/40">
-              Contraseña{" "}
-              <span id="reg-password-hint" className="font-normal normal-case tracking-normal text-white/25">(mín. 8 caracteres)</span>
+              {t("auth.passwordLabel")}{" "}
+              <span id="reg-password-hint" className="font-normal normal-case tracking-normal text-white/25">{t("auth.passwordHintMin8")}</span>
             </span>
             <div className={`group relative ${shake ? "cr-shake" : ""}`}>
               <input
@@ -336,7 +325,7 @@ export default function RegisterPage() {
               <button
                 type="button"
                 onClick={() => setShowPw((v) => !v)}
-                aria-label={showPw ? "Ocultar contraseña" : "Mostrar contraseña"}
+                aria-label={showPw ? t("auth.hidePassword") : t("auth.showPassword")}
                 className="absolute right-3 top-1/2 -translate-y-1/2 text-white/30 hover:text-cr-primary transition-colors"
               >
                 {showPw ? <EyeOff size={16} strokeWidth={1.5} /> : <Eye size={16} strokeWidth={1.5} />}
@@ -353,7 +342,7 @@ export default function RegisterPage() {
               aria-expanded={showOptional}
             >
               <span className="font-mono text-[10px] font-semibold uppercase tracking-[0.18em] text-white/25 group-hover:text-white/45 transition-colors">
-                Perfil opcional — mejora los resultados de matching
+                {t("auth.optionalProfileToggle")}
               </span>
               <ChevronDown
                 size={14}
@@ -376,7 +365,7 @@ export default function RegisterPage() {
                     {/* City */}
                     <label htmlFor="reg-home-city" className="block space-y-1.5">
                       <span className="font-mono text-[10px] font-semibold uppercase tracking-[0.14em] text-white/40">
-                        Ciudad habitual
+                        {t("auth.homeCityLabel")}
                       </span>
                       <select
                         id="reg-home-city"
@@ -385,7 +374,7 @@ export default function RegisterPage() {
                         onChange={(e) => setHomeCity(e.target.value)}
                         className="w-full bg-white/[0.04] border border-white/[0.1] focus:border-cr-primary outline-none px-4 py-3 font-sans text-sm text-cr-text transition-colors duration-150 [color-scheme:dark]"
                       >
-                        <option value="">Sin especificar</option>
+                        <option value="">{t("auth.unspecified")}</option>
                         {SPANISH_CITIES.map((c) => (
                           <option key={c.name} value={c.name}>{c.name}</option>
                         ))}
@@ -395,7 +384,7 @@ export default function RegisterPage() {
                     {/* Phone */}
                     <label htmlFor="reg-phone" className="block space-y-1.5">
                       <span className="font-mono text-[10px] font-semibold uppercase tracking-[0.14em] text-white/40">
-                        Teléfono
+                        {t("auth.phoneLabel")}
                       </span>
                       <input
                         id="reg-phone"
@@ -411,11 +400,11 @@ export default function RegisterPage() {
                     {/* Smoker toggle */}
                     <fieldset className="space-y-1.5 border-0 p-0 m-0">
                       <legend className="font-mono text-[10px] font-semibold uppercase tracking-[0.14em] text-white/40">
-                        ¿Fumas?
+                        {t("auth.smokerQuestion")}
                       </legend>
                       <div className="flex gap-2">
                         {(["", "no", "yes"] as const).map((val) => {
-                          const label = val === "" ? "Prefiero no decir" : val === "no" ? "No fumo" : "Sí fumo";
+                          const label = val === "" ? t("auth.smokerPreferNotSay") : val === "no" ? t("auth.smokerNo") : t("auth.smokerYes");
                           const active = smoker === val;
                           return (
                             <button
@@ -456,7 +445,7 @@ export default function RegisterPage() {
                 aria-required="true"
               />
               <span className="font-sans text-xs text-white/40 leading-relaxed">
-                Confirmo que tengo al menos <strong className="text-white/70 font-semibold">18 años</strong> de edad.
+                {t("auth.ageConfirmPrefix")} <strong className="text-white/70 font-semibold">{t("auth.ageConfirmHighlight")}</strong> {t("auth.ageConfirmSuffix")}
               </span>
             </label>
 
@@ -473,15 +462,15 @@ export default function RegisterPage() {
                 aria-required="true"
               />
               <span className="font-sans text-xs text-white/40 leading-relaxed">
-                He leído y acepto los{" "}
+                {t("auth.tosAcceptPrefix")}{" "}
                 <Link to="/terminos" target="_blank" className="text-cr-primary underline underline-offset-2 hover:no-underline">
-                  términos y condiciones
+                  {t("auth.tosTermsLink")}
                 </Link>{" "}
-                y la{" "}
+                {t("auth.tosAcceptMiddle")}{" "}
                 <Link to="/privacidad" target="_blank" className="text-cr-primary underline underline-offset-2 hover:no-underline">
-                  política de privacidad
+                  {t("auth.tosPrivacyLink")}
                 </Link>
-                .
+                {t("auth.tosAcceptSuffix")}
               </span>
             </label>
           </div>
@@ -503,25 +492,25 @@ export default function RegisterPage() {
               {submitting ? (
                 <>
                   <Loader2 size={16} className="animate-spin" aria-hidden="true" />
-                  Creando cuenta…
+                  {t("auth.registerSubmitting")}
                 </>
               ) : (
-                "Crear cuenta gratis →"
+                t("auth.registerSubmit")
               )}
             </button>
             <p className="font-sans text-[11px] text-white/40 text-center leading-relaxed">
               <Check size={10} strokeWidth={3} className="inline-block text-cr-primary mr-1 -mt-0.5" aria-hidden="true" />
-              Sin compromiso. Ver viajes antes de publicar tu primero.
+              {t("auth.registerNoCommitment")}
             </p>
           </div>
 
           <p className="font-sans text-sm text-white/30 text-center pt-1">
-            ¿Ya tienes cuenta?{" "}
+            {t("auth.haveAccountQuestion")}{" "}
             <Link
               to={`/login${next !== "/" ? `?next=${encodeURIComponent(next)}` : ""}`}
               className="text-cr-primary underline hover:no-underline"
             >
-              Entra aquí
+              {t("auth.loginHereLink")}
             </Link>
           </p>
         </motion.form>
@@ -535,7 +524,7 @@ export default function RegisterPage() {
         >
           <div
             className="flex gap-0.5"
-            aria-label="Valoración 5 de 5 estrellas"
+            aria-label={t("auth.rating5of5")}
           >
             {[1, 2, 3, 4, 5].map((n) => (
               <span key={n} className="text-[12px] text-cr-primary" aria-hidden="true">
@@ -544,12 +533,12 @@ export default function RegisterPage() {
             ))}
           </div>
           <blockquote className="font-sans text-sm text-white/65 leading-relaxed italic">
-            “{REGISTER_TESTIMONIAL.quote}”
+            “{t("auth.testimonialQuote")}”
           </blockquote>
           <figcaption className="font-mono text-[10px] uppercase tracking-[0.12em] text-white/35">
             — {REGISTER_TESTIMONIAL.author} · {REGISTER_TESTIMONIAL.route}
             {" · "}
-            <span className="text-cr-primary">ahorró {REGISTER_TESTIMONIAL.savings}</span>
+            <span className="text-cr-primary">{t("auth.testimonialSavedPrefix")} {REGISTER_TESTIMONIAL.savings}</span>
           </figcaption>
         </motion.figure>
       </div>

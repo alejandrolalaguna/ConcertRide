@@ -3,6 +3,7 @@ import { MapPin, Paperclip, Send, X, ImageIcon } from "lucide-react";
 import type { Message, MessageKind } from "@concertride/types";
 import { api } from "@/lib/api";
 import { initials } from "@/lib/format";
+import { useI18n } from "@/lib/i18n";
 
 interface Props {
   messages: Message[];
@@ -66,6 +67,7 @@ function Avatar({ name, isOwn }: { name: string; isOwn: boolean }) {
 // ── Message bubbles ───────────────────────────────────────────────────────────
 
 function LocationBubble({ body, isOwn }: { body: string; isOwn: boolean }) {
+  const { t } = useI18n();
   const [lat, lng] = body.split(",").map(Number);
   const valid = !isNaN(lat!) && !isNaN(lng!);
   const mapsUrl = valid ? `https://maps.google.com/?q=${lat},${lng}` : "#";
@@ -85,12 +87,13 @@ function LocationBubble({ body, isOwn }: { body: string; isOwn: boolean }) {
       <span className="font-mono">
         {valid ? `${lat!.toFixed(4)}, ${lng!.toFixed(4)}` : body}
       </span>
-      <span className="text-[10px] opacity-60 ml-1">Ver mapa ↗</span>
+      <span className="text-[10px] opacity-60 ml-1">{t("chat.viewMap")}</span>
     </a>
   );
 }
 
 function PhotoBubble({ url, isOwn }: { url: string; isOwn: boolean }) {
+  const { t } = useI18n();
   const [open, setOpen] = useState(false);
   return (
     <>
@@ -98,11 +101,11 @@ function PhotoBubble({ url, isOwn }: { url: string; isOwn: boolean }) {
         type="button"
         onClick={() => setOpen(true)}
         className={`block overflow-hidden border-2 transition-opacity hover:opacity-90 ${isOwn ? "border-cr-primary" : "border-cr-border-mid"}`}
-        aria-label="Ver foto en tamaño completo"
+        aria-label={t("chat.viewPhotoFull")}
       >
         <img
           src={url}
-          alt="Foto del punto de encuentro compartida en el chat"
+          alt={t("chat.photoAlt")}
           className="max-w-[200px] max-h-[150px] object-cover"
           loading="lazy"
         />
@@ -116,13 +119,13 @@ function PhotoBubble({ url, isOwn }: { url: string; isOwn: boolean }) {
             type="button"
             className="absolute top-5 right-5 w-10 h-10 bg-cr-surface border border-cr-border-mid text-cr-text-muted hover:text-cr-text flex items-center justify-center transition-colors"
             onClick={() => setOpen(false)}
-            aria-label="Cerrar"
+            aria-label={t("chat.close")}
           >
             <X size={18} />
           </button>
           <img
             src={url}
-            alt="Foto ampliada del punto de encuentro compartida en el chat"
+            alt={t("chat.photoEnlargedAlt")}
             className="max-w-full max-h-full object-contain"
             onClick={(e) => e.stopPropagation()}
           />
@@ -159,6 +162,7 @@ type PendingAttach =
 // ── Main component ────────────────────────────────────────────────────────────
 
 export function ChatPanel({ messages, loading, forbidden, currentUserId, onSend }: Props) {
+  const { t } = useI18n();
   const [draft, setDraft] = useState("");
   const [sending, setSending] = useState(false);
   const [sendError, setSendError] = useState("");
@@ -185,7 +189,7 @@ export function ChatPanel({ messages, loading, forbidden, currentUserId, onSend 
 
   function shareLocation() {
     if (!navigator.geolocation) {
-      setSendError("Tu navegador no soporta geolocalización.");
+      setSendError(t("chat.geoUnsupported"));
       return;
     }
     setLocating(true);
@@ -196,7 +200,7 @@ export function ChatPanel({ messages, loading, forbidden, currentUserId, onSend 
       },
       () => {
         setLocating(false);
-        setSendError("No se pudo obtener tu ubicación.");
+        setSendError(t("chat.geoFailed"));
       },
       { timeout: 10000 },
     );
@@ -227,7 +231,7 @@ export function ChatPanel({ messages, loading, forbidden, currentUserId, onSend 
       setDraft("");
       setPending(null);
     } catch {
-      setSendError("No se pudo enviar. Inténtalo de nuevo.");
+      setSendError(t("chat.sendError"));
     } finally {
       setSending(false);
     }
@@ -240,7 +244,7 @@ export function ChatPanel({ messages, loading, forbidden, currentUserId, onSend 
           <span className="text-cr-text-dim text-xl">🔒</span>
         </div>
         <p className="font-sans text-sm text-cr-text-muted leading-relaxed">
-          Solo los viajeros confirmados pueden ver este chat.
+          {t("chat.forbidden")}
         </p>
       </div>
     );
@@ -254,10 +258,10 @@ export function ChatPanel({ messages, loading, forbidden, currentUserId, onSend 
       <div className="flex items-center gap-2.5 px-4 py-3 border-b border-cr-border bg-cr-surface-2">
         <span className="cr-live-dot" />
         <span className="font-mono text-[11px] text-cr-text-muted uppercase tracking-[0.14em]">
-          Chat del viaje
+          {t("chat.headerRide")}
         </span>
         <span className="ml-auto font-mono text-[10px] text-cr-text-dim">
-          {messages.length} mensajes
+          {t("chat.messageCount", { count: messages.length })}
         </span>
       </div>
 
@@ -274,10 +278,10 @@ export function ChatPanel({ messages, loading, forbidden, currentUserId, onSend 
           <div className="flex flex-col items-center justify-center py-8 gap-3 text-center">
             <span className="text-2xl">💬</span>
             <p className="font-sans text-sm text-cr-text-muted">
-              Nadie ha escrito todavía.
+              {t("chat.emptyTitle")}
             </p>
             <p className="font-mono text-[11px] text-cr-text-dim">
-              Sé el primero en decir hola.
+              {t("chat.emptyHint")}
             </p>
           </div>
         )}
@@ -293,7 +297,7 @@ export function ChatPanel({ messages, loading, forbidden, currentUserId, onSend 
               >
                 <div className={`flex items-baseline gap-2 ${isOwn ? "flex-row-reverse" : ""}`}>
                   <span className="font-sans text-[11px] font-semibold text-cr-text-muted">
-                    {isOwn ? "Tú" : msg.user.name}
+                    {isOwn ? t("chat.you") : msg.user.name}
                   </span>
                   <span className="font-mono text-[10px] text-cr-text-dim">
                     {formatTime(msg.created_at)}
@@ -324,7 +328,7 @@ export function ChatPanel({ messages, loading, forbidden, currentUserId, onSend 
           {pending.kind === "photo" && (
             <img
               src={pending.previewUrl}
-              alt="Vista previa de la foto adjunta"
+              alt={t("chat.attachmentPreviewAlt")}
               className="h-10 w-10 object-cover border border-cr-border-mid"
             />
           )}
@@ -338,7 +342,7 @@ export function ChatPanel({ messages, loading, forbidden, currentUserId, onSend 
             type="button"
             onClick={clearPending}
             className="ml-auto text-cr-text-dim hover:text-cr-secondary transition-colors"
-            aria-label="Eliminar adjunto"
+            aria-label={t("chat.removeAttachment")}
           >
             <X size={14} />
           </button>
@@ -363,8 +367,8 @@ export function ChatPanel({ messages, loading, forbidden, currentUserId, onSend 
           type="button"
           onClick={shareLocation}
           disabled={sending || locating}
-          title="Compartir ubicación"
-          aria-label="Compartir ubicación"
+          title={t("chat.shareLocation")}
+          aria-label={t("chat.shareLocation")}
           className="flex-shrink-0 w-8 h-8 flex items-center justify-center border border-cr-border text-cr-text-muted hover:border-cr-primary hover:text-cr-primary transition-colors disabled:opacity-30 disabled:pointer-events-none"
         >
           <MapPin
@@ -378,8 +382,8 @@ export function ChatPanel({ messages, loading, forbidden, currentUserId, onSend 
           type="button"
           onClick={pickPhoto}
           disabled={sending}
-          title="Adjuntar foto"
-          aria-label="Adjuntar foto"
+          title={t("chat.attachPhoto")}
+          aria-label={t("chat.attachPhoto")}
           className="flex-shrink-0 w-8 h-8 flex items-center justify-center border border-cr-border text-cr-text-muted hover:border-cr-primary hover:text-cr-primary transition-colors disabled:opacity-30 disabled:pointer-events-none"
         >
           <ImageIcon size={13} />
@@ -391,10 +395,10 @@ export function ChatPanel({ messages, loading, forbidden, currentUserId, onSend 
           onChange={(e) => setDraft(e.target.value.slice(0, 280))}
           placeholder={
             pending?.kind === "location"
-              ? "Añade un comentario…"
+              ? t("chat.placeholderLocation")
               : pending?.kind === "photo"
-              ? "Describe la foto…"
-              : "Escribe un mensaje…"
+              ? t("chat.placeholderPhoto")
+              : t("chat.placeholderText")
           }
           disabled={sending}
           className="flex-1 bg-cr-surface-2 border border-cr-border px-3 py-2 font-sans text-sm text-cr-text placeholder:text-cr-text-dim focus:outline-none focus:border-cr-primary/60 focus:shadow-[0_0_0_2px_rgb(212_247_0/0.06)] transition-[border-color,box-shadow]"
@@ -403,7 +407,7 @@ export function ChatPanel({ messages, loading, forbidden, currentUserId, onSend 
         <button
           type="submit"
           disabled={!canSend}
-          aria-label="Enviar mensaje"
+          aria-label={t("chat.sendMessage")}
           className="flex-shrink-0 flex items-center justify-center w-9 h-9 bg-cr-primary text-black hover:bg-cr-primary-dim shadow-[2px_2px_0px_0px_rgba(0,0,0,0.8)] hover:shadow-none hover:translate-x-[2px] hover:translate-y-[2px] transition-all duration-100 disabled:opacity-30 disabled:pointer-events-none"
         >
           <Send size={14} strokeWidth={2.5} />

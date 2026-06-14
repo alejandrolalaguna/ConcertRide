@@ -1,4 +1,5 @@
 ﻿import { Link } from "react-router-dom";
+import { useI18n } from "@/lib/i18n";
 
 // Click delegation: when any in-app link inside the footer is clicked, scroll
 // the new page to the top after navigation. React Router preserves scroll
@@ -20,6 +21,7 @@ function scrollTopOnInternalLink(e: React.MouseEvent<HTMLElement>) {
 }
 
 export function Footer() {
+  const { t } = useI18n();
   const year = new Date().getFullYear();
 
   return (
@@ -33,10 +35,10 @@ export function Footer() {
             Concert<span className="text-cr-primary">Ride</span>
           </p>
           <p className="font-mono text-xs text-cr-text-muted leading-relaxed max-w-xs">
-            La plataforma de viajes compartidos a conciertos en España. Sin intermediarios, sin comisiones.
+            {t("footer.tagline")}
           </p>
           <p className="font-mono text-xs text-cr-text-muted">
-            ¿Dudas o incidencias?{" "}
+            {t("footer.helpPrompt")}{" "}
             <a
               href="mailto:help@concertride.me"
               className="text-cr-primary hover:text-cr-primary/80 underline underline-offset-2"
@@ -48,170 +50,170 @@ export function Footer() {
 
         <div>
           <p className="font-sans text-[10px] font-semibold uppercase tracking-[0.16em] text-cr-text-muted mb-4">
-            Plataforma
+            {t("footer.platform")}
           </p>
-          <nav aria-label="Navegación principal" className="flex flex-col gap-2">
+          <nav aria-label={t("footer.navMain")} className="flex flex-col gap-2">
             <Link
               to="/concerts"
               className="font-sans text-xs text-cr-text-muted hover:text-cr-primary transition-colors"
             >
-              Explorar conciertos
+              {t("footer.exploreConcerts")}
             </Link>
             <Link
               to="/publish"
               className="font-sans text-xs text-cr-text-muted hover:text-cr-primary transition-colors"
             >
-              Publicar un viaje
+              {t("footer.publishRide")}
             </Link>
             <Link
               to="/register"
               rel="nofollow"
               className="font-sans text-xs text-cr-text-muted hover:text-cr-primary transition-colors"
             >
-              Crear cuenta
+              {t("footer.createAccount")}
             </Link>
             <Link
               to="/como-funciona"
               className="font-sans text-xs text-cr-text-muted hover:text-cr-primary transition-colors"
             >
-              Cómo funciona
+              {t("footer.howItWorks")}
             </Link>
             <Link
               to="/rutas"
               className="font-sans text-xs text-cr-text-muted hover:text-cr-primary transition-colors"
             >
-              Rutas de carpooling
+              {t("footer.carpoolingRoutes")}
             </Link>
             <Link
               to="/mejor-carpooling-festivales-2026"
               className="font-sans text-xs text-cr-text-muted hover:text-cr-primary transition-colors"
             >
-              Mejor carpooling 2026
+              {t("footer.bestCarpooling2026")}
             </Link>
             <Link
               to="/viaje-compartido"
               className="font-sans text-xs text-cr-text-muted hover:text-cr-primary transition-colors"
             >
-              Viaje compartido
+              {t("footer.sharedRide")}
             </Link>
             <Link
               to="/compartir-coche-festival"
               className="font-sans text-xs text-cr-text-muted hover:text-cr-primary transition-colors"
             >
-              Compartir coche festival
+              {t("footer.shareCarFestival")}
             </Link>
             <Link
               to="/compartir-gastos-festival"
               className="font-sans text-xs text-cr-text-muted hover:text-cr-primary transition-colors"
             >
-              Compartir gastos festival
+              {t("footer.shareCostsFestival")}
             </Link>
             <Link
               to="/guia-transporte-festivales"
               className="font-sans text-xs text-cr-text-muted hover:text-cr-primary transition-colors"
             >
-              Guía de transporte
+              {t("footer.transportGuide")}
             </Link>
             <Link
               to="/guia/festival-sin-coche"
               className="font-sans text-xs text-cr-text-muted hover:text-cr-primary transition-colors"
             >
-              Festival sin coche
+              {t("footer.festivalNoCar")}
             </Link>
             <Link
               to="/guia/presupuesto-festival-grupo"
               className="font-sans text-xs text-cr-text-muted hover:text-cr-primary transition-colors"
             >
-              Presupuesto festival grupo
+              {t("footer.groupBudget")}
             </Link>
             <Link
               to="/guia/seguridad-carpooling-festival"
               className="font-sans text-xs text-cr-text-muted hover:text-cr-primary transition-colors"
             >
-              Seguridad carpooling
+              {t("footer.carpoolingSafety")}
             </Link>
             <Link
               to="/guia/festival-primera-vez"
               className="font-sans text-xs text-cr-text-muted hover:text-cr-primary transition-colors"
             >
-              Mi primer festival
+              {t("footer.firstFestival")}
             </Link>
             <Link
               to="/guia/carpooling-conductor-festival"
               className="font-sans text-xs text-cr-text-muted hover:text-cr-primary transition-colors"
             >
-              Conducir carpooling
+              {t("footer.driveCarpooling")}
             </Link>
             <Link
               to="/guia/festival-accesibilidad-movilidad-reducida"
               className="font-sans text-xs text-cr-text-muted hover:text-cr-primary transition-colors"
             >
-              Accesibilidad PMR
+              {t("footer.accessibility")}
             </Link>
             <Link
               to="/guia/festival-veterano-aficionados-mayores-2026"
               className="font-sans text-xs text-cr-text-muted hover:text-cr-primary transition-colors"
             >
-              Festivaleros 35+
+              {t("footer.festivalGoers35")}
             </Link>
             <Link
               to="/faq"
               className="font-sans text-xs text-cr-text-muted hover:text-cr-primary transition-colors"
             >
-              Preguntas frecuentes
+              {t("footer.faq")}
             </Link>
             <Link
               to="/blog"
               className="font-sans text-xs text-cr-text-muted hover:text-cr-primary transition-colors"
             >
-              Blog
+              {t("footer.blog")}
             </Link>
             <Link
               to="/prensa"
               className="font-sans text-xs text-cr-text-muted hover:text-cr-primary transition-colors"
             >
-              Prensa
+              {t("footer.press")}
             </Link>
             <Link
               to="/datos"
               className="font-sans text-xs text-cr-text-muted hover:text-cr-primary transition-colors"
             >
-              Datos
+              {t("footer.data")}
             </Link>
             <Link
               to="/glosario"
               className="font-sans text-xs text-cr-text-muted hover:text-cr-primary transition-colors"
               title="Glosario de carpooling y festivales — 100 términos definidos"
             >
-              Glosario
+              {t("footer.glossary")}
             </Link>
             <Link
               to="/acerca-de"
               className="font-sans text-xs text-cr-text-muted hover:text-cr-primary transition-colors"
             >
-              Acerca de
+              {t("footer.about")}
             </Link>
             <Link
               to="/autor/equipo-concertride"
               className="font-sans text-xs text-cr-text-muted hover:text-cr-primary transition-colors"
               title="Sobre el autor — Equipo ConcertRide, founder de ConcertRide"
             >
-              Sobre el autor
+              {t("footer.aboutAuthor")}
             </Link>
             <Link
               to="/contacto"
               className="font-sans text-xs text-cr-text-muted hover:text-cr-primary transition-colors"
             >
-              Contacto
+              {t("footer.contact")}
             </Link>
           </nav>
         </div>
 
         <div>
           <p className="font-sans text-[10px] font-semibold uppercase tracking-[0.16em] text-cr-text-muted mb-4">
-            Festivales
+            {t("footer.festivals")}
           </p>
-          <nav aria-label="Festivales" className="flex flex-col gap-2">
+          <nav aria-label={t("footer.navFestivals")} className="flex flex-col gap-2">
             <Link
               to="/festivales/mad-cool"
               className="font-sans text-xs text-cr-text-muted hover:text-cr-primary transition-colors"
@@ -265,36 +267,36 @@ export function Footer() {
 
         <div>
           <p className="font-sans text-[10px] font-semibold uppercase tracking-[0.16em] text-cr-text-muted mb-4">
-            Legal
+            {t("footer.legal")}
           </p>
-          <nav aria-label="Legal y privacidad" className="flex flex-col gap-2">
+          <nav aria-label={t("footer.navLegal")} className="flex flex-col gap-2">
             <Link
               to="/privacidad"
               className="font-sans text-xs text-cr-text-muted hover:text-cr-primary transition-colors"
               title="Política de privacidad GDPR"
             >
-              Política de privacidad
+              {t("footer.privacyPolicy")}
             </Link>
             <Link
               to="/terminos"
               className="font-sans text-xs text-cr-text-muted hover:text-cr-primary transition-colors"
               title="Términos y condiciones de uso"
             >
-              Términos y condiciones
+              {t("footer.terms")}
             </Link>
             <Link
               to="/aviso-legal"
               className="font-sans text-xs text-cr-text-muted hover:text-cr-primary transition-colors"
               title="Aviso legal e información adicional"
             >
-              Aviso legal
+              {t("footer.legalNotice")}
             </Link>
             <Link
               to="/cookies"
               className="font-sans text-xs text-cr-text-muted hover:text-cr-primary transition-colors"
               title="Política de cookies y seguimiento"
             >
-              Política de cookies
+              {t("footer.cookiesPolicy")}
             </Link>
           </nav>
         </div>
@@ -304,10 +306,10 @@ export function Footer() {
         <div className="max-w-6xl mx-auto px-6 py-4 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
           <div>
             <p className="font-mono text-[10px] text-cr-text-muted">
-              © {year} ConcertRide ES. Todos los derechos reservados.
+              {t("footer.rightsReserved", { year })}
             </p>
             <p className="font-mono text-[10px] text-cr-text-muted mt-1">
-              GDPR/Datos:{" "}
+              {t("footer.gdprData")}{" "}
               <a
                 href="mailto:help@concertride.me?subject=SOLICITUD%20GDPR"
                 className="hover:text-cr-primary transition-colors underline underline-offset-2"
@@ -317,7 +319,7 @@ export function Footer() {
             </p>
           </div>
           <p className="font-mono text-[10px] text-cr-text-muted flex flex-wrap gap-x-2 gap-y-1">
-            <span>Datos de conciertos:</span>
+            <span>{t("footer.concertData")}</span>
             <a
               href="https://www.ticketmaster.es"
               target="_blank"
@@ -328,7 +330,7 @@ export function Footer() {
               Ticketmaster®
             </a>
             <span>·</span>
-            <span>Mapas: ©</span>
+            <span>{t("footer.maps")}</span>
             <a
               href="https://www.openstreetmap.org/copyright"
               target="_blank"
@@ -337,9 +339,9 @@ export function Footer() {
             >
               OpenStreetMap
             </a>
-            <span>contributors · Tiles: CARTO · Leaflet (BSD-2)</span>
+            <span>{t("footer.mapContributors")}</span>
             <span>·</span>
-            <span>Fotografías:</span>
+            <span>{t("footer.photos")}</span>
             <a
               href="https://unsplash.com"
               target="_blank"

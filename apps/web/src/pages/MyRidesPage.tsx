@@ -7,6 +7,7 @@ import { api } from "@/lib/api";
 import { useSession } from "@/lib/session";
 import { useSeoMeta } from "@/lib/useSeoMeta";
 import { SITE_URL } from "@/lib/siteUrl";
+import { useI18n } from "@/lib/i18n";
 import { formatDate, formatTime } from "@/lib/format";
 import { LoadingSpinner } from "@/components/ui";
 
@@ -14,6 +15,7 @@ type PassengerRequest = RideRequest & { ride: Ride };
 type Tab = "upcoming" | "past";
 
 export default function MyRidesPage() {
+  const { t } = useI18n();
   const { user, loading: sessionLoading } = useSession();
   const [driverRides, setDriverRides] = useState<Ride[]>([]);
   const [passengerRequests, setPassengerRequests] = useState<PassengerRequest[]>([]);
@@ -58,7 +60,7 @@ export default function MyRidesPage() {
     };
   }, [driverRides, passengerRequests, nowMs]);
 
-  if (sessionLoading) return <LoadingSpinner text="Cargando…" />;
+  if (sessionLoading) return <LoadingSpinner text={t("myRides.loading")} />;
   if (!user) return <Navigate to="/login?next=/mis-viajes" replace />;
 
   const currentDriver = tab === "upcoming" ? upcomingDriver : pastDriver;
@@ -69,10 +71,10 @@ export default function MyRidesPage() {
     <main id="main" className="min-h-dvh bg-cr-bg text-cr-text pt-16">
       <div className="max-w-5xl mx-auto px-6 pt-10 pb-6 space-y-4">
         <p className="font-sans text-[11px] font-semibold uppercase tracking-[0.16em] text-cr-primary">
-          Historial
+          {t("myRides.eyebrow")}
         </p>
         <h1 className="font-display text-4xl md:text-6xl uppercase leading-[0.92]">
-          Mis viajes.
+          {t("myRides.title")}
         </h1>
       </div>
 
@@ -80,14 +82,18 @@ export default function MyRidesPage() {
         <div className="flex gap-0 border-b border-cr-border">
           {(
             [
-              { id: "upcoming" as Tab, label: "Próximos" },
-              { id: "past" as Tab, label: "Pasados" },
+              { id: "upcoming" as Tab, label: t("myRides.tabUpcoming") },
+              { id: "past" as Tab, label: t("myRides.tabPast") },
             ] as const
           ).map(({ id, label }) => (
             <button
               key={id}
               type="button"
-              onClick={() => setTab(id)}
+              onClick={() => {
+                setTab(id);
+                // Keep the freshly-filtered list in view (lists can be long).
+                if (typeof window !== "undefined") window.scrollTo({ top: 0, behavior: "smooth" });
+              }}
               className={`px-4 py-2.5 font-sans text-xs font-semibold uppercase tracking-[0.12em] border-b-2 -mb-px transition-colors ${
                 tab === id
                   ? "border-cr-primary text-cr-primary"
@@ -102,21 +108,21 @@ export default function MyRidesPage() {
 
       <div className="max-w-5xl mx-auto px-6 pb-24 pt-8 space-y-12">
         {loading ? (
-          <LoadingSpinner text="Cargando viajes…" />
+          <LoadingSpinner text={t("myRides.loadingList")} />
         ) : loadError ? (
           <div className="py-24 text-center space-y-2">
-            <p className="font-display text-2xl uppercase text-cr-text-muted">Error al cargar</p>
-            <p className="font-sans text-sm text-cr-text-dim">No se pudieron cargar tus viajes. Inténtalo de nuevo.</p>
+            <p className="font-display text-2xl uppercase text-cr-text-muted">{t("myRides.errorTitle")}</p>
+            <p className="font-sans text-sm text-cr-text-dim">{t("myRides.errorBody")}</p>
           </div>
         ) : isEmpty ? (
           <div className="border border-dashed border-cr-border p-10 text-center space-y-3">
             <p className="font-display text-2xl uppercase text-cr-text-muted">
-              {tab === "upcoming" ? "Sin viajes próximos" : "Sin histórico"}
+              {tab === "upcoming" ? t("myRides.emptyUpcomingTitle") : t("myRides.emptyPastTitle")}
             </p>
             <p className="font-sans text-sm text-cr-text-dim">
               {tab === "upcoming"
-                ? "Publica un viaje o reserva una plaza para verlos aquí."
-                : "Los viajes pasados aparecerán aquí cuando tengas alguno."}
+                ? t("myRides.emptyUpcomingBody")
+                : t("myRides.emptyPastBody")}
             </p>
             {tab === "upcoming" && (
               <div className="flex flex-wrap justify-center gap-3 pt-2">
@@ -124,13 +130,13 @@ export default function MyRidesPage() {
                   to="/publish"
                   className="font-sans text-xs font-semibold uppercase tracking-[0.12em] bg-cr-primary text-black px-4 py-2 border-2 border-black"
                 >
-                  Publicar viaje
+                  {t("myRides.publishRide")}
                 </Link>
                 <Link
                   to="/concerts"
                   className="font-sans text-xs font-semibold uppercase tracking-[0.12em] border-2 border-cr-border text-cr-text hover:border-cr-primary hover:text-cr-primary px-4 py-2 transition-colors"
                 >
-                  Explorar conciertos
+                  {t("myRides.exploreConcerts")}
                 </Link>
               </div>
             )}
@@ -142,7 +148,7 @@ export default function MyRidesPage() {
                 <header className="flex items-center gap-2 border-b border-cr-border pb-2">
                   <TicketCheck size={14} className="text-cr-text-muted" />
                   <h2 className="font-sans text-[11px] font-semibold uppercase tracking-[0.16em] text-cr-primary">
-                    Reservas como pasajero
+                    {t("myRides.passengerSection")}
                   </h2>
                   <span className="ml-auto font-mono text-xs text-cr-text-muted">
                     {currentPassenger.length}
@@ -161,7 +167,7 @@ export default function MyRidesPage() {
                 <header className="flex items-center gap-2 border-b border-cr-border pb-2">
                   <Car size={14} className="text-cr-text-muted" />
                   <h2 className="font-sans text-[11px] font-semibold uppercase tracking-[0.16em] text-cr-primary">
-                    Viajes publicados como conductor
+                    {t("myRides.driverSection")}
                   </h2>
                   <span className="ml-auto font-mono text-xs text-cr-text-muted">
                     {currentDriver.length}
@@ -182,6 +188,7 @@ export default function MyRidesPage() {
 }
 
 function StatusPill({ status }: { status: string }) {
+  const { t } = useI18n();
   const tone =
     status === "confirmed" || status === "active"
       ? "text-cr-primary border-cr-primary"
@@ -191,13 +198,13 @@ function StatusPill({ status }: { status: string }) {
           ? "text-cr-text border-cr-border bg-cr-border/10"
           : "text-cr-secondary border-cr-secondary";
   const label: Record<string, string> = {
-    pending: "Pendiente",
-    confirmed: "Confirmada",
-    rejected: "Rechazada",
-    cancelled: "Cancelada",
-    active: "Activo",
-    full: "Completo",
-    completed: "Completado",
+    pending: t("myRides.statusPending"),
+    confirmed: t("myRides.statusConfirmed"),
+    rejected: t("myRides.statusRejected"),
+    cancelled: t("myRides.statusCancelled"),
+    active: t("myRides.statusActive"),
+    full: t("myRides.statusFull"),
+    completed: t("myRides.statusCompleted"),
   };
   return (
     <span
@@ -209,6 +216,7 @@ function StatusPill({ status }: { status: string }) {
 }
 
 function PassengerRow({ req }: { req: PassengerRequest }) {
+  const { t } = useI18n();
   return (
     <motion.li
       initial={{ opacity: 0, y: 6 }}
@@ -232,7 +240,9 @@ function PassengerRow({ req }: { req: PassengerRequest }) {
           {formatDate(req.ride.departure_time)} · {formatTime(req.ride.departure_time)}
         </p>
         <p className="font-mono text-[11px] text-cr-text-dim">
-          {req.seats} plaza{req.seats === 1 ? "" : "s"} · €{req.ride.price_per_seat * req.seats} total
+          {req.seats === 1
+            ? t("myRides.passengerSeatsSingular", { total: req.ride.price_per_seat * req.seats })
+            : t("myRides.passengerSeatsPlural", { count: req.seats, total: req.ride.price_per_seat * req.seats })}
         </p>
       </Link>
     </motion.li>
@@ -240,6 +250,7 @@ function PassengerRow({ req }: { req: PassengerRequest }) {
 }
 
 function DriverRow({ ride }: { ride: Ride }) {
+  const { t } = useI18n();
   const booked = ride.seats_total - ride.seats_left;
   return (
     <motion.li
@@ -264,7 +275,7 @@ function DriverRow({ ride }: { ride: Ride }) {
           {formatDate(ride.departure_time)} · {formatTime(ride.departure_time)}
         </p>
         <p className="font-mono text-[11px] text-cr-text-dim">
-          {booked}/{ride.seats_total} plazas ocupadas · €{ride.price_per_seat}/asiento
+          {t("myRides.driverSeats", { booked, total: ride.seats_total, price: ride.price_per_seat })}
         </p>
       </Link>
     </motion.li>

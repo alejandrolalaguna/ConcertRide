@@ -1,7 +1,9 @@
 import { Heart } from "lucide-react";
+import { toast } from "sonner";
 import type { FavoriteKind } from "@concertride/types";
 import { useFavorites } from "@/lib/favorites";
 import { useSession } from "@/lib/session";
+import { useI18n } from "@/lib/i18n";
 import { useNavigate } from "react-router-dom";
 
 interface Props {
@@ -27,6 +29,7 @@ export function FavoriteButton({
 }: Props) {
   const { user } = useSession();
   const { has, toggle } = useFavorites();
+  const { t } = useI18n();
   const navigate = useNavigate();
 
   const active = !!user && has(kind, targetId);
@@ -39,13 +42,20 @@ export function FavoriteButton({
       if (promptLoginOnAnon) navigate(`/login?next=${encodeURIComponent(window.location.pathname)}`);
       return;
     }
-    await toggle(kind, targetId, label);
+    const wasActive = active;
+    const nowActive = await toggle(kind, targetId, label);
+    // Only surface feedback when the state actually flipped (toggle reverts
+    // silently on API failure, returning the unchanged state).
+    if (nowActive !== wasActive) {
+      if (nowActive) toast.success(t("favoriteBtn.added"));
+      else toast(t("favoriteBtn.removed"));
+    }
   }
 
-  const title = active ? "Quitar de favoritos" : "Añadir a favoritos";
+  const title = active ? t("favoriteBtn.remove") : t("favoriteBtn.add");
 
   if (variant === "pill") {
-    const verb = active ? "Siguiendo" : "Seguir";
+    const verb = active ? t("favoriteBtn.following") : t("favoriteBtn.follow");
     const noun = kind === "concert" ? "concierto" : kind === "artist" ? "artista" : "ciudad";
     return (
       <button

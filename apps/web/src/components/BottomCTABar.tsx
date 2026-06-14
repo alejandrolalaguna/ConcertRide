@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import { useI18n } from "@/lib/i18n";
 
 type Props = {
   label: string;
@@ -35,6 +36,7 @@ export default function BottomCTABar({
   disabled = false,
   variant = "primary",
 }: Props) {
+  const { t } = useI18n();
   const innerClass =
     variant === "primary"
       ? "cr-btn-primary w-full flex items-center justify-center gap-2 py-3"
@@ -55,7 +57,7 @@ export default function BottomCTABar({
     <div
       className="md:hidden fixed bottom-0 left-0 right-0 z-40 bg-cr-bg/95 backdrop-blur border-t-2 border-cr-primary px-4 py-3 pb-[max(0.75rem,env(safe-area-inset-bottom))]"
       role="region"
-      aria-label="Acción principal"
+      aria-label={t("cta.regionLabel")}
     >
       {to ? (
         <Link

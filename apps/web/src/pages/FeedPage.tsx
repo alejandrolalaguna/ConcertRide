@@ -5,23 +5,25 @@ import { RefreshCw } from "lucide-react";
 import { useSeoMeta } from "@/lib/useSeoMeta";
 import { SITE_URL } from "@/lib/siteUrl";
 import { useSession } from "@/lib/session";
+import { useI18n } from "@/lib/i18n";
 import type { ActivityScope } from "@concertride/types";
 import { LiveActivityFeed } from "@/components/LiveActivityFeed";
 
-const TABS: Array<{ value: ActivityScope; label: string; description: string }> = [
-  { value: "all", label: "Todo", description: "Lo que se cuece en ConcertRide" },
-  { value: "city", label: "Mi ciudad", description: "Quién organiza viajes desde tu ciudad" },
-  { value: "crew", label: "Mi crew", description: "Solo gente de tu crew" },
+const TABS: Array<{ value: ActivityScope; labelKey: string; descriptionKey: string }> = [
+  { value: "all", labelKey: "feed.tabAll", descriptionKey: "feed.tabAllDesc" },
+  { value: "city", labelKey: "feed.tabCity", descriptionKey: "feed.tabCityDesc" },
+  { value: "crew", labelKey: "feed.tabCrew", descriptionKey: "feed.tabCrewDesc" },
 ];
 
 export default function FeedPage() {
   const { user } = useSession();
+  const { t } = useI18n();
   const [scope, setScope] = useState<ActivityScope>("all");
   const [refreshKey, setRefreshKey] = useState(0);
 
   function handleRefresh() {
     setRefreshKey((k) => k + 1);
-    toast.success("Feed actualizado");
+    toast.success(t("feed.toastRefreshed"));
   }
 
   useSeoMeta({
@@ -41,40 +43,40 @@ export default function FeedPage() {
       <header className="border-b border-cr-border px-4 py-8 sm:px-6">
         <div className="mx-auto max-w-3xl">
           <p className="font-mono text-[11px] uppercase tracking-[0.18em] text-cr-text-muted">
-            Live feed
+            {t("feed.eyebrow")}
           </p>
           <h1 className="mt-2 font-display text-4xl uppercase leading-tight">
-            En directo
+            {t("feed.title")}
           </h1>
           <p className="mt-2 max-w-prose text-sm text-cr-text-muted">
-            {activeTab?.description}
+            {activeTab ? t(activeTab.descriptionKey) : ""}
           </p>
         </div>
       </header>
 
       <div className="mx-auto max-w-3xl px-4 py-6 sm:px-6">
         <div className="mb-4 flex flex-wrap items-center gap-2 border-b border-cr-border pb-3">
-          {tabs.map((t) => (
+          {tabs.map((tab) => (
             <button
-              key={t.value}
+              key={tab.value}
               type="button"
-              onClick={() => setScope(t.value)}
+              onClick={() => setScope(tab.value)}
               className={`px-3 py-1.5 font-mono text-[11px] font-bold uppercase tracking-[0.14em] transition ${
-                scope === t.value
+                scope === tab.value
                   ? "border-2 border-cr-primary bg-cr-primary text-cr-text-inverse"
                   : "border-2 border-cr-border text-cr-text-muted hover:border-cr-primary"
               }`}
             >
-              {t.label}
+              {t(tab.labelKey)}
             </button>
           ))}
           <button
             type="button"
             onClick={handleRefresh}
-            aria-label="Actualizar feed"
+            aria-label={t("feed.refreshAria")}
             className="ml-auto font-mono text-[10px] uppercase text-cr-text-muted hover:text-cr-primary transition-colors flex items-center gap-1"
           >
-            <RefreshCw className="w-3 h-3" /> Actualizar
+            <RefreshCw className="w-3 h-3" /> {t("feed.refresh")}
           </button>
         </div>
         <motion.div
@@ -88,7 +90,7 @@ export default function FeedPage() {
             city={scope === "city" ? user?.home_city ?? undefined : undefined}
             limit={40}
             layout="card"
-            emptyMessage="Aún no hay actividad en este ámbito."
+            emptyMessage={t("feed.emptyMessage")}
           />
         </motion.div>
       </div>

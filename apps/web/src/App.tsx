@@ -136,6 +136,10 @@ export default function App() {
       </a>
       <TopNav />
       <VerifyEmailBanner />
+      {/* Skip-link target (#main): each page renders its own <main id="main">.
+          The Suspense fallback carries id="main" too so the target exists during
+          lazy-route loading. Do NOT add a wrapper <main> here — it would nest
+          inside the pages' <main> and duplicate the id. */}
       <ErrorBoundary>
         <Suspense fallback={<div id="main" role="main" aria-busy="true" aria-label="Cargando página"><LoadingSpinner text="Cargando…" /></div>}>
           <Routes>

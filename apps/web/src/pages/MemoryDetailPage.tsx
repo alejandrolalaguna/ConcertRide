@@ -3,11 +3,13 @@ import { Link, useParams } from "react-router-dom";
 import type { TripMemory } from "@concertride/types";
 import { api, ApiError } from "@/lib/api";
 import { useSeoMeta } from "@/lib/useSeoMeta";
+import { useI18n } from "@/lib/i18n";
 import { SITE_URL } from "@/lib/siteUrl";
 import { TripVibeCard } from "@/components/TripVibeCard";
 
 export default function MemoryDetailPage() {
   const { id } = useParams<{ id: string }>();
+  const { t } = useI18n();
   const [memory, setMemory] = useState<TripMemory | null>(null);
   const [error, setError] = useState<string | null>(null);
 
@@ -40,13 +42,13 @@ export default function MemoryDetailPage() {
   if (error === "not_found") {
     return (
       <main className="min-h-dvh bg-cr-bg pt-14 px-6 text-center">
-        <p className="mt-20 font-display text-2xl uppercase text-cr-text-muted">Recuerdo no encontrado</p>
-        <Link to="/" className="mt-4 inline-block text-cr-primary underline">Inicio</Link>
+        <p className="mt-20 font-display text-2xl uppercase text-cr-text-muted">{t("memoryDetail.notFoundTitle")}</p>
+        <Link to="/" className="mt-4 inline-block text-cr-primary underline">{t("memoryDetail.home")}</Link>
       </main>
     );
   }
   if (!memory) {
-    return <main className="min-h-dvh bg-cr-bg pt-14 px-6"><p className="mt-20 text-center text-cr-text-muted">Cargando…</p></main>;
+    return <main className="min-h-dvh bg-cr-bg pt-14 px-6"><p className="mt-20 text-center text-cr-text-muted">{t("memoryDetail.loading")}</p></main>;
   }
 
   async function handleShare() {
@@ -82,13 +84,13 @@ export default function MemoryDetailPage() {
             to={`/concerts/${memory.concert_id}`}
             className="border-2 border-cr-primary px-4 py-2 font-mono text-[11px] font-bold uppercase tracking-[0.14em] text-cr-primary hover:bg-cr-primary hover:text-cr-text-inverse"
           >
-            Ver evento
+            {t("memoryDetail.viewEvent")}
           </Link>
           <Link
             to={`/drivers/${memory.created_by}`}
             className="border-2 border-cr-border px-4 py-2 font-mono text-[11px] font-bold uppercase tracking-[0.14em] text-cr-text-muted hover:border-cr-primary hover:text-cr-primary"
           >
-            Ver autor →
+            {t("memoryDetail.viewAuthor")}
           </Link>
         </div>
       </div>

@@ -1,26 +1,30 @@
 import { useEffect, useState } from "react";
+import { useI18n } from "@/lib/i18n";
 
-const MESSAGES = [
-  "Soundchecking...",
-  "Afinando la guitarra...",
-  "Calentando motores...",
-  "Revisando el setlist...",
-  "Buscando tu crew...",
-  "Amplificando resultados...",
+const MESSAGE_KEYS = [
+  "states.soundchecking",
+  "states.tuning",
+  "states.warmingUp",
+  "states.reviewingSetlist",
+  "states.findingCrew",
+  "states.amplifying",
 ];
 
 function useRotatingMessage(intervalMs = 1600) {
+  const { t } = useI18n();
   const [i, setI] = useState(0);
   useEffect(() => {
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-    const id = setInterval(() => setI((v) => (v + 1) % MESSAGES.length), intervalMs);
+    const id = setInterval(() => setI((v) => (v + 1) % MESSAGE_KEYS.length), intervalMs);
     return () => clearInterval(id);
   }, [intervalMs]);
-  return MESSAGES[i] ?? MESSAGES[0]!;
+  return t(MESSAGE_KEYS[i] ?? MESSAGE_KEYS[0]!);
 }
 
-export function PulsingDot({ label = "Cargando" }: { label?: string }) {
+export function PulsingDot({ label }: { label?: string }) {
+  const { t } = useI18n();
   const message = useRotatingMessage();
+  const resolvedLabel = label ?? t("states.loading");
   return (
     <div className="flex items-center gap-3" role="status" aria-live="polite">
       <span aria-hidden="true" className="relative flex w-2 h-2">
@@ -29,7 +33,7 @@ export function PulsingDot({ label = "Cargando" }: { label?: string }) {
       </span>
       <span className="font-mono text-xs text-cr-text-muted tracking-wide">
         {message}
-        <span className="sr-only"> — {label}</span>
+        <span className="sr-only"> — {resolvedLabel}</span>
       </span>
     </div>
   );

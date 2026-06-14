@@ -6,6 +6,7 @@ import App from "./App";
 import { SessionProvider } from "./lib/session";
 import { FavoritesProvider } from "./lib/favorites";
 import { CrewProvider } from "./lib/crew";
+import { I18nProvider } from "./lib/i18n";
 import { ClarityScript } from "./components/ClarityScript";
 import { initSentry } from "./lib/observability";
 import { initWebMCP } from "./lib/webmcp";
@@ -37,10 +38,11 @@ if (!rootEl) throw new Error("Root element #root not found in DOM");
 ReactDOM.createRoot(rootEl).render(
   <React.StrictMode>
     <BrowserRouter>
-      <SessionProvider>
-        <FavoritesProvider>
-          <CrewProvider>
-            <ClarityScript />
+      <I18nProvider>
+        <SessionProvider>
+          <FavoritesProvider>
+            <CrewProvider>
+              <ClarityScript />
             <App />
             <Toaster
               position="bottom-center"
@@ -59,9 +61,10 @@ ReactDOM.createRoot(rootEl).render(
                 className: "cr-toast",
               }}
             />
-          </CrewProvider>
-        </FavoritesProvider>
-      </SessionProvider>
+            </CrewProvider>
+          </FavoritesProvider>
+        </SessionProvider>
+      </I18nProvider>
     </BrowserRouter>
   </React.StrictMode>,
 );

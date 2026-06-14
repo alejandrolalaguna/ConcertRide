@@ -15,10 +15,12 @@ import type { DriverBadge } from "@concertride/types";
 import { driverPath, initials, formatDate, formatDay } from "@/lib/format";
 import { ReportButton } from "@/components/ReportButton";
 import { useSession } from "@/lib/session";
+import { useI18n } from "@/lib/i18n";
 
 type PublicUser = Omit<User, "email"> & { badges?: DriverBadge[] };
 
 export default function DriverProfilePage() {
+  const { t } = useI18n();
   const { user: currentUser } = useSession();
   const { id } = useParams<{ id: string }>();
   const [driver, setDriver] = useState<PublicUser | null>(null);
@@ -58,9 +60,9 @@ export default function DriverProfilePage() {
       <main className="min-h-dvh flex items-center justify-center px-6 bg-cr-bg">
         <div className="text-center space-y-4">
           <p className="font-sans text-[11px] font-semibold uppercase tracking-[0.16em] text-cr-secondary">404</p>
-          <h1 className="font-display text-3xl uppercase">Conductor no encontrado</h1>
+          <h1 className="font-display text-3xl uppercase">{t("driverProfile.notFound")}</h1>
           <Link to="/" className="inline-block font-sans text-xs font-semibold uppercase tracking-[0.12em] text-cr-primary border-b border-cr-primary pb-0.5">
-            ← Volver al inicio
+            {t("driverProfile.backHome")}
           </Link>
         </div>
       </main>
@@ -70,7 +72,7 @@ export default function DriverProfilePage() {
   if (!driver) {
     return (
       <main className="min-h-dvh bg-cr-bg flex items-center justify-center">
-        <PulsingDot label="Cargando perfil" />
+        <PulsingDot label={t("driverProfile.loadingProfile")} />
       </main>
     );
   }
@@ -155,7 +157,7 @@ export default function DriverProfilePage() {
           to="/"
           className="inline-flex items-center gap-2 font-sans text-xs font-semibold uppercase tracking-[0.12em] text-cr-text-muted hover:text-cr-primary transition-colors"
         >
-          <ArrowLeft size={14} /> Volver
+          <ArrowLeft size={14} /> {t("driverProfile.back")}
         </Link>
 
         {/* Header */}
@@ -174,10 +176,10 @@ export default function DriverProfilePage() {
               {driver.license_verified && (
                 <span
                   className="inline-flex items-center gap-1 font-sans text-[10px] font-semibold uppercase tracking-[0.1em] bg-cr-primary text-black px-1.5 py-0.5"
-                  title="Carnet de conducir verificado"
+                  title={t("driverProfile.verifiedTitle")}
                 >
                   <ShieldCheck size={10} strokeWidth={3} aria-hidden="true" />
-                  Verificado
+                  {t("driverProfile.verified")}
                 </span>
               )}
             </div>
@@ -192,8 +194,8 @@ export default function DriverProfilePage() {
                   <span className="font-mono text-xs text-cr-text-dim">({driver.rating_count})</span>
                 )}
               </div>
-              <span className="font-mono text-xs text-cr-text-muted">{driver.rides_given} viajes dados</span>
-              {driver.smoker === false && <span className="font-mono text-xs">🚭 No fumador</span>}
+              <span className="font-mono text-xs text-cr-text-muted">{t("driverProfile.ridesGivenInline", { count: driver.rides_given })}</span>
+              {driver.smoker === false && <span className="font-mono text-xs">{t("driverProfile.nonSmoker")}</span>}
               {driver.car_model && (
                 <span className="font-mono text-xs text-cr-text-muted">
                   {driver.car_model}{driver.car_color ? ` · ${driver.car_color}` : ""}
@@ -206,7 +208,7 @@ export default function DriverProfilePage() {
                   to={`/mensajes/${driver.id}`}
                   className="inline-flex items-center gap-1.5 font-sans text-xs font-semibold uppercase tracking-[0.12em] border border-cr-border text-cr-text-muted hover:border-cr-primary hover:text-cr-primary px-3 py-1.5 transition-colors"
                 >
-                  <MessageSquare size={11} aria-hidden="true" /> Enviar mensaje
+                  <MessageSquare size={11} aria-hidden="true" /> {t("driverProfile.sendMessage")}
                 </Link>
                 <ReportButton targetUserId={driver.id} variant="inline" />
               </div>
@@ -217,17 +219,17 @@ export default function DriverProfilePage() {
         {/* Stats bar */}
         <dl className="grid grid-cols-3 gap-px bg-cr-border border border-cr-border">
           <div className="bg-cr-surface px-4 py-4 text-center">
-            <dt className="font-sans text-[10px] font-semibold uppercase tracking-[0.12em] text-cr-text-muted mb-1">Viajes dados</dt>
+            <dt className="font-sans text-[10px] font-semibold uppercase tracking-[0.12em] text-cr-text-muted mb-1">{t("driverProfile.statRidesGiven")}</dt>
             <dd className="font-mono text-2xl text-cr-primary">{driver.rides_given}</dd>
           </div>
           <div className="bg-cr-surface px-4 py-4 text-center">
-            <dt className="font-sans text-[10px] font-semibold uppercase tracking-[0.12em] text-cr-text-muted mb-1">Valoración</dt>
+            <dt className="font-sans text-[10px] font-semibold uppercase tracking-[0.12em] text-cr-text-muted mb-1">{t("driverProfile.statRating")}</dt>
             <dd className="font-mono text-2xl text-cr-primary">
               {avgRating !== null ? avgRating.toFixed(1) : driver.rating.toFixed(1)}
             </dd>
           </div>
           <div className="bg-cr-surface px-4 py-4 text-center">
-            <dt className="font-sans text-[10px] font-semibold uppercase tracking-[0.12em] text-cr-text-muted mb-1">Reseñas</dt>
+            <dt className="font-sans text-[10px] font-semibold uppercase tracking-[0.12em] text-cr-text-muted mb-1">{t("driverProfile.statReviews")}</dt>
             <dd className="font-mono text-2xl text-cr-text">{reviews.length}</dd>
           </div>
         </dl>
@@ -235,7 +237,7 @@ export default function DriverProfilePage() {
         {driver.badges && driver.badges.length > 0 && (
           <section className="space-y-3">
             <h2 className="font-sans text-[11px] font-semibold uppercase tracking-[0.16em] text-cr-primary border-b border-cr-border pb-2">
-              Insignias
+              {t("driverProfile.badges")}
             </h2>
             <DriverBadgeStack badges={driver.badges} layout="full" />
           </section>
@@ -260,7 +262,7 @@ export default function DriverProfilePage() {
         {upcomingRides.length > 0 && (
           <section className="space-y-4">
             <h2 className="font-sans text-[11px] font-semibold uppercase tracking-[0.16em] text-cr-primary border-b border-cr-border pb-2">
-              Próximos viajes
+              {t("driverProfile.upcomingRides")}
             </h2>
             <ul className="space-y-3">
               {upcomingRides.map((ride) => (
@@ -279,10 +281,10 @@ export default function DriverProfilePage() {
                         </p>
                       </div>
                       <div className="text-right shrink-0 space-y-1">
-                        <p className="font-mono text-sm text-cr-primary">€{ride.price_per_seat}/plaza</p>
+                        <p className="font-mono text-sm text-cr-primary">€{ride.price_per_seat}{t("driverProfile.perSeatSuffix")}</p>
                         <VibeBadge vibe={ride.vibe} />
                         <p className="font-mono text-[11px] text-cr-text-muted">
-                          {ride.seats_left} libre{ride.seats_left === 1 ? "" : "s"}
+                          {ride.seats_left} {ride.seats_left === 1 ? t("driverProfile.seatFreeSingular") : t("driverProfile.seatFreePlural")}
                         </p>
                       </div>
                     </div>
@@ -297,7 +299,7 @@ export default function DriverProfilePage() {
         {completedRides.length > 0 && (
           <section className="space-y-3">
             <h2 className="font-sans text-[11px] font-semibold uppercase tracking-[0.16em] text-cr-text-muted border-b border-cr-border pb-2">
-              Historial de viajes completados
+              {t("driverProfile.completedHistory")}
             </h2>
             <ul className="space-y-1">
               {completedRides.slice(0, 5).map((ride) => (
@@ -316,7 +318,7 @@ export default function DriverProfilePage() {
         {reviews.length > 0 && (
           <section className="space-y-4">
             <h2 className="font-sans text-[11px] font-semibold uppercase tracking-[0.16em] text-cr-primary border-b border-cr-border pb-2">
-              Valoraciones ({reviews.length})
+              {t("driverProfile.reviewsHeading", { count: reviews.length })}
             </h2>
             <ul className="space-y-3">
               {reviews.map((r) => (
@@ -350,7 +352,7 @@ export default function DriverProfilePage() {
 
         {upcomingRides.length === 0 && completedRides.length === 0 && reviews.length === 0 && (
           <p className="font-mono text-sm text-cr-text-dim text-center py-8">
-            Este conductor aún no tiene viajes publicados.
+            {t("driverProfile.noRidesYet")}
           </p>
         )}
       </div>

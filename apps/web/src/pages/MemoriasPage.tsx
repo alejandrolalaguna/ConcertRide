@@ -2,12 +2,14 @@ import { Navigate } from "react-router-dom";
 import { useSeoMeta } from "@/lib/useSeoMeta";
 import { SITE_URL } from "@/lib/siteUrl";
 import { useSession } from "@/lib/session";
+import { useI18n } from "@/lib/i18n";
 import { MemoryArchive } from "@/components/MemoryArchive";
 import { TravelStatsCard } from "@/components/TravelStatsCard";
 import { FestivalHistoryList } from "@/components/FestivalHistoryList";
 
 export default function MemoriasPage() {
   const { user, loading } = useSession();
+  const { t } = useI18n();
 
   useSeoMeta({
     title: "Mis recuerdos · ConcertRide",
@@ -24,11 +26,11 @@ export default function MemoriasPage() {
       <header className="border-b border-cr-border px-4 py-8 sm:px-6">
         <div className="mx-auto max-w-5xl">
           <p className="font-mono text-[11px] uppercase tracking-[0.18em] text-cr-text-muted">
-            archivo personal
+            {t("memorias.eyebrow")}
           </p>
-          <h1 className="mt-2 font-display text-4xl uppercase leading-tight">Mis recuerdos</h1>
+          <h1 className="mt-2 font-display text-4xl uppercase leading-tight">{t("memorias.title")}</h1>
           <p className="mt-2 max-w-prose text-sm text-cr-text-muted">
-            Cada viaje completado se convierte en una vibe card para compartir o guardar.
+            {t("memorias.intro")}
           </p>
         </div>
       </header>
