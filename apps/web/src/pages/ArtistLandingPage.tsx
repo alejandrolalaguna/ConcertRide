@@ -1,5 +1,6 @@
 import { Link, Navigate, useParams } from "react-router-dom";
 import { useSeoMeta } from "@/lib/useSeoMeta";
+import { seatPrice } from "@/lib/seatPrice";
 import { SITE_URL } from "@/lib/siteUrl";
 import { ARTIST_LANDINGS_BY_SLUG } from "@/lib/artistLandings";
 import { FESTIVAL_LANDINGS_BY_SLUG } from "@/lib/festivalLandings";
@@ -118,7 +119,7 @@ export default function ArtistLandingPage() {
         name: `¿Cómo llegar al concierto de ${artist.name} en ${c.city}?`,
         acceptedAnswer: {
           "@type": "Answer",
-          text: `Para llegar al concierto de ${artist.name} en ${c.venue} (${c.city}), la opción más económica es el carpooling con ConcertRide desde ${c.originCities[0]?.city ?? "tu ciudad"} (${c.originCities[0]?.range ?? c.concertRideRange}/asiento, sin comisión). También puedes llegar en metro, tren o taxi, aunque el transporte nocturno de vuelta suele ser complicado. Con ConcertRide, el conductor coordina la hora de regreso contigo.`,
+          text: `Para llegar al concierto de ${artist.name} en ${c.venue} (${c.city}), la opción más económica es el carpooling con ConcertRide desde ${c.originCities[0]?.city ?? "tu ciudad"} (${seatPrice(c.originCities[0]?.range ?? c.concertRideRange, false)}, sin comisión). También puedes llegar en metro, tren o taxi, aunque el transporte nocturno de vuelta suele ser complicado. Con ConcertRide, el conductor coordina la hora de regreso contigo.`,
         },
       })),
       // One per concert city: cost
@@ -127,7 +128,7 @@ export default function ArtistLandingPage() {
         name: `¿Cuánto cuesta el carpooling al concierto de ${artist.name} desde ${c.originCities[0]?.city ?? "Madrid"}?`,
         acceptedAnswer: {
           "@type": "Answer",
-          text: `El carpooling con ConcertRide desde ${c.originCities[0]?.city ?? "Madrid"} al concierto de ${artist.name} en ${c.city} cuesta aproximadamente ${c.originCities[0]?.range ?? c.concertRideRange}/asiento. ConcertRide no cobra comisión: el 100 % del precio va directamente al conductor. El pago se realiza en efectivo o Bizum el día del viaje.`,
+          text: `El carpooling con ConcertRide desde ${c.originCities[0]?.city ?? "Madrid"} al concierto de ${artist.name} en ${c.city} cuesta aproximadamente ${seatPrice(c.originCities[0]?.range ?? c.concertRideRange, false)}. ConcertRide no cobra comisión: el 100 % del precio va directamente al conductor. El pago se realiza en efectivo o Bizum el día del viaje.`,
         },
       })),
       {
@@ -177,7 +178,7 @@ export default function ArtistLandingPage() {
                 "@type": "MusicEvent",
                 "@id": `${concertUrl}-event`,
                 name: `${artist.name} en ${c.city}`,
-                description: `Concierto de ${artist.name} en ${c.venue} (${c.city}, España). Carpooling con ConcertRide desde ${c.originCities[0]?.city ?? "España"} a ${c.originCities[0]?.range ?? c.concertRideRange}/asiento, sin comisión de plataforma.`,
+                description: `Concierto de ${artist.name} en ${c.venue} (${c.city}, España). Carpooling con ConcertRide desde ${c.originCities[0]?.city ?? "España"} a ${seatPrice(c.originCities[0]?.range ?? c.concertRideRange, false)}, sin comisión de plataforma.`,
                 image: artistOgImage,
                 location: {
                   "@type": "MusicVenue",
@@ -212,7 +213,7 @@ export default function ArtistLandingPage() {
                   // results. Carpooling listings are always reservable.
                   availability: "https://schema.org/InStock",
                   validFrom: todayIso,
-                  description: `Carpooling desde ${c.originCities[0]?.city ?? "España"} (${c.originCities[0]?.range ?? c.concertRideRange}/asiento, sin comisión). ConcertRide.`,
+                  description: `Carpooling desde ${c.originCities[0]?.city ?? "España"} (${seatPrice(c.originCities[0]?.range ?? c.concertRideRange, false)}, sin comisión). ConcertRide.`,
                 },
                 url: concertUrl,
                 eventAttendanceMode: "https://schema.org/OfflineEventAttendanceMode",
@@ -687,7 +688,7 @@ export default function ArtistLandingPage() {
                 Para llegar al concierto de {artist.name} en {c.venue} ({c.city}), la opción más
                 económica es el carpooling con ConcertRide desde{" "}
                 {c.originCities[0]?.city ?? "tu ciudad"} (
-                {c.originCities[0]?.range ?? c.concertRideRange}/asiento, sin comisión). El metro,
+                {seatPrice(c.originCities[0]?.range ?? c.concertRideRange, false)}, sin comisión). El metro,
                 tren o autobús cubren el trayecto de ida, pero el transporte de vuelta de madrugada
                 es prácticamente inexistente. Con ConcertRide, el conductor coordina el horario de
                 regreso contigo adaptándose a la finalización real del concierto.
@@ -705,7 +706,7 @@ export default function ArtistLandingPage() {
               <dd className="font-sans text-sm text-cr-text-muted leading-relaxed max-w-2xl">
                 El carpooling con ConcertRide desde {c.originCities[0]?.city ?? "Madrid"} al
                 concierto de {artist.name} en {c.city} cuesta aproximadamente{" "}
-                {c.originCities[0]?.range ?? c.concertRideRange}/asiento. ConcertRide no cobra
+                {seatPrice(c.originCities[0]?.range ?? c.concertRideRange, false)}. ConcertRide no cobra
                 comisión: el 100&nbsp;% del precio va directamente al conductor. El pago se realiza
                 en efectivo o Bizum el día del viaje.
               </dd>

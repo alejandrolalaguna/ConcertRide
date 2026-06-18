@@ -1,4 +1,5 @@
 import { Suspense, lazy, useMemo } from "react";
+import { ClientOnly } from "@/components/ClientOnly";
 import { Link, Navigate, useParams } from "react-router-dom";
 import { MapPin, Train, Bus, Car, ParkingSquare, Users, ArrowRight } from "lucide-react";
 import { useSeoMeta } from "@/lib/useSeoMeta";
@@ -633,7 +634,7 @@ export default function VenueLandingPage() {
           >
             Mapa de {venue.name} en {venue.city}
           </h2>
-          <Suspense
+          <ClientOnly
             fallback={
               <div
                 className="h-[280px] md:h-[360px] cr-card animate-pulse"
@@ -641,18 +642,27 @@ export default function VenueLandingPage() {
               />
             }
           >
-            <LocationContextMap
-              points={[
-                {
-                  lat: venue.lat,
-                  lng: venue.lng,
-                  label: venue.name,
-                  kind: "primary",
-                },
-              ]}
-              ariaLabel={`Mapa de ${venue.name} en ${venue.city}`}
-            />
-          </Suspense>
+            <Suspense
+              fallback={
+                <div
+                  className="h-[280px] md:h-[360px] cr-card animate-pulse"
+                  aria-hidden="true"
+                />
+              }
+            >
+              <LocationContextMap
+                points={[
+                  {
+                    lat: venue.lat,
+                    lng: venue.lng,
+                    label: venue.name,
+                    kind: "primary",
+                  },
+                ]}
+                ariaLabel={`Mapa de ${venue.name} en ${venue.city}`}
+              />
+            </Suspense>
+          </ClientOnly>
         </section>
       )}
 

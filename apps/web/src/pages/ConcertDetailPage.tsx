@@ -3,6 +3,7 @@ import { Link, useNavigate, useParams } from "react-router-dom";
 
 const ConcertRidesMap = lazy(() => import("@/components/ConcertRidesMap"));
 import { useSeoMeta } from "@/lib/useSeoMeta";
+import { seatPrice } from "@/lib/seatPrice";
 import { SITE_URL } from "@/lib/siteUrl";
 import { AnimatePresence, LayoutGroup, motion } from "motion/react";
 import { ArrowLeft, ArrowRight, Calendar, Link2, MapPin, Music2, Star, Users, X } from "lucide-react";
@@ -987,7 +988,7 @@ function ConcertTransportSection({ concert }: { concert: ConcertEntity }) {
             <tbody className="text-cr-text-muted">
               <tr className="border-b border-cr-border/50">
                 <td className="py-2 pr-4 font-semibold text-cr-primary">ConcertRide carpooling</td>
-                <td className="py-2 pr-4">{firstOrigin?.concertRideRange ?? "desde 3 €"}/asiento</td>
+                <td className="py-2 pr-4">{seatPrice(firstOrigin?.concertRideRange, false)}</td>
                 <td className="py-2 pr-4 font-semibold text-cr-primary">0 %</td>
                 <td className="py-2 pr-4">Sí (coordenada con el conductor)</td>
                 <td className="py-2">Instantánea</td>

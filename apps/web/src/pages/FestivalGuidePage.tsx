@@ -5,6 +5,7 @@ import {
   Signal, AlertTriangle, Car, ChevronRight, ExternalLink
 } from "lucide-react";
 import { FESTIVAL_LANDINGS_BY_SLUG } from "@/lib/festivalLandings";
+import { seatPrice } from "@/lib/seatPrice";
 import { useSeoMeta } from "@/lib/useSeoMeta";
 import { SITE_URL } from "@/lib/siteUrl";
 
@@ -92,7 +93,7 @@ export default function FestivalGuidePage() {
         "@type": "HowToStep",
         position: 1,
         name: "Organiza el transporte",
-        text: `Reserva tu carpooling en ConcertRide con antelación. ${festival.originCities[0] ? `Desde ${festival.originCities[0].city} el precio es ${festival.originCities[0].concertRideRange}/asiento.` : ""} El transporte en madrugada es el mayor problema logístico.`,
+        text: `Reserva tu carpooling en ConcertRide con antelación. ${festival.originCities[0] ? `Desde ${festival.originCities[0].city} el precio es ${seatPrice(festival.originCities[0].concertRideRange, false)}.` : ""} El transporte en madrugada es el mayor problema logístico.`,
         url: `${SITE_URL}/festivales/${slug}`,
       },
       {
@@ -341,7 +342,7 @@ export default function FestivalGuidePage() {
               <p className="text-sm text-cr-text-muted mt-1">
                 La logística de ir y volver es el mayor reto de un festival.
                 ConcertRide conecta conductores y pasajeros desde{" "}
-                {festival.originCities[0]?.concertRideRange ?? "3 €"}/asiento, sin comisión.
+                {seatPrice(festival.originCities[0]?.concertRideRange, false)}, sin comisión.
               </p>
             </div>
           </div>

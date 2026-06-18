@@ -36,6 +36,7 @@ import { AutoLinksForFestival } from "@/lib/autoLinking";
 import { BLOG_POSTS } from "@/lib/blogPosts";
 import { StickyRegBar } from "@/components/StickyRegBar";
 import { TerminologyAside } from "@/components/TerminologyAside";
+import { seatPrice } from "@/lib/seatPrice";
 import { LiveDemandPulse } from "@/components/LiveDemandPulse";
 import { useSession } from "@/lib/session";
 import { TESTIMONIALS, TESTIMONIALS_AGGREGATE, selectTestimonialsFor } from "@/lib/testimonials";
@@ -290,7 +291,7 @@ export default function FestivalLandingPage() {
   };
 
   // Build an abstract: festival name + location + date + price range + differentiator (≤60 words)
-  const festivalAbstract = `${festival.name} se celebra en ${festival.venue}, ${festival.city} (${festival.region}), del ${festival.startDate} al ${festival.endDate}. Aforo: ${festival.capacity}. Carpooling con ConcertRide desde ${festival.originCities[0]?.city ?? "toda España"} desde ${festival.originCities[0]?.concertRideRange ?? "3 €"}/asiento, sin comisión de plataforma. ${festival.originCities.length} ciudades de origen cubiertas.`;
+  const festivalAbstract = `${festival.name} se celebra en ${festival.venue}, ${festival.city} (${festival.region}), del ${festival.startDate} al ${festival.endDate}. Aforo: ${festival.capacity}. Carpooling con ConcertRide desde ${festival.originCities[0]?.city ?? "toda España"} desde ${seatPrice(festival.originCities[0]?.concertRideRange, false)}, sin comisión de plataforma. ${festival.originCities.length} ciudades de origen cubiertas.`;
 
   const festivalWikidataUri = FESTIVAL_WIKIDATA[festival.slug];
   // Build consolidated sameAs array: FESTIVAL_WIKIDATA + festivalLandings.sameAs (Wikipedia ES, etc.)
@@ -359,7 +360,7 @@ export default function FestivalLandingPage() {
         priceCurrency: "EUR",
         availability: "https://schema.org/InStock",
         validFrom: new Date().toISOString(),
-        description: `Carpooling desde ${festival.originCities.length} ciudades de España con ConcertRide. Precio desde ${festival.originCities[0]?.concertRideRange ?? "3 €"}/asiento, sin comisión de plataforma.`,
+        description: `Carpooling desde ${festival.originCities.length} ciudades de España con ConcertRide. Precio desde ${seatPrice(festival.originCities[0]?.concertRideRange, false)}, sin comisión de plataforma.`,
         priceSpecification: {
           "@type": "PriceSpecification",
           price: minPrice,
@@ -413,11 +414,11 @@ export default function FestivalLandingPage() {
     const priceFrom = oc.concertRideRange.match(/(\d+)/)?.[1] ?? "5";
     const fuelEst = Math.round((oc.km * 2 * 0.07 * 1.65) / 4); // 4 personas, 7L/100, 1.65€/L
     if (isEn) {
-      const ocRangeEn = oc.concertRideRange.replace("/asiento", "/seat");
+      const ocRangeEn = seatPrice(oc.concertRideRange, true);
       return [
         {
           q: `How to get from ${oc.city} to ${festival.shortName}?`,
-          a: `From ${oc.city} it's ${oc.km} km to ${venueName} in ${festival.city} (${oc.drivingTime} by car). The cheapest option is carpooling with ConcertRide from ${ocRangeEn}/seat, with no platform commission. You can also take a train or bus to ${festival.city} and from there use local transport to the site.`,
+          a: `From ${oc.city} it's ${oc.km} km to ${venueName} in ${festival.city} (${oc.drivingTime} by car). The cheapest option is carpooling with ConcertRide from ${ocRangeEn}, with no platform commission. You can also take a train or bus to ${festival.city} and from there use local transport to the site.`,
         },
         {
           q: `How much does the trip from ${oc.city} to ${festival.shortName} cost?`,
@@ -428,7 +429,7 @@ export default function FestivalLandingPage() {
     return [
       {
         q: `¿Cómo llegar desde ${oc.city} a ${festival.shortName}?`,
-        a: `Desde ${oc.city} hay ${oc.km} km hasta ${festival.venue} en ${festival.city} (${oc.drivingTime} en coche). La opción más económica es el carpooling con ConcertRide desde ${oc.concertRideRange}/asiento, sin comisión de plataforma. También puedes ir en tren o autobús hasta ${festival.city} y desde allí tomar transporte local hasta el recinto.`,
+        a: `Desde ${oc.city} hay ${oc.km} km hasta ${festival.venue} en ${festival.city} (${oc.drivingTime} en coche). La opción más económica es el carpooling con ConcertRide desde ${seatPrice(oc.concertRideRange, false)}, sin comisión de plataforma. También puedes ir en tren o autobús hasta ${festival.city} y desde allí tomar transporte local hasta el recinto.`,
       },
       {
         q: `¿Cuánto cuesta el viaje de ${oc.city} a ${festival.shortName}?`,
@@ -804,7 +805,7 @@ export default function FestivalLandingPage() {
         "@id": `${SITE_URL}/festivales/${festival.slug}#webpage`,
         "url": `${SITE_URL}/festivales/${festival.slug}`,
         "name": `Cómo llegar a ${festival.name} ${new Date(festival.startDate).getFullYear()}: buses, tren y carpooling | ConcertRide`,
-        "description": `Guía de transporte para ${festival.name} (${festival.venue}, ${festival.city}, ${festival.typicalDates}). Carpooling desde ${festival.originCities.length} ciudades españolas desde ${festival.originCities[0]?.concertRideRange ?? "3 €"}/asiento sin comisión. Opciones de autobús, tren y coche compartido con precios y tiempos de trayecto reales.`,
+        "description": `Guía de transporte para ${festival.name} (${festival.venue}, ${festival.city}, ${festival.typicalDates}). Carpooling desde ${festival.originCities.length} ciudades españolas desde ${seatPrice(festival.originCities[0]?.concertRideRange, false)} sin comisión. Opciones de autobús, tren y coche compartido con precios y tiempos de trayecto reales.`,
         "inLanguage": "es-ES",
         "isPartOf": { "@id": `${SITE_URL}/#website` },
         // Pure @id ref to the canonical MusicEvent emitted by jsonLdEvent
@@ -841,7 +842,7 @@ export default function FestivalLandingPage() {
             name: "ConcertRide carpooling",
             contentUrl: `${SITE_URL}/festivales/${festival.slug}`,
             encodingFormat: "text/html",
-            description: `Precio: ${festival.originCities[0]?.concertRideRange ?? "desde 3 €"}/asiento · Comisión: 0 % · Origen: ${festival.originCities.length} ciudades · Vuelta madrugada: Sí (coordinada)`,
+            description: `Precio: ${seatPrice(festival.originCities[0]?.concertRideRange, false)} · Comisión: 0 % · Origen: ${festival.originCities.length} ciudades · Vuelta madrugada: Sí (coordinada)`,
           },
           {
             "@type": "DataDownload",
@@ -899,7 +900,7 @@ export default function FestivalLandingPage() {
           <span className="text-cr-primary">
             {isEn
               ? <>from {(festival.originCities[0]?.concertRideRange ?? "3 €").replace("/asiento", "")}/seat</>
-              : <>desde {festival.originCities[0]?.concertRideRange ?? "3 €"}/asiento</>}
+              : <>desde {seatPrice(festival.originCities[0]?.concertRideRange, false)}</>}
           </span>
         </h1>
 
@@ -945,9 +946,9 @@ export default function FestivalLandingPage() {
 
         <p className="font-sans text-sm font-semibold text-cr-text max-w-2xl speakable festival-summary">
           {isEn ? (
-            <>Carpooling to {festival.name} from {festival.originCities[0]?.concertRideRange?.replace("/asiento", "/seat") ?? "€3"}/seat, no commission. It takes place at {venueName}, {festival.city} ({typicalDatesLabel}). Verified drivers with a licence.</>
+            <>Carpooling to {festival.name} from {seatPrice(festival.originCities[0]?.concertRideRange, true)}, no commission. It takes place at {venueName}, {festival.city} ({typicalDatesLabel}). Verified drivers with a licence.</>
           ) : (
-            <>Carpooling a {festival.name} desde {festival.originCities[0]?.concertRideRange ?? "3 €"}/asiento, sin comisión. Se celebra en {festival.venue}, {festival.city} ({festival.typicalDates}). Conductores verificados con carnet.</>
+            <>Carpooling a {festival.name} desde {seatPrice(festival.originCities[0]?.concertRideRange, false)}, sin comisión. Se celebra en {festival.venue}, {festival.city} ({festival.typicalDates}). Conductores verificados con carnet.</>
           )}
         </p>
 
@@ -1132,14 +1133,14 @@ export default function FestivalLandingPage() {
               {isEn ? (
                 <>
                   Carpooling with ConcertRide from {festival.originCities.length} origin cities.
-                  Prices from {festival.originCities[0]?.concertRideRange?.replace("/asiento", "/seat") ?? "€3"}/seat. No commission:
+                  Prices from {seatPrice(festival.originCities[0]?.concertRideRange, true)}. No commission:
                   100% goes to the driver. Return at the real time the festival ends, payment in
                   cash or by Bizum.
                 </>
               ) : (
                 <>
                   Carpooling con ConcertRide desde {festival.originCities.length} ciudades de origen.
-                  Precios desde {festival.originCities[0]?.concertRideRange ?? "3 €"}/asiento. Sin comisión:
+                  Precios desde {seatPrice(festival.originCities[0]?.concertRideRange, false)}. Sin comisión:
                   el 100 % va al conductor. Vuelta a la hora real del fin del festival, pago en
                   efectivo o Bizum.
                 </>
@@ -1261,8 +1262,8 @@ export default function FestivalLandingPage() {
           id={`insight-${festival.slug}-precio`}
           label={isEn ? "ConcertRide first-party data" : undefined}
           headline={isEn
-            ? `Average price to ${festival.shortName}: ${festival.originCities[0]?.concertRideRange?.replace("/asiento", "/seat") ?? "€3"}/seat from ${festival.originCities[0]?.city ?? "main city"}`
-            : `Precio medio a ${festival.shortName}: ${festival.originCities[0]?.concertRideRange ?? "3 €"}/asiento desde ${festival.originCities[0]?.city ?? "ciudad principal"}`}
+            ? `Average price to ${festival.shortName}: ${seatPrice(festival.originCities[0]?.concertRideRange, true)} from ${festival.originCities[0]?.city ?? "main city"}`
+            : `Precio medio a ${festival.shortName}: ${seatPrice(festival.originCities[0]?.concertRideRange, false)} desde ${festival.originCities[0]?.city ?? "ciudad principal"}`}
           basis={isEn
             ? `${festival.originCities.length} routes analysed originating from the main feeder cities towards ${festival.shortName} ${festYear}.`
             : `${festival.originCities.length} rutas analizadas con origen en las principales ciudades emisoras hacia ${festival.shortName} ${festYear}.`}
@@ -1789,7 +1790,7 @@ export default function FestivalLandingPage() {
             <tbody className="text-cr-text-muted">
               <tr className="border-b border-cr-border/50">
                 <td className="py-2 pr-4 font-semibold text-cr-primary">ConcertRide carpooling</td>
-                <td className="py-2 pr-4">{isEn ? <>{festival.originCities[0]?.concertRideRange?.replace("/asiento", "/seat") ?? "from €3"}/seat</> : <>{festival.originCities[0]?.concertRideRange ?? "desde 3 €"}/asiento</>}</td>
+                <td className="py-2 pr-4">{isEn ? <>{seatPrice(festival.originCities[0]?.concertRideRange, true)}</> : <>{seatPrice(festival.originCities[0]?.concertRideRange, false)}</>}</td>
                 <td className="py-2 pr-4 font-semibold text-cr-primary">{isEn ? "0%" : "0 %"}</td>
                 <td className="py-2 pr-4">{isEn ? "Yes (coordinated with the driver)" : "Sí (coordinada con el conductor)"}</td>
                 <td className="py-2">{isEn ? "Instant" : "Instantánea"}</td>
@@ -1848,7 +1849,7 @@ export default function FestivalLandingPage() {
             <p className="text-cr-text-muted text-xs leading-relaxed">
               {isEn
                 ? <>ConcertRide carpooling: from <strong className="text-cr-text">{festival.originCities[0]?.concertRideRange?.replace("/asiento", "/seat") ?? "€3/seat"}</strong> from {festival.originCities[0]?.city ?? "your city"} (no commission). Taxi/VTC: €{Math.round((festival.originCities[0]?.km ?? 50) * 0.8)}–{Math.round((festival.originCities[0]?.km ?? 50) * 1.4)} one way. Bus or train to {festival.city} plus shuttle: variable price. Carpooling is the cheapest option for trips over 60 km.</>
-                : <>Carpooling ConcertRide: desde <strong className="text-cr-text">{festival.originCities[0]?.concertRideRange ?? "3 €"}/asiento</strong> desde {festival.originCities[0]?.city ?? "tu ciudad"} (sin comisión). Taxi/VTC: {Math.round((festival.originCities[0]?.km ?? 50) * 0.8)}–{Math.round((festival.originCities[0]?.km ?? 50) * 1.4)} € solo de ida. Autobús o tren hasta {festival.city} más lanzadera: precio variable. El carpooling es la opción más económica para trayectos de más de 60 km.</>}
+                : <>Carpooling ConcertRide: desde <strong className="text-cr-text">{seatPrice(festival.originCities[0]?.concertRideRange, false)}</strong> desde {festival.originCities[0]?.city ?? "tu ciudad"} (sin comisión). Taxi/VTC: {Math.round((festival.originCities[0]?.km ?? 50) * 0.8)}–{Math.round((festival.originCities[0]?.km ?? 50) * 1.4)} € solo de ida. Autobús o tren hasta {festival.city} más lanzadera: precio variable. El carpooling es la opción más económica para trayectos de más de 60 km.</>}
             </p>
           </article>
           {/* subconsulta 2: tiempo */}

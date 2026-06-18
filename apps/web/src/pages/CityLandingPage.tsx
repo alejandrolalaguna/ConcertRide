@@ -3,6 +3,7 @@ import { Link, Navigate, useParams } from "react-router-dom";
 import { ArrowRight, MapPin, Music2 } from "lucide-react";
 import type { Concert } from "@concertride/types";
 import { api } from "@/lib/api";
+import { seatPrice } from "@/lib/seatPrice";
 import { ConcertCard } from "@/components/ConcertCard";
 import { LoadingSpinner } from "@/components/ui";
 import { FactDensityCallout } from "@/components/FactDensityCallout";
@@ -963,7 +964,7 @@ export default function CityLandingPage() {
                       </p>
                       <div className="flex items-center justify-between">
                         <span className="font-mono text-[11px] text-cr-primary">
-                          Desde {f.originCities[0]?.concertRideRange ?? "3 €"}/asiento
+                          Desde {seatPrice(f.originCities[0]?.concertRideRange, false)}
                         </span>
                         <span className="inline-flex items-center gap-1 font-sans text-xs text-cr-primary">
                           Ver guía <ArrowRight size={10} />

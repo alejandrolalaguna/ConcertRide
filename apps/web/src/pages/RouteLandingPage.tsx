@@ -3,6 +3,8 @@ import { Link, Navigate, useParams } from "react-router-dom";
 import { ArrowRight, MapPin, Clock, Euro, Calendar } from "lucide-react";
 import type { Concert } from "@concertride/types";
 import { api } from "@/lib/api";
+import { seatPrice } from "@/lib/seatPrice";
+import { ClientOnly } from "@/components/ClientOnly";
 import { ConcertCard } from "@/components/ConcertCard";
 import { LoadingSpinner } from "@/components/ui";
 import { useSeoMeta } from "@/lib/useSeoMeta";
@@ -248,8 +250,8 @@ export default function RouteLandingPage() {
   // FAQ #4 (bus alternative) — already had a kmShort/long branch; keep but
   // diversify the wording by injecting venue-specific access info when long.
   const faqBusAnswer = kmShort
-    ? `${originCity} y ${festival.city} están muy cerca (${originData.km} km), por lo que suele haber autobuses urbanos o de cercanías en horario diurno hasta ${festival.city}. Pero ninguno opera entre las 02:00 y las 06:00h, justo cuando termina el festival. La lanzadera oficial al recinto (si existe) deja de funcionar 30–60 min después del cierre. El carpooling con ConcertRide (${originData.concertRideRange}/asiento) llega directo al recinto y permite vuelta a la hora real de salida, sin horarios fijos.`
-    : `No hay autobús directo regular ${originCity}–${festival.venue}. Las líneas de larga distancia llegan a la terminal central de ${festival.city} y desde allí hace falta lanzadera, taxi (10–${Math.round(Math.min(originData.km, 25) * 1.4)} €) o caminar al recinto. Además, los autobuses nocturnos de larga distancia no cubren esta ruta, por lo que la vuelta después del festival en transporte público no es viable. ConcertRide (${originData.concertRideRange}/asiento) ofrece trayecto puerta-a-puerta hasta ${festival.venue} y vuelta coordinada con el conductor.`;
+    ? `${originCity} y ${festival.city} están muy cerca (${originData.km} km), por lo que suele haber autobuses urbanos o de cercanías en horario diurno hasta ${festival.city}. Pero ninguno opera entre las 02:00 y las 06:00h, justo cuando termina el festival. La lanzadera oficial al recinto (si existe) deja de funcionar 30–60 min después del cierre. El carpooling con ConcertRide (${seatPrice(originData.concertRideRange, false)}) llega directo al recinto y permite vuelta a la hora real de salida, sin horarios fijos.`
+    : `No hay autobús directo regular ${originCity}–${festival.venue}. Las líneas de larga distancia llegan a la terminal central de ${festival.city} y desde allí hace falta lanzadera, taxi (10–${Math.round(Math.min(originData.km, 25) * 1.4)} €) o caminar al recinto. Además, los autobuses nocturnos de larga distancia no cubren esta ruta, por lo que la vuelta después del festival en transporte público no es viable. ConcertRide (${seatPrice(originData.concertRideRange, false)}) ofrece trayecto puerta-a-puerta hasta ${festival.venue} y vuelta coordinada con el conductor.`;
 
   // FAQ #5 (safety) — 2 variants: short trips emphasize chat/instant booking;
   // long trips emphasize verified driver + relay + stops.
@@ -280,7 +282,7 @@ export default function RouteLandingPage() {
     },
     {
       q: `¿Cuánto cuesta comparado con el taxi o VTC de ${originCity} a ${festival.shortName}?`,
-      a: `Un taxi o VTC (Uber, Cabify) de ${originCity} al recinto de ${festival.shortName} en horario nocturno puede costar entre ${Math.round(originData.km * 0.8)}€ y ${Math.round(originData.km * 1.4)}€ por trayecto completo, dependiendo de la tarifa nocturna y el precio dinámico durante el festival. El carpooling con ConcertRide cuesta ${originData.concertRideRange}/asiento — entre 4 y 8 veces más barato para distancias superiores a 80 km. Si el taxi ha de volver vacío desde el recinto, el precio sube todavía más.`,
+      a: `Un taxi o VTC (Uber, Cabify) de ${originCity} al recinto de ${festival.shortName} en horario nocturno puede costar entre ${Math.round(originData.km * 0.8)}€ y ${Math.round(originData.km * 1.4)}€ por trayecto completo, dependiendo de la tarifa nocturna y el precio dinámico durante el festival. El carpooling con ConcertRide cuesta ${seatPrice(originData.concertRideRange, false)} — entre 4 y 8 veces más barato para distancias superiores a 80 km. Si el taxi ha de volver vacío desde el recinto, el precio sube todavía más.`,
     },
   ];
 
@@ -293,7 +295,7 @@ export default function RouteLandingPage() {
     const shuttlePrice = festival.official_shuttle.price_from;
     routeFaqs.push({
       q: `¿Y la lanzadera oficial de ${festival.shortName} desde ${festival.city}? ¿Compensa frente al carpooling de ${originCity}?`,
-      a: `${festival.shortName} tiene lanzadera oficial desde ${festival.city} por ${shuttlePrice} €/trayecto, pero solo cubre el tramo final ${festival.city}–${festival.venue}. Desde ${originCity} sigue necesitando llegar primero a ${festival.city} (${originData.km} km, ${originData.drivingTime}), lo que añade tren/bus + lanzadera + espera. El total combinado supera fácilmente ${Math.round(originData.km * 0.05) + shuttlePrice * 2} €/persona ida y vuelta, sin contar el riesgo de perder enlaces. El carpooling directo de ${originCity} a ${festival.venue} es puerta-a-puerta por ${originData.concertRideRange}/asiento y elimina los transbordos.`,
+      a: `${festival.shortName} tiene lanzadera oficial desde ${festival.city} por ${shuttlePrice} €/trayecto, pero solo cubre el tramo final ${festival.city}–${festival.venue}. Desde ${originCity} sigue necesitando llegar primero a ${festival.city} (${originData.km} km, ${originData.drivingTime}), lo que añade tren/bus + lanzadera + espera. El total combinado supera fácilmente ${Math.round(originData.km * 0.05) + shuttlePrice * 2} €/persona ida y vuelta, sin contar el riesgo de perder enlaces. El carpooling directo de ${originCity} a ${festival.venue} es puerta-a-puerta por ${seatPrice(originData.concertRideRange, false)} y elimina los transbordos.`,
     });
   } else if (isBigVenue && kmMedium) {
     routeFaqs.push({
@@ -331,7 +333,7 @@ export default function RouteLandingPage() {
   const priceMin = Number((originData.concertRideRange.split("–")[0] ?? "3").replace(/[^0-9]/g, "") || "3");
   const priceMax = Number((originData.concertRideRange.split("–")[1] ?? originData.concertRideRange.split("–")[0] ?? "20").replace(/[^0-9]/g, "") || "20");
 
-  const routeAbstract = `Carpooling de ${originCity} a ${festival.name} (${festival.venue}, ${festival.city}): ${originData.km} km · ${originData.drivingTime} · desde ${originData.concertRideRange}/asiento sin comisión de plataforma. Conductores verificados; pago en efectivo o Bizum el día del festival.`;
+  const routeAbstract = `Carpooling de ${originCity} a ${festival.name} (${festival.venue}, ${festival.city}): ${originData.km} km · ${originData.drivingTime} · desde ${seatPrice(originData.concertRideRange, false)} sin comisión de plataforma. Conductores verificados; pago en efectivo o Bizum el día del festival.`;
 
   // TouristTrip schema — generated via shared helper. Includes tripOrigin /
   // tripDestination, numeric offer price (EUR), validThrough at festival end,
@@ -496,7 +498,7 @@ export default function RouteLandingPage() {
         name: "ConcertRide carpooling",
         contentUrl: `${SITE_URL}/rutas/${landing.slug}`,
         encodingFormat: "text/html",
-        description: `Precio: ${originData.concertRideRange}/asiento · Tiempo: ${originData.drivingTime} · Comisión: 0 % · Vuelta madrugada: Sí (coordinada)`,
+        description: `Precio: ${seatPrice(originData.concertRideRange, false)} · Tiempo: ${originData.drivingTime} · Comisión: 0 % · Vuelta madrugada: Sí (coordinada)`,
       },
       {
         "@type": "DataDownload",
@@ -560,11 +562,11 @@ export default function RouteLandingPage() {
           schemaId={`speakable-route-${landing.slug}`}
           pageUrl={`${SITE_URL}/rutas/${landing.slug}`}
           question={`¿Cómo ir a ${festival.shortName} desde ${originCity} en ${routeYear}?`}
-          answer={`Para ir a ${festival.name} ${routeYear} desde ${originCity}, el carpooling de ConcertRide cuesta ${originData.concertRideRange}/asiento. La distancia es de ${originData.km} km y el tiempo estimado de conducción ${originData.drivingTime}. El destino es ${festival.venue} en ${festival.city}. Pagas en efectivo o Bizum directo al conductor el día del viaje, sin comisión de plataforma. La vuelta de madrugada se coordina con el conductor.`}
+          answer={`Para ir a ${festival.name} ${routeYear} desde ${originCity}, el carpooling de ConcertRide cuesta ${seatPrice(originData.concertRideRange, false)}. La distancia es de ${originData.km} km y el tiempo estimado de conducción ${originData.drivingTime}. El destino es ${festival.venue} en ${festival.city}. Pagas en efectivo o Bizum directo al conductor el día del viaje, sin comisión de plataforma. La vuelta de madrugada se coordina con el conductor.`}
         />
 
         <p className="font-sans text-sm md:text-base text-cr-text-muted max-w-2xl leading-relaxed speakable route-summary">
-          ConcertRide ofrece carpooling de {originCity} a {festival.name} ({festival.city}) por {originData.concertRideRange}/asiento. Distancia: {originData.km} km · {originData.drivingTime}. Sin comisión — el 100&nbsp;% del precio va al conductor.
+          ConcertRide ofrece carpooling de {originCity} a {festival.name} ({festival.city}) por {seatPrice(originData.concertRideRange, false)}. Distancia: {originData.km} km · {originData.drivingTime}. Sin comisión — el 100&nbsp;% del precio va al conductor.
         </p>
 
         {/* ── AI-extractable quotable passage (GEO citation target) ── */}
@@ -586,11 +588,11 @@ export default function RouteLandingPage() {
           ariaLabel={`Acciones disponibles para la ruta ${originCity} → ${festival.shortName}`}
           actions={[
             {
-              label: `Buscar viajes · desde ${originData.concertRideRange.split("–")[0]}/asiento`,
+              label: `Buscar viajes · desde ${seatPrice(originData.concertRideRange, false)}`,
               href: `/concerts?city=${encodeURIComponent(festival.city)}`,
               intent: "search-ride",
               variant: "primary",
-              description: `Buscar carpooling desde ${originCity} a ${festival.shortName} por ${originData.concertRideRange}/asiento`,
+              description: `Buscar carpooling desde ${originCity} a ${festival.shortName} por ${seatPrice(originData.concertRideRange, false)}`,
             },
             {
               label: "Ver ficha del festival",
@@ -664,7 +666,7 @@ export default function RouteLandingPage() {
             <h2 id={`route-map-${landing.slug}`} className="sr-only">
               Mapa de la ruta {originCity} a {festival.shortName}
             </h2>
-            <Suspense
+            <ClientOnly
               fallback={
                 <div
                   className="h-[280px] md:h-[360px] cr-card animate-pulse"
@@ -672,29 +674,38 @@ export default function RouteLandingPage() {
                 />
               }
             >
-              <LocationContextMap
-                points={[
-                  {
-                    lat: originLat,
-                    lng: originLng,
-                    label: originCity,
-                    kind: "secondary",
-                  },
-                  {
-                    lat: festival.lat,
-                    lng: festival.lng,
-                    label: festival.name,
-                    kind: "primary",
-                  },
-                ]}
-                polyline
-                overlay={{
-                  distanceKm: originData.km,
-                  durationMin,
-                }}
-                ariaLabel={`Mapa de la ruta ${originCity} a ${festival.shortName}`}
-              />
-            </Suspense>
+              <Suspense
+                fallback={
+                  <div
+                    className="h-[280px] md:h-[360px] cr-card animate-pulse"
+                    aria-hidden="true"
+                  />
+                }
+              >
+                <LocationContextMap
+                  points={[
+                    {
+                      lat: originLat,
+                      lng: originLng,
+                      label: originCity,
+                      kind: "secondary",
+                    },
+                    {
+                      lat: festival.lat,
+                      lng: festival.lng,
+                      label: festival.name,
+                      kind: "primary",
+                    },
+                  ]}
+                  polyline
+                  overlay={{
+                    distanceKm: originData.km,
+                    durationMin,
+                  }}
+                  ariaLabel={`Mapa de la ruta ${originCity} a ${festival.shortName}`}
+                />
+              </Suspense>
+            </ClientOnly>
           </section>
         );
       })()}
@@ -857,7 +868,7 @@ export default function RouteLandingPage() {
             <tbody className="text-cr-text-muted">
               <tr className="border-b border-cr-border/50">
                 <td className="py-2 pr-4 font-semibold text-cr-primary">ConcertRide carpooling</td>
-                <td className="py-2 pr-4">{originData.concertRideRange}/asiento</td>
+                <td className="py-2 pr-4">{seatPrice(originData.concertRideRange, false)}</td>
                 <td className="py-2 pr-4">{originData.drivingTime}</td>
                 <td className="py-2 pr-4 font-semibold text-cr-primary">0 %</td>
                 <td className="py-2">Sí (coordinada)</td>

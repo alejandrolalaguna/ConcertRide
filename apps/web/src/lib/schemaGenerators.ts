@@ -3,6 +3,8 @@
  * for breadcrumbs, FAQs, events, etc.
  */
 
+import { seatPrice } from "./seatPrice";
+
 export function generateBreadcrumbSchema(
   breadcrumbs: Array<{ name: string; url: string }>,
   siteUrl: string,
@@ -184,7 +186,7 @@ export function generateTouristTripFromRoute({
     "@type": "TouristTrip",
     "@id": `${routeUrl}#trip`,
     name: `Carpooling ${originCity} → ${festival.name}`,
-    description: `Viaje compartido de ${originCity} a ${festival.name} (${festival.venue}, ${festival.city}). ${km} km, ${drivingTime}, desde ${priceRange}/asiento sin comisión.`,
+    description: `Viaje compartido de ${originCity} a ${festival.name} (${festival.venue}, ${festival.city}). ${km} km, ${drivingTime}, desde ${seatPrice(priceRange, false)} sin comisión.`,
     url: routeUrl,
     inLanguage: "es-ES",
     touristType: {
