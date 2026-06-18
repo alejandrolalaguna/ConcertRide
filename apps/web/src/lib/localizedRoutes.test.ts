@@ -73,10 +73,24 @@ describe("localizedRoutes — hreflangAlternates (reciprocity)", () => {
     ]);
   });
 
+  it("emits reciprocal alternates for the pilot festivals (mad-cool / primavera-sound / sonar)", () => {
+    // These three festivals are fully translated to English and exposed at /en/…
+    for (const slug of ["mad-cool", "primavera-sound", "sonar"]) {
+      const expected = [
+        { hreflang: "es-ES", href: `${SITE_URL}/festivales/${slug}` },
+        { hreflang: "en", href: `${SITE_URL}/en/festivales/${slug}` },
+        { hreflang: "x-default", href: `${SITE_URL}/festivales/${slug}` },
+      ];
+      expect(hreflangAlternates(`${SITE_URL}/festivales/${slug}`)).toEqual(expected);
+      // Reciprocity from the EN variant.
+      expect(hreflangAlternates(`${SITE_URL}/en/festivales/${slug}`)).toEqual(expected);
+    }
+  });
+
   it("returns null for pages NOT in the localized set (no broken hreflang to 404s)", () => {
-    // Festivals are NOT exposed yet (foundation laid, content pending) — must not
-    // emit hreflang until their /en/ variant is fully translated.
-    expect(hreflangAlternates(`${SITE_URL}/festivales/mad-cool`)).toBeNull();
+    // Non-pilot festivals stay es-only (their /en/ variant is not translated) —
+    // must not emit hreflang to a 404, and blog/route clusters stay es-only too.
+    expect(hreflangAlternates(`${SITE_URL}/festivales/fib`)).toBeNull();
     expect(hreflangAlternates(`${SITE_URL}/blog/whatever`)).toBeNull();
     expect(hreflangAlternates(`${SITE_URL}/rutas/madrid-mad-cool`)).toBeNull();
   });

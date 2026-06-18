@@ -235,6 +235,10 @@ export default function FestivalLandingPage() {
   const arrivalTips = isEn && festival.arrival_tips_en ? festival.arrival_tips_en : festival.arrival_tips;
   const arrivalPatterns = isEn && festival.arrival_patterns_en ? festival.arrival_patterns_en : festival.arrival_patterns;
   const expectedAttendance = isEn && festival.expected_attendance_en ? festival.expected_attendance_en : festival.expected_attendance;
+  const enrichmentBlocks = isEn && festival.enrichmentBlocks_en ? festival.enrichmentBlocks_en : festival.enrichmentBlocks;
+  const venueName = isEn && festival.venue_en ? festival.venue_en : festival.venue;
+  const capacityLabel = isEn && festival.capacity_en ? festival.capacity_en : festival.capacity;
+  const typicalDatesLabel = isEn && festival.typicalDates_en ? festival.typicalDates_en : festival.typicalDates;
 
   const futureConcerts = (concerts ?? []).filter(
     (c) => new Date(c.date).getTime() > Date.now(),
@@ -413,7 +417,7 @@ export default function FestivalLandingPage() {
       return [
         {
           q: `How to get from ${oc.city} to ${festival.shortName}?`,
-          a: `From ${oc.city} it's ${oc.km} km to ${festival.venue} in ${festival.city} (${oc.drivingTime} by car). The cheapest option is carpooling with ConcertRide from ${ocRangeEn}/seat, with no platform commission. You can also take a train or bus to ${festival.city} and from there use local transport to the site.`,
+          a: `From ${oc.city} it's ${oc.km} km to ${venueName} in ${festival.city} (${oc.drivingTime} by car). The cheapest option is carpooling with ConcertRide from ${ocRangeEn}/seat, with no platform commission. You can also take a train or bus to ${festival.city} and from there use local transport to the site.`,
         },
         {
           q: `How much does the trip from ${oc.city} to ${festival.shortName} cost?`,
@@ -892,7 +896,11 @@ export default function FestivalLandingPage() {
 
         <h1 className="font-display text-4xl md:text-6xl uppercase leading-[0.92]">
           {festival.shortName} {new Date(festival.startDate).getFullYear()}<br />
-          <span className="text-cr-primary">desde {festival.originCities[0]?.concertRideRange ?? "3 €"}/asiento</span>
+          <span className="text-cr-primary">
+            {isEn
+              ? <>from {(festival.originCities[0]?.concertRideRange ?? "3 €").replace("/asiento", "")}/seat</>
+              : <>desde {festival.originCities[0]?.concertRideRange ?? "3 €"}/asiento</>}
+          </span>
         </h1>
 
         {/* ── Quotable answer-first paragraph · target for AI Overviews / GEO citation ──
@@ -931,13 +939,13 @@ export default function FestivalLandingPage() {
           pageUrl={`${SITE_URL}/festivales/${festival.slug}`}
           question={isEn ? `How to get to ${festival.name} ${festYear}?` : `¿Cómo llegar a ${festival.name} ${festYear}?`}
           answer={isEn
-            ? `To get to ${festival.name} ${festYear} at ${festival.venue} (${festival.city}), ConcertRide offers carpooling from €${(festival.originCities[0]?.concertRideRange ?? "3 €/asiento").split("–").at(0)?.replace(/[^0-9]/g, "") || "3"}/seat with verified drivers from ${festival.originCities.length} Spanish cities. ${festival.official_shuttle?.available ? `There is also an official shuttle${festival.official_shuttle.price_from ? ` from €${festival.official_shuttle.price_from}` : ""}.` : `There is no official shuttle to the site.`} You pay in cash or by Bizum on the day of the trip, with no platform commission.`
+            ? `To get to ${festival.name} ${festYear} at ${venueName} (${festival.city}), ConcertRide offers carpooling from €${(festival.originCities[0]?.concertRideRange ?? "3 €/asiento").split("–").at(0)?.replace(/[^0-9]/g, "") || "3"}/seat with verified drivers from ${festival.originCities.length} Spanish cities. ${festival.official_shuttle?.available ? `There is also an official shuttle${festival.official_shuttle.price_from ? ` from €${festival.official_shuttle.price_from}` : ""}.` : `There is no official shuttle to the site.`} You pay in cash or by Bizum on the day of the trip, with no platform commission.`
             : `Para llegar a ${festival.name} ${festYear} en ${festival.venue} (${festival.city}), ConcertRide ofrece carpooling desde ${(festival.originCities[0]?.concertRideRange ?? "3 €/asiento").split("–").at(0)?.replace(/[^0-9]/g, "") || "3"}€/asiento con conductores verificados desde ${festival.originCities.length} ciudades españolas. ${festival.official_shuttle?.available ? `También hay lanzadera oficial${festival.official_shuttle.price_from ? ` desde ${festival.official_shuttle.price_from}€` : ""}.` : `No hay lanzadera oficial al recinto.`} Pagas en efectivo o Bizum el día del viaje, sin comisión de plataforma.`}
         />
 
         <p className="font-sans text-sm font-semibold text-cr-text max-w-2xl speakable festival-summary">
           {isEn ? (
-            <>Carpooling to {festival.name} from {festival.originCities[0]?.concertRideRange?.replace("/asiento", "/seat") ?? "€3"}/seat, no commission. It takes place at {festival.venue}, {festival.city} ({festival.typicalDates}). Verified drivers with a licence.</>
+            <>Carpooling to {festival.name} from {festival.originCities[0]?.concertRideRange?.replace("/asiento", "/seat") ?? "€3"}/seat, no commission. It takes place at {venueName}, {festival.city} ({typicalDatesLabel}). Verified drivers with a licence.</>
           ) : (
             <>Carpooling a {festival.name} desde {festival.originCities[0]?.concertRideRange ?? "3 €"}/asiento, sin comisión. Se celebra en {festival.venue}, {festival.city} ({festival.typicalDates}). Conductores verificados con carnet.</>
           )}
@@ -1050,18 +1058,18 @@ export default function FestivalLandingPage() {
           )}
         </p>
 
-        <AutoLinksForFestival slug={festival.slug} />
+        {!isEn && <AutoLinksForFestival slug={festival.slug} />}
 
         {/* Festival meta strip */}
         <div className="flex flex-wrap gap-4 pt-2">
           <span className="inline-flex items-center gap-1.5 font-mono text-[11px] text-cr-text-muted border border-cr-border px-2 py-1">
-            <MapPin size={10} /> {isEn ? "Location:" : "Localización:"} {festival.venue}, {festival.city}
+            <MapPin size={10} /> {isEn ? "Location:" : "Localización:"} {venueName}, {festival.city}
           </span>
           <span className="inline-flex items-center gap-1.5 font-mono text-[11px] text-cr-text-muted border border-cr-border px-2 py-1">
-            <Calendar size={10} /> {festival.typicalDates}
+            <Calendar size={10} /> {typicalDatesLabel}
           </span>
           <span className="inline-flex items-center gap-1.5 font-mono text-[11px] text-cr-text-muted border border-cr-border px-2 py-1">
-            <Users size={10} /> {festival.capacity}
+            <Users size={10} /> {capacityLabel}
           </span>
         </div>
       </div>
@@ -1076,7 +1084,7 @@ export default function FestivalLandingPage() {
         <p className="font-sans text-sm text-cr-text-muted max-w-3xl leading-relaxed">
           {isEn ? (
             <>
-              {festival.shortName} takes place at <strong className="text-cr-text">{festival.venue}</strong> ({festival.venueAddress}),
+              {festival.shortName} takes place at <strong className="text-cr-text">{venueName}</strong> ({festival.venueAddress}),
               in <strong className="text-cr-text">{festival.city}</strong> ({festival.region}).
               GPS coordinates: {festival.lat.toFixed(3)} N, {Math.abs(festival.lng).toFixed(3)} {festival.lng < 0 ? "W" : "E"}.
               Below are the four real ways to reach the site: bus,
@@ -1184,6 +1192,7 @@ export default function FestivalLandingPage() {
             options={festival.transport_options}
             officialShuttle={festival.official_shuttle}
             festivalName={festival.shortName}
+            isEn={isEn}
           />
         ) : (
           /* Fallback genérico para festivales sin datos curados */
@@ -1197,7 +1206,7 @@ export default function FestivalLandingPage() {
               {isEn ? (
                 <>
                   Overview of the bus, official shuttle and train options to reach{" "}
-                  <strong className="text-cr-text">{festival.name}</strong> at {festival.venue} ({festival.city}).
+                  <strong className="text-cr-text">{festival.name}</strong> at {venueName} ({festival.city}).
                   When there is no public service during festival hours, the most-used alternative is
                   carpooling with ConcertRide.
                 </>
@@ -1586,6 +1595,7 @@ export default function FestivalLandingPage() {
             siteUrl: SITE_URL,
             nearbyAirports: festival.nearby_airports ?? [],
             accommodationZones: festival.accommodation_zones ?? [],
+            isEn,
           }).map((schema, i) => (
             <script
               key={`festival-transport-schema-${i}`}
@@ -1601,18 +1611,19 @@ export default function FestivalLandingPage() {
             date={festival.startDate}
             parking={festival.guide ? {
               available: festival.guide.logistics.parking_available,
-              price: festival.guide.logistics.parking_price,
+              price: isEn ? (festival.guide.logistics.parking_price_en ?? festival.guide.logistics.parking_price) : festival.guide.logistics.parking_price,
               notes: undefined,
             } : undefined}
             camping={festival.guide ? {
               available: festival.guide.logistics.camping_available,
-              notes: festival.guide.logistics.camping_notes,
+              notes: isEn ? (festival.guide.logistics.camping_notes_en ?? festival.guide.logistics.camping_notes) : festival.guide.logistics.camping_notes,
             } : undefined}
             nearbyAirports={(festival.nearby_airports ?? []) as NearbyAirport[]}
             accommodationZones={(festival.accommodation_zones ?? []) as AccommodationZone[]}
             arrivalTips={(arrivalTips ?? []) as ArrivalTip[]}
             festivalSlug={festival.slug}
             showPublishCTA={false}
+            isEn={isEn}
           />
         </section>
       )}
@@ -1911,9 +1922,9 @@ export default function FestivalLandingPage() {
       {/* ── Bloques diferenciadores (historia, demografía, recinto, servicios, cartel) ──
           Renderizados como secciones independientes para reducir similitud entre festivales
           hermanos (Cruïlla vs Primavera Sound, BBK Live vs BBK Music Legends, etc.). */}
-      {festival.enrichmentBlocks && festival.enrichmentBlocks.length > 0 && (
+      {enrichmentBlocks && enrichmentBlocks.length > 0 && (
         <section className="max-w-6xl mx-auto px-6 pb-16 border-t border-cr-border pt-12 space-y-10">
-          {festival.enrichmentBlocks.map((block) => (
+          {enrichmentBlocks.map((block) => (
             <article key={block.heading} className="space-y-3 max-w-3xl">
               <h2 className="font-display text-2xl md:text-3xl uppercase">{block.heading}</h2>
               <p className="font-sans text-sm md:text-base text-cr-text-muted leading-relaxed">
@@ -1989,8 +2000,8 @@ export default function FestivalLandingPage() {
         );
       })()}
 
-      {/* ── Blog posts relacionados ── */}
-      {festival.relatedBlogs && festival.relatedBlogs.length > 0 && (() => {
+      {/* ── Blog posts relacionados ── (es-only: blog content is not translated) */}
+      {!isEn && festival.relatedBlogs && festival.relatedBlogs.length > 0 && (() => {
         const blogPosts = festival.relatedBlogs!
           .map((slug) => BLOG_POSTS.find((p) => p.slug === slug))
           .filter((p): p is NonNullable<typeof p> => p !== undefined);
@@ -2279,7 +2290,7 @@ export default function FestivalLandingPage() {
         </Link>
       </div>
       {/* Terminology bridge — Gen Z synonyms for "carpooling" with internal links */}
-      <TerminologyAside variant="compact" />
+      {!isEn && <TerminologyAside variant="compact" />}
 
       {/* Spacer for sticky bar on mobile */}
       <div className="md:hidden h-20" />

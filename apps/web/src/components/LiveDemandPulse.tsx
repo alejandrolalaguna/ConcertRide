@@ -8,6 +8,8 @@
  * Formula: sum of char codes of festivalName, remapped to 45–320 range.
  */
 
+import { useI18n } from "@/lib/i18n";
+
 interface LiveDemandPulseProps {
   /** Name of the festival shown in the text (e.g. "Mad Cool"). */
   festivalName: string;
@@ -27,6 +29,8 @@ function deterministicCount(name: string): number {
 }
 
 export function LiveDemandPulse({ festivalName, count, className = "" }: LiveDemandPulseProps) {
+  const { locale } = useI18n();
+  const isEn = locale === "en";
   const displayCount = count ?? deterministicCount(festivalName);
 
   return (
@@ -43,13 +47,15 @@ export function LiveDemandPulse({ festivalName, count, className = "" }: LiveDem
 
       <span className="font-mono text-[11px] text-white/60 leading-none">
         <span className="sr-only">
-          {displayCount} personas buscan viaje a {festivalName} esta semana
+          {isEn
+            ? <>{displayCount} people looking for a ride to {festivalName} this week</>
+            : <>{displayCount} personas buscan viaje a {festivalName} esta semana</>}
         </span>
         <span aria-hidden="true">
           <span className="text-white font-semibold">{displayCount}</span>
-          {" personas buscan viaje a "}
+          {isEn ? " people looking for a ride to " : " personas buscan viaje a "}
           <span className="text-[#dbff00]">{festivalName}</span>
-          {" esta semana"}
+          {isEn ? " this week" : " esta semana"}
         </span>
       </span>
     </div>

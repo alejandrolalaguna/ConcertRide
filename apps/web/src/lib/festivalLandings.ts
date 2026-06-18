@@ -24,6 +24,14 @@ export interface TransportOption {
   schedule?: string;       // "18:00–03:00"
   booking_url?: string;    // URL externa (puede ser null)
   notes?: string;          // "No hay servicio de vuelta nocturno"
+  // English variants — populated only for festivals in the /en/ SSR pilot.
+  // TransportTable falls back to the Spanish field when the *_en is absent.
+  // Proper-noun fields (provider like "Renfe AVE") usually omit _en.
+  provider_en?: string;
+  origin_en?: string;
+  frequency_en?: string;
+  schedule_en?: string;
+  notes_en?: string;
 }
 
 export interface PackingItem {
@@ -38,8 +46,10 @@ export interface FestivalGuide {
     last_entry?: string;
     parking_available: boolean;
     parking_price?: string;
+    parking_price_en?: string;
     camping_available: boolean;
     camping_notes?: string;
+    camping_notes_en?: string;
   };
   packing_list: PackingItem[];
   venue_tips: string[];
@@ -97,17 +107,21 @@ export interface FestivalLanding {
   /** Nearby airports with transfer info */
   nearby_airports?: Array<{
     name: string;
+    name_en?: string;
     iata: string;
     distanceKm: number;
     transferTime: string;
     transferOptions: string;
+    transferOptions_en?: string;
   }>;
   /** Recommended accommodation zones */
   accommodation_zones?: Array<{
     area: string;
+    area_en?: string;
     distanceKm: number;
     priceRange: string;
     notes?: string;
+    notes_en?: string;
   }>;
   /** Practical arrival tips (ordered) */
   arrival_tips?: Array<{
@@ -139,6 +153,11 @@ export interface FestivalLanding {
     heading: string;
     body: string;
   }>;
+  /** English `enrichmentBlocks` (same length/order as `enrichmentBlocks`). */
+  enrichmentBlocks_en?: Array<{
+    heading: string;
+    body: string;
+  }>;
 
   // ── English (en) variants — populated only for festivals in the /en/ SSR pilot
   // (see lib/localizedRoutes.ts LOCALIZED_PATHS). FestivalLandingPage renders these
@@ -156,6 +175,13 @@ export interface FestivalLanding {
   arrival_patterns_en?: string;
   /** English `expected_attendance`. */
   expected_attendance_en?: string;
+  /** English `venue` (only when the Spanish value carries non-proper-noun text,
+   *  e.g. Sónar's "Fira Gran Via (sede única desde 2026)"). */
+  venue_en?: string;
+  /** English `capacity` (e.g. "80,000 people/day"). */
+  capacity_en?: string;
+  /** English `typicalDates` (e.g. "First half of July (2026 edition: 8–11 July)"). */
+  typicalDates_en?: string;
 }
 
 export const FESTIVAL_LANDINGS: FestivalLanding[] = [
@@ -173,7 +199,9 @@ export const FESTIVAL_LANDINGS: FestivalLanding[] = [
     startDate: "2026-07-08",
     endDate: "2026-07-11",
     typicalDates: "Primera quincena de julio (edición 2026: 8–11 julio)",
+    typicalDates_en: "First half of July (2026 edition: 8–11 July)",
     capacity: "80.000 personas/día",
+    capacity_en: "80,000 people/day",
     blurb:
       "Mad Cool es el festival de rock e indie alternativo más grande de Madrid, celebrado desde 2023 en el recinto Iberdrola Music de Villaverde. Convoca a 80.000 asistentes diarios con artistas internacionales de primera línea. El recinto se encuentra al sur de Madrid (Villaverde Bajo), accesible en metro por la línea 3 (parada Pradolongo o Legazpi) más un corto trayecto en autobús. La salida nocturna satura tanto el metro como las líneas de autobús después de las 1:00, por lo que el coche compartido es la opción más cómoda para quienes vienen desde otras provincias o barrios sin acceso directo al recinto. Según la APM, Mad Cool es uno de los festivales con mayor afluencia internacional de España.",
     quotableAnswer:
@@ -198,6 +226,28 @@ export const FESTIVAL_LANDINGS: FestivalLanding[] = [
       {
         heading: "Cartel y géneros dominantes",
         body: "Mad Cool es predominantemente headliner-driven con cabezas de cartel internacionales de gran formato (rock, indie, pop alternativo y electrónica de estadio). Aproximadamente el 70–80 % de los nombres principales son anglosajones, con presencia decreciente de underground o talento nacional. Este perfil lo diferencia claramente de festivales como Primavera Sound (donde la curaduría artística independiente pesa más) o Cruïlla (con apuesta multigénero y latina)."
+      }
+    ],
+    enrichmentBlocks_en: [
+      {
+        heading: "Mad Cool's history and legacy",
+        body: "Mad Cool was born in 2016 as promoter Live Nation España's bet on an urban mega-festival comparable to Lollapalooza or Reading. Its journey has been marked by three different venues (La Caja Mágica in 2016, Valdebebas 2017–2019, IFEMA 2021–2022 and Iberdrola Music since 2023), reflecting the logistical difficulty of moving 80,000 attendees a day within Madrid. Iconic editions include The Cure and Pearl Jam in 2019, and Metallica + The Rolling Stones in 2022. Since 2023 it has occupied Iberdrola Music, in Villaverde Bajo, an industrial site converted specifically for large events."
+      },
+      {
+        heading: "Typical Mad Cool attendee profile",
+        body: "The average Mad Cool attendee is between 25 and 40 years old, with a strong contingent of Madrid professionals on a medium-high income. According to APM figures, around 20–25% of the audience is international (the UK, Italy, France and the Netherlands being the main source markets). An indie/rock/electronic profile predominates, with heavy consumption of English-language headliners."
+      },
+      {
+        heading: "What makes the Iberdrola Music venue distinctive",
+        body: "Iberdrola Music is an urban site of about 28 hectares in Villaverde Bajo, south of Madrid, a former industrial area now redeveloped. Unlike coastal or rural festivals, it is fully integrated into the urban fabric: access via the M-45, metro L3 (Pradolongo / Legazpi) and two EMT bus lines. There is no camping — accommodation is in hotels across the city of Madrid. Four main stages set far apart, with asphalt/gravel ground (not grass), which sharply differentiates the experience from festivals like Cruïlla (Parc del Fòrum, by the sea) or Primavera Sound."
+      },
+      {
+        heading: "Services and the differential experience",
+        body: "With no camping or glamping, Mad Cool is designed as an urban festival with overnight stays in Madrid hotels. It has a VIP area with last-minute upgrades, paid parking (€12–18/day), a free guarded bike area and compulsory cashless wristbands. The food offering is dominated by food trucks and corporate bars (not an independent food fair like Cruïlla). Typical schedule 18:00–04:00 across all four days."
+      },
+      {
+        heading: "Line-up and dominant genres",
+        body: "Mad Cool is predominantly headliner-driven, with large-scale international headliners (rock, indie, alternative pop and stadium electronic music). Roughly 70–80% of the main names are English-language acts, with a declining presence of underground or domestic talent. This profile clearly sets it apart from festivals like Primavera Sound (where independent artistic curation carries more weight) or Cruïlla (with its multi-genre, Latin-leaning bet)."
       }
     ],
     sameAs: [
@@ -271,8 +321,8 @@ export const FESTIVAL_LANDINGS: FestivalLanding[] = [
     relatedFestivals: ["tomavistas", "sonorama-ribera", "primavera-sound"],
     relatedBlogs: ["mad-cool-2026-guia-completa-transporte", "como-llegar-mad-cool-desde-barcelona-2026", "como-ir-mad-cool-desde-valencia-2026", "autobuses-festivales-espana-2026", "como-volver-concierto-madrugada-espana-2026", "gasolina-mad-cool-2026-cuanto-cuesta-ir-en-coche", "como-volver-mad-cool-madrugada-2026", "mejor-app-carpooling-festivales-espana-2026"],
     transport_options: [
-      { type: 'train', provider: 'Metro Madrid L3', origin: 'Madrid centro → Villaverde', price_from: 2, price_to: 3, frequency: 'Cada 5 min (ampliado en festival)', schedule: 'Hasta 2:00–2:30 en noches de festival', notes: 'Paradas Pradolongo o Legazpi (L3). Desde Sol ~30 min. Autobús desde parada metro al recinto. Se satura en salidas.' },
-      { type: 'bus', provider: 'EMT Madrid', origin: 'Madrid centro → Villaverde', price_from: 2, notes: 'Líneas EMT con paradas próximas a Iberdrola Music. Frecuencia reducida tras la 1:00.' },
+      { type: 'train', provider: 'Metro Madrid L3', origin: 'Madrid centro → Villaverde', origin_en: 'Central Madrid → Villaverde', price_from: 2, price_to: 3, frequency: 'Cada 5 min (ampliado en festival)', frequency_en: 'Every 5 min (extended during festival)', schedule: 'Hasta 2:00–2:30 en noches de festival', schedule_en: 'Until 2:00–2:30 on festival nights', notes: 'Paradas Pradolongo o Legazpi (L3). Desde Sol ~30 min. Autobús desde parada metro al recinto. Se satura en salidas.', notes_en: 'Pradolongo or Legazpi stops (L3). About 30 min from Sol. Bus from the metro stop to the venue. Gets overwhelmed at exit time.' },
+      { type: 'bus', provider: 'EMT Madrid', origin: 'Madrid centro → Villaverde', origin_en: 'Central Madrid → Villaverde', price_from: 2, notes: 'Líneas EMT con paradas próximas a Iberdrola Music. Frecuencia reducida tras la 1:00.', notes_en: 'EMT lines with stops near Iberdrola Music. Reduced frequency after 1:00.' },
       { type: 'carpooling', provider: 'ConcertRide', origin: 'Barcelona', price_from: 15, price_to: 20 },
       { type: 'carpooling', provider: 'ConcertRide', origin: 'Valencia', price_from: 10, price_to: 14 },
       { type: 'carpooling', provider: 'ConcertRide', origin: 'Zaragoza', price_from: 9, price_to: 13 },
@@ -287,8 +337,10 @@ export const FESTIVAL_LANDINGS: FestivalLanding[] = [
         last_entry: "22:00",
         parking_available: true,
         parking_price: "12–18 €/día",
+        parking_price_en: "€12–18/day",
         camping_available: false,
         camping_notes: "No hay camping. Alojamiento en Madrid (múltiples opciones en la ciudad).",
+        camping_notes_en: "No camping. Accommodation in Madrid (many options across the city).",
       },
       packing_list: [
         { item: "Protector solar FPS 50+", category: "esencial", notes: "Iberdrola Music es explanada sin sombra" },
@@ -319,30 +371,38 @@ export const FESTIVAL_LANDINGS: FestivalLanding[] = [
     nearby_airports: [
       {
         name: "Aeropuerto de Madrid-Barajas",
+        name_en: "Madrid-Barajas Airport",
         iata: "MAD",
         distanceKm: 12,
         transferTime: "25 min",
         transferOptions: "Metro L8 desde T4 / T4S hasta Nuevos Ministerios (directo). Bus Exprés Aeropuerto desde T1/T2/T3 hasta Atocha. Taxi ~25–35 €.",
+        transferOptions_en: "Metro L8 from T4 / T4S to Nuevos Ministerios (direct). Airport Express bus from T1/T2/T3 to Atocha. Taxi ~25–35 €.",
       },
     ],
     accommodation_zones: [
       {
         area: "Madrid Centro (Sol, Gran Vía, Chueca)",
+        area_en: "Central Madrid (Sol, Gran Vía, Chueca)",
         distanceKm: 15,
         priceRange: "80–180 €/noche",
         notes: "Metro L8 directo a IFEMA desde Nuevos Ministerios. La zona más animada para antes y después del festival.",
+        notes_en: "Metro L8 direct to IFEMA from Nuevos Ministerios. The liveliest area for before and after the festival.",
       },
       {
         area: "Barrio de Hortaleza / Canillejas",
+        area_en: "Hortaleza / Canillejas district",
         distanceKm: 3,
         priceRange: "50–100 €/noche",
         notes: "Más cerca de IFEMA. Acceso en coche mucho más fácil; a 10–15 min a pie del recinto.",
+        notes_en: "Closer to IFEMA. Much easier access by car; a 10–15 min walk from the venue.",
       },
       {
         area: "Aeropuerto (Barajas)",
+        area_en: "Airport (Barajas)",
         distanceKm: 5,
         priceRange: "70–140 €/noche",
         notes: "Ideal si llegas o salgas en avión. Shuttle gratuito de hotel al aeropuerto en muchos establecimientos.",
+        notes_en: "Ideal if you arrive or leave by plane. Free hotel shuttle to the airport at many establishments.",
       },
     ],
     arrival_tips: [
@@ -442,7 +502,9 @@ export const FESTIVAL_LANDINGS: FestivalLanding[] = [
     startDate: "2026-06-03",
     endDate: "2026-06-07",
     typicalDates: "Primera semana de junio (edición 2026: 3–7 junio)",
+    typicalDates_en: "First week of June (2026 edition: 3–7 June)",
     capacity: "60.000 personas/día",
+    capacity_en: "60,000 people/day",
     blurb:
       "Primavera Sound es el festival de indie y alternativo más influyente de Europa, celebrado cada año en el Parc del Fòrum de Barcelona desde 2001. Atrae asistentes de toda España y de más de 80 países, con más de 60.000 asistentes diarios en su recinto de Sant Adrià de Besòs. El metro L4 (Besòs Mar) llega al Fòrum pero se colapsa en las salidas de madrugada, con colas de 30–45 minutos habituales. Los asientos de AVE desde Madrid (50–100 €) se agotan semanas antes del festival. Viajar en coche compartido desde Madrid (15–20 €), Valencia (10–14 €) o Zaragoza (8–12 €) es la opción más popular y económica para asistentes de fuera de Cataluña.",
     quotableAnswer:
@@ -467,6 +529,28 @@ export const FESTIVAL_LANDINGS: FestivalLanding[] = [
       {
         heading: "Cartel y géneros dominantes",
         body: "Primavera Sound combina cabezas de cartel internacionales (rock, indie, hip-hop, electrónica) con una capa profunda de underground, jazz contemporáneo, experimental y nombres en eclosión. Aproximadamente el 60 % del cartel total no son headliners y muchos artistas vienen sin gira española previa. Esto la diferencia claramente de festivales más comerciales o focalizados en pop latino, con cuotas importantes dedicadas a la curaduría editorial independiente."
+      }
+    ],
+    enrichmentBlocks_en: [
+      {
+        heading: "Primavera Sound's history and legacy",
+        body: "Primavera Sound was founded in 2001 by the Barcelona promoter Primavera Sound S.L. (Alfonso Lanza, Pablo Soler, Gabi Ruiz) as an independent-music festival with a strong curatorial vocation and clear artistic direction. From 2005 it settled at the Parc del Fòrum after two previous sites (Poble Espanyol, the Autonomous University). Iconic milestones: Pixies (2004 reunion), Pavement (2010), Aphex Twin, The Cure, Kendrick Lamar. In 2022 it peaked with two consecutive weekends and international franchises (São Paulo, Los Angeles, Porto). It is a global reference point for music journalism and the English-language and European specialist press."
+      },
+      {
+        heading: "Typical Primavera Sound attendee profile",
+        body: "Primavera Sound is the Spanish festival with the highest proportion of foreign attendees: 50–60% international in recent editions, with the UK, the United States, Italy, France, Germany and the Netherlands leading the turnout. The average age is 28–38, with a qualified professional profile — music journalists, music lovers and creative-sector workers. There is barely any teenage presence."
+      },
+      {
+        heading: "What makes the Parc del Fòrum distinctive",
+        body: "The Parc del Fòrum sits in Sant Adrià de Besòs, facing the Mediterranean, on the former industrial area of the river Besòs redeveloped after the 2004 Universal Forum of Cultures. It is a coastal concrete space with the iconic photovoltaic panel acting as a roof over one of the stages. Unlike rural sites or stadiums, it offers sea views and a sea breeze in June, with mild temperatures (18–25 ºC). Access via metro L4 (Besòs Mar), tram T4 (Fòrum) and on foot from the beach. Its proximity to central Barcelona is one of its key distinguishing features."
+      },
+      {
+        heading: "Services and the differential experience",
+        body: "Primavera Sound has no camping area: accommodation is spread across the whole of Barcelona (Eixample, Gràcia, Poblenou, Sant Martí). It features Primavera Pro (an independent professional programme), Día de la Música (Primavera a la Ciutat — free preview events in Barcelona clubs), a gastronomic line-up with local chefs, and visual and sound art integrated into the stages. Night-time schedules extend until 06:00 in some years, with closing sets on the Boiler Room / Dice stage."
+      },
+      {
+        heading: "Line-up and dominant genres",
+        body: "Primavera Sound combines international headliners (rock, indie, hip-hop, electronic) with a deep layer of underground, contemporary jazz, experimental and emerging names. Roughly 60% of the total line-up are not headliners, and many artists arrive without a previous Spanish tour. This clearly sets it apart from more commercial or Latin-pop-focused festivals, with significant slots devoted to independent editorial curation."
       }
     ],
     sameAs: [
@@ -537,8 +621,8 @@ export const FESTIVAL_LANDINGS: FestivalLanding[] = [
     relatedFestivals: ["sonar", "cruilla"],
     relatedBlogs: ["como-ir-primavera-sound-barcelona-2026", "primavera-sound-2026-como-llegar", "autobuses-festivales-espana-2026", "carpooling-vs-taxi-festival-espana"],
     transport_options: [
-      { type: 'train', provider: 'Metro TMB L4', origin: 'Barcelona centro → Besòs Mar', price_from: 2, price_to: 3, frequency: 'Cada 4–6 min', schedule: 'Ampliado hasta 02:00 vie y 05:00 sáb en festival', notes: 'Parada Besòs Mar a 10 min a pie del Parc del Fòrum. Tranvía T4 (Fòrum) alternativa. Se satura en salidas de madrugada.' },
-      { type: 'train', provider: 'Renfe AVE', origin: 'Madrid → Barcelona Sants', price_from: 50, price_to: 100, notes: 'AVE Madrid–Sants + metro L4. Se agota semanas antes. Sin AVE de vuelta de madrugada (primer tren 06:05).' },
+      { type: 'train', provider: 'Metro TMB L4', origin: 'Barcelona centro → Besòs Mar', origin_en: 'Central Barcelona → Besòs Mar', price_from: 2, price_to: 3, frequency: 'Cada 4–6 min', frequency_en: 'Every 4–6 min', schedule: 'Ampliado hasta 02:00 vie y 05:00 sáb en festival', schedule_en: 'Extended until 02:00 Fri and 05:00 Sat during festival', notes: 'Parada Besòs Mar a 10 min a pie del Parc del Fòrum. Tranvía T4 (Fòrum) alternativa. Se satura en salidas de madrugada.', notes_en: 'Besòs Mar stop, a 10-min walk from the Parc del Fòrum. Tram T4 (Fòrum) is an alternative. Gets overwhelmed during early-morning exits.' },
+      { type: 'train', provider: 'Renfe AVE', origin: 'Madrid → Barcelona Sants', price_from: 50, price_to: 100, notes: 'AVE Madrid–Sants + metro L4. Se agota semanas antes. Sin AVE de vuelta de madrugada (primer tren 06:05).', notes_en: 'AVE Madrid–Sants + metro L4. Sells out weeks in advance. No early-morning AVE back (first train 06:05).' },
       { type: 'carpooling', provider: 'ConcertRide', origin: 'Madrid', price_from: 15, price_to: 20 },
       { type: 'carpooling', provider: 'ConcertRide', origin: 'Valencia', price_from: 10, price_to: 14 },
       { type: 'carpooling', provider: 'ConcertRide', origin: 'Zaragoza', price_from: 8, price_to: 12 },
@@ -554,17 +638,21 @@ export const FESTIVAL_LANDINGS: FestivalLanding[] = [
     nearby_airports: [
       {
         name: "Aeropuerto de Barcelona-El Prat",
+        name_en: "Barcelona-El Prat Airport",
         iata: "BCN",
         distanceKm: 17,
         transferTime: "40 min",
         transferOptions: "Metro L9 Sud hasta Zona Universitaria + L5 hasta Poblesec (cerca del Fòrum) — o taxi desde el aeropuerto (~30 €). Aerobus hasta Pl. Catalunya (30 min) + metro L4 Besòs Mar.",
+        transferOptions_en: "Metro L9 Sud to Zona Universitaria + L5 to Poblesec (near the Fòrum) — or a taxi from the airport (~30 €). Aerobús to Pl. Catalunya (30 min) + metro L4 Besòs Mar.",
       },
       {
         name: "Aeropuerto de Girona-Costa Brava",
+        name_en: "Girona-Costa Brava Airport",
         iata: "GRO",
         distanceKm: 100,
         transferTime: "1h 15 min",
         transferOptions: "Bus Sagalés directa hasta Estació del Nord Barcelona. Desde allí metro o taxi al Fòrum.",
+        transferOptions_en: "Direct Sagalés bus to Estació del Nord Barcelona. From there, metro or taxi to the Fòrum.",
       },
     ],
     accommodation_zones: [
@@ -573,18 +661,21 @@ export const FESTIVAL_LANDINGS: FestivalLanding[] = [
         distanceKm: 1,
         priceRange: "100–250 €/noche",
         notes: "A 10 minutos a pie del Parc del Fòrum. Se agota semanas antes del festival — reserva con mucha antelación.",
+        notes_en: "A 10-minute walk from the Parc del Fòrum. Sells out weeks before the festival — book well in advance.",
       },
       {
         area: "Barcelona Eixample / Gràcia",
         distanceKm: 8,
         priceRange: "90–200 €/noche",
         notes: "Excelente conexión con metro L4 (Besòs Mar directo al Fòrum). Más ambiente urbano, más opciones de restaurantes.",
+        notes_en: "Excellent connection via metro L4 (Besòs Mar direct to the Fòrum). More urban buzz, more restaurant options.",
       },
       {
         area: "Badalona / Sant Adrià de Besòs",
         distanceKm: 4,
         priceRange: "60–120 €/noche",
         notes: "Más económico que el centro de Barcelona. A 15–20 min a pie del Fòrum o 2 paradas de metro.",
+        notes_en: "Cheaper than central Barcelona. A 15–20 min walk from the Fòrum or 2 metro stops away.",
       },
     ],
     arrival_tips: [
@@ -678,13 +769,16 @@ export const FESTIVAL_LANDINGS: FestivalLanding[] = [
     citySlug: "barcelona",
     region: "Cataluña",
     venue: "Fira Gran Via (sede única desde 2026)",
+    venue_en: "Fira Gran Via (single site since 2026)",
     venueAddress: "Av. Joan Carles I, 64, 08908 L'Hospitalet de Llobregat",
     lat: 41.3561,
     lng: 2.1302,
     startDate: "2026-06-18",
     endDate: "2026-06-20",
     typicalDates: "Tercera semana de junio (edición 2026: 18–20 junio)",
+    typicalDates_en: "Third week of June (2026 edition: 18–20 June)",
     capacity: "120.000 personas (edición completa)",
+    capacity_en: "120,000 people (full edition)",
     blurb:
       "Sónar es el festival internacional de música avanzada, creatividad y tecnología más reconocido del mundo, celebrado en Barcelona desde 1994. Funciona en dos sedes simultáneas: Sónar by Day en Fira Montjuïc (Gran Via de les Corts Catalanes, Montjuïc) y Sónar by Night en Fira Gran Via de L'Hospitalet de Llobregat, a 8 km del centro de Barcelona. El festival atrae cada año a más de 120.000 asistentes de más de 100 países y es referencia mundial de la electrónica y la cultura digital. La Fira Gran Via es accesible en metro L9 Sur (parada Fira), pero el festival termina entre las 6:00 y las 8:00, hora en que el metro ya ha reanudado el servicio. Los asistentes de Madrid, Valencia y Zaragoza prefieren el carpooling con ConcertRide para llegar directamente sin combinar AVE, metro y taxi.",
     quotableAnswer:

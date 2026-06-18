@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { Bell, BellRing, Users, ChevronDown } from "lucide-react";
+import { useI18n } from "@/lib/i18n";
 
 interface Props {
   festivalSlug: string;
@@ -11,6 +12,8 @@ interface Props {
 const API_BASE = import.meta.env.VITE_API_BASE_URL ?? "";
 
 export function DemandSignalWidget({ festivalSlug, festivalName, originCities, defaultCity }: Props) {
+  const { locale } = useI18n();
+  const isEn = locale === "en";
   const [selectedCity, setSelectedCity] = useState(defaultCity ?? originCities[0] ?? "");
   const [email, setEmail] = useState("");
   const [count, setCount] = useState<number | null>(null);
@@ -53,11 +56,17 @@ export function DemandSignalWidget({ festivalSlug, festivalName, originCities, d
       <div className="rounded-xl border border-cr-primary/30 bg-cr-primary/5 p-4 flex items-start gap-3">
         <BellRing className="text-cr-primary shrink-0 mt-0.5" size={18} />
         <div>
-          <p className="text-sm font-semibold text-cr-text">¡Apuntado! Te avisamos cuando haya viaje desde {selectedCity}.</p>
+          <p className="text-sm font-semibold text-cr-text">
+            {isEn
+              ? <>You're in! We'll let you know when there's a ride from {selectedCity}.</>
+              : <>¡Apuntado! Te avisamos cuando haya viaje desde {selectedCity}.</>}
+          </p>
           {count !== null && count > 1 && (
             <p className="text-xs text-cr-text-muted mt-1">
               <Users size={11} className="inline mr-1" />
-              {count} personas esperando viaje desde {selectedCity} a {festivalName}.
+              {isEn
+                ? <>{count} people waiting for a ride from {selectedCity} to {festivalName}.</>
+                : <>{count} personas esperando viaje desde {selectedCity} a {festivalName}.</>}
             </p>
           )}
         </div>
@@ -70,11 +79,15 @@ export function DemandSignalWidget({ festivalSlug, festivalName, originCities, d
       <div className="flex items-start gap-3">
         <Bell className="text-cr-primary shrink-0 mt-0.5" size={18} />
         <div>
-          <h3 className="text-sm font-semibold text-cr-text">¿No encuentras viaje? Avísame cuando haya.</h3>
+          <h3 className="text-sm font-semibold text-cr-text">
+            {isEn ? "Can't find a ride? Notify me when there is one." : "¿No encuentras viaje? Avísame cuando haya."}
+          </h3>
           {count !== null && count > 0 && (
             <p className="text-xs text-cr-text-muted mt-0.5">
               <Users size={11} className="inline mr-1" />
-              {count} {count === 1 ? "persona busca" : "personas buscan"} viaje desde {selectedCity} a {festivalName}
+              {isEn
+                ? <>{count} {count === 1 ? "person" : "people"} looking for a ride from {selectedCity} to {festivalName}</>
+                : <>{count} {count === 1 ? "persona busca" : "personas buscan"} viaje desde {selectedCity} a {festivalName}</>}
             </p>
           )}
         </div>
@@ -96,7 +109,7 @@ export function DemandSignalWidget({ festivalSlug, festivalName, originCities, d
           </div>
           <input
             type="email"
-            placeholder="tu@email.com (opcional)"
+            placeholder={isEn ? "you@email.com (optional)" : "tu@email.com (opcional)"}
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             className="rounded-lg border border-white/20 bg-cr-bg px-3 py-2 text-sm text-cr-text placeholder:text-cr-text-muted"
@@ -107,10 +120,12 @@ export function DemandSignalWidget({ festivalSlug, festivalName, originCities, d
           disabled={status === "loading" || !selectedCity}
           className="w-full rounded-lg bg-cr-primary px-4 py-2.5 text-sm font-bold text-black hover:bg-cr-primary/90 disabled:opacity-50 transition-colors"
         >
-          {status === "loading" ? "Guardando…" : `Avísame cuando haya viaje desde ${selectedCity}`}
+          {status === "loading"
+            ? (isEn ? "Saving…" : "Guardando…")
+            : (isEn ? `Notify me when there's a ride from ${selectedCity}` : `Avísame cuando haya viaje desde ${selectedCity}`)}
         </button>
         {status === "error" && (
-          <p className="text-xs text-red-400">Error al guardar. Inténtalo de nuevo.</p>
+          <p className="text-xs text-red-400">{isEn ? "Error saving. Please try again." : "Error al guardar. Inténtalo de nuevo."}</p>
         )}
       </form>
     </div>

@@ -24,17 +24,21 @@ export interface TransportMode {
 
 export interface NearbyAirport {
   name: string;
+  name_en?: string;
   iata: string;
   distanceKm: number;
   transferTime: string;
   transferOptions: string;
+  transferOptions_en?: string;
 }
 
 export interface AccommodationZone {
   area: string;
+  area_en?: string;
   distanceKm: number;
   priceRange: string;
   notes?: string;
+  notes_en?: string;
 }
 
 export interface ArrivalTip {
@@ -70,6 +74,9 @@ export interface EventTransportHubProps {
   festivalSlug?: string;
   /** Link to publish a ride */
   showPublishCTA?: boolean;
+  /** Render English chrome + the *_en data fields. Defaults to Spanish so every
+   *  existing (ES) caller stays byte-identical. */
+  isEn?: boolean;
 }
 
 function modeIcon(type: TransportMode["type"]) {
@@ -99,6 +106,7 @@ export function EventTransportHub({
   concertId,
   festivalSlug,
   showPublishCTA = true,
+  isEn = false,
 }: EventTransportHubProps) {
   const name = eventShortName ?? eventName;
   const year = date ? new Date(date).getFullYear() : new Date().getFullYear();
@@ -118,7 +126,9 @@ export function EventTransportHub({
             id="transport-modes-heading"
             className="font-display text-2xl md:text-3xl uppercase mb-6"
           >
-            Cómo llegar a {name} {year}: todas las opciones de transporte
+            {isEn
+              ? <>How to get to {name} {year}: all transport options</>
+              : <>Cómo llegar a {name} {year}: todas las opciones de transporte</>}
           </h2>
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 font-sans text-sm">
             {transportModes.map((mode) => (
@@ -137,7 +147,7 @@ export function EventTransportHub({
                       {mode.title}
                       {mode.recommended && (
                         <span className="ml-2 font-sans text-[10px] text-cr-primary normal-case font-semibold tracking-widest">
-                          [RECOMENDADO]
+                          {isEn ? "[RECOMMENDED]" : "[RECOMENDADO]"}
                         </span>
                       )}
                     </h3>
@@ -168,7 +178,7 @@ export function EventTransportHub({
                     to={ridesHref}
                     className="inline-flex items-center gap-1 font-sans text-xs font-semibold text-cr-primary hover:underline"
                   >
-                    Buscar viajes <ArrowRight size={11} />
+                    {isEn ? "Find rides" : "Buscar viajes"} <ArrowRight size={11} />
                   </Link>
                 )}
                 {mode.bookingUrl && mode.type !== "carpooling" && (
@@ -178,7 +188,7 @@ export function EventTransportHub({
                     rel="noopener noreferrer"
                     className="inline-flex items-center gap-1 font-sans text-xs font-semibold text-cr-text-muted hover:text-cr-primary"
                   >
-                    Reservar <ArrowRight size={11} />
+                    {isEn ? "Book" : "Reservar"} <ArrowRight size={11} />
                   </a>
                 )}
               </article>
@@ -197,24 +207,28 @@ export function EventTransportHub({
             id="logistics-heading"
             className="font-display text-xl uppercase mb-4"
           >
-            Parking y acampada en {name} {year}
+            {isEn
+              ? <>Parking and camping at {name} {year}</>
+              : <>Parking y acampada en {name} {year}</>}
           </h2>
           <div className="grid sm:grid-cols-2 gap-4 font-sans text-sm">
             {parking !== undefined && (
               <article className="border border-cr-border p-4 space-y-2">
                 <h3 className="font-display text-sm uppercase">
-                  Parking en {venue}
+                  {isEn ? <>Parking at {venue}</> : <>Parking en {venue}</>}
                 </h3>
                 <p
                   className={`font-mono text-xs font-semibold ${
                     parking.available ? "text-cr-primary" : "text-cr-secondary"
                   }`}
                 >
-                  {parking.available ? "Parking disponible" : "Sin parking en recinto"}
+                  {parking.available
+                    ? (isEn ? "Parking available" : "Parking disponible")
+                    : (isEn ? "No parking on site" : "Sin parking en recinto")}
                 </p>
                 {parking.price && (
                   <p className="text-xs text-cr-text-muted">
-                    Precio: {parking.price}
+                    {isEn ? <>Price: {parking.price}</> : <>Precio: {parking.price}</>}
                   </p>
                 )}
                 {parking.notes && (
@@ -224,7 +238,9 @@ export function EventTransportHub({
                 )}
                 {!parking.available && (
                   <p className="text-xs text-cr-text-dim leading-relaxed">
-                    Sin parking en el recinto, el carpooling es la opción más práctica: el conductor se encarga del coche y el coste se divide entre todos.
+                    {isEn
+                      ? "With no parking on site, carpooling is the most practical option: the driver takes care of the car and the cost is split among everyone."
+                      : "Sin parking en el recinto, el carpooling es la opción más práctica: el conductor se encarga del coche y el coste se divide entre todos."}
                   </p>
                 )}
               </article>
@@ -232,14 +248,16 @@ export function EventTransportHub({
             {camping !== undefined && (
               <article className="border border-cr-border p-4 space-y-2">
                 <h3 className="font-display text-sm uppercase">
-                  Acampada en {name}
+                  {isEn ? <>Camping at {name}</> : <>Acampada en {name}</>}
                 </h3>
                 <p
                   className={`font-mono text-xs font-semibold ${
                     camping.available ? "text-cr-primary" : "text-cr-text-muted"
                   }`}
                 >
-                  {camping.available ? "Camping disponible" : "Sin camping oficial"}
+                  {camping.available
+                    ? (isEn ? "Camping available" : "Camping disponible")
+                    : (isEn ? "No official camping" : "Sin camping oficial")}
                 </p>
                 {camping.notes && (
                   <p className="text-xs text-cr-text-muted leading-relaxed">
@@ -262,14 +280,14 @@ export function EventTransportHub({
             id="airports-heading"
             className="font-display text-xl uppercase mb-4"
           >
-            Aeropuertos más cercanos a {venue}
+            {isEn ? <>Nearest airports to {venue}</> : <>Aeropuertos más cercanos a {venue}</>}
           </h2>
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 font-sans text-sm">
             {nearbyAirports.map((ap) => (
               <article key={ap.iata} className="border border-cr-border p-4 space-y-2">
                 <div className="flex items-center gap-2">
                   <Plane size={14} className="text-cr-primary" />
-                  <h3 className="font-display text-sm uppercase">{ap.name}</h3>
+                  <h3 className="font-display text-sm uppercase">{isEn && ap.name_en ? ap.name_en : ap.name}</h3>
                   <span className="font-mono text-[11px] text-cr-text-dim">({ap.iata})</span>
                 </div>
                 <div className="flex gap-4 font-mono text-[11px] text-cr-text-muted">
@@ -278,7 +296,7 @@ export function EventTransportHub({
                   <span>{ap.transferTime}</span>
                 </div>
                 <p className="text-xs text-cr-text-muted leading-relaxed">
-                  {ap.transferOptions}
+                  {isEn && ap.transferOptions_en ? ap.transferOptions_en : ap.transferOptions}
                 </p>
               </article>
             ))}
@@ -296,28 +314,34 @@ export function EventTransportHub({
             id="accommodation-heading"
             className="font-display text-xl uppercase mb-4"
           >
-            Dónde alojarse para ir a {name}: zonas recomendadas
+            {isEn
+              ? <>Where to stay for {name}: recommended areas</>
+              : <>Dónde alojarse para ir a {name}: zonas recomendadas</>}
           </h2>
           <p className="font-sans text-xs text-cr-text-muted mb-4 max-w-2xl">
-            Si vienes de fuera de {city}, aquí tienes las zonas con mejor relación precio / accesibilidad al recinto.
+            {isEn
+              ? <>If you are coming from outside {city}, here are the areas with the best price / venue-accessibility balance.</>
+              : <>Si vienes de fuera de {city}, aquí tienes las zonas con mejor relación precio / accesibilidad al recinto.</>}
           </p>
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 font-sans text-sm">
             {accommodationZones.map((zone) => (
               <article key={zone.area} className="border border-cr-border p-4 space-y-2">
-                <h3 className="font-display text-sm uppercase">{zone.area}</h3>
+                <h3 className="font-display text-sm uppercase">{isEn && zone.area_en ? zone.area_en : zone.area}</h3>
                 <div className="flex gap-3 font-mono text-[11px] text-cr-text-muted">
-                  <span>{zone.distanceKm} km del recinto</span>
+                  <span>{isEn ? <>{zone.distanceKm} km from venue</> : <>{zone.distanceKm} km del recinto</>}</span>
                   <span>·</span>
-                  <span>{zone.priceRange}</span>
+                  <span>{isEn ? zone.priceRange.replace("/noche", "/night") : zone.priceRange}</span>
                 </div>
-                {zone.notes && (
-                  <p className="text-xs text-cr-text-muted leading-relaxed">{zone.notes}</p>
+                {(isEn ? (zone.notes_en ?? zone.notes) : zone.notes) && (
+                  <p className="text-xs text-cr-text-muted leading-relaxed">{isEn ? (zone.notes_en ?? zone.notes) : zone.notes}</p>
                 )}
               </article>
             ))}
           </div>
           <p className="font-mono text-[10px] text-cr-text-dim mt-3">
-            Precios orientativos por noche (2 personas, temporada alta). Reserva con antelación — las fechas de festival se agotan en semanas.
+            {isEn
+              ? "Indicative prices per night (2 people, high season). Book in advance — festival dates sell out within weeks."
+              : "Precios orientativos por noche (2 personas, temporada alta). Reserva con antelación — las fechas de festival se agotan en semanas."}
           </p>
         </section>
       )}
@@ -332,7 +356,7 @@ export function EventTransportHub({
             id="arrival-tips-heading"
             className="font-display text-xl uppercase mb-4"
           >
-            Consejos de llegada a {name} {year}
+            {isEn ? <>Arrival tips for {name} {year}</> : <>Consejos de llegada a {name} {year}</>}
           </h2>
           <ul className="space-y-3">
             {arrivalTips.map((tip, i) => (
@@ -357,13 +381,13 @@ export function EventTransportHub({
             to={ridesHref}
             className="inline-flex items-center gap-2 bg-cr-primary text-black font-sans text-sm font-bold uppercase tracking-[0.12em] px-5 py-3 hover:bg-cr-primary/90 transition-colors"
           >
-            Buscar viajes a {name} <ArrowRight size={14} />
+            {isEn ? <>Find rides to {name}</> : <>Buscar viajes a {name}</>} <ArrowRight size={14} />
           </Link>
           <Link
             to="/publish"
             className="inline-flex items-center gap-2 border-2 border-cr-primary text-cr-primary font-sans text-sm font-bold uppercase tracking-[0.12em] px-5 py-3 hover:bg-cr-primary hover:text-black transition-colors"
           >
-            Publicar un viaje →
+            {isEn ? "Post a ride →" : "Publicar un viaje →"}
           </Link>
         </div>
       )}
@@ -383,6 +407,7 @@ export function generateTransportHubSchema({
   transportModes = [],
   nearbyAirports = [],
   accommodationZones = [],
+  isEn = false,
 }: {
   eventName: string;
   city: string;
@@ -391,6 +416,7 @@ export function generateTransportHubSchema({
   transportModes?: TransportMode[];
   nearbyAirports?: NearbyAirport[];
   accommodationZones?: AccommodationZone[];
+  isEn?: boolean;
 }) {
   const schemas: object[] = [];
 
@@ -398,8 +424,12 @@ export function generateTransportHubSchema({
     schemas.push({
       "@context": "https://schema.org",
       "@type": "ItemList",
-      name: `Opciones de transporte para ${eventName} en ${venue}, ${city}`,
-      description: `Modos de transporte disponibles para llegar a ${eventName}: ${transportModes.map((m) => m.title).join(", ")}.`,
+      name: isEn
+        ? `Transport options for ${eventName} at ${venue}, ${city}`
+        : `Opciones de transporte para ${eventName} en ${venue}, ${city}`,
+      description: isEn
+        ? `Transport modes available to reach ${eventName}: ${transportModes.map((m) => m.title).join(", ")}.`
+        : `Modos de transporte disponibles para llegar a ${eventName}: ${transportModes.map((m) => m.title).join(", ")}.`,
       itemListElement: transportModes.map((m, i) => ({
         "@type": "ListItem",
         position: i + 1,
@@ -413,11 +443,13 @@ export function generateTransportHubSchema({
     schemas.push({
       "@context": "https://schema.org",
       "@type": "ItemList",
-      name: `Aeropuertos cercanos a ${venue} (${eventName})`,
+      name: isEn ? `Airports near ${venue} (${eventName})` : `Aeropuertos cercanos a ${venue} (${eventName})`,
       itemListElement: nearbyAirports.map((ap, i) => ({
         "@type": "ListItem",
         position: i + 1,
-        name: `${ap.name} (${ap.iata}): ${ap.distanceKm} km · ${ap.transferTime} en transporte`,
+        name: isEn
+          ? `${(ap.name_en ?? ap.name)} (${ap.iata}): ${ap.distanceKm} km · ${ap.transferTime} by transport`
+          : `${ap.name} (${ap.iata}): ${ap.distanceKm} km · ${ap.transferTime} en transporte`,
       })),
     });
   }
@@ -426,11 +458,13 @@ export function generateTransportHubSchema({
     schemas.push({
       "@context": "https://schema.org",
       "@type": "ItemList",
-      name: `Zonas de alojamiento para ${eventName} en ${city}`,
+      name: isEn ? `Accommodation areas for ${eventName} in ${city}` : `Zonas de alojamiento para ${eventName} en ${city}`,
       itemListElement: accommodationZones.map((z, i) => ({
         "@type": "ListItem",
         position: i + 1,
-        name: `${z.area}: ${z.distanceKm} km del recinto · ${z.priceRange}`,
+        name: isEn
+          ? `${(z.area_en ?? z.area)}: ${z.distanceKm} km from venue · ${z.priceRange.replace("/noche", "/night")}`
+          : `${z.area}: ${z.distanceKm} km del recinto · ${z.priceRange}`,
       })),
     });
   }

@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { Car, Fuel, Train, DollarSign } from "lucide-react";
 import type { OriginCity } from "@/lib/festivalLandings";
 import { api } from "@/lib/api";
+import { useI18n } from "@/lib/i18n";
 
 interface Props {
   originCities: OriginCity[];
@@ -25,6 +26,8 @@ function parsePriceTo(range: string): number {
 }
 
 export function CostComparator({ originCities, festivalName, festivalCity }: Props) {
+  const { locale } = useI18n();
+  const isEn = locale === "en";
   const [selectedIdx, setSelectedIdx] = useState(0);
   const [persons, setPersons] = useState(2);
   const [fuelPrice, setFuelPrice] = useState(DEFAULT_FUEL_PRICE);
@@ -54,6 +57,7 @@ export function CostComparator({ originCities, festivalName, festivalCity }: Pro
   // Taxi estimado (solo ida)
   const taxiCost = Math.round(km * TAXI_RATE_PER_KM * 1.3); // +30% nocturno/festival
 
+  const seat = isEn ? "€/seat" : "€/asiento";
   const options = [
     {
       label: "ConcertRide",
@@ -62,19 +66,21 @@ export function CostComparator({ originCities, festivalName, festivalCity }: Pro
       bg: "bg-cr-primary/10",
       border: "border-cr-primary/40",
       priceLabel: carpoolFrom === carpoolTo
-        ? `${carpoolFrom} €/asiento`
-        : `${carpoolFrom}–${carpoolTo} €/asiento`,
-      priceNote: "Sin comisión · ida",
+        ? `${carpoolFrom} ${seat}`
+        : `${carpoolFrom}–${carpoolTo} ${seat}`,
+      priceNote: isEn ? "No commission · one way" : "Sin comisión · ida",
       highlight: true,
     },
     {
-      label: "Coche propio",
+      label: isEn ? "Own car" : "Coche propio",
       icon: Fuel,
       color: "text-orange-400",
       bg: "bg-orange-400/10",
       border: "border-orange-400/20",
-      priceLabel: `~${fuelCostPerPerson.toFixed(0)} €/persona`,
-      priceNote: `Gasolina ida+vuelta (${persons} personas, ${AVG_CONSUMPTION_L_PER_100KM.toFixed(0)}L/100km, ${fuelPrice.toFixed(2)} €/L)`,
+      priceLabel: isEn ? `~${fuelCostPerPerson.toFixed(0)} €/person` : `~${fuelCostPerPerson.toFixed(0)} €/persona`,
+      priceNote: isEn
+        ? `Fuel round trip (${persons} ${persons === 1 ? "person" : "people"}, ${AVG_CONSUMPTION_L_PER_100KM.toFixed(0)}L/100km, ${fuelPrice.toFixed(2)} €/L)`
+        : `Gasolina ida+vuelta (${persons} personas, ${AVG_CONSUMPTION_L_PER_100KM.toFixed(0)}L/100km, ${fuelPrice.toFixed(2)} €/L)`,
       highlight: false,
     },
     {
@@ -84,17 +90,17 @@ export function CostComparator({ originCities, festivalName, festivalCity }: Pro
       bg: "bg-red-400/10",
       border: "border-red-400/20",
       priceLabel: `~${taxiCost} €`,
-      priceNote: "Solo ida · tarifa festiva +30%",
+      priceNote: isEn ? "One way · festival rate +30%" : "Solo ida · tarifa festiva +30%",
       highlight: false,
     },
     {
-      label: "Bus / Tren",
+      label: isEn ? "Bus / Train" : "Bus / Tren",
       icon: Train,
       color: "text-blue-400",
       bg: "bg-blue-400/10",
       border: "border-blue-400/20",
-      priceLabel: "Variable",
-      priceNote: "Consultar horarios · puede requerir transbordo",
+      priceLabel: isEn ? "Variable" : "Variable",
+      priceNote: isEn ? "Check timetables · may require a transfer" : "Consultar horarios · puede requerir transbordo",
       highlight: false,
     },
   ];
@@ -103,10 +109,10 @@ export function CostComparator({ originCities, festivalName, festivalCity }: Pro
     <section className="my-10 rounded-2xl border border-white/10 bg-white/3 p-6 space-y-5">
       <div className="flex flex-wrap items-center justify-between gap-3">
         <h2 className="text-lg font-bold text-cr-text">
-          ¿Cuánto cuesta ir a {festivalName}?
+          {isEn ? <>How much does it cost to get to {festivalName}?</> : <>¿Cuánto cuesta ir a {festivalName}?</>}
         </h2>
         <div className="flex items-center gap-3 text-sm">
-          <label className="text-cr-text-muted">Desde</label>
+          <label className="text-cr-text-muted">{isEn ? "From" : "Desde"}</label>
           <select
             value={selectedIdx}
             onChange={(e) => setSelectedIdx(Number(e.target.value))}
@@ -116,7 +122,7 @@ export function CostComparator({ originCities, festivalName, festivalCity }: Pro
               <option key={c.city} value={i}>{c.city}</option>
             ))}
           </select>
-          <label className="text-cr-text-muted">Personas</label>
+          <label className="text-cr-text-muted">{isEn ? "People" : "Personas"}</label>
           <select
             value={persons}
             onChange={(e) => setPersons(Number(e.target.value))}
@@ -144,7 +150,7 @@ export function CostComparator({ originCities, festivalName, festivalCity }: Pro
               {opt.label}
               {opt.highlight && (
                 <span className="ml-auto rounded-full bg-cr-primary text-black text-[10px] font-bold px-1.5 py-0.5">
-                  MEJOR PRECIO
+                  {isEn ? "BEST PRICE" : "MEJOR PRECIO"}
                 </span>
               )}
             </div>
@@ -160,7 +166,7 @@ export function CostComparator({ originCities, festivalName, festivalCity }: Pro
           className="inline-flex items-center gap-2 rounded-xl bg-cr-primary px-6 py-3 text-sm font-bold text-black hover:bg-cr-primary/90 transition-colors"
         >
           <Car size={16} />
-          Buscar carpooling a {festivalName} →
+          {isEn ? <>Find carpooling to {festivalName} →</> : <>Buscar carpooling a {festivalName} →</>}
         </a>
       </div>
     </section>

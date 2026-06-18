@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import { CalendarClock, ShieldCheck, BookOpen } from "lucide-react";
+import { useI18n } from "@/lib/i18n";
 
 /**
  * `<EeatTrustBlock>` — visible E-E-A-T trust pill for pillar / dataset / blog /
@@ -39,11 +40,11 @@ export interface EeatTrustBlockProps {
   className?: string;
 }
 
-function formatHumanDate(iso: string): string {
+function formatHumanDate(iso: string, isEn: boolean): string {
   try {
     const d = new Date(iso);
     if (Number.isNaN(d.getTime())) return iso;
-    return d.toLocaleDateString("es-ES", {
+    return d.toLocaleDateString(isEn ? "en-GB" : "es-ES", {
       day: "numeric",
       month: "long",
       year: "numeric",
@@ -53,7 +54,26 @@ function formatHumanDate(iso: string): string {
   }
 }
 
-function disclaimerFor(pageType: EeatTrustBlockProps["pageType"]): string {
+function disclaimerFor(pageType: EeatTrustBlockProps["pageType"], isEn: boolean): string {
+  if (isEn) {
+    switch (pageType) {
+      case "dataset":
+        return "Dataset compiled by our data team, combining real observations from the ConcertRide community with official sources (festival organisers, ALSA, Renfe, APM, INE, DGT) and human editorial review.";
+      case "festival":
+        return "Information compiled by our team combining first-hand experience attending festivals in Spain, transport data verified against official sources, and human editorial review before publication.";
+      case "blog":
+        return "Article written and edited by people, cross-checked against official sources and our team's first-hand experience with festivals and carpooling in Spain.";
+      case "city":
+        return "City page compiled by our team combining venues, festivals and carpooling routes verified on ConcertRide, with data cross-checked against the city council, official venues and APM, and human editorial review.";
+      case "artist":
+        return "Artist information compiled by our team from dates officially announced by the promoter, the Ticketmaster Discovery API schedule and real carpooling routes active on ConcertRide, with human editorial review.";
+      case "venue":
+        return "Venue profile compiled by our team combining the venue operator's official capacity and address, a verified event schedule and active carpooling routes on ConcertRide, with human editorial review.";
+      case "pillar":
+      default:
+        return "Guide compiled combining our team's first-hand experience attending festivals in Spain, data verified against official sources (festival organisers, city councils, INE, APM, DGT) and human editorial review before publication.";
+    }
+  }
   switch (pageType) {
     case "dataset":
       return "Dataset elaborado por nuestro equipo de datos, combinando observaciones reales de la comunidad de ConcertRide con fuentes oficiales (organización del festival, ALSA, Renfe, APM, INE, DGT) y revisión editorial humana.";
@@ -80,8 +100,10 @@ export default function EeatTrustBlock({
   methodologyHref,
   className,
 }: EeatTrustBlockProps) {
-  const humanDate = formatHumanDate(lastReviewed);
-  const disclaimer = disclaimerFor(pageType);
+  const { locale } = useI18n();
+  const isEn = locale === "en";
+  const humanDate = formatHumanDate(lastReviewed, isEn);
+  const disclaimer = disclaimerFor(pageType, isEn);
 
   return (
     <aside
@@ -89,7 +111,7 @@ export default function EeatTrustBlock({
         "not-prose border border-cr-border bg-cr-surface/40 p-4 md:p-5 space-y-3 font-sans text-sm text-cr-text-muted " +
         (className ?? "")
       }
-      aria-label="Información editorial y de revisión del contenido"
+      aria-label={isEn ? "Editorial and content-review information" : "Información editorial y de revisión del contenido"}
     >
       <div className="flex flex-wrap items-center gap-x-4 gap-y-2">
         {author ? (
@@ -102,7 +124,7 @@ export default function EeatTrustBlock({
             </span>
             <span className="flex flex-col leading-tight">
               <span className="font-mono text-[10px] uppercase tracking-[0.12em] text-cr-text-muted">
-                Por
+                {isEn ? "By" : "Por"}
               </span>
               <Link
                 to={author.url}
@@ -123,7 +145,7 @@ export default function EeatTrustBlock({
           />
           <span className="flex flex-col leading-tight">
             <span className="font-mono text-[10px] uppercase tracking-[0.12em] text-cr-text-muted">
-              Última revisión
+              {isEn ? "Last reviewed" : "Última revisión"}
             </span>
             <time dateTime={lastReviewed} className="text-cr-text text-[13px]">
               {humanDate}
@@ -137,7 +159,7 @@ export default function EeatTrustBlock({
             className="inline-flex items-center gap-2 font-sans text-[12px] font-semibold uppercase tracking-[0.1em] text-cr-primary hover:text-cr-text transition-colors border border-cr-primary/40 hover:border-cr-primary px-3 py-1.5 ml-auto"
           >
             <BookOpen size={12} aria-hidden="true" />
-            ¿Cómo lo hemos investigado?
+            {isEn ? "How we researched this" : "¿Cómo lo hemos investigado?"}
           </a>
         ) : null}
       </div>

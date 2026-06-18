@@ -22,18 +22,22 @@ import { SITE_URL } from "./siteUrl";
 //
 // Pilot v1 (2026-06): home + concerts hub (both fully English).
 //
-// Batch-2 festivals (primavera-sound / sonar / mad-cool) are NOT exposed yet.
-// The foundation is in place — locale-aware FestivalLandingPage + *_en data
-// (blurb/quotableAnswer/faqs/arrival_*) — but the page still renders ~1.5% of
-// its visible text in Spanish (transport comparison table, which pulls from
-// `transport_options` data that has no *_en variant yet; the H1 price subtitle;
-// some section headings; night-return tips). Exposing a partially-Spanish "en"
-// page would be a low-quality "fake alternate" (hurts hreflang/SEO), so they
-// stay OUT of this set until the remaining content is genuinely translated
-// (add transport_options_en + finish the component labels), then add them here.
+// Batch-2 festivals (2026-06-15): mad-cool / primavera-sound / sonar are now
+// fully English. The remaining Spanish surfaces flagged in the original pilot
+// (TransportTable, EventTransportHub, enrichmentBlocks, the H1 price subtitle)
+// are now locale-aware, and each festival ships curated *_en data (blurb,
+// quotableAnswer, faqs, arrival_*, transport_options, nearby_airports,
+// accommodation_zones, enrichmentBlocks, parking/camping). These are top-tier
+// curated money-pages with genuine English-speaking demand — NOT mass
+// programmatic clusters (which stay es-only to avoid Scaled Content Abuse).
+// To add more festivals: translate their *_en data + verify <5 ES tokens on
+// the built /en page, then add the path here.
 export const LOCALIZED_PATHS: ReadonlySet<string> = new Set<string>([
   "/",
   "/concerts",
+  "/festivales/mad-cool",
+  "/festivales/primavera-sound",
+  "/festivales/sonar",
 ]);
 
 // Ordered list (for prerender + sitemap generation).
