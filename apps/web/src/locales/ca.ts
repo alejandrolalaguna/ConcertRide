@@ -10,6 +10,19 @@ export const ca: Dict = {
     en: "English",
   },
 
+  // Home-city capture prompt
+  homeCity: {
+    regionLabel: "Completa la teva ciutat d'origen",
+    title: "Des d'on surts a concerts?",
+    body: "Digues-nos-ho i t'avisarem quan algú organitzi un viatge des de la teva zona.",
+    placeholder: "Tria la teva ciutat",
+    save: "Desar",
+    saving: "Desant…",
+    dismiss: "Tancar avís",
+    success: "Fet! T'avisarem de viatges des de la teva ciutat.",
+    error: "No s'ha pogut desar. Torna-ho a provar.",
+  },
+
   // Top navigation bar
   nav: {
     home: "Inici",

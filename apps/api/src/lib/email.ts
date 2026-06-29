@@ -296,6 +296,82 @@ export function sendWelcomeEmail(
   return sendEmail(env, { to: email, subject, html });
 }
 
+// ── Activation nudge: capture home_city (→ verified user without a city) ───
+// Day-1+ nudge for users who verified but never set their origin city. Without
+// it the origin→festival matching can't show "viajes desde tu ciudad". Sent at
+// most once per user (deduped via KV in the activation cron).
+export function sendHomeCityNudgeEmail(
+  env: Env,
+  email: string,
+  name: string,
+  profileUrl: string,
+): Promise<SendResult> {
+  const subject = "¿Desde dónde sales a conciertos? 🚗";
+  const html = shell(
+    env,
+    "Dinos tu ciudad de origen",
+    "Cuéntanos desde dónde sales y te avisamos de viajes a tus conciertos desde tu zona",
+    `
+    <h1 style="font-family:Georgia,serif;font-size:30px;line-height:1.1;margin:0 0 12px 0;letter-spacing:-0.5px;">Hola, ${escapeHtml(name)}. 🚗</h1>
+    <p style="color:#ccc;margin:0 0 24px 0;line-height:1.6;font-size:15px;">Para encontrarte el viaje perfecto necesitamos saber una cosa: <strong style="color:#DBFF00;">¿desde qué ciudad sueles salir a conciertos?</strong></p>
+
+    ${alertBox(`📍 Con tu ciudad podemos avisarte cuando alguien organice un viaje a tus conciertos <strong>desde tu zona</strong> — y mostrarte las plazas más cercanas primero.`, "info")}
+
+    <p style="margin:0 0 8px 0;">${cta(profileUrl, "Añadir mi ciudad")}</p>
+    <p style="color:#444;font-size:12px;margin:8px 0 0 0;">Solo te lleva 5 segundos. Sin comisiones, pago en mano (efectivo o Bizum).</p>
+    `,
+  );
+  return sendEmail(env, { to: email, subject, html });
+}
+
+// ── Re-engagement (→ verified user with zero activity, weekly) ─────────────
+// Gentle weekly nudge for registered users who haven't done anything yet
+// (no interest, no favourites, no ride published or booked). Sent at most once
+// per week (deduped via KV in the engagement cron) and only for recent signups.
+export function sendReengagementEmail(
+  env: Env,
+  email: string,
+  name: string,
+  concertsUrl: string,
+): Promise<SendResult> {
+  const subject = "Tu próximo concierto te espera 🎶";
+  const html = shell(
+    env,
+    "Encuentra cómo llegar a tu próximo concierto",
+    "Comparte coche al concierto: sin comisiones, conductores verificados y pago en mano",
+    `
+    <h1 style="font-family:Georgia,serif;font-size:30px;line-height:1.1;margin:0 0 12px 0;letter-spacing:-0.5px;">Hola, ${escapeHtml(name)}. 🎶</h1>
+    <p style="color:#ccc;margin:0 0 24px 0;line-height:1.6;font-size:15px;">¿Ya sabes a qué conciertos o festivales vas esta temporada? En ConcertRide puedes <strong style="color:#DBFF00;">encontrar plaza en un coche compartido</strong> —o publicar el tuyo y compartir gastos— con otros fans que van al mismo sitio.</p>
+
+    <table style="width:100%;border-collapse:collapse;margin:0 0 28px 0;">
+      <tr>
+        <td style="padding:12px 16px;background:#0d0d0d;border:1px solid #1a1a1a;vertical-align:top;width:33%;">
+          <p style="color:#DBFF00;font-size:18px;margin:0 0 6px 0;">🎟️</p>
+          <p style="color:#fff;font-size:13px;font-weight:700;margin:0 0 4px 0;">Busca plaza</p>
+          <p style="color:#666;font-size:12px;margin:0;">Únete al viaje de otro fan a tu concierto.</p>
+        </td>
+        <td style="padding:12px 16px;background:#0d0d0d;border:1px solid #1a1a1a;border-left:none;vertical-align:top;width:33%;">
+          <p style="color:#DBFF00;font-size:18px;margin:0 0 6px 0;">🚗</p>
+          <p style="color:#fff;font-size:13px;font-weight:700;margin:0 0 4px 0;">Publica el tuyo</p>
+          <p style="color:#666;font-size:12px;margin:0;">Vas en coche? Comparte gastos. 0% comisión.</p>
+        </td>
+        <td style="padding:12px 16px;background:#0d0d0d;border:1px solid #1a1a1a;border-left:none;vertical-align:top;width:33%;">
+          <p style="color:#DBFF00;font-size:18px;margin:0 0 6px 0;">🔔</p>
+          <p style="color:#fff;font-size:13px;font-weight:700;margin:0 0 4px 0;">Sigue artistas</p>
+          <p style="color:#666;font-size:12px;margin:0;">Te avisamos cuando haya viaje a tus eventos.</p>
+        </td>
+      </tr>
+    </table>
+
+    ${alertBox(`💸 <strong>Sin comisiones.</strong> Pago en mano (efectivo o Bizum) y conductores verificados con carné.`, "info")}
+
+    <p style="margin:0 0 8px 0;">${cta(concertsUrl, "Ver conciertos y viajes")}</p>
+    <p style="color:#3a3a3a;font-size:11px;margin-top:28px;line-height:1.6;">Recibes este correo porque te registraste en ConcertRide. Si no quieres más avisos, responde a este correo y lo paramos.</p>
+    `,
+  );
+  return sendEmail(env, { to: email, subject, html });
+}
+
 // ── Seat requested (→ driver) ────────────────────────────────────────────
 export function sendSeatRequestedEmail(
   env: Env,

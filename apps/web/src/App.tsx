@@ -6,6 +6,7 @@ import { ScrollToTop } from "./components/ScrollToTop";
 import { CookieBanner } from "./components/CookieBanner";
 import { ErrorBoundary } from "./components/ErrorBoundary";
 import { VerifyEmailBanner } from "./components/VerifyEmailBanner";
+import { HomeCityPrompt } from "./components/HomeCityPrompt";
 import { LoadingSpinner } from "./components/ui";
 // ExitIntentModal lazy-loaded — it renders null until the user moves the
 // mouse out the top of the viewport / scrolls back up on mobile, so it has
@@ -136,6 +137,7 @@ export default function App() {
       </a>
       <TopNav />
       <VerifyEmailBanner />
+      <HomeCityPrompt />
       {/* Skip-link target (#main): each page renders its own <main id="main">.
           The Suspense fallback carries id="main" too so the target exists during
           lazy-route loading. Do NOT add a wrapper <main> here — it would nest

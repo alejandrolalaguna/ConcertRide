@@ -31,6 +31,19 @@ export const es = {
     en: "English",
   },
 
+  // Home-city capture prompt
+  homeCity: {
+    regionLabel: "Completa tu ciudad de origen",
+    title: "¿Desde dónde sales a conciertos?",
+    body: "Dínoslo y te avisamos cuando alguien organice un viaje desde tu zona.",
+    placeholder: "Elige tu ciudad",
+    save: "Guardar",
+    saving: "Guardando…",
+    dismiss: "Cerrar aviso",
+    success: "¡Listo! Te avisaremos de viajes desde tu ciudad.",
+    error: "No se pudo guardar. Inténtalo de nuevo.",
+  },
+
   // Top navigation bar
   nav: {
     home: "Inicio",

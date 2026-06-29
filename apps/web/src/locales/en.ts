@@ -10,6 +10,19 @@ export const en: Dict = {
     en: "English",
   },
 
+  // Home-city capture prompt
+  homeCity: {
+    regionLabel: "Complete your home city",
+    title: "Where do you usually set off from?",
+    body: "Tell us and we'll alert you when someone organises a ride from your area.",
+    placeholder: "Choose your city",
+    save: "Save",
+    saving: "Saving…",
+    dismiss: "Dismiss",
+    success: "Done! We'll notify you of rides from your city.",
+    error: "Couldn't save. Please try again.",
+  },
+
   // Top navigation bar
   nav: {
     home: "Home",

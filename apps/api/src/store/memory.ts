@@ -1569,6 +1569,24 @@ export class MemoryStore implements StoreAdapter {
     }
   }
 
+  async listUsersForHomeCityNudge(createdAfterIso: string): Promise<Array<{ id: string; email: string; name: string }>> {
+    return this.users
+      .filter((u) => u.email_verified_at != null && u.home_city == null && u.deleted_at == null && u.banned_at == null && u.created_at >= createdAfterIso)
+      .map((u) => ({ id: u.id, email: u.email, name: u.name }));
+  }
+
+  async listInactiveUsers(createdAfterIso: string): Promise<Array<{ id: string; email: string; name: string }>> {
+    return this.users
+      .filter((u) =>
+        u.email_verified_at != null && u.deleted_at == null && u.banned_at == null && u.created_at >= createdAfterIso &&
+        !this.demandSignals.some((d) => d.user_id === u.id) &&
+        !this.favorites.some((f) => f.user_id === u.id) &&
+        !this.rides.some((r) => r.driver_id === u.id) &&
+        !this.requests.some((r) => r.passenger_id === u.id),
+      )
+      .map((u) => ({ id: u.id, email: u.email, name: u.name }));
+  }
+
   async getMyLicenseReview(userId: string): Promise<import("@concertride/types").LicenseReview | null> {
     const userReviews = this.licenseReviews.filter((r) => r.user_id === userId);
     if (userReviews.length === 0) return null;

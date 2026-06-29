@@ -237,14 +237,19 @@ route.post("/verify-license", async (c) => {
 
   const review = await c.var.store.createLicenseReview(userOrResp.id, kvKeyWithExt);
 
-  // Notify admin — fire and forget, don't block the response
+  // Notify admin — must run via waitUntil so the Worker doesn't tear down the
+  // request context (and cancel the Resend fetch) before the email is sent.
+  // A bare fire-and-forget promise here was being dropped → admin never got
+  // the "nuevo carné" email even though forwarding works.
   const fileUrl = `${getSiteUrl(c.env)}/api/auth/license-doc/${encodeURIComponent(kvKeyWithExt)}`;
-  sendLicenseReviewAdminEmail(c.env, {
-    userName: userOrResp.name,
-    userId: userOrResp.id,
-    reviewId: review.id,
-    fileUrl,
-  }).catch(() => {});
+  c.executionCtx.waitUntil(
+    sendLicenseReviewAdminEmail(c.env, {
+      userName: userOrResp.name,
+      userId: userOrResp.id,
+      reviewId: review.id,
+      fileUrl,
+    }).then(() => undefined).catch(() => {}),
+  );
 
   return c.json({ ok: true, status: "pending", review_id: review.id });
 });
@@ -298,12 +303,14 @@ route.post("/verify-identity", async (c) => {
 
   const { sendIdentityReviewAdminEmail } = await import("../lib/email");
   const fileUrl = `${getSiteUrl(c.env)}/api/auth/identity-doc/${encodeURIComponent(kvKeyWithExt)}`;
-  sendIdentityReviewAdminEmail(c.env, {
-    userName: userOrResp.name,
-    userId: userOrResp.id,
-    reviewId: review.id,
-    fileUrl,
-  }).catch(() => {});
+  c.executionCtx.waitUntil(
+    sendIdentityReviewAdminEmail(c.env, {
+      userName: userOrResp.name,
+      userId: userOrResp.id,
+      reviewId: review.id,
+      fileUrl,
+    }).then(() => undefined).catch(() => {}),
+  );
 
   return c.json({ ok: true, status: "pending", review_id: review.id });
 });

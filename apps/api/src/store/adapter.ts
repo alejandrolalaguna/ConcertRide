@@ -344,6 +344,17 @@ export interface StoreAdapter {
   // null for unknown metric keys.
   getAdminBreakdown(metric: string): Promise<AdminBreakdown | null>;
 
+  // --- activation nudges ---
+  // Verified users without a home_city, registered on/after `createdAfterIso`,
+  // not deleted/banned. Used by the weekly engagement cron to nudge them to set
+  // their origin city (dedup handled by the caller via KV).
+  listUsersForHomeCityNudge(createdAfterIso: string): Promise<Array<{ id: string; email: string; name: string }>>;
+
+  // Verified users with ZERO activity (no interest signal, favourite, published
+  // ride or booking request), registered on/after `createdAfterIso`, not
+  // deleted/banned. Used by the weekly engagement cron for re-engagement emails.
+  listInactiveUsers(createdAfterIso: string): Promise<Array<{ id: string; email: string; name: string }>>;
+
   // --- ban system ---
   banUser(adminId: string, userId: string, reason: string): Promise<User | null>;
   unbanUser(adminId: string, userId: string): Promise<User | null>;

@@ -2503,6 +2503,31 @@ export class DrizzleStore implements StoreAdapter {
     }
   }
 
+  async listUsersForHomeCityNudge(createdAfterIso: string): Promise<Array<{ id: string; email: string; name: string }>> {
+    const u = schema.users;
+    return this.db.select({ id: u.id, email: u.email, name: u.name }).from(u).where(and(
+      sql`${u.email_verified_at} IS NOT NULL`,
+      sql`${u.home_city} IS NULL`,
+      sql`${u.deleted_at} IS NULL`,
+      sql`${u.banned_at} IS NULL`,
+      gte(u.created_at, createdAfterIso),
+    )!).limit(500);
+  }
+
+  async listInactiveUsers(createdAfterIso: string): Promise<Array<{ id: string; email: string; name: string }>> {
+    const u = schema.users;
+    return this.db.select({ id: u.id, email: u.email, name: u.name }).from(u).where(and(
+      sql`${u.email_verified_at} IS NOT NULL`,
+      sql`${u.deleted_at} IS NULL`,
+      sql`${u.banned_at} IS NULL`,
+      gte(u.created_at, createdAfterIso),
+      sql`NOT EXISTS (SELECT 1 FROM demand_signals d WHERE d.user_id = ${u.id})`,
+      sql`NOT EXISTS (SELECT 1 FROM favorites f WHERE f.user_id = ${u.id})`,
+      sql`NOT EXISTS (SELECT 1 FROM rides r WHERE r.driver_id = ${u.id})`,
+      sql`NOT EXISTS (SELECT 1 FROM ride_requests rr WHERE rr.passenger_id = ${u.id})`,
+    )!).limit(500);
+  }
+
   async banUser(adminId: string, userId: string, reason: string): Promise<User | null> {
     const now = new Date().toISOString();
     await this.db.update(schema.users).set({ banned_at: now, ban_reason: reason }).where(eq(schema.users.id, userId));

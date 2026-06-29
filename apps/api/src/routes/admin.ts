@@ -164,7 +164,9 @@ route.post("/license-reviews/:id/approve", async (c) => {
 
   c.var.store.logAdminAction(gate.id, "license_approve", review.user_id).catch(() => {});
   if (user?.email) {
-    sendLicenseReviewResultEmail(c.env, user.email, { name: user.name, approved: true }).catch(() => {});
+    c.executionCtx.waitUntil(
+      sendLicenseReviewResultEmail(c.env, user.email, { name: user.name, approved: true }).then(() => undefined).catch(() => {}),
+    );
   }
   return c.json({ ok: true, review });
 });
@@ -183,11 +185,13 @@ route.post("/license-reviews/:id/reject", async (c) => {
   c.var.store.logAdminAction(gate.id, "license_reject", review.user_id, parsed.data.reason).catch(() => {});
   const user = await c.var.store.getUser(review.user_id);
   if (user?.email) {
-    sendLicenseReviewResultEmail(c.env, user.email, {
-      name: user.name,
-      approved: false,
-      reason: parsed.data.reason,
-    }).catch(() => {});
+    c.executionCtx.waitUntil(
+      sendLicenseReviewResultEmail(c.env, user.email, {
+        name: user.name,
+        approved: false,
+        reason: parsed.data.reason,
+      }).then(() => undefined).catch(() => {}),
+    );
   }
   return c.json({ ok: true, review });
 });
@@ -215,7 +219,9 @@ route.post("/identity-reviews/:id/approve", async (c) => {
 
   c.var.store.logAdminAction(gate.id, "identity_approve", review.user_id).catch(() => {});
   if (user?.email) {
-    sendIdentityReviewResultEmail(c.env, user.email, { name: user.name, approved: true }).catch(() => {});
+    c.executionCtx.waitUntil(
+      sendIdentityReviewResultEmail(c.env, user.email, { name: user.name, approved: true }).then(() => undefined).catch(() => {}),
+    );
   }
   return c.json({ ok: true, review });
 });
@@ -234,11 +240,13 @@ route.post("/identity-reviews/:id/reject", async (c) => {
   c.var.store.logAdminAction(gate.id, "identity_reject", review.user_id, parsed.data.reason).catch(() => {});
   const user = await c.var.store.getUser(review.user_id);
   if (user?.email) {
-    sendIdentityReviewResultEmail(c.env, user.email, {
-      name: user.name,
-      approved: false,
-      reason: parsed.data.reason,
-    }).catch(() => {});
+    c.executionCtx.waitUntil(
+      sendIdentityReviewResultEmail(c.env, user.email, {
+        name: user.name,
+        approved: false,
+        reason: parsed.data.reason,
+      }).then(() => undefined).catch(() => {}),
+    );
   }
   return c.json({ ok: true, review });
 });
@@ -259,7 +267,9 @@ route.post("/users/:id/ban", async (c) => {
   if (!user) return c.json({ error: "not_found" }, 404);
 
   if (user.email) {
-    sendBanNotificationEmail(c.env, user.email, { name: user.name, reason: parsed.data.reason }).catch(() => {});
+    c.executionCtx.waitUntil(
+      sendBanNotificationEmail(c.env, user.email, { name: user.name, reason: parsed.data.reason }).then(() => undefined).catch(() => {}),
+    );
   }
   return c.json({ ok: true, user });
 });

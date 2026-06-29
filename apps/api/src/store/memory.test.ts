@@ -177,3 +177,68 @@ describe("MemoryStore.ensureVenue", () => {
     expect(after).toBe(before + 1);
   });
 });
+
+describe("MemoryStore.listUsersForHomeCityNudge", () => {
+  const longAgo = "2000-01-01T00:00:00.000Z";
+
+  it("includes verified users without home_city created after the cutoff", async () => {
+    const s = fresh();
+    const u = await s.createUserWithPassword("nudge@test.es", "Nudge", "h", "salt");
+    await s.markEmailVerified(u.id);
+    const res = await s.listUsersForHomeCityNudge(longAgo);
+    expect(res.some((x) => x.id === u.id)).toBe(true);
+  });
+
+  it("excludes users who already set a home_city", async () => {
+    const s = fresh();
+    const u = await s.createUserWithPassword("withcity@test.es", "City", "h", "salt");
+    await s.markEmailVerified(u.id);
+    await s.updateUser(u.id, { home_city: "Madrid" });
+    const res = await s.listUsersForHomeCityNudge(longAgo);
+    expect(res.some((x) => x.id === u.id)).toBe(false);
+  });
+
+  it("excludes unverified users", async () => {
+    const s = fresh();
+    const u = await s.createUserWithPassword("unverified@test.es", "NoVerify", "h", "salt");
+    const res = await s.listUsersForHomeCityNudge(longAgo);
+    expect(res.some((x) => x.id === u.id)).toBe(false);
+  });
+
+  it("excludes users created before the cutoff", async () => {
+    const s = fresh();
+    const u = await s.createUserWithPassword("old@test.es", "Old", "h", "salt");
+    await s.markEmailVerified(u.id);
+    const future = "2999-01-01T00:00:00.000Z";
+    const res = await s.listUsersForHomeCityNudge(future);
+    expect(res.some((x) => x.id === u.id)).toBe(false);
+  });
+});
+
+describe("MemoryStore.listInactiveUsers", () => {
+  const longAgo = "2000-01-01T00:00:00.000Z";
+
+  it("includes verified users with zero activity", async () => {
+    const s = fresh();
+    const u = await s.createUserWithPassword("inactive@test.es", "Inactive", "h", "salt");
+    await s.markEmailVerified(u.id);
+    const res = await s.listInactiveUsers(longAgo);
+    expect(res.some((x) => x.id === u.id)).toBe(true);
+  });
+
+  it("excludes users with any activity (e.g. a favorite)", async () => {
+    const s = fresh();
+    const u = await s.createUserWithPassword("active@test.es", "Active", "h", "salt");
+    await s.markEmailVerified(u.id);
+    await s.addFavorite(u.id, "artist", "rosalia", "Rosalía");
+    const res = await s.listInactiveUsers(longAgo);
+    expect(res.some((x) => x.id === u.id)).toBe(false);
+  });
+
+  it("excludes unverified users", async () => {
+    const s = fresh();
+    const u = await s.createUserWithPassword("noverify2@test.es", "NoVerify", "h", "salt");
+    const res = await s.listInactiveUsers(longAgo);
+    expect(res.some((x) => x.id === u.id)).toBe(false);
+  });
+});
