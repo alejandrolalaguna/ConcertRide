@@ -3786,7 +3786,7 @@ BLOG_POSTS.push(
     relatedLinks: [
       { label: "Carpooling al Tomavistas", to: "/festivales/tomavistas" },
       { label: "Conciertos en Madrid", to: "/conciertos/madrid" },
-      { label: "Festivales en Madrid", to: "/festivales-en/comunidad-de-madrid" },
+      { label: "Festivales en Madrid", to: "/festivales-en/madrid" },
     ],
     relatedPosts: ["festivales-verano-espana-2026-transporte", "guia-transporte-conciertos-madrid-2026", "carpooling-tomavistas-2026"],
   },
@@ -3909,7 +3909,7 @@ BLOG_POSTS.push(
       { q: "¿Necesito reservar entrada para los festivales gratuitos?", a: "Depende del evento. Muchos ciclos gratuitos como Noches del Botánico y algunos pases del Grec requieren reserva anticipada gratuita online porque el aforo es limitado. Consulta el programa de cada evento." },
     ],
     relatedLinks: [
-      { label: "Festivales en Madrid", to: "/festivales-en/comunidad-de-madrid" },
+      { label: "Festivales en Madrid", to: "/festivales-en/madrid" },
       { label: "Festivales en Barcelona", to: "/festivales-en/cataluna" },
       { label: "Conciertos en Madrid", to: "/conciertos/madrid" },
       { label: "Conciertos en Barcelona", to: "/conciertos/barcelona" },
@@ -6117,7 +6117,7 @@ BLOG_POSTS.push(
     relatedLinks: [
       { label: "Festival Vive Latino", to: "/festivales/vive-latino" },
       { label: "Conciertos en Zaragoza", to: "/conciertos/zaragoza" },
-      { label: "Carpooling Madrid→Zaragoza", to: "/rutas/madrid-zaragoza" },
+      { label: "Carpooling Madrid→Zaragoza", to: "/conciertos/zaragoza" },
     ],
     relatedPosts: ["autobuses-festivales-espana-2026", "festivales-zaragoza-2026"],
   },
@@ -8661,8 +8661,8 @@ BLOG_POSTS.push({
   relatedLinks: [
     { label: "Cómo llegar al Estadio La Cartuja Sevilla", to: "/recintos/estadio-la-cartuja" },
     { label: "Conciertos en Sevilla 2026–2027", to: "/conciertos/sevilla" },
-    { label: "Carpooling Cádiz → Sevilla conciertos", to: "/rutas/cadiz-la-cartuja" },
-    { label: "Carpooling Madrid → Sevilla La Cartuja", to: "/rutas/madrid-la-cartuja" },
+    { label: "Carpooling Cádiz → Sevilla conciertos", to: "/recintos/estadio-la-cartuja" },
+    { label: "Carpooling Madrid → Sevilla La Cartuja", to: "/recintos/estadio-la-cartuja" },
     { label: "Guía Cala Mijas Festival", to: "/festivales/cala-mijas" },
     { label: "Autobuses a festivales España 2026", to: "/blog/autobuses-festivales-espana-2026" },
   ],
@@ -8865,7 +8865,7 @@ BLOG_POSTS.push(
     ],
     relatedLinks: [
       { label: "Carpooling a Stone & Music Mérida", to: "/festivales/stone-music-festival" },
-      { label: "Madrid → Stone & Music", to: "/rutas/madrid-stone-music" },
+      { label: "Madrid → Stone & Music", to: "/festivales/stone-music-festival" },
       { label: "Conciertos en Extremadura", to: "/conciertos/merida" },
       { label: "Autobuses a festivales España 2026", to: "/blog/autobuses-festivales-espana-2026" },
     ],
@@ -9003,7 +9003,7 @@ BLOG_POSTS.push(
     relatedLinks: [
       { label: "Carpooling a Coldplay Madrid", to: "/artistas/coldplay" },
       { label: "Cómo llegar al Bernabéu", to: "/recintos/estadio-santiago-bernabeu" },
-      { label: "Barcelona → Madrid Bernabéu", to: "/rutas/barcelona-madrid-bernabeu" },
+      { label: "Barcelona → Madrid Bernabéu", to: "/recintos/estadio-santiago-bernabeu" },
     ],
     relatedPosts: ["como-volver-concierto-madrugada-espana-2026", "carpooling-vs-taxi-festival-espana"],
   },
@@ -9273,7 +9273,7 @@ BLOG_POSTS.push(
     ],
     relatedLinks: [
       { label: "Carpooling a Primavera Sound", to: "/festivales/primavera-sound" },
-      { label: "Rutas desde Madrid a Barcelona", to: "/rutas/madrid-barcelona" },
+      { label: "Rutas desde Madrid a Barcelona", to: "/conciertos/barcelona" },
       { label: "Cómo llegar a Primavera Sound", to: "/como-llegar/primavera-sound" },
       { label: "Guía de transporte para festivales", to: "/guia-transporte-festivales" },
     ],
@@ -9367,7 +9367,7 @@ BLOG_POSTS.push(
     ],
     relatedLinks: [
       { label: "Carpooling a Mad Cool", to: "/festivales/mad-cool" },
-      { label: "Rutas desde Barcelona a Madrid", to: "/rutas/barcelona-madrid" },
+      { label: "Rutas desde Barcelona a Madrid", to: "/conciertos/madrid" },
       { label: "Cómo llegar a Mad Cool", to: "/como-llegar/mad-cool" },
       { label: "Guía completa Mad Cool 2026", to: "/festivales/mad-cool" },
     ],
@@ -9570,7 +9570,7 @@ BLOG_POSTS.push(
     relatedLinks: [
       { label: "Carpooling a Arenal Sound", to: "/festivales/arenal-sound" },
       { label: "Cómo llegar a Arenal Sound", to: "/como-llegar/arenal-sound" },
-      { label: "Rutas Valencia → Castellón", to: "/rutas/valencia-burriana" },
+      { label: "Rutas Valencia → Castellón", to: "/festivales/arenal-sound" },
     ],
     relatedPosts: [
       "arenal-sound-2026-transporte",
@@ -9659,7 +9659,7 @@ BLOG_POSTS.push(
     ],
     relatedLinks: [
       { label: "Carpooling a Mad Cool", to: "/festivales/mad-cool" },
-      { label: "Rutas Valencia → Madrid", to: "/rutas/valencia-madrid" },
+      { label: "Rutas Valencia → Madrid", to: "/conciertos/madrid" },
       { label: "Guía completa Mad Cool 2026", to: "/blog/mad-cool-2026-guia-completa" },
       { label: "Cuánto cuesta ir a un festival", to: "/blog/cuanto-cuesta-ir-festival-espana-2026-carpooling-vs-bus" },
     ],
@@ -10924,12 +10924,12 @@ BLOG_POSTS.push(
       { label: "Primavera Sound Barcelona — carpooling sostenible", to: "/festivales/primavera-sound" },
       { label: "Sónar Barcelona — transporte en metro", to: "/festivales/sonar" },
       { label: "BBK Live Bilbao — lanzadera gratuita", to: "/festivales/bbk-live" },
-      { label: "Cómo llegar a festivales sin coche", to: "/blog/como-llegar-festival-sin-coche-guia" },
+      { label: "Cómo llegar a festivales sin coche", to: "/blog/como-ir-festival-sin-coche-guia" },
       { label: "Huella de carbono festivales — datos", to: "/blog/huella-carbono-festivales-carpooling" },
     ],
     relatedPosts: [
       "huella-carbono-festivales-carpooling",
-      "como-llegar-festival-sin-coche-guia",
+      "como-ir-festival-sin-coche-guia",
       "autobuses-festivales-espana-2026",
       "carpooling-vs-autobus-festival",
       "viajar-sostenible-a-festivales-2026",
@@ -13467,7 +13467,7 @@ BLOG_POSTS.push(
     relatedLinks: [
       { label: "Carpooling a conciertos en Madrid", to: "/conciertos/madrid" },
       { label: "Carpooling a conciertos en Barcelona", to: "/conciertos/barcelona" },
-      { label: "Recinto Bernabéu conciertos", to: "/recintos/estadio-bernabeu" },
+      { label: "Recinto Bernabéu conciertos", to: "/recintos/estadio-santiago-bernabeu" },
     ],
     relatedPosts: ["pablo-alboran-india-martinez-espana-2026", "carpooling-distancia-corta-conciertos", "hub-festivales-verano-2026-transporte"],
     coverImage: { src: "/og/home.png", alt: "Conciertos en estadios España 2026: Bernabéu, Metropolitano, Camp Nou — carpooling ConcertRide", width: 1200, height: 630 },
@@ -13520,7 +13520,7 @@ BLOG_POSTS.push(
     ],
     relatedLinks: [
       { label: "Carpooling al Sónar Barcelona", to: "/festivales/sonar" },
-      { label: "Carpooling desde Madrid a Barcelona", to: "/rutas/madrid-barcelona" },
+      { label: "Carpooling desde Madrid a Barcelona", to: "/conciertos/barcelona" },
       { label: "Festivales electrónica España 2026", to: "/festivales-genero/electronica" },
     ],
     relatedPosts: ["guia-festivales-cataluna-interior-2026", "hub-festivales-verano-2026-transporte", "conciertos-estadios-espana-2026-guia"],
@@ -13622,10 +13622,10 @@ BLOG_POSTS.push(
     ],
     relatedLinks: [
       { label: "Carpooling al Sonorama Ribera", to: "/festivales/sonorama-ribera" },
-      { label: "Festivales en Castilla y León", to: "/blog/guia-festivales-castilla-leon-2026" },
+      { label: "Festivales en Castilla y León", to: "/festivales-en/castilla-leon" },
       { label: "Festivales Castilla La Mancha", to: "/conciertos/toledo" },
     ],
-    relatedPosts: ["guia-festivales-castilla-leon-2026", "extremoduro-los-planetas-rock-espanol", "carpooling-distancia-corta-conciertos"],
+    relatedPosts: ["extremoduro-los-planetas-rock-espanol", "carpooling-distancia-corta-conciertos"],
     coverImage: { src: "/og/home.png", alt: "Festivales en el interior de España 2026: Sonorama, Sonorias Cuenca, Toledo, Zamora Rock — carpooling ConcertRide", width: 1200, height: 630 },
   },
 );
@@ -13678,7 +13678,7 @@ BLOG_POSTS.push(
     relatedLinks: [
       { label: "Carpooling a conciertos en Madrid", to: "/conciertos/madrid" },
       { label: "Publicar un viaje en ConcertRide", to: "/publish" },
-      { label: "Rutas desde Guadalajara a Madrid", to: "/rutas/guadalajara-madrid" },
+      { label: "Rutas desde Guadalajara a Madrid", to: "/conciertos/madrid" },
     ],
     relatedPosts: ["pablo-alboran-india-martinez-espana-2026", "conciertos-estadios-espana-2026-guia", "guia-festivales-interior-espana-2026"],
     coverImage: { src: "/og/home.png", alt: "Carpooling de corta distancia a conciertos en Madrid: Guadalajara, Alcalá, Toledo — ConcertRide desde 3€", width: 1200, height: 630 },
@@ -13732,9 +13732,9 @@ BLOG_POSTS.push(
       { q: "¿Hay festivales en Cartagena en 2026?", a: "Sí. El Festival de Música de Cartagena se celebra en julio 2026, con el Teatro Romano como escenario. Carpooling desde Murcia desde 3€/asiento (55 km, 45 min)." },
     ],
     relatedLinks: [
-      { label: "Festival de Cartagena", to: "/festivales/festival-de-musica-de-cartagena" },
-      { label: "Festival de Alicante", to: "/festivales/festival-de-musica-de-alicante" },
-      { label: "Carpooling Madrid → Murcia Pop", to: "/rutas/madrid-festival-de-musica-de-murcia-pop" },
+      { label: "Festival de Cartagena", to: "/festivales-en/murcia" },
+      { label: "Festival de Alicante", to: "/festivales-en/comunidad-valenciana" },
+      { label: "Carpooling Madrid → Murcia Pop", to: "/festivales-en/murcia" },
     ],
     relatedPosts: ["guia-festivales-galicia-noroeste-2026", "guia-festivales-madrid-2026-completa", "festival-de-sonar-2026-electronica"],
     coverImage: { src: "https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?w=1200&h=630&fit=crop", alt: "Festival de música en el sureste de España — ConcertRide", width: 1200, height: 630 },
@@ -13901,8 +13901,8 @@ BLOG_POSTS.push(
       { q: "¿Qué diferencia hay entre Sónar de Día y Sónar de Noche?", a: "Sónar de Día (Fira Montjuïc) es más experimental y diurno. Sónar de Noche (Gran Via, L'Hospitalet) es más electrónico y nocturno, con DJs internacionales hasta el amanecer. Los abonos de 3 días incluyen ambos." },
     ],
     relatedLinks: [
-      { label: "Carpooling Madrid → Sónar", to: "/rutas/madrid-sonar-plus" },
-      { label: "Carpooling Valencia → Sónar", to: "/rutas/valencia-sonar-plus" },
+      { label: "Carpooling Madrid → Sónar", to: "/rutas/madrid-sonar" },
+      { label: "Carpooling Valencia → Sónar", to: "/rutas/valencia-sonar" },
       { label: "Festival Sónar", to: "/festivales/sonar" },
     ],
     relatedPosts: ["how-to-get-to-primavera-sound-2026", "guia-festivales-cataluna-interior-2026", "guia-festivales-madrid-2026-completa"],
@@ -14054,9 +14054,9 @@ BLOG_POSTS.push(
       { q: "¿Hay carpooling entre los festivales del sur de Madrid?", a: "Sí. Para los festivales del sur (Leganés, Móstoles, Alcorcón, Getafe), ConcertRide organiza carpooling desde el centro de Madrid desde 3€/asiento y desde Toledo, Guadalajara o Segovia desde 3–5€/asiento." },
     ],
     relatedLinks: [
-      { label: "Festival Complutense", to: "/festivales/festival-complutense" },
-      { label: "Festival de Leganés", to: "/festivales/festival-de-musica-de-leganes" },
-      { label: "GetaFest", to: "/festivales/getafest" },
+      { label: "Festival Complutense", to: "/festivales-en/madrid" },
+      { label: "Festival de Leganés", to: "/festivales-en/madrid" },
+      { label: "GetaFest", to: "/festivales-en/madrid" },
       { label: "Mad Cool Festival", to: "/festivales/mad-cool" },
     ],
     relatedPosts: ["guia-festivales-murcia-sureste-2026", "carpooling-pareja-festival-romantico", "festival-de-sonar-2026-electronica"],
@@ -15333,7 +15333,7 @@ BLOG_POSTS.push(
       { label: "Carpooling Madrid (IFEMA)", to: "/conciertos/madrid" },
       { label: "Carpooling Barcelona–Download Festival", to: "/rutas/barcelona-download-madrid" },
       { label: "Carpooling Valencia–Download Festival", to: "/rutas/valencia-download-madrid" },
-      { label: "Recinto IFEMA Madrid", to: "/recintos/ifema-feria-de-madrid" },
+      { label: "Recinto IFEMA Madrid", to: "/recintos/ifema-madrid" },
     ],
     relatedPosts: ["mad-cool-2026-guia-completa-transporte", "transporte-resurrection-fest-2026", "autobuses-festivales-espana-2026"],
   }
@@ -15666,14 +15666,14 @@ BLOG_POSTS.push({
     { label: "Carpooling a Viña Rock 2026", to: "/festivales/vina-rock" },
     { label: "Carpooling a BBK Live 2026", to: "/festivales/bbk-live" },
     { label: "Carpooling vs taxi para festivales", to: "/blog/carpooling-vs-taxi-festival-espana" },
-    { label: "Carpooling sin comisión para festivales", to: "/blog/carpooling-sin-comision-festivales" },
+    { label: "Carpooling sin comisión para festivales", to: "/blog/carpooling-gratuito-festivales-sin-comision" },
     { label: "Cómo funciona ConcertRide", to: "/como-funciona" },
     { label: "Datos y transparencia ConcertRide", to: "/datos" },
     { label: "Dataset: Precio medio carpooling vs bus 2026 (CC BY)", to: "/datos/precio-medio-carpooling-vs-bus-festivales-2026" },
   ],
   relatedPosts: [
     "carpooling-vs-taxi-festival-espana",
-    "carpooling-sin-comision-festivales",
+    "carpooling-gratuito-festivales-sin-comision",
     "es-seguro-carpooling-festivales",
   ],
   coverImage: {

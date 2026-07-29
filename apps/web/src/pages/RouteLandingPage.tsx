@@ -627,14 +627,20 @@ export default function RouteLandingPage() {
 
         {/* Hero CTAs — visible above-the-fold on mobile per UX audit */}
         <div className="flex flex-wrap gap-3 pt-3">
+          {/* rel="nofollow": these point to robots-blocked, non-canonical URLs
+              (/concerts? filter facet, /publish auth-gated form). Emitted on 7,399
+              route pages, they were the bulk of GSC "Bloqueada por robots.txt" (4465)
+              and leaked internal PageRank into dead-ends. See SKILL §AD. */}
           <Link
             to={`/concerts?city=${encodeURIComponent(festival.citySlug)}&from=${encodeURIComponent(originCity)}`}
+            rel="nofollow"
             className="inline-flex items-center justify-center font-sans text-sm font-bold uppercase tracking-wider bg-cr-primary text-black px-5 py-3 shadow-[4px_4px_0_0_rgba(219,255,0,0.25)] hover:shadow-[6px_6px_0_0_rgba(219,255,0,0.4)] transition-shadow"
           >
             Buscar plaza · desde {originData.concertRideRange.match(/(\d+)/)?.[1] ?? "3"}€
           </Link>
           <Link
             to={`/publish?to=${encodeURIComponent(festival.slug)}&from=${encodeURIComponent(originCity)}`}
+            rel="nofollow"
             className="inline-flex items-center justify-center font-sans text-sm font-bold uppercase tracking-wider border-2 border-cr-border text-cr-text px-5 py-3 hover:border-cr-primary hover:text-cr-primary transition-colors"
           >
             Publicar mi viaje
@@ -818,6 +824,7 @@ export default function RouteLandingPage() {
             </div>
             <Link
               to={`/register?next=${encodeURIComponent(`/rutas/${landing.slug}`)}`}
+              rel="nofollow"
               className="flex-shrink-0 inline-flex items-center gap-2 bg-[#dbff00] text-black font-sans font-semibold uppercase tracking-[0.12em] text-sm border-2 border-black px-6 py-3 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] hover:translate-x-[2px] hover:translate-y-[2px] transition-all duration-100 whitespace-nowrap"
             >
               Crear cuenta gratis <ArrowRight size={14} aria-hidden="true" />

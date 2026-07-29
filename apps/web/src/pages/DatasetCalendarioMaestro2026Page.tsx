@@ -560,13 +560,13 @@ export default function DatasetCalendarioMaestro2026Page() {
                 <span className="text-cr-text-dim text-xs ml-2">({ROWS.filter((r) => r.generoDominante.includes("metal")).length} festivales)</span>
               </li>
               <li>
-                <Link to="/festivales-genero/reggae" className="text-cr-text-muted hover:text-cr-primary underline-offset-2 hover:underline">
+                <Link to="/festivales-genero/reggaeton" className="text-cr-text-muted hover:text-cr-primary underline-offset-2 hover:underline">
                   Reggae & reggaeton
                 </Link>
                 <span className="text-cr-text-dim text-xs ml-2">({ROWS.filter((r) => r.generoDominante.includes("reggae") || r.generoDominante.includes("reggaeton")).length} festivales)</span>
               </li>
               <li>
-                <Link to="/festivales-genero/folk" className="text-cr-text-muted hover:text-cr-primary underline-offset-2 hover:underline">
+                <Link to="/festivales-genero/folk-flamenco" className="text-cr-text-muted hover:text-cr-primary underline-offset-2 hover:underline">
                   Folk & músicas del mundo
                 </Link>
                 <span className="text-cr-text-dim text-xs ml-2">({ROWS.filter((r) => r.generoDominante.includes("folk") || r.generoDominante.includes("musicas")).length} festivales)</span>

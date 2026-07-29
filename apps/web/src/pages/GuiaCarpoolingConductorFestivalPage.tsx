@@ -729,7 +729,7 @@ export default function GuiaCarpoolingConductorFestivalPage() {
           <Link to="/festivales/arenal-sound" className="border border-cr-border p-4 hover:border-cr-primary/50 transition-colors flex items-center gap-2">
             <MapPin size={14} className="text-cr-primary" /> Arenal Sound 2026
           </Link>
-          <Link to="/festivales/andalucia-big" className="border border-cr-border p-4 hover:border-cr-primary/50 transition-colors flex items-center gap-2">
+          <Link to="/festivales-en/andalucia" className="border border-cr-border p-4 hover:border-cr-primary/50 transition-colors flex items-center gap-2">
             <MapPin size={14} className="text-cr-primary" /> Andalucía Big Festival
           </Link>
           <Link to="/conciertos/madrid" className="border border-cr-border p-4 hover:border-cr-primary/50 transition-colors">

@@ -95,6 +95,18 @@ const LEGACY_REDIRECTS: Record<string, string> = {
   // VenueLandingPage emits a "Recintos" breadcrumb back to it; redirecting it
   // would create chains on every /recintos/:slug page. See SKILL.md §P.
   "/conciertos": "/concerts",
+  // Phantom index shells (2026-07-29, SKILL §AD): the sitemap group NAMES
+  // (sitemap-generos/calendario/regiones.xml) imply bare index paths that were
+  // never real App.tsx routes — the real routes are /festivales-genero/:slug,
+  // /calendario-festivales/:slug and /festivales-en/:slug. Bare /generos,
+  // /calendario, /regiones and /guia fell through to the SPA shell (HTTP 200 with
+  // the homepage canonical from index.html), which GSC filed under "Duplicada,
+  // el usuario no ha indicado ninguna versión canónica" (217). 301 them to the
+  // real hub so they leave the shell path entirely. Targets verified 200.
+  "/generos": "/festivales",
+  "/calendario": "/festivales",
+  "/regiones": "/festivales",
+  "/guia": "/guia-transporte-festivales",
 };
 app.use("*", async (c, next) => {
   if (c.req.method === "GET" || c.req.method === "HEAD") {
@@ -174,27 +186,18 @@ app.use("*", async (c, next) => {
   }
 });
 
-// ─── Canonical Link header for HTML responses (all user agents) ─────────────
-// Adds Link: <canonical>; rel="canonical" to HTML page responses so crawlers
-// see the canonical even if they don't execute JS. Skips /api/*, assets, and
-// paths with file extensions. Bot responses from seoPrerender already include
-// this — this ensures non-bot HTML responses carry it too.
-app.use("*", async (c, next) => {
-  await next();
-  if (
-    c.req.method === "GET" &&
-    !c.req.path.startsWith("/api/") &&
-    !c.req.path.match(/\.[a-z0-9]{1,6}$/i) &&
-    c.res.headers.get("content-type")?.includes("text/html")
-  ) {
-    const site = getSiteUrl(c.env);
-    const canonical = `${site}${c.req.path}`;
-    // Only set if not already present (seoPrerender sets its own Link header)
-    if (!c.res.headers.has("Link")) {
-      setResponseHeaderSafe(c, "Link", `<${canonical}>; rel="canonical"`);
-    }
-  }
-});
+// ─── Canonical Link header — REMOVED 2026-07-29 (SKILL §AD) ─────────────────
+// This middleware used to add `Link: <self>; rel="canonical"` to any HTML
+// response lacking a Link header. In practice it ONLY ever fired on SPA-shell
+// responses served by the Worker (prerendered pages are static assets that
+// bypass the Worker; bot responses from seoPrerender set their own Link header
+// and were skipped). On those shell routes the served HTML carries the homepage
+// canonical from index.html, so the self-referential Link HEADER contradicted
+// the homepage HTML <link rel="canonical"> → two conflicting user canonicals →
+// GSC "Duplicada, el usuario no ha indicado ninguna versión canónica" (217,
+// Google scenario #9). Removing it leaves the authoritative HTML/prerender
+// canonical as the single signal. Do NOT reintroduce a blanket Link-header
+// canonical: emit canonical only in the prerendered/SSR HTML per-route.
 
 // ─── SEO prerender for search bots (runs early, before any route matching) ──
 // This must run before CORS/routes so it intercepts bot requests before
@@ -501,7 +504,10 @@ app.get("/api/sitemap-index.xml", storeMiddleware, async (c) => {
   const base = getSiteUrl(c.env);
   const today = new Date().toISOString().slice(0, 10);
   
-  let indexEntries = `  <sitemap>\n    <loc>${base}/sitemap-static.xml</loc>\n    <lastmod>${today}</lastmod>\n  </sitemap>\n`;
+  // sitemap-static.xml is never generated (writeSitemap() is dead code) — it served
+  // the SPA shell as application/xml, an invalid sitemap. The static URLs live in
+  // sitemap-static-others.xml. See SKILL §AD.
+  let indexEntries = `  <sitemap>\n    <loc>${base}/sitemap-static-others.xml</loc>\n    <lastmod>${today}</lastmod>\n  </sitemap>\n`;
 
   indexEntries += `  <sitemap>\n    <loc>${base}/api/sitemap-artists.xml</loc>\n    <lastmod>${today}</lastmod>\n  </sitemap>\n`;
   indexEntries += `  <sitemap>\n    <loc>${base}/api/sitemap-venues.xml</loc>\n    <lastmod>${today}</lastmod>\n  </sitemap>\n`;

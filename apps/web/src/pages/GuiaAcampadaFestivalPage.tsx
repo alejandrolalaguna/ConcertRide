@@ -776,7 +776,7 @@ export default function GuiaAcampadaFestivalPage() {
         </div>
 
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-3 font-sans text-sm">
-          <Link to="/festivales/sonorama" className="border border-cr-border p-4 hover:border-cr-primary/50 transition-colors flex items-center gap-2">
+          <Link to="/festivales/sonorama-ribera" className="border border-cr-border p-4 hover:border-cr-primary/50 transition-colors flex items-center gap-2">
             <MapPin size={14} className="text-cr-primary" /> Sonorama Ribera 2026
           </Link>
           <Link to="/festivales/arenal-sound" className="border border-cr-border p-4 hover:border-cr-primary/50 transition-colors flex items-center gap-2">
@@ -791,7 +791,7 @@ export default function GuiaAcampadaFestivalPage() {
           <Link to="/festivales/resurrection-fest" className="border border-cr-border p-4 hover:border-cr-primary/50 transition-colors flex items-center gap-2">
             <MapPin size={14} className="text-cr-primary" /> Resurrection Fest 2026
           </Link>
-          <Link to="/festivales/low" className="border border-cr-border p-4 hover:border-cr-primary/50 transition-colors flex items-center gap-2">
+          <Link to="/festivales/low-festival" className="border border-cr-border p-4 hover:border-cr-primary/50 transition-colors flex items-center gap-2">
             <MapPin size={14} className="text-cr-primary" /> Low Festival 2026
           </Link>
           <Link to="/festivales/bbk-live" className="border border-cr-border p-4 hover:border-cr-primary/50 transition-colors flex items-center gap-2">
@@ -800,7 +800,7 @@ export default function GuiaAcampadaFestivalPage() {
           <Link to="/festivales/mad-cool" className="border border-cr-border p-4 hover:border-cr-primary/50 transition-colors flex items-center gap-2">
             <MapPin size={14} className="text-cr-primary" /> Mad Cool 2026
           </Link>
-          <Link to="/rutas/madrid-sonorama" className="border border-cr-border p-4 hover:border-cr-primary/50 transition-colors">
+          <Link to="/rutas/madrid-sonorama-ribera" className="border border-cr-border p-4 hover:border-cr-primary/50 transition-colors">
             Ruta Madrid → Sonorama
           </Link>
           <Link to="/rutas/valencia-arenal-sound" className="border border-cr-border p-4 hover:border-cr-primary/50 transition-colors">

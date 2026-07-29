@@ -321,7 +321,7 @@ export default function GuiaFestivalVeteranoPage() {
           (rock clásico, Bilbao),{" "}
           <Link to="/festivales/sonorama-ribera" className="text-cr-primary hover:underline">Sonorama Ribera</Link>{" "}
           (nostalgia 90s, Aranda),{" "}
-          <Link to="/festivales/cap-roig-festival" className="text-cr-primary hover:underline">Cap Roig</Link>{" "}
+          <Link to="/festivales/festival-castell-de-cap-roig" className="text-cr-primary hover:underline">Cap Roig</Link>{" "}
           (butaca al aire libre, Girona),{" "}
           <Link to="/festivales/cala-mijas" className="text-cr-primary hover:underline">Cala Mijas</Link>{" "}
           (pop premium, Málaga) y{" "}
@@ -735,7 +735,7 @@ export default function GuiaFestivalVeteranoPage() {
           <Link to="/festivales/mad-cool" className="border border-cr-border p-4 hover:border-cr-primary/50 transition-colors">
             Mad Cool 2026
           </Link>
-          <Link to="/festivales/cap-roig-festival" className="border border-cr-border p-4 hover:border-cr-primary/50 transition-colors">
+          <Link to="/festivales/festival-castell-de-cap-roig" className="border border-cr-border p-4 hover:border-cr-primary/50 transition-colors">
             Cap Roig Festival 2026
           </Link>
           <Link to="/festivales/fib" className="border border-cr-border p-4 hover:border-cr-primary/50 transition-colors">
@@ -750,7 +750,7 @@ export default function GuiaFestivalVeteranoPage() {
           <Link to="/festivales/tio-pepe-festival" className="border border-cr-border p-4 hover:border-cr-primary/50 transition-colors">
             Tío Pepe Festival 2026
           </Link>
-          <Link to="/festivales/stone-music" className="border border-cr-border p-4 hover:border-cr-primary/50 transition-colors">
+          <Link to="/festivales/stone-music-festival" className="border border-cr-border p-4 hover:border-cr-primary/50 transition-colors">
             Stone & Music 2026
           </Link>
           <Link to="/conciertos/bilbao" className="border border-cr-border p-4 hover:border-cr-primary/50 transition-colors">

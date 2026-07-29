@@ -3392,8 +3392,10 @@ function resolvePageData(pathname: string, base: string): PageData | null {
     const c = CITIES[slug];
     if (!c) return null;
     const currentYear = new Date().getFullYear();
-    // Only render valid years (current ±1)
-    if (yearParam < currentYear - 1 || yearParam > currentYear + 2) return null;
+    // Only render valid years (current ±1). MUST match CityYearPage.tsx VALID_YEARS
+    // (currentYear-1 .. currentYear+1). Accepting currentYear+2 here shipped a
+    // phantom /2028 that the SPA <Navigate>s away → bot/SPA divergence. See §AD.
+    if (yearParam < currentYear - 1 || yearParam > currentYear + 1) return null;
     const breadcrumbLd = JSON.stringify({
       "@context": "https://schema.org",
       "@type": "BreadcrumbList",
@@ -3418,7 +3420,11 @@ function resolvePageData(pathname: string, base: string): PageData | null {
     return {
       title: `Conciertos en ${c.name} ${yearParam} — Carpooling sin comisión | ConcertRide`,
       description: `Todos los conciertos y festivales en ${c.name} ${yearParam}: ${c.venues.slice(0, 2).join(", ")} y más. Carpooling sin comisión desde 3 €/asiento. Conductores verificados.`,
-      canonical: `${base}/conciertos/${slug}/${yearParam}`,
+      // Non-current years are near-duplicates of the parent /conciertos/:city →
+      // canonicalize to the parent to consolidate, MIRRORING CityYearPage.tsx:177-181.
+      // Self-canonicalizing every year (old behaviour) made the Worker disagree with
+      // the SPA and fed GSC "Duplicada, Google eligió otra" (738). See §AD.
+      canonical: yearParam === currentYear ? `${base}/conciertos/${slug}/${yearParam}` : `${base}/conciertos/${slug}`,
       h1: `Conciertos en ${c.name} ${yearParam}`,
       body: `<script type="application/ld+json">${breadcrumbLd}</script>
 <script type="application/ld+json">${webPageLd}</script>

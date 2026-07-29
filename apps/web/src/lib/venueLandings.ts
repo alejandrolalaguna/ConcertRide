@@ -678,7 +678,7 @@ export const VENUE_LANDINGS: VenueLanding[] = [
       },
       {
         q: "¿Cuánto cuesta el carpooling Valencia–Metropolitano?",
-        a: "Valencia–Madrid son 358 km por la A-3 (3h 20 min). Con ConcertRide el precio por asiento es 10–14 € — frente a 35–55 € del AVE Joaquín Sorolla–Atocha + Metro al Metropolitano. Sin comisión, pago Bizum o efectivo el día del viaje. URL: concertride.me/rutas/valencia-metropolitano",
+        a: "Valencia–Madrid son 358 km por la A-3 (3h 20 min). Con ConcertRide el precio por asiento es 10–14 € — frente a 35–55 € del AVE Joaquín Sorolla–Atocha + Metro al Metropolitano. Sin comisión, pago Bizum o efectivo el día del viaje.",
       },
     ],
     relatedFestivals: [],
@@ -733,7 +733,7 @@ export const VENUE_LANDINGS: VenueLanding[] = [
       },
       {
         q: "¿Cuánto cuesta el carpooling Madrid–Estadi Olímpic Barcelona?",
-        a: "Madrid–Barcelona son 620 km por la A-2 (5h 30 min). Con ConcertRide el precio por asiento es 15–20 € — frente a 50–90 € del AVE Atocha–Sants + Metro al estadio. Sin comisión, pago Bizum o efectivo el día del viaje, vuelta nocturna coordinada con otros fans. URL: concertride.me/rutas/madrid-estadi-olimpic",
+        a: "Madrid–Barcelona son 620 km por la A-2 (5h 30 min). Con ConcertRide el precio por asiento es 15–20 € — frente a 50–90 € del AVE Atocha–Sants + Metro al estadio. Sin comisión, pago Bizum o efectivo el día del viaje, vuelta nocturna coordinada con otros fans.",
       },
     ],
     relatedFestivals: [],
@@ -788,7 +788,7 @@ export const VENUE_LANDINGS: VenueLanding[] = [
       },
       {
         q: "¿Cuánto cuesta el carpooling de Alicante al Roig Arena?",
-        a: "Alicante–Valencia son 175 km por la AP-7 (1h 45 min). Con ConcertRide el precio por asiento es 5–8 € — frente a 12–22 € del tren Euromed Alicante–Valencia Joaquín Sorolla + Metro al Roig Arena. Sin comisión, pago Bizum o efectivo el día del viaje. URL: concertride.me/rutas/alicante-roig-arena",
+        a: "Alicante–Valencia son 175 km por la AP-7 (1h 45 min). Con ConcertRide el precio por asiento es 5–8 € — frente a 12–22 € del tren Euromed Alicante–Valencia Joaquín Sorolla + Metro al Roig Arena. Sin comisión, pago Bizum o efectivo el día del viaje.",
       },
     ],
     relatedFestivals: ["festival-de-les-arts", "zevra-festival"],

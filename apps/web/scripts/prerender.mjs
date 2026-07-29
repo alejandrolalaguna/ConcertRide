@@ -309,7 +309,10 @@ async function writeSitemapIndex() {
   // Note: legacy aliases (sitemap-festivals/cities/routes.xml) are NOT generated anymore —
   // if external services (GSC, search engines) still reference them, re-add via redirects.
   const staticSitemaps = [
-    "sitemap-static.xml",
+    // NOTE: sitemap-static.xml removed 2026-07-29 (SKILL §AD) — writeSitemap() is
+    // dead code so the file was never emitted; the index still referenced it and it
+    // resolved to the SPA shell (200 HTML served as application/xml → invalid sitemap,
+    // erodes crawl trust). Its URLs already live in sitemap-static-others.xml.
     "sitemap-festivales.xml",
     "sitemap-ciudades.xml",
     "sitemap-rutas.xml",

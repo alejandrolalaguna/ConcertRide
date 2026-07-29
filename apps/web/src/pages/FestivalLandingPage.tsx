@@ -1410,6 +1410,44 @@ export default function FestivalLandingPage() {
           })}
         </div>
 
+        {/* Comprehensive crawlable route list (SKILL §AD): the curated grid above only
+            renders festival.originCities, but ROUTE_LANDINGS also contains augment-loop
+            routes (BIG_ORIGIN / TIER1 origin cities) that were ORPHANED — present in
+            sitemap-rutas.xml but linked from nowhere → GSC "Descubierta, actualmente sin
+            indexar" (2488). Links inside <details> are in the SSR'd DOM and fully
+            crawlable, so this un-orphans them without cluttering the UI. */}
+        {(() => {
+          const shownCities = new Set(festival.originCities.map((c) => c.city));
+          const moreRoutes = ROUTE_LANDINGS.filter(
+            (r) => r.festival.slug === festival.slug && !shownCities.has(r.originCity),
+          );
+          if (moreRoutes.length === 0) return null;
+          const total = moreRoutes.length + festival.originCities.length;
+          return (
+            <details className="mt-6">
+              <summary className="font-sans text-sm text-cr-text-muted cursor-pointer hover:text-cr-primary">
+                {isEn
+                  ? `All ${total} carpooling routes to ${festival.shortName}`
+                  : `Todas las ${total} rutas de carpooling a ${festival.shortName}`}
+              </summary>
+              <nav
+                aria-label={isEn ? `All routes to ${festival.shortName}` : `Todas las rutas a ${festival.shortName}`}
+                className="mt-3 flex flex-wrap gap-x-4 gap-y-1.5"
+              >
+                {moreRoutes.map((r) => (
+                  <Link
+                    key={r.slug}
+                    to={`/rutas/${r.slug}`}
+                    className="font-mono text-[11px] text-cr-text-muted hover:text-cr-primary underline-offset-2 hover:underline"
+                  >
+                    {r.originCity} → {festival.shortName}
+                  </Link>
+                ))}
+              </nav>
+            </details>
+          );
+        })()}
+
         <div className="mt-8 p-4 border border-cr-primary/30 bg-cr-primary/5 space-y-1">
           <p className="font-sans text-xs text-cr-text-muted">
             {isEn ? (

@@ -5,7 +5,8 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "tsc --noEmit && vite build && npm run build:ssr && npm run prerender && npm run inline:critical-css && npm run gen:llms-routes && npm run validate:schema && npm run audit:meta",
+    "build": "tsc --noEmit && vite build && npm run build:ssr && npm run prerender && npm run inline:critical-css && npm run gen:llms-routes && npm run validate:schema && npm run audit:meta && npm run audit:dead-links",
+    "audit:dead-links": "node scripts/audit-dead-internal-links.mjs",
     "build:report": "cross-env ANALYZE=true vite build",
     "build:ssr": "node scripts/build-ssr.mjs",
     "prerender": "node scripts/prerender.mjs",
