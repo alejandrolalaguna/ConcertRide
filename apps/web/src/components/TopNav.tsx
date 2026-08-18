@@ -1,7 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import {
-  Activity,
   Camera,
   Heart,
   LogOut,
@@ -142,7 +141,6 @@ export function TopNav() {
         <NavLink to="/concerts">{t("nav.concerts")}</NavLink>
         <NavLink to="/festivales">{t("nav.festivals")}</NavLink>
         <NavLink to="/rutas">{t("nav.routes")}</NavLink>
-        <NavLink to="/feed">{t("nav.live")}</NavLink>
       </div>
 
       {/* Right side */}
@@ -201,9 +199,6 @@ export function TopNav() {
                 </MenuLink>
                 <MenuLink to="/crew" icon={<Users size={12} />} onClick={() => setOpen(false)}>
                   {t("nav.myCrew")}
-                </MenuLink>
-                <MenuLink to="/feed" icon={<Activity size={12} />} onClick={() => setOpen(false)}>
-                  {t("nav.liveNow")}
                 </MenuLink>
                 <MenuLink to="/memorias" icon={<Camera size={12} />} onClick={() => setOpen(false)}>
                   {t("nav.myMemories")}
