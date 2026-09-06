@@ -59,6 +59,15 @@ export const ANALYTICS_EVENTS = {
   // outbound click" which is the canonical AI-citation conversion metric
   // (Google I/O 2026: cited brands earn +35 % organic clicks).
   AI_REFERRAL_LANDED: "ai_referral_landed",
+
+  // ── Inbound partner / campaign attribution ───────────────────────────
+  // Emitted once per session on the first page view that carries utm_* /
+  // click-id params (or a non-self referrer). Fired by useAttribution();
+  // see lib/attribution.ts for the first-touch semantics. The same record is
+  // also registered as PostHog super properties so every downstream
+  // conversion event (user_registered, publish_ride_completed,
+  // request_seat_completed…) carries `attr_*` without touching those flows.
+  REFERRAL_LANDED: "referral_landed",
 } as const;
 
 export type AnalyticsEventName = (typeof ANALYTICS_EVENTS)[keyof typeof ANALYTICS_EVENTS];

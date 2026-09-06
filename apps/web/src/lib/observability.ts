@@ -86,6 +86,9 @@ async function initPostHogIfAllowed() {
     persistence: "localStorage",
     loaded: (ph) => {
       if (import.meta.env.DEV) ph.debug(false);
+      // Replay super properties captured before consent was granted, BEFORE
+      // replaying identify so the attribution is attached from the first event.
+      flushPendingSuperProperties(ph);
       // Replay identify if session resolved before PostHog finished loading.
       if (_pendingIdentity) {
         ph.identify(_pendingIdentity.id, _pendingIdentity.props);
@@ -124,6 +127,47 @@ export function track(event: string, properties?: Record<string, unknown>) {
   } catch {
     // swallow
   }
+}
+
+/**
+ * Register PostHog *super properties* — key/values automatically attached to
+ * every subsequent capture() from this browser. Used by lib/attribution.ts so
+ * inbound campaign attribution rides along on every conversion event without
+ * having to thread props through each call site.
+ *
+ * Uses register_once semantics: an existing value for a key is NOT overwritten,
+ * matching the first-touch attribution model.
+ *
+ * Consent-gated by construction: `_posthog` is only ever non-null once
+ * initPostHogIfAllowed() has run, which requires analytics consent. Calls made
+ * before consent are queued and replayed on the first successful init, so a
+ * user who lands from a partner link and accepts the banner a moment later
+ * still gets attributed.
+ */
+let _pendingSuperProperties: Record<string, unknown> | null = null;
+
+export function registerSuperProperties(properties: Record<string, unknown>) {
+  if (!properties || Object.keys(properties).length === 0) return;
+  if (!posthogInitialised || !_posthog) {
+    // Queue (merge) until PostHog is available post-consent.
+    _pendingSuperProperties = { ...properties, ..._pendingSuperProperties };
+    return;
+  }
+  try {
+    _posthog.register_once(properties);
+  } catch {
+    // swallow
+  }
+}
+
+function flushPendingSuperProperties(ph: { register_once: (p: Record<string, unknown>) => void }) {
+  if (!_pendingSuperProperties) return;
+  try {
+    ph.register_once(_pendingSuperProperties);
+  } catch {
+    // swallow
+  }
+  _pendingSuperProperties = null;
 }
 
 export function identify(userId: string, properties?: Record<string, unknown>) {

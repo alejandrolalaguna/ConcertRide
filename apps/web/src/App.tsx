@@ -3,6 +3,7 @@ import { Route, Routes } from "react-router-dom";
 import { TopNav } from "./components/TopNav";
 import { Footer } from "./components/Footer";
 import { ScrollToTop } from "./components/ScrollToTop";
+import { AttributionTracker } from "./hooks/useAttribution";
 import { CookieBanner } from "./components/CookieBanner";
 import { ErrorBoundary } from "./components/ErrorBoundary";
 import { VerifyEmailBanner } from "./components/VerifyEmailBanner";
@@ -111,6 +112,11 @@ const AutorEquipoConcertRidePage = lazy(() => import("./pages/AutorEquipoConcert
 
 export default function App() {
   return (
+    <>
+    {/* Inbound UTM / partner attribution. Mounted above <Routes> so it also
+        covers the widget route, and inside the Router (it uses useLocation).
+        Renders null; SSR-safe (all storage access is guarded). */}
+    <AttributionTracker />
     <Routes>
       {/* Widget embed routes — no nav/footer/banner */}
       <Route
@@ -244,5 +250,6 @@ export default function App() {
         }
       />
     </Routes>
+    </>
   );
 }
