@@ -58,7 +58,6 @@ const REQUIRED_DISALLOWS = [
   "/profile",
   "/admin",
   "/crew",
-  "/feed",
   "/squads",
   "/mensajes",
 ];

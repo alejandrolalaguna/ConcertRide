@@ -38,8 +38,11 @@ Disallow: /concerts/?
 # NOTE: /memorias (index) has noindex in MemoriasPage.tsx — no Disallow needed here.
 # robots.txt does NOT support $ regex anchors — Disallow: /memorias$ would be
 # treated as a literal path and block nothing useful.
+# /feed was REMOVED as a feature (2026-08-19). It is intentionally NOT listed
+# here: a noindex on a robots-blocked URL is invisible to Google (SKILL §AD.6),
+# so the URL would linger as "Indexada aunque bloqueada". Unblocked + noindex
+# (public/_headers) lets Googlebot fetch it, see the noindex and drop it.
 Disallow: /crew
-Disallow: /feed
 Disallow: /squads
 Disallow: /mensajes
 

@@ -30,17 +30,6 @@ const NEXT_FESTIVAL = {
   minPrice: 4, // €/asiento — la ruta corta más barata
 } as const;
 
-// i18n keys for the fake live-activity ticker (resolved at render time so the
-// ticker follows the active locale). Proper nouns (people/festivals/cities) are
-// kept inside the translations.
-const LIVE_ACTIVITY_KEYS = [
-  "home.heroActivity1",
-  "home.heroActivity2",
-  "home.heroActivity3",
-  "home.heroActivity4",
-  "home.heroActivity5",
-];
-
 const TICKETS: TicketData[] = [
   {
     id: "rosalia",
@@ -145,7 +134,6 @@ export function Hero() {
   const reducedMotion = usePrefersReducedMotion();
 
   const [ticketIdx, setTicketIdx] = useState(0);
-  const [activityIdx, setActivityIdx] = useState(0);
 
   // Countdown to next festival — recalculated client-side so it stays fresh.
   // Server-render shows whatever is current at build time; client hydrates with live value.
@@ -162,14 +150,6 @@ export function Hero() {
       setTicketIdx((i) => (i + 1) % TICKETS.length);
     }, 6000);
     return () => clearInterval(ticketTimer);
-  }, [reducedMotion]);
-
-  useEffect(() => {
-    if (reducedMotion) return;
-    const actTimer = setInterval(() => {
-      setActivityIdx((i) => (i + 1) % LIVE_ACTIVITY_KEYS.length);
-    }, 3500);
-    return () => clearInterval(actTimer);
   }, [reducedMotion]);
 
   const currentTicket = TICKETS[ticketIdx]!;
@@ -365,29 +345,6 @@ export function Hero() {
           </div>
         </motion.div>
 
-        {/* Live activity ticker */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.5, delay: 1.5 }}
-          className="flex items-center gap-2 mt-2"
-        >
-          <span className="w-1.5 h-1.5 rounded-full bg-[#ff4f00] animate-pulse flex-shrink-0" aria-hidden="true" />
-          <div className="overflow-hidden h-4">
-            <AnimatePresence mode="wait">
-              <motion.p
-                key={activityIdx}
-                initial={{ y: 20, opacity: 0 }}
-                animate={{ y: 0, opacity: 1 }}
-                exit={{ y: -20, opacity: 0 }}
-                transition={{ duration: 0.35, ease: "easeOut" }}
-                className="font-mono text-[10px] text-white/30 truncate"
-              >
-                {t(LIVE_ACTIVITY_KEYS[activityIdx]!)}
-              </motion.p>
-            </AnimatePresence>
-          </div>
-        </motion.div>
       </div>
 
       {/* Scroll indicator */}

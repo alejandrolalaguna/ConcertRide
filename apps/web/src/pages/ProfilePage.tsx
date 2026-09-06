@@ -501,18 +501,6 @@ export default function ProfilePage() {
                   : t("profile.crewEmpty")}
               </p>
             </Link>
-            <Link
-              to="/feed"
-              className="group block border border-white/[0.08] bg-white/[0.02] p-4 hover:border-cr-primary/50 hover:bg-cr-primary/[0.03] transition-all duration-200"
-            >
-              <p className="font-mono text-[9px] uppercase tracking-[0.16em] text-white/30 group-hover:text-cr-primary/60 transition-colors">
-                {t("profile.feedEyebrow")}
-              </p>
-              <p className="mt-1.5 font-display text-base uppercase group-hover:text-white transition-colors">{t("profile.feedTitle")}</p>
-              <p className="mt-1 text-xs text-white/35">
-                {t("profile.feedDesc")}
-              </p>
-            </Link>
           </div>
         </section>
 

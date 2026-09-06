@@ -19,7 +19,6 @@ const ExitIntentModal = lazy(() =>
 const LandingPage = lazy(() => import("./pages/LandingPage"));
 const FavoritesPage = lazy(() => import("./pages/FavoritesPage"));
 const CrewPage = lazy(() => import("./pages/CrewPage"));
-const FeedPage = lazy(() => import("./pages/FeedPage"));
 const SquadDetailPage = lazy(() => import("./pages/SquadDetailPage"));
 const SquadJoinPage = lazy(() => import("./pages/SquadJoinPage"));
 const SquadCreatePage = lazy(() => import("./pages/SquadCreatePage"));
@@ -197,7 +196,6 @@ export default function App() {
             <Route path="/verify-email" element={<VerifyEmailPage />} />
             <Route path="/favoritos" element={<FavoritesPage />} />
             <Route path="/crew" element={<CrewPage />} />
-            <Route path="/feed" element={<FeedPage />} />
             <Route path="/squads/new" element={<SquadCreatePage />} />
             <Route path="/squads/join/:code" element={<SquadJoinPage />} />
             <Route path="/squads/:id" element={<SquadDetailPage />} />

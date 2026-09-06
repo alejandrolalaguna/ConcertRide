@@ -248,12 +248,6 @@ export default function IrJuntosAlFestivalPage() {
               <p className="mt-1 text-xs text-cr-text/60">Organiza el grupo del festival más allá del trayecto.</p>
             </Link>
           </li>
-          <li>
-            <Link to="/feed" className="block border border-cr-border p-4 hover:border-cr-primary/60 transition-colors">
-              <p className="font-display text-sm uppercase">Feed en vivo →</p>
-              <p className="mt-1 text-xs text-cr-text/60">Ve quién está publicando viajes y a qué festival.</p>
-            </Link>
-          </li>
         </ul>
       </section>
     </main>

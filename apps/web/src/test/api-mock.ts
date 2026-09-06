@@ -83,7 +83,6 @@ export function makeApiMock(opts: MockApiOptions = {}): unknown {
       remove: vi.fn(async () => ({ ok: true })),
       attending: vi.fn(async () => ({ users: [] })),
     },
-    activity: { list: vi.fn(async () => ({ events: [] })) },
     alerts: {
       list: vi.fn(async () => ({ alerts: [] })),
       create: vi.fn(async () => ({ alert: { id: "a" } })),

@@ -1,6 +1,4 @@
 import type {
-  ActivityFeedQuery,
-  ActivityFeedResponse,
   AddPlaylistTrackRequest,
   AdminAuditLogEntry,
   AdminBreakdown,
@@ -470,9 +468,6 @@ export const api = {
       request<{ ok: true }>(`/api/crew/${encodeURIComponent(user_id)}`, { method: "DELETE" }),
     attending: (concert_id: string) =>
       request<{ crew: CrewMember[] }>(`/api/crew/attending/${encodeURIComponent(concert_id)}`),
-  },
-  activity: {
-    list: (q: ActivityFeedQuery = {}) => request<ActivityFeedResponse>(`/api/activity${query(q)}`),
   },
   anticipations: {
     summary: (concert_id: string) =>

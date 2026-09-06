@@ -24,7 +24,6 @@ import reports from "../routes/reports";
 import admin from "../routes/admin";
 import alerts from "../routes/alerts";
 import crews from "../routes/crews";
-import activity from "../routes/activity";
 import anticipations from "../routes/anticipations";
 import memories from "../routes/memories";
 import festivalQnas from "../routes/festival-qnas";
@@ -141,7 +140,6 @@ export function buildTestApp(overrides: Partial<Env> = {}) {
   app.route("/api/admin", admin);
   app.route("/api/alerts", alerts);
   app.route("/api/crew", crews);
-  app.route("/api/activity", activity);
   app.route("/api/anticipations", anticipations);
   app.route("/api/memories", memories);
   app.route("/api/festival-qnas", festivalQnas);

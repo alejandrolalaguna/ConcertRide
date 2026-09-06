@@ -29,7 +29,6 @@ export const en: Dict = {
     concerts: "Concerts",
     festivals: "Festivals",
     routes: "Routes",
-    live: "Live",
     register: "Sign up free",
     login: "Log in",
     userMenu: "User menu: {name}",
@@ -40,7 +39,6 @@ export const en: Dict = {
     publishRide: "Publish a ride",
     myRides: "My rides",
     myCrew: "My crew",
-    liveNow: "Live now",
     myMemories: "My memories",
     messages: "Messages",
     favorites: "Favourites",
@@ -267,9 +265,6 @@ export const en: Dict = {
     crewCountSingular: "{count} person",
     crewCountPlural: "{count} people",
     crewEmpty: "No crew yet",
-    feedEyebrow: "live",
-    feedTitle: "Activity feed",
-    feedDesc: "Who's organising rides right now.",
     reviewsTitle: "Reviews received",
     loading: "Loading…",
     pushOn: "Notifications enabled",
@@ -823,22 +818,6 @@ export const en: Dict = {
     cancel: "cancel",
   },
 
-  // Live feed page
-  feed: {
-    tabAll: "All",
-    tabAllDesc: "What's happening on ConcertRide",
-    tabCity: "My city",
-    tabCityDesc: "Who's organising trips from your city",
-    tabCrew: "My crew",
-    tabCrewDesc: "Only people from your crew",
-    toastRefreshed: "Feed refreshed",
-    eyebrow: "Live feed",
-    title: "Live now",
-    refreshAria: "Refresh feed",
-    refresh: "Refresh",
-    emptyMessage: "No activity in this scope yet.",
-  },
-
   // Direct message page
   dm: {
     backAria: "Back to messages",
@@ -949,7 +928,6 @@ export const en: Dict = {
     whatsapp: "WhatsApp",
     copyLink: "Copy link",
     copied: "Copied!",
-    feedEmpty: "Be the first to organise a ride for {artist}.",
   },
 
   // 404 not-found page
@@ -1369,11 +1347,6 @@ export const en: Dict = {
     testimonialsLiveCount: "+2,000 fans in the community",
 
     // Hero — live activity ticker (Hero.tsx)
-    heroActivity1: "Rafa from Madrid · booked a seat → Barcelona (Cruïlla) · 2 min ago",
-    heroActivity2: "María from Valencia · published a ride → Sonorama Ribera · 5 min ago",
-    heroActivity3: "Lucía from Zaragoza · joined ConcertRide · 7 min ago",
-    heroActivity4: "Carlos from Valencia · published a ride → FIB Benicàssim · 11 min ago",
-    heroActivity5: "Ana from Bilbao · published a ride → Mad Cool Madrid · 15 min ago",
 
     // Hero — ticket stub labels (Hero.tsx TicketStub)
     heroStubBoardingPass: "CONCERTRIDE · BOARDING PASS",

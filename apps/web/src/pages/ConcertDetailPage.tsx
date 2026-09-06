@@ -37,7 +37,6 @@ import { FavoriteButton } from "@/components/FavoriteButton";
 import { ConcertPoster } from "@/components/ConcertPoster";
 import { ConcertChatSection } from "@/components/ConcertChatSection";
 import { AnticipationStrip } from "@/components/AnticipationStrip";
-import { LiveActivityFeed } from "@/components/LiveActivityFeed";
 import { CrewAvatars } from "@/components/CrewAvatars";
 import { useCrew } from "@/lib/crew";
 import { SquadsForConcert } from "@/components/SquadsForConcert";
@@ -771,12 +770,6 @@ export default function ConcertDetailPage() {
       {concert && !isPast && (
         <section className="max-w-6xl mx-auto px-6 pb-16">
           <ConcertChatSection concertId={concert.id} artist={concert.artist} />
-        </section>
-      )}
-
-      {concert && !isPast && (
-        <section className="max-w-6xl mx-auto px-6 pb-16">
-          <LiveActivityFeed scope="concert" concertId={concert.id} limit={10} emptyMessage={t("concertDetail.feedEmpty", { artist: concert.artist })} />
         </section>
       )}
 

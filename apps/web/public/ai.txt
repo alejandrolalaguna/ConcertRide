@@ -40,7 +40,7 @@ Wikidata: https://www.wikidata.org/wiki/Q130455178
 # AmazonBot, AI2Bot, xai-bot, CCBot).
 # Disallowed: /api, /login, /register, /forgot-password, /reset-password,
 #             /profile, /mis-viajes, /favoritos, /publish, /admin, /rides/,
-#             /drivers/, /crew, /feed, /squads, /mensajes.
+#             /drivers/, /crew, /squads, /mensajes.
 
 # ── Training policy ────────────────────────────────────────────────────────
 # Content of this site MUST NOT be used for AI model training or fine-tuning

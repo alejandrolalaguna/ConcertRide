@@ -29,7 +29,6 @@ export const ca: Dict = {
     concerts: "Concerts",
     festivals: "Festivals",
     routes: "Rutes",
-    live: "Live",
     register: "Registre gratis",
     login: "Entrar",
     userMenu: "Menú d'usuari: {name}",
@@ -40,7 +39,6 @@ export const ca: Dict = {
     publishRide: "Publicar un viatge",
     myRides: "Els meus viatges",
     myCrew: "El meu crew",
-    liveNow: "En directe",
     myMemories: "Els meus records",
     messages: "Missatges",
     favorites: "Preferits",
@@ -267,9 +265,6 @@ export const ca: Dict = {
     crewCountSingular: "{count} persona",
     crewCountPlural: "{count} persones",
     crewEmpty: "Encara sense crew",
-    feedEyebrow: "en directe",
-    feedTitle: "Activity feed",
-    feedDesc: "Qui organitza viatges ara.",
     reviewsTitle: "Valoracions rebudes",
     loading: "Carregant…",
     pushOn: "Notificacions activades",
@@ -823,22 +818,6 @@ export const ca: Dict = {
     cancel: "cancel·lar",
   },
 
-  // Live feed page
-  feed: {
-    tabAll: "Tot",
-    tabAllDesc: "El que es cou a ConcertRide",
-    tabCity: "La meva ciutat",
-    tabCityDesc: "Qui organitza viatges des de la teva ciutat",
-    tabCrew: "El meu crew",
-    tabCrewDesc: "Només gent del teu crew",
-    toastRefreshed: "Feed actualitzat",
-    eyebrow: "Live feed",
-    title: "En directe",
-    refreshAria: "Actualitzar feed",
-    refresh: "Actualitzar",
-    emptyMessage: "Encara no hi ha activitat en aquest àmbit.",
-  },
-
   // Direct message page
   dm: {
     backAria: "Tornar a missatges",
@@ -949,7 +928,6 @@ export const ca: Dict = {
     whatsapp: "WhatsApp",
     copyLink: "Copiar enllaç",
     copied: "Copiat!",
-    feedEmpty: "Sigues el primer a organitzar-te per a {artist}.",
   },
 
   // 404 page
@@ -1369,11 +1347,6 @@ export const ca: Dict = {
     testimonialsLiveCount: "+2.000 fans a la comunitat",
 
     // Hero — live activity ticker (Hero.tsx)
-    heroActivity1: "Rafa des de Madrid · ha reservat seient → Barcelona (Cruïlla) · fa 2 min",
-    heroActivity2: "María des de València · ha publicat viatge → Sonorama Ribera · fa 5 min",
-    heroActivity3: "Lucía des de Saragossa · s'ha unit a ConcertRide · fa 7 min",
-    heroActivity4: "Carlos des de València · ha publicat viatge → FIB Benicàssim · fa 11 min",
-    heroActivity5: "Ana des de Bilbao · ha publicat viatge → Mad Cool Madrid · fa 15 min",
 
     // Hero — ticket stub labels (Hero.tsx TicketStub)
     heroStubBoardingPass: "CONCERTRIDE · BOARDING PASS",

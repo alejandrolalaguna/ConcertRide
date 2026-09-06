@@ -128,8 +128,10 @@
   Cache-Control: no-store
   X-Robots-Tag: noindex, nofollow
 
+# /feed no longer exists as a route (removed 2026-08-19) and is NOT blocked in
+# robots.txt on purpose — this noindex is the signal that de-indexes it. Keep.
 /feed
-  Cache-Control: public, max-age=60
+  Cache-Control: no-store
   X-Robots-Tag: noindex, nofollow
 
 /memorias
