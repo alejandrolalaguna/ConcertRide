@@ -15,30 +15,13 @@
 
 import { SITE_URL } from "./siteUrl";
 
-// Locale-stripped base paths (root is "/", others have NO trailing slash) that
-// have a fully-translated `/en/` SSR variant. A page only belongs here once its
-// VISIBLE CONTENT is genuinely English — shipping a half-Spanish "en" page would
-// give Google a fake language alternate. Keep in sync with prerender + content.
-//
-// Pilot v1 (2026-06): home + concerts hub (both fully English).
-//
-// Batch-2 festivals (2026-06-15): mad-cool / primavera-sound / sonar are now
-// fully English. The remaining Spanish surfaces flagged in the original pilot
-// (TransportTable, EventTransportHub, enrichmentBlocks, the H1 price subtitle)
-// are now locale-aware, and each festival ships curated *_en data (blurb,
-// quotableAnswer, faqs, arrival_*, transport_options, nearby_airports,
-// accommodation_zones, enrichmentBlocks, parking/camping). These are top-tier
-// curated money-pages with genuine English-speaking demand — NOT mass
-// programmatic clusters (which stay es-only to avoid Scaled Content Abuse).
-// To add more festivals: translate their *_en data + verify <5 ES tokens on
-// the built /en page, then add the path here.
-export const LOCALIZED_PATHS: ReadonlySet<string> = new Set<string>([
-  "/",
-  "/concerts",
-  "/festivales/mad-cool",
-  "/festivales/primavera-sound",
-  "/festivales/sonar",
-]);
+// The registry itself lives in `./localizedPaths` — a deliberately import-free
+// module so the Cloudflare Worker can consume the SAME set for its `/en|/ca`
+// mirror-culling 301 (SKILL §AE) without pulling `import.meta.env` via
+// ./siteUrl. Re-exported here so every existing consumer keeps working and the
+// allowlist stays a single source of truth.
+export { LOCALIZED_PATHS } from "./localizedPaths";
+import { LOCALIZED_PATHS } from "./localizedPaths";
 
 // Ordered list (for prerender + sitemap generation).
 export const EN_PILOT_BASE_PATHS: readonly string[] = Array.from(LOCALIZED_PATHS);

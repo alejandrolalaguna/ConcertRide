@@ -7,6 +7,7 @@ import { useSession } from "@/lib/session";
 import { useSeoMeta } from "@/lib/useSeoMeta";
 import { SITE_URL } from "@/lib/siteUrl";
 import { ANALYTICS_EVENTS, trackEvent } from "@/lib/analytics-events";
+import { failureReasonFromStatus } from "@/lib/seoEvents";
 import { useI18n } from "@/lib/i18n";
 
 export default function LoginPage() {
@@ -67,8 +68,20 @@ export default function LoginPage() {
             ? t("auth.loginInvalidCredentials")
             : err.message,
         );
+        // PII guard: categorised reason from the HTTP status only — never the
+        // email, the password, or err.message.
+        trackEvent(ANALYTICS_EVENTS.USER_LOGIN_FAILED, {
+          method: "email",
+          reason: failureReasonFromStatus(err.status, "login"),
+          status: err.status,
+        });
       } else {
         setError(t("auth.connectionError"));
+        trackEvent(ANALYTICS_EVENTS.USER_LOGIN_FAILED, {
+          method: "email",
+          reason: failureReasonFromStatus(null, "login"),
+          status: null,
+        });
       }
     } finally {
       setSubmitting(false);

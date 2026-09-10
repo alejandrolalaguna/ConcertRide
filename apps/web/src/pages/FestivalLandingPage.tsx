@@ -2,7 +2,7 @@
 import { Link, Navigate, useParams } from "react-router-dom";
 import { ArrowRight, MapPin, Calendar, Users } from "lucide-react";
 import type { Concert } from "@concertride/types";
-import { api } from "@/lib/api";
+import { api, ApiError } from "@/lib/api";
 import { ConcertCard } from "@/components/ConcertCard";
 import { LoadingSpinner } from "@/components/ui";
 import { useSeoMeta } from "@/lib/useSeoMeta";
@@ -23,7 +23,14 @@ import { EventTransportHub, generateTransportHubSchema } from "@/components/Even
 import type { TransportMode, NearbyAirport, AccommodationZone, ArrivalTip } from "@/components/EventTransportHub";
 
 const FESTIVAL_DEFAULT_OG = `${SITE_URL}/og-fallback.png`;
-import { trackFestivalView } from "@/lib/seoEvents";
+import {
+  currentPath,
+  failureReasonFromStatus,
+  trackAlertSubscribe,
+  trackAlertSubscribeFailed,
+  trackCta,
+  trackFestivalView,
+} from "@/lib/seoEvents";
 import { FestivalAlertWidget } from "@/components/FestivalAlertWidget";
 import { FestivalQnaWidget } from "@/components/FestivalQnaWidget";
 import { FactDensityCallout } from "@/components/FactDensityCallout";
@@ -965,6 +972,14 @@ export default function FestivalLandingPage() {
         <div className="flex flex-wrap gap-3 pt-1">
           <Link
             to={searchHref}
+            onClick={() =>
+              trackCta("festival_landing", "search_ride", {
+                placement: "hero",
+                festival_slug: festival.slug,
+                path: currentPath(),
+                price_from: priceFromMin,
+              })
+            }
             aria-label={isEn
               ? `Find a seat on a ride to ${festival.shortName} ${festYear} from ${priceFromMin} euros per seat`
               : `Buscar plaza en viaje a ${festival.shortName} ${festYear} desde ${priceFromMin} euros por asiento`}
@@ -974,6 +989,14 @@ export default function FestivalLandingPage() {
           </Link>
           <Link
             to={publishHref}
+            onClick={() =>
+              trackCta("festival_landing", "publish_ride", {
+                placement: "hero",
+                festival_slug: festival.slug,
+                path: currentPath(),
+                price_from: priceFromMin,
+              })
+            }
             aria-label={isEn
               ? `Offer my car to ${festival.shortName} ${festYear}`
               : `Publicar mi coche a ${festival.shortName} ${festYear}`}
@@ -993,8 +1016,23 @@ export default function FestivalLandingPage() {
                 try {
                   await api.alerts.subscribeFestival(user.email ?? "", festival.slug);
                   setFestAlertSubscribed(true);
-                } catch {
-                  // Best-effort; silently absorb network errors
+                  // Honest micro-conversion: with an almost empty ride
+                  // catalogue, an alert opt-in is the strongest demand
+                  // signal a festival landing can produce.
+                  trackAlertSubscribe(festival.slug, "hero_button", {
+                    path: currentPath(),
+                    days_left: daysLeft,
+                  });
+                } catch (err) {
+                  // Best-effort UX (we still silently absorb the error), but
+                  // the funnel must record the drop-off. Categorised reason
+                  // only — never the localized message.
+                  trackAlertSubscribeFailed(
+                    festival.slug,
+                    "hero_button",
+                    failureReasonFromStatus(err instanceof ApiError ? err.status : null, "alert"),
+                    { path: currentPath(), days_left: daysLeft },
+                  );
                 } finally {
                   setFestAlertLoading(false);
                 }
@@ -1587,6 +1625,14 @@ export default function FestivalLandingPage() {
             <div className="flex flex-wrap gap-3 justify-center pt-1">
               <Link
                 to={publishHref}
+                onClick={() =>
+                  trackCta("festival_landing", "publish_ride", {
+                    placement: "empty_state",
+                    festival_slug: festival.slug,
+                    path: currentPath(),
+                    price_from: priceFromMin,
+                  })
+                }
                 aria-label={isEn ? `Post a ride to ${festival.shortName} ${festYear}` : `Publicar viaje a ${festival.shortName} ${festYear}`}
                 className="inline-flex items-center gap-2 bg-cr-primary text-black font-sans text-sm font-bold uppercase tracking-[0.12em] px-5 py-3 hover:bg-cr-primary/90 transition-colors"
               >
@@ -1594,6 +1640,14 @@ export default function FestivalLandingPage() {
               </Link>
               <Link
                 to={searchHref}
+                onClick={() =>
+                  trackCta("festival_landing", "search_ride", {
+                    placement: "empty_state",
+                    festival_slug: festival.slug,
+                    path: currentPath(),
+                    price_from: priceFromMin,
+                  })
+                }
                 className="inline-flex items-center gap-2 border-2 border-cr-border text-cr-text-muted font-sans text-xs font-semibold uppercase tracking-[0.12em] px-4 py-3 hover:border-cr-primary hover:text-cr-primary transition-colors"
               >
                 {isEn ? <>See other concerts in {festival.city}</> : <>Ver otros conciertos en {festival.city}</>}
@@ -1753,6 +1807,14 @@ export default function FestivalLandingPage() {
           </Link>
           <Link
             to="/publish"
+            onClick={() =>
+              trackCta("festival_landing", "publish_ride", {
+                placement: "section_nav",
+                festival_slug: festival.slug,
+                path: currentPath(),
+                price_from: priceFromMin,
+              })
+            }
             className="inline-flex items-center gap-2 font-sans text-xs font-semibold uppercase tracking-[0.12em] text-cr-primary border-b border-cr-primary hover:text-cr-primary/80 transition-colors ml-auto"
           >
             {isEn ? "Post a ride" : "Publicar un viaje"} <ArrowRight size={12} />
@@ -2245,6 +2307,14 @@ export default function FestivalLandingPage() {
           </div>
           <Link
             to={publishHref}
+            onClick={() =>
+              trackCta("final_cta", "publish_ride", {
+                placement: "final_cta",
+                festival_slug: festival.slug,
+                path: currentPath(),
+                price_from: priceFromMin,
+              })
+            }
             aria-label={isEn ? `Post a ride to ${festival.shortName} ${festYear}` : `Publicar viaje a ${festival.shortName} ${festYear}`}
             className="inline-flex items-center justify-center gap-2 bg-cr-primary text-black font-sans text-sm font-bold uppercase tracking-[0.12em] px-6 py-3 hover:bg-cr-primary/90 transition-colors whitespace-nowrap"
           >
@@ -2308,6 +2378,14 @@ export default function FestivalLandingPage() {
       <div className="md:hidden fixed bottom-0 left-0 right-0 z-40 bg-cr-bg/95 backdrop-blur-sm border-t border-cr-border px-3 py-3 flex gap-2">
         <Link
           to={searchHref}
+          onClick={() =>
+            trackCta("festival_landing", "search_ride", {
+              placement: "sticky_mobile_bar",
+              festival_slug: festival.slug,
+              path: currentPath(),
+              price_from: priceFromMin,
+            })
+          }
           aria-label={isEn
             ? `Find a seat to ${festival.shortName} ${festYear} from ${priceFromMin} euros`
             : `Buscar plaza a ${festival.shortName} ${festYear} desde ${priceFromMin} euros`}
@@ -2322,6 +2400,14 @@ export default function FestivalLandingPage() {
         </Link>
         <Link
           to={publishHref}
+          onClick={() =>
+            trackCta("festival_landing", "publish_ride", {
+              placement: "sticky_mobile_bar",
+              festival_slug: festival.slug,
+              path: currentPath(),
+              price_from: priceFromMin,
+            })
+          }
           aria-label={isEn ? `Post a ride to ${festival.shortName}` : `Publicar viaje a ${festival.shortName}`}
           className="flex items-center justify-center gap-1.5 border-2 border-cr-primary text-cr-primary font-sans text-[11px] font-bold uppercase tracking-[0.08em] px-3 py-3"
         >

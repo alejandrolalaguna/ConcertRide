@@ -9,7 +9,7 @@ import { FavoritesProvider } from "./lib/favorites";
 import { CrewProvider } from "./lib/crew";
 import { I18nProvider } from "./lib/i18n";
 import { isLocale, type Locale } from "./locales";
-import { localizeCanonical } from "./lib/localizedRoutes";
+import { localizeCanonical, LOCALIZED_PATHS, basePath } from "./lib/localizedRoutes";
 import type { ResolvedSeo } from "./lib/useSeoMeta";
 
 // Re-export the /en/ pilot paths + hreflang helper so prerender.mjs can read
@@ -216,11 +216,22 @@ export interface RenderResult {
 // SSR output is in that language, and rewrite the captured canonical to be
 // self-referential to the localized URL (never the Spanish one). URLs without a
 // known locale prefix render Spanish (default), exactly as before.
+//
+// GUARD (2026-09-07, SKILL §AE): a locale prefix is only honoured when the
+// stripped base path is in `LOCALIZED_PATHS` (and the locale is `en`, the only
+// one with a real SSR variant). Without this, rendering any `/en/<anything>`
+// produced a full mirror — `<html lang="en">` + self-referential `/en/…`
+// canonical over 100% Spanish content. Anything else renders Spanish at the
+// stripped path, so even if an unexpected caller passes a mirror URL the output
+// can never claim to be an English alternate. Serving-side, the Worker 301s
+// those paths to their ES equivalent before they reach any renderer.
 function parseLocale(url: string): { locale: Locale; path: string } {
   const seg = url.split("/")[1];
   if (seg && seg !== "es" && isLocale(seg)) {
     const stripped = url.slice(seg.length + 1) || "/";
-    return { locale: seg, path: stripped.startsWith("/") ? stripped : `/${stripped}` };
+    const path = stripped.startsWith("/") ? stripped : `/${stripped}`;
+    const isTranslated = seg === "en" && LOCALIZED_PATHS.has(basePath(path));
+    return { locale: isTranslated ? seg : "es", path };
   }
   return { locale: "es", path: url };
 }

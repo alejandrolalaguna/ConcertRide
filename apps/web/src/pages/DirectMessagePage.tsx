@@ -2,7 +2,9 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { ArrowLeft, Lock } from "lucide-react";
 import type { DirectMessage, MessageKind, User } from "@concertride/types";
-import { api } from "@/lib/api";
+import { api, ApiError } from "@/lib/api";
+import { ANALYTICS_EVENTS, trackEvent } from "@/lib/analytics-events";
+import { failureReasonFromStatus } from "@/lib/seoEvents";
 import { useSession } from "@/lib/session";
 import { useSeoMeta } from "@/lib/useSeoMeta";
 import { useI18n } from "@/lib/i18n";
@@ -120,8 +122,25 @@ export default function DirectMessagePage() {
 
   async function send(body: string, kind?: MessageKind, attachment_url?: string) {
     if (!otherUserId) return;
-    const msg = await api.messages.postDM(otherUserId, { body, kind, attachment_url });
-    setDMs((prev) => [...prev, msg]);
+    try {
+      const msg = await api.messages.postDM(otherUserId, { body, kind, attachment_url });
+      setDMs((prev) => [...prev, msg]);
+      // PII: only the length of the message, never its content.
+      trackEvent(ANALYTICS_EVENTS.DIRECT_MESSAGE_SENT, {
+        kind: kind ?? "text",
+        body_length: body.length,
+      });
+    } catch (err) {
+      trackEvent(ANALYTICS_EVENTS.DIRECT_MESSAGE_FAILED, {
+        kind: kind ?? "text",
+        reason: failureReasonFromStatus(err instanceof ApiError ? err.status : null, "message"),
+        status: err instanceof ApiError ? err.status : null,
+      });
+      // Re-throw: ChatPanel's own catch surfaces the error message and keeps
+      // the user's draft in the composer. Swallowing here would silently
+      // discard what they typed.
+      throw err;
+    }
   }
 
   if (sessionLoading) return null;

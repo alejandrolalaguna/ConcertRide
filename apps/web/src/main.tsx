@@ -8,6 +8,7 @@ import { FavoritesProvider } from "./lib/favorites";
 import { CrewProvider } from "./lib/crew";
 import { I18nProvider } from "./lib/i18n";
 import { isLocale, type Locale } from "./locales";
+import { LOCALIZED_PATHS, basePath } from "./lib/localizedRoutes";
 import { ClarityScript } from "./components/ClarityScript";
 import { initSentry } from "./lib/observability";
 import { initWebMCP } from "./lib/webmcp";
@@ -40,9 +41,21 @@ if (!rootEl) throw new Error("Root element #root not found in DOM");
 // router basename so react-router <Link>s stay within the locale, and force the
 // i18n locale to match. No prefix → Spanish default (localStorage still wins
 // for client-only preference once mounted).
-const firstSeg = window.location.pathname.split("/")[1];
-const localePrefix: Locale | undefined =
+//
+// GUARD (2026-09-07, SKILL §AE): only honour a prefix that has a REAL
+// server-rendered variant, i.e. `/en` + a path in `LOCALIZED_PATHS`. Previously
+// any locale segment (`/en`, `/ca`) activated the basename on ANY route, which
+// turned the whole SPA into a crawlable mirror serving `<html lang="en">` over
+// Spanish content with a self-referential `/en/…` canonical (75% of real
+// traffic landed there). The Worker now 301s those paths, but this guard stops
+// the client fabricating them in the first place (and avoids a hydration
+// mismatch if a stale mirror URL is ever loaded from bfcache/history).
+const pathname = window.location.pathname;
+const firstSeg = pathname.split("/")[1];
+const candidate: Locale | undefined =
   firstSeg && firstSeg !== "es" && isLocale(firstSeg) ? firstSeg : undefined;
+const localePrefix: Locale | undefined =
+  candidate === "en" && LOCALIZED_PATHS.has(basePath(pathname)) ? candidate : undefined;
 const routerBasename = localePrefix ? `/${localePrefix}` : undefined;
 
 ReactDOM.createRoot(rootEl).render(

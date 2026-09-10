@@ -1,7 +1,12 @@
 import { useState } from "react";
 import { Bell } from "lucide-react";
-import { api } from "@/lib/api";
-import { trackAlertSubscribe } from "@/lib/seoEvents";
+import { api, ApiError } from "@/lib/api";
+import {
+  currentPath,
+  failureReasonFromStatus,
+  trackAlertSubscribe,
+  trackAlertSubscribeFailed,
+} from "@/lib/seoEvents";
 import { useI18n } from "@/lib/i18n";
 
 interface Props {
@@ -25,12 +30,27 @@ export function FestivalAlertWidget({ festivalSlug, festivalName }: Props) {
       const res = await api.alerts.subscribeFestival(email.trim(), festivalSlug);
       if (!res.created) {
         setState("duplicate");
+        // Not a new opt-in, so it must not inflate alert_subscribe — but it
+        // is still a drop-off worth seeing in the funnel.
+        trackAlertSubscribeFailed(festivalSlug, "widget", "already_subscribed", {
+          path: currentPath(),
+        });
       } else {
         setState("done");
-        trackAlertSubscribe(festivalSlug);
+        // `source` distinguishes this inline widget from the hero button on
+        // FestivalLandingPage. Never pass the email — PII.
+        trackAlertSubscribe(festivalSlug, "widget", { path: currentPath() });
       }
-    } catch {
+    } catch (err) {
       setState("error");
+      trackAlertSubscribeFailed(
+        festivalSlug,
+        "widget",
+        err instanceof ApiError
+          ? failureReasonFromStatus(err.status, "alert")
+          : "request_failed",
+        { path: currentPath() },
+      );
     }
   }
 

@@ -27,6 +27,8 @@ import type { Concert, DemandSignal, Ride, Vibe } from "@concertride/types";
 // Re-exported as alias for helper component typing
 type ConcertEntity = Concert;
 import { api, ApiError } from "@/lib/api";
+import { ANALYTICS_EVENTS, trackEvent } from "@/lib/analytics-events";
+import { currentPath } from "@/lib/seoEvents";
 import { useSession } from "@/lib/session";
 import { formatDate, formatTime } from "@/lib/format";
 import { concertStatus } from "@/components/ConcertCard";
@@ -475,17 +477,35 @@ export default function ConcertDetailPage() {
                       href={concert.official_url}
                       target="_blank"
                       rel="noopener noreferrer"
+                      onClick={() =>
+                        trackEvent(ANALYTICS_EVENTS.OUTBOUND_CLICK, {
+                          destination: "official_site",
+                          concert_id: concert.id,
+                          path: currentPath(),
+                        })
+                      }
                       className="inline-flex items-center gap-2 font-sans text-xs font-semibold uppercase tracking-[0.1em] border-2 border-cr-primary text-cr-primary hover:bg-cr-primary/10 px-3 py-1.5 transition-colors"
                     >
                       Web oficial / entradas →
                     </a>
                   )}
+                  {/* Ticketmaster link-back (mandatory per TM Developer ToS).
+                      Only an analytics onClick was added here: href, target,
+                      rel, title, className and the render condition are
+                      untouched and must stay that way. */}
                   {concert.ticketmaster_url && (
                     <a
                       href={concert.ticketmaster_url}
                       target="_blank"
                       rel="noopener noreferrer"
                       title="Comprar entradas en Ticketmaster® (abre en nueva pestaña)"
+                      onClick={() =>
+                        trackEvent(ANALYTICS_EVENTS.OUTBOUND_CLICK, {
+                          destination: "ticketmaster",
+                          concert_id: concert.id,
+                          path: currentPath(),
+                        })
+                      }
                       className="inline-flex items-center gap-2 font-sans text-xs font-semibold uppercase tracking-[0.1em] border border-cr-border text-cr-text-muted hover:border-cr-primary hover:text-cr-primary px-3 py-1.5 transition-colors"
                     >
                       <span aria-hidden="true" className="text-[10px] font-mono text-cr-text-dim">TM</span>

@@ -14,6 +14,7 @@ import { formatDate, formatTime } from "@/lib/format";
 import { useSession } from "@/lib/session";
 import { track } from "@/lib/observability";
 import { ANALYTICS_EVENTS, trackEvent } from "@/lib/analytics-events";
+import { failureReasonFromStatus } from "@/lib/seoEvents";
 import { VibeSelector } from "@/components/VibeSelector";
 import { PulsingDot } from "@/components/LoadingStates";
 import { useSeoMeta } from "@/lib/useSeoMeta";
@@ -260,18 +261,47 @@ export default function PublishRidePage() {
   }
 
   async function submit() {
-    if (!form.vibe) return;
+    if (!form.vibe) {
+      // Silent early return with no visible error — the worst kind of dead
+      // end, since the user gets no feedback at all. Instrument it so it
+      // shows up as a distinct bucket instead of vanishing.
+      trackEvent(ANALYTICS_EVENTS.PUBLISH_RIDE_FAILED, {
+        reason: "vibe_not_selected",
+        stage: "client_validation",
+        status: null,
+      });
+      return;
+    }
+    // Each early-return below is a wall the user hits *before* any request
+    // leaves the browser. Without these events, publish_ride_started with
+    // zero completions is unreadable: we can't tell "gave up" from "was
+    // blocked by client validation".
     if (manualMode && form.manual_date && new Date(form.manual_date) < new Date()) {
       setError(t("publish.errorConcertDatePast"));
+      trackEvent(ANALYTICS_EVENTS.PUBLISH_RIDE_FAILED, {
+        reason: "concert_date_in_past",
+        stage: "client_validation",
+        status: null,
+      });
       return;
     }
     if (form.departure_time && new Date(form.departure_time) < new Date()) {
       setError(t("publish.errorDepartureTimePast"));
+      trackEvent(ANALYTICS_EVENTS.PUBLISH_RIDE_FAILED, {
+        reason: "departure_time_in_past",
+        stage: "client_validation",
+        status: null,
+      });
       return;
     }
     const coord = SPANISH_CITIES_BY_NAME[form.origin_city];
     if (!coord) {
       setError(t("publish.errorCityNotRecognized"));
+      trackEvent(ANALYTICS_EVENTS.PUBLISH_RIDE_FAILED, {
+        reason: "origin_city_not_recognized",
+        stage: "client_validation",
+        status: null,
+      });
       return;
     }
     // Prefer exact map-picked coords when the user has dragged the marker;
@@ -345,8 +375,22 @@ export default function PublishRidePage() {
         description: t("publish.toastSuccessDescription"),
       });
     } catch (err) {
-      if (err instanceof ApiError) setError(err.message);
-      else setError(t("publish.errorGeneric"));
+      if (err instanceof ApiError) {
+        setError(err.message);
+        // err.message is localized server copy — bucket by status instead.
+        trackEvent(ANALYTICS_EVENTS.PUBLISH_RIDE_FAILED, {
+          reason: failureReasonFromStatus(err.status, "publish_ride"),
+          stage: "api",
+          status: err.status,
+        });
+      } else {
+        setError(t("publish.errorGeneric"));
+        trackEvent(ANALYTICS_EVENTS.PUBLISH_RIDE_FAILED, {
+          reason: failureReasonFromStatus(null, "publish_ride"),
+          stage: "api",
+          status: null,
+        });
+      }
     } finally {
       setSubmitting(false);
     }

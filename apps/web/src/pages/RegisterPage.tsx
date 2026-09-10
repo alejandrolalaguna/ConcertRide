@@ -10,6 +10,7 @@ import { celebrate } from "@/lib/celebrate";
 import { useSeoMeta } from "@/lib/useSeoMeta";
 import { SITE_URL } from "@/lib/siteUrl";
 import { ANALYTICS_EVENTS, trackEvent } from "@/lib/analytics-events";
+import { failureReasonFromStatus } from "@/lib/seoEvents";
 import { useI18n } from "@/lib/i18n";
 
 const TRUST_BULLET_KEYS = [
@@ -121,8 +122,21 @@ export default function RegisterPage() {
               ? t("auth.errorPasswordTooShortRegister")
               : err.message,
         );
+        // PII guard: we report the categorised reason derived from the HTTP
+        // status, never the email nor err.message (localized and may echo
+        // user input).
+        trackEvent(ANALYTICS_EVENTS.USER_REGISTER_FAILED, {
+          method: "email",
+          reason: failureReasonFromStatus(err.status, "register"),
+          status: err.status,
+        });
       } else {
         setError(t("auth.connectionError"));
+        trackEvent(ANALYTICS_EVENTS.USER_REGISTER_FAILED, {
+          method: "email",
+          reason: failureReasonFromStatus(null, "register"),
+          status: null,
+        });
       }
     } finally {
       setSubmitting(false);

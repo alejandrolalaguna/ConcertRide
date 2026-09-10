@@ -81,7 +81,13 @@ async function initPostHogIfAllowed() {
   posthog.init(key, {
     api_host: (import.meta.env.VITE_POSTHOG_HOST as string | undefined) ?? "https://eu.i.posthog.com",
     autocapture: false,
-    capture_pageview: true,
+    // MUST be the string "history_change", not `true`. posthog-js gates its
+    // History API monitor on a strict equality check:
+    //   get isEnabled() { return "history_change" === config.capture_pageview }
+    // With `true` the monitor never starts, so SPA route changes emit no
+    // $pageview and only full page loads are counted (measured: 1.18
+    // pageviews/session), which makes any multi-step funnel impossible.
+    capture_pageview: "history_change",
     disable_session_recording: true,
     persistence: "localStorage",
     loaded: (ph) => {

@@ -12,6 +12,7 @@ import { celebrate } from "@/lib/celebrate";
 import { rideShareUrl } from "@/lib/utm";
 import { track } from "@/lib/observability";
 import { ANALYTICS_EVENTS, trackEvent } from "@/lib/analytics-events";
+import { failureReasonFromStatus } from "@/lib/seoEvents";
 import { ReportButton } from "@/components/ReportButton";
 import { AgentActionRail } from "@/components/AgentActionRail";
 
@@ -283,6 +284,15 @@ export default function RideDetailPage() {
       setReserve({
         status: "error",
         message: err instanceof Error ? err.message : t("ride.errorGeneric"),
+      });
+      // The UI still shows err.message, but analytics only gets a bucketed
+      // reason derived from the status — messages are localized and can
+      // contain user input.
+      trackEvent(ANALYTICS_EVENTS.REQUEST_SEAT_FAILED, {
+        ride_id: ride.id,
+        reason: failureReasonFromStatus(err instanceof ApiError ? err.status : null, "request_seat"),
+        status: err instanceof ApiError ? err.status : null,
+        seats,
       });
     }
   }

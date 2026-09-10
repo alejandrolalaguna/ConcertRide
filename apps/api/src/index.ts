@@ -36,6 +36,9 @@ import { ARTIST_LANDINGS } from "../../web/src/lib/artistLandings";
 import { VENUE_LANDINGS } from "../../web/src/lib/venueLandings";
 import { FESTIVAL_LANDINGS } from "../../web/src/lib/festivalLandings";
 import { ROUTE_LANDINGS_BY_SLUG } from "../../web/src/lib/routeLandings";
+// Import-free registry module (NOT ../lib/localizedRoutes, which pulls
+// `import.meta.env` via ./siteUrl and doesn't type-check here). See §AE.
+import { LOCALIZED_PATHS, stripLocalePrefix } from "../../web/src/lib/localizedPaths";
 import * as Sentry from "@sentry/cloudflare";
 
 // Origins always allowed for CORS. The configured SITE_URL (and its `www.`
@@ -144,6 +147,55 @@ app.use("*", async (c, next) => {
   }
   // Not a recognisable route slug — let the normal 404/SPA path handle it.
   return next();
+});
+
+// ─── Locale-prefix mirror culling — 301 non-localized /en|/ca → ES equivalent ─
+// (added 2026-09-07, SKILL §AE)
+//
+// PROBLEM: `main.tsx` sets `<BrowserRouter basename="/en">` for ANY path whose
+// first segment is a known locale, and `useSeoMeta` self-canonicals it through
+// `localizeCanonical()`. Combined with `not_found_handling:
+// "single-page-application"`, that made EVERY route reachable under `/en/…` —
+// an accidental crawlable mirror serving `<html lang="en">` with 100% Spanish
+// content and a self-referential `/en/…` canonical. Measured 2026-09-07:
+// 75% of real traffic (45 users) landed on `/en/blog/…`, `/en/conciertos/…`,
+// `/en/rutas/…`, `/en/artistas/…`, `/en/recintos/…` — none of them translated.
+// Double damage: wrong-language UX + ES/EN duplicate content.
+//
+// `/ca/*` is the same accidental mirror with ZERO prerendered pages (there is
+// no `dist/ca/` at all and no Catalan path is in `LOCALIZED_PATHS`), so it is
+// culled wholesale by the same rule.
+//
+// FIX: 301 to the Spanish equivalent for every `/<locale>/<path>` NOT in
+// `LOCALIZED_PATHS`. Chosen over 404 (would drop 45 real Google users) and over
+// noindex (JS-dependent on the SPA shell, keeps the wrong-language UX, and
+// leaves the duplicate live). A 301 hands the user the exact content they were
+// already reading, on the canonical URL, and consolidates the duplicate signal.
+//
+// SAFE w.r.t. §AD.0 (asset layer precedes the Worker): only the 5 pilot paths
+// are prerendered into `dist/en/**`, so every other locale-prefixed path has NO
+// static asset → the asset layer misses → this middleware runs. The 5 pilot
+// paths ARE assets, and they are short-circuited below regardless, so they keep
+// being served statically with self-canonical + reciprocal hreflang intact.
+//
+// Placed BEFORE the trailing-slash middleware so `/en/blog/x/` is a single hop.
+//
+// INVARIANT: the allowlist must stay driven by `LOCALIZED_PATHS`. Adding a path
+// there (per §AB) automatically stops it being redirected here.
+//
+// `MIRRORED_LOCALES` = the non-default locales from apps/web/src/locales/index.ts
+// (`LOCALES` minus `DEFAULT_LOCALE`). Inlined rather than imported because that
+// module pulls in every translation dictionary — far too heavy for the Worker
+// bundle. Keep in sync if a locale is added there.
+const MIRRORED_LOCALES = ["en", "ca"] as const;
+app.use("*", async (c, next) => {
+  if (c.req.method !== "GET" && c.req.method !== "HEAD") return next();
+  const { locale, base } = stripLocalePrefix(c.req.path, MIRRORED_LOCALES);
+  if (!locale) return next();
+  // Genuinely translated page → let the prerendered /en/ asset serve it.
+  if (locale === "en" && LOCALIZED_PATHS.has(base)) return next();
+  const url = new URL(c.req.url);
+  return c.redirect(base + url.search, 301);
 });
 
 // ─── Trailing-slash normalisation ───────────────────────────────────────────

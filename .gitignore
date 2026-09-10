@@ -17,3 +17,4 @@ apps/web/dist.old.*
 apps/api/dist
 .claude
 apps/web/scripts/seo/output
+.playwright-mcp/*

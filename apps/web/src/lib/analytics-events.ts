@@ -17,26 +17,66 @@
 // helper in lib/observability.ts. If the user has not granted analytics
 // consent, PostHog is never loaded and the call becomes a silent no-op —
 // no throws, no network requests.
+//
+// Ownership boundary: analytics-events.ts vs seoEvents.ts
+// ------------------------------------------------------
+// This module owns the *product funnel*: auth (register / login, success and
+// failure), ride publishing, seat requests, messaging, and outbound clicks
+// to third parties. Each conversion step should have a `_failed` twin so a
+// zero in the funnel is legible: "nobody tried" and "everybody was blocked"
+// must not look identical in PostHog.
+//
+// `lib/seoEvents.ts` owns *SEO surfaces*: landing page-views
+// (festival_view / city_view / blog_view), route_search, the generic
+// `cta_click`, and `alert_subscribe`. Do not duplicate an event across the
+// two modules — a second series for a measured concept breaks the
+// continuity of the historical data.
+//
+// Attribution
+// -----------
+// hooks/useAttribution.ts registers `attr_*` PostHog super-properties on
+// first touch, so every event emitted here inherits partner/UTM attribution
+// automatically. Never pass attribution props by hand.
 
 import { track } from "./observability";
 
 export const ANALYTICS_EVENTS = {
   // ── Search & Discovery ───────────────────────────────────────────────
+  // NOTE: festival / route landing views and ride-search filtering are
+  // owned by seoEvents.ts (`festival_view`, `route_search`). Parallel
+  // constants used to exist here with zero call sites; they were removed
+  // rather than wired, because emitting a second series for an already
+  // measured concept would break the continuity of the historical data.
   CONCERT_SEARCH_FILTER_APPLIED: "concert_search_filter_applied",
-  RIDE_SEARCH_FILTER_APPLIED: "ride_search_filter_applied",
-  FESTIVAL_LANDING_VIEWED: "festival_landing_viewed",
-  ROUTE_LANDING_VIEWED: "route_landing_viewed",
 
   // ── Booking & Publishing ─────────────────────────────────────────────
   PUBLISH_RIDE_STARTED: "publish_ride_started",
   PUBLISH_RIDE_COMPLETED: "publish_ride_completed",
+  // Why this matters: we were seeing publish_ride_started with zero
+  // completions and no way to tell a client-side validation wall from an
+  // API rejection. `stage` disambiguates the two.
+  PUBLISH_RIDE_FAILED: "publish_ride_failed",
   REQUEST_SEAT_STARTED: "request_seat_started",
   REQUEST_SEAT_COMPLETED: "request_seat_completed",
+  REQUEST_SEAT_FAILED: "request_seat_failed",
 
   // ── Auth ─────────────────────────────────────────────────────────────
   USER_REGISTERED: "user_registered",
+  USER_REGISTER_FAILED: "user_register_failed",
   USER_LOGIN: "user_login",
+  USER_LOGIN_FAILED: "user_login_failed",
   USER_LOGOUT: "user_logout",
+
+  // ── Messaging ────────────────────────────────────────────────────────
+  // `body_length` only — the message body itself is user content and must
+  // never be sent to analytics.
+  DIRECT_MESSAGE_SENT: "direct_message_sent",
+  DIRECT_MESSAGE_FAILED: "direct_message_failed",
+
+  // ── Outbound ─────────────────────────────────────────────────────────
+  // Clicks that leave ConcertRide (official festival site, Ticketmaster
+  // link-back). Pivot on `destination`.
+  OUTBOUND_CLICK: "outbound_click",
 
   // ── Social / Crew ────────────────────────────────────────────────────
   CREW_CREATED: "crew_created",
@@ -49,9 +89,11 @@ export const ANALYTICS_EVENTS = {
   DATASET_DOWNLOAD: "dataset_download",
 
   // ── Conversion ───────────────────────────────────────────────────────
+  // Marketing CTAs live in seoEvents.ts under the single `cta_click` event
+  // with `surface` + `intent` + `placement` props; a per-placement constant
+  // (e.g. the removed FOOTER_CTA_CLICKED) would just shard that funnel.
   HERO_CTA_CLICKED: "hero_cta_clicked",
   STICKY_REG_BAR_CLICKED: "sticky_reg_bar_clicked",
-  FOOTER_CTA_CLICKED: "footer_cta_clicked",
 
   // ── AI surfaces (Google AI Mode / ChatGPT / Perplexity / Gemini) ─────
   // Emitted once per session when the user lands from a known AI surface
