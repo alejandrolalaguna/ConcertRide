@@ -28,7 +28,7 @@ if (!(await exists(ssrEntry))) {
   console.error(`[prerender] SSR bundle missing at ${ssrEntry}. Did the SSR build run?`);
   process.exit(1);
 }
-const { render, FESTIVAL_SLUGS, CITY_SLUGS, CITY_YEAR_SLUGS, BLOG_SLUGS, ROUTE_SLUGS, ARTIST_SLUGS, VENUE_SLUGS, REGION_SLUGS, HOW_TO_GET_THERE_PAGE_SLUGS, GENRE_SLUGS, CALENDAR_SLUGS, CONTENT_LAST_UPDATED, DISABLED_BLOG_SLUGS, EN_PILOT_PATHS, hreflangAlternates } = await import(pathToFileURL(ssrEntry).href);
+const { render, FESTIVAL_SLUGS, CITY_SLUGS, CITY_YEAR_SLUGS, BLOG_SLUGS, BLOG_LASTMOD, ROUTE_SLUGS, ARTIST_SLUGS, VENUE_SLUGS, REGION_SLUGS, HOW_TO_GET_THERE_PAGE_SLUGS, GENRE_SLUGS, CALENDAR_SLUGS, CONTENT_LAST_UPDATED, DISABLED_BLOG_SLUGS, EN_PILOT_PATHS, hreflangAlternates } = await import(pathToFileURL(ssrEntry).href);
 
 // Defense-in-depth: even if the SSR bundle is stale, never let a disabled slug
 // leak into prerender output or sitemaps. CLAUDE.md "Brand Restrictions".
@@ -44,6 +44,12 @@ const STATIC_ROUTES = [
   "/",
   "/concerts",
   "/festivales",
+  // §AG (2026-09-16): `/artistas` had NO route and NO prerendered asset, so it
+  // resolved to the SPA shell — verified live as byte-identical to the homepage
+  // (same MD5) INCLUDING the homepage canonical. That made the artist hub a
+  // homepage duplicate and left all 216 `/artistas/:slug` pages without a hub
+  // linking them. Prerendering it here also puts it in sitemap-static-others.xml.
+  "/artistas",
   "/guia-transporte-festivales",
   "/guia/festival-sin-coche",
   "/guia/presupuesto-festival-grupo",
@@ -457,8 +463,19 @@ async function writeSeparateSitemaps(urls) {
     others: urls.filter((u) => !INDEXED_PREFIXES.some((p) => u.startsWith(p))),
   };
 
+  // §AH: emit the REAL publication/update date for blog posts instead of the
+  // build date. Google uses `lastmod` only while it is "consistently and
+  // verifiably accurate" — a uniform build timestamp on all 9.305 URLs trains
+  // it to distrust the signal for the whole site. `changefreq`/`priority` are
+  // ignored by Google entirely and are kept only for other crawlers.
+  const urlLastmod = (u) => {
+    const m = u.match(/^\/blog\/([^/]+)$/);
+    if (m && BLOG_LASTMOD?.[m[1]]) return BLOG_LASTMOD[m[1]];
+    return contentDate;
+  };
+
   const write = async (filename, list, freq = "weekly", priority = "0.7") => {
-    const entries = list.map((u) => `  <url>\n    <loc>${SITE_URL}${u}</loc>\n    <lastmod>${contentDate}</lastmod>\n    <changefreq>${freq}</changefreq>\n    <priority>${priority}</priority>\n  </url>`).join("\n");
+    const entries = list.map((u) => `  <url>\n    <loc>${SITE_URL}${u}</loc>\n    <lastmod>${urlLastmod(u)}</lastmod>\n    <changefreq>${freq}</changefreq>\n    <priority>${priority}</priority>\n  </url>`).join("\n");
     const xml = `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${entries}\n</urlset>\n`;
     await fs.writeFile(path.join(distDir, filename), xml, "utf8");
     console.log(`[prerender] wrote ${filename} — ${list.length} URLs`);

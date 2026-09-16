@@ -407,7 +407,21 @@ export default function VenueLandingPage() {
   const jsonLdVenueReviews: object[] | null = matchedVenueReviews
     ? generateReviewSchemas({
         itemReviewedId: venueServiceId,
-        itemReviewedType: "Service",
+        // §AG / §Y.5: `Service` is NOT in Google's supported itemReviewed list
+        // (Book, Course, Event, Game, HowTo, LocalBusiness, Movie, MusicAlbum,
+        // MusicPlaylist, MusicRecording, Organization, Product, Recipe,
+        // SoftwareApplication) → "El tipo de objeto del campo itemReviewed no es
+        // válido". The §Y.5 migration converted the festival and artist pages
+        // but missed this one; it still surfaced on 3 venue pages
+        // (bilbao-arena, estadio-san-mames, kobetamendi — the venues with ≥3
+        // testimonials, hence the only ones that emit reviews at all).
+        //
+        // `Organization` rather than the page's own Place entity: the
+        // testimonials review the CARPOOLING SERVICE, not the building, and the
+        // Place here is typed PerformingArtsTheater OR CivicStructure depending
+        // on venueType — CivicStructure is not a supported parent either, so
+        // pointing at it would only fix a subset.
+        itemReviewedType: "Organization",
         itemReviewedName: venueServiceName,
         reviews: matchedVenueReviews.map((t) => ({
           quote: t.quote,

@@ -60,6 +60,7 @@ import AcercaDePage from "./pages/AcercaDePage";
 import ArtistLandingPage from "./pages/ArtistLandingPage";
 import VenueLandingPage from "./pages/VenueLandingPage";
 import RecintosIndexPage from "./pages/RecintosIndexPage";
+import ArtistasIndexPage from "./pages/ArtistasIndexPage";
 import RegionLandingPage from "./pages/RegionLandingPage";
 import AvisoLegalPage from "./pages/AvisoLegalPage";
 import PrivacidadPage from "./pages/PrivacidadPage";
@@ -87,7 +88,7 @@ import AutorEquipoConcertRidePage from "./pages/AutorEquipoConcertRidePage";
 import GlosarioPage from "./pages/GlosarioPage";
 import { FESTIVAL_LANDINGS, FESTIVAL_LANDINGS_LAST_UPDATED } from "./lib/festivalLandings";
 import { CITY_LANDINGS } from "./lib/cityLandings";
-import { BLOG_SLUGS as BLOG_POST_SLUGS, DISABLED_BLOG_SLUGS as ALL_DISABLED_BLOG_SLUGS } from "./lib/blogPosts";
+import { BLOG_SLUGS as BLOG_POST_SLUGS, DISABLED_BLOG_SLUGS as ALL_DISABLED_BLOG_SLUGS, BLOG_POSTS as ALL_BLOG_POSTS } from "./lib/blogPosts";
 import { ROUTE_SLUGS as ALL_ROUTE_SLUGS } from "./lib/routeLandings";
 import { ARTIST_SLUGS as ALL_ARTIST_SLUGS } from "./lib/artistLandings";
 import { VENUE_SLUGS as ALL_VENUE_SLUGS } from "./lib/venueLandings";
@@ -109,6 +110,16 @@ export const CITY_YEAR_SLUGS: string[] = CITY_LANDINGS.flatMap((c) =>
 );
 export const BLOG_SLUGS = BLOG_POST_SLUGS;
 export const DISABLED_BLOG_SLUGS = Array.from(ALL_DISABLED_BLOG_SLUGS);
+
+// §AH: real per-URL `lastmod` for blog posts.
+// Google only uses `lastmod` when it is "consistently and verifiably accurate";
+// a uniform build timestamp across every URL is worse than omitting the field,
+// because once Google decides the signal is untrustworthy it ignores it site-wide.
+// Blog posts are the one family with a genuine, per-item date, so we export it
+// and let prerender.mjs emit the truth for those 281 URLs instead of `today`.
+export const BLOG_LASTMOD: Record<string, string> = Object.fromEntries(
+  ALL_BLOG_POSTS.map((p) => [p.slug, (p.updatedAt ?? p.publishedAt).slice(0, 10)]),
+);
 export const ROUTE_SLUGS = ALL_ROUTE_SLUGS;
 export const ARTIST_SLUGS = ALL_ARTIST_SLUGS;
 export const VENUE_SLUGS = ALL_VENUE_SLUGS;
@@ -142,6 +153,7 @@ function ServerApp() {
         <Route path="/festivales/:festival" element={<FestivalLandingPage />} />
         <Route path="/artistas/:slug" element={<ArtistLandingPage />} />
         <Route path="/recintos" element={<RecintosIndexPage />} />
+        <Route path="/artistas" element={<ArtistasIndexPage />} />
         <Route path="/recintos/:slug" element={<VenueLandingPage />} />
         <Route path="/festivales-en/:slug" element={<RegionLandingPage />} />
         <Route path="/festivales-genero/:slug" element={<GenreLandingPage />} />

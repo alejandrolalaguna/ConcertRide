@@ -60,6 +60,30 @@ export default function FestivalGuidePage() {
         if (ext.length <= 65) return ext;
         return `Guía ${festival.shortName} ${festYear} (${festival.city}): qué llevar · ConcertRide`;
       })();
+  // ─── §AG: the "estará disponible próximamente" placeholder is REMOVED ─────
+  // Measured on the built dist/ (2026-09-16): 194 of the 199
+  // /festivales/:slug/guia pages had no `festival.guide` record, so they
+  // rendered ~297 visible words — a packing checklist identical across all 194
+  // — plus the literal line "La guía detallada de X estará disponible
+  // próximamente." Templated pages published at scale that announce their own
+  // emptiness are the Scaled Content Abuse shape the Aug-2026 spam update
+  // enforced against (Google's test is value-add, not automation).
+  //
+  // DO NOT `noindex` these on the `!guide` flag. That was the first fix tried
+  // here and the GSC Performance export (2026-07-29) killed it: 52 of the
+  // supposedly "empty" guides earn real traffic — 241 clicks / 4.751
+  // impressions, i.e. 4x the 58 clicks of the five guides that DO have a
+  // `guide` record (boombastic-asturias alone: 36 clicks). `festival.guide` is
+  // a content-authoring flag, NOT a proxy for page value, because the rest of
+  // the page (transport, prices, venue, carpooling CTA) is genuinely useful.
+  // Google also states plainly that `noindex` WASTES crawl budget — it still
+  // fetches, then discards ("Managing crawl budget for large sites",
+  // updated 2026-07-22) — so noindex is the wrong instrument here anyway.
+  //
+  // Fix instead: delete the self-defeating placeholder block (below) so no page
+  // advertises itself as unfinished, and let the real content stand. Anything
+  // genuinely worthless should be pruned from sitemap + internal links and
+  // 404/410'd, per the same Google doc — not left crawlable-but-noindexed.
   useSeoMeta({
     title: guideTitle,
     description: guideDesc,
@@ -362,20 +386,39 @@ export default function FestivalGuidePage() {
           </div>
         </section>
 
-        {/* Festivales sin guía: CTA genérico */}
+        {/* Festivales sin ficha de logística cargada: en vez de anunciar que la
+            página está vacía (§AG), damos la información que SÍ conocemos del
+            festival — ubicación, fechas y cómo llegar — y enlazamos al hub. */}
         {!guide && (
-          <div className="rounded-xl border border-white/10 bg-white/3 p-6 text-center space-y-2">
-            <Package className="text-cr-text-muted mx-auto" size={24} />
-            <p className="text-sm text-cr-text-muted">
-              La guía detallada de {festival.shortName} estará disponible próximamente.
+          <section className="rounded-xl border border-white/10 bg-white/3 p-6 space-y-3">
+            <div className="flex items-center gap-2">
+              <Package className="text-cr-primary" size={20} />
+              <h2 className="font-display text-lg uppercase">
+                Cómo llegar a {festival.shortName}
+              </h2>
+            </div>
+            <p className="text-sm text-cr-text-muted leading-relaxed">
+              {festival.shortName} se celebra en {festival.venue} ({festival.city}).
+              La forma más barata de llegar suele ser el coche compartido: en
+              ConcertRide no hay comisión, pagas al conductor el día del viaje y
+              te ahorras el aparcamiento si vas con alguien que ya conduce hasta
+              allí. Para los horarios de puertas, la normativa de acampada y la
+              lista de objetos permitidos, consulta siempre la web oficial del
+              festival, que es la única fuente que se actualiza en tiempo real.
             </p>
-            <Link
-              to={`/festivales/${slug}`}
-              className="inline-flex items-center gap-1 text-sm text-cr-primary hover:underline"
-            >
-              <ArrowLeft size={12} /> Ver info de transporte
-            </Link>
-          </div>
+            {/* Solo enlazamos al hub del festival: es el único destino que se
+                garantiza que existe para CADA slug. Un enlace a
+                /conciertos/<ciudad> sería un 404 para las ciudades sin landing
+                (§AF.6: nunca enlazar a una URL no verificada). */}
+            <div className="pt-1">
+              <Link
+                to={`/festivales/${slug}`}
+                className="inline-flex items-center gap-1 text-sm text-cr-primary hover:underline"
+              >
+                <ArrowLeft size={12} /> Transporte y viajes a {festival.shortName}
+              </Link>
+            </div>
+          </section>
         )}
       </div>
     </main>

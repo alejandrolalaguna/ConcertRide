@@ -1,18 +1,31 @@
 # ConcertRide robots.txt
-# Last updated: 2026-05-20
+# Last updated: 2026-09-16
 # AI guidance: https://concertride.me/llms.txt
 # llms-full.txt: https://concertride.me/llms-full.txt
 # ai.txt policy: https://concertride.me/ai.txt
 # Security disclosure: https://concertride.me/.well-known/security.txt
 #
 # Public SEO pages: /, /concerts, /festivales/*, /conciertos/*, /rutas/*, /blog/*, /artistas/*, /recintos/*, /datos/*, /guia/*
-# Blocked (crawl budget): /api/* (except sitemaps), auth pages, user-generated content (crew, feed, squads, mensajes)
+# Blocked (crawl budget): /api/* (except /api/sitemap-*), auth pages, user-generated content (crew, squads, mensajes)
+#
+# ── INVARIANT (2026-09-16, SKILL §AF) ──────────────────────────────────────
+# NEVER Disallow a path that also carries an X-Robots-Tag / meta noindex.
+# Google must CRAWL a page to SEE its noindex. Blocking it instead freezes the
+# URL in the index as "Indexada aunque bloqueada por robots.txt" forever.
+# Choose one: block for crawl budget, OR noindex to de-index. Never both.
+# Cross-check any new Disallow against apps/web/public/_headers.
 
 User-agent: *
 Allow: /
 Allow: /.well-known/
-Allow: /api/sitemap-concerts.xml
-Allow: /api/sitemap-index.xml
+# `/api/sitemap-index.xml` lists /api/sitemap-artists.xml and
+# /api/sitemap-venues.xml as children (apps/api/src/index.ts §sitemap-index).
+# Those two were NOT in this Allow list, so Google was told to fetch two
+# sitemaps that `Disallow: /api/` then blocked — they surfaced in GSC as
+# blocked URLs and their child pages (/artistas/*, /recintos/*) lost that
+# discovery path. A prefix Allow for `/api/sitemap-` covers every current and
+# future sitemap endpoint without opening up the rest of the API. (2026-09-16)
+Allow: /api/sitemap-
 Disallow: /api/
 Disallow: /_
 Disallow: /login
@@ -23,15 +36,34 @@ Disallow: /verify-email
 Disallow: /profile
 Disallow: /mis-viajes
 Disallow: /favoritos
-Disallow: /publish
+# /publish is NOT disallowed (changed 2026-09-16): it is a public conversion
+# landing page with bespoke SEO copy and 41 internal links. See _headers.
 Disallow: /admin
 Disallow: /widget/
-Disallow: /rides/
-Disallow: /drivers/
-# Filter query params on /concerts are UX-only; bots 301 to canonical (see seoPrerender §B).
-# Disallowing here additionally saves crawl budget for non-bot UAs that still follow links.
-Disallow: /concerts?
-Disallow: /concerts/?
+# /rides/ and /drivers/ are deliberately NOT Disallowed (changed 2026-09-16).
+# They carry `X-Robots-Tag: noindex, nofollow` in public/_headers, but a noindex
+# on a robots-BLOCKED URL is invisible: Googlebot never fetches the page, so it
+# never sees the header, and the URL stays indexed from link discovery alone.
+# That is what produced GSC "Indexada aunque bloqueada por robots.txt" = 97.
+# Unblocked + noindex lets Googlebot fetch, read the noindex, and DROP them —
+# the exact pattern already documented for /feed below. Do NOT re-add these
+# Disallow lines: doing so freezes the URLs in the index permanently.
+# Filter query params on /concerts are UX-only. seoPrerender (§B, index.ts
+# ~:4185) already answers bot requests for `/concerts?<anything>` with a 301 to
+# the canonical `/concerts`.
+#
+# The `Disallow: /concerts?` lines were REMOVED on 2026-09-16 because they made
+# that 301 unreachable and were actively harmful:
+#   - Blocked-but-linked URLs are never crawled, so Google can never see the
+#     301 that would consolidate them. They accumulate in the index frontier
+#     forever instead. Filter anchors are emitted on 8,000+ prerendered pages,
+#     so the combinatorial `?city=&artist=&tab=` space is what drove GSC
+#     "Bloqueada por robots.txt" to 8,432.
+#   - Verified live 2026-09-16: Googlebot on /concerts?city=madrid received
+#     HTTP 200 with no X-SEO-Prerender header — the asset layer answered before
+#     the Worker ran. Fixed via `assets.run_worker_first` in wrangler.jsonc.
+# Letting Googlebot CRAWL these and receive the 301 is what actually removes
+# them. Do NOT re-add the Disallow lines.
 # Phase 1+2+3 social surfaces — personal/dynamic, never indexable.
 # /memorias/:id is intentionally NOT blocked: public memories with
 # visibility="public" remain indexable as social-proof landing pages.

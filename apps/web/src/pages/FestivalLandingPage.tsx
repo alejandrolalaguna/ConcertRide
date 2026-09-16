@@ -480,7 +480,15 @@ export default function FestivalLandingPage() {
           address: festival.venueAddress,
         },
         ...(festival.announcement.url ? { url: festival.announcement.url } : {}),
-        about: { "@type": "MusicEvent", "@id": `${SITE_URL}/festivales/${festival.slug}#event` },
+        // §Y.1: pure `{"@id"}` ref, never `{"@type","@id"}`. Google validates
+        // each JSON-LD node in isolation, so a TYPED MusicEvent stub is read as
+        // an incomplete MusicEvent and reported as missing all 10 Event fields
+        // — even though the complete entity is defined elsewhere in this same
+        // document. 197 of the 199 festival pages already emit the pure ref;
+        // only this `SpecialAnnouncement` branch (creamfields-andalucia,
+        // tomavistas — the 2 festivals with an active announcement) still had
+        // the typed shape.
+        about: { "@id": `${SITE_URL}/festivales/${festival.slug}#event` },
       }
     : null;
 

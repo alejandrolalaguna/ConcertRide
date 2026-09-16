@@ -343,6 +343,52 @@ export default function RutasIndexPage() {
           </div>
         </div>
       </div>
+
+      {/* ── Índice completo de rutas (crawl surface) ──────────────────────────
+          GSC 2026-09-16: 1.647 rutas en "Descubierta: actualmente sin indexar"
+          + 349 en "Rastreada: actualmente sin indexar" = 1.996 (27% de la
+          familia /rutas). Causa medida sobre el HTML de dist/: de las 7.399
+          rutas, 5.407 tenían SOLO 2 enlaces entrantes (uno de ellos el propio
+          self-link), es decir un único enlace real. Este hub renderizaba 500
+          (6,8%) y el resto dependía del filtro client-side por festival, que
+          Googlebot no ejecuta al leer el HTML estático.
+
+          Sin enlaces internos, una URL solo llega a Google vía sitemap. Google
+          la descubre, calcula que no merece presupuesto de rastreo y la aparca
+          en "Descubierta". La solución es dar a cada ruta un enlace real en
+          HTML estático desde una página con autoridad.
+
+          COSTE MEDIDO (no estimado): 7.399 anclas compactas = ~0,55 MiB, lo que
+          deja este índice en ~1,4 MiB — muy por debajo del límite de 25 MiB por
+          asset de Cloudflare (CLAUDE.md §PELIGRO). El bloque SSR de arriba
+          sigue capado a ROUTES_INDEX_CAP y el itemListElement del JSON-LD sigue
+          limitado a TOP_ROUTE_LANDINGS: aquí solo añadimos anclas planas, sin
+          tarjetas ni schema, que es lo único que necesita el rastreador.
+
+          Si algún día este bloque hiciera crecer /rutas/index.html por encima
+          de ~20 MiB, paginarlo en /rutas/indice/[n] en vez de recortarlo. */}
+      <section className="border-t border-cr-border">
+        <div className="max-w-6xl mx-auto px-6 py-12 space-y-4">
+          <h2 className="font-display text-xl uppercase">
+            Todas las rutas ({ROUTE_LANDINGS.length})
+          </h2>
+          <p className="font-sans text-sm text-cr-text-muted max-w-xl leading-relaxed">
+            Listado completo de rutas city→festival con página propia.
+          </p>
+          <ul className="flex flex-wrap gap-x-3 gap-y-1.5">
+            {ROUTE_LANDINGS.map((r) => (
+              <li key={r.slug}>
+                <Link
+                  to={`/rutas/${r.slug}`}
+                  className="font-sans text-xs text-cr-text-muted hover:text-cr-primary underline underline-offset-2 transition-colors"
+                >
+                  {r.originCity}–{r.festival.shortName}
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </section>
     </main>
   );
 }

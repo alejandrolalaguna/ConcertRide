@@ -1607,10 +1607,10 @@ export const BLOG_POSTS: BlogPost[] = [
     ],
     relatedLinks: [
       { label: "Qué llevar a un festival: lista 40 items", to: "/blog/que-llevar-festival-lista-definitiva-40-items-2026" },
-      { label: "Cómo ir a un festival sin coche", to: "/blog/como-ir-festival-sin-coche-guia-definitiva-2026" },
+      { label: "Cómo ir a un festival sin coche", to: "/blog/como-ir-festival-sin-coche-guia" },
       { label: "Carpooling para festivales — ConcertRide", to: "/como-funciona" },
     ],
-    relatedPosts: ["que-llevar-festival-lista-definitiva-40-items-2026", "como-ir-festival-sin-coche-guia-definitiva-2026"],
+    relatedPosts: ["que-llevar-festival-lista-definitiva-40-items-2026", "como-ir-festival-sin-coche-guia"],
     coverImage: { src: "/og/home.png", alt: "Mochila ideal para festival en España 2026", width: 1200, height: 630 },
   },
   {
@@ -1680,7 +1680,7 @@ export const BLOG_POSTS: BlogPost[] = [
     ],
     relatedLinks: [
       { label: "Cuánto cuesta ir a un festival en España 2026", to: "/blog/cuanto-cuesta-ir-festival-espana-presupuesto-2026" },
-      { label: "Cómo ir a un festival sin coche", to: "/blog/como-ir-festival-sin-coche-guia-definitiva-2026" },
+      { label: "Cómo ir a un festival sin coche", to: "/blog/como-ir-festival-sin-coche-guia" },
       { label: "Calendario festivales España 2026", to: "/calendario-festivales-2026" },
     ],
     relatedPosts: ["cuanto-cuesta-ir-festival-espana-presupuesto-2026", "que-llevar-festival-lista-definitiva-40-items-2026"],
@@ -2031,11 +2031,11 @@ export const BLOG_POSTS: BlogPost[] = [
       },
     ],
     relatedLinks: [
-      { label: "Cómo ir a un festival sin coche", to: "/blog/como-ir-festival-sin-coche-guia-definitiva-2026" },
+      { label: "Cómo ir a un festival sin coche", to: "/blog/como-ir-festival-sin-coche-guia" },
       { label: "Cuánto cuesta ir a un festival 2026", to: "/blog/cuanto-cuesta-ir-festival-espana-presupuesto-2026" },
       { label: "Carpooling festivales — ConcertRide", to: "/como-funciona" },
     ],
-    relatedPosts: ["como-ir-festival-sin-coche-guia-definitiva-2026", "cuanto-cuesta-ir-festival-espana-presupuesto-2026"],
+    relatedPosts: ["como-ir-festival-sin-coche-guia", "cuanto-cuesta-ir-festival-espana-presupuesto-2026"],
     coverImage: { src: "/og/home.png", alt: "Aparcar coche en festival 2026 zona vigilada vs libre", width: 1200, height: 630 },
   },
 ];
@@ -2587,7 +2587,7 @@ BLOG_POSTS.push(
       { label: "Barcelona → Mad Cool", to: "/rutas/barcelona-mad-cool" },
       { label: "Guía completa transporte festivales", to: "/blog/guia-definitiva-transporte-festivales-espana-2026" },
     ],
-    relatedPosts: ["mad-cool-2026-guia-completa", "carpooling-vs-taxi-festival-espana", "carpooling-madrid-festivales", "top-rutas-madrid-festivales-2026"],
+    relatedPosts: ["madcool-2026-guia-completa", "carpooling-vs-taxi-festival-espana", "carpooling-madrid-festivales", "top-rutas-madrid-festivales-2026"],
   },
   {
     slug: "carpooling-primavera-sound-desde-zaragoza-2026",
@@ -4195,7 +4195,7 @@ BLOG_POSTS.push(
       { label: "Cómo llegar a Tomavistas", to: "/como-llegar/tomavistas" },
       { label: "Conciertos en Madrid", to: "/conciertos/madrid" },
     ],
-    relatedPosts: ["tomavistas-madrid-2026-transporte", "mad-cool-2026-guia-completa"],
+    relatedPosts: ["tomavistas-madrid-2026-transporte", "madcool-2026-guia-completa"],
   },
 
   // ──────────────────────────────────────────────────────────────────────
@@ -5544,7 +5544,7 @@ BLOG_POSTS.push(
       { label: "Alternativas de carpooling para festivales", to: "/blog/alternativa-carpooling-festivales-espana" },
       { label: "Cómo volver de un festival de madrugada", to: "/blog/como-volver-festival-madrugada" },
     ],
-    relatedPosts: ["carpooling-mad-cool-desde-madrid-2026", "mad-cool-2026-guia-completa", "coldplay-madrid-2026-guia-transporte", "top-rutas-madrid-festivales-2026"],
+    relatedPosts: ["carpooling-mad-cool-desde-madrid-2026", "madcool-2026-guia-completa", "coldplay-madrid-2026-guia-transporte", "top-rutas-madrid-festivales-2026"],
   },
 
   // Semana 1, Post 2: artista + carpooling = zero competition ("coldplay madrid 2026 carpooling")
@@ -9372,7 +9372,7 @@ BLOG_POSTS.push(
       { label: "Guía completa Mad Cool 2026", to: "/festivales/mad-cool" },
     ],
     relatedPosts: [
-      "mad-cool-2026-guia-completa",
+      "madcool-2026-guia-completa",
       "carpooling-mad-cool-desde-barcelona-2026",
       "como-ir-mad-cool-desde-valencia-2026",
       "autobuses-festivales-espana-2026",
@@ -9660,11 +9660,11 @@ BLOG_POSTS.push(
     relatedLinks: [
       { label: "Carpooling a Mad Cool", to: "/festivales/mad-cool" },
       { label: "Rutas Valencia → Madrid", to: "/conciertos/madrid" },
-      { label: "Guía completa Mad Cool 2026", to: "/blog/mad-cool-2026-guia-completa" },
+      { label: "Guía completa Mad Cool 2026", to: "/blog/madcool-2026-guia-completa" },
       { label: "Cuánto cuesta ir a un festival", to: "/blog/cuanto-cuesta-ir-festival-espana-2026-carpooling-vs-bus" },
     ],
     relatedPosts: [
-      "mad-cool-2026-guia-completa",
+      "madcool-2026-guia-completa",
       "carpooling-mad-cool-desde-barcelona-2026",
       "como-llegar-mad-cool-desde-barcelona-2026",
       "autobuses-festivales-espana-2026",
@@ -11073,7 +11073,7 @@ BLOG_POSTS.push(
       "carpooling-vs-autobus-festival",
       "carpooling-vs-taxi-festival-espana",
       "mejor-app-carpooling-festivales-espana-2026",
-      "como-ir-festival-sin-coche-guia-definitiva-2026",
+      "como-ir-festival-sin-coche-guia",
       "mejor-app-reservar-viaje-festival-2027",
     ],
   },
@@ -11480,7 +11480,7 @@ BLOG_POSTS.push(
       "como-volver-festival-4am-transporte-nocturno",
       "autobuses-festivales-espana-2026",
       "festival-sostenible-carpooling-huella-carbono",
-      "como-ir-festival-sin-coche-guia-definitiva-2026",
+      "como-ir-festival-sin-coche-guia",
     ],
   },
 );
@@ -11655,7 +11655,7 @@ BLOG_POSTS.push({
     { label: "Carpooling to FIB Benicàssim", to: "/festivales/fib" },
   ],
   relatedPosts: [
-    "como-ir-festival-sin-coche-guia-definitiva-2026",
+    "como-ir-festival-sin-coche-guia",
     "carpooling-vs-tren-vs-autobus-festival-espana",
     "como-volver-festival-4am-transporte-nocturno",
   ],
@@ -11742,11 +11742,11 @@ BLOG_POSTS.push({
     { label: "Carpooling a Sonorama Ribera", to: "/festivales/sonorama-ribera" },
     { label: "Carpooling a BBK Live Bilbao", to: "/festivales/bbk-live" },
     { label: "Presupuesto festival de música España 2026", to: "/blog/presupuesto-festival-musica-espana-2026" },
-    { label: "Cómo ir a un festival sin coche", to: "/blog/como-ir-festival-sin-coche-guia-definitiva-2026" },
+    { label: "Cómo ir a un festival sin coche", to: "/blog/como-ir-festival-sin-coche-guia" },
   ],
   relatedPosts: [
     "presupuesto-festival-musica-espana-2026",
-    "como-ir-festival-sin-coche-guia-definitiva-2026",
+    "como-ir-festival-sin-coche-guia",
     "autobuses-festivales-espana-2026",
   ],
 });
@@ -11830,10 +11830,10 @@ BLOG_POSTS.push({
     { label: "Carpooling a FIB Benicàssim", to: "/festivales/fib" },
     { label: "Carpooling a Primavera Sound", to: "/festivales/primavera-sound" },
     { label: "Carpooling a Sónar Barcelona", to: "/festivales/sonar" },
-    { label: "Cómo ir a un festival sin coche", to: "/blog/como-ir-festival-sin-coche-guia-definitiva-2026" },
+    { label: "Cómo ir a un festival sin coche", to: "/blog/como-ir-festival-sin-coche-guia" },
   ],
   relatedPosts: [
-    "como-ir-festival-sin-coche-guia-definitiva-2026",
+    "como-ir-festival-sin-coche-guia",
     "autobuses-festivales-espana-2026",
     "presupuesto-festival-musica-espana-2026",
     "accesibilidad-en-viajes-festivales",
@@ -14504,7 +14504,7 @@ BLOG_POSTS.push(
       { label: "Carpooling Madrid → Mad Cool", to: "/rutas/madrid-mad-cool" },
       { label: "Conciertos en Madrid", to: "/conciertos/madrid" },
     ],
-    relatedPosts: ["mad-cool-2026-guia-completa", "carpooling-mad-cool-desde-madrid-2026", "gasolina-mad-cool-2026-cuanto-cuesta-ir-en-coche"],
+    relatedPosts: ["madcool-2026-guia-completa", "carpooling-mad-cool-desde-madrid-2026", "gasolina-mad-cool-2026-cuanto-cuesta-ir-en-coche"],
     coverImage: { src: "https://images.unsplash.com/photo-1429514513361-8fa32282fd5f?w=1200&h=630&fit=crop", alt: "Festival de música nocturno en Madrid Iberdrola Music — Mad Cool ConcertRide", width: 1200, height: 630 },
   },
 
@@ -15398,7 +15398,7 @@ BLOG_POSTS.push(
       { label: "Carpooling Barcelona–DCode", to: "/rutas/barcelona-dcode-festival" },
       { label: "Conciertos en Madrid", to: "/conciertos/madrid" },
     ],
-    relatedPosts: ["carpooling-descarga-festival-2026", "autobuses-festivales-espana-2026", "como-ir-festival-sin-coche-guia-definitiva-2026"],
+    relatedPosts: ["carpooling-descarga-festival-2026", "autobuses-festivales-espana-2026", "como-ir-festival-sin-coche-guia"],
   }
 );
 
@@ -15460,7 +15460,7 @@ BLOG_POSTS.push(
       { label: "Carpooling al BBK Live", to: "/festivales/bbk-live" },
       { label: "Carpooling al Resurrection Fest", to: "/festivales/resurrection-fest" },
     ],
-    relatedPosts: ["como-ir-festival-sin-coche-guia-definitiva-2026", "autobuses-festivales-espana-2026", "cuanto-cuesta-ir-festival-espana-presupuesto-2026"],
+    relatedPosts: ["como-ir-festival-sin-coche-guia", "autobuses-festivales-espana-2026", "cuanto-cuesta-ir-festival-espana-presupuesto-2026"],
   }
 );
 
@@ -15524,7 +15524,7 @@ BLOG_POSTS.push(
       { label: "Cómo funciona ConcertRide", to: "/como-funciona" },
       { label: "Festival sostenible: carpooling y huella de carbono", to: "/blog/festival-sostenible-carpooling-huella-carbono" },
     ],
-    relatedPosts: ["estudio-co2-festivales-carpooling-2026", "grupos-amigos-festival-carpooling", "como-ir-festival-sin-coche-guia-definitiva-2026"],
+    relatedPosts: ["estudio-co2-festivales-carpooling-2026", "grupos-amigos-festival-carpooling", "como-ir-festival-sin-coche-guia"],
   }
 );
 
@@ -18127,11 +18127,11 @@ BLOG_POSTS.push({
     { label: "Ruta Barcelona a Mad Cool", to: "/rutas/barcelona-mad-cool" },
     { label: "Ruta Valencia a Mad Cool", to: "/rutas/valencia-mad-cool" },
     { label: "Conciertos en Madrid", to: "/conciertos/madrid" },
-    { label: "Guía completa Mad Cool 2026", to: "/blog/mad-cool-2026-guia-completa" },
+    { label: "Guía completa Mad Cool 2026", to: "/blog/madcool-2026-guia-completa" },
     { label: "Cómo volver del festival a las 4 AM", to: "/blog/como-volver-festival-4am-transporte-nocturno" },
   ],
   relatedPosts: [
-    "mad-cool-2026-guia-completa",
+    "madcool-2026-guia-completa",
     "buses-mad-cool-2026",
     "como-volver-mad-cool-madrugada-2026",
   ],
@@ -23375,6 +23375,17 @@ BLOG_POSTS.push({
 export const DISABLED_BLOG_SLUGS: ReadonlySet<string> = new Set([
   "blablacar-vs-concertride",
   "alternativa-blablacar-festivales-espana",
+  // §AH (2026-09-16): near-duplicate pairs that shared a <title> and competed
+  // for the same query. Each is 301'd to its surviving twin in LEGACY_REDIRECTS
+  // (apps/api/src/index.ts). Listing them here is what actually removes them
+  // from the sitemap, from prerender output and from internal links — a 301
+  // alone would leave the sitemap advertising a redirecting URL, which is the
+  // §AF.1 anti-pattern. The survivor was chosen on measured traffic (GSC
+  // Performance 2026-07-29), not on recency:
+  //   mad-cool-2026-guia-completa (13 clicks) → madcool-2026-guia-completa (54)
+  //   como-ir-...-definitiva-2026 (0 clicks, 4.122 words) → ...-guia (5.073)
+  "mad-cool-2026-guia-completa",
+  "como-ir-festival-sin-coche-guia-definitiva-2026",
 ]);
 for (let i = BLOG_POSTS.length - 1; i >= 0; i--) {
   if (DISABLED_BLOG_SLUGS.has(BLOG_POSTS[i]!.slug)) BLOG_POSTS.splice(i, 1);

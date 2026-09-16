@@ -608,7 +608,7 @@ export default function BlogPostPage() {
             </p>
             <div className="flex flex-wrap gap-3 pt-1">
               <Link
-                to="/conciertos"
+                to="/concerts"
                 className="inline-flex items-center gap-2 font-sans text-xs font-semibold uppercase tracking-[0.12em] bg-[#dbff00] text-black border-2 border-black px-5 py-2.5 shadow-[3px_3px_0px_0px_rgba(0,0,0,1)] hover:shadow-[1px_1px_0px_0px_rgba(0,0,0,1)] hover:translate-x-[2px] hover:translate-y-[2px] transition-all duration-100"
               >
                 Ver rutas disponibles <ArrowRight size={12} />

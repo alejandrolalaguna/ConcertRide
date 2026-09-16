@@ -746,7 +746,7 @@ export default function CityLandingPage() {
         <EeatTrustBlock
           pageType="city"
           lastReviewed={new Date().toISOString().slice(0, 10)}
-          author={{ name: "Equipo ConcertRide", url: "/autor/alejandro-lalaguna" }}
+          author={{ name: "Equipo ConcertRide", url: "/autor/equipo-concertride" }}
           className="max-w-2xl"
         />
 

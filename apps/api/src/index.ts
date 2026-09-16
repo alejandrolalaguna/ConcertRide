@@ -67,9 +67,45 @@ app.use("*", async (c, next) => {
   const isDev = c.env.ENVIRONMENT === "development";
   if (c.req.method === "GET" && url.protocol === "http:" && !isLocal && !isDev) {
     url.protocol = "https:";
+    // Normalise the host in the SAME hop, otherwise http://www → https://www →
+    // https://apex is a 2-hop chain that dilutes the signal.
+    url.hostname = url.hostname.replace(/^www\./, "");
     return c.redirect(url.toString(), 301);
   }
   return next();
+});
+
+// ─── Canonical host: www.concertride.me → concertride.me (301) ──────────────
+// (added 2026-09-16, SKILL §AF)
+//
+// PROBLEM: wrangler.jsonc registers BOTH `concertride.me` and
+// `www.concertride.me` as `custom_domain` routes, and nothing ever redirected
+// between them. Verified live on 2026-09-16:
+//   curl -I https://www.concertride.me/  → HTTP/2 200   (NOT a redirect)
+// So the ENTIRE site — all 8,893 prerendered pages — was reachable twice, on
+// two hostnames, each serving a full 200 response.
+//
+// The prerendered HTML hardcodes `https://concertride.me/...` in its canonical
+// (verified: www./ and apex / both emit `<link rel="canonical"
+// href="https://concertride.me/">`), so Google sees a cross-host canonical on
+// every www URL. That is EXACTLY the definition of GSC's
+// "Página alternativa con etiqueta canónica adecuada" (4,300 URLs) and, where
+// Google disagreed with our canonical, "Duplicada: Google ha elegido una
+// versión canónica diferente" (744).
+//
+// A canonical LINK is only a hint. The host-level fix is a 301, which is a
+// directive — it removes the duplicate host from the crawl frontier entirely
+// instead of asking Google to please ignore it.
+//
+// Must run BEFORE the locale and trailing-slash middlewares so that
+// `https://www.concertride.me/en/blog/x/` collapses to ONE hop to the final
+// `https://concertride.me/blog/x`, not a three-hop chain.
+app.use("*", async (c, next) => {
+  if (c.req.method !== "GET" && c.req.method !== "HEAD") return next();
+  const url = new URL(c.req.url);
+  if (!url.hostname.startsWith("www.")) return next();
+  url.hostname = url.hostname.slice(4);
+  return c.redirect(url.toString(), 301);
 });
 
 // ─── Legacy URL redirects (brand-restriction enforcement, see CLAUDE.md) ────
@@ -105,6 +141,15 @@ const LEGACY_REDIRECTS: Record<string, string> = {
   // the homepage canonical from index.html), which GSC filed under "Duplicada,
   // el usuario no ha indicado ninguna versión canónica" (217). 301 them to the
   // real hub so they leave the shell path entirely. Targets verified 200.
+  // §AH (2026-09-16): dos pares de posts casi duplicados competían entre sí por
+  // la misma query (mismo <title>, mismo intent). Consolidados 301 al ganador
+  // medido en la GSC Performance export 2026-07-29 — nunca "al más reciente":
+  //   madcool-2026-guia-completa      54 clics ES  ← gana
+  //   mad-cool-2026-guia-completa     13 clics ES  → redirige
+  // El segundo par no tiene tráfico en ninguna de las dos, así que se conserva
+  // la más extensa (5.073 vs 4.122 palabras visibles).
+  "/blog/mad-cool-2026-guia-completa": "/blog/madcool-2026-guia-completa",
+  "/blog/como-ir-festival-sin-coche-guia-definitiva-2026": "/blog/como-ir-festival-sin-coche-guia",
   "/generos": "/festivales",
   "/calendario": "/festivales",
   "/regiones": "/festivales",

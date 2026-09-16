@@ -199,7 +199,7 @@ const SECTIONS: Array<{
     tldr: "Sí. La mayoría de pasajeros de carpooling no tienen coche: combina bus o tren a la ciudad emisora y carpool al recinto.",
     body:
       "El 61 % de los pasajeros de carpooling para festivales no son conductores titulares: usan la plataforma justamente porque no quieren conducir o no tienen coche. Estrategia tipo: bus o tren a la ciudad emisora más cercana al festival (Madrid para Mad Cool, Barcelona para Primavera Sound, Bilbao para BBK Live, Castellón para FIB, Vilagarcía para O Son do Camiño), y carpool intraurbano o de proximidad al recinto. Coste medio 8–25 € en el último tramo. Para Resurrection Fest (sin tren cercano) la opción es bus desde Lugo (3 € + 30 min). Para Aquasella o festivales en pueblos pequeños, busca carpool puerta a puerta desde la capital de provincia. Publica tu solicitud (no solo busca ofertas) si no encuentras viaje publicado: muchos conductores con plazas libres responden a solicitudes activas.",
-    link: { label: "Cómo ir al festival sin coche", to: "/blog/como-ir-festival-sin-coche-guia-definitiva-2026" },
+    link: { label: "Cómo ir al festival sin coche", to: "/blog/como-ir-festival-sin-coche-guia" },
   },
   {
     id: "huella-carbono",

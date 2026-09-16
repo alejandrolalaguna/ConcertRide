@@ -174,7 +174,7 @@ export default function BienvenidaPage() {
         {/* Final CTA */}
         <div className="text-center space-y-4">
           <Link
-            to="/conciertos"
+            to="/concerts"
             className="inline-flex items-center gap-2 w-full justify-center bg-[#dbff00] text-black font-sans font-semibold uppercase tracking-[0.14em] text-sm border-2 border-black px-6 py-4 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] hover:translate-x-[2px] hover:translate-y-[2px] transition-all duration-100"
           >
             {t("bienvenida.finalCta")}

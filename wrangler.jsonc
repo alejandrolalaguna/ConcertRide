@@ -8,7 +8,30 @@
     "directory": "apps/web/dist",
     "binding": "ASSETS",
     "not_found_handling": "single-page-application",
-    "html_handling": "drop-trailing-slash"
+    // "drop-trailing-slash" makes Cloudflare's asset layer answer `/path/` with a
+    // **307** (temporary). Google treats 307 like 302: a WEAK canonicalisation
+    // signal, so it keeps the `/path/` URL in the index and re-crawls it forever.
+    // That is what produced GSC "Página con redirección" = 8,285 (2026-09-16).
+    // The status code is NOT configurable (Cloudflare docs: html-handling always
+    // emits 307), so the ONLY fix is to stop the asset layer from answering these
+    // requests and let the Worker's 301 middleware handle them — see
+    // `run_worker_first` below and the trailing-slash middleware in
+    // apps/api/src/index.ts.
+    "html_handling": "drop-trailing-slash",
+    // ─── §AF: Worker must run BEFORE the asset layer for redirect-bearing paths ──
+    // DEFAULT Cloudflare behaviour is asset-first: "Cloudflare will first attempt
+    // to serve static assets if one matches the incoming request. If an
+    // appropriate static asset is not found, Cloudflare will invoke your Worker."
+    // Consequence: for any path that HAS a prerendered asset (i.e. all 8,893 SEO
+    // pages), the asset layer's 307 fired and the Worker's `c.redirect(..., 301)`
+    // middleware NEVER executed. The locale-mirror middleware only worked because
+    // `/en/*` and `/ca/*` have no assets (documented at index.ts §AE "SAFE w.r.t.
+    // §AD.0") — the same reasoning was never applied to trailing slashes.
+    //
+    // Scoped to `/*` because a trailing-slash variant can exist for ANY route.
+    // Hashed build assets are excluded so they keep being served straight from
+    // the edge with zero Worker invocation (cost + latency).
+    "run_worker_first": ["/*", "!/assets/*", "!/og/*", "!/*.png", "!/*.svg", "!/*.ico", "!/*.webmanifest", "!/*.js", "!/*.css", "!/*.woff2"]
   },
   "observability": {
     "enabled": true

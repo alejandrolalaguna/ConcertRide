@@ -27,6 +27,37 @@ const SITE_NAME = "ConcertRide";
 const SEARCH_BOTS =
   /Googlebot|Googlebot-Extended|bingbot|Slurp|DuckDuckBot|Baiduspider|YandexBot|Sogou|Exabot|facebot|ia_archiver|AhrefsBot|SemrushBot|MJ12bot|DotBot|Applebot|LinkedInBot|Twitterbot|facebookexternalhit|WhatsApp|Slackbot|TelegramBot|Discordbot|OAI-SearchBot|PerplexityBot|anthropic-ai|Google-Extended|GPTBot|ChatGPT-User|CCBot|ClaudeBot|Bytespider|xai-bot|YouBot/i;
 
+// ─── §AG: paths that legitimately render client-side for bots too ───────────
+// Used by the unknown-path 404 denylist further down. ONLY private / auth /
+// interactive surfaces belong here: every one is either noindex (see
+// apps/web/public/_headers) or Disallowed in robots.txt, so serving them the
+// SPA shell costs nothing. Anything NOT in this list that fails to resolve to a
+// PageData is treated as a genuine 404 for bots.
+//
+// Do NOT add public content prefixes here. Adding one re-opens the unbounded
+// homepage-clone space this list exists to close (see the comment at the
+// `isKnownSpaPath` check).
+const SPA_ONLY_PREFIXES = [
+  "/login",
+  "/register",
+  "/forgot-password",
+  "/reset-password",
+  "/verify-email",
+  "/profile",
+  "/mis-viajes",
+  "/favoritos",
+  "/admin",
+  "/rides",
+  "/drivers",
+  "/crew",
+  "/squads",
+  "/mensajes",
+  "/memorias",
+  "/bienvenida",
+  "/widget",
+  "/_dev",
+] as const;
+
 function esc(s: string): string {
   return s
     .replace(/&/g, "&amp;")
@@ -4162,8 +4193,18 @@ async function resolveConcertPage(id: string, base: string, store: HonoEnv["Vari
 
 // ── Middleware ──────────────────────────────────────────────────────────────
 export async function seoPrerender(c: Context<HonoEnv>, next: Next): Promise<Response | void> {
+  // §AH: HEAD must be handled exactly like GET.
+  // This used to bail on `method !== "GET"`, so HEAD skipped the unknown-slug
+  // 404 branch entirely and fell through to the asset layer, which answers 200.
+  // Measured live 2026-09-16 across all 11 dynamic families:
+  //   HEAD /festivales/zzz-fake → 200   while   GET /festivales/zzz-fake → 404
+  // RFC 9110 requires HEAD to return the same status and headers as GET, just
+  // without a body. Link-checkers and crawlers that probe with HEAD therefore
+  // saw every dead URL as alive — and Googlebot began issuing HEAD requests in
+  // Aug/Sep 2026, so this is no longer a theoretical inconsistency.
+  const isReadMethod = c.req.method === "GET" || c.req.method === "HEAD";
   if (
-    c.req.method !== "GET" ||
+    !isReadMethod ||
     c.req.path.startsWith("/api/") ||
     c.req.path.startsWith("/.well-known/") ||
     c.req.path.match(/\.[a-z0-9]{1,6}$/i)
@@ -4243,25 +4284,90 @@ export async function seoPrerender(c: Context<HonoEnv>, next: Next): Promise<Res
     // Unknown slug in a known dynamic pattern (e.g. /festivales/nonexistent-slug,
     // /conciertos/unknown-city, /blog/missing-post, /rutas/no-route).
     // Return an explicit 404 so Google does not soft-404 these as 200 shells.
-    const isDynamicPattern =
-      /^\/festivales\/[^/]+\/?$/.test(pathname) ||
-      /^\/festivales\/[^/]+\/guia\/?$/.test(pathname) ||
-      /^\/conciertos\/[^/]+\/?$/.test(pathname) ||
-      /^\/conciertos\/[^/]+\/\d{4}\/?$/.test(pathname) ||
-      /^\/blog\/[^/]+\/?$/.test(pathname) ||
-      /^\/rutas\/[^/]+\/?$/.test(pathname) ||
-      /^\/artistas\/[^/]+\/?$/.test(pathname) ||
-      /^\/recintos\/[^/]+\/?$/.test(pathname) ||
-      /^\/festivales-en\/[^/]+\/?$/.test(pathname) ||
-      /^\/como-llegar\/[^/]+\/?$/.test(pathname) ||
-      /^\/festivales-genero\/[^/]+\/?$/.test(pathname) ||
-      /^\/calendario-festivales\/[^/]+\/?$/.test(pathname) ||
-      /^\/concerts\/[^/]+\/?$/.test(pathname);
-    if (isDynamicPattern) {
+    // ─── §AG: DENYLIST, not allowlist (changed 2026-09-16) ──────────────────
+    //
+    // This used to be an ALLOWLIST of 13 dynamic patterns: only a path matching
+    // one of them got a real 404, everything else fell through to `next()` and
+    // was answered by the SPA shell — HTTP 200 serving the HOMEPAGE HTML,
+    // canonical included. Measured live on 2026-09-16, every one of these
+    // returned `200` with an MD5 byte-identical to `/` and
+    // `<link rel="canonical" href="https://concertride.me/">`:
+    //
+    //   /datos/zzfake   /guia/zzfake   /comparativa/zzfake   /autor/zzfake
+    //   /memorias/zzfake  /squads/zzfake  /widget/zzfake
+    //   /zzfake-toplevel  /concerts/zz/deep  /datos/a/b/c
+    //
+    // That is an UNBOUNDED crawlable space of homepage duplicates: any typo,
+    // any stale link, any scraped URL mints a new 200 that claims to be the
+    // homepage. It feeds "Duplicada: el usuario no ha indicado ninguna versión
+    // canónica" (169) and Soft 404, and it is why a soft-404 keeps reappearing
+    // no matter how many individual prefixes get patched.
+    //
+    // An allowlist can only ever cover the families someone remembered to add —
+    // it was already missing /datos, /guia, /comparativa, /autor and every
+    // top-level path. Inverted to a DENYLIST: if the bot path resolved to no
+    // page, it IS a 404 unless it is a known SPA/private route that legitimately
+    // renders client-side. New programmatic families are therefore protected by
+    // default instead of silently leaking homepage clones.
+    //
+    // Bot-only: this whole branch runs after the SEARCH_BOTS guard, so real
+    // users keep getting the SPA shell and client-side routing everywhere.
+    // SAFETY: 32+ public pages (/guia/*, /datos/*, /glosario, /autor/*,
+    // /alternativas-carpooling-festivales, /viaje-compartido, …) have NO entry
+    // in `resolvePageData` — they are served straight from their build-time
+    // prerendered asset in `dist/`, and `seoPrerender` is only a fallback that
+    // calls `next()` for them. Declaring 404 on "did not resolve" alone would
+    // have 404'd all of them to Googlebot (caught by
+    // src/test/gsc-soft404.test.ts before this shipped).
+    //
+    // So: ask the asset layer first. A real prerendered page answers 200 here
+    // and we hand the request back via `next()`; only a path with NO asset and
+    // NO PageData is a genuine 404. `not_found_handling:
+    // "single-page-application"` means a miss still returns the 200 SPA shell,
+    // so compare against the shell instead of trusting the status: a real page
+    // has its own canonical, the shell carries the homepage's.
+    const isKnownSpaPath =
+      pathname === "/" ||
+      SPA_ONLY_PREFIXES.some((p) => pathname === p || pathname.startsWith(`${p}/`));
+
+    let hasOwnPrerenderedAsset = false;
+    if (!isKnownSpaPath) {
+      try {
+        const probe = await c.env.ASSETS.fetch(
+          new Request(`${base}${pathname}`, { headers: c.req.raw.headers }),
+        );
+        if (probe.ok && probe.headers.get("content-type")?.includes("text/html")) {
+          const probeHtml = await probe.text();
+          const canonical = probeHtml.match(/<link rel="canonical" href="([^"]+)"/)?.[1] ?? "";
+          const self = `${base}${pathname}`.replace(/\/$/, "");
+          // A genuine prerendered page self-canonicals. The SPA shell always
+          // carries the HOMEPAGE canonical — that is precisely the tell that
+          // made every unknown URL look like a homepage duplicate.
+          hasOwnPrerenderedAsset = canonical.replace(/\/$/, "") === self;
+        }
+      } catch {
+        // Asset binding unavailable (unit tests / local) — fall through to 404,
+        // which is the safe default for an unresolvable path.
+        hasOwnPrerenderedAsset = false;
+      }
+    }
+
+    if (!isKnownSpaPath && !hasOwnPrerenderedAsset) {
       const base = getSiteUrl(c.env);
+      const notFoundHtml = `<!doctype html><html lang="es"><head><meta charset="UTF-8"/><title>No encontrado — ConcertRide</title><meta name="robots" content="noindex, nofollow"/><link rel="canonical" href="${base}${pathname}"/></head><body><h1>Página no encontrada</h1><p><a href="${base}/">Volver al inicio</a></p></body></html>`;
       return new Response(
-        `<!doctype html><html lang="es"><head><meta charset="UTF-8"/><title>No encontrado — ConcertRide</title><meta name="robots" content="noindex, nofollow"/><link rel="canonical" href="${base}${pathname}"/></head><body><h1>Página no encontrada</h1><p><a href="${base}/">Volver al inicio</a></p></body></html>`,
-        { status: 404, headers: { "Content-Type": "text/html; charset=utf-8" } },
+        // §AH: a HEAD response carries the same status/headers but NO body.
+        c.req.method === "HEAD" ? null : notFoundHtml,
+        {
+          status: 404,
+          headers: {
+            "Content-Type": "text/html; charset=utf-8",
+            // §AH: the noindex used to live only in the meta tag, so it was
+            // invisible to anything that did not parse/render the body (and to
+            // HEAD requests entirely). The header states it unambiguously.
+            "X-Robots-Tag": "noindex, nofollow",
+          },
+        },
       );
     }
     return next();

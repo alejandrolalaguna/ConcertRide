@@ -171,12 +171,24 @@ export default function ArtistLandingPage() {
           itemListElement: datedConcerts.map((c, i) => {
             const priceFrom = Number(c.originCities[0]?.range.split("–")[0]?.replace(/[^0-9]/g, "") || 9);
             const concertUrl = `${SITE_URL}/artistas/${artist.slug}#${c.citySlug}`;
+            // §AG: the @id MUST include the date. It used to be
+            // `#<citySlug>-event`, so a multi-night residency at the same venue
+            // emitted the SAME @id several times — JSON-LD node semantics merge
+            // same-@id nodes into one entity, so Google collapsed them and the
+            // extra dates vanished from the Event rich result. Measured on the
+            // built dist/: 5 collisions hiding 8 distinct concert dates
+            // (bad-bunny Madrid had 4 gigs — 05-30, 05-31, 06-03, 06-15 —
+            // published under one @id; also la-oreja-de-van-gogh, dani-martin,
+            // travis-scott). `c.date` is unique per gig at a given venue, so
+            // appending it makes the identifier genuinely unique. (`datedConcerts`
+            // has already filtered out date === "TBD", so this is always real.)
+            const eventId = `${concertUrl}-${c.date.slice(0, 10)}-event`;
             return {
               "@type": "ListItem",
               position: i + 1,
               item: {
                 "@type": "MusicEvent",
-                "@id": `${concertUrl}-event`,
+                "@id": eventId,
                 name: `${artist.name} en ${c.city}`,
                 description: `Concierto de ${artist.name} en ${c.venue} (${c.city}, España). Carpooling con ConcertRide desde ${c.originCities[0]?.city ?? "España"} a ${seatPrice(c.originCities[0]?.range ?? c.concertRideRange, false)}, sin comisión de plataforma.`,
                 image: artistOgImage,
@@ -406,7 +418,7 @@ export default function ArtistLandingPage() {
         <EeatTrustBlock
           pageType="artist"
           lastReviewed={new Date().toISOString().slice(0, 10)}
-          author={{ name: "Equipo ConcertRide", url: "/autor/alejandro-lalaguna" }}
+          author={{ name: "Equipo ConcertRide", url: "/autor/equipo-concertride" }}
           className="max-w-2xl"
         />
 

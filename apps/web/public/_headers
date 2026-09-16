@@ -81,9 +81,15 @@
   Cache-Control: public, max-age=3600, stale-while-revalidate=86400
 
 # Auth / private pages — never cache, block indexing
-/publish
-  Cache-Control: no-store
-  X-Robots-Tag: noindex, nofollow
+# /publish is an INDEXABLE conversion landing page (changed 2026-09-16, §AF).
+# It has a bespoke SEO treatment — dedicated title/description/H1 and a
+# `seoPrerender` entry (apps/api/src/lib/seoPrerender.ts:704) rendering 82 KB of
+# real content, verified live — and 41 internal links point at it. It was
+# nevertheless BOTH Disallowed in robots.txt AND noindexed here, so all that
+# link equity was thrown away and the page could never rank for its target
+# query ("publicar viaje a concierto"). The form below the fold needs auth, but
+# the page itself is public marketing content, exactly like /como-funciona.
+# No Cache-Control: no-store either — that was only needed for authed content.
 
 /profile
   Cache-Control: no-store
