@@ -131,8 +131,12 @@ export default defineConfig({
               // embla-carousel: only used by carousel sections — keep it out of
               // the main chunk so non-carousel routes don't pay for it (~60 KB).
               if (id.includes("embla-carousel")) return "vendor-carousel";
-              // Motion: animation library, not needed for SSR/prerendered pages
-              if (id.includes("motion")) return "vendor-motion";
+              // GSAP + ScrollTrigger + Lenis: SOLO Nivel A (home, festival, pillars),
+              // cargados con import() desde src/fx/loadGsap.ts. Nunca en el común.
+              if (id.includes("node_modules/gsap") || id.includes("node_modules/lenis")) return "vendor-fx";
+              // Motion (Framer): animation library, not needed for SSR/prerendered pages.
+              // Match node_modules only — `src/fx/` must never land in this chunk.
+              if (id.includes("node_modules/motion") || id.includes("node_modules/framer-motion")) return "vendor-motion";
               // Sentry: error monitoring, split so it doesn't block page render
               if (id.includes("@sentry")) return "vendor-sentry";
               // PostHog: analytics, lazy-loaded behind consent
