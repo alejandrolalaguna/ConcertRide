@@ -8,10 +8,11 @@
     <meta name="description" content="Esta URL no existe en ConcertRide. Te dejamos sugerencias: festivales con carpooling, conciertos por ciudad, rutas populares y guías de transporte." />
     <link rel="canonical" href="https://concertride.me/404" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Inter:wght@400;500;600;700&display=swap" />
+    <link rel="preload" as="font" type="font/woff2" crossorigin href="/fonts/archivo-black-latin-400-normal.woff2" />
     <style>
+      @font-face { font-family: "Archivo Black"; font-weight: 400; font-display: swap; src: url("/fonts/archivo-black-latin-400-normal.woff2") format("woff2"); }
+      @font-face { font-family: "Inter"; font-weight: 400; font-display: swap; src: url("/fonts/inter-latin-400-normal.woff2") format("woff2"); }
+      @font-face { font-family: "Inter"; font-weight: 700; font-display: swap; src: url("/fonts/inter-latin-700-normal.woff2") format("woff2"); }
       *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
       :root {
         --bg: #080808;
@@ -32,7 +33,7 @@
       .hero { text-align: center; margin-bottom: 56px; }
       .label {
         font-size: 11px;
-        font-weight: 600;
+        font-weight: 700;
         letter-spacing: 0.24em;
         text-transform: uppercase;
         color: var(--secondary);
@@ -83,7 +84,7 @@
       .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 32px; }
       .section-title {
         font-size: 11px;
-        font-weight: 600;
+        font-weight: 700;
         letter-spacing: 0.16em;
         text-transform: uppercase;
         color: var(--primary);

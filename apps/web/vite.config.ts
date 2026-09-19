@@ -87,6 +87,8 @@ export default defineConfig({
           "og/home.png",
           "og-fallback.png",
           "assets/**/*.{js,css,woff,woff2}",
+          // Fuentes autoalojadas (rutas estables, sin hash) — ver index.css
+          "fonts/*.woff2",
         ],
         // Large programmatic pages (rutas/index.html, etc.) exceed the default 2 MiB limit.
         // Raised to 8 MiB so the service worker precache manifest includes them.

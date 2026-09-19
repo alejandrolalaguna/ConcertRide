@@ -82,12 +82,9 @@ export function useSeoEnhancements(options: SeoEnhancementsOptions = {}) {
   useEffect(() => {
     if (!preloadCritical) return
 
-    const criticalResources = [
-      {
-        href: 'https://fonts.googleapis.com/css2?family=Archivo+Black&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap',
-        as: 'style',
-      },
-    ]
+    // Las fuentes son autoalojadas y ya se precargan desde index.html
+    // (/fonts/*.woff2). No queda ningún recurso crítico externo que precargar.
+    const criticalResources: Array<{ href: string; as: string }> = []
 
     criticalResources.forEach(({ href, as }) => {
       let preloadLink = document.querySelector(`link[rel="preload"][href="${href}"]`) as HTMLLinkElement | null
@@ -108,8 +105,6 @@ export function useSeoEnhancements(options: SeoEnhancementsOptions = {}) {
     const externalDomains = [
       'https://api.ticketmaster.com',
       'https://s1.ticketm.net',
-      'https://fonts.googleapis.com',
-      'https://fonts.gstatic.com',
       'https://tile.openstreetmap.org',
     ]
 

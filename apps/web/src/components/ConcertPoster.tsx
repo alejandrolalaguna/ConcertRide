@@ -196,7 +196,7 @@ export function ConcertPoster({ concert, className = "" }: Props) {
         fill="#FFFFFF"
         opacity="0.45"
         textAnchor="end"
-        fontFamily="'JetBrains Mono', monospace"
+        fontFamily="ui-monospace, Menlo, Consolas, monospace"
         fontSize="11"
         letterSpacing="1"
       >

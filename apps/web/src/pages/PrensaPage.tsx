@@ -96,9 +96,8 @@ const BRAND_COLORS = [
 ];
 
 const BRAND_FONTS = [
-  { name: "Archivo Black", role: "Display / títulos", source: "Google Fonts (open-source)" },
-  { name: "Inter",         role: "Body / UI",          source: "Google Fonts (open-source)" },
-  { name: "JetBrains Mono", role: "Monoespaciada / código y datos", source: "Google Fonts (open-source)" },
+  { name: "Archivo Black", role: "Display / títulos", source: "Open Font License (autoalojada)" },
+  { name: "Inter",         role: "Body / UI / datos",  source: "Open Font License (autoalojada)" },
 ];
 
 // Cobertura previa — placeholder hasta que tengamos piezas publicadas reales

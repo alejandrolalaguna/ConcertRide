@@ -1,6 +1,61 @@
 @import "tailwindcss";
 
 /* ═══════════════════════════════════════════════════════════════════════════
+   Fuentes · autoalojadas (latin), con fallbacks de métrica ajustada para que
+   el cambio de fuente no mueva la página (CLS). Archivo Black y Inter llegan
+   de @fontsource (OFL) y viven en /public/fonts. Sin Google Fonts en runtime.
+   ═══════════════════════════════════════════════════════════════════════════ */
+@font-face {
+  font-family: "Archivo Black";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("/fonts/archivo-black-latin-400-normal.woff2") format("woff2");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("/fonts/inter-latin-400-normal.woff2") format("woff2");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url("/fonts/inter-latin-500-normal.woff2") format("woff2");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url("/fonts/inter-latin-700-normal.woff2") format("woff2");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+/* Fallbacks con métrica ajustada: mientras llega la woff2, el texto ocupa casi lo mismo */
+@font-face {
+  font-family: "Archivo Black Fallback";
+  src: local("Arial Black"), local("Arial-Black"), local("Impact"), local("Arial Bold");
+  size-adjust: 96%;
+  ascent-override: 92%;
+  descent-override: 24%;
+  line-gap-override: 0%;
+}
+@font-face {
+  font-family: "Inter Fallback";
+  src: local("Arial"), local("Helvetica"), local("Liberation Sans");
+  size-adjust: 107%;
+  ascent-override: 90%;
+  descent-override: 22%;
+  line-gap-override: 0%;
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
    ConcertRide · tokens
    Fuente de verdad: docs/design/DESIGN.md. Cero hex en JSX: todo sale de aquí.
    ═══════════════════════════════════════════════════════════════════════════ */
@@ -38,8 +93,8 @@
   --color-cr-text-inverse: #080808;
 
   /* ── Tipografía · dos familias ───────────────────────── */
-  --font-display: "Archivo Black", system-ui, sans-serif;
-  --font-sans: "Inter", system-ui, sans-serif;
+  --font-display: "Archivo Black", "Archivo Black Fallback", system-ui, sans-serif;
+  --font-sans: "Inter", "Inter Fallback", system-ui, sans-serif;
   /* Mono del sistema: code/kbd del producto. No se descarga ninguna mono. */
   --font-mono: ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
 
