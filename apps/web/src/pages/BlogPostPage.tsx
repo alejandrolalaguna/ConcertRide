@@ -51,7 +51,7 @@ function ShareCite({ url, title }: { url: string; title: string }) {
 
   return (
     <section className="border-t border-cr-border pt-8 space-y-3">
-      <p className="font-mono text-[11px] text-cr-text-muted uppercase tracking-[0.12em] flex items-center gap-2">
+      <p className="font-sans text-[12px] text-cr-text-muted uppercase tracking-[0.12em] flex items-center gap-2">
         <Share2 size={11} /> Compartir y citar
       </p>
       <div className="flex flex-wrap gap-2">
@@ -440,7 +440,7 @@ export default function BlogPostPage() {
 
       {/* ── Header ── */}
       <header className="max-w-3xl mx-auto px-6 pt-10 pb-6 space-y-5">
-        <nav aria-label="Breadcrumb" className="font-mono text-[11px] text-cr-text-muted flex items-center gap-2">
+        <nav aria-label="Breadcrumb" className="font-sans text-[12px] text-cr-text-muted flex items-center gap-2">
           <Link to="/" className="hover:text-cr-primary">Inicio</Link>
           <span aria-hidden="true">/</span>
           <Link to="/blog" className="hover:text-cr-primary">Blog</Link>
@@ -448,7 +448,7 @@ export default function BlogPostPage() {
           <span className="text-cr-text-muted truncate">{post.title}</span>
         </nav>
 
-        <div className="flex flex-wrap items-center gap-3 font-mono text-[11px] text-cr-text-muted">
+        <div className="flex flex-wrap items-center gap-3 font-sans text-[12px] text-cr-text-muted">
           <span className="text-cr-primary uppercase tracking-[0.12em]">{categoryLabel}</span>
           <span aria-hidden="true">·</span>
           <span className="inline-flex items-center gap-1">
@@ -496,7 +496,7 @@ export default function BlogPostPage() {
           )}
         </div>
 
-        <h1 className="font-display text-3xl md:text-5xl uppercase leading-[0.96]">
+        <h1 className="font-display text-display-l">
           {post.h1}
         </h1>
       </header>
@@ -511,7 +511,7 @@ export default function BlogPostPage() {
             height={post.coverImage.height ?? 630}
             loading="eager"
             decoding="async"
-            className="w-full rounded-sm border border-cr-border object-cover aspect-[1200/630]"
+            className="w-full rounded-[2px] border border-cr-border object-cover aspect-[1200/630]"
           />
         </div>
       )}
@@ -529,7 +529,7 @@ export default function BlogPostPage() {
               {idx === midIdx && (
                 <div ref={midSentinelRef} aria-hidden="true" style={{ height: 1 }} />
               )}
-              <h2 className="font-display text-2xl md:text-3xl uppercase">
+              <h2 className="font-display text-display-m">
                 {section.heading}
               </h2>
               {section.paragraphs.map((p, i) => (
@@ -559,7 +559,7 @@ export default function BlogPostPage() {
         {/* ── FAQ ── */}
         {post.faqs && post.faqs.length > 0 && (
           <section className="space-y-6 border-t border-cr-border pt-10">
-            <h2 className="font-display text-2xl md:text-3xl uppercase">Preguntas frecuentes</h2>
+            <h2 className="font-display text-display-m">Preguntas frecuentes</h2>
             <dl className="space-y-6">
               {post.faqs.map((f) => (
                 <div key={f.q} className="border-b border-cr-border pb-6 space-y-2">
@@ -596,7 +596,7 @@ export default function BlogPostPage() {
         {/* ── Anon CTA — shown only to non-logged-in readers ── */}
         {!user && (
           <section
-            className="border border-[#dbff00]/40 bg-[#dbff00]/5 p-6 space-y-4"
+            className="border border-cr-primary/40 bg-cr-primary/5 p-6 space-y-4"
             aria-label="Encuentra transporte para tu próximo festival"
           >
             <h2 className="font-display text-xl uppercase">
@@ -609,13 +609,13 @@ export default function BlogPostPage() {
             <div className="flex flex-wrap gap-3 pt-1">
               <Link
                 to="/concerts"
-                className="inline-flex items-center gap-2 font-sans text-xs font-semibold uppercase tracking-[0.12em] bg-[#dbff00] text-black border-2 border-black px-5 py-2.5 shadow-[3px_3px_0px_0px_rgba(0,0,0,1)] hover:shadow-[1px_1px_0px_0px_rgba(0,0,0,1)] hover:translate-x-[2px] hover:translate-y-[2px] transition-all duration-100"
+                className="inline-flex items-center gap-2 font-sans text-xs font-semibold uppercase tracking-[0.12em] bg-cr-primary text-black border-2 border-black px-5 py-2.5 shadow-[3px_3px_0px_0px_rgba(0,0,0,1)] hover:shadow-[1px_1px_0px_0px_rgba(0,0,0,1)] hover:translate-x-[2px] hover:translate-y-[2px] transition-all duration-100"
               >
                 Ver rutas disponibles <ArrowRight size={12} />
               </Link>
               <Link
                 to="/register"
-                className="inline-flex items-center gap-2 font-sans text-xs font-semibold uppercase tracking-[0.12em] border-2 border-cr-border text-cr-text-muted px-5 py-2.5 hover:border-[#dbff00] hover:text-[#dbff00] transition-colors"
+                className="inline-flex items-center gap-2 font-sans text-xs font-semibold uppercase tracking-[0.12em] border-2 border-cr-border text-cr-text-muted px-5 py-2.5 hover:border-cr-primary hover:text-cr-primary transition-colors"
               >
                 Crear cuenta gratis <ArrowRight size={12} />
               </Link>
@@ -671,7 +671,7 @@ export default function BlogPostPage() {
                     to={`/blog/${r.slug}`}
                     className="block border border-cr-border p-4 hover:border-cr-primary/50 transition-colors space-y-2"
                   >
-                    <p className="font-mono text-[11px] text-cr-primary uppercase tracking-[0.12em]">
+                    <p className="font-sans text-[12px] text-cr-primary uppercase tracking-[0.12em]">
                       {BLOG_CATEGORIES.find((c) => c.slug === r.category)?.label}
                     </p>
                     <h3 className="font-display text-base uppercase leading-tight">{r.title}</h3>

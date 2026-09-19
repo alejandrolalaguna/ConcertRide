@@ -106,7 +106,7 @@ export function CostComparator({ originCities, festivalName, festivalCity }: Pro
   ];
 
   return (
-    <section className="my-10 rounded-2xl border border-white/10 bg-white/3 p-6 space-y-5">
+    <section className="my-10 rounded-none border border-cr-border bg-white/3 p-6 space-y-5">
       <div className="flex flex-wrap items-center justify-between gap-3">
         <h2 className="text-lg font-bold text-cr-text">
           {isEn ? <>How much does it cost to get to {festivalName}?</> : <>¿Cuánto cuesta ir a {festivalName}?</>}
@@ -116,7 +116,7 @@ export function CostComparator({ originCities, festivalName, festivalCity }: Pro
           <select
             value={selectedIdx}
             onChange={(e) => setSelectedIdx(Number(e.target.value))}
-            className="rounded-lg border border-white/20 bg-cr-bg px-3 py-1.5 text-cr-text text-sm"
+            className="rounded-none border border-white/20 bg-cr-bg px-3 py-1.5 text-cr-text text-sm"
           >
             {originCities.map((c, i) => (
               <option key={c.city} value={i}>{c.city}</option>
@@ -126,7 +126,7 @@ export function CostComparator({ originCities, festivalName, festivalCity }: Pro
           <select
             value={persons}
             onChange={(e) => setPersons(Number(e.target.value))}
-            className="rounded-lg border border-white/20 bg-cr-bg px-3 py-1.5 text-cr-text text-sm"
+            className="rounded-none border border-white/20 bg-cr-bg px-3 py-1.5 text-cr-text text-sm"
           >
             {[1, 2, 3, 4, 5].map((n) => (
               <option key={n} value={n}>{n}</option>
@@ -143,7 +143,7 @@ export function CostComparator({ originCities, festivalName, festivalCity }: Pro
         {options.map((opt) => (
           <div
             key={opt.label}
-            className={`rounded-xl border p-4 space-y-2 ${opt.border} ${opt.bg} ${opt.highlight ? "ring-1 ring-cr-primary/30" : ""}`}
+            className={`rounded-none border p-4 space-y-2 ${opt.border} ${opt.bg} ${opt.highlight ? "ring-1 ring-cr-primary/30" : ""}`}
           >
             <div className={`flex items-center gap-2 text-sm font-semibold ${opt.color}`}>
               <opt.icon size={16} />
@@ -163,7 +163,7 @@ export function CostComparator({ originCities, festivalName, festivalCity }: Pro
       <div className="flex justify-center pt-2">
         <a
           href="/concerts"
-          className="inline-flex items-center gap-2 rounded-xl bg-cr-primary px-6 py-3 text-sm font-bold text-black hover:bg-cr-primary/90 transition-colors"
+          className="inline-flex items-center gap-2 rounded-none bg-cr-primary px-6 py-3 text-sm font-bold text-black hover:bg-cr-primary/90 transition-colors"
         >
           <Car size={16} />
           {isEn ? <>Find carpooling to {festivalName} →</> : <>Buscar carpooling a {festivalName} →</>}

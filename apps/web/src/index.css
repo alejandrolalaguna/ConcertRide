@@ -510,6 +510,35 @@
     color: var(--color-cr-primary);
   }
 
+  /* ── El ticket se rellena solo (data-scan="ticket") ── */
+  .cr-ticket-field {
+    position: relative;
+  }
+  .cr-ticket-field dd,
+  .cr-ticket-field .cr-ticket-field__blank {
+    transition: opacity 0.7s var(--ease-cr), transform 0.7s var(--ease-cr);
+  }
+  .cr-ticket-field__blank {
+    display: none;
+  }
+  /* Armado por JS: los campos pendientes son una línea de puntos; los rellenos entran desde abajo */
+  [data-ticket-armed] .cr-ticket-field:not(.is-filled) dd {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  [data-ticket-armed] .cr-ticket-field:not(.is-filled) .cr-ticket-field__blank {
+    display: block;
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0.35em;
+    border-bottom: 1px dashed var(--color-cr-border-mid);
+  }
+  [data-ticket-armed] .cr-ticket-field.is-filled dd {
+    opacity: 1;
+    transform: none;
+  }
+
   /* ── Raíl de avance ─────────────────────────────────── */
   .cr-rail {
     position: relative;

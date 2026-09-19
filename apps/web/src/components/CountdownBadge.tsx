@@ -44,7 +44,7 @@ export function CountdownBadge({ target, prefix, size = "md", className }: Props
 
   return (
     <span
-      className={`inline-flex items-center gap-1 border-2 font-mono font-bold uppercase tracking-[0.1em] ${intensity} ${SIZES[size]} ${className ?? ""}`}
+      className={`inline-flex items-center gap-1 border-2 font-sans cr-tabular font-bold uppercase tracking-[0.1em] ${intensity} ${SIZES[size]} ${className ?? ""}`}
     >
       {isClose && <span className="relative flex h-2 w-2" aria-hidden>
         <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-cr-secondary opacity-70" />

@@ -147,20 +147,20 @@ export default function CompartirGastosFestivalPage() {
         purpose="Explicar cómo se reparten los gastos del coche para ir a un festival en grupo, qué apps usar (Splitwise, Tricount, Bizum) y por qué ConcertRide no cobra comisión sobre el reparto."
       />
 
-      <section className="mx-auto max-w-4xl px-4 md:px-6 py-8 md:py-12">
-        <nav aria-label="Breadcrumb" className="font-sans text-xs uppercase tracking-[0.18em] text-cr-text/60 mb-4">
+      <section className="mx-auto max-w-4xl px-4 md:px-6 pt-[var(--rhythm-1)] pb-[var(--rhythm-2)]">
+        <nav aria-label="Breadcrumb" className="font-sans text-xs uppercase tracking-[0.18em] text-cr-text-muted mb-4">
           <Link to="/" className="hover:text-cr-primary">Inicio</Link>
           <span className="mx-2">/</span>
           <span>Compartir gastos festival</span>
         </nav>
 
-        <h1 className="font-display text-3xl md:text-5xl uppercase leading-[0.95] tracking-tight">
+        <h1 className="font-display text-display-l">
           Compartir gastos de coche
           <br />
-          <span className="text-[#dbff00]">al festival, sin comisión</span>
+          <span className="text-cr-primary">al festival, sin comisión</span>
         </h1>
 
-        <p data-quotable className="mt-5 max-w-3xl font-sans text-base md:text-lg leading-relaxed text-cr-text/90">
+        <p data-quotable className="mt-5 max-w-3xl font-sans text-base md:text-lg leading-relaxed text-cr-text">
           Compartir gastos del coche con quien también va al festival es lo más eficiente: gasolina,
           peajes y aparcamiento divididos entre 3-4 personas suelen quedar en 15-25 € por cabeza
           (ida y vuelta). En {BRAND.legalName} todo el dinero va directo del pasajero al conductor
@@ -172,14 +172,14 @@ export default function CompartirGastosFestivalPage() {
         <div className="mt-6 flex flex-col sm:flex-row gap-3">
           <Link
             to="/festivales"
-            className="inline-flex items-center justify-center gap-2 bg-[#dbff00] text-black font-sans font-semibold uppercase tracking-[0.12em] text-sm px-6 py-3 hover:bg-[#c8ec00] transition-colors"
+            className="cr-btn-primary"
           >
             Festivales con viajes
             <ArrowRight size={14} aria-hidden="true" />
           </Link>
           <Link
             to="/publish"
-            className="inline-flex items-center justify-center gap-2 bg-transparent text-white/80 font-sans font-semibold uppercase tracking-[0.12em] text-sm border border-white/25 px-6 py-3 hover:border-[#dbff00]/60 hover:text-white transition-colors"
+            className="cr-btn-ghost"
           >
             Publicar mi coche →
           </Link>
@@ -187,18 +187,18 @@ export default function CompartirGastosFestivalPage() {
       </section>
 
       {/* Cost breakdown */}
-      <section className="mx-auto max-w-5xl px-4 md:px-6 py-10" aria-labelledby="reparto">
-        <h2 id="reparto" className="font-display text-2xl md:text-3xl uppercase">
+      <section className="mx-auto max-w-5xl px-4 md:px-6 py-[var(--rhythm-1)] border-t border-cr-border" aria-labelledby="reparto">
+        <h2 id="reparto" className="font-display text-display-m">
           Cómo se reparte un viaje de 450 km a un festival (ejemplo real)
         </h2>
-        <p className="mt-3 max-w-3xl font-sans text-sm text-cr-text/70 leading-relaxed">
+        <p className="mt-3 max-w-3xl font-sans text-sm text-cr-text-muted leading-relaxed">
           Asumimos un grupo de 4 personas en un coche medio (≈6 L/100 km de gasolina 95), ida y
           vuelta. El conductor también va al festival, así que se incluye él/ella en el reparto.
         </p>
 
         <div className="mt-6 overflow-x-auto border border-cr-border">
           <table className="w-full min-w-[560px] text-left text-sm">
-            <thead className="bg-white/[0.04] uppercase font-mono text-[10px] tracking-[0.14em] text-cr-text/70">
+            <thead className="bg-cr-surface uppercase font-sans text-[11px] tracking-[0.14em] text-cr-text-muted">
               <tr>
                 <th scope="col" className="px-3 py-3">Concepto</th>
                 <th scope="col" className="px-3 py-3">Coste total</th>
@@ -208,19 +208,19 @@ export default function CompartirGastosFestivalPage() {
             </thead>
             <tbody className="divide-y divide-cr-border">
               {COSTS_BREAKDOWN.map((row) => (
-                <tr key={row.item} className={row.bold ? "bg-[#dbff00]/[0.04]" : ""}>
-                  <th scope="row" className={`px-3 py-3 ${row.bold ? "font-display uppercase text-[#dbff00]" : "text-cr-text/90"}`}>
+                <tr key={row.item} className={row.bold ? "bg-cr-primary/[0.04]" : ""}>
+                  <th scope="row" className={`px-3 py-3 ${row.bold ? "font-display uppercase text-cr-primary" : "text-cr-text"}`}>
                     {row.item}
                   </th>
-                  <td className={`px-3 py-3 ${row.bold ? "text-[#dbff00] font-display" : "text-cr-text/80"}`}>{row.total}</td>
-                  <td className={`px-3 py-3 ${row.bold ? "text-[#dbff00] font-display" : "text-cr-text/80"}`}>{row.perPerson}</td>
-                  <td className="px-3 py-3 text-cr-text/60 text-xs">{row.note}</td>
+                  <td className={`px-3 py-3 ${row.bold ? "text-cr-primary font-display" : "text-cr-text"}`}>{row.total}</td>
+                  <td className={`px-3 py-3 ${row.bold ? "text-cr-primary font-display" : "text-cr-text"}`}>{row.perPerson}</td>
+                  <td className="px-3 py-3 text-cr-text-muted text-xs">{row.note}</td>
                 </tr>
               ))}
             </tbody>
           </table>
         </div>
-        <p className="mt-4 font-mono text-[11px] text-cr-text/50">
+        <p className="mt-4 font-sans text-[12px] text-cr-text-muted">
           Cálculo orientativo basado en precio medio gasolina 95 según el boletín DGT de abril 2026
           (≈ 1,58 €/L). El precio real varía con la estación de servicio, el tipo de coche y la ruta
           exacta.
@@ -228,11 +228,11 @@ export default function CompartirGastosFestivalPage() {
       </section>
 
       {/* Tools */}
-      <section className="mx-auto max-w-5xl px-4 md:px-6 py-10" aria-labelledby="apps">
-        <h2 id="apps" className="font-display text-2xl md:text-3xl uppercase">
+      <section className="mx-auto max-w-5xl px-4 md:px-6 py-[var(--rhythm-1)] border-t border-cr-border" aria-labelledby="apps">
+        <h2 id="apps" className="font-display text-display-m">
           Apps que la gente usa para liquidar el reparto
         </h2>
-        <p className="mt-3 max-w-3xl font-sans text-sm text-cr-text/70 leading-relaxed">
+        <p className="mt-3 max-w-3xl font-sans text-sm text-cr-text-muted leading-relaxed">
           ConcertRide solo gestiona el viaje. Para repartir el resto del fin de semana (cubatas,
           súper, comida en el camping), conviene una app de cuentas compartidas.
         </p>
@@ -246,8 +246,8 @@ export default function CompartirGastosFestivalPage() {
                 {tool.name === "Efectivo" && <Users size={20} className="text-cr-primary" aria-hidden="true" />}
                 <h3 className="font-display text-lg uppercase">{tool.name}</h3>
               </div>
-              <p className="mt-1 font-mono text-[10px] uppercase tracking-[0.16em] text-cr-primary">{tool.use}</p>
-              <p className="mt-2 font-sans text-sm text-cr-text/80 leading-relaxed">{tool.body}</p>
+              <p className="mt-1 cr-eyebrow">{tool.use}</p>
+              <p className="mt-2 font-sans text-sm text-cr-text leading-relaxed">{tool.body}</p>
             </article>
           ))}
         </div>
@@ -255,11 +255,11 @@ export default function CompartirGastosFestivalPage() {
 
       {/* Vocabulary aside — useful for SEO semantic coverage */}
       <section className="mx-auto max-w-4xl px-4 md:px-6 py-6" aria-labelledby="vocabulario">
-        <aside className="border-l-2 border-cr-primary bg-white/[0.02] px-5 py-4">
+        <aside className="border-l-2 border-cr-primary bg-cr-surface px-5 py-4">
           <h2 id="vocabulario" className="font-display text-base uppercase tracking-[0.14em] text-cr-primary">
             Cómo llamamos a esto, sin tecnicismos
           </h2>
-          <p className="mt-2 font-sans text-sm text-cr-text/80 leading-relaxed">
+          <p className="mt-2 font-sans text-sm text-cr-text leading-relaxed">
             Llámalo como quieras: <strong>compartir coche</strong>, <strong>carpooling</strong>,
             <strong> viaje compartido</strong>, <strong>compartir gastos del coche</strong>,
             <strong> ir juntos al festival</strong> o, en plan castizo,{" "}
@@ -271,13 +271,13 @@ export default function CompartirGastosFestivalPage() {
       </section>
 
       {/* FAQ */}
-      <section className="mx-auto max-w-4xl px-4 md:px-6 py-10" aria-labelledby="faq">
-        <h2 id="faq" className="font-display text-2xl md:text-3xl uppercase">Preguntas frecuentes sobre el reparto</h2>
+      <section className="mx-auto max-w-4xl px-4 md:px-6 py-[var(--rhythm-1)] border-t border-cr-border" aria-labelledby="faq">
+        <h2 id="faq" className="font-display text-display-m">Preguntas frecuentes sobre el reparto</h2>
         <dl className="mt-6 divide-y divide-cr-border border-y border-cr-border">
           {FAQS.map((item) => (
             <div key={item.q} className="py-5">
               <dt className="font-display text-lg uppercase">{item.q}</dt>
-              <dd className="mt-2 font-sans text-sm md:text-base leading-relaxed text-cr-text/85">{item.a}</dd>
+              <dd className="mt-2 font-sans text-sm md:text-base leading-relaxed text-cr-text">{item.a}</dd>
             </div>
           ))}
         </dl>
@@ -285,30 +285,30 @@ export default function CompartirGastosFestivalPage() {
 
       {/* Related */}
       <section className="mx-auto max-w-4xl px-4 md:px-6 pb-16">
-        <h2 className="font-display text-xl md:text-2xl uppercase">Sigue por aquí</h2>
+        <h2 className="font-display text-display-s md:text-display-m">Sigue por aquí</h2>
         <ul className="mt-4 grid gap-3 md:grid-cols-2">
           <li>
             <Link to="/viaje-en-grupo-festival" className="block border border-cr-border p-4 hover:border-cr-primary/60 transition-colors">
               <p className="font-display text-sm uppercase">Viaje en grupo al festival →</p>
-              <p className="mt-1 text-xs text-cr-text/60">Logística completa: coche, alojamiento, entradas y app del grupo.</p>
+              <p className="mt-1 text-xs text-cr-text-muted">Logística completa: coche, alojamiento, entradas y app del grupo.</p>
             </Link>
           </li>
           <li>
             <Link to="/hacer-pina-festival" className="block border border-cr-border p-4 hover:border-cr-primary/60 transition-colors">
               <p className="font-display text-sm uppercase">Hacer piña en el festival →</p>
-              <p className="mt-1 text-xs text-cr-text/60">El término castizo para llegar y vivir el festival como grupo unido.</p>
+              <p className="mt-1 text-xs text-cr-text-muted">El término castizo para llegar y vivir el festival como grupo unido.</p>
             </Link>
           </li>
           <li>
             <Link to="/compartir-coche-festival" className="block border border-cr-border p-4 hover:border-cr-primary/60 transition-colors">
               <p className="font-display text-sm uppercase">Compartir coche al festival →</p>
-              <p className="mt-1 text-xs text-cr-text/60">Cómo funciona y cuánto cuesta, paso a paso.</p>
+              <p className="mt-1 text-xs text-cr-text-muted">Cómo funciona y cuánto cuesta, paso a paso.</p>
             </Link>
           </li>
           <li>
             <Link to="/blog/como-organizar-viaje-grupo-festival-amigos" className="block border border-cr-border p-4 hover:border-cr-primary/60 transition-colors">
               <p className="font-display text-sm uppercase">Guía 8 pasos viaje en grupo →</p>
-              <p className="mt-1 text-xs text-cr-text/60">Roles, presupuesto, normas y plantillas para organizarse sin pelearse.</p>
+              <p className="mt-1 text-xs text-cr-text-muted">Roles, presupuesto, normas y plantillas para organizarse sin pelearse.</p>
             </Link>
           </li>
         </ul>

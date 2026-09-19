@@ -541,8 +541,8 @@ export default function RouteLandingPage() {
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdTransportDataset) }} />
 
       {/* ── Hero ── */}
-      <div className="max-w-6xl mx-auto px-6 pt-10 pb-6 space-y-4">
-        <nav aria-label="Breadcrumb" className="font-mono text-[11px] text-cr-text-muted flex items-center gap-2 flex-wrap">
+      <div className="max-w-6xl mx-auto px-6 pt-[var(--rhythm-1)] pb-[var(--rhythm-1)] space-y-5">
+        <nav aria-label="Breadcrumb" className="font-sans text-[12px] text-cr-text-muted flex items-center gap-2 flex-wrap">
           <Link to="/" className="hover:text-cr-primary">Inicio</Link>
           <span aria-hidden="true">/</span>
           <Link to="/rutas" className="hover:text-cr-primary">Rutas</Link>
@@ -550,11 +550,11 @@ export default function RouteLandingPage() {
           <span className="text-cr-text-muted">Desde {originCity}</span>
         </nav>
 
-        <p className="font-sans text-[11px] font-semibold uppercase tracking-[0.16em] text-cr-primary">
+        <p className="cr-eyebrow">
           Carpooling · Ruta
         </p>
 
-        <h1 className="font-display text-4xl md:text-6xl uppercase leading-[0.92]">
+        <h1 className="font-display text-display-l">
           {originCity}<br />→ {festival.shortName}.
         </h1>
 
@@ -575,9 +575,9 @@ export default function RouteLandingPage() {
         <section
           data-quotable
           aria-label={`Resumen de la ruta ${originCity} → ${festival.shortName}`}
-          className="max-w-2xl rounded-lg border border-white/10 bg-white/5 px-4 py-3"
+          className="max-w-2xl border-l-2 border-cr-primary bg-cr-surface px-5 py-4"
         >
-          <p className="font-sans text-sm leading-relaxed text-white/70">
+          <p className="font-sans text-sm leading-relaxed text-cr-text">
             {generateQuotable(landing)}
           </p>
         </section>
@@ -611,16 +611,16 @@ export default function RouteLandingPage() {
 
         {/* Route stats */}
         <div className="flex flex-wrap gap-3 pt-2">
-          <span className="inline-flex items-center gap-1.5 font-mono text-[11px] text-cr-text-muted border border-cr-border px-3 py-1.5">
+          <span className="inline-flex items-center gap-1.5 font-sans text-[12px] text-cr-text-muted border border-cr-border px-3 py-1.5">
             <MapPin size={11} /> {originData.km} km
           </span>
-          <span className="inline-flex items-center gap-1.5 font-mono text-[11px] text-cr-text-muted border border-cr-border px-3 py-1.5">
+          <span className="inline-flex items-center gap-1.5 font-sans text-[12px] text-cr-text-muted border border-cr-border px-3 py-1.5">
             <Clock size={11} /> {originData.drivingTime}
           </span>
-          <span className="inline-flex items-center gap-1.5 font-mono text-[11px] text-cr-primary border border-cr-primary/30 px-3 py-1.5">
+          <span className="inline-flex items-center gap-1.5 font-sans text-[12px] text-cr-primary border border-cr-primary/30 px-3 py-1.5">
             <Euro size={11} /> {originData.concertRideRange}
           </span>
-          <span className="inline-flex items-center gap-1.5 font-mono text-[11px] text-cr-text-muted border border-cr-border px-3 py-1.5">
+          <span className="inline-flex items-center gap-1.5 font-sans text-[12px] text-cr-text-muted border border-cr-border px-3 py-1.5">
             <Calendar size={11} /> {festival.typicalDates}
           </span>
         </div>
@@ -634,14 +634,14 @@ export default function RouteLandingPage() {
           <Link
             to={`/concerts?city=${encodeURIComponent(festival.citySlug)}&from=${encodeURIComponent(originCity)}`}
             rel="nofollow"
-            className="inline-flex items-center justify-center font-sans text-sm font-bold uppercase tracking-wider bg-cr-primary text-black px-5 py-3 shadow-[4px_4px_0_0_rgba(219,255,0,0.25)] hover:shadow-[6px_6px_0_0_rgba(219,255,0,0.4)] transition-shadow"
+            className="cr-btn-primary"
           >
             Buscar plaza · desde {originData.concertRideRange.match(/(\d+)/)?.[1] ?? "3"}€
           </Link>
           <Link
             to={`/publish?to=${encodeURIComponent(festival.slug)}&from=${encodeURIComponent(originCity)}`}
             rel="nofollow"
-            className="inline-flex items-center justify-center font-sans text-sm font-bold uppercase tracking-wider border-2 border-cr-border text-cr-text px-5 py-3 hover:border-cr-primary hover:text-cr-primary transition-colors"
+            className="cr-btn-ghost"
           >
             Publicar mi viaje
           </Link>
@@ -717,8 +717,8 @@ export default function RouteLandingPage() {
       })()}
 
       {/* ── Route detail ── */}
-      <section className="max-w-6xl mx-auto px-6 pb-16 border-t border-cr-border pt-12 space-y-6">
-        <h2 className="font-display text-2xl md:text-3xl uppercase">
+      <section className="max-w-6xl mx-auto px-6 pb-[var(--rhythm-2)] border-t border-cr-border pt-[var(--rhythm-1)] space-y-6">
+        <h2 className="font-display text-display-m">
           Carpooling {originCity} → {festival.shortName} {routeYear}: detalles de la ruta
         </h2>
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
@@ -770,8 +770,8 @@ export default function RouteLandingPage() {
       </section>
 
       {/* ── Viajes disponibles ── */}
-      <section className="max-w-6xl mx-auto px-6 pb-16 border-t border-cr-border pt-12">
-        <h2 className="font-display text-2xl md:text-3xl uppercase mb-2">
+      <section className="max-w-6xl mx-auto px-6 pb-[var(--rhythm-2)] border-t border-cr-border pt-[var(--rhythm-1)]">
+        <h2 className="font-display text-display-m mb-2">
           Próximos conciertos en {festival.city} con carpooling desde {originCity}
         </h2>
         <p className="font-sans text-sm text-cr-text-muted mb-8 max-w-xl">
@@ -810,22 +810,22 @@ export default function RouteLandingPage() {
           className="max-w-6xl mx-auto px-6 pb-6"
           aria-label="Crea una cuenta para reservar tu plaza"
         >
-          <div className="border-2 border-[#dbff00]/40 bg-[#dbff00]/[0.04] p-6 md:p-8 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-5">
+          <div className="border-2 border-cr-primary/40 bg-cr-primary/[0.04] p-6 md:p-8 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-5">
             <div className="space-y-1.5">
-              <p className="font-mono text-[10px] font-semibold uppercase tracking-[0.18em] text-[#dbff00]">
+              <p className="font-sans text-[11px] font-semibold uppercase tracking-[0.18em] text-cr-primary">
                 ¿Aún no tienes cuenta?
               </p>
-              <p className="font-display text-xl md:text-2xl uppercase leading-tight">
+              <p className="font-display text-display-s md:text-display-m leading-tight">
                 Regístrate gratis y reserva al instante
               </p>
-              <p className="font-sans text-xs text-white/50 leading-relaxed">
+              <p className="font-sans text-xs text-cr-text-muted leading-relaxed">
                 0% comisión · Conductores verificados · Gratis para siempre · Pago en efectivo o Bizum
               </p>
             </div>
             <Link
               to={`/register?next=${encodeURIComponent(`/rutas/${landing.slug}`)}`}
               rel="nofollow"
-              className="flex-shrink-0 inline-flex items-center gap-2 bg-[#dbff00] text-black font-sans font-semibold uppercase tracking-[0.12em] text-sm border-2 border-black px-6 py-3 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] hover:translate-x-[2px] hover:translate-y-[2px] transition-all duration-100 whitespace-nowrap"
+              className="flex-shrink-0 inline-flex items-center gap-2 bg-cr-primary text-black font-sans font-semibold uppercase tracking-[0.12em] text-sm border-2 border-black px-6 py-3 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] hover:translate-x-[2px] hover:translate-y-[2px] transition-all duration-100 whitespace-nowrap"
             >
               Crear cuenta gratis <ArrowRight size={14} aria-hidden="true" />
             </Link>
@@ -849,7 +849,7 @@ export default function RouteLandingPage() {
       </section>
 
       {/* ── Transport comparison table — citable for "X vs Y" queries ── */}
-      <section className="max-w-6xl mx-auto px-6 pb-16 border-t border-cr-border pt-12 space-y-6">
+      <section className="max-w-6xl mx-auto px-6 pb-[var(--rhythm-2)] border-t border-cr-border pt-[var(--rhythm-1)] space-y-6">
         <FactDensityCallout
           heading={`Datos clave · ${originCity} → ${festival.shortName}`}
           facts={[
@@ -858,7 +858,7 @@ export default function RouteLandingPage() {
             { label: "Ahorro vs taxi", value: "~75 %", detail: "Para >80 km nocturno" },
           ]}
         />
-        <h2 className="font-display text-2xl md:text-3xl uppercase">
+        <h2 className="font-display text-display-m">
           Comparativa de transporte {originCity} → {festival.shortName} {routeYear}: precio, tiempo y comisión
         </h2>
         <div className="overflow-x-auto">
@@ -904,14 +904,14 @@ export default function RouteLandingPage() {
             </tbody>
           </table>
         </div>
-        <p className="font-mono text-[10px] text-cr-text-dim">
+        <p className="font-sans text-[11px] text-cr-text-dim">
           Precios orientativos 2026. ConcertRide no cobra comisión — el conductor fija el precio para cubrir combustible y peajes.
         </p>
       </section>
 
       {/* ── FAQ ── */}
-      <section className="max-w-6xl mx-auto px-6 pb-16 border-t border-cr-border pt-12 space-y-6">
-        <h2 className="font-display text-2xl md:text-3xl uppercase">
+      <section className="max-w-6xl mx-auto px-6 pb-[var(--rhythm-2)] border-t border-cr-border pt-[var(--rhythm-1)] space-y-6">
+        <h2 className="font-display text-display-m">
           Preguntas frecuentes sobre carpooling {originCity} → {festival.shortName}
         </h2>
         <dl className="space-y-6">
@@ -935,7 +935,7 @@ export default function RouteLandingPage() {
         ).slice(0, 3);
         if (relatedPosts.length === 0) return null;
         return (
-          <section className="max-w-6xl mx-auto px-6 pb-16 border-t border-cr-border pt-12 space-y-5">
+          <section className="max-w-6xl mx-auto px-6 pb-[var(--rhythm-2)] border-t border-cr-border pt-[var(--rhythm-1)] space-y-5">
             <h2 className="font-display text-xl uppercase">
               Guías de transporte a {festival.shortName}
             </h2>
@@ -946,7 +946,7 @@ export default function RouteLandingPage() {
                   to={`/blog/${post.slug}`}
                   className="border border-cr-border p-4 space-y-2 hover:border-cr-primary/40 transition-colors"
                 >
-                  <p className="font-mono text-[10px] uppercase tracking-[0.14em] text-cr-primary">Guía</p>
+                  <p className="font-sans text-[11px] uppercase tracking-[0.14em] text-cr-primary">Guía</p>
                   <h3 className="font-display text-sm uppercase leading-tight">{post.title}</h3>
                   <p className="font-sans text-xs text-cr-text-muted line-clamp-2">{post.excerpt}</p>
                   <span className="inline-flex items-center gap-1 font-sans text-xs text-cr-primary">
@@ -960,7 +960,7 @@ export default function RouteLandingPage() {
       })()}
 
       {/* ── Links internos ── */}
-      <section className="max-w-6xl mx-auto px-6 pb-24 border-t border-cr-border pt-10 space-y-4">
+      <section className="max-w-6xl mx-auto px-6 pb-[var(--rhythm-3)] border-t border-cr-border pt-[var(--rhythm-1)] space-y-4">
         <h2 className="font-display text-lg uppercase text-cr-text-muted">
           Más rutas de carpooling desde {originCity} y a {festival.shortName}
         </h2>

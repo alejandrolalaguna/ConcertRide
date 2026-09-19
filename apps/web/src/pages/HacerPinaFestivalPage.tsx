@@ -124,20 +124,20 @@ export default function HacerPinaFestivalPage() {
         purpose="Explicar en lenguaje castizo qué significa ir a un festival haciendo piña con el grupo: del coche al camping a la vuelta pactada."
       />
 
-      <section className="mx-auto max-w-4xl px-4 md:px-6 py-8 md:py-12">
-        <nav aria-label="Breadcrumb" className="font-sans text-xs uppercase tracking-[0.18em] text-cr-text/60 mb-4">
+      <section className="mx-auto max-w-4xl px-4 md:px-6 pt-[var(--rhythm-1)] pb-[var(--rhythm-2)]">
+        <nav aria-label="Breadcrumb" className="font-sans text-xs uppercase tracking-[0.18em] text-cr-text-muted mb-4">
           <Link to="/" className="hover:text-cr-primary">Inicio</Link>
           <span className="mx-2">/</span>
           <span>Hacer piña en el festival</span>
         </nav>
 
-        <h1 className="font-display text-3xl md:text-5xl uppercase leading-[0.95] tracking-tight">
+        <h1 className="font-display text-display-l">
           Hacer piña
           <br />
-          <span className="text-[#dbff00]">en el festival, no solo en la foto</span>
+          <span className="text-cr-primary">en el festival, no solo en la foto</span>
         </h1>
 
-        <p data-quotable className="mt-5 max-w-3xl font-sans text-base md:text-lg leading-relaxed text-cr-text/90">
+        <p data-quotable className="mt-5 max-w-3xl font-sans text-base md:text-lg leading-relaxed text-cr-text">
           Hacer piña en un festival es ir y vivirlo como grupo unido — no como cuatro personas que
           coinciden en el recinto. Es viajar juntos en el mismo coche, montar el camping en zona
           común, coordinarse para no perderse en los bolos grandes y, sobre todo, pactar la vuelta
@@ -150,14 +150,14 @@ export default function HacerPinaFestivalPage() {
         <div className="mt-6 flex flex-col sm:flex-row gap-3">
           <Link
             to="/crew"
-            className="inline-flex items-center justify-center gap-2 bg-[#dbff00] text-black font-sans font-semibold uppercase tracking-[0.12em] text-sm px-6 py-3 hover:bg-[#c8ec00] transition-colors"
+            className="cr-btn-primary"
           >
             Crear Crew del festival
             <ArrowRight size={14} aria-hidden="true" />
           </Link>
           <Link
             to="/festivales"
-            className="inline-flex items-center justify-center gap-2 bg-transparent text-white/80 font-sans font-semibold uppercase tracking-[0.12em] text-sm border border-white/25 px-6 py-3 hover:border-[#dbff00]/60 hover:text-white transition-colors"
+            className="cr-btn-ghost"
           >
             Festivales 2026 →
           </Link>
@@ -165,8 +165,8 @@ export default function HacerPinaFestivalPage() {
       </section>
 
       {/* Pina moments */}
-      <section className="mx-auto max-w-5xl px-4 md:px-6 py-10" aria-labelledby="momentos">
-        <h2 id="momentos" className="font-display text-2xl md:text-3xl uppercase">
+      <section className="mx-auto max-w-5xl px-4 md:px-6 py-[var(--rhythm-1)] border-t border-cr-border" aria-labelledby="momentos">
+        <h2 id="momentos" className="font-display text-display-m">
           Los cuatro momentos donde la piña se nota
         </h2>
         <div className="mt-6 grid gap-4 md:grid-cols-2">
@@ -174,18 +174,18 @@ export default function HacerPinaFestivalPage() {
             <article key={title} className="border border-cr-border p-5">
               <Icon size={20} className="text-cr-primary" aria-hidden="true" />
               <h3 className="mt-3 font-display text-lg uppercase">{title}</h3>
-              <p className="mt-2 font-sans text-sm text-cr-text/80 leading-relaxed">{body}</p>
+              <p className="mt-2 font-sans text-sm text-cr-text leading-relaxed">{body}</p>
             </article>
           ))}
         </div>
       </section>
 
       {/* What hacer pina means */}
-      <section className="mx-auto max-w-4xl px-4 md:px-6 py-10" aria-labelledby="definicion">
-        <h2 id="definicion" className="font-display text-2xl md:text-3xl uppercase">
+      <section className="mx-auto max-w-4xl px-4 md:px-6 py-[var(--rhythm-1)] border-t border-cr-border" aria-labelledby="definicion">
+        <h2 id="definicion" className="font-display text-display-m">
           Por si alguien fuera de España lo lee
         </h2>
-        <div className="mt-6 space-y-4 font-sans text-sm md:text-base text-cr-text/85 leading-relaxed">
+        <div className="mt-6 space-y-4 font-sans text-sm md:text-base text-cr-text leading-relaxed">
           <p>
             <strong>Hacer piña</strong> es una expresión coloquial española muy común: significa
             unirse con un grupo de personas para apoyarse y actuar en conjunto, con un sentido
@@ -210,11 +210,11 @@ export default function HacerPinaFestivalPage() {
 
       {/* Vocabulary aside */}
       <section className="mx-auto max-w-4xl px-4 md:px-6 py-6" aria-labelledby="vocabulario">
-        <aside className="border-l-2 border-cr-primary bg-white/[0.02] px-5 py-4">
+        <aside className="border-l-2 border-cr-primary bg-cr-surface px-5 py-4">
           <h2 id="vocabulario" className="font-display text-base uppercase tracking-[0.14em] text-cr-primary">
             Vocabulario que describe lo mismo
           </h2>
-          <p className="mt-2 font-sans text-sm text-cr-text/80 leading-relaxed">
+          <p className="mt-2 font-sans text-sm text-cr-text leading-relaxed">
             <strong>Hacer piña</strong> · <strong>ser una piña</strong> · <strong>ir piña</strong>{" "}
             · <strong>ir con la crew</strong> · <strong>ir con el squad</strong> ·{" "}
             <strong>viaje en grupo</strong> · <strong>plan en coche</strong> ·{" "}
@@ -227,13 +227,13 @@ export default function HacerPinaFestivalPage() {
       </section>
 
       {/* FAQ */}
-      <section className="mx-auto max-w-4xl px-4 md:px-6 py-10" aria-labelledby="faq">
-        <h2 id="faq" className="font-display text-2xl md:text-3xl uppercase">Preguntas frecuentes</h2>
+      <section className="mx-auto max-w-4xl px-4 md:px-6 py-[var(--rhythm-1)] border-t border-cr-border" aria-labelledby="faq">
+        <h2 id="faq" className="font-display text-display-m">Preguntas frecuentes</h2>
         <dl className="mt-6 divide-y divide-cr-border border-y border-cr-border">
           {FAQS.map((item) => (
             <div key={item.q} className="py-5">
               <dt className="font-display text-lg uppercase">{item.q}</dt>
-              <dd className="mt-2 font-sans text-sm md:text-base leading-relaxed text-cr-text/85">{item.a}</dd>
+              <dd className="mt-2 font-sans text-sm md:text-base leading-relaxed text-cr-text">{item.a}</dd>
             </div>
           ))}
         </dl>
@@ -241,30 +241,30 @@ export default function HacerPinaFestivalPage() {
 
       {/* Related */}
       <section className="mx-auto max-w-4xl px-4 md:px-6 pb-16">
-        <h2 className="font-display text-xl md:text-2xl uppercase">Sigue por aquí</h2>
+        <h2 className="font-display text-display-s md:text-display-m">Sigue por aquí</h2>
         <ul className="mt-4 grid gap-3 md:grid-cols-2">
           <li>
             <Link to="/viaje-en-grupo-festival" className="block border border-cr-border p-4 hover:border-cr-primary/60 transition-colors">
               <p className="font-display text-sm uppercase">Viaje en grupo al festival →</p>
-              <p className="mt-1 text-xs text-cr-text/60">Logística: tamaño óptimo, roles y coordinación.</p>
+              <p className="mt-1 text-xs text-cr-text-muted">Logística: tamaño óptimo, roles y coordinación.</p>
             </Link>
           </li>
           <li>
             <Link to="/ir-juntos-al-festival" className="block border border-cr-border p-4 hover:border-cr-primary/60 transition-colors">
               <p className="font-display text-sm uppercase">Ir juntos al festival →</p>
-              <p className="mt-1 text-xs text-cr-text/60">Vibe, playlist, crew. El ángulo social del viaje.</p>
+              <p className="mt-1 text-xs text-cr-text-muted">Vibe, playlist, crew. El ángulo social del viaje.</p>
             </Link>
           </li>
           <li>
             <Link to="/compartir-gastos-festival" className="block border border-cr-border p-4 hover:border-cr-primary/60 transition-colors">
               <p className="font-display text-sm uppercase">Compartir gastos al festival →</p>
-              <p className="mt-1 text-xs text-cr-text/60">Reparto, apps y por qué no hay comisión.</p>
+              <p className="mt-1 text-xs text-cr-text-muted">Reparto, apps y por qué no hay comisión.</p>
             </Link>
           </li>
           <li>
             <Link to="/crew" className="block border border-cr-border p-4 hover:border-cr-primary/60 transition-colors">
               <p className="font-display text-sm uppercase">Crew & Squads →</p>
-              <p className="mt-1 text-xs text-cr-text/60">Crea el grupo de tu festival en la app.</p>
+              <p className="mt-1 text-xs text-cr-text-muted">Crea el grupo de tu festival en la app.</p>
             </Link>
           </li>
         </ul>

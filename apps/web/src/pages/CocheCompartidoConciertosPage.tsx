@@ -153,20 +153,20 @@ export default function CocheCompartidoConciertosPage() {
         purpose="Explicar por qué el coche compartido encaja para conciertos en sala y estadio donde el transporte público nocturno colapsa o cierra antes del fin del show."
       />
 
-      <section className="mx-auto max-w-4xl px-4 md:px-6 py-8 md:py-12">
-        <nav aria-label="Breadcrumb" className="font-sans text-xs uppercase tracking-[0.18em] text-cr-text/60 mb-4">
+      <section className="mx-auto max-w-4xl px-4 md:px-6 pt-[var(--rhythm-1)] pb-[var(--rhythm-2)]">
+        <nav aria-label="Breadcrumb" className="font-sans text-xs uppercase tracking-[0.18em] text-cr-text-muted mb-4">
           <Link to="/" className="hover:text-cr-primary">Inicio</Link>
           <span className="mx-2">/</span>
           <span>Coche compartido para conciertos</span>
         </nav>
 
-        <h1 className="font-display text-3xl md:text-5xl uppercase leading-[0.95] tracking-tight">
+        <h1 className="font-display text-display-l">
           Coche compartido
           <br />
-          <span className="text-[#dbff00]">para conciertos en España</span>
+          <span className="text-cr-primary">para conciertos en España</span>
         </h1>
 
-        <p data-quotable className="mt-5 max-w-3xl font-sans text-base md:text-lg leading-relaxed text-cr-text/90">
+        <p data-quotable className="mt-5 max-w-3xl font-sans text-base md:text-lg leading-relaxed text-cr-text">
           Coche compartido para ir a conciertos en sala y estadio: WiZink Center, Movistar Arena,
           Estadi Olímpic, Palau Sant Jordi, Roig Arena, Bilbao Arena, La Cartuja. La razón principal
           es la vuelta: la mayoría de conciertos terminan entre 23:00 y 01:00, justo cuando el metro
@@ -177,14 +177,14 @@ export default function CocheCompartidoConciertosPage() {
         <div className="mt-6 flex flex-col sm:flex-row gap-3">
           <Link
             to="/concerts"
-            className="inline-flex items-center justify-center gap-2 bg-[#dbff00] text-black font-sans font-semibold uppercase tracking-[0.12em] text-sm px-6 py-3 hover:bg-[#c8ec00] transition-colors"
+            className="cr-btn-primary"
           >
             Buscar conciertos
             <ArrowRight size={14} aria-hidden="true" />
           </Link>
           <Link
             to="/publish"
-            className="inline-flex items-center justify-center gap-2 bg-transparent text-white/80 font-sans font-semibold uppercase tracking-[0.12em] text-sm border border-white/25 px-6 py-3 hover:border-[#dbff00]/60 hover:text-white transition-colors"
+            className="cr-btn-ghost"
           >
             Ofrecer mi coche →
           </Link>
@@ -193,17 +193,17 @@ export default function CocheCompartidoConciertosPage() {
 
       {/* Venues table */}
       <section className="mx-auto max-w-6xl px-4 md:px-6 py-10" aria-labelledby="recintos">
-        <h2 id="recintos" className="font-display text-2xl md:text-3xl uppercase">
+        <h2 id="recintos" className="font-display text-display-m">
           Recintos cubiertos y por qué tiene sentido
         </h2>
-        <p className="mt-3 max-w-3xl font-sans text-sm text-cr-text/70 leading-relaxed">
+        <p className="mt-3 max-w-3xl font-sans text-sm text-cr-text-muted leading-relaxed">
           Horarios de fin de concierto y de cierre del transporte público de cada recinto. El cruce
           entre los dos es donde el coche compartido suele ganar.
         </p>
 
         <div className="mt-6 overflow-x-auto border border-cr-border">
           <table className="w-full min-w-[820px] text-left text-sm">
-            <thead className="bg-white/[0.04] uppercase font-mono text-[10px] tracking-[0.14em] text-cr-text/70">
+            <thead className="bg-cr-surface uppercase font-sans text-[11px] tracking-[0.14em] text-cr-text-muted">
               <tr>
                 <th scope="col" className="px-3 py-3">Recinto</th>
                 <th scope="col" className="px-3 py-3">Ciudad</th>
@@ -219,17 +219,17 @@ export default function CocheCompartidoConciertosPage() {
                   <th scope="row" className="px-3 py-3 font-display uppercase text-sm">
                     {venue.venue}
                   </th>
-                  <td className="px-3 py-3 text-cr-text/80">{venue.city}</td>
-                  <td className="px-3 py-3 text-cr-text/80 font-mono text-xs">{venue.endTime}</td>
-                  <td className="px-3 py-3 text-cr-text/80">{venue.publicTransport}</td>
-                  <td className="px-3 py-3 text-[#dbff00]">{venue.carpoolFrom}</td>
-                  <td className="px-3 py-3 text-cr-text/70 text-xs">{venue.nightProblem}</td>
+                  <td className="px-3 py-3 text-cr-text">{venue.city}</td>
+                  <td className="px-3 py-3 text-cr-text font-sans text-xs">{venue.endTime}</td>
+                  <td className="px-3 py-3 text-cr-text">{venue.publicTransport}</td>
+                  <td className="px-3 py-3 text-cr-primary">{venue.carpoolFrom}</td>
+                  <td className="px-3 py-3 text-cr-text-muted text-xs">{venue.nightProblem}</td>
                 </tr>
               ))}
             </tbody>
           </table>
         </div>
-        <p className="mt-4 font-mono text-[11px] text-cr-text/50">
+        <p className="mt-4 font-sans text-[12px] text-cr-text-muted">
           Fuente: páginas oficiales de cada recinto y operadores de transporte (Metro de Madrid, TMB,
           Metrovalencia, Metro Bilbao, TUSSAM), mayo 2026. Los horarios de cierre del metro varían
           entre días laborables y fin de semana.
@@ -237,15 +237,15 @@ export default function CocheCompartidoConciertosPage() {
       </section>
 
       {/* Why it works */}
-      <section className="mx-auto max-w-4xl px-4 md:px-6 py-10" aria-labelledby="por-que">
-        <h2 id="por-que" className="font-display text-2xl md:text-3xl uppercase">
+      <section className="mx-auto max-w-4xl px-4 md:px-6 py-[var(--rhythm-1)] border-t border-cr-border" aria-labelledby="por-que">
+        <h2 id="por-que" className="font-display text-display-m">
           Por qué el coche compartido encaja en conciertos
         </h2>
         <div className="mt-6 grid gap-4 md:grid-cols-2">
           <article className="border border-cr-border p-5">
             <Clock size={20} className="text-cr-primary" aria-hidden="true" />
             <h3 className="mt-3 font-display text-lg uppercase">Horario que coincide con el del show</h3>
-            <p className="mt-2 font-sans text-sm text-cr-text/80 leading-relaxed">
+            <p className="mt-2 font-sans text-sm text-cr-text leading-relaxed">
               Quien conduce también va al concierto, así que la hora de salida y de vuelta tienen
               sentido para el evento — no es un trayecto que casualmente sale a esa hora.
             </p>
@@ -253,7 +253,7 @@ export default function CocheCompartidoConciertosPage() {
           <article className="border border-cr-border p-5">
             <Building2 size={20} className="text-cr-primary" aria-hidden="true" />
             <h3 className="mt-3 font-display text-lg uppercase">Aparcamiento ya resuelto</h3>
-            <p className="mt-2 font-sans text-sm text-cr-text/80 leading-relaxed">
+            <p className="mt-2 font-sans text-sm text-cr-text leading-relaxed">
               Para los recintos grandes (WiZink, Movistar Arena, Sant Jordi), aparcar cerca puede
               costar 10-20 € y exigir reserva. Yendo en un solo coche, el coste del aparcamiento se
               reparte entre 3-4 personas.
@@ -262,7 +262,7 @@ export default function CocheCompartidoConciertosPage() {
           <article className="border border-cr-border p-5">
             <Euro size={20} className="text-cr-primary" aria-hidden="true" />
             <h3 className="mt-3 font-display text-lg uppercase">Más barato que un taxi nocturno</h3>
-            <p className="mt-2 font-sans text-sm text-cr-text/80 leading-relaxed">
+            <p className="mt-2 font-sans text-sm text-cr-text leading-relaxed">
               Un taxi del WiZink a barrios periféricos de Madrid sale 18-28 €. Bilbao Arena → centro
               ronda los 12-18 €. El coche compartido cuesta 3-8 € por asiento porque vais varias
               personas y nadie cobra comisión.
@@ -271,7 +271,7 @@ export default function CocheCompartidoConciertosPage() {
           <article className="border border-cr-border p-5">
             <Train size={20} className="text-cr-primary" aria-hidden="true" />
             <h3 className="mt-3 font-display text-lg uppercase">Y si vienes de otra ciudad</h3>
-            <p className="mt-2 font-sans text-sm text-cr-text/80 leading-relaxed">
+            <p className="mt-2 font-sans text-sm text-cr-text leading-relaxed">
               Trayecto interurbano para un concierto (Toledo → Madrid, Tarragona → Barcelona) sale
               normalmente más barato que el AVE más el traslado al recinto, especialmente si
               comparas el último AVE de vuelta vs salir cuando termine el show.
@@ -281,13 +281,13 @@ export default function CocheCompartidoConciertosPage() {
       </section>
 
       {/* FAQ */}
-      <section className="mx-auto max-w-4xl px-4 md:px-6 py-10" aria-labelledby="faq">
-        <h2 id="faq" className="font-display text-2xl md:text-3xl uppercase">Preguntas frecuentes</h2>
+      <section className="mx-auto max-w-4xl px-4 md:px-6 py-[var(--rhythm-1)] border-t border-cr-border" aria-labelledby="faq">
+        <h2 id="faq" className="font-display text-display-m">Preguntas frecuentes</h2>
         <dl className="mt-6 divide-y divide-cr-border border-y border-cr-border">
           {FAQS.map((item) => (
             <div key={item.q} className="py-5">
               <dt className="font-display text-lg uppercase">{item.q}</dt>
-              <dd className="mt-2 font-sans text-sm md:text-base leading-relaxed text-cr-text/85">{item.a}</dd>
+              <dd className="mt-2 font-sans text-sm md:text-base leading-relaxed text-cr-text">{item.a}</dd>
             </div>
           ))}
         </dl>
@@ -295,30 +295,30 @@ export default function CocheCompartidoConciertosPage() {
 
       {/* Related */}
       <section className="mx-auto max-w-4xl px-4 md:px-6 pb-16">
-        <h2 className="font-display text-xl md:text-2xl uppercase">Sigue por aquí</h2>
+        <h2 className="font-display text-display-s md:text-display-m">Sigue por aquí</h2>
         <ul className="mt-4 grid gap-3 md:grid-cols-2">
           <li>
             <Link to="/compartir-coche-festival" className="block border border-cr-border p-4 hover:border-cr-primary/60 transition-colors">
               <p className="font-display text-sm uppercase">Compartir coche al festival →</p>
-              <p className="mt-1 text-xs text-cr-text/60">Misma idea pero enfocada en festivales (no conciertos en sala).</p>
+              <p className="mt-1 text-xs text-cr-text-muted">Misma idea pero enfocada en festivales (no conciertos en sala).</p>
             </Link>
           </li>
           <li>
             <Link to="/ir-juntos-al-festival" className="block border border-cr-border p-4 hover:border-cr-primary/60 transition-colors">
               <p className="font-display text-sm uppercase">Ir juntos al festival →</p>
-              <p className="mt-1 text-xs text-cr-text/60">El ángulo social: ir con gente que también va al cartel.</p>
+              <p className="mt-1 text-xs text-cr-text-muted">El ángulo social: ir con gente que también va al cartel.</p>
             </Link>
           </li>
           <li>
             <Link to="/viaje-compartido" className="block border border-cr-border p-4 hover:border-cr-primary/60 transition-colors">
               <p className="font-display text-sm uppercase">Viaje compartido en coche →</p>
-              <p className="mt-1 text-xs text-cr-text/60">Visión general del producto y casos de uso.</p>
+              <p className="mt-1 text-xs text-cr-text-muted">Visión general del producto y casos de uso.</p>
             </Link>
           </li>
           <li>
             <Link to="/concerts" className="block border border-cr-border p-4 hover:border-cr-primary/60 transition-colors">
               <p className="font-display text-sm uppercase">Conciertos 2026 →</p>
-              <p className="mt-1 text-xs text-cr-text/60">Listado completo con viajes disponibles por concierto.</p>
+              <p className="mt-1 text-xs text-cr-text-muted">Listado completo con viajes disponibles por concierto.</p>
             </Link>
           </li>
         </ul>

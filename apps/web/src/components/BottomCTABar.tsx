@@ -48,14 +48,14 @@ export default function BottomCTABar({
     <>
       <span>{label}</span>
       {sublabel && (
-        <span className="text-[11px] font-mono opacity-70">· {sublabel}</span>
+        <span className="text-[11px] font-sans cr-tabular opacity-70">· {sublabel}</span>
       )}
     </>
   );
 
   return (
     <div
-      className="md:hidden fixed bottom-0 left-0 right-0 z-40 bg-cr-bg/95 backdrop-blur border-t-2 border-cr-primary px-4 py-3 pb-[max(0.75rem,env(safe-area-inset-bottom))]"
+      className="md:hidden fixed bottom-0 left-0 right-0 z-40 bg-cr-bg/95 border-t-2 border-cr-primary px-4 py-3 pb-[max(0.75rem,env(safe-area-inset-bottom))]"
       role="region"
       aria-label={t("cta.regionLabel")}
     >

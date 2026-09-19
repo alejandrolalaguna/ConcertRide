@@ -56,7 +56,7 @@ export function QueryFanoutCoverage({
         {title}
       </h2>
       {intro && (
-        <div className="text-sm text-cr-text/75 leading-relaxed mb-3">{intro}</div>
+        <div className="text-sm text-cr-text leading-relaxed mb-3">{intro}</div>
       )}
       <ul className="space-y-2">
         {items.map((item) => (
@@ -68,7 +68,7 @@ export function QueryFanoutCoverage({
               {item.query}
             </a>
             {item.summary && (
-              <span className="block text-xs md:text-sm text-cr-text/65 leading-snug mt-0.5">
+              <span className="block text-xs md:text-sm text-cr-text-muted leading-snug mt-0.5">
                 {item.summary}
               </span>
             )}

@@ -51,7 +51,7 @@ export function SpeakableAnswerBlock({
     <section
       id={schemaId}
       aria-label={question}
-      className="mt-4 px-5 py-4 md:px-6 md:py-5 border border-cr-primary/40 bg-cr-primary/[0.04] max-w-2xl"
+      className="mt-4 pl-5 py-1 border-l-2 border-cr-primary max-w-2xl"
     >
       <h2 className="font-display text-base md:text-lg uppercase tracking-wide text-cr-primary leading-tight">
         {question}

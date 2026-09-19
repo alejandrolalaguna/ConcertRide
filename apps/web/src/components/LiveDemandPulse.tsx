@@ -35,17 +35,17 @@ export function LiveDemandPulse({ festivalName, count, className = "" }: LiveDem
 
   return (
     <div
-      className={`inline-flex items-center gap-2 bg-white/[0.04] border border-white/[0.10] px-3 py-1.5 ${className}`}
+      className={`inline-flex items-center gap-2 bg-cr-surface border border-cr-border px-3 py-1.5 ${className}`}
       aria-live="polite"
       aria-atomic="true"
     >
       {/* Pulsing dot */}
       <span className="relative flex-shrink-0 w-2 h-2" aria-hidden="true">
-        <span className="absolute inset-0 rounded-full bg-[#ff4f00] animate-ping opacity-60" />
-        <span className="relative block w-2 h-2 rounded-full bg-[#ff4f00]" />
+        <span className="absolute inset-0 rounded-full bg-cr-secondary animate-ping opacity-60" />
+        <span className="relative block w-2 h-2 rounded-full bg-cr-secondary" />
       </span>
 
-      <span className="font-mono text-[11px] text-white/60 leading-none">
+      <span className="font-sans text-[12px] text-cr-text-muted leading-none">
         <span className="sr-only">
           {isEn
             ? <>{displayCount} people looking for a ride to {festivalName} this week</>
@@ -54,7 +54,7 @@ export function LiveDemandPulse({ festivalName, count, className = "" }: LiveDem
         <span aria-hidden="true">
           <span className="text-white font-semibold">{displayCount}</span>
           {isEn ? " people looking for a ride to " : " personas buscan viaje a "}
-          <span className="text-[#dbff00]">{festivalName}</span>
+          <span className="text-cr-primary">{festivalName}</span>
           {isEn ? " this week" : " esta semana"}
         </span>
       </span>

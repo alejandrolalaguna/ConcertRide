@@ -123,7 +123,7 @@ export default function EeatTrustBlock({
               {author.name.charAt(0)}
             </span>
             <span className="flex flex-col leading-tight">
-              <span className="font-mono text-[10px] uppercase tracking-[0.12em] text-cr-text-muted">
+              <span className="font-sans text-[11px] uppercase tracking-[0.12em] text-cr-text-muted">
                 {isEn ? "By" : "Por"}
               </span>
               <Link
@@ -144,7 +144,7 @@ export default function EeatTrustBlock({
             className="text-cr-primary shrink-0"
           />
           <span className="flex flex-col leading-tight">
-            <span className="font-mono text-[10px] uppercase tracking-[0.12em] text-cr-text-muted">
+            <span className="font-sans text-[11px] uppercase tracking-[0.12em] text-cr-text-muted">
               {isEn ? "Last reviewed" : "Última revisión"}
             </span>
             <time dateTime={lastReviewed} className="text-cr-text text-[13px]">

@@ -152,20 +152,20 @@ export default function ViajeEnGrupoFestivalPage() {
         purpose="Ayudar a quien va al festival en grupo a organizar el viaje: tamaño óptimo, roles, reparto de gastos y coordinación de la vuelta."
       />
 
-      <section className="mx-auto max-w-4xl px-4 md:px-6 py-8 md:py-12">
-        <nav aria-label="Breadcrumb" className="font-sans text-xs uppercase tracking-[0.18em] text-cr-text/60 mb-4">
+      <section className="mx-auto max-w-4xl px-4 md:px-6 pt-[var(--rhythm-1)] pb-[var(--rhythm-2)]">
+        <nav aria-label="Breadcrumb" className="font-sans text-xs uppercase tracking-[0.18em] text-cr-text-muted mb-4">
           <Link to="/" className="hover:text-cr-primary">Inicio</Link>
           <span className="mx-2">/</span>
           <span>Viaje en grupo al festival</span>
         </nav>
 
-        <h1 className="font-display text-3xl md:text-5xl uppercase leading-[0.95] tracking-tight">
+        <h1 className="font-display text-display-l">
           Viaje en grupo a un festival
           <br />
-          <span className="text-[#dbff00]">logística que sí funciona</span>
+          <span className="text-cr-primary">logística que sí funciona</span>
         </h1>
 
-        <p data-quotable className="mt-5 max-w-3xl font-sans text-base md:text-lg leading-relaxed text-cr-text/90">
+        <p data-quotable className="mt-5 max-w-3xl font-sans text-base md:text-lg leading-relaxed text-cr-text">
           Ir a un festival en grupo es más barato, más seguro y suele ser más divertido — pero solo
           si la logística está cuidada. Esta página resume lo que funciona en un viaje en grupo a
           Mad Cool, Primavera Sound, BBK Live, Viña Rock o cualquier festival en España: tamaño
@@ -176,14 +176,14 @@ export default function ViajeEnGrupoFestivalPage() {
         <div className="mt-6 flex flex-col sm:flex-row gap-3">
           <Link
             to="/festivales"
-            className="inline-flex items-center justify-center gap-2 bg-[#dbff00] text-black font-sans font-semibold uppercase tracking-[0.12em] text-sm px-6 py-3 hover:bg-[#c8ec00] transition-colors"
+            className="cr-btn-primary"
           >
             Elige festival
             <ArrowRight size={14} aria-hidden="true" />
           </Link>
           <Link
             to="/crew"
-            className="inline-flex items-center justify-center gap-2 bg-transparent text-white/80 font-sans font-semibold uppercase tracking-[0.12em] text-sm border border-white/25 px-6 py-3 hover:border-[#dbff00]/60 hover:text-white transition-colors"
+            className="cr-btn-ghost"
           >
             Crear Crew del festival →
           </Link>
@@ -191,18 +191,18 @@ export default function ViajeEnGrupoFestivalPage() {
       </section>
 
       {/* Group sizes */}
-      <section className="mx-auto max-w-5xl px-4 md:px-6 py-10" aria-labelledby="tamano">
-        <h2 id="tamano" className="font-display text-2xl md:text-3xl uppercase">
+      <section className="mx-auto max-w-5xl px-4 md:px-6 py-[var(--rhythm-1)] border-t border-cr-border" aria-labelledby="tamano">
+        <h2 id="tamano" className="font-display text-display-m">
           Tamaño del grupo y qué encaja en cada uno
         </h2>
         <div className="mt-6 grid gap-4 md:grid-cols-2">
           {GROUP_SIZES.map((g) => (
             <article key={g.size} className="border border-cr-border p-5">
-              <p className="font-mono text-[10px] uppercase tracking-[0.16em] text-cr-primary">{g.size}</p>
+              <p className="cr-eyebrow">{g.size}</p>
               <h3 className="mt-1 font-display text-lg uppercase">{g.title}</h3>
-              <p className="mt-2 font-sans text-sm text-cr-text/80 leading-relaxed">{g.body}</p>
-              <p className="mt-3 font-sans text-xs text-cr-text/60">
-                <span className="text-[#dbff00]">Mejor opción:</span> {g.bestFor}
+              <p className="mt-2 font-sans text-sm text-cr-text leading-relaxed">{g.body}</p>
+              <p className="mt-3 font-sans text-xs text-cr-text-muted">
+                <span className="text-cr-primary">Mejor opción:</span> {g.bestFor}
               </p>
             </article>
           ))}
@@ -210,11 +210,11 @@ export default function ViajeEnGrupoFestivalPage() {
       </section>
 
       {/* Roles */}
-      <section className="mx-auto max-w-5xl px-4 md:px-6 py-10" aria-labelledby="roles">
-        <h2 id="roles" className="font-display text-2xl md:text-3xl uppercase">
+      <section className="mx-auto max-w-5xl px-4 md:px-6 py-[var(--rhythm-1)] border-t border-cr-border" aria-labelledby="roles">
+        <h2 id="roles" className="font-display text-display-m">
           Roles que conviene repartir (aunque no se hablen)
         </h2>
-        <p className="mt-3 max-w-3xl font-sans text-sm text-cr-text/70 leading-relaxed">
+        <p className="mt-3 max-w-3xl font-sans text-sm text-cr-text-muted leading-relaxed">
           Esto no es una empresa — nadie va a hacer Kanban. Pero en grupos de 4+ personas, sin
           roles claros, el viernes a las 18:00 alguien no ha cogido las entradas de un sobre, otra
           persona pensaba que estaba reservada la cena y a las 23:00 todos están perdidos en el
@@ -225,7 +225,7 @@ export default function ViajeEnGrupoFestivalPage() {
             <article key={role} className="border border-cr-border p-5">
               <Icon size={20} className="text-cr-primary" aria-hidden="true" />
               <h3 className="mt-3 font-display text-lg uppercase">{role}</h3>
-              <p className="mt-2 font-sans text-sm text-cr-text/80 leading-relaxed">{body}</p>
+              <p className="mt-2 font-sans text-sm text-cr-text leading-relaxed">{body}</p>
             </article>
           ))}
         </div>
@@ -233,11 +233,11 @@ export default function ViajeEnGrupoFestivalPage() {
 
       {/* Vocabulary aside */}
       <section className="mx-auto max-w-4xl px-4 md:px-6 py-6" aria-labelledby="vocabulario">
-        <aside className="border-l-2 border-cr-primary bg-white/[0.02] px-5 py-4">
+        <aside className="border-l-2 border-cr-primary bg-cr-surface px-5 py-4">
           <h2 id="vocabulario" className="font-display text-base uppercase tracking-[0.14em] text-cr-primary">
             Cómo se le llama a esto, dependiendo de quién lo cuente
           </h2>
-          <p className="mt-2 font-sans text-sm text-cr-text/80 leading-relaxed">
+          <p className="mt-2 font-sans text-sm text-cr-text leading-relaxed">
             <strong>Viaje en grupo</strong>, <strong>viaje compartido</strong>,{" "}
             <strong>carpooling</strong>, <strong>compartir coche</strong>,{" "}
             <strong>ir juntos al festival</strong>, <strong>hacer piña</strong> en el camping,{" "}
@@ -250,13 +250,13 @@ export default function ViajeEnGrupoFestivalPage() {
       </section>
 
       {/* FAQ */}
-      <section className="mx-auto max-w-4xl px-4 md:px-6 py-10" aria-labelledby="faq">
-        <h2 id="faq" className="font-display text-2xl md:text-3xl uppercase">Preguntas frecuentes</h2>
+      <section className="mx-auto max-w-4xl px-4 md:px-6 py-[var(--rhythm-1)] border-t border-cr-border" aria-labelledby="faq">
+        <h2 id="faq" className="font-display text-display-m">Preguntas frecuentes</h2>
         <dl className="mt-6 divide-y divide-cr-border border-y border-cr-border">
           {FAQS.map((item) => (
             <div key={item.q} className="py-5">
               <dt className="font-display text-lg uppercase">{item.q}</dt>
-              <dd className="mt-2 font-sans text-sm md:text-base leading-relaxed text-cr-text/85">{item.a}</dd>
+              <dd className="mt-2 font-sans text-sm md:text-base leading-relaxed text-cr-text">{item.a}</dd>
             </div>
           ))}
         </dl>
@@ -264,30 +264,30 @@ export default function ViajeEnGrupoFestivalPage() {
 
       {/* Related */}
       <section className="mx-auto max-w-4xl px-4 md:px-6 pb-16">
-        <h2 className="font-display text-xl md:text-2xl uppercase">Sigue por aquí</h2>
+        <h2 className="font-display text-display-s md:text-display-m">Sigue por aquí</h2>
         <ul className="mt-4 grid gap-3 md:grid-cols-2">
           <li>
             <Link to="/compartir-gastos-festival" className="block border border-cr-border p-4 hover:border-cr-primary/60 transition-colors">
               <p className="font-display text-sm uppercase">Compartir gastos al festival →</p>
-              <p className="mt-1 text-xs text-cr-text/60">Reparto detallado: gasolina, peajes, apps (Splitwise, Tricount, Bizum).</p>
+              <p className="mt-1 text-xs text-cr-text-muted">Reparto detallado: gasolina, peajes, apps (Splitwise, Tricount, Bizum).</p>
             </Link>
           </li>
           <li>
             <Link to="/hacer-pina-festival" className="block border border-cr-border p-4 hover:border-cr-primary/60 transition-colors">
               <p className="font-display text-sm uppercase">Hacer piña en el festival →</p>
-              <p className="mt-1 text-xs text-cr-text/60">El término castizo: ir y vivir el festival como grupo unido.</p>
+              <p className="mt-1 text-xs text-cr-text-muted">El término castizo: ir y vivir el festival como grupo unido.</p>
             </Link>
           </li>
           <li>
             <Link to="/ir-juntos-al-festival" className="block border border-cr-border p-4 hover:border-cr-primary/60 transition-colors">
               <p className="font-display text-sm uppercase">Ir juntos al festival →</p>
-              <p className="mt-1 text-xs text-cr-text/60">El ángulo social: ir con gente que también va al cartel.</p>
+              <p className="mt-1 text-xs text-cr-text-muted">El ángulo social: ir con gente que también va al cartel.</p>
             </Link>
           </li>
           <li>
             <Link to="/blog/como-organizar-viaje-grupo-festival-amigos" className="block border border-cr-border p-4 hover:border-cr-primary/60 transition-colors">
               <p className="font-display text-sm uppercase">Guía 8 pasos viaje grupo →</p>
-              <p className="mt-1 text-xs text-cr-text/60">El playbook completo: festival, fechas, roles, costes y conflictos.</p>
+              <p className="mt-1 text-xs text-cr-text-muted">El playbook completo: festival, fechas, roles, costes y conflictos.</p>
             </Link>
           </li>
         </ul>

@@ -95,7 +95,7 @@ export function FestivalQnaWidget({ festivalSlug, festivalName }: Props) {
       <header className="border-b border-cr-border px-4 py-4 sm:px-6">
         <div className="mx-auto flex max-w-5xl flex-col gap-2 sm:flex-row sm:items-baseline sm:justify-between">
           <div>
-            <p className="font-mono text-[10px] uppercase tracking-[0.18em] text-cr-text-muted">
+            <p className="font-sans text-[11px] uppercase tracking-[0.18em] text-cr-text-muted">
               {isEn ? <>Community · {festivalName}</> : <>Comunidad · {festivalName}</>}
             </p>
             <h2 className="mt-1 font-display text-2xl uppercase">{isEn ? "Tips from people who've been" : "Consejos de quienes ya fueron"}</h2>
@@ -103,7 +103,7 @@ export function FestivalQnaWidget({ festivalSlug, festivalName }: Props) {
           <button
             type="button"
             onClick={() => setShowForm((v) => !v)}
-            className="self-start border-2 border-cr-primary px-3 py-1.5 font-mono text-[10px] font-bold uppercase tracking-[0.14em] text-cr-primary hover:bg-cr-primary hover:text-cr-text-inverse"
+            className="self-start border-2 border-cr-primary px-3 py-1.5 font-sans text-[11px] font-bold uppercase tracking-[0.14em] text-cr-primary hover:bg-cr-primary hover:text-cr-text-inverse"
           >
             {showForm ? (isEn ? "Cancel" : "Cancelar") : (isEn ? "+ Share a tip" : "+ Compartir consejo")}
           </button>
@@ -114,7 +114,7 @@ export function FestivalQnaWidget({ festivalSlug, festivalName }: Props) {
         <form onSubmit={handleSubmit} className="border-b border-cr-border bg-cr-bg/40 px-4 py-4 sm:px-6">
           <div className="mx-auto flex max-w-3xl flex-col gap-3">
             <label className="block">
-              <span className="font-mono text-[11px] font-semibold uppercase tracking-[0.14em] text-cr-text-muted">
+              <span className="font-sans text-[12px] font-semibold uppercase tracking-[0.14em] text-cr-text-muted">
                 {isEn ? "Question or topic" : "Pregunta o tema"}
               </span>
               <input
@@ -129,7 +129,7 @@ export function FestivalQnaWidget({ festivalSlug, festivalName }: Props) {
               />
             </label>
             <label className="block">
-              <span className="font-mono text-[11px] font-semibold uppercase tracking-[0.14em] text-cr-text-muted">
+              <span className="font-sans text-[12px] font-semibold uppercase tracking-[0.14em] text-cr-text-muted">
                 {isEn ? "Your answer / tip" : "Tu respuesta / consejo"}
               </span>
               <textarea
@@ -142,7 +142,7 @@ export function FestivalQnaWidget({ festivalSlug, festivalName }: Props) {
                 placeholder={isEn ? "Leaving before 2pm avoids the A-3 jam on Fridays…" : "Salir antes de las 14h evita el atasco en la A-3 los viernes…"}
                 className="mt-1 w-full bg-cr-surface border-2 border-cr-border focus:border-cr-primary outline-none px-3 py-2 font-sans text-sm text-cr-text"
               />
-              <span className="mt-1 block font-mono text-[10px] uppercase tracking-[0.12em] text-cr-text-dim">
+              <span className="mt-1 block font-sans text-[11px] uppercase tracking-[0.12em] text-cr-text-dim">
                 {answer.length}/1000 · {isEn ? "no links" : "sin enlaces"}
               </span>
             </label>
@@ -150,7 +150,7 @@ export function FestivalQnaWidget({ festivalSlug, festivalName }: Props) {
               <button
                 type="submit"
                 disabled={submitting || answer.length < 8}
-                className="border-2 border-cr-primary bg-cr-primary px-4 py-2 font-mono text-[11px] font-bold uppercase tracking-[0.14em] text-cr-text-inverse disabled:opacity-40"
+                className="border-2 border-cr-primary bg-cr-primary px-4 py-2 font-sans text-[12px] font-bold uppercase tracking-[0.14em] text-cr-text-inverse disabled:opacity-40"
               >
                 {submitting ? (isEn ? "Sending…" : "Enviando…") : (isEn ? "Submit for review" : "Enviar para revisión")}
               </button>
@@ -164,7 +164,7 @@ export function FestivalQnaWidget({ festivalSlug, festivalName }: Props) {
 
       <div className="mx-auto max-w-5xl px-4 py-6 sm:px-6">
         {loading ? (
-          <p className="font-mono text-xs text-cr-text-muted">{isEn ? "Loading…" : "Cargando…"}</p>
+          <p className="font-sans text-xs text-cr-text-muted">{isEn ? "Loading…" : "Cargando…"}</p>
         ) : items.length === 0 ? (
           <div className="border-2 border-dashed border-cr-border bg-cr-bg/40 p-6 text-center">
             <p className="font-display text-lg uppercase">{isEn ? "No tips yet" : "Aún sin consejos"}</p>
@@ -182,13 +182,13 @@ export function FestivalQnaWidget({ festivalSlug, festivalName }: Props) {
                 <p className="font-display text-base uppercase leading-snug">{q.question}</p>
                 <p className="mt-2 text-sm text-cr-text-muted">{q.answer}</p>
                 <div className="mt-3 flex items-center justify-between gap-3">
-                  <span className="font-mono text-[10px] uppercase tracking-[0.14em] text-cr-text-dim">
+                  <span className="font-sans text-[11px] uppercase tracking-[0.14em] text-cr-text-dim">
                     @{q.user_name}
                   </span>
                   <button
                     type="button"
                     onClick={() => upvote(q.id)}
-                    className="font-mono text-[10px] uppercase tracking-[0.14em] text-cr-text-muted hover:text-cr-primary"
+                    className="font-sans text-[11px] uppercase tracking-[0.14em] text-cr-text-muted hover:text-cr-primary"
                   >
                     ▲ {q.upvotes}
                   </button>

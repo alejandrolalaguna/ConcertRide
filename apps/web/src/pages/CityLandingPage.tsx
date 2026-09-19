@@ -687,10 +687,10 @@ export default function CityLandingPage() {
         }}
       />
 
-      <div className="max-w-6xl mx-auto px-6 pt-10 pb-6 space-y-4">
+      <div className="max-w-6xl mx-auto px-6 pt-[var(--rhythm-1)] pb-[var(--rhythm-1)] space-y-5">
         <nav
           aria-label="Breadcrumb"
-          className="font-mono text-[11px] text-cr-text-dim flex items-center gap-2"
+          className="font-sans text-[12px] text-cr-text-muted flex items-center gap-2"
         >
           <Link to="/" className="hover:text-cr-primary">Inicio</Link>
           <span aria-hidden="true">/</span>
@@ -699,10 +699,10 @@ export default function CityLandingPage() {
           <span className="text-cr-text-muted">{landing.display}</span>
         </nav>
 
-        <p className="font-sans text-[11px] font-semibold uppercase tracking-[0.16em] text-cr-primary inline-flex items-center gap-2">
+        <p className="cr-eyebrow inline-flex items-center gap-2">
           <MapPin size={12} /> {landing.region}
         </p>
-        <h1 className="font-display text-4xl md:text-6xl uppercase leading-[0.92]">
+        <h1 className="font-display text-display-l">
           Conciertos en {landing.display} {year}.
         </h1>
 
@@ -755,7 +755,7 @@ export default function CityLandingPage() {
             {landing.venues.map((v) => (
               <span
                 key={v}
-                className="inline-flex items-center gap-1.5 font-mono text-[11px] text-cr-text-muted border border-cr-border px-2 py-1"
+                className="inline-flex items-center gap-1.5 font-sans text-[12px] text-cr-text-muted border border-cr-border px-2 py-1"
               >
                 <Music2 size={10} /> {v}
               </span>
@@ -766,13 +766,13 @@ export default function CityLandingPage() {
         <div className="flex flex-wrap gap-3 pt-3">
           <Link
             to={`/concerts?city=${encodeURIComponent(landing.slug)}`}
-            className="inline-flex items-center justify-center font-sans text-sm font-bold uppercase tracking-wider bg-cr-primary text-black px-5 py-3 shadow-[4px_4px_0_0_rgba(219,255,0,0.25)] hover:shadow-[6px_6px_0_0_rgba(219,255,0,0.4)] transition-shadow"
+            className="cr-btn-primary"
           >
             Buscar carpooling en {landing.display}
           </Link>
           <Link
             to="/publish"
-            className="inline-flex items-center justify-center font-sans text-sm font-bold uppercase tracking-wider border-2 border-cr-border text-cr-text px-5 py-3 hover:border-cr-primary hover:text-cr-primary transition-colors"
+            className="cr-btn-ghost"
           >
             Publicar mi viaje
           </Link>
@@ -782,7 +782,7 @@ export default function CityLandingPage() {
       </div>
 
       <section className="max-w-6xl mx-auto px-6 pb-16">
-        <h2 className="font-display text-xl md:text-2xl uppercase mb-6">
+        <h2 className="font-display text-display-s md:text-display-m mb-6">
           Próximos conciertos en {landing.display} {year}: agenda actualizada
         </h2>
         {concerts === null ? (
@@ -813,7 +813,7 @@ export default function CityLandingPage() {
         )}
       </section>
 
-      <section className="max-w-6xl mx-auto px-6 pb-12 border-t border-cr-border pt-12 space-y-6">
+      <section className="max-w-6xl mx-auto px-6 pb-[var(--rhythm-1)] border-t border-cr-border pt-[var(--rhythm-1)] space-y-6">
         <FactDensityCallout
           heading={`Datos clave · ${landing.display} ${year}`}
           facts={[
@@ -822,7 +822,7 @@ export default function CityLandingPage() {
             { label: "Cobertura", value: "Toda España", detail: "Vuelta nocturna coordinada" },
           ]}
         />
-        <h2 className="font-display text-xl md:text-2xl uppercase">
+        <h2 className="font-display text-display-s md:text-display-m">
           Transporte para conciertos en {landing.display}: carpooling, bus, tren y taxi
         </h2>
         <p className="font-sans text-sm text-cr-text-muted max-w-3xl speakable">
@@ -881,7 +881,7 @@ export default function CityLandingPage() {
       </section>
 
       <section className="max-w-6xl mx-auto px-6 pb-24 border-t border-cr-border pt-12 space-y-6">
-        <h2 className="font-display text-xl md:text-2xl uppercase">
+        <h2 className="font-display text-display-s md:text-display-m">
           Cómo reservar carpooling a conciertos en {landing.display} {year}: paso a paso
         </h2>
         <div className="grid md:grid-cols-3 gap-4 font-sans text-sm text-cr-text-muted leading-relaxed">
@@ -939,10 +939,10 @@ export default function CityLandingPage() {
 
         if (cityFestivals.length === 0 && nearbyFestivals.length === 0) return null;
         return (
-          <section className="max-w-6xl mx-auto px-6 pb-16 border-t border-cr-border pt-12 space-y-8">
+          <section className="max-w-6xl mx-auto px-6 pb-[var(--rhythm-2)] border-t border-cr-border pt-[var(--rhythm-1)] space-y-8">
             {cityFestivals.length > 0 && (
               <div className="space-y-4">
-                <h2 className="font-display text-xl md:text-2xl uppercase">
+                <h2 className="font-display text-display-s md:text-display-m">
                   Festivales en {landing.display} {year}: guías de transporte y carpooling
                 </h2>
                 <p className="font-sans text-sm text-cr-text-muted max-w-2xl">
@@ -957,13 +957,13 @@ export default function CityLandingPage() {
                     >
                       <div>
                         <h3 className="font-display text-base uppercase">{f.shortName}</h3>
-                        <p className="font-mono text-[11px] text-cr-text-muted">{f.typicalDates}</p>
+                        <p className="font-sans text-[12px] text-cr-text-muted">{f.typicalDates}</p>
                       </div>
                       <p className="font-sans text-xs text-cr-text-muted leading-relaxed line-clamp-2">
                         {f.blurb.slice(0, 120)}…
                       </p>
                       <div className="flex items-center justify-between">
-                        <span className="font-mono text-[11px] text-cr-primary">
+                        <span className="font-sans text-[12px] text-cr-primary">
                           Desde {seatPrice(f.originCities[0]?.concertRideRange, false)}
                         </span>
                         <span className="inline-flex items-center gap-1 font-sans text-xs text-cr-primary">
@@ -997,10 +997,10 @@ export default function CityLandingPage() {
                       >
                         <div>
                           <h3 className="font-display text-base uppercase">{f.shortName}</h3>
-                          <p className="font-mono text-[11px] text-cr-text-muted">{f.city} · {f.typicalDates}</p>
+                          <p className="font-sans text-[12px] text-cr-text-muted">{f.city} · {f.typicalDates}</p>
                         </div>
                         {fromHere && (
-                          <div className="flex gap-3 font-mono text-[11px] text-cr-text-muted">
+                          <div className="flex gap-3 font-sans text-[12px] text-cr-text-muted">
                             <span>{fromHere.km} km</span>
                             <span>·</span>
                             <span>{fromHere.drivingTime}</span>
@@ -1028,8 +1028,8 @@ export default function CityLandingPage() {
         );
         if (routesFromCity.length === 0) return null;
         return (
-          <section className="max-w-6xl mx-auto px-6 pb-16 border-t border-cr-border pt-12 space-y-5">
-            <h2 className="font-display text-xl md:text-2xl uppercase">
+          <section className="max-w-6xl mx-auto px-6 pb-[var(--rhythm-2)] border-t border-cr-border pt-[var(--rhythm-1)] space-y-5">
+            <h2 className="font-display text-display-s md:text-display-m">
               Rutas de carpooling desde {landing.display} a festivales {year}
             </h2>
             <p className="font-sans text-sm text-cr-text-muted max-w-2xl">
@@ -1046,11 +1046,11 @@ export default function CityLandingPage() {
                     <h3 className="font-display text-sm uppercase leading-tight">
                       {landing.display} → {r.festival.shortName}
                     </h3>
-                    <span className="font-mono text-[11px] text-cr-primary shrink-0">
+                    <span className="font-sans text-[12px] text-cr-primary shrink-0">
                       {r.originData?.concertRideRange ?? "desde 5 €"}
                     </span>
                   </div>
-                  <div className="flex gap-3 font-mono text-[11px] text-cr-text-muted">
+                  <div className="flex gap-3 font-sans text-[12px] text-cr-text-muted">
                     {r.originData?.km && <span>{r.originData.km} km</span>}
                     {r.originData?.km && <span>·</span>}
                     {r.originData?.drivingTime && <span>{r.originData.drivingTime}</span>}
@@ -1062,7 +1062,7 @@ export default function CityLandingPage() {
               ))}
             </div>
             {routesFromCity.length > 9 && (
-              <p className="font-mono text-[11px] text-cr-text-dim">
+              <p className="font-sans text-[12px] text-cr-text-muted">
                 +{routesFromCity.length - 9} rutas más disponibles. <Link to="/rutas" className="text-cr-primary hover:underline">Ver todas las rutas →</Link>
               </p>
             )}
@@ -1072,8 +1072,8 @@ export default function CityLandingPage() {
 
       {/* ── FAQ — preguntas frecuentes sobre conciertos en la ciudad ── */}
       {cityFaqs.length > 0 && (
-        <section className="max-w-6xl mx-auto px-6 pb-16 border-t border-cr-border pt-12 space-y-6">
-          <h2 className="font-display text-2xl md:text-3xl uppercase">
+        <section className="max-w-6xl mx-auto px-6 pb-[var(--rhythm-2)] border-t border-cr-border pt-[var(--rhythm-1)] space-y-6">
+          <h2 className="font-display text-display-m">
             Preguntas frecuentes sobre conciertos y carpooling en {landing.display} {year}
           </h2>
           <dl className="space-y-6">
@@ -1097,8 +1097,8 @@ export default function CityLandingPage() {
         ).slice(0, 3);
         if (relatedPosts.length === 0) return null;
         return (
-          <section className="max-w-6xl mx-auto px-6 pb-16 border-t border-cr-border pt-12 space-y-5">
-            <h2 className="font-display text-xl md:text-2xl uppercase">
+          <section className="max-w-6xl mx-auto px-6 pb-[var(--rhythm-2)] border-t border-cr-border pt-[var(--rhythm-1)] space-y-5">
+            <h2 className="font-display text-display-s md:text-display-m">
               Guías de transporte desde {landing.display}
             </h2>
             <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
@@ -1108,7 +1108,7 @@ export default function CityLandingPage() {
                   to={`/blog/${post.slug}`}
                   className="border border-cr-border p-4 space-y-2 hover:border-cr-primary/40 transition-colors"
                 >
-                  <p className="font-mono text-[10px] uppercase tracking-[0.14em] text-cr-primary">Guía</p>
+                  <p className="font-sans text-[11px] uppercase tracking-[0.14em] text-cr-primary">Guía</p>
                   <h3 className="font-display text-sm uppercase leading-tight">{post.title}</h3>
                   <p className="font-sans text-xs text-cr-text-muted line-clamp-2">{post.excerpt}</p>
                   <span className="inline-flex items-center gap-1 font-sans text-xs text-cr-primary">
@@ -1122,7 +1122,7 @@ export default function CityLandingPage() {
       })()}
 
       {/* Internal link hub to other city landings — helps SEO crawl + user nav */}
-      <section className="max-w-6xl mx-auto px-6 pb-24 border-t border-cr-border pt-10">
+      <section className="max-w-6xl mx-auto px-6 pb-[var(--rhythm-3)] border-t border-cr-border pt-[var(--rhythm-1)]">
         <h2 className="font-display text-lg uppercase text-cr-text-muted mb-4">
           Otras ciudades
         </h2>
@@ -1143,11 +1143,11 @@ export default function CityLandingPage() {
       {/* Anon conversion CTA — visible only to non-logged-in users */}
       {!user && (
         <section
-          className="max-w-6xl mx-auto px-6 pb-16 border-t border-cr-border pt-10"
+          className="max-w-6xl mx-auto px-6 pb-[var(--rhythm-2)] border-t border-cr-border pt-[var(--rhythm-1)]"
           aria-label={`Encuentra carpooling para conciertos en ${landing.display}`}
         >
-          <div className="border border-[#dbff00]/30 bg-[#dbff00]/5 p-6 md:p-8 space-y-4 text-center">
-            <h2 className="font-display text-2xl md:text-3xl uppercase">
+          <div className="border border-cr-primary/30 bg-cr-primary/5 p-6 md:p-8 space-y-4 text-center">
+            <h2 className="font-display text-display-m">
               ¿Buscas transporte para tu próximo concierto en {landing.display}?
             </h2>
             <p className="font-sans text-sm text-cr-text-muted max-w-xl mx-auto leading-relaxed">
@@ -1157,13 +1157,13 @@ export default function CityLandingPage() {
             <div className="flex flex-wrap gap-3 justify-center pt-2">
               <Link
                 to="/concerts"
-                className="inline-flex items-center justify-center bg-[#dbff00] text-black font-sans font-semibold uppercase tracking-[0.12em] text-sm border-2 border-black px-6 py-3 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] hover:translate-x-[2px] hover:translate-y-[2px] transition-all duration-100"
+                className="inline-flex items-center justify-center bg-cr-primary text-black font-sans font-semibold uppercase tracking-[0.12em] text-sm border-2 border-black px-6 py-3 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] hover:translate-x-[2px] hover:translate-y-[2px] transition-all duration-100"
               >
                 Ver rutas disponibles
               </Link>
               <Link
                 to="/register"
-                className="inline-flex items-center justify-center font-sans font-semibold uppercase tracking-[0.12em] text-sm border-2 border-cr-border text-cr-text-muted px-6 py-3 hover:border-[#dbff00] hover:text-[#dbff00] transition-colors"
+                className="inline-flex items-center justify-center font-sans font-semibold uppercase tracking-[0.12em] text-sm border-2 border-cr-border text-cr-text-muted px-6 py-3 hover:border-cr-primary hover:text-cr-primary transition-colors"
               >
                 Crear cuenta gratis
               </Link>

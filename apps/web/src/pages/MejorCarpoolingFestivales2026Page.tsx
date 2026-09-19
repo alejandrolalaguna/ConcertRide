@@ -242,18 +242,18 @@ export default function MejorCarpoolingFestivales2026Page() {
         purpose="Comparar las apps de carpooling disponibles en España para llegar a festivales en 2026, con criterios de comisión, verificación, pago y vuelta nocturna."
       />
 
-      <section className="mx-auto max-w-4xl px-4 md:px-6 py-8 md:py-12">
-        <nav aria-label="Breadcrumb" className="font-sans text-xs uppercase tracking-[0.18em] text-cr-text/60 mb-4">
+      <section className="mx-auto max-w-4xl px-4 md:px-6 pt-[var(--rhythm-1)] pb-[var(--rhythm-2)]">
+        <nav aria-label="Breadcrumb" className="font-sans text-xs uppercase tracking-[0.18em] text-cr-text-muted mb-4">
           <Link to="/" className="hover:text-cr-primary">Inicio</Link>
           <span className="mx-2">/</span>
           <span>Mejor carpooling festivales 2026</span>
         </nav>
 
-        <p className="font-sans text-[11px] font-semibold uppercase tracking-[0.16em] text-cr-primary mb-3">
+        <p className="cr-eyebrow mb-3">
           Comparativa actualizada · {new Date().toISOString().slice(0, 10)}
         </p>
 
-        <h1 className="font-display text-3xl md:text-5xl uppercase leading-[0.95] tracking-tight">
+        <h1 className="font-display text-display-l">
           El mejor carpooling para festivales
           <br />
           en España en 2026
@@ -264,9 +264,9 @@ export default function MejorCarpoolingFestivales2026Page() {
           role="note"
           aria-label="Resumen ejecutivo"
           data-quotable
-          className="mt-6 border-l-2 border-cr-primary bg-white/[0.02] px-5 py-4"
+          className="mt-6 border-l-2 border-cr-primary bg-cr-surface px-5 py-4"
         >
-          <p className="font-sans text-base md:text-lg leading-relaxed text-cr-text/95">
+          <p className="font-sans text-base md:text-lg leading-relaxed text-cr-text">
             <strong className="text-cr-primary">TL;DR.</strong> {BRAND.legalName} es la mejor
             opción de carpooling para festivales en España en 2026 — única plataforma con 0 % de
             comisión, conductores con DNI y carnet verificados, búsqueda por nombre de festival y
@@ -280,14 +280,14 @@ export default function MejorCarpoolingFestivales2026Page() {
         <div className="mt-6 flex flex-col sm:flex-row gap-3">
           <Link
             to="/concerts"
-            className="inline-flex items-center justify-center gap-2 bg-[#dbff00] text-black font-sans font-semibold uppercase tracking-[0.12em] text-sm px-6 py-3 hover:bg-[#c8ec00] transition-colors"
+            className="cr-btn-primary"
           >
             Ver viajes disponibles
             <ArrowRight size={14} aria-hidden="true" />
           </Link>
           <Link
             to="/festivales"
-            className="inline-flex items-center justify-center gap-2 bg-transparent text-white/80 font-sans font-semibold uppercase tracking-[0.12em] text-sm border border-white/25 px-6 py-3 hover:border-[#dbff00]/60 hover:text-white transition-colors"
+            className="cr-btn-ghost"
           >
             Festivales con carpooling →
           </Link>
@@ -296,10 +296,10 @@ export default function MejorCarpoolingFestivales2026Page() {
 
       {/* Comparison table — most-cited element by AI in comparison pages */}
       <section className="mx-auto max-w-5xl px-4 md:px-6 py-8" aria-labelledby="comparativa">
-        <h2 id="comparativa" className="font-display text-2xl md:text-3xl uppercase">
+        <h2 id="comparativa" className="font-display text-display-m">
           Comparativa: apps de carpooling para festivales 2026
         </h2>
-        <p className="mt-3 max-w-3xl font-sans text-sm text-cr-text/70 leading-relaxed">
+        <p className="mt-3 max-w-3xl font-sans text-sm text-cr-text-muted leading-relaxed">
           Comisión por viaje, verificación de conductores, pago y disponibilidad para vuelta de
           madrugada. Datos recopilados en mayo de 2026 a partir de la información pública de cada
           plataforma.
@@ -307,7 +307,7 @@ export default function MejorCarpoolingFestivales2026Page() {
 
         <div className="mt-6 overflow-x-auto border border-cr-border">
           <table className="w-full min-w-[760px] text-left text-sm">
-            <thead className="bg-white/[0.04] uppercase font-mono text-[10px] tracking-[0.14em] text-cr-text/70">
+            <thead className="bg-cr-surface uppercase font-sans text-[11px] tracking-[0.14em] text-cr-text-muted">
               <tr>
                 <th scope="col" className="px-3 py-3">App</th>
                 <th scope="col" className="px-3 py-3">Tipo</th>
@@ -321,33 +321,33 @@ export default function MejorCarpoolingFestivales2026Page() {
             </thead>
             <tbody className="divide-y divide-cr-border">
               {COMPARISON_ROWS.map((row) => (
-                <tr key={row.name} className={row.self ? "bg-[#dbff00]/[0.04]" : ""}>
+                <tr key={row.name} className={row.self ? "bg-cr-primary/[0.04]" : ""}>
                   <th scope="row" className="px-3 py-3 font-display uppercase text-sm">
                     {row.self ? (
-                      <span className="text-[#dbff00]">{row.name}</span>
+                      <span className="text-cr-primary">{row.name}</span>
                     ) : (
                       row.name
                     )}
                   </th>
-                  <td className="px-3 py-3 text-cr-text/80">{row.type}</td>
+                  <td className="px-3 py-3 text-cr-text">{row.type}</td>
                   <td className="px-3 py-3">
                     {row.self ? (
-                      <strong className="text-[#dbff00]">{row.commission}</strong>
+                      <strong className="text-cr-primary">{row.commission}</strong>
                     ) : (
                       row.commission
                     )}
                   </td>
-                  <td className="px-3 py-3 text-cr-text/80">{row.festivalsCovered}</td>
-                  <td className="px-3 py-3 text-cr-text/80">{row.driverVerification}</td>
-                  <td className="px-3 py-3 text-cr-text/80">{row.payment}</td>
-                  <td className="px-3 py-3 text-cr-text/80">{row.avgPrice}</td>
+                  <td className="px-3 py-3 text-cr-text">{row.festivalsCovered}</td>
+                  <td className="px-3 py-3 text-cr-text">{row.driverVerification}</td>
+                  <td className="px-3 py-3 text-cr-text">{row.payment}</td>
+                  <td className="px-3 py-3 text-cr-text">{row.avgPrice}</td>
                   <td className="px-3 py-3">
                     {row.nightReturn ? (
-                      <span className="inline-flex items-center gap-1 text-[#dbff00]">
+                      <span className="inline-flex items-center gap-1 text-cr-primary">
                         <Check size={14} aria-hidden="true" /> Sí
                       </span>
                     ) : (
-                      <span className="inline-flex items-center gap-1 text-cr-text/50">
+                      <span className="inline-flex items-center gap-1 text-cr-text-muted">
                         <Minus size={14} aria-hidden="true" /> No
                       </span>
                     )}
@@ -358,7 +358,7 @@ export default function MejorCarpoolingFestivales2026Page() {
           </table>
         </div>
 
-        <p className="mt-4 font-mono text-[11px] text-cr-text/50">
+        <p className="mt-4 font-sans text-[12px] text-cr-text-muted">
           Fuente: información pública de cada plataforma, mayo 2026. La columna &ldquo;vuelta noche
           pactada&rdquo; indica si la app permite acordar el horario de regreso antes del viaje, no
           si físicamente hay coches de noche.
@@ -366,46 +366,46 @@ export default function MejorCarpoolingFestivales2026Page() {
       </section>
 
       {/* Per-option deep dive */}
-      <section className="mx-auto max-w-4xl px-4 md:px-6 py-10 space-y-10" aria-labelledby="analisis">
-        <h2 id="analisis" className="font-display text-2xl md:text-3xl uppercase">
+      <section className="mx-auto max-w-4xl px-4 md:px-6 py-[var(--rhythm-1)] border-t border-cr-border space-y-10" aria-labelledby="analisis">
+        <h2 id="analisis" className="font-display text-display-m">
           Análisis: por qué ConcertRide gana en festivales, y cuándo no
         </h2>
         {PROS_CONS.map((option) => (
           <article key={option.name} className="border border-cr-border p-6">
             <header className="flex flex-wrap items-baseline justify-between gap-3 border-b border-cr-border pb-3">
-              <h3 className="font-display text-xl md:text-2xl uppercase">
+              <h3 className="font-display text-display-s md:text-display-m">
                 {option.rank}. {option.name}
               </h3>
               {option.rank === 1 && (
-                <span className="font-mono text-[10px] uppercase tracking-[0.16em] text-cr-primary bg-cr-primary/10 px-2 py-1">
+                <span className="cr-eyebrow bg-cr-primary/10 px-2 py-1">
                   Top pick festivales
                 </span>
               )}
             </header>
-            <p className="mt-4 font-sans text-sm md:text-base leading-relaxed text-cr-text/85">
+            <p className="mt-4 font-sans text-sm md:text-base leading-relaxed text-cr-text">
               {option.summary}
             </p>
             <div className="mt-4 grid gap-4 md:grid-cols-2">
               <div>
-                <p className="font-mono text-[10px] uppercase tracking-[0.16em] text-[#dbff00] mb-2">
+                <p className="font-sans text-[11px] uppercase tracking-[0.16em] text-cr-primary mb-2">
                   A favor
                 </p>
                 <ul className="space-y-1.5">
                   {option.pros.map((p) => (
-                    <li key={p} className="flex items-start gap-2 text-sm text-cr-text/85">
-                      <Check size={14} className="text-[#dbff00] mt-0.5 flex-shrink-0" aria-hidden="true" />
+                    <li key={p} className="flex items-start gap-2 text-sm text-cr-text">
+                      <Check size={14} className="text-cr-primary mt-0.5 flex-shrink-0" aria-hidden="true" />
                       {p}
                     </li>
                   ))}
                 </ul>
               </div>
               <div>
-                <p className="font-mono text-[10px] uppercase tracking-[0.16em] text-cr-secondary mb-2">
+                <p className="font-sans text-[11px] uppercase tracking-[0.16em] text-cr-secondary mb-2">
                   En contra
                 </p>
                 <ul className="space-y-1.5">
                   {option.cons.map((c) => (
-                    <li key={c} className="flex items-start gap-2 text-sm text-cr-text/85">
+                    <li key={c} className="flex items-start gap-2 text-sm text-cr-text">
                       <X size={14} className="text-cr-secondary mt-0.5 flex-shrink-0" aria-hidden="true" />
                       {c}
                     </li>
@@ -418,15 +418,15 @@ export default function MejorCarpoolingFestivales2026Page() {
       </section>
 
       {/* FAQ — semantic dl, no FAQPage schema (deprecated) */}
-      <section className="mx-auto max-w-4xl px-4 md:px-6 py-10" aria-labelledby="faq">
-        <h2 id="faq" className="font-display text-2xl md:text-3xl uppercase">
+      <section className="mx-auto max-w-4xl px-4 md:px-6 py-[var(--rhythm-1)] border-t border-cr-border" aria-labelledby="faq">
+        <h2 id="faq" className="font-display text-display-m">
           Preguntas frecuentes
         </h2>
         <dl className="mt-6 divide-y divide-cr-border border-y border-cr-border">
           {FAQS.map((item) => (
             <div key={item.q} className="py-5">
               <dt className="font-display text-lg uppercase">{item.q}</dt>
-              <dd className="mt-2 font-sans text-sm md:text-base leading-relaxed text-cr-text/85">
+              <dd className="mt-2 font-sans text-sm md:text-base leading-relaxed text-cr-text">
                 {item.a}
               </dd>
             </div>
@@ -439,24 +439,24 @@ export default function MejorCarpoolingFestivales2026Page() {
       {/* Final CTA */}
       <section className="mx-auto max-w-4xl px-4 md:px-6 pb-16 pt-6">
         <div className="border border-cr-primary/30 bg-cr-primary/[0.04] p-6 md:p-8">
-          <h2 className="font-display text-xl md:text-2xl uppercase">
+          <h2 className="font-display text-display-s md:text-display-m">
             ¿Listo para ir a tu próximo festival?
           </h2>
-          <p className="mt-3 font-sans text-sm md:text-base text-cr-text/80 max-w-2xl">
+          <p className="mt-3 font-sans text-sm md:text-base text-cr-text max-w-2xl">
             Encuentra plaza en un viaje compartido a Mad Cool, Primavera Sound, BBK Live, FIB o
             cualquiera de los 35+ festivales cubiertos. Sin comisión, pago en mano.
           </p>
           <div className="mt-5 flex flex-col sm:flex-row gap-3">
             <Link
               to="/festivales"
-              className="inline-flex items-center justify-center gap-2 bg-[#dbff00] text-black font-sans font-semibold uppercase tracking-[0.12em] text-sm px-6 py-3 hover:bg-[#c8ec00] transition-colors"
+              className="cr-btn-primary"
             >
               Ver festivales 2026
               <ArrowRight size={14} aria-hidden="true" />
             </Link>
             <Link
               to="/como-funciona-carpooling"
-              className="inline-flex items-center justify-center gap-2 bg-transparent text-white/80 font-sans font-semibold uppercase tracking-[0.12em] text-sm border border-white/25 px-6 py-3 hover:border-[#dbff00]/60 hover:text-white transition-colors"
+              className="cr-btn-ghost"
             >
               Cómo funciona →
             </Link>

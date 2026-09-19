@@ -39,12 +39,12 @@ export function BofuDecisionBlock({ title, rows, intro }: BofuDecisionBlockProps
     >
       <h2
         id="bofu-decision-heading"
-        className="font-display text-xl md:text-2xl uppercase tracking-tight text-cr-text mb-3"
+        className="font-display text-display-s md:text-display-m tracking-tight text-cr-text mb-3"
       >
         {title}
       </h2>
       {intro && (
-        <p className="text-sm md:text-base text-cr-text/85 leading-relaxed mb-4">
+        <p className="text-sm md:text-base text-cr-text leading-relaxed mb-4">
           {intro}
         </p>
       )}
@@ -54,7 +54,7 @@ export function BofuDecisionBlock({ title, rows, intro }: BofuDecisionBlockProps
             <dt className="font-sans font-semibold text-cr-text text-sm md:text-base">
               {row.question}
             </dt>
-            <dd className="mt-1 text-sm md:text-base text-cr-text/90 leading-relaxed">
+            <dd className="mt-1 text-sm md:text-base text-cr-text leading-relaxed">
               {row.answer}
               {row.recommendation && (
                 <span className="block mt-1 text-cr-primary font-medium">

@@ -1,9 +1,12 @@
+import { useRef } from "react";
 import { Link } from "react-router-dom";
 import { ArrowRight, Car, Euro, MapPin, ShieldCheck, Users } from "lucide-react";
 import { useSeoMeta } from "@/lib/useSeoMeta";
 import { SITE_URL } from "@/lib/siteUrl";
 import { BRAND } from "@/lib/brandEntity";
 import { ContentProvenance } from "@/components/ContentProvenance";
+import { Register, RegisterRow, TicketSteps } from "@/components/system";
+import { useLevelAMotion } from "@/fx/useLevelAMotion";
 
 /**
  * Landing — /viaje-compartido
@@ -90,6 +93,8 @@ const FAQS = [
 ];
 
 export default function ViajeCompartidoPage() {
+  const mainRef = useRef<HTMLElement | null>(null);
+  useLevelAMotion(mainRef);
   useSeoMeta({
     title: "Viaje compartido en coche · ConcertRide — Festivales y conciertos sin comisión",
     description:
@@ -141,7 +146,7 @@ export default function ViajeCompartidoPage() {
   };
 
   return (
-    <main id="main" className="min-h-dvh bg-cr-bg text-cr-text pt-14">
+    <main id="main" ref={mainRef} className="min-h-dvh bg-cr-bg text-cr-text pt-14">
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(howToSchema) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(articleSchema) }} />
@@ -156,20 +161,20 @@ export default function ViajeCompartidoPage() {
         purpose="Explicar qué es un viaje compartido en coche, cuánto cuesta y cómo funciona dentro de ConcertRide para llegar a festivales y conciertos en España."
       />
 
-      <section className="mx-auto max-w-4xl px-4 md:px-6 py-8 md:py-12">
-        <nav aria-label="Breadcrumb" className="font-sans text-xs uppercase tracking-[0.18em] text-cr-text/60 mb-4">
+      <section className="mx-auto max-w-4xl px-4 md:px-6 pt-[var(--rhythm-1)] pb-[var(--rhythm-2)]">
+        <nav aria-label="Breadcrumb" className="font-sans text-xs uppercase tracking-[0.18em] text-cr-text-muted mb-4">
           <Link to="/" className="hover:text-cr-primary">Inicio</Link>
           <span className="mx-2">/</span>
           <span>Viaje compartido</span>
         </nav>
 
-        <h1 className="font-display text-3xl md:text-5xl uppercase leading-[0.95] tracking-tight">
+        <h1 className="font-display text-display-l" data-scan="entrance">
           Viaje compartido en coche
           <br />
-          <span className="text-[#dbff00]">para festivales y conciertos</span>
+          <span className="text-cr-primary">para festivales y conciertos</span>
         </h1>
 
-        <p data-quotable className="mt-5 max-w-3xl font-sans text-base md:text-lg leading-relaxed text-cr-text/90">
+        <p data-quotable className="mt-5 max-w-3xl font-sans text-base md:text-lg leading-relaxed text-cr-text">
           Un viaje compartido es un trayecto en coche en el que conductor y pasajeros van al mismo
           destino y reparten los gastos de gasolina y peajes. En {BRAND.legalName} está orientado a
           conciertos y festivales: el conductor también va al evento, así que el horario y la vuelta
@@ -179,14 +184,14 @@ export default function ViajeCompartidoPage() {
         <div className="mt-6 flex flex-col sm:flex-row gap-3">
           <Link
             to="/concerts"
-            className="inline-flex items-center justify-center gap-2 bg-[#dbff00] text-black font-sans font-semibold uppercase tracking-[0.12em] text-sm px-6 py-3 hover:bg-[#c8ec00] transition-colors"
+            className="cr-btn-primary"
           >
             Buscar viajes
             <ArrowRight size={14} aria-hidden="true" />
           </Link>
           <Link
             to="/publish"
-            className="inline-flex items-center justify-center gap-2 bg-transparent text-white/80 font-sans font-semibold uppercase tracking-[0.12em] text-sm border border-white/25 px-6 py-3 hover:border-[#dbff00]/60 hover:text-white transition-colors"
+            className="cr-btn-ghost"
           >
             Publicar mi coche →
           </Link>
@@ -194,32 +199,30 @@ export default function ViajeCompartidoPage() {
       </section>
 
       {/* Use cases */}
-      <section className="mx-auto max-w-5xl px-4 md:px-6 py-10" aria-labelledby="casos-uso">
-        <h2 id="casos-uso" className="font-display text-2xl md:text-3xl uppercase">
+      <section className="mx-auto max-w-5xl px-4 md:px-6 py-[var(--rhythm-1)] border-t border-cr-border" aria-labelledby="casos-uso">
+        <h2 id="casos-uso" className="font-display text-display-m">
           Cuándo tiene sentido un viaje compartido
         </h2>
-        <div className="mt-6 grid gap-4 md:grid-cols-3">
-          {USE_CASES.map(({ icon: Icon, title, body }) => (
-            <article key={title} className="border border-cr-border p-5">
-              <Icon size={20} className="text-cr-primary" aria-hidden="true" />
-              <h3 className="mt-3 font-display text-lg uppercase">{title}</h3>
-              <p className="mt-2 font-sans text-sm text-cr-text/80 leading-relaxed">{body}</p>
-            </article>
+        <Register as="ol" className="mt-8">
+          {USE_CASES.map(({ title, body }, i) => (
+            <li key={title}>
+              <RegisterRow n={String(i + 1).padStart(2, "0")} title={title} description={body} scan="light" />
+            </li>
           ))}
-        </div>
+        </Register>
       </section>
 
       {/* Differentiation block */}
-      <section className="mx-auto max-w-4xl px-4 md:px-6 py-10" aria-labelledby="diferencia">
-        <h2 id="diferencia" className="font-display text-2xl md:text-3xl uppercase">
+      <section className="mx-auto max-w-4xl px-4 md:px-6 py-[var(--rhythm-1)] border-t border-cr-border" aria-labelledby="diferencia">
+        <h2 id="diferencia" className="font-display text-display-m">
           En qué se diferencia de las apps de carpooling generalistas
         </h2>
         <div className="mt-6 grid gap-4 md:grid-cols-2">
           <div className="border border-cr-primary/30 bg-cr-primary/[0.04] p-5">
-            <p className="font-mono text-[10px] uppercase tracking-[0.16em] text-cr-primary mb-2">
+            <p className="cr-eyebrow mb-2">
               ConcertRide
             </p>
-            <ul className="space-y-2 text-sm text-cr-text/90">
+            <ul className="space-y-2 text-sm text-cr-text">
               <li className="flex items-start gap-2"><Euro size={14} className="text-cr-primary mt-0.5 flex-shrink-0" aria-hidden="true" /> 0 % comisión sobre el viaje</li>
               <li className="flex items-start gap-2"><MapPin size={14} className="text-cr-primary mt-0.5 flex-shrink-0" aria-hidden="true" /> Búsqueda por nombre de festival o concierto</li>
               <li className="flex items-start gap-2"><ShieldCheck size={14} className="text-cr-primary mt-0.5 flex-shrink-0" aria-hidden="true" /> Conductores con DNI + carnet verificado</li>
@@ -228,10 +231,10 @@ export default function ViajeCompartidoPage() {
             </ul>
           </div>
           <div className="border border-cr-border p-5">
-            <p className="font-mono text-[10px] uppercase tracking-[0.16em] text-cr-text/60 mb-2">
+            <p className="font-sans text-[11px] uppercase tracking-[0.16em] text-cr-text-muted mb-2">
               Plataformas de carpooling generalistas
             </p>
-            <ul className="space-y-2 text-sm text-cr-text/70">
+            <ul className="space-y-2 text-sm text-cr-text-muted">
               <li>· Comisión 10–18 % sobre cada plaza</li>
               <li>· Búsqueda por origen–destino, sin filtro por evento</li>
               <li>· Verificación parcial del conductor</li>
@@ -243,31 +246,30 @@ export default function ViajeCompartidoPage() {
       </section>
 
       {/* How it works */}
-      <section className="mx-auto max-w-4xl px-4 md:px-6 py-10" aria-labelledby="como">
-        <h2 id="como" className="font-display text-2xl md:text-3xl uppercase">
+      <section className="mx-auto max-w-4xl px-4 md:px-6 py-[var(--rhythm-1)] border-t border-cr-border" aria-labelledby="como">
+        <h2 id="como" className="font-display text-display-m">
           Cómo reservar tu viaje compartido en 3 pasos
         </h2>
-        <ol className="mt-6 space-y-4">
-          {HOW_IT_WORKS.map((step) => (
-            <li key={step.n} className="flex items-start gap-4 border border-cr-border p-5">
-              <span className="font-display text-3xl text-cr-primary flex-shrink-0">{step.n}</span>
-              <div>
-                <h3 className="font-display text-lg uppercase">{step.title}</h3>
-                <p className="mt-1 font-sans text-sm md:text-base text-cr-text/85 leading-relaxed">{step.body}</p>
-              </div>
-            </li>
-          ))}
-        </ol>
+        <TicketSteps
+          className="mt-8"
+          steps={HOW_IT_WORKS.map((step, i) => ({
+            n: step.n,
+            title: step.title,
+            body: step.body,
+            fills: (["to", "from", "price", "when", "seat"] as const).slice(i === 0 ? 0 : i === 1 ? 1 : 3, i === 0 ? 1 : i === 1 ? 3 : 5),
+          }))}
+          fields={{ from: "Zaragoza", to: "Cruïlla · Barcelona", when: "Jue 9 jul · 17:00", price: "12 €/asiento", seat: "1 de 3" }}
+        />
       </section>
 
       {/* FAQ */}
-      <section className="mx-auto max-w-4xl px-4 md:px-6 py-10" aria-labelledby="faq">
-        <h2 id="faq" className="font-display text-2xl md:text-3xl uppercase">Preguntas frecuentes sobre el viaje compartido</h2>
+      <section className="mx-auto max-w-4xl px-4 md:px-6 py-[var(--rhythm-1)] border-t border-cr-border" aria-labelledby="faq">
+        <h2 id="faq" className="font-display text-display-m">Preguntas frecuentes sobre el viaje compartido</h2>
         <dl className="mt-6 divide-y divide-cr-border border-y border-cr-border">
           {FAQS.map((item) => (
             <div key={item.q} className="py-5">
               <dt className="font-display text-lg uppercase">{item.q}</dt>
-              <dd className="mt-2 font-sans text-sm md:text-base leading-relaxed text-cr-text/85">{item.a}</dd>
+              <dd className="mt-2 font-sans text-sm md:text-base leading-relaxed text-cr-text">{item.a}</dd>
             </div>
           ))}
         </dl>
@@ -275,30 +277,30 @@ export default function ViajeCompartidoPage() {
 
       {/* Related */}
       <section className="mx-auto max-w-4xl px-4 md:px-6 pb-16">
-        <h2 className="font-display text-xl md:text-2xl uppercase">Más sobre carpooling para festivales</h2>
+        <h2 className="font-display text-display-s md:text-display-m">Más sobre carpooling para festivales</h2>
         <ul className="mt-4 grid gap-3 md:grid-cols-2">
           <li>
             <Link to="/mejor-carpooling-festivales-2026" className="block border border-cr-border p-4 hover:border-cr-primary/60 transition-colors">
               <p className="font-display text-sm uppercase">Mejor carpooling festivales 2026 →</p>
-              <p className="mt-1 text-xs text-cr-text/60">Comparativa de las apps de carpooling disponibles para festivales en España.</p>
+              <p className="mt-1 text-xs text-cr-text-muted">Comparativa de las apps de carpooling disponibles para festivales en España.</p>
             </Link>
           </li>
           <li>
             <Link to="/alternativas-carpooling-festivales" className="block border border-cr-border p-4 hover:border-cr-primary/60 transition-colors">
               <p className="font-display text-sm uppercase">Alternativas de transporte →</p>
-              <p className="mt-1 text-xs text-cr-text/60">Carpooling vs AVE vs autobús vs taxi con precios reales por origen.</p>
+              <p className="mt-1 text-xs text-cr-text-muted">Carpooling vs AVE vs autobús vs taxi con precios reales por origen.</p>
             </Link>
           </li>
           <li>
             <Link to="/como-funciona-carpooling" className="block border border-cr-border p-4 hover:border-cr-primary/60 transition-colors">
               <p className="font-display text-sm uppercase">Cómo funciona ConcertRide →</p>
-              <p className="mt-1 text-xs text-cr-text/60">Guía completa del proceso: reservar, publicar y pagar.</p>
+              <p className="mt-1 text-xs text-cr-text-muted">Guía completa del proceso: reservar, publicar y pagar.</p>
             </Link>
           </li>
           <li>
             <Link to="/festivales" className="block border border-cr-border p-4 hover:border-cr-primary/60 transition-colors">
               <p className="font-display text-sm uppercase">Festivales 2026 →</p>
-              <p className="mt-1 text-xs text-cr-text/60">Listado de festivales en España con carpooling disponible.</p>
+              <p className="mt-1 text-xs text-cr-text-muted">Listado de festivales en España con carpooling disponible.</p>
             </Link>
           </li>
         </ul>

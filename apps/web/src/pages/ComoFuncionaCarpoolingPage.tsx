@@ -1,8 +1,11 @@
+import { useRef } from "react";
 import { Link } from "react-router-dom";
 import { ArrowRight, Car, CreditCard, ShieldCheck, Users } from "lucide-react";
 import { useSeoMeta } from "@/lib/useSeoMeta";
 import { SITE_URL } from "@/lib/siteUrl";
 import { TerminologyAside } from "@/components/TerminologyAside";
+import { Register, RegisterRow, TicketSteps } from "@/components/system";
+import { useLevelAMotion } from "@/fx/useLevelAMotion";
 
 const PASSENGER_STEPS = [
   {
@@ -25,6 +28,14 @@ const PASSENGER_STEPS = [
     body:
       "El día del evento te encuentras con el conductor, pagas en efectivo o Bizum y compartes el viaje hasta el recinto. A la vuelta, el horario se coordina entre todos para evitar colas, taxis caros o depender del último metro.",
   },
+];
+
+// Qué campo del ticket completa cada paso del pasajero (índice = paso).
+const PASSENGER_FILLS: Array<Array<"from" | "to" | "when" | "price" | "seat">> = [
+  ["to"],
+  ["from", "price"],
+  ["seat"],
+  ["when"],
 ];
 
 const DRIVER_STEPS = [
@@ -86,6 +97,8 @@ const FAQS = [
 ];
 
 export default function ComoFuncionaCarpoolingPage() {
+  const mainRef = useRef<HTMLElement | null>(null);
+  useLevelAMotion(mainRef);
   useSeoMeta({
     title: "¿Qué es el carpooling para conciertos? · ConcertRide",
     description:
@@ -170,7 +183,7 @@ export default function ComoFuncionaCarpoolingPage() {
   };
 
   return (
-    <main id="main" className="min-h-dvh bg-cr-bg text-cr-text pt-14">
+    <main id="main" ref={mainRef} className="min-h-dvh bg-cr-bg text-cr-text pt-14">
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdBreadcrumb) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdHowToPassenger) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdHowToDriver) }} />
@@ -179,8 +192,8 @@ export default function ComoFuncionaCarpoolingPage() {
 
       <div className="max-w-4xl mx-auto px-6 py-12 md:py-16 space-y-16">
         <header className="space-y-4 border-b border-cr-border pb-8">
-          <p className="font-sans text-[11px] font-semibold uppercase tracking-[0.16em] text-cr-primary">Guía</p>
-          <h1 className="font-display text-4xl md:text-6xl uppercase leading-[0.92]">
+          <p className="cr-eyebrow">Guía</p>
+          <h1 className="font-display text-display-l" data-scan="entrance">
             Cómo funciona el carpooling para festivales y conciertos
           </h1>
           <p className="intro-summary font-sans text-base text-cr-text-muted max-w-3xl leading-relaxed speakable">
@@ -194,45 +207,40 @@ export default function ComoFuncionaCarpoolingPage() {
         <section className="space-y-8">
           <div className="flex items-center gap-3">
             <Users size={22} className="text-cr-primary" aria-hidden="true" />
-            <h2 className="font-display text-2xl md:text-3xl uppercase">Cómo funciona</h2>
+            <h2 className="font-display text-display-m">Cómo funciona</h2>
           </div>
-          <div className="grid gap-4">
-            {PASSENGER_STEPS.map((step, index) => (
-              <article key={step.title} id={`pasajero-${index + 1}`} className="border border-cr-border p-5 space-y-2">
-                <p className="font-mono text-[10px] uppercase tracking-[0.14em] text-cr-primary">Paso {index + 1}</p>
-                <h3 className="font-display text-xl uppercase">{step.title}</h3>
-                <p className="font-sans text-sm text-cr-text-muted leading-relaxed">{step.body}</p>
-              </article>
-            ))}
-          </div>
+          {/* El ticket se rellena solo: cada paso completa un campo del boarding pass */}
+          <TicketSteps
+            ticketLabel="ConcertRide · Boarding pass · pasajero"
+            steps={PASSENGER_STEPS.map((step, index) => ({
+              n: String(index + 1).padStart(2, "0"),
+              id: `pasajero-${index + 1}`,
+              title: step.title,
+              body: step.body,
+              fills: PASSENGER_FILLS[index] ?? [],
+            }))}
+            fields={{ from: "Valencia", to: "Mad Cool · Madrid", when: "Jue 9 jul · 15:30", price: "10 €/asiento", seat: "1 de 3" }}
+          />
         </section>
 
         <section className="space-y-8 border-t border-cr-border pt-12">
           <div className="flex items-center gap-3">
             <Car size={22} className="text-cr-secondary" aria-hidden="true" />
-            <h2 className="font-display text-2xl md:text-3xl uppercase">Si tienes coche, también puedes publicar</h2>
+            <h2 className="font-display text-display-m">Si tienes coche, también puedes publicar</h2>
           </div>
-          <div className="grid gap-4">
+          <Register as="ol">
             {DRIVER_STEPS.map((step, index) => (
-              <article key={step.title} id={`conductor-${index + 1}`} className="border border-cr-border p-5 space-y-2">
-                <p className="font-mono text-[10px] uppercase tracking-[0.14em] text-cr-secondary">Conductor {index + 1}</p>
-                <h3 className="font-display text-xl uppercase">{step.title}</h3>
-                <p className="font-sans text-sm text-cr-text-muted leading-relaxed">{step.body}</p>
-              </article>
+              <li key={step.title} id={`conductor-${index + 1}`}>
+                <RegisterRow n={String(index + 1).padStart(2, "0")} title={step.title} description={step.body} scan="light" />
+              </li>
             ))}
-          </div>
-          <div className="flex flex-wrap gap-3 pt-2">
-            <Link
-              to="/concerts"
-              className="inline-flex items-center gap-2 font-sans text-xs font-semibold uppercase tracking-[0.12em] border-2 border-cr-primary text-cr-primary px-4 py-2 hover:bg-cr-primary hover:text-black transition-colors"
-            >
-              Buscar viaje <ArrowRight size={12} />
+          </Register>
+          <div className="flex flex-wrap items-center gap-4 pt-2">
+            <Link to="/publish" className="cr-btn-primary cr-btn-shine group">
+              Publicar viaje <ArrowRight size={14} className="transition-transform group-hover:translate-x-1" aria-hidden="true" />
             </Link>
-            <Link
-              to="/publish"
-              className="inline-flex items-center gap-2 font-sans text-xs font-semibold uppercase tracking-[0.12em] border-2 border-cr-border text-cr-text-muted px-4 py-2 hover:border-cr-primary hover:text-cr-primary transition-colors"
-            >
-              Publicar viaje <ArrowRight size={12} />
+            <Link to="/concerts" className="cr-link cr-label text-cr-text-muted hover:text-cr-text">
+              Buscar viaje
             </Link>
           </div>
         </section>
@@ -240,7 +248,7 @@ export default function ComoFuncionaCarpoolingPage() {
         <section className="space-y-8 border-t border-cr-border pt-12">
           <div className="flex items-center gap-3">
             <ShieldCheck size={22} className="text-cr-primary" aria-hidden="true" />
-            <h2 className="font-display text-2xl md:text-3xl uppercase">Preguntas frecuentes</h2>
+            <h2 className="font-display text-display-m">Preguntas frecuentes</h2>
           </div>
           <dl className="space-y-5">
             {FAQS.map((faq) => (
@@ -255,7 +263,7 @@ export default function ComoFuncionaCarpoolingPage() {
         <section className="space-y-4 border-t border-cr-border pt-12">
           <div className="flex items-center gap-3">
             <CreditCard size={22} className="text-cr-primary" aria-hidden="true" />
-            <h2 className="font-display text-2xl md:text-3xl uppercase">Lo esencial en una frase</h2>
+            <h2 className="font-display text-display-m">Lo esencial en una frase</h2>
           </div>
           <p className="font-sans text-sm text-cr-text-muted max-w-3xl leading-relaxed">
             El carpooling para conciertos es una forma de viajar al mismo evento con otras personas, pagar solo lo justo por gasolina y peajes, y volver sin depender de taxis caros ni del último transporte público.

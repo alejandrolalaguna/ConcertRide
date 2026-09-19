@@ -143,9 +143,9 @@ export function AiContentNotice({
       role="note"
       aria-label="Aviso sobre uso de IA"
       data-ai-content-notice
-      className="my-4 text-xs text-cr-text/65 border border-cr-text/10 px-3 py-2"
+      className="my-4 text-xs text-cr-text-muted border border-cr-text/10 px-3 py-2"
     >
-      <span className="font-display uppercase tracking-[0.15em] text-cr-text/80 mr-2">
+      <span className="font-display uppercase tracking-[0.15em] text-cr-text mr-2">
         Cómo se hizo:
       </span>
       {base}

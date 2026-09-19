@@ -155,6 +155,40 @@ export function armScan(root: ParentNode, { gsap, ScrollTrigger }: GsapBundle): 
       });
     });
 
+    // ── El ticket se rellena solo ───────────────────────────────────────
+    // Cada paso enciende (is-on) y añade sus campos al ticket. Sin JS el
+    // ticket está completo; al armar, se vacían los campos y se van
+    // rellenando con el scroll. Nunca se vacía lo ya rellenado al subir.
+    root.querySelectorAll<HTMLElement>('[data-scan="ticket"]').forEach((block) => {
+      if (block.hasAttribute(ARMED)) return;
+      block.setAttribute(ARMED, "1");
+      const ticket = block.querySelector<HTMLElement>("[data-ticket]");
+      const steps = Array.from(block.querySelectorAll<HTMLElement>("[data-step]"));
+      if (!ticket || !steps.length) return;
+      ticket.setAttribute("data-ticket-armed", "1");
+      const fields = Array.from(ticket.querySelectorAll<HTMLElement>("[data-field]"));
+      const fill = (upTo: number) => {
+        const keys = new Set<string>();
+        steps.slice(0, upTo + 1).forEach((s) => (s.dataset.stepFills ?? "").split(/\s+/).filter(Boolean).forEach((k) => keys.add(k)));
+        fields.forEach((f) => f.classList.toggle("is-filled", keys.has(f.dataset.field ?? "")));
+      };
+      let maxReached = -1;
+      steps.forEach((step, i) => {
+        step.classList.add("cr-light");
+        ScrollTrigger.create({
+          trigger: step,
+          start: "top 65%",
+          end: "bottom 35%",
+          toggleClass: { targets: step, className: "is-on" },
+          onEnter: () => {
+            maxReached = Math.max(maxReached, i);
+            fill(maxReached);
+          },
+        });
+      });
+      fill(maxReached);
+    });
+
     // ── Raíl de avance ──────────────────────────────────────────────────
     root.querySelectorAll<HTMLElement>("[data-rail-stage]").forEach((stage) => {
       const fill = stage.querySelector<HTMLElement>("[data-rail-fill]");

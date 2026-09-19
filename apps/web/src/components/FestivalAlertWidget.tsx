@@ -107,7 +107,7 @@ export function FestivalAlertWidget({ festivalSlug, festivalName }: Props) {
           value={email}
           onChange={(e) => setEmail(e.target.value)}
           placeholder="tu@email.com"
-          className="flex-1 min-w-0 bg-cr-bg border border-cr-border px-3 py-2 font-mono text-xs text-cr-text placeholder:text-cr-text-dim focus:outline-none focus:border-cr-primary/60 transition-colors"
+          className="flex-1 min-w-0 bg-cr-bg border border-cr-border px-3 py-2 font-sans text-xs text-cr-text placeholder:text-cr-text-dim focus:outline-none focus:border-cr-primary/60 transition-colors"
           disabled={state === "loading"}
         />
         <button
@@ -120,12 +120,12 @@ export function FestivalAlertWidget({ festivalSlug, festivalName }: Props) {
       </form>
 
       {state === "error" && (
-        <p className="font-mono text-[11px] text-cr-secondary">
+        <p className="font-sans text-[12px] text-cr-secondary">
           {isEn ? "Error saving. Please try again." : "Error al guardar. Inténtalo de nuevo."}
         </p>
       )}
 
-      <p className="font-mono text-[10px] text-cr-text-dim leading-relaxed">
+      <p className="font-sans text-[11px] text-cr-text-dim leading-relaxed">
         {isEn
           ? "By subscribing you agree to receive an email from ConcertRide. You can unsubscribe at any time."
           : "Al suscribirte aceptas recibir un email de ConcertRide. Puedes cancelar en cualquier momento."}{" "}

@@ -26,7 +26,7 @@ export function TLDRBlock({ answer, highlights }: TLDRBlockProps) {
 
   return (
     <aside
-      className="my-6 rounded-sm border-l-4 border-cr-primary bg-cr-primary/[0.04] p-4 sm:p-5"
+      className="my-6 rounded-[2px] border-l-4 border-cr-primary bg-cr-primary/[0.04] p-4 sm:p-5"
       role="complementary"
       aria-label="Resumen rápido"
     >
@@ -39,7 +39,7 @@ export function TLDRBlock({ answer, highlights }: TLDRBlockProps) {
             {answer}
           </p>
           {highlights && highlights.length > 0 && (
-            <ul className="mt-2 space-y-1 text-sm text-cr-text/80">
+            <ul className="mt-2 space-y-1 text-sm text-cr-text">
               {highlights.map((h, i) => (
                 <li key={i} className="flex gap-2 leading-relaxed">
                   <span className="text-cr-primary shrink-0">→</span>

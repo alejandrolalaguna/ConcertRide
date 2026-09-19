@@ -137,17 +137,17 @@ export default function BlogIndexPage() {
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdBreadcrumb) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdFaq) }} />
 
-      <div className="max-w-6xl mx-auto px-6 pt-10 pb-6 space-y-4">
-        <nav aria-label="Breadcrumb" className="font-mono text-[11px] text-cr-text-muted flex items-center gap-2">
+      <div className="max-w-6xl mx-auto px-6 pt-[var(--rhythm-1)] pb-[var(--rhythm-1)] space-y-5">
+        <nav aria-label="Breadcrumb" className="font-sans text-[12px] text-cr-text-muted flex items-center gap-2">
           <Link to="/" className="hover:text-cr-primary">Inicio</Link>
           <span aria-hidden="true">/</span>
           <span className="text-cr-text-muted">Blog</span>
         </nav>
 
-        <p className="font-sans text-[11px] font-semibold uppercase tracking-[0.16em] text-cr-primary">
+        <p className="cr-eyebrow">
           Blog
         </p>
-        <h1 className="font-display text-4xl md:text-6xl uppercase leading-[0.92]">
+        <h1 className="font-display text-display-l">
           Carpooling festivales<br />España 2026:<br />guías y comparativas.
         </h1>
         <p className="font-sans text-sm md:text-base text-cr-text-muted max-w-2xl leading-relaxed speakable">
@@ -157,7 +157,7 @@ export default function BlogIndexPage() {
         </p>
       </div>
 
-      <section className="max-w-6xl mx-auto px-6 pb-16 border-t border-cr-border pt-12 space-y-6">
+      <section className="max-w-6xl mx-auto px-6 pb-[var(--rhythm-2)] border-t border-cr-border pt-[var(--rhythm-1)] space-y-6">
         <div className="space-y-4">
           <div className="relative">
             <input
@@ -198,7 +198,7 @@ export default function BlogIndexPage() {
                 newParams.delete("category");
                 setSearchParams(newParams);
               }}
-              className={`inline-flex items-center gap-1.5 font-mono text-[11px] px-3 py-1.5 transition-colors ${
+              className={`inline-flex items-center gap-1.5 font-sans text-[12px] px-3 py-1.5 transition-colors ${
                 !selectedCategory
                   ? "border border-cr-primary bg-cr-primary/10 text-cr-primary"
                   : "border border-cr-border text-cr-text-muted hover:border-cr-primary/40"
@@ -222,7 +222,7 @@ export default function BlogIndexPage() {
                     }
                     setSearchParams(newParams);
                   }}
-                  className={`inline-flex items-center gap-1.5 font-mono text-[11px] px-3 py-1.5 transition-colors ${
+                  className={`inline-flex items-center gap-1.5 font-sans text-[12px] px-3 py-1.5 transition-colors ${
                     isSelected
                       ? "border border-cr-primary bg-cr-primary/10 text-cr-primary"
                       : "border border-cr-border text-cr-text-muted hover:border-cr-primary/40"
@@ -239,7 +239,7 @@ export default function BlogIndexPage() {
           {sorted.map((post) => (
             <li key={post.slug}>
               <article className="border border-cr-border p-6 hover:border-cr-primary/50 transition-colors group">
-                <div className="flex flex-wrap items-center gap-3 mb-4 font-mono text-[11px] text-cr-text-muted">
+                <div className="flex flex-wrap items-center gap-3 mb-4 font-sans text-[12px] text-cr-text-muted">
                   <span className="text-cr-primary uppercase tracking-[0.12em]">
                     {BLOG_CATEGORIES.find((c) => c.slug === post.category)?.label ?? post.category}
                   </span>
@@ -259,7 +259,7 @@ export default function BlogIndexPage() {
                   </span>
                 </div>
 
-                <h2 className="font-display text-2xl md:text-3xl uppercase leading-tight mb-3">
+                <h2 className="font-display text-display-m mb-3">
                   <Link to={`/blog/${post.slug}`} className="hover:text-cr-primary transition-colors">
                     {post.title}
                   </Link>
@@ -281,7 +281,7 @@ export default function BlogIndexPage() {
         </ol>
       </section>
 
-      <section className="max-w-6xl mx-auto px-6 pb-24 border-t border-cr-border pt-10">
+      <section className="max-w-6xl mx-auto px-6 pb-[var(--rhythm-3)] border-t border-cr-border pt-[var(--rhythm-1)]">
         <h2 className="font-display text-lg uppercase text-cr-text-muted mb-4">
           Explora también
         </h2>

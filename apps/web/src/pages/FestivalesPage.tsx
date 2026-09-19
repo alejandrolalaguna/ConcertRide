@@ -119,18 +119,18 @@ export default function FestivalesPage() {
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdItemList) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdFaq) }} />
       {/* ── Hero ── */}
-      <div className="max-w-6xl mx-auto px-6 pt-10 pb-6 space-y-4">
-        <nav aria-label="Breadcrumb" className="font-mono text-[11px] text-cr-text-muted flex items-center gap-2">
+      <div className="max-w-6xl mx-auto px-6 pt-[var(--rhythm-1)] pb-[var(--rhythm-1)] space-y-5">
+        <nav aria-label="Breadcrumb" className="font-sans text-[12px] text-cr-text-muted flex items-center gap-2">
           <Link to="/" className="hover:text-cr-primary">Inicio</Link>
           <span aria-hidden="true">/</span>
           <span className="text-cr-text-muted">Festivales</span>
         </nav>
 
-        <p className="font-sans text-[11px] font-semibold uppercase tracking-[0.16em] text-cr-primary">
+        <p className="cr-eyebrow">
           Temporada {year}
         </p>
 
-        <h1 className="font-display text-4xl md:text-6xl uppercase leading-[0.92]">
+        <h1 className="font-display text-display-l">
           Carpooling festivales<br />España {year}.
         </h1>
 
@@ -160,8 +160,8 @@ export default function FestivalesPage() {
       </div>
 
       {/* ── Festivales destacados ── */}
-      <section className="max-w-6xl mx-auto px-6 pb-16 border-t border-cr-border pt-12">
-        <h2 className="font-display text-2xl md:text-3xl uppercase mb-2">
+      <section className="max-w-6xl mx-auto px-6 pb-[var(--rhythm-2)] border-t border-cr-border pt-[var(--rhythm-1)]">
+        <h2 className="font-display text-display-m mb-2">
           Festivales principales
         </h2>
         <p className="font-sans text-sm text-cr-text-muted mb-8 max-w-xl">
@@ -183,7 +183,7 @@ export default function FestivalesPage() {
                   {f.shortName}
                 </h3>
               </div>
-              <div className="flex flex-col gap-1.5 font-mono text-[11px] text-cr-text-muted">
+              <div className="flex flex-col gap-1.5 font-sans text-[12px] text-cr-text-muted">
                 <span className="inline-flex items-center gap-1.5">
                   <MapPin size={10} /> {f.venue} · {f.city}
                 </span>
@@ -194,7 +194,7 @@ export default function FestivalesPage() {
               <p className="font-sans text-[11px] text-cr-text-muted leading-snug line-clamp-2">
                 {f.blurb.slice(0, 120)}…
               </p>
-              <p className="font-mono text-[11px] text-cr-primary font-semibold">
+              <p className="font-sans text-[12px] text-cr-primary font-semibold">
                 Desde {f.originCities[0]?.concertRideRange ?? "3 €/asiento"} →
               </p>
             </Link>
@@ -203,8 +203,8 @@ export default function FestivalesPage() {
       </section>
 
       {/* ── Resto de festivales ── */}
-      <section className="max-w-6xl mx-auto px-6 pb-16 border-t border-cr-border pt-12">
-        <h2 className="font-display text-2xl md:text-3xl uppercase mb-2">
+      <section className="max-w-6xl mx-auto px-6 pb-[var(--rhythm-2)] border-t border-cr-border pt-[var(--rhythm-1)]">
+        <h2 className="font-display text-display-m mb-2">
           Más festivales en ConcertRide
         </h2>
         <p className="font-sans text-sm text-cr-text-muted mb-8 max-w-xl">
@@ -222,11 +222,11 @@ export default function FestivalesPage() {
                 <h3 className="font-display text-base uppercase truncate group-hover:text-cr-primary transition-colors">
                   {f.shortName}
                 </h3>
-                <p className="font-mono text-[11px] text-cr-text-muted truncate">
+                <p className="font-sans text-[12px] text-cr-text-muted truncate">
                   {f.city} · {f.startDate.slice(5, 10).split("-").reverse().join("/")}
                 </p>
               </div>
-              <span className="font-mono text-[11px] text-cr-primary font-semibold whitespace-nowrap shrink-0">
+              <span className="font-sans text-[12px] text-cr-primary font-semibold whitespace-nowrap shrink-0">
                 {f.originCities[0]?.concertRideRange ?? "—"}
               </span>
             </Link>
@@ -235,8 +235,8 @@ export default function FestivalesPage() {
       </section>
 
       {/* ── Autobuses, buses y lanzaderas — body keyword block ── */}
-      <section className="max-w-6xl mx-auto px-6 pb-16 border-t border-cr-border pt-12 space-y-5">
-        <h2 className="font-display text-2xl md:text-3xl uppercase">
+      <section className="max-w-6xl mx-auto px-6 pb-[var(--rhythm-2)] border-t border-cr-border pt-[var(--rhythm-1)] space-y-5">
+        <h2 className="font-display text-display-m">
           Autobuses, buses y lanzaderas a festivales {year}
         </h2>
         <p className="font-sans text-sm text-cr-text-muted max-w-3xl leading-relaxed">
@@ -259,14 +259,14 @@ export default function FestivalesPage() {
           <li>· <Link to="/festivales/cala-mijas" className="hover:text-cr-primary underline-offset-2">Cala Mijas</Link>: sin shuttle oficial, taxi 25–40 € desde Málaga centro.</li>
           <li>· <Link to="/festivales/medusa-festival" className="hover:text-cr-primary underline-offset-2">Medusa Festival</Link>: lanzadera Valencia → Cullera, plazas limitadas.</li>
         </ul>
-        <p className="font-mono text-[11px] text-cr-text-dim">
+        <p className="font-sans text-[12px] text-cr-text-muted">
           Guía detallada festival por festival: <Link to="/blog/autobuses-festivales-espana-2026" className="hover:text-cr-primary underline underline-offset-2">Autobuses a festivales de España {year}</Link>.
         </p>
       </section>
 
       {/* ── Por qué ConcertRide ── */}
-      <section className="max-w-6xl mx-auto px-6 pb-16 border-t border-cr-border pt-12 space-y-6">
-        <h2 className="font-display text-2xl md:text-3xl uppercase">
+      <section className="max-w-6xl mx-auto px-6 pb-[var(--rhythm-2)] border-t border-cr-border pt-[var(--rhythm-1)] space-y-6">
+        <h2 className="font-display text-display-m">
           Por qué carpooling para festivales
         </h2>
         <div className="grid md:grid-cols-3 gap-4 font-sans text-sm text-cr-text-muted leading-relaxed">

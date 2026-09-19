@@ -142,20 +142,20 @@ export default function IrJuntosAlFestivalPage() {
         purpose="Explicar el ángulo social de ConcertRide: ir al festival con gente que también va al mismo evento, no solo compartir gasolina."
       />
 
-      <section className="mx-auto max-w-4xl px-4 md:px-6 py-8 md:py-12">
-        <nav aria-label="Breadcrumb" className="font-sans text-xs uppercase tracking-[0.18em] text-cr-text/60 mb-4">
+      <section className="mx-auto max-w-4xl px-4 md:px-6 pt-[var(--rhythm-1)] pb-[var(--rhythm-2)]">
+        <nav aria-label="Breadcrumb" className="font-sans text-xs uppercase tracking-[0.18em] text-cr-text-muted mb-4">
           <Link to="/" className="hover:text-cr-primary">Inicio</Link>
           <span className="mx-2">/</span>
           <span>Ir juntos al festival</span>
         </nav>
 
-        <h1 className="font-display text-3xl md:text-5xl uppercase leading-[0.95] tracking-tight">
+        <h1 className="font-display text-display-l">
           Ir juntos al festival
           <br />
-          <span className="text-[#dbff00]">con gente que va al mismo cartel</span>
+          <span className="text-cr-primary">con gente que va al mismo cartel</span>
         </h1>
 
-        <p data-quotable className="mt-5 max-w-3xl font-sans text-base md:text-lg leading-relaxed text-cr-text/90">
+        <p data-quotable className="mt-5 max-w-3xl font-sans text-base md:text-lg leading-relaxed text-cr-text">
           El plan no es solo el coche — es lo que pasa dentro. {BRAND.legalName} junta a fans del
           mismo festival en el mismo viaje: playlist compartida, conversación que va sola, vuelta
           de madrugada pactada antes de salir. Sin comisión, perfiles con DNI y carnet verificados,
@@ -165,14 +165,14 @@ export default function IrJuntosAlFestivalPage() {
         <div className="mt-6 flex flex-col sm:flex-row gap-3">
           <Link
             to="/festivales"
-            className="inline-flex items-center justify-center gap-2 bg-[#dbff00] text-black font-sans font-semibold uppercase tracking-[0.12em] text-sm px-6 py-3 hover:bg-[#c8ec00] transition-colors"
+            className="cr-btn-primary"
           >
             Festivales 2026
             <ArrowRight size={14} aria-hidden="true" />
           </Link>
           <Link
             to="/crew"
-            className="inline-flex items-center justify-center gap-2 bg-transparent text-white/80 font-sans font-semibold uppercase tracking-[0.12em] text-sm border border-white/25 px-6 py-3 hover:border-[#dbff00]/60 hover:text-white transition-colors"
+            className="cr-btn-ghost"
           >
             Cómo funciona el Crew →
           </Link>
@@ -180,8 +180,8 @@ export default function IrJuntosAlFestivalPage() {
       </section>
 
       {/* Vibes block */}
-      <section className="mx-auto max-w-5xl px-4 md:px-6 py-10" aria-labelledby="vibe">
-        <h2 id="vibe" className="font-display text-2xl md:text-3xl uppercase">
+      <section className="mx-auto max-w-5xl px-4 md:px-6 py-[var(--rhythm-1)] border-t border-cr-border" aria-labelledby="vibe">
+        <h2 id="vibe" className="font-display text-display-m">
           Lo que hace que el viaje no sea solo un viaje
         </h2>
         <div className="mt-6 grid gap-4 md:grid-cols-2">
@@ -189,15 +189,15 @@ export default function IrJuntosAlFestivalPage() {
             <article key={title} className="border border-cr-border p-5">
               <Icon size={20} className="text-cr-primary" aria-hidden="true" />
               <h3 className="mt-3 font-display text-lg uppercase">{title}</h3>
-              <p className="mt-2 font-sans text-sm text-cr-text/80 leading-relaxed">{body}</p>
+              <p className="mt-2 font-sans text-sm text-cr-text leading-relaxed">{body}</p>
             </article>
           ))}
         </div>
       </section>
 
       {/* 3 plans */}
-      <section className="mx-auto max-w-4xl px-4 md:px-6 py-10" aria-labelledby="planes">
-        <h2 id="planes" className="font-display text-2xl md:text-3xl uppercase">
+      <section className="mx-auto max-w-4xl px-4 md:px-6 py-[var(--rhythm-1)] border-t border-cr-border" aria-labelledby="planes">
+        <h2 id="planes" className="font-display text-display-m">
           Tres planes típicos
         </h2>
         <ol className="mt-6 space-y-4">
@@ -206,7 +206,7 @@ export default function IrJuntosAlFestivalPage() {
               <span className="font-display text-3xl text-cr-primary flex-shrink-0">{plan.n}</span>
               <div>
                 <h3 className="font-display text-lg uppercase">{plan.title}</h3>
-                <p className="mt-1 font-sans text-sm md:text-base text-cr-text/85 leading-relaxed">{plan.body}</p>
+                <p className="mt-1 font-sans text-sm md:text-base text-cr-text leading-relaxed">{plan.body}</p>
               </div>
             </li>
           ))}
@@ -214,13 +214,13 @@ export default function IrJuntosAlFestivalPage() {
       </section>
 
       {/* FAQ */}
-      <section className="mx-auto max-w-4xl px-4 md:px-6 py-10" aria-labelledby="faq">
-        <h2 id="faq" className="font-display text-2xl md:text-3xl uppercase">Preguntas típicas</h2>
+      <section className="mx-auto max-w-4xl px-4 md:px-6 py-[var(--rhythm-1)] border-t border-cr-border" aria-labelledby="faq">
+        <h2 id="faq" className="font-display text-display-m">Preguntas típicas</h2>
         <dl className="mt-6 divide-y divide-cr-border border-y border-cr-border">
           {FAQS.map((item) => (
             <div key={item.q} className="py-5">
               <dt className="font-display text-lg uppercase">{item.q}</dt>
-              <dd className="mt-2 font-sans text-sm md:text-base leading-relaxed text-cr-text/85">{item.a}</dd>
+              <dd className="mt-2 font-sans text-sm md:text-base leading-relaxed text-cr-text">{item.a}</dd>
             </div>
           ))}
         </dl>
@@ -228,24 +228,24 @@ export default function IrJuntosAlFestivalPage() {
 
       {/* Related */}
       <section className="mx-auto max-w-4xl px-4 md:px-6 pb-16">
-        <h2 className="font-display text-xl md:text-2xl uppercase">Sigue por aquí</h2>
+        <h2 className="font-display text-display-s md:text-display-m">Sigue por aquí</h2>
         <ul className="mt-4 grid gap-3 md:grid-cols-2">
           <li>
             <Link to="/compartir-coche-festival" className="block border border-cr-border p-4 hover:border-cr-primary/60 transition-colors">
               <p className="font-display text-sm uppercase">Compartir coche al festival →</p>
-              <p className="mt-1 text-xs text-cr-text/60">Cómo funciona y cuánto cuesta, paso a paso.</p>
+              <p className="mt-1 text-xs text-cr-text-muted">Cómo funciona y cuánto cuesta, paso a paso.</p>
             </Link>
           </li>
           <li>
             <Link to="/coche-compartido-conciertos" className="block border border-cr-border p-4 hover:border-cr-primary/60 transition-colors">
               <p className="font-display text-sm uppercase">Coche compartido para conciertos →</p>
-              <p className="mt-1 text-xs text-cr-text/60">Misma idea, pero para conciertos en sala o estadio.</p>
+              <p className="mt-1 text-xs text-cr-text-muted">Misma idea, pero para conciertos en sala o estadio.</p>
             </Link>
           </li>
           <li>
             <Link to="/crew" className="block border border-cr-border p-4 hover:border-cr-primary/60 transition-colors">
               <p className="font-display text-sm uppercase">Crew & Squads →</p>
-              <p className="mt-1 text-xs text-cr-text/60">Organiza el grupo del festival más allá del trayecto.</p>
+              <p className="mt-1 text-xs text-cr-text-muted">Organiza el grupo del festival más allá del trayecto.</p>
             </Link>
           </li>
         </ul>

@@ -47,15 +47,15 @@ export function TerminologyAside({
     return (
       <aside
         aria-label="Vocabulario relacionado"
-        className="border-l-2 border-cr-primary bg-white/[0.02] px-5 py-3 my-6"
+        className="border-l-2 border-cr-primary bg-cr-surface px-5 py-3 my-6"
       >
-        <p className="font-sans text-xs md:text-sm text-cr-text/80 leading-relaxed">
-          <span className="font-mono uppercase tracking-[0.14em] text-cr-primary">
+        <p className="font-sans text-xs md:text-sm text-cr-text leading-relaxed">
+          <span className="font-sans cr-tabular uppercase tracking-[0.14em] text-cr-primary">
             También llamado:
           </span>{" "}
           {SYNONYMS.map((s, i) => (
             <span key={s.to}>
-              <Link to={s.to} className="text-cr-text/85 hover:text-cr-primary underline-offset-2 hover:underline">
+              <Link to={s.to} className="text-cr-text hover:text-cr-primary underline-offset-2 hover:underline">
                 {s.label.toLowerCase()}
               </Link>
               {i < SYNONYMS.length - 1 ? " · " : "."}
@@ -71,14 +71,14 @@ export function TerminologyAside({
       aria-labelledby="terminology-aside-title"
       className="mx-auto max-w-4xl px-4 md:px-6 py-8"
     >
-      <aside className="border border-cr-border bg-white/[0.02] p-5 md:p-6">
+      <aside className="border border-cr-border bg-cr-surface p-5 md:p-6">
         <h2
           id="terminology-aside-title"
           className="font-display text-lg md:text-xl uppercase tracking-[0.04em]"
         >
           {title}
         </h2>
-        <p className="mt-3 font-sans text-sm md:text-base text-cr-text/85 leading-relaxed">
+        <p className="mt-3 font-sans text-sm md:text-base text-cr-text leading-relaxed">
           A esto le llamamos &ldquo;carpooling&rdquo; por costumbre, pero el plan tiene varios
           nombres en castellano según con quién hables. Todos describen lo mismo: gente que va al
           mismo festival comparte coche, divide el gasto real del viaje y coordina la vuelta.
@@ -88,7 +88,7 @@ export function TerminologyAside({
             <li key={s.to}>
               <Link
                 to={s.to}
-                className="group flex items-center gap-2 font-sans text-sm text-cr-text/85 hover:text-cr-primary transition-colors"
+                className="group flex items-center gap-2 font-sans text-sm text-cr-text hover:text-cr-primary transition-colors"
               >
                 <span aria-hidden="true" className="text-cr-primary">·</span>
                 <span className="underline-offset-2 group-hover:underline">{s.label}</span>
@@ -96,7 +96,7 @@ export function TerminologyAside({
             </li>
           ))}
         </ul>
-        <p className="mt-4 font-mono text-[10px] uppercase tracking-[0.16em] text-cr-text/50">
+        <p className="mt-4 font-sans text-[11px] uppercase tracking-[0.16em] text-cr-text-muted">
           Mismo producto en ConcertRide · vocabulario distinto según la edad y la zona.
         </p>
       </aside>

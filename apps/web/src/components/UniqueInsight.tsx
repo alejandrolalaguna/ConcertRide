@@ -60,10 +60,10 @@ export function UniqueInsight({
       <h3 className="font-display text-base md:text-lg uppercase tracking-tight text-cr-text mb-2">
         {headline}
       </h3>
-      <div className="text-sm md:text-base text-cr-text/90 leading-relaxed space-y-2">
+      <div className="text-sm md:text-base text-cr-text leading-relaxed space-y-2">
         {children}
       </div>
-      <p className="mt-3 text-xs text-cr-text/60">
+      <p className="mt-3 text-xs text-cr-text-muted">
         <span className="uppercase tracking-wider mr-1">Base:</span>
         {basis}
         <span className="mx-2 text-cr-text/40">·</span>

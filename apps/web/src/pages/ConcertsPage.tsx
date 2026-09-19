@@ -1,6 +1,5 @@
 import { useCallback, useEffect, useMemo, useRef, useState, type CSSProperties } from "react";
 import { Link, useNavigate, useSearchParams } from "react-router-dom";
-import { AnimatePresence, LayoutGroup, motion } from "motion/react";
 import { useSeoMeta } from "@/lib/useSeoMeta";
 import { SITE_URL } from "@/lib/siteUrl";
 import { SlidersHorizontal, Sparkles, X, Clock, Zap, ChevronLeft, ChevronRight, Search } from "lucide-react";
@@ -311,30 +310,24 @@ export default function ConcertsPage() {
         }}
       />
       {/* Header */}
-      <div className="max-w-6xl mx-auto px-6 pt-10 pb-6 space-y-4">
-        <motion.nav
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.4 }}
+      <div className="max-w-6xl mx-auto px-6 pt-[var(--rhythm-1)] pb-[var(--rhythm-1)] space-y-5">
+        <nav
           aria-label={t("concertsPage.breadcrumbAria")}
-          className="font-mono text-[11px] text-cr-text-muted flex items-center gap-2"
+          className="font-sans text-[12px] text-cr-text-muted flex items-center gap-2"
         >
           <Link to="/" className="hover:text-cr-primary transition-colors">{t("concertsPage.breadcrumbHome")}</Link>
           <span aria-hidden="true">/</span>
           <span className="text-cr-text-muted">{t("concertsPage.breadcrumbConcerts")}</span>
-        </motion.nav>
+        </nav>
 
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+        <div
         >
-          <p className="font-mono text-[10px] font-semibold uppercase tracking-[0.16em] text-cr-primary mb-3">
+          <p className="cr-eyebrow mb-3">
             {t("concertsPage.eyebrow")}
           </p>
           <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4">
             <div>
-              <h1 className="font-display text-4xl md:text-6xl uppercase leading-[0.92] tracking-tight">
+              <h1 className="font-display text-display-l">
                 {isEn ? "All" : "Todos los"}
                 <br />
                 {isEn ? "concerts." : "conciertos."}
@@ -350,7 +343,7 @@ export default function ConcertsPage() {
                 onClick={() => setFilter("festival", !filters.festival)}
                 aria-pressed={filters.festival}
                 aria-label={filters.festival ? t("concertsPage.festivalsFilterRemoveAria") : t("concertsPage.festivalsFilterApplyAria")}
-                className={`inline-flex items-center gap-2 h-9 px-4 border font-mono text-[11px] font-bold uppercase tracking-[0.1em] transition-colors ${
+                className={`inline-flex items-center gap-2 h-9 px-4 border font-sans text-[12px] font-bold uppercase tracking-[0.1em] transition-colors ${
                   filters.festival
                     ? "border-cr-secondary text-cr-secondary bg-cr-secondary/10"
                     : "border-cr-border text-cr-text-muted hover:border-cr-secondary hover:text-cr-secondary"
@@ -364,7 +357,7 @@ export default function ConcertsPage() {
                 aria-expanded={showFilters}
                 aria-controls="concerts-filters"
                 aria-label={hasActiveFilters(filters) ? t("concertsPage.filtersToggleActiveAria", { count: Object.values(filters).filter(Boolean).length }) : t("concertsPage.filtersToggleAria")}
-                className={`inline-flex items-center gap-2 h-9 px-4 border font-mono text-[11px] font-bold uppercase tracking-[0.1em] transition-colors ${
+                className={`inline-flex items-center gap-2 h-9 px-4 border font-sans text-[12px] font-bold uppercase tracking-[0.1em] transition-colors ${
                   hasActiveFilters(filters) || showFilters
                     ? "border-cr-primary text-cr-primary bg-cr-primary/5"
                     : "border-cr-border text-cr-text-muted hover:border-cr-primary hover:text-cr-primary"
@@ -380,50 +373,42 @@ export default function ConcertsPage() {
               </button>
             </div>
           </div>
-        </motion.div>
+        </div>
 
         {/* Artist search */}
-        <motion.div
-          initial={{ opacity: 0, y: 12 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.4, delay: 0.1 }}
+        <div
           className="relative"
         >
           <label htmlFor="concerts-search" className="sr-only">{t("concertsPage.searchLabel")}</label>
-          <Search size={15} className="absolute left-4 top-1/2 -translate-y-1/2 text-white/25 pointer-events-none" aria-hidden="true" />
+          <Search size={15} className="absolute left-4 top-1/2 -translate-y-1/2 text-cr-text-muted pointer-events-none" aria-hidden="true" />
           <input
             id="concerts-search"
             type="search"
             placeholder={t("concertsPage.searchPlaceholder")}
             value={filters.artist}
             onChange={(e) => setFilter("artist", e.target.value)}
-            className="w-full bg-white/[0.03] border border-white/[0.08] pl-10 pr-4 py-3 font-mono text-sm text-cr-text placeholder:text-white/20 focus:outline-none focus:border-cr-primary focus:shadow-[0_0_12px_rgb(219_255_0/0.1)] transition-all duration-150"
+            className="w-full bg-cr-surface border border-cr-border pl-10 pr-4 py-3 font-sans text-sm cr-tabular text-cr-text placeholder:text-cr-text-muted focus:outline-none focus:border-cr-primary focus:shadow-[0_0_12px_rgb(219_255_0/0.1)] transition-all duration-150"
           />
-        </motion.div>
+        </div>
 
         {/* Filter panel — animated */}
-        <AnimatePresence>
           {showFilters && (
-            <motion.div
+            <div
               id="concerts-filters"
-              initial={{ opacity: 0, height: 0 }}
-              animate={{ opacity: 1, height: "auto" }}
-              exit={{ opacity: 0, height: 0 }}
-              transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
               className="overflow-hidden"
             >
-              <fieldset className="grid grid-cols-2 md:grid-cols-4 gap-3 p-4 border border-white/[0.08] bg-white/[0.02]">
+              <fieldset className="grid grid-cols-2 md:grid-cols-4 gap-3 p-4 border border-cr-border bg-cr-surface">
                 <legend className="sr-only">{t("concertsPage.filtersLegend")}</legend>
 
                 <div className="space-y-1.5">
-                  <label htmlFor="filter-city" className="font-mono text-[10px] font-semibold uppercase tracking-[0.12em] text-white/35">
+                  <label htmlFor="filter-city" className="font-sans text-[11px] font-semibold uppercase tracking-[0.12em] text-cr-text-muted">
                     {t("concertsPage.filterCityLabel")}
                   </label>
                   <select
                     id="filter-city"
                     value={filters.city}
                     onChange={(e) => setFilter("city", e.target.value)}
-                    className="w-full bg-white/[0.04] border border-white/[0.1] px-3 py-2 font-mono text-xs text-cr-text focus:outline-none focus:border-cr-primary [color-scheme:dark] transition-colors"
+                    className="w-full bg-cr-surface border border-cr-border-mid px-3 py-2 font-sans text-xs text-cr-text focus:outline-none focus:border-cr-primary [color-scheme:dark] transition-colors"
                   >
                     <option value="">{t("concertsPage.filterCityAll")}</option>
                     {facets.cities.map((c) => (
@@ -433,7 +418,7 @@ export default function ConcertsPage() {
                 </div>
 
                 <div className="space-y-1.5">
-                  <label htmlFor="filter-genre" className="font-mono text-[10px] font-semibold uppercase tracking-[0.12em] text-white/35">
+                  <label htmlFor="filter-genre" className="font-sans text-[11px] font-semibold uppercase tracking-[0.12em] text-cr-text-muted">
                     {t("concertsPage.filterGenreLabel")}
                   </label>
                   <select
@@ -441,7 +426,7 @@ export default function ConcertsPage() {
                     value={filters.genre}
                     onChange={(e) => setFilter("genre", e.target.value)}
                     disabled={facets.genres.length === 0}
-                    className="w-full bg-white/[0.04] border border-white/[0.1] px-3 py-2 font-mono text-xs text-cr-text focus:outline-none focus:border-cr-primary [color-scheme:dark] disabled:opacity-50 transition-colors"
+                    className="w-full bg-cr-surface border border-cr-border-mid px-3 py-2 font-sans text-xs text-cr-text focus:outline-none focus:border-cr-primary [color-scheme:dark] disabled:opacity-50 transition-colors"
                   >
                     <option value="">{t("concertsPage.filterGenreAll")}</option>
                     {facets.genres.map((g) => (
@@ -451,7 +436,7 @@ export default function ConcertsPage() {
                 </div>
 
                 <div className="space-y-1.5">
-                  <label htmlFor="filter-date-from" className="font-mono text-[10px] font-semibold uppercase tracking-[0.12em] text-white/35">
+                  <label htmlFor="filter-date-from" className="font-sans text-[11px] font-semibold uppercase tracking-[0.12em] text-cr-text-muted">
                     {t("concertsPage.filterDateFromLabel")}
                   </label>
                   <input
@@ -459,12 +444,12 @@ export default function ConcertsPage() {
                     type="date"
                     value={filters.dateFrom}
                     onChange={(e) => setFilter("dateFrom", e.target.value)}
-                    className="w-full bg-white/[0.04] border border-white/[0.1] px-3 py-2 font-mono text-xs text-cr-text focus:outline-none focus:border-cr-primary [color-scheme:dark] transition-colors"
+                    className="w-full bg-cr-surface border border-cr-border-mid px-3 py-2 font-sans text-xs text-cr-text focus:outline-none focus:border-cr-primary [color-scheme:dark] transition-colors"
                   />
                 </div>
 
                 <div className="space-y-1.5">
-                  <label htmlFor="filter-date-to" className="font-mono text-[10px] font-semibold uppercase tracking-[0.12em] text-white/35">
+                  <label htmlFor="filter-date-to" className="font-sans text-[11px] font-semibold uppercase tracking-[0.12em] text-cr-text-muted">
                     {t("concertsPage.filterDateToLabel")}
                   </label>
                   <input
@@ -472,7 +457,7 @@ export default function ConcertsPage() {
                     type="date"
                     value={filters.dateTo}
                     onChange={(e) => setFilter("dateTo", e.target.value)}
-                    className="w-full bg-white/[0.04] border border-white/[0.1] px-3 py-2 font-mono text-xs text-cr-text focus:outline-none focus:border-cr-primary [color-scheme:dark] transition-colors"
+                    className="w-full bg-cr-surface border border-cr-border-mid px-3 py-2 font-sans text-xs text-cr-text focus:outline-none focus:border-cr-primary [color-scheme:dark] transition-colors"
                   />
                 </div>
 
@@ -480,17 +465,15 @@ export default function ConcertsPage() {
                   <button
                     onClick={() => { setFilters(EMPTY_FILTERS); setPage(1); }}
                     aria-label={t("concertsPage.clearFiltersAria")}
-                    className="col-span-2 md:col-span-4 inline-flex items-center gap-1.5 font-mono text-[10px] font-semibold uppercase tracking-[0.1em] text-white/30 hover:text-cr-primary transition-colors"
+                    className="col-span-2 md:col-span-4 inline-flex items-center gap-1.5 font-sans text-[11px] font-semibold uppercase tracking-[0.1em] text-cr-text-muted hover:text-cr-primary transition-colors"
                   >
                     <X size={11} aria-hidden="true" />
                     {t("concertsPage.clearFilters")}
                   </button>
                 )}
               </fieldset>
-            </motion.div>
+            </div>
           )}
-        </AnimatePresence>
-
         {/* Tabs */}
         <div role="tablist" aria-label={t("concertsPage.tabsAria")} className="relative flex gap-0 border-b border-cr-border">
           {["active", "past"].map((tabKey) => (
@@ -499,7 +482,7 @@ export default function ConcertsPage() {
               role="tab"
               aria-selected={tab === tabKey}
               onClick={() => setTab(tabKey as Tab)}
-              className={`relative inline-flex items-center gap-1.5 px-4 py-2.5 font-mono text-[11px] font-bold uppercase tracking-[0.12em] transition-colors ${
+              className={`relative inline-flex items-center gap-1.5 px-4 py-2.5 font-sans text-[12px] font-bold uppercase tracking-[0.12em] transition-colors ${
                 tab === tabKey
                   ? "text-cr-primary"
                   : "text-cr-text-muted hover:text-cr-text"
@@ -508,13 +491,11 @@ export default function ConcertsPage() {
               {tabKey === "active" ? <Zap size={11} aria-hidden="true" /> : <Clock size={11} aria-hidden="true" />}
               {tabKey === "active" ? t("concertsPage.tabUpcoming") : t("concertsPage.tabPast")}
               {!loading && tab === tabKey && total > 0 && (
-                <span className="font-mono text-[10px] text-cr-text-dim" aria-label={t("concertsPage.tabCountAria", { count: total })}>({total})</span>
+                <span className="font-sans text-[11px] text-cr-text-dim" aria-label={t("concertsPage.tabCountAria", { count: total })}>({total})</span>
               )}
               {tab === tabKey && (
-                <motion.span
-                  layoutId="tab-underline"
+                <span
                   className="absolute bottom-0 left-0 right-0 h-[2px] bg-cr-primary"
-                  transition={{ type: "spring", stiffness: 500, damping: 35 }}
                   aria-hidden="true"
                 />
               )}
@@ -553,30 +534,16 @@ export default function ConcertsPage() {
           </div>
         ) : (
           <>
-            <LayoutGroup>
-              <motion.ul
-                layout
+              <ul
                 role="list"
                 aria-label={t("concertsPage.resultsListAria", { count: total })}
                 aria-live="polite"
                 aria-atomic="false"
                 className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 snap-y snap-mandatory md:snap-none"
-                initial="hidden"
-                animate="visible"
-                variants={{
-                  hidden: {},
-                  visible: { transition: { staggerChildren: 0.05 } },
-                }}
               >
                 {pageConcerts.map((c) => (
-                  <motion.li
+                  <li
                     key={c.id}
-                    layout
-                    layoutId={`concert-${c.id}`}
-                    variants={{
-                      hidden: { opacity: 0, y: 16 },
-                      visible: { opacity: 1, y: 0, transition: { duration: 0.4, ease: [0.16, 1, 0.3, 1] } },
-                    }}
                     className="snap-start cr-vt-card"
                     style={{ "--cr-vt-name": `concert-card-${c.id}` } as CSSProperties}
                   >
@@ -592,11 +559,9 @@ export default function ConcertsPage() {
                     >
                       <ConcertCard concert={c} />
                     </Link>
-                  </motion.li>
+                  </li>
                 ))}
-              </motion.ul>
-            </LayoutGroup>
-
+              </ul>
             {/* Pagination */}
             {totalPages > 1 && (
               <div className="flex items-center justify-center gap-3 mt-12">
@@ -609,7 +574,7 @@ export default function ConcertsPage() {
                   {t("concertsPage.paginationPrev")}
                 </button>
 
-                <span className="font-mono text-xs text-cr-text-muted">
+                <span className="font-sans text-xs text-cr-text-muted">
                   <span className="text-cr-text font-semibold">{page}</span>
                   {" "}/{" "}
                   {totalPages}

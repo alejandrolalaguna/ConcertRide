@@ -53,7 +53,7 @@ export function DemandSignalWidget({ festivalSlug, festivalName, originCities, d
 
   if (registered) {
     return (
-      <div className="rounded-xl border border-cr-primary/30 bg-cr-primary/5 p-4 flex items-start gap-3">
+      <div className="rounded-none border border-cr-primary/30 bg-cr-primary/5 p-4 flex items-start gap-3">
         <BellRing className="text-cr-primary shrink-0 mt-0.5" size={18} />
         <div>
           <p className="text-sm font-semibold text-cr-text">
@@ -75,7 +75,7 @@ export function DemandSignalWidget({ festivalSlug, festivalName, originCities, d
   }
 
   return (
-    <div className="rounded-xl border border-white/10 bg-white/3 p-5 space-y-4">
+    <div className="rounded-none border border-cr-border bg-white/3 p-5 space-y-4">
       <div className="flex items-start gap-3">
         <Bell className="text-cr-primary shrink-0 mt-0.5" size={18} />
         <div>
@@ -99,7 +99,7 @@ export function DemandSignalWidget({ festivalSlug, festivalName, originCities, d
             <select
               value={selectedCity}
               onChange={(e) => setSelectedCity(e.target.value)}
-              className="w-full appearance-none rounded-lg border border-white/20 bg-cr-bg px-3 py-2 text-sm text-cr-text pr-8"
+              className="w-full appearance-none rounded-none border border-white/20 bg-cr-bg px-3 py-2 text-sm text-cr-text pr-8"
             >
               {originCities.map((c) => (
                 <option key={c} value={c}>{c}</option>
@@ -112,13 +112,13 @@ export function DemandSignalWidget({ festivalSlug, festivalName, originCities, d
             placeholder={isEn ? "you@email.com (optional)" : "tu@email.com (opcional)"}
             value={email}
             onChange={(e) => setEmail(e.target.value)}
-            className="rounded-lg border border-white/20 bg-cr-bg px-3 py-2 text-sm text-cr-text placeholder:text-cr-text-muted"
+            className="rounded-none border border-white/20 bg-cr-bg px-3 py-2 text-sm text-cr-text placeholder:text-cr-text-muted"
           />
         </div>
         <button
           type="submit"
           disabled={status === "loading" || !selectedCity}
-          className="w-full rounded-lg bg-cr-primary px-4 py-2.5 text-sm font-bold text-black hover:bg-cr-primary/90 disabled:opacity-50 transition-colors"
+          className="w-full rounded-none bg-cr-primary px-4 py-2.5 text-sm font-bold text-black hover:bg-cr-primary/90 disabled:opacity-50 transition-colors"
         >
           {status === "loading"
             ? (isEn ? "Saving…" : "Guardando…")

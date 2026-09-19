@@ -51,8 +51,8 @@ export function PrimarySourceFootnote({
       data-primary-sources
       className="mt-4 border-t border-cr-text/10 pt-3"
     >
-      <p className="text-xs text-cr-text/70 leading-relaxed">
-        <span className="font-display uppercase tracking-[0.15em] text-cr-text/80 mr-2">
+      <p className="text-xs text-cr-text-muted leading-relaxed">
+        <span className="font-display uppercase tracking-[0.15em] text-cr-text mr-2">
           {isEn ? "Sources:" : "Fuentes:"}
         </span>
         {sources.map((s, i) => (
@@ -63,14 +63,14 @@ export function PrimarySourceFootnote({
               target="_blank"
               rel="noopener noreferrer"
               title={isEn ? TIER_LABEL_EN[s.tier] : TIER_LABEL[s.tier]}
-              className="text-cr-text/85 underline decoration-cr-primary/40 hover:decoration-cr-primary"
+              className="text-cr-text underline decoration-cr-primary/40 hover:decoration-cr-primary"
             >
               {s.label}
             </a>
           </span>
         ))}
         {verifiedOn && (
-          <span className="ml-2 text-cr-text/55">
+          <span className="ml-2 text-cr-text-muted">
             {isEn ? <>· Verified {verifiedOn}</> : <>· Verificado {verifiedOn}</>}
           </span>
         )}

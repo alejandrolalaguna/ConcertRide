@@ -199,10 +199,10 @@ export default function HowItWorksPage() {
 
       <div className="max-w-4xl mx-auto px-6 py-12 md:py-16 space-y-16">
         <header className="border-b border-cr-border pb-8 space-y-3">
-          <p className="font-sans text-[11px] font-semibold uppercase tracking-[0.16em] text-cr-primary">
+          <p className="cr-eyebrow">
             Guía
           </p>
-          <h1 className="font-display text-4xl md:text-6xl uppercase leading-[0.92]">
+          <h1 className="font-display text-display-l">
             Cómo funciona.
           </h1>
           <p className="font-sans text-base text-cr-text-muted max-w-2xl leading-relaxed">
@@ -217,7 +217,7 @@ export default function HowItWorksPage() {
             <Users size={22} className="text-cr-primary" aria-hidden="true" />
             <h2
               id="passenger-title"
-              className="font-display text-2xl md:text-3xl uppercase leading-tight"
+              className="font-display text-display-m"
             >
               Si buscas viaje (pasajero)
             </h2>
@@ -252,7 +252,7 @@ export default function HowItWorksPage() {
             <Car size={22} className="text-cr-secondary" aria-hidden="true" />
             <h2
               id="driver-title"
-              className="font-display text-2xl md:text-3xl uppercase leading-tight"
+              className="font-display text-display-m"
             >
               Si tienes coche (conductor)
             </h2>
@@ -291,7 +291,7 @@ export default function HowItWorksPage() {
             <ShieldCheck size={22} className="text-cr-primary" aria-hidden="true" />
             <h2
               id="trust-title"
-              className="font-display text-2xl md:text-3xl uppercase leading-tight"
+              className="font-display text-display-m"
             >
               Por qué es seguro
             </h2>

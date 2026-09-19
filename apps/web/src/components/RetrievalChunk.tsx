@@ -86,11 +86,11 @@ export function RetrievalChunk({
       <p data-direct-answer className="text-sm md:text-base font-semibold text-cr-text leading-snug mb-3">
         {directAnswer}
       </p>
-      <div className="text-sm md:text-base text-cr-text/85 leading-relaxed space-y-2">
+      <div className="text-sm md:text-base text-cr-text leading-relaxed space-y-2">
         {children}
       </div>
       {sources && sources.length > 0 && (
-        <p className="mt-3 text-xs text-cr-text/65">
+        <p className="mt-3 text-xs text-cr-text-muted">
           <span className="uppercase tracking-wider mr-1">Fuentes:</span>
           {sources.map((s, i) => (
             <span key={s.href}>
@@ -107,7 +107,7 @@ export function RetrievalChunk({
             </span>
           ))}
           {lastChecked && (
-            <span className="ml-2 text-cr-text/55">· Verificado {lastChecked}</span>
+            <span className="ml-2 text-cr-text-muted">· Verificado {lastChecked}</span>
           )}
         </p>
       )}
@@ -138,7 +138,7 @@ export function ClaimEvidence({ claim, source }: ClaimEvidenceProps) {
         href={source.href}
         target="_blank"
         rel="noopener noreferrer"
-        className="text-xs text-cr-text/60 underline decoration-cr-primary/40 hover:decoration-cr-primary"
+        className="text-xs text-cr-text-muted underline decoration-cr-primary/40 hover:decoration-cr-primary"
         title={TIER_LABEL[source.tier]}
       >
         [{source.label}]

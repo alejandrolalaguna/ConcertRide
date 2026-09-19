@@ -20,7 +20,7 @@ interface Props {
 const TYPE_CONFIG = {
   bus: { label: "Bus", label_en: "Bus", Icon: Bus, color: "text-blue-400", bg: "bg-blue-400/10" },
   train: { label: "Tren", label_en: "Train", Icon: Train, color: "text-green-400", bg: "bg-green-400/10" },
-  shuttle: { label: "Lanzadera", label_en: "Shuttle", Icon: Zap, color: "text-yellow-400", bg: "bg-yellow-400/10" },
+  shuttle: { label: "Lanzadera", label_en: "Shuttle", Icon: Zap, color: "text-cr-primary", bg: "bg-cr-primary/10" },
   carpooling: { label: "Carpooling", label_en: "Carpooling", Icon: Car, color: "text-cr-primary", bg: "bg-cr-primary/10" },
 } as const;
 
@@ -57,16 +57,16 @@ export function TransportTable({ options, officialShuttle, festivalName, isEn = 
       </h2>
 
       {officialShuttle?.available && (
-        <div className="rounded-xl border border-yellow-400/30 bg-yellow-400/5 p-4 flex gap-3 items-start">
-          <Zap className="text-yellow-400 shrink-0 mt-0.5" size={18} />
+        <div className="rounded-none border border-cr-primary/30 bg-cr-primary/5 p-4 flex gap-3 items-start">
+          <Zap className="text-cr-primary shrink-0 mt-0.5" size={18} />
           <div className="space-y-1 text-sm">
             <p className="font-semibold text-cr-text">
               {isEn ? "Official shuttle available" : "Lanzadera oficial disponible"}
               {officialShuttle.price_from === 0 && (
-                <span className="ml-2 text-yellow-400 font-bold">{isEn ? "FREE" : "GRATIS"}</span>
+                <span className="ml-2 text-cr-primary font-bold">{isEn ? "FREE" : "GRATIS"}</span>
               )}
               {officialShuttle.price_from != null && officialShuttle.price_from > 0 && (
-                <span className="ml-2 text-yellow-400">
+                <span className="ml-2 text-cr-primary">
                   {isEn ? <>from {officialShuttle.price_from} €</> : <>desde {officialShuttle.price_from} €</>}
                 </span>
               )}
@@ -95,9 +95,9 @@ export function TransportTable({ options, officialShuttle, festivalName, isEn = 
         </div>
       )}
 
-      <div className="overflow-x-auto rounded-xl border border-white/10">
+      <div className="overflow-x-auto rounded-none border border-cr-border">
         <table className="w-full text-sm text-left">
-          <thead className="bg-white/5 text-cr-text-muted text-xs uppercase tracking-wide">
+          <thead className="bg-cr-surface text-cr-text-muted text-xs uppercase tracking-wide">
             <tr>
               <th className="px-4 py-3">{isEn ? "Type" : "Tipo"}</th>
               <th className="px-4 py-3">{isEn ? "Provider / Route" : "Proveedor / Ruta"}</th>
@@ -107,18 +107,19 @@ export function TransportTable({ options, officialShuttle, festivalName, isEn = 
               <th className="px-4 py-3 hidden lg:table-cell">{isEn ? "Notes" : "Notas"}</th>
             </tr>
           </thead>
-          <tbody className="divide-y divide-white/5">
+          <tbody className="divide-y divide-cr-border">
             {grouped.map(({ type, items }) =>
               items.map((opt, i) => {
                 const cfg = TYPE_CONFIG[type];
                 const isCarpooling = type === "carpooling";
                 return (
                   <tr
+                    data-scan="light"
                     key={`${type}-${i}`}
-                    className={`transition-colors ${isCarpooling ? "bg-cr-primary/5 hover:bg-cr-primary/10" : "hover:bg-white/3"}`}
+                    className={`transition-colors ${isCarpooling ? "bg-cr-primary/5 hover:bg-cr-primary/10" : "hover:bg-cr-surface"}`}
                   >
                     <td className="px-4 py-3">
-                      <span className={`inline-flex items-center gap-1.5 rounded-full px-2 py-0.5 text-xs font-medium ${cfg.bg} ${cfg.color}`}>
+                      <span className={`inline-flex items-center gap-1.5 rounded-[2px] px-2 py-0.5 cr-label ${cfg.bg} ${cfg.color}`}>
                         <cfg.Icon size={12} />
                         {isEn ? cfg.label_en : cfg.label}
                         {isCarpooling && <span className="text-[10px] opacity-70">{isEn ? "★ no commission" : "★ sin comisión"}</span>}

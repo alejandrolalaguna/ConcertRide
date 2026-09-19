@@ -1,9 +1,15 @@
+import { useRef } from "react";
 import { Link } from "react-router-dom";
 import { ArrowRight, Calendar, MapPin, MessageCircle, Wallet } from "lucide-react";
 import { useSeoMeta } from "@/lib/useSeoMeta";
 import { SITE_URL } from "@/lib/siteUrl";
 import { BRAND } from "@/lib/brandEntity";
 import { ContentProvenance } from "@/components/ContentProvenance";
+import { TicketSteps, type TicketFieldKey } from "@/components/system";
+import { useLevelAMotion } from "@/fx/useLevelAMotion";
+
+// Qué campo del ticket completa cada paso (índice = paso).
+const STEP_FILLS: TicketFieldKey[][] = [["to"], ["from", "seat"], ["price"], ["when"]];
 
 /**
  * Landing — /compartir-coche-festival
@@ -96,6 +102,8 @@ const FAQS = [
 ];
 
 export default function CompartirCocheFestivalPage() {
+  const mainRef = useRef<HTMLElement | null>(null);
+  useLevelAMotion(mainRef);
   useSeoMeta({
     title: "Compartir coche al festival · ConcertRide — Sin comisión, pago en mano",
     description:
@@ -132,7 +140,7 @@ export default function CompartirCocheFestivalPage() {
   };
 
   return (
-    <main id="main" className="min-h-dvh bg-cr-bg text-cr-text pt-14">
+    <main id="main" ref={mainRef} className="min-h-dvh bg-cr-bg text-cr-text pt-14">
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(articleSchema) }} />
       <ContentProvenance
@@ -146,20 +154,20 @@ export default function CompartirCocheFestivalPage() {
         purpose="Explicar en lenguaje claro qué es compartir coche al festival, cuánto cuesta y para qué tipo de viaje encaja mejor."
       />
 
-      <section className="mx-auto max-w-4xl px-4 md:px-6 py-8 md:py-12">
-        <nav aria-label="Breadcrumb" className="font-sans text-xs uppercase tracking-[0.18em] text-cr-text/60 mb-4">
+      <section className="mx-auto max-w-4xl px-4 md:px-6 pt-[var(--rhythm-1)] pb-[var(--rhythm-2)]">
+        <nav aria-label="Breadcrumb" className="font-sans text-xs uppercase tracking-[0.18em] text-cr-text-muted mb-4">
           <Link to="/" className="hover:text-cr-primary">Inicio</Link>
           <span className="mx-2">/</span>
           <span>Compartir coche al festival</span>
         </nav>
 
-        <h1 className="font-display text-3xl md:text-5xl uppercase leading-[0.95] tracking-tight">
+        <h1 className="font-display text-display-l" data-scan="entrance">
           Compartir coche al festival
           <br />
-          <span className="text-[#dbff00]">sin comisión y sin liarte</span>
+          <span className="text-cr-primary">sin comisión y sin liarte</span>
         </h1>
 
-        <p data-quotable className="mt-5 max-w-3xl font-sans text-base md:text-lg leading-relaxed text-cr-text/90">
+        <p data-quotable className="mt-5 max-w-3xl font-sans text-base md:text-lg leading-relaxed text-cr-text">
           Compartir coche al festival es lo más sencillo del mundo: alguien que ya va al concierto
           tiene 1-4 asientos libres, los publica en {BRAND.legalName} con precio y horario, y tú
           reservas la plaza. Pagas en mano el día del viaje (Bizum o efectivo), no por adelantado.
@@ -169,14 +177,14 @@ export default function CompartirCocheFestivalPage() {
         <div className="mt-6 flex flex-col sm:flex-row gap-3">
           <Link
             to="/festivales"
-            className="inline-flex items-center justify-center gap-2 bg-[#dbff00] text-black font-sans font-semibold uppercase tracking-[0.12em] text-sm px-6 py-3 hover:bg-[#c8ec00] transition-colors"
+            className="cr-btn-primary"
           >
             Ver festivales con viajes
             <ArrowRight size={14} aria-hidden="true" />
           </Link>
           <Link
             to="/publish"
-            className="inline-flex items-center justify-center gap-2 bg-transparent text-white/80 font-sans font-semibold uppercase tracking-[0.12em] text-sm border border-white/25 px-6 py-3 hover:border-[#dbff00]/60 hover:text-white transition-colors"
+            className="cr-btn-ghost"
           >
             Ofrecer mi coche →
           </Link>
@@ -184,47 +192,45 @@ export default function CompartirCocheFestivalPage() {
       </section>
 
       {/* Steps */}
-      <section className="mx-auto max-w-5xl px-4 md:px-6 py-10" aria-labelledby="pasos">
-        <h2 id="pasos" className="font-display text-2xl md:text-3xl uppercase">
+      <section className="mx-auto max-w-5xl px-4 md:px-6 py-[var(--rhythm-1)] border-t border-cr-border" aria-labelledby="pasos">
+        <h2 id="pasos" className="font-display text-display-m">
           Así funciona, paso a paso
         </h2>
-        <ol className="mt-6 grid gap-4 md:grid-cols-2">
-          {STEPS.map(({ icon: Icon, n, title, body }) => (
-            <li key={n} className="border border-cr-border p-5">
-              <div className="flex items-center justify-between">
-                <span className="font-display text-3xl text-cr-primary">{n}</span>
-                <Icon size={20} className="text-cr-primary" aria-hidden="true" />
-              </div>
-              <h3 className="mt-3 font-display text-lg uppercase">{title}</h3>
-              <p className="mt-2 font-sans text-sm text-cr-text/80 leading-relaxed">{body}</p>
-            </li>
-          ))}
-        </ol>
+        <TicketSteps
+          className="mt-8"
+          steps={STEPS.map(({ n, title, body }, i) => ({
+            n,
+            title,
+            body,
+            fills: STEP_FILLS[i] ?? [],
+          }))}
+          fields={{ from: "Bilbao", to: "Mad Cool · Madrid", when: "Jue 9 jul · 14:00", price: "20 €/asiento", seat: "2 de 4" }}
+        />
       </section>
 
       {/* For whom */}
-      <section className="mx-auto max-w-4xl px-4 md:px-6 py-10" aria-labelledby="para-quien">
-        <h2 id="para-quien" className="font-display text-2xl md:text-3xl uppercase">
+      <section className="mx-auto max-w-4xl px-4 md:px-6 py-[var(--rhythm-1)] border-t border-cr-border" aria-labelledby="para-quien">
+        <h2 id="para-quien" className="font-display text-display-m">
           Para quién encaja
         </h2>
         <div className="mt-6 space-y-4">
           {FOR_WHO.map((block) => (
             <article key={block.title} className="border-l-2 border-cr-primary pl-5 py-2">
               <h3 className="font-display text-lg uppercase">{block.title}</h3>
-              <p className="mt-2 font-sans text-sm md:text-base text-cr-text/85 leading-relaxed">{block.body}</p>
+              <p className="mt-2 font-sans text-sm md:text-base text-cr-text leading-relaxed">{block.body}</p>
             </article>
           ))}
         </div>
       </section>
 
       {/* FAQ */}
-      <section className="mx-auto max-w-4xl px-4 md:px-6 py-10" aria-labelledby="faq">
-        <h2 id="faq" className="font-display text-2xl md:text-3xl uppercase">Lo que la gente suele preguntar</h2>
+      <section className="mx-auto max-w-4xl px-4 md:px-6 py-[var(--rhythm-1)] border-t border-cr-border" aria-labelledby="faq">
+        <h2 id="faq" className="font-display text-display-m">Lo que la gente suele preguntar</h2>
         <dl className="mt-6 divide-y divide-cr-border border-y border-cr-border">
           {FAQS.map((item) => (
             <div key={item.q} className="py-5">
               <dt className="font-display text-lg uppercase">{item.q}</dt>
-              <dd className="mt-2 font-sans text-sm md:text-base leading-relaxed text-cr-text/85">{item.a}</dd>
+              <dd className="mt-2 font-sans text-sm md:text-base leading-relaxed text-cr-text">{item.a}</dd>
             </div>
           ))}
         </dl>
@@ -232,30 +238,30 @@ export default function CompartirCocheFestivalPage() {
 
       {/* Related */}
       <section className="mx-auto max-w-4xl px-4 md:px-6 pb-16">
-        <h2 className="font-display text-xl md:text-2xl uppercase">Sigue por aquí</h2>
+        <h2 className="font-display text-display-s md:text-display-m">Sigue por aquí</h2>
         <ul className="mt-4 grid gap-3 md:grid-cols-2">
           <li>
             <Link to="/ir-juntos-al-festival" className="block border border-cr-border p-4 hover:border-cr-primary/60 transition-colors">
               <p className="font-display text-sm uppercase">Ir juntos al festival →</p>
-              <p className="mt-1 text-xs text-cr-text/60">Cómo organizar el plan en grupo con gente que también va al evento.</p>
+              <p className="mt-1 text-xs text-cr-text-muted">Cómo organizar el plan en grupo con gente que también va al evento.</p>
             </Link>
           </li>
           <li>
             <Link to="/mejor-carpooling-festivales-2026" className="block border border-cr-border p-4 hover:border-cr-primary/60 transition-colors">
               <p className="font-display text-sm uppercase">Mejor app de coche compartido 2026 →</p>
-              <p className="mt-1 text-xs text-cr-text/60">Comparativa de apps de viaje compartido para festivales en España.</p>
+              <p className="mt-1 text-xs text-cr-text-muted">Comparativa de apps de viaje compartido para festivales en España.</p>
             </Link>
           </li>
           <li>
             <Link to="/alternativas-carpooling-festivales" className="block border border-cr-border p-4 hover:border-cr-primary/60 transition-colors">
               <p className="font-display text-sm uppercase">Otras formas de llegar →</p>
-              <p className="mt-1 text-xs text-cr-text/60">Tren, autobús, taxi y coche compartido con precios reales por festival.</p>
+              <p className="mt-1 text-xs text-cr-text-muted">Tren, autobús, taxi y coche compartido con precios reales por festival.</p>
             </Link>
           </li>
           <li>
             <Link to="/festivales" className="block border border-cr-border p-4 hover:border-cr-primary/60 transition-colors">
               <p className="font-display text-sm uppercase">Festivales 2026 →</p>
-              <p className="mt-1 text-xs text-cr-text/60">Mad Cool, Primavera Sound, BBK Live, FIB, Viña Rock y 30 más.</p>
+              <p className="mt-1 text-xs text-cr-text-muted">Mad Cool, Primavera Sound, BBK Live, FIB, Viña Rock y 30 más.</p>
             </Link>
           </li>
         </ul>

@@ -84,13 +84,13 @@ export function StickyRegBar() {
 
   return (
     <div
-      className="fixed bottom-0 left-0 right-0 z-40 bg-[#111111] border-t border-white/10"
+      className="fixed bottom-0 left-0 right-0 z-40 bg-[#111111] border-t border-cr-border"
       role="complementary"
       aria-label="Registro requerido para reservar"
     >
       <div className="max-w-6xl mx-auto px-4 py-3 flex items-center justify-between gap-3">
         {/* Message */}
-        <p className="font-sans text-xs sm:text-sm text-white/80 flex items-center gap-1.5 min-w-0 truncate">
+        <p className="font-sans text-xs sm:text-sm text-cr-text flex items-center gap-1.5 min-w-0 truncate">
           <span aria-hidden="true">{emoji}</span>
           <span>{text}</span>
         </p>
@@ -102,7 +102,7 @@ export function StickyRegBar() {
               const pageType = location.pathname.split("/").filter(Boolean)[0] ?? "home";
               trackEvent(ANALYTICS_EVENTS.STICKY_REG_BAR_CLICKED, { page_type: pageType });
             }}
-            className="inline-flex items-center justify-center bg-[#dbff00] text-black font-sans font-semibold uppercase tracking-[0.1em] text-xs border-2 border-black px-4 py-2 shadow-[3px_3px_0px_0px_rgba(0,0,0,1)] hover:shadow-[1px_1px_0px_0px_rgba(0,0,0,1)] hover:translate-x-[2px] hover:translate-y-[2px] transition-all duration-100 whitespace-nowrap"
+            className="inline-flex items-center justify-center bg-cr-primary text-black font-sans font-semibold uppercase tracking-[0.1em] text-xs border-2 border-black px-4 py-2 shadow-[3px_3px_0px_0px_rgba(0,0,0,1)] hover:shadow-[1px_1px_0px_0px_rgba(0,0,0,1)] hover:translate-x-[2px] hover:translate-y-[2px] transition-all duration-100 whitespace-nowrap"
           >
             Crear cuenta
           </Link>
@@ -111,7 +111,7 @@ export function StickyRegBar() {
             type="button"
             onClick={dismiss}
             aria-label="Cerrar barra de registro"
-            className="text-white/40 hover:text-white/80 transition-colors p-1"
+            className="text-cr-text-muted hover:text-cr-text transition-colors p-1"
           >
             <X size={16} aria-hidden="true" />
           </button>

@@ -124,7 +124,7 @@ export function EventTransportHub({
         <section aria-labelledby="transport-modes-heading">
           <h2
             id="transport-modes-heading"
-            className="font-display text-2xl md:text-3xl uppercase mb-6"
+            className="font-display text-display-m mb-6"
           >
             {isEn
               ? <>How to get to {name} {year}: all transport options</>
@@ -152,7 +152,7 @@ export function EventTransportHub({
                       )}
                     </h3>
                     {(mode.duration || mode.price) && (
-                      <div className="flex gap-3 font-mono text-[11px] text-cr-text-muted">
+                      <div className="flex gap-3 font-sans text-[12px] text-cr-text-muted">
                         {mode.duration && (
                           <span className="inline-flex items-center gap-1">
                             <Clock size={10} /> {mode.duration}
@@ -218,7 +218,7 @@ export function EventTransportHub({
                   {isEn ? <>Parking at {venue}</> : <>Parking en {venue}</>}
                 </h3>
                 <p
-                  className={`font-mono text-xs font-semibold ${
+                  className={`font-sans text-xs font-semibold ${
                     parking.available ? "text-cr-primary" : "text-cr-secondary"
                   }`}
                 >
@@ -251,7 +251,7 @@ export function EventTransportHub({
                   {isEn ? <>Camping at {name}</> : <>Acampada en {name}</>}
                 </h3>
                 <p
-                  className={`font-mono text-xs font-semibold ${
+                  className={`font-sans text-xs font-semibold ${
                     camping.available ? "text-cr-primary" : "text-cr-text-muted"
                   }`}
                 >
@@ -288,9 +288,9 @@ export function EventTransportHub({
                 <div className="flex items-center gap-2">
                   <Plane size={14} className="text-cr-primary" />
                   <h3 className="font-display text-sm uppercase">{isEn && ap.name_en ? ap.name_en : ap.name}</h3>
-                  <span className="font-mono text-[11px] text-cr-text-dim">({ap.iata})</span>
+                  <span className="font-sans text-[12px] text-cr-text-muted">({ap.iata})</span>
                 </div>
-                <div className="flex gap-4 font-mono text-[11px] text-cr-text-muted">
+                <div className="flex gap-4 font-sans text-[12px] text-cr-text-muted">
                   <span>{ap.distanceKm} km</span>
                   <span>·</span>
                   <span>{ap.transferTime}</span>
@@ -327,7 +327,7 @@ export function EventTransportHub({
             {accommodationZones.map((zone) => (
               <article key={zone.area} className="border border-cr-border p-4 space-y-2">
                 <h3 className="font-display text-sm uppercase">{isEn && zone.area_en ? zone.area_en : zone.area}</h3>
-                <div className="flex gap-3 font-mono text-[11px] text-cr-text-muted">
+                <div className="flex gap-3 font-sans text-[12px] text-cr-text-muted">
                   <span>{isEn ? <>{zone.distanceKm} km from venue</> : <>{zone.distanceKm} km del recinto</>}</span>
                   <span>·</span>
                   <span>{isEn ? zone.priceRange.replace("/noche", "/night") : zone.priceRange}</span>
@@ -338,7 +338,7 @@ export function EventTransportHub({
               </article>
             ))}
           </div>
-          <p className="font-mono text-[10px] text-cr-text-dim mt-3">
+          <p className="font-sans text-[11px] text-cr-text-dim mt-3">
             {isEn
               ? "Indicative prices per night (2 people, high season). Book in advance — festival dates sell out within weeks."
               : "Precios orientativos por noche (2 personas, temporada alta). Reserva con antelación — las fechas de festival se agotan en semanas."}
@@ -361,7 +361,7 @@ export function EventTransportHub({
           <ul className="space-y-3">
             {arrivalTips.map((tip, i) => (
               <li key={i} className="flex gap-3 font-sans text-sm">
-                <span className="font-mono text-[11px] text-cr-primary shrink-0 pt-0.5">
+                <span className="font-sans text-[12px] text-cr-primary shrink-0 pt-0.5">
                   {String(i + 1).padStart(2, "0")}
                 </span>
                 <div className="space-y-0.5">

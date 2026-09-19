@@ -162,18 +162,18 @@ export default function RutasIndexPage() {
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdFaq) }} />
 
       {/* ── Hero ── */}
-      <div className="max-w-6xl mx-auto px-6 pt-10 pb-6 space-y-4">
-        <nav aria-label="Breadcrumb" className="font-mono text-[11px] text-cr-text-muted flex items-center gap-2">
+      <div className="max-w-6xl mx-auto px-6 pt-[var(--rhythm-1)] pb-[var(--rhythm-1)] space-y-5">
+        <nav aria-label="Breadcrumb" className="font-sans text-[12px] text-cr-text-muted flex items-center gap-2">
           <Link to="/" className="hover:text-cr-primary">Inicio</Link>
           <span aria-hidden="true">/</span>
           <span className="text-cr-text-muted">Rutas</span>
         </nav>
 
-        <p className="font-sans text-[11px] font-semibold uppercase tracking-[0.16em] text-cr-primary">
+        <p className="cr-eyebrow">
           {ROUTE_LANDINGS.length} rutas disponibles
         </p>
 
-        <h1 className="font-display text-4xl md:text-6xl uppercase leading-[0.92]">
+        <h1 className="font-display text-display-l">
           Rutas de<br />carpooling {new Date().getFullYear()}.
         </h1>
 
@@ -208,8 +208,8 @@ export default function RutasIndexPage() {
             { value: "0 %", label: "Comisión de plataforma" },
           ].map((s) => (
             <div key={s.label} className="space-y-0.5">
-              <p className="font-display text-xl md:text-2xl uppercase text-cr-primary">{s.value}</p>
-              <p className="font-mono text-[10px] text-cr-text-muted">{s.label}</p>
+              <p className="font-display text-display-s md:text-display-m text-cr-primary">{s.value}</p>
+              <p className="font-sans text-[11px] text-cr-text-muted">{s.label}</p>
             </div>
           ))}
         </div>
@@ -243,11 +243,11 @@ export default function RutasIndexPage() {
               <div className="flex items-baseline gap-3 border-t border-cr-border pt-6">
                 <Link
                   to={`/festivales/${festival.slug}`}
-                  className="font-display text-xl md:text-2xl uppercase hover:text-cr-primary transition-colors"
+                  className="font-display text-display-s md:text-display-m hover:text-cr-primary transition-colors"
                 >
                   {festival.name}
                 </Link>
-                <span className="font-mono text-[11px] text-cr-text-muted">
+                <span className="font-sans text-[12px] text-cr-text-muted">
                   {festival.city} · {festival.startDate.slice(0, 7).split("-").reverse().join("/")}
                 </span>
               </div>
@@ -260,7 +260,7 @@ export default function RutasIndexPage() {
                     className="group border border-cr-border p-4 flex items-start justify-between gap-3 hover:border-cr-primary transition-colors"
                   >
                     <div className="space-y-1 min-w-0">
-                      <div className="flex items-center gap-1.5 font-mono text-[11px] text-cr-text-muted">
+                      <div className="flex items-center gap-1.5 font-sans text-[12px] text-cr-text-muted">
                         <MapPin size={10} />
                         <span className="truncate">{r.originCity}</span>
                       </div>
@@ -269,7 +269,7 @@ export default function RutasIndexPage() {
                       </p>
                     </div>
                     <div className="flex items-center gap-1.5 shrink-0">
-                      <span className="font-mono text-[11px] text-cr-primary font-semibold">
+                      <span className="font-sans text-[12px] text-cr-primary font-semibold">
                         {r.originData.concertRideRange}
                       </span>
                       <ArrowRight size={11} className="text-cr-text-muted group-hover:text-cr-primary transition-colors" />
@@ -283,8 +283,8 @@ export default function RutasIndexPage() {
       </div>
 
       {/* ── FAQ ── */}
-      <section className="max-w-6xl mx-auto px-6 pb-16 border-t border-cr-border pt-12 space-y-6">
-        <h2 className="font-display text-2xl md:text-3xl uppercase">
+      <section className="max-w-6xl mx-auto px-6 pb-[var(--rhythm-2)] border-t border-cr-border pt-[var(--rhythm-1)] space-y-6">
+        <h2 className="font-display text-display-m">
           Preguntas frecuentes — rutas de carpooling
         </h2>
         <dl className="space-y-6">
@@ -317,7 +317,7 @@ export default function RutasIndexPage() {
       {/* ── Bottom CTA ── */}
       <div className="border-t border-cr-border">
         <div className="max-w-6xl mx-auto px-6 py-12 space-y-4">
-          <h2 className="font-display text-2xl md:text-3xl uppercase">
+          <h2 className="font-display text-display-m">
             ¿No encuentras tu ruta?
           </h2>
           <p className="font-sans text-sm text-cr-text-muted max-w-xl leading-relaxed">

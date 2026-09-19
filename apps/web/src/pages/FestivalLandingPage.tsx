@@ -1,9 +1,10 @@
-﻿import { useEffect, useState } from "react";
+﻿import { useEffect, useRef, useState } from "react";
 import { Link, Navigate, useParams } from "react-router-dom";
 import { ArrowRight, MapPin, Calendar, Users } from "lucide-react";
 import type { Concert } from "@concertride/types";
 import { api, ApiError } from "@/lib/api";
 import { ConcertCard } from "@/components/ConcertCard";
+import { useLevelAMotion } from "@/fx/useLevelAMotion";
 import { LoadingSpinner } from "@/components/ui";
 import { useSeoMeta } from "@/lib/useSeoMeta";
 import { SITE_URL } from "@/lib/siteUrl";
@@ -72,6 +73,8 @@ const FESTIVAL_WIKIDATA: Record<string, string> = {
 };
 
 export default function FestivalLandingPage() {
+  const mainRef = useRef<HTMLElement | null>(null);
+  useLevelAMotion(mainRef);
   const { festival: slug } = useParams<{ festival: string }>();
   const festival = slug ? FESTIVAL_LANDINGS_BY_SLUG[slug] : undefined;
   const { user } = useSession();
@@ -765,7 +768,7 @@ export default function FestivalLandingPage() {
 
   return (
     <>
-    <main id="main" className="min-h-dvh bg-cr-bg text-cr-text pt-14">
+    <main id="main" ref={mainRef} className="min-h-dvh bg-cr-bg text-cr-text pt-14">
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdEventWithRating) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdSeries) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdKeyFacts) }} />
@@ -891,8 +894,8 @@ export default function FestivalLandingPage() {
       }) }} />
 
       {/* ── Hero ── */}
-      <div className="max-w-6xl mx-auto px-6 pt-10 pb-6 space-y-4">
-        <nav aria-label="Breadcrumb" className="font-mono text-[11px] text-cr-text-muted flex items-center gap-2 flex-wrap">
+      <div className="max-w-6xl mx-auto px-6 pt-[var(--rhythm-1)] pb-[var(--rhythm-1)] space-y-5">
+        <nav aria-label="Breadcrumb" className="font-sans text-[12px] text-cr-text-muted flex items-center gap-2 flex-wrap">
           <Link to="/" className="hover:text-cr-primary">Inicio</Link>
           <span aria-hidden="true">/</span>
           <Link to="/festivales" className="hover:text-cr-primary">Festivales</Link>
@@ -906,11 +909,11 @@ export default function FestivalLandingPage() {
           <span className="text-cr-text-muted">{festival.shortName}</span>
         </nav>
 
-        <p className="font-sans text-[11px] font-semibold uppercase tracking-[0.16em] text-cr-primary inline-flex items-center gap-2">
+        <p className="cr-eyebrow inline-flex items-center gap-2">
           <MapPin size={12} /> {festival.region}
         </p>
 
-        <h1 className="font-display text-4xl md:text-6xl uppercase leading-[0.92]">
+        <h1 className="font-display text-display-l" data-scan="entrance">
           {festival.shortName} {new Date(festival.startDate).getFullYear()}<br />
           <span className="text-cr-primary">
             {isEn
@@ -936,13 +939,13 @@ export default function FestivalLandingPage() {
         {!user && daysLeft !== null && daysLeft > 0 && (
           <div className="inline-flex items-center gap-2" aria-live="polite">
             {daysLeft < 7 ? (
-              <span className="font-sans text-xs font-semibold uppercase tracking-[0.14em] bg-[#ff4f00] text-white px-3 py-1">
+              <span className="font-sans text-xs font-semibold uppercase tracking-[0.14em] bg-cr-secondary text-white px-3 py-1">
                 {isEn
                   ? `Last seats! ${daysLeft} day${daysLeft === 1 ? "" : "s"} left`
                   : `¡Últimas plazas! Quedan ${daysLeft} día${daysLeft === 1 ? "" : "s"}`}
               </span>
             ) : daysLeft < 30 ? (
-              <span className="font-sans text-xs font-semibold uppercase tracking-[0.14em] border border-[#dbff00] text-[#dbff00] px-3 py-1">
+              <span className="font-sans text-xs font-semibold uppercase tracking-[0.14em] border border-cr-primary text-cr-primary px-3 py-1">
                 {isEn ? `${daysLeft} days to go!` : `¡Faltan ${daysLeft} días!`}
               </span>
             ) : null}
@@ -991,7 +994,7 @@ export default function FestivalLandingPage() {
             aria-label={isEn
               ? `Find a seat on a ride to ${festival.shortName} ${festYear} from ${priceFromMin} euros per seat`
               : `Buscar plaza en viaje a ${festival.shortName} ${festYear} desde ${priceFromMin} euros por asiento`}
-            className="inline-flex items-center gap-2 bg-cr-primary text-black font-sans text-sm font-bold uppercase tracking-[0.12em] px-5 py-3 shadow-[0_4px_0_0_#ff4f00] hover:bg-cr-primary/90 hover:translate-y-[1px] hover:shadow-[0_3px_0_0_#ff4f00] transition-all"
+            className="cr-btn-primary"
           >
             {isEn ? <>Find a seat · from {priceFromMin}€ </> : <>Buscar plaza · desde {priceFromMin}€ </>}<ArrowRight size={14} />
           </Link>
@@ -1045,7 +1048,7 @@ export default function FestivalLandingPage() {
                   setFestAlertLoading(false);
                 }
               }}
-              className={`inline-flex items-center gap-1.5 font-mono text-[11px] font-semibold uppercase tracking-[0.12em] px-4 py-3 border-2 transition-colors disabled:opacity-50 ${
+              className={`inline-flex items-center gap-1.5 font-sans text-[12px] font-semibold uppercase tracking-[0.12em] px-4 py-3 border-2 transition-colors disabled:opacity-50 ${
                 festAlertSubscribed
                   ? "border-cr-primary text-cr-primary bg-cr-primary/[0.08] cursor-default"
                   : "border-cr-border text-cr-text-muted hover:border-cr-primary hover:text-cr-primary"
@@ -1060,7 +1063,7 @@ export default function FestivalLandingPage() {
             </button>
           )}
         </div>
-        <p className="font-mono text-[11px] text-cr-text-dim">
+        <p className="font-sans text-[12px] text-cr-text-muted">
           {isEn
             ? "No commission · Pay in cash or by Bizum · Verified drivers"
             : "Sin comisión · Pago en efectivo o Bizum · Conductores verificados"}
@@ -1109,21 +1112,21 @@ export default function FestivalLandingPage() {
 
         {/* Festival meta strip */}
         <div className="flex flex-wrap gap-4 pt-2">
-          <span className="inline-flex items-center gap-1.5 font-mono text-[11px] text-cr-text-muted border border-cr-border px-2 py-1">
+          <span className="inline-flex items-center gap-1.5 font-sans text-[12px] text-cr-text-muted border border-cr-border px-2 py-1">
             <MapPin size={10} /> {isEn ? "Location:" : "Localización:"} {venueName}, {festival.city}
           </span>
-          <span className="inline-flex items-center gap-1.5 font-mono text-[11px] text-cr-text-muted border border-cr-border px-2 py-1">
+          <span className="inline-flex items-center gap-1.5 font-sans text-[12px] text-cr-text-muted border border-cr-border px-2 py-1">
             <Calendar size={10} /> {typicalDatesLabel}
           </span>
-          <span className="inline-flex items-center gap-1.5 font-mono text-[11px] text-cr-text-muted border border-cr-border px-2 py-1">
+          <span className="inline-flex items-center gap-1.5 font-sans text-[12px] text-cr-text-muted border border-cr-border px-2 py-1">
             <Users size={10} /> {capacityLabel}
           </span>
         </div>
       </div>
 
       {/* ── Cómo llegar a [festival]: localización + autobús/tren/coche ── */}
-      <section className="max-w-6xl mx-auto px-6 pb-12 border-t border-cr-border pt-12 space-y-6 transport-info">
-        <h2 className="font-display text-2xl md:text-3xl uppercase">
+      <section className="max-w-6xl mx-auto px-6 pb-[var(--rhythm-1)] border-t border-cr-border pt-[var(--rhythm-1)] space-y-6 transport-info">
+        <h2 className="font-display text-display-m">
           {isEn
             ? <>How to get to {festival.shortName} {festYear}: bus, train and carpooling from {festival.originCities[0]?.city ?? "your city"}</>
             : <>Cómo llegar a {festival.shortName} {festYear}: autobús, tren y carpooling desde {festival.originCities[0]?.city ?? "tu ciudad"}</>}
@@ -1195,7 +1198,7 @@ export default function FestivalLandingPage() {
           </article>
         </div>
 
-        <p className="font-mono text-[11px] text-cr-text-dim">
+        <p className="font-sans text-[12px] text-cr-text-muted">
           {isEn ? (
             <>
               Looking for buses to {festival.shortName}, the train to {festival.shortName} or the fastest
@@ -1213,7 +1216,7 @@ export default function FestivalLandingPage() {
       </section>
 
       {/* ── TransportHub: tabla detallada de transporte (bus, tren, lanzadera, carpooling) ── */}
-      <section className="max-w-6xl mx-auto px-6 pb-12 border-t border-cr-border pt-12 space-y-5">
+      <section className="max-w-6xl mx-auto px-6 pb-[var(--rhythm-1)] border-t border-cr-border pt-[var(--rhythm-1)] space-y-5">
         <FactDensityCallout
           heading={isEn ? `Key facts · ${festival.shortName}` : `Datos clave · ${festival.shortName}`}
           facts={isEn ? [
@@ -1244,7 +1247,7 @@ export default function FestivalLandingPage() {
         ) : (
           /* Fallback genérico para festivales sin datos curados */
           <div className="space-y-5">
-            <h2 className="font-display text-2xl md:text-3xl uppercase">
+            <h2 className="font-display text-display-m">
               {isEn
                 ? <>Buses to {festival.shortName} {festYear}: official bus, shuttle and alternative transport</>
                 : <>Autobuses a {festival.shortName} {festYear}: bus oficial, lanzadera y transporte alternativo</>}
@@ -1386,8 +1389,8 @@ export default function FestivalLandingPage() {
       </section>
 
       {/* ── Origin cities — Cómo llegar desde tu ciudad ── */}
-      <section className="max-w-6xl mx-auto px-6 pb-16 border-t border-cr-border pt-12">
-        <h2 className="font-display text-2xl md:text-3xl uppercase mb-2">
+      <section className="max-w-6xl mx-auto px-6 pb-[var(--rhythm-2)] border-t border-cr-border pt-[var(--rhythm-1)]">
+        <h2 className="font-display text-display-m mb-2">
           {isEn
             ? <>Carpooling price to {festival.shortName} {festYear} by origin city</>
             : <>Precio del carpooling a {festival.shortName} {festYear} por ciudad de origen</>}
@@ -1415,11 +1418,11 @@ export default function FestivalLandingPage() {
               <>
                 <div className="flex items-center justify-between">
                   <h3 className="font-display text-base uppercase">{oc.city}</h3>
-                  <span className="font-mono text-xs text-cr-primary font-semibold">
+                  <span className="font-sans text-xs text-cr-primary font-semibold">
                     {isEn ? oc.concertRideRange.replace("/asiento", "/seat") : oc.concertRideRange}
                   </span>
                 </div>
-                <div className="flex gap-4 font-mono text-[11px] text-cr-text-muted">
+                <div className="flex gap-4 font-sans text-[12px] text-cr-text-muted">
                   <span>{oc.km} km</span>
                   <span>·</span>
                   <span>{oc.drivingTime}</span>
@@ -1484,7 +1487,7 @@ export default function FestivalLandingPage() {
                   <Link
                     key={r.slug}
                     to={`/rutas/${r.slug}`}
-                    className="font-mono text-[11px] text-cr-text-muted hover:text-cr-primary underline-offset-2 hover:underline"
+                    className="font-sans text-[12px] text-cr-text-muted hover:text-cr-primary underline-offset-2 hover:underline"
                   >
                     {r.originCity} → {festival.shortName}
                   </Link>
@@ -1514,7 +1517,7 @@ export default function FestivalLandingPage() {
 
       {/* ── PickupMap: puntos de recogida frecuentes ── */}
       {festival.common_pickup_points && festival.common_pickup_points.length > 0 && (
-        <section className="max-w-6xl mx-auto px-6 pb-4 border-t border-cr-border pt-12">
+        <section className="max-w-6xl mx-auto px-6 pb-2 border-t border-cr-border pt-[var(--rhythm-1)]">
           <PickupMap
             points={festival.common_pickup_points}
             festivalName={festival.shortName}
@@ -1525,7 +1528,7 @@ export default function FestivalLandingPage() {
       )}
 
       {/* ── CostComparator: calculadora de coste de transporte ── */}
-      <section className="max-w-6xl mx-auto px-6 pb-4 border-t border-cr-border pt-12">
+      <section className="max-w-6xl mx-auto px-6 pb-2 border-t border-cr-border pt-[var(--rhythm-1)]">
         <CostComparator
           originCities={festival.originCities}
           festivalName={festival.shortName}
@@ -1534,7 +1537,7 @@ export default function FestivalLandingPage() {
       </section>
 
       {/* ── DemandSignal: alerta cuando haya viaje ── */}
-      <section className="max-w-6xl mx-auto px-6 pb-4 border-t border-cr-border pt-12">
+      <section className="max-w-6xl mx-auto px-6 pb-2 border-t border-cr-border pt-[var(--rhythm-1)]">
         <DemandSignalWidget
           festivalSlug={festival.slug}
           festivalName={festival.shortName}
@@ -1543,8 +1546,8 @@ export default function FestivalLandingPage() {
       </section>
 
       {/* ── Internal linking: Transport guides + related topics ── */}
-      <section className="max-w-6xl mx-auto px-6 pb-12 border-t border-cr-border pt-12 space-y-5">
-        <h2 className="font-display text-2xl md:text-3xl uppercase">
+      <section className="max-w-6xl mx-auto px-6 pb-[var(--rhythm-1)] border-t border-cr-border pt-[var(--rhythm-1)] space-y-5">
+        <h2 className="font-display text-display-m">
           {isEn
             ? <>Transport and carpooling guides to {festival.shortName}: related resources</>
             : <>Guías de transporte y carpooling a {festival.shortName}: recursos relacionados</>}
@@ -1593,8 +1596,8 @@ export default function FestivalLandingPage() {
       </section>
 
       {/* ── Viajes disponibles (dynamic) ── */}
-      <section className="max-w-6xl mx-auto px-6 pb-16 border-t border-cr-border pt-12">
-        <h2 className="font-display text-2xl md:text-3xl uppercase mb-2">
+      <section className="max-w-6xl mx-auto px-6 pb-[var(--rhythm-2)] border-t border-cr-border pt-[var(--rhythm-1)]">
+        <h2 className="font-display text-display-m mb-2">
           {isEn
             ? <>Available rides for {festival.shortName} in {festival.city}</>
             : <>Viajes disponibles para {festival.shortName} en {festival.city}</>}
@@ -1609,10 +1612,10 @@ export default function FestivalLandingPage() {
           <LoadingSpinner text={isEn ? `Loading rides to ${festival.shortName}…` : `Cargando viajes a ${festival.shortName}…`} />
         ) : futureConcerts.length === 0 ? (
           <div className="relative border-2 border-dashed border-cr-primary/40 bg-cr-primary/[0.04] p-10 text-center space-y-4 overflow-hidden">
-            <span className="absolute top-3 right-3 font-mono text-[10px] uppercase tracking-[0.16em] text-cr-primary border border-cr-primary/40 px-2 py-0.5">
+            <span className="absolute top-3 right-3 cr-eyebrow border border-cr-primary/40 px-2 py-0.5">
               {isEn ? "Be the first" : "Sé el primero"}
             </span>
-            <p className="font-display text-2xl md:text-3xl uppercase text-cr-text leading-tight">
+            <p className="font-display text-display-m text-cr-text leading-tight">
               {isEn
                 ? <>Be the first to post a ride to {festival.shortName}</>
                 : <>Sé el primero en publicar viaje a {festival.shortName}</>}
@@ -1661,7 +1664,7 @@ export default function FestivalLandingPage() {
                 {isEn ? <>See other concerts in {festival.city}</> : <>Ver otros conciertos en {festival.city}</>}
               </Link>
             </div>
-            <p className="font-mono text-[10px] text-cr-text-dim pt-2">
+            <p className="font-sans text-[11px] text-cr-text-dim pt-2">
               {isEn
                 ? "Average time to post: 90 seconds · No card · Pay in cash or by Bizum"
                 : "Tiempo medio para publicar: 90 segundos · Sin tarjeta · Pago en efectivo o Bizum"}
@@ -1679,7 +1682,7 @@ export default function FestivalLandingPage() {
       </section>
 
       {/* ── Alerta de viajes ── */}
-      <section className="max-w-6xl mx-auto px-6 pb-16 border-t border-cr-border pt-12">
+      <section className="max-w-6xl mx-auto px-6 pb-[var(--rhythm-2)] border-t border-cr-border pt-[var(--rhythm-1)]">
         <FestivalAlertWidget festivalSlug={festival.slug} festivalName={festival.shortName} />
       </section>
 
@@ -1687,7 +1690,7 @@ export default function FestivalLandingPage() {
       {((festival.nearby_airports && festival.nearby_airports.length > 0) ||
         (festival.accommodation_zones && festival.accommodation_zones.length > 0) ||
         (festival.arrival_tips && festival.arrival_tips.length > 0)) && (
-        <section className="max-w-6xl mx-auto px-6 pb-16 border-t border-cr-border pt-12">
+        <section className="max-w-6xl mx-auto px-6 pb-[var(--rhythm-2)] border-t border-cr-border pt-[var(--rhythm-1)]">
           {/* JSON-LD for transport hub schemas */}
           {generateTransportHubSchema({
             eventName: festival.name,
@@ -1731,7 +1734,7 @@ export default function FestivalLandingPage() {
 
       {/* ── Genres + attendance + arrival patterns ── */}
       {(festival.genres || festival.arrival_patterns) && (
-        <section className="max-w-6xl mx-auto px-6 pb-12 border-t border-cr-border pt-12 space-y-5">
+        <section className="max-w-6xl mx-auto px-6 pb-[var(--rhythm-1)] border-t border-cr-border pt-[var(--rhythm-1)] space-y-5">
           <h2 className="font-display text-xl uppercase">
             {isEn
               ? <>{festival.shortName} {festYear}: festival profile and attendees</>
@@ -1743,7 +1746,7 @@ export default function FestivalLandingPage() {
                 <h3 className="font-display text-sm uppercase">{isEn ? "Music genres" : "Géneros musicales"}</h3>
                 <div className="flex flex-wrap gap-1.5">
                   {festival.genres.map((g) => (
-                    <span key={g} className="font-mono text-[11px] text-cr-primary border border-cr-primary/40 px-2 py-0.5 uppercase">
+                    <span key={g} className="font-sans text-[12px] text-cr-primary border border-cr-primary/40 px-2 py-0.5 uppercase">
                       {g}
                     </span>
                   ))}
@@ -1753,7 +1756,7 @@ export default function FestivalLandingPage() {
             {expectedAttendance && (
               <article className="border border-cr-border p-4 space-y-2">
                 <h3 className="font-display text-sm uppercase">{isEn ? "Expected attendance" : "Asistencia esperada"}</h3>
-                <p className="font-mono text-lg font-bold text-cr-primary">{expectedAttendance}</p>
+                <p className="font-sans cr-tabular text-lg font-bold text-cr-primary">{expectedAttendance}</p>
               </article>
             )}
             {arrivalPatterns && (
@@ -1767,8 +1770,8 @@ export default function FestivalLandingPage() {
       )}
 
       {/* ── Por qué ConcertRide para este festival ── */}
-      <section className="max-w-6xl mx-auto px-6 pb-16 border-t border-cr-border pt-12 space-y-6">
-        <h2 className="font-display text-2xl md:text-3xl uppercase">
+      <section className="max-w-6xl mx-auto px-6 pb-[var(--rhythm-2)] border-t border-cr-border pt-[var(--rhythm-1)] space-y-6">
+        <h2 className="font-display text-display-m">
           {isEn
             ? <>Why go to {festival.shortName} by carpooling with ConcertRide vs. other options</>
             : <>Por qué ir a {festival.shortName} en carpooling con ConcertRide vs. otras opciones</>}
@@ -1831,8 +1834,8 @@ export default function FestivalLandingPage() {
       </section>
 
       {/* ── Cómo funciona (HowTo visual) ── */}
-      <section className="max-w-6xl mx-auto px-6 pb-16 border-t border-cr-border pt-12 space-y-6">
-        <h2 className="font-display text-2xl md:text-3xl uppercase">
+      <section className="max-w-6xl mx-auto px-6 pb-[var(--rhythm-2)] border-t border-cr-border pt-[var(--rhythm-1)] space-y-6">
+        <h2 className="font-display text-display-m">
           {isEn
             ? <>How to book carpooling to {festival.shortName} {festYear} in 4 steps</>
             : <>Cómo reservar carpooling a {festival.shortName} {festYear} en 4 pasos</>}
@@ -1850,7 +1853,7 @@ export default function FestivalLandingPage() {
             { n: "04", title: "Viaja y paga", body: "El día del festival te encuentras con el conductor en el punto acordado. Pagas en efectivo o Bizum. Sin comisión." },
           ]).map(({ n, title, body }) => (
             <article key={n} className="border border-cr-border p-4 space-y-2">
-              <p className="font-mono text-[11px] text-cr-primary">{n}</p>
+              <p className="font-sans text-[12px] text-cr-primary">{n}</p>
               <h3 className="font-display text-base uppercase">{title}</h3>
               <p className="font-sans text-xs text-cr-text-muted leading-relaxed">{body}</p>
             </article>
@@ -1863,7 +1866,7 @@ export default function FestivalLandingPage() {
               ? `"80% of a festival's carbon footprint comes from attendee travel. Carpooling is the single most effective individual action to reduce it."`
               : `"El 80 % de la huella de carbono de un festival proviene del transporte de los asistentes. El carpooling es la acción individual más efectiva para reducirla."`}
           </p>
-          <footer className="font-mono text-[11px] text-cr-text-dim">
+          <footer className="font-sans text-[12px] text-cr-text-muted">
             —{" "}
             <a href="https://juliesbicycle.com/" target="_blank" rel="noopener noreferrer" className="hover:text-cr-primary">
               Julie's Bicycle Practical Guide to Green Events
@@ -1873,8 +1876,8 @@ export default function FestivalLandingPage() {
       </section>
 
       {/* ── Transport comparison table — citable by Perplexity/ChatGPT for "X vs Y" queries ── */}
-      <section className="max-w-6xl mx-auto px-6 pb-16 border-t border-cr-border pt-12 space-y-6">
-        <h2 className="font-display text-2xl md:text-3xl uppercase">
+      <section className="max-w-6xl mx-auto px-6 pb-[var(--rhythm-2)] border-t border-cr-border pt-[var(--rhythm-1)] space-y-6">
+        <h2 className="font-display text-display-m">
           {isEn
             ? <>Transport comparison to {festival.shortName} {festYear}: carpooling vs. bus vs. train vs. taxi</>
             : <>Comparativa de transporte a {festival.shortName} {festYear}: carpooling vs. bus vs. tren vs. taxi</>}
@@ -1927,7 +1930,7 @@ export default function FestivalLandingPage() {
             </tbody>
           </table>
         </div>
-        <p className="font-mono text-[10px] text-cr-text-dim">
+        <p className="font-sans text-[11px] text-cr-text-dim">
           {isEn
             ? "ConcertRide data, night-time VTC estimates and EMT/Renfe 2026 fares. Average commission of generalist carpooling platforms updated as of May 2026."
             : "Datos de ConcertRide, estimaciones de VTC nocturno y tarifas EMT/Renfe 2026. Comisión media de plataformas de carpooling generalistas actualizada a mayo 2026."}
@@ -1935,8 +1938,8 @@ export default function FestivalLandingPage() {
       </section>
 
       {/* ── Query fan-out: subconsultas de búsqueda — cubre 5 intenciones de "cómo ir a [festival]" ── */}
-      <section className="max-w-6xl mx-auto px-6 pb-16 border-t border-cr-border pt-12 space-y-8">
-        <h2 className="font-display text-2xl md:text-3xl uppercase">
+      <section className="max-w-6xl mx-auto px-6 pb-[var(--rhythm-2)] border-t border-cr-border pt-[var(--rhythm-1)] space-y-8">
+        <h2 className="font-display text-display-m">
           {isEn
             ? <>Everything you need to know to get to {festival.shortName} {festYear}</>
             : <>Todo lo que necesitas saber para ir a {festival.shortName} {festYear}</>}
@@ -2032,10 +2035,10 @@ export default function FestivalLandingPage() {
           Renderizados como secciones independientes para reducir similitud entre festivales
           hermanos (Cruïlla vs Primavera Sound, BBK Live vs BBK Music Legends, etc.). */}
       {enrichmentBlocks && enrichmentBlocks.length > 0 && (
-        <section className="max-w-6xl mx-auto px-6 pb-16 border-t border-cr-border pt-12 space-y-10">
+        <section className="max-w-6xl mx-auto px-6 pb-[var(--rhythm-2)] border-t border-cr-border pt-[var(--rhythm-1)] space-y-10">
           {enrichmentBlocks.map((block) => (
             <article key={block.heading} className="space-y-3 max-w-3xl">
-              <h2 className="font-display text-2xl md:text-3xl uppercase">{block.heading}</h2>
+              <h2 className="font-display text-display-m">{block.heading}</h2>
               <p className="font-sans text-sm md:text-base text-cr-text-muted leading-relaxed">
                 {block.body}
               </p>
@@ -2045,8 +2048,8 @@ export default function FestivalLandingPage() {
       )}
 
       {/* ── FAQ ── */}
-      <section className="max-w-6xl mx-auto px-6 pb-16 border-t border-cr-border pt-12 space-y-6">
-        <h2 className="font-display text-2xl md:text-3xl uppercase">
+      <section className="max-w-6xl mx-auto px-6 pb-[var(--rhythm-2)] border-t border-cr-border pt-[var(--rhythm-1)] space-y-6">
+        <h2 className="font-display text-display-m">
           {isEn
             ? <>Frequently asked questions about getting to {festival.shortName} {festYear}</>
             : <>Preguntas frecuentes sobre cómo ir a {festival.shortName} {festYear}</>}
@@ -2067,7 +2070,7 @@ export default function FestivalLandingPage() {
               {isEn ? "Questions by origin city" : "Preguntas por ciudad de origen"}
             </h3>
             {cityFaqs.map((faq, i) => (
-              <details key={i} className="group rounded-xl border border-white/10 bg-white/3">
+              <details key={i} className="group rounded-none border border-cr-border bg-white/3">
                 <summary className="cursor-pointer px-5 py-4 text-sm font-medium text-cr-text hover:text-cr-primary transition-colors list-none flex justify-between items-center">
                   {faq.q}
                   <span className="text-cr-text-muted group-open:rotate-180 transition-transform text-xs">▼</span>
@@ -2176,8 +2179,8 @@ export default function FestivalLandingPage() {
       })()}
 
       {/* ── People going / social proof / network effects ── */}
-      <section className="max-w-6xl mx-auto px-6 pb-16 border-t border-cr-border pt-12 space-y-6">
-        <h2 className="font-display text-2xl md:text-3xl uppercase">
+      <section className="max-w-6xl mx-auto px-6 pb-[var(--rhythm-2)] border-t border-cr-border pt-[var(--rhythm-1)] space-y-6">
+        <h2 className="font-display text-display-m">
           {isEn
             ? <>Travel to {festival.shortName} {festYear} with other fans</>
             : <>Viaja a {festival.shortName} {festYear} con otros fans</>}
@@ -2190,19 +2193,19 @@ export default function FestivalLandingPage() {
 
         <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 font-sans text-sm">
           <div className="border border-cr-primary/30 p-5 space-y-1 text-center">
-            <p className="font-mono text-2xl font-bold text-cr-primary">{isEn ? "0%" : "0 %"}</p>
+            <p className="font-sans cr-tabular text-2xl font-bold text-cr-primary">{isEn ? "0%" : "0 %"}</p>
             <p className="text-xs text-cr-text-muted">{isEn ? "Platform commission" : "Comisión de plataforma"}</p>
           </div>
           <div className="border border-cr-border p-5 space-y-1 text-center">
-            <p className="font-mono text-2xl font-bold text-cr-text">{festival.originCities.length}</p>
+            <p className="font-sans cr-tabular text-2xl font-bold text-cr-text">{festival.originCities.length}</p>
             <p className="text-xs text-cr-text-muted">{isEn ? "Documented origin cities" : "Ciudades de origen documentadas"}</p>
           </div>
           <div className="border border-cr-border p-5 space-y-1 text-center">
-            <p className="font-mono text-2xl font-bold text-cr-text">✓</p>
+            <p className="font-sans cr-tabular text-2xl font-bold text-cr-text">✓</p>
             <p className="text-xs text-cr-text-muted">{isEn ? "Drivers with a verified licence" : "Conductores con carnet verificado"}</p>
           </div>
           <div className="border border-cr-border p-5 space-y-1 text-center">
-            <p className="font-mono text-2xl font-bold text-cr-text">{festival.originCities[0]?.concertRideRange?.split("–")[0]?.trim() ?? "3"}€</p>
+            <p className="font-sans cr-tabular text-2xl font-bold text-cr-text">{festival.originCities[0]?.concertRideRange?.split("–")[0]?.trim() ?? "3"}€</p>
             <p className="text-xs text-cr-text-muted">{isEn ? "Minimum price per seat" : "Precio mínimo por asiento"}</p>
           </div>
         </div>
@@ -2247,7 +2250,7 @@ export default function FestivalLandingPage() {
 
       {/* ── Related festivals ── */}
       {relatedFestivals.length > 0 && (
-        <section className="max-w-6xl mx-auto px-6 pb-16 border-t border-cr-border pt-10">
+        <section className="max-w-6xl mx-auto px-6 pb-[var(--rhythm-2)] border-t border-cr-border pt-[var(--rhythm-1)]">
           <h2 className="font-display text-lg uppercase text-cr-text-muted mb-4">
             {isEn ? "Related festivals" : "Festivales relacionados"}
           </h2>
@@ -2267,7 +2270,7 @@ export default function FestivalLandingPage() {
       )}
 
       {/* ── All festivals hub ── */}
-      <section className="max-w-6xl mx-auto px-6 pb-24 border-t border-cr-border pt-10">
+      <section className="max-w-6xl mx-auto px-6 pb-[var(--rhythm-3)] border-t border-cr-border pt-[var(--rhythm-1)]">
         <h2 className="font-display text-lg uppercase text-cr-text-muted mb-4">
           {isEn ? "Other festivals on ConcertRide" : "Otros festivales en ConcertRide"}
         </h2>
@@ -2286,13 +2289,13 @@ export default function FestivalLandingPage() {
       </section>
 
       {/* ── ¿Tienes coche? — driver-side CTA siempre visible (incluye prerender) ── */}
-      <section className="max-w-6xl mx-auto px-6 pb-16 border-t border-cr-border pt-12">
+      <section className="max-w-6xl mx-auto px-6 pb-[var(--rhythm-2)] border-t border-cr-border pt-[var(--rhythm-1)]">
         <div className="border-2 border-cr-primary/40 bg-gradient-to-br from-cr-primary/[0.06] to-transparent p-6 md:p-8 flex flex-col md:flex-row md:items-center gap-5 md:gap-8">
           <div className="flex-1 space-y-2">
-            <p className="font-mono text-[10px] uppercase tracking-[0.16em] text-cr-primary">
+            <p className="cr-eyebrow">
               {isEn ? "Got a car?" : "¿Tienes coche?"}
             </p>
-            <h2 className="font-display text-2xl md:text-3xl uppercase leading-tight">
+            <h2 className="font-display text-display-m">
               {isEn
                 ? <>Post your ride to {festival.shortName} and fill the car</>
                 : <>Publica tu viaje a {festival.shortName} y llena el coche</>}
@@ -2343,7 +2346,7 @@ export default function FestivalLandingPage() {
           <h2 className="font-display text-base uppercase tracking-[0.08em] text-cr-text-muted">
             {isEn ? "Sources and verification" : "Fuentes y verificación"}
           </h2>
-          <p className="font-mono text-[11px] text-cr-text-dim leading-relaxed">
+          <p className="font-sans text-[12px] text-cr-text-muted leading-relaxed">
             {isEn
               ? "Sources: the festival's official organisation, city councils, INE, APM (Spanish Association of Music Promoters), DGT, ALSA and Renfe. Last coordinated verification: 2026-05-20. Carpooling prices are indicative, based on real fares published on ConcertRide."
               : "Fuentes: organización oficial del festival, ayuntamientos, INE, APM (Asociación de Promotores Musicales), DGT, ALSA y Renfe. Última verificación coordinada: 2026-05-20. Los precios de carpooling son orientativos basados en tarifas reales publicadas en ConcertRide."}
@@ -2353,7 +2356,7 @@ export default function FestivalLandingPage() {
 
       {/* ── Legal disclaimer ── */}
       <section className="max-w-6xl mx-auto px-6 pb-10 border-t border-cr-border pt-8">
-        <p className="font-mono text-[11px] text-cr-text-dim leading-relaxed">
+        <p className="font-sans text-[12px] text-cr-text-muted leading-relaxed">
           {isEn ? (
             <>
               ConcertRide is not an official partner, sponsor or representative of{" "}
@@ -2383,7 +2386,7 @@ export default function FestivalLandingPage() {
       </section>
 
       {/* ── Sticky bottom CTA — mobile only, festival-specific con precio ── */}
-      <div className="md:hidden fixed bottom-0 left-0 right-0 z-40 bg-cr-bg/95 backdrop-blur-sm border-t border-cr-border px-3 py-3 flex gap-2">
+      <div className="md:hidden fixed bottom-0 left-0 right-0 z-40 bg-cr-bg/95 border-t border-cr-border px-3 py-3 flex gap-2">
         <Link
           to={searchHref}
           onClick={() =>
@@ -2402,7 +2405,7 @@ export default function FestivalLandingPage() {
           <span className="flex items-center gap-1">
             {isEn ? <>Find a seat to {festival.shortName} </> : <>Buscar plaza a {festival.shortName} </>}<ArrowRight size={11} />
           </span>
-          <span className="font-mono text-[10px] font-semibold normal-case tracking-normal opacity-80">
+          <span className="font-sans text-[11px] font-semibold normal-case tracking-normal opacity-80">
             {isEn ? <>from {priceFromMin}€/seat</> : <>desde {priceFromMin}€/asiento</>}
           </span>
         </Link>
@@ -2456,12 +2459,12 @@ function FestivalDemandPill({ festivalSlug, festivalName, isEn }: { festivalSlug
   const weeklyCount = count * 3 + 8;
 
   return (
-    <div className="inline-flex items-center gap-2.5 border border-[#ff4f00]/30 bg-[#ff4f00]/[0.05] px-3 py-2 rounded-none">
+    <div className="inline-flex items-center gap-2.5 border border-cr-secondary/30 bg-cr-secondary/[0.05] px-3 py-2 rounded-none">
       <span className="relative flex-shrink-0 w-2 h-2">
-        <span className="absolute inset-0 rounded-full bg-[#ff4f00] animate-ping opacity-60" aria-hidden="true" />
-        <span className="relative block w-2 h-2 rounded-full bg-[#ff4f00]" aria-hidden="true" />
+        <span className="absolute inset-0 rounded-full bg-cr-secondary animate-ping opacity-60" aria-hidden="true" />
+        <span className="relative block w-2 h-2 rounded-full bg-cr-secondary" aria-hidden="true" />
       </span>
-      <span className="font-mono text-[11px] text-white/70 leading-tight">
+      <span className="font-sans text-[12px] text-cr-text leading-tight">
         {isEn ? (
           <>
             <span className="text-white font-semibold">{weeklyCount} people</span>

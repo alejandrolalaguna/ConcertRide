@@ -27,7 +27,7 @@ export function FestivalHistoryList() {
   return (
     <section>
       <header className="border-b border-cr-border pb-2">
-        <p className="font-mono text-[10px] uppercase tracking-[0.18em] text-cr-text-muted">
+        <p className="font-sans text-[11px] uppercase tracking-[0.18em] text-cr-text-muted">
           historial
         </p>
         <h2 className="mt-1 font-display text-3xl uppercase tracking-tight">Festivales que has visto</h2>
@@ -44,11 +44,11 @@ export function FestivalHistoryList() {
                 className="block border-2 border-cr-border bg-cr-surface-2 p-4 transition hover:border-cr-primary"
               >
                 <p className="font-display text-lg uppercase leading-tight">{f.name}</p>
-                <p className="mt-1 font-mono text-[10px] uppercase tracking-[0.14em] text-cr-text-muted">
+                <p className="mt-1 font-sans text-[11px] uppercase tracking-[0.14em] text-cr-text-muted">
                   {f.times_attended}× edición{f.times_attended === 1 ? "" : "es"} · {yearLabel}
                 </p>
                 {f.memories.length > 0 && (
-                  <p className="mt-2 font-mono text-[10px] uppercase tracking-[0.12em] text-cr-primary">
+                  <p className="mt-2 font-sans text-[11px] uppercase tracking-[0.12em] text-cr-primary">
                     📸 {f.memories.length} {f.memories.length === 1 ? "recuerdo" : "recuerdos"}
                   </p>
                 )}
