@@ -10,9 +10,7 @@ import "./MapView.css";
 delete (L.Icon.Default.prototype as unknown as Record<string, unknown>)._getIconUrl;
 L.Icon.Default.mergeOptions({ iconUrl: markerIcon, iconRetinaUrl: markerIcon2x, shadowUrl: markerShadow });
 
-const TILE_URL = "https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}.png";
-const TILE_ATTR =
-  '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>';
+import { TILE_ATTR, TILE_DARK_CLASS, TILE_SUBDOMAINS, TILE_URL } from "@/lib/mapTiles";
 
 const venueIcon = L.divIcon({
   className: "cr-marker-wrapper",
@@ -66,7 +64,7 @@ export default function ConcertRidesMap({ concert, rides }: Props) {
   const bounds = L.latLngBounds(points).pad(0.2);
 
   return (
-    <div className="cr-map border border-cr-border overflow-hidden">
+    <div className={`cr-map ${TILE_DARK_CLASS} border border-cr-border overflow-hidden`}>
       <div className="relative h-[360px] md:h-[480px] w-full">
         <MapContainer
           bounds={bounds}
@@ -75,7 +73,7 @@ export default function ConcertRidesMap({ concert, rides }: Props) {
           style={{ height: "100%", width: "100%" }}
           aria-label={`Mapa de ${concert.artist}: viajes hacia ${concert.venue.name}`}
         >
-          <TileLayer url={TILE_URL} attribution={TILE_ATTR} />
+          <TileLayer url={TILE_URL} attribution={TILE_ATTR} subdomains={TILE_SUBDOMAINS} />
           <Marker position={venue} icon={venueIcon} title={concert.venue.name} />
           {validRides.map((r) => (
             <Marker

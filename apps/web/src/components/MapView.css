@@ -125,3 +125,9 @@
     animation: none;
   }
 }
+
+/* Fallback sin VITE_CARTO_API_KEY (lib/mapTiles.ts): teselas OSM llevadas a
+   oscuro por CSS. Con CARTO dark_all esta clase no se añade. */
+.cr-osm-dark .leaflet-tile-pane {
+  filter: invert(1) hue-rotate(180deg) brightness(0.62) contrast(1.15) saturate(0.35);
+}

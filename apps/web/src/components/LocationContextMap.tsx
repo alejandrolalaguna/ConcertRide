@@ -12,9 +12,7 @@ import "./MapView.css";
 delete (L.Icon.Default.prototype as unknown as Record<string, unknown>)._getIconUrl;
 L.Icon.Default.mergeOptions({ iconUrl: markerIcon, iconRetinaUrl: markerIcon2x, shadowUrl: markerShadow });
 
-const TILE_URL = "https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}.png";
-const TILE_ATTR =
-  '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>';
+import { TILE_ATTR, TILE_DARK_CLASS, TILE_SUBDOMAINS, TILE_URL } from "@/lib/mapTiles";
 
 const primaryIcon = L.divIcon({
   className: "cr-marker-wrapper",
@@ -85,7 +83,7 @@ export default function LocationContextMap({
   const overlayText = overlay ? formatOverlay(overlay) : "";
 
   return (
-    <div className={`cr-map relative ${height} w-full border border-cr-border overflow-hidden`}>
+    <div className={`cr-map ${TILE_DARK_CLASS} relative ${height} w-full border border-cr-border overflow-hidden`}>
       <MapContainer
         center={center}
         zoom={points.length === 1 ? 12 : undefined}
@@ -95,7 +93,7 @@ export default function LocationContextMap({
         style={{ height: "100%", width: "100%" }}
         aria-label={ariaLabel}
       >
-        <TileLayer url={TILE_URL} attribution={TILE_ATTR} />
+        <TileLayer url={TILE_URL} attribution={TILE_ATTR} subdomains={TILE_SUBDOMAINS} />
         {polyline && points.length === 2 && (
           <Polyline
             positions={[
