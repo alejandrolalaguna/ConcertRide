@@ -6,10 +6,10 @@
   z-index: 0;
 }
 
-/* Teselas OSM estándar (sin API key) llevadas a oscuro por CSS. Se aplica a
-   todos los mapas Leaflet del sitio; los marcadores viven en otro pane y no se
-   invierten. */
-.leaflet-tile-pane {
+/* Fallback sin VITE_CARTO_API_KEY: teselas OSM estándar llevadas a oscuro por
+   CSS (lib/mapTiles.ts añade .cr-osm-dark al contenedor). Con CARTO dark_all no
+   hace falta. Los marcadores viven en otro pane y no se invierten. */
+.cr-osm-dark .leaflet-tile-pane {
   filter: invert(1) hue-rotate(180deg) brightness(0.62) contrast(1.15) saturate(0.35);
 }
 

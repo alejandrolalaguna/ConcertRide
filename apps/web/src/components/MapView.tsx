@@ -19,9 +19,7 @@ const SPAIN_BOUNDS: L.LatLngBoundsLiteral = [
   [43.8, 4.4],
 ];
 
-const TILE_URL = "https://tile.openstreetmap.org/{z}/{x}/{y}.png";
-const TILE_ATTR =
-  '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors';
+import { TILE_ATTR, TILE_DARK_CLASS, TILE_SUBDOMAINS, TILE_URL } from "@/lib/mapTiles";
 
 const concertIcon = L.divIcon({
   className: "cr-marker-wrapper",
@@ -162,7 +160,7 @@ export default function MapView({ concerts, rides }: Props) {
     : null;
 
   return (
-    <div className="cr-map relative h-[60vh] min-h-[420px] w-full border-y border-cr-border">
+    <div className={`cr-map ${TILE_DARK_CLASS} relative h-[60vh] min-h-[420px] w-full border-y border-cr-border`}>
       <MapContainer
         center={SPAIN_CENTER}
         zoom={6}
@@ -174,7 +172,7 @@ export default function MapView({ concerts, rides }: Props) {
         attributionControl
         className="h-full w-full"
       >
-        <TileLayer url={TILE_URL} attribution={TILE_ATTR} />
+        <TileLayer url={TILE_URL} attribution={TILE_ATTR} subdomains={TILE_SUBDOMAINS} />
         <ZoomControl position="topright" />
         <CtrlScrollZoom />
         <CtrlHint />

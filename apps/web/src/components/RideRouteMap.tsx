@@ -3,9 +3,7 @@ import L from "leaflet";
 import type { Ride } from "@concertride/types";
 import "./MapView.css";
 
-const TILE_URL = "https://tile.openstreetmap.org/{z}/{x}/{y}.png";
-const TILE_ATTR =
-  '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors';
+import { TILE_ATTR, TILE_DARK_CLASS, TILE_SUBDOMAINS, TILE_URL } from "@/lib/mapTiles";
 
 const originIcon = L.divIcon({
   className: "cr-marker-wrapper",
@@ -31,7 +29,7 @@ export default function RideRouteMap({ ride }: Props) {
   const bounds = L.latLngBounds([origin, venue]).pad(0.35);
 
   return (
-    <div className="cr-map border border-cr-border overflow-hidden">
+    <div className={`cr-map ${TILE_DARK_CLASS} border border-cr-border overflow-hidden`}>
       {/* Route info bar */}
       <div className="flex items-center gap-0 font-mono text-xs border-b border-cr-border bg-cr-surface">
         <div className="flex items-center gap-2 px-4 py-2.5 flex-1 min-w-0">
@@ -53,7 +51,7 @@ export default function RideRouteMap({ ride }: Props) {
           attributionControl
           className="h-full w-full"
         >
-          <TileLayer url={TILE_URL} attribution={TILE_ATTR} />
+          <TileLayer url={TILE_URL} attribution={TILE_ATTR} subdomains={TILE_SUBDOMAINS} />
           <Marker position={origin} icon={originIcon} title="Punto de recogida" />
           <Marker position={venue} icon={venueIcon} title={ride.concert.venue.name} />
           <Polyline

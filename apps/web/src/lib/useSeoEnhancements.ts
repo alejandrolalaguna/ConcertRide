@@ -105,7 +105,7 @@ export function useSeoEnhancements(options: SeoEnhancementsOptions = {}) {
     const externalDomains = [
       'https://api.ticketmaster.com',
       'https://s1.ticketm.net',
-      'https://tile.openstreetmap.org',
+      'https://basemaps.cartocdn.com',
     ]
 
     externalDomains.forEach((domain) => {

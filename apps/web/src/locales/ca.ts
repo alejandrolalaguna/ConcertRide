@@ -90,7 +90,7 @@ export const ca: Dict = {
     gdprData: "GDPR/Dades:",
     concertData: "Dades de concerts:",
     maps: "Mapes: ©",
-    mapContributors: "contributors · Leaflet (BSD-2)",
+    mapContributors: "contributors · Tiles: CARTO · Leaflet (BSD-2)",
     photos: "Fotografies:",
     navMain: "Navegació principal",
     navFestivals: "Festivals",

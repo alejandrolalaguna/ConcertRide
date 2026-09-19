@@ -120,15 +120,15 @@ export default function CookiesPage() {
             <h2 className="font-display text-xl uppercase text-cr-primary">Solicitudes de terceros</h2>
             <p>
               El mapa interactivo realiza solicitudes de imágenes de teselas (tiles) a los servidores
-              de la <strong>OpenStreetMap Foundation</strong>. Estas solicitudes pueden
+              de <strong>CARTO</strong> y <strong>OpenStreetMap</strong>. Estas solicitudes pueden
               registrar tu dirección IP en los servidores de esos proveedores, como cualquier
               petición HTTP normal, pero <strong>no depositan cookies</strong> en tu dispositivo.
             </p>
             <p>
-              Para más información sobre cómo la OpenStreetMap Foundation trata los datos de acceso a sus teselas,
+              Para más información sobre cómo CARTO trata los datos de acceso a sus teselas,
               consulta su{" "}
               <a
-                href="https://wiki.osmfoundation.org/wiki/Privacy_Policy"
+                href="https://carto.com/privacy"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-cr-primary underline underline-offset-2"

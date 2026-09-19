@@ -111,7 +111,7 @@ export const es = {
     gdprData: "GDPR/Datos:",
     concertData: "Datos de conciertos:",
     maps: "Mapas: ©",
-    mapContributors: "contributors · Leaflet (BSD-2)",
+    mapContributors: "contributors · Tiles: CARTO · Leaflet (BSD-2)",
     photos: "Fotografías:",
     navMain: "Navegación principal",
     navFestivals: "Festivales",
