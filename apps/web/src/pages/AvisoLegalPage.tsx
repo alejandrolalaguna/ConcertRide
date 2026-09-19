@@ -155,12 +155,12 @@ export default function AvisoLegalPage() {
               , distribuida bajo licencia BSD 2-Clause (software libre). Los teselados (tiles) los
               sirve{" "}
               <a
-                href="https://carto.com/attributions"
+                href="https://osmfoundation.org/"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-cr-primary underline underline-offset-2"
               >
-                CARTO
+                la OpenStreetMap Foundation
               </a>{" "}
               a partir de datos de OpenStreetMap.
             </p>

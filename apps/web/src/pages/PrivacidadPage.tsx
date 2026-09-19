@@ -242,7 +242,7 @@ export default function PrivacidadPage() {
           </section>
 
           <section className="space-y-3">
-            <h2 className="font-display text-xl uppercase text-cr-primary">4.1 Mapas, CARTO y OpenStreetMap</h2>
+            <h2 className="font-display text-xl uppercase text-cr-primary">4.1 Mapas y OpenStreetMap</h2>
             <p>
               ConcertRide muestra mapas para visualizar puntos de recogida, recintos y rutas de
               carpooling utilizando datos cartográficos de{" "}
@@ -263,17 +263,17 @@ export default function PrivacidadPage() {
               >
                 Open Database License (ODbL)
               </a>
-              . Los teselados (tiles) cartográficos los sirve{" "}
+              . Los teselados (tiles) cartográficos los sirve la{" "}
               <a
-                href="https://carto.com/attributions"
+                href="https://osmfoundation.org/"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-cr-primary underline underline-offset-2"
               >
-                CARTO
+                OpenStreetMap Foundation
               </a>{" "}
-              desde su CDN (<code className="font-mono text-[11px]">basemaps.cartocdn.com</code>)
-              a partir de los datos abiertos de OpenStreetMap. La biblioteca de renderizado utilizada
+              desde sus servidores públicos (<code className="font-mono text-[11px]">tile.openstreetmap.org</code>)
+              a partir de esos mismos datos abiertos. La biblioteca de renderizado utilizada
               en el cliente es{" "}
               <a
                 href="https://leafletjs.com/"
@@ -286,11 +286,11 @@ export default function PrivacidadPage() {
               (BSD 2-Clause), software libre sin telemetría.
             </p>
 
-            <h3 className="font-display text-sm uppercase text-cr-text mt-4">Datos que recibe CARTO al cargar tiles</h3>
+            <h3 className="font-display text-sm uppercase text-cr-text mt-4">Datos que recibe la OpenStreetMap Foundation al cargar tiles</h3>
             <ul className="space-y-1 pl-4 list-disc text-cr-text-muted">
               <li>
                 <strong className="text-cr-text">Dirección IP</strong> — necesaria para entregar
-                los tiles desde el nodo CDN más cercano.
+                los tiles desde el servidor más cercano.
               </li>
               <li>
                 <strong className="text-cr-text">User-Agent</strong> — identificador del navegador.
@@ -306,28 +306,26 @@ export default function PrivacidadPage() {
 
             <h3 className="font-display text-sm uppercase text-cr-text mt-4">Retención y finalidad</h3>
             <p className="text-cr-text-muted">
-              CARTO trata estos datos para entregar los tiles, prevenir abuso del CDN y cumplir con
-              sus obligaciones legales. CARTO no instala cookies de tracking ni cookies publicitarias
-              en estas peticiones (son solicitudes de imágenes <code className="font-mono text-[11px]">.png</code>),
-              no perfila comportamiento de navegación con esos datos y no enlaza la actividad de
-              mapas con ningún identificador de usuario de ConcertRide.
+              La OpenStreetMap Foundation trata estos datos para entregar los tiles, prevenir el abuso
+              de sus servidores y cumplir con sus obligaciones legales. No instala cookies de tracking ni
+              cookies publicitarias en estas peticiones (son solicitudes de imágenes{" "}
+              <code className="font-mono text-[11px]">.png</code>), no perfila comportamiento de
+              navegación con esos datos y no enlaza la actividad de mapas con ningún identificador de
+              usuario de ConcertRide.
             </p>
 
             <h3 className="font-display text-sm uppercase text-cr-text mt-4">Transferencia internacional</h3>
             <p className="text-cr-text-muted">
-              CARTO es una sociedad española (CartoDB Inc., con sede en Madrid). Su CDN puede servir
-              tiles desde nodos ubicados en EE. UU. y otros países. Cuando aplique, la transferencia
-              se ampara en las{" "}
-              <strong className="text-cr-text">Cláusulas Contractuales Tipo (SCC)</strong> aprobadas
-              por la Comisión Europea (Decisión 2021/914). Puedes ejercer tus derechos sobre estos
-              datos contactando con CARTO en{" "}
+              La OpenStreetMap Foundation es una entidad sin ánimo de lucro con sede en el Reino Unido, país
+              que cuenta con decisión de adecuación de la Comisión Europea (Decisión 2021/1772). Puedes
+              consultar cómo trata los datos de acceso a sus servidores en su{" "}
               <a
-                href="https://carto.com/legal/privacy/"
+                href="https://wiki.osmfoundation.org/wiki/Privacy_Policy"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-cr-primary underline underline-offset-2"
               >
-                carto.com/legal/privacy
+                política de privacidad
               </a>
               .
             </p>
@@ -350,12 +348,12 @@ export default function PrivacidadPage() {
             <ul className="space-y-1 pl-4 list-disc text-cr-text-muted">
               <li>
                 <a
-                  href="https://carto.com/legal/privacy/"
+                  href="https://wiki.osmfoundation.org/wiki/Privacy_Policy"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="text-cr-primary underline underline-offset-2"
                 >
-                  Política de privacidad de CARTO
+                  Política de privacidad de la OpenStreetMap Foundation
                 </a>
               </li>
               <li>

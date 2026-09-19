@@ -1,7 +1,6 @@
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { Link } from "react-router-dom";
-import { ArrowRight, Banknote, Clock, MapPinned, ShieldCheck } from "lucide-react";
-import { motion } from "motion/react";
+import { ArrowRight } from "lucide-react";
 import type { Concert, Ride } from "@concertride/types";
 import { api } from "@/lib/api";
 import { useI18n } from "@/lib/i18n";
@@ -10,34 +9,29 @@ import { SITE_URL } from "@/lib/siteUrl";
 import { concertStatus } from "@/components/ConcertCard";
 import { TESTIMONIAL_REVIEWS, TESTIMONIALS_AGGREGATE } from "@/lib/testimonials";
 import { Hero } from "@/components/landing/Hero";
-import { StatsBar } from "@/components/StatsBar";
 import { HorizontalCarousel } from "@/components/landing/HorizontalCarousel";
 import { HowItWorks } from "@/components/HowItWorks";
-import { AdhocRidesSection } from "@/components/landing/AdhocRidesSection";
-import { MapSection } from "@/components/landing/MapSection";
 import { TrustSection } from "@/components/landing/TrustSection";
 import { FinalCTA } from "@/components/landing/FinalCTA";
 import { TestimonialsSection } from "@/components/landing/TestimonialsSection";
 import { TerminologyAside } from "@/components/TerminologyAside";
-import { FestivalMarquee } from "@/components/landing/FestivalMarquee";
 import { DriverCTA } from "@/components/landing/DriverCTA";
-import { RegistrationNudge } from "@/components/landing/RegistrationNudge";
+import { Eyebrow, Register, RegisterRow, SectionHead } from "@/components/system";
+import { useLevelAMotion } from "@/fx/useLevelAMotion";
+import { buildHomeChoreography } from "@/components/landing/homeChoreography";
 
-// Icon + i18n-key map for the 6-card "Por qué ConcertRide" grid. Visible text
-// (title/body/highlight) is resolved at render time via t("home.whyN…") so the
-// Spanish output stays byte-identical while en/ca render translated copy.
+// "Por qué ConcertRide": seis argumentos en registro. El texto visible se
+// resuelve en render con t("home.whyN…"); el español queda byte-idéntico.
 const WHY_CONCERTRIDE = [
-  { icon: Banknote, titleKey: "home.why1Title", bodyKey: "home.why1Body", highlightKey: "home.why1Highlight" },
-  { icon: ShieldCheck, titleKey: "home.why2Title", bodyKey: "home.why2Body", highlightKey: "home.why2Highlight" },
-  { icon: MapPinned, titleKey: "home.why3Title", bodyKey: "home.why3Body", highlightKey: "home.why3Highlight" },
-  { icon: Clock, titleKey: "home.why4Title", bodyKey: "home.why4Body", highlightKey: "home.why4Highlight" },
-  { icon: Banknote, titleKey: "home.why5Title", bodyKey: "home.why5Body", highlightKey: "home.why5Highlight" },
-  { icon: ShieldCheck, titleKey: "home.why6Title", bodyKey: "home.why6Body", highlightKey: "home.why6Highlight" },
+  { n: "01", titleKey: "home.why1Title", bodyKey: "home.why1Body" },
+  { n: "02", titleKey: "home.why2Title", bodyKey: "home.why2Body" },
+  { n: "03", titleKey: "home.why3Title", bodyKey: "home.why3Body" },
+  { n: "04", titleKey: "home.why4Title", bodyKey: "home.why4Body" },
+  { n: "05", titleKey: "home.why5Title", bodyKey: "home.why5Body" },
+  { n: "06", titleKey: "home.why6Title", bodyKey: "home.why6Body" },
 ] as const;
 
-// FAQ items as i18n-key pairs. Rendered text comes from t("home.faqN…"); the
-// Spanish render must stay byte-identical with the previous hardcoded copy
-// because it also feeds the visible FAQ block consumed by AI Overviews.
+// FAQ corta de la landing (sin schema: el FAQPage vive en TrustSection).
 const FAQ_ITEMS_LANDING = [
   { questionKey: "home.faq1Q", answerKey: "home.faq1A" },
   { questionKey: "home.faq2Q", answerKey: "home.faq2A" },
@@ -45,60 +39,33 @@ const FAQ_ITEMS_LANDING = [
   { questionKey: "home.faq4Q", answerKey: "home.faq4A" },
 ] as const;
 
-function FAQAccordion({
-  items,
-  t,
-}: {
-  items: typeof FAQ_ITEMS_LANDING;
-  t: (key: string, params?: Record<string, string | number>) => string;
-}) {
-  const [open, setOpen] = useState<number | null>(null);
-  return (
-    <div className="divide-y divide-white/[0.06] border border-white/[0.06]" role="list">
-      {items.map((item, i) => {
-        const panelId = `faq-panel-${i}`;
-        const btnId = `faq-btn-${i}`;
-        return (
-          <div key={item.questionKey} role="listitem">
-            <button
-              id={btnId}
-              onClick={() => setOpen(open === i ? null : i)}
-              aria-expanded={open === i}
-              aria-controls={panelId}
-              className="w-full flex items-center justify-between gap-4 px-6 py-5 text-left hover:bg-white/[0.02] transition-colors"
-            >
-              <span className="font-display text-base lg:text-lg uppercase tracking-tight text-white/80">
-                {t(item.questionKey)}
-              </span>
-              <span
-                className={`flex-shrink-0 w-8 h-8 border flex items-center justify-center font-mono text-sm transition-colors duration-200 ${
-                  open === i
-                    ? "border-[#dbff00] text-[#dbff00]"
-                    : "border-white/10 text-white/40"
-                }`}
-                aria-hidden="true"
-              >
-                {open === i ? "−" : "+"}
-              </span>
-            </button>
-            <div
-              id={panelId}
-              role="region"
-              aria-labelledby={btnId}
-              aria-hidden={open !== i}
-              className="overflow-hidden transition-all duration-300 ease-in-out"
-              style={{ maxHeight: open === i ? "300px" : "0" }}
-            >
-              <p className="px-6 pb-5 pt-1 font-sans text-sm text-white/40 font-light leading-relaxed">
-                {t(item.answerKey)}
-              </p>
-            </div>
-          </div>
-        );
-      })}
-    </div>
-  );
-}
+const SOURCE_QUOTES = [
+  { textKey: "home.quote1Text", sourceKey: "home.quote1Source", suffixKey: null, url: "https://juliesbicycle.com/" },
+  { textKey: "home.quote2Text", sourceKey: "home.quote2Source", suffixKey: "home.quote2Suffix", url: "https://www.apmusicales.com/" },
+  { textKey: "home.quote3Text", sourceKey: "home.quote3Source", suffixKey: "home.quote3Suffix", url: "https://www.pollstar.com/" },
+  { textKey: "home.quote4Text", sourceKey: "home.quote4Source", suffixKey: "home.quote4Suffix", url: "https://www.eea.europa.eu/" },
+  { textKey: "home.quote5Text", sourceKey: "home.quote5Source", suffixKey: "home.quote5Suffix", url: "https://www.poderjudicial.es/" },
+] as const;
+
+const COMPARE_ROWS = [1, 2, 3, 4, 5] as const;
+
+// Hub de contenidos: enlazado interno. Mismos destinos que antes.
+const HUB_LINKS = [
+  { to: "/guia-transporte-festivales", labelKey: "home.hubLabelGuide", titleKey: "home.hubCard1Title", bodyKey: "home.hubCard1Body", ctaKey: "home.hubReadCta" },
+  { to: "/guia/festival-sin-coche", labelKey: "home.hubLabelGuide", titleKey: "home.hubCard2Title", bodyKey: "home.hubCard2Body", ctaKey: "home.hubReadCta" },
+  { to: "/guia/presupuesto-festival-grupo", labelKey: "home.hubLabelGuide", titleKey: "home.hubCard3Title", bodyKey: "home.hubCard3Body", ctaKey: "home.hubReadCta" },
+  { to: "/guia/seguridad-carpooling-festival", labelKey: "home.hubLabelGuide", titleKey: "home.hubCard4Title", bodyKey: "home.hubCard4Body", ctaKey: "home.hubReadCta" },
+  { to: "/guia/festival-primera-vez", labelKey: "home.hubLabelGuide", titleKey: "home.hubCard5Title", bodyKey: "home.hubCard5Body", ctaKey: "home.hubReadCta" },
+  { to: "/guia/carpooling-conductor-festival", labelKey: "home.hubCard6Label", titleKey: "home.hubCard6Title", bodyKey: "home.hubCard6Body", ctaKey: "home.hubReadCta" },
+  { to: "/guia/festival-accesibilidad-movilidad-reducida", labelKey: "home.hubCard7Label", titleKey: "home.hubCard7Title", bodyKey: "home.hubCard7Body", ctaKey: "home.hubReadCta" },
+  { to: "/guia/festival-veterano-aficionados-mayores-2026", labelKey: "home.hubCard8Label", titleKey: "home.hubCard8Title", bodyKey: "home.hubCard8Body", ctaKey: "home.hubReadCta" },
+  { to: "/blog/como-volver-festival-madrugada", labelKey: "home.hubLabelGuide", titleKey: "home.hubCard9Title", bodyKey: "home.hubCard9Body", ctaKey: "home.hubReadCta" },
+  { to: "/rutas/madrid-mad-cool", labelKey: "home.hubLabelRoute", titleKey: "home.hubCard10Title", bodyKey: "home.hubCard10Body", ctaKey: "home.hubSeeRouteCta" },
+  { to: "/rutas/madrid-primavera-sound", labelKey: "home.hubLabelRoute", titleKey: "home.hubCard11Title", bodyKey: "home.hubCard11Body", ctaKey: "home.hubSeeRouteCta" },
+  { to: "/como-funciona-carpooling", labelKey: "home.hubLabelGuide", titleKey: "home.hubCard12Title", bodyKey: "home.hubCard12Body", ctaKey: "home.hubReadCta" },
+  { to: "/comparativa/carpooling-vs-taxi-festival", labelKey: "home.hubLabelComparison", titleKey: "home.hubCard13Title", bodyKey: "home.hubCard13Body", ctaKey: "home.hubReadCta" },
+  { to: "/blog", labelKey: "home.hubLabelBlog", titleKey: "home.hubCard14Title", bodyKey: "home.hubCard14Body", ctaKey: "home.hubSeeBlogCta" },
+] as const;
 
 export default function LandingPage() {
   const { t } = useI18n();
@@ -106,12 +73,13 @@ export default function LandingPage() {
     title: t("home.metaTitle"),
     description: t("home.metaDescription"),
     canonical: `${SITE_URL}/`,
-    preloadImage:
-      "https://images.unsplash.com/photo-1459749411175-04bf5292ceea?w=1800&q=80&auto=format&fit=crop",
     keywords: t("home.metaKeywords"),
     ogType: "website",
     ogImageAlt: t("home.metaOgImageAlt"),
   });
+
+  const mainRef = useRef<HTMLElement | null>(null);
+  useLevelAMotion(mainRef, { onReady: buildHomeChoreography });
 
   const [concerts, setConcerts] = useState<Concert[] | null>(null);
   const [rides, setRides] = useState<Ride[] | null>(null);
@@ -132,8 +100,8 @@ export default function LandingPage() {
     const nowMs = Date.now();
     const futuros = (concerts ?? [])
       .filter((c) => {
-        const t = new Date(c.date).getTime();
-        return Number.isFinite(t) && t > nowMs && concertStatus(c.date) === "upcoming";
+        const tm = new Date(c.date).getTime();
+        return Number.isFinite(tm) && tm > nowMs && concertStatus(c.date) === "upcoming";
       })
       .sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
     return futuros.slice(0, 10);
@@ -145,8 +113,8 @@ export default function LandingPage() {
     const cutoffMs = nowMs + NINETY_DAYS_MS;
     return (concerts ?? [])
       .filter((c) => {
-        const t = new Date(c.date).getTime();
-        return t >= nowMs && t <= cutoffMs;
+        const tm = new Date(c.date).getTime();
+        return tm >= nowMs && tm <= cutoffMs;
       })
       .sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime())
       .slice(0, 20);
@@ -154,13 +122,17 @@ export default function LandingPage() {
 
   const mapRides = useMemo(() => {
     const nearConcertIds = new Set(mapConcerts.map((c) => c.id));
-    return (rides ?? []).filter(
-      (r) => r.seats_left > 0 && r.status === "active" && nearConcertIds.has(r.concert_id),
-    );
+    return (rides ?? []).filter((r) => r.seats_left > 0 && r.status === "active" && nearConcertIds.has(r.concert_id));
   }, [mapConcerts, rides]);
 
+  // Ticket del hero: el concierto más próximo con viajes; si no hay, el más próximo.
+  const featured = useMemo(
+    () => activeConcerts.find((c) => c.active_rides_count > 0) ?? activeConcerts[0] ?? null,
+    [activeConcerts],
+  );
+
   return (
-    <main id="main" className="bg-cr-bg text-cr-text">
+    <main id="main" ref={mainRef} className="bg-cr-bg text-cr-text">
       {/* JSON-LD schemas.
           NOTE (Sprint 10 dedup): WebSite + SoftwareApplication + Organization
           ya se emiten globalmente en apps/web/index.html (SPA shell), por lo
@@ -328,564 +300,195 @@ export default function LandingPage() {
         }}
       />
 
-      {/* 1. HERO */}
-      <Hero />
+      {/* 1 · El cartel que se abre */}
+      <Hero mapConcerts={mapConcerts} mapRides={mapRides} featured={featured} loaded={concerts !== null} />
 
-      {/* 2. Festival marquee ticker */}
-      <FestivalMarquee />
-
-      {/* 3. Stats bar */}
-      <StatsBar />
-
-      {/* 4. Concert carousel — bastante arriba, justo tras los stats */}
+      {/* 2 · Tablón de salidas */}
       {activeConcerts.length > 0 && <HorizontalCarousel concerts={activeConcerts} />}
 
-      {/* Premium scan-line divider */}
-      <div aria-hidden="true" className="cr-scan-divider" />
-
-      {/* 6. Por qué ConcertRide */}
-      <section aria-labelledby="why-title" className="relative py-24 lg:py-32 px-6 overflow-hidden bg-[#080808]" id="conciertos">
-        {/* Crowd silhouette bg */}
-        <img
-          aria-hidden="true"
-          src="https://images.unsplash.com/photo-1506157786151-b8491531f063?w=1400&q=50&auto=format&fit=crop"
-          alt=""
-          width={1400}
-          height={800}
-          loading="lazy"
-          decoding="async"
-          className="absolute inset-0 w-full h-full object-cover object-top opacity-[0.07] pointer-events-none"
-        />
-        {/* Orange glow top-right */}
-        <div
-          aria-hidden="true"
-          className="absolute top-0 right-0 w-[700px] h-[500px] pointer-events-none"
-          style={{ background: "radial-gradient(ellipse at 100% 0%, rgba(255,79,0,0.09) 0%, transparent 60%)" }}
-        />
-        {/* Lime glow bottom-left */}
-        <div
-          aria-hidden="true"
-          className="absolute bottom-0 left-0 w-[600px] h-[400px] pointer-events-none"
-          style={{ background: "radial-gradient(ellipse at 0% 100%, rgba(219,255,0,0.06) 0%, transparent 55%)" }}
-        />
-        <div className="relative max-w-6xl mx-auto space-y-14">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 mb-20 items-center">
-            {/* Left — copy */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
-            >
-              <p className="font-mono text-xs tracking-[0.3em] text-[#ff4f00] uppercase">
-                {t("home.whyEyebrow")}
-              </p>
-              <h2
-                id="why-title"
-                className="font-display text-4xl lg:text-6xl uppercase tracking-tight mt-4 leading-[0.88]"
-              >
-                {t("home.whyTitleLine1")}
-                <br />
-                <span className="text-[#dbff00]">{t("home.whyTitleLine2")}</span>
-              </h2>
-              <motion.div
-                initial={{ scaleX: 0 }}
-                whileInView={{ scaleX: 1 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.8, delay: 0.3 }}
-                className="origin-left h-[2px] bg-[#dbff00] w-16 my-8"
-                aria-hidden="true"
-              />
-              <p className="text-white/40 font-light leading-relaxed max-w-md text-base font-sans">
-                {t("home.whyIntro")}
-              </p>
-            </motion.div>
-
-            {/* Right — night car ride photo */}
-            <motion.div
-              initial={{ opacity: 0, x: 30 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.7, delay: 0.15, ease: [0.16, 1, 0.3, 1] }}
-              className="relative h-72 lg:h-[480px] overflow-hidden group"
-            >
-              <motion.img
-                src="https://images.unsplash.com/photo-1449965408869-eaa3f722e40d?w=900&q=80&fit=crop"
-                alt={t("home.whyImageAlt")}
-                width={900}
-                height={600}
-                className="w-full h-full object-cover"
-                loading="lazy"
-                decoding="async"
-                whileHover={{ scale: 1.04 }}
-                transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-              />
-              {/* Selective edge overlays — not full cover */}
-              <div className="absolute inset-0 bg-gradient-to-t from-[#080808]/90 via-transparent to-[#080808]/20" />
-              <div className="absolute inset-0 bg-gradient-to-r from-[#080808]/60 via-transparent to-transparent" />
-              {/* Lime tint on hover */}
-              <div
-                aria-hidden="true"
-                className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none"
-                style={{ background: "linear-gradient(to top, rgba(219,255,0,0.06), transparent 50%)" }}
-              />
-              {/* Bottom lime hairline */}
-              <div className="absolute bottom-0 left-0 right-0 h-[2px] bg-gradient-to-r from-[#dbff00]/60 to-transparent" aria-hidden="true" />
-              {/* Corner bracket */}
-              <div aria-hidden="true" className="absolute top-4 right-4 w-8 h-8">
-                <span className="absolute top-0 right-0 w-6 h-px bg-[#dbff00]/40" />
-                <span className="absolute top-0 right-0 w-px h-6 bg-[#dbff00]/40" />
-              </div>
-              {/* Caption */}
-              <div className="absolute bottom-4 left-4 space-y-1">
-                <p className="font-mono text-[9px] tracking-[0.18em] text-white/35 uppercase">
-                  {t("home.whyImageCaption")}
-                </p>
-                <div className="flex items-center gap-1.5">
-                  <span className="w-1 h-1 rounded-full bg-[#dbff00]/40" aria-hidden="true" />
-                  <span className="font-mono text-[8px] text-white/20 uppercase tracking-[0.1em]">{t("home.whyImageBadge")}</span>
-                </div>
-              </div>
-            </motion.div>
-          </div>
-
-          {/* 6-card feature grid */}
-          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-px bg-white/[0.05]">
-            {WHY_CONCERTRIDE.map(({ icon: Icon, titleKey, bodyKey, highlightKey }, i) => (
-              <motion.div
-                key={titleKey}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, amount: 0.2 }}
-                transition={{ duration: 0.5, delay: i * 0.09, ease: [0.16, 1, 0.3, 1] }}
-                whileHover={{ y: -3, transition: { duration: 0.2 } }}
-                className="relative bg-[#080808] p-8 flex flex-col gap-5 hover:bg-[#0d0d0d] transition-colors duration-200 group overflow-hidden"
-              >
-                {/* Hover glow */}
-                <div
-                  aria-hidden="true"
-                  className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"
-                  style={{ background: "radial-gradient(ellipse at 0% 0%, rgba(219,255,0,0.04) 0%, transparent 60%)" }}
-                />
-                {/* Hover top accent */}
-                <div
-                  aria-hidden="true"
-                  className="absolute top-0 left-0 right-0 h-[1px] opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"
-                  style={{ background: "linear-gradient(to right, #dbff00, transparent)" }}
-                />
-                <div className="flex items-start justify-between gap-4 relative">
-                  <div className="w-10 h-10 border border-[#dbff00]/30 flex items-center justify-center text-[#dbff00] group-hover:border-[#dbff00]/60 group-hover:scale-110 transition-all duration-300">
-                    <Icon size={18} aria-hidden="true" />
-                  </div>
-                  <span className="font-mono text-[9px] font-semibold text-[#dbff00] border border-[#dbff00]/20 bg-[#dbff00]/5 px-2 py-1 uppercase tracking-[0.1em]">
-                    {t(highlightKey)}
-                  </span>
-                </div>
-                <h3 className="font-display text-lg uppercase leading-tight text-white relative group-hover:text-[#f5f5f5] transition-colors">
-                  {t(titleKey)}
-                </h3>
-                <p className="font-sans text-sm text-white/40 leading-relaxed font-light relative group-hover:text-white/55 transition-colors">
-                  {t(bodyKey)}
-                </p>
-              </motion.div>
-            ))}
-          </div>
-
-          <div className="flex flex-col sm:flex-row gap-3 pt-2">
-            <Link
-              to="/register"
-              className="cr-btn-shine inline-flex items-center justify-center gap-2 bg-[#dbff00] text-black font-sans font-semibold uppercase tracking-[0.12em] text-sm px-8 py-4 hover:bg-[#c8ec00] transition-colors duration-150 group"
-            >
-              {t("home.whyCtaJoin")}
-              <ArrowRight size={14} className="transition-transform duration-150 group-hover:translate-x-1" aria-hidden="true" />
-            </Link>
-            <Link
-              to="/concerts"
-              className="inline-flex items-center justify-center font-sans font-semibold uppercase tracking-[0.12em] text-sm border border-white/20 text-white/70 px-8 py-4 hover:border-white/40 hover:text-white transition-colors duration-150"
-            >
-              {t("home.whyCtaSeeRides")}
-            </Link>
-          </div>
-        </div>
-      </section>
-
-      {/* 7. Cómo funciona */}
+      {/* 3 · Cómo funciona */}
       <HowItWorks />
 
-      {/* 8. Mapa viajes activos — refuerza el paso 1 "elige el concierto" */}
-      {mapConcerts.length > 0 && <MapSection concerts={mapConcerts} rides={mapRides} />}
+      {/* 4 · Por qué ConcertRide */}
+      <section aria-labelledby="why-title" id="conciertos" className="px-6 py-[var(--rhythm-3)] border-t border-cr-border">
+        <div className="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16">
+          <div className="lg:col-span-5 flex flex-col gap-8">
+            <SectionHead
+              id="why-title"
+              eyebrow={t("home.whyEyebrow")}
+              size="l"
+              title={
+                <>
+                  {t("home.whyTitleLine1")}
+                  <br />
+                  <span className="text-cr-primary">{t("home.whyTitleLine2")}</span>
+                </>
+              }
+              lede={t("home.whyIntro")}
+              scan="words"
+            />
+            <div className="flex flex-col sm:flex-row gap-3">
+              <Link to="/register" className="cr-btn-primary">{t("home.whyCtaJoin")}</Link>
+              <Link to="/concerts" className="cr-link cr-label text-cr-text-muted hover:text-cr-text self-center">
+                {t("home.whyCtaSeeRides")}
+              </Link>
+            </div>
+          </div>
+          <Register as="ol" className="lg:col-span-7">
+            {WHY_CONCERTRIDE.map((item) => (
+              <li key={item.n}>
+                <RegisterRow n={item.n} title={t(item.titleKey)} description={t(item.bodyKey)} scan="light" />
+              </li>
+            ))}
+          </Register>
+        </div>
+      </section>
 
-      {/* 9. Adhoc rides */}
-      <AdhocRidesSection />
-
-      {/* Premium scan-line divider */}
-      <div aria-hidden="true" className="cr-scan-divider" />
-
-      {/* 10. Testimonios — grid 4 col */}
-      <TestimonialsSection />
-
-      {/* 10b. Registration nudge — urgency strip */}
-      <RegistrationNudge />
-
-      {/* 11. Para conductores */}
+      {/* 5 · Para conductores */}
       <DriverCTA />
 
-      {/* 12. FAQ con accordion premium */}
-      <section className="relative py-24 lg:py-32 px-6 overflow-hidden bg-[#080808]">
-        {/* Background — crowd silhouette */}
-        <img
-          aria-hidden="true"
-          src="https://images.unsplash.com/photo-1514525253161-7a46d19cd819?w=1400&q=40&auto=format&fit=crop"
-          alt=""
-          width={1400}
-          height={800}
-          loading="lazy"
-          decoding="async"
-          className="absolute inset-0 w-full h-full object-cover object-center opacity-[0.06] pointer-events-none"
-        />
-        {/* Lime atmospheric glow top-center */}
-        <div
-          aria-hidden="true"
-          className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[350px] pointer-events-none"
-          style={{ background: "radial-gradient(ellipse at 50% 0%, rgba(219,255,0,0.07) 0%, transparent 60%)" }}
-        />
-        {/* Orange glow bottom-right */}
-        <div
-          aria-hidden="true"
-          className="absolute bottom-0 right-0 w-[500px] h-[300px] pointer-events-none"
-          style={{ background: "radial-gradient(ellipse at 100% 100%, rgba(255,79,0,0.05) 0%, transparent 60%)" }}
-        />
-        <div className="max-w-6xl mx-auto">
-          <div className="grid lg:grid-cols-2 gap-12 lg:gap-20">
-            {/* Left */}
-            <div className="space-y-6">
-              <div className="space-y-4">
-                <p className="font-mono text-xs tracking-[0.3em] uppercase text-[#ff4f00]">
-                  {t("home.faqEyebrow")}
-                </p>
-                <h2 className="font-display text-4xl lg:text-5xl uppercase tracking-tight leading-[0.88]">
+      {/* 6 · FAQ corta */}
+      <section aria-labelledby="faq-title" className="px-6 py-[var(--rhythm-2)] border-t border-cr-border">
+        <div className="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16">
+          <div className="lg:col-span-4 flex flex-col gap-6">
+            <SectionHead
+              id="faq-title"
+              eyebrow={t("home.faqEyebrow")}
+              title={
+                <>
                   {t("home.faqTitleLine1")}
                   <br />
-                  <span className="text-[#dbff00]">{t("home.faqTitleLine2")}</span>
-                </h2>
-                <div className="h-[2px] bg-[#dbff00] w-16" aria-hidden="true" />
-              </div>
-              <p className="font-sans text-sm text-white/40 font-light leading-relaxed">
-                {t("home.faqMorePrefix")}{" "}
-                <a href="mailto:help@concertride.me" className="text-[#dbff00] hover:underline">
-                  {t("home.faqMoreLink")}
-                </a>
-              </p>
-              <div className="hidden lg:block">
-                <Link
-                  to="/como-funciona-carpooling"
-                  className="inline-flex items-center gap-2 font-mono text-xs text-white/30 uppercase tracking-[0.15em] hover:text-white/60 transition-colors"
-                >
-                  {t("home.faqGuideLink")} <ArrowRight size={11} aria-hidden="true" />
-                </Link>
-              </div>
-            </div>
-
-            {/* Right — accordion */}
-            <FAQAccordion items={FAQ_ITEMS_LANDING} t={t} />
+                  <span className="text-cr-primary">{t("home.faqTitleLine2")}</span>
+                </>
+              }
+              scan="words"
+            />
+            <p className="text-sm text-cr-text-muted leading-relaxed">
+              {t("home.faqMorePrefix")}{" "}
+              <a href="mailto:help@concertride.me" className="cr-link text-cr-text">
+                {t("home.faqMoreLink")}
+              </a>
+            </p>
+            <Link to="/como-funciona-carpooling" className="cr-link cr-label text-cr-text-muted hover:text-cr-text inline-flex items-center gap-2 self-start">
+              {t("home.faqGuideLink")} <ArrowRight size={14} aria-hidden="true" />
+            </Link>
+          </div>
+          <div className="lg:col-span-8 cr-register" role="list">
+            {FAQ_ITEMS_LANDING.map((item) => (
+              <details key={item.questionKey} role="listitem" className="group border-b border-cr-border">
+                <summary className="flex items-center justify-between gap-6 py-5 cursor-pointer list-none select-none">
+                  <span className="font-display text-display-s text-cr-text">{t(item.questionKey)}</span>
+                  <span
+                    className="flex-shrink-0 w-7 h-7 border border-cr-border-mid flex items-center justify-center text-cr-text-muted group-open:rotate-45 group-open:border-cr-primary group-open:text-cr-primary transition-transform duration-[var(--dur-2)]"
+                    aria-hidden="true"
+                  >
+                    +
+                  </span>
+                </summary>
+                <p className="cr-prose pb-6 text-sm text-cr-text-muted leading-relaxed">{t(item.answerKey)}</p>
+              </details>
+            ))}
           </div>
         </div>
       </section>
 
-      {/* 11.5. Terminology bridge — natural-Spanish synonyms for "carpooling" */}
+      {/* 7 · Vocabulario: sinónimos naturales de "carpooling" */}
       <TerminologyAside />
 
-      {/* 12. Trust section — sector stats + full FAQ + badges */}
+      {/* 8 · Sector en cifras + FAQ larga (FAQPage) */}
       <TrustSection />
 
-      {/* 13. Industry authority quotes */}
-      <section className="border-t border-cr-border bg-cr-bg">
-        <div className="max-w-6xl mx-auto px-6 py-12 md:py-16 space-y-6">
-          <p className="font-sans text-[11px] font-semibold uppercase tracking-[0.16em] text-cr-primary">
-            {t("home.sourcesEyebrow")}
-          </p>
-          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            <blockquote className="space-y-3 border-l-2 border-cr-primary/30 pl-4">
-              <p className="font-sans text-sm text-cr-text-muted italic leading-relaxed">
-                {t("home.quote1Text")}
-              </p>
-              <footer className="font-mono text-[10px] text-cr-text-dim">
-                —{" "}
-                <a href="https://juliesbicycle.com/" target="_blank" rel="noopener noreferrer" className="hover:text-cr-primary">
-                  {t("home.quote1Source")}
-                </a>
-              </footer>
-            </blockquote>
-            <blockquote className="space-y-3 border-l-2 border-cr-primary/30 pl-4">
-              <p className="font-sans text-sm text-cr-text-muted italic leading-relaxed">
-                {t("home.quote2Text")}
-              </p>
-              <footer className="font-mono text-[10px] text-cr-text-dim">
-                —{" "}
-                <a href="https://www.apmusicales.com/" target="_blank" rel="noopener noreferrer" className="hover:text-cr-primary">
-                  {t("home.quote2Source")}
-                </a>
-                {t("home.quote2Suffix")}
-              </footer>
-            </blockquote>
-            <blockquote className="space-y-3 border-l-2 border-cr-primary/30 pl-4">
-              <p className="font-sans text-sm text-cr-text-muted italic leading-relaxed">
-                {t("home.quote3Text")}
-              </p>
-              <footer className="font-mono text-[10px] text-cr-text-dim">
-                —{" "}
-                <a href="https://www.pollstar.com/" target="_blank" rel="noopener noreferrer" className="hover:text-cr-primary">
-                  {t("home.quote3Source")}
-                </a>
-                {t("home.quote3Suffix")}
-              </footer>
-            </blockquote>
-            <blockquote className="space-y-3 border-l-2 border-cr-primary/30 pl-4">
-              <p className="font-sans text-sm text-cr-text-muted italic leading-relaxed">
-                {t("home.quote4Text")}
-              </p>
-              <footer className="font-mono text-[10px] text-cr-text-dim">
-                —{" "}
-                <a href="https://www.eea.europa.eu/" target="_blank" rel="noopener noreferrer" className="hover:text-cr-primary">
-                  {t("home.quote4Source")}
-                </a>
-                {t("home.quote4Suffix")}
-              </footer>
-            </blockquote>
-            <blockquote className="space-y-3 border-l-2 border-cr-primary/30 pl-4">
-              <p className="font-sans text-sm text-cr-text-muted italic leading-relaxed">
-                {t("home.quote5Text")}
-              </p>
-              <footer className="font-mono text-[10px] text-cr-text-dim">
-                —{" "}
-                <a href="https://www.poderjudicial.es/" target="_blank" rel="noopener noreferrer" className="hover:text-cr-primary">
-                  {t("home.quote5Source")}
-                </a>
-                {t("home.quote5Suffix")}
-              </footer>
-            </blockquote>
+      {/* 9 · Fuentes */}
+      <section aria-labelledby="sources-title" className="px-6 py-[var(--rhythm-2)] border-t border-cr-border">
+        <div className="max-w-6xl mx-auto flex flex-col gap-8">
+          <Eyebrow as="p">{t("home.sourcesEyebrow")}</Eyebrow>
+          <h2 id="sources-title" className="sr-only">{t("home.sourcesEyebrow")}</h2>
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-x-10 gap-y-8" data-scan="rise" data-scan-children="">
+            {SOURCE_QUOTES.map((q) => (
+              <blockquote key={q.textKey} className="border-l border-cr-border-mid pl-5 flex flex-col gap-3">
+                <p className="text-sm text-cr-text-muted leading-relaxed max-w-[42ch]">{t(q.textKey)}</p>
+                <footer className="cr-label text-cr-text-muted">
+                  <a href={q.url} target="_blank" rel="noopener noreferrer" className="cr-link text-cr-text">
+                    {t(q.sourceKey)}
+                  </a>
+                  {q.suffixKey ? t(q.suffixKey) : null}
+                </footer>
+              </blockquote>
+            ))}
           </div>
         </div>
       </section>
 
-      {/* 14. Tabla comparativa */}
-      <section aria-labelledby="comparativa-title" className="relative border-t border-white/[0.06] bg-[#080808] overflow-hidden">
-        {/* Road at night — very subtle */}
-        <img
-          aria-hidden="true"
-          src="https://images.unsplash.com/photo-1504208434309-cb69f4fe52b0?w=1400&q=40&auto=format&fit=crop"
-          alt=""
-          width={1400}
-          height={800}
-          loading="lazy"
-          decoding="async"
-          className="absolute inset-0 w-full h-full object-cover object-center opacity-[0.05] pointer-events-none"
-        />
-        <div
-          aria-hidden="true"
-          className="absolute inset-0 pointer-events-none"
-          style={{ background: "radial-gradient(ellipse at 50% 100%, rgba(219,255,0,0.04) 0%, transparent 60%)" }}
-        />
-        <div className="relative max-w-6xl mx-auto px-6 py-12 md:py-16 space-y-6">
-          <header className="space-y-2">
-            <p className="font-sans text-[11px] font-semibold uppercase tracking-[0.16em] text-cr-primary">
-              {t("home.compareEyebrow")}
-            </p>
-            <h2 id="comparativa-title" className="font-display text-2xl md:text-3xl uppercase leading-tight">
-              {t("home.compareTitle")}
-            </h2>
-            <p className="font-sans text-sm text-cr-text-muted">
-              {t("home.compareSubtitle")}
-            </p>
-          </header>
-
+      {/* 10 · Comparativa */}
+      <section aria-labelledby="comparativa-title" className="px-6 py-[var(--rhythm-2)] border-t border-cr-border">
+        <div className="max-w-6xl mx-auto flex flex-col gap-8">
+          <SectionHead
+            id="comparativa-title"
+            eyebrow={t("home.compareEyebrow")}
+            title={t("home.compareTitle")}
+            lede={t("home.compareSubtitle")}
+            scan="words"
+          />
           <div className="overflow-x-auto">
-            <table className="w-full text-sm font-sans border-collapse">
+            <table className="w-full text-sm border-collapse">
               <thead>
                 <tr className="border-b border-cr-border">
-                  <th className="text-left py-3 pr-6 font-semibold text-cr-text text-xs uppercase tracking-[0.1em]">{t("home.compareColOption")}</th>
-                  <th className="text-right py-3 px-4 font-semibold text-cr-text text-xs uppercase tracking-[0.1em]">{t("home.compareColPrice")}</th>
-                  <th className="text-right py-3 px-4 font-semibold text-cr-text text-xs uppercase tracking-[0.1em]">{t("home.compareColFee")}</th>
-                  <th className="text-left py-3 pl-4 font-semibold text-cr-text text-xs uppercase tracking-[0.1em]">{t("home.compareColReturn")}</th>
+                  <th className="text-left py-3 pr-6 cr-label text-cr-text-muted">{t("home.compareColOption")}</th>
+                  <th className="text-right py-3 px-4 cr-label text-cr-text-muted">{t("home.compareColPrice")}</th>
+                  <th className="text-right py-3 px-4 cr-label text-cr-text-muted">{t("home.compareColFee")}</th>
+                  <th className="text-left py-3 pl-4 cr-label text-cr-text-muted">{t("home.compareColReturn")}</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-cr-border">
-                <tr className="bg-cr-primary/5">
-                  <td className="py-3 pr-6 font-semibold text-cr-primary">{t("home.compareRow1Option")}</td>
-                  <td className="py-3 px-4 text-right text-cr-text">{t("home.compareRow1Price")}</td>
-                  <td className="py-3 px-4 text-right text-cr-primary font-semibold">{t("home.compareRow1Fee")}</td>
-                  <td className="py-3 pl-4 text-cr-text-muted">{t("home.compareRow1Return")}</td>
-                </tr>
-                <tr>
-                  <td className="py-3 pr-6 text-cr-text">{t("home.compareRow2Option")}</td>
-                  <td className="py-3 px-4 text-right text-cr-text">{t("home.compareRow2Price")}</td>
-                  <td className="py-3 px-4 text-right text-cr-text-muted">{t("home.compareRow2Fee")}</td>
-                  <td className="py-3 pl-4 text-cr-text-muted">{t("home.compareRow2Return")}</td>
-                </tr>
-                <tr>
-                  <td className="py-3 pr-6 text-cr-text">{t("home.compareRow3Option")}</td>
-                  <td className="py-3 px-4 text-right text-cr-text">{t("home.compareRow3Price")}</td>
-                  <td className="py-3 px-4 text-right text-cr-text-muted">{t("home.compareRow3Fee")}</td>
-                  <td className="py-3 pl-4 text-cr-text-muted">{t("home.compareRow3Return")}</td>
-                </tr>
-                <tr>
-                  <td className="py-3 pr-6 text-cr-text">{t("home.compareRow4Option")}</td>
-                  <td className="py-3 px-4 text-right text-cr-text">{t("home.compareRow4Price")}</td>
-                  <td className="py-3 px-4 text-right text-cr-text-muted">{t("home.compareRow4Fee")}</td>
-                  <td className="py-3 pl-4 text-cr-text-muted">{t("home.compareRow4Return")}</td>
-                </tr>
-                <tr>
-                  <td className="py-3 pr-6 text-cr-text">{t("home.compareRow5Option")}</td>
-                  <td className="py-3 px-4 text-right text-cr-text">{t("home.compareRow5Price")}</td>
-                  <td className="py-3 px-4 text-right text-cr-text-muted">{t("home.compareRow5Fee")}</td>
-                  <td className="py-3 pl-4 text-cr-text-muted">{t("home.compareRow5Return")}</td>
-                </tr>
+              <tbody>
+                {COMPARE_ROWS.map((i) => (
+                  <tr key={i} data-scan="light" className={`border-b border-cr-border ${i === 1 ? "text-cr-text" : ""}`}>
+                    <td className={`py-4 pr-6 pl-4 font-medium ${i === 1 ? "cr-light__key" : ""}`}>{t(`home.compareRow${i}Option`)}</td>
+                    <td className="py-4 px-4 text-right cr-tabular">{t(`home.compareRow${i}Price`)}</td>
+                    <td className={`py-4 px-4 text-right cr-tabular ${i === 1 ? "cr-light__key font-medium" : ""}`}>{t(`home.compareRow${i}Fee`)}</td>
+                    <td className="py-4 pl-4">{t(`home.compareRow${i}Return`)}</td>
+                  </tr>
+                ))}
               </tbody>
             </table>
           </div>
-          <p className="font-mono text-[10px] text-cr-text-dim">
-            {t("home.compareFootnote")}
-          </p>
+          <p className="text-[11px] text-cr-text-muted">{t("home.compareFootnote")}</p>
         </div>
       </section>
 
-      {/* 15. Content hub — internal linking */}
-      <section className="relative border-t border-white/[0.06] bg-[#0a0a0a] overflow-hidden">
-        {/* Festival lights bg — barely visible */}
-        <img
-          aria-hidden="true"
-          src="https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=1400&q=40&auto=format&fit=crop"
-          alt=""
-          width={1400}
-          height={800}
-          loading="lazy"
-          decoding="async"
-          className="absolute inset-0 w-full h-full object-cover object-center opacity-[0.04] pointer-events-none"
-        />
-        <div
-          aria-hidden="true"
-          className="absolute top-0 right-0 w-[500px] h-[300px] pointer-events-none"
-          style={{ background: "radial-gradient(ellipse at 100% 0%, rgba(255,79,0,0.05) 0%, transparent 60%)" }}
-        />
-        <div className="relative max-w-6xl mx-auto px-6 py-12 md:py-16 space-y-10">
-          <div className="space-y-2">
-            <p className="font-sans text-[11px] font-semibold uppercase tracking-[0.16em] text-cr-primary">
-              {t("home.hubEyebrow")}
-            </p>
-            <h2 className="font-display text-2xl md:text-3xl uppercase">
-              {t("home.hubTitle")}
-            </h2>
-          </div>
-
-          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
-            <Link to="/guia-transporte-festivales" className="border border-cr-border p-5 hover:border-cr-primary/50 transition-colors group space-y-3">
-              <p className="font-mono text-[10px] uppercase tracking-[0.14em] text-cr-primary">{t("home.hubLabelGuide")}</p>
-              <h3 className="font-display text-base uppercase leading-tight group-hover:text-cr-primary transition-colors">{t("home.hubCard1Title")}</h3>
-              <p className="font-sans text-xs text-cr-text-muted leading-relaxed">{t("home.hubCard1Body")}</p>
-              <span className="inline-flex items-center gap-1 font-sans text-xs text-cr-primary">{t("home.hubReadCta")} <ArrowRight size={11} /></span>
-            </Link>
-            <Link to="/guia/festival-sin-coche" className="border border-cr-border p-5 hover:border-cr-primary/50 transition-colors group space-y-3">
-              <p className="font-mono text-[10px] uppercase tracking-[0.14em] text-cr-primary">{t("home.hubLabelGuide")}</p>
-              <h3 className="font-display text-base uppercase leading-tight group-hover:text-cr-primary transition-colors">{t("home.hubCard2Title")}</h3>
-              <p className="font-sans text-xs text-cr-text-muted leading-relaxed">{t("home.hubCard2Body")}</p>
-              <span className="inline-flex items-center gap-1 font-sans text-xs text-cr-primary">{t("home.hubReadCta")} <ArrowRight size={11} /></span>
-            </Link>
-            <Link to="/guia/presupuesto-festival-grupo" className="border border-cr-border p-5 hover:border-cr-primary/50 transition-colors group space-y-3">
-              <p className="font-mono text-[10px] uppercase tracking-[0.14em] text-cr-primary">{t("home.hubLabelGuide")}</p>
-              <h3 className="font-display text-base uppercase leading-tight group-hover:text-cr-primary transition-colors">{t("home.hubCard3Title")}</h3>
-              <p className="font-sans text-xs text-cr-text-muted leading-relaxed">{t("home.hubCard3Body")}</p>
-              <span className="inline-flex items-center gap-1 font-sans text-xs text-cr-primary">{t("home.hubReadCta")} <ArrowRight size={11} /></span>
-            </Link>
-            <Link to="/guia/seguridad-carpooling-festival" className="border border-cr-border p-5 hover:border-cr-primary/50 transition-colors group space-y-3">
-              <p className="font-mono text-[10px] uppercase tracking-[0.14em] text-cr-primary">{t("home.hubLabelGuide")}</p>
-              <h3 className="font-display text-base uppercase leading-tight group-hover:text-cr-primary transition-colors">{t("home.hubCard4Title")}</h3>
-              <p className="font-sans text-xs text-cr-text-muted leading-relaxed">{t("home.hubCard4Body")}</p>
-              <span className="inline-flex items-center gap-1 font-sans text-xs text-cr-primary">{t("home.hubReadCta")} <ArrowRight size={11} /></span>
-            </Link>
-            <Link to="/guia/festival-primera-vez" className="border border-cr-border p-5 hover:border-cr-primary/50 transition-colors group space-y-3">
-              <p className="font-mono text-[10px] uppercase tracking-[0.14em] text-cr-primary">{t("home.hubLabelGuide")}</p>
-              <h3 className="font-display text-base uppercase leading-tight group-hover:text-cr-primary transition-colors">{t("home.hubCard5Title")}</h3>
-              <p className="font-sans text-xs text-cr-text-muted leading-relaxed">{t("home.hubCard5Body")}</p>
-              <span className="inline-flex items-center gap-1 font-sans text-xs text-cr-primary">{t("home.hubReadCta")} <ArrowRight size={11} /></span>
-            </Link>
-            <Link to="/guia/carpooling-conductor-festival" className="border border-cr-border p-5 hover:border-cr-primary/50 transition-colors group space-y-3">
-              <p className="font-mono text-[10px] uppercase tracking-[0.14em] text-cr-primary">{t("home.hubCard6Label")}</p>
-              <h3 className="font-display text-base uppercase leading-tight group-hover:text-cr-primary transition-colors">{t("home.hubCard6Title")}</h3>
-              <p className="font-sans text-xs text-cr-text-muted leading-relaxed">{t("home.hubCard6Body")}</p>
-              <span className="inline-flex items-center gap-1 font-sans text-xs text-cr-primary">{t("home.hubReadCta")} <ArrowRight size={11} /></span>
-            </Link>
-            <Link to="/guia/festival-accesibilidad-movilidad-reducida" className="border border-cr-border p-5 hover:border-cr-primary/50 transition-colors group space-y-3">
-              <p className="font-mono text-[10px] uppercase tracking-[0.14em] text-cr-primary">{t("home.hubCard7Label")}</p>
-              <h3 className="font-display text-base uppercase leading-tight group-hover:text-cr-primary transition-colors">{t("home.hubCard7Title")}</h3>
-              <p className="font-sans text-xs text-cr-text-muted leading-relaxed">{t("home.hubCard7Body")}</p>
-              <span className="inline-flex items-center gap-1 font-sans text-xs text-cr-primary">{t("home.hubReadCta")} <ArrowRight size={11} /></span>
-            </Link>
-            <Link to="/guia/festival-veterano-aficionados-mayores-2026" className="border border-cr-border p-5 hover:border-cr-primary/50 transition-colors group space-y-3">
-              <p className="font-mono text-[10px] uppercase tracking-[0.14em] text-cr-primary">{t("home.hubCard8Label")}</p>
-              <h3 className="font-display text-base uppercase leading-tight group-hover:text-cr-primary transition-colors">{t("home.hubCard8Title")}</h3>
-              <p className="font-sans text-xs text-cr-text-muted leading-relaxed">{t("home.hubCard8Body")}</p>
-              <span className="inline-flex items-center gap-1 font-sans text-xs text-cr-primary">{t("home.hubReadCta")} <ArrowRight size={11} /></span>
-            </Link>
-            <Link to="/blog/como-volver-festival-madrugada" className="border border-cr-border p-5 hover:border-cr-primary/50 transition-colors group space-y-3">
-              <p className="font-mono text-[10px] uppercase tracking-[0.14em] text-cr-primary">{t("home.hubLabelGuide")}</p>
-              <h3 className="font-display text-base uppercase leading-tight group-hover:text-cr-primary transition-colors">{t("home.hubCard9Title")}</h3>
-              <p className="font-sans text-xs text-cr-text-muted leading-relaxed">{t("home.hubCard9Body")}</p>
-              <span className="inline-flex items-center gap-1 font-sans text-xs text-cr-primary">{t("home.hubReadCta")} <ArrowRight size={11} /></span>
-            </Link>
-            <Link to="/rutas/madrid-mad-cool" className="border border-cr-border p-5 hover:border-cr-primary/50 transition-colors group space-y-3">
-              <p className="font-mono text-[10px] uppercase tracking-[0.14em] text-cr-primary">{t("home.hubLabelRoute")}</p>
-              <h3 className="font-display text-base uppercase leading-tight group-hover:text-cr-primary transition-colors">{t("home.hubCard10Title")}</h3>
-              <p className="font-sans text-xs text-cr-text-muted leading-relaxed">{t("home.hubCard10Body")}</p>
-              <span className="inline-flex items-center gap-1 font-sans text-xs text-cr-primary">{t("home.hubSeeRouteCta")} <ArrowRight size={11} /></span>
-            </Link>
-            <Link to="/rutas/madrid-primavera-sound" className="border border-cr-border p-5 hover:border-cr-primary/50 transition-colors group space-y-3">
-              <p className="font-mono text-[10px] uppercase tracking-[0.14em] text-cr-primary">{t("home.hubLabelRoute")}</p>
-              <h3 className="font-display text-base uppercase leading-tight group-hover:text-cr-primary transition-colors">{t("home.hubCard11Title")}</h3>
-              <p className="font-sans text-xs text-cr-text-muted leading-relaxed">{t("home.hubCard11Body")}</p>
-              <span className="inline-flex items-center gap-1 font-sans text-xs text-cr-primary">{t("home.hubSeeRouteCta")} <ArrowRight size={11} /></span>
-            </Link>
-            <Link to="/como-funciona-carpooling" className="border border-cr-border p-5 hover:border-cr-primary/50 transition-colors group space-y-3">
-              <p className="font-mono text-[10px] uppercase tracking-[0.14em] text-cr-primary">{t("home.hubLabelGuide")}</p>
-              <h3 className="font-display text-base uppercase leading-tight group-hover:text-cr-primary transition-colors">{t("home.hubCard12Title")}</h3>
-              <p className="font-sans text-xs text-cr-text-muted leading-relaxed">{t("home.hubCard12Body")}</p>
-              <span className="inline-flex items-center gap-1 font-sans text-xs text-cr-primary">{t("home.hubReadCta")} <ArrowRight size={11} /></span>
-            </Link>
-            <Link to="/comparativa/carpooling-vs-taxi-festival" className="border border-cr-border p-5 hover:border-cr-primary/50 transition-colors group space-y-3">
-              <p className="font-mono text-[10px] uppercase tracking-[0.14em] text-cr-primary">{t("home.hubLabelComparison")}</p>
-              <h3 className="font-display text-base uppercase leading-tight group-hover:text-cr-primary transition-colors">{t("home.hubCard13Title")}</h3>
-              <p className="font-sans text-xs text-cr-text-muted leading-relaxed">{t("home.hubCard13Body")}</p>
-              <span className="inline-flex items-center gap-1 font-sans text-xs text-cr-primary">{t("home.hubReadCta")} <ArrowRight size={11} /></span>
-            </Link>
-            <Link to="/blog" className="border border-cr-border p-5 hover:border-cr-primary/50 transition-colors group space-y-3 flex flex-col justify-between">
-              <div className="space-y-3">
-                <p className="font-mono text-[10px] uppercase tracking-[0.14em] text-cr-primary">{t("home.hubLabelBlog")}</p>
-                <h3 className="font-display text-base uppercase leading-tight group-hover:text-cr-primary transition-colors">{t("home.hubCard14Title")}</h3>
-                <p className="font-sans text-xs text-cr-text-muted leading-relaxed">{t("home.hubCard14Body")}</p>
-              </div>
-              <span className="inline-flex items-center gap-1 font-sans text-xs text-cr-primary mt-3">{t("home.hubSeeBlogCta")} <ArrowRight size={11} /></span>
-            </Link>
-          </div>
+      {/* 11 · Guías y recursos: enlazado interno en registro */}
+      <section aria-labelledby="hub-title" className="px-6 py-[var(--rhythm-2)] border-t border-cr-border">
+        <div className="max-w-6xl mx-auto flex flex-col gap-10">
+          <SectionHead id="hub-title" eyebrow={t("home.hubEyebrow")} title={t("home.hubTitle")} scan="words" />
+          <Register>
+            {HUB_LINKS.map((l) => (
+              <RegisterRow
+                key={l.to}
+                to={l.to}
+                n={t(l.labelKey)}
+                title={t(l.titleKey)}
+                description={t(l.bodyKey)}
+                action={
+                  <span className="cr-label text-cr-text inline-flex items-center gap-2">
+                    {t(l.ctaKey)} <ArrowRight size={14} aria-hidden="true" />
+                  </span>
+                }
+              />
+            ))}
+          </Register>
         </div>
       </section>
 
-      {/* Premium scan-line divider */}
-      <div aria-hidden="true" className="cr-scan-divider" />
-
-      {/* 16. Final CTA — crowd photo + lime bloom */}
+      {/* 12 · Cierre */}
       <FinalCTA />
 
-      {/* 17. Sticky mobile CTA — links to next festival landing (Primavera Sound 28 may–1 jun) */}
+      {/* 13 · CTA fija en móvil: a la lista real de conciertos, no a un festival concreto */}
       <div
-        className="fixed bottom-0 left-0 right-0 z-40 sm:hidden bg-[#080808]/95 backdrop-blur border-t border-white/[0.06] p-3"
+        className="fixed bottom-0 left-0 right-0 z-40 sm:hidden bg-cr-bg/95 border-t border-cr-border p-3 pb-[max(0.75rem,env(safe-area-inset-bottom))]"
         role="complementary"
         aria-label={t("home.stickyAriaRegion")}
       >
-        <a
-          href="/festivales/primavera-sound"
-          aria-label={t("home.stickyAriaLink")}
-          className="block w-full text-center bg-[#dbff00] text-black font-sans font-semibold uppercase tracking-[0.12em] text-sm py-3 hover:bg-[#c8ec00] transition-colors"
-        >
-          {t("home.stickyCta")}
+        <a href="/concerts" className="cr-btn-primary w-full !shadow-none">
+          {t("home.heroCtaSearch")} →
         </a>
       </div>
     </main>

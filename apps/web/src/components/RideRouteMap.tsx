@@ -3,9 +3,9 @@ import L from "leaflet";
 import type { Ride } from "@concertride/types";
 import "./MapView.css";
 
-const TILE_URL = "https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}.png";
+const TILE_URL = "https://tile.openstreetmap.org/{z}/{x}/{y}.png";
 const TILE_ATTR =
-  '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>';
+  '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors';
 
 const originIcon = L.divIcon({
   className: "cr-marker-wrapper",
@@ -53,7 +53,7 @@ export default function RideRouteMap({ ride }: Props) {
           attributionControl
           className="h-full w-full"
         >
-          <TileLayer url={TILE_URL} attribution={TILE_ATTR} subdomains="abcd" />
+          <TileLayer url={TILE_URL} attribution={TILE_ATTR} />
           <Marker position={origin} icon={originIcon} title="Punto de recogida" />
           <Marker position={venue} icon={venueIcon} title={ride.concert.venue.name} />
           <Polyline

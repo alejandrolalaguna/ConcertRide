@@ -1,119 +1,84 @@
-import { useRef, useMemo, type CSSProperties } from "react";
+import React, { type CSSProperties } from "react";
 import { Link } from "react-router-dom";
-import { motion, useScroll, useTransform } from "motion/react";
-import React from "react";
 import { ArrowRight } from "lucide-react";
 import type { Concert } from "@concertride/types";
 import { ConcertCard } from "@/components/ConcertCard";
+import { SectionHead } from "@/components/system";
+import { useI18n } from "@/lib/i18n";
 
 interface Props {
   concerts: Concert[];
 }
 
+/**
+ * El tablón de salidas.
+ *
+ * Estado base (SSR, móvil, reduced-motion): carril nativo con scroll-snap y
+ * máscara de bordes. En escritorio con movimiento, la coreografía de la home
+ * (homeChoreography.ts) ancla la sección y convierte el scroll vertical en
+ * desplazamiento del carril, con foco por proximidad (0.94–1.06) y barra de
+ * progreso. A3 del banco: lo que secuestra el scroll se paga con orientación.
+ */
 function HorizontalCarouselComponent({ concerts }: Props) {
-  const ref = useRef<HTMLDivElement | null>(null);
-  const { scrollYProgress } = useScroll({
-    target: ref,
-    offset: ["start start", "end end"],
-  });
-
-  // Memoize expensive calculations
-  const { totalWidthPx, keepVisiblePx, translatePx } = useMemo(() => {
-    const totalCards = concerts.length + 1;
-    const CARD_WIDTH_PX = 400;
-    const GAP_PX = 24;
-    const totalW = totalCards * (CARD_WIDTH_PX + GAP_PX);
-    const keepV = 2 * (CARD_WIDTH_PX + GAP_PX);
-    const translate = Math.max(0, totalW - keepV);
-    return { totalWidthPx: totalW, keepVisiblePx: keepV, translatePx: translate };
-  }, [concerts.length]);
-
-  const x = useTransform(scrollYProgress, [0, 1], ["0px", `-${translatePx}px`]);
-
+  const { t } = useI18n();
   return (
-    <section aria-labelledby="discover-title" className="bg-cr-bg text-cr-text">
-      <div className="max-w-6xl mx-auto px-6 pt-20 md:pt-28 pb-8 space-y-3">
-        <p className="font-sans text-[11px] font-semibold uppercase tracking-[0.16em] text-cr-primary">
-          Discover
-        </p>
-        <div className="flex items-end justify-between gap-6">
-          <h2
+    <section
+      aria-labelledby="discover-title"
+      data-departures
+      className="bg-cr-bg text-cr-text overflow-hidden"
+    >
+      <div data-departures-stage className="lg:min-h-[100svh] flex flex-col justify-center gap-10 py-[var(--rhythm-2)]">
+        <div className="max-w-6xl mx-auto w-full px-6">
+          <SectionHead
             id="discover-title"
-            className="font-display text-3xl md:text-5xl uppercase leading-[0.95]"
-          >
-            Conciertos
-            <br />
-            con viajes activos.
-          </h2>
-          <Link
-            to="/concerts"
-            className="hidden md:inline-flex items-center gap-2 font-sans text-xs font-semibold uppercase tracking-[0.12em] text-cr-text-muted hover:text-cr-primary transition-colors"
-          >
-            Ver todos
-            <ArrowRight size={14} />
-          </Link>
-        </div>
-      </div>
-
-      {/* Desktop: vertical-scroll → horizontal-translate */}
-      <div
-        ref={ref}
-        className="relative hidden md:block"
-        style={{ height: "180vh" }}
-      >
-        <div className="sticky top-0 h-dvh flex items-center overflow-hidden">
-          <motion.ol
-            style={{ x }}
-            className="flex gap-6 px-[6vw]"
-          >
-            {concerts.map((c, i) => (
-              <li
-                key={c.id}
-                className="shrink-0 w-[340px] lg:w-[400px] cr-vt-card"
-                style={{ "--cr-vt-name": `concert-card-${c.id}` } as CSSProperties}
-              >
-                <Link to={`/concerts/${c.id}`} className="block">
-                  <ConcertCard concert={c} priority={i === 0} />
-                </Link>
-              </li>
-            ))}
-            <li className="shrink-0 w-[340px] lg:w-[400px] flex items-center justify-center">
-              <Link
-                to="/concerts"
-                className="h-full w-full border border-dashed border-cr-border aspect-[4/3] flex flex-col items-center justify-center gap-2 hover:border-cr-primary hover:text-cr-primary transition-colors"
-              >
-                <span className="font-display text-3xl uppercase">Ver todos</span>
-                <ArrowRight size={24} />
+            eyebrow="Tablón de salidas"
+            title={
+              <>
+                Conciertos con
+                <br />
+                viajes activos.
+              </>
+            }
+            aside={
+              <Link to="/concerts" className="cr-link cr-label text-cr-text-muted hover:text-cr-text inline-flex items-center gap-2">
+                {t("nav.concerts")} <ArrowRight size={14} aria-hidden="true" />
               </Link>
-            </li>
-          </motion.ol>
+            }
+            scan="words"
+          />
         </div>
-      </div>
 
-      {/* Mobile: native horizontal scroll with snap */}
-      <div className="md:hidden">
-        <ol className="flex gap-4 overflow-x-auto snap-x snap-mandatory px-6 pb-10 -mx-1 scroll-pl-6">
+        <ol data-departures-track className="cr-track lg:px-[calc((100vw-72rem)/2+1.5rem)]">
           {concerts.map((c, i) => (
             <li
               key={c.id}
-              className="shrink-0 w-[78%] snap-start cr-vt-card"
+              data-departures-card
+              className="w-[78vw] sm:w-[320px] lg:w-[360px] cr-vt-card"
               style={{ "--cr-vt-name": `concert-card-${c.id}` } as CSSProperties}
             >
-              <Link to={`/concerts/${c.id}`} className="block">
+              <Link to={`/concerts/${c.id}`} className="block focus-visible:outline-2">
                 <ConcertCard concert={c} priority={i === 0} />
               </Link>
             </li>
           ))}
-          <li className="shrink-0 w-[78%] snap-start">
+          <li data-departures-card className="w-[78vw] sm:w-[320px] lg:w-[360px]">
             <Link
               to="/concerts"
-              className="block h-full border border-dashed border-cr-border aspect-[4/3] flex flex-col items-center justify-center gap-2 text-cr-text-muted hover:text-cr-primary"
+              className="h-full min-h-[24rem] border border-dashed border-cr-border-mid flex flex-col items-start justify-end gap-3 p-6 text-cr-text hover:border-cr-text transition-colors"
             >
-              <span className="font-display text-2xl uppercase">Ver todos</span>
-              <ArrowRight size={20} />
+              <span className="cr-label text-cr-text-muted">Todos</span>
+              <span className="font-display text-display-m">Ver todos los conciertos</span>
+              <ArrowRight size={22} aria-hidden="true" />
             </Link>
           </li>
         </ol>
+
+        {/* Barra de progreso: responde a «¿cuánto queda?» */}
+        <div className="max-w-6xl mx-auto w-full px-6 hidden lg:block" aria-hidden="true">
+          <div className="h-px bg-cr-border relative">
+            <div data-departures-progress className="absolute inset-0 bg-cr-primary origin-left scale-x-0" />
+          </div>
+        </div>
       </div>
     </section>
   );

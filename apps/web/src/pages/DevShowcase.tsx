@@ -6,7 +6,6 @@ import { TicketCard } from "@/components/TicketCard";
 import { SearchBar } from "@/components/SearchBar";
 import { VibeSelector } from "@/components/VibeSelector";
 import { TrustBadge } from "@/components/TrustBadge";
-import { StatsBar } from "@/components/StatsBar";
 import { HowItWorks } from "@/components/HowItWorks";
 import {
   ConcertCardSkeleton,
@@ -261,7 +260,7 @@ export default function DevShowcase() {
         </Section>
       </div>
 
-      <StatsBar />
+
       <HowItWorks />
 
       <footer className="px-6 py-16 border-t border-cr-border">

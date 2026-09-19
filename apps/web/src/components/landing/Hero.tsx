@@ -1,510 +1,292 @@
-import { useEffect, useMemo, useState } from "react";
-import { AnimatePresence, motion, useScroll, useTransform } from "motion/react";
+import { Suspense, lazy, useEffect, useRef } from "react";
 import { ArrowRight } from "lucide-react";
+import type { Concert, Ride } from "@concertride/types";
 import { ANALYTICS_EVENTS, trackEvent } from "@/lib/analytics-events";
 import { useI18n } from "@/lib/i18n";
+import { formatDay } from "@/lib/format";
+import { ClientOnly } from "@/components/ClientOnly";
+import { ProgressRail } from "@/components/system";
 
-interface TicketData {
-  id: string;
-  artist: string;
-  tour: string;
-  venue: string;
-  date: string;
-  from: string;
-  to: string;
-  price: number;
-  seats: number;
-  driverInitial: string;
-  driverName: string;
-  rating: number;
-  ridCode: string;
-  ticketNum: string;
+const MapView = lazy(() => import("@/components/MapView"));
+
+/** Precio mínimo del catálogo de rutas (seatPrice() por defecto). */
+const MIN_SEAT_PRICE = 3;
+
+interface Props {
+  /** Conciertos próximos (≤90 días) para el mapa. */
+  mapConcerts: Concert[];
+  /** Viajes activos asociados a esos conciertos. */
+  mapRides: Ride[];
+  /** Concierto destacado para el ticket: el más próximo con viajes, o el más próximo. */
+  featured: Concert | null;
+  /** null mientras carga; [] si no hay datos. */
+  loaded: boolean;
 }
 
-// Generic "festival season" anchor for above-the-fold targeting.
-// Deliberately NOT pinned to a single festival name — the hero stays evergreen and
-// links to the festival index. `startDate` only drives the countdown badge:
-// keep it on the nearest upcoming major festival of the season.
-const NEXT_FESTIVAL = {
-  startDate: "2026-07-09", // próximo gran festival de la temporada (para el contador)
-  minPrice: 4, // €/asiento — la ruta corta más barata
-} as const;
-
-const TICKETS: TicketData[] = [
-  {
-    id: "rosalia",
-    artist: "ROSALÍA",
-    tour: "LUX TOUR · 2026",
-    venue: "WiZink Center · Madrid",
-    date: "JUE 22 MAY · 21:00 CEST",
-    from: "VALENCIA",
-    to: "MADRID",
-    price: 18,
-    seats: 3,
-    driverInitial: "L",
-    driverName: "Laura M.",
-    rating: 4.9,
-    ridCode: "RID-2026-VAL-MAD",
-    ticketNum: "#CR-00842",
-  },
-  {
-    id: "badbunny",
-    artist: "BAD BUNNY",
-    tour: "MOST WANTED · 2026",
-    venue: "Estadio La Cartuja · Sevilla",
-    date: "LUN 8 JUN · 22:00 CEST",
-    from: "CÓRDOBA",
-    to: "SEVILLA",
-    price: 22,
-    seats: 2,
-    driverInitial: "D",
-    driverName: "Dani R.",
-    rating: 4.8,
-    ridCode: "RID-2026-COR-SEV",
-    ticketNum: "#CR-00921",
-  },
-  {
-    id: "madcool",
-    artist: "MAD COOL",
-    tour: "FESTIVAL · DAY 1",
-    venue: "IFEMA · Madrid",
-    date: "JUE 9 JUL · 16:00 CEST",
-    from: "BILBAO",
-    to: "MADRID",
-    price: 35,
-    seats: 4,
-    driverInitial: "I",
-    driverName: "Irene S.",
-    rating: 4.9,
-    ridCode: "RID-2026-BIL-MAD",
-    ticketNum: "#CR-01034",
-  },
-  {
-    id: "cruilla",
-    artist: "CRUÏLLA",
-    tour: "FESTIVAL · 2026",
-    venue: "Parc del Fòrum · Barcelona",
-    date: "JUE 9 JUL · 18:00 CEST",
-    from: "ZARAGOZA",
-    to: "BARCELONA",
-    price: 28,
-    seats: 3,
-    driverInitial: "J",
-    driverName: "Jorge B.",
-    rating: 4.7,
-    ridCode: "RID-2026-ZGZ-BCN",
-    ticketNum: "#CR-00887",
-  },
-  {
-    id: "quevedo",
-    artist: "QUEVEDO",
-    tour: "BUENAS NOCHES TOUR",
-    venue: "Bilbao Arena · Bilbao",
-    date: "MIE 29 ABR · 21:30 CEST",
-    from: "VITORIA",
-    to: "BILBAO",
-    price: 12,
-    seats: 1,
-    driverInitial: "P",
-    driverName: "Paula G.",
-    rating: 5.0,
-    ridCode: "RID-2026-VIT-BIL",
-    ticketNum: "#CR-00763",
-  },
-];
-
-function usePrefersReducedMotion(): boolean {
-  const [reduced, setReduced] = useState(false);
-  useEffect(() => {
-    const mq = window.matchMedia("(prefers-reduced-motion: reduce)");
-    setReduced(mq.matches);
-    const handler = (e: MediaQueryListEvent) => setReduced(e.matches);
-    mq.addEventListener("change", handler);
-    return () => mq.removeEventListener("change", handler);
-  }, []);
-  return reduced;
-}
-
-export function Hero() {
+/**
+ * El cartel que se abre.
+ *
+ * Estado inicial (y estado SSR / reduced-motion / móvil): titular como cartel a
+ * la izquierda, una ventana enmarcada a la derecha con el ticket encima. En
+ * escritorio con movimiento, al hacer scroll la ventana se abre a sangre y
+ * descubre el mapa real de conciertos y viajes activos (A1 del banco: pin,
+ * clip-path, contra-zoom, titular que se retira, raíl de avance). Una sola vez
+ * en todo el sitio.
+ *
+ * Todo el texto indexable está en el DOM desde el servidor. El mapa es
+ * decorativo y se monta sólo en cliente.
+ */
+export function Hero({ mapConcerts, mapRides, featured, loaded }: Props) {
   const { t } = useI18n();
-  const { scrollY } = useScroll();
-  const indicatorOpacity = useTransform(scrollY, [0, 120], [1, 0]);
-  const stubY = useTransform(scrollY, [0, 600], [0, 160]);
-  const bgY = useTransform(scrollY, [0, 600], [0, 80]);
-  const reducedMotion = usePrefersReducedMotion();
+  const stageRef = useRef<HTMLElement | null>(null);
+  const slotRef = useRef<HTMLDivElement | null>(null);
+  const clipRef = useRef<HTMLDivElement | null>(null);
 
-  const [ticketIdx, setTicketIdx] = useState(0);
-
-  // Countdown to next festival — recalculated client-side so it stays fresh.
-  // Server-render shows whatever is current at build time; client hydrates with live value.
-  const daysToNextFestival = useMemo(() => {
-    const target = new Date(`${NEXT_FESTIVAL.startDate}T00:00:00`).getTime();
-    const now = Date.now();
-    const diff = target - now;
-    return Math.max(0, Math.ceil(diff / (24 * 60 * 60 * 1000)));
+  // La capa del mapa ocupa todo el escenario y se recorta a la ventana. El
+  // recorte inicial se calcula midiendo la ventana (también con reduced-motion,
+  // donde no hay GSAP). La coreografía de apertura lo lee de `--hero-clip`.
+  useEffect(() => {
+    const stage = stageRef.current;
+    const slot = slotRef.current;
+    const clip = clipRef.current;
+    if (!stage || !slot || !clip) return;
+    const measure = () => {
+      const s = stage.getBoundingClientRect();
+      const r = slot.getBoundingClientRect();
+      if (s.width === 0 || s.height === 0) return;
+      const top = ((r.top - s.top) / s.height) * 100;
+      const left = ((r.left - s.left) / s.width) * 100;
+      const bottom = ((s.bottom - r.bottom) / s.height) * 100;
+      const right = ((s.right - r.right) / s.width) * 100;
+      const v = `inset(${top.toFixed(2)}% ${right.toFixed(2)}% ${bottom.toFixed(2)}% ${left.toFixed(2)}%)`;
+      stage.style.setProperty("--hero-clip", v);
+      if (!stage.hasAttribute("data-hero-open")) {
+        clip.style.clipPath = v;
+        // Sin coreografía (móvil, reduced-motion): centrar el mapa en la ventana.
+        const plate = clip.firstElementChild as HTMLElement | null;
+        if (plate) {
+          const dx = r.left + r.width / 2 - (s.left + s.width / 2);
+          const dy = r.top + r.height / 2 - (s.top + s.height / 2);
+          plate.style.transform = `translate(${dx.toFixed(1)}px, ${dy.toFixed(1)}px)`;
+        }
+      }
+    };
+    measure();
+    const ro = typeof ResizeObserver !== "undefined" ? new ResizeObserver(measure) : null;
+    ro?.observe(stage);
+    window.addEventListener("resize", measure);
+    return () => {
+      ro?.disconnect();
+      window.removeEventListener("resize", measure);
+    };
   }, []);
 
-  useEffect(() => {
-    if (reducedMotion) return;
-    const ticketTimer = setInterval(() => {
-      setTicketIdx((i) => (i + 1) % TICKETS.length);
-    }, 6000);
-    return () => clearInterval(ticketTimer);
-  }, [reducedMotion]);
-
-  const currentTicket = TICKETS[ticketIdx]!;
+  const activeRides = mapRides.length;
 
   return (
     <section
+      ref={stageRef}
+      data-hero-stage
       aria-labelledby="hero-title"
-      className="relative min-h-dvh flex items-center overflow-hidden bg-cr-bg"
+      className="cr-noise relative overflow-hidden bg-cr-bg lg:min-h-[100svh] flex items-center"
     >
-      {/* Background concert crowd photo */}
-      <motion.div
-        aria-hidden="true"
-        style={{ y: bgY }}
-        className="absolute inset-0 pointer-events-none"
-      >
-        <img
-          src="https://images.unsplash.com/photo-1459749411175-04bf5292ceea?w=1800&q=80&auto=format&fit=crop"
-          alt=""
-          width={1800}
-          height={1200}
-          className="w-full h-full object-cover object-center"
-          loading="eager"
-          decoding="async"
-          // @ts-expect-error — fetchpriority (lowercase) needed for SSR, React types use fetchPriority
-          fetchpriority="high"
-        />
-        {/* Multi-layer overlay system */}
-        <div className="absolute inset-0 bg-[#080808]/60" />
-        <div className="absolute inset-0 bg-gradient-to-r from-[#080808] via-[#080808]/70 to-transparent" />
-        <div className="absolute inset-0 bg-gradient-to-b from-[#080808] via-transparent to-[#080808]/60" />
-      </motion.div>
-
-      {/* Atmospheric color orbs */}
+      {/* Capa B · el mapa, recortado a la ventana hasta que el scroll lo abre */}
       <div
+        ref={clipRef}
+        data-hero-clip
         aria-hidden="true"
-        className="absolute bottom-[-10%] left-[-5%] w-[50vw] h-[50vw] rounded-full pointer-events-none"
-        style={{ background: "radial-gradient(circle, rgba(219,255,0,0.08) 0%, transparent 65%)", filter: "blur(60px)" }}
-      />
-      <div
-        aria-hidden="true"
-        className="absolute top-[-10%] right-[-5%] w-[40vw] h-[40vw] rounded-full pointer-events-none"
-        style={{ background: "radial-gradient(circle, rgba(255,79,0,0.05) 0%, transparent 65%)", filter: "blur(60px)" }}
-      />
-
-      <NoiseOverlay />
-      <CornerTicks />
-
-      {/* Ticket stub — floating right */}
-      <motion.div
-        aria-hidden="true"
-        style={{ y: stubY }}
-        className="absolute top-[10%] right-[-50px] md:right-[5%] w-[260px] md:w-[380px] rotate-[8deg] pointer-events-none opacity-80 md:opacity-100"
+        className="absolute inset-0 z-[1] pointer-events-none bg-cr-surface"
+        style={{ clipPath: "inset(0 0 0 100%)" }}
       >
-        <AnimatePresence mode="wait">
-          <motion.div
-            key={currentTicket.id}
-            initial={{ opacity: 0, y: 20, scale: 0.96 }}
-            animate={{ opacity: 1, y: 0, scale: 1 }}
-            exit={{ opacity: 0, y: -20, scale: 0.96 }}
-            transition={{ duration: 0.5, ease: [0.25, 0.46, 0.45, 0.94] }}
-          >
-            <TicketStub ticket={currentTicket} t={t} />
-          </motion.div>
-        </AnimatePresence>
-      </motion.div>
-
-      {/* Hero content */}
-      <div className="relative w-full max-w-6xl mx-auto px-6 md:px-10 py-24 md:py-32 space-y-8">
-
-        {/* Urgency badge — countdown to next festival */}
-        <motion.div
-          initial={{ opacity: 0, y: 16 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.4, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
-          className="inline-flex items-center gap-2 border border-[#ff4f00]/30 bg-[#ff4f00]/[0.08] px-3 py-1.5"
-        >
-          <span className="w-1.5 h-1.5 rounded-full bg-[#ff4f00] animate-pulse flex-shrink-0" />
-          <span className="font-mono text-[10px] tracking-[0.2em] uppercase text-[#ff4f00]">
-            {t("home.heroBadgeBase")}
-            {daysToNextFestival > 0 && daysToNextFestival <= 60
-              ? `${t("home.heroBadgeCountdownPrefix")} ${daysToNextFestival} ${daysToNextFestival === 1 ? t("home.heroBadgeDaySingular") : t("home.heroBadgeDayPlural")}`
-              : t("home.heroBadgeLimited")}
-          </span>
-        </motion.div>
-
-        {/* H1 — punchy hook for Gen Z. Festival + price live in the subheadline
-            (still keyword-rich for SEO without burying the lead). */}
-        <motion.h1
-          id="hero-title"
-          initial={{ opacity: 0, y: 40 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
-          className="font-display uppercase leading-[0.88] tracking-tight text-[clamp(2.6rem,7.5vw,6.5rem)] max-w-5xl"
-        >
-          <span className="cr-heading-gradient">{t("home.heroTitleLine1a")}</span>
-          <span className="text-white/55">{t("home.heroTitleLine1b")}</span>
-          <br />
-          <span className="text-[#dbff00]">{t("home.heroTitleLine2a")}</span>
-          <span className="text-white/55">{t("home.heroTitleLine2b")}</span>
-        </motion.h1>
-
-        {/* H2 — keyword anchor (SEO + AIO) preserved below the headline */}
-        <p className="sr-only">
-          {t("home.heroSrKeyword", { price: NEXT_FESTIVAL.minPrice })}
-        </p>
-
-        {/* Lime underline rule */}
-        <motion.div
-          initial={{ scaleX: 0 }}
-          animate={{ scaleX: 1 }}
-          transition={{ duration: 0.8, delay: 0.7, ease: [0.16, 1, 0.3, 1] }}
-          className="origin-left h-[2px] bg-[#dbff00] w-20"
-          aria-hidden="true"
-        />
-
-        {/* Subheadline — concrete + festival + price + trust */}
-        <motion.p
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.8, ease: [0.16, 1, 0.3, 1] }}
-          className="font-sans text-base md:text-xl text-white/65 max-w-xl leading-relaxed font-light"
-        >
-          {t("home.heroSubheadlinePrefix")}{" "}
-          <span className="text-[#dbff00] font-semibold">{t("home.heroSubheadlinePrice", { price: NEXT_FESTIVAL.minPrice })}</span>{" "}
-          {t("home.heroSubheadlineMiddle")}{" "}
-          <span className="text-white/90 font-medium">{t("home.heroSubheadlineTrust")}</span>
-        </motion.p>
-
-        {/* CTAs — primary: see rides to next festival, secondary: publish */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 1.0, ease: [0.16, 1, 0.3, 1] }}
-          className="flex flex-col sm:flex-row gap-3"
-        >
-          <a
-            href="/concerts"
-            onClick={() => trackEvent(ANALYTICS_EVENTS.HERO_CTA_CLICKED, { variant: "search_rides", target: "concerts" })}
-            className="cr-btn-shine inline-flex items-center justify-center gap-2 bg-[#dbff00] text-black font-sans font-semibold uppercase tracking-[0.12em] text-sm px-8 py-4 hover:bg-[#c8ec00] transition-colors duration-150 group"
-          >
-            {t("home.heroCtaSearch")}
-            <ArrowRight size={14} className="transition-transform duration-150 group-hover:translate-x-1" aria-hidden="true" />
-          </a>
-          <a
-            href="/publish"
-            onClick={() => trackEvent(ANALYTICS_EVENTS.HERO_CTA_CLICKED, { variant: "publish_ride" })}
-            className="inline-flex items-center justify-center gap-2 bg-transparent text-white/80 font-sans font-semibold uppercase tracking-[0.12em] text-sm border border-white/25 px-8 py-4 hover:border-[#dbff00]/60 hover:text-white transition-colors duration-150"
-          >
-            {t("home.heroCtaPublish")}
-          </a>
-        </motion.div>
-
-        {/* Social proof + trust badges + savings pill */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.5, delay: 1.3 }}
-          className="flex flex-col gap-3"
-        >
-          <div className="flex flex-wrap items-center gap-x-4 gap-y-3">
-            {/* Avatar stack */}
-            <div className="flex items-center gap-3">
-              <div className="flex -space-x-2" aria-hidden="true">
-                {["S","D","I","J"].map((initial, i) => (
-                  <div
-                    key={i}
-                    className="w-7 h-7 rounded-full bg-[#dbff00] border-2 border-[#080808] flex items-center justify-center font-display font-black text-black text-[10px]"
-                  >
-                    {initial}
-                  </div>
-                ))}
-                <div className="w-7 h-7 rounded-full bg-white/10 border-2 border-[#080808] flex items-center justify-center font-mono text-[9px] text-[#dbff00] font-bold">
-                  +2k
-                </div>
-              </div>
-              <span className="font-mono text-[11px] text-white/45">{t("home.heroFansCount")}</span>
-            </div>
-            {/* Inline testimonial pill — uses Sara M. from existing reviews ItemList (no fabricated quote) */}
-            <div className="inline-flex items-center gap-2 border border-white/10 bg-white/[0.03] px-3 py-1.5">
-              <span className="font-mono text-[10px] text-[#dbff00]">{t("home.heroTestimonialRating")}</span>
-              <span className="font-mono text-[10px] text-white/55">
-                {t("home.heroTestimonialQuote")}
-              </span>
-            </div>
-          </div>
-          <div className="flex flex-wrap items-center gap-x-4 gap-y-1">
-            {[t("home.heroBadgeNoCard"), t("home.heroBadgeVerifiedLicense"), t("home.heroBadgeReturn")].map((badge) => (
-              <span key={badge} className="flex items-center gap-1.5 font-mono text-[10px] text-white/35 uppercase tracking-[0.1em]">
-                <span className="w-1 h-1 rounded-full bg-[#dbff00]/60" aria-hidden="true" />
-                {badge}
-              </span>
-            ))}
-          </div>
-        </motion.div>
-
+        <div data-hero-plate className="absolute inset-0 will-change-transform">
+          <ClientOnly fallback={<FramePlaceholder />}>
+            <Suspense fallback={<FramePlaceholder />}>
+              <MapView concerts={mapConcerts} rides={mapRides} />
+            </Suspense>
+          </ClientOnly>
+        </div>
+        {/* Velo lateral: sostiene el titular mientras la ventana crece */}
+        <div className="absolute inset-y-0 left-0 w-1/2 bg-gradient-to-r from-cr-bg via-cr-bg/70 to-transparent" />
       </div>
 
-      {/* Scroll indicator */}
-      <motion.div
-        style={{ opacity: indicatorOpacity }}
-        aria-hidden="true"
-        className="absolute bottom-6 left-1/2 -translate-x-1/2 flex flex-col items-center gap-1.5"
+      {/* Raíl de avance de la apertura (sólo escritorio) */}
+      <div className="hidden lg:block absolute left-6 top-[var(--nav-h)] bottom-8 z-[3]" aria-hidden="true">
+        <ProgressRail className="h-full" />
+      </div>
+
+      {/* Capa A · el cartel */}
+      <div
+        data-hero-fade
+        className="relative z-[2] w-full max-w-7xl mx-auto px-6 md:px-10 lg:px-16 pt-[calc(var(--nav-h)+var(--rhythm-1))] pb-[var(--rhythm-2)] grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-end pointer-events-none [&_a]:pointer-events-auto [&_button]:pointer-events-auto"
       >
-        <div className="w-5 h-8 rounded-full border border-white/15 flex items-start justify-center pt-1.5">
-          <motion.div
-            animate={{ y: [0, 6, 0] }}
-            transition={{ duration: 1.4, repeat: Infinity, ease: "easeInOut" }}
-            className="w-1 h-1 rounded-full bg-white/40"
-          />
+        {/* Titular y CTA */}
+        <div className="lg:col-span-7 flex flex-col gap-6">
+          <p className="cr-eyebrow">
+            {loaded && mapConcerts.length > 0
+              ? `${mapConcerts.length} ${t("nav.concerts").toLowerCase()} · ${activeRides} ${activeRides === 1 ? "viaje activo" : "viajes activos"}`
+              : t("home.heroBadgeBase")}
+          </p>
+
+          <h1 id="hero-title" data-scan="entrance" className="font-display text-display-xl max-w-[14ch]">
+            {t("home.heroTitleLine1a")}
+            <br />
+            <span className="text-cr-primary">{t("home.heroTitleLine2a")}</span>
+          </h1>
+
+          {/* Ancla de palabras clave para buscadores y lectores (no visual) */}
+          <p className="sr-only">{t("home.heroSrKeyword", { price: MIN_SEAT_PRICE })}</p>
+
+          <p className="cr-prose text-lead text-cr-text-muted max-w-[34rem]">
+            {t("home.heroSubheadlinePrefix")}{" "}
+            <span className="text-cr-text font-medium cr-tabular">{t("home.heroSubheadlinePrice", { price: MIN_SEAT_PRICE })}</span>{" "}
+            {t("home.heroSubheadlineMiddle")}{" "}
+            <span className="text-cr-text font-medium">{t("home.heroSubheadlineTrust")}</span>
+          </p>
+
+          <div className="flex flex-col sm:flex-row gap-3 pt-1">
+            <a
+              href="/concerts"
+              onClick={() => trackEvent(ANALYTICS_EVENTS.HERO_CTA_CLICKED, { variant: "search_rides", target: "concerts" })}
+              className="cr-btn-primary cr-btn-shine group"
+            >
+              {t("home.heroCtaSearch")}
+              <ArrowRight size={14} className="transition-transform duration-150 group-hover:translate-x-1" aria-hidden="true" />
+            </a>
+            <a
+              href="/publish"
+              onClick={() => trackEvent(ANALYTICS_EVENTS.HERO_CTA_CLICKED, { variant: "publish_ride" })}
+              className="cr-btn-ghost"
+            >
+              {t("home.heroCtaPublish")}
+            </a>
+          </div>
+
+          <ul className="flex flex-wrap gap-x-6 gap-y-2 pt-2" aria-label="Condiciones">
+            {[t("home.heroBadgeNoCard"), t("home.heroBadgeVerifiedLicense"), t("home.heroBadgeReturn")].map((b) => (
+              <li key={b} className="cr-label text-cr-text-muted flex items-center gap-2">
+                <span className="w-1.5 h-px bg-cr-primary" aria-hidden="true" />
+                {b}
+              </li>
+            ))}
+          </ul>
         </div>
-      </motion.div>
+
+        {/* La ventana (vacía: deja ver el mapa de la capa B) con el ticket encima */}
+        <div className="lg:col-span-5 relative pb-16 lg:pb-20">
+          <div
+            ref={slotRef}
+            data-hero-slot
+            className="cr-corners relative aspect-[4/5] sm:aspect-[5/4] lg:aspect-[4/3] w-full border border-cr-border"
+            aria-hidden="true"
+          >
+            <span className="absolute top-3 left-3 cr-label text-cr-text-muted bg-cr-bg px-1.5 py-0.5">
+              {loaded && mapConcerts.length > 0 ? "Mapa · viajes activos" : "Mapa de viajes"}
+            </span>
+          </div>
+          <div className="absolute bottom-0 -left-4 sm:-left-8 lg:-left-12 w-[min(92%,22rem)] lg:w-[min(96%,24rem)] rotate-[-4deg]">
+            <Ticket featured={featured} loaded={loaded} t={t} />
+          </div>
+        </div>
+      </div>
+
+      {/* Estado final de la apertura: el dato aterriza sobre el mapa (A2) */}
+      <div
+        data-hero-end
+        className="hidden lg:flex absolute z-[4] left-16 right-16 bottom-10 items-end justify-between gap-8 opacity-0 pointer-events-none [&_a]:pointer-events-auto"
+        aria-hidden="true"
+      >
+        <div className="bg-cr-bg border border-cr-border px-6 py-5 max-w-md">
+          <p className="cr-label text-cr-primary mb-2">Ahora mismo</p>
+          <p className="font-display text-display-m text-cr-text">
+            {loaded ? `${mapConcerts.length} conciertos · ${activeRides} ${activeRides === 1 ? "viaje" : "viajes"}` : "Conciertos y viajes"}
+          </p>
+          <p className="text-sm text-cr-text-muted mt-2">
+            {activeRides === 0 && loaded
+              ? "Aún no hay viajes publicados. Publica el tuyo y ponte en el mapa."
+              : "Cada punto es un concierto con gente que va. Elige el tuyo."}
+          </p>
+        </div>
+        <div className="flex gap-3">
+          <a href="/publish" className="cr-btn-primary">Publicar mi viaje</a>
+          <a href="/concerts" className="cr-btn-ghost bg-cr-bg">Ver conciertos</a>
+        </div>
+      </div>
     </section>
   );
 }
 
-function NoiseOverlay() {
+function FramePlaceholder() {
   return (
     <div
       aria-hidden="true"
-      className="absolute inset-0 pointer-events-none opacity-[0.035] mix-blend-screen"
+      className="absolute inset-0 bg-cr-surface"
       style={{
         backgroundImage:
-          "url(\"data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='180' height='180'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 1 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>\")",
+          "linear-gradient(to right, rgb(255 255 255 / 0.04) 1px, transparent 1px), linear-gradient(to bottom, rgb(255 255 255 / 0.04) 1px, transparent 1px)",
+        backgroundSize: "48px 48px",
       }}
     />
   );
 }
 
-function CornerTicks() {
-  return (
-    <>
-      <span aria-hidden="true" className="absolute top-6 left-6 w-6 h-px bg-cr-primary" />
-      <span aria-hidden="true" className="absolute top-6 left-6 w-px h-6 bg-cr-primary" />
-      <span aria-hidden="true" className="absolute top-6 right-6 w-6 h-px bg-cr-primary" />
-      <span aria-hidden="true" className="absolute top-6 right-6 w-px h-6 bg-cr-primary" />
-      <span aria-hidden="true" className="absolute bottom-6 left-6 w-6 h-px bg-cr-primary" />
-      <span aria-hidden="true" className="absolute bottom-6 left-6 w-px h-6 bg-cr-primary" />
-      <span aria-hidden="true" className="absolute bottom-6 right-6 w-6 h-px bg-cr-primary" />
-      <span aria-hidden="true" className="absolute bottom-6 right-6 w-px h-6 bg-cr-primary" />
-    </>
-  );
-}
-
-function barcodeFor(seed: string): number[] {
-  let h = 0;
-  for (let i = 0; i < seed.length; i++) h = (h * 31 + seed.charCodeAt(i)) | 0;
-  const out: number[] = [];
-  for (let i = 0; i < 24; i++) {
-    h = (h * 1103515245 + 12345) | 0;
-    out.push(((Math.abs(h) >> (i % 8)) % 4) + 1);
-  }
-  return out;
-}
-
-function TicketStub({
-  ticket,
+/**
+ * El ticket. Sin datos inventados: hasta que llegan los conciertos es una
+ * plantilla con los campos vacíos; después muestra el concierto real más
+ * próximo y su número de viajes. Si no hay viajes, dice "publica el primero":
+ * ese es el objetivo de negocio.
+ */
+function Ticket({
+  featured,
+  loaded,
   t,
 }: {
-  ticket: TicketData;
+  featured: Concert | null;
+  loaded: boolean;
   t: (key: string, params?: Record<string, string | number>) => string;
 }) {
-  const barcode = barcodeFor(ticket.id);
-  const artistFontSize = ticket.artist.length > 9 ? 30 : ticket.artist.length > 7 ? 36 : 40;
+  const rides = featured?.active_rides_count ?? 0;
+  const artist = featured?.artist ?? (loaded ? "Tu próximo concierto" : "—");
+  const venue = featured ? `${featured.venue.name} · ${featured.venue.city}` : "Recinto · Ciudad";
+  const date = featured ? formatDay(featured.date) : "Fecha";
 
   return (
-    <svg
-      viewBox="0 0 380 260"
-      className="w-full h-auto drop-shadow-[0_0_50px_rgba(219,255,0,0.35)]"
-    >
-      <defs>
-        <linearGradient id="stubGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-          <stop offset="0%" stopColor="#0E0E0E" />
-          <stop offset="100%" stopColor="#1A1A1A" />
-        </linearGradient>
-        <linearGradient id="voltShine" x1="0%" y1="0%" x2="100%" y2="0%">
-          <stop offset="0%" stopColor="#DBFF00" stopOpacity="1" />
-          <stop offset="50%" stopColor="#FFFFFF" stopOpacity="1" />
-          <stop offset="100%" stopColor="#DBFF00" stopOpacity="1" />
-        </linearGradient>
-        <radialGradient id="artistGlow" cx="50%" cy="50%" r="60%">
-          <stop offset="0%" stopColor="#DBFF00" stopOpacity="0.18" />
-          <stop offset="100%" stopColor="#DBFF00" stopOpacity="0" />
-        </radialGradient>
-        <clipPath id="priceClip">
-          <rect x="270" y="60" width="100" height="120" />
-        </clipPath>
-      </defs>
-      <rect x="0" y="0" width="380" height="260" fill="url(#stubGrad)" stroke="#2A2A2A" strokeWidth="1" />
-      <rect x="0" y="0" width="380" height="3" fill="#DBFF00" />
-      <rect x="0" y="0" width="3" height="260" fill="#DBFF00" opacity="0.6" />
-      <ellipse cx="140" cy="110" rx="130" ry="50" fill="url(#artistGlow)" />
-      <rect x="14" y="18" width="6" height="6" fill="#DBFF00" />
-      <text x="28" y="24" fill="#DBFF00" fontFamily="'Inter', sans-serif" fontWeight="700" fontSize="9" letterSpacing="2" dominantBaseline="middle">
-        {t("home.heroStubBoardingPass")}
-      </text>
-      <text x="360" y="24" fill="#888" fontFamily="'JetBrains Mono', monospace" fontSize="8" textAnchor="end" dominantBaseline="middle">
-        {ticket.ticketNum}
-      </text>
-      <circle cx="26" cy="52" r="4" fill="#DBFF00">
-        <animate attributeName="opacity" values="1;0.25;1" dur="1.4s" repeatCount="indefinite" />
-      </circle>
-      <circle cx="26" cy="52" r="4" fill="none" stroke="#DBFF00" strokeWidth="1">
-        <animate attributeName="r" values="4;10;4" dur="1.4s" repeatCount="indefinite" />
-        <animate attributeName="opacity" values="0.8;0;0.8" dur="1.4s" repeatCount="indefinite" />
-      </circle>
-      <text x="38" y="52" fill="#F5F5F5" fontFamily="'Inter', sans-serif" fontWeight="700" fontSize="9" letterSpacing="1.6" dominantBaseline="middle">
-        {t("home.heroStubTagline")}
-      </text>
-      <text x="24" y="108" fill="#DBFF00" fontFamily="'Archivo Black', 'Inter', sans-serif" fontWeight="900" fontSize={artistFontSize} letterSpacing="-1.5" opacity="0.18">
-        {ticket.artist}
-      </text>
-      <text x="22" y="106" fill="#F5F5F5" fontFamily="'Archivo Black', 'Inter', sans-serif" fontWeight="900" fontSize={artistFontSize} letterSpacing="-1.5">
-        {ticket.artist}
-      </text>
-      <text x="24" y="128" fill="#DBFF00" fontFamily="'Inter', sans-serif" fontWeight="600" fontSize="11" letterSpacing="2.5">
-        {ticket.tour}
-      </text>
-      <rect x="24" y="142" width="220" height="1" fill="#2A2A2A" />
-      <circle cx="27" cy="159" r="2" fill="#DBFF00" />
-      <text x="34" y="162" fill="#F5F5F5" fontFamily="'JetBrains Mono', monospace" fontSize="11">{ticket.venue}</text>
-      <circle cx="27" cy="179" r="2" fill="#DBFF00" />
-      <text x="34" y="182" fill="#F5F5F5" fontFamily="'JetBrains Mono', monospace" fontSize="11">{ticket.date}</text>
-      <text x="24" y="212" fill="#888" fontFamily="'Inter', sans-serif" fontWeight="700" fontSize="9" letterSpacing="1.6">{t("home.heroStubFrom")}</text>
-      <text x="24" y="228" fill="#F5F5F5" fontFamily="'Archivo Black', 'Inter', sans-serif" fontWeight="900" fontSize="14" letterSpacing="0.5">{ticket.from}</text>
-      <text x="108" y="222" fill="#DBFF00" fontFamily="'JetBrains Mono', monospace" fontSize="14" letterSpacing="1.5">──▶</text>
-      <text x="150" y="212" fill="#888" fontFamily="'Inter', sans-serif" fontWeight="700" fontSize="9" letterSpacing="1.6">{t("home.heroStubTo")}</text>
-      <text x="150" y="228" fill="#F5F5F5" fontFamily="'Archivo Black', 'Inter', sans-serif" fontWeight="900" fontSize="14" letterSpacing="0.5">{ticket.to}</text>
-      <rect x="24" y="240" width="108" height="14" rx="1" fill="#111" stroke="#2A2A2A" strokeWidth="1" />
-      <circle cx="31" cy="247" r="4" fill="#DBFF00" />
-      <text x="31" y="247" fill="#000" fontFamily="'Archivo Black', sans-serif" fontSize="6" textAnchor="middle" dominantBaseline="middle">{ticket.driverInitial}</text>
-      <text x="40" y="248" fill="#F5F5F5" fontFamily="'JetBrains Mono', monospace" fontSize="8" dominantBaseline="middle">{ticket.driverName}</text>
-      <text x="94" y="248" fill="#DBFF00" fontFamily="'Inter', sans-serif" fontWeight="700" fontSize="8" dominantBaseline="middle">★ {ticket.rating.toFixed(1)}</text>
-      <line x1="260" y1="10" x2="260" y2="250" stroke="#2A2A2A" strokeDasharray="4 3" />
-      <circle cx="260" cy="0" r="10" fill="#080808" stroke="#2A2A2A" />
-      <circle cx="260" cy="260" r="10" fill="#080808" stroke="#2A2A2A" />
-      <g clipPath="url(#priceClip)">
-        <rect x="270" y="60" width="100" height="120" fill="#0A0A0A" />
-        <rect x="-40" y="60" width="30" height="120" fill="url(#voltShine)" opacity="0.18">
-          <animate attributeName="x" from="270" to="370" dur="2.8s" repeatCount="indefinite" />
-        </rect>
-      </g>
-      <text x="320" y="72" fill="#888" fontFamily="'Inter', sans-serif" fontWeight="700" fontSize="8" letterSpacing="1.6" textAnchor="middle">{t("home.heroStubPrice")}</text>
-      <text x="320" y="116" fill="#DBFF00" fontFamily="'Archivo Black', 'Inter', sans-serif" fontWeight="900" fontSize="44" letterSpacing="-2" textAnchor="middle">€{ticket.price}</text>
-      <text x="320" y="132" fill="#888" fontFamily="'Inter', sans-serif" fontWeight="600" fontSize="8" letterSpacing="2" textAnchor="middle">{t("home.heroStubPerSeat")}</text>
-      <rect x="282" y="144" width="76" height="22" fill="#DBFF00" />
-      <text x="320" y="158" fill="#000" fontFamily="'Archivo Black', 'Inter', sans-serif" fontWeight="900" fontSize="10" letterSpacing="1.5" textAnchor="middle">
-        {ticket.seats} {ticket.seats === 1 ? t("home.heroStubSeatSingular") : t("home.heroStubSeatPlural")}
-      </text>
-      <g transform="translate(278, 192)">
-        {barcode.map((w, i) => {
-          const x = barcode.slice(0, i).reduce((sum, n) => sum + n + 1, 0);
-          return <rect key={i} x={x} y={0} width={w} height={28} fill="#F5F5F5" />;
-        })}
-      </g>
-      <text x="320" y="238" fill="#888" fontFamily="'JetBrains Mono', monospace" fontSize="7" letterSpacing="1.2" textAnchor="middle">{ticket.ridCode}</text>
-    </svg>
+    <div className="relative bg-cr-surface border border-cr-border text-cr-text shadow-float">
+      {/* Filete lima superior */}
+      <div className="h-[3px] bg-cr-primary" aria-hidden="true" />
+      <div className="grid grid-cols-[1fr_auto]">
+        <div className="p-4 sm:p-5 flex flex-col gap-3 min-w-0">
+          <div className="flex items-center justify-between gap-3">
+            <span className="cr-label text-cr-primary">{t("home.heroStubBoardingPass")}</span>
+          </div>
+          <p className="font-display text-display-s sm:text-[1.75rem] leading-[0.95] truncate">{artist}</p>
+          <dl className="grid grid-cols-1 gap-1 text-[12px] text-cr-text-muted">
+            <div className="flex gap-2 min-w-0">
+              <dt className="cr-label text-cr-text-muted w-14 flex-shrink-0">Dónde</dt>
+              <dd className="truncate">{venue}</dd>
+            </div>
+            <div className="flex gap-2">
+              <dt className="cr-label text-cr-text-muted w-14 flex-shrink-0">Cuándo</dt>
+              <dd className="cr-tabular">{date}</dd>
+            </div>
+          </dl>
+        </div>
+        {/* Talón perforado */}
+        <div className="relative border-l border-dashed border-cr-border-mid p-4 sm:p-5 flex flex-col items-center justify-center gap-1 min-w-[6.5rem]">
+          <span className="absolute -top-[6px] -left-[6px] w-3 h-3 rounded-full bg-cr-bg border border-cr-border" aria-hidden="true" />
+          <span className="absolute -bottom-[6px] -left-[6px] w-3 h-3 rounded-full bg-cr-bg border border-cr-border" aria-hidden="true" />
+          <span className="cr-label text-cr-text-muted">{rides > 0 ? "Viajes" : "Plazas"}</span>
+          <span className="font-display text-[2.25rem] leading-none cr-tabular text-cr-primary">{rides > 0 ? rides : "0"}</span>
+          <span className="cr-label text-cr-text-muted text-center">{rides > 0 ? (rides === 1 ? "activo" : "activos") : "publica el 1º"}</span>
+        </div>
+      </div>
+      {/* Código de barras tipográfico */}
+      <div className="flex items-end gap-[3px] px-4 sm:px-5 pb-4 h-8" aria-hidden="true">
+        {BARS.map((w, i) => (
+          <span key={i} className="bg-cr-text/80 block h-full" style={{ width: w }} />
+        ))}
+      </div>
+    </div>
   );
 }
+
+const BARS = [2, 1, 3, 1, 2, 2, 1, 4, 1, 2, 1, 3, 2, 1, 1, 3, 2, 4, 1, 2, 1, 1, 3, 2, 1, 2, 4, 1, 3, 1, 2, 2];

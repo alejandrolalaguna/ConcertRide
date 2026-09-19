@@ -110,7 +110,7 @@ export function useSeoEnhancements(options: SeoEnhancementsOptions = {}) {
       'https://s1.ticketm.net',
       'https://fonts.googleapis.com',
       'https://fonts.gstatic.com',
-      'https://basemaps.cartocdn.com',
+      'https://tile.openstreetmap.org',
     ]
 
     externalDomains.forEach((domain) => {

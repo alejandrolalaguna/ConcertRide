@@ -6,9 +6,15 @@
   z-index: 0;
 }
 
-/* CartoDB Dark Matter tiles are natively dark — no CSS invert hack needed */
+/* Teselas OSM estándar (sin API key) llevadas a oscuro por CSS. Se aplica a
+   todos los mapas Leaflet del sitio; los marcadores viven en otro pane y no se
+   invierten. */
+.leaflet-tile-pane {
+  filter: invert(1) hue-rotate(180deg) brightness(0.62) contrast(1.15) saturate(0.35);
+}
 
-.cr-map .leaflet-container {
+.cr-map .leaflet-container,
+.leaflet-container {
   background: #080808;
 }
 
