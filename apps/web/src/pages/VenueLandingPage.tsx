@@ -4,6 +4,7 @@ import { Link, Navigate, useParams } from "react-router-dom";
 import { MapPin, Train, Bus, Car, ParkingSquare, Users, ArrowRight } from "lucide-react";
 import { useSeoMeta } from "@/lib/useSeoMeta";
 import { SITE_URL } from "@/lib/siteUrl";
+import { joinPhrase } from "@/lib/joinPhrase";
 import { REGION_ISO } from "@/lib/seoConfig";
 import { VENUE_LANDINGS, VENUE_LANDINGS_BY_SLUG } from "@/lib/venueLandings";
 import { FESTIVAL_LANDINGS, FESTIVAL_LANDINGS_BY_SLUG } from "@/lib/festivalLandings";
@@ -32,6 +33,21 @@ export default function VenueLandingPage() {
 
   const topOrigin = venue?.originCities[0];
   const topPrice = topOrigin?.concertRideRange.split("–")[0]?.replace(/[^0-9]/g, "") ?? "9";
+
+  // Mínimo y máximo REALES de precio por asiento entre todas las ciudades de
+  // origen del recinto (ver nota §AJ en `priceRange` más abajo). Se recorren
+  // todos los extremos de todos los rangos, así que el resultado no depende del
+  // orden del array. Si no hay dato, se cae al 9–20 € que ya usaba el código.
+  const priceRangeLabel = (() => {
+    const nums = (venue?.originCities ?? [])
+      .flatMap((c) => c.concertRideRange.split("–"))
+      .map((part) => parseInt(part.replace(/[^0-9]/g, ""), 10))
+      .filter((n) => Number.isFinite(n));
+    if (nums.length === 0) return "9–20 €";
+    const lo = Math.min(...nums);
+    const hi = Math.max(...nums);
+    return lo === hi ? `${lo} €` : `${lo}–${hi} €`;
+  })();
 
   const venueOverride = venue ? VENUE_SEO_OVERRIDES[venue.slug] : undefined;
 
@@ -128,7 +144,7 @@ export default function VenueLandingPage() {
           `bus ${venue.shortName}`,
           `carpooling ${venue.name}`,
           `coche compartido ${venue.shortName}`,
-          `${venue.shortName} ${venue.city}`,
+          `${joinPhrase(venue.shortName, venue.city)}`,
           `parking ${venue.shortName}`,
           `${venue.shortName} transporte público`,
           `conciertos ${venue.shortName}`,
@@ -354,7 +370,14 @@ export default function VenueLandingPage() {
     hasMap: `https://maps.google.com/?q=${venue.lat},${venue.lng}`,
     currenciesAccepted: "EUR",
     paymentAccepted: "Cash, Bizum",
-    priceRange: `${topPrice}–${venue.originCities[venue.originCities.length - 1]?.concertRideRange.split("–")[1]?.replace(/[^0-9]/g, "") ?? "20"} €`,
+    // §AJ (2026-09-20): el rango se construía cogiendo el extremo BAJO de
+    // originCities[0] y el ALTO de originCities[último], asumiendo que el array
+    // venía ordenado por precio. No lo está (es orden editorial), así que en 12
+    // de los 85 recintos salía invertido dentro del JSON-LD:
+    //   palau-blaugrana "15–9 €", estadio-santiago-bernabeu "15–5 €", …
+    // Un priceRange invertido es dato estructurado inválido que Google sí lee.
+    // Ahora se calcula el mínimo y el máximo REALES sobre todas las ciudades.
+    priceRange: priceRangeLabel,
   };
 
   const jsonLdWebPage = {

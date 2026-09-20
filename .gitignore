@@ -24,6 +24,9 @@ apps/web/scripts/seo/output
 # scripts) se mantiene fuera del control de versiones por decisión del proyecto.
 tools/
 tools2/
+# Carpeta unificada de entregables (60 mp4 + sus .md)
+videos/
 # Los .mp4/.webm sueltos, vengan de donde vengan
 *.mp4
 *.webm
+docs/

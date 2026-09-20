@@ -50,6 +50,14 @@ const STATIC_ROUTES = [
   // homepage duplicate and left all 216 `/artistas/:slug` pages without a hub
   // linking them. Prerendering it here also puts it in sitemap-static-others.xml.
   "/artistas",
+  // §AJ (2026-09-20): `/recintos` SÍ tenía ruta en App.tsx y entry-server.tsx,
+  // pero NO estaba aquí — así que no se generaba asset en dist/ y el hub dependía
+  // exclusivamente de la síntesis en runtime de seoPrerender.ts. Funcionaba para
+  // bots, pero sin red de seguridad estática: cualquier regresión en esa regex
+  // dejaba el hub de los recintos sirviendo el SPA-shell (= clon de la home con
+  // el canonical de la home, el fallo §AG.2 que costó el hub de /artistas).
+  // Se prerenderiza por coherencia con /artistas y /festivales.
+  "/recintos",
   "/guia-transporte-festivales",
   "/guia/festival-sin-coche",
   "/guia/presupuesto-festival-grupo",

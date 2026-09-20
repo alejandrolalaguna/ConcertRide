@@ -79,6 +79,32 @@ function getFestivalTransportData(festivalSlug: string): FestivalTransportData |
   return { festival, mainCities, estimatedDistances, estimatedPrices, estimatedTimes };
 }
 
+// §AJ (2026-09-20): rangos derivados, SIEMPRE crecientes.
+//
+// Las FAQ construían el rango pegando el valor calculado a un techo fijo:
+//   `${estimatedTimes[slug] ?? 1.5}–2 horas`   y   `${estimatedPrices[slug] ?? 5}–8€`
+// En cuanto el valor calculado superaba ese techo (cualquier origen lejano) el
+// texto salía invertido. Medido sobre dist/ antes del fix: **364 rangos de tiempo
+// y 190 de precio invertidos en las 199 páginas** — "En coche: 6–2 horas",
+// "ConcertRide: 11–8€/asiento". Copy sin sentido en páginas con 446 clics medidos,
+// y además visible en las meta descriptions.
+//
+// El techo ahora se deriva del propio valor (nunca es una constante), así que el
+// rango no puede invertirse por construcción.
+// `cap` acota el extremo superior para que el rango derivado no prometa un
+// precio fuera de la banda respaldada por datos reales: los rangos curados de
+// `artistLandings.ts` / `festivalLandings.ts` llegan como máximo a 22 €/asiento.
+// Sin el cap, un trayecto de 1.000 km producía "25–45 €/asiento" — una cifra que
+// no sale de ningún dato del repo (y por tanto no publicable, CLAUDE.md
+// §Traction Claims). Con cap, el extremo alto se queda en el máximo evidenciado.
+function rangeUp(lo: number, factor: number, minSpan: number, cap?: number): string {
+  let hi = Math.max(lo + minSpan, Math.ceil(lo * factor));
+  if (cap !== undefined) hi = Math.min(hi, cap);
+  // Si el propio `lo` ya supera el cap, el rango dejaría de ser creciente:
+  // en ese caso se publica un valor único, no un rango invertido.
+  return hi > lo ? `${lo}–${hi}` : `${lo}`;
+}
+
 export default function HowToGetTherePage() {
   const { festival: festivalSlug } = useParams<{ festival: string }>();
   const data = festivalSlug ? getFestivalTransportData(festivalSlug) : null;
@@ -185,11 +211,11 @@ export default function HowToGetTherePage() {
   const faqs = [
     {
       q: `¿Cómo llegar a ${festName} ${YEAR}?`,
-      a: `Tienes 4 opciones: (1) Carpooling con ConcertRide (más barato: ${estimatedPrices[firstCitySlug] ?? 5}–20€/asiento), (2) Autobús (Flixbus, Blablabus), (3) Tren (si disponible), (4) Coche personal. El carpooling es la opción más económica y sostenible.`,
+      a: `Tienes 4 opciones: (1) Carpooling con ConcertRide (${rangeUp(estimatedPrices[firstCitySlug] ?? 5, 1.8, 5, 22)}€/asiento desde ${firstCity?.display ?? "tu ciudad"}, sin comisión), (2) Autobús (Flixbus, Alsa), (3) Tren (si hay estación cerca de ${festival.city}), (4) Coche propio. El carpooling suele ser la opción más barata y la que menos emite por pasajero.`,
     },
     {
       q: `¿Cuál es la distancia desde ${firstCity?.display ?? "tu ciudad"} a ${festName}?`,
-      a: `Aproximadamente ${estimatedDistances[firstCitySlug] ?? 100} km. En coche: ${estimatedTimes[firstCitySlug] ?? 1.5}–2 horas. Precio en ConcertRide: ${estimatedPrices[firstCitySlug] ?? 5}–8€/asiento.`,
+      a: `Aproximadamente ${estimatedDistances[firstCitySlug] ?? 100} km. En coche: ${rangeUp(estimatedTimes[firstCitySlug] ?? 2, 1.3, 1)} horas. Precio en ConcertRide: ${rangeUp(estimatedPrices[firstCitySlug] ?? 5, 1.4, 3, 22)}€/asiento.`,
     },
     {
       q: `¿Es seguro el carpooling con ConcertRide?`,
@@ -401,7 +427,10 @@ export default function HowToGetTherePage() {
                 <h3 className="text-xl font-bold">Autobús / Transporte Público</h3>
               </div>
               <ul className="space-y-2 text-gray-300">
-                <li>🚌 Flixbus, Blablabus, Alsa</li>
+                {/* §AJ: "Blablabus" es una variante de la marca prohibida por
+                    CLAUDE.md §Brand Restrictions y se renderizaba en las 199
+                    páginas /como-llegar/. Sustituido por operadores reales. */}
+                <li>🚌 Flixbus, Alsa, Avanza</li>
                 <li>🚂 Renfe (si hay estación cercana)</li>
                 <li>⏱️ Horarios limitados</li>
                 <li>💶 Precios similares al carpooling</li>

@@ -18,6 +18,24 @@
 const YEAR = new Date().getFullYear();
 const NEXT_YEAR = YEAR + 1;
 
+// ─── Convención BI-ANUAL en titles (§AI, 2026-09-20) ────────────────────────
+// `NEXT_YEAR` vivía SOLO dentro de `keywords` (un campo que Google ignora desde
+// 2009). El title visible prometía siempre el año en curso, así que a partir de
+// Q3 las queries con intención "año que viene" veían un resultado que parecía
+// caducado. Medido en la GSC Performance export 2026-09-20 (pos 5-15):
+//   conciertos sevilla 2027    1.391 impr · 0,58% CTR · pos 9,13
+//   conciertos barcelona 2026    992 impr · 0,40% CTR · pos 11,05
+//   conciertos murcia 2027       681 impr · 1,91% CTR · pos 6,72
+//   conciertos valencia 2027     635 impr · 0,63% CTR · pos 8,66
+// Una sola página sirve las dos variantes de año (no hay landing /2027
+// prerenderizada: entry-server.tsx solo emite 2026 y consolida el resto en la
+// página padre), así que el title debe cubrir AMBOS: `${YEAR}-${NEXT_YEAR 2d}`
+// → "Conciertos Sevilla 2026-27".
+//
+// REGLA: si una ciudad/festival recibe impresiones con intención de año futuro,
+// el title usa el patrón bi-anual y la description nombra los dos años. Nunca
+// se promete un año sin datos reales detrás (no inventar fechas no anunciadas).
+
 // ─────────────────────────────────────────────────────────────────────────────
 // FESTIVAL TITLE/DESCRIPTION OVERRIDES
 // ─────────────────────────────────────────────────────────────────────────────
@@ -340,8 +358,8 @@ export const FESTIVAL_SEO_OVERRIDES: Record<string, { title: string; description
 
 export const CITY_SEO_IMPROVEMENTS: Record<string, { title: string; description: string; keywords?: string }> = {
   sevilla: {
-    title: `Conciertos en Sevilla ${YEAR} [La Cartuja + FIBES]: carpooling 4€`,
-    description: `Agenda conciertos Sevilla ${YEAR}: Estadio La Cartuja (57.000 plazas — Manuel Carrasco, Guns N' Roses), FIBES (9.500 — conciertos cubiertos), Icónica Fest.`,
+    title: `Conciertos Sevilla ${YEAR}-${String(NEXT_YEAR).slice(2)} [La Cartuja + FIBES]: 4€`,
+    description: `Agenda conciertos Sevilla ${YEAR} y ${NEXT_YEAR}: Estadio La Cartuja (57.000 plazas — Manuel Carrasco, Guns N' Roses), FIBES (9.500 — conciertos cubiertos), Icónica Fest.`,
     keywords: `conciertos en Sevilla ${YEAR}, conciertos Sevilla ${NEXT_YEAR}, próximos conciertos Sevilla, conciertos musica sevilla, La Cartuja Sevilla conciertos, FIBES Sevilla conciertos, Interestelar Sevilla, Icónica Sevilla Fest, carpooling Sevilla festivales, viaje compartido Sevilla concierto, conciertos sevilla agenda, conciertos sevilla 2026, agenda conciertos sevilla, concierto sevilla, musica sevilla, conciertos sevilla verano, estadio la cartuja conciertos sevilla, conciertos sevilla mayo junio, conciertos sevilla octubre`,
   },
   donostia: {
@@ -360,8 +378,8 @@ export const CITY_SEO_IMPROVEMENTS: Record<string, { title: string; description:
     keywords: `conciertos Zaragoza ${YEAR}, conciertos en Zaragoza, próximos conciertos Zaragoza, Pabellón Príncipe Felipe, Dani Martín Zaragoza, Aitana Zaragoza, Vive Latino Zaragoza, Hombres G Zaragoza, Bryan Adams Zaragoza, carpooling Zaragoza festivales, viajes Mad Cool desde Zaragoza, conciertos Zaragoza verano, agenda conciertos zaragoza, conciertos zaragoza septiembre, recinto expo zaragoza, conciertos zaragoza 2026, conciertos zaragoza 2027, agenda musical zaragoza`,
   },
   murcia: {
-    title: `Conciertos en Murcia ${YEAR} [SOS 4.8 + Víctor Villegas]: 4€`,
-    description: `Agenda conciertos Murcia ${YEAR}: SOS 4.8 Festival (primavera), Auditorio Víctor Villegas (3.000), Plaza de Toros. 0% comisión, conductores verificados.`,
+    title: `Conciertos Murcia ${YEAR}-${String(NEXT_YEAR).slice(2)} [SOS 4.8 + V. Villegas]: 4€`,
+    description: `Agenda conciertos Murcia ${YEAR} y ${NEXT_YEAR}: SOS 4.8 Festival (primavera), Auditorio Víctor Villegas (3.000), Plaza de Toros. 0% comisión, conductores verificados.`,
     keywords: `conciertos Murcia ${YEAR}, conciertos en Murcia, SOS 4.8 Murcia, conciertos murcia 2026, conciertos murcia 2027, próximos conciertos murcia, carpooling Murcia festivales, viaje compartido Murcia concierto, conciertos murcia agenda, victor villegas murcia, murcia festivales transporte, murcia música, sos 4.8 festival murcia, conciertos murcia verano`,
   },
   malaga: {
@@ -390,13 +408,13 @@ export const CITY_SEO_IMPROVEMENTS: Record<string, { title: string; description:
     keywords: `conciertos Bilbao ${YEAR}, BBK Live Bilbao, conciertos en Bilbao, BEC Bilbao Exhibition Centre, Bilbao Arena Miribilla, Palacio Euskalduna, carpooling Bilbao festivales, viaje compartido Bilbao, agenda conciertos bilbao, music legends bilbao, conciertos bilbao 2026, festival bilbao, kobetamendi bbk live`,
   },
   barcelona: {
-    title: `Conciertos en Barcelona ${YEAR} [Sant Jordi, Sónar]: carpooling 5€`,
-    description: `Agenda conciertos Barcelona ${YEAR}: Palau Sant Jordi (17.000), Estadi Olímpic y Parc del Fòrum (Primavera Sound, Sónar, Cruïlla). 0% comisión.`,
+    title: `Conciertos Barcelona ${YEAR}-${String(NEXT_YEAR).slice(2)} [Sant Jordi, Sónar]: 5€`,
+    description: `Agenda conciertos Barcelona ${YEAR} y ${NEXT_YEAR}: Palau Sant Jordi (17.000), Estadi Olímpic y Parc del Fòrum (Primavera Sound, Sónar, Cruïlla). 0% comisión.`,
     keywords: `conciertos Barcelona ${YEAR}, conciertos en Barcelona, Primavera Sound, Sónar Barcelona, Cruïlla Barcelona, Palau Sant Jordi conciertos, Estadi Olímpic Barcelona, Parc del Fòrum, razzmatazz conciertos, sala apolo barcelona, carpooling Barcelona festivales, viaje compartido Barcelona, agenda conciertos barcelona, conciertos barcelona 2026`,
   },
   valencia: {
-    title: `Conciertos en Valencia ${YEAR} [Roig Arena + Zevra]: carpooling 3€`,
-    description: `Agenda conciertos Valencia ${YEAR}: Roig Arena (15.600, 2025), Zevra Festival La Marina (jul) y Plaza de Toros. 0% comisión, conductores verificados.`,
+    title: `Conciertos Valencia ${YEAR}-${String(NEXT_YEAR).slice(2)} [Roig Arena + Zevra]: 3€`,
+    description: `Agenda conciertos Valencia ${YEAR} y ${NEXT_YEAR}: Roig Arena (15.600, 2025), Zevra Festival La Marina (jul) y Plaza de Toros. 0% comisión, conductores verificados.`,
     keywords: `conciertos Valencia ${YEAR}, conciertos en Valencia, Roig Arena Valencia, Zevra Festival, Arenal Sound Valencia, carpooling Valencia festivales, viaje compartido Valencia, agenda conciertos valencia, conciertos valencia 2026, valencia festivales verano, roig arena valencia conciertos, plaza toros valencia`,
   },
   madrid: {
@@ -659,7 +677,11 @@ export const CITY_SEO_IMPROVEMENTS: Record<string, { title: string; description:
 
 export const HOW_TO_GET_THERE_SEO: Record<string, { title: string; description: string; keywords?: string }> = {
   "arenal-sound": {
-    title: `Cómo llegar a Arenal Sound ${YEAR} [Burriana]: Bus + carpooling 3€`,
+    // §AI (2026-09-20): el clúster "bus arenal sound" / "buses arenal sound" /
+    // "arenal sound bus" suma 2.067 impresiones con 8 clics (0,44% CTR) en
+    // posiciones 9,4–11,6. El title anteponía "Cómo llegar a", relegando el
+    // término que el usuario teclea. "Bus" va ahora en primera posición.
+    title: `Bus Arenal Sound ${YEAR} [Burriana]: lanzadera + carpooling 3€`,
     description: `Arenal Sound ${YEAR} Burriana (Castellón): bus lanzadera Castellón→Burriana (5–8€, cada 30 min) y tren Cercanías C6. 0% comisión, conductores verificados.`,
     keywords: `como llegar arenal sound ${YEAR}, arenal sound transporte, autobus castellon burriana arenal sound, tren arenal sound, arenal sound bus, arenal sound localización, como ir al arenal sound, arenal sound autobuses, buses arenal sound castellon, arenal sound desde valencia, arenal sound desde madrid, arenal sound shuttle, arenal sound como llegar desde castellon`,
   },
@@ -669,8 +691,13 @@ export const HOW_TO_GET_THERE_SEO: Record<string, { title: string; description: 
     keywords: `como llegar bbk live ${YEAR}, bbk live transporte, bbk live lanzadera, bbk live bus, bbk live como llegar bilbao, carpooling bbk live, bbk live kobetamendi, bbk live desde madrid, bbk live desde donostia`,
   },
   "mad-cool": {
-    title: `Cómo llegar a Mad Cool ${YEAR}: Carpooling desde 4€ | ConcertRide`,
-    description: `Mad Cool ${YEAR} Iberdrola Music (Villaverde, Madrid): Metro L3 a Pradolongo/Legazpi + carpooling 4€. 0% comisión, conductores verificados.`,
+    // §AI (2026-09-20): "mad cool 2026 como llegar" traía 512 impr · 1,95% CTR ·
+    // pos 8,98. El title llevaba el año en curso, pero Mad Cool 2026 se celebró
+    // el 8–11 de julio: en septiembre el resultado parece un evento muerto. La
+    // información de transporte (Metro L3, recinto) es perenne, así que el title
+    // pierde el año y las fechas concretas quedan en el cuerpo y en el schema.
+    title: `Cómo llegar a Mad Cool: Metro L3 + carpooling 4€`,
+    description: `Mad Cool en Iberdrola Music (Villaverde, Madrid): Metro L3 a Pradolongo/Legazpi + carpooling desde 4€/asiento. 0% comisión, conductores verificados.`,
     keywords: `como llegar mad cool ${YEAR}, mad cool transporte, mad cool metro l3, mad cool como llegar, mad cool iberdrola music, mad cool villaverde, mad cool carpooling, mad cool desde barcelona, mad cool desde valencia, mad cool parking, mad cool metro pradolongo, mad cool metro legazpi`,
   },
   "primavera-sound": {

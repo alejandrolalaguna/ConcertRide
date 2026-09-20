@@ -310,21 +310,11 @@ export function Hero() {
           className="flex flex-col gap-3"
         >
           <div className="flex flex-wrap items-center gap-x-4 gap-y-3">
-            {/* Avatar stack */}
+            {/* Scope line. No traction figures here: user/fan counts must come from
+                real data (CLAUDE.md §Traction Claims) — the previous "+2k" avatar stack
+                and "+2.000 fans" copy were not backed by anything and were removed. */}
             <div className="flex items-center gap-3">
-              <div className="flex -space-x-2" aria-hidden="true">
-                {["S","D","I","J"].map((initial, i) => (
-                  <div
-                    key={i}
-                    className="w-7 h-7 rounded-full bg-[#dbff00] border-2 border-[#080808] flex items-center justify-center font-display font-black text-black text-[10px]"
-                  >
-                    {initial}
-                  </div>
-                ))}
-                <div className="w-7 h-7 rounded-full bg-white/10 border-2 border-[#080808] flex items-center justify-center font-mono text-[9px] text-[#dbff00] font-bold">
-                  +2k
-                </div>
-              </div>
+              <span className="w-1.5 h-1.5 rounded-full bg-[#dbff00]" aria-hidden="true" />
               <span className="font-mono text-[11px] text-white/45">{t("home.heroFansCount")}</span>
             </div>
             {/* Inline testimonial pill — uses Sara M. from existing reviews ItemList (no fabricated quote) */}

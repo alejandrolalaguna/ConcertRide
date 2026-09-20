@@ -73,12 +73,54 @@ describe("§AE locale guard survives run_worker_first (§AF.0)", () => {
     expect(res.headers.get("location")).toBe("/rutas/madrid-mad-cool?utm_source=x");
   });
 
+  // §AI (2026-09-20): the locale middleware runs AFTER LEGACY_REDIRECTS, so a
+  // stripped base that is itself a legacy key used to 301 twice. Measured on the
+  // GSC export 2026-09-20: /en/blog/mad-cool-2026-guia-completa carried 3 clicks
+  // and chained /en/X → /X → /Y. Must now be a SINGLE hop to the final target.
+  it("collapses /en → legacy-key chains into one hop", async () => {
+    const res = await fetchApp("https://concertride.me/en/blog/mad-cool-2026-guia-completa");
+    expect(res.status).toBe(301);
+    expect(
+      res.headers.get("location"),
+      "must land on the §AH consolidation winner directly, not the intermediate URL",
+    ).toBe("/blog/madcool-2026-guia-completa");
+  });
+
   it("does not mistake /enlaces or /encuentros for the /en prefix", async () => {
     for (const p of ["/enlaces", "/encuentros"]) {
       const res = await fetchApp(`https://concertride.me${p}`);
       const loc = res.headers.get("location") ?? "";
       expect(loc.startsWith("/laces") || loc.startsWith("/cuentros"), `${p} was wrongly stripped`).toBe(false);
     }
+  });
+});
+
+// §AI (2026-09-20): 20 URLs /en/conciertos/<ciudad>/<año> con 233 clics medidos
+// (merida/2027 84, fuengirola/2027 73…) caían en 404 duro: sin asset estático
+// (solo se prerenderiza el año en curso) y sin entrada en el dict de bots
+// CITIES de seoPrerender (17 ciudades vs 117 en cityLandings).
+describe("§AI city-year sin asset 301 al padre", () => {
+  it("301s a non-current year to the parent city page", async () => {
+    const res = await fetchApp("https://concertride.me/conciertos/merida/2027");
+    expect(res.status).toBe(301);
+    expect(res.headers.get("location")).toBe("/conciertos/merida");
+  });
+
+  it("collapses the /en variant into a single hop", async () => {
+    const res = await fetchApp("https://concertride.me/en/conciertos/fuengirola/2027");
+    expect(res.status).toBe(301);
+    // §AE strips /en first; the city-year rule then applies on the next pass.
+    expect(res.headers.get("location")).toBe("/conciertos/fuengirola/2027");
+  });
+
+  it("leaves the current year alone (it has a real prerendered asset)", async () => {
+    const res = await fetchApp("https://concertride.me/conciertos/merida/2026");
+    expect(res.status, "current-year page must keep serving its own asset").not.toBe(301);
+  });
+
+  it("does not touch unknown city slugs", async () => {
+    const res = await fetchApp("https://concertride.me/conciertos/ciudad-inventada/2027");
+    expect(res.headers.get("location")).not.toBe("/conciertos/ciudad-inventada");
   });
 });
 

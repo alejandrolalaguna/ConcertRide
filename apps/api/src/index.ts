@@ -36,6 +36,7 @@ import { ARTIST_LANDINGS } from "../../web/src/lib/artistLandings";
 import { VENUE_LANDINGS } from "../../web/src/lib/venueLandings";
 import { FESTIVAL_LANDINGS } from "../../web/src/lib/festivalLandings";
 import { ROUTE_LANDINGS_BY_SLUG } from "../../web/src/lib/routeLandings";
+import { CITY_LANDINGS } from "../../web/src/lib/cityLandings";
 // Import-free registry module (NOT ../lib/localizedRoutes, which pulls
 // `import.meta.env` via ./siteUrl and doesn't type-check here). See §AE.
 import { LOCALIZED_PATHS, stripLocalePrefix } from "../../web/src/lib/localizedPaths";
@@ -194,6 +195,46 @@ app.use("*", async (c, next) => {
   return next();
 });
 
+// ─── /conciertos/:city/:year (año no corriente) → 301 al padre ──────────────
+// (added 2026-09-20, SKILL §AI)
+//
+// PROBLEM medido en la GSC Performance export 2026-09-20: 20 URLs
+// `/en/conciertos/<ciudad>/<año>` con 233 clics (merida/2027 84, fuengirola/2027
+// 73, tarragona/2027 12, …) llegaban a un 404 duro para bots.
+//
+// Cadena real: §AE quita el prefijo `/en` → `/conciertos/merida/2027`. Ese path
+// NO tiene asset estático (prerender.mjs solo emite el año en curso vía
+// `CITY_YEARS_FOR_SITEMAP = ["2026"]`, entry-server.tsx:107) y TAMPOCO resuelve
+// en el Worker: `seoPrerender.ts:3423-3424` hace `const c = CITIES[slug]; if
+// (!c) return null;` y ese diccionario de bots solo tiene 17 ciudades frente a
+// las 117 de `cityLandings.ts`. Sin asset y sin PageData, la denylist de §AG
+// devuelve 404 + noindex.
+//
+// Nota: NO es una regresión de la migración /en/. El mismo path sin prefijo
+// fallaba igual antes del 2026-09-07; §AE solo lleva el clic al mismo callejón
+// un salto antes. Pero ahora hay 233 clics medidos cayendo ahí.
+//
+// FIX: 301 al padre `/conciertos/:city`. No se amplía el dict de bots a 117
+// ciudades porque el destino correcto YA es el padre: tanto `CityYearPage.tsx:177`
+// como `seoPrerender.ts:3458` canonicalizan los años no corrientes al padre por
+// ser casi-duplicados. Un 301 ejecuta esa misma intención en vez de sugerirla,
+// y evita inventar contenido por año que no existe.
+//
+// El año corriente (y el asset real que sí existe) se dejan intactos.
+const CITY_LANDING_SLUGS = new Set(CITY_LANDINGS.map((c) => c.slug));
+app.use("*", async (c, next) => {
+  if (c.req.method !== "GET" && c.req.method !== "HEAD") return next();
+  const m = c.req.path.match(/^\/conciertos\/([^/]+)\/(\d{4})\/?$/);
+  if (!m) return next();
+  const slug = m[1] ?? "";
+  const year = parseInt(m[2] ?? "0", 10);
+  if (!CITY_LANDING_SLUGS.has(slug)) return next();
+  // El año en curso tiene página propia prerenderizada y self-canonical.
+  if (year === new Date().getFullYear()) return next();
+  const url = new URL(c.req.url);
+  return c.redirect(`/conciertos/${slug}${url.search}`, 301);
+});
+
 // ─── Locale-prefix mirror culling — 301 non-localized /en|/ca → ES equivalent ─
 // (added 2026-09-07, SKILL §AE)
 //
@@ -240,7 +281,14 @@ app.use("*", async (c, next) => {
   // Genuinely translated page → let the prerendered /en/ asset serve it.
   if (locale === "en" && LOCALIZED_PATHS.has(base)) return next();
   const url = new URL(c.req.url);
-  return c.redirect(base + url.search, 301);
+  // Collapse the chain: this middleware runs AFTER the LEGACY_REDIRECTS one
+  // (line ~160), so a stripped base that is itself a legacy key would 301 twice
+  // (/en/X → /X → /Y). Measured 2026-09-20: /en/blog/mad-cool-2026-guia-completa
+  // (3 clics) → /blog/mad-cool-2026-guia-completa (§AH key) → /blog/madcool-…
+  // Resolving here makes it ONE hop. Google follows chains but dilutes equity
+  // and burns crawl budget on the intermediate URL.
+  const finalBase = LEGACY_REDIRECTS[base] ?? base;
+  return c.redirect(finalBase + url.search, 301);
 });
 
 // ─── Trailing-slash normalisation ───────────────────────────────────────────

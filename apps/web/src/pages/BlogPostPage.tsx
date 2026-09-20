@@ -113,7 +113,23 @@ export default function BlogPostPage() {
     const slice = text.slice(0, maxLen - ellipsis.length);
     // Cut at the last word boundary (space, en-dash, em-dash, hyphen, colon).
     const cutMatch = slice.match(/^[\s\S]*[\s\-—–:]/);
-    const cut = cutMatch ? cutMatch[0].replace(/[\s\-—–:]+$/, "") : slice;
+    let cut = cutMatch ? cutMatch[0].replace(/[\s\-—–:]+$/, "") : slice;
+    // §AI (2026-09-20): drop a bracket that was opened but never closed.
+    // The repo's title convention is "[Entity] [Year]: [What]" (seoOverrides.ts),
+    // so many blog titles carry a "[Guía …]" tail. Cutting inside it produced 13
+    // live SERP titles like "Festivales 2027 España [Anuncios + Fechas… " — an
+    // orphan "[" reads as a truncation glitch and depresses CTR. Two of the 13
+    // are top-traffic posts (festivales-2027-espana-anuncios-fechas: 232 clics;
+    // festivales-family-friendly-…: 179 clics), so this is measured, not cosmetic.
+    const lastOpen = cut.lastIndexOf("[");
+    if (lastOpen !== -1 && cut.indexOf("]", lastOpen) === -1) {
+      cut = cut.slice(0, lastOpen).replace(/[\s\-—–:]+$/, "");
+      // Dropping the orphan bracket removes a whole descriptive clause, so what
+      // remains is a complete phrase ("Festivales 2027 España"), not a mid-word
+      // cut. An ellipsis there would falsely signal truncation and waste SERP
+      // width — return it clean instead.
+      return cut;
+    }
     return cut + ellipsis;
   }
 

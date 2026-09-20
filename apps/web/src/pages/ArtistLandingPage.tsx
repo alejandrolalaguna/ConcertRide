@@ -2,6 +2,7 @@ import { Link, Navigate, useParams } from "react-router-dom";
 import { useSeoMeta } from "@/lib/useSeoMeta";
 import { seatPrice } from "@/lib/seatPrice";
 import { SITE_URL } from "@/lib/siteUrl";
+import { joinPhrase } from "@/lib/joinPhrase";
 import { ARTIST_LANDINGS_BY_SLUG } from "@/lib/artistLandings";
 import { FESTIVAL_LANDINGS_BY_SLUG } from "@/lib/festivalLandings";
 import { AutoLinksForArtist } from "@/lib/autoLinking";
@@ -73,7 +74,7 @@ export default function ArtistLandingPage() {
           `coche compartido ${artist.name}`,
           `transporte concierto ${artist.name}`,
           `${artist.name} carpooling sin comisión`,
-          ...artist.upcomingConcerts.map((c) => `${artist.name} ${c.city} ${c.venue}`),
+          ...artist.upcomingConcerts.map((c) => `${artist.name} ${joinPhrase(c.city, c.venue)}`),
         ].join(", ")
       : undefined,
   });

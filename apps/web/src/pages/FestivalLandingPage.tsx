@@ -7,6 +7,7 @@ import { ConcertCard } from "@/components/ConcertCard";
 import { LoadingSpinner } from "@/components/ui";
 import { useSeoMeta } from "@/lib/useSeoMeta";
 import { SITE_URL } from "@/lib/siteUrl";
+import { joinPhrase } from "@/lib/joinPhrase";
 import { REGION_ISO } from "@/lib/seoConfig";
 import { FESTIVAL_LANDINGS, FESTIVAL_LANDINGS_BY_SLUG } from "@/lib/festivalLandings";
 import { ROUTE_LANDINGS } from "@/lib/routeLandings";
@@ -44,7 +45,6 @@ import { BLOG_POSTS } from "@/lib/blogPosts";
 import { StickyRegBar } from "@/components/StickyRegBar";
 import { TerminologyAside } from "@/components/TerminologyAside";
 import { seatPrice } from "@/lib/seatPrice";
-import { LiveDemandPulse } from "@/components/LiveDemandPulse";
 import { useSession } from "@/lib/session";
 import { TESTIMONIALS, TESTIMONIALS_AGGREGATE, selectTestimonialsFor } from "@/lib/testimonials";
 import { generateAggregateRatingSchema, generateReviewSchemas } from "@/lib/schemaGenerators";
@@ -174,15 +174,15 @@ export default function FestivalLandingPage() {
             `transport ${festival.shortName} ${new Date(festival.startDate).getFullYear()}`,
             `carpooling ${festival.name}`,
             `car sharing ${festival.shortName}`,
-            `${festival.shortName} ${festival.city}`,
+            `${joinPhrase(festival.shortName, festival.city)}`,
             `ride share ${festival.shortName} ${new Date().getFullYear()}`,
             `share a car ${festival.shortName}`,
             `shuttle ${festival.shortName}`,
-            `transport ${festival.shortName} ${festival.city}`,
+            `transport ${joinPhrase(festival.shortName, festival.city)}`,
             `${festival.shortName} public transport`,
             `train ${festival.shortName}`,
             `travel to ${festival.shortName} from ${festival.originCities[0]?.city ?? "Madrid"}`,
-            `carpooling ${festival.city} ${festival.shortName}`,
+            `carpooling ${joinPhrase(festival.city, festival.shortName)}`,
           ].join(", ")
         : [
           `cómo llegar a ${festival.shortName}`,
@@ -196,15 +196,15 @@ export default function FestivalLandingPage() {
           `transporte ${festival.shortName} ${new Date(festival.startDate).getFullYear()}`,
           `carpooling ${festival.name}`,
           `coche compartido ${festival.shortName}`,
-          `${festival.shortName} ${festival.city}`,
+          `${joinPhrase(festival.shortName, festival.city)}`,
           `viaje compartido ${festival.shortName} ${new Date().getFullYear()}`,
           `compartir coche ${festival.shortName}`,
           `lanzadera ${festival.shortName}`,
-          `transporte ${festival.shortName} ${festival.city}`,
+          `transporte ${joinPhrase(festival.shortName, festival.city)}`,
           `${festival.shortName} transporte público`,
           `tren ${festival.shortName}`,
           `viaje ${festival.shortName} desde ${festival.originCities[0]?.city ?? "Madrid"}`,
-          `carpooling ${festival.city} ${festival.shortName}`,
+          `carpooling ${joinPhrase(festival.city, festival.shortName)}`,
         ].join(", ")
       : undefined,
     geoRegion: festival ? (REGION_ISO[festival.region] ?? undefined) : undefined,
@@ -324,7 +324,7 @@ export default function FestivalLandingPage() {
     keywords: [
       `carpooling ${festival.shortName}`,
       `cómo ir a ${festival.shortName}`,
-      `transporte ${festival.shortName} ${festival.city}`,
+      `transporte ${joinPhrase(festival.shortName, festival.city)}`,
       `${festival.shortName} ${new Date(festival.startDate).getFullYear()}`,
       `autobús ${festival.shortName}`,
       `bus ${festival.shortName}`,
@@ -827,7 +827,7 @@ export default function FestivalLandingPage() {
         // above. Avoids a duplicate (and incomplete) MusicEvent that GSC
         // flags for missing image/description/organizer/offers/performer.
         "about": { "@id": `${SITE_URL}/festivales/${festival.slug}#event` },
-        "keywords": `cómo ir a ${festival.shortName}, carpooling ${festival.name}, transporte ${festival.shortName} ${festival.city}, autobús ${festival.shortName}, bus ${festival.shortName}, ${festival.shortName} ${new Date(festival.startDate).getFullYear()}`,
+        "keywords": `cómo ir a ${festival.shortName}, carpooling ${festival.name}, transporte ${joinPhrase(festival.shortName, festival.city)}, autobús ${festival.shortName}, bus ${festival.shortName}, ${festival.shortName} ${new Date(festival.startDate).getFullYear()}`,
         "speakable": {
           "@type": "SpeakableSpecification",
           "cssSelector": ["h1", ".speakable", ".festival-summary", ".transport-info", "article p:first-of-type"],
@@ -967,14 +967,6 @@ export default function FestivalLandingPage() {
           )}
         </p>
 
-        {/* ── LiveDemandPulse — broad social proof chip (all users) ── */}
-        <LiveDemandPulse festivalName={festival.shortName} />
-
-        {/* ── Social proof urgency — demand signal near the primary CTA ── */}
-        {/* Shows a live-style counter of people interested in this festival.
-            Uses deterministic seed from the slug so it's consistent across renders
-            and avoids a real API call for this above-the-fold element. */}
-        <FestivalDemandPill festivalSlug={festival.slug} festivalName={festival.shortName} isEn={isEn} />
 
         {/* ── Hero CTAs — máximo impacto en el fold, precio en el CTA principal ── */}
         <div className="flex flex-wrap gap-3 pt-1">
@@ -2435,49 +2427,17 @@ export default function FestivalLandingPage() {
 }
 
 /**
- * FestivalDemandPill — social proof urgency badge shown near the primary CTA on festival pages.
+ * FestivalDemandPill / LiveDemandPulse — ELIMINADOS 2026-09-20 (wave §AI).
  *
- * Uses a deterministic seed from the festival slug to generate a stable "X personas buscando"
- * count that looks realistic without requiring a real-time API call. The count is seeded from
- * the slug so it's consistent across prerendering and client hydration (no hydration mismatch).
+ * Ambos generaban un contador de "X personas han buscado viaje" mediante un hash
+ * determinista del slug/nombre del festival (rangos 12–87 y 45–320). No procedían
+ * de ningún dato real: eran cifras de tracción inventadas, prerenderizadas en el
+ * HTML estático y por tanto indexables y citables por LLMs.
  *
- * The visual pulsing dot + number creates urgency ("other people are looking at this") — a
- * well-established CRO pattern from hotel/flight booking sites.
+ * Prohibido por CLAUDE.md §"Traction Claims — NEVER invent them" (publicidad
+ * engañosa, RD 444/2024). Además ambos se renderizaban a la vez mostrando dos
+ * cifras distintas para el mismo festival y la misma semana.
+ *
+ * NO reintroducir un contador de demanda sin una consulta real a la base de datos.
  */
-function FestivalDemandPill({ festivalSlug, festivalName, isEn }: { festivalSlug: string; festivalName: string; isEn?: boolean }) {
-  // Deterministic seeded demand count from slug — range 12-87, stable across renders.
-  const count = (() => {
-    let h = 0;
-    for (let i = 0; i < festivalSlug.length; i++) h = (h * 31 + festivalSlug.charCodeAt(i)) | 0;
-    return 12 + (Math.abs(h) % 76); // 12–87
-  })();
 
-  // Secondary "esta semana" count — higher to feel like weekly interest
-  const weeklyCount = count * 3 + 8;
-
-  return (
-    <div className="inline-flex items-center gap-2.5 border border-[#ff4f00]/30 bg-[#ff4f00]/[0.05] px-3 py-2 rounded-none">
-      <span className="relative flex-shrink-0 w-2 h-2">
-        <span className="absolute inset-0 rounded-full bg-[#ff4f00] animate-ping opacity-60" aria-hidden="true" />
-        <span className="relative block w-2 h-2 rounded-full bg-[#ff4f00]" aria-hidden="true" />
-      </span>
-      <span className="font-mono text-[11px] text-white/70 leading-tight">
-        {isEn ? (
-          <>
-            <span className="text-white font-semibold">{weeklyCount} people</span>
-            {" "}searched for a ride to{" "}
-            <span className="text-cr-primary">{festivalName}</span>
-            {" "}this week
-          </>
-        ) : (
-          <>
-            <span className="text-white font-semibold">{weeklyCount} personas</span>
-            {" "}han buscado viaje a{" "}
-            <span className="text-cr-primary">{festivalName}</span>
-            {" "}esta semana
-          </>
-        )}
-      </span>
-    </div>
-  );
-}

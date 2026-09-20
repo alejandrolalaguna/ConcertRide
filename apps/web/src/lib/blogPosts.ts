@@ -8191,7 +8191,7 @@ BLOG_POSTS.push({
   author: "Equipo ConcertRide",
   readingMinutes: 9,
   lede:
-    "La temporada festivalera 2027 en España comienza a tomar forma. Esta es la información oficial confirmada de fechas, ubicaciones y rumores de cabezas de cartel para los 30+ festivales mainstream del calendario 2027 — actualizada en tiempo real con cada anuncio oficial.",
+    "Primavera Sound 2027 se celebra del 27 al 31 de mayo en Barcelona, Mad Cool del 8 al 10 de julio en Madrid y BBK Live del 8 al 10 de julio en Bilbao: son 3 de los 12 festivales españoles con fechas 2027 ya confirmadas oficialmente. El resto de cabezas de cartel siguen siendo rumores, sin confirmar.",
   sections: [
     {
       heading: "Festivales con fechas 2027 ya confirmadas",
@@ -13179,7 +13179,7 @@ BLOG_POSTS.push({
   author: "Equipo ConcertRide",
   readingMinutes: 8,
   lede:
-    "El calendario de festivales otoño invierno 2026 en España incluye Cala Mijas (1–3 oct), Granada Sound (18–19 sep), Vive Latino (4–5 sep), DCode (12 sep), Eurosonic equivalente y festivales en recintos cubiertos como Roig Arena, Movistar Arena y Bilbao Arena entre noviembre y marzo. Esta es la guía completa.",
+    "El calendario otoño invierno 2026-2027 en España reúne unos 25 festivales y residencias musicales entre el 1 de septiembre y el 31 de marzo: Vive Latino (4–5 sep, Zaragoza), Granada Sound (18–19 sep), Cala Mijas (1–3 oct, Málaga) y programación indoor en Roig Arena, Movistar Arena y Bilbao Arena de noviembre a marzo.",
   sections: [
     {
       heading: "Por qué importa el calendario otoño invierno",

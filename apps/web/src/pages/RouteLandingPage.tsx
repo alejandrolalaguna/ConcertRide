@@ -9,6 +9,7 @@ import { ConcertCard } from "@/components/ConcertCard";
 import { LoadingSpinner } from "@/components/ui";
 import { useSeoMeta } from "@/lib/useSeoMeta";
 import { SITE_URL } from "@/lib/siteUrl";
+import { joinPhrase } from "@/lib/joinPhrase";
 import { REGION_ISO } from "@/lib/seoConfig";
 import { generateServiceSchema, generateTouristTripFromRoute } from "@/lib/schemaGenerators";
 import { ROUTE_LANDINGS_BY_SLUG, type RouteLanding } from "@/lib/routeLandings";
@@ -174,20 +175,20 @@ export default function RouteLandingPage() {
       : "Carpooling a festivales de música en España · ConcertRide",
     keywords: landing
       ? routeOverride?.keywords ?? [
-          `carpooling ${landing.originCity} ${landing.festival.shortName}`,
-          `coche compartido ${landing.originCity} ${landing.festival.shortName}`,
-          `viaje compartido ${landing.originCity} ${landing.festival.shortName}`,
+          `carpooling ${joinPhrase(landing.originCity, landing.festival.shortName)}`,
+          `coche compartido ${joinPhrase(landing.originCity, landing.festival.shortName)}`,
+          `viaje compartido ${joinPhrase(landing.originCity, landing.festival.shortName)}`,
           `como ir ${landing.festival.shortName} desde ${landing.originCity}`,
           `cómo ir ${landing.festival.shortName} desde ${landing.originCity}`,
-          `transporte ${landing.originCity} ${landing.festival.shortName}`,
-          `bus ${landing.originCity} ${landing.festival.shortName}`,
-          `precio carpooling ${landing.originCity} ${landing.festival.shortName}`,
-          `distancia ${landing.originCity} ${landing.festival.city}`,
-          `cuanto tarda ${landing.originCity} ${landing.festival.city}`,
+          `transporte ${joinPhrase(landing.originCity, landing.festival.shortName)}`,
+          `bus ${joinPhrase(landing.originCity, landing.festival.shortName)}`,
+          `precio carpooling ${joinPhrase(landing.originCity, landing.festival.shortName)}`,
+          `distancia ${joinPhrase(landing.originCity, landing.festival.city)}`,
+          `cuanto tarda ${joinPhrase(landing.originCity, landing.festival.city)}`,
           `alternativa taxi ${landing.festival.shortName} desde ${landing.originCity}`,
-          `vuelta ${landing.festival.shortName} ${landing.originCity}`,
-          `${landing.originCity} ${landing.festival.shortName} ${new Date().getFullYear()}`,
-          `compartir coche ${landing.originCity} ${landing.festival.city}`,
+          `vuelta ${joinPhrase(landing.festival.shortName, landing.originCity)}`,
+          `${joinPhrase(landing.originCity, landing.festival.shortName)} ${new Date().getFullYear()}`,
+          `compartir coche ${joinPhrase(landing.originCity, landing.festival.city)}`,
         ].join(", ")
       : undefined,
     geoRegion: landing ? (REGION_ISO[landing.festival.region] ?? undefined) : undefined,
@@ -484,7 +485,7 @@ export default function RouteLandingPage() {
     inLanguage: "es-ES",
     license: "https://creativecommons.org/licenses/by/4.0/",
     creator: { "@type": "Organization", "@id": `${SITE_URL}/#organization` },
-    keywords: `carpooling ${originCity} ${festival.shortName}, transporte ${festival.shortName}, precio bus ${festival.shortName}, taxi ${festival.shortName}, alternativa carpooling festivales`,
+    keywords: `carpooling ${joinPhrase(originCity, festival.shortName)}, transporte ${festival.shortName}, precio bus ${festival.shortName}, taxi ${festival.shortName}, alternativa carpooling festivales`,
     variableMeasured: [
       { "@type": "PropertyValue", name: "Opción de transporte", value: "ConcertRide carpooling" },
       { "@type": "PropertyValue", name: "Precio por asiento", value: `${originData.concertRideRange}` },

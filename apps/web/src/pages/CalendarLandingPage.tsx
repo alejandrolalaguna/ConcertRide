@@ -28,8 +28,32 @@ export default function CalendarLandingPage() {
     return padded.length >= 120 ? padded : core;
   })();
 
+  // §AJ (2026-09-20): el title era puramente genérico ("Festivales <Mes> <Año>
+  // España · Carpooling") y no daba al usuario ni un solo motivo para preferirlo
+  // sobre los otros 9 resultados. Medido en la GSC Performance export 2026-09-20:
+  //   festivales agosto 2026      1.749 impr · 1,54% CTR · pos 7,38
+  //   festivales septiembre 2026  1.486 impr · 1,82% CTR · pos 7,42
+  //   (+ las variantes "festivales EN agosto/septiembre 2026": 1.433 impr más)
+  // La description YA nombraba los festivales reales; el title no. Nombrar 2 de
+  // ellos es la señal que diferencia. Los nombres salen de getCalendarFestivals()
+  // → festivalLandings.ts (datos curados reales), nunca de una lista inventada.
+  //
+  // El presupuesto de 65 chars manda: si no caben 2 festivales, se cae a 1, y si
+  // tampoco cabe, al title genérico. Nunca se trunca un nombre a la mitad.
+  const calTitle = (() => {
+    const brand = " | ConcertRide";
+    const base = `Festivales ${cal.month} ${cal.year}`;
+    const names = festivals.map((f) => f.shortName);
+    for (const n of [2, 1]) {
+      if (names.length < n) continue;
+      const candidate = `${base}: ${names.slice(0, n).join(", ")}${brand}`;
+      if (candidate.length <= 65) return candidate;
+    }
+    return `${base} España · Carpooling${brand}`;
+  })();
+
   useSeoMeta({
-    title: `Festivales ${cal.month} ${cal.year} España · Carpooling | ConcertRide`,
+    title: calTitle,
     description: calDesc,
     canonical: `${SITE_URL}/calendario-festivales/${cal.slug}`,
     keywords: [

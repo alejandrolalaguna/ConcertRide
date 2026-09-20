@@ -1151,7 +1151,7 @@ export const es = {
     heroSubheadlineTrust: "Pago directo en efectivo o Bizum · 0% comisión.",
     heroCtaSearch: "Buscar viaje",
     heroCtaPublish: "Publicar viaje →",
-    heroFansCount: "+2.000 fans ya en la comunidad",
+    heroFansCount: "Carpooling para festivales y conciertos de toda España",
     heroTestimonialRating: "★ 4,9",
     heroTestimonialQuote: "“Ahorré 40€ yendo al Sónar desde Madrid” · Sara M.",
     heroBadgeNoCard: "Sin tarjeta de crédito",
@@ -1183,7 +1183,7 @@ export const es = {
     why4Highlight: "Vuelta pactada",
     why5Title: "Comunidad de fans",
     why5Body: "Conecta con gente que va al mismo evento. Comparte música, no solo gasolina.",
-    why5Highlight: "+2k fans",
+    why5Highlight: "Mismo evento, mismo coche",
     why6Title: "Impacto real",
     why6Body: "Menos coches, menos CO₂. Cada viaje compartido reduce la huella del evento.",
     why6Highlight: "80% menos CO₂",
@@ -1344,7 +1344,7 @@ export const es = {
     testimonialsEyebrow: "Comunidad real",
     testimonialsTitleLine1: "Fans que ya",
     testimonialsTitleLine2: "viajan juntos.",
-    testimonialsLiveCount: "+2.000 fans en la comunidad",
+    testimonialsLiveCount: "Fans que viajan al mismo evento",
 
     // Hero — live activity ticker (Hero.tsx)
 
@@ -1360,8 +1360,8 @@ export const es = {
 
     // Registration nudge (RegistrationNudge.tsx)
     nudgeAriaLabel: "Únete a ConcertRide",
-    nudgeLiveIndicator: "Usuarios uniéndose ahora",
-    nudgeTitle1: "+2.000 fans registrados.",
+    nudgeLiveIndicator: "Registro abierto",
+    nudgeTitle1: "Comparte coche al festival.",
     nudgeTitle2: "Únete gratis hoy.",
     nudgeBadge1: "30 segundos para empezar",
     nudgeBadge2: "Sin tarjeta de crédito",

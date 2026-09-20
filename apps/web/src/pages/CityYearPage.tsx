@@ -194,6 +194,16 @@ export default function CityYearPage() {
 
   const otherYears = (VALID_YEARS as readonly string[]).filter((vy) => vy !== y);
 
+  // §AI (2026-09-20): desde esta wave el Worker 301-ea /conciertos/:city/:year
+  // a la página padre para todo año que no sea el corriente (no existe asset
+  // prerenderizado para ellos; ver index.ts). Enlazar directamente al año no
+  // corriente sería enlazar a un redirect — justo el anti-patrón §AF.6, que
+  // diluye equity y gasta crawl budget en el salto intermedio. Estos helpers
+  // devuelven SIEMPRE el destino final.
+  const currentYearStr = String(new Date().getFullYear());
+  const yearHref = (vy: string) =>
+    vy === currentYearStr ? `/conciertos/${landing.slug}/${vy}` : `/conciertos/${landing.slug}`;
+
   return (
     <main id="main" className="min-h-dvh bg-cr-bg text-cr-text pt-14">
       {/* ── JSON-LD: BreadcrumbList ── */}
@@ -344,7 +354,7 @@ export default function CityYearPage() {
           {(VALID_YEARS as readonly string[]).map((vy) => (
             <Link
               key={vy}
-              to={`/conciertos/${landing.slug}/${vy}`}
+              to={yearHref(vy)}
               className={`font-mono text-[11px] uppercase tracking-[0.12em] px-3 py-1 border transition-colors ${
                 vy === y
                   ? "border-cr-primary text-cr-primary bg-cr-primary/10 font-semibold"
@@ -537,7 +547,7 @@ export default function CityYearPage() {
           {otherYears.map((vy) => (
             <li key={vy}>
               <Link
-                to={`/conciertos/${landing.slug}/${vy}`}
+                to={yearHref(vy)}
                 className="inline-flex items-center gap-1.5 font-sans text-xs text-cr-text-muted hover:text-cr-primary border border-cr-border hover:border-cr-primary px-3 py-1.5 transition-colors"
               >
                 Conciertos {landing.display} {vy}

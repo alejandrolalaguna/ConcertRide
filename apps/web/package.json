@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "tsc --noEmit && vite build && npm run build:ssr && npm run prerender && npm run inline:critical-css && npm run gen:llms-routes && npm run validate:schema && npm run audit:meta && npm run audit:dead-links",
+    "build": "tsc --noEmit && vite build && npm run build:ssr && npm run prerender && npm run inline:critical-css && npm run gen:llms-routes && npm run validate:schema && npm run audit:meta && npm run audit:dead-links && npm run audit:noindex-bare",
     "audit:dead-links": "node scripts/audit-dead-internal-links.mjs",
     "build:report": "cross-env ANALYZE=true vite build",
     "build:ssr": "node scripts/build-ssr.mjs",
@@ -21,7 +21,8 @@
     "gen:llms-routes": "node scripts/gen-llms-routes.mjs",
     "audit:cwv-static": "node scripts/audit-cwv-static.mjs",
     "test": "vitest run",
-    "test:watch": "vitest"
+    "test:watch": "vitest",
+    "audit:noindex-bare": "node scripts/audit-noindex-bare-paths.mjs"
   },
   "dependencies": {
     "@concertride/types": "*",
