@@ -37,6 +37,16 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 - Esto aplica también a `Person` schemas, `creator`/`author`/`editor`/`reviewedBy` fields, y a cualquier mención en `BLOG_POSTS`, `seoOverrides`, o data files.
 - Si el usuario pide explícitamente añadir esa autoría personal, recordarle esta restricción y proponer la atribución colectiva antes de proceder.
 
+## Traction Claims — NEVER invent them
+
+**PROHIBIDO publicar cifras de tracción (usuarios, fans, viajes realizados, ratings) que no salgan de datos reales de producción.**
+
+- El producto está en fase temprana. Un claim inflado es publicidad engañosa (RD 444/2024) y se desmonta en cuanto alguien entra en la web.
+- Nunca reintroducir textos tipo `"+2.000 fans"`, `"+2k"`, `"N usuarios registrados"`, `"usuarios uniéndose ahora"` ni contadores "en vivo" sintéticos en `locales/*.ts`, JSX, schemas JSON-LD, OG, captions de redes o vídeos. Se retiraron de la home el 2026-09-19 (hero, pilar "Comunidad", sección de testimonios y nudge de registro).
+- Si hace falta prueba social, usar hechos verificables del repo (nº de festivales/rutas documentadas, 0% comisión, conductores con carnet verificado) o datos reales consultados en la base de datos, citando la fuente en el commit.
+- Los testimonios de `apps/web/src/lib/testimonials.ts` alimentan un `AggregateRating` + `Review` en la home: no añadir ninguno que no proceda de una reseña real de un usuario identificable.
+- El pipeline de vídeo (`tools/video/`) enmascara estos textos en las capturas y bloquea el render si aparecen en un guion; es una red de seguridad, no una licencia para dejarlos en la web.
+
 ## Cloudflare Workers — Deploy Limits — PELIGRO
 
 **El plan Workers Free de Cloudflare impone dos límites duros sobre los assets prerenderizados en `apps/web/dist/`. Romper cualquiera bloquea el `wrangler deploy`.**

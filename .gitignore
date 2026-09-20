@@ -18,3 +18,12 @@ apps/api/dist
 .claude
 apps/web/scripts/seo/output
 .playwright-mcp/*
+# ── Pipelines de vídeo ────────────────────────────────────────────────────
+# Las carpetas de vídeo van enteras fuera del repo: los MP4, capturas y frames
+# intermedios son binarios pesados, y el propio pipeline (plantillas, guiones,
+# scripts) se mantiene fuera del control de versiones por decisión del proyecto.
+tools/
+tools2/
+# Los .mp4/.webm sueltos, vengan de donde vengan
+*.mp4
+*.webm
