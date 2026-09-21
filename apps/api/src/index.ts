@@ -30,12 +30,37 @@ import og from "./routes/og";
 import testMode from "./routes/test-mode";
 import { rateLimit } from "./lib/ratelimit";
 import { htmlToMarkdown, estimateTokens } from "./lib/markdown";
-import { seoPrerender } from "./lib/seoPrerender";
+// §AJ: lazy gate — the real (337 KB) seoPrerender module is imported on demand,
+// only for requests whose UA is actually a bot. See lib/seoPrerenderGate.ts.
+import { seoPrerenderGate as seoPrerender } from "./lib/seoPrerenderGate";
 import { getSiteUrl } from "./lib/siteUrl";
-import { ARTIST_LANDINGS } from "../../web/src/lib/artistLandings";
-import { VENUE_LANDINGS } from "../../web/src/lib/venueLandings";
+// ─── §AJ: CPU-time budget — heavy landing datasets are LAZY, never top-level ──
+// (added 2026-09-21, tras el aviso "free tier CPU time limit 1,000+ veces/24h")
+//
+// PROBLEM: estos cinco módulos se importaban a nivel de módulo. Todo lo que
+// está en el top-level scope de un Worker se PARSEA Y EJECUTA en cada cold
+// start, ANTES de atender la primera request, y su coste se factura como CPU
+// time de esa request. Medido el 2026-09-21 (`npx tsx`, ver commit):
+//   routeLandings (incl. festival+city deps + buildRoutes): ~732 ms → 7.399 rutas
+//   artistLandings + venueLandings (~900 KB de literales):  ~227 ms
+//   TOTAL top-level:                                        ~960 ms
+// En el isolate de V8 eso se traduce en el p99=78 ms / p999=106 ms de CPU que
+// reportaba `workersInvocationsAdaptive` — muy por encima del límite de 10 ms
+// del plan Free. De ahí los 1.000+ excesos diarios.
+//
+// Agravante: `assets.run_worker_first: ["/*"]` (wrangler.jsonc §AF) obliga a
+// invocar el Worker en CADA página, así que cada cold start pagaba los ~960 ms
+// aunque la respuesta final la sirviera el asset layer.
+//
+// FIX: importación dinámica dentro de la función que realmente necesita cada
+// dataset, memoizada en el isolate. Las dos rutas de sitemap que usan
+// ARTIST/VENUE_LANDINGS (~900 KB) pasan a pagar ese coste solo ellas, y el
+// middleware de /rutas/* construye un Set de slugs una única vez por isolate.
+//
+// REGLA GENERAL: NUNCA importar a top-level en `apps/api/src/**` un módulo de
+// `apps/web/src/lib/*Landings.ts` ni nada que compute en module scope. Si hace
+// falta, usar `await import()` dentro del handler + memo por isolate.
 import { FESTIVAL_LANDINGS } from "../../web/src/lib/festivalLandings";
-import { ROUTE_LANDINGS_BY_SLUG } from "../../web/src/lib/routeLandings";
 import { CITY_LANDINGS } from "../../web/src/lib/cityLandings";
 // Import-free registry module (NOT ../lib/localizedRoutes, which pulls
 // `import.meta.env` via ./siteUrl and doesn't type-check here). See §AE.
@@ -178,13 +203,36 @@ const FESTIVAL_SLUG_SET = new Set(FESTIVAL_LANDINGS.map((f) => f.slug));
 // Sort by length DESC so longer festival slugs (e.g. "primavera-sound") are
 // matched before shorter ones (e.g. "sound") that could be substrings.
 const FESTIVAL_SLUGS_BY_LENGTH = [...FESTIVAL_SLUG_SET].sort((a, b) => b.length - a.length);
+
+// §AJ: `buildRoutes()` (7.399 rutas, ~732 ms) NO debe correr en cold start.
+// Solo necesitamos saber si un slug EXISTE, así que memoizamos un Set de slugs
+// por isolate y lo construimos en la primera request a /rutas/* que no sea un
+// asset ya servido. El resto de páginas del sitio nunca paga este coste.
+let routeSlugSetPromise: Promise<Set<string>> | null = null;
+function getRouteSlugSet(): Promise<Set<string>> {
+  if (!routeSlugSetPromise) {
+    routeSlugSetPromise = import("../../web/src/lib/routeLandings")
+      .then((m) => new Set(m.ROUTE_SLUGS))
+      .catch((err) => {
+        // No dejar una promesa rechazada memoizada: reintentar en la siguiente
+        // request en vez de romper /rutas/* para todo el isolate.
+        routeSlugSetPromise = null;
+        throw err;
+      });
+  }
+  return routeSlugSetPromise;
+}
+
 app.use("*", async (c, next) => {
   if (c.req.method !== "GET" && c.req.method !== "HEAD") return next();
   if (!c.req.path.startsWith("/rutas/")) return next();
   const slug = c.req.path.slice("/rutas/".length).replace(/\/$/, "");
   if (!slug || slug.includes("/")) return next();
+  // Fast path: si el slug no acaba en un festival conocido no es una ruta
+  // programática, así que ni siquiera hace falta cargar el dataset.
+  if (!FESTIVAL_SLUGS_BY_LENGTH.some((f) => slug.endsWith(`-${f}`))) return next();
   // Route still exists post-popularity-gate — let it render normally.
-  if (ROUTE_LANDINGS_BY_SLUG[slug]) return next();
+  if ((await getRouteSlugSet()).has(slug)) return next();
   // Try to extract the festival slug suffix.
   for (const fSlug of FESTIVAL_SLUGS_BY_LENGTH) {
     if (slug.endsWith(`-${fSlug}`)) {
@@ -346,7 +394,22 @@ app.use("*", async (c, next) => {
 // ─── SEO prerender for search bots (runs early, before any route matching) ──
 // This must run before CORS/routes so it intercepts bot requests before
 // Cloudflare/Hono make trailing-slash redirects.
-app.use("*", storeMiddleware);
+// §AJ (CPU-time budget): storeMiddleware llamaba a `getStore()` en CADA request,
+// incluidas las ~8.900 páginas estáticas que nunca tocan la base de datos. La
+// primera de esas llamadas por isolate hace `await import("./store/drizzle")`
+// (~152 KB + drizzle-orm), y ese coste se factura como CPU time de la request
+// que tuvo la mala suerte de ser la primera. Era una fuente principal del tail
+// p99 tras arreglar el coste de módulo.
+//
+// El store SOLO se consume en:
+//   · `/api/*` (todas las app.route de abajo + los sitemaps dinámicos, que ya
+//     adjuntan `storeMiddleware` explícitamente en su propia definición)
+//   · `/concerts/:id` para bots, dentro de seoPrerender — y ahí el acceso está
+//     guardado con `if (concertMatch && c.var.store)`, así que basta con
+//     proveerlo en esa ruta concreta.
+// Cualquier otro path se sirve ahora sin instanciar cliente de DB.
+app.use("/api/*", storeMiddleware);
+app.use("/concerts/:id", storeMiddleware);
 app.use("*", seoPrerender);
 
 app.use("/api/*", (c, next) =>
@@ -682,6 +745,8 @@ app.get("/api/sitemap-index.xml", storeMiddleware, async (c) => {
 });
 
 app.get("/api/sitemap-artists.xml", async (c) => {
+  // §AJ: lazy — ~514 KB que solo necesita esta ruta.
+  const { ARTIST_LANDINGS } = await import("../../web/src/lib/artistLandings");
   const base = getSiteUrl(c.env);
   const today = new Date().toISOString().slice(0, 10);
   const urls = ARTIST_LANDINGS.map((artist) => `  <url>\n    <loc>${base}/artistas/${artist.slug}</loc>\n    <lastmod>${today}</lastmod>\n    <changefreq>monthly</changefreq>\n    <priority>0.6</priority>\n  </url>`).join("\n");
@@ -693,6 +758,8 @@ app.get("/api/sitemap-artists.xml", async (c) => {
 });
 
 app.get("/api/sitemap-venues.xml", async (c) => {
+  // §AJ: lazy — ~390 KB que solo necesita esta ruta.
+  const { VENUE_LANDINGS } = await import("../../web/src/lib/venueLandings");
   const base = getSiteUrl(c.env);
   const today = new Date().toISOString().slice(0, 10);
   const urls = VENUE_LANDINGS.map((venue) => `  <url>\n    <loc>${base}/recintos/${venue.slug}</loc>\n    <lastmod>${today}</lastmod>\n    <changefreq>monthly</changefreq>\n    <priority>0.6</priority>\n  </url>`).join("\n");
