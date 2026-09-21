@@ -14,17 +14,30 @@ describe("GET /api/og/festival/:slug.svg", () => {
     expect(res.status).toBe(404);
   });
 
-  it("returns SVG bytes when slug matches the trie pattern", async () => {
-    const app = buildTestApp();
-    // The route is declared as `/festival/:slug.svg`. Depending on the Hono
-    // router build, `:slug` may or may not consume the `.svg` extension —
-    // we just verify the handler executes and returns either an SVG (200)
-    // or the route-level 404 ("not found"). Anything else (5xx) is a bug.
-    const res = await app.request("/api/og/festival/mad-cool.svg");
-    expect([200, 404]).toContain(res.status);
-    if (res.status === 200) {
-      expect(res.headers.get("content-type")?.startsWith("image/svg+xml")).toBe(true);
-    }
+  // §AL.6: este test ACEPTABA 200 o 404, así que no podía detectar que el
+  // handler 404-eaba SIEMPRE. El patrón `/:slug.svg` no vincula el parámetro
+  // en Hono (`param("slug")` = undefined), de modo que NINGÚN slug válido
+  // devolvía imagen. Ahora se exige 200 + SVG real para un slug que existe.
+  it("returns real SVG bytes for a valid festival slug", async () => {
+    const { request } = buildTestApp();
+    const res = await request("/api/og/festival/mad-cool.svg");
+    expect(res.status).toBe(200);
+    expect(res.headers.get("content-type")?.startsWith("image/svg+xml")).toBe(true);
+    // El helper devuelve ArrayBuffer para content-type image/*
+    const body = new TextDecoder().decode(res.body as ArrayBuffer);
+    expect(body.startsWith("<svg")).toBe(true);
+    expect(body).toContain("MAD COOL");
+  });
+
+  it("returns real SVG bytes for a valid route slug", async () => {
+    const { request } = buildTestApp();
+    const res = await request("/api/og/route/madrid-mad-cool.svg");
+    expect(res.status).toBe(200);
+    expect(res.headers.get("content-type")?.startsWith("image/svg+xml")).toBe(true);
+    // El helper devuelve ArrayBuffer para content-type image/*
+    const body = new TextDecoder().decode(res.body as ArrayBuffer);
+    expect(body.startsWith("<svg")).toBe(true);
+    expect(body).toContain("MADRID");
   });
 });
 

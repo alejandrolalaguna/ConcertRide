@@ -1,18 +1,55 @@
 import { Hono } from "hono";
 import type { HonoEnv } from "../types";
-import { ROUTE_LANDINGS } from "../../../web/src/lib/routeLandings";
-import { FESTIVAL_LANDINGS_BY_SLUG } from "../../../web/src/lib/festivalLandings";
+// §AL (CPU-time budget): estos dos datasets NO se importan a top-level.
+// `routeLandings` construye 7.399 rutas en module scope (~732 ms) y este
+// fichero se registra con `app.route("/api/og", og)` en index.ts, así que un
+// import estático aquí hace que ese coste se pague en CADA cold start —
+// justo lo que el fix de index.ts eliminó. Se cargan bajo demanda dentro del
+// handler, memoizados por isolate. Ver SKILL.md §AL.4.
+import type { RouteLanding } from "../../../web/src/lib/routeLandings";
+import type { FestivalLanding } from "../../../web/src/lib/festivalLandings";
 // Note: festival variant looks up FESTIVAL_LANDINGS_BY_SLUG; route variant
 // gets festival metadata via landing.festival inline (no extra lookup).
+
+let routeBySlugPromise: Promise<Map<string, RouteLanding>> | null = null;
+function getRouteBySlug(): Promise<Map<string, RouteLanding>> {
+  if (!routeBySlugPromise) {
+    routeBySlugPromise = import("../../../web/src/lib/routeLandings")
+      .then((m) => new Map(m.ROUTE_LANDINGS.map((r) => [r.slug, r])))
+      .catch((err) => {
+        routeBySlugPromise = null;
+        throw err;
+      });
+  }
+  return routeBySlugPromise;
+}
+
+let festivalBySlugPromise: Promise<Record<string, FestivalLanding>> | null = null;
+function getFestivalBySlug(): Promise<Record<string, FestivalLanding>> {
+  if (!festivalBySlugPromise) {
+    festivalBySlugPromise = import("../../../web/src/lib/festivalLandings")
+      .then((m) => m.FESTIVAL_LANDINGS_BY_SLUG)
+      .catch((err) => {
+        festivalBySlugPromise = null;
+        throw err;
+      });
+  }
+  return festivalBySlugPromise;
+}
 
 const route = new Hono<HonoEnv>();
 
 // Dynamic OG card per route (origin city → festival). 1200×630 SVG, edge
 // cached. Same pattern as /api/memories/:id/share-image.svg — no
 // rasterization in the Worker.
-route.get("/route/:slug.svg", (c) => {
-  const slug = c.req.param("slug");
-  const landing = ROUTE_LANDINGS.find((r) => r.slug === slug);
+// §AL.6: el patrón `/:slug.svg` NO vincula el parámetro en el router de Hono
+// (`c.req.param("slug")` devuelve undefined), así que el handler 404-eaba SIEMPRE,
+// incluso para slugs válidos. Se usa `:file` y se recorta la extensión a mano.
+route.get("/route/:file", async (c) => {
+  const file = c.req.param("file") ?? "";
+  if (!file.endsWith(".svg")) return c.text("not found", 404);
+  const slug = file.slice(0, -4);
+  const landing = slug ? (await getRouteBySlug()).get(slug) : undefined;
   if (!landing) return c.text("not found", 404);
   // Per-festival accent color is derived deterministically from the slug
   // hash so each festival gets a stable identity even though the data
@@ -59,9 +96,12 @@ route.get("/route/:slug.svg", (c) => {
 });
 
 // Same pattern for festivals.
-route.get("/festival/:slug.svg", (c) => {
-  const slug = c.req.param("slug");
-  const festival = slug ? FESTIVAL_LANDINGS_BY_SLUG[slug] : undefined;
+// §AL.6: mismo problema de binding que arriba.
+route.get("/festival/:file", async (c) => {
+  const file = c.req.param("file") ?? "";
+  if (!file.endsWith(".svg")) return c.text("not found", 404);
+  const slug = file.slice(0, -4);
+  const festival = slug ? (await getFestivalBySlug())[slug] : undefined;
   if (!festival) return c.text("not found", 404);
   const heroColor = colorFromSlug(festival.slug);
   const heroFg = isDarkColor(heroColor) ? "#f0f0f4" : "#060608";

@@ -31,7 +31,27 @@
     // Scoped to `/*` because a trailing-slash variant can exist for ANY route.
     // Hashed build assets are excluded so they keep being served straight from
     // the edge with zero Worker invocation (cost + latency).
-    "run_worker_first": ["/*", "!/assets/*", "!/og/*", "!/*.png", "!/*.svg", "!/*.ico", "!/*.webmanifest", "!/*.js", "!/*.css", "!/*.woff2"]
+    // ─── §AL.6: `/api/*` SIEMPRE va al Worker, pase lo que pase ────────────
+    // Los negativos por extensión de abajo son para los assets hasheados del
+    // build (coste + latencia). Pero Cloudflare aplica "negative patterns take
+    // precedence", así que `!/*.svg` también capturaba `/api/og/route/X.svg`
+    // y `/api/og/festival/X.svg`: esas dos rutas del Worker (routes/og.ts)
+    // dejaron de ejecutarse el 2026-09-16 (commit a5379a4) y desde entonces
+    // servían el SPA-shell (272 KB de HTML con `content-type: text/html`) en
+    // lugar del SVG de 1200×630 — incluidos los slugs inexistentes, que
+    // devolvían 200 en vez de 404.
+    //
+    // Como el shell lleva el canonical de la HOME, cada tarjeta OG compartida
+    // en redes apuntaba a un documento que se declara la home: el patrón
+    // §AG.2. `/api/*` se antepone a los negativos para que ninguna regla por
+    // extensión pueda volver a secuestrar una ruta de API.
+    // NOTA: los negativos tienen PRECEDENCIA sobre los positivos, así que NO
+    // basta con añadir `/api/*` a la lista: hay que impedir que un patrón por
+    // extensión pueda matchear una ruta de API. `!/*.svg` se elimina por eso.
+    // Medido sobre dist/ (2026-09-21): los ÚNICOS 7 .svg del build son
+    // `/favicon.svg` y `/og/**`, ambos ya cubiertos por sus propios negativos,
+    // así que quitarlo no añade ni una invocación de Worker sobre assets.
+    "run_worker_first": ["/*", "!/assets/*", "!/og/*", "!/favicon.svg", "!/*.png", "!/*.ico", "!/*.webmanifest", "!/*.js", "!/*.css", "!/*.woff2"]
   },
   "observability": {
     "enabled": true
