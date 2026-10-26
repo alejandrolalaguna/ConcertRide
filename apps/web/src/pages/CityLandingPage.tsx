@@ -1145,6 +1145,7 @@ export default function CityLandingPage() {
         <section
           className="max-w-6xl mx-auto px-6 pb-16 border-t border-cr-border pt-10"
           aria-label={`Encuentra carpooling para conciertos en ${landing.display}`}
+          data-md="skip"
         >
           <div className="border border-[#dbff00]/30 bg-[#dbff00]/5 p-6 md:p-8 space-y-4 text-center">
             <h2 className="font-display text-2xl md:text-3xl uppercase">

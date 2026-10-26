@@ -13,8 +13,11 @@ interface Stat {
 }
 
 const STATS: Stat[] = [
-  { id: "festivals", labelKey: "home.statsFestivals", target: 33, suffix: "+" },
-  { id: "cities",    labelKey: "home.statsCities",    target: 72, suffix: "+" },
+  // Catalog page counts (FESTIVAL_LANDINGS / CITY_LANDINGS, octubre 2026),
+  // rounded down so they stay true as the catalog grows. Never usage figures
+  // (CLAUDE.md "Traction Claims").
+  { id: "festivals", labelKey: "home.statsFestivals", target: 190, suffix: "+" },
+  { id: "cities",    labelKey: "home.statsCities",    target: 110, suffix: "+" },
   { id: "savings",   labelKey: "home.statsSavings",   target: 60, suffix: "%" },
   { id: "fee",       labelKey: "home.statsFee",       target: 0,  suffix: "%", accent: true },
 ];

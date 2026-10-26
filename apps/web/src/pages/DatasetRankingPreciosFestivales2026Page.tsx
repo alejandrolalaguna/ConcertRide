@@ -7,6 +7,7 @@ import { ANALYTICS_EVENTS, trackEvent } from "@/lib/analytics-events";
 import EeatTrustBlock from "@/components/EeatTrustBlock";
 import AiDisclosureNote from "@/components/AiDisclosureNote";
 import { aiLevelForPageType } from "@/lib/aiContentPolicy";
+import { festivalPageHref } from "@/lib/pageHrefs";
 
 const DATASET_SLUG = "festivales-mas-caros-mas-baratos-llegar-2026";
 
@@ -447,7 +448,7 @@ export default function DatasetRankingPreciosFestivales2026Page() {
                   <td className="py-3 pr-3 text-cr-text-dim font-mono text-xs">{idx + 1}</td>
                   <td className="py-3 pr-3">
                     <Link
-                      to={`/festivales/${r.slug}`}
+                      to={festivalPageHref(r.slug)}
                       className="text-cr-primary font-medium hover:underline underline-offset-2"
                     >
                       {r.festival}
@@ -499,7 +500,7 @@ export default function DatasetRankingPreciosFestivales2026Page() {
                   <td className="py-3 pr-3 text-cr-text-dim font-mono text-xs">{idx + 1}</td>
                   <td className="py-3 pr-3">
                     <Link
-                      to={`/festivales/${r.slug}`}
+                      to={festivalPageHref(r.slug)}
                       className="text-cr-primary font-medium hover:underline underline-offset-2"
                     >
                       {r.festival}
@@ -559,7 +560,7 @@ export default function DatasetRankingPreciosFestivales2026Page() {
                   <td className="py-3 pr-3 text-cr-text-dim font-mono text-xs">{idx + 1}</td>
                   <td className="py-3 pr-3">
                     <Link
-                      to={`/festivales/${r.slug}`}
+                      to={festivalPageHref(r.slug)}
                       className="text-cr-primary font-medium hover:underline underline-offset-2"
                     >
                       {r.festival}
@@ -609,7 +610,7 @@ export default function DatasetRankingPreciosFestivales2026Page() {
                 <tr key={r.slug} className="border-b border-cr-border/50 hover:bg-white/[0.02] transition-colors">
                   <td className="py-3 pr-3">
                     <Link
-                      to={`/festivales/${r.slug}`}
+                      to={festivalPageHref(r.slug)}
                       className="text-cr-primary font-medium hover:underline underline-offset-2"
                     >
                       {r.festival}

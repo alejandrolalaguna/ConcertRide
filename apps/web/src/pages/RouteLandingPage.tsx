@@ -25,6 +25,7 @@ import { trackRouteSearch } from "@/lib/seoEvents";
 import { StickyRegBar } from "@/components/StickyRegBar";
 import { AgentActionRail } from "@/components/AgentActionRail";
 import { useSession } from "@/lib/session";
+import { cityPageHref } from "@/lib/cityPageHref";
 
 // Lazy-loaded Leaflet map — keeps the heavy vendor chunk out of the
 // prerendered HTML and the initial JS payload for ~3.8k route pages.
@@ -810,6 +811,7 @@ export default function RouteLandingPage() {
         <section
           className="max-w-6xl mx-auto px-6 pb-6"
           aria-label="Crea una cuenta para reservar tu plaza"
+          data-md="skip"
         >
           <div className="border-2 border-[#dbff00]/40 bg-[#dbff00]/[0.04] p-6 md:p-8 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-5">
             <div className="space-y-1.5">
@@ -974,14 +976,16 @@ export default function RouteLandingPage() {
               Carpooling a {festival.shortName} — todas las ciudades
             </Link>
           </li>
+          {cityPageHref(festival.citySlug) && (
           <li>
             <Link
-              to={`/conciertos/${festival.citySlug}`}
+              to={cityPageHref(festival.citySlug)!}
               className="inline-flex items-center gap-1.5 font-sans text-xs text-cr-text-muted hover:text-cr-primary border border-cr-border hover:border-cr-primary px-3 py-1.5 transition-colors"
             >
               Conciertos en {festival.city}
             </Link>
           </li>
+          )}
           <li>
             <Link
               to="/guia-transporte-festivales"

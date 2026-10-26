@@ -88,7 +88,7 @@ export default function AcercaDePage() {
                 "Festival Internacional de Benicàssim (FIB)",
               ],
               description:
-                "Plataforma española de carpooling especializada en conciertos y festivales de música. Más de 4.200 viajeros registrados, 12.000+ viajes publicados, 51 festivales cubiertos, 450 toneladas de CO₂ evitadas. Conductores verificados, 0% comisión, pago en efectivo o Bizum el día del viaje.",
+                "Plataforma española de carpooling especializada en conciertos y festivales de música. Documenta 199 festivales y 7.399 rutas origen→festival en España. Conductores con carnet verificado, 0% comisión, pago en efectivo o Bizum el día del viaje.",
               numberOfEmployees: {
                 "@type": "QuantitativeValue",
                 value: 1,
@@ -333,12 +333,14 @@ export default function AcercaDePage() {
           </h2>
           <dl className="grid grid-cols-2 md:grid-cols-4 gap-4">
             {[
-              { value: "4.200+", label: "Viajeros registrados" },
-              { value: "12.000+", label: "Viajes publicados" },
-              { value: "51", label: "Festivales cubiertos" },
-              { value: "450 t", label: "CO₂ evitadas" },
-              { value: "72+", label: "Ciudades de origen" },
-              { value: "400+", label: "Rutas disponibles" },
+              // Page counts of the published catalog, not usage figures
+              // (CLAUDE.md "Traction Claims"). Source: /api/md/_catalog.
+              { value: "199", label: "Festivales documentados" },
+              { value: "7.399", label: "Rutas origen → festival" },
+              { value: "116", label: "Ciudades con página propia" },
+              { value: "85", label: "Recintos documentados" },
+              { value: "218", label: "Artistas con página propia" },
+              { value: "9", label: "Datasets abiertos CC BY 4.0" },
               { value: "3–22 €", label: "Precio por asiento" },
               { value: "0 %", label: "Comisión de plataforma" },
             ].map(({ value, label }) => (
@@ -349,7 +351,7 @@ export default function AcercaDePage() {
             ))}
           </dl>
           <p className="font-mono text-[10px] text-cr-text-dim">
-            Datos a mayo 2026. CO₂ estimado: 450 t evitadas asumiendo 3,5 personas/coche vs. viaje individual, 120 g CO₂/km de media, ~15.000 km de trayectos totales. Festivales con páginas de transporte activas en ConcertRide.
+            Páginas publicadas en concertride.me a octubre de 2026. El precio por asiento lo fija cada conductor para cubrir combustible y peajes; el rango es el de las rutas documentadas.
           </p>
         </section>
 
@@ -378,9 +380,9 @@ export default function AcercaDePage() {
               </dd>
             </div>
             <div className="border border-cr-border p-5 space-y-2">
-              <dt className="font-display text-lg uppercase text-cr-primary">Comunidad activa</dt>
+              <dt className="font-display text-lg uppercase text-cr-primary">Pensado para fans</dt>
               <dd>
-                Más de 4.200 viajeros comparten coche a los mismos festivales, con los mismos artistas en la playlist. Valoraciones reales, grupos de viaje, y un chat previo al viaje para coordinarse antes de salir.
+                Compartes coche con gente que va al mismo festival, con los mismos artistas en la playlist. Valoraciones después de cada viaje, grupos de viaje y un chat previo para coordinarse antes de salir.
               </dd>
             </div>
           </dl>

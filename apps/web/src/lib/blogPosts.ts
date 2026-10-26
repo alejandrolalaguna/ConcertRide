@@ -1681,7 +1681,7 @@ export const BLOG_POSTS: BlogPost[] = [
     relatedLinks: [
       { label: "Cuánto cuesta ir a un festival en España 2026", to: "/blog/cuanto-cuesta-ir-festival-espana-presupuesto-2026" },
       { label: "Cómo ir a un festival sin coche", to: "/blog/como-ir-festival-sin-coche-guia" },
-      { label: "Calendario festivales España 2026", to: "/calendario-festivales-2026" },
+      { label: "Calendario festivales España 2026", to: "/datos/calendario-maestro-festivales-2026" },
     ],
     relatedPosts: ["cuanto-cuesta-ir-festival-espana-presupuesto-2026", "que-llevar-festival-lista-definitiva-40-items-2026"],
     coverImage: { src: "/og/home.png", alt: "Cómo comprar entradas de festival sin reventa en 2026", width: 1200, height: 630 },
@@ -1891,7 +1891,7 @@ export const BLOG_POSTS: BlogPost[] = [
       },
     ],
     relatedLinks: [
-      { label: "Calendario festivales España 2026", to: "/calendario-festivales-2026" },
+      { label: "Calendario festivales España 2026", to: "/datos/calendario-maestro-festivales-2026" },
       { label: "Cuánto cuesta ir a un festival 2026", to: "/blog/cuanto-cuesta-ir-festival-espana-presupuesto-2026" },
       { label: "Festivales económicos España 2026", to: "/blog/festivales-espana-economicos-presupuesto-total-2026" },
     ],
@@ -21966,7 +21966,7 @@ BLOG_POSTS.push({
   relatedLinks: [
     { label: "Cómo funciona ConcertRide", to: "/como-funciona" },
     { label: "Festivales en España 2026", to: "/festivales" },
-    { label: "Buscar un viaje", to: "/buscar" },
+    { label: "Buscar un viaje", to: "/concerts" },
     { label: "PayPal vs tarjeta para entradas de festival", to: "/blog/comprar-entradas-festival-paypal-vs-tarjeta-2026" },
   ],
   relatedPosts: [
@@ -22061,7 +22061,7 @@ BLOG_POSTS.push({
   relatedLinks: [
     { label: "Cómo funciona ConcertRide", to: "/como-funciona" },
     { label: "Festivales en España 2026", to: "/festivales" },
-    { label: "Buscar un viaje", to: "/buscar" },
+    { label: "Buscar un viaje", to: "/concerts" },
     { label: "Pulseras RFID en festivales 2026", to: "/blog/festival-mejores-pulseras-RFID-electronicas-2026" },
   ],
   relatedPosts: [
@@ -22150,7 +22150,7 @@ BLOG_POSTS.push({
   relatedLinks: [
     { label: "Cómo funciona ConcertRide", to: "/como-funciona" },
     { label: "Festivales en España 2026", to: "/festivales" },
-    { label: "Buscar un viaje", to: "/buscar" },
+    { label: "Buscar un viaje", to: "/concerts" },
     { label: "Festival cancelado última hora: reembolso 2026", to: "/blog/festivales-cancelados-ultima-hora-reembolso-2026" },
   ],
   relatedPosts: [
@@ -22246,7 +22246,7 @@ BLOG_POSTS.push({
   ],
   relatedLinks: [
     { label: "Cuánto cuesta ir a un festival en España 2026", to: "/blog/cuanto-cuesta-ir-festival-espana-presupuesto-2026" },
-    { label: "Buscar un viaje", to: "/buscar" },
+    { label: "Buscar un viaje", to: "/concerts" },
     { label: "Bono 1 día vs abono 3 días: cuál sale mejor", to: "/blog/festival-comparativa-bono-1dia-3dias-coste-2026" },
     { label: "Mejor bebida no alcohólica en festival 2026", to: "/blog/festival-mejor-bebida-no-alcoholica-2026" },
   ],
@@ -22346,7 +22346,7 @@ BLOG_POSTS.push({
   ],
   relatedLinks: [
     { label: "Cuánto cuesta ir a un festival en España 2026", to: "/blog/cuanto-cuesta-ir-festival-espana-presupuesto-2026" },
-    { label: "Buscar un viaje", to: "/buscar" },
+    { label: "Buscar un viaje", to: "/concerts" },
     { label: "Festival 1 día vs fin de semana completo 2026", to: "/blog/festival-un-dia-vs-fin-de-semana-completo-2026" },
     { label: "Cómo funciona ConcertRide", to: "/como-funciona" },
   ],
@@ -22444,7 +22444,7 @@ BLOG_POSTS.push({
     },
   ],
   relatedLinks: [
-    { label: "Buscar un viaje", to: "/buscar" },
+    { label: "Buscar un viaje", to: "/concerts" },
     { label: "Precio cerveza festivales 2026", to: "/blog/festival-comparativa-precio-cerveza-marca-2026" },
     { label: "Qué llevar a un festival: lista 40 items 2026", to: "/blog/que-llevar-festival-lista-definitiva-40-items-2026" },
     { label: "Cuánto cuesta ir a un festival en España 2026", to: "/blog/cuanto-cuesta-ir-festival-espana-presupuesto-2026" },
@@ -22540,7 +22540,7 @@ BLOG_POSTS.push({
   ],
   relatedLinks: [
     { label: "Cómo funciona ConcertRide", to: "/como-funciona" },
-    { label: "Buscar un viaje", to: "/buscar" },
+    { label: "Buscar un viaje", to: "/concerts" },
     { label: "Carpooling primera vez festival", to: "/blog/carpooling-festival-primera-vez" },
     { label: "Festivales en España 2026", to: "/festivales" },
   ],
@@ -22622,9 +22622,9 @@ BLOG_POSTS.push({
     },
   ],
   relatedLinks: [
-    { label: "Calendario completo festivales España 2026", to: "/calendario-festivales" },
+    { label: "Calendario completo festivales España 2026", to: "/datos/calendario-maestro-festivales-2026" },
     { label: "Festivales en España 2026", to: "/festivales" },
-    { label: "Buscar un viaje", to: "/buscar" },
+    { label: "Buscar un viaje", to: "/concerts" },
     { label: "Zonas de sombra protegidas del sol", to: "/blog/festival-zonas-sombra-protegidas-sol-2026" },
   ],
   relatedPosts: [
@@ -22724,7 +22724,7 @@ BLOG_POSTS.push({
     },
   ],
   relatedLinks: [
-    { label: "Buscar un viaje", to: "/buscar" },
+    { label: "Buscar un viaje", to: "/concerts" },
     { label: "Mejor mes para festival España 2026", to: "/blog/festival-mejor-mes-clima-temperatura-2026" },
     { label: "Qué llevar a un festival: lista 40 items", to: "/blog/que-llevar-festival-lista-definitiva-40-items-2026" },
     { label: "Bebidas no alcohólicas en festival 2026", to: "/blog/festival-mejor-bebida-no-alcoholica-2026" },
@@ -22823,8 +22823,8 @@ BLOG_POSTS.push({
   ],
   relatedLinks: [
     { label: "Festivales en España 2026", to: "/festivales" },
-    { label: "Buscar un viaje", to: "/buscar" },
-    { label: "Calendario completo festivales España 2026", to: "/calendario-festivales" },
+    { label: "Buscar un viaje", to: "/concerts" },
+    { label: "Calendario completo festivales España 2026", to: "/datos/calendario-maestro-festivales-2026" },
     { label: "Cuánto cuesta ir a un festival 2026", to: "/blog/cuanto-cuesta-ir-festival-espana-presupuesto-2026" },
   ],
   relatedPosts: [
@@ -22928,7 +22928,7 @@ BLOG_POSTS.push({
   relatedLinks: [
     { label: "Protocolos anti-pickpocket en festivales 2026", to: "/blog/festival-protocolos-anti-pickpocket-2026" },
     { label: "Cómo funciona ConcertRide", to: "/como-funciona" },
-    { label: "Buscar un viaje", to: "/buscar" },
+    { label: "Buscar un viaje", to: "/concerts" },
     { label: "Festivales en España 2026", to: "/festivales" },
   ],
   relatedPosts: [
@@ -23032,7 +23032,7 @@ BLOG_POSTS.push({
     { label: "Policía y seguridad en festivales 2026", to: "/blog/festival-policia-seguridad-presencia-2026" },
     { label: "Qué llevar a un festival: lista 40 items", to: "/blog/que-llevar-festival-lista-definitiva-40-items-2026" },
     { label: "Cómo funciona ConcertRide", to: "/como-funciona" },
-    { label: "Buscar un viaje", to: "/buscar" },
+    { label: "Buscar un viaje", to: "/concerts" },
   ],
   relatedPosts: [
     "festival-policia-seguridad-presencia-2026",
@@ -23138,7 +23138,7 @@ BLOG_POSTS.push({
     { label: "Zonas prensa y fotógrafo acreditación 2026", to: "/blog/festival-zonas-prensa-fotografo-acreditacion-2026" },
     { label: "Zona VIP merece la pena 2026", to: "/blog/festival-zona-vip-merece-pena-precio-2026" },
     { label: "Festivales en España 2026", to: "/festivales" },
-    { label: "Buscar un viaje", to: "/buscar" },
+    { label: "Buscar un viaje", to: "/concerts" },
   ],
   relatedPosts: [
     "festival-zonas-prensa-fotografo-acreditacion-2026",
@@ -23243,7 +23243,7 @@ BLOG_POSTS.push({
     },
   ],
   relatedLinks: [
-    { label: "Buscar un viaje", to: "/buscar" },
+    { label: "Buscar un viaje", to: "/concerts" },
     { label: "Festivales en España 2026", to: "/festivales" },
     { label: "Cuánto cuesta ir a un festival 2026", to: "/blog/cuanto-cuesta-ir-festival-espana-presupuesto-2026" },
     { label: "Camping vs hotel vs Airbnb festival", to: "/blog/festival-comparativa-bono-1dia-3dias-coste-2026" },
@@ -23349,7 +23349,7 @@ BLOG_POSTS.push({
     },
   ],
   relatedLinks: [
-    { label: "Buscar un viaje", to: "/buscar" },
+    { label: "Buscar un viaje", to: "/concerts" },
     { label: "Festivales en España 2026", to: "/festivales" },
     { label: "Cuánto cuesta ir a un festival 2026", to: "/blog/cuanto-cuesta-ir-festival-espana-presupuesto-2026" },
     { label: "Bebidas no alcohólicas en festival 2026", to: "/blog/festival-mejor-bebida-no-alcoholica-2026" },

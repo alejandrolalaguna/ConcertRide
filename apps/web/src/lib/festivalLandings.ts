@@ -134,12 +134,9 @@ export interface FestivalLanding {
   genres?: string[];
   /** Expected attendance per day */
   expected_attendance?: string;
-  /** AggregateRating for ConcertRide transport experience to this festival */
-  aggregateRating?: {
-    ratingValue: number;
-    bestRating: number;
-    reviewCount: number;
-  };
+  // No `aggregateRating` field on purpose: the per-festival ratings that lived
+  // here (e.g. 4,8 / 412 reviews) were invented — ConcertRide has no review data
+  // per festival. Ratings may only come from real reviews (SKILL gsc-indexing §AM.7).
   /** Quotable answer-first paragraph (~140 words) rendered immediately after the H1.
    *  Optimized for AI Overview / Generative-Engine citation: self-contained, fact-dense
    *  passage answering "how to get to {festival}" with dates, venue, top-3 transport
@@ -373,10 +370,10 @@ export const FESTIVAL_LANDINGS: FestivalLanding[] = [
         name: "Aeropuerto de Madrid-Barajas",
         name_en: "Madrid-Barajas Airport",
         iata: "MAD",
-        distanceKm: 12,
-        transferTime: "25 min",
-        transferOptions: "Metro L8 desde T4 / T4S hasta Nuevos Ministerios (directo). Bus Exprés Aeropuerto desde T1/T2/T3 hasta Atocha. Taxi ~25–35 €.",
-        transferOptions_en: "Metro L8 from T4 / T4S to Nuevos Ministerios (direct). Airport Express bus from T1/T2/T3 to Atocha. Taxi ~25–35 €.",
+        distanceKm: 20,
+        transferTime: "30–40 min en coche",
+        transferOptions: "Metro L8 hasta Nuevos Ministerios y conexión hasta Legazpi; desde allí Metro L3 a Pradolongo y bus al recinto. En coche o taxi, por la M-40 y la M-45.",
+        transferOptions_en: "Metro L8 to Nuevos Ministerios and connection to Legazpi; from there Metro L3 to Pradolongo and a bus to the venue. By car or taxi, via the M-40 and M-45.",
       },
     ],
     accommodation_zones: [
@@ -385,38 +382,22 @@ export const FESTIVAL_LANDINGS: FestivalLanding[] = [
         area_en: "Central Madrid (Sol, Gran Vía, Chueca)",
         distanceKm: 15,
         priceRange: "80–180 €/noche",
-        notes: "Metro L8 directo a IFEMA desde Nuevos Ministerios. La zona más animada para antes y después del festival.",
-        notes_en: "Metro L8 direct to IFEMA from Nuevos Ministerios. The liveliest area for before and after the festival.",
-      },
-      {
-        area: "Barrio de Hortaleza / Canillejas",
-        area_en: "Hortaleza / Canillejas district",
-        distanceKm: 3,
-        priceRange: "50–100 €/noche",
-        notes: "Más cerca de IFEMA. Acceso en coche mucho más fácil; a 10–15 min a pie del recinto.",
-        notes_en: "Closer to IFEMA. Much easier access by car; a 10–15 min walk from the venue.",
-      },
-      {
-        area: "Aeropuerto (Barajas)",
-        area_en: "Airport (Barajas)",
-        distanceKm: 5,
-        priceRange: "70–140 €/noche",
-        notes: "Ideal si llegas o salgas en avión. Shuttle gratuito de hotel al aeropuerto en muchos establecimientos.",
-        notes_en: "Ideal if you arrive or leave by plane. Free hotel shuttle to the airport at many establishments.",
+        notes: "Metro L3 desde Sol hasta Legazpi y Pradolongo, con bus al recinto. La zona más animada para antes y después del festival.",
+        notes_en: "Metro L3 from Sol to Legazpi and Pradolongo, then a bus to the venue. The liveliest area for before and after the festival.",
       },
     ],
     arrival_tips: [
       {
-        title: "Toma el metro L8 antes de las 18:00",
-        body: "La frecuencia del metro L8 es de cada 5 minutos, pero a la salida (1:00–2:30) las colas en el andén pueden superar los 30 minutos. Si coordinastes carpooling de vuelta, queda con el conductor fuera del recinto antes de salir.",
+        title: "Ve en metro L3 antes de las 18:00",
+        body: "La ruta en transporte público es la línea 3 hasta Legazpi o Pradolongo y bus hasta el recinto. A la salida el metro amplía horario en noches de festival, pero se satura: si has coordinado carpooling de vuelta, queda con el conductor fuera del recinto antes de salir.",
       },
       {
         title: "Llega 45 min antes del artista que más te interese",
-        body: "IFEMA es un recinto de 4 escenarios separados. Los traslados entre escenarios pueden tardar 15–20 minutos caminando. Planifica los desplazamientos con antelación.",
+        body: "Iberdrola Music es un recinto urbano de unas 28 hectáreas con varios escenarios, así que moverse entre ellos lleva tiempo. Planifica los desplazamientos con antelación.",
       },
       {
-        title: "El parking se llena desde las 16:00",
-        body: "Los parking de IFEMA (P1–P6) abren a las 14:00 y se llenan rápido los tres días. Si vienes en coche propio, llega antes de las 16:00 o aparca en el intercambiador de Avenida de América (L9) y toma la L8.",
+        title: "Los accesos en coche colapsan desde las 18:00",
+        body: "El recinto tiene parking de pago (10–15 €/día), pero los accesos por la M-45 se colapsan desde las 18:00 en días de festival. Si vienes en coche, llega pronto o déjalo junto a una estación de la L3 y termina el trayecto en metro.",
       },
     ],
     blurb_en:
@@ -469,23 +450,18 @@ export const FESTIVAL_LANDINGS: FestivalLanding[] = [
     arrival_patterns_en: "Most attendees from outside Madrid arrive by carpooling or AVE the same day in the afternoon. Those from Barcelona tend to do the round trip in a single day or stay 2–3 nights.",
     arrival_tips_en: [
       {
-        title: "Take metro L8 before 18:00",
-        body: "Metro L8 runs every 5 minutes, but at closing time (1:00–2:30) the platform queues can exceed 30 minutes. If you have arranged a carpool for the way back, meet your driver outside the venue before heading out.",
+        title: "Take metro L3 before 18:00",
+        body: "The public-transport route is line 3 to Legazpi or Pradolongo and a bus to the venue. At closing time the metro runs later on festival nights but gets overwhelmed: if you have arranged a carpool for the way back, meet your driver outside the venue before heading out.",
       },
       {
         title: "Arrive 45 min before the artist you care about most",
-        body: "IFEMA is a venue with 4 separate stages. Moving between stages can take 15–20 minutes on foot. Plan your transfers in advance.",
+        body: "Iberdrola Music is an urban site of about 28 hectares with several stages, so moving between them takes time. Plan your transfers in advance.",
       },
       {
-        title: "The car park fills up from 16:00",
-        body: "The IFEMA car parks (P1–P6) open at 14:00 and fill up fast on all three days. If you come in your own car, arrive before 16:00 or park at the Avenida de América interchange (L9) and take the L8.",
+        title: "Car access jams from 18:00",
+        body: "The venue has paid parking (10–15 €/day), but the M-45 access roads jam from 18:00 on festival days. If you come by car, arrive early or leave it next to an L3 station and finish the trip by metro.",
       },
     ],
-    aggregateRating: {
-      ratingValue: 4.8,
-      bestRating: 5,
-      reviewCount: 412,
-    },
   },
 
   {
@@ -754,11 +730,6 @@ export const FESTIVAL_LANDINGS: FestivalLanding[] = [
         body: "Primavera Sound draws attendees from more than 80 countries. Book your accommodation as soon as the line-up is announced (usually December–January). If you arrive late, Hospitalet de Llobregat and Badalona have good options.",
       },
     ],
-    aggregateRating: {
-      ratingValue: 4.7,
-      bestRating: 5,
-      reviewCount: 386,
-    },
   },
 
   {
@@ -894,11 +865,6 @@ export const FESTIVAL_LANDINGS: FestivalLanding[] = [
     ],
     relatedFestivals: ["primavera-sound", "cruilla"],
     relatedBlogs: ["sonar-2026-guia-transporte-barcelona", "como-ir-sonar-barcelona-2026", "autobuses-festivales-espana-2026"],
-    aggregateRating: {
-      ratingValue: 4.6,
-      bestRating: 5,
-      reviewCount: 298,
-    },
   },
 
   {
@@ -991,11 +957,6 @@ export const FESTIVAL_LANDINGS: FestivalLanding[] = [
     ],
     relatedFestivals: ["arenal-sound", "medusa-festival", "low-festival"],
     relatedBlogs: ["carpooling-fib-2026-como-llegar-benicassim", "autobuses-festivales-espana-2026", "cuanto-cuesta-ir-festival-espana-presupuesto-2026", "como-ir-festival-sin-coche-guia-definitiva-2026"],
-    aggregateRating: {
-      ratingValue: 4.6,
-      bestRating: 5,
-      reviewCount: 274,
-    },
     transport_options: [
       { type: 'shuttle', provider: 'Autobús oficial FIB', origin: 'Castellón de la Plana — Estación Autobuses', price_from: 5, price_to: 8, frequency: 'Cada 20–30 min días de festival', schedule: '18:00–madrugada', notes: 'Unos 15 km, 15 minutos de trayecto. Plazas limitadas.' },
       { type: 'train', provider: 'Renfe Cercanías C6', origin: 'Valencia → Castellón', price_from: 4, price_to: 6, frequency: 'Cada 30–60 min', notes: 'Desde Castellón, tomar lanzadera FIB o taxi al recinto (15 km).' },
@@ -1159,11 +1120,6 @@ export const FESTIVAL_LANDINGS: FestivalLanding[] = [
         transport_access: "Destino final. Lanzadera desde Plaza Moyúa cada 15 min.",
       },
     ],
-    aggregateRating: {
-      ratingValue: 4.7,
-      bestRating: 5,
-      reviewCount: 340,
-    },
   },
 
   {
@@ -1251,11 +1207,6 @@ export const FESTIVAL_LANDINGS: FestivalLanding[] = [
     ],
     relatedFestivals: ["o-son-do-camino", "sonorama-ribera"],
     relatedBlogs: ["como-llegar-resurrection-fest-2026", "autobuses-festivales-espana-2026", "transporte-resurrection-fest-2026"],
-    aggregateRating: {
-      ratingValue: 4.9,
-      bestRating: 5,
-      reviewCount: 318,
-    },
   },
 
   {
@@ -1437,11 +1388,6 @@ export const FESTIVAL_LANDINGS: FestivalLanding[] = [
         transport_access: "Destino final en la playa. Parking de pago disponible.",
       },
     ],
-    aggregateRating: {
-      ratingValue: 4.8,
-      bestRating: 5,
-      reviewCount: 524,
-    },
   },
 
   {
@@ -1556,11 +1502,6 @@ export const FESTIVAL_LANDINGS: FestivalLanding[] = [
     ],
     relatedFestivals: ["arenal-sound", "fib", "low-festival"],
     relatedBlogs: ["guia-transporte-vina-rock-2026", "autobuses-festivales-espana-2026", "como-volver-festival-madrugada"],
-    aggregateRating: {
-      ratingValue: 4.8,
-      bestRating: 5,
-      reviewCount: 401,
-    },
   },
 
   {
@@ -1732,11 +1673,6 @@ export const FESTIVAL_LANDINGS: FestivalLanding[] = [
         transport_access: "Destino final. Parking gratuito disponible a 500 m.",
       },
     ],
-    aggregateRating: {
-      ratingValue: 4.7,
-      bestRating: 5,
-      reviewCount: 487,
-    },
   },
 
   {
@@ -1809,11 +1745,6 @@ export const FESTIVAL_LANDINGS: FestivalLanding[] = [
     ],
     relatedFestivals: ["resurrection-fest"],
     relatedBlogs: ["medusa-festival-2026-cullera-transporte", "autobuses-festivales-espana-2026"],
-    aggregateRating: {
-      ratingValue: 4.6,
-      bestRating: 5,
-      reviewCount: 312,
-    },
   },
 
   {
@@ -1904,11 +1835,6 @@ export const FESTIVAL_LANDINGS: FestivalLanding[] = [
     ],
     relatedFestivals: ["sonar", "primavera-sound"],
     relatedBlogs: ["festivales-galicia-2026-transporte", "autobuses-festivales-espana-2026"],
-    aggregateRating: {
-      ratingValue: 4.6,
-      bestRating: 5,
-      reviewCount: 218,
-    },
   },
 
   {
@@ -1991,11 +1917,6 @@ export const FESTIVAL_LANDINGS: FestivalLanding[] = [
     ],
     relatedFestivals: ["mad-cool", "vina-rock", "bbk-live"],
     relatedBlogs: ["como-ir-sonorama-ribera-2026-carpooling", "autobuses-festivales-espana-2026", "cuanto-cuesta-ir-festival-espana-presupuesto-2026"],
-    aggregateRating: {
-      ratingValue: 4.5,
-      bestRating: 5,
-      reviewCount: 183,
-    },
   },
 
   {
@@ -2113,11 +2034,6 @@ export const FESTIVAL_LANDINGS: FestivalLanding[] = [
         notes: 'Recinto del festival. Parking público disponible (2–3 €/h).',
       },
     ],
-    aggregateRating: {
-      ratingValue: 4.5,
-      bestRating: 5,
-      reviewCount: 196,
-    },
   },
 
   {
@@ -2191,11 +2107,6 @@ export const FESTIVAL_LANDINGS: FestivalLanding[] = [
       },
     ],
     relatedFestivals: ["fib", "arenal-sound", "medusa-festival"],
-    aggregateRating: {
-      ratingValue: 4.6,
-      bestRating: 5,
-      reviewCount: 241,
-    },
   },
 
   {
@@ -2273,11 +2184,6 @@ export const FESTIVAL_LANDINGS: FestivalLanding[] = [
       },
     ],
     relatedFestivals: ["mad-cool", "sonorama-ribera"],
-    aggregateRating: {
-      ratingValue: 4.5,
-      bestRating: 5,
-      reviewCount: 167,
-    },
   },
 
   {
@@ -2375,11 +2281,6 @@ export const FESTIVAL_LANDINGS: FestivalLanding[] = [
       },
     ],
     relatedFestivals: ["primavera-sound", "sonar"],
-    aggregateRating: {
-      ratingValue: 4.6,
-      bestRating: 5,
-      reviewCount: 278,
-    },
   },
   {
     slug: "vive-latino",
@@ -2517,11 +2418,6 @@ export const FESTIVAL_LANDINGS: FestivalLanding[] = [
         notes: "Estación Sants → Zaragoza Delicias en 1h 40 min.",
       },
     ],
-    aggregateRating: {
-      ratingValue: 4.7,
-      bestRating: 5,
-      reviewCount: 195,
-    },
   },
   {
     slug: "festival-de-les-arts",
@@ -2599,11 +2495,6 @@ export const FESTIVAL_LANDINGS: FestivalLanding[] = [
       },
     ],
     relatedFestivals: ["arenal-sound", "zevra-festival"],
-    aggregateRating: {
-      ratingValue: 4.7,
-      bestRating: 5,
-      reviewCount: 234,
-    },
   },
   {
     slug: "festival-ortigueira",
@@ -2660,11 +2551,6 @@ export const FESTIVAL_LANDINGS: FestivalLanding[] = [
       "https://www.wikidata.org/wiki/Q1402085",
     ],
     relatedFestivals: ["resurrection-fest", "o-son-do-camino"],
-    aggregateRating: {
-      ratingValue: 4.6,
-      bestRating: 5,
-      reviewCount: 142,
-    },
   },
   {
     slug: "jazzaldia",
@@ -2722,11 +2608,6 @@ export const FESTIVAL_LANDINGS: FestivalLanding[] = [
       "https://www.wikidata.org/wiki/Q3810649",
     ],
     relatedFestivals: ["bbk-live"],
-    aggregateRating: {
-      ratingValue: 4.7,
-      bestRating: 5,
-      reviewCount: 168,
-    },
   },
   {
     slug: "metropoli-gijon",
@@ -2779,11 +2660,6 @@ export const FESTIVAL_LANDINGS: FestivalLanding[] = [
       },
     ],
     relatedFestivals: ["bbk-live", "resurrection-fest"],
-    aggregateRating: {
-      ratingValue: 4.5,
-      bestRating: 5,
-      reviewCount: 134,
-    },
   },
   {
     slug: "granada-sound",
@@ -2842,11 +2718,6 @@ export const FESTIVAL_LANDINGS: FestivalLanding[] = [
       "https://es.wikipedia.org/wiki/Granada_Sound",
     ],
     relatedFestivals: ["cala-mijas"],
-    aggregateRating: {
-      ratingValue: 4.5,
-      bestRating: 5,
-      reviewCount: 156,
-    },
   },
   {
     slug: "pirineos-sur",
@@ -2902,11 +2773,6 @@ export const FESTIVAL_LANDINGS: FestivalLanding[] = [
       "https://www.wikidata.org/wiki/Q2637050",
     ],
     relatedFestivals: ["jazzaldia"],
-    aggregateRating: {
-      ratingValue: 4.6,
-      bestRating: 5,
-      reviewCount: 127,
-    },
   },
   {
     slug: "starlite-marbella",
@@ -2963,11 +2829,6 @@ export const FESTIVAL_LANDINGS: FestivalLanding[] = [
       "https://www.wikidata.org/wiki/Q12026052",
     ],
     relatedFestivals: ["cala-mijas", "granada-sound"],
-    aggregateRating: {
-      ratingValue: 4.7,
-      bestRating: 5,
-      reviewCount: 198,
-    },
   },
   {
     slug: "stone-music-festival",
@@ -3019,11 +2880,6 @@ export const FESTIVAL_LANDINGS: FestivalLanding[] = [
       },
     ],
     relatedFestivals: [],
-    aggregateRating: {
-      ratingValue: 4.5,
-      bestRating: 5,
-      reviewCount: 145,
-    },
   },
   {
     slug: "marenostrum-fuengirola",
@@ -3076,11 +2932,6 @@ export const FESTIVAL_LANDINGS: FestivalLanding[] = [
       },
     ],
     relatedFestivals: ["cala-mijas"],
-    aggregateRating: {
-      ratingValue: 4.6,
-      bestRating: 5,
-      reviewCount: 163,
-    },
   },
   {
     slug: "tio-pepe-festival",
@@ -3132,11 +2983,6 @@ export const FESTIVAL_LANDINGS: FestivalLanding[] = [
       },
     ],
     relatedFestivals: ["cala-mijas"],
-    aggregateRating: {
-      ratingValue: 4.5,
-      bestRating: 5,
-      reviewCount: 120,
-    },
   },
   {
     slug: "atlantic-fest",
@@ -3190,11 +3036,6 @@ export const FESTIVAL_LANDINGS: FestivalLanding[] = [
       },
     ],
     relatedFestivals: ["o-son-do-camino", "festival-ortigueira"],
-    aggregateRating: {
-      ratingValue: 4.6,
-      bestRating: 5,
-      reviewCount: 138,
-    },
   },
   {
     slug: "portamerica",
@@ -3248,11 +3089,6 @@ export const FESTIVAL_LANDINGS: FestivalLanding[] = [
       },
     ],
     relatedFestivals: ["atlantic-fest", "o-son-do-camino"],
-    aggregateRating: {
-      ratingValue: 4.5,
-      bestRating: 5,
-      reviewCount: 129,
-    },
   },
   {
     slug: "sos-48",
@@ -3308,11 +3144,6 @@ export const FESTIVAL_LANDINGS: FestivalLanding[] = [
       "https://es.wikipedia.org/wiki/SOS_4.8",
     ],
     relatedFestivals: ["medusa-festival"],
-    aggregateRating: {
-      ratingValue: 4.5,
-      bestRating: 5,
-      reviewCount: 144,
-    },
   },
   {
     slug: "reggaeton-beach-festival",
@@ -3367,11 +3198,6 @@ export const FESTIVAL_LANDINGS: FestivalLanding[] = [
       },
     ],
     relatedFestivals: [],
-    aggregateRating: {
-      ratingValue: 4.6,
-      bestRating: 5,
-      reviewCount: 178,
-    },
   },
   {
     slug: "mallorca-live-festival",
@@ -3420,11 +3246,6 @@ export const FESTIVAL_LANDINGS: FestivalLanding[] = [
       },
     ],
     relatedFestivals: [],
-    aggregateRating: {
-      ratingValue: 4.7,
-      bestRating: 5,
-      reviewCount: 212,
-    },
   },
   {
     slug: "bbk-music-legends",
@@ -3501,11 +3322,6 @@ export const FESTIVAL_LANDINGS: FestivalLanding[] = [
       },
     ],
     relatedFestivals: ["bbk-live"],
-    aggregateRating: {
-      ratingValue: 4.6,
-      bestRating: 5,
-      reviewCount: 156,
-    },
   },
   {
     slug: "download-madrid",
@@ -3614,11 +3430,6 @@ export const FESTIVAL_LANDINGS: FestivalLanding[] = [
     official_shuttle: {
       available: false,
       notes: "Metro L8 Feria de Madrid es el transporte oficial recomendado por la organización.",
-    },
-    aggregateRating: {
-      ratingValue: 4.7,
-      bestRating: 5,
-      reviewCount: 256,
     },
   },
 
@@ -3759,11 +3570,6 @@ export const FESTIVAL_LANDINGS: FestivalLanding[] = [
       "https://es.wikipedia.org/wiki/Azkena_Rock_Festival",
       "https://www.wikidata.org/wiki/Q2867875",
     ],
-    aggregateRating: {
-      ratingValue: 4.7,
-      bestRating: 5,
-      reviewCount: 189,
-    },
   },
 
   // ── Granca Live Fest (Las Palmas de Gran Canaria) ─────────────────────────
@@ -3867,11 +3673,6 @@ export const FESTIVAL_LANDINGS: FestivalLanding[] = [
       network_coverage: "Excelente cobertura móvil en el estadio y alrededores.",
     },
     expected_attendance: "35.000 personas/día",
-    aggregateRating: {
-      ratingValue: 4.6,
-      bestRating: 5,
-      reviewCount: 147,
-    },
   },
   {
     slug: "rototom-sunsplash",
@@ -3968,11 +3769,6 @@ export const FESTIVAL_LANDINGS: FestivalLanding[] = [
       "https://es.wikipedia.org/wiki/Rototom_Sunsplash",
       "https://www.wikidata.org/wiki/Q1340226",
     ],
-    aggregateRating: {
-      ratingValue: 4.7,
-      bestRating: 5,
-      reviewCount: 224,
-    },
   },
   {
     slug: "dreambeach-festival",
@@ -4057,11 +3853,6 @@ export const FESTIVAL_LANDINGS: FestivalLanding[] = [
       notes: "Sin lanzadera oficial. Autobuses privados organizados por agencias externas desde Almería, Murcia, Granada. Precios 25–45 € RT.",
     },
     expected_attendance: "100.000 personas (5 días)",
-    aggregateRating: {
-      ratingValue: 4.5,
-      bestRating: 5,
-      reviewCount: 162,
-    },
   },
   {
     slug: "aquasella-festival",
@@ -4153,11 +3944,6 @@ export const FESTIVAL_LANDINGS: FestivalLanding[] = [
       notes: "Sin lanzadera oficial. FEVE tiene estación en Arriondas pero horarios incompatibles con el festival.",
     },
     expected_attendance: "30.000 personas (3 días)",
-    aggregateRating: {
-      ratingValue: 4.6,
-      bestRating: 5,
-      reviewCount: 148,
-    },
     sameAs: ["https://es.wikipedia.org/wiki/Aquasella_Festival"],
   },
 
@@ -4260,11 +4046,6 @@ export const FESTIVAL_LANDINGS: FestivalLanding[] = [
       available: false,
       notes: "Sin lanzadera oficial desde otras ciudades. Metro L6 desde el centro de Madrid.",
     },
-    aggregateRating: {
-      ratingValue: 4.5,
-      bestRating: 5,
-      reviewCount: 189,
-    },
   },
 
   {
@@ -4330,11 +4111,6 @@ export const FESTIVAL_LANDINGS: FestivalLanding[] = [
     relatedBlogs: ["hub-festivales-verano-2026-transporte-carpooling", "festivales-espana-economicos-presupuesto-total-2026"],
     genres: ["electrónica", "techno", "trance", "house", "EDM"],
     expected_attendance: "40.000 personas/día",
-    aggregateRating: {
-      ratingValue: 4.5,
-      bestRating: 5,
-      reviewCount: 153,
-    },
     transport_options: [
       { type: "carpooling", provider: "ConcertRide", origin: "Sevilla", price_from: 4, price_to: 7 },
       { type: "carpooling", provider: "ConcertRide", origin: "Cádiz", price_from: 3, price_to: 5 },

@@ -614,6 +614,7 @@ export default function BlogPostPage() {
           <section
             className="border border-[#dbff00]/40 bg-[#dbff00]/5 p-6 space-y-4"
             aria-label="Encuentra transporte para tu próximo festival"
+            data-md="skip"
           >
             <h2 className="font-display text-xl uppercase">
               ¿Buscas transporte para tu próximo festival?

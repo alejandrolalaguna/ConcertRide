@@ -2,6 +2,8 @@ import { useEffect } from "react";
 import { SITE_URL } from "./siteUrl";
 import { useI18n } from "./i18n";
 import { hreflangAlternates, localizeCanonical } from "./localizedRoutes";
+import { resolveMdRoute } from "./md/registry";
+import { aiSummaryFor, toMdPath } from "./md/site";
 
 export interface BreadcrumbItem {
   position: number;
@@ -280,6 +282,20 @@ export function useSeoMeta(meta: SeoMeta) {
         setLink("alternate", selfCanonical, { hreflang: "es-ES" });
         setLink("alternate", selfCanonical, { hreflang: "x-default" });
       }
+    }
+
+    // Agent signals — client mirror of prerender.mjs `injectIntoShell`, so a
+    // SPA navigation never leaves the previous page's values in <head>. The
+    // markdown alternate follows the same rule as the build-time packs:
+    // indexable, self-canonical, Spanish, registered in lib/md/registry.ts.
+    const here = window.location.pathname.replace(/\/+$/, "") || "/";
+    const canonicalPath = selfCanonical ? new URL(selfCanonical).pathname.replace(/\/+$/, "") || "/" : null;
+    if (r.noindex) removeMeta("ai-summary");
+    else setMeta("ai-summary", aiSummaryFor(here, r.description));
+    if (!r.noindex && locale === "es" && canonicalPath === here && resolveMdRoute(here)) {
+      setLink("alternate", `${SITE_URL}${toMdPath(here)}`, { type: "text/markdown" });
+    } else {
+      document.querySelectorAll('link[rel="alternate"][type="text/markdown"]').forEach((el) => el.remove());
     }
 
     // LCP image preload — client-side runtime emission. The SSR path adds the

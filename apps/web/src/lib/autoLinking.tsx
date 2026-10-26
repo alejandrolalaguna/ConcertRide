@@ -6,6 +6,7 @@ import { ROUTE_LANDINGS } from "./routeLandings";
 import { ARTIST_LANDINGS } from "./artistLandings";
 import { VENUE_LANDINGS } from "./venueLandings";
 import { BLOG_POSTS_BY_SLUG } from "./blogPosts";
+import { cityPageHref } from "./cityPageHref";
 
 // Simple AutoLinks component: given a festivalSlug or citySlug, render related links
 export function AutoLinksForFestival({ slug }: { slug: string }) {
@@ -14,10 +15,16 @@ export function AutoLinksForFestival({ slug }: { slug: string }) {
 
   // Related: how-to page, city page, 3 closest origin cities, top 3 routes
   const howTo = `/como-llegar/${festival.slug}`;
-  const cityPage = festival.city ? `/conciertos/${festival.city.toLowerCase().replace(/\s+/g, "-")}` : null;
+  // `citySlug` is the canonical /conciertos slug. Lower-casing the display
+  // name produced accented, non-existent slugs ("/conciertos/benicàssim").
+  // Only link city pages that exist (23 festivals sit in towns without one).
+  const cityPage = cityPageHref(festival.citySlug);
 
-  // pick up to 3 origin cities from CITY_LANDINGS based on proximity (naive: same region first)
-  const relatedCities = CITY_LANDINGS.filter((c) => c.region === festival.region).slice(0, 3);
+  // pick up to 3 origin cities from CITY_LANDINGS based on proximity (naive: same region first),
+  // skipping the festival's own city, which is already linked above.
+  const relatedCities = CITY_LANDINGS.filter(
+    (c) => c.region === festival.region && c.slug !== festival.citySlug,
+  ).slice(0, 3);
 
   const relatedRoutes = ROUTE_LANDINGS.filter((r) => r.festival.slug === festival.slug).slice(0, 4);
 
@@ -49,7 +56,7 @@ export function AutoLinksForFestival({ slug }: { slug: string }) {
               <li className="mt-2 font-semibold">Rutas recomendadas</li>
               {relatedRoutes.map((r) => (
                 <li key={r.slug}>
-                  <Link to={`/rutas/${r.slug}`} className="hover:underline">{r.originCity} → {festival.city}</Link>
+                  <Link to={`/rutas/${r.slug}`} className="hover:underline">{r.originCity} → {festival.shortName}</Link>
                 </li>
               ))}
             </>
@@ -253,11 +260,13 @@ export function AutoLinksForVenue({ slug }: { slug: string }) {
               ))}
             </>
           )}
-          <li className="mt-2">
-            <Link to={`/conciertos/${venue.citySlug}`} className="hover:underline">
-              Conciertos en {venue.city}
-            </Link>
-          </li>
+          {cityPageHref(venue.citySlug) && (
+            <li className="mt-2">
+              <Link to={cityPageHref(venue.citySlug)!} className="hover:underline">
+                Conciertos en {venue.city}
+              </Link>
+            </li>
+          )}
         </ul>
       </div>
     </aside>

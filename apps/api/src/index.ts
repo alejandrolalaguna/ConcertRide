@@ -29,7 +29,11 @@ import stats from "./routes/stats";
 import og from "./routes/og";
 import testMode from "./routes/test-mode";
 import { rateLimit } from "./lib/ratelimit";
-import { htmlToMarkdown, estimateTokens } from "./lib/markdown";
+import { serveMarkdown, markdownPreflight, toMdPath } from "./lib/markdownServe";
+// Import-free modules (no data, no computation at module scope) — §AJ-safe.
+import { prefersMarkdown } from "../../web/src/lib/md/negotiate";
+import { resolveMdRoute } from "../../web/src/lib/md/registry";
+import { fromMdPath, AGENT_FILES_LINK_HEADER } from "../../web/src/lib/md/site";
 // §AJ: lazy gate — the real (337 KB) seoPrerender module is imported on demand,
 // only for requests whose UA is actually a bot. See lib/seoPrerenderGate.ts.
 import { seoPrerenderGate as seoPrerender } from "./lib/seoPrerenderGate";
@@ -180,6 +184,15 @@ const LEGACY_REDIRECTS: Record<string, string> = {
   "/calendario": "/festivales",
   "/regiones": "/festivales",
   "/guia": "/guia-transporte-festivales",
+  // §AM (2026-10-26): `/buscar` never existed as a route but was linked from
+  // 15 blog posts (relatedLinks) and /guia/festival-veterano-…: every one was
+  // an internal link to the 404 page. Links now point at /concerts; the 301
+  // consolidates what crawlers already discovered.
+  "/buscar": "/concerts",
+  // Same audit: bare calendar paths linked from 4 blog posts (only
+  // /calendario-festivales/:slug exists). Links fixed at source.
+  "/calendario-festivales": "/datos/calendario-maestro-festivales-2026",
+  "/calendario-festivales-2026": "/datos/calendario-maestro-festivales-2026",
 };
 app.use("*", async (c, next) => {
   if (c.req.method === "GET" || c.req.method === "HEAD") {
@@ -375,6 +388,58 @@ app.use("*", async (c, next) => {
   await next();
   if (c.req.method === "GET" && AUTH_NOINDEX_PATHS.has(c.req.path)) {
     setResponseHeaderSafe(c, "X-Robots-Tag", "noindex, nofollow");
+  }
+});
+
+// ─── Markdown for agents (SKILL §AM) ────────────────────────────────────────
+// `/x.md`, `/api/md/x` and `Accept: text/markdown` on `/x` all resolve to the
+// build-time markdown of `/x` (lib/markdownServe.ts). Registered AFTER every
+// redirect middleware so a legacy/trailing-slash URL negotiates on its final
+// target, and BEFORE seoPrerender so bots asking for `.md` get markdown.
+//
+// CPU (§AJ): non-markdown requests pay one `endsWith`, one `startsWith` and,
+// only when the Accept header mentions "markdown", the q-value parser.
+//
+// Every HTML response also gets the agent-files `Link: rel="describedby"`
+// header, and `Vary: Accept` on paths that can negotiate markdown.
+app.use("*", async (c, next) => {
+  const method = c.req.method;
+  const path = c.req.path;
+  if (method !== "GET" && method !== "HEAD" && method !== "OPTIONS") return next();
+
+  // Internal packs are read through env.ASSETS only; never public.
+  if (path.startsWith("/_md/")) return c.text("Not found", 404, { "X-Robots-Tag": "noindex" });
+
+  const isApi = path === "/api/md" || path.startsWith("/api/md/");
+  const mdBase = isApi || path.startsWith("/api/") || path.startsWith("/.well-known/") ? null : fromMdPath(path);
+  if (isApi || mdBase) {
+    if (method === "OPTIONS") return markdownPreflight();
+    if (isApi) {
+      const rest = path.slice("/api/md".length).replace(/\.md$/, "") || "/";
+      const target = rest === "/index" ? "/" : rest;
+      return (await serveMarkdown(c, target, "api"))!;
+    }
+    // A renamed page keeps answering on its new `.md` URL, one hop.
+    const legacyTarget = LEGACY_REDIRECTS[mdBase!];
+    if (legacyTarget) return c.redirect(toMdPath(legacyTarget), 301);
+    return (await serveMarkdown(c, mdBase!, "suffix"))!;
+  }
+
+  if (method !== "OPTIONS" && !path.startsWith("/api/") && prefersMarkdown(c.req.header("Accept"))) {
+    const res = await serveMarkdown(c, path, "negotiated");
+    if (res) return res;
+  }
+
+  await next();
+  if (method === "OPTIONS" || path.startsWith("/api/")) return;
+  if (!(c.res.headers.get("content-type") ?? "").includes("text/html")) return;
+  const link = c.res.headers.get("Link");
+  if (!link?.includes("/llms-full.txt")) {
+    setResponseHeaderSafe(c, "Link", link ? `${link}, ${AGENT_FILES_LINK_HEADER}` : AGENT_FILES_LINK_HEADER);
+  }
+  if (resolveMdRoute(path)) {
+    const vary = c.res.headers.get("Vary");
+    if (!vary?.toLowerCase().includes("accept")) setResponseHeaderSafe(c, "Vary", vary ? `${vary}, Accept` : "Accept");
   }
 });
 
@@ -800,104 +865,22 @@ app.route("/api/__test__", testMode);
 // without needing to execute JavaScript.
 const SOCIAL_BOTS = /Twitterbot|facebookexternalhit|LinkedInBot|WhatsApp|Slackbot|TelegramBot|Discordbot|OAI-SearchBot|PerplexityBot|anthropic-ai|Google-Extended|Googlebot|Applebot/i;
 
-const FESTIVAL_META: Record<string, { name: string; city: string; venue: string; dates: string }> = {
-  "mad-cool": { name: "Mad Cool Festival", city: "Madrid", venue: "IFEMA", dates: "9–11 julio 2026" },
-  "primavera-sound": { name: "Primavera Sound", city: "Barcelona", venue: "Parc del Fòrum", dates: "28 mayo–1 junio 2026" },
-  "sonar": { name: "Sónar", city: "Barcelona", venue: "Fira de Barcelona", dates: "18–20 junio 2026" },
-  "fib": { name: "FIB Benicàssim", city: "Benicàssim", venue: "Recinte Festivaler", dates: "16–19 julio 2026" },
-  "bbk-live": { name: "Bilbao BBK Live", city: "Bilbao", venue: "Kobetamendi", dates: "9–11 julio 2026" },
-  "resurrection-fest": { name: "Resurrection Fest", city: "Viveiro", venue: "Recinto de Viveiro", dates: "25–28 junio 2026" },
-  "arenal-sound": { name: "Arenal Sound", city: "Burriana", venue: "Playa del Arenal", dates: "29 jul–2 ago 2026" },
-  "medusa-festival": { name: "Medusa Festival", city: "Cullera", venue: "Playa de Cullera", dates: "12–16 agosto 2026" },
-  "vina-rock": { name: "Viña Rock", city: "Villarrobledo", venue: "Recinto Viña Rock", dates: "30 abr–3 mayo 2026" },
-  "o-son-do-camino": { name: "O Son do Camiño", city: "Santiago de Compostela", venue: "Monte do Gozo", dates: "18–20 junio 2026" },
-  "cala-mijas": { name: "Cala Mijas Fest", city: "Mijas", venue: "Cala Mijas", dates: "2–4 octubre 2026" },
-  "sonorama-ribera": { name: "Sonorama Ribera", city: "Aranda de Duero", venue: "El Ferial", dates: "6–9 agosto 2026" },
-  "zevra-festival": { name: "Zevra Festival", city: "Valencia", venue: "La Marina de Valencia", dates: "Verano 2026" },
-  "low-festival": { name: "Low Festival", city: "Benidorm", venue: "Benidorm Beach", dates: "24–26 julio 2026" },
-  "tomavistas": { name: "Tomavistas", city: "Madrid", venue: "IFEMA", dates: "15–17 mayo 2026" },
-  "cruilla": { name: "Cruïlla Barcelona", city: "Barcelona", venue: "Parc del Fòrum", dates: "9–12 julio 2026" },
-};
-
-// ─── Markdown negotiation for all non-API routes ─────────────────────────────
-// This middleware runs on every non-API GET so that requests with
-// `Accept: text/markdown` are served as Markdown regardless of whether the
-// path resolves to a static asset (which Cloudflare would otherwise serve
-// directly, bypassing notFound). Must be registered before notFound.
-app.use("*", async (c, next) => {
-  // Only intercept non-API GETs that explicitly want Markdown
-  if (
-    c.req.method !== "GET" ||
-    c.req.path.startsWith("/api/") ||
-    !((c.req.header("Accept") ?? "").includes("text/markdown"))
-  ) {
-    return next();
-  }
-
-  // Festival pages: return rich markdown directly (the SPA shell has no content)
-  const festivalMatch = c.req.path.match(/^\/festivales\/([^/]+)$/);
-  if (festivalMatch) {
-    const slug = festivalMatch[1] ?? "";
-    const meta = FESTIVAL_META[slug];
-    if (meta) {
-      const base = getSiteUrl(c.env);
-      const title = `Cómo ir a ${meta.name} 2026 — Carpooling desde toda España`;
-      const desc = `Carpooling a ${meta.name} (${meta.venue}, ${meta.city}) ${meta.dates}. Viajes compartidos desde cualquier ciudad. Desde 5 €/asiento. Sin taxi, sin comisión. ConcertRide.`;
-      const url = `${base}/festivales/${slug}`;
-      const markdown = [
-        `# ${title}`,
-        "",
-        desc,
-        "",
-        `**Festival:** ${meta.name}`,
-        `**Ciudad:** ${meta.city}`,
-        `**Recinto:** ${meta.venue}`,
-        `**Fechas:** ${meta.dates}`,
-        "",
-        `Reserva tu viaje en [ConcertRide](${url})`,
-        "",
-        "## Precios desde distintas ciudades",
-        "- Desde ciudades cercanas: 3–8 €/asiento",
-        "- Desde capitales de provincia: 8–20 €/asiento",
-        "- Sin comisión de plataforma. Pago en efectivo o Bizum al conductor.",
-        "",
-        `Más información: ${url}`,
-      ].join("\n");
-      const tokens = estimateTokens(markdown);
-      return new Response(markdown, {
-        status: 200,
-        headers: {
-          "Content-Type": "text/markdown; charset=utf-8",
-          "x-markdown-tokens": String(tokens),
-          "Cache-Control": "public, max-age=3600",
-          "Vary": "Accept",
-        },
-      });
-    }
-  }
-
-  // For other pages: fetch the static asset and convert its HTML to markdown.
-  // The SPA shell (index.html) has little content so the result is thin but
-  // still valid — agents that crawl the root or unknown paths get something.
-  const assetResponse = await c.env.ASSETS.fetch(c.req.raw);
-  const contentType = assetResponse.headers.get("content-type") ?? "";
-  if (!contentType.includes("text/html")) {
-    return assetResponse;
-  }
-
-  const html = await assetResponse.text();
-  const markdown = htmlToMarkdown(html);
-  const tokens = estimateTokens(markdown);
-  return new Response(markdown, {
-    status: assetResponse.status,
-    headers: {
-      "Content-Type": "text/markdown; charset=utf-8",
-      "x-markdown-tokens": String(tokens),
-      "Cache-Control": "public, max-age=3600",
-      "Vary": "Accept",
-    },
-  });
-});
+// Derived from festivalLandings.ts (already imported above) instead of a hand
+// copy: the old 16-entry table had drifted on 14 of them — wrong dates (Primavera
+// Sound, Resurrection Fest…) and venues (Mad Cool "IFEMA", Low Festival
+// "Benidorm"). One source of truth for festival facts (SKILL gsc-indexing §AM.8).
+const ES_DAY_MONTH = new Intl.DateTimeFormat("es-ES", { day: "numeric", month: "long", timeZone: "UTC" });
+function festivalMeta(slug: string): { name: string; city: string; venue: string; dates: string } | null {
+  const f = FESTIVAL_LANDINGS.find((x) => x.slug === slug);
+  if (!f) return null;
+  const day = (iso: string) => ES_DAY_MONTH.format(new Date(`${iso}T00:00:00Z`));
+  return {
+    name: f.name,
+    city: f.city,
+    venue: f.venue.replace(/\s*\([^)]*\)\s*$/, ""),
+    dates: `${day(f.startDate)}–${day(f.endDate)} ${f.startDate.slice(0, 4)}`,
+  };
+}
 
 app.notFound(async (c) => {
   if (c.req.path.startsWith("/api/")) {
@@ -906,50 +889,16 @@ app.notFound(async (c) => {
 
   // Inject festival-specific OG meta for social/AI crawlers
   const ua = c.req.header("User-Agent") ?? "";
-  const accept = c.req.header("Accept") ?? "";
-  const wantsMarkdown = accept.includes("text/markdown");
 
   const festivalMatch = c.req.path.match(/^\/festivales\/([^/]+)$/);
-  if (festivalMatch && (SOCIAL_BOTS.test(ua) || wantsMarkdown)) {
+  if (festivalMatch && SOCIAL_BOTS.test(ua)) {
     const slug = festivalMatch[1] ?? "";
-    const meta = FESTIVAL_META[slug];
+    const meta = festivalMeta(slug);
     if (meta) {
       const base = getSiteUrl(c.env);
       const title = `Cómo ir a ${meta.name} 2026 — Carpooling desde toda España`;
       const desc = `Carpooling a ${meta.name} (${meta.venue}, ${meta.city}) ${meta.dates}. Viajes compartidos desde cualquier ciudad. Desde 5 €/asiento. Sin taxi, sin comisión. ConcertRide.`;
       const url = `${base}/festivales/${slug}`;
-
-      if (wantsMarkdown) {
-        const markdown = [
-          `# ${title}`,
-          "",
-          desc,
-          "",
-          `**Festival:** ${meta.name}`,
-          `**Ciudad:** ${meta.city}`,
-          `**Recinto:** ${meta.venue}`,
-          `**Fechas:** ${meta.dates}`,
-          "",
-          `Reserva tu viaje en [ConcertRide](${url})`,
-          "",
-          "## Precios desde distintas ciudades",
-          "- Desde ciudades cercanas: 3–8 €/asiento",
-          "- Desde capitales de provincia: 8–20 €/asiento",
-          "- Sin comisión de plataforma. Pago en efectivo o Bizum al conductor.",
-          "",
-          `Más información: ${url}`,
-        ].join("\n");
-        const tokens = estimateTokens(markdown);
-        return new Response(markdown, {
-          status: 200,
-          headers: {
-            "Content-Type": "text/markdown; charset=utf-8",
-            "x-markdown-tokens": String(tokens),
-            "Cache-Control": "public, max-age=3600",
-            "Vary": "Accept",
-          },
-        });
-      }
 
       const html = `<!doctype html><html lang="es"><head><meta charset="UTF-8"/><title>${title}</title><meta name="description" content="${desc}"/><link rel="canonical" href="${url}"/><meta property="og:type" content="website"/><meta property="og:url" content="${url}"/><meta property="og:title" content="${title}"/><meta property="og:description" content="${desc}"/><meta property="og:image" content="${base}/og/home.png"/><meta property="og:locale" content="es_ES"/><meta name="twitter:card" content="summary_large_image"/><meta name="twitter:title" content="${title}"/><meta name="twitter:description" content="${desc}"/><meta name="twitter:image" content="${base}/og/home.png"/></head><body><p>Cargando ConcertRide…</p><script>window.location.href="${url}"</script></body></html>`;
       return c.html(html, 200, { "Cache-Control": "public, max-age=3600" });

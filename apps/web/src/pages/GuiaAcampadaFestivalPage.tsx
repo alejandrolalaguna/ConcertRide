@@ -102,7 +102,7 @@ const CAMPING_TYPES = [
 const FESTIVAL_PRICES = [
   {
     festival: "Sonorama Ribera 2026",
-    slug: "sonorama",
+    slug: "sonorama-ribera",
     location: "Aranda de Duero · Burgos",
     general: "100 €",
     camping: "130 € (bono + camping)",

@@ -1,4 +1,4 @@
-import { describe, expect, it } from "vitest";
+import { beforeEach, describe, expect, it, vi } from "vitest";
 import { buildTestApp, registerAndLogin } from "./helpers";
 
 const CONCERT_ID = "c_rosalia_wizink"; // fixture
@@ -123,6 +123,14 @@ describe("Concert chat — public for any authed user", () => {
 });
 
 describe("GET /api/concerts/facets", () => {
+  // Facets only include concerts from the last 90 days onwards; pin the clock
+  // inside the fixture season so the assertion doesn't expire with the
+  // calendar (it started failing once the summer-2026 fixtures aged out).
+  beforeEach(() => {
+    vi.useFakeTimers({ toFake: ["Date"], now: new Date("2026-04-15T10:00:00Z") });
+    return () => vi.useRealTimers();
+  });
+
   it("returns curated genres and cities from the fixture catalogue", async () => {
     const app = buildTestApp();
     const res = await app.request("/api/concerts/facets");

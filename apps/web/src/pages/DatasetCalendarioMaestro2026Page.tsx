@@ -7,6 +7,7 @@ import { ANALYTICS_EVENTS, trackEvent } from "@/lib/analytics-events";
 import EeatTrustBlock from "@/components/EeatTrustBlock";
 import AiDisclosureNote from "@/components/AiDisclosureNote";
 import { aiLevelForPageType } from "@/lib/aiContentPolicy";
+import { festivalPageHref } from "@/lib/pageHrefs";
 
 const DATASET_SLUG = "calendario-maestro-festivales-2026";
 
@@ -494,7 +495,7 @@ export default function DatasetCalendarioMaestro2026Page() {
                         <td className="py-3 pr-3 text-cr-text-dim font-mono text-xs tabular-nums">{fechaLabel}</td>
                         <td className="py-3 pr-3">
                           <Link
-                            to={`/festivales/${r.slug}`}
+                            to={festivalPageHref(r.slug)}
                             className="text-cr-primary font-medium hover:underline underline-offset-2"
                           >
                             {r.festival}
@@ -774,7 +775,7 @@ export default function DatasetCalendarioMaestro2026Page() {
                 <tr key={r.slug} className="border-b border-cr-border/50 hover:bg-white/[0.02] transition-colors">
                   <td className="py-2 pr-3 text-cr-text-dim font-mono text-[11px] tabular-nums">{r.fechaInicio.slice(5)}</td>
                   <td className="py-2 pr-3">
-                    <Link to={`/festivales/${r.slug}`} className="text-cr-primary hover:underline underline-offset-2">{r.festival}</Link>
+                    <Link to={festivalPageHref(r.slug)} className="text-cr-primary hover:underline underline-offset-2">{r.festival}</Link>
                   </td>
                   <td className="py-2 pr-3 text-cr-text-muted">{r.region}</td>
                   <td className="py-2 pr-3 text-right text-cr-text-muted tabular-nums">{r.precioEntradaMinEur > 0 ? `${r.precioEntradaMinEur}€` : "gratis"}</td>

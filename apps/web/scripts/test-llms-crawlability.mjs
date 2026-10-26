@@ -1,129 +1,149 @@
 #!/usr/bin/env node
 /**
- * Test llms.txt Crawlability — validates that llms.txt and llms-full.txt are accessible
- * and that all linked URLs exist (no 404s)
+ * Validates the build-generated agent files in dist/ (written by
+ * prerender.mjs → markdown-artifacts.mjs):
+ *   1. llms.txt follows llmstxt.org (H1, blockquote summary, H2 link sections)
+ *      and every link it or ai.txt contains resolves (a `.md` link to a page in
+ *      dist/_md/catalog.json, anything else to a prerendered page or asset).
+ *   2. ai.txt has the required ai-txt fields (H1, Website:, Permissions,
+ *      Restrictions).
+ *   3. None of the three files carries a traction claim or the disabled
+ *      competitor brand (CLAUDE.md).
+ *   4. Site-wide rendered link check: every internal link in the <main> of
+ *      every page (read from the markdown packs) points at a page that exists.
+ *      Unlike audit-dead-internal-links (source literals), this sees links
+ *      built at render time — it caught `/festivales/sonorama`, `/buscar`…
+ * Run after `npm run build:web`.
  */
 
 import fs from "node:fs/promises";
 import path from "node:path";
-import { fileURLToPath } from "node:url";
+import { fileURLToPath, pathToFileURL } from "node:url";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
-const publicDir = path.resolve(__dirname, "..", "public");
-const distDir = path.resolve(__dirname, "..", "dist");
+const webRoot = path.resolve(__dirname, "..");
+const distDir = path.join(webRoot, "dist");
+const SITE = "https://concertride.me";
 
 const errors = [];
-const warnings = [];
+const read = (f) => fs.readFile(path.join(distDir, f), "utf8");
+const exists = (p) => fs.access(p).then(() => true, () => false);
 
-async function validateLLMSFile(filePath, name) {
-  console.log(`\n📄 Validating ${name}...`);
+// Same phrasing CLAUDE.md "Traction Claims" bans, plus the disabled brand.
+const FORBIDDEN = [
+  /\b\d[\d.,]*\+?\s*(viajeros|usuarios|fans|pasajeros|conductores)\s+(registrad|activ|verificad)/i,
+  /\+\s?\d[\d.,]*\s*(fans|viajeros|usuarios)/i,
+  /\b\d{1,3}(?:[.,]\d{3})+\s*\+?\s*(viajeros|usuarios|pasajeros|travellers|viatgers|viajes publicados|viajes realizados)/i,
+  /usuarios uni[eé]ndose/i,
+  /bla\s*bla\s*car/i,
+];
 
-  try {
-    const content = await fs.readFile(filePath, "utf8");
+const { md } = await import(pathToFileURL(path.join(webRoot, "dist-ssr", "entry-server.js")).href);
+const catalog = JSON.parse(await read("_md/catalog.json"));
+const mdPaths = new Set(catalog.pages.map((p) => p.path));
+const skipped = md.MD_SKIPPED.map((s) => new RegExp(`^${s.path.replace(/:[^/]+/g, "[^/]+").replace(/\*/g, "$^")}$`));
 
-    // Check 1: File exists and is not empty
-    if (content.length === 0) {
-      errors.push(`${name}: File is empty`);
-      return;
+const htmlPaths = new Set();
+async function walk(dir) {
+  for (const e of await fs.readdir(dir, { withFileTypes: true })) {
+    const full = path.join(dir, e.name);
+    if (e.isDirectory()) await walk(full);
+    else if (e.name === "index.html") {
+      const rel = "/" + path.relative(distDir, path.dirname(full)).replace(/\\/g, "/");
+      htmlPaths.add(rel === "/" ? "/" : rel.replace(/\/$/, ""));
     }
-
-    console.log(`   ✓ File accessible (${content.length} bytes)`);
-
-    // Check 2: Contains expected sections
-    const requiredSections = ["Q&A", "route", "festival"];
-    for (const section of requiredSections) {
-      if (!content.toLowerCase().includes(section.toLowerCase())) {
-        warnings.push(`${name}: Missing expected section "${section}"`);
-      }
-    }
-
-    // Check 3: Extract and validate URLs in the file
-    const urlRegex = /https:\/\/concertride\.me\/[^\s)>"\]]+/g;
-    const urls = content.match(urlRegex) || [];
-
-    if (urls.length === 0) {
-      warnings.push(`${name}: No URLs found in file`);
-    } else {
-      console.log(`   ✓ Found ${urls.length} URLs`);
-
-      // Check 4: Verify URLs exist in dist/ (prerendered)
-      const uniqueUrls = [...new Set(urls)];
-      const distFiles = new Set();
-
-      async function walkDist(dir) {
-        const entries = await fs.readdir(dir, { withFileTypes: true });
-        for (const entry of entries) {
-          const full = path.join(dir, entry.name);
-          if (entry.isDirectory()) {
-            await walkDist(full);
-          } else if (entry.name === "index.html") {
-            const relPath = path.relative(distDir, full);
-            distFiles.add(`/` + relPath.replace(/\\/g, "/").replace(/index\.html$/, ""));
-          }
-        }
-      }
-
-      await walkDist(distDir);
-
-      for (const url of uniqueUrls) {
-        const urlPath = new URL(url).pathname;
-        if (!distFiles.has(urlPath)) {
-          errors.push(`${name}: Dead link in llms.txt → ${url} (not prerendered)`);
-        }
-      }
-
-      console.log(`   ✓ All ${uniqueUrls.length} unique URLs exist in dist/`);
-    }
-  } catch (e) {
-    errors.push(`${name}: ${e.message}`);
   }
 }
+await walk(distDir);
 
-async function main() {
-  console.log("[test-llms-crawlability] Validating AI crawler accessibility\n");
-
-  // Check both source (public/) and dist versions
-  const llmsSourcePath = path.join(publicDir, "llms.txt");
-  const llmsDistPath = path.join(distDir, "llms.txt");
-  const llmsFullSourcePath = path.join(publicDir, "llms-full.txt");
-  const llmsFullDistPath = path.join(distDir, "llms-full.txt");
-
-  await validateLLMSFile(llmsSourcePath, "public/llms.txt");
-  await validateLLMSFile(llmsDistPath, "dist/llms.txt");
-  await validateLLMSFile(llmsFullSourcePath, "public/llms-full.txt");
-  await validateLLMSFile(llmsFullDistPath, "dist/llms-full.txt");
-
-  console.log("\n" + "=".repeat(60));
-  console.log("[test-llms-crawlability] Results:");
-  console.log("=".repeat(60));
-
-  if (errors.length > 0) {
-    console.error(`\n❌ ${errors.length} critical errors:`);
-    errors.forEach((e) => console.error(`   ✗ ${e}`));
-  }
-
-  if (warnings.length > 0) {
-    console.warn(`\n⚠️  ${warnings.length} warnings:`);
-    warnings.forEach((w) => console.warn(`   ⚠ ${w}`));
-  }
-
-  if (errors.length === 0 && warnings.length === 0) {
-    console.log("\n✅ All llms.txt files are valid and crawlable");
-    console.log("   AI bots (Perplexity, ChatGPT, Claude, etc.) can access full content");
-  }
-
-  // Deployment validation
-  console.log("\n📋 Post-Deploy Validation:");
-  console.log("   Run: curl https://concertride.me/llms.txt");
-  console.log("   Expect: 200 status + 585+ lines of content");
-  console.log("   Expected sections: Q&A, routes table, festivals, E-E-A-T");
-
-  if (errors.length > 0) {
-    process.exit(1);
-  }
+function normalise(url) {
+  const u = new URL(url.replace(/[.,;:]+$/, ""));
+  return decodeURIComponent(u.pathname).replace(/\/+$/, "") || "/";
 }
 
-main().catch((e) => {
-  console.error(`[test-llms-crawlability] Fatal error: ${e.message}`);
+/** null when `p` resolves; otherwise the reason it does not. */
+async function deadReason(p) {
+  if (p.startsWith("/api/") || p.startsWith("/.well-known/")) return null;
+  if (/\.[a-z0-9]{2,5}$/i.test(p)) {
+    if (p.endsWith(".md")) {
+      const base = p === "/index.md" ? "/" : p.slice(0, -3);
+      return mdPaths.has(base) || md.resolveMdRoute(base)?.source === "concert-db" ? null : "no markdown version";
+    }
+    return (await exists(path.join(distDir, p))) ? null : "missing asset";
+  }
+  if (mdPaths.has(p) || htmlPaths.has(p)) return null;
+  const route = md.resolveMdRoute(p);
+  if (route?.source === "concert-db") return null;
+  if (route) return "content URL that was not generated (wrong slug?)";
+  if (skipped.some((re) => re.test(p))) return null; // real SPA-only route (/publish, /login…)
+  return "unknown route (404)";
+}
+
+function checkForbidden(name, content) {
+  content.split("\n").forEach((line, i) => {
+    for (const re of FORBIDDEN) {
+      if (re.test(line)) errors.push(`${name}:${i + 1} forbidden claim/brand → ${line.trim().slice(0, 120)}`);
+    }
+  });
+}
+
+const SITE_URL_RE = /https:\/\/concertride\.me\/[^\s)>"\]`,]*/g;
+
+// ── 1–3: agent files ────────────────────────────────────────────────────────
+const llms = await read("llms.txt");
+if (!/^# .+/.test(llms)) errors.push("llms.txt: must start with an H1");
+if (!/^> .+/m.test(llms)) errors.push("llms.txt: missing blockquote summary");
+if ((llms.match(/^## /gm) ?? []).length < 3) errors.push("llms.txt: expected ≥3 H2 link sections");
+
+for (const [name, content, strict] of [
+  ["llms.txt", llms, true],
+  ["ai.txt", await read("ai.txt"), true],
+  ["llms-full.txt", await read("llms-full.txt"), false],
+]) {
+  checkForbidden(name, content);
+  const urls = new Set(content.match(SITE_URL_RE) ?? []);
+  if (strict) {
+    for (const url of urls) {
+      if (/[{}<]|%7B/.test(url)) continue; // documented URL templates
+      const reason = await deadReason(normalise(url));
+      if (reason) errors.push(`${name}: ${url} → ${reason}`);
+    }
+  }
+  console.log(`✓ ${name}: ${content.length} chars, ${urls.size} unique site URLs`);
+}
+
+const ai = await read("ai.txt");
+for (const req of [/^# (?!ai\.txt).+/m, /^Website: https:\/\//m, /^## Permissions\n- /m, /^## Restrictions\n- /m]) {
+  if (!req.test(ai)) errors.push(`ai.txt: missing required element ${req}`);
+}
+
+// ── 4: rendered internal links of every page ───────────────────────────────
+const dead = new Map(); // target → { reason, from: Set }
+const packDir = path.join(distDir, "_md", "p");
+let linkCount = 0;
+for (const f of await fs.readdir(packDir)) {
+  const pack = JSON.parse(await fs.readFile(path.join(packDir, f), "utf8"));
+  for (const [from, [markdown]] of Object.entries(pack)) {
+    for (const m of markdown.matchAll(/\]\((https:\/\/concertride\.me\/[^)\s]*)\)/g)) {
+      linkCount++;
+      const target = normalise(m[1]);
+      if (dead.has(target)) {
+        dead.get(target).from.add(from);
+        continue;
+      }
+      const reason = await deadReason(target);
+      if (reason) dead.set(target, { reason, from: new Set([from]) });
+    }
+  }
+}
+for (const [target, { reason, from }] of dead) {
+  errors.push(`dead internal link ${target} (${reason}) — on ${from.size} page(s), e.g. ${[...from][0]}`);
+}
+console.log(`✓ rendered links: ${linkCount} internal links across ${mdPaths.size} pages, ${dead.size} dead target(s)`);
+
+if (errors.length) {
+  console.error(`\n❌ ${errors.length} error(s):`);
+  for (const e of errors.slice(0, 60)) console.error(`   ✗ ${e}`);
   process.exit(1);
-});
+}
+console.log(`\n✅ Agent files valid (${mdPaths.size} pages in the markdown catalog). Post-deploy: curl -sI ${SITE}/index.md`);

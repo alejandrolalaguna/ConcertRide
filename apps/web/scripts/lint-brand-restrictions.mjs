@@ -5,7 +5,8 @@
  * Enforces the brand-restriction rule in CLAUDE.md: the disabled competitor
  * brand must NEVER appear in product-visible content. This script scans:
  *   - apps/web/src/**\/*.{ts,tsx,md}
- *   - apps/web/public/llms.txt
+ *   - apps/web/dist/{llms.txt,llms-full.txt,ai.txt} (generated at build by
+ *     src/lib/md/siteFiles.ts; skipped when dist/ has not been built)
  *
  * Exits 1 on any non-whitelisted match. Output: file:line:content.
  *
@@ -51,7 +52,9 @@ const FILE_WHITELIST = /ALLOWED_BRAND_MENTIONS_FILE/;
 // ── Targets ─────────────────────────────────────────────────────────────────
 const TARGETS = [
   { root: path.join(webRoot, "src"), exts: new Set([".ts", ".tsx", ".md"]) },
-  { root: path.join(webRoot, "public", "llms.txt"), exts: null /* single file */ },
+  { root: path.join(webRoot, "dist", "llms.txt"), exts: null /* single file */ },
+  { root: path.join(webRoot, "dist", "llms-full.txt"), exts: null },
+  { root: path.join(webRoot, "dist", "ai.txt"), exts: null },
 ];
 
 // Files to always skip (the lint script must not lint itself; it carries the

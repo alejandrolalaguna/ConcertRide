@@ -7,6 +7,7 @@ import { ANALYTICS_EVENTS, trackEvent } from "@/lib/analytics-events";
 import EeatTrustBlock from "@/components/EeatTrustBlock";
 import AiDisclosureNote from "@/components/AiDisclosureNote";
 import { aiLevelForPageType } from "@/lib/aiContentPolicy";
+import { festivalPageHref } from "@/lib/pageHrefs";
 
 const DATASET_SLUG = "alojamiento-cercano-festivales-2026";
 
@@ -476,7 +477,7 @@ export default function DatasetAlojamiento2026Page() {
                   <td className="py-3 pr-3 text-cr-text-dim font-mono text-xs">{idx + 1}</td>
                   <td className="py-3 pr-3">
                     <Link
-                      to={`/festivales/${r.slug}`}
+                      to={festivalPageHref(r.slug)}
                       className="text-cr-primary font-medium hover:underline underline-offset-2"
                     >
                       {r.festival}
@@ -531,7 +532,7 @@ export default function DatasetAlojamiento2026Page() {
                   <td className="py-3 pr-3 text-cr-text-dim font-mono text-xs">{idx + 1}</td>
                   <td className="py-3 pr-3">
                     <Link
-                      to={`/festivales/${r.slug}`}
+                      to={festivalPageHref(r.slug)}
                       className="text-cr-primary font-medium hover:underline underline-offset-2"
                     >
                       {r.festival}
@@ -580,7 +581,7 @@ export default function DatasetAlojamiento2026Page() {
                 <tr key={r.slug} className="border-b border-cr-border/50 hover:bg-white/[0.02] transition-colors">
                   <td className="py-3 pr-3">
                     <Link
-                      to={`/festivales/${r.slug}`}
+                      to={festivalPageHref(r.slug)}
                       className="text-cr-primary font-medium hover:underline underline-offset-2"
                     >
                       {r.festival}
@@ -621,7 +622,7 @@ export default function DatasetAlojamiento2026Page() {
           {ROWS.map((r) => (
             <div key={r.slug} className="border border-cr-border p-4 space-y-2">
               <div className="flex items-baseline justify-between gap-2 flex-wrap">
-                <Link to={`/festivales/${r.slug}`} className="font-display text-sm uppercase text-cr-primary hover:underline">
+                <Link to={festivalPageHref(r.slug)} className="font-display text-sm uppercase text-cr-primary hover:underline">
                   {r.festival}
                 </Link>
                 <span className="font-mono text-[10px] text-cr-text-dim">{r.city}</span>

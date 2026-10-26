@@ -14,8 +14,9 @@ import { VENUE_SEO_OVERRIDES } from "@/lib/seoOverrides";
 import { SpeakableAnswerBlock } from "@/components/SpeakableAnswerBlock";
 import { FactDensityCallout } from "@/components/FactDensityCallout";
 import { StickyRegBar } from "@/components/StickyRegBar";
-import { TESTIMONIALS, TESTIMONIALS_AGGREGATE, selectTestimonialsFor } from "@/lib/testimonials";
+import { selectTestimonialsFor } from "@/lib/testimonials";
 import { generateAggregateRatingSchema, generateReviewSchemas } from "@/lib/schemaGenerators";
+import { cityPageHref } from "@/lib/cityPageHref";
 
 // Lazy-loaded Leaflet map — keeps the heavy vendor chunk out of the
 // prerendered HTML and the initial JS payload for this page.
@@ -473,23 +474,9 @@ export default function VenueLandingPage() {
         aggregateRating: agg,
       };
     }
-    if (TESTIMONIALS.length >= 3) {
-      return {
-        "@context": "https://schema.org",
-        "@type": "Service",
-        "@id": venueServiceId,
-        name: venueServiceName,
-        description: `Carpooling a ${venue.name} (${venue.city}). 0% comisión, conductores verificados.`,
-        provider: { "@type": "Organization", name: "ConcertRide", url: SITE_URL },
-        aggregateRating: {
-          "@type": "AggregateRating",
-          ratingValue: TESTIMONIALS_AGGREGATE.ratingValue,
-          reviewCount: TESTIMONIALS_AGGREGATE.reviewCount,
-          bestRating: TESTIMONIALS_AGGREGATE.bestRating,
-          worstRating: TESTIMONIALS_AGGREGATE.worstRating,
-        },
-      };
-    }
+    // No site-wide fallback: a global rating copied onto every page is not a
+    // review of THIS entity, and the old one came from fabricated testimonials
+    // (SKILL gsc-indexing §AM.7). Only entity-specific real reviews count.
     return null;
   })();
 
@@ -645,18 +632,8 @@ export default function VenueLandingPage() {
           {venue.blurb}
         </p>
 
-        {/* Search-query synonyms */}
-        <p className="font-sans text-xs text-cr-text-dim max-w-2xl leading-relaxed">
-          También buscado como:{" "}
-          cómo llegar a {venue.shortName.toLowerCase()},{" "}
-          cómo ir a {venue.shortName.toLowerCase()},{" "}
-          transporte {venue.shortName.toLowerCase()},{" "}
-          metro {venue.shortName.toLowerCase()},{" "}
-          bus {venue.shortName.toLowerCase()},{" "}
-          parking {venue.shortName.toLowerCase()},{" "}
-          {venue.shortName.toLowerCase()} {venue.city.toLowerCase()},{" "}
-          conciertos {venue.shortName.toLowerCase()}.
-        </p>
+        {/* No "También buscado como: …" list: a templated list of query phrases on
+            ~500 pages is keyword stuffing per Google spam policies (SKILL §AM.9). */}
       </div>
 
       {/* ── Location context map — lazy Leaflet marker on venue coords ── */}
@@ -964,12 +941,14 @@ export default function VenueLandingPage() {
         </div>
 
         <div className="pt-6 flex flex-wrap gap-4 border-t border-cr-border">
+          {cityPageHref(venue.citySlug) && (
           <Link
-            to={`/conciertos/${venue.citySlug}`}
+            to={cityPageHref(venue.citySlug)!}
             className="inline-flex items-center gap-2 font-sans text-xs font-semibold uppercase tracking-[0.12em] text-cr-text-muted hover:text-cr-primary transition-colors"
           >
             Todos los conciertos en {venue.city} <ArrowRight size={12} />
           </Link>
+          )}
           <Link
             to="/como-funciona"
             className="inline-flex items-center gap-2 font-sans text-xs font-semibold uppercase tracking-[0.12em] text-cr-text-muted hover:text-cr-primary transition-colors"

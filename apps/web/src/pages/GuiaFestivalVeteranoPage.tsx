@@ -96,7 +96,7 @@ const FESTIVALES_35 = [
     why: "El festival con la oferta VIP más desarrollada de España: desde pases premium con barra incluida hasta paquetes Diamond con zona elevada, sombra estructurada y catering. Cartel orientado a 30-55 años (Pearl Jam, The Killers, Foo Fighters en ediciones recientes).",
   },
   {
-    slug: "cap-roig-festival",
+    slug: "festival-castell-de-cap-roig",
     name: "Cap Roig Festival",
     region: "Calella de Palafrugell, Girona",
     when: "Julio-agosto (un mes completo)",
@@ -136,7 +136,7 @@ const FESTIVALES_35 = [
     why: "Aforo limitado en patios de la bodega González Byass, butaca asignada y cartel que mezcla artistas españoles consagrados con propuestas internacionales en formato íntimo. Combinable con turismo enológico y final sobre la 01:00.",
   },
   {
-    slug: "stone-music",
+    slug: "stone-music-festival",
     name: "Festival Stone & Music",
     region: "Mérida, Badajoz",
     when: "Julio-agosto",
@@ -687,7 +687,7 @@ export default function GuiaFestivalVeteranoPage() {
             festivales, recomendaciones de gastronomía local. Para muchos pasajeros 35+ ese trayecto se ha convertido
             en parte de la experiencia, no en un mero traslado. Si te interesa buscar conductor o pasajeros con tu
             perfil de edad, entra a{" "}
-            <Link to="/buscar" className="text-cr-primary hover:underline">/buscar</Link>{" "}
+            <Link to="/concerts" className="text-cr-primary hover:underline">el buscador de viajes</Link>{" "}
             y filtra por festival. Si tienes coche y prefieres organizar tu propia ruta con plazas vacías, publícala en{" "}
             <Link to="/publish" className="text-cr-primary hover:underline">/publish</Link>{" "}
             y describe tu perfil en la bio.

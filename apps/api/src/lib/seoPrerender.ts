@@ -1045,7 +1045,7 @@ ${venueLinks}
     },
     "/sala-de-prensa": {
       title: `Sala de prensa — ConcertRide | Datos y kit de medios`,
-      description: "Datos oficiales de ConcertRide para medios: 4.200+ viajeros, 12.000+ viajes, 51 festivales cubiertos, 0% comisión. Kit de prensa, embed codes y descripción oficial para periodistas y bloggers.",
+      description: `Kit de prensa de ConcertRide: 199 festivales y 7.399 rutas documentadas, 0% comisión, datasets CC BY 4.0, descripción oficial y embed codes.`,
       canonical: `${base}/sala-de-prensa`,
       h1: "ConcertRide en los medios",
       body: (() => {
@@ -1055,8 +1055,8 @@ ${venueLinks}
           "@id": `${base}/#organization`,
           name: "ConcertRide",
           url: base,
-          foundingDate: "2024",
-          description: "Plataforma española de carpooling especializada en conciertos y festivales de música. Más de 4.200 viajeros registrados, 12.000+ viajes publicados, 51 festivales cubiertos, 0% comisión.",
+          foundingDate: "2026",
+          description: "Plataforma española de carpooling especializada en conciertos y festivales de música. Documenta 199 festivales y 7.399 rutas origen→festival en España, con 0% comisión.",
           contactPoint: { "@type": "ContactPoint", contactType: "press", email: "help@concertride.me" },
         });
         const breadcrumbJsonLd = JSON.stringify({
@@ -1069,15 +1069,14 @@ ${venueLinks}
         });
         return `<script type="application/ld+json">${orgJsonLd}</script>
 <script type="application/ld+json">${breadcrumbJsonLd}</script>
-<p>Datos verificados de ConcertRide para medios y periodistas. Fundada en 2024 en Zaragoza.</p>
+<p>Datos de ConcertRide para medios y periodistas. Lanzada en 2026.</p>
 <h2>Datos clave</h2>
 <ul>
-  <li>4.200+ viajeros registrados (temporada 2024–2026)</li>
-  <li>12.000+ viajes publicados</li>
-  <li>51 festivales cubiertos en España</li>
-  <li>400+ rutas ciudad→festival activas</li>
+  <li>199 festivales documentados en España</li>
+  <li>7.399 rutas ciudad→festival con página propia</li>
+  <li>116 ciudades con página de conciertos</li>
   <li>0 % de comisión de plataforma</li>
-  <li>450 toneladas de CO₂ estimadas evitadas</li>
+  <li>9 datasets abiertos CC BY 4.0</li>
 </ul>
 <p>Contacto para medios: <a href="mailto:help@concertride.me">help@concertride.me</a></p>`;
       })(),
@@ -4006,7 +4005,17 @@ function buildRenderedHtml(html: string, page: PageData, base: string, env?: { G
     .replace(/<meta\s+name="twitter:title"[^>]*>/, `<meta name="twitter:title" content="${title}"/>`)
     .replace(/<meta\s+name="twitter:description"[^>]*>/, `<meta name="twitter:description" content="${desc}"/>`)
     .replace(/<meta\s+name="twitter:image"[^>]*>/, `<meta name="twitter:image" content="${img}"/>`)
-    .replace(/<meta\s+property="og:type"[^>]*>/, `<meta property="og:type" content="${esc(page.ogType ?? "website")}"/>`);
+    .replace(/<meta\s+property="og:type"[^>]*>/, `<meta property="og:type" content="${esc(page.ogType ?? "website")}"/>`)
+    // §AM: the template is the prerendered HOME, which carries the home's
+    // ai-summary and `/index.md` alternate. Re-point both to this page; the
+    // markdown alternate survives only where a markdown version exists for a
+    // synthesized page (concerts — everything else with markdown is a
+    // prerendered asset and never reaches this renderer).
+    .replace(/<meta\s+name="ai-summary"[^>]*>/, `<meta name="ai-summary" content="${desc}"/>`)
+    .replace(
+      /<link\s+rel="alternate"\s+type="text\/markdown"[^>]*>\s*/,
+      /\/concerts\/[^/]+$/.test(page.canonical) ? `<link rel="alternate" type="text/markdown" href="${canonical}.md"/>\n` : "",
+    );
 
   // Search engine verification tokens — replace placeholders from env when available
   if (env?.GSC_VERIFICATION_TOKEN && env.GSC_VERIFICATION_TOKEN !== "REPLACE_WITH_GSC_TOKEN") {

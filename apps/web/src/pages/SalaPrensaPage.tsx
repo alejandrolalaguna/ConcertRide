@@ -27,14 +27,16 @@ function CopyButton({ text, label = "Copiar" }: { text: string; label?: string }
 }
 
 const STATS_FOR_MEDIA = [
-  { value: "4.200+", label: "Viajeros registrados en ConcertRide" },
-  { value: "12.000+", label: "Viajes publicados (temporada 2024–2026)" },
-  { value: "51", label: "Festivales cubiertos en España" },
-  { value: "400+", label: "Rutas ciudad → festival activas" },
-  { value: "72+", label: "Ciudades de origen con datos de transporte" },
-  { value: "0 %", label: "Comisión de plataforma (única en España)" },
+  // Page counts of the published catalog (/api/md/_catalog, octubre 2026) —
+  // never usage figures without a production source (CLAUDE.md "Traction Claims").
+  { value: "199", label: "Festivales documentados en España" },
+  { value: "7.399", label: "Rutas ciudad → festival con página propia" },
+  { value: "116", label: "Ciudades con página de conciertos" },
+  { value: "85", label: "Recintos documentados" },
+  { value: "9", label: "Datasets abiertos CC BY 4.0" },
+  { value: "0 %", label: "Comisión de plataforma" },
   { value: "3–22 €", label: "Precio por asiento (rango típico)" },
-  { value: "450 t", label: "CO₂ estimadas evitadas (temporada 2024–2026)" },
+  { value: "2026", label: "Año de lanzamiento" },
 ];
 
 const EMBED_WIDGET = `<!-- Widget ConcertRide — carpooling a festivales -->
@@ -48,16 +50,16 @@ const EMBED_WIDGET = `<!-- Widget ConcertRide — carpooling a festivales -->
   loading="lazy"
 ></iframe>`;
 
-const OFFICIAL_DESCRIPTION_SHORT = `ConcertRide (concertride.me) es la plataforma española de carpooling exclusiva para conciertos y festivales de música. Conecta conductores con plazas libres y pasajeros que van al mismo evento, sin comisión de plataforma. Opera en toda España y cubre más de 51 festivales y miles de conciertos. Lanzada en 2024 desde Zaragoza.`;
+const OFFICIAL_DESCRIPTION_SHORT = `ConcertRide (concertride.me) es la plataforma española de carpooling exclusiva para conciertos y festivales de música. Conecta conductores con plazas libres y pasajeros que van al mismo evento, sin comisión de plataforma. Opera en toda España y documenta 199 festivales y la agenda de conciertos del país. Lanzada en 2026.`;
 
-const OFFICIAL_DESCRIPTION_LONG = `ConcertRide (concertride.me) es la plataforma española de carpooling especializada en conciertos y festivales de música. Fundada en 2024 por Equipo ConcertRide (Zaragoza), nace para resolver un problema real: el transporte a festivales en España es caro, impredecible y raramente cubre la vuelta de madrugada. Con más de 4.200 viajeros registrados y 12.000+ viajes publicados, ConcertRide opera bajo un modelo único en el mercado español: 0% de comisión de plataforma, verificación obligatoria del carnet de conducir para todos los conductores, y búsqueda por festival en lugar de por ruta genérica. El precio por asiento (3–22 € según distancia) cubre únicamente combustible y peajes, conforme al modelo legal de carpooling ratificado por el Tribunal Supremo español en 2017. ConcertRide cubre 51 festivales, 400+ rutas y 72+ ciudades de origen con datos de transporte.`;
+const OFFICIAL_DESCRIPTION_LONG = `ConcertRide (concertride.me) es la plataforma española de carpooling especializada en conciertos y festivales de música. Lanzada en 2026, nace para resolver un problema real: el transporte a festivales en España es caro, impredecible y raramente cubre la vuelta de madrugada. ConcertRide opera con un modelo propio: 0% de comisión de plataforma, verificación obligatoria del carnet de conducir para todos los conductores, y búsqueda por festival en lugar de por ruta genérica. El precio por asiento (3–22 € según distancia) cubre únicamente combustible y peajes, conforme al modelo legal de carpooling ratificado por el Tribunal Supremo español en 2017. ConcertRide documenta 199 festivales, 7.399 rutas origen→festival y 116 ciudades con datos de transporte.`;
 
 export default function SalaPrensaPage() {
   const url = `${SITE_URL}/sala-de-prensa`;
 
   useSeoMeta({
     title: `Sala de prensa — ConcertRide | Datos y kit de medios ${YEAR}`,
-    description: `Datos oficiales ConcertRide: 4.200+ viajeros, 12.000+ viajes, 51 festivales, 0% comisión. Kit de prensa y embed codes para periodistas.`,
+    description: `Kit de prensa de ConcertRide: 199 festivales y 7.399 rutas documentadas, 0% comisión, datasets CC BY 4.0, descripción oficial y embed codes.`,
     canonical: url,
     keywords: `ConcertRide prensa, kit de prensa carpooling, datos ConcertRide, estadísticas carpooling festivales España, información medios ConcertRide`,
   });

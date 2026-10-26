@@ -16,7 +16,6 @@ interface TicketData {
   seats: number;
   driverInitial: string;
   driverName: string;
-  rating: number;
   ridCode: string;
   ticketNum: string;
 }
@@ -30,6 +29,9 @@ const NEXT_FESTIVAL = {
   minPrice: 4, // €/asiento — la ruta corta más barata
 } as const;
 
+// Illustrative tickets. No per-driver star ratings and no sequential ticket
+// numbers ("#CR-01034" read as >1.000 trips): neither is backed by data
+// (CLAUDE.md "Traction Claims", SKILL gsc-indexing §AM.7).
 const TICKETS: TicketData[] = [
   {
     id: "rosalia",
@@ -43,9 +45,8 @@ const TICKETS: TicketData[] = [
     seats: 3,
     driverInitial: "L",
     driverName: "Laura M.",
-    rating: 4.9,
     ridCode: "RID-2026-VAL-MAD",
-    ticketNum: "#CR-00842",
+    ticketNum: "#CR-VAL-MAD",
   },
   {
     id: "badbunny",
@@ -59,15 +60,14 @@ const TICKETS: TicketData[] = [
     seats: 2,
     driverInitial: "D",
     driverName: "Dani R.",
-    rating: 4.8,
     ridCode: "RID-2026-COR-SEV",
-    ticketNum: "#CR-00921",
+    ticketNum: "#CR-COR-SEV",
   },
   {
     id: "madcool",
     artist: "MAD COOL",
     tour: "FESTIVAL · DAY 1",
-    venue: "IFEMA · Madrid",
+    venue: "Iberdrola Music · Madrid",
     date: "JUE 9 JUL · 16:00 CEST",
     from: "BILBAO",
     to: "MADRID",
@@ -75,9 +75,8 @@ const TICKETS: TicketData[] = [
     seats: 4,
     driverInitial: "I",
     driverName: "Irene S.",
-    rating: 4.9,
     ridCode: "RID-2026-BIL-MAD",
-    ticketNum: "#CR-01034",
+    ticketNum: "#CR-BIL-MAD",
   },
   {
     id: "cruilla",
@@ -91,9 +90,8 @@ const TICKETS: TicketData[] = [
     seats: 3,
     driverInitial: "J",
     driverName: "Jorge B.",
-    rating: 4.7,
     ridCode: "RID-2026-ZGZ-BCN",
-    ticketNum: "#CR-00887",
+    ticketNum: "#CR-ZGZ-BCN",
   },
   {
     id: "quevedo",
@@ -107,9 +105,8 @@ const TICKETS: TicketData[] = [
     seats: 1,
     driverInitial: "P",
     driverName: "Paula G.",
-    rating: 5.0,
     ridCode: "RID-2026-VIT-BIL",
-    ticketNum: "#CR-00763",
+    ticketNum: "#CR-VIT-BIL",
   },
 ];
 
@@ -317,13 +314,9 @@ export function Hero() {
               <span className="w-1.5 h-1.5 rounded-full bg-[#dbff00]" aria-hidden="true" />
               <span className="font-mono text-[11px] text-white/45">{t("home.heroFansCount")}</span>
             </div>
-            {/* Inline testimonial pill — uses Sara M. from existing reviews ItemList (no fabricated quote) */}
-            <div className="inline-flex items-center gap-2 border border-white/10 bg-white/[0.03] px-3 py-1.5">
-              <span className="font-mono text-[10px] text-[#dbff00]">{t("home.heroTestimonialRating")}</span>
-              <span className="font-mono text-[10px] text-white/55">
-                {t("home.heroTestimonialQuote")}
-              </span>
-            </div>
+            {/* The "★ 4,9 · Sara M." testimonial pill was removed on 2026-10-26:
+                neither the rating nor the quote came from a real review
+                (SKILL gsc-indexing §AM.7). Do not reintroduce without one. */}
           </div>
           <div className="flex flex-wrap items-center gap-x-4 gap-y-1">
             {[t("home.heroBadgeNoCard"), t("home.heroBadgeVerifiedLicense"), t("home.heroBadgeReturn")].map((badge) => (
@@ -471,7 +464,7 @@ function TicketStub({
       <circle cx="31" cy="247" r="4" fill="#DBFF00" />
       <text x="31" y="247" fill="#000" fontFamily="'Archivo Black', sans-serif" fontSize="6" textAnchor="middle" dominantBaseline="middle">{ticket.driverInitial}</text>
       <text x="40" y="248" fill="#F5F5F5" fontFamily="'JetBrains Mono', monospace" fontSize="8" dominantBaseline="middle">{ticket.driverName}</text>
-      <text x="94" y="248" fill="#DBFF00" fontFamily="'Inter', sans-serif" fontWeight="700" fontSize="8" dominantBaseline="middle">★ {ticket.rating.toFixed(1)}</text>
+      <text x="94" y="248" fill="#DBFF00" fontFamily="'Inter', sans-serif" fontWeight="700" fontSize="8" dominantBaseline="middle">{t("home.heroStubVerified")}</text>
       <line x1="260" y1="10" x2="260" y2="250" stroke="#2A2A2A" strokeDasharray="4 3" />
       <circle cx="260" cy="0" r="10" fill="#080808" stroke="#2A2A2A" />
       <circle cx="260" cy="260" r="10" fill="#080808" stroke="#2A2A2A" />

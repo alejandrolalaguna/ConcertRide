@@ -22,6 +22,9 @@ function Stars({ rating }: { rating: number }) {
 
 export function TestimonialsSection() {
   const { t } = useI18n();
+  // Only real reviews (lib/testimonials.ts). An empty "fans que ya viajan
+  // juntos" block would be worse than none.
+  if (TESTIMONIALS.length === 0) return null;
   return (
     <section
       aria-labelledby="testimonials-title"

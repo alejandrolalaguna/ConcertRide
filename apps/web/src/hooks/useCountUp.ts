@@ -9,7 +9,11 @@ interface Options {
 }
 
 export function useCountUp({ target, duration = 1500, enabled = true }: Options) {
-  const [value, setValue] = useState(0);
+  // Starts at `target`, not 0: this is what the prerendered HTML contains, and
+  // crawlers / no-JS readers must see the real figure ("33+ festivales"), not
+  // "0+". The count-up restarts from 0 once the block is in view; callers keep
+  // it at opacity 0 until then, so the reset is never visible.
+  const [value, setValue] = useState(target);
   const rafRef = useRef<number | null>(null);
 
   useEffect(() => {
@@ -18,6 +22,7 @@ export function useCountUp({ target, duration = 1500, enabled = true }: Options)
       setValue(target);
       return;
     }
+    setValue(0);
     const start = performance.now();
     const tick = (now: number) => {
       const elapsed = now - start;

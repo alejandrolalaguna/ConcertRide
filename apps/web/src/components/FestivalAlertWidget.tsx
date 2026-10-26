@@ -56,7 +56,7 @@ export function FestivalAlertWidget({ festivalSlug, festivalName }: Props) {
 
   if (state === "done") {
     return (
-      <div className="border border-cr-primary/40 bg-cr-primary/5 p-5 space-y-1">
+      <div data-md="skip" className="border border-cr-primary/40 bg-cr-primary/5 p-5 space-y-1">
         <p className="font-display text-base uppercase text-cr-primary">{isEn ? "Done!" : "¡Listo!"}</p>
         <p className="font-sans text-sm text-cr-text-muted leading-relaxed">
           {isEn ? (
@@ -72,7 +72,7 @@ export function FestivalAlertWidget({ festivalSlug, festivalName }: Props) {
 
   if (state === "duplicate") {
     return (
-      <div className="border border-cr-border p-5 space-y-1">
+      <div data-md="skip" className="border border-cr-border p-5 space-y-1">
         <p className="font-sans text-sm text-cr-text-muted leading-relaxed">
           {isEn
             ? <>This email is already subscribed to {festivalName} alerts.</>
@@ -83,7 +83,7 @@ export function FestivalAlertWidget({ festivalSlug, festivalName }: Props) {
   }
 
   return (
-    <div className="border border-cr-border p-5 space-y-4">
+    <div data-md="skip" className="border border-cr-border p-5 space-y-4">
       <div className="flex items-start gap-3">
         <Bell size={16} className="text-cr-primary mt-0.5 shrink-0" />
         <div className="space-y-1">

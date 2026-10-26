@@ -5,7 +5,7 @@ import type { User } from "@concertride/types";
 // ── LoadingSpinner ─────────────────────────────────────────────────────────────
 export function LoadingSpinner({ text = "Cargando..." }: { text?: string }) {
   return (
-    <div className="flex flex-col items-center justify-center gap-4 py-16">
+    <div data-md="skip" className="flex flex-col items-center justify-center gap-4 py-16">
       <div className="relative">
         <div className="w-10 h-10 border-2 border-cr-border rounded-full" />
         <div className="absolute inset-0 w-10 h-10 border-2 border-transparent border-t-cr-primary rounded-full animate-spin" />

@@ -46,11 +46,12 @@ import { StickyRegBar } from "@/components/StickyRegBar";
 import { TerminologyAside } from "@/components/TerminologyAside";
 import { seatPrice } from "@/lib/seatPrice";
 import { useSession } from "@/lib/session";
-import { TESTIMONIALS, TESTIMONIALS_AGGREGATE, selectTestimonialsFor } from "@/lib/testimonials";
+import { selectTestimonialsFor } from "@/lib/testimonials";
 import { generateAggregateRatingSchema, generateReviewSchemas } from "@/lib/schemaGenerators";
 import { deriveFestivalQuotableAnswer } from "@/lib/quotableAnswerDerive";
 import EeatTrustBlock from "@/components/EeatTrustBlock";
 import { useI18n } from "@/lib/i18n";
+import { cityPageHref } from "@/lib/cityPageHref";
 
 const FESTIVAL_WIKIDATA: Record<string, string> = {
   "mad-cool": "https://www.wikidata.org/wiki/Q22808739",
@@ -745,15 +746,9 @@ export default function FestivalLandingPage() {
         { minCount: 3 },
       );
     }
-    if (TESTIMONIALS.length >= 3) {
-      return {
-        "@type": "AggregateRating",
-        ratingValue: TESTIMONIALS_AGGREGATE.ratingValue,
-        reviewCount: TESTIMONIALS_AGGREGATE.reviewCount,
-        bestRating: TESTIMONIALS_AGGREGATE.bestRating,
-        worstRating: TESTIMONIALS_AGGREGATE.worstRating,
-      };
-    }
+    // No site-wide fallback: a global rating copied onto every page is not a
+    // review of THIS entity, and the old one came from fabricated testimonials
+    // (SKILL gsc-indexing §AM.7). Only entity-specific real reviews count.
     return null;
   })();
 
@@ -1062,40 +1057,8 @@ export default function FestivalLandingPage() {
           {blurb}
         </p>
 
-        {/* Search-query synonyms — improves recall for variant phrasing
-            (e.g. "viñarock" without space, "festival 2026", "como llegar"). */}
-        <p className="font-sans text-xs text-cr-text-dim max-w-2xl leading-relaxed">
-          {isEn ? (
-            <>
-              Also searched as: {festival.name} {new Date(festival.startDate).getFullYear()},
-              {" "}{festival.shortName.toLowerCase()},
-              {" "}{festival.shortName.toLowerCase().replace(/\s+/g, "")},
-              {" "}how to get to {festival.shortName.toLowerCase()},
-              {" "}{festival.shortName.toLowerCase()} location,
-              {" "}bus to {festival.shortName.toLowerCase()},
-              {" "}buses to {festival.shortName.toLowerCase()},
-              {" "}train to {festival.shortName.toLowerCase()},
-              {" "}{festival.shortName.toLowerCase()} {festival.city.toLowerCase()},
-              {" "}{festival.shortName.toLowerCase()} times,
-              {" "}rides to {festival.shortName.toLowerCase()}.
-            </>
-          ) : (
-            <>
-              También buscado como: {festival.name} {new Date(festival.startDate).getFullYear()},
-              {" "}{festival.shortName.toLowerCase()},
-              {" "}{festival.shortName.toLowerCase().replace(/\s+/g, "")},
-              {" "}cómo llegar a {festival.shortName.toLowerCase()},
-              {" "}{festival.shortName.toLowerCase()} localización,
-              {" "}autobús {festival.shortName.toLowerCase()},
-              {" "}bus {festival.shortName.toLowerCase()},
-              {" "}buses {festival.shortName.toLowerCase()},
-              {" "}tren {festival.shortName.toLowerCase()},
-              {" "}{festival.shortName.toLowerCase()} {festival.city.toLowerCase()},
-              {" "}horarios {festival.shortName.toLowerCase()},
-              {" "}viajes {festival.shortName.toLowerCase()}.
-            </>
-          )}
-        </p>
+        {/* No "También buscado como: …" list: a templated list of query phrases on
+            ~500 pages is keyword stuffing per Google spam policies (SKILL §AM.9). */}
 
         {!isEn && <AutoLinksForFestival slug={festival.slug} />}
 
@@ -1563,14 +1526,16 @@ export default function FestivalLandingPage() {
             <p className="font-sans text-[11px] text-cr-text-muted">{isEn ? "Articles about transport to festivals, option comparisons, travel tips." : "Artículos sobre transporte a festivales, comparativas de opciones, consejos de viaje."}</p>
             <span className="inline-flex items-center gap-1 font-sans text-xs text-cr-primary">{isEn ? "See all" : "Ver todos"} <ArrowRight size={10} /></span>
           </Link>
+          {cityPageHref(festival.citySlug) && (
           <Link
-            to={`/conciertos/${festival.citySlug}`}
+            to={cityPageHref(festival.citySlug)!}
             className="border border-cr-border p-4 space-y-2 hover:border-cr-primary/40 transition-colors"
           >
             <h3 className="font-display text-base uppercase">{isEn ? <>Other concerts in {festival.city}</> : <>Otros conciertos en {festival.city}</>}</h3>
             <p className="font-sans text-[11px] text-cr-text-muted">{isEn ? <>Full agenda of events and concerts in {festival.city} with carpooling options.</> : <>Agenda completa de eventos y conciertos en {festival.city} con opciones de carpooling.</>}</p>
             <span className="inline-flex items-center gap-1 font-sans text-xs text-cr-primary">{isEn ? "Explore" : "Explorar"} <ArrowRight size={10} /></span>
           </Link>
+          )}
           {HOW_TO_GET_THERE_SLUGS.includes(festival.slug) && (
             <Link
               to={`/como-llegar/${festival.slug}`}
@@ -1793,12 +1758,14 @@ export default function FestivalLandingPage() {
         </div>
 
         <div className="pt-6 flex flex-wrap gap-4 border-t border-cr-border">
+          {cityPageHref(festival.citySlug) && (
           <Link
-            to={`/conciertos/${festival.citySlug}`}
+            to={cityPageHref(festival.citySlug)!}
             className="inline-flex items-center gap-2 font-sans text-xs font-semibold uppercase tracking-[0.12em] text-cr-text-muted hover:text-cr-primary transition-colors"
           >
             {isEn ? <>All concerts in {festival.city}</> : <>Todos los conciertos en {festival.city}</>} <ArrowRight size={12} />
           </Link>
+          )}
           <Link
             to="/como-funciona"
             className="inline-flex items-center gap-2 font-sans text-xs font-semibold uppercase tracking-[0.12em] text-cr-text-muted hover:text-cr-primary transition-colors"

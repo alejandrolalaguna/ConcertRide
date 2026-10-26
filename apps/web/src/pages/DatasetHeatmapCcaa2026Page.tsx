@@ -7,6 +7,7 @@ import { ANALYTICS_EVENTS, trackEvent } from "@/lib/analytics-events";
 import EeatTrustBlock from "@/components/EeatTrustBlock";
 import AiDisclosureNote from "@/components/AiDisclosureNote";
 import { aiLevelForPageType } from "@/lib/aiContentPolicy";
+import { regionPageHref } from "@/lib/pageHrefs";
 
 const DATASET_SLUG = "heatmap-demanda-festivales-ccaa-2026";
 
@@ -443,7 +444,7 @@ export default function DatasetHeatmapCcaa2026Page() {
           {ROWS.map((r) => (
             <Link
               key={r.ccaaSlug}
-              to={`/festivales-en/${r.ccaaSlug}`}
+              to={regionPageHref(r.ccaaSlug)}
               className={`border p-3 space-y-2 hover:opacity-90 transition-opacity ${demandaColorClass(r.demandaScorePromedio)}`}
             >
               <div className="flex items-baseline justify-between gap-2">
@@ -474,7 +475,7 @@ export default function DatasetHeatmapCcaa2026Page() {
             <ol className="space-y-2">
               {TOP3_NUM.map((r, i) => (
                 <li key={r.ccaaSlug} className="font-sans text-sm flex items-baseline justify-between gap-2">
-                  <Link to={`/festivales-en/${r.ccaaSlug}`} className="text-cr-text hover:text-cr-primary">
+                  <Link to={regionPageHref(r.ccaaSlug)} className="text-cr-text hover:text-cr-primary">
                     <span className="text-cr-text-dim font-mono text-xs mr-2">{i + 1}.</span>
                     {r.ccaaName}
                   </Link>
@@ -489,7 +490,7 @@ export default function DatasetHeatmapCcaa2026Page() {
             <ol className="space-y-2">
               {TOP3_CAP.map((r, i) => (
                 <li key={r.ccaaSlug} className="font-sans text-sm flex items-baseline justify-between gap-2">
-                  <Link to={`/festivales-en/${r.ccaaSlug}`} className="text-cr-text hover:text-cr-primary">
+                  <Link to={regionPageHref(r.ccaaSlug)} className="text-cr-text hover:text-cr-primary">
                     <span className="text-cr-text-dim font-mono text-xs mr-2">{i + 1}.</span>
                     {r.ccaaName}
                   </Link>
@@ -506,7 +507,7 @@ export default function DatasetHeatmapCcaa2026Page() {
             <ol className="space-y-2">
               {TOP3_AHORRO.map((r, i) => (
                 <li key={r.ccaaSlug} className="font-sans text-sm flex items-baseline justify-between gap-2">
-                  <Link to={`/festivales-en/${r.ccaaSlug}`} className="text-cr-text hover:text-cr-primary">
+                  <Link to={regionPageHref(r.ccaaSlug)} className="text-cr-text hover:text-cr-primary">
                     <span className="text-cr-text-dim font-mono text-xs mr-2">{i + 1}.</span>
                     {r.ccaaName}
                   </Link>
@@ -544,7 +545,7 @@ export default function DatasetHeatmapCcaa2026Page() {
                 <tr key={r.ccaaSlug} className="border-b border-cr-border/50 hover:bg-white/[0.02] transition-colors">
                   <td className="py-3 pr-3">
                     <Link
-                      to={`/festivales-en/${r.ccaaSlug}`}
+                      to={regionPageHref(r.ccaaSlug)}
                       className="text-cr-primary font-medium hover:underline underline-offset-2"
                     >
                       {r.ccaaName}

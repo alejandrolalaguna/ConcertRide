@@ -88,6 +88,15 @@ describe("GET /api/alerts/festivals/:slug/demand/count", () => {
 });
 
 describe("Demand-match email on ride publish", () => {
+  // Pin the clock before the fixture concert (Rosalía, 2026-05-22). Demand
+  // signals expire on the concert date, so with the real clock this test
+  // silently stopped finding interested users once that date passed — it was
+  // reported as a "preexisting failure" for weeks instead of being fixed.
+  beforeEach(() => {
+    vi.useFakeTimers({ toFake: ["Date"], now: new Date("2026-04-15T10:00:00Z") });
+    return () => vi.useRealTimers();
+  });
+
   it("fires sendDemandMatchEmail for users who signalled interest", async () => {
     const app = buildTestApp();
     // Interested passenger toggles demand signal on the concert

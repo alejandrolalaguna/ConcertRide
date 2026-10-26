@@ -12,6 +12,7 @@
 import fs from "node:fs/promises";
 import path from "node:path";
 import { fileURLToPath, pathToFileURL } from "node:url";
+import { createMarkdownCollector } from "./markdown-artifacts.mjs";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const webRoot = path.resolve(__dirname, "..");
@@ -28,7 +29,7 @@ if (!(await exists(ssrEntry))) {
   console.error(`[prerender] SSR bundle missing at ${ssrEntry}. Did the SSR build run?`);
   process.exit(1);
 }
-const { render, FESTIVAL_SLUGS, CITY_SLUGS, CITY_YEAR_SLUGS, BLOG_SLUGS, BLOG_LASTMOD, ROUTE_SLUGS, ARTIST_SLUGS, VENUE_SLUGS, REGION_SLUGS, HOW_TO_GET_THERE_PAGE_SLUGS, GENRE_SLUGS, CALENDAR_SLUGS, CONTENT_LAST_UPDATED, DISABLED_BLOG_SLUGS, EN_PILOT_PATHS, hreflangAlternates } = await import(pathToFileURL(ssrEntry).href);
+const { render, FESTIVAL_SLUGS, CITY_SLUGS, CITY_YEAR_SLUGS, BLOG_SLUGS, BLOG_LASTMOD, ROUTE_SLUGS, ARTIST_SLUGS, VENUE_SLUGS, REGION_SLUGS, HOW_TO_GET_THERE_PAGE_SLUGS, GENRE_SLUGS, CALENDAR_SLUGS, CONTENT_LAST_UPDATED, DISABLED_BLOG_SLUGS, EN_PILOT_PATHS, hreflangAlternates, md } = await import(pathToFileURL(ssrEntry).href);
 
 // Defense-in-depth: even if the SSR bundle is stale, never let a disabled slug
 // leak into prerender output or sitemaps. CLAUDE.md "Brand Restrictions".
@@ -149,15 +150,28 @@ let ok = 0;
 let failed = 0;
 const succeeded = [];
 
+// §AH: real per-page date — blog posts carry their own, everything else the
+// content-data date. Shared by the sitemaps and the markdown "Last updated".
+const CONTENT_DATE = CONTENT_LAST_UPDATED ?? new Date().toISOString().slice(0, 10);
+function pageLastmod(u) {
+  const m = u.match(/^\/blog\/([^/]+)$/);
+  if (m && BLOG_LASTMOD?.[m[1]]) return BLOG_LASTMOD[m[1]];
+  return CONTENT_DATE;
+}
+
+const markdown = createMarkdownCollector({ md, distDir, siteUrl: SITE_URL });
+
 for (const url of ROUTES) {
   try {
     const { html, seo, lang } = render(url);
-    const out = injectIntoShell(shell, html, seo, url, lang ?? "es");
+    const hasMarkdown = markdown.eligible(url, seo);
+    const out = injectIntoShell(shell, html, seo, url, lang ?? "es", hasMarkdown);
     const outPath = url === "/"
       ? path.join(distDir, "index.html")
       : path.join(distDir, url.replace(/^\/+/, ""), "index.html");
     await fs.mkdir(path.dirname(outPath), { recursive: true });
     await fs.writeFile(outPath, out, "utf8");
+    if (hasMarkdown) markdown.add(url, html, seo, pageLastmod(url));
     succeeded.push(url);
     ok++;
   } catch (err) {
@@ -173,8 +187,11 @@ console.log(`[prerender] done — ${ok} ok, ${failed} failed`);
 await writeSeparateSitemaps(succeeded);
 await writeSitemapIndex();
 
+// ── Markdown for agents (packs, catalog, llms.txt, llms-full.txt, ai.txt) ──
+await markdown.write();
+
 // ── Helpers ─────────────────────────────────────────────────────────────────
-function injectIntoShell(shellHtml, bodyHtml, seo, url, lang = "es") {
+function injectIntoShell(shellHtml, bodyHtml, seo, url, lang = "es", hasMarkdown = false) {
   let out = shellHtml;
 
   // <html lang> — localized pages (/en/…) render in their language.
@@ -267,6 +284,20 @@ function injectIntoShell(shellHtml, bodyHtml, seo, url, lang = "es") {
         : "index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1",
       false,
     );
+
+    // Agent signals. ai-summary: what the page is, for a model that already
+    // fetched it. The markdown alternate is only advertised when the page is
+    // really in the packs (indexable + self-canonical + registered); it is a
+    // `type="text/markdown"` alternate, never a canonical/hreflang signal.
+    if (!seo.noindex) {
+      out = patchMeta(out, "ai-summary", md.aiSummaryFor(url, seo.description), false);
+    }
+    if (hasMarkdown) {
+      out = out.replace(
+        "</head>",
+        `    <link rel="alternate" type="text/markdown" href="${escapeAttr(SITE_URL + md.toMdPath(url))}" />\n  </head>`,
+      );
+    }
 
     // Geo meta tags — dynamic per page (overrides the hardcoded Madrid values in index.html)
     if (seo.geoRegion) {
@@ -443,7 +474,6 @@ ${entries}
 // Split static URLs into separate sitemaps for better crawl prioritization
 async function writeSeparateSitemaps(urls) {
   const today = new Date().toISOString().slice(0, 10);
-  const contentDate = CONTENT_LAST_UPDATED ?? today;
 
   // English (/en/) pilot URLs go to their own sitemap with hreflang alternates;
   // keep them out of the Spanish groups below.
@@ -476,11 +506,7 @@ async function writeSeparateSitemaps(urls) {
   // verifiably accurate" — a uniform build timestamp on all 9.305 URLs trains
   // it to distrust the signal for the whole site. `changefreq`/`priority` are
   // ignored by Google entirely and are kept only for other crawlers.
-  const urlLastmod = (u) => {
-    const m = u.match(/^\/blog\/([^/]+)$/);
-    if (m && BLOG_LASTMOD?.[m[1]]) return BLOG_LASTMOD[m[1]];
-    return contentDate;
-  };
+  const urlLastmod = pageLastmod;
 
   const write = async (filename, list, freq = "weekly", priority = "0.7") => {
     const entries = list.map((u) => `  <url>\n    <loc>${SITE_URL}${u}</loc>\n    <lastmod>${urlLastmod(u)}</lastmod>\n    <changefreq>${freq}</changefreq>\n    <priority>${priority}</priority>\n  </url>`).join("\n");

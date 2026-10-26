@@ -26,7 +26,10 @@ tools/
 tools2/
 # Carpeta unificada de entregables (60 mp4 + sus .md)
 videos/
+videos-cortos/
 # Los .mp4/.webm sueltos, vengan de donde vengan
 *.mp4
 *.webm
 docs/
+# Lead/contact exports with personal data (names + emails) — never commit (GDPR).
+IA.txt

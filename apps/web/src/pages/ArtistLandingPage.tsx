@@ -11,7 +11,7 @@ import { SpeakableAnswerBlock } from "@/components/SpeakableAnswerBlock";
 import { FactDensityCallout } from "@/components/FactDensityCallout";
 import { StickyRegBar } from "@/components/StickyRegBar";
 import { useSession } from "@/lib/session";
-import { TESTIMONIALS, TESTIMONIALS_AGGREGATE, selectTestimonialsFor } from "@/lib/testimonials";
+import { selectTestimonialsFor } from "@/lib/testimonials";
 import { generateAggregateRatingSchema, generateReviewSchemas } from "@/lib/schemaGenerators";
 import EeatTrustBlock from "@/components/EeatTrustBlock";
 
@@ -298,15 +298,9 @@ export default function ArtistLandingPage() {
         { minCount: 3 },
       );
     }
-    if (TESTIMONIALS.length >= 3) {
-      return {
-        "@type": "AggregateRating",
-        ratingValue: TESTIMONIALS_AGGREGATE.ratingValue,
-        reviewCount: TESTIMONIALS_AGGREGATE.reviewCount,
-        bestRating: TESTIMONIALS_AGGREGATE.bestRating,
-        worstRating: TESTIMONIALS_AGGREGATE.worstRating,
-      };
-    }
+    // No site-wide fallback: a global rating copied onto every page is not a
+    // review of THIS entity, and the old one came from fabricated testimonials
+    // (SKILL gsc-indexing §AM.7). Only entity-specific real reviews count.
     return null;
   })();
 
@@ -428,16 +422,8 @@ export default function ArtistLandingPage() {
           {artist.blurb}
         </p>
 
-        {/* Synonym cloud — improves phrasing recall */}
-        <p className="font-sans text-xs text-cr-text-dim max-w-2xl leading-relaxed">
-          También buscado como:{" "}
-          {artist.name} concierto España,{" "}
-          {artist.name.toLowerCase()} 2026,{" "}
-          carpooling {artist.name.toLowerCase()},{" "}
-          viaje compartido {artist.name.toLowerCase()},{" "}
-          cómo llegar concierto {artist.name.toLowerCase()},{" "}
-          coche compartido {artist.name.toLowerCase()} España.
-        </p>
+        {/* No "También buscado como: …" list: a templated list of query phrases on
+            ~500 pages is keyword stuffing per Google spam policies (SKILL §AM.9). */}
 
         {/* Hero CTAs — visible above-the-fold on mobile per UX audit */}
         <div className="flex flex-wrap gap-3 pt-3">
@@ -560,6 +546,7 @@ export default function ArtistLandingPage() {
         <section
           className="max-w-6xl mx-auto px-6 pb-8"
           aria-label={`Buscar carpooling al concierto de ${artist.name}`}
+          data-md="skip"
         >
           <div className="bg-[#dbff00] text-black p-5 md:p-6 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
             <div className="space-y-1">

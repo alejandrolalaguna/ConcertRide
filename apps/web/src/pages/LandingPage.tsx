@@ -219,31 +219,38 @@ export default function LandingPage() {
               },
               seller: { "@id": `${SITE_URL}/#organization` },
             },
-            aggregateRating: {
-              "@type": "AggregateRating",
-              ratingValue: TESTIMONIALS_AGGREGATE.ratingValue,
-              reviewCount: TESTIMONIALS_AGGREGATE.reviewCount,
-              bestRating: TESTIMONIALS_AGGREGATE.bestRating,
-              worstRating: TESTIMONIALS_AGGREGATE.worstRating,
-            },
-            // Reviews are NESTED inside the parent Service via the `review`
-            // property. Google's GSC errors when a nested Review also carries
-            // `itemReviewed` ("Un objeto <parent_node> anidado no puede
-            // contener el campo itemReviewed. Quita itemReviewed para evitar
-            // conflictos de dirección"). Direction is already implied by the
-            // parent — omit itemReviewed on every nested review.
-            review: TESTIMONIAL_REVIEWS.map((r) => ({
-              "@type": "Review",
-              author: { "@type": "Person", name: r.name },
-              datePublished: r.date,
-              reviewBody: r.quote,
-              reviewRating: {
-                "@type": "Rating",
-                ratingValue: r.rating,
-                bestRating: 5,
-                worstRating: 1,
-              },
-            })),
+            // Rating + reviews only exist once there are ≥3 REAL reviews in
+            // lib/testimonials.ts (null/empty today — the previous ones were
+            // fabricated, SKILL gsc-indexing §AM.7).
+            ...(TESTIMONIALS_AGGREGATE
+              ? {
+                  aggregateRating: {
+                    "@type": "AggregateRating",
+                    ratingValue: TESTIMONIALS_AGGREGATE.ratingValue,
+                    reviewCount: TESTIMONIALS_AGGREGATE.reviewCount,
+                    bestRating: TESTIMONIALS_AGGREGATE.bestRating,
+                    worstRating: TESTIMONIALS_AGGREGATE.worstRating,
+                  },
+                  // Reviews are NESTED inside the parent Service via the `review`
+                  // property. Google's GSC errors when a nested Review also carries
+                  // `itemReviewed` ("Un objeto <parent_node> anidado no puede
+                  // contener el campo itemReviewed. Quita itemReviewed para evitar
+                  // conflictos de dirección"). Direction is already implied by the
+                  // parent — omit itemReviewed on every nested review.
+                  review: TESTIMONIAL_REVIEWS.map((r) => ({
+                    "@type": "Review",
+                    author: { "@type": "Person", name: r.name },
+                    datePublished: r.date,
+                    reviewBody: r.quote,
+                    reviewRating: {
+                      "@type": "Rating",
+                      ratingValue: r.rating,
+                      bestRating: 5,
+                      worstRating: 1,
+                    },
+                  })),
+                }
+              : {}),
           }),
         }}
       />

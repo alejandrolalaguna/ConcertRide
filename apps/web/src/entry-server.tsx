@@ -15,6 +15,8 @@ import type { ResolvedSeo } from "./lib/useSeoMeta";
 // Re-export the /en/ pilot paths + hreflang helper so prerender.mjs can read
 // them from the SSR bundle (same pattern as FESTIVAL_SLUGS etc. below).
 export { EN_PILOT_PATHS, hreflangAlternates } from "./lib/localizedRoutes";
+// Markdown-for-agents build step (packs, llms.txt, llms-full.txt, ai.txt).
+export * as md from "./lib/md";
 
 // Eager imports for routes we prerender. Avoids React.lazy which doesn't
 // resolve under renderToString (sync-only, no Suspense awaiting).

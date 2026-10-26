@@ -102,11 +102,11 @@ const METHODOLOGY_EXTENDED = [
   },
   {
     heading: "Muestra",
-    detail: "Temporada 2024–2026. Más de 12.000 viajes publicados analizados. Se excluyen viajes con precio por asiento < 2 € (posibles errores de entrada) y > 35 € (outliers que superan el máximo legal proporcional). Porcentaje de viajes completados verificado vs. cancelados.",
+    detail: "Precios orientativos por asiento calculados por ConcertRide a partir de la distancia por carretera de cada ruta y del coste de combustible y peajes repartido entre los ocupantes (referencia MITECO). No son medias de viajes realizados en la plataforma.",
   },
   {
     heading: "Cálculo de CO₂ evitado",
-    detail: "Asumimos 3,5 personas por coche de media (dato ConcertRide). Emisión de referencia: 120 g CO₂/km (Media España según IDAE 2024). Si sin carpooling cada pasajero habría ido en coche individual (o en tren+taxi), el ahorro es del 71% por persona respecto al viaje individual. Total acumulado temporada 2024–2026: ~450 toneladas CO₂.",
+    detail: "Asumimos 3,5 personas por coche de media (supuesto de cálculo). Emisión de referencia: 120 g CO₂/km (Media España según IDAE 2024). Si sin carpooling cada pasajero habría ido en coche individual (o en tren+taxi), el ahorro es del 71% por persona respecto al viaje individual. Total acumulado temporada 2024–2026: ~450 toneladas CO₂.",
   },
   {
     heading: "Limitaciones",

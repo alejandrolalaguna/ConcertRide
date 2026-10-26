@@ -21,13 +21,6 @@ const TRUST_BULLET_KEYS = [
   "freeCancellation",
 ] as const;
 
-// Verbatim from apps/web/src/components/landing/TestimonialsSection.tsx (id "1").
-const REGISTER_TESTIMONIAL = {
-  author: "Lucía M.",
-  route: "Madrid → Benicàssim",
-  festival: "FIB 2025",
-  savings: "~100€",
-};
 
 export default function RegisterPage() {
   const { t } = useI18n();
@@ -192,16 +185,8 @@ export default function RegisterPage() {
             aria-label={t("auth.communityDataLabel")}
           >
             <div className="flex items-center gap-2">
-              <div className="flex -space-x-1.5" aria-hidden="true">
-                {["L","M","A","J","R"].map((initial) => (
-                  <span
-                    key={initial}
-                    className="w-6 h-6 rounded-full bg-cr-primary text-black font-display text-[10px] flex items-center justify-center border-2 border-cr-bg"
-                  >
-                    {initial}
-                  </span>
-                ))}
-              </div>
+              {/* No avatar stack: the initials were those of fabricated
+                  testimonials (SKILL gsc-indexing §AM.7). */}
               <span className="font-sans text-xs text-white/60">
                 {t("auth.joinTravelersPrefix")} <strong className="text-white/90 font-semibold">{t("auth.joinTravelersCount")}</strong>
               </span>
@@ -529,32 +514,6 @@ export default function RegisterPage() {
           </p>
         </motion.form>
 
-        {/* Social proof — one verbatim testimonial reused from TestimonialsSection */}
-        <motion.figure
-          initial={{ opacity: 0, y: 12 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.25, ease: [0.16, 1, 0.3, 1] }}
-          className="mt-10 border-l-2 border-cr-primary/40 pl-5 py-2 space-y-2"
-        >
-          <div
-            className="flex gap-0.5"
-            aria-label={t("auth.rating5of5")}
-          >
-            {[1, 2, 3, 4, 5].map((n) => (
-              <span key={n} className="text-[12px] text-cr-primary" aria-hidden="true">
-                ★
-              </span>
-            ))}
-          </div>
-          <blockquote className="font-sans text-sm text-white/65 leading-relaxed italic">
-            “{t("auth.testimonialQuote")}”
-          </blockquote>
-          <figcaption className="font-mono text-[10px] uppercase tracking-[0.12em] text-white/35">
-            — {REGISTER_TESTIMONIAL.author} · {REGISTER_TESTIMONIAL.route}
-            {" · "}
-            <span className="text-cr-primary">{t("auth.testimonialSavedPrefix")} {REGISTER_TESTIMONIAL.savings}</span>
-          </figcaption>
-        </motion.figure>
       </div>
     </main>
   );

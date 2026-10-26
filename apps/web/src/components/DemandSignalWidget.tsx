@@ -53,7 +53,7 @@ export function DemandSignalWidget({ festivalSlug, festivalName, originCities, d
 
   if (registered) {
     return (
-      <div className="rounded-xl border border-cr-primary/30 bg-cr-primary/5 p-4 flex items-start gap-3">
+      <div data-md="skip" className="rounded-xl border border-cr-primary/30 bg-cr-primary/5 p-4 flex items-start gap-3">
         <BellRing className="text-cr-primary shrink-0 mt-0.5" size={18} />
         <div>
           <p className="text-sm font-semibold text-cr-text">
@@ -75,7 +75,7 @@ export function DemandSignalWidget({ festivalSlug, festivalName, originCities, d
   }
 
   return (
-    <div className="rounded-xl border border-white/10 bg-white/3 p-5 space-y-4">
+    <div data-md="skip" className="rounded-xl border border-white/10 bg-white/3 p-5 space-y-4">
       <div className="flex items-start gap-3">
         <Bell className="text-cr-primary shrink-0 mt-0.5" size={18} />
         <div>

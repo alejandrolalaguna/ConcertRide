@@ -7,6 +7,7 @@ import { ANALYTICS_EVENTS, trackEvent } from "@/lib/analytics-events";
 import EeatTrustBlock from "@/components/EeatTrustBlock";
 import AiDisclosureNote from "@/components/AiDisclosureNote";
 import { aiLevelForPageType } from "@/lib/aiContentPolicy";
+import { festivalPageHref } from "@/lib/pageHrefs";
 
 const DATASET_SLUG = "cancelaciones-festivales-espana-2020-2026";
 
@@ -487,7 +488,7 @@ export default function DatasetCancelaciones2026Page() {
                       {MOTIVO_LABEL[r.categoriaMotivo]}
                     </span>
                     <Link
-                      to={`/festivales/${r.festivalSlug}`}
+                      to={festivalPageHref(r.festivalSlug)}
                       className="text-cr-text font-medium hover:text-cr-primary hover:underline underline-offset-2"
                     >
                       {r.festivalName}
@@ -569,7 +570,7 @@ export default function DatasetCancelaciones2026Page() {
                     <td className="py-3 pr-3 text-cr-text-muted tabular-nums font-mono text-xs">{r.ano}</td>
                     <td className="py-3 pr-3">
                       <Link
-                        to={`/festivales/${r.festivalSlug}`}
+                        to={festivalPageHref(r.festivalSlug)}
                         className="text-cr-primary font-medium hover:underline underline-offset-2"
                       >
                         {r.festivalName}

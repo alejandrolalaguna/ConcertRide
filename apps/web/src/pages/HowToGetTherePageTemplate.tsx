@@ -20,6 +20,7 @@ import { generateBreadcrumbSchema, generateFAQSchema, generateHowToSchema, type 
 import { HOW_TO_GET_THERE_SEO } from "@/lib/seoOverrides";
 import { SpeakableAnswerBlock } from "@/components/SpeakableAnswerBlock";
 import { MapPin, Bus, Clock, DollarSign, Users, ArrowRight } from "lucide-react";
+import { cityPageHref } from "@/lib/cityPageHref";
 
 const YEAR = new Date().getFullYear();
 
@@ -530,13 +531,15 @@ export default function HowToGetTherePage() {
               <span>Carpooling a {festName}</span>
               <ArrowRight className="w-4 h-4 text-cr-primary flex-shrink-0" />
             </Link>
+            {cityPageHref(festival.citySlug) && (
             <Link
-              to={`/conciertos/${festival.citySlug}`}
+              to={cityPageHref(festival.citySlug)!}
               className="flex items-center justify-between p-3 bg-gray-900 hover:bg-gray-800 transition rounded text-sm"
             >
               <span>Conciertos en {festival.city}</span>
               <ArrowRight className="w-4 h-4 text-cr-primary flex-shrink-0" />
             </Link>
+            )}
             <Link
               to="/blog/autobuses-festivales-espana-2026"
               className="flex items-center justify-between p-3 bg-gray-900 hover:bg-gray-800 transition rounded text-sm"

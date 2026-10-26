@@ -1,12 +1,19 @@
 # ConcertRide robots.txt
-# Last updated: 2026-09-16
+# Last updated: 2026-10-26
 # AI guidance: https://concertride.me/llms.txt
 # llms-full.txt: https://concertride.me/llms-full.txt
 # ai.txt policy: https://concertride.me/ai.txt
 # Security disclosure: https://concertride.me/.well-known/security.txt
 #
+# Keep in sync with /llms.txt and /ai.txt (both generated at build from
+# apps/web/src/lib/md/). The Disallow list below must equal ROBOTS_DISALLOW in
+# apps/web/src/lib/md/site.ts — src/lib/md/robots.test.ts fails otherwise.
+#
 # Public SEO pages: /, /concerts, /festivales/*, /conciertos/*, /rutas/*, /blog/*, /artistas/*, /recintos/*, /datos/*, /guia/*
-# Blocked (crawl budget): /api/* (except /api/sitemap-*), auth pages, user-generated content (crew, squads, mensajes)
+# Blocked (crawl budget): /api/* (except /api/sitemap-* and /api/md/*), auth pages, user-generated content (crew, squads, mensajes)
+#
+# Markdown alternates (/<page>.md, /api/md/*) carry X-Robots-Tag: noindex and
+# are deliberately NOT Disallowed (invariant below). They are not in any sitemap.
 #
 # ── INVARIANT (2026-09-16, SKILL §AF) ──────────────────────────────────────
 # NEVER Disallow a path that also carries an X-Robots-Tag / meta noindex.
@@ -26,6 +33,9 @@ Allow: /.well-known/
 # discovery path. A prefix Allow for `/api/sitemap-` covers every current and
 # future sitemap endpoint without opening up the rest of the API. (2026-09-16)
 Allow: /api/sitemap-
+# Markdown versions of every page + the catalog linked from /llms.txt
+# (2026-10-26, SKILL §AM). noindex via header, so it must stay crawlable.
+Allow: /api/md/
 Disallow: /api/
 Disallow: /_
 Disallow: /login
@@ -80,124 +90,71 @@ Disallow: /mensajes
 
 # RSS Feed: https://concertride.me/rss.xml
 
-# ── AI / LLM crawlers — explicitly allowed ────────────────────────────────
-# OpenAI / ChatGPT
-User-agent: GPTBot
-Allow: /
-
-User-agent: ChatGPT-User
-Allow: /
-
+# ── AI / LLM crawlers and other named bots ─────────────────────────────────
+# FIX 2026-10-26: a crawler that matches a named group IGNORES the `*` group
+# entirely (RFC 9309 §2.2.1; Google, Bing and OpenAI all implement it). Each of
+# these bots used to have its own group containing only `Allow: /`, which
+# silently let GPTBot, ClaudeBot, PerplexityBot, Bingbot, Applebot… crawl /api/,
+# /login, /admin, /mensajes, /crew and every other private path. They now share
+# ONE group (several User-agent lines) that repeats the exact rules of `*`.
+# Listing them explicitly is an allow signal; the rules must stay identical.
+# Search and user-triggered fetchers (answer engines cite through these)
 User-agent: OAI-SearchBot
-Allow: /
-
-# Anthropic / Claude
-User-agent: anthropic-ai
-Allow: /
-
-User-agent: ClaudeBot
-Allow: /
-
-User-agent: claude-web
-Allow: /
-
-User-agent: Claude-User
-Allow: /
-
-User-agent: Claude-Web
-Allow: /
-
+User-agent: ChatGPT-User
 User-agent: Claude-SearchBot
-Allow: /
-
-# Perplexity
+User-agent: Claude-User
 User-agent: PerplexityBot
-Allow: /
-
 User-agent: Perplexity-User
-Allow: /
-
-# Google Gemini + AI Overviews
-User-agent: Google-Extended
-Allow: /
-
-User-agent: GoogleOther
-Allow: /
-
-User-agent: GoogleOther-Image
-Allow: /
-
-User-agent: Gemini-Bot
-Allow: /
-
-# Microsoft Copilot (Bing)
-User-agent: Bingbot
-Allow: /
-
-User-agent: BingPreview
-Allow: /
-
-# Apple Intelligence
-User-agent: Applebot
-Allow: /
-
-User-agent: Applebot-Extended
-Allow: /
-
-# Meta AI
-User-agent: FacebookBot
-Allow: /
-
-User-agent: meta-externalagent
-Allow: /
-
-User-agent: meta-externalfetcher
-Allow: /
-
-# ByteDance / TikTok
-User-agent: Bytespider
-Allow: /
-
-# DuckDuckGo AI
 User-agent: DuckAssistBot
-Allow: /
-
-User-agent: DuckDuckBot
-Allow: /
-
-# xAI / Grok
-User-agent: xai-bot
-Allow: /
-
-# You.com
 User-agent: YouBot
-Allow: /
-
-# Cohere / AI2 / Common Crawl
-User-agent: cohere-ai
-Allow: /
-
-User-agent: AI2Bot
-Allow: /
-
+User-agent: meta-externalfetcher
+# Search engines
+User-agent: Bingbot
+User-agent: BingPreview
+User-agent: DuckDuckBot
+User-agent: Applebot
+User-agent: YandexBot
+User-agent: GoogleOther
+User-agent: GoogleOther-Image
+# Training / model crawlers — allowed (decision 2026-10-26, see /ai.txt § AI Training).
+# Blocking them would NOT stop citations by the search bots above.
+User-agent: GPTBot
+User-agent: ClaudeBot
+User-agent: anthropic-ai
+User-agent: claude-web
+User-agent: Claude-Web
+User-agent: Google-Extended
+User-agent: Gemini-Bot
+User-agent: Applebot-Extended
 User-agent: CCBot
-Allow: /
-
-# Mistral
+User-agent: Bytespider
+User-agent: FacebookBot
+User-agent: meta-externalagent
+User-agent: cohere-ai
+User-agent: AI2Bot
+User-agent: xai-bot
 User-agent: MistralBot
-Allow: /
-
-# Diffbot
 User-agent: Diffbot
-Allow: /
-
-# Amazon Alexa / AI
 User-agent: Amazonbot
 Allow: /
-
-# Yandex
-User-agent: YandexBot
-Allow: /
+Allow: /.well-known/
+Allow: /api/sitemap-
+Allow: /api/md/
+Disallow: /api/
+Disallow: /_
+Disallow: /login
+Disallow: /register
+Disallow: /forgot-password
+Disallow: /reset-password
+Disallow: /verify-email
+Disallow: /profile
+Disallow: /mis-viajes
+Disallow: /favoritos
+Disallow: /admin
+Disallow: /widget/
+Disallow: /crew
+Disallow: /squads
+Disallow: /mensajes
 
 # ── Sitemaps (referenced at end of file for max crawler compatibility) ────
 Sitemap: https://concertride.me/sitemap.xml
