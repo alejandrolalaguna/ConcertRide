@@ -21,12 +21,12 @@ export const CITY_LANDINGS: CityLanding[] = [
     display: "Madrid",
     region: "Comunidad de Madrid",
     blurb:
-      "Madrid concentra la mayor parte de la actividad de conciertos y festivales de España. WiZink Center, Palacio Vistalegre, Caja Mágica e IFEMA (sede de Mad Cool) acogen cada año giras internacionales y festivales de referencia. ConcertRide conecta a fans desde toda España que quieren llegar al concierto sin depender de transporte público nocturno o taxis caros.",
+      "Madrid concentra la mayor parte de la actividad de conciertos y festivales de España. WiZink Center, Palacio Vistalegre, Caja Mágica, IFEMA e Iberdrola Music (sede de Mad Cool) acogen cada año giras internacionales y festivales de referencia. ConcertRide conecta a fans desde toda España que quieren llegar al concierto sin depender de transporte público nocturno o taxis caros.",
     venues: [
       "WiZink Center",
       "Palacio Vistalegre",
       "Caja Mágica",
-      "IFEMA (Mad Cool Festival)",
+      "Iberdrola Music (Mad Cool Festival)",
       "Coca-Cola Music Experience",
     ],
     lat: 40.4168, lng: -3.7038,
@@ -213,7 +213,7 @@ export const CITY_LANDINGS: CityLanding[] = [
     display: "Toledo",
     region: "Castilla-La Mancha",
     blurb:
-      "Toledo es uno de los principales orígenes de carpooling a Madrid. A solo 70 km de IFEMA (Mad Cool) y del Bernabéu, los toledanos son asistentes frecuentes a festivales y conciertos madrileños. El Recinto Ferial de Toledo acoge la Noche Mágica y conciertos de verano. ConcertRide conecta a asistentes de Toledo con conductores hacia Madrid (70 km, 50 min), Viña Rock (80 km, 55 min) y otros festivales de la zona centro.",
+      "Toledo es uno de los principales orígenes de carpooling a Madrid. A solo 65 km de Iberdrola Music (Mad Cool) y del Bernabéu, los toledanos son asistentes frecuentes a festivales y conciertos madrileños. El Recinto Ferial de Toledo acoge la Noche Mágica y conciertos de verano. ConcertRide conecta a asistentes de Toledo con conductores hacia Madrid (70 km, 50 min), Viña Rock (80 km, 55 min) y otros festivales de la zona centro.",
     venues: ["Recinto Ferial de Toledo", "Palacio de Congresos El Greco"],
     lat: 39.8628, lng: -4.0273,
   },
@@ -463,7 +463,7 @@ export const CITY_LANDINGS: CityLanding[] = [
     display: "Guadalajara",
     region: "Castilla-La Mancha",
     blurb:
-      "Guadalajara está a solo 55 km de IFEMA Madrid (Mad Cool) y es uno de los orígenes más activos de carpooling hacia festivales madrileños. El Palacio de los Deportes de Guadalajara y el Auditorio del Palacio de Congresos acogen eventos de mid-size. ConcertRide cubre la ruta Guadalajara–Madrid (3–6 €, 45 min) y Guadalajara–Viña Rock (95 km, 1h 10 min).",
+      "Guadalajara está a unos 75 km de Iberdrola Music (Mad Cool) y es uno de los orígenes más activos de carpooling hacia festivales madrileños. El Palacio de los Deportes de Guadalajara y el Auditorio del Palacio de Congresos acogen eventos de mid-size. ConcertRide cubre la ruta Guadalajara–Madrid (3–6 €, 45 min) y Guadalajara–Viña Rock (95 km, 1h 10 min).",
     venues: ["Palacio de los Deportes de Guadalajara", "Auditorio Palacio de Congresos"],
     lat: 40.6321, lng: -3.1667,
   },
@@ -723,7 +723,7 @@ export const CITY_LANDINGS: CityLanding[] = [
     display: "Móstoles",
     region: "Comunidad de Madrid",
     blurb:
-      "Móstoles (210.000 habitantes) es la segunda ciudad de la Comunidad de Madrid, parte del cinturón sur metropolitano. Recintos: Pabellón Andrés Torrejón, Teatro del Bosque. Conectado con Madrid centro por Cercanías Renfe C-5 (25 min) y Metro Sur L12 (40 min). Carpooling ConcertRide a Mad Cool IFEMA Madrid (35 km, 3–5€), Tomavistas Retiro (25 km, 3–5€), Viña Rock Villarrobledo (245 km, 7–10€), Sonorama Ribera Aranda (180 km, 6–9€). Hub natural para asistentes del sur de Madrid sin coche que evitan el centro. Sin comisión.",
+      "Móstoles (210.000 habitantes) es la segunda ciudad de la Comunidad de Madrid, parte del cinturón sur metropolitano. Recintos: Pabellón Andrés Torrejón, Teatro del Bosque. Conectado con Madrid centro por Cercanías Renfe C-5 (25 min) y Metro Sur L12 (40 min). Carpooling ConcertRide a Mad Cool en Iberdrola Music (35 km, 3–5€), Tomavistas Retiro (25 km, 3–5€), Viña Rock Villarrobledo (245 km, 7–10€), Sonorama Ribera Aranda (180 km, 6–9€). Hub natural para asistentes del sur de Madrid sin coche que evitan el centro. Sin comisión.",
     venues: ["Pabellón Andrés Torrejón", "Teatro del Bosque", "Recinto Ferial El Soto"],
     lat: 40.3220, lng: -3.8657,
   },
@@ -733,7 +733,7 @@ export const CITY_LANDINGS: CityLanding[] = [
     display: "Alcalá de Henares",
     region: "Comunidad de Madrid",
     blurb:
-      "Alcalá de Henares (195.000 habitantes) es ciudad UNESCO Patrimonio de la Humanidad por su universidad cervantina y casco histórico. Festival propio: Festival de la Palabra (octubre), Don Juan en Alcalá (octubre, teatro), Festival Sefarad (julio). Recintos: Teatro Salón Cervantes, Plaza de Cervantes (escenario al aire libre, 8.000 personas), Recinto Ferial. Conectado con Madrid por Cercanías Renfe C-2/C-7 (35 min, 4€). Carpooling ConcertRide a Mad Cool IFEMA (25 km, 3–5€), Sonorama Ribera Aranda (130 km, 5–8€), Viña Rock Villarrobledo (240 km, 7–10€). Sin comisión.",
+      "Alcalá de Henares (195.000 habitantes) es ciudad UNESCO Patrimonio de la Humanidad por su universidad cervantina y casco histórico. Festival propio: Festival de la Palabra (octubre), Don Juan en Alcalá (octubre, teatro), Festival Sefarad (julio). Recintos: Teatro Salón Cervantes, Plaza de Cervantes (escenario al aire libre, 8.000 personas), Recinto Ferial. Conectado con Madrid por Cercanías Renfe C-2/C-7 (35 min, 4€). Carpooling ConcertRide a Mad Cool en Iberdrola Music (25 km, 3–5€), Sonorama Ribera Aranda (130 km, 5–8€), Viña Rock Villarrobledo (240 km, 7–10€). Sin comisión.",
     venues: ["Teatro Salón Cervantes", "Plaza de Cervantes (escenarios urbanos)", "Recinto Ferial Alcalá", "Don Juan en Alcalá"],
     lat: 40.4815, lng: -3.3636,
   },
@@ -743,7 +743,7 @@ export const CITY_LANDINGS: CityLanding[] = [
     display: "Getafe",
     region: "Comunidad de Madrid",
     blurb:
-      "Getafe (185.000 habitantes) es nodo del cinturón sur de Madrid con base aérea propia. Recintos: Coliseum Alfonso Pérez (estadio del Getafe CF, eventos de music & lifestyle), Pabellón Juan de la Cierva. Conectado con Madrid centro por Cercanías Renfe C-3/C-4 (20 min) y Metro Sur L12. Carpooling ConcertRide a Mad Cool IFEMA Madrid (30 km, 3–5€), Tomavistas (25 km, 3–5€), Viña Rock Villarrobledo (235 km, 7–10€), Cala Mijas (555 km, 14–20€). Sin comisión, vuelta nocturna coordinada con asistentes del mismo evento.",
+      "Getafe (185.000 habitantes) es nodo del cinturón sur de Madrid con base aérea propia. Recintos: Coliseum Alfonso Pérez (estadio del Getafe CF, eventos de music & lifestyle), Pabellón Juan de la Cierva. Conectado con Madrid centro por Cercanías Renfe C-3/C-4 (20 min) y Metro Sur L12. Carpooling ConcertRide a Mad Cool en Iberdrola Music (30 km, 3–5€), Tomavistas (25 km, 3–5€), Viña Rock Villarrobledo (235 km, 7–10€), Cala Mijas (555 km, 14–20€). Sin comisión, vuelta nocturna coordinada con asistentes del mismo evento.",
     venues: ["Coliseum Alfonso Pérez", "Pabellón Juan de la Cierva", "Centro Cultural García Lorca"],
     lat: 40.3057, lng: -3.7325,
   },

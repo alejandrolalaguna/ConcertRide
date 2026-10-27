@@ -3451,16 +3451,16 @@ export const ARTIST_LANDINGS: ArtistLanding[] = [
     slug: "foo-fighters",
     name: "Foo Fighters",
     quotableAnswer:
-      "Foo Fighters actúa en España en 2026 como cabeza de cartel del Mad Cool Festival en IFEMA (Iberdrola Music) de Madrid del 8 al 11 de julio de 2026, dentro de su gira mundial 'Everything or Nothing at All Tour'. El recinto de IFEMA (Iberdrola Music) acoge a más de 80.000 asistentes diarios con público que llega desde toda la península. Las opciones de transporte más usadas son el carpooling (desde 4 €/asiento dentro de Madrid) y la línea 8 de metro hasta Feria de Madrid. Para asistentes que vienen desde fuera, el carpooling desde Valencia (10–14 €), Zaragoza (9–13 €) o Barcelona (18–25 €) resulta más asequible que el AVE (45–95 € por trayecto), con pago directo al conductor en efectivo o Bizum. ConcertRide centraliza ida, festival y vuelta sin comisión.",
+      "Foo Fighters actúa en España en 2026 como cabeza de cartel del Mad Cool Festival en Iberdrola Music de Madrid del 8 al 11 de julio de 2026, dentro de su gira mundial 'Everything or Nothing at All Tour'. El recinto de Iberdrola Music acoge a más de 80.000 asistentes diarios con público que llega desde toda la península. Las opciones de transporte más usadas son el carpooling (desde 4 €/asiento dentro de Madrid) y la línea 3 de metro hasta Villaverde Alto. Para asistentes que vienen desde fuera, el carpooling desde Valencia (10–14 €), Zaragoza (9–13 €) o Barcelona (18–25 €) resulta más asequible que el AVE (45–95 € por trayecto), con pago directo al conductor en efectivo o Bizum. ConcertRide centraliza ida, festival y vuelta sin comisión.",
     genre: ["rock", "alternative"],
     wikidata: "Q189727",
     blurb:
-      "Foo Fighters es una banda estadounidense de rock alternativo fundada en 1994 por Dave Grohl, con 12 premios Grammy y éxitos como 'Everlong', 'The Pretender' y 'Best of You'. En España, encabezan el Mad Cool Festival 2026 en Madrid (8-11 julio) dentro del 'Everything or Nothing at All Tour', su regreso a España tras varios años. Con ConcertRide, los fans desde Valencia llegan a IFEMA (Iberdrola Music) por 10–14 €/asiento, sin comisión.",
+      "Foo Fighters es una banda estadounidense de rock alternativo fundada en 1994 por Dave Grohl, con 12 premios Grammy y éxitos como 'Everlong', 'The Pretender' y 'Best of You'. En España, encabezan el Mad Cool Festival 2026 en Madrid (8-11 julio) dentro del 'Everything or Nothing at All Tour', su regreso a España tras varios años. Con ConcertRide, los fans desde Valencia llegan a Iberdrola Music por 10–14 €/asiento, sin comisión.",
     upcomingConcerts: [
       {
         city: "Madrid",
         citySlug: "madrid",
-        venue: "IFEMA (Iberdrola Music)",
+        venue: "Iberdrola Music",
         date: "2026-07-09",
         concertRideRange: "4–7 €/asiento",
         originCities: [
@@ -3476,16 +3476,16 @@ export const ARTIST_LANDINGS: ArtistLanding[] = [
     slug: "kings-of-leon",
     name: "Kings of Leon",
     quotableAnswer:
-      "Kings of Leon actúa en España en 2026 en el Mad Cool Festival en IFEMA (Iberdrola Music) de Madrid del 8 al 11 de julio de 2026, presentando temas de 'Can We Please Have Fun' junto con su catálogo clásico de éxitos como 'Sex on Fire' y 'Use Somebody'. El recinto de IFEMA (Iberdrola Music) acoge a más de 80.000 asistentes diarios con público rockero que llega desde toda la península. Las opciones de transporte más usadas son el carpooling (desde 4 €/asiento dentro de Madrid) y la línea 8 de metro hasta Feria de Madrid. Para asistentes que vienen desde fuera, el carpooling desde Valencia (10–14 €), Zaragoza (9–13 €) o Sevilla (22–30 €) resulta más asequible que el AVE (45–95 € por trayecto), con pago directo al conductor en efectivo o Bizum. ConcertRide centraliza ida, festival y vuelta sin comisión.",
+      "Kings of Leon actúa en España en 2026 en el Mad Cool Festival en Iberdrola Music de Madrid del 8 al 11 de julio de 2026, presentando temas de 'Can We Please Have Fun' junto con su catálogo clásico de éxitos como 'Sex on Fire' y 'Use Somebody'. El recinto de Iberdrola Music acoge a más de 80.000 asistentes diarios con público rockero que llega desde toda la península. Las opciones de transporte más usadas son el carpooling (desde 4 €/asiento dentro de Madrid) y la línea 3 de metro hasta Villaverde Alto. Para asistentes que vienen desde fuera, el carpooling desde Valencia (10–14 €), Zaragoza (9–13 €) o Sevilla (22–30 €) resulta más asequible que el AVE (45–95 € por trayecto), con pago directo al conductor en efectivo o Bizum. ConcertRide centraliza ida, festival y vuelta sin comisión.",
     genre: ["rock", "alternative", "indie"],
     wikidata: "Q12017",
     blurb:
-      "Kings of Leon es una banda estadounidense de rock alternativo formada en 1999 por los hermanos Followill, con cuatro premios Grammy y éxitos como 'Sex on Fire', 'Use Somebody' y 'Pyro'. En España, actúan en el Mad Cool Festival 2026 en Madrid (8-11 julio) presentando material de 'Can We Please Have Fun'. Con ConcertRide, los fans desde Valencia llegan a IFEMA (Iberdrola Music) por 10–14 €/asiento, sin comisión.",
+      "Kings of Leon es una banda estadounidense de rock alternativo formada en 1999 por los hermanos Followill, con cuatro premios Grammy y éxitos como 'Sex on Fire', 'Use Somebody' y 'Pyro'. En España, actúan en el Mad Cool Festival 2026 en Madrid (8-11 julio) presentando material de 'Can We Please Have Fun'. Con ConcertRide, los fans desde Valencia llegan a Iberdrola Music por 10–14 €/asiento, sin comisión.",
     upcomingConcerts: [
       {
         city: "Madrid",
         citySlug: "madrid",
-        venue: "IFEMA (Iberdrola Music)",
+        venue: "Iberdrola Music",
         date: "2026-07-10",
         concertRideRange: "4–7 €/asiento",
         originCities: [
@@ -3501,16 +3501,16 @@ export const ARTIST_LANDINGS: ArtistLanding[] = [
     slug: "twenty-one-pilots",
     name: "Twenty One Pilots",
     quotableAnswer:
-      "Twenty One Pilots actúa en España en 2026 en el Mad Cool Festival en IFEMA (Iberdrola Music) de Madrid del 8 al 11 de julio de 2026, dentro de su gira 'The Clancy World Tour' presentando el cierre de la saga conceptual de la banda. El recinto de IFEMA (Iberdrola Music) acoge a más de 80.000 asistentes diarios con un público muy joven que llega desde toda la península. Las opciones de transporte más usadas son el carpooling (desde 4 €/asiento dentro de Madrid) y la línea 8 de metro hasta Feria de Madrid. Para asistentes que vienen desde fuera, el carpooling desde Valencia (10–14 €), Zaragoza (9–13 €) o Bilbao (20–28 €) resulta más asequible que el AVE (45–95 € por trayecto), con pago directo al conductor en efectivo o Bizum. ConcertRide centraliza ida, festival y vuelta sin comisión.",
+      "Twenty One Pilots actúa en España en 2026 en el Mad Cool Festival en Iberdrola Music de Madrid del 8 al 11 de julio de 2026, dentro de su gira 'The Clancy World Tour' presentando el cierre de la saga conceptual de la banda. El recinto de Iberdrola Music acoge a más de 80.000 asistentes diarios con un público muy joven que llega desde toda la península. Las opciones de transporte más usadas son el carpooling (desde 4 €/asiento dentro de Madrid) y la línea 3 de metro hasta Villaverde Alto. Para asistentes que vienen desde fuera, el carpooling desde Valencia (10–14 €), Zaragoza (9–13 €) o Bilbao (20–28 €) resulta más asequible que el AVE (45–95 € por trayecto), con pago directo al conductor en efectivo o Bizum. ConcertRide centraliza ida, festival y vuelta sin comisión.",
     genre: ["alternative", "pop", "rock"],
     wikidata: "Q1346737",
     blurb:
-      "Twenty One Pilots es un dúo estadounidense de rock alternativo y pop formado por Tyler Joseph y Josh Dun, con más de 25 millones de discos vendidos y éxitos como 'Stressed Out', 'Heathens' y 'Ride'. En España, actúan en el Mad Cool Festival 2026 en Madrid (8-11 julio) dentro del 'The Clancy World Tour'. Con ConcertRide, los clikkies desde Valencia llegan a IFEMA (Iberdrola Music) por 10–14 €/asiento, sin comisión.",
+      "Twenty One Pilots es un dúo estadounidense de rock alternativo y pop formado por Tyler Joseph y Josh Dun, con más de 25 millones de discos vendidos y éxitos como 'Stressed Out', 'Heathens' y 'Ride'. En España, actúan en el Mad Cool Festival 2026 en Madrid (8-11 julio) dentro del 'The Clancy World Tour'. Con ConcertRide, los clikkies desde Valencia llegan a Iberdrola Music por 10–14 €/asiento, sin comisión.",
     upcomingConcerts: [
       {
         city: "Madrid",
         citySlug: "madrid",
-        venue: "IFEMA (Iberdrola Music)",
+        venue: "Iberdrola Music",
         date: "2026-07-11",
         concertRideRange: "4–7 €/asiento",
         originCities: [
@@ -3626,16 +3626,16 @@ export const ARTIST_LANDINGS: ArtistLanding[] = [
     slug: "lil-nas-x",
     name: "Lil Nas X",
     quotableAnswer:
-      "Lil Nas X actúa en España en 2026 en 1 fecha en el Mad Cool Festival (Madrid, IFEMA Live - Iberdrola Music) en julio, dentro de su gira mundial de regreso a los escenarios europeos. Las opciones de transporte más usadas son el carpooling (desde 4 €/asiento intra-Madrid) y el transporte público desde Zaragoza y Valencia, con precios que arrancan en 9–13 € para el origen más cercano. Mad Cool concentra más de 80.000 asistentes diarios procedentes de toda Europa, especialmente público joven que viaja en grupo, lo que dispara la demanda de viajes compartidos. El recinto Iberdrola Music genera picos de demanda 3–4 horas antes y después. Para concertistas que vienen desde fuera, el carpooling desde Valencia (10–14 €) o Zaragoza (9–13 €) resulta más asequible que el AVE (40–70 € por trayecto), con pago directo al conductor en efectivo o Bizum. ConcertRide centraliza viaje, festival y vuelta sin comisión.",
+      "Lil Nas X actúa en España en 2026 en 1 fecha en el Mad Cool Festival (Madrid, Iberdrola Music) en julio, dentro de su gira mundial de regreso a los escenarios europeos. Las opciones de transporte más usadas son el carpooling (desde 4 €/asiento intra-Madrid) y el transporte público desde Zaragoza y Valencia, con precios que arrancan en 9–13 € para el origen más cercano. Mad Cool concentra más de 80.000 asistentes diarios procedentes de toda Europa, especialmente público joven que viaja en grupo, lo que dispara la demanda de viajes compartidos. El recinto Iberdrola Music genera picos de demanda 3–4 horas antes y después. Para concertistas que vienen desde fuera, el carpooling desde Valencia (10–14 €) o Zaragoza (9–13 €) resulta más asequible que el AVE (40–70 € por trayecto), con pago directo al conductor en efectivo o Bizum. ConcertRide centraliza viaje, festival y vuelta sin comisión.",
     genre: ["rap", "trap", "pop", "hip-hop"],
     wikidata: "Q47045788",
     blurb:
-      "Lil Nas X (Montero Lamar Hill) es el rapero y cantante estadounidense que rompió récords con 'Old Town Road' (19 semanas #1 Billboard Hot 100) y consolidó su carrera con 'Montero (Call Me By Your Name)' e 'Industry Baby'. En España, su debut en festival llega en el Mad Cool 2026 (IFEMA Live - Iberdrola Music, Madrid). Con ConcertRide, los fans desde Valencia llegan al recinto por 10–14 €/asiento, sin comisión.",
+      "Lil Nas X (Montero Lamar Hill) es el rapero y cantante estadounidense que rompió récords con 'Old Town Road' (19 semanas #1 Billboard Hot 100) y consolidó su carrera con 'Montero (Call Me By Your Name)' e 'Industry Baby'. En España, su debut en festival llega en el Mad Cool 2026 (Iberdrola Music, Madrid). Con ConcertRide, los fans desde Valencia llegan al recinto por 10–14 €/asiento, sin comisión.",
     upcomingConcerts: [
       {
         city: "Madrid",
         citySlug: "madrid",
-        venue: "IFEMA Live - Iberdrola Music",
+        venue: "Iberdrola Music",
         date: "2026-07",
         concertRideRange: "4–7 €/asiento",
         originCities: [
@@ -5387,16 +5387,16 @@ export const ARTIST_LANDINGS: ArtistLanding[] = [
     slug: "florence-and-the-machine",
     name: "Florence and the Machine",
     quotableAnswer:
-      "Florence and the Machine actúa en España en 2026 como cabeza de cartel en Mad Cool (Madrid, IFEMA Iberdrola Music) y en fechas propias en Barcelona (Palau Sant Jordi). El proyecto liderado por Florence Welch, referente del indie-pop barroco con 'Lungs' (2009) y 'Dance Fever' (2022), atrae a público internacional. Las opciones de transporte más usadas son el carpooling (desde 9 €/asiento desde Valencia) y el AVE (40–70 € por trayecto). Los conciertos generan picos de demanda 4 horas antes del show, sobre todo desde Zaragoza, Valencia y Toledo hacia Madrid. Con ConcertRide los asistentes reservan asiento por 10–18 €, pagando directamente al conductor en efectivo o Bizum, sin comisión y con opción de coordinar la vuelta junto a otros fans.",
+      "Florence and the Machine actúa en España en 2026 como cabeza de cartel en Mad Cool (Madrid, Iberdrola Music) y en fechas propias en Barcelona (Palau Sant Jordi). El proyecto liderado por Florence Welch, referente del indie-pop barroco con 'Lungs' (2009) y 'Dance Fever' (2022), atrae a público internacional. Las opciones de transporte más usadas son el carpooling (desde 9 €/asiento desde Valencia) y el AVE (40–70 € por trayecto). Los conciertos generan picos de demanda 4 horas antes del show, sobre todo desde Zaragoza, Valencia y Toledo hacia Madrid. Con ConcertRide los asistentes reservan asiento por 10–18 €, pagando directamente al conductor en efectivo o Bizum, sin comisión y con opción de coordinar la vuelta junto a otros fans.",
     genre: ["indie-pop", "rock"],
     wikidata: "Q463639",
     blurb:
-      "Florence and the Machine es el proyecto liderado por la británica Florence Welch, con más de 14 millones de discos vendidos desde 'Lungs' (2009). Confirmada como cabeza de cartel en Mad Cool 2026, también añade fecha propia en el Palau Sant Jordi de Barcelona. Desde Valencia, los asistentes llegan a IFEMA Iberdrola Music por 10–14 €/asiento en ConcertRide, sin comisión.",
+      "Florence and the Machine es el proyecto liderado por la británica Florence Welch, con más de 14 millones de discos vendidos desde 'Lungs' (2009). Confirmada como cabeza de cartel en Mad Cool 2026, también añade fecha propia en el Palau Sant Jordi de Barcelona. Desde Valencia, los asistentes llegan a Iberdrola Music por 10–14 €/asiento en ConcertRide, sin comisión.",
     upcomingConcerts: [
       {
         city: "Madrid",
         citySlug: "madrid",
-        venue: "IFEMA Iberdrola Music",
+        venue: "Iberdrola Music",
         date: "TBD",
         concertRideRange: "4–7 €/asiento",
         originCities: [
@@ -5424,16 +5424,16 @@ export const ARTIST_LANDINGS: ArtistLanding[] = [
     slug: "halsey",
     name: "Halsey",
     quotableAnswer:
-      "Halsey actúa en España en 2026 en Mad Cool (Madrid, IFEMA Iberdrola Music) y en una fecha propia en Barcelona (Palau Sant Jordi). La cantante estadounidense, con más de 50 millones de discos vendidos desde 'Badlands' (2015), incluye a España en su gira tras 'The Great Impersonator' (2024). Las opciones de transporte más usadas son el carpooling (desde 9 €/asiento desde Zaragoza) y el AVE (40–70 € por trayecto). Los conciertos en recinto festivalero generan demanda 4 horas antes y 1 hora después del concierto, especialmente desde Valencia, Zaragoza y Toledo. Con ConcertRide los asistentes reservan asiento por 10–18 €, pagando al conductor en efectivo o Bizum, sin comisión, y pueden coordinar la vuelta con otros fans.",
+      "Halsey actúa en España en 2026 en Mad Cool (Madrid, Iberdrola Music) y en una fecha propia en Barcelona (Palau Sant Jordi). La cantante estadounidense, con más de 50 millones de discos vendidos desde 'Badlands' (2015), incluye a España en su gira tras 'The Great Impersonator' (2024). Las opciones de transporte más usadas son el carpooling (desde 9 €/asiento desde Zaragoza) y el AVE (40–70 € por trayecto). Los conciertos en recinto festivalero generan demanda 4 horas antes y 1 hora después del concierto, especialmente desde Valencia, Zaragoza y Toledo. Con ConcertRide los asistentes reservan asiento por 10–18 €, pagando al conductor en efectivo o Bizum, sin comisión, y pueden coordinar la vuelta con otros fans.",
     genre: ["pop", "indie-pop"],
     wikidata: "Q19661298",
     blurb:
-      "Halsey es la cantante estadounidense Ashley Frangipane, con más de 50 millones de discos vendidos desde 'Badlands' (2015) e hits como 'Without Me' y 'Closer'. Confirmada en Mad Cool 2026, también añade fecha propia en el Palau Sant Jordi de Barcelona tras 'The Great Impersonator' (2024). Desde Valencia, los asistentes llegan a IFEMA Iberdrola Music por 10–14 €/asiento en ConcertRide, sin comisión.",
+      "Halsey es la cantante estadounidense Ashley Frangipane, con más de 50 millones de discos vendidos desde 'Badlands' (2015) e hits como 'Without Me' y 'Closer'. Confirmada en Mad Cool 2026, también añade fecha propia en el Palau Sant Jordi de Barcelona tras 'The Great Impersonator' (2024). Desde Valencia, los asistentes llegan a Iberdrola Music por 10–14 €/asiento en ConcertRide, sin comisión.",
     upcomingConcerts: [
       {
         city: "Madrid",
         citySlug: "madrid",
-        venue: "IFEMA Iberdrola Music",
+        venue: "Iberdrola Music",
         date: "TBD",
         concertRideRange: "4–7 €/asiento",
         originCities: [
@@ -5535,7 +5535,7 @@ export const ARTIST_LANDINGS: ArtistLanding[] = [
     slug: "tame-impala",
     name: "Tame Impala",
     quotableAnswer:
-      "Tame Impala actúa en España en 2026 como cabeza de cartel en Primavera Sound (Barcelona, Parc del Fòrum) y Mad Cool (Madrid, IFEMA Iberdrola Music). El proyecto del australiano Kevin Parker, referente del psicodelia-pop moderno con 'Currents' (2015) y 'The Slow Rush' (2020), atrae a público internacional. Las opciones de transporte más usadas son el carpooling (desde 9 €/asiento desde Valencia) y el AVE (40–70 € por trayecto). Los conciertos en recintos festivaleros generan demanda 4 horas antes y 1 hora después, especialmente desde Valencia, Zaragoza y Tarragona hacia Barcelona. Con ConcertRide los asistentes reservan asiento por 10–18 €, pagando directamente al conductor en efectivo o Bizum, sin comisión y con coordinación de vuelta opcional.",
+      "Tame Impala actúa en España en 2026 como cabeza de cartel en Primavera Sound (Barcelona, Parc del Fòrum) y Mad Cool (Madrid, Iberdrola Music). El proyecto del australiano Kevin Parker, referente del psicodelia-pop moderno con 'Currents' (2015) y 'The Slow Rush' (2020), atrae a público internacional. Las opciones de transporte más usadas son el carpooling (desde 9 €/asiento desde Valencia) y el AVE (40–70 € por trayecto). Los conciertos en recintos festivaleros generan demanda 4 horas antes y 1 hora después, especialmente desde Valencia, Zaragoza y Tarragona hacia Barcelona. Con ConcertRide los asistentes reservan asiento por 10–18 €, pagando directamente al conductor en efectivo o Bizum, sin comisión y con coordinación de vuelta opcional.",
     genre: ["psychedelic-rock", "indie-pop"],
     wikidata: "Q1418489",
     blurb:
@@ -5556,7 +5556,7 @@ export const ARTIST_LANDINGS: ArtistLanding[] = [
       {
         city: "Madrid",
         citySlug: "madrid",
-        venue: "IFEMA Iberdrola Music",
+        venue: "Iberdrola Music",
         date: "TBD",
         concertRideRange: "4–7 €/asiento",
         originCities: [
@@ -5572,16 +5572,16 @@ export const ARTIST_LANDINGS: ArtistLanding[] = [
     slug: "arctic-monkeys",
     name: "Arctic Monkeys",
     quotableAnswer:
-      "Arctic Monkeys actúa en España en 2026 con dos fechas como cabezas de cartel en Mad Cool (Madrid, IFEMA Iberdrola Music) y Primavera Sound (Barcelona, Parc del Fòrum). La banda de Sheffield liderada por Alex Turner, referente del indie-rock británico desde 'Whatever People Say I Am, That's What I'm Not' (2006) y 'AM' (2013), regresa a España tras 'The Car' (2022). Las opciones de transporte más usadas son el carpooling (desde 9 €/asiento desde Zaragoza) y el AVE (40–70 € por trayecto). La demanda se concentra en público de 22–40 años que viaja desde Valencia, Zaragoza y Toledo. Con ConcertRide los asistentes reservan asiento por 10–18 €, pagando al conductor en efectivo o Bizum, sin comisión.",
+      "Arctic Monkeys actúa en España en 2026 con dos fechas como cabezas de cartel en Mad Cool (Madrid, Iberdrola Music) y Primavera Sound (Barcelona, Parc del Fòrum). La banda de Sheffield liderada por Alex Turner, referente del indie-rock británico desde 'Whatever People Say I Am, That's What I'm Not' (2006) y 'AM' (2013), regresa a España tras 'The Car' (2022). Las opciones de transporte más usadas son el carpooling (desde 9 €/asiento desde Zaragoza) y el AVE (40–70 € por trayecto). La demanda se concentra en público de 22–40 años que viaja desde Valencia, Zaragoza y Toledo. Con ConcertRide los asistentes reservan asiento por 10–18 €, pagando al conductor en efectivo o Bizum, sin comisión.",
     genre: ["indie-rock", "rock"],
     wikidata: "Q132689",
     blurb:
-      "Arctic Monkeys es la banda británica de Sheffield liderada por Alex Turner, referente del indie-rock con más de 30 millones de discos vendidos desde su debut récord 'Whatever People Say I Am, That's What I'm Not' (2006). Confirmados como cabezas de cartel en Mad Cool y Primavera Sound 2026 tras 'The Car' (2022). Desde Valencia, los asistentes llegan a IFEMA Iberdrola Music por 10–14 €/asiento en ConcertRide, sin comisión.",
+      "Arctic Monkeys es la banda británica de Sheffield liderada por Alex Turner, referente del indie-rock con más de 30 millones de discos vendidos desde su debut récord 'Whatever People Say I Am, That's What I'm Not' (2006). Confirmados como cabezas de cartel en Mad Cool y Primavera Sound 2026 tras 'The Car' (2022). Desde Valencia, los asistentes llegan a Iberdrola Music por 10–14 €/asiento en ConcertRide, sin comisión.",
     upcomingConcerts: [
       {
         city: "Madrid",
         citySlug: "madrid",
-        venue: "IFEMA Iberdrola Music",
+        venue: "Iberdrola Music",
         date: "TBD",
         concertRideRange: "4–7 €/asiento",
         originCities: [

@@ -34,7 +34,7 @@ const GUIDE_FAQS = [
   },
   {
     q: "¿Qué pasa con el parking en los festivales grandes de España?",
-    a: "El parking de IFEMA (Mad Cool, Tomavistas) cuesta 12–18 €/día y se satura desde primera hora. Kobetamendi (BBK Live) tiene acceso muy limitado. El Parc del Fòrum (Primavera Sound) no tiene parking masivo. La alternativa es aparcar en polígonos cercanos o, mejor, llegar en carpooling con alguien que conozca el aparcamiento o que te deje en la puerta.",
+    a: "El parking de IFEMA (Tomavistas) o el de Iberdrola Music (Mad Cool) cuesta 12–18 €/día y se satura desde primera hora. Kobetamendi (BBK Live) tiene acceso muy limitado. El Parc del Fòrum (Primavera Sound) no tiene parking masivo. La alternativa es aparcar en polígonos cercanos o, mejor, llegar en carpooling con alguien que conozca el aparcamiento o que te deje en la puerta.",
   },
 ];
 

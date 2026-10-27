@@ -501,7 +501,7 @@ export default function GuiaAcampadaFestivalPage() {
             Tabla comparativa de los precios oficiales del bono general, bono + acampada y glamping para 10
             festivales tier-1 de España en 2026. Las cifras son las tarifas estándar tras early bird; pueden subir
             10–25 % en última semana o si quedan plazas residuales. Mad Cool aparece sin acampada porque su
-            recinto IFEMA Iberdrola Music no la ofrece — se incluye para comparar coste total con alojamiento
+            recinto Iberdrola Music no la ofrece — se incluye para comparar coste total con alojamiento
             alternativo.
           </p>
         </div>

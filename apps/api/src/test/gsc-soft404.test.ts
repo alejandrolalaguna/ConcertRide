@@ -86,3 +86,33 @@ describe("§AH: HEAD must mirror GET status (RFC 9110)", () => {
     expect((await head("/glosario")).status).not.toBe(404);
   });
 });
+
+describe("§AM.11: bots get the same prerendered HTML as humans", () => {
+  const withAsset = {
+    ...(env as object),
+    ASSETS: {
+      fetch: async (req: Request) => {
+        const p = new URL(req.url).pathname.replace(/\/$/, "") || "/";
+        const real = p === "/festivales" || p === "/festivales/mad-cool";
+        const canonical = real ? `https://concertride.me${p}` : "https://concertride.me/";
+        return new Response(`<html><head><link rel="canonical" href="${canonical}"></head><body>ssr:${real ? p : "shell"}</body></html>`,
+          { status: 200, headers: { "content-type": "text/html" } });
+      },
+    },
+  };
+  async function bot(p: string, e: object) {
+    return await worker.fetch!(new Request(`https://concertride.me${p}`, { headers: GB }), e as never, ctx);
+  }
+  for (const p of ["/festivales", "/festivales/mad-cool"]) {
+    it(`${p} with its own asset is served as-is, not the synthetic bot page`, async () => {
+      const res = await bot(p, withAsset);
+      expect(res.status).toBe(200);
+      expect(res.headers.get("x-seo-prerender")).toBeNull();
+      expect(await res.text()).toContain(`ssr:${p}`);
+    });
+  }
+  it("a known page WITHOUT its own asset still gets the synthetic bot page", async () => {
+    const res = await bot("/festivales/primavera-sound", withAsset);
+    expect(res.headers.get("x-seo-prerender")).toBe("1");
+  });
+});

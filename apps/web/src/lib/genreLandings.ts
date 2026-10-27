@@ -47,7 +47,7 @@ export const GENRE_LANDINGS: GenreLanding[] = [
       },
       {
         q: "¿Cuándo son los festivales de rock en España 2026?",
-        a: "El calendario de festivales de rock en España 2026 arranca en mayo (Viña Rock, 30 abril–3 mayo), continúa en junio (Resurrection Fest, 25–28 junio), se concentra en julio (Mad Cool 9–11 jul, BBK Live 9–11 jul, FIB 16–19 jul, Low Festival 24–26 jul) y culmina en agosto (Sonorama 6–9 ago). El otoño tiene opciones más reducidas.",
+        a: "El calendario de festivales de rock en España 2026 arranca en mayo (Viña Rock, 30 abril–3 mayo), continúa en junio (Resurrection Fest, 25–28 junio), se concentra en julio (Mad Cool 8–11 jul, BBK Live 9–11 jul, FIB 16–19 jul, Low Festival 24–26 jul) y culmina en agosto (Sonorama 6–9 ago). El otoño tiene opciones más reducidas.",
       },
     ],
   },
@@ -82,7 +82,7 @@ export const GENRE_LANDINGS: GenreLanding[] = [
       },
       {
         q: "¿Qué festivales indie hay en España en verano 2026?",
-        a: "El verano 2026 concentra los principales festivales indie de España: Primavera Sound (Barcelona, 28 mayo–1 jun), Tomavistas (Madrid, 15–17 mayo), FIB (Benicàssim, 16–19 jul), Mad Cool (Madrid, 9–11 jul), Low Festival (Benidorm, 24–26 jul), Sonorama Ribera (Aranda de Duero, 6–9 ago), Granada Sound (Granada, septiembre). Todos con transporte compartido disponible en ConcertRide.",
+        a: "El verano 2026 concentra los principales festivales indie de España: Primavera Sound (Barcelona, 3–7 jun), Tomavistas (Madrid, 15–17 mayo), FIB (Benicàssim, 16–19 jul), Mad Cool (Madrid, 8–11 jul), Low Festival (Benidorm, 24–26 jul), Sonorama Ribera (Aranda de Duero, 6–9 ago), Granada Sound (Granada, septiembre). Todos con transporte compartido disponible en ConcertRide.",
       },
     ],
   },

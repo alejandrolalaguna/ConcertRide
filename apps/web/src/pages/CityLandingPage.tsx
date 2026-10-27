@@ -101,7 +101,7 @@ export default function CityLandingPage() {
     },
     madrid: {
       title: `Conciertos Madrid ${year}: WiZink, IFEMA, carpooling | ConcertRide`,
-      description: `Conciertos en Madrid ${year}: WiZink Center, Vistalegre, IFEMA (Mad Cool), Caja Mágica. Carpooling desde toda España, desde 4 €/asiento. Sin comisión.`,
+      description: `Conciertos en Madrid ${year}: WiZink Center, Vistalegre, Iberdrola Music (Mad Cool), Caja Mágica. Carpooling desde toda España, desde 4 €/asiento. Sin comisión.`,
       keywords: `conciertos en Madrid ${year}, conciertos Madrid ${nextYear}, próximos conciertos Madrid, WiZink Center ${year}, Mad Cool Madrid, IFEMA conciertos, carpooling Madrid festivales, cómo llegar conciertos Madrid`,
     },
     barcelona: {

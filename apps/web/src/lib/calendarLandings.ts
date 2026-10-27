@@ -29,12 +29,12 @@ export const CALENDAR_LANDINGS: CalendarLanding[] = [
       "festival-de-les-arts", // 28 may
     ],
     blurb:
-      "Mayo 2026 es uno de los meses más intensos del calendario festivalero español, con seis festivales en apenas tres semanas. Arranca con Viña Rock en el puente de mayo (30 abr–3 may, Albacete, 50.000 asistentes de punk y rock alternativo), sigue con SOS 4.8 en Murcia (8–10 may), Tomavistas en Madrid (15–17 may, indie), Mallorca Live Festival (22–24 may) y cierra con Primavera Sound en Barcelona (28 may–1 jun, referencia indie mundial). Carpooling sin comisión con ConcertRide a todos ellos.",
+      "Mayo 2026 es uno de los meses más intensos del calendario festivalero español, con seis festivales en apenas tres semanas. Arranca con Viña Rock en el puente de mayo (30 abr–3 may, Albacete, 50.000 asistentes de punk y rock alternativo), sigue con SOS 4.8 en Murcia (8–10 may), Tomavistas en Madrid (15–17 may, indie), Mallorca Live Festival (22–24 may) y cierra con Primavera Sound en Barcelona (3–7 jun, referencia indie mundial). Carpooling sin comisión con ConcertRide a todos ellos.",
     searchIntent: "festivales mayo 2026 españa",
     faqs: [
       {
         q: "¿Qué festivales hay en mayo 2026 en España?",
-        a: "En mayo 2026 hay seis festivales destacados en España: Viña Rock (Albacete, 30 abr–3 may), SOS 4.8 (Murcia, 8–10 mayo), Tomavistas (Madrid, 15–17 mayo), Mallorca Live Festival (Calvià, 22–24 mayo), Festival de les Arts (Valencia, 28 mayo) y Primavera Sound (Barcelona, 28 mayo–1 junio). Todos con carpooling disponible en ConcertRide desde las principales ciudades españolas, sin comisión.",
+        a: "En mayo 2026 hay seis festivales destacados en España: Viña Rock (Albacete, 30 abr–3 may), SOS 4.8 (Murcia, 8–10 mayo), Tomavistas (Madrid, 15–17 mayo), Mallorca Live Festival (Calvià, 22–24 mayo), Festival de les Arts (Valencia, 28 mayo) y Primavera Sound (Barcelona, 3–7 junio). Todos con carpooling disponible en ConcertRide desde las principales ciudades españolas, sin comisión.",
       },
       {
         q: "¿Es buen mes mayo para ir a festivales en España?",
@@ -88,7 +88,7 @@ export const CALENDAR_LANDINGS: CalendarLanding[] = [
     year: 2026,
     isoMonth: "2026-07",
     festivalSlugs: [
-      "mad-cool",           // 9–11 jul
+      "mad-cool",           // 8–11 jul
       "bbk-live",           // 9–11 jul
       "cruilla",            // 9–12 jul
       "festival-ortigueira",// 9–12 jul
@@ -108,11 +108,11 @@ export const CALENDAR_LANDINGS: CalendarLanding[] = [
     faqs: [
       {
         q: "¿Cuántos festivales hay en julio 2026 en España?",
-        a: "Julio es el mes con más festivales en España: Mad Cool (Madrid, 9–11 jul), BBK Live (Bilbao, 9–11 jul), Cruïlla (Barcelona, 9–12 jul), Ortigueira (Galicia, 9–12 jul), Pirineos Sur (Huesca, 10 jul), Stone & Music (Segovia, 10 jul), PortAmérica (Catoira, 9 jul), Metrópoli Gijón (Gijón, 3–6 jul), Atlantic Fest (Ponteceso, 17 jul), FIB (Benicàssim, 16–19 jul), Jazzaldia (Donostia, 22–26 jul), Low Festival (Benidorm, 24–26 jul) y Starlite Marbella continúa desde junio.",
+        a: "Julio es el mes con más festivales en España: Mad Cool (Madrid, 8–11 jul), BBK Live (Bilbao, 9–11 jul), Cruïlla (Barcelona, 9–12 jul), Ortigueira (Galicia, 9–12 jul), Pirineos Sur (Huesca, 10 jul), Stone & Music (Segovia, 10 jul), PortAmérica (Catoira, 9 jul), Metrópoli Gijón (Gijón, 3–6 jul), Atlantic Fest (Ponteceso, 17 jul), FIB (Benicàssim, 16–19 jul), Jazzaldia (Donostia, 22–26 jul), Low Festival (Benidorm, 24–26 jul) y Starlite Marbella continúa desde junio.",
       },
       {
         q: "¿Qué festival es mejor en julio 2026, Mad Cool o BBK Live?",
-        a: "Mad Cool (Madrid, 8–11 julio) y BBK Live (Bilbao, 9–11 julio) son ambos excelentes pero diferentes: Mad Cool tiene carteles de rock e indie internacional más grandes (80.000/día, Iberdrola Music Villaverde) y se llega en metro L3 (Pradolongo/Legazpi). BBK Live tiene un enclave único en Kobetamendi con vistas a Bilbao, ambiente más íntimo (35.000/día) y fuerte identidad local vasca. Si estás en el norte, BBK Live. Si vienes de fuera de España, Mad Cool tiene más nombre internacional.",
+        a: "Mad Cool (Madrid, 8–11 julio) y BBK Live (Bilbao, 9–11 julio) son ambos excelentes pero diferentes: Mad Cool tiene carteles de rock e indie internacional más grandes (80.000/día, Iberdrola Music Villaverde) y se llega en metro L3 (Villaverde Alto). BBK Live tiene un enclave único en Kobetamendi con vistas a Bilbao, ambiente más íntimo (35.000/día) y fuerte identidad local vasca. Si estás en el norte, BBK Live. Si vienes de fuera de España, Mad Cool tiene más nombre internacional.",
       },
       {
         q: "¿Hay festivales gratuitos en julio 2026 en España?",

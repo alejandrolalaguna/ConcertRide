@@ -53,7 +53,7 @@ export const FESTIVAL_SEO_OVERRIDES: Record<string, { title: string; description
   },
   "mad-cool": {
     title: `Mad Cool ${YEAR} Madrid: Metro L3 + Carpooling 4€ | ConcertRide`,
-    description: `Mad Cool ${YEAR} (8–11 jul, Iberdrola Music, Villaverde, Madrid): Metro L3 a Pradolongo o Legazpi + carpooling 4€. 0% comisión, conductores verificados.`,
+    description: `Mad Cool ${YEAR} (8–11 jul, Iberdrola Music, Villaverde, Madrid): Metro L3 a Villaverde Alto + carpooling 4€. 0% comisión, conductores verificados.`,
     keywords: `mad cool ${YEAR}, como llegar al mad cool ${YEAR}, mad cool como llegar, mad cool madrid carpooling, mad cool transporte, como ir mad cool, mad cool metro, mad cool iberdrola music, mad cool villaverde, mad cool barcelona, viaje compartido mad cool, carpooling madrid mad cool, mad cool entradas, mad cool cartel, mad cool fechas, mad cool 2026 horarios, mad cool desde barcelona`,
   },
   "bbk-live": {
@@ -63,7 +63,7 @@ export const FESTIVAL_SEO_OVERRIDES: Record<string, { title: string; description
   },
   "primavera-sound": {
     title: `Primavera Sound ${YEAR}: Metro L4 + carpooling 8€ | ConcertRide`,
-    description: `Primavera Sound ${YEAR} (28 may–1 jun, Parc del Fòrum, Barcelona): Metro L4 a Besòs Mar/Maresme + carpooling 8€. 0% comisión, conductores verificados.`,
+    description: `Primavera Sound ${YEAR} (3–7 jun, Parc del Fòrum, Barcelona): Metro L4 a Besòs Mar/Maresme + carpooling 8€. 0% comisión, conductores verificados.`,
     keywords: `primavera sound ${YEAR}, primavera sound carpooling, como llegar primavera sound barcelona, transporte primavera sound, viaje compartido barcelona fòrum, primavera sound metro, primavera sound guia transporte, primavera sound entradas, primavera sound horarios, primavera sound desde madrid, primavera sound desde valencia`,
   },
   "resurrection-fest": {
@@ -419,7 +419,7 @@ export const CITY_SEO_IMPROVEMENTS: Record<string, { title: string; description:
   },
   madrid: {
     title: `Conciertos en Madrid ${YEAR} [WiZink + Mad Cool]: carpooling 4€`,
-    description: `Agenda conciertos Madrid ${YEAR}: WiZink Center (15.500), Mad Cool IFEMA (jul), Tomavistas Retiro (may), Palacio Vistalegre, Caja Mágica, Movistar Arena.`,
+    description: `Agenda conciertos Madrid ${YEAR}: WiZink Center (15.500), Mad Cool (Iberdrola Music, jul), Tomavistas Retiro (may), Palacio Vistalegre, Caja Mágica, Movistar Arena.`,
     keywords: `conciertos Madrid ${YEAR}, conciertos en Madrid, Mad Cool Madrid, Tomavistas Madrid, WiZink Center, Movistar Arena Madrid, palacio vistalegre, ifema mad cool, carpooling Madrid festivales, viaje compartido Madrid concierto, próximos conciertos Madrid, agenda conciertos madrid, conciertos madrid 2026, conciertos madrid 2027`,
   },
   valladolid: {
@@ -697,7 +697,7 @@ export const HOW_TO_GET_THERE_SEO: Record<string, { title: string; description: 
     // información de transporte (Metro L3, recinto) es perenne, así que el title
     // pierde el año y las fechas concretas quedan en el cuerpo y en el schema.
     title: `Cómo llegar a Mad Cool: Metro L3 + carpooling 4€`,
-    description: `Mad Cool en Iberdrola Music (Villaverde, Madrid): Metro L3 a Pradolongo/Legazpi + carpooling desde 4€/asiento. 0% comisión, conductores verificados.`,
+    description: `Mad Cool en Iberdrola Music (Villaverde, Madrid): Metro L3 a Villaverde Alto + carpooling desde 4€/asiento. 0% comisión, conductores verificados.`,
     keywords: `como llegar mad cool ${YEAR}, mad cool transporte, mad cool metro l3, mad cool como llegar, mad cool iberdrola music, mad cool villaverde, mad cool carpooling, mad cool desde barcelona, mad cool desde valencia, mad cool parking, mad cool metro pradolongo, mad cool metro legazpi`,
   },
   "primavera-sound": {
@@ -864,8 +864,8 @@ export const VENUE_SEO_OVERRIDES: Record<string, { title: string; description: s
     keywords: `palacio vistalegre como llegar, palacio vistalegre metro, vista alegre como llegar, vista alegre madrid como llegar, mapa palacio vistalegre, palacio vistalegre cómo llegar, vistalegre metro, carpooling vistalegre madrid, conciertos vistalegre, palacio vistalegre metro carabanchel, como ir palacio vistalegre, vistalegre madrid metro parada, palacio vistalegre transporte, parking palacio vistalegre, palacio vistalegre direccion, como llegar vistalegre`,
   },
   "ifema-madrid": {
-    title: `IFEMA Madrid: Metro L8 + Carpooling Mad Cool | ConcertRide`,
-    description: `IFEMA Madrid — Feria de Madrid: Metro L8 estación Feria de Madrid + carpooling a Mad Cool. 0% comisión, conductores verificados.`,
+    title: `IFEMA Madrid: Metro L8 + Carpooling a conciertos | ConcertRide`,
+    description: `IFEMA Madrid — Feria de Madrid: Metro L8 estación Feria de Madrid + carpooling a Download Festival y conciertos. 0% comisión, conductores verificados.`,
     keywords: `como llegar ifema, ifema como llegar, ifema metro, ifema mad cool transporte, carpooling ifema madrid, como ir ifema mad cool, mad cool como llegar ifema, ifema metro l8, ifema feria madrid metro, como ir a ifema madrid, ifema transporte público, mad cool ifema carpooling, ifema madrid aparcamiento`,
   },
   "kobetamendi": {
@@ -1670,7 +1670,7 @@ export const ROUTE_SEO_IMPROVEMENTS: Record<string, { title: string; description
   // ── Primavera Sound / Sónar / Mad Cool ─────────────────────────────────
   "madrid-mad-cool": {
     title: `Cómo ir a Mad Cool desde Madrid ${YEAR}: 25min, 15km, desde 4€`,
-    description: `Cómo ir a Mad Cool desde Madrid ${YEAR}: 15 km a IFEMA Iberdrola Music, 25 min, carpooling desde 4€/asiento. 0% comisión, conductores verificados.`,
+    description: `Cómo ir a Mad Cool desde Madrid ${YEAR}: 15 km a Iberdrola Music, 25 min, carpooling desde 4€/asiento. 0% comisión, conductores verificados.`,
     keywords: `carpooling madrid mad cool, viaje compartido madrid mad cool, como ir mad cool desde madrid centro, metro mad cool ifema, lanzadera mad cool madrid, mad cool desde madrid ${YEAR}`,
   },
   "madrid-primavera-sound": {
@@ -1700,12 +1700,12 @@ export const ROUTE_SEO_IMPROVEMENTS: Record<string, { title: string; description
   },
   "barcelona-mad-cool": {
     title: `Carpooling Barcelona → Mad Cool ${YEAR} [Madrid]: 15€, 5h30, 620km`,
-    description: `Carpooling Barcelona → Mad Cool ${YEAR}: 620 km, 5h 30 min por A-2 a IFEMA Madrid, desde 15€/asiento sin comisión. Más económico que AVE (60–100€) y vuelo.`,
+    description: `Carpooling Barcelona → Mad Cool ${YEAR}: 620 km, 5h 30 min por A-2 hasta Madrid, desde 15€/asiento sin comisión. Más económico que AVE (60–100€) y vuelo.`,
     keywords: `carpooling barcelona madrid mad cool, viaje compartido barcelona madrid festival, como ir mad cool desde barcelona`,
   },
   "zaragoza-mad-cool": {
     title: `Carpooling Zaragoza → Mad Cool ${YEAR} [Madrid]: desde 9€, 3h`,
-    description: `Carpooling Zaragoza → Mad Cool ${YEAR}: 325 km, 3h por A-2, desde 9€/asiento sin comisión. Más barato que AVE (40€+) y bus regular a IFEMA, vuelta coordinada.`,
+    description: `Carpooling Zaragoza → Mad Cool ${YEAR}: 325 km, 3h por A-2, desde 9€/asiento sin comisión. Más barato que AVE (40€+) y bus regular a Madrid, vuelta coordinada.`,
     keywords: `carpooling zaragoza mad cool, viaje compartido zaragoza madrid mad cool`,
   },
   // ── Cala Mijas ──────────────────────────────────────────────────────────
@@ -2586,7 +2586,7 @@ export const ROUTE_SEO_IMPROVEMENTS: Record<string, { title: string; description
   },
   "donostia-mad-cool": {
     title: `Donostia → Mad Cool Madrid ${YEAR} desde 13€ · ConcertRide`,
-    description: `Carpooling de Donostia a Mad Cool Festival ${YEAR} (IFEMA Madrid, 465 km, 4h 15 min). 0% comisión, conductores verificados.`,
+    description: `Carpooling de Donostia a Mad Cool Festival ${YEAR} (Iberdrola Music, Madrid, 465 km, 4h 15 min). 0% comisión, conductores verificados.`,
     keywords: `donostia mad cool carpooling, donostia ifema madrid viaje compartido, san sebastian mad cool transporte, donostia mad cool ${YEAR}, viaje compartido donostia madrid festival`,
   },
   "cordoba-bbk-live": {
@@ -2611,7 +2611,7 @@ export const ROUTE_SEO_IMPROVEMENTS: Record<string, { title: string; description
   },
   "avila-mad-cool": {
     title: `Ávila → Mad Cool Madrid ${YEAR} desde 4€ · ConcertRide`,
-    description: `Carpooling de Ávila a Mad Cool Festival ${YEAR} (IFEMA Madrid, 110 km, 1h 10 min). 0 % comisión, vuelta nocturna y conductores verificados en ConcertRide.`,
+    description: `Carpooling de Ávila a Mad Cool Festival ${YEAR} (Iberdrola Music, Madrid, 110 km, 1h 10 min). 0 % comisión, vuelta nocturna y conductores verificados en ConcertRide.`,
     keywords: `avila mad cool carpooling, avila ifema madrid festival viaje compartido, avila mad cool ${YEAR}, carpooling castilla festival madrid`,
   },
   "valladolid-bbk-live": {
@@ -2636,7 +2636,7 @@ export const ROUTE_SEO_IMPROVEMENTS: Record<string, { title: string; description
   },
   "tarragona-mad-cool": {
     title: `Tarragona → Mad Cool Madrid ${YEAR} desde 12€ · ConcertRide`,
-    description: `Carpooling de Tarragona a Mad Cool Festival ${YEAR} (IFEMA Madrid, 550 km, 5h 30 min). 0% comisión, conductores verificados.`,
+    description: `Carpooling de Tarragona a Mad Cool Festival ${YEAR} (Iberdrola Music, Madrid, 550 km, 5h 30 min). 0% comisión, conductores verificados.`,
     keywords: `tarragona mad cool carpooling, tarragona madrid festival viaje compartido, tarragona mad cool ${YEAR}, carpooling cataluña festival madrid`,
   },
   // ── Wave 2: 30 new routes for 14 freshly-added festivals ─────────────────
@@ -3338,7 +3338,7 @@ export const ROUTE_SEO_IMPROVEMENTS: Record<string, { title: string; description
   // ── Valencia × festivales ──────────────────────────────────────────────────
   "valencia-mad-cool": {
     title: `Valencia → Mad Cool ${YEAR}: desde 10€ · 3h20 · IFEMA | ConcertRide`,
-    description: `Carpooling Valencia → Mad Cool ${YEAR} (IFEMA Iberdrola Music, Madrid, 355 km, 3h 20 min por A-3). 0% comisión, conductores verificados.`,
+    description: `Carpooling Valencia → Mad Cool ${YEAR} (Iberdrola Music, Madrid, 355 km, 3h 20 min por A-3). 0% comisión, conductores verificados.`,
     keywords: `carpooling valencia mad cool, viaje compartido valencia madrid mad cool, como ir mad cool desde valencia, transporte valencia mad cool ${YEAR}, valencia madrid festival verano`,
   },
   "valencia-bbk-live": {

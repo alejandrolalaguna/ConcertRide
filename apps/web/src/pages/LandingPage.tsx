@@ -881,7 +881,7 @@ export default function LandingPage() {
       {/* 16. Final CTA — crowd photo + lime bloom */}
       <FinalCTA />
 
-      {/* 17. Sticky mobile CTA — links to next festival landing (Primavera Sound 28 may–1 jun) */}
+      {/* 17. Sticky mobile CTA — links to next festival landing (Primavera Sound 3–7 jun) */}
       <div
         className="fixed bottom-0 left-0 right-0 z-40 sm:hidden bg-[#080808]/95 backdrop-blur border-t border-white/[0.06] p-3"
         role="complementary"

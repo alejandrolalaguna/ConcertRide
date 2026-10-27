@@ -36,11 +36,11 @@ export const REGION_LANDINGS: RegionLanding[] = [
       },
       {
         q: "¿Cómo llegar a los festivales de Madrid desde Valencia?",
-        a: "La distancia Valencia–Madrid es de 355 km (3h 20 min por la A-3 o el AVE en 1h 30 min). Para Mad Cool (Iberdrola Music Villaverde) o Tomavistas (Retiro), el carpooling con ConcertRide cuesta entre 10 y 14 €/asiento. El AVE Valencia–Madrid Atocha cuesta entre 25 y 70 € según antelación, pero requiere transporte adicional desde Atocha hasta Iberdrola Music (metro L3 Pradolongo o Legazpi, 30 min) o Retiro (metro Línea 2, 5 min).",
+        a: "La distancia Valencia–Madrid es de 355 km (3h 20 min por la A-3 o el AVE en 1h 30 min). Para Mad Cool (Iberdrola Music Villaverde) o Tomavistas (Retiro), el carpooling con ConcertRide cuesta entre 10 y 14 €/asiento. El AVE Valencia–Madrid Atocha cuesta entre 25 y 70 € según antelación, pero requiere transporte adicional desde Atocha hasta Iberdrola Music (metro L3 Villaverde Alto, 30 min) o Retiro (metro Línea 2, 5 min).",
       },
       {
         q: "¿Cómo llegar a los festivales de Madrid desde Barcelona?",
-        a: "Barcelona–Madrid son 620 km (5h 30 min en coche o 2h 30 min en AVE). El AVE cuesta entre 50 y 100 €; con ConcertRide el precio por asiento está entre 15 y 20 €. Para Iberdrola Music (Villaverde Bajo) desde Atocha conviene el metro L3 hasta Pradolongo o Legazpi (unos 30 min). El carpooling es especialmente popular para asistentes que quieren ir y volver del festival sin las restricciones horarias del tren.",
+        a: "Barcelona–Madrid son 620 km (5h 30 min en coche o 2h 30 min en AVE). El AVE cuesta entre 50 y 100 €; con ConcertRide el precio por asiento está entre 15 y 20 €. Para Iberdrola Music (Villaverde) desde Atocha conviene el metro L3 hasta Villaverde Alto (unos 30 min). El carpooling es especialmente popular para asistentes que quieren ir y volver del festival sin las restricciones horarias del tren.",
       },
       {
         q: "¿Cuánto cuesta el carpooling a Mad Cool desde Zaragoza?",
@@ -48,7 +48,7 @@ export const REGION_LANDINGS: RegionLanding[] = [
       },
       {
         q: "¿Hay transporte de madrugada de vuelta de Mad Cool?",
-        a: "El metro de Madrid cierra sobre la 1:30 (se amplía hasta las 2:00–2:30 en noches de Mad Cool, con L3 reforzado hacia Pradolongo). Los autobuses nocturnos no tienen parada en Villaverde Bajo directa. Los taxis y VTC aplican precio x2–x3 de madrugada (60–90 €). El carpooling con ConcertRide es la única alternativa organizada para quienes vienen de otra provincia y necesitan volver cuando termine el último artista.",
+        a: "El metro de Madrid cierra sobre la 1:30 (se amplía hasta las 3:00–3:30 en noches de Mad Cool, con L3 reforzado hacia Villaverde Alto). El nocturno N14 (Cibeles–Villaverde Alto) es la línea de búho directa. Los taxis y VTC aplican precio x2–x3 de madrugada (60–90 €). El carpooling con ConcertRide es la única alternativa organizada para quienes vienen de otra provincia y necesitan volver cuando termine el último artista.",
       },
     ],
   },
@@ -68,7 +68,7 @@ export const REGION_LANDINGS: RegionLanding[] = [
     faqs: [
       {
         q: "¿Qué festivales hay en Cataluña en 2026?",
-        a: "Los principales festivales de Cataluña en 2026 son: Primavera Sound Barcelona (Parc del Fòrum, 28 mayo–1 junio, 60.000 personas/día), Sónar (Fira Montjuïc y Fira Gran Via, 18–20 junio, 120.000 en total) y Cruïlla (Parc del Fòrum, 9–12 julio). Los tres se celebran en Barcelona o su área metropolitana y son internacionalmente reconocidos en las categorías indie/alternativo, electrónica y world music respectivamente.",
+        a: "Los principales festivales de Cataluña en 2026 son: Primavera Sound Barcelona (Parc del Fòrum, 3–7 junio, 60.000 personas/día), Sónar (Fira Montjuïc y Fira Gran Via, 18–20 junio, 120.000 en total) y Cruïlla (Parc del Fòrum, 9–12 julio). Los tres se celebran en Barcelona o su área metropolitana y son internacionalmente reconocidos en las categorías indie/alternativo, electrónica y world music respectivamente.",
       },
       {
         q: "¿Cómo llegar a los festivales de Cataluña desde Madrid?",

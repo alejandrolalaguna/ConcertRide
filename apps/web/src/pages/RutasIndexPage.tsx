@@ -295,7 +295,7 @@ export default function RutasIndexPage() {
             },
             {
               q: "¿Cuánto cuesta el carpooling a un festival desde Madrid?",
-              a: "Desde Madrid: Mad Cool (IFEMA) 4–7 €; BBK Live (Bilbao) 11–16 €; Primavera Sound (Barcelona) 14–22 €; Resurrection Fest (Viveiro) 16–22 €; Arenal Sound (Burriana) 12–17 €. Sin comisión — el 100 % va al conductor.",
+              a: "Desde Madrid: Mad Cool (Iberdrola Music) 4–7 €; BBK Live (Bilbao) 11–16 €; Primavera Sound (Barcelona) 14–22 €; Resurrection Fest (Viveiro) 16–22 €; Arenal Sound (Burriana) 12–17 €. Sin comisión — el 100 % va al conductor.",
             },
             {
               q: "¿Hay rutas de carpooling de vuelta desde los festivales?",

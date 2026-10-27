@@ -190,9 +190,9 @@ export const FESTIVAL_LANDINGS: FestivalLanding[] = [
     citySlug: "madrid",
     region: "Comunidad de Madrid",
     venue: "Iberdrola Music",
-    venueAddress: "Av. de Córdoba, s/n, 28026 Madrid (Villaverde)",
-    lat: 40.3487,
-    lng: -3.7041,
+    venueAddress: "Calle de la Laguna Dalga s/n, 28021 Madrid (Villaverde)",
+    lat: 40.3291,
+    lng: -3.7124,
     startDate: "2026-07-08",
     endDate: "2026-07-11",
     typicalDates: "Primera quincena de julio (edición 2026: 8–11 julio)",
@@ -200,13 +200,13 @@ export const FESTIVAL_LANDINGS: FestivalLanding[] = [
     capacity: "80.000 personas/día",
     capacity_en: "80,000 people/day",
     blurb:
-      "Mad Cool es el festival de rock e indie alternativo más grande de Madrid, celebrado desde 2023 en el recinto Iberdrola Music de Villaverde. Convoca a 80.000 asistentes diarios con artistas internacionales de primera línea. El recinto se encuentra al sur de Madrid (Villaverde Bajo), accesible en metro por la línea 3 (parada Pradolongo o Legazpi) más un corto trayecto en autobús. La salida nocturna satura tanto el metro como las líneas de autobús después de las 1:00, por lo que el coche compartido es la opción más cómoda para quienes vienen desde otras provincias o barrios sin acceso directo al recinto. Según la APM, Mad Cool es uno de los festivales con mayor afluencia internacional de España.",
+      "Mad Cool es el festival de rock e indie alternativo más grande de Madrid, celebrado desde 2023 en el recinto Iberdrola Music de Villaverde. Convoca a 80.000 asistentes diarios con artistas internacionales de primera línea. El recinto se encuentra al sur de Madrid (Villaverde), accesible en metro por la línea 3 (parada Villaverde Alto) y unos 15–20 min a pie. La salida nocturna satura tanto el metro como las líneas de autobús después de las 1:00, por lo que el coche compartido es la opción más cómoda para quienes vienen desde otras provincias o barrios sin acceso directo al recinto. Según la APM, Mad Cool es uno de los festivales con mayor afluencia internacional de España.",
     quotableAnswer:
-      "Mad Cool 2026 se celebra del 8 al 11 de julio en el recinto Iberdrola Music (Villaverde, Madrid), con aforo de 80.000 personas/día. Hay tres opciones verificadas para llegar desde el centro de Madrid: Metro Línea 3 hasta Pradolongo o Legazpi más autobús EMT al recinto (1,50–3 € por trayecto, 30–40 min); taxi o VTC desde Sol (30–50 €, coeficiente ×2 entre 22:00 y 06:00); o carpooling con ConcertRide (4–7 €/asiento desde Madrid, 10–14 € desde Valencia, 9–13 € desde Zaragoza). Para la vuelta nocturna, Metro de Madrid amplía la L3 hasta las 2:30 AM en noches de festival; carpooling coordinado recoge en el aparcamiento del recinto entre las 2:00 y las 4:00. (Fuentes: Metro de Madrid, Ayuntamiento de Madrid, ConcertRide Dataset 2026.)",
+      "Mad Cool 2026 se celebra del 8 al 11 de julio en el recinto Iberdrola Music (Villaverde, Madrid), con aforo de 80.000 personas/día. Hay tres opciones verificadas para llegar desde el centro de Madrid: Metro Línea 3 hasta Villaverde Alto y 15–20 min a pie hasta el recinto (1,50–3 € por trayecto, 30–40 min); taxi o VTC desde Sol (30–50 €, coeficiente ×2 entre 22:00 y 06:00); o carpooling con ConcertRide (4–7 €/asiento desde Madrid, 10–14 € desde Valencia, 9–13 € desde Zaragoza). Para la vuelta nocturna, Metro de Madrid amplía la L3 hasta las 3:30 en noches de festival; carpooling coordinado recoge en el aparcamiento del recinto entre las 2:00 y las 4:00. (Fuentes: Metro de Madrid, Ayuntamiento de Madrid, ConcertRide Dataset 2026.)",
     enrichmentBlocks: [
       {
         heading: "Historia y herencia de Mad Cool",
-        body: "Mad Cool nació en 2016 como apuesta de la promotora Live Nation España por un macrofestival urbano comparable a Lollapalooza o Reading. Su recorrido ha estado marcado por tres recintos distintos (La Caja Mágica 2016, Valdebebas 2017–2019, IFEMA 2021–2022 e Iberdrola Music desde 2023), reflejo de la dificultad logística de mover 80.000 asistentes/día dentro de Madrid. Ediciones icónicas incluyen The Cure y Pearl Jam en 2019, y Metallica + The Rolling Stones en 2022. Desde 2023 ocupa Iberdrola Music, en Villaverde Bajo, un recinto industrial reconvertido específicamente para grandes eventos."
+        body: "Mad Cool nació en 2016 como apuesta de la promotora Live Nation España por un macrofestival urbano comparable a Lollapalooza o Reading. Su recorrido ha estado marcado por tres recintos distintos (La Caja Mágica 2016, Valdebebas 2017–2019, IFEMA 2021–2022 e Iberdrola Music desde 2023), reflejo de la dificultad logística de mover 80.000 asistentes/día dentro de Madrid. Ediciones icónicas incluyen The Cure y Pearl Jam en 2019, y Metallica + The Rolling Stones en 2022. Desde 2023 ocupa Iberdrola Music, en Villaverde, un recinto industrial reconvertido específicamente para grandes eventos."
       },
       {
         heading: "Demografía típica del asistente de Mad Cool",
@@ -214,7 +214,7 @@ export const FESTIVAL_LANDINGS: FestivalLanding[] = [
       },
       {
         heading: "Particularidad del recinto Iberdrola Music",
-        body: "Iberdrola Music es un recinto urbano de unas 28 hectáreas en Villaverde Bajo, sur de Madrid, antigua zona industrial reconvertida. A diferencia de festivales costeros o rurales, está plenamente integrado en la trama urbana: accesos por la M-45, metro L3 (Pradolongo / Legazpi) y dos líneas EMT. No hay camping —el alojamiento es hotelero en Madrid ciudad—. Cuatro escenarios principales con distancias largas entre sí y suelo asfaltado/grava (no hierba), lo que diferencia fuertemente la experiencia frente a festivales como Cruïlla (Parc del Fòrum, frente al mar) o Primavera Sound."
+        body: "Iberdrola Music es un recinto urbano de unas 28 hectáreas en Villaverde, sur de Madrid, antigua zona industrial reconvertida. A diferencia de festivales costeros o rurales, está plenamente integrado en la trama urbana: accesos por la M-45, metro L3 (Villaverde Alto) y dos líneas EMT. No hay camping —el alojamiento es hotelero en Madrid ciudad—. Cuatro escenarios principales con distancias largas entre sí y suelo asfaltado/grava (no hierba), lo que diferencia fuertemente la experiencia frente a festivales como Cruïlla (Parc del Fòrum, frente al mar) o Primavera Sound."
       },
       {
         heading: "Servicios y experiencia diferencial",
@@ -228,7 +228,7 @@ export const FESTIVAL_LANDINGS: FestivalLanding[] = [
     enrichmentBlocks_en: [
       {
         heading: "Mad Cool's history and legacy",
-        body: "Mad Cool was born in 2016 as promoter Live Nation España's bet on an urban mega-festival comparable to Lollapalooza or Reading. Its journey has been marked by three different venues (La Caja Mágica in 2016, Valdebebas 2017–2019, IFEMA 2021–2022 and Iberdrola Music since 2023), reflecting the logistical difficulty of moving 80,000 attendees a day within Madrid. Iconic editions include The Cure and Pearl Jam in 2019, and Metallica + The Rolling Stones in 2022. Since 2023 it has occupied Iberdrola Music, in Villaverde Bajo, an industrial site converted specifically for large events."
+        body: "Mad Cool was born in 2016 as promoter Live Nation España's bet on an urban mega-festival comparable to Lollapalooza or Reading. Its journey has been marked by three different venues (La Caja Mágica in 2016, Valdebebas 2017–2019, IFEMA 2021–2022 and Iberdrola Music since 2023), reflecting the logistical difficulty of moving 80,000 attendees a day within Madrid. Iconic editions include The Cure and Pearl Jam in 2019, and Metallica + The Rolling Stones in 2022. Since 2023 it has occupied Iberdrola Music, in Villaverde, an industrial site converted specifically for large events."
       },
       {
         heading: "Typical Mad Cool attendee profile",
@@ -236,7 +236,7 @@ export const FESTIVAL_LANDINGS: FestivalLanding[] = [
       },
       {
         heading: "What makes the Iberdrola Music venue distinctive",
-        body: "Iberdrola Music is an urban site of about 28 hectares in Villaverde Bajo, south of Madrid, a former industrial area now redeveloped. Unlike coastal or rural festivals, it is fully integrated into the urban fabric: access via the M-45, metro L3 (Pradolongo / Legazpi) and two EMT bus lines. There is no camping — accommodation is in hotels across the city of Madrid. Four main stages set far apart, with asphalt/gravel ground (not grass), which sharply differentiates the experience from festivals like Cruïlla (Parc del Fòrum, by the sea) or Primavera Sound."
+        body: "Iberdrola Music is an urban site of about 28 hectares in Villaverde, south of Madrid, a former industrial area now redeveloped. Unlike coastal or rural festivals, it is fully integrated into the urban fabric: access via the M-45, metro L3 (Villaverde Alto) and two EMT bus lines. There is no camping — accommodation is in hotels across the city of Madrid. Four main stages set far apart, with asphalt/gravel ground (not grass), which sharply differentiates the experience from festivals like Cruïlla (Parc del Fòrum, by the sea) or Primavera Sound."
       },
       {
         heading: "Services and the differential experience",
@@ -276,7 +276,7 @@ export const FESTIVAL_LANDINGS: FestivalLanding[] = [
     faqs: [
       {
         q: "¿Cómo llegar a Mad Cool desde el centro de Madrid?",
-        a: "Mad Cool 2026 se celebra en Iberdrola Music (Villaverde Bajo). En metro, la línea 3 llega a Pradolongo o Legazpi, y desde ahí hay servicio de autobús al recinto. Desde Sol son unos 30–40 minutos. En noches de festival el metro y los autobuses se saturan a la salida (1:00–2:00). Con ConcertRide puedes coordinar la vuelta con otros asistentes y evitar la aglomeración, pagando entre 4 y 7 € por plaza desde el centro de Madrid.",
+        a: "Mad Cool 2026 se celebra en Iberdrola Music (Villaverde). En metro, la línea 3 llega a Villaverde Alto, a 15–20 minutos a pie del recinto. Desde Sol son unos 30–40 minutos. En noches de festival el metro y los autobuses se saturan a la salida (1:00–2:00). Con ConcertRide puedes coordinar la vuelta con otros asistentes y evitar la aglomeración, pagando entre 4 y 7 € por plaza desde el centro de Madrid.",
       },
       {
         q: "¿Hay transporte público nocturno de vuelta de Mad Cool?",
@@ -288,11 +288,11 @@ export const FESTIVAL_LANDINGS: FestivalLanding[] = [
       },
       {
         q: "¿Puedo aparcar en Iberdrola Music durante Mad Cool?",
-        a: "El recinto Iberdrola Music (Villaverde Bajo) dispone de parking de pago (10–15 €/día), pero los accesos por la M-45 colapsan desde las 18:00 en días de festival. La mayoría de conductores de fuera de Madrid prefieren aparcar en parkings del sur de la ciudad y acercarse en autobús. Con ConcertRide puedes llegar directamente al festival sin problema de parking.",
+        a: "El recinto Iberdrola Music (Villaverde) dispone de parking de pago (10–15 €/día), pero los accesos por la M-45 colapsan desde las 18:00 en días de festival. La mayoría de conductores de fuera de Madrid prefieren aparcar en parkings del sur de la ciudad y acercarse en autobús. Con ConcertRide puedes llegar directamente al festival sin problema de parking.",
       },
       {
         q: "¿Hay lanzadera oficial de Mad Cool desde el centro de Madrid?",
-        a: "Mad Cool en Iberdrola Music (Villaverde) no opera lanzaderas propias desde el centro. El acceso es por metro L3 (Pradolongo/Legazpi) más autobús al recinto. Los shuttles privados que aparecen en redes sociales son iniciativas no oficiales. ConcertRide es la alternativa organizada más fiable para asistentes de otras ciudades.",
+        a: "Mad Cool en Iberdrola Music (Villaverde) no opera lanzaderas propias desde el centro. El acceso es por metro L3 (Villaverde Alto) y 15–20 min a pie hasta el recinto. Los shuttles privados que aparecen en redes sociales son iniciativas no oficiales. ConcertRide es la alternativa organizada más fiable para asistentes de otras ciudades.",
       },
       {
         q: "¿Cuándo se celebra Mad Cool 2026?",
@@ -318,7 +318,7 @@ export const FESTIVAL_LANDINGS: FestivalLanding[] = [
     relatedFestivals: ["tomavistas", "sonorama-ribera", "primavera-sound"],
     relatedBlogs: ["mad-cool-2026-guia-completa-transporte", "como-llegar-mad-cool-desde-barcelona-2026", "como-ir-mad-cool-desde-valencia-2026", "autobuses-festivales-espana-2026", "como-volver-concierto-madrugada-espana-2026", "gasolina-mad-cool-2026-cuanto-cuesta-ir-en-coche", "como-volver-mad-cool-madrugada-2026", "mejor-app-carpooling-festivales-espana-2026"],
     transport_options: [
-      { type: 'train', provider: 'Metro Madrid L3', origin: 'Madrid centro → Villaverde', origin_en: 'Central Madrid → Villaverde', price_from: 2, price_to: 3, frequency: 'Cada 5 min (ampliado en festival)', frequency_en: 'Every 5 min (extended during festival)', schedule: 'Hasta 2:00–2:30 en noches de festival', schedule_en: 'Until 2:00–2:30 on festival nights', notes: 'Paradas Pradolongo o Legazpi (L3). Desde Sol ~30 min. Autobús desde parada metro al recinto. Se satura en salidas.', notes_en: 'Pradolongo or Legazpi stops (L3). About 30 min from Sol. Bus from the metro stop to the venue. Gets overwhelmed at exit time.' },
+      { type: 'train', provider: 'Metro Madrid L3', origin: 'Madrid centro → Villaverde', origin_en: 'Central Madrid → Villaverde', price_from: 2, price_to: 3, frequency: 'Cada 5 min (ampliado en festival)', frequency_en: 'Every 5 min (extended during festival)', schedule: 'Lanzadera Villaverde Alto–Sol hasta las 3:00–3:30 en noches de festival', schedule_en: 'Villaverde Alto–Sol shuttle until 3:00–3:30 on festival nights', notes: 'Parada Villaverde Alto (L3). Desde Sol ~30 min. 15–20 min a pie hasta el recinto. Se satura en salidas.', notes_en: 'Villaverde Alto stop (L3). About 30 min from Sol. 15–20 min walk from the station to the venue. Gets overwhelmed at exit time.' },
       { type: 'bus', provider: 'EMT Madrid', origin: 'Madrid centro → Villaverde', origin_en: 'Central Madrid → Villaverde', price_from: 2, notes: 'Líneas EMT con paradas próximas a Iberdrola Music. Frecuencia reducida tras la 1:00.', notes_en: 'EMT lines with stops near Iberdrola Music. Reduced frequency after 1:00.' },
       { type: 'carpooling', provider: 'ConcertRide', origin: 'Barcelona', price_from: 15, price_to: 20 },
       { type: 'carpooling', provider: 'ConcertRide', origin: 'Valencia', price_from: 10, price_to: 14 },
@@ -326,7 +326,7 @@ export const FESTIVAL_LANDINGS: FestivalLanding[] = [
     ],
     official_shuttle: {
       available: false,
-      notes: 'Mad Cool no opera lanzadera oficial propia. El acceso en transporte público es Metro L3 (Pradolongo o Legazpi) más autobús EMT al recinto.'
+      notes: 'Mad Cool no opera lanzadera oficial propia. El acceso en transporte público es Metro L3 (Villaverde Alto) y 15–20 min a pie hasta el recinto.'
     },
     guide: {
       logistics: {
@@ -354,7 +354,7 @@ export const FESTIVAL_LANDINGS: FestivalLanding[] = [
       ],
       venue_tips: [
         "Iberdrola Music tiene 4 escenarios separados por distancias largas — planifica los cruces con tiempo.",
-        "El metro L3 (Pradolongo / Legazpi) + autobús EMT es el transporte más rápido desde el centro pero se colapsa a la salida.",
+        "El metro L3 (Villaverde Alto) y 15–20 min a pie hasta el recinto es el transporte más rápido desde el centro pero se colapsa a la salida.",
         "Llega 30 min antes de la actuación que más te interese — las colas de acceso son largas.",
         "Hay zona de parking para bicicletas vigilada gratuita dentro del recinto.",
         "Las barras de las zonas VIP son accesibles con upgrade de última hora — consulta en la app oficial.",
@@ -372,8 +372,8 @@ export const FESTIVAL_LANDINGS: FestivalLanding[] = [
         iata: "MAD",
         distanceKm: 20,
         transferTime: "30–40 min en coche",
-        transferOptions: "Metro L8 hasta Nuevos Ministerios y conexión hasta Legazpi; desde allí Metro L3 a Pradolongo y bus al recinto. En coche o taxi, por la M-40 y la M-45.",
-        transferOptions_en: "Metro L8 to Nuevos Ministerios and connection to Legazpi; from there Metro L3 to Pradolongo and a bus to the venue. By car or taxi, via the M-40 and M-45.",
+        transferOptions: "Metro L8 hasta Nuevos Ministerios y Cercanías C-4 hasta Villaverde Alto; desde allí, 15–20 min a pie hasta el recinto. En coche o taxi, por la M-40 y la M-45.",
+        transferOptions_en: "Metro L8 to Nuevos Ministerios and Cercanías C-4 to Villaverde Alto; from there, a 15–20 min walk to the venue. By car or taxi, via the M-40 and M-45.",
       },
     ],
     accommodation_zones: [
@@ -382,14 +382,14 @@ export const FESTIVAL_LANDINGS: FestivalLanding[] = [
         area_en: "Central Madrid (Sol, Gran Vía, Chueca)",
         distanceKm: 15,
         priceRange: "80–180 €/noche",
-        notes: "Metro L3 desde Sol hasta Legazpi y Pradolongo, con bus al recinto. La zona más animada para antes y después del festival.",
-        notes_en: "Metro L3 from Sol to Legazpi and Pradolongo, then a bus to the venue. The liveliest area for before and after the festival.",
+        notes: "Metro L3 desde Sol hasta Villaverde Alto, a 15–20 min a pie del recinto. La zona más animada para antes y después del festival.",
+        notes_en: "Metro L3 from Sol to Villaverde Alto, then a 15–20 min walk to the venue. The liveliest area for before and after the festival.",
       },
     ],
     arrival_tips: [
       {
         title: "Ve en metro L3 antes de las 18:00",
-        body: "La ruta en transporte público es la línea 3 hasta Legazpi o Pradolongo y bus hasta el recinto. A la salida el metro amplía horario en noches de festival, pero se satura: si has coordinado carpooling de vuelta, queda con el conductor fuera del recinto antes de salir.",
+        body: "La ruta en transporte público es la línea 3 hasta Villaverde Alto y 15–20 min a pie hasta el recinto. A la salida el metro amplía horario en noches de festival, pero se satura: si has coordinado carpooling de vuelta, queda con el conductor fuera del recinto antes de salir.",
       },
       {
         title: "Llega 45 min antes del artista que más te interese",
@@ -401,13 +401,13 @@ export const FESTIVAL_LANDINGS: FestivalLanding[] = [
       },
     ],
     blurb_en:
-      "Mad Cool is the largest rock and alternative-indie festival in Madrid, held since 2023 at the Iberdrola Music venue in Villaverde. It draws 80,000 people a day to see top-tier international artists. The venue sits in the south of Madrid (Villaverde Bajo) and is reachable by metro line 3 (Pradolongo or Legazpi stop) plus a short bus ride. The late-night exit overwhelms both the metro and the bus lines after 1:00 AM, which is why carpooling is the most comfortable option for anyone travelling from other provinces or from neighbourhoods with no direct access to the venue. According to the APM, Mad Cool is one of the Spanish festivals with the highest international attendance.",
+      "Mad Cool is the largest rock and alternative-indie festival in Madrid, held since 2023 at the Iberdrola Music venue in Villaverde. It draws 80,000 people a day to see top-tier international artists. The venue sits in the south of Madrid (Villaverde) and is reachable by metro line 3 (Villaverde Alto stop) plus a 15–20 min walk. The late-night exit overwhelms both the metro and the bus lines after 1:00 AM, which is why carpooling is the most comfortable option for anyone travelling from other provinces or from neighbourhoods with no direct access to the venue. According to the APM, Mad Cool is one of the Spanish festivals with the highest international attendance.",
     quotableAnswer_en:
-      "Mad Cool 2026 takes place from 8 to 11 July at the Iberdrola Music venue (Villaverde, Madrid), with a capacity of 80,000 people per day. There are three verified ways to get there from central Madrid: Metro Line 3 to Pradolongo or Legazpi plus an EMT bus to the venue (1.50–3 € per trip, 30–40 min); a taxi or ride-hailing service from Sol (30–50 €, with a ×2 multiplier between 22:00 and 06:00); or carpooling with ConcertRide (4–7 €/seat from Madrid, 10–14 € from Valencia, 9–13 € from Zaragoza). For the late-night return, Metro de Madrid extends Line 3 until 2:30 AM on festival nights; coordinated carpooling picks passengers up at the venue car park between 2:00 and 4:00. (Sources: Metro de Madrid, Ayuntamiento de Madrid, ConcertRide Dataset 2026.)",
+      "Mad Cool 2026 takes place from 8 to 11 July at the Iberdrola Music venue (Villaverde, Madrid), with a capacity of 80,000 people per day. There are three verified ways to get there from central Madrid: Metro Line 3 to Villaverde Alto plus a 15–20 min walk to the venue (1.50–3 € per trip, 30–40 min); a taxi or ride-hailing service from Sol (30–50 €, with a ×2 multiplier between 22:00 and 06:00); or carpooling with ConcertRide (4–7 €/seat from Madrid, 10–14 € from Valencia, 9–13 € from Zaragoza). For the late-night return, Metro de Madrid extends Line 3 until 2:30 AM on festival nights; coordinated carpooling picks passengers up at the venue car park between 2:00 and 4:00. (Sources: Metro de Madrid, Ayuntamiento de Madrid, ConcertRide Dataset 2026.)",
     faqs_en: [
       {
         q: "How do I get to Mad Cool from central Madrid?",
-        a: "Mad Cool 2026 is held at Iberdrola Music (Villaverde Bajo). By metro, line 3 reaches Pradolongo or Legazpi, and from there a bus service runs to the venue. It is about 30–40 minutes from Sol. On festival nights the metro and buses get overwhelmed at closing time (1:00–2:00). With ConcertRide you can coordinate the return trip with other attendees and skip the crowds, paying between 4 and 7 € per seat from central Madrid.",
+        a: "Mad Cool 2026 is held at Iberdrola Music (Villaverde). By metro, line 3 reaches Villaverde Alto, a 15–20 minute walk from the venue. It is about 30–40 minutes from Sol. On festival nights the metro and buses get overwhelmed at closing time (1:00–2:00). With ConcertRide you can coordinate the return trip with other attendees and skip the crowds, paying between 4 and 7 € per seat from central Madrid.",
       },
       {
         q: "Is there late-night public transport back from Mad Cool?",
@@ -419,11 +419,11 @@ export const FESTIVAL_LANDINGS: FestivalLanding[] = [
       },
       {
         q: "Can I park at Iberdrola Music during Mad Cool?",
-        a: "The Iberdrola Music venue (Villaverde Bajo) has paid parking (10–15 €/day), but the access roads via the M-45 are jammed from 18:00 on festival days. Most drivers from outside Madrid prefer to park in car parks in the south of the city and reach the venue by bus. With ConcertRide you can arrive directly at the festival with no parking hassle.",
+        a: "The Iberdrola Music venue (Villaverde) has paid parking (10–15 €/day), but the access roads via the M-45 are jammed from 18:00 on festival days. Most drivers from outside Madrid prefer to park in car parks in the south of the city and reach the venue by bus. With ConcertRide you can arrive directly at the festival with no parking hassle.",
       },
       {
         q: "Is there an official Mad Cool shuttle from central Madrid?",
-        a: "Mad Cool at Iberdrola Music (Villaverde) does not run its own shuttles from the centre. Access is by metro L3 (Pradolongo/Legazpi) plus a bus to the venue. The private shuttles that appear on social media are unofficial initiatives. ConcertRide is the most reliable organised alternative for attendees from other cities.",
+        a: "Mad Cool at Iberdrola Music (Villaverde) does not run its own shuttles from the centre. Access is by metro L3 (Villaverde Alto) plus a 15–20 min walk to the venue. The private shuttles that appear on social media are unofficial initiatives. ConcertRide is the most reliable organised alternative for attendees from other cities.",
       },
       {
         q: "When does Mad Cool 2026 take place?",
@@ -451,7 +451,7 @@ export const FESTIVAL_LANDINGS: FestivalLanding[] = [
     arrival_tips_en: [
       {
         title: "Take metro L3 before 18:00",
-        body: "The public-transport route is line 3 to Legazpi or Pradolongo and a bus to the venue. At closing time the metro runs later on festival nights but gets overwhelmed: if you have arranged a carpool for the way back, meet your driver outside the venue before heading out.",
+        body: "The public-transport route is line 3 to Villaverde Alto, then a 15–20 min walk to the venue. At closing time the metro runs later on festival nights but gets overwhelmed: if you have arranged a carpool for the way back, meet your driver outside the venue before heading out.",
       },
       {
         title: "Arrive 45 min before the artist you care about most",
@@ -579,7 +579,7 @@ export const FESTIVAL_LANDINGS: FestivalLanding[] = [
       },
       {
         q: "¿Cuánto cuesta el carpooling a Primavera Sound 2026 desde Madrid?",
-        a: "El carpooling Madrid–Primavera Sound cuesta entre 15 y 20 € por asiento en ConcertRide para la edición 2026 (28 may–1 jun). Son 620 km hasta el Parc del Fòrum (5h 30 min por la AP-2/A-2). Comparado con AVE (50–100 € sin transporte al recinto) o vuelo (60–130 € + Aerobús/metro), es la opción puerta a puerta más económica.",
+        a: "El carpooling Madrid–Primavera Sound cuesta entre 15 y 20 € por asiento en ConcertRide para la edición 2026 (3–7 jun). Son 620 km hasta el Parc del Fòrum (5h 30 min por la AP-2/A-2). Comparado con AVE (50–100 € sin transporte al recinto) o vuelo (60–130 € + Aerobús/metro), es la opción puerta a puerta más económica.",
       },
       {
         q: "¿Dónde está el Primavera Sound y cómo se llega al recinto?",

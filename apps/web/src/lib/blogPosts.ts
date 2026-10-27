@@ -146,7 +146,7 @@ export const BLOG_POSTS: BlogPost[] = [
       {
         heading: "Mad Cool 2026 (Iberdrola Music, Villaverde, Madrid) — metro y carpooling",
         paragraphs: [
-          "Mad Cool 2026 se celebra en Iberdrola Music (Villaverde Bajo, Av. de Córdoba, Madrid). No hay lanzadera oficial. Transporte público: metro L3 (línea verde), paradas Pradolongo o Legazpi, a 10–15 min andando del recinto, con servicio ampliado hasta las 2:30 en noches de festival. Los autobuses nocturnos N1 y N6 no sirven este recinto. Las lanzaderas privadas de redes sociales son iniciativas no oficiales. El carpooling con ConcertRide desde Toledo (4–7 €), Guadalajara (3–6 €), Segovia (4–7 €), Valencia (10–14 €), Zaragoza (9–13 €) o Barcelona (15–20 €) es la opción más utilizada por asistentes de fuera de Madrid.",
+          "Mad Cool 2026 se celebra en Iberdrola Music (Villaverde, c/ Laguna Dalga, Madrid). No hay lanzadera oficial. Transporte público: metro L3 (línea amarilla), parada Villaverde Alto, a 15–20 min a pie del recinto, con servicio ampliado hasta las 3:30 en noches de festival. El único búho directo es el N14 (Cibeles–Villaverde Alto). Las lanzaderas privadas de redes sociales son iniciativas no oficiales. El carpooling con ConcertRide desde Toledo (4–7 €), Guadalajara (3–6 €), Segovia (4–7 €), Valencia (10–14 €), Zaragoza (9–13 €) o Barcelona (15–20 €) es la opción más utilizada por asistentes de fuera de Madrid.",
         ],
       },
       {
@@ -683,14 +683,14 @@ export const BLOG_POSTS: BlogPost[] = [
         heading: "Mayo–junio: Viña Rock, Primavera Sound, Sónar y O Son do Camiño",
         paragraphs: [
           "Viña Rock 2026 (30 abril–3 mayo, Villarrobledo, Albacete) abre la temporada. Es uno de los festivales más difíciles de alcanzar en transporte público: Villarrobledo está a 50 km de Albacete y no hay bus nocturno de regreso. El bus lanzadera oficial sale desde la estación de Albacete, pero no opera de madrugada. El carpooling ConcertRide desde Madrid (6–9 €), Valencia (6–9 €) y Albacete (3–5 €) es la alternativa mayoritaria.",
-          "Primavera Sound 2026 (28 mayo–1 junio, Parc del Fòrum, Barcelona) es uno de los mejor comunicados por transporte público: el metro L4 con parada Besòs Mar queda a 10 minutos a pie del recinto. Sin embargo, la salida masiva de madrugada satura la parada durante 30–45 minutos. El carpooling ConcertRide desde Madrid (15–20 €), Valencia (10–14 €) y Zaragoza (8–12 €) es la opción para asistentes de fuera de Cataluña.",
+          "Primavera Sound 2026 (3–7 junio, Parc del Fòrum, Barcelona) es uno de los mejor comunicados por transporte público: el metro L4 con parada Besòs Mar queda a 10 minutos a pie del recinto. Sin embargo, la salida masiva de madrugada satura la parada durante 30–45 minutos. El carpooling ConcertRide desde Madrid (15–20 €), Valencia (10–14 €) y Zaragoza (8–12 €) es la opción para asistentes de fuera de Cataluña.",
           "Sónar 2026 (18–20 junio, Fira de Barcelona) es el festival mejor comunicado de todos: Sónar de Día en Montjuïc tiene metro L1 Espanya a 5 minutos; Sónar de Noche en Fira Gran Via tiene metro L9 Europa-Fira a la puerta. El carpooling interurbano desde Madrid cuesta entre 15 y 20 € por asiento. O Son do Camiño 2026 (18–20 junio, Santiago de Compostela) dispone de lanzadera oficial desde el centro de la ciudad hasta Monte do Gozo (5 km). El carpooling desde A Coruña (4–7 €), Vigo (5–8 €) o Oviedo (7–10 €) cubre la demanda de asistentes de fuera de Galicia.",
         ],
       },
       {
         heading: "Julio: Mad Cool, BBK Live, FIB, Resurrection Fest, Arenal Sound y Cruïlla",
         paragraphs: [
-          "Mad Cool 2026 (8–11 julio, Iberdrola Music Villaverde, Madrid) es accesible en metro L3 (Pradolongo o Legazpi), con servicio ampliado hasta las 2:30 en noches de festival. El carpooling ConcertRide es la opción principal para asistentes de provincias: desde Toledo (4–7 €), Valencia (10–14 €), Zaragoza (9–13 €) o Barcelona (15–20 €).",
+          "Mad Cool 2026 (8–11 julio, Iberdrola Music Villaverde, Madrid) es accesible en metro L3 (Villaverde Alto), con servicio ampliado hasta las 3:30 en noches de festival. El carpooling ConcertRide es la opción principal para asistentes de provincias: desde Toledo (4–7 €), Valencia (10–14 €), Zaragoza (9–13 €) o Barcelona (15–20 €).",
           "BBK Live 2026 (9–11 julio, Kobetamendi, Bilbao) es el festival con mejor lanzadera oficial: gratuita con la entrada, sale desde Plaza Moyúa y Abando cada 15 minutos. Para quienes vienen de otras ciudades, el carpooling desde Madrid (12–16 €), Donostia (4–7 €), Pamplona (5–8 €) o Santander (4–7 €) cubre los trayectos interurbanos. FIB 2026 (16–19 julio, Benicàssim) tiene Cercanías Renfe C6 Castellón–Benicàssim (5 min, 1,50 €) más lanzadera al recinto. Carpooling desde Valencia (4–6 €) y Madrid (10–14 €).",
           "Resurrection Fest 2026 (25–28 junio, Viveiro, Lugo) es el festival más aislado de España: sin tren, sin aeropuerto cercano, con apenas 2–3 buses diarios desde A Coruña o Lugo que no operan de madrugada. El carpooling ConcertRide desde A Coruña (4–7 €), Santiago (6–9 €), Oviedo (6–9 €), Bilbao (10–15 €) o Madrid (16–22 €) no es una opción alternativa: es prácticamente la única opción. Arenal Sound 2026 (29 julio–2 agosto, Burriana, Castellón) tiene lanzadera oficial desde Castellón ciudad pero sin servicio nocturno de vuelta. Carpooling desde Valencia (3–6 €) y Barcelona (8–12 €). Cruïlla 2026 (9–12 julio, Parc del Fòrum, Barcelona) es el más cómodo de acceder: metro L4 El Maresme-Fòrum a 5 minutos del recinto con buen servicio nocturno.",
         ],
@@ -716,11 +716,11 @@ export const BLOG_POSTS: BlogPost[] = [
         ],
         bullets: [
           "Viña Rock (Villarrobledo, 30 abr–3 may) — Desde Madrid: 6–9 €; desde Valencia: 6–9 €; desde Albacete: 3–5 €.",
-          "Primavera Sound (Barcelona, 28 may–1 jun) — Desde Madrid: 15–20 €; desde Valencia: 10–14 €; desde Zaragoza: 8–12 €.",
+          "Primavera Sound (Barcelona, 3–7 jun) — Desde Madrid: 15–20 €; desde Valencia: 10–14 €; desde Zaragoza: 8–12 €.",
           "Sónar (Barcelona, 18–20 jun) — Desde Madrid: 15–20 €; desde Valencia: 10–14 €; desde Zaragoza: 8–12 €.",
           "O Son do Camiño (Santiago, 18–20 jun) — Desde A Coruña: 4–7 €; desde Vigo: 5–8 €; desde Oviedo: 7–10 €.",
           "Resurrection Fest (Viveiro, 25–28 jun) — Desde A Coruña: 4–7 €; desde Oviedo: 6–9 €; desde Madrid: 16–22 €.",
-          "Mad Cool (Madrid, 9–11 jul) — Desde Toledo: 4–7 €; desde Valencia: 10–14 €; desde Barcelona: 15–20 €.",
+          "Mad Cool (Madrid, 8–11 jul) — Desde Toledo: 4–7 €; desde Valencia: 10–14 €; desde Barcelona: 15–20 €.",
           "BBK Live (Bilbao, 9–11 jul) — Desde Donostia: 4–7 €; desde Pamplona: 5–8 €; desde Madrid: 12–16 €.",
           "Cruïlla (Barcelona, 9–12 jul) — Desde Madrid: 15–20 €; desde Valencia: 10–14 €; desde Zaragoza: 8–12 €.",
           "FIB Benicàssim (Castellón, 16–19 jul) — Desde Valencia: 4–6 €; desde Madrid: 10–14 €; desde Barcelona: 8–12 €.",
@@ -743,7 +743,7 @@ export const BLOG_POSTS: BlogPost[] = [
     faqs: [
       {
         q: "¿Qué festivales de verano hay en España en 2026?",
-        a: "Los principales festivales de verano en España en 2026 son: Viña Rock (Villarrobledo, 30 abr–3 may), Primavera Sound (Barcelona, 28 may–1 jun), Sónar (Barcelona, 18–20 jun), O Son do Camiño (Santiago, 18–20 jun), Resurrection Fest (Viveiro, 25–28 jun), Mad Cool (Madrid, 9–11 jul), BBK Live (Bilbao, 9–11 jul), Cruïlla (Barcelona, 9–12 jul), FIB (Benicàssim, 16–19 jul), Low Festival (Benidorm, 24–26 jul), Arenal Sound (Burriana, 29 jul–2 ago), Medusa (Cullera, 12–16 ago), Sonorama Ribera (Aranda de Duero, 6–9 ago) y Cala Mijas (Mijas, oct).",
+        a: "Los principales festivales de verano en España en 2026 son: Viña Rock (Villarrobledo, 30 abr–3 may), Primavera Sound (Barcelona, 3–7 jun), Sónar (Barcelona, 18–20 jun), O Son do Camiño (Santiago, 18–20 jun), Resurrection Fest (Viveiro, 25–28 jun), Mad Cool (Madrid, 8–11 jul), BBK Live (Bilbao, 9–11 jul), Cruïlla (Barcelona, 9–12 jul), FIB (Benicàssim, 16–19 jul), Low Festival (Benidorm, 24–26 jul), Arenal Sound (Burriana, 29 jul–2 ago), Medusa (Cullera, 12–16 ago), Sonorama Ribera (Aranda de Duero, 6–9 ago) y Cala Mijas (Mijas, oct).",
       },
       {
         q: "¿Cuándo es Primavera Sound 2026?",
@@ -751,7 +751,7 @@ export const BLOG_POSTS: BlogPost[] = [
       },
       {
         q: "¿Cuánto cuesta ir al Mad Cool en carpooling?",
-        a: "Desde Toledo: 4–7 €. Desde Valencia: 10–14 €. Desde Zaragoza: 9–13 €. Desde Barcelona: 15–20 €. Desde Sevilla: 13–18 €. Mad Cool 2026 se celebra en Iberdrola Music (Villaverde Bajo, Madrid, 8–11 julio). El acceso es por metro L3, paradas Pradolongo o Legazpi.",
+        a: "Desde Toledo: 4–7 €. Desde Valencia: 10–14 €. Desde Zaragoza: 9–13 €. Desde Barcelona: 15–20 €. Desde Sevilla: 13–18 €. Mad Cool 2026 se celebra en Iberdrola Music (Villaverde, Madrid, 8–11 julio). El acceso es por metro L3, parada Villaverde Alto.",
       },
       {
         q: "¿Hay transporte oficial a Arenal Sound?",
@@ -790,7 +790,7 @@ export const BLOG_POSTS: BlogPost[] = [
     title: "[TOP 8] Festivales Cataluña 2026: Primavera Sound, Sónar, Cruïlla + Rutas",
     h1: "Festivales en Cataluña 2026: guía de transporte y carpooling",
     excerpt:
-      "Cataluña tiene tres de los mejores festivales de Europa en 2026: Primavera Sound (28 may–1 jun), Sónar (18–20 jun) y Cruïlla (9–12 jul) — todos en Barcelona. Si vives en Madrid, Valencia, Zaragoza o el norte de España, aquí tienes la guía de transporte para llegar.",
+      "Cataluña tiene tres de los mejores festivales de Europa en 2026: Primavera Sound (3–7 jun), Sónar (18–20 jun) y Cruïlla (9–12 jul) — todos en Barcelona. Si vives en Madrid, Valencia, Zaragoza o el norte de España, aquí tienes la guía de transporte para llegar.",
     category: "guias",
     tags: ["festivales cataluña", "primavera sound", "sonar festival", "cruilla barcelona", "carpooling barcelona"],
     publishedAt: "2026-05-03T11:00:00.000Z",
@@ -802,7 +802,7 @@ export const BLOG_POSTS: BlogPost[] = [
       {
         heading: "Primavera Sound 2026 — cómo llegar al Parc del Fòrum desde toda España",
         paragraphs: [
-          "Primavera Sound 2026 (28 mayo–1 junio) se celebra en el Parc del Fòrum, en el extremo nordeste del litoral de Barcelona. El acceso en transporte público es directo: metro L4 (línea amarilla), parada Besòs Mar o El Maresme-Fòrum, a unos 10 minutos a pie del recinto principal. En noches de festival TMB amplía la frecuencia del metro y del Nitbus. El problema clásico de Primavera Sound es la saturación de la parada Besòs Mar en las salidas de madrugada, con esperas de 20–40 minutos para acceder al andén.",
+          "Primavera Sound 2026 (3–7 junio) se celebra en el Parc del Fòrum, en el extremo nordeste del litoral de Barcelona. El acceso en transporte público es directo: metro L4 (línea amarilla), parada Besòs Mar o El Maresme-Fòrum, a unos 10 minutos a pie del recinto principal. En noches de festival TMB amplía la frecuencia del metro y del Nitbus. El problema clásico de Primavera Sound es la saturación de la parada Besòs Mar en las salidas de madrugada, con esperas de 20–40 minutos para acceder al andén.",
           "Para asistentes de fuera de Cataluña, la opción más popular en ConcertRide es el trayecto Madrid–Barcelona (15–20 € por asiento, 6 horas en coche compartido). El punto de llegada más habitual es la estación de Sants o la Diagonal, donde los viajeros enlazan con el metro hasta el Fòrum. Desde Valencia el precio oscila entre 10 y 14 € (3h 30 min) y desde Zaragoza entre 8 y 12 € (3 horas).",
           "Una ventaja de llegar en carpooling para Primavera Sound es el festival spread: muchos asistentes de Madrid o Valencia vienen para 2–3 días y coordinan viaje de ida, viaje de vuelta e incluso alojamiento compartido en el mismo grupo de ConcertRide. El festival dura 5 días, y la demanda de carpooling crece especialmente hacia el miércoles y jueves (días con mayor aforo)",
         ],
@@ -846,7 +846,7 @@ export const BLOG_POSTS: BlogPost[] = [
     faqs: [
       {
         q: "¿Cuánto cuesta el AVE de Madrid a Barcelona para Primavera Sound?",
-        a: "El AVE Madrid Atocha–Barcelona Sants cuesta entre 50 y 120 € por trayecto según la antelación y la tarifa elegida. Para Primavera Sound (28 may–1 jun 2026), los trenes del jueves y viernes anterior al festival suelen agotarse con semanas de antelación. El carpooling ConcertRide (15–20 € por asiento) es la alternativa más económica, con una duración de viaje de 5h 30 min–6h.",
+        a: "El AVE Madrid Atocha–Barcelona Sants cuesta entre 50 y 120 € por trayecto según la antelación y la tarifa elegida. Para Primavera Sound (3–7 jun 2026), los trenes del jueves y viernes anterior al festival suelen agotarse con semanas de antelación. El carpooling ConcertRide (15–20 € por asiento) es la alternativa más económica, con una duración de viaje de 5h 30 min–6h.",
       },
       {
         q: "¿Qué metro hay en el Parc del Fòrum?",
@@ -854,7 +854,7 @@ export const BLOG_POSTS: BlogPost[] = [
       },
       {
         q: "¿Puedo ir a Sónar, Primavera Sound y Cruïlla el mismo verano en carpooling?",
-        a: "Sí. Los tres festivales se celebran entre mayo y julio en Barcelona. Muchos usuarios de ConcertRide coordinan los tres viajes con 4–8 semanas de antelación: Primavera Sound (28 may–1 jun), Sónar (18–20 jun) y Cruïlla (9–12 jul). El mismo grupo de Madrid puede hacer los tres en coche compartido por menos de lo que cuesta un solo AVE de ida y vuelta.",
+        a: "Sí. Los tres festivales se celebran entre mayo y julio en Barcelona. Muchos usuarios de ConcertRide coordinan los tres viajes con 4–8 semanas de antelación: Primavera Sound (3–7 jun), Sónar (18–20 jun) y Cruïlla (9–12 jul). El mismo grupo de Madrid puede hacer los tres en coche compartido por menos de lo que cuesta un solo AVE de ida y vuelta.",
       },
     ],
     relatedLinks: [
@@ -1103,7 +1103,7 @@ export const BLOG_POSTS: BlogPost[] = [
     faqs: [
       {
         q: "¿Cuánto cobra un taxi de Iberdrola Music (Mad Cool) al centro de Madrid?",
-        a: "Un taxi desde Iberdrola Music (Villaverde Bajo, Mad Cool) al centro de Madrid cuesta aproximadamente 20–35 € en horario nocturno de evento (tarifa 3). Si hay alto volumen de demanda y el taxímetro aplica tarifa de evento, puede superar los 40 €. Los VTC como Uber o Cabify pueden aplicar multiplicadores y superar los 60 € a la salida del festival.",
+        a: "Un taxi desde Iberdrola Music (Villaverde, Mad Cool) al centro de Madrid cuesta aproximadamente 20–35 € en horario nocturno de evento (tarifa 3). Si hay alto volumen de demanda y el taxímetro aplica tarifa de evento, puede superar los 40 €. Los VTC como Uber o Cabify pueden aplicar multiplicadores y superar los 60 € a la salida del festival.",
       },
       {
         q: "¿Por qué Uber es tan caro después de un festival?",
@@ -1149,7 +1149,7 @@ export const BLOG_POSTS: BlogPost[] = [
         bullets: [
           "Viña Rock 2026 — 30 abril–3 mayo — Villarrobledo (Albacete). Festival de punk, metal y rock en La Pulgosa. Uno de los más veteranos de España, con entrada desde 35 €/día. Cómo llegar: carpooling desde Albacete (3–5 €), Madrid (6–9 €) o Valencia (6–9 €).",
           "Tomavistas 2026 — 15–17 mayo — Madrid (Recinto Ferial de la Casa de Campo). Festival indie y pop en la Casa de Campo. Metro línea 10 (Lago) o coche compartido desde Toledo, Guadalajara o Segovia.",
-          "Primavera Sound 2026 — 28 mayo–1 junio — Barcelona (Parc del Fòrum). El festival de indie y alternativo más influyente de Europa. Metro L4 Besòs Mar + 10 min a pie. Carpooling desde Madrid (15–20 €), Valencia (10–14 €), Zaragoza (8–12 €).",
+          "Primavera Sound 2026 — 3–7 junio — Barcelona (Parc del Fòrum). El festival de indie y alternativo más influyente de Europa. Metro L4 Besòs Mar + 10 min a pie. Carpooling desde Madrid (15–20 €), Valencia (10–14 €), Zaragoza (8–12 €).",
         ],
       },
       {
@@ -1169,7 +1169,7 @@ export const BLOG_POSTS: BlogPost[] = [
           "Julio es el mes con mayor concentración de grandes festivales. Muchos se solapan en fechas, lo que crea una demanda altísima de transporte:",
         ],
         bullets: [
-          "Mad Cool Festival 2026 — 8–11 julio — Madrid (Iberdrola Music, Villaverde). Festival de rock e indie, 80.000 asistentes diarios. Metro L3 Pradolongo o Legazpi (con ampliación de horario). Carpooling desde Toledo (4–7 €), Barcelona (15–20 €), Valencia (10–14 €).",
+          "Mad Cool Festival 2026 — 8–11 julio — Madrid (Iberdrola Music, Villaverde). Festival de rock e indie, 80.000 asistentes diarios. Metro L3 Villaverde Alto (con ampliación de horario). Carpooling desde Toledo (4–7 €), Barcelona (15–20 €), Valencia (10–14 €).",
           "BBK Live 2026 — 9–11 julio — Bilbao (Kobetamendi). Lanzadera oficial desde Plaza Moyúa (incluida en entrada). Carpooling desde Madrid (12–16 €), Donostia (4–7 €), Pamplona (5–8 €).",
           "FIB Benicàssim 2026 — 16–19 julio — Benicàssim (Castellón). Cercanías Renfe Castellón–Benicàssim (5 min) + lanzadera al recinto. Carpooling desde Valencia (4–6 €), Madrid (10–14 €).",
           "Low Festival 2026 — 24–26 julio — Benidorm. TRAM L1 Alicante–Benidorm hasta medianoche. Carpooling desde Alicante (3–5 €), Valencia (5–8 €).",
@@ -1216,7 +1216,7 @@ export const BLOG_POSTS: BlogPost[] = [
       },
       {
         q: "¿Cuándo es el Mad Cool 2026?",
-        a: "Mad Cool Festival 2026 se celebra del 8 al 11 de julio en Iberdrola Music (Villaverde Bajo, Av. de Córdoba, 28026 Madrid) — ya no en IFEMA. El acceso es por metro L3 (parada Pradolongo o Legazpi) o carpooling.",
+        a: "Mad Cool Festival 2026 se celebra del 8 al 11 de julio en Iberdrola Music (Villaverde, c/ Laguna Dalga, 28021 Madrid) — ya no en IFEMA. El acceso es por metro L3 (parada Villaverde Alto) o carpooling.",
       },
       {
         q: "¿Cuál es el festival de música más grande de España?",
@@ -2138,7 +2138,7 @@ BLOG_POSTS.push(
       {
         heading: "Top 10 (resumen)",
         paragraphs: [
-          "1) Madrid → Primavera Sound (Barcelona); 2) Madrid → Mad Cool (IFEMA); 3) Madrid → FIB (Benicàssim); 4) Madrid → BBK Live (Bilbao); 5) Madrid → Arenal Sound; 6) Madrid → Viña Rock; 7) Madrid → Low Festival; 8) Madrid → Sonorama; 9) Madrid → Resurrection Fest; 10) Madrid → Medusa Festival.",
+          "1) Madrid → Primavera Sound (Barcelona); 2) Madrid → Mad Cool (Iberdrola Music); 3) Madrid → FIB (Benicàssim); 4) Madrid → BBK Live (Bilbao); 5) Madrid → Arenal Sound; 6) Madrid → Viña Rock; 7) Madrid → Low Festival; 8) Madrid → Sonorama; 9) Madrid → Resurrection Fest; 10) Madrid → Medusa Festival.",
         ],
       },
       {
@@ -2532,22 +2532,22 @@ BLOG_POSTS.push(
     metaDescription: "Mad Cool 2026 desde Madrid: carpooling 4–7 €/asiento, Metro L3 a Iberdrola Music y vuelta de madrugada coordinada con ConcertRide.",
     title: "Carpooling a Mad Cool desde Madrid: guía rápida 2026",
     h1: "Carpooling a Mad Cool desde Madrid",
-    excerpt: "Mad Cool 2026 se celebra en Iberdrola Music (Villaverde Bajo, Madrid, 8–11 jul). El carpooling desde el interior de Madrid cuesta 4–7€/asiento con ConcertRide. El metro L3 (Pradolongo/Legazpi) cubre la ida, pero la vuelta de madrugada a otras ciudades requiere organizar el coche compartido con antelación.",
+    excerpt: "Mad Cool 2026 se celebra en Iberdrola Music (Villaverde, Madrid, 8–11 jul). El carpooling desde el interior de Madrid cuesta 4–7€/asiento con ConcertRide. El metro L3 (Villaverde Alto) cubre la ida, pero la vuelta de madrugada a otras ciudades requiere organizar el coche compartido con antelación.",
     category: "guias",
     tags: ["mad-cool", "madrid", "carpooling", "iberdrola-music"],
     publishedAt: "2026-05-04T12:20:00.000Z",
     author: "Equipo ConcertRide",
     readingMinutes: 4,
-    lede: "Mad Cool 2026 estrena recinto: Iberdrola Music (Villaverde Bajo, Av. de Córdoba, Madrid). El metro L3 (paradas Pradolongo o Legazpi) es el transporte directo al festival. Para los asistentes que vienen de fuera de la capital y necesitan volver a sus ciudades de madrugada, el carpooling organizado es la opción más fiable.",
+    lede: "Mad Cool 2026 se celebra en Iberdrola Music (Villaverde, c/ Laguna Dalga, Madrid). El metro L3 (parada Villaverde Alto) es el transporte directo al festival. Para los asistentes que vienen de fuera de la capital y necesitan volver a sus ciudades de madrugada, el carpooling organizado es la opción más fiable.",
     sections: [
       {
         heading: "Cómo llegar a Mad Cool desde dentro de Madrid",
         paragraphs: [
-          "Iberdrola Music (Villaverde Bajo, Av. de Córdoba 28026 Madrid) es accesible en metro L3 (línea verde), paradas Pradolongo o Legazpi, a 10–15 minutos andando del recinto. El trayecto desde Sol dura unos 25–30 minutos. El metro opera con servicio ampliado hasta las 02:30h en noches de festival.",
+          "Iberdrola Music (Villaverde, c/ Laguna Dalga 28021 Madrid) es accesible en metro L3 (línea amarilla), parada Villaverde Alto, a 15–20 minutos a pie del recinto. El trayecto desde Sol dura unos 25–30 minutos. El metro opera con servicio ampliado hasta las 3:30 en noches de festival.",
           "Si vas en coche desde el interior de Madrid, el parking en la zona de Villaverde cuesta menos que IFEMA (10–15 €/día) pero también se llena. El carpooling con un conductor de tu barrio que también va al festival evita el coste de parking y el estrés de aparcar.",
         ],
         bullets: [
-          "Metro L3 parada Pradolongo o Legazpi: 25–30 min desde Sol",
+          "Metro L3 parada Villaverde Alto: 25–30 min desde Sol",
           "Parking zona Villaverde: 10–15 €/día (lleno desde las 17:00h)",
           "Carpooling interior Madrid: 4–7 €/asiento (0% comisión ConcertRide)",
           "EMT bus al recinto desde Legazpi (última milla)",
@@ -2574,11 +2574,11 @@ BLOG_POSTS.push(
       },
       {
         q: "¿Cómo ir a Mad Cool en metro?",
-        a: "Mad Cool 2026 se celebra en Iberdrola Music (Villaverde Bajo). El metro L3 (línea verde) para en Pradolongo o Legazpi, a 10–15 minutos andando del recinto. Desde Sol el trayecto dura unos 25–30 minutos. El metro opera con servicio ampliado hasta las 02:30h en noches de festival.",
+        a: "Mad Cool 2026 se celebra en Iberdrola Music (Villaverde). El metro L3 (línea amarilla) para en Villaverde Alto, a 15–20 minutos a pie del recinto. Desde Sol el trayecto dura unos 25–30 minutos. El metro opera con servicio ampliado hasta las 3:30 en noches de festival.",
       },
       {
         q: "¿Hay autobuses nocturnos de vuelta de Mad Cool?",
-        a: "Mad Cool no tiene lanzadera oficial propia. El metro L3 (Pradolongo/Legazpi) opera con horario ampliado hasta las 02:30h. Para volver a otras ciudades (Valencia, Barcelona, Bilbao), el carpooling con ConcertRide es la opción más flexible: el conductor que comparte tu ciudad coordina la hora de salida contigo.",
+        a: "Mad Cool no tiene lanzadera oficial propia. El metro L3 (Villaverde Alto) opera con horario ampliado hasta las 3:30. Para volver a otras ciudades (Valencia, Barcelona, Bilbao), el carpooling con ConcertRide es la opción más flexible: el conductor que comparte tu ciudad coordina la hora de salida contigo.",
       },
     ],
     relatedLinks: [
@@ -3008,7 +3008,7 @@ BLOG_POSTS.push(
     title: "Primavera Sound 2026: cómo llegar desde Madrid, Valencia y Zaragoza",
     h1: "Cómo llegar a Primavera Sound 2026 desde el resto de España",
     excerpt:
-      "Primavera Sound 2026 (28 may–1 jun, Parc del Fòrum, Barcelona). Carpooling desde Madrid (15–20 €), Valencia (10–14 €) y Zaragoza (8–12 €). Metro L4 Besòs Mar para quienes ya están en Barcelona.",
+      "Primavera Sound 2026 (3–7 jun, Parc del Fòrum, Barcelona). Carpooling desde Madrid (15–20 €), Valencia (10–14 €) y Zaragoza (8–12 €). Metro L4 Besòs Mar para quienes ya están en Barcelona.",
     category: "guias",
     tags: ["primavera sound", "barcelona", "madrid", "valencia", "zaragoza", "carpooling"],
     publishedAt: "2026-05-04T14:20:00.000Z",
@@ -3160,7 +3160,7 @@ BLOG_POSTS.push(
         bullets: [
           "Estadio Santiago Bernabéu: metro L10, parada Estadio de Santiago Bernabéu. Servicio hasta las 2:00 en noches de concierto.",
           "WiZink Center (Palacio de los Deportes): metro L7 y L1, parada Goya. 5 minutos a pie.",
-          "Iberdrola Music / IFEMA: Mad Cool 2026 se celebra en Iberdrola Music (Villaverde Bajo, metro L3 Pradolongo/Legazpi). IFEMA sigue activo para otros eventos (metro L8 Feria de Madrid). Ampliación de servicio hasta 2:00–2:30 en eventos.",
+          "Iberdrola Music / IFEMA: Mad Cool 2026 se celebra en Iberdrola Music (Villaverde, metro L3 Villaverde Alto). IFEMA sigue activo para otros eventos (metro L8 Feria de Madrid). En noches de festival hay lanzadera de Metro Villaverde Alto–Sol hasta las 3:00–3:30.",
           "Caja Mágica: metro L3, parada San Fermín-Orcasur. 20 minutos a pie hasta el recinto.",
           "Estadio Metropolitano (Atlético de Madrid): metro L7, parada Estadio Olímpico La Peineta. Servicio nocturno en eventos.",
         ],
@@ -3379,18 +3379,18 @@ BLOG_POSTS.push(
     title: "Mad Cool 2026: guía completa de transporte, carpooling y precios",
     h1: "Mad Cool 2026: cómo llegar, carpooling y todo lo que necesitas saber",
     excerpt:
-      "Mad Cool 2026 (8–11 julio, Iberdrola Music Villaverde, Madrid). Metro L3 Pradolongo/Legazpi con horario ampliado hasta 02:30. Carpooling desde Toledo (4–7 €), Valencia (10–14 €), Zaragoza (9–13 €) y Barcelona (15–20 €). Sin comisión en ConcertRide.",
+      "Mad Cool 2026 (8–11 julio, Iberdrola Music Villaverde, Madrid). Metro L3 Villaverde Alto con horario ampliado hasta las 3:30. Carpooling desde Toledo (4–7 €), Valencia (10–14 €), Zaragoza (9–13 €) y Barcelona (15–20 €). Sin comisión en ConcertRide.",
     category: "guias",
     tags: ["mad cool", "iberdrola-music", "madrid", "carpooling", "metro madrid"],
     publishedAt: "2026-05-04T15:40:00.000Z",
     author: "Equipo ConcertRide",
     readingMinutes: 7,
-    lede: "80.000 personas al día en Iberdrola Music (Villaverde Bajo). Mad Cool 2026 estrena recinto: ya no es IFEMA sino el nuevo Iberdrola Music Park. El metro L3 (Pradolongo/Legazpi) es el acceso directo; para asistentes de fuera de Madrid el carpooling es la opción más práctica.",
+    lede: "80.000 personas al día en Iberdrola Music (Villaverde). Mad Cool ya no es en IFEMA: desde 2023 se celebra en Iberdrola Music. El metro L3 (Villaverde Alto) es el acceso directo; para asistentes de fuera de Madrid el carpooling es la opción más práctica.",
     sections: [
       {
         heading: "Transporte público a Mad Cool 2026: metro L3 Iberdrola Music",
         paragraphs: [
-          "Mad Cool 2026 se celebra en Iberdrola Music (Av. de Córdoba, Villaverde Bajo, 28026 Madrid) — NO en IFEMA. El acceso en transporte público es metro L3 (línea verde), paradas Pradolongo o Legazpi, a 10–15 minutos a pie del recinto. El metro amplía su servicio hasta las 2:30 en noches de festival.",
+          "Mad Cool 2026 se celebra en Iberdrola Music (c/ Laguna Dalga, Villaverde, 28021 Madrid) — NO en IFEMA. El acceso en transporte público es metro L3 (línea amarilla), parada Villaverde Alto, a 15–20 minutos a pie del recinto. El metro amplía su servicio hasta las 3:30 en noches de festival.",
           "Los autobuses EMT conectan desde la parada de Legazpi hasta el recinto. Para quienes se alojan en el centro de Madrid, L3 desde Sol o Gran Vía son los puntos de partida. No hay línea de metro directa desde Barajas al nuevo recinto — quienes vienen del aeropuerto deben combinar L8 hasta Nuevos Ministerios y transbordar a L6/L3.",
         ],
       },
@@ -3411,7 +3411,7 @@ BLOG_POSTS.push(
       },
     ],
     faqs: [
-      { q: "¿Cuándo es Mad Cool 2026?", a: "Mad Cool Festival 2026 se celebra del 8 al 11 de julio en Iberdrola Music (Villaverde Bajo, Av. de Córdoba, Madrid 28026). El acceso es por metro L3 (línea verde), paradas Pradolongo o Legazpi — NO por L8 ni IFEMA. Ese fue el recinto de ediciones anteriores." },
+      { q: "¿Cuándo es Mad Cool 2026?", a: "Mad Cool Festival 2026 se celebra del 8 al 11 de julio en Iberdrola Music (Villaverde, c/ Laguna Dalga, Madrid 28021). El acceso es por metro L3 (línea amarilla), parada Villaverde Alto — NO por L8 ni IFEMA. Ese fue el recinto de ediciones anteriores." },
       { q: "¿Cuánto cuesta el carpooling a Mad Cool desde Valencia?", a: "Entre 10 y 14 € por asiento en ConcertRide (360 km, 3h 30 min). Más barato que el autobús de larga distancia y más flexible para la vuelta de madrugada." },
     ],
     relatedLinks: [
@@ -4493,7 +4493,7 @@ BLOG_POSTS.push(
         heading: "Ciudades y festivales con peor transporte de madrugada",
         paragraphs: [
           "Los festivales más difíciles para volver de noche son los que se celebran en recintos rurales o periféricos sin transporte público: Viña Rock (La Pulgosa, Villarrobledo), Resurrection Fest (Viveiro), Sonorama Ribera (Aranda de Duero), BBK Live (Kobetamendi, a 8 km del centro de Bilbao). En todos estos festivales, el carpooling organizado es prácticamente la única alternativa razonable al precio.",
-          "Los festivales urbanos (Mad Cool en Iberdrola Music Villaverde Madrid, Sónar en Fira Barcelona, Tomavistas en el Retiro) tienen algo más de transporte nocturno: EMT noche en Madrid, metro L3 hasta las 02:30h, taxis más disponibles. Pero incluso aquí, el carpooling interurbano para los que vienen de fuera es la opción más barata y flexible.",
+          "Los festivales urbanos (Mad Cool en Iberdrola Music Villaverde Madrid, Sónar en Fira Barcelona, Tomavistas en el Retiro) tienen algo más de transporte nocturno: EMT noche en Madrid, metro L3 hasta las 3:30, taxis más disponibles. Pero incluso aquí, el carpooling interurbano para los que vienen de fuera es la opción más barata y flexible.",
         ],
       },
     ],
@@ -4744,7 +4744,7 @@ BLOG_POSTS.push(
           "Cada festival tiene su solución diferente según la ubicación del recinto:",
         ],
         bullets: [
-          "Mad Cool (Iberdrola Music, Villaverde, Madrid): Metro L3 (Pradolongo/Legazpi) cierre habitual ~2:30. Bus nocturno N1 disponible pero lejano. Taxi/Uber: 25–45€ surge. Carpooling vuelta: la opción más equilibrada precio-hora.",
+          "Mad Cool (Iberdrola Music, Villaverde, Madrid): Metro L3 (Villaverde Alto) último servicio ~3:30. Bus nocturno N14 (Cibeles–Villaverde Alto). Taxi/Uber: 25–45€ surge. Carpooling vuelta: la opción más equilibrada precio-hora.",
           "Primavera Sound (Parc del Fòrum, Barcelona): Metro L4 cierre 2:00 (fines de semana hasta 3:00). Bus nocturno N8. Taxi: 15–25€ surge desde Fòrum. Carpooling vuelta coordina punto Ronda del Litoral.",
           "BBK Live (Kobetamendi, Bilbao): No hay metro cerca. Lanzadera Arenal↔Kobetamendi hasta ~2:00. Después: taxi desde la cima del monte o carpooling desde parking Kobetamendi.",
           "Arenal Sound (Burriana, Castellón): Recinto costero sin metro. Bus lanzadera Castellón hasta ~2:00. Carpooling es la única opción económica para volver a Valencia o Madrid de madrugada.",
@@ -4790,7 +4790,7 @@ BLOG_POSTS.push(
     faqs: [
       {
         q: "¿Cómo volver de Mad Cool de madrugada?",
-        a: "Mad Cool 2026 cierra entre las 4:00 y las 5:00. El metro L3 (Pradolongo/Legazpi) amplía su horario hasta las ~2:30. Las opciones reales de madrugada son: taxi/Uber con surge (25–45€), carpooling organizado de antemano desde los accesos de Iberdrola Music, o esperar al primer metro a las 6:00.",
+        a: "Mad Cool 2026 cierra entre las 4:00 y las 5:00. El metro L3 (Villaverde Alto) amplía su horario hasta las 3:30. Las opciones reales de madrugada son: taxi/Uber con surge (25–45€), carpooling organizado de antemano desde los accesos de Iberdrola Music, o esperar al primer metro a las 6:00.",
       },
       {
         q: "¿Hay transporte nocturno de vuelta del Arenal Sound?",
@@ -5260,7 +5260,7 @@ BLOG_POSTS.push(
         ],
         bullets: [
           "Primavera Sound (Barcelona) — Parc del Fòrum — 5–7 y 12–14 junio — Metro L4 Ciutadella Vila Olímpica",
-          "Mad Cool (Madrid) — Iberdrola Music Villaverde — 8–11 julio — Metro L3 Pradolongo/Legazpi",
+          "Mad Cool (Madrid) — Iberdrola Music Villaverde — 8–11 julio — Metro L3 Villaverde Alto",
           "Sónar (Barcelona) — Fira de Barcelona — 18–20 junio — Metro L1/L3 Espanya",
           "Download Festival (Madrid) — IFEMA — 12–14 junio — Metro L8 Feria de Madrid",
           "Viña Rock (Albacete) — Villarrobledo — 29 mayo–1 junio — Lanzadera desde Albacete + carpooling",
@@ -5272,7 +5272,7 @@ BLOG_POSTS.push(
           "Julio es el mes pico: BBK Live en Bilbao, Mad Cool en Madrid y FIB en Valencia se solapan en el calendario. Si tienes entrada para más de uno, el carpooling interciudad es la opción más económica para cubrir múltiples festivales.",
         ],
         bullets: [
-          "Mad Cool (Madrid) — Iberdrola Music Villaverde Bajo — 8–11 julio — Metro L3 Pradolongo/Legazpi",
+          "Mad Cool (Madrid) — Iberdrola Music Villaverde — 8–11 julio — Metro L3 Villaverde Alto",
           "BBK Live (Bilbao) — Kobetamendi — 10–12 julio — Lanzadera gratuita desde Bilbao centro",
           "FIB (Valencia/Benicàssim) — Benicàssim — 16–19 julio — Bus desde Castellón o Valencia",
           "Arenal Sound (Castellón/Burriana) — 29 julio–2 agosto — Lanzadera desde Castellón capital",
@@ -5391,7 +5391,7 @@ BLOG_POSTS.push(
           "Plaza Elíptica — cruce de líneas M-40 / A-42, cómodo para sur de Madrid",
           "Tres Cantos / Alcobendas — para rutas norte (BBK Live, Sonorama)",
           "Getafe / Leganés — para rutas sur (Viña Rock, Arenal Sound, FIB por A-31)",
-          "Villaverde Bajo / Av. de Córdoba — para Mad Cool en Iberdrola Music (recinto es destino, no hace falta circular)",
+          "Villaverde / c/ Laguna Dalga — para Mad Cool en Iberdrola Music (recinto es destino, no hace falta circular)",
         ],
       },
       {
@@ -5445,7 +5445,7 @@ BLOG_POSTS.push(
     title: "Carpooling a Mad Cool desde Barcelona 2026: guía completa de viaje compartido",
     h1: "Cómo ir a Mad Cool desde Barcelona en carpooling (2026)",
     excerpt:
-      "Mad Cool 2026 se celebra del 8 al 11 de julio en Iberdrola Music (Villaverde Bajo, Madrid). Desde Barcelona son 620 km por la AP-2 — demasiado lejos para ir solo. Esta guía explica cómo organizar el viaje compartido desde Barcelona: cuánto cuesta, qué trenes y autobuses existen como alternativa, y por qué el carpooling gana en comodidad y precio.",
+      "Mad Cool 2026 se celebra del 8 al 11 de julio en Iberdrola Music (Villaverde, Madrid). Desde Barcelona son 620 km por la AP-2 — demasiado lejos para ir solo. Esta guía explica cómo organizar el viaje compartido desde Barcelona: cuánto cuesta, qué trenes y autobuses existen como alternativa, y por qué el carpooling gana en comodidad y precio.",
     category: "guias",
     tags: ["mad-cool", "barcelona", "carpooling", "viaje compartido", "madrid", "festival"],
     publishedAt: "2026-05-07T09:00:00.000Z",
@@ -5457,7 +5457,7 @@ BLOG_POSTS.push(
       {
         heading: "La ruta Barcelona → Iberdrola Music Madrid: opciones de transporte",
         paragraphs: [
-          "Mad Cool 2026 (8–11 de julio) se celebra en Iberdrola Music (Villaverde Bajo, Av. de Córdoba, Madrid 28026), accesible en metro L3 (Pradolongo o Legazpi). Desde Barcelona, las opciones de transporte son tres: AVE, autobús de larga distancia y coche compartido (carpooling).",
+          "Mad Cool 2026 (8–11 de julio) se celebra en Iberdrola Music (Villaverde, c/ Laguna Dalga, Madrid 28021), accesible en metro L3 (Villaverde Alto). Desde Barcelona, las opciones de transporte son tres: AVE, autobús de larga distancia y coche compartido (carpooling).",
           "El AVE Barcelona–Madrid (Renfe AVE o Avlo) tarda 2h 30 min y cuesta entre 30 € y 90 € por trayecto según anticipación. La vuelta de madrugada del festival es imposible en tren: el último servicio directo sale antes de las 22:00, el festival acaba entre la 1:30 y las 3:00.",
           "El autobús de larga distancia (FlixBus o ALSA) conecta Barcelona Sants con Madrid Méndez Álvaro en 8–9 horas con precios desde 9 €. El problema es el mismo: no hay servicio nocturno para volver al terminar el festival.",
           "El carpooling con ConcertRide resuelve ambos problemas: ida y vuelta directa desde Barcelona al recinto, con horario decidido por el grupo, precio 15–22 € por asiento y posibilidad de llevar todo el equipo del festival (nevera, sillas, mochila grande).",
@@ -5500,7 +5500,7 @@ BLOG_POSTS.push(
       {
         heading: "La vuelta: el gran reto de ir a Mad Cool desde lejos",
         paragraphs: [
-          "Mad Cool 2026 acaba entre la 1:30 y las 3:00 cada noche. El metro L3 (paradas Pradolongo o Legazpi) amplía servicio hasta las 2:30, lo que permite llegar al centro de Madrid pero no continuar hacia Barcelona en tren esa misma noche.",
+          "Mad Cool 2026 acaba entre la 1:30 y las 3:00 cada noche. El metro L3 (parada Villaverde Alto) amplía servicio hasta las 3:30, lo que permite llegar al centro de Madrid pero no continuar hacia Barcelona en tren esa misma noche.",
           "Las opciones de vuelta a Barcelona si usas transporte público son: quedarse a dormir en Madrid (hotel) y coger el primer AVE del día siguiente (desde 30 €), o coger un autobús nocturno saliendo de Madrid a las 23:30 con llegada a Barcelona sobre las 7:30 — pero eso significa perderse los headliners.",
           "Con carpooling, la vuelta se acuerda antes: el conductor publica una hora de salida estimada desde Iberdrola Music (típicamente 30–60 minutos tras la actuación final) y todos regresan juntos. Es la única opción que permite ver el festival completo y dormir en Barcelona.",
         ],
@@ -6400,7 +6400,7 @@ BLOG_POSTS.push(
           "Si coges el tren de vuelta a tiempo, te pierdes lo que pagaste por ver. Si te quedas al headliner, pierdes el tren y pagas taxi o VTC a precio de madrugada. El carpooling con ConcertRide resuelve este dilema: el conductor y los pasajeros acuerdan la hora de vuelta directamente, y nadie se queda sin ver el final del concierto.",
         ],
         bullets: [
-          "Mad Cool Iberdrola Music (Villaverde, Madrid): metro L3 ampliado hasta las 02:30, cabezas de cartel hasta las 02:30.",
+          "Mad Cool Iberdrola Music (Villaverde, Madrid): metro L3 ampliado hasta las 3:30, cabezas de cartel hasta las 3:30.",
           "Viña Rock Villarrobledo: no hay tren. El autobús de vuelta desde Albacete sale a las 22:30.",
           "BBK Live Kobetamendi: lanzadera gratuita incluida, pero última a las 02:00. Muchos quedan fuera.",
           "Primavera Sound Barcelona: metro L4 operativo hasta las 02:00 en días de festival, pero conciertos hasta las 03:30.",
@@ -6817,7 +6817,7 @@ BLOG_POSTS.push(
       {
         heading: "Opciones de transporte desde Sevilla a Mad Cool",
         paragraphs: [
-          "Mad Cool 2026 se celebra del 8 al 11 de julio en Iberdrola Music (Villaverde Bajo, Madrid), accesible en metro L3 (Pradolongo/Legazpi). Desde Sevilla hay tres opciones reales:",
+          "Mad Cool 2026 se celebra del 8 al 11 de julio en Iberdrola Music (Villaverde, Madrid), accesible en metro L3 (Villaverde Alto). Desde Sevilla hay tres opciones reales:",
         ],
         bullets: [
           "AVE Sevilla–Madrid (Puerta de Atocha): 2h 30 min, 35–75 € ida según antelación. El problema: el último AVE de vuelta de Madrid a Sevilla sale ~21:30 y el primero del día siguiente sale ~6:00. Mad Cool termina después de las 2:00 AM. No hay vuelta en AVE el mismo día.",
@@ -6838,7 +6838,7 @@ BLOG_POSTS.push(
       {
         heading: "La clave: la vuelta de madrugada desde Mad Cool",
         paragraphs: [
-          "Mad Cool termina cuando termina el último acto, habitualmente entre las 2:00 y las 3:00 AM. En ese momento en Madrid hay metro (hasta ~2:30 AM), pero no hay tren nocturno a Sevilla, Cádiz, Málaga o Granada. Las opciones son: hotel en Madrid (60–150 € la noche en julio), taxi/VTC a Atocha (25–40 €) para coger el primer AVE a las 6:00, o carpooling de vuelta coordinado con asistentes andaluces.",
+          "Mad Cool termina cuando termina el último acto, habitualmente entre las 2:00 y las 3:00 AM. En ese momento en Madrid hay metro (hasta las 3:30), pero no hay tren nocturno a Sevilla, Cádiz, Málaga o Granada. Las opciones son: hotel en Madrid (60–150 € la noche en julio), taxi/VTC a Atocha (25–40 €) para coger el primer AVE a las 6:00, o carpooling de vuelta coordinado con asistentes andaluces.",
           "En ConcertRide, muchos conductores andaluces publican el viaje de vuelta con hora estimada post-festival (3:00–4:00 AM). El precio por asiento cubre los gastos de combustible y peajes para una ruta de 500+ km. Es la opción más económica si no quieres pagar hotel.",
         ],
       },
@@ -7475,7 +7475,7 @@ BLOG_POSTS.push({
         "Tomavistas (Madrid Retiro, 15–17 mayo) — indie pop, 20.000/día, urban festival",
         "Mallorca Live Festival (Calvià, 22–24 mayo) — multi-género, 35.000/día",
         "Festival de les Arts (Valencia Ciudad Artes y Ciencias, 28–31 mayo) — pop/indie, 25.000/día",
-        "Primavera Sound (Barcelona Parc del Fòrum, 28 may–1 jun) — indie/electrónica, 200.000 acumulados, 5 días — el festival más prestigioso de España",
+        "Primavera Sound (Barcelona Parc del Fòrum, 3–7 jun) — indie/electrónica, 200.000 acumulados, 5 días — el festival más prestigioso de España",
       ],
     },
     {
@@ -7635,7 +7635,7 @@ BLOG_POSTS.push({
       heading: "Paso 1 — Elige los festivales (sin solapar)",
       paragraphs: [
         "España tiene 40+ festivales mainstream en mayo–octubre. Asistir a todos es imposible: muchos se solapan en fechas. La estrategia es escoger 5–10 festivales con perfil compatible (género, presupuesto, ubicación) y verificar que las fechas no coinciden.",
-        "Solapamientos típicos en 2026: Mad Cool (9–11 jul) coincide con BBK Live (9–11 jul), Cruïlla (9–12 jul), Festival Ortigueira (9–12 jul) y PortAmérica (9–11 jul) — el segundo fin de semana de julio es el cuello de botella del calendario español. Si vas a uno, descartas los otros.",
+        "Solapamientos típicos en 2026: Mad Cool (8–11 jul) coincide con BBK Live (9–11 jul), Cruïlla (9–12 jul), Festival Ortigueira (9–12 jul) y PortAmérica (9–11 jul) — el segundo fin de semana de julio es el cuello de botella del calendario español. Si vas a uno, descartas los otros.",
       ],
       bullets: [
         "Plan A — Indie pop puro: Tomavistas (mayo) + Primavera Sound (mayo–jun) + Mad Cool (jul) + Atlantic Fest (jul) + Sonorama (ago) + Granada Sound (sep) = 6 festivales sin solapamientos",
@@ -7830,7 +7830,7 @@ BLOG_POSTS.push({
     },
     {
       q: "¿Cómo llegar a Mad Cool desde el aeropuerto de Barajas?",
-      a: "Madrid Barajas (MAD) → Iberdrola Music Mad Cool (Villaverde Bajo): Metro L8 hasta Nuevos Ministerios + transbordo L3 a Pradolongo (~40 min, 5€). Taxi/Uber: 20–35€, 25 min. Carpooling ConcertRide: si vienes con vuelo de larga distancia y horario flexible, conductores que recogen en Barajas y van directos al recinto Mad Cool (8–12€/asiento). URL: concertride.me/festivales/mad-cool",
+      a: "Madrid Barajas (MAD) → Iberdrola Music Mad Cool (Villaverde): Metro L8 hasta Nuevos Ministerios + Cercanías C-4 hasta Villaverde Alto (~50 min). Taxi/Uber: 20–35€, 25 min. Carpooling ConcertRide: si vienes con vuelo de larga distancia y horario flexible, conductores que recogen en Barajas y van directos al recinto Mad Cool (8–12€/asiento). URL: concertride.me/festivales/mad-cool",
     },
     {
       q: "¿Cuál es la mejor ciudad base para hacer Costa del Sol festivales?",
@@ -8113,7 +8113,7 @@ BLOG_POSTS.push({
         "Festivales españoles que han puesto en marcha planes de reducción de CO₂ verificables en 2026:",
       ],
       bullets: [
-        "Mad Cool: fomento del metro L3 (Pradolongo/Legazpi) al nuevo recinto Iberdrola Music Villaverde + zona de carpooling habilitada en accesos",
+        "Mad Cool: fomento del metro L3 (Villaverde Alto) al nuevo recinto Iberdrola Music Villaverde + zona de carpooling habilitada en accesos",
         "Primavera Sound: 100% energía renovable certificada en el recinto desde 2023",
         "Sonorama Ribera: cero residuos plásticos desde 2024 + bus oficial Madrid–Aranda",
         "BBK Live: lanzadera oficial gratuita Plaza Moyúa–Kobetamendi (incluida en entrada)",
@@ -9035,7 +9035,7 @@ BLOG_POSTS.push(
         bullets: [
           "Primavera Sound, Barcelona (May-June): Metro L4 direct to Parc del Fòrum. Carpooling from Madrid ~15€, from Zaragoza ~8€.",
           "Sónar, Barcelona (June): Metro L1/L3 for day events, L9 for night events. Carpooling from Madrid ~18€.",
-          "Mad Cool, Madrid (July): Metro L3 Legazpi/Pradolongo to Iberdrola Music (Villaverde). Carpooling from Barcelona ~17€, from Valencia ~12€.",
+          "Mad Cool, Madrid (July): Metro L3 Villaverde Alto to Iberdrola Music (Villaverde). Carpooling from Barcelona ~17€, from Valencia ~12€.",
           "BBK Live, Bilbao (July): Free shuttle from Plaza Moyúa included in ticket. Carpooling from Madrid ~13€.",
           "FIB, Benicàssim/Castellón (July): Train Cercanías from Castellón (5 min). Carpooling from Valencia ~5€.",
         ],
@@ -9052,7 +9052,7 @@ BLOG_POSTS.push(
         heading: "Getting from the airport to festival venues",
         paragraphs: [],
         bullets: [
-          "Madrid Barajas (T4) → Mad Cool Iberdrola Music (Villaverde): Taxi ~35 min (25–40€). Metro: L8 to Nuevos Ministerios + transfer to L6 south + L3 to Pradolongo (~55 min). Most festivalers prefer taxi/VTC from airport.",
+          "Madrid Barajas (T4) → Mad Cool Iberdrola Music (Villaverde): Taxi ~35 min (25–40€). Metro L8 to Nuevos Ministerios + Cercanías C-4 to Villaverde Alto (~50 min). Most festivalers prefer taxi/VTC from airport.",
           "Barcelona El Prat → Primavera Sound: Bus Aerobus to Plaça Catalunya (35 min, 6,90€) + Metro L4 to Besòs Mar (20 min). Total: ~55 min.",
           "Bilbao Airport → BBK Live: Bus A3247 Bizkaibus to Bilbao (30 min, 3€) + free festival shuttle from Plaza Moyúa.",
           "Valencia Airport → Zevra/FIB area: Metro L3/L5 to city center (25 min, 2,45€) + onward transport.",
@@ -9306,7 +9306,7 @@ BLOG_POSTS.push(
       {
         heading: "Mad Cool 2026: el festival que vacía Madrid de festivaleros barceloneses",
         paragraphs: [
-          "Mad Cool 2026 tiene lugar en Iberdrola Music, el nuevo macro-recinto de Villaverde Bajo (Madrid, Av. de Córdoba), en el sur de la ciudad. El metro línea 3 llega a las paradas Pradolongo o Legazpi, desde donde hay autobús al recinto (30 min desde Sol). El metro amplía su servicio hasta las 2:00–2:30 en noches de festival.",
+          "Mad Cool 2026 tiene lugar en Iberdrola Music, el nuevo macro-recinto de Villaverde (Madrid, c/ Laguna Dalga), en el sur de la ciudad. El metro línea 3 llega a las parada Villaverde Alto, a 15–20 minutos a pie del recinto (30 min desde Sol). El metro amplía su servicio hasta las 3:00–3:30 en noches de festival.",
           "Para los residentes en Barcelona, Mad Cool es el festival interurbano más demandado del verano. La distancia Barcelona–Madrid es de 620 km (2h 30 min en AVE, 6h en bus, 5h 30 min en coche). El reto principal: la vuelta. El último AVE Barcelona–Madrid sale de Sants antes de que termine el festival.",
         ],
       },
@@ -9336,11 +9336,11 @@ BLOG_POSTS.push(
       {
         heading: "Cómo llegar a Iberdrola Music desde el centro de Madrid",
         paragraphs: [
-          "Una vez en Madrid, llegar a Iberdrola Music (Villaverde Bajo, Av. de Córdoba) requiere metro L3 y un tramo en autobús. La parada más cercana es Pradolongo o Legazpi (línea 3, zona A). Desde Sol son unos 30 minutos. El metro amplía su servicio hasta las 2:00–2:30 en noches de festival.",
+          "Una vez en Madrid, llegar a Iberdrola Music (Villaverde, c/ Laguna Dalga) requiere metro L3 y un tramo a pie de 15–20 min. La estación más cercana es Villaverde Alto (línea 3, zona A). Desde Sol son unos 30 minutos. El metro amplía su servicio hasta las 3:00–3:30 en noches de festival.",
           "Alternativas: los autobuses EMT tienen líneas con paradas próximas al recinto. Los taxis desde el centro de Madrid rondan los 20–30 €. El parking del recinto es de pago (10–15 €/día) pero los accesos por la M-45 colapsan desde las 18:00.",
         ],
         bullets: [
-          "Metro L3 (parada Pradolongo o Legazpi) + autobús al recinto: 30 min desde Sol, 1,50–2,50 €.",
+          "Metro L3 (parada Villaverde Alto) y 15–20 min a pie hasta el recinto: 30 min desde Sol, 1,50–2,50 €.",
           "Bus EMT: líneas con paradas próximas a Iberdrola Music. Frecuencia reducida tras la 1:00.",
           "Taxi centro Madrid → Iberdrola Music: 20–30 €. En noche de festival puede superar los 40 €.",
           "Parking recinto: 10–15 €/día. Accesos por M-45 colapsan, llega con 1h de antelación.",
@@ -9588,7 +9588,7 @@ BLOG_POSTS.push(
     title: "Cómo ir a Mad Cool desde Valencia 2026: guía de transporte compartido",
     h1: "Cómo ir a Mad Cool desde Valencia 2026: carpooling y transporte compartido",
     excerpt:
-      "Mad Cool 2026 en Iberdrola Music (Villaverde Bajo, Madrid). Guía de transporte desde Valencia: carpooling directo, AVE, bus y cómo volver de madrugada desde el festival. Precios reales desde 10 €.",
+      "Mad Cool 2026 en Iberdrola Music (Villaverde, Madrid). Guía de transporte desde Valencia: carpooling directo, AVE, bus y cómo volver de madrugada desde el festival. Precios reales desde 10 €.",
     category: "guias",
     tags: ["mad-cool", "madrid", "valencia", "carpooling", "transporte", "ifema", "festival", "2026"],
     publishedAt: "2026-05-10",
@@ -9600,7 +9600,7 @@ BLOG_POSTS.push(
       {
         heading: "La ruta Valencia–Madrid para Mad Cool: distancia y opciones",
         paragraphs: [
-          "Mad Cool Festival se celebra en Iberdrola Music (Villaverde Bajo, Av. de Córdoba, Madrid), accesible en metro L3 (paradas Pradolongo o Legazpi, 30 min desde Sol). Desde Valencia, la distancia hasta el recinto es de 355 km por la AP-36/A-3.",
+          "Mad Cool Festival se celebra en Iberdrola Music (Villaverde, c/ Laguna Dalga, Madrid), accesible en metro L3 (parada Villaverde Alto, 30 min desde Sol). Desde Valencia, la distancia hasta el recinto es de 355 km por la AP-36/A-3.",
           "Las opciones de transporte desde Valencia a Mad Cool son: AVE (Euromed/AVE Valencia–Madrid Atocha), bus de larga distancia (ALSA Valencia–Madrid) y carpooling con ConcertRide. Ninguna de las opciones de transporte público tiene vuelta nocturna desde Mad Cool.",
         ],
       },
@@ -9633,7 +9633,7 @@ BLOG_POSTS.push(
       {
         heading: "Vuelta de madrugada desde Mad Cool a Valencia",
         paragraphs: [
-          "La vuelta de Mad Cool a Valencia de madrugada es el mayor reto logístico del viaje. El festival termina entre la 1:00 y las 2:30 am. A esa hora, el metro L3 puede estar operativo hasta las 2:30 am en noches de festival, pero los trenes a Valencia no salen hasta las 6:30–7:00 am.",
+          "La vuelta de Mad Cool a Valencia de madrugada es el mayor reto logístico del viaje. El festival termina entre la 1:00 y las 2:30 am. A esa hora, el metro L3 puede estar operativo hasta las 3:30 am en noches de festival, pero los trenes a Valencia no salen hasta las 6:30–7:00 am.",
           "Las opciones de vuelta nocturna Valencia–Madrid son: carpooling con salida post-festival (3h 20 min, llegada a Valencia a las 4:30–5:30 am), bus nocturno ALSA (salida ~00:30 desde Madrid, llegada 5:00 am a Valencia) o quedarse a dormir en Madrid y volver al día siguiente.",
           "El carpooling de regreso es la opción preferida por los festivaleros: el conductor también ha ido al festival, así que sale cuando termina el último concierto. Sin prisas, sin perder el cabeza de cartel.",
         ],
@@ -10017,7 +10017,7 @@ BLOG_POSTS.push(
     metaDescription: "Coste de gasolina a Mad Cool 2026 desde Barcelona (620 km), Valencia (355 km) y Zaragoza (325 km). Cálculo real vs carpooling compartido.",
     title: "Gasolina Mad Cool 2026 [Calculadora Real]: Coste desde Madrid, Barcelona, Valencia y Zaragoza",
     h1: "¿Cuánto cuesta la gasolina para ir a Mad Cool 2026? Calculadora real por ciudad",
-    excerpt: "Calculamos el coste real de la gasolina para ir a Mad Cool 2026 (Iberdrola Music, Villaverde Bajo, Madrid) desde las principales ciudades de España: Barcelona (620 km), Valencia (355 km), Zaragoza (325 km) y más. Comparamos con el carpooling por ConcertRide y el AVE.",
+    excerpt: "Calculamos el coste real de la gasolina para ir a Mad Cool 2026 (Iberdrola Music, Villaverde, Madrid) desde las principales ciudades de España: Barcelona (620 km), Valencia (355 km), Zaragoza (325 km) y más. Comparamos con el carpooling por ConcertRide y el AVE.",
     category: "guias",
     tags: ["mad-cool", "gasolina", "coste", "calculadora", "coche", "carpooling", "madrid"],
     publishedAt: "2026-05-10T08:00:00.000Z",
@@ -10028,7 +10028,7 @@ BLOG_POSTS.push(
       {
         heading: "Gasolina Madrid a Mad Cool (desde periferia y ciudades cercanas)",
         paragraphs: [
-          "Mad Cool 2026 se celebra en Iberdrola Music (Villaverde Bajo, Av. de Córdoba, Madrid, 8–11 julio). El recinto está al suroeste del centro de Madrid. Para quienes vienen de ciudades cercanas a la capital, el coste de gasolina es mínimo, pero sí hay que considerar el parking (10–15 €/día) en la zona de Villaverde.",
+          "Mad Cool 2026 se celebra en Iberdrola Music (Villaverde, c/ Laguna Dalga, Madrid, 8–11 julio). El recinto está al suroeste del centro de Madrid. Para quienes vienen de ciudades cercanas a la capital, el coste de gasolina es mínimo, pero sí hay que considerar el parking (10–15 €/día) en la zona de Villaverde.",
           "Con el precio actual de la gasolina sin plomo 95 en España (media mayo 2026: ~1,62 €/litro) y un consumo medio de 6,5 l/100 km para un turismo familiar:",
         ],
         bullets: [
@@ -10100,10 +10100,10 @@ BLOG_POSTS.push(
       },
     ],
     faqs: [
-      { q: "¿Cuánta gasolina gasta el viaje Madrid–Mad Cool?", a: "El recinto de Mad Cool 2026 (Iberdrola Music, Villaverde Bajo) está a unos 10 km del centro de Madrid (15–25 min). En coche con consumo medio de 6,5 l/100 km, el viaje desde el centro consume menos de 2 litros (~3 €). Desde la periferia (Toledo, Segovia, Guadalajara) el coste oscila entre 11 y 16 €." },
+      { q: "¿Cuánta gasolina gasta el viaje Madrid–Mad Cool?", a: "El recinto de Mad Cool 2026 (Iberdrola Music, Villaverde) está a unos 10 km del centro de Madrid (15–25 min). En coche con consumo medio de 6,5 l/100 km, el viaje desde el centro consume menos de 2 litros (~3 €). Desde la periferia (Toledo, Segovia, Guadalajara) el coste oscila entre 11 y 16 €." },
       { q: "¿Cuánto cuesta la gasolina Barcelona–Mad Cool?", a: "Barcelona–Iberdrola Music Madrid son 620 km por la AP-2/A-2. Con un turismo medio (6,5 l/100 km) y gasolina a 1,62 €/l, la gasolina de ida cuesta unos 65 €. Hay que sumar peajes (25–35 €). Con ConcertRide desde Barcelona, el precio por asiento es de 15–20 € (sin que el pasajero pague peajes)." },
       { q: "¿Cuánto cuesta ir a Mad Cool desde Valencia en coche?", a: "Valencia–Iberdrola Music Madrid son 355 km por la A-3 (sin peaje desde Valencia). Gasolina: ~37 € de ida. Si van 4 personas: ~9 €/persona. Con ConcertRide desde Valencia: 10–14 €/asiento. Diferencia pequeña en grupo de 4, pero con ConcertRide no tienes que conducir ni buscar parking." },
-      { q: "¿Hay parking en Mad Cool 2026?", a: "Iberdrola Music (Villaverde Bajo) tiene aparcamiento limitado en la zona (10–15 €/día). Los accesos se colapsan desde las 17:00 los días de festival. La recomendación es llegar en metro L3 (Pradolongo/Legazpi) o en carpooling desde el área de Madrid. Con ConcertRide llegas directamente al recinto sin problema de parking." },
+      { q: "¿Hay parking en Mad Cool 2026?", a: "Iberdrola Music (Villaverde) tiene aparcamiento limitado en la zona (10–15 €/día). Los accesos se colapsan desde las 17:00 los días de festival. La recomendación es llegar en metro L3 (Villaverde Alto) o en carpooling desde el área de Madrid. Con ConcertRide llegas directamente al recinto sin problema de parking." },
     ],
     relatedLinks: [
       { label: "Carpooling a Mad Cool 2026 desde todas las ciudades", to: "/festivales/mad-cool" },
@@ -10537,7 +10537,7 @@ BLOG_POSTS.push(
         bullets: [
           "Primavera Sound (Barcelona): metro L4 Selva de Mar + bus D20. El más accesible de España en transporte público.",
           "Sónar (Barcelona): metro línea 1 (Espanya) o L3 (Fira). Accesible en transporte público toda la noche.",
-          "Mad Cool (Madrid): metro L8 (Feria de Madrid). Accesible en metro hasta las 2:30 en noches de festival.",
+          "Mad Cool (Madrid): metro L8 (Feria de Madrid). Accesible en metro hasta las 3:30 en noches de festival.",
           "BBK Live (Bilbao): tren + lanzadera gratuita oficial desde Plaza Moyúa. Muy buena accesibilidad desde Bilbao y alrededores.",
           "Medusa (Cullera): autobús metropolitano Valencia–Cullera + lanzadera. Aceptable desde Valencia.",
           "FIB (Benicàssim): Cercanías Valencia–Castellón + lanzadera oficial FIB. Razonable si ya estás en Castellón.",
@@ -10668,19 +10668,19 @@ BLOG_POSTS.push(
     slug: "como-volver-mad-cool-madrugada-2026",
     title: "Cómo Volver de Mad Cool de Madrugada 2026 [Opciones Reales]: Metro, Taxi y Carpooling",
     h1: "Cómo volver de Mad Cool de madrugada 2026: metro, taxi, VTC y carpooling — opciones reales",
-    excerpt: "Guía de las opciones reales para volver de Mad Cool Festival de madrugada (1:00–4:00) en 2026. Metro L3 hasta las 2:30 (colapso en salida), taxi y VTC con precio multiplicado x2–x3, y carpooling ConcertRide (4–20 €/asiento sin surge pricing).",
+    excerpt: "Guía de las opciones reales para volver de Mad Cool Festival de madrugada (1:00–4:00) en 2026. Metro L3 hasta las 3:30 (colapso en salida), taxi y VTC con precio multiplicado x2–x3, y carpooling ConcertRide (4–20 €/asiento sin surge pricing).",
     category: "guias",
     tags: ["mad-cool", "vuelta", "madrugada", "metro", "taxi", "carpooling", "iberdrola-music"],
     publishedAt: "2026-05-10T12:00:00.000Z",
     author: "Equipo ConcertRide",
     readingMinutes: 5,
-    lede: "El peor momento de Mad Cool no es el calor de Villaverde Bajo — es intentar volver a las 3:00 de la madrugada desde Iberdrola Music. Aquí están las opciones reales y sus precios.",
+    lede: "El peor momento de Mad Cool no es el calor de Villaverde — es intentar volver a las 3:00 de la madrugada desde Iberdrola Music. Aquí están las opciones reales y sus precios.",
     sections: [
       {
-        heading: "Metro L3 (Pradolongo / Legazpi): funciona, pero colapsa",
+        heading: "Metro L3 (Villaverde Alto): funciona, pero colapsa",
         paragraphs: [
-          "La Línea 3 del Metro de Madrid (línea verde) es el transporte público más directo al nuevo recinto Iberdrola Music en Villaverde Bajo. Las paradas más cercanas son Pradolongo y Legazpi, a 10–15 minutos a pie del acceso principal.",
-          "Durante Mad Cool, la Comunidad de Madrid amplía el horario de la L3 hasta aproximadamente las 2:30–3:00 de la madrugada. El precio es de 1,50–2 € desde la mayoría de zonas.",
+          "La Línea 3 del Metro de Madrid (línea amarilla) es el transporte público más directo al nuevo recinto Iberdrola Music en Villaverde. La parada más cercana es Villaverde Alto, a 15–20 minutos a pie del acceso principal.",
+          "Durante Mad Cool, la Comunidad de Madrid amplía el horario de la L3 hasta aproximadamente las 3:00–3:30 de la madrugada. El precio es de 1,50–2 € desde la mayoría de zonas.",
           "El problema: las salidas de los conciertos principales ocurren entre las 1:00 y las 2:00, y las colas para el metro se forman antes de llegar a la estación. En las noches con más afluencia (viernes y sábado), la espera en la cola puede ser de 30–45 minutos.",
           "Recomendación: si piensas usar el metro de vuelta, sal antes del último acto o espera hasta las 2:15–2:30 cuando la cola se haya reducido.",
         ],
@@ -10706,7 +10706,7 @@ BLOG_POSTS.push(
         paragraphs: [],
         bullets: [
           "Vives en Madrid centro (Chamberí, Malasaña, Lavapiés): metro L3 hasta Sol o Callao + transbordo. Si no quieres esperar cola, ConcertRide desde Iberdrola Music hasta el centro por 4–7 €.",
-          "Vives en barrios del sur (Vallecas, Legazpi, Carabanchel): metro L3 — las paradas Pradolongo/Legazpi están en tu misma línea. Sin cola si sales a las 2:15.",
+          "Vives en barrios del sur (Vallecas, Legazpi, Carabanchel): metro L3 — la parada Villaverde Alto está en tu misma línea. Sin cola si sales a las 2:15.",
           "Llegas desde Valencia, Zaragoza o Barcelona: ConcertRide de vuelta la mejor opción. Precio fijo, hora acordada, sin sorpresas.",
           "No te importa el precio: taxi o VTC para vuelta rápida. Entiende que a las 2:00 el precio puede ser el triple del normal.",
           "Último recurso: Nightbus N1 (Atocha–Aeropuerto T4) para llegar a la zona del intercambiador de Avenida de América, y desde allí taxi/VTC al destino final.",
@@ -10714,8 +10714,8 @@ BLOG_POSTS.push(
       },
     ],
     faqs: [
-      { q: "¿Hasta qué hora funciona el metro de Mad Cool?", a: "Durante las noches de Mad Cool 2026 en Iberdrola Music (Villaverde), la Línea 3 (paradas Pradolongo/Legazpi) amplía su horario hasta aproximadamente las 2:30–3:00 de la madrugada. Consulta las instrucciones oficiales de la Comunidad de Madrid para el horario exacto de cada noche del festival." },
-      { q: "¿Cuánto cuesta el taxi de vuelta de Mad Cool?", a: "Un taxi/VTC desde Iberdrola Music (Villaverde Bajo) al centro de Madrid a las 2:00–3:00 de la madrugada del festival puede costar entre 40 y 80 € por el precio dinámico (surge pricing). Con ConcertRide, el viaje de vuelta desde Villaverde al centro es de 4–7 €." },
+      { q: "¿Hasta qué hora funciona el metro de Mad Cool?", a: "Durante las noches de Mad Cool 2026 en Iberdrola Music (Villaverde), la Línea 3 (parada Villaverde Alto) amplía su horario hasta aproximadamente las 3:00–3:30 de la madrugada. Consulta las instrucciones oficiales de la Comunidad de Madrid para el horario exacto de cada noche del festival." },
+      { q: "¿Cuánto cuesta el taxi de vuelta de Mad Cool?", a: "Un taxi/VTC desde Iberdrola Music (Villaverde) al centro de Madrid a las 2:00–3:00 de la madrugada del festival puede costar entre 40 y 80 € por el precio dinámico (surge pricing). Con ConcertRide, el viaje de vuelta desde Villaverde al centro es de 4–7 €." },
       { q: "¿Cómo volver de Mad Cool de madrugada desde fuera de Madrid?", a: "Con ConcertRide puedes encontrar conductores que vuelven a Valencia (10–14 €), Zaragoza (9–13 €), Barcelona (15–20 €) o Bilbao (11–16 €) a horas acordadas. Sin precio dinámico. Acuerda el punto de encuentro y la hora con el conductor la tarde anterior." },
     ],
     relatedLinks: [
@@ -11225,7 +11225,7 @@ BLOG_POSTS.push(
     title: "Cómo Volver del Festival a las 4 AM en España [Guía 2026]: Las Opciones Reales",
     h1: "Cómo volver del festival a las 4 AM en España: las opciones reales para 2026",
     excerpt:
-      "Guía definitiva para volver de un festival de madrugada en España: taxis con surge pricing x2–x3 (60–150 €), lanzaderas limitadas, metro hasta las 2:30 en Mad Cool, carpooling como única opción económica universal. Festival a festival: Mad Cool, Primavera Sound, BBK Live, Arenal Sound, Resurrection Fest.",
+      "Guía definitiva para volver de un festival de madrugada en España: taxis con surge pricing x2–x3 (60–150 €), lanzaderas limitadas, metro hasta las 3:30 en Mad Cool, carpooling como única opción económica universal. Festival a festival: Mad Cool, Primavera Sound, BBK Live, Arenal Sound, Resurrection Fest.",
     category: "guias",
     tags: ["vuelta festival madrugada", "transporte nocturno festival", "taxi festival caro", "carpooling vuelta festival", "4am festival", "madrugada"],
     publishedAt: "2026-05-10T14:30:00.000Z",
@@ -11271,7 +11271,7 @@ BLOG_POSTS.push(
         bullets: [
           "BBK Live (Bilbao, Kobetamendi → Plaza Moyúa): GRATUITA incluida en la entrada. Opera hasta las 6:00 am. La mejor lanzadera de España — fiable y sin coste adicional.",
           "Arenal Sound (Burriana, playa → Castellón): Sounder Bus oficial, 5–8 €. Opera hasta las 6:00 am aproximadamente. Plazas limitadas — se agotan en días punta.",
-          "Mad Cool (Iberdrola Music Villaverde): NO hay lanzadera oficial propia del festival. El metro L3 (Pradolongo/Legazpi) opera hasta las 2:30–3:00 con colas de 30–45 minutos.",
+          "Mad Cool (Iberdrola Music Villaverde): NO hay lanzadera oficial propia del festival. El metro L3 (Villaverde Alto) opera hasta las 3:00–3:30 con colas de 30–45 minutos.",
           "Primavera Sound (Parc del Fòrum, Barcelona): NO hay lanzadera oficial. Metro L4 hasta las 3:00 en noches de festival. Buses Nitbus después.",
           "Resurrection Fest (Viveiro): NO hay lanzadera ni transporte público nocturno.",
           "Sonorama Ribera (Aranda de Duero): buses especiales de fans organizados de forma no oficial. Sin lanzadera oficial.",
@@ -11292,7 +11292,7 @@ BLOG_POSTS.push(
           "Cada festival tiene una situación diferente de transporte de madrugada. Aquí está la guía específica para los 5 festivales con mayor demanda de vuelta nocturna:",
         ],
         bullets: [
-          "Mad Cool (Iberdrola Music Villaverde, Madrid): metro L3 (Pradolongo/Legazpi) hasta ~2:30 (colas de 30–45 min). Carpooling a Madrid centro: 4–7 €. Carpooling a Valencia: 10–14 €. Taxi de madrugada: 40–80 €.",
+          "Mad Cool (Iberdrola Music Villaverde, Madrid): metro L3 (Villaverde Alto) hasta las 3:30 (colas de 30–45 min). Carpooling a Madrid centro: 4–7 €. Carpooling a Valencia: 10–14 €. Taxi de madrugada: 40–80 €.",
           "Primavera Sound (Parc del Fòrum, Barcelona): metro L4 hasta ~3:00. Buses Nitbus N6/N8 hasta el amanecer. Carpooling a Madrid: 15–20 €. Carpooling a Valencia: 8–12 €. Sin vuelta nocturna en AVE.",
           "BBK Live (Kobetamendi, Bilbao): lanzadera gratuita oficial hasta las 6:00 am. Para volver a Madrid (12–16 €), Donostia (4–7 €) o Pamplona (5–8 €), carpooling con ConcertRide. No hay trenes nocturnos desde Bilbao.",
           "Arenal Sound (Burriana, Castellón): Sounder Bus hasta ~6:00 am (solo hasta Castellón). Para Valencia (3–6 €), Madrid (12–17 €) o Barcelona (8–12 €): carpooling ConcertRide. Primer tren Castellón–Valencia a las 6:00 am.",
@@ -11437,7 +11437,7 @@ BLOG_POSTS.push(
           "⭐⭐⭐⭐⭐ Cruïlla (Barcelona): metro L4. Servicio nocturno ampliado. Fácil sin coche.",
           "⭐⭐⭐⭐ Primavera Sound (Barcelona): metro L4. Colas de madrugada. Carpooling complementario.",
           "⭐⭐⭐⭐ BBK Live (Bilbao): lanzadera gratuita. Muy accesible desde Bilbao. Carpooling para otras ciudades.",
-          "⭐⭐⭐ Mad Cool (Madrid): metro L8 hasta 2:30. Colas. Carpooling para fuera de Madrid.",
+          "⭐⭐⭐ Mad Cool (Madrid): metro L8 hasta las 3:30. Colas. Carpooling para fuera de Madrid.",
           "⭐⭐⭐ FIB Benicàssim: Cercanías Valencia–Castellón + lanzadera oficial. Sin vuelta nocturna.",
           "⭐⭐⭐ Zevra Festival (Valencia): metro L4 directo. Solo accesible desde Valencia.",
           "⭐⭐ Arenal Sound (Burriana): Sounder Bus desde Castellón (limitado). Carpooling para la vuelta de madrugada.",
@@ -11692,7 +11692,7 @@ BLOG_POSTS.push({
         "Primavera Sound (Parc del Fòrum, Barcelona): metro L4 Besòs Mar. Abono mensual metro BCN con descuento Verano Joven. Acceso casi gratuito.",
         "Sónar (L'Hospitalet de Llobregat): metro L9 Sud directamente al recinto. Metro BCN con Verano Joven.",
         "Cruïlla (Parc del Fòrum, Barcelona): mismo acceso que Primavera Sound, metro L4.",
-        "Mad Cool (Iberdrola Music Villaverde, Madrid): metro L3 Pradolongo/Legazpi. Abono mensual Metro Madrid con descuento Verano Joven.",
+        "Mad Cool (Iberdrola Music Villaverde, Madrid): metro L3 Villaverde Alto. Abono mensual Metro Madrid con descuento Verano Joven.",
         "FIB Benicàssim: Cercanías C6 Valencia–Castellón (con Verano Joven casi gratis) + lanzadera oficial FIB 5–8€. El tramo Cercanías queda cubierto.",
         "Zevra Festival (Valencia): metro L4 directamente al recinto Marina de València. Metro Valencia con Verano Joven.",
       ],
@@ -12117,7 +12117,7 @@ BLOG_POSTS.push({
         "Recogemos los datos de parking de los principales festivales de España para 2026. Los precios son orientativos y pueden variar según la zona y la antelación de la reserva:",
       ],
       bullets: [
-        "Mad Cool (Iberdrola Music Villaverde, Madrid): sí, 10–15€/día | Metro L3 (Pradolongo/Legazpi) como alternativa recomendada",
+        "Mad Cool (Iberdrola Music Villaverde, Madrid): sí, 10–15€/día | Metro L3 (Villaverde Alto) como alternativa recomendada",
         "Primavera Sound (Parc del Fòrum, Barcelona): limitado, 25–35€/día | parkings P1-P5 del Fòrum, se agotan rápido",
         "FIB (Benicàssim, Castellón): sí, 5–10€/día | bien organizado en zona festival",
         "BBK Live (Kobetamendi, Bilbao): NO hay parking en el cerro | parking en Bilbao ciudad ~12€ + lanzadera gratuita incluida en entrada",
@@ -12385,7 +12385,7 @@ BLOG_POSTS.push({
         "El verano festivalero arranca en junio con algunos de los eventos más importantes del año:",
       ],
       bullets: [
-        "Primavera Sound (28 may–1 jun, Parc del Fòrum, Barcelona): metro L4 parada Besòs Mar | carpooling desde Madrid 15–20€",
+        "Primavera Sound (3–7 jun, Parc del Fòrum, Barcelona): metro L4 parada Besòs Mar | carpooling desde Madrid 15–20€",
         "Sónar (18–20 jun, L'Hospitalet, Barcelona): metro L9 parada Fira | carpooling desde Madrid 14–19€",
         "Resurrection Fest (25–28 jun, Viveiro, Galicia): carpooling imprescindible desde Galicia 4–10€, desde Madrid 18–24€",
         "Download Madrid (5–7 jun, IFEMA, Madrid): metro L8 Nuevos Ministerios | carpooling local 4–8€",
@@ -12398,7 +12398,7 @@ BLOG_POSTS.push({
       ],
       bullets: [
         "BBK Live (9–11 jul, Kobetamendi, Bilbao): lanzadera gratuita desde Bilbao ciudad + carpooling 4–22€ según ciudad origen",
-        "Mad Cool (8–11 jul, Iberdrola Music Villaverde, Madrid): metro L3 Pradolongo/Legazpi | carpooling local 4–8€",
+        "Mad Cool (8–11 jul, Iberdrola Music Villaverde, Madrid): metro L3 Villaverde Alto | carpooling local 4–8€",
         "Cruïlla (9–12 jul, Parc del Fòrum, Barcelona): metro L4 | carpooling desde Madrid 14–19€",
         "FIB (16–19 jul, Benicàssim, Castellón): Cercanías Valencia-Castellón + lanzadera o carpooling desde Valencia 5–8€, desde Madrid 14–19€",
         "Dreambeach (8–12 jul, Villaricos, Almería): carpooling desde Almería 4–8€, desde Madrid 19–25€",
@@ -12897,7 +12897,7 @@ BLOG_POSTS.push({
   faqs: [
     {
       q: "¿Qué festivales quedan en el verano 2026 después de mayo?",
-      a: "El calendario festival verano 2026 entre junio y octubre incluye: Primavera Sound (4–6 jun Barcelona), Mad Cool (9–11 jul Madrid), BBK Live (9–11 jul Bilbao), FIB Benicàssim (17–19 jul), Resurrection Fest (25–27 jun Viveiro), Arenal Sound (29 jul–2 ago Burriana), Sonorama Ribera (6–9 ago Aranda), Medusa (13–17 ago Cullera), Rototom Sunsplash (14–22 ago Benicàssim), Vida (3–6 sep Vilanova), DCode (12 sep Madrid) y Cala Mijas (1–3 oct).",
+      a: "El calendario festival verano 2026 entre junio y octubre incluye: Primavera Sound (4–6 jun Barcelona), Mad Cool (8–11 jul Madrid), BBK Live (9–11 jul Bilbao), FIB Benicàssim (17–19 jul), Resurrection Fest (25–27 jun Viveiro), Arenal Sound (29 jul–2 ago Burriana), Sonorama Ribera (6–9 ago Aranda), Medusa (13–17 ago Cullera), Rototom Sunsplash (14–22 ago Benicàssim), Vida (3–6 sep Vilanova), DCode (12 sep Madrid) y Cala Mijas (1–3 oct).",
     },
     {
       q: "¿Cuál es el último festival del verano 2026 en España?",
@@ -14028,7 +14028,7 @@ BLOG_POSTS.push(
       {
         heading: "Mad Cool 2026: el festival más grande de Madrid",
         paragraphs: [
-          "Mad Cool Festival 2026 se celebra del 8 al 11 de julio en Iberdrola Music (Av. de Córdoba, Villaverde Bajo, 28026 Madrid) — ya no en IFEMA. Es el festival de mayor capacidad de Madrid, con carteles que incluyen los artistas internacionales más relevantes. Metro L3 paradas Pradolongo o Legazpi (10–15 min a pie).",
+          "Mad Cool Festival 2026 se celebra del 8 al 11 de julio en Iberdrola Music (c/ Laguna Dalga, Villaverde, 28021 Madrid) — ya no en IFEMA. Es el festival de mayor capacidad de Madrid, con carteles que incluyen los artistas internacionales más relevantes. Metro L3 parada Villaverde Alto (15–20 min a pie).",
           "Carpooling desde Guadalajara: desde 3€/asiento (55 km, 45 min). Desde Toledo: desde 3€/asiento (70 km, 55 min). Desde Segovia: desde 3€/asiento (90 km, 1 hora). Desde Ávila: desde 3€/asiento (110 km, 1h 15min). 0% comisión en ConcertRide.",
         ],
       },
@@ -14369,7 +14369,7 @@ BLOG_POSTS.push(
     title: "Carpooling Primavera Sound 2026 [Guía Multi-Ciudad]: Madrid, Zaragoza, Valencia, Sevilla y más",
     h1: "Cómo ir a Primavera Sound 2026 en carpooling desde cualquier ciudad de España",
     excerpt:
-      "Primavera Sound 2026 (28 may–1 jun, Parc del Fòrum, Barcelona): carpooling desde Madrid (15–20 €, 620 km), Zaragoza (8–12 €, 306 km), Valencia (10–14 €, 355 km), Sevilla (22–30 €, 1.000 km), Bilbao (16–22 €, 625 km). Metro L4 directo al recinto. Sin comisión en ConcertRide.",
+      "Primavera Sound 2026 (3–7 jun, Parc del Fòrum, Barcelona): carpooling desde Madrid (15–20 €, 620 km), Zaragoza (8–12 €, 306 km), Valencia (10–14 €, 355 km), Sevilla (22–30 €, 1.000 km), Bilbao (16–22 €, 625 km). Metro L4 directo al recinto. Sin comisión en ConcertRide.",
     category: "guias",
     tags: ["primavera sound", "primavera sound 2026", "barcelona festival", "carpooling barcelona", "parc del forum", "primavera sound transporte", "como llegar primavera sound"],
     publishedAt: "2026-05-16T10:30:00.000Z",
@@ -14387,7 +14387,7 @@ BLOG_POSTS.push(
       },
       {
         heading: "Precios de carpooling a Primavera Sound desde las 12 ciudades principales",
-        paragraphs: ["Precios en ConcertRide (0% comisión) para la edición 2026 (28 may–1 jun):"],
+        paragraphs: ["Precios en ConcertRide (0% comisión) para la edición 2026 (3–7 jun):"],
         bullets: [
           "Madrid → Primavera Sound: 620 km, 5h 30 min por A-2/AP-2. Precio: 15–20 €/asiento. La ruta de mayor demanda en la plataforma durante el festival.",
           "Zaragoza → Primavera Sound: 306 km, 2h 45 min por AP-2. Precio: 8–12 €/asiento. Parada habitual para conductores que vienen de Madrid.",
@@ -14447,19 +14447,19 @@ BLOG_POSTS.push(
     title: "Mad Cool 2026: horarios y escenarios [Guía] + cómo llegar a Iberdrola Music sin problema",
     h1: "Mad Cool 2026: horarios, escenarios y cómo llegar a Iberdrola Music (Villaverde) sin problema",
     excerpt:
-      "Mad Cool 2026 (8–11 julio, Iberdrola Music Villaverde, Madrid): 4 escenarios, puertas abren a las 16:00, último set a las 02:30. Acceso: Metro L3 Pradolongo/Legazpi. Carpooling ConcertRide desde Toledo (4 €), Valencia (10–14 €), Barcelona (15–20 €). Sin comisión.",
+      "Mad Cool 2026 (8–11 julio, Iberdrola Music Villaverde, Madrid): 4 escenarios, puertas abren a las 16:00, último set a las 02:30. Acceso: Metro L3 Villaverde Alto. Carpooling ConcertRide desde Toledo (4 €), Valencia (10–14 €), Barcelona (15–20 €). Sin comisión.",
     category: "guias",
     tags: ["mad cool 2026", "mad cool horarios", "mad cool escenarios", "iberdrola music", "mad cool transporte", "mad cool desde madrid", "mad cool carpooling"],
     publishedAt: "2026-05-16T11:00:00.000Z",
     author: "Equipo ConcertRide",
     readingMinutes: 7,
     lede:
-      "Cuatro días en Iberdrola Music (Villaverde Bajo) con 80.000 personas al día. Mad Cool 2026 (8, 9, 10 y 11 de julio) tiene cuatro escenarios, puertas a las 16:00 y el último set sobre las 02:30. Esta guía recoge cómo organizarlo (escenarios, horarios típicos, aparcamiento) y cómo llegar desde cualquier ciudad.",
+      "Cuatro días en Iberdrola Music (Villaverde) con 80.000 personas al día. Mad Cool 2026 (8, 9, 10 y 11 de julio) tiene cuatro escenarios, puertas a las 16:00 y el último set sobre las 02:30. Esta guía recoge cómo organizarlo (escenarios, horarios típicos, aparcamiento) y cómo llegar desde cualquier ciudad.",
     sections: [
       {
         heading: "Mad Cool 2026: estructura del festival y escenarios",
         paragraphs: [
-          "Mad Cool se organiza en 4 escenarios distribuidos en Iberdrola Music (Av. de Córdoba, Villaverde Bajo, 28026 Madrid): escenario principal Mad Cool Stage (80.000 aforo), segundo escenario Rockzone (35.000), escenario alternativo Thunderbitch (15.000) y carpa de electrónica Night Pro Stage. La estructura es similar año a año, aunque la organización puede anunciar cambios.",
+          "Mad Cool se organiza en 4 escenarios distribuidos en Iberdrola Music (c/ Laguna Dalga, Villaverde, 28021 Madrid): escenario principal Mad Cool Stage (80.000 aforo), segundo escenario Rockzone (35.000), escenario alternativo Thunderbitch (15.000) y carpa de electrónica Night Pro Stage. La estructura es similar año a año, aunque la organización puede anunciar cambios.",
           "Las puertas del recinto abren habitualmente a las 16:00 (sujeto a confirmación oficial). Los primeros conciertos empiezan a las 17:00–18:00. El headliner del escenario principal actúa típicamente entre las 22:30 y las 02:00. El festival no tiene toque de queda oficial — la hora de cierre depende de la jornada.",
         ],
       },
@@ -14473,14 +14473,14 @@ BLOG_POSTS.push(
           "Llega entre 17:00–19:00 para evitar aglomeraciones en accesos.",
           "Headliner del escenario principal: 22:30–01:30 (típico). Confirma horarios oficiales en la app de Mad Cool.",
           "Hora de salida recomendada para carpooling: 02:30–03:00 (tras el último set del principal).",
-          "Metro L3 (Pradolongo o Legazpi): servicio ampliado hasta 02:30 en noches de festival.",
+          "Metro L3 (Villaverde Alto): servicio ampliado hasta las 3:30 en noches de festival.",
           "Parking Iberdrola Music (10–15 €): colapsa desde las 17:30. No recomendado sin reserva previa.",
         ],
       },
       {
         heading: "Cómo llegar a Mad Cool: metro, carpooling y coche",
         paragraphs: [
-          "Metro línea 3 (verde): la opción oficial para asistentes de Madrid. Paradas Pradolongo o Legazpi, a 10–15 minutos andando del escenario principal. Desde Sol: 20–25 min. Precio: ~2 €. Servicio ampliado hasta las 02:30.",
+          "Metro línea 3 (amarilla): la opción oficial para asistentes de Madrid. Parada Villaverde Alto, a 15–20 minutos a pie del escenario principal. Desde Sol: 20–25 min. Precio: ~2 €. Servicio ampliado hasta las 3:30.",
           "Carpooling ConcertRide: para asistentes de fuera de Madrid o de barrios sin metro L8. Precio típico por asiento en 2026: desde Toledo (75 km) 4–7 €; desde Guadalajara (60 km) 3–6 €; desde Valencia (355 km) 10–14 €; desde Zaragoza (325 km) 9–13 €; desde Barcelona (620 km) 15–20 €; desde Sevilla (525 km) 14–19 €; desde Bilbao (395 km) 11–16 €.",
           "Coche propio: aparcamiento en la zona de Villaverde (P3, P4, P5 del recinto), precio 10–15 €/día, aforo limitado. Los accesos por la A-42 y M-40 colapsan desde las 18:00 — si vas en coche, llega antes de las 16:30 o después de las 19:30.",
         ],
@@ -14496,7 +14496,7 @@ BLOG_POSTS.push(
     faqs: [
       { q: "¿A qué hora empieza Mad Cool 2026?", a: "Las puertas de Mad Cool 2026 abren habitualmente a las 16:00. Los primeros conciertos comienzan sobre las 17:00–18:00. El headliner del escenario principal actúa entre las 22:30 y la 01:30. Las horas exactas se publican en la app oficial de Mad Cool." },
       { q: "¿Cuántos escenarios tiene Mad Cool?", a: "Mad Cool tiene 4 escenarios: Mad Cool Stage (principal, 80.000 aforo), Rockzone (35.000), Thunderbitch Stage (15.000) y Night Pro Stage (electrónica). La organización puede ajustar la estructura para 2026." },
-      { q: "¿Hay lanzadera oficial a Mad Cool desde Madrid?", a: "No. Mad Cool no opera lanzaderas propias desde el centro de Madrid. El transporte público más directo es el metro L3 (paradas Pradolongo o Legazpi, 10–15 min a pie). El carpooling ConcertRide y el taxi son las alternativas principales para asistentes de otras ciudades o de barrios sin acceso directo a la L3." },
+      { q: "¿Hay lanzadera oficial a Mad Cool desde Madrid?", a: "No. Mad Cool no opera lanzaderas propias desde el centro de Madrid. El transporte público más directo es el metro L3 (parada Villaverde Alto, 15–20 min a pie). El carpooling ConcertRide y el taxi son las alternativas principales para asistentes de otras ciudades o de barrios sin acceso directo a la L3." },
       { q: "¿Cuánto cuesta el carpooling a Mad Cool desde Barcelona?", a: "Entre 15 y 20 €/asiento con ConcertRide (620 km, 5h 30 min, 0% comisión). Para asistentes catalanes que no quieren coger el AVE, el carpooling es la opción más económica e incluye vuelta de madrugada coordinada." },
     ],
     relatedLinks: [
@@ -14802,7 +14802,7 @@ BLOG_POSTS.push(
         heading: "Mad Cool 2026: dónde es y por qué el transporte importa",
         paragraphs: [
           "Mad Cool Festival 2026 se celebra en el recinto Iberdrola Music, en el barrio de Villaverde (sur de Madrid), del 8 al 11 de julio. Con 80.000 asistentes diarios, el recinto se convierte en uno de los accesos más complicados de España en noches de festival.",
-          "El metro línea 3 llega a las paradas de Pradolongo o Legazpi, desde donde un autobús conecta con el recinto. En las salidas de madrugada (1:00–2:30), las esperas en andén superan los 30 minutos. Para quien llega desde fuera de Madrid, resolver el transporte con antelación es clave.",
+          "El metro línea 3 llega a la parada de Villaverde Alto, a 15–20 minutos a pie del recinto. En las salidas de madrugada (1:00–2:30), las esperas en andén superan los 30 minutos. Para quien llega desde fuera de Madrid, resolver el transporte con antelación es clave.",
         ],
       },
       {
@@ -14816,11 +14816,11 @@ BLOG_POSTS.push(
       {
         heading: "Opción 2: Metro de Madrid (para residentes en Madrid)",
         paragraphs: [
-          "Si ya estás en Madrid, el metro es la opción más económica para ir a Mad Cool. La línea 3 (color verde oscuro) llega a las paradas de Pradolongo o Legazpi (zona sur de Madrid). Desde Sol son unos 25–30 minutos de trayecto. Desde Pradolongo o Legazpi, hay servicio de autobús adicional al recinto de Iberdrola Music (10–15 minutos más).",
+          "Si ya estás en Madrid, el metro es la opción más económica para ir a Mad Cool. La línea 3 (amarilla) llega a la parada de Villaverde Alto (zona sur de Madrid). Desde Sol son unos 25–30 minutos de trayecto. Desde Villaverde Alto hay 15–20 minutos a pie hasta el recinto de Iberdrola Music.",
           "El metro L3 amplía su horario en noches de festival hasta las 2:00–2:30. Sin embargo, la salida del festival entre la 1:00 y las 2:30 colapsa los andenes: es habitual esperar 3–4 trenes antes de poder subir.",
         ],
         bullets: [
-          "Línea 3 verde oscuro hasta Pradolongo o Legazpi (desde Sol: ~30 min, 1,50–2,50 €).",
+          "Línea 3 (amarilla) hasta Villaverde Alto (desde Sol: ~30 min, 1,50–2,50 €).",
           "Autobús desde parada de metro hasta Iberdrola Music: ~15 min adicionales.",
           "Horario ampliado en noches de festival hasta las 2:00–2:30.",
           "Colapso habitual a la salida: prever 45–60 min para el trayecto de vuelta.",
@@ -14843,7 +14843,7 @@ BLOG_POSTS.push(
       {
         heading: "Vuelta de madrugada: el problema real de Mad Cool sin coche",
         paragraphs: [
-          "Las salidas de madrugada son el mayor problema logístico de Mad Cool. El metro amplía hasta las 2:30, pero con 80.000 asistentes saliendo al mismo tiempo, la realidad es muy diferente.",
+          "Las salidas de madrugada son el mayor problema logístico de Mad Cool. El metro amplía hasta las 3:30, pero con 80.000 asistentes saliendo al mismo tiempo, la realidad es muy diferente.",
           "Las opciones de vuelta para quienes no tienen coche: metro L3 (colapso garantizado, 45–60 min de espera), taxi/VTC (25–50 € al centro, con tarifas multiplicadas por la demanda), o carpooling ConcertRide (4–20 € según distancia, sin esperas si se reserva antes del festival).",
           "Recomendación: reserva el viaje de vuelta en ConcertRide al mismo tiempo que el de ida. El conductor coordina la recogida al final del show en un punto fijo del recinto.",
         ],
@@ -14852,7 +14852,7 @@ BLOG_POSTS.push(
     faqs: [
       {
         q: "¿Hay lanzadera oficial de Mad Cool desde el centro de Madrid?",
-        a: "Mad Cool en Iberdrola Music no opera lanzaderas propias desde el centro. El acceso es por metro L3 (Pradolongo/Legazpi) más autobús al recinto. Los shuttles privados en redes sociales son iniciativas no oficiales. ConcertRide es la alternativa organizada más fiable para asistentes de otras ciudades.",
+        a: "Mad Cool en Iberdrola Music no opera lanzaderas propias desde el centro. El acceso es por metro L3 (Villaverde Alto) y 15–20 min a pie hasta el recinto. Los shuttles privados en redes sociales son iniciativas no oficiales. ConcertRide es la alternativa organizada más fiable para asistentes de otras ciudades.",
       },
       {
         q: "¿Cuánto cuesta el carpooling a Mad Cool 2026 desde Barcelona?",
@@ -15080,7 +15080,7 @@ BLOG_POSTS.push(
         ],
         bullets: [
           "Valencia → FIB (70 km): Tren Cercanías 4–6 € + lanzadera 5–8 € = 9–14 €. Carpooling ConcertRide: 3–6 €. Ahorro: 3–8 € por trayecto.",
-          "Madrid → Mad Cool (15 km): Metro 2,50 € + autobús al recinto 1,50 € = 4 €. Carpooling ConcertRide: 4–7 €. Precio similar pero el carpooling resuelve la vuelta de madrugada.",
+          "Madrid → Mad Cool (15 km): Metro 2,50 € y 15–20 min a pie hasta el recinto 1,50 € = 4 €. Carpooling ConcertRide: 4–7 €. Precio similar pero el carpooling resuelve la vuelta de madrugada.",
           "Madrid → Primavera Sound (620 km): AVE 50–100 €. Carpooling ConcertRide: 15–20 €. Ahorro: 30–80 € por trayecto.",
           "Madrid → BBK Live (395 km): Alvia 40–70 €. Carpooling ConcertRide: 11–16 €. Ahorro: 24–54 €.",
           "Barcelona → FIB (300 km): ALSA bus 25–35 €. Carpooling ConcertRide: 8–12 €. Ahorro: 13–23 €.",
@@ -15967,7 +15967,7 @@ BLOG_POSTS.push({
       heading: "Paso 1: Cómo encontrar tu primer viaje en ConcertRide",
       paragraphs: [
         "El proceso para encontrar carpooling a un festival en ConcertRide tiene 4 pasos que se completan en menos de 5 minutos:",
-        "Primero, busca el festival por nombre en concertride.me. La plataforma está organizada por evento, no por ruta origen–destino: buscas 'Mad Cool', no 'Madrid–IFEMA'. Esto filtra automáticamente todos los viajes de conductores que van al mismo festival.",
+        "Primero, busca el festival por nombre en concertride.me. La plataforma está organizada por evento, no por ruta origen–destino: buscas 'Mad Cool', no 'Madrid–Villaverde'. Esto filtra automáticamente todos los viajes de conductores que van al mismo festival.",
         "Segundo, filtra por tu ciudad de origen. Verás los viajes disponibles con precio, hora de salida y número de plazas restantes.",
         "Tercero, revisa el perfil del conductor: valoraciones de otros pasajeros, foto de perfil, historial de viajes. Un conductor con 10+ valoraciones positivas tiene mucho margen de confianza.",
         "Cuarto, solicita una plaza y contacta por chat para confirmar el punto de encuentro exacto. El chat está integrado en la plataforma.",
@@ -16223,8 +16223,8 @@ BLOG_POSTS.push({
     {
       heading: "Dónde es Mad Cool 2026 y cómo llegar en transporte público",
       paragraphs: [
-        "Mad Cool 2026 se celebra del 8 al 11 de julio en el recinto Iberdrola Music, situado en el barrio de Villaverde Bajo (Madrid), en la Av. de Córdoba s/n, 28026 Madrid.",
-        "En metro: Línea 3 (azul), paradas Pradolongo o Legazpi. Desde Sol: 20 minutos. Desde Tribunal: 25 minutos. Desde Atocha: 15 minutos. El metro amplía servicio hasta las 2:30 AM en noches de festival. Sin embargo, la salida del festival (01:00–02:00) genera colas de 20–45 minutos en las paradas más cercanas al recinto.",
+        "Mad Cool 2026 se celebra del 8 al 11 de julio en el recinto Iberdrola Music, situado en el barrio de Villaverde (Madrid), en la c/ Laguna Dalga s/n, 28021 Madrid.",
+        "En metro: Línea 3 (amarilla), parada Villaverde Alto. Desde Sol: 20 minutos. Desde Tribunal: 25 minutos. Desde Atocha: 15 minutos. El metro amplía servicio hasta las 3:30 en noches de festival. Sin embargo, la salida del festival (01:00–02:00) genera colas de 20–45 minutos en las paradas más cercanas al recinto.",
         "En autobús EMT: Líneas 25, 59, 79 (paradas próximas al acceso sur de Iberdrola Music). Frecuencia reducida de madrugada. Considéralo como opción de llegada, no de vuelta tardía.",
         "Desde el aeropuerto: Metro L8 desde Aeropuerto T1/T2/T3 o T4 hasta Nuevos Ministerios, transbordo a L3 hasta Legazpi, total ~55 minutos. Precio: 1,50–5,00 € según zona.",
       ],
@@ -16261,11 +16261,11 @@ BLOG_POSTS.push({
   faqs: [
     {
       q: "¿Cuándo es Mad Cool 2026?",
-      a: "Mad Cool 2026 se celebra del 8 al 11 de julio en el recinto Iberdrola Music, Av. de Córdoba s/n, Villaverde, Madrid. Cuatro días de festival con 80.000 asistentes diarios.",
+      a: "Mad Cool 2026 se celebra del 8 al 11 de julio en el recinto Iberdrola Music, c/ Laguna Dalga s/n, Villaverde, Madrid. Cuatro días de festival con 80.000 asistentes diarios.",
     },
     {
       q: "¿Cómo llegar al Mad Cool 2026 desde el centro de Madrid?",
-      a: "Metro L3 (azul) hasta Pradolongo o Legazpi, más servicio de autobús al recinto. Desde Sol: 20 minutos. Carpooling ConcertRide: 4–7 €/asiento desde el centro de Madrid.",
+      a: "Metro L3 (amarilla) hasta Villaverde Alto, y 15–20 min a pie hasta el recinto. Desde Sol: 20 minutos. Carpooling ConcertRide: 4–7 €/asiento desde el centro de Madrid.",
     },
     {
       q: "¿Hay aparcamiento en Mad Cool 2026?",
@@ -16741,24 +16741,24 @@ BLOG_POSTS.push({
   slug: "madrid-mad-cool-2026-guia-transporte",
   title: "Madrid → Mad Cool 2026: guía definitiva de carpooling y transporte",
   h1: "Mad Cool 2026 desde Madrid: guía de transporte completa",
-  excerpt: "Todo lo que necesitas para ir al Mad Cool 2026 en Iberdrola Music (Villaverde, Madrid): metro L3 Pradolongo/Legazpi, carpooling desde 4€, comparativa de opciones y cómo volver de madrugada.",
+  excerpt: "Todo lo que necesitas para ir al Mad Cool 2026 en Iberdrola Music (Villaverde, Madrid): metro L3 Villaverde Alto, carpooling desde 4€, comparativa de opciones y cómo volver de madrugada.",
   category: "guias",
   tags: ["mad-cool", "madrid", "carpooling", "transporte", "festival", "iberdrola-music"],
   publishedAt: "2026-05-17",
   author: "Equipo ConcertRide",
   readingMinutes: 7,
-  lede: "Mad Cool 2026 se celebra en Iberdrola Music (Villaverde Bajo, Av. de Córdoba, Madrid), a 12 km del centro. El metro L3 llega al recinto y amplía horario hasta las 02:30. Los headliners terminan a las 03:00–04:30. Aquí tienes todas las opciones para llegar y, sobre todo, para volver.",
+  lede: "Mad Cool 2026 se celebra en Iberdrola Music (Villaverde, c/ Laguna Dalga, Madrid), a 12 km del centro. El metro L3 llega al recinto y amplía horario hasta las 3:30. Los headliners terminan a las 03:00–04:30. Aquí tienes todas las opciones para llegar y, sobre todo, para volver.",
   sections: [
     {
       heading: "Mad Cool 2026: recinto y acceso a Iberdrola Music (Villaverde)",
       paragraphs: [
-        "Mad Cool Festival 2026 se celebra en Iberdrola Music (Av. de Córdoba, Villaverde Bajo, 28026 Madrid), a 12 km del centro. Ya no está en IFEMA — cambio de recinto desde 2026. Es uno de los festivales de rock y pop internacionales más grandes de Europa, con aforo de 80.000 personas por día.",
+        "Mad Cool Festival 2026 se celebra en Iberdrola Music (c/ Laguna Dalga, Villaverde, 28021 Madrid), a 12 km del centro. Ya no está en IFEMA: se celebra en Iberdrola Music desde 2023. Es uno de los festivales de rock y pop internacionales más grandes de Europa, con aforo de 80.000 personas por día.",
         "Fechas Mad Cool 2026: 8 al 11 de julio. Headliners históricos: Metallica, Pearl Jam, Dua Lipa, Lana Del Rey.",
       ],
       bullets: [
-        "Recinto: Iberdrola Music, Av. de Córdoba, Villaverde Bajo, 28026 Madrid",
+        "Recinto: Iberdrola Music, c/ Laguna Dalga, Villaverde, 28021 Madrid",
         "Distancia al centro (Sol): 12 km (20 min sin tráfico)",
-        "Metro: L3 (verde), paradas Pradolongo o Legazpi (10–15 min andando al recinto)",
+        "Metro: L3 (amarilla), parada Villaverde Alto (15–20 min a pie al recinto)",
         "Aforo: ~80.000 personas/día",
       ],
     },
@@ -16769,7 +16769,7 @@ BLOG_POSTS.push({
       ],
       bullets: [
         "Carpooling ConcertRide: 4–7€/asiento · 20 min · 0% comisión · vuelta coordinada a cualquier hora (incluyendo 03:00–05:00)",
-        "Metro L3 (verde) → Pradolongo o Legazpi: 1,50–2€ · ampliado hasta ~02:30 en noches de festival",
+        "Metro L3 (amarilla) → Villaverde Alto: 1,50–2€ · ampliado hasta las 3:30 en noches de festival",
         "Bus nocturno EMT N1 (Cibeles–Barajas): 1,50€ · cada 30–45 min · hasta ~05:00 (no para en Villaverde directamente)",
         "Taxi / VTC (Uber, Cabify) desde centro: 15–30€ ida · precio dinámico x2–3 en horario festival",
         "Coche propio + parking Iberdrola Music: 10–15€ parking + gasolina · problema: salida colapsada a las 03:00",
@@ -16778,8 +16778,8 @@ BLOG_POSTS.push({
     {
       heading: "La clave: volver del Mad Cool de madrugada",
       paragraphs: [
-        "El gran problema del Mad Cool es la vuelta. El metro L3 amplía horario hasta las ~02:30 pero los headliners terminan a las 03:00–04:30. Las opciones después de esa hora son:",
-        "(1) Metro L3 (Pradolongo/Legazpi): hasta ~02:30 con colas de 30–45 min en la salida del festival. Gratuito con abono transporte Madrid. Sale antes que los headliners terminen.",
+        "El gran problema del Mad Cool es la vuelta. El metro L3 amplía horario hasta las 3:30 pero los headliners terminan a las 03:00–04:30. Las opciones después de esa hora son:",
+        "(1) Metro L3 (Villaverde Alto): hasta las 3:30 con colas de 30–45 min en la salida del festival. Gratuito con abono transporte Madrid. Sale antes que los headliners terminen.",
         "(2) Carpooling ConcertRide: el conductor espera en el punto de encuentro acordado (entrada principal) a la hora que habéis acordado. Sin esperas inciertas.",
         "(3) Taxi / VTC: precio dinámico puede dispararse a 40–70€ por coche desde Villaverde (Mad Cool) a las 04:00.",
       ],
@@ -16803,11 +16803,11 @@ BLOG_POSTS.push({
       faqs: [
         {
           q: "¿El metro llega al Mad Cool Festival en Madrid?",
-          a: "Sí. La línea L3 (verde) del Metro de Madrid tiene paradas en Pradolongo y Legazpi, a 10–15 min andando de Iberdrola Music (Mad Cool 2026). El metro amplía su horario hasta ~02:30 en noches de festival. Para la vuelta entre las 02:30 y las 05:00, el carpooling ConcertRide coordinado de antemano es la mejor opción.",
+          a: "Sí. La línea L3 (amarilla) del Metro de Madrid tiene parada en Villaverde Alto, a 15–20 min a pie de Iberdrola Music (Mad Cool 2026). El metro amplía su horario hasta las 3:30 en noches de festival. Para la vuelta entre las 02:30 y las 05:00, el carpooling ConcertRide coordinado de antemano es la mejor opción.",
         },
         {
           q: "¿Hay lanzadera oficial al Mad Cool Festival?",
-          a: "Mad Cool no ofrece lanzadera oficial propia. El acceso principal es metro L3 (Pradolongo/Legazpi, hasta ~02:30), bus EMT o coche/carpooling. El carpooling de ConcertRide es la opción más flexible para la vuelta de madrugada.",
+          a: "Mad Cool no ofrece lanzadera oficial propia. El acceso principal es metro L3 (Villaverde Alto, hasta las 3:30), bus EMT o coche/carpooling. El carpooling de ConcertRide es la opción más flexible para la vuelta de madrugada.",
         },
         {
           q: "¿Cuánto cuesta el carpooling al Mad Cool desde Madrid centro?",
@@ -16897,7 +16897,7 @@ BLOG_POSTS.push({
         faqs: [
           {
             q: "¿Cuántos festivales de música hay en Cataluña en 2026?",
-            a: "Cataluña tiene más de 20 festivales de música en 2026. Los más grandes son Primavera Sound (Parc del Fòrum, Barcelona, 28 mayo–1 junio), Sónar (19–21 junio, Barcelona), Cruïlla (9–12 julio, Fòrum) y Reggaeton Beach Salou (18–20 junio). Fuera de Barcelona destacan el FIB en Benicàssim (cerca de Castellón) y el Vida Festival en Vilanova i la Geltrú.",
+            a: "Cataluña tiene más de 20 festivales de música en 2026. Los más grandes son Primavera Sound (Parc del Fòrum, Barcelona, 3–7 junio), Sónar (19–21 junio, Barcelona), Cruïlla (9–12 julio, Fòrum) y Reggaeton Beach Salou (18–20 junio). Fuera de Barcelona destacan el FIB en Benicàssim (cerca de Castellón) y el Vida Festival en Vilanova i la Geltrú.",
           },
           {
             q: "¿Cómo ir a Primavera Sound sin coche desde otra ciudad?",
@@ -17192,13 +17192,13 @@ BLOG_POSTS.push({
       "Madrid es la capital de los festivales de España. Con cuatro grandes festivales entre mayo y septiembre — Tomavistas, Download, Mad Cool y DCode — y decenas de conciertos en recinto cubierto, la ciudad tiene la agenda más densa del país. El reto: Mad Cool está ahora en Iberdrola Music (Villaverde, metro L3), Download sigue en IFEMA (metro L8), y Tomavistas en el Retiro.",
     sections: [
       {
-        heading: "Mad Cool 2026 — Iberdrola Music (Villaverde Bajo)",
+        heading: "Mad Cool 2026 — Iberdrola Music (Villaverde)",
         paragraphs: [
-          "Mad Cool 2026 se celebra del 8 al 11 de julio en Iberdrola Music (Av. de Córdoba, Villaverde Bajo, 28026 Madrid) — ya no en IFEMA. El acceso en transporte público es metro L3 (línea verde), paradas Pradolongo o Legazpi, a 10–15 min andando del recinto. El metro amplía el último servicio hasta las 02:00–02:30 en noches de festival.",
+          "Mad Cool 2026 se celebra del 8 al 11 de julio en Iberdrola Music (c/ Laguna Dalga, Villaverde, 28021 Madrid) — ya no en IFEMA. El acceso en transporte público es metro L3 (línea amarilla), parada Villaverde Alto, a 15–20 min a pie del recinto. En noches de festival hay lanzadera de Metro Villaverde Alto–Sol hasta las 3:00–3:30.",
           "Para quienes vienen de fuera de Madrid: carpooling ConcertRide desde Barcelona (15–20 €/asiento, 6h), Valencia (10–14 €, 3h 30 min), Zaragoza (9–13 €, 2h 45 min), Bilbao (11–16 €, 3h 30 min), Sevilla (13–18 €, 4h 30 min). El AVE llega a Atocha; desde ahí metro L1 hasta Legazpi o L3 directa.",
         ],
         bullets: [
-          "Metro L3 (verde) Sol→Pradolongo: 20 min, ~2 €. Último servicio ampliado hasta ~02:30 en noches de festival.",
+          "Metro L3 (amarilla) Sol→Villaverde Alto: 20 min, ~2 €. Último servicio ampliado hasta las 3:30 en noches de festival.",
           "Bus nocturnos EMT N1 (Cibeles–Barajas): desde Cibeles/Atocha. Frecuencia 30 min, toda la noche.",
           "Carpooling desde Madrid centro a Iberdrola Music: 4–7 €/asiento (12 km, 20 min).",
           "VTC/Taxi desde Villaverde (Mad Cool) al centro de Madrid: 15–25 €. Alta demanda a la salida — pide antes de que acabe el show.",
@@ -17244,7 +17244,7 @@ BLOG_POSTS.push({
         faqs: [
           {
             q: "¿Cómo llegar al Mad Cool o al Download Festival en Madrid?",
-            a: "Son recintos diferentes. Mad Cool 2026: Iberdrola Music (Villaverde Bajo), metro L3 paradas Pradolongo o Legazpi. Download Festival Madrid: IFEMA (Av. del Partenón, Barajas), metro L8 Feria de Madrid. Para quienes vienen de fuera, el carpooling ConcertRide desde Barcelona, Valencia o Zaragoza llega directamente a cada recinto.",
+            a: "Son recintos diferentes. Mad Cool 2026: Iberdrola Music (Villaverde), metro L3 parada Villaverde Alto. Download Festival Madrid: IFEMA (Av. del Partenón, Barajas), metro L8 Feria de Madrid. Para quienes vienen de fuera, el carpooling ConcertRide desde Barcelona, Valencia o Zaragoza llega directamente a cada recinto.",
           },
           {
             q: "¿El metro funciona de noche en los festivales de Madrid?",
@@ -17588,7 +17588,7 @@ BLOG_POSTS.push({
   title: "Buses Mad Cool 2026 [Guía Real]: Metro L3 Iberdrola Music, EMT y Carpooling Madrid",
   h1: "Cómo llegar a Mad Cool 2026 Iberdrola Music en bus: metro L3, EMT y carpooling",
   excerpt:
-    "Guía de transporte a Mad Cool 2026 (8–11 jul, Iberdrola Music Villaverde Madrid): metro L3 paradas Pradolongo o Legazpi (30 min desde Sol), buses EMT al recinto, sin lanzadera oficial. Carpooling ConcertRide desde Barcelona (15–20€), Valencia (10–14€), Zaragoza (9–13€). Vuelta coordinada sin hora fija.",
+    "Guía de transporte a Mad Cool 2026 (8–11 jul, Iberdrola Music Villaverde Madrid): metro L3 parada Villaverde Alto (30 min desde Sol), buses EMT 22 y 79 desde Legazpi y lanzaderas nocturnas de Metro, EMT y Cercanías. Carpooling ConcertRide desde Barcelona (15–20€), Valencia (10–14€), Zaragoza (9–13€). Vuelta coordinada sin hora fija.",
   category: "guias",
   tags: ["buses mad cool", "mad cool transporte", "mad cool metro", "como llegar mad cool 2026", "iberdrola music", "villaverde", "carpooling", "madrid", "2026"],
   publishedAt: "2026-05-17T11:00:00.000Z",
@@ -17596,36 +17596,36 @@ BLOG_POSTS.push({
   author: "Equipo ConcertRide",
   readingMinutes: 7,
   lede:
-    "Mad Cool 2026 se celebra en Iberdrola Music (Villaverde Bajo, Madrid), no en IFEMA. El metro que llega al nuevo recinto es la línea 3 (Pradolongo o Legazpi), no la L8 que apuntaban guías de ediciones anteriores. Esta guía cubre todos los medios de transporte actualizados para 2026.",
+    "Mad Cool 2026 se celebra en Iberdrola Music (Villaverde, Madrid), no en IFEMA. El metro que llega al nuevo recinto es la línea 3 (Villaverde Alto), no la L8 que apuntaban guías de ediciones anteriores. Esta guía cubre todos los medios de transporte actualizados para 2026.",
   sections: [
     {
-      heading: "Mad Cool 2026 cambia de recinto: ya no es IFEMA",
+      heading: "Mad Cool ya no es en IFEMA: Iberdrola Music desde 2023",
       paragraphs: [
-        "Mad Cool Festival 2026 (8, 9, 10 y 11 de julio) se celebra en el recinto Iberdrola Music, situado en Villaverde Bajo (Madrid, Av. de Córdoba, s/n, 28026). Este recinto está en el sur de la ciudad, a unos 15 km del centro.",
+        "Mad Cool Festival 2026 (8, 9, 10 y 11 de julio) se celebra en el recinto Iberdrola Music, situado en Villaverde (Madrid, c/ Laguna Dalga s/n, 28021). Este recinto está en el sur de la ciudad, a unos 15 km del centro.",
         "Muchas búsquedas de 'cómo llegar a Mad Cool en metro' siguen apuntando a la L8 o a IFEMA, que era la ubicación de ediciones anteriores. Para 2026, la información correcta es: Metro L3 (no L8), recinto Iberdrola Music (no IFEMA Feria de Madrid).",
       ],
     },
     {
-      heading: "Metro Madrid a Iberdrola Music: línea L3 Pradolongo / Legazpi",
+      heading: "Metro Madrid a Iberdrola Music: línea L3 Villaverde Alto",
       paragraphs: [
         "La forma más económica de llegar a Mad Cool 2026 desde el centro de Madrid es el metro línea 3 (amarilla), que va desde Moncloa hasta Leganés. Las paradas más cercanas al recinto Iberdrola Music son:",
       ],
       bullets: [
-        "Pradolongo (L3): la parada más próxima al recinto. Desde Sol son unas 8–10 paradas (~25 min). Desde Pradolongo hay un recorrido a pie o autobús EMT hasta el acceso del festival.",
+        "Villaverde Alto (L3): la parada más próxima al recinto. Desde Sol son 12 paradas (~25 min). Desde Villaverde Alto son 15–20 minutos a pie hasta el acceso del festival.",
         "Legazpi (L3 + L6): intercambiador de dos líneas, también opción válida. Desde Legazpi sale bus EMT hacia Villaverde.",
         "Frecuencia L3 en festival: el metro amplía el servicio hasta las 2:00–2:30 en noches de festival.",
         "Precio billete metro: 1,50 € (zona A, tarjeta transporte) o 2,00 € sencillo.",
-        "Tiempo estimado desde Sol: 25–30 minutos hasta Pradolongo o Legazpi.",
+        "Tiempo estimado desde Sol: 25–30 minutos hasta Villaverde Alto.",
       ],
     },
     {
       heading: "Autobuses EMT Madrid a Iberdrola Music",
       paragraphs: [
-        "Desde las paradas de metro de Pradolongo y Legazpi, los autobuses de la EMT (Empresa Municipal de Transportes de Madrid) cubren el tramo restante hasta el recinto. En noches de festival el Ayuntamiento de Madrid y la EMT suelen reforzar las líneas del sur, aunque la información exacta la publica la EMT en su web antes del festival.",
+        "Las líneas 22 y 79 de la EMT (Empresa Municipal de Transportes de Madrid) unen Legazpi con Villaverde Alto, y el nocturno N14 llega desde Cibeles. En las noches de Mad Cool 2026 hubo además lanzaderas especiales de EMT y Cercanías entre Villaverde Alto y Atocha; la información exacta de cada edición la publican la EMT y el Consorcio de Transportes antes del festival.",
         "La alternativa más cómoda para quien viene desde el centro es el taxi o VTC (Uber, Cabify): 20–30 € al centro de Madrid desde Iberdrola Music en horario nocturno. En la salida del festival pueden aplicar multiplicadores de precio.",
       ],
       bullets: [
-        "Bus EMT desde Pradolongo o Legazpi: consulta el planificador de la EMT (emtmadrid.es) para las líneas exactas.",
+        "Bus EMT: líneas 22 y 79 (Legazpi–Villaverde Alto) y nocturno N14 (Cibeles–Villaverde Alto); consulta emtmadrid.es para los refuerzos de cada noche.",
         "Noche de festival: la EMT refuerza líneas del sur de Madrid. Frecuencia reducida tras la 1:30.",
         "Taxi/VTC desde Iberdrola Music al centro: 20–30 €. Precio puede multiplicarse en salidas masivas.",
       ],
@@ -17664,15 +17664,15 @@ BLOG_POSTS.push({
       faqs: [
         {
           q: "¿Qué metro va a Mad Cool 2026?",
-          a: "Mad Cool 2026 es en Iberdrola Music (Villaverde Bajo), no en IFEMA. El metro que llega más cerca es la línea 3 (amarilla), paradas Pradolongo o Legazpi. Desde Sol son unos 25–30 minutos. El metro amplía su servicio hasta las 2:00–2:30 en noches de festival.",
+          a: "Mad Cool 2026 es en Iberdrola Music (Villaverde), no en IFEMA. El metro que llega más cerca es la línea 3 (amarilla), parada Villaverde Alto. Desde Sol son unos 25–30 minutos. El metro amplía su servicio hasta las 3:00–3:30 en noches de festival.",
         },
         {
           q: "¿Hay bus oficial de Mad Cool 2026?",
-          a: "No hay lanzadera oficial del festival desde el centro de Madrid. Los buses EMT de las líneas del sur de Madrid son el transporte público alternativo desde Pradolongo y Legazpi. En noches de festival la EMT refuerza estas líneas. Las iniciativas de 'bus al Mad Cool' que aparecen en redes son privadas, no oficiales.",
+          a: "No hay lanzadera oficial del festival desde el centro de Madrid. Las líneas EMT 22 y 79 (Legazpi–Villaverde Alto) y el nocturno N14 (Cibeles–Villaverde Alto) son la alternativa en autobús, y en noches de festival hay lanzaderas especiales hasta Atocha. Las iniciativas de 'bus al Mad Cool' que aparecen en redes son privadas, no oficiales.",
         },
         {
           q: "¿Cuánto tarda el metro de Madrid al recinto de Mad Cool 2026?",
-          a: "Desde Sol hasta Pradolongo (línea 3, dirección Leganés): unas 8–10 paradas, 25–30 minutos. Desde Nuevos Ministerios: 30–35 minutos. Desde Atocha (vía L1 a Sol + trasbordo L3): 35–40 minutos.",
+          a: "Desde Sol hasta Villaverde Alto (línea 3, dirección El Casar): 12 paradas, 25–30 minutos. Desde Nuevos Ministerios: 30–35 minutos. Desde Atocha (vía L1 a Sol + trasbordo L3): 35–40 minutos.",
         },
         {
           q: "¿Cómo llegar a Mad Cool desde Barcelona en 2026?",
@@ -17743,7 +17743,7 @@ BLOG_POSTS.push({
         "Sónar Barcelona (metro L1 y L9, parada Europa/Fira o Torrassa): el festival más accesible en transporte público de España. El metro llega prácticamente a la entrada del recinto. Sónar de Noche cierra cuando el metro ya está parado — el carpooling resuelve la vuelta.",
         "Primavera Sound Barcelona (metro L4 Selva de Mar): 10 minutos desde el Poblenou. Ida cómoda en metro. La vuelta de madrugada, mejor con carpooling.",
         "Cruïlla Barcelona (tren R1 + bus lanzadera desde Estació de França): conectado pero con 20 minutos de bus adicional.",
-        "Mad Cool 2026 Iberdrola Music Madrid (metro L3, paradas Pradolongo o Legazpi): nueva ubicación en Villaverde. El metro amplía horarios en noches de festival hasta las 2:00–2:30 am.",
+        "Mad Cool 2026 Iberdrola Music Madrid (metro L3, parada Villaverde Alto): nueva ubicación en Villaverde. El metro amplía horarios en noches de festival hasta las 3:00–3:30 am.",
         "O Son do Camiño Santiago de Compostela (tren Renfe a Santiago + lanzadera al recinto de Monte do Gozo): la opción para quienes llegan de otras ciudades.",
         "FIB Benicàssim (tren Cercanías Renfe Valencia–Castellón + bus lanzadera Castellón–Burriana): la vuelta nocturna en tren no funciona, carpooling necesario.",
         "Medusa Cullera (bus lanzadera oficial desde Valencia ciudad): 45 minutos. Buen servicio pero horario fijo.",
@@ -17857,7 +17857,7 @@ BLOG_POSTS.push({
         "No hay una fórmula universal. La mejor combinación depende de dónde vives y a qué festival vas:",
       ],
       bullets: [
-        "Madrid a Mad Cool (Iberdrola Music Villaverde): metro L3 hasta Pradolongo o Legazpi (25–30 min desde Sol, 1,50 €) para la ida. Carpooling para la vuelta si el festival acaba después de las 2 am.",
+        "Madrid a Mad Cool (Iberdrola Music Villaverde): metro L3 hasta Villaverde Alto (25–30 min desde Sol, 1,50 €) para la ida. Carpooling para la vuelta si el festival acaba después de las 2 am.",
         "Madrid a Viña Rock (Villarrobledo): autobús oficial o carpooling (2h, 12–18 €). El tren AVE a Albacete más lanzadera también funciona para la ida.",
         "Barcelona a Sónar: metro L1 o L9 hasta el recinto de la Fira (20 min, 1,55 €). Es el único festival grande donde el transporte público cubre casi todo el día.",
         "Barcelona a FIB Benicàssim: tren Renfe Barcelona–Castellón (2h 30 min, 20–35 €) más lanzadera. El carpooling directo Barcelona–Burriana (3h, 8–12 €) es alternativa más cómoda.",
@@ -18012,7 +18012,7 @@ BLOG_POSTS.push({
     {
       heading: "Por qué los foros vuelven a hablar de Mad Cool cada primavera",
       paragraphs: [
-        "Mad Cool cambió de recinto y eso reabrió la conversación. Hasta hace pocas ediciones el festival se celebraba en IFEMA (Feria de Madrid) y la respuesta a 'cómo llego' era trivial: metro L8 hasta Feria de Madrid. Desde el traslado a Iberdrola Music (Villaverde Bajo, Av. de Córdoba s/n) la situación cambió: cambia la línea de metro, cambia el recorrido a pie, cambia el cuadro de autobuses EMT y, sobre todo, cambia la ecuación del coche.",
+        "Mad Cool cambió de recinto y eso reabrió la conversación. Hasta hace pocas ediciones el festival se celebraba en IFEMA (Feria de Madrid) y la respuesta a 'cómo llego' era trivial: metro L8 hasta Feria de Madrid. Desde el traslado a Iberdrola Music (Villaverde, c/ Laguna Dalga s/n) la situación cambió: cambia la línea de metro, cambia el recorrido a pie, cambia el cuadro de autobuses EMT y, sobre todo, cambia la ecuación del coche.",
         "Esto explica que en cada hilo nuevo de Reddit (r/madrid, r/festivales, r/spain) y en los grupos de Telegram festivaleros aparezcan las mismas dudas repetidas. No es ignorancia: es que la información oficial está dispersa entre la web del festival, la app de Metro de Madrid, la planificación de la EMT (emtmadrid.es) y los hilos de comunidad.",
         "Esta guía recoge las siete críticas y consejos que más hemos visto repetirse, los pone en contexto con datos oficiales y explica cómo el coche compartido en ConcertRide resuelve los puntos que el transporte público no termina de cubrir — sin pretender que el carpooling sea la única respuesta.",
       ],
@@ -18020,17 +18020,17 @@ BLOG_POSTS.push({
     {
       heading: "1. \"El metro L3 se satura y las salidas son lentísimas\"",
       paragraphs: [
-        "Lo que se repite en los foros: la línea 3 (amarilla) es ahora la vía principal en metro hasta Iberdrola Music (paradas Pradolongo o Legazpi). En la entrada, antes del primer cabeza de cartel, funciona aceptablemente; el problema llega al final del festival, cuando 50.000 personas intentan acceder a la misma estación en una franja de 90 minutos. Los comentarios habituales hablan de colas de 30 a 45 minutos para entrar al andén y un par de trenes pasados de largo.",
+        "Lo que se repite en los foros: la línea 3 (amarilla) es ahora la vía principal en metro hasta Iberdrola Music (parada Villaverde Alto). En la entrada, antes del primer cabeza de cartel, funciona aceptablemente; el problema llega al final del festival, cuando 50.000 personas intentan acceder a la misma estación en una franja de 90 minutos. Los comentarios habituales hablan de colas de 30 a 45 minutos para entrar al andén y un par de trenes pasados de largo.",
         "Datos oficiales: Metro de Madrid amplía el horario de la red hasta aproximadamente las 2:00–2:30 en noches de festival, con refuerzos puntuales según la organización. La frecuencia de la L3 en fin de semana es de 4–7 minutos y los tiempos se pueden consultar en cualquier momento en la app de Metro de Madrid. La capacidad por convoy, sin embargo, es la misma que cualquier sábado normal.",
-        "Cómo lo resuelve el coche compartido: si en lugar de salir andando con la masa hacia Pradolongo coordinas con un conductor de ConcertRide un punto de encuentro fuera del flujo principal (por ejemplo, junto al parking norte o en una calle próxima a la M-45), evitas la cola completa. El precio fijo del asiento (4–7 € desde el centro de Madrid, 10–17 € desde otras provincias) no sube por la hora ni por la demanda. No es 'mejor' que el metro; es una alternativa que no depende de la capacidad del andén.",
+        "Cómo lo resuelve el coche compartido: si en lugar de salir andando con la masa hacia Villaverde Alto coordinas con un conductor de ConcertRide un punto de encuentro fuera del flujo principal (por ejemplo, junto al parking norte o en una calle próxima a la M-45), evitas la cola completa. El precio fijo del asiento (4–7 € desde el centro de Madrid, 10–17 € desde otras provincias) no sube por la hora ni por la demanda. No es 'mejor' que el metro; es una alternativa que no depende de la capacidad del andén.",
       ],
     },
     {
       heading: "2. \"Los buses EMT al recinto no están claros\"",
       paragraphs: [
-        "Una opinión compartida en comunidades de festivaleros: 'desde Pradolongo dicen que hay buses EMT, pero nadie sabe exactamente qué líneas refuerzan en noches de Mad Cool'. El malestar es real: la web del festival suele remitir a la EMT y la EMT publica los refuerzos pocos días antes.",
+        "Una opinión compartida en comunidades de festivaleros: 'desde Villaverde Alto dicen que hay buses EMT, pero nadie sabe exactamente qué líneas refuerzan en noches de Mad Cool'. El malestar es real: la web del festival suele remitir a la EMT y la EMT publica los refuerzos pocos días antes.",
         "Datos oficiales: la EMT (Empresa Municipal de Transportes de Madrid, emtmadrid.es) opera líneas regulares por el sur de Madrid y refuerza con buses especiales en grandes eventos. El planificador oficial y la app EMT Madrid muestran las paradas exactas y los horarios reales. La frecuencia se reduce notablemente después de la 1:30.",
-        "Cómo lo resuelve el coche compartido: para festivaleros que llegan desde otras ciudades (Barcelona, Valencia, Zaragoza, Sevilla, Bilbao) el reto no es 'Pradolongo–recinto', sino 'mi casa–recinto'. En ese caso, el conductor de ConcertRide hace el trayecto completo y deja al grupo lo más cerca posible del acceso. No sustituye al bus EMT para residentes en Madrid; lo evita por completo para quien viene de fuera.",
+        "Cómo lo resuelve el coche compartido: para festivaleros que llegan desde otras ciudades (Barcelona, Valencia, Zaragoza, Sevilla, Bilbao) el reto no es 'Villaverde Alto–recinto', sino 'mi casa–recinto'. En ese caso, el conductor de ConcertRide hace el trayecto completo y deja al grupo lo más cerca posible del acceso. No sustituye al bus EMT para residentes en Madrid; lo evita por completo para quien viene de fuera.",
       ],
     },
     {
@@ -18090,7 +18090,7 @@ BLOG_POSTS.push({
   faqs: [
     {
       q: "¿Qué metro va al recinto Iberdrola Music donde se celebra Mad Cool 2026?",
-      a: "La línea 3 (amarilla) de Metro de Madrid, paradas Pradolongo o Legazpi. Desde Sol son unas 8–10 paradas (25–30 minutos). Metro de Madrid amplía el servicio hasta aproximadamente las 2:00–2:30 en noches de festival. El billete sencillo cuesta 2,00 € y 1,50 € con tarjeta multi de zona A.",
+      a: "La línea 3 (amarilla) de Metro de Madrid, parada Villaverde Alto. Desde Sol son 12 paradas (25–30 minutos). En noches de festival Metro de Madrid habilita una lanzadera Villaverde Alto–Sol hasta las 3:00–3:30. El billete sencillo cuesta 2,00 € y 1,50 € con tarjeta multi de zona A.",
     },
     {
       q: "¿Hay lanzadera oficial del festival desde el centro de Madrid?",
@@ -19605,7 +19605,7 @@ BLOG_POSTS.push({
     "Si tu festival es urbano (Mad Cool, Sónar, Primavera Sound) o no quieres lidiar con la acampada (BBK Live, Cala Mijas, Sonorama), el alojamiento es la siguiente decisión más cara. Hostels desde 25-45 €, apartamentos desde 70 €/noche, hoteles desde 80-200 €. Esta lista recoge 25 opciones reales cerca de los principales festivales españoles 2026 ordenadas por precio y cómo llegar al recinto en carpooling local desde 3-7 €.",
   sections: [
     {
-      heading: "Mad Cool 2026 (Iberdrola Music, Villaverde Bajo) — 5 opciones",
+      heading: "Mad Cool 2026 (Iberdrola Music, Villaverde) — 5 opciones",
       paragraphs: [
         "Mad Cool no tiene acampada oficial. Las zonas mejor conectadas al recinto vía metro L3 son Plaza de España, Sol, Atocha y Villaverde Alto. Apartamento medio en julio en Madrid centro: 100-180 €/noche; hostel: 25-40 €/cama.",
       ],
@@ -19614,7 +19614,7 @@ BLOG_POSTS.push({
         "Generator Madrid (Atocha): 35-55 €/noche cama compartida, 90 € habitación privada. Excelente ambiente joven.",
         "Hotel Vincci Centrum (Atocha): 95-150 €/noche habitación doble. 3 estrellas céntrico.",
         "Ibis Madrid Centro Las Ventas: 75-110 €/noche, opción económica + metro L2/L5.",
-        "Apartamento Airbnb en Embajadores o Lavapiés: 70-120 €/noche para 2-3 personas, metro L3 directo a Pradolongo.",
+        "Apartamento Airbnb en Embajadores o Lavapiés: 70-120 €/noche para 2-3 personas, metro L3 directo a Villaverde Alto.",
       ],
     },
     {

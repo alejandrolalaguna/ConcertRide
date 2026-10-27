@@ -6,6 +6,20 @@ import { FESTIVAL_LANDINGS } from "@/lib/festivalLandings";
 
 const FEATURED_SLUGS = ["mad-cool", "primavera-sound", "sonar", "fib", "bbk-live", "arenal-sound"];
 
+// Venue + dates come from FESTIVAL_LANDINGS so this copy can never contradict
+// the festival page itself (hand-written copies drifted: wrong venue for Mad
+// Cool, Primavera Sound a week early). See gsc-indexing SKILL §AM.8.
+const MONTHS = ["ene", "feb", "mar", "abr", "may", "jun", "jul", "ago", "sep", "oct", "nov", "dic"];
+function festivalFact(slug: string, extra?: string): string {
+  const f = FESTIVAL_LANDINGS.find((x) => x.slug === slug);
+  if (!f) return "";
+  const [, sm, sd] = f.startDate.split("-").map(Number);
+  const [, em, ed] = f.endDate.split("-").map(Number);
+  const dates = sm === em ? `${sd}–${ed} ${MONTHS[sm! - 1]}` : `${sd} ${MONTHS[sm! - 1]}–${ed} ${MONTHS[em! - 1]}`;
+  const venue = f.venue.replace(/\s*\([^)]*\)\s*$/, "");
+  return `${f.shortName} (${venue}, ${f.city}, ${dates}${extra ? `, ${extra}` : ""})`;
+}
+
 export default function FestivalesPage() {
   const year = new Date().getFullYear();
   useSeoMeta({
@@ -26,7 +40,7 @@ export default function FestivalesPage() {
     "@id": `${url}#webpage`,
     url,
     name: `Festivales de música España ${year}: carpooling y transporte | ConcertRide`,
-    description: `Directorio de ${FESTIVAL_LANDINGS.length} festivales de música en España ${year} con carpooling disponible. Mad Cool (IFEMA Madrid, 9–11 jul), Primavera Sound (Parc del Fòrum Barcelona, 28 may–1 jun), Sónar (Fira de Barcelona, 18–20 jun), BBK Live (Kobetamendi Bilbao, 9–11 jul), Arenal Sound (Burriana, 29 jul–2 ago), Viña Rock (Villarrobledo, 30 abr–3 may) y más. Precios desde 3 €/asiento sin comisión.`,
+    description: `Directorio de ${FESTIVAL_LANDINGS.length} festivales de música en España ${year} con carpooling disponible. ${["mad-cool", "primavera-sound", "sonar", "bbk-live", "arenal-sound", "vina-rock"].map((s) => festivalFact(s)).join(", ")} y más. Precios desde 3 €/asiento sin comisión.`,
     inLanguage: "es-ES",
     numberOfItems: FESTIVAL_LANDINGS.length,
     keywords: `festivales España ${year}, carpooling festivales, Mad Cool carpooling, Primavera Sound viaje compartido, Sónar transporte, BBK Live Bilbao, Arenal Sound Burriana, Viña Rock Villarrobledo`,
@@ -57,7 +71,7 @@ export default function FestivalesPage() {
         name: `¿Cuáles son los festivales más grandes de España en ${year}?`,
         acceptedAnswer: {
           "@type": "Answer",
-          text: `Los cinco festivales con mayor aforo de España en ${year} son: Mad Cool (IFEMA Madrid, 9–11 jul, ~80.000 asistentes/día), Primavera Sound (Parc del Fòrum Barcelona, 28 may–1 jun, ~60.000/día), Medusa Festival (Playa de Cullera, 12–16 ago, +300.000 totales), Arenal Sound (Playa del Arenal Burriana, 29 jul–2 ago) y BBK Live (Kobetamendi Bilbao, 9–11 jul). Todos tienen viajes compartidos disponibles en ConcertRide.`,
+          text: `Los cinco festivales con mayor aforo de España en ${year} son: ${["mad-cool", "primavera-sound", "medusa-festival", "arenal-sound", "bbk-live"].map((s) => festivalFact(s, FESTIVAL_LANDINGS.find((x) => x.slug === s)?.capacity)).join(", ")}. Todos tienen viajes compartidos disponibles en ConcertRide.`,
         },
       },
       {
@@ -65,7 +79,7 @@ export default function FestivalesPage() {
         name: "¿Hay autobuses a los festivales de España?",
         acceptedAnswer: {
           "@type": "Answer",
-          text: `Solo 8 de los 16 festivales cubiertos por ConcertRide disponen de autobús lanzadera oficial: BBK Live (gratuita desde Plaza Moyúa, Bilbao), Arenal Sound (lanzadera Castellón–Burriana), Medusa (lanzadera Valencia–Cullera), Viña Rock (bus Albacete–La Pulgosa, 35–55 € desde Madrid), Sonorama Ribera (La Sepulvedana Madrid–Aranda, 10–15 €), O Son do Camiño, Mad Cool (Metro L8 hasta las 2:30) y Primavera Sound (Metro L4). Los horarios son fijos y las plazas se agotan semanas antes. El carpooling con ConcertRide cubre los 16 festivales sin horario inamovible.`,
+          text: `Entre los grandes festivales, estos disponen de lanzadera o refuerzo oficial de transporte: BBK Live (gratuita desde Plaza Moyúa, Bilbao), Arenal Sound (lanzadera Castellón–Burriana), Medusa (lanzadera Valencia–Cullera), Viña Rock (bus Albacete–La Pulgosa, 35–55 € desde Madrid), Sonorama Ribera (La Sepulvedana Madrid–Aranda, 10–15 €), O Son do Camiño, Mad Cool (lanzaderas nocturnas de Metro, EMT y Cercanías desde Villaverde Alto) y Primavera Sound (Metro L4). Los horarios son fijos y las plazas se agotan semanas antes. El carpooling con ConcertRide cubre los ${FESTIVAL_LANDINGS.length} festivales del directorio sin horario inamovible.`,
         },
       },
       {

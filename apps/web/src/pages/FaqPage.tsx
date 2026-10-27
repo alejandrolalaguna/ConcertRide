@@ -204,7 +204,7 @@ const CLUSTERS: Cluster[] = [
       {
         id: "festivales-2026",
         q: "¿Qué festivales hay en 2026 en España?",
-        a: "Calendario destacado 2026: Mad Cool 9–11 julio (Madrid), Primavera Sound 28 mayo–1 junio (Barcelona), Sónar 18–20 junio (Barcelona), BBK Live 9–11 julio (Bilbao), Arenal Sound 28 jul–3 ago (Burriana), Viña Rock 30 abr–3 may (Villarrobledo), FIB 16–19 julio (Benicàssim), Resurrection Fest 1–4 julio (Viveiro).",
+        a: "Calendario destacado 2026: Mad Cool 8–11 julio (Madrid), Primavera Sound 3–7 junio (Barcelona), Sónar 18–20 junio (Barcelona), BBK Live 9–11 julio (Bilbao), Arenal Sound 28 jul–3 ago (Burriana), Viña Rock 30 abr–3 may (Villarrobledo), FIB 16–19 julio (Benicàssim), Resurrection Fest 1–4 julio (Viveiro).",
       },
       {
         id: "festivales-por-mes",

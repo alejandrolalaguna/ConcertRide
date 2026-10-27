@@ -860,49 +860,13 @@ app.route("/api/og", og);
 // when TEST_MODE !== "true" so this mount is safe in production.
 app.route("/api/__test__", testMode);
 
-// Social / AI crawlers get a thin OG-enriched HTML shell for festival pages
-// so WhatsApp, Twitter, LinkedIn and AI scrapers see correct title/description/image
-// without needing to execute JavaScript.
-const SOCIAL_BOTS = /Twitterbot|facebookexternalhit|LinkedInBot|WhatsApp|Slackbot|TelegramBot|Discordbot|OAI-SearchBot|PerplexityBot|anthropic-ai|Google-Extended|Googlebot|Applebot/i;
-
-// Derived from festivalLandings.ts (already imported above) instead of a hand
-// copy: the old 16-entry table had drifted on 14 of them — wrong dates (Primavera
-// Sound, Resurrection Fest…) and venues (Mad Cool "IFEMA", Low Festival
-// "Benidorm"). One source of truth for festival facts (SKILL gsc-indexing §AM.8).
-const ES_DAY_MONTH = new Intl.DateTimeFormat("es-ES", { day: "numeric", month: "long", timeZone: "UTC" });
-function festivalMeta(slug: string): { name: string; city: string; venue: string; dates: string } | null {
-  const f = FESTIVAL_LANDINGS.find((x) => x.slug === slug);
-  if (!f) return null;
-  const day = (iso: string) => ES_DAY_MONTH.format(new Date(`${iso}T00:00:00Z`));
-  return {
-    name: f.name,
-    city: f.city,
-    venue: f.venue.replace(/\s*\([^)]*\)\s*$/, ""),
-    dates: `${day(f.startDate)}–${day(f.endDate)} ${f.startDate.slice(0, 4)}`,
-  };
-}
-
+// §AM.11: festival pages used to get a JS-redirect stub here for social/AI
+// crawlers (Googlebot included). It was only reachable because seoPrerender
+// answered first; every festival page now has a prerendered asset with its own
+// OG tags and og:image, so crawlers get the same page as everyone else.
 app.notFound(async (c) => {
   if (c.req.path.startsWith("/api/")) {
     return c.json({ error: "not_found", path: c.req.path }, 404);
-  }
-
-  // Inject festival-specific OG meta for social/AI crawlers
-  const ua = c.req.header("User-Agent") ?? "";
-
-  const festivalMatch = c.req.path.match(/^\/festivales\/([^/]+)$/);
-  if (festivalMatch && SOCIAL_BOTS.test(ua)) {
-    const slug = festivalMatch[1] ?? "";
-    const meta = festivalMeta(slug);
-    if (meta) {
-      const base = getSiteUrl(c.env);
-      const title = `Cómo ir a ${meta.name} 2026 — Carpooling desde toda España`;
-      const desc = `Carpooling a ${meta.name} (${meta.venue}, ${meta.city}) ${meta.dates}. Viajes compartidos desde cualquier ciudad. Desde 5 €/asiento. Sin taxi, sin comisión. ConcertRide.`;
-      const url = `${base}/festivales/${slug}`;
-
-      const html = `<!doctype html><html lang="es"><head><meta charset="UTF-8"/><title>${title}</title><meta name="description" content="${desc}"/><link rel="canonical" href="${url}"/><meta property="og:type" content="website"/><meta property="og:url" content="${url}"/><meta property="og:title" content="${title}"/><meta property="og:description" content="${desc}"/><meta property="og:image" content="${base}/og/home.png"/><meta property="og:locale" content="es_ES"/><meta name="twitter:card" content="summary_large_image"/><meta name="twitter:title" content="${title}"/><meta name="twitter:description" content="${desc}"/><meta name="twitter:image" content="${base}/og/home.png"/></head><body><p>Cargando ConcertRide…</p><script>window.location.href="${url}"</script></body></html>`;
-      return c.html(html, 200, { "Cache-Control": "public, max-age=3600" });
-    }
   }
 
   return c.env.ASSETS.fetch(c.req.raw);
